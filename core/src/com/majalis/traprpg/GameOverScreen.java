@@ -1,8 +1,10 @@
 package com.majalis.traprpg;
 
+import com.badlogic.gdx.Game;
+
 public class GameOverScreen extends AbstractScreen {
 
-	public GameOverScreen(TrapRPG game) {
+	public GameOverScreen(Game game) {
 		super(game);
 	}
 

@@ -1,5 +1,6 @@
 package com.majalis.traprpg;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -17,7 +18,7 @@ public class MainMenuScreen extends AbstractScreen {
 	private Sound buttonSound;
 	private int clocktick = 0;
 
-	public MainMenuScreen(TrapRPG game) {
+	public MainMenuScreen(Game game) {
 		super(game);	
 	}
 

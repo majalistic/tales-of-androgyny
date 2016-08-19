@@ -1,4 +1,5 @@
 package com.majalis.traprpg;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
@@ -10,13 +11,13 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 
 public abstract class AbstractScreen extends Stage implements Screen {
 	
-	private TrapRPG game;
+	private Game game;
 	private static final int winWidth = 1280;
 	private static final int winHeight = 720;
 	protected SpriteBatch batch;
 	protected BitmapFont font;
 	
-    protected AbstractScreen(TrapRPG game) {
+    protected AbstractScreen(Game game) {
         super( new FitViewport(winWidth, winHeight, new OrthographicCamera()) );
         this.game = game;
     }

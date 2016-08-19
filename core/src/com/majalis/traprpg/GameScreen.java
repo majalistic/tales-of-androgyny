@@ -1,5 +1,6 @@
 package com.majalis.traprpg;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -20,7 +21,7 @@ public class GameScreen extends AbstractScreen {
 	private Sound buttonSound;
 	private String classSelection;
 	
-	public GameScreen(TrapRPG game, boolean loadGame) {
+	public GameScreen(Game game, boolean loadGame) {
 		super(game);
 		world = new GameWorld(loadGame);
 		paused = false;
