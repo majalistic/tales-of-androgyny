@@ -33,7 +33,6 @@ public class GameWorld {
 		}
 	}
 	
-	
 	public void gameIncrement(){
 		
 	}

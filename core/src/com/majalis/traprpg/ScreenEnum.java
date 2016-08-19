@@ -11,7 +11,7 @@ public enum ScreenEnum {
     },
     GAME {
         public AbstractScreen getScreen(Object... params) {
-            return new GameScreen(true);
+            return new GameScreen((Boolean)params[0]);
         }
     },
     GAME_OVER {

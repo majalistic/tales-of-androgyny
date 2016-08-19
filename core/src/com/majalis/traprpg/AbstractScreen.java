@@ -10,8 +10,8 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 
 public abstract class AbstractScreen extends Stage implements Screen {
 	
-	private static final int winWidth = 640;
-	private static final int winHeight = 800;
+	private static final int winWidth = 1280;
+	private static final int winHeight = 720;
 	protected SpriteBatch batch;
 	protected BitmapFont font;
 	
@@ -38,6 +38,7 @@ public abstract class AbstractScreen extends Stage implements Screen {
         Gdx.input.setInputProcessor(this);
         batch = new SpriteBatch();
         font = new BitmapFont();
+        font.setUseIntegerPositions(false);
     }
  
     @Override

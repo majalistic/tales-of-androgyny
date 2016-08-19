@@ -14,8 +14,8 @@ public class DesktopLauncher {
 		config.title = "tRaPG";
 		config.width = 1280;
 		config.height = 720;
-		config.fullscreen = true;
-		config.vSyncEnabled = true;
+		//config.fullscreen = true;
+		//config.vSyncEnabled = true;
 		new LwjglApplication(new TrapRPG(), config);
 	}
 }

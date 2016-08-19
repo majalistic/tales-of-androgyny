@@ -32,8 +32,8 @@ public class MainMenuScreen extends AbstractScreen {
 					buttonPervert 	= new TextButton("Pervert", skin),
 					buttonExit 		= new TextButton("Exit", skin);
 		
-		buttonPlay.addListener(getListener(ScreenEnum.GAME));            
-		buttonContinue.addListener(getListener(ScreenEnum.GAME));
+		buttonPlay.addListener(getListener(ScreenEnum.GAME, false));            
+		buttonContinue.addListener(getListener(ScreenEnum.GAME, true));
 		buttonOptions.addListener(getListener(ScreenEnum.OPTIONS));
 		buttonPervert.addListener(getListener(ScreenEnum.REPLAY));
 	    buttonExit.addListener(getListener(ScreenEnum.EXIT));
@@ -49,12 +49,12 @@ public class MainMenuScreen extends AbstractScreen {
         this.addActor(table);
 	}
 	
-	private ClickListener getListener(final ScreenEnum screenSelection){
+	private ClickListener getListener(final ScreenEnum screenSelection, final Object... params){
 		return new ClickListener(){
 	        @Override
 	        public void clicked(InputEvent event, float x, float y) {
 	        	buttonSound.play();
-	        	ScreenManager.getInstance().showScreen(screenSelection);    
+	        	ScreenManager.getInstance().showScreen(screenSelection, params);    
 	        }
 	    };
 	}
@@ -69,9 +69,10 @@ public class MainMenuScreen extends AbstractScreen {
 		
 		batch.setProjectionMatrix(camera.combined);
 		batch.begin(); 
-		batch.draw(wereslutImage, 320, 600);
-		font.draw(batch, "tRaPG - The Really Awesome Porn Game", 500, 900);
-		font.draw(batch, String.valueOf(clocktick), 800, 700);
+		// need to make these relative to viewport
+		batch.draw(wereslutImage, 1020, 600);
+		font.draw(batch, "tRaPG - The Really Awesome Porn Game", 1200, 900);
+		font.draw(batch, String.valueOf(clocktick), 1850, 400);
 		clocktick++;
 		batch.end();
 	}
