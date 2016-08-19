@@ -20,7 +20,8 @@ public class GameScreen extends AbstractScreen {
 	private Sound buttonSound;
 	private String classSelection;
 	
-	public GameScreen(boolean loadGame) {
+	public GameScreen(TrapRPG game, boolean loadGame) {
+		super(game);
 		world = new GameWorld(loadGame);
 		paused = false;
 		buttonSound = Gdx.audio.newSound(Gdx.files.internal("sound.wav"));	
@@ -79,10 +80,10 @@ public class GameScreen extends AbstractScreen {
 		paused = world.paused;
 		if (world.gameExit){
 			//game.saveManager.saveDataValue();
-			ScreenManager.getInstance().showScreen(ScreenEnum.MAIN_MENU);
+			showScreen(ScreenEnum.MAIN_MENU);
 		}
 		else if (world.gameOver){
-			ScreenManager.getInstance().showScreen(ScreenEnum.GAME_OVER);
+			showScreen(ScreenEnum.GAME_OVER);
 		}
 		draw();
 	}

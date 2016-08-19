@@ -5,36 +5,36 @@ import com.badlogic.gdx.Gdx;
 public enum ScreenEnum {
 	 
     MAIN_MENU {
-        public AbstractScreen getScreen(Object... params) {
-            return new MainMenuScreen();
+        public AbstractScreen getScreen(TrapRPG game, Object... params) {
+            return new MainMenuScreen(game);
         }
     },
     GAME {
-        public AbstractScreen getScreen(Object... params) {
-            return new GameScreen((Boolean)params[0]);
+        public AbstractScreen getScreen(TrapRPG game, Object... params) {
+            return new GameScreen(game, (Boolean)params[0]);
         }
     },
     GAME_OVER {
-        public AbstractScreen getScreen(Object... params) {
-            return new GameOverScreen();
+        public AbstractScreen getScreen(TrapRPG game, Object... params) {
+            return new GameOverScreen(game);
         }
     },
     OPTIONS {
-        public AbstractScreen getScreen(Object... params) {
-        	return new MainMenuScreen();
+        public AbstractScreen getScreen(TrapRPG game, Object... params) {
+        	return new MainMenuScreen(game);
         }
     },
     REPLAY {
-        public AbstractScreen getScreen(Object... params) {
-        	return new MainMenuScreen();
+        public AbstractScreen getScreen(TrapRPG game, Object... params) {
+        	return new MainMenuScreen(game);
         }
     },
     EXIT {
-        public AbstractScreen getScreen(Object... params) {
+        public AbstractScreen getScreen(TrapRPG game, Object... params) {
         	Gdx.app.exit();
-        	return new MainMenuScreen();
+        	return new MainMenuScreen(game);
         }
     };
 	
-    public abstract AbstractScreen getScreen(Object... params);
+    public abstract AbstractScreen getScreen(TrapRPG game, Object... params);
 }

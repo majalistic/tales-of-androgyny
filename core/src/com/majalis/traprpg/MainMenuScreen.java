@@ -17,13 +17,15 @@ public class MainMenuScreen extends AbstractScreen {
 	private Sound buttonSound;
 	private int clocktick = 0;
 
-	public MainMenuScreen() {
-		wereslutImage = TextureMap.getTexture("wereslut");
-		buttonSound = Gdx.audio.newSound(Gdx.files.internal("sound.wav"));		
+	public MainMenuScreen(TrapRPG game) {
+		super(game);	
 	}
 
 	@Override
 	public void buildStage() {
+		wereslutImage = TextureMap.getTexture("wereslut");
+		buttonSound = Gdx.audio.newSound(Gdx.files.internal("sound.wav"));	
+		
 		Table table = new Table();
 		
 		TextButton  buttonPlay 		= new TextButton("Begin", skin),
@@ -54,7 +56,7 @@ public class MainMenuScreen extends AbstractScreen {
 	        @Override
 	        public void clicked(InputEvent event, float x, float y) {
 	        	buttonSound.play();
-	        	ScreenManager.getInstance().showScreen(screenSelection, params);    
+	        	showScreen(screenSelection, params);    
 	        }
 	    };
 	}
