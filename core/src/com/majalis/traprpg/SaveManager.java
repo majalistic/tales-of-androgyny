@@ -9,20 +9,16 @@ import com.badlogic.gdx.utils.ObjectMap;
 
 public class SaveManager {
     
+    public static class Save{
+        public ObjectMap<String, Object> data = new ObjectMap<String, Object>();
+    }
+	
     private boolean encoded;
     
     private FileHandle file = Gdx.files.local("bin/save.json"); 
     
     private Save save = getSave();
-    
-    public SaveManager(boolean encoded){
-        this.encoded = encoded;
-    }
-    
-    public static class Save{
-        public ObjectMap<String, Object> data = new ObjectMap<String, Object>();
-    }
-    
+
     private Save getSave(){
         Save save = new Save();
         if(file.exists()){
@@ -32,7 +28,11 @@ public class SaveManager {
         }
         return save==null ? new Save() : save;
     }
-
+    
+    public SaveManager(boolean encoded){
+        this.encoded = encoded;
+    }
+   
     public void saveToJson(){
         Json json = new Json();
         json.setOutputType(OutputType.json);

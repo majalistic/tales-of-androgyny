@@ -42,12 +42,7 @@ public class GameScreen extends AbstractScreen {
 	public void buildStage() {
 		Table table = new Table();
 		Array<String> classes = new Array<String>();
-		classes.add("Warrior");
-		classes.add("Paladin");
-		classes.add("Rogue");
-		classes.add("Ranger");
-		classes.add("Mage");
-		classes.add("Enchanter");
+		classes.addAll("Warrior", "Paladin", "Rogue", "Ranger", "Mage", "Enchanter");
 		for (String jobClass: classes){
 			TextButton button = new TextButton(jobClass, skin);
 			button.addListener(getListener(jobClass));
