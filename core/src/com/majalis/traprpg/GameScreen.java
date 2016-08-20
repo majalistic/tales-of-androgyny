@@ -22,7 +22,7 @@ public class GameScreen extends AbstractScreen {
 	private String classSelection;
 	
 	//SaveManager should be passed in, extracting GameWorld from it, or possibly GameWorld should be passed in along with the saving (but not loading) interface
-	public GameScreen(Game game, AbstractScreen parent, boolean loadGame) {
+	public GameScreen(Game game, AbstractScreen parent, boolean loadGame, Object... params) {
 		super(game, parent);
 		world = new GameWorld(loadGame);
 		paused = false;

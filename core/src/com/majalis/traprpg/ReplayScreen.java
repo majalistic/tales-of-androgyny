@@ -3,11 +3,11 @@ package com.majalis.traprpg;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 
-public class GameOverScreen extends AbstractScreen {
+public class ReplayScreen extends AbstractScreen {
 
 	private int clocktick;
 	
-	public GameOverScreen(Game game, AbstractScreen parent, Object... params) {
+	public ReplayScreen(Game game, AbstractScreen parent, Object... params) {
 		super(game, parent);
 		clocktick = 0;
 	}
@@ -20,7 +20,7 @@ public class GameOverScreen extends AbstractScreen {
 		batch.setProjectionMatrix(camera.combined);
 		camera.update();
 		batch.begin();
-		font.draw(batch, "GAME OVER", 1125, 750);
+		font.draw(batch, "Replay", 1125, 750);
 		font.draw(batch, String.valueOf(clocktick++), 1675, 500);
 		batch.end();
 		if (clocktick >= 200)

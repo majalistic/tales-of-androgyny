@@ -2,6 +2,7 @@ package com.majalis.traprpg;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -13,20 +14,30 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 public class MainMenuScreen extends AbstractScreen {
 
+	private final AssetManager assetManager;
 	private Skin skin; 
 	private Texture wereslutImage;
 	private Sound buttonSound;
 	private int clocktick = 0;
-
-	public MainMenuScreen(Game game, AbstractScreen parent) {
+	
+	
+	public MainMenuScreen(Game game, AbstractScreen parent, Object... params) {
 		super(game, parent);	
+		assetManager = (AssetManager) params[0];
 	}
 
 	@Override
 	public void buildStage() {
 		skin = new Skin(Gdx.files.internal("uiskin.json"), new TextureAtlas(Gdx.files.internal("uiskin.atlas")));
-		wereslutImage = TextureMap.getTexture("wereslut");
-		buttonSound = Gdx.audio.newSound(Gdx.files.internal("sound.wav"));	
+		//wereslutImage = 
+		assetManager.load("wereslut.png", Texture.class);
+		assetManager.load("uiskin.atlas", TextureAtlas.class);
+		assetManager.load("uiskin.json", Skin.class);
+		assetManager.load("sound.wav", Sound.class);
+		assetManager.finishLoading();
+		wereslutImage = assetManager.get("wereslut.png", Texture.class);
+		skin = assetManager.get("uiskin.json", Skin.class);
+		buttonSound = assetManager.get("sound.wav", Sound.class);
 		
 		Table table = new Table();
 		
@@ -66,6 +77,7 @@ public class MainMenuScreen extends AbstractScreen {
 	@Override
 	public void render(float delta) {
 		super.render(delta);
+		assetManager.update();
 		OrthographicCamera camera = (OrthographicCamera) getCamera();
         batch.setTransformMatrix(camera.view);
         
@@ -74,8 +86,15 @@ public class MainMenuScreen extends AbstractScreen {
 		batch.setProjectionMatrix(camera.combined);
 		batch.begin(); 
 		// need to make these relative to viewport
-		batch.draw(wereslutImage, 1020, 600);
+		
 		font.draw(batch, "tRaPG - The Really Awesome Porn Game", 1200, 900);
+		// currently this texture is loaded synchronously - want to experiment with a loading screen, may need a VERY large texture to view it
+		float progress = assetManager.getProgress();
+		if (progress < 1)
+			font.draw(batch, "Loading: " + (progress * 100) + "%", 1850, 600);
+		else {
+			batch.draw(wereslutImage, 1020, 600);
+		}
 		font.draw(batch, String.valueOf(clocktick++), 1850, 400);
 		batch.end();
 	}
@@ -87,8 +106,8 @@ public class MainMenuScreen extends AbstractScreen {
 
 	@Override
 	public void dispose() {
-		skin.dispose();
-		buttonSound.dispose();
+		// this should clear the loaded assets, but this works fine for now - don't call dispose, or the asset maanger will stop functioning!
+		assetManager.clear();
 	}
 
 }
