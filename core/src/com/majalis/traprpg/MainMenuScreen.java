@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Array;
 public class MainMenuScreen extends AbstractScreen {
 
 	private final AssetManager assetManager;
@@ -29,14 +30,19 @@ public class MainMenuScreen extends AbstractScreen {
 	@Override
 	public void buildStage() {
 		skin = new Skin(Gdx.files.internal("uiskin.json"), new TextureAtlas(Gdx.files.internal("uiskin.atlas")));
-		//wereslutImage = 
-		assetManager.load("wereslut.png", Texture.class);
+		// synchronous
 		assetManager.load("uiskin.atlas", TextureAtlas.class);
+
+		// asynchronous
 		assetManager.load("uiskin.json", Skin.class);
+		assetManager.load("wereslut.png", Texture.class);
 		assetManager.load("sound.wav", Sound.class);
+		
+		// forcing asynchronous loading to be synchronous
 		assetManager.finishLoading();
-		wereslutImage = assetManager.get("wereslut.png", Texture.class);
+
 		skin = assetManager.get("uiskin.json", Skin.class);
+		wereslutImage = assetManager.get("wereslut.png", Texture.class);
 		buttonSound = assetManager.get("sound.wav", Sound.class);
 		
 		Table table = new Table();
@@ -53,12 +59,12 @@ public class MainMenuScreen extends AbstractScreen {
 		buttonPervert.addListener(getListener(ScreenEnum.REPLAY));
 	    buttonExit.addListener(getListener(ScreenEnum.EXIT));
 	    
-        //The buttons are displayed in this order from top to bottom
-        table.add(buttonPlay).row();
-        table.add(buttonContinue).row();
-        table.add(buttonOptions).row();
-        table.add(buttonPervert).row();
-        table.add(buttonExit).row();
+	    Array<TextButton> buttons = new Array<TextButton>();
+	    buttons.addAll(buttonPlay, buttonContinue, buttonOptions, buttonPervert, buttonExit);
+
+	    for (TextButton button: buttons){
+	    	table.add(button).row();
+	    }
         table.setFillParent(true);
         
         this.addActor(table);
