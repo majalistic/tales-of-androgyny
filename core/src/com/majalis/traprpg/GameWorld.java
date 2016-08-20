@@ -25,6 +25,9 @@ public class GameWorld {
 		if (Gdx.input.isKeyJustPressed(Keys.TAB)){
 			displayHUD = !displayHUD;
 		}
+		if (Gdx.input.isKeyJustPressed(Keys.SHIFT_LEFT)){
+			gameOver = true;
+		}
 		if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)){
 			gameExit = true;
 		}

@@ -21,8 +21,9 @@ public class GameScreen extends AbstractScreen {
 	private Sound buttonSound;
 	private String classSelection;
 	
-	public GameScreen(Game game, boolean loadGame) {
-		super(game);
+	//SaveManager should be passed in, extracting GameWorld from it, or possibly GameWorld should be passed in along with the saving (but not loading) interface
+	public GameScreen(Game game, AbstractScreen parent, boolean loadGame) {
+		super(game, parent);
 		world = new GameWorld(loadGame);
 		paused = false;
 		buttonSound = Gdx.audio.newSound(Gdx.files.internal("sound.wav"));	
@@ -80,11 +81,10 @@ public class GameScreen extends AbstractScreen {
 		}
 		paused = world.paused;
 		if (world.gameExit){
-			//game.saveManager.saveDataValue();
-			showScreen(ScreenEnum.MAIN_MENU);
+			exit();
 		}
 		else if (world.gameOver){
-			showScreen(ScreenEnum.GAME_OVER);
+			switchScreen(ScreenEnum.GAME_OVER);
 		}
 		draw();
 	}

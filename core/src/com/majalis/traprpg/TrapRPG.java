@@ -2,7 +2,16 @@ package com.majalis.traprpg;
 import com.badlogic.gdx.Game;
 
 public class TrapRPG extends Game {
+	
+	private class TempScreen extends AbstractScreen{
+		protected TempScreen(Game game){
+			super(game, null);
+		}
+		@Override
+		protected void buildStage() {}
+	}
 	public void create() {
-        new MainMenuScreen(this).showScreen( ScreenEnum.MAIN_MENU );
+		// this will create a temporary screen and then switch to the actual main menu screen with all dependencies injected
+        new TempScreen(this).switchScreen( ScreenEnum.MAIN_MENU );
 	}
 }

@@ -13,17 +13,18 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 public class MainMenuScreen extends AbstractScreen {
 
-	private Skin skin = new Skin(Gdx.files.internal("uiskin.json"), new TextureAtlas(Gdx.files.internal("uiskin.atlas")));
+	private Skin skin; 
 	private Texture wereslutImage;
 	private Sound buttonSound;
 	private int clocktick = 0;
 
-	public MainMenuScreen(Game game) {
-		super(game);	
+	public MainMenuScreen(Game game, AbstractScreen parent) {
+		super(game, parent);	
 	}
 
 	@Override
 	public void buildStage() {
+		skin = new Skin(Gdx.files.internal("uiskin.json"), new TextureAtlas(Gdx.files.internal("uiskin.atlas")));
 		wereslutImage = TextureMap.getTexture("wereslut");
 		buttonSound = Gdx.audio.newSound(Gdx.files.internal("sound.wav"));	
 		
@@ -57,7 +58,7 @@ public class MainMenuScreen extends AbstractScreen {
 	        @Override
 	        public void clicked(InputEvent event, float x, float y) {
 	        	buttonSound.play();
-	        	showScreen(screenSelection, params);    
+	        	generateScreen(screenSelection, params);    
 	        }
 	    };
 	}
@@ -75,8 +76,7 @@ public class MainMenuScreen extends AbstractScreen {
 		// need to make these relative to viewport
 		batch.draw(wereslutImage, 1020, 600);
 		font.draw(batch, "tRaPG - The Really Awesome Porn Game", 1200, 900);
-		font.draw(batch, String.valueOf(clocktick), 1850, 400);
-		clocktick++;
+		font.draw(batch, String.valueOf(clocktick++), 1850, 400);
 		batch.end();
 	}
 
