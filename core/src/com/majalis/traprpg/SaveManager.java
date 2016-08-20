@@ -14,23 +14,15 @@ public class SaveManager {
     }
 	
     private boolean encoded;
-    
-    private FileHandle file = Gdx.files.local("bin/save.json"); 
-    
-    private Save save = getSave();
+    private FileHandle file;   
+    private Save save;
 
-    private Save getSave(){
-        Save save = new Save();
-        if(file.exists()){
-	        Json json = new Json();
-	        if(encoded)save = json.fromJson(Save.class, Base64Coder.decodeString(file.readString()));
-	        else save = json.fromJson(Save.class,file.readString());
-        }
-        return save==null ? new Save() : save;
-    }
+
     
     public SaveManager(boolean encoded){
         this.encoded = encoded;
+        file = Gdx.files.local("bin/save.json");   
+        save = getSave();
     }
    
     public void saveToJson(){
@@ -53,5 +45,15 @@ public class SaveManager {
     
     public ObjectMap<String, Object> getAllData(){
         return save.data;
+    }
+    
+    private Save getSave(){
+        Save save = new Save();
+        if(file.exists()){
+	        Json json = new Json();
+	        if(encoded)save = json.fromJson(Save.class, Base64Coder.decodeString(file.readString()));
+	        else save = json.fromJson(Save.class,file.readString());
+        }
+        return save==null ? new Save() : save;
     }
 }

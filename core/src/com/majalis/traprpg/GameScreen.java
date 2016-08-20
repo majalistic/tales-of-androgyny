@@ -16,8 +16,8 @@ import com.badlogic.gdx.utils.Array;
 public class GameScreen extends AbstractScreen {
 
 	private boolean paused;
-	private GameWorld world;
-	private Skin skin = new Skin(Gdx.files.internal("uiskin.json"), new TextureAtlas(Gdx.files.internal("uiskin.atlas")));
+	private final GameWorld world;
+	private Skin skin;
 	private Sound buttonSound;
 	private String classSelection;
 	
@@ -43,6 +43,7 @@ public class GameScreen extends AbstractScreen {
 	
 	@Override
 	public void buildStage() {
+		skin = new Skin(Gdx.files.internal("uiskin.json"), new TextureAtlas(Gdx.files.internal("uiskin.atlas")));
 		Table table = new Table();
 		Array<String> classes = new Array<String>();
 		classes.addAll("Warrior", "Paladin", "Rogue", "Ranger", "Mage", "Enchanter");

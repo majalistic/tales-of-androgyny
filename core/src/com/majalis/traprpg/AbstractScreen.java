@@ -12,8 +12,8 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
 public abstract class AbstractScreen extends Stage implements Screen {
-	private Game game;
-	private AbstractScreen parent;
+	private final Game game;
+	private final AbstractScreen parent;
 	private static final int winWidth = 1280;
 	private static final int winHeight = 720;
 	private static final Stack<ScreenEnum> screenStack = new Stack<ScreenEnum>();
