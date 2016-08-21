@@ -110,9 +110,4 @@ public class GameScreen extends AbstractScreen {
 	public void show() {
 		super.show();
 	}
-
-	@Override
-	public void dispose() {
-		super.dispose();
-	}
 }
