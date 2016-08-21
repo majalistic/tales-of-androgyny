@@ -59,14 +59,16 @@ public abstract class AbstractScreen extends Stage implements Screen {
         // Get current screen to dispose it
         Screen currentScreen = game.getScreen();
     	
-    	// Show new screen
-    	newScreen.buildStage();
-        game.setScreen(newScreen);
-        
         // Dispose previous screen
         if (currentScreen != null) {
             currentScreen.dispose();
         }
+        
+    	// Show new screen
+    	newScreen.buildStage();
+        game.setScreen(newScreen);
+        
+
     }
     
     protected void exit(){
