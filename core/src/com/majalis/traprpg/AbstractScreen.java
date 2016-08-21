@@ -1,5 +1,4 @@
 package com.majalis.traprpg;
-import java.util.Stack;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -13,49 +12,24 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 
 public abstract class AbstractScreen extends Stage implements Screen {
 	private final Game game;
-	private final AbstractScreen parent;
+	private final ScreenService service;
 	private static final int winWidth = 1280;
 	private static final int winHeight = 720;
-	private static final Stack<ScreenEnum> screenStack = new Stack<ScreenEnum>();
 	protected SpriteBatch batch;
 	protected BitmapFont font;
 	
-    protected AbstractScreen(Game game, AbstractScreen parent) {
+    protected AbstractScreen(Game game, ScreenService service) {
         super( new FitViewport(winWidth, winHeight, new OrthographicCamera()) );
         this.game = game;
-        this.parent = parent;
+        this.service = service;
     }
  
     // Subclasses must load actors in this method
-    protected abstract void buildStage();
- 
-    protected void generateScreen(ScreenEnum screenEnum, Object... params){
-    	if (pushToStack(screenEnum)){
-    		showScreen(screenEnum.getScreen(game, this, params));
-    	}	
-    }
+    public abstract void buildStage();
     
-    protected void switchScreen(ScreenEnum screenEnum, Object... params){
-    	if (pushToStack(screenEnum)){
-    		screenStack.pop();
-    		showScreen(screenEnum.getScreen(game, parent, params));
-    	}
-    }
-    
-    private Boolean pushToStack(ScreenEnum screenEnum){
-    	// can only push if enum is not already on the stack
-    	Boolean successfulPush = screenStack.search(screenEnum) == -1;
-    	if (successfulPush){
-    		screenStack.push(screenEnum);
-    	}
-    	else {
-    		System.err.println("Screen is already on the stack - violation of tree structure.  Stack: " + screenStack.toString());
-    	}
-    	return successfulPush;
-    }
-    
-    private void showScreen(AbstractScreen newScreen, Object... params) {
+    public void showScreen(ScreenEnum screenRequest, Object... params) {
     	
+    	AbstractScreen newScreen = service.getScreen(screenRequest);
         // Get current screen to dispose it
         Screen currentScreen = game.getScreen();
     	
@@ -67,13 +41,6 @@ public abstract class AbstractScreen extends Stage implements Screen {
     	// Show new screen
     	newScreen.buildStage();
         game.setScreen(newScreen);
-        
-
-    }
-    
-    protected void exit(){
-    	screenStack.pop();
-    	showScreen(parent);
     }
     
     @Override

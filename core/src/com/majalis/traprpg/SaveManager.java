@@ -9,15 +9,14 @@ import com.badlogic.gdx.utils.ObjectMap;
 
 public class SaveManager {
     
-    public static class Save{
-        public ObjectMap<String, Object> data = new ObjectMap<String, Object>();
-    }
-	
     private boolean encoded;
     private FileHandle file;   
     private Save save;
-
-
+    private SaveType saveType;
+    
+    public enum SaveType{
+    	NEW, LOAD
+    }
     
     public SaveManager(boolean encoded){
         this.encoded = encoded;
@@ -25,6 +24,10 @@ public class SaveManager {
         save = getSave();
     }
    
+    public void setSaveType(SaveType type){
+    	saveType = type;
+    }
+    
     public void saveToJson(){
         Json json = new Json();
         json.setOutputType(OutputType.json);
@@ -34,6 +37,7 @@ public class SaveManager {
     
     @SuppressWarnings("unchecked")
     public <T> T loadDataValue(String key, Class<?> type){
+    	if (saveType == SaveType.NEW) return (T) "";
         if(save.data.containsKey(key))return (T) save.data.get(key);
         else return null;   //this if() avoids an exception, but check for null on load.
     }
@@ -55,5 +59,9 @@ public class SaveManager {
 	        else save = json.fromJson(Save.class,file.readString());
         }
         return save==null ? new Save() : save;
+    }
+    
+    private static class Save{
+        public ObjectMap<String, Object> data = new ObjectMap<String, Object>();
     }
 }

@@ -7,8 +7,8 @@ public class OptionScreen extends AbstractScreen {
 
 	private int clocktick;
 	
-	public OptionScreen(Game game, AbstractScreen parent, Object... params) {
-		super(game, parent);
+	public OptionScreen(Game game, ScreenService service) {
+		super(game, service);
 		clocktick = 0;
 	}
 
@@ -23,8 +23,8 @@ public class OptionScreen extends AbstractScreen {
 		font.draw(batch, "Options", 1125, 750);
 		font.draw(batch, String.valueOf(clocktick++), 1675, 500);
 		batch.end();
-		if (clocktick >= 200)
-			exit();
+		if (clocktick >= 50)
+			showScreen(ScreenEnum.MAIN_MENU);
 	}
 
 	@Override

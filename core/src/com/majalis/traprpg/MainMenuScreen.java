@@ -16,15 +16,16 @@ import com.badlogic.gdx.utils.Array;
 public class MainMenuScreen extends AbstractScreen {
 
 	private final AssetManager assetManager;
+	private final SaveManager saveManager;
 	private Skin skin; 
 	private Texture wereslutImage;
 	private Sound buttonSound;
 	private int clocktick = 0;
-	
-	
-	public MainMenuScreen(Game game, AbstractScreen parent, Object... params) {
-		super(game, parent);	
-		assetManager = (AssetManager) params[0];
+
+	public MainMenuScreen(Game game, ScreenService service, AssetManager assetManager, SaveManager saveManager) {
+		super(game, service);
+		this.assetManager = assetManager;
+		this.saveManager = saveManager;
 	}
 
 	@Override
@@ -70,12 +71,22 @@ public class MainMenuScreen extends AbstractScreen {
         this.addActor(table);
 	}
 	
-	private ClickListener getListener(final ScreenEnum screenSelection, final Object... params){
+	private ClickListener getListener(final ScreenEnum screenSelection){
+		return getListener(screenSelection, false);
+	}
+		
+	private ClickListener getListener(final ScreenEnum screenSelection, final Boolean load){
 		return new ClickListener(){
 	        @Override
 	        public void clicked(InputEvent event, float x, float y) {
 	        	buttonSound.play();
-	        	generateScreen(screenSelection, params);    
+	        	if (load){
+	        		saveManager.setSaveType(SaveManager.SaveType.LOAD);
+	        	}
+	        	else {
+	        		saveManager.setSaveType(SaveManager.SaveType.NEW);
+	        	}
+	        	showScreen(screenSelection);    
 	        }
 	    };
 	}

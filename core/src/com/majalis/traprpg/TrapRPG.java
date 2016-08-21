@@ -4,15 +4,16 @@ import com.badlogic.gdx.assets.AssetManager;
 
 public class TrapRPG extends Game {
 	
-	private class TempScreen extends AbstractScreen{
-		protected TempScreen(Game game){
-			super(game, null);
-		}
-		@Override
-		protected void buildStage() {}
+	public void create() {	
+		init(new ScreenFactoryImpl(this, new AssetManager(), new SaveManager(false)));
 	}
-	public void create() {
-		// this will create a temporary screen and then switch to the actual main menu screen with all dependencies injected
-        new TempScreen(this).switchScreen(ScreenEnum.MAIN_MENU, new AssetManager());
+	
+	public void init(ScreenFactory factory){
+		// this is to define access to the factory methods in DependencyContainer
+		ScreenService screenService = new ScreenService(factory);
+		AbstractScreen screen = factory.getScreen(ScreenEnum.MAIN_MENU, screenService);
+		screen.buildStage();
+		setScreen(screen);
 	}
+	
 }

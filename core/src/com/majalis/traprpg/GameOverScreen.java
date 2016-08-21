@@ -7,8 +7,8 @@ public class GameOverScreen extends AbstractScreen {
 
 	private int clocktick;
 	
-	public GameOverScreen(Game game, AbstractScreen parent, Object... params) {
-		super(game, parent);
+	public GameOverScreen(Game game, ScreenService service) {
+		super(game, service);
 		clocktick = 0;
 	}
 
@@ -24,7 +24,7 @@ public class GameOverScreen extends AbstractScreen {
 		font.draw(batch, String.valueOf(clocktick++), 1675, 500);
 		batch.end();
 		if (clocktick >= 200)
-			exit();
+			showScreen(ScreenEnum.MAIN_MENU);
 	}
 
 	@Override

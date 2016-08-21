@@ -22,23 +22,13 @@ public class GameScreen extends AbstractScreen {
 	private String classSelection;
 	
 	//SaveManager should be passed in, extracting GameWorld from it, or possibly GameWorld should be passed in along with the saving (but not loading) interface
-	public GameScreen(Game game, AbstractScreen parent, boolean loadGame, Object... params) {
-		super(game, parent);
-		world = new GameWorld(loadGame);
+	public GameScreen(Game game, ScreenService service, String classSelection) {
+		super(game, service);
+		this.classSelection = classSelection;
+		world = new GameWorld(false);
 		paused = false;
 		buttonSound = Gdx.audio.newSound(Gdx.files.internal("sound.wav"));	
-		if (loadGame){
-			SaveManager save = new SaveManager(false);
-			String retrievedValue = save.loadDataValue("Class", String.class);
-			// this is to avoid null pointer errors - this should later either create a blank save file and just begin, or the button should be disabled/hidden
-			classSelection = retrievedValue != null ? retrievedValue : ""; 
-			if (classSelection == null) classSelection = "";
-		}
-		// create a new blank save file
-		else {
-			classSelection = "";
-			save("");
-		}
+		
 	}
 	
 	@Override
@@ -82,10 +72,10 @@ public class GameScreen extends AbstractScreen {
 		}
 		paused = world.paused;
 		if (world.gameExit){
-			exit();
+			showScreen(ScreenEnum.MAIN_MENU);
 		}
 		else if (world.gameOver){
-			switchScreen(ScreenEnum.GAME_OVER);
+			showScreen(ScreenEnum.GAME_OVER);
 		}
 		draw();
 	}
