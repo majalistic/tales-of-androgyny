@@ -13,7 +13,7 @@ public class SaveManager implements SaveService, LoadService{
     
     private boolean encoded;
     private final FileHandle file;   
-    private Save save;
+    private final Save save;
    
     public SaveManager(boolean encoded){
         this.encoded = encoded;
