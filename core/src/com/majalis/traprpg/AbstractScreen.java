@@ -14,24 +14,23 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
  */
 public abstract class AbstractScreen extends Stage implements Screen {
 	private final Game game;
-	private final ScreenService service;
+	private final ScreenFactory screenFactory;
 	private static final int winWidth = 1280;
 	private static final int winHeight = 720;
 	protected SpriteBatch batch;
 	protected BitmapFont font;
 	
-    protected AbstractScreen(Game game, ScreenService service) {
+    protected AbstractScreen(ScreenFactory screenFactory) {
         super( new FitViewport(winWidth, winHeight, new OrthographicCamera()) );
-        this.game = game;
-        this.service = service;
+        this.game = screenFactory.getGame();
+        this.screenFactory = screenFactory;
     }
  
     // Subclasses must load actors in this method
     public abstract void buildStage();
     
     public void showScreen(ScreenEnum screenRequest) {
-    	
-    	AbstractScreen newScreen = service.getScreen(screenRequest);
+    	AbstractScreen newScreen = screenFactory.getScreen(screenRequest);
         // Get current screen to dispose it
         Screen currentScreen = game.getScreen();
     	

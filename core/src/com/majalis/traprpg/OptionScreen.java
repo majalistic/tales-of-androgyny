@@ -1,6 +1,5 @@
 package com.majalis.traprpg;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 /*
  * The options/configuration screen.  UI that handles player input to save Preferences to a player's file system.
@@ -9,8 +8,8 @@ public class OptionScreen extends AbstractScreen {
 
 	private int clocktick;
 	
-	public OptionScreen(Game game, ScreenService service) {
-		super(game, service);
+	public OptionScreen(ScreenFactory factory) {
+		super(factory);
 		clocktick = 0;
 	}
 

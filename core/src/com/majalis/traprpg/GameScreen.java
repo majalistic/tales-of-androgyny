@@ -1,6 +1,5 @@
 package com.majalis.traprpg;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
@@ -19,14 +18,16 @@ public class GameScreen extends AbstractScreen {
 
 	private final AssetManager assetManager;
 	private final GameWorld world;
+	private final SaveService saveService;
 	private String classSelection;
 	private Skin skin;
 	private Sound buttonSound;
 	
 	// GameWorld should be passed in along with the saving (but not loading) interface
-	public GameScreen(Game game, ScreenService service, AssetManager assetManager, String classSelection) {
-		super(game, service);
+	public GameScreen(ScreenFactory factory, AssetManager assetManager, SaveService saveService, String classSelection) {
+		super(factory);
 		this.assetManager = assetManager;
+		this.saveService = saveService;
 		this.classSelection = classSelection;
 		world = new GameWorld(false);
 		buttonSound = Gdx.audio.newSound(Gdx.files.internal("sound.wav"));			
@@ -68,7 +69,6 @@ public class GameScreen extends AbstractScreen {
 		else {
 			draw();
 		}
-		
 	}
 	
 	public void draw(){
@@ -87,19 +87,13 @@ public class GameScreen extends AbstractScreen {
 		batch.end();
 	}
 	
-	// needs to be refactored out
-	private void save(String data){
-		SaveManager save = new SaveManager(false);
-    	save.saveDataValue("Class", data);
-	}
-	
 	private ClickListener getListener(final String selection){
 		return new ClickListener(){
 	        @Override
 	        public void clicked(InputEvent event, float x, float y) {
 	        	buttonSound.play();
 	        	classSelection = selection;
-	        	save(selection);
+	        	saveService.saveDataValue("Class", selection);
 	        }
 	    };
 	}

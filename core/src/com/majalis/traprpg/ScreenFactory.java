@@ -1,7 +1,11 @@
 package com.majalis.traprpg;
+
+import com.badlogic.gdx.Game;
+
 /*
  * ScreenFactory interface to enable mocking.
  */
 public interface ScreenFactory {
-	AbstractScreen getScreen(ScreenEnum screenRequest, ScreenService screenService);
+	Game getGame();
+	AbstractScreen getScreen(ScreenEnum screenRequest);
 }

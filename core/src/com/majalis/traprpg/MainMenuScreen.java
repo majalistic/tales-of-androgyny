@@ -1,6 +1,5 @@
 package com.majalis.traprpg;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -17,21 +16,22 @@ import com.badlogic.gdx.utils.Array;
 public class MainMenuScreen extends AbstractScreen {
 
 	private final AssetManager assetManager;
-	private final SaveManager saveManager;
+	private final SaveService saveService;
+	private final LoadService loadService;
 	private Skin skin; 
 	private Texture wereslutImage;
 	private Sound buttonSound;
 	private int clocktick = 0;
 
-	public MainMenuScreen(Game game, ScreenService service, AssetManager assetManager, SaveManager saveManager) {
-		super(game, service);
+	public MainMenuScreen(ScreenFactory factory, AssetManager assetManager, SaveService saveService, LoadService loadService) {
+		super(factory);
 		this.assetManager = assetManager;
-		this.saveManager = saveManager;
+		this.saveService = saveService;
+		this.loadService = loadService;
 	}
 
 	@Override
 	public void buildStage() {
-
 		// asynchronous
 		assetManager.load("uiskin.json", Skin.class);
 		assetManager.load("wereslut.png", Texture.class);
@@ -99,11 +99,11 @@ public class MainMenuScreen extends AbstractScreen {
 	        public void clicked(InputEvent event, float x, float y) {
 	        	buttonSound.play();
 	        	if (screenSelection == ScreenEnum.GAME_LOAD){
-	        		saveManager.setSaveType(SaveManager.SaveType.LOAD);
+	        		loadService.loadDataValue("Class", String.class);
 	        		showScreen(ScreenEnum.GAME); 
 	        	}
 	        	else {
-	        		saveManager.setSaveType(SaveManager.SaveType.NEW);
+	        		saveService.saveDataValue("Class", "");
 	        		showScreen(screenSelection);    
 	        	}
 	        }

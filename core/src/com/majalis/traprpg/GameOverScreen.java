@@ -1,6 +1,5 @@
 package com.majalis.traprpg;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 /*
  * Screen for displaying "Game Over" - can return the player to the main menu or offer them the ability to save their GO encounter.  May be loaded with different splashes / music at runtime.
@@ -9,8 +8,8 @@ public class GameOverScreen extends AbstractScreen {
 
 	private int clocktick;
 	
-	public GameOverScreen(Game game, ScreenService service) {
-		super(game, service);
+	public GameOverScreen(ScreenFactory factory) {
+		super(factory);
 		clocktick = 0;
 	}
 

@@ -9,39 +9,27 @@ import com.badlogic.gdx.utils.ObjectMap;
 /*
  * Used for file handling, both reading and writing - both game files and encounter replay files.
  */
-public class SaveManager {
+public class SaveManager implements SaveService, LoadService{
     
     private boolean encoded;
-    private FileHandle file;   
+    private final FileHandle file;   
     private Save save;
-    private SaveType saveType;
    
     public SaveManager(boolean encoded){
         this.encoded = encoded;
         file = Gdx.files.local("bin/save.json");   
         save = getSave();
     }
-   
-    // this needs to be removed - instead the savemanager should only be "loaded" once someone selects to do so - before then, it should be in a dormant state
-    // once someone begins a new game, a save should be generated
-    public enum SaveType{
-    	NEW, LOAD
-    }
-    
-    public void setSaveType(SaveType type){
-    	saveType = type;
-    }
-    
-    @SuppressWarnings("unchecked")
-    public <T> T loadDataValue(String key, Class<?> type){
-    	if (saveType == SaveType.NEW) return (T) "";
-        if(save.data.containsKey(key))return (T) save.data.get(key);
-        else return null;   //this if() avoids an exception, but check for null on load.
-    }
     
     public void saveDataValue(String key, Object object){
         save.data.put(key, object);
         saveToJson(); //Saves current save immediately.
+    }
+    
+    @SuppressWarnings("unchecked")
+    public <T> T loadDataValue(String key, Class<?> type){
+        if(save.data.containsKey(key))return (T) save.data.get(key);
+        else return null;   //this if() avoids an exception, but check for null on load.
     }
     
     private void saveToJson(){
