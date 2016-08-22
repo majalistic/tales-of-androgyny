@@ -29,8 +29,7 @@ public class GameScreen extends AbstractScreen {
 		this.assetManager = assetManager;
 		this.classSelection = classSelection;
 		world = new GameWorld(false);
-		buttonSound = Gdx.audio.newSound(Gdx.files.internal("sound.wav"));	
-		
+		buttonSound = Gdx.audio.newSound(Gdx.files.internal("sound.wav"));			
 	}
 	
 	@Override
@@ -54,23 +53,6 @@ public class GameScreen extends AbstractScreen {
 		}
         table.setFillParent(true);
         this.addActor(table);	
-	}
-	
-	
-	private ClickListener getListener(final String selection){
-		return new ClickListener(){
-	        @Override
-	        public void clicked(InputEvent event, float x, float y) {
-	        	buttonSound.play();
-	        	classSelection = selection;
-	        	save(selection);
-	        }
-	    };
-	}
-
-	private void save(String data){
-		SaveManager save = new SaveManager(false);
-    	save.saveDataValue("Class", data);
 	}
 	
 	@Override
@@ -100,5 +82,22 @@ public class GameScreen extends AbstractScreen {
 			font.draw(batch, "FPS: " + MathUtils.ceil(1/Gdx.graphics.getDeltaTime()), camera.position.x-200+(400), camera.position.y+220);
 		}
 		batch.end();
+	}
+	
+	// needs to be refactored out
+	private void save(String data){
+		SaveManager save = new SaveManager(false);
+    	save.saveDataValue("Class", data);
+	}
+	
+	private ClickListener getListener(final String selection){
+		return new ClickListener(){
+	        @Override
+	        public void clicked(InputEvent event, float x, float y) {
+	        	buttonSound.play();
+	        	classSelection = selection;
+	        	save(selection);
+	        }
+	    };
 	}
 }
