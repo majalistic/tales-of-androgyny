@@ -13,26 +13,21 @@ public class SaveManager {
     private FileHandle file;   
     private Save save;
     private SaveType saveType;
-    
-    public enum SaveType{
-    	NEW, LOAD
-    }
-    
+   
     public SaveManager(boolean encoded){
         this.encoded = encoded;
         file = Gdx.files.local("bin/save.json");   
         save = getSave();
     }
    
-    public void setSaveType(SaveType type){
-    	saveType = type;
+    // this needs to be removed - instead the savemanager should only be "loaded" once someone selects to do so - before then, it should be in a dormant state
+    // once someone begins a new game, a save should be generated
+    public enum SaveType{
+    	NEW, LOAD
     }
     
-    public void saveToJson(){
-        Json json = new Json();
-        json.setOutputType(OutputType.json);
-        if(encoded) file.writeString(Base64Coder.encodeString(json.prettyPrint(save)), false);
-        else file.writeString(json.prettyPrint(save), false);
+    public void setSaveType(SaveType type){
+    	saveType = type;
     }
     
     @SuppressWarnings("unchecked")
@@ -47,8 +42,11 @@ public class SaveManager {
         saveToJson(); //Saves current save immediately.
     }
     
-    public ObjectMap<String, Object> getAllData(){
-        return save.data;
+    private void saveToJson(){
+        Json json = new Json();
+        json.setOutputType(OutputType.json);
+        if(encoded) file.writeString(Base64Coder.encodeString(json.prettyPrint(save)), false);
+        else file.writeString(json.prettyPrint(save), false);
     }
     
     private Save getSave(){
