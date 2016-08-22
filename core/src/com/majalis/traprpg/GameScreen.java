@@ -65,7 +65,10 @@ public class GameScreen extends AbstractScreen {
 		else if (world.gameOver){
 			showScreen(ScreenEnum.GAME_OVER);
 		}
-		draw();
+		else {
+			draw();
+		}
+		
 	}
 	
 	public void draw(){
