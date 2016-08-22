@@ -9,7 +9,9 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-
+/*
+ * Abstract class which all Screens inherit from; each screen has a a single master Stage.  Allows a Screen to switch to a different screen via an enum.
+ */
 public abstract class AbstractScreen extends Stage implements Screen {
 	private final Game game;
 	private final ScreenService service;
@@ -27,7 +29,7 @@ public abstract class AbstractScreen extends Stage implements Screen {
     // Subclasses must load actors in this method
     public abstract void buildStage();
     
-    public void showScreen(ScreenEnum screenRequest, Object... params) {
+    public void showScreen(ScreenEnum screenRequest) {
     	
     	AbstractScreen newScreen = service.getScreen(screenRequest);
         // Get current screen to dispose it

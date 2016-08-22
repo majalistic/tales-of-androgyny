@@ -12,23 +12,23 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
-
+/*
+ * The initial screen for displaying a loaded game world.  UI that Handles player input while on the world map - will delegate to other screens depending on the gameWorld state.
+ */
 public class GameScreen extends AbstractScreen {
 
 	private final AssetManager assetManager;
 	private final GameWorld world;
 	private String classSelection;
-	private boolean paused;
 	private Skin skin;
 	private Sound buttonSound;
 	
-	//SaveManager should be passed in, extracting GameWorld from it, or possibly GameWorld should be passed in along with the saving (but not loading) interface
+	// GameWorld should be passed in along with the saving (but not loading) interface
 	public GameScreen(Game game, ScreenService service, AssetManager assetManager, String classSelection) {
 		super(game, service);
 		this.assetManager = assetManager;
 		this.classSelection = classSelection;
 		world = new GameWorld(false);
-		paused = false;
 		buttonSound = Gdx.audio.newSound(Gdx.files.internal("sound.wav"));	
 		
 	}
@@ -77,10 +77,6 @@ public class GameScreen extends AbstractScreen {
 	public void render(float delta) {
 		super.render(delta);
 		world.gameLoop();
-		if (paused!=world.paused){
-			
-		}
-		paused = world.paused;
 		if (world.gameExit){
 			showScreen(ScreenEnum.MAIN_MENU);
 		}
@@ -104,10 +100,5 @@ public class GameScreen extends AbstractScreen {
 			font.draw(batch, "FPS: " + MathUtils.ceil(1/Gdx.graphics.getDeltaTime()), camera.position.x-200+(400), camera.position.y+220);
 		}
 		batch.end();
-	}
-	
-	@Override
-	public void show() {
-		super.show();
 	}
 }

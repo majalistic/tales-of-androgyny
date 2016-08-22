@@ -2,7 +2,9 @@ package com.majalis.traprpg;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
-
+/*
+ * Contains state information about the world; may also contain state information about the player.
+ */
 public class GameWorld {
 		
 	public boolean displayHUD;

@@ -2,7 +2,9 @@ package com.majalis.traprpg;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-
+/*
+ * The replay encounters.  UI that handles player input to select and load and encounters to experience again.
+ */
 public class ReplayScreen extends AbstractScreen {
 
 	private int clocktick;

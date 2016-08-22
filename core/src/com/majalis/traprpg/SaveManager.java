@@ -6,7 +6,9 @@ import com.badlogic.gdx.utils.Base64Coder;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonWriter.OutputType;
 import com.badlogic.gdx.utils.ObjectMap;
-
+/*
+ * Used for file handling, both reading and writing - both game files and encounter replay files.
+ */
 public class SaveManager {
     
     private boolean encoded;

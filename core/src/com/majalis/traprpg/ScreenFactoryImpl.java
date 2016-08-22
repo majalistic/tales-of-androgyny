@@ -3,7 +3,9 @@ package com.majalis.traprpg;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
-
+/*
+ * ScreenFactory implementation to generate and cache screens.
+ */
 public class ScreenFactoryImpl implements ScreenFactory {
 
 	private final Game game;

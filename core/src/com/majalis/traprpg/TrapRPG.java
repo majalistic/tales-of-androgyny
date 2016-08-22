@@ -1,7 +1,9 @@
 package com.majalis.traprpg;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.assets.AssetManager;
-
+/*
+ * Package shared entry point for each platform.  Generates a ScreenFactory and service for dependency injection, and switches to the splash screen for loading.
+ */
 public class TrapRPG extends Game {
 	
 	public void create() {	

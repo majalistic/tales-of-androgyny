@@ -11,6 +11,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
+/*
+ * The main menu screen loaded initially.  UI that handles player input to switch to different screens.
+ */
 public class MainMenuScreen extends AbstractScreen {
 
 	private final AssetManager assetManager;
