@@ -33,6 +33,10 @@ public class SaveManager implements SaveService, LoadService{
     }
     
     private void saveToJson(){
+    	saveToJson(save);
+    }
+    
+    private void saveToJson(Save save){
         Json json = new Json();
         json.setOutputType(OutputType.json);
         if(encoded) file.writeString(Base64Coder.encodeString(json.prettyPrint(save)), false);
@@ -45,6 +49,10 @@ public class SaveManager implements SaveService, LoadService{
 	        Json json = new Json();
 	        if(encoded)save = json.fromJson(Save.class, Base64Coder.decodeString(file.readString()));
 	        else save = json.fromJson(Save.class,file.readString());
+        }
+        else {
+        	save.data.put("Class", " ");
+        	saveToJson(save);	
         }
         return save==null ? new Save() : save;
     }
