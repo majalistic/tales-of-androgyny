@@ -91,13 +91,7 @@ public class MainMenuScreen extends AbstractScreen {
 		// need to make these relative to viewport
 		
 		font.draw(batch, "tRaPG - The Really Awesome Porn Game", 1200, 900);
-		// currently this texture is loaded synchronously - want to experiment with a loading screen, may need a VERY large texture to view it
-		float progress = assetManager.getProgress();
-		if (progress < 1)
-			font.draw(batch, "Loading: " + (progress * 100) + "%", 1850, 600);
-		else {
-			batch.draw(wereslutImage, 1020, 600);
-		}
+		batch.draw(wereslutImage, 1020, 600);
 		font.draw(batch, String.valueOf(clocktick++), 1850, 400);
 		batch.end();
 	}
