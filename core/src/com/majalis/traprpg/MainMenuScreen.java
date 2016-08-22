@@ -45,24 +45,20 @@ public class MainMenuScreen extends AbstractScreen {
 		skin = assetManager.get("uiskin.json", Skin.class);
 		wereslutImage = assetManager.get("wereslut.png", Texture.class);
 		buttonSound = assetManager.get("sound.wav", Sound.class);
-		
+			
 		Table table = new Table();
 		
-		TextButton  buttonPlay 		= new TextButton("Begin", skin),
-					buttonContinue 	= new TextButton("Continue", skin),
-					buttonOptions 	= new TextButton("Options", skin),
-					buttonPervert 	= new TextButton("Pervert", skin),
-					buttonExit 		= new TextButton("Exit", skin);
+		Array<String> buttonLabels = new Array<String>();
+		Array<ScreenEnum> optionList = new Array<ScreenEnum>();
+		buttonLabels.addAll("Begin", "Continue", "Options", "Pervert", "Exit");
+		optionList.addAll(ScreenEnum.GAME, ScreenEnum.GAME_LOAD, ScreenEnum.OPTIONS, ScreenEnum.REPLAY, ScreenEnum.EXIT);
 		
-		buttonPlay.addListener(getListener(ScreenEnum.GAME, false));            
-		buttonContinue.addListener(getListener(ScreenEnum.GAME, true));
-		buttonOptions.addListener(getListener(ScreenEnum.OPTIONS));
-		buttonPervert.addListener(getListener(ScreenEnum.REPLAY));
-	    buttonExit.addListener(getListener(ScreenEnum.EXIT));
+		Array<TextButton> buttons = new Array<TextButton>();
+		for (int ii = 0; ii < buttonLabels.size; ii++){
+			buttons.add(new TextButton(buttonLabels.get(ii), skin));
+			buttons.get(ii).addListener(getListener(optionList.get(ii)));
+		}
 	    
-	    Array<TextButton> buttons = new Array<TextButton>();
-	    buttons.addAll(buttonPlay, buttonContinue, buttonOptions, buttonPervert, buttonExit);
-
 	    for (TextButton button: buttons){
 	    	table.add(button).row();
 	    }
@@ -72,21 +68,18 @@ public class MainMenuScreen extends AbstractScreen {
 	}
 	
 	private ClickListener getListener(final ScreenEnum screenSelection){
-		return getListener(screenSelection, false);
-	}
-		
-	private ClickListener getListener(final ScreenEnum screenSelection, final Boolean load){
 		return new ClickListener(){
 	        @Override
 	        public void clicked(InputEvent event, float x, float y) {
 	        	buttonSound.play();
-	        	if (load){
+	        	if (screenSelection == ScreenEnum.GAME_LOAD){
 	        		saveManager.setSaveType(SaveManager.SaveType.LOAD);
+	        		showScreen(ScreenEnum.GAME); 
 	        	}
 	        	else {
 	        		saveManager.setSaveType(SaveManager.SaveType.NEW);
+	        		showScreen(screenSelection);    
 	        	}
-	        	showScreen(screenSelection);    
 	        }
 	    };
 	}

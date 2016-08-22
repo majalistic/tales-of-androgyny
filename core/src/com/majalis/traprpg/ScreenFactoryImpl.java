@@ -37,7 +37,6 @@ public class ScreenFactoryImpl implements ScreenFactory {
 
 		@Override
 		public void buildStage() {
-			// TODO Auto-generated method stub
 			Gdx.app.exit();
 		}
 		
