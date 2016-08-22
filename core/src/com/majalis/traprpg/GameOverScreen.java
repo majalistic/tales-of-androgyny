@@ -24,7 +24,7 @@ public class GameOverScreen extends AbstractScreen {
 		font.draw(batch, "GAME OVER", 1125, 750);
 		font.draw(batch, String.valueOf(clocktick++), 1675, 500);
 		batch.end();
-		if (clocktick >= 200)
+		if (clocktick >= 100)
 			showScreen(ScreenEnum.MAIN_MENU);
 	}
 
