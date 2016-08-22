@@ -103,7 +103,9 @@ public class MainMenuScreen extends AbstractScreen {
 	        		showScreen(ScreenEnum.GAME); 
 	        	}
 	        	else {
-	        		saveService.saveDataValue("Class", "");
+	        		if (screenSelection == ScreenEnum.GAME){
+	        			saveService.saveDataValue("Class", "");
+	        		}
 	        		showScreen(screenSelection);    
 	        	}
 	        }
