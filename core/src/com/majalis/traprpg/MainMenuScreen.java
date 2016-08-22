@@ -63,23 +63,6 @@ public class MainMenuScreen extends AbstractScreen {
         this.addActor(table);
 	}
 	
-	private ClickListener getListener(final ScreenEnum screenSelection){
-		return new ClickListener(){
-	        @Override
-	        public void clicked(InputEvent event, float x, float y) {
-	        	buttonSound.play();
-	        	if (screenSelection == ScreenEnum.GAME_LOAD){
-	        		saveManager.setSaveType(SaveManager.SaveType.LOAD);
-	        		showScreen(ScreenEnum.GAME); 
-	        	}
-	        	else {
-	        		saveManager.setSaveType(SaveManager.SaveType.NEW);
-	        		showScreen(screenSelection);    
-	        	}
-	        }
-	    };
-	}
-	
 	@Override
 	public void render(float delta) {
 		super.render(delta);
@@ -108,6 +91,23 @@ public class MainMenuScreen extends AbstractScreen {
 	public void dispose() {
 		// this should clear the loaded assets, but this works fine for now - don't call dispose, or the asset maanger will stop functioning!
 		assetManager.clear();
+	}
+	
+	private ClickListener getListener(final ScreenEnum screenSelection){
+		return new ClickListener(){
+	        @Override
+	        public void clicked(InputEvent event, float x, float y) {
+	        	buttonSound.play();
+	        	if (screenSelection == ScreenEnum.GAME_LOAD){
+	        		saveManager.setSaveType(SaveManager.SaveType.LOAD);
+	        		showScreen(ScreenEnum.GAME); 
+	        	}
+	        	else {
+	        		saveManager.setSaveType(SaveManager.SaveType.NEW);
+	        		showScreen(screenSelection);    
+	        	}
+	        }
+	    };
 	}
 
 }
