@@ -3,6 +3,7 @@ package com.majalis.traprpg;
  * Lists the various screens, possibly with optional settings, used in the ScreenFactoryImpl (see: GAME vs. GAME_LOAD).
  */
 public enum ScreenEnum {
+	SPLASH,
     MAIN_MENU, 
     GAME,
     GAME_LOAD,

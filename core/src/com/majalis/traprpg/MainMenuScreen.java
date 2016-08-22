@@ -32,14 +32,6 @@ public class MainMenuScreen extends AbstractScreen {
 
 	@Override
 	public void buildStage() {
-		// asynchronous
-		assetManager.load("uiskin.json", Skin.class);
-		assetManager.load("wereslut.png", Texture.class);
-		assetManager.load("sound.wav", Sound.class);
-		
-		// forcing asynchronous loading to be synchronous
-		assetManager.finishLoading();
-
 		skin = assetManager.get("uiskin.json", Skin.class);
 		wereslutImage = assetManager.get("wereslut.png", Texture.class);
 		buttonSound = assetManager.get("sound.wav", Sound.class);
@@ -66,7 +58,6 @@ public class MainMenuScreen extends AbstractScreen {
 	@Override
 	public void render(float delta) {
 		super.render(delta);
-		assetManager.update();
 		OrthographicCamera camera = (OrthographicCamera) getCamera();
         batch.setTransformMatrix(camera.view);
         
@@ -89,8 +80,8 @@ public class MainMenuScreen extends AbstractScreen {
 
 	@Override
 	public void dispose() {
-		// this should clear the loaded assets, but this works fine for now - don't call dispose, or the asset maanger will stop functioning!
-		assetManager.clear();
+		// this should clear the loaded assets, but this works fine for now - don't call dispose, or the asset manager will stop functioning!
+		// assetManager.clear();
 	}
 	
 	private ClickListener getListener(final ScreenEnum screenSelection){

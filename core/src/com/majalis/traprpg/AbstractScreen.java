@@ -21,7 +21,7 @@ public abstract class AbstractScreen extends Stage implements Screen {
 	protected BitmapFont font;
 	
     protected AbstractScreen(ScreenFactory screenFactory) {
-        super( new FitViewport(winWidth, winHeight, new OrthographicCamera()) );
+        super(new FitViewport(winWidth, winHeight, new OrthographicCamera()));
         this.game = screenFactory.getGame();
         this.screenFactory = screenFactory;
     }
@@ -38,7 +38,6 @@ public abstract class AbstractScreen extends Stage implements Screen {
         if (currentScreen != null) {
             currentScreen.dispose();
         }
-        
     	// Show new screen
     	newScreen.buildStage();
         game.setScreen(newScreen);

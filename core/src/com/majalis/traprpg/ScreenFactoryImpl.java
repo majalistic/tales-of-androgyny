@@ -23,6 +23,7 @@ public class ScreenFactoryImpl implements ScreenFactory {
 	@Override  
 	public AbstractScreen getScreen(ScreenEnum screenRequest) {
 		switch(screenRequest){
+			case SPLASH: 	return new SplashScreen(this, assetManager); 
 			case MAIN_MENU: return new MainMenuScreen(this, assetManager, saveService, loadService); 
 			case GAME: 		return new GameScreen(this, assetManager, saveService, (String) loadService.loadDataValue("Class", String.class));
 			case GAME_OVER: return new GameOverScreen(this);
@@ -39,23 +40,12 @@ public class ScreenFactoryImpl implements ScreenFactory {
 	}
 	
 	private class ExitScreen extends AbstractScreen{
-
 		protected ExitScreen(ScreenFactory factory) {
 			super(factory);
 		}
-
 		@Override
 		public void buildStage() {
 			Gdx.app.exit();
 		}
-		
 	}
 }
-
-// interfaces for SaveManager
-
-// that returns three things: getGame(for switchscreening), getScreenService(for switchscreening), getAssetManager()???
-
-//bundle is ScreenManager?!
-//bundle.getScreen()
-//bundle.setScreen()

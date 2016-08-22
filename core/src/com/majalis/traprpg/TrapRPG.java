@@ -9,12 +9,12 @@ public class TrapRPG extends Game {
 	public void create() {	
 		init(new ScreenFactoryImpl(this, new AssetManager(), new SaveManager(false)));
 	}
-	
+	/*
+	 * Takes a factory implementation and uses it to generate a screen and switch to it
+	 */
 	public void init(ScreenFactory factory){
-		// this is to define access to the factory methods in DependencyContainer
-		AbstractScreen screen = factory.getScreen(ScreenEnum.MAIN_MENU);
+		AbstractScreen screen = factory.getScreen(ScreenEnum.SPLASH);
 		screen.buildStage();
 		setScreen(screen);
 	}
-	
 }
