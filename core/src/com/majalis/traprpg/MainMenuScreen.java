@@ -1,12 +1,10 @@
 package com.majalis.traprpg;
 
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -30,9 +28,6 @@ public class MainMenuScreen extends AbstractScreen {
 
 	@Override
 	public void buildStage() {
-		skin = new Skin(Gdx.files.internal("uiskin.json"), new TextureAtlas(Gdx.files.internal("uiskin.atlas")));
-		// synchronous
-		assetManager.load("uiskin.atlas", TextureAtlas.class);
 
 		// asynchronous
 		assetManager.load("uiskin.json", Skin.class);
@@ -57,11 +52,9 @@ public class MainMenuScreen extends AbstractScreen {
 		for (int ii = 0; ii < buttonLabels.size; ii++){
 			buttons.add(new TextButton(buttonLabels.get(ii), skin));
 			buttons.get(ii).addListener(getListener(optionList.get(ii)));
+			table.add(buttons.get(ii)).row();
 		}
-	    
-	    for (TextButton button: buttons){
-	    	table.add(button).row();
-	    }
+	
         table.setFillParent(true);
         
         this.addActor(table);

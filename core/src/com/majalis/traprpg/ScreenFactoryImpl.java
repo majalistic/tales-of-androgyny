@@ -20,7 +20,7 @@ public class ScreenFactoryImpl implements ScreenFactory {
 	public AbstractScreen getScreen(ScreenEnum screenRequest, ScreenService service) {
 		switch(screenRequest){
 			case MAIN_MENU: return new MainMenuScreen(game, service, assetManager, saveManager); 
-			case GAME: return new GameScreen(game, service, (String) saveManager.loadDataValue("Class", String.class));
+			case GAME: return new GameScreen(game, service, assetManager, (String) saveManager.loadDataValue("Class", String.class));
 			case GAME_OVER: return new GameOverScreen(game, service);
 			case OPTIONS: return new OptionScreen(game, service);
 			case REPLAY: return new ReplayScreen(game, service);

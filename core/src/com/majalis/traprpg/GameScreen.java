@@ -2,9 +2,9 @@ package com.majalis.traprpg;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -15,15 +15,17 @@ import com.badlogic.gdx.utils.Array;
 
 public class GameScreen extends AbstractScreen {
 
-	private boolean paused;
+	private final AssetManager assetManager;
 	private final GameWorld world;
+	private String classSelection;
+	private boolean paused;
 	private Skin skin;
 	private Sound buttonSound;
-	private String classSelection;
 	
 	//SaveManager should be passed in, extracting GameWorld from it, or possibly GameWorld should be passed in along with the saving (but not loading) interface
-	public GameScreen(Game game, ScreenService service, String classSelection) {
+	public GameScreen(Game game, ScreenService service, AssetManager assetManager, String classSelection) {
 		super(game, service);
+		this.assetManager = assetManager;
 		this.classSelection = classSelection;
 		world = new GameWorld(false);
 		paused = false;
@@ -33,7 +35,15 @@ public class GameScreen extends AbstractScreen {
 	
 	@Override
 	public void buildStage() {
-		skin = new Skin(Gdx.files.internal("uiskin.json"), new TextureAtlas(Gdx.files.internal("uiskin.atlas")));
+		// asynchronous
+		assetManager.load("uiskin.json", Skin.class);
+		assetManager.load("sound.wav", Sound.class);
+		
+		// forcing asynchronous loading to be synchronous
+		assetManager.finishLoading();
+
+		skin = assetManager.get("uiskin.json", Skin.class);
+		buttonSound = assetManager.get("sound.wav", Sound.class);
 		Table table = new Table();
 		Array<String> classes = new Array<String>();
 		classes.addAll("Warrior", "Paladin", "Rogue", "Ranger", "Mage", "Enchanter");
