@@ -41,7 +41,7 @@ public class MainMenuScreen extends AbstractScreen {
 		Array<String> buttonLabels = new Array<String>();
 		Array<ScreenEnum> optionList = new Array<ScreenEnum>();
 		buttonLabels.addAll("Begin", "Continue", "Options", "Pervert", "Exit");
-		optionList.addAll(ScreenEnum.GAME, ScreenEnum.GAME_LOAD, ScreenEnum.OPTIONS, ScreenEnum.REPLAY, ScreenEnum.EXIT);
+		optionList.addAll(ScreenEnum.NEW_GAME, ScreenEnum.LOAD_GAME, ScreenEnum.OPTIONS, ScreenEnum.REPLAY, ScreenEnum.EXIT);
 		
 		Array<TextButton> buttons = new Array<TextButton>();
 		for (int ii = 0; ii < buttonLabels.size; ii++){
@@ -89,12 +89,12 @@ public class MainMenuScreen extends AbstractScreen {
 	        @Override
 	        public void clicked(InputEvent event, float x, float y) {
 	        	buttonSound.play();
-	        	if (screenSelection == ScreenEnum.GAME_LOAD){
+	        	if (screenSelection == ScreenEnum.LOAD_GAME){
 	        		loadService.loadDataValue("Class", String.class);
-	        		showScreen(ScreenEnum.GAME); 
+	        		showScreen(ScreenEnum.NEW_GAME); 
 	        	}
 	        	else {
-	        		if (screenSelection == ScreenEnum.GAME){
+	        		if (screenSelection == ScreenEnum.NEW_GAME){
 	        			saveService.saveDataValue("Class", "");
 	        		}
 	        		showScreen(screenSelection);    

@@ -5,8 +5,8 @@ package com.majalis.traprpg;
 public enum ScreenEnum {
 	SPLASH,
     MAIN_MENU, 
-    GAME,
-    GAME_LOAD,
+    NEW_GAME,
+    LOAD_GAME,
     GAME_OVER,
     OPTIONS,
     REPLAY,

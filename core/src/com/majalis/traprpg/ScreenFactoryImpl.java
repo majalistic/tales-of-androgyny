@@ -12,12 +12,14 @@ public class ScreenFactoryImpl implements ScreenFactory {
 	private final AssetManager assetManager;
 	private final SaveService saveService;
 	private final LoadService loadService;	
+	private final GameWorldManager gameWorldManager;
 	
-	public ScreenFactoryImpl(Game game, AssetManager assetManager, SaveManager saveManager) {
+	public ScreenFactoryImpl(Game game, AssetManager assetManager, SaveManager saveManager, GameWorldManager gameWorldManager) {
 		this.game = game;
 		this.assetManager = assetManager;
 		this.saveService = saveManager;
 		this.loadService = saveManager;
+		this.gameWorldManager = gameWorldManager;
 	}
 
 	@Override  
@@ -25,7 +27,7 @@ public class ScreenFactoryImpl implements ScreenFactory {
 		switch(screenRequest){
 			case SPLASH: 	return new SplashScreen(this, assetManager); 
 			case MAIN_MENU: return new MainMenuScreen(this, assetManager, saveService, loadService); 
-			case GAME: 		return new GameScreen(this, assetManager, saveService, (String) loadService.loadDataValue("Class", String.class));
+			case NEW_GAME:	return new GameScreen(this, assetManager, saveService, GameWorldManager.getGameWorld((String) loadService.loadDataValue("Class", String.class)));
 			case GAME_OVER: return new GameOverScreen(this);
 			case OPTIONS: 	return new OptionScreen(this);
 			case REPLAY: 	return new ReplayScreen(this);
