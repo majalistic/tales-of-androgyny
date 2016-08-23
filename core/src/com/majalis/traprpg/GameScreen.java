@@ -12,7 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
 /*
- * The initial screen for displaying a loaded game world.  UI that Handles player input while on the world map - will delegate to other screens depending on the gameWorld state.
+ * The screen that displays the world map.  UI that Handles player input while on the world map - will delegate to other screens depending on the gameWorld state.
  */
 public class GameScreen extends AbstractScreen {
 
@@ -46,7 +46,7 @@ public class GameScreen extends AbstractScreen {
 		buttonSound = assetManager.get("sound.wav", Sound.class);
 		Table table = new Table();
 		Array<String> classes = new Array<String>();
-		classes.addAll("Warrior", "Paladin", "Rogue", "Ranger", "Mage", "Enchanter");
+		classes.addAll("Warrior", "Paladin", "Thief", "Ranger", "Mage", "Enchanter");
 		for (String jobClass: classes){
 			TextButton button = new TextButton(jobClass, skin);
 			button.addListener(getListener(jobClass));
