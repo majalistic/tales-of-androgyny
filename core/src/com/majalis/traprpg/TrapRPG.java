@@ -7,7 +7,7 @@ import com.badlogic.gdx.assets.AssetManager;
 public class TrapRPG extends Game {
 	
 	public void create() {	
-		init(new ScreenFactoryImpl(this, new AssetManager(), new SaveManager(false), new GameWorldManager()));
+		init(new ScreenFactoryImpl(this, new AssetManager(), new SaveManager(false), new GameWorldManager(), new EncounterFactory()));
 	}
 	/*
 	 * Takes a factory implementation and uses it to generate a screen and switch to it

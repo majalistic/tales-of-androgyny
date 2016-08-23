@@ -35,6 +35,10 @@ public class EncounterScreen extends AbstractScreen {
 
 	@Override
 	public void buildStage() {
+		/*for (Resource resource: encounter.getNecessaryResources()){
+			assetManager.load(resource.filename, resource.type);
+		}*/
+		
 		assetManager.load("uiskin.json", Skin.class);
 		assetManager.load("sound.wav", Sound.class);
 		
@@ -92,7 +96,9 @@ public class EncounterScreen extends AbstractScreen {
 	        public void clicked(InputEvent event, float x, float y) {
 	        	buttonSound.play();
 	        	classSelection = selection;
+	        	saveService.saveDataValue("Context", GameWorldManager.GameContext.WORLD_MAP);
 	        	saveService.saveDataValue("Class", selection);
+	        	showScreen(ScreenEnum.LOAD_GAME);
 	        }
 	    };
 	}

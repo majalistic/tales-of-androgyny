@@ -13,13 +13,17 @@ public class ScreenFactoryImpl implements ScreenFactory {
 	private final SaveService saveService;
 	private final LoadService loadService;	
 	private final GameWorldManager gameWorldManager;
+	private final EncounterFactory encounterFactory;
+	private int temp;
 	
-	public ScreenFactoryImpl(Game game, AssetManager assetManager, SaveManager saveManager, GameWorldManager gameWorldManager) {
+	public ScreenFactoryImpl(Game game, AssetManager assetManager, SaveManager saveManager, GameWorldManager gameWorldManager, EncounterFactory encounterFactory) {
 		this.game = game;
 		this.assetManager = assetManager;
 		this.saveService = saveManager;
 		this.loadService = saveManager;
 		this.gameWorldManager = gameWorldManager;
+		this.encounterFactory = encounterFactory;
+		temp = 0;
 	}
 
 	@Override  
@@ -28,6 +32,7 @@ public class ScreenFactoryImpl implements ScreenFactory {
 			case SPLASH: 	return new SplashScreen(this, assetManager); 
 			case MAIN_MENU: return new MainMenuScreen(this, assetManager, saveService, loadService); 
 			case NEW_GAME:	
+			case ENCOUNTER:
 			case LOAD_GAME: return getGameScreen();
 			case GAME_OVER: return new GameOverScreen(this);
 			case OPTIONS: 	return new OptionScreen(this);
@@ -41,13 +46,12 @@ public class ScreenFactoryImpl implements ScreenFactory {
 		GameWorldManager.GameContext context = loadService.loadDataValue("Context", GameWorldManager.GameContext.class);
 		gameWorldManager.setContext(context);		
 		switch (context){
-			case ENCOUNTER: return new EncounterScreen(this, assetManager, saveService, new Encounter(null), GameWorldManager.getGameWorld((String) loadService.loadDataValue("Class", String.class)));
+			case ENCOUNTER: return new EncounterScreen(this, assetManager, saveService, encounterFactory.getEncounter(temp++), GameWorldManager.getGameWorld((String) loadService.loadDataValue("Class", String.class)));
 			case WORLD_MAP: return new GameScreen(this, assetManager, saveService, null);
 			default: return null;
 		}
 		
 	}
-	
 	
 	@Override
 	public Game getGame() {
