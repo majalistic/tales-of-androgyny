@@ -18,9 +18,9 @@ public class MainMenuScreen extends AbstractScreen {
 	private final AssetManager assetManager;
 	private final SaveService saveService;
 	private final LoadService loadService;
-	private Skin skin; 
-	private Texture wereslutImage;
-	private Sound buttonSound;
+	private final Skin skin; 
+	private final Texture wereslutImage;
+	private final Sound buttonSound;
 	private int clocktick = 0;
 
 	public MainMenuScreen(ScreenFactory factory, AssetManager assetManager, SaveService saveService, LoadService loadService) {
@@ -28,13 +28,14 @@ public class MainMenuScreen extends AbstractScreen {
 		this.assetManager = assetManager;
 		this.saveService = saveService;
 		this.loadService = loadService;
+		this.skin = assetManager.get("uiskin.json", Skin.class);
+		this.wereslutImage = assetManager.get("wereslut.png", Texture.class);
+		this.buttonSound = assetManager.get("sound.wav", Sound.class);
 	}
 
 	@Override
 	public void buildStage() {
-		skin = assetManager.get("uiskin.json", Skin.class);
-		wereslutImage = assetManager.get("wereslut.png", Texture.class);
-		buttonSound = assetManager.get("sound.wav", Sound.class);
+		
 			
 		Table table = new Table();
 		
