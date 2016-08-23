@@ -91,11 +91,13 @@ public class MainMenuScreen extends AbstractScreen {
 	        	buttonSound.play();
 	        	if (screenSelection == ScreenEnum.LOAD_GAME){
 	        		loadService.loadDataValue("Class", String.class);
+	        		loadService.loadDataValue("Context", GameWorldManager.GameContext.class);
 	        		showScreen(ScreenEnum.NEW_GAME); 
 	        	}
 	        	else {
 	        		if (screenSelection == ScreenEnum.NEW_GAME){
 	        			saveService.saveDataValue("Class", "");
+	        			saveService.saveDataValue("Context", GameWorldManager.GameContext.ENCOUNTER);
 	        		}
 	        		showScreen(screenSelection);    
 	        	}

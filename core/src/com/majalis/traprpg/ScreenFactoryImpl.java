@@ -27,7 +27,8 @@ public class ScreenFactoryImpl implements ScreenFactory {
 		switch(screenRequest){
 			case SPLASH: 	return new SplashScreen(this, assetManager); 
 			case MAIN_MENU: return new MainMenuScreen(this, assetManager, saveService, loadService); 
-			case NEW_GAME:	return new GameScreen(this, assetManager, saveService, GameWorldManager.getGameWorld((String) loadService.loadDataValue("Class", String.class)));
+			case NEW_GAME:	
+			case LOAD_GAME: return getGameScreen();
 			case GAME_OVER: return new GameOverScreen(this);
 			case OPTIONS: 	return new OptionScreen(this);
 			case REPLAY: 	return new ReplayScreen(this);
@@ -35,6 +36,18 @@ public class ScreenFactoryImpl implements ScreenFactory {
 			default: return null;
 		}
 	}
+	
+	private AbstractScreen getGameScreen(){
+		GameWorldManager.GameContext context = loadService.loadDataValue("Context", GameWorldManager.GameContext.class);
+		gameWorldManager.setContext(context);		
+		switch (context){
+			case ENCOUNTER: return new EncounterScreen(this, assetManager, saveService, new Encounter(null), GameWorldManager.getGameWorld((String) loadService.loadDataValue("Class", String.class)));
+			case WORLD_MAP: return new GameScreen(this, assetManager, saveService, null);
+			default: return null;
+		}
+		
+	}
+	
 	
 	@Override
 	public Game getGame() {

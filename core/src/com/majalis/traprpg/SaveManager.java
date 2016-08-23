@@ -52,6 +52,7 @@ public class SaveManager implements SaveService, LoadService{
         }
         else {
         	save.data.put("Class", " ");
+        	save.data.put("Context", GameWorldManager.GameContext.ENCOUNTER);
         	saveToJson(save);	
         }
         return save==null ? new Save() : save;
