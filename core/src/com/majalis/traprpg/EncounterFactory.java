@@ -37,16 +37,24 @@ public class EncounterFactory {
 		// Id 0
 		endScenes.add(encounterEnd);
 		scenes.add(encounterEnd);
-		ObjectMap<Integer, Scene> classMap = new ObjectMap<Integer, Scene>();
+		ObjectMap<Integer, Scene> sceneMap = new ObjectMap<Integer, Scene>();
 		int ii = 1;
 		for (GameWorldManager.ClassEnum jobClass: GameWorldManager.ClassEnum.values()){
 			Scene newScene = new TextScene(getSceneMap(getSceneCodeList(0), getSceneList(encounterEnd)), font, "You are now a "+jobClass.getLabel().replace("Enchanter", "Enchantress")+".", getMutationList(new Mutation(saveService, "Class", jobClass)));
 			scenes.add(newScene);
-			classMap.put(ii++, newScene);
+			sceneMap.put(ii++, newScene);
 		}
-		ChoiceScene branch = new ChoiceScene(classMap, assetManager, font);
+		ChoiceScene branch = new ChoiceScene(sceneMap, assetManager, font);
 		scenes.add(branch);
-		scenes.add(new TextScene(getSceneMap(getSceneCodeList(ii), getSceneList(branch)), font, "Please choose your class.", getMutationList(new Mutation())));
+		Array<String> script = new Array<String>();
+		script.addAll("Please choose your class.", "You're looking mighty fine.", "Welcome to the world of tRaPG!");
+		sceneMap = getSceneMap(getSceneCodeList(ii++), getSceneList(branch));
+		for (String scriptLine: script){
+			Scene nextScene = new TextScene(sceneMap, font, scriptLine, getMutationList(new Mutation()));
+			scenes.add(nextScene);
+			sceneMap = getSceneMap(getSceneCodeList(ii++), getSceneList(nextScene));
+			
+		}		
 		return new Encounter(scenes, endScenes);
 	}
 	
