@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -11,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.ObjectMap;
 
 /*
  *Screen for displaying Encounters.  UI that Handles player input while in an encounter.
@@ -23,8 +25,12 @@ public class EncounterScreen extends AbstractScreen {
 	private Skin skin;
 	private Sound buttonSound;
 	private String classSelection;
-
-	
+	// these are required for all encounters, possibly - requirements for an individual encounter must be parsed by the EncounterFactory
+	public static final ObjectMap<String, Class<?>> resourceRequirements = new ObjectMap<String, Class<?>>();
+	static {
+		resourceRequirements.put("uiskin.json", Skin.class);
+		resourceRequirements.put("sound.wav", Sound.class);
+	}
 	protected EncounterScreen(ScreenFactory screenFactory, AssetManager assetManager, SaveService saveService, Encounter encounter, String classSelection) {
 		super(screenFactory);
 		this.assetManager = assetManager;
@@ -35,16 +41,6 @@ public class EncounterScreen extends AbstractScreen {
 
 	@Override
 	public void buildStage() {
-		/*for (Resource resource: encounter.getNecessaryResources()){
-			assetManager.load(resource.filename, resource.type);
-		}*/
-		
-		assetManager.load("uiskin.json", Skin.class);
-		assetManager.load("sound.wav", Sound.class);
-		
-		// forcing asynchronous loading to be synchronous
-		assetManager.finishLoading();
-
 		skin = assetManager.get("uiskin.json", Skin.class);
 		buttonSound = assetManager.get("sound.wav", Sound.class);
 		Table table = new Table();
@@ -90,6 +86,14 @@ public class EncounterScreen extends AbstractScreen {
 		batch.end();
 	}
 
+	@Override
+	public void dispose() {
+		for(String path: resourceRequirements.keys()){
+			assetManager.unload(path);
+			
+		}
+	}
+	
 	private ClickListener getListener(final String selection){
 		return new ClickListener(){
 	        @Override

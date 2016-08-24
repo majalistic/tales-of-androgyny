@@ -1,5 +1,6 @@
 package com.majalis.traprpg;
 
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.utils.ObjectMap;
 /*
@@ -10,10 +11,12 @@ public class GameOverScreen extends AbstractScreen {
 	public static final ObjectMap<String, Class<?>> resourceRequirements = new ObjectMap<String, Class<?>>();
 	static {
 	}
+	private final AssetManager assetManager;
 	private int clocktick;
 	
-	public GameOverScreen(ScreenFactory factory) {
+	public GameOverScreen(ScreenFactory factory, AssetManager assetManager) {
 		super(factory);
+		this.assetManager = assetManager;
 		clocktick = 0;
 	}
 
@@ -42,4 +45,11 @@ public class GameOverScreen extends AbstractScreen {
 		super.show();
 		font.getData().setScale(4, 4);
 	}	
+	
+	@Override
+	public void dispose() {
+		for(String path: resourceRequirements.keys()){
+			assetManager.unload(path);
+		}
+	}
 }

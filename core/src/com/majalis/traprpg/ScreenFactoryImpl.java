@@ -15,6 +15,7 @@ public class ScreenFactoryImpl implements ScreenFactory {
 	private final LoadService loadService;	
 	private final GameWorldManager gameWorldManager;
 	private final EncounterFactory encounterFactory;
+	private boolean loading;
 	private int temp;
 	
 	public ScreenFactoryImpl(Game game, AssetManager assetManager, SaveManager saveManager, GameWorldManager gameWorldManager, EncounterFactory encounterFactory) {
@@ -24,14 +25,16 @@ public class ScreenFactoryImpl implements ScreenFactory {
 		this.loadService = saveManager;
 		this.gameWorldManager = gameWorldManager;
 		this.encounterFactory = encounterFactory;
-		temp = 0;
+		loading = true;
+		temp = 0;		
 	}
 
 	@Override  
 	public AbstractScreen getScreen(ScreenEnum screenRequest) {
 		// this needs to be moved
 		GameWorldManager.GameContext context = loadService.loadDataValue("Context", GameWorldManager.GameContext.class);
-		gameWorldManager.setContext(context);		
+		gameWorldManager.setContext(context);	
+		AbstractScreen tempScreen;
 		switch(screenRequest){
 			case SPLASH: 
 				return new SplashScreen(this, assetManager, 100);
@@ -41,39 +44,62 @@ public class ScreenFactoryImpl implements ScreenFactory {
 				}
 				break;
 			case NEW_GAME:	
-			case ENCOUNTER: return getEncounter();
-			case LOAD_GAME: return getGameScreen();
+			case ENCOUNTER: 
+				tempScreen = getEncounter();
+				if (tempScreen != null) return tempScreen;
+				break; 
+			case LOAD_GAME: 
+				tempScreen = getGameScreen();
+				if (tempScreen != null) return tempScreen;
+				break;
 			case GAME_OVER:				
 				if (getAssetCheck(GameOverScreen.resourceRequirements)){
-					return new GameOverScreen(this);
+					return new GameOverScreen(this, assetManager);
 				}
 				break;
 			case OPTIONS: 	return new OptionScreen(this);
 			case REPLAY: 	return new ReplayScreen(this);
 			case EXIT: 		return new ExitScreen(this);
 		}
+		loading = true;
 		return new LoadScreen(this, assetManager, screenRequest);
 	}
 
 	private boolean getAssetCheck(ObjectMap<String, Class<?>> pathToType){
+		// if the loading screen has just loaded the assets, don't perform the checks or increment the reference counts
+		if (loading){
+			loading = false;
+			return true;
+		}
+		// if screens are being switched but no assets need to be loaded, don't call the loading screen
 		boolean assetsLoaded = true;
 		for (String path: pathToType.keys()){
 			if (!assetManager.isLoaded(path)){
-				assetManager.load(path, pathToType.get(path));
 				assetsLoaded = false;
 			}
+			assetManager.load(path, pathToType.get(path));
 		}
 		return assetsLoaded;
 	}
 	
 	private AbstractScreen getEncounter(){
-		return new EncounterScreen(this, assetManager, saveService, encounterFactory.getEncounter(temp++), GameWorldManager.getGameWorld((String) loadService.loadDataValue("Class", String.class)));
+		if (getAssetCheck(EncounterScreen.resourceRequirements)){
+			return new EncounterScreen(this, assetManager, saveService, encounterFactory.getEncounter(temp++), GameWorldManager.getGameWorld((String) loadService.loadDataValue("Class", String.class)));
+		}
+		else {
+			return null;
+		}
+		
 	}
 	
 	private AbstractScreen getGameScreen(){
 		switch (gameWorldManager.getGameContext()){
 			case ENCOUNTER: return getEncounter();
-			case WORLD_MAP: return new GameScreen(this, assetManager, saveService, null);
+			case WORLD_MAP: 
+				if (getAssetCheck(GameScreen.resourceRequirements)){
+					return new GameScreen(this, assetManager, saveService, null);
+				}
+				else return null;
 			default: return null;
 		}	
 	}

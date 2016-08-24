@@ -85,7 +85,6 @@ public class MainMenuScreen extends AbstractScreen {
 
 	@Override
 	public void dispose() {
-		// this should clear the loaded assets, but this works fine for now - don't call dispose, or the asset manager will stop functioning!
 		for(String path: resourceRequirements.keys()){
 			assetManager.unload(path);
 		}

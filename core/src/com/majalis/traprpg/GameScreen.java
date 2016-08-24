@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.ObjectMap;
 /*
  * The screen that displays the world map.  UI that Handles player input while on the world map - will delegate to other screens depending on the gameWorld state.
  */
@@ -18,7 +19,11 @@ public class GameScreen extends AbstractScreen {
 	private final GameWorld world;
 	private Skin skin;
 	private Sound buttonSound;
-	
+	public static final ObjectMap<String, Class<?>> resourceRequirements = new ObjectMap<String, Class<?>>();
+	static {
+		resourceRequirements.put("uiskin.json", Skin.class);
+		resourceRequirements.put("sound.wav", Sound.class);
+	}
 	public GameScreen(ScreenFactory factory, AssetManager assetManager, SaveService saveService, GameWorld world) {
 		super(factory);
 		this.assetManager = assetManager;
@@ -64,6 +69,13 @@ public class GameScreen extends AbstractScreen {
 		batch.setProjectionMatrix(camera.combined);
 		camera.update();
 		batch.end();
+	}
+	
+	@Override
+	public void dispose() {
+		for(String path: resourceRequirements.keys()){
+			assetManager.unload(path);
+		}
 	}
 	
 }
