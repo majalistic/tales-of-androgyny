@@ -113,7 +113,7 @@ public class ScreenFactoryImpl implements ScreenFactory {
 			case ENCOUNTER: return getEncounter(elements);
 			case WORLD_MAP: 
 				if (getAssetCheck(GameScreen.resourceRequirements)){
-					return new GameScreen(this, elements, assetManager, saveService, null);
+					return new GameScreen(this, elements, assetManager, saveService, gameWorldManager.getGameWorld());
 				}
 				else return null;
 			default: return null;

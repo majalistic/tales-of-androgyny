@@ -59,7 +59,15 @@ public class GameScreen extends AbstractScreen {
 	@Override
 	public void render(float delta) {
 		super.render(delta);
-		draw();
+		
+		world.gameLoop();
+		if (world.gameExit){
+			showScreen(ScreenEnum.MAIN_MENU);
+		}
+		else {
+			draw();
+		}
+		
 	}
 	
 	public void draw(){

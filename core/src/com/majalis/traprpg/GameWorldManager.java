@@ -8,8 +8,8 @@ public class GameWorldManager {
 	public GameWorldManager(){
 	}
 	
-	public static String getGameWorld(String characterClass) {
-		return characterClass;
+	public GameWorld getGameWorld() {
+		return new GameWorld();
 	}
 
 	public void setContext(GameContext context) {
