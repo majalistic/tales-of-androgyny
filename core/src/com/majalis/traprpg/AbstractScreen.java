@@ -65,7 +65,6 @@ public abstract class AbstractScreen extends Stage implements Screen {
     }
  
     @Override public void hide() {
-    	batch.dispose();
     	font.dispose();
     }
     @Override public void pause() {}

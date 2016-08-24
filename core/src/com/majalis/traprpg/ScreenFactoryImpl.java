@@ -21,16 +21,18 @@ public class ScreenFactoryImpl implements ScreenFactory {
 	private final LoadService loadService;	
 	private final GameWorldManager gameWorldManager;
 	private final EncounterFactory encounterFactory;
+	private final SpriteBatch batch;
 	private boolean loading;
 	private int temp;
 	
-	public ScreenFactoryImpl(Game game, AssetManager assetManager, SaveManager saveManager, GameWorldManager gameWorldManager, EncounterFactory encounterFactory) {
+	public ScreenFactoryImpl(Game game, AssetManager assetManager, SaveManager saveManager, GameWorldManager gameWorldManager, EncounterFactory encounterFactory, SpriteBatch batch) {
 		this.game = game;
 		this.assetManager = assetManager;
 		this.saveService = saveManager;
 		this.loadService = saveManager;
 		this.gameWorldManager = gameWorldManager;
 		this.encounterFactory = encounterFactory;
+		this.batch = batch;
 		loading = true;
 		temp = 0;		
 	}
@@ -41,17 +43,16 @@ public class ScreenFactoryImpl implements ScreenFactory {
 		GameWorldManager.GameContext context = loadService.loadDataValue("Context", GameWorldManager.GameContext.class);
 		gameWorldManager.setContext(context);
 		// this needs to  be moved
-
+		
 		OrthographicCamera camera = new OrthographicCamera();
         FitViewport viewport =  new FitViewport(winWidth, winHeight, camera);
-        SpriteBatch batch = new SpriteBatch();
         BitmapFont font = new BitmapFont();
         ScreenElements elements = new ScreenElements(viewport, batch, font);
         
 		AbstractScreen tempScreen;
 		switch(screenRequest){
 			case SPLASH: 
-				return new SplashScreen(this, elements, assetManager, 100);
+				return new SplashScreen(this, elements, assetManager, 50);
 			case MAIN_MENU: 
 				if (getAssetCheck(MainMenuScreen.resourceRequirements)){
 					return new MainMenuScreen(this, elements, assetManager, saveService, loadService); 
@@ -98,12 +99,11 @@ public class ScreenFactoryImpl implements ScreenFactory {
 	
 	private AbstractScreen getEncounter(ScreenElements elements){
 		if (getAssetCheck(EncounterScreen.resourceRequirements)){
-			return new EncounterScreen(this, elements, assetManager, saveService, encounterFactory.getEncounter(temp++), GameWorldManager.getGameWorld((String) loadService.loadDataValue("Class", String.class)));
+			return new EncounterScreen(this, elements, assetManager, saveService, encounterFactory.getEncounter(temp++, elements.getFont()));
 		}
 		else {
 			return null;
 		}
-		
 	}
 	
 	private AbstractScreen getGameScreen(ScreenElements elements){

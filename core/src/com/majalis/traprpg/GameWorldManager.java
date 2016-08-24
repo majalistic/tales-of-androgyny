@@ -20,13 +20,20 @@ public class GameWorldManager {
 		return context;
 	}
 	
-	private enum ClassEnum {
-		WARRIOR,
-		PALADIN,
-		THIEF,
-		RANGER,
-		MAGE,
-		ENCHANTRESS
+	public enum ClassEnum {
+		WARRIOR ("Warrior"),
+		PALADIN ("Paladin"),
+		THIEF ("Thief"),
+		RANGER ("Ranger"),
+		MAGE ("Mage"),
+		ENCHANTRESS ("Enchanter");
+		
+		private final String label;
+
+		ClassEnum(String label) {
+		    this.label = label;
+		 }
+		public String getLabel(){return label;}
 	}
 	
 	public enum GameContext {
