@@ -11,7 +11,14 @@ import com.badlogic.gdx.utils.ObjectMap;
  */
 public class SaveManager implements SaveService, LoadService{
     
-    private boolean encoded;
+    private static ObjectMap<String, Object> defaultSaveData;
+    static{
+    	defaultSaveData = new ObjectMap<String, Object>();
+    	defaultSaveData.put("Class", " ");
+    	defaultSaveData.put("EncounterCode", 0);
+    	defaultSaveData.put("Context", GameWorldManager.GameContext.ENCOUNTER);
+    }
+	private boolean encoded;
     private final FileHandle file;   
     private final Save save;
    
@@ -24,6 +31,10 @@ public class SaveManager implements SaveService, LoadService{
     public void saveDataValue(String key, Object object){
         save.data.put(key, object);
         saveToJson(); //Saves current save immediately.
+    }
+    
+    public void newSave(){
+    	saveToJson(getDefaultSave());
     }
     
     @SuppressWarnings("unchecked")
@@ -51,14 +62,24 @@ public class SaveManager implements SaveService, LoadService{
 	        else save = json.fromJson(Save.class,file.readString());
         }
         else {
-        	save.data.put("Class", " ");
-        	save.data.put("Context", GameWorldManager.GameContext.ENCOUNTER);
-        	saveToJson(save);	
+        	save = getDefaultSave();
         }
         return save==null ? new Save() : save;
     }
     
+    private Save getDefaultSave(){
+    	Save defaultSave = new Save(defaultSaveData);
+    	return defaultSave;
+    }
+    
+    
     private static class Save{
-        public ObjectMap<String, Object> data = new ObjectMap<String, Object>();
+    	public ObjectMap<String, Object> data = new ObjectMap<String, Object>();
+    	public Save(){
+    		
+    	}
+    	public Save(ObjectMap<String, Object> data){
+    		this.data = data;
+    	}        
     }
 }

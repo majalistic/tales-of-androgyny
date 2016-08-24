@@ -101,8 +101,8 @@ public class MainMenuScreen extends AbstractScreen {
 	        	}
 	        	else {
 	        		if (screenSelection == ScreenEnum.NEW_GAME){
-	        			saveService.saveDataValue("Class", "");
-	        			saveService.saveDataValue("Context", GameWorldManager.GameContext.ENCOUNTER);
+	        			// ONLY CALL THIS TO DESTROY OLD DATA AND REPLACE WITH A BRAND NEW SAVE
+	        			saveService.newSave();
 	        		}
 	        	}
 	        	showScreen(screenSelection);    

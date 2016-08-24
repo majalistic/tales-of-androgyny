@@ -4,4 +4,6 @@ package com.majalis.traprpg;
  */
 public interface SaveService {
     public void saveDataValue(String key, Object object);
+    
+    public void newSave();
 }
