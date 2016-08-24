@@ -2,48 +2,40 @@ package com.majalis.traprpg;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.utils.ObjectMap;
-/*
- * Splash screen for initial load.
- */
-public class SplashScreen extends AbstractScreen {
+
+public class LoadScreen extends AbstractScreen {
 
 	private final AssetManager assetManager;
-	private final int minTime;
+	private final ScreenEnum screenRequest;
 	private int clocktick;
 	
-	public SplashScreen(ScreenFactory factory, AssetManager assetManager, int minTime) {
-		super(factory);
+	protected LoadScreen(ScreenFactory screenFactory, AssetManager assetManager, ScreenEnum screenRequest) {
+		super(screenFactory);
 		this.assetManager = assetManager;
-		this.minTime = minTime;
+		this.screenRequest = screenRequest;
 		clocktick = 0;
 	}
 
 	@Override
 	public void buildStage() {
-		// asynchronous
-		ObjectMap<String, Class<?>> pathToType = MainMenuScreen.resourceRequirements;
-		for (String path: pathToType.keys()){
-			if (!assetManager.isLoaded(path)){
-				assetManager.load(path, pathToType.get(path));
-			}
-		}
+		// load synchronously the loadscreen asset if it isn't already loaded
+
 	}
-	
+
 	@Override
-	public void render(float delta) {
+	public void render(float delta){
 		super.render(delta);
 		OrthographicCamera camera = (OrthographicCamera) getCamera();
         batch.setTransformMatrix(camera.view);
 		batch.setProjectionMatrix(camera.combined);
 		camera.update();
 		batch.begin();
-		if (!assetManager.update() || clocktick < minTime){
+		if (!assetManager.update() || clocktick < 25){
 			font.draw(batch, String.valueOf(clocktick++), 1675, 500);
 			font.draw(batch, "Loading: " + (assetManager.getProgress() * 100) + "%", 1125, 750);
 		}	
 		else {
-			showScreen(ScreenEnum.MAIN_MENU);
+			showScreen(screenRequest);
 		}
 		batch.end();
 	}
@@ -53,4 +45,6 @@ public class SplashScreen extends AbstractScreen {
 		super.show();
 		font.getData().setScale(4, 4);
 	}	
+	
+	
 }

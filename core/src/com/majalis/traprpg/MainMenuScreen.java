@@ -10,11 +10,18 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.ObjectMap;
 /*
  * The main menu screen loaded initially.  UI that handles player input to switch to different screens.
  */
 public class MainMenuScreen extends AbstractScreen {
 
+	public static final ObjectMap<String, Class<?>> resourceRequirements = new ObjectMap<String, Class<?>>();
+	static {
+		resourceRequirements.put("uiskin.json", Skin.class);
+		resourceRequirements.put("wereslut.png", Texture.class);
+		resourceRequirements.put("sound.wav", Sound.class);
+	}
 	private final AssetManager assetManager;
 	private final SaveService saveService;
 	private final LoadService loadService;
@@ -34,9 +41,7 @@ public class MainMenuScreen extends AbstractScreen {
 	}
 
 	@Override
-	public void buildStage() {
-		
-			
+	public void buildStage() {		
 		Table table = new Table();
 		
 		Array<String> buttonLabels = new Array<String>();
@@ -57,8 +62,7 @@ public class MainMenuScreen extends AbstractScreen {
 	}
 	
 	@Override
-	public void render(float delta) {
-		super.render(delta);
+	public void render(float delta) {super.render(delta);
 		OrthographicCamera camera = (OrthographicCamera) getCamera();
         batch.setTransformMatrix(camera.view);
         
@@ -82,7 +86,9 @@ public class MainMenuScreen extends AbstractScreen {
 	@Override
 	public void dispose() {
 		// this should clear the loaded assets, but this works fine for now - don't call dispose, or the asset manager will stop functioning!
-		// assetManager.clear();
+		for(String path: resourceRequirements.keys()){
+			assetManager.unload(path);
+		}
 	}
 	
 	private ClickListener getListener(final ScreenEnum screenSelection){
@@ -93,15 +99,14 @@ public class MainMenuScreen extends AbstractScreen {
 	        	if (screenSelection == ScreenEnum.LOAD_GAME){
 	        		loadService.loadDataValue("Class", String.class);
 	        		loadService.loadDataValue("Context", GameWorldManager.GameContext.class);
-	        		showScreen(ScreenEnum.NEW_GAME); 
 	        	}
 	        	else {
 	        		if (screenSelection == ScreenEnum.NEW_GAME){
 	        			saveService.saveDataValue("Class", "");
 	        			saveService.saveDataValue("Context", GameWorldManager.GameContext.ENCOUNTER);
 	        		}
-	        		showScreen(screenSelection);    
 	        	}
+	        	showScreen(screenSelection);    
 	        }
 	    };
 	}

@@ -41,7 +41,7 @@ public abstract class AbstractScreen extends Stage implements Screen {
     	// Show new screen
     	newScreen.buildStage();
         game.setScreen(newScreen);
-    }
+    }  
     
     @Override
     public void render(float delta) {
