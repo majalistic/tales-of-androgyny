@@ -23,7 +23,7 @@ public class ScreenFactoryImpl implements ScreenFactory {
 	private final EncounterFactory encounterFactory;
 	private final SpriteBatch batch;
 	private boolean loading;
-	private int temp;
+	private int currentEncounterCode;
 	
 	public ScreenFactoryImpl(Game game, AssetManager assetManager, SaveManager saveManager, GameWorldManager gameWorldManager, EncounterFactory encounterFactory, SpriteBatch batch) {
 		this.game = game;
@@ -34,7 +34,7 @@ public class ScreenFactoryImpl implements ScreenFactory {
 		this.encounterFactory = encounterFactory;
 		this.batch = batch;
 		loading = true;
-		temp = 0;		
+		currentEncounterCode = loadService.loadDataValue("EncounterCode", Integer.class);
 	}
 
 	@Override  
@@ -42,6 +42,7 @@ public class ScreenFactoryImpl implements ScreenFactory {
 		// this needs to be moved
 		GameWorldManager.GameContext context = loadService.loadDataValue("Context", GameWorldManager.GameContext.class);
 		gameWorldManager.setContext(context);
+		currentEncounterCode = loadService.loadDataValue("EncounterCode", Integer.class);
 		// this needs to  be moved
 		
 		OrthographicCamera camera = new OrthographicCamera();
@@ -99,7 +100,8 @@ public class ScreenFactoryImpl implements ScreenFactory {
 	
 	private AbstractScreen getEncounter(ScreenElements elements){
 		if (getAssetCheck(EncounterScreen.resourceRequirements)){
-			return new EncounterScreen(this, elements, assetManager, saveService, encounterFactory.getEncounter(temp++, elements.getFont()));
+			saveService.saveDataValue("EncounterCode", currentEncounterCode + 1);
+			return new EncounterScreen(this, elements, assetManager, saveService, encounterFactory.getEncounter(currentEncounterCode++, elements.getFont()));
 		}
 		else {
 			return null;

@@ -23,10 +23,10 @@ public class EncounterFactory {
 	public Encounter getEncounter(int encounterCode, BitmapFont font) {
 		// temporarily stored in a static switch block until file retrieval for encounters is implemented
 		switch (encounterCode){
-			case 0:
+			case 0: return getClassChoiceEncounter(font);
 			case 1:
 			case 2: 
-			default: return getClassChoiceEncounter(font);
+			default: return getDefaultEncounter(font);
 		}
 	}
 	
@@ -49,6 +49,26 @@ public class EncounterFactory {
 		Array<String> script = new Array<String>();
 		script.addAll("Please choose your class.", "You're looking mighty fine.", "Welcome to the world of tRaPG!");
 		sceneMap = getSceneMap(getSceneCodeList(ii++), getSceneList(branch));
+		for (String scriptLine: script){
+			Scene nextScene = new TextScene(sceneMap, font, scriptLine, getMutationList(new Mutation()));
+			scenes.add(nextScene);
+			sceneMap = getSceneMap(getSceneCodeList(ii++), getSceneList(nextScene));
+			
+		}		
+		return new Encounter(scenes, endScenes);
+	}
+	
+	private Encounter getDefaultEncounter(BitmapFont font){
+		Array<Scene> scenes = new Array<Scene>();
+		Array<EndScene> endScenes = new Array<EndScene>();
+		EndScene encounterEnd = new EndScene(new ObjectMap<Integer, Scene>(), EndScene.Type.ENCOUNTER_OVER);
+		// Id 0
+		endScenes.add(encounterEnd);
+		scenes.add(encounterEnd);
+		Array<String> script = new Array<String>();
+		script.addAll("There is nothing left here to do.", "It's actually rather sexy looking.", "You encounter a stick!");
+		Integer ii = 1;
+		ObjectMap<Integer, Scene> sceneMap = getSceneMap(getSceneCodeList(ii++), getSceneList(encounterEnd));
 		for (String scriptLine: script){
 			Scene nextScene = new TextScene(sceneMap, font, scriptLine, getMutationList(new Mutation()));
 			scenes.add(nextScene);

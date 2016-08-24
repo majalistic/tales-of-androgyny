@@ -20,7 +20,7 @@ public class SaveManager implements SaveService, LoadService{
     }
 	private boolean encoded;
     private final FileHandle file;   
-    private final Save save;
+    private Save save;
    
     public SaveManager(boolean encoded){
         this.encoded = encoded;
@@ -69,9 +69,9 @@ public class SaveManager implements SaveService, LoadService{
     
     private Save getDefaultSave(){
     	Save defaultSave = new Save(defaultSaveData);
+    	save = defaultSave;
     	return defaultSave;
     }
-    
     
     private static class Save{
     	public ObjectMap<String, Object> data = new ObjectMap<String, Object>();
@@ -79,7 +79,9 @@ public class SaveManager implements SaveService, LoadService{
     		
     	}
     	public Save(ObjectMap<String, Object> data){
-    		this.data = data;
+    		for (String key: data.keys()){
+    			this.data.put(key, data.get(key));
+    		}
     	}        
     }
 }
