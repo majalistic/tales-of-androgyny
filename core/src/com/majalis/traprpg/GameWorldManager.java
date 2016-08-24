@@ -1,7 +1,5 @@
 package com.majalis.traprpg;
 
-import com.majalis.traprpg.GameWorldManager.GameContext;
-
 public class GameWorldManager {
 
 	private ClassEnum characterClass;
@@ -14,7 +12,7 @@ public class GameWorldManager {
 		return characterClass;
 	}
 
-	public void setContext(GameContext context2) {
+	public void setContext(GameContext context) {
 		this.context = context;
 	}
 	
@@ -35,8 +33,4 @@ public class GameWorldManager {
 		ENCOUNTER,
 		WORLD_MAP
 	}
-
-
-
-
 }
