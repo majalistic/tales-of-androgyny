@@ -15,15 +15,16 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 public abstract class AbstractScreen extends Stage implements Screen {
 	private final Game game;
 	private final ScreenFactory screenFactory;
-	private static final int winWidth = 1280;
-	private static final int winHeight = 720;
-	protected SpriteBatch batch;
-	protected BitmapFont font;
+
+	protected final SpriteBatch batch;
+	protected final BitmapFont font;
 	
-    protected AbstractScreen(ScreenFactory screenFactory) {
-        super(new FitViewport(winWidth, winHeight, new OrthographicCamera()));
+    protected AbstractScreen(ScreenFactory screenFactory, ScreenElements elements) {
+        super(elements.getViewport());
         this.game = screenFactory.getGame();
         this.screenFactory = screenFactory;
+        this.batch = elements.getBatch();
+        this.font = elements.getFont();
     }
  
     // Subclasses must load actors in this method
@@ -57,8 +58,6 @@ public abstract class AbstractScreen extends Stage implements Screen {
     @Override
     public void show() {
         Gdx.input.setInputProcessor(this);
-        batch = new SpriteBatch();
-        font = new BitmapFont();
         font.setUseIntegerPositions(false);
     }
  

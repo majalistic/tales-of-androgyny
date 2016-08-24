@@ -8,8 +8,8 @@ public class OptionScreen extends AbstractScreen {
 
 	private int clocktick;
 	
-	public OptionScreen(ScreenFactory factory) {
-		super(factory);
+	public OptionScreen(ScreenFactory factory, ScreenElements elements) {
+		super(factory, elements);
 		clocktick = 0;
 	}
 

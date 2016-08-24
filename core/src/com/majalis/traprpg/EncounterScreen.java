@@ -31,8 +31,8 @@ public class EncounterScreen extends AbstractScreen {
 		resourceRequirements.put("uiskin.json", Skin.class);
 		resourceRequirements.put("sound.wav", Sound.class);
 	}
-	protected EncounterScreen(ScreenFactory screenFactory, AssetManager assetManager, SaveService saveService, Encounter encounter, String classSelection) {
-		super(screenFactory);
+	protected EncounterScreen(ScreenFactory screenFactory, ScreenElements elements, AssetManager assetManager, SaveService saveService, Encounter encounter, String classSelection) {
+		super(screenFactory, elements);
 		this.assetManager = assetManager;
 		this.encounter = encounter;
 		this.saveService = saveService;

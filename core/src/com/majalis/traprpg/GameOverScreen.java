@@ -14,8 +14,8 @@ public class GameOverScreen extends AbstractScreen {
 	private final AssetManager assetManager;
 	private int clocktick;
 	
-	public GameOverScreen(ScreenFactory factory, AssetManager assetManager) {
-		super(factory);
+	public GameOverScreen(ScreenFactory factory, ScreenElements elements,  AssetManager assetManager) {
+		super(factory, elements);
 		this.assetManager = assetManager;
 		clocktick = 0;
 	}

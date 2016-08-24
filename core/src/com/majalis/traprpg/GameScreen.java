@@ -24,8 +24,8 @@ public class GameScreen extends AbstractScreen {
 		resourceRequirements.put("uiskin.json", Skin.class);
 		resourceRequirements.put("sound.wav", Sound.class);
 	}
-	public GameScreen(ScreenFactory factory, AssetManager assetManager, SaveService saveService, GameWorld world) {
-		super(factory);
+	public GameScreen(ScreenFactory factory, ScreenElements elements, AssetManager assetManager, SaveService saveService, GameWorld world) {
+		super(factory, elements);
 		this.assetManager = assetManager;
 		this.saveService = saveService;
 		this.world = world;

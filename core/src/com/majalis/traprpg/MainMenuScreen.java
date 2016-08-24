@@ -30,8 +30,8 @@ public class MainMenuScreen extends AbstractScreen {
 	private final Sound buttonSound;
 	private int clocktick = 0;
 
-	public MainMenuScreen(ScreenFactory factory, AssetManager assetManager, SaveService saveService, LoadService loadService) {
-		super(factory);
+	public MainMenuScreen(ScreenFactory factory, ScreenElements elements, AssetManager assetManager, SaveService saveService, LoadService loadService) {
+		super(factory, elements);
 		this.assetManager = assetManager;
 		this.saveService = saveService;
 		this.loadService = loadService;

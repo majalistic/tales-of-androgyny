@@ -8,8 +8,8 @@ public class ReplayScreen extends AbstractScreen {
 
 	private int clocktick;
 	
-	public ReplayScreen(ScreenFactory factory) {
-		super(factory);
+	public ReplayScreen(ScreenFactory factory, ScreenElements elements) {
+		super(factory, elements);
 		clocktick = 0;
 	}
 

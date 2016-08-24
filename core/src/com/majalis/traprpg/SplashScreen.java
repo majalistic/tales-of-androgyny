@@ -12,8 +12,8 @@ public class SplashScreen extends AbstractScreen {
 	private final int minTime;
 	private int clocktick;
 	
-	public SplashScreen(ScreenFactory factory, AssetManager assetManager, int minTime) {
-		super(factory);
+	public SplashScreen(ScreenFactory factory, ScreenElements elements, AssetManager assetManager, int minTime) {
+		super(factory, elements);
 		this.assetManager = assetManager;
 		this.minTime = minTime;
 		clocktick = 0;

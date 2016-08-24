@@ -9,8 +9,8 @@ public class LoadScreen extends AbstractScreen {
 	private final ScreenEnum screenRequest;
 	private int clocktick;
 	
-	protected LoadScreen(ScreenFactory screenFactory, AssetManager assetManager, ScreenEnum screenRequest) {
-		super(screenFactory);
+	protected LoadScreen(ScreenFactory screenFactory, ScreenElements elements, AssetManager assetManager, ScreenEnum screenRequest) {
+		super(screenFactory, elements);
 		this.assetManager = assetManager;
 		this.screenRequest = screenRequest;
 		clocktick = 0;
