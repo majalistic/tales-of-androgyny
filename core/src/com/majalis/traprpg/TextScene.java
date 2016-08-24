@@ -22,6 +22,10 @@ public class TextScene extends Scene  {
 	}
 
 	// this type of TextScene will be one that always pipes from one scene to the next with no branch - there will be another TextScene that actually has branching logic
+	@Override
+	public void poke(){
+		nextScene();
+	}
 	
 	@Override
     public void draw(Batch batch, float parentAlpha) {

@@ -22,10 +22,14 @@ public abstract class Scene extends Group {
 		return isActive;
 	}
 
+
+	public void poke(){
+		
+	}
+	
 	@Override
     public void draw(Batch batch, float parentAlpha) {
 		super.draw(batch, parentAlpha);
     }
 	// scenes of type battle will have access to the battlefactory on initialize, but will not have their battle generated (possibly) until it is lazy-loaded - otherwise they will have their battle dependency injected into them
-	
 }

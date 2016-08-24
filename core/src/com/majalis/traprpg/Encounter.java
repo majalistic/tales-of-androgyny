@@ -33,6 +33,13 @@ public class Encounter {
 		if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)){
 			gameExit = true;
 		}
+		if (Gdx.input.isKeyJustPressed(Keys.ENTER)){
+			for (Scene scene: scenes){
+				if (scene.isActive()){
+					scene.poke();
+				}				
+			}
+		}
 		for (EndScene objScene: endScenes){
 			if (objScene.isActive()){
 				switch(objScene.getType()){
