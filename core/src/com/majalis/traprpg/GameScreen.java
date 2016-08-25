@@ -65,7 +65,6 @@ public class GameScreen extends AbstractScreen {
 		else {
 			draw();
 		}
-		
 	}
 	
 	public void draw(){

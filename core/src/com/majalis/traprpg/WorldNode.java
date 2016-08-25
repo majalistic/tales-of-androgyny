@@ -99,9 +99,5 @@ public class WorldNode extends Group {
 			Vector2 midPoint = new Vector2( (position.x+otherNode.getPosition().x)/2, (position.y+otherNode.getPosition().y)/2);
 			font.draw(batch, "X", (int)midPoint.x, (int)midPoint.y);	
 		}
-		
-		Pixmap shapeDrawing = new Pixmap(800, 800, Pixmap.Format.RGBA8888);
-		shapeDrawing.setColor(Color.WHITE);
-		shapeDrawing.fillCircle((int)position.x, (int)position.y, 800);
     }
 }

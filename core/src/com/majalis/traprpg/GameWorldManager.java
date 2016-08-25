@@ -33,7 +33,8 @@ public class GameWorldManager {
 			}
 		}
 		
-		//printConnections(nodes);
+		// uncomment to see connections gneerated
+		// printConnections(nodes);
 		
 		return new GameWorld(nodes);
 	}
