@@ -24,8 +24,8 @@ public class EncounterFactory {
 		// temporarily stored in a static switch block until file retrieval for encounters is implemented
 		switch (encounterCode){
 			case 0: return getClassChoiceEncounter(font);
-			case 1:
-			case 2: 
+			case 1:	
+			case 2: return getRandomEncounter(font);
 			default: return getDefaultEncounter(font);
 		}
 	}
@@ -56,6 +56,26 @@ public class EncounterFactory {
 			
 		}		
 		return new Encounter(scenes, endScenes);
+	}
+	
+	private Encounter getRandomEncounter(BitmapFont font){
+		Array<Scene> scenes = new Array<Scene>();
+		Array<EndScene> endScenes = new Array<EndScene>();
+		EndScene encounterEnd = new EndScene(new ObjectMap<Integer, Scene>(), EndScene.Type.ENCOUNTER_OVER);
+		// Id 0
+		endScenes.add(encounterEnd);
+		scenes.add(encounterEnd);
+		Array<String> script = new Array<String>();
+		script.addAll("There is nothing left here to do.", "It's so random. :^)", "You encounter a random encounter!");
+		Integer ii = 1;
+		ObjectMap<Integer, Scene> sceneMap = getSceneMap(getSceneCodeList(ii++), getSceneList(encounterEnd));
+		for (String scriptLine: script){
+			Scene nextScene = new TextScene(sceneMap, font, scriptLine, getMutationList(new Mutation()));
+			scenes.add(nextScene);
+			sceneMap = getSceneMap(getSceneCodeList(ii++), getSceneList(nextScene));
+			
+		}		
+		return new Encounter(scenes, endScenes);	
 	}
 	
 	private String getJobClass(GameWorldManager.ClassEnum jobClass){

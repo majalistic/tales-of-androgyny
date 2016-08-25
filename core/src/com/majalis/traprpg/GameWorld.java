@@ -2,6 +2,7 @@ package com.majalis.traprpg;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Array;
 
 /*
@@ -14,7 +15,6 @@ public class GameWorld {
 	public boolean encounterOver;
 	public boolean gameOver;
 	public boolean gameExit;
-	
 	
 	public GameWorld(Array<WorldNode> nodes){
 		this.nodes = nodes;
@@ -34,5 +34,13 @@ public class GameWorld {
 		if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)){
 			gameExit = true;
 		}
+	}
+	
+	public Array<Actor> getActors(){
+		Array<Actor> actors = new Array<Actor>();
+		for (Actor actor: nodes){
+			actors.add(actor);
+		}
+		return actors;
 	}
 }

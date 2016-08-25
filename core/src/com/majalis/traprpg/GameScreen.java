@@ -3,6 +3,7 @@ package com.majalis.traprpg;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -33,12 +34,9 @@ public class GameScreen extends AbstractScreen {
 
 	@Override
 	public void buildStage() {
-		assetManager.load("uiskin.json", Skin.class);
-		assetManager.load("sound.wav", Sound.class);
-		
-		// forcing asynchronous loading to be synchronous
-		assetManager.finishLoading();
-
+		for (Actor actor: world.getActors()){
+			this.addActor(actor);
+		}   
 		skin = assetManager.get("uiskin.json", Skin.class);
 		buttonSound = assetManager.get("sound.wav", Sound.class);
 		Table table = new Table();
@@ -76,6 +74,7 @@ public class GameScreen extends AbstractScreen {
         batch.setTransformMatrix(camera.view);
 		batch.setProjectionMatrix(camera.combined);
 		camera.update();
+		super.draw();
 		batch.end();
 	}
 	
