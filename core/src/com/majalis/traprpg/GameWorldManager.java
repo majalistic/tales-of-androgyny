@@ -1,28 +1,32 @@
 package com.majalis.traprpg;
 
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.ObjectSet;
 /*
  * Generates a world map or returns the world map.
  */
 public class GameWorldManager {
 
-	private final EncounterFactory encounterFactory;
+	private final SaveService saveService;
+	private final LoadService loadService;
 	private GameContext context;
 	
-	public GameWorldManager(EncounterFactory encounterFactory){
-		this.encounterFactory = encounterFactory;
+	public GameWorldManager(SaveManager saveManager){
+		this.saveService = saveManager;
+		this.loadService = saveManager;
 	}
 	
-	public GameWorld getGameWorld(BitmapFont font) {
+	public GameWorld getGameWorld() {
 		Array<WorldNode> nodes = new Array<WorldNode>();
-		
+		Integer[] visitedCodes = loadService.loadDataValue("VisitedList", Object.class);
+		ObjectSet<Integer> visitedCodesSet = new ObjectSet<Integer>();
+		for (Integer ii : visitedCodes){
+			visitedCodesSet.add(ii);
+		}
 		for (int ii = 1; ii <= 10; ii++){
-			Encounter nodeEncounter = encounterFactory.getEncounter(1, font);
 			// 100 = magic number to get the defaultEncounter for now
-			Encounter defaultEncounter  = encounterFactory.getEncounter(100, font);
-			nodes.add(new WorldNode(new Array<WorldNode>(), nodeEncounter, defaultEncounter, new Vector2(ii * 85, 200 + (200 * Math.floorMod(ii, 3))-ii*10), ii));
+			nodes.add(new WorldNode(new Array<WorldNode>(), saveService, loadService, ii, ii-1, 100, new Vector2(ii * 85, 200 + (200 * Math.floorMod(ii, 3))-ii*10), visitedCodesSet.contains(ii) ? true : false));
 		}
 		
 		for (int ii = 0; ii < nodes.size-1; ii++){
@@ -33,9 +37,7 @@ public class GameWorldManager {
 			}
 		}
 		
-		// uncomment to see connections gneerated
-		// printConnections(nodes);
-		
+		nodes.get((Integer)loadService.loadDataValue("NodeCode", Integer.class) - 1).setAsCurrentNode();
 		return new GameWorld(nodes);
 	}
 
@@ -66,16 +68,5 @@ public class GameWorldManager {
 	public enum GameContext {
 		ENCOUNTER,
 		WORLD_MAP
-	}
-	
-	@SuppressWarnings("unused")
-	private void printConnections(Array<WorldNode> nodes){
-		for (WorldNode node: nodes){
-			Array<Integer> connectedNodeCodes = new Array<Integer>();
-			for (WorldNode connectedNode: node.getConnectedNodes()){
-				connectedNodeCodes.add(connectedNode.getCode());
-			}
-			System.out.println(node.getCode() + " is connected to " + connectedNodeCodes);
-		}
 	}
 }

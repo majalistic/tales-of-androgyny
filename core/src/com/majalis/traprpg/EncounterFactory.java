@@ -12,12 +12,10 @@ public class EncounterFactory {
 	
 	private final AssetManager assetManager;
 	private final SaveService saveService;
-	private final LoadService loadService;	
 	
 	public EncounterFactory(AssetManager assetManager, SaveManager saveManager){
 		this.assetManager = assetManager;
 		this.saveService = saveManager;
-		this.loadService = saveManager;
 	}
 	
 	public Encounter getEncounter(int encounterCode, BitmapFont font) {
@@ -25,7 +23,14 @@ public class EncounterFactory {
 		switch (encounterCode){
 			case 0: return getClassChoiceEncounter(font);
 			case 1:	
-			case 2: return getRandomEncounter(font);
+			case 2: 
+			case 3:
+			case 4:
+			case 5:
+			case 6:
+			case 7:
+			case 8:
+			case 9: return getRandomEncounter(font);
 			default: return getDefaultEncounter(font);
 		}
 	}

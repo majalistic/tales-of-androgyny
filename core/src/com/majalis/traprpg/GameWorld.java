@@ -12,16 +12,16 @@ public class GameWorld {
 
 	private Array<WorldNode> nodes;
 	public boolean displayHUD;
-	public boolean encounterOver;
 	public boolean gameOver;
 	public boolean gameExit;
+	public boolean encounterSelected;
 	
 	public GameWorld(Array<WorldNode> nodes){
 		this.nodes = nodes;
 		displayHUD = true;
-		encounterOver = false;
 		gameOver = false;
 		gameExit = false;
+		encounterSelected = false;
 	}
 	
 	public void gameLoop(){
@@ -33,6 +33,12 @@ public class GameWorld {
 		}
 		if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)){
 			gameExit = true;
+		}
+		
+		for (WorldNode node: nodes){
+			if (node.isSelected()){
+				encounterSelected = true;
+			}
 		}
 	}
 	

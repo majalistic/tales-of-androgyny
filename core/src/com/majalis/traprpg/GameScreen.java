@@ -4,11 +4,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.ObjectMap;
 /*
  * The screen that displays the world map.  UI that Handles player input while on the world map - will delegate to other screens depending on the gameWorld state.
@@ -16,10 +12,7 @@ import com.badlogic.gdx.utils.ObjectMap;
 public class GameScreen extends AbstractScreen {
 
 	private final AssetManager assetManager;
-	private final SaveService saveService;
 	private final GameWorld world;
-	private Skin skin;
-	private Sound buttonSound;
 	public static final ObjectMap<String, Class<?>> resourceRequirements = new ObjectMap<String, Class<?>>();
 	static {
 		resourceRequirements.put("uiskin.json", Skin.class);
@@ -28,7 +21,6 @@ public class GameScreen extends AbstractScreen {
 	public GameScreen(ScreenFactory factory, ScreenElements elements, AssetManager assetManager, SaveService saveService, GameWorld world) {
 		super(factory, elements);
 		this.assetManager = assetManager;
-		this.saveService = saveService;
 		this.world = world;
 	}
 
@@ -37,21 +29,6 @@ public class GameScreen extends AbstractScreen {
 		for (Actor actor: world.getActors()){
 			this.addActor(actor);
 		}   
-		skin = assetManager.get("uiskin.json", Skin.class);
-		buttonSound = assetManager.get("sound.wav", Sound.class);
-		Table table = new Table();
-		TextButton button = new TextButton("New Encounter", skin);
-		button.addListener(new ClickListener(){
-	        @Override
-	        public void clicked(InputEvent event, float x, float y) {
-	        	buttonSound.play();
-	        	saveService.saveDataValue("Context", GameWorldManager.GameContext.ENCOUNTER);
-	        	showScreen(ScreenEnum.ENCOUNTER);
-	        }
-	    });
-		table.add(button).row();
-        table.setFillParent(true);
-        this.addActor(table);	
 	}
 	
 	@Override
@@ -61,6 +38,9 @@ public class GameScreen extends AbstractScreen {
 		world.gameLoop();
 		if (world.gameExit){
 			showScreen(ScreenEnum.MAIN_MENU);
+		}
+		else if (world.encounterSelected){
+			showScreen(ScreenEnum.ENCOUNTER);
 		}
 		else {
 			draw();

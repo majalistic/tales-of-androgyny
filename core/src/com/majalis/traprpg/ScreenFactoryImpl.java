@@ -100,8 +100,7 @@ public class ScreenFactoryImpl implements ScreenFactory {
 	
 	private AbstractScreen getEncounter(ScreenElements elements){
 		if (getAssetCheck(EncounterScreen.resourceRequirements)){
-			saveService.saveDataValue("EncounterCode", currentEncounterCode + 1);
-			return new EncounterScreen(this, elements, assetManager, saveService, encounterFactory.getEncounter(currentEncounterCode++, elements.getFont()));
+			return new EncounterScreen(this, elements, assetManager, saveService, encounterFactory.getEncounter(currentEncounterCode, elements.getFont()));
 		}
 		else {
 			return null;
@@ -113,7 +112,7 @@ public class ScreenFactoryImpl implements ScreenFactory {
 			case ENCOUNTER: return getEncounter(elements);
 			case WORLD_MAP: 
 				if (getAssetCheck(GameScreen.resourceRequirements)){
-					return new GameScreen(this, elements, assetManager, saveService, gameWorldManager.getGameWorld(elements.getFont()));
+					return new GameScreen(this, elements, assetManager, saveService, gameWorldManager.getGameWorld());
 				}
 				else return null;
 			default: return null;

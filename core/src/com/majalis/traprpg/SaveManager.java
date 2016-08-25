@@ -16,6 +16,9 @@ public class SaveManager implements SaveService, LoadService{
     	defaultSaveData = new ObjectMap<String, Object>();
     	defaultSaveData.put("Class", " ");
     	defaultSaveData.put("EncounterCode", 0);
+    	// initial node is code "1" for now
+    	defaultSaveData.put("NodeCode", 1);
+    	defaultSaveData.put("VisitedList", new Integer[]{1});
     	defaultSaveData.put("Context", GameWorldManager.GameContext.ENCOUNTER);
     }
 	private boolean encoded;
