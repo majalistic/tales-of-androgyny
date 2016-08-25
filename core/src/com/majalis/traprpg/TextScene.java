@@ -34,6 +34,7 @@ public class TextScene extends Scene  {
 		font.draw(batch, toDisplay, 600, 400);
     }
 	
+	// need to differentiate a "first trigger" setActive from a loading setActive, otherwise loading will cause the mutations to apply again
 	@Override
 	protected void setActive() {
 		isActive = true;
