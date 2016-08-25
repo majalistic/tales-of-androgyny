@@ -1,15 +1,17 @@
 package com.majalis.traprpg;
 
+import com.badlogic.gdx.utils.Array;
+
 public class GameWorldManager {
 
-	private ClassEnum characterClass;
 	private GameContext context;
 	
 	public GameWorldManager(){
 	}
 	
 	public GameWorld getGameWorld() {
-		return new GameWorld();
+		Array<WorldNode> nodes = new Array<WorldNode>();
+		return new GameWorld(nodes);
 	}
 
 	public void setContext(GameContext context) {
