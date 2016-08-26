@@ -24,7 +24,6 @@ public class MainMenuScreen extends AbstractScreen {
 	}
 	private final AssetManager assetManager;
 	private final SaveService saveService;
-	private final LoadService loadService;
 	private final Skin skin; 
 	private final Texture wereslutImage;
 	private final Sound buttonSound;
@@ -34,7 +33,6 @@ public class MainMenuScreen extends AbstractScreen {
 		super(factory, elements);
 		this.assetManager = assetManager;
 		this.saveService = saveService;
-		this.loadService = loadService;
 		this.skin = assetManager.get("uiskin.json", Skin.class);
 		this.wereslutImage = assetManager.get("wereslut.png", Texture.class);
 		this.buttonSound = assetManager.get("sound.wav", Sound.class);
