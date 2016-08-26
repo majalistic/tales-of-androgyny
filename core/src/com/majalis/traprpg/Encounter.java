@@ -8,6 +8,7 @@ import com.badlogic.gdx.utils.Array;
 public class Encounter {
 	private final Array<Scene> scenes;
 	private final Array<EndScene> endScenes;
+	private final Array<BattleScene> battleScenes;
 	private final Scene startScene;
 	public boolean displayHUD;
 	public boolean encounterOver;
@@ -16,10 +17,11 @@ public class Encounter {
 	public boolean gameExit;
 	
 	
-	public Encounter(Array<Scene> scenes, Array<EndScene> endScenes, Scene startScene){
+	public Encounter(Array<Scene> scenes, Array<EndScene> endScenes, Array<BattleScene> battleScenes, Scene startScene){
 		this.scenes = scenes;
 		this.endScenes = endScenes;
 		this.startScene = startScene;
+		this.battleScenes = battleScenes;
 		displayHUD = true;
 		encounterOver = false;
 		gameOver = false;
@@ -41,6 +43,12 @@ public class Encounter {
 				if (scene.isActive()){
 					scene.poke();
 				}				
+			}
+		}
+		
+		for (BattleScene objScene : battleScenes){
+			if (objScene.isActive()){
+				battle = true;
 			}
 		}
 		for (EndScene objScene: endScenes){

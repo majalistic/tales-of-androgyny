@@ -41,6 +41,10 @@ public class EncounterScreen extends AbstractScreen {
 	public void render(float delta) {
 		super.render(delta);
 		encounter.gameLoop();
+		if (encounter.battle){
+			saveService.saveDataValue("Context", SaveManager.GameContext.BATTLE);
+			showScreen(ScreenEnum.BATTLE);
+		}
 		if (encounter.encounterOver){
 			saveService.saveDataValue("Context", SaveManager.GameContext.WORLD_MAP);
 			saveService.saveDataValue("SceneCode", 0);

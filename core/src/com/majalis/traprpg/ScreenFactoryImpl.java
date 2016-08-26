@@ -21,16 +21,18 @@ public class ScreenFactoryImpl implements ScreenFactory {
 	private final LoadService loadService;	
 	private final GameWorldFactory gameWorldFactory;
 	private final EncounterFactory encounterFactory;
+	private final BattleFactory battleFactory;
 	private final SpriteBatch batch;
 	private boolean loading;
 	
-	public ScreenFactoryImpl(Game game, AssetManager assetManager, SaveManager saveManager, GameWorldFactory gameWorldFactory, EncounterFactory encounterFactory, SpriteBatch batch) {
+	public ScreenFactoryImpl(Game game, AssetManager assetManager, SaveManager saveManager, GameWorldFactory gameWorldFactory, EncounterFactory encounterFactory, BattleFactory battleFactory, SpriteBatch batch) {
 		this.game = game;
 		this.assetManager = assetManager;
 		this.saveService = saveManager;
 		this.loadService = saveManager;
 		this.gameWorldFactory = gameWorldFactory;
 		this.encounterFactory = encounterFactory;
+		this.battleFactory = battleFactory;
 		this.batch = batch;
 		loading = true;
 	}
@@ -57,6 +59,10 @@ public class ScreenFactoryImpl implements ScreenFactory {
 				break; 
 			case LOAD_GAME: 
 				tempScreen = getGameScreen(elements);
+				if (tempScreen != null) return tempScreen;
+				break;
+			case BATTLE:
+				tempScreen = getBattle(elements);
 				if (tempScreen != null) return tempScreen;
 				break;
 			case GAME_OVER:				
@@ -98,6 +104,16 @@ public class ScreenFactoryImpl implements ScreenFactory {
 			return null;
 		}
 	}
+
+	private AbstractScreen getBattle(ScreenElements elements){
+		if (getAssetCheck(BattleScreen.resourceRequirements)){
+			BattleCode battleCode = loadService.loadDataValue("BattleCode", BattleCode.class);
+			return new BattleScreen(this, elements, saveService, battleFactory.getBattle(battleCode));
+		}
+		else {
+			return null;
+		}
+	}
 	
 	private AbstractScreen getGameScreen(ScreenElements elements){
 		SaveManager.GameContext context = loadService.loadDataValue("Context", SaveManager.GameContext.class);
@@ -108,6 +124,8 @@ public class ScreenFactoryImpl implements ScreenFactory {
 					return new GameScreen(this, elements, assetManager, saveService, gameWorldFactory.getGameWorld());
 				}
 				else return null;
+			case BATTLE:
+				return getBattle(elements);
 			default: return null;
 		}	
 	}

@@ -8,6 +8,7 @@ public enum ScreenEnum {
     NEW_GAME,
     LOAD_GAME,
     ENCOUNTER,
+    BATTLE,
     GAME_OVER,
     OPTIONS,
     REPLAY,

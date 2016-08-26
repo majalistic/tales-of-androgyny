@@ -40,6 +40,9 @@ public class SaveManager implements SaveService, LoadService{
     	else if (key.equals("VisitedList")){
     		save.visitedList = castToIntArray((ObjectSet<Integer>) object);
     	}
+    	else if (key.equals("BattleCode")){
+    		save.battleCode = (BattleCode) object;
+    	}
     	else if (key.equals("Class")){
     		save.jobClass = (JobClass) object;
     	}
@@ -66,6 +69,9 @@ public class SaveManager implements SaveService, LoadService{
     			set.add(member);
     		}
     		return (T) set;
+    	}
+    	else if (key.equals("BattleCode")){
+    		return (T) save.battleCode;
     	}
     	else if (key.equals("Class")){
     		return (T) save.jobClass;
@@ -121,6 +127,8 @@ public class SaveManager implements SaveService, LoadService{
     	public int nodeCode;
     	public int[] visitedList;
     	public JobClass jobClass;
+    	public BattleCode battleCode;
+    	
     	// 0-arg constructor for JSON serialization: DO NOT USE
     	@SuppressWarnings("unused")
 		private GameSave(){}
@@ -156,6 +164,7 @@ public class SaveManager implements SaveService, LoadService{
 	
 	public enum GameContext {
 		ENCOUNTER,
-		WORLD_MAP
+		WORLD_MAP,
+		BATTLE
 	}
 }
