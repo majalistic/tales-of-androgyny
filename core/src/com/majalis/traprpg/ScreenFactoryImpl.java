@@ -19,37 +19,28 @@ public class ScreenFactoryImpl implements ScreenFactory {
 	private final AssetManager assetManager;
 	private final SaveService saveService;
 	private final LoadService loadService;	
-	private final GameWorldManager gameWorldManager;
+	private final GameWorldFactory gameWorldFactory;
 	private final EncounterFactory encounterFactory;
 	private final SpriteBatch batch;
 	private boolean loading;
-	private int currentEncounterCode;
 	
-	public ScreenFactoryImpl(Game game, AssetManager assetManager, SaveManager saveManager, GameWorldManager gameWorldManager, EncounterFactory encounterFactory, SpriteBatch batch) {
+	public ScreenFactoryImpl(Game game, AssetManager assetManager, SaveManager saveManager, GameWorldFactory gameWorldFactory, EncounterFactory encounterFactory, SpriteBatch batch) {
 		this.game = game;
 		this.assetManager = assetManager;
 		this.saveService = saveManager;
 		this.loadService = saveManager;
-		this.gameWorldManager = gameWorldManager;
+		this.gameWorldFactory = gameWorldFactory;
 		this.encounterFactory = encounterFactory;
 		this.batch = batch;
 		loading = true;
-		currentEncounterCode = loadService.loadDataValue("EncounterCode", Integer.class);
 	}
 
 	@Override  
 	public AbstractScreen getScreen(ScreenEnum screenRequest) {
-		// this needs to be moved
-		GameWorldManager.GameContext context = loadService.loadDataValue("Context", GameWorldManager.GameContext.class);
-		gameWorldManager.setContext(context);
-		currentEncounterCode = loadService.loadDataValue("EncounterCode", Integer.class);
-		// this needs to  be moved
-		
 		OrthographicCamera camera = new OrthographicCamera();
         FitViewport viewport =  new FitViewport(winWidth, winHeight, camera);
         BitmapFont font = new BitmapFont();
         ScreenElements elements = new ScreenElements(viewport, batch, font);
-        
 		AbstractScreen tempScreen;
 		switch(screenRequest){
 			case SPLASH: 
@@ -100,7 +91,8 @@ public class ScreenFactoryImpl implements ScreenFactory {
 	
 	private AbstractScreen getEncounter(ScreenElements elements){
 		if (getAssetCheck(EncounterScreen.resourceRequirements)){
-			return new EncounterScreen(this, elements, assetManager, saveService, encounterFactory.getEncounter(currentEncounterCode, elements.getFont()));
+			Integer encounterCode = loadService.loadDataValue("EncounterCode", Integer.class);
+			return new EncounterScreen(this, elements, assetManager, saveService, encounterFactory.getEncounter(encounterCode, elements.getFont()));
 		}
 		else {
 			return null;
@@ -108,11 +100,12 @@ public class ScreenFactoryImpl implements ScreenFactory {
 	}
 	
 	private AbstractScreen getGameScreen(ScreenElements elements){
-		switch (gameWorldManager.getGameContext()){
+		SaveManager.GameContext context = loadService.loadDataValue("Context", SaveManager.GameContext.class);
+		switch (context){
 			case ENCOUNTER: return getEncounter(elements);
 			case WORLD_MAP: 
 				if (getAssetCheck(GameScreen.resourceRequirements)){
-					return new GameScreen(this, elements, assetManager, saveService, gameWorldManager.getGameWorld());
+					return new GameScreen(this, elements, assetManager, saveService, gameWorldFactory.getGameWorld());
 				}
 				else return null;
 			default: return null;

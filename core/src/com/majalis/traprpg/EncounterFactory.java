@@ -44,7 +44,7 @@ public class EncounterFactory {
 		scenes.add(encounterEnd);
 		ObjectMap<Integer, Scene> sceneMap = new ObjectMap<Integer, Scene>();
 		int ii = 1;
-		for (GameWorldManager.ClassEnum jobClass: GameWorldManager.ClassEnum.values()){
+		for (SaveManager.JobClass jobClass: SaveManager.JobClass.values()){
 			Scene newScene = new TextScene(getSceneMap(getSceneCodeList(0), getSceneList(encounterEnd)), font, "You are now "+getJobClass(jobClass)+".", getMutationList(new Mutation(saveService, "Class", jobClass)));
 			scenes.add(newScene);
 			sceneMap.put(ii++, newScene);
@@ -83,8 +83,8 @@ public class EncounterFactory {
 		return new Encounter(scenes, endScenes);	
 	}
 	
-	private String getJobClass(GameWorldManager.ClassEnum jobClass){
-		if (jobClass == GameWorldManager.ClassEnum.ENCHANTRESS){
+	private String getJobClass(SaveManager.JobClass jobClass){
+		if (jobClass == SaveManager.JobClass.ENCHANTRESS){
 			return "an Enchantress";
 		}
 		return "a " + jobClass.getLabel();

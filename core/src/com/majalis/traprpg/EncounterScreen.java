@@ -42,7 +42,7 @@ public class EncounterScreen extends AbstractScreen {
 		super.render(delta);
 		encounter.gameLoop();
 		if (encounter.encounterOver){
-			saveService.saveDataValue("Context", GameWorldManager.GameContext.WORLD_MAP);
+			saveService.saveDataValue("Context", SaveManager.GameContext.WORLD_MAP);
 			showScreen(ScreenEnum.LOAD_GAME);
 		}
 		if (encounter.gameExit){

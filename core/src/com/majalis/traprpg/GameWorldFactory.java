@@ -6,24 +6,20 @@ import com.badlogic.gdx.utils.ObjectSet;
 /*
  * Generates a world map or returns the world map.
  */
-public class GameWorldManager {
+public class GameWorldFactory {
 
 	private final SaveService saveService;
 	private final LoadService loadService;
 	private GameContext context;
 	
-	public GameWorldManager(SaveManager saveManager){
+	public GameWorldFactory(SaveManager saveManager){
 		this.saveService = saveManager;
 		this.loadService = saveManager;
 	}
 	
 	public GameWorld getGameWorld() {
 		Array<GameWorldNode> nodes = new Array<GameWorldNode>();
-		Integer[] visitedCodes = loadService.loadDataValue("VisitedList", Object.class);
-		ObjectSet<Integer> visitedCodesSet = new ObjectSet<Integer>();
-		for (Integer ii : visitedCodes){
-			visitedCodesSet.add(ii);
-		}
+		ObjectSet<Integer> visitedCodesSet = loadService.loadDataValue("VisitedList", ObjectSet.class);
 		for (int ii = 1; ii <= 10; ii++){
 			// 100 = magic number to get the defaultEncounter for now
 			nodes.add(new GameWorldNode(new Array<GameWorldNode>(), saveService, loadService, ii, ii-1, 100, new Vector2(ii * 85, 200 + (200 * Math.floorMod(ii, 3))-ii*10), visitedCodesSet.contains(ii) ? true : false));

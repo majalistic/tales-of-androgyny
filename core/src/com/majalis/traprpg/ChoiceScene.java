@@ -31,7 +31,7 @@ public class ChoiceScene extends Scene {
 		this.buttonSound = assetManager.get("sound.wav", Sound.class);
 		
 		Table table = new Table();
-		for (GameWorldManager.ClassEnum jobClass: GameWorldManager.ClassEnum.values()){
+		for (SaveManager.JobClass jobClass: SaveManager.JobClass.values()){
 			TextButton button = new TextButton(jobClass.getLabel(), skin);
 			button.addListener(getListener(jobClass));
 			table.add(button).row();
@@ -56,7 +56,7 @@ public class ChoiceScene extends Scene {
 		this.addAction(Actions.show());
 	}
 	
-	private ClickListener getListener(final GameWorldManager.ClassEnum selection){
+	private ClickListener getListener(final SaveManager.JobClass selection){
 		return new ClickListener(){
 	        @Override
 	        public void clicked(InputEvent event, float x, float y) {

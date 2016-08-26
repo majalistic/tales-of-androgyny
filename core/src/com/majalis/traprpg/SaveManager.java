@@ -5,25 +5,15 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Base64Coder;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonWriter.OutputType;
-import com.badlogic.gdx.utils.ObjectMap;
+import com.badlogic.gdx.utils.ObjectSet;
 /*
  * Used for file handling, both reading and writing - both game files and encounter replay files.
  */
 public class SaveManager implements SaveService, LoadService{
     
-    private static ObjectMap<String, Object> defaultSaveData;
-    static{
-    	defaultSaveData = new ObjectMap<String, Object>();
-    	defaultSaveData.put("Class", " ");
-    	defaultSaveData.put("EncounterCode", 0);
-    	// initial node is code "1" for now
-    	defaultSaveData.put("NodeCode", 1);
-    	defaultSaveData.put("VisitedList", new Integer[]{1});
-    	defaultSaveData.put("Context", GameWorldManager.GameContext.ENCOUNTER);
-    }
 	private boolean encoded;
     private final FileHandle file;   
-    private Save save;
+    private GameSave save;
    
     public SaveManager(boolean encoded){
         this.encoded = encoded;
@@ -31,9 +21,34 @@ public class SaveManager implements SaveService, LoadService{
         save = getSave();
     }
     
-    public void saveDataValue(String key, Object object){
-        save.data.put(key, object);
+    @SuppressWarnings("unchecked")
+	public void saveDataValue(String key, Object object){
+    	// currently stringly-typed if else chain, just to get the GameSave modification stood up, need to think of a better way (at least enum-ize it and switch/case)
+    	if (key.equals("NodeCode")){
+    		save.nodeCode = (Integer) object;
+    	}
+    	else if (key.equals("Context")){
+    		save.context = (GameContext) object;
+    	}
+    	else if (key.equals("EncounterCode")){
+    		save.encounterCode = (Integer) object;
+    	}
+    	else if (key.equals("VisitedList")){
+    		save.visitedList = castToIntArray((ObjectSet<Integer>) object);
+    	}
+    	else if (key.equals("Class")){
+    		save.jobClass = (JobClass) object;
+    	}
         saveToJson(); //Saves current save immediately.
+    }
+    
+    private int[] castToIntArray(ObjectSet<Integer> set){
+    	int[] array = new int[set.size];
+    	int ii = 0;
+    	for (int member : set){
+    		array[ii++] = member;
+    	}
+    	return array;
     }
     
     public void newSave(){
@@ -42,7 +57,25 @@ public class SaveManager implements SaveService, LoadService{
     
     @SuppressWarnings("unchecked")
     public <T> T loadDataValue(String key, Class<?> type){
-        if(save.data.containsKey(key))return (T) save.data.get(key);
+    	if (key.equals("NodeCode")){
+    		return (T) (Integer)save.nodeCode;
+    	}
+    	else if (key.equals("Context")){
+    		return (T) save.context;
+    	}
+    	else if (key.equals("EncounterCode")){
+    		return (T) (Integer) save.encounterCode;
+    	}
+    	else if (key.equals("VisitedList")){
+    		ObjectSet<Integer> set = new ObjectSet<Integer>();
+    		for (int member : save.visitedList){
+    			set.add(member);
+    		}
+    		return (T) set;
+    	}
+    	else if (key.equals("Class")){
+    		return (T) save.jobClass;
+    	}
         else return null;   //this if() avoids an exception, but check for null on load.
     }
     
@@ -50,41 +83,69 @@ public class SaveManager implements SaveService, LoadService{
     	saveToJson(save);
     }
     
-    private void saveToJson(Save save){
+    private void saveToJson(GameSave save){
         Json json = new Json();
         json.setOutputType(OutputType.json);
         if(encoded) file.writeString(Base64Coder.encodeString(json.prettyPrint(save)), false);
-        else file.writeString(json.prettyPrint(save), false);
+        else {
+        	file.writeString(json.prettyPrint(save), false);
+        }
     }
     
-    private Save getSave(){
-        Save save = new Save();
+    private GameSave getSave(){
+        GameSave save = new GameSave();
         if(file.exists()){
 	        Json json = new Json();
-	        if(encoded)save = json.fromJson(Save.class, Base64Coder.decodeString(file.readString()));
-	        else save = json.fromJson(Save.class,file.readString());
+	        if(encoded)save = json.fromJson(GameSave.class, Base64Coder.decodeString(file.readString()));
+	        else save = json.fromJson(GameSave.class,file.readString());
         }
         else {
         	save = getDefaultSave();
         }
-        return save==null ? new Save() : save;
+        return save==null ? new GameSave() : save;
     }
     
-    private Save getDefaultSave(){
-    	Save defaultSave = new Save(defaultSaveData);
-    	save = defaultSave;
-    	return defaultSave;
+    private GameSave getDefaultSave(){
+    	save = new GameSave();
+    	return save;
     }
     
-    private static class Save{
-    	public ObjectMap<String, Object> data = new ObjectMap<String, Object>();
-    	public Save(){
-    		
-    	}
-    	public Save(ObjectMap<String, Object> data){
-    		for (String key: data.keys()){
-    			this.data.put(key, data.get(key));
-    		}
-    	}        
+    // this can be replaced with a GameState
+    private static class GameSave{
+    	private GameContext context;
+    	private int encounterCode;
+    	private int nodeCode;
+    	private int[] visitedList;
+    	private JobClass jobClass;
+    	
+    	// default save values
+    	public GameSave(){
+    		context = GameContext.ENCOUNTER;
+    		jobClass = JobClass.WARRIOR;
+    		encounterCode = 0;
+    		nodeCode = 1;
+    		visitedList = new int[]{1};        	
+    	}	
     }
+    
+	public enum JobClass {
+		WARRIOR ("Warrior"),
+		PALADIN ("Paladin"),
+		THIEF ("Thief"),
+		RANGER ("Ranger"),
+		MAGE ("Mage"),
+		ENCHANTRESS ("Enchanter");
+		
+		private final String label;
+
+		JobClass(String label) {
+		    this.label = label;
+		 }
+		public String getLabel(){return label;}
+	}
+	
+	public enum GameContext {
+		ENCOUNTER,
+		WORLD_MAP
+	}
 }

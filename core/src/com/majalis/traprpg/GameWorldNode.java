@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.ObjectSet;
 /*
  * Represents a node on the world map.
  */
@@ -91,11 +92,10 @@ public class GameWorldNode extends Group {
 		selected = true;
 		if (!visited){
 			saveService.saveDataValue("EncounterCode", encounter);
-			Integer[] visitedCodes = loadService.loadDataValue("VisitedList", Object.class);
-			Array<Integer> loadCodes = new Array<Integer>(true, visitedCodes, 0, visitedCodes.length);
-			loadCodes.add(nodeCode);
-			visitedCodes = loadCodes.toArray();
-			saveService.saveDataValue("VisitedList", visitedCodes);
+			saveService.saveDataValue("Context", SaveManager.GameContext.ENCOUNTER);
+			ObjectSet<Integer> visitedList = loadService.loadDataValue("VisitedList", ObjectSet.class);
+			visitedList.add(nodeCode);
+			saveService.saveDataValue("VisitedList", visitedList);
 		}
 		else {
 			saveService.saveDataValue("EncounterCode", defaultEncounter);

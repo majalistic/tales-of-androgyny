@@ -95,16 +95,10 @@ public class MainMenuScreen extends AbstractScreen {
 	        @Override
 	        public void clicked(InputEvent event, float x, float y) {
 	        	buttonSound.play();
-	        	if (screenSelection == ScreenEnum.LOAD_GAME){
-	        		loadService.loadDataValue("Class", String.class);
-	        		loadService.loadDataValue("Context", GameWorldManager.GameContext.class);
-	        	}
-	        	else {
-	        		if (screenSelection == ScreenEnum.NEW_GAME){
-	        			// ONLY CALL THIS TO DESTROY OLD DATA AND REPLACE WITH A BRAND NEW SAVE
-	        			saveService.newSave();
-	        		}
-	        	}
+        		if (screenSelection == ScreenEnum.NEW_GAME){
+        			// ONLY CALL THIS TO DESTROY OLD DATA AND REPLACE WITH A BRAND NEW SAVE
+        			saveService.newSave();
+        		}
 	        	showScreen(screenSelection);    
 	        }
 	    };
