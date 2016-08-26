@@ -10,13 +10,13 @@ import com.badlogic.gdx.utils.Array;
  */
 public class GameWorld {
 
-	private Array<WorldNode> nodes;
+	private Array<GameWorldNode> nodes;
 	public boolean displayHUD;
 	public boolean gameOver;
 	public boolean gameExit;
 	public boolean encounterSelected;
 	
-	public GameWorld(Array<WorldNode> nodes){
+	public GameWorld(Array<GameWorldNode> nodes){
 		this.nodes = nodes;
 		displayHUD = true;
 		gameOver = false;
@@ -35,7 +35,7 @@ public class GameWorld {
 			gameExit = true;
 		}
 		
-		for (WorldNode node: nodes){
+		for (GameWorldNode node: nodes){
 			if (node.isSelected()){
 				encounterSelected = true;
 			}

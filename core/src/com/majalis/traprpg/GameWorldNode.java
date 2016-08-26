@@ -8,13 +8,12 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.ObjectSet;
 /*
  * Represents a node on the world map.
  */
-public class WorldNode extends Group {
+public class GameWorldNode extends Group {
 
-	private final Array<WorldNode> connectedNodes;
+	private final Array<GameWorldNode> connectedNodes;
 	private final SaveService saveService;
 	private final LoadService loadService;
 	private final int nodeCode;
@@ -28,7 +27,7 @@ public class WorldNode extends Group {
 	private boolean active;
 	
 	// all the nodes need are the encounter CODES, not the actual encounter
-	public WorldNode(Array<WorldNode> connectedNodes, SaveService saveService, LoadService loadService, final int nodeCode, int encounter, int defaultEncounter, Vector2 position, boolean visited){
+	public GameWorldNode(Array<GameWorldNode> connectedNodes, SaveService saveService, LoadService loadService, final int nodeCode, int encounter, int defaultEncounter, Vector2 position, boolean visited){
 		this.connectedNodes = connectedNodes;
 		this.saveService = saveService;
 		this.loadService = loadService;
@@ -47,7 +46,7 @@ public class WorldNode extends Group {
 	}
 	
 	
-	public boolean isAdjacent(WorldNode otherNode){
+	public boolean isAdjacent(GameWorldNode otherNode){
 		return position.dst2(otherNode.getPosition()) < 70000;
 	}
 	
@@ -55,8 +54,8 @@ public class WorldNode extends Group {
 		return position;
 	}
 	
-	public void connectTo(WorldNode otherNode){
-		for (WorldNode connectedNode : connectedNodes){
+	public void connectTo(GameWorldNode otherNode){
+		for (GameWorldNode connectedNode : connectedNodes){
 			// if this node is already connected to this other node, skip
 			if (otherNode == connectedNode){
 				return;
@@ -67,13 +66,13 @@ public class WorldNode extends Group {
 		otherNode.getConnected(this);
 	}
 	
-	public void getConnected(WorldNode otherNode){
+	public void getConnected(GameWorldNode otherNode){
 		connectedNodes.add(otherNode);
 	}
 	
 	public void setAsCurrentNode(){
 		current = true;
-		for (WorldNode connectedNode : connectedNodes){
+		for (GameWorldNode connectedNode : connectedNodes){
 			connectedNode.setActive();
 		}
 	}
@@ -104,7 +103,7 @@ public class WorldNode extends Group {
 		saveService.saveDataValue("NodeCode", nodeCode);
 	}
 
-	public Array<WorldNode> getConnectedNodes() {
+	public Array<GameWorldNode> getConnectedNodes() {
 		return connectedNodes;
 	}
 	
@@ -115,7 +114,7 @@ public class WorldNode extends Group {
 		BitmapFont font = new BitmapFont();
 		font.setColor(0.5f,1,1,1);
 		font.draw(batch, (current ? "C" : "") + (active ? "A" : "" ) + (visited ? "V" : "") + String.valueOf(nodeCode), (int)position.x, (int)position.y);		
-		for (WorldNode otherNode: connectedNodes){
+		for (GameWorldNode otherNode: connectedNodes){
 			Vector2 midPoint = new Vector2( (position.x+otherNode.getPosition().x)/2, (position.y+otherNode.getPosition().y)/2);
 			font.draw(batch, "X", (int)midPoint.x, (int)midPoint.y);	
 		}
