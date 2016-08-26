@@ -10,17 +10,25 @@ import com.badlogic.gdx.utils.ObjectMap;
 
 public class TextScene extends Scene  {
 
+	private final int sceneCode;
+	private final SaveService saveService;
 	private final BitmapFont font;
 	private final String toDisplay;
 	private final Array<Mutation> mutations;
 
-	public TextScene(ObjectMap<Integer, Scene> sceneBranches, BitmapFont font, String toDisplay, Array<Mutation> mutations) {
+	public TextScene(ObjectMap<Integer, Scene> sceneBranches, int sceneCode, SaveService saveService, BitmapFont font, String toDisplay, Array<Mutation> mutations) {
 		super(sceneBranches);
+		this.sceneCode = sceneCode;
+		this.saveService = saveService;
 		this.font = font;
 		this.toDisplay = toDisplay;
 		this.mutations = mutations;
 	}
 
+	public int getCode(){
+		return sceneCode;
+	}
+	
 	// this type of TextScene will be one that always pipes from one scene to the next with no branch - there will be another TextScene that actually has branching logic
 	@Override
 	public void poke(){
@@ -51,6 +59,7 @@ public class TextScene extends Scene  {
 		for (Mutation mutator: mutations){
 			mutator.mutate();
 		}
+		saveService.saveDataValue("SceneCode", sceneCode);
 	}
 	
 	private void nextScene(){

@@ -20,12 +20,16 @@ public class ChoiceScene extends Scene {
 		resourceRequirements.put("sound.wav", Sound.class);
 	}
 	
+	private final int sceneCode;
+	private final SaveService saveService;
 	private final BitmapFont font;
 	private final Skin skin;
 	private final Sound buttonSound;
 	
-	protected ChoiceScene(ObjectMap<Integer, Scene> sceneBranches, AssetManager assetManager, BitmapFont font) {
+	protected ChoiceScene(ObjectMap<Integer, Scene> sceneBranches, int sceneCode, SaveService saveService, AssetManager assetManager, BitmapFont font) {
 		super(sceneBranches);
+		this.sceneCode = sceneCode;
+		this.saveService = saveService;
 		this.font = font;
 		this.skin = assetManager.get("uiskin.json", Skin.class);
 		this.buttonSound = assetManager.get("sound.wav", Sound.class);
@@ -48,12 +52,17 @@ public class ChoiceScene extends Scene {
 		font.draw(batch, "Choose a class:", 600, 600);
     }
 	
+	public int getCode(){
+		return sceneCode;
+	}
+	
 	@Override
 	protected void setActive() {
 		isActive = true;	
 		this.removeAction(Actions.hide());
 		this.addAction(Actions.visible(true));
 		this.addAction(Actions.show());
+		saveService.saveDataValue("SceneCode", sceneCode);
 	}
 	
 	private ClickListener getListener(final SaveManager.JobClass selection){

@@ -24,11 +24,15 @@ public class SaveManager implements SaveService, LoadService{
     @SuppressWarnings("unchecked")
 	public void saveDataValue(String key, Object object){
     	// currently stringly-typed if else chain, just to get the GameSave modification stood up, need to think of a better way (at least enum-ize it and switch/case)
-    	if (key.equals("NodeCode")){
-    		save.nodeCode = (Integer) object;
+    	// likely will need to refactor and have each of these elements saved into the gamestate as a serialized encounter instead of an encounter code
+    	if (key.equals("SceneCode")){
+    		save.sceneCode = (Integer) object;
     	}
     	else if (key.equals("Context")){
-    		save.context = (GameContext) object;
+        	save.context = (GameContext) object;
+        }
+    	else if (key.equals("NodeCode")){
+    		save.nodeCode = (Integer) object;
     	}
     	else if (key.equals("EncounterCode")){
     		save.encounterCode = (Integer) object;
@@ -42,17 +46,11 @@ public class SaveManager implements SaveService, LoadService{
         saveToJson(save); //Saves current save immediately.
     }
     
-    private int[] castToIntArray(ObjectSet<Integer> set){
-    	int[] array = new int[set.size];
-    	int ii = 0;
-    	for (int member : set){
-    		array[ii++] = member;
-    	}
-    	return array;
-    }
-    
     @SuppressWarnings("unchecked")
     public <T> T loadDataValue(String key, Class<?> type){
+    	if (key.equals("SceneCode")){
+    		return (T) (Integer)save.sceneCode;
+    	}
     	if (key.equals("NodeCode")){
     		return (T) (Integer)save.nodeCode;
     	}
@@ -107,9 +105,19 @@ public class SaveManager implements SaveService, LoadService{
     	return tempSave;
     }
     
+    private int[] castToIntArray(ObjectSet<Integer> set){
+    	int[] array = new int[set.size];
+    	int ii = 0;
+    	for (int member : set){
+    		array[ii++] = member;
+    	}
+    	return array;
+    }
+    
     public static class GameSave{
-    	public GameContext context;
-    	public int encounterCode;
+		public GameContext context;
+		public int sceneCode;
+		public int encounterCode;
     	public int nodeCode;
     	public int[] visitedList;
     	public JobClass jobClass;
@@ -121,9 +129,11 @@ public class SaveManager implements SaveService, LoadService{
     	public GameSave(boolean defaultValues){
     		if (defaultValues){
     			context = GameContext.ENCOUNTER;
-        		encounterCode = 0;
+    			// 0 sceneCode is the magic number to designate that a scene doesn't need to be loaded; just use the first (last) scene in the list
+    			sceneCode = 0;
+    			encounterCode = 0;
         		nodeCode = 1;
-        		visitedList = new int[]{1};   
+        		visitedList = new int[]{1};  
     		}
     	}
     }

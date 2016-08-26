@@ -21,8 +21,9 @@ public abstract class Scene extends Group {
 	protected boolean isActive(){
 		return isActive;
 	}
-
-
+	protected int getCode(){
+		return -1;
+	}
 	public void poke(){
 		
 	}
