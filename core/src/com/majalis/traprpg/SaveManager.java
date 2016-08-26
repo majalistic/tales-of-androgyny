@@ -39,7 +39,7 @@ public class SaveManager implements SaveService, LoadService{
     	else if (key.equals("Class")){
     		save.jobClass = (JobClass) object;
     	}
-        saveToJson(); //Saves current save immediately.
+        saveToJson(save); //Saves current save immediately.
     }
     
     private int[] castToIntArray(ObjectSet<Integer> set){
@@ -49,10 +49,6 @@ public class SaveManager implements SaveService, LoadService{
     		array[ii++] = member;
     	}
     	return array;
-    }
-    
-    public void newSave(){
-    	saveToJson(getDefaultSave());
     }
     
     @SuppressWarnings("unchecked")
@@ -79,21 +75,17 @@ public class SaveManager implements SaveService, LoadService{
         else return null;   //this if() avoids an exception, but check for null on load.
     }
     
-    private void saveToJson(){
-    	saveToJson(save);
-    }
-    
     private void saveToJson(GameSave save){
         Json json = new Json();
         json.setOutputType(OutputType.json);
         if(encoded) file.writeString(Base64Coder.encodeString(json.prettyPrint(save)), false);
-        else {
+        else {   	
         	file.writeString(json.prettyPrint(save), false);
         }
     }
     
     private GameSave getSave(){
-        GameSave save = new GameSave();
+        GameSave save;
         if(file.exists()){
 	        Json json = new Json();
 	        if(encoded)save = json.fromJson(GameSave.class, Base64Coder.decodeString(file.readString()));
@@ -102,30 +94,38 @@ public class SaveManager implements SaveService, LoadService{
         else {
         	save = getDefaultSave();
         }
-        return save==null ? new GameSave() : save;
+        return save==null ? new GameSave(true) : save;
+    }
+    
+    public void newSave(){
+    	save = getDefaultSave();
     }
     
     private GameSave getDefaultSave(){
-    	save = new GameSave();
-    	return save;
+    	GameSave tempSave = new GameSave(true);
+    	saveToJson(tempSave);
+    	return tempSave;
     }
     
-    // this can be replaced with a GameState
-    private static class GameSave{
-    	private GameContext context;
-    	private int encounterCode;
-    	private int nodeCode;
-    	private int[] visitedList;
-    	private JobClass jobClass;
+    public static class GameSave{
+    	public GameContext context;
+    	public int encounterCode;
+    	public int nodeCode;
+    	public int[] visitedList;
+    	public JobClass jobClass;
+    	// 0-arg constructor for JSON serialization: DO NOT USE
+    	@SuppressWarnings("unused")
+		private GameSave(){}
     	
     	// default save values
-    	public GameSave(){
-    		context = GameContext.ENCOUNTER;
-    		jobClass = JobClass.WARRIOR;
-    		encounterCode = 0;
-    		nodeCode = 1;
-    		visitedList = new int[]{1};        	
-    	}	
+    	public GameSave(boolean defaultValues){
+    		if (defaultValues){
+    			context = GameContext.ENCOUNTER;
+        		encounterCode = 0;
+        		nodeCode = 1;
+        		visitedList = new int[]{1};   
+    		}
+    	}
     }
     
 	public enum JobClass {
