@@ -4,10 +4,19 @@ package com.majalis.traprpg;
  */
 public class PlayerCharacter extends Character{
 
-	// some of these ints will be enumerators or objects in time
+
+	@SuppressWarnings("unused")
+	private PlayerCharacter(){
+		
+	}
 	
-	/* rigid stats */
-	
+	public PlayerCharacter(boolean defaultValues){
+		super();
+		if (defaultValues){
+			
+			currentHealth = 5;
+		}
+	}
 	
 	// advantage, range, and combat-lock(boolean) are shared properties between two creatures
 	

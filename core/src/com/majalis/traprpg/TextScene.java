@@ -42,7 +42,7 @@ public class TextScene extends Scene  {
 		font.draw(batch, toDisplay, 600, 400);
     }
 	
-	// need to differentiate a "first trigger" setActive from a loading setActive, otherwise loading will cause the mutations to apply again
+	// need to save the gamestate before applying the mutation to prevent repeated mutations
 	@Override
 	protected void setActive() {
 		isActive = true;

@@ -34,6 +34,13 @@ public class Battle extends Group{
 			victory = false;
 			battleOver = true;
 		}
+		else if (Gdx.input.isKeyJustPressed(Keys.A)){
+			enemy.currentHealth--;
+		}
+		else if (Gdx.input.isKeyJustPressed(Keys.S)){
+			character.currentHealth--;
+		}
+		
 		if (character.currentHealth < 0){
 			victory = false;
 			battleOver = true;

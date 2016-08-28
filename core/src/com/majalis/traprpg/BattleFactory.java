@@ -15,7 +15,7 @@ public class BattleFactory {
 			
 			default: 
 				boolean werewolf = Math.floor(Math.random()*10) % 2 == 0;
-				return new Battle( new PlayerCharacter(), new EnemyCharacter(assetManager.get(werewolf ? "wereslut.png" : "harpy.jpg", Texture.class), werewolf), battleCode.victoryScene, battleCode.defeatScene);
+				return new Battle( new PlayerCharacter(true), new EnemyCharacter(assetManager.get(werewolf ? "wereslut.png" : "harpy.jpg", Texture.class), werewolf), battleCode.victoryScene, battleCode.defeatScene);
 		}
 	}
 

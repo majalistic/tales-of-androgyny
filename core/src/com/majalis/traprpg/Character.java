@@ -8,6 +8,9 @@ import com.majalis.traprpg.PlayerCharacter.Stance;
  */
 public abstract class Character extends Group {
 
+	// some of these ints will be enumerators or objects in time
+	
+	/* rigid stats */	
 	public int level;
 	public int baseStrength;
 	public int baseVtality;

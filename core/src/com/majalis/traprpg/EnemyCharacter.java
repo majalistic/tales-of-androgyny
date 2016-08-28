@@ -14,6 +14,7 @@ public class EnemyCharacter extends Character {
 	public EnemyCharacter(Texture texture, boolean werewolf){
 		this.texture = texture;
 		position = werewolf ? new Vector2(600, 400) : new Vector2(150, -40);
+		this.currentHealth = 3;
 	}
 	
 	@Override
