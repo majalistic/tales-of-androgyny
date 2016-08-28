@@ -1,5 +1,6 @@
 package com.majalis.traprpg;
 
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectSet;
@@ -10,11 +11,13 @@ public class GameWorldFactory {
 
 	private final SaveService saveService;
 	private final LoadService loadService;
+	private final BitmapFont font;
 	private GameContext context;
 	
-	public GameWorldFactory(SaveManager saveManager){
+	public GameWorldFactory(SaveManager saveManager, BitmapFont font){
 		this.saveService = saveManager;
 		this.loadService = saveManager;
+		this.font = font;
 	}
 	
 	public GameWorld getGameWorld() {
@@ -22,7 +25,7 @@ public class GameWorldFactory {
 		ObjectSet<Integer> visitedCodesSet = loadService.loadDataValue("VisitedList", ObjectSet.class);
 		for (int ii = 1; ii <= 10; ii++){
 			// 100 = magic number to get the defaultEncounter for now
-			nodes.add(new GameWorldNode(new Array<GameWorldNode>(), saveService, loadService, ii, ii-1, 100, new Vector2(ii * 85, 200 + (200 * Math.floorMod(ii, 3))-ii*10), visitedCodesSet.contains(ii) ? true : false));
+			nodes.add(new GameWorldNode(new Array<GameWorldNode>(), saveService, loadService, font, ii, ii-1, 100, new Vector2(ii * 85, 200 + (200 * Math.floorMod(ii, 3))-ii*10), visitedCodesSet.contains(ii) ? true : false));
 		}
 		
 		for (int ii = 0; ii < nodes.size-1; ii++){

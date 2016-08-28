@@ -17,6 +17,8 @@ public class GameWorldNode extends Group {
 	private final Array<GameWorldNode> connectedNodes;
 	private final SaveService saveService;
 	private final LoadService loadService;
+	// temporary
+	private final BitmapFont font;
 	private final int nodeCode;
 	private final int encounter;
 	private final int defaultEncounter;
@@ -28,10 +30,11 @@ public class GameWorldNode extends Group {
 	private boolean active;
 	
 	// all the nodes need are the encounter CODES, not the actual encounter
-	public GameWorldNode(Array<GameWorldNode> connectedNodes, SaveService saveService, LoadService loadService, final int nodeCode, int encounter, int defaultEncounter, Vector2 position, boolean visited){
+	public GameWorldNode(Array<GameWorldNode> connectedNodes, SaveService saveService, LoadService loadService, BitmapFont font, final int nodeCode, int encounter, int defaultEncounter, Vector2 position, boolean visited){
 		this.connectedNodes = connectedNodes;
 		this.saveService = saveService;
 		this.loadService = loadService;
+		this.font = font;
 		this.encounter = encounter;
 		this.defaultEncounter = defaultEncounter;
 		this.position = position;
@@ -110,8 +113,6 @@ public class GameWorldNode extends Group {
 	@Override
     public void draw(Batch batch, float parentAlpha) {
 		super.draw(batch, parentAlpha);
-		
-		BitmapFont font = new BitmapFont();
 		font.setColor(0.5f,1,1,1);
 		font.draw(batch, (current ? "C" : "") + (active ? "A" : "" ) + (visited ? "V" : "") + String.valueOf(nodeCode), (int)position.x, (int)position.y);		
 		for (GameWorldNode otherNode: connectedNodes){
