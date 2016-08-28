@@ -3,6 +3,14 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.majalis.battle.BattleFactory;
+import com.majalis.encounter.EncounterFactory;
+import com.majalis.save.SaveManager;
+import com.majalis.screens.AbstractScreen;
+import com.majalis.screens.ScreenEnum;
+import com.majalis.screens.ScreenFactory;
+import com.majalis.screens.ScreenFactoryImpl;
+import com.majalis.world.GameWorldFactory;
 /*
  * Package shared entry point for each platform.  Generates a ScreenFactory and service for dependency injection, and switches to the splash screen for loading.
  */
