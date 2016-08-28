@@ -13,6 +13,7 @@ import com.majalis.battle.BattleFactory;
 import com.majalis.character.PlayerCharacter;
 import com.majalis.encounter.EncounterFactory;
 import com.majalis.save.LoadService;
+import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveManager;
 import com.majalis.save.SaveService;
 import com.majalis.world.GameWorldFactory;
@@ -51,7 +52,7 @@ public class ScreenFactoryImpl implements ScreenFactory {
         FitViewport viewport =  new FitViewport(winWidth, winHeight, camera);
         BitmapFont font = new BitmapFont();
         ScreenElements elements = new ScreenElements(viewport, batch, font);
-        PlayerCharacter character = loadService.loadDataValue("Player", PlayerCharacter.class);
+        PlayerCharacter character = loadService.loadDataValue(SaveEnum.PLAYER, PlayerCharacter.class);
 		AbstractScreen tempScreen;
 		switch(screenRequest){
 			case SPLASH: 
@@ -106,7 +107,7 @@ public class ScreenFactoryImpl implements ScreenFactory {
 	
 	private AbstractScreen getEncounter(ScreenElements elements, PlayerCharacter character){
 		if (getAssetCheck(EncounterScreen.resourceRequirements)){
-			Integer encounterCode = loadService.loadDataValue("EncounterCode", Integer.class);
+			Integer encounterCode = loadService.loadDataValue(SaveEnum.ENCOUNTER_CODE, Integer.class);
 			return new EncounterScreen(this, elements, assetManager, saveService, encounterFactory.getEncounter(encounterCode, elements.getFont()));
 		}
 		else {
@@ -116,7 +117,7 @@ public class ScreenFactoryImpl implements ScreenFactory {
 
 	private AbstractScreen getBattle(ScreenElements elements, PlayerCharacter character){
 		if (getAssetCheck(BattleScreen.resourceRequirements)){
-			BattleCode battleCode = loadService.loadDataValue("BattleCode", BattleCode.class);
+			BattleCode battleCode = loadService.loadDataValue(SaveEnum.BATTLE_CODE, BattleCode.class);
 			return new BattleScreen(this, elements, saveService, battleFactory.getBattle(battleCode, character));
 		}
 		else {
@@ -125,7 +126,7 @@ public class ScreenFactoryImpl implements ScreenFactory {
 	}
 	
 	private AbstractScreen getGameScreen(ScreenElements elements, PlayerCharacter character){
-		SaveManager.GameContext context = loadService.loadDataValue("Context", SaveManager.GameContext.class);
+		SaveManager.GameContext context = loadService.loadDataValue(SaveEnum.CONTEXT, SaveManager.GameContext.class);
 		switch (context){
 			case ENCOUNTER: return getEncounter(elements, character);
 			case WORLD_MAP: 

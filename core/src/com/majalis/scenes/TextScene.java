@@ -7,6 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
+import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveService;
 
 public class TextScene extends Scene  {
@@ -60,7 +61,7 @@ public class TextScene extends Scene  {
 		for (Mutation mutator: mutations){
 			mutator.mutate();
 		}
-		saveService.saveDataValue("SceneCode", sceneCode);
+		saveService.saveDataValue(SaveEnum.SCENE_CODE, sceneCode);
 	}
 	
 	private void nextScene(){

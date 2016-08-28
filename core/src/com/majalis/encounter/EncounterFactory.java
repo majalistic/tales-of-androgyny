@@ -6,6 +6,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.IntArray;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.majalis.save.LoadService;
+import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveManager;
 import com.majalis.save.SaveService;
 import com.majalis.scenes.BattleScene;
@@ -32,7 +33,7 @@ public class EncounterFactory {
 	
 	public Encounter getEncounter(int encounterCode, BitmapFont font) {
 		// temporarily stored in a static switch block until file retrieval for encounters is implemented
-		Integer sceneCode = loadService.loadDataValue("SceneCode", Integer.class);
+		Integer sceneCode = loadService.loadDataValue(SaveEnum.SCENE_CODE, Integer.class);
 		switch (encounterCode){
 			case 0: return getClassChoiceEncounter(font, sceneCode);
 			case 1:	
@@ -58,7 +59,7 @@ public class EncounterFactory {
 		ObjectMap<Integer, Scene> sceneMap = new ObjectMap<Integer, Scene>();
 		int ii = 1;
 		for (SaveManager.JobClass jobClass: SaveManager.JobClass.values()){
-			Scene newScene = new TextScene(getSceneMap(getSceneCodeList(0), getSceneList(encounterEnd)), ii, saveService, font, "You are now "+getJobClass(jobClass)+".", getMutationList(new Mutation(saveService, "Class", jobClass)));
+			Scene newScene = new TextScene(getSceneMap(getSceneCodeList(0), getSceneList(encounterEnd)), ii, saveService, font, "You are now "+getJobClass(jobClass)+".", getMutationList(new Mutation(saveService, SaveEnum.CLASS, jobClass)));
 			scenes.add(newScene);
 			sceneMap.put(ii++, newScene);
 		}

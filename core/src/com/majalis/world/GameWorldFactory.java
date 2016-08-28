@@ -5,6 +5,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectSet;
 import com.majalis.save.LoadService;
+import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveManager;
 import com.majalis.save.SaveService;
 /*
@@ -25,7 +26,7 @@ public class GameWorldFactory {
 	
 	public GameWorld getGameWorld() {
 		Array<GameWorldNode> nodes = new Array<GameWorldNode>();
-		ObjectSet<Integer> visitedCodesSet = loadService.loadDataValue("VisitedList", ObjectSet.class);
+		ObjectSet<Integer> visitedCodesSet = loadService.loadDataValue(SaveEnum.VISITED_LIST, ObjectSet.class);
 		for (int ii = 1; ii <= 10; ii++){
 			// 100 = magic number to get the defaultEncounter for now
 			nodes.add(new GameWorldNode(new Array<GameWorldNode>(), saveService, loadService, font, ii, ii-1, 100, new Vector2(ii * 85, 200 + (200 * Math.floorMod(ii, 3))-ii*10), visitedCodesSet.contains(ii) ? true : false));
@@ -39,7 +40,7 @@ public class GameWorldFactory {
 			}
 		}
 		
-		nodes.get((Integer)loadService.loadDataValue("NodeCode", Integer.class) - 1).setAsCurrentNode();
+		nodes.get((Integer)loadService.loadDataValue(SaveEnum.NODE_CODE, Integer.class) - 1).setAsCurrentNode();
 		return new GameWorld(nodes);
 	}
 

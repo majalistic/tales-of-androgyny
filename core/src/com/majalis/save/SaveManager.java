@@ -6,6 +6,7 @@ import com.badlogic.gdx.utils.Base64Coder;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonWriter.OutputType;
 import com.majalis.battle.BattleCode;
+import com.majalis.character.EnemyCharacter;
 import com.majalis.character.PlayerCharacter;
 import com.badlogic.gdx.utils.ObjectSet;
 /*
@@ -24,67 +25,39 @@ public class SaveManager implements SaveService, LoadService{
     }
     
     @SuppressWarnings("unchecked")
-	public void saveDataValue(String key, Object object){
-    	// currently stringly-typed if else chain, just to get the GameSave modification stood up, need to think of a better way (at least enum-ize it and switch/case)
-    	// likely will need to refactor and have each of these elements saved into the gamestate as a serialized encounter instead of an encounter code
-    	if (key.equals("Player")){
-    		save.player = (PlayerCharacter) object;
-    	}
-    	else if (key.equals("SceneCode")){
-    		save.sceneCode = (Integer) object;
-    	}
-    	else if (key.equals("Context")){
-        	save.context = (GameContext) object;
-        }
-    	else if (key.equals("NodeCode")){
-    		save.nodeCode = (Integer) object;
-    	}
-    	else if (key.equals("EncounterCode")){
-    		save.encounterCode = (Integer) object;
-    	}
-    	else if (key.equals("VisitedList")){
-    		save.visitedList = castToIntArray((ObjectSet<Integer>) object);
-    	}
-    	else if (key.equals("BattleCode")){
-    		save.battleCode = (BattleCode) object;
-    	}
-    	else if (key.equals("Class")){
-    		save.jobClass = (JobClass) object;
-    	}
+	public void saveDataValue(SaveEnum key, Object object){
+    	switch (key){
+	    	case PLAYER: 			save.player = (PlayerCharacter) object; break;
+	    	case ENEMY: 			save.enemy = (EnemyCharacter) object; break;
+	    	case SCENE_CODE: 		save.sceneCode = (Integer) object; break;
+	    	case CONTEXT: 			save.context = (GameContext) object; break;
+	    	case NODE_CODE: 		save.nodeCode = (Integer) object; break;
+	    	case ENCOUNTER_CODE:	save.encounterCode = (Integer) object; break;
+	    	case VISITED_LIST:		save.visitedList = castToIntArray((ObjectSet<Integer>) object); break;
+	    	case BATTLE_CODE:		save.battleCode = (BattleCode) object; break;
+	    	case CLASS:				save.jobClass = (JobClass) object; break;
+    	}	
         saveToJson(save); //Saves current save immediately.
     }
     
     @SuppressWarnings("unchecked")
-    public <T> T loadDataValue(String key, Class<?> type){
-    	if (key.equals("Player")){
-    		return (T) (PlayerCharacter)save.player;
-    	}
-    	else if (key.equals("SceneCode")){
-    		return (T) (Integer)save.sceneCode;
-    	}
-    	else if (key.equals("NodeCode")){
-    		return (T) (Integer)save.nodeCode;
-    	}
-    	else if (key.equals("Context")){
-    		return (T) save.context;
-    	}
-    	else if (key.equals("EncounterCode")){
-    		return (T) (Integer) save.encounterCode;
-    	}
-    	else if (key.equals("VisitedList")){
-    		ObjectSet<Integer> set = new ObjectSet<Integer>();
-    		for (int member : save.visitedList){
-    			set.add(member);
-    		}
-    		return (T) set;
-    	}
-    	else if (key.equals("BattleCode")){
-    		return (T) save.battleCode;
-    	}
-    	else if (key.equals("Class")){
-    		return (T) save.jobClass;
-    	}
-        else return null;   //this if() avoids an exception, but check for null on load.
+    public <T> T loadDataValue(SaveEnum key, Class<?> type){
+    	switch (key){
+	    	case PLAYER: 			return (T) (PlayerCharacter)save.player;
+	    	case ENEMY: 			return (T) (EnemyCharacter)save.enemy;
+	    	case SCENE_CODE: 		return (T) (Integer)save.sceneCode;
+	    	case CONTEXT: 			return (T) save.context;
+	    	case NODE_CODE: 		return (T) (Integer)save.nodeCode;
+	    	case ENCOUNTER_CODE:	return (T) (Integer) save.encounterCode;
+	    	case VISITED_LIST:		ObjectSet<Integer> set = new ObjectSet<Integer>();
+	    							for (int member : save.visitedList){
+	    								set.add(member);
+	    							}
+	    							return (T) set;
+	    	case BATTLE_CODE:		return (T) save.battleCode;
+	    	case CLASS:				return (T) save.jobClass;
+    	}	
+    	return null;
     }
     
     private void saveToJson(GameSave save){
@@ -136,8 +109,10 @@ public class SaveManager implements SaveService, LoadService{
     	public int nodeCode;
     	public int[] visitedList;
     	public JobClass jobClass;
+    	// this can probably be refactored to contain a particular battle, but may need to duplicate the player character
     	public BattleCode battleCode;
     	public PlayerCharacter player;
+    	public EnemyCharacter enemy;
     	
     	// 0-arg constructor for JSON serialization: DO NOT USE
     	@SuppressWarnings("unused")

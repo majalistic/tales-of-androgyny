@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectSet;
 import com.majalis.save.LoadService;
+import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveManager;
 import com.majalis.save.SaveService;
 /*
@@ -97,16 +98,16 @@ public class GameWorldNode extends Group {
 	public void visit(){
 		selected = true;
 		if (!visited){
-			saveService.saveDataValue("EncounterCode", encounter);
-			saveService.saveDataValue("Context", SaveManager.GameContext.ENCOUNTER);
-			ObjectSet<Integer> visitedList = loadService.loadDataValue("VisitedList", ObjectSet.class);
+			saveService.saveDataValue(SaveEnum.ENCOUNTER_CODE, encounter);
+			saveService.saveDataValue(SaveEnum.CONTEXT, SaveManager.GameContext.ENCOUNTER);
+			ObjectSet<Integer> visitedList = loadService.loadDataValue(SaveEnum.VISITED_LIST, ObjectSet.class);
 			visitedList.add(nodeCode);
-			saveService.saveDataValue("VisitedList", visitedList);
+			saveService.saveDataValue(SaveEnum.VISITED_LIST, visitedList);
 		}
 		else {
-			saveService.saveDataValue("EncounterCode", defaultEncounter);
+			saveService.saveDataValue(SaveEnum.ENCOUNTER_CODE, defaultEncounter);
 		}
-		saveService.saveDataValue("NodeCode", nodeCode);
+		saveService.saveDataValue(SaveEnum.NODE_CODE, nodeCode);
 	}
 
 	public Array<GameWorldNode> getConnectedNodes() {

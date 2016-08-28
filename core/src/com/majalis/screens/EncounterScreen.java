@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.majalis.encounter.Encounter;
+import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveManager;
 import com.majalis.save.SaveService;
 
@@ -45,12 +46,12 @@ public class EncounterScreen extends AbstractScreen {
 		super.render(delta);
 		encounter.gameLoop();
 		if (encounter.battle){
-			saveService.saveDataValue("Context", SaveManager.GameContext.BATTLE);
+			saveService.saveDataValue(SaveEnum.CONTEXT, SaveManager.GameContext.BATTLE);
 			showScreen(ScreenEnum.BATTLE);
 		}
 		if (encounter.encounterOver){
-			saveService.saveDataValue("Context", SaveManager.GameContext.WORLD_MAP);
-			saveService.saveDataValue("SceneCode", 0);
+			saveService.saveDataValue(SaveEnum.CONTEXT, SaveManager.GameContext.WORLD_MAP);
+			saveService.saveDataValue(SaveEnum.SCENE_CODE, 0);
 			showScreen(ScreenEnum.LOAD_GAME);
 		}
 		if (encounter.gameExit){

@@ -1,6 +1,7 @@
 package com.majalis.scenes;
 
 import com.majalis.save.LoadService;
+import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveService;
 
 /*
@@ -11,7 +12,7 @@ public class Mutation {
 	private final SaveService saveService;
 	private final LoadService loadService;
 	private final boolean overwrite;
-	private final String path;
+	private final SaveEnum path;
 	private final Class<?> type;
 	private final Object value;
 
@@ -19,11 +20,11 @@ public class Mutation {
 		this(null, null, null);
 	}
 	
-	public Mutation(SaveService saveService, String path, Object value){
+	public Mutation(SaveService saveService, SaveEnum path, Object value){
 		this(saveService, null, path, value, null, true);
 	}
 		
-	public Mutation(SaveService saveService, LoadService loadService, String path, Object value, Class<?> type, boolean overwrite){
+	public Mutation(SaveService saveService, LoadService loadService, SaveEnum path, Object value, Class<?> type, boolean overwrite){
 		this.saveService = saveService;
 		this.loadService = loadService;
 		this.overwrite = overwrite;

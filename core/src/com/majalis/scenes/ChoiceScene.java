@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.ObjectMap;
+import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveManager;
 import com.majalis.save.SaveService;
 
@@ -64,7 +65,7 @@ public class ChoiceScene extends Scene {
 		this.removeAction(Actions.hide());
 		this.addAction(Actions.visible(true));
 		this.addAction(Actions.show());
-		saveService.saveDataValue("SceneCode", sceneCode);
+		saveService.saveDataValue(SaveEnum.SCENE_CODE, sceneCode);
 	}
 	
 	private ClickListener getListener(final SaveManager.JobClass selection){

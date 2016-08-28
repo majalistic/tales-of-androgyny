@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.majalis.character.EnemyCharacter;
 import com.majalis.character.PlayerCharacter;
+import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveService;
 
 public class Battle extends Group{
@@ -49,8 +50,8 @@ public class Battle extends Group{
 			character.currentHealth--;
 		}
 		
-		saveService.saveDataValue("Player", character);
-		saveService.saveDataValue("Enemy", enemy);
+		saveService.saveDataValue(SaveEnum.PLAYER, character);
+		//saveService.saveDataValue(SaveEnum.ENEMY, enemy);
 		
 		if (character.currentHealth <= 0){
 			victory = false;

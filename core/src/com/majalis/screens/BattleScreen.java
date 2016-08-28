@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.majalis.battle.Battle;
+import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveManager;
 import com.majalis.save.SaveService;
 
@@ -38,12 +39,12 @@ public class BattleScreen extends AbstractScreen{
 		super.render(delta);
 		battle.battleLoop();
 		if (battle.battleOver){			
-			saveService.saveDataValue("Context", SaveManager.GameContext.ENCOUNTER);
+			saveService.saveDataValue(SaveEnum.CONTEXT, SaveManager.GameContext.ENCOUNTER);
 			if (battle.victory){
-				saveService.saveDataValue("SceneCode", battle.getVictoryScene());
+				saveService.saveDataValue(SaveEnum.SCENE_CODE, battle.getVictoryScene());
 			}
 			else {
-				saveService.saveDataValue("SceneCode", battle.getDefeatScene());
+				saveService.saveDataValue(SaveEnum.SCENE_CODE, battle.getDefeatScene());
 			}
 			showScreen(ScreenEnum.ENCOUNTER);
 		}

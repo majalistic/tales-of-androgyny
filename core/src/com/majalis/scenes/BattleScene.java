@@ -2,6 +2,7 @@ package com.majalis.scenes;
 
 import com.badlogic.gdx.utils.ObjectMap;
 import com.majalis.battle.BattleCode;
+import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveService;
 
 public class BattleScene extends Scene {
@@ -23,6 +24,6 @@ public class BattleScene extends Scene {
 	@Override
 	public void setActive() {
 		isActive = true;
-		saveService.saveDataValue("BattleCode", new BattleCode(battleCode, victoryScene, defeatScene));
+		saveService.saveDataValue(SaveEnum.BATTLE_CODE, new BattleCode(battleCode, victoryScene, defeatScene));
 	}
 }
