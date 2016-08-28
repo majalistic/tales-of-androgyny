@@ -2,7 +2,6 @@ package com.majalis.traprpg;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Group;
 
@@ -37,6 +36,10 @@ public class Battle extends Group{
 		}
 		if (character.currentHealth < 0){
 			victory = false;
+			battleOver = true;
+		}
+		if (enemy.currentHealth < 0){
+			victory = true;
 			battleOver = true;
 		}
 	}
