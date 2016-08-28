@@ -11,7 +11,8 @@ public class TrapRPG extends Game {
 	public void create() {	
 		SaveManager saveManager = new SaveManager(false);
 		AssetManager assetManager = new AssetManager();
-		init(new ScreenFactoryImpl(this, assetManager, saveManager, new GameWorldFactory(saveManager, new BitmapFont()), new EncounterFactory(assetManager, saveManager), new BattleFactory(assetManager), new SpriteBatch()));
+		BitmapFont font =  new BitmapFont();
+		init(new ScreenFactoryImpl(this, assetManager, saveManager, new GameWorldFactory(saveManager, font), new EncounterFactory(assetManager, saveManager), new BattleFactory(saveManager, assetManager, font), new SpriteBatch()));
 	}
 	/*
 	 * Takes a factory implementation and uses it to generate a screen and switch to it

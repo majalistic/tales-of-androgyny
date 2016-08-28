@@ -25,7 +25,10 @@ public class SaveManager implements SaveService, LoadService{
 	public void saveDataValue(String key, Object object){
     	// currently stringly-typed if else chain, just to get the GameSave modification stood up, need to think of a better way (at least enum-ize it and switch/case)
     	// likely will need to refactor and have each of these elements saved into the gamestate as a serialized encounter instead of an encounter code
-    	if (key.equals("SceneCode")){
+    	if (key.equals("Player")){
+    		save.player = (PlayerCharacter) object;
+    	}
+    	else if (key.equals("SceneCode")){
     		save.sceneCode = (Integer) object;
     	}
     	else if (key.equals("Context")){
@@ -51,10 +54,13 @@ public class SaveManager implements SaveService, LoadService{
     
     @SuppressWarnings("unchecked")
     public <T> T loadDataValue(String key, Class<?> type){
-    	if (key.equals("SceneCode")){
+    	if (key.equals("Player")){
+    		return (T) (PlayerCharacter)save.player;
+    	}
+    	else if (key.equals("SceneCode")){
     		return (T) (Integer)save.sceneCode;
     	}
-    	if (key.equals("NodeCode")){
+    	else if (key.equals("NodeCode")){
     		return (T) (Integer)save.nodeCode;
     	}
     	else if (key.equals("Context")){
@@ -121,6 +127,7 @@ public class SaveManager implements SaveService, LoadService{
     }
     
     public static class GameSave{
+    	
 		public GameContext context;
 		public int sceneCode;
 		public int encounterCode;
@@ -128,12 +135,13 @@ public class SaveManager implements SaveService, LoadService{
     	public int[] visitedList;
     	public JobClass jobClass;
     	public BattleCode battleCode;
+    	public PlayerCharacter player;
     	
     	// 0-arg constructor for JSON serialization: DO NOT USE
     	@SuppressWarnings("unused")
 		private GameSave(){}
     	
-    	// default save values
+    	// default save values-
     	public GameSave(boolean defaultValues){
     		if (defaultValues){
     			context = GameContext.ENCOUNTER;
@@ -141,7 +149,8 @@ public class SaveManager implements SaveService, LoadService{
     			sceneCode = 0;
     			encounterCode = 0;
         		nodeCode = 1;
-        		visitedList = new int[]{1};  
+        		visitedList = new int[]{1};
+        		player = new PlayerCharacter(true);
     		}
     	}
     }

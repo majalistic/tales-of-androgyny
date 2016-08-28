@@ -1,4 +1,7 @@
 package com.majalis.traprpg;
+
+import com.badlogic.gdx.utils.IntArray;
+
 /*
  * Contains the current player character's statistics, including "party" statistics like food remaining
  */
@@ -6,15 +9,14 @@ public class PlayerCharacter extends Character{
 
 
 	@SuppressWarnings("unused")
-	private PlayerCharacter(){
-		
-	}
+	private PlayerCharacter(){}
 	
 	public PlayerCharacter(boolean defaultValues){
-		super();
+		super(defaultValues);
 		if (defaultValues){
-			
-			currentHealth = 5;
+			baseCharisma = 6;
+			healthTiers = new IntArray(new int[]{10});	
+			currentHealth = getMaxHealth();
 		}
 	}
 	
@@ -36,12 +38,6 @@ public class PlayerCharacter extends Character{
 	// public Hole hole;  // bowels contents, tightness, number of copulations, number of creampies, etc. 
 	// public Mouth mouth; 
 	// public Wiener wiener;	
-
-	public enum Stance {
-		Balanced,
-		Defensive,
-		Offensive
-	}
 	
 	public enum Femininity {
 		MALE,

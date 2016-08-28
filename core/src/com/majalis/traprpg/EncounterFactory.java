@@ -3,6 +3,7 @@ package com.majalis.traprpg;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.IntArray;
 import com.badlogic.gdx.utils.ObjectMap;
 
 /*
@@ -139,23 +140,15 @@ public class EncounterFactory {
 		return new Encounter(scenes, endScenes, new Array<BattleScene>(), getStartScene(scenes, sceneCode));
 	}
 	
-	private Array<Integer> getSceneCodeList(int... integers){
-		Array<Integer> codes = new Array<Integer>();
-		for (int ii : integers){
-			codes.add(ii);
-		}
-		return codes;
+	private IntArray getSceneCodeList(int... integers){
+		return new IntArray(integers);
 	}
 	
 	private Array<Scene> getSceneList(Scene... scenes){
-		Array<Scene> scenesArray = new Array<Scene>();
-		for (Scene scene : scenes){
-			scenesArray.add(scene);
-		}
-		return scenesArray;
+		return new Array<Scene>(true, scenes, 0, scenes.length);
 	}
 	
-	private ObjectMap<Integer, Scene> getSceneMap(Array<Integer> integers, Array<Scene> scenes){
+	private ObjectMap<Integer, Scene> getSceneMap(IntArray integers, Array<Scene> scenes){
 		ObjectMap<Integer, Scene> sceneMap = new ObjectMap<Integer, Scene>();
 		for (int ii = 0; ii < integers.size; ii++){
 			sceneMap.put(integers.get(ii), scenes.get(ii));

@@ -3,24 +3,29 @@ package com.majalis.traprpg;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.Group;
 
 public class Battle extends Group{
 
 	private final PlayerCharacter character;
 	private final EnemyCharacter enemy;
+	private final SaveService saveService;
+	private final BitmapFont font;
 	private final int victoryScene;
 	private final int defeatScene;
 	public boolean battleOver;
 	public boolean victory;
 	
-	public Battle(PlayerCharacter character, EnemyCharacter enemy, int victoryScene, int defeatScene) {
+	public Battle(SaveService saveService, BitmapFont font, PlayerCharacter character, EnemyCharacter enemy,  int victoryScene, int defeatScene) {
+		this.saveService = saveService;
+		this.font = font;
 		this.character = character;
 		this.enemy = enemy;
 		this.victoryScene = victoryScene;
 		this.defeatScene = defeatScene;
 		battleOver = false;
-		this.addActor(character);
+		//this.addActor(character);
 		this.addActor(enemy);
 	}
 
@@ -39,13 +44,14 @@ public class Battle extends Group{
 		}
 		else if (Gdx.input.isKeyJustPressed(Keys.S)){
 			character.currentHealth--;
+			saveService.saveDataValue("Player", character);
 		}
 		
-		if (character.currentHealth < 0){
+		if (character.currentHealth <= 0){
 			victory = false;
 			battleOver = true;
 		}
-		if (enemy.currentHealth < 0){
+		if (enemy.currentHealth <= 0){
 			victory = true;
 			battleOver = true;
 		}
@@ -54,6 +60,8 @@ public class Battle extends Group{
 	@Override
     public void draw(Batch batch, float parentAlpha) {
 		super.draw(batch, parentAlpha);
+		font.draw(batch, "Your health: " + String.valueOf(character.currentHealth), 500, 200);
+		font.draw(batch, "Enemy health: " + String.valueOf(enemy.currentHealth), 700, 200);
     }
 	
 	public int getVictoryScene(){

@@ -43,6 +43,7 @@ public class ScreenFactoryImpl implements ScreenFactory {
         FitViewport viewport =  new FitViewport(winWidth, winHeight, camera);
         BitmapFont font = new BitmapFont();
         ScreenElements elements = new ScreenElements(viewport, batch, font);
+        PlayerCharacter character = loadService.loadDataValue("Player", PlayerCharacter.class);
 		AbstractScreen tempScreen;
 		switch(screenRequest){
 			case SPLASH: 
@@ -54,15 +55,15 @@ public class ScreenFactoryImpl implements ScreenFactory {
 				break;
 			case NEW_GAME:	
 			case ENCOUNTER: 
-				tempScreen = getEncounter(elements);
+				tempScreen = getEncounter(elements, character);
 				if (tempScreen != null) return tempScreen;
 				break; 
 			case LOAD_GAME: 
-				tempScreen = getGameScreen(elements);
+				tempScreen = getGameScreen(elements, character);
 				if (tempScreen != null) return tempScreen;
 				break;
 			case BATTLE:
-				tempScreen = getBattle(elements);
+				tempScreen = getBattle(elements, character);
 				if (tempScreen != null) return tempScreen;
 				break;
 			case GAME_OVER:				
@@ -95,7 +96,7 @@ public class ScreenFactoryImpl implements ScreenFactory {
 		return assetsLoaded;
 	}
 	
-	private AbstractScreen getEncounter(ScreenElements elements){
+	private AbstractScreen getEncounter(ScreenElements elements, PlayerCharacter character){
 		if (getAssetCheck(EncounterScreen.resourceRequirements)){
 			Integer encounterCode = loadService.loadDataValue("EncounterCode", Integer.class);
 			return new EncounterScreen(this, elements, assetManager, saveService, encounterFactory.getEncounter(encounterCode, elements.getFont()));
@@ -105,27 +106,27 @@ public class ScreenFactoryImpl implements ScreenFactory {
 		}
 	}
 
-	private AbstractScreen getBattle(ScreenElements elements){
+	private AbstractScreen getBattle(ScreenElements elements, PlayerCharacter character){
 		if (getAssetCheck(BattleScreen.resourceRequirements)){
 			BattleCode battleCode = loadService.loadDataValue("BattleCode", BattleCode.class);
-			return new BattleScreen(this, elements, saveService, battleFactory.getBattle(battleCode));
+			return new BattleScreen(this, elements, saveService, battleFactory.getBattle(battleCode, character));
 		}
 		else {
 			return null;
 		}
 	}
 	
-	private AbstractScreen getGameScreen(ScreenElements elements){
+	private AbstractScreen getGameScreen(ScreenElements elements, PlayerCharacter character){
 		SaveManager.GameContext context = loadService.loadDataValue("Context", SaveManager.GameContext.class);
 		switch (context){
-			case ENCOUNTER: return getEncounter(elements);
+			case ENCOUNTER: return getEncounter(elements, character);
 			case WORLD_MAP: 
 				if (getAssetCheck(GameScreen.resourceRequirements)){
 					return new GameScreen(this, elements, assetManager, saveService, gameWorldFactory.getGameWorld());
 				}
 				else return null;
 			case BATTLE:
-				return getBattle(elements);
+				return getBattle(elements, character);
 			default: return null;
 		}	
 	}
