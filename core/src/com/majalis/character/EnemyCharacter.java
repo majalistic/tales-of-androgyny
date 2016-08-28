@@ -11,6 +11,8 @@ public class EnemyCharacter extends Character {
 
 	private final Texture texture;
 	private final Vector2 position;
+	@SuppressWarnings("unused")
+	private EnemyCharacter(){ texture = null; position = null; }
 	public EnemyCharacter(Texture texture, boolean werewolf){
 		this.texture = texture;
 		position = werewolf ? new Vector2(600, 400) : new Vector2(150, -40);
