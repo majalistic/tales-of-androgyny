@@ -8,20 +8,25 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 
 public class Battle extends Group{
 
+	private final PlayerCharacter character;
+	private final EnemyCharacter enemy;
 	private final int victoryScene;
 	private final int defeatScene;
-	private final Texture enemy;
 	public boolean battleOver;
 	public boolean victory;
 	
-	public Battle(int victoryScene, int defeatScene, Texture enemy) {
+	public Battle(PlayerCharacter character, EnemyCharacter enemy, int victoryScene, int defeatScene) {
+		this.character = character;
+		this.enemy = enemy;
 		this.victoryScene = victoryScene;
 		this.defeatScene = defeatScene;
-		this.enemy = enemy;
 		battleOver = false;
+		this.addActor(character);
+		this.addActor(enemy);
 	}
 
 	public void battleLoop() {
+		// temporary debug commands
 		if (Gdx.input.isKeyJustPressed(Keys.ENTER)){
 			victory = true;
 			battleOver = true;
@@ -30,12 +35,15 @@ public class Battle extends Group{
 			victory = false;
 			battleOver = true;
 		}
+		if (character.currentHealth < 0){
+			victory = false;
+			battleOver = true;
+		}
 	}
 	
 	@Override
     public void draw(Batch batch, float parentAlpha) {
 		super.draw(batch, parentAlpha);
-		batch.draw(enemy, 600, 400);
     }
 	
 	public int getVictoryScene(){

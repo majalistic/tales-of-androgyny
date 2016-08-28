@@ -12,7 +12,10 @@ public class BattleFactory {
 	
 	public Battle getBattle(BattleCode battleCode) {
 		switch(battleCode.battleCode){
-			default: return new Battle(battleCode.victoryScene, battleCode.defeatScene, assetManager.get("wereslut.png", Texture.class));
+			
+			default: 
+				boolean werewolf = Math.floor(Math.random()*10) % 2 == 0;
+				return new Battle( new PlayerCharacter(), new EnemyCharacter(assetManager.get(werewolf ? "wereslut.png" : "harpy.jpg", Texture.class), werewolf), battleCode.victoryScene, battleCode.defeatScene);
 		}
 	}
 

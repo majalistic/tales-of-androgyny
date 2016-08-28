@@ -12,6 +12,7 @@ public class BattleScreen extends AbstractScreen{
 	static {
 		resourceRequirements.put("uiskin.json", Skin.class);
 		resourceRequirements.put("wereslut.png", Texture.class);
+		resourceRequirements.put("harpy.jpg", Texture.class);
 		resourceRequirements.put("sound.wav", Sound.class);
 	}
 	
