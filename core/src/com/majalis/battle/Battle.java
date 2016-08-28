@@ -42,13 +42,15 @@ public class Battle extends Group{
 			victory = false;
 			battleOver = true;
 		}
+		// attack with balanced attack
 		else if (Gdx.input.isKeyJustPressed(Keys.A)){
+			// handle synchronous attacks
 			enemy.currentHealth--;
-		}
-		else if (Gdx.input.isKeyJustPressed(Keys.S)){
 			character.currentHealth--;
-			saveService.saveDataValue("Player", character);
 		}
+		
+		saveService.saveDataValue("Player", character);
+		saveService.saveDataValue("Enemy", enemy);
 		
 		if (character.currentHealth <= 0){
 			victory = false;
