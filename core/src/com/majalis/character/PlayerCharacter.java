@@ -1,9 +1,9 @@
 package com.majalis.character;
 
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.utils.IntArray;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonValue;
-import com.majalis.battle.Attack;
 /*
  * Contains the current player character's statistics, including "party" statistics like food remaining
  */
@@ -44,14 +44,41 @@ public class PlayerCharacter extends AbstractCharacter implements Json.Serializa
 	
 	
 	public Technique getTechnique(AbstractCharacter target){
-		return new Technique(getStrength());
+		// default neutral attack
+		return getTechnique(Keys.S);
 	}
 	
-	public String receiveAttack(Attack attack){
-		int damage = attack.getDamage();
-		damage -= getVitality();
-		currentHealth -= damage;
-		return String.valueOf(damage);
+	public Technique getTechnique(int keyPressed) {
+		switch(stance){
+			case OFFENSIVE:
+				switch (keyPressed){
+					case Keys.A:
+						return new Technique(Techniques.STRONG_ATTACK, getStrength());	
+					case Keys.S:
+						return new Technique(Techniques.TEMPO_ATTACK, getStrength());	
+					case Keys.D:	
+						return new Technique(Techniques.RESERVED_ATTACK, getStrength());
+				}
+			case BALANCED:
+				switch (keyPressed){
+					case Keys.A:
+						return new Technique(Techniques.SPRING_ATTACK, getStrength());	
+					case Keys.S:
+						return new Technique(Techniques.NEUTRAL_ATTACK, getStrength());	
+					case Keys.D:	
+						return new Technique(Techniques.CAUTIOUS_ATTACK, getStrength());
+				}
+			case DEFENSIVE:
+				switch (keyPressed){
+					case Keys.A:
+						return new Technique(Techniques.SPRING_ATTACK, getStrength());	
+					case Keys.S:
+						return new Technique(Techniques.CAREFUL_ATTACK, getStrength());	
+					case Keys.D:	
+						return new Technique(Techniques.GUARD, getStrength());
+				}
+		}
+		return null;
 	}
 	
 	@Override

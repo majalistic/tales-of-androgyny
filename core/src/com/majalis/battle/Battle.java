@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.majalis.character.AbstractCharacter;
+import com.majalis.character.AbstractCharacter.Stance;
 import com.majalis.character.EnemyCharacter;
 import com.majalis.character.PlayerCharacter;
 import com.majalis.character.Technique;
@@ -53,14 +54,17 @@ public class Battle extends Group{
 			gameExit = true;
 		}
 		// attack with balanced attack
-		else if (Gdx.input.isKeyJustPressed(Keys.A)){
-			// handle synchronous attacks
-			
-			// possibly construct a separate class for this
-			resolveTechniques(character, character.getTechnique(enemy), enemy, enemy.getTechnique(character));
-			
-			saveService.saveDataValue(SaveEnum.PLAYER, character);
-			saveService.saveDataValue(SaveEnum.ENEMY, enemy);
+		else {
+			int keyPress = getKeyPress();
+			if (keyPress != -1){				
+				// handle synchronous attacks
+					
+				// possibly construct a separate class for this
+				resolveTechniques(character, character.getTechnique(keyPress), enemy, enemy.getTechnique(character));
+				
+				saveService.saveDataValue(SaveEnum.PLAYER, character);
+				saveService.saveDataValue(SaveEnum.ENEMY, enemy);
+			}
 		}
 		
 		if (character.currentHealth <= 0){
@@ -73,18 +77,41 @@ public class Battle extends Group{
 		}
 	}
 	
+	private int getKeyPress() {
+		int[] possibleKeys = new int[]{Keys.A, Keys.S, Keys.D};
+		for (int possibleKey : possibleKeys){
+			if (Gdx.input.isKeyJustPressed(possibleKey)){
+				return possibleKey;
+			}
+		}
+		return -1;
+	}
+
 	private void resolveTechniques(AbstractCharacter firstCharacter, Technique firstTechnique, AbstractCharacter secondCharacter, Technique secondTechnique) {
-		
 		Attack attackForFirst = new Attack(secondTechnique.getDamage());
 		Attack attackForSecond = new Attack(firstTechnique.getDamage());
 				
 		console = "";
-		console += getResultString(firstCharacter, secondCharacter, attackForSecond);
-		console += getResultString(secondCharacter, firstCharacter, attackForFirst);		
+		Stance firstStance = firstTechnique.getStance();
+		Stance secondStance = secondTechnique.getStance();
+		console += getStanceString(firstCharacter, firstStance);
+		console += getStanceString(secondCharacter, secondStance);
+		
+		firstCharacter.stance = firstStance;
+		secondCharacter.stance = secondStance;
+		
+		console += "\n";
+		
+		console += getResultString(firstCharacter, secondCharacter, firstTechnique, attackForSecond);
+		console += getResultString(secondCharacter, firstCharacter, secondTechnique, attackForFirst);		
 	}
 
-	private String getResultString(AbstractCharacter firstCharacter, AbstractCharacter secondCharacter, Attack attackForSecond){
-		return firstCharacter.label + (firstCharacter.secondPerson ? " hit " : " hits ") + secondCharacter.label + " for " + secondCharacter.receiveAttack(attackForSecond) + " damage! ";
+	private String getStanceString(AbstractCharacter character, Stance stance) {
+		return character.label + (character.secondPerson ? " adopt " : " adopts ") + " a(n) " + stance.toString() + " stance!\n";
+	}
+	
+	private String getResultString(AbstractCharacter firstCharacter, AbstractCharacter secondCharacter, Technique technique, Attack attackForSecond){
+		return firstCharacter.label + (firstCharacter.secondPerson ? " use " : " uses ") + technique.getTechniqueName() + " against " + (secondCharacter.secondPerson ? secondCharacter.label.toLowerCase() : secondCharacter.label) + " for " + secondCharacter.receiveAttack(attackForSecond) + " damage!\n";
 	}
 	
 	@Override

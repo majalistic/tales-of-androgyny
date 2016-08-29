@@ -149,6 +149,7 @@ public abstract class AbstractCharacter extends Group implements Json.Serializab
 	public String receiveAttack(Attack attack){
 		int damage = attack.getDamage();
 		damage -= getVitality();
+		if (damage < 0) damage = 0;
 		currentHealth -= damage;
 		return String.valueOf(damage);
 	}
