@@ -1,11 +1,64 @@
 package com.majalis.character;
 
+import com.badlogic.gdx.utils.Json;
+import com.badlogic.gdx.utils.JsonValue;
+
+import java.lang.reflect.Field;
+
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.utils.IntArray;
 /*
  * Abstract character class, both enemies and player characters extend this class
  */
-public abstract class Character extends Group {
+public abstract class Character extends Group implements Json.Serializable {
+	
+	@Override
+	public void write(Json json) {
+		writeFields(json, Character.class.getDeclaredFields());		
+	}
+	
+	protected void writeFields(Json json, Field[] fields){
+		for (Field field : fields){
+			try {
+				json.writeValue(field.getName(), field.get(this));
+			} catch (IllegalArgumentException e) {
+				e.printStackTrace();
+			} catch (IllegalAccessException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	@Override
+	public void read(Json json, JsonValue jsonData) {
+		for (JsonValue jsonValue : jsonData){
+			try {
+				Class<?> thisClass = this.getClass();
+				switch (jsonValue.type()){
+					case booleanValue: thisClass.getField(jsonValue.name).set(this, jsonValue.asBoolean()); break;
+					case doubleValue: thisClass.getField(jsonValue.name).set(this, jsonValue.asInt()); break;
+					case longValue: thisClass.getField(jsonValue.name).set(this, jsonValue.asInt()); break;
+					case stringValue: 
+						if (jsonValue.name.equals("stance")) stance = Stance.valueOf(jsonValue.asString());
+						else thisClass.getField(jsonValue.name).set(this, jsonValue.asString()); 
+						break;
+					case array:
+					case object: // this would need to somehow deserialize the object and place it into the field
+					case nullValue:
+					default:
+				}
+			} catch (NoSuchFieldException e) {
+				e.printStackTrace();
+			} catch (IllegalArgumentException e) {
+				e.printStackTrace();
+			} catch (IllegalAccessException e) {
+				e.printStackTrace();
+			} catch (SecurityException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
 	// some of these ints will be enumerators or objects in time
 	/* rigid stats */	
 	public int level;

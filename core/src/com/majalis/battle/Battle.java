@@ -29,7 +29,7 @@ public class Battle extends Group{
 		this.victoryScene = victoryScene;
 		this.defeatScene = defeatScene;
 		battleOver = false;
-		//this.addActor(character);
+		this.addActor(character);
 		this.addActor(enemy);
 	}
 

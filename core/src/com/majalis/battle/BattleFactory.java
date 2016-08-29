@@ -19,8 +19,7 @@ public class BattleFactory {
 	}
 	
 	public Battle getBattle(BattleCode battleCode, PlayerCharacter playerCharacter) {
-		switch(battleCode.battleCode){
-			
+		switch(battleCode.battleCode){	
 			default: 
 				boolean werewolf = Math.floor(Math.random()*10) % 2 == 0;
 				return new Battle( saveService, font, playerCharacter, new EnemyCharacter(assetManager.get(werewolf ? "wereslut.png" : "harpy.jpg", Texture.class), werewolf), battleCode.victoryScene, battleCode.defeatScene);
