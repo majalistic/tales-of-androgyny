@@ -18,6 +18,7 @@ public class EnemyCharacter extends AbstractCharacter {
 	private EnemyCharacter(){}
 	public EnemyCharacter(Texture texture, boolean werewolf){
 		super(true);
+		baseStrength = 6;
 		this.texture = texture;
 		setOwnPosition(werewolf);
 		label = (werewolf ? "Werebitch" : "Harpy");

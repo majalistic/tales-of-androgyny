@@ -18,7 +18,7 @@ public class PlayerCharacter extends AbstractCharacter implements Json.Serializa
 			label = "You";
 			secondPerson = true;
 			baseCharisma = 6;
-			healthTiers = new IntArray(new int[]{10});	
+			healthTiers = new IntArray(new int[]{10, 10, 10, 10});	
 			currentHealth = getMaxHealth();
 		}
 	}

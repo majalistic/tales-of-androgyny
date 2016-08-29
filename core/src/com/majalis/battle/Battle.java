@@ -41,16 +41,7 @@ public class Battle extends Group{
 	}
 
 	public void battleLoop() {
-		// temporary debug commands
-		if (Gdx.input.isKeyJustPressed(Keys.ENTER)){
-			victory = true;
-			battleOver = true;
-		}
-		else if (Gdx.input.isKeyJustPressed(Keys.SPACE)){
-			victory = false;
-			battleOver = true;
-		}
-		else if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)){
+		if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)){
 			gameExit = true;
 		}
 		// attack with balanced attack
@@ -88,8 +79,13 @@ public class Battle extends Group{
 	}
 
 	private void resolveTechniques(AbstractCharacter firstCharacter, Technique firstTechnique, AbstractCharacter secondCharacter, Technique secondTechnique) {
-		Attack attackForFirst = new Attack(secondTechnique.getDamage());
-		Attack attackForSecond = new Attack(firstTechnique.getDamage());
+		int rand = (int) Math.floor(Math.random() * 100);
+		
+		boolean firstBlock = firstTechnique.getBlock() > rand;
+		boolean secondBlock = secondTechnique.getBlock() > rand;
+		
+		Attack attackForFirst = new Attack((int)Math.floor(secondTechnique.getDamage() * (firstBlock ? (rand%2==0 ? .5 : 0) : 1 )));
+		Attack attackForSecond =new Attack((int)Math.floor(firstTechnique.getDamage() * (secondBlock ? (rand%2==0 ? .5 : 0) : 1 )));
 				
 		console = "";
 		Stance firstStance = firstTechnique.getStance();
@@ -102,16 +98,16 @@ public class Battle extends Group{
 		
 		console += "\n";
 		
-		console += getResultString(firstCharacter, secondCharacter, firstTechnique, attackForSecond);
-		console += getResultString(secondCharacter, firstCharacter, secondTechnique, attackForFirst);		
+		console += getResultString(firstCharacter, secondCharacter, firstTechnique, attackForSecond, secondBlock);
+		console += getResultString(secondCharacter, firstCharacter, secondTechnique, attackForFirst, firstBlock);		
 	}
 
 	private String getStanceString(AbstractCharacter character, Stance stance) {
 		return character.label + (character.secondPerson ? " adopt " : " adopts ") + " a(n) " + stance.toString() + " stance!\n";
 	}
 	
-	private String getResultString(AbstractCharacter firstCharacter, AbstractCharacter secondCharacter, Technique technique, Attack attackForSecond){
-		return firstCharacter.label + (firstCharacter.secondPerson ? " use " : " uses ") + technique.getTechniqueName() + " against " + (secondCharacter.secondPerson ? secondCharacter.label.toLowerCase() : secondCharacter.label) + " for " + secondCharacter.receiveAttack(attackForSecond) + " damage!\n";
+	private String getResultString(AbstractCharacter firstCharacter, AbstractCharacter secondCharacter, Technique technique, Attack attackForSecond, boolean blocked){
+		return firstCharacter.label + (firstCharacter.secondPerson ? " use " : " uses ") + technique.getTechniqueName() + " against " + (secondCharacter.secondPerson ? secondCharacter.label.toLowerCase() : secondCharacter.label) + (blocked ? " and is blocked " : "") + " for " + secondCharacter.receiveAttack(attackForSecond) + " damage!\n";
 	}
 	
 	@Override
