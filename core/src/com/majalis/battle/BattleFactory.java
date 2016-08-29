@@ -25,7 +25,7 @@ public class BattleFactory {
 	
 	public Battle getBattle(BattleCode battleCode, PlayerCharacter playerCharacter) {
 		EnemyCharacter enemy = loadService.loadDataValue(SaveEnum.ENEMY, EnemyCharacter.class);
-		if (enemy.currentHealth <= 0){
+		if (enemy == null || enemy.currentHealth <= 0){
 			boolean werewolf = Math.floor(Math.random()*10) % 2 == 0;
 			enemy = new EnemyCharacter(assetManager.get(werewolf ? "wereslut.png" : "harpy.jpg", Texture.class), werewolf);
 		}

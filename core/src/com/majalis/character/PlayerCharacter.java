@@ -3,10 +3,11 @@ package com.majalis.character;
 import com.badlogic.gdx.utils.IntArray;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonValue;
+import com.majalis.battle.Attack;
 /*
  * Contains the current player character's statistics, including "party" statistics like food remaining
  */
-public class PlayerCharacter extends Character implements Json.Serializable{
+public class PlayerCharacter extends AbstractCharacter implements Json.Serializable{
 
 	@SuppressWarnings("unused")
 	private PlayerCharacter(){}
@@ -14,6 +15,8 @@ public class PlayerCharacter extends Character implements Json.Serializable{
 	public PlayerCharacter(boolean defaultValues){
 		super(defaultValues);
 		if (defaultValues){
+			label = "You";
+			secondPerson = true;
 			baseCharisma = 6;
 			healthTiers = new IntArray(new int[]{10});	
 			currentHealth = getMaxHealth();
@@ -38,6 +41,18 @@ public class PlayerCharacter extends Character implements Json.Serializable{
 	// public Hole hole;  // bowels contents, tightness, number of copulations, number of creampies, etc. 
 	// public Mouth mouth; 
 	// public Wiener wiener;	
+	
+	
+	public Technique getTechnique(AbstractCharacter target){
+		return new Technique(getStrength());
+	}
+	
+	public String receiveAttack(Attack attack){
+		int damage = attack.getDamage();
+		damage -= getVitality();
+		currentHealth -= damage;
+		return String.valueOf(damage);
+	}
 	
 	@Override
 	public void write(Json json) {

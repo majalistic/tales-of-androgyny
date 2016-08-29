@@ -9,16 +9,22 @@ import com.badlogic.gdx.utils.JsonValue;
 /*
  * Abstract class that all enemies extend - currently concrete to represent a generic "enemy".
  */
-public class EnemyCharacter extends Character {
+public class EnemyCharacter extends AbstractCharacter {
 
 	private Texture texture;
 	private Vector2 position;
 	@SuppressWarnings("unused")
 	private EnemyCharacter(){}
 	public EnemyCharacter(Texture texture, boolean werewolf){
+		super(true);
 		this.texture = texture;
-		setOwnPosition(werewolf); 
-		this.currentHealth = 3;
+		setOwnPosition(werewolf);
+		label = (werewolf ? "Werebitch" : "Harpy");
+		this.currentHealth = getMaxHealth();
+	}
+	
+	public Technique getTechnique(AbstractCharacter target){
+		return new Technique(getStrength());
 	}
 	
 	@Override
