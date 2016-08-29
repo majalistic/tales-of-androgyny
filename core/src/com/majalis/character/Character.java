@@ -21,11 +21,9 @@ public abstract class Character extends Group implements Json.Serializable {
 		for (Field field : fields){
 			try {
 				json.writeValue(field.getName(), field.get(this));
-			} catch (IllegalArgumentException e) {
+			} catch (Exception e) {
 				e.printStackTrace();
-			} catch (IllegalAccessException e) {
-				e.printStackTrace();
-			}
+			} 
 		}
 	}
 	
@@ -47,15 +45,9 @@ public abstract class Character extends Group implements Json.Serializable {
 					case nullValue:
 					default:
 				}
-			} catch (NoSuchFieldException e) {
+			} catch (Exception e) {
 				e.printStackTrace();
-			} catch (IllegalArgumentException e) {
-				e.printStackTrace();
-			} catch (IllegalAccessException e) {
-				e.printStackTrace();
-			} catch (SecurityException e) {
-				e.printStackTrace();
-			}
+			} 
 		}
 	}
 	
