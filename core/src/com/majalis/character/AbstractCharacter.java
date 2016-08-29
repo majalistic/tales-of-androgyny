@@ -109,7 +109,10 @@ public abstract class AbstractCharacter extends Group implements Json.Serializab
 	protected void writeFields(Json json, Field[] fields){
 		for (Field field : fields){
 			try {
-				json.writeValue(field.getName(), field.get(this));
+				if (!field.isSynthetic()){
+					json.writeValue(field.getName(), field.get(this));
+				}
+				
 			} catch (Exception e) {
 				e.printStackTrace();
 			} 
