@@ -51,7 +51,7 @@ public class Battle extends Group{
 		}
 		
 		saveService.saveDataValue(SaveEnum.PLAYER, character);
-		//saveService.saveDataValue(SaveEnum.ENEMY, enemy);
+		saveService.saveDataValue(SaveEnum.ENEMY, enemy);
 		
 		if (character.currentHealth <= 0){
 			victory = false;

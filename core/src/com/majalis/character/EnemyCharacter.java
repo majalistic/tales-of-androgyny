@@ -11,13 +11,13 @@ import com.badlogic.gdx.utils.JsonValue;
  */
 public class EnemyCharacter extends Character {
 
-	private final Texture texture;
-	private final Vector2 position;
+	private Texture texture;
+	private Vector2 position;
 	@SuppressWarnings("unused")
-	private EnemyCharacter(){ texture = null; position = null; }
+	private EnemyCharacter(){}
 	public EnemyCharacter(Texture texture, boolean werewolf){
 		this.texture = texture;
-		position = werewolf ? new Vector2(600, 400) : new Vector2(150, -40);
+		setOwnPosition(werewolf); 
 		this.currentHealth = 3;
 	}
 	
@@ -34,5 +34,12 @@ public class EnemyCharacter extends Character {
 	@Override
 	public void read(Json json, JsonValue jsonData) {
 		super.read(json, jsonData);
+	}
+	
+	public void setTexture(Texture texture) {
+		this.texture = texture;
+	}
+	public void setOwnPosition(boolean werewolf) {
+		position = werewolf ? new Vector2(600, 400) : new Vector2(150, -40);
 	}
 } 
