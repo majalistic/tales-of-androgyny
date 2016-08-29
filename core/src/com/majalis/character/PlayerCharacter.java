@@ -71,7 +71,7 @@ public class PlayerCharacter extends AbstractCharacter implements Json.Serializa
 			case DEFENSIVE:
 				switch (keyPressed){
 					case Keys.A:
-						return new Technique(Techniques.SPRING_ATTACK, getStrength());	
+						return new Technique(Techniques.REVERSAL_ATTACK, getStrength());	
 					case Keys.S:
 						return new Technique(Techniques.CAREFUL_ATTACK, getStrength());	
 					case Keys.D:	
