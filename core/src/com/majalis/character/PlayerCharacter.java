@@ -1,6 +1,7 @@
 package com.majalis.character;
 
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.IntArray;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonValue;
@@ -42,6 +43,18 @@ public class PlayerCharacter extends AbstractCharacter implements Json.Serializa
 	// public Mouth mouth; 
 	// public Wiener wiener;	
 	
+	// this needs to consolidate logic with the getTechniques method
+	public Array<String> getPossibleTechniques(){
+		switch(stance){
+			case OFFENSIVE:
+				return new Array<String>(true, new String[]{"Strong (A)", "Tempo (S)", "Reserved (D)"}, 0, 3);
+			case BALANCED:
+				return new Array<String>(true, new String[]{"Spring (A)", "Neutral (S)", "Cautious (D)"}, 0, 3);
+			case DEFENSIVE:
+				return new Array<String>(true, new String[]{"Reversal (A)", "Careful (S)", "Guard (D)"}, 0, 3);
+		}
+		return null;
+	}
 	
 	public Technique getTechnique(AbstractCharacter target){
 		// default neutral attack

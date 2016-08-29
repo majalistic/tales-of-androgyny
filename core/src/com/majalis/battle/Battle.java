@@ -2,9 +2,18 @@ package com.majalis.battle;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Array;
 import com.majalis.character.AbstractCharacter;
 import com.majalis.character.AbstractCharacter.Stance;
 import com.majalis.character.EnemyCharacter;
@@ -18,16 +27,20 @@ public class Battle extends Group{
 	private final PlayerCharacter character;
 	private final EnemyCharacter enemy;
 	private final SaveService saveService;
+	private final AssetManager assetManager;
 	private final BitmapFont font;
 	private final int victoryScene;
 	private final int defeatScene;
+	private final Array<TextButton> buttons;
 	private String console;
 	public boolean battleOver;
 	public boolean victory;
 	public boolean gameExit;
+	public int recentKeyPress;
 	
-	public Battle(SaveService saveService, BitmapFont font, PlayerCharacter character, EnemyCharacter enemy,  int victoryScene, int defeatScene) {
+	public Battle(SaveService saveService, AssetManager assetManager, BitmapFont font, PlayerCharacter character, EnemyCharacter enemy,  int victoryScene, int defeatScene) {
 		this.saveService = saveService;
+		this.assetManager = assetManager;
 		this.font = font;
 		this.character = character;
 		this.enemy = enemy;
@@ -38,6 +51,24 @@ public class Battle extends Group{
 		gameExit = false;
 		this.addActor(character);
 		this.addActor(enemy);
+		Skin skin = assetManager.get("uiskin.json", Skin.class);
+		Sound buttonSound = assetManager.get("sound.wav", Sound.class);
+		buttons = new Array<TextButton>();
+		
+		Table table = new Table();
+		Array<String> options = character.getPossibleTechniques();
+		int[] possibleKeys = new int[]{Keys.A, Keys.S, Keys.D};
+		for (int ii = 0; ii < options.size; ii++){
+			TextButton button = new TextButton(options.get(ii), skin);
+			button.addListener(getListener(possibleKeys[ii], buttonSound));
+			buttons.add(button);
+			table.add(button).row();
+		}
+        table.setFillParent(true);
+        table.addAction(Actions.moveTo(330, 70));
+        this.addActor(table);
+        
+        recentKeyPress = -1;
 	}
 
 	public void battleLoop() {
@@ -69,6 +100,11 @@ public class Battle extends Group{
 	}
 	
 	private int getKeyPress() {
+		if (recentKeyPress != -1){
+			int temp = recentKeyPress;
+			recentKeyPress = -1;
+			return temp;
+		}
 		int[] possibleKeys = new int[]{Keys.A, Keys.S, Keys.D};
 		for (int possibleKey : possibleKeys){
 			if (Gdx.input.isKeyJustPressed(possibleKey)){
@@ -113,8 +149,13 @@ public class Battle extends Group{
 	@Override
     public void draw(Batch batch, float parentAlpha) {
 		super.draw(batch, parentAlpha);
-		font.draw(batch, "Your health: " + String.valueOf(character.currentHealth), 500, 200);
-		font.draw(batch, "Enemy health: " + String.valueOf(enemy.currentHealth), 700, 200);
+		font.draw(batch, "Your health: " + String.valueOf(character.currentHealth), 450, 160);
+		font.draw(batch, "Enemy health: " + String.valueOf(enemy.currentHealth), 700, 160);
+		Array<String> options = character.getPossibleTechniques();
+		for (int ii = 0; ii < options.size; ii++){
+			buttons.get(ii).setText(options.get(ii));
+		}
+		
 		font.draw(batch, console, 450, 100);
     }
 	
@@ -124,5 +165,15 @@ public class Battle extends Group{
 	
 	public int getDefeatScene(){
 		return defeatScene;
+	}
+	
+	private ClickListener getListener(final int keyPress, final Sound buttonSound){
+		return new ClickListener(){
+	        @Override
+	        public void clicked(InputEvent event, float x, float y) {
+	        	buttonSound.play();
+	        	recentKeyPress = keyPress;
+	        }
+	    };
 	}
 }

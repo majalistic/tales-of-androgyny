@@ -39,7 +39,7 @@ public class BattleFactory {
 		}
 		switch(battleCode.battleCode){	
 			default: 
-				return new Battle( saveService, font, playerCharacter, enemy, battleCode.victoryScene, battleCode.defeatScene);
+				return new Battle( saveService, assetManager, font, playerCharacter, enemy, battleCode.victoryScene, battleCode.defeatScene);
 		}
 	}
 
