@@ -142,12 +142,6 @@ public abstract class AbstractCharacter extends Group implements Json.Serializab
 			} 
 		}
 	}
-	
-	public enum Stance {
-		BALANCED,
-		DEFENSIVE,
-		OFFENSIVE
-	}
 
 	public String receiveAttack(Attack attack){
 		int damage = attack.getDamage();
@@ -156,4 +150,10 @@ public abstract class AbstractCharacter extends Group implements Json.Serializab
 		currentHealth -= damage;
 		return String.valueOf(damage);
 	}
+
+	public enum Stance {
+		BALANCED,
+		DEFENSIVE,
+		OFFENSIVE
+	}	
 }

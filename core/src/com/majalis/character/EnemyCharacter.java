@@ -6,22 +6,24 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.IntArray;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonValue;
+import com.majalis.battle.BattleFactory.EnemyEnum;
 
 /*
  * Abstract class that all enemies extend - currently concrete to represent a generic "enemy".
  */
 public class EnemyCharacter extends AbstractCharacter {
 
+	public EnemyEnum enemyType;
 	private Texture texture;
 	private Vector2 position;
 	@SuppressWarnings("unused")
 	private EnemyCharacter(){}
-	public EnemyCharacter(Texture texture, boolean werewolf){
+	public EnemyCharacter(Texture texture, EnemyEnum enemyType){
 		super(true);
+		this.enemyType = enemyType;
+		init(texture);
 		baseStrength = 6;
-		this.texture = texture;
-		setOwnPosition(werewolf);
-		label = (werewolf ? "Werebitch" : "Harpy");
+		label = enemyType.toString();
 		this.currentHealth = getMaxHealth();
 		this.stance = Stance.BALANCED;
 	}
@@ -75,10 +77,8 @@ public class EnemyCharacter extends AbstractCharacter {
 		super.read(json, jsonData);
 	}
 	
-	public void setTexture(Texture texture) {
+	public void init(Texture texture){
 		this.texture = texture;
-	}
-	public void setOwnPosition(boolean werewolf) {
-		position = werewolf ? new Vector2(600, 400) : new Vector2(150, -40);
+		position = enemyType.getPosition();
 	}
 } 

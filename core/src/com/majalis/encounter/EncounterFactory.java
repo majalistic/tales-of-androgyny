@@ -77,6 +77,7 @@ public class EncounterFactory {
 	}
 	
 	private Encounter getRandomEncounter(BitmapFont font, Integer sceneCode){
+		int battleCode = new IntArray(new int[]{0,1}).random();
 		Array<Scene> scenes = new Array<Scene>();
 		Array<EndScene> endScenes = new Array<EndScene>();
 		Array<BattleScene> battleScenes = new Array<BattleScene>();
@@ -96,17 +97,17 @@ public class EncounterFactory {
 		
 		sceneMap = getSceneMap(getSceneCodeList(1), getSceneList(gameEnd));
 		
-		Scene loseScene = new TextScene(sceneMap, 3, saveService, font, "You lost! You get knotty werewolf cock! (up the butt).", getMutationList(new Mutation()));
+		Scene loseScene = new TextScene(sceneMap, 3, saveService, font, getDefeatText(battleCode), getMutationList(new Mutation()));
 		scenes.add(loseScene);
 		
 		sceneMap = getSceneMap(getSceneCodeList(2, 3), getSceneList(winScene, loseScene));
 				
-		BattleScene battleScene = new BattleScene(sceneMap, saveService, 0, 2, 3);
+		BattleScene battleScene = new BattleScene(sceneMap, saveService, battleCode, 2, 3);
 		scenes.add(battleScene);
 		battleScenes.add(battleScene);
 		sceneMap = getSceneMap(getSceneCodeList(4), getSceneList(battleScene));	
 		
-		Scene moreScene = new TextScene(sceneMap, 5, saveService, font, "No wait lol there's a basic werebitch, RAWR.", getMutationList(new Mutation()));
+		Scene moreScene = new TextScene(sceneMap, 5, saveService, font, getIntroText(battleCode), getMutationList(new Mutation()));
 		scenes.add(moreScene);
 		sceneMap = getSceneMap(getSceneCodeList(5), getSceneList(moreScene));	
 		
@@ -121,6 +122,24 @@ public class EncounterFactory {
 		}	
 				
 		return new Encounter(scenes, endScenes, battleScenes, getStartScene(scenes, sceneCode));	
+	}
+	
+	private String getDefeatText(int battleCode){
+		switch(battleCode){
+			case 0:
+				return "You lost! You get knotty werewolf cock! (up the butt).";
+			default:
+				return "You lost! The harpy mounts you! (up the butt).";
+		}
+	}
+	
+	private String getIntroText(int battleCode){
+		switch(battleCode){
+			case 0:
+				return "No wait lol there's a basic werebitch, RAWR.";
+			default:
+				return "Wait actually that harpy looks like she wants to drill you silly!";
+		}
 	}
 	
 	private String getJobClass(SaveManager.JobClass jobClass){
