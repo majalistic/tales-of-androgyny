@@ -38,7 +38,10 @@ public class BattleScreen extends AbstractScreen{
 	public void render(float delta) {
 		super.render(delta);
 		battle.battleLoop();
-		if (battle.battleOver){			
+		if (battle.gameExit){
+			showScreen(ScreenEnum.MAIN_MENU);
+		}
+		else if (battle.battleOver){			
 			saveService.saveDataValue(SaveEnum.CONTEXT, SaveManager.GameContext.ENCOUNTER);
 			if (battle.victory){
 				saveService.saveDataValue(SaveEnum.SCENE_CODE, battle.getVictoryScene());

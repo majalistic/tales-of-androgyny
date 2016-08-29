@@ -23,6 +23,7 @@ public class Battle extends Group{
 	private String console;
 	public boolean battleOver;
 	public boolean victory;
+	public boolean gameExit;
 	
 	public Battle(SaveService saveService, BitmapFont font, PlayerCharacter character, EnemyCharacter enemy,  int victoryScene, int defeatScene) {
 		this.saveService = saveService;
@@ -33,6 +34,7 @@ public class Battle extends Group{
 		this.defeatScene = defeatScene;
 		console = "";
 		battleOver = false;
+		gameExit = false;
 		this.addActor(character);
 		this.addActor(enemy);
 	}
@@ -46,6 +48,9 @@ public class Battle extends Group{
 		else if (Gdx.input.isKeyJustPressed(Keys.SPACE)){
 			victory = false;
 			battleOver = true;
+		}
+		else if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)){
+			gameExit = true;
 		}
 		// attack with balanced attack
 		else if (Gdx.input.isKeyJustPressed(Keys.A)){
