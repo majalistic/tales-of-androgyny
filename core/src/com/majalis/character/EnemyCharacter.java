@@ -23,6 +23,7 @@ public class EnemyCharacter extends AbstractCharacter {
 		setOwnPosition(werewolf);
 		label = (werewolf ? "Werebitch" : "Harpy");
 		this.currentHealth = getMaxHealth();
+		this.stance = Stance.BALANCED;
 	}
 	
 	public Technique getTechnique(AbstractCharacter target){
