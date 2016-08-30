@@ -66,10 +66,7 @@ public class TextScene extends Scene  {
 	
 	private void nextScene(){
 		// for now, just iterate through the "map", of which there should be one entry, grab the first entry and call setActive, then get out
-		for (Scene objScene : sceneBranches.values()){
-			objScene.setActive();
-			break;
-		}
+		sceneBranches.get(sceneBranches.orderedKeys().get(0)).setActive();
 		isActive = false;
 		addAction(Actions.hide());
 	}
