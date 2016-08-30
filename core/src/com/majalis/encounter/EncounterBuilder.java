@@ -37,25 +37,10 @@ public class EncounterBuilder {
 		this.battleCode = battleCode;
 		sceneCounter = 0;
 	}
-
+	/* different encounter "templates" */
 	protected Encounter getClassChoiceEncounter(AssetManager assetManager){	
 		getTextScenes(new String[]{"Welcome to the world of tRaPG!", "You're looking mighty fine.", "Please choose your class."}, addScene(new ChoiceScene(addScene(getJobClassScenes(addScene(new EndScene(new OrderedMap<Integer, Scene>(), EndScene.Type.ENCOUNTER_OVER)), font)), sceneCounter, saveService, assetManager, font)), font);
 		return new Encounter(scenes, endScenes, new Array<BattleScene>(), getStartScene(scenes, sceneCode));
-	}
-	
-	protected Encounter getRandomEncounter(){
-		if (battleCode == -1) battleCode = new IntArray(new int[]{0,1}).random();
-		getTextScenes(getScript(battleCode, 0), 
-			addScene(
-					new BattleScene(
-							addScene(getSceneList(
-								new TextScene(
-									addScene(new EndScene(new OrderedMap<Integer, Scene>(), EndScene.Type.ENCOUNTER_OVER)), sceneCounter, saveService, font, "You won! You get NOTHING.", getMutationList(new Mutation())),
-								new TextScene(
-									addScene(new EndScene(new OrderedMap<Integer, Scene>(), EndScene.Type.GAME_OVER)), sceneCounter, saveService, font, getDefeatText(battleCode), getMutationList(new Mutation())))
-							), saveService, battleCode)), font);
-		saveService.saveDataValue(SaveEnum.BATTLE_CODE, new BattleCode(-1, -1, -1));
-		return new Encounter(scenes, endScenes, battleScenes, getStartScene(scenes, sceneCode));	
 	}
 	
 	protected Encounter getDefaultEncounter(){
@@ -63,20 +48,22 @@ public class EncounterBuilder {
 		return new Encounter(scenes, endScenes, new Array<BattleScene>(), getStartScene(scenes, sceneCode));
 	}
 	
-	private Array<Scene> getJobClassScenes(OrderedMap<Integer, Scene> sceneMap, BitmapFont font){
-		Array<Scene> jobClassScenes = new Array<Scene>();
-		int tempCounter = sceneCounter;
-		for (SaveManager.JobClass jobClass: SaveManager.JobClass.values()){
-			jobClassScenes.add(new TextScene(sceneMap, tempCounter++, saveService, font, "You are now "+getJobClass(jobClass)+".", getMutationList(new Mutation(saveService, SaveEnum.CLASS, jobClass))));
-		}
-		return jobClassScenes;
+	@SuppressWarnings("unchecked")
+	protected Encounter getRandomEncounter(){
+		if (battleCode == -1) battleCode = new IntArray(new int[]{0,1}).random();
+		getTextScenes(getScript(battleCode, 0), 
+			addScene(
+					new BattleScene(
+							aggregateMaps(
+									getTextScenes(new String[]{"You won!  You get NOTHING.", "Sad :(", "What a pity.  Go away."}, addScene(new EndScene(new OrderedMap<Integer, Scene>(), EndScene.Type.ENCOUNTER_OVER)), font),
+									getTextScenes(new String[]{getDefeatText(battleCode), "GAME OVER"}, addScene(new EndScene(new OrderedMap<Integer, Scene>(), EndScene.Type.GAME_OVER)), font)					
+							), saveService, battleCode)), font);
+		saveService.saveDataValue(SaveEnum.BATTLE_CODE, new BattleCode(-1, -1, -1));
+		return new Encounter(scenes, endScenes, battleScenes, getStartScene(scenes, sceneCode));	
 	}
 	
-	private OrderedMap<Integer, Scene> addScene(Scene scene){
-		return addScene(getSceneList(scene));
-	}
-	
-	// pass in multiple scenes that the next scene will branch into
+	private OrderedMap<Integer, Scene> addScene(Scene scene){ return addScene(getSceneList(scene)); }
+	// pass in one or multiple scenes that the next scene will branch into
 	private OrderedMap<Integer, Scene> addScene(Array<Scene> scenes){
 		IntArray sceneCodes = new IntArray();
 		for (Scene scene : scenes){
@@ -96,19 +83,22 @@ public class EncounterBuilder {
 		return sceneMap;
 	}
 	
-	// this should be probably be changed to a "getArray" method that accepts an array of objects and returns an Array<?> or possibly just for strings - might be able to get rid of getSceneList as well
-	private Array<Scene> getTextScenes(String[] script, OrderedMap<Integer, Scene> sceneMap, BitmapFont font){
-		return getTextScenes(new Array<String>(true, script, 0, script.length), sceneMap, font);
-	}
-	
-	// pass in a list of script scenes in chronological order, this will reverse their order and add them to the stack
-	private Array<Scene> getTextScenes(Array<String> script, OrderedMap<Integer, Scene> sceneMap, BitmapFont font){
-		Array<Scene> scenes = new Array<Scene>();
+	private OrderedMap<Integer, Scene> getTextScenes(String[] script, OrderedMap<Integer, Scene> sceneMap, BitmapFont font){ return getTextScenes(new Array<String>(true, script, 0, script.length), sceneMap, font); }	
+	// pass in a list of script lines in chronological order, this will reverse their order and add them to the stack
+	private OrderedMap<Integer, Scene> getTextScenes(Array<String> script, OrderedMap<Integer, Scene> sceneMap, BitmapFont font){
 		script.reverse();
 		for (String scriptLine: script){
 			sceneMap = addScene(new TextScene(sceneMap, sceneCounter, saveService, font, scriptLine, getMutationList(new Mutation())));
 		}	
-		return scenes;
+		return sceneMap;
+	}
+	
+	private OrderedMap<Integer, Scene> aggregateMaps(OrderedMap<Integer, Scene>... sceneMaps){
+		OrderedMap<Integer, Scene> aggregatedMap = new OrderedMap<Integer, Scene>();
+		for (OrderedMap<Integer, Scene> map : sceneMaps){
+			aggregatedMap.putAll(map);
+		}
+		return aggregatedMap;	
 	}
 	
 	private String getDefeatText(int battleCode){
@@ -125,25 +115,10 @@ public class EncounterBuilder {
 			case 0:
 				return new String[]{"You encounter a random encounter!", "It's so random. :^)", "There is nothing left here to do.", "No wait lol there's a basic werebitch, RAWR."};
 			default:
-				return new String[]{"You look around.  There doesn't appear ot be a harpy here.", "Wait actually that harpy looks like she wants to drill you silly!"};
+				return new String[]{"You look around.  There doesn't appear to be a harpy here.", "Wait actually that harpy looks like she wants to drill you silly!"};
 		}
 	}
-	
-	private String getJobClass(SaveManager.JobClass jobClass){
-		if (jobClass == SaveManager.JobClass.ENCHANTRESS){
-			return "an Enchantress";
-		}
-		return "a " + jobClass.getLabel();
-	}
-	
-	private Array<Scene> getSceneList(Scene... scenes){
-		return new Array<Scene>(true, scenes, 0, scenes.length);
-	}
-	
-	private Array<Mutation> getMutationList(Mutation... mutations){
-		return new Array<Mutation>(true, mutations, 0, mutations.length);
-	}
-	
+		
 	private Scene getStartScene(Array<Scene> scenes, Integer sceneCode){
 		// default case
 		if (sceneCode == 0){
@@ -157,4 +132,17 @@ public class EncounterBuilder {
 		}
 		return null;
 	}
+	
+	private Array<Scene> getJobClassScenes(OrderedMap<Integer, Scene> sceneMap, BitmapFont font){
+		Array<Scene> jobClassScenes = new Array<Scene>();
+		int tempCounter = sceneCounter;
+		for (SaveManager.JobClass jobClass: SaveManager.JobClass.values()){
+			jobClassScenes.add(new TextScene(sceneMap, tempCounter++, saveService, font, "You are now "+ getJobClass(jobClass) +".", getMutationList(new Mutation(saveService, SaveEnum.CLASS, jobClass))));
+		}
+		return jobClassScenes;
+	}
+	/* Helper methods that may go away with refactors*/
+	private String getJobClass(SaveManager.JobClass jobClass){ return jobClass == SaveManager.JobClass.ENCHANTRESS ? "an Enchantress" : "a " + jobClass.getLabel(); }
+	private Array<Scene> getSceneList(Scene... scenes){ return new Array<Scene>(true, scenes, 0, scenes.length); }	
+	private Array<Mutation> getMutationList(Mutation... mutations){ return new Array<Mutation>(true, mutations, 0, mutations.length); }
 }
