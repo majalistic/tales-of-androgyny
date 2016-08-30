@@ -58,29 +58,10 @@ public class EncounterFactory {
 	}
 	
 	private Encounter getClassChoiceEncounter(BitmapFont font, Integer sceneCode){	
-		Array<Scene> scenes = new Array<Scene>();
-		Array<EndScene> endScenes = new Array<EndScene>();
-		EndScene encounterEnd = new EndScene(new OrderedMap<Integer, Scene>(), EndScene.Type.ENCOUNTER_OVER);
-		// Id 0
-		endScenes.add(encounterEnd);
-		scenes.add(encounterEnd);
-		OrderedMap<Integer, Scene> sceneMap = new OrderedMap<Integer, Scene>();
-		int ii = 1;
-		for (SaveManager.JobClass jobClass: SaveManager.JobClass.values()){
-			Scene newScene = new TextScene(getSceneMap(getSceneCodeList(0), getSceneList(encounterEnd)), ii, saveService, font, "You are now "+getJobClass(jobClass)+".", getMutationList(new Mutation(saveService, SaveEnum.CLASS, jobClass)));
-			scenes.add(newScene);
-			sceneMap.put(ii++, newScene);
-		}
-		ChoiceScene branch = new ChoiceScene(sceneMap, ii, saveService, assetManager, font);
-		scenes.add(branch);
-		Array<String> script = new Array<String>();
-		script.addAll("Please choose your class.", "You're looking mighty fine.", "Welcome to the world of tRaPG!");
-		sceneMap = getSceneMap(getSceneCodeList(ii++), getSceneList(branch));
-		for (String scriptLine: script){
-			Scene nextScene = new TextScene(sceneMap, ii, saveService, font, scriptLine, getMutationList(new Mutation()));
-			scenes.add(nextScene);
-			sceneMap = getSceneMap(getSceneCodeList(ii++), getSceneList(nextScene));
-		}		
+		scenes = new Array<Scene>();
+		endScenes = new Array<EndScene>();
+		sceneCounter = 0;
+		getTextScenes(new String[]{"Please choose your class.", "You're looking mighty fine.", "Welcome to the world of tRaPG!"}, addScene(new ChoiceScene(addScene(getJobClassScenes(addScene(new EndScene(new OrderedMap<Integer, Scene>(), EndScene.Type.ENCOUNTER_OVER)), font)), sceneCounter, saveService, assetManager, font)), font);
 		return new Encounter(scenes, endScenes, new Array<BattleScene>(), getStartScene(scenes, sceneCode));
 	}
 	
@@ -88,26 +69,27 @@ public class EncounterFactory {
 		scenes = new Array<Scene>();
 		endScenes = new Array<EndScene>();
 		battleScenes = new Array<BattleScene>();
-		
-		if (battleCode == -1) battleCode = new IntArray(new int[]{0,1}).random();
 		sceneCounter = 0;
-		getTextScenes(
-			getIntroText(battleCode), 
+		if (battleCode == -1) battleCode = new IntArray(new int[]{0,1}).random();
+		getTextScenes(getIntroText(battleCode), 
 			addScene(
 					new BattleScene(
-							addScene(
-									getSceneList(
-											new TextScene(addScene(new EndScene(new OrderedMap<Integer, Scene>(), EndScene.Type.ENCOUNTER_OVER)), sceneCounter, saveService, font, "You won! You get NOTHING.", getMutationList(new Mutation())),
-											new TextScene(addScene(new EndScene(new OrderedMap<Integer, Scene>(), EndScene.Type.GAME_OVER)), sceneCounter, saveService, font, getDefeatText(battleCode), getMutationList(new Mutation()))
-									)
-							), 
-							saveService, 
-							battleCode)
-			), 
-			font
-		);
+							addScene(getSceneList(
+								new TextScene(
+									addScene(new EndScene(new OrderedMap<Integer, Scene>(), EndScene.Type.ENCOUNTER_OVER)), sceneCounter, saveService, font, "You won! You get NOTHING.", getMutationList(new Mutation())),
+								new TextScene(
+									addScene(new EndScene(new OrderedMap<Integer, Scene>(), EndScene.Type.GAME_OVER)), sceneCounter, saveService, font, getDefeatText(battleCode), getMutationList(new Mutation())))
+							), saveService, battleCode)), font);
 		saveService.saveDataValue(SaveEnum.BATTLE_CODE, new BattleCode(-1, -1, -1));
 		return new Encounter(scenes, endScenes, battleScenes, getStartScene(scenes, sceneCode));	
+	}
+	
+	private Array<Scene> getJobClassScenes(OrderedMap<Integer, Scene> sceneMap, BitmapFont font){
+		Array<Scene> jobClassScenes = new Array<Scene>();
+		for (SaveManager.JobClass jobClass: SaveManager.JobClass.values()){
+			jobClassScenes.add(new TextScene(sceneMap, sceneCounter, saveService, font, "You are now "+getJobClass(jobClass)+".", getMutationList(new Mutation(saveService, SaveEnum.CLASS, jobClass))));
+		}
+		return jobClassScenes;
 	}
 	
 	private OrderedMap<Integer, Scene> addScene(Scene scene){
