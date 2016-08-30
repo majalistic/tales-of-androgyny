@@ -17,13 +17,16 @@ import com.majalis.scenes.Scene;
 import com.majalis.scenes.TextScene;
 
 /*
- * Retrieves encounters from internal files given an encounterId
+ * Retrieves encounters from internal files given an encounterId.  Need to create some kind of encounter builder helper class.
  */
 public class EncounterFactory {
 	
 	private final AssetManager assetManager;
 	private final SaveService saveService;
 	private final LoadService loadService;
+	private Array<Scene> scenes;
+	private Array<BattleScene> battleScenes; 
+	private int sceneCounter;
 	
 	public EncounterFactory(AssetManager assetManager, SaveManager saveManager){
 		this.assetManager = assetManager;
@@ -77,10 +80,11 @@ public class EncounterFactory {
 	}
 	
 	private Encounter getRandomEncounter(BitmapFont font, Integer sceneCode){
+		sceneCounter = 0;
 		int battleCode = new IntArray(new int[]{0,1}).random();
-		Array<Scene> scenes = new Array<Scene>();
+		scenes = new Array<Scene>();
 		Array<EndScene> endScenes = new Array<EndScene>();
-		Array<BattleScene> battleScenes = new Array<BattleScene>();
+		battleScenes = new Array<BattleScene>();
 		EndScene encounterEnd = new EndScene(new ObjectMap<Integer, Scene>(), EndScene.Type.ENCOUNTER_OVER);
 		// Id 0
 		endScenes.add(encounterEnd);
@@ -101,27 +105,34 @@ public class EncounterFactory {
 		scenes.add(loseScene);
 		
 		sceneMap = getSceneMap(getSceneCodeList(2, 3), getSceneList(winScene, loseScene));
-				
-		BattleScene battleScene = new BattleScene(sceneMap, saveService, battleCode, 2, 3);
-		scenes.add(battleScene);
-		battleScenes.add(battleScene);
-		sceneMap = getSceneMap(getSceneCodeList(4), getSceneList(battleScene));	
 		
-		Scene moreScene = new TextScene(sceneMap, 5, saveService, font, getIntroText(battleCode), getMutationList(new Mutation()));
-		scenes.add(moreScene);
-		sceneMap = getSceneMap(getSceneCodeList(5), getSceneList(moreScene));	
+		sceneCounter = 4;
 		
-		Integer ii = 6;
-		Array<String> script = new Array<String>();
-		script.addAll("There is nothing left here to do.", "It's so random. :^)", "You encounter a random encounter!");
-		
-		for (String scriptLine: script){
-			Scene nextScene = new TextScene(sceneMap, ii, saveService, font, scriptLine, getMutationList(new Mutation()));
-			scenes.add(nextScene);
-			sceneMap = getSceneMap(getSceneCodeList(ii++), getSceneList(nextScene));
-		}	
-				
+		sceneMap = addScene(new BattleScene(sceneMap, saveService, battleCode, 2, 3), true);				
+		scenes.addAll(getTextScenes(new String[]{getIntroText(battleCode), "There is nothing left here to do.", "It's so random. :^)", "You encounter a random encounter!"}, sceneMap, font));				
 		return new Encounter(scenes, endScenes, battleScenes, getStartScene(scenes, sceneCode));	
+	}
+
+	private ObjectMap<Integer, Scene> addScene(Scene scene){
+		return addScene(scene, false);
+	}
+	
+	private ObjectMap<Integer, Scene> addScene(Scene scene, boolean battle){
+		scenes.add(scene);
+		if (battle) battleScenes.add((BattleScene)scene);
+		return getSceneMap(getSceneCodeList(sceneCounter++), getSceneList(scene));
+	}
+	
+	private Array<Scene> getTextScenes(String[] script, ObjectMap<Integer, Scene> sceneMap, BitmapFont font){
+		return getTextScenes(new Array<String>(true, script, 0, script.length), sceneMap, font);
+	}
+	
+	private Array<Scene> getTextScenes(Array<String> script, ObjectMap<Integer, Scene> sceneMap, BitmapFont font){
+		Array<Scene> scenes = new Array<Scene>();
+		for (String scriptLine: script){
+			sceneMap = addScene(new TextScene(sceneMap, sceneCounter, saveService, font, scriptLine, getMutationList(new Mutation())));
+		}	
+		return scenes;
 	}
 	
 	private String getDefeatText(int battleCode){
@@ -194,7 +205,9 @@ public class EncounterFactory {
 	}
 	
 	private Scene getStartScene(Array<Scene> scenes, Integer sceneCode){
+		// default case
 		if (sceneCode == 0){
+			// returns the final scene and plays in reverse order
 			return scenes.get(scenes.size - 1);
 		}
 		for (Scene objScene: scenes){
