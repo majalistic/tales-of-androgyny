@@ -84,6 +84,14 @@ public class EncounterFactory {
 		return new Encounter(scenes, endScenes, battleScenes, getStartScene(scenes, sceneCode));	
 	}
 	
+	private Encounter getDefaultEncounter(BitmapFont font, int sceneCode){
+		scenes = new Array<Scene>();
+		endScenes = new Array<EndScene>();
+		sceneCounter = 0;
+		getTextScenes(new String[]{"There is nothing left here to do.", "It's actually rather sexy looking.", "You encounter a stick!"}, addScene(new EndScene(new OrderedMap<Integer, Scene>(), EndScene.Type.ENCOUNTER_OVER)), font);
+		return new Encounter(scenes, endScenes, new Array<BattleScene>(), getStartScene(scenes, sceneCode));
+	}
+	
 	private Array<Scene> getJobClassScenes(OrderedMap<Integer, Scene> sceneMap, BitmapFont font){
 		Array<Scene> jobClassScenes = new Array<Scene>();
 		for (SaveManager.JobClass jobClass: SaveManager.JobClass.values()){
@@ -108,6 +116,15 @@ public class EncounterFactory {
 		return getSceneMap(sceneCodes, scenes);
 	}
 	
+	private OrderedMap<Integer, Scene> getSceneMap(IntArray integers, Array<Scene> scenes){
+		OrderedMap<Integer, Scene> sceneMap = new OrderedMap<Integer, Scene>();
+		for (int ii = 0; ii < integers.size; ii++){
+			sceneMap.put(integers.get(ii), scenes.get(ii));
+		}
+		return sceneMap;
+	}
+	
+	// this should be probably be changed to a "getArray" method that accepts an array of objects and returns an Array<?> or possibly just for strings - might be able to get rid of getSceneList as well
 	private Array<Scene> getTextScenes(String[] script, OrderedMap<Integer, Scene> sceneMap, BitmapFont font){
 		return getTextScenes(new Array<String>(true, script, 0, script.length), sceneMap, font);
 	}
@@ -146,40 +163,8 @@ public class EncounterFactory {
 		return "a " + jobClass.getLabel();
 	}
 	
-	private Encounter getDefaultEncounter(BitmapFont font, int sceneCode){
-		Array<Scene> scenes = new Array<Scene>();
-		Array<EndScene> endScenes = new Array<EndScene>();
-		EndScene encounterEnd = new EndScene(new OrderedMap<Integer, Scene>(), EndScene.Type.ENCOUNTER_OVER);
-		// Id 0
-		endScenes.add(encounterEnd);
-		scenes.add(encounterEnd);
-		Array<String> script = new Array<String>();
-		script.addAll("There is nothing left here to do.", "It's actually rather sexy looking.", "You encounter a stick!");
-		Integer ii = 1;
-		OrderedMap<Integer, Scene> sceneMap = getSceneMap(getSceneCodeList(ii++), getSceneList(encounterEnd));
-		for (String scriptLine: script){
-			Scene nextScene = new TextScene(sceneMap, ii, saveService, font, scriptLine, getMutationList(new Mutation()));
-			scenes.add(nextScene);
-			sceneMap = getSceneMap(getSceneCodeList(ii++), getSceneList(nextScene));
-			
-		}		
-		return new Encounter(scenes, endScenes, new Array<BattleScene>(), getStartScene(scenes, sceneCode));
-	}
-	
-	private IntArray getSceneCodeList(int... integers){
-		return new IntArray(integers);
-	}
-	
 	private Array<Scene> getSceneList(Scene... scenes){
 		return new Array<Scene>(true, scenes, 0, scenes.length);
-	}
-	
-	private OrderedMap<Integer, Scene> getSceneMap(IntArray integers, Array<Scene> scenes){
-		OrderedMap<Integer, Scene> sceneMap = new OrderedMap<Integer, Scene>();
-		for (int ii = 0; ii < integers.size; ii++){
-			sceneMap.put(integers.get(ii), scenes.get(ii));
-		}
-		return sceneMap;
 	}
 	
 	private Array<Mutation> getMutationList(Mutation... mutations){
@@ -203,5 +188,4 @@ public class EncounterFactory {
 		}
 		return null;
 	}
-	
 }
