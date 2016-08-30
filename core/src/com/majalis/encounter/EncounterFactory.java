@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.IntArray;
 import com.badlogic.gdx.utils.OrderedMap;
+import com.majalis.battle.BattleCode;
 import com.majalis.save.LoadService;
 import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveManager;
@@ -38,6 +39,9 @@ public class EncounterFactory {
 	public Encounter getEncounter(int encounterCode, BitmapFont font) {
 		// temporarily stored in a static switch block until file retrieval for encounters is implemented
 		Integer sceneCode = loadService.loadDataValue(SaveEnum.SCENE_CODE, Integer.class);
+		BattleCode battle = loadService.loadDataValue(SaveEnum.BATTLE_CODE, BattleCode.class);
+		int battleCode = -1;
+		if (battle != null) battleCode = battle.battleCode;
 		switch (encounterCode){
 			case 0: return getClassChoiceEncounter(font, sceneCode);
 			case 1:	
@@ -48,7 +52,7 @@ public class EncounterFactory {
 			case 6:
 			case 7:
 			case 8:
-			case 9: return getRandomEncounter(font, sceneCode);
+			case 9: return getRandomEncounter(font, sceneCode, battleCode);
 			default: return getDefaultEncounter(font, sceneCode);
 		}
 	}
@@ -80,24 +84,20 @@ public class EncounterFactory {
 		return new Encounter(scenes, endScenes, new Array<BattleScene>(), getStartScene(scenes, sceneCode));
 	}
 	
-	private Encounter getRandomEncounter(BitmapFont font, Integer sceneCode){
+	private Encounter getRandomEncounter(BitmapFont font, Integer sceneCode, int battleCode){
 		scenes = new Array<Scene>();
 		endScenes = new Array<EndScene>();
 		battleScenes = new Array<BattleScene>();
-			
-		int battleCode = new IntArray(new int[]{0,1}).random();
+		
+		if (battleCode == -1) battleCode = new IntArray(new int[]{0,1}).random();
 		sceneCounter = 0;
-		OrderedMap<Integer, Scene> sceneMap = addScene(
+		scenes.addAll(getTextScenes(new String[]{getIntroText(battleCode), "There is nothing left here to do.", "It's so random. :^)", "You encounter a random encounter!"}, addScene(new BattleScene(addScene(
 				getSceneList(
 				new TextScene(addScene(new EndScene(new OrderedMap<Integer, Scene>(), EndScene.Type.ENCOUNTER_OVER)), sceneCounter, saveService, font, "You won! You get NOTHING.", getMutationList(new Mutation())),
 				new TextScene(addScene(new EndScene(new OrderedMap<Integer, Scene>(), EndScene.Type.GAME_OVER)), sceneCounter, saveService, font, getDefeatText(battleCode), getMutationList(new Mutation()))
 				)
-		);
-		
-		sceneMap = addScene(new BattleScene(sceneMap, saveService, battleCode));				
-		scenes.addAll(getTextScenes(new String[]{getIntroText(battleCode), "There is nothing left here to do.", "It's so random. :^)", "You encounter a random encounter!"}, sceneMap, font));	
-		System.out.println(sceneCode);
-		System.out.println(getStartScene(scenes, sceneCode));
+		), saveService, battleCode)), font));
+		saveService.saveDataValue(SaveEnum.BATTLE_CODE, new BattleCode(-1, -1, -1));
 		return new Encounter(scenes, endScenes, battleScenes, getStartScene(scenes, sceneCode));	
 	}
 	

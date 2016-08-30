@@ -36,7 +36,6 @@ public class BattleFactory {
 		else {
 			enemy.init(getTexture(enemy.enemyType));
 		}
-		
 		switch(battleCode.battleCode){	
 			default: 
 				return new Battle( saveService, assetManager, font, playerCharacter, getEnemy(battleCode.battleCode), battleCode.victoryScene, battleCode.defeatScene);
