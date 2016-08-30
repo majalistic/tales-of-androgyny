@@ -91,12 +91,21 @@ public class EncounterFactory {
 		
 		if (battleCode == -1) battleCode = new IntArray(new int[]{0,1}).random();
 		sceneCounter = 0;
-		scenes.addAll(getTextScenes(new String[]{getIntroText(battleCode), "There is nothing left here to do.", "It's so random. :^)", "You encounter a random encounter!"}, addScene(new BattleScene(addScene(
-				getSceneList(
-				new TextScene(addScene(new EndScene(new OrderedMap<Integer, Scene>(), EndScene.Type.ENCOUNTER_OVER)), sceneCounter, saveService, font, "You won! You get NOTHING.", getMutationList(new Mutation())),
-				new TextScene(addScene(new EndScene(new OrderedMap<Integer, Scene>(), EndScene.Type.GAME_OVER)), sceneCounter, saveService, font, getDefeatText(battleCode), getMutationList(new Mutation()))
-				)
-		), saveService, battleCode)), font));
+		getTextScenes(
+			getIntroText(battleCode), 
+			addScene(
+					new BattleScene(
+							addScene(
+									getSceneList(
+											new TextScene(addScene(new EndScene(new OrderedMap<Integer, Scene>(), EndScene.Type.ENCOUNTER_OVER)), sceneCounter, saveService, font, "You won! You get NOTHING.", getMutationList(new Mutation())),
+											new TextScene(addScene(new EndScene(new OrderedMap<Integer, Scene>(), EndScene.Type.GAME_OVER)), sceneCounter, saveService, font, getDefeatText(battleCode), getMutationList(new Mutation()))
+									)
+							), 
+							saveService, 
+							battleCode)
+			), 
+			font
+		);
 		saveService.saveDataValue(SaveEnum.BATTLE_CODE, new BattleCode(-1, -1, -1));
 		return new Encounter(scenes, endScenes, battleScenes, getStartScene(scenes, sceneCode));	
 	}
@@ -139,12 +148,12 @@ public class EncounterFactory {
 		}
 	}
 	
-	private String getIntroText(int battleCode){
+	private String[] getIntroText(int battleCode){
 		switch(battleCode){
 			case 0:
-				return "No wait lol there's a basic werebitch, RAWR.";
+				return new String[]{"No wait lol there's a basic werebitch, RAWR.", "There is nothing left here to do.", "It's so random. :^)", "You encounter a random encounter!"};
 			default:
-				return "Wait actually that harpy looks like she wants to drill you silly!";
+				return new String[]{"Wait actually that harpy looks like she wants to drill you silly!", "There is nothing left here to do.", "It's so random. :^)", "You encounter a random encounter!"};
 		}
 	}
 	
