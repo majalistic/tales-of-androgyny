@@ -25,6 +25,7 @@ public class EncounterFactory {
 	private final SaveService saveService;
 	private final LoadService loadService;
 	private Array<Scene> scenes;
+	private Array<EndScene> endScenes;
 	private Array<BattleScene> battleScenes; 
 	private int sceneCounter;
 	
@@ -83,7 +84,7 @@ public class EncounterFactory {
 		sceneCounter = 0;
 		int battleCode = new IntArray(new int[]{0,1}).random();
 		scenes = new Array<Scene>();
-		Array<EndScene> endScenes = new Array<EndScene>();
+		endScenes = new Array<EndScene>();
 		battleScenes = new Array<BattleScene>();
 		EndScene encounterEnd = new EndScene(new ObjectMap<Integer, Scene>(), EndScene.Type.ENCOUNTER_OVER);
 		// Id 0
@@ -94,39 +95,42 @@ public class EncounterFactory {
 		// Id 1
 		endScenes.add(gameEnd);
 		scenes.add(gameEnd);	
-		ObjectMap<Integer, Scene> sceneMap = getSceneMap(getSceneCodeList(0), getSceneList(encounterEnd));
 		
-		Scene winScene = new TextScene(sceneMap, 2, saveService, font, "You won! You get NOTHING.", getMutationList(new Mutation()));
-		scenes.add(winScene);
+		sceneCounter = 2;
+				
+		ObjectMap<Integer, Scene> sceneMap = addScene(
+				getSceneList(
+				new TextScene(getSceneMap(getSceneCodeList(0), getSceneList(encounterEnd)), sceneCounter, saveService, font, "You won! You get NOTHING.", getMutationList(new Mutation())),
+				new TextScene(getSceneMap(getSceneCodeList(1), getSceneList(gameEnd)), sceneCounter + 1, saveService, font, getDefeatText(battleCode), getMutationList(new Mutation()))
+				)
+		);
 		
-		sceneMap = getSceneMap(getSceneCodeList(1), getSceneList(gameEnd));
-		
-		Scene loseScene = new TextScene(sceneMap, 3, saveService, font, getDefeatText(battleCode), getMutationList(new Mutation()));
-		scenes.add(loseScene);
-		
-		sceneMap = getSceneMap(getSceneCodeList(2, 3), getSceneList(winScene, loseScene));
-		
-		sceneCounter = 4;
-		
-		sceneMap = addScene(new BattleScene(sceneMap, saveService, battleCode, 2, 3), true);				
-		scenes.addAll(getTextScenes(new String[]{getIntroText(battleCode), "There is nothing left here to do.", "It's so random. :^)", "You encounter a random encounter!"}, sceneMap, font));				
+		sceneMap = addScene(new BattleScene(sceneMap, saveService, battleCode, 2, 3));				
+		scenes.addAll(getTextScenes(new String[]{getIntroText(battleCode), "There is nothing left here to do.", "It's so random. :^)", "You encounter a random encounter!"}, sceneMap, font));	
 		return new Encounter(scenes, endScenes, battleScenes, getStartScene(scenes, sceneCode));	
 	}
-
+	
 	private ObjectMap<Integer, Scene> addScene(Scene scene){
-		return addScene(scene, false);
+		return addScene(getSceneList(scene));
 	}
 	
-	private ObjectMap<Integer, Scene> addScene(Scene scene, boolean battle){
-		scenes.add(scene);
-		if (battle) battleScenes.add((BattleScene)scene);
-		return getSceneMap(getSceneCodeList(sceneCounter++), getSceneList(scene));
+	// pass in multiple scenes that the next scene will branch into
+	private ObjectMap<Integer, Scene> addScene(Array<Scene> scenes){
+		IntArray sceneCodes = new IntArray();
+		for (Scene scene : scenes){
+			this.scenes.add(scene);
+			if (scene instanceof BattleScene) battleScenes.add((BattleScene)scene);
+			if (scene instanceof EndScene) endScenes.add((EndScene)scene);
+			sceneCodes.add(sceneCounter++);
+		}
+		return getSceneMap(sceneCodes, scenes);
 	}
 	
 	private Array<Scene> getTextScenes(String[] script, ObjectMap<Integer, Scene> sceneMap, BitmapFont font){
 		return getTextScenes(new Array<String>(true, script, 0, script.length), sceneMap, font);
 	}
 	
+	// pass in a list of script scenes that will follow one another in reverse order
 	private Array<Scene> getTextScenes(Array<String> script, ObjectMap<Integer, Scene> sceneMap, BitmapFont font){
 		Array<Scene> scenes = new Array<Scene>();
 		for (String scriptLine: script){
