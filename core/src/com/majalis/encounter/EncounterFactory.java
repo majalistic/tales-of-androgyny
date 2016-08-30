@@ -168,11 +168,7 @@ public class EncounterFactory {
 	}
 	
 	private Array<Mutation> getMutationList(Mutation... mutations){
-		Array<Mutation> mutationArray = new Array<Mutation>();
-		for (Mutation mutation : mutations){
-			mutationArray.add(mutation);
-		}
-		return mutationArray;
+		return new Array<Mutation>(true, mutations, 0, mutations.length);
 	}
 	
 	private Scene getStartScene(Array<Scene> scenes, Integer sceneCode){
