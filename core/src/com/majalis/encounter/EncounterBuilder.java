@@ -39,13 +39,13 @@ public class EncounterBuilder {
 	}
 
 	protected Encounter getClassChoiceEncounter(AssetManager assetManager){	
-		getTextScenes(new String[]{"Please choose your class.", "You're looking mighty fine.", "Welcome to the world of tRaPG!"}, addScene(new ChoiceScene(addScene(getJobClassScenes(addScene(new EndScene(new OrderedMap<Integer, Scene>(), EndScene.Type.ENCOUNTER_OVER)), font)), sceneCounter, saveService, assetManager, font)), font);
+		getTextScenes(new String[]{"Welcome to the world of tRaPG!", "You're looking mighty fine.", "Please choose your class."}, addScene(new ChoiceScene(addScene(getJobClassScenes(addScene(new EndScene(new OrderedMap<Integer, Scene>(), EndScene.Type.ENCOUNTER_OVER)), font)), sceneCounter, saveService, assetManager, font)), font);
 		return new Encounter(scenes, endScenes, new Array<BattleScene>(), getStartScene(scenes, sceneCode));
 	}
 	
 	protected Encounter getRandomEncounter(){
 		if (battleCode == -1) battleCode = new IntArray(new int[]{0,1}).random();
-		getTextScenes(getIntroText(battleCode), 
+		getTextScenes(getScript(battleCode, 0), 
 			addScene(
 					new BattleScene(
 							addScene(getSceneList(
@@ -59,7 +59,7 @@ public class EncounterBuilder {
 	}
 	
 	protected Encounter getDefaultEncounter(){
-		getTextScenes(new String[]{"There is nothing left here to do.", "It's actually rather sexy looking.", "You encounter a stick!"}, addScene(new EndScene(new OrderedMap<Integer, Scene>(), EndScene.Type.ENCOUNTER_OVER)), font);
+		getTextScenes(new String[]{"You encounter a stick!", "It's actually rather sexy looking.", "There is nothing left here to do."}, addScene(new EndScene(new OrderedMap<Integer, Scene>(), EndScene.Type.ENCOUNTER_OVER)), font);
 		return new Encounter(scenes, endScenes, new Array<BattleScene>(), getStartScene(scenes, sceneCode));
 	}
 	
@@ -101,9 +101,10 @@ public class EncounterBuilder {
 		return getTextScenes(new Array<String>(true, script, 0, script.length), sceneMap, font);
 	}
 	
-	// pass in a list of script scenes that will follow one another in reverse order
+	// pass in a list of script scenes in chronological order, this will reverse their order and add them to the stack
 	private Array<Scene> getTextScenes(Array<String> script, OrderedMap<Integer, Scene> sceneMap, BitmapFont font){
 		Array<Scene> scenes = new Array<Scene>();
+		script.reverse();
 		for (String scriptLine: script){
 			sceneMap = addScene(new TextScene(sceneMap, sceneCounter, saveService, font, scriptLine, getMutationList(new Mutation())));
 		}	
@@ -119,12 +120,12 @@ public class EncounterBuilder {
 		}
 	}
 	
-	private String[] getIntroText(int battleCode){
+	private String[] getScript(int battleCode, int scene){
 		switch(battleCode){
 			case 0:
-				return new String[]{"No wait lol there's a basic werebitch, RAWR.", "There is nothing left here to do.", "It's so random. :^)", "You encounter a random encounter!"};
+				return new String[]{"You encounter a random encounter!", "It's so random. :^)", "There is nothing left here to do.", "No wait lol there's a basic werebitch, RAWR."};
 			default:
-				return new String[]{"Wait actually that harpy looks like she wants to drill you silly!", "There is nothing left here to do.", "It's so random. :^)", "You encounter a random encounter!"};
+				return new String[]{"You look around.  There doesn't appear ot be a harpy here.", "Wait actually that harpy looks like she wants to drill you silly!"};
 		}
 	}
 	
