@@ -4,7 +4,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.IntArray;
-import com.badlogic.gdx.utils.ObjectMap;
+import com.badlogic.gdx.utils.OrderedMap;
 import com.majalis.save.LoadService;
 import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveManager;
@@ -56,11 +56,11 @@ public class EncounterFactory {
 	private Encounter getClassChoiceEncounter(BitmapFont font, Integer sceneCode){	
 		Array<Scene> scenes = new Array<Scene>();
 		Array<EndScene> endScenes = new Array<EndScene>();
-		EndScene encounterEnd = new EndScene(new ObjectMap<Integer, Scene>(), EndScene.Type.ENCOUNTER_OVER);
+		EndScene encounterEnd = new EndScene(new OrderedMap<Integer, Scene>(), EndScene.Type.ENCOUNTER_OVER);
 		// Id 0
 		endScenes.add(encounterEnd);
 		scenes.add(encounterEnd);
-		ObjectMap<Integer, Scene> sceneMap = new ObjectMap<Integer, Scene>();
+		OrderedMap<Integer, Scene> sceneMap = new OrderedMap<Integer, Scene>();
 		int ii = 1;
 		for (SaveManager.JobClass jobClass: SaveManager.JobClass.values()){
 			Scene newScene = new TextScene(getSceneMap(getSceneCodeList(0), getSceneList(encounterEnd)), ii, saveService, font, "You are now "+getJobClass(jobClass)+".", getMutationList(new Mutation(saveService, SaveEnum.CLASS, jobClass)));
@@ -81,41 +81,32 @@ public class EncounterFactory {
 	}
 	
 	private Encounter getRandomEncounter(BitmapFont font, Integer sceneCode){
-		sceneCounter = 0;
-		int battleCode = new IntArray(new int[]{0,1}).random();
 		scenes = new Array<Scene>();
 		endScenes = new Array<EndScene>();
 		battleScenes = new Array<BattleScene>();
-		EndScene encounterEnd = new EndScene(new ObjectMap<Integer, Scene>(), EndScene.Type.ENCOUNTER_OVER);
-		// Id 0
-		endScenes.add(encounterEnd);
-		scenes.add(encounterEnd);
-		
-		EndScene gameEnd = new EndScene(new ObjectMap<Integer, Scene>(), EndScene.Type.GAME_OVER);
-		// Id 1
-		endScenes.add(gameEnd);
-		scenes.add(gameEnd);	
-		
-		sceneCounter = 2;
-				
-		ObjectMap<Integer, Scene> sceneMap = addScene(
+			
+		int battleCode = new IntArray(new int[]{0,1}).random();
+		sceneCounter = 0;
+		OrderedMap<Integer, Scene> sceneMap = addScene(
 				getSceneList(
-				new TextScene(getSceneMap(getSceneCodeList(0), getSceneList(encounterEnd)), sceneCounter, saveService, font, "You won! You get NOTHING.", getMutationList(new Mutation())),
-				new TextScene(getSceneMap(getSceneCodeList(1), getSceneList(gameEnd)), sceneCounter + 1, saveService, font, getDefeatText(battleCode), getMutationList(new Mutation()))
+				new TextScene(addScene(new EndScene(new OrderedMap<Integer, Scene>(), EndScene.Type.ENCOUNTER_OVER)), sceneCounter, saveService, font, "You won! You get NOTHING.", getMutationList(new Mutation())),
+				new TextScene(addScene(new EndScene(new OrderedMap<Integer, Scene>(), EndScene.Type.GAME_OVER)), sceneCounter, saveService, font, getDefeatText(battleCode), getMutationList(new Mutation()))
 				)
 		);
 		
-		sceneMap = addScene(new BattleScene(sceneMap, saveService, battleCode, 2, 3));				
+		sceneMap = addScene(new BattleScene(sceneMap, saveService, battleCode));				
 		scenes.addAll(getTextScenes(new String[]{getIntroText(battleCode), "There is nothing left here to do.", "It's so random. :^)", "You encounter a random encounter!"}, sceneMap, font));	
+		System.out.println(sceneCode);
+		System.out.println(getStartScene(scenes, sceneCode));
 		return new Encounter(scenes, endScenes, battleScenes, getStartScene(scenes, sceneCode));	
 	}
 	
-	private ObjectMap<Integer, Scene> addScene(Scene scene){
+	private OrderedMap<Integer, Scene> addScene(Scene scene){
 		return addScene(getSceneList(scene));
 	}
 	
 	// pass in multiple scenes that the next scene will branch into
-	private ObjectMap<Integer, Scene> addScene(Array<Scene> scenes){
+	private OrderedMap<Integer, Scene> addScene(Array<Scene> scenes){
 		IntArray sceneCodes = new IntArray();
 		for (Scene scene : scenes){
 			this.scenes.add(scene);
@@ -126,12 +117,12 @@ public class EncounterFactory {
 		return getSceneMap(sceneCodes, scenes);
 	}
 	
-	private Array<Scene> getTextScenes(String[] script, ObjectMap<Integer, Scene> sceneMap, BitmapFont font){
+	private Array<Scene> getTextScenes(String[] script, OrderedMap<Integer, Scene> sceneMap, BitmapFont font){
 		return getTextScenes(new Array<String>(true, script, 0, script.length), sceneMap, font);
 	}
 	
 	// pass in a list of script scenes that will follow one another in reverse order
-	private Array<Scene> getTextScenes(Array<String> script, ObjectMap<Integer, Scene> sceneMap, BitmapFont font){
+	private Array<Scene> getTextScenes(Array<String> script, OrderedMap<Integer, Scene> sceneMap, BitmapFont font){
 		Array<Scene> scenes = new Array<Scene>();
 		for (String scriptLine: script){
 			sceneMap = addScene(new TextScene(sceneMap, sceneCounter, saveService, font, scriptLine, getMutationList(new Mutation())));
@@ -167,14 +158,14 @@ public class EncounterFactory {
 	private Encounter getDefaultEncounter(BitmapFont font, int sceneCode){
 		Array<Scene> scenes = new Array<Scene>();
 		Array<EndScene> endScenes = new Array<EndScene>();
-		EndScene encounterEnd = new EndScene(new ObjectMap<Integer, Scene>(), EndScene.Type.ENCOUNTER_OVER);
+		EndScene encounterEnd = new EndScene(new OrderedMap<Integer, Scene>(), EndScene.Type.ENCOUNTER_OVER);
 		// Id 0
 		endScenes.add(encounterEnd);
 		scenes.add(encounterEnd);
 		Array<String> script = new Array<String>();
 		script.addAll("There is nothing left here to do.", "It's actually rather sexy looking.", "You encounter a stick!");
 		Integer ii = 1;
-		ObjectMap<Integer, Scene> sceneMap = getSceneMap(getSceneCodeList(ii++), getSceneList(encounterEnd));
+		OrderedMap<Integer, Scene> sceneMap = getSceneMap(getSceneCodeList(ii++), getSceneList(encounterEnd));
 		for (String scriptLine: script){
 			Scene nextScene = new TextScene(sceneMap, ii, saveService, font, scriptLine, getMutationList(new Mutation()));
 			scenes.add(nextScene);
@@ -192,8 +183,8 @@ public class EncounterFactory {
 		return new Array<Scene>(true, scenes, 0, scenes.length);
 	}
 	
-	private ObjectMap<Integer, Scene> getSceneMap(IntArray integers, Array<Scene> scenes){
-		ObjectMap<Integer, Scene> sceneMap = new ObjectMap<Integer, Scene>();
+	private OrderedMap<Integer, Scene> getSceneMap(IntArray integers, Array<Scene> scenes){
+		OrderedMap<Integer, Scene> sceneMap = new OrderedMap<Integer, Scene>();
 		for (int ii = 0; ii < integers.size; ii++){
 			sceneMap.put(integers.get(ii), scenes.get(ii));
 		}

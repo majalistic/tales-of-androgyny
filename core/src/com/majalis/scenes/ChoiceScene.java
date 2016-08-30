@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.ObjectMap;
+import com.badlogic.gdx.utils.OrderedMap;
 import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveManager;
 import com.majalis.save.SaveService;
@@ -29,7 +30,7 @@ public class ChoiceScene extends Scene {
 	private final Skin skin;
 	private final Sound buttonSound;
 	
-	public ChoiceScene(ObjectMap<Integer, Scene> sceneBranches, int sceneCode, SaveService saveService, AssetManager assetManager, BitmapFont font) {
+	public ChoiceScene(OrderedMap<Integer, Scene> sceneBranches, int sceneCode, SaveService saveService, AssetManager assetManager, BitmapFont font) {
 		super(sceneBranches);
 		this.sceneCode = sceneCode;
 		this.saveService = saveService;

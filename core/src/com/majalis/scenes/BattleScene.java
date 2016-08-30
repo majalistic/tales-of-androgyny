@@ -1,6 +1,6 @@
 package com.majalis.scenes;
 
-import com.badlogic.gdx.utils.ObjectMap;
+import com.badlogic.gdx.utils.OrderedMap;
 import com.majalis.battle.BattleCode;
 import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveService;
@@ -12,13 +12,12 @@ public class BattleScene extends Scene {
 	private final int victoryScene;
 	private final int defeatScene;
 	
-	public BattleScene(ObjectMap<Integer, Scene> sceneBranches, SaveService saveService, int battleCode, int victoryScene, int defeatScene) {
+	public BattleScene(OrderedMap<Integer, Scene> sceneBranches, SaveService saveService, int battleCode) {
 		super(sceneBranches);
 		this.saveService = saveService;
 		this.battleCode = battleCode;
-		this.victoryScene = victoryScene;
-		this.defeatScene = defeatScene;
-		
+		this.victoryScene = sceneBranches.get(sceneBranches.orderedKeys().get(0)).getCode();
+		this.defeatScene = sceneBranches.get(sceneBranches.orderedKeys().get(1)).getCode();
 	}
 
 	@Override

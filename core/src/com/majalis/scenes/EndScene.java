@@ -1,11 +1,11 @@
 package com.majalis.scenes;
 
-import com.badlogic.gdx.utils.ObjectMap;
+import com.badlogic.gdx.utils.OrderedMap;
 
 public class EndScene extends Scene{
 
 	private Type type;
-	public EndScene(ObjectMap<Integer, Scene> sceneBranches, Type type) {
+	public EndScene(OrderedMap<Integer, Scene> sceneBranches, Type type) {
 		super(sceneBranches);
 		this.type = type;
 	}

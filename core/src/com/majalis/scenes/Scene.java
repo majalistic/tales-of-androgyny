@@ -3,15 +3,15 @@ package com.majalis.scenes;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.badlogic.gdx.utils.ObjectMap;
+import com.badlogic.gdx.utils.OrderedMap;
 /*
  * Controls the logic for a single "scene", whether it be a text and image splash, a battle entry-point, or a selection dialog
  */
 public abstract class Scene extends Group {
-	protected final ObjectMap<Integer, Scene> sceneBranches;
+	protected final OrderedMap<Integer, Scene> sceneBranches;
 	protected boolean isActive;
 	
-	protected Scene(ObjectMap<Integer, Scene> sceneBranches){
+	protected Scene(OrderedMap<Integer, Scene> sceneBranches){
 		this.sceneBranches = sceneBranches;
 		this.addAction(Actions.hide());
 	}

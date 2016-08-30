@@ -6,7 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.ObjectMap;
+import com.badlogic.gdx.utils.OrderedMap;
 import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveService;
 
@@ -18,7 +18,7 @@ public class TextScene extends Scene  {
 	private final String toDisplay;
 	private final Array<Mutation> mutations;
 
-	public TextScene(ObjectMap<Integer, Scene> sceneBranches, int sceneCode, SaveService saveService, BitmapFont font, String toDisplay, Array<Mutation> mutations) {
+	public TextScene(OrderedMap<Integer, Scene> sceneBranches, int sceneCode, SaveService saveService, BitmapFont font, String toDisplay, Array<Mutation> mutations) {
 		super(sceneBranches);
 		this.sceneCode = sceneCode;
 		this.saveService = saveService;
