@@ -173,14 +173,14 @@ public class Battle extends Group{
 	@Override
     public void draw(Batch batch, float parentAlpha) {
 		super.draw(batch, parentAlpha);
-		font.draw(batch, "Your health: " + String.valueOf(character.currentHealth), 450, 160);
-		font.draw(batch, "Enemy health: " + String.valueOf(enemy.currentHealth), 700, 160);
+		font.draw(batch, "Your health: " + String.valueOf(character.currentHealth) + " (" + character.stance.toString() + ")", 430, 160);
+		font.draw(batch, "Enemy health: " + String.valueOf(enemy.currentHealth) + " (" + enemy.stance.toString() + ")", 680, 160);
 		Array<String> options = character.getPossibleTechniques();
 		for (int ii = 0; ii < 4; ii++){
 			buttons.get(ii).setText(ii < options.size ? options.get(ii) : "-");
 		}
 		
-		font.draw(batch, console, 450, 120);
+		font.draw(batch, console, 450, 130);
     }
 	
 	public int getVictoryScene(){
