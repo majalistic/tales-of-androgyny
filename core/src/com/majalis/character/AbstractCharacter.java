@@ -91,6 +91,7 @@ public abstract class AbstractCharacter extends Group implements Json.Serializab
 		}
 		return max;
 	}
+	protected int getStaminaRegen() { return 2; }
 	
 	public int getStrength(){
 		return baseStrength;
@@ -143,18 +144,34 @@ public abstract class AbstractCharacter extends Group implements Json.Serializab
 		}
 	}
 
+	public String doAttack(String technique, AbstractCharacter secondCharacter, Attack attack){
+		return label + (secondPerson ? " use " : " uses ") + technique + " against " + secondCharacter.receiveAttack(attack);
+	}
+	
 	public String receiveAttack(Attack attack){
+		String result = (secondPerson ? label.toLowerCase() : label) + ". ";
+
 		int damage = attack.getDamage();
 		damage -= getVitality();
-		if (damage < 0) damage = 0;
-		currentHealth -= damage;
-		return String.valueOf(damage);
+		if (damage > 0){	
+			currentHealth -= damage;
+			result += "The blow strikes for " + damage + " damage! ";
+		}
+		
+		Stance forcedStance = attack.getForceStance();
+		if (forcedStance != null){
+			stance = forcedStance;
+			result += "\n" + label + (secondPerson ? " are " : " is ") + "forced into " + stance.toString() + " stance!";
+		}
+		
+		return result+"\n";
 	}
 	
 	public Technique extractCosts(Technique technique){
+		currentStamina += getStaminaRegen();
 		currentStamina -= technique.getStaminaCost();
 		stability -= technique.getStabilityCost();	
-		if (stance != Stance.PRONE && stance != Stance.SUPINE){
+		if (stance != Stance.PRONE && stance != Stance.SUPINE && stance != Stance.DOGGY){
 			if (stability <= 0){
 				technique = new Technique(Techniques.TRIP, 0);
 			}
@@ -173,6 +190,7 @@ public abstract class AbstractCharacter extends Group implements Json.Serializab
 		PRONE,
 		SUPINE,
 		KNEELING,
-		JUMPING
+		JUMPING, 
+		DOGGY
 	}	
 }

@@ -81,17 +81,20 @@ public class Battle extends Group{
 		if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)){
 			gameExit = true;
 		}
-		// attack with balanced attack
 		else {
 			int keyPress = getKeyPress();
 			if (keyPress != -1){				
 				// handle synchronous attacks
-					
-				// possibly construct a separate class for this
-				resolveTechniques(character, character.getTechnique(keyPress), enemy, enemy.getTechnique(character));
 				
-				saveService.saveDataValue(SaveEnum.PLAYER, character);
-				saveService.saveDataValue(SaveEnum.ENEMY, enemy);
+				Technique playerTechnique = character.getTechnique(keyPress);
+				
+				if (playerTechnique != null){
+					// possibly construct a separate class for this
+					resolveTechniques(character, playerTechnique, enemy, enemy.getTechnique(character));
+					
+					saveService.saveDataValue(SaveEnum.PLAYER, character);
+					saveService.saveDataValue(SaveEnum.ENEMY, enemy);
+				}
 			}
 		}
 		
@@ -120,6 +123,7 @@ public class Battle extends Group{
 		return -1;
 	}
 
+	// should probably use String builder to build a string to display in the console - needs to properly be getting information from the interactions - may need to be broken up into its own class
 	private void resolveTechniques(AbstractCharacter firstCharacter, Technique firstTechnique, AbstractCharacter secondCharacter, Technique secondTechnique) {
 		int rand = (int) Math.floor(Math.random() * 100);
 		
@@ -132,31 +136,38 @@ public class Battle extends Group{
 		double firstBlockMod = firstTechnique.getBlock() > rand * 2 ? 0 : (firstTechnique.getBlock() > rand ? .5 : 1);
 		double secondBlockMod = secondTechnique.getBlock() > rand * 2 ? 0 : (secondTechnique.getBlock() > rand ? .5 : 1);
 		
-		// these block rolls should roll half the block to determine if the block is a full block - that way additional block grants higher chance of full block
-		Attack attackForFirst = new Attack((int)Math.floor(secondTechnique.getDamage() * firstBlockMod));
-		Attack attackForSecond = new Attack((int)Math.floor(firstTechnique.getDamage() * secondBlockMod));
+		// these attacks should be generated with all the information from the opposing technique that's relevant, then passed to the character, which will determine the results and return the result string
+		Attack attackForFirst = new Attack((int)Math.floor(secondTechnique.getDamage() * firstBlockMod), secondTechnique.getForceStance());
+		Attack attackForSecond = new Attack((int)Math.floor(firstTechnique.getDamage() * secondBlockMod), firstTechnique.getForceStance());
 				
 		console = "";
 		Stance firstStance = firstTechnique.getStance();
 		Stance secondStance = secondTechnique.getStance();
+		// this should only display a message if stance has actually changed - current stance of player and enemy should be visible in UI
 		console += getStanceString(firstCharacter, firstStance);
 		console += getStanceString(secondCharacter, secondStance);
-		
 		firstCharacter.stance = firstStance;
 		secondCharacter.stance = secondStance;
 		
 		console += "\n";
 		
-		console += getResultString(firstCharacter, secondCharacter, firstTechnique, attackForSecond, secondBlockMod != 1);
-		console += getResultString(secondCharacter, firstCharacter, secondTechnique, attackForFirst, firstBlockMod != 1);		
+		console += getResultString(firstCharacter, secondCharacter, firstTechnique.getTechniqueName(), attackForSecond, secondBlockMod != 1);
+		if (secondTechnique.getTechniqueName().equals("Erupt")){
+			console += "The " + secondCharacter.label + " spews hot, thick semen into your bowels!\n";
+		}
+		else if (firstCharacter.stance == Stance.DOGGY){
+			console += "You are being anally violated!\n";
+		}
+
+		console += getResultString(secondCharacter, firstCharacter, secondTechnique.getTechniqueName(), attackForFirst, firstBlockMod != 1);		
 	}
 
 	private String getStanceString(AbstractCharacter character, Stance stance) {
 		return character.label + (character.secondPerson ? " adopt " : " adopts ") + " a(n) " + stance.toString() + " stance!\n";
 	}
-	
-	private String getResultString(AbstractCharacter firstCharacter, AbstractCharacter secondCharacter, Technique technique, Attack attackForSecond, boolean blocked){
-		return firstCharacter.label + (firstCharacter.secondPerson ? " use " : " uses ") + technique.getTechniqueName() + " against " + (secondCharacter.secondPerson ? secondCharacter.label.toLowerCase() : secondCharacter.label) + (blocked ? " and is blocked " : "") + " for " + secondCharacter.receiveAttack(attackForSecond) + " damage!\n";
+	// this should be the result based on nested methods - iff a response is needed from the defender, call 
+	private String getResultString(AbstractCharacter firstCharacter, AbstractCharacter secondCharacter, String technique, Attack attackForSecond, boolean blocked){
+		return firstCharacter.doAttack(technique, secondCharacter, attackForSecond);
 	}
 	
 	@Override
@@ -169,7 +180,7 @@ public class Battle extends Group{
 			buttons.get(ii).setText(ii < options.size ? options.get(ii) : "-");
 		}
 		
-		font.draw(batch, console, 450, 100);
+		font.draw(batch, console, 450, 120);
     }
 	
 	public int getVictoryScene(){

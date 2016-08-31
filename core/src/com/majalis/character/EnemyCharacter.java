@@ -31,15 +31,23 @@ public class EnemyCharacter extends AbstractCharacter {
 		this.stance = Stance.BALANCED;
 	}
 	
-	public boolean willPounce(){
-		return lust > 10;
+	private boolean willPounce(){
+		return lust >= 10;
 	}
 	
 	public Technique getTechnique(AbstractCharacter target){
 		int rand = new IntArray(new int[]{0,1,2}).random();
+	
+		if (lust < 10) lust++;
+		
 		// need to add techniques for falling down and getting up and such
+		if ((target.stance == Stance.PRONE || target.stance == Stance.SUPINE) && willPounce()){
+			return new Technique(Techniques.POUNCE, getStrength());
+		}
+		
 		switch(stance){
 			case OFFENSIVE:
+				if (currentStamina < 3 || stability < 3) return new Technique(Techniques.RESERVED_ATTACK, getStrength());
 				switch (rand){
 					case 0:
 						return new Technique(Techniques.STRONG_ATTACK, getStrength());	
@@ -49,6 +57,7 @@ public class EnemyCharacter extends AbstractCharacter {
 						return new Technique(Techniques.RESERVED_ATTACK, getStrength());
 				}
 			case BALANCED:
+				if (currentStamina < 3 || stability < 3) return new Technique(Techniques.CAUTIOUS_ATTACK, getStrength());
 				switch (rand){
 					case 0:
 						return new Technique(Techniques.SPRING_ATTACK, getStrength());	
@@ -68,7 +77,22 @@ public class EnemyCharacter extends AbstractCharacter {
 				}
 			case PRONE:
 			case SUPINE:
-				return new Technique(Techniques.KIP_UP, getStrength());
+				if (currentStamina > 5){
+					return new Technique(Techniques.KIP_UP, getStrength());
+				}	
+				else {
+					return new Technique(Techniques.STAND_UP, getStrength());
+				}
+				
+			case DOGGY:
+				lust++;
+				if (lust > 20){
+					return new Technique(Techniques.ERUPT, getStrength());
+				}
+				else {
+					return new Technique(Techniques.POUND, getStrength());
+				}
+				
 		}
 		return null;
 	}

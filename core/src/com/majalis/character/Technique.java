@@ -9,6 +9,8 @@ public class Technique {
 	private final Techniques technique;
 	private final int strength;
 	private final int block;
+	private final Stance forceStance;
+	
 	public Technique(Techniques technique, int strength){
 		this(technique, strength, 0);
 	}
@@ -16,6 +18,7 @@ public class Technique {
 		this.technique = technique;
 		this.strength = strength;
 		this.block = block;
+		forceStance = technique == Techniques.POUNCE ? Stance.DOGGY : (technique == Techniques.ERUPT ? Stance.BALANCED : null);
 	}
 	
 	public int getDamage(){
@@ -45,4 +48,7 @@ public class Technique {
 		return technique.getStabilityCost();
 	}
 	
+	public Stance getForceStance(){
+		return forceStance;
+	}	
 }

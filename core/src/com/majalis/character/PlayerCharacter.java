@@ -58,6 +58,8 @@ public class PlayerCharacter extends AbstractCharacter implements Json.Serializa
 				return new Array<String>(true, new String[]{"Kip Up (A)", "Stand Up (S)", "Knee Up (D)", "Rest (F)"}, 0, 4);
 			case KNEELING:
 				return new Array<String>(true, new String[]{"Stand Up (A)"}, 0, 1);
+			case DOGGY:
+				return new Array<String>(true, new String[]{"Take It In The (A)"}, 0, 1);
 		}
 		return null;
 	}
@@ -110,6 +112,8 @@ public class PlayerCharacter extends AbstractCharacter implements Json.Serializa
 					}	
 			case KNEELING:
 				return new Technique(Techniques.STAND_UP, getStrength());
+			case DOGGY:
+				return new Technique(Techniques.RECEIVE, getStrength());
 		}
 		return null;
 	}
