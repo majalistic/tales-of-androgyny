@@ -57,9 +57,15 @@ public class Battle extends Group{
 		
 		Table table = new Table();
 		Array<String> options = character.getPossibleTechniques();
-		int[] possibleKeys = new int[]{Keys.A, Keys.S, Keys.D};
-		for (int ii = 0; ii < options.size; ii++){
-			TextButton button = new TextButton(options.get(ii), skin);
+		int[] possibleKeys = new int[]{Keys.A, Keys.S, Keys.D, Keys.F};
+		for (int ii = 0; ii < 4; ii++){
+			TextButton button;
+			if (ii < options.size){
+				button = new TextButton(options.get(ii), skin);
+			}
+			else {
+				button = new TextButton("-", skin);
+			}			
 			button.addListener(getListener(possibleKeys[ii], buttonSound));
 			buttons.add(button);
 			table.add(button).row();
@@ -105,7 +111,7 @@ public class Battle extends Group{
 			recentKeyPress = -1;
 			return temp;
 		}
-		int[] possibleKeys = new int[]{Keys.A, Keys.S, Keys.D};
+		int[] possibleKeys = new int[]{Keys.A, Keys.S, Keys.D, Keys.F};
 		for (int possibleKey : possibleKeys){
 			if (Gdx.input.isKeyJustPressed(possibleKey)){
 				return possibleKey;
@@ -117,11 +123,18 @@ public class Battle extends Group{
 	private void resolveTechniques(AbstractCharacter firstCharacter, Technique firstTechnique, AbstractCharacter secondCharacter, Technique secondTechnique) {
 		int rand = (int) Math.floor(Math.random() * 100);
 		
-		boolean firstBlock = firstTechnique.getBlock() > rand;
-		boolean secondBlock = secondTechnique.getBlock() > rand;
+		// this should probably display the attack you attempted to use, and then display that you used Fall Down / Trip instead.
+		// can return extracted costs later for printing
+		// will cause a character to fall over / lose endurance of its own volition
+		firstTechnique = firstCharacter.extractCosts(firstTechnique);
+		secondTechnique = secondCharacter.extractCosts(secondTechnique);
 		
-		Attack attackForFirst = new Attack((int)Math.floor(secondTechnique.getDamage() * (firstBlock ? (rand%2==0 ? .5 : 0) : 1 )));
-		Attack attackForSecond =new Attack((int)Math.floor(firstTechnique.getDamage() * (secondBlock ? (rand%2==0 ? .5 : 0) : 1 )));
+		double firstBlockMod = firstTechnique.getBlock() > rand * 2 ? 0 : (firstTechnique.getBlock() > rand ? .5 : 1);
+		double secondBlockMod = secondTechnique.getBlock() > rand * 2 ? 0 : (secondTechnique.getBlock() > rand ? .5 : 1);
+		
+		// these block rolls should roll half the block to determine if the block is a full block - that way additional block grants higher chance of full block
+		Attack attackForFirst = new Attack((int)Math.floor(secondTechnique.getDamage() * firstBlockMod));
+		Attack attackForSecond = new Attack((int)Math.floor(firstTechnique.getDamage() * secondBlockMod));
 				
 		console = "";
 		Stance firstStance = firstTechnique.getStance();
@@ -134,8 +147,8 @@ public class Battle extends Group{
 		
 		console += "\n";
 		
-		console += getResultString(firstCharacter, secondCharacter, firstTechnique, attackForSecond, secondBlock);
-		console += getResultString(secondCharacter, firstCharacter, secondTechnique, attackForFirst, firstBlock);		
+		console += getResultString(firstCharacter, secondCharacter, firstTechnique, attackForSecond, secondBlockMod != 1);
+		console += getResultString(secondCharacter, firstCharacter, secondTechnique, attackForFirst, firstBlockMod != 1);		
 	}
 
 	private String getStanceString(AbstractCharacter character, Stance stance) {
@@ -152,8 +165,8 @@ public class Battle extends Group{
 		font.draw(batch, "Your health: " + String.valueOf(character.currentHealth), 450, 160);
 		font.draw(batch, "Enemy health: " + String.valueOf(enemy.currentHealth), 700, 160);
 		Array<String> options = character.getPossibleTechniques();
-		for (int ii = 0; ii < options.size; ii++){
-			buttons.get(ii).setText(options.get(ii));
+		for (int ii = 0; ii < 4; ii++){
+			buttons.get(ii).setText(ii < options.size ? options.get(ii) : "-");
 		}
 		
 		font.draw(batch, console, 450, 100);

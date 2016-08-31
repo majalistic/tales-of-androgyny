@@ -16,6 +16,8 @@ public class EnemyCharacter extends AbstractCharacter {
 	public EnemyEnum enemyType;
 	private Texture texture;
 	private Vector2 position;
+	private int lust; 
+	
 	@SuppressWarnings("unused")
 	private EnemyCharacter(){}
 	public EnemyCharacter(Texture texture, EnemyEnum enemyType){
@@ -23,13 +25,19 @@ public class EnemyCharacter extends AbstractCharacter {
 		this.enemyType = enemyType;
 		init(texture);
 		baseStrength = 6;
+		lust = 0;
 		label = enemyType.toString();
 		this.currentHealth = getMaxHealth();
 		this.stance = Stance.BALANCED;
 	}
 	
+	public boolean willPounce(){
+		return lust > 10;
+	}
+	
 	public Technique getTechnique(AbstractCharacter target){
 		int rand = new IntArray(new int[]{0,1,2}).random();
+		// need to add techniques for falling down and getting up and such
 		switch(stance){
 			case OFFENSIVE:
 				switch (rand){
@@ -58,6 +66,9 @@ public class EnemyCharacter extends AbstractCharacter {
 					case 2:	
 						return new Technique(Techniques.GUARD, getStrength());
 				}
+			case PRONE:
+			case SUPINE:
+				return new Technique(Techniques.KIP_UP, getStrength());
 		}
 		return null;
 	}

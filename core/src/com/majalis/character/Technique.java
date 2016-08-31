@@ -31,8 +31,18 @@ public class Technique {
 	public Stance getStance(){
 		return technique.getStanceResult();
 	}
+	
 	public String getTechniqueName(){
 		return technique.toString();
+	}
+
+	// right now this is a pass-through for technique.getStaminaCost() - could be modified by player (status effect that increases stamina cost, for instance)
+	public int getStaminaCost(){
+		return technique.getStaminaCost();
+	}
+	
+	public int getStabilityCost(){
+		return technique.getStabilityCost();
 	}
 	
 }

@@ -29,6 +29,7 @@ public class PlayerCharacter extends AbstractCharacter implements Json.Serializa
 	/* out of battle only statistics */
 	public int money;
 	public int food;
+	public int exp;
 	
 	public int dignity;
 	public int integrity;
@@ -52,6 +53,11 @@ public class PlayerCharacter extends AbstractCharacter implements Json.Serializa
 				return new Array<String>(true, new String[]{"Spring (A)", "Neutral (S)", "Cautious (D)"}, 0, 3);
 			case DEFENSIVE:
 				return new Array<String>(true, new String[]{"Reversal (A)", "Careful (S)", "Guard (D)"}, 0, 3);
+			case PRONE:
+			case SUPINE:
+				return new Array<String>(true, new String[]{"Kip Up (A)", "Stand Up (S)", "Knee Up (D)", "Rest (F)"}, 0, 4);
+			case KNEELING:
+				return new Array<String>(true, new String[]{"Stand Up (A)"}, 0, 1);
 		}
 		return null;
 	}
@@ -90,6 +96,20 @@ public class PlayerCharacter extends AbstractCharacter implements Json.Serializa
 					case Keys.D:	
 						return new Technique(Techniques.GUARD, getStrength());
 				}
+			case PRONE:
+			case SUPINE:
+				switch (keyPressed){
+					case Keys.A:
+						return new Technique(Techniques.KIP_UP, getStrength());	
+					case Keys.S:
+						return new Technique(Techniques.STAND_UP, getStrength());	
+					case Keys.D:
+						return new Technique(Techniques.KNEE_UP, getStrength());
+					case Keys.F:	
+						return new Technique(Techniques.REST, getStrength());
+					}	
+			case KNEELING:
+				return new Technique(Techniques.STAND_UP, getStrength());
 		}
 		return null;
 	}

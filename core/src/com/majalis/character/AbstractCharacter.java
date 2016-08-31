@@ -150,10 +150,29 @@ public abstract class AbstractCharacter extends Group implements Json.Serializab
 		currentHealth -= damage;
 		return String.valueOf(damage);
 	}
+	
+	public Technique extractCosts(Technique technique){
+		currentStamina -= technique.getStaminaCost();
+		stability -= technique.getStabilityCost();	
+		if (stance != Stance.PRONE && stance != Stance.SUPINE){
+			if (stability <= 0){
+				technique = new Technique(Techniques.TRIP, 0);
+			}
+			else if (currentStamina <= 0){
+				technique = new Technique(Techniques.FALL_DOWN, 0);
+			}
+		}
+		
+		return technique;
+	}
 
 	public enum Stance {
 		BALANCED,
 		DEFENSIVE,
-		OFFENSIVE
+		OFFENSIVE,
+		PRONE,
+		SUPINE,
+		KNEELING,
+		JUMPING
 	}	
 }
