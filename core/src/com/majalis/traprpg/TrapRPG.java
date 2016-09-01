@@ -17,7 +17,7 @@ import com.majalis.world.GameWorldFactory;
 public class TrapRPG extends Game {
 	
 	public void create() {	
-		SaveManager saveManager = new SaveManager(false);
+		SaveManager saveManager = new SaveManager(false, "data/save.json");
 		AssetManager assetManager = new AssetManager();
 		BitmapFont font =  new BitmapFont();
 		init(new ScreenFactoryImpl(this, assetManager, saveManager, new GameWorldFactory(saveManager, font), new EncounterFactory(assetManager, saveManager), new BattleFactory(saveManager, assetManager, font), new SpriteBatch()));

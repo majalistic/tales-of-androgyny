@@ -18,9 +18,9 @@ public class SaveManager implements SaveService, LoadService{
     private final FileHandle file;   
     private GameSave save;
    
-    public SaveManager(boolean encoded){
+    public SaveManager(boolean encoded, String path){
         this.encoded = encoded;
-        file = Gdx.files.local("bin/save.json");   
+        file = Gdx.files.local(path);   
         save = getSave();
     }
     
