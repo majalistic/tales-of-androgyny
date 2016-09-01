@@ -10,6 +10,7 @@ public class Technique {
 	private final int strength;
 	private final int block;
 	private final Stance forceStance;
+	private final boolean battleOver;
 	
 	public Technique(Techniques technique, int strength){
 		this(technique, strength, 0);
@@ -18,17 +19,33 @@ public class Technique {
 		this.technique = technique;
 		this.strength = strength;
 		this.block = block;
-		forceStance = technique == Techniques.POUNCE ? Stance.DOGGY : (technique == Techniques.ERUPT ? Stance.BALANCED : null);
+		forceStance = setForceStance();
+		
+		battleOver = technique == Techniques.KNOT_BANG;
 	}
 	
 	public int getDamage(){
-		int damage = strength + technique.getPowerMod();
+		// can special case powerMod 100 = 0 here
+		int damage = technique == Techniques.KNOT ? 4 : strength + technique.getPowerMod();
 		if (damage < 0) damage = 0;
 		return damage;
 	}	
 	
 	public int getBlock(){
 		return block + (technique == Techniques.GUARD ? 100 : 0);
+	}
+	
+	private Stance setForceStance(){
+		switch (technique){
+			case POUNCE:
+				return Stance.DOGGY;
+			case ERUPT:
+				return Stance.BALANCED;
+			case KNOT:
+				return Stance.KNOTTED;
+		}
+		return null;
+		
 	}
 	
 	public Stance getStance(){
@@ -51,4 +68,8 @@ public class Technique {
 	public Stance getForceStance(){
 		return forceStance;
 	}	
+	
+	public boolean forceBattleOver(){
+		return battleOver;
+	}
 }

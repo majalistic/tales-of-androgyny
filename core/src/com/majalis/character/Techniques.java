@@ -31,8 +31,11 @@ public enum Techniques {
 	
 	POUNCE			{ public Stance getStanceResult(){ return Stance.DOGGY; } 	 public int getPowerMod(){ return -100; } public int getStabilityCost(){ return 0; } public int getStaminaCost(){ return 2; } }, // Used to initiate doggy
 	POUND			{ public Stance getStanceResult(){ return Stance.DOGGY; } 	 public int getPowerMod(){ return -100; } public int getStabilityCost(){ return 0; } public int getStaminaCost(){ return 1; } }, // Used to doggystyle
-	ERUPT			{ public Stance getStanceResult(){ return Stance.BALANCED; } public int getPowerMod(){ return -100; } public int getStabilityCost(){ return 0; } public int getStaminaCost(){ return 1; } }, // Used to doggystyle
-	RECEIVE			{ public Stance getStanceResult(){ return Stance.DOGGY; } 	 public int getPowerMod(){ return -100; } public int getStabilityCost(){ return 0; } public int getStaminaCost(){ return 1; } }; // Used to receive doggystyle 
+	KNOT 			{ public Stance getStanceResult(){ return Stance.KNOTTED; }	 public int getPowerMod(){ return -100; } public int getStabilityCost(){ return 0; } public int getStaminaCost(){ return 1; } }, // Used to knot by knotty weresluts and others
+	KNOT_BANG 		{ public Stance getStanceResult(){ return Stance.KNOTTED; }  public int getPowerMod(){ return -100; } public int getStabilityCost(){ return 0; } public int getStaminaCost(){ return 1; } }, // Used to knot by knotty weresluts and others - could end the battle
+	ERUPT			{ public Stance getStanceResult(){ return Stance.BALANCED; } public int getPowerMod(){ return -100; } public int getStabilityCost(){ return 0; } public int getStaminaCost(){ return 1; } }, // Used to creampie
+	RECEIVE			{ public Stance getStanceResult(){ return Stance.DOGGY; } 	 public int getPowerMod(){ return -100; } public int getStabilityCost(){ return 0; } public int getStaminaCost(){ return 1; } }, // Used to receive doggystyle 
+	RECEIVE_KNOT	{ public Stance getStanceResult(){ return Stance.KNOTTED; }  public int getPowerMod(){ return -100; } public int getStabilityCost(){ return 0; } public int getStaminaCost(){ return 1; } }; // Used to receive the knot
 	
 	public abstract Stance getStanceResult();
 	public abstract int getPowerMod();

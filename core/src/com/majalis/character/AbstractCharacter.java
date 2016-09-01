@@ -160,7 +160,6 @@ public abstract class AbstractCharacter extends Group implements Json.Serializab
 		
 		Stance forcedStance = attack.getForceStance();
 		if (forcedStance != null){
-			stance = forcedStance;
 			result += "\n" + label + (secondPerson ? " are " : " is ") + "forced into " + stance.toString() + " stance!";
 		}
 		
@@ -191,6 +190,7 @@ public abstract class AbstractCharacter extends Group implements Json.Serializab
 		SUPINE,
 		KNEELING,
 		JUMPING, 
-		DOGGY
+		DOGGY, 
+		KNOTTED
 	}	
 }

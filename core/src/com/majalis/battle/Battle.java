@@ -71,7 +71,7 @@ public class Battle extends Group{
 			table.add(button).row();
 		}
         table.setFillParent(true);
-        table.addAction(Actions.moveTo(330, 70));
+        table.addAction(Actions.moveTo(100, 70));
         this.addActor(table);
         
         recentKeyPress = -1;
@@ -127,6 +127,7 @@ public class Battle extends Group{
 	private void resolveTechniques(AbstractCharacter firstCharacter, Technique firstTechnique, AbstractCharacter secondCharacter, Technique secondTechnique) {
 		int rand = (int) Math.floor(Math.random() * 100);
 		
+		// this needs to be refactored to reduce code duplication and possibly to condense the whole algorithm down
 		// this should probably display the attack you attempted to use, and then display that you used Fall Down / Trip instead.
 		// can return extracted costs later for printing
 		// will cause a character to fall over / lose endurance of its own volition
@@ -149,17 +150,34 @@ public class Battle extends Group{
 		firstCharacter.stance = firstStance;
 		secondCharacter.stance = secondStance;
 		
-		console += "\n";
+		Stance forcedStance = attackForFirst.getForceStance();
+		
+		if (forcedStance != null){
+			firstCharacter.stance = forcedStance;
+		}
 		
 		console += getResultString(firstCharacter, secondCharacter, firstTechnique.getTechniqueName(), attackForSecond, secondBlockMod != 1);
 		if (secondTechnique.getTechniqueName().equals("Erupt")){
 			console += "The " + secondCharacter.label + " spews hot, thick semen into your bowels!\n";
 		}
 		else if (firstCharacter.stance == Stance.DOGGY){
-			console += "You are being anally violated!\n";
+			// need some way to get info from sex techniques to display here.  For now, some random fun text
+			console += "You are being anally violated! Your hole is stretched by her fat dick! Your hole feels like it's on fire! Her cock glides smoothly through your irritated anal mucosa!\n"
+					+ "Her rhythmic thrusting in and out of your asshole is emasculating! You are red-faced and embarassed because of her butt-stuffing! Your cock is ignored!\n";
 		}
-
-		console += getResultString(secondCharacter, firstCharacter, secondTechnique.getTechniqueName(), attackForFirst, firstBlockMod != 1);		
+		else if (firstCharacter.stance == Stance.KNOTTED){
+			console += "Her powerful hips try to force something big inside! You struggle... but can't escape!  Her grapefruit-sized knot slips into your rectum!  You take 4 damage!\n"
+					+ "You can't dislodge it; it's too large! Your anus is permanently stretched! You learned about Anatomy(Wereslut)! You are being bred!\n"
+					+ "The battle is over, but your ordeal has just begun! She's going to ejaculate her runny dog cum in your bowels!\n";
+			if (secondTechnique.forceBattleOver()){	
+				// player character should also be able to force battle over
+				battleOver = true;
+				victory = false;
+			}
+		}
+		else {
+			console += getResultString(secondCharacter, firstCharacter, secondTechnique.getTechniqueName(), attackForFirst, firstBlockMod != 1);
+		}		
 	}
 
 	private String getStanceString(AbstractCharacter character, Stance stance) {
@@ -173,14 +191,14 @@ public class Battle extends Group{
 	@Override
     public void draw(Batch batch, float parentAlpha) {
 		super.draw(batch, parentAlpha);
-		font.draw(batch, "Your health: " + String.valueOf(character.currentHealth) + " (" + character.stance.toString() + ")", 430, 160);
-		font.draw(batch, "Enemy health: " + String.valueOf(enemy.currentHealth) + " (" + enemy.stance.toString() + ")", 680, 160);
+		font.draw(batch, "Your health: " + String.valueOf(character.currentHealth) + " (" + character.stance.toString() + ")", 350, 160);
+		font.draw(batch, "Enemy health: " + String.valueOf(enemy.currentHealth) + " (" + enemy.stance.toString() + ")", 700, 160);
 		Array<String> options = character.getPossibleTechniques();
 		for (int ii = 0; ii < 4; ii++){
 			buttons.get(ii).setText(ii < options.size ? options.get(ii) : "-");
 		}
 		
-		font.draw(batch, console, 450, 130);
+		font.draw(batch, console, 220, 130);
     }
 	
 	public int getVictoryScene(){

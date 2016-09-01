@@ -24,7 +24,7 @@ public class EnemyCharacter extends AbstractCharacter {
 		super(true);
 		this.enemyType = enemyType;
 		init(texture);
-		baseStrength = 6;
+		baseStrength = 5;
 		lust = 0;
 		label = enemyType.toString();
 		this.currentHealth = getMaxHealth();
@@ -86,12 +86,19 @@ public class EnemyCharacter extends AbstractCharacter {
 				
 			case DOGGY:
 				lust++;
-				if (lust > 20){
-					return new Technique(Techniques.ERUPT, getStrength());
+				if (lust > 14){
+					if (enemyType == EnemyEnum.HARPY){
+						return new Technique(Techniques.ERUPT, getStrength());
+					}
+					else {
+						return new Technique(Techniques.KNOT, getStrength());
+					}
 				}
 				else {
 					return new Technique(Techniques.POUND, getStrength());
 				}
+			case KNOTTED:
+				return new Technique(Techniques.KNOT_BANG, getStrength());
 				
 		}
 		return null;
