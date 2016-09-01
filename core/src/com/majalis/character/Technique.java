@@ -43,9 +43,9 @@ public class Technique {
 				return Stance.BALANCED;
 			case KNOT:
 				return Stance.KNOTTED;
+			default:
+				return null;
 		}
-		return null;
-		
 	}
 	
 	public Stance getStance(){

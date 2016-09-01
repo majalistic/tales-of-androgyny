@@ -209,6 +209,11 @@ public class Battle extends Group{
 		return defeatScene;
 	}
 	
+	public void dispose(){
+		assetManager.unload("uiskin.json");
+		assetManager.unload("sound.wav");
+	}
+	
 	private ClickListener getListener(final int keyPress, final Sound buttonSound){
 		return new ClickListener(){
 	        @Override

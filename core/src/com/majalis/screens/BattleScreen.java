@@ -65,5 +65,10 @@ public class BattleScreen extends AbstractScreen{
 		super.draw();
 		batch.end();
 	}
+	// passthrough for battle.dispose
+	@Override
+	public void dispose(){
+		battle.dispose();
+	}
 	
 }
