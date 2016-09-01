@@ -56,7 +56,7 @@ public class EncounterBuilder {
 					new BattleScene(
 							aggregateMaps(
 									getTextScenes(new String[]{"You won!  You get NOTHING.", "Sad :(", "What a pity.  Go away."}, addScene(new EndScene(new OrderedMap<Integer, Scene>(), EndScene.Type.ENCOUNTER_OVER)), font),
-									getTextScenes(new String[]{getDefeatText(battleCode), "GAME OVER"}, addScene(new EndScene(new OrderedMap<Integer, Scene>(), EndScene.Type.GAME_OVER)), font)					
+									getTextScenes(getDefeatText(battleCode), addScene(new EndScene(new OrderedMap<Integer, Scene>(), EndScene.Type.GAME_OVER)), font)					
 							), saveService, battleCode)), font);
 		saveService.saveDataValue(SaveEnum.BATTLE_CODE, new BattleCode(-1, -1, -1));
 		return new Encounter(scenes, endScenes, battleScenes, getStartScene(scenes, sceneCode));	
@@ -101,12 +101,13 @@ public class EncounterBuilder {
 		return aggregatedMap;	
 	}
 	
-	private String getDefeatText(int battleCode){
+	// reads from a text file with the battleCode followed by the scene - either delimited by a certain character or just endline and use the wordwrapping of font.draw
+	private String[] getDefeatText(int battleCode){
 		switch(battleCode){
 			case 0:
-				return "You lost! You get knotty werewolf cock! (up the butt).";
+				return new String[]{"You lost! You get knotty werewolf cock! (up the butt)."};
 			default:
-				return "You lost! The harpy mounts you! (up the butt).";
+				return new String[]{"You lost! The harpy mounts you! (up the butt)."};
 		}
 	}
 	
