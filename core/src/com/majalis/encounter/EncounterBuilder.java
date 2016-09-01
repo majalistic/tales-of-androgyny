@@ -20,6 +20,7 @@ public class EncounterBuilder {
 	private final Array<Scene> scenes;
 	private final Array<EndScene> endScenes;
 	private final Array<BattleScene> battleScenes; 
+	private final EncounterReader reader;
 	private final SaveService saveService;
 	private final BitmapFont font;
 	private final int sceneCode;
@@ -27,10 +28,11 @@ public class EncounterBuilder {
 	// can probably be replaced with a call to scenes.size
 	private int sceneCounter;
 	
-	protected EncounterBuilder(SaveService saveService, BitmapFont font, int sceneCode, int battleCode){
+	protected EncounterBuilder(EncounterReader reader, SaveService saveService, BitmapFont font, int sceneCode, int battleCode){
 		scenes = new Array<Scene>();
 		endScenes = new Array<EndScene>();
 		battleScenes = new Array<BattleScene>();
+		this.reader = reader;
 		this.saveService = saveService;
 		this.font = font;
 		this.sceneCode = sceneCode;
@@ -112,12 +114,7 @@ public class EncounterBuilder {
 	}
 	
 	private String[] getScript(int battleCode, int scene){
-		switch(battleCode){
-			case 0:
-				return new String[]{"You encounter a random encounter!", "It's so random. :^)", "There is nothing left here to do.", "No wait lol there's a basic werebitch, RAWR."};
-			default:
-				return new String[]{"You look around.  There doesn't appear to be a harpy here.", "Wait actually that harpy looks like she wants to drill you silly!"};
-		}
+		return reader.loadScript(battleCode);
 	}
 		
 	private Scene getStartScene(Array<Scene> scenes, Integer sceneCode){

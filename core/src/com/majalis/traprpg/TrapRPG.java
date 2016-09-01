@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.majalis.battle.BattleFactory;
 import com.majalis.encounter.EncounterFactory;
+import com.majalis.encounter.EncounterReader;
 import com.majalis.save.SaveManager;
 import com.majalis.screens.AbstractScreen;
 import com.majalis.screens.ScreenEnum;
@@ -18,9 +19,10 @@ public class TrapRPG extends Game {
 	
 	public void create() {	
 		SaveManager saveManager = new SaveManager(false, "data/save.json");
+		EncounterReader encounterReader = new EncounterReader("script/encounters.json");
 		AssetManager assetManager = new AssetManager();
 		BitmapFont font =  new BitmapFont();
-		init(new ScreenFactoryImpl(this, assetManager, saveManager, new GameWorldFactory(saveManager, font), new EncounterFactory(assetManager, saveManager), new BattleFactory(saveManager, assetManager, font), new SpriteBatch()));
+		init(new ScreenFactoryImpl(this, assetManager, saveManager, new GameWorldFactory(saveManager, font), new EncounterFactory(encounterReader, assetManager, saveManager), new BattleFactory(saveManager, assetManager, font), new SpriteBatch()));
 	}
 	/*
 	 * Takes a factory implementation and uses it to generate a screen and switch to it

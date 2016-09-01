@@ -1,0 +1,16 @@
+{
+"script": [
+	{
+		"key": 0,
+		"scriptLines": [
+			"You encounter a random encounter!", "Nothing to see here", "No wait lol there's a basic werebitch, RAWR."
+		]
+	},
+	{
+		"key": 1,
+		"scriptLines": [
+			"You look around. There doesn't appear to be any harpies here.", "Wait actually that harpy looks like she wants to drill you silly!"
+		]
+	}
+]
+}
