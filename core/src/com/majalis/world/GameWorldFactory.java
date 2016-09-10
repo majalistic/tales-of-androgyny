@@ -35,39 +35,56 @@ public class GameWorldFactory {
 	
 	// this will need to be passed an integer seed which is randomly generated on worldgen, so that this method itself is deterministic
 	// should probably also receive any data that is being loaded - namely visited nodes and currently active node
+	@SuppressWarnings("unchecked")
 	public GameWorld getGameWorld(OrthographicCamera camera, int seed) {
 		random.setSeed(seed);
 		Array<GameWorldNode> nodes = new Array<GameWorldNode>();
 		IntMap<GameWorldNode> nodeMap = new IntMap<GameWorldNode>();
 		ObjectSet<Integer> visitedCodesSet = loadService.loadDataValue(SaveEnum.VISITED_LIST, ObjectSet.class);
-		
-		GameWorldNode startNode = new GameWorldNode(new Array<GameWorldNode>(), saveService, loadService, camera, shapeRenderer, font, 1, 0, 100, new Vector2(500, 500), visitedCodesSet.contains(1) ? true : false);		
-		nodes.add(startNode);
-		nodeMap.put(1, startNode);
-		
-		for (int ii = 2; ii <= 100; ii++){
-			// 100 = magic number to get the defaultEncounter for now
-			GameWorldNode newNode = new GameWorldNode(new Array<GameWorldNode>(), saveService, loadService, camera, shapeRenderer, font, ii, ii-1, 100, new Vector2(random.nextInt()%1000, random.nextInt()%1000), visitedCodesSet.contains(ii) ? true : false);
-			nodes.add(newNode);
-			nodeMap.put(ii, newNode);
+		Vector2 currentNodePosition = new Vector2(500, 500);
+		// -1 = magic number to get the defaultEncounter
+		addNode(new GameWorldNode(new Array<GameWorldNode>(), saveService, loadService, camera, shapeRenderer, font, 1, 0, -1, currentNodePosition, visitedCodesSet.contains(1) ? true : false), nodeMap, 1, nodes);
+		Array<GameWorldNode> requiredNodes = new Array<GameWorldNode>();
+		// end node
+		addNode(new GameWorldNode(new Array<GameWorldNode>(), saveService, loadService, camera, shapeRenderer, font, 1, 0, -1, new Vector2(1100, 1100), visitedCodesSet.contains(1) ? true : false), nodeMap, 2, nodes, requiredNodes);
+		// temporarily stop at 1000 to prevent hangs if endpoint isn't found - in the future this should set something that will smoothly guide towards the exit as the number of nodes increase
+		for (int nodeCode = 3; nodeCode <= 100 || (nodeCode <= 1000 && requiredNodes.size != 0); nodeCode++){
+			// start with the last point, then add a vector to it with a randomly chosen angle of a fixed or minimally variant distance			
+			currentNodePosition = new Vector2(random.nextInt()%1000, random.nextInt()%1000);
+			GameWorldNode newNode = (new GameWorldNode(new Array<GameWorldNode>(), saveService, loadService, camera, shapeRenderer, font, nodeCode, nodeCode-1, -1, currentNodePosition, visitedCodesSet.contains(nodeCode) ? true : false));
+			addNode(newNode, nodeMap, nodeCode, nodes);
+			// and continue until a list of points that must be connected are connected
+			IntArray toRemoveFromRequired = new IntArray();
+			int ii = 0;
+			for (GameWorldNode requiredNode: requiredNodes){
+				if (requiredNode.isAdjacent(newNode)){
+					toRemoveFromRequired.add(ii);
+				}
+				ii++;
+			}
+			toRemoveFromRequired.reverse();
+			for (int jj = 0; jj < toRemoveFromRequired.size; jj++){
+				requiredNodes.removeIndex(toRemoveFromRequired.get(jj));
+			}			
 		}
 		
+		System.out.println(nodes.size);
+		
 		// remove all nodes such that none are overlapping
-		IntArray toRemove = new IntArray();
+		IntArray toRemoveFromNodeList = new IntArray();
 		for (int ii = 0; ii < nodes.size-1; ii++){
 			for (int jj = ii + 1; jj < nodes.size; jj++){
 				if (nodes.get(ii).isOverlapping(nodes.get(jj))){		
-					if (!toRemove.contains(jj)){
-						toRemove.add(jj);
-						break;
+					if (!toRemoveFromNodeList.contains(jj)){
+						toRemoveFromNodeList.add(jj);
 					}
 				}
 			}
 		}
-		toRemove.sort();
-		toRemove.reverse();
-		for (int ii = 0; ii < toRemove.size; ii++){
-			nodes.removeIndex(toRemove.get(ii));
+		toRemoveFromNodeList.sort();
+		toRemoveFromNodeList.reverse();
+		for (int ii = 0; ii < toRemoveFromNodeList.size; ii++){
+			nodes.removeIndex(toRemoveFromNodeList.get(ii));
 		}
 		
 		// connect all nodes that consider themselves adjacent to nearby nodes - some nodes, like permanent nodes, might have a longer "reach" then others
@@ -82,6 +99,13 @@ public class GameWorldFactory {
 		// load the current node - subtracts 1 because it currently assumes that the index in the array is one less than the node's code - need to make an IntMap between nodeCode and node
 		nodeMap.get((Integer)loadService.loadDataValue(SaveEnum.NODE_CODE, Integer.class)).setAsCurrentNode();
 		return new GameWorld(nodes);
+	}
+	
+	public void addNode(GameWorldNode newNode, IntMap<GameWorldNode> nodeMap, int nodeCode, Array<GameWorldNode> ... nodes){
+		for (Array<GameWorldNode> nodeArray: nodes){
+			nodeArray.add(newNode);
+		}
+		nodeMap.put(nodeCode, newNode);
 	}
 
 	public void setContext(GameContext context) {
