@@ -1,8 +1,11 @@
 package com.majalis.screens;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.ObjectMap;
@@ -36,6 +39,23 @@ public class GameScreen extends AbstractScreen {
 	@Override
 	public void render(float delta) {
 		super.render(delta);
+		
+		Vector3 translationVector = new Vector3(0,0,0);
+
+		if (Gdx.input.isKeyPressed(Keys.LEFT)){
+			translationVector.x -= 2;
+		}
+		else if (Gdx.input.isKeyPressed(Keys.RIGHT)){
+			translationVector.x += 2;
+		}
+		if (Gdx.input.isKeyPressed(Keys.UP)){
+			translationVector.y += 2;
+		}
+		else if (Gdx.input.isKeyPressed(Keys.DOWN)){
+			translationVector.y -= 2;
+		}
+		
+		getCamera().translate(translationVector);
 		
 		world.gameLoop();
 		if (world.gameExit){
