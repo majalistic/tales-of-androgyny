@@ -34,16 +34,7 @@ public class EncounterFactory {
 		EncounterBuilder builder = new EncounterBuilder(reader, saveService, font, sceneCode, battleCode);
 		switch (encounterCode){
 			case 0: return builder.getClassChoiceEncounter(assetManager);
-			case 1:	
-			case 2: 
-			case 3:
-			case 4:
-			case 5:
-			case 6:
-			case 7:
-			case 8:
-			case 9: return builder.getRandomEncounter();
-			default: return builder.getDefaultEncounter();
+			default: return builder.getRandomEncounter();
 		}
 	}
 }

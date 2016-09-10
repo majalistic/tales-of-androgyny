@@ -36,6 +36,7 @@ public class SaveManager implements SaveService, LoadService{
 	    	case VISITED_LIST:		save.visitedList = castToIntArray((ObjectSet<Integer>) object); break;
 	    	case BATTLE_CODE:		save.battleCode = (BattleCode) object; break;
 	    	case CLASS:				save.jobClass = (JobClass) object; break;
+	    	case WORLD_SEED:		save.worldSeed = (Integer) object; break;
     	}	
         saveToJson(save); //Saves current save immediately.
     }
@@ -56,6 +57,7 @@ public class SaveManager implements SaveService, LoadService{
 	    							return (T) set;
 	    	case BATTLE_CODE:		return (T) save.battleCode;
 	    	case CLASS:				return (T) save.jobClass;
+	    	case WORLD_SEED:		return (T) (Integer) save.worldSeed;
     	}	
     	return null;
     }
@@ -104,6 +106,7 @@ public class SaveManager implements SaveService, LoadService{
     public static class GameSave{
     	
 		public GameContext context;
+		public int worldSeed;
 		public int sceneCode;
 		public int encounterCode;
     	public int nodeCode;
@@ -122,6 +125,9 @@ public class SaveManager implements SaveService, LoadService{
     	public GameSave(boolean defaultValues){
     		if (defaultValues){
     			context = GameContext.ENCOUNTER;
+    			worldSeed = (int) (Math.random()*10000);
+    			System.out.println(worldSeed);
+    			//worldSeed = 7;
     			// 0 sceneCode is the magic number to designate that a scene doesn't need to be loaded; just use the first (last) scene in the list
     			sceneCode = 0;
     			encounterCode = 0;

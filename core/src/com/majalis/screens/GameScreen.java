@@ -42,17 +42,19 @@ public class GameScreen extends AbstractScreen {
 		
 		Vector3 translationVector = new Vector3(0,0,0);
 
+		int speed = 5;
+		
 		if (Gdx.input.isKeyPressed(Keys.LEFT)){
-			translationVector.x -= 2;
+			translationVector.x -= speed;
 		}
 		else if (Gdx.input.isKeyPressed(Keys.RIGHT)){
-			translationVector.x += 2;
+			translationVector.x += speed;
 		}
 		if (Gdx.input.isKeyPressed(Keys.UP)){
-			translationVector.y += 2;
+			translationVector.y += speed;
 		}
 		else if (Gdx.input.isKeyPressed(Keys.DOWN)){
-			translationVector.y -= 2;
+			translationVector.y -= speed;
 		}
 		
 		getCamera().translate(translationVector);

@@ -5,6 +5,8 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
+import com.badlogic.gdx.math.Circle;
+import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -173,5 +175,9 @@ public class GameWorldNode extends Group {
 
 	public boolean isSelected() {
 		return selected;
+	}
+
+	public boolean isOverlapping(GameWorldNode otherNode) {
+		return Intersector.overlaps(new Circle(position, RADIUS), new Circle(otherNode.getPosition(), RADIUS));
 	}
 }

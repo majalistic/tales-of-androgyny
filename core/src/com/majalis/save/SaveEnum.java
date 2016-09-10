@@ -8,5 +8,6 @@ public enum SaveEnum {
 	ENCOUNTER_CODE,
 	VISITED_LIST,
 	BATTLE_CODE,
-	CLASS
+	CLASS, 
+	WORLD_SEED
 }
