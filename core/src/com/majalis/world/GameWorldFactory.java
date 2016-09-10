@@ -1,6 +1,8 @@
 package com.majalis.world;
 
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectSet;
@@ -15,23 +17,25 @@ public class GameWorldFactory {
 
 	private final SaveService saveService;
 	private final LoadService loadService;
+	private final ShapeRenderer shapeRenderer;
 	private final BitmapFont font;
 	private GameContext context;
 	
-	public GameWorldFactory(SaveManager saveManager, BitmapFont font){
+	public GameWorldFactory(SaveManager saveManager, ShapeRenderer shapeRenderer, BitmapFont font){
 		this.saveService = saveManager;
 		this.loadService = saveManager;
+		this.shapeRenderer = shapeRenderer;
 		this.font = font;
 	}
 	
 	// this will need to be passed an integer seed which is randomly generated on worldgen, so that this method itself is deterministic
 	// should probably also receive any data that is being loaded - namely visited nodes and currently active node
-	public GameWorld getGameWorld() {
+	public GameWorld getGameWorld(OrthographicCamera camera) {
 		Array<GameWorldNode> nodes = new Array<GameWorldNode>();
 		ObjectSet<Integer> visitedCodesSet = loadService.loadDataValue(SaveEnum.VISITED_LIST, ObjectSet.class);
 		for (int ii = 1; ii <= 10; ii++){
 			// 100 = magic number to get the defaultEncounter for now
-			nodes.add(new GameWorldNode(new Array<GameWorldNode>(), saveService, loadService, font, ii, ii-1, 100, new Vector2(ii * 85, 200 + (200 * Math.floorMod(ii, 3))-ii*10), visitedCodesSet.contains(ii) ? true : false));
+			nodes.add(new GameWorldNode(new Array<GameWorldNode>(), saveService, loadService, camera, shapeRenderer, font, ii, ii-1, 100, new Vector2(ii * 85, 200 + (200 * Math.floorMod(ii, 3))-ii*10), visitedCodesSet.contains(ii) ? true : false));
 		}
 		
 		// connect all nodes that consider themselves adjacent to nearby nodes - some nodes, like permanent nodes, might have a longer "reach" then others

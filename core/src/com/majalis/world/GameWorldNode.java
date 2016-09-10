@@ -1,7 +1,10 @@
 package com.majalis.world;
 
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -18,9 +21,12 @@ import com.majalis.save.SaveService;
  */
 public class GameWorldNode extends Group {
 
+	private final static int RADIUS = 40;
 	private final Array<GameWorldNode> connectedNodes;
 	private final SaveService saveService;
 	private final LoadService loadService;
+	private final OrthographicCamera camera;
+	private final ShapeRenderer shapeRenderer;
 	// temporary
 	private final BitmapFont font;
 	private final int nodeCode;
@@ -34,10 +40,12 @@ public class GameWorldNode extends Group {
 	private boolean active;
 	
 	// all the nodes need are the encounter CODES, not the actual encounter
-	public GameWorldNode(Array<GameWorldNode> connectedNodes, SaveService saveService, LoadService loadService, BitmapFont font, final int nodeCode, int encounter, int defaultEncounter, Vector2 position, boolean visited){
+	public GameWorldNode(Array<GameWorldNode> connectedNodes, SaveService saveService, LoadService loadService, OrthographicCamera camera, ShapeRenderer shapeRenderer, BitmapFont font, final int nodeCode, int encounter, int defaultEncounter, Vector2 position, boolean visited){
 		this.connectedNodes = connectedNodes;
 		this.saveService = saveService;
 		this.loadService = loadService;
+		this.camera = camera;
+		this.shapeRenderer = shapeRenderer;
 		this.font = font;
 		this.encounter = encounter;
 		this.defaultEncounter = defaultEncounter;
@@ -50,7 +58,7 @@ public class GameWorldNode extends Group {
 		
 		this.addAction(Actions.visible(true));
 		this.addAction(Actions.show());
-		this.setBounds(position.x-100, position.y-100, 200, 200);
+		this.setBounds(position.x-RADIUS, position.y-RADIUS, RADIUS*2, RADIUS*2);
 	}
 	
 	
@@ -117,12 +125,50 @@ public class GameWorldNode extends Group {
 	@Override
     public void draw(Batch batch, float parentAlpha) {
 		super.draw(batch, parentAlpha);
-		font.setColor(0.5f,1,1,1);
-		font.draw(batch, (current ? "C" : "") + (active ? "A" : "" ) + (visited ? "V" : "") + String.valueOf(nodeCode), (int)position.x, (int)position.y);		
+		shapeRenderer.setProjectionMatrix(camera.combined);
+		shapeRenderer.begin(ShapeType.Line);
+		shapeRenderer.setColor(.258f, .652f, .4f, 1);
+		
 		for (GameWorldNode otherNode: connectedNodes){
-			Vector2 midPoint = new Vector2( (position.x+otherNode.getPosition().x)/2, (position.y+otherNode.getPosition().y)/2);
-			font.draw(batch, "X", (int)midPoint.x, (int)midPoint.y);	
+			// take my position vector and add a vector of length radius and inclination towards the center of the other node's vector
+			Vector2 connection = new Vector2(otherNode.getPosition());
+			connection.sub(position);
+			connection.setLength(RADIUS);
+			Vector2 onCircumference = new Vector2(position);
+			onCircumference.add(connection);
+			Vector2 onOtherCircumference = new Vector2(otherNode.getPosition());
+			connection.rotate(180);
+			onOtherCircumference.add(connection);			
+			shapeRenderer.line(onCircumference.x, onCircumference.y,onOtherCircumference.x, onOtherCircumference.y);
 		}
+		shapeRenderer.end();
+		
+		// if isActive
+		if (current){
+			shapeRenderer.begin(ShapeType.Filled);
+			shapeRenderer.circle(position.x, position.y, RADIUS);
+			shapeRenderer.end();
+		}
+		else if (active){
+			shapeRenderer.begin(ShapeType.Filled);
+			shapeRenderer.setColor(.5f, .75f, .25f, 1);
+			shapeRenderer.circle(position.x, position.y, RADIUS/2);
+			shapeRenderer.end();
+		}
+		shapeRenderer.begin(ShapeType.Line);
+		if (visited){	
+			shapeRenderer.setColor(.2f, .2f, .2f, 1);
+			shapeRenderer.circle(position.x, position.y, RADIUS);
+			
+		}
+		else {
+			shapeRenderer.setColor(.258f, .652f, .4f, 1);
+			shapeRenderer.circle(position.x, position.y, RADIUS);
+		}
+		shapeRenderer.end();
+		
+		//font.setColor(0.5f,1,1,1);
+		//font.draw(batch, (current ? "C" : "") + (active ? "A" : "" ) + (visited ? "V" : "") + String.valueOf(nodeCode), (int)position.x, (int)position.y);		
     }
 
 	public boolean isSelected() {
