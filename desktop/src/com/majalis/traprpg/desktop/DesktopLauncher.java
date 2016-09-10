@@ -14,8 +14,8 @@ public class DesktopLauncher {
 		config.addIcon("icon32.png", Files.FileType.Internal);
 		config.addIcon("icon128.png", Files.FileType.Internal);
 		config.title = "tRaPG";
-		config.width = 1280;
-		config.height = 720;
+		config.width = 2048;
+		config.height = 1150;
 		//config.fullscreen = true;
 		//config.vSyncEnabled = true;
 		new LwjglApplication(new TrapRPG(), config);

@@ -41,37 +41,36 @@ public class GameWorldFactory {
 		IntMap<GameWorldNode> nodeMap = new IntMap<GameWorldNode>();
 		ObjectSet<Integer> visitedCodesSet = loadService.loadDataValue(SaveEnum.VISITED_LIST, ObjectSet.class);
 		
+		GameWorldNode startNode = new GameWorldNode(new Array<GameWorldNode>(), saveService, loadService, camera, shapeRenderer, font, 1, 0, 100, new Vector2(500, 500), visitedCodesSet.contains(1) ? true : false);		
+		nodes.add(startNode);
+		nodeMap.put(1, startNode);
 		
-		for (int ii = 1; ii <= 100; ii++){
+		for (int ii = 2; ii <= 100; ii++){
 			// 100 = magic number to get the defaultEncounter for now
 			GameWorldNode newNode = new GameWorldNode(new Array<GameWorldNode>(), saveService, loadService, camera, shapeRenderer, font, ii, ii-1, 100, new Vector2(random.nextInt()%1000, random.nextInt()%1000), visitedCodesSet.contains(ii) ? true : false);
 			nodes.add(newNode);
 			nodeMap.put(ii, newNode);
 		}
-		/*// DEFAULT WORLD GEN
-		for (int ii = 1; ii <= 10; ii++){
-			// 100 = magic number to get the defaultEncounter for now
-			nodes.add(new GameWorldNode(new Array<GameWorldNode>(), saveService, loadService, camera, shapeRenderer, font, ii, ii-1, 100, new Vector2(ii * 85, 200 + (200 * Math.floorMod(ii, 3))-ii*10), visitedCodesSet.contains(ii) ? true : false));
-		}
-		*/
-		// connect all nodes that consider themselves adjacent to nearby nodes - some nodes, like permanent nodes, might have a longer "reach" then others
+		
+		// remove all nodes such that none are overlapping
 		IntArray toRemove = new IntArray();
 		for (int ii = 0; ii < nodes.size-1; ii++){
 			for (int jj = ii + 1; jj < nodes.size; jj++){
 				if (nodes.get(ii).isOverlapping(nodes.get(jj))){		
 					if (!toRemove.contains(jj)){
-						toRemove.add(ii);
+						toRemove.add(jj);
 						break;
 					}
 				}
 			}
 		}
-		
+		toRemove.sort();
 		toRemove.reverse();
 		for (int ii = 0; ii < toRemove.size; ii++){
 			nodes.removeIndex(toRemove.get(ii));
 		}
 		
+		// connect all nodes that consider themselves adjacent to nearby nodes - some nodes, like permanent nodes, might have a longer "reach" then others
 		for (int ii = 0; ii < nodes.size-1; ii++){
 			for (int jj = ii + 1; jj < nodes.size; jj++){
 				if (nodes.get(ii).isAdjacent(nodes.get(jj))){
