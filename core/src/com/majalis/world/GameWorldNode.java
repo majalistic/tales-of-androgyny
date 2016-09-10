@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
@@ -40,6 +41,7 @@ public class GameWorldNode extends Group {
 	private boolean selected;
 	private boolean current;
 	private boolean active;
+	private String hoverText;
 	
 	// all the nodes need are the encounter CODES, not the actual encounter
 	public GameWorldNode(Array<GameWorldNode> connectedNodes, SaveService saveService, LoadService loadService, OrthographicCamera camera, ShapeRenderer shapeRenderer, BitmapFont font, final int nodeCode, int encounter, int defaultEncounter, Vector2 position, boolean visited){
@@ -57,6 +59,7 @@ public class GameWorldNode extends Group {
 		selected = false;
 		current = false;
 		active = false;
+		hoverText = "";
 		
 		this.addAction(Actions.visible(true));
 		this.addAction(Actions.show());
@@ -102,6 +105,14 @@ public class GameWorldNode extends Group {
 	        public void clicked(InputEvent event, float x, float y) {
 				visit();
 			}
+			@Override
+	        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
+				hoverText = "x = " + x + ", y = " + y;
+			}
+			@Override
+	        public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
+				hoverText = "";
+			}
 		});
 	}
 	
@@ -127,6 +138,7 @@ public class GameWorldNode extends Group {
 	@Override
     public void draw(Batch batch, float parentAlpha) {
 		super.draw(batch, parentAlpha);
+		
 		shapeRenderer.setProjectionMatrix(camera.combined);
 		shapeRenderer.begin(ShapeType.Line);
 		shapeRenderer.setColor(.258f, .652f, .4f, 1);
@@ -170,6 +182,7 @@ public class GameWorldNode extends Group {
 		shapeRenderer.end();
 		
 		//font.setColor(0.5f,1,1,1);
+		//font.draw(batch, hoverText, (int)position.x + 100, (int)position.y + 100);	
 		//font.draw(batch, (current ? "C" : "") + (active ? "A" : "" ) + (visited ? "V" : "") + String.valueOf(nodeCode), (int)position.x, (int)position.y);		
     }
 
@@ -178,6 +191,10 @@ public class GameWorldNode extends Group {
 	}
 
 	public boolean isOverlapping(GameWorldNode otherNode) {
-		return Intersector.overlaps(new Circle(position, RADIUS), new Circle(otherNode.getPosition(), RADIUS));
+		return isOverlapping(otherNode.getPosition());
+	}
+	
+	public boolean isOverlapping(Vector2 otherNode) {
+		return Intersector.overlaps(new Circle(position, RADIUS+30), new Circle(otherNode, RADIUS));
 	}
 }

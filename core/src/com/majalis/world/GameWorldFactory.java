@@ -41,16 +41,37 @@ public class GameWorldFactory {
 		Array<GameWorldNode> nodes = new Array<GameWorldNode>();
 		IntMap<GameWorldNode> nodeMap = new IntMap<GameWorldNode>();
 		ObjectSet<Integer> visitedCodesSet = loadService.loadDataValue(SaveEnum.VISITED_LIST, ObjectSet.class);
-		Vector2 currentNodePosition = new Vector2(500, 500);
 		// -1 = magic number to get the defaultEncounter
-		addNode(new GameWorldNode(new Array<GameWorldNode>(), saveService, loadService, camera, shapeRenderer, font, 1, 0, -1, currentNodePosition, visitedCodesSet.contains(1) ? true : false), nodeMap, 1, nodes);
+		addNode(new GameWorldNode(new Array<GameWorldNode>(), saveService, loadService, camera, shapeRenderer, font, 1, 0, -1, new Vector2(500, 500), visitedCodesSet.contains(1) ? true : false), nodeMap, 1, nodes);
 		Array<GameWorldNode> requiredNodes = new Array<GameWorldNode>();
 		// end node
-		addNode(new GameWorldNode(new Array<GameWorldNode>(), saveService, loadService, camera, shapeRenderer, font, 1, 0, -1, new Vector2(1100, 1100), visitedCodesSet.contains(1) ? true : false), nodeMap, 2, nodes, requiredNodes);
+		addNode(new GameWorldNode(new Array<GameWorldNode>(), saveService, loadService, camera, shapeRenderer, font, 2, 1, -1, new Vector2(1800, 1800), visitedCodesSet.contains(1) ? true : false), nodeMap, 2, nodes, requiredNodes);
+		Vector2 currentNodePosition = new Vector2(500, 500);
 		// temporarily stop at 1000 to prevent hangs if endpoint isn't found - in the future this should set something that will smoothly guide towards the exit as the number of nodes increase
 		for (int nodeCode = 3; nodeCode <= 100 || (nodeCode <= 1000 && requiredNodes.size != 0); nodeCode++){
-			// start with the last point, then add a vector to it with a randomly chosen angle of a fixed or minimally variant distance			
-			currentNodePosition = new Vector2(random.nextInt()%1000, random.nextInt()%1000);
+			// start with the last point, then add a vector to it with a randomly chosen angle of a fixed or minimally variant distance		
+			Vector2 newNodePosition;
+			boolean overlap = true;
+			do {
+				newNodePosition = new Vector2(currentNodePosition);
+				if (requiredNodes.size != 0){
+					Vector2 target = new Vector2(requiredNodes.get(0).getPosition());
+					// 260 is the squareroot of the actual distance modifier, 70000, which is the square of the distance
+					newNodePosition = new Vector2(newNodePosition.add(target.sub(newNodePosition).setLength(random.nextInt()%130+130)));
+				}
+				else {
+					newNodePosition = new Vector2(newNodePosition.add(new Vector2(random.nextInt()%10000, random.nextInt()%10000).sub(newNodePosition).setLength(260)));
+				}
+				overlap = false;
+				for (GameWorldNode node: nodes){
+					if (node.isOverlapping(newNodePosition)){
+						overlap = true;
+					}
+				}
+			} while(overlap);
+			
+			currentNodePosition = newNodePosition;
+			
 			GameWorldNode newNode = (new GameWorldNode(new Array<GameWorldNode>(), saveService, loadService, camera, shapeRenderer, font, nodeCode, nodeCode-1, -1, currentNodePosition, visitedCodesSet.contains(nodeCode) ? true : false));
 			addNode(newNode, nodeMap, nodeCode, nodes);
 			// and continue until a list of points that must be connected are connected
@@ -67,8 +88,6 @@ public class GameWorldFactory {
 				requiredNodes.removeIndex(toRemoveFromRequired.get(jj));
 			}			
 		}
-		
-		System.out.println(nodes.size);
 		
 		// remove all nodes such that none are overlapping
 		IntArray toRemoveFromNodeList = new IntArray();
