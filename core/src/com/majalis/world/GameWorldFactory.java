@@ -46,64 +46,42 @@ public class GameWorldFactory {
 		Array<GameWorldNode> requiredNodes = new Array<GameWorldNode>();
 		// end node
 		addNode(new GameWorldNode(new Array<GameWorldNode>(), saveService, loadService, camera, shapeRenderer, font, 2, 1, -1, new Vector2(1800, 1800), visitedCodesSet.contains(1) ? true : false), nodeMap, 2, nodes, requiredNodes);
-		Vector2 currentNodePosition = new Vector2(500, 500);
-		// temporarily stop at 1000 to prevent hangs if endpoint isn't found - in the future this should set something that will smoothly guide towards the exit as the number of nodes increase
-		for (int nodeCode = 3; nodeCode <= 100 || (nodeCode <= 1000 && requiredNodes.size != 0); nodeCode++){
-			// start with the last point, then add a vector to it with a randomly chosen angle of a fixed or minimally variant distance		
-			Vector2 newNodePosition;
-			boolean overlap = true;
-			do {
-				newNodePosition = new Vector2(currentNodePosition);
-				if (requiredNodes.size != 0){
-					Vector2 target = new Vector2(requiredNodes.get(0).getPosition());
-					// 260 is the squareroot of the actual distance modifier, 70000, which is the square of the distance
-					newNodePosition = new Vector2(newNodePosition.add(target.sub(newNodePosition).setLength(random.nextInt()%130+130)));
-				}
-				else {
-					newNodePosition = new Vector2(newNodePosition.add(new Vector2(random.nextInt()%10000, random.nextInt()%10000).sub(newNodePosition).setLength(260)));
-				}
-				overlap = false;
-				for (GameWorldNode node: nodes){
-					if (node.isOverlapping(newNodePosition)){
-						overlap = true;
-					}
-				}
-			} while(overlap);
-			
-			currentNodePosition = newNodePosition;
-			
-			GameWorldNode newNode = (new GameWorldNode(new Array<GameWorldNode>(), saveService, loadService, camera, shapeRenderer, font, nodeCode, nodeCode-1, -1, currentNodePosition, visitedCodesSet.contains(nodeCode) ? true : false));
-			addNode(newNode, nodeMap, nodeCode, nodes);
-			// and continue until a list of points that must be connected are connected
-			IntArray toRemoveFromRequired = new IntArray();
-			int ii = 0;
-			for (GameWorldNode requiredNode: requiredNodes){
-				if (requiredNode.isAdjacent(newNode)){
-					toRemoveFromRequired.add(ii);
-				}
-				ii++;
-			}
-			toRemoveFromRequired.reverse();
-			for (int jj = 0; jj < toRemoveFromRequired.size; jj++){
-				requiredNodes.removeIndex(toRemoveFromRequired.get(jj));
-			}			
-		}
 		
-		// remove all nodes such that none are overlapping
-		IntArray toRemoveFromNodeList = new IntArray();
-		for (int ii = 0; ii < nodes.size-1; ii++){
-			for (int jj = ii + 1; jj < nodes.size; jj++){
-				if (nodes.get(ii).isOverlapping(nodes.get(jj))){		
-					if (!toRemoveFromNodeList.contains(jj)){
-						toRemoveFromNodeList.add(jj);
+		// temporarily stop at 1000 to prevent hangs if endpoint isn't found - in the future this should set something that will smoothly guide towards the exit as the number of nodes increase
+		
+		for (int ii = 0; ii < 3; ii++){
+			for (GameWorldNode requiredNode : requiredNodes){
+				Boolean nodeNotReached = true;
+				Vector2 currentNodePosition = new Vector2(500, 500);
+				for (int nodeCode = nodes.size + 2; nodeNotReached; nodeCode++){
+					// start with the last point, then add a vector to it with a randomly chosen angle of a fixed or minimally variant distance		
+					Vector2 newNodePosition;
+					boolean overlap = true;
+					int tries = 10;
+					do {
+						newNodePosition = new Vector2(currentNodePosition);
+						Vector2 target = new Vector2(requiredNode.getPosition());
+						// 260 is the squareroot of the actual distance modifier, 70000, which is the square of the distance
+						newNodePosition = new Vector2(newNodePosition.add(target.sub(newNodePosition).setLength(random.nextInt()%60+200).rotate(random.nextInt()%90)));
+						overlap = false;
+						for (GameWorldNode node: nodes){
+							if (node.isOverlapping(newNodePosition)){
+								overlap = true;
+							}
+						}
+						System.out.println(tries);
+					} while(overlap && tries-- > 1);
+					if (tries == 0) {
+						break;
 					}
+					
+					currentNodePosition = newNodePosition;
+					
+					GameWorldNode newNode = (new GameWorldNode(new Array<GameWorldNode>(), saveService, loadService, camera, shapeRenderer, font, nodeCode, nodeCode-1, -1, currentNodePosition, visitedCodesSet.contains(nodeCode) ? true : false));
+					addNode(newNode, nodeMap, nodeCode, nodes);
+					nodeNotReached = !requiredNode.isAdjacent(newNode);
 				}
 			}
-		}
-		toRemoveFromNodeList.sort();
-		toRemoveFromNodeList.reverse();
-		for (int ii = 0; ii < toRemoveFromNodeList.size; ii++){
-			nodes.removeIndex(toRemoveFromNodeList.get(ii));
 		}
 		
 		// connect all nodes that consider themselves adjacent to nearby nodes - some nodes, like permanent nodes, might have a longer "reach" then others
