@@ -104,6 +104,7 @@ public class EncounterBuilder {
 	}
 	
 	// reads from a text file with the battleCode followed by the scene - either delimited by a certain character or just endline and use the wordwrapping of font.draw
+	// this will need to be combined with getScript and be called with ENCOUNTERCODE (not battlecode!) as well as the textSceneCode (there should be an incrementer each time getTextScenes is called), which will be passed to the key converter in reader and then passed to reader.loadscript 
 	private String[] getDefeatText(int battleCode){
 		switch(battleCode){
 			case 0:
@@ -116,7 +117,6 @@ public class EncounterBuilder {
 	private String[] getScript(int battleCode, int scene){
 		return reader.loadScript(battleCode);
 	}
-		
 	private Scene getStartScene(Array<Scene> scenes, Integer sceneCode){
 		// default case
 		if (sceneCode == 0){
