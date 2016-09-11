@@ -33,7 +33,6 @@ public class GameWorldFactory {
 		this.random = random;
 	}
 	
-	// this will need to be passed an integer seed which is randomly generated on worldgen, so that this method itself is deterministic
 	// should probably also receive any data that is being loaded - namely visited nodes and currently active node
 	@SuppressWarnings("unchecked")
 	public GameWorld getGameWorld(OrthographicCamera camera, int seed) {
@@ -54,14 +53,15 @@ public class GameWorldFactory {
 				Boolean nodeNotReached = true;
 				Vector2 currentNodePosition = new Vector2(500, 500);
 				for (int nodeCode = nodes.size + 2; nodeNotReached; nodeCode++){
-					// start with the last point, then add a vector to it with a randomly chosen angle of a fixed or minimally variant distance		
 					Vector2 newNodePosition;
 					boolean overlap = true;
 					int tries = 10;
+					// try 10 times to plot a new point, then fail this run-through of the algorithm
 					do {
 						newNodePosition = new Vector2(currentNodePosition);
 						Vector2 target = new Vector2(requiredNode.getPosition());
 						// 260 is the squareroot of the actual distance modifier, 70000, which is the square of the distance
+						// start with the last point, then add a vector to it with a randomly chosen angle of a fixed or minimally variant distance		
 						newNodePosition = new Vector2(newNodePosition.add(target.sub(newNodePosition).setLength(random.nextInt()%60+200).rotate(random.nextInt()%90)));
 						overlap = false;
 						for (GameWorldNode node: nodes){
@@ -69,16 +69,16 @@ public class GameWorldFactory {
 								overlap = true;
 							}
 						}
-						System.out.println(tries);
 					} while(overlap && tries-- > 1);
 					if (tries == 0) {
 						break;
 					}
-					
+					// save the position for the next iteration
 					currentNodePosition = newNodePosition;
 					
 					GameWorldNode newNode = (new GameWorldNode(new Array<GameWorldNode>(), saveService, loadService, camera, shapeRenderer, font, nodeCode, nodeCode-1, -1, currentNodePosition, visitedCodesSet.contains(nodeCode) ? true : false));
 					addNode(newNode, nodeMap, nodeCode, nodes);
+					// if we've reached the target node, we can terminate this run-through
 					nodeNotReached = !requiredNode.isAdjacent(newNode);
 				}
 			}
