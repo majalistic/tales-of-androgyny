@@ -24,7 +24,7 @@ import com.majalis.save.SaveService;
  */
 public class GameWorldNode extends Group {
 
-	private final static int RADIUS = 40;
+	private final static int RADIUS = 25;
 	private final Array<GameWorldNode> connectedNodes;
 	private final SaveService saveService;
 	private final LoadService loadService;
@@ -68,7 +68,7 @@ public class GameWorldNode extends Group {
 	
 	
 	public boolean isAdjacent(GameWorldNode otherNode){
-		return position.dst2(otherNode.getPosition()) < 70000;
+		return position.dst2(otherNode.getPosition()) < 67700;
 	}
 	
 	public Vector2 getPosition(){
@@ -195,6 +195,6 @@ public class GameWorldNode extends Group {
 	}
 	
 	public boolean isOverlapping(Vector2 otherNode) {
-		return Intersector.overlaps(new Circle(position, RADIUS+30), new Circle(otherNode, RADIUS));
+		return Intersector.overlaps(new Circle(position, RADIUS+80), new Circle(otherNode, RADIUS));
 	}
 }

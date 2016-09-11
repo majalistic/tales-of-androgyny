@@ -48,7 +48,7 @@ public class GameWorldFactory {
 		
 		// temporarily stop at 1000 to prevent hangs if endpoint isn't found - in the future this should set something that will smoothly guide towards the exit as the number of nodes increase
 		
-		for (int ii = 0; ii < 3; ii++){
+		for (int ii = 0; ii < 8; ii++){
 			for (GameWorldNode requiredNode : requiredNodes){
 				Boolean nodeNotReached = true;
 				Vector2 currentNodePosition = new Vector2(500, 500);
