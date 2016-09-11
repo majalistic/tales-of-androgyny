@@ -2,6 +2,8 @@ package com.majalis.save;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Base64Coder;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonWriter.OutputType;
@@ -32,6 +34,7 @@ public class SaveManager implements SaveService, LoadService{
 	    	case SCENE_CODE: 		save.sceneCode = (Integer) object; break;
 	    	case CONTEXT: 			save.context = (GameContext) object; break;
 	    	case NODE_CODE: 		save.nodeCode = (Integer) object; break;
+	    	case CAMERA_POS:		save.cameraPos = new Vector3((Vector2) object, 0); break;
 	    	case ENCOUNTER_CODE:	save.encounterCode = (Integer) object; break;
 	    	case VISITED_LIST:		save.visitedList = castToIntArray((ObjectSet<Integer>) object); break;
 	    	case BATTLE_CODE:		save.battleCode = (BattleCode) object; break;
@@ -49,6 +52,7 @@ public class SaveManager implements SaveService, LoadService{
 	    	case SCENE_CODE: 		return (T) (Integer)save.sceneCode;
 	    	case CONTEXT: 			return (T) save.context;
 	    	case NODE_CODE: 		return (T) (Integer)save.nodeCode;
+	    	case CAMERA_POS: 		return (T) (Vector3)save.cameraPos;
 	    	case ENCOUNTER_CODE:	return (T) (Integer) save.encounterCode;
 	    	case VISITED_LIST:		ObjectSet<Integer> set = new ObjectSet<Integer>();
 	    							for (int member : save.visitedList){
@@ -110,6 +114,7 @@ public class SaveManager implements SaveService, LoadService{
 		public int sceneCode;
 		public int encounterCode;
     	public int nodeCode;
+    	public Vector3 cameraPos;
     	public int[] visitedList;
     	public JobClass jobClass;
     	// this can probably be refactored to contain a particular battle, but may need to duplicate the player character
@@ -130,6 +135,7 @@ public class SaveManager implements SaveService, LoadService{
     			sceneCode = 0;
     			encounterCode = 0;
         		nodeCode = 1;
+        		cameraPos = new Vector3(500, 500, 0);
         		visitedList = new int[]{1};
         		player = new PlayerCharacter(true);
     		}

@@ -9,7 +9,8 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.ObjectMap;
-import com.majalis.save.SaveService;
+import com.majalis.save.LoadService;
+import com.majalis.save.SaveEnum;
 import com.majalis.world.GameWorld;
 /*
  * The screen that displays the world map.  UI that Handles player input while on the world map - will delegate to other screens depending on the gameWorld state.
@@ -23,9 +24,16 @@ public class GameScreen extends AbstractScreen {
 		resourceRequirements.put("uiskin.json", Skin.class);
 		resourceRequirements.put("sound.wav", Sound.class);
 	}
-	public GameScreen(ScreenFactory factory, ScreenElements elements, AssetManager assetManager, SaveService saveService, GameWorld world) {
+	public GameScreen(ScreenFactory factory, ScreenElements elements, AssetManager assetManager, LoadService loadService, GameWorld world) {
 		super(factory, elements);
 		this.assetManager = assetManager;
+		Vector3 initialTranslation = loadService.loadDataValue(SaveEnum.CAMERA_POS, Vector3.class);
+		initialTranslation = new Vector3(initialTranslation);
+		OrthographicCamera camera = (OrthographicCamera) getCamera();
+		initialTranslation.x -= camera.position.x;
+		initialTranslation.y -= camera.position.y;
+		camera.translate(initialTranslation);
+		camera.update();
 		this.world = world;
 	}
 
@@ -39,7 +47,6 @@ public class GameScreen extends AbstractScreen {
 	@Override
 	public void render(float delta) {
 		super.render(delta);
-		
 		Vector3 translationVector = new Vector3(0,0,0);
 
 		int speed = 5;
@@ -79,6 +86,11 @@ public class GameScreen extends AbstractScreen {
 		camera.update();
 		super.draw();
 		batch.end();
+	}
+	
+	@Override
+	public void show() {
+		super.show();
 	}
 	
 	@Override

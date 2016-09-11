@@ -129,6 +129,7 @@ public class GameWorldNode extends Group {
 			saveService.saveDataValue(SaveEnum.ENCOUNTER_CODE, defaultEncounter);
 		}
 		saveService.saveDataValue(SaveEnum.NODE_CODE, nodeCode);
+		saveService.saveDataValue(SaveEnum.CAMERA_POS, position);
 	}
 
 	public Array<GameWorldNode> getConnectedNodes() {
