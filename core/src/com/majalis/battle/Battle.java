@@ -191,8 +191,9 @@ public class Battle extends Group{
 	@Override
     public void draw(Batch batch, float parentAlpha) {
 		super.draw(batch, parentAlpha);
-		font.draw(batch, "Your health: " + String.valueOf(character.currentHealth) + " (" + character.stance.toString() + ")", 350, 160);
+		font.draw(batch, "HP/STAM/BAL " + String.valueOf(character.currentHealth) + "/" + String.valueOf(character.currentStamina) + "/" + String.valueOf(character.stability) + " (" + character.stance.toString() + ")", 350, 160);
 		font.draw(batch, "Enemy health: " + String.valueOf(enemy.currentHealth) + " (" + enemy.stance.toString() + ")", 700, 160);
+		
 		Array<String> options = character.getPossibleTechniques();
 		for (int ii = 0; ii < 4; ii++){
 			buttons.get(ii).setText(ii < options.size ? options.get(ii) : "-");
