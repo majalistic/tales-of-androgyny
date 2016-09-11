@@ -30,6 +30,7 @@ public class BattleFactory {
 		// need a new Enemy
 		if (enemy == null || enemy.currentHealth <= 0){
 			playerCharacter.stance = Stance.BALANCED;
+			playerCharacter.stability = 5;
 			enemy = getEnemy(battleCode.battleCode);
 		}
 		// loading old enemy
