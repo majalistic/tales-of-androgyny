@@ -80,7 +80,7 @@ public abstract class AbstractCharacter extends Group implements Json.Serializab
 	}
 	
 	protected abstract Technique getTechnique(AbstractCharacter target);
-
+	
 	protected int getMaxHealth() { return getMax(healthTiers); }
 	protected int getMaxStamina() { return getMax(staminaTiers); }
 	protected int getMaxMana() { return getMax(manaTiers); }
@@ -92,6 +92,39 @@ public abstract class AbstractCharacter extends Group implements Json.Serializab
 		return max;
 	}
 	protected int getStaminaRegen() { return 2; }
+	
+	public String getLabel (){
+		return label;
+	}
+	
+	public Boolean getSecondPerson(){
+		return secondPerson;
+	}
+	
+	public int getCurrentHealth(){
+		return currentHealth;
+	}
+	
+	public int getCurrentStamina(){
+		return currentHealth;
+	}
+	
+	public int getStability(){
+		return stability;
+	}
+	
+	public void setStability(int stability){
+		this.stability = stability;
+	}
+	
+	
+	public Stance getStance(){
+		return stance;
+	}
+	
+	public void setStance(Stance stance){
+		this.stance = stance;
+	}
 	
 	public int getStrength(){
 		return baseStrength;

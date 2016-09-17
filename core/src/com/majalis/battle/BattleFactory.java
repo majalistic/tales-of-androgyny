@@ -28,9 +28,9 @@ public class BattleFactory {
 	public Battle getBattle(BattleCode battleCode, PlayerCharacter playerCharacter) {
 		EnemyCharacter enemy = loadService.loadDataValue(SaveEnum.ENEMY, EnemyCharacter.class);
 		// need a new Enemy
-		if (enemy == null || enemy.currentHealth <= 0){
-			playerCharacter.stance = Stance.BALANCED;
-			playerCharacter.stability = 5;
+		if (enemy == null || enemy.getCurrentHealth() <= 0){
+			playerCharacter.setStance(Stance.BALANCED);
+			playerCharacter.setStability(5);
 			enemy = getEnemy(battleCode.battleCode);
 		}
 		// loading old enemy

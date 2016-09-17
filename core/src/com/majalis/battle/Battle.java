@@ -98,11 +98,11 @@ public class Battle extends Group{
 			}
 		}
 		
-		if (character.currentHealth <= 0){
+		if (character.getCurrentHealth() <= 0){
 			victory = false;
 			battleOver = true;
 		}
-		if (enemy.currentHealth <= 0){
+		if (enemy.getCurrentHealth() <= 0){
 			victory = true;
 			battleOver = true;
 		}
@@ -147,25 +147,25 @@ public class Battle extends Group{
 		// this should only display a message if stance has actually changed - current stance of player and enemy should be visible in UI
 		console += getStanceString(firstCharacter, firstStance);
 		console += getStanceString(secondCharacter, secondStance);
-		firstCharacter.stance = firstStance;
-		secondCharacter.stance = secondStance;
+		firstCharacter.setStance(firstStance);
+		secondCharacter.setStance(secondStance);
 		
 		Stance forcedStance = attackForFirst.getForceStance();
 		
 		if (forcedStance != null){
-			firstCharacter.stance = forcedStance;
+			firstCharacter.setStance(forcedStance);
 		}
 		
 		console += getResultString(firstCharacter, secondCharacter, firstTechnique.getTechniqueName(), attackForSecond, secondBlockMod != 1);
 		if (secondTechnique.getTechniqueName().equals("Erupt")){
-			console += "The " + secondCharacter.label + " spews hot, thick semen into your bowels!\n";
+			console += "The " + secondCharacter.getLabel() + " spews hot, thick semen into your bowels!\n";
 		}
-		else if (firstCharacter.stance == Stance.DOGGY){
+		else if (firstCharacter.getStance() == Stance.DOGGY){
 			// need some way to get info from sex techniques to display here.  For now, some random fun text
 			console += "You are being anally violated! Your hole is stretched by her fat dick! Your hole feels like it's on fire! Her cock glides smoothly through your irritated anal mucosa!\n"
 					+ "Her rhythmic thrusting in and out of your asshole is emasculating! You are red-faced and embarassed because of her butt-stuffing! Your cock is ignored!\n";
 		}
-		else if (firstCharacter.stance == Stance.KNOTTED){
+		else if (firstCharacter.getStance() == Stance.KNOTTED){
 			console += "Her powerful hips try to force something big inside! You struggle... but can't escape!  Her grapefruit-sized knot slips into your rectum!  You take 4 damage!\n"
 					+ "You can't dislodge it; it's too large! Your anus is permanently stretched! You learned about Anatomy(Wereslut)! You are being bred!\n"
 					+ "The battle is over, but your ordeal has just begun! She's going to ejaculate her runny dog cum in your bowels!\n";
@@ -181,7 +181,7 @@ public class Battle extends Group{
 	}
 
 	private String getStanceString(AbstractCharacter character, Stance stance) {
-		return character.label + (character.secondPerson ? " adopt " : " adopts ") + " a(n) " + stance.toString() + " stance!\n";
+		return character.getLabel() + (character.getSecondPerson() ? " adopt " : " adopts ") + " a(n) " + stance.toString() + " stance!\n";
 	}
 	// this should be the result based on nested methods - iff a response is needed from the defender, call 
 	private String getResultString(AbstractCharacter firstCharacter, AbstractCharacter secondCharacter, String technique, Attack attackForSecond, boolean blocked){
@@ -191,8 +191,8 @@ public class Battle extends Group{
 	@Override
     public void draw(Batch batch, float parentAlpha) {
 		super.draw(batch, parentAlpha);
-		font.draw(batch, "HP/STAM/BAL " + String.valueOf(character.currentHealth) + "/" + String.valueOf(character.currentStamina) + "/" + String.valueOf(character.stability) + " (" + character.stance.toString() + ")", 350, 160);
-		font.draw(batch, "Enemy health: " + String.valueOf(enemy.currentHealth) + " (" + enemy.stance.toString() + ")", 700, 160);
+		font.draw(batch, "HP/STAM/BAL " + String.valueOf(character.getCurrentHealth()) + "/" + String.valueOf(character.getCurrentStamina()) + "/" + String.valueOf(character.getStability()) + " (" + character.getStance().toString() + ")", 350, 160);
+		font.draw(batch, "Enemy health: " + String.valueOf(enemy.getCurrentHealth()) + " (" + enemy.getStance().toString() + ")", 700, 160);
 		
 		Array<String> options = character.getPossibleTechniques();
 		for (int ii = 0; ii < 4; ii++){
