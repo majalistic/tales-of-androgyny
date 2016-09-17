@@ -1,9 +1,17 @@
 package com.majalis.encounter;
 
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.IntArray;
+import com.badlogic.gdx.utils.IntMap;
 import com.badlogic.gdx.utils.OrderedMap;
 import com.majalis.battle.BattleCode;
 import com.majalis.save.SaveEnum;
@@ -41,8 +49,47 @@ public class EncounterBuilder {
 	}
 	/* different encounter "templates" */
 	protected Encounter getClassChoiceEncounter(AssetManager assetManager){	
-		getTextScenes(new String[]{"Welcome to the world of tRaPG!", "You're looking mighty fine.", "Please choose your class."}, addScene(new ChoiceScene(addScene(getJobClassScenes(addScene(new EndScene(new OrderedMap<Integer, Scene>(), EndScene.Type.ENCOUNTER_OVER)), font)), sceneCounter, saveService, assetManager, font)), font);
+		Array<String> jobButtonLabels = new Array<String>();
+		for (SaveManager.JobClass jobClass: SaveManager.JobClass.values()){
+			jobButtonLabels.add(jobClass.getLabel());
+		}
+		
+		getTextScenes(new String[]{"Welcome to the world of tRaPG!", "You're looking mighty fine.", "Please choose your class."}, 
+				addScene(getChoiceScene(addScene(getJobClassScenes(addScene(new EndScene(new OrderedMap<Integer, Scene>(), EndScene.Type.ENCOUNTER_OVER)), font)), assetManager, jobButtonLabels))
+				, font);
 		return new Encounter(scenes, endScenes, new Array<BattleScene>(), getStartScene(scenes, sceneCode));
+	}
+	
+	private Scene getChoiceScene(OrderedMap<Integer, Scene> sceneMap, AssetManager assetManager, Array<String> buttonLabels){
+		// use sceneMap to generate the table
+		Table table = new Table();
+
+		Skin skin = assetManager.get("uiskin.json", Skin.class);
+		Sound buttonSound = assetManager.get("sound.wav", Sound.class);
+
+		ChoiceScene choiceScene = new ChoiceScene(sceneMap, sceneCounter, saveService, font, table);
+		int ii = 0;
+		for (String label  : buttonLabels){
+			TextButton button = new TextButton(label, skin);
+			button.addListener(getListener(choiceScene, sceneMap.get(sceneMap.orderedKeys().get(ii++)), buttonSound));
+			table.add(button).row();
+		}
+				
+		return choiceScene;
+	}
+	
+
+	private ClickListener getListener(final ChoiceScene currentScene, final Scene nextScene, final Sound buttonSound){
+		return new ClickListener(){
+	        @Override
+	        public void clicked(InputEvent event, float x, float y) {
+	        	buttonSound.play();
+	        	// set new Scene as active based on choice
+	        	nextScene.setActive();
+	        	currentScene.finish();
+	        	
+	        }
+	    };
 	}
 	
 	protected Encounter getDefaultEncounter(){
