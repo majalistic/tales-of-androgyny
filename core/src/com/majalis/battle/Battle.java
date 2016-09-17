@@ -21,7 +21,9 @@ import com.majalis.character.PlayerCharacter;
 import com.majalis.character.Technique;
 import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveService;
-
+/*
+ * Represents the logic for the flow of a battle.  Currently only supports 1 on 1.
+ */
 public class Battle extends Group{
 
 	private final PlayerCharacter character;

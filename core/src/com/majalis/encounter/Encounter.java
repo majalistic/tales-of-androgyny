@@ -7,7 +7,9 @@ import com.badlogic.gdx.utils.Array;
 import com.majalis.scenes.BattleScene;
 import com.majalis.scenes.EndScene;
 import com.majalis.scenes.Scene;
-
+/*
+ * Represents the list of scenes, starts off the initial scene and listens for the end of an encounter
+ */
 public class Encounter {
 	private final Array<Scene> scenes;
 	private final Array<EndScene> endScenes;

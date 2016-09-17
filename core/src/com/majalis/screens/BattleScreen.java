@@ -9,7 +9,9 @@ import com.majalis.battle.Battle;
 import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveManager;
 import com.majalis.save.SaveService;
-
+/*
+ * Abstract screen class for handling generic screen logic and screen switching.
+ */
 public class BattleScreen extends AbstractScreen{
 
 	public static final ObjectMap<String, Class<?>> resourceRequirements = new ObjectMap<String, Class<?>>();

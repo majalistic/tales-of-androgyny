@@ -1,7 +1,6 @@
 package com.majalis.character;
 
 import com.majalis.character.AbstractCharacter.Stance;
-
 /*
  * Represents an action taken by a character in battle.  Will likely need a builder helper.
  */

@@ -1,7 +1,9 @@
 package com.majalis.character;
 
 import com.majalis.character.AbstractCharacter.Stance;
-
+/*
+ * List of all techniques and their generic attributes
+ */
 public enum Techniques {
 	// may want to reorganize these by what stances they're used in, rather than what stances they result in
 	/* Offensive Techniques */

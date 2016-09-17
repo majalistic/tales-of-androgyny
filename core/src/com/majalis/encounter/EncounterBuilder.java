@@ -21,7 +21,9 @@ import com.majalis.scenes.EndScene;
 import com.majalis.scenes.Mutation;
 import com.majalis.scenes.Scene;
 import com.majalis.scenes.TextScene;
-
+/*
+ * Given a sceneCode, reads that encounter and constructs it from a script file.
+ */
 public class EncounterBuilder {
 	private final Array<Scene> scenes;
 	private final Array<EndScene> endScenes;

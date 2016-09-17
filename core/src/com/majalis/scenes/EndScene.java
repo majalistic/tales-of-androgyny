@@ -1,7 +1,9 @@
 package com.majalis.scenes;
 
 import com.badlogic.gdx.utils.OrderedMap;
-
+/*
+ * Represents a scene that concludes an encounter
+ */
 public class EndScene extends Scene{
 
 	private Type type;

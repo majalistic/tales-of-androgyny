@@ -1,5 +1,7 @@
 package com.majalis.battle;
-
+/*
+ * Represents the info about a battle for saving and loading.
+ */
 public class BattleCode {
 
 	public int battleCode;

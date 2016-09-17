@@ -11,7 +11,9 @@ import com.majalis.save.LoadService;
 import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveManager;
 import com.majalis.save.SaveService;
-
+/*
+ * Controls the construction of a battle either from a saved state or net new.
+ */
 public class BattleFactory {
 
 	private final SaveService saveService;

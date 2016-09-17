@@ -12,7 +12,6 @@ import com.majalis.encounter.Encounter;
 import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveManager;
 import com.majalis.save.SaveService;
-
 /*
  *Screen for displaying Encounters.  UI that Handles player input while in an encounter.
  */

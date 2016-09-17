@@ -5,7 +5,9 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.IntMap;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonWriter.OutputType;
-
+/*
+ * Controls the logic for reading from the script file.
+ */
 public class EncounterReader {
 	private final FileHandle file;   
 	private final IntMap<String[]> scriptData;

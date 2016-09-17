@@ -1,4 +1,7 @@
 package com.majalis.save;
+/*
+ * List of options for saving and loading data.
+ */
 public enum SaveEnum {
 	PLAYER,
 	ENEMY,

@@ -4,7 +4,9 @@ import com.badlogic.gdx.utils.OrderedMap;
 import com.majalis.battle.BattleCode;
 import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveService;
-
+/*
+ * Represents a scene that needs to cut to a battle.
+ */
 public class BattleScene extends Scene {
 
 	private final SaveService saveService;

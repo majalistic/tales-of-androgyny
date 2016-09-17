@@ -3,7 +3,6 @@ package com.majalis.scenes;
 import com.majalis.save.LoadService;
 import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveService;
-
 /*
  * Component of TextScenes that allows them to mutate the gamestate.  Mutations have a save attribute to mutate and know whether to overwrite or read and modify.  Will likely need a MutationBuilder with a fluent interface
  */
@@ -48,8 +47,5 @@ public class Mutation {
 	private <T> void mutate(Class<?> type){
 		// currently performs string concatenation on all non-overrides
 		saveService.saveDataValue(path, loadService.loadDataValue(path, type).toString() + value.toString());
-	}
-
-	
-	
+	}	
 }

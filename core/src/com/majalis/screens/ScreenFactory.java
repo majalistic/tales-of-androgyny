@@ -1,7 +1,6 @@
 package com.majalis.screens;
 
 import com.badlogic.gdx.Game;
-
 /*
  * ScreenFactory interface to enable mocking.
  */

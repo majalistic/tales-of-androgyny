@@ -3,7 +3,9 @@ package com.majalis.screens;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-
+/*
+ * Packaged screen elements for constructing screens.
+ */
 public class ScreenElements {
 
 	private final FitViewport viewport;

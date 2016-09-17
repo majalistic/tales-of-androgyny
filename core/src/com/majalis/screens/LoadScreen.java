@@ -2,7 +2,9 @@ package com.majalis.screens;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-
+/*
+ * Screen that bridges between two screens when assets need to be loaded.
+ */
 public class LoadScreen extends AbstractScreen {
 
 	private final AssetManager assetManager;
