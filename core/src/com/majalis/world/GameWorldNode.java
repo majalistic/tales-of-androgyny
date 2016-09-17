@@ -13,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectSet;
 import com.majalis.save.LoadService;
@@ -41,7 +42,7 @@ public class GameWorldNode extends Group {
 	private boolean selected;
 	private boolean current;
 	private boolean active;
-	private String hoverText;
+	private boolean hover;
 	
 	// all the nodes need are the encounter CODES, not the actual encounter - should probably pass in some kind of object that contains the encounter generation logic, rather than an encounter and defaultEncounter code - at least, need a description of the encounter attached
 	public GameWorldNode(Array<GameWorldNode> connectedNodes, SaveService saveService, LoadService loadService, OrthographicCamera camera, ShapeRenderer shapeRenderer, BitmapFont font, final int nodeCode, int encounter, int defaultEncounter, Vector2 position, boolean visited){
@@ -59,7 +60,7 @@ public class GameWorldNode extends Group {
 		selected = false;
 		current = false;
 		active = false;
-		hoverText = "";
+		hover = false;
 		
 		this.addAction(Actions.visible(true));
 		this.addAction(Actions.show());
@@ -107,11 +108,11 @@ public class GameWorldNode extends Group {
 			}
 			@Override
 	        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-				hoverText = "x = " + x + ", y = " + y;
+				hover = true;
 			}
 			@Override
 	        public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
-				hoverText = "";
+				hover = false;
 			}
 		});
 	}
@@ -141,9 +142,7 @@ public class GameWorldNode extends Group {
     public void draw(Batch batch, float parentAlpha) {
 		super.draw(batch, parentAlpha);
 		
-		font.setColor(0.5f,1,1,1);
-		font.draw(batch, "HOVER" + hoverText, (int)position.x + 100, (int)position.y + 100);	
-		//font.draw(batch, (current ? "C" : "") + (active ? "A" : "" ) + (visited ? "V" : "") + String.valueOf(nodeCode), (int)position.x, (int)position.y);	
+		batch.end();
 		
 		shapeRenderer.setProjectionMatrix(camera.combined);
 		shapeRenderer.begin(ShapeType.Line);
@@ -162,22 +161,6 @@ public class GameWorldNode extends Group {
 			shapeRenderer.line(onCircumference.x, onCircumference.y,onOtherCircumference.x, onOtherCircumference.y);
 		}
 		shapeRenderer.end();
-		
-		if (!hoverText.equals("")){
-			shapeRenderer.begin(ShapeType.Filled);
-			if (visited){
-				shapeRenderer.setColor(1, 1, 1, .5f);
-			}
-			else if (encounter % 2 == 0){
-				shapeRenderer.setColor(1, 0, 0, .5f);
-			}
-			else {
-				shapeRenderer.setColor(0, 1, 0, .5f);
-			}
-			shapeRenderer.rect(position.x+40, (position.y-RADIUS)-20, 70, 90);
-			shapeRenderer.end();
-		}
-
 		
 		// if isActive
 		if (current){
@@ -202,9 +185,31 @@ public class GameWorldNode extends Group {
 			shapeRenderer.setColor(.258f, .652f, .4f, 1);
 			shapeRenderer.circle(position.x, position.y, RADIUS);
 		}
-		shapeRenderer.end();		
+		shapeRenderer.end();
+		
+		if (hover){
+			// render hover box
+			shapeRenderer.begin(ShapeType.Filled);
+			shapeRenderer.setColor(.8f, .8f, .8f, 1);
+			shapeRenderer.rect(position.x+35, (position.y-RADIUS)-25, 80, 100);
+			shapeRenderer.setColor(.2f, .2f, .2f, 1);
+			shapeRenderer.rect(position.x+40, (position.y-RADIUS)-20, 70, 90);
+			shapeRenderer.end();
+		}
+			
+		batch.begin();
+		if (hover){
+			// render hover text
+			font.setColor(0.5f,1,1,1);
+			font.getData().setScale(.9f);
+			font.draw(batch, getHoverText(), (int)position.x + 50, (int)position.y + RADIUS + 15, 53, Align.center, true);	
+		}		
     }
 
+	private String getHoverText(){
+		return visited ? "Nothing here" : (encounter % 2 == 0 ? "Wereslut" : "Harpy"); 
+	}
+	
 	public boolean isSelected() {
 		return selected;
 	}
