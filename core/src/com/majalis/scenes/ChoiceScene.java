@@ -24,8 +24,9 @@ public class ChoiceScene extends Scene {
 	private final int sceneCode;
 	private final SaveService saveService;
 	private final BitmapFont font;
+	private final String choiceDialogue;
 	// this should receive a map of integers to choice buttons 
-	public ChoiceScene(OrderedMap<Integer, Scene> sceneBranches, int sceneCode, SaveService saveService, BitmapFont font, Table table) {
+	public ChoiceScene(OrderedMap<Integer, Scene> sceneBranches, int sceneCode, SaveService saveService, BitmapFont font, String choiceDialogue, Table table) {
 		super(sceneBranches);
 		this.sceneCode = sceneCode;
 		this.saveService = saveService;
@@ -34,13 +35,16 @@ public class ChoiceScene extends Scene {
         table.setFillParent(true);
         table.addAction(Actions.moveTo(640, 400));
         this.addActor(table);
+        
+        this.choiceDialogue = choiceDialogue;
 		
 	}
 
 	@Override
     public void draw(Batch batch, float parentAlpha) {
 		super.draw(batch, parentAlpha);
-		font.draw(batch, "Choose a class:", 600, 600);
+		font.setColor(0.5f,0.4f,0,1);
+		font.draw(batch, choiceDialogue, 600, 600);
     }
 	
 	public int getCode(){

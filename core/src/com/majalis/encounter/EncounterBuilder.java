@@ -46,26 +46,33 @@ public class EncounterBuilder {
 		sceneCounter = 0;
 	}
 	/* different encounter "templates" */
+	@SuppressWarnings("unchecked")
 	protected Encounter getClassChoiceEncounter(AssetManager assetManager){	
 		Array<String> jobButtonLabels = new Array<String>();
 		for (SaveManager.JobClass jobClass: SaveManager.JobClass.values()){
 			jobButtonLabels.add(jobClass.getLabel());
 		}
 		
-		getTextScenes(new String[]{"Welcome to the world of tRaPG!", "You're looking mighty fine.", "Please choose your class."}, 
-				addScene(getChoiceScene(addScene(getJobClassScenes(addScene(new EndScene(new OrderedMap<Integer, Scene>(), EndScene.Type.ENCOUNTER_OVER)), font)), assetManager, jobButtonLabels))
-				, font);
+		Array<String> skipCharacterCreation = new Array<String>(true, new String[]{"Create Character", "Default"}, 0, 2);
+		
+		addScene(getChoiceScene(
+				aggregateMaps(			
+					getTextScenes(new String[]{"Welcome to the world of tRaPG!", "You're looking mighty fine.", "Please choose your class."}, 
+							addScene(getChoiceScene(addScene(getJobClassScenes(addScene(new EndScene(new OrderedMap<Integer, Scene>(), EndScene.Type.ENCOUNTER_OVER)), font)), assetManager, "Select a class:", jobButtonLabels)), font)
+				, addScene(new EndScene(new OrderedMap<Integer, Scene>(), EndScene.Type.ENCOUNTER_OVER))
+				), assetManager, "Skip character creation?", skipCharacterCreation
+		));
 		return new Encounter(scenes, endScenes, new Array<BattleScene>(), getStartScene(scenes, sceneCode));
 	}
 	
-	private Scene getChoiceScene(OrderedMap<Integer, Scene> sceneMap, AssetManager assetManager, Array<String> buttonLabels){
+	private Scene getChoiceScene(OrderedMap<Integer, Scene> sceneMap, AssetManager assetManager, String choiceDialogue, Array<String> buttonLabels){
 		// use sceneMap to generate the table
 		Table table = new Table();
 
 		Skin skin = assetManager.get("uiskin.json", Skin.class);
 		Sound buttonSound = assetManager.get("sound.wav", Sound.class);
 
-		ChoiceScene choiceScene = new ChoiceScene(sceneMap, sceneCounter, saveService, font, table);
+		ChoiceScene choiceScene = new ChoiceScene(sceneMap, sceneCounter, saveService, font, choiceDialogue, table);
 		int ii = 0;
 		for (String label  : buttonLabels){
 			TextButton button = new TextButton(label, skin);
