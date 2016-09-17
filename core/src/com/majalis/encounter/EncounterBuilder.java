@@ -51,8 +51,9 @@ public class EncounterBuilder {
 	}
 	
 	@SuppressWarnings("unchecked")
-	protected Encounter getRandomEncounter(){
-		if (battleCode == -1) battleCode = new IntArray(new int[]{0,1}).random();
+	protected Encounter getRandomEncounter(int encounterCode){
+		// if there isn't already a battlecode set, it's determined by the encounterCode; for now, that means dividing the various encounters up by modulus
+		if (battleCode == -1) battleCode = encounterCode % 2;
 		getTextScenes(getScript(battleCode, 0), 
 			addScene(
 					new BattleScene(
@@ -60,6 +61,7 @@ public class EncounterBuilder {
 									getTextScenes(new String[]{"You won!  You get NOTHING.", "Sad :(", "What a pity.  Go away."}, addScene(new EndScene(new OrderedMap<Integer, Scene>(), EndScene.Type.ENCOUNTER_OVER)), font),
 									getTextScenes(getDefeatText(battleCode), addScene(new EndScene(new OrderedMap<Integer, Scene>(), EndScene.Type.GAME_OVER)), font)					
 							), saveService, battleCode)), font);
+		// reporting that the battle code has been consumed - this should be encounter code
 		saveService.saveDataValue(SaveEnum.BATTLE_CODE, new BattleCode(-1, -1, -1));
 		return new Encounter(scenes, endScenes, battleScenes, getStartScene(scenes, sceneCode));	
 	}

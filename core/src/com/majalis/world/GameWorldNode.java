@@ -165,6 +165,15 @@ public class GameWorldNode extends Group {
 		
 		if (!hoverText.equals("")){
 			shapeRenderer.begin(ShapeType.Filled);
+			if (visited){
+				shapeRenderer.setColor(1, 1, 1, .5f);
+			}
+			else if (encounter % 2 == 0){
+				shapeRenderer.setColor(1, 0, 0, .5f);
+			}
+			else {
+				shapeRenderer.setColor(0, 1, 0, .5f);
+			}
 			shapeRenderer.rect(position.x+40, (position.y-RADIUS)-20, 70, 90);
 			shapeRenderer.end();
 		}
@@ -173,6 +182,7 @@ public class GameWorldNode extends Group {
 		// if isActive
 		if (current){
 			shapeRenderer.begin(ShapeType.Filled);
+			shapeRenderer.setColor(.258f, .652f, .4f, .5f);
 			shapeRenderer.circle(position.x, position.y, RADIUS);
 			shapeRenderer.end();
 		}
@@ -192,9 +202,7 @@ public class GameWorldNode extends Group {
 			shapeRenderer.setColor(.258f, .652f, .4f, 1);
 			shapeRenderer.circle(position.x, position.y, RADIUS);
 		}
-		shapeRenderer.end();
-		
-			
+		shapeRenderer.end();		
     }
 
 	public boolean isSelected() {

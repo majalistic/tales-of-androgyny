@@ -35,7 +35,7 @@ public class EncounterFactory {
 		switch (encounterCode){
 			case 0: return builder.getClassChoiceEncounter(assetManager);
 			case -1: return builder.getDefaultEncounter();
-			default: return builder.getRandomEncounter();
+			default: return builder.getRandomEncounter(encounterCode);
 		}
 	}
 }
