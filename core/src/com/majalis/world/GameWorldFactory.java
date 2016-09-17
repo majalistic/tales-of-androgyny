@@ -6,9 +6,8 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.RandomXS128;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.IntArray;
 import com.badlogic.gdx.utils.IntMap;
-import com.badlogic.gdx.utils.ObjectSet;
+import com.badlogic.gdx.utils.IntSet;
 import com.majalis.save.LoadService;
 import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveManager;
@@ -39,12 +38,12 @@ public class GameWorldFactory {
 		random.setSeed(seed);
 		Array<GameWorldNode> nodes = new Array<GameWorldNode>();
 		IntMap<GameWorldNode> nodeMap = new IntMap<GameWorldNode>();
-		ObjectSet<Integer> visitedCodesSet = loadService.loadDataValue(SaveEnum.VISITED_LIST, ObjectSet.class);
+		IntSet visitedCodesSet = loadService.loadDataValue(SaveEnum.VISITED_LIST, IntSet.class);
 		// -1 = magic number to get the defaultEncounter
-		addNode(new GameWorldNode(new Array<GameWorldNode>(), saveService, loadService, camera, shapeRenderer, font, 1, 0, -1, new Vector2(500, 500), visitedCodesSet.contains(1) ? true : false), nodeMap, 1, nodes);
+		addNode(new GameWorldNode(new Array<GameWorldNode>(), saveService, camera, shapeRenderer, font, 1, 0, -1, new Vector2(500, 500), visitedCodesSet.contains(1) ? true : false), nodeMap, 1, nodes);
 		Array<GameWorldNode> requiredNodes = new Array<GameWorldNode>();
 		// end node
-		addNode(new GameWorldNode(new Array<GameWorldNode>(), saveService, loadService, camera, shapeRenderer, font, 2, 1, -1, new Vector2(1800, 1800), visitedCodesSet.contains(1) ? true : false), nodeMap, 2, nodes, requiredNodes);
+		addNode(new GameWorldNode(new Array<GameWorldNode>(), saveService, camera, shapeRenderer, font, 2, 1, -1, new Vector2(1800, 1800), visitedCodesSet.contains(1) ? true : false), nodeMap, 2, nodes, requiredNodes);
 		
 		// temporarily stop at 1000 to prevent hangs if endpoint isn't found - in the future this should set something that will smoothly guide towards the exit as the number of nodes increase
 		
@@ -76,7 +75,7 @@ public class GameWorldFactory {
 					// save the position for the next iteration
 					currentNodePosition = newNodePosition;
 					
-					GameWorldNode newNode = (new GameWorldNode(new Array<GameWorldNode>(), saveService, loadService, camera, shapeRenderer, font, nodeCode, nodeCode-1, -1, currentNodePosition, visitedCodesSet.contains(nodeCode) ? true : false));
+					GameWorldNode newNode = (new GameWorldNode(new Array<GameWorldNode>(), saveService, camera, shapeRenderer, font, nodeCode, nodeCode-1, -1, currentNodePosition, visitedCodesSet.contains(nodeCode) ? true : false));
 					addNode(newNode, nodeMap, nodeCode, nodes);
 					// if we've reached the target node, we can terminate this run-through
 					nodeNotReached = !requiredNode.isAdjacent(newNode);

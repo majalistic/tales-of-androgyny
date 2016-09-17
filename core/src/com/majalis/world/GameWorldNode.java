@@ -28,7 +28,6 @@ public class GameWorldNode extends Group {
 	private final static int RADIUS = 25;
 	private final Array<GameWorldNode> connectedNodes;
 	private final SaveService saveService;
-	private final LoadService loadService;
 	private final OrthographicCamera camera;
 	private final ShapeRenderer shapeRenderer;
 	// temporary
@@ -45,10 +44,9 @@ public class GameWorldNode extends Group {
 	private boolean hover;
 	
 	// all the nodes need are the encounter CODES, not the actual encounter - should probably pass in some kind of object that contains the encounter generation logic, rather than an encounter and defaultEncounter code - at least, need a description of the encounter attached
-	public GameWorldNode(Array<GameWorldNode> connectedNodes, SaveService saveService, LoadService loadService, OrthographicCamera camera, ShapeRenderer shapeRenderer, BitmapFont font, final int nodeCode, int encounter, int defaultEncounter, Vector2 position, boolean visited){
+	public GameWorldNode(Array<GameWorldNode> connectedNodes, SaveService saveService, OrthographicCamera camera, ShapeRenderer shapeRenderer, BitmapFont font, final int nodeCode, int encounter, int defaultEncounter, Vector2 position, boolean visited){
 		this.connectedNodes = connectedNodes;
 		this.saveService = saveService;
-		this.loadService = loadService;
 		this.camera = camera;
 		this.shapeRenderer = shapeRenderer;
 		this.font = font;
@@ -122,10 +120,7 @@ public class GameWorldNode extends Group {
 		if (!visited){
 			saveService.saveDataValue(SaveEnum.ENCOUNTER_CODE, encounter);
 			saveService.saveDataValue(SaveEnum.CONTEXT, SaveManager.GameContext.ENCOUNTER);
-			// this shouldn't need to load; this should call a SaveEnum that adds to the visitedlist instead, and the SaveManager will handle the logic of adding it to the list
-			ObjectSet<Integer> visitedList = loadService.loadDataValue(SaveEnum.VISITED_LIST, ObjectSet.class);
-			visitedList.add(nodeCode);
-			saveService.saveDataValue(SaveEnum.VISITED_LIST, visitedList);
+			saveService.saveDataValue(SaveEnum.VISITED_LIST, nodeCode);
 		}
 		else {
 			saveService.saveDataValue(SaveEnum.ENCOUNTER_CODE, defaultEncounter);

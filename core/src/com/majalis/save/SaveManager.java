@@ -5,6 +5,8 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Base64Coder;
+import com.badlogic.gdx.utils.IntArray;
+import com.badlogic.gdx.utils.IntSet;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonWriter.OutputType;
 import com.majalis.battle.BattleCode;
@@ -26,7 +28,6 @@ public class SaveManager implements SaveService, LoadService{
         save = getSave();
     }
     
-    @SuppressWarnings("unchecked")
 	public void saveDataValue(SaveEnum key, Object object){
     	switch (key){
 	    	case PLAYER: 			save.player = (PlayerCharacter) object; break;
@@ -36,7 +37,7 @@ public class SaveManager implements SaveService, LoadService{
 	    	case NODE_CODE: 		save.nodeCode = (Integer) object; break;
 	    	case CAMERA_POS:		save.cameraPos = new Vector3((Vector2) object, 0); break;
 	    	case ENCOUNTER_CODE:	save.encounterCode = (Integer) object; break;
-	    	case VISITED_LIST:		save.visitedList = castToIntArray((ObjectSet<Integer>) object); break;
+	    	case VISITED_LIST:		save.addToVisitedList((Integer) object); break;
 	    	case BATTLE_CODE:		save.battleCode = (BattleCode) object; break;
 	    	case CLASS:				save.jobClass = (JobClass) object; break;
 	    	case WORLD_SEED:		save.worldSeed = (Integer) object; break;
@@ -54,10 +55,8 @@ public class SaveManager implements SaveService, LoadService{
 	    	case NODE_CODE: 		return (T) (Integer)save.nodeCode;
 	    	case CAMERA_POS: 		return (T) (Vector3)save.cameraPos;
 	    	case ENCOUNTER_CODE:	return (T) (Integer) save.encounterCode;
-	    	case VISITED_LIST:		ObjectSet<Integer> set = new ObjectSet<Integer>();
-	    							for (int member : save.visitedList){
-	    								set.add(member);
-	    							}
+	    	case VISITED_LIST:		IntSet set = new IntSet();
+	    							set.addAll(save.visitedList);
 	    							return (T) set;
 	    	case BATTLE_CODE:		return (T) save.battleCode;
 	    	case CLASS:				return (T) save.jobClass;
@@ -98,15 +97,6 @@ public class SaveManager implements SaveService, LoadService{
     	return tempSave;
     }
     
-    private int[] castToIntArray(ObjectSet<Integer> set){
-    	int[] array = new int[set.size];
-    	int ii = 0;
-    	for (int member : set){
-    		array[ii++] = member;
-    	}
-    	return array;
-    }
-    
     public static class GameSave{
     	
 		public GameContext context;
@@ -116,6 +106,7 @@ public class SaveManager implements SaveService, LoadService{
     	public int nodeCode;
     	public Vector3 cameraPos;
     	public int[] visitedList;
+    	private IntArray visitedListCopy;
     	public JobClass jobClass;
     	// this can probably be refactored to contain a particular battle, but may need to duplicate the player character
     	public BattleCode battleCode;
@@ -126,7 +117,7 @@ public class SaveManager implements SaveService, LoadService{
     	@SuppressWarnings("unused")
 		private GameSave(){}
     	
-    	// default save values-
+		// default save values-
     	public GameSave(boolean defaultValues){
     		if (defaultValues){
     			context = GameContext.ENCOUNTER;
@@ -136,10 +127,17 @@ public class SaveManager implements SaveService, LoadService{
     			encounterCode = 0;
         		nodeCode = 1;
         		cameraPos = new Vector3(500, 500, 0);
-        		visitedList = new int[]{1};
+        		visitedListCopy = new IntArray();
+        		addToVisitedList(1);
         		player = new PlayerCharacter(true);
     		}
     	}
+    	
+    	public void addToVisitedList(Integer newValue) {
+    		visitedListCopy.add(newValue);
+    		visitedList = visitedListCopy.items;
+			
+		}
     }
     
 	public enum JobClass {
