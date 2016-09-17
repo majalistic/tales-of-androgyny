@@ -12,7 +12,6 @@ import com.badlogic.gdx.utils.JsonWriter.OutputType;
 import com.majalis.battle.BattleCode;
 import com.majalis.character.EnemyCharacter;
 import com.majalis.character.PlayerCharacter;
-import com.badlogic.gdx.utils.ObjectSet;
 /*
  * Used for file handling, both reading and writing - both game files and encounter replay files.
  */
