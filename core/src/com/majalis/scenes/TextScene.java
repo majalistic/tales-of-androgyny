@@ -26,10 +26,6 @@ public class TextScene extends Scene  {
 		this.toDisplay = toDisplay;
 		this.mutations = mutations;
 	}
-
-	public int getCode(){
-		return sceneCode;
-	}
 	
 	// this type of TextScene will be one that always pipes from one scene to the next with no branch - there will be another TextScene that actually has branching logic
 	@Override
