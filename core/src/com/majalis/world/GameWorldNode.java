@@ -43,7 +43,7 @@ public class GameWorldNode extends Group {
 	private boolean active;
 	private String hoverText;
 	
-	// all the nodes need are the encounter CODES, not the actual encounter
+	// all the nodes need are the encounter CODES, not the actual encounter - should probably pass in some kind of object that contains the encounter generation logic, rather than an encounter and defaultEncounter code
 	public GameWorldNode(Array<GameWorldNode> connectedNodes, SaveService saveService, LoadService loadService, OrthographicCamera camera, ShapeRenderer shapeRenderer, BitmapFont font, final int nodeCode, int encounter, int defaultEncounter, Vector2 position, boolean visited){
 		this.connectedNodes = connectedNodes;
 		this.saveService = saveService;
@@ -107,10 +107,12 @@ public class GameWorldNode extends Group {
 			}
 			@Override
 	        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
+				System.out.println("Entering");
 				hoverText = "x = " + x + ", y = " + y;
 			}
 			@Override
 	        public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
+				System.out.println("Exiting");
 				hoverText = "";
 			}
 		});
@@ -121,6 +123,7 @@ public class GameWorldNode extends Group {
 		if (!visited){
 			saveService.saveDataValue(SaveEnum.ENCOUNTER_CODE, encounter);
 			saveService.saveDataValue(SaveEnum.CONTEXT, SaveManager.GameContext.ENCOUNTER);
+			// this shouldn't need to load; this should call a SaveEnum that adds to the visitedlist instead, and the SaveManager will handle the logic of adding it to the list
 			ObjectSet<Integer> visitedList = loadService.loadDataValue(SaveEnum.VISITED_LIST, ObjectSet.class);
 			visitedList.add(nodeCode);
 			saveService.saveDataValue(SaveEnum.VISITED_LIST, visitedList);
