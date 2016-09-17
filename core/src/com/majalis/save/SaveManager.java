@@ -37,7 +37,7 @@ public class SaveManager implements SaveService, LoadService{
 	    	case NODE_CODE: 		save.nodeCode = (Integer) object; break;
 	    	case CAMERA_POS:		save.cameraPos = new Vector3((Vector2) object, 0); break;
 	    	case ENCOUNTER_CODE:	save.encounterCode = (Integer) object; break;
-	    	case VISITED_LIST:		save.addToVisitedList((Integer) object); break;
+	    	case VISITED_LIST:		save.visitedList.add((Integer) object); break;
 	    	case BATTLE_CODE:		save.battleCode = (BattleCode) object; break;
 	    	case CLASS:				save.jobClass = (JobClass) object; break;
 	    	case WORLD_SEED:		save.worldSeed = (Integer) object; break;
@@ -99,19 +99,18 @@ public class SaveManager implements SaveService, LoadService{
     
     public static class GameSave{
     	
-		public GameContext context;
-		public int worldSeed;
-		public int sceneCode;
-		public int encounterCode;
-    	public int nodeCode;
-    	public Vector3 cameraPos;
-    	public int[] visitedList;
-    	private IntArray visitedListCopy;
-    	public JobClass jobClass;
+    	private GameContext context;
+    	private int worldSeed;
+    	private int sceneCode;
+    	private int encounterCode;
+    	private int nodeCode;
+    	private Vector3 cameraPos;
+    	private IntArray visitedList;
+    	private JobClass jobClass;
     	// this can probably be refactored to contain a particular battle, but may need to duplicate the player character
-    	public BattleCode battleCode;
-    	public PlayerCharacter player;
-    	public EnemyCharacter enemy;
+    	private BattleCode battleCode;
+    	private PlayerCharacter player;
+    	private EnemyCharacter enemy;
     	
     	// 0-arg constructor for JSON serialization: DO NOT USE
     	@SuppressWarnings("unused")
@@ -127,16 +126,14 @@ public class SaveManager implements SaveService, LoadService{
     			encounterCode = 0;
         		nodeCode = 1;
         		cameraPos = new Vector3(500, 500, 0);
-        		visitedListCopy = new IntArray();
+        		visitedList = new IntArray();
         		addToVisitedList(1);
         		player = new PlayerCharacter(true);
     		}
     	}
     	
     	public void addToVisitedList(Integer newValue) {
-    		visitedListCopy.add(newValue);
-    		visitedList = visitedListCopy.items;
-			
+    		
 		}
     }
     
