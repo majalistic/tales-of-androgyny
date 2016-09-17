@@ -43,7 +43,7 @@ public class GameWorldNode extends Group {
 	private boolean active;
 	private String hoverText;
 	
-	// all the nodes need are the encounter CODES, not the actual encounter - should probably pass in some kind of object that contains the encounter generation logic, rather than an encounter and defaultEncounter code
+	// all the nodes need are the encounter CODES, not the actual encounter - should probably pass in some kind of object that contains the encounter generation logic, rather than an encounter and defaultEncounter code - at least, need a description of the encounter attached
 	public GameWorldNode(Array<GameWorldNode> connectedNodes, SaveService saveService, LoadService loadService, OrthographicCamera camera, ShapeRenderer shapeRenderer, BitmapFont font, final int nodeCode, int encounter, int defaultEncounter, Vector2 position, boolean visited){
 		this.connectedNodes = connectedNodes;
 		this.saveService = saveService;
@@ -107,12 +107,10 @@ public class GameWorldNode extends Group {
 			}
 			@Override
 	        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-				System.out.println("Entering");
 				hoverText = "x = " + x + ", y = " + y;
 			}
 			@Override
 	        public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
-				System.out.println("Exiting");
 				hoverText = "";
 			}
 		});
@@ -143,9 +141,13 @@ public class GameWorldNode extends Group {
     public void draw(Batch batch, float parentAlpha) {
 		super.draw(batch, parentAlpha);
 		
+		font.setColor(0.5f,1,1,1);
+		font.draw(batch, "HOVER" + hoverText, (int)position.x + 100, (int)position.y + 100);	
+		//font.draw(batch, (current ? "C" : "") + (active ? "A" : "" ) + (visited ? "V" : "") + String.valueOf(nodeCode), (int)position.x, (int)position.y);	
+		
 		shapeRenderer.setProjectionMatrix(camera.combined);
 		shapeRenderer.begin(ShapeType.Line);
-		shapeRenderer.setColor(.258f, .652f, .4f, 1);
+		shapeRenderer.setColor(.258f, .652f, .4f, .5f);
 		
 		for (GameWorldNode otherNode: connectedNodes){
 			// take my position vector and add a vector of length radius and inclination towards the center of the other node's vector
@@ -160,6 +162,13 @@ public class GameWorldNode extends Group {
 			shapeRenderer.line(onCircumference.x, onCircumference.y,onOtherCircumference.x, onOtherCircumference.y);
 		}
 		shapeRenderer.end();
+		
+		if (!hoverText.equals("")){
+			shapeRenderer.begin(ShapeType.Filled);
+			shapeRenderer.rect(position.x+40, (position.y-RADIUS)-20, 70, 90);
+			shapeRenderer.end();
+		}
+
 		
 		// if isActive
 		if (current){
@@ -185,9 +194,7 @@ public class GameWorldNode extends Group {
 		}
 		shapeRenderer.end();
 		
-		//font.setColor(0.5f,1,1,1);
-		//font.draw(batch, hoverText, (int)position.x + 100, (int)position.y + 100);	
-		//font.draw(batch, (current ? "C" : "") + (active ? "A" : "" ) + (visited ? "V" : "") + String.valueOf(nodeCode), (int)position.x, (int)position.y);		
+			
     }
 
 	public boolean isSelected() {
