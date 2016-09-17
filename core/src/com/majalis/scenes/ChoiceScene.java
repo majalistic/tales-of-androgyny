@@ -20,15 +20,12 @@ public class ChoiceScene extends Scene {
 		resourceRequirements.put("uiskin.json", Skin.class);
 		resourceRequirements.put("sound.wav", Sound.class);
 	}
-	
-	private final int sceneCode;
 	private final SaveService saveService;
 	private final BitmapFont font;
 	private final String choiceDialogue;
 	// this should receive a map of integers to choice buttons 
 	public ChoiceScene(OrderedMap<Integer, Scene> sceneBranches, int sceneCode, SaveService saveService, BitmapFont font, String choiceDialogue, Table table) {
-		super(sceneBranches);
-		this.sceneCode = sceneCode;
+		super(sceneBranches, sceneCode);
 		this.saveService = saveService;
 		this.font = font;
 		

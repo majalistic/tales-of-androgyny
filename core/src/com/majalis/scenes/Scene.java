@@ -9,10 +9,12 @@ import com.badlogic.gdx.utils.OrderedMap;
  */
 public abstract class Scene extends Group {
 	protected final OrderedMap<Integer, Scene> sceneBranches;
+	protected final int sceneCode;
 	protected boolean isActive;
 	
-	protected Scene(OrderedMap<Integer, Scene> sceneBranches){
+	protected Scene(OrderedMap<Integer, Scene> sceneBranches, int sceneCode){
 		this.sceneBranches = sceneBranches;
+		this.sceneCode = sceneCode;
 		this.addAction(Actions.hide());
 	}
 	
@@ -22,7 +24,7 @@ public abstract class Scene extends Group {
 		return isActive;
 	}
 	public int getCode(){
-		return -1;
+		return sceneCode;
 	}
 	public void poke(){
 		

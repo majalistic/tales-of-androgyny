@@ -3,6 +3,7 @@ package com.majalis.encounter;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.majalis.battle.BattleCode;
+import com.majalis.character.PlayerCharacter;
 import com.majalis.save.LoadService;
 import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveManager;
@@ -17,7 +18,6 @@ public class EncounterFactory {
 	private final SaveService saveService;
 	private final LoadService loadService;
 
-	
 	public EncounterFactory(EncounterReader reader, AssetManager assetManager, SaveManager saveManager){
 		this.reader = reader;
 		this.assetManager = assetManager;
@@ -33,7 +33,7 @@ public class EncounterFactory {
 		if (battle != null) battleCode = battle.battleCode;
 		EncounterBuilder builder = new EncounterBuilder(reader, saveService, font, sceneCode, battleCode);
 		switch (encounterCode){
-			case 0: return builder.getClassChoiceEncounter(assetManager);
+			case 0: return builder.getClassChoiceEncounter(assetManager, (PlayerCharacter) loadService.loadDataValue(SaveEnum.PLAYER, PlayerCharacter.class));
 			case -1: return builder.getDefaultEncounter();
 			default: return builder.getRandomEncounter(encounterCode);
 		}

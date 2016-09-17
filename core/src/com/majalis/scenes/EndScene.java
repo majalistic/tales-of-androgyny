@@ -7,8 +7,8 @@ import com.badlogic.gdx.utils.OrderedMap;
 public class EndScene extends Scene{
 
 	private Type type;
-	public EndScene(OrderedMap<Integer, Scene> sceneBranches, Type type) {
-		super(sceneBranches);
+	public EndScene(OrderedMap<Integer, Scene> sceneBranches, int sceneCode, Type type) {
+		super(sceneBranches, sceneCode);
 		this.type = type;
 	}
 

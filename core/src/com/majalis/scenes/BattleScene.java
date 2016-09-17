@@ -14,8 +14,8 @@ public class BattleScene extends Scene {
 	private final int victoryScene;
 	private final int defeatScene;
 	
-	public BattleScene(OrderedMap<Integer, Scene> sceneBranches, SaveService saveService, int battleCode) {
-		super(sceneBranches);
+	public BattleScene(OrderedMap<Integer, Scene> sceneBranches, int sceneCode, SaveService saveService, int battleCode) {
+		super(sceneBranches, sceneCode);
 		this.saveService = saveService;
 		this.battleCode = battleCode;
 		this.victoryScene = sceneBranches.get(sceneBranches.orderedKeys().get(0)).getCode();

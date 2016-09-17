@@ -12,10 +12,12 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.IntArray;
 import com.badlogic.gdx.utils.OrderedMap;
 import com.majalis.battle.BattleCode;
+import com.majalis.character.PlayerCharacter;
 import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveManager;
 import com.majalis.save.SaveService;
 import com.majalis.scenes.BattleScene;
+import com.majalis.scenes.CharacterCreationScene;
 import com.majalis.scenes.ChoiceScene;
 import com.majalis.scenes.EndScene;
 import com.majalis.scenes.Mutation;
@@ -49,7 +51,7 @@ public class EncounterBuilder {
 	}
 	/* different encounter "templates" */
 	@SuppressWarnings("unchecked")
-	protected Encounter getClassChoiceEncounter(AssetManager assetManager){	
+	protected Encounter getClassChoiceEncounter(AssetManager assetManager, PlayerCharacter playerCharacter){	
 		Array<String> jobButtonLabels = new Array<String>();
 		for (SaveManager.JobClass jobClass: SaveManager.JobClass.values()){
 			jobButtonLabels.add(jobClass.getLabel());
@@ -58,10 +60,14 @@ public class EncounterBuilder {
 		Array<String> skipCharacterCreation = new Array<String>(true, new String[]{"Create Character", "Default"}, 0, 2);
 		
 		addScene(getChoiceScene(
-				aggregateMaps(			
-					getTextScenes(new String[]{"Welcome to the world of tRaPG!", "You're looking mighty fine.", "Please choose your class."}, 
-							addScene(getChoiceScene(addScene(getJobClassScenes(addScene(new EndScene(new OrderedMap<Integer, Scene>(), EndScene.Type.ENCOUNTER_OVER)), font)), assetManager, "Select a class:", jobButtonLabels)), font)
-				, addScene(new EndScene(new OrderedMap<Integer, Scene>(), EndScene.Type.ENCOUNTER_OVER))
+			aggregateMaps(			
+				getTextScenes(new String[]{"Welcome to the world of tRaPG!", "You're looking mighty fine.", "Please choose your class."}, 
+					addScene(getChoiceScene(addScene(getJobClassScenes(addScene
+							// need to add other class options; should probably be a custom interface scene with a button that pipes to this end scene
+							(new CharacterCreationScene(addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.ENCOUNTER_OVER)), sceneCounter, saveService, font, assetManager, playerCharacter)
+									
+									), font)), assetManager, "Select a class:", jobButtonLabels)), font), 
+				addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.ENCOUNTER_OVER))
 				), assetManager, "Skip character creation?", skipCharacterCreation
 		));
 		return new Encounter(scenes, endScenes, new Array<BattleScene>(), getStartScene(scenes, sceneCode));
@@ -100,7 +106,7 @@ public class EncounterBuilder {
 	}
 	
 	protected Encounter getDefaultEncounter(){
-		getTextScenes(new String[]{"You encounter a stick!", "It's actually rather sexy looking.", "There is nothing left here to do."}, addScene(new EndScene(new OrderedMap<Integer, Scene>(), EndScene.Type.ENCOUNTER_OVER)), font);
+		getTextScenes(new String[]{"You encounter a stick!", "It's actually rather sexy looking.", "There is nothing left here to do."}, addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.ENCOUNTER_OVER)), font);
 		return new Encounter(scenes, endScenes, new Array<BattleScene>(), getStartScene(scenes, sceneCode));
 	}
 	
@@ -112,9 +118,9 @@ public class EncounterBuilder {
 			addScene(
 					new BattleScene(
 							aggregateMaps(
-									getTextScenes(new String[]{"You won!  You get NOTHING.", "Sad :(", "What a pity.  Go away."}, addScene(new EndScene(new OrderedMap<Integer, Scene>(), EndScene.Type.ENCOUNTER_OVER)), font),
-									getTextScenes(getDefeatText(battleCode), addScene(new EndScene(new OrderedMap<Integer, Scene>(), EndScene.Type.GAME_OVER)), font)					
-							), saveService, battleCode)), font);
+									getTextScenes(new String[]{"You won!  You get NOTHING.", "Sad :(", "What a pity.  Go away."}, addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.ENCOUNTER_OVER)), font),
+									getTextScenes(getDefeatText(battleCode), addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.GAME_OVER)), font)					
+							), -1, saveService, battleCode)), font);
 		// reporting that the battle code has been consumed - this should be encounter code
 		saveService.saveDataValue(SaveEnum.BATTLE_CODE, new BattleCode(-1, -1, -1));
 		return new Encounter(scenes, endScenes, battleScenes, getStartScene(scenes, sceneCode));	
@@ -174,7 +180,7 @@ public class EncounterBuilder {
 		return reader.loadScript(battleCode);
 	}
 	private Scene getStartScene(Array<Scene> scenes, Integer sceneCode){
-		// default case
+		// default case	
 		if (sceneCode == 0){
 			// returns the final scene and plays in reverse order
 			return scenes.get(scenes.size - 1);
