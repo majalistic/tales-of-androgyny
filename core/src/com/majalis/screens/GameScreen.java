@@ -22,7 +22,7 @@ public class GameScreen extends AbstractScreen {
 	public static final ObjectMap<String, Class<?>> resourceRequirements = new ObjectMap<String, Class<?>>();
 	static {
 		resourceRequirements.put("uiskin.json", Skin.class);
-		resourceRequirements.put("sound.wav", Sound.class);
+		resourceRequirements.put("node_sound.wav", Sound.class);
 	}
 	public GameScreen(ScreenFactory factory, ScreenElements elements, AssetManager assetManager, LoadService loadService, GameWorld world) {
 		super(factory, elements);
@@ -96,6 +96,7 @@ public class GameScreen extends AbstractScreen {
 	@Override
 	public void dispose() {
 		for(String path: resourceRequirements.keys()){
+			if (path.equals("node_sound.wav")) continue;
 			assetManager.unload(path);
 		}
 	}

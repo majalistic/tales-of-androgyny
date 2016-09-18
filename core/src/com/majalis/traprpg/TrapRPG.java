@@ -26,7 +26,7 @@ public class TrapRPG extends Game {
 		BitmapFont font =  new BitmapFont();
 		ShapeRenderer shapeRenderer = new ShapeRenderer();
 		RandomXS128 random = new RandomXS128();
-		init(new ScreenFactoryImpl(this, assetManager, saveManager, new GameWorldFactory(saveManager, shapeRenderer, font, random), new EncounterFactory(encounterReader, assetManager, saveManager), new BattleFactory(saveManager, assetManager, font), new SpriteBatch()));
+		init(new ScreenFactoryImpl(this, assetManager, saveManager, new GameWorldFactory(saveManager, assetManager, shapeRenderer, font, random), new EncounterFactory(encounterReader, assetManager, saveManager), new BattleFactory(saveManager, assetManager, font), new SpriteBatch()));
 	}
 	/*
 	 * Takes a factory implementation and uses it to generate a screen and switch to it

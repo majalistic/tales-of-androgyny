@@ -1,6 +1,7 @@
 package com.majalis.scenes;
 
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -17,6 +18,7 @@ public class CharacterCreationScene extends Scene {
 
 	private final SaveService saveService;
 	private final BitmapFont font;
+	private final Sound buttonSound;
 	private final PlayerCharacter character;
 	
 	// needs a done button, as well as other interface elements
@@ -27,6 +29,7 @@ public class CharacterCreationScene extends Scene {
 		this.character = character;
 		
 		Skin skin = assetManager.get("uiskin.json", Skin.class);
+		buttonSound = assetManager.get("sound.wav", Sound.class);
 		
 		TextButton done = new TextButton("Done", skin);
 		
@@ -34,6 +37,7 @@ public class CharacterCreationScene extends Scene {
 			new ClickListener(){
 				@Override
 		        public void clicked(InputEvent event, float x, float y) {
+					buttonSound.play();
 					nextScene();		   
 		        }
 			}
@@ -44,6 +48,7 @@ public class CharacterCreationScene extends Scene {
 
 	@Override
 	public void poke(){
+		buttonSound.play();
 		nextScene();
 	}
 	

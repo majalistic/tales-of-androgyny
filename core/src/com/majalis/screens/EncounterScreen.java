@@ -80,6 +80,7 @@ public class EncounterScreen extends AbstractScreen {
 	@Override
 	public void dispose() {
 		for(String path: resourceRequirements.keys()){
+			if (path.equals("sound.wav")) continue;
 			assetManager.unload(path);
 		}
 	}

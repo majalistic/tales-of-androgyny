@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.math.Vector2;
 import com.majalis.character.EnemyCharacter;
 import com.majalis.character.PlayerCharacter;
-import com.majalis.character.AbstractCharacter.Stance;
 import com.majalis.save.LoadService;
 import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveManager;
