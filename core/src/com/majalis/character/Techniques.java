@@ -31,11 +31,10 @@ public enum Techniques {
 	TRIP			{ public Stance getStanceResult(){ return Stance.PRONE; } 	 public int getPowerMod(){ return -100; } public int getStabilityCost(){ return -100; } public int getStaminaCost(){ return 0; } }, // run out of stability
 	
 	/* Enemy pouncing */
-	
 	POUNCE			{ public Stance getStanceResult(){ return Stance.DOGGY; } 	 public int getPowerMod(){ return -100; } public int getStabilityCost(){ return 0; } public int getStaminaCost(){ return 2; } }, // Used to initiate doggy
 	POUND			{ public Stance getStanceResult(){ return Stance.DOGGY; } 	 public int getPowerMod(){ return -100; } public int getStabilityCost(){ return 0; } public int getStaminaCost(){ return 1; } }, // Used to doggystyle
-	KNOT 			{ public Stance getStanceResult(){ return Stance.KNOTTED; }	 public int getPowerMod(){ return -100; } public int getStabilityCost(){ return 0; } public int getStaminaCost(){ return 1; } }, // Used to knot by knotty weresluts and others
-	KNOT_BANG 		{ public Stance getStanceResult(){ return Stance.KNOTTED; }  public int getPowerMod(){ return -100; } public int getStabilityCost(){ return 0; } public int getStaminaCost(){ return 1; } }, // Used to knot by knotty weresluts and others - could end the battle
+	KNOT 			{ public Stance getStanceResult(){ return Stance.KNOTTED; }	 public int getPowerMod(){ return -100; } public int getStabilityCost(){ return 0; } public int getStaminaCost(){ return 0; } }, // Used to knot by knotty weresluts and others
+	KNOT_BANG 		{ public Stance getStanceResult(){ return Stance.KNOTTED; }  public int getPowerMod(){ return -100; } public int getStabilityCost(){ return 0; } public int getStaminaCost(){ return 0; } }, // Used to knot by knotty weresluts and others - could end the battle
 	ERUPT			{ public Stance getStanceResult(){ return Stance.BALANCED; } public int getPowerMod(){ return -100; } public int getStabilityCost(){ return 0; } public int getStaminaCost(){ return 1; } }, // Used to creampie
 	RECEIVE			{ public Stance getStanceResult(){ return Stance.DOGGY; } 	 public int getPowerMod(){ return -100; } public int getStabilityCost(){ return 0; } public int getStaminaCost(){ return 1; } }, // Used to receive doggystyle 
 	RECEIVE_KNOT	{ public Stance getStanceResult(){ return Stance.KNOTTED; }  public int getPowerMod(){ return -100; } public int getStabilityCost(){ return 0; } public int getStaminaCost(){ return 1; } }; // Used to receive the knot
