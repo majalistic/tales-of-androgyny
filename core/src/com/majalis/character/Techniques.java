@@ -24,6 +24,7 @@ public enum Techniques {
 	STAND_UP		{ public Stance getStanceResult(){ return Stance.BALANCED; } public int getPowerMod(){ return -100; } public int getStabilityCost(){ return -1; } public int getStaminaCost(){ return 2; } }, // will fall again if you don't have enough stability
 	KNEE_UP			{ public Stance getStanceResult(){ return Stance.KNEELING; } public int getPowerMod(){ return -100; } public int getStabilityCost(){ return -5; } public int getStaminaCost(){ return 1; } },
 	REST			{ public Stance getStanceResult(){ return Stance.SUPINE; } 	 public int getPowerMod(){ return -100; } public int getStabilityCost(){ return -1; } public int getStaminaCost(){ return -1; } },
+	REST_FACE_DOWN  { public Stance getStanceResult(){ return Stance.PRONE; } 	 public int getPowerMod(){ return -100; } public int getStabilityCost(){ return -1; } public int getStaminaCost(){ return -1; } },	
 	
 	/* Out of resources */
 	FALL_DOWN		{ public Stance getStanceResult(){ return Stance.SUPINE; } 	 public int getPowerMod(){ return -100; } public int getStabilityCost(){ return -100; } public int getStaminaCost(){ return 0; } }, // run out of stamina

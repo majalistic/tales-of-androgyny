@@ -110,7 +110,8 @@ public class PlayerCharacter extends AbstractCharacter implements Json.Serializa
 					case Keys.D:
 						return new Technique(Techniques.KNEE_UP, getStrength());
 					case Keys.F:	
-						return new Technique(Techniques.REST, getStrength());
+						if (stance == Stance.PRONE) return new Technique(Techniques.REST_FACE_DOWN, getStrength());
+						else return new Technique(Techniques.REST, getStrength());						
 					}	
 			case KNEELING:
 				return new Technique(Techniques.STAND_UP, getStrength());
