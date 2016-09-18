@@ -14,7 +14,6 @@ import com.badlogic.gdx.utils.OrderedMap;
 import com.majalis.battle.BattleCode;
 import com.majalis.character.PlayerCharacter;
 import com.majalis.save.SaveEnum;
-import com.majalis.save.SaveManager;
 import com.majalis.save.SaveService;
 import com.majalis.scenes.BattleScene;
 import com.majalis.scenes.CharacterCreationScene;
@@ -100,16 +99,32 @@ public class EncounterBuilder {
 	}
 	
 	@SuppressWarnings("unchecked")
-	protected Encounter getRandomEncounter(int encounterCode){
+	protected Encounter getRandomEncounter(int encounterCode, AssetManager assetManager){
 		// if there isn't already a battlecode set, it's determined by the encounterCode; for now, that means dividing the various encounters up by modulus
 		if (battleCode == -1) battleCode = encounterCode % 4;
-		getTextScenes(getScript(battleCode, 0), 
-			addScene(
-					new BattleScene(
-							aggregateMaps(
-									getTextScenes(new String[]{"You won!  You get NOTHING.", "Sad :(", "What a pity.  Go away."}, addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.ENCOUNTER_OVER)), font),
-									getTextScenes(getDefeatText(battleCode), addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.GAME_OVER)), font)					
-							), -1, saveService, battleCode)), font);
+		if (battleCode != 2){ // not a slime encounter
+			getTextScenes(getScript(battleCode, 0), 
+					addScene(new BattleScene(
+						aggregateMaps(
+								getTextScenes(new String[]{"You won!  You get NOTHING.", "Sad :(", "What a pity.  Go away."}, addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.ENCOUNTER_OVER)), font),
+								getTextScenes(getDefeatText(battleCode), addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.GAME_OVER)), font)					
+						), -1, saveService, battleCode)), font);				
+		}
+		else {
+			getTextScenes(getScript(battleCode, 0), 
+					addScene(
+						getChoiceScene(
+								aggregateMaps(
+									addScene(
+										new BattleScene(
+											aggregateMaps(
+													getTextScenes(new String[]{"You won!  You get NOTHING.", "Sad :(", "What a pity.  Go away."}, addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.ENCOUNTER_OVER)), font),
+													getTextScenes(getDefeatText(battleCode), addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.GAME_OVER)), font)					
+											), -1, saveService, battleCode)), 
+									addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.ENCOUNTER_OVER))), 
+									assetManager, "Fight the slime?", new Array<String>(true, new String[]{"Fight Her", "Leave Her Be"}, 0, 2))), font);
+		}
+		
 		// reporting that the battle code has been consumed - this should be encounter code
 		saveService.saveDataValue(SaveEnum.BATTLE_CODE, new BattleCode(-1, -1, -1));
 		return new Encounter(scenes, endScenes, battleScenes, getStartScene(scenes, sceneCode));	
