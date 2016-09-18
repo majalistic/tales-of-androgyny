@@ -108,6 +108,9 @@ public class Battle extends Group{
 			victory = true;
 			battleOver = true;
 		}
+		if (battleOver){
+			character.refresh();
+		}
 	}
 	
 	private int getKeyPress() {

@@ -74,7 +74,7 @@ public abstract class AbstractCharacter extends Group implements Json.Serializab
 			currentHealth = getMaxHealth();
 			currentStamina = getMaxStamina();
 			currentMana = getMaxMana();
-			stability = focus = fortune = 5;
+			stability = focus = fortune = 10;
 			stance = Stance.BALANCED;			
 		}
 	}
@@ -106,11 +106,19 @@ public abstract class AbstractCharacter extends Group implements Json.Serializab
 	}
 	
 	public int getCurrentStamina(){
-		return currentHealth;
+		return currentStamina;
+	}
+	
+	protected void setStaminaToMax() {
+		currentStamina = getMaxStamina();
 	}
 	
 	public int getStability(){
 		return stability;
+	}
+	
+	protected void setStabilityToMax(){
+		stability = 10;
 	}
 	
 	public void setStability(int stability){

@@ -122,6 +122,12 @@ public class PlayerCharacter extends AbstractCharacter implements Json.Serializa
 		return null;
 	}
 	
+	public void refresh(){
+		setStaminaToMax();
+		setStabilityToMax();
+		stance = Stance.BALANCED;
+	}
+	
 	@Override
 	public void write(Json json) {
 		super.write(json);
