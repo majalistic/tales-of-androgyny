@@ -125,15 +125,10 @@ public class SaveManager implements SaveService, LoadService{
     			encounterCode = 0;
         		nodeCode = 1;
         		cameraPos = new Vector3(500, 500, 0);
-        		visitedList = new IntArray();
-        		addToVisitedList(1);
+        		visitedList = new IntArray(true, new int[]{1}, 0, 1);
         		player = new PlayerCharacter(true);
     		}
     	}
-    	
-    	public void addToVisitedList(Integer newValue) {
-    		
-		}
     }
     
 	public enum JobClass {
