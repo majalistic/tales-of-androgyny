@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.OrderedMap;
 import com.majalis.character.PlayerCharacter;
+import com.majalis.character.PlayerCharacter.Stat;
 import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveService;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -57,6 +58,15 @@ public class CharacterCreationScene extends Scene {
 		super.draw(batch, parentAlpha);
 		font.setColor(0.5f,0.4f,0,1);
 		font.draw(batch, "Character Creation", 600, 600);
+		font.setColor(0.6f,0.2f,0.1f,1);
+		int offset = 0;
+		for (Stat stat: PlayerCharacter.Stat.values()){
+			font.draw(batch, stat.toString(), 150, 500 - offset);
+			font.draw(batch, ": ", 250, 500 - offset);
+			font.draw(batch, String.valueOf(character.getStat(stat)), 270, 500 - offset);
+			font.draw(batch, "- " + PlayerCharacter.statNameMap.get(stat).get(character.getStat(stat)), 285, 500 - offset);
+			offset += 50;
+		}
     }
 	
 	@Override

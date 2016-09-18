@@ -3,6 +3,7 @@ package com.majalis.character;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonValue;
 import com.majalis.battle.Attack;
+import com.majalis.save.SaveManager.JobClass;
 
 import java.lang.reflect.Field;
 
@@ -18,10 +19,11 @@ public abstract class AbstractCharacter extends Group implements Json.Serializab
 	public String label;
 	public boolean secondPerson;
 	
-	/* rigid stats */	
+	/* rigid stats */
+	public JobClass jobClass;
 	public int level;
 	public int baseStrength;
-	public int baseVitality;
+	public int baseEndurance;
 	public int baseAgility;
 	public int basePerception;
 	public int baseMagic;
@@ -62,7 +64,7 @@ public abstract class AbstractCharacter extends Group implements Json.Serializab
 		if (defaultValues){
 			secondPerson = false;
 			level = 1;
-			baseStrength = baseVitality = baseAgility = basePerception = baseMagic = baseCharisma = 3;
+			baseStrength = baseEndurance = baseAgility = basePerception = baseMagic = baseCharisma = 3;
 			baseLuck = 0;
 			baseEvade = 0;
 			baseBlock = 0;
@@ -93,54 +95,39 @@ public abstract class AbstractCharacter extends Group implements Json.Serializab
 	}
 	protected int getStaminaRegen() { return 2; }
 	
-	public String getLabel (){
-		return label;
-	}
+	public String getLabel (){ return label; }
 	
-	public Boolean getSecondPerson(){
-		return secondPerson;
-	}
+	public Boolean getSecondPerson(){ return secondPerson; }
 	
-	public int getCurrentHealth(){
-		return currentHealth;
-	}
+	public int getCurrentHealth(){ return currentHealth; }
 	
-	public int getCurrentStamina(){
-		return currentStamina;
-	}
+	public int getCurrentStamina(){ return currentStamina; }
 	
-	protected void setStaminaToMax() {
-		currentStamina = getMaxStamina();
-	}
+	protected void setStaminaToMax() { currentStamina = getMaxStamina(); }
 	
-	public int getStability(){
-		return stability;
-	}
+	public int getStability(){ return stability; }
 	
-	protected void setStabilityToMax(){
-		stability = 10;
-	}
+	protected void setStabilityToMax(){ stability = 10; }
 	
-	public void setStability(int stability){
-		this.stability = stability;
-	}
+	public void setStability(int stability){ this.stability = stability; }
 	
+	public Stance getStance(){ return stance; }
 	
-	public Stance getStance(){
-		return stance;
-	}
+	public void setStance(Stance stance){ this.stance = stance; }
 	
-	public void setStance(Stance stance){
-		this.stance = stance;
-	}
+	protected int getStrength(){ return baseStrength; }
 	
-	public int getStrength(){
-		return baseStrength;
-	}
+	protected int getEndurance(){ return baseEndurance; }
 	
-	public int getVitality(){
-		return baseVitality;
-	}
+	protected int getAgility() { return baseAgility; }
+
+	protected int getPerception() { return basePerception; }
+
+	protected int getMagic() { return baseMagic; }
+
+	protected int getCharisma() { return baseCharisma; }
+
+
 
 	/* Serialization methods */
 	@Override
@@ -171,7 +158,8 @@ public abstract class AbstractCharacter extends Group implements Json.Serializab
 					case doubleValue: thisClass.getField(jsonValue.name).set(this, jsonValue.asInt()); break;
 					case longValue: thisClass.getField(jsonValue.name).set(this, jsonValue.asInt()); break;
 					case stringValue: 
-						if (jsonValue.name.equals("stance")) stance = Stance.valueOf(jsonValue.asString());
+					if (jsonValue.name.equals("stance")) stance = Stance.valueOf(jsonValue.asString());
+						else if (jsonValue.name.equals("jobClass")) jobClass = JobClass.valueOf(jsonValue.asString());
 						else thisClass.getField(jsonValue.name).set(this, jsonValue.asString()); 
 						break;
 					case array:
@@ -193,7 +181,7 @@ public abstract class AbstractCharacter extends Group implements Json.Serializab
 		String result = (secondPerson ? label.toLowerCase() : label) + ". ";
 
 		int damage = attack.getDamage();
-		damage -= getVitality();
+		damage -= getEndurance();
 		if (damage > 0){	
 			currentHealth -= damage;
 			result += "The blow strikes for " + damage + " damage! ";

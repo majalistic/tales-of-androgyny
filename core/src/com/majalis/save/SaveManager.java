@@ -12,6 +12,7 @@ import com.badlogic.gdx.utils.JsonWriter.OutputType;
 import com.majalis.battle.BattleCode;
 import com.majalis.character.EnemyCharacter;
 import com.majalis.character.PlayerCharacter;
+import com.majalis.character.PlayerCharacter.Stat;
 /*
  * Used for file handling, both reading and writing - both game files and encounter replay files.
  */
@@ -38,7 +39,7 @@ public class SaveManager implements SaveService, LoadService{
 	    	case ENCOUNTER_CODE:	save.encounterCode = (Integer) object; break;
 	    	case VISITED_LIST:		save.visitedList.add((Integer) object); break;
 	    	case BATTLE_CODE:		save.battleCode = (BattleCode) object; break;
-	    	case CLASS:				save.jobClass = (JobClass) object; break;
+	    	case CLASS:				save.player.setJobClass((JobClass) object); break;
 	    	case WORLD_SEED:		save.worldSeed = (Integer) object; break;
     	}	
         saveToJson(save); //Saves current save immediately.
@@ -58,7 +59,7 @@ public class SaveManager implements SaveService, LoadService{
 	    							set.addAll(save.visitedList);
 	    							return (T) set;
 	    	case BATTLE_CODE:		return (T) save.battleCode;
-	    	case CLASS:				return (T) save.jobClass;
+	    	case CLASS:				return (T) save.player.jobClass;
 	    	case WORLD_SEED:		return (T) (Integer) save.worldSeed;
     	}	
     	return null;
@@ -105,7 +106,6 @@ public class SaveManager implements SaveService, LoadService{
     	private int nodeCode;
     	private Vector3 cameraPos;
     	private IntArray visitedList;
-    	private JobClass jobClass;
     	// this can probably be refactored to contain a particular battle, but may need to duplicate the player character
     	private BattleCode battleCode;
     	private PlayerCharacter player;
@@ -132,19 +132,91 @@ public class SaveManager implements SaveService, LoadService{
     }
     
 	public enum JobClass {
-		WARRIOR ("Warrior"),
-		PALADIN ("Paladin"),
-		THIEF ("Thief"),
-		RANGER ("Ranger"),
-		MAGE ("Mage"),
-		ENCHANTRESS ("Enchanter");
-		
+		WARRIOR ("Warrior") {
+			@Override
+			public int getBaseStat(Stat stat) {
+				switch (stat){
+					case STRENGTH:    return 7;
+					case ENDURANCE:   return 5;
+					case AGILITY:     return 4;
+					case PERCEPTION:  return 3;
+					case MAGIC:       return 1;
+					case CHARISMA:    return 2;
+					default: return -1;
+				}
+			}}, 
+		PALADIN ("Paladin") {
+			@Override
+			public int getBaseStat(Stat stat) {
+				switch (stat){
+					case STRENGTH:    return 4;
+					case ENDURANCE:   return 7;
+					case AGILITY:     return 2;
+					case PERCEPTION:  return 1;
+					case MAGIC:       return 3;
+					case CHARISMA:    return 5;
+					default: return -1;
+				}
+			}}, 
+		THIEF ("Thief") {
+			@Override
+			public int getBaseStat(Stat stat) {
+				switch (stat){
+					case STRENGTH:    return 3;
+					case ENDURANCE:   return 3;
+					case AGILITY:     return 7;
+					case PERCEPTION:  return 4;
+					case MAGIC:       return 1;
+					case CHARISMA:    return 4;
+					default: return -1;
+				}
+			}}, 
+		RANGER ("Ranger") {
+			@Override
+			public int getBaseStat(Stat stat) {
+				switch (stat){
+					case STRENGTH:    return 3;
+					case ENDURANCE:   return 2;
+					case AGILITY:     return 5;
+					case PERCEPTION:  return 7;
+					case MAGIC:       return 1;
+					case CHARISMA:    return 4;
+					default: return -1;
+				}
+			}}, 
+		MAGE ("Mage") {
+			@Override
+			public int getBaseStat(Stat stat) {
+				switch (stat){
+					case STRENGTH:    return 2;
+					case ENDURANCE:   return 2;
+					case AGILITY:     return 2;
+					case PERCEPTION:  return 5;
+					case MAGIC:       return 7;
+					case CHARISMA:    return 4;
+					default: return -1;
+				}
+			}}, 
+		ENCHANTRESS ("Enchanter") {
+			@Override
+			public int getBaseStat(Stat stat) {
+				switch (stat){
+					case STRENGTH:    return 3;
+					case ENDURANCE:   return 3;
+					case AGILITY:     return 3;
+					case PERCEPTION:  return 3;
+					case MAGIC:       return 3;
+					case CHARISMA:    return 7;
+					default: return -1;
+				}
+			}};
 		private final String label;
 
 		JobClass(String label) {
 		    this.label = label;
 		 }
 		public String getLabel(){return label;}
+		public abstract int getBaseStat(Stat stat);
 	}
 	
 	public enum GameContext {
