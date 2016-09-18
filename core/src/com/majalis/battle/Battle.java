@@ -26,6 +26,9 @@ import com.majalis.save.SaveService;
  */
 public class Battle extends Group{
 
+	private static int[] POSSIBLE_KEYS = new int[]{Keys.A, Keys.S, Keys.D, Keys.F, Keys.G, Keys.H, Keys.J};
+	private static char[] POSSIBLE_KEYS_CHAR = new char[]{'A','S','D','F','G','H','J'};
+	
 	private final PlayerCharacter character;
 	private final EnemyCharacter enemy;
 	private final SaveService saveService;
@@ -33,12 +36,17 @@ public class Battle extends Group{
 	private final BitmapFont font;
 	private final int victoryScene;
 	private final int defeatScene;
-	private final Array<TextButton> buttons;
+	private final Table table;
+	private final Skin skin;
+	private final Sound buttonSound;
 	private String console;
+	private Array<Technique> options;
+	private Technique selectedTechnique;
 	public boolean battleOver;
 	public boolean victory;
 	public boolean gameExit;
-	public int recentKeyPress;
+	
+
 	
 	public Battle(SaveService saveService, AssetManager assetManager, BitmapFont font, PlayerCharacter character, EnemyCharacter enemy,  int victoryScene, int defeatScene) {
 		this.saveService = saveService;
@@ -53,32 +61,28 @@ public class Battle extends Group{
 		gameExit = false;
 		this.addActor(character);
 		this.addActor(enemy);
-		Skin skin = assetManager.get("uiskin.json", Skin.class);
-		Sound buttonSound = assetManager.get("sound.wav", Sound.class);
-		buttons = new Array<TextButton>();
-		
-		Table table = new Table();
-		Array<String> options = character.getPossibleTechniques();
+		skin = assetManager.get("uiskin.json", Skin.class);
+		buttonSound = assetManager.get("sound.wav", Sound.class);
+		table = new Table();
+		displayTechniqueOptions();
+	}
+	
+	private void displayTechniqueOptions(){
+		table.clear();
+		options = character.getPossibleTechniques();
 		// this should map key presses to buttons based on this order, but not pass those key presses to the click listener
-		int[] possibleKeys = new int[]{Keys.A, Keys.S, Keys.D, Keys.F};
-		// this shouldn't assume 4 - it should call the player and get the number of techniques currently available - this should be in its own method which is called here and whenever a turn finishes
-		for (int ii = 0; ii < 4; ii++){
+		
+		//this should be in its own method which is called here and whenever a turn finishes
+		for (int ii = 0; ii < options.size; ii++){
 			TextButton button;
-			if (ii < options.size){
-				button = new TextButton(options.get(ii), skin);
-			}
-			else {
-				button = new TextButton("-", skin);
-			}			
-			button.addListener(getListener(possibleKeys[ii], buttonSound));
-			buttons.add(button);
+			Technique option = options.get(ii);
+			button = new TextButton(option.getTechniqueName() + " ("+POSSIBLE_KEYS_CHAR[ii]+")", skin);
+			button.addListener(getListener(option, buttonSound));
 			table.add(button).row();
 		}
         table.setFillParent(true);
         table.addAction(Actions.moveTo(1050, 150));
         this.addActor(table);
-        
-        recentKeyPress = -1;
 	}
 
 	public void battleLoop() {
@@ -86,20 +90,14 @@ public class Battle extends Group{
 			gameExit = true;
 		}
 		else {
-			int keyPress = getKeyPress();
-			if (keyPress != -1){				
-				// handle synchronous attacks
+			Technique playerTechnique = getTechnique();
+			if (playerTechnique != null){		
+				// possibly construct a separate class for this
+				resolveTechniques(character, playerTechnique, enemy, enemy.getTechnique(character));
+				displayTechniqueOptions();
 				
-				// this should be the technique from the button, rather than keyPress; the player character shouldn't be handling input, just replying what abilities it has access to
-				Technique playerTechnique = character.getTechnique(keyPress);
-				
-				if (playerTechnique != null){
-					// possibly construct a separate class for this
-					resolveTechniques(character, playerTechnique, enemy, enemy.getTechnique(character));
-					
-					saveService.saveDataValue(SaveEnum.PLAYER, character);
-					saveService.saveDataValue(SaveEnum.ENEMY, enemy);
-				}
+				saveService.saveDataValue(SaveEnum.PLAYER, character);
+				saveService.saveDataValue(SaveEnum.ENEMY, enemy);
 			}
 		}
 		
@@ -116,19 +114,20 @@ public class Battle extends Group{
 		}
 	}
 	
-	private int getKeyPress() {
-		if (recentKeyPress != -1){
-			int temp = recentKeyPress;
-			recentKeyPress = -1;
+	private Technique getTechnique() {
+		if (selectedTechnique != null){
+			Technique temp = selectedTechnique;
+			selectedTechnique = null;
 			return temp;
 		}
-		int[] possibleKeys = new int[]{Keys.A, Keys.S, Keys.D, Keys.F};
-		for (int possibleKey : possibleKeys){
+		int ii = 0;
+		for (int possibleKey : POSSIBLE_KEYS){
 			if (Gdx.input.isKeyJustPressed(possibleKey)){
-				return possibleKey;
+				return options.get(ii);
 			}
+			ii++;
 		}
-		return -1;
+		return null;
 	}
 
 	// should probably use String builder to build a string to display in the console - needs to properly be getting information from the interactions - may need to be broken up into its own class
@@ -200,13 +199,7 @@ public class Battle extends Group{
     public void draw(Batch batch, float parentAlpha) {
 		super.draw(batch, parentAlpha);
 		font.draw(batch, "HP/STAM/BAL " + String.valueOf(character.getCurrentHealth()) + "/" + String.valueOf(character.getCurrentStamina()) + "/" + String.valueOf(character.getStability()) + " (" + character.getStance().toString() + ")", 350, 160);
-		font.draw(batch, "Enemy health: " + String.valueOf(enemy.getCurrentHealth()) + " (" + enemy.getStance().toString() + ")", 700, 160);
-		
-		Array<String> options = character.getPossibleTechniques();
-		for (int ii = 0; ii < 4; ii++){
-			buttons.get(ii).setText(ii < options.size ? options.get(ii) : "-");
-		}
-		
+		font.draw(batch, "Enemy health: " + String.valueOf(enemy.getCurrentHealth()) + " (" + enemy.getStance().toString() + ")", 700, 160);		
 		font.draw(batch, console, 170, 120);
     }
 	
@@ -222,13 +215,14 @@ public class Battle extends Group{
 		assetManager.unload("uiskin.json");
 		assetManager.unload("sound.wav");
 	}
+	
 	// this should pass in a technique that will be used if this button is pressed
-	private ClickListener getListener(final int keyPress, final Sound buttonSound){
+	private ClickListener getListener(final Technique technique, final Sound buttonSound){
 		return new ClickListener(){
 	        @Override
 	        public void clicked(InputEvent event, float x, float y) {
 	        	buttonSound.play();
-	        	recentKeyPress = keyPress;
+	        	selectedTechnique = technique;
 	        }
 	    };
 	}

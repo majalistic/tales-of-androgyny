@@ -45,82 +45,38 @@ public class PlayerCharacter extends AbstractCharacter implements Json.Serializa
 	// public Wiener wiener;	
 	
 	// this needs to consolidate logic with the getTechniques method
-	public Array<String> getPossibleTechniques(){
+	public Array<Technique> getPossibleTechniques(){
 		switch(stance){
 			case OFFENSIVE:
-				return new Array<String>(true, new String[]{"Strong (A)", "Tempo (S)", "Reserved (D)"}, 0, 3);
+				return getTechniques(Techniques.STRONG_ATTACK, Techniques.TEMPO_ATTACK, Techniques.RESERVED_ATTACK);
 			case BALANCED:
-				return new Array<String>(true, new String[]{"Spring (A)", "Neutral (S)", "Cautious (D)"}, 0, 3);
+				return getTechniques(Techniques.SPRING_ATTACK, Techniques.NEUTRAL_ATTACK, Techniques.CAUTIOUS_ATTACK);
 			case DEFENSIVE:
-				return new Array<String>(true, new String[]{"Reversal (A)", "Careful (S)", "Guard (D)"}, 0, 3);
+				return getTechniques(Techniques.REVERSAL_ATTACK, Techniques.CAREFUL_ATTACK, Techniques.GUARD);
 			case PRONE:
 			case SUPINE:
-				return new Array<String>(true, new String[]{"Kip Up (A)", "Stand Up (S)", "Knee Up (D)", "Rest (F)"}, 0, 4);
+				return getTechniques(Techniques.KIP_UP, Techniques.STAND_UP, Techniques.KNEE_UP, stance == Stance.PRONE ? Techniques.REST_FACE_DOWN : Techniques.REST);
 			case KNEELING:
-				return new Array<String>(true, new String[]{"Stand Up (A)"}, 0, 1);
+				return getTechniques(Techniques.STAND_UP);
 			case DOGGY:
-				return new Array<String>(true, new String[]{"Take It In The (A)"}, 0, 1);
+				return getTechniques(Techniques.RECEIVE);
 			case KNOTTED:
-				return new Array<String>(true, new String[]{"Take the Knot in the (AWOOGA)"}, 0, 1);
+				return getTechniques(Techniques.RECEIVE_KNOT);
 		}
 		return null;
 	}
 	
 	public Technique getTechnique(AbstractCharacter target){
-		// default neutral attack
-		return getTechnique(Keys.S);
+		// this should be re-architected - player characters likely won't use this method
+		return null;
 	}
 	
-	public Technique getTechnique(int keyPressed) {
-		switch(stance){
-			case OFFENSIVE:
-				switch (keyPressed){
-					case Keys.A:
-						return new Technique(Techniques.STRONG_ATTACK, getStrength());	
-					case Keys.S:
-						return new Technique(Techniques.TEMPO_ATTACK, getStrength());	
-					case Keys.D:	
-						return new Technique(Techniques.RESERVED_ATTACK, getStrength());
-				}
-			case BALANCED:
-				switch (keyPressed){
-					case Keys.A:
-						return new Technique(Techniques.SPRING_ATTACK, getStrength());	
-					case Keys.S:
-						return new Technique(Techniques.NEUTRAL_ATTACK, getStrength());	
-					case Keys.D:	
-						return new Technique(Techniques.CAUTIOUS_ATTACK, getStrength());
-				}
-			case DEFENSIVE:
-				switch (keyPressed){
-					case Keys.A:
-						return new Technique(Techniques.REVERSAL_ATTACK, getStrength());	
-					case Keys.S:
-						return new Technique(Techniques.CAREFUL_ATTACK, getStrength());	
-					case Keys.D:	
-						return new Technique(Techniques.GUARD, getStrength());
-				}
-			case PRONE:
-			case SUPINE:
-				switch (keyPressed){
-					case Keys.A:
-						return new Technique(Techniques.KIP_UP, getStrength());	
-					case Keys.S:
-						return new Technique(Techniques.STAND_UP, getStrength());	
-					case Keys.D:
-						return new Technique(Techniques.KNEE_UP, getStrength());
-					case Keys.F:	
-						if (stance == Stance.PRONE) return new Technique(Techniques.REST_FACE_DOWN, getStrength());
-						else return new Technique(Techniques.REST, getStrength());						
-					}	
-			case KNEELING:
-				return new Technique(Techniques.STAND_UP, getStrength());
-			case DOGGY:
-				return new Technique(Techniques.RECEIVE, getStrength());
-			case KNOTTED:
-				return new Technique(Techniques.RECEIVE_KNOT, getStrength());
+	public Array<Technique> getTechniques(Techniques... possibilities) {
+		Array<Technique> possibleTechniques = new Array<Technique>();
+		for (Techniques technique : possibilities){
+			possibleTechniques.add(new Technique(technique, getStrength()));
 		}
-		return null;
+		return possibleTechniques;
 	}
 	
 	public void refresh(){
