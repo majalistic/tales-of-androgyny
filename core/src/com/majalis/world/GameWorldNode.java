@@ -117,12 +117,12 @@ public class GameWorldNode extends Group {
 		selected = true;
 		if (!visited){
 			saveService.saveDataValue(SaveEnum.ENCOUNTER_CODE, encounter);
-			saveService.saveDataValue(SaveEnum.CONTEXT, SaveManager.GameContext.ENCOUNTER);
 			saveService.saveDataValue(SaveEnum.VISITED_LIST, nodeCode);
 		}
 		else {
 			saveService.saveDataValue(SaveEnum.ENCOUNTER_CODE, defaultEncounter);
 		}
+		saveService.saveDataValue(SaveEnum.CONTEXT, SaveManager.GameContext.ENCOUNTER);
 		saveService.saveDataValue(SaveEnum.NODE_CODE, nodeCode);
 		saveService.saveDataValue(SaveEnum.CAMERA_POS, position);
 	}
