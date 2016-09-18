@@ -123,7 +123,9 @@ public class Battle extends Group{
 		int ii = 0;
 		for (int possibleKey : POSSIBLE_KEYS){
 			if (Gdx.input.isKeyJustPressed(possibleKey)){
-				return options.get(ii);
+				if (ii < options.size){
+					return options.get(ii);
+				}
 			}
 			ii++;
 		}
