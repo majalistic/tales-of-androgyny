@@ -102,7 +102,7 @@ public class EncounterBuilder {
 	@SuppressWarnings("unchecked")
 	protected Encounter getRandomEncounter(int encounterCode){
 		// if there isn't already a battlecode set, it's determined by the encounterCode; for now, that means dividing the various encounters up by modulus
-		if (battleCode == -1) battleCode = encounterCode % 2;
+		if (battleCode == -1) battleCode = encounterCode % 4;
 		getTextScenes(getScript(battleCode, 0), 
 			addScene(
 					new BattleScene(
@@ -160,8 +160,14 @@ public class EncounterBuilder {
 		switch(battleCode){
 			case 0:
 				return new String[]{"You lost! You get knotty werewolf cock! (up the butt)."};
-			default:
+			case 1:
 				return new String[]{"You lost! The harpy mounts you! (up the butt)."};
+			case 2:
+				return new String[]{"You lost! Slimetime!"};
+			case 3:
+				return new String[]{"You lost! The brigand has her way with you."};
+			default:
+				return new String[]{"Unknown?"};
 		}
 	}
 	

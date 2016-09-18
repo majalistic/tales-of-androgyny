@@ -204,7 +204,17 @@ public class GameWorldNode extends Group {
     }
 
 	private String getHoverText(){
-		return visited ? "Nothing here" : (encounter % 2 == 0 ? "Wereslut" : "Harpy"); 
+		return visited ? "Nothing here" : getHoverText(encounter % 4); 
+	}
+	
+	private String getHoverText(int encounter){
+		switch (encounter){
+			case 0: return "Wereslut";
+			case 1: return "Harpy";
+			case 2: return "Slime";
+			case 3: return "Brigand";
+			default: return "Unknown";
+		}
 	}
 	
 	public boolean isSelected() {

@@ -36,6 +36,7 @@ public class CharacterCreationScene extends Scene {
 		buttonSound = assetManager.get("sound.wav", Sound.class);
 		
 		console = "";
+		saveService.saveDataValue(SaveEnum.CLASS, SaveManager.JobClass.ENCHANTRESS);
 		
 		Table table = new Table();
 		

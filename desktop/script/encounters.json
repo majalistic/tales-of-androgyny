@@ -11,6 +11,18 @@
 		"scriptLines": [
 			"You look around. There doesn't appear to be any harpies here.", "Wait actually that harpy looks like she wants to drill you silly!"
 		]
+	},
+	{
+		"key": 2,
+		"scriptLines": [
+			"You encounter a slime with a pretty impressive booty!", "It looks like she doesn't want to fight."
+		]
+	},
+	{
+		"key": 3,
+		"scriptLines": [
+			"You encounter a brigand.", "She laughs at you."
+		]
 	}
 ]
 }
