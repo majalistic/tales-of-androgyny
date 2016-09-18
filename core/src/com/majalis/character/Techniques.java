@@ -31,12 +31,12 @@ public enum Techniques {
 	TRIP			{ public Stance getStanceResult(){ return Stance.PRONE; } 	 public int getPowerMod(){ return -100; } public int getStabilityCost(){ return -100; } public int getStaminaCost(){ return 0; } }, // run out of stability
 
 	/* Positional */
-	DUCK			{ public Stance getStanceResult(){ return Stance.KNEELING; } 	 public int getPowerMod(){ return -100; } public int getStabilityCost(){ return -100; } public int getStaminaCost(){ return 0; } }, // run out of stamina
-	FLY				{ public Stance getStanceResult(){ return Stance.AIRBORNE; } 	 public int getPowerMod(){ return -100; } public int getStabilityCost(){ return -100; } public int getStaminaCost(){ return 0; } }, // run out of stability
+	DUCK			{ public Stance getStanceResult(){ return Stance.KNEELING; } public int getPowerMod(){ return -100; } public int getStabilityCost(){ return 0; } public int getStaminaCost(){ return 0; } }, // run out of stamina
+	FLY				{ public Stance getStanceResult(){ return Stance.AIRBORNE; } public int getPowerMod(){ return -100; } public int getStabilityCost(){ return 0; } public int getStaminaCost(){ return 0; } }, // run out of stability
 
 	/* Enemy pouncing */
-	DIVEBOMB		{ public Stance getStanceResult(){ return Stance.FELLATIO; } 	 public int getPowerMod(){ return -100; } public int getStabilityCost(){ return -100; } public int getStaminaCost(){ return 0; } },
-	IRRUMATIO		{ public Stance getStanceResult(){ return Stance.FELLATIO; } 	 public int getPowerMod(){ return -100; } public int getStabilityCost(){ return -100; } public int getStaminaCost(){ return 0; } },
+	DIVEBOMB		{ public Stance getStanceResult(){ return Stance.FELLATIO; } public int getPowerMod(){ return -100; } public int getStabilityCost(){ return 0; } public int getStaminaCost(){ return 0; } },
+	IRRUMATIO		{ public Stance getStanceResult(){ return Stance.FELLATIO; } public int getPowerMod(){ return -100; } public int getStabilityCost(){ return 0; } public int getStaminaCost(){ return 0; } },
 	POUNCE			{ public Stance getStanceResult(){ return Stance.DOGGY; } 	 public int getPowerMod(){ return -100; } public int getStabilityCost(){ return 0; } public int getStaminaCost(){ return 2; } }, // Used to initiate doggy
 	POUND			{ public Stance getStanceResult(){ return Stance.DOGGY; } 	 public int getPowerMod(){ return -100; } public int getStabilityCost(){ return 0; } public int getStaminaCost(){ return 1; } }, // Used to doggystyle
 	KNOT 			{ public Stance getStanceResult(){ return Stance.KNOTTED; }	 public int getPowerMod(){ return -100; } public int getStabilityCost(){ return 0; } public int getStaminaCost(){ return 0; } }, // Used to knot by knotty weresluts and others
