@@ -59,7 +59,9 @@ public class Battle extends Group{
 		
 		Table table = new Table();
 		Array<String> options = character.getPossibleTechniques();
+		// this should map key presses to buttons based on this order, but not pass those key presses to the click listener
 		int[] possibleKeys = new int[]{Keys.A, Keys.S, Keys.D, Keys.F};
+		// this shouldn't assume 4 - it should call the player and get the number of techniques currently available - this should be in its own method which is called here and whenever a turn finishes
 		for (int ii = 0; ii < 4; ii++){
 			TextButton button;
 			if (ii < options.size){
@@ -73,7 +75,7 @@ public class Battle extends Group{
 			table.add(button).row();
 		}
         table.setFillParent(true);
-        table.addAction(Actions.moveTo(100, 70));
+        table.addAction(Actions.moveTo(1050, 150));
         this.addActor(table);
         
         recentKeyPress = -1;
@@ -88,6 +90,7 @@ public class Battle extends Group{
 			if (keyPress != -1){				
 				// handle synchronous attacks
 				
+				// this should be the technique from the button, rather than keyPress; the player character shouldn't be handling input, just replying what abilities it has access to
 				Technique playerTechnique = character.getTechnique(keyPress);
 				
 				if (playerTechnique != null){
@@ -204,7 +207,7 @@ public class Battle extends Group{
 			buttons.get(ii).setText(ii < options.size ? options.get(ii) : "-");
 		}
 		
-		font.draw(batch, console, 220, 130);
+		font.draw(batch, console, 170, 120);
     }
 	
 	public int getVictoryScene(){
@@ -219,7 +222,7 @@ public class Battle extends Group{
 		assetManager.unload("uiskin.json");
 		assetManager.unload("sound.wav");
 	}
-	
+	// this should pass in a technique that will be used if this button is pressed
 	private ClickListener getListener(final int keyPress, final Sound buttonSound){
 		return new ClickListener(){
 	        @Override
