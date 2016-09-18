@@ -57,10 +57,8 @@ public class PlayerCharacter extends AbstractCharacter implements Json.Serializa
 	}
 	
 	public void setJobClass(JobClass jobClass){
-		if (this.jobClass == null){
-			for (Stat stat: Stat.values()){
-				setStat(stat, jobClass.getBaseStat(stat));
-			}
+		for (Stat stat: Stat.values()){
+			setStat(stat, jobClass.getBaseStat(stat));
 		}
 		this.jobClass = jobClass;
 	}

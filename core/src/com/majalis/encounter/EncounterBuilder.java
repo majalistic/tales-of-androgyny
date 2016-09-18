@@ -52,23 +52,12 @@ public class EncounterBuilder {
 	/* different encounter "templates" */
 	@SuppressWarnings("unchecked")
 	protected Encounter getClassChoiceEncounter(AssetManager assetManager, PlayerCharacter playerCharacter){	
-		Array<String> jobButtonLabels = new Array<String>();
-		for (SaveManager.JobClass jobClass: SaveManager.JobClass.values()){
-			jobButtonLabels.add(jobClass.getLabel());
-		}
-		
-		Array<String> skipCharacterCreation = new Array<String>(true, new String[]{"Create Character", "Default"}, 0, 2);
-		
 		addScene(getChoiceScene(
 			aggregateMaps(			
 				getTextScenes(new String[]{"Welcome to the world of tRaPG!", "You're looking mighty fine.", "Please choose your class."}, 
-					addScene(getChoiceScene(addScene(getJobClassScenes(addScene
-							// need to add other class options; should probably be a custom interface scene with a button that pipes to this end scene
-							(new CharacterCreationScene(addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.ENCOUNTER_OVER)), sceneCounter, saveService, font, assetManager, playerCharacter)
-									
-									), font)), assetManager, "Select a class:", jobButtonLabels)), font), 
+					addScene(new CharacterCreationScene(addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.ENCOUNTER_OVER)), sceneCounter, saveService, font, assetManager, playerCharacter)), font),
 				addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.ENCOUNTER_OVER))
-				), assetManager, "Skip character creation?", skipCharacterCreation
+				), assetManager, "Skip character creation?", new Array<String>(true, new String[]{"Create Character", "Default"}, 0, 2)
 		));
 		return new Encounter(scenes, endScenes, new Array<BattleScene>(), getStartScene(scenes, sceneCode));
 	}
@@ -193,16 +182,8 @@ public class EncounterBuilder {
 		return null;
 	}
 	
-	private Array<Scene> getJobClassScenes(OrderedMap<Integer, Scene> sceneMap, BitmapFont font){
-		Array<Scene> jobClassScenes = new Array<Scene>();
-		int tempCounter = sceneCounter;
-		for (SaveManager.JobClass jobClass: SaveManager.JobClass.values()){
-			jobClassScenes.add(new TextScene(sceneMap, tempCounter++, saveService, font, "You are now "+ getJobClass(jobClass) +".", getMutationList(new Mutation(saveService, SaveEnum.CLASS, jobClass))));
-		}
-		return jobClassScenes;
-	}
 	/* Helper methods that may go away with refactors*/
-	private String getJobClass(SaveManager.JobClass jobClass){ return jobClass == SaveManager.JobClass.ENCHANTRESS ? "an Enchantress" : "a " + jobClass.getLabel(); }
 	private Array<Scene> getSceneList(Scene... scenes){ return new Array<Scene>(true, scenes, 0, scenes.length); }	
 	private Array<Mutation> getMutationList(Mutation... mutations){ return new Array<Mutation>(true, mutations, 0, mutations.length); }
+	
 }
