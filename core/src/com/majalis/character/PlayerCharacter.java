@@ -48,20 +48,22 @@ public class PlayerCharacter extends AbstractCharacter implements Json.Serializa
 	public Array<Technique> getPossibleTechniques(){
 		switch(stance){
 			case OFFENSIVE:
-				return getTechniques(Techniques.STRONG_ATTACK, Techniques.TEMPO_ATTACK, Techniques.RESERVED_ATTACK);
+				return getTechniques(Techniques.STRONG_ATTACK, Techniques.TEMPO_ATTACK, Techniques.RESERVED_ATTACK, Techniques.DUCK);
 			case BALANCED:
-				return getTechniques(Techniques.SPRING_ATTACK, Techniques.NEUTRAL_ATTACK, Techniques.CAUTIOUS_ATTACK);
+				return getTechniques(Techniques.SPRING_ATTACK, Techniques.NEUTRAL_ATTACK, Techniques.CAUTIOUS_ATTACK, Techniques.DUCK);
 			case DEFENSIVE:
-				return getTechniques(Techniques.REVERSAL_ATTACK, Techniques.CAREFUL_ATTACK, Techniques.GUARD);
+				return getTechniques(Techniques.REVERSAL_ATTACK, Techniques.CAREFUL_ATTACK, Techniques.GUARD, Techniques.DUCK);
 			case PRONE:
 			case SUPINE:
 				return getTechniques(Techniques.KIP_UP, Techniques.STAND_UP, Techniques.KNEE_UP, stance == Stance.PRONE ? Techniques.REST_FACE_DOWN : Techniques.REST);
 			case KNEELING:
 				return getTechniques(Techniques.STAND_UP);
 			case DOGGY:
-				return getTechniques(Techniques.RECEIVE);
+				return getTechniques(Techniques.RECEIVE, Techniques.STRUGGLE);
 			case KNOTTED:
 				return getTechniques(Techniques.RECEIVE_KNOT);
+			case FELLATIO:
+				return getTechniques(Techniques.OPEN_WIDE, Techniques.STRUGGLE);
 		}
 		return null;
 	}

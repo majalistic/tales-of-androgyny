@@ -136,6 +136,8 @@ public class Battle extends Group{
 	private void resolveTechniques(AbstractCharacter firstCharacter, Technique firstTechnique, AbstractCharacter secondCharacter, Technique secondTechnique) {
 		int rand = (int) Math.floor(Math.random() * 100);
 		
+		Stance currentNaughtyStance = firstCharacter.getStance();
+		
 		// this needs to be refactored to reduce code duplication and possibly to condense the whole algorithm down
 		// this should probably display the attack you attempted to use, and then display that you used Fall Down / Trip instead.
 		// can return extracted costs later for printing
@@ -160,14 +162,25 @@ public class Battle extends Group{
 		secondCharacter.setStance(secondStance);
 		
 		Stance forcedStance = attackForFirst.getForceStance();
-		
 		if (forcedStance != null){
-			firstCharacter.setStance(forcedStance);
+			if (firstCharacter.stance == Stance.KNEELING && secondTechnique.getTechniqueName().equals("Divebomb")){
+				console += "The divebomb missed!";
+				secondCharacter.setStance(Stance.BALANCED);
+			}
+			else {
+				firstCharacter.setStance(forcedStance);
+			}
 		}
 		
 		console += getResultString(firstCharacter, secondCharacter, firstTechnique.getTechniqueName(), attackForSecond, secondBlockMod != 1);
 		if (secondTechnique.getTechniqueName().equals("Erupt")){
-			console += "The " + secondCharacter.getLabel() + " spews hot, thick semen into your bowels!\n";
+			if (currentNaughtyStance == Stance.FELLATIO){
+				console += "A harpy semen bomb explodes in your mouth!  It tastes awful!  You are going to vomit!\n"
+						+  "You spew up harpy cum!  The harpy preens her feathers.\n";
+			}
+			else {
+				console += "The " + secondCharacter.getLabel() + " spews hot, thick semen into your bowels!\n";
+			}
 		}
 		else if (firstCharacter.getStance() == Stance.DOGGY){
 			// need some way to get info from sex techniques to display here.  For now, some random fun text
@@ -183,6 +196,10 @@ public class Battle extends Group{
 				battleOver = true;
 				victory = false;
 			}
+		}
+		else if (firstCharacter.getStance() == Stance.FELLATIO){
+			console += "She tastes horrible!  Harpies are highly unhygenic! You learned Anatomy (Harpy)!  You learned Behavior (Harpy)!  There is a phallus in your mouth!  It blew past your lips!\n"
+					+  "The harpy is holding your head in place with her talons and balancing herself with her wings!  She flaps violently while humping your face!  Her cock tastes awful!\n";
 		}
 		else {
 			console += getResultString(secondCharacter, firstCharacter, secondTechnique.getTechniqueName(), attackForFirst, firstBlockMod != 1);

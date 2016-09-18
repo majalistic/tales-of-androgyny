@@ -44,6 +44,9 @@ public class EnemyCharacter extends AbstractCharacter {
 		if ((target.stance == Stance.PRONE || target.stance == Stance.SUPINE) && willPounce()){
 			return new Technique(Techniques.POUNCE, getStrength());
 		}
+		else if (enemyType == EnemyEnum.HARPY && willPounce() && stance != Stance.AIRBORNE && stance != Stance.FELLATIO){
+			return new Technique(Techniques.FLY, getStrength());
+		}
 		
 		switch(stance){
 			case OFFENSIVE:
@@ -99,9 +102,18 @@ public class EnemyCharacter extends AbstractCharacter {
 				}
 			case KNOTTED:
 				return new Technique(Techniques.KNOT_BANG, getStrength());
-				
+			case AIRBORNE:
+				return new Technique(Techniques.DIVEBOMB, getStrength());
+			case FELLATIO:
+				lust++;
+				if (lust > 14){
+					return new Technique(Techniques.ERUPT, getStrength());
+				}
+				else {
+					return new Technique(Techniques.IRRUMATIO, getStrength());
+				}	
+			default: return null;
 		}
-		return null;
 	}
 	
 	@Override

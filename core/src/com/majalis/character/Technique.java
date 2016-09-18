@@ -37,11 +37,16 @@ public class Technique {
 	private Stance setForceStance(){
 		switch (technique){
 			case POUNCE:
+			case POUND:
 				return Stance.DOGGY;
 			case ERUPT:
 				return Stance.BALANCED;
 			case KNOT:
+			case KNOT_BANG:
 				return Stance.KNOTTED;
+			case DIVEBOMB:
+			case IRRUMATIO:
+				return Stance.FELLATIO;
 			default:
 				return null;
 		}

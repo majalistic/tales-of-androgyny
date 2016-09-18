@@ -230,8 +230,9 @@ public abstract class AbstractCharacter extends Group implements Json.Serializab
 		PRONE,
 		SUPINE,
 		KNEELING,
-		JUMPING, 
+		AIRBORNE, 
 		DOGGY, 
-		KNOTTED
+		KNOTTED, 
+		FELLATIO
 	}	
 }
