@@ -72,9 +72,9 @@ public abstract class AbstractCharacter extends Group implements Json.Serializab
 			baseBlock = 0;
 			baseParry = 0;
 			baseCounter = 0;
-			healthTiers = new IntArray(new int[]{5});
-			staminaTiers = new IntArray(new int[]{5});
-			manaTiers = new IntArray(new int[]{0});
+			healthTiers = getDefaultHealthTiers();
+			staminaTiers = getDefaultStaminaTiers();
+			manaTiers = getDefaultManaTiers();
 			currentHealth = getMaxHealth();
 			currentStamina = getMaxStamina();
 			currentMana = getMaxMana();
@@ -85,9 +85,13 @@ public abstract class AbstractCharacter extends Group implements Json.Serializab
 	
 	protected abstract Technique getTechnique(AbstractCharacter target);
 	
-	protected int getMaxHealth() { return getMax(healthTiers); }
-	protected int getMaxStamina() { return getMax(staminaTiers); }
-	protected int getMaxMana() { return getMax(manaTiers); }
+	protected IntArray getDefaultHealthTiers(){ return new IntArray(new int[]{5}); }
+	protected IntArray getDefaultStaminaTiers(){ return new IntArray(new int[]{5}); }
+	protected IntArray getDefaultManaTiers(){ return new IntArray(new int[]{0}); }
+	
+	protected int getMaxHealth() { if(healthTiers == null) healthTiers = getDefaultHealthTiers(); return getMax(healthTiers); }
+	protected int getMaxStamina() { if(staminaTiers == null) staminaTiers = getDefaultStaminaTiers(); return getMax(staminaTiers); }
+	protected int getMaxMana() { if(manaTiers == null) manaTiers = getDefaultManaTiers(); return getMax(manaTiers); }
 	protected int getMaxStability() { return 10; }
 	protected int getMax(IntArray tiers){
 		int max = 0;

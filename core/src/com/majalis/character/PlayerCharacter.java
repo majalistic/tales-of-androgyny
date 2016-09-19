@@ -50,11 +50,11 @@ public class PlayerCharacter extends AbstractCharacter implements Json.Serializa
 			label = "You";
 			secondPerson = true;
 			baseCharisma = 6;
-			healthTiers = new IntArray(new int[]{10, 10, 10, 10});	
 			currentHealth = getMaxHealth();
-			
 		}
 	}
+	@Override
+	protected IntArray getDefaultHealthTiers(){ return new IntArray(new int[]{10, 10, 10, 10}); }
 	
 	public static ObjectMap<Stat, Array<String>> getStatMap(){
 		return statNameMap;
