@@ -36,7 +36,7 @@ public class EnemyCharacter extends AbstractCharacter {
 	}
 	
 	public Technique getTechnique(AbstractCharacter target){
-		int rand = new IntArray(new int[]{0,1,2}).random();
+		int rand = getRandomWeighting(); 
 	
 		if (lust < 10) lust++;
 		
@@ -72,7 +72,7 @@ public class EnemyCharacter extends AbstractCharacter {
 			case DEFENSIVE:
 				switch (rand){
 					case 0:
-						return new Technique(Techniques.SPRING_ATTACK, getStrength());	
+						return new Technique(Techniques.REVERSAL_ATTACK, getStrength());	
 					case 1:
 						return new Technique(Techniques.CAREFUL_ATTACK, getStrength());	
 					case 2:	
@@ -114,6 +114,17 @@ public class EnemyCharacter extends AbstractCharacter {
 				}	
 			default: return null;
 		}
+	}
+	
+	private int getRandomWeighting(){
+		int[] weightArray;
+		switch (enemyType){
+			case WERESLUT: weightArray = new int[]{0, 0, 0, 0, 0, 1, 1, 2}; break;
+			case BRIGAND: weightArray = new int[]{0, 1, 1, 2, 2, 2}; break;
+			default: weightArray = new int[]{0,1,2};
+		}
+		
+		return new IntArray(weightArray).random();
 	}
 	
 	@Override

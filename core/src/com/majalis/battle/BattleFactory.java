@@ -48,22 +48,27 @@ public class BattleFactory {
 				return assetManager.get("wereslut.png", Texture.class);
 			case HARPY:
 				return assetManager.get("harpy.jpg", Texture.class);
+			default:
+				return assetManager.get("wereslut.png", Texture.class);
 		}
-		return null;
 	}
 	
 	private EnemyCharacter getEnemy(int battleCode){
 		switch(battleCode){
-			// wereslut
 			case 0: return new EnemyCharacter(getTexture(EnemyEnum.WERESLUT), EnemyEnum.WERESLUT);
-			// harpy	
-			default: return new EnemyCharacter(getTexture(EnemyEnum.HARPY), EnemyEnum.HARPY);
+			case 1: return new EnemyCharacter(getTexture(EnemyEnum.HARPY), EnemyEnum.HARPY);
+			case 2: return new EnemyCharacter(getTexture(EnemyEnum.SLIME), EnemyEnum.SLIME);
+			case 3: return new EnemyCharacter(getTexture(EnemyEnum.BRIGAND), EnemyEnum.BRIGAND);
+			default: return null;
 		}
 	}
 
 	public enum EnemyEnum {
 		WERESLUT ("Wereslut"){ public Vector2 getPosition(){ return new Vector2(600, 400); }},
-		HARPY ("Harpy"){ public Vector2 getPosition(){ return new Vector2(150, -40); }};		
+		HARPY ("Harpy"){ public Vector2 getPosition(){ return new Vector2(150, -40); }},
+		SLIME ("Slime"){ public Vector2 getPosition(){ return new Vector2(150, -40); }},
+		BRIGAND ("Brigand"){ public Vector2 getPosition(){ return new Vector2(150, -40); }};
+		
 		private final String text;
 	    private EnemyEnum(final String text) { this.text = text; }
 	    @Override
