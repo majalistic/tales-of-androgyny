@@ -45,11 +45,15 @@ public class BattleFactory {
 	private Texture getTexture(EnemyEnum type){
 		switch(type){
 			case WERESLUT:
-				return assetManager.get("wereslut.png", Texture.class);
+				return assetManager.get("WerebitchBasic.jpg", Texture.class);
 			case HARPY:
-				return assetManager.get("harpy.jpg", Texture.class);
+				return assetManager.get("Harpy.jpg", Texture.class);
+			case SLIME:
+				return assetManager.get("HeartSlime.jpg", Texture.class);
+			case BRIGAND:
+				return assetManager.get("Brigand.jpg", Texture.class);
 			default:
-				return assetManager.get("wereslut.png", Texture.class);
+				return assetManager.get("WerebitchChibi.png", Texture.class);
 		}
 	}
 	
@@ -64,10 +68,10 @@ public class BattleFactory {
 	}
 
 	public enum EnemyEnum {
-		WERESLUT ("Wereslut"){ public Vector2 getPosition(){ return new Vector2(600, 400); }},
+		WERESLUT ("Wereslut"){ public Vector2 getPosition(){ return new Vector2(0, 0); }},
 		HARPY ("Harpy"){ public Vector2 getPosition(){ return new Vector2(150, -40); }},
-		SLIME ("Slime"){ public Vector2 getPosition(){ return new Vector2(150, -40); }},
-		BRIGAND ("Brigand"){ public Vector2 getPosition(){ return new Vector2(150, -40); }};
+		SLIME ("Slime"){ public Vector2 getPosition(){ return new Vector2(0, 0); }},
+		BRIGAND ("Brigand"){ public Vector2 getPosition(){ return new Vector2(0, 0); }};
 		
 		private final String text;
 	    private EnemyEnum(final String text) { this.text = text; }

@@ -130,8 +130,6 @@ public abstract class AbstractCharacter extends Group implements Json.Serializab
 
 	protected int getCharisma() { return baseCharisma; }
 
-
-
 	/* Serialization methods */
 	@Override
 	public void write(Json json) {

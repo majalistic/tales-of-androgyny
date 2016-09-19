@@ -21,7 +21,7 @@ public class MainMenuScreen extends AbstractScreen {
 	public static final ObjectMap<String, Class<?>> resourceRequirements = new ObjectMap<String, Class<?>>();
 	static {
 		resourceRequirements.put("uiskin.json", Skin.class);
-		resourceRequirements.put("wereslut.png", Texture.class);
+		resourceRequirements.put("WerebitchChibi.png", Texture.class);
 		resourceRequirements.put("sound.wav", Sound.class);
 	}
 	private final AssetManager assetManager;
@@ -36,7 +36,7 @@ public class MainMenuScreen extends AbstractScreen {
 		this.assetManager = assetManager;
 		this.saveService = saveService;
 		this.skin = assetManager.get("uiskin.json", Skin.class);
-		this.wereslutImage = assetManager.get("wereslut.png", Texture.class);
+		this.wereslutImage = assetManager.get("WerebitchChibi.png", Texture.class);
 		this.buttonSound = assetManager.get("sound.wav", Sound.class);
 	}
 
@@ -71,7 +71,6 @@ public class MainMenuScreen extends AbstractScreen {
 		batch.setProjectionMatrix(camera.combined);
 		batch.begin(); 
 		// need to make these relative to viewport
-		
 		font.draw(batch, "tRaPG - The Really Awesome Porn Game", 1200, 900);
 		batch.draw(wereslutImage, 1020, 600);
 		font.draw(batch, String.valueOf(clocktick++), 1850, 400);

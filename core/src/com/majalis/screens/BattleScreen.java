@@ -17,11 +17,13 @@ public class BattleScreen extends AbstractScreen{
 	public static final ObjectMap<String, Class<?>> resourceRequirements = new ObjectMap<String, Class<?>>();
 	static {
 		resourceRequirements.put("uiskin.json", Skin.class);
-		resourceRequirements.put("wereslut.png", Texture.class);
-		resourceRequirements.put("harpy.jpg", Texture.class);
 		resourceRequirements.put("sound.wav", Sound.class);
+		resourceRequirements.put("WerebitchChibi.png", Texture.class);
+		resourceRequirements.put("WerebitchBasic.jpg", Texture.class);
+		resourceRequirements.put("Harpy.jpg", Texture.class);
+		resourceRequirements.put("HeartSlime.jpg", Texture.class);
+		resourceRequirements.put("Brigand.jpg", Texture.class);
 	}
-	
 	private final SaveService saveService;
 	private final Battle battle;
 	

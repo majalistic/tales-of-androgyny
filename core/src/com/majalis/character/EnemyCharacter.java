@@ -130,7 +130,7 @@ public class EnemyCharacter extends AbstractCharacter {
 	@Override
     public void draw(Batch batch, float parentAlpha) {
 		super.draw(batch, parentAlpha);
-		batch.draw(texture, position.x, position.y);
+		batch.draw(texture, position.x, position.y, 1280, 720);
     }
 	
 	@Override
