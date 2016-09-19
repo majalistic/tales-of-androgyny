@@ -86,6 +86,7 @@ public abstract class AbstractCharacter extends Group implements Json.Serializab
 	protected int getMaxHealth() { return getMax(healthTiers); }
 	protected int getMaxStamina() { return getMax(staminaTiers); }
 	protected int getMaxMana() { return getMax(manaTiers); }
+	protected int getMaxStability() { return 10; }
 	protected int getMax(IntArray tiers){
 		int max = 0;
 		for (int ii = 0; ii < tiers.size; ii++){
@@ -93,7 +94,7 @@ public abstract class AbstractCharacter extends Group implements Json.Serializab
 		}
 		return max;
 	}
-	protected int getStaminaRegen() { return 2; }
+	protected int getStaminaRegen() { return getEndurance()/2 + 1; }
 	
 	public String getLabel (){ return label; }
 	
@@ -105,11 +106,13 @@ public abstract class AbstractCharacter extends Group implements Json.Serializab
 	
 	protected void setStaminaToMax() { currentStamina = getMaxStamina(); }
 	
+	protected void modStamina(int staminaMod){ this.currentStamina += staminaMod; if (currentStamina > getMaxStamina()) currentStamina = getMaxStamina(); }
+	
 	public int getStability(){ return stability; }
 	
 	protected void setStabilityToMax(){ stability = 10; }
 	
-	public void setStability(int stability){ this.stability = stability; }
+	protected void modStability(int stabilityMod){ this.stability += stabilityMod; if (stability > getMaxStability()) stability = getMaxStability(); }
 	
 	public Stance getStance(){ return stance; }
 	
@@ -196,9 +199,10 @@ public abstract class AbstractCharacter extends Group implements Json.Serializab
 	}
 	
 	public Technique extractCosts(Technique technique){
-		currentStamina += getStaminaRegen();
-		currentStamina -= technique.getStaminaCost();
-		stability -= technique.getStabilityCost();	
+		modStamina(-technique.getStaminaCost());
+		modStamina(getStaminaRegen());
+		modStability(-technique.getStabilityCost());
+			
 		if (stance != Stance.PRONE && stance != Stance.SUPINE && stance != Stance.DOGGY){
 			if (stability <= 0){
 				technique = new Technique(Techniques.TRIP, 0);
