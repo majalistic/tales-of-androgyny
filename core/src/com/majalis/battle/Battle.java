@@ -175,8 +175,9 @@ public class Battle extends Group{
 		console += getResultString(firstCharacter, secondCharacter, firstTechnique.getTechniqueName(), attackForSecond, secondBlockMod != 1);
 		if (secondTechnique.getTechniqueName().equals("Erupt")){
 			if (currentNaughtyStance == Stance.FELLATIO){
-				console += "A harpy semen bomb explodes in your mouth!  It tastes awful!  You are going to vomit!\n"
-						+  "You spew up harpy cum!  The harpy preens her feathers.\n";
+				console += "A harpy semen bomb explodes in your mouth!  It tastes awful!\n"
+						+ "You are going to vomit!\n"
+						+ "You spew up harpy cum!  The harpy preens her feathers.\n";
 			}
 			else {
 				console += "The " + secondCharacter.getLabel() + " spews hot, thick semen into your bowels!\n";
@@ -184,11 +185,14 @@ public class Battle extends Group{
 		}
 		else if (firstCharacter.getStance() == Stance.DOGGY){
 			// need some way to get info from sex techniques to display here.  For now, some random fun text
-			console += "You are being anally violated! Your hole is stretched by her fat dick! Your hole feels like it's on fire! Her cock glides smoothly through your irritated anal mucosa!\n"
-					+ "Her rhythmic thrusting in and out of your asshole is emasculating! You are red-faced and embarassed because of her butt-stuffing! Your cock is ignored!\n";
+			console += "You are being anally violated! Your hole is stretched by her fat dick!\n"
+					+ "Your hole feels like it's on fire! Her cock glides smoothly through your irritated anal mucosa!\n"
+					+ "Her rhythmic thrusting in and out of your asshole is emasculating!\n"
+					+ "You are red-faced and embarassed because of her butt-stuffing! Your cock is ignored!\n";
 		}
 		else if (firstCharacter.getStance() == Stance.KNOTTED){
-			console += "Her powerful hips try to force something big inside! You struggle... but can't escape!  Her grapefruit-sized knot slips into your rectum!  You take 4 damage!\n"
+			console += "Her powerful hips try to force something big inside! You struggle... but can't escape!\n"
+					+ "Her grapefruit-sized knot slips into your rectum!  You take 4 damage!\n"
 					+ "You can't dislodge it; it's too large! Your anus is permanently stretched! You learned about Anatomy(Wereslut)! You are being bred!\n"
 					+ "The battle is over, but your ordeal has just begun! She's going to ejaculate her runny dog cum in your bowels!\n";
 			if (secondTechnique.forceBattleOver()){	
@@ -198,8 +202,10 @@ public class Battle extends Group{
 			}
 		}
 		else if (firstCharacter.getStance() == Stance.FELLATIO){
-			console += "She tastes horrible!  Harpies are highly unhygenic! You learned Anatomy (Harpy)!  You learned Behavior (Harpy)!  There is a phallus in your mouth!  It blew past your lips!\n"
-					+  "The harpy is holding your head in place with her talons and balancing herself with her wings!  She flaps violently while humping your face!  Her cock tastes awful!\n";
+			console += "She tastes horrible!  Harpies are highly unhygenic! You learned Anatomy (Harpy)!  You learned Behavior (Harpy)!\n"
+					+ "There is a phallus in your mouth!  It blew past your lips!\n"
+					+ "The harpy is holding your head in place with her talons and balancing herself with her wings!\n"
+					+ "She flaps violently while humping your face!  Her cock tastes awful!\n";
 		}
 		else {
 			console += getResultString(secondCharacter, firstCharacter, secondTechnique.getTechniqueName(), attackForFirst, firstBlockMod != 1);
@@ -217,9 +223,9 @@ public class Battle extends Group{
 	@Override
     public void draw(Batch batch, float parentAlpha) {
 		super.draw(batch, parentAlpha);
-		font.draw(batch, "HP/STAM/BAL " + String.valueOf(character.getCurrentHealth()) + "/" + String.valueOf(character.getCurrentStamina()) + "/" + String.valueOf(character.getStability()) + " (" + character.getStance().toString() + ")", 350, 160);
-		font.draw(batch, "Enemy health: " + String.valueOf(enemy.getCurrentHealth()) + " (" + enemy.getStance().toString() + ")", 700, 160);		
-		font.draw(batch, console, 170, 120);
+		font.draw(batch, "Health: " + String.valueOf(character.getCurrentHealth()) + "\nStamina: " + String.valueOf(character.getCurrentStamina()) + "\nBalance: " + String.valueOf(character.getStability()) + "\nStance: " + character.getStance().toString(), 70, 680);		
+		font.draw(batch, "Health: " + String.valueOf(enemy.getCurrentHealth()) + "\nStance: " + enemy.getStance().toString(), 1100, 650);		
+		font.draw(batch, console, 80, 270);
     }
 	
 	public int getVictoryScene(){
