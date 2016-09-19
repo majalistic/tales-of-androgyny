@@ -93,7 +93,7 @@ public class CharacterCreationScene extends Scene {
 			int amount = character.getStat(stat);
 			setFontColor(font, amount);
 			font.draw(batch, String.valueOf(amount), 770, 500 - offset);
-			font.draw(batch, "- " + PlayerCharacter.statNameMap.get(stat).get(amount), 785, 500 - offset);
+			font.draw(batch, "- " + PlayerCharacter.getStatMap().get(stat).get(amount), 785, 500 - offset);
 			offset += 50;
 		}
     }

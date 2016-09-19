@@ -13,7 +13,6 @@ import com.majalis.battle.BattleFactory.EnemyEnum;
  */
 public class EnemyCharacter extends AbstractCharacter {
 
-	public EnemyEnum enemyType;
 	private Texture texture;
 	private Vector2 position;
 	private int lust; 

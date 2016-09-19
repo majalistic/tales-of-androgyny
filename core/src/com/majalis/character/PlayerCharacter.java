@@ -11,7 +11,7 @@ import com.majalis.save.SaveManager.JobClass;
  */
 public class PlayerCharacter extends AbstractCharacter implements Json.Serializable{
 
-	public static ObjectMap<Stat, Array<String>> statNameMap = new ObjectMap<Stat, Array<String>>();
+	private final static ObjectMap<Stat, Array<String>> statNameMap = new ObjectMap<Stat, Array<String>>();
 	static {
 		statNameMap.put(Stat.STRENGTH, new Array<String>(true, new String[]{"Crippled", "Feeble", "Weak", "Soft", "Able", "Strong", "Mighty", "Powerful", "Hulking", "Heroic", "Godlike"}, 0, 11));
 		statNameMap.put(Stat.ENDURANCE, new Array<String>(true, new String[]{"Feeble", "Infirm", "Fragile", "Frail", "Sturdy", "Durable", "Tough", "Stalwart", "Titanic", "Unstoppable", "Juggernaut"}, 0, 11));
@@ -54,6 +54,10 @@ public class PlayerCharacter extends AbstractCharacter implements Json.Serializa
 			currentHealth = getMaxHealth();
 			
 		}
+	}
+	
+	public static ObjectMap<Stat, Array<String>> getStatMap(){
+		return statNameMap;
 	}
 	
 	public void setJobClass(JobClass jobClass){

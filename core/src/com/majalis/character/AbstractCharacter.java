@@ -3,6 +3,7 @@ package com.majalis.character;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonValue;
 import com.majalis.battle.Attack;
+import com.majalis.battle.BattleFactory.EnemyEnum;
 import com.majalis.save.SaveManager.JobClass;
 
 import java.lang.reflect.Field;
@@ -21,6 +22,7 @@ public abstract class AbstractCharacter extends Group implements Json.Serializab
 	
 	/* rigid stats */
 	public JobClass jobClass;
+	public EnemyEnum enemyType;
 	public int level;
 	public int baseStrength;
 	public int baseEndurance;
@@ -139,7 +141,7 @@ public abstract class AbstractCharacter extends Group implements Json.Serializab
 	protected void writeFields(Json json, Field[] fields){
 		for (Field field : fields){
 			try {
-				if (!field.isSynthetic()){
+				if (!field.isSynthetic() && !field.getName().toString().equals("statNameMap")){
 					json.writeValue(field.getName(), field.get(this));
 				}
 				
@@ -161,6 +163,7 @@ public abstract class AbstractCharacter extends Group implements Json.Serializab
 					case stringValue: 
 					if (jsonValue.name.equals("stance")) stance = Stance.valueOf(jsonValue.asString());
 						else if (jsonValue.name.equals("jobClass")) jobClass = JobClass.valueOf(jsonValue.asString());
+						else if (jsonValue.name.equals("enemyType")) enemyType = EnemyEnum.valueOf(jsonValue.asString());
 						else thisClass.getField(jsonValue.name).set(this, jsonValue.asString()); 
 						break;
 					case array:
