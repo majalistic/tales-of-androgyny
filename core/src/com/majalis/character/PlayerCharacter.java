@@ -2,14 +2,12 @@ package com.majalis.character;
 
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.IntArray;
-import com.badlogic.gdx.utils.Json;
-import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.majalis.save.SaveManager.JobClass;
 /*
  * Contains the current player character's statistics, including "party" statistics like food remaining
  */
-public class PlayerCharacter extends AbstractCharacter implements Json.Serializable{
+public class PlayerCharacter extends AbstractCharacter {
 
 	private final static ObjectMap<Stat, Array<String>> statNameMap = new ObjectMap<Stat, Array<String>>();
 	static {
@@ -109,17 +107,7 @@ public class PlayerCharacter extends AbstractCharacter implements Json.Serializa
 		setStabilityToMax();
 		stance = Stance.BALANCED;
 	}
-	
-	@Override
-	public void write(Json json) {
-		super.write(json);
-		writeFields(json, this.getClass().getDeclaredFields());
-	}
-	@Override
-	public void read(Json json, JsonValue jsonData) {
-		super.read(json, jsonData);
-	}
-	
+
 	public enum Femininity {
 		MALE,
 		UNMASCULINE,

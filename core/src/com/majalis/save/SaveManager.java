@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.utils.Base64Coder;
 import com.badlogic.gdx.utils.IntArray;
 import com.badlogic.gdx.utils.IntSet;
@@ -70,7 +71,18 @@ public class SaveManager implements SaveService, LoadService{
         json.setOutputType(OutputType.json);
         if(encoded) file.writeString(Base64Coder.encodeString(json.prettyPrint(save)), false);
         else {   	
+        	Group playerParent = save.player.getParent();
+        	if (playerParent != null) playerParent.removeActor(save.player);
+        	Group enemyParent = new Group();
+        	if (save.enemy != null){
+            	enemyParent = save.enemy.getParent();
+            	enemyParent.removeActor(save.enemy);
+        	}
         	file.writeString(json.prettyPrint(save), false);
+        	if (playerParent != null) playerParent.addActor(save.player);
+        	if (save.enemy != null){
+        		enemyParent.addActor(save.enemy);
+        	}
         }
     }
     

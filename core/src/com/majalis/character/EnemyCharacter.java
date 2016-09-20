@@ -4,8 +4,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.IntArray;
-import com.badlogic.gdx.utils.Json;
-import com.badlogic.gdx.utils.JsonValue;
 import com.majalis.battle.BattleFactory.EnemyEnum;
 
 /*
@@ -13,7 +11,7 @@ import com.majalis.battle.BattleFactory.EnemyEnum;
  */
 public class EnemyCharacter extends AbstractCharacter {
 
-	private Texture texture;
+	private transient Texture texture;
 	private Vector2 position;
 	private int lust; 
 	
@@ -131,15 +129,6 @@ public class EnemyCharacter extends AbstractCharacter {
 		super.draw(batch, parentAlpha);
 		batch.draw(texture, position.x, position.y, 1280, 720);
     }
-	
-	@Override
-	public void write(Json json) {
-		super.write(json);
-	}
-	@Override
-	public void read(Json json, JsonValue jsonData) {
-		super.read(json, jsonData);
-	}
 	
 	public void init(Texture texture){
 		this.texture = texture;

@@ -1,19 +1,14 @@
 package com.majalis.character;
 
-import com.badlogic.gdx.utils.Json;
-import com.badlogic.gdx.utils.JsonValue;
 import com.majalis.battle.Attack;
 import com.majalis.battle.BattleFactory.EnemyEnum;
 import com.majalis.save.SaveManager.JobClass;
-
-import java.lang.reflect.Field;
-
-import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.IntArray;
 /*
  * Abstract character class, both enemies and player characters extend this class
  */
-public abstract class AbstractCharacter extends Group implements Json.Serializable {
+public abstract class AbstractCharacter extends Actor {
 	
 	// some of these ints will be enumerators or objects in time
 	/* permanent stats */
@@ -135,52 +130,7 @@ public abstract class AbstractCharacter extends Group implements Json.Serializab
 	protected int getMagic() { return baseMagic; }
 
 	protected int getCharisma() { return baseCharisma; }
-
-	/* Serialization methods */
-	@Override
-	public void write(Json json) {
-		writeFields(json, AbstractCharacter.class.getDeclaredFields());		
-	}
 	
-	protected void writeFields(Json json, Field[] fields){
-		for (Field field : fields){
-			try {
-				if (!field.isSynthetic() && !field.getName().toString().equals("statNameMap")){
-					json.writeValue(field.getName(), field.get(this));
-				}
-				
-			} catch (Exception e) {
-				e.printStackTrace();
-			} 
-		}
-	}
-	
-	@Override
-	public void read(Json json, JsonValue jsonData) {
-		for (JsonValue jsonValue : jsonData){
-			try {
-				Class<?> thisClass = this.getClass();
-				switch (jsonValue.type()){
-					case booleanValue: thisClass.getField(jsonValue.name).set(this, jsonValue.asBoolean()); break;
-					case doubleValue: thisClass.getField(jsonValue.name).set(this, jsonValue.asInt()); break;
-					case longValue: thisClass.getField(jsonValue.name).set(this, jsonValue.asInt()); break;
-					case stringValue: 
-					if (jsonValue.name.equals("stance")) stance = Stance.valueOf(jsonValue.asString());
-						else if (jsonValue.name.equals("jobClass")) jobClass = JobClass.valueOf(jsonValue.asString());
-						else if (jsonValue.name.equals("enemyType")) enemyType = EnemyEnum.valueOf(jsonValue.asString());
-						else thisClass.getField(jsonValue.name).set(this, jsonValue.asString()); 
-						break;
-					case array:
-					case object: // this would need to somehow deserialize the object and place it into the field
-					case nullValue:
-					default:
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			} 
-		}
-	}
-
 	public String doAttack(String technique, AbstractCharacter secondCharacter, Attack attack){
 		return label + (secondPerson ? " use " : " uses ") + technique + " against " + secondCharacter.receiveAttack(attack);
 	}
