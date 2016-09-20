@@ -46,8 +46,6 @@ public class Battle extends Group{
 	public boolean victory;
 	public boolean gameExit;
 	
-
-	
 	public Battle(SaveService saveService, AssetManager assetManager, BitmapFont font, PlayerCharacter character, EnemyCharacter enemy,  int victoryScene, int defeatScene) {
 		this.saveService = saveService;
 		this.assetManager = assetManager;
@@ -64,15 +62,13 @@ public class Battle extends Group{
 		skin = assetManager.get("uiskin.json", Skin.class);
 		buttonSound = assetManager.get("sound.wav", Sound.class);
 		table = new Table();
+		this.addActor(table);
 		displayTechniqueOptions();
 	}
 	
 	private void displayTechniqueOptions(){
 		table.clear();
 		options = character.getPossibleTechniques();
-		// this should map key presses to buttons based on this order, but not pass those key presses to the click listener
-		
-		//this should be in its own method which is called here and whenever a turn finishes
 		for (int ii = 0; ii < options.size; ii++){
 			TextButton button;
 			Technique option = options.get(ii);
@@ -82,7 +78,7 @@ public class Battle extends Group{
 		}
         table.setFillParent(true);
         table.addAction(Actions.moveTo(1050, 150));
-        this.addActor(table);
+        
 	}
 
 	public void battleLoop() {
