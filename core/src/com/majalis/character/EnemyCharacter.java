@@ -87,10 +87,10 @@ public class EnemyCharacter extends AbstractCharacter {
 			case DOGGY:
 				lust++;
 				if (lust > 14){
-					if (enemyType == EnemyEnum.HARPY){
+					if (enemyType != EnemyEnum.WERESLUT){
 						return new Technique(Techniques.ERUPT, getStrength());
 					}
-					else {
+					else {					
 						return new Technique(Techniques.KNOT, getStrength());
 					}
 				}
