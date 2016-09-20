@@ -84,9 +84,9 @@ public abstract class AbstractCharacter extends Actor {
 	protected IntArray getDefaultStaminaTiers(){ return new IntArray(new int[]{5}); }
 	protected IntArray getDefaultManaTiers(){ return new IntArray(new int[]{0}); }
 	
-	protected int getMaxHealth() { if(healthTiers == null) healthTiers = getDefaultHealthTiers(); return getMax(healthTiers); }
-	protected int getMaxStamina() { if(staminaTiers == null) staminaTiers = getDefaultStaminaTiers(); return getMax(staminaTiers); }
-	protected int getMaxMana() { if(manaTiers == null) manaTiers = getDefaultManaTiers(); return getMax(manaTiers); }
+	protected int getMaxHealth() { return getMax(healthTiers); }
+	protected int getMaxStamina() { return getMax(staminaTiers); }
+	protected int getMaxMana() { return getMax(manaTiers); }
 	protected int getMaxStability() { return 10; }
 	protected int getMax(IntArray tiers){
 		int max = 0;
