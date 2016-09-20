@@ -50,7 +50,7 @@ public class CharacterCreationScene extends Scene {
 					saveService.saveDataValue(SaveEnum.CLASS, jobClass);
 		        }
 			});
-			table.add(button).row();
+			table.add(button).width(140).row();
 		}
 		table.addAction(Actions.moveTo(table.getX() + 450, table.getY() + 400));
 		this.addActor(table);
