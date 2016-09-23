@@ -68,7 +68,7 @@ public class CharacterCreationScene extends Scene {
 		        }
 			}
 		);
-		done.addAction(Actions.moveTo(done.getX() + 1100, done.getY() + 50));
+		done.addAction(Actions.moveTo(done.getX() + 1100, done.getY() + 20));
 		this.addActor(done);
 	}
 
