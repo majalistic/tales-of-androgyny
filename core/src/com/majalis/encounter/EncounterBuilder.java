@@ -61,7 +61,7 @@ public class EncounterBuilder {
 			addScene(getGameTypeScene(
 				aggregateMaps(			
 					getTextScenes(new String[]{"You've selected to create your character!", "Please choose your class."}, 
-						addScene(new CharacterCreationScene(addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.ENCOUNTER_OVER)), sceneCounter, saveService, font, assetManager, playerCharacter)), font, background),
+						addScene(new CharacterCreationScene(addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.ENCOUNTER_OVER)), sceneCounter, saveService, font, background.clone(), assetManager, playerCharacter)), font, background),
 					addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.ENCOUNTER_OVER))
 					), assetManager, new Array<String>(true, new String[]{"Create Character", "Default"}, 0, 2)
 			)),

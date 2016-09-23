@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.OrderedMap;
 import com.majalis.character.PlayerCharacter;
 import com.majalis.character.PlayerCharacter.Stat;
+import com.majalis.encounter.Background;
 import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveManager;
 import com.majalis.save.SaveService;
@@ -26,11 +27,12 @@ public class CharacterCreationScene extends Scene {
 	private String console;
 	
 	// needs a done button, as well as other interface elements
-	public CharacterCreationScene(OrderedMap<Integer, Scene> sceneBranches, int sceneCode, final SaveService saveService, BitmapFont font, AssetManager assetManager, PlayerCharacter character) {
+	public CharacterCreationScene(OrderedMap<Integer, Scene> sceneBranches, int sceneCode, final SaveService saveService, BitmapFont font, Background background, AssetManager assetManager, PlayerCharacter character) {
 		super(sceneBranches, sceneCode);
 		this.saveService = saveService;
 		this.font = font;
 		this.character = character;
+		this.addActor(background);
 		
 		Skin skin = assetManager.get("uiskin.json", Skin.class);
 		buttonSound = assetManager.get("sound.wav", Sound.class);
