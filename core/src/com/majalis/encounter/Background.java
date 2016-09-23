@@ -7,7 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 public class Background extends Actor{
 
 	private final Texture texture;
-	protected Background(Texture texture){
+	public Background(Texture texture){
 		this.texture = texture;
 	}
 

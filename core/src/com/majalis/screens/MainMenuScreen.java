@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
+import com.majalis.encounter.Background;
 import com.majalis.save.LoadService;
 import com.majalis.save.SaveService;
 /*
@@ -22,7 +23,7 @@ public class MainMenuScreen extends AbstractScreen {
 	public static final ObjectMap<String, Class<?>> resourceRequirements = new ObjectMap<String, Class<?>>();
 	static {
 		resourceRequirements.put("uiskin.json", Skin.class);
-		resourceRequirements.put("WerebitchChibi.png", Texture.class);
+		resourceRequirements.put("MainMenuScreen.jpg", Texture.class);
 		resourceRequirements.put("sound.wav", Sound.class);
 	}
 	private final AssetManager assetManager;
@@ -37,7 +38,7 @@ public class MainMenuScreen extends AbstractScreen {
 		this.assetManager = assetManager;
 		this.saveService = saveService;
 		this.skin = assetManager.get("uiskin.json", Skin.class);
-		this.wereslutImage = assetManager.get("WerebitchChibi.png", Texture.class);
+		this.wereslutImage = assetManager.get("MainMenuScreen.jpg", Texture.class);
 		this.buttonSound = assetManager.get("sound.wav", Sound.class);
 	}
 
@@ -59,6 +60,7 @@ public class MainMenuScreen extends AbstractScreen {
 	
         table.setFillParent(true);
         
+        this.addActor(new Background(wereslutImage));
         this.addActor(table);
 	}
 	
@@ -72,8 +74,6 @@ public class MainMenuScreen extends AbstractScreen {
 		batch.setProjectionMatrix(camera.combined);
 		batch.begin(); 
 		// need to make these relative to viewport
-		font.draw(batch, "tRaPG - The Really Awesome Porn Game", 1200, 900);
-		batch.draw(wereslutImage, 1020, 600);
 		font.draw(batch, String.valueOf(clocktick++), 1850, 400);
 		font.draw(batch, "FPS: " + Gdx.graphics.getFramesPerSecond(), 680, 1050);
 		font.draw(batch, "Version: 0.1.06.0", 1800, 1050);
