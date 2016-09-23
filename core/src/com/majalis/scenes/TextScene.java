@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.OrderedMap;
 import com.majalis.encounter.Background;
@@ -37,7 +38,7 @@ public class TextScene extends Scene  {
     public void draw(Batch batch, float parentAlpha) {
 		super.draw(batch, parentAlpha);
 		font.setColor(0.2f,0.3f,0.8f,1);
-		font.draw(batch, toDisplay, 600, 400);
+		font.draw(batch, toDisplay, 400, 360, 480, Align.center, true);
     }
 	
 	// need to save the gamestate before applying the mutation to prevent repeated mutations
