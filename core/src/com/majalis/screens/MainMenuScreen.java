@@ -1,5 +1,6 @@
 package com.majalis.screens;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -74,6 +75,8 @@ public class MainMenuScreen extends AbstractScreen {
 		font.draw(batch, "tRaPG - The Really Awesome Porn Game", 1200, 900);
 		batch.draw(wereslutImage, 1020, 600);
 		font.draw(batch, String.valueOf(clocktick++), 1850, 400);
+		font.draw(batch, "FPS: " + Gdx.graphics.getFramesPerSecond(), 680, 1050);
+		font.draw(batch, "Version: 0.1.06.0", 1800, 1050);
 		batch.end();
 	}
 
