@@ -54,7 +54,7 @@ public class CharacterCreationScene extends Scene {
 			});
 			table.add(button).width(140).row();
 		}
-		table.addAction(Actions.moveTo(table.getX() + 450, table.getY() + 400));
+		table.addAction(Actions.moveTo(table.getX() + 325, table.getY() + 400));
 		this.addActor(table);
 		
 		TextButton done = new TextButton("Done", skin);
@@ -86,16 +86,17 @@ public class CharacterCreationScene extends Scene {
 		font.setColor(0.5f,0.4f,0,1);
 		font.draw(batch, "Character Creation", 600, 600);
 		font.setColor(0.4f,0.4f,0.4f,1);
-		font.draw(batch, console, 600, 550);
+		int base = 500;
+		font.draw(batch, console, base, 550);
 		int offset = 0;
 		for (Stat stat: PlayerCharacter.Stat.values()){
 			font.setColor(0.6f,0.2f,0.1f,1);
-			font.draw(batch, stat.toString(), 650, 500 - offset);
-			font.draw(batch, ": ", 750, 500 - offset);
+			font.draw(batch, stat.toString(), base+50, 500 - offset);
+			font.draw(batch, ": ", base+150, 500 - offset);
 			int amount = character.getStat(stat);
 			setFontColor(font, amount);
-			font.draw(batch, String.valueOf(amount), 770, 500 - offset);
-			font.draw(batch, "- " + PlayerCharacter.getStatMap().get(stat).get(amount), 785, 500 - offset);
+			font.draw(batch, String.valueOf(amount), base+170, 500 - offset);
+			font.draw(batch, "- " + PlayerCharacter.getStatMap().get(stat).get(amount), base+185, 500 - offset);
 			offset += 50;
 		}
     }

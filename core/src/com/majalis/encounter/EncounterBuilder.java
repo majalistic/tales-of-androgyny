@@ -55,13 +55,14 @@ public class EncounterBuilder {
 	@SuppressWarnings("unchecked")
 	protected Encounter getClassChoiceEncounter(AssetManager assetManager, PlayerCharacter playerCharacter){	
 		Texture backgroundTexture = assetManager.get("DefaultBackground.jpg", Texture.class);
+		Texture classSelectTexture = assetManager.get("ClassSelect.jpg", Texture.class); 
 		Background background = new Background(backgroundTexture);
 		
 		getTextScenes(new String[]{"Welcome to the world of tRaPG!", "This is a pre-alpha build - many systems and assets are not currently in place, so please don't expect this to be the full game experience!", "If you encounter any bugs, please let us know - leave a comment on our game page at itch.io, send us an email at majalistic@gmail.com, or message us on Patreon.  Thank you!", "You're looking mighty fine, by the way.  Please select your game mode."},
 			addScene(getGameTypeScene(
 				aggregateMaps(			
 					getTextScenes(new String[]{"You've selected to create your character!", "Please choose your class."}, 
-						addScene(new CharacterCreationScene(addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.ENCOUNTER_OVER)), sceneCounter, saveService, font, background.clone(), assetManager, playerCharacter)), font, background),
+						addScene(new CharacterCreationScene(addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.ENCOUNTER_OVER)), sceneCounter, saveService, font, new Background(classSelectTexture), assetManager, playerCharacter)), font, background),
 					addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.ENCOUNTER_OVER))
 					), assetManager, new Array<String>(true, new String[]{"Create Character", "Default"}, 0, 2)
 			)),

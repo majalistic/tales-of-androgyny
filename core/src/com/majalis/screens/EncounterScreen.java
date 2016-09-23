@@ -28,6 +28,7 @@ public class EncounterScreen extends AbstractScreen {
 		resourceRequirements.put("sound.wav", Sound.class);
 		resourceRequirements.put("DefaultBackground.jpg", Texture.class);
 		resourceRequirements.put("GameTypeSelect.jpg", Texture.class);
+		resourceRequirements.put("ClassSelect.jpg", Texture.class);
 		resourceRequirements.put("StickEncounter.jpg", Texture.class);
 	}
 	protected EncounterScreen(ScreenFactory screenFactory, ScreenElements elements, AssetManager assetManager, SaveService saveService, Encounter encounter) {
