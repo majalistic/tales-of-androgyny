@@ -34,7 +34,7 @@ public class EncounterFactory {
 		EncounterBuilder builder = new EncounterBuilder(reader, saveService, font, sceneCode, battleCode);
 		switch (encounterCode){
 			case 0: return builder.getClassChoiceEncounter(assetManager, (PlayerCharacter) loadService.loadDataValue(SaveEnum.PLAYER, PlayerCharacter.class));
-			case -1: return builder.getDefaultEncounter();
+			case -1: return builder.getDefaultEncounter(assetManager);
 			default: return builder.getRandomEncounter(encounterCode, assetManager);
 		}
 	}

@@ -77,12 +77,16 @@ public class SaveManager implements SaveService, LoadService{
         	Group enemyParent = new Group();
         	if (save.enemy != null){
             	enemyParent = save.enemy.getParent();
-            	enemyParent.removeActor(save.enemy, false);
+            	if (enemyParent != null){
+            		enemyParent.removeActor(save.enemy, false);
+            	}	
         	}
         	file.writeString(json.prettyPrint(save), false);
         	if (playerParent != null) playerParent.addActor(save.player);
         	if (save.enemy != null){
-        		enemyParent.addActorAt(0, save.enemy);
+        		if (enemyParent != null){
+        			enemyParent.addActorAt(0, save.enemy);
+        		}	
         	}
         }
     }

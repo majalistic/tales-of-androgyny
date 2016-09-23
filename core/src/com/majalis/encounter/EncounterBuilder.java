@@ -2,6 +2,7 @@ package com.majalis.encounter;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -15,10 +16,12 @@ import com.majalis.battle.BattleCode;
 import com.majalis.character.PlayerCharacter;
 import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveService;
+import com.majalis.scenes.AbstractChoiceScene;
 import com.majalis.scenes.BattleScene;
 import com.majalis.scenes.CharacterCreationScene;
 import com.majalis.scenes.ChoiceScene;
 import com.majalis.scenes.EndScene;
+import com.majalis.scenes.GameTypeScene;
 import com.majalis.scenes.Mutation;
 import com.majalis.scenes.Scene;
 import com.majalis.scenes.TextScene;
@@ -51,14 +54,35 @@ public class EncounterBuilder {
 	/* different encounter "templates" */
 	@SuppressWarnings("unchecked")
 	protected Encounter getClassChoiceEncounter(AssetManager assetManager, PlayerCharacter playerCharacter){	
-		addScene(getChoiceScene(
+		Texture backgroundTexture = assetManager.get("DefaultBackground.jpg", Texture.class);
+		Background background = new Background(backgroundTexture);
+		addScene(getGameTypeScene(
 			aggregateMaps(			
 				getTextScenes(new String[]{"Welcome to the world of tRaPG!", "You're looking mighty fine.", "Please choose your class."}, 
-					addScene(new CharacterCreationScene(addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.ENCOUNTER_OVER)), sceneCounter, saveService, font, assetManager, playerCharacter)), font),
+					addScene(new CharacterCreationScene(addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.ENCOUNTER_OVER)), sceneCounter, saveService, font, assetManager, playerCharacter)), font, background),
 				addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.ENCOUNTER_OVER))
-				), assetManager, "Skip character creation?", new Array<String>(true, new String[]{"Create Character", "Default"}, 0, 2)
+				), assetManager, new Array<String>(true, new String[]{"Create Character", "Default"}, 0, 2)
 		));
 		return new Encounter(scenes, endScenes, new Array<BattleScene>(), getStartScene(scenes, sceneCode));
+	}
+	
+	private Scene getGameTypeScene(OrderedMap<Integer, Scene> sceneMap, AssetManager assetManager, Array<String> buttonLabels){
+		Skin skin = assetManager.get("uiskin.json", Skin.class);
+		Sound buttonSound = assetManager.get("sound.wav", Sound.class);
+		Texture background = assetManager.get("GameTypeSelect.jpg", Texture.class);
+		
+		Array<TextButton> buttons = new Array<TextButton>();
+		for (String label : buttonLabels){
+			buttons.add(new TextButton(label, skin));
+		}
+		
+		GameTypeScene gameTypeScene = new GameTypeScene(sceneMap, sceneCounter, saveService, buttons, new Background(background));
+		int ii = 0;
+		for (TextButton button : buttons){
+			button.addListener(getListener(gameTypeScene, sceneMap.get(sceneMap.orderedKeys().get(ii++)), buttonSound));
+		}
+				
+		return gameTypeScene;
 	}
 	
 	private Scene getChoiceScene(OrderedMap<Integer, Scene> sceneMap, AssetManager assetManager, String choiceDialogue, Array<String> buttonLabels){
@@ -67,8 +91,9 @@ public class EncounterBuilder {
 
 		Skin skin = assetManager.get("uiskin.json", Skin.class);
 		Sound buttonSound = assetManager.get("sound.wav", Sound.class);
-
-		ChoiceScene choiceScene = new ChoiceScene(sceneMap, sceneCounter, saveService, font, choiceDialogue, table);
+		Texture background = assetManager.get("DefaultBackground.jpg", Texture.class);
+		
+		ChoiceScene choiceScene = new ChoiceScene(sceneMap, sceneCounter, saveService, font, choiceDialogue, table, new Background(background));
 		int ii = 0;
 		for (String label  : buttonLabels){
 			TextButton button = new TextButton(label, skin);
@@ -79,8 +104,7 @@ public class EncounterBuilder {
 		return choiceScene;
 	}
 	
-
-	private ClickListener getListener(final ChoiceScene currentScene, final Scene nextScene, final Sound buttonSound){
+	private ClickListener getListener(final AbstractChoiceScene currentScene, final Scene nextScene, final Sound buttonSound){
 		return new ClickListener(){
 	        @Override
 	        public void clicked(InputEvent event, float x, float y) {
@@ -88,27 +112,30 @@ public class EncounterBuilder {
 	        	// set new Scene as active based on choice
 	        	nextScene.setActive();
 	        	currentScene.finish();
-	        	
 	        }
 	    };
 	}
 	
-	protected Encounter getDefaultEncounter(){
-		getTextScenes(new String[]{"You encounter a stick!", "It's actually rather sexy looking.", "There is nothing left here to do."}, addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.ENCOUNTER_OVER)), font);
+	protected Encounter getDefaultEncounter(AssetManager assetManager){
+		Texture backgroundTexture = assetManager.get("StickEncounter.jpg", Texture.class);
+		Background background = new Background(backgroundTexture);
+		getTextScenes(new String[]{"You encounter a stick!", "It's actually rather sexy looking.", "There is nothing left here to do."}, addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.ENCOUNTER_OVER)), font, background);
 		return new Encounter(scenes, endScenes, new Array<BattleScene>(), getStartScene(scenes, sceneCode));
 	}
 	
 	@SuppressWarnings("unchecked")
 	protected Encounter getRandomEncounter(int encounterCode, AssetManager assetManager){
+		Texture backgroundTexture = assetManager.get("DefaultBackground.jpg", Texture.class);
+		Background background = new Background(backgroundTexture);
 		// if there isn't already a battlecode set, it's determined by the encounterCode; for now, that means dividing the various encounters up by modulus
 		if (battleCode == -1) battleCode = encounterCode % 4;
 		if (battleCode != 2){ // not a slime encounter
 			getTextScenes(getScript(battleCode, 0), 
 					addScene(new BattleScene(
 						aggregateMaps(
-								getTextScenes(new String[]{"You won!  You get NOTHING.", "Sad :(", "What a pity.  Go away."}, addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.ENCOUNTER_OVER)), font),
-								getTextScenes(getDefeatText(battleCode), addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.GAME_OVER)), font)					
-						), -1, saveService, battleCode)), font);				
+								getTextScenes(new String[]{"You won!  You get NOTHING.", "Sad :(", "What a pity.  Go away."}, addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.ENCOUNTER_OVER)), font, background),
+								getTextScenes(getDefeatText(battleCode), addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.GAME_OVER)), font, background)					
+						), -1, saveService, battleCode)), font, background);				
 		}
 		else {
 			getTextScenes(getScript(battleCode, 0), 
@@ -118,11 +145,11 @@ public class EncounterBuilder {
 									addScene(
 										new BattleScene(
 											aggregateMaps(
-													getTextScenes(new String[]{"You won!  You get NOTHING.", "Sad :(", "What a pity.  Go away."}, addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.ENCOUNTER_OVER)), font),
-													getTextScenes(getDefeatText(battleCode), addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.GAME_OVER)), font)					
+													getTextScenes(new String[]{"You won!  You get NOTHING.", "Sad :(", "What a pity.  Go away."}, addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.ENCOUNTER_OVER)), font, background),
+													getTextScenes(getDefeatText(battleCode), addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.GAME_OVER)), font, background)					
 											), -1, saveService, battleCode)), 
 									addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.ENCOUNTER_OVER))), 
-									assetManager, "Fight the slime?", new Array<String>(true, new String[]{"Fight Her", "Leave Her Be"}, 0, 2))), font);
+									assetManager, "Fight the slime?", new Array<String>(true, new String[]{"Fight Her", "Leave Her Be"}, 0, 2))), font, background);
 		}
 		
 		// reporting that the battle code has been consumed - this should be encounter code
@@ -151,12 +178,12 @@ public class EncounterBuilder {
 		return sceneMap;
 	}
 	
-	private OrderedMap<Integer, Scene> getTextScenes(String[] script, OrderedMap<Integer, Scene> sceneMap, BitmapFont font){ return getTextScenes(new Array<String>(true, script, 0, script.length), sceneMap, font); }	
+	private OrderedMap<Integer, Scene> getTextScenes(String[] script, OrderedMap<Integer, Scene> sceneMap, BitmapFont font, Background background){ return getTextScenes(new Array<String>(true, script, 0, script.length), sceneMap, font, background); }	
 	// pass in a list of script lines in chronological order, this will reverse their order and add them to the stack
-	private OrderedMap<Integer, Scene> getTextScenes(Array<String> script, OrderedMap<Integer, Scene> sceneMap, BitmapFont font){
+	private OrderedMap<Integer, Scene> getTextScenes(Array<String> script, OrderedMap<Integer, Scene> sceneMap, BitmapFont font, Background background){
 		script.reverse();
 		for (String scriptLine: script){
-			sceneMap = addScene(new TextScene(sceneMap, sceneCounter, saveService, font, scriptLine, getMutationList(new Mutation())));
+			sceneMap = addScene(new TextScene(sceneMap, sceneCounter, saveService, font, background.clone(), scriptLine, getMutationList(new Mutation())));
 		}	
 		return sceneMap;
 	}

@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -25,6 +26,9 @@ public class EncounterScreen extends AbstractScreen {
 	static {
 		resourceRequirements.put("uiskin.json", Skin.class);
 		resourceRequirements.put("sound.wav", Sound.class);
+		resourceRequirements.put("DefaultBackground.jpg", Texture.class);
+		resourceRequirements.put("GameTypeSelect.jpg", Texture.class);
+		resourceRequirements.put("StickEncounter.jpg", Texture.class);
 	}
 	protected EncounterScreen(ScreenFactory screenFactory, ScreenElements elements, AssetManager assetManager, SaveService saveService, Encounter encounter) {
 		super(screenFactory, elements);

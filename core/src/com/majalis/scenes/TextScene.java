@@ -7,6 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.OrderedMap;
+import com.majalis.encounter.Background;
 import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveService;
 
@@ -17,12 +18,13 @@ public class TextScene extends Scene  {
 	private final String toDisplay;
 	private final Array<Mutation> mutations;
 
-	public TextScene(OrderedMap<Integer, Scene> sceneBranches, int sceneCode, SaveService saveService, BitmapFont font, String toDisplay, Array<Mutation> mutations) {
+	public TextScene(OrderedMap<Integer, Scene> sceneBranches, int sceneCode, SaveService saveService, BitmapFont font, Background background, String toDisplay, Array<Mutation> mutations) {
 		super(sceneBranches, sceneCode);
 		this.saveService = saveService;
 		this.font = font;
 		this.toDisplay = toDisplay;
 		this.mutations = mutations;
+		this.addActor(background);
 	}
 	
 	// this type of TextScene will be one that always pipes from one scene to the next with no branch - there will be another TextScene that actually has branching logic
@@ -34,7 +36,7 @@ public class TextScene extends Scene  {
 	@Override
     public void draw(Batch batch, float parentAlpha) {
 		super.draw(batch, parentAlpha);
-		font.setColor(0.5f,0.4f,0,1);
+		font.setColor(0.2f,0.3f,0.8f,1);
 		font.draw(batch, toDisplay, 600, 400);
     }
 	
