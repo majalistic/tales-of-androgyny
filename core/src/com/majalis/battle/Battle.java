@@ -181,16 +181,23 @@ public class Battle extends Group{
 		}
 		else if (firstCharacter.getStance() == Stance.DOGGY){
 			// need some way to get info from sex techniques to display here.  For now, some random fun text
-			console += "You are being anally violated! Your hole is stretched by her fat dick!\n"
-					+ "Your hole feels like it's on fire! Her cock glides smoothly through your irritated anal mucosa!\n"
+			console += "You are being anally violated!\n"
+					+ "Your hole is stretched by her fat dick!\n"
+					+ "Your hole feels like it's on fire!\n"
+					+ "Her cock glides smoothly through your irritated anal mucosa!\n"
 					+ "Her rhythmic thrusting in and out of your asshole is emasculating!\n"
-					+ "You are red-faced and embarassed because of her butt-stuffing! Your cock is ignored!\n";
+					+ "You are red-faced and embarassed because of her butt-stuffing!\n"
+					+ "Your cock is ignored!\n";
 		}
 		else if (firstCharacter.getStance() == Stance.KNOTTED){
-			console += "Her powerful hips try to force something big inside! You struggle... but can't escape!\n"
+			console += "Her powerful hips try to force something big inside!\n"
+					+ "You struggle... but can't escape!\n"
 					+ "Her grapefruit-sized knot slips into your rectum!  You take 4 damage!\n"
-					+ "You can't dislodge it; it's too large! Your anus is permanently stretched! You learned about Anatomy(Wereslut)! You are being bred!\n"
-					+ "The battle is over, but your ordeal has just begun! She's going to ejaculate her runny dog cum in your bowels!\n";
+					+ "You can't dislodge it; it's too large!\n"
+					+ "Your anus is permanently stretched!\n"
+					+ "You learned about Anatomy(Wereslut)! You are being bred!\n"
+					+ "The battle is over, but your ordeal has just begun!\n"
+					+ "She's going to ejaculate her runny dog cum in your bowels!\n";
 			if (secondTechnique.forceBattleOver()){	
 				// player character should also be able to force battle over
 				battleOver = true;
@@ -198,9 +205,13 @@ public class Battle extends Group{
 			}
 		}
 		else if (firstCharacter.getStance() == Stance.FELLATIO){
-			console += "She tastes horrible!  Harpies are highly unhygenic! You learned Anatomy (Harpy)!  You learned Behavior (Harpy)!\n"
-					+ "There is a phallus in your mouth!  It blew past your lips!\n"
-					+ "The harpy is holding your head in place with her talons and balancing herself with her wings!\n"
+			console += "She tastes horrible! Harpies are highly unhygenic!\n"
+					+ "You learned Anatomy (Harpy)!\n"
+					+ "You learned Behavior (Harpy)!\n"
+					+ "There is a phallus in your mouth!\n"
+					+ "It blew past your lips!\n"
+					+ "The harpy is holding your head in place with\n"
+					+ "her talons and balancing herself with her wings!\n"
 					+ "She flaps violently while humping your face!  Her cock tastes awful!\n";
 		}
 		else {

@@ -7,17 +7,18 @@ import com.majalis.character.AbstractCharacter.Stance;
 public enum Techniques {
 	// may want to reorganize these by what stances they're used in, rather than what stances they result in
 	/* Offensive Techniques */
-	STRONG_ATTACK 	{ public Stance getStanceResult(){ return Stance.OFFENSIVE; } public int getPowerMod(){ return 3; } public int getStabilityCost(){ return 2; } public int getStaminaCost(){ return 6; } },
-	TEMPO_ATTACK  	{ public Stance getStanceResult(){ return Stance.OFFENSIVE; } public int getPowerMod(){ return 2; } public int getStabilityCost(){ return 1; } public int getStaminaCost(){ return 4; } },
-	SPRING_ATTACK 	{ public Stance getStanceResult(){ return Stance.OFFENSIVE; } public int getPowerMod(){ return 1; } public int getStabilityCost(){ return 2; } public int getStaminaCost(){ return 2; } },	
+	STRONG_ATTACK 	{ public Stance getStanceResult(){ return Stance.OFFENSIVE; } public int getPowerMod(){ return 3; } public int getStabilityCost(){ return 3; } public int getStaminaCost(){ return 8; } },
+	TEMPO_ATTACK  	{ public Stance getStanceResult(){ return Stance.OFFENSIVE; } public int getPowerMod(){ return 2; } public int getStabilityCost(){ return 2; } public int getStaminaCost(){ return 6; } },
+	SPRING_ATTACK 	{ public Stance getStanceResult(){ return Stance.OFFENSIVE; } public int getPowerMod(){ return 1; } public int getStabilityCost(){ return 4; } public int getStaminaCost(){ return 6; } },	
 	/* Balanced Techniques */
-	RESERVED_ATTACK { public Stance getStanceResult(){ return Stance.BALANCED;  } public int getPowerMod(){ return 1; } public int getStabilityCost(){ return 0; } public int getStaminaCost(){ return 2; } },
-	REVERSAL_ATTACK { public Stance getStanceResult(){ return Stance.BALANCED;  } public int getPowerMod(){ return 0; } public int getStabilityCost(){ return 1; } public int getStaminaCost(){ return 2; } },
-	NEUTRAL_ATTACK  { public Stance getStanceResult(){ return Stance.BALANCED;  } public int getPowerMod(){ return 0; } public int getStabilityCost(){ return 1; } public int getStaminaCost(){ return 2; } },
+	RESERVED_ATTACK { public Stance getStanceResult(){ return Stance.BALANCED;  } public int getPowerMod(){ return 1; } public int getStabilityCost(){ return 4; } public int getStaminaCost(){ return 2; } },
+	REVERSAL_ATTACK { public Stance getStanceResult(){ return Stance.BALANCED;  } public int getPowerMod(){ return 0; } public int getStabilityCost(){ return 2; } public int getStaminaCost(){ return 4; } },
+	NEUTRAL_ATTACK  { public Stance getStanceResult(){ return Stance.BALANCED;  } public int getPowerMod(){ return 0; } public int getStabilityCost(){ return 1; } public int getStaminaCost(){ return 1; } },
 	/* Defensive Techniques */
-	CAUTIOUS_ATTACK { public Stance getStanceResult(){ return Stance.DEFENSIVE; } public int getPowerMod(){ return -1; } public int getStabilityCost(){ return 0; } public int getStaminaCost(){ return 1; } }, 
-	CAREFUL_ATTACK  { public Stance getStanceResult(){ return Stance.DEFENSIVE; } public int getPowerMod(){ return 0; }  public int getStabilityCost(){ return -1; } public int getStaminaCost(){ return 1; } }, 
+	CAUTIOUS_ATTACK { public Stance getStanceResult(){ return Stance.DEFENSIVE; } public int getPowerMod(){ return -1; } public int getStabilityCost(){ return 0; } public int getStaminaCost(){ return 2; } }, 
+	CAREFUL_ATTACK  { public Stance getStanceResult(){ return Stance.DEFENSIVE; } public int getPowerMod(){ return 0; }  public int getStabilityCost(){ return 0; } public int getStaminaCost(){ return 2; } }, 
 	GUARD			{ public Stance getStanceResult(){ return Stance.DEFENSIVE; } public int getPowerMod(){ return -100; } public int getStabilityCost(){ return -1; } public int getStaminaCost(){ return 0; } },
+	SECOND_WIND		{ public Stance getStanceResult(){ return Stance.DEFENSIVE; } public int getPowerMod(){ return -100; } public int getStabilityCost(){ return -1; } public int getStaminaCost(){ return -4; } },	
 	
 	/* Techniques from Prone/Supine */
 	KIP_UP			{ public Stance getStanceResult(){ return Stance.BALANCED; } public int getPowerMod(){ return -100; } public int getStabilityCost(){ return -5; } public int getStaminaCost(){ return 5; } }, // stand automatically	

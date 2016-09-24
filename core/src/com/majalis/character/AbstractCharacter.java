@@ -80,14 +80,14 @@ public abstract class AbstractCharacter extends Actor {
 	
 	protected abstract Technique getTechnique(AbstractCharacter target);
 	
-	protected IntArray getDefaultHealthTiers(){ return new IntArray(new int[]{5}); }
-	protected IntArray getDefaultStaminaTiers(){ return new IntArray(new int[]{5}); }
+	protected IntArray getDefaultHealthTiers(){ return new IntArray(new int[]{10, 10}); }
+	protected IntArray getDefaultStaminaTiers(){ return new IntArray(new int[]{5, 5}); }
 	protected IntArray getDefaultManaTiers(){ return new IntArray(new int[]{0}); }
 	
 	protected int getMaxHealth() { return getMax(healthTiers); }
 	protected int getMaxStamina() { return getMax(staminaTiers); }
 	protected int getMaxMana() { return getMax(manaTiers); }
-	protected int getMaxStability() { return 10; }
+	protected int getMaxStability() { return getAgility() * 3; }
 	protected int getMax(IntArray tiers){
 		int max = 0;
 		for (int ii = 0; ii < tiers.size; ii++){
@@ -96,6 +96,8 @@ public abstract class AbstractCharacter extends Actor {
 		return max;
 	}
 	protected int getStaminaRegen() { return getEndurance()/2 + 1; }
+	
+	protected int getStabilityRegen() { return getAgility()/2; }
 	
 	public String getLabel (){ return label; }
 	
@@ -157,6 +159,7 @@ public abstract class AbstractCharacter extends Actor {
 		modStamina(-technique.getStaminaCost());
 		modStamina(getStaminaRegen());
 		modStability(-technique.getStabilityCost());
+		modStability(getStabilityRegen());
 			
 		if (stance != Stance.PRONE && stance != Stance.SUPINE && stance != Stance.DOGGY){
 			if (stability <= 0){

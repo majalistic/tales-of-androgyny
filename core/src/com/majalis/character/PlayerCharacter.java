@@ -73,7 +73,7 @@ public class PlayerCharacter extends AbstractCharacter {
 			case BALANCED:
 				return getTechniques(Techniques.SPRING_ATTACK, Techniques.NEUTRAL_ATTACK, Techniques.CAUTIOUS_ATTACK, Techniques.DUCK);
 			case DEFENSIVE:
-				return getTechniques(Techniques.REVERSAL_ATTACK, Techniques.CAREFUL_ATTACK, Techniques.GUARD, Techniques.DUCK);
+				return getTechniques(Techniques.REVERSAL_ATTACK, Techniques.CAREFUL_ATTACK, Techniques.GUARD, Techniques.SECOND_WIND, Techniques.DUCK);
 			case PRONE:
 			case SUPINE:
 				return getTechniques(Techniques.KIP_UP, Techniques.STAND_UP, Techniques.KNEE_UP, stance == Stance.PRONE ? Techniques.REST_FACE_DOWN : Techniques.REST);

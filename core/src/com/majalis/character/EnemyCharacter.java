@@ -21,7 +21,25 @@ public class EnemyCharacter extends AbstractCharacter {
 		super(true);
 		this.enemyType = enemyType;
 		init(texture);
-		baseStrength = 5;
+		switch(enemyType){
+			case WERESLUT:
+				baseStrength = 6;
+				baseAgility = 6;
+				break;
+			case HARPY:
+				baseStrength = 5;
+				baseAgility = 5;
+				break;
+			case BRIGAND:
+				break;
+			case SLIME:
+				baseStrength = 2;
+				baseEndurance = 4;
+				break;
+		}
+		staminaTiers.add(5);
+		
+		setStaminaToMax();
 		lust = 0;
 		label = enemyType.toString();
 		this.currentHealth = getMaxHealth();
@@ -47,32 +65,43 @@ public class EnemyCharacter extends AbstractCharacter {
 		
 		switch(stance){
 			case OFFENSIVE:
-				if (currentStamina < 3 || stability < 3) return new Technique(Techniques.RESERVED_ATTACK, getStrength());
-				switch (rand){
+				if (stability < 5) return new Technique(Techniques.RESERVED_ATTACK, getStrength());
+				if (stability < 6) return new Technique(Techniques.TEMPO_ATTACK, getStrength());
+				switch (rand){					
 					case 0:
+						if (currentStamina < 5) return new Technique(Techniques.RESERVED_ATTACK, getStrength());
+						if (currentStamina < 7) return new Technique(Techniques.TEMPO_ATTACK, getStrength());
 						return new Technique(Techniques.STRONG_ATTACK, getStrength());	
 					case 1:
+						if (currentStamina < 5) return new Technique(Techniques.RESERVED_ATTACK, getStrength());
 						return new Technique(Techniques.TEMPO_ATTACK, getStrength());	
 					case 2:	
 						return new Technique(Techniques.RESERVED_ATTACK, getStrength());
 				}
 			case BALANCED:
-				if (currentStamina < 3 || stability < 3) return new Technique(Techniques.CAUTIOUS_ATTACK, getStrength());
+				if (currentStamina < 4 || stability < 4) return new Technique(Techniques.CAUTIOUS_ATTACK, getStrength());
 				switch (rand){
 					case 0:
+						if (currentStamina < 8 || stability < 6) return new Technique(Techniques.NEUTRAL_ATTACK, getStrength());
 						return new Technique(Techniques.SPRING_ATTACK, getStrength());	
 					case 1:
+						if (currentStamina < 3 || stability < 2) return new Technique(Techniques.CAUTIOUS_ATTACK, getStrength());
 						return new Technique(Techniques.NEUTRAL_ATTACK, getStrength());	
 					case 2:	
 						return new Technique(Techniques.CAUTIOUS_ATTACK, getStrength());
 				}
 			case DEFENSIVE:
+				if (currentStamina < 4) return new Technique(Techniques.SECOND_WIND, getStrength());
+				if (stability < 5) return new Technique(Techniques.GUARD, getStrength());
 				switch (rand){
 					case 0:
+						if (currentStamina < 8 || stability < 9) return new Technique(Techniques.CAREFUL_ATTACK, getStrength());
 						return new Technique(Techniques.REVERSAL_ATTACK, getStrength());	
 					case 1:
+						if (currentStamina < 4) return new Technique(Techniques.GUARD, getStrength());
 						return new Technique(Techniques.CAREFUL_ATTACK, getStrength());	
 					case 2:	
+						if (currentStamina < 7) return new Technique(Techniques.SECOND_WIND, getStrength());
 						return new Technique(Techniques.GUARD, getStrength());
 				}
 			case PRONE:
@@ -80,14 +109,17 @@ public class EnemyCharacter extends AbstractCharacter {
 				if (currentStamina > 5){
 					return new Technique(Techniques.KIP_UP, getStrength());
 				}	
-				else {
+				else if (currentStamina > 2){
 					return new Technique(Techniques.STAND_UP, getStrength());
 				}
-				
+				else {
+					return new Technique(Techniques.REST, getStrength());
+				}				
 			case DOGGY:
 				lust++;
 				if (lust > 14){
 					if (enemyType != EnemyEnum.WERESLUT){
+						lust -= 14;
 						return new Technique(Techniques.ERUPT, getStrength());
 					}
 					else {					
@@ -104,6 +136,7 @@ public class EnemyCharacter extends AbstractCharacter {
 			case FELLATIO:
 				lust++;
 				if (lust > 14){
+					lust -= 14;
 					return new Technique(Techniques.ERUPT, getStrength());
 				}
 				else {
@@ -116,7 +149,7 @@ public class EnemyCharacter extends AbstractCharacter {
 	private int getRandomWeighting(){
 		int[] weightArray;
 		switch (enemyType){
-			case WERESLUT: weightArray = new int[]{0, 0, 0, 0, 0, 1, 1, 2}; break;
+			case WERESLUT: weightArray = new int[]{0, 0, 0, 0, 0, 0, 1, 1, 2}; break;
 			case BRIGAND: weightArray = new int[]{0, 1, 1, 2, 2, 2}; break;
 			default: weightArray = new int[]{0,1,2};
 		}
