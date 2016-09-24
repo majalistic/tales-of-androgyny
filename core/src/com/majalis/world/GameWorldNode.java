@@ -22,7 +22,7 @@ import com.majalis.save.SaveService;
 /*
  * Represents a node on the world map.
  */
-public class GameWorldNode extends Group implements Comparable {
+public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 
 	private final static int RADIUS = 25;
 	private final Array<GameWorldNode> connectedNodes;
@@ -231,8 +231,7 @@ public class GameWorldNode extends Group implements Comparable {
 	}
 	
 	@Override
-	public int compareTo(Object otherNodeToCompare) {
-		GameWorldNode otherNode = (GameWorldNode) otherNodeToCompare;
+	public int compareTo(GameWorldNode otherNode) {
 		if (otherNode.getX() >= position.x){
 			return 1;
 		}
