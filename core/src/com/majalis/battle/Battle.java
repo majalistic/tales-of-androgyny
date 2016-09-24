@@ -182,7 +182,7 @@ public class Battle extends Group{
 				else {
 					console += "It pops out of your ass and you get to your feet!\n";
 				}
-				secondCharacter.setStance(forcedStance);
+				secondCharacter.setStance(forcedStanceSecond);
 				firstCharacter.setStance(Stance.BALANCED);
 				struggle = 0;
 			}
