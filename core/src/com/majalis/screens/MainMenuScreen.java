@@ -29,7 +29,7 @@ public class MainMenuScreen extends AbstractScreen {
 	private final AssetManager assetManager;
 	private final SaveService saveService;
 	private final Skin skin; 
-	private final Texture wereslutImage;
+	private final Texture backgroundImage;
 	private final Sound buttonSound;
 	private int clocktick = 0;
 
@@ -38,7 +38,7 @@ public class MainMenuScreen extends AbstractScreen {
 		this.assetManager = assetManager;
 		this.saveService = saveService;
 		this.skin = assetManager.get("uiskin.json", Skin.class);
-		this.wereslutImage = assetManager.get("MainMenuScreen.jpg", Texture.class);
+		this.backgroundImage = assetManager.get("MainMenuScreen.jpg", Texture.class);
 		this.buttonSound = assetManager.get("sound.wav", Sound.class);
 	}
 
@@ -60,7 +60,7 @@ public class MainMenuScreen extends AbstractScreen {
 	
         table.setFillParent(true);
         
-        this.addActor(new Background(wereslutImage));
+        this.addActor(new Background(backgroundImage));
         this.addActor(table);
 	}
 	
