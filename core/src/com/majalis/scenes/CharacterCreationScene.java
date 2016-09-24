@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.OrderedMap;
 import com.majalis.character.PlayerCharacter;
 import com.majalis.character.PlayerCharacter.Stat;
@@ -24,20 +25,27 @@ public class CharacterCreationScene extends Scene {
 	private final BitmapFont font;
 	private final Sound buttonSound;
 	private final PlayerCharacter character;
-	private String console;
+	private String classMessage;
+	private String statMessage;
+	private int statPoints;
+	private ObjectMap<Stat, Integer> statMap;
 	
 	// needs a done button, as well as other interface elements
-	public CharacterCreationScene(OrderedMap<Integer, Scene> sceneBranches, int sceneCode, final SaveService saveService, BitmapFont font, Background background, AssetManager assetManager, PlayerCharacter character) {
+	public CharacterCreationScene(OrderedMap<Integer, Scene> sceneBranches, int sceneCode, final SaveService saveService, BitmapFont font, Background background, AssetManager assetManager, final PlayerCharacter character) {
 		super(sceneBranches, sceneCode);
 		this.saveService = saveService;
 		this.font = font;
 		this.character = character;
 		this.addActor(background);
+
+		statPoints = 3;
+		statMap = resetObjectMap();
 		
 		Skin skin = assetManager.get("uiskin.json", Skin.class);
 		buttonSound = assetManager.get("sound.wav", Sound.class);
 		
-		console = "";
+		classMessage = "";
+		statMessage = "";
 		
 		final TextButton done = new TextButton("Done", skin);
 		
@@ -52,6 +60,67 @@ public class CharacterCreationScene extends Scene {
 		);
 		done.addAction(Actions.moveTo(done.getX() + 1100, done.getY() + 20));
 
+		final Table statTable = new Table();
+		
+		for (final Stat stat: Stat.values()){
+			TextButton buttonUp = new TextButton("+", skin);
+			TextButton buttonDown = new TextButton("-", skin);
+			buttonUp.addListener(new ClickListener(){
+				@Override
+		        public void clicked(InputEvent event, float x, float y) {
+					buttonSound.play();
+					
+					int currentStatAllocation = statMap.get(stat);
+					if (statPoints > 0 && (currentStatAllocation < 1 || (currentStatAllocation < 2 && noStatsAtMax()))){
+						character.setStat(stat, character.getStat(stat)+1);
+						saveService.saveDataValue(SaveEnum.PLAYER, character);
+						statPoints--;
+						statMap.put(stat, currentStatAllocation+1);
+						if (statPoints <= 0){
+							addActor(done);
+						}
+						statMessage = "";
+					}
+					else {
+						if (statPoints <= 0){
+							statMessage = "You are out of stat points to allocate!";
+						}
+						else if (currentStatAllocation < 2){
+							statMessage = "Only one stat may be\ntwo points above its base score!";
+						}
+						else {
+							statMessage = "Your " + stat.toString() + " is at maximum!\nIt cannot be raised any more.";
+						}
+					}
+		        }
+			});
+			buttonDown.addListener(new ClickListener(){
+				@Override
+		        public void clicked(InputEvent event, float x, float y) {
+					buttonSound.play();
+					int currentStatAllocation = statMap.get(stat);
+					if (currentStatAllocation > 0 || (currentStatAllocation > -1 && statsAtNegative() < 2)){
+						character.setStat(stat, character.getStat(stat)-1);
+						saveService.saveDataValue(SaveEnum.PLAYER, character);
+						statPoints++;	
+						statMap.put(stat, currentStatAllocation - 1);
+						statMessage = "";
+					}
+					else {
+						if (currentStatAllocation <= -1){
+							statMessage = "Your " + stat.toString() + " is at minimum!\nIt cannot be lowered.";
+						}
+						else {
+							statMessage = "You can only lower two stats below their base scores.";
+						}
+					}
+		        }
+			});
+			statTable.add(buttonDown).width(30).height(50);
+			statTable.add(buttonUp).width(30).height(50).row();
+		}
+		statTable.addAction(Actions.moveTo(statTable.getX() + 515, statTable.getY() + 370));
+		
 		Table table = new Table();
 		
 		for (final SaveManager.JobClass jobClass: SaveManager.JobClass.values()){
@@ -60,9 +129,11 @@ public class CharacterCreationScene extends Scene {
 				@Override
 		        public void clicked(InputEvent event, float x, float y) {
 					buttonSound.play();
-					console = "You are now " + getJobClass(jobClass) + ".";
+					classMessage = "You are now " + getJobClass(jobClass) + ".";
 					saveService.saveDataValue(SaveEnum.CLASS, jobClass);
-					addActor(done);
+					statPoints = 3;
+					statMap = resetObjectMap();
+					addActor(statTable);
 		        }
 			});
 			table.add(button).width(140).row();
@@ -71,6 +142,33 @@ public class CharacterCreationScene extends Scene {
 		this.addActor(table);	
 	}
 
+	private ObjectMap<Stat, Integer> resetObjectMap(){
+		ObjectMap<Stat, Integer> tempMap = new ObjectMap<Stat, Integer>();
+		for (final Stat stat: Stat.values()){
+			tempMap.put(stat, 0);
+		}
+		return tempMap;
+	}
+	
+	private boolean noStatsAtMax(){
+		for (Integer value: statMap.values()){
+			if (value >= 2){
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	private int statsAtNegative(){
+		int count = 0;
+		for (Integer value: statMap.values()){
+			if (value < 0){
+				count++;
+			}
+		}
+		return count;
+	}
+	
 	private String getJobClass(SaveManager.JobClass jobClass){ return jobClass == SaveManager.JobClass.ENCHANTRESS ? "an Enchantress" : "a " + jobClass.getLabel(); }
 	
 	@Override
@@ -86,7 +184,8 @@ public class CharacterCreationScene extends Scene {
 		font.draw(batch, "Character Creation", 600, 600);
 		font.setColor(0.4f,0.4f,0.4f,1);
 		int base = 500;
-		font.draw(batch, console, base, 550);
+		font.draw(batch, classMessage, base+100, 580);
+		font.draw(batch, statMessage, base+100, 555);
 		int offset = 0;
 		for (Stat stat: PlayerCharacter.Stat.values()){
 			font.setColor(0.6f,0.2f,0.1f,1);
@@ -95,9 +194,11 @@ public class CharacterCreationScene extends Scene {
 			int amount = character.getStat(stat);
 			setFontColor(font, amount);
 			font.draw(batch, String.valueOf(amount), base+170, 500 - offset);
-			font.draw(batch, "- " + PlayerCharacter.getStatMap().get(stat).get(amount), base+185, 500 - offset);
+			font.draw(batch, "("+String.valueOf(statMap.get(stat))+")", base+185, 500 - offset);
+			font.draw(batch, "- " + PlayerCharacter.getStatMap().get(stat).get(amount), base+210, 500 - offset);
 			offset += 50;
 		}
+		font.draw(batch, "Stat points: " + statPoints, base + 100, 150);
     }
 	
 	private void setFontColor(BitmapFont font, int amount){
