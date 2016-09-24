@@ -22,7 +22,7 @@ import com.majalis.save.SaveService;
 /*
  * Represents a node on the world map.
  */
-public class GameWorldNode extends Group {
+public class GameWorldNode extends Group implements Comparable {
 
 	private final static int RADIUS = 25;
 	private final Array<GameWorldNode> connectedNodes;
@@ -228,5 +228,16 @@ public class GameWorldNode extends Group {
 	
 	public boolean isOverlapping(Vector2 otherNode) {
 		return Intersector.overlaps(new Circle(position, RADIUS+80), new Circle(otherNode, RADIUS));
+	}
+	
+	@Override
+	public int compareTo(Object otherNodeToCompare) {
+		GameWorldNode otherNode = (GameWorldNode) otherNodeToCompare;
+		if (otherNode.getX() >= position.x){
+			return 1;
+		}
+		else {
+			return -1;
+		}
 	}
 }

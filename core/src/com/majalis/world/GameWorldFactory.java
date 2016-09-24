@@ -100,6 +100,7 @@ public class GameWorldFactory {
 		
 		// load the current node - subtracts 1 because it currently assumes that the index in the array is one less than the node's code - need to make an IntMap between nodeCode and node
 		nodeMap.get((Integer)loadService.loadDataValue(SaveEnum.NODE_CODE, Integer.class)).setAsCurrentNode();
+		nodes.sort();
 		return new GameWorld(nodes);
 	}
 	
