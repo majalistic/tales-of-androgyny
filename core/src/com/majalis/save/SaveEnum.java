@@ -13,5 +13,6 @@ public enum SaveEnum {
 	VISITED_LIST,
 	BATTLE_CODE,
 	CLASS, 
-	WORLD_SEED
+	WORLD_SEED, 
+	HEALTH
 }

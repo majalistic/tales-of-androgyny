@@ -17,6 +17,7 @@ import com.majalis.character.PlayerCharacter;
 import com.majalis.character.AbstractCharacter.Stance;
 import com.majalis.character.PlayerCharacter.Stat;
 import com.majalis.save.SaveEnum;
+import com.majalis.save.SaveManager;
 import com.majalis.save.SaveService;
 import com.majalis.scenes.AbstractChoiceScene;
 import com.majalis.scenes.BattleScene;
@@ -196,6 +197,66 @@ public class EncounterBuilder {
 										addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.ENCOUNTER_OVER))), 
 										assetManager, "Fight the slime?", new Array<String>(true, new String[]{"Fight Her", "Leave Her Be"}, 0, 2))), font, background);
 				break;
+			// brigand
+			case 3:
+				getTextScenes(getScript(battleCode, 0), 
+						addScene(new BattleScene(
+							aggregateMaps(
+									getTextScenes(new String[]{"You defeated the brigand!.", "You get 1 XP"}, addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.ENCOUNTER_OVER)), font, background),
+									getTextScenes(getScript(battleCode, 4), addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.GAME_OVER)), font, background)					
+							), -1, saveService, battleCode)), font, background);	
+				getTextScenes(getScript(battleCode, 0), 
+						addScene(
+							getCheckScene(
+								aggregateMaps(
+									getTextScenes(getScript(battleCode, 1), 
+											// need to create a getBattleScene method
+											addScene(
+													getChoiceScene(
+															aggregateMaps(
+																addScene(
+																	new BattleScene(
+																		aggregateMaps(
+																				getTextScenes(new String[]{"You defeated the brigand!.", "You get 1 XP"}, addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.ENCOUNTER_OVER)), font, background),
+																				getTextScenes(getScript(battleCode, 4), addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.GAME_OVER)), font, background)					
+																		), -1, saveService, battleCode, Stance.OFFENSIVE, Stance.BALANCED)
+																),
+																addScene(
+																		new BattleScene(
+																			aggregateMaps(
+																					getTextScenes(new String[]{"You defeated the brigand!.", "You get 1 XP"}, addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.ENCOUNTER_OVER)), font, background),
+																					getTextScenes(getScript(battleCode, 4), addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.GAME_OVER)), font, background)					
+																			), -1, saveService, battleCode, Stance.BALANCED, Stance.BALANCED)
+																)
+															),
+															assetManager,
+															"Do you charge or ready an arrow?",
+															new Array<String>(true, new String[]{"Charge", "Ready an Arrow"}, 0, 2)
+													)
+											), font, background),
+									addScene(new TextScene(
+											getTextScenes(getScript(battleCode, 2), 
+												addScene(new BattleScene(
+														aggregateMaps(
+																getTextScenes(new String[]{"You defeated the brigand!.", "You get 1 XP"}, addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.ENCOUNTER_OVER)), font, background),
+																getTextScenes(getScript(battleCode, 4), addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.GAME_OVER)), font, background)					
+														), -1, saveService, battleCode, Stance.BALANCED, Stance.BALANCED)), font, background),
+											sceneCounter, saveService, font, background, "Ouch!  You take 5 damage!", getMutation(5)
+									)),
+									getTextScenes(getScript(battleCode, 3), 
+											addScene(new BattleScene(
+											aggregateMaps(
+													getTextScenes(new String[]{"You defeated the brigand!.", "You get 1 XP"}, addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.ENCOUNTER_OVER)), font, background),
+													getTextScenes(getScript(battleCode, 4), addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.GAME_OVER)), font, background)					
+											), -1, saveService, battleCode, Stance.DOGGY, Stance.DOGGY)), font, background)
+								),
+								assetManager,
+								Stat.PERCEPTION,
+								new IntArray(new int[]{6, 4, 0}),
+								character
+							)
+						), font, background);	
+				break;
 			// dryad
 			case 4:
 				backgroundTexture = assetManager.get("DryadApple.jpg", Texture.class);
@@ -215,6 +276,12 @@ public class EncounterBuilder {
 		// reporting that the battle code has been consumed - this should be encounter code
 		saveService.saveDataValue(SaveEnum.BATTLE_CODE, new BattleCode(-1, -1, -1, Stance.BALANCED, Stance.BALANCED));
 		return new Encounter(scenes, endScenes, battleScenes, getStartScene(scenes, sceneCode));	
+	}
+	
+	private Array<Mutation> getMutation(int damage){
+		Array<Mutation> mutations = new Array<Mutation>();
+		mutations.add(new Mutation(saveService, (SaveManager)saveService, SaveEnum.HEALTH, -5, Integer.class, false));
+		return mutations;
 	}
 	
 	private OrderedMap<Integer, Scene> addScene(Scene scene){ return addScene(getSceneList(scene)); }

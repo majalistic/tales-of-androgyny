@@ -42,6 +42,7 @@ public class SaveManager implements SaveService, LoadService{
 	    	case BATTLE_CODE:		save.battleCode = (BattleCode) object; break;
 	    	case CLASS:				save.player.setJobClass((JobClass) object); break;
 	    	case WORLD_SEED:		save.worldSeed = (Integer) object; break;
+	    	case HEALTH: 			save.player.setCurrentHealth((Integer) object); break;
     	}	
         saveToJson(save); //Saves current save immediately.
     }
@@ -62,6 +63,7 @@ public class SaveManager implements SaveService, LoadService{
 	    	case BATTLE_CODE:		return (T) save.battleCode;
 	    	case CLASS:				return (T) save.player.jobClass;
 	    	case WORLD_SEED:		return (T) (Integer) save.worldSeed;
+	    	case HEALTH:			return (T) (Integer) save.player.getCurrentHealth();
     	}	
     	return null;
     }

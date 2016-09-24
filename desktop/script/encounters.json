@@ -57,11 +57,29 @@
 	{
 		"key": "003-00",
 		"scriptLines": [
-			"You encounter a brigand.", "She laughs at you."
+			"You're wandering in the forest - home of monsters and shadows alike.  The creatures of the woods can sometimes be hostile, so you're on your very best guard.", "The sound of a twig snapping jostles you into high alert, but you can't locate the source of the sound.", "You keep your ears pricked up, wary of unseen danger."
+		]
+	},
+		{
+		"key": "003-01",
+		"scriptLines": [
+			"You spot her before she reveals herself - judging by her appearance, you would guess that she's a lone brigand - you scan the area, but you don't detect the presence of any more of her merry band.", "You're fortunate - she didn't expect you to spot her, and she's caught unawares.  Will you charge at her or ready an arrow?"
 		]
 	},
 	{
-		"key": "003-01",
+		"key": "003-02",
+		"scriptLines": [
+			"You feel a sharp pain in your back - you failed to spot the hidden danger, and it made itself known violently.  You spin to face the source of the pain - a woman, rough and worn, holding a red-tipped blade.  You adopt a fighting stance."
+		]
+	},
+	{
+		"key": "003-03",
+		"scriptLines": [
+			"Your lack of awareness costs you.  Your pants drop - something must have pulled them down!  Your unseen foe works quickly - and, unfortunately for you, their intentions are anything but benign.", "Your breath is caught in your throat as you feel something fat worm its way inside of you, taking the path of great resistance - you've been penetrated, anally.  What is no doubt an erect, spit-slick phallus is poking into your guts, putting a crushing pressure on your insides, and you hear a female, if throaty, voice speak.", "\"Phew.  It's my lucky day - that's some tight ass-pussy. You really need to pay more attention, boyo.  Just a warning for the future\", she says, gripping onto your shoulders, and though you can't see her face, you know she's smug about it.", "\"Now if you'll excuse me, I have some idiot-hero ass to blast.  Hooah!\""
+		]
+	},	
+	{
+		"key": "003-04",
 		"scriptLines": [
 			"You lost! The brigand has her way with you."
 		]

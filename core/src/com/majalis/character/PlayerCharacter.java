@@ -156,4 +156,8 @@ public class PlayerCharacter extends AbstractCharacter {
 			default: 
 		}
 	}
+
+	public void setCurrentHealth(Integer newHealth) {
+		currentHealth = newHealth;	
+	}
 }

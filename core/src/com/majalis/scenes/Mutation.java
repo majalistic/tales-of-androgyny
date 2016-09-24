@@ -46,6 +46,12 @@ public class Mutation {
 	
 	private <T> void mutate(Class<?> type){
 		// currently performs string concatenation on all non-overrides
-		saveService.saveDataValue(path, loadService.loadDataValue(path, type).toString() + value.toString());
+		if (type == Integer.class){
+			saveService.saveDataValue(path, (Integer) loadService.loadDataValue(path, type) + (Integer)value);
+		}
+		else {
+			saveService.saveDataValue(path, loadService.loadDataValue(path, type).toString() + value.toString());
+		}
+		
 	}	
 }
