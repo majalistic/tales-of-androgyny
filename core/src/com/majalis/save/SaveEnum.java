@@ -14,5 +14,6 @@ public enum SaveEnum {
 	BATTLE_CODE,
 	CLASS, 
 	WORLD_SEED, 
-	HEALTH
+	HEALTH, 
+	SKILL
 }

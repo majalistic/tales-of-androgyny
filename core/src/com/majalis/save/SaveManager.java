@@ -10,10 +10,12 @@ import com.badlogic.gdx.utils.IntArray;
 import com.badlogic.gdx.utils.IntSet;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonWriter.OutputType;
+import com.badlogic.gdx.utils.ObjectSet;
 import com.majalis.battle.BattleCode;
 import com.majalis.character.EnemyCharacter;
 import com.majalis.character.PlayerCharacter;
 import com.majalis.character.PlayerCharacter.Stat;
+import com.majalis.character.Techniques;
 /*
  * Used for file handling, both reading and writing - both game files and encounter replay files.
  */
@@ -43,6 +45,7 @@ public class SaveManager implements SaveService, LoadService{
 	    	case CLASS:				save.player.setJobClass((JobClass) object); break;
 	    	case WORLD_SEED:		save.worldSeed = (Integer) object; break;
 	    	case HEALTH: 			save.player.setCurrentHealth((Integer) object); break;
+	    	case SKILL: 			save.player.addSkill((Techniques) object); break;
     	}	
         saveToJson(save); //Saves current save immediately.
     }
@@ -64,6 +67,7 @@ public class SaveManager implements SaveService, LoadService{
 	    	case CLASS:				return (T) save.player.jobClass;
 	    	case WORLD_SEED:		return (T) (Integer) save.worldSeed;
 	    	case HEALTH:			return (T) (Integer) save.player.getCurrentHealth();
+	    	case SKILL:				return (T) (ObjectSet<Techniques>) save.player.getSkills();	
     	}	
     	return null;
     }

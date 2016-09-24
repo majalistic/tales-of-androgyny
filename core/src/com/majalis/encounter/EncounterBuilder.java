@@ -14,10 +14,12 @@ import com.badlogic.gdx.utils.IntArray;
 import com.badlogic.gdx.utils.OrderedMap;
 import com.majalis.battle.BattleCode;
 import com.majalis.character.PlayerCharacter;
+import com.majalis.character.Techniques;
 import com.majalis.character.AbstractCharacter.Stance;
 import com.majalis.character.PlayerCharacter.Stat;
 import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveManager;
+import com.majalis.save.SaveManager.JobClass;
 import com.majalis.save.SaveService;
 import com.majalis.scenes.AbstractChoiceScene;
 import com.majalis.scenes.BattleScene;
@@ -28,6 +30,7 @@ import com.majalis.scenes.EndScene;
 import com.majalis.scenes.GameTypeScene;
 import com.majalis.scenes.Mutation;
 import com.majalis.scenes.Scene;
+import com.majalis.scenes.SkillSelectionScene;
 import com.majalis.scenes.TextScene;
 /*
  * Given a sceneCode, reads that encounter and constructs it from a script file.
@@ -61,13 +64,26 @@ public class EncounterBuilder {
 		Texture backgroundTexture = assetManager.get("DefaultBackground.jpg", Texture.class);
 		Texture classSelectTexture = assetManager.get("ClassSelect.jpg", Texture.class); 
 		Background background = new Background(backgroundTexture);
-		
+		Array<Mutation> classMutation = new Array<Mutation>(true, new Mutation[]{new Mutation(saveService, SaveEnum.CLASS, JobClass.ENCHANTRESS), new Mutation(saveService, SaveEnum.SKILL, Techniques.TAUNT), new Mutation(saveService, SaveEnum.SKILL, Techniques.SECOND_WIND), new Mutation(saveService, SaveEnum.SKILL, Techniques.COMBAT_FIRE)}, 0, 4);
+				
 		getTextScenes(new String[]{"Welcome to the world of tRaPG!", "This is a pre-alpha build - many systems and assets are not currently in place, so please don't expect this to be the full game experience!", "If you encounter any bugs, please let us know - leave a comment on our game page at itch.io, send us an email at majalistic@gmail.com, or message us on Patreon.  Thank you!", "You're looking mighty fine, by the way.  Please select your game mode."},
 			addScene(getGameTypeScene(
 				aggregateMaps(			
 					getTextScenes(new String[]{"You've selected to create your character!", "Please choose your class."}, 
-						addScene(new CharacterCreationScene(addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.ENCOUNTER_OVER)), sceneCounter, saveService, font, new Background(classSelectTexture), assetManager, playerCharacter)), font, background),
-					addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.ENCOUNTER_OVER))
+						addScene(
+							new CharacterCreationScene(
+								addScene(
+										new SkillSelectionScene(addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.ENCOUNTER_OVER)) , sceneCounter, saveService, font, new Background(classSelectTexture), assetManager, playerCharacter)	
+								), 
+								sceneCounter, saveService, font, new Background(classSelectTexture), assetManager, playerCharacter)), font, background),
+					addScene(
+							new TextScene(
+									addScene(
+											new EndScene(
+													new OrderedMap<Integer, Scene>(), -1, EndScene.Type.ENCOUNTER_OVER)
+											), sceneCounter, saveService, font, background, "You have entered story mode.  You are now an Enchantress, alone in the world.", classMutation
+							)
+					)
 					), assetManager, new Array<String>(true, new String[]{"Create Character", "Default"}, 0, 2)
 			)),
 		font, background

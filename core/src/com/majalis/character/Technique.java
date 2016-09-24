@@ -70,6 +70,10 @@ public class Technique {
 		return technique.getStabilityCost();
 	}
 	
+	public int getManaCost(){
+		return technique.getManaCost();
+	}
+	
 	public Stance getForceStance(){
 		return forceStance;
 	}	

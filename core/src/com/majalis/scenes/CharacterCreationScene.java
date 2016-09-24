@@ -38,26 +38,8 @@ public class CharacterCreationScene extends Scene {
 		buttonSound = assetManager.get("sound.wav", Sound.class);
 		
 		console = "";
-		saveService.saveDataValue(SaveEnum.CLASS, SaveManager.JobClass.ENCHANTRESS);
 		
-		Table table = new Table();
-		
-		for (final SaveManager.JobClass jobClass: SaveManager.JobClass.values()){
-			TextButton button = new TextButton(jobClass.getLabel(), skin);
-			button.addListener(new ClickListener(){
-				@Override
-		        public void clicked(InputEvent event, float x, float y) {
-					buttonSound.play();
-					console = "You are now " + getJobClass(jobClass) + ".";
-					saveService.saveDataValue(SaveEnum.CLASS, jobClass);
-		        }
-			});
-			table.add(button).width(140).row();
-		}
-		table.addAction(Actions.moveTo(table.getX() + 325, table.getY() + 400));
-		this.addActor(table);
-		
-		TextButton done = new TextButton("Done", skin);
+		final TextButton done = new TextButton("Done", skin);
 		
 		done.addListener(
 			new ClickListener(){
@@ -69,7 +51,24 @@ public class CharacterCreationScene extends Scene {
 			}
 		);
 		done.addAction(Actions.moveTo(done.getX() + 1100, done.getY() + 20));
-		this.addActor(done);
+
+		Table table = new Table();
+		
+		for (final SaveManager.JobClass jobClass: SaveManager.JobClass.values()){
+			TextButton button = new TextButton(jobClass.getLabel(), skin);
+			button.addListener(new ClickListener(){
+				@Override
+		        public void clicked(InputEvent event, float x, float y) {
+					buttonSound.play();
+					console = "You are now " + getJobClass(jobClass) + ".";
+					saveService.saveDataValue(SaveEnum.CLASS, jobClass);
+					addActor(done);
+		        }
+			});
+			table.add(button).width(140).row();
+		}
+		table.addAction(Actions.moveTo(table.getX() + 325, table.getY() + 400));
+		this.addActor(table);	
 	}
 
 	private String getJobClass(SaveManager.JobClass jobClass){ return jobClass == SaveManager.JobClass.ENCHANTRESS ? "an Enchantress" : "a " + jobClass.getLabel(); }

@@ -107,6 +107,8 @@ public abstract class AbstractCharacter extends Actor {
 	
 	public int getCurrentStamina(){ return currentStamina; }
 	
+	public int getCurrentMana(){ return currentMana; }
+	
 	protected void setStaminaToMax() { currentStamina = getMaxStamina(); }
 	
 	protected void modStamina(int staminaMod){ this.currentStamina += staminaMod; if (currentStamina > getMaxStamina()) currentStamina = getMaxStamina(); }
@@ -116,6 +118,10 @@ public abstract class AbstractCharacter extends Actor {
 	protected void setStabilityToMax(){ stability = 10; }
 	
 	protected void modStability(int stabilityMod){ this.stability += stabilityMod; if (stability > getMaxStability()) stability = getMaxStability(); }
+	
+	protected void setManaToMax() { currentMana = getMaxMana(); }
+	
+	protected void modMana(int manaMod){ this.currentMana += manaMod; if (currentMana > getMaxMana()) currentMana = getMaxMana(); }
 	
 	public Stance getStance(){ return stance; }
 	
@@ -160,6 +166,7 @@ public abstract class AbstractCharacter extends Actor {
 		modStamina(getStaminaRegen());
 		modStability(-technique.getStabilityCost());
 		modStability(getStabilityRegen());
+		modMana(-technique.getManaCost());
 			
 		if (stance != Stance.PRONE && stance != Stance.SUPINE && stance != Stance.DOGGY){
 			if (stability <= 0){
@@ -167,6 +174,10 @@ public abstract class AbstractCharacter extends Actor {
 			}
 			else if (currentStamina <= 0){
 				technique = new Technique(Techniques.FALL_DOWN, 0);
+			}
+			else if (currentMana < 0){
+				technique = new Technique(Techniques.FIZZLE, 0);
+				currentMana = 0;
 			}
 		}
 		
@@ -183,6 +194,7 @@ public abstract class AbstractCharacter extends Actor {
 		AIRBORNE, 
 		DOGGY, 
 		KNOTTED, 
-		FELLATIO
+		FELLATIO, 
+		CASTING
 	}	
 }
