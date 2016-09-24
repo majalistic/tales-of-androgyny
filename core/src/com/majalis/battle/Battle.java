@@ -197,7 +197,13 @@ public class Battle extends Group{
 			secondCharacter.modLust(((PlayerCharacter)firstCharacter).getStat(Stat.CHARISMA));
 		}
 		
-		console += getResultString(firstCharacter, secondCharacter, firstTechnique.getTechniqueName(), attackForSecond, secondBlockMod != 1);
+		if (firstTechnique.getTechniqueName().equals("Combat Heal")){
+			firstCharacter.heal(firstTechnique);
+			console += "You heal for " + firstTechnique.getDamage()  + "!\n";
+		}
+		else {
+			console += getResultString(firstCharacter, secondCharacter, firstTechnique.getTechniqueName(), attackForSecond, secondBlockMod != 1);
+		}
 		if (secondTechnique.getTechniqueName().equals("Erupt")){
 			struggle = 0;
 			if (currentNaughtyStance == Stance.FELLATIO){

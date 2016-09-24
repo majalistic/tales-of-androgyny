@@ -111,6 +111,11 @@ public abstract class AbstractCharacter extends Actor {
 	
 	public int getCurrentMana(){ return currentMana; }
 	
+	protected void setHealthToMax() { currentHealth = getMaxHealth(); }
+	
+	protected void modHealth(int healthMod){ this.currentHealth += healthMod; if (currentHealth > getMaxHealth()) currentHealth = getMaxHealth(); }
+	
+	
 	protected void setStaminaToMax() { currentStamina = getMaxStamina(); }
 	
 	protected void modStamina(int staminaMod){ this.currentStamina += staminaMod; if (currentStamina > getMaxStamina()) currentStamina = getMaxStamina(); }
@@ -200,5 +205,9 @@ public abstract class AbstractCharacter extends Actor {
 		KNOTTED, 
 		FELLATIO, 
 		CASTING
+	}
+
+	public void heal(Technique technique) {
+		modHealth(technique.getDamage());		
 	}	
 }
