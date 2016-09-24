@@ -133,16 +133,8 @@ public class EncounterBuilder {
 		Texture backgroundTexture = assetManager.get("DefaultBackground.jpg", Texture.class);
 		Background background = new Background(backgroundTexture);
 		// if there isn't already a battlecode set, it's determined by the encounterCode; for now, that means dividing the various encounters up by modulus
-		if (battleCode == -1) battleCode = encounterCode % 4;
-		if (battleCode != 2){ // not a slime encounter
-			getTextScenes(getScript(battleCode, 0), 
-					addScene(new BattleScene(
-						aggregateMaps(
-								getTextScenes(new String[]{"You won!  You get NOTHING.", "Sad :(", "What a pity.  Go away."}, addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.ENCOUNTER_OVER)), font, background),
-								getTextScenes(getDefeatText(battleCode), addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.GAME_OVER)), font, background)					
-						), -1, saveService, battleCode)), font, background);				
-		}
-		else {
+		if (battleCode == -1) battleCode = encounterCode % 5;
+		if (battleCode == 2){ // slime encounter
 			getTextScenes(getScript(battleCode, 0), 
 					addScene(
 						getChoiceScene(
@@ -155,6 +147,22 @@ public class EncounterBuilder {
 											), -1, saveService, battleCode)), 
 									addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.ENCOUNTER_OVER))), 
 									assetManager, "Fight the slime?", new Array<String>(true, new String[]{"Fight Her", "Leave Her Be"}, 0, 2))), font, background);
+		}
+		else if (battleCode == 4){
+			backgroundTexture = assetManager.get("DryadApple.jpg", Texture.class);
+			background = new Background(backgroundTexture, 540, 720);
+			getTextScenes(getScript(battleCode, 0), 
+					addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.ENCOUNTER_OVER)), font, background);
+		}
+		else {
+			getTextScenes(getScript(battleCode, 0), 
+					addScene(new BattleScene(
+						aggregateMaps(
+								getTextScenes(new String[]{"You won!  You get NOTHING.", "Sad :(", "What a pity.  Go away."}, addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.ENCOUNTER_OVER)), font, background),
+								getTextScenes(getDefeatText(battleCode), addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.GAME_OVER)), font, background)					
+						), -1, saveService, battleCode)), font, background);		
+			
+			
 		}
 		
 		// reporting that the battle code has been consumed - this should be encounter code

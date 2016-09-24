@@ -23,6 +23,12 @@
 		"scriptLines": [
 			"You encounter a brigand.", "She laughs at you."
 		]
+	},
+	{
+		"key": 4,
+		"scriptLines": [
+			"You encounter a woman sitting on a tree.", "On closer inspection, you notice that she's not sitting on the tree, but rather, is fused with it - could she be a dryad?"
+		]
 	}
 ]
 }

@@ -204,7 +204,7 @@ public class GameWorldNode extends Group {
     }
 
 	private String getHoverText(){
-		return visited ? "Nothing here" : getHoverText(encounter % 4); 
+		return visited ? "Nothing here" : getHoverText(encounter % 5); 
 	}
 	
 	private String getHoverText(int encounter){
@@ -213,6 +213,7 @@ public class GameWorldNode extends Group {
 			case 1: return "Harpy";
 			case 2: return "Slime";
 			case 3: return "Brigand";
+			case 4: return "Dryad";
 			default: return "Unknown";
 		}
 	}
