@@ -50,7 +50,6 @@ public class PlayerCharacter extends AbstractCharacter {
 		if (defaultValues){
 			label = "You";
 			secondPerson = true;
-			baseCharisma = 6;
 			currentHealth = getMaxHealth();	
 		}
 		skills = new ObjectSet<Techniques>();

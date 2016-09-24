@@ -192,6 +192,11 @@ public class Battle extends Group{
 			}
 		}
 		
+		if (firstTechnique.getTechniqueName().equals("Taunt")){
+			console += "You taunt the enemy!  They become aroused!";
+			secondCharacter.modLust(((PlayerCharacter)firstCharacter).getStat(Stat.CHARISMA));
+		}
+		
 		console += getResultString(firstCharacter, secondCharacter, firstTechnique.getTechniqueName(), attackForSecond, secondBlockMod != 1);
 		if (secondTechnique.getTechniqueName().equals("Erupt")){
 			struggle = 0;

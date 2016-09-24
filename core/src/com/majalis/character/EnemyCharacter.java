@@ -11,7 +11,6 @@ import com.majalis.battle.BattleFactory.EnemyEnum;
 public class EnemyCharacter extends AbstractCharacter {
 
 	private transient Texture texture;
-	private int lust; 
 	
 	@SuppressWarnings("unused")
 	private EnemyCharacter(){}

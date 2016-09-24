@@ -45,6 +45,8 @@ public abstract class AbstractCharacter extends Actor {
 	public int focus;
 	public int fortune;
 	
+	public int lust; 
+	
 	// public Weapon weapon;
 	// public Shield shield;
 	// public Armor armor;
@@ -138,6 +140,8 @@ public abstract class AbstractCharacter extends Actor {
 	protected int getMagic() { return baseMagic; }
 
 	protected int getCharisma() { return baseCharisma; }
+	
+	public void modLust(int lustMod) { lust += lustMod; }
 	
 	public String doAttack(String technique, AbstractCharacter secondCharacter, Attack attack){
 		return label + (secondPerson ? " use " : " uses ") + technique + " against " + secondCharacter.receiveAttack(attack);
