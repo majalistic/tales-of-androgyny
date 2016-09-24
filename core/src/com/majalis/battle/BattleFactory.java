@@ -68,15 +68,14 @@ public class BattleFactory {
 	}
 
 	public enum EnemyEnum {
-		WERESLUT ("Wereslut"){ public Vector2 getPosition(){ return new Vector2(0, 0); }},
-		HARPY ("Harpy"){ public Vector2 getPosition(){ return new Vector2(150, -40); }},
-		SLIME ("Slime"){ public Vector2 getPosition(){ return new Vector2(0, 0); }},
-		BRIGAND ("Brigand"){ public Vector2 getPosition(){ return new Vector2(0, 0); }};
+		WERESLUT ("Wereslut"),
+		HARPY ("Harpy"),
+		SLIME ("Slime"),
+		BRIGAND ("Brigand");
 		
 		private final String text;
 	    private EnemyEnum(final String text) { this.text = text; }
 	    @Override
 	    public String toString() { return text; }		
-		public abstract Vector2 getPosition();
 	}
 }

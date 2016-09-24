@@ -12,7 +12,6 @@ import com.majalis.battle.BattleFactory.EnemyEnum;
 public class EnemyCharacter extends AbstractCharacter {
 
 	private transient Texture texture;
-	private Vector2 position;
 	private int lust; 
 	
 	@SuppressWarnings("unused")
@@ -159,11 +158,10 @@ public class EnemyCharacter extends AbstractCharacter {
 	@Override
     public void draw(Batch batch, float parentAlpha) {
 		super.draw(batch, parentAlpha);
-		batch.draw(texture, position.x, position.y, 1280, 720);
+		batch.draw(texture, 0, 0, 1280, 720);
     }
 	
 	public void init(Texture texture){
 		this.texture = texture;
-		position = enemyType.getPosition();
 	}
 } 
