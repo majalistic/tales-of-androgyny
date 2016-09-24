@@ -277,8 +277,48 @@ public class EncounterBuilder {
 			case 4:
 				backgroundTexture = assetManager.get("DryadApple.jpg", Texture.class);
 				background = new Background(backgroundTexture, 540, 720);
-				getTextScenes(getScript(battleCode, 0), 
-						addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.ENCOUNTER_OVER)), font, background);
+				getTextScenes(
+					getScript(battleCode, 0), 
+					addScene(
+						getChoiceScene(
+							aggregateMaps(
+								getTextScenes(
+									getScript(battleCode, 1),
+									addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.ENCOUNTER_OVER)), 
+									font, 
+									background
+								),
+								addScene(
+									getCheckScene(
+										aggregateMaps(
+											getTextScenes(
+												getScript(battleCode, 2),
+												addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.ENCOUNTER_OVER)),
+												font,
+												background
+											),
+											getTextScenes(
+												getScript(battleCode, 3),
+												addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.ENCOUNTER_OVER)),
+												font,
+												background
+											)
+										),
+										assetManager,
+										Stat.CHARISMA,
+										new IntArray(new int[]{5, 0}),
+										character
+									)
+								)
+							),
+							assetManager,
+							"Do you offer her something, or try to convince her?",
+							new Array<String>(true, new String[]{"Offer her YOUR apple", "Plead with her"}, 0, 2)
+						)
+					),
+					font,
+					background
+				);
 				break;
 			default:
 				getTextScenes(getScript(battleCode, 0), 

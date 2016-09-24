@@ -87,7 +87,25 @@
 	{
 		"key": "004-00",
 		"scriptLines": [
-			"You encounter a woman sitting on a tree.", "On closer inspection, you notice that she's not sitting on the tree, but rather, is fused with it - could she be a dryad?"
+			"You encounter a woman sitting on a tree.", "On closer inspection, you notice that she's not sitting on the tree, but rather, is fused with it - could she be a dryad?", "As you approach her, you see that she is holding an apple that looks incredibly delicious."
+		]
+	},	
+	{
+		"key": "004-01",
+		"scriptLines": [
+			"You offer the dryad your apple in exchange for her apple."
+		]
+	},	
+	{
+		"key": "004-02",
+		"scriptLines": [
+			"You convince the dryad to offer up her apple."
+		]
+	},	
+	{
+		"key": "004-03",
+		"scriptLines": [
+			"The dryad is unconvinced by your offer."
 		]
 	}
 ]
