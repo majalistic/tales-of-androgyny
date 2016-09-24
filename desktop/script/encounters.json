@@ -7,6 +7,12 @@
 		]
 	},
 	{
+		"key": "000-01",
+		"scriptLines": [
+			"You lost! You get knotty werewolf cock! (up the butt)."
+		]
+	},
+	{
 		"key": "001-00",
 		"scriptLines": [
 			"You look around. There don't appear to be any harpies here.", "That being said, there's a rather pungent scent in the air, and you've been hearing squawks and the flappings of tremendous wings for a while.", "You look up and behind you to try to spot the source, but the sky is empty - however, when you turn back, you can plainly see a figure approaching rapidly, talons extended!"
@@ -29,6 +35,12 @@
 		"scriptLines": [
 			"You're too slow to dodge the harpy!", "Her lower body crashes into your face at high speed - you're knocked to the ground, and your mouth, open in surprise, is filled!", "The harpy lets out an moaning screech, and her tongue lolls out in satisfaction!", "Before you even know what happened, you're tasting the worst the harpy has to offer - her slimy penis!", "It tastes like it's never been washed, and the harpy looks down at you with frenzy in her wild eyes; she obviously has taken a liking to your lips in an unfortunate way!", "Her talons grip your head and she gets ready to begin pistoning into your face.  It's time to act!"
 		]
+	},	
+	{
+		"key": "001-04",
+		"scriptLines": [
+			"You lost! The harpy mounts you! (up the butt)."
+		]
 	},		
 	{
 		"key": "002-00",
@@ -37,11 +49,23 @@
 		]
 	},
 	{
+		"key": "002-01",
+		"scriptLines": [
+			"You lost! Slimetime!"
+		]
+	},	
+	{
 		"key": "003-00",
 		"scriptLines": [
 			"You encounter a brigand.", "She laughs at you."
 		]
 	},
+	{
+		"key": "003-01",
+		"scriptLines": [
+			"You lost! The brigand has her way with you."
+		]
+	},	
 	{
 		"key": "004-00",
 		"scriptLines": [

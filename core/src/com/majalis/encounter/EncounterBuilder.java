@@ -159,19 +159,19 @@ public class EncounterBuilder {
 											addScene(new BattleScene(
 											aggregateMaps(
 													getTextScenes(new String[]{"You defeated the harpy!", "You receive 1 XP"}, addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.ENCOUNTER_OVER)), font, background),
-													getTextScenes(getDefeatText(battleCode), addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.GAME_OVER)), font, background)					
+													getTextScenes(getScript(battleCode, 4), addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.GAME_OVER)), font, background)					
 											), -1, saveService, battleCode, Stance.BALANCED, Stance.PRONE)), font, background),
 									getTextScenes(getScript(battleCode, 2), 
 											addScene(new BattleScene(
 											aggregateMaps(
 													getTextScenes(new String[]{"You defeated the harpy!", "You receive 1 XP"}, addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.ENCOUNTER_OVER)), font, background),
-													getTextScenes(getDefeatText(battleCode), addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.GAME_OVER)), font, background)					
+													getTextScenes(getScript(battleCode, 4), addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.GAME_OVER)), font, background)					
 											), -1, saveService, battleCode, Stance.KNEELING, Stance.BALANCED)), font, background),
 									getTextScenes(getScript(battleCode, 3), 
 											addScene(new BattleScene(
 													aggregateMaps(
 															getTextScenes(new String[]{"You defeated the harpy!", "You receive 1 XP"}, addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.ENCOUNTER_OVER)), font, background),
-															getTextScenes(getDefeatText(battleCode), addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.GAME_OVER)), font, background)					
+															getTextScenes(getScript(battleCode, 4), addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.GAME_OVER)), font, background)					
 													), -1, saveService, battleCode, Stance.FELLATIO, Stance.FELLATIO)), font, background)
 								),
 								assetManager,
@@ -191,7 +191,7 @@ public class EncounterBuilder {
 											new BattleScene(
 												aggregateMaps(
 														getTextScenes(new String[]{"You won!  You get NOTHING.", "Sad :(", "What a pity.  Go away."}, addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.ENCOUNTER_OVER)), font, background),
-														getTextScenes(getDefeatText(battleCode), addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.GAME_OVER)), font, background)					
+														getTextScenes(getScript(battleCode, 1), addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.GAME_OVER)), font, background)					
 												), -1, saveService, battleCode)), 
 										addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.ENCOUNTER_OVER))), 
 										assetManager, "Fight the slime?", new Array<String>(true, new String[]{"Fight Her", "Leave Her Be"}, 0, 2))), font, background);
@@ -208,7 +208,7 @@ public class EncounterBuilder {
 						addScene(new BattleScene(
 							aggregateMaps(
 									getTextScenes(new String[]{"You won!  You get NOTHING.", "Sad :(", "What a pity.  Go away."}, addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.ENCOUNTER_OVER)), font, background),
-									getTextScenes(getDefeatText(battleCode), addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.GAME_OVER)), font, background)					
+									getTextScenes(getScript(battleCode, 1), addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.GAME_OVER)), font, background)					
 							), -1, saveService, battleCode)), font, background);		
 				break;
 		}
@@ -254,23 +254,6 @@ public class EncounterBuilder {
 			aggregatedMap.putAll(map);
 		}
 		return aggregatedMap;	
-	}
-	
-	// reads from a text file with the battleCode followed by the scene - either delimited by a certain character or just endline and use the wordwrapping of font.draw
-	// this will need to be combined with getScript and be called with ENCOUNTERCODE (not battlecode!) as well as the textSceneCode (there should be an incrementer each time getTextScenes is called), which will be passed to the key converter in reader and then passed to reader.loadscript 
-	private String[] getDefeatText(int battleCode){
-		switch(battleCode){
-			case 0:
-				return new String[]{"You lost! You get knotty werewolf cock! (up the butt)."};
-			case 1:
-				return new String[]{"You lost! The harpy mounts you! (up the butt)."};
-			case 2:
-				return new String[]{"You lost! Slimetime!"};
-			case 3:
-				return new String[]{"You lost! The brigand has her way with you."};
-			default:
-				return new String[]{"Unknown?"};
-		}
 	}
 	
 	private String[] getScript(int battleCode, int scene){
