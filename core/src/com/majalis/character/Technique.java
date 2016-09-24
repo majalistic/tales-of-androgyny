@@ -40,6 +40,7 @@ public class Technique {
 			case POUND:
 				return Stance.DOGGY;
 			case ERUPT:
+			case STRUGGLE:
 				return Stance.BALANCED;
 			case KNOT:
 			case KNOT_BANG:

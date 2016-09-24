@@ -45,6 +45,7 @@ public class Battle extends Group{
 	public boolean battleOver;
 	public boolean victory;
 	public boolean gameExit;
+	public int struggle;
 	
 	public Battle(SaveService saveService, AssetManager assetManager, BitmapFont font, PlayerCharacter character, EnemyCharacter enemy,  int victoryScene, int defeatScene) {
 		this.saveService = saveService;
@@ -64,6 +65,7 @@ public class Battle extends Group{
 		table = new Table();
 		this.addActor(table);
 		displayTechniqueOptions();
+		struggle = 0;
 	}
 	
 	private void displayTechniqueOptions(){
@@ -168,8 +170,30 @@ public class Battle extends Group{
 			}
 		}
 		
+		Stance forcedStanceSecond = attackForSecond.getForceStance();
+		if (forcedStanceSecond != null){
+			struggle++;
+			if (struggle > 2){
+				
+				console += "You broke free!\n";
+				if (currentNaughtyStance == Stance.FELLATIO){
+					console += "It slips out of your mouth and you get to your feet!\n";
+				}
+				else {
+					console += "It pops out of your ass and you get to your feet!\n";
+				}
+				secondCharacter.setStance(forcedStance);
+				firstCharacter.setStance(Stance.BALANCED);
+				struggle = 0;
+			}
+			else {
+				console += "You can't break free!\n";
+			}
+		}
+		
 		console += getResultString(firstCharacter, secondCharacter, firstTechnique.getTechniqueName(), attackForSecond, secondBlockMod != 1);
 		if (secondTechnique.getTechniqueName().equals("Erupt")){
+			struggle = 0;
 			if (currentNaughtyStance == Stance.FELLATIO){
 				console += "A harpy semen bomb explodes in your mouth!  It tastes awful!\n"
 						+ "You are going to vomit!\n"
