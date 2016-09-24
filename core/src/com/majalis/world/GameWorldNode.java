@@ -16,6 +16,8 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
+import com.majalis.character.PlayerCharacter;
+import com.majalis.character.PlayerCharacter.Stat;
 import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveManager;
 import com.majalis.save.SaveService;
@@ -38,13 +40,14 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 	private final Vector2 position;
 	private final boolean visited;
 	private final Sound sound;
+	private final PlayerCharacter character;
 	private boolean selected;
 	private boolean current;
 	private boolean active;
 	private boolean hover;
 	
 	// all the nodes need are the encounter CODES, not the actual encounter - should probably pass in some kind of object that contains the encounter generation logic, rather than an encounter and defaultEncounter code - at least, need a description of the encounter attached
-	public GameWorldNode(Array<GameWorldNode> connectedNodes, SaveService saveService, OrthographicCamera camera, ShapeRenderer shapeRenderer, BitmapFont font, final int nodeCode, int encounter, int defaultEncounter, Vector2 position, boolean visited, Sound sound){
+	public GameWorldNode(Array<GameWorldNode> connectedNodes, SaveService saveService, OrthographicCamera camera, ShapeRenderer shapeRenderer, BitmapFont font, final int nodeCode, int encounter, int defaultEncounter, Vector2 position, boolean visited, Sound sound, PlayerCharacter character){
 		this.connectedNodes = connectedNodes;
 		this.saveService = saveService;
 		this.camera = camera;
@@ -56,6 +59,7 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 		this.nodeCode = nodeCode;
 		this.visited = visited;
 		this.sound = sound;
+		this.character = character;
 		selected = false;
 		current = false;
 		active = false;
@@ -208,16 +212,44 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 	}
 	
 	private String getHoverText(int encounter){
-		switch (encounter){
-			case 0: return "Wereslut";
-			case 1: return "Harpy";
-			case 2: return "Slime";
-			case 3: return "Brigand";
-			case 4: return "Dryad";
-			default: return "Unknown";
+		switch(getPerceptionLevel(character.getStat(Stat.PERCEPTION))){
+			case 0:
+				return "You are unsure of what awaits you!";
+			case 1:
+				switch (encounter){
+					case 0: return "Wereslut";
+					case 1: return "Harpy";
+					case 2: return "Slime";
+					case 3: return "Brigand";
+					case 4: return "Dryad";
+					default: return "Unknown - No Info for encounter #" + encounter + " and perception level = 1";
+			}
+			case 2:
+				switch (encounter){
+					case 0: return "Wereslut - Hostile!";
+					case 1: return "Harpy - Hostile!";
+					case 2: return "Slime - Neutral";
+					case 3: return "Brigand - Hostile!";
+					case 4: return "Dryad - Peaceful";
+					default: return "Unknown - No Info for encounter #" + encounter  + " and perception level = 2";
+				}
+			default: return "Perception level error.";
 		}
 	}
 	
+	private int getPerceptionLevel(int perception) {
+		if (perception >= 6){
+			return 2;
+		}
+		else if (perception >= 3){
+			return 1;
+		}
+		else {
+			return 0;
+		}
+	}
+
+
 	public boolean isSelected() {
 		return selected;
 	}
