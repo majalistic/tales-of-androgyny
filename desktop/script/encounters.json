@@ -1,31 +1,49 @@
 {
 "script": [
 	{
-		"key": 0,
+		"key": "000-00",
 		"scriptLines": [
 			"You encounter a random encounter!", "Nothing to see here", "No wait lol there's a basic werebitch, RAWR."
 		]
 	},
 	{
-		"key": 1,
+		"key": "001-00",
 		"scriptLines": [
-			"You look around. There doesn't appear to be any harpies here.", "Wait actually that harpy looks like she wants to drill you silly!"
+			"You look around. There don't appear to be any harpies here.", "That being said, there's a rather pungent scent in the air, and you've been hearing squawks and the flappings of tremendous wings for a while.", "You look up and behind you to try to spot the source, but the sky is empty - however, when you turn back, you can plainly see a figure approaching rapidly, talons extended!"
 		]
 	},
 	{
-		"key": 2,
+		"key": "001-01",
+		"scriptLines": [
+			"You deftly sidestep the harpy's dive, extending your arm to clothesline her in the process.", "The impact nearly drags you both to the ground, but the robust harpy seems relatively unharmed, though she crashes to the floor with her face in the dirt.", "It's time to act!" 
+		]
+	},
+	{
+		"key": "001-02",
+		"scriptLines": [
+			"You're manage to duck underneath the approaching figure, which has the unfortunate side effect of giving you a full view of her intentions.", "Her heavily foreskinned bird dick just narrowly misses its intended target - your mouth - and flies by as a blur.", "It's time to act!" 
+		]
+	},
+	{
+		"key": "001-03",
+		"scriptLines": [
+			"You're too slow to dodge the harpy!", "Her lower body crashes into your face at high speed - you're knocked to the ground, and your mouth, open in surprise, is filled!", "The harpy lets out an moaning screech, and her tongue lolls out in satisfaction!", "Before you even know what happened, you're tasting the worst the harpy has to offer - her slimy penis!", "It tastes like it's never been washed, and the harpy looks down at you with frenzy in her wild eyes; she obviously has taken a liking to your lips in an unfortunate way!", "Her talons grip your head and she gets ready to begin pistoning into your face.  It's time to act!"
+		]
+	},		
+	{
+		"key": "002-00",
 		"scriptLines": [
 			"You encounter a slime with a pretty impressive booty!", "It looks like she doesn't want to fight."
 		]
 	},
 	{
-		"key": 3,
+		"key": "003-00",
 		"scriptLines": [
 			"You encounter a brigand.", "She laughs at you."
 		]
 	},
 	{
-		"key": 4,
+		"key": "004-00",
 		"scriptLines": [
 			"You encounter a woman sitting on a tree.", "On closer inspection, you notice that she's not sitting on the tree, but rather, is fused with it - could she be a dryad?"
 		]

@@ -30,6 +30,8 @@ public class BattleFactory {
 		// need a new Enemy
 		if (enemy == null || enemy.getCurrentHealth() <= 0){
 			enemy = getEnemy(battleCode.battleCode);
+			enemy.setStance(battleCode.enemyStance);
+			playerCharacter.setStance(battleCode.playerStance);			
 		}
 		// loading old enemy
 		else {

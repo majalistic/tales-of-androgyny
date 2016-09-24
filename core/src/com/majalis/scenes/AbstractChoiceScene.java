@@ -9,7 +9,7 @@ import com.badlogic.gdx.utils.OrderedMap;
 import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveService;
 
-public class AbstractChoiceScene extends Scene {
+public abstract class AbstractChoiceScene extends Scene {
 	
 	public static final ObjectMap<String, Class<?>> resourceRequirements = new ObjectMap<String, Class<?>>();
 	static {
