@@ -163,8 +163,8 @@ public class Battle extends Group{
 		Stance forcedStance = attackForFirst.getForceStance();
 		if (forcedStance != null){
 			if (firstCharacter.stance == Stance.KNEELING && secondTechnique.getTechniqueName().equals("Divebomb")){
-				console += "The divebomb missed!";
-				secondCharacter.setStance(Stance.BALANCED);
+				console += "The divebomb missed!  The harpy crashed!";
+				secondCharacter.setStance(Stance.PRONE);
 			}
 			else {
 				firstCharacter.setStance(forcedStance);

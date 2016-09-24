@@ -175,19 +175,19 @@ public class EncounterBuilder {
 											// need to create a getBattleScene method
 											addScene(new BattleScene(
 											aggregateMaps(
-													getTextScenes(new String[]{"You defeated the harpy!", "You receive 1 XP"}, addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.ENCOUNTER_OVER)), font, background),
+													getTextScenes(new String[]{"You defeated the harpy!", "You receive 1 XP."}, addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.ENCOUNTER_OVER)), font, background),
 													getTextScenes(getScript(battleCode, 4), addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.GAME_OVER)), font, background)					
 											), -1, saveService, battleCode, Stance.BALANCED, Stance.PRONE)), font, background),
 									getTextScenes(getScript(battleCode, 2), 
 											addScene(new BattleScene(
 											aggregateMaps(
-													getTextScenes(new String[]{"You defeated the harpy!", "You receive 1 XP"}, addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.ENCOUNTER_OVER)), font, background),
+													getTextScenes(new String[]{"You defeated the harpy!", "You receive 1 XP."}, addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.ENCOUNTER_OVER)), font, background),
 													getTextScenes(getScript(battleCode, 4), addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.GAME_OVER)), font, background)					
 											), -1, saveService, battleCode, Stance.KNEELING, Stance.BALANCED)), font, background),
 									getTextScenes(getScript(battleCode, 3), 
 											addScene(new BattleScene(
 													aggregateMaps(
-															getTextScenes(new String[]{"You defeated the harpy!", "You receive 1 XP"}, addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.ENCOUNTER_OVER)), font, background),
+															getTextScenes(new String[]{"You defeated the harpy!", "You receive 1 XP."}, addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.ENCOUNTER_OVER)), font, background),
 															getTextScenes(getScript(battleCode, 4), addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.GAME_OVER)), font, background)					
 													), -1, saveService, battleCode, Stance.FELLATIO, Stance.FELLATIO)), font, background)
 								),
@@ -218,7 +218,7 @@ public class EncounterBuilder {
 				getTextScenes(getScript(battleCode, 0), 
 						addScene(new BattleScene(
 							aggregateMaps(
-									getTextScenes(new String[]{"You defeated the brigand!.", "You get 1 XP"}, addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.ENCOUNTER_OVER)), font, background),
+									getTextScenes(new String[]{"You defeated the brigand!.", "You get 1 XP."}, addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.ENCOUNTER_OVER)), font, background),
 									getTextScenes(getScript(battleCode, 4), addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.GAME_OVER)), font, background)					
 							), -1, saveService, battleCode)), font, background);	
 				getTextScenes(getScript(battleCode, 0), 
@@ -233,14 +233,14 @@ public class EncounterBuilder {
 																addScene(
 																	new BattleScene(
 																		aggregateMaps(
-																				getTextScenes(new String[]{"You defeated the brigand!.", "You get 1 XP"}, addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.ENCOUNTER_OVER)), font, background),
+																				getTextScenes(new String[]{"You defeated the brigand!.", "You get 1 XP."}, addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.ENCOUNTER_OVER)), font, background),
 																				getTextScenes(getScript(battleCode, 4), addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.GAME_OVER)), font, background)					
 																		), -1, saveService, battleCode, Stance.OFFENSIVE, Stance.BALANCED)
 																),
 																addScene(
 																		new BattleScene(
 																			aggregateMaps(
-																					getTextScenes(new String[]{"You defeated the brigand!.", "You get 1 XP"}, addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.ENCOUNTER_OVER)), font, background),
+																					getTextScenes(new String[]{"You defeated the brigand!.", "You get 1 XP."}, addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.ENCOUNTER_OVER)), font, background),
 																					getTextScenes(getScript(battleCode, 4), addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.GAME_OVER)), font, background)					
 																			), -1, saveService, battleCode, Stance.BALANCED, Stance.BALANCED)
 																)
@@ -254,7 +254,7 @@ public class EncounterBuilder {
 											getTextScenes(getScript(battleCode, 2), 
 												addScene(new BattleScene(
 														aggregateMaps(
-																getTextScenes(new String[]{"You defeated the brigand!.", "You get 1 XP"}, addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.ENCOUNTER_OVER)), font, background),
+																getTextScenes(new String[]{"You defeated the brigand!.", "You get 1 XP."}, addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.ENCOUNTER_OVER)), font, background),
 																getTextScenes(getScript(battleCode, 4), addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.GAME_OVER)), font, background)					
 														), -1, saveService, battleCode, Stance.BALANCED, Stance.BALANCED)), font, background),
 											sceneCounter, saveService, font, background, "Ouch!  You take 5 damage!", getMutation(5)
@@ -262,7 +262,7 @@ public class EncounterBuilder {
 									getTextScenes(getScript(battleCode, 3), 
 											addScene(new BattleScene(
 											aggregateMaps(
-													getTextScenes(new String[]{"You defeated the brigand!.", "You get 1 XP"}, addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.ENCOUNTER_OVER)), font, background),
+													getTextScenes(new String[]{"You defeated the brigand!.", "You get 1 XP."}, addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.ENCOUNTER_OVER)), font, background),
 													getTextScenes(getScript(battleCode, 4), addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.GAME_OVER)), font, background)					
 											), -1, saveService, battleCode, Stance.DOGGY, Stance.DOGGY)), font, background)
 								),
