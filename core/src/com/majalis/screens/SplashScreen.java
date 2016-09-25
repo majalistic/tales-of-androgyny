@@ -40,7 +40,7 @@ public class SplashScreen extends AbstractScreen {
 		batch.begin();
 		if (!assetManager.update() || clocktick < minTime){
 			font.draw(batch, String.valueOf(clocktick++), 1675, 500);
-			font.draw(batch, "Loading: " + (assetManager.getProgress() * 100) + "%", 1125, 750);
+			font.draw(batch, "Loading: " + (int)(assetManager.getProgress() * 100) + "%", 1125, 750);
 		}	
 		else {
 			showScreen(ScreenEnum.MAIN_MENU);
