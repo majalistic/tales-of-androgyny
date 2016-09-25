@@ -56,6 +56,9 @@ public class EnemyCharacter extends AbstractCharacter {
 		if ((target.stance == Stance.PRONE || target.stance == Stance.SUPINE) && willPounce()){
 			return new Technique(Techniques.POUNCE, getStrength());
 		}
+		else if (target.stance == Stance.KNEELING && willPounce()){
+			return new Technique(Techniques.IRRUMATIO, getStrength());
+		}
 		else if (enemyType == EnemyEnum.HARPY && willPounce() && stance != Stance.PRONE && stance != Stance.SUPINE && stance != Stance.AIRBORNE && stance != Stance.FELLATIO && stance != Stance.DOGGY && stance != Stance.ERUPT){
 			return new Technique(Techniques.FLY, getStrength());
 		}

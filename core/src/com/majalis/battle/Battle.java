@@ -15,6 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
+import com.majalis.battle.BattleFactory.EnemyEnum;
 import com.majalis.character.AbstractCharacter;
 import com.majalis.character.AbstractCharacter.Stance;
 import com.majalis.character.PlayerCharacter.Stat;
@@ -208,9 +209,15 @@ public class Battle extends Group{
 		if (secondTechnique.getTechniqueName().equals("Erupt")){
 			struggle = 0;
 			if (currentNaughtyStance == Stance.FELLATIO){
-				console += "A harpy semen bomb explodes in your mouth!  It tastes awful!\n"
-						+ "You are going to vomit!\n"
-						+ "You spew up harpy cum!  The harpy preens her feathers.\n";
+				if (secondCharacter.enemyType == EnemyEnum.HARPY){
+					console += "A harpy semen bomb explodes in your mouth!  It tastes awful!\n"
+							+ "You are going to vomit!\n"
+							+ "You spew up harpy cum!  The harpy preens her feathers.\n";
+				}
+				else {
+					console += "Her cock erupts in your mouth!\n"
+							+ "You swallow all of her semen!\n";
+				}
 			}
 			else {
 				console += "The " + secondCharacter.getLabel() + " spews hot, thick semen into your bowels!\n";
@@ -242,14 +249,19 @@ public class Battle extends Group{
 			}
 		}
 		else if (firstCharacter.getStance() == Stance.FELLATIO){
-			console += "She tastes horrible! Harpies are highly unhygenic!\n"
-					+ "You learned Anatomy (Harpy)!\n"
-					+ "You learned Behavior (Harpy)!\n"
-					+ "There is a phallus in your mouth!\n"
-					+ "It blew past your lips!\n"
-					+ "The harpy is holding your head in place with\n"
-					+ "her talons and balancing herself with her wings!\n"
-					+ "She flaps violently while humping your face!  Her cock tastes awful!\n";
+			if (secondCharacter.enemyType == EnemyEnum.HARPY){
+				console += "She tastes horrible! Harpies are highly unhygenic!\n"
+						+ "You learned Anatomy (Harpy)!\n"
+						+ "You learned Behavior (Harpy)!\n"
+						+ "There is a phallus in your mouth!\n"
+						+ "It blew past your lips!\n"
+						+ "The harpy is holding your head in place with\n"
+						+ "her talons and balancing herself with her wings!\n"
+						+ "She flaps violently while humping your face!  Her cock tastes awful!\n";
+			}
+			else {
+				console += "She forces her cock into your mouth!\n";
+			}
 		}
 		else {
 			console += getResultString(secondCharacter, firstCharacter, secondTechnique.getTechniqueName(), attackForFirst, firstBlockMod != 1);
