@@ -37,7 +37,7 @@ public abstract class AbstractTextScene extends Scene {
     public void draw(Batch batch, float parentAlpha) {
 		super.draw(batch, parentAlpha);
 		font.setColor(0.2f,0.3f,0.8f,1);
-		font.draw(batch, getDisplay(), 400, 360, 480, Align.center, true);
+		font.draw(batch, getDisplay(), 400, 100, 480, Align.center, true);
     }
 	
 	protected abstract String getDisplay();

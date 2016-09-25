@@ -27,6 +27,7 @@ public class EncounterScreen extends AbstractScreen {
 		resourceRequirements.put("uiskin.json", Skin.class);
 		resourceRequirements.put("sound.wav", Sound.class);
 		resourceRequirements.put("DefaultBackground.jpg", Texture.class);
+		resourceRequirements.put("BlackVignetteBottom.png", Texture.class);
 		resourceRequirements.put("GameTypeSelect.jpg", Texture.class);
 		resourceRequirements.put("ClassSelect.jpg", Texture.class);
 		resourceRequirements.put("DryadApple.jpg", Texture.class);

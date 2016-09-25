@@ -153,14 +153,16 @@ public class EncounterBuilder {
 	
 	protected Encounter getDefaultEncounter(AssetManager assetManager){
 		Texture backgroundTexture = assetManager.get("StickEncounter.jpg", Texture.class);
-		Background background = new Background(backgroundTexture);
+		Texture vignetteTexture = assetManager.get("BlackVignetteBottom.png", Texture.class);
+		Background background = new Background(backgroundTexture, vignetteTexture);
+		
 		getTextScenes(new String[]{"You encounter a stick!", "It's actually rather sexy looking.", "There is nothing left here to do."}, addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.ENCOUNTER_OVER)), font, background);
 		return new Encounter(scenes, endScenes, new Array<BattleScene>(), getStartScene(scenes, sceneCode));
 	}
 	
 	@SuppressWarnings("unchecked")
 	protected Encounter getRandomEncounter(int encounterCode, AssetManager assetManager, PlayerCharacter character){
-		Texture backgroundTexture = assetManager.get("DefaultBackground.jpg", Texture.class);
+		Texture backgroundTexture = assetManager.get("DefaultBackground.jpg", Texture.class);	
 		Background background = new Background(backgroundTexture);
 		// if there isn't already a battlecode set, it's determined by the encounterCode; for now, that means dividing the various encounters up by modulus
 		if (battleCode == -1) battleCode = encounterCode % 5;
@@ -216,12 +218,6 @@ public class EncounterBuilder {
 			// brigand
 			case 3:
 				getTextScenes(getScript(battleCode, 0), 
-						addScene(new BattleScene(
-							aggregateMaps(
-									getTextScenes(new String[]{"You defeated the brigand!.", "You get 1 XP."}, addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.ENCOUNTER_OVER)), font, background),
-									getTextScenes(getScript(battleCode, 4), addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.GAME_OVER)), font, background)					
-							), -1, saveService, battleCode)), font, background);	
-				getTextScenes(getScript(battleCode, 0), 
 						addScene(
 							getCheckScene(
 								aggregateMaps(
@@ -276,7 +272,8 @@ public class EncounterBuilder {
 			// dryad
 			case 4:
 				backgroundTexture = assetManager.get("DryadApple.jpg", Texture.class);
-				background = new Background(backgroundTexture, 540, 720);
+				Texture vignetteTexture = assetManager.get("BlackVignetteBottom.png", Texture.class);
+				background = new Background(backgroundTexture, vignetteTexture, 540, 720);
 				getTextScenes(
 					getScript(battleCode, 0), 
 					addScene(
