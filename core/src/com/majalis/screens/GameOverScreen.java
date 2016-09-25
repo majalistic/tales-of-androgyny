@@ -29,7 +29,7 @@ public class GameOverScreen extends AbstractScreen {
 
 	@Override
 	public void buildStage() {
-		this.addActor(new Background(backgroundImage));
+		this.addActor(new Background(backgroundImage, 934, 720));
 	}
 	
 	@Override
