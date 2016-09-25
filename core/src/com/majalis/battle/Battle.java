@@ -50,6 +50,7 @@ public class Battle extends Group{
 	public boolean gameExit;
 	public int struggle;
 	public boolean inRear;
+	public int battleEndCount;
 	
 	public Battle(SaveService saveService, AssetManager assetManager, BitmapFont font, PlayerCharacter character, EnemyCharacter enemy,  int victoryScene, int defeatScene) {
 		this.saveService = saveService;
@@ -61,8 +62,7 @@ public class Battle extends Group{
 		this.defeatScene = defeatScene;
 		console = "";
 		battleOver = false;
-		gameExit = false;
-		inRear = false;
+		gameExit = false;	
 		this.addActor(character);
 		this.addActor(enemy);
 		skin = assetManager.get("uiskin.json", Skin.class);
@@ -71,6 +71,8 @@ public class Battle extends Group{
 		this.addActor(table);
 		displayTechniqueOptions();
 		struggle = 0;
+		inRear = false;
+		battleEndCount = 0;
 	}
 	
 	private void displayTechniqueOptions(){
@@ -237,19 +239,32 @@ public class Battle extends Group{
 					+ "Your cock is ignored!\n";
 		}
 		else if (firstCharacter.getStance() == Stance.KNOTTED){
-			console += "Her powerful hips try to force something big inside!\n"
-					+ "You struggle... but can't escape!\n"
-					+ "Her grapefruit-sized knot slips into your rectum!  You take 4 damage!\n"
-					+ "You can't dislodge it; it's too large!\n"
-					+ "Your anus is permanently stretched!\n"
-					+ "You learned about Anatomy(Wereslut)! You are being bred!\n"
-					+ "The battle is over, but your ordeal has just begun!\n"
-					+ "She's going to ejaculate her runny dog cum in your bowels!\n";
+			if (battleEndCount == 0){
+				console += "Her powerful hips try to force something big inside!\n"
+						+ "You struggle... but can't escape!\n"
+						+ "Her grapefruit-sized knot slips into your rectum!  You take 4 damage!\n"
+						+ "You learned about Anatomy(Wereslut)! You are being bred!\n"
+						+ "Your anus is permanently stretched!\n";
+			}
+			else if (battleEndCount < 3){
+				console += "Her tremendous knot is still lodged in your rectum!\n"
+						+ "You can't dislodge it; it's too large!\n"
+						+ "You're drooling!\n"
+						+ "Her fat thing is plugging your shithole!";						
+			}
+			else {
+				console += "The battle is over, but your ordeal has just begun!\n"
+				+ "You are about to be bred like a bitch!\n"
+				+ "She's going to ejaculate her runny dog cum in your bowels!\n";
+			}
 			if (secondTechnique.forceBattleOver()){	
 				// player character should also be able to force battle over
-				battleOver = true;
-				victory = false;
+				if (battleEndCount >= 4){
+					battleOver = true;
+					victory = false;
+				}
 			}
+			battleEndCount++;
 		}
 		else if (firstCharacter.getStance() == Stance.FELLATIO){
 			if (secondCharacter.enemyType == EnemyEnum.HARPY){
