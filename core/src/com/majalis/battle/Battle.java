@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.Group;
@@ -266,10 +267,40 @@ public class Battle extends Group{
 	@Override
     public void draw(Batch batch, float parentAlpha) {
 		super.draw(batch, parentAlpha);
-		font.draw(batch, "Health: " + String.valueOf(character.getCurrentHealth()) + "\nStamina: " + String.valueOf(character.getCurrentStamina()) + (character.getStat(Stat.MAGIC) > 1 ? "\nMana: " + String.valueOf(character.getCurrentMana()) : "") + "\nBalance: " + String.valueOf(character.getStability()) + "\nStance: " + character.getStance().toString(), 70, 680);		
+		font.draw(batch, "Health: " + String.valueOf(character.getCurrentHealth()) + "\nStamina: " + String.valueOf(character.getCurrentStamina()) + (character.getStat(Stat.MAGIC) > 1 ? "\nMana: " + String.valueOf(character.getCurrentMana()) : "") + "\nBalance: " + String.valueOf(character.getStability()) + "\nStance: " + character.getStance().toString(), 70, 695);		
+		batch.draw(getStanceImage(character.stance), 330, 540, 100, 115);
 		font.draw(batch, "Health: " + String.valueOf(enemy.getCurrentHealth()) + "\nStance: " + enemy.getStance().toString(), 1100, 650);		
+		batch.draw(getStanceImage(enemy.stance), 920, 540, 100, 115);
 		font.draw(batch, console, 80, 270);
     }
+	
+	private Texture getStanceImage(Stance stance){
+		switch(stance){
+			case BALANCED:
+				return assetManager.get("Stances/Balanced.png", Texture.class);
+			case DEFENSIVE:
+				return assetManager.get("Stances/Defensive.png", Texture.class);
+			case DOGGY:
+				return assetManager.get("Stances/Doggy.png", Texture.class);
+			case ERUPT:
+				return assetManager.get("Stances/Erupt.png", Texture.class);
+			case FELLATIO:
+				return assetManager.get("Stances/Fellatio.png", Texture.class);
+			case KNEELING:
+				return assetManager.get("Stances/Kneeling.png", Texture.class);
+			case OFFENSIVE:
+				return assetManager.get("Stances/Offensive.png", Texture.class);
+			case PRONE:
+				return assetManager.get("Stances/Prone.png", Texture.class);
+			case SUPINE:
+				return assetManager.get("Stances/Supine.png", Texture.class);
+			case AIRBORNE:
+			case CASTING:
+			case KNOTTED:
+			default:
+				return assetManager.get("Stances/Balanced.png", Texture.class);
+			}
+	}
 	
 	public int getVictoryScene(){
 		return victoryScene;

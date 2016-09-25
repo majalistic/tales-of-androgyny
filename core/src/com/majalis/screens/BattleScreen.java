@@ -23,6 +23,15 @@ public class BattleScreen extends AbstractScreen{
 		resourceRequirements.put("Harpy.jpg", Texture.class);
 		resourceRequirements.put("HeartSlime.jpg", Texture.class);
 		resourceRequirements.put("Brigand.jpg", Texture.class);
+		resourceRequirements.put("Stances/Balanced.png", Texture.class);
+		resourceRequirements.put("Stances/Defensive.png", Texture.class);
+		resourceRequirements.put("Stances/Doggy.png", Texture.class);
+		resourceRequirements.put("Stances/Erupt.png", Texture.class);
+		resourceRequirements.put("Stances/Fellatio.png", Texture.class);
+		resourceRequirements.put("Stances/Kneeling.png", Texture.class);
+		resourceRequirements.put("Stances/Offensive.png", Texture.class);
+		resourceRequirements.put("Stances/Prone.png", Texture.class);
+		resourceRequirements.put("Stances/Supine.png", Texture.class);
 	}
 	private final SaveService saveService;
 	private final Battle battle;

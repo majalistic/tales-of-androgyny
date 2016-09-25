@@ -204,7 +204,8 @@ public abstract class AbstractCharacter extends Actor {
 		DOGGY, 
 		KNOTTED, 
 		FELLATIO, 
-		CASTING
+		CASTING,
+		ERUPT
 	}
 
 	public void heal(Technique technique) {

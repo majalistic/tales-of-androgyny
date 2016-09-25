@@ -56,7 +56,7 @@ public class EnemyCharacter extends AbstractCharacter {
 		if ((target.stance == Stance.PRONE || target.stance == Stance.SUPINE) && willPounce()){
 			return new Technique(Techniques.POUNCE, getStrength());
 		}
-		else if (enemyType == EnemyEnum.HARPY && willPounce() && stance != Stance.PRONE && stance != Stance.SUPINE && stance != Stance.AIRBORNE && stance != Stance.FELLATIO && stance != Stance.DOGGY){
+		else if (enemyType == EnemyEnum.HARPY && willPounce() && stance != Stance.PRONE && stance != Stance.SUPINE && stance != Stance.AIRBORNE && stance != Stance.FELLATIO && stance != Stance.DOGGY && stance != Stance.ERUPT){
 			return new Technique(Techniques.FLY, getStrength());
 		}
 		
@@ -138,6 +138,9 @@ public class EnemyCharacter extends AbstractCharacter {
 				else {
 					return new Technique(Techniques.IRRUMATIO, getStrength());
 				}	
+			case ERUPT:
+				stance = Stance.BALANCED;
+				return getTechnique(target);
 			default: return null;
 		}
 	}

@@ -44,7 +44,7 @@ public enum Techniques {
 	POUND			{ public Stance getStanceResult(){ return Stance.DOGGY; } 	 public int getPowerMod(){ return -100; } public int getStabilityCost(){ return 0; } public int getStaminaCost(){ return 1; } }, // Used to doggystyle
 	KNOT 			{ public Stance getStanceResult(){ return Stance.KNOTTED; }	 public int getPowerMod(){ return -100; } public int getStabilityCost(){ return 0; } public int getStaminaCost(){ return 0; } }, // Used to knot by knotty weresluts and others
 	KNOT_BANG 		{ public Stance getStanceResult(){ return Stance.KNOTTED; }  public int getPowerMod(){ return -100; } public int getStabilityCost(){ return 0; } public int getStaminaCost(){ return 0; } }, // Used to knot by knotty weresluts and others - could end the battle
-	ERUPT			{ public Stance getStanceResult(){ return Stance.BALANCED; } public int getPowerMod(){ return -100; } public int getStabilityCost(){ return 0; } public int getStaminaCost(){ return 1; } }, // Used to creampie
+	ERUPT			{ public Stance getStanceResult(){ return Stance.ERUPT; } public int getPowerMod(){ return -100; } public int getStabilityCost(){ return 0; } public int getStaminaCost(){ return 1; } }, // Used to creampie
 	/* Receptive */
 	RECEIVE			{ public Stance getStanceResult(){ return Stance.DOGGY; } 	 public int getPowerMod(){ return -100; } public int getStabilityCost(){ return 0; } public int getStaminaCost(){ return 1; } }, // Used to receive doggystyle 
 	RECEIVE_KNOT	{ public Stance getStanceResult(){ return Stance.KNOTTED; }  public int getPowerMod(){ return -100; } public int getStabilityCost(){ return 0; } public int getStaminaCost(){ return 1; } }, // Used to receive the knot
