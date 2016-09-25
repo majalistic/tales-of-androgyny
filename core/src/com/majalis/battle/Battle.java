@@ -51,6 +51,7 @@ public class Battle extends Group{
 	public int struggle;
 	public boolean inRear;
 	public int battleEndCount;
+	public int playerLust;
 	
 	public Battle(SaveService saveService, AssetManager assetManager, BitmapFont font, PlayerCharacter character, EnemyCharacter enemy,  int victoryScene, int defeatScene) {
 		this.saveService = saveService;
@@ -73,6 +74,7 @@ public class Battle extends Group{
 		struggle = 0;
 		inRear = false;
 		battleEndCount = 0;
+		playerLust = 0;
 	}
 	
 	private void displayTechniqueOptions(){
@@ -199,7 +201,7 @@ public class Battle extends Group{
 		}
 		
 		if (firstTechnique.getTechniqueName().equals("Taunt")){
-			console += "You taunt the enemy!  They become aroused!";
+			console += "You taunt the enemy!  They become aroused!\n";
 			secondCharacter.modLust(((PlayerCharacter)firstCharacter).getStat(Stat.CHARISMA));
 		}
 		
@@ -211,6 +213,7 @@ public class Battle extends Group{
 			console += getResultString(firstCharacter, secondCharacter, firstTechnique.getTechniqueName(), attackForSecond, secondBlockMod != 1);
 		}
 		if (secondTechnique.getTechniqueName().equals("Erupt")){
+			
 			struggle = 0;
 			if (currentNaughtyStance == Stance.FELLATIO){
 				if (secondCharacter.enemyType == EnemyEnum.HARPY){
@@ -226,6 +229,7 @@ public class Battle extends Group{
 			else {
 				console += "The " + secondCharacter.getLabel() + " spews hot, thick semen into your bowels!\n";
 			}
+			console += playerLustIncrement(currentNaughtyStance);
 		}
 		else if (firstCharacter.getStance() == Stance.DOGGY){
 			inRear = true;
@@ -237,6 +241,7 @@ public class Battle extends Group{
 					+ "Her rhythmic thrusting in and out of your asshole is emasculating!\n"
 					+ "You are red-faced and embarassed because of her butt-stuffing!\n"
 					+ "Your cock is ignored!\n";
+			console += playerLustIncrement(Stance.DOGGY);
 		}
 		else if (firstCharacter.getStance() == Stance.KNOTTED){
 			if (battleEndCount == 0){
@@ -265,8 +270,10 @@ public class Battle extends Group{
 				}
 			}
 			battleEndCount++;
+			console += playerLustIncrement(Stance.KNOTTED);
 		}
 		else if (firstCharacter.getStance() == Stance.FELLATIO){
+			playerLust++;
 			if (secondCharacter.enemyType == EnemyEnum.HARPY){
 				console += "She tastes horrible! Harpies are highly unhygenic!\n"
 						+ "You learned Anatomy (Harpy)!\n"
@@ -285,10 +292,35 @@ public class Battle extends Group{
 						+  "Achievement unlocked: Ass to Mouth.\n";
 				inRear = false;
 			}
+			console += playerLustIncrement(Stance.FELLATIO);
 		}
 		else {
 			console += getResultString(secondCharacter, firstCharacter, secondTechnique.getTechniqueName(), attackForFirst, firstBlockMod != 1);
 		}		
+	}
+	
+	private String playerLustIncrement(Stance stance){
+		String spurt = "";
+		playerLust++;
+		if (playerLust > 10){
+			playerLust = 0;
+			switch (stance){
+				case KNOTTED:
+				case DOGGY: 
+					spurt = "Awoo!  Your semen spurts out of your untouched cock as your boyhole is violated!\n"
+						+	"You feel it with your ass, like a girl! Your face is red with shame!\n"
+						+	"Got a little too comfortable, eh?\n";
+				break;
+				case FELLATIO:
+					spurt = "You spew while sucking!\n"
+						+	"Your worthless cum spurts into the dirt!\n"
+						+	"They don't even notice!";
+				break;
+				default: spurt = "You spew your semen onto the ground!\n"; 
+			}
+			spurt += "You're now flaccid!\n";
+		}
+		return spurt;
 	}
 
 	private String getStanceString(AbstractCharacter character, Stance stance) {
