@@ -102,6 +102,9 @@ public class CharacterCreationScene extends Scene {
 					if (currentStatAllocation > 0 || (currentStatAllocation > -1 && statsAtNegative() < 2)){
 						character.setStat(stat, character.getStat(stat)-1);
 						saveService.saveDataValue(SaveEnum.PLAYER, character);
+						if (statPoints == 0){
+							removeActor(done);
+						}
 						statPoints++;	
 						statMap.put(stat, currentStatAllocation - 1);
 						statMessage = "";
@@ -131,6 +134,9 @@ public class CharacterCreationScene extends Scene {
 					buttonSound.play();
 					classMessage = "You are now " + getJobClass(jobClass) + ".";
 					saveService.saveDataValue(SaveEnum.CLASS, jobClass);
+					if (statPoints == 0){
+						removeActor(done);
+					}
 					statPoints = 3;
 					statMap = resetObjectMap();
 					addActor(statTable);
