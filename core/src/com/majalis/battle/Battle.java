@@ -268,6 +268,7 @@ public class Battle extends Group{
 			if (inRear){
 				console += "BLEUGH! That was in your ass!\n"
 						+  "Achievement unlocked: Ass to Mouth.\n";
+				inRear = false;
 			}
 		}
 		else {
