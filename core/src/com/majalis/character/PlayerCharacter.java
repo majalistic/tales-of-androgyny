@@ -56,6 +56,15 @@ public class PlayerCharacter extends AbstractCharacter {
 		skills.addAll(Techniques.STRONG_ATTACK, Techniques.TEMPO_ATTACK, Techniques.RESERVED_ATTACK, Techniques.DUCK, Techniques.SPRING_ATTACK, Techniques.NEUTRAL_ATTACK, Techniques.CAUTIOUS_ATTACK, Techniques.REVERSAL_ATTACK, Techniques.CAREFUL_ATTACK, Techniques.GUARD, Techniques.KIP_UP, Techniques.STAND_UP,
 				Techniques.KNEE_UP, Techniques.REST_FACE_DOWN, Techniques.REST, Techniques.JUMP_ATTACK, Techniques.RECEIVE, Techniques.STRUGGLE, Techniques.RECEIVE_KNOT, Techniques.OPEN_WIDE);
 	}
+	// stop-gap method to deal with idiosyncracies of ObjectSet deserialization - map breaks as a result of deserialization
+	public void init(){
+		ObjectSet<Techniques> tempSkills = new ObjectSet<Techniques>();
+		for (Techniques technique : skills){
+			tempSkills.add(technique);
+		}
+		skills = tempSkills;
+	}
+	
 	@Override
 	protected IntArray getDefaultHealthTiers(){ return new IntArray(new int[]{10, 10, 10, 10}); }
 	
@@ -105,11 +114,13 @@ public class PlayerCharacter extends AbstractCharacter {
 	
 	public Array<Technique> getTechniques(Techniques... possibilities) {
 		Array<Technique> possibleTechniques = new Array<Technique>();
+		
 		for (Techniques technique : possibilities){
 			if (skills.contains(technique)){
 				possibleTechniques.add(new Technique(technique,technique.isSpell() ? getMagic() : getStrength()));
 			}	
 		}
+		
 		return possibleTechniques;
 	}
 	

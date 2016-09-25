@@ -102,7 +102,10 @@ public class SaveManager implements SaveService, LoadService{
         if(file.exists()){
 	        Json json = new Json();
 	        if(encoded)save = json.fromJson(GameSave.class, Base64Coder.decodeString(file.readString()));
-	        else save = json.fromJson(GameSave.class,file.readString());
+	        else {
+	        	save = json.fromJson(GameSave.class,file.readString());
+	        	save.player.init();
+	        }
         }
         else {
         	save = getDefaultSave();
