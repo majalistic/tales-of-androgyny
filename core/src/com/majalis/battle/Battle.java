@@ -49,6 +49,7 @@ public class Battle extends Group{
 	public boolean victory;
 	public boolean gameExit;
 	public int struggle;
+	public boolean inRear;
 	
 	public Battle(SaveService saveService, AssetManager assetManager, BitmapFont font, PlayerCharacter character, EnemyCharacter enemy,  int victoryScene, int defeatScene) {
 		this.saveService = saveService;
@@ -61,6 +62,7 @@ public class Battle extends Group{
 		console = "";
 		battleOver = false;
 		gameExit = false;
+		inRear = false;
 		this.addActor(character);
 		this.addActor(enemy);
 		skin = assetManager.get("uiskin.json", Skin.class);
@@ -224,6 +226,7 @@ public class Battle extends Group{
 			}
 		}
 		else if (firstCharacter.getStance() == Stance.DOGGY){
+			inRear = true;
 			// need some way to get info from sex techniques to display here.  For now, some random fun text
 			console += "You are being anally violated!\n"
 					+ "Your hole is stretched by her fat dick!\n"
@@ -261,6 +264,10 @@ public class Battle extends Group{
 			}
 			else {
 				console += "She forces her cock into your mouth!\n";
+			}
+			if (inRear){
+				console += "BLEUGH! That was in your ass!\n"
+						+  "Achievement unlocked: Ass to Mouth.\n";
 			}
 		}
 		else {
@@ -307,8 +314,11 @@ public class Battle extends Group{
 			case SUPINE:
 				return assetManager.get("Stances/Supine.png", Texture.class);
 			case AIRBORNE:
+				return assetManager.get("Stances/Airborne.png", Texture.class);
 			case CASTING:
+				return assetManager.get("Stances/Casting.png", Texture.class);
 			case KNOTTED:
+				return assetManager.get("Stances/Knotted.png", Texture.class);
 			default:
 				return assetManager.get("Stances/Balanced.png", Texture.class);
 			}

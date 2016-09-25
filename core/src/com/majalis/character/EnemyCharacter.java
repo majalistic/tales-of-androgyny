@@ -44,7 +44,7 @@ public class EnemyCharacter extends AbstractCharacter {
 	}
 	
 	private boolean willPounce(){
-		return lust >= 10;
+		return lust >= 10 && stance != Stance.PRONE && stance != Stance.SUPINE && stance != Stance.AIRBORNE && stance != Stance.FELLATIO && stance != Stance.DOGGY && stance != Stance.ERUPT;
 	}
 	
 	public Technique getTechnique(AbstractCharacter target){
@@ -52,15 +52,16 @@ public class EnemyCharacter extends AbstractCharacter {
 	
 		if (lust < 10) lust++;
 		
-		// need to add techniques for falling down and getting up and such
-		if ((target.stance == Stance.PRONE || target.stance == Stance.SUPINE) && willPounce()){
-			return new Technique(Techniques.POUNCE, getStrength());
-		}
-		else if (target.stance == Stance.KNEELING && willPounce()){
-			return new Technique(Techniques.IRRUMATIO, getStrength());
-		}
-		else if (enemyType == EnemyEnum.HARPY && willPounce() && stance != Stance.PRONE && stance != Stance.SUPINE && stance != Stance.AIRBORNE && stance != Stance.FELLATIO && stance != Stance.DOGGY && stance != Stance.ERUPT){
-			return new Technique(Techniques.FLY, getStrength());
+		if (willPounce()){
+			if (target.stance == Stance.PRONE || target.stance == Stance.SUPINE){
+				return new Technique(Techniques.POUNCE, getStrength());
+			}
+			else if (target.stance == Stance.KNEELING){
+				return new Technique(Techniques.IRRUMATIO, getStrength());
+			}
+			else if (enemyType == EnemyEnum.HARPY){
+				return new Technique(Techniques.FLY, getStrength());
+			}
 		}
 		
 		switch(stance){
