@@ -51,6 +51,7 @@ public class PlayerCharacter extends AbstractCharacter {
 			label = "You";
 			secondPerson = true;
 			currentHealth = getMaxHealth();	
+			food = 40;
 		}
 		skills = new ObjectSet<Techniques>();
 		skills.addAll(Techniques.STRONG_ATTACK, Techniques.TEMPO_ATTACK, Techniques.RESERVED_ATTACK, Techniques.DUCK, Techniques.SPRING_ATTACK, Techniques.NEUTRAL_ATTACK, Techniques.CAUTIOUS_ATTACK, Techniques.REVERSAL_ATTACK, Techniques.CAREFUL_ATTACK, Techniques.GUARD, Techniques.KIP_UP, Techniques.STAND_UP,

@@ -113,7 +113,7 @@ public abstract class AbstractCharacter extends Actor {
 	
 	protected void setHealthToMax() { currentHealth = getMaxHealth(); }
 	
-	protected void modHealth(int healthMod){ this.currentHealth += healthMod; if (currentHealth > getMaxHealth()) currentHealth = getMaxHealth(); }
+	public void modHealth(int healthMod){ this.currentHealth += healthMod; if (currentHealth > getMaxHealth()) currentHealth = getMaxHealth(); }
 	
 	
 	protected void setStaminaToMax() { currentStamina = getMaxStamina(); }

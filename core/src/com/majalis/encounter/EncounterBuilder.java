@@ -18,7 +18,6 @@ import com.majalis.character.Techniques;
 import com.majalis.character.AbstractCharacter.Stance;
 import com.majalis.character.PlayerCharacter.Stat;
 import com.majalis.save.SaveEnum;
-import com.majalis.save.SaveManager;
 import com.majalis.save.SaveManager.JobClass;
 import com.majalis.save.SaveService;
 import com.majalis.scenes.AbstractChoiceScene;
@@ -286,23 +285,45 @@ public class EncounterBuilder {
 				backgroundTexture = assetManager.get("DryadApple.jpg", Texture.class);
 				Texture vignetteTexture = assetManager.get("BlackVignetteBottom.png", Texture.class);
 				background = new Background(backgroundTexture, vignetteTexture, 540, 720);
+				Array<Mutation> mutations = new Array<Mutation>();
+				mutations.add(new Mutation());
 				getTextScenes(
 					getScript(battleCode, 0), 
 					addScene(
 						getChoiceScene(
-							aggregateMaps(
+							aggregateMaps(														
 								getTextScenes(
 									getScript(battleCode, 1),
-									addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.ENCOUNTER_OVER)), 
+									addScene(
+											new TextScene(
+												addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.ENCOUNTER_OVER)), 
+												sceneCounter,
+												saveService,
+												font,
+												background,
+												"You receive 5 food from the dryad.",
+												new Array<Mutation>(true, new Mutation[]{new Mutation(saveService, SaveEnum.FOOD, 5)}, 0, 1)
+											)
+									),	
 									font, 
-									background
+									background	
 								),
 								addScene(
 									getCheckScene(
 										aggregateMaps(
 											getTextScenes(
 												getScript(battleCode, 2),
-												addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.ENCOUNTER_OVER)),
+												addScene(
+														new TextScene(
+															addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.ENCOUNTER_OVER)),
+															sceneCounter,
+															saveService,
+															font,
+															background,
+															"You receive 10 food from the dryad.",
+															new Array<Mutation>(true, new Mutation[]{new Mutation(saveService, SaveEnum.FOOD, 10)}, 0, 1)
+														)
+												),	
 												font,
 												background
 											),
@@ -345,7 +366,7 @@ public class EncounterBuilder {
 	
 	private Array<Mutation> getMutation(int damage){
 		Array<Mutation> mutations = new Array<Mutation>();
-		mutations.add(new Mutation(saveService, (SaveManager)saveService, SaveEnum.HEALTH, -5, Integer.class, false));
+		mutations.add(new Mutation(saveService, SaveEnum.HEALTH, -5));
 		return mutations;
 	}
 	

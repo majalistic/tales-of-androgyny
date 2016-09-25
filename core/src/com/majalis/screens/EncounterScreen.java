@@ -1,11 +1,9 @@
 package com.majalis.screens;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.ObjectMap;
@@ -78,10 +76,6 @@ public class EncounterScreen extends AbstractScreen {
         batch.setTransformMatrix(camera.view);
 		batch.setProjectionMatrix(camera.combined);
 		camera.update();
-		if (encounter.displayHUD){
-			font.draw(batch, "FPS: " + MathUtils.ceil(1/Gdx.graphics.getDeltaTime()), camera.position.x-200+(400), camera.position.y+220);
-		}
-		super.draw();
 		batch.end();
 	}
 

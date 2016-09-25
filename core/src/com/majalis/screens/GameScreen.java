@@ -20,6 +20,8 @@ public class GameScreen extends AbstractScreen {
 
 	private final AssetManager assetManager;
 	private final GameWorld world;
+	private final Texture food;
+	private final int foodAmount;
 	public static final ObjectMap<String, Class<?>> resourceRequirements = new ObjectMap<String, Class<?>>();
 	static {
 		resourceRequirements.put("uiskin.json", Skin.class);
@@ -29,11 +31,16 @@ public class GameScreen extends AbstractScreen {
 		resourceRequirements.put("ForestU.png", Texture.class);
 		resourceRequirements.put("MountainV.png", Texture.class);
 		resourceRequirements.put("ForestV.png", Texture.class);
+		resourceRequirements.put("Apple.png", Texture.class);
+		resourceRequirements.put("Meat.png", Texture.class);
 	}
 	public GameScreen(ScreenFactory factory, ScreenElements elements, AssetManager assetManager, LoadService loadService, GameWorld world) {
 		super(factory, elements);
 		this.assetManager = assetManager;
-		Vector3 initialTranslation = loadService.loadDataValue(SaveEnum.CAMERA_POS, Vector3.class);
+		int arb = loadService.loadDataValue(SaveEnum.NODE_CODE, Integer.class);
+		food = arb % 2 == 0 ? assetManager.get("Apple.png", Texture.class) : assetManager.get("Meat.png", Texture.class);
+		foodAmount = loadService.loadDataValue(SaveEnum.FOOD, Integer.class);
+		Vector3 initialTranslation = loadService.loadDataValue(SaveEnum.CAMERA_POS, Vector3.class);		
 		initialTranslation = new Vector3(initialTranslation);
 		OrthographicCamera camera = (OrthographicCamera) getCamera();
 		initialTranslation.x -= camera.position.x;
@@ -87,10 +94,10 @@ public class GameScreen extends AbstractScreen {
 	public void draw(){
 		batch.begin();
 		OrthographicCamera camera = (OrthographicCamera) getCamera();
-        batch.setTransformMatrix(camera.view);
-		batch.setProjectionMatrix(camera.combined);
 		camera.update();
-		super.draw();
+		batch.setProjectionMatrix(camera.combined);
+		batch.draw(food, camera.position.x+3, camera.position.y+3, 50, 50);
+		font.draw(batch, "X " + foodAmount, camera.position.x+23, camera.position.y+17);
 		batch.end();
 	}
 	

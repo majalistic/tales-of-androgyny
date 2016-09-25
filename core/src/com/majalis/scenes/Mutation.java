@@ -1,6 +1,5 @@
 package com.majalis.scenes;
 
-import com.majalis.save.LoadService;
 import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveService;
 /*
@@ -9,26 +8,16 @@ import com.majalis.save.SaveService;
 public class Mutation {
 
 	private final SaveService saveService;
-	private final LoadService loadService;
-	private final boolean overwrite;
 	private final SaveEnum path;
-	private final Class<?> type;
 	private final Object value;
 
 	public Mutation(){
 		this(null, null, null);
 	}
-	
-	public Mutation(SaveService saveService, SaveEnum path, Object value){
-		this(saveService, null, path, value, null, true);
-	}
 		
-	public Mutation(SaveService saveService, LoadService loadService, SaveEnum path, Object value, Class<?> type, boolean overwrite){
+	public Mutation(SaveService saveService, SaveEnum path, Object value){
 		this.saveService = saveService;
-		this.loadService = loadService;
-		this.overwrite = overwrite;
 		this.path = path;
-		this.type = type;
 		this.value = value;
 	}
 	
@@ -36,22 +25,6 @@ public class Mutation {
 		if (saveService == null){
 			return;
 		}
-		if (overwrite){
-			saveService.saveDataValue(path, value);
-		}
-		else {
-			mutate(type);
-		}
+		saveService.saveDataValue(path, value);
 	}
-	
-	private <T> void mutate(Class<?> type){
-		// currently performs string concatenation on all non-overrides
-		if (type == Integer.class){
-			saveService.saveDataValue(path, (Integer) loadService.loadDataValue(path, type) + (Integer)value);
-		}
-		else {
-			saveService.saveDataValue(path, loadService.loadDataValue(path, type).toString() + value.toString());
-		}
-		
-	}	
 }

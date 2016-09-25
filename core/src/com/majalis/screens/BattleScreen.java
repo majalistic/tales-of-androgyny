@@ -78,7 +78,6 @@ public class BattleScreen extends AbstractScreen{
         batch.setTransformMatrix(camera.view);
 		batch.setProjectionMatrix(camera.combined);
 		camera.update();
-		super.draw();
 		batch.end();
 	}
 	// passthrough for battle.dispose

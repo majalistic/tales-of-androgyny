@@ -138,6 +138,7 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 		else {
 			saveService.saveDataValue(SaveEnum.ENCOUNTER_CODE, defaultEncounter);
 		}
+		saveService.saveDataValue(SaveEnum.FOOD, -4);
 		saveService.saveDataValue(SaveEnum.CONTEXT, SaveManager.GameContext.ENCOUNTER);
 		saveService.saveDataValue(SaveEnum.NODE_CODE, nodeCode);
 		saveService.saveDataValue(SaveEnum.CAMERA_POS, position);
