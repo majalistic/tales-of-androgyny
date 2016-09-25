@@ -32,6 +32,7 @@ public class EncounterScreen extends AbstractScreen {
 		resourceRequirements.put("ClassSelect.jpg", Texture.class);
 		resourceRequirements.put("DryadApple.jpg", Texture.class);
 		resourceRequirements.put("StickEncounter.jpg", Texture.class);
+		resourceRequirements.put("WerebitchBasicNoBG.png", Texture.class);
 	}
 	protected EncounterScreen(ScreenFactory screenFactory, ScreenElements elements, AssetManager assetManager, SaveService saveService, Encounter encounter) {
 		super(screenFactory, elements);

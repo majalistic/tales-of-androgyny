@@ -167,6 +167,18 @@ public class EncounterBuilder {
 		// if there isn't already a battlecode set, it's determined by the encounterCode; for now, that means dividing the various encounters up by modulus
 		if (battleCode == -1) battleCode = encounterCode % 5;
 		switch (battleCode){
+			// werebitch
+			case 0:
+				Background werebitchBackground = new Background(backgroundTexture, assetManager.get("WerebitchBasicNoBG.png", Texture.class), 1280, 720, 450, 600);
+				getTextScenes(getScript(battleCode, 0), 
+					getTextScenes( 
+							getScript(battleCode, 1), 
+						addScene(new BattleScene(
+							aggregateMaps(
+									getTextScenes(new String[]{"You defeated the werebitch!", "You receive 2 XP."}, addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.ENCOUNTER_OVER)), font, background),
+									getTextScenes(getScript(battleCode, 2), addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.GAME_OVER)), font, werebitchBackground)				
+							), -1, saveService, battleCode)), font, werebitchBackground), font, background);		
+				break;
 			// harpy
 			case 1:
 				getTextScenes(getScript(battleCode, 0), 

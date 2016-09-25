@@ -255,7 +255,7 @@ public class Battle extends Group{
 				console += "Her tremendous knot is still lodged in your rectum!\n"
 						+ "You can't dislodge it; it's too large!\n"
 						+ "You're drooling!\n"
-						+ "Her fat thing is plugging your shithole!";						
+						+ "Her fat thing is plugging your shithole!\n";						
 			}
 			else {
 				console += "The battle is over, but your ordeal has just begun!\n"
@@ -307,7 +307,7 @@ public class Battle extends Group{
 			switch (stance){
 				case KNOTTED:
 				case DOGGY: 
-					spurt = "Awoo!  Your semen spurts out of your untouched cock as your boyhole is violated!\n"
+					spurt = "Awoo! Semen spurts out your untouched cock as your hole is violated!\n"
 						+	"You feel it with your ass, like a girl! Your face is red with shame!\n"
 						+	"Got a little too comfortable, eh?\n";
 				break;

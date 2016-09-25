@@ -10,6 +10,8 @@ public class Background extends Actor{
 	private  Texture texture2;
 	private final int width;
 	private final int height;
+	private final int width2;
+	private final int height2;
 	
 	public Background(Texture texture){
 		this(texture, 1280, 720);
@@ -18,16 +20,24 @@ public class Background extends Actor{
 		this.texture = texture;
 		this.width = width;
 		this.height  = height;
+		width2 = 1280;
+		height2 = 720;
 	}
 	
 	public Background(Texture texture, Texture texture2){
 		this(texture, texture2, 1280, 720);
 	}
 	public Background(Texture texture, Texture texture2, int width, int height){
+		this(texture, texture2, width, height, 1280, 720);
+	}
+	
+	public Background(Texture texture, Texture texture2, int width, int height, int width2, int height2) {
 		this.texture = texture;
 		this.texture2 = texture2;
 		this.width = width;
 		this.height  = height;
+		this.width2 = width2;
+		this.height2 = height2;
 	}
 	
 	@Override
@@ -35,11 +45,11 @@ public class Background extends Actor{
 		super.draw(batch, parentAlpha);
 		batch.draw(texture, (1280-width)/2, (720-height)/2, width, height);
 		if (texture2 != null){
-			batch.draw(texture2, 0, 0, 1280, 800);
+			batch.draw(texture2, (1280-width2)/2, ((720-height2)/2) + (height2 == 720 ? 0 : 100), width2, height2);
 		}	
     }
 	
 	protected Background clone(){
-		return new Background(texture, texture2, width, height);
+		return new Background(texture, texture2, width, height, width2, height2);
 	}	
 }
