@@ -170,14 +170,6 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 			shapeRenderer.line(onCircumference.x, onCircumference.y,onOtherCircumference.x, onOtherCircumference.y);
 		}
 		shapeRenderer.end();
-		
-		shapeRenderer.begin(ShapeType.Line);
-		if (visited){	
-			shapeRenderer.setColor(.2f, .2f, .2f, 1);
-			shapeRenderer.circle(position.x, position.y, RADIUS);	
-		}
-		shapeRenderer.end();
-		
 		if (hover){
 			// render hover box
 			shapeRenderer.begin(ShapeType.Filled);
