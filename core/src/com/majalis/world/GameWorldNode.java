@@ -47,7 +47,9 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 	private boolean current;
 	private boolean active;
 	private boolean hover;
-	private Texture image;
+	private Texture currentImage;
+	private Texture activeImage;
+	private Texture inactiveImage;
 	
 	// all the nodes need are the encounter CODES, not the actual encounter - should probably pass in some kind of object that contains the encounter generation logic, rather than an encounter and defaultEncounter code - at least, need a description of the encounter attached
 	public GameWorldNode(Array<GameWorldNode> connectedNodes, SaveService saveService, OrthographicCamera camera, ShapeRenderer shapeRenderer, BitmapFont font, final int nodeCode, int encounter, int defaultEncounter, Vector2 position, boolean visited, Sound sound, PlayerCharacter character, AssetManager assetManager){
@@ -61,7 +63,9 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 		this.position = position;
 		this.nodeCode = nodeCode;
 		this.visited = visited;
-		image = assetManager.get("TinySprite0.png", Texture.class);
+		currentImage = assetManager.get("TinySprite0.png", Texture.class);
+		activeImage = encounter % 5 == 4 || encounter % 5 == 1 ? assetManager.get("MountainU.png", Texture.class) : assetManager.get("ForestU.png", Texture.class);
+		inactiveImage = encounter % 5 == 4 || encounter % 5 == 1 ? assetManager.get("MountainV.png", Texture.class) : assetManager.get("ForestV.png", Texture.class);
 		this.sound = sound;
 		this.character = character;
 		selected = false;
@@ -167,23 +171,10 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 		}
 		shapeRenderer.end();
 		
-		if (current){
-			
-		}
-		else if (active){
-			shapeRenderer.begin(ShapeType.Filled);
-			shapeRenderer.setColor(.5f, .75f, .25f, 1);
-			shapeRenderer.circle(position.x, position.y, RADIUS/2);
-			shapeRenderer.end();
-		}
 		shapeRenderer.begin(ShapeType.Line);
 		if (visited){	
 			shapeRenderer.setColor(.2f, .2f, .2f, 1);
 			shapeRenderer.circle(position.x, position.y, RADIUS);	
-		}
-		else {
-			shapeRenderer.setColor(.258f, .652f, .4f, 1);
-			shapeRenderer.circle(position.x, position.y, RADIUS);
 		}
 		shapeRenderer.end();
 		
@@ -191,21 +182,27 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 			// render hover box
 			shapeRenderer.begin(ShapeType.Filled);
 			shapeRenderer.setColor(.8f, .8f, .8f, 1);
-			shapeRenderer.rect(position.x+35, (position.y-RADIUS)-25, 80, 100);
+			shapeRenderer.rect(position.x+55, (position.y-RADIUS)-25, 80, 100);
 			shapeRenderer.setColor(.2f, .2f, .2f, 1);
-			shapeRenderer.rect(position.x+40, (position.y-RADIUS)-20, 70, 90);
+			shapeRenderer.rect(position.x+60, (position.y-RADIUS)-20, 70, 90);
 			shapeRenderer.end();
 		}
 			
 		batch.begin();
 		if (current){
-			batch.draw(image, (position.x - RADIUS) + RADIUS/4, position.y-RADIUS/2);
+			batch.draw(currentImage, (position.x - RADIUS) + RADIUS/4, position.y-RADIUS/2);
+		}
+		else if (active){
+			batch.draw(activeImage, (position.x - RADIUS), position.y-RADIUS);
+		}
+		else {
+			batch.draw(inactiveImage, (position.x - RADIUS), position.y-RADIUS);
 		}
 		if (hover){
 			// render hover text
 			font.setColor(0.5f,1,1,1);
 			font.getData().setScale(.9f);
-			font.draw(batch, getHoverText(), (int)position.x + 50, (int)position.y + RADIUS + 15, 53, Align.center, true);	
+			font.draw(batch, getHoverText(), (int)position.x + 70, (int)position.y + RADIUS + 15, 53, Align.center, true);	
 		}		
     }
 

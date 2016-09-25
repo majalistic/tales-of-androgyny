@@ -25,6 +25,10 @@ public class GameScreen extends AbstractScreen {
 		resourceRequirements.put("uiskin.json", Skin.class);
 		resourceRequirements.put("node_sound.wav", Sound.class);
 		resourceRequirements.put("TinySprite0.png", Texture.class);
+		resourceRequirements.put("MountainU.png", Texture.class);
+		resourceRequirements.put("ForestU.png", Texture.class);
+		resourceRequirements.put("MountainV.png", Texture.class);
+		resourceRequirements.put("ForestV.png", Texture.class);
 	}
 	public GameScreen(ScreenFactory factory, ScreenElements elements, AssetManager assetManager, LoadService loadService, GameWorld world) {
 		super(factory, elements);
