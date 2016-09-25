@@ -48,10 +48,10 @@ public class GameWorldFactory {
 		PlayerCharacter character = loadService.loadDataValue(SaveEnum.PLAYER, PlayerCharacter.class);
 		
 		// -1 = magic number to get the defaultEncounter
-		addNode(new GameWorldNode(new Array<GameWorldNode>(), saveService, camera, shapeRenderer, font, 1, 0, -1, new Vector2(500, 500), visitedCodesSet.contains(1) ? true : false, sound, character), nodeMap, 1, nodes);
+		addNode(new GameWorldNode(new Array<GameWorldNode>(), saveService, camera, shapeRenderer, font, 1, 0, -1, new Vector2(500, 500), visitedCodesSet.contains(1) ? true : false, sound, character, assetManager), nodeMap, 1, nodes);
 		Array<GameWorldNode> requiredNodes = new Array<GameWorldNode>();
 		// end node
-		addNode(new GameWorldNode(new Array<GameWorldNode>(), saveService, camera, shapeRenderer, font, 2, 1, -1, new Vector2(1800, 1800), visitedCodesSet.contains(1) ? true : false, sound, character), nodeMap, 2, nodes, requiredNodes);
+		addNode(new GameWorldNode(new Array<GameWorldNode>(), saveService, camera, shapeRenderer, font, 2, 1, -1, new Vector2(1800, 1800), visitedCodesSet.contains(1) ? true : false, sound, character, assetManager), nodeMap, 2, nodes, requiredNodes);
 		
 		// temporarily stop at 1000 to prevent hangs if endpoint isn't found - in the future this should set something that will smoothly guide towards the exit as the number of nodes increase
 		
@@ -83,7 +83,7 @@ public class GameWorldFactory {
 					// save the position for the next iteration
 					currentNodePosition = newNodePosition;
 					
-					GameWorldNode newNode = new GameWorldNode(new Array<GameWorldNode>(), saveService, camera, shapeRenderer, font, nodeCode, nodeCode-1, -1, currentNodePosition, visitedCodesSet.contains(nodeCode) ? true : false, sound, character);
+					GameWorldNode newNode = new GameWorldNode(new Array<GameWorldNode>(), saveService, camera, shapeRenderer, font, nodeCode, nodeCode-1, -1, currentNodePosition, visitedCodesSet.contains(nodeCode) ? true : false, sound, character, assetManager);
 					addNode(newNode, nodeMap, nodeCode, nodes);
 					// if we've reached the target node, we can terminate this run-through
 					nodeNotReached = !requiredNode.isAdjacent(newNode);
