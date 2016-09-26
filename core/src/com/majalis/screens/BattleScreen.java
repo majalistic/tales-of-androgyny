@@ -18,23 +18,14 @@ public class BattleScreen extends AbstractScreen{
 	static {
 		resourceRequirements.put("uiskin.json", Skin.class);
 		resourceRequirements.put("sound.wav", Sound.class);
-		resourceRequirements.put("WerebitchChibi.png", Texture.class);
-		resourceRequirements.put("WerebitchBasic.jpg", Texture.class);
-		resourceRequirements.put("Harpy.jpg", Texture.class);
-		resourceRequirements.put("HeartSlime.jpg", Texture.class);
-		resourceRequirements.put("Brigand.jpg", Texture.class);
-		resourceRequirements.put("Stances/Balanced.png", Texture.class);
-		resourceRequirements.put("Stances/Defensive.png", Texture.class);
-		resourceRequirements.put("Stances/Doggy.png", Texture.class);
-		resourceRequirements.put("Stances/Erupt.png", Texture.class);
-		resourceRequirements.put("Stances/Fellatio.png", Texture.class);
-		resourceRequirements.put("Stances/Kneeling.png", Texture.class);
-		resourceRequirements.put("Stances/Offensive.png", Texture.class);
-		resourceRequirements.put("Stances/Prone.png", Texture.class);
-		resourceRequirements.put("Stances/Supine.png", Texture.class);
-		resourceRequirements.put("Stances/Airborne.png", Texture.class);
-		resourceRequirements.put("Stances/Casting.png", Texture.class);
-		resourceRequirements.put("Stances/Knotted.png", Texture.class);
+		String[] textureArray = new String[]{
+			"WerebitchChibi.png", "WerebitchBasic.jpg", "Harpy.jpg", "HeartSlime.jpg", "Brigand.jpg", 
+			"Stances/Balanced.png", "Stances/Defensive.png", "Stances/Doggy.png", "Stances/Erupt.png", "Stances/Fellatio.png", "Stances/Kneeling.png", "Stances/Offensive.png", "Stances/Prone.png", "Stances/Supine.png", "Stances/Airborne.png", "Stances/Casting.png", "Stances/Knotted.png",
+			"Arousal/Human0.png", "Arousal/Human1.png", "Arousal/Human2.png", "Arousal/Trap0.png", "Arousal/Trap1.png", "Arousal/Trap2.png", "Arousal/Monster0.png", "Arousal/Monster1.png", "Arousal/Monster2.png"
+		};
+		for (String path: textureArray){
+			resourceRequirements.put(path, Texture.class);
+		}
 	}
 	private final SaveService saveService;
 	private final Battle battle;

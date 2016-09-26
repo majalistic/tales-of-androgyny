@@ -171,7 +171,7 @@ public class Battle extends Group{
 		Stance forcedStance = attackForFirst.getForceStance();
 		if (forcedStance != null){
 			if (firstCharacter.stance == Stance.KNEELING && secondTechnique.getTechniqueName().equals("Divebomb")){
-				console += "The divebomb missed!  The harpy crashed!";
+				console += "The divebomb missed!  The harpy crashed!\n";
 				secondCharacter.setStance(Stance.PRONE);
 			}
 			else {
@@ -336,10 +336,28 @@ public class Battle extends Group{
 		super.draw(batch, parentAlpha);
 		font.draw(batch, "Health: " + String.valueOf(character.getCurrentHealth()) + "\nStamina: " + String.valueOf(character.getCurrentStamina()) + (character.getStat(Stat.MAGIC) > 1 ? "\nMana: " + String.valueOf(character.getCurrentMana()) : "") + "\nBalance: " + String.valueOf(character.getStability()) + "\nStance: " + character.getStance().toString(), 70, 695);		
 		batch.draw(getStanceImage(character.stance), 330, 540, 100, 115);
+		batch.draw(getLustImage(playerLust, PhallusType.SMALL), 60, 450, 100, 115);
 		font.draw(batch, "Health: " + String.valueOf(enemy.getCurrentHealth()) + "\nStance: " + enemy.getStance().toString(), 1100, 650);		
 		batch.draw(getStanceImage(enemy.stance), 920, 540, 100, 115);
+		batch.draw(getLustImage(enemy.lust, enemy.enemyType == EnemyEnum.BRIGAND ? PhallusType.NORMAL : PhallusType.MONSTER), 1150, 450, 100, 115);
 		font.draw(batch, console, 80, 270);
     }
+	
+	private enum PhallusType {
+		SMALL("Trap"),
+		NORMAL("Human"),
+		MONSTER("Monster");
+		private final String label;
+
+		PhallusType(String label) {
+		    this.label = label;
+		 }
+	}
+	
+	private Texture getLustImage(int lust, PhallusType type){
+		int lustLevel = lust > 7 ? 2 : lust > 3 ? 1 : 0;
+		return assetManager.get("Arousal/"+ type.label + lustLevel + ".png", Texture.class);
+	}
 	
 	private Texture getStanceImage(Stance stance){
 		switch(stance){
