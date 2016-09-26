@@ -64,6 +64,15 @@ public class EnemyCharacter extends AbstractCharacter {
 			}
 		}
 		
+		if (enemyType == EnemyEnum.SLIME && stance != Stance.DOGGY && stance != Stance.FELLATIO){
+			if (currentStamina > 3 && (stance == Stance.BALANCED || currentStamina > 9)){
+				return new Technique(Techniques.SLIME_ATTACK, getStrength()); 
+			}
+			else {
+				return new Technique(Techniques.SLIME_QUIVER, getStrength()); 
+			}
+		}
+		
 		switch(stance){
 			case OFFENSIVE:
 				if (stability < 5) return new Technique(Techniques.RESERVED_ATTACK, getStrength());

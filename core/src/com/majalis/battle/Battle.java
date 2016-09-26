@@ -314,7 +314,7 @@ public class Battle extends Group{
 				case FELLATIO:
 					spurt = "You spew while sucking!\n"
 						+	"Your worthless cum spurts into the dirt!\n"
-						+	"They don't even notice!";
+						+	"They don't even notice!\n";
 				break;
 				default: spurt = "You spew your semen onto the ground!\n"; 
 			}

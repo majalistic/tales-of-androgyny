@@ -213,6 +213,7 @@ public class EncounterBuilder {
 				break;
 			// slime
 			case 2:
+				Background slimeBackground = new Background(backgroundTexture, assetManager.get("HeartSlimeNoBG.png", Texture.class), 1280, 720, 450, 600);
 				getTextScenes(getScript(battleCode, 0), 
 						addScene(
 							getChoiceScene(
@@ -220,11 +221,65 @@ public class EncounterBuilder {
 										addScene(
 											new BattleScene(
 												aggregateMaps(
-														getTextScenes(new String[]{"You won!  You get NOTHING.", "Sad :(", "What a pity.  Go away."}, addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.ENCOUNTER_OVER)), font, background),
-														getTextScenes(getScript(battleCode, 1), addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.GAME_OVER)), font, background)					
-												), -1, saveService, battleCode)), 
+														getTextScenes(getScript(battleCode, 1), addScene(
+															getChoiceScene(
+																aggregateMaps(
+																	getTextScenes(getScript(battleCode, 2), addScene(
+																		getCheckScene(
+																			aggregateMaps(
+																				getTextScenes(getScript(battleCode, 3), addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.ENCOUNTER_OVER)), font, slimeBackground),
+																				getTextScenes(getScript(battleCode, 4), addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.GAME_OVER)), font, slimeBackground)		
+																			),
+																			assetManager,
+																			Stat.AGILITY,
+																			new IntArray(new int[]{6, 0}),
+																			character
+																		)		
+																	), font, slimeBackground),
+																	getTextScenes(getScript(battleCode, 5), addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.ENCOUNTER_OVER)), font, slimeBackground)
+																),
+																assetManager,
+																"Slay the slime?",
+																new Array<String>(true, new String[]{"Stab the core", "Spare her"}, 0, 2)))
+																, font, slimeBackground),
+														getTextScenes(
+															getScript(battleCode, 6), 
+															addScene(
+																getChoiceScene(
+																	aggregateMaps(
+																		getTextScenes(getScript(battleCode, 7), addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.GAME_OVER)), font, slimeBackground),
+																		addScene(
+																			getCheckScene(
+																				aggregateMaps(	
+																					getTextScenes(getScript(battleCode, 8), addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.ENCOUNTER_OVER)), font, background),
+																					getTextScenes(getScript(battleCode, 9), addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.GAME_OVER)), font, background)
+																				),
+																				assetManager,
+																				Stat.AGILITY,
+																				new IntArray(new int[]{5, 0}),
+																				character
+																			)
+																		)
+																	),
+																	assetManager,
+																	"What do you do?",
+																	new Array<String>(true, new String[]{"Try to speak", "Run!"}, 0, 2))),
+															font, slimeBackground)
+														),
+														-1, saveService, battleCode)), 
+										getTextScenes(getScript(battleCode, 10), 
+												addScene(
+													getChoiceScene(
+														aggregateMaps(
+															getTextScenes(getScript(battleCode, 11), addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.ENCOUNTER_OVER)), font, slimeBackground),
+															getTextScenes(getScript(battleCode, 12), addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.ENCOUNTER_OVER)), font, slimeBackground)
+														),
+														assetManager,
+														"Do you enter the slime, or...?",
+														new Array<String>(true, new String[]{"Go In", "Love Dart"}, 0, 2)
+													)), font, slimeBackground),
 										addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.ENCOUNTER_OVER))), 
-										assetManager, "Fight the slime?", new Array<String>(true, new String[]{"Fight Her", "Leave Her Be"}, 0, 2))), font, background);
+										assetManager, "What do you do with the slime?", new Array<String>(true, new String[]{"Fight Her", "Smooch Her", "Leave Her Be"}, 0, 3))), font, slimeBackground);
 				break;
 			// brigand
 			case 3:
@@ -240,14 +295,14 @@ public class EncounterBuilder {
 																addScene(
 																	new BattleScene(
 																		aggregateMaps(
-																				getTextScenes(new String[]{"You defeated the brigand!.", "You get 1 XP."}, addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.ENCOUNTER_OVER)), font, background),
+																				getTextScenes(new String[]{"You defeated the brigand!", "You get 1 XP."}, addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.ENCOUNTER_OVER)), font, background),
 																				getTextScenes(getScript(battleCode, 4), addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.GAME_OVER)), font, background)					
 																		), -1, saveService, battleCode, Stance.OFFENSIVE, Stance.BALANCED)
 																),
 																addScene(
 																		new BattleScene(
 																			aggregateMaps(
-																					getTextScenes(new String[]{"You defeated the brigand!.", "You get 1 XP."}, addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.ENCOUNTER_OVER)), font, background),
+																					getTextScenes(new String[]{"You defeated the brigand!", "You get 1 XP."}, addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.ENCOUNTER_OVER)), font, background),
 																					getTextScenes(getScript(battleCode, 4), addScene(new EndScene(new OrderedMap<Integer, Scene>(), -1, EndScene.Type.GAME_OVER)), font, background)					
 																			), -1, saveService, battleCode, Stance.BALANCED, Stance.BALANCED)
 																)
@@ -410,7 +465,7 @@ public class EncounterBuilder {
 	}
 	
 	private String[] getScript(int battleCode, int scene){
-		return reader.loadScript("00"+battleCode+"-"+"0"+scene);
+		return reader.loadScript("00"+battleCode+"-"+ ( scene >= 10 ? scene : "0" + scene));
 	}
 	private Scene getStartScene(Array<Scene> scenes, Integer sceneCode){
 		// default case	

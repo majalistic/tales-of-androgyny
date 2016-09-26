@@ -34,9 +34,14 @@ public enum Techniques {
 	FIZZLE			{ public Stance getStanceResult(){ return Stance.BALANCED; }  public int getPowerMod(){ return -100; } public int getStabilityCost(){ return 0; } public int getStaminaCost(){ return 0; } },
 	
 	/* Positional */
-	DUCK			{ public Stance getStanceResult(){ return Stance.KNEELING; } public int getPowerMod(){ return -100; } public int getStabilityCost(){ return 0; } public int getStaminaCost(){ return 0; } }, // run out of stamina
-	FLY				{ public Stance getStanceResult(){ return Stance.AIRBORNE; } public int getPowerMod(){ return -100; } public int getStabilityCost(){ return 0; } public int getStaminaCost(){ return 0; } }, // run out of stability
+	DUCK			{ public Stance getStanceResult(){ return Stance.KNEELING; } public int getPowerMod(){ return -100; } public int getStabilityCost(){ return 0; } public int getStaminaCost(){ return 0; } },
+	FLY				{ public Stance getStanceResult(){ return Stance.AIRBORNE; } public int getPowerMod(){ return -100; } public int getStabilityCost(){ return 0; } public int getStaminaCost(){ return 0; } }, 
 
+	/* Enemy attacks */
+	
+	SLIME_ATTACK    { public Stance getStanceResult(){ return Stance.BALANCED; } public int getPowerMod(){ return 7; } public int getStabilityCost(){ return -100; } public int getStaminaCost(){ return 5; } },
+	SLIME_QUIVER 	{ public Stance getStanceResult(){ return Stance.DEFENSIVE; } public int getPowerMod(){ return -100; } public int getStabilityCost(){ return -100; } public int getStaminaCost(){ return -1; } },
+	
 	/* Enemy pouncing */
 	DIVEBOMB		{ public Stance getStanceResult(){ return Stance.FELLATIO; } public int getPowerMod(){ return -100; } public int getStabilityCost(){ return 0; } public int getStaminaCost(){ return 0; } },
 	IRRUMATIO		{ public Stance getStanceResult(){ return Stance.FELLATIO; } public int getPowerMod(){ return -100; } public int getStabilityCost(){ return 0; } public int getStaminaCost(){ return 0; } },

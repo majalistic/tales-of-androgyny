@@ -12,7 +12,7 @@
 		"scriptLines": [
 			"\"Grrr...\" she growls, holding up her clawed paws.  \"Just kidding,\" she says, dropping them to her skirt, \"I'm not gonna eat ya!  I just want to mate!\"",
 			"You look her up and down.  \"Mate\"?  Her proportions are amazing - she's no slouch.  She's dressed like a nearby villager, but her clothes are in tatters.  You wonder what she is - maybe a werewolf?  It's possible her libido has been out of control since she was turned.",
-			"You start to consider taking her up on her offer, but something about the way she's standing is a little... strange.  \"Oh... I get to mate, finally!\" she says, gripping onto ehr tattered skirt, which draws your attention to the anomaly.",
+			"You start to consider taking her up on her offer, but something about the way she's standing is a little... strange.  \"Oh... I get to mate, finally!\" she says, gripping onto her tattered skirt, which draws your attention to the anomaly.",
 			"There's something... visibly growing in her skirt - it's made a rather pronounced bulge, and it's bulging more and more as she holds her skirt down with her paws and looks at you hungrily, knock-kneed.  At first you think it might be her tail, but it's obviously wagging excitedly behind her... and then the smell hits you.",
 			"You cough.  It's such a strong scent it makes your eyes water.  Her eyes, on the other hand, are focused on you, unwavering, and her skirt is visibly wet - as she sways from side to side, you see that she's not wearing any underwear, so her rear is plainly visible as her skirt shifts over it.",
 			"That detail soon solves the mystery, as the source of the mystery bulge spills out from under her skirt.  While you don't immediately recognize it, not being too familiar with canine anatomy, a part of tightens up in fear instinctually.",
@@ -87,13 +87,141 @@
 	{
 		"key": "002-00",
 		"scriptLines": [
-			"You encounter a slime with a pretty impressive booty!", "It looks like she doesn't want to fight."
+			"You didn't expect to come across anyone this deep into the forest, but your eyes spot a female form... but, as the light passes through it, you realize that there's no way the thing before you is human.",
+			"You approach cautiously - \"she\" isn't facing you.  Once you get closer, you try to discern more details.",
+			"\"She\" has a rather sizable rear - one that you could get lost in, quite literally, as she appears to be made of... slime. Though you suppose she can take any shape, which makes her current one quite suspect.",
+			"Before you can inspect further, she turns to face you, and, seeing you, jiggles excitedly. Her \"breasts\" are massive, far larger than any human woman would have, and they move quite... fluidly.",
+			"\"Ooooooo... a human!  What brings you to my haunt?\" she asks, although as soon as she starts to approach... slithering across the ground, you reach for your weapon.",
+			"\"What... are you?\" you ask, confused.",
+			"\"That's a rather rude question, isn't it?\", she says, \"I'm a slime, obviously.  A sentient slime.\"",
+			"Obviously.",
+			"\"How are you... speaking?\" you ask.",
+			"\"Oh... well, that's a rather embarrassing question...\" she says, looking flustered, although she's still a translucent blue.  \"As a non-sentient slime... consumes... sentient creatures, it starts to develop a mind of its own... that's me!\"",
+			"You pick up your guard.  \"And am I next, then?\" you say, accusingly.",
+			"\"No! I haven't digested many humans since I became, well, me.  Always in self-defense, of course,\" she adds, looking somewhat sullen. \"Sentient slime goo is an expensive commodity, or so I've come to learn. So I do have to fend off the occasional poacher\", she explains.",
+			"\"Then why are you shaped like... that?\" you ask.",
+			"\"Because I'm a girl slime, of course,\" she says, matter-of-factly.",
+			"\"No, I mean... why like... -that-, in particular?\"",
+			"\"Oh! You mean my luscious curves. You'll have to forgive me, I can be pretty... bubbly,\" she says, jiggling her... entire form. Though she says that, she seems surprisingly sharp.",
+			"\"Yes, why?  Are you trying to entice men to their dooms?\", you ask, accusingly.",
+			"\"Why? Are you enticed?\" she asks, wiggling her... \"hips\".",
+			"She sees that you're not amused by her response, and sighs.",
+			"\"I just prefer this form.  It keeps me... grounded,\" she says, shrugging, \"I have no interest in eating you, or, mmhm, engaging in other primal behaviors. We don't reproduce that way, you see,\", she says, patting the flat goo where her vagina would be.",
+			"\"How... do you reproduce?\"",
+			"\"My, what a personal question. Love darts, since you asked,\" she says, looking proud of herself.",
+			"You look at her confused.",
+			"\"Mmm, don't ask,\" she says, and you decide to drop that line of inquiry.",
+			"\"And if I were to... want to... that would be my problem, then?\" you ask, hand still on your weapon.",
+			"\"It wouldn't be a problem at all. You wouldn't be the first. Oh, but you think I ate them, don't you? No, not one. Some gave me gifts... others, I was just pleased to have the company.  It doesn't do anything for me, but it doesn't hurt me either. I flow like water,\", she says, smiling.",
+			"What will you do?  Fight, fuck, or flee?"
 		]
 	},
 	{
 		"key": "002-01",
 		"scriptLines": [
-			"You lost! Slimetime!"
+			"You defeat the slime, and she becomes visibly agitated - like she can't hold onto her form any longer."
+			"\"I suppose you want to claim a trophy, don't you?  Well then, stab my core,\" she says, defeated.",
+			"\"Your core?\"",
+			"\"It's the only way to kill a slime.  Chopping us up to pieces does nothing; we'll just reform. If you destroy this, we're gone for good,\" she said, pointing to a jewel floating within her gelatinous form.",
+			"\"Why are you telling me this?\"",
+			"\"You'd find out anyway,\" she explains, sloshing a bit as she struggles to keep her voluptuous form, \"and I would rather have it done quickly than... the alternative.\"",
+			"Do you stab her core?"
+		]
+	},	
+	{
+		"key": "002-02",
+		"scriptLines": [
+			"You attempt to destroy her core with a finishing blow!"
+		]
+	},	
+	{
+		"key": "002-03",
+		"scriptLines": [
+			"You successfully shatter the slime's core. In her last moments, she looks at you with... sadness, and then, her form is completely lost - the slime that was once her spreads out due solely to the force of gravity, and begins to denature and dim.",
+			"You receive some worthless goo, and 1 XP."
+		]
+	},	
+	{
+		"key": "002-04",
+		"scriptLines": [
+			"You fail to shatter the slime's core - her slime hardens in such a way to deflect the blow, and then she lurches towards you, so that your wrist gets sucked inside of her. In the next few terrifying moments, she pulls the whole of you into herself.",
+			"\"You're quite violent, aren't you?  Well, I won't turn down such a generously offered meal.  Hopefully you go to my chest or hips and not my belly,\" she says, ominously.",
+			"You feel a wave of pressure within her, as if her slime was somehow changing in texture... and then your entire body becomes numb.",
+			"\"I'm sorry, but I can't just let you kill me. I've done nothing wrong. You, on the contrary... you are dangerous,\" she says, but you can't say anything in response, her goo filling your mouth as you open it to scream.",
+			"With a sudden existential terror, you realize what's happening.  She's digesting you. You struggle to move, even a little bit, but... nothing.  You're immobile within the slime.",
+			"\"Don't worry, you'll just dissolve away.  I don't poop.  Oh, that's so embarassing to say.  Pretend you didn't hear it. Or, you know, disappear forever...\" she says, and in a matter of a few seconds, you obey - and you end your journey as an extra inch on the slime's impressive hips." 			
+		]
+	},	
+	{
+		"key": "002-05",
+		"scriptLines": [
+			"You put away your weapon. This slime is no danger to anyone who isn't already a danger to others themselves.  You turn away, but she slime stops you.",
+			"\"Thank you for understanding. Please, have some slime,\" she says, and though you think to reject her... generous offer, she dumps about a pound of pristine goop into your hand.  You wrap it in some rags, and store it carefully in your bag.",
+			"You nod to the slime, and begin to leave again.",
+			"\"It won't spoil, not as long as I'm alive. Do with it what you will,\" she says, calling after you.  You receive some slime goo, and 2 XP."
+		]
+	},	
+	{
+		"key": "002-06",
+		"scriptLines": [
+			"The slime defeats you, and you feel a great sense of unease.",
+			"\"Perfect.  I needed some 'me' time,\" she says, getting ready to do... something.",
+			"\"What do you mean?\" you ask, worried.",			
+			"\"I need to rejuvenate, and I need somewhere hot and dark for that,\" she says, and you have a dark premonition. \"Open wide!\" she demands."	
+		]
+	},	
+	{
+		"key": "002-07",
+		"scriptLines": [
+			"You open your mouth to speak... a costly mistake!",
+			"You see the slime girl's face up close, and then, a moment later, it collides with yours - and your stomach is instantly full of slime girl goo, with pints being piped in by the second.",
+			"In a matter of minutes, your stomach is pumped full near to bursting, and little of the mischevious slime girl is to be found spread on the ground around you - most of her being is swirling and rushing through your intestines, sitting heavily in your over-inflated belly.",
+			"You can't even stand being that overburdened... so you sit there, for hours, with the googirl cramping your bowels."
+		]
+	},		
+	{
+		"key": "002-08",
+		"scriptLines": [
+			"You successfully flee, leaving the slow-moving slime behind you.  You receive 1 XP."
+		]
+	},		
+	{
+		"key": "002-09",
+		"scriptLines": [
+			"You turn to flee, but trip, your pants falling down!",
+			"\"Don't mind if I do!\" you hear the slimegirl say from behind you... and then, you hear her glorpy form ascend into the air... and a moment later, what goes up comes down, and hard.",
+			"The sudden rush into your bowels knocks the wind out of you, and the pumping continues, as she anchors her gooey form to the ground and pumps herself, \"face\"-first into your poor, unfortunate guts.",
+			"In a matter of minutes, your stomach is pumped full near to bursting, and little of the mischevious slime girl is to be found spread on the ground around you - most of her being is swirling and rushing through your intestines, sitting heavily in your over-inflated belly.",
+			"You can't even stand being that overburdened... so you sit there, for hours, with the googirl cramping your bowels."
+		]
+	},		
+	
+	{
+		"key": "002-10",
+		"scriptLines": [
+			"You approach the slime tentatively, wary of her amorphous goop.  She smirks at you.", 
+			"\"My name is Protea, if you're curious,\" she says, her hands tracing along her hips and down to her thighs, \"but you can call me Tea.\"",
+			"\"Hi... Tea,\" you say, feeling weird about addressing a sentient slime in such a casual way. \"I'm Hiro. Are you sure you're not going to eat me?\"",
+			"She jiggles again. \"No way. I like cute humans like you.  And it seems like... we're not going to have any problems getting along, are we?\" she asks, sloshing towards you until you can hear... well, not her breathing, but something.",
+			"You reach out and touch her chest - your fingers sync in, but just barely, and there's a surprising amount of give.  You get the sense that she's intentionally keeping her form so that it feels how you expect it to feel.  To your relief, she doesn't suck you in.",
+			"\"Mmmm... and do you want to come into me or... would you like me to fashion you up a male-human surrogate?  You wouldn't be the first to ask for that, either,\" she says, flatly.",
+			"What do you do?"
+		]
+	},	
+	{
+		"key": "002-11",
+		"scriptLines": [
+			"\"I-I'd like to... come inside,\" you say, meekly.",
+			"\"Mmm... okay. I'll let you in me. You're going to have to fight your way in, though~ <3\" she says, bringing her curvy, squishy body to yours."
+		]
+	},	
+	{
+		"key": "002-12",
+		"scriptLines": [
+			"\"I... um...\" you say, but the words won't come out.",
+			"\"Mmmm... interesting. I kind of suspected; you get a knack for telling that when you're a slime as long as I've been,\" she says, and you see the slime in her nether regions, being what they are, starting to bulge out and harden.",
+			"You stare at her in awe - if her preferences in regards to hips and bust are any indication, she has no problems exaggerating the human form.  Sure enough, the slimy bulge is nearly as thick as a fist and as long as elbow to wrist, and it's still forming and hardening.",
+			"\"I assume that's where you want it. On me, that is. I know where you want it in the more... personal sense. I've had my slime in similar places before, after all,\" she says, putting the finishing touches on her slimy phallus-like protrusion. \"Now... turn around, love.\""			
 		]
 	},	
 	{
