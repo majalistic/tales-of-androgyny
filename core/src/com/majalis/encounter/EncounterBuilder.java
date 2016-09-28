@@ -465,8 +465,12 @@ public class EncounterBuilder {
 	}
 	
 	private String[] getScript(int battleCode, int scene){
-		return reader.loadScript("00"+battleCode+"-"+ ( scene >= 10 ? scene : "0" + scene));
+		return getScript("00"+battleCode+"-"+ ( scene >= 10 ? scene : "0" + scene));
 	}
+	private String[] getScript(String code){
+		return reader.loadScript(code);
+	}
+	
 	private Scene getStartScene(Array<Scene> scenes, Integer sceneCode){
 		// default case	
 		if (sceneCode == 0){
