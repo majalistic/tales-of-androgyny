@@ -44,12 +44,6 @@ public class SkillSelectionScene extends Scene {
 	}
 	
 	@Override
-	public void poke(){
-		buttonSound.play();
-		nextScene();
-	}
-	
-	@Override
     public void draw(Batch batch, float parentAlpha) {
 		super.draw(batch, parentAlpha);
 		font.setColor(0.5f,0.4f,0,1);

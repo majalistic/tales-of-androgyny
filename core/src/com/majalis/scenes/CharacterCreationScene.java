@@ -178,12 +178,6 @@ public class CharacterCreationScene extends Scene {
 	private String getJobClass(SaveManager.JobClass jobClass){ return jobClass == SaveManager.JobClass.ENCHANTRESS ? "an Enchantress" : "a " + jobClass.getLabel(); }
 	
 	@Override
-	public void poke(){
-		buttonSound.play();
-		nextScene();
-	}
-	
-	@Override
     public void draw(Batch batch, float parentAlpha) {
 		super.draw(batch, parentAlpha);
 		font.setColor(0.5f,0.4f,0,1);
