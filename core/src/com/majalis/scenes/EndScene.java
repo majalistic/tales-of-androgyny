@@ -1,14 +1,12 @@
 package com.majalis.scenes;
-
-import com.badlogic.gdx.utils.OrderedMap;
 /*
  * Represents a scene that concludes an encounter
  */
 public class EndScene extends Scene{
 
 	private Type type;
-	public EndScene(OrderedMap<Integer, Scene> sceneBranches, int sceneCode, Type type) {
-		super(sceneBranches, sceneCode);
+	public EndScene(Type type) {
+		super(null, -1);
 		this.type = type;
 	}
 

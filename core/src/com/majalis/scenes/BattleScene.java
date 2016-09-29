@@ -17,12 +17,12 @@ public class BattleScene extends Scene {
 	private final Stance playerStance;
 	private final Stance enemyStance;
 	
-	public BattleScene(OrderedMap<Integer, Scene> sceneBranches, int sceneCode, SaveService saveService, int battleCode) {
-		this(sceneBranches, sceneCode, saveService, battleCode, Stance.BALANCED, Stance.BALANCED);
+	public BattleScene(OrderedMap<Integer, Scene> sceneBranches, SaveService saveService, int battleCode) {
+		this(sceneBranches, saveService, battleCode, Stance.BALANCED, Stance.BALANCED);
 	}
 
-	public BattleScene(OrderedMap<Integer, Scene> sceneBranches, int sceneCode, SaveService saveService, int battleCode, Stance playerStance, Stance enemyStance) {
-		super(sceneBranches, sceneCode);
+	public BattleScene(OrderedMap<Integer, Scene> sceneBranches, SaveService saveService, int battleCode, Stance playerStance, Stance enemyStance) {
+		super(sceneBranches, -1);
 		this.saveService = saveService;
 		this.battleCode = battleCode;
 		this.victoryScene = sceneBranches.get(sceneBranches.orderedKeys().get(0)).getCode();
