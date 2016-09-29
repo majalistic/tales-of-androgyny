@@ -1,6 +1,13 @@
 {
 "script": [
 	{
+		"key": "INTRO",
+		"scriptLines": [
+			"Welcome to the world of tRaPG!", "This is a pre-alpha build - many systems and assets are not currently in place, so please don't expect this to be the full game experience!", "If you encounter any bugs, please let us know - leave a comment on our game page at itch.io, send us an email at majalistic@gmail.com, or message us on Patreon.  Thank you!", 
+			"You're looking mighty fine, by the way.  Please select your game mode."	
+		]
+	},
+	{
 		"key": "000-00",
 		"scriptLines": [
 			"There are wolves in the forest - you know, because you've been hearing them howl in the distance, and as you traverse the woods, you've been hearing the occasional growling - albeit higher pitched than you would expect.", 
