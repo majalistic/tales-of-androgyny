@@ -4,6 +4,19 @@
 		"key": "INTRO",
 		"scriptLines": [
 			"Welcome to the world of tRaPG!", "This is a pre-alpha build - many systems and assets are not currently in place, so please don't expect this to be the full game experience!", "If you encounter any bugs, please let us know - leave a comment on our game page at itch.io, send us an email at majalistic@gmail.com, or message us on Patreon.  Thank you!", 
+			"Some tutorial tips to follow - hold CTRL to skip and to select your game mode.",
+			"Combat is stance based.  The three core stances are Balanced, Offensive, and Defensive.  Abilities that you can use are determined by stance, and using them may result in a new stance - for example, using Spring Attack in Balanced stance will leave you in Offensive for the next round, and using Cautious Attack will leave you in Defensive.",
+			"Balanced stance is a staging stance - most abilities will move you into a new stance.  It has a balance of offensive and defensive abilities.",
+			"Offensive stance has powerful abilities that can damage, unbalance, or otherwise upset your opponent, but at a high cost to stamina, stability, or both, or by lowering your defenses, depending on the ability.",
+			"Defensive stance has defensive abilities, and can be used to weather an enemy's brutal attacks, or to get on more stable footing or catch a breather, in preparation of launching a new offensive, or to let an enemy tire themselves out before you subdue them.",
+			"The core statistics are Strength, Endurance, Agility, Perception, Magic, Charisma.  All of a character's core statistics are used in determining encounter outcomes.  Your current statistic score is your base score and any more temporary modifiers, like being tired or injured.",
+			"Strength determines raw attack power, which affects damage, how much attacks unbalance an enemies, and contests of strength, such as wrestling, struggling, or weapon locks.",
+			"Endurance determines stamina and resilience, which affects your ability to keep up an assault without getting tired, your ability to shrug off low damage attacks, and wear heavier armor without being tired.",
+			"Agility determines balance and skill, affecting your ability to keep a sure footing even while doing acrobatic maneuvers, getting unblockable attacks against enemies, and evading enemy attacks.",
+			"Perception determines your ability to see what attacks an enemy may use next and prepare accordingly, as well as your base scouting ability, which determines what information you can see about upcoming areas.",
+			"Magic determines your magical capabilities - how powerful magic spells are, and how many of them you can cast before becoming magically exhausted.",
+			"Charisma determines your ability to influence an enemy - getting them to calm down and listen to reason, enraging them, or seducing them.",
+			"Running out of Stamina will cause you to momentarily black out, falling over - running out of Balance will similarly cause you to trip.  Try to less strenuous abilities to preserve and recover stamina, and more stable abilities to remain balanced.",
 			"You're looking mighty fine, by the way.  Please select your game mode."	
 		]
 	},

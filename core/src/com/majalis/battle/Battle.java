@@ -356,37 +356,37 @@ public class Battle extends Group{
 	
 	private Texture getLustImage(int lust, PhallusType type){
 		int lustLevel = lust > 7 ? 2 : lust > 3 ? 1 : 0;
-		return assetManager.get("Arousal/"+ type.label + lustLevel + ".png", Texture.class);
+		return assetManager.get("arousal/"+ type.label + lustLevel + ".png", Texture.class);
 	}
 	
 	private Texture getStanceImage(Stance stance){
 		switch(stance){
 			case BALANCED:
-				return assetManager.get("Stances/Balanced.png", Texture.class);
+				return assetManager.get("stances/Balanced.png", Texture.class);
 			case DEFENSIVE:
-				return assetManager.get("Stances/Defensive.png", Texture.class);
+				return assetManager.get("stances/Defensive.png", Texture.class);
 			case DOGGY:
-				return assetManager.get("Stances/Doggy.png", Texture.class);
+				return assetManager.get("stances/Doggy.png", Texture.class);
 			case ERUPT:
-				return assetManager.get("Stances/Erupt.png", Texture.class);
+				return assetManager.get("stances/Erupt.png", Texture.class);
 			case FELLATIO:
-				return assetManager.get("Stances/Fellatio.png", Texture.class);
+				return assetManager.get("stances/Fellatio.png", Texture.class);
 			case KNEELING:
-				return assetManager.get("Stances/Kneeling.png", Texture.class);
+				return assetManager.get("stances/Kneeling.png", Texture.class);
 			case OFFENSIVE:
-				return assetManager.get("Stances/Offensive.png", Texture.class);
+				return assetManager.get("stances/Offensive.png", Texture.class);
 			case PRONE:
-				return assetManager.get("Stances/Prone.png", Texture.class);
+				return assetManager.get("stances/Prone.png", Texture.class);
 			case SUPINE:
-				return assetManager.get("Stances/Supine.png", Texture.class);
+				return assetManager.get("stances/Supine.png", Texture.class);
 			case AIRBORNE:
-				return assetManager.get("Stances/Airborne.png", Texture.class);
+				return assetManager.get("stances/Airborne.png", Texture.class);
 			case CASTING:
-				return assetManager.get("Stances/Casting.png", Texture.class);
+				return assetManager.get("stances/Casting.png", Texture.class);
 			case KNOTTED:
-				return assetManager.get("Stances/Knotted.png", Texture.class);
+				return assetManager.get("stances/Knotted.png", Texture.class);
 			default:
-				return assetManager.get("Stances/Balanced.png", Texture.class);
+				return assetManager.get("stances/Balanced.png", Texture.class);
 			}
 	}
 	

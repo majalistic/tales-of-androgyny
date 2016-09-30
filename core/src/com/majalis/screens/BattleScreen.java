@@ -20,8 +20,8 @@ public class BattleScreen extends AbstractScreen{
 		resourceRequirements.put("sound.wav", Sound.class);
 		String[] textureArray = new String[]{
 			"WerebitchChibi.png", "WerebitchBasic.jpg", "Harpy.jpg", "HeartSlime.jpg", "Brigand.jpg", 
-			"Stances/Balanced.png", "Stances/Defensive.png", "Stances/Doggy.png", "Stances/Erupt.png", "Stances/Fellatio.png", "Stances/Kneeling.png", "Stances/Offensive.png", "Stances/Prone.png", "Stances/Supine.png", "Stances/Airborne.png", "Stances/Casting.png", "Stances/Knotted.png",
-			"Arousal/Human0.png", "Arousal/Human1.png", "Arousal/Human2.png", "Arousal/Trap0.png", "Arousal/Trap1.png", "Arousal/Trap2.png", "Arousal/Monster0.png", "Arousal/Monster1.png", "Arousal/Monster2.png"
+			"stances/Balanced.png", "stances/Defensive.png", "stances/Doggy.png", "stances/Erupt.png", "stances/Fellatio.png", "stances/Kneeling.png", "stances/Offensive.png", "stances/Prone.png", "stances/Supine.png", "stances/Airborne.png", "stances/Casting.png", "stances/Knotted.png",
+			"arousal/Human0.png", "arousal/Human1.png", "arousal/Human2.png", "arousal/Trap0.png", "arousal/Trap1.png", "arousal/Trap2.png", "arousal/Monster0.png", "arousal/Monster1.png", "arousal/Monster2.png"
 		};
 		for (String path: textureArray){
 			resourceRequirements.put(path, Texture.class);
