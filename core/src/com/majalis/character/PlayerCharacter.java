@@ -20,6 +20,8 @@ public class PlayerCharacter extends AbstractCharacter {
 		statNameMap.put(Stat.CHARISMA, new Array<String>(true, new String[]{"Inhuman", "Horrible", "Uncouth", "Unpleasant", "Plain", "Likeable", "Charismatic", "Charming", "Magnetic", "Lovable", "Worshipable"}, 0, 11));
 	}
 	
+	public String name;
+	
 	public ObjectSet<Techniques> skills;
 	public ObjectSet<Perk> perks;
 	public int skillPoints;
@@ -164,7 +166,9 @@ public class PlayerCharacter extends AbstractCharacter {
 	}
 	
 	public enum Bootyliciousness {
-		
+		Bubble,
+		Round,
+		Fat // dear diary, the ass was fat
 	}
 	
 	public enum LipFullness {

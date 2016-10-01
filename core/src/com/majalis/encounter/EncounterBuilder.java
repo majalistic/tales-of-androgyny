@@ -23,6 +23,7 @@ import com.majalis.save.SaveService;
 import com.majalis.scenes.AbstractChoiceScene;
 import com.majalis.scenes.BattleScene;
 import com.majalis.scenes.CharacterCreationScene;
+import com.majalis.scenes.CharacterCustomizationScene;
 import com.majalis.scenes.CheckScene;
 import com.majalis.scenes.ChoiceScene;
 import com.majalis.scenes.EndScene;
@@ -75,7 +76,10 @@ public class EncounterBuilder {
 						saveService, font, new Background(classSelectTexture), assetManager, playerCharacter,
 						getSkillSelectionScene(
 							saveService, font, new Background(classSelectTexture), assetManager, playerCharacter, 
-							getEndScene(EndScene.Type.ENCOUNTER_OVER)
+							getCharacterCustomizationScene(
+								saveService, font, new Background(classSelectTexture), assetManager, playerCharacter, 
+								getEndScene(EndScene.Type.ENCOUNTER_OVER)
+							)
 						)
 					)
 				),
@@ -444,6 +448,10 @@ public class EncounterBuilder {
 	
 	private OrderedMap<Integer, Scene> getSkillSelectionScene(SaveService saveService, BitmapFont font, Background background, AssetManager assetManager, PlayerCharacter character, OrderedMap<Integer, Scene> sceneMap){
 		return addScene(new SkillSelectionScene(sceneMap, sceneCounter, saveService, font, background, assetManager, character));
+	}
+	
+	private OrderedMap<Integer, Scene> getCharacterCustomizationScene(SaveService saveService, BitmapFont font, Background background, AssetManager assetManager, PlayerCharacter character, OrderedMap<Integer, Scene> sceneMap){
+		return addScene(new CharacterCustomizationScene(sceneMap, sceneCounter, saveService, font, background, assetManager, character));
 	}
 	
 	private OrderedMap<Integer, Scene> getEndScene(EndScene.Type type){
