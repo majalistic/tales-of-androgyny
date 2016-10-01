@@ -19,7 +19,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.majalis.character.PlayerCharacter;
-import com.majalis.character.PlayerCharacter.Stat;
 import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveManager;
 import com.majalis.save.SaveService;
@@ -204,7 +203,7 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 	}
 	
 	private String getHoverText(int encounter){
-		switch(getPerceptionLevel(character.getStat(Stat.PERCEPTION))){
+		switch(getPerceptionLevel(character.getScoutingScore())){
 			case 0:
 				return "You are unsure of what awaits you!";
 			case 1:

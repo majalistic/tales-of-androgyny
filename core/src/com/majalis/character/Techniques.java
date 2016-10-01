@@ -56,13 +56,18 @@ public enum Techniques {
 	OPEN_WIDE		{ public Stance getStanceResult(){ return Stance.FELLATIO; }  public int getPowerMod(){ return -100; } public int getStabilityCost(){ return 0; } public int getStaminaCost(){ return 1; } },
 	STRUGGLE		{ public Stance getStanceResult(){ return Stance.BALANCED; }  public int getPowerMod(){ return -100; } public int getStabilityCost(){ return 0; } public int getStaminaCost(){ return 1; } },
 	
+	
+	INCANTATION		{ public Stance getStanceResult(){ return Stance.CASTING; }   public int getPowerMod(){ return -100; } public int getStabilityCost(){ return 0; } public int getStaminaCost(){ return 1; } },
+		
 	/* Learnable Skills*/
 	VAULT			{ public Stance getStanceResult(){ return Stance.AIRBORNE; }  public int getPowerMod(){ return -100; } public int getStabilityCost(){ return 2; } public int getStaminaCost(){ return 4; } },
 	JUMP_ATTACK		{ public Stance getStanceResult(){ return Stance.BALANCED; }  public int getPowerMod(){ return 4; } 	public int getStabilityCost(){ return 4; } public int getStaminaCost(){ return 2; } },
 	RECKLESS_ATTACK	{ public Stance getStanceResult(){ return Stance.OFFENSIVE; }  public int getPowerMod(){ return 2; } public int getStabilityCost(){ return 3; } public int getStaminaCost(){ return 6; } },
 	TAUNT			{ public Stance getStanceResult(){ return Stance.DEFENSIVE;}  public int getPowerMod(){ return -100; } public int getStabilityCost(){ return 0; } public int getStaminaCost(){ return 0; } },
 	KNOCK_DOWN		{ public Stance getStanceResult(){ return Stance.OFFENSIVE;}  public int getPowerMod(){ return 1; } public int getStabilityCost(){ return 3; } public int getStaminaCost(){ return 6; } },
-	INCANTATION		{ public Stance getStanceResult(){ return Stance.CASTING; }   public int getPowerMod(){ return -100; } public int getStabilityCost(){ return 0; } public int getStaminaCost(){ return 1; } },
+	HIT_THE_DECK	{ public Stance getStanceResult(){ return Stance.PRONE;}  	  public int getPowerMod(){ return -100; } public int getStabilityCost(){ return -100; } public int getStaminaCost(){ return 2; } },
+	PARRY			{ public Stance getStanceResult(){ return Stance.DEFENSIVE;}  public int getPowerMod(){ return -100; } public int getStabilityCost(){ return 0; } public int getStaminaCost(){ return 0; } },
+	
 	COMBAT_HEAL		{ public Stance getStanceResult(){ return Stance.BALANCED; }  public int getPowerMod(){ return 10; } public int getStabilityCost(){ return 0; } public int getStaminaCost(){ return 1; } @Override public boolean isSpell(){return true;} @Override public int getManaCost(){ return 10; } },
 	COMBAT_FIRE		{ public Stance getStanceResult(){ return Stance.BALANCED; }  public int getPowerMod(){ return 3; } public int getStabilityCost(){ return 0; } public int getStaminaCost(){ return 1; } @Override public boolean isSpell(){return true;} @Override public int getManaCost(){ return 5; } },
 	TITAN_STRENGTH  { public Stance getStanceResult(){ return Stance.BALANCED; }  public int getPowerMod(){ return -100; } public int getStabilityCost(){ return 0; } public int getStaminaCost(){ return 1; } @Override public boolean isSpell(){return true;} @Override public int getManaCost(){ return 2; } }	
@@ -90,7 +95,8 @@ public enum Techniques {
 		return String.valueOf(chars);
 	}
 	public static Array<Techniques> getLearnableSkills() {
-		return new Array<Techniques>(true, new Techniques[]{VAULT, RECKLESS_ATTACK, TAUNT, KNOCK_DOWN, SECOND_WIND}, 0, 5);
+		Techniques[] learnables = new Techniques[]{VAULT, RECKLESS_ATTACK, TAUNT, KNOCK_DOWN, SECOND_WIND, HIT_THE_DECK, PARRY};
+		return new Array<Techniques>(true, learnables, 0, learnables.length);
 	}
 	public static Array<Techniques> getLearnableSpells() {
 		return new Array<Techniques>(true, new Techniques[]{COMBAT_HEAL, COMBAT_FIRE, TITAN_STRENGTH}, 0, 2);

@@ -171,7 +171,7 @@ public class Battle extends Group{
 		
 		Stance forcedStance = attackForFirst.getForceStance();
 		if (forcedStance != null){
-			if (firstCharacter.stance == Stance.KNEELING && secondTechnique.getTechniqueName().equals("Divebomb")){
+			if ( (firstCharacter.stance == Stance.KNEELING || firstCharacter.stance == Stance.PRONE || firstCharacter.stance == Stance.SUPINE) && secondTechnique.getTechniqueName().equals("Divebomb")){
 				console += "The divebomb missed!  The harpy crashed!\n";
 				secondCharacter.setStance(Stance.PRONE);
 			}

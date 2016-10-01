@@ -26,7 +26,7 @@ public class CheckScene extends AbstractTextScene {
 	@Override
 	public void setActive() {
 		super.setActive();
-		int amount = character.getStat(statToCheck);
+		int amount = statToCheck == Stat.CHARISMA ? character.getLewdCharisma() : character.getStat(statToCheck);
 		toDisplay += "Your " + statToCheck.toString() + " score: " + amount + "\n\n";
 		for (Integer threshold : checkValues.keys()){
 			if (threshold == 0){

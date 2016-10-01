@@ -115,7 +115,6 @@ public abstract class AbstractCharacter extends Actor {
 	
 	public void modHealth(int healthMod){ this.currentHealth += healthMod; if (currentHealth > getMaxHealth()) currentHealth = getMaxHealth(); }
 	
-	
 	protected void setStaminaToMax() { currentStamina = getMaxStamina(); }
 	
 	protected void modStamina(int staminaMod){ this.currentStamina += staminaMod; if (currentStamina > getMaxStamina()) currentStamina = getMaxStamina(); }
@@ -123,6 +122,8 @@ public abstract class AbstractCharacter extends Actor {
 	public int getStability(){ return stability; }
 	
 	protected void setStabilityToMax(){ stability = 10; }
+	
+	protected void setStabilityToMin(){ stability = -5; }
 	
 	protected void modStability(int stabilityMod){ this.stability += stabilityMod; if (stability > getMaxStability()) stability = getMaxStability(); }
 	
@@ -176,10 +177,11 @@ public abstract class AbstractCharacter extends Actor {
 		modStability(-technique.getStabilityCost());
 		modStability(getStabilityRegen());
 		modMana(-technique.getManaCost());
-			
+		
 		if (stance != Stance.PRONE && stance != Stance.SUPINE && stance != Stance.DOGGY){
 			if (stability <= 0){
 				technique = new Technique(Techniques.TRIP, 0);
+				setStabilityToMin();
 			}
 			else if (currentStamina <= 0){
 				technique = new Technique(Techniques.FALL_DOWN, 0);
@@ -188,6 +190,10 @@ public abstract class AbstractCharacter extends Actor {
 				technique = new Technique(Techniques.FIZZLE, 0);
 				currentMana = 0;
 			}
+		}
+		
+		if (technique.getTechniqueName().equals("Hit The Deck")){
+			setStabilityToMin();
 		}
 		
 		return technique;

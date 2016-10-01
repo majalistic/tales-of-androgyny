@@ -22,6 +22,9 @@ public class PlayerCharacter extends AbstractCharacter {
 	
 	public ObjectSet<Techniques> skills;
 	public ObjectSet<Perk> perks;
+	public int skillPoints;
+	public int magicPoints;
+	public int perkPoints;
 	
 	// advantage, range, and combat-lock(boolean) are shared properties between two creatures
 	
@@ -86,31 +89,17 @@ public class PlayerCharacter extends AbstractCharacter {
 			setStat(stat, jobClass.getBaseStat(stat));
 		}
 		this.jobClass = jobClass;
+		skillPoints = 2; 
+		perkPoints = 2; 
+		food = 40; 
 		// warrior will need to get bonus stance options, Ranger will need to start with a bow
 		switch (jobClass){ 
+			case WARRIOR: skillPoints = 3; break;
 			case PALADIN: skills.add(Techniques.COMBAT_HEAL); break;
-			case THIEF: food = 80; break;
-			default: food = 40;
-		}
-		
-	}
-	
-	public int getSkillPoints(){
-		switch (jobClass){
-			case WARRIOR: return 3;
-			case THIEF: return 5;
-			default: return 2;
-		}
-	}
-	
-	public int getMagicPoints(){
-		return getMagic() > 3 ? 2 : getMagic() > 1 ? 1 : 0;
-	}
-	
-	public int getPerkPoints(){
-		switch (jobClass){
-			case ENCHANTRESS: return 3;
-			default: return 2;
+			case THIEF: skillPoints = 5;food = 80; break;
+			case MAGE: magicPoints = 2; break;
+			case ENCHANTRESS: magicPoints = 1; perkPoints = 3; break;
+			default:
 		}
 	}
 	
@@ -118,11 +107,11 @@ public class PlayerCharacter extends AbstractCharacter {
 	public Array<Technique> getPossibleTechniques(){
 		switch(stance){
 			case OFFENSIVE:
-				return getTechniques(Techniques.STRONG_ATTACK, Techniques.RECKLESS_ATTACK, Techniques.KNOCK_DOWN, Techniques.VAULT, Techniques.TEMPO_ATTACK, Techniques.RESERVED_ATTACK, Techniques.DUCK);
+				return getTechniques(Techniques.STRONG_ATTACK, Techniques.RECKLESS_ATTACK, Techniques.KNOCK_DOWN, Techniques.VAULT, Techniques.TEMPO_ATTACK, Techniques.RESERVED_ATTACK, Techniques.DUCK, Techniques.HIT_THE_DECK);
 			case BALANCED:
-				return getTechniques(Techniques.SPRING_ATTACK, Techniques.NEUTRAL_ATTACK, Techniques.CAUTIOUS_ATTACK, Techniques.INCANTATION, Techniques.DUCK);
+				return getTechniques(Techniques.SPRING_ATTACK, Techniques.NEUTRAL_ATTACK, Techniques.CAUTIOUS_ATTACK, Techniques.INCANTATION, Techniques.DUCK, Techniques.HIT_THE_DECK);
 			case DEFENSIVE:
-				return getTechniques(Techniques.REVERSAL_ATTACK, Techniques.CAREFUL_ATTACK, Techniques.GUARD, Techniques.TAUNT, Techniques.SECOND_WIND, Techniques.INCANTATION, Techniques.DUCK);
+				return getTechniques(Techniques.REVERSAL_ATTACK, Techniques.CAREFUL_ATTACK, Techniques.GUARD, Techniques.TAUNT, Techniques.SECOND_WIND, Techniques.INCANTATION, Techniques.DUCK, Techniques.HIT_THE_DECK, Techniques.PARRY);
 			case PRONE:
 			case SUPINE:
 				return getTechniques(Techniques.KIP_UP, Techniques.STAND_UP, Techniques.KNEE_UP, stance == Stance.PRONE ? Techniques.REST_FACE_DOWN : Techniques.REST);
@@ -239,5 +228,17 @@ public class PlayerCharacter extends AbstractCharacter {
 
 	public ObjectSet<Perk> getPerks() {
 		return perks;
+	}
+	
+	public int getScoutingScore() {
+		return getPerception() + (perks.contains(Perk.SURVEYOR) ? 2 : 0);
+	}
+	
+	public int getLewdCharisma() {
+		return getCharisma() + (perks.contains(Perk.EROTIC) ? 2 : 0);
+	}	
+	
+	public boolean isLewd() {
+		return perks.contains(Perk.CATAMITE);
 	}
 }
