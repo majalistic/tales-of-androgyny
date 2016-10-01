@@ -132,7 +132,6 @@ public class EnemyCharacter extends AbstractCharacter {
 					return new Technique(Techniques.ERUPT, getStrength());
 				}
 				if (enemyType == EnemyEnum.WERESLUT && lust > 17){
-					lust -= 17;
 					return new Technique(Techniques.KNOT, getStrength());
 				}
 				else {
