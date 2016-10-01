@@ -72,9 +72,9 @@ public class EncounterBuilder {
 				getTextScenes(
 					new String[]{"You've selected to create your character!", "Please choose your class."}, font, background,
 					getCharacterCreationScene(
-						sceneCounter, saveService, font, new Background(classSelectTexture), assetManager, playerCharacter,
+						saveService, font, new Background(classSelectTexture), assetManager, playerCharacter,
 						getSkillSelectionScene(
-							sceneCounter, saveService, font, new Background(classSelectTexture), assetManager, playerCharacter, 
+							saveService, font, new Background(classSelectTexture), assetManager, playerCharacter, 
 							getEndScene(EndScene.Type.ENCOUNTER_OVER)
 						)
 					)
@@ -438,12 +438,12 @@ public class EncounterBuilder {
 		return addScene(gameTypeScene);
 	}
 	
-	private OrderedMap<Integer, Scene> getCharacterCreationScene(int sceneCode, SaveService saveService, BitmapFont font, Background background, AssetManager assetManager, PlayerCharacter character, OrderedMap<Integer, Scene> sceneMap){
-		return addScene(new CharacterCreationScene(sceneMap, sceneCode, saveService, font, background, assetManager, character));
+	private OrderedMap<Integer, Scene> getCharacterCreationScene(SaveService saveService, BitmapFont font, Background background, AssetManager assetManager, PlayerCharacter character, OrderedMap<Integer, Scene> sceneMap){
+		return addScene(new CharacterCreationScene(sceneMap, sceneCounter, saveService, font, background, assetManager, character));
 	}
 	
-	private OrderedMap<Integer, Scene> getSkillSelectionScene(int sceneCode, SaveService saveService, BitmapFont font, Background background, AssetManager assetManager, PlayerCharacter character, OrderedMap<Integer, Scene> sceneMap){
-		return addScene(new SkillSelectionScene(sceneMap, sceneCode, saveService, font, background, assetManager, character));
+	private OrderedMap<Integer, Scene> getSkillSelectionScene(SaveService saveService, BitmapFont font, Background background, AssetManager assetManager, PlayerCharacter character, OrderedMap<Integer, Scene> sceneMap){
+		return addScene(new SkillSelectionScene(sceneMap, sceneCounter, saveService, font, background, assetManager, character));
 	}
 	
 	private OrderedMap<Integer, Scene> getEndScene(EndScene.Type type){
