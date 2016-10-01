@@ -118,6 +118,7 @@ public class Battle extends Group{
 		}
 		if (battleOver){
 			character.refresh();
+			saveService.saveDataValue(SaveEnum.ENEMY, null);
 		}
 	}
 	
