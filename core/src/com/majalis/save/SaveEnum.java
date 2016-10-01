@@ -16,5 +16,6 @@ public enum SaveEnum {
 	WORLD_SEED, 
 	HEALTH, 
 	SKILL,
-	FOOD
+	FOOD, 
+	PERK
 }

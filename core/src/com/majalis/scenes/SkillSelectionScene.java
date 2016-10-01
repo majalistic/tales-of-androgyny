@@ -10,8 +10,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.OrderedMap;
+import com.majalis.character.Perk;
 import com.majalis.character.PlayerCharacter;
-import com.majalis.character.PlayerCharacter.Stat;
 import com.majalis.character.Techniques;
 import com.majalis.encounter.Background;
 import com.majalis.save.SaveEnum;
@@ -28,6 +28,7 @@ public class SkillSelectionScene extends Scene {
 	private String console;
 	private int skillPoints;
 	private int magicPoints;
+	private int perkPoints;
 	
 	// needs a done button, as well as other interface elements
 	public SkillSelectionScene(OrderedMap<Integer, Scene> sceneBranches, int sceneCode, final SaveService saveService, BitmapFont font, Background background, AssetManager assetManager, PlayerCharacter character) {
@@ -53,6 +54,7 @@ public class SkillSelectionScene extends Scene {
 		font.draw(batch, console, base, 550);
 		font.draw(batch, "Skill Points: " + skillPoints, base, 520);
 		font.draw(batch, "Magic Points: " + magicPoints, base, 490);
+		font.draw(batch, "Perk Points: " + perkPoints, base, 460);
     }
 	
 	@Override
@@ -77,12 +79,14 @@ public class SkillSelectionScene extends Scene {
 		);
 		done.addAction(Actions.moveTo(done.getX() + 1100, done.getY() + 20));
 		
-		skillPoints = 2;
-		magicPoints = 1;		
+		skillPoints = character.getSkillPoints();
+		magicPoints = character.getMagicPoints();
+		perkPoints = character.getPerkPoints();
 		
 		final Table table = new Table();
 		
 		for (final Techniques technique: Techniques.getLearnableSkills()){
+			if (character.getSkills().contains(technique)) continue;
 			final TextButton button = new TextButton(technique.toString(), skin);
 			button.addListener(new ClickListener(){
 				@Override
@@ -94,7 +98,7 @@ public class SkillSelectionScene extends Scene {
 					skillPoints--;
 					if (skillPoints <= 0){
 						removeActor(table);
-						if (magicPoints <= 0){
+						if (magicPoints <= 0 && perkPoints <= 0){
 							addActor(done);
 						}
 					}
@@ -105,7 +109,33 @@ public class SkillSelectionScene extends Scene {
 		table.addAction(Actions.moveTo(table.getX() + 325, table.getY() + 400));
 		this.addActor(table);
 		
-		if (character.getStat(Stat.MAGIC) > 1){
+		final Table perkTable = new Table();
+		
+		for (final Perk perk: Perk.values()){
+			final TextButton button = new TextButton(perk.toString(), skin);
+			button.addListener(new ClickListener(){
+				@Override
+		        public void clicked(InputEvent event, float x, float y) {
+					buttonSound.play();
+					console = "You gained the " + perk.toString() + " perk!";
+					perkTable.removeActor(button);
+					saveService.saveDataValue(SaveEnum.PERK, perk);
+					perkPoints--;
+					if (perkPoints <= 0){
+						removeActor(perkTable);
+						if (magicPoints <= 0 && skillPoints <= 0){
+							addActor(done);
+						}
+					}
+		        }
+			});
+			perkTable.add(button).width(140).row();
+		}
+		perkTable.addAction(Actions.moveTo(perkTable.getX() + 725, perkTable.getY() + 400));
+		this.addActor(perkTable);
+		
+		
+		if (magicPoints > 0){
 			final Table magicTable = new Table();
 			
 			for (final Techniques technique: Techniques.getLearnableSpells()){
@@ -121,7 +151,7 @@ public class SkillSelectionScene extends Scene {
 						if (magicPoints <= 0){
 							removeActor(magicTable);
 						}
-						if (skillPoints <= 0){
+						if (skillPoints <= 0 && perkPoints <= 0){
 							addActor(done);
 						}
 			        }
@@ -130,9 +160,6 @@ public class SkillSelectionScene extends Scene {
 			}
 			magicTable.addAction(Actions.moveTo(magicTable.getX() + 525, magicTable.getY() + 400));
 			this.addActor(magicTable);
-		}
-		else {
-			magicPoints = 0;
 		}
 	}
 	

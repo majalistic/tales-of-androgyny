@@ -13,6 +13,7 @@ import com.badlogic.gdx.utils.JsonWriter.OutputType;
 import com.badlogic.gdx.utils.ObjectSet;
 import com.majalis.battle.BattleCode;
 import com.majalis.character.EnemyCharacter;
+import com.majalis.character.Perk;
 import com.majalis.character.PlayerCharacter;
 import com.majalis.character.PlayerCharacter.Stat;
 import com.majalis.character.Techniques;
@@ -46,6 +47,7 @@ public class SaveManager implements SaveService, LoadService{
 	    	case WORLD_SEED:		save.worldSeed = (Integer) object; break;
 	    	case HEALTH: 			save.player.modHealth((Integer) object); break;
 	    	case SKILL: 			save.player.addSkill((Techniques) object); break;
+	    	case PERK:				save.player.addPerk((Perk) object); break;
 	    	case FOOD:				save.player.food += (Integer) object; break;
     	}	
         saveToJson(save); //Saves current save immediately.
@@ -69,6 +71,7 @@ public class SaveManager implements SaveService, LoadService{
 	    	case WORLD_SEED:		return (T) (Integer) save.worldSeed;
 	    	case HEALTH:			return (T) (Integer) save.player.getCurrentHealth();
 	    	case SKILL:				return (T) (ObjectSet<Techniques>) save.player.getSkills();	
+	    	case PERK:				return (T) (ObjectSet<Perk>) save.player.getPerks();	
 	    	case FOOD: 				return (T) (Integer) save.player.food;
     	}	
     	return null;

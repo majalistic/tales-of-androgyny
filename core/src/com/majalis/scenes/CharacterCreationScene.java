@@ -132,7 +132,8 @@ public class CharacterCreationScene extends Scene {
 				@Override
 		        public void clicked(InputEvent event, float x, float y) {
 					buttonSound.play();
-					classMessage = "You are now " + getJobClass(jobClass) + ".";
+					classMessage = "You are now " + getJobClass(jobClass) + ".\n"
+									+ getClassFeatures(jobClass);
 					saveService.saveDataValue(SaveEnum.CLASS, jobClass);
 					if (statPoints == 0){
 						removeActor(done);
@@ -176,6 +177,17 @@ public class CharacterCreationScene extends Scene {
 	}
 	
 	private String getJobClass(SaveManager.JobClass jobClass){ return jobClass == SaveManager.JobClass.ENCHANTRESS ? "an Enchantress" : "a " + jobClass.getLabel(); }
+	private String getClassFeatures(SaveManager.JobClass jobClass){
+		switch (jobClass){
+			case WARRIOR: return "+1 Skill point.\nUnlock Stance.";
+			case PALADIN: return "Combat Heal learned.";
+			case THIEF:   return "+3 Skill points.\n+40 food.";
+			case RANGER:  return "Received bow.";
+			case MAGE:    return "+1 Magic point.\n";
+			case ENCHANTRESS: return "+1 Perk point.\n";
+			default: return "";
+		}
+	}
 	
 	@Override
     public void draw(Batch batch, float parentAlpha) {
@@ -184,8 +196,8 @@ public class CharacterCreationScene extends Scene {
 		font.draw(batch, "Character Creation", 600, 600);
 		font.setColor(0.4f,0.4f,0.4f,1);
 		int base = 500;
-		font.draw(batch, classMessage, base+100, 580);
-		font.draw(batch, statMessage, base+100, 555);
+		font.draw(batch, classMessage, base-225, 580);
+		font.draw(batch, statMessage, base+100, 580);
 		int offset = 0;
 		for (Stat stat: PlayerCharacter.Stat.values()){
 			font.setColor(0.6f,0.2f,0.1f,1);

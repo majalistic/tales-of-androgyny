@@ -21,6 +21,7 @@ public class PlayerCharacter extends AbstractCharacter {
 	}
 	
 	public ObjectSet<Techniques> skills;
+	public ObjectSet<Perk> perks;
 	
 	// advantage, range, and combat-lock(boolean) are shared properties between two creatures
 	
@@ -53,9 +54,11 @@ public class PlayerCharacter extends AbstractCharacter {
 			currentHealth = getMaxHealth();	
 			food = 40;
 		}
+		
 		skills = new ObjectSet<Techniques>();
 		skills.addAll(Techniques.STRONG_ATTACK, Techniques.TEMPO_ATTACK, Techniques.RESERVED_ATTACK, Techniques.DUCK, Techniques.SPRING_ATTACK, Techniques.NEUTRAL_ATTACK, Techniques.CAUTIOUS_ATTACK, Techniques.REVERSAL_ATTACK, Techniques.CAREFUL_ATTACK, Techniques.GUARD, Techniques.KIP_UP, Techniques.STAND_UP,
 				Techniques.KNEE_UP, Techniques.REST_FACE_DOWN, Techniques.REST, Techniques.JUMP_ATTACK, Techniques.RECEIVE, Techniques.STRUGGLE, Techniques.RECEIVE_KNOT, Techniques.OPEN_WIDE);
+		perks = new ObjectSet<Perk>();
 	}
 	// stop-gap method to deal with idiosyncracies of ObjectSet deserialization - map breaks as a result of deserialization
 	public void init(){
@@ -64,6 +67,11 @@ public class PlayerCharacter extends AbstractCharacter {
 			tempSkills.add(technique);
 		}
 		skills = tempSkills;
+		ObjectSet<Perk> tempPerks = new ObjectSet<Perk>();
+		for (Perk perk : perks){
+			tempPerks.add(perk);
+		}
+		perks = tempPerks;
 	}
 	
 	@Override
@@ -78,6 +86,32 @@ public class PlayerCharacter extends AbstractCharacter {
 			setStat(stat, jobClass.getBaseStat(stat));
 		}
 		this.jobClass = jobClass;
+		// warrior will need to get bonus stance options, Ranger will need to start with a bow
+		switch (jobClass){ 
+			case PALADIN: skills.add(Techniques.COMBAT_HEAL); break;
+			case THIEF: food = 80; break;
+			default: food = 40;
+		}
+		
+	}
+	
+	public int getSkillPoints(){
+		switch (jobClass){
+			case WARRIOR: return 3;
+			case THIEF: return 5;
+			default: return 2;
+		}
+	}
+	
+	public int getMagicPoints(){
+		return getMagic() > 3 ? 2 : getMagic() > 1 ? 1 : 0;
+	}
+	
+	public int getPerkPoints(){
+		switch (jobClass){
+			case ENCHANTRESS: return 3;
+			default: return 2;
+		}
 	}
 	
 	// this needs to consolidate logic with the getTechniques method
@@ -180,7 +214,7 @@ public class PlayerCharacter extends AbstractCharacter {
 			default: 
 		}
 	}
-
+ 
 	public void setCurrentHealth(Integer newHealth) {
 		currentHealth = newHealth;	
 	}
@@ -193,8 +227,17 @@ public class PlayerCharacter extends AbstractCharacter {
 		}
 		skills.add(newTech);	
 	}
+	
+	// need to add the list of default skills, the actual variable, and some way to access it for skill selection purposes (filter)
+	public void addPerk(Perk newPerk) {
+		perks.add(newPerk);	
+	}
 
 	public ObjectSet<Techniques> getSkills() {
 		return skills;
+	}
+
+	public ObjectSet<Perk> getPerks() {
+		return perks;
 	}
 }
