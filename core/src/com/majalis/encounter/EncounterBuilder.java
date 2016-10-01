@@ -189,14 +189,25 @@ public class EncounterBuilder {
 									assetManager,
 									"What do you do?",
 									new Array<String>(true, new String[]{"Try to speak", "Run!"}, 0, 2),
-									getTextScenes(getScript(battleCode, 7), font, slimeBackground, getEndScene(EndScene.Type.GAME_OVER)),
+									getTextScenes(
+											getScript(battleCode, 7), font, slimeBackground,
+											getTextScenes(
+												new Array<String>(true, new String[]{"You are stuck for a long while.  You eat 10 food.", "You recover 15 health."}, 0, 2), font, background, new Array<Mutation>(true, new Mutation[]{new Mutation(saveService, SaveEnum.FOOD, -10), new Mutation(saveService, SaveEnum.HEALTH, 15)}, 0, 2),
+												getEndScene(EndScene.Type.ENCOUNTER_OVER))
+									),
 									getCheckScene(
 										assetManager,
 										Stat.AGILITY,
 										new IntArray(new int[]{5, 0}),
 										character,
 										getTextScenes(getScript(battleCode, 8), font, background, getEndScene(EndScene.Type.ENCOUNTER_OVER)),
-										getTextScenes(getScript(battleCode, 9), font, background, getEndScene(EndScene.Type.GAME_OVER))
+										getTextScenes(
+											getScript(battleCode, 9), font, background, 
+											getTextScenes(
+												new Array<String>(true, new String[]{"You are stuck for a long while.  You eat 10 food.", "You recover 15 health."}, 0, 2), font, background, new Array<Mutation>(true, new Mutation[]{new Mutation(saveService, SaveEnum.FOOD, -10), new Mutation(saveService, SaveEnum.HEALTH, 15)}, 0, 2),
+												getEndScene(EndScene.Type.ENCOUNTER_OVER)
+											)
+										)
 									)
 								)
 							)								
@@ -274,7 +285,7 @@ public class EncounterBuilder {
 						getTextScenes(
 							getScript(battleCode, 1), font, background,
 							getTextScenes(
-								new Array<String>(true, new String[]{"You receive 5 food from the dryad."}, 0, 1), font, background, new Array<Mutation>(true, new Mutation[]{new Mutation(saveService, SaveEnum.FOOD, 5)}, 0, 1),
+								new Array<String>(true, new String[]{"You receive 5 food from the dryad."}, 0, 1), font, background, new Array<Mutation>(true, new Mutation[]{new Mutation(saveService, SaveEnum.FOOD, 5)}, 0, 1), 
 								getEndScene(EndScene.Type.ENCOUNTER_OVER)
 							)
 						),
@@ -346,7 +357,7 @@ public class EncounterBuilder {
 		for (String scriptLine: script){
 			Mutation toApply = new Mutation();
 			if (mutations.size > ii){
-				toApply = mutations.get(ii);
+				toApply = mutations.get(ii++);
 			}
 			sceneMap = addScene(new TextScene(sceneMap, sceneCounter, saveService, font, background.clone(), scriptLine, new Array<Mutation>(true, new Mutation[]{toApply}, 0, 1)));
 		}	
