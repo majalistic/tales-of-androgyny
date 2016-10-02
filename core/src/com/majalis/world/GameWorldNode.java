@@ -181,11 +181,11 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 		}
 			
 		batch.begin();
-		if (current){
-			batch.draw(currentImage, (position.x - RADIUS) + RADIUS/4, position.y-RADIUS/2);
-		}
-		else if (active){
+		if (active || current){
 			batch.draw(activeImage, (position.x - RADIUS), position.y-RADIUS);
+			if (current){
+				batch.draw(currentImage, position.x - 5, position.y);
+			}
 		}
 		else {
 			batch.draw(inactiveImage, (position.x - RADIUS), position.y-RADIUS);
