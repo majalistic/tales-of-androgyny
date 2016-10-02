@@ -16,6 +16,9 @@ public abstract class AbstractScreen extends Stage implements Screen {
 
 	protected final SpriteBatch batch;
 	protected final BitmapFont font;
+	protected float red;
+	protected float green;
+	protected float blue;
 	
     protected AbstractScreen(ScreenFactory screenFactory, ScreenElements elements) {
         super(elements.getViewport());
@@ -23,6 +26,9 @@ public abstract class AbstractScreen extends Stage implements Screen {
         this.screenFactory = screenFactory;
         this.batch = elements.getBatch();
         this.font = elements.getFont();
+        red = 0;
+        green = 0;
+        blue = 0;
     }
  
     // Subclasses must load actors in this method
@@ -45,7 +51,7 @@ public abstract class AbstractScreen extends Stage implements Screen {
     @Override
     public void render(float delta) {
         // Clear screen
-        Gdx.gl.glClearColor(0, 0, 0, 1);
+        Gdx.gl.glClearColor(red, green, blue, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         
         // Calling to Stage methods

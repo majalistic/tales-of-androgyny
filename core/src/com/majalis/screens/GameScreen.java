@@ -48,6 +48,9 @@ public class GameScreen extends AbstractScreen {
 		camera.translate(initialTranslation);
 		camera.update();
 		this.world = world;
+		red = .137f;
+		green = .007f;
+		blue = .047f;
 	}
 
 	@Override
@@ -93,6 +96,7 @@ public class GameScreen extends AbstractScreen {
 	
 	public void draw(){
 		batch.begin();
+		
 		OrthographicCamera camera = (OrthographicCamera) getCamera();
 		camera.update();
 		batch.setProjectionMatrix(camera.combined);
