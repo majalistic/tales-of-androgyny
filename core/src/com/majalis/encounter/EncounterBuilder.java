@@ -383,7 +383,7 @@ public class EncounterBuilder {
 		for (String label  : buttonLabels){
 			TextButton button = new TextButton(label, skin);
 			button.addListener(getListener(choiceScene, sceneMap.get(sceneMap.orderedKeys().get(ii++)), buttonSound));
-			table.add(button).row();
+			table.add(button).width(280).height(40).row();
 		}
 				
 		return addScene(choiceScene);

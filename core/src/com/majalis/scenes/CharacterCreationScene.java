@@ -49,6 +49,8 @@ public class CharacterCreationScene extends Scene {
 		
 		final TextButton done = new TextButton("Done", skin);
 		
+		done.setWidth(180); //Sets positional stuff for "done" button)
+		done.setHeight(40);
 		done.addListener(
 			new ClickListener(){
 				@Override
@@ -58,7 +60,7 @@ public class CharacterCreationScene extends Scene {
 		        }
 			}
 		);
-		done.addAction(Actions.moveTo(done.getX() + 1100, done.getY() + 20));
+		done.addAction(Actions.moveTo(done.getX() + 1015, done.getY() + 20));
 
 		final Table statTable = new Table();
 		
@@ -143,7 +145,7 @@ public class CharacterCreationScene extends Scene {
 					addActor(statTable);
 		        }
 			});
-			table.add(button).width(140).row();
+			table.add(button).width(140).height(40).row();
 		}
 		table.addAction(Actions.moveTo(table.getX() + 325, table.getY() + 400));
 		this.addActor(table);	
