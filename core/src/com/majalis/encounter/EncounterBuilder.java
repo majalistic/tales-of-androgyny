@@ -240,23 +240,27 @@ public class EncounterBuilder {
 							getScript(battleCode, 1), font, background, 
 							getChoiceScene(
 								assetManager,
-								"Do you charge or ready an arrow?",
-								new Array<String>(true, new String[]{"Charge", "Ready an Arrow"}, 0, 2),
+								"How do you handle the brigand?",
+								new Array<String>(true, new String[]{"Charge", "Ready an Arrow", "Speak"}, 0, 3),
 								getBattleScene(saveService, battleCode, Stance.OFFENSIVE, Stance.BALANCED,
 									getTextScenes(new String[]{"You defeated the brigand!", "You get 1 XP."}, font, background, getEndScene(EndScene.Type.ENCOUNTER_OVER)),
-									getTextScenes(getScript(battleCode, 4), font, background, getEndScene(EndScene.Type.GAME_OVER))					
+									getTextScenes(getScript(battleCode, 5), font, background, getEndScene(EndScene.Type.GAME_OVER))					
 								),
 								getBattleScene(
 									saveService, battleCode,
 									getTextScenes(new String[]{"You defeated the brigand!", "You get 1 XP."}, font, background, getEndScene(EndScene.Type.ENCOUNTER_OVER)),
-									getTextScenes(getScript(battleCode, 4), font, background, getEndScene(EndScene.Type.GAME_OVER))					
+									getTextScenes(getScript(battleCode, 5), font, background, getEndScene(EndScene.Type.GAME_OVER))					
+								),
+								getTextScenes(
+									getScript(battleCode, 2), font, background, 
+									getEndScene(EndScene.Type.ENCOUNTER_OVER)
 								)
 							)
 						),
 						getTextScenes(
 							new Array<String>(true, new String[]{"Ouch!  You take 5 damage!"}, 0, 1), font, background, getMutation(5),
 							getTextScenes(
-								getScript(battleCode, 2), font, background, 
+								getScript(battleCode, 3), font, background, 
 								getBattleScene(
 									saveService, battleCode,
 									getTextScenes(new String[]{"You defeated the brigand!", "You get 1 XP."}, font, background, getEndScene(EndScene.Type.ENCOUNTER_OVER)),
@@ -265,11 +269,11 @@ public class EncounterBuilder {
 							)
 						),
 						getTextScenes(
-							getScript(battleCode, 3), font, background, 
+							getScript(battleCode, 4), font, background, 
 							getBattleScene(
 								saveService, battleCode, Stance.DOGGY, Stance.DOGGY,
 								getTextScenes(new String[]{"You defeated the brigand!", "You get 1 XP."}, font, background, getEndScene(EndScene.Type.ENCOUNTER_OVER)),
-								getTextScenes(getScript(battleCode, 4), font, background, getEndScene(EndScene.Type.GAME_OVER))					
+								getTextScenes(getScript(battleCode, 5), font, background, getEndScene(EndScene.Type.GAME_OVER))					
 							)
 						)
 					)
