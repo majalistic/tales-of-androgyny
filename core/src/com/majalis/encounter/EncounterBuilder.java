@@ -397,7 +397,7 @@ public class EncounterBuilder {
 		return new ClickListener(){
 	        @Override
 	        public void clicked(InputEvent event, float x, float y) {
-	        	buttonSound.play();
+	        	buttonSound.play(.5f);
 	        	// set new Scene as active based on choice
 	        	nextScene.setActive();
 	        	currentScene.finish();

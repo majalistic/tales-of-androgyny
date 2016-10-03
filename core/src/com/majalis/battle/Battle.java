@@ -409,7 +409,7 @@ public class Battle extends Group{
 		return new ClickListener(){
 	        @Override
 	        public void clicked(InputEvent event, float x, float y) {
-	        	buttonSound.play();
+	        	buttonSound.play(.5f);
 	        	selectedTechnique = technique;
 	        }
 	    };

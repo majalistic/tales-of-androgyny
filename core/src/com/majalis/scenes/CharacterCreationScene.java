@@ -53,7 +53,7 @@ public class CharacterCreationScene extends Scene {
 			new ClickListener(){
 				@Override
 		        public void clicked(InputEvent event, float x, float y) {
-					buttonSound.play();
+					buttonSound.play(.5f);
 					nextScene();		   
 		        }
 			}
@@ -68,7 +68,7 @@ public class CharacterCreationScene extends Scene {
 			buttonUp.addListener(new ClickListener(){
 				@Override
 		        public void clicked(InputEvent event, float x, float y) {
-					buttonSound.play();
+					buttonSound.play(.5f);
 					
 					int currentStatAllocation = statMap.get(stat);
 					if (statPoints > 0 && (currentStatAllocation < 1 || (currentStatAllocation < 2 && noStatsAtMax()))){
@@ -97,7 +97,7 @@ public class CharacterCreationScene extends Scene {
 			buttonDown.addListener(new ClickListener(){
 				@Override
 		        public void clicked(InputEvent event, float x, float y) {
-					buttonSound.play();
+					buttonSound.play(.5f);
 					int currentStatAllocation = statMap.get(stat);
 					if (currentStatAllocation > 0 || (currentStatAllocation > -1 && statsAtNegative() < 2)){
 						character.setStat(stat, character.getStat(stat)-1);
@@ -131,7 +131,7 @@ public class CharacterCreationScene extends Scene {
 			button.addListener(new ClickListener(){
 				@Override
 		        public void clicked(InputEvent event, float x, float y) {
-					buttonSound.play();
+					buttonSound.play(.5f);
 					classMessage = "You are now " + getJobClass(jobClass) + ".\n"
 									+ getClassFeatures(jobClass);
 					saveService.saveDataValue(SaveEnum.CLASS, jobClass);

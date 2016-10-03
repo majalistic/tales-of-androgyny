@@ -70,7 +70,7 @@ public class SkillSelectionScene extends Scene {
 			new ClickListener(){
 				@Override
 		        public void clicked(InputEvent event, float x, float y) {
-					buttonSound.play();
+					buttonSound.play(.5f);
 					nextScene();		   
 		        }
 			}
@@ -86,7 +86,7 @@ public class SkillSelectionScene extends Scene {
 			button.addListener(new ClickListener(){
 				@Override
 		        public void clicked(InputEvent event, float x, float y) {
-					buttonSound.play();
+					buttonSound.play(.5f);
 					console = "You have learned " + technique.toString() + ".";
 					table.removeActor(button);
 					
@@ -114,7 +114,7 @@ public class SkillSelectionScene extends Scene {
 			button.addListener(new ClickListener(){
 				@Override
 		        public void clicked(InputEvent event, float x, float y) {
-					buttonSound.play();
+					buttonSound.play(.5f);
 					console = "You gained the " + perk.toString() + " perk!";
 					perkTable.removeActor(button);
 					
@@ -152,7 +152,7 @@ public class SkillSelectionScene extends Scene {
 			button.addListener(new ClickListener(){
 				@Override
 		        public void clicked(InputEvent event, float x, float y) {
-					buttonSound.play();
+					buttonSound.play(.5f);
 					console = "You have learned " + technique.toString() + ".";
 					magicTable.removeActor(button);
 					

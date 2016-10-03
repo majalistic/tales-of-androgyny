@@ -115,7 +115,7 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 		this.addListener(new ClickListener(){ 
 			@Override
 	        public void clicked(InputEvent event, float x, float y) {
-				sound.play();
+				sound.play(.5f);
 				visit();
 			}
 			@Override
