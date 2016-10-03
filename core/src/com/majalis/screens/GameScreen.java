@@ -6,6 +6,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -21,6 +22,7 @@ public class GameScreen extends AbstractScreen {
 	private final AssetManager assetManager;
 	private final GameWorld world;
 	private final Texture food;
+	private final Texture cloud;
 	private final int foodAmount;
 	public static final ObjectMap<String, Class<?>> resourceRequirements = new ObjectMap<String, Class<?>>();
 	static {
@@ -33,6 +35,7 @@ public class GameScreen extends AbstractScreen {
 		resourceRequirements.put("ForestV.png", Texture.class);
 		resourceRequirements.put("Apple.png", Texture.class);
 		resourceRequirements.put("Meat.png", Texture.class);
+		resourceRequirements.put("Cloud.png", Texture.class);
 	}
 	public GameScreen(ScreenFactory factory, ScreenElements elements, AssetManager assetManager, LoadService loadService, GameWorld world) {
 		super(factory, elements);
@@ -40,6 +43,7 @@ public class GameScreen extends AbstractScreen {
 		int arb = loadService.loadDataValue(SaveEnum.NODE_CODE, Integer.class);
 		food = arb % 2 == 0 ? assetManager.get("Apple.png", Texture.class) : assetManager.get("Meat.png", Texture.class);
 		foodAmount = loadService.loadDataValue(SaveEnum.FOOD, Integer.class);
+		cloud = assetManager.get("Cloud.png", Texture.class);
 		Vector3 initialTranslation = loadService.loadDataValue(SaveEnum.CAMERA_POS, Vector3.class);		
 		initialTranslation = new Vector3(initialTranslation);
 		OrthographicCamera camera = (OrthographicCamera) getCamera();
@@ -101,8 +105,17 @@ public class GameScreen extends AbstractScreen {
 		camera.update();
 		batch.setProjectionMatrix(camera.combined);
 		batch.draw(food, camera.position.x+3, camera.position.y+3, 50, 50);
+		Matrix4 temp = new Matrix4(batch.getTransformMatrix());
+		batch.setTransformMatrix(camera.view);
+		batch.setColor(1.0f, 1.0f, 1.0f, .3f);
+		batch.draw(cloud, 300, 800, 800, 800);
+		batch.draw(cloud, 2200, 600, 800, 800);
+		batch.draw(cloud, 1400, 1300, 800, 800);
+		batch.setColor(1.0f, 1.0f, 1.0f, 1);
+		batch.setTransformMatrix(temp);
+		
 		font.draw(batch, "X " + foodAmount, camera.position.x+23, camera.position.y+17);
-		batch.end();
+		batch.end(); 
 	}
 	
 	@Override
