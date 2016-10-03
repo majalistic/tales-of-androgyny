@@ -199,18 +199,20 @@ public class CharacterCreationScene extends Scene {
 		font.draw(batch, classMessage, base-225, 580);
 		font.draw(batch, statMessage, base+100, 580);
 		int offset = 0;
-		for (Stat stat: PlayerCharacter.Stat.values()){
-			font.setColor(0.6f,0.2f,0.1f,1);
-			font.draw(batch, stat.toString(), base+50, 500 - offset);
-			font.draw(batch, ": ", base+150, 500 - offset);
-			int amount = character.getStat(stat);
-			setFontColor(font, amount);
-			font.draw(batch, String.valueOf(amount), base+170, 500 - offset);
-			font.draw(batch, "("+String.valueOf(statMap.get(stat))+")", base+185, 500 - offset);
-			font.draw(batch, "- " + PlayerCharacter.getStatMap().get(stat).get(amount), base+210, 500 - offset);
-			offset += 50;
+		if (!classMessage.equals("")){
+			for (Stat stat: PlayerCharacter.Stat.values()){
+				font.setColor(0.6f,0.2f,0.1f,1);
+				font.draw(batch, stat.toString(), base+50, 500 - offset);
+				font.draw(batch, ": ", base+150, 500 - offset);
+				int amount = character.getStat(stat);
+				setFontColor(font, amount);
+				font.draw(batch, String.valueOf(amount), base+170, 500 - offset);
+				font.draw(batch, "("+String.valueOf(statMap.get(stat))+")", base+185, 500 - offset);
+				font.draw(batch, "- " + PlayerCharacter.getStatMap().get(stat).get(amount), base+210, 500 - offset);
+				offset += 50;
+			}
+			font.draw(batch, "Stat points: " + statPoints, base + 100, 150);
 		}
-		font.draw(batch, "Stat points: " + statPoints, base + 100, 150);
     }
 	
 	private void setFontColor(BitmapFont font, int amount){
