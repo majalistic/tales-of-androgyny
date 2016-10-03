@@ -87,13 +87,13 @@ public class GameScreen extends AbstractScreen {
 
 		int speed = 5;
 		
-		if (Gdx.input.isKeyPressed(Keys.LEFT) && getCamera().position.x > 0){
+		if (Gdx.input.isKeyPressed(Keys.LEFT) && getCamera().position.x > 100){
 			translationVector.x -= speed;
 		}
 		else if (Gdx.input.isKeyPressed(Keys.RIGHT) && getCamera().position.x < 2000){
 			translationVector.x += speed;
 		}
-		if (Gdx.input.isKeyPressed(Keys.DOWN) && getCamera().position.y > 100){
+		if (Gdx.input.isKeyPressed(Keys.DOWN) && getCamera().position.y > 200){
 			translationVector.y -= speed;
 		}
 		else if (Gdx.input.isKeyPressed(Keys.UP) && getCamera().position.y < 2000){
