@@ -56,14 +56,14 @@ public class MainMenuScreen extends AbstractScreen {
 		for (int ii = 0; ii < buttonLabels.size; ii++){
 			buttons.add(new TextButton(buttonLabels.get(ii), skin));
 			buttons.get(ii).addListener(getListener(optionList.get(ii)));
-			table.add(buttons.get(ii)).row();
+			table.add(buttons.get(ii)).width(120).height(40).row();
 		}
 	
         table.setFillParent(true);
         
         this.addActor(new Background(backgroundImage));
         this.addActor(table);
-        table.addAction(Actions.moveTo(350, 30));
+        table.addAction(Actions.moveTo(330, 130));
 	}
 	
 	@Override

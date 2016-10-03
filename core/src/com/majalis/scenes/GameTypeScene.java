@@ -30,8 +30,12 @@ public class GameTypeScene extends AbstractChoiceScene {
         for (TextButton button : buttons){
         	this.addActor(button);
         } 
-        buttons.get(0).addAction(Actions.moveTo(1060, 240));
-        buttons.get(1).addAction(Actions.moveTo(140, 240));		
+        for(TextButton button : buttons){
+        	button.setHeight(36);
+        	button.setWidth(184);
+        }
+        buttons.get(0).addAction(Actions.moveTo(1030, 240));
+        buttons.get(1).addAction(Actions.moveTo(78, 240));		
 	}
 
 	@Override

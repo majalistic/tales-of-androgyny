@@ -27,6 +27,9 @@ public class SkillSelectionScene extends Scene {
 	private final Sound buttonSound;
 	private final PlayerCharacter character;
 	private String console;
+	private float buttonHeight;
+	private float buttonWidth;
+	
 	
 	// needs a done button, as well as other interface elements
 	public SkillSelectionScene(OrderedMap<Integer, Scene> sceneBranches, int sceneCode, final SaveService saveService, BitmapFont font, Background background, AssetManager assetManager, PlayerCharacter character) {
@@ -35,10 +38,8 @@ public class SkillSelectionScene extends Scene {
 		this.font = font;
 		this.addActor(background);
 		this.character = character;
-		
 		skin = assetManager.get("uiskin.json", Skin.class);
 		buttonSound = assetManager.get("sound.wav", Sound.class);
-		
 		console = "";
 	}
 	
@@ -46,7 +47,7 @@ public class SkillSelectionScene extends Scene {
     public void draw(Batch batch, float parentAlpha) {
 		super.draw(batch, parentAlpha);
 		font.setColor(0.5f,0.4f,0,1);
-		font.draw(batch, "Skill Selection", 600, 600);
+		font.draw(batch, "Skill Selection", 145, 600);
 		font.setColor(0.4f,0.4f,0.4f,1);
 		int base = 500;
 		font.draw(batch, console, base, 550);
@@ -101,9 +102,9 @@ public class SkillSelectionScene extends Scene {
 					saveService.saveDataValue(SaveEnum.PLAYER, character);
 		        }
 			});
-			table.add(button).width(140).row();
+			table.add(button).width(220).height(40).row();
 		}
-		table.addAction(Actions.moveTo(table.getX() + 325, table.getY() + 400));
+		table.addAction(Actions.moveTo(table.getX() + 145, table.getY() + 200));
 		if (character.skillPoints > 0){
 			this.addActor(table);
 		}
@@ -136,9 +137,9 @@ public class SkillSelectionScene extends Scene {
 					saveService.saveDataValue(SaveEnum.PLAYER, character);
 		        }
 			});
-			perkTable.add(button).width(140).row();
+			perkTable.add(button).width(220).height(40).row();
 		}
-		perkTable.addAction(Actions.moveTo(perkTable.getX() + 725, perkTable.getY() + 400));
+		perkTable.addAction(Actions.moveTo(perkTable.getX() + 725, perkTable.getY() + 200));
 		if (character.perkPoints > 0){
 			this.addActor(perkTable);
 		}
@@ -167,9 +168,9 @@ public class SkillSelectionScene extends Scene {
 					saveService.saveDataValue(SaveEnum.PLAYER, character);
 		        }
 			});
-			magicTable.add(button).width(140).row();
+			magicTable.add(button).width(140).width(220).height(40).row();
 		}
-		magicTable.addAction(Actions.moveTo(magicTable.getX() + 525, magicTable.getY() + 400));
+		magicTable.addAction(Actions.moveTo(magicTable.getX() + 435, magicTable.getY() + 200));
 		if (character.magicPoints > 0){
 			this.addActor(magicTable);
 		}

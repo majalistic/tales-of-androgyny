@@ -85,7 +85,7 @@ public class Battle extends Group{
 			Technique option = options.get(ii);
 			button = new TextButton(option.getTechniqueName() + " ("+POSSIBLE_KEYS_CHAR[ii]+")", skin);
 			button.addListener(getListener(option, buttonSound));
-			table.add(button).width(200).row();
+			table.add(button).width(220).height(40).row();
 		}
         table.setFillParent(true);
         table.addAction(Actions.moveTo(1077, 150));

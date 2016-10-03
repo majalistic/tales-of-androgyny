@@ -62,6 +62,8 @@ public class CharacterCustomizationScene extends Scene {
 
 		final TextButton done = new TextButton("Done", skin);
 		
+		done.setWidth(180); //Sets positional stuff for "done" button)
+		done.setHeight(40);
 		done.addListener(
 			new ClickListener(){
 				@Override
@@ -71,7 +73,7 @@ public class CharacterCustomizationScene extends Scene {
 		        }
 			}
 		);
-		done.addAction(Actions.moveTo(done.getX() + 1100, done.getY() + 20));
+		done.addAction(Actions.moveTo(done.getX() + 1015, done.getY() + 20));
 		addActor(done);
 		
 		final Table table = new Table();
@@ -87,7 +89,7 @@ public class CharacterCustomizationScene extends Scene {
 					saveService.saveDataValue(SaveEnum.PLAYER, character);
 		        }
 			});
-			table.add(button).width(140).row();
+			table.add(button).width(220).height(40).row();
 		}
 		table.addAction(Actions.moveTo(table.getX() + 225, table.getY() + 350));
 		addActor(table);

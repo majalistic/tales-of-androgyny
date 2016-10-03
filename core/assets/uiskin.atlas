@@ -1,0 +1,89 @@
+
+uiskin.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+EmbelishedButton64L
+  rotate: false
+  xy: 1, 297
+  size: 600, 72
+  orig: 600, 72
+  offset: 0, 0
+  index: -1
+TextFieldBG
+  rotate: false
+  xy: 1, 223
+  size: 600, 72
+  orig: 600, 72
+  offset: 0, 0
+  index: -1
+EmbelishedButton128
+  rotate: false
+  xy: 603, 233
+  size: 300, 136
+  orig: 300, 136
+  offset: 0, 0
+  index: -1
+EmbelishedButton64
+  rotate: false
+  xy: 1, 149
+  size: 300, 72
+  orig: 300, 72
+  offset: 0, 0
+  index: -1
+EmbelishedButton64D
+  rotate: false
+  xy: 1, 75
+  size: 300, 72
+  orig: 300, 72
+  offset: 0, 0
+  index: -1
+EmbelishedButton64F
+  rotate: false
+  xy: 1, 1
+  size: 300, 72
+  orig: 300, 72
+  offset: 0, 0
+  index: -1
+NegButton
+  rotate: false
+  xy: 303, 40
+  size: 176, 181
+  orig: 176, 181
+  offset: 0, 0
+  index: -1
+PosButton
+  rotate: false
+  xy: 481, 40
+  size: 176, 181
+  orig: 176, 181
+  offset: 0, 0
+  index: -1
+TextCursor
+  rotate: false
+  xy: 905, 302
+  size: 24, 67
+  orig: 24, 67
+  offset: 0, 0
+  index: -1
+white
+  rotate: false
+  xy: 174, 48
+  size: 1, 1
+  orig: 1, 1
+  offset: 0, 0
+  index: -1
+gray
+  rotate: false
+  xy: 174, 48
+  size: 1, 1
+  orig: 1, 1
+  offset: 0, 0
+  index: -1
+black
+  rotate: false
+  xy: 174, 48
+  size: 1, 1
+  orig: 1, 1
+  offset: 0, 0
+  index: -1
