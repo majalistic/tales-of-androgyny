@@ -10,7 +10,9 @@ import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
+import com.majalis.asset.AssetEnum;
 import com.majalis.save.LoadService;
 import com.majalis.save.SaveEnum;
 import com.majalis.world.GameWorld;
@@ -22,6 +24,8 @@ public class GameScreen extends AbstractScreen {
 	private final AssetManager assetManager;
 	private final GameWorld world;
 	private final Texture food;
+	private final Array<Texture> grasses;
+	private final int[][] grassMap;
 	private final Texture cloud;
 	private final int foodAmount;
 	public static final ObjectMap<String, Class<?>> resourceRequirements = new ObjectMap<String, Class<?>>();
@@ -29,21 +33,25 @@ public class GameScreen extends AbstractScreen {
 		resourceRequirements.put("uiskin.json", Skin.class);
 		resourceRequirements.put("node_sound.wav", Sound.class);
 		resourceRequirements.put("TinySprite0.png", Texture.class);
-		resourceRequirements.put("MountainU.png", Texture.class);
-		resourceRequirements.put("ForestU.png", Texture.class);
-		resourceRequirements.put("MountainV.png", Texture.class);
-		resourceRequirements.put("ForestV.png", Texture.class);
-		resourceRequirements.put("Apple.png", Texture.class);
-		resourceRequirements.put("Meat.png", Texture.class);
-		resourceRequirements.put("Cloud.png", Texture.class);
+		resourceRequirements.put(AssetEnum.MOUNTAIN_ACTIVE.getPath(), Texture.class);
+		resourceRequirements.put(AssetEnum.MOUNTAIN_INACTIVE.getPath(), Texture.class);
+		resourceRequirements.put(AssetEnum.FOREST_ACTIVE.getPath(), Texture.class);
+		resourceRequirements.put(AssetEnum.FOREST_INACTIVE.getPath(), Texture.class);
+		resourceRequirements.put(AssetEnum.APPLE.getPath(), Texture.class);
+		resourceRequirements.put(AssetEnum.MEAT.getPath(), Texture.class);
+		resourceRequirements.put(AssetEnum.GRASS0.getPath(), Texture.class);
+		resourceRequirements.put(AssetEnum.GRASS1.getPath(), Texture.class);
+		resourceRequirements.put(AssetEnum.GRASS2.getPath(), Texture.class);
+		resourceRequirements.put(AssetEnum.CLOUD.getPath(), Texture.class);
 	}
 	public GameScreen(ScreenFactory factory, ScreenElements elements, AssetManager assetManager, LoadService loadService, GameWorld world) {
 		super(factory, elements);
 		this.assetManager = assetManager;
 		int arb = loadService.loadDataValue(SaveEnum.NODE_CODE, Integer.class);
-		food = arb % 2 == 0 ? assetManager.get("Apple.png", Texture.class) : assetManager.get("Meat.png", Texture.class);
+		food = arb % 2 == 0 ? assetManager.get(AssetEnum.APPLE.getPath(), Texture.class) : assetManager.get(AssetEnum.MEAT.getPath(), Texture.class);
 		foodAmount = loadService.loadDataValue(SaveEnum.FOOD, Integer.class);
-		cloud = assetManager.get("Cloud.png", Texture.class);
+		grasses = new Array<Texture>(true, new Texture[]{assetManager.get(AssetEnum.GRASS0.getPath(), Texture.class), assetManager.get(AssetEnum.GRASS1.getPath(), Texture.class), assetManager.get(AssetEnum.GRASS2.getPath(), Texture.class)}, 0, 3);
+		cloud = assetManager.get(AssetEnum.CLOUD.getPath(), Texture.class);
 		Vector3 initialTranslation = loadService.loadDataValue(SaveEnum.CAMERA_POS, Vector3.class);		
 		initialTranslation = new Vector3(initialTranslation);
 		OrthographicCamera camera = (OrthographicCamera) getCamera();
@@ -55,6 +63,13 @@ public class GameScreen extends AbstractScreen {
 		red = .137f;
 		green = .007f;
 		blue = .047f;
+		callClear = false;
+		grassMap = new int[102][102];
+		for (int ii = 101; ii >= 0; ii--){
+			for (int jj = 100; jj >= 0; jj--){
+				grassMap[ii][jj] = (int)(Math.random()*100) % 3;
+			}	
+		}
 	}
 
 	@Override
@@ -66,22 +81,23 @@ public class GameScreen extends AbstractScreen {
 	
 	@Override
 	public void render(float delta) {
-		super.render(delta);
+		super.clear();
+		
 		Vector3 translationVector = new Vector3(0,0,0);
 
 		int speed = 5;
 		
-		if (Gdx.input.isKeyPressed(Keys.LEFT)){
+		if (Gdx.input.isKeyPressed(Keys.LEFT) && getCamera().position.x > 0){
 			translationVector.x -= speed;
 		}
-		else if (Gdx.input.isKeyPressed(Keys.RIGHT)){
+		else if (Gdx.input.isKeyPressed(Keys.RIGHT) && getCamera().position.x < 2000){
 			translationVector.x += speed;
 		}
-		if (Gdx.input.isKeyPressed(Keys.UP)){
-			translationVector.y += speed;
-		}
-		else if (Gdx.input.isKeyPressed(Keys.DOWN)){
+		if (Gdx.input.isKeyPressed(Keys.DOWN) && getCamera().position.y > 100){
 			translationVector.y -= speed;
+		}
+		else if (Gdx.input.isKeyPressed(Keys.UP) && getCamera().position.y < 2000){
+			translationVector.y += speed;
 		}
 		
 		getCamera().translate(translationVector);
@@ -93,18 +109,32 @@ public class GameScreen extends AbstractScreen {
 		else if (world.encounterSelected){
 			showScreen(ScreenEnum.ENCOUNTER);
 		}
-		else {
+		else {			
 			draw();
+			super.render(delta);
+			drawClouds();
 		}
 	}
 	
 	public void draw(){
 		batch.begin();
-		
 		OrthographicCamera camera = (OrthographicCamera) getCamera();
 		camera.update();
 		batch.setProjectionMatrix(camera.combined);
-		batch.draw(food, camera.position.x+3, camera.position.y+3, 50, 50);
+		
+		// draw the base grass texture
+		for (int ii = 101; ii >= 0; ii-=2){
+			for (int jj = 100; jj >= 0; jj--){
+				batch.draw(grasses.get(grassMap[ii][jj]), ii*56, jj*55);
+				batch.draw(grasses.get(grassMap[ii-1][jj]), ((ii-1)*56), (jj*55)+30);
+			}	
+		}
+		batch.end();
+	}
+	
+	public void drawClouds(){
+		batch.begin();
+		OrthographicCamera camera = (OrthographicCamera) getCamera();
 		Matrix4 temp = new Matrix4(batch.getTransformMatrix());
 		batch.setTransformMatrix(camera.view);
 		batch.setColor(1.0f, 1.0f, 1.0f, .3f);
@@ -113,9 +143,9 @@ public class GameScreen extends AbstractScreen {
 		batch.draw(cloud, 1400, 1300, 800, 800);
 		batch.setColor(1.0f, 1.0f, 1.0f, 1);
 		batch.setTransformMatrix(temp);
-		
+		batch.draw(food, camera.position.x+3, camera.position.y+3, 50, 50);
 		font.draw(batch, "X " + foodAmount, camera.position.x+23, camera.position.y+17);
-		batch.end(); 
+		batch.end();
 	}
 	
 	@Override

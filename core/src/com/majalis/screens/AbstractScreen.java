@@ -19,6 +19,7 @@ public abstract class AbstractScreen extends Stage implements Screen {
 	protected float red;
 	protected float green;
 	protected float blue;
+	protected boolean callClear;
 	
     protected AbstractScreen(ScreenFactory screenFactory, ScreenElements elements) {
         super(elements.getViewport());
@@ -29,6 +30,7 @@ public abstract class AbstractScreen extends Stage implements Screen {
         red = 0;
         green = 0;
         blue = 0;
+        callClear = true;
     }
  
     // Subclasses must load actors in this method
@@ -47,13 +49,16 @@ public abstract class AbstractScreen extends Stage implements Screen {
     	newScreen.buildStage();
         game.setScreen(newScreen);
     }  
-    
-    @Override
-    public void render(float delta) {
+     
+    public void clear(){
         // Clear screen
         Gdx.gl.glClearColor(red, green, blue, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        
+    }
+    
+    @Override
+    public void render(float delta) {
+    	if (callClear) clear();
         // Calling to Stage methods
         super.act(delta);
         super.draw();

@@ -18,6 +18,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
+import com.majalis.asset.AssetEnum;
 import com.majalis.character.PlayerCharacter;
 import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveManager;
@@ -63,8 +64,8 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 		this.nodeCode = nodeCode;
 		this.visited = visited;
 		currentImage = assetManager.get("TinySprite0.png", Texture.class);
-		activeImage = encounter % 5 == 4 || encounter % 5 == 1 ? assetManager.get("MountainU.png", Texture.class) : assetManager.get("ForestU.png", Texture.class);
-		inactiveImage = encounter % 5 == 4 || encounter % 5 == 1 ? assetManager.get("MountainV.png", Texture.class) : assetManager.get("ForestV.png", Texture.class);
+		activeImage = encounter % 5 == 4 || encounter % 5 == 1 ? assetManager.get(AssetEnum.MOUNTAIN_ACTIVE.getPath(), Texture.class) : assetManager.get(AssetEnum.FOREST_ACTIVE.getPath(), Texture.class);
+		inactiveImage = encounter % 5 == 4 || encounter % 5 == 1 ? assetManager.get(AssetEnum.MOUNTAIN_INACTIVE.getPath(), Texture.class) : assetManager.get(AssetEnum.FOREST_INACTIVE.getPath(), Texture.class);
 		this.sound = sound;
 		this.character = character;
 		selected = false;
@@ -155,7 +156,7 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 		
 		shapeRenderer.setProjectionMatrix(camera.combined);
 		shapeRenderer.begin(ShapeType.Line);
-		shapeRenderer.setColor(.258f, .652f, .4f, .5f);
+		shapeRenderer.setColor(1, 1, 1, .5f);
 		
 		for (GameWorldNode otherNode: connectedNodes){
 			// take my position vector and add a vector of length radius and inclination towards the center of the other node's vector

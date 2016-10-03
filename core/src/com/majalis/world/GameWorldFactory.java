@@ -54,7 +54,6 @@ public class GameWorldFactory {
 		addNode(new GameWorldNode(new Array<GameWorldNode>(), saveService, camera, shapeRenderer, font, 2, 1, -1, new Vector2(1800, 1800), visitedCodesSet.contains(1) ? true : false, sound, character, assetManager), nodeMap, 2, nodes, requiredNodes);
 		
 		// temporarily stop at 1000 to prevent hangs if endpoint isn't found - in the future this should set something that will smoothly guide towards the exit as the number of nodes increase
-		
 		for (int ii = 0; ii < 8; ii++){
 			for (GameWorldNode requiredNode : requiredNodes){
 				Boolean nodeNotReached = true;
