@@ -47,7 +47,7 @@ public class CharacterCustomizationScene extends Scene {
 		font.draw(batch, "Character Customization", 600, 600);
 		font.setColor(0.4f,0.4f,0.4f,1);
 		int base = 500;
-		font.draw(batch,  "Name:", base-345, 500);
+		font.draw(batch,  "Name:", base-345, 540);
 		font.draw(batch, console, base, 550);
     }
 	

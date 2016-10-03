@@ -27,9 +27,6 @@ public class SkillSelectionScene extends Scene {
 	private final Sound buttonSound;
 	private final PlayerCharacter character;
 	private String console;
-	private float buttonHeight;
-	private float buttonWidth;
-	
 	
 	// needs a done button, as well as other interface elements
 	public SkillSelectionScene(OrderedMap<Integer, Scene> sceneBranches, int sceneCode, final SaveService saveService, BitmapFont font, Background background, AssetManager assetManager, PlayerCharacter character) {
@@ -66,6 +63,8 @@ public class SkillSelectionScene extends Scene {
 		saveService.saveDataValue(SaveEnum.SCENE_CODE, sceneCode);
 
 		final TextButton done = new TextButton("Done", skin);
+		done.setWidth(180); //Sets positional stuff for "done" button)
+		done.setHeight(40);
 		
 		done.addListener(
 			new ClickListener(){
@@ -76,7 +75,7 @@ public class SkillSelectionScene extends Scene {
 		        }
 			}
 		);
-		done.addAction(Actions.moveTo(done.getX() + 1100, done.getY() + 20));
+		done.addAction(Actions.moveTo(done.getX() + 1015, done.getY() + 20));
 		
 		
 		final Table table = new Table();
