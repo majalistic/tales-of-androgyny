@@ -169,7 +169,7 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 				    otherNode.getPosition().x - position.x
 				) * 180.0d / Math.PI;
 			
-			batch.draw(roadImage, onCircumference.x, onCircumference.y, roadImage.getWidth()/2, roadImage.getHeight()/2, roadImage.getWidth(), roadImage.getHeight(), 1, 1, 90+(float)degrees, 0, 0, (int)roadImage.getWidth(), (int)roadImage.getHeight(), false, false);
+			batch.draw(roadImage, onCircumference.x, onCircumference.y, roadImage.getWidth()/2, roadImage.getHeight()/2, roadImage.getWidth(), onCircumference.dst(onOtherCircumference), 1, 1, 270+(float)degrees, 0, 0, (int)roadImage.getWidth(), (int)roadImage.getHeight(), false, false);
 		}
 		
 		batch.end();
