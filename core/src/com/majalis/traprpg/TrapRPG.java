@@ -24,7 +24,7 @@ public class TrapRPG extends Game {
 		SaveManager saveManager = new SaveManager(false, "data/save.json");
 		EncounterReader encounterReader = new EncounterReader("script/encounters.json");
 		AssetManager assetManager = new AssetManager();
-		BitmapFont font = new BitmapFont(Gdx.files.internal("assets/fonts/solstice18/solstice.fnt"), Gdx.files.internal("assets/fonts/solstice18/solstice.png" ), false);
+		BitmapFont font = new BitmapFont(Gdx.files.classpath("fonts/solstice18/solstice.fnt"), Gdx.files.classpath("fonts/solstice18/solstice.png" ), false);
 		ShapeRenderer shapeRenderer = new ShapeRenderer();
 		RandomXS128 random = new RandomXS128();
 		init(new ScreenFactoryImpl(this, assetManager, saveManager, new GameWorldFactory(saveManager, assetManager, shapeRenderer, font, random), new EncounterFactory(encounterReader, assetManager, saveManager), new BattleFactory(saveManager, assetManager, font), new SpriteBatch()));

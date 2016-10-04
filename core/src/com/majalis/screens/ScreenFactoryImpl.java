@@ -50,7 +50,7 @@ public class ScreenFactoryImpl implements ScreenFactory {
 	public AbstractScreen getScreen(ScreenEnum screenRequest) {
 		OrthographicCamera camera = new OrthographicCamera();
         FitViewport viewport =  new FitViewport(winWidth, winHeight, camera);
-        BitmapFont font = new BitmapFont(Gdx.files.internal("assets/fonts/solstice18/solstice.fnt"), Gdx.files.internal("assets/fonts/solstice18/solstice.png" ), false);
+        BitmapFont font = new BitmapFont(Gdx.files.classpath("fonts/solstice18/solstice.fnt"), Gdx.files.classpath("fonts/solstice18/solstice.png" ), false);
         ScreenElements elements = new ScreenElements(viewport, batch, font);
         PlayerCharacter character = loadService.loadDataValue(SaveEnum.PLAYER, PlayerCharacter.class);
 		AbstractScreen tempScreen;
