@@ -50,6 +50,7 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 	private Texture currentImage;
 	private Texture activeImage;
 	private Texture inactiveImage;
+	private Texture roadImage;
 	
 	// all the nodes need are the encounter CODES, not the actual encounter - should probably pass in some kind of object that contains the encounter generation logic, rather than an encounter and defaultEncounter code - at least, need a description of the encounter attached
 	public GameWorldNode(Array<GameWorldNode> connectedNodes, SaveService saveService, OrthographicCamera camera, ShapeRenderer shapeRenderer, BitmapFont font, final int nodeCode, int encounter, int defaultEncounter, Vector2 position, boolean visited, Sound sound, PlayerCharacter character, AssetManager assetManager){
@@ -66,6 +67,7 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 		currentImage = assetManager.get("TinySprite0.png", Texture.class);
 		activeImage = encounter % 5 == 4 || encounter % 5 == 1 ? assetManager.get(AssetEnum.MOUNTAIN_ACTIVE.getPath(), Texture.class) : assetManager.get(AssetEnum.FOREST_ACTIVE.getPath(), Texture.class);
 		inactiveImage = encounter % 5 == 4 || encounter % 5 == 1 ? assetManager.get(AssetEnum.MOUNTAIN_INACTIVE.getPath(), Texture.class) : assetManager.get(AssetEnum.FOREST_INACTIVE.getPath(), Texture.class);
+		roadImage = assetManager.get(AssetEnum.ROAD.getPath(), Texture.class);
 		this.sound = sound;
 		this.character = character;
 		selected = false;
@@ -152,12 +154,6 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
     public void draw(Batch batch, float parentAlpha) {
 		super.draw(batch, parentAlpha);
 		
-		batch.end();
-		
-		shapeRenderer.setProjectionMatrix(camera.combined);
-		shapeRenderer.begin(ShapeType.Line);
-		shapeRenderer.setColor(1, 1, 1, .5f);
-		
 		for (GameWorldNode otherNode: connectedNodes){
 			// take my position vector and add a vector of length radius and inclination towards the center of the other node's vector
 			Vector2 connection = new Vector2(otherNode.getPosition());
@@ -167,10 +163,17 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 			onCircumference.add(connection);
 			Vector2 onOtherCircumference = new Vector2(otherNode.getPosition());
 			connection.rotate(180);
-			onOtherCircumference.add(connection);			
-			shapeRenderer.line(onCircumference.x, onCircumference.y,onOtherCircumference.x, onOtherCircumference.y);
+			onOtherCircumference.add(connection);
+			double degrees = Math.atan2(
+				    otherNode.getPosition().y - position.y,
+				    otherNode.getPosition().x - position.x
+				) * 180.0d / Math.PI;
+			
+			batch.draw(roadImage, onCircumference.x, onCircumference.y, roadImage.getWidth()/2, roadImage.getHeight()/2, roadImage.getWidth(), roadImage.getHeight(), 1, 1, 90+(float)degrees, 0, 0, (int)roadImage.getWidth(), (int)roadImage.getHeight(), false, false);
 		}
-		shapeRenderer.end();
+		
+		batch.end();
+		shapeRenderer.setProjectionMatrix(camera.combined);
 		if (hover){
 			// render hover box
 			shapeRenderer.begin(ShapeType.Filled);

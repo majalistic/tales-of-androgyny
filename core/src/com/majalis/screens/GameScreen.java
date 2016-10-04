@@ -43,6 +43,7 @@ public class GameScreen extends AbstractScreen {
 		resourceRequirements.put(AssetEnum.GRASS1.getPath(), Texture.class);
 		resourceRequirements.put(AssetEnum.GRASS2.getPath(), Texture.class);
 		resourceRequirements.put(AssetEnum.CLOUD.getPath(), Texture.class);
+		resourceRequirements.put(AssetEnum.ROAD.getPath(), Texture.class);
 	}
 	public GameScreen(ScreenFactory factory, ScreenElements elements, AssetManager assetManager, LoadService loadService, GameWorld world) {
 		super(factory, elements);
