@@ -30,7 +30,7 @@ import com.majalis.save.SaveService;
 public class Battle extends Group{
 
 	private static int[] POSSIBLE_KEYS = new int[]{Keys.A, Keys.S, Keys.D, Keys.F, Keys.G, Keys.H, Keys.J};
-	private static char[] POSSIBLE_KEYS_CHAR = new char[]{'A','S','D','F','G','H','J'};
+	private static char[] POSSIBLE_KEYS_CHAR = new char[]{'A','S','D','F','G','H','J','K','L','M'};
 	
 	private final PlayerCharacter character;
 	private final EnemyCharacter enemy;
@@ -83,7 +83,7 @@ public class Battle extends Group{
 		for (int ii = 0; ii < options.size; ii++){
 			TextButton button;
 			Technique option = options.get(ii);
-			button = new TextButton(option.getTechniqueName() + " ("+POSSIBLE_KEYS_CHAR[ii]+")", skin);
+			button = new TextButton(option.getTechniqueName() + (ii > POSSIBLE_KEYS_CHAR.length ? "" : " ("+POSSIBLE_KEYS_CHAR[ii]+")"), skin);
 			button.addListener(getListener(option, buttonSound));
 			table.add(button).width(220).height(40).row();
 		}
