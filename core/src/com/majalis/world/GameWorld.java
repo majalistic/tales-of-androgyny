@@ -2,6 +2,9 @@ package com.majalis.world;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Array;
 /*
@@ -23,19 +26,21 @@ public class GameWorld {
 		encounterSelected = false;
 	}
 	
-	public void gameLoop(){
+	public void gameLoop(SpriteBatch batch, Camera camera){
 		if (Gdx.input.isKeyJustPressed(Keys.TAB)){
 			displayHUD = !displayHUD;
 		}
 		if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)){
 			gameExit = true;
 		}
-		
+		batch.begin();
 		for (GameWorldNode node: nodes){
 			if (node.isSelected()){
 				encounterSelected = true;
 			}
+			node.drawHover(batch, new Vector2(camera.position.x + 1000, camera.position.y + 30));			
 		}
+		batch.end();
 	}
 	
 	public Array<Actor> getActors(){

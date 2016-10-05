@@ -2,12 +2,9 @@ package com.majalis.world;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector2;
@@ -31,8 +28,6 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 	private final static int RADIUS = 25;
 	private final Array<GameWorldNode> connectedNodes;
 	private final SaveService saveService;
-	private final OrthographicCamera camera;
-	private final ShapeRenderer shapeRenderer;
 	// temporary
 	private final BitmapFont font;
 	private final int nodeCode;
@@ -51,13 +46,12 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 	private Texture activeImage;
 	private Texture inactiveImage;
 	private Texture roadImage;
+	private Texture hoverImage;
 	
 	// all the nodes need are the encounter CODES, not the actual encounter - should probably pass in some kind of object that contains the encounter generation logic, rather than an encounter and defaultEncounter code - at least, need a description of the encounter attached
-	public GameWorldNode(Array<GameWorldNode> connectedNodes, SaveService saveService, OrthographicCamera camera, ShapeRenderer shapeRenderer, BitmapFont font, final int nodeCode, int encounter, int defaultEncounter, Vector2 position, boolean visited, Sound sound, PlayerCharacter character, AssetManager assetManager){
+	public GameWorldNode(Array<GameWorldNode> connectedNodes, SaveService saveService, BitmapFont font, final int nodeCode, int encounter, int defaultEncounter, Vector2 position, boolean visited, Sound sound, PlayerCharacter character, AssetManager assetManager){
 		this.connectedNodes = connectedNodes;
 		this.saveService = saveService;
-		this.camera = camera;
-		this.shapeRenderer = shapeRenderer;
 		this.font = font;
 		this.encounter = encounter;
 		this.defaultEncounter = defaultEncounter;
@@ -67,6 +61,7 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 		currentImage = assetManager.get("TinySprite0.png", Texture.class);
 		activeImage = encounter % 5 == 4 || encounter % 5 == 1 ? assetManager.get(AssetEnum.MOUNTAIN_ACTIVE.getPath(), Texture.class) : assetManager.get(AssetEnum.FOREST_ACTIVE.getPath(), Texture.class);
 		inactiveImage = encounter % 5 == 4 || encounter % 5 == 1 ? assetManager.get(AssetEnum.MOUNTAIN_INACTIVE.getPath(), Texture.class) : assetManager.get(AssetEnum.FOREST_INACTIVE.getPath(), Texture.class);
+		hoverImage = assetManager.get(AssetEnum.WORLD_MAP_HOVER.getPath(), Texture.class);
 		roadImage = assetManager.get(AssetEnum.ROAD.getPath(), Texture.class);
 		this.sound = sound;
 		this.character = character;
@@ -172,19 +167,8 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 			batch.draw(roadImage, onCircumference.x, onCircumference.y, roadImage.getWidth()/2, roadImage.getHeight()/2, roadImage.getWidth(), onCircumference.dst(onOtherCircumference), 1, 1, 270+(float)degrees, 0, 0, (int)roadImage.getWidth(), (int)roadImage.getHeight(), false, false);
 		}
 		
-		batch.end();
-		shapeRenderer.setProjectionMatrix(camera.combined);
-		if (hover){
-			// render hover box
-			shapeRenderer.begin(ShapeType.Filled);
-			shapeRenderer.setColor(.8f, .8f, .8f, 1);
-			shapeRenderer.rect(position.x+55, (position.y-RADIUS)-25, 80, 100);
-			shapeRenderer.setColor(.2f, .2f, .2f, 1);
-			shapeRenderer.rect(position.x+60, (position.y-RADIUS)-20, 70, 90);
-			shapeRenderer.end();
-		}
-			
-		batch.begin();
+		
+		
 		if (active || current){
 			batch.draw(activeImage, (position.x - RADIUS), position.y-RADIUS);
 			if (current){
@@ -194,13 +178,17 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 		else {
 			batch.draw(inactiveImage, (position.x - RADIUS), position.y-RADIUS);
 		}
-		if (hover){
-			// render hover text
-			font.setColor(0.5f,1,1,1);
-			font.getData().setScale(.9f);
-			font.draw(batch, getHoverText(), (int)position.x + 70, (int)position.y + RADIUS + 15, 53, Align.center, true);	
-		}		
     }
+	
+	public void drawHover(Batch batch, Vector2 hoverPosition){
+		if (hover){
+			// render hover box
+			batch.draw(hoverImage, hoverPosition.x, hoverPosition.y);
+			// render hover text
+			font.setColor(0f,0,0,1);
+			font.draw(batch, getHoverText(), hoverPosition.x, hoverPosition.y+170, 250, Align.center, true);	
+		}
+	}
 
 	private String getHoverText(){
 		return visited ? "Nothing here" : getHoverText(encounter % 5); 

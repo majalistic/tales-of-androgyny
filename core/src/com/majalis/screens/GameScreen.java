@@ -13,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.majalis.asset.AssetEnum;
+import com.majalis.character.PlayerCharacter;
 import com.majalis.save.LoadService;
 import com.majalis.save.SaveEnum;
 import com.majalis.world.GameWorld;
@@ -27,7 +28,9 @@ public class GameScreen extends AbstractScreen {
 	private final Array<Texture> grasses;
 	private final int[][] grassMap;
 	private final Texture cloud;
+	private final Texture UI;
 	private final int foodAmount;
+	private final PlayerCharacter character;
 	public static final ObjectMap<String, Class<?>> resourceRequirements = new ObjectMap<String, Class<?>>();
 	static {
 		resourceRequirements.put("uiskin.json", Skin.class);
@@ -44,6 +47,8 @@ public class GameScreen extends AbstractScreen {
 		resourceRequirements.put(AssetEnum.GRASS2.getPath(), Texture.class);
 		resourceRequirements.put(AssetEnum.CLOUD.getPath(), Texture.class);
 		resourceRequirements.put(AssetEnum.ROAD.getPath(), Texture.class);
+		resourceRequirements.put(AssetEnum.WORLD_MAP_UI.getPath(), Texture.class);
+		resourceRequirements.put(AssetEnum.WORLD_MAP_HOVER.getPath(), Texture.class);
 	}
 	public GameScreen(ScreenFactory factory, ScreenElements elements, AssetManager assetManager, LoadService loadService, GameWorld world) {
 		super(factory, elements);
@@ -53,6 +58,7 @@ public class GameScreen extends AbstractScreen {
 		foodAmount = loadService.loadDataValue(SaveEnum.FOOD, Integer.class);
 		grasses = new Array<Texture>(true, new Texture[]{assetManager.get(AssetEnum.GRASS0.getPath(), Texture.class), assetManager.get(AssetEnum.GRASS1.getPath(), Texture.class), assetManager.get(AssetEnum.GRASS2.getPath(), Texture.class)}, 0, 3);
 		cloud = assetManager.get(AssetEnum.CLOUD.getPath(), Texture.class);
+		UI = assetManager.get(AssetEnum.WORLD_MAP_UI.getPath(), Texture.class);
 		Vector3 initialTranslation = loadService.loadDataValue(SaveEnum.CAMERA_POS, Vector3.class);		
 		initialTranslation = new Vector3(initialTranslation);
 		OrthographicCamera camera = (OrthographicCamera) getCamera();
@@ -71,6 +77,7 @@ public class GameScreen extends AbstractScreen {
 				grassMap[ii][jj] = (int)(Math.random()*100) % 3;
 			}	
 		}
+		this.character = loadService.loadDataValue(SaveEnum.PLAYER, PlayerCharacter.class);
 	}
 
 	@Override
@@ -102,8 +109,7 @@ public class GameScreen extends AbstractScreen {
 		}
 		
 		getCamera().translate(translationVector);
-		
-		world.gameLoop();
+			
 		if (world.gameExit){
 			showScreen(ScreenEnum.MAIN_MENU);
 		}
@@ -114,6 +120,7 @@ public class GameScreen extends AbstractScreen {
 			draw();
 			super.render(delta);
 			drawClouds();
+			world.gameLoop(batch, getCamera());
 		}
 	}
 	
@@ -145,6 +152,8 @@ public class GameScreen extends AbstractScreen {
 		batch.setColor(1.0f, 1.0f, 1.0f, 1);
 		batch.setTransformMatrix(temp);
 		batch.draw(food, camera.position.x+3, camera.position.y+3, 50, 50);
+		batch.draw(UI, camera.position.x+3, camera.position.y+3);
+		font.draw(batch, String.valueOf(character.getCurrentHealth()), camera.position.x+295, camera.position.y+125);
 		font.draw(batch, "X " + foodAmount, camera.position.x+23, camera.position.y+17);
 		batch.end();
 	}

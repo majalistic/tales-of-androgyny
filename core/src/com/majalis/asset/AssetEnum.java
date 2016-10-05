@@ -1,6 +1,8 @@
 package com.majalis.asset;
 
 public enum AssetEnum {
+	WORLD_MAP_UI("worldmap/CharacterInfo.png"),
+	WORLD_MAP_HOVER("worldmap/HoverBox.png"),
 	MOUNTAIN_ACTIVE("worldmap/MountainNode0.png"),
 	MOUNTAIN_INACTIVE("worldmap/MountainV.png"),
 	FOREST_ACTIVE("worldmap/ForestNode0.png"),

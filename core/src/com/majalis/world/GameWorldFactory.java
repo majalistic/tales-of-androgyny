@@ -4,7 +4,6 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.RandomXS128;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
@@ -23,16 +22,14 @@ public class GameWorldFactory {
 	private final SaveService saveService;
 	private final LoadService loadService;
 	private final AssetManager assetManager;
-	private final ShapeRenderer shapeRenderer;
 	private final BitmapFont font;
 	private final RandomXS128 random;
 	private GameContext context;
 	
-	public GameWorldFactory(SaveManager saveManager, AssetManager assetManager, ShapeRenderer shapeRenderer, BitmapFont font, RandomXS128 random){
+	public GameWorldFactory(SaveManager saveManager, AssetManager assetManager, BitmapFont font, RandomXS128 random){
 		this.saveService = saveManager;
 		this.loadService = saveManager;
 		this.assetManager = assetManager;
-		this.shapeRenderer = shapeRenderer;
 		this.font = font;
 		this.random = random;
 	}
@@ -48,10 +45,10 @@ public class GameWorldFactory {
 		PlayerCharacter character = loadService.loadDataValue(SaveEnum.PLAYER, PlayerCharacter.class);
 		
 		// -1 = magic number to get the defaultEncounter
-		addNode(new GameWorldNode(new Array<GameWorldNode>(), saveService, camera, shapeRenderer, font, 1, 0, -1, new Vector2(500, 500), visitedCodesSet.contains(1) ? true : false, sound, character, assetManager), nodeMap, 1, nodes);
+		addNode(new GameWorldNode(new Array<GameWorldNode>(), saveService, font, 1, 0, -1, new Vector2(500, 500), visitedCodesSet.contains(1) ? true : false, sound, character, assetManager), nodeMap, 1, nodes);
 		Array<GameWorldNode> requiredNodes = new Array<GameWorldNode>();
 		// end node
-		addNode(new GameWorldNode(new Array<GameWorldNode>(), saveService, camera, shapeRenderer, font, 2, 1, -1, new Vector2(1800, 1800), visitedCodesSet.contains(1) ? true : false, sound, character, assetManager), nodeMap, 2, nodes, requiredNodes);
+		addNode(new GameWorldNode(new Array<GameWorldNode>(), saveService, font, 2, 1, -1, new Vector2(1800, 1800), visitedCodesSet.contains(1) ? true : false, sound, character, assetManager), nodeMap, 2, nodes, requiredNodes);
 		
 		// temporarily stop at 1000 to prevent hangs if endpoint isn't found - in the future this should set something that will smoothly guide towards the exit as the number of nodes increase
 		for (int ii = 0; ii < 8; ii++){
@@ -82,7 +79,7 @@ public class GameWorldFactory {
 					// save the position for the next iteration
 					currentNodePosition = newNodePosition;
 					
-					GameWorldNode newNode = new GameWorldNode(new Array<GameWorldNode>(), saveService, camera, shapeRenderer, font, nodeCode, nodeCode-1, -1, currentNodePosition, visitedCodesSet.contains(nodeCode) ? true : false, sound, character, assetManager);
+					GameWorldNode newNode = new GameWorldNode(new Array<GameWorldNode>(), saveService, font, nodeCode, nodeCode-1, -1, currentNodePosition, visitedCodesSet.contains(nodeCode) ? true : false, sound, character, assetManager);
 					addNode(newNode, nodeMap, nodeCode, nodes);
 					// if we've reached the target node, we can terminate this run-through
 					nodeNotReached = !requiredNode.isAdjacent(newNode);
