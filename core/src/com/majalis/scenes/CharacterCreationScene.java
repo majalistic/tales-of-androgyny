@@ -205,12 +205,12 @@ public class CharacterCreationScene extends Scene {
 			for (Stat stat: PlayerCharacter.Stat.values()){
 				font.setColor(0.6f,0.2f,0.1f,1);
 				font.draw(batch, stat.toString(), base+50, 500 - offset);
-				font.draw(batch, ": ", base+150, 500 - offset);
+				font.draw(batch, ": ", base+180, 500 - offset);
 				int amount = character.getStat(stat);
 				setFontColor(font, amount);
-				font.draw(batch, String.valueOf(amount), base+170, 500 - offset);
-				font.draw(batch, "("+String.valueOf(statMap.get(stat))+")", base+185, 500 - offset);
-				font.draw(batch, "- " + PlayerCharacter.getStatMap().get(stat).get(amount), base+210, 500 - offset);
+				font.draw(batch, String.valueOf(amount), base+200, 500 - offset);
+				font.draw(batch, "("+String.valueOf(statMap.get(stat))+")", base+215, 500 - offset);
+				font.draw(batch, "- " + PlayerCharacter.getStatMap().get(stat).get(amount), base+240, 500 - offset);
 				offset += 50;
 			}
 			font.draw(batch, "Stat points: " + statPoints, base + 100, 150);
