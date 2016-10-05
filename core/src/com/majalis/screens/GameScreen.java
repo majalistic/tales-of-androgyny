@@ -27,6 +27,7 @@ public class GameScreen extends AbstractScreen {
 	private final Texture food;
 	private final Array<Texture> grasses;
 	private final int[][] grassMap;
+	private final Texture trees;
 	private final Texture cloud;
 	private final Texture UI;
 	private final int foodAmount;
@@ -37,7 +38,6 @@ public class GameScreen extends AbstractScreen {
 		resourceRequirements.put("node_sound.wav", Sound.class);
 		resourceRequirements.put("TinySprite0.png", Texture.class);
 		resourceRequirements.put(AssetEnum.MOUNTAIN_ACTIVE.getPath(), Texture.class);
-		resourceRequirements.put(AssetEnum.MOUNTAIN_INACTIVE.getPath(), Texture.class);
 		resourceRequirements.put(AssetEnum.FOREST_ACTIVE.getPath(), Texture.class);
 		resourceRequirements.put(AssetEnum.FOREST_INACTIVE.getPath(), Texture.class);
 		resourceRequirements.put(AssetEnum.APPLE.getPath(), Texture.class);
@@ -49,6 +49,7 @@ public class GameScreen extends AbstractScreen {
 		resourceRequirements.put(AssetEnum.ROAD.getPath(), Texture.class);
 		resourceRequirements.put(AssetEnum.WORLD_MAP_UI.getPath(), Texture.class);
 		resourceRequirements.put(AssetEnum.WORLD_MAP_HOVER.getPath(), Texture.class);
+		resourceRequirements.put(AssetEnum.ARROW.getPath(), Texture.class);
 	}
 	public GameScreen(ScreenFactory factory, ScreenElements elements, AssetManager assetManager, LoadService loadService, GameWorld world) {
 		super(factory, elements);
@@ -57,6 +58,7 @@ public class GameScreen extends AbstractScreen {
 		food = arb % 2 == 0 ? assetManager.get(AssetEnum.APPLE.getPath(), Texture.class) : assetManager.get(AssetEnum.MEAT.getPath(), Texture.class);
 		foodAmount = loadService.loadDataValue(SaveEnum.FOOD, Integer.class);
 		grasses = new Array<Texture>(true, new Texture[]{assetManager.get(AssetEnum.GRASS0.getPath(), Texture.class), assetManager.get(AssetEnum.GRASS1.getPath(), Texture.class), assetManager.get(AssetEnum.GRASS2.getPath(), Texture.class)}, 0, 3);
+		trees = assetManager.get(AssetEnum.FOREST_INACTIVE.getPath(), Texture.class);
 		cloud = assetManager.get(AssetEnum.CLOUD.getPath(), Texture.class);
 		UI = assetManager.get(AssetEnum.WORLD_MAP_UI.getPath(), Texture.class);
 		Vector3 initialTranslation = loadService.loadDataValue(SaveEnum.CAMERA_POS, Vector3.class);		
@@ -137,6 +139,12 @@ public class GameScreen extends AbstractScreen {
 				batch.draw(grasses.get(grassMap[ii-1][jj]), ((ii-1)*56), (jj*55)+30);
 			}	
 		}
+		batch.draw(trees, 500, 400);
+		batch.draw(trees, 600, 900);
+		batch.draw(trees, 200, 200);
+		batch.draw(trees, 200, 700);
+		batch.draw(trees, 1000, 300);
+		batch.draw(trees, 1100, 500);
 		batch.end();
 	}
 	
@@ -148,7 +156,7 @@ public class GameScreen extends AbstractScreen {
 		batch.setColor(1.0f, 1.0f, 1.0f, .3f);
 		batch.draw(cloud, 300, 800, 800, 800);
 		batch.draw(cloud, 2200, 600, 800, 800);
-		batch.draw(cloud, 1400, 1300, 800, 800);
+		batch.draw(cloud, 1400, 1300, 800, 800);		
 		batch.setColor(1.0f, 1.0f, 1.0f, 1);
 		batch.setTransformMatrix(temp);
 		batch.draw(food, camera.position.x+3, camera.position.y+3, 50, 50);

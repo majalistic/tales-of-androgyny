@@ -3,10 +3,10 @@ package com.majalis.asset;
 public enum AssetEnum {
 	WORLD_MAP_UI("worldmap/CharacterInfo.png"),
 	WORLD_MAP_HOVER("worldmap/HoverBox.png"),
+	ARROW("worldmap/Arrow.png"),
 	MOUNTAIN_ACTIVE("worldmap/MountainNode0.png"),
-	MOUNTAIN_INACTIVE("worldmap/MountainV.png"),
-	FOREST_ACTIVE("worldmap/ForestNode0.png"),
-	FOREST_INACTIVE("worldmap/ForestV.png"),
+	FOREST_ACTIVE("worldmap/ForestNode1.png"),
+	FOREST_INACTIVE("worldmap/ForestNode0.png"),
 	GRASS0("worldmap/BaseGrass0.png"),
 	GRASS1("worldmap/BaseGrass1.png"),
 	GRASS2("worldmap/BaseGrass2.png"),

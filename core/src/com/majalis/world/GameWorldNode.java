@@ -44,9 +44,11 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 	private boolean hover;
 	private Texture currentImage;
 	private Texture activeImage;
-	private Texture inactiveImage;
 	private Texture roadImage;
 	private Texture hoverImage;
+	private Texture arrowImage;
+	private int arrowHeight;
+	private int arrowShift;
 	
 	// all the nodes need are the encounter CODES, not the actual encounter - should probably pass in some kind of object that contains the encounter generation logic, rather than an encounter and defaultEncounter code - at least, need a description of the encounter attached
 	public GameWorldNode(Array<GameWorldNode> connectedNodes, SaveService saveService, BitmapFont font, final int nodeCode, int encounter, int defaultEncounter, Vector2 position, boolean visited, Sound sound, PlayerCharacter character, AssetManager assetManager){
@@ -60,19 +62,21 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 		this.visited = visited;
 		currentImage = assetManager.get("TinySprite0.png", Texture.class);
 		activeImage = encounter % 5 == 4 || encounter % 5 == 1 ? assetManager.get(AssetEnum.MOUNTAIN_ACTIVE.getPath(), Texture.class) : assetManager.get(AssetEnum.FOREST_ACTIVE.getPath(), Texture.class);
-		inactiveImage = encounter % 5 == 4 || encounter % 5 == 1 ? assetManager.get(AssetEnum.MOUNTAIN_INACTIVE.getPath(), Texture.class) : assetManager.get(AssetEnum.FOREST_INACTIVE.getPath(), Texture.class);
 		hoverImage = assetManager.get(AssetEnum.WORLD_MAP_HOVER.getPath(), Texture.class);
 		roadImage = assetManager.get(AssetEnum.ROAD.getPath(), Texture.class);
+		arrowImage = assetManager.get(AssetEnum.ARROW.getPath(), Texture.class);
 		this.sound = sound;
 		this.character = character;
 		selected = false;
 		current = false;
-		active = false;
 		hover = false;
+		active = false;
 		
 		this.addAction(Actions.visible(true));
 		this.addAction(Actions.show());
 		this.setBounds(position.x-RADIUS, position.y-RADIUS, RADIUS*2, RADIUS*2);
+		arrowHeight = 0;
+		arrowShift = 1;
 	}
 	
 	
@@ -163,20 +167,17 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 				    otherNode.getPosition().y - position.y,
 				    otherNode.getPosition().x - position.x
 				) * 180.0d / Math.PI;
-			
 			batch.draw(roadImage, onCircumference.x, onCircumference.y, roadImage.getWidth()/2, roadImage.getHeight()/2, roadImage.getWidth(), onCircumference.dst(onOtherCircumference), 1, 1, 270+(float)degrees, 0, 0, (int)roadImage.getWidth(), (int)roadImage.getHeight(), false, false);
 		}
-		
-		
-		
-		if (active || current){
-			batch.draw(activeImage, (position.x - RADIUS), position.y-RADIUS);
-			if (current){
-				batch.draw(currentImage, position.x - 5, position.y);
-			}
+	
+		batch.draw(activeImage, (position.x - RADIUS), position.y-RADIUS);
+		if (current){
+			batch.draw(currentImage, position.x - 5, position.y);
 		}
-		else {
-			batch.draw(inactiveImage, (position.x - RADIUS), position.y-RADIUS);
+		if(active){
+			batch.draw(arrowImage, (position.x - RADIUS)+25, (position.y-RADIUS)+55+arrowHeight/5);
+			arrowHeight += arrowShift;
+			if (arrowHeight > 100 || arrowHeight < 0) arrowShift = 0 - arrowShift;
 		}
     }
 	
@@ -188,6 +189,7 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 			font.setColor(0f,0,0,1);
 			font.draw(batch, getHoverText(), hoverPosition.x, hoverPosition.y+170, 250, Align.center, true);	
 		}
+
 	}
 
 	private String getHoverText(){
