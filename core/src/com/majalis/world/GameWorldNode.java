@@ -95,7 +95,7 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 			return;
 		}
 		connectedNodes.add(otherNode);
-		Vector2 centering = new Vector2(activeImage.getWidth()/2-10, 10);
+		Vector2 centering = new Vector2(activeImage.getWidth()/2-10, activeImage.getHeight()/2);
 		paths.add(new Path(roadImage, new Vector2(position).add(centering), new Vector2(otherNode.getPosition()).add(centering)));
 		otherNode.getConnected(this);
 	}
