@@ -15,6 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.ObjectSet;
 import com.majalis.asset.AssetEnum;
 import com.majalis.character.PlayerCharacter;
 import com.majalis.save.SaveEnum;
@@ -24,9 +25,8 @@ import com.majalis.save.SaveService;
  * Represents a node on the world map.
  */
 public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
-
-	private final static int RADIUS = 25;
-	private final Array<GameWorldNode> connectedNodes;
+	private final ObjectSet<GameWorldNode> connectedNodes;
+	private final Array<Path> paths;
 	private final SaveService saveService;
 	// temporary
 	private final BitmapFont font;
@@ -52,7 +52,9 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 	
 	// all the nodes need are the encounter CODES, not the actual encounter - should probably pass in some kind of object that contains the encounter generation logic, rather than an encounter and defaultEncounter code - at least, need a description of the encounter attached
 	public GameWorldNode(Array<GameWorldNode> connectedNodes, SaveService saveService, BitmapFont font, final int nodeCode, int encounter, int defaultEncounter, Vector2 position, boolean visited, Sound sound, PlayerCharacter character, AssetManager assetManager){
-		this.connectedNodes = connectedNodes;
+		this.connectedNodes = new ObjectSet<GameWorldNode>();
+		for (GameWorldNode node: connectedNodes){ this.connectedNodes.add(node); }
+		paths = new Array<Path>();
 		this.saveService = saveService;
 		this.font = font;
 		this.encounter = encounter;
@@ -74,7 +76,7 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 		
 		this.addAction(Actions.visible(true));
 		this.addAction(Actions.show());
-		this.setBounds(position.x-RADIUS, position.y-RADIUS, RADIUS*2, RADIUS*2);
+		this.setBounds(position.x, position.y, activeImage.getWidth(), activeImage.getHeight());
 		arrowHeight = 0;
 		arrowShift = 1;
 	}
@@ -89,14 +91,12 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 	}
 	
 	public void connectTo(GameWorldNode otherNode){
-		for (GameWorldNode connectedNode : connectedNodes){
-			// if this node is already connected to this other node, skip
-			if (otherNode == connectedNode){
-				return;
-			}
+		if (connectedNodes.contains(otherNode)){
+			return;
 		}
-		
 		connectedNodes.add(otherNode);
+		Vector2 centering = new Vector2(activeImage.getWidth()/2-10, 10);
+		paths.add(new Path(roadImage, new Vector2(position).add(centering), new Vector2(otherNode.getPosition()).add(centering)));
 		otherNode.getConnected(this);
 	}
 	
@@ -144,38 +144,17 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 		saveService.saveDataValue(SaveEnum.NODE_CODE, nodeCode);
 		saveService.saveDataValue(SaveEnum.CAMERA_POS, position);
 	}
-
-	public Array<GameWorldNode> getConnectedNodes() {
-		return connectedNodes;
-	}
 	
 	@Override
     public void draw(Batch batch, float parentAlpha) {
 		super.draw(batch, parentAlpha);
-		
-		for (GameWorldNode otherNode: connectedNodes){
-			// take my position vector and add a vector of length radius and inclination towards the center of the other node's vector
-			Vector2 connection = new Vector2(otherNode.getPosition());
-			connection.sub(position);
-			connection.setLength(RADIUS);
-			Vector2 onCircumference = new Vector2(position);
-			onCircumference.add(connection);
-			Vector2 onOtherCircumference = new Vector2(otherNode.getPosition());
-			connection.rotate(180);
-			onOtherCircumference.add(connection);
-			double degrees = Math.atan2(
-				    otherNode.getPosition().y - position.y,
-				    otherNode.getPosition().x - position.x
-				) * 180.0d / Math.PI;
-			batch.draw(roadImage, onCircumference.x, onCircumference.y, roadImage.getWidth()/2, roadImage.getHeight()/2, roadImage.getWidth(), onCircumference.dst(onOtherCircumference), 1, 1, 270+(float)degrees, 0, 0, (int)roadImage.getWidth(), (int)roadImage.getHeight(), false, false);
-		}
 	
-		batch.draw(activeImage, (position.x - RADIUS), position.y-RADIUS);
+		batch.draw(activeImage, position.x, position.y);
 		if (current){
-			batch.draw(currentImage, position.x - 5, position.y);
+			batch.draw(currentImage, position.x+20, position.y + 25);
 		}
 		if(active){
-			batch.draw(arrowImage, (position.x - RADIUS)+25, (position.y-RADIUS)+55+arrowHeight/5);
+			batch.draw(arrowImage, position.x+25, position.y+45+arrowHeight/5);
 			arrowHeight += arrowShift;
 			if (arrowHeight > 100 || arrowHeight < 0) arrowShift = 0 - arrowShift;
 		}
@@ -189,7 +168,6 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 			font.setColor(0f,0,0,1);
 			font.draw(batch, getHoverText(), hoverPosition.x, hoverPosition.y+170, 250, Align.center, true);	
 		}
-
 	}
 
 	private String getHoverText(){
@@ -234,7 +212,10 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 		}
 	}
 
-
+	public Array<Path> getPaths(){
+		return paths;
+	}
+	
 	public boolean isSelected() {
 		return selected;
 	}
@@ -244,7 +225,7 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 	}
 	
 	public boolean isOverlapping(Vector2 otherNode) {
-		return Intersector.overlaps(new Circle(position, RADIUS+80), new Circle(otherNode, RADIUS));
+		return Intersector.overlaps(new Circle(position, 105), new Circle(otherNode, 25));
 	}
 	
 	@Override

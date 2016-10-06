@@ -92,7 +92,6 @@ public class GameScreen extends AbstractScreen {
 	@Override
 	public void render(float delta) {
 		super.clear();
-		
 		Vector3 translationVector = new Vector3(0,0,0);
 
 		int speed = 5;

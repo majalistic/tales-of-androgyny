@@ -38,6 +38,7 @@ public class GameWorld {
 			if (node.isSelected()){
 				encounterSelected = true;
 			}
+			// this should be refactored so that hover text is an actor the node creates that is rendered after
 			node.drawHover(batch, new Vector2(camera.position.x + 1000, camera.position.y + 30));			
 		}
 		batch.end();
@@ -45,7 +46,12 @@ public class GameWorld {
 	
 	public Array<Actor> getActors(){
 		Array<Actor> actors = new Array<Actor>();
-		for (Actor actor: nodes){
+		for (GameWorldNode node : nodes){
+			for (Actor actor : node.getPaths()){
+				actors.add(actor);
+			}
+		}
+		for (Actor actor : nodes){
 			actors.add(actor);
 		}
 		return actors;
