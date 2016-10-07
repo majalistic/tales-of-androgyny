@@ -106,7 +106,7 @@ public class EncounterBuilder {
 		Texture backgroundTexture = assetManager.get("DefaultBackground.jpg", Texture.class);	
 		Background background = new Background(backgroundTexture);
 		// if there isn't already a battlecode set, it's determined by the encounterCode; for now, that means dividing the various encounters up by modulus
-		if (battleCode == -1) battleCode = encounterCode % 5;
+		if (battleCode == -1) battleCode = encounterCode;
 		switch (battleCode){
 			// werebitch
 			case 0:

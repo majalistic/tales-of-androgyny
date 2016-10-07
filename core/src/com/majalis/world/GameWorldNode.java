@@ -172,7 +172,7 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 	}
 
 	private String getHoverText(){
-		return visited ? "Nothing here" : getHoverText(encounter % 5); 
+		return visited ? "Nothing here" : getHoverText(encounter); 
 	}
 	
 	private String getHoverText(int encounter){

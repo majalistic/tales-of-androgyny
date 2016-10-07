@@ -77,7 +77,7 @@ public class GameWorldFactory {
 					// save the position for the next iteration
 					currentNodePosition = newNodePosition;
 					
-					GameWorldNode newNode = getNode(nodeCode, nodeCode-1, -1, currentNodePosition, visitedCodesSet.contains(nodeCode) ? true : false, sound, character);
+					GameWorldNode newNode = getNode(nodeCode, (nodeCode-1)%5, -1, currentNodePosition, visitedCodesSet.contains(nodeCode) ? true : false, sound, character);
 					addNode(newNode, nodeMap, nodeCode, nodes);
 					// if we've reached the target node, we can terminate this run-through
 					nodeNotReached = !requiredNode.isAdjacent(newNode);
