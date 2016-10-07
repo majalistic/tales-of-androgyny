@@ -50,7 +50,7 @@ public class ScreenFactoryImpl implements ScreenFactory {
 	public AbstractScreen getScreen(ScreenEnum screenRequest) {
 		OrthographicCamera camera = new OrthographicCamera();
         FitViewport viewport =  new FitViewport(winWidth, winHeight, camera);
-        BitmapFont font = new BitmapFont(Gdx.files.classpath("fonts/solstice18/solstice.fnt"), Gdx.files.classpath("fonts/solstice18/solstice.png" ), false);
+        BitmapFont font = new BitmapFont(Gdx.files.classpath("fonts/solstice18/solstice.fnt"), Gdx.files.classpath("fonts/solstice18/solstice.png"), false);
         ScreenElements elements = new ScreenElements(viewport, batch, font);
         PlayerCharacter character = loadService.loadDataValue(SaveEnum.PLAYER, PlayerCharacter.class);
 		AbstractScreen tempScreen;
@@ -74,6 +74,11 @@ public class ScreenFactoryImpl implements ScreenFactory {
 			case BATTLE:
 				tempScreen = getBattle(elements, character);
 				if (tempScreen != null) return tempScreen;
+				break;
+			case CHARACTER:
+				if (getAssetCheck(CharacterScreen.resourceRequirements)){
+					return new CharacterScreen(this, elements, assetManager, character);
+				}
 				break;
 			case GAME_OVER:				
 				if (getAssetCheck(GameOverScreen.resourceRequirements)){

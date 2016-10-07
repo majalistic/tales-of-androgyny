@@ -9,7 +9,11 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.majalis.asset.AssetEnum;
@@ -32,6 +36,7 @@ public class GameScreen extends AbstractScreen {
 	private final Texture UI;
 	private final int foodAmount;
 	private final PlayerCharacter character;
+	private TextButton characterButton;
 	public static final ObjectMap<String, Class<?>> resourceRequirements = new ObjectMap<String, Class<?>>();
 	static {
 		resourceRequirements.put("uiskin.json", Skin.class);
@@ -51,6 +56,7 @@ public class GameScreen extends AbstractScreen {
 		resourceRequirements.put(AssetEnum.WORLD_MAP_UI.getPath(), Texture.class);
 		resourceRequirements.put(AssetEnum.WORLD_MAP_HOVER.getPath(), Texture.class);
 		resourceRequirements.put(AssetEnum.ARROW.getPath(), Texture.class);
+		resourceRequirements.put(AssetEnum.CHARACTER_SCREEN.getPath(), Texture.class);
 	}
 	public GameScreen(ScreenFactory factory, ScreenElements elements, AssetManager assetManager, LoadService loadService, GameWorld world) {
 		super(factory, elements);
@@ -88,6 +94,23 @@ public class GameScreen extends AbstractScreen {
 		for (Actor actor: world.getActors()){
 			this.addActor(actor);
 		}   
+		final Sound buttonSound = assetManager.get("node_sound.wav", Sound.class); 
+		Skin skin = assetManager.get("uiskin.json", Skin.class);
+		characterButton = new TextButton("View", skin);
+		
+		characterButton.setWidth(120); 
+		characterButton.setHeight(40);
+		characterButton.addListener(
+			new ClickListener(){
+				@Override
+		        public void clicked(InputEvent event, float x, float y) {
+					buttonSound.play(.5f);
+					showScreen(ScreenEnum.CHARACTER);		   
+		        }
+			}
+		);
+		characterButton.addAction(Actions.moveTo(characterButton.getX() + 40, characterButton.getY() + 300));
+		this.addActor(characterButton);
 	}
 	
 	@Override
@@ -111,8 +134,12 @@ public class GameScreen extends AbstractScreen {
 		}
 		
 		getCamera().translate(translationVector);
-			
-		if (world.gameExit){
+		characterButton.addAction(Actions.moveBy(translationVector.x, translationVector.y));
+		
+		if (Gdx.input.isKeyJustPressed(Keys.ENTER)){
+			showScreen(ScreenEnum.CHARACTER);
+		}			
+		else if (world.gameExit){
 			showScreen(ScreenEnum.MAIN_MENU);
 		}
 		else if (world.encounterSelected){

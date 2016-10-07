@@ -9,8 +9,9 @@ public enum ScreenEnum {
     LOAD_GAME,
     ENCOUNTER,
     BATTLE,
+    CHARACTER,
     GAME_OVER,
     OPTIONS,
     REPLAY,
-    EXIT 
+    EXIT, 
 }
