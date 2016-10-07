@@ -31,8 +31,7 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 	// temporary
 	private final BitmapFont font;
 	private final int nodeCode;
-	private final int encounter;
-	private final int defaultEncounter;
+	private final GameWorldNodeEncounter encounter;
 	// for determining where to draw this node at
 	private final Vector2 position;
 	private final boolean visited;
@@ -52,20 +51,20 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 	private int arrowShift;
 	
 	// all the nodes need are the encounter CODES, not the actual encounter - should probably pass in some kind of object that contains the encounter generation logic, rather than an encounter and defaultEncounter code - at least, need a description of the encounter attached
-	public GameWorldNode(SaveService saveService, BitmapFont font, final int nodeCode, int encounter, int defaultEncounter, Vector2 position, boolean visited, Sound sound, PlayerCharacter character, AssetManager assetManager){
+	public GameWorldNode(SaveService saveService, BitmapFont font, final int nodeCode, GameWorldNodeEncounter encounter, Vector2 position, boolean visited, Sound sound, PlayerCharacter character, AssetManager assetManager){
 		this.connectedNodes = new ObjectSet<GameWorldNode>();
 		paths = new Array<Path>();
 		this.saveService = saveService;
 		this.font = font;
 		this.encounter = encounter;
-		this.defaultEncounter = defaultEncounter;
 		this.position = position;
 		this.nodeCode = nodeCode;
 		this.visited = visited;
 		currentImage = assetManager.get("TinySprite0.png", Texture.class);
+		int encounterCode = encounter.getCode();
 		activeImage = 
-			encounter == 1000 ? assetManager.get(AssetEnum.CASTLE.getPath(), Texture.class)
-			: (encounter % 5 == 4 || encounter % 5 == 1 ? assetManager.get(AssetEnum.MOUNTAIN_ACTIVE.getPath(), Texture.class) : assetManager.get(AssetEnum.FOREST_ACTIVE.getPath(), Texture.class));
+			encounterCode == 1000 ? assetManager.get(AssetEnum.CASTLE.getPath(), Texture.class)
+			: (encounterCode % 5 == 4 || encounterCode % 5 == 1 ? assetManager.get(AssetEnum.MOUNTAIN_ACTIVE.getPath(), Texture.class) : assetManager.get(AssetEnum.FOREST_ACTIVE.getPath(), Texture.class));
 		hoverImage = assetManager.get(AssetEnum.WORLD_MAP_HOVER.getPath(), Texture.class);
 		roadImage = assetManager.get(AssetEnum.ROAD.getPath(), Texture.class);
 		arrowImage = assetManager.get(AssetEnum.ARROW.getPath(), Texture.class);
@@ -185,11 +184,11 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 	public void visit(){
 		selected = true;
 		if (!visited){
-			saveService.saveDataValue(SaveEnum.ENCOUNTER_CODE, encounter);
+			saveService.saveDataValue(SaveEnum.ENCOUNTER_CODE, encounter.getCode());
 			saveService.saveDataValue(SaveEnum.VISITED_LIST, nodeCode);
 		}
 		else {
-			saveService.saveDataValue(SaveEnum.ENCOUNTER_CODE, defaultEncounter);
+			saveService.saveDataValue(SaveEnum.ENCOUNTER_CODE, encounter.getDefaultCode());
 		}
 		saveService.saveDataValue(SaveEnum.FOOD, -4);
 		saveService.saveDataValue(SaveEnum.CONTEXT, SaveManager.GameContext.ENCOUNTER);
@@ -223,36 +222,7 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 	}
 
 	private String getHoverText(){
-		return visited ? "Nothing here" : getHoverText(encounter); 
-	}
-	
-	private String getHoverText(int encounter){
-		switch(visibility){
-			case 0:
-				return "You are unsure of what awaits you!";
-			case 1:
-				switch (encounter){
-					case 0: return "Wereslut";
-					case 1: return "Harpy";
-					case 2: return "Slime";
-					case 3: return "Brigand";
-					case 4: return "Dryad";
-					default: return "Unknown - No Info for encounter #" + encounter + " and perception level = 1";
-			}
-			case 2:
-			case 3:
-			case 4:
-			case 5:
-				switch (encounter){
-					case 0: return "Wereslut - Hostile!";
-					case 1: return "Harpy - Hostile!";
-					case 2: return "Slime - Neutral";
-					case 3: return "Brigand - Hostile!";
-					case 4: return "Dryad - Peaceful";
-					default: return "Unknown - No Info for encounter #" + encounter  + " and perception level = 2";
-				}
-			default: return "Perception level error.";
-		}
+		return encounter.getDescription(visibility, visited);
 	}
 	
 	private int getPerceptionLevel(int perception) {

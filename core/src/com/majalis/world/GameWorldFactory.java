@@ -108,6 +108,6 @@ public class GameWorldFactory {
 	}
 	
 	private GameWorldNode getNode(int nodeCode, int encounter, int defaultEncounter, Vector2 position, boolean visited, Sound sound, PlayerCharacter character){
-		return new GameWorldNode(saveService, font, nodeCode, encounter, defaultEncounter, position, visited, sound, character, assetManager);
+		return new GameWorldNode(saveService, font, nodeCode, new GameWorldNodeEncounter(encounter, defaultEncounter), position, visited, sound, character, assetManager);
 	}
 }
