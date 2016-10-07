@@ -41,6 +41,7 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 	private boolean selected;
 	private boolean current;
 	private boolean active;
+	private int visibility;
 	private boolean hover;
 	private Texture currentImage;
 	private Texture activeImage;
@@ -80,6 +81,7 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 		this.setBounds(position.x, position.y, activeImage.getWidth(), activeImage.getHeight());
 		arrowHeight = 0;
 		arrowShift = 1;
+		visibility = -1;
 	}
 	
 	
@@ -110,6 +112,9 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 		for (GameWorldNode connectedNode : connectedNodes){
 			connectedNode.setActive();
 		}
+		ObjectSet<GameWorldNode> visibleSet = new ObjectSet<GameWorldNode>();
+		visibleSet.add(this);
+		setNeighborsVisibility(getPerceptionLevel(character.getScoutingScore()), 1, visibleSet);
 	}
 	
 	private void setActive(){
@@ -130,6 +135,52 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 			}
 		});
 	}
+	
+	private void setVisibility(int visibility){
+		this.visibility = visibility;
+		if (!active && !current){
+			this.addListener(new ClickListener(){ 
+				@Override
+		        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
+					hover = true;
+				}
+				@Override
+		        public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
+					hover = false;
+				}
+			});
+		}
+	}
+	
+	private void setNeighborsVisibility(int visibility, int diminishingFactor, ObjectSet<GameWorldNode> visibleSet){
+		ObjectSet<GameWorldNode> nodesToSetVisible = new ObjectSet<GameWorldNode>(connectedNodes);
+		while (visibility >= 0){
+			for (GameWorldNode connectedNode : nodesToSetVisible){
+				connectedNode.setVisibility(visibility);
+			}
+			ObjectSet<GameWorldNode> nextBatch = new ObjectSet<GameWorldNode>();
+			for (GameWorldNode connectedNode : nodesToSetVisible){
+				ObjectSet<GameWorldNode> newNeighbors = connectedNode.getNeighbors(visibleSet);
+				nextBatch.addAll(newNeighbors);
+				visibleSet.addAll(newNeighbors);
+			}
+			nodesToSetVisible = nextBatch;
+			visibility -= diminishingFactor;	
+		}
+		
+	}
+	
+	private ObjectSet<GameWorldNode> getNeighbors(ObjectSet<GameWorldNode> visibleSet){
+		ObjectSet<GameWorldNode> neighbors = new ObjectSet<GameWorldNode>();
+		for (GameWorldNode node : connectedNodes){
+			if (!visibleSet.contains(node)){
+				neighbors.add(node);
+			}
+		}
+		return neighbors;
+		
+	}
+	
 	
 	public void visit(){
 		selected = true;
@@ -167,7 +218,7 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 			batch.draw(hoverImage, hoverPosition.x, hoverPosition.y);
 			// render hover text
 			font.setColor(0f,0,0,1);
-			font.draw(batch, getHoverText(), hoverPosition.x, hoverPosition.y+170, 250, Align.center, true);	
+			font.draw(batch, getHoverText(), hoverPosition.x+50, hoverPosition.y+170, 150, Align.center, true);	
 		}
 	}
 
@@ -176,7 +227,7 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 	}
 	
 	private String getHoverText(int encounter){
-		switch(getPerceptionLevel(character.getScoutingScore())){
+		switch(visibility){
 			case 0:
 				return "You are unsure of what awaits you!";
 			case 1:
@@ -189,6 +240,9 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 					default: return "Unknown - No Info for encounter #" + encounter + " and perception level = 1";
 			}
 			case 2:
+			case 3:
+			case 4:
+			case 5:
 				switch (encounter){
 					case 0: return "Wereslut - Hostile!";
 					case 1: return "Harpy - Hostile!";
@@ -202,10 +256,13 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 	}
 	
 	private int getPerceptionLevel(int perception) {
-		if (perception >= 6){
+		if (perception >= 8){
+			return 3;
+		}
+		if (perception >= 5){
 			return 2;
 		}
-		else if (perception >= 3){
+		else if (perception >= 2){
 			return 1;
 		}
 		else {
