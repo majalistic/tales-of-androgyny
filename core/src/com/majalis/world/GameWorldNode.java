@@ -156,12 +156,12 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 		while (visibility >= 0){
 			for (GameWorldNode connectedNode : nodesToSetVisible){
 				connectedNode.setVisibility(visibility);
+				visibleSet.add(connectedNode);
 			}
 			ObjectSet<GameWorldNode> nextBatch = new ObjectSet<GameWorldNode>();
 			for (GameWorldNode connectedNode : nodesToSetVisible){
 				ObjectSet<GameWorldNode> newNeighbors = connectedNode.getNeighbors(visibleSet);
 				nextBatch.addAll(newNeighbors);
-				visibleSet.addAll(newNeighbors);
 			}
 			nodesToSetVisible = nextBatch;
 			visibility -= diminishingFactor;	

@@ -109,7 +109,6 @@ public class GameScreen extends AbstractScreen {
 		        }
 			}
 		);
-		characterButton.addAction(Actions.moveTo(characterButton.getX() + 40, characterButton.getY() + 300));
 		this.addActor(characterButton);
 	}
 	
@@ -134,7 +133,7 @@ public class GameScreen extends AbstractScreen {
 		}
 		
 		getCamera().translate(translationVector);
-		characterButton.addAction(Actions.moveBy(translationVector.x, translationVector.y));
+		characterButton.addAction(Actions.moveTo(getCamera().position.x-450, getCamera().position.y-200));
 		
 		if (Gdx.input.isKeyJustPressed(Keys.ENTER)){
 			showScreen(ScreenEnum.CHARACTER);
