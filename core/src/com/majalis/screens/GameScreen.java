@@ -40,6 +40,7 @@ public class GameScreen extends AbstractScreen {
 		resourceRequirements.put(AssetEnum.MOUNTAIN_ACTIVE.getPath(), Texture.class);
 		resourceRequirements.put(AssetEnum.FOREST_ACTIVE.getPath(), Texture.class);
 		resourceRequirements.put(AssetEnum.FOREST_INACTIVE.getPath(), Texture.class);
+		resourceRequirements.put(AssetEnum.CASTLE.getPath(), Texture.class);
 		resourceRequirements.put(AssetEnum.APPLE.getPath(), Texture.class);
 		resourceRequirements.put(AssetEnum.MEAT.getPath(), Texture.class);
 		resourceRequirements.put(AssetEnum.GRASS0.getPath(), Texture.class);

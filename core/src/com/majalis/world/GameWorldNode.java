@@ -51,9 +51,8 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 	private int arrowShift;
 	
 	// all the nodes need are the encounter CODES, not the actual encounter - should probably pass in some kind of object that contains the encounter generation logic, rather than an encounter and defaultEncounter code - at least, need a description of the encounter attached
-	public GameWorldNode(Array<GameWorldNode> connectedNodes, SaveService saveService, BitmapFont font, final int nodeCode, int encounter, int defaultEncounter, Vector2 position, boolean visited, Sound sound, PlayerCharacter character, AssetManager assetManager){
+	public GameWorldNode(SaveService saveService, BitmapFont font, final int nodeCode, int encounter, int defaultEncounter, Vector2 position, boolean visited, Sound sound, PlayerCharacter character, AssetManager assetManager){
 		this.connectedNodes = new ObjectSet<GameWorldNode>();
-		for (GameWorldNode node: connectedNodes){ this.connectedNodes.add(node); }
 		paths = new Array<Path>();
 		this.saveService = saveService;
 		this.font = font;
@@ -63,7 +62,9 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 		this.nodeCode = nodeCode;
 		this.visited = visited;
 		currentImage = assetManager.get("TinySprite0.png", Texture.class);
-		activeImage = encounter % 5 == 4 || encounter % 5 == 1 ? assetManager.get(AssetEnum.MOUNTAIN_ACTIVE.getPath(), Texture.class) : assetManager.get(AssetEnum.FOREST_ACTIVE.getPath(), Texture.class);
+		activeImage = 
+			encounter == 1000 ? assetManager.get(AssetEnum.CASTLE.getPath(), Texture.class)
+			: (encounter % 5 == 4 || encounter % 5 == 1 ? assetManager.get(AssetEnum.MOUNTAIN_ACTIVE.getPath(), Texture.class) : assetManager.get(AssetEnum.FOREST_ACTIVE.getPath(), Texture.class));
 		hoverImage = assetManager.get(AssetEnum.WORLD_MAP_HOVER.getPath(), Texture.class);
 		roadImage = assetManager.get(AssetEnum.ROAD.getPath(), Texture.class);
 		arrowImage = assetManager.get(AssetEnum.ARROW.getPath(), Texture.class);

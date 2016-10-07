@@ -13,7 +13,8 @@ public enum AssetEnum {
 	CLOUD("worldmap/Cloud.png"),
 	APPLE("worldmap/Apple.png"),
 	MEAT("worldmap/Meat.png"),
-	ROAD("worldmap/Road.png");
+	ROAD("worldmap/Road.png"),
+	CASTLE("worldmap/Castle.png");
 	
 	private final String path;
 

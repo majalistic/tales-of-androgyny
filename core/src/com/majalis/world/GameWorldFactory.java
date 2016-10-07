@@ -24,7 +24,6 @@ public class GameWorldFactory {
 	private final AssetManager assetManager;
 	private final BitmapFont font;
 	private final RandomXS128 random;
-	private GameContext context;
 	
 	public GameWorldFactory(SaveManager saveManager, AssetManager assetManager, BitmapFont font, RandomXS128 random){
 		this.saveService = saveManager;
@@ -45,11 +44,10 @@ public class GameWorldFactory {
 		PlayerCharacter character = loadService.loadDataValue(SaveEnum.PLAYER, PlayerCharacter.class);
 		
 		// -1 = magic number to get the defaultEncounter
-		addNode(new GameWorldNode(new Array<GameWorldNode>(), saveService, font, 1, 0, -1, new Vector2(500, 500), visitedCodesSet.contains(1) ? true : false, sound, character, assetManager), nodeMap, 1, nodes);
+		addNode(getNode(1, 0, -1, new Vector2(500, 500), true, sound, character), nodeMap, 1, nodes);
 		Array<GameWorldNode> requiredNodes = new Array<GameWorldNode>();
 		// end node
-		addNode(new GameWorldNode(new Array<GameWorldNode>(), saveService, font, 2, 1, -1, new Vector2(1800, 1800), visitedCodesSet.contains(1) ? true : false, sound, character, assetManager), nodeMap, 2, nodes, requiredNodes);
-		
+		addNode(getNode(2, 1000, -1, new Vector2(1800, 1800), visitedCodesSet.contains(2) ? true : false, sound, character), nodeMap, 2, nodes, requiredNodes);
 		// temporarily stop at 1000 to prevent hangs if endpoint isn't found - in the future this should set something that will smoothly guide towards the exit as the number of nodes increase
 		for (int ii = 0; ii < 8; ii++){
 			for (GameWorldNode requiredNode : requiredNodes){
@@ -79,7 +77,7 @@ public class GameWorldFactory {
 					// save the position for the next iteration
 					currentNodePosition = newNodePosition;
 					
-					GameWorldNode newNode = new GameWorldNode(new Array<GameWorldNode>(), saveService, font, nodeCode, nodeCode-1, -1, currentNodePosition, visitedCodesSet.contains(nodeCode) ? true : false, sound, character, assetManager);
+					GameWorldNode newNode = getNode(nodeCode, nodeCode-1, -1, currentNodePosition, visitedCodesSet.contains(nodeCode) ? true : false, sound, character);
 					addNode(newNode, nodeMap, nodeCode, nodes);
 					// if we've reached the target node, we can terminate this run-through
 					nodeNotReached = !requiredNode.isAdjacent(newNode);
@@ -102,39 +100,14 @@ public class GameWorldFactory {
 		return new GameWorld(nodes);
 	}
 	
-	public void addNode(GameWorldNode newNode, IntMap<GameWorldNode> nodeMap, int nodeCode, Array<GameWorldNode> ... nodes){
+	private void addNode(GameWorldNode newNode, IntMap<GameWorldNode> nodeMap, int nodeCode, Array<GameWorldNode> ... nodes){
 		for (Array<GameWorldNode> nodeArray: nodes){
 			nodeArray.add(newNode);
 		}
 		nodeMap.put(nodeCode, newNode);
 	}
-
-	public void setContext(GameContext context) {
-		this.context = context;
-	}
 	
-	public GameContext getGameContext() {
-		return context;
-	}
-	
-	public enum ClassEnum {
-		WARRIOR ("Warrior"),
-		PALADIN ("Paladin"),
-		THIEF ("Thief"),
-		RANGER ("Ranger"),
-		MAGE ("Mage"),
-		ENCHANTRESS ("Enchanter");
-		
-		private final String label;
-
-		ClassEnum(String label) {
-		    this.label = label;
-		 }
-		public String getLabel(){return label;}
-	}
-	
-	public enum GameContext {
-		ENCOUNTER,
-		WORLD_MAP
+	private GameWorldNode getNode(int nodeCode, int encounter, int defaultEncounter, Vector2 position, boolean visited, Sound sound, PlayerCharacter character){
+		return new GameWorldNode(saveService, font, nodeCode, encounter, defaultEncounter, position, visited, sound, character, assetManager);
 	}
 }
