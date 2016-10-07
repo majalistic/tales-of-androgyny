@@ -28,6 +28,7 @@ public class EnemyCharacter extends AbstractCharacter {
 				baseAgility = 5;
 				break;
 			case BRIGAND:
+				baseStrength = 4;
 				break;
 			case SLIME:
 				baseStrength = 2;

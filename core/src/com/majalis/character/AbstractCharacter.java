@@ -157,7 +157,7 @@ public abstract class AbstractCharacter extends Actor {
 		String result = (secondPerson ? label.toLowerCase() : label) + ". ";
 
 		int damage = attack.getDamage();
-		damage -= getEndurance();
+		damage -= getEndurance()/2;
 		if (damage > 0){	
 			currentHealth -= damage;
 			result += "The blow strikes for " + damage + " damage! ";
