@@ -82,12 +82,12 @@ public class SkillSelectionScene extends Scene {
 		
 		for (final Techniques technique: Techniques.getLearnableSkills()){
 			if (character.getSkills().contains(technique)) continue;
-			final TextButton button = new TextButton(technique.toString(), skin);
+			final TextButton button = new TextButton(technique.getTrait().getName(), skin);
 			button.addListener(new ClickListener(){
 				@Override
 		        public void clicked(InputEvent event, float x, float y) {
 					buttonSound.play(.5f);
-					console = "You have learned " + technique.toString() + ".";
+					console = "You have learned " + technique.getTrait().getName() + ".";
 					table.removeActor(button);
 					
 					character.skillPoints--;
@@ -148,12 +148,12 @@ public class SkillSelectionScene extends Scene {
 		
 		for (final Techniques technique: Techniques.getLearnableSpells()){
 			if (character.getSkills().contains(technique)) continue;
-			final TextButton button = new TextButton(technique.toString(), skin);
+			final TextButton button = new TextButton(technique.getTrait().getName(), skin);
 			button.addListener(new ClickListener(){
 				@Override
 		        public void clicked(InputEvent event, float x, float y) {
 					buttonSound.play(.5f);
-					console = "You have learned " + technique.toString() + ".";
+					console = "You have learned " + technique.getTrait().getName() + ".";
 					magicTable.removeActor(button);
 					
 					character.magicPoints--;

@@ -55,107 +55,111 @@ public class EnemyCharacter extends AbstractCharacter {
 		
 		if (willPounce()){
 			if (target.stance == Stance.PRONE || target.stance == Stance.SUPINE){
-				return new Technique(Techniques.POUNCE, getStrength());
+				return getTechnique(Techniques.POUNCE);
 			}
 			else if (target.stance == Stance.KNEELING){
-				return new Technique(Techniques.IRRUMATIO, getStrength());
+				return getTechnique(Techniques.IRRUMATIO);
 			}
 			else if (enemyType == EnemyEnum.HARPY){
-				return new Technique(Techniques.FLY, getStrength());
+				return getTechnique(Techniques.FLY);
 			}
 		}
 		
 		if (enemyType == EnemyEnum.SLIME && stance != Stance.DOGGY && stance != Stance.FELLATIO){
 			if (currentStamina > 3 && (stance == Stance.BALANCED || currentStamina > 9)){
-				return new Technique(Techniques.SLIME_ATTACK, getStrength()); 
+				return getTechnique(Techniques.SLIME_ATTACK); 
 			}
 			else {
-				return new Technique(Techniques.SLIME_QUIVER, getStrength()); 
+				return getTechnique(Techniques.SLIME_QUIVER); 
 			}
 		}
 		
 		switch(stance){
 			case OFFENSIVE:
-				if (stability < 5) return new Technique(Techniques.RESERVED_ATTACK, getStrength());
-				if (stability < 6) return new Technique(Techniques.TEMPO_ATTACK, getStrength());
+				if (stability < 5) return getTechnique(Techniques.RESERVED_ATTACK);
+				if (stability < 6) return getTechnique(Techniques.TEMPO_ATTACK);
 				switch (rand){					
 					case 0:
-						if (currentStamina < 5) return new Technique(Techniques.RESERVED_ATTACK, getStrength());
-						if (currentStamina < 7) return new Technique(Techniques.TEMPO_ATTACK, getStrength());
-						return new Technique(Techniques.STRONG_ATTACK, getStrength());	
+						if (currentStamina < 5) return getTechnique(Techniques.RESERVED_ATTACK);
+						if (currentStamina < 7) return getTechnique(Techniques.TEMPO_ATTACK);
+						return getTechnique(Techniques.STRONG_ATTACK);	
 					case 1:
-						if (currentStamina < 5) return new Technique(Techniques.RESERVED_ATTACK, getStrength());
-						return new Technique(Techniques.TEMPO_ATTACK, getStrength());	
+						if (currentStamina < 5) return getTechnique(Techniques.RESERVED_ATTACK);
+						return getTechnique(Techniques.TEMPO_ATTACK);	
 					case 2:	
-						return new Technique(Techniques.RESERVED_ATTACK, getStrength());
+						return getTechnique(Techniques.RESERVED_ATTACK);
 				}
 			case BALANCED:
-				if (currentStamina < 4 || stability < 4) return new Technique(Techniques.CAUTIOUS_ATTACK, getStrength());
+				if (currentStamina < 4 || stability < 4) return getTechnique(Techniques.CAUTIOUS_ATTACK);
 				switch (rand){
 					case 0:
-						if (currentStamina < 8 || stability < 6) return new Technique(Techniques.NEUTRAL_ATTACK, getStrength());
-						return new Technique(Techniques.SPRING_ATTACK, getStrength());	
+						if (currentStamina < 8 || stability < 6) return getTechnique(Techniques.NEUTRAL_ATTACK);
+						return getTechnique(Techniques.SPRING_ATTACK);	
 					case 1:
-						if (currentStamina < 3 || stability < 2) return new Technique(Techniques.CAUTIOUS_ATTACK, getStrength());
-						return new Technique(Techniques.NEUTRAL_ATTACK, getStrength());	
+						if (currentStamina < 3 || stability < 2) return getTechnique(Techniques.CAUTIOUS_ATTACK);
+						return getTechnique(Techniques.NEUTRAL_ATTACK);	
 					case 2:	
-						return new Technique(Techniques.CAUTIOUS_ATTACK, getStrength());
+						return getTechnique(Techniques.CAUTIOUS_ATTACK);
 				}
 			case DEFENSIVE:
-				if (currentStamina < 4) return new Technique(Techniques.SECOND_WIND, getStrength());
-				if (stability < 5) return new Technique(Techniques.GUARD, getStrength());
+				if (currentStamina < 4) return getTechnique(Techniques.SECOND_WIND);
+				if (stability < 5) return getTechnique(Techniques.GUARD);
 				switch (rand){
 					case 0:
-						if (currentStamina < 8 || stability < 9) return new Technique(Techniques.CAREFUL_ATTACK, getStrength());
-						return new Technique(Techniques.REVERSAL_ATTACK, getStrength());	
+						if (currentStamina < 8 || stability < 9) return getTechnique(Techniques.CAREFUL_ATTACK);
+						return getTechnique(Techniques.REVERSAL_ATTACK);	
 					case 1:
-						if (currentStamina < 4) return new Technique(Techniques.GUARD, getStrength());
-						return new Technique(Techniques.CAREFUL_ATTACK, getStrength());	
+						if (currentStamina < 4) return getTechnique(Techniques.GUARD);
+						return getTechnique(Techniques.CAREFUL_ATTACK);	
 					case 2:	
-						if (currentStamina < 7) return new Technique(Techniques.SECOND_WIND, getStrength());
-						return new Technique(Techniques.GUARD, getStrength());
+						if (currentStamina < 7) return getTechnique(Techniques.SECOND_WIND);
+						return getTechnique(Techniques.GUARD);
 				}
 			case PRONE:
 			case SUPINE:
 				if (currentStamina > 5){
-					return new Technique(Techniques.KIP_UP, getStrength());
+					return getTechnique(Techniques.KIP_UP);
 				}	
 				else if (currentStamina > 2){
-					return new Technique(Techniques.STAND_UP, getStrength());
+					return getTechnique(Techniques.STAND_UP);
 				}
 				else {
-					return new Technique(Techniques.REST, getStrength());
+					return getTechnique(Techniques.REST);
 				}				
 			case DOGGY:
 				lust++;
 				if (enemyType != EnemyEnum.WERESLUT && lust > 14){
 					lust -= 14;
-					return new Technique(Techniques.ERUPT, getStrength());
+					return getTechnique(Techniques.ERUPT);
 				}
 				if (enemyType == EnemyEnum.WERESLUT && lust > 17){
-					return new Technique(Techniques.KNOT, getStrength());
+					return getTechnique(Techniques.KNOT);
 				}
 				else {
-					return new Technique(Techniques.POUND, getStrength());
+					return getTechnique(Techniques.POUND);
 				}
 			case KNOTTED:
-				return new Technique(Techniques.KNOT_BANG, getStrength());
+				return getTechnique(Techniques.KNOT_BANG);
 			case AIRBORNE:
-				return new Technique(Techniques.DIVEBOMB, getStrength());
+				return getTechnique(Techniques.DIVEBOMB);
 			case FELLATIO:
 				lust++;
 				if (lust > 14){
 					lust -= 14;
-					return new Technique(Techniques.ERUPT, getStrength());
+					return getTechnique(Techniques.ERUPT);
 				}
 				else {
-					return new Technique(Techniques.IRRUMATIO, getStrength());
+					return getTechnique(Techniques.IRRUMATIO);
 				}	
 			case ERUPT:
 				stance = Stance.BALANCED;
 				return getTechnique(target);
 			default: return null;
 		}
+	}
+	
+	private Technique getTechnique(Techniques technique){
+		return new Technique(technique.getTrait(), getStrength());
 	}
 	
 	private int getRandomWeighting(){

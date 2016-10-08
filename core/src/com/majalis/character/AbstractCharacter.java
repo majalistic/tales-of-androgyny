@@ -180,14 +180,14 @@ public abstract class AbstractCharacter extends Actor {
 		
 		if (stance != Stance.PRONE && stance != Stance.SUPINE && stance != Stance.DOGGY){
 			if (stability <= 0){
-				technique = new Technique(Techniques.TRIP, 0);
+				technique = new Technique(Techniques.TRIP.getTrait(), 0);
 				setStabilityToMin();
 			}
 			else if (currentStamina <= 0){
-				technique = new Technique(Techniques.FALL_DOWN, 0);
+				technique = new Technique(Techniques.FALL_DOWN.getTrait(), 0);
 			}
 			else if (currentMana < 0){
-				technique = new Technique(Techniques.FIZZLE, 0);
+				technique = new Technique(Techniques.FIZZLE.getTrait(), 0);
 				currentMana = 0;
 			}
 		}

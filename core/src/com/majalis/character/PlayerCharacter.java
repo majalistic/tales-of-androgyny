@@ -133,6 +133,7 @@ public class PlayerCharacter extends AbstractCharacter {
 		}
 	}
 	
+	
 	public Technique getTechnique(AbstractCharacter target){
 		// this should be re-architected - player characters likely won't use this method
 		return null;
@@ -143,7 +144,7 @@ public class PlayerCharacter extends AbstractCharacter {
 		
 		for (Techniques technique : possibilities){
 			if (skills.contains(technique)){
-				possibleTechniques.add(new Technique(technique,technique.isSpell() ? getMagic() : getStrength()));
+				possibleTechniques.add(new Technique(technique.getTrait(),technique.getTrait().isSpell() ? getMagic() : getStrength()));
 			}	
 		}
 		

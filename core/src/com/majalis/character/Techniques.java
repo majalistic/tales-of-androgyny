@@ -1,99 +1,85 @@
 package com.majalis.character;
 
 import com.badlogic.gdx.utils.Array;
+import com.majalis.Technique.TechniquePrototype;
+import com.majalis.Technique.AttackTechnique;
+import com.majalis.Technique.FallDownTechnique;
+import com.majalis.Technique.GuardTechnique;
+import com.majalis.Technique.NonAttackTechnique;
+import com.majalis.Technique.SpellTechnique;
 import com.majalis.character.AbstractCharacter.Stance;
 /*
  * List of all techniques and their generic attributes
  */
 public enum Techniques {
-	// may want to reorganize these by what stances they're used in, rather than what stances they result in
-	/* Offensive Techniques */
-	STRONG_ATTACK 	{ public Stance getStanceResult(){ return Stance.OFFENSIVE; } public int getPowerMod(){ return 3; } public int getStabilityCost(){ return 3; } public int getStaminaCost(){ return 8; } },
-	TEMPO_ATTACK  	{ public Stance getStanceResult(){ return Stance.OFFENSIVE; } public int getPowerMod(){ return 2; } public int getStabilityCost(){ return 2; } public int getStaminaCost(){ return 6; } },
-	SPRING_ATTACK 	{ public Stance getStanceResult(){ return Stance.OFFENSIVE; } public int getPowerMod(){ return 1; } public int getStabilityCost(){ return 4; } public int getStaminaCost(){ return 6; } },	
+	/* Offensive Techniques */  
+	STRONG_ATTACK 		(new AttackTechnique(Stance.OFFENSIVE, "Strong Attack", 3, 3, 8)),
+	TEMPO_ATTACK  		(new AttackTechnique(Stance.OFFENSIVE, "Tempo Attack", 2, 2, 6)),
+	SPRING_ATTACK  		(new AttackTechnique(Stance.OFFENSIVE, "Spring Attack", 1, 4, 6)),
 	/* Balanced Techniques */
-	RESERVED_ATTACK { public Stance getStanceResult(){ return Stance.BALANCED;  } public int getPowerMod(){ return 1; } public int getStabilityCost(){ return 4; } public int getStaminaCost(){ return 2; } },
-	REVERSAL_ATTACK { public Stance getStanceResult(){ return Stance.BALANCED;  } public int getPowerMod(){ return 0; } public int getStabilityCost(){ return 2; } public int getStaminaCost(){ return 4; } },
-	NEUTRAL_ATTACK  { public Stance getStanceResult(){ return Stance.BALANCED;  } public int getPowerMod(){ return 0; } public int getStabilityCost(){ return 1; } public int getStaminaCost(){ return 1; } },
+	RESERVED_ATTACK  	(new AttackTechnique(Stance.BALANCED, "Reserved Attack", 1, 4, 2)),
+	REVERSAL_ATTACK  	(new AttackTechnique(Stance.BALANCED, "Reversal Attack", 0, 2, 4)),
+	NEUTRAL_ATTACK  	(new AttackTechnique(Stance.BALANCED, "Neutral Attack", 0, 1, 1)),
 	/* Defensive Techniques */
-	CAUTIOUS_ATTACK { public Stance getStanceResult(){ return Stance.DEFENSIVE; } public int getPowerMod(){ return -1; } public int getStabilityCost(){ return 0; } public int getStaminaCost(){ return 2; } }, 
-	CAREFUL_ATTACK  { public Stance getStanceResult(){ return Stance.DEFENSIVE; } public int getPowerMod(){ return 0; }  public int getStabilityCost(){ return 0; } public int getStaminaCost(){ return 2; } }, 
-	GUARD			{ public Stance getStanceResult(){ return Stance.DEFENSIVE; } public int getPowerMod(){ return -100; } public int getStabilityCost(){ return -1; } public int getStaminaCost(){ return 0; } },
-	SECOND_WIND		{ public Stance getStanceResult(){ return Stance.DEFENSIVE; } public int getPowerMod(){ return -100; } public int getStabilityCost(){ return -1; } public int getStaminaCost(){ return -4; } },	
-	
+	CAUTIOUS_ATTACK  	(new AttackTechnique(Stance.DEFENSIVE, "Cautious Attack", -1, 0, 2)),
+	CAREFUL_ATTACK  	(new AttackTechnique(Stance.DEFENSIVE, "Careful Attack", 0, 0, 2)),
+	GUARD  				(new GuardTechnique(Stance.DEFENSIVE, "Guard", -1, 0)),
+	SECOND_WIND			(new NonAttackTechnique(Stance.DEFENSIVE, "Second Wind", -1, -4)),
 	/* Techniques from Prone/Supine */
-	KIP_UP			{ public Stance getStanceResult(){ return Stance.BALANCED; } public int getPowerMod(){ return -100; } public int getStabilityCost(){ return -5; } public int getStaminaCost(){ return 5; } }, // stand automatically	
-	STAND_UP		{ public Stance getStanceResult(){ return Stance.BALANCED; } public int getPowerMod(){ return -100; } public int getStabilityCost(){ return -1; } public int getStaminaCost(){ return 2; } }, // will fall again if you don't have enough stability
-	KNEE_UP			{ public Stance getStanceResult(){ return Stance.KNEELING; } public int getPowerMod(){ return -100; } public int getStabilityCost(){ return -5; } public int getStaminaCost(){ return 1; } },
-	REST			{ public Stance getStanceResult(){ return Stance.SUPINE; } 	 public int getPowerMod(){ return -100; } public int getStabilityCost(){ return -1; } public int getStaminaCost(){ return -1; } },
-	REST_FACE_DOWN  { public Stance getStanceResult(){ return Stance.PRONE; } 	 public int getPowerMod(){ return -100; } public int getStabilityCost(){ return -1; } public int getStaminaCost(){ return -1; } },	
-	
+	KIP_UP				(new NonAttackTechnique(Stance.BALANCED, "Kip Up", -5, 5)),
+	STAND_UP			(new NonAttackTechnique(Stance.BALANCED, "Stand Up", -1, 2)),
+	KNEE_UP				(new NonAttackTechnique(Stance.BALANCED, "Knee Up", -5, 1)),
+	REST				(new NonAttackTechnique(Stance.SUPINE, "Rest", -1, -1)),
+	REST_FACE_DOWN		(new NonAttackTechnique(Stance.PRONE, "Rest", -1, -1)),
 	/* Out of resources */
-	FALL_DOWN		{ public Stance getStanceResult(){ return Stance.SUPINE; } 	 public int getPowerMod(){ return -100; } public int getStabilityCost(){ return -100; } public int getStaminaCost(){ return 0; } }, // run out of stamina
-	TRIP			{ public Stance getStanceResult(){ return Stance.PRONE; } 	 public int getPowerMod(){ return -100; } public int getStabilityCost(){ return -100; } public int getStaminaCost(){ return 0; } }, // run out of stability
-	FIZZLE			{ public Stance getStanceResult(){ return Stance.BALANCED; }  public int getPowerMod(){ return -100; } public int getStabilityCost(){ return 0; } public int getStaminaCost(){ return 0; } },
-	
+	FALL_DOWN			(new FallDownTechnique(Stance.SUPINE, "Fall Down")), // run out of stamina
+	TRIP				(new FallDownTechnique(Stance.PRONE, "Trip")),		 // run out of stability
+	FIZZLE				(new NonAttackTechnique(Stance.BALANCED, "Fizzle", 0, 0)),	 // run out of mana
 	/* Positional */
-	DUCK			{ public Stance getStanceResult(){ return Stance.KNEELING; } public int getPowerMod(){ return -100; } public int getStabilityCost(){ return 0; } public int getStaminaCost(){ return 0; } },
-	FLY				{ public Stance getStanceResult(){ return Stance.AIRBORNE; } public int getPowerMod(){ return -100; } public int getStabilityCost(){ return 0; } public int getStaminaCost(){ return 0; } }, 
-
+	DUCK				(new NonAttackTechnique(Stance.KNEELING, "Duck", 0, 0)),	 
+	FLY					(new NonAttackTechnique(Stance.AIRBORNE, "Fly", 0, 0)),	 
 	/* Enemy attacks */
-	
-	SLIME_ATTACK    { public Stance getStanceResult(){ return Stance.BALANCED; } public int getPowerMod(){ return 7; } public int getStabilityCost(){ return -100; } public int getStaminaCost(){ return 5; } },
-	SLIME_QUIVER 	{ public Stance getStanceResult(){ return Stance.DEFENSIVE; } public int getPowerMod(){ return -100; } public int getStabilityCost(){ return -100; } public int getStaminaCost(){ return -1; } },
+	SLIME_ATTACK 		(new AttackTechnique(Stance.BALANCED, "Slime Attack", 7, 0, 5)),
+	SLIME_QUIVER 		(new NonAttackTechnique(Stance.DEFENSIVE, "Slime Quiver", 0, -1)),
 	
 	/* Enemy pouncing */
-	DIVEBOMB		{ public Stance getStanceResult(){ return Stance.FELLATIO; } public int getPowerMod(){ return -100; } public int getStabilityCost(){ return 0; } public int getStaminaCost(){ return 0; } },
-	IRRUMATIO		{ public Stance getStanceResult(){ return Stance.FELLATIO; } public int getPowerMod(){ return -100; } public int getStabilityCost(){ return 0; } public int getStaminaCost(){ return 0; } },
-	POUNCE			{ public Stance getStanceResult(){ return Stance.DOGGY; } 	 public int getPowerMod(){ return -100; } public int getStabilityCost(){ return 0; } public int getStaminaCost(){ return 2; } }, // Used to initiate doggy
-	POUND			{ public Stance getStanceResult(){ return Stance.DOGGY; } 	 public int getPowerMod(){ return -100; } public int getStabilityCost(){ return 0; } public int getStaminaCost(){ return 1; } }, // Used to doggystyle
-	KNOT 			{ public Stance getStanceResult(){ return Stance.KNOTTED; }	 public int getPowerMod(){ return -100; } public int getStabilityCost(){ return 0; } public int getStaminaCost(){ return 0; } }, // Used to knot by knotty weresluts and others
-	KNOT_BANG 		{ public Stance getStanceResult(){ return Stance.KNOTTED; }  public int getPowerMod(){ return -100; } public int getStabilityCost(){ return 0; } public int getStaminaCost(){ return 0; } }, // Used to knot by knotty weresluts and others - could end the battle
-	ERUPT			{ public Stance getStanceResult(){ return Stance.ERUPT; } public int getPowerMod(){ return -100; } public int getStabilityCost(){ return 0; } public int getStaminaCost(){ return 1; } }, // Used to creampie
-	/* Receptive */
-	RECEIVE			{ public Stance getStanceResult(){ return Stance.DOGGY; } 	 public int getPowerMod(){ return -100; } public int getStabilityCost(){ return 0; } public int getStaminaCost(){ return 1; } }, // Used to receive doggystyle 
-	RECEIVE_KNOT	{ public Stance getStanceResult(){ return Stance.KNOTTED; }  public int getPowerMod(){ return -100; } public int getStabilityCost(){ return 0; } public int getStaminaCost(){ return 1; } }, // Used to receive the knot
-	OPEN_WIDE		{ public Stance getStanceResult(){ return Stance.FELLATIO; }  public int getPowerMod(){ return -100; } public int getStabilityCost(){ return 0; } public int getStaminaCost(){ return 1; } },
-	STRUGGLE		{ public Stance getStanceResult(){ return Stance.BALANCED; }  public int getPowerMod(){ return -100; } public int getStabilityCost(){ return 0; } public int getStaminaCost(){ return 1; } },
+	DIVEBOMB 			(new NonAttackTechnique(Stance.FELLATIO, "Divebomb", 0, 0, Stance.FELLATIO)), // TechniqueHeight.HIGH
+	IRRUMATIO 			(new NonAttackTechnique(Stance.FELLATIO, "Irrumatio", 0, 0, Stance.FELLATIO)), 
+	POUNCE 				(new NonAttackTechnique(Stance.DOGGY, "Pounce", 0, 2, Stance.DOGGY)), // Used to initiate doggy
+	POUND 				(new NonAttackTechnique(Stance.DOGGY, "Pound", 0, 1, Stance.DOGGY)), // Used to doggystyle
+	KNOT 				(new NonAttackTechnique(Stance.KNOTTED, "Knot", 0, 0, Stance.KNOTTED, "Set Damage")), // Used to knot by knotty weresluts and others
+	KNOT_BANG 			(new NonAttackTechnique(Stance.KNOTTED, "Knot Bang", 0, 0, Stance.KNOTTED, true)), // Used to knot by knotty weresluts and others - could end the battle
+	ERUPT 				(new NonAttackTechnique(Stance.ERUPT, "Erupt", 0, 1, Stance.BALANCED)),
 	
+	RECEIVE 			(new NonAttackTechnique(Stance.DOGGY, "Receive", 0, 0)), 
+	RECEIVE_KNOT 		(new NonAttackTechnique(Stance.KNOTTED, "Receive Knot", 0, 0)), 
+	OPEN_WIDE 			(new NonAttackTechnique(Stance.FELLATIO, "Open Wide", 0, 0)), 
+	STRUGGLE 			(new NonAttackTechnique(Stance.BALANCED, "Struggle", 0, 0, Stance.BALANCED)), // Breakhold
 	
-	INCANTATION		{ public Stance getStanceResult(){ return Stance.CASTING; }   public int getPowerMod(){ return -100; } public int getStabilityCost(){ return 0; } public int getStaminaCost(){ return 1; } },
-		
+	INCANTATION 		(new NonAttackTechnique(Stance.CASTING, "Incantation", 0, 1)), 
+	
 	/* Learnable Skills*/
-	VAULT			{ public Stance getStanceResult(){ return Stance.AIRBORNE; }  public int getPowerMod(){ return -100; } public int getStabilityCost(){ return 2; } public int getStaminaCost(){ return 4; } },
-	JUMP_ATTACK		{ public Stance getStanceResult(){ return Stance.BALANCED; }  public int getPowerMod(){ return 4; } 	public int getStabilityCost(){ return 4; } public int getStaminaCost(){ return 2; } },
-	RECKLESS_ATTACK	{ public Stance getStanceResult(){ return Stance.OFFENSIVE; }  public int getPowerMod(){ return 2; } public int getStabilityCost(){ return 3; } public int getStaminaCost(){ return 6; } },
-	TAUNT			{ public Stance getStanceResult(){ return Stance.DEFENSIVE;}  public int getPowerMod(){ return -100; } public int getStabilityCost(){ return 0; } public int getStaminaCost(){ return 0; } },
-	KNOCK_DOWN		{ public Stance getStanceResult(){ return Stance.OFFENSIVE;}  public int getPowerMod(){ return 1; } public int getStabilityCost(){ return 3; } public int getStaminaCost(){ return 6; } },
-	HIT_THE_DECK	{ public Stance getStanceResult(){ return Stance.PRONE;}  	  public int getPowerMod(){ return -100; } public int getStabilityCost(){ return -100; } public int getStaminaCost(){ return 2; } },
-	PARRY			{ public Stance getStanceResult(){ return Stance.DEFENSIVE;}  public int getPowerMod(){ return -100; } public int getStabilityCost(){ return 0; } public int getStaminaCost(){ return 0; } },
+	VAULT 				(new NonAttackTechnique(Stance.AIRBORNE, "Vault", 2, 4)), 
+	JUMP_ATTACK 		(new AttackTechnique(Stance.BALANCED, "Jump Attack", 4, 4, 2)),
+	RECKLESS_ATTACK 	(new AttackTechnique(Stance.OFFENSIVE, "Reckless Attack", 2, 3, 6)), // needs to be unguardable
 	
-	COMBAT_HEAL		{ public Stance getStanceResult(){ return Stance.BALANCED; }  public int getPowerMod(){ return 10; } public int getStabilityCost(){ return 0; } public int getStaminaCost(){ return 1; } @Override public boolean isSpell(){return true;} @Override public int getManaCost(){ return 10; } },
-	COMBAT_FIRE		{ public Stance getStanceResult(){ return Stance.BALANCED; }  public int getPowerMod(){ return 3; } public int getStabilityCost(){ return 0; } public int getStaminaCost(){ return 1; } @Override public boolean isSpell(){return true;} @Override public int getManaCost(){ return 5; } },
-	TITAN_STRENGTH  { public Stance getStanceResult(){ return Stance.BALANCED; }  public int getPowerMod(){ return -100; } public int getStabilityCost(){ return 0; } public int getStaminaCost(){ return 1; } @Override public boolean isSpell(){return true;} @Override public int getManaCost(){ return 2; } }	
+	TAUNT 			(new NonAttackTechnique(Stance.DEFENSIVE, "Taunt", 0, 0)), 
+	KNOCK_DOWN 		(new AttackTechnique(Stance.OFFENSIVE, "Knock Down", 1, 3, 6)), // needs to knock down
+	HIT_THE_DECK	(new FallDownTechnique(Stance.PRONE, "Hit the Deck")), 
+	PARRY  			(new GuardTechnique(Stance.DEFENSIVE, "Parry", -1, 0)),
+	
+	COMBAT_HEAL  			(new SpellTechnique(Stance.BALANCED, "Combat Heal", 10, 10, true)),
+	COMBAT_FIRE  			(new SpellTechnique(Stance.BALANCED, "Combat Fire", 3, 5, false)),
+	TITAN_STRENGTH  		(new SpellTechnique(Stance.BALANCED, "Titan Strength", 0, 2, false)),	
 	;
 	
-	public abstract Stance getStanceResult();
-	public abstract int getPowerMod();
-	public abstract int getStabilityCost();  // Unbalancing moves carry a heavier stability cost
-	public abstract int getStaminaCost(); 	 // More strenuous moves carry a heavier stamina cost.  
-	public int getManaCost(){ return 0; }
-	
-	
-	public String toString(){
-		char[] chars = super.toString().replace("_", " ").toLowerCase().toCharArray();
-		boolean found = false;
-		for (int i = 0; i < chars.length; i++) {
-			if (!found && Character.isLetter(chars[i])) {
-				chars[i] = Character.toUpperCase(chars[i]);
-				found = true;
-		    } 
-			else if (Character.isWhitespace(chars[i])) {
-				found = false;
-		    }
-		}		
-		return String.valueOf(chars);
+	private final TechniquePrototype trait;
+	private Techniques(TechniquePrototype trait){
+		this.trait = trait;
 	}
+	
+	public TechniquePrototype getTrait(){ return trait; }
+	
 	public static Array<Techniques> getLearnableSkills() {
 		Techniques[] learnables = new Techniques[]{VAULT, RECKLESS_ATTACK, TAUNT, KNOCK_DOWN, SECOND_WIND, HIT_THE_DECK, PARRY};
 		return new Array<Techniques>(true, learnables, 0, learnables.length);

@@ -1,64 +1,45 @@
 package com.majalis.character;
 
+import com.majalis.Technique.TechniquePrototype;
 import com.majalis.character.AbstractCharacter.Stance;
 /*
  * Represents an action taken by a character in battle.  Will likely need a builder helper.
  */
 public class Technique {
-	private final Techniques technique;
+	private final TechniquePrototype technique;
 	private final int strength;
 	private final int block;
 	private final Stance forceStance;
 	private final boolean battleOver;
 	
-	public Technique(Techniques technique, int strength){
-		this(technique, strength, 0);
+	public Technique(TechniquePrototype techniquePrototype, int strength){
+		this(techniquePrototype, strength, 0);
 	}
-	public Technique(Techniques technique, int strength, int block){
-		this.technique = technique;
+	public Technique(TechniquePrototype techniquePrototype, int strength, int block){
+		this.technique = techniquePrototype;
 		this.strength = strength;
-		this.block = block;
-		forceStance = setForceStance();
-		
-		battleOver = technique == Techniques.KNOT_BANG;
+		this.block = block + technique.getGuardMod();
+		forceStance = technique.getForceStance();
+		battleOver = technique.causesBattleOver();
 	}
 	
 	public int getDamage(){
 		// can special case powerMod 100 = 0 here
-		int damage = technique == Techniques.KNOT ? 4 : strength + technique.getPowerMod();
+		int damage = technique.doesSetDamage() ? 4 : technique.isDamaging() ? strength + technique.getPowerMod() : 0;
 		if (damage < 0) damage = 0;
 		return damage;
 	}	
 	
 	public int getBlock(){
-		return block + (technique == Techniques.GUARD ? 100 : 0);
+		return block;
 	}
-	
-	private Stance setForceStance(){
-		switch (technique){
-			case POUNCE:
-			case POUND:
-				return Stance.DOGGY;
-			case ERUPT:
-			case STRUGGLE:
-				return Stance.BALANCED;
-			case KNOT:
-			case KNOT_BANG:
-				return Stance.KNOTTED;
-			case DIVEBOMB:
-			case IRRUMATIO:
-				return Stance.FELLATIO;
-			default:
-				return null;
-		}
-	}
-	
+
 	public Stance getStance(){
-		return technique.getStanceResult();
+		return technique.getResultingStance();
 	}
 	
 	public String getTechniqueName(){
-		return technique.toString();
+		return technique.getName();
 	}
 
 	// right now this is a pass-through for technique.getStaminaCost() - could be modified by player (status effect that increases stamina cost, for instance)
