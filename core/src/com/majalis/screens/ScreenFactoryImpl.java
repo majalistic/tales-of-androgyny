@@ -6,6 +6,8 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.majalis.battle.BattleCode;
@@ -24,6 +26,8 @@ public class ScreenFactoryImpl implements ScreenFactory {
 
 	private static final int winWidth = 1280;
 	private static final int winHeight = 720;
+	//private static final int winWidth = 1600;
+	//private static final int winHeight = 900;
 	private final Game game;
 	private final AssetManager assetManager;
 	private final SaveService saveService;
@@ -32,9 +36,10 @@ public class ScreenFactoryImpl implements ScreenFactory {
 	private final EncounterFactory encounterFactory;
 	private final BattleFactory battleFactory;
 	private final SpriteBatch batch;
+	private final FreeTypeFontGenerator fontGenerator;
 	private boolean loading;
 	
-	public ScreenFactoryImpl(Game game, AssetManager assetManager, SaveManager saveManager, GameWorldFactory gameWorldFactory, EncounterFactory encounterFactory, BattleFactory battleFactory, SpriteBatch batch) {
+	public ScreenFactoryImpl(Game game, AssetManager assetManager, SaveManager saveManager, GameWorldFactory gameWorldFactory, EncounterFactory encounterFactory, BattleFactory battleFactory, SpriteBatch batch, FreeTypeFontGenerator fontGenerator) {
 		this.game = game;
 		this.assetManager = assetManager;
 		this.saveService = saveManager;
@@ -43,6 +48,7 @@ public class ScreenFactoryImpl implements ScreenFactory {
 		this.encounterFactory = encounterFactory;
 		this.battleFactory = battleFactory;
 		this.batch = batch;
+		this.fontGenerator = fontGenerator;
 		loading = true;
 	}
 
@@ -50,7 +56,10 @@ public class ScreenFactoryImpl implements ScreenFactory {
 	public AbstractScreen getScreen(ScreenEnum screenRequest) {
 		OrthographicCamera camera = new OrthographicCamera();
         FitViewport viewport =  new FitViewport(winWidth, winHeight, camera);
-        BitmapFont font = new BitmapFont(Gdx.files.classpath("fonts/solstice18/solstice.fnt"), Gdx.files.classpath("fonts/solstice18/solstice.png"), false);
+        //Freetype Font generation
+        FreeTypeFontParameter fontParameter = new FreeTypeFontParameter();
+        fontParameter.size = 18;
+        BitmapFont font = fontGenerator.generateFont(fontParameter);
         ScreenElements elements = new ScreenElements(viewport, batch, font);
         PlayerCharacter character = loadService.loadDataValue(SaveEnum.PLAYER, PlayerCharacter.class);
 		AbstractScreen tempScreen;

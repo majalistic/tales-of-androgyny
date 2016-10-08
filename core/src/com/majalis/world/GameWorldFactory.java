@@ -3,6 +3,8 @@ package com.majalis.world;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
 import com.badlogic.gdx.math.RandomXS128;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
@@ -22,11 +24,13 @@ public class GameWorldFactory {
 	private final BitmapFont font;
 	private final RandomXS128 random;
 	
-	public GameWorldFactory(SaveManager saveManager, AssetManager assetManager, BitmapFont font, RandomXS128 random){
+	public GameWorldFactory(SaveManager saveManager, AssetManager assetManager,  FreeTypeFontGenerator fontGenerator,  RandomXS128 random){
 		this.saveService = saveManager;
 		this.loadService = saveManager;
 		this.assetManager = assetManager;
-		this.font = font;
+		FreeTypeFontParameter fontParameter = new FreeTypeFontParameter();
+	    fontParameter.size = 18;
+	    font = fontGenerator.generateFont(fontParameter);
 		this.random = random;
 	}
 	
