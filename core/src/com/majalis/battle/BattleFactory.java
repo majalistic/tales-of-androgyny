@@ -3,6 +3,8 @@ package com.majalis.battle;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
 import com.majalis.character.EnemyCharacter;
 import com.majalis.character.PlayerCharacter;
 import com.majalis.character.AbstractCharacter.Stance;
@@ -19,11 +21,13 @@ public class BattleFactory {
 	private final LoadService loadService;
 	private final AssetManager assetManager;
 	private final BitmapFont font;
-	public BattleFactory(SaveManager saveManager, AssetManager assetManager, BitmapFont font){
+	public BattleFactory(SaveManager saveManager, AssetManager assetManager, FreeTypeFontGenerator fontGenerator){
 		this.saveService = saveManager;
 		this.loadService = saveManager;
 		this.assetManager = assetManager;
-		this.font = font;
+		FreeTypeFontParameter fontParameter = new FreeTypeFontParameter();
+	    fontParameter.size = 18;
+	    font = fontGenerator.generateFont(fontParameter);
 	}
 	
 	public Battle getBattle(BattleCode battleCode, PlayerCharacter playerCharacter) {
