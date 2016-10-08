@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.IntArray;
 import com.badlogic.gdx.utils.OrderedMap;
+import com.majalis.asset.AssetEnum;
 import com.majalis.battle.BattleCode;
 import com.majalis.character.PlayerCharacter;
 import com.majalis.character.Techniques;
@@ -94,7 +95,7 @@ public class EncounterBuilder {
 	
 	protected Encounter getDefaultEncounter(AssetManager assetManager){
 		Texture backgroundTexture = assetManager.get("StickEncounter.jpg", Texture.class);
-		Texture vignetteTexture = assetManager.get("BlackVignetteBottom.png", Texture.class);
+		Texture vignetteTexture = assetManager.get(AssetEnum.VIGNETTE.getPath(), Texture.class);
 		Background background = new Background(backgroundTexture, vignetteTexture);
 		
 		getTextScenes(new String[]{"You encounter a stick!", "It's actually rather sexy looking.", "There is nothing left here to do."}, font, background, getEndScene(EndScene.Type.ENCOUNTER_OVER));
@@ -349,7 +350,7 @@ public class EncounterBuilder {
 			// dryad
 			case 4:
 				backgroundTexture = assetManager.get("DryadApple.jpg", Texture.class);
-				Texture vignetteTexture = assetManager.get("BlackVignetteBottom.png", Texture.class);
+				Texture vignetteTexture = assetManager.get(AssetEnum.VIGNETTE.getPath(), Texture.class);
 				background = new Background(backgroundTexture, vignetteTexture, 540, 720);
 				Array<Mutation> mutations = new Array<Mutation>();
 				mutations.add(new Mutation());

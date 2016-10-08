@@ -32,10 +32,4 @@ public class ReplayScreen extends AbstractScreen {
 	public void buildStage() {
 		// TODO Auto-generated method stub	
 	}
-	
-	@Override
-	public void show() {
-		super.show();
-		font.getData().setScale(4, 4);
-	}	
 }

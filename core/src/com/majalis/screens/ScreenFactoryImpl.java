@@ -4,10 +4,8 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.majalis.battle.BattleCode;
@@ -26,8 +24,6 @@ public class ScreenFactoryImpl implements ScreenFactory {
 
 	private static final int winWidth = 1280;
 	private static final int winHeight = 720;
-	//private static final int winWidth = 1600;
-	//private static final int winHeight = 900;
 	private final Game game;
 	private final AssetManager assetManager;
 	private final SaveService saveService;
@@ -56,11 +52,7 @@ public class ScreenFactoryImpl implements ScreenFactory {
 	public AbstractScreen getScreen(ScreenEnum screenRequest) {
 		OrthographicCamera camera = new OrthographicCamera();
         FitViewport viewport =  new FitViewport(winWidth, winHeight, camera);
-        //Freetype Font generation
-        FreeTypeFontParameter fontParameter = new FreeTypeFontParameter();
-        fontParameter.size = 18;
-        BitmapFont font = fontGenerator.generateFont(fontParameter);
-        ScreenElements elements = new ScreenElements(viewport, batch, font);
+        ScreenElements elements = new ScreenElements(viewport, batch, fontGenerator);
         PlayerCharacter character = loadService.loadDataValue(SaveEnum.PLAYER, PlayerCharacter.class);
 		AbstractScreen tempScreen;
 		switch(screenRequest){
@@ -122,7 +114,7 @@ public class ScreenFactoryImpl implements ScreenFactory {
 	private AbstractScreen getEncounter(ScreenElements elements, PlayerCharacter character){
 		if (getAssetCheck(EncounterScreen.resourceRequirements)){
 			Integer encounterCode = loadService.loadDataValue(SaveEnum.ENCOUNTER_CODE, Integer.class);
-			return new EncounterScreen(this, elements, assetManager, saveService, encounterFactory.getEncounter(encounterCode, elements.getFont()));
+			return new EncounterScreen(this, elements, assetManager, saveService, encounterFactory.getEncounter(encounterCode, elements.getFont(18)));
 		}
 		else {
 			return null;

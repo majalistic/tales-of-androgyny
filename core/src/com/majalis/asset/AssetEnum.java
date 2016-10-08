@@ -15,7 +15,9 @@ public enum AssetEnum {
 	MEAT("worldmap/Meat.png"),
 	ROAD("worldmap/Road.png"),
 	CASTLE("worldmap/Castle.png"),
-	CHARACTER_SCREEN("ClassSelect.jpg");
+	CHARACTER_SCREEN("ClassSelect.jpg"),
+	VIGNETTE("CreamVignetteBottom.png")
+	;
 	
 	private final String path;
 

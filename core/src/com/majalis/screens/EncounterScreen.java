@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.ObjectMap;
+import com.majalis.asset.AssetEnum;
 import com.majalis.encounter.Encounter;
 import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveManager;
@@ -25,7 +26,7 @@ public class EncounterScreen extends AbstractScreen {
 		resourceRequirements.put("uiskin.json", Skin.class);
 		resourceRequirements.put("sound.wav", Sound.class);
 		resourceRequirements.put("DefaultBackground.jpg", Texture.class);
-		resourceRequirements.put("BlackVignetteBottom.png", Texture.class);
+		resourceRequirements.put(AssetEnum.VIGNETTE.getPath(), Texture.class);
 		resourceRequirements.put("GameTypeSelect.jpg", Texture.class);
 		resourceRequirements.put("ClassSelect.jpg", Texture.class);
 		resourceRequirements.put("DryadApple.jpg", Texture.class);

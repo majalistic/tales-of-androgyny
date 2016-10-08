@@ -16,6 +16,7 @@ public abstract class AbstractScreen extends Stage implements Screen {
 
 	protected final SpriteBatch batch;
 	protected final BitmapFont font;
+	protected final ScreenElements fontFactory;
 	protected float red;
 	protected float green;
 	protected float blue;
@@ -26,7 +27,8 @@ public abstract class AbstractScreen extends Stage implements Screen {
         this.game = screenFactory.getGame();
         this.screenFactory = screenFactory;
         this.batch = elements.getBatch();
-        this.font = elements.getFont();
+        this.fontFactory = elements;
+        this.font = elements.getFont(18);
         red = 0;
         green = 0;
         blue = 0;

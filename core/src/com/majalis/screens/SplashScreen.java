@@ -2,6 +2,7 @@ package com.majalis.screens;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.utils.ObjectMap;
 /*
  * Splash screen for initial load.
@@ -9,12 +10,14 @@ import com.badlogic.gdx.utils.ObjectMap;
 public class SplashScreen extends AbstractScreen {
 
 	private final AssetManager assetManager;
+	private final BitmapFont largeFont;
 	private final int minTime;
 	private int clocktick;
 	
 	public SplashScreen(ScreenFactory factory, ScreenElements elements, AssetManager assetManager, int minTime) {
 		super(factory, elements);
 		this.assetManager = assetManager;
+		this.largeFont = fontFactory.getFont(72);
 		this.minTime = minTime;
 		clocktick = 0;
 	}
@@ -40,17 +43,11 @@ public class SplashScreen extends AbstractScreen {
 		batch.begin();
 		if (!assetManager.update() || clocktick < minTime){
 			font.draw(batch, String.valueOf(clocktick++), 1675, 500);
-			font.draw(batch, "Loading: " + (int)(assetManager.getProgress() * 100) + "%", 1125, 750);
+			largeFont.draw(batch, "Loading: " + (int)(assetManager.getProgress() * 100) + "%", 1125, 750);
 		}	
 		else {
 			showScreen(ScreenEnum.MAIN_MENU);
 		}
 		batch.end();
 	}
-	
-	@Override
-	public void show() {
-		super.show();
-		font.getData().setScale(4, 4);
-	}	
 }
