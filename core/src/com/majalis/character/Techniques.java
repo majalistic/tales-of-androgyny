@@ -2,8 +2,11 @@ package com.majalis.character;
 
 import com.badlogic.gdx.utils.Array;
 import com.majalis.Technique.TechniquePrototype;
+import com.majalis.Technique.TechniquePrototype.TechniqueHeight;
 import com.majalis.Technique.AttackTechnique;
+import com.majalis.Technique.ClimaxTechnique;
 import com.majalis.Technique.FallDownTechnique;
+import com.majalis.Technique.GrappleTechnique;
 import com.majalis.Technique.GuardTechnique;
 import com.majalis.Technique.NonAttackTechnique;
 import com.majalis.Technique.SpellTechnique;
@@ -23,7 +26,7 @@ public enum Techniques {
 	/* Defensive Techniques */
 	CAUTIOUS_ATTACK  	(new AttackTechnique(Stance.DEFENSIVE, "Cautious Attack", -1, 0, 2)),
 	CAREFUL_ATTACK  	(new AttackTechnique(Stance.DEFENSIVE, "Careful Attack", 0, 0, 2)),
-	GUARD  				(new GuardTechnique(Stance.DEFENSIVE, "Guard", -1, 0)),
+	GUARD  				(new GuardTechnique	(Stance.DEFENSIVE, "Guard", -1, 0)),
 	SECOND_WIND			(new NonAttackTechnique(Stance.DEFENSIVE, "Second Wind", -1, -4)),
 	/* Techniques from Prone/Supine */
 	KIP_UP				(new NonAttackTechnique(Stance.BALANCED, "Kip Up", -5, 5)),
@@ -43,18 +46,22 @@ public enum Techniques {
 	SLIME_QUIVER 		(new NonAttackTechnique(Stance.DEFENSIVE, "Slime Quiver", 0, -1)),
 	
 	/* Enemy pouncing */
-	DIVEBOMB 			(new NonAttackTechnique(Stance.FELLATIO, "Divebomb", 0, 0, Stance.FELLATIO)), // TechniqueHeight.HIGH
-	IRRUMATIO 			(new NonAttackTechnique(Stance.FELLATIO, "Irrumatio", 0, 0, Stance.FELLATIO)), 
-	POUNCE 				(new NonAttackTechnique(Stance.DOGGY, "Pounce", 0, 2, Stance.DOGGY)), // Used to initiate doggy
-	POUND 				(new NonAttackTechnique(Stance.DOGGY, "Pound", 0, 1, Stance.DOGGY)), // Used to doggystyle
+	DIVEBOMB 			(new GrappleTechnique  (Stance.FELLATIO, "Divebomb", 2, Stance.FELLATIO, TechniqueHeight.HIGH)),
+	SAY_AHH 			(new GrappleTechnique  (Stance.FELLATIO, "Say 'Ahh'", 2, Stance.FELLATIO)),
+	IRRUMATIO 			(new NonAttackTechnique(Stance.FELLATIO, "Irrumatio", 0, 0)), 
+	POUNCE 				(new GrappleTechnique  (Stance.DOGGY, "Pounce", 2, Stance.DOGGY)), // Used to initiate doggy
+	POUND 				(new NonAttackTechnique(Stance.DOGGY, "Pound", 0, 1)), // Used to doggystyle
 	KNOT 				(new NonAttackTechnique(Stance.KNOTTED, "Knot", 0, 0, Stance.KNOTTED, "Set Damage")), // Used to knot by knotty weresluts and others
 	KNOT_BANG 			(new NonAttackTechnique(Stance.KNOTTED, "Knot Bang", 0, 0, Stance.KNOTTED, true)), // Used to knot by knotty weresluts and others - could end the battle
-	ERUPT 				(new NonAttackTechnique(Stance.ERUPT, "Erupt", 0, 1, Stance.BALANCED)),
+	ERUPT 				(new ClimaxTechnique   (Stance.ERUPT, "Erupt", Stance.KNEELING)),
 	
 	RECEIVE 			(new NonAttackTechnique(Stance.DOGGY, "Receive", 0, 0)), 
 	RECEIVE_KNOT 		(new NonAttackTechnique(Stance.KNOTTED, "Receive Knot", 0, 0)), 
 	OPEN_WIDE 			(new NonAttackTechnique(Stance.FELLATIO, "Open Wide", 0, 0)), 
-	STRUGGLE 			(new NonAttackTechnique(Stance.BALANCED, "Struggle", 0, 0, Stance.BALANCED)), // Breakhold
+	STRUGGLE_ANAL		(new GrappleTechnique(Stance.DOGGY, "Struggle", 4)), 
+	STRUGGLE_ORAL		(new GrappleTechnique(Stance.FELLATIO, "Struggle", 4)), 
+	BREAK_FREE_ANAL		(new NonAttackTechnique(Stance.BALANCED, "Struggle", 0, 0, Stance.BALANCED)), // Break hold
+	BREAK_FREE_ORAL		(new NonAttackTechnique(Stance.BALANCED, "Struggle", 0, 0, Stance.BALANCED)), // Break hold
 	
 	INCANTATION 		(new NonAttackTechnique(Stance.CASTING, "Incantation", 0, 1)), 
 	
@@ -63,14 +70,14 @@ public enum Techniques {
 	JUMP_ATTACK 		(new AttackTechnique(Stance.BALANCED, "Jump Attack", 4, 4, 2)),
 	RECKLESS_ATTACK 	(new AttackTechnique(Stance.OFFENSIVE, "Reckless Attack", 2, 3, 6)), // needs to be unguardable
 	
-	TAUNT 			(new NonAttackTechnique(Stance.DEFENSIVE, "Taunt", 0, 0)), 
-	KNOCK_DOWN 		(new AttackTechnique(Stance.OFFENSIVE, "Knock Down", 1, 3, 6)), // needs to knock down
-	HIT_THE_DECK	(new FallDownTechnique(Stance.PRONE, "Hit the Deck")), 
-	PARRY  			(new GuardTechnique(Stance.DEFENSIVE, "Parry", -1, 0)),
+	TAUNT 				(new NonAttackTechnique(Stance.DEFENSIVE, "Taunt", 0, 0, true)), 
+	KNOCK_DOWN 			(new AttackTechnique(Stance.OFFENSIVE, "Knock Down", 1, 3, 6)), // needs to knock down
+	HIT_THE_DECK		(new FallDownTechnique(Stance.PRONE, "Hit the Deck")), 
+	PARRY  				(new GuardTechnique(Stance.DEFENSIVE, "Parry", -1, 0)),
 	
-	COMBAT_HEAL  			(new SpellTechnique(Stance.BALANCED, "Combat Heal", 10, 10, true)),
-	COMBAT_FIRE  			(new SpellTechnique(Stance.BALANCED, "Combat Fire", 3, 5, false)),
-	TITAN_STRENGTH  		(new SpellTechnique(Stance.BALANCED, "Titan Strength", 0, 2, false)),	
+	COMBAT_HEAL  		(new SpellTechnique(Stance.BALANCED, "Combat Heal", 10, 10, true)),
+	COMBAT_FIRE  		(new SpellTechnique(Stance.BALANCED, "Combat Fire", 3, 5, false)),
+	TITAN_STRENGTH  	(new SpellTechnique(Stance.BALANCED, "Titan Strength", 0, 2, false)),	
 	;
 	
 	private final TechniquePrototype trait;

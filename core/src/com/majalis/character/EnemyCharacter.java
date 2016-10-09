@@ -58,7 +58,7 @@ public class EnemyCharacter extends AbstractCharacter {
 				return getTechnique(Techniques.POUNCE);
 			}
 			else if (target.stance == Stance.KNEELING){
-				return getTechnique(Techniques.IRRUMATIO);
+				return getTechnique(Techniques.SAY_AHH);
 			}
 			else if (enemyType == EnemyEnum.HARPY){
 				return getTechnique(Techniques.FLY);
@@ -129,7 +129,6 @@ public class EnemyCharacter extends AbstractCharacter {
 			case DOGGY:
 				lust++;
 				if (enemyType != EnemyEnum.WERESLUT && lust > 14){
-					lust -= 14;
 					return getTechnique(Techniques.ERUPT);
 				}
 				if (enemyType == EnemyEnum.WERESLUT && lust > 17){
@@ -145,7 +144,6 @@ public class EnemyCharacter extends AbstractCharacter {
 			case FELLATIO:
 				lust++;
 				if (lust > 14){
-					lust -= 14;
 					return getTechnique(Techniques.ERUPT);
 				}
 				else {
@@ -181,5 +179,22 @@ public class EnemyCharacter extends AbstractCharacter {
 	
 	public void init(Texture texture){
 		this.texture = texture;
+	}
+	// can put text here for an enemy getting more aroused
+	@Override
+	protected String increaseLust() {
+		switch (stance){
+		case DOGGY:
+		case KNOTTED:
+		case FELLATIO:
+			return increaseLust(1);
+		default: return null;
+	}
+	}
+	// can put text here for an enemy getting more aroused
+	@Override
+	protected String increaseLust(int lustIncrease) {
+		lust += lustIncrease;
+		return null;
 	}
 } 

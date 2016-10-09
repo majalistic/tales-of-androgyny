@@ -12,6 +12,7 @@ public abstract class TechniquePrototype {
 	protected int stabilityCost;
 	protected int manaCost;
 	protected boolean isSpell;
+	protected boolean isTaunt;
 	protected boolean selfTrip;
 	protected Stance forceStance;
 	protected Stance knockdownResultingStance;
@@ -19,6 +20,9 @@ public abstract class TechniquePrototype {
 	protected int guardMod;
 	protected boolean causeBattleOver;
 	protected boolean setDamage;
+	protected boolean blockable;
+	protected boolean grapple;
+	protected boolean isClimax;
 	
 	protected TechniquePrototype(Stance resultingStance, String name){
 		this.resultingStance = resultingStance;
@@ -30,6 +34,7 @@ public abstract class TechniquePrototype {
 		stabilityCost = 0;
 		manaCost = 0;
 		isSpell = false;
+		isTaunt = false;
 		selfTrip = false;
 		forceStance = null;
 		knockdownResultingStance = null;
@@ -37,6 +42,9 @@ public abstract class TechniquePrototype {
 		guardMod = 0;
 		causeBattleOver = false;
 		setDamage = false;
+		blockable = false;
+		grapple = false;
+		isClimax = false;
 	}
 	
 	public Stance getResultingStance(){ return resultingStance; }
@@ -55,12 +63,14 @@ public abstract class TechniquePrototype {
 	public int getGuardMod(){ return guardMod; }
 	public boolean causesBattleOver(){ return causeBattleOver; }
 	public boolean doesSetDamage(){ return setDamage; }
+	public boolean isBlockable() { return blockable; }
+	public boolean isGrapple() { return grapple; }
+	public boolean isTaunt(){ return isTaunt; }
+	public boolean isClimax() { return isClimax; }
 	
 	public enum TechniqueHeight{
 		HIGH,
 		MEDIUM,
 		LOW
 	}
-
-
 }

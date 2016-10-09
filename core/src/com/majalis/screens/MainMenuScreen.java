@@ -66,7 +66,8 @@ public class MainMenuScreen extends AbstractScreen {
 	}
 	
 	@Override
-	public void render(float delta) {super.render(delta);
+	public void render(float delta) {
+		super.render(delta);
 		OrthographicCamera camera = (OrthographicCamera) getCamera();
         batch.setTransformMatrix(camera.view);
         

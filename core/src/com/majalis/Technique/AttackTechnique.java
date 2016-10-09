@@ -9,6 +9,7 @@ public class AttackTechnique extends TechniquePrototype {
 	public AttackTechnique(Stance resultingStance, String name, int powerMod, int staminaCost, int stabilityCost, TechniqueHeight height){
 		super(resultingStance, name);
 		this.doesDamage = true;
+		this.blockable = true;
 		this.powerMod = powerMod;
 		this.staminaCost = staminaCost;
 		this.stabilityCost = stabilityCost;

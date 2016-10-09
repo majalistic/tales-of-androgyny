@@ -1,6 +1,7 @@
 package com.majalis.character;
 
 import com.majalis.Technique.TechniquePrototype;
+import com.majalis.Technique.TechniquePrototype.TechniqueHeight;
 import com.majalis.character.AbstractCharacter.Stance;
 /*
  * Represents an action taken by a character in battle.  Will likely need a builder helper.
@@ -12,10 +13,10 @@ public class Technique {
 	private final Stance forceStance;
 	private final boolean battleOver;
 	
-	public Technique(TechniquePrototype techniquePrototype, int strength){
+	protected Technique(TechniquePrototype techniquePrototype, int strength){
 		this(techniquePrototype, strength, 0);
 	}
-	public Technique(TechniquePrototype techniquePrototype, int strength, int block){
+	protected Technique(TechniquePrototype techniquePrototype, int strength, int block){
 		this.technique = techniquePrototype;
 		this.strength = strength;
 		this.block = block + technique.getGuardMod();
@@ -23,43 +24,62 @@ public class Technique {
 		battleOver = technique.causesBattleOver();
 	}
 	
-	public int getDamage(){
+	public String getTechniqueName(){
+		return technique.getName();
+	}
+	
+	public Attack resolve(Technique otherTechnique){
+		int rand = (int) Math.floor(Math.random() * 100);
+		double blockMod = otherTechnique.isBlockable() ? (getBlock() > rand * 2 ? 0 : getBlock() > rand ? .5 : 1) : 1;
+		
+		boolean isSuccessful = technique.getTechniqueHeight() != TechniqueHeight.HIGH || otherTechnique.getStance().receivesHighAttacks;
+		// this is temporarily to prevent struggling from failing to work properly on the same term an eruption or knot happens
+		if (isSuccessful) isSuccessful = otherTechnique.getForceStance() == null || otherTechnique.getForceStance() == Stance.KNOTTED || otherTechnique.getForceStance() == Stance.KNEELING;
+		
+		return new Attack(isSuccessful, technique.getName(), (int)(getDamage() * blockMod), technique.isHealing() ? strength + technique.getPowerMod() : 0, technique.isTaunt() ? strength + technique.getPowerMod() : 0, technique.isGrapple() ? strength + technique.getPowerMod() : 0, technique.isClimax(), getForceStance());
+	}
+	
+	private boolean isBlockable() {
+		return technique.isBlockable();
+	}
+	
+	protected boolean isHeal(){
+		return technique.isHealing();
+	}
+	
+	protected int getDamage(){
 		// can special case powerMod 100 = 0 here
 		int damage = technique.doesSetDamage() ? 4 : technique.isDamaging() ? strength + technique.getPowerMod() : 0;
 		if (damage < 0) damage = 0;
 		return damage;
 	}	
 	
-	public int getBlock(){
+	protected int getBlock(){
 		return block;
 	}
 
-	public Stance getStance(){
+	protected Stance getStance(){
 		return technique.getResultingStance();
-	}
-	
-	public String getTechniqueName(){
-		return technique.getName();
 	}
 
 	// right now this is a pass-through for technique.getStaminaCost() - could be modified by player (status effect that increases stamina cost, for instance)
-	public int getStaminaCost(){
+	protected int getStaminaCost(){
 		return technique.getStaminaCost();
 	}
 	
-	public int getStabilityCost(){
+	protected int getStabilityCost(){
 		return technique.getStabilityCost();
 	}
 	
-	public int getManaCost(){
+	protected int getManaCost(){
 		return technique.getManaCost();
 	}
 	
-	public Stance getForceStance(){
+	protected Stance getForceStance(){
 		return forceStance;
 	}	
 	
-	public boolean forceBattleOver(){
+	protected boolean forceBattleOver(){
 		return battleOver;
 	}
 }

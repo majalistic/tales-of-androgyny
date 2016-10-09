@@ -1,9 +1,9 @@
 package com.majalis.character;
 
-import com.majalis.battle.Attack;
 import com.majalis.battle.BattleFactory.EnemyEnum;
 import com.majalis.save.SaveManager.JobClass;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.IntArray;
 /*
  * Abstract character class, both enemies and player characters extend this class
@@ -46,6 +46,8 @@ public abstract class AbstractCharacter extends Actor {
 	public int fortune;
 	
 	public int lust; 
+	public int struggle;
+	public int battleOver;
 	
 	// public Weapon weapon;
 	// public Shield shield;
@@ -76,7 +78,8 @@ public abstract class AbstractCharacter extends Actor {
 			currentStamina = getMaxStamina();
 			currentMana = getMaxMana();
 			stability = focus = fortune = 10;
-			stance = Stance.BALANCED;			
+			stance = Stance.BALANCED;
+			struggle = 0;
 		}
 	}
 	
@@ -149,28 +152,6 @@ public abstract class AbstractCharacter extends Actor {
 	
 	public void modLust(int lustMod) { lust += lustMod; }
 	
-	public String doAttack(String technique, AbstractCharacter secondCharacter, Attack attack){
-		return label + (secondPerson ? " use " : " uses ") + technique + " against " + secondCharacter.receiveAttack(attack);
-	}
-	
-	public String receiveAttack(Attack attack){
-		String result = (secondPerson ? label.toLowerCase() : label) + ". ";
-
-		int damage = attack.getDamage();
-		damage -= getEndurance()/2;
-		if (damage > 0){	
-			currentHealth -= damage;
-			result += "The blow strikes for " + damage + " damage! ";
-		}
-		
-		Stance forcedStance = attack.getForceStance();
-		if (forcedStance != null){
-			result += "\n" + label + (secondPerson ? " are " : " is ") + "forced into " + stance.toString() + " stance!";
-		}
-		
-		return result+"\n";
-	}
-	
 	public Technique extractCosts(Technique technique){
 		modStamina(-technique.getStaminaCost());
 		modStamina(getStaminaRegen());
@@ -178,7 +159,7 @@ public abstract class AbstractCharacter extends Actor {
 		modStability(getStabilityRegen());
 		modMana(-technique.getManaCost());
 		
-		if (stance != Stance.PRONE && stance != Stance.SUPINE && stance != Stance.DOGGY){
+		if (stance != Stance.PRONE && stance != Stance.SUPINE && stance != Stance.DOGGY && stance != Stance.FELLATIO && stance != Stance.KNOTTED){
 			if (stability <= 0){
 				technique = new Technique(Techniques.TRIP.getTrait(), 0);
 				setStabilityToMin();
@@ -196,25 +177,168 @@ public abstract class AbstractCharacter extends Actor {
 			setStabilityToMin();
 		}
 		
+		stance = technique.getStance();
+		
 		return technique;
 	}
+	
+	public Attack doAttack(Attack resolvedAttack) {
+		resolvedAttack.setUser(label);
+		if (!resolvedAttack.isSuccessful()){
+			if (enemyType == EnemyEnum.HARPY && stance == Stance.FELLATIO && resolvedAttack.getForceStance() == Stance.FELLATIO){
+				resolvedAttack.addMessage("The harpy missed! She crashes to the ground!");
+				stance = Stance.PRONE;
+			}
+			return resolvedAttack;
+		}
+		if (resolvedAttack.isHealing()){
+			modHealth(resolvedAttack.getHealing());
+			
+			resolvedAttack.addMessage("You heal for " + resolvedAttack.getHealing()+"!");
+		}
+		if (resolvedAttack.getForceStance() == Stance.DOGGY){
+			resolvedAttack.addMessage("You are being anally violated!");
+			resolvedAttack.addMessage("Your hole is stretched by her fat dick!");
+			resolvedAttack.addMessage("Your hole feels like it's on fire!");
+			resolvedAttack.addMessage("Her cock glides smoothly through your irritated anal mucosa!");
+			resolvedAttack.addMessage("Her rhythmic thrusting in and out of your asshole is emasculating!");
+			resolvedAttack.addMessage("You are red-faced and embarassed because of her butt-stuffing!");
+			resolvedAttack.addMessage("Your cock is ignored!");
+		}		
+		else if(resolvedAttack.getForceStance() == Stance.FELLATIO){
+			if (enemyType == EnemyEnum.HARPY){
+				resolvedAttack.addMessage("She tastes horrible! Harpies are highly unhygenic!");
+				resolvedAttack.addMessage("You learned Anatomy (Harpy)!");
+				resolvedAttack.addMessage("You learned Behavior (Harpy)!");
+				resolvedAttack.addMessage("There is a phallus in your mouth!");
+				resolvedAttack.addMessage("It blew past your lips!");
+				resolvedAttack.addMessage("The harpy is holding your head in place with");
+				resolvedAttack.addMessage("her talons and balancing herself with her wings!");
+				resolvedAttack.addMessage("She flaps violently while humping your face!  Her cock tastes awful!");
+			}
+			else {
+				resolvedAttack.addMessage("She stuffs her cock into your face!");
+			}
+		}
+		else if (resolvedAttack.getForceStance() == Stance.KNOTTED){
+			if (battleOver == 0){
+				resolvedAttack.addMessage("Her powerful hips try to force something big inside!");
+				resolvedAttack.addMessage("You struggle... but can't escape!");
+				resolvedAttack.addMessage("Her grapefruit-sized knot slips into your rectum!  You take 4 damage!");
+				resolvedAttack.addMessage("You learned about Anatomy(Wereslut)! You are being bred!");
+				resolvedAttack.addMessage("Your anus is permanently stretched!");
+			}
+			else if (battleOver < 3){
+				resolvedAttack.addMessage("Her tremendous knot is still lodged in your rectum!");
+				resolvedAttack.addMessage("You can't dislodge it; it's too large!");
+				resolvedAttack.addMessage("You're drooling!");
+				resolvedAttack.addMessage("Her fat thing is plugging your shithole!");					
+			}
+			else {
+				resolvedAttack.addMessage("The battle is over, but your ordeal has just begun!");
+				resolvedAttack.addMessage("You are about to be bred like a bitch!");
+				resolvedAttack.addMessage("She's going to ejaculate her runny dog cum in your bowels!");	
+			}
+			battleOver++;
+		}
+		// all climax logic should go here
+		if (resolvedAttack.isClimax()){
+			lust -= 14;
+			if (stance == Stance.FELLATIO){
+				if (enemyType == EnemyEnum.HARPY){
+					resolvedAttack.addMessage("A harpy semen bomb explodes in your mouth!  It tastes awful!");
+					resolvedAttack.addMessage("You are going to vomit!");
+					resolvedAttack.addMessage("You spew up harpy cum!  The harpy preens her feathers.");
+				}
+				else {
+					resolvedAttack.addMessage("Her cock erupts in your mouth!");
+					resolvedAttack.addMessage("You swallow all of her semen!");
+				}
+			}
+			else {
+				resolvedAttack.addMessage("The " + getLabel() + " spews hot, thick semen into your bowels!");
+			}
+		}
+		return resolvedAttack;
+	}
+	
+	public Array<String> receiveAttack(Attack attack){
+		
+		if (!attack.isSuccessful()){
+			return attack.getMessages();
+		}
+		
+		Array<String> result = attack.getMessages();
+
+		attack.addMessage(attack.getuser() + " used " + attack.getName() +  " on " + (secondPerson ? label.toLowerCase() : label) + "!");
+		
+		struggle += attack.getGrapple();
+		if (attack.isClimax()){
+			struggle = 0;
+		}
+		if (attack.getForceStance() == Stance.BALANCED){
+			attack.addMessage("You broke free!");
+			if (stance == Stance.FELLATIO){
+				attack.addMessage("It slips out of your mouth and you get to your feet!");
+			}
+			else {
+				attack.addMessage("It pops out of your ass and you get to your feet!");
+			}
+		}
+		
+		int damage = attack.getDamage();
+		damage -= getEndurance()/2;
+		if (damage > 0){	
+			currentHealth -= damage;
+			result.add("The blow strikes for " + damage + " damage!");
+		}
+		
+		Stance forcedStance = attack.getForceStance();
+		if (forcedStance != null){
+			result.add(label + (secondPerson ? " are " : " is ") + "forced into " + forcedStance.toString() + " stance!");
+			stance = forcedStance;
+		}
+		
+		String lustIncrease = increaseLust();
+		if (lustIncrease != null) result.add(lustIncrease);
+		
+		if (attack.getLust() > 0){
+			lustIncrease = increaseLust(attack.getLust());
+			if (lustIncrease != null) result.add(lustIncrease);
+			result.add(label + (secondPerson ? " are taunted " : " is taunted ") + "! " + (secondPerson ? " Your " : " Their ") + "lust raises by" + attack.getLust());
+		}
+		return result;
+	}
+
+	protected abstract String increaseLust();
+	protected abstract String increaseLust(int lustIncrease);
+	
+	public String getStanceTransform(Technique firstTechnique) {
+		return label + " adopt" + (secondPerson ? "" : "s") + " a(n) " + firstTechnique.getStance().toString() + " stance! ";
+ 	}
 
 	public enum Stance {
 		BALANCED,
 		DEFENSIVE,
 		OFFENSIVE,
-		PRONE,
-		SUPINE,
-		KNEELING,
+		PRONE (false),
+		SUPINE (false),
+		KNEELING (false),
 		AIRBORNE, 
 		DOGGY, 
 		KNOTTED, 
 		FELLATIO, 
 		CASTING,
 		ERUPT
+		;
+		
+		public final boolean receivesHighAttacks;
+		private Stance(){
+			this(true);
+		}
+		private Stance(boolean receivesHigh){
+			receivesHighAttacks = receivesHigh;
+		}
+		
 	}
-
-	public void heal(Technique technique) {
-		modHealth(technique.getDamage());		
-	}	
 }

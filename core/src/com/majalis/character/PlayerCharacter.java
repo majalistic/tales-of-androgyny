@@ -44,6 +44,8 @@ public class PlayerCharacter extends AbstractCharacter {
 	public LipFullness lipFullness;
 	
 	/* anatomy - contains current and permanent properties */
+	public boolean a2m;
+	public boolean a2mcheevo;
 	// public Hole hole;  // bowels contents, tightness, number of copulations, number of creampies, etc. 
 	// public Mouth mouth; 
 	// public Wiener wiener;	
@@ -58,11 +60,14 @@ public class PlayerCharacter extends AbstractCharacter {
 			secondPerson = true;
 			currentHealth = getMaxHealth();	
 			food = 40;
+			a2m = false;
+			a2mcheevo = false;
+			battleOver = 0;
 		}
 		
 		skills = new ObjectSet<Techniques>();
 		skills.addAll(Techniques.STRONG_ATTACK, Techniques.TEMPO_ATTACK, Techniques.RESERVED_ATTACK, Techniques.DUCK, Techniques.SPRING_ATTACK, Techniques.NEUTRAL_ATTACK, Techniques.CAUTIOUS_ATTACK, Techniques.REVERSAL_ATTACK, Techniques.CAREFUL_ATTACK, Techniques.GUARD, Techniques.KIP_UP, Techniques.STAND_UP,
-				Techniques.KNEE_UP, Techniques.REST_FACE_DOWN, Techniques.REST, Techniques.JUMP_ATTACK, Techniques.RECEIVE, Techniques.STRUGGLE, Techniques.RECEIVE_KNOT, Techniques.OPEN_WIDE);
+				Techniques.KNEE_UP, Techniques.REST_FACE_DOWN, Techniques.REST, Techniques.JUMP_ATTACK, Techniques.RECEIVE, Techniques.STRUGGLE_ORAL, Techniques.STRUGGLE_ANAL, Techniques.RECEIVE_KNOT, Techniques.OPEN_WIDE, Techniques.BREAK_FREE_ANAL, Techniques.BREAK_FREE_ORAL);
 		perks = new ObjectSet<Perk>();
 	}
 	// stop-gap method to deal with idiosyncracies of ObjectSet deserialization - map breaks as a result of deserialization
@@ -94,8 +99,10 @@ public class PlayerCharacter extends AbstractCharacter {
 		skillPoints = 2; 
 		perkPoints = 2; 
 		food = 40; 
+		skills.remove(Techniques.COMBAT_HEAL);
 		// warrior will need to get bonus stance options, Ranger will need to start with a bow
 		switch (jobClass){ 
+			
 			case WARRIOR: skillPoints = 3; break;
 			case PALADIN: skills.add(Techniques.COMBAT_HEAL); break;
 			case THIEF: skillPoints = 5;food = 80; break;
@@ -122,11 +129,17 @@ public class PlayerCharacter extends AbstractCharacter {
 			case AIRBORNE:
 				return getTechniques(Techniques.JUMP_ATTACK);
 			case DOGGY:
-				return getTechniques(Techniques.RECEIVE, Techniques.STRUGGLE);
+				if (struggle <= 0){
+					return getTechniques(Techniques.RECEIVE, Techniques.BREAK_FREE_ANAL);
+				}
+				return getTechniques(Techniques.RECEIVE, Techniques.STRUGGLE_ANAL);
 			case KNOTTED:
 				return getTechniques(Techniques.RECEIVE_KNOT);
 			case FELLATIO:
-				return getTechniques(Techniques.OPEN_WIDE, Techniques.STRUGGLE);
+				if (struggle <= 0){
+					return getTechniques(Techniques.OPEN_WIDE, Techniques.BREAK_FREE_ORAL);
+				}
+				return getTechniques(Techniques.OPEN_WIDE, Techniques.STRUGGLE_ORAL);
 			case CASTING:
 				return getTechniques(Techniques.COMBAT_FIRE, Techniques.COMBAT_HEAL, Techniques.TITAN_STRENGTH);
 			default: return null;
@@ -144,11 +157,37 @@ public class PlayerCharacter extends AbstractCharacter {
 		
 		for (Techniques technique : possibilities){
 			if (skills.contains(technique)){
-				possibleTechniques.add(new Technique(technique.getTrait(),technique.getTrait().isSpell() ? getMagic() : getStrength()));
+				possibleTechniques.add(new Technique(technique.getTrait(), technique.getTrait().isSpell() ? getMagic() : technique.getTrait().isTaunt() ? getCharisma() : getStrength()));
 			}	
 		}
 		
 		return possibleTechniques;
+	}
+	
+	@Override
+	public Attack doAttack(Attack resolvedAttack) {
+		if (resolvedAttack.getGrapple() > 0){
+			struggle -= resolvedAttack.getGrapple();
+			resolvedAttack.addMessage("You struggle to break free!");
+			if (struggle <= 3){
+				resolvedAttack.addMessage("You feel their grasp slipping away!");
+			}
+			else if (struggle <= 0){
+				struggle = 0;
+				resolvedAttack.addMessage("You are almost free!");
+			}
+		}	
+		if (resolvedAttack.getForceStance() == Stance.DOGGY){
+			a2m = true;
+		}
+		else if (resolvedAttack.getForceStance() == Stance.FELLATIO && a2m){
+			resolvedAttack.addMessage("Bleugh! That was in your ass!");
+			if (!a2mcheevo){
+				a2mcheevo = true;
+				resolvedAttack.addMessage("Achievement unlocked: Ass to Mouth.");
+			}
+		}
+		return super.doAttack(resolvedAttack);
 	}
 	
 	public void refresh(){
@@ -156,6 +195,8 @@ public class PlayerCharacter extends AbstractCharacter {
 		setStabilityToMax();
 		setManaToMax();
 		stance = Stance.BALANCED;
+		a2m = false;
+		battleOver = 0;
 	}
 
 	public enum Femininity {
@@ -246,4 +287,42 @@ public class PlayerCharacter extends AbstractCharacter {
 	public boolean isLewd() {
 		return perks.contains(Perk.CATAMITE);
 	}
+	@Override
+	protected String increaseLust(){
+		switch (stance){
+			case DOGGY:
+			case KNOTTED:
+			case FELLATIO:
+				return increaseLust(1);
+			default: return null;
+		}
+	}
+	
+	@Override
+	protected String increaseLust(int lustIncrease) {
+		String spurt = "";
+		lust += lustIncrease;
+		if (lust > 10){
+			lust = 0;
+			switch (stance){
+				case KNOTTED:
+				case DOGGY: 
+					spurt = "Awoo! Semen spurts out your untouched cock as your hole is violated!\n"
+						+	"You feel it with your ass, like a girl! Your face is red with shame!\n"
+						+	"Got a little too comfortable, eh?\n";
+				break;
+				case FELLATIO:
+					spurt = "You spew while sucking!\n"
+						+	"Your worthless cum spurts into the dirt!\n"
+						+	"They don't even notice!\n";
+				break;
+				default: spurt = "You spew your semen onto the ground!\n"; 
+			}
+			spurt += "You're now flaccid!\n";
+		}
+		return !spurt.isEmpty() ? spurt : null;
+	}
+	
+	
+	
 }
