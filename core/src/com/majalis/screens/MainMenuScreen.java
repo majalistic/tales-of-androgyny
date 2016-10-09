@@ -76,7 +76,7 @@ public class MainMenuScreen extends AbstractScreen {
 		batch.begin(); 
 		// need to make these relative to viewport
 		font.draw(batch, String.valueOf(clocktick++), 1850, 400);
-		font.draw(batch, "Version: 0.1.08.0", 1600, 1050);
+		font.draw(batch, "Version: 0.1.09.0", 1600, 1050);
 		batch.end();
 	}
 

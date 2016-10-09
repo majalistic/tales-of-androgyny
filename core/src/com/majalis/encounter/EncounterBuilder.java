@@ -357,11 +357,11 @@ public class EncounterBuilder {
 				getTextScenes(
 					getScript(battleCode, 0), font, background, 
 					getChoiceScene(
-						assetManager, "Do you offer her something, or try to convince her?", new Array<String>(true, new String[]{"Offer her YOUR apple", "Plead with her"}, 0, 2),													
+						assetManager, "Do you offer her YOUR apple, or try to convince her to just hand it over?", new Array<String>(true, new String[]{"Offer(Requires: Catamite)", "Plead with her"}, 0, 2),													
 						getTextScenes(
 							getScript(battleCode, 1), font, background,
 							getTextScenes(
-								new Array<String>(true, new String[]{"You receive 5 food from the dryad."}, 0, 1), font, background, new Array<Mutation>(true, new Mutation[]{new Mutation(saveService, SaveEnum.FOOD, 5)}, 0, 1), 
+								new Array<String>(true, new String[]{"You take 5 damage from the splinters.", "You receive 10 food from the dryad."}, 0, 2), font, background, new Array<Mutation>(true, new Mutation[]{new Mutation(saveService, SaveEnum.HEALTH, -5), new Mutation(saveService, SaveEnum.FOOD, 10)}, 0, 2), 
 								getEndScene(EndScene.Type.ENCOUNTER_OVER)
 							)
 						),
