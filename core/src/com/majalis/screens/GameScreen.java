@@ -6,9 +6,9 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -20,6 +20,7 @@ import com.majalis.asset.AssetEnum;
 import com.majalis.character.PlayerCharacter;
 import com.majalis.save.LoadService;
 import com.majalis.save.SaveEnum;
+import com.majalis.world.Cloud;
 import com.majalis.world.GameWorld;
 /*
  * The screen that displays the world map.  UI that Handles player input while on the world map - will delegate to other screens depending on the gameWorld state.
@@ -36,7 +37,9 @@ public class GameScreen extends AbstractScreen {
 	private final Texture UI;
 	private final int foodAmount;
 	private final PlayerCharacter character;
+	private final Group cloudGroup;
 	private TextButton characterButton;
+	
 	public static final ObjectMap<String, Class<?>> resourceRequirements = new ObjectMap<String, Class<?>>();
 	static {
 		resourceRequirements.put("uiskin.json", Skin.class);
@@ -87,6 +90,13 @@ public class GameScreen extends AbstractScreen {
 			}	
 		}
 		this.character = loadService.loadDataValue(SaveEnum.PLAYER, PlayerCharacter.class);
+		this.cloudGroup = new Group();
+		cloudGroup.addActor(new Cloud(cloud, 300, 800, getCamera()));
+		cloudGroup.addActor(new Cloud(cloud, 2200, 600, getCamera()));
+		cloudGroup.addActor(new Cloud(cloud, 3000, 3000, getCamera()));
+		cloudGroup.addActor(new Cloud(cloud, 4000, 2000, getCamera()));
+		cloudGroup.addActor(new Cloud(cloud, 0, 3600, getCamera()));
+		cloudGroup.addActor(new Cloud(cloud, 300, 2600, getCamera()));
 	}
 
 	@Override
@@ -145,14 +155,14 @@ public class GameScreen extends AbstractScreen {
 			showScreen(ScreenEnum.ENCOUNTER);
 		}
 		else {			
-			draw();
+			draw(delta);
 			super.render(delta);
-			drawClouds();
+			drawClouds(delta);
 			world.gameLoop(batch, getCamera());
 		}
 	}
 	
-	public void draw(){
+	public void draw(float delta){
 		batch.begin();
 		OrthographicCamera camera = (OrthographicCamera) getCamera();
 		camera.update();
@@ -174,17 +184,14 @@ public class GameScreen extends AbstractScreen {
 		batch.end();
 	}
 	
-	public void drawClouds(){
+	public void drawClouds(float delta){
 		batch.begin();
 		OrthographicCamera camera = (OrthographicCamera) getCamera();
-		Matrix4 temp = new Matrix4(batch.getTransformMatrix());
-		batch.setTransformMatrix(camera.view);
-		batch.setColor(1.0f, 1.0f, 1.0f, .3f);
-		batch.draw(cloud, 300, 800, 800, 800);
-		batch.draw(cloud, 2200, 600, 800, 800);
-		batch.draw(cloud, 1400, 1300, 800, 800);		
+
+		cloudGroup.draw(batch, .3f);	
+	 	cloudGroup.act(delta);
+	 	
 		batch.setColor(1.0f, 1.0f, 1.0f, 1);
-		batch.setTransformMatrix(temp);
 		batch.draw(food, camera.position.x+3, camera.position.y+3, 50, 50);
 		batch.draw(UI, camera.position.x+3, camera.position.y+3);
 		font.draw(batch, String.valueOf(character.getCurrentHealth()), camera.position.x+295, camera.position.y+125);
