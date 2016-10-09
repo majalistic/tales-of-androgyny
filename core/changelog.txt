@@ -1,0 +1,26 @@
+Version: 0.1.09.0
+	- Implemented graphical roads
+	- Implemented world map UI
+	- Implemented character screen and button/hotkey(Enter) on world map to get to it
+	- Implemented sight radius based on perception/scounting score
+	- Implemented "zones" so we can expand world map with checkpoints
+	- Arrow animation for active tiles
+	- Added a "fort" image for checkpoint tiles
+	- Refactor of paths to improve rendering performance
+	- Implemented scaling font so there should be less blurriness now
+	- Fleshed out Brigand and Dryad encounters.
+	- Various tweaks/fixes
+Version: 0.1.08.1
+	Hotfix
+Version: 0.1.08.0
+	- Gave a description for what each stat does in the intro
+	- Character class selection now affects more than just stat description - certain classes get extra skills or starting resources
+	- Implemented initial character perks
+	- Added a few new skills, including one (Hit the Deck) that lets you drop into a prone position ;)
+	- Implemented selecting your name
+	- Implemented the initial character appearance customization
+	- Wrote out the harpy game over
+	- Wrote out the various slimegirl scenes
+	- Implemented our own font and UI textures
+	- Spruced up the world map so that it looks more like a map
+	- Various tweaks/fixes like lowering the volume, fixing the location of UI elements, adjusting the behavior of enemies (especially the slime), slime ends are not all game overs now, and the werewolf won’t get “soft” visibly when she knots you.
