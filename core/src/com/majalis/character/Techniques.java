@@ -31,7 +31,7 @@ public enum Techniques {
 	/* Techniques from Prone/Supine */
 	KIP_UP				(new NonAttackTechnique(Stance.BALANCED, "Kip Up", -5, 5)),
 	STAND_UP			(new NonAttackTechnique(Stance.BALANCED, "Stand Up", -1, 2)),
-	KNEE_UP				(new NonAttackTechnique(Stance.BALANCED, "Knee Up", -5, 1)),
+	KNEE_UP				(new NonAttackTechnique(Stance.KNEELING, "Knee Up", -5, 1)),
 	REST				(new NonAttackTechnique(Stance.SUPINE, "Rest", -1, -1)),
 	REST_FACE_DOWN		(new NonAttackTechnique(Stance.PRONE, "Rest", -1, -1)),
 	/* Out of resources */
