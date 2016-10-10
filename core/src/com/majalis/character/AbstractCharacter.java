@@ -87,14 +87,14 @@ public abstract class AbstractCharacter extends Actor {
 	
 	protected abstract Technique getTechnique(AbstractCharacter target);
 	
-	protected IntArray getDefaultHealthTiers(){ return new IntArray(new int[]{5, 5, 5, 5}); }
-	protected IntArray getDefaultStaminaTiers(){ return new IntArray(new int[]{5, 5}); }
+	protected IntArray getDefaultHealthTiers(){ return new IntArray(new int[]{10, 10, 10, 10}); }
+	protected IntArray getDefaultStaminaTiers(){ return new IntArray(new int[]{5, 5, 5, 5}); }
 	protected IntArray getDefaultManaTiers(){ return new IntArray(new int[]{0}); }
 	
 	protected int getMaxHealth() { return getMax(healthTiers); }
 	protected int getMaxStamina() { return getMax(staminaTiers); }
 	protected int getMaxMana() { return getMax(manaTiers); }
-	protected int getMaxStability() { return getAgility() * 3; }
+	protected int getMaxStability() { return getAgility() * 3 + 6; }
 	protected int getMax(IntArray tiers){
 		int max = 0;
 		for (int ii = 0; ii < tiers.size; ii++){
@@ -140,11 +140,11 @@ public abstract class AbstractCharacter extends Actor {
 	
 	public void setStance(Stance stance){ this.stance = stance; }
 	
-	protected int getStrength(){ return baseStrength - getHealthDegredation(); }
+	protected int getStrength(){ return baseStrength - (getHealthDegredation() + getStaminaDegredation()); }
 	
 	protected int getEndurance(){ return baseEndurance - getHealthDegredation(); }
 	
-	protected int getAgility() { return baseAgility - getHealthDegredation(); }
+	protected int getAgility() { return baseAgility - (getHealthDegredation() + getStaminaDegredation()); }
 
 	protected int getPerception() { return basePerception; }
 
@@ -154,13 +154,16 @@ public abstract class AbstractCharacter extends Actor {
 	
 	protected int getDefense(){ return baseDefense; }
 	
-	protected int getHealthDegredation(){
-		int numTiers = this.healthTiers.size;
-		int health = currentHealth;
-		for (int healthTier : healthTiers.items){
-			health -= healthTier;
+	protected int getHealthDegredation(){ return getDegredation(healthTiers, currentHealth); }
+	protected int getStaminaDegredation(){ return getDegredation(staminaTiers, currentStamina); }
+	
+	protected int getDegredation(IntArray tiers, int currentValue){
+		int numTiers = tiers.size;
+		int value = currentValue;
+		for (int tier : tiers.items){
+			value -= tier;
 			numTiers--;
-			if (health <= 0) return numTiers;
+			if (value <= 0) return numTiers;
 		}
 		return numTiers;
 	}

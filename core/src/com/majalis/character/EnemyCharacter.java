@@ -20,11 +20,11 @@ public class EnemyCharacter extends AbstractCharacter {
 		init(texture);
 		switch(enemyType){
 			case WERESLUT:
-				baseStrength = 6;
+				baseStrength = 5;
 				baseAgility = 8;
 				break;
 			case HARPY:
-				baseStrength = 5;
+				baseStrength = 4;
 				baseAgility = 7;
 				break;
 			case BRIGAND:

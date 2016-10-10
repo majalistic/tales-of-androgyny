@@ -59,6 +59,9 @@ public class PlayerCharacter extends AbstractCharacter {
 			label = "You";
 			secondPerson = true;
 			currentHealth = getMaxHealth();	
+			setStaminaToMax();
+			setStabilityToMax();
+			setManaToMax();
 			food = 40;
 			a2m = false;
 			a2mcheevo = false;
@@ -66,7 +69,7 @@ public class PlayerCharacter extends AbstractCharacter {
 		}
 		
 		skills = new ObjectSet<Techniques>();
-		skills.addAll(Techniques.STRONG_ATTACK, Techniques.TEMPO_ATTACK, Techniques.RESERVED_ATTACK, Techniques.DUCK, Techniques.SPRING_ATTACK, Techniques.NEUTRAL_ATTACK, Techniques.CAUTIOUS_ATTACK, Techniques.REVERSAL_ATTACK, Techniques.CAREFUL_ATTACK, Techniques.GUARD, Techniques.KIP_UP, Techniques.STAND_UP,
+		skills.addAll(Techniques.STRONG_ATTACK, Techniques.TEMPO_ATTACK, Techniques.RESERVED_ATTACK, Techniques.DUCK, Techniques.SPRING_ATTACK, Techniques.NEUTRAL_ATTACK, Techniques.REVERSAL_ATTACK, Techniques.CAREFUL_ATTACK, Techniques.BLOCK, Techniques.GUARD, Techniques.KIP_UP, Techniques.STAND_UP,
 				Techniques.KNEE_UP, Techniques.REST_FACE_DOWN, Techniques.REST, Techniques.JUMP_ATTACK, Techniques.RECEIVE, Techniques.STRUGGLE_ORAL, Techniques.STRUGGLE_ANAL, Techniques.RECEIVE_KNOT, Techniques.OPEN_WIDE, Techniques.BREAK_FREE_ANAL, Techniques.BREAK_FREE_ORAL);
 		perks = new ObjectSet<Perk>();
 	}
@@ -83,9 +86,6 @@ public class PlayerCharacter extends AbstractCharacter {
 		}
 		perks = tempPerks;
 	}
-	
-	@Override
-	protected IntArray getDefaultHealthTiers(){ return new IntArray(new int[]{10, 10, 10, 10}); }
 	
 	public static ObjectMap<Stat, Array<String>> getStatMap(){
 		return statNameMap;
@@ -120,7 +120,7 @@ public class PlayerCharacter extends AbstractCharacter {
 			case OFFENSIVE:
 				return getTechniques(Techniques.STRONG_ATTACK, Techniques.RECKLESS_ATTACK, Techniques.KNOCK_DOWN, Techniques.VAULT, Techniques.TEMPO_ATTACK, Techniques.RESERVED_ATTACK, Techniques.DUCK, Techniques.HIT_THE_DECK);
 			case BALANCED:
-				return getTechniques(Techniques.SPRING_ATTACK, Techniques.NEUTRAL_ATTACK, Techniques.CAUTIOUS_ATTACK, Techniques.INCANTATION, Techniques.DUCK, Techniques.HIT_THE_DECK);
+				return getTechniques(Techniques.SPRING_ATTACK, Techniques.NEUTRAL_ATTACK, Techniques.CAUTIOUS_ATTACK, Techniques.BLOCK, Techniques.INCANTATION, Techniques.DUCK, Techniques.HIT_THE_DECK);
 			case DEFENSIVE:
 				return getTechniques(Techniques.REVERSAL_ATTACK, Techniques.CAREFUL_ATTACK, Techniques.GUARD, Techniques.TAUNT, Techniques.SECOND_WIND, Techniques.INCANTATION, Techniques.DUCK, Techniques.HIT_THE_DECK, Techniques.PARRY);
 			case PRONE:

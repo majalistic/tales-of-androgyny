@@ -24,9 +24,9 @@ public enum Techniques {
 	REVERSAL_ATTACK  	(new AttackTechnique(Stance.BALANCED, "Reversal Attack", 0, 2, 4)),
 	NEUTRAL_ATTACK  	(new AttackTechnique(Stance.BALANCED, "Neutral Attack", 0, 1, 1)),
 	/* Defensive Techniques */
-	CAUTIOUS_ATTACK  	(new AttackTechnique(Stance.DEFENSIVE, "Cautious Attack", -1, 0, 2)),
 	CAREFUL_ATTACK  	(new AttackTechnique(Stance.DEFENSIVE, "Careful Attack", 0, 0, 2)),
-	GUARD  				(new GuardTechnique	(Stance.DEFENSIVE, "Guard", -1, 0)),
+	BLOCK				(new GuardTechnique	(Stance.DEFENSIVE, "Block", 0, 0)),
+	GUARD  				(new GuardTechnique	(Stance.DEFENSIVE, "Guard", -2, -2)),
 	SECOND_WIND			(new NonAttackTechnique(Stance.DEFENSIVE, "Second Wind", -1, -4)),
 	/* Techniques from Prone/Supine */
 	KIP_UP				(new NonAttackTechnique(Stance.BALANCED, "Kip Up", 5, -5)),
@@ -66,6 +66,7 @@ public enum Techniques {
 	INCANTATION 		(new NonAttackTechnique(Stance.CASTING, "Incantation", 0, 1)), 
 	
 	/* Learnable Skills*/
+	CAUTIOUS_ATTACK  	(new AttackTechnique(Stance.DEFENSIVE, "Cautious Attack", -1, 0, 2)),
 	VAULT 				(new NonAttackTechnique(Stance.AIRBORNE, "Vault", 2, 4)), 
 	JUMP_ATTACK 		(new AttackTechnique(Stance.BALANCED, "Jump Attack", 4, 4, 2)),
 	RECKLESS_ATTACK 	(new AttackTechnique(Stance.OFFENSIVE, "Reckless Attack", 2, 3, 6)), // needs to be unguardable
@@ -88,10 +89,11 @@ public enum Techniques {
 	public TechniquePrototype getTrait(){ return trait; }
 	
 	public static Array<Techniques> getLearnableSkills() {
-		Techniques[] learnables = new Techniques[]{VAULT, RECKLESS_ATTACK, TAUNT, KNOCK_DOWN, SECOND_WIND, HIT_THE_DECK, PARRY};
+		Techniques[] learnables = new Techniques[]{CAUTIOUS_ATTACK, VAULT, RECKLESS_ATTACK, TAUNT, KNOCK_DOWN, SECOND_WIND, HIT_THE_DECK, PARRY};
 		return new Array<Techniques>(true, learnables, 0, learnables.length);
 	}
 	public static Array<Techniques> getLearnableSpells() {
+		// need to change this to actually include Titan Strength once it's implemented
 		return new Array<Techniques>(true, new Techniques[]{COMBAT_HEAL, COMBAT_FIRE, TITAN_STRENGTH}, 0, 2);
 	}
 }
