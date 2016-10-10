@@ -140,11 +140,11 @@ public abstract class AbstractCharacter extends Actor {
 	
 	public void setStance(Stance stance){ this.stance = stance; }
 	
-	protected int getStrength(){ return baseStrength - (getHealthDegredation() + getStaminaDegredation()); }
+	protected int getStrength(){ return baseStrength - (getHealthDegradation() + getStaminaDegradation()); }
 	
-	protected int getEndurance(){ return baseEndurance - getHealthDegredation(); }
+	protected int getEndurance(){ return baseEndurance - getHealthDegradation(); }
 	
-	protected int getAgility() { return baseAgility - (getHealthDegredation() + getStaminaDegredation()); }
+	protected int getAgility() { return baseAgility - (getHealthDegradation() + getStaminaDegradation()); }
 
 	protected int getPerception() { return basePerception; }
 
@@ -154,10 +154,10 @@ public abstract class AbstractCharacter extends Actor {
 	
 	protected int getDefense(){ return baseDefense; }
 	
-	protected int getHealthDegredation(){ return getDegredation(healthTiers, currentHealth); }
-	protected int getStaminaDegredation(){ return getDegredation(staminaTiers, currentStamina); }
+	protected int getHealthDegradation(){ return getDegradation(healthTiers, currentHealth); }
+	protected int getStaminaDegradation(){ return getDegradation(staminaTiers, currentStamina); }
 	
-	protected int getDegredation(IntArray tiers, int currentValue){
+	protected int getDegradation(IntArray tiers, int currentValue){
 		int numTiers = tiers.size;
 		int value = currentValue;
 		for (int tier : tiers.items){
