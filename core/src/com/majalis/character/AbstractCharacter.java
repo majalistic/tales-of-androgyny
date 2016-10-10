@@ -171,8 +171,15 @@ public abstract class AbstractCharacter extends Actor {
 	public void modLust(int lustMod) { lust += lustMod; }
 	
 	public Technique extractCosts(Technique technique){
-		modStamina(-technique.getStaminaCost());
-		modStamina(getStaminaRegen());
+		int staminaMod = technique.getStaminaCost();
+		if (staminaMod >= 0){
+			staminaMod -= getStaminaRegen();
+			if (staminaMod < 0) staminaMod = 0;
+		}
+		else {
+			staminaMod -= getStaminaRegen();
+		}
+		modStamina(-staminaMod);
 		modStability(-technique.getStabilityCost());
 		modStability(getStabilityRegen());
 		modMana(-technique.getManaCost());
@@ -281,10 +288,16 @@ public abstract class AbstractCharacter extends Actor {
 	}
 	
 	public Array<String> receiveAttack(Attack attack){
-		
 		if (!attack.isSuccessful()){
+			if (stability <= 0){
+				stance = Stance.PRONE;
+			}
+			else if (currentStamina <= 0){
+				stance = Stance.SUPINE;
+			}
 			return attack.getMessages();
 		}
+		
 		
 		Array<String> result = attack.getMessages();
 
@@ -325,6 +338,14 @@ public abstract class AbstractCharacter extends Actor {
 			if (lustIncrease != null) result.add(lustIncrease);
 			result.add(label + (secondPerson ? " are taunted " : " is taunted ") + "! " + (secondPerson ? " Your " : " Their ") + "lust raises by" + attack.getLust());
 		}
+		
+		if (stability <= 0){
+			stance = Stance.PRONE;
+		}
+		else if (currentStamina <= 0){
+			stance = Stance.SUPINE;
+		}
+		
 		return result;
 	}
 
