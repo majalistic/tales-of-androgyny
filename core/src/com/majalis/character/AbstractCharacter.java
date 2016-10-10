@@ -27,6 +27,7 @@ public abstract class AbstractCharacter extends Actor {
 	public int baseCharisma;
 	public int baseLuck; // 0 for most classes, can go negative
 	
+	public int baseDefense;
 	public int baseEvade;
 	public int baseBlock;
 	public int baseParry;
@@ -66,6 +67,7 @@ public abstract class AbstractCharacter extends Actor {
 			secondPerson = false;
 			level = 1;
 			baseStrength = baseEndurance = baseAgility = basePerception = baseMagic = baseCharisma = 3;
+			baseDefense = 2;
 			baseLuck = 0;
 			baseEvade = 0;
 			baseBlock = 0;
@@ -85,7 +87,7 @@ public abstract class AbstractCharacter extends Actor {
 	
 	protected abstract Technique getTechnique(AbstractCharacter target);
 	
-	protected IntArray getDefaultHealthTiers(){ return new IntArray(new int[]{10, 10}); }
+	protected IntArray getDefaultHealthTiers(){ return new IntArray(new int[]{5, 5, 5, 5}); }
 	protected IntArray getDefaultStaminaTiers(){ return new IntArray(new int[]{5, 5}); }
 	protected IntArray getDefaultManaTiers(){ return new IntArray(new int[]{0}); }
 	
@@ -138,17 +140,30 @@ public abstract class AbstractCharacter extends Actor {
 	
 	public void setStance(Stance stance){ this.stance = stance; }
 	
-	protected int getStrength(){ return baseStrength; }
+	protected int getStrength(){ return baseStrength - getHealthDegredation(); }
 	
-	protected int getEndurance(){ return baseEndurance; }
+	protected int getEndurance(){ return baseEndurance - getHealthDegredation(); }
 	
-	protected int getAgility() { return baseAgility; }
+	protected int getAgility() { return baseAgility - getHealthDegredation(); }
 
 	protected int getPerception() { return basePerception; }
 
 	protected int getMagic() { return baseMagic; }
 
 	protected int getCharisma() { return baseCharisma; }
+	
+	protected int getDefense(){ return baseDefense; }
+	
+	protected int getHealthDegredation(){
+		int numTiers = this.healthTiers.size;
+		int health = currentHealth;
+		for (int healthTier : healthTiers.items){
+			health -= healthTier;
+			numTiers--;
+			if (health <= 0) return numTiers;
+		}
+		return numTiers;
+	}
 	
 	public void modLust(int lustMod) { lust += lustMod; }
 	
@@ -287,7 +302,7 @@ public abstract class AbstractCharacter extends Actor {
 		}
 		
 		int damage = attack.getDamage();
-		damage -= getEndurance()/2;
+		damage -= getDefense();
 		if (damage > 0){	
 			currentHealth -= damage;
 			result.add("The blow strikes for " + damage + " damage!");

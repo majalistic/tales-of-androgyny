@@ -18,6 +18,7 @@ import com.badlogic.gdx.utils.Array;
 import com.majalis.battle.BattleFactory.EnemyEnum;
 import com.majalis.character.AbstractCharacter;
 import com.majalis.character.AbstractCharacter.Stance;
+import com.majalis.character.Attack;
 import com.majalis.character.PlayerCharacter.Stat;
 import com.majalis.character.EnemyCharacter;
 import com.majalis.character.PlayerCharacter;
@@ -158,9 +159,12 @@ public class Battle extends Group{
 		firstTechnique = firstCharacter.extractCosts(firstTechnique);
 		secondTechnique = secondCharacter.extractCosts(secondTechnique);
 		
-		printToConsole(firstCharacter.receiveAttack(secondCharacter.doAttack(secondTechnique.resolve(firstTechnique))));
-		printToConsole(secondCharacter.receiveAttack(firstCharacter.doAttack(firstTechnique.resolve(secondTechnique))));
+		Attack attackForFirstCharacter = secondCharacter.doAttack(secondTechnique.resolve(firstTechnique));
+		Attack attackForSecondCharacter = firstCharacter.doAttack(firstTechnique.resolve(secondTechnique));
 
+		printToConsole(firstCharacter.receiveAttack(attackForFirstCharacter));
+		printToConsole(secondCharacter.receiveAttack(attackForSecondCharacter));		
+		
 		if (secondCharacter.battleOver >= 5){
 			battleOver = true;
 			victory = false;
