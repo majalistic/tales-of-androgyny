@@ -94,7 +94,4 @@ public enum Techniques {
 	public static Array<Techniques> getLearnableSpells() {
 		return new Array<Techniques>(true, new Techniques[]{COMBAT_HEAL, COMBAT_FIRE, TITAN_STRENGTH}, 0, 2);
 	}
-	public boolean isSpell() {
-		return false;
-	}
 }

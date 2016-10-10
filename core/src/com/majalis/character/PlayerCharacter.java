@@ -98,14 +98,16 @@ public class PlayerCharacter extends AbstractCharacter {
 		this.jobClass = jobClass;
 		skillPoints = 2; 
 		perkPoints = 2; 
+		magicPoints = 0;
 		food = 40; 
 		skills.remove(Techniques.COMBAT_HEAL);
+		skills.remove(Techniques.INCANTATION);
 		// warrior will need to get bonus stance options, Ranger will need to start with a bow
 		switch (jobClass){ 
 			
 			case WARRIOR: skillPoints = 3; break;
-			case PALADIN: skills.add(Techniques.COMBAT_HEAL); break;
-			case THIEF: skillPoints = 5;food = 80; break;
+			case PALADIN: addSkill(Techniques.COMBAT_HEAL); break;
+			case THIEF: skillPoints = 5; food = 80; break;
 			case MAGE: magicPoints = 2; break;
 			case ENCHANTRESS: magicPoints = 1; perkPoints = 3; break;
 			default:
@@ -257,7 +259,7 @@ public class PlayerCharacter extends AbstractCharacter {
 	// need to add the list of default skills, the actual variable, and some way to access it for skill selection purposes (filter)
 	public void addSkill(Techniques newTech) {
 		// if it's a spell, add incantation
-		if (newTech.isSpell()){
+		if (newTech.getTrait().isSpell()){
 			skills.add(Techniques.INCANTATION);
 		}
 		skills.add(newTech);	
