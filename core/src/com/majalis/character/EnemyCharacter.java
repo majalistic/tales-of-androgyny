@@ -21,18 +21,20 @@ public class EnemyCharacter extends AbstractCharacter {
 		switch(enemyType){
 			case WERESLUT:
 				baseStrength = 6;
-				baseAgility = 6;
+				baseAgility = 8;
 				break;
 			case HARPY:
 				baseStrength = 5;
-				baseAgility = 5;
+				baseAgility = 7;
 				break;
 			case BRIGAND:
 				baseStrength = 4;
+				baseAgility = 5;
 				break;
 			case SLIME:
 				baseStrength = 2;
 				baseEndurance = 4;
+				baseAgility = 5;
 				break;
 		}
 		staminaTiers.add(5);

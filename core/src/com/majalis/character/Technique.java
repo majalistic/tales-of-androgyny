@@ -1,8 +1,8 @@
 package com.majalis.character;
 
-import com.majalis.Technique.TechniquePrototype;
-import com.majalis.Technique.TechniquePrototype.TechniqueHeight;
 import com.majalis.character.AbstractCharacter.Stance;
+import com.majalis.technique.TechniquePrototype;
+import com.majalis.technique.TechniquePrototype.TechniqueHeight;
 /*
  * Represents an action taken by a character in battle.  Will likely need a builder helper.
  */

@@ -1,16 +1,16 @@
 package com.majalis.character;
 
 import com.badlogic.gdx.utils.Array;
-import com.majalis.Technique.TechniquePrototype;
-import com.majalis.Technique.TechniquePrototype.TechniqueHeight;
-import com.majalis.Technique.AttackTechnique;
-import com.majalis.Technique.ClimaxTechnique;
-import com.majalis.Technique.FallDownTechnique;
-import com.majalis.Technique.GrappleTechnique;
-import com.majalis.Technique.GuardTechnique;
-import com.majalis.Technique.NonAttackTechnique;
-import com.majalis.Technique.SpellTechnique;
 import com.majalis.character.AbstractCharacter.Stance;
+import com.majalis.technique.AttackTechnique;
+import com.majalis.technique.ClimaxTechnique;
+import com.majalis.technique.FallDownTechnique;
+import com.majalis.technique.GrappleTechnique;
+import com.majalis.technique.GuardTechnique;
+import com.majalis.technique.NonAttackTechnique;
+import com.majalis.technique.SpellTechnique;
+import com.majalis.technique.TechniquePrototype;
+import com.majalis.technique.TechniquePrototype.TechniqueHeight;
 /*
  * List of all techniques and their generic attributes
  */
@@ -29,9 +29,9 @@ public enum Techniques {
 	GUARD  				(new GuardTechnique	(Stance.DEFENSIVE, "Guard", -1, 0)),
 	SECOND_WIND			(new NonAttackTechnique(Stance.DEFENSIVE, "Second Wind", -1, -4)),
 	/* Techniques from Prone/Supine */
-	KIP_UP				(new NonAttackTechnique(Stance.BALANCED, "Kip Up", -5, 5)),
-	STAND_UP			(new NonAttackTechnique(Stance.BALANCED, "Stand Up", -1, 2)),
-	KNEE_UP				(new NonAttackTechnique(Stance.KNEELING, "Knee Up", -5, 1)),
+	KIP_UP				(new NonAttackTechnique(Stance.BALANCED, "Kip Up", 5, -5)),
+	STAND_UP			(new NonAttackTechnique(Stance.BALANCED, "Stand Up", 2, -1)),
+	KNEE_UP				(new NonAttackTechnique(Stance.KNEELING, "Knee Up", 1, -5)),
 	REST				(new NonAttackTechnique(Stance.SUPINE, "Rest", -1, -1)),
 	REST_FACE_DOWN		(new NonAttackTechnique(Stance.PRONE, "Rest", -1, -1)),
 	/* Out of resources */

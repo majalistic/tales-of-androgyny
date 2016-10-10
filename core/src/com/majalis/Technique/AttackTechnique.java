@@ -1,4 +1,4 @@
-package com.majalis.Technique;
+package com.majalis.technique;
 
 import com.majalis.character.AbstractCharacter.Stance;
 
