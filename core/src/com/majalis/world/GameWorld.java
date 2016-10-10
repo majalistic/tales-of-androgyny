@@ -2,9 +2,9 @@ package com.majalis.world;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Array;
 /*
@@ -26,7 +26,7 @@ public class GameWorld {
 		encounterSelected = false;
 	}
 	
-	public void gameLoop(SpriteBatch batch, Camera camera){
+	public void gameLoop(SpriteBatch batch, Vector3 position){
 		if (Gdx.input.isKeyJustPressed(Keys.TAB)){
 			displayHUD = !displayHUD;
 		}
@@ -39,7 +39,7 @@ public class GameWorld {
 				encounterSelected = true;
 			}
 			// this should be refactored so that hover text is an actor the node creates that is rendered after
-			node.drawHover(batch, new Vector2(camera.position.x + 1000, camera.position.y + 30));			
+			node.drawHover(batch, new Vector2(position.x + 1000, position.y + 30));			
 		}
 		batch.end();
 	}

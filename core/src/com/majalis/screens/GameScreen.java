@@ -158,7 +158,7 @@ public class GameScreen extends AbstractScreen {
 			draw(delta);
 			super.render(delta);
 			drawClouds(delta);
-			world.gameLoop(batch, getCamera());
+			world.gameLoop(batch, getCamera().position);
 		}
 	}
 	
