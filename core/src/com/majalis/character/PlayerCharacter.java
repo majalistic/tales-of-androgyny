@@ -324,6 +324,14 @@ public class PlayerCharacter extends AbstractCharacter {
 		}
 		return !spurt.isEmpty() ? spurt : null;
 	}
+
+	public boolean outOfStaminaOrStability(Technique technique) {
+		 return getStaminaMod(technique) >= currentStamina || technique.getStabilityCost() - getStabilityRegen() >= stability;
+	}
+
+	public boolean lowStaminaOrStability(Technique technique) {
+		return getStaminaMod(technique) >= currentStamina - 5 || technique.getStabilityCost() - getStabilityRegen() >= stability - 5;
+	}
 	
 	
 	

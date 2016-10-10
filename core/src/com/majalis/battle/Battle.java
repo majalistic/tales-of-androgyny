@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -15,6 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.majalis.battle.BattleFactory.EnemyEnum;
 import com.majalis.character.AbstractCharacter;
 import com.majalis.character.AbstractCharacter.Stance;
@@ -85,6 +87,17 @@ public class Battle extends Group{
 			button = new TextButton(option.getTechniqueName() + (ii > POSSIBLE_KEYS_CHAR.length ? "" : " ("+POSSIBLE_KEYS_CHAR[ii]+")"), skin);
 			button.addListener(getListener(option, buttonSound));
 			table.add(button).width(220).height(40).row();
+			if(character.outOfStaminaOrStability(option)){
+				TextButtonStyle style = new TextButtonStyle(button.getStyle());
+				style.fontColor = Color.RED;
+				button.setStyle(style);
+			}
+			else if (character.lowStaminaOrStability(option)){
+				TextButtonStyle style = new TextButtonStyle(button.getStyle());
+				style.fontColor = Color.ORANGE;
+				button.setStyle(style);
+			}
+
 		}
         table.setFillParent(true);
         table.addAction(Actions.moveTo(1077, 150));
