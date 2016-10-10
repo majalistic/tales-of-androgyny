@@ -16,18 +16,18 @@ import com.majalis.technique.TechniquePrototype.TechniqueHeight;
  */
 public enum Techniques {
 	/* Offensive Techniques */  
-	STRONG_ATTACK 		(new AttackTechnique(Stance.OFFENSIVE, "Strong Attack", 3, 3, 8)),
-	TEMPO_ATTACK  		(new AttackTechnique(Stance.OFFENSIVE, "Tempo Attack", 2, 2, 6)),
-	SPRING_ATTACK  		(new AttackTechnique(Stance.OFFENSIVE, "Spring Attack", 1, 4, 6)),
+	STRONG_ATTACK 		(new AttackTechnique(Stance.OFFENSIVE, "Strong Attack", 3, 3, 4)),
+	TEMPO_ATTACK  		(new AttackTechnique(Stance.OFFENSIVE, "Tempo Attack", 2, 2, 3)),
+	SPRING_ATTACK  		(new AttackTechnique(Stance.OFFENSIVE, "Spring Attack", 1, 4, 3)),
 	/* Balanced Techniques */
-	RESERVED_ATTACK  	(new AttackTechnique(Stance.BALANCED, "Reserved Attack", 1, 4, 2)),
-	REVERSAL_ATTACK  	(new AttackTechnique(Stance.BALANCED, "Reversal Attack", 0, 2, 4)),
+	RESERVED_ATTACK  	(new AttackTechnique(Stance.BALANCED, "Reserved Attack", 1, 4, 1)),
+	REVERSAL_ATTACK  	(new AttackTechnique(Stance.BALANCED, "Reversal Attack", 0, 2, 2)),
 	NEUTRAL_ATTACK  	(new AttackTechnique(Stance.BALANCED, "Neutral Attack", 0, 1, 1)),
 	/* Defensive Techniques */
-	CAREFUL_ATTACK  	(new AttackTechnique(Stance.DEFENSIVE, "Careful Attack", 0, 0, 2)),
+	CAREFUL_ATTACK  	(new AttackTechnique(Stance.DEFENSIVE, "Careful Attack", 0, 0, 1)),
 	BLOCK				(new GuardTechnique	(Stance.DEFENSIVE, "Block", 0, 0)),
 	GUARD  				(new GuardTechnique	(Stance.DEFENSIVE, "Guard", -2, -2)),
-	SECOND_WIND			(new NonAttackTechnique(Stance.DEFENSIVE, "Second Wind", -1, -4)),
+	SECOND_WIND			(new NonAttackTechnique(Stance.DEFENSIVE, "Second Wind", -4, -1)),
 	/* Techniques from Prone/Supine */
 	KIP_UP				(new NonAttackTechnique(Stance.BALANCED, "Kip Up", 5, -5)),
 	STAND_UP			(new NonAttackTechnique(Stance.BALANCED, "Stand Up", 2, -1)),
@@ -43,7 +43,7 @@ public enum Techniques {
 	FLY					(new NonAttackTechnique(Stance.AIRBORNE, "Fly", 0, 0)),	 
 	/* Enemy attacks */
 	SLIME_ATTACK 		(new AttackTechnique(Stance.BALANCED, "Slime Attack", 7, 0, 5)),
-	SLIME_QUIVER 		(new NonAttackTechnique(Stance.DEFENSIVE, "Slime Quiver", 0, -1)),
+	SLIME_QUIVER 		(new NonAttackTechnique(Stance.DEFENSIVE, "Slime Quiver", -1, -1)),
 	
 	/* Enemy pouncing */
 	DIVEBOMB 			(new GrappleTechnique  (Stance.FELLATIO, "Divebomb", 2, Stance.FELLATIO, TechniqueHeight.HIGH)),
@@ -69,10 +69,10 @@ public enum Techniques {
 	CAUTIOUS_ATTACK  	(new AttackTechnique(Stance.DEFENSIVE, "Cautious Attack", -1, 0, 2)),
 	VAULT 				(new NonAttackTechnique(Stance.AIRBORNE, "Vault", 2, 4)), 
 	JUMP_ATTACK 		(new AttackTechnique(Stance.BALANCED, "Jump Attack", 4, 4, 2)),
-	RECKLESS_ATTACK 	(new AttackTechnique(Stance.OFFENSIVE, "Reckless Attack", 2, 3, 6)), // needs to be unguardable
+	RECKLESS_ATTACK 	(new AttackTechnique(Stance.OFFENSIVE, "Reckless Attack", 2, 3, 6, false)), // needs to be unguardable
 	
 	TAUNT 				(new NonAttackTechnique(Stance.DEFENSIVE, "Taunt", 0, 0, true)), 
-	KNOCK_DOWN 			(new AttackTechnique(Stance.OFFENSIVE, "Knock Down", 1, 3, 6)), // needs to knock down
+	KNOCK_DOWN 			(new AttackTechnique(Stance.OFFENSIVE, "Knock Down", 1, 3, 6, 2)), // needs to knock down
 	HIT_THE_DECK		(new FallDownTechnique(Stance.PRONE, "Hit the Deck")), 
 	PARRY  				(new GuardTechnique(Stance.DEFENSIVE, "Parry", -1, 0)),
 	

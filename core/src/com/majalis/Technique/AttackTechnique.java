@@ -7,12 +7,32 @@ public class AttackTechnique extends TechniquePrototype {
 		this(resultingStance, name, powerMod, staminaCost, stabilityCost, TechniqueHeight.MEDIUM);
 	}
 	public AttackTechnique(Stance resultingStance, String name, int powerMod, int staminaCost, int stabilityCost, TechniqueHeight height){
+		this(resultingStance, name, powerMod, staminaCost, stabilityCost, true, height);
+	}
+	public AttackTechnique(Stance resultingStance, String name, int powerMod, int staminaCost, int stabilityCost, boolean isBlockable) {
+		this(resultingStance, name, powerMod, staminaCost, stabilityCost, isBlockable, TechniqueHeight.MEDIUM);
+	}
+	
+	public AttackTechnique(Stance resultingStance, String name, int powerMod, int staminaCost, int stabilityCost, int knockdown) {
+		this(resultingStance, name, powerMod, staminaCost, stabilityCost, knockdown, true, TechniqueHeight.MEDIUM);
+	}
+	
+	public AttackTechnique(Stance resultingStance, String name, int powerMod, int staminaCost, int stabilityCost, boolean isBlockable, TechniqueHeight height){
+		this(resultingStance, name, powerMod, staminaCost, stabilityCost, 1, isBlockable, TechniqueHeight.MEDIUM);
+	}
+	
+	public AttackTechnique(Stance resultingStance, String name, int powerMod, int staminaCost, int stabilityCost, int knockdown, boolean isBlockable, TechniqueHeight height){
 		super(resultingStance, name);
 		this.doesDamage = true;
 		this.blockable = true;
 		this.powerMod = powerMod;
 		this.staminaCost = staminaCost;
 		this.stabilityCost = stabilityCost;
+		this.knockdown = knockdown;
+		this.blockable = isBlockable;
 		this.height = height;
 	}
+	
+
+	
 }

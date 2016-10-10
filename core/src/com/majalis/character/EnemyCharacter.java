@@ -67,7 +67,7 @@ public class EnemyCharacter extends AbstractCharacter {
 			}
 		}
 		
-		if (enemyType == EnemyEnum.SLIME && stance != Stance.DOGGY && stance != Stance.FELLATIO){
+		if (enemyType == EnemyEnum.SLIME && stance != Stance.DOGGY && stance != Stance.FELLATIO && stance != Stance.SUPINE && stance != Stance.PRONE){
 			if (currentStamina > 3 && (stance == Stance.BALANCED || currentStamina > 9)){
 				return getTechnique(Techniques.SLIME_ATTACK); 
 			}

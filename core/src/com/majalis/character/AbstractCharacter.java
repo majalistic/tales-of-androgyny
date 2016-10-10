@@ -94,7 +94,7 @@ public abstract class AbstractCharacter extends Actor {
 	protected int getMaxHealth() { return getMax(healthTiers); }
 	protected int getMaxStamina() { return getMax(staminaTiers); }
 	protected int getMaxMana() { return getMax(manaTiers); }
-	protected int getMaxStability() { return getAgility() * 3 + 6; }
+	protected int getMaxStability() { return getAgility() * 3 + 9; }
 	protected int getMax(IntArray tiers){
 		int max = 0;
 		for (int ii = 0; ii < tiers.size; ii++){
@@ -126,7 +126,7 @@ public abstract class AbstractCharacter extends Actor {
 	
 	public int getStability(){ return stability; }
 	
-	protected void setStabilityToMax(){ stability = 10; }
+	protected void setStabilityToMax(){ stability = getMaxStability(); }
 	
 	protected void setStabilityToMin(){ stability = -5; }
 	
@@ -153,6 +153,7 @@ public abstract class AbstractCharacter extends Actor {
 	protected int getCharisma() { return baseCharisma; }
 	
 	protected int getDefense(){ return baseDefense; }
+	protected int getTraction(){ return 2; }
 	
 	protected int getHealthDegradation(){ return getDegradation(healthTiers, currentHealth); }
 	protected int getStaminaDegradation(){ return getDegradation(staminaTiers, currentStamina); }
@@ -198,7 +199,7 @@ public abstract class AbstractCharacter extends Actor {
 			}
 		}
 		
-		if (technique.getTechniqueName().equals("Hit The Deck")){
+		if (technique.getTechniqueName().equals("Hit the Deck")){
 			setStabilityToMin();
 		}
 		
@@ -210,8 +211,9 @@ public abstract class AbstractCharacter extends Actor {
 	public Attack doAttack(Attack resolvedAttack) {
 		resolvedAttack.setUser(label);
 		if (!resolvedAttack.isSuccessful()){
+			resolvedAttack.addMessage(resolvedAttack.getUser() + " used " + resolvedAttack.getName() + " but missed! ");
 			if (enemyType == EnemyEnum.HARPY && stance == Stance.FELLATIO && resolvedAttack.getForceStance() == Stance.FELLATIO){
-				resolvedAttack.addMessage("The harpy missed! She crashes to the ground!");
+				resolvedAttack.addMessage("She crashes to the ground!");
 				stance = Stance.PRONE;
 			}
 			return resolvedAttack;
@@ -288,20 +290,19 @@ public abstract class AbstractCharacter extends Actor {
 	}
 	
 	public Array<String> receiveAttack(Attack attack){
+		if (stability <= 0){
+			stance = Stance.PRONE;
+		}
+		else if (currentStamina <= 0){
+			stance = Stance.SUPINE;
+		}
 		if (!attack.isSuccessful()){
-			if (stability <= 0){
-				stance = Stance.PRONE;
-			}
-			else if (currentStamina <= 0){
-				stance = Stance.SUPINE;
-			}
 			return attack.getMessages();
 		}
 		
-		
 		Array<String> result = attack.getMessages();
 
-		attack.addMessage(attack.getuser() + " used " + attack.getName() +  " on " + (secondPerson ? label.toLowerCase() : label) + "!");
+		attack.addMessage(attack.getUser() + " used " + attack.getName() +  " on " + (secondPerson ? label.toLowerCase() : label) + "!");
 		
 		struggle += attack.getGrapple();
 		if (attack.isClimax()){
@@ -324,6 +325,18 @@ public abstract class AbstractCharacter extends Actor {
 			result.add("The blow strikes for " + damage + " damage!");
 		}
 		
+		int knockdown = attack.getForce();
+		knockdown -= getTraction();
+		if (knockdown > 0){
+			stability -= knockdown;
+			result.add("It's a solid blow! It reduces balance by " + knockdown + "!");
+			if (stability <= 0){
+				result.add(label + (secondPerson ? " are " : " is ") + "knocked to the ground!");
+				setStabilityToMin();
+				stance = Stance.SUPINE;
+			}
+		}
+		
 		Stance forcedStance = attack.getForceStance();
 		if (forcedStance != null){
 			result.add(label + (secondPerson ? " are " : " is ") + "forced into " + forcedStance.toString() + " stance!");
@@ -337,15 +350,7 @@ public abstract class AbstractCharacter extends Actor {
 			lustIncrease = increaseLust(attack.getLust());
 			if (lustIncrease != null) result.add(lustIncrease);
 			result.add(label + (secondPerson ? " are taunted " : " is taunted ") + "! " + (secondPerson ? " Your " : " Their ") + "lust raises by" + attack.getLust());
-		}
-		
-		if (stability <= 0){
-			stance = Stance.PRONE;
-		}
-		else if (currentStamina <= 0){
-			stance = Stance.SUPINE;
-		}
-		
+		}	
 		return result;
 	}
 
@@ -360,10 +365,10 @@ public abstract class AbstractCharacter extends Actor {
 		BALANCED,
 		DEFENSIVE,
 		OFFENSIVE,
-		PRONE (false),
-		SUPINE (false),
-		KNEELING (false),
-		AIRBORNE, 
+		PRONE (false, false, true),
+		SUPINE (false, false, true),
+		KNEELING (false, true, true),
+		AIRBORNE (true, false, false), 
 		DOGGY, 
 		KNOTTED, 
 		FELLATIO, 
@@ -372,11 +377,15 @@ public abstract class AbstractCharacter extends Actor {
 		;
 		
 		public final boolean receivesHighAttacks;
+		public final boolean receivesMediumAttacks;
+		public final boolean receivesLowAttacks;
 		private Stance(){
-			this(true);
+			this(true, true, true);
 		}
-		private Stance(boolean receivesHigh){
+		private Stance(boolean receivesHigh, boolean receivesMedium, boolean receivesLow){
 			receivesHighAttacks = receivesHigh;
+			receivesMediumAttacks = receivesMedium;
+			receivesLowAttacks = receivesLow;
 		}
 		
 	}

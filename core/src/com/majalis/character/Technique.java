@@ -32,11 +32,16 @@ public class Technique {
 		int rand = (int) Math.floor(Math.random() * 100);
 		double blockMod = otherTechnique.isBlockable() ? (getBlock() > rand * 2 ? 0 : getBlock() > rand ? .5 : 1) : 1;
 		
-		boolean isSuccessful = technique.getTechniqueHeight() != TechniqueHeight.HIGH || otherTechnique.getStance().receivesHighAttacks;
+		boolean isSuccessful = 
+				technique.getTechniqueHeight() == null ||
+				(technique.getTechniqueHeight() == TechniqueHeight.HIGH && otherTechnique.getStance().receivesHighAttacks) || 
+				(technique.getTechniqueHeight() == TechniqueHeight.MEDIUM && otherTechnique.getStance().receivesMediumAttacks) || 
+				(technique.getTechniqueHeight() == TechniqueHeight.LOW && otherTechnique.getStance().receivesLowAttacks) 
+				;
 		// this is temporarily to prevent struggling from failing to work properly on the same term an eruption or knot happens
 		if (isSuccessful) isSuccessful = otherTechnique.getForceStance() == null || otherTechnique.getForceStance() == Stance.KNOTTED || otherTechnique.getForceStance() == Stance.KNEELING;
 		
-		return new Attack(isSuccessful, technique.getName(), (int)(getDamage() * blockMod), technique.isHealing() ? strength + technique.getPowerMod() : 0, technique.isTaunt() ? strength + technique.getPowerMod() : 0, technique.isGrapple() ? strength + technique.getPowerMod() : 0, technique.isClimax(), getForceStance());
+		return new Attack(isSuccessful, technique.getName(), (int)(getDamage() * blockMod), ((strength + technique.getPowerMod()) * technique.getKnockdown())/2, technique.isHealing() ? strength + technique.getPowerMod() : 0, technique.isTaunt() ? strength + technique.getPowerMod() : 0, technique.isGrapple() ? strength + technique.getPowerMod() : 0, technique.isClimax(), getForceStance());
 	}
 	
 	private boolean isBlockable() {
