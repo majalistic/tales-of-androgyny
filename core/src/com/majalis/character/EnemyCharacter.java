@@ -52,7 +52,7 @@ public class EnemyCharacter extends AbstractCharacter {
 	
 	public Technique getTechnique(AbstractCharacter target){
 		int rand = getRandomWeighting(); 
-	
+
 		if (lust < 10) lust++;
 		
 		if (willPounce()){

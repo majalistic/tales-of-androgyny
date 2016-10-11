@@ -29,9 +29,9 @@ public enum Techniques {
 	GUARD  				(new GuardTechnique	(Stance.DEFENSIVE, "Guard", -2, -2)),
 	SECOND_WIND			(new NonAttackTechnique(Stance.DEFENSIVE, "Second Wind", -4, -1)),
 	/* Techniques from Prone/Supine */
-	KIP_UP				(new NonAttackTechnique(Stance.BALANCED, "Kip Up", 5, -5)),
-	STAND_UP			(new NonAttackTechnique(Stance.BALANCED, "Stand Up", 2, -1)),
-	KNEE_UP				(new NonAttackTechnique(Stance.KNEELING, "Knee Up", 1, -5)),
+	KIP_UP				(new NonAttackTechnique(Stance.BALANCED, "Kip Up", 5, -10)),
+	STAND_UP			(new NonAttackTechnique(Stance.BALANCED, "Stand Up", 3, -6)),
+	KNEE_UP				(new NonAttackTechnique(Stance.KNEELING, "Knee Up", 1, -10)),
 	REST				(new NonAttackTechnique(Stance.SUPINE, "Rest", -1, -1)),
 	REST_FACE_DOWN		(new NonAttackTechnique(Stance.PRONE, "Rest", -1, -1)),
 	/* Out of resources */

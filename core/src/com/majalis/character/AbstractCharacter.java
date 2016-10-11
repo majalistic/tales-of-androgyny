@@ -171,7 +171,7 @@ public abstract class AbstractCharacter extends Actor {
 	
 	public void modLust(int lustMod) { lust += lustMod; }
 	
-	public Technique extractCosts(Technique technique){
+	protected int getStaminaMod(Technique technique){
 		int staminaMod = technique.getStaminaCost();
 		if (staminaMod >= 0){
 			staminaMod -= getStaminaRegen();
@@ -180,32 +180,33 @@ public abstract class AbstractCharacter extends Actor {
 		else {
 			staminaMod -= getStaminaRegen();
 		}
+		return staminaMod;
+	}
+	
+	public Technique extractCosts(Technique technique){
+		int staminaMod = getStaminaMod(technique); 
 		modStamina(-staminaMod);
 		modStability(-technique.getStabilityCost());
 		modStability(getStabilityRegen());
 		modMana(-technique.getManaCost());
 		
-		if (stance != Stance.PRONE && stance != Stance.SUPINE && stance != Stance.DOGGY && stance != Stance.FELLATIO && stance != Stance.KNOTTED){
-			if (stability <= 0){
-				technique = new Technique(Techniques.TRIP.getTrait(), 0);
-				setStabilityToMin();
-			}
-			else if (currentStamina <= 0){
-				technique = new Technique(Techniques.FALL_DOWN.getTrait(), 0);
-			}
-			else if (currentMana < 0){
-				technique = new Technique(Techniques.FIZZLE.getTrait(), 0);
-				currentMana = 0;
-			}
+		// this should be moved to technique failure
+		if (technique.isSpell() && currentMana < 0){
+			technique = new Technique(Techniques.FIZZLE.getTrait(), 0);
+			currentMana = 0;
 		}
 		
-		if (technique.getTechniqueName().equals("Hit the Deck")){
+		if (technique.isFallDown()){
 			setStabilityToMin();
 		}
 		
 		stance = technique.getStance();
 		
 		return technique;
+	}
+	
+	protected boolean alreadyIncapacitated(){
+		return stance == Stance.PRONE || stance == Stance.SUPINE || stance == Stance.FELLATIO || stance == Stance.DOGGY || stance == Stance.KNOTTED;
 	}
 	
 	public Attack doAttack(Attack resolvedAttack) {
@@ -290,67 +291,78 @@ public abstract class AbstractCharacter extends Actor {
 	}
 	
 	public Array<String> receiveAttack(Attack attack){
-		if (stability <= 0){
-			stance = Stance.PRONE;
-		}
-		else if (currentStamina <= 0){
-			stance = Stance.SUPINE;
-		}
-		if (!attack.isSuccessful()){
-			return attack.getMessages();
-		}
-		
 		Array<String> result = attack.getMessages();
-
-		attack.addMessage(attack.getUser() + " used " + attack.getName() +  " on " + (secondPerson ? label.toLowerCase() : label) + "!");
 		
-		struggle += attack.getGrapple();
-		if (attack.isClimax()){
-			struggle = 0;
-		}
-		if (attack.getForceStance() == Stance.BALANCED){
-			attack.addMessage("You broke free!");
-			if (stance == Stance.FELLATIO){
-				attack.addMessage("It slips out of your mouth and you get to your feet!");
+		boolean knockedDown = false;
+		
+		if (attack.isSuccessful()){
+			result.add(attack.getUser() + " used " + attack.getName() +  " on " + (secondPerson ? label.toLowerCase() : label) + "!");
+			
+			struggle += attack.getGrapple();
+			if (attack.isClimax()){
+				struggle = 0;
 			}
-			else {
-				attack.addMessage("It pops out of your ass and you get to your feet!");
+			if (attack.getForceStance() == Stance.BALANCED){
+				result.add("You broke free!");
+				if (stance == Stance.FELLATIO){
+					result.add("It slips out of your mouth and you get to your feet!");
+				}
+				else {
+					result.add("It pops out of your ass and you get to your feet!");
+				}
 			}
+			
+			int damage = attack.getDamage();
+			damage -= getDefense();
+			if (damage > 0){	
+				currentHealth -= damage;
+				result.add("The blow strikes for " + damage + " damage!");
+			}
+			
+			int knockdown = attack.getForce();
+			knockdown -= getTraction();
+			if (knockdown > 0){
+				if (!alreadyIncapacitated()){
+					stability -= knockdown;
+					result.add("It's a solid blow! It reduces balance by " + knockdown + "!");
+					if (stability <= 0){
+						result.add(label + (secondPerson ? " are " : " is ") + "knocked to the ground!");
+						setStabilityToMin();
+						stance = Stance.SUPINE;
+						knockedDown = true;
+					}
+				}
+			}
+			
+			Stance forcedStance = attack.getForceStance();
+			if (forcedStance != null){
+				result.add(label + (secondPerson ? " are " : " is ") + "forced into " + forcedStance.toString() + " stance!");
+				stance = forcedStance;
+			}
+			
+			String lustIncrease = increaseLust();
+			if (lustIncrease != null) result.add(lustIncrease);
+			
+			if (attack.getLust() > 0){
+				lustIncrease = increaseLust(attack.getLust());
+				if (lustIncrease != null) result.add(lustIncrease);
+				result.add(label + (secondPerson ? " are taunted " : " is taunted ") + "! " + (secondPerson ? " Your " : " Their ") + "lust raises by" + attack.getLust());
+			}	
 		}
-		
-		int damage = attack.getDamage();
-		damage -= getDefense();
-		if (damage > 0){	
-			currentHealth -= damage;
-			result.add("The blow strikes for " + damage + " damage!");
-		}
-		
-		int knockdown = attack.getForce();
-		knockdown -= getTraction();
-		if (knockdown > 0){
-			stability -= knockdown;
-			result.add("It's a solid blow! It reduces balance by " + knockdown + "!");
+		if (!alreadyIncapacitated() && !knockedDown){
+			// you tripped
 			if (stability <= 0){
-				result.add(label + (secondPerson ? " are " : " is ") + "knocked to the ground!");
+				stance = Stance.PRONE;
+				result.add(label + (secondPerson ? " lose your" : " loses their") + " footing and " + (secondPerson ? "trip" : "trips") + "!");
 				setStabilityToMin();
+			}
+			// you blacked out
+			else if (currentStamina <= 0){
+				result.add(label + " runs out of breath and " + (secondPerson ? "collapse" : "collapses") + "!");
 				stance = Stance.SUPINE;
 			}
 		}
 		
-		Stance forcedStance = attack.getForceStance();
-		if (forcedStance != null){
-			result.add(label + (secondPerson ? " are " : " is ") + "forced into " + forcedStance.toString() + " stance!");
-			stance = forcedStance;
-		}
-		
-		String lustIncrease = increaseLust();
-		if (lustIncrease != null) result.add(lustIncrease);
-		
-		if (attack.getLust() > 0){
-			lustIncrease = increaseLust(attack.getLust());
-			if (lustIncrease != null) result.add(lustIncrease);
-			result.add(label + (secondPerson ? " are taunted " : " is taunted ") + "! " + (secondPerson ? " Your " : " Their ") + "lust raises by" + attack.getLust());
-		}	
 		return result;
 	}
 

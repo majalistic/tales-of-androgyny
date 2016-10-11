@@ -52,6 +52,14 @@ public class Technique {
 		return technique.isHealing();
 	}
 	
+	protected boolean isSpell(){
+		return technique.isSpell();
+	}
+	
+	protected boolean isFallDown(){
+		return technique.causesTrip();
+	}
+	
 	protected int getDamage(){
 		// can special case powerMod 100 = 0 here
 		int damage = technique.doesSetDamage() ? 4 : technique.isDamaging() ? strength + technique.getPowerMod() : 0;
