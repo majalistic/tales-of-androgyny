@@ -131,7 +131,7 @@ public class EnemyCharacter extends AbstractCharacter {
 			case DOGGY:
 				lust++;
 				if (enemyType != EnemyEnum.WERESLUT && lust > 14){
-					return getTechnique(Techniques.ERUPT);
+					return getTechnique(Techniques.ERUPT_ANAL);
 				}
 				if (enemyType == EnemyEnum.WERESLUT && lust > 17){
 					return getTechnique(Techniques.KNOT);
@@ -146,7 +146,7 @@ public class EnemyCharacter extends AbstractCharacter {
 			case FELLATIO:
 				lust++;
 				if (lust > 14){
-					return getTechnique(Techniques.ERUPT);
+					return getTechnique(Techniques.ERUPT_ORAL);
 				}
 				else {
 					return getTechnique(Techniques.IRRUMATIO);
@@ -176,7 +176,7 @@ public class EnemyCharacter extends AbstractCharacter {
 	@Override
     public void draw(Batch batch, float parentAlpha) {
 		super.draw(batch, parentAlpha);
-		batch.draw(texture, 500, 0, 450, 600);
+		batch.draw(texture, 500, enemyType == EnemyEnum.HARPY ? 100 : 0, 450, 600);
     }
 	
 	public void init(Texture texture){

@@ -1,6 +1,7 @@
 package com.majalis.character;
 import com.badlogic.gdx.utils.Array;
 import com.majalis.character.AbstractCharacter.Stance;
+import com.majalis.technique.ClimaxType;
 
 /*
  * Represents the result of an attack after it has been filtered through an opposing action.
@@ -14,11 +15,11 @@ public class Attack {
 	private final int healing;
 	private final int lust;
 	private final int grapple;
-	private final boolean isClimax;
+	private final ClimaxType climaxType;
 	private final Stance forceStance;
 	private final Array<String> results;
 	private String user;
-	public Attack(boolean success, String name, int damage, int force, int healing, int lust, int grapple, boolean isClimax, Stance forceStance){
+	protected Attack(boolean success, String name, int damage, int force, int healing, int lust, int grapple, ClimaxType climaxType, Stance forceStance){
 		this.success = success;
 		this.name = name;
 		this.damage = damage;
@@ -26,63 +27,68 @@ public class Attack {
 		this.healing = healing;
 		this.lust = lust;
 		this.grapple = grapple;
-		this.isClimax = isClimax;
+		this.climaxType = climaxType;
 		this.forceStance = forceStance;
 		this.results = new Array<String>();
 	}
 	
-	public String getName(){
+	protected String getName(){
 		return name;
 	}
 	
-	public void setUser(String user){
+	protected void setUser(String user){
 		this.user = user;
 	}
 	
-	public String getUser(){
+	protected String getUser(){
 		return user;
 	}
 	
-	public int getDamage(){
+	protected int getDamage(){
 		return damage;
 	}
 	
-	public int getForce(){
+	protected int getForce(){
 		return force;
 	}
 	
-	public boolean isHealing(){
+	protected boolean isHealing(){
 		return healing > 0;
 	}
 	
-	public int getHealing(){
+	protected int getHealing(){
 		return healing;
 	}
 	
-	public int getLust(){
+	protected int getLust(){
 		return lust;
 	}
 	
-	public int getGrapple(){
+	protected int getGrapple(){
 		return grapple;
 	}
 	
-	public Stance getForceStance(){
+	protected Stance getForceStance(){
 		return forceStance;
 	}
-	public boolean isSuccessful(){
+	protected boolean isSuccessful(){
 		return success;
 	}
 
-	public void addMessage(String message) {
+	protected void addMessage(String message) {
 		results.add(message);
 	}
 	
-	public Array<String> getMessages(){
+	protected Array<String> getMessages(){
 		return results;
 	}
 
-	public boolean isClimax() {
-		return isClimax;
+	protected boolean isClimax() {
+		return climaxType != null;
 	}
+	
+	protected ClimaxType getClimaxType(){
+		return climaxType;
+	}
+	
 }

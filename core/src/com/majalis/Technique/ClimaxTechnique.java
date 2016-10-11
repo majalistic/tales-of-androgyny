@@ -4,9 +4,9 @@ import com.majalis.character.AbstractCharacter.Stance;
 
 public class ClimaxTechnique extends TechniquePrototype {
 
-	public ClimaxTechnique(Stance resultingStance, String name, Stance forceStance) {
+	public ClimaxTechnique(Stance resultingStance, String name, Stance forceStance, ClimaxType type) {
 		super(resultingStance, name);
-		this.isClimax = true;
+		this.climaxType = type;
 		this.forceStance = forceStance;
 	}
 }

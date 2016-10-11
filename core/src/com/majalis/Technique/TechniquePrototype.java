@@ -22,7 +22,7 @@ public abstract class TechniquePrototype {
 	protected boolean setDamage;
 	protected boolean blockable;
 	protected boolean grapple;
-	protected boolean isClimax;
+	protected ClimaxType climaxType;
 	
 	protected TechniquePrototype(Stance resultingStance, String name){
 		this.resultingStance = resultingStance;
@@ -44,7 +44,6 @@ public abstract class TechniquePrototype {
 		setDamage = false;
 		blockable = false;
 		grapple = false;
-		isClimax = false;
 	}
 	
 	public Stance getResultingStance(){ return resultingStance; }
@@ -66,7 +65,7 @@ public abstract class TechniquePrototype {
 	public boolean isBlockable() { return blockable; }
 	public boolean isGrapple() { return grapple; }
 	public boolean isTaunt(){ return isTaunt; }
-	public boolean isClimax() { return isClimax; }
+	public ClimaxType getClimaxType() { return climaxType; }
 	
 	public enum TechniqueHeight{
 		HIGH,

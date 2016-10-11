@@ -46,9 +46,6 @@ public class PlayerCharacter extends AbstractCharacter {
 	/* anatomy - contains current and permanent properties */
 	public boolean a2m;
 	public boolean a2mcheevo;
-	// public Hole hole;  // bowels contents, tightness, number of copulations, number of creampies, etc. 
-	// public Mouth mouth; 
-	// public Wiener wiener;	
 	
 	@SuppressWarnings("unused")
 	private PlayerCharacter(){}
@@ -199,6 +196,8 @@ public class PlayerCharacter extends AbstractCharacter {
 		stance = Stance.BALANCED;
 		a2m = false;
 		battleOver = 0;
+		buttful = 0;
+		mouthful = 0;
 	}
 
 	public enum Femininity {

@@ -4,6 +4,7 @@ import com.badlogic.gdx.utils.Array;
 import com.majalis.character.AbstractCharacter.Stance;
 import com.majalis.technique.AttackTechnique;
 import com.majalis.technique.ClimaxTechnique;
+import com.majalis.technique.ClimaxType;
 import com.majalis.technique.FallDownTechnique;
 import com.majalis.technique.GrappleTechnique;
 import com.majalis.technique.GuardTechnique;
@@ -53,7 +54,8 @@ public enum Techniques {
 	POUND 				(new NonAttackTechnique(Stance.DOGGY, "Pound", 0, 1)), // Used to doggystyle
 	KNOT 				(new NonAttackTechnique(Stance.KNOTTED, "Knot", 0, 0, Stance.KNOTTED, "Set Damage")), // Used to knot by knotty weresluts and others
 	KNOT_BANG 			(new NonAttackTechnique(Stance.KNOTTED, "Knot Bang", 0, 0, Stance.KNOTTED, true)), // Used to knot by knotty weresluts and others - could end the battle
-	ERUPT 				(new ClimaxTechnique   (Stance.ERUPT, "Erupt", Stance.KNEELING)),
+	ERUPT_ANAL 			(new ClimaxTechnique   (Stance.DOGGY, "Erupt", Stance.PRONE, ClimaxType.ANAL )),
+	ERUPT_ORAL 			(new ClimaxTechnique   (Stance.FELLATIO, "Erupt", Stance.KNEELING, ClimaxType.ORAL )),
 	
 	RECEIVE 			(new NonAttackTechnique(Stance.DOGGY, "Receive", 0, 0)), 
 	RECEIVE_KNOT 		(new NonAttackTechnique(Stance.KNOTTED, "Receive Knot", 0, 0)), 

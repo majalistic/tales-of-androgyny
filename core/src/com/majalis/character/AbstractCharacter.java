@@ -2,6 +2,7 @@ package com.majalis.character;
 
 import com.majalis.battle.BattleFactory.EnemyEnum;
 import com.majalis.save.SaveManager.JobClass;
+import com.majalis.technique.ClimaxType;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.IntArray;
@@ -57,6 +58,13 @@ public abstract class AbstractCharacter extends Actor {
 	// public Sabaton sabaton;
 	// public Accessory firstAccessory;
 	// public Accessory secondAccessory;
+	
+	// public Hole hole;  // bowels contents, tightness, number of copulations, number of creampies, etc. 
+	// public Mouth mouth; 
+	// public Wiener wiener;	
+	
+	public int buttful;
+	public int mouthful;
 	
 	public Stance stance;
 	// public ObjectMap<StatusTypes, Status>; // status effects will be represented by a map of Enum to Status object
@@ -286,6 +294,7 @@ public abstract class AbstractCharacter extends Actor {
 			else {
 				resolvedAttack.addMessage("The " + getLabel() + " spews hot, thick semen into your bowels!");
 			}
+			stance = Stance.ERUPT;
 		}
 		return resolvedAttack;
 	}
@@ -348,6 +357,17 @@ public abstract class AbstractCharacter extends Actor {
 				if (lustIncrease != null) result.add(lustIncrease);
 				result.add(label + (secondPerson ? " are taunted " : " is taunted ") + "! " + (secondPerson ? " Your " : " Their ") + "lust raises by" + attack.getLust());
 			}	
+			
+			if (attack.getClimaxType() == ClimaxType.ANAL){
+				buttful = 3;
+			}
+			else if (attack.getClimaxType() == ClimaxType.ORAL){
+				mouthful = 1;
+			}
+			
+			if (buttful > 0) result.add(getLeakMessage());
+			if (mouthful > 0) result.add(getDroolMessage());
+			
 		}
 		if (!alreadyIncapacitated() && !knockedDown){
 			// you tripped
@@ -366,6 +386,29 @@ public abstract class AbstractCharacter extends Actor {
 		return result;
 	}
 
+	private String getLeakMessage(){
+		String message = "";
+		if (buttful > 1){
+			message = "You drool cum from your hole!";
+		}
+		else {
+			message = "The last of the cum runs out of your hole!";
+		}
+		buttful--;
+		return message;
+	}
+	private String getDroolMessage(){
+		String message = "";
+		if (mouthful > 1){
+			message = "You try to spit up all of their cum!";
+		}
+		else {
+			message = "You spit all of their cum out onto the ground!";
+		}
+		mouthful--;
+		return message;
+	}
+	
 	protected abstract String increaseLust();
 	protected abstract String increaseLust(int lustIncrease);
 	
