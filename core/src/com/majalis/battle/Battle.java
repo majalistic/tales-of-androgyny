@@ -98,15 +98,32 @@ public class Battle extends Group{
 		
 		private final AbstractCharacter character;
 		private final Vector2 position;
+		private boolean hover;
 		public StanceActor(AbstractCharacter character, Vector2 position) {
 			this.character = character;
 			this.position = position;
+			this.setBounds(position.x, position.y, getStanceImage(character.stance).getWidth(), getStanceImage(character.stance).getHeight());
+			hover = false;
+			this.addListener(new ClickListener(){ 
+				@Override
+		        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
+					hover = true;
+				}
+				@Override
+		        public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
+					hover = false;
+				}
+			});
 		}
 
 		@Override
 	    public void draw(Batch batch, float parentAlpha) {
 			super.draw(batch, parentAlpha);
 			batch.draw(getStanceImage(character.stance), position.x, position.y, 100, 115);
+			if (hover){
+				font.setColor(Color.GOLD);
+				font.draw(batch, character.getStance().name(), position.x, position.y);
+			}
 	    }
 		
 	}
@@ -220,6 +237,7 @@ public class Battle extends Group{
 	@Override
     public void draw(Batch batch, float parentAlpha) {
 		super.draw(batch, parentAlpha);
+		font.setColor(Color.WHITE);
 		font.draw(batch, "Health: " + String.valueOf(character.getCurrentHealth()) + "\nStamina: " + String.valueOf(character.getCurrentStamina()) + "\nBalance: " + String.valueOf(character.getStability()) + (character.getStat(Stat.MAGIC) > 1 ? "\nMana: " + String.valueOf(character.getCurrentMana()) : "")  + "\nStance: " + character.getStance().toString(), 70, 695);		
 		batch.draw(getLustImage(character.lust, PhallusType.SMALL), 60, 450, 100, 115);
 		font.draw(batch, "Health: " + String.valueOf(enemy.getCurrentHealth()) + "\nStance: " + enemy.getStance().toString(), 1100, 650);		
