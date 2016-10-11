@@ -46,9 +46,7 @@ public class EnemyCharacter extends AbstractCharacter {
 		this.stance = Stance.BALANCED;
 	}
 	
-	private boolean willPounce(){
-		return lust >= 10 && stance != Stance.PRONE && stance != Stance.SUPINE && stance != Stance.AIRBORNE && stance != Stance.FELLATIO && stance != Stance.DOGGY && stance != Stance.ERUPT;
-	}
+
 	
 	public Technique getTechnique(AbstractCharacter target){
 		int rand = getRandomWeighting(); 
@@ -158,6 +156,10 @@ public class EnemyCharacter extends AbstractCharacter {
 		}
 	}
 	
+	private boolean willPounce(){
+		return lust >= 10 && stance != Stance.PRONE && stance != Stance.SUPINE && stance != Stance.AIRBORNE && stance != Stance.FELLATIO && stance != Stance.DOGGY && stance != Stance.ERUPT;
+	}
+	
 	private Technique getTechnique(Techniques technique){
 		return new Technique(technique.getTrait(), getStrength());
 	}
@@ -182,6 +184,9 @@ public class EnemyCharacter extends AbstractCharacter {
 	public void init(Texture texture){
 		this.texture = texture;
 	}
+	// for init in battlefactory
+	public void setLust(int lust){ this.lust = lust; }
+	
 	// can put text here for an enemy getting more aroused
 	@Override
 	protected String increaseLust() {

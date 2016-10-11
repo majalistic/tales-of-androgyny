@@ -39,17 +39,17 @@ public class BattleFactory {
 			enemy = getEnemy(battleCode.battleCode);
 			enemy.setStance(battleCode.enemyStance);
 			if (enemy.getStance() == Stance.DOGGY || enemy.getStance() == Stance.FELLATIO){
-				enemy.lust = 10;
+				enemy.setLust(10);
 			}
 			playerCharacter.setStance(battleCode.playerStance);			
 		}
 		// loading old enemy
 		else {
-			enemy.init(getTexture(enemy.enemyType));
+			enemy.init(getTexture(enemy.getType()));
 		}
 		switch(battleCode.battleCode){	
 			default: 
-				return new Battle(saveService, assetManager, font, playerCharacter, enemy, battleCode.victoryScene, battleCode.defeatScene, new Background(assetManager.get(AssetEnum.BATTLE_BG.getPath(), Texture.class)), new Background(getBGTexture(enemy.enemyType)));
+				return new Battle(saveService, assetManager, font, playerCharacter, enemy, battleCode.victoryScene, battleCode.defeatScene, new Background(assetManager.get(AssetEnum.BATTLE_BG.getPath(), Texture.class)), new Background(getBGTexture(enemy.getType())));
 		}
 	}
 	

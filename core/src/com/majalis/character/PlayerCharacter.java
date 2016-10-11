@@ -88,6 +88,8 @@ public class PlayerCharacter extends AbstractCharacter {
 		return statNameMap;
 	}
 	
+	public JobClass getJobClass() { return jobClass; }
+	
 	public void setJobClass(JobClass jobClass){
 		for (Stat stat: Stat.values()){
 			setStat(stat, jobClass.getBaseStat(stat));

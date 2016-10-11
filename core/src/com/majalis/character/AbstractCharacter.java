@@ -13,43 +13,43 @@ public abstract class AbstractCharacter extends Actor {
 	
 	// some of these ints will be enumerators or objects in time
 	/* permanent stats */
-	public String label;
-	public boolean secondPerson;
+	protected String label;
+	protected boolean secondPerson;
 	
 	/* rigid stats */
-	public JobClass jobClass;
-	public EnemyEnum enemyType;
-	public int level;
-	public int baseStrength;
-	public int baseEndurance;
-	public int baseAgility;
-	public int basePerception;
-	public int baseMagic;
-	public int baseCharisma;
-	public int baseLuck; // 0 for most classes, can go negative
+	protected JobClass jobClass;
+	protected EnemyEnum enemyType;
+	protected int level;
+	protected int baseStrength;
+	protected int baseEndurance;
+	protected int baseAgility;
+	protected int basePerception;
+	protected int baseMagic;
+	protected int baseCharisma;
+	protected int baseLuck; // 0 for most classes, can go negative
 	
-	public int baseDefense;
-	public int baseEvade;
-	public int baseBlock;
-	public int baseParry;
-	public int baseCounter;
+	protected int baseDefense;
+	protected int baseEvade;
+	protected int baseBlock;
+	protected int baseParry;
+	protected int baseCounter;
 	
-	public IntArray healthTiers; // total these to receive maxHealth, maybe cache it when this changes
-	public IntArray staminaTiers; // total these to receive maxStamina, maybe cache it when this changes
-	public IntArray manaTiers; // total these to receive maxMana, maybe cache it when this changes
+	protected IntArray healthTiers; // total these to receive maxHealth, maybe cache it when this changes
+	protected IntArray staminaTiers; // total these to receive maxStamina, maybe cache it when this changes
+	protected IntArray manaTiers; // total these to receive maxMana, maybe cache it when this changes
 	
 	/* morphic stats */
-	public int currentHealth;
-	public int currentStamina;
-	public int currentMana; // mana might be replaced with spell slots that get refreshed
+	protected int currentHealth;
+	protected int currentStamina;
+	protected int currentMana; // mana might be replaced with spell slots that get refreshed
 	
-	public int stability;
-	public int focus;
-	public int fortune;
+	protected int stability;
+	protected int focus;
+	protected int fortune;
 	
-	public int lust; 
-	public int struggle;
-	public int battleOver;
+	protected int lust; 
+	protected int struggle;
+	protected int battleOver;
 	
 	// public Weapon weapon;
 	// public Shield shield;
@@ -63,14 +63,14 @@ public abstract class AbstractCharacter extends Actor {
 	// public Mouth mouth; 
 	// public Wiener wiener;	
 	
-	public int buttful;
-	public int mouthful;
+	protected int buttful;
+	protected int mouthful;
 	
-	public Stance stance;
+	protected Stance stance;
 	// public ObjectMap<StatusTypes, Status>; // status effects will be represented by a map of Enum to Status object
 	/* Constructors */
 	protected AbstractCharacter(){}
-	public AbstractCharacter(boolean defaultValues){
+	protected AbstractCharacter(boolean defaultValues){
 		if (defaultValues){
 			secondPerson = false;
 			level = 1;
@@ -110,13 +110,10 @@ public abstract class AbstractCharacter extends Actor {
 		}
 		return max;
 	}
-	protected int getStaminaRegen() { return getEndurance()/2 + 1; }
 	
-	protected int getStabilityRegen() { return getAgility()/2; }
+	public Stance getStance(){ return stance; }
 	
-	public String getLabel (){ return label; }
-	
-	public Boolean getSecondPerson(){ return secondPerson; }
+	public void setStance(Stance stance){ this.stance = stance; }
 	
 	public int getCurrentHealth(){ return currentHealth; }
 	
@@ -124,15 +121,29 @@ public abstract class AbstractCharacter extends Actor {
 	
 	public int getCurrentMana(){ return currentMana; }
 	
-	protected void setHealthToMax() { currentHealth = getMaxHealth(); }
+	public int getStability(){ return stability; }
+	
+	public int getBattleOver(){ return battleOver; }
+	
+	public int getLust(){ return lust; }
+	
+	public EnemyEnum getType(){ return enemyType; }
 	
 	public void modHealth(int healthMod){ this.currentHealth += healthMod; if (currentHealth > getMaxHealth()) currentHealth = getMaxHealth(); }
+	
+	protected int getStaminaRegen() { return getEndurance()/2 + 1; }
+	
+	protected int getStabilityRegen() { return getAgility()/2; }
+	
+	protected String getLabel (){ return label; }
+	
+	protected Boolean getSecondPerson(){ return secondPerson; }
+	
+	protected void setHealthToMax() { currentHealth = getMaxHealth(); }
 	
 	protected void setStaminaToMax() { currentStamina = getMaxStamina(); }
 	
 	protected void modStamina(int staminaMod){ this.currentStamina += staminaMod; if (currentStamina > getMaxStamina()) currentStamina = getMaxStamina(); }
-	
-	public int getStability(){ return stability; }
 	
 	protected void setStabilityToMax(){ stability = getMaxStability(); }
 	
@@ -144,9 +155,7 @@ public abstract class AbstractCharacter extends Actor {
 	
 	protected void modMana(int manaMod){ this.currentMana += manaMod; if (currentMana > getMaxMana()) currentMana = getMaxMana(); }
 	
-	public Stance getStance(){ return stance; }
 	
-	public void setStance(Stance stance){ this.stance = stance; }
 	
 	protected int getStrength(){ return baseStrength - (getHealthDegradation() + getStaminaDegradation()); }
 	

@@ -67,7 +67,7 @@ public class SaveManager implements SaveService, LoadService{
 	    							set.addAll(save.visitedList);
 	    							return (T) set;
 	    	case BATTLE_CODE:		return (T) save.battleCode;
-	    	case CLASS:				return (T) save.player.jobClass;
+	    	case CLASS:				return (T) save.player.getJobClass();
 	    	case WORLD_SEED:		return (T) (Integer) save.worldSeed;
 	    	case HEALTH:			return (T) (Integer) save.player.getCurrentHealth();
 	    	case SKILL:				return (T) (ObjectSet<Techniques>) save.player.getSkills();	
