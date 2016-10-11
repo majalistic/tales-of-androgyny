@@ -8,6 +8,8 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
@@ -25,6 +27,7 @@ import com.majalis.character.PlayerCharacter.Stat;
 import com.majalis.character.EnemyCharacter;
 import com.majalis.character.PlayerCharacter;
 import com.majalis.character.Technique;
+import com.majalis.encounter.Background;
 import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveService;
 /*
@@ -55,7 +58,7 @@ public class Battle extends Group{
 	public boolean inRear;
 	public int battleEndCount;
 	
-	public Battle(SaveService saveService, AssetManager assetManager, BitmapFont font, PlayerCharacter character, EnemyCharacter enemy,  int victoryScene, int defeatScene) {
+	public Battle(SaveService saveService, AssetManager assetManager, BitmapFont font, PlayerCharacter character, EnemyCharacter enemy, int victoryScene, int defeatScene, Background battleBackground, Background battleUI){
 		this.saveService = saveService;
 		this.assetManager = assetManager;
 		this.font = font;
@@ -66,8 +69,15 @@ public class Battle extends Group{
 		console = "";
 		battleOver = false;
 		gameExit = false;	
-		this.addActor(character);
-		this.addActor(enemy);
+		this.addActor(battleBackground);
+		this.addCharacter(character);
+		this.addCharacter(enemy);
+		this.addActor(battleUI);
+		
+		StanceActor newActor = new StanceActor(character, new Vector2(330, 540));
+		this.addActor(newActor);
+		newActor = new StanceActor(enemy, new Vector2(920, 540));
+		this.addActor(newActor);
 		skin = assetManager.get("uiskin.json", Skin.class);
 		buttonSound = assetManager.get("sound.wav", Sound.class);
 		table = new Table();
@@ -76,6 +86,29 @@ public class Battle extends Group{
 		struggle = 0;
 		inRear = false;
 		battleEndCount = 0;
+	}
+	
+	private void addCharacter(AbstractCharacter character){
+		Group g = new Group();
+		g.addActor(character);
+		addActor(g);
+	}
+	
+	private class StanceActor extends Actor{
+		
+		private final AbstractCharacter character;
+		private final Vector2 position;
+		public StanceActor(AbstractCharacter character, Vector2 position) {
+			this.character = character;
+			this.position = position;
+		}
+
+		@Override
+	    public void draw(Batch batch, float parentAlpha) {
+			super.draw(batch, parentAlpha);
+			batch.draw(getStanceImage(character.stance), position.x, position.y, 100, 115);
+	    }
+		
 	}
 	
 	private void displayTechniqueOptions(){
@@ -188,10 +221,8 @@ public class Battle extends Group{
     public void draw(Batch batch, float parentAlpha) {
 		super.draw(batch, parentAlpha);
 		font.draw(batch, "Health: " + String.valueOf(character.getCurrentHealth()) + "\nStamina: " + String.valueOf(character.getCurrentStamina()) + "\nBalance: " + String.valueOf(character.getStability()) + (character.getStat(Stat.MAGIC) > 1 ? "\nMana: " + String.valueOf(character.getCurrentMana()) : "")  + "\nStance: " + character.getStance().toString(), 70, 695);		
-		batch.draw(getStanceImage(character.stance), 330, 540, 100, 115);
 		batch.draw(getLustImage(character.lust, PhallusType.SMALL), 60, 450, 100, 115);
 		font.draw(batch, "Health: " + String.valueOf(enemy.getCurrentHealth()) + "\nStance: " + enemy.getStance().toString(), 1100, 650);		
-		batch.draw(getStanceImage(enemy.stance), 920, 540, 100, 115);
 		batch.draw(getLustImage(enemy.lust, enemy.enemyType == EnemyEnum.BRIGAND ? PhallusType.NORMAL : PhallusType.MONSTER), 1150, 450, 100, 115);
 		font.draw(batch, console, 80, 270);
     }

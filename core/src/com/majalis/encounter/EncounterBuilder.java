@@ -111,7 +111,7 @@ public class EncounterBuilder {
 		switch (battleCode){
 			// werebitch
 			case 0:
-				Background werebitchBackground = new Background(backgroundTexture, assetManager.get("WerebitchBasicNoBG.png", Texture.class), 1280, 720, 450, 600);
+				Background werebitchBackground = new Background(backgroundTexture, assetManager.get(AssetEnum.WEREBITCH.getPath(), Texture.class), 1280, 720, 450, 600);
 				getTextScenes(
 					getScript(battleCode, 0), 
 					font, background,
@@ -160,7 +160,7 @@ public class EncounterBuilder {
 				break;
 			// slime
 			case 2:
-				Background slimeBackground = new Background(backgroundTexture, assetManager.get("HeartSlimeNoBG.png", Texture.class), 1280, 720, 450, 600);
+				Background slimeBackground = new Background(backgroundTexture, assetManager.get(AssetEnum.SLIME.getPath(), Texture.class), 1280, 720, 450, 600);
 				getTextScenes(
 					getScript(battleCode, 0), font, slimeBackground, 
 					getChoiceScene(

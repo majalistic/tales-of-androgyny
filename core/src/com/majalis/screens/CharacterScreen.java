@@ -26,7 +26,7 @@ public class CharacterScreen extends AbstractScreen {
 	static {
 		resourceRequirements.put("uiskin.json", Skin.class);
 		resourceRequirements.put("node_sound.wav", Sound.class);
-		resourceRequirements.put("TinySprite0.png", Texture.class);
+		resourceRequirements.put(AssetEnum.CHARACTER_SPRITE.getPath(), Texture.class);
 		resourceRequirements.put(AssetEnum.MOUNTAIN_ACTIVE.getPath(), Texture.class);
 		resourceRequirements.put(AssetEnum.FOREST_ACTIVE.getPath(), Texture.class);
 		resourceRequirements.put(AssetEnum.FOREST_INACTIVE.getPath(), Texture.class);

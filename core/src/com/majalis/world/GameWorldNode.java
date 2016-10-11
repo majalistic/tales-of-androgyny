@@ -60,7 +60,7 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 		this.position = position;
 		this.nodeCode = nodeCode;
 		this.visited = visited;
-		currentImage = assetManager.get("TinySprite0.png", Texture.class);
+		currentImage = assetManager.get(AssetEnum.CHARACTER_SPRITE.getPath(), Texture.class);
 		int encounterCode = encounter.getCode();
 		activeImage = 
 			encounterCode == 1000 ? assetManager.get(AssetEnum.CASTLE.getPath(), Texture.class)

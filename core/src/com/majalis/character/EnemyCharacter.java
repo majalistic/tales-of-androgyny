@@ -176,7 +176,7 @@ public class EnemyCharacter extends AbstractCharacter {
 	@Override
     public void draw(Batch batch, float parentAlpha) {
 		super.draw(batch, parentAlpha);
-		batch.draw(texture, 0, 0, 1280, 720);
+		batch.draw(texture, 500, 0, 450, 600);
     }
 	
 	public void init(Texture texture){

@@ -96,7 +96,7 @@ public class SaveManager implements SaveService, LoadService{
         	if (playerParent != null) playerParent.addActor(save.player);
         	if (save.enemy != null){
         		if (enemyParent != null){
-        			enemyParent.addActorAt(0, save.enemy);
+        			enemyParent.addActor(save.enemy);
         		}	
         	}
         }

@@ -5,8 +5,10 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
+import com.majalis.asset.AssetEnum;
 import com.majalis.character.EnemyCharacter;
 import com.majalis.character.PlayerCharacter;
+import com.majalis.encounter.Background;
 import com.majalis.character.AbstractCharacter.Stance;
 import com.majalis.save.LoadService;
 import com.majalis.save.SaveEnum;
@@ -47,20 +49,35 @@ public class BattleFactory {
 		}
 		switch(battleCode.battleCode){	
 			default: 
-				return new Battle( saveService, assetManager, font, playerCharacter, enemy, battleCode.victoryScene, battleCode.defeatScene);
+				return new Battle(saveService, assetManager, font, playerCharacter, enemy, battleCode.victoryScene, battleCode.defeatScene, new Background(assetManager.get(AssetEnum.BATTLE_BG.getPath(), Texture.class)), new Background(getBGTexture(enemy.enemyType)));
 		}
 	}
 	
 	private Texture getTexture(EnemyEnum type){
 		switch(type){
 			case WERESLUT:
-				return assetManager.get("WerebitchBasic.jpg", Texture.class);
+				return assetManager.get(AssetEnum.WEREBITCH.getPath(), Texture.class);
 			case HARPY:
-				return assetManager.get("Harpy.jpg", Texture.class);
+				return assetManager.get(AssetEnum.HARPY.getPath(), Texture.class);
 			case SLIME:
-				return assetManager.get("HeartSlime.jpg", Texture.class);
+				return assetManager.get(AssetEnum.SLIME.getPath(), Texture.class);
 			case BRIGAND:
-				return assetManager.get("Brigand.jpg", Texture.class);
+				return assetManager.get(AssetEnum.BRIGAND.getPath(), Texture.class);
+			default:
+				return assetManager.get("WerebitchChibi.png", Texture.class);
+		}
+	}
+	
+	private Texture getBGTexture(EnemyEnum type){
+		switch(type){
+			case WERESLUT:
+				return assetManager.get("enemies/WereUI.png", Texture.class);
+			case HARPY:
+				return assetManager.get("enemies/HarpyUI.png", Texture.class);
+			case SLIME:
+				return assetManager.get("enemies/SlimeUI.png", Texture.class);
+			case BRIGAND:
+				return assetManager.get("enemies/BrigandUI.png", Texture.class);
 			default:
 				return assetManager.get("WerebitchChibi.png", Texture.class);
 		}

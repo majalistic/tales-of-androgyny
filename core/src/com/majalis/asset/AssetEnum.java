@@ -15,8 +15,16 @@ public enum AssetEnum {
 	MEAT("worldmap/Meat.png"),
 	ROAD("worldmap/Road.png"),
 	CASTLE("worldmap/Castle.png"),
+	CHARACTER_SPRITE("worldmap/TinySprite0.png"),
+	
 	CHARACTER_SCREEN("ClassSelect.jpg"),
-	VIGNETTE("CreamVignetteBottom.png")
+	VIGNETTE("CreamVignetteBottom.png"),
+	
+	BATTLE_BG("enemies/ForestBG.jpg"),
+	WEREBITCH("enemies/WerebitchBasic.png"),
+	HARPY("enemies/Harpy.png"),
+	BRIGAND("enemies/Brigand.png"),
+	SLIME("enemies/HeartSlime.png")
 	;
 	
 	private final String path;
