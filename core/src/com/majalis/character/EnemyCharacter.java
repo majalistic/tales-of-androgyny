@@ -3,6 +3,7 @@ package com.majalis.character;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.utils.IntArray;
+import com.majalis.asset.AssetEnum;
 import com.majalis.battle.BattleFactory.EnemyEnum;
 
 /*
@@ -11,6 +12,8 @@ import com.majalis.battle.BattleFactory.EnemyEnum;
 public class EnemyCharacter extends AbstractCharacter {
 
 	private transient Texture texture;
+	private String imagePath;
+	private String bgPath;
 	
 	@SuppressWarnings("unused")
 	private EnemyCharacter(){}
@@ -18,23 +21,33 @@ public class EnemyCharacter extends AbstractCharacter {
 		super(true);
 		this.enemyType = enemyType;
 		init(texture);
+		phallus = PhallusType.MONSTER;
 		switch(enemyType){
 			case WERESLUT:
 				baseStrength = 5;
 				baseAgility = 8;
+				imagePath = AssetEnum.WEREBITCH.getPath();
+				bgPath = "enemies/WereUI.png";
 				break;
 			case HARPY:
 				baseStrength = 4;
 				baseAgility = 7;
+				imagePath = AssetEnum.HARPY.getPath();
+				bgPath = "enemies/HarpyUI.png";
 				break;
 			case BRIGAND:
+				phallus = PhallusType.NORMAL;
 				baseStrength = 4;
 				baseAgility = 5;
+				imagePath = AssetEnum.BRIGAND.getPath();
+				bgPath = "enemies/BrigandUI.png";
 				break;
 			case SLIME:
 				baseStrength = 2;
 				baseEndurance = 4;
 				baseAgility = 5;
+				imagePath = AssetEnum.SLIME.getPath();
+				bgPath = "enemies/SlimeUI.png";
 				break;
 		}
 		staminaTiers.add(5);
@@ -46,7 +59,13 @@ public class EnemyCharacter extends AbstractCharacter {
 		this.stance = Stance.BALANCED;
 	}
 	
-
+	public String getImagePath(){
+		return imagePath;
+	}
+	
+	public String getBGPath(){
+		return bgPath;
+	}
 	
 	public Technique getTechnique(AbstractCharacter target){
 		int rand = getRandomWeighting(); 

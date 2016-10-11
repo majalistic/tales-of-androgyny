@@ -45,11 +45,11 @@ public class BattleFactory {
 		}
 		// loading old enemy
 		else {
-			enemy.init(getTexture(enemy.getType()));
+			enemy.init(assetManager.get(enemy.getImagePath(), Texture.class));
 		}
 		switch(battleCode.battleCode){	
 			default: 
-				return new Battle(saveService, assetManager, font, playerCharacter, enemy, battleCode.victoryScene, battleCode.defeatScene, new Background(assetManager.get(AssetEnum.BATTLE_BG.getPath(), Texture.class)), new Background(getBGTexture(enemy.getType())));
+				return new Battle(saveService, assetManager, font, playerCharacter, enemy, battleCode.victoryScene, battleCode.defeatScene, new Background(assetManager.get(AssetEnum.BATTLE_BG.getPath(), Texture.class)), new Background(assetManager.get(enemy.getBGPath(), Texture.class)));
 		}
 	}
 	
@@ -63,21 +63,6 @@ public class BattleFactory {
 				return assetManager.get(AssetEnum.SLIME.getPath(), Texture.class);
 			case BRIGAND:
 				return assetManager.get(AssetEnum.BRIGAND.getPath(), Texture.class);
-			default:
-				return assetManager.get("WerebitchChibi.png", Texture.class);
-		}
-	}
-	
-	private Texture getBGTexture(EnemyEnum type){
-		switch(type){
-			case WERESLUT:
-				return assetManager.get("enemies/WereUI.png", Texture.class);
-			case HARPY:
-				return assetManager.get("enemies/HarpyUI.png", Texture.class);
-			case SLIME:
-				return assetManager.get("enemies/SlimeUI.png", Texture.class);
-			case BRIGAND:
-				return assetManager.get("enemies/BrigandUI.png", Texture.class);
 			default:
 				return assetManager.get("WerebitchChibi.png", Texture.class);
 		}

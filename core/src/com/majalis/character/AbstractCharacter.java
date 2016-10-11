@@ -61,7 +61,7 @@ public abstract class AbstractCharacter extends Actor {
 	
 	// public Hole hole;  // bowels contents, tightness, number of copulations, number of creampies, etc. 
 	// public Mouth mouth; 
-	// public Wiener wiener;	
+	protected PhallusType phallus;	
 	
 	protected int buttful;
 	protected int mouthful;
@@ -90,6 +90,7 @@ public abstract class AbstractCharacter extends Actor {
 			stability = focus = fortune = 10;
 			stance = Stance.BALANCED;
 			struggle = 0;
+			phallus = PhallusType.NORMAL;
 		}
 	}
 	
@@ -127,8 +128,6 @@ public abstract class AbstractCharacter extends Actor {
 	
 	public int getLust(){ return lust; }
 	
-	public EnemyEnum getType(){ return enemyType; }
-	
 	public void modHealth(int healthMod){ this.currentHealth += healthMod; if (currentHealth > getMaxHealth()) currentHealth = getMaxHealth(); }
 	
 	protected int getStaminaRegen() { return getEndurance()/2 + 1; }
@@ -154,8 +153,6 @@ public abstract class AbstractCharacter extends Actor {
 	protected void setManaToMax() { currentMana = getMaxMana(); }
 	
 	protected void modMana(int manaMod){ this.currentMana += manaMod; if (currentMana > getMaxMana()) currentMana = getMaxMana(); }
-	
-	
 	
 	protected int getStrength(){ return baseStrength - (getHealthDegradation() + getStaminaDegradation()); }
 	
@@ -425,6 +422,23 @@ public abstract class AbstractCharacter extends Actor {
 		return label + " adopt" + (secondPerson ? "" : "s") + " a(n) " + firstTechnique.getStance().toString() + " stance! ";
  	}
 
+	
+	protected enum PhallusType {
+		SMALL("Trap"),
+		NORMAL("Human"),
+		MONSTER("Monster");
+		private final String label;
+
+		PhallusType(String label) {
+		    this.label = label;
+		 }
+	}
+	
+	public String getLustImagePath(){
+		int lustLevel = lust > 7 ? 2 : lust > 3 ? 1 : 0;
+		return "arousal/" + phallus.label + lustLevel + ".png";
+	}
+	
 	public enum Stance {
 		BALANCED,
 		DEFENSIVE,

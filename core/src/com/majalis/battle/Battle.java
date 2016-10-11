@@ -19,7 +19,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
-import com.majalis.battle.BattleFactory.EnemyEnum;
 import com.majalis.character.AbstractCharacter;
 import com.majalis.character.AbstractCharacter.Stance;
 import com.majalis.character.Attack;
@@ -239,28 +238,12 @@ public class Battle extends Group{
 		super.draw(batch, parentAlpha);
 		font.setColor(Color.WHITE);
 		font.draw(batch, "Health: " + String.valueOf(character.getCurrentHealth()) + "\nStamina: " + String.valueOf(character.getCurrentStamina()) + "\nBalance: " + String.valueOf(character.getStability()) + (character.getStat(Stat.MAGIC) > 1 ? "\nMana: " + String.valueOf(character.getCurrentMana()) : "")  + "\nStance: " + character.getStance().toString(), 70, 695);		
-		batch.draw(getLustImage(character.getLust(), PhallusType.SMALL), 60, 450, 100, 115);
+		batch.draw(assetManager.get(character.getLustImagePath(), Texture.class), 60, 450, 100, 115);
 		font.draw(batch, "Health: " + String.valueOf(enemy.getCurrentHealth()) + "\nStance: " + enemy.getStance().toString(), 1100, 650);	
 		// calls to enemy.getType() should all be replaced with polymorphic behavior of enemies
-		batch.draw(getLustImage(enemy.getLust(), enemy.getType() == EnemyEnum.BRIGAND ? PhallusType.NORMAL : PhallusType.MONSTER), 1150, 450, 100, 115);
+		batch.draw(assetManager.get(enemy.getLustImagePath(), Texture.class), 1150, 450, 100, 115);
 		font.draw(batch, console, 80, 270);
     }
-	
-	private enum PhallusType {
-		SMALL("Trap"),
-		NORMAL("Human"),
-		MONSTER("Monster");
-		private final String label;
-
-		PhallusType(String label) {
-		    this.label = label;
-		 }
-	}
-	
-	private Texture getLustImage(int lust, PhallusType type){
-		int lustLevel = lust > 7 ? 2 : lust > 3 ? 1 : 0;
-		return assetManager.get("arousal/"+ type.label + lustLevel + ".png", Texture.class);
-	}
 	
 	private Texture getStanceImage(Stance stance){
 		switch(stance){

@@ -63,6 +63,7 @@ public class PlayerCharacter extends AbstractCharacter {
 			a2m = false;
 			a2mcheevo = false;
 			battleOver = 0;
+			phallus = PhallusType.SMALL;
 		}
 		
 		skills = new ObjectSet<Techniques>();
