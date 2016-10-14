@@ -20,32 +20,31 @@ public class PlayerCharacter extends AbstractCharacter {
 		statNameMap.put(Stat.CHARISMA, new Array<String>(true, new String[]{"Inhuman", "Horrible", "Uncouth", "Unpleasant", "Plain", "Likeable", "Charismatic", "Charming", "Magnetic", "Lovable", "Worshipable"}, 0, 11));
 	}
 	
-	public String name;
+	protected String name;
 	
-	public ObjectSet<Techniques> skills;
-	public ObjectSet<Perk> perks;
-	public int skillPoints;
-	public int magicPoints;
-	public int perkPoints;
+	protected ObjectSet<Techniques> skills;
+	protected ObjectSet<Perk> perks;
+	protected int skillPoints;
+	protected int magicPoints;
+	protected int perkPoints;
 	
 	// advantage, range, and combat-lock(boolean) are shared properties between two creatures
 	
 	/* out of battle only statistics */
-	public int money;
-	public int food;
-	public int exp;
+	protected int money;
+	protected int food;
 	
-	public int dignity;
-	public int integrity;
-	public int analIntegrity;
-	public int lustForDick;
-	public Femininity femininity;
-	public Bootyliciousness bootyliciousness;
-	public LipFullness lipFullness;
+	protected int dignity;
+	protected int integrity;
+	protected int analIntegrity;
+	protected int lustForDick;
+	protected Femininity femininity;
+	protected Bootyliciousness bootyliciousness;
+	protected LipFullness lipFullness;
 	
 	/* anatomy - contains current and permanent properties */
-	public boolean a2m;
-	public boolean a2mcheevo;
+	private boolean a2m;
+	private boolean a2mcheevo;
 	
 	@SuppressWarnings("unused")
 	private PlayerCharacter(){}
@@ -334,7 +333,26 @@ public class PlayerCharacter extends AbstractCharacter {
 	public boolean lowStaminaOrStability(Technique technique) {
 		return getStaminaMod(technique) >= currentStamina - 5 || technique.getStabilityCost() - getStabilityRegen() >= stability - 5;
 	}
+
+	public void modExperience(Integer exp) { experience += exp; }
 	
-	
-	
+	public int getExperience(){ return experience; }
+
+	public void modFood(Integer foodChange) { food += foodChange; }
+
+	public Integer getFood() { return food; }
+
+	public void setBootyliciousness(Bootyliciousness buttSize) { bootyliciousness = buttSize; }
+
+	public int getSkillPoints() { return skillPoints; }
+
+	public int getMagicPoints() { return magicPoints; }
+
+	public int getPerkPoints() { return perkPoints; }
+
+	public void decrementSkillPoints() { skillPoints--; }
+	public void decrementPerkPoints() { perkPoints--; }
+	public void decrementMagicPoints() { magicPoints--; }
+
+	public void modSkillPoints(int pointChange) { skillPoints += pointChange; }
 }

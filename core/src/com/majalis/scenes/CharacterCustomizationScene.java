@@ -85,7 +85,7 @@ public class CharacterCustomizationScene extends Scene {
 		        public void clicked(InputEvent event, float x, float y) {
 					buttonSound.play(.5f);
 					console = "You now have a " + buttSize.toString().toLowerCase() + " booty.";
-					character.bootyliciousness = buttSize;
+					character.setBootyliciousness(buttSize);
 					saveService.saveDataValue(SaveEnum.PLAYER, character);
 		        }
 			});
@@ -100,8 +100,8 @@ public class CharacterCustomizationScene extends Scene {
 		this.addListener(new InputListener() {
 	        @Override
 	        public boolean keyUp(InputEvent event, int keycode) {
-	        	if (!nameField.getText().equals(character.name)){
-	        		character.name = nameField.getText();
+	        	if (!nameField.getText().equals(character.getName())){
+	        		character.setName(nameField.getText());
 	        		saveService.saveDataValue(SaveEnum.PLAYER, character);
 	        	}
 	        	return false;

@@ -17,5 +17,6 @@ public enum SaveEnum {
 	HEALTH, 
 	SKILL,
 	FOOD, 
-	PERK
+	PERK, 
+	EXPERIENCE
 }

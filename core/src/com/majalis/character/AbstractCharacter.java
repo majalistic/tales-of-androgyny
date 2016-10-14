@@ -20,6 +20,7 @@ public abstract class AbstractCharacter extends Actor {
 	protected JobClass jobClass;
 	protected EnemyEnum enemyType;
 	protected int level;
+	protected int experience;
 	protected int baseStrength;
 	protected int baseEndurance;
 	protected int baseAgility;
@@ -74,6 +75,7 @@ public abstract class AbstractCharacter extends Actor {
 		if (defaultValues){
 			secondPerson = false;
 			level = 1;
+			experience = 0;
 			baseStrength = baseEndurance = baseAgility = basePerception = baseMagic = baseCharisma = 3;
 			baseDefense = 2;
 			baseLuck = 0;
@@ -421,7 +423,6 @@ public abstract class AbstractCharacter extends Actor {
 	public String getStanceTransform(Technique firstTechnique) {
 		return label + " adopt" + (secondPerson ? "" : "s") + " a(n) " + firstTechnique.getStance().toString() + " stance! ";
  	}
-
 	
 	protected enum PhallusType {
 		SMALL("Trap"),

@@ -48,7 +48,8 @@ public class SaveManager implements SaveService, LoadService{
 	    	case HEALTH: 			save.player.modHealth((Integer) object); break;
 	    	case SKILL: 			save.player.addSkill((Techniques) object); break;
 	    	case PERK:				save.player.addPerk((Perk) object); break;
-	    	case FOOD:				save.player.food += (Integer) object; break;
+	    	case FOOD:				save.player.modFood((Integer) object); break;
+	    	case EXPERIENCE:		save.player.modExperience((Integer) object); break;
     	}	
         saveToJson(save); //Saves current save immediately.
     }
@@ -72,7 +73,8 @@ public class SaveManager implements SaveService, LoadService{
 	    	case HEALTH:			return (T) (Integer) save.player.getCurrentHealth();
 	    	case SKILL:				return (T) (ObjectSet<Techniques>) save.player.getSkills();	
 	    	case PERK:				return (T) (ObjectSet<Perk>) save.player.getPerks();	
-	    	case FOOD: 				return (T) (Integer) save.player.food;
+	    	case FOOD: 				return (T) (Integer) save.player.getFood();
+	    	case EXPERIENCE:		return (T) (Integer) save.player.getExperience();
     	}	
     	return null;
     }

@@ -48,9 +48,9 @@ public class SkillSelectionScene extends Scene {
 		font.setColor(0.4f,0.4f,0.4f,1);
 		int base = 500;
 		font.draw(batch, console, base, 550);
-		font.draw(batch, "Skill Points: " + character.skillPoints, base, 520);
-		font.draw(batch, "Magic Points: " + character.magicPoints, base, 490);
-		font.draw(batch, "Perk Points: " + character.perkPoints, base, 460);
+		font.draw(batch, "Skill Points: " + character.getSkillPoints(), base, 520);
+		font.draw(batch, "Magic Points: " + character.getMagicPoints(), base, 490);
+		font.draw(batch, "Perk Points: " + character.getPerkPoints(), base, 460);
     }
 	
 	@Override
@@ -90,10 +90,10 @@ public class SkillSelectionScene extends Scene {
 					console = "You have learned " + technique.getTrait().getName() + ".";
 					table.removeActor(button);
 					
-					character.skillPoints--;
-					if (character.skillPoints <= 0){
+					character.decrementSkillPoints();
+					if (character.getSkillPoints() <= 0){
 						removeActor(table);
-						if (character.magicPoints <= 0 && character.perkPoints <= 0){
+						if (character.getMagicPoints() <= 0 && character.getPerkPoints() <= 0){
 							addActor(done);
 						}
 					}
@@ -104,7 +104,7 @@ public class SkillSelectionScene extends Scene {
 			table.add(button).width(220).height(40).row();
 		}
 		table.addAction(Actions.moveTo(table.getX() + 145, table.getY() + 200));
-		if (character.skillPoints > 0){
+		if (character.getSkillPoints() > 0){
 			this.addActor(table);
 		}
 		
@@ -118,17 +118,17 @@ public class SkillSelectionScene extends Scene {
 					console = "You gained the " + perk.toString() + " perk!";
 					perkTable.removeActor(button);
 					
-					character.perkPoints--;
+					character.decrementPerkPoints();
 					if (perk == Perk.SKILLED) {
-						if (character.skillPoints == 0){
+						if (character.getSkillPoints() == 0){
 							addActor(table);
 						}
-						character.skillPoints += 2;
+						character.modSkillPoints(2);
 					}
 					else if (perk == Perk.WELLROUNDED) increaseLowestStat(); 
-					if (character.perkPoints <= 0){
+					if (character.getPerkPoints() <= 0){
 						removeActor(perkTable);
-						if (character.magicPoints <= 0 && character.skillPoints <= 0){
+						if (character.getMagicPoints() <= 0 && character.getSkillPoints() <= 0){
 							addActor(done);
 						}
 					}
@@ -139,7 +139,7 @@ public class SkillSelectionScene extends Scene {
 			perkTable.add(button).width(220).height(40).row();
 		}
 		perkTable.addAction(Actions.moveTo(perkTable.getX() + 725, perkTable.getY() + 200));
-		if (character.perkPoints > 0){
+		if (character.getPerkPoints() > 0){
 			this.addActor(perkTable);
 		}
 		
@@ -156,11 +156,11 @@ public class SkillSelectionScene extends Scene {
 					console = "You have learned " + technique.getTrait().getName() + ".";
 					magicTable.removeActor(button);
 					
-					character.magicPoints--;
-					if (character.magicPoints <= 0){
+					character.decrementMagicPoints();
+					if (character.getMagicPoints() <= 0){
 						removeActor(magicTable);
 					}
-					if (character.skillPoints <= 0 && character.perkPoints <= 0){
+					if (character.getSkillPoints() <= 0 && character.getPerkPoints() <= 0){
 						addActor(done);
 					}
 					saveService.saveDataValue(SaveEnum.SKILL, technique);
@@ -170,9 +170,14 @@ public class SkillSelectionScene extends Scene {
 			magicTable.add(button).width(140).width(220).height(40).row();
 		}
 		magicTable.addAction(Actions.moveTo(magicTable.getX() + 435, magicTable.getY() + 200));
-		if (character.magicPoints > 0){
+		if (character.getMagicPoints() > 0){
 			this.addActor(magicTable);
 		}
+		
+		if(character.getSkillPoints() <= 0 && character.getPerkPoints() <= 0 && character.getMagicPoints() <= 0){
+			addActor(done);
+		}
+		
 	}
 	
 	private  void increaseLowestStat(){
