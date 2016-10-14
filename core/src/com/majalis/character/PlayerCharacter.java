@@ -63,6 +63,8 @@ public class PlayerCharacter extends AbstractCharacter {
 			a2mcheevo = false;
 			battleOver = 0;
 			phallus = PhallusType.SMALL;
+			baseDefense = 3;
+			healthTiers = new IntArray(new int[]{15, 15, 15, 15});
 		}
 		
 		skills = new ObjectSet<Techniques>();
@@ -241,6 +243,42 @@ public class PlayerCharacter extends AbstractCharacter {
 		}
 	}
 	
+	public int getBaseStat(Stat stat){
+		switch(stat){
+			case STRENGTH: return getBaseStrength();
+			case ENDURANCE: return getBaseEndurance();
+			case AGILITY: return getBaseAgility();
+			case PERCEPTION: return getBasePerception();
+			case MAGIC: return getBaseMagic();
+			case CHARISMA: return getBaseCharisma();
+			default: return -1;
+		}
+	}
+	
+	private int getBaseCharisma() {
+		return baseCharisma;
+	}
+
+	private int getBaseMagic() {
+		return baseMagic;
+	}
+
+	private int getBasePerception() {
+		return basePerception;
+	}
+
+	private int getBaseAgility() {
+		return baseAgility;
+	}
+
+	private int getBaseEndurance() {
+		return baseEndurance;
+	}
+
+	private int getBaseStrength() {
+		return baseStrength;
+	}
+
 	public void setStat(Stat stat, int amount){
 		switch(stat){
 			case STRENGTH: baseStrength = amount; break;

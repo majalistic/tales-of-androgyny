@@ -74,7 +74,7 @@ public class CharacterCreationScene extends Scene {
 					
 					int currentStatAllocation = statMap.get(stat);
 					if (statPoints > 0 && (currentStatAllocation < 1 || (currentStatAllocation < 2 && noStatsAtMax()))){
-						character.setStat(stat, character.getStat(stat)+1);
+						character.setStat(stat, character.getBaseStat(stat)+1);
 						saveService.saveDataValue(SaveEnum.PLAYER, character);
 						statPoints--;
 						statMap.put(stat, currentStatAllocation+1);
@@ -102,7 +102,7 @@ public class CharacterCreationScene extends Scene {
 					buttonSound.play(.5f);
 					int currentStatAllocation = statMap.get(stat);
 					if (currentStatAllocation > 0 || (currentStatAllocation > -1 && statsAtNegative() < 2)){
-						character.setStat(stat, character.getStat(stat)-1);
+						character.setStat(stat, character.getBaseStat(stat)-1);
 						saveService.saveDataValue(SaveEnum.PLAYER, character);
 						if (statPoints == 0){
 							removeActor(done);
@@ -206,7 +206,7 @@ public class CharacterCreationScene extends Scene {
 				font.setColor(0.6f,0.2f,0.1f,1);
 				font.draw(batch, stat.toString(), base+50, 500 - offset);
 				font.draw(batch, ": ", base+180, 500 - offset);
-				int amount = character.getStat(stat);
+				int amount = character.getBaseStat(stat);
 				setFontColor(font, amount);
 				font.draw(batch, String.valueOf(amount), base+200, 500 - offset);
 				font.draw(batch, "("+String.valueOf(statMap.get(stat))+")", base+215, 500 - offset);
