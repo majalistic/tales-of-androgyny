@@ -54,6 +54,7 @@ public class PlayerCharacter extends AbstractCharacter {
 		if (defaultValues){
 			label = "You";
 			secondPerson = true;
+			healthTiers = new IntArray(new int[]{15, 15, 15, 15});
 			currentHealth = getMaxHealth();	
 			setStaminaToMax();
 			setStabilityToMax();
@@ -62,9 +63,7 @@ public class PlayerCharacter extends AbstractCharacter {
 			a2m = false;
 			a2mcheevo = false;
 			battleOver = 0;
-			phallus = PhallusType.SMALL;
-			baseDefense = 3;
-			healthTiers = new IntArray(new int[]{15, 15, 15, 15});
+			phallus = PhallusType.SMALL;			
 		}
 		
 		skills = new ObjectSet<Techniques>();
