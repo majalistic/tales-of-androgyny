@@ -18,6 +18,7 @@ public class DesktopLauncher {
 		config.height = 1150;
 		//config.fullscreen = true;
 		//config.vSyncEnabled = true;
+		config.allowSoftwareMode = true;
 		new LwjglApplication(new TrapRPG(), config);
 	}
 }
