@@ -139,7 +139,7 @@ public class EnemyCharacter extends AbstractCharacter {
 				if (currentStamina > 5){
 					return getTechnique(Techniques.KIP_UP);
 				}	
-				else if (currentStamina > 2){
+				else if (currentStamina > 2 && stability > 0){
 					return getTechnique(Techniques.STAND_UP);
 				}
 				else {
