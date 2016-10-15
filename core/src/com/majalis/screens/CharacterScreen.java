@@ -74,28 +74,28 @@ public class CharacterScreen extends AbstractScreen {
 		done.addAction(Actions.moveTo(done.getX() + 1015, done.getY() + 20));
 		this.addActor(done);
 		
-		final TextButton levelUp = new TextButton("Level Up!", skin);
-		
-		levelUp.setWidth(180); 
-		levelUp.setHeight(40);
-		TextButtonStyle style = new TextButtonStyle(levelUp.getStyle());
-		style.fontColor = Color.OLIVE;
-		levelUp.setStyle(style);
-		levelUp.addListener(
-			new ClickListener(){
-				@Override
-		        public void clicked(InputEvent event, float x, float y) {
-					buttonSound.play(.5f);
-					
-					character.levelUp();
-					saveService.saveDataValue(SaveEnum.PLAYER, character);
-					saveService.saveDataValue(SaveEnum.CONTEXT, GameContext.LEVEL);
-					showScreen(ScreenEnum.LOAD_GAME);
-		        }
-			}
-		);
-		levelUp.addAction(Actions.moveTo(done.getX() + 800, done.getY() + 20));
-		if (character.getStoredLevels() > 0){
+		if (character.needsLevelUp()){
+			final boolean levelup = character.getStoredLevels() > 0;
+			final TextButton levelUp = new TextButton(levelup ? "Level Up!" : "Learn Skills", skin);
+			
+			levelUp.setWidth(180); 
+			levelUp.setHeight(40);
+			TextButtonStyle style = new TextButtonStyle(levelUp.getStyle());
+			style.fontColor = levelup ? Color.OLIVE : Color.GOLDENROD;
+			levelUp.setStyle(style);
+			levelUp.addListener(
+				new ClickListener(){
+					@Override
+			        public void clicked(InputEvent event, float x, float y) {
+						buttonSound.play(.5f);
+						if (levelup) character.levelUp();
+						saveService.saveDataValue(SaveEnum.PLAYER, character);
+						saveService.saveDataValue(SaveEnum.CONTEXT, GameContext.LEVEL);
+						showScreen(ScreenEnum.LOAD_GAME);
+			        }
+				}
+			);
+			levelUp.addAction(Actions.moveTo(done.getX() + 800, done.getY() + 20));
 			this.addActor(levelUp);
 		}
 	}

@@ -425,4 +425,8 @@ public class PlayerCharacter extends AbstractCharacter {
 	public boolean hasMagic() {
 		return jobClass == JobClass.ENCHANTRESS || jobClass == JobClass.MAGE || jobClass == JobClass.PALADIN;
 	}
+
+	public boolean needsLevelUp() {
+		return skillPoints > 0 || magicPoints > 0 || perkPoints > 0 || getStoredLevels() > 0;
+	}
 }
