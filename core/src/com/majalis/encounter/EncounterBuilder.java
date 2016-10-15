@@ -222,7 +222,7 @@ public class EncounterBuilder {
 							getChoiceScene(
 								assetManager,
 								"Do you enter the slime, or...?",
-								new Array<String>(true, new String[]{"Go In", "Love Dart (Requires: Catamite)"}, 0, 2),
+								getArray(new String[]{"Go In", "Love Dart (Requires: Catamite)"}),
 								getTextScenes(getScript(battleCode, 11), font, slimeBackground, getEndScene(EndScene.Type.ENCOUNTER_OVER)),
 								getTextScenes(getScript(battleCode, 12), font, slimeBackground, getEndScene(EndScene.Type.ENCOUNTER_OVER))
 							)
@@ -240,12 +240,12 @@ public class EncounterBuilder {
 						getTextScenes(
 							getScript(battleCode, 1), font, background, 
 							getChoiceScene(
-								assetManager, "How do you handle the brigand?", new Array<String>(true, new String[]{"Charge", "Ready an Arrow", "Speak"}, 0, 3),
+								assetManager, "How do you handle the brigand?", getArray(new String[]{"Charge", "Ready an Arrow", "Speak"}),
 								getBattleScene(saveService, battleCode, Stance.OFFENSIVE, Stance.BALANCED,
 									getTextScenes(getArray(new String[]{"You defeated the brigand!", "You receive 1 Experience."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.EXPERIENCE, 1)}), getEndScene(EndScene.Type.ENCOUNTER_OVER)),
 									getTextScenes(getScript(battleCode, 13), font, background, 
 										getTextScenes(
-											new Array<String>(true, new String[]{"You rest, eating 5 food.", "You recover 10 health."}, 0, 2), font, background, new Array<Mutation>(true, new Mutation[]{new Mutation(saveService, SaveEnum.FOOD, -5), new Mutation(saveService, SaveEnum.HEALTH, 10)}, 0, 2),
+											getArray(new String[]{"You rest, eating 5 food.", "You recover 10 health."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.FOOD, -5), new Mutation(saveService, SaveEnum.HEALTH, 10)}),
 											getEndScene(EndScene.Type.ENCOUNTER_OVER)
 										)
 									)
@@ -255,7 +255,7 @@ public class EncounterBuilder {
 									getTextScenes(getArray(new String[]{"You defeated the brigand!", "You receive 1 Experience."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.EXPERIENCE, 1)}), getEndScene(EndScene.Type.ENCOUNTER_OVER)),
 									getTextScenes(getScript(battleCode, 13), font, background, 
 										getTextScenes(
-											new Array<String>(true, new String[]{"You rest, eating 5 food.", "You recover 10 health."}, 0, 2), font, background, new Array<Mutation>(true, new Mutation[]{new Mutation(saveService, SaveEnum.FOOD, -5), new Mutation(saveService, SaveEnum.HEALTH, 10)}, 0, 2),
+											getArray(new String[]{"You rest, eating 5 food.", "You recover 10 health."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.FOOD, -5), new Mutation(saveService, SaveEnum.HEALTH, 10)}),
 											getEndScene(EndScene.Type.ENCOUNTER_OVER)
 										)
 									)
@@ -263,11 +263,11 @@ public class EncounterBuilder {
 								getTextScenes(
 									getScript(battleCode, 2), font, background,
 									getChoiceScene(
-										assetManager, "Accept her offer?", new Array<String>(true, new String[]{"Accept (Requires: Catamite)", "Decline"}, 0, 2),
+										assetManager, "Accept her offer?", getArray(new String[]{"Accept (Requires: Catamite)", "Decline"}),
 										getTextScenes(
 											getScript(battleCode, 3), font, background,
 											getChoiceScene(
-												assetManager, "Tell her to pull out?", new Array<String>(true, new String[]{"Say Nothing", "Ask her"}, 0, 2),
+												assetManager, "Tell her to pull out?", getArray(new String[]{"Say Nothing", "Ask her"}),
 												getTextScenes(
 													getScript(battleCode, 4), font, background,
 													getEndScene(EndScene.Type.ENCOUNTER_OVER)
@@ -303,7 +303,7 @@ public class EncounterBuilder {
 														getTextScenes(getArray(new String[]{"You defeated the brigand!", "You receive 1 Experience."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.EXPERIENCE, 1)}), getEndScene(EndScene.Type.ENCOUNTER_OVER)),
 														getTextScenes(getScript(battleCode, 13), font, background, 
 															getTextScenes(
-																new Array<String>(true, new String[]{"You rest, eating 5 food.", "You recover 10 health."}, 0, 2), font, background, new Array<Mutation>(true, new Mutation[]{new Mutation(saveService, SaveEnum.FOOD, -5), new Mutation(saveService, SaveEnum.HEALTH, 10)}, 0, 2),
+																getArray(new String[]{"You rest, eating 5 food.", "You recover 10 health."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.FOOD, -5), new Mutation(saveService, SaveEnum.HEALTH, 10)}),
 																getEndScene(EndScene.Type.ENCOUNTER_OVER)
 															)
 														)
@@ -316,7 +316,7 @@ public class EncounterBuilder {
 							)
 						),
 						getTextScenes(
-							new Array<String>(true, new String[]{"Ouch!  You take 5 damage!"}, 0, 1), font, background, getMutation(5),
+							getArray(new String[]{"Ouch!  You take 5 damage!"}), font, background, getMutation(5),
 							getTextScenes(
 								getScript(battleCode, 11), font, background, 
 								getBattleScene(
@@ -324,7 +324,7 @@ public class EncounterBuilder {
 									getTextScenes(getArray(new String[]{"You defeated the brigand!", "You receive 1 Experience."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.EXPERIENCE, 1)}), getEndScene(EndScene.Type.ENCOUNTER_OVER)),
 									getTextScenes(getScript(battleCode, 13), font, background, 
 										getTextScenes(
-											new Array<String>(true, new String[]{"You rest, eating 5 food.", "You recover 10 health."}, 0, 2), font, background, new Array<Mutation>(true, new Mutation[]{new Mutation(saveService, SaveEnum.FOOD, -5), new Mutation(saveService, SaveEnum.HEALTH, 10)}, 0, 2),
+											getArray(new String[]{"You rest, eating 5 food.", "You recover 10 health."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.FOOD, -5), new Mutation(saveService, SaveEnum.HEALTH, 10)}),
 											getEndScene(EndScene.Type.ENCOUNTER_OVER)
 										)
 									)
@@ -332,7 +332,7 @@ public class EncounterBuilder {
 							)
 						),
 						getTextScenes(
-							new Array<String>(true, new String[]{"Ouch!  You take 5 damage!"}, 0, 1), font, background, getMutation(5),
+							getArray(new String[]{"Ouch!  You take 5 damage!"}), font, background, getMutation(5),
 							getTextScenes(
 								getScript(battleCode, 12), font, background, 
 								getBattleScene(
@@ -340,7 +340,7 @@ public class EncounterBuilder {
 									getTextScenes(getArray(new String[]{"You defeated the brigand!", "You receive 1 Experience."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.EXPERIENCE, 1)}), getEndScene(EndScene.Type.ENCOUNTER_OVER)),
 									getTextScenes(getScript(battleCode, 13), font, background, 
 										getTextScenes(
-											new Array<String>(true, new String[]{"You rest, eating 5 food.", "You recover 10 health."}, 0, 2), font, background, new Array<Mutation>(true, new Mutation[]{new Mutation(saveService, SaveEnum.FOOD, -5), new Mutation(saveService, SaveEnum.HEALTH, 10)}, 0, 2),
+											getArray(new String[]{"You rest, eating 5 food.", "You recover 10 health."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.FOOD, -5), new Mutation(saveService, SaveEnum.HEALTH, 10)}),
 											getEndScene(EndScene.Type.ENCOUNTER_OVER)
 										)
 									)
@@ -360,11 +360,11 @@ public class EncounterBuilder {
 				getTextScenes(
 					getScript(battleCode, 0), font, background, 
 					getChoiceScene(
-						assetManager, "Do you offer her YOUR apple, or try to convince her to just hand it over?", new Array<String>(true, new String[]{"Offer(Requires: Catamite)", "Plead with her"}, 0, 2),													
+						assetManager, "Do you offer her YOUR apple, or try to convince her to just hand it over?", getArray(new String[]{"Offer(Requires: Catamite)", "Plead with her"}),													
 						getTextScenes(
 							getScript(battleCode, 1), font, background,
 							getTextScenes(
-								new Array<String>(true, new String[]{"You take 5 damage from the splinters.", "You receive 10 food from the dryad."}, 0, 2), font, background, new Array<Mutation>(true, new Mutation[]{new Mutation(saveService, SaveEnum.HEALTH, -5), new Mutation(saveService, SaveEnum.FOOD, 10)}, 0, 2), 
+								getArray(new String[]{"You take 5 damage from the splinters.", "You receive 10 food from the dryad."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.HEALTH, -5), new Mutation(saveService, SaveEnum.FOOD, 10)}), 
 								getEndScene(EndScene.Type.ENCOUNTER_OVER)
 							)
 						),
@@ -373,10 +373,10 @@ public class EncounterBuilder {
 							getTextScenes(
 								getScript(battleCode, 2), font, background,
 								getTextScenes(
-									new Array<String>(true, new String[]{"You receive 10 food from the dryad."}, 0, 1),
+									getArray(new String[]{"You receive 10 food from the dryad."}),
 									font,
 									background,
-									new Array<Mutation>(true, new Mutation[]{new Mutation(saveService, SaveEnum.FOOD, 10)}, 0, 1),
+									getArray(new Mutation[]{new Mutation(saveService, SaveEnum.FOOD, 10)}),
 									getEndScene(EndScene.Type.ENCOUNTER_OVER)
 								)
 							),
