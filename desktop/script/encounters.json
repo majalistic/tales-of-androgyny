@@ -180,7 +180,7 @@
 		"key": "002-03",
 		"scriptLines": [
 			"You successfully shatter the slime's core. In her last moments, she looks at you with... sadness, and then, her form is completely lost - the slime that was once her spreads out due solely to the force of gravity, and begins to denature and dim.",
-			"You receive some worthless goo, and 1 XP."
+			"You receive some worthless goo."
 		]
 	},	
 	{
@@ -203,7 +203,7 @@
 			"You put away your weapon. This slime is no danger to anyone who isn't already a danger to others themselves.  You turn away, but the slime stops you.",
 			"\"Thank you for understanding. Please, have some slime,\" she says, and though you think to reject her... generous offer, she dumps about a pound of pristine goop into your hand.  You wrap it in some rags, and store it carefully in your bag.",
 			"You nod to the slime, and begin to leave again.",
-			"\"It won't spoil, not as long as I'm alive. Do with it what you will,\" she says, calling after you.  You receive some slime goo, and 2 XP."
+			"\"It won't spoil, not as long as I'm alive. Do with it what you will,\" she says, calling after you.  You receive some slime goo."
 		]
 	},	
 	{
@@ -227,7 +227,7 @@
 	{
 		"key": "002-08",
 		"scriptLines": [
-			"You successfully flee, leaving the slow-moving slime behind you.  You receive 1 XP."
+			"You successfully flee, leaving the slow-moving slime behind you."
 		]
 	},		
 	{
