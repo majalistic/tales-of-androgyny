@@ -329,7 +329,22 @@ public class PlayerCharacter extends AbstractCharacter {
 		}
 	}
 
+	private void increaseLowestStat(){
+		int min = getBaseStrength();
+		Stat minStat = Stat.STRENGTH;
+		for (Stat stat : Stat.values()){
+			if (getStat(stat) < min){
+				min = getStat(stat);
+				minStat = stat;
+			}
+		}
+		setStat(minStat, getStat(minStat) + 1);
+	}
+	
 	public void setPerks(ObjectMap<Perk, Integer> perks) {
+		if(perks.containsKey(Perk.WELLROUNDED) && !this.perks.containsKey(Perk.WELLROUNDED.toString())){
+			increaseLowestStat();
+		}
 		this.perks.clear();
 		for (Perk key : perks.keys()){
 			this.perks.put(key.toString(), perks.get(key));
@@ -337,11 +352,11 @@ public class PlayerCharacter extends AbstractCharacter {
 	}
 	
 	public int getScoutingScore() {
-		return getPerception() + (perks.containsKey(Perk.SURVEYOR.toString()) ? 2 : 0);
+		return getPerception() + (perks.containsKey(Perk.SURVEYOR.toString()) ? perks.get(Perk.SURVEYOR.toString()) * 2 : 0);
 	}
 	
 	public int getLewdCharisma() {
-		return getCharisma() + (perks.containsKey(Perk.EROTIC.toString()) ? 2 : 0);
+		return getCharisma() + (perks.containsKey(Perk.EROTIC.toString()) ? perks.get(Perk.EROTIC.toString()) * 2 : 0);
 	}	
 	
 	public boolean isLewd() {
