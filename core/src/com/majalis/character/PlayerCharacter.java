@@ -384,4 +384,19 @@ public class PlayerCharacter extends AbstractCharacter {
 	public void decrementMagicPoints() { magicPoints--; }
 
 	public void modSkillPoints(int pointChange) { skillPoints += pointChange; }
+
+	public int getLevel() {
+		return level;
+	}
+
+	public int getStoredLevels() {
+		return experience / 10;
+	}
+
+	public void levelUp() {
+		experience -= 10;
+		level++;
+		skillPoints += 2;
+		perkPoints += 1;
+	}
 }

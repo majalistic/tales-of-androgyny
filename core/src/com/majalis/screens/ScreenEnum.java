@@ -14,4 +14,5 @@ public enum ScreenEnum {
     OPTIONS,
     REPLAY,
     EXIT, 
+    LEVEL_UP, 
 }

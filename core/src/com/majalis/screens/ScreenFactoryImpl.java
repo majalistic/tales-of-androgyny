@@ -81,6 +81,8 @@ public class ScreenFactoryImpl implements ScreenFactory {
 					return new CharacterScreen(this, elements, assetManager, character);
 				}
 				break;
+			case LEVEL_UP:
+				break;
 			case GAME_OVER:				
 				if (getAssetCheck(GameOverScreen.resourceRequirements)){
 					return new GameOverScreen(this, elements, assetManager);
