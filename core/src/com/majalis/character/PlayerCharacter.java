@@ -154,7 +154,7 @@ public class PlayerCharacter extends AbstractCharacter {
 		return null;
 	}
 	
-	public Array<Technique> getTechniques(Techniques... possibilities) {
+	private Array<Technique> getTechniques(Techniques... possibilities) {
 		Array<Technique> possibleTechniques = new Array<Technique>();
 		
 		for (Techniques technique : possibilities){
@@ -361,14 +361,6 @@ public class PlayerCharacter extends AbstractCharacter {
 			spurt += "You're now flaccid!\n";
 		}
 		return !spurt.isEmpty() ? spurt : null;
-	}
-
-	public boolean outOfStaminaOrStability(Technique technique) {
-		 return getStaminaMod(technique) >= currentStamina || technique.getStabilityCost() - getStabilityRegen() >= stability;
-	}
-
-	public boolean lowStaminaOrStability(Technique technique) {
-		return getStaminaMod(technique) >= currentStamina - 5 || technique.getStabilityCost() - getStabilityRegen() >= stability - 5;
 	}
 
 	public void modExperience(Integer exp) { experience += exp; }

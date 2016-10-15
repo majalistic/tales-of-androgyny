@@ -156,7 +156,9 @@ public abstract class AbstractCharacter extends Actor {
 	
 	protected void modMana(int manaMod){ this.currentMana += manaMod; if (currentMana > getMaxMana()) currentMana = getMaxMana(); }
 	
-	protected int getStrength(){ return baseStrength - (getHealthDegradation() + getStaminaDegradation()); }
+	protected int getStrength(){ return stepDown(baseStrength - (getHealthDegradation() + getStaminaDegradation())); }
+	
+	private int stepDown(int value){ if (value < 4) return value; else return 6 + (value - 6)/2; } 
 	
 	protected int getEndurance(){ return baseEndurance - getHealthDegradation(); }
 	
@@ -432,12 +434,29 @@ public abstract class AbstractCharacter extends Actor {
 
 		PhallusType(String label) {
 		    this.label = label;
-		 }
+		}
 	}
 	
 	public String getLustImagePath(){
 		int lustLevel = lust > 7 ? 2 : lust > 3 ? 1 : 0;
 		return "arousal/" + phallus.label + lustLevel + ".png";
+	}
+	
+	protected boolean outOfStamina(Technique technique){
+		return getStaminaMod(technique) >= currentStamina;
+	}
+	
+	protected boolean outOfStability(Technique technique){
+		return technique.getStabilityCost() - getStabilityRegen() >= stability;
+	}
+	
+	
+	public boolean outOfStaminaOrStability(Technique technique) {
+		 return outOfStamina(technique) || outOfStability(technique);
+	}
+
+	public boolean lowStaminaOrStability(Technique technique) {
+		return getStaminaMod(technique) >= currentStamina - 5 || technique.getStabilityCost() - getStabilityRegen() >= stability - 5;
 	}
 	
 	public enum Stance {

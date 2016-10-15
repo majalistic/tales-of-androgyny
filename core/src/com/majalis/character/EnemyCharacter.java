@@ -2,6 +2,7 @@ package com.majalis.character;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.IntArray;
 import com.majalis.asset.AssetEnum;
 import com.majalis.battle.BattleFactory.EnemyEnum;
@@ -67,9 +68,66 @@ public class EnemyCharacter extends AbstractCharacter {
 		return bgPath;
 	}
 	
-	public Technique getTechnique(AbstractCharacter target){
-		int rand = getRandomWeighting(); 
+	private Array<Technique> getPossibleTechniques(AbstractCharacter target, Stance stance){
+		
+		if (enemyType == EnemyEnum.SLIME && stance != Stance.DOGGY && stance != Stance.FELLATIO && stance != Stance.SUPINE && stance != Stance.PRONE){
+			return getTechniques(Techniques.SLIME_ATTACK, Techniques.SLIME_QUIVER); 			
+		}
+		
+		switch(stance){
+			case OFFENSIVE:
+				return getTechniques(Techniques.STRONG_ATTACK, Techniques.RECKLESS_ATTACK, Techniques.KNOCK_DOWN, Techniques.TEMPO_ATTACK, Techniques.RESERVED_ATTACK);
+			case BALANCED:
+				return getTechniques(Techniques.SPRING_ATTACK, Techniques.NEUTRAL_ATTACK, Techniques.CAUTIOUS_ATTACK, Techniques.BLOCK);
+			case DEFENSIVE:
+				return getTechniques(Techniques.REVERSAL_ATTACK, Techniques.CAREFUL_ATTACK, Techniques.GUARD, Techniques.SECOND_WIND);
+			case PRONE:
+			case SUPINE:
+				return getTechniques(Techniques.KIP_UP, Techniques.STAND_UP, Techniques.KNEE_UP, stance == Stance.PRONE ? Techniques.REST_FACE_DOWN : Techniques.REST);
+			case KNEELING:
+				return getTechniques(Techniques.STAND_UP);
+			case DOGGY:
+				lust++;
+				if (enemyType != EnemyEnum.WERESLUT && lust > 14){
+					return getTechniques(Techniques.ERUPT_ANAL);
+				}
+				if (enemyType == EnemyEnum.WERESLUT && lust > 17){
+					return getTechniques(Techniques.KNOT);
+				}
+				else {
+					return getTechniques(Techniques.POUND);
+				}
+			case KNOTTED:
+				return getTechniques(Techniques.KNOT_BANG);
+			case AIRBORNE:
+				return getTechniques(Techniques.DIVEBOMB);
+			case FELLATIO:
+				lust++;
+				if (lust > 14){
+					return getTechniques(Techniques.ERUPT_ORAL);
+				}
+				else {
+					return getTechniques(Techniques.IRRUMATIO);
+				}	
+			case ERUPT:
+				stance = Stance.BALANCED;
+				return getPossibleTechniques(target, stance);
+		default: return null;
+		}
+	}
+		
 
+	private Array<Technique> getTechniques(Techniques... possibilities) {
+		Array<Technique> possibleTechniques = new Array<Technique>();
+		
+		for (Techniques technique : possibilities){
+			possibleTechniques.add(new Technique(technique.getTrait(), technique.getTrait().isSpell() ? getMagic() : technique.getTrait().isTaunt() ? getCharisma() : getStrength()));
+		}
+		
+		return possibleTechniques;
+	}
+	
+	public Technique getTechnique(AbstractCharacter target){
 		if (lust < 10) lust++;
 		
 		if (willPounce()){
@@ -84,95 +142,29 @@ public class EnemyCharacter extends AbstractCharacter {
 			}
 		}
 		
-		if (enemyType == EnemyEnum.SLIME && stance != Stance.DOGGY && stance != Stance.FELLATIO && stance != Stance.SUPINE && stance != Stance.PRONE){
-			if (currentStamina > 3 && (stance == Stance.BALANCED || currentStamina > 9)){
-				return getTechnique(Techniques.SLIME_ATTACK); 
-			}
-			else {
-				return getTechnique(Techniques.SLIME_QUIVER); 
-			}
+		Array<Technique> possibleTechniques = getPossibleTechniques(target, stance);
+		int choice = getRandomWeighting(possibleTechniques.size); 
+		possibleTechniques.sort(new Technique.StaminaComparator());
+		possibleTechniques.reverse();
+		Technique technique = possibleTechniques.get(choice);
+		while (outOfStamina(technique) && choice < possibleTechniques.size){
+			technique = possibleTechniques.get(choice);
+			choice++;
+		}
+		possibleTechniques.sort(new Technique.StabilityComparator());
+		possibleTechniques.reverse();
+		int ii = 0;
+		for (Technique possibleTechnique : possibleTechniques) {
+			if (possibleTechnique == technique) choice = ii;
+			ii++;
+		}
+		while (outOfStability(technique) && choice < possibleTechniques.size){
+			technique = possibleTechniques.get(choice);
+			choice++;
 		}
 		
-		switch(stance){
-			case OFFENSIVE:
-				if (stability < 5) return getTechnique(Techniques.RESERVED_ATTACK);
-				if (stability < 6) return getTechnique(Techniques.TEMPO_ATTACK);
-				switch (rand){					
-					case 0:
-						if (currentStamina < 5) return getTechnique(Techniques.RESERVED_ATTACK);
-						if (currentStamina < 7) return getTechnique(Techniques.TEMPO_ATTACK);
-						return getTechnique(Techniques.STRONG_ATTACK);	
-					case 1:
-						if (currentStamina < 5) return getTechnique(Techniques.RESERVED_ATTACK);
-						return getTechnique(Techniques.TEMPO_ATTACK);	
-					case 2:	
-						return getTechnique(Techniques.RESERVED_ATTACK);
-				}
-			case BALANCED:
-				if (currentStamina < 4 || stability < 4) return getTechnique(Techniques.CAUTIOUS_ATTACK);
-				switch (rand){
-					case 0:
-						if (currentStamina < 8 || stability < 6) return getTechnique(Techniques.NEUTRAL_ATTACK);
-						return getTechnique(Techniques.SPRING_ATTACK);	
-					case 1:
-						if (currentStamina < 3 || stability < 2) return getTechnique(Techniques.CAUTIOUS_ATTACK);
-						return getTechnique(Techniques.NEUTRAL_ATTACK);	
-					case 2:	
-						return getTechnique(Techniques.CAUTIOUS_ATTACK);
-				}
-			case DEFENSIVE:
-				if (currentStamina < 4) return getTechnique(Techniques.SECOND_WIND);
-				if (stability < 5) return getTechnique(Techniques.GUARD);
-				switch (rand){
-					case 0:
-						if (currentStamina < 8 || stability < 9) return getTechnique(Techniques.CAREFUL_ATTACK);
-						return getTechnique(Techniques.REVERSAL_ATTACK);	
-					case 1:
-						if (currentStamina < 4) return getTechnique(Techniques.GUARD);
-						return getTechnique(Techniques.CAREFUL_ATTACK);	
-					case 2:	
-						if (currentStamina < 7) return getTechnique(Techniques.SECOND_WIND);
-						return getTechnique(Techniques.GUARD);
-				}
-			case PRONE:
-			case SUPINE:
-				if (currentStamina > 5){
-					return getTechnique(Techniques.KIP_UP);
-				}	
-				else if (currentStamina > 2 && stability > 0){
-					return getTechnique(Techniques.STAND_UP);
-				}
-				else {
-					return getTechnique(Techniques.REST);
-				}				
-			case DOGGY:
-				lust++;
-				if (enemyType != EnemyEnum.WERESLUT && lust > 14){
-					return getTechnique(Techniques.ERUPT_ANAL);
-				}
-				if (enemyType == EnemyEnum.WERESLUT && lust > 17){
-					return getTechnique(Techniques.KNOT);
-				}
-				else {
-					return getTechnique(Techniques.POUND);
-				}
-			case KNOTTED:
-				return getTechnique(Techniques.KNOT_BANG);
-			case AIRBORNE:
-				return getTechnique(Techniques.DIVEBOMB);
-			case FELLATIO:
-				lust++;
-				if (lust > 14){
-					return getTechnique(Techniques.ERUPT_ORAL);
-				}
-				else {
-					return getTechnique(Techniques.IRRUMATIO);
-				}	
-			case ERUPT:
-				stance = Stance.BALANCED;
-				return getTechnique(target);
-			default: return null;
-		}
+		return technique;
+		
 	}
 	
 	private boolean willPounce(){
@@ -183,15 +175,32 @@ public class EnemyCharacter extends AbstractCharacter {
 		return new Technique(technique.getTrait(), getStrength());
 	}
 	
-	private int getRandomWeighting(){
-		int[] weightArray;
-		switch (enemyType){
-			case WERESLUT: weightArray = new int[]{0, 0, 0, 0, 0, 0, 1, 1, 2}; break;
-			case BRIGAND: weightArray = new int[]{0, 1, 1, 2, 2, 2}; break;
-			default: weightArray = new int[]{0,1,2};
+	private int getRandomWeighting(int size){
+		IntArray randomOptions = new IntArray();
+		for (int ii = 0; ii < size; ii++){
+			randomOptions.add(ii);
 		}
 		
-		return new IntArray(weightArray).random();
+		int randomResult = randomOptions.random();
+		
+		IntArray randomWeighting = new IntArray();
+		for (int ii = -1; ii < 2; ii++) {
+			randomWeighting.add(ii);
+		}
+		switch (enemyType){
+			case WERESLUT: randomWeighting.add(-1); break;
+			case BRIGAND: randomWeighting.add(0); randomWeighting.add(1); break;
+			default: break;
+		}
+		
+		randomResult += randomWeighting.random();
+		if (randomResult >= size){
+			randomResult = size - 1;
+		}
+		else if (randomResult < 0){
+			randomResult = 0;
+		}
+		return randomResult;
 	}
 	
 	@Override

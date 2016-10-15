@@ -1,5 +1,7 @@
 package com.majalis.character;
 
+import java.util.Comparator;
+
 import com.majalis.character.AbstractCharacter.Stance;
 import com.majalis.technique.TechniquePrototype;
 import com.majalis.technique.TechniquePrototype.TechniqueHeight;
@@ -95,4 +97,17 @@ public class Technique {
 	protected boolean forceBattleOver(){
 		return battleOver;
 	}
+	
+	public static class StaminaComparator implements Comparator<Technique> {
+		public int compare(Technique a, Technique b) {
+	        return Integer.compare(a.getStaminaCost(), b.getStaminaCost());
+	    }
+	}
+	
+	public static class StabilityComparator implements Comparator<Technique> {
+		public int compare(Technique a, Technique b) {
+	        return Integer.compare(a.getStabilityCost(), b.getStabilityCost());
+	    }
+	}
+	
 }
