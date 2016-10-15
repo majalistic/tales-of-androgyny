@@ -357,6 +357,12 @@ public abstract class AbstractCharacter extends Actor {
 			if (forcedStance != null){
 				result.add(label + (secondPerson ? " are " : " is ") + "forced into " + forcedStance.toString() + " stance!");
 				stance = forcedStance;
+				if (forcedStance == Stance.PRONE || forcedStance == Stance.SUPINE){
+					setStabilityToMin();
+				}
+				else if (forcedStance == Stance.KNEELING && stability > getMaxStability() / 2){
+					stability = getMaxStability() / 2;
+				}
 			}
 			
 			String lustIncrease = increaseLust();
