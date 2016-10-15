@@ -135,7 +135,7 @@ public class Battle extends Group{
 			Technique option = options.get(ii);
 			button = new TextButton(option.getTechniqueName() + (ii > POSSIBLE_KEYS_CHAR.length ? "" : " ("+POSSIBLE_KEYS_CHAR[ii]+")"), skin);
 			button.addListener(getListener(option, buttonSound));
-			table.add(button).width(220).height(40).row();
+			table.add(button).width(220).height(35).row();
 			if(character.outOfStaminaOrStability(option)){
 				TextButtonStyle style = new TextButtonStyle(button.getStyle());
 				style.fontColor = Color.RED;
