@@ -181,7 +181,7 @@ public class CharacterCreationScene extends Scene {
 	private String getJobClass(SaveManager.JobClass jobClass){ return jobClass == SaveManager.JobClass.ENCHANTRESS ? "an Enchantress" : "a " + jobClass.getLabel(); }
 	private String getClassFeatures(SaveManager.JobClass jobClass){
 		switch (jobClass){
-			case WARRIOR: return "+1 Skill point.\nUnlock Stance.";
+			case WARRIOR: return "+1 Skill point.\nUnlocked \"Blitz\" Stance.\nGained perk \"Weak to Anal\".";
 			case PALADIN: return "Combat Heal learned.";
 			case THIEF:   return "+3 Skill points.\n+40 food.";
 			case RANGER:  return "Received bow.";
@@ -198,8 +198,8 @@ public class CharacterCreationScene extends Scene {
 		font.draw(batch, "Character Creation", 600, 600);
 		font.setColor(0.4f,0.4f,0.4f,1);
 		int base = 500;
-		font.draw(batch, classMessage, base-225, 580);
-		font.draw(batch, statMessage, base+100, 580);
+		font.draw(batch, classMessage, base-225, 600);
+		font.draw(batch, statMessage, base+100, 600);
 		int offset = 0;
 		if (!classMessage.equals("")){
 			for (Stat stat: PlayerCharacter.Stat.values()){

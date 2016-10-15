@@ -98,10 +98,10 @@ public class PlayerCharacter extends AbstractCharacter {
 		food = 40; 
 		skills.remove(Techniques.COMBAT_HEAL.toString());
 		skills.remove(Techniques.INCANTATION.toString());
+		perks.remove(Perk.WEAK_TO_ANAL.toString());
 		// warrior will need to get bonus stance options, Ranger will need to start with a bow
 		switch (jobClass){ 
-			
-			case WARRIOR: skillPoints = 3; break;
+			case WARRIOR: skillPoints = 3; perks.put(Perk.WEAK_TO_ANAL.toString(), 1); break;
 			case PALADIN: addSkill(Techniques.COMBAT_HEAL); break;
 			case THIEF: skillPoints = 5; food = 80; break;
 			case MAGE: magicPoints = 2; break;
@@ -367,6 +367,7 @@ public class PlayerCharacter extends AbstractCharacter {
 		switch (stance){
 			case DOGGY:
 			case KNOTTED:
+				if (perks.containsKey(Perk.WEAK_TO_ANAL.toString())) return increaseLust(2);
 			case FELLATIO:
 				return increaseLust(1);
 			default: return null;

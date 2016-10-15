@@ -5,14 +5,23 @@ public enum Perk {
 	WELLROUNDED (1), // increases lowest stat by 1
 	SURVEYOR (3), // increases effective perception for scouting
 	EROTIC (3), // increases effective charisma for alluring enemies, including charisma checks of that sort
-	CATAMITE (1); // unlocks more willing options for catching it
-
+	CATAMITE (1), // unlocks more willing options for catching it
+	WEAK_TO_ANAL (false);
+	
 	private final int maxRank;
+	private final boolean positive;
 	private Perk(){
-		this(1);
+		this(1, true);
+	}
+	private Perk(boolean positive){
+		this(1, positive);
 	}
 	private Perk(int maxRank){
+		this(maxRank, true);
+	}
+	private Perk(int maxRank, boolean positive){
 		this.maxRank = maxRank;
+		this.positive = positive;
 	}
 	
 	public String getLabel(){
@@ -33,4 +42,6 @@ public enum Perk {
 	public int getMaxRank() {
 		return maxRank;
 	}
+	
+	public boolean isPositive() { return positive; }
 }

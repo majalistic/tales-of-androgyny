@@ -128,6 +128,7 @@ public class SkillSelectionScene extends Scene {
 		
 		final Table perkTable = new Table();
 		for (final Perk perk: Perk.values()){
+			if (!perk.isPositive()){ continue; }
 			Integer level = perks.get(perk);
 			if (level == null) level = 0;
 			final TextButton button = new TextButton(perk.getLabel() + (level > 0 ? " (" + level + ")" : ""), skin);
