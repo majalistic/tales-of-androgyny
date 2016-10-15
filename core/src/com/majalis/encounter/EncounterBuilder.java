@@ -93,6 +93,14 @@ public class EncounterBuilder {
 		return new Encounter(scenes, endScenes, new Array<BattleScene>(), getStartScene(scenes, sceneCode));
 	}
 	
+	protected Encounter getLevelUpEncounter(AssetManager assetManager, PlayerCharacter playerCharacter){
+		Texture classSelectTexture = assetManager.get("ClassSelect.jpg", Texture.class);
+		getSkillSelectionScene(
+				saveService, font, new Background(classSelectTexture), assetManager, playerCharacter, getEndScene(EndScene.Type.ENCOUNTER_OVER)
+		);
+		return new Encounter(scenes, endScenes, new Array<BattleScene>(), getStartScene(scenes, sceneCode));
+	}
+	
 	protected Encounter getDefaultEncounter(AssetManager assetManager){
 		Texture backgroundTexture = assetManager.get("StickEncounter.jpg", Texture.class);
 		Texture vignetteTexture = assetManager.get(AssetEnum.VIGNETTE.getPath(), Texture.class);

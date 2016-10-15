@@ -399,4 +399,8 @@ public class PlayerCharacter extends AbstractCharacter {
 		skillPoints += 2;
 		perkPoints += 1;
 	}
+
+	public boolean hasMagic() {
+		return jobClass == JobClass.ENCHANTRESS || jobClass == JobClass.MAGE || jobClass == JobClass.PALADIN;
+	}
 }

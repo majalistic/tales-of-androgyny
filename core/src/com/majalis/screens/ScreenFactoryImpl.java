@@ -78,10 +78,8 @@ public class ScreenFactoryImpl implements ScreenFactory {
 				break;
 			case CHARACTER:
 				if (getAssetCheck(CharacterScreen.resourceRequirements)){
-					return new CharacterScreen(this, elements, assetManager, character);
+					return new CharacterScreen(this, elements, assetManager, saveService, character);
 				}
-				break;
-			case LEVEL_UP:
 				break;
 			case GAME_OVER:				
 				if (getAssetCheck(GameOverScreen.resourceRequirements)){
@@ -133,6 +131,14 @@ public class ScreenFactoryImpl implements ScreenFactory {
 		}
 	}
 	
+	private AbstractScreen getLevel(ScreenElements elements, PlayerCharacter character){
+		if (getAssetCheck(LevelUpScreen.resourceRequirements)){
+			// -3 is the magic number for the level up screen encounter
+			return new LevelUpScreen(this, elements, assetManager, saveService, encounterFactory.getEncounter(-3, elements.getFont(18)));
+		}
+		return null;
+	}
+	
 	private AbstractScreen getGameScreen(ScreenElements elements, PlayerCharacter character){
 		SaveManager.GameContext context = loadService.loadDataValue(SaveEnum.CONTEXT, SaveManager.GameContext.class);
 		switch (context){
@@ -145,6 +151,8 @@ public class ScreenFactoryImpl implements ScreenFactory {
 				else return null;
 			case BATTLE:
 				return getBattle(elements, character);
+			case LEVEL:
+				return getLevel(elements, character);
 			default: return null;
 		}	
 	}

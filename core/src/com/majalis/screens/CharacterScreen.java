@@ -19,6 +19,9 @@ import com.majalis.asset.AssetEnum;
 import com.majalis.character.PlayerCharacter;
 import com.majalis.character.PlayerCharacter.Stat;
 import com.majalis.encounter.Background;
+import com.majalis.save.SaveEnum;
+import com.majalis.save.SaveManager.GameContext;
+import com.majalis.save.SaveService;
 /*
  * The options/configuration screen.  UI that handles player input to save Preferences to a player's file system.
  */
@@ -48,7 +51,7 @@ public class CharacterScreen extends AbstractScreen {
 	
 	private final PlayerCharacter character;
 
-	public CharacterScreen(ScreenFactory factory, ScreenElements elements, AssetManager assetManager, PlayerCharacter character) {
+	public CharacterScreen(ScreenFactory factory, ScreenElements elements, AssetManager assetManager, final SaveService saveService, final PlayerCharacter character) {
 		super(factory, elements);
 		this.character = character;
 		this.addActor(new Background((Texture)assetManager.get("ClassSelect.jpg", Texture.class))); 
@@ -63,6 +66,7 @@ public class CharacterScreen extends AbstractScreen {
 				@Override
 		        public void clicked(InputEvent event, float x, float y) {
 					buttonSound.play(.5f);
+					saveService.saveDataValue(SaveEnum.CONTEXT, GameContext.WORLD_MAP);
 					showScreen(ScreenEnum.LOAD_GAME);		   
 		        }
 			}
@@ -82,7 +86,11 @@ public class CharacterScreen extends AbstractScreen {
 				@Override
 		        public void clicked(InputEvent event, float x, float y) {
 					buttonSound.play(.5f);
-					showScreen(ScreenEnum.LEVEL_UP);		   
+					
+					character.levelUp();
+					saveService.saveDataValue(SaveEnum.PLAYER, character);
+					saveService.saveDataValue(SaveEnum.CONTEXT, GameContext.LEVEL);
+					showScreen(ScreenEnum.LOAD_GAME);
 		        }
 			}
 		);

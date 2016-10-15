@@ -13,6 +13,5 @@ public enum ScreenEnum {
     GAME_OVER,
     OPTIONS,
     REPLAY,
-    EXIT, 
-    LEVEL_UP, 
+    EXIT
 }

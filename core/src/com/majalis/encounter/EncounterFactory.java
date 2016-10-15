@@ -26,13 +26,13 @@ public class EncounterFactory {
 	}
 	
 	public Encounter getEncounter(int encounterCode, BitmapFont font) {
-		// temporarily stored in a static switch block until file retrieval for encounters is implemented
 		Integer sceneCode = loadService.loadDataValue(SaveEnum.SCENE_CODE, Integer.class);
 		BattleCode battle = loadService.loadDataValue(SaveEnum.BATTLE_CODE, BattleCode.class);
 		int battleCode = -1;
 		if (battle != null) battleCode = battle.battleCode;
 		EncounterBuilder builder = new EncounterBuilder(reader, saveService, font, sceneCode, battleCode);
 		switch (encounterCode){
+			case -3: return builder.getLevelUpEncounter(assetManager, (PlayerCharacter) loadService.loadDataValue(SaveEnum.PLAYER, PlayerCharacter.class));
 			case -2: return builder.getClassChoiceEncounter(assetManager, (PlayerCharacter) loadService.loadDataValue(SaveEnum.PLAYER, PlayerCharacter.class));
 			case -1: return builder.getDefaultEncounter(assetManager);
 			default: return builder.getRandomEncounter(encounterCode, assetManager, (PlayerCharacter) loadService.loadDataValue(SaveEnum.PLAYER, PlayerCharacter.class));

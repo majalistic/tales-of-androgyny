@@ -255,6 +255,7 @@ public class SaveManager implements SaveService, LoadService{
 	public enum GameContext {
 		ENCOUNTER,
 		WORLD_MAP,
-		BATTLE
+		BATTLE, 
+		LEVEL
 	}
 }
