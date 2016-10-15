@@ -1,12 +1,20 @@
 package com.majalis.character;
 
 public enum Perk {
-	SKILLED, // increases number of skill points to allocate
-	WELLROUNDED, // increases lowest stat by 1
-	SURVEYOR, // increases effective perception for scouting
-	EROTIC, // increases effective charisma for alluring enemies, including charisma checks of that sort
-	CATAMITE; // unlocks more willing options for catching it
+	SKILLED (5), // increases number of skill points to allocate
+	WELLROUNDED (1), // increases lowest stat by 1
+	SURVEYOR (3), // increases effective perception for scouting
+	EROTIC (3), // increases effective charisma for alluring enemies, including charisma checks of that sort
+	CATAMITE (1); // unlocks more willing options for catching it
 
+	private final int maxRank;
+	private Perk(){
+		this(1);
+	}
+	private Perk(int maxRank){
+		this.maxRank = maxRank;
+	}
+	
 	public String getLabel(){
 		char[] chars = super.toString().replace("_", " ").toLowerCase().toCharArray();
 		boolean found = false;
@@ -20,5 +28,9 @@ public enum Perk {
 		    }
 		}		
 		return String.valueOf(chars);
+	}
+
+	public int getMaxRank() {
+		return maxRank;
 	}
 }

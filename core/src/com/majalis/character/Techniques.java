@@ -17,7 +17,7 @@ import com.majalis.technique.TechniquePrototype.TechniqueHeight;
  */
 public enum Techniques {
 	/* Offensive Techniques */  
-	STRONG_ATTACK 		(new AttackTechnique(Stance.OFFENSIVE, "Strong Attack", 3, 3, 4)),
+	POWER_ATTACK 		(new AttackTechnique(Stance.OFFENSIVE, "Power Attack", 3, 3, 4)),
 	TEMPO_ATTACK  		(new AttackTechnique(Stance.OFFENSIVE, "Tempo Attack", 2, 2, 3)),
 	SPRING_ATTACK  		(new AttackTechnique(Stance.OFFENSIVE, "Spring Attack", 1, 4, 3)),
 	/* Balanced Techniques */
@@ -68,27 +68,34 @@ public enum Techniques {
 	INCANTATION 		(new NonAttackTechnique(Stance.CASTING, "Incantation", 0, 1)), 
 	
 	/* Learnable Skills*/
-	CAUTIOUS_ATTACK  	(new AttackTechnique(Stance.DEFENSIVE, "Cautious Attack", -1, 0, 2)),
+	CAUTIOUS_ATTACK  	(new AttackTechnique(Stance.DEFENSIVE, "Cautious Attack", -1, 0, 2), 3),
 	VAULT 				(new NonAttackTechnique(Stance.AIRBORNE, "Vault", 2, 4)), 
 	JUMP_ATTACK 		(new AttackTechnique(Stance.BALANCED, "Jump Attack", 4, 4, 2)),
-	RECKLESS_ATTACK 	(new AttackTechnique(Stance.OFFENSIVE, "Reckless Attack", 2, 3, 6, false)), // needs to be unguardable
+	RECKLESS_ATTACK 	(new AttackTechnique(Stance.OFFENSIVE, "Reckless Attack", 2, 3, 6, false), 3), // unguardable
 	
-	TAUNT 				(new NonAttackTechnique(Stance.DEFENSIVE, "Taunt", 0, 0, true)), 
-	KNOCK_DOWN 			(new AttackTechnique(Stance.OFFENSIVE, "Knock Down", 1, 3, 6, 2)), // needs to knock down
+	TAUNT 				(new NonAttackTechnique(Stance.DEFENSIVE, "Taunt", 0, 0, true), 2), 
+	KNOCK_DOWN 			(new AttackTechnique(Stance.OFFENSIVE, "Knock Down", 1, 3, 6, 2), 3), // needs to knock down
 	HIT_THE_DECK		(new FallDownTechnique(Stance.PRONE, "Hit the Deck")), 
 	PARRY  				(new GuardTechnique(Stance.DEFENSIVE, "Parry", -1, 0)),
 	
-	COMBAT_HEAL  		(new SpellTechnique(Stance.BALANCED, "Combat Heal", 10, 10, true)),
-	COMBAT_FIRE  		(new SpellTechnique(Stance.BALANCED, "Combat Fire", 3, 5, false)),
-	TITAN_STRENGTH  	(new SpellTechnique(Stance.BALANCED, "Titan Strength", 0, 2, false)),	
+	COMBAT_HEAL  		(new SpellTechnique(Stance.BALANCED, "Combat Heal", 10, 10, true), 3),
+	COMBAT_FIRE  		(new SpellTechnique(Stance.BALANCED, "Combat Fire", 3, 5, false), 3),
+	TITAN_STRENGTH  	(new SpellTechnique(Stance.BALANCED, "Titan Strength", 0, 2, false), 3),	
 	;
 	
 	private final TechniquePrototype trait;
+	private final int maxRank;
 	private Techniques(TechniquePrototype trait){
+		this(trait, 1);
+	}
+	private Techniques(TechniquePrototype trait, int maxRank){
 		this.trait = trait;
+		this.maxRank = maxRank;
 	}
 	
 	public TechniquePrototype getTrait(){ return trait; }
+	
+	public int getMaxRank() { return maxRank; }
 	
 	public static Array<Techniques> getLearnableSkills() {
 		Techniques[] learnables = new Techniques[]{CAUTIOUS_ATTACK, VAULT, RECKLESS_ATTACK, TAUNT, KNOCK_DOWN, SECOND_WIND, HIT_THE_DECK, PARRY};

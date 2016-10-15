@@ -76,7 +76,7 @@ public class PlayerCharacter extends AbstractCharacter {
 	
 	private static ObjectSet<Techniques> getBaseTechniques(){
 		ObjectSet<Techniques> baseTechniques = new ObjectSet<Techniques>();
-		baseTechniques.addAll(Techniques.STRONG_ATTACK, Techniques.TEMPO_ATTACK, Techniques.RESERVED_ATTACK, Techniques.DUCK, Techniques.SPRING_ATTACK, Techniques.NEUTRAL_ATTACK, Techniques.REVERSAL_ATTACK, Techniques.CAREFUL_ATTACK, Techniques.BLOCK, Techniques.GUARD, Techniques.KIP_UP, Techniques.STAND_UP,
+		baseTechniques.addAll(Techniques.POWER_ATTACK, Techniques.TEMPO_ATTACK, Techniques.RESERVED_ATTACK, Techniques.DUCK, Techniques.SPRING_ATTACK, Techniques.NEUTRAL_ATTACK, Techniques.REVERSAL_ATTACK, Techniques.CAREFUL_ATTACK, Techniques.BLOCK, Techniques.GUARD, Techniques.KIP_UP, Techniques.STAND_UP,
 		Techniques.KNEE_UP, Techniques.REST_FACE_DOWN, Techniques.REST, Techniques.JUMP_ATTACK, Techniques.RECEIVE, Techniques.STRUGGLE_ORAL, Techniques.STRUGGLE_ANAL, Techniques.RECEIVE_KNOT, Techniques.OPEN_WIDE, Techniques.BREAK_FREE_ANAL, Techniques.BREAK_FREE_ORAL);
 		return baseTechniques;
 	}
@@ -114,7 +114,7 @@ public class PlayerCharacter extends AbstractCharacter {
 	public Array<Technique> getPossibleTechniques(){
 		switch(stance){
 			case OFFENSIVE:
-				return getTechniques(Techniques.STRONG_ATTACK, Techniques.RECKLESS_ATTACK, Techniques.KNOCK_DOWN, Techniques.VAULT, Techniques.TEMPO_ATTACK, Techniques.RESERVED_ATTACK, Techniques.DUCK, Techniques.HIT_THE_DECK);
+				return getTechniques(Techniques.POWER_ATTACK, Techniques.RECKLESS_ATTACK, Techniques.KNOCK_DOWN, Techniques.VAULT, Techniques.TEMPO_ATTACK, Techniques.RESERVED_ATTACK, Techniques.DUCK, Techniques.HIT_THE_DECK);
 			case BALANCED:
 				return getTechniques(Techniques.SPRING_ATTACK, Techniques.NEUTRAL_ATTACK, Techniques.CAUTIOUS_ATTACK, Techniques.BLOCK, Techniques.INCANTATION, Techniques.DUCK, Techniques.HIT_THE_DECK);
 			case DEFENSIVE:

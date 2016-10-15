@@ -76,7 +76,7 @@ public class EnemyCharacter extends AbstractCharacter {
 		
 		switch(stance){
 			case OFFENSIVE:
-				return getTechniques(Techniques.STRONG_ATTACK, Techniques.RECKLESS_ATTACK, Techniques.KNOCK_DOWN, Techniques.TEMPO_ATTACK, Techniques.RESERVED_ATTACK);
+				return getTechniques(Techniques.POWER_ATTACK, Techniques.RECKLESS_ATTACK, Techniques.KNOCK_DOWN, Techniques.TEMPO_ATTACK, Techniques.RESERVED_ATTACK);
 			case BALANCED:
 				return getTechniques(Techniques.SPRING_ATTACK, Techniques.NEUTRAL_ATTACK, Techniques.CAUTIOUS_ATTACK, Techniques.BLOCK);
 			case DEFENSIVE:

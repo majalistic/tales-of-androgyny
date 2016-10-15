@@ -122,7 +122,7 @@ public class CharacterScreen extends AbstractScreen {
 			font.setColor(0.6f,0.2f,0.1f,1);
 			font.draw(batch, stat.toString(), baseX+50, baseY - offset);
 			font.draw(batch, ": ", baseX+180, baseY - offset);
-			int amount = character.getStat(stat);
+			int amount = character.getBaseStat(stat);
 			setFontColor(font, amount);
 			font.draw(batch, String.valueOf(amount), baseX+200, baseY - offset);
 			font.draw(batch, "- " + PlayerCharacter.getStatMap().get(stat).get(amount), baseX+240, baseY - offset);

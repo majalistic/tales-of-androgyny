@@ -103,12 +103,18 @@ public class SkillSelectionScene extends Scene {
 		        public void clicked(InputEvent event, float x, float y) {
 					buttonSound.play(.5f);
 					if (skillPoints > 0){
-						skillPoints--;
 						Integer level = skills.get(technique);
 						if (level == null) level = 0;
-						skills.put(technique, ++level);						
-						console = "You have learned " + technique.getTrait().getName() + " Rank " + level +".";
-						button.setText(technique.getTrait().getName() + " (" + level + ")");
+						if (level < technique.getMaxRank()){
+							skillPoints--;
+							skills.put(technique, ++level);						
+							console = "You have learned " + technique.getTrait().getName() + " Rank " + level +".";
+							button.setText(technique.getTrait().getName() + " (" + level + ")");
+						}
+						else {
+							console = "You cannot improve on that skill any further!";
+						}
+						
 					}
 					else {
 						console = "You have no skill points!";
@@ -130,15 +136,21 @@ public class SkillSelectionScene extends Scene {
 		        public void clicked(InputEvent event, float x, float y) {
 					buttonSound.play(.5f);
 					if (perkPoints > 0){
-						perkPoints--;
-						if (perk == Perk.SKILLED) {
-							skillPoints += 2;
-						}
 						Integer level = perks.get(perk);
 						if (level == null) level = 0;
-						perks.put(perk, ++level);						
-						console = "You gained the " + perk.getLabel() + " Rank " + level +".";
-						button.setText(perk.getLabel() + " (" + level + ")");				
+						if (level < perk.getMaxRank()){
+							perkPoints--;
+							if (perk == Perk.SKILLED) {
+								skillPoints += 2;
+							}
+							
+							perks.put(perk, ++level);						
+							console = "You gained the " + perk.getLabel() + " Rank " + level +".";
+							button.setText(perk.getLabel() + " (" + level + ")");	
+						}
+						else {
+							console = "You cannot improve on that perk any further!";
+						}		
 					}
 					else {
 						console = "You have no perk points!";
@@ -162,12 +174,17 @@ public class SkillSelectionScene extends Scene {
 			        public void clicked(InputEvent event, float x, float y) {
 						buttonSound.play(.5f);
 						if (magicPoints > 0){
-							magicPoints--;
 							Integer level = skills.get(technique);
 							if (level == null) level = 0;
-							skills.put(technique, ++level);						
-							console = "You have learned " + technique.getTrait().getName() + " Rank " + level +".";
-							button.setText(technique.getTrait().getName() + " (" + level + ")");		
+							if (level < technique.getMaxRank()){
+								magicPoints--;
+								skills.put(technique, ++level);						
+								console = "You have learned " + technique.getTrait().getName() + " Rank " + level +".";
+								button.setText(technique.getTrait().getName() + " (" + level + ")");
+							}
+							else {
+								console = "You cannot improve on that spell any further!";
+							}	
 						}
 						else {
 							console = "You have no magic points!";
