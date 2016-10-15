@@ -1,5 +1,6 @@
 package com.majalis.character;
 
+import com.majalis.asset.AssetEnum;
 import com.majalis.battle.BattleFactory.EnemyEnum;
 import com.majalis.save.SaveManager.JobClass;
 import com.majalis.technique.ClimaxType;
@@ -463,34 +464,40 @@ public abstract class AbstractCharacter extends Actor {
 
 	public boolean lowStaminaOrStability(Technique technique) {
 		return getStaminaMod(technique) >= currentStamina - 5 || technique.getStabilityCost() - getStabilityRegen() >= stability - 5;
+	
 	}
 	
 	public enum Stance {
-		BALANCED,
-		DEFENSIVE,
-		OFFENSIVE,
-		PRONE (false, false, true),
-		SUPINE (false, false, true),
-		KNEELING (false, true, true),
-		AIRBORNE (true, false, false), 
-		DOGGY, 
-		KNOTTED, 
-		FELLATIO, 
-		CASTING,
-		ERUPT
+		BALANCED (AssetEnum.BALANCED.getPath()),
+		DEFENSIVE (AssetEnum.DEFENSIVE.getPath()),
+		OFFENSIVE (AssetEnum.OFFENSIVE.getPath()),
+		BLITZ (AssetEnum.BLITZ.getPath()),
+		STONEWALL (AssetEnum.BALANCED.getPath()),
+		PRONE ((AssetEnum.PRONE.getPath()), false, false, true),
+		SUPINE ((AssetEnum.SUPINE.getPath()), false, false, true),
+		KNEELING ((AssetEnum.KNEELING.getPath()), false, true, true),
+		AIRBORNE ((AssetEnum.AIRBORNE.getPath()), true, false, false), 
+		DOGGY (AssetEnum.DOGGY.getPath()), 
+		KNOTTED (AssetEnum.KNOTTED.getPath()), 
+		FELLATIO (AssetEnum.FELLATIO.getPath()), 
+		CASTING (AssetEnum.CASTING.getPath()),
+		ERUPT (AssetEnum.ERUPT.getPath())
 		;
 		
+		private final String texturePath;
 		public final boolean receivesHighAttacks;
 		public final boolean receivesMediumAttacks;
 		public final boolean receivesLowAttacks;
-		private Stance(){
-			this(true, true, true);
+		private Stance(String texturePath){
+			this(texturePath, true, true, true);
 		}
-		private Stance(boolean receivesHigh, boolean receivesMedium, boolean receivesLow){
+		private Stance(String texturePath, boolean receivesHigh, boolean receivesMedium, boolean receivesLow){
+			this.texturePath = texturePath;
 			receivesHighAttacks = receivesHigh;
 			receivesMediumAttacks = receivesMedium;
 			receivesLowAttacks = receivesLow;
 		}
+		public String getPath() { return texturePath; }
 		
 	}
 }

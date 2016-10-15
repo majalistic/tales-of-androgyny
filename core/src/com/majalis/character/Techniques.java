@@ -13,13 +13,19 @@ import com.majalis.technique.SpellTechnique;
 import com.majalis.technique.TechniquePrototype;
 import com.majalis.technique.TechniquePrototype.TechniqueHeight;
 /*
- * List of all techniques and their generic attributes
+ * List of all techniques and their generic attributes.
  */
 public enum Techniques {
 	/* Offensive Techniques */  
 	POWER_ATTACK 		(new AttackTechnique(Stance.OFFENSIVE, "Power Attack", 3, 3, 4)),
 	TEMPO_ATTACK  		(new AttackTechnique(Stance.OFFENSIVE, "Tempo Attack", 2, 2, 3)),
 	SPRING_ATTACK  		(new AttackTechnique(Stance.OFFENSIVE, "Spring Attack", 1, 4, 3)),
+	
+	/* Blitz Techniques */
+	BLITZ_ATTACK  		(new AttackTechnique(Stance.BLITZ, "Blitz Attack", 4, 4, 6)),
+	ALL_OUT_BLITZ		(new AttackTechnique(Stance.BLITZ, "All-Out Blitz", 6, 4, 8, 1.5)),
+	HOLD_BACK			(new NonAttackTechnique(Stance.OFFENSIVE, "Hold Back", 0, 3)),
+	
 	/* Balanced Techniques */
 	RESERVED_ATTACK  	(new AttackTechnique(Stance.BALANCED, "Reserved Attack", 1, 4, 1)),
 	REVERSAL_ATTACK  	(new AttackTechnique(Stance.BALANCED, "Reversal Attack", 0, 2, 2)),
@@ -74,13 +80,14 @@ public enum Techniques {
 	RECKLESS_ATTACK 	(new AttackTechnique(Stance.OFFENSIVE, "Reckless Attack", 2, 3, 6, false), 3), // unguardable
 	
 	TAUNT 				(new NonAttackTechnique(Stance.DEFENSIVE, "Taunt", 0, 0, true), 2), 
-	KNOCK_DOWN 			(new AttackTechnique(Stance.OFFENSIVE, "Knock Down", 1, 3, 6, 2), 3), // needs to knock down
+	KNOCK_DOWN 			(new AttackTechnique(Stance.OFFENSIVE, "Knock Down", 1, 3, 6, 2), 3), 
 	HIT_THE_DECK		(new FallDownTechnique(Stance.PRONE, "Hit the Deck")), 
 	PARRY  				(new GuardTechnique(Stance.DEFENSIVE, "Parry", -1, 0)),
 	
 	COMBAT_HEAL  		(new SpellTechnique(Stance.BALANCED, "Combat Heal", 10, 10, true), 3),
 	COMBAT_FIRE  		(new SpellTechnique(Stance.BALANCED, "Combat Fire", 3, 5, false), 3),
-	TITAN_STRENGTH  	(new SpellTechnique(Stance.BALANCED, "Titan Strength", 0, 2, false), 3),	
+	TITAN_STRENGTH  	(new SpellTechnique(Stance.BALANCED, "Titan Strength", 0, 2, false), 3),
+	
 	;
 	
 	private final TechniquePrototype trait;

@@ -13,7 +13,7 @@ public class AttackTechnique extends TechniquePrototype {
 		this(resultingStance, name, powerMod, staminaCost, stabilityCost, isBlockable, TechniqueHeight.MEDIUM);
 	}
 	
-	public AttackTechnique(Stance resultingStance, String name, int powerMod, int staminaCost, int stabilityCost, int knockdown) {
+	public AttackTechnique(Stance resultingStance, String name, int powerMod, int staminaCost, int stabilityCost, double knockdown) {
 		this(resultingStance, name, powerMod, staminaCost, stabilityCost, knockdown, true, TechniqueHeight.MEDIUM);
 	}
 	
@@ -21,7 +21,7 @@ public class AttackTechnique extends TechniquePrototype {
 		this(resultingStance, name, powerMod, staminaCost, stabilityCost, 1, isBlockable, TechniqueHeight.MEDIUM);
 	}
 	
-	public AttackTechnique(Stance resultingStance, String name, int powerMod, int staminaCost, int stabilityCost, int knockdown, boolean isBlockable, TechniqueHeight height){
+	public AttackTechnique(Stance resultingStance, String name, int powerMod, int staminaCost, int stabilityCost, double knockdown, boolean isBlockable, TechniqueHeight height){
 		super(resultingStance, name);
 		this.doesDamage = true;
 		this.blockable = true;

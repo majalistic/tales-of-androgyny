@@ -246,34 +246,7 @@ public class Battle extends Group{
     }
 	
 	private Texture getStanceImage(Stance stance){
-		switch(stance){
-			case BALANCED:
-				return assetManager.get("stances/Balanced.png", Texture.class);
-			case DEFENSIVE:
-				return assetManager.get("stances/Defensive.png", Texture.class);
-			case DOGGY:
-				return assetManager.get("stances/Doggy.png", Texture.class);
-			case ERUPT:
-				return assetManager.get("stances/Erupt.png", Texture.class);
-			case FELLATIO:
-				return assetManager.get("stances/Fellatio.png", Texture.class);
-			case KNEELING:
-				return assetManager.get("stances/Kneeling.png", Texture.class);
-			case OFFENSIVE:
-				return assetManager.get("stances/Offensive.png", Texture.class);
-			case PRONE:
-				return assetManager.get("stances/Prone.png", Texture.class);
-			case SUPINE:
-				return assetManager.get("stances/Supine.png", Texture.class);
-			case AIRBORNE:
-				return assetManager.get("stances/Airborne.png", Texture.class);
-			case CASTING:
-				return assetManager.get("stances/Casting.png", Texture.class);
-			case KNOTTED:
-				return assetManager.get("stances/Knotted.png", Texture.class);
-			default:
-				return assetManager.get("stances/Balanced.png", Texture.class);
-			}
+		return assetManager.get(stance.getPath(), Texture.class);
 	}
 	
 	public int getVictoryScene(){

@@ -20,8 +20,9 @@ public class BattleScreen extends AbstractScreen{
 		resourceRequirements.put("uiskin.json", Skin.class);
 		resourceRequirements.put("sound.wav", Sound.class);
 		String[] textureArray = new String[]{
-			"WerebitchChibi.png", AssetEnum.BATTLE_BG.getPath(), AssetEnum.WEREBITCH.getPath(), AssetEnum.HARPY.getPath(), AssetEnum.SLIME.getPath(), AssetEnum.BRIGAND.getPath(), 
-			"stances/Balanced.png", "stances/Defensive.png", "stances/Doggy.png", "stances/Erupt.png", "stances/Fellatio.png", "stances/Kneeling.png", "stances/Offensive.png", "stances/Prone.png", "stances/Supine.png", "stances/Airborne.png", "stances/Casting.png", "stances/Knotted.png",
+			"WerebitchChibi.png", AssetEnum.BATTLE_BG.getPath(), AssetEnum.WEREBITCH.getPath(), AssetEnum.HARPY.getPath(), AssetEnum.SLIME.getPath(), AssetEnum.BRIGAND.getPath(), AssetEnum.BLITZ.getPath(),
+			AssetEnum.BALANCED.getPath(), AssetEnum.DEFENSIVE.getPath(), AssetEnum.DOGGY.getPath(), AssetEnum.ERUPT.getPath(), AssetEnum.FELLATIO.getPath(), AssetEnum.KNEELING.getPath(),
+			AssetEnum.OFFENSIVE.getPath(), AssetEnum.PRONE.getPath(), AssetEnum.SUPINE.getPath(), AssetEnum.AIRBORNE.getPath(), AssetEnum.CASTING.getPath(), AssetEnum.KNOTTED.getPath(),
 			"arousal/Human0.png", "arousal/Human1.png", "arousal/Human2.png", "arousal/Trap0.png", "arousal/Trap1.png", "arousal/Trap2.png", "arousal/Monster0.png", "arousal/Monster1.png", "arousal/Monster2.png", "enemies/BrigandUI.png", "enemies/HarpyUI.png", "enemies/SlimeUI.png", "enemies/WereUI.png"
 		};
 		for (String path: textureArray){

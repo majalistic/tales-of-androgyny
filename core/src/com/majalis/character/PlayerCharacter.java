@@ -98,10 +98,13 @@ public class PlayerCharacter extends AbstractCharacter {
 		food = 40; 
 		skills.remove(Techniques.COMBAT_HEAL.toString());
 		skills.remove(Techniques.INCANTATION.toString());
+		skills.remove(Techniques.BLITZ_ATTACK.toString());
+		skills.remove(Techniques.ALL_OUT_BLITZ.toString());
+		skills.remove(Techniques.HOLD_BACK.toString());
 		perks.remove(Perk.WEAK_TO_ANAL.toString());
 		// warrior will need to get bonus stance options, Ranger will need to start with a bow
 		switch (jobClass){ 
-			case WARRIOR: skillPoints = 3; perks.put(Perk.WEAK_TO_ANAL.toString(), 1); break;
+			case WARRIOR: skillPoints = 3; skills.put(Techniques.BLITZ_ATTACK.toString(), 1); skills.put(Techniques.ALL_OUT_BLITZ.toString(), 1); skills.put(Techniques.HOLD_BACK.toString(), 1); perks.put(Perk.WEAK_TO_ANAL.toString(), 1); break;
 			case PALADIN: addSkill(Techniques.COMBAT_HEAL); break;
 			case THIEF: skillPoints = 5; food = 80; break;
 			case MAGE: magicPoints = 2; break;
@@ -113,8 +116,10 @@ public class PlayerCharacter extends AbstractCharacter {
 	// this needs to consolidate logic with the getTechniques method
 	public Array<Technique> getPossibleTechniques(){
 		switch(stance){
+			case BLITZ:
+				return getTechniques(Techniques.ALL_OUT_BLITZ, Techniques.HOLD_BACK);
 			case OFFENSIVE:
-				return getTechniques(Techniques.POWER_ATTACK, Techniques.RECKLESS_ATTACK, Techniques.KNOCK_DOWN, Techniques.VAULT, Techniques.TEMPO_ATTACK, Techniques.RESERVED_ATTACK, Techniques.DUCK, Techniques.HIT_THE_DECK);
+				return getTechniques(Techniques.BLITZ_ATTACK, Techniques.POWER_ATTACK, Techniques.RECKLESS_ATTACK, Techniques.KNOCK_DOWN, Techniques.VAULT, Techniques.TEMPO_ATTACK, Techniques.RESERVED_ATTACK);
 			case BALANCED:
 				return getTechniques(Techniques.SPRING_ATTACK, Techniques.NEUTRAL_ATTACK, Techniques.CAUTIOUS_ATTACK, Techniques.BLOCK, Techniques.INCANTATION, Techniques.DUCK, Techniques.HIT_THE_DECK);
 			case DEFENSIVE:

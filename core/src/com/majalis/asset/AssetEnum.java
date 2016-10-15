@@ -24,7 +24,22 @@ public enum AssetEnum {
 	WEREBITCH("enemies/WerebitchBasic.png"),
 	HARPY("enemies/Harpy.png"),
 	BRIGAND("enemies/Brigand.png"),
-	SLIME("enemies/HeartSlime.png")
+	SLIME("enemies/HeartSlime.png"), 
+	
+	AIRBORNE("stances/Airborne.png"),
+	BALANCED("stances/Balanced.png"),
+	BLITZ("stances/Blitz.png"),
+	CASTING("stances/Casting.png"),
+	DEFENSIVE("stances/Defensive.png"),
+
+	DOGGY("stances/Doggy.png"),
+	ERUPT("stances/Erupt.png"),
+	FELLATIO("stances/Fellatio.png"),
+	KNEELING("stances/Kneeling.png"),
+	KNOTTED("stances/Knotted.png"),
+	OFFENSIVE("stances/Offensive.png"),
+	PRONE("stances/Prone.png"),
+	SUPINE("stances/Supine.png"),
 	;
 	
 	private final String path;

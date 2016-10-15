@@ -15,7 +15,7 @@ public abstract class TechniquePrototype {
 	protected boolean isTaunt;
 	protected boolean selfTrip;
 	protected Stance forceStance;
-	protected int knockdown;
+	protected double knockdown;
 	protected TechniqueHeight height;
 	protected int guardMod;
 	protected boolean causeBattleOver;
@@ -56,7 +56,7 @@ public abstract class TechniquePrototype {
 	public int getStabilityCost(){ return stabilityCost; }
 	public boolean causesTrip() { return selfTrip; }
 	public Stance getForceStance(){ return forceStance; }
-	public int getKnockdown(){ return knockdown; }
+	public double getKnockdown(){ return knockdown; }
 	public int getManaCost(){ return manaCost; }
 	public TechniqueHeight getTechniqueHeight(){ return height; }
 	public int getGuardMod(){ return guardMod; }
