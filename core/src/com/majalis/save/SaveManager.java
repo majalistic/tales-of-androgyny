@@ -10,7 +10,7 @@ import com.badlogic.gdx.utils.IntArray;
 import com.badlogic.gdx.utils.IntSet;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonWriter.OutputType;
-import com.badlogic.gdx.utils.ObjectSet;
+import com.badlogic.gdx.utils.ObjectMap;
 import com.majalis.battle.BattleCode;
 import com.majalis.character.EnemyCharacter;
 import com.majalis.character.Perk;
@@ -71,8 +71,8 @@ public class SaveManager implements SaveService, LoadService{
 	    	case CLASS:				return (T) save.player.getJobClass();
 	    	case WORLD_SEED:		return (T) (Integer) save.worldSeed;
 	    	case HEALTH:			return (T) (Integer) save.player.getCurrentHealth();
-	    	case SKILL:				return (T) (ObjectSet<Techniques>) save.player.getSkills();	
-	    	case PERK:				return (T) (ObjectSet<Perk>) save.player.getPerks();	
+	    	case SKILL:				return (T) (ObjectMap<Techniques, Integer>) save.player.getSkills();	
+	    	case PERK:				return (T) (ObjectMap<Perk, Integer>) save.player.getPerks();	
 	    	case FOOD: 				return (T) (Integer) save.player.getFood();
 	    	case EXPERIENCE:		return (T) (Integer) save.player.getExperience();
     	}	
@@ -111,7 +111,6 @@ public class SaveManager implements SaveService, LoadService{
 	        if(encoded)save = json.fromJson(GameSave.class, Base64Coder.decodeString(file.readString()));
 	        else {
 	        	save = json.fromJson(GameSave.class,file.readString());
-	        	save.player.init();
 	        }
         }
         else {

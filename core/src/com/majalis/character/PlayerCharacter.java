@@ -22,8 +22,8 @@ public class PlayerCharacter extends AbstractCharacter {
 	
 	protected String name;
 	
-	protected ObjectSet<Techniques> skills;
-	protected ObjectSet<Perk> perks;
+	protected ObjectMap<String, Integer> skills;
+	protected ObjectMap<String, Integer> perks;
 	protected int skillPoints;
 	protected int magicPoints;
 	protected int perkPoints;
@@ -66,23 +66,19 @@ public class PlayerCharacter extends AbstractCharacter {
 			phallus = PhallusType.SMALL;			
 		}
 		
-		skills = new ObjectSet<Techniques>();
-		skills.addAll(Techniques.STRONG_ATTACK, Techniques.TEMPO_ATTACK, Techniques.RESERVED_ATTACK, Techniques.DUCK, Techniques.SPRING_ATTACK, Techniques.NEUTRAL_ATTACK, Techniques.REVERSAL_ATTACK, Techniques.CAREFUL_ATTACK, Techniques.BLOCK, Techniques.GUARD, Techniques.KIP_UP, Techniques.STAND_UP,
-				Techniques.KNEE_UP, Techniques.REST_FACE_DOWN, Techniques.REST, Techniques.JUMP_ATTACK, Techniques.RECEIVE, Techniques.STRUGGLE_ORAL, Techniques.STRUGGLE_ANAL, Techniques.RECEIVE_KNOT, Techniques.OPEN_WIDE, Techniques.BREAK_FREE_ANAL, Techniques.BREAK_FREE_ORAL);
-		perks = new ObjectSet<Perk>();
+		skills = new ObjectMap<String, Integer>();
+		for (Techniques basicTechnique: getBaseTechniques()){
+			skills.put(basicTechnique.toString(), 1);
+		}
+		
+		perks = new ObjectMap<String, Integer>();
 	}
-	// stop-gap method to deal with idiosyncracies of ObjectSet deserialization - map breaks as a result of deserialization
-	public void init(){
-		ObjectSet<Techniques> tempSkills = new ObjectSet<Techniques>();
-		for (Techniques technique : skills){
-			tempSkills.add(technique);
-		}
-		skills = tempSkills;
-		ObjectSet<Perk> tempPerks = new ObjectSet<Perk>();
-		for (Perk perk : perks){
-			tempPerks.add(perk);
-		}
-		perks = tempPerks;
+	
+	private static ObjectSet<Techniques> getBaseTechniques(){
+		ObjectSet<Techniques> baseTechniques = new ObjectSet<Techniques>();
+		baseTechniques.addAll(Techniques.STRONG_ATTACK, Techniques.TEMPO_ATTACK, Techniques.RESERVED_ATTACK, Techniques.DUCK, Techniques.SPRING_ATTACK, Techniques.NEUTRAL_ATTACK, Techniques.REVERSAL_ATTACK, Techniques.CAREFUL_ATTACK, Techniques.BLOCK, Techniques.GUARD, Techniques.KIP_UP, Techniques.STAND_UP,
+		Techniques.KNEE_UP, Techniques.REST_FACE_DOWN, Techniques.REST, Techniques.JUMP_ATTACK, Techniques.RECEIVE, Techniques.STRUGGLE_ORAL, Techniques.STRUGGLE_ANAL, Techniques.RECEIVE_KNOT, Techniques.OPEN_WIDE, Techniques.BREAK_FREE_ANAL, Techniques.BREAK_FREE_ORAL);
+		return baseTechniques;
 	}
 	
 	public static ObjectMap<Stat, Array<String>> getStatMap(){
@@ -100,8 +96,8 @@ public class PlayerCharacter extends AbstractCharacter {
 		perkPoints = 2; 
 		magicPoints = 0;
 		food = 40; 
-		skills.remove(Techniques.COMBAT_HEAL);
-		skills.remove(Techniques.INCANTATION);
+		skills.remove(Techniques.COMBAT_HEAL.toString());
+		skills.remove(Techniques.INCANTATION.toString());
 		// warrior will need to get bonus stance options, Ranger will need to start with a bow
 		switch (jobClass){ 
 			
@@ -158,7 +154,7 @@ public class PlayerCharacter extends AbstractCharacter {
 		Array<Technique> possibleTechniques = new Array<Technique>();
 		
 		for (Techniques technique : possibilities){
-			if (skills.contains(technique)){
+			if (skills.containsKey(technique.toString())){
 				possibleTechniques.add(new Technique(technique.getTrait(), technique.getTrait().isSpell() ? getMagic() : technique.getTrait().isTaunt() ? getCharisma() : getStrength()));
 			}	
 		}
@@ -298,34 +294,56 @@ public class PlayerCharacter extends AbstractCharacter {
 	public void addSkill(Techniques newTech) {
 		// if it's a spell, add incantation
 		if (newTech.getTrait().isSpell()){
-			skills.add(Techniques.INCANTATION);
+			skills.put(Techniques.INCANTATION.toString(), 1);
 		}
-		skills.add(newTech);	
+		skills.put(newTech.toString(), 1);	
 	}
 	
 	// need to add the list of default skills, the actual variable, and some way to access it for skill selection purposes (filter)
 	public void addPerk(Perk newPerk) {
-		perks.add(newPerk);	
+		perks.put(newPerk.toString(), 1);	
 	}
 
-	public ObjectSet<Techniques> getSkills() {
-		return skills;
+	public ObjectMap<Techniques, Integer> getSkills() {
+		ObjectMap<Techniques, Integer> tempSkills = new ObjectMap<Techniques, Integer>();
+		for (String key : skills.keys()){
+			tempSkills.put(Techniques.valueOf(key), skills.get(key));
+		}
+		return tempSkills;
+	}
+	
+	public ObjectMap<Perk, Integer> getPerks() {
+		ObjectMap<Perk, Integer> tempPerks = new ObjectMap<Perk, Integer>();
+		for (String key : perks.keys()){
+			tempPerks.put(Perk.valueOf(key), perks.get(key));
+		}
+		return tempPerks;
+	}
+	
+	public void setSkills(ObjectMap<Techniques, Integer> skills) {
+		this.skills.clear();
+		for (Techniques key : skills.keys()){
+			this.skills.put(key.toString(), skills.get(key));
+		}
 	}
 
-	public ObjectSet<Perk> getPerks() {
-		return perks;
+	public void setPerks(ObjectMap<Perk, Integer> perks) {
+		this.perks.clear();
+		for (Perk key : perks.keys()){
+			this.perks.put(key.toString(), perks.get(key));
+		}
 	}
 	
 	public int getScoutingScore() {
-		return getPerception() + (perks.contains(Perk.SURVEYOR) ? 2 : 0);
+		return getPerception() + (perks.containsKey(Perk.SURVEYOR.toString()) ? 2 : 0);
 	}
 	
 	public int getLewdCharisma() {
-		return getCharisma() + (perks.contains(Perk.EROTIC) ? 2 : 0);
+		return getCharisma() + (perks.containsKey(Perk.EROTIC.toString()) ? 2 : 0);
 	}	
 	
 	public boolean isLewd() {
-		return perks.contains(Perk.CATAMITE);
+		return perks.containsKey(Perk.CATAMITE.toString());
 	}
 	@Override
 	protected String increaseLust(){
@@ -379,12 +397,13 @@ public class PlayerCharacter extends AbstractCharacter {
 
 	public int getPerkPoints() { return perkPoints; }
 
-	public void decrementSkillPoints() { skillPoints--; }
-	public void decrementPerkPoints() { perkPoints--; }
-	public void decrementMagicPoints() { magicPoints--; }
+	public void setSkillPoints(int skillPoints) { this.skillPoints = skillPoints; }
 
-	public void modSkillPoints(int pointChange) { skillPoints += pointChange; }
+	public void setMagicPoints(int magicPoints) { this.magicPoints = magicPoints; }
 
+	public void setPerkPoints(int perkPoints) { this.perkPoints = perkPoints; }
+
+	
 	public int getLevel() {
 		return level;
 	}
@@ -397,7 +416,10 @@ public class PlayerCharacter extends AbstractCharacter {
 		experience -= 10;
 		level++;
 		skillPoints += 2;
-		perkPoints += 1;
+		perkPoints++;
+		if (hasMagic()){
+			magicPoints++;
+		}
 	}
 
 	public boolean hasMagic() {
