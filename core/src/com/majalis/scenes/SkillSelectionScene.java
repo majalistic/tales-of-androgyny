@@ -115,15 +115,19 @@ public class SkillSelectionScene extends Scene {
 						Integer level = skills.get(technique);
 						if (level == null) level = 0;
 						if (level < technique.getMaxRank()){
-							skillPoints--;
-							skills.put(technique, ++level);						
-							console = "You have learned " + technique.getTrait().getName() + " Rank " + level +".";
-							button.setText(technique.getTrait().getName() + " (" + level + ")");
+							if (level + 1 <= skillPoints){
+								skillPoints -= level + 1;
+								skills.put(technique, ++level);						
+								console = "You have learned " + technique.getTrait().getName() + " Rank " + level +".";
+								button.setText(technique.getTrait().getName() + " (" + level + ")");
+							}
+							else {
+								console = "You do not have enough skill points!";
+							}
 						}
 						else {
 							console = "You cannot improve on that skill any further!";
-						}
-						
+						}	
 					}
 					else {
 						console = "You have no skill points!";
@@ -152,7 +156,7 @@ public class SkillSelectionScene extends Scene {
 						Integer cachedLevel = cachedSkills.get(technique);
 						cachedLevel = cachedLevel == null ? 0 : cachedLevel;
 						if (--level >= cachedLevel){
-							skillPoints++;
+							skillPoints += level + 1;
 							skills.put(technique, level);						
 							console = "You have reduced " + technique.getTrait().getName() + " to Rank " + level +".";
 							button.setText(technique.getTrait().getName() + (level == 0 ? "" : " (" + level + ")" ));
@@ -184,14 +188,19 @@ public class SkillSelectionScene extends Scene {
 						Integer level = perks.get(perk);
 						if (level == null) level = 0;
 						if (level < perk.getMaxRank()){
-							perkPoints--;
-							if (perk == Perk.SKILLED) {
-								skillPoints += 2;
+							if (level + 1 <= skillPoints){
+								perkPoints -= level + 1;
+								if (perk == Perk.SKILLED) {
+									skillPoints += 2;
+								}
+								
+								perks.put(perk, ++level);						
+								console = "You gained the " + perk.getLabel() + " Rank " + level +".";
+								button.setText(perk.getLabel() + (level == 0 ? "" : " (" + level + ")" ));
 							}
-							
-							perks.put(perk, ++level);						
-							console = "You gained the " + perk.getLabel() + " Rank " + level +".";
-							button.setText(perk.getLabel() + (level == 0 ? "" : " (" + level + ")" ));
+							else {
+								console = "You do not have enough perk points!";
+							}	
 						}
 						else {
 							console = "You cannot improve on that perk any further!";
@@ -224,7 +233,7 @@ public class SkillSelectionScene extends Scene {
 						Integer cachedLevel = cachedPerks.get(perk);
 						cachedLevel = cachedLevel == null ? 0 : cachedLevel;
 						if (--level >= cachedLevel){
-							perkPoints++;
+							perkPoints += level + 1;
 							perks.put(perk, level);
 							console = "You have reduced " + perk.getLabel() + " to Rank " + level +".";
 							
@@ -258,14 +267,19 @@ public class SkillSelectionScene extends Scene {
 					@Override
 			        public void clicked(InputEvent event, float x, float y) {
 						buttonSound.play(.5f);
-						if (magicPoints > 0){
+						if (skillPoints > 0){
 							Integer level = skills.get(technique);
 							if (level == null) level = 0;
 							if (level < technique.getMaxRank()){
-								magicPoints--;
-								skills.put(technique, ++level);						
-								console = "You have learned " + technique.getTrait().getName() + " Rank " + level +".";
-								button.setText(technique.getTrait().getName() + " (" + level + ")");
+								if (level + 1 <= skillPoints){
+									skillPoints -= level + 1;
+									skills.put(technique, ++level);						
+									console = "You have learned " + technique.getTrait().getName() + " Rank " + level +".";
+									button.setText(technique.getTrait().getName() + " (" + level + ")");
+								}
+								else {
+									console = "You do not have enough magic points!";
+								}
 							}
 							else {
 								console = "You cannot improve on that spell any further!";
@@ -298,13 +312,13 @@ public class SkillSelectionScene extends Scene {
 							Integer cachedLevel = cachedSkills.get(technique);
 							cachedLevel = cachedLevel == null ? 0 : cachedLevel;
 							if (--level >= cachedLevel){
-								skillPoints++;
+								skillPoints += level + 1;
 								skills.put(technique, level);						
 								console = "You have reduced " + technique.getTrait().getName() + " to Rank " + level +".";
-								button.setText(technique.getTrait().getName() + " (" + level + ")");
+								button.setText(technique.getTrait().getName() + (level == 0 ? "" : " (" + level + ")" ));
 							}
-							else {							
-								console = "You cannot reduce " + technique.getTrait().getName() + " below Rank " + cachedLevel +".";							
+							else {
+								console = "You cannot reduce " + technique.getTrait().getName() + " below Rank " + cachedLevel +".";
 							}
 						}
 			        }
@@ -324,7 +338,7 @@ public class SkillSelectionScene extends Scene {
 				cachedLevel = cachedLevel == null ? 0 : cachedLevel;
 				Integer currentLevel = skills.get(technique);
 				if (currentLevel > cachedLevel){
-					skillPoints++;
+					skillPoints += currentLevel;
 					skills.put(technique, --currentLevel);
 					console += "\nReduced " + technique.getTrait().getName() + " to Rank " + currentLevel +".";
 					techniquesToButtons.get(technique).setText(technique.getTrait().getName() + (currentLevel == 0 ? "" : " (" + currentLevel + ")" ));
