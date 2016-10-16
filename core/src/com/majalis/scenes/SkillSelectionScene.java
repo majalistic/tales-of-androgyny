@@ -188,7 +188,7 @@ public class SkillSelectionScene extends Scene {
 						Integer level = perks.get(perk);
 						if (level == null) level = 0;
 						if (level < perk.getMaxRank()){
-							if (level + 1 <= skillPoints){
+							if (level + 1 <= perkPoints){
 								perkPoints -= level + 1;
 								if (perk == Perk.SKILLED) {
 									skillPoints += 2;
