@@ -30,6 +30,10 @@ public class Technique {
 		return technique.getName();
 	}
 	
+	public String getTechniqueDescription(){
+		return technique.getDescription();
+	}
+	
 	public Attack resolve(Technique otherTechnique){
 		int rand = (int) Math.floor(Math.random() * 100);
 		double blockMod = otherTechnique.isBlockable() ? (getBlock() > rand * 2 ? 0 : getBlock() > rand ? .5 : 1) : 1;

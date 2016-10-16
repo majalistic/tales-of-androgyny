@@ -4,7 +4,8 @@ import com.badlogic.gdx.utils.Array;
 import com.majalis.character.AbstractCharacter.Stance;
 import com.majalis.technique.AttackTechnique;
 import com.majalis.technique.ClimaxTechnique;
-import com.majalis.technique.ClimaxType;
+import com.majalis.technique.ClimaxTechnique.ClimaxType;
+import com.majalis.technique.EroticTechnique;
 import com.majalis.technique.FallDownTechnique;
 import com.majalis.technique.GrappleTechnique;
 import com.majalis.technique.GuardTechnique;
@@ -64,10 +65,10 @@ public enum Techniques {
 	ERUPT_ANAL 			(new ClimaxTechnique   (Stance.DOGGY, Stance.DOGGY, "Erupt", Stance.PRONE, ClimaxType.ANAL )),
 	ERUPT_ORAL 			(new ClimaxTechnique   (Stance.FELLATIO, Stance.FELLATIO, "Erupt", Stance.KNEELING, ClimaxType.ORAL )),
 	
-	RECEIVE_DOGGY		(new NonAttackTechnique(Stance.DOGGY, Stance.DOGGY, "Receive", 0, 0)), 
-	RECEIVE_ANAL		(new NonAttackTechnique(Stance.ANAL, Stance.ANAL, "Receive", 0, 0)), 
-	RECEIVE_KNOT 		(new NonAttackTechnique(Stance.KNOTTED, Stance.KNOTTED, "Receive Knot", 0, 0)), 
-	OPEN_WIDE 			(new NonAttackTechnique(Stance.FELLATIO, Stance.FELLATIO, "Open Wide", 0, 0)), 
+	RECEIVE_DOGGY		(new EroticTechnique(Stance.DOGGY, Stance.DOGGY, "Receive", -1, 0, "Take it up the butt.")), 
+	RECEIVE_ANAL		(new EroticTechnique(Stance.ANAL, Stance.ANAL, "Receive", -1, 0, "Take it up the butt.")), 
+	RECEIVE_KNOT 		(new EroticTechnique(Stance.KNOTTED, Stance.KNOTTED, "Receive Knot", -1, 0, "Take that big knot up the butt.")), 
+	OPEN_WIDE 			(new EroticTechnique(Stance.FELLATIO, Stance.FELLATIO, "Open Wide", -1, 0, "Open wide and swallow it down.")), 
 	STRUGGLE_DOGGY		(new GrappleTechnique(Stance.DOGGY, Stance.DOGGY, "Struggle", 4)),
 	STRUGGLE_ANAL		(new GrappleTechnique(Stance.ANAL, Stance.ANAL, "Struggle", 4)),
 	STRUGGLE_ORAL		(new GrappleTechnique(Stance.FELLATIO, Stance.FELLATIO, "Struggle", 4)), 

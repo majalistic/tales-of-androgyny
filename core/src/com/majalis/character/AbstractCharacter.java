@@ -3,7 +3,7 @@ package com.majalis.character;
 import com.majalis.asset.AssetEnum;
 import com.majalis.battle.BattleFactory.EnemyEnum;
 import com.majalis.save.SaveManager.JobClass;
-import com.majalis.technique.ClimaxType;
+import com.majalis.technique.ClimaxTechnique.ClimaxType;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.IntArray;

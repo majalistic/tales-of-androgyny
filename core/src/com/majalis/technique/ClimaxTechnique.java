@@ -9,4 +9,11 @@ public class ClimaxTechnique extends TechniquePrototype {
 		this.climaxType = type;
 		this.forceStance = forceStance;
 	}
+	
+	public enum ClimaxType {
+		ANAL,
+		ORAL,
+		FACIAL,
+		BACKWASH
+	}
 }

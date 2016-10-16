@@ -1,6 +1,7 @@
 package com.majalis.technique;
 
 import com.majalis.character.AbstractCharacter.Stance;
+import com.majalis.technique.ClimaxTechnique.ClimaxType;
 
 public abstract class TechniquePrototype {
 	protected Stance usableStance;

@@ -48,6 +48,7 @@ public class Battle extends Group{
 	private final Skin skin;
 	private final Sound buttonSound;
 	private String console;
+	private String skillDisplay;
 	private Array<Technique> options;
 	private Technique selectedTechnique;
 	public boolean battleOver;
@@ -66,6 +67,7 @@ public class Battle extends Group{
 		this.victoryScene = victoryScene;
 		this.defeatScene = defeatScene;
 		console = "";
+		skillDisplay = "";
 		battleOver = false;
 		gameExit = false;	
 		this.addActor(battleBackground);
@@ -263,8 +265,13 @@ public class Battle extends Group{
 		font.draw(batch, "Stance: " + enemy.getStance().toString(), 1100, 630);	
 		// calls to enemy.getType() should all be replaced with polymorphic behavior of enemies
 		batch.draw(assetManager.get(enemy.getLustImagePath(), Texture.class), 1150, 450, 100, 115);
+		if (skillDisplay.equals("")){
+			font.draw(batch, console, 80, 270);
+		}
+		else {
+			font.draw(batch, skillDisplay, 80, 270);
+		}
 		
-		font.draw(batch, console, 80, 270);
     }
 	// this should be on abstract character
 	private String getHealthDescription(int val){
@@ -322,6 +329,14 @@ public class Battle extends Group{
 	        	buttonSound.play(.5f);
 	        	selectedTechnique = technique;
 	        }
+	        @Override
+	        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
+				skillDisplay = technique.getTechniqueDescription();
+			}
+			@Override
+	        public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
+				skillDisplay = "";
+			}
 	    };
 	}
 }

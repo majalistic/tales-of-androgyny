@@ -1,7 +1,7 @@
 package com.majalis.character;
 import com.badlogic.gdx.utils.Array;
 import com.majalis.character.AbstractCharacter.Stance;
-import com.majalis.technique.ClimaxType;
+import com.majalis.technique.ClimaxTechnique.ClimaxType;
 
 /*
  * Represents the result of an attack after it has been filtered through an opposing action.
