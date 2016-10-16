@@ -267,12 +267,12 @@ public class SkillSelectionScene extends Scene {
 					@Override
 			        public void clicked(InputEvent event, float x, float y) {
 						buttonSound.play(.5f);
-						if (skillPoints > 0){
+						if (magicPoints > 0){
 							Integer level = skills.get(technique);
 							if (level == null) level = 0;
 							if (level < technique.getMaxRank()){
-								if (level + 1 <= skillPoints){
-									skillPoints -= level + 1;
+								if (level + 1 <= magicPoints){
+									magicPoints -= level + 1;
 									skills.put(technique, ++level);						
 									console = "You have learned " + technique.getTrait().getName() + " Rank " + level +".";
 									button.setText(technique.getTrait().getName() + " (" + level + ")");
@@ -312,7 +312,7 @@ public class SkillSelectionScene extends Scene {
 							Integer cachedLevel = cachedSkills.get(technique);
 							cachedLevel = cachedLevel == null ? 0 : cachedLevel;
 							if (--level >= cachedLevel){
-								skillPoints += level + 1;
+								magicPoints += level + 1;
 								skills.put(technique, level);						
 								console = "You have reduced " + technique.getTrait().getName() + " to Rank " + level +".";
 								button.setText(technique.getTrait().getName() + (level == 0 ? "" : " (" + level + ")" ));
