@@ -47,14 +47,27 @@ public class CharacterScreen extends AbstractScreen {
 		resourceRequirements.put(AssetEnum.WORLD_MAP_HOVER.getPath(), Texture.class);
 		resourceRequirements.put(AssetEnum.ARROW.getPath(), Texture.class);
 		resourceRequirements.put(AssetEnum.CHARACTER_SCREEN.getPath(), Texture.class);
+		resourceRequirements.put(AssetEnum.STRENGTH.getPath(), Texture.class);
+		resourceRequirements.put(AssetEnum.ENDURANCE.getPath(), Texture.class);
+		resourceRequirements.put(AssetEnum.AGILITY.getPath(), Texture.class);
+		resourceRequirements.put(AssetEnum.PERCEPTION.getPath(), Texture.class);
+		resourceRequirements.put(AssetEnum.MAGIC.getPath(), Texture.class);
+		resourceRequirements.put(AssetEnum.CHARISMA.getPath(), Texture.class);
 	}
 	
 	private final PlayerCharacter character;
-
+	private ObjectMap<Stat, Texture> statTextureMap;
+	
 	public CharacterScreen(ScreenFactory factory, ScreenElements elements, AssetManager assetManager, final SaveService saveService, final PlayerCharacter character) {
 		super(factory, elements);
 		this.character = character;
 		this.addActor(new Background((Texture)assetManager.get("ClassSelect.jpg", Texture.class))); 
+		
+		statTextureMap = new ObjectMap<Stat, Texture>();
+		for (final Stat stat: Stat.values()){
+			statTextureMap.put(stat, assetManager.get(stat.getPath(), Texture.class));
+		}
+		
 		Skin skin = assetManager.get("uiskin.json", Skin.class);
 		final Sound buttonSound = assetManager.get("node_sound.wav", Sound.class); 
 		final TextButton done = new TextButton("Done", skin);
@@ -120,12 +133,13 @@ public class CharacterScreen extends AbstractScreen {
 		int offset = 0;
 		for (Stat stat: PlayerCharacter.Stat.values()){
 			font.setColor(0.6f,0.2f,0.1f,1);
-			font.draw(batch, stat.toString(), baseX+50, baseY - offset);
+			Texture statTexture = statTextureMap.get(stat);
+			batch.draw(statTexture, baseX + 15, baseY - (offset + 20), statTexture.getWidth() / (statTexture.getHeight() / 35), 35);
 			font.draw(batch, ": ", baseX+180, baseY - offset);
 			int amount = character.getBaseStat(stat);
 			setFontColor(font, amount);
 			font.draw(batch, String.valueOf(amount), baseX+200, baseY - offset);
-			font.draw(batch, "- " + PlayerCharacter.getStatMap().get(stat).get(amount), baseX+240, baseY - offset);
+			font.draw(batch, "- " + PlayerCharacter.getStatMap().get(stat).get(amount), baseX+215, baseY - offset);
 			offset += 50;
 		}
 		int storedLevels = character.getStoredLevels();

@@ -4,6 +4,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.IntArray;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.ObjectSet;
+import com.majalis.asset.AssetEnum;
 import com.majalis.save.SaveManager.JobClass;
 /*
  * Contains the current player character's statistics, including "party" statistics like food remaining
@@ -231,12 +232,20 @@ public class PlayerCharacter extends AbstractCharacter {
 	}
 	
 	public enum Stat {
-		STRENGTH,
-		ENDURANCE,
-		AGILITY,
-		PERCEPTION,
-		MAGIC,
-		CHARISMA
+		STRENGTH(AssetEnum.STRENGTH.getPath()),
+		ENDURANCE(AssetEnum.ENDURANCE.getPath()),
+		AGILITY(AssetEnum.AGILITY.getPath()),
+		PERCEPTION(AssetEnum.PERCEPTION.getPath()),
+		MAGIC(AssetEnum.MAGIC.getPath()),
+		CHARISMA(AssetEnum.CHARISMA.getPath());
+
+		private final String path;
+		private Stat(String path){
+			this.path = path;
+		}
+		public String getPath() {
+			return path;
+		}
 	}
 
 	public int getStat(Stat stat) {

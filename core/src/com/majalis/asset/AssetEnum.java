@@ -41,7 +41,14 @@ public enum AssetEnum {
 	PRONE("stances/Prone.png"),
 	SUPINE("stances/Supine.png"),
 	
-	STANCE_ARROW("stances/ChevronArrow.png")
+	STANCE_ARROW("stances/ChevronArrow.png"),
+	
+	STRENGTH("stats/Strength.png"),
+	ENDURANCE("stats/Endurance.png"),
+	AGILITY("stats/Agility.png"),
+	PERCEPTION("stats/Perception.png"),
+	MAGIC("stats/Magic.png"),
+	CHARISMA("stats/Charisma.png"),
 	;
 	
 	private final String path;

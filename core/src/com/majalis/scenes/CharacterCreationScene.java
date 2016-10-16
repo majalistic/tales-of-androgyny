@@ -2,6 +2,7 @@ package com.majalis.scenes;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -29,6 +30,7 @@ public class CharacterCreationScene extends Scene {
 	private String statMessage;
 	private int statPoints;
 	private ObjectMap<Stat, Integer> statMap;
+	private ObjectMap<Stat, Texture> statTextureMap;
 	
 	// needs a done button, as well as other interface elements
 	public CharacterCreationScene(OrderedMap<Integer, Scene> sceneBranches, int sceneCode, final SaveService saveService, BitmapFont font, Background background, AssetManager assetManager, final PlayerCharacter character) {
@@ -40,6 +42,7 @@ public class CharacterCreationScene extends Scene {
 
 		statPoints = 3;
 		statMap = resetObjectMap();
+		statTextureMap = new ObjectMap<Stat, Texture>();
 		
 		Skin skin = assetManager.get("uiskin.json", Skin.class);
 		buttonSound = assetManager.get("sound.wav", Sound.class);
@@ -65,6 +68,7 @@ public class CharacterCreationScene extends Scene {
 		final Table statTable = new Table();
 		
 		for (final Stat stat: Stat.values()){
+			statTextureMap.put(stat, assetManager.get(stat.getPath(), Texture.class));
 			TextButton buttonUp = new TextButton("+", skin);
 			TextButton buttonDown = new TextButton("-", skin);
 			buttonUp.addListener(new ClickListener(){
@@ -195,7 +199,6 @@ public class CharacterCreationScene extends Scene {
     public void draw(Batch batch, float parentAlpha) {
 		super.draw(batch, parentAlpha);
 		font.setColor(0.5f,0.4f,0,1);
-		font.draw(batch, "Character Creation", 600, 600);
 		font.setColor(0.4f,0.4f,0.4f,1);
 		int base = 500;
 		font.draw(batch, classMessage, base-225, 600);
@@ -204,13 +207,14 @@ public class CharacterCreationScene extends Scene {
 		if (!classMessage.equals("")){
 			for (Stat stat: PlayerCharacter.Stat.values()){
 				font.setColor(0.6f,0.2f,0.1f,1);
-				font.draw(batch, stat.toString(), base+50, 500 - offset);
-				font.draw(batch, ": ", base+180, 500 - offset);
+				Texture statTexture = statTextureMap.get(stat);
+				batch.draw(statTexture, base+50, 475 - offset, statTexture.getWidth() / (statTexture.getHeight() / 35), 35);
+				font.draw(batch, ": ", base+210, 500 - offset);
 				int amount = character.getBaseStat(stat);
 				setFontColor(font, amount);
-				font.draw(batch, String.valueOf(amount), base+200, 500 - offset);
-				font.draw(batch, "("+String.valueOf(statMap.get(stat))+")", base+215, 500 - offset);
-				font.draw(batch, "- " + PlayerCharacter.getStatMap().get(stat).get(amount), base+240, 500 - offset);
+				font.draw(batch, String.valueOf(amount), base+230, 500 - offset);
+				font.draw(batch, "("+String.valueOf(statMap.get(stat))+")", base+245, 500 - offset);
+				font.draw(batch, "- " + PlayerCharacter.getStatMap().get(stat).get(amount), base+270, 500 - offset);
 				offset += 50;
 			}
 			font.draw(batch, "Stat points: " + statPoints, base + 100, 150);
