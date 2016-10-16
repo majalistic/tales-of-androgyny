@@ -35,6 +35,7 @@ public class SkillSelectionScene extends Scene {
 	private ObjectMap<Perk, Integer> cachedPerks;
 	private ObjectMap<Techniques, Integer> skills;
 	private ObjectMap<Perk, Integer> perks;
+	private ObjectMap<Techniques, TextButton> techniquesToButtons;
 	private String skillDisplay;
 	
 	// needs a done button, as well as other interface elements
@@ -48,6 +49,7 @@ public class SkillSelectionScene extends Scene {
 		buttonSound = assetManager.get("sound.wav", Sound.class);
 		console = "";
 		skillDisplay = "";
+		techniquesToButtons = new ObjectMap<Techniques, TextButton>();
 	}
 	
 	@Override
@@ -60,7 +62,7 @@ public class SkillSelectionScene extends Scene {
 		if ( !skillDisplay.equals("") ){
 			font.draw(batch, skillDisplay, base-600, 550);
 		}
-		font.draw(batch, console, base, 550);
+		font.draw(batch, console, base, 650);
 		font.draw(batch, "Skill Points: " + skillPoints, base, 520);
 		font.draw(batch, "Magic Points: " + magicPoints, base, 490);
 		font.draw(batch, "Perk Points: " + perkPoints, base, 460);
@@ -104,6 +106,7 @@ public class SkillSelectionScene extends Scene {
 			Integer level = skills.get(technique);
 			if (level == null) level = 0;
 			final TextButton button = new TextButton(technique.getTrait().getName() + (level > 0 ? " (" + level + ")" : ""), skin);
+			techniquesToButtons.put(technique, button);
 			button.addListener(new ClickListener(){
 				@Override
 		        public void clicked(InputEvent event, float x, float y) {
@@ -135,7 +138,34 @@ public class SkillSelectionScene extends Scene {
 					skillDisplay = "";
 				}
 			});
-			table.add(button).width(220).height(40).row();
+			final TextButton minusButton = new TextButton("-", skin);
+			minusButton.addListener(new ClickListener(){
+				@Override
+		        public void clicked(InputEvent event, float x, float y) {
+					buttonSound.play(.5f);
+					
+					Integer level = skills.get(technique);
+					if (level == null){
+						console = "You do not yet possess that skill!";
+					}
+					else {
+						Integer cachedLevel = cachedSkills.get(technique);
+						cachedLevel = cachedLevel == null ? 0 : cachedLevel;
+						if (--level >= cachedLevel){
+							skillPoints++;
+							skills.put(technique, level);						
+							console = "You have reduced " + technique.getTrait().getName() + " to Rank " + level +".";
+							button.setText(technique.getTrait().getName() + (level == 0 ? "" : " (" + level + ")" ));
+						}
+						else {
+							console = "You cannot reduce " + technique.getTrait().getName() + " below Rank " + cachedLevel +".";
+						}
+					}
+		        }
+			});
+			
+			table.add(button).width(220).height(40);
+			table.add(minusButton).width(30).height(40).row();
 		}
 		table.addAction(Actions.moveTo(table.getX() + 145, table.getY() + 200));
 		addActor(table);
@@ -161,7 +191,7 @@ public class SkillSelectionScene extends Scene {
 							
 							perks.put(perk, ++level);						
 							console = "You gained the " + perk.getLabel() + " Rank " + level +".";
-							button.setText(perk.getLabel() + " (" + level + ")");	
+							button.setText(perk.getLabel() + (level == 0 ? "" : " (" + level + ")" ));
 						}
 						else {
 							console = "You cannot improve on that perk any further!";
@@ -180,7 +210,39 @@ public class SkillSelectionScene extends Scene {
 					skillDisplay = "";
 				}
 			});
-			perkTable.add(button).width(220).height(40).row();
+			final TextButton minusButton = new TextButton("-", skin);
+			minusButton.addListener(new ClickListener(){
+				@Override
+		        public void clicked(InputEvent event, float x, float y) {
+					buttonSound.play(.5f);
+					
+					Integer level = perks.get(perk);
+					if (level == null){
+						console = "You do not yet possess that perk!";
+					}
+					else {
+						Integer cachedLevel = cachedPerks.get(perk);
+						cachedLevel = cachedLevel == null ? 0 : cachedLevel;
+						if (--level >= cachedLevel){
+							perkPoints++;
+							perks.put(perk, level);
+							console = "You have reduced " + perk.getLabel() + " to Rank " + level +".";
+							
+							if (perk == Perk.SKILLED) {
+								skillPoints -= 2;
+								handleNegativeSkillPoints();
+							}
+							
+							button.setText(perk.getLabel() + (level == 0 ? "" : " (" + level + ")" ));
+						}
+						else {
+							console = "You cannot reduce " + perk.getLabel() + " below Rank " + cachedLevel +".";
+						}
+					}
+		        }
+			});
+			perkTable.add(button).width(220).height(40);
+			perkTable.add(minusButton).width(30).height(40).row();
 		}
 		perkTable.addAction(Actions.moveTo(perkTable.getX() + 725, perkTable.getY() + 200));
 		addActor(perkTable);
@@ -222,11 +284,55 @@ public class SkillSelectionScene extends Scene {
 						skillDisplay = "";
 					}
 				});
-				magicTable.add(button).width(140).width(220).height(40).row();
+				final TextButton minusButton = new TextButton("-", skin);
+				minusButton.addListener(new ClickListener(){
+					@Override
+			        public void clicked(InputEvent event, float x, float y) {
+						buttonSound.play(.5f);
+						
+						Integer level = skills.get(technique);
+						if (level == null){
+							console = "You do not yet possess that spell!";
+						}
+						else {
+							Integer cachedLevel = cachedSkills.get(technique);
+							cachedLevel = cachedLevel == null ? 0 : cachedLevel;
+							if (--level >= cachedLevel){
+								skillPoints++;
+								skills.put(technique, level);						
+								console = "You have reduced " + technique.getTrait().getName() + " to Rank " + level +".";
+								button.setText(technique.getTrait().getName() + " (" + level + ")");
+							}
+							else {							
+								console = "You cannot reduce " + technique.getTrait().getName() + " below Rank " + cachedLevel +".";							
+							}
+						}
+			        }
+				});
+				magicTable.add(button).width(140).width(220).height(40);
+				magicTable.add(minusButton).width(30).height(40).row();
 			}
 			magicTable.addAction(Actions.moveTo(magicTable.getX() + 435, magicTable.getY() + 200));
 			this.addActor(magicTable);
 		}
+	}
+	
+	private void handleNegativeSkillPoints() {
+		while (skillPoints < 0){
+			for (Techniques technique : skills.keys()){
+				Integer cachedLevel = cachedSkills.get(technique);
+				cachedLevel = cachedLevel == null ? 0 : cachedLevel;
+				Integer currentLevel = skills.get(technique);
+				if (currentLevel > cachedLevel){
+					skillPoints++;
+					skills.put(technique, --currentLevel);
+					console += "\nReduced " + technique.getTrait().getName() + " to Rank " + currentLevel +".";
+					techniquesToButtons.get(technique).setText(technique.getTrait().getName() + (currentLevel == 0 ? "" : " (" + currentLevel + ")" ));
+					break;
+				}
+			}
+		}
+		
 	}
 	
 	private void nextScene(){
