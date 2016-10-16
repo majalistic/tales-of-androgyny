@@ -51,6 +51,7 @@ public class Battle extends Group{
 	private String skillDisplay;
 	private Array<Technique> options;
 	private Technique selectedTechnique;
+	private Texture hoverStance;
 	public boolean battleOver;
 	public boolean victory;
 	public boolean gameExit;
@@ -238,6 +239,10 @@ public class Battle extends Group{
 	@Override
     public void draw(Batch batch, float parentAlpha) {
 		super.draw(batch, parentAlpha);
+		if (hoverStance != null){
+			batch.draw(hoverStance, 450, 540, 100, 115);
+		}
+		
 		font.setColor(Color.WHITE);
 		font.draw(batch, "Health: ", 70, 700);
 		int healthDeg = character.getHealthDegradation();
@@ -332,10 +337,12 @@ public class Battle extends Group{
 	        @Override
 	        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
 				skillDisplay = technique.getTechniqueDescription();
+				hoverStance = getStanceImage(technique.getStance());
 			}
 			@Override
 	        public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
 				skillDisplay = "";
+				hoverStance = null;
 			}
 	    };
 	}

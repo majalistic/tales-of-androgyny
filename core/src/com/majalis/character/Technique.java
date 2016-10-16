@@ -87,7 +87,7 @@ public class Technique {
 		return block;
 	}
 
-	protected Stance getStance(){
+	public Stance getStance(){
 		return technique.getResultingStance();
 	}
 
@@ -123,5 +123,4 @@ public class Technique {
 	        return Integer.compare(a.getStabilityCost(), b.getStabilityCost());
 	    }
 	}
-	
 }
