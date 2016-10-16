@@ -38,7 +38,7 @@ public class BattleFactory {
 		if (enemy == null || enemy.getCurrentHealth() <= 0){
 			enemy = getEnemy(battleCode.battleCode);
 			enemy.setStance(battleCode.enemyStance);
-			if (enemy.getStance() == Stance.DOGGY || enemy.getStance() == Stance.FELLATIO){
+			if (enemy.getStance() == Stance.DOGGY || enemy.getStance() == Stance.FELLATIO || enemy.getStance() == Stance.ANAL ){
 				enemy.setLust(10);
 			}
 			playerCharacter.setStance(battleCode.playerStance);			

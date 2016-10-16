@@ -27,11 +27,11 @@ public enum AssetEnum {
 	SLIME("enemies/HeartSlime.png"), 
 	
 	AIRBORNE("stances/Airborne.png"),
+	ANAL("stances/Anal.png"),
 	BALANCED("stances/Balanced.png"),
 	BLITZ("stances/Blitz.png"),
 	CASTING("stances/Casting.png"),
 	DEFENSIVE("stances/Defensive.png"),
-
 	DOGGY("stances/Doggy.png"),
 	ERUPT("stances/Erupt.png"),
 	FELLATIO("stances/Fellatio.png"),

@@ -245,7 +245,7 @@ public class Battle extends Group{
 		font.draw(batch, "Stamina: ", 70, 680);
 		int staminaDeg = character.getStaminaDegradation();
 		font.setColor(getDegradataionColor(staminaDeg));
-		font.draw(batch, String.valueOf(character.getCurrentStamina()) + " " + getStaminaDescription(healthDeg), 125, 680);
+		font.draw(batch, String.valueOf(character.getCurrentStamina()) + " " + getStaminaDescription(staminaDeg), 125, 680);
 		font.setColor(Color.WHITE);
 		font.draw(batch, "Balance: ", 70, 660);
 		font.setColor(character.getStability() > 10 ? Color.WHITE : character.getStability() > 5 ? Color.GOLDENROD : Color.RED);
@@ -280,9 +280,9 @@ public class Battle extends Group{
 	private String getStaminaDescription(int val){
 		switch (val){
 			case 0: return "(Good)";
-			case 1: return "(Fair)";
-			case 2: return "(Weakened)";
-			case 3: return "(Critical)";
+			case 1: return "(Winded)";
+			case 2: return "(Tired)";
+			case 3: return "(Exhausted)";
 			default: return "(ERROR)";
 		}
 	}

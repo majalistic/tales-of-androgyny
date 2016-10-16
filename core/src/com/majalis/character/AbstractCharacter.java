@@ -133,7 +133,7 @@ public abstract class AbstractCharacter extends Actor {
 	
 	public void modHealth(int healthMod){ this.currentHealth += healthMod; if (currentHealth > getMaxHealth()) currentHealth = getMaxHealth(); }
 	
-	protected int getStaminaRegen() { return getEndurance()/2 + 1; }
+	protected int getStaminaRegen() { return getEndurance()/2; }
 	
 	protected int getStabilityRegen() { return getAgility()/2; }
 	
@@ -225,7 +225,7 @@ public abstract class AbstractCharacter extends Actor {
 	}
 	
 	protected boolean alreadyIncapacitated(){
-		return stance == Stance.PRONE || stance == Stance.SUPINE || stance == Stance.FELLATIO || stance == Stance.DOGGY || stance == Stance.KNOTTED;
+		return stance == Stance.PRONE || stance == Stance.SUPINE || stance == Stance.FELLATIO || stance == Stance.DOGGY || stance == Stance.ANAL || stance == Stance.KNOTTED;
 	}
 	
 	public Attack doAttack(Attack resolvedAttack) {
@@ -243,7 +243,7 @@ public abstract class AbstractCharacter extends Actor {
 			
 			resolvedAttack.addMessage("You heal for " + resolvedAttack.getHealing()+"!");
 		}
-		if (resolvedAttack.getForceStance() == Stance.DOGGY){
+		if (resolvedAttack.getForceStance() == Stance.DOGGY || resolvedAttack.getForceStance() == Stance.ANAL){
 			resolvedAttack.addMessage("You are being anally violated!");
 			resolvedAttack.addMessage("Your hole is stretched by her fat dick!");
 			resolvedAttack.addMessage("Your hole feels like it's on fire!");
@@ -492,6 +492,7 @@ public abstract class AbstractCharacter extends Actor {
 		KNEELING ((AssetEnum.KNEELING.getPath()), false, true, true),
 		AIRBORNE ((AssetEnum.AIRBORNE.getPath()), true, false, false), 
 		DOGGY (AssetEnum.DOGGY.getPath()), 
+		ANAL (AssetEnum.ANAL.getPath()), 
 		KNOTTED (AssetEnum.KNOTTED.getPath()), 
 		FELLATIO (AssetEnum.FELLATIO.getPath()), 
 		CASTING (AssetEnum.CASTING.getPath()),

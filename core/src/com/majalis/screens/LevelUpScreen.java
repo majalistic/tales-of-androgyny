@@ -46,6 +46,7 @@ public class LevelUpScreen extends AbstractScreen {
 		encounter.gameLoop();
 		if (encounter.encounterOver){
 			saveService.saveDataValue(SaveEnum.CONTEXT, SaveManager.GameContext.WORLD_MAP);
+			saveService.saveDataValue(SaveEnum.SCENE_CODE, 0);
 			showScreen(ScreenEnum.CHARACTER);
 		}
 		if (encounter.gameExit){

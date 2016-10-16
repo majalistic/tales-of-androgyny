@@ -95,7 +95,18 @@ public class EnemyCharacter extends AbstractCharacter {
 					return getTechniques(Techniques.KNOT);
 				}
 				else {
-					return getTechniques(Techniques.POUND);
+					return getTechniques(Techniques.POUND_DOGGY);
+				}
+			case ANAL:
+				lust++;
+				if (enemyType != EnemyEnum.WERESLUT && lust > 14){
+					return getTechniques(Techniques.ERUPT_ANAL);
+				}
+				if (enemyType == EnemyEnum.WERESLUT && lust > 17){
+					return getTechniques(Techniques.KNOT);
+				}
+				else {
+					return getTechniques(Techniques.POUND_ANAL);
 				}
 			case KNOTTED:
 				return getTechniques(Techniques.KNOT_BANG);
@@ -115,7 +126,6 @@ public class EnemyCharacter extends AbstractCharacter {
 		default: return null;
 		}
 	}
-		
 
 	private Array<Technique> getTechniques(Techniques... possibilities) {
 		Array<Technique> possibleTechniques = new Array<Technique>();
@@ -131,8 +141,11 @@ public class EnemyCharacter extends AbstractCharacter {
 		if (lust < 10) lust++;
 		
 		if (willPounce()){
-			if (target.stance == Stance.PRONE || target.stance == Stance.SUPINE){
-				return getTechnique(Techniques.POUNCE);
+			if (target.stance == Stance.PRONE ){
+				return getTechnique(Techniques.POUNCE_DOGGY);
+			}
+			else if (target.stance == Stance.SUPINE){
+				return getTechnique(Techniques.POUNCE_ANAL);
 			}
 			else if (target.stance == Stance.KNEELING){
 				return getTechnique(Techniques.SAY_AHH);
@@ -168,7 +181,7 @@ public class EnemyCharacter extends AbstractCharacter {
 	}
 	
 	private boolean willPounce(){
-		return lust >= 10 && stance != Stance.PRONE && stance != Stance.SUPINE && stance != Stance.AIRBORNE && stance != Stance.FELLATIO && stance != Stance.DOGGY && stance != Stance.ERUPT;
+		return lust >= 10 && stance != Stance.PRONE && stance != Stance.SUPINE && stance != Stance.AIRBORNE && stance != Stance.FELLATIO && stance != Stance.DOGGY && stance != Stance.ANAL && stance != Stance.ERUPT;
 	}
 	
 	private Technique getTechnique(Techniques technique){
@@ -220,6 +233,7 @@ public class EnemyCharacter extends AbstractCharacter {
 	protected String increaseLust() {
 		switch (stance){
 		case DOGGY:
+		case ANAL:
 		case KNOTTED:
 		case FELLATIO:
 			return increaseLust(1);

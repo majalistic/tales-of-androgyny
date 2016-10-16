@@ -77,7 +77,7 @@ public class PlayerCharacter extends AbstractCharacter {
 	private static ObjectSet<Techniques> getBaseTechniques(){
 		ObjectSet<Techniques> baseTechniques = new ObjectSet<Techniques>();
 		baseTechniques.addAll(Techniques.POWER_ATTACK, Techniques.TEMPO_ATTACK, Techniques.RESERVED_ATTACK, Techniques.DUCK, Techniques.SPRING_ATTACK, Techniques.NEUTRAL_ATTACK, Techniques.REVERSAL_ATTACK, Techniques.CAREFUL_ATTACK, Techniques.BLOCK, Techniques.GUARD, Techniques.KIP_UP, Techniques.STAND_UP,
-		Techniques.KNEE_UP, Techniques.REST_FACE_DOWN, Techniques.REST, Techniques.JUMP_ATTACK, Techniques.RECEIVE, Techniques.STRUGGLE_ORAL, Techniques.STRUGGLE_ANAL, Techniques.RECEIVE_KNOT, Techniques.OPEN_WIDE, Techniques.BREAK_FREE_ANAL, Techniques.BREAK_FREE_ORAL);
+		Techniques.KNEE_UP, Techniques.REST_FACE_DOWN, Techniques.REST, Techniques.JUMP_ATTACK, Techniques.RECEIVE_ANAL, Techniques.RECEIVE_DOGGY, Techniques.STRUGGLE_ORAL, Techniques.STRUGGLE_DOGGY, Techniques.STRUGGLE_ANAL, Techniques.RECEIVE_KNOT, Techniques.OPEN_WIDE, Techniques.BREAK_FREE_ANAL, Techniques.BREAK_FREE_ORAL);
 		return baseTechniques;
 	}
 	
@@ -133,9 +133,14 @@ public class PlayerCharacter extends AbstractCharacter {
 				return getTechniques(Techniques.JUMP_ATTACK);
 			case DOGGY:
 				if (struggle <= 0){
-					return getTechniques(Techniques.RECEIVE, Techniques.BREAK_FREE_ANAL);
+					return getTechniques(Techniques.RECEIVE_DOGGY, Techniques.BREAK_FREE_ANAL);
 				}
-				return getTechniques(Techniques.RECEIVE, Techniques.STRUGGLE_ANAL);
+				return getTechniques(Techniques.RECEIVE_DOGGY, Techniques.STRUGGLE_DOGGY);
+			case ANAL:
+				if (struggle <= 0){
+					return getTechniques(Techniques.RECEIVE_ANAL, Techniques.BREAK_FREE_ANAL);
+				}
+				return getTechniques(Techniques.RECEIVE_ANAL, Techniques.STRUGGLE_ANAL);
 			case KNOTTED:
 				return getTechniques(Techniques.RECEIVE_KNOT);
 			case FELLATIO:
@@ -372,6 +377,7 @@ public class PlayerCharacter extends AbstractCharacter {
 		switch (stance){
 			case DOGGY:
 			case KNOTTED:
+			case ANAL:
 				if (perks.containsKey(Perk.WEAK_TO_ANAL.toString())) return increaseLust(2);
 			case FELLATIO:
 				return increaseLust(1);
@@ -388,6 +394,7 @@ public class PlayerCharacter extends AbstractCharacter {
 			switch (stance){
 				case KNOTTED:
 				case DOGGY: 
+				case ANAL:
 					spurt = "Awoo! Semen spurts out your untouched cock as your hole is violated!\n"
 						+	"You feel it with your ass, like a girl! Your face is red with shame!\n"
 						+	"Got a little too comfortable, eh?\n";

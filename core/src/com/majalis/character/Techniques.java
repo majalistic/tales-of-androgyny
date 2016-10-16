@@ -57,17 +57,21 @@ public enum Techniques {
 	DIVEBOMB 			(new GrappleTechnique  (Stance.FELLATIO, "Divebomb", 2, Stance.FELLATIO, TechniqueHeight.HIGH)),
 	SAY_AHH 			(new GrappleTechnique  (Stance.FELLATIO, "Say 'Ahh'", 2, Stance.FELLATIO)),
 	IRRUMATIO 			(new NonAttackTechnique(Stance.FELLATIO, "Irrumatio", 0, 0)), 
-	POUNCE 				(new GrappleTechnique  (Stance.DOGGY, "Pounce", 2, Stance.DOGGY)), // Used to initiate doggy
-	POUND 				(new NonAttackTechnique(Stance.DOGGY, "Pound", 0, 1)), // Used to doggystyle
+	POUNCE_DOGGY		(new GrappleTechnique  (Stance.DOGGY, "Pounce", 2, Stance.DOGGY)), // Used to initiate doggy
+	POUND_DOGGY 		(new NonAttackTechnique(Stance.DOGGY, "Pound", 0, 1)), // Used to doggystyle
+	POUNCE_ANAL			(new GrappleTechnique  (Stance.ANAL, "Pounce", 2, Stance.ANAL)), // Used to initiate missionary
+	POUND_ANAL 			(new NonAttackTechnique(Stance.ANAL, "Pound", 0, 1)), // Used to missionary
 	KNOT 				(new NonAttackTechnique(Stance.KNOTTED, "Knot", 0, 0, Stance.KNOTTED, "Set Damage")), // Used to knot by knotty weresluts and others
 	KNOT_BANG 			(new NonAttackTechnique(Stance.KNOTTED, "Knot Bang", 0, 0, Stance.KNOTTED, true)), // Used to knot by knotty weresluts and others - could end the battle
 	ERUPT_ANAL 			(new ClimaxTechnique   (Stance.DOGGY, "Erupt", Stance.PRONE, ClimaxType.ANAL )),
 	ERUPT_ORAL 			(new ClimaxTechnique   (Stance.FELLATIO, "Erupt", Stance.KNEELING, ClimaxType.ORAL )),
 	
-	RECEIVE 			(new NonAttackTechnique(Stance.DOGGY, "Receive", 0, 0)), 
+	RECEIVE_DOGGY		(new NonAttackTechnique(Stance.DOGGY, "Receive", 0, 0)), 
+	RECEIVE_ANAL		(new NonAttackTechnique(Stance.ANAL, "Receive", 0, 0)), 
 	RECEIVE_KNOT 		(new NonAttackTechnique(Stance.KNOTTED, "Receive Knot", 0, 0)), 
 	OPEN_WIDE 			(new NonAttackTechnique(Stance.FELLATIO, "Open Wide", 0, 0)), 
-	STRUGGLE_ANAL		(new GrappleTechnique(Stance.DOGGY, "Struggle", 4)), 
+	STRUGGLE_DOGGY		(new GrappleTechnique(Stance.DOGGY, "Struggle", 4)),
+	STRUGGLE_ANAL		(new GrappleTechnique(Stance.ANAL, "Struggle", 4)),
 	STRUGGLE_ORAL		(new GrappleTechnique(Stance.FELLATIO, "Struggle", 4)), 
 	BREAK_FREE_ANAL		(new NonAttackTechnique(Stance.BALANCED, "Struggle", 0, 0, Stance.BALANCED)), // Break hold
 	BREAK_FREE_ORAL		(new NonAttackTechnique(Stance.BALANCED, "Struggle", 0, 0, Stance.BALANCED)), // Break hold
