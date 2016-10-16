@@ -237,13 +237,65 @@ public class Battle extends Group{
     public void draw(Batch batch, float parentAlpha) {
 		super.draw(batch, parentAlpha);
 		font.setColor(Color.WHITE);
-		font.draw(batch, "Health: " + String.valueOf(character.getCurrentHealth()) + "\nStamina: " + String.valueOf(character.getCurrentStamina()) + "\nBalance: " + String.valueOf(character.getStability()) + (character.getStat(Stat.MAGIC) > 1 ? "\nMana: " + String.valueOf(character.getCurrentMana()) : "")  + "\nStance: " + character.getStance().toString(), 70, 695);		
+		font.draw(batch, "Health: ", 70, 700);
+		int healthDeg = character.getHealthDegradation();
+		font.setColor(getDegradataionColor(healthDeg));
+		font.draw(batch, String.valueOf(character.getCurrentHealth()) + " " + getHealthDescription(healthDeg), 125, 700);
+		font.setColor(Color.WHITE);
+		font.draw(batch, "Stamina: ", 70, 680);
+		int staminaDeg = character.getStaminaDegradation();
+		font.setColor(getDegradataionColor(staminaDeg));
+		font.draw(batch, String.valueOf(character.getCurrentStamina()) + " " + getStaminaDescription(healthDeg), 125, 680);
+		font.setColor(Color.WHITE);
+		font.draw(batch, "Balance: ", 70, 660);
+		font.setColor(character.getStability() > 10 ? Color.WHITE : character.getStability() > 5 ? Color.GOLDENROD : Color.RED);
+		font.draw(batch, String.valueOf(character.getStability()) + " " + (character.getStability() > 10 ? "(Stable)" : character.getStability() > 5 ? "(Unbalanced)" : "(Teetering)"), 125, 660);
+		
+		font.setColor(Color.WHITE);
+		font.draw(batch, (character.getStat(Stat.MAGIC) > 1 ? "Mana: " + String.valueOf(character.getCurrentMana()) : "")  + "\nStance: " + character.getStance().toString(), 70, 640);		
 		batch.draw(assetManager.get(character.getLustImagePath(), Texture.class), 60, 450, 100, 115);
-		font.draw(batch, "Health: " + String.valueOf(enemy.getCurrentHealth()) + "\nStance: " + enemy.getStance().toString(), 1100, 650);	
+		
+		font.draw(batch, "Health: ", 1100, 650);
+		int enemyHealthDeg = enemy.getHealthDegradation();
+		font.setColor(getDegradataionColor(enemyHealthDeg));
+		font.draw(batch, String.valueOf(enemy.getCurrentHealth()) + " " + getHealthDescription(enemyHealthDeg), 1150, 650);
+		font.setColor(Color.WHITE);
+		font.draw(batch, "Stance: " + enemy.getStance().toString(), 1100, 630);	
 		// calls to enemy.getType() should all be replaced with polymorphic behavior of enemies
 		batch.draw(assetManager.get(enemy.getLustImagePath(), Texture.class), 1150, 450, 100, 115);
+		
 		font.draw(batch, console, 80, 270);
     }
+	// this should be on abstract character
+	private String getHealthDescription(int val){
+		switch (val){
+			case 0: return "(Good)";
+			case 1: return "(Fair)";
+			case 2: return "(Weakened)";
+			case 3: return "(Critical)";
+			default: return "(ERROR)";
+		}
+	}
+	// this should be on abstract character
+	private String getStaminaDescription(int val){
+		switch (val){
+			case 0: return "(Good)";
+			case 1: return "(Fair)";
+			case 2: return "(Weakened)";
+			case 3: return "(Critical)";
+			default: return "(ERROR)";
+		}
+	}
+	// this should be on abstract character
+	private Color getDegradataionColor(int val){
+		switch (val){
+			case 0: return Color.WHITE;
+			case 1: return Color.GOLDENROD;
+			case 2: return Color.ORANGE;
+			case 3: return Color.RED;
+			default: return Color.MAGENTA;
+		}
+	}
 	
 	private Texture getStanceImage(Stance stance){
 		return assetManager.get(stance.getPath(), Texture.class);
