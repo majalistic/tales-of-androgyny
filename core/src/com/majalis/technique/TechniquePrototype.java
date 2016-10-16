@@ -16,6 +16,7 @@ public abstract class TechniquePrototype {
 	protected boolean selfTrip;
 	protected Stance forceStance;
 	protected double knockdown;
+	protected int armorSunder;
 	protected int gutCheck;
 	protected TechniqueHeight height;
 	protected int guardMod;
@@ -24,6 +25,7 @@ public abstract class TechniquePrototype {
 	protected boolean blockable;
 	protected boolean grapple;
 	protected ClimaxType climaxType;
+	
 	
 	protected TechniquePrototype(Stance resultingStance, String name){
 		this.resultingStance = resultingStance;
@@ -39,13 +41,14 @@ public abstract class TechniquePrototype {
 		selfTrip = false;
 		forceStance = null;
 		knockdown = 0;
+		armorSunder = 0;
+		gutCheck = 0;
 		height = TechniqueHeight.MEDIUM;
 		guardMod = 0;
 		causeBattleOver = false;
 		setDamage = false;
 		blockable = false;
 		grapple = false;
-		gutCheck = 0;
 	}
 	
 	public Stance getResultingStance(){ return resultingStance; }
@@ -75,4 +78,6 @@ public abstract class TechniquePrototype {
 		MEDIUM,
 		LOW
 	}
+
+	public int getArmorSunder() { return armorSunder; }
 }

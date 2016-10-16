@@ -119,7 +119,7 @@ public class PlayerCharacter extends AbstractCharacter {
 			case BLITZ:
 				return getTechniques(Techniques.ALL_OUT_BLITZ, Techniques.HOLD_BACK);
 			case OFFENSIVE:
-				return getTechniques(Techniques.BLITZ_ATTACK, Techniques.POWER_ATTACK, Techniques.RECKLESS_ATTACK, Techniques.KNOCK_DOWN, Techniques.VAULT, Techniques.TEMPO_ATTACK, Techniques.RESERVED_ATTACK);
+				return getTechniques(Techniques.BLITZ_ATTACK, Techniques.POWER_ATTACK, Techniques.ARMOR_SUNDER, Techniques.RECKLESS_ATTACK, Techniques.KNOCK_DOWN, Techniques.VAULT, Techniques.TEMPO_ATTACK, Techniques.RESERVED_ATTACK);
 			case BALANCED:
 				return getTechniques(Techniques.SPRING_ATTACK, Techniques.NEUTRAL_ATTACK, Techniques.CAUTIOUS_ATTACK, Techniques.BLOCK, Techniques.INCANTATION, Techniques.DUCK, Techniques.HIT_THE_DECK);
 			case DEFENSIVE:
@@ -209,6 +209,7 @@ public class PlayerCharacter extends AbstractCharacter {
 		battleOver = 0;
 		buttful = 0;
 		mouthful = 0;
+		baseDefense = 5;
 	}
 
 	public enum Femininity {

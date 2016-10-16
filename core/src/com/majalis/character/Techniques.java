@@ -79,6 +79,7 @@ public enum Techniques {
 	INCANTATION 		(new NonAttackTechnique(Stance.CASTING, "Incantation", 0, 1)), 
 	
 	/* Learnable Skills*/
+	ARMOR_SUNDER		(new AttackTechnique(Stance.OFFENSIVE, "Armor Sunder", 1, 7, 4, 0, 2, 0, false, TechniqueHeight.MEDIUM)),
 	CAUTIOUS_ATTACK  	(new AttackTechnique(Stance.DEFENSIVE, "Cautious Attack", -1, 0, 2), 3),
 	VAULT 				(new NonAttackTechnique(Stance.AIRBORNE, "Vault", 2, 4)), 
 	JUMP_ATTACK 		(new AttackTechnique(Stance.BALANCED, "Jump Attack", 4, 4, 2)),
@@ -110,7 +111,7 @@ public enum Techniques {
 	public int getMaxRank() { return maxRank; }
 	
 	public static Array<Techniques> getLearnableSkills() {
-		Techniques[] learnables = new Techniques[]{CAUTIOUS_ATTACK, VAULT, RECKLESS_ATTACK, TAUNT, KNOCK_DOWN, SECOND_WIND, HIT_THE_DECK, PARRY};
+		Techniques[] learnables = new Techniques[]{ARMOR_SUNDER, CAUTIOUS_ATTACK, VAULT, RECKLESS_ATTACK, TAUNT, KNOCK_DOWN, SECOND_WIND, HIT_THE_DECK, PARRY};
 		return new Array<Techniques>(true, learnables, 0, learnables.length);
 	}
 	public static Array<Techniques> getLearnableSpells() {

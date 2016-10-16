@@ -78,7 +78,7 @@ public abstract class AbstractCharacter extends Actor {
 			level = 1;
 			experience = 0;
 			baseStrength = baseEndurance = baseAgility = basePerception = baseMagic = baseCharisma = 3;
-			baseDefense = 2;
+			baseDefense = 5;
 			baseLuck = 0;
 			baseEvade = 0;
 			baseBlock = 0;
@@ -333,7 +333,10 @@ public abstract class AbstractCharacter extends Actor {
 			}
 			
 			int damage = attack.getDamage();
-			damage -= getDefense();
+			if (!attack.isSpell()){
+				damage -= getDefense();
+			}
+			
 			if (damage > 0){	
 				currentHealth -= damage;
 				result.add("The blow strikes for " + damage + " damage!");
@@ -351,6 +354,16 @@ public abstract class AbstractCharacter extends Actor {
 						stance = Stance.SUPINE;
 						knockedDown = true;
 					}
+				}
+			}
+			
+			int armorSunder = attack.getArmorSunder();
+			if (armorSunder > 0){
+				// this shouldn't lower baseDefense, instead sundering armor
+				if (baseDefense > 0){
+					baseDefense -= armorSunder;
+					if (baseDefense < 0) baseDefense = 0;
+					result.add("It's an armor shattering blow! It reduces armor by " + armorSunder + "!");
 				}
 			}
 			

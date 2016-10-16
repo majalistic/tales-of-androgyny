@@ -12,6 +12,7 @@ public class Attack {
 	private final String name;
 	private final int damage;
 	private final int force;
+	private final int armorBreak;
 	private final int gutcheck;
 	private final int healing;
 	private final int lust;
@@ -19,18 +20,21 @@ public class Attack {
 	private final ClimaxType climaxType;
 	private final Stance forceStance;
 	private final Array<String> results;
+	private final boolean isSpell;
 	private String user;
-	protected Attack(boolean success, String name, int damage, int force, int gutcheck, int healing, int lust, int grapple, ClimaxType climaxType, Stance forceStance){
+	protected Attack(boolean success, String name, int damage, int force, int armorBreak, int gutcheck, int healing, int lust, int grapple, ClimaxType climaxType, Stance forceStance, boolean isSpell){
 		this.success = success;
 		this.name = name;
 		this.damage = damage;
 		this.force = force;
+		this.armorBreak = armorBreak;
 		this.gutcheck = gutcheck;
 		this.healing = healing;
 		this.lust = lust;
 		this.grapple = grapple;
 		this.climaxType = climaxType;
 		this.forceStance = forceStance;
+		this.isSpell = isSpell;
 		this.results = new Array<String>();
 	}
 	
@@ -96,5 +100,12 @@ public class Attack {
 	protected ClimaxType getClimaxType(){
 		return climaxType;
 	}
-	
+
+	public int getArmorSunder() {
+		return armorBreak;
+	}
+
+	public boolean isSpell() {
+		return isSpell;
+	}
 }
