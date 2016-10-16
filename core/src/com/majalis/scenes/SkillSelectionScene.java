@@ -103,8 +103,7 @@ public class SkillSelectionScene extends Scene {
 		final Table table = new Table();
 		
 		for (final Techniques technique: Techniques.getLearnableSkills()){
-			Integer level = skills.get(technique);
-			if (level == null) level = 0;
+			Integer level = skills.get(technique, 0);
 			final TextButton button = new TextButton(technique.getTrait().getName() + (level > 0 ? " (" + level + ")" : ""), skin);
 			techniquesToButtons.put(technique, button);
 			button.addListener(new ClickListener(){
@@ -148,13 +147,12 @@ public class SkillSelectionScene extends Scene {
 		        public void clicked(InputEvent event, float x, float y) {
 					buttonSound.play(.5f);
 					
-					Integer level = skills.get(technique);
-					if (level == null){
+					Integer level = skills.get(technique, 0);
+					if (level == 0){
 						console = "You do not yet possess that skill!";
 					}
 					else {
-						Integer cachedLevel = cachedSkills.get(technique);
-						cachedLevel = cachedLevel == null ? 0 : cachedLevel;
+						Integer cachedLevel = cachedSkills.get(technique, 0);
 						if (--level >= cachedLevel){
 							skillPoints += level + 1;
 							skills.put(technique, level);						
@@ -177,16 +175,14 @@ public class SkillSelectionScene extends Scene {
 		final Table perkTable = new Table();
 		for (final Perk perk: Perk.values()){
 			if (!perk.isPositive()){ continue; }
-			Integer level = perks.get(perk);
-			if (level == null) level = 0;
+			Integer level = perks.get(perk, 0);
 			final TextButton button = new TextButton(perk.getLabel() + (level > 0 ? " (" + level + ")" : ""), skin);
 			button.addListener(new ClickListener(){
 				@Override
 		        public void clicked(InputEvent event, float x, float y) {
 					buttonSound.play(.5f);
 					if (perkPoints > 0){
-						Integer level = perks.get(perk);
-						if (level == null) level = 0;
+						Integer level = perks.get(perk, 0);
 						if (level < perk.getMaxRank()){
 							if (level + 1 <= perkPoints){
 								perkPoints -= level + 1;
@@ -225,13 +221,12 @@ public class SkillSelectionScene extends Scene {
 		        public void clicked(InputEvent event, float x, float y) {
 					buttonSound.play(.5f);
 					
-					Integer level = perks.get(perk);
-					if (level == null){
+					Integer level = perks.get(perk, 0);
+					if (level == 0){
 						console = "You do not yet possess that perk!";
 					}
 					else {
-						Integer cachedLevel = cachedPerks.get(perk);
-						cachedLevel = cachedLevel == null ? 0 : cachedLevel;
+						Integer cachedLevel = cachedPerks.get(perk, 0);
 						if (--level >= cachedLevel){
 							perkPoints += level + 1;
 							perks.put(perk, level);
@@ -260,16 +255,14 @@ public class SkillSelectionScene extends Scene {
 			final Table magicTable = new Table();
 			
 			for (final Techniques technique: Techniques.getLearnableSpells()){
-				Integer level = skills.get(technique);
-				if (level == null) level = 0;
+				Integer level = skills.get(technique, 0);
 				final TextButton button = new TextButton(technique.getTrait().getName() + (level > 0 ? " (" + level + ")" : ""), skin);
 				button.addListener(new ClickListener(){
 					@Override
 			        public void clicked(InputEvent event, float x, float y) {
 						buttonSound.play(.5f);
 						if (magicPoints > 0){
-							Integer level = skills.get(technique);
-							if (level == null) level = 0;
+							Integer level = skills.get(technique, 0);
 							if (level < technique.getMaxRank()){
 								if (level + 1 <= magicPoints){
 									magicPoints -= level + 1;
@@ -304,13 +297,12 @@ public class SkillSelectionScene extends Scene {
 			        public void clicked(InputEvent event, float x, float y) {
 						buttonSound.play(.5f);
 						
-						Integer level = skills.get(technique);
-						if (level == null){
+						Integer level = skills.get(technique, 0);
+						if (level == 0){
 							console = "You do not yet possess that spell!";
 						}
 						else {
-							Integer cachedLevel = cachedSkills.get(technique);
-							cachedLevel = cachedLevel == null ? 0 : cachedLevel;
+							Integer cachedLevel = cachedSkills.get(technique, 0);
 							if (--level >= cachedLevel){
 								magicPoints += level + 1;
 								skills.put(technique, level);						
@@ -334,9 +326,8 @@ public class SkillSelectionScene extends Scene {
 	private void handleNegativeSkillPoints() {
 		while (skillPoints < 0){
 			for (Techniques technique : skills.keys()){
-				Integer cachedLevel = cachedSkills.get(technique);
-				cachedLevel = cachedLevel == null ? 0 : cachedLevel;
-				Integer currentLevel = skills.get(technique);
+				Integer cachedLevel = cachedSkills.get(technique, 0);
+				Integer currentLevel = skills.get(technique, 0);
 				if (currentLevel > cachedLevel){
 					skillPoints += currentLevel;
 					skills.put(technique, --currentLevel);

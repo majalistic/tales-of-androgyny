@@ -161,7 +161,7 @@ public abstract class AbstractCharacter extends Actor {
 	
 	protected int getStrength(){ return Math.max(stepDown((baseStrength + getStrengthBuff()) - (getHealthDegradation() + getStaminaDegradation())), 0); }
 	
-	private int getStrengthBuff(){ Integer strengthBuff = statuses.get(StatusType.STRENGTH_BUFF.toString()); return strengthBuff == null ? 0 : strengthBuff; }
+	private int getStrengthBuff(){ return statuses.get(StatusType.STRENGTH_BUFF.toString(), 0); }
 	
 	protected int stepDown(int value){ if (value < 4) return value; else return 4 + (value - 4)/2; } 
 	
