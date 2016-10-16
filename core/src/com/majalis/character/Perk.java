@@ -1,25 +1,27 @@
 package com.majalis.character;
 
 public enum Perk {
-	SKILLED (5), // increases number of skill points to allocate
-	WELLROUNDED (1), // increases lowest stat by 1
-	SURVEYOR (3), // increases effective perception for scouting
-	EROTIC (3), // increases effective charisma for alluring enemies, including charisma checks of that sort
-	CATAMITE (1), // unlocks more willing options for catching it
-	WEAK_TO_ANAL (false);
+	SKILLED ("Increases number of skill points to allocate by 2 per rank.", 5), 
+	WELLROUNDED ("Increases current lowest stat by 1.", 1),
+	SURVEYOR ("Increases effective perception for scouting purposes by 2 per rank.", 3),
+	EROTIC ("Increases effective charisma for arousing others by 2 per rank.", 3), 
+	CATAMITE ("Unlocks more options for being willingly receptive.", 1),
+	WEAK_TO_ANAL ("Weak to butt stuff. Causes quick pew pews while penetrated.", false);
 	
 	private final int maxRank;
 	private final boolean positive;
-	private Perk(){
-		this(1, true);
+	private final String description;
+	private Perk(String description){
+		this(description, 1, true);
 	}
-	private Perk(boolean positive){
-		this(1, positive);
+	private Perk(String description, boolean positive){
+		this(description, 1, positive);
 	}
-	private Perk(int maxRank){
-		this(maxRank, true);
+	private Perk(String description, int maxRank){
+		this(description, maxRank, true);
 	}
-	private Perk(int maxRank, boolean positive){
+	private Perk(String description, int maxRank, boolean positive){
+		this.description = description;
 		this.maxRank = maxRank;
 		this.positive = positive;
 	}
@@ -44,4 +46,7 @@ public enum Perk {
 	}
 	
 	public boolean isPositive() { return positive; }
+	
+	public String getDescription(){ return description; }
+	
 }

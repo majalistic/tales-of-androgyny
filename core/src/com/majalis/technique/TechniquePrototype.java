@@ -3,6 +3,7 @@ package com.majalis.technique;
 import com.majalis.character.AbstractCharacter.Stance;
 
 public abstract class TechniquePrototype {
+	protected Stance usableStance;
 	protected Stance resultingStance;
 	protected String name;
 	protected boolean doesDamage;
@@ -13,7 +14,6 @@ public abstract class TechniquePrototype {
 	protected int manaCost;
 	protected boolean isSpell;
 	protected boolean isTaunt;
-	protected boolean selfTrip;
 	protected Stance forceStance;
 	protected double knockdown;
 	protected int armorSunder;
@@ -25,9 +25,11 @@ public abstract class TechniquePrototype {
 	protected boolean blockable;
 	protected boolean grapple;
 	protected ClimaxType climaxType;
+	protected boolean selfTrip;
 	
 	
-	protected TechniquePrototype(Stance resultingStance, String name){
+	protected TechniquePrototype(Stance usableStance, Stance resultingStance, String name){
+		this.usableStance = usableStance;
 		this.resultingStance = resultingStance;
 		this.name = name;
 		doesDamage = false;
@@ -38,19 +40,20 @@ public abstract class TechniquePrototype {
 		manaCost = 0;
 		isSpell = false;
 		isTaunt = false;
-		selfTrip = false;
 		forceStance = null;
 		knockdown = 0;
 		armorSunder = 0;
 		gutCheck = 0;
-		height = TechniqueHeight.MEDIUM;
+		height = null;
 		guardMod = 0;
 		causeBattleOver = false;
 		setDamage = false;
 		blockable = false;
 		grapple = false;
+		selfTrip = false;
 	}
 	
+	public Stance getUsableStance(){ return usableStance; }
 	public Stance getResultingStance(){ return resultingStance; }
 	public String getName(){ return name; }
 	public boolean isDamaging(){ return doesDamage; }
@@ -59,9 +62,9 @@ public abstract class TechniquePrototype {
 	public boolean isSpell(){ return isSpell; }
 	public int getStaminaCost(){ return staminaCost; }
 	public int getStabilityCost(){ return stabilityCost; }
-	public boolean causesTrip() { return selfTrip; }
 	public Stance getForceStance(){ return forceStance; }
 	public double getKnockdown(){ return knockdown; }
+	public int getArmorSunder() { return armorSunder; }
 	public int getGutCheck(){ return gutCheck; }
 	public int getManaCost(){ return manaCost; }
 	public TechniqueHeight getTechniqueHeight(){ return height; }
@@ -72,12 +75,64 @@ public abstract class TechniquePrototype {
 	public boolean isGrapple() { return grapple; }
 	public boolean isTaunt(){ return isTaunt; }
 	public ClimaxType getClimaxType() { return climaxType; }
+	public boolean causesTrip() { return selfTrip; }
+	
+	public String getDescription(){
+		StringBuilder builder = new StringBuilder();
+		builder.append("Usable in " + usableStance.toString() + " stance.\n");
+		builder.append("Results in " + resultingStance.toString() + " stance.\n");
+		if (doesDamage){
+			builder.append("Deals" + (powerMod > 0 ? " +" + powerMod : powerMod < 0 ? " " + powerMod : "") + " damage, improved by " + (isSpell ? "Magic" : "Strength") + ".\n");
+		}
+		if (doesHealing){
+			builder.append("Heals user with a power of " + powerMod + ", improved by Magic.\n");
+		}
+		if (isTaunt){
+			builder.append("Taunts, angering and/or arousing the enemy with a power of " + powerMod + ", improved by Charisma.\n");
+		}
+		if (blockable){
+			builder.append("Can be blocked.\n");
+		}
+		else if (doesDamage){
+			builder.append("CANNOT be blocked.\n");
+		}
+		if (guardMod > 0){
+			builder.append("Blocks against enemy attacks with " + guardMod + "% effectiveness.\n");
+		}
+		if (staminaCost > 0){
+			builder.append("Costs " + staminaCost + " stamina, reduced by Endurance.\n");
+		}
+		else if (staminaCost < 0){
+			builder.append("Recovers " + -staminaCost + " stamina, improved by Endurance.\n");
+		}
+		if (stabilityCost > 0){
+			builder.append("Causes " + stabilityCost + " instability, reduced by Agility.\n");			
+		}
+		if (manaCost > 0){
+			builder.append("Costs " + manaCost + " mana.\n");			
+		}
+		if (height != null){
+			builder.append(height.toString() + "-height attack.\n");
+		}
+		if (forceStance != null){
+			builder.append("Forces enemy into " + forceStance.toString() + " stance.\n");
+		}
+		if (knockdown > 0){
+			builder.append("Causes " + (knockdown > 1.6 ? "heavy" : knockdown > 1.1 ? "medium" : "light") + " knockdown.\n");
+		}
+		if (armorSunder > 0){
+			builder.append("Causes " + (armorSunder > 1.6 ? "heavy" : armorSunder > 1.1 ? "medium" : "light") + " armor sundering.\n");
+		}
+		if (gutCheck > 0){
+			builder.append("Causes " + (armorSunder > 1.6 ? "heavy" : armorSunder > 1.1 ? "medium" : "light") + " enemy stamina destruction.\n");
+		}
+		
+		return builder.toString();
+	}
 	
 	public enum TechniqueHeight{
 		HIGH,
 		MEDIUM,
 		LOW
 	}
-
-	public int getArmorSunder() { return armorSunder; }
 }

@@ -4,6 +4,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -34,6 +35,7 @@ public class SkillSelectionScene extends Scene {
 	private ObjectMap<Perk, Integer> cachedPerks;
 	private ObjectMap<Techniques, Integer> skills;
 	private ObjectMap<Perk, Integer> perks;
+	private String skillDisplay;
 	
 	// needs a done button, as well as other interface elements
 	public SkillSelectionScene(OrderedMap<Integer, Scene> sceneBranches, int sceneCode, final SaveService saveService, BitmapFont font, Background background, AssetManager assetManager, PlayerCharacter character) {
@@ -45,6 +47,7 @@ public class SkillSelectionScene extends Scene {
 		skin = assetManager.get("uiskin.json", Skin.class);
 		buttonSound = assetManager.get("sound.wav", Sound.class);
 		console = "";
+		skillDisplay = "";
 	}
 	
 	@Override
@@ -53,7 +56,10 @@ public class SkillSelectionScene extends Scene {
 		font.setColor(0.5f,0.4f,0,1);
 		font.draw(batch, "Skill Selection", 145, 600);
 		font.setColor(0.4f,0.4f,0.4f,1);
-		int base = 500;
+		int base = 650;
+		if ( !skillDisplay.equals("") ){
+			font.draw(batch, skillDisplay, base-600, 550);
+		}
 		font.draw(batch, console, base, 550);
 		font.draw(batch, "Skill Points: " + skillPoints, base, 520);
 		font.draw(batch, "Magic Points: " + magicPoints, base, 490);
@@ -120,6 +126,14 @@ public class SkillSelectionScene extends Scene {
 						console = "You have no skill points!";
 					}
 		        }
+				@Override
+		        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
+					skillDisplay = technique.getTrait().getDescription();
+				}
+				@Override
+		        public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
+					skillDisplay = "";
+				}
 			});
 			table.add(button).width(220).height(40).row();
 		}
@@ -157,6 +171,14 @@ public class SkillSelectionScene extends Scene {
 						console = "You have no perk points!";
 					}
 		        }
+				@Override
+		        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
+					skillDisplay = perk.getDescription();
+				}
+				@Override
+		        public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
+					skillDisplay = "";
+				}
 			});
 			perkTable.add(button).width(220).height(40).row();
 		}
@@ -191,6 +213,14 @@ public class SkillSelectionScene extends Scene {
 							console = "You have no magic points!";
 						}
 			        }
+					@Override
+			        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
+						skillDisplay = technique.getTrait().getDescription();
+					}
+					@Override
+			        public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
+						skillDisplay = "";
+					}
 				});
 				magicTable.add(button).width(140).width(220).height(40).row();
 			}
