@@ -174,8 +174,8 @@ public abstract class AbstractCharacter extends Actor {
 	protected int getDefense(){ return baseDefense; }
 	protected int getTraction(){ return 2; }
 	
-	protected int getHealthDegradation(){ return getDegradation(healthTiers, currentHealth); }
-	protected int getStaminaDegradation(){ return getDegradation(staminaTiers, currentStamina); }
+	public int getHealthDegradation(){ return getDegradation(healthTiers, currentHealth); }
+	public int getStaminaDegradation(){ return getDegradation(staminaTiers, currentStamina); }
 	
 	protected int getDegradation(IntArray tiers, int currentValue){
 		int numTiers = tiers.size;
@@ -349,6 +349,20 @@ public abstract class AbstractCharacter extends Actor {
 						result.add(label + (secondPerson ? " are " : " is ") + "knocked to the ground!");
 						setStabilityToMin();
 						stance = Stance.SUPINE;
+						knockedDown = true;
+					}
+				}
+			}
+			
+			int gutcheck = attack.getGutCheck();
+			if (gutcheck > 0){
+				if (!alreadyIncapacitated()){
+					currentStamina -= gutcheck;
+					result.add("It's a blow to the stomach! It reduces stamina by " + gutcheck + "!");
+					if (currentStamina <= 0){
+						result.add(label + (secondPerson ? " fall " : " falls ") + " to the ground!");
+						setStabilityToMin();
+						stance = Stance.PRONE;
 						knockedDown = true;
 					}
 				}

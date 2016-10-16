@@ -12,6 +12,7 @@ public class Attack {
 	private final String name;
 	private final int damage;
 	private final int force;
+	private final int gutcheck;
 	private final int healing;
 	private final int lust;
 	private final int grapple;
@@ -19,11 +20,12 @@ public class Attack {
 	private final Stance forceStance;
 	private final Array<String> results;
 	private String user;
-	protected Attack(boolean success, String name, int damage, int force, int healing, int lust, int grapple, ClimaxType climaxType, Stance forceStance){
+	protected Attack(boolean success, String name, int damage, int force, int gutcheck, int healing, int lust, int grapple, ClimaxType climaxType, Stance forceStance){
 		this.success = success;
 		this.name = name;
 		this.damage = damage;
 		this.force = force;
+		this.gutcheck = gutcheck;
 		this.healing = healing;
 		this.lust = lust;
 		this.grapple = grapple;
@@ -50,6 +52,10 @@ public class Attack {
 	
 	protected int getForce(){
 		return force;
+	}
+	
+	protected int getGutCheck(){
+		return gutcheck;
 	}
 	
 	protected boolean isHealing(){

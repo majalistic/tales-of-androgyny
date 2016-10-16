@@ -43,7 +43,7 @@ public class Technique {
 		// this is temporarily to prevent struggling from failing to work properly on the same term an eruption or knot happens
 		if (isSuccessful) isSuccessful = otherTechnique.getForceStance() == null || otherTechnique.getForceStance() == Stance.KNOTTED || otherTechnique.getForceStance() == Stance.KNEELING;
 		
-		return new Attack(isSuccessful, technique.getName(), (int)(getDamage() * blockMod), ((int) ((strength + technique.getPowerMod()) * technique.getKnockdown()))/2, technique.isHealing() ? strength + technique.getPowerMod() : 0, technique.isTaunt() ? strength + technique.getPowerMod() : 0, technique.isGrapple() ? strength + technique.getPowerMod() : 0, technique.getClimaxType(), getForceStance());
+		return new Attack(isSuccessful, technique.getName(), (int)(getDamage() * blockMod), ((int) ((strength + technique.getPowerMod()) * technique.getKnockdown()))/2, technique.getGutCheck() * (strength + technique.getPowerMod()), technique.isHealing() ? strength + technique.getPowerMod() : 0, technique.isTaunt() ? strength + technique.getPowerMod() : 0, technique.isGrapple() ? strength + technique.getPowerMod() : 0, technique.getClimaxType(), getForceStance());
 	}
 	
 	private boolean isBlockable() {
@@ -64,7 +64,7 @@ public class Technique {
 	
 	protected int getDamage(){
 		// can special case powerMod 100 = 0 here
-		int damage = technique.doesSetDamage() ? 4 : technique.isDamaging() ? strength + technique.getPowerMod() : 0;
+		int damage = technique.doesSetDamage() ? 4 : technique.isDamaging() && technique.getGutCheck() == 0 ? strength + technique.getPowerMod() : 0;
 		if (damage < 0) damage = 0;
 		return damage;
 	}	

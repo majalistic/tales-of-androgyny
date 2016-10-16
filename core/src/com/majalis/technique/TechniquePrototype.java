@@ -16,6 +16,7 @@ public abstract class TechniquePrototype {
 	protected boolean selfTrip;
 	protected Stance forceStance;
 	protected double knockdown;
+	protected int gutCheck;
 	protected TechniqueHeight height;
 	protected int guardMod;
 	protected boolean causeBattleOver;
@@ -44,6 +45,7 @@ public abstract class TechniquePrototype {
 		setDamage = false;
 		blockable = false;
 		grapple = false;
+		gutCheck = 0;
 	}
 	
 	public Stance getResultingStance(){ return resultingStance; }
@@ -57,6 +59,7 @@ public abstract class TechniquePrototype {
 	public boolean causesTrip() { return selfTrip; }
 	public Stance getForceStance(){ return forceStance; }
 	public double getKnockdown(){ return knockdown; }
+	public int getGutCheck(){ return gutCheck; }
 	public int getManaCost(){ return manaCost; }
 	public TechniqueHeight getTechniqueHeight(){ return height; }
 	public int getGuardMod(){ return guardMod; }

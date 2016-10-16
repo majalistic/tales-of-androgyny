@@ -51,6 +51,7 @@ public enum Techniques {
 	/* Enemy attacks */
 	SLIME_ATTACK 		(new AttackTechnique(Stance.BALANCED, "Slime Attack", 7, 0, 5)),
 	SLIME_QUIVER 		(new NonAttackTechnique(Stance.DEFENSIVE, "Slime Quiver", -1, -1)),
+	GUT_CHECK			(new AttackTechnique(Stance.OFFENSIVE, "Gutcheck", 3, 3, 4, 0, 1, false, TechniqueHeight.MEDIUM)),
 	
 	/* Enemy pouncing */
 	DIVEBOMB 			(new GrappleTechnique  (Stance.FELLATIO, "Divebomb", 2, Stance.FELLATIO, TechniqueHeight.HIGH)),
