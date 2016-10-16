@@ -1,9 +1,12 @@
 package com.majalis.screens;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -12,6 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
+import com.majalis.asset.AssetEnum;
 import com.majalis.encounter.Background;
 import com.majalis.save.LoadService;
 import com.majalis.save.SaveService;
@@ -24,14 +28,18 @@ public class MainMenuScreen extends AbstractScreen {
 	static {
 		resourceRequirements.put("uiskin.json", Skin.class);
 		resourceRequirements.put("MainMenuScreen.jpg", Texture.class);
+		resourceRequirements.put(AssetEnum.STANCE_ARROW.getPath(), Texture.class);
 		resourceRequirements.put("sound.wav", Sound.class);
 	}
 	private final AssetManager assetManager;
 	private final SaveService saveService;
 	private final Skin skin; 
 	private final Texture backgroundImage;
+	private final Texture arrowImage;
 	private final Sound buttonSound;
+	private final Array<TextButton> buttons;
 	private int clocktick = 0;
+	private int selection;
 
 	public MainMenuScreen(ScreenFactory factory, ScreenElements elements, AssetManager assetManager, SaveService saveService, LoadService loadService) {
 		super(factory, elements);
@@ -39,7 +47,10 @@ public class MainMenuScreen extends AbstractScreen {
 		this.saveService = saveService;
 		this.skin = assetManager.get("uiskin.json", Skin.class);
 		this.backgroundImage = assetManager.get("MainMenuScreen.jpg", Texture.class);
+		this.arrowImage = assetManager.get(AssetEnum.STANCE_ARROW.getPath(), Texture.class);
 		this.buttonSound = assetManager.get("sound.wav", Sound.class);
+		buttons = new Array<TextButton>();
+		selection = 0;
 	}
 
 	@Override
@@ -51,10 +62,9 @@ public class MainMenuScreen extends AbstractScreen {
 		buttonLabels.addAll("Begin", "Continue", "Options", "Pervert", "Exit");
 		optionList.addAll(ScreenEnum.NEW_GAME, ScreenEnum.LOAD_GAME, ScreenEnum.OPTIONS, ScreenEnum.REPLAY, ScreenEnum.EXIT);
 		
-		Array<TextButton> buttons = new Array<TextButton>();
 		for (int ii = 0; ii < buttonLabels.size; ii++){
 			buttons.add(new TextButton(buttonLabels.get(ii), skin));
-			buttons.get(ii).addListener(getListener(optionList.get(ii)));
+			buttons.get(ii).addListener(getListener(optionList.get(ii), ii));
 			table.add(buttons.get(ii)).width(120).height(40).row();
 		}
 	
@@ -71,10 +81,26 @@ public class MainMenuScreen extends AbstractScreen {
 		OrthographicCamera camera = (OrthographicCamera) getCamera();
         batch.setTransformMatrix(camera.view);
         
+        if(Gdx.input.isKeyJustPressed(Keys.UP)){
+        	if (selection > 0) selection--;
+        }
+        else if(Gdx.input.isKeyJustPressed(Keys.DOWN)){
+        	if (selection < buttons.size- 1) selection++;
+        }
+        else if(Gdx.input.isKeyJustPressed(Keys.ENTER)){
+        	InputEvent event1 = new InputEvent();
+            event1.setType(InputEvent.Type.touchDown);
+            buttons.get(selection).fire(event1);
+
+            InputEvent event2 = new InputEvent();
+            event2.setType(InputEvent.Type.touchUp);
+            buttons.get(selection).fire(event2);
+        }
 		camera.update();
 		
 		batch.setProjectionMatrix(camera.combined);
 		batch.begin(); 
+		batch.draw(arrowImage, 1520, 905 - selection * 40, 30, 50);
 		// need to make these relative to viewport
 		font.draw(batch, String.valueOf(clocktick++), 1850, 400);
 		font.draw(batch, "Version: 0.1.10.0", 1600, 1050);
@@ -93,7 +119,7 @@ public class MainMenuScreen extends AbstractScreen {
 		}
 	}
 	
-	private ClickListener getListener(final ScreenEnum screenSelection){
+	private ClickListener getListener(final ScreenEnum screenSelection, final int index){
 		return new ClickListener(){
 	        @Override
 	        public void clicked(InputEvent event, float x, float y) {
@@ -103,6 +129,10 @@ public class MainMenuScreen extends AbstractScreen {
         			saveService.newSave();
         		}
 	        	showScreen(screenSelection);    
+	        }
+	        @Override
+	        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
+				selection = index;
 	        }
 	    };
 	}

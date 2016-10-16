@@ -60,6 +60,7 @@ public class Battle extends Group{
 	public int struggle;
 	public boolean inRear;
 	public int battleEndCount;
+	private int selection;
 	
 	public Battle(SaveService saveService, AssetManager assetManager, BitmapFont font, PlayerCharacter character, EnemyCharacter enemy, int victoryScene, int defeatScene, Background battleBackground, Background battleUI){
 		this.saveService = saveService;
@@ -92,6 +93,7 @@ public class Battle extends Group{
 		struggle = 0;
 		inRear = false;
 		battleEndCount = 0;
+		selection = 0;
 	}
 	
 	private void addCharacter(AbstractCharacter character){
@@ -161,12 +163,24 @@ public class Battle extends Group{
 	}
 
 	public void battleLoop() {
+		if(Gdx.input.isKeyJustPressed(Keys.UP)){
+        	if (selection > 0) selection--;
+        }
+        else if(Gdx.input.isKeyJustPressed(Keys.DOWN)){
+        	if (selection < options.size- 1) selection++;
+        }
+        else if(Gdx.input.isKeyJustPressed(Keys.ENTER)){
+        	selectedTechnique = options.get(selection);
+        }
+		
 		if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)){
 			gameExit = true;
 		}
 		else {
 			Technique playerTechnique = getTechnique();
 			if (playerTechnique != null){		
+				buttonSound.play(.5f);
+	        	selection = 0;
 				// possibly construct a separate class for this
 				resolveTechniques(character, playerTechnique, enemy, enemy.getTechnique(character));
 				displayTechniqueOptions();
@@ -247,6 +261,7 @@ public class Battle extends Group{
 			batch.draw(stanceArrow, 450, 550, 50, 90);
 			batch.draw(hoverStance, 515, 540, 100, 115);
 		}
+		batch.draw(stanceArrow, 935, (147 + (int) ( (35/2.) * (options.size - 2) ) ) - 35 * selection, 30, 40);
 		
 		font.setColor(Color.WHITE);
 		font.draw(batch, "Health: ", 70, 700);
@@ -336,7 +351,6 @@ public class Battle extends Group{
 		return new ClickListener(){
 	        @Override
 	        public void clicked(InputEvent event, float x, float y) {
-	        	buttonSound.play(.5f);
 	        	selectedTechnique = technique;
 	        }
 	        @Override
