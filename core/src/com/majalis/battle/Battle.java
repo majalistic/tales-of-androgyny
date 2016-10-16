@@ -19,6 +19,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
+import com.majalis.asset.AssetEnum;
 import com.majalis.character.AbstractCharacter;
 import com.majalis.character.AbstractCharacter.Stance;
 import com.majalis.character.Attack;
@@ -47,6 +48,7 @@ public class Battle extends Group{
 	private final Table table;
 	private final Skin skin;
 	private final Sound buttonSound;
+	private final Texture stanceArrow;
 	private String console;
 	private String skillDisplay;
 	private Array<Technique> options;
@@ -75,6 +77,8 @@ public class Battle extends Group{
 		this.addCharacter(character);
 		this.addCharacter(enemy);
 		this.addActor(battleUI);
+		
+		stanceArrow = assetManager.get(AssetEnum.STANCE_ARROW.getPath(), Texture.class);
 		
 		StanceActor newActor = new StanceActor(character, new Vector2(330, 540));
 		this.addActor(newActor);
@@ -240,7 +244,8 @@ public class Battle extends Group{
     public void draw(Batch batch, float parentAlpha) {
 		super.draw(batch, parentAlpha);
 		if (hoverStance != null){
-			batch.draw(hoverStance, 450, 540, 100, 115);
+			batch.draw(stanceArrow, 450, 550, 50, 90);
+			batch.draw(hoverStance, 515, 540, 100, 115);
 		}
 		
 		font.setColor(Color.WHITE);

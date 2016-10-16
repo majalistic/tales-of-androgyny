@@ -40,6 +40,8 @@ public enum AssetEnum {
 	OFFENSIVE("stances/Offensive.png"),
 	PRONE("stances/Prone.png"),
 	SUPINE("stances/Supine.png"),
+	
+	STANCE_ARROW("stances/ChevronArrow.png")
 	;
 	
 	private final String path;
