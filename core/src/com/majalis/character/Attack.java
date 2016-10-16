@@ -21,8 +21,9 @@ public class Attack {
 	private final Stance forceStance;
 	private final Array<String> results;
 	private final boolean isSpell;
+	private final Buff buff;
 	private String user;
-	protected Attack(boolean success, String name, int damage, int force, int armorBreak, int gutcheck, int healing, int lust, int grapple, ClimaxType climaxType, Stance forceStance, boolean isSpell){
+	protected Attack(boolean success, String name, int damage, int force, int armorBreak, int gutcheck, int healing, int lust, int grapple, ClimaxType climaxType, Stance forceStance, boolean isSpell, Buff buff){
 		this.success = success;
 		this.name = name;
 		this.damage = damage;
@@ -36,6 +37,7 @@ public class Attack {
 		this.forceStance = forceStance;
 		this.isSpell = isSpell;
 		this.results = new Array<String>();
+		this.buff = buff;
 	}
 	
 	protected String getName(){
@@ -108,4 +110,9 @@ public class Attack {
 	public boolean isSpell() {
 		return isSpell;
 	}
+	
+	public Buff getBuff() {
+		return buff.type == null ? null : buff;
+	}
+	
 }

@@ -7,6 +7,7 @@ import com.majalis.technique.ClimaxTechnique.ClimaxType;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.IntArray;
+import com.badlogic.gdx.utils.ObjectMap;
 /*
  * Abstract character class, both enemies and player characters extend this class
  */
@@ -69,7 +70,7 @@ public abstract class AbstractCharacter extends Actor {
 	protected int mouthful;
 	
 	protected Stance stance;
-	// public ObjectMap<StatusTypes, Status>; // status effects will be represented by a map of Enum to Status object
+	public ObjectMap<String, Integer> statuses; // status effects will be represented by a map of Enum to Status object
 	/* Constructors */
 	protected AbstractCharacter(){}
 	protected AbstractCharacter(boolean defaultValues){
@@ -94,6 +95,7 @@ public abstract class AbstractCharacter extends Actor {
 			stance = Stance.BALANCED;
 			struggle = 0;
 			phallus = PhallusType.NORMAL;
+			statuses = new ObjectMap<String, Integer>();
 		}
 	}
 	
@@ -157,21 +159,23 @@ public abstract class AbstractCharacter extends Actor {
 	
 	protected void modMana(int manaMod){ this.currentMana += manaMod; if (currentMana > getMaxMana()) currentMana = getMaxMana(); }
 	
-	protected int getStrength(){ return stepDown(baseStrength - (getHealthDegradation() + getStaminaDegradation())); }
+	protected int getStrength(){ return Math.max(stepDown((baseStrength + getStrengthBuff()) - (getHealthDegradation() + getStaminaDegradation())), 0); }
 	
-	private int stepDown(int value){ if (value < 4) return value; else return 6 + (value - 6)/2; } 
+	private int getStrengthBuff(){ Integer strengthBuff = statuses.get(StatusType.STRENGTH_BUFF.toString()); return strengthBuff == null ? 0 : strengthBuff; }
 	
-	protected int getEndurance(){ return baseEndurance - getHealthDegradation(); }
+	protected int stepDown(int value){ if (value < 4) return value; else return 4 + (value - 4)/2; } 
 	
-	protected int getAgility() { return baseAgility - (getHealthDegradation() + getStaminaDegradation()); }
+	protected int getEndurance(){ return Math.max(baseEndurance - getHealthDegradation(), 0); }
+	
+	protected int getAgility() { return Math.max(baseAgility - (getHealthDegradation() + getStaminaDegradation()), 0); }
 
-	protected int getPerception() { return basePerception; }
+	protected int getPerception() { return Math.max(basePerception, 0); }
 
-	protected int getMagic() { return baseMagic; }
+	protected int getMagic() { return Math.max(baseMagic, 0); }
 
-	protected int getCharisma() { return baseCharisma; }
+	protected int getCharisma() { return Math.max(baseCharisma, 0); }
 	
-	protected int getDefense(){ return baseDefense; }
+	protected int getDefense(){ return Math.max(baseDefense, 0); }
 	protected int getTraction(){ return 2; }
 	
 	public int getHealthDegradation(){ return getDegradation(healthTiers, currentHealth); }
@@ -201,13 +205,26 @@ public abstract class AbstractCharacter extends Actor {
 		}
 		return staminaMod;
 	}
-	
+	// right now this and "doAttack" handle once-per-turn character activities
 	public Technique extractCosts(Technique technique){
 		int staminaMod = getStaminaMod(technique); 
 		modStamina(-staminaMod);
 		modStability(-technique.getStabilityCost());
 		modStability(getStabilityRegen());
 		modMana(-technique.getManaCost());
+		
+		Array<String> toRemove = new Array<String>();
+		// statuses degrade with time in a general way currently
+		for(String key: statuses.keys()){
+			int value = statuses.get(key) - 1;
+			statuses.put(key, value);
+			if (value <= 0){
+				toRemove.add(key);
+			}
+		}
+		for(String key: toRemove){
+			statuses.remove(key);
+		}
 		
 		// this should be moved to technique failure
 		if (technique.isSpell() && currentMana < 0){
@@ -242,6 +259,10 @@ public abstract class AbstractCharacter extends Actor {
 			modHealth(resolvedAttack.getHealing());
 			
 			resolvedAttack.addMessage("You heal for " + resolvedAttack.getHealing()+"!");
+		}
+		Buff buff = resolvedAttack.getBuff();
+		if (buff != null){
+			statuses.put(buff.type.toString(), buff.power);
 		}
 		if (resolvedAttack.getForceStance() == Stance.DOGGY || resolvedAttack.getForceStance() == Stance.ANAL){
 			resolvedAttack.addMessage("You are being anally violated!");
@@ -316,7 +337,9 @@ public abstract class AbstractCharacter extends Actor {
 		boolean knockedDown = false;
 		
 		if (attack.isSuccessful()){
-			result.add(attack.getUser() + " used " + attack.getName() +  " on " + (secondPerson ? label.toLowerCase() : label) + "!");
+			if (!attack.isHealing() && attack.getBuff() == null){
+				result.add(attack.getUser() + " used " + attack.getName() +  " on " + (secondPerson ? label.toLowerCase() : label) + "!");
+			}
 			
 			struggle += attack.getGrapple();
 			if (attack.isClimax()){

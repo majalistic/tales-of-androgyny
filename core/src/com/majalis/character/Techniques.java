@@ -91,7 +91,7 @@ public enum Techniques {
 	
 	COMBAT_HEAL  		(new SpellTechnique(Stance.CASTING, Stance.BALANCED, "Combat Heal", 10, 10, true), 3),
 	COMBAT_FIRE  		(new SpellTechnique(Stance.CASTING, Stance.BALANCED, "Combat Fire", 3, 5, false), 3),
-	TITAN_STRENGTH  	(new SpellTechnique(Stance.CASTING, Stance.BALANCED, "Titan Strength", 0, 2, false), 3),
+	TITAN_STRENGTH  	(new SpellTechnique(Stance.CASTING, Stance.BALANCED, "Titan Strength", 0, 2, false, StatusType.STRENGTH_BUFF), 3),
 	
 	;
 	
@@ -115,6 +115,7 @@ public enum Techniques {
 	}
 	public static Array<Techniques> getLearnableSpells() {
 		// need to change this to actually include Titan Strength once it's implemented
-		return new Array<Techniques>(true, new Techniques[]{COMBAT_HEAL, COMBAT_FIRE, TITAN_STRENGTH}, 0, 2);
+		Techniques[] learnables = new Techniques[]{COMBAT_HEAL, COMBAT_FIRE, TITAN_STRENGTH};
+		return new Array<Techniques>(true, learnables, 0, learnables.length);
 	}
 }

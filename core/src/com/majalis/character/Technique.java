@@ -47,7 +47,8 @@ public class Technique {
 		// this is temporarily to prevent struggling from failing to work properly on the same term an eruption or knot happens
 		if (isSuccessful) isSuccessful = otherTechnique.getForceStance() == null || otherTechnique.getForceStance() == Stance.KNOTTED || otherTechnique.getForceStance() == Stance.KNEELING;
 		
-		return new Attack(isSuccessful, 
+		return new Attack(
+			isSuccessful, 
 			technique.getName(), 
 			(int)(getDamage() * blockMod), 
 			((int) ((strength + technique.getPowerMod()) * technique.getKnockdown()))/2, 
@@ -57,7 +58,9 @@ public class Technique {
 			technique.isTaunt() ? strength + technique.getPowerMod() : 0, 
 			technique.isGrapple() ? strength + technique.getPowerMod() : 0,
 			technique.getClimaxType(), getForceStance(),
-			technique.isSpell());
+			technique.isSpell(),
+			new Buff(technique.getBuff(), strength + technique.getPowerMod())
+		);
 	}
 	
 	private boolean isBlockable() {

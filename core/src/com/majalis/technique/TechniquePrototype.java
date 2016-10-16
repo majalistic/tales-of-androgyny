@@ -1,6 +1,7 @@
 package com.majalis.technique;
 
 import com.majalis.character.AbstractCharacter.Stance;
+import com.majalis.character.StatusType;
 import com.majalis.technique.ClimaxTechnique.ClimaxType;
 
 public abstract class TechniquePrototype {
@@ -27,7 +28,7 @@ public abstract class TechniquePrototype {
 	protected boolean grapple;
 	protected ClimaxType climaxType;
 	protected boolean selfTrip;
-	
+	protected StatusType buff;
 	
 	protected TechniquePrototype(Stance usableStance, Stance resultingStance, String name){
 		this.usableStance = usableStance;
@@ -52,6 +53,7 @@ public abstract class TechniquePrototype {
 		blockable = false;
 		grapple = false;
 		selfTrip = false;
+		buff = null;
 	}
 	
 	public Stance getUsableStance(){ return usableStance; }
@@ -77,6 +79,7 @@ public abstract class TechniquePrototype {
 	public boolean isTaunt(){ return isTaunt; }
 	public ClimaxType getClimaxType() { return climaxType; }
 	public boolean causesTrip() { return selfTrip; }
+	public StatusType getBuff() { return buff; }
 	
 	public String getDescription(){
 		StringBuilder builder = new StringBuilder();
@@ -87,6 +90,9 @@ public abstract class TechniquePrototype {
 		}
 		if (doesHealing){
 			builder.append("Heals user with a power of " + powerMod + ", improved by Magic.\n");
+		}
+		if (buff != null){
+			builder.append("Increases Strength dramatically, erodes - improved by Magic.\n");
 		}
 		if (isTaunt){
 			builder.append("Taunts, angering and/or arousing the enemy with a power of " + powerMod + ", improved by Charisma.\n");

@@ -165,7 +165,7 @@ public class PlayerCharacter extends AbstractCharacter {
 		
 		for (Techniques technique : possibilities){
 			if (skills.containsKey(technique.toString())){
-				int power = technique.getTrait().isSpell() ? getMagic() : technique.getTrait().isTaunt() ? getCharisma() : getStrength();
+				int power = technique.getTrait().isSpell() ? (technique.getTrait().getBuff() != null ? stepDown(getMagic()) : getMagic()  ): technique.getTrait().isTaunt() ? getCharisma() : getStrength();
 				power += skills.get(technique.toString()) - 1;
 				possibleTechniques.add(new Technique(technique.getTrait(), power));
 			}	
