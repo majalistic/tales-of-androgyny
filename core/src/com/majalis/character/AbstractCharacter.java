@@ -361,9 +361,10 @@ public abstract class AbstractCharacter extends Actor {
 			if (armorSunder > 0){
 				// this shouldn't lower baseDefense, instead sundering armor
 				if (baseDefense > 0){
+					result.add("It's an armor shattering blow! It reduces armor by " + (armorSunder > baseDefense ? baseDefense : armorSunder) + "!");
 					baseDefense -= armorSunder;
 					if (baseDefense < 0) baseDefense = 0;
-					result.add("It's an armor shattering blow! It reduces armor by " + armorSunder + "!");
+					
 				}
 			}
 			

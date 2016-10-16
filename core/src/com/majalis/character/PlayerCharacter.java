@@ -105,7 +105,7 @@ public class PlayerCharacter extends AbstractCharacter {
 		// warrior will need to get bonus stance options, Ranger will need to start with a bow
 		switch (jobClass){ 
 			case WARRIOR: skillPoints = 3; skills.put(Techniques.BLITZ_ATTACK.toString(), 1); skills.put(Techniques.ALL_OUT_BLITZ.toString(), 1); skills.put(Techniques.HOLD_BACK.toString(), 1); perks.put(Perk.WEAK_TO_ANAL.toString(), 1); break;
-			case PALADIN: addSkill(Techniques.COMBAT_HEAL); break;
+			case PALADIN: addSkill(Techniques.COMBAT_HEAL, 1); break;
 			case THIEF: skillPoints = 5; food = 80; break;
 			case MAGE: magicPoints = 2; break;
 			case ENCHANTRESS: magicPoints = 1; perkPoints = 3; break;
@@ -304,17 +304,17 @@ public class PlayerCharacter extends AbstractCharacter {
 	}
 
 	// need to add the list of default skills, the actual variable, and some way to access it for skill selection purposes (filter)
-	public void addSkill(Techniques newTech) {
+	public void addSkill(Techniques newTech, int rank) {
 		// if it's a spell, add incantation
 		if (newTech.getTrait().isSpell()){
 			skills.put(Techniques.INCANTATION.toString(), 1);
 		}
-		skills.put(newTech.toString(), 1);	
+		skills.put(newTech.toString(), rank);	
 	}
 	
 	// need to add the list of default skills, the actual variable, and some way to access it for skill selection purposes (filter)
-	public void addPerk(Perk newPerk) {
-		perks.put(newPerk.toString(), 1);	
+	public void addPerk(Perk newPerk, int rank) {
+		perks.put(newPerk.toString(), rank);	
 	}
 
 	public ObjectMap<Techniques, Integer> getSkills() {
@@ -336,7 +336,7 @@ public class PlayerCharacter extends AbstractCharacter {
 	public void setSkills(ObjectMap<Techniques, Integer> skills) {
 		this.skills.clear();
 		for (Techniques key : skills.keys()){
-			this.skills.put(key.toString(), skills.get(key));
+			addSkill(key, skills.get(key));
 		}
 	}
 
@@ -358,7 +358,7 @@ public class PlayerCharacter extends AbstractCharacter {
 		}
 		this.perks.clear();
 		for (Perk key : perks.keys()){
-			this.perks.put(key.toString(), perks.get(key));
+			addPerk(key, perks.get(key));
 		}
 	}
 	

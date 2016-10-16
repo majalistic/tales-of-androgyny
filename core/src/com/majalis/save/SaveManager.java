@@ -46,8 +46,8 @@ public class SaveManager implements SaveService, LoadService{
 	    	case CLASS:				save.player.setJobClass((JobClass) object); break;
 	    	case WORLD_SEED:		save.worldSeed = (Integer) object; break;
 	    	case HEALTH: 			save.player.modHealth((Integer) object); break;
-	    	case SKILL: 			save.player.addSkill((Techniques) object); break;
-	    	case PERK:				save.player.addPerk((Perk) object); break;
+	    	case SKILL: 			save.player.addSkill((Techniques) object, 1); break;
+	    	case PERK:				save.player.addPerk((Perk) object, 1); break;
 	    	case FOOD:				save.player.modFood((Integer) object); break;
 	    	case EXPERIENCE:		save.player.modExperience((Integer) object); break;
     	}	
