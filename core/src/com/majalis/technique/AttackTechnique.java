@@ -18,7 +18,7 @@ public class AttackTechnique extends TechniquePrototype {
 	}
 	
 	public AttackTechnique(Stance usableStance, Stance resultingStance, String name, int powerMod, int staminaCost, int stabilityCost, boolean isBlockable, TechniqueHeight height){
-		this(usableStance, resultingStance, name, powerMod, staminaCost, stabilityCost, 1, isBlockable, TechniqueHeight.MEDIUM);
+		this(usableStance, resultingStance, name, powerMod, staminaCost, stabilityCost, 1, isBlockable, height);
 	}
 	
 	public AttackTechnique(Stance usableStance, Stance resultingStance, String name, int powerMod, int staminaCost, int stabilityCost, double knockdown, boolean isBlockable, TechniqueHeight height){

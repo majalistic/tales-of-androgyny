@@ -76,10 +76,19 @@ public class EnemyCharacter extends AbstractCharacter {
 		
 		switch(stance){
 			case OFFENSIVE:
+				if (!target.stance.receivesMediumAttacks){
+					return getTechniques(Techniques.POWER_ATTACK, Techniques.TEMPO_ATTACK, Techniques.RESERVED_ATTACK);
+				}
 				return getTechniques(Techniques.POWER_ATTACK, Techniques.GUT_CHECK, Techniques.RECKLESS_ATTACK, Techniques.KNOCK_DOWN, Techniques.TEMPO_ATTACK, Techniques.RESERVED_ATTACK);
 			case BALANCED:
+				if (!target.stance.receivesMediumAttacks){
+					return getTechniques(Techniques.SPRING_ATTACK, Techniques.NEUTRAL_ATTACK);
+				}
 				return getTechniques(Techniques.SPRING_ATTACK, Techniques.NEUTRAL_ATTACK, Techniques.CAUTIOUS_ATTACK, Techniques.BLOCK);
 			case DEFENSIVE:
+				if (!target.stance.receivesMediumAttacks){
+					getTechniques(Techniques.REVERSAL_ATTACK, Techniques.GUARD, Techniques.SECOND_WIND);
+				}
 				return getTechniques(Techniques.REVERSAL_ATTACK, Techniques.CAREFUL_ATTACK, Techniques.GUARD, Techniques.SECOND_WIND);
 			case PRONE:
 			case SUPINE:
