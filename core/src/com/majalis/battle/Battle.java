@@ -143,7 +143,7 @@ public class Battle extends Group{
 			TextButton button;
 			Technique option = options.get(ii);
 			button = new TextButton(option.getTechniqueName() + (ii > POSSIBLE_KEYS_CHAR.length ? "" : " ("+POSSIBLE_KEYS_CHAR[ii]+")"), skin);
-			button.addListener(getListener(option, buttonSound));
+			button.addListener(getListener(option, ii));
 			table.add(button).width(220).height(35).row();
 			if(character.outOfStaminaOrStability(option)){
 				TextButtonStyle style = new TextButtonStyle(button.getStyle());
@@ -347,7 +347,7 @@ public class Battle extends Group{
 	}
 	
 	// this should pass in a technique that will be used if this button is pressed
-	private ClickListener getListener(final Technique technique, final Sound buttonSound){
+	private ClickListener getListener(final Technique technique, final int index){
 		return new ClickListener(){
 	        @Override
 	        public void clicked(InputEvent event, float x, float y) {
@@ -357,6 +357,7 @@ public class Battle extends Group{
 	        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
 				skillDisplay = technique.getTechniqueDescription();
 				hoverStance = getStanceImage(technique.getStance());
+				selection = index;
 			}
 			@Override
 	        public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
