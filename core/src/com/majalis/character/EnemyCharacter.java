@@ -228,7 +228,7 @@ public class EnemyCharacter extends AbstractCharacter {
 	@Override
     public void draw(Batch batch, float parentAlpha) {
 		super.draw(batch, parentAlpha);
-		batch.draw(texture, 500, enemyType == EnemyEnum.HARPY ? 100 : 0, 450, 600);
+		batch.draw(texture, 500, enemyType == EnemyEnum.HARPY ? 140 : 20, (int) (texture.getWidth() / (texture.getHeight() / 650.)), 650);
     }
 	
 	public void init(Texture texture){
