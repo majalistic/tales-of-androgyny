@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
+import com.badlogic.gdx.utils.ObjectMap;
 import com.majalis.asset.AssetEnum;
 import com.majalis.character.EnemyCharacter;
 import com.majalis.character.PlayerCharacter;
@@ -45,7 +46,11 @@ public class BattleFactory {
 		}
 		// loading old enemy
 		else {
-			enemy.init(assetManager.get(enemy.getImagePath(), Texture.class));
+			ObjectMap<Stance, Texture> textures = new ObjectMap<Stance, Texture>();
+			for (String key : enemy.getTextureImagePaths().keys()){
+				textures.put(Stance.valueOf(key), assetManager.get(enemy.getTextureImagePaths().get(key), Texture.class)) ;
+			}
+			enemy.init(assetManager.get(enemy.getImagePath(), Texture.class), textures);
 		}
 		switch(battleCode.battleCode){	
 			default: 
@@ -68,12 +73,23 @@ public class BattleFactory {
 		}
 	}
 	
+	private ObjectMap<Stance, Texture> getTextures(EnemyEnum type){
+		ObjectMap<Stance, Texture> textures = new ObjectMap<Stance, Texture>();
+		
+		if (type == EnemyEnum.SLIME){
+			textures.put(Stance.DOGGY, assetManager.get(AssetEnum.SLIME_DOGGY.getPath(), Texture.class));
+		}
+		
+		return textures;
+	}
+	
 	private EnemyCharacter getEnemy(int battleCode){
+		
 		switch(battleCode){
-			case 0: return new EnemyCharacter(getTexture(EnemyEnum.WERESLUT), EnemyEnum.WERESLUT);
-			case 1: return new EnemyCharacter(getTexture(EnemyEnum.HARPY), EnemyEnum.HARPY);
-			case 2: return new EnemyCharacter(getTexture(EnemyEnum.SLIME), EnemyEnum.SLIME);
-			case 3: return new EnemyCharacter(getTexture(EnemyEnum.BRIGAND), EnemyEnum.BRIGAND);
+			case 0: return new EnemyCharacter(getTexture(EnemyEnum.WERESLUT), getTextures(EnemyEnum.WERESLUT), EnemyEnum.WERESLUT);
+			case 1: return new EnemyCharacter(getTexture(EnemyEnum.HARPY), getTextures(EnemyEnum.HARPY), EnemyEnum.HARPY);
+			case 2: return new EnemyCharacter(getTexture(EnemyEnum.SLIME), getTextures(EnemyEnum.SLIME), EnemyEnum.SLIME);
+			case 3: return new EnemyCharacter(getTexture(EnemyEnum.BRIGAND), getTextures(EnemyEnum.BRIGAND), EnemyEnum.BRIGAND);
 			default: return null;
 		}
 	}

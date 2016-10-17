@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.IntArray;
+import com.badlogic.gdx.utils.ObjectMap;
 import com.majalis.asset.AssetEnum;
 import com.majalis.battle.BattleFactory.EnemyEnum;
 
@@ -12,17 +13,20 @@ import com.majalis.battle.BattleFactory.EnemyEnum;
  */
 public class EnemyCharacter extends AbstractCharacter {
 
-	private transient Texture texture;
+	private transient ObjectMap<Stance, Texture> textures;
+	private transient Texture defaultTexture;
 	private String imagePath;
+	private ObjectMap<String, String> textureImagePaths;
 	private String bgPath;
 	
 	@SuppressWarnings("unused")
 	private EnemyCharacter(){}
-	public EnemyCharacter(Texture texture, EnemyEnum enemyType){
+	public EnemyCharacter(Texture texture, ObjectMap<Stance, Texture> textures, EnemyEnum enemyType){
 		super(true);
 		this.enemyType = enemyType;
-		init(texture);
+		init(texture, textures);
 		phallus = PhallusType.MONSTER;
+		textureImagePaths = new ObjectMap<String, String>();
 		switch(enemyType){
 			case WERESLUT:
 				baseStrength = 5;
@@ -47,6 +51,7 @@ public class EnemyCharacter extends AbstractCharacter {
 				baseStrength = 2;
 				baseEndurance = 4;
 				baseAgility = 5;
+				textureImagePaths.put(Stance.DOGGY.toString(), AssetEnum.SLIME_DOGGY.getPath());
 				imagePath = AssetEnum.SLIME.getPath();
 				bgPath = "enemies/SlimeUI.png";
 				break;
@@ -62,6 +67,10 @@ public class EnemyCharacter extends AbstractCharacter {
 	
 	public String getImagePath(){
 		return imagePath;
+	}
+	
+	public ObjectMap<String, String> getTextureImagePaths(){
+		return textureImagePaths;
 	}
 	
 	public String getBGPath(){
@@ -228,11 +237,13 @@ public class EnemyCharacter extends AbstractCharacter {
 	@Override
     public void draw(Batch batch, float parentAlpha) {
 		super.draw(batch, parentAlpha);
+		Texture texture = textures.get(stance, defaultTexture);
 		batch.draw(texture, 500, enemyType == EnemyEnum.HARPY ? 140 : 20, (int) (texture.getWidth() / (texture.getHeight() / 650.)), 650);
     }
 	
-	public void init(Texture texture){
-		this.texture = texture;
+	public void init(Texture defaultTexture, ObjectMap<Stance, Texture> textures){
+		this.defaultTexture = defaultTexture;
+		this.textures = textures;
 	}
 	// for init in battlefactory
 	public void setLust(int lust){ this.lust = lust; }
