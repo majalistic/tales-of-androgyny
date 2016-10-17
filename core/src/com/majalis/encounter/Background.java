@@ -17,11 +17,7 @@ public class Background extends Actor{
 		this(texture, 1280, 720);
 	}
 	public Background(Texture texture, int width, int height){
-		this.texture = texture;
-		this.width = width;
-		this.height  = height;
-		width2 = 1280;
-		height2 = 720;
+		this(texture, null, width, height, 1280, 720);
 	}
 	
 	public Background(Texture texture, Texture texture2){
@@ -30,13 +26,13 @@ public class Background extends Actor{
 	public Background(Texture texture, Texture texture2, int width, int height){
 		this(texture, texture2, width, height, 1280, 720);
 	}
-	
+	// ignoring width2 for now
 	public Background(Texture texture, Texture texture2, int width, int height, int width2, int height2) {
 		this.texture = texture;
 		this.texture2 = texture2;
 		this.width = width;
 		this.height  = height;
-		this.width2 = width2;
+		this.width2 = texture2 == null ? width2 : texture2.getWidth() / (texture2.getHeight() / height2);
 		this.height2 = height2;
 	}
 	

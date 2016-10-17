@@ -169,6 +169,7 @@ public class EncounterBuilder {
 			// slime
 			case 2:
 				Background slimeBackground = new Background(backgroundTexture, assetManager.get(AssetEnum.SLIME.getPath(), Texture.class), 1280, 720, 450, 600);
+				Background slimeDoggyBackground = new Background(backgroundTexture, assetManager.get(AssetEnum.SLIME_DOGGY.getPath(), Texture.class), 1280, 720, 450, 600);
 				getTextScenes(
 					getScript(battleCode, 0), font, slimeBackground, 
 					getChoiceScene(
@@ -239,7 +240,7 @@ public class EncounterBuilder {
 								getTextScenes(getScript(battleCode, 11), font, slimeBackground,
 									getTextScenes(getArray(new String[]{"You banged the slime!", "You receive 2 Experience."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.EXPERIENCE, 2)}), getEndScene(EndScene.Type.ENCOUNTER_OVER))
 								),
-								getTextScenes(getScript(battleCode, 12), font, slimeBackground,
+								getTextScenes(getScript(battleCode, 12), font, slimeDoggyBackground,
 									getTextScenes(getArray(new String[]{"You got banged by the slime!", "You receive 3 Experience."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.EXPERIENCE, 3)}), getEndScene(EndScene.Type.ENCOUNTER_OVER))
 								)
 							)

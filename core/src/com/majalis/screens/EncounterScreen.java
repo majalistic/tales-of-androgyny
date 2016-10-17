@@ -39,7 +39,7 @@ public class EncounterScreen extends AbstractScreen {
 		resourceRequirements.put(AssetEnum.PERCEPTION.getPath(), Texture.class);
 		resourceRequirements.put(AssetEnum.MAGIC.getPath(), Texture.class);
 		resourceRequirements.put(AssetEnum.CHARISMA.getPath(), Texture.class);
-		
+		resourceRequirements.put(AssetEnum.SLIME_DOGGY.getPath(), Texture.class);
 	}
 	protected EncounterScreen(ScreenFactory screenFactory, ScreenElements elements, AssetManager assetManager, SaveService saveService, Encounter encounter) {
 		super(screenFactory, elements);
