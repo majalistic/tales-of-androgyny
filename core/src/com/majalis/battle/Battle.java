@@ -6,8 +6,10 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
@@ -17,8 +19,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
+import com.majalis.asset.AnimatedImage;
 import com.majalis.asset.AssetEnum;
 import com.majalis.character.AbstractCharacter;
 import com.majalis.character.AbstractCharacter.Stance;
@@ -61,6 +66,7 @@ public class Battle extends Group{
 	public boolean inRear;
 	public int battleEndCount;
 	private int selection;
+	private final AnimatedImage slash;
 	
 	public Battle(SaveService saveService, AssetManager assetManager, BitmapFont font, PlayerCharacter character, EnemyCharacter enemy, int victoryScene, int defeatScene, Background battleBackground, Background battleUI){
 		this.saveService = saveService;
@@ -94,6 +100,20 @@ public class Battle extends Group{
 		inRear = false;
 		battleEndCount = 0;
 		selection = 0;
+		
+		Texture slashSheet = assetManager.get(AssetEnum.SLASH.getPath(), Texture.class);
+		Array<TextureRegion> frames = new Array<TextureRegion>();
+		for (int ii = 0; ii < 6; ii++){
+			frames.add(new TextureRegion(slashSheet, ii * 512, 0, 512, 512));
+		}
+		
+		Animation animation = new Animation(.07f, frames);
+		slash = new AnimatedImage(animation, Scaling.fit, Align.right);
+		slash.setState(1);
+		
+		slash.addAction(Actions.moveTo(500, 0));
+		
+		this.addActor(slash);
 	}
 	
 	private void addCharacter(AbstractCharacter character){
@@ -236,6 +256,9 @@ public class Battle extends Group{
 	// should probably use String builder to build a string to display in the console - needs to properly be getting information from the interactions - may need to be broken up into its own class
 	private void resolveTechniques(AbstractCharacter firstCharacter, Technique firstTechnique, AbstractCharacter secondCharacter, Technique secondTechnique) {
 		console = "";
+		
+		slash.setState(0);
+		
 		printToConsole(firstCharacter.getStanceTransform(firstTechnique));
 		printToConsole(secondCharacter.getStanceTransform(secondTechnique));
 		

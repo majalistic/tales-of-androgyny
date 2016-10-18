@@ -49,7 +49,9 @@ public enum AssetEnum {
 	AGILITY("stats/Agility.png"),
 	PERCEPTION("stats/Perception.png"),
 	MAGIC("stats/Magic.png"),
-	CHARISMA("stats/Charisma.png"),
+	CHARISMA("stats/Charisma.png"), 
+	
+	SLASH("animation/ClawAttack.png"),
 	;
 	
 	private final String path;
