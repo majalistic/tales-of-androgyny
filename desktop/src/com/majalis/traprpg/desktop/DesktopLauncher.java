@@ -27,7 +27,7 @@ public class DesktopLauncher {
 		Thread.setDefaultUncaughtExceptionHandler(new UncaughtExceptionHandler() {
 	         @Override
 	         public void uncaughtException (Thread thread, final Throwable ex) {
-	            System.err.println("Critical Failure" + ex.getLocalizedMessage());
+	        	ex.printStackTrace();
 	            Sys.alert("Critical Failure", "Sorry, fatal error - please let Majalis know!  Error: " + ex.getLocalizedMessage());
 	         }
 	      });
