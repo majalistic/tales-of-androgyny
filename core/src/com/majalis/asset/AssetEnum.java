@@ -52,6 +52,10 @@ public enum AssetEnum {
 	CHARISMA("stats/Charisma.png"), 
 	
 	SLASH("animation/ClawAttack.png"),
+	
+	// sounds
+	UNPLUGGED_POP("sounds/UnpluggedPop.wav")
+	
 	;
 	
 	private final String path;

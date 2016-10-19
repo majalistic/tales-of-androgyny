@@ -67,6 +67,7 @@ public class Battle extends Group{
 	public int battleEndCount;
 	private int selection;
 	private final AnimatedImage slash;
+	private final Sound pop;
 	
 	public Battle(SaveService saveService, AssetManager assetManager, BitmapFont font, PlayerCharacter character, EnemyCharacter enemy, int victoryScene, int defeatScene, Background battleBackground, Background battleUI){
 		this.saveService = saveService;
@@ -114,6 +115,8 @@ public class Battle extends Group{
 		slash.addAction(Actions.moveTo(500, 0));
 		
 		this.addActor(slash);
+		
+		pop = assetManager.get(AssetEnum.UNPLUGGED_POP.getPath(), Sound.class);
 	}
 	
 	private void addCharacter(AbstractCharacter character){
@@ -259,6 +262,7 @@ public class Battle extends Group{
 	private void resolveTechniques(AbstractCharacter firstCharacter, Technique firstTechnique, AbstractCharacter secondCharacter, Technique secondTechnique) {
 		console = "";
 		
+		Stance oldStance = firstCharacter.getStance();
 		
 		printToConsole(firstCharacter.getStanceTransform(firstTechnique));
 		printToConsole(secondCharacter.getStanceTransform(secondTechnique));
@@ -275,6 +279,10 @@ public class Battle extends Group{
 		
 		printToConsole(firstCharacter.receiveAttack(attackForFirstCharacter));
 		printToConsole(secondCharacter.receiveAttack(attackForSecondCharacter));		
+		
+		if ( (oldStance == Stance.ANAL || oldStance == Stance.DOGGY) && (firstCharacter.getStance() != Stance.ANAL && firstCharacter.getStance() != Stance.DOGGY)){
+			pop.play(.5f);
+		}
 		
 		if (secondCharacter.getBattleOver() >= 5){
 			battleOver = true;
