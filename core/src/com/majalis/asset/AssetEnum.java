@@ -55,8 +55,10 @@ public enum AssetEnum {
 	
 	// sounds
 	INTRO_SOUND("sounds/IntroSound.wav"),
-	UNPLUGGED_POP("sounds/UnpluggedPop.wav")
-	
+	UNPLUGGED_POP("sounds/UnpluggedPop.wav"),
+	ATTACK_SOUND("sounds/AttackSound.wav"),
+	HIT_SOUND("sounds/HitSound.wav"),
+	THWAPPING("sounds/Thwapping.wav")	
 	;
 	
 	private final String path;

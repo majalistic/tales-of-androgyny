@@ -68,6 +68,10 @@ public class Battle extends Group{
 	private int selection;
 	private final AnimatedImage slash;
 	private final Sound pop;
+	private final Sound attackSound;
+	private final Sound hitSound;
+	private final Sound thwapping;
+	private final Array<SoundTimer> soundBuffer;
 	
 	public Battle(SaveService saveService, AssetManager assetManager, BitmapFont font, PlayerCharacter character, EnemyCharacter enemy, int victoryScene, int defeatScene, Background battleBackground, Background battleUI){
 		this.saveService = saveService;
@@ -117,6 +121,10 @@ public class Battle extends Group{
 		this.addActor(slash);
 		
 		pop = assetManager.get(AssetEnum.UNPLUGGED_POP.getPath(), Sound.class);
+		attackSound = assetManager.get(AssetEnum.ATTACK_SOUND.getPath(), Sound.class);
+		hitSound = assetManager.get(AssetEnum.HIT_SOUND.getPath(), Sound.class);
+		thwapping = assetManager.get(AssetEnum.THWAPPING.getPath(), Sound.class);
+		soundBuffer = new Array<SoundTimer>();
 	}
 	
 	private void addCharacter(AbstractCharacter character){
@@ -186,6 +194,14 @@ public class Battle extends Group{
 	}
 
 	public void battleLoop() {
+		Array<SoundTimer> toRemove = new Array<SoundTimer>();
+		for (SoundTimer timer : soundBuffer){
+			if (timer.decreaseTime()){
+				toRemove.add(timer);
+			}
+		}
+		soundBuffer.removeAll(toRemove, true);
+		
 		if(Gdx.input.isKeyJustPressed(Keys.UP)){
         	if (selection > 0) selection--;
         	else selection = options.size-1;
@@ -275,18 +291,55 @@ public class Battle extends Group{
 		
 		if (attackForFirstCharacter.isAttack()){
 			slash.setState(0);
+			soundBuffer.add(new SoundTimer(attackSound, 0, .5f));
+			if (attackForFirstCharacter.isSuccessful()){
+				soundBuffer.add(new SoundTimer(hitSound, 20, .3f));
+			}
+		}
+		if (attackForSecondCharacter.isAttack()){
+			soundBuffer.add(new SoundTimer(attackSound, 8, .5f));
+			if (attackForSecondCharacter.isSuccessful()){
+				soundBuffer.add(new SoundTimer(hitSound, 28, .3f));
+			}
 		}
 		
 		printToConsole(firstCharacter.receiveAttack(attackForFirstCharacter));
 		printToConsole(secondCharacter.receiveAttack(attackForSecondCharacter));		
 		
+		if ( (oldStance == Stance.ANAL || oldStance == Stance.DOGGY) && (firstCharacter.getStance() == Stance.ANAL || firstCharacter.getStance() == Stance.DOGGY)){
+			thwapping.play(.5f);
+		}
+		
 		if ( (oldStance == Stance.ANAL || oldStance == Stance.DOGGY) && (firstCharacter.getStance() != Stance.ANAL && firstCharacter.getStance() != Stance.DOGGY)){
-			pop.play(.5f);
+			thwapping.play(.5f);
+			soundBuffer.add(new SoundTimer(pop, 105, .3f));
 		}
 		
 		if (secondCharacter.getBattleOver() >= 5){
 			battleOver = true;
 			victory = false;
+		}
+	}
+	
+	private class SoundTimer{
+		int timeLeft;
+		Sound sound;
+		float volume;
+		
+		SoundTimer(Sound sound, int timeLeft, float volume){
+			this.sound = sound;
+			this.timeLeft = timeLeft;
+			this.volume = volume;
+		}
+		
+		public boolean decreaseTime(){
+			timeLeft--;
+			boolean played = timeLeft <= 0;
+			if (played){
+				sound.play(volume);
+				
+			}
+			return played;
 		}
 	}
 	

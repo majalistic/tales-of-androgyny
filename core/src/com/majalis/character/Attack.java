@@ -89,7 +89,7 @@ public class Attack {
 	protected Stance getForceStance(){
 		return forceStance;
 	}
-	protected boolean isSuccessful(){
+	public boolean isSuccessful(){
 		return success;
 	}
 

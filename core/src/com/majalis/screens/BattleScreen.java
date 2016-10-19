@@ -20,6 +20,10 @@ public class BattleScreen extends AbstractScreen{
 		resourceRequirements.put("uiskin.json", Skin.class);
 		resourceRequirements.put("sound.wav", Sound.class);
 		resourceRequirements.put(AssetEnum.UNPLUGGED_POP.getPath(), Sound.class);
+		resourceRequirements.put(AssetEnum.ATTACK_SOUND.getPath(), Sound.class);
+		resourceRequirements.put(AssetEnum.HIT_SOUND.getPath(), Sound.class);
+		resourceRequirements.put(AssetEnum.THWAPPING.getPath(), Sound.class);
+		
 		String[] textureArray = new String[]{
 			"WerebitchChibi.png", AssetEnum.BATTLE_BG.getPath(), AssetEnum.WEREBITCH.getPath(), AssetEnum.HARPY.getPath(), AssetEnum.SLIME.getPath(), AssetEnum.SLIME_DOGGY.getPath(), AssetEnum.BRIGAND.getPath(), AssetEnum.STANCE_ARROW.getPath(), AssetEnum.ANAL.getPath(), AssetEnum.BLITZ.getPath(),
 			AssetEnum.BALANCED.getPath(), AssetEnum.DEFENSIVE.getPath(), AssetEnum.DOGGY.getPath(), AssetEnum.ERUPT.getPath(), AssetEnum.FELLATIO.getPath(), AssetEnum.KNEELING.getPath(),
