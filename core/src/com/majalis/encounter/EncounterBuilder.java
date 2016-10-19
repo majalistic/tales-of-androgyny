@@ -236,7 +236,7 @@ public class EncounterBuilder {
 								assetManager,
 								"Do you enter the slime, or...?",
 								getArray(new String[]{"Go In", "Love Dart (Requires: Catamite)"}),
-								
+								getArray(new PlayerCharacter[]{null, character}),
 								getTextScenes(getScript(battleCode, 11), font, slimeBackground,
 									getTextScenes(getArray(new String[]{"You banged the slime!", "You receive 2 Experience."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.EXPERIENCE, 2)}), getEndScene(EndScene.Type.ENCOUNTER_OVER))
 								),
@@ -281,7 +281,7 @@ public class EncounterBuilder {
 								getTextScenes(
 									getScript(battleCode, 2), font, background,
 									getChoiceScene(
-										assetManager, "Accept her offer?", getArray(new String[]{"Accept (Requires: Catamite)", "Decline"}),
+										assetManager, "Accept her offer?", getArray(new String[]{"Accept (Requires: Catamite)", "Decline"}), getArray(new PlayerCharacter[]{character, null}),
 										getTextScenes(
 											getScript(battleCode, 3), font, background,
 											getChoiceScene(
@@ -384,7 +384,7 @@ public class EncounterBuilder {
 				getTextScenes(
 					getScript(battleCode, 0), font, background, 
 					getChoiceScene(
-						assetManager, "Do you offer her YOUR apple, or try to convince her to just hand it over?", getArray(new String[]{"Offer(Requires: Catamite)", "Plead with her"}),													
+						assetManager, "Do you offer her YOUR apple, or try to convince her to just hand it over?", getArray(new String[]{"Offer(Requires: Catamite)", "Plead with her"}), getArray(new PlayerCharacter[]{character, null}),												
 						getTextScenes(
 							getScript(battleCode, 1), font, background,
 							getTextScenes(
@@ -467,7 +467,7 @@ public class EncounterBuilder {
 		return sceneMap;
 	}
 	
-	private OrderedMap<Integer, Scene> getChoiceScene(AssetManager assetManager, String choiceDialogue, Array<String> buttonLabels, OrderedMap<Integer, Scene>... sceneMaps){
+	private OrderedMap<Integer, Scene> getChoiceScene(AssetManager assetManager, String choiceDialogue, Array<String> buttonLabels, Array<PlayerCharacter> checks, OrderedMap<Integer, Scene>... sceneMaps){
 		OrderedMap<Integer, Scene> sceneMap = aggregateMaps(sceneMaps);
 		
 		// use sceneMap to generate the table
@@ -481,11 +481,23 @@ public class EncounterBuilder {
 		int ii = 0;
 		for (String label  : buttonLabels){
 			TextButton button = new TextButton(label, skin);
-			button.addListener(getListener(choiceScene, sceneMap.get(sceneMap.orderedKeys().get(ii++)), buttonSound));
+			if (ii < checks.size && checks.get(ii) != null){
+				button.addListener(getListener(choiceScene, sceneMap.get(sceneMap.orderedKeys().get(ii)), buttonSound, checks.get(ii)));
+			}
+			else {
+				button.addListener(getListener(choiceScene, sceneMap.get(sceneMap.orderedKeys().get(ii)), buttonSound));
+			}
+			
 			table.add(button).width(360).height(40).row();
+			ii++;
 		}
 				
 		return addScene(choiceScene);
+		
+	}
+	
+	private OrderedMap<Integer, Scene> getChoiceScene(AssetManager assetManager, String choiceDialogue, Array<String> buttonLabels, OrderedMap<Integer, Scene>... sceneMaps){
+		return getChoiceScene(assetManager, choiceDialogue, buttonLabels, new Array<PlayerCharacter>(), sceneMaps);
 	}
 	
 	private ClickListener getListener(final AbstractChoiceScene currentScene, final Scene nextScene, final Sound buttonSound){
@@ -496,6 +508,23 @@ public class EncounterBuilder {
 	        	// set new Scene as active based on choice
 	        	nextScene.setActive();
 	        	currentScene.finish();
+	        }
+	    };
+	}
+	
+	private ClickListener getListener(final AbstractChoiceScene currentScene, final Scene nextScene, final Sound buttonSound, final PlayerCharacter character){
+		return new ClickListener(){
+	        @Override
+	        public void clicked(InputEvent event, float x, float y) {
+	        	if (!character.isLewd()){
+	        		// this should actually disable the button, but not as part of an on-click event
+	        	}
+	        	else {
+	        		buttonSound.play(.5f);
+		        	// set new Scene as active based on choice
+		        	nextScene.setActive();
+		        	currentScene.finish();
+	        	}
 	        }
 	    };
 	}
@@ -574,6 +603,7 @@ public class EncounterBuilder {
 	
 	private Array<String> getArray(String[] array){ return new Array<String>(true, array, 0, array.length); }
 	private Array<Mutation> getArray(Mutation[] array){ return new Array<Mutation>(true, array, 0, array.length); }
+	private Array<PlayerCharacter> getArray(PlayerCharacter[] array) { return new Array<PlayerCharacter>(true, array, 0, array.length);  }
 	
 	private Scene getStartScene(Array<Scene> scenes, Integer sceneCode){
 		// default case	
