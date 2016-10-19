@@ -185,9 +185,11 @@ public class Battle extends Group{
 	public void battleLoop() {
 		if(Gdx.input.isKeyJustPressed(Keys.UP)){
         	if (selection > 0) selection--;
-        }
+        	else selection = options.size-1;
+		}
         else if(Gdx.input.isKeyJustPressed(Keys.DOWN)){
         	if (selection < options.size- 1) selection++;
+        	else selection = 0;
         }
         else if(Gdx.input.isKeyJustPressed(Keys.ENTER)){
         	selectedTechnique = options.get(selection);

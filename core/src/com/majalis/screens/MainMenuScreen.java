@@ -83,9 +83,11 @@ public class MainMenuScreen extends AbstractScreen {
         
         if(Gdx.input.isKeyJustPressed(Keys.UP)){
         	if (selection > 0) selection--;
+        	else selection = buttons.size-1;
         }
         else if(Gdx.input.isKeyJustPressed(Keys.DOWN)){
         	if (selection < buttons.size- 1) selection++;
+        	else selection = 0;
         }
         else if(Gdx.input.isKeyJustPressed(Keys.ENTER)){
         	InputEvent event1 = new InputEvent();
