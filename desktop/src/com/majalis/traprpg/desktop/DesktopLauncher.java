@@ -1,5 +1,9 @@
 package com.majalis.traprpg.desktop;
 
+import java.lang.Thread.UncaughtExceptionHandler;
+
+import org.lwjgl.Sys;
+
 import com.badlogic.gdx.Files;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
@@ -19,6 +23,15 @@ public class DesktopLauncher {
 		//config.fullscreen = true;
 		//config.vSyncEnabled = true;
 		config.allowSoftwareMode = true;
+		
+		Thread.setDefaultUncaughtExceptionHandler(new UncaughtExceptionHandler() {
+	         @Override
+	         public void uncaughtException (Thread thread, final Throwable ex) {
+	            System.err.println("Critical Failure" + ex.getLocalizedMessage());
+	            Sys.alert("Critical Failure", "Sorry, fatal error - please let Majalis know!  Error: " + ex.getLocalizedMessage());
+	         }
+	      });
+		
 		new LwjglApplication(new TrapRPG(), config);
 	}
 }
