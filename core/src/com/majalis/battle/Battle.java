@@ -257,7 +257,6 @@ public class Battle extends Group{
 	private void resolveTechniques(AbstractCharacter firstCharacter, Technique firstTechnique, AbstractCharacter secondCharacter, Technique secondTechnique) {
 		console = "";
 		
-		slash.setState(0);
 		
 		printToConsole(firstCharacter.getStanceTransform(firstTechnique));
 		printToConsole(secondCharacter.getStanceTransform(secondTechnique));
@@ -267,7 +266,11 @@ public class Battle extends Group{
 		
 		Attack attackForFirstCharacter = secondCharacter.doAttack(secondTechnique.resolve(firstTechnique));
 		Attack attackForSecondCharacter = firstCharacter.doAttack(firstTechnique.resolve(secondTechnique));
-
+		
+		if (attackForFirstCharacter.isAttack()){
+			slash.setState(0);
+		}
+		
 		printToConsole(firstCharacter.receiveAttack(attackForFirstCharacter));
 		printToConsole(secondCharacter.receiveAttack(attackForSecondCharacter));		
 		

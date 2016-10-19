@@ -59,7 +59,8 @@ public class Technique {
 			technique.isGrapple() ? strength + technique.getPowerMod() : 0,
 			technique.getClimaxType(), getForceStance(),
 			technique.isSpell(),
-			new Buff(technique.getBuff(), strength + technique.getPowerMod())
+			new Buff(technique.getBuff(), strength + technique.getPowerMod()),
+			technique.isDamaging() && !technique.doesSetDamage()
 		);
 	}
 	
