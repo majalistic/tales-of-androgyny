@@ -1,9 +1,11 @@
 package com.majalis.screens;
 
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.utils.ObjectMap;
+import com.majalis.asset.AssetEnum;
 /*
  * Splash screen for initial load.
  */
@@ -13,6 +15,7 @@ public class SplashScreen extends AbstractScreen {
 	private final BitmapFont largeFont;
 	private final int minTime;
 	private int clocktick;
+	private Sound sound;
 	
 	public SplashScreen(ScreenFactory factory, ScreenElements elements, AssetManager assetManager, int minTime) {
 		super(factory, elements);
@@ -24,6 +27,10 @@ public class SplashScreen extends AbstractScreen {
 
 	@Override
 	public void buildStage() {
+		assetManager.load(AssetEnum.INTRO_SOUND.getPath(), Sound.class);
+		assetManager.finishLoading();
+		sound = assetManager.get(AssetEnum.INTRO_SOUND.getPath(), Sound.class);
+		
 		// asynchronous
 		ObjectMap<String, Class<?>> pathToType = MainMenuScreen.resourceRequirements;
 		for (String path: pathToType.keys()){
@@ -31,6 +38,8 @@ public class SplashScreen extends AbstractScreen {
 				assetManager.load(path, pathToType.get(path));
 			}
 		}
+		
+		
 	}
 	
 	@Override
@@ -49,5 +58,11 @@ public class SplashScreen extends AbstractScreen {
 			showScreen(ScreenEnum.MAIN_MENU);
 		}
 		batch.end();
+	}
+	
+	@Override
+	public void show(){
+		super.show();
+		sound.play(.7f);
 	}
 }

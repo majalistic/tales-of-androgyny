@@ -54,6 +54,7 @@ public enum AssetEnum {
 	SLASH("animation/ClawAttack.png"),
 	
 	// sounds
+	INTRO_SOUND("sounds/IntroSound.wav"),
 	UNPLUGGED_POP("sounds/UnpluggedPop.wav")
 	
 	;
