@@ -297,9 +297,9 @@ public class Battle extends Group{
 			}
 		}
 		if (attackForSecondCharacter.isAttack()){
-			soundBuffer.add(new SoundTimer(attackSound, 8, .5f));
+			soundBuffer.add(new SoundTimer(attackSound, 15, .5f));
 			if (attackForSecondCharacter.isSuccessful()){
-				soundBuffer.add(new SoundTimer(hitSound, 28, .3f));
+				soundBuffer.add(new SoundTimer(hitSound, 35, .3f));
 			}
 		}
 		
