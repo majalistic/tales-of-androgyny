@@ -103,7 +103,7 @@ public class EnemyCharacter extends AbstractCharacter {
 			case SUPINE:
 				return getTechniques(Techniques.KIP_UP, Techniques.STAND_UP, Techniques.KNEE_UP, stance == Stance.PRONE ? Techniques.REST_FACE_DOWN : Techniques.REST);
 			case KNEELING:
-				return getTechniques(Techniques.STAND_UP);
+				return getTechniques(Techniques.STAND_UP, Techniques.STAY_KNELT);
 			case DOGGY:
 				lust++;
 				if (enemyType != EnemyEnum.WERESLUT && lust > 14){
