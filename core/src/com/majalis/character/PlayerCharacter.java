@@ -77,7 +77,7 @@ public class PlayerCharacter extends AbstractCharacter {
 	
 	private static ObjectSet<Techniques> getBaseTechniques(){
 		ObjectSet<Techniques> baseTechniques = new ObjectSet<Techniques>();
-		baseTechniques.addAll(Techniques.POWER_ATTACK, Techniques.TEMPO_ATTACK, Techniques.RESERVED_ATTACK, Techniques.DUCK, Techniques.SPRING_ATTACK, Techniques.NEUTRAL_ATTACK, Techniques.REVERSAL_ATTACK, Techniques.CAREFUL_ATTACK, Techniques.BLOCK, Techniques.GUARD, Techniques.KIP_UP, Techniques.STAND_UP,
+		baseTechniques.addAll(Techniques.POWER_ATTACK, Techniques.TEMPO_ATTACK, Techniques.RESERVED_ATTACK, Techniques.DUCK, Techniques.SPRING_ATTACK, Techniques.NEUTRAL_ATTACK, Techniques.REVERSAL_ATTACK, Techniques.CAREFUL_ATTACK, Techniques.BLOCK, Techniques.GUARD, Techniques.KIP_UP, Techniques.STAND_UP, Techniques.STAY_KNELT,
 		Techniques.KNEE_UP, Techniques.REST_FACE_DOWN, Techniques.REST, Techniques.JUMP_ATTACK, Techniques.RECEIVE_ANAL, Techniques.RECEIVE_DOGGY, Techniques.STRUGGLE_ORAL, Techniques.STRUGGLE_DOGGY, Techniques.STRUGGLE_ANAL, Techniques.RECEIVE_KNOT, Techniques.OPEN_WIDE, Techniques.BREAK_FREE_ANAL, Techniques.BREAK_FREE_ORAL);
 		return baseTechniques;
 	}
@@ -129,7 +129,7 @@ public class PlayerCharacter extends AbstractCharacter {
 			case SUPINE:
 				return getTechniques(Techniques.KIP_UP, Techniques.STAND_UP, Techniques.KNEE_UP, stance == Stance.PRONE ? Techniques.REST_FACE_DOWN : Techniques.REST);
 			case KNEELING:
-				return getTechniques(Techniques.STAND_UP);
+				return getTechniques(Techniques.STAND_UP, Techniques.STAY_KNELT);
 			case AIRBORNE:
 				return getTechniques(Techniques.JUMP_ATTACK);
 			case DOGGY:
