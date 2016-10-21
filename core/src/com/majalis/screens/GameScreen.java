@@ -11,6 +11,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -22,6 +23,7 @@ import com.majalis.asset.AssetEnum;
 import com.majalis.character.PlayerCharacter;
 import com.majalis.save.LoadService;
 import com.majalis.save.SaveEnum;
+import com.majalis.save.SaveService;
 import com.majalis.world.Cloud;
 import com.majalis.world.GameWorld;
 /*
@@ -30,6 +32,7 @@ import com.majalis.world.GameWorld;
 public class GameScreen extends AbstractScreen {
 
 	private final AssetManager assetManager;
+	private final SaveService saveService;
 	private final GameWorld world;
 	private final Texture food;
 	private final Array<Texture> grasses;
@@ -37,10 +40,10 @@ public class GameScreen extends AbstractScreen {
 	private final Texture trees;
 	private final Texture cloud;
 	private final Texture UI;
-	private final int foodAmount;
 	private final PlayerCharacter character;
 	private final Group cloudGroup;
 	private TextButton characterButton;
+	private TextButton camp;
 	
 	public static final ObjectMap<String, Class<?>> resourceRequirements = new ObjectMap<String, Class<?>>();
 	static {
@@ -63,12 +66,12 @@ public class GameScreen extends AbstractScreen {
 		resourceRequirements.put(AssetEnum.ARROW.getPath(), Texture.class);
 		resourceRequirements.put(AssetEnum.CHARACTER_SCREEN.getPath(), Texture.class);
 	}
-	public GameScreen(ScreenFactory factory, ScreenElements elements, AssetManager assetManager, LoadService loadService, GameWorld world) {
+	public GameScreen(ScreenFactory factory, ScreenElements elements, AssetManager assetManager, SaveService saveService, LoadService loadService, GameWorld world) {
 		super(factory, elements);
 		this.assetManager = assetManager;
+		this.saveService = saveService;
 		int arb = loadService.loadDataValue(SaveEnum.NODE_CODE, Integer.class);
 		food = arb % 2 == 0 ? assetManager.get(AssetEnum.APPLE.getPath(), Texture.class) : assetManager.get(AssetEnum.MEAT.getPath(), Texture.class);
-		foodAmount = loadService.loadDataValue(SaveEnum.FOOD, Integer.class);
 		grasses = new Array<Texture>(true, new Texture[]{assetManager.get(AssetEnum.GRASS0.getPath(), Texture.class), assetManager.get(AssetEnum.GRASS1.getPath(), Texture.class), assetManager.get(AssetEnum.GRASS2.getPath(), Texture.class)}, 0, 3);
 		trees = assetManager.get(AssetEnum.FOREST_INACTIVE.getPath(), Texture.class);
 		cloud = assetManager.get(AssetEnum.CLOUD.getPath(), Texture.class);
@@ -129,6 +132,36 @@ public class GameScreen extends AbstractScreen {
 			}
 		);
 		this.addActor(characterButton);
+		
+		camp = new TextButton("Camp", skin);
+		
+		if (character.getFood() < 4){
+			TextButtonStyle style = new TextButtonStyle(camp.getStyle());
+			style.fontColor = Color.RED;
+			camp.setStyle(style);
+			camp.setTouchable(Touchable.disabled);
+		}
+		
+		camp.setWidth(120); 
+		camp.setHeight(40);
+		camp.addListener(
+			new ClickListener(){
+				@Override
+		        public void clicked(InputEvent event, float x, float y) {
+					buttonSound.play(.5f);
+					saveService.saveDataValue(SaveEnum.FOOD, -4);	   
+					saveService.saveDataValue(SaveEnum.HEALTH, 10);	
+					if (character.getFood() < 4){
+						TextButtonStyle style = new TextButtonStyle(camp.getStyle());
+						style.fontColor = Color.RED;
+						camp.setStyle(style);
+						camp.setTouchable(Touchable.disabled);
+					}
+		        }
+			}
+		);
+		this.addActor(camp);
+		
 	}
 	
 	@Override
@@ -153,6 +186,7 @@ public class GameScreen extends AbstractScreen {
 		
 		getCamera().translate(translationVector);
 		characterButton.addAction(Actions.moveTo(getCamera().position.x-450, getCamera().position.y-200));
+		camp.addAction(Actions.moveTo(getCamera().position.x-320, getCamera().position.y-200));
 		
 		if (Gdx.input.isKeyJustPressed(Keys.ENTER)){
 			showScreen(ScreenEnum.CHARACTER);
@@ -161,7 +195,7 @@ public class GameScreen extends AbstractScreen {
 			showScreen(ScreenEnum.MAIN_MENU);
 		}
 		else if (world.encounterSelected){
-			showScreen(ScreenEnum.ENCOUNTER);
+			showScreen(ScreenEnum.LOAD_GAME);
 		}
 		else {			
 			draw(delta);
@@ -204,7 +238,7 @@ public class GameScreen extends AbstractScreen {
 		batch.draw(food, camera.position.x+3, camera.position.y+3, 50, 50);
 		batch.draw(UI, camera.position.x+3, camera.position.y+3);
 		font.draw(batch, String.valueOf(character.getCurrentHealth()), camera.position.x+295, camera.position.y+125);
-		font.draw(batch, "X " + foodAmount, camera.position.x+23, camera.position.y+17);
+		font.draw(batch, "X " + character.getFood(), camera.position.x+23, camera.position.y+17);
 		batch.end();
 	}
 	

@@ -425,7 +425,7 @@ public class PlayerCharacter extends AbstractCharacter {
 	
 	public int getExperience(){ return experience; }
 
-	public void modFood(Integer foodChange) { food += foodChange; }
+	public void modFood(Integer foodChange) { food += foodChange; if (food < 0) food = 0; }
 
 	public Integer getFood() { return food; }
 

@@ -146,13 +146,18 @@ public class ScreenFactoryImpl implements ScreenFactory {
 			case WORLD_MAP: 
 				if (getAssetCheck(GameScreen.resourceRequirements)){
 					int worldSeed = loadService.loadDataValue(SaveEnum.WORLD_SEED, Integer.class);
-					return new GameScreen(this, elements, assetManager, loadService, gameWorldFactory.getGameWorld((OrthographicCamera)elements.getViewport().getCamera(), worldSeed));
+					return new GameScreen(this, elements, assetManager, saveService, loadService, gameWorldFactory.getGameWorld((OrthographicCamera)elements.getViewport().getCamera(), worldSeed));
 				}
 				else return null;
 			case BATTLE:
 				return getBattle(elements, character);
 			case LEVEL:
 				return getLevel(elements, character);
+			case GAME_OVER:
+				if (getAssetCheck(GameOverScreen.resourceRequirements)){
+					return new GameOverScreen(this, elements, assetManager);
+				}
+				else return null;
 			default: return null;
 		}	
 	}

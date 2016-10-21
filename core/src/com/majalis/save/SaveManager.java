@@ -255,6 +255,7 @@ public class SaveManager implements SaveService, LoadService{
 		ENCOUNTER,
 		WORLD_MAP,
 		BATTLE, 
-		LEVEL
+		LEVEL,
+		GAME_OVER
 	}
 }
