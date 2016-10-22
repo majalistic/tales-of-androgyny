@@ -220,7 +220,7 @@ public class Battle extends Group{
 		else {
 			Technique playerTechnique = getTechnique();
 			if (playerTechnique != null){		
-				buttonSound.play(.5f);
+				buttonSound.play(Gdx.app.getPreferences("trap-rpg-preferences").getFloat("volume") *.5f);
 	        	selection = 0;
 				// possibly construct a separate class for this
 				resolveTechniques(character, playerTechnique, enemy, enemy.getTechnique(character));
@@ -307,11 +307,11 @@ public class Battle extends Group{
 		printToConsole(secondCharacter.receiveAttack(attackForSecondCharacter));		
 		
 		if ( (oldStance == Stance.ANAL || oldStance == Stance.DOGGY) && (firstCharacter.getStance() == Stance.ANAL || firstCharacter.getStance() == Stance.DOGGY)){
-			thwapping.play(.5f);
+			thwapping.play(Gdx.app.getPreferences("trap-rpg-preferences").getFloat("volume") *.5f);
 		}
 		
 		if ( (oldStance == Stance.ANAL || oldStance == Stance.DOGGY) && (firstCharacter.getStance() != Stance.ANAL && firstCharacter.getStance() != Stance.DOGGY)){
-			thwapping.play(.5f);
+			thwapping.play(Gdx.app.getPreferences("trap-rpg-preferences").getFloat("volume") *.5f);
 			soundBuffer.add(new SoundTimer(pop, 105, .3f));
 		}
 		
@@ -336,7 +336,7 @@ public class Battle extends Group{
 			timeLeft--;
 			boolean played = timeLeft <= 0;
 			if (played){
-				sound.play(volume);
+				sound.play(Gdx.app.getPreferences("trap-rpg-preferences").getFloat("volume") *volume);
 				
 			}
 			return played;

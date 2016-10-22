@@ -78,7 +78,7 @@ public class CharacterScreen extends AbstractScreen {
 			new ClickListener(){
 				@Override
 		        public void clicked(InputEvent event, float x, float y) {
-					buttonSound.play(.5f);
+					buttonSound.play(Gdx.app.getPreferences("trap-rpg-preferences").getFloat("volume") *.5f);
 					saveService.saveDataValue(SaveEnum.CONTEXT, GameContext.WORLD_MAP);
 					showScreen(ScreenEnum.LOAD_GAME);		   
 		        }
@@ -100,7 +100,7 @@ public class CharacterScreen extends AbstractScreen {
 				new ClickListener(){
 					@Override
 			        public void clicked(InputEvent event, float x, float y) {
-						buttonSound.play(.5f);
+						buttonSound.play(Gdx.app.getPreferences("trap-rpg-preferences").getFloat("volume") *.5f);
 						if (levelup) character.levelUp();
 						saveService.saveDataValue(SaveEnum.PLAYER, character);
 						saveService.saveDataValue(SaveEnum.CONTEXT, GameContext.LEVEL);

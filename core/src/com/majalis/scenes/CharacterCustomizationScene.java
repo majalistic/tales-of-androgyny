@@ -1,5 +1,6 @@
 package com.majalis.scenes;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -68,7 +69,7 @@ public class CharacterCustomizationScene extends Scene {
 			new ClickListener(){
 				@Override
 		        public void clicked(InputEvent event, float x, float y) {
-					buttonSound.play(.5f);
+					buttonSound.play(Gdx.app.getPreferences("trap-rpg-preferences").getFloat("volume") *.5f);
 					nextScene();		   
 		        }
 			}
@@ -83,7 +84,7 @@ public class CharacterCustomizationScene extends Scene {
 			button.addListener(new ClickListener(){
 				@Override
 		        public void clicked(InputEvent event, float x, float y) {
-					buttonSound.play(.5f);
+					buttonSound.play(Gdx.app.getPreferences("trap-rpg-preferences").getFloat("volume") *.5f);
 					console = "You now have a " + buttSize.toString().toLowerCase() + " booty.";
 					character.setBootyliciousness(buttSize);
 					saveService.saveDataValue(SaveEnum.PLAYER, character);

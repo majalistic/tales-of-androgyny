@@ -126,7 +126,7 @@ public class GameScreen extends AbstractScreen {
 			new ClickListener(){
 				@Override
 		        public void clicked(InputEvent event, float x, float y) {
-					buttonSound.play(.5f);
+					buttonSound.play(Gdx.app.getPreferences("trap-rpg-preferences").getFloat("volume") *.5f);
 					showScreen(ScreenEnum.CHARACTER);		   
 		        }
 			}
@@ -148,7 +148,7 @@ public class GameScreen extends AbstractScreen {
 			new ClickListener(){
 				@Override
 		        public void clicked(InputEvent event, float x, float y) {
-					buttonSound.play(.5f);
+					buttonSound.play(Gdx.app.getPreferences("trap-rpg-preferences").getFloat("volume") *.5f);
 					saveService.saveDataValue(SaveEnum.FOOD, -4);	   
 					saveService.saveDataValue(SaveEnum.HEALTH, 10);	
 					if (character.getFood() < 4){

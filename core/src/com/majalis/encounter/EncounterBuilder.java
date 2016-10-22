@@ -1,5 +1,6 @@
 package com.majalis.encounter;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
@@ -504,7 +505,7 @@ public class EncounterBuilder {
 		return new ClickListener(){
 	        @Override
 	        public void clicked(InputEvent event, float x, float y) {
-	        	buttonSound.play(.5f);
+	        	buttonSound.play(Gdx.app.getPreferences("trap-rpg-preferences").getFloat("volume") *.5f);
 	        	// set new Scene as active based on choice
 	        	nextScene.setActive();
 	        	currentScene.finish();
@@ -520,7 +521,7 @@ public class EncounterBuilder {
 	        		// this should actually disable the button, but not as part of an on-click event
 	        	}
 	        	else {
-	        		buttonSound.play(.5f);
+	        		buttonSound.play(Gdx.app.getPreferences("trap-rpg-preferences").getFloat("volume") *.5f);
 		        	// set new Scene as active based on choice
 		        	nextScene.setActive();
 		        	currentScene.finish();

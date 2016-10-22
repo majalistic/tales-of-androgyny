@@ -1,5 +1,6 @@
 package com.majalis.world;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
@@ -121,7 +122,7 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 		this.addListener(new ClickListener(){ 
 			@Override
 	        public void clicked(InputEvent event, float x, float y) {
-				sound.play(.5f);
+				sound.play(Gdx.app.getPreferences("trap-rpg-preferences").getFloat("volume") *.5f);
 				visit();
 			}
 			@Override

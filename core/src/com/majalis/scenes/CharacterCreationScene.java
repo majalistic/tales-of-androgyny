@@ -1,5 +1,6 @@
 package com.majalis.scenes;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
@@ -62,7 +63,7 @@ public class CharacterCreationScene extends Scene {
 			new ClickListener(){
 				@Override
 		        public void clicked(InputEvent event, float x, float y) {
-					buttonSound.play(.5f);
+					buttonSound.play(Gdx.app.getPreferences("trap-rpg-preferences").getFloat("volume") *.5f);
 					nextScene();		   
 		        }
 			}
@@ -127,7 +128,7 @@ public class CharacterCreationScene extends Scene {
 			buttonDown.addListener(new ClickListener(){
 				@Override
 		        public void clicked(InputEvent event, float x, float y) {
-					buttonSound.play(.5f);
+					buttonSound.play(Gdx.app.getPreferences("trap-rpg-preferences").getFloat("volume") *.5f);
 					int currentStatAllocation = statMap.get(stat);
 					if (currentStatAllocation > 0 || (currentStatAllocation > -1 && statsAtNegative() < 2)){
 						character.setStat(stat, character.getBaseStat(stat)-1);
@@ -164,7 +165,7 @@ public class CharacterCreationScene extends Scene {
 			button.addListener(new ClickListener(){
 				@Override
 		        public void clicked(InputEvent event, float x, float y) {
-					buttonSound.play(.5f);
+					buttonSound.play(Gdx.app.getPreferences("trap-rpg-preferences").getFloat("volume") *.5f);
 					classMessage = "You are now " + getJobClass(jobClass) + ".\n"
 									+ getClassFeatures(jobClass);
 					statGroup.removeAction(Actions.hide());

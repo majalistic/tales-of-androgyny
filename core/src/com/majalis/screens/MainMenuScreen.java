@@ -125,7 +125,7 @@ public class MainMenuScreen extends AbstractScreen {
 		return new ClickListener(){
 	        @Override
 	        public void clicked(InputEvent event, float x, float y) {
-	        	buttonSound.play(.5f);
+	        	buttonSound.play(Gdx.app.getPreferences("trap-rpg-preferences").getFloat("volume") *.5f);
         		if (screenSelection == ScreenEnum.NEW_GAME){
         			// ONLY CALL THIS TO DESTROY OLD DATA AND REPLACE WITH A BRAND NEW SAVE
         			saveService.newSave();
