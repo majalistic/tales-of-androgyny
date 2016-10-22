@@ -5,8 +5,11 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -28,9 +31,10 @@ public class CharacterCreationScene extends Scene {
 	private final PlayerCharacter character;
 	private String classMessage;
 	private String statMessage;
+	private String statDescription;
 	private int statPoints;
 	private ObjectMap<Stat, Integer> statMap;
-	private ObjectMap<Stat, Texture> statTextureMap;
+	private Group statGroup;
 	
 	// needs a done button, as well as other interface elements
 	public CharacterCreationScene(OrderedMap<Integer, Scene> sceneBranches, int sceneCode, final SaveService saveService, BitmapFont font, Background background, AssetManager assetManager, final PlayerCharacter character) {
@@ -42,13 +46,13 @@ public class CharacterCreationScene extends Scene {
 
 		statPoints = 3;
 		statMap = resetObjectMap();
-		statTextureMap = new ObjectMap<Stat, Texture>();
 		
 		Skin skin = assetManager.get("uiskin.json", Skin.class);
 		buttonSound = assetManager.get("sound.wav", Sound.class);
 		
 		classMessage = "";
 		statMessage = "";
+		statDescription = "";
 		
 		final TextButton done = new TextButton("Done", skin);
 		
@@ -67,8 +71,28 @@ public class CharacterCreationScene extends Scene {
 
 		final Table statTable = new Table();
 		
+		statGroup = new Group();
+		
+		int offset = 0;
 		for (final Stat stat: Stat.values()){
-			statTextureMap.put(stat, assetManager.get(stat.getPath(), Texture.class));
+			Image statImage = new Image(assetManager.get(stat.getPath(), Texture.class));
+			statImage.setWidth(statImage.getWidth() / (statImage.getHeight() / 35));
+			statImage.setHeight(35);
+			statImage.addAction(Actions.moveTo(550, 475 - offset));
+			statImage.addListener(new ClickListener(){
+				@Override
+		        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
+					statDescription = stat.getDescription();
+				}
+				@Override
+		        public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
+					statDescription = "";
+				}
+			});
+
+			statGroup.addActor(statImage);
+			offset += 50;
+			
 			TextButton buttonUp = new TextButton("+", skin);
 			TextButton buttonDown = new TextButton("-", skin);
 			buttonUp.addListener(new ClickListener(){
@@ -130,6 +154,9 @@ public class CharacterCreationScene extends Scene {
 		}
 		statTable.addAction(Actions.moveTo(statTable.getX() + 515, statTable.getY() + 370));
 		
+		statGroup.addAction(Actions.hide());
+		this.addActor(statGroup);
+		
 		Table table = new Table();
 		
 		for (final SaveManager.JobClass jobClass: SaveManager.JobClass.values()){
@@ -140,6 +167,9 @@ public class CharacterCreationScene extends Scene {
 					buttonSound.play(.5f);
 					classMessage = "You are now " + getJobClass(jobClass) + ".\n"
 									+ getClassFeatures(jobClass);
+					statGroup.removeAction(Actions.hide());
+					statGroup.addAction(Actions.visible(true));
+					statGroup.addAction(Actions.show());
 					saveService.saveDataValue(SaveEnum.CLASS, jobClass);
 					if (statPoints == 0){
 						removeActor(done);
@@ -202,13 +232,17 @@ public class CharacterCreationScene extends Scene {
 		font.setColor(0.4f,0.4f,0.4f,1);
 		int base = 500;
 		font.draw(batch, classMessage, base-225, 600);
-		font.draw(batch, statMessage, base+100, 600);
+		if (statDescription.equals("")){
+			font.draw(batch, statMessage, base, 600);
+		}
+		else {
+			font.draw(batch, statDescription, base, 600);
+		}
+		
 		int offset = 0;
 		if (!classMessage.equals("")){
 			for (Stat stat: PlayerCharacter.Stat.values()){
 				font.setColor(0.6f,0.2f,0.1f,1);
-				Texture statTexture = statTextureMap.get(stat);
-				batch.draw(statTexture, base+50, 475 - offset, statTexture.getWidth() / (statTexture.getHeight() / 35), 35);
 				font.draw(batch, ": ", base+210, 500 - offset);
 				int amount = character.getBaseStat(stat);
 				setFontColor(font, amount);
