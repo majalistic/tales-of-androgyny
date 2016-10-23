@@ -5,7 +5,6 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -17,7 +16,6 @@ import com.majalis.asset.AssetEnum;
 public class SplashScreen extends AbstractScreen {
 
 	private final AssetManager assetManager;
-	private final BitmapFont largeFont;
 	private final int minTime;
 	private int clocktick;
 	private Sound sound;
@@ -28,7 +26,6 @@ public class SplashScreen extends AbstractScreen {
 	public SplashScreen(ScreenFactory factory, ScreenElements elements, AssetManager assetManager, int minTime) {
 		super(factory, elements);
 		this.assetManager = assetManager;
-		this.largeFont = fontFactory.getFont(72);
 		this.minTime = minTime;
 		clocktick = 0;
 	}
