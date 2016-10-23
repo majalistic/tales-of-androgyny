@@ -8,10 +8,13 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Slider;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.majalis.asset.AssetEnum;
 /*
@@ -29,6 +32,7 @@ public class OptionScreen extends AbstractScreen {
 	public OptionScreen(ScreenFactory factory, ScreenElements elements, AssetManager assetManager) {
 		super(factory, elements);
 		Skin skin = assetManager.get(AssetEnum.UI_SKIN.getPath(), Skin.class);
+		final Sound sound = assetManager.get(AssetEnum.BUTTON_SOUND.getPath(), Sound.class);
 		final Slider slider = new Slider(0, 1, .1f, false, skin);
 		preferences  = Gdx.app.getPreferences("trap-rpg-preferences");
 		
@@ -38,10 +42,28 @@ public class OptionScreen extends AbstractScreen {
 	        public void changed(ChangeEvent event, Actor actor) {
 	            final float val = slider.getValue();
 	            preferences.putFloat("volume", val);
+	            sound.play(preferences.getFloat("volume") *.5f);
 	        }
 	    });
 		slider.addAction(Actions.moveTo(500, 400));
 		this.addActor(slider);
+		
+		final TextButton done = new TextButton("Done", skin);
+		
+		done.setWidth(180);
+		done.setHeight(40);
+		done.addListener(
+			new ClickListener(){
+				@Override
+		        public void clicked(InputEvent event, float x, float y) {
+					sound.play(preferences.getFloat("volume") *.5f);
+					showScreen(ScreenEnum.MAIN_MENU);		   
+		        }
+			}
+		);
+		done.addAction(Actions.moveTo(done.getX() + 1015, done.getY() + 20));
+		this.addActor(done);
+		
 	}
 
 	@Override

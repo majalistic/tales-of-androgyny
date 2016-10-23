@@ -77,5 +77,21 @@ public class ReplayScreen extends AbstractScreen {
         table.setFillParent(true);        
         this.addActor(table);
         table.addAction(Actions.moveTo(330, 130));
+        
+		final TextButton done = new TextButton("Done", skin);
+		
+		done.setWidth(180);
+		done.setHeight(40);
+		done.addListener(
+			new ClickListener(){
+				@Override
+		        public void clicked(InputEvent event, float x, float y) {
+					sound.play(Gdx.app.getPreferences("trap-rpg-preferences").getFloat("volume") *.5f);
+					showScreen(ScreenEnum.MAIN_MENU);		   
+		        }
+			}
+		);
+		done.addAction(Actions.moveTo(done.getX() + 1015, done.getY() + 20));
+		this.addActor(done);
 	}
 }
