@@ -59,7 +59,7 @@ public class EncounterScreen extends AbstractScreen {
 		for (Actor actor: encounter.getActors()){
 			this.addActor(actor);
 		}        	
-		music.setVolume(Gdx.app.getPreferences("trap-rpg-preferences").getFloat("musicVolume") * .7f);
+		music.setVolume(Gdx.app.getPreferences("trap-rpg-preferences").getFloat("musicVolume") * .6f);
 		music.setLooping(true);
 		music.play();
 	}
