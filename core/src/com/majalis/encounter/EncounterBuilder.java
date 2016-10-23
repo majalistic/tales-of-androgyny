@@ -73,7 +73,7 @@ public class EncounterBuilder {
 		getTextScenes(
 			getScript("INTRO"), font, background,
 			getGameTypeScene(
-				assetManager, getArray(new String[]{"Create Character", "Default"}),		
+				assetManager, getArray(new String[]{"Create Character", "Story (Patrons)"}),		
 				getTextScenes(
 					new String[]{"You've selected to create your character!", "Please choose your class."}, font, background,
 					getCharacterCreationScene(

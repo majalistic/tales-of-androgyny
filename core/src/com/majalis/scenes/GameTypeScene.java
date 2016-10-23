@@ -3,6 +3,7 @@ package com.majalis.scenes;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -35,7 +36,8 @@ public class GameTypeScene extends AbstractChoiceScene {
         	button.setWidth(184);
         }
         buttons.get(0).addAction(Actions.moveTo(1030, 240));
-        buttons.get(1).addAction(Actions.moveTo(78, 240));		
+        buttons.get(1).addAction(Actions.moveTo(78, 240));	
+        buttons.get(1).setTouchable(Touchable.disabled);
 	}
 
 	@Override
