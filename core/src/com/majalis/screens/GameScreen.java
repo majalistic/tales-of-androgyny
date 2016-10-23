@@ -84,9 +84,6 @@ public class GameScreen extends AbstractScreen {
 		camera.translate(initialTranslation);
 		camera.update();
 		this.world = world;
-		red = .137f;
-		green = .007f;
-		blue = .047f;
 		callClear = false;
 		grassMap = new int[102][102];
 		for (int ii = 101; ii >= 0; ii--){

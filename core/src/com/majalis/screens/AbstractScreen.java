@@ -17,9 +17,6 @@ public abstract class AbstractScreen extends Stage implements Screen {
 	protected final SpriteBatch batch;
 	protected final BitmapFont font;
 	protected final ScreenElements fontFactory;
-	protected float red;
-	protected float green;
-	protected float blue;
 	protected boolean callClear;
 	
     protected AbstractScreen(ScreenFactory screenFactory, ScreenElements elements) {
@@ -29,9 +26,6 @@ public abstract class AbstractScreen extends Stage implements Screen {
         this.batch = elements.getBatch();
         this.fontFactory = elements;
         this.font = elements.getFont(18);
-        red = 0;
-        green = 0;
-        blue = 0;
         callClear = true;
     }
  
@@ -54,7 +48,7 @@ public abstract class AbstractScreen extends Stage implements Screen {
      
     public void clear(){
         // Clear screen
-        Gdx.gl.glClearColor(red, green, blue, 1);
+        Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
     }
     
