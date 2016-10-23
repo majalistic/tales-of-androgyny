@@ -4,8 +4,8 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.IntArray;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.ObjectSet;
-import com.majalis.asset.AssetEnum;
 import com.majalis.save.SaveManager.JobClass;
+
 /*
  * Contains the current player character's statistics, including "party" statistics like food remaining
  */
@@ -229,28 +229,6 @@ public class PlayerCharacter extends AbstractCharacter {
 	
 	public enum LipFullness {
 		POUTY
-	}
-	
-	public enum Stat {
-		STRENGTH(AssetEnum.STRENGTH.getPath(), "Strength determines raw attack power, which affects damage,\nhow much attacks unbalance an enemies,\nand contests of strength, such aswrestling, struggling,\nor weapon locks."),
-		ENDURANCE(AssetEnum.ENDURANCE.getPath(), "Endurance determines stamina and resilience, which affects\nyour ability to keep up an assault without getting tired,\nyour ability to shrug off low damage attacks,\nand wear heavier armor without being tired."),
-		AGILITY(AssetEnum.AGILITY.getPath(), "Agility determines balance and skill,affecting your ability\nto keep a sure footing even while doing acrobatic maneuvers,\ngetting unblockable attacks against enemies,\nand evading enemy attacks."),
-		PERCEPTION(AssetEnum.PERCEPTION.getPath(), "Perception determines your ability to see what attacks\nan enemy may use next and prepare accordingly,\nas well as your base scouting ability, which determines\nwhat information you can see about upcoming areas."),
-		MAGIC(AssetEnum.MAGIC.getPath(), "Magic determines your magical capabilities, such as how powerful\nmagic spells are, and how many of them you can\ncast before becoming magically exhausted."),
-		CHARISMA(AssetEnum.CHARISMA.getPath(), "Charisma determines your ability to influence an enemy,\ngetting them\to calm down and listen to reason, enraging them,\nor seducing them.");
-
-		private final String path;
-		private final String description;
-		private Stat(String path, String description){
-			this.path = path;
-			this.description = description;
-		}
-		public String getPath() {
-			return path;
-		}
-		public String getDescription() {
-			return description;
-		}
 	}
 
 	public int getStat(Stat stat) {

@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.utils.OrderedMap;
 import com.majalis.character.PlayerCharacter;
-import com.majalis.character.PlayerCharacter.Stat;
+import com.majalis.character.AbstractCharacter.Stat;
 import com.majalis.encounter.Background;
 import com.majalis.save.SaveService;
 

@@ -18,7 +18,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.majalis.asset.AssetEnum;
 import com.majalis.character.PlayerCharacter;
-import com.majalis.character.PlayerCharacter.Stat;
+import com.majalis.character.AbstractCharacter.Stat;
 import com.majalis.encounter.Background;
 import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveManager.GameContext;

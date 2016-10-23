@@ -28,7 +28,7 @@ import com.majalis.asset.AssetEnum;
 import com.majalis.character.AbstractCharacter;
 import com.majalis.character.AbstractCharacter.Stance;
 import com.majalis.character.Attack;
-import com.majalis.character.PlayerCharacter.Stat;
+import com.majalis.character.AbstractCharacter.Stat;
 import com.majalis.character.EnemyCharacter;
 import com.majalis.character.PlayerCharacter;
 import com.majalis.character.Technique;

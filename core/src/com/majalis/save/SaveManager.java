@@ -15,7 +15,7 @@ import com.majalis.battle.BattleCode;
 import com.majalis.character.EnemyCharacter;
 import com.majalis.character.Perk;
 import com.majalis.character.PlayerCharacter;
-import com.majalis.character.PlayerCharacter.Stat;
+import com.majalis.character.AbstractCharacter.Stat;
 import com.majalis.character.Techniques;
 /*
  * Used for file handling, both reading and writing - both game files and encounter replay files.

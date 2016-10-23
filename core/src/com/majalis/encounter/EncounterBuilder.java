@@ -19,7 +19,7 @@ import com.majalis.battle.BattleFactory.EnemyEnum;
 import com.majalis.character.PlayerCharacter;
 import com.majalis.character.Techniques;
 import com.majalis.character.AbstractCharacter.Stance;
-import com.majalis.character.PlayerCharacter.Stat;
+import com.majalis.character.AbstractCharacter.Stat;
 import com.majalis.save.ProfileEnum;
 import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveManager.JobClass;
