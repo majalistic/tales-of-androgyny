@@ -19,7 +19,7 @@ import com.majalis.world.GameWorldFactory;
  */
 public class TrapRPG extends Game {
 	public void create() {	
-		SaveManager saveManager = new SaveManager(false, "data/save.json");
+		SaveManager saveManager = new SaveManager(false, "data/save.json", "data/profile.json");
 		EncounterReader encounterReader = new EncounterReader("script/encounters.json");
 		AssetManager assetManager = new AssetManager();
         FreeTypeFontGenerator fontGenerator = new FreeTypeFontGenerator(Gdx.files.classpath("solstice.ttf"));

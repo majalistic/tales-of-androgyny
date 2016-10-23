@@ -13,6 +13,7 @@ import com.majalis.battle.BattleFactory;
 import com.majalis.character.PlayerCharacter;
 import com.majalis.encounter.EncounterFactory;
 import com.majalis.save.LoadService;
+import com.majalis.save.ProfileEnum;
 import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveManager;
 import com.majalis.save.SaveService;
@@ -48,6 +49,7 @@ public class ScreenFactoryImpl implements ScreenFactory {
 		loading = true;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override  
 	public AbstractScreen getScreen(ScreenEnum screenRequest) {
 		OrthographicCamera camera = new OrthographicCamera();
@@ -93,10 +95,10 @@ public class ScreenFactoryImpl implements ScreenFactory {
 				break;
 			case REPLAY:
 				if (getAssetCheck(ReplayScreen.resourceRequirements)){
-					return new ReplayScreen(this, elements, assetManager);
+					return new ReplayScreen(this, elements, assetManager, (ObjectMap<String, Integer>) loadService.loadDataValue(ProfileEnum.KNOWLEDGE, ObjectMap.class));
 				}
 				break;
-			case EXIT: 		return new ExitScreen(this, elements);
+			case EXIT: 	return new ExitScreen(this, elements);
 		}
 		loading = true;
 		return new LoadScreen(this, elements, assetManager, screenRequest);

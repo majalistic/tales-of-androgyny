@@ -4,5 +4,6 @@ package com.majalis.save;
  */
 public interface SaveService {
     public void saveDataValue(SaveEnum key, Object object);    
+    public void saveDataValue(ProfileEnum key, Object object);  
     public void newSave();
 }

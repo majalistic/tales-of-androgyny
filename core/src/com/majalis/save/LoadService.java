@@ -4,5 +4,5 @@ package com.majalis.save;
  */
 public interface LoadService {
 	public <T> T loadDataValue(SaveEnum key, Class<?> type);
-
+	public <T> T loadDataValue(ProfileEnum key, Class<?> type);
 }

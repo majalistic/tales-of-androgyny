@@ -1,5 +1,6 @@
 package com.majalis.scenes;
 
+import com.majalis.save.ProfileEnum;
 import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveService;
 /*
@@ -8,12 +9,9 @@ import com.majalis.save.SaveService;
 public class Mutation {
 
 	private final SaveService saveService;
-	private final SaveEnum path;
+	private SaveEnum path;
+	private ProfileEnum pathProfile;
 	private final Object value;
-
-	public Mutation(){
-		this(null, null, null);
-	}
 		
 	public Mutation(SaveService saveService, SaveEnum path, Object value){
 		this.saveService = saveService;
@@ -21,10 +19,21 @@ public class Mutation {
 		this.value = value;
 	}
 	
+	public Mutation(SaveService saveService, ProfileEnum pathProfile, Object value) {
+		this.saveService = saveService;
+		this.pathProfile = pathProfile;
+		this.value = value;
+	}
+
 	public void mutate() {
 		if (saveService == null){
 			return;
 		}
-		saveService.saveDataValue(path, value);
+		if (path != null){
+			saveService.saveDataValue(path, value);
+		}
+		else {
+			saveService.saveDataValue(pathProfile, value);
+		}
 	}
 }

@@ -23,17 +23,36 @@ import com.majalis.character.Techniques;
 public class SaveManager implements SaveService, LoadService{
     
 	private boolean encoded;
-    private final FileHandle file;   
+    private final FileHandle file; 
+    private final FileHandle profileFile;
     private GameSave save;
+    private ProfileSave profileSave;
    
-    public SaveManager(boolean encoded, String path){
+    public SaveManager(boolean encoded, String path, String profilePath){
         this.encoded = encoded;
         file = Gdx.files.local(path);   
+        profileFile = Gdx.files.local(profilePath);
         save = getSave();
+        profileSave = getProfileSave();
+    }
+    
+    public void saveDataValue(ProfileEnum key, Object object){
+    	switch (key) {
+    		case KNOWLEDGE: 		profileSave.addKnowledge((String) object); break;
+    	}
+    	saveToProfileJson(profileSave);
+    }
+    
+    @SuppressWarnings("unchecked")
+    public <T> T loadDataValue(ProfileEnum key, Class<?> type){
+    	switch (key) {
+			case KNOWLEDGE: 		return (T) (ObjectMap<String, Integer>) profileSave.enemyKnowledge;
+		}
+    	return null;
     }
     
 	public void saveDataValue(SaveEnum key, Object object){
-    	switch (key){
+    	switch (key) {
 	    	case PLAYER: 			save.player = (PlayerCharacter) object; break;
 	    	case ENEMY: 			save.enemy = (EnemyCharacter) object; break;
 	    	case SCENE_CODE: 		save.sceneCode = (Integer) object; break;
@@ -56,7 +75,7 @@ public class SaveManager implements SaveService, LoadService{
     
     @SuppressWarnings("unchecked")
     public <T> T loadDataValue(SaveEnum key, Class<?> type){
-    	switch (key){
+    	switch (key) {
 	    	case PLAYER: 			return (T) (PlayerCharacter)save.player;
 	    	case ENEMY: 			return (T) (EnemyCharacter)save.enemy;
 	    	case SCENE_CODE: 		return (T) (Integer)save.sceneCode;
@@ -104,6 +123,15 @@ public class SaveManager implements SaveService, LoadService{
         }
     }
     
+    private void saveToProfileJson(ProfileSave save){
+        Json json = new Json();
+        json.setOutputType(OutputType.json);
+        if(encoded) profileFile.writeString(Base64Coder.encodeString(json.prettyPrint(save)), false);
+        else {   	
+        	profileFile.writeString(json.prettyPrint(save), false);
+        }
+    }
+    
     private GameSave getSave(){
         GameSave save;
         if(file.exists()){
@@ -119,6 +147,21 @@ public class SaveManager implements SaveService, LoadService{
         return save==null ? new GameSave(true) : save;
     }
     
+    private ProfileSave getProfileSave(){
+    	ProfileSave save;
+        if(profileFile.exists()){
+	        Json json = new Json();
+	        if(encoded)save = json.fromJson(ProfileSave.class, Base64Coder.decodeString(profileFile.readString()));
+	        else {
+	        	save = json.fromJson(ProfileSave.class,profileFile.readString());
+	        }
+        }
+        else {
+        	save = getDefaultProfileSave();
+        }
+        return save==null ? new ProfileSave(true) : save;
+    }
+    
     public void newSave(){
     	save = getDefaultSave();
     }
@@ -129,7 +172,13 @@ public class SaveManager implements SaveService, LoadService{
     	return tempSave;
     }
     
-    public static class GameSave{
+    private ProfileSave getDefaultProfileSave(){
+    	ProfileSave tempSave = new ProfileSave(true);
+    	saveToProfileJson(tempSave);
+    	return tempSave;
+    }
+    
+    public static class GameSave {
     	
     	private GameContext context;
     	private int worldSeed;
@@ -144,11 +193,11 @@ public class SaveManager implements SaveService, LoadService{
     	private EnemyCharacter enemy;
     	
     	// 0-arg constructor for JSON serialization: DO NOT USE
-    	@SuppressWarnings("unused")
-		private GameSave(){}
+		@SuppressWarnings("unused")
+		private GameSave() {}
     	
 		// default save values-
-    	public GameSave(boolean defaultValues){
+    	public GameSave(boolean defaultValues) {
     		if (defaultValues){
     			context = GameContext.ENCOUNTER;
     			worldSeed = (int) (Math.random()*10000);
@@ -161,6 +210,21 @@ public class SaveManager implements SaveService, LoadService{
         		player = new PlayerCharacter(true);
     		}
     	}
+    }
+    
+    public static class ProfileSave {
+    	
+    	private ObjectMap<String, Integer> enemyKnowledge;
+    	
+    	// 0-arg constructor for JSON serialization: DO NOT USE
+		private ProfileSave() {}
+    	private ProfileSave(boolean defaultValues) {
+    		enemyKnowledge = new ObjectMap<String, Integer>();
+    	}
+    	
+    	protected void addKnowledge(String knowledge){ addKnowledge(knowledge, 1); }
+    	protected void addKnowledge(String knowledge, int amount){ enemyKnowledge.put(knowledge, amount); }
+    	
     }
     
 	public enum JobClass {

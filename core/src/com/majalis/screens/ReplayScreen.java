@@ -31,15 +31,19 @@ public class ReplayScreen extends AbstractScreen {
 		resourceRequirements.put(AssetEnum.SLIME.getPath(), Texture.class);
 	}
 	private final AssetManager assetManager;
+	private final ObjectMap<String, Integer> enemyKnowledge;
 	private final Skin skin;
 	private final Sound sound;
 	private Texture enemyTexture;
+	private String nothingToDisplay;
 	
-	public ReplayScreen(ScreenFactory factory, ScreenElements elements, AssetManager assetManager) {
+	public ReplayScreen(ScreenFactory factory, ScreenElements elements, AssetManager assetManager, ObjectMap<String, Integer> enemyKnowledge) {
 		super(factory, elements);
 		this.assetManager = assetManager;
+		this.enemyKnowledge = enemyKnowledge;
 		this.skin = assetManager.get(AssetEnum.UI_SKIN.getPath(), Skin.class);
 		this.sound = assetManager.get(AssetEnum.BUTTON_SOUND.getPath(), Sound.class);
+		nothingToDisplay = "No knowledge to display yet.";
 	}
 
 	@Override
@@ -52,7 +56,11 @@ public class ReplayScreen extends AbstractScreen {
 		if (enemyTexture != null){
 			batch.draw(enemyTexture, 700, 330, (enemyTexture.getWidth() / (enemyTexture.getHeight() / 770.f)), 770);
 		}
+		if(!nothingToDisplay.equals("")){
+			font.draw(batch, nothingToDisplay, 1170, 880);
+		}
 		batch.end();
+
 		if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)){
 			showScreen(ScreenEnum.MAIN_MENU);
 		}
@@ -61,7 +69,10 @@ public class ReplayScreen extends AbstractScreen {
 	@Override
 	public void buildStage() {
 		Table table = new Table();
+		
 		for (final EnemyEnum type : EnemyEnum.values()){
+			if (!enemyKnowledge.containsKey(type.toString())) continue;
+			nothingToDisplay = "";
 			TextButton button = new TextButton(type.toString(), skin);
 			button.addListener(
 				new ClickListener(){

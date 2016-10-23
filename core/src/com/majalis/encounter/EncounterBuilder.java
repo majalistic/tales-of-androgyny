@@ -15,10 +15,12 @@ import com.badlogic.gdx.utils.IntArray;
 import com.badlogic.gdx.utils.OrderedMap;
 import com.majalis.asset.AssetEnum;
 import com.majalis.battle.BattleCode;
+import com.majalis.battle.BattleFactory.EnemyEnum;
 import com.majalis.character.PlayerCharacter;
 import com.majalis.character.Techniques;
 import com.majalis.character.AbstractCharacter.Stance;
 import com.majalis.character.PlayerCharacter.Stat;
+import com.majalis.save.ProfileEnum;
 import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveManager.JobClass;
 import com.majalis.save.SaveService;
@@ -122,8 +124,7 @@ public class EncounterBuilder {
 			case 0:
 				Background werebitchBackground = new Background(backgroundTexture, assetManager.get(AssetEnum.WEREBITCH.getPath(), Texture.class), 1280, 720, 450, 600);
 				getTextScenes(
-					getScript(battleCode, 0), 
-					font, background,
+					getScript(battleCode, 0), font, background, getArray(new Mutation[]{new Mutation(saveService, ProfileEnum.KNOWLEDGE, EnemyEnum.WERESLUT.toString())}),
 					getTextScenes( 
 						getScript(battleCode, 1), font, werebitchBackground, 
 						getBattleScene(
@@ -137,7 +138,7 @@ public class EncounterBuilder {
 			// harpy
 			case 1:
 				getTextScenes(
-					getScript(battleCode, 0), font, background, 
+					getScript(battleCode, 0), font, background, getArray(new Mutation[]{new Mutation(saveService, ProfileEnum.KNOWLEDGE, EnemyEnum.HARPY.toString())}),
 					getCheckScene(
 						assetManager, Stat.AGILITY, new IntArray(new int[]{6, 4, 0}), character,
 						getTextScenes(
@@ -172,7 +173,7 @@ public class EncounterBuilder {
 				Background slimeBackground = new Background(backgroundTexture, assetManager.get(AssetEnum.SLIME.getPath(), Texture.class), 1280, 720, 450, 600);
 				Background slimeDoggyBackground = new Background(backgroundTexture, assetManager.get(AssetEnum.SLIME_DOGGY.getPath(), Texture.class), 1280, 720, 450, 600);
 				getTextScenes(
-					getScript(battleCode, 0), font, slimeBackground, 
+					getScript(battleCode, 0), font, slimeBackground, getArray(new Mutation[]{new Mutation(saveService, ProfileEnum.KNOWLEDGE, EnemyEnum.SLIME.toString())}),
 					getChoiceScene(
 						assetManager, "What do you do with the slime?", getArray(new String[]{"Fight Her", "Smooch Her", "Leave Her Be"}),
 						getBattleScene(
@@ -253,7 +254,7 @@ public class EncounterBuilder {
 			// brigand
 			case 3:
 				getTextScenes(
-					getScript(battleCode, 0), font, background, 
+					getScript(battleCode, 0), font, background, getArray(new Mutation[]{new Mutation(saveService, ProfileEnum.KNOWLEDGE, EnemyEnum.BRIGAND.toString())}),
 					getCheckScene(
 						assetManager, Stat.PERCEPTION, new IntArray(new int[]{6, 4, 0}), character,
 						getTextScenes(
@@ -380,8 +381,6 @@ public class EncounterBuilder {
 				backgroundTexture = assetManager.get("DryadApple.jpg", Texture.class);
 				Texture vignetteTexture = assetManager.get(AssetEnum.VIGNETTE.getPath(), Texture.class);
 				background = new Background(backgroundTexture, vignetteTexture, 540, 720);
-				Array<Mutation> mutations = new Array<Mutation>();
-				mutations.add(new Mutation());
 				getTextScenes(
 					getScript(battleCode, 0), font, background, 
 					getChoiceScene(
@@ -457,13 +456,16 @@ public class EncounterBuilder {
 		mutations.reverse();
 		script.reverse();
 		
-		int ii = 0;
+		int mutationIndex = -(script.size - mutations.size);
 		for (String scriptLine: script){
-			Mutation toApply = new Mutation();
-			if (mutations.size > ii){
-				toApply = mutations.get(ii++);
+			if (mutationIndex >= 0){
+				Mutation toApply = mutations.get(mutationIndex);
+				sceneMap = addScene(new TextScene(sceneMap, sceneCounter, saveService, font, background.clone(), scriptLine, new Array<Mutation>(true, new Mutation[]{toApply}, 0, 1)));
 			}
-			sceneMap = addScene(new TextScene(sceneMap, sceneCounter, saveService, font, background.clone(), scriptLine, new Array<Mutation>(true, new Mutation[]{toApply}, 0, 1)));
+			else {
+				sceneMap = addScene(new TextScene(sceneMap, sceneCounter, saveService, font, background.clone(), scriptLine, new Array<Mutation>()));
+			}
+			mutationIndex++;
 		}	
 		return sceneMap;
 	}
@@ -595,11 +597,11 @@ public class EncounterBuilder {
 		return aggregatedMap;	
 	}
 	
-	private String[] getScript(int battleCode, int scene){
+	private Array<String> getScript(int battleCode, int scene){
 		return getScript("00"+battleCode+"-"+ ( scene >= 10 ? scene : "0" + scene));
 	}
-	private String[] getScript(String code){
-		return reader.loadScript(code);
+	private Array<String> getScript(String code){
+		return getArray(reader.loadScript(code));
 	}
 	
 	private Array<String> getArray(String[] array){ return new Array<String>(true, array, 0, array.length); }
