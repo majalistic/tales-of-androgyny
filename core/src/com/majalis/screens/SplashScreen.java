@@ -5,6 +5,10 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar.ProgressBarStyle;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.majalis.asset.AssetEnum;
 /*
@@ -17,6 +21,8 @@ public class SplashScreen extends AbstractScreen {
 	private final int minTime;
 	private int clocktick;
 	private Sound sound;
+	private Skin skin;
+	private ProgressBar progress;
 	
 	public SplashScreen(ScreenFactory factory, ScreenElements elements, AssetManager assetManager, int minTime) {
 		super(factory, elements);
@@ -29,8 +35,10 @@ public class SplashScreen extends AbstractScreen {
 	@Override
 	public void buildStage() {
 		assetManager.load(AssetEnum.INTRO_SOUND.getPath(), Sound.class);
+		assetManager.load(AssetEnum.UI_SKIN.getPath(), Skin.class);
 		assetManager.finishLoading();
 		sound = assetManager.get(AssetEnum.INTRO_SOUND.getPath(), Sound.class);
+		skin = assetManager.get(AssetEnum.UI_SKIN.getPath(), Skin.class);
 		
 		// asynchronous
 		ObjectMap<String, Class<?>> pathToType = MainMenuScreen.resourceRequirements;
@@ -39,6 +47,14 @@ public class SplashScreen extends AbstractScreen {
 				assetManager.load(path, pathToType.get(path));
 			}
 		}
+		
+		progress = new ProgressBar(0, 1, .05f, false, skin);
+		progress.setWidth(350);
+		progress.addAction(Actions.moveTo(480, 400));
+		ProgressBarStyle barStyle = progress.getStyle();
+		barStyle.knobBefore = barStyle.knob;
+		this.addActor(progress);
+		
 	}
 	
 	@Override
@@ -49,8 +65,8 @@ public class SplashScreen extends AbstractScreen {
 		batch.setProjectionMatrix(camera.combined);
 		camera.update();
 		batch.begin();
-		if (!assetManager.update() || clocktick < minTime){
-			font.draw(batch, String.valueOf(clocktick++), 1675, 500);
+		if (!assetManager.update() || clocktick++ < minTime){
+			progress.setValue(assetManager.getProgress());
 			largeFont.draw(batch, "Loading: " + (int)(assetManager.getProgress() * 100) + "%", 1125, 750);
 		}	
 		else {
