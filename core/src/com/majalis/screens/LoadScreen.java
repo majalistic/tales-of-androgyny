@@ -3,28 +3,29 @@ package com.majalis.screens;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.majalis.asset.AssetEnum;
 /*
- * Screen that bridges between two screens when assets need to be loaded.
+ * The replay encounters.  UI that handles player input to select and load and encounters to experience again.
  */
 public class LoadScreen extends AbstractScreen {
-
+	
 	private final AssetManager assetManager;
 	private final ScreenEnum screenRequest;
 	private final BitmapFont largeFont;
+	private ProgressBar progress;
 	private int clocktick;
+	private final Skin skin;
 	
-	protected LoadScreen(ScreenFactory screenFactory, ScreenElements elements, AssetManager assetManager, ScreenEnum screenRequest) {
-		super(screenFactory, elements);
+	public LoadScreen(ScreenFactory factory, ScreenElements elements, AssetManager assetManager, ScreenEnum screenRequest) {
+		super(factory, elements);
 		this.assetManager = assetManager;
+		this.skin = assetManager.get(AssetEnum.UI_SKIN.getPath(), Skin.class);
 		this.screenRequest = screenRequest;
 		this.largeFont = fontFactory.getFont(72);
 		clocktick = 0;
-	}
-
-	@Override
-	public void buildStage() {
-		// load synchronously the loadscreen asset if it isn't already loaded
-
 	}
 
 	@Override
@@ -35,13 +36,22 @@ public class LoadScreen extends AbstractScreen {
 		batch.setProjectionMatrix(camera.combined);
 		camera.update();
 		batch.begin();
-		if (!assetManager.update() || clocktick < 25){
-			font.draw(batch, String.valueOf(clocktick++), 1675, 500);
+		
+		if (!assetManager.update() || clocktick++ < 25){
+			progress.setValue(assetManager.getProgress());
 			largeFont.draw(batch, "Loading: " + (int)(assetManager.getProgress() * 100) + "%", 1125, 750);
 		}	
 		else {
 			showScreen(screenRequest);
 		}
 		batch.end();
+	}
+
+	@Override
+	public void buildStage() {
+		progress = new ProgressBar(0, 1, .05f, false, skin);
+		progress.setWidth(350);
+		progress.addAction(Actions.moveTo(480, 400));
+		this.addActor(progress);
 	}
 }
