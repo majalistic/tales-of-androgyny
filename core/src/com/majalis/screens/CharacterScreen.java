@@ -3,6 +3,7 @@ package com.majalis.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -53,6 +54,7 @@ public class CharacterScreen extends AbstractScreen {
 		resourceRequirements.put(AssetEnum.PERCEPTION.getPath(), Texture.class);
 		resourceRequirements.put(AssetEnum.MAGIC.getPath(), Texture.class);
 		resourceRequirements.put(AssetEnum.CHARISMA.getPath(), Texture.class);
+		resourceRequirements.put(AssetEnum.WORLD_MAP_MUSIC.getPath(), Music.class);
 	}
 	
 	private final PlayerCharacter character;

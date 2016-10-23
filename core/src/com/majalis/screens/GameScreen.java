@@ -196,9 +196,11 @@ public class GameScreen extends AbstractScreen {
 			showScreen(ScreenEnum.CHARACTER);
 		}			
 		else if (world.gameExit){
+			music.stop();
 			showScreen(ScreenEnum.MAIN_MENU);
 		}
 		else if (world.encounterSelected){
+			music.stop();
 			showScreen(ScreenEnum.LOAD_GAME);
 		}
 		else {			
@@ -244,11 +246,6 @@ public class GameScreen extends AbstractScreen {
 		font.draw(batch, String.valueOf(character.getCurrentHealth()), camera.position.x+295, camera.position.y+125);
 		font.draw(batch, "X " + character.getFood(), camera.position.x+23, camera.position.y+17);
 		batch.end();
-	}
-	
-	@Override
-	public void show() {
-		super.show();
 	}
 	
 	@Override
