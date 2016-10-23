@@ -57,4 +57,12 @@ public class LoadScreen extends AbstractScreen {
 		barStyle.knobBefore = barStyle.knob;
 		this.addActor(progress);
 	}
+	
+	@Override
+	public void show() {
+		super.show();
+	    getRoot().getColor().a = 0;
+	    getRoot().addAction(Actions.fadeIn(0.5f));
+	}
+	
 }

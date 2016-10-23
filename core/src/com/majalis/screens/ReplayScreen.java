@@ -94,4 +94,11 @@ public class ReplayScreen extends AbstractScreen {
 		done.addAction(Actions.moveTo(done.getX() + 1015, done.getY() + 20));
 		this.addActor(done);
 	}
+	
+	@Override
+	public void show() {
+		super.show();
+	    getRoot().getColor().a = 0;
+	    getRoot().addAction(Actions.fadeIn(0.5f));
+	}
 }

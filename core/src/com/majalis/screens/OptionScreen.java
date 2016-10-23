@@ -91,4 +91,11 @@ public class OptionScreen extends AbstractScreen {
 	public void buildStage() {
 		// TODO Auto-generated method stub	
 	}
+	
+	@Override
+	public void show() {
+		super.show();
+	    getRoot().getColor().a = 0;
+	    getRoot().addAction(Actions.fadeIn(0.5f));
+	}
 }
