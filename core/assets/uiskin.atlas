@@ -80,6 +80,13 @@ SliderFill
   orig: 67, 55
   offset: 0, 0
   index: -1
+SliderLead
+  rotate: false
+  xy: 905, 431
+  size: 1, 1
+  orig: 1, 1
+  offset: 0, 0
+  index: -1
 SliderKnob
   rotate: false
   xy: 1, 1

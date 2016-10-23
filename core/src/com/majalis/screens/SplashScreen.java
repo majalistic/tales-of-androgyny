@@ -8,7 +8,6 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar.ProgressBarStyle;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.majalis.asset.AssetEnum;
 /*
@@ -51,8 +50,6 @@ public class SplashScreen extends AbstractScreen {
 		progress = new ProgressBar(0, 1, .05f, false, skin);
 		progress.setWidth(350);
 		progress.addAction(Actions.moveTo(480, 400));
-		ProgressBarStyle barStyle = progress.getStyle();
-		barStyle.knobBefore = barStyle.knob;
 		this.addActor(progress);
 		
 	}

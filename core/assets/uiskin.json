@@ -39,8 +39,8 @@ com.badlogic.gdx.scenes.scene2d.ui.Window$WindowStyle: {
 	dialog: { titleFont: default-font, background: EmbelishedButton64, titleFontColor: white, stageBackground: EmbelishedButton64 }
 },
 com.badlogic.gdx.scenes.scene2d.ui.ProgressBar$ProgressBarStyle: {
-	default-horizontal: { background: SliderP, knob: SliderFill },
-	default-vertical: { background: SliderP, knob: SliderFill }
+	default-horizontal: { background: SliderP, knobBefore: SliderFill},
+	default-vertical: { background: SliderP, knobBefore: SliderFill}
 },
 com.badlogic.gdx.scenes.scene2d.ui.Slider$SliderStyle: {
 	default-horizontal: { background: SliderP, knob: SliderKnob },
