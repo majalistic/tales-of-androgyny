@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
@@ -22,6 +23,7 @@ public class SplashScreen extends AbstractScreen {
 	private Sound sound;
 	private Skin skin;
 	private ProgressBar progress;
+	private Texture background;
 	
 	public SplashScreen(ScreenFactory factory, ScreenElements elements, AssetManager assetManager, int minTime) {
 		super(factory, elements);
@@ -35,9 +37,11 @@ public class SplashScreen extends AbstractScreen {
 	public void buildStage() {
 		assetManager.load(AssetEnum.INTRO_SOUND.getPath(), Sound.class);
 		assetManager.load(AssetEnum.UI_SKIN.getPath(), Skin.class);
+		assetManager.load(AssetEnum.SPLASH_SCREEN.getPath(), Texture.class);
 		assetManager.finishLoading();
 		sound = assetManager.get(AssetEnum.INTRO_SOUND.getPath(), Sound.class);
 		skin = assetManager.get(AssetEnum.UI_SKIN.getPath(), Skin.class);
+		background = assetManager.get(AssetEnum.SPLASH_SCREEN.getPath(), Texture.class);
 		
 		// asynchronous
 		ObjectMap<String, Class<?>> pathToType = MainMenuScreen.resourceRequirements;
@@ -48,8 +52,9 @@ public class SplashScreen extends AbstractScreen {
 		}
 		
 		progress = new ProgressBar(0, 1, .05f, false, skin);
-		progress.setWidth(350);
-		progress.addAction(Actions.moveTo(480, 400));
+		progress.setWidth(280);
+		progress.setHeight(30);
+		progress.addAction(Actions.moveTo(980, 70));
 		this.addActor(progress);
 		
 	}
@@ -63,8 +68,9 @@ public class SplashScreen extends AbstractScreen {
 		camera.update();
 		batch.begin();
 		if (!assetManager.update() || clocktick++ < minTime){
+			batch.draw(background, 900, 300, background.getWidth() / (background.getHeight() / 800f), 800);
 			progress.setValue(assetManager.getProgress());
-			largeFont.draw(batch, "Loading: " + (int)(assetManager.getProgress() * 100) + "%", 1125, 750);
+			font.draw(batch, "Loading: " + (int)(assetManager.getProgress() * 100) + "%", 1725, 400);
 		}	
 		else {
 			showScreen(ScreenEnum.MAIN_MENU);

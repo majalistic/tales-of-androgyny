@@ -2,6 +2,7 @@ package com.majalis.asset;
 
 public enum AssetEnum {
 	UI_SKIN("uiskin.json"),
+	SPLASH_SCREEN("Splash.png"),
 	
 	WORLD_MAP_UI("worldmap/CharacterInfo.png"),
 	WORLD_MAP_HOVER("worldmap/HoverBox.png"),
