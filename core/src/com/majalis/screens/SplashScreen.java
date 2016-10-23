@@ -39,8 +39,6 @@ public class SplashScreen extends AbstractScreen {
 				assetManager.load(path, pathToType.get(path));
 			}
 		}
-		
-		
 	}
 	
 	@Override

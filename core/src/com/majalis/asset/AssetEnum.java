@@ -1,6 +1,8 @@
 package com.majalis.asset;
 
 public enum AssetEnum {
+	UI_SKIN("uiskin.json"),
+	
 	WORLD_MAP_UI("worldmap/CharacterInfo.png"),
 	WORLD_MAP_HOVER("worldmap/HoverBox.png"),
 	ARROW("worldmap/Arrow.png"),
@@ -54,6 +56,7 @@ public enum AssetEnum {
 	SLASH("animation/ClawAttack.png"),
 	
 	// sounds
+	BUTTON_SOUND("sound.wav"),
 	INTRO_SOUND("sounds/IntroSound.wav"),
 	UNPLUGGED_POP("sounds/UnpluggedPop.wav"),
 	ATTACK_SOUND("sounds/AttackSound.wav"),

@@ -19,7 +19,6 @@ import com.majalis.world.GameWorldFactory;
  */
 public class TrapRPG extends Game {
 	public void create() {	
-		Gdx.app.getPreferences("trap-rpg-preferences").putFloat("volume", 1);
 		SaveManager saveManager = new SaveManager(false, "data/save.json");
 		EncounterReader encounterReader = new EncounterReader("script/encounters.json");
 		AssetManager assetManager = new AssetManager();

@@ -86,7 +86,10 @@ public class ScreenFactoryImpl implements ScreenFactory {
 					return new GameOverScreen(this, elements, assetManager);
 				}
 				break;
-			case OPTIONS: 	return new OptionScreen(this, elements);
+			case OPTIONS: 	
+				if (getAssetCheck(OptionScreen.resourceRequirements)){
+					return new OptionScreen(this, elements, assetManager);
+				}
 			case REPLAY: 	return new ReplayScreen(this, elements);
 			case EXIT: 		return new ExitScreen(this, elements);
 		}
