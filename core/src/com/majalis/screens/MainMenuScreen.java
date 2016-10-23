@@ -78,7 +78,7 @@ public class MainMenuScreen extends AbstractScreen {
         this.addActor(table);
         table.addAction(Actions.moveTo(330, 130));
         music.play();
-        music.setVolume(Gdx.app.getPreferences("trap-rpg-preferences").getFloat("volume"));
+        music.setVolume(Gdx.app.getPreferences("trap-rpg-preferences").getFloat("musicVolume"));
         music.setLooping(true);
 	}
 	
@@ -136,6 +136,9 @@ public class MainMenuScreen extends AbstractScreen {
         		if (screenSelection == ScreenEnum.NEW_GAME){
         			// ONLY CALL THIS TO DESTROY OLD DATA AND REPLACE WITH A BRAND NEW SAVE
         			saveService.newSave();
+        		}
+        		if (!(screenSelection == ScreenEnum.OPTIONS || screenSelection == ScreenEnum.CREDITS || screenSelection == ScreenEnum.REPLAY)){
+        			music.stop();
         		}
 	        	showScreen(screenSelection);    
 	        }

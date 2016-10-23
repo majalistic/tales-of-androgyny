@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -26,12 +27,15 @@ public class OptionScreen extends AbstractScreen {
 	static {
 		resourceRequirements.put(AssetEnum.UI_SKIN.getPath(), Skin.class);
 		resourceRequirements.put(AssetEnum.BUTTON_SOUND.getPath(), Sound.class);
+		resourceRequirements.put(AssetEnum.MAIN_MENU_MUSIC.getPath(), Music.class);
 	}
 	
 	private final Preferences preferences;
+	private final Music music;
 	public OptionScreen(ScreenFactory factory, ScreenElements elements, AssetManager assetManager) {
 		super(factory, elements);
 		Skin skin = assetManager.get(AssetEnum.UI_SKIN.getPath(), Skin.class);
+		this.music = assetManager.get(AssetEnum.MAIN_MENU_MUSIC.getPath(), Music.class);
 		final Sound sound = assetManager.get(AssetEnum.BUTTON_SOUND.getPath(), Sound.class);
 		final Slider slider = new Slider(0, 1, .1f, false, skin);
 		preferences  = Gdx.app.getPreferences("trap-rpg-preferences");
@@ -42,11 +46,26 @@ public class OptionScreen extends AbstractScreen {
 	        public void changed(ChangeEvent event, Actor actor) {
 	            final float val = slider.getValue();
 	            preferences.putFloat("volume", val);
-	            sound.play(preferences.getFloat("volume") *.5f);
+	            sound.play(val *.5f);
 	        }
 	    });
 		slider.addAction(Actions.moveTo(500, 400));
 		this.addActor(slider);
+		
+		final Slider musicSlider = new Slider(0, 1, .1f, false, skin);
+		
+		musicSlider.setValue(preferences.getFloat("musicVolume", 1));
+		musicSlider.addListener(new ChangeListener() {
+	        @Override
+	        public void changed(ChangeEvent event, Actor actor) {
+	            final float val = musicSlider.getValue();
+	            preferences.putFloat("musicVolume", val);
+	            music.setVolume(val);
+	        }
+	    });
+		musicSlider.addAction(Actions.moveTo(500, 300));
+		this.addActor(musicSlider);
+		
 		
 		final TextButton done = new TextButton("Done", skin);
 		
@@ -78,8 +97,10 @@ public class OptionScreen extends AbstractScreen {
 		camera.update();
 		batch.begin();
 		font.setColor(Color.WHITE);
-		font.draw(batch, "Sound volume:", 1170, 880);
+		font.draw(batch, "Sound volume:", 1170, 865);
+		font.draw(batch, "Music volume:", 1170, 760);
 		font.draw(batch, String.valueOf((int)(preferences.getFloat("volume", 1) * 100)) +"%", 1200, 850);
+		font.draw(batch, String.valueOf((int)(preferences.getFloat("musicVolume", 1) * 100)) +"%", 1200, 745);
 		batch.end();
 		
 		if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)){
@@ -89,7 +110,7 @@ public class OptionScreen extends AbstractScreen {
 
 	@Override
 	public void buildStage() {
-		// TODO Auto-generated method stub	
+		music.play();
 	}
 	
 	@Override

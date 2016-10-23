@@ -3,6 +3,7 @@ package com.majalis.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -29,6 +30,7 @@ public class ReplayScreen extends AbstractScreen {
 		resourceRequirements.put(AssetEnum.HARPY.getPath(), Texture.class);
 		resourceRequirements.put(AssetEnum.BRIGAND.getPath(), Texture.class);
 		resourceRequirements.put(AssetEnum.SLIME.getPath(), Texture.class);
+		resourceRequirements.put(AssetEnum.MAIN_MENU_MUSIC.getPath(), Music.class);
 	}
 	private final AssetManager assetManager;
 	private final ObjectMap<String, Integer> enemyKnowledge;
