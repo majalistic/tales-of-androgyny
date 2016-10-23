@@ -90,7 +90,12 @@ public class ScreenFactoryImpl implements ScreenFactory {
 				if (getAssetCheck(OptionScreen.resourceRequirements)){
 					return new OptionScreen(this, elements, assetManager);
 				}
-			case REPLAY: 	return new ReplayScreen(this, elements);
+				break;
+			case REPLAY:
+				if (getAssetCheck(ReplayScreen.resourceRequirements)){
+					return new ReplayScreen(this, elements, assetManager);
+				}
+				break;
 			case EXIT: 		return new ExitScreen(this, elements);
 		}
 		loading = true;

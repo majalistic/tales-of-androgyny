@@ -59,18 +59,7 @@ public class BattleFactory {
 	}
 	
 	private Texture getTexture(EnemyEnum type){
-		switch(type){
-			case WERESLUT:
-				return assetManager.get(AssetEnum.WEREBITCH.getPath(), Texture.class);
-			case HARPY:
-				return assetManager.get(AssetEnum.HARPY.getPath(), Texture.class);
-			case SLIME:
-				return assetManager.get(AssetEnum.SLIME.getPath(), Texture.class);
-			case BRIGAND:
-				return assetManager.get(AssetEnum.BRIGAND.getPath(), Texture.class);
-			default:
-				return assetManager.get("WerebitchChibi.png", Texture.class);
-		}
+		return assetManager.get(type.getPath(), Texture.class);
 	}
 	
 	private ObjectMap<Stance, Texture> getTextures(EnemyEnum type){
@@ -95,14 +84,16 @@ public class BattleFactory {
 	}
 
 	public enum EnemyEnum {
-		WERESLUT ("Wereslut"),
-		HARPY ("Harpy"),
-		SLIME ("Slime"),
-		BRIGAND ("Brigand");
+		WERESLUT ("Wereslut", AssetEnum.WEREBITCH.getPath()),
+		HARPY ("Harpy", AssetEnum.HARPY.getPath()),
+		SLIME ("Slime", AssetEnum.SLIME.getPath()),
+		BRIGAND ("Brigand", AssetEnum.BRIGAND.getPath());
 		
 		private final String text;
-	    private EnemyEnum(final String text) { this.text = text; }
+		private final String path;
+	    private EnemyEnum(final String text, final String path) { this.text = text; this.path = path; }
 	    @Override
-	    public String toString() { return text; }		
+	    public String toString() { return text; }	
+	    public String getPath() { return path; }
 	}
 }
