@@ -1,5 +1,8 @@
 package com.majalis.screens;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -23,6 +26,7 @@ public class BattleScreen extends AbstractScreen{
 		resourceRequirements.put(AssetEnum.ATTACK_SOUND.getPath(), Sound.class);
 		resourceRequirements.put(AssetEnum.HIT_SOUND.getPath(), Sound.class);
 		resourceRequirements.put(AssetEnum.THWAPPING.getPath(), Sound.class);
+		resourceRequirements.put(AssetEnum.BATTLE_MUSIC.getPath(), Music.class);
 		
 		String[] textureArray = new String[]{
 			"WerebitchChibi.png", AssetEnum.BATTLE_BG.getPath(), AssetEnum.WEREBITCH.getPath(), AssetEnum.HARPY.getPath(), AssetEnum.SLIME.getPath(), AssetEnum.SLIME_DOGGY.getPath(), AssetEnum.BRIGAND.getPath(), AssetEnum.STANCE_ARROW.getPath(), AssetEnum.ANAL.getPath(), AssetEnum.BLITZ.getPath(),
@@ -36,16 +40,21 @@ public class BattleScreen extends AbstractScreen{
 	}
 	private final SaveService saveService;
 	private final Battle battle;
+	private final Music music;
 	
-	protected BattleScreen(ScreenFactory screenFactory, ScreenElements elements, SaveService saveService, Battle battle) {
+	protected BattleScreen(ScreenFactory screenFactory, ScreenElements elements, SaveService saveService, Battle battle, AssetManager assetManager) {
 		super(screenFactory, elements);
 		this.saveService = saveService;
 		this.battle = battle;
+		this.music = assetManager.get(AssetEnum.BATTLE_MUSIC.getPath(), Music.class);
 	}
 
 	@Override
 	public void buildStage() {
 		addActor(battle);
+		music.setVolume(Gdx.app.getPreferences("trap-rpg-preferences").getFloat("musicVolume") * .6f);
+		music.setLooping(true);
+		music.play();
 	}
 
 	@Override
@@ -64,6 +73,7 @@ public class BattleScreen extends AbstractScreen{
 				saveService.saveDataValue(SaveEnum.SCENE_CODE, battle.getDefeatScene());
 			}
 			showScreen(ScreenEnum.ENCOUNTER);
+			music.stop();
 		}
 		else {
 			draw();

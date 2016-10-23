@@ -139,7 +139,7 @@ public class ScreenFactoryImpl implements ScreenFactory {
 	private AbstractScreen getBattle(ScreenElements elements, PlayerCharacter character){
 		if (getAssetCheck(BattleScreen.resourceRequirements)){
 			BattleCode battleCode = loadService.loadDataValue(SaveEnum.BATTLE_CODE, BattleCode.class);
-			return new BattleScreen(this, elements, saveService, battleFactory.getBattle(battleCode, character));
+			return new BattleScreen(this, elements, saveService, battleFactory.getBattle(battleCode, character), assetManager);
 		}
 		else {
 			return null;
