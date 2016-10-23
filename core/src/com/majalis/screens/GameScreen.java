@@ -3,6 +3,7 @@ package com.majalis.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -42,6 +43,7 @@ public class GameScreen extends AbstractScreen {
 	private final Texture UI;
 	private final PlayerCharacter character;
 	private final Group cloudGroup;
+	private final Music music;
 	private TextButton characterButton;
 	private TextButton camp;
 	
@@ -65,6 +67,7 @@ public class GameScreen extends AbstractScreen {
 		resourceRequirements.put(AssetEnum.WORLD_MAP_HOVER.getPath(), Texture.class);
 		resourceRequirements.put(AssetEnum.ARROW.getPath(), Texture.class);
 		resourceRequirements.put(AssetEnum.CHARACTER_SCREEN.getPath(), Texture.class);
+		resourceRequirements.put(AssetEnum.WORLD_MAP_MUSIC.getPath(), Music.class);
 	}
 	public GameScreen(ScreenFactory factory, ScreenElements elements, AssetManager assetManager, SaveService saveService, LoadService loadService, GameWorld world) {
 		super(factory, elements);
@@ -76,6 +79,7 @@ public class GameScreen extends AbstractScreen {
 		trees = assetManager.get(AssetEnum.FOREST_INACTIVE.getPath(), Texture.class);
 		cloud = assetManager.get(AssetEnum.CLOUD.getPath(), Texture.class);
 		UI = assetManager.get(AssetEnum.WORLD_MAP_UI.getPath(), Texture.class);
+		music = assetManager.get(AssetEnum.WORLD_MAP_MUSIC.getPath(), Music.class);
 		Vector3 initialTranslation = loadService.loadDataValue(SaveEnum.CAMERA_POS, Vector3.class);		
 		initialTranslation = new Vector3(initialTranslation);
 		OrthographicCamera camera = (OrthographicCamera) getCamera();
@@ -159,6 +163,9 @@ public class GameScreen extends AbstractScreen {
 		);
 		this.addActor(camp);
 		
+		music.setVolume(Gdx.app.getPreferences("trap-rpg-preferences").getFloat("musicVolume") * .6f);
+		music.setLooping(true);
+		music.play();
 	}
 	
 	@Override

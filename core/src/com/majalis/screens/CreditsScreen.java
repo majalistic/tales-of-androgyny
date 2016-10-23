@@ -44,7 +44,7 @@ public class CreditsScreen extends AbstractScreen{
 		done.addAction(Actions.moveTo(done.getX() + 1015, done.getY() + 20));
 		this.addActor(done);
 		
-		credits = "\"Danse Macabre - Sad Part - no violin\", \"Kings of Tara\""
+		credits = "\"Danse Macabre - Sad Part - no violin\", \"Floating Cities\", \"Kings of Tara\""
 				+ "\nKevin MacLeod (incompetech.com)"
 				+ "\nLicensed under Creative Commons: By Attribution 3.0"
 				+ "\nhttp://creativecommons.org/licenses/by/3.0/";
