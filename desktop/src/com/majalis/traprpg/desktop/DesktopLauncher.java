@@ -18,8 +18,8 @@ public class DesktopLauncher {
 		config.addIcon("icon32.png", Files.FileType.Internal);
 		config.addIcon("icon128.png", Files.FileType.Internal);
 		config.title = "tRaPG";
-		config.width = 2048;
-		config.height = 1150;
+		config.width = 1920;
+		config.height = 1080;
 		//config.fullscreen = true;
 		//config.vSyncEnabled = true;
 		config.allowSoftwareMode = true;
