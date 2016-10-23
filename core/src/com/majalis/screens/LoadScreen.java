@@ -1,10 +1,12 @@
 package com.majalis.screens;
 
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
+import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar.ProgressBarStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.majalis.asset.AssetEnum;
 /*
@@ -52,6 +54,8 @@ public class LoadScreen extends AbstractScreen {
 		progress = new ProgressBar(0, 1, .05f, false, skin);
 		progress.setWidth(350);
 		progress.addAction(Actions.moveTo(480, 400));
+		ProgressBarStyle barStyle = progress.getStyle();
+		barStyle.knobBefore = barStyle.knob;
 		this.addActor(progress);
 	}
 }
