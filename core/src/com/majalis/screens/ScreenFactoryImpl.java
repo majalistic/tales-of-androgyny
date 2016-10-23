@@ -98,6 +98,11 @@ public class ScreenFactoryImpl implements ScreenFactory {
 					return new ReplayScreen(this, elements, assetManager, (ObjectMap<String, Integer>) loadService.loadDataValue(ProfileEnum.KNOWLEDGE, ObjectMap.class));
 				}
 				break;
+			case CREDITS:
+				if (getAssetCheck(CreditsScreen.resourceRequirements)){
+					return new CreditsScreen(this, elements, assetManager);
+				}
+				break;
 			case EXIT: 	return new ExitScreen(this, elements);
 		}
 		loading = true;

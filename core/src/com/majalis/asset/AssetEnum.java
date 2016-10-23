@@ -61,7 +61,10 @@ public enum AssetEnum {
 	UNPLUGGED_POP("sounds/UnpluggedPop.wav"),
 	ATTACK_SOUND("sounds/AttackSound.wav"),
 	HIT_SOUND("sounds/HitSound.wav"),
-	THWAPPING("sounds/Thwapping.wav")	
+	THWAPPING("sounds/Thwapping.wav"),
+	// music
+	MAIN_MENU_MUSIC("music/MainMenuMusic.mp3")
+	
 	;
 	
 	private final String path;

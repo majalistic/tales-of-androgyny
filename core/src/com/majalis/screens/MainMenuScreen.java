@@ -3,6 +3,7 @@ package com.majalis.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -29,6 +30,7 @@ public class MainMenuScreen extends AbstractScreen {
 		resourceRequirements.put("uiskin.json", Skin.class);
 		resourceRequirements.put("MainMenuScreen.jpg", Texture.class);
 		resourceRequirements.put(AssetEnum.STANCE_ARROW.getPath(), Texture.class);
+		resourceRequirements.put(AssetEnum.MAIN_MENU_MUSIC.getPath(), Music.class);
 		resourceRequirements.put("sound.wav", Sound.class);
 	}
 	private final AssetManager assetManager;
@@ -36,6 +38,7 @@ public class MainMenuScreen extends AbstractScreen {
 	private final Skin skin; 
 	private final Texture backgroundImage;
 	private final Texture arrowImage;
+	private final Music music;
 	private final Sound buttonSound;
 	private final Array<TextButton> buttons;
 	private int clocktick = 0;
@@ -48,6 +51,7 @@ public class MainMenuScreen extends AbstractScreen {
 		this.skin = assetManager.get("uiskin.json", Skin.class);
 		this.backgroundImage = assetManager.get("MainMenuScreen.jpg", Texture.class);
 		this.arrowImage = assetManager.get(AssetEnum.STANCE_ARROW.getPath(), Texture.class);
+		this.music = assetManager.get(AssetEnum.MAIN_MENU_MUSIC.getPath(), Music.class);
 		this.buttonSound = assetManager.get("sound.wav", Sound.class);
 		buttons = new Array<TextButton>();
 		selection = 0;
@@ -59,8 +63,8 @@ public class MainMenuScreen extends AbstractScreen {
 		
 		Array<String> buttonLabels = new Array<String>();
 		Array<ScreenEnum> optionList = new Array<ScreenEnum>();
-		buttonLabels.addAll("Begin", "Continue", "Options", "Pervert", "Exit");
-		optionList.addAll(ScreenEnum.NEW_GAME, ScreenEnum.LOAD_GAME, ScreenEnum.OPTIONS, ScreenEnum.REPLAY, ScreenEnum.EXIT);
+		buttonLabels.addAll("Begin", "Continue", "Options", "Pervert", "Credits", "Exit");
+		optionList.addAll(ScreenEnum.NEW_GAME, ScreenEnum.LOAD_GAME, ScreenEnum.OPTIONS, ScreenEnum.REPLAY, ScreenEnum.CREDITS, ScreenEnum.EXIT);
 		
 		for (int ii = 0; ii < buttonLabels.size; ii++){
 			buttons.add(new TextButton(buttonLabels.get(ii), skin));
@@ -73,6 +77,9 @@ public class MainMenuScreen extends AbstractScreen {
         this.addActor(new Background(backgroundImage));
         this.addActor(table);
         table.addAction(Actions.moveTo(330, 130));
+        music.play();
+        music.setVolume(Gdx.app.getPreferences("trap-rpg-preferences").getFloat("volume"));
+        music.setLooping(true);
 	}
 	
 	@Override
@@ -102,7 +109,7 @@ public class MainMenuScreen extends AbstractScreen {
 		
 		batch.setProjectionMatrix(camera.combined);
 		batch.begin(); 
-		batch.draw(arrowImage, 1520, 905 - selection * 40, 30, 50);
+		batch.draw(arrowImage, 1520, 925 - selection * 40, 30, 50);
 		// need to make these relative to viewport
 		font.draw(batch, String.valueOf(clocktick++), 1850, 400);
 		font.draw(batch, "Version: 0.1.11.0", 1600, 1050);
