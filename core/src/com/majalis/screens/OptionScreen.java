@@ -57,13 +57,17 @@ public class OptionScreen extends AbstractScreen {
 				@Override
 		        public void clicked(InputEvent event, float x, float y) {
 					sound.play(preferences.getFloat("volume") *.5f);
-					showScreen(ScreenEnum.MAIN_MENU);		   
+					saveAndExit();	   
 		        }
 			}
 		);
 		done.addAction(Actions.moveTo(done.getX() + 1015, done.getY() + 20));
 		this.addActor(done);
-		
+	}
+	
+	private void saveAndExit(){
+		preferences.flush();
+		showScreen(ScreenEnum.MAIN_MENU);
 	}
 
 	@Override
@@ -74,12 +78,12 @@ public class OptionScreen extends AbstractScreen {
 		camera.update();
 		batch.begin();
 		font.setColor(Color.WHITE);
+		font.draw(batch, "Sound volume:", 1170, 880);
 		font.draw(batch, String.valueOf((int)(preferences.getFloat("volume", 1) * 100)) +"%", 1200, 850);
 		batch.end();
 		
 		if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)){
-			preferences.flush();
-			showScreen(ScreenEnum.MAIN_MENU);
+			saveAndExit();
 		}
 	}
 

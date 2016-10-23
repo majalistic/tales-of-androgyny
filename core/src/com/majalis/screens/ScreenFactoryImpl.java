@@ -57,7 +57,7 @@ public class ScreenFactoryImpl implements ScreenFactory {
 		AbstractScreen tempScreen;
 		switch(screenRequest){
 			case SPLASH: 
-				return new SplashScreen(this, elements, assetManager, 50);
+				return new SplashScreen(this, elements, assetManager, 25);
 			case MAIN_MENU: 
 				if (getAssetCheck(MainMenuScreen.resourceRequirements)){
 					return new MainMenuScreen(this, elements, assetManager, saveService, loadService); 
