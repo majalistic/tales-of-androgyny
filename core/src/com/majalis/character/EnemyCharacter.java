@@ -56,8 +56,8 @@ public class EnemyCharacter extends AbstractCharacter {
 				bgPath = "enemies/SlimeUI.png";
 				break;
 		}
-		staminaTiers.add(5);
-		
+		staminaTiers.removeIndex(staminaTiers.size-1);
+		staminaTiers.add(10);
 		setStaminaToMax();
 		lust = 0;
 		label = enemyType.toString();
@@ -75,6 +75,27 @@ public class EnemyCharacter extends AbstractCharacter {
 	
 	public String getBGPath(){
 		return bgPath;
+	}
+	
+	@Override
+	public Attack doAttack(Attack resolvedAttack) {
+		if (resolvedAttack.getGrapple() > 0){
+			struggle -= resolvedAttack.getGrapple();
+			resolvedAttack.addMessage("They struggle to get you off!");
+			if (struggle >= 3){
+				resolvedAttack.addMessage("It's still stuck up inside of you!");
+				resolvedAttack.addMessage("Well, I guess you know that.");
+				resolvedAttack.addMessage("Kind of a colon crusher.");
+			}
+			else if (struggle > 0){
+				resolvedAttack.addMessage("They're difficult to ride on top of!");
+			}
+			else if (struggle <= 0){
+				struggle = 0;
+				resolvedAttack.addMessage("They're about to buck you off!");
+			}
+		}	
+		return super.doAttack(resolvedAttack);
 	}
 	
 	private Array<Technique> getPossibleTechniques(AbstractCharacter target, Stance stance){
@@ -109,7 +130,7 @@ public class EnemyCharacter extends AbstractCharacter {
 				if (enemyType != EnemyEnum.WERESLUT && lust > 14){
 					return getTechniques(Techniques.ERUPT_ANAL);
 				}
-				if (enemyType == EnemyEnum.WERESLUT && lust > 17){
+				else if (enemyType == EnemyEnum.WERESLUT && lust > 17){
 					return getTechniques(Techniques.KNOT);
 				}
 				else {
@@ -120,11 +141,26 @@ public class EnemyCharacter extends AbstractCharacter {
 				if (enemyType != EnemyEnum.WERESLUT && lust > 14){
 					return getTechniques(Techniques.ERUPT_ANAL);
 				}
-				if (enemyType == EnemyEnum.WERESLUT && lust > 17){
+				else if (enemyType == EnemyEnum.WERESLUT && lust > 17){
 					return getTechniques(Techniques.KNOT);
 				}
 				else {
 					return getTechniques(Techniques.POUND_ANAL);
+				}
+			case COWGIRL:
+				lust++;
+				if (enemyType == EnemyEnum.WERESLUT && lust > 20){
+					return getTechniques(Techniques.KNOT);
+				}
+				else if (enemyType != EnemyEnum.WERESLUT && lust > 20){
+					struggle = 0;
+					return getTechniques(Techniques.ERUPT_COWGIRL);
+				}
+				if (struggle <= 0){
+					return getTechniques(Techniques.PUSH_OFF);
+				}
+				else {
+					return getTechniques(Techniques.BE_RIDDEN);
 				}
 			case KNOTTED:
 				return getTechniques(Techniques.KNOT_BANG);
@@ -199,7 +235,7 @@ public class EnemyCharacter extends AbstractCharacter {
 	}
 	
 	private boolean willPounce(){
-		return lust >= 10 && stance != Stance.PRONE && stance != Stance.SUPINE && stance != Stance.AIRBORNE && stance != Stance.FELLATIO && stance != Stance.DOGGY && stance != Stance.ANAL && stance != Stance.ERUPT;
+		return lust >= 10 && stance != Stance.PRONE && stance != Stance.SUPINE && stance != Stance.AIRBORNE && stance != Stance.FELLATIO && stance != Stance.DOGGY && stance != Stance.ANAL && stance != Stance.ERUPT && stance != Stance.COWGIRL;
 	}
 	
 	private Technique getTechnique(Techniques technique){
@@ -266,4 +302,5 @@ public class EnemyCharacter extends AbstractCharacter {
 		lust += lustIncrease;
 		return null;
 	}
+	
 } 

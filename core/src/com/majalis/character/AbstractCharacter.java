@@ -70,7 +70,9 @@ public abstract class AbstractCharacter extends Actor {
 	protected int mouthful;
 	
 	protected Stance stance;
+	private Stance oldStance;
 	public ObjectMap<String, Integer> statuses; // status effects will be represented by a map of Enum to Status object
+
 	/* Constructors */
 	protected AbstractCharacter(){}
 	protected AbstractCharacter(boolean defaultValues){
@@ -236,13 +238,15 @@ public abstract class AbstractCharacter extends Actor {
 			setStabilityToMin();
 		}
 		
+		oldStance = stance;
 		stance = technique.getStance();
+		
 		
 		return technique;
 	}
 	
 	protected boolean alreadyIncapacitated(){
-		return stance == Stance.PRONE || stance == Stance.SUPINE || stance == Stance.FELLATIO || stance == Stance.DOGGY || stance == Stance.ANAL || stance == Stance.KNOTTED;
+		return stance == Stance.PRONE || stance == Stance.SUPINE || stance == Stance.FELLATIO || stance == Stance.DOGGY || stance == Stance.ANAL || stance == Stance.KNOTTED || stance == Stance.COWGIRL;
 	}
 	
 	public Attack doAttack(Attack resolvedAttack) {
@@ -312,7 +316,7 @@ public abstract class AbstractCharacter extends Actor {
 		// all climax logic should go here
 		if (resolvedAttack.isClimax()){
 			lust -= 14;
-			if (stance == Stance.FELLATIO){
+			if (oldStance == Stance.FELLATIO){
 				if (enemyType == EnemyEnum.HARPY){
 					resolvedAttack.addMessage("A harpy semen bomb explodes in your mouth!  It tastes awful!");
 					resolvedAttack.addMessage("You are going to vomit!");
@@ -323,11 +327,22 @@ public abstract class AbstractCharacter extends Actor {
 					resolvedAttack.addMessage("You swallow all of her semen!");
 				}
 			}
+			else if (oldStance == Stance.COWGIRL){
+				resolvedAttack.addMessage("The " + getLabel() + " blasts off in your intestines while you bounce\non thier cumming cock! You got butt-bombed!");
+			}
+			else if (oldStance == Stance.ANAL){
+				resolvedAttack.addMessage("The " + getLabel() + "'s lovemaking reaches a climax!");
+				resolvedAttack.addMessage("They don't pull out! It twitches and throbs in your rectum!");
+				resolvedAttack.addMessage("They cum up your ass! Your stomach receives it!");				
+			}
 			else {
 				resolvedAttack.addMessage("The " + getLabel() + " spews hot, thick semen into your bowels!");
+				resolvedAttack.addMessage("You are anally inseminated!");
+				resolvedAttack.addMessage("You're going to be farting cum for days!");
 			}
 			stance = Stance.ERUPT;
 		}
+		oldStance = stance;
 		return resolvedAttack;
 	}
 	
@@ -346,7 +361,7 @@ public abstract class AbstractCharacter extends Actor {
 				struggle = 0;
 			}
 			if (attack.getForceStance() == Stance.BALANCED){
-				result.add("You broke free!");
+				result.add(attack.getUser() + " broke free!");
 				if (stance == Stance.FELLATIO){
 					result.add("It slips out of your mouth and you get to your feet!");
 				}
@@ -518,6 +533,10 @@ public abstract class AbstractCharacter extends Actor {
 	
 	}
 	
+	protected boolean isErect(){
+		return lust > 7;
+	}
+	
 	public enum Stance {
 		BALANCED (AssetEnum.BALANCED.getPath()),
 		DEFENSIVE (AssetEnum.DEFENSIVE.getPath()),
@@ -530,6 +549,7 @@ public abstract class AbstractCharacter extends Actor {
 		AIRBORNE ((AssetEnum.AIRBORNE.getPath()), true, false, false), 
 		DOGGY (AssetEnum.DOGGY.getPath()), 
 		ANAL (AssetEnum.ANAL.getPath()), 
+		COWGIRL (AssetEnum.COWGIRL.getPath()),
 		KNOTTED (AssetEnum.KNOTTED.getPath()), 
 		FELLATIO (AssetEnum.FELLATIO.getPath()), 
 		CASTING (AssetEnum.CASTING.getPath()),

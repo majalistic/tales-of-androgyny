@@ -4,6 +4,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.IntArray;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.ObjectSet;
+import com.majalis.battle.BattleFactory.EnemyEnum;
 import com.majalis.save.SaveManager.JobClass;
 
 /*
@@ -115,14 +116,23 @@ public class PlayerCharacter extends AbstractCharacter {
 	}
 	
 	// this needs to consolidate logic with the getTechniques method
-	public Array<Technique> getPossibleTechniques(){
+	public Array<Technique> getPossibleTechniques(AbstractCharacter target){
+		Array<Technique> possibles;
 		switch(stance){
 			case BLITZ:
 				return getTechniques(Techniques.ALL_OUT_BLITZ, Techniques.HOLD_BACK);
 			case OFFENSIVE:
-				return getTechniques(Techniques.BLITZ_ATTACK, Techniques.POWER_ATTACK, Techniques.ARMOR_SUNDER, Techniques.RECKLESS_ATTACK, Techniques.KNOCK_DOWN, Techniques.VAULT, Techniques.TEMPO_ATTACK, Techniques.RESERVED_ATTACK);
+				possibles = getTechniques(Techniques.BLITZ_ATTACK, Techniques.POWER_ATTACK, Techniques.ARMOR_SUNDER, Techniques.RECKLESS_ATTACK, Techniques.KNOCK_DOWN, Techniques.VAULT, Techniques.TEMPO_ATTACK, Techniques.RESERVED_ATTACK);
+				if (target.getStance() == Stance.SUPINE && target.isErect() && target.enemyType != EnemyEnum.SLIME){
+					possibles.addAll(getTechniques(Techniques.SIT_ON_IT));
+				}
+				return possibles;
 			case BALANCED:
-				return getTechniques(Techniques.SPRING_ATTACK, Techniques.NEUTRAL_ATTACK, Techniques.CAUTIOUS_ATTACK, Techniques.BLOCK, Techniques.INCANTATION, Techniques.DUCK, Techniques.HIT_THE_DECK);
+				possibles = getTechniques(Techniques.SPRING_ATTACK, Techniques.NEUTRAL_ATTACK, Techniques.CAUTIOUS_ATTACK, Techniques.BLOCK, Techniques.INCANTATION, Techniques.DUCK, Techniques.HIT_THE_DECK);;
+				if (target.getStance() == Stance.SUPINE && target.isErect() && target.enemyType != EnemyEnum.SLIME){
+					possibles.addAll(getTechniques(Techniques.SIT_ON_IT));
+				}
+				return possibles;
 			case DEFENSIVE:
 				return getTechniques(Techniques.REVERSAL_ATTACK, Techniques.CAREFUL_ATTACK, Techniques.GUARD, Techniques.TAUNT, Techniques.SECOND_WIND, Techniques.INCANTATION, Techniques.DUCK, Techniques.HIT_THE_DECK, Techniques.PARRY);
 			case PRONE:
@@ -142,6 +152,8 @@ public class PlayerCharacter extends AbstractCharacter {
 					return getTechniques(Techniques.RECEIVE_ANAL, Techniques.BREAK_FREE_ANAL);
 				}
 				return getTechniques(Techniques.RECEIVE_ANAL, Techniques.STRUGGLE_ANAL);
+			case COWGIRL:
+				return getTechniques(Techniques.RIDE_ON_IT, Techniques.STAND_OFF_IT);
 			case KNOTTED:
 				return getTechniques(Techniques.RECEIVE_KNOT);
 			case FELLATIO:
@@ -348,6 +360,11 @@ public class PlayerCharacter extends AbstractCharacter {
 		if(perks.containsKey(Perk.WELLROUNDED) && !this.perks.containsKey(Perk.WELLROUNDED.toString())){
 			increaseLowestStat();
 		}
+		else if(perks.containsKey(Perk.CATAMITE) && !this.perks.containsKey(Perk.CATAMITE.toString())){
+			addSkill(Techniques.SIT_ON_IT, 1);
+			addSkill(Techniques.RIDE_ON_IT, 1);
+			addSkill(Techniques.STAND_OFF_IT, 1);
+		}
 		this.perks.clear();
 		for (Perk key : perks.keys()){
 			addPerk(key, perks.get(key));
@@ -371,6 +388,7 @@ public class PlayerCharacter extends AbstractCharacter {
 			case DOGGY:
 			case KNOTTED:
 			case ANAL:
+			case COWGIRL:
 				if (perks.containsKey(Perk.WEAK_TO_ANAL.toString())) return increaseLust(2);
 			case FELLATIO:
 				return increaseLust(1);
@@ -391,6 +409,11 @@ public class PlayerCharacter extends AbstractCharacter {
 					spurt = "Awoo! Semen spurts out your untouched cock as your hole is violated!\n"
 						+	"You feel it with your ass, like a girl! Your face is red with shame!\n"
 						+	"Got a little too comfortable, eh?\n";
+				break;
+				case COWGIRL:
+					spurt = "Awoo! Semen spurts out your untouched cock as your hole is violated!\n"
+							+	"You feel it with your ass, like a girl! Your face is red with shame!\n"
+							+	"It spews all over them!\n";
 				break;
 				case FELLATIO:
 					spurt = "You spew while sucking!\n"

@@ -169,7 +169,7 @@ public class Battle extends Group{
 	
 	private void displayTechniqueOptions(){
 		table.clear();
-		options = character.getPossibleTechniques();
+		options = character.getPossibleTechniques(enemy);
 		for (int ii = 0; ii < options.size; ii++){
 			TextButton button;
 			Technique option = options.get(ii);
@@ -306,11 +306,11 @@ public class Battle extends Group{
 		printToConsole(firstCharacter.receiveAttack(attackForFirstCharacter));
 		printToConsole(secondCharacter.receiveAttack(attackForSecondCharacter));		
 		
-		if ( (oldStance == Stance.ANAL || oldStance == Stance.DOGGY) && (firstCharacter.getStance() == Stance.ANAL || firstCharacter.getStance() == Stance.DOGGY)){
+		if ( (oldStance == Stance.ANAL || oldStance == Stance.DOGGY || oldStance == Stance.COWGIRL) && (firstCharacter.getStance() == Stance.ANAL || firstCharacter.getStance() == Stance.DOGGY || firstCharacter.getStance() == Stance.COWGIRL)){
 			thwapping.play(Gdx.app.getPreferences("trap-rpg-preferences").getFloat("volume") *.5f);
 		}
 		
-		if ( (oldStance == Stance.ANAL || oldStance == Stance.DOGGY) && (firstCharacter.getStance() != Stance.ANAL && firstCharacter.getStance() != Stance.DOGGY)){
+		if ( (oldStance == Stance.ANAL || oldStance == Stance.DOGGY || oldStance == Stance.COWGIRL) && (firstCharacter.getStance() != Stance.ANAL && firstCharacter.getStance() != Stance.DOGGY && firstCharacter.getStance() != Stance.COWGIRL)){
 			thwapping.play(Gdx.app.getPreferences("trap-rpg-preferences").getFloat("volume") *.5f);
 			soundBuffer.add(new SoundTimer(pop, 105, .3f));
 		}

@@ -21,7 +21,7 @@ public class NonAttackTechnique extends TechniquePrototype {
 	}
 	
 	public NonAttackTechnique(Stance usableStance, Stance resultingStance, String name, int staminaCost, int stabilityCost, Stance forceStance, boolean battleOver, String setDamage) {
-		this(usableStance, resultingStance, name, staminaCost, stabilityCost, forceStance, battleOver, setDamage, null);
+		this(usableStance, resultingStance, name, staminaCost, stabilityCost, forceStance, battleOver, setDamage, TechniqueHeight.NONE);
 	}
 
 	public NonAttackTechnique(Stance usableStance, Stance resultingStance, String name, int staminaCost, int stabilityCost, Stance forceStance, TechniqueHeight height) {
@@ -29,7 +29,7 @@ public class NonAttackTechnique extends TechniquePrototype {
 	}
 	
 	public NonAttackTechnique(Stance usableStance, Stance resultingStance, String name, int staminaCost, int stabilityCost, boolean taunt) {
-		this(usableStance, resultingStance, name, staminaCost, stabilityCost, null, false, null, null, taunt);
+		this(usableStance, resultingStance, name, staminaCost, stabilityCost, null, false, null, TechniqueHeight.NONE, taunt);
 	}
 	
 	public NonAttackTechnique(Stance usableStance, Stance resultingStance, String name, int staminaCost, int stabilityCost, Stance forceStance, boolean battleOver, String setDamage, TechniqueHeight height){		

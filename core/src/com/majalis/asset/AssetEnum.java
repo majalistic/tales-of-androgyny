@@ -35,6 +35,7 @@ public enum AssetEnum {
 	BALANCED("stances/Balanced.png"),
 	BLITZ("stances/Blitz.png"),
 	CASTING("stances/Casting.png"),
+	COWGIRL("stances/Anal.png"),
 	DEFENSIVE("stances/Defensive.png"),
 	DOGGY("stances/Doggy.png"),
 	ERUPT("stances/Erupt.png"),

@@ -54,6 +54,7 @@ public abstract class TechniquePrototype {
 		grapple = false;
 		selfTrip = false;
 		buff = null;
+		height = TechniqueHeight.NONE;
 	}
 	
 	public Stance getUsableStance(){ return usableStance; }
@@ -118,7 +119,7 @@ public abstract class TechniquePrototype {
 		if (manaCost > 0){
 			builder.append("Costs " + manaCost + " mana.\n");			
 		}
-		if (height != null){
+		if (height != TechniqueHeight.NONE){
 			builder.append(height.toString() + "-height attack.\n");
 		}
 		if (forceStance != null){
@@ -140,6 +141,7 @@ public abstract class TechniquePrototype {
 	public enum TechniqueHeight{
 		HIGH,
 		MEDIUM,
-		LOW
+		LOW,
+		NONE
 	}
 }
