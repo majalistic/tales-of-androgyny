@@ -413,13 +413,10 @@ public class EncounterBuilder {
 				);
 				break;
 			default:
+				backgroundTexture = assetManager.get(AssetEnum.TRAP_BONUS.getPath(), Texture.class);
 				getTextScenes(
-					getScript(battleCode, 0), font, background, 
-					getBattleScene(
-						saveService, battleCode,
-						getTextScenes(new String[]{"You won!  You get NOTHING.", "Sad :(", "What a pity.  Go away."}, font, background, getEndScene(EndScene.Type.ENCOUNTER_OVER)),
-						getTextScenes(getScript(battleCode, 1), font, background, getEndScene(EndScene.Type.GAME_OVER))					
-					)
+					getScript("TOWN"), font, new Background(backgroundTexture, assetManager.get(AssetEnum.VIGNETTE.getPath(), Texture.class), (int) (backgroundTexture.getWidth() / (backgroundTexture.getHeight() / 720f) ), 720), 
+					getEndScene(EndScene.Type.ENCOUNTER_OVER)				
 				);		
 				break;
 		}

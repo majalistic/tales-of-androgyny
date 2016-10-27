@@ -29,6 +29,7 @@ public enum AssetEnum {
 	BRIGAND("enemies/Brigand.png"),
 	SLIME("enemies/HeartSlime.png"), 
 	SLIME_DOGGY("enemies/HeartSlimeLoveDart.png"), 
+	TRAP_BONUS("enemies/TrapBonus.jpg"), 
 	
 	AIRBORNE("stances/Airborne.png"),
 	ANAL("stances/Anal.png"),
