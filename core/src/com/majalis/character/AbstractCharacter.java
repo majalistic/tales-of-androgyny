@@ -328,7 +328,7 @@ public abstract class AbstractCharacter extends Actor {
 				}
 			}
 			else if (oldStance == Stance.COWGIRL){
-				resolvedAttack.addMessage("The " + getLabel() + " blasts off in your intestines while you bounce\non thier cumming cock! You got butt-bombed!");
+				resolvedAttack.addMessage("The " + getLabel() + " blasts off in your intestines while you bounce\non their cumming cock! You got butt-bombed!");
 			}
 			else if (oldStance == Stance.ANAL){
 				resolvedAttack.addMessage("The " + getLabel() + "'s lovemaking reaches a climax!");
