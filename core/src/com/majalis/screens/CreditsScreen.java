@@ -47,7 +47,11 @@ public class CreditsScreen extends AbstractScreen{
 		credits = "\"Broken Reality\", \"Danse Macabre - Sad Part - no violin\", \"Floating Cities\", \"Kings of Tara\""
 				+ "\nKevin MacLeod (incompetech.com)"
 				+ "\nLicensed under Creative Commons: By Attribution 3.0"
-				+ "\nhttp://creativecommons.org/licenses/by/3.0/";
+				+ "\nhttp://creativecommons.org/licenses/by/3.0/"
+				+ "\n\nSuccubus-Tier patrons that helped make this happen:"
+				+ "\nDarksideX, Ace, crufl"
+				+ "\n\nCopy-editing by T3mp3st, anonymous others"				
+				;
 	}
 
 	@Override
