@@ -63,6 +63,7 @@ public class BattleScreen extends AbstractScreen{
 		battle.battleLoop();
 		if (battle.gameExit){
 			showScreen(ScreenEnum.MAIN_MENU);
+			music.stop();
 		}
 		else if (battle.battleOver){			
 			saveService.saveDataValue(SaveEnum.CONTEXT, SaveManager.GameContext.ENCOUNTER);
