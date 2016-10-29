@@ -78,7 +78,7 @@ public class MainMenuScreen extends AbstractScreen {
         this.addActor(table);
         table.addAction(Actions.moveTo(330, 130));
         music.play();
-        music.setVolume(Gdx.app.getPreferences("trap-rpg-preferences").getFloat("musicVolume"));
+        music.setVolume(Gdx.app.getPreferences("trap-rpg-preferences").getFloat("musicVolume", 1));
         music.setLooping(true);
 	}
 	
@@ -112,7 +112,7 @@ public class MainMenuScreen extends AbstractScreen {
 		batch.draw(arrowImage, 1520, 925 - selection * 40, 30, 50);
 		// need to make these relative to viewport
 		font.draw(batch, String.valueOf(clocktick++), 1850, 400);
-		font.draw(batch, "Version: 0.1.11.0", 1600, 1050);
+		font.draw(batch, "Version: 0.1.11.1", 1600, 1050);
 		batch.end();
 	}
 

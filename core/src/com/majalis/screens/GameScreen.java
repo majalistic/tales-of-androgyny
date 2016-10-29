@@ -163,7 +163,7 @@ public class GameScreen extends AbstractScreen {
 		);
 		this.addActor(camp);
 		
-		music.setVolume(Gdx.app.getPreferences("trap-rpg-preferences").getFloat("musicVolume") * .6f);
+		music.setVolume(Gdx.app.getPreferences("trap-rpg-preferences").getFloat("musicVolume", 1) * .6f);
 		music.setLooping(true);
 		music.play();
 	}
