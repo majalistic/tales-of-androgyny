@@ -37,6 +37,7 @@ public class EnemyCharacter extends AbstractCharacter {
 			case HARPY:
 				baseStrength = 4;
 				baseAgility = 7;
+				textureImagePaths.put(Stance.FELLATIO.toString(), AssetEnum.HARPY_FELLATIO.getPath());
 				imagePath = AssetEnum.HARPY.getPath();
 				bgPath = "enemies/HarpyUI.png";
 				break;
@@ -274,7 +275,9 @@ public class EnemyCharacter extends AbstractCharacter {
     public void draw(Batch batch, float parentAlpha) {
 		super.draw(batch, parentAlpha);
 		Texture texture = textures.get(stance, defaultTexture);
-		batch.draw(texture, 500, enemyType == EnemyEnum.HARPY ? 140 : 20, (int) (texture.getWidth() / (texture.getHeight() / 650.)), 650);
+		int width = enemyType == EnemyEnum.HARPY && stance == Stance.FELLATIO ? 150 : 500;
+		int height = enemyType == EnemyEnum.HARPY && stance != Stance.FELLATIO ? 140 : 20;
+		batch.draw(texture, width, height, (int) (texture.getWidth() / (texture.getHeight() / 650.)), 650);
     }
 	
 	public void init(Texture defaultTexture, ObjectMap<Stance, Texture> textures){

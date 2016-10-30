@@ -137,6 +137,10 @@ public class EncounterBuilder {
 				break;
 			// harpy
 			case 1:
+				Texture fellatioTexture = assetManager.get(AssetEnum.HARPY_FELLATIO.getPath(), Texture.class);
+				int width = (int) (fellatioTexture.getWidth() / (fellatioTexture.getHeight() / 600f) );
+				System.out.println(width);
+				Background harpyFellatioBackground = new Background(backgroundTexture, fellatioTexture, 1280, 720, width, 600);
 				getTextScenes(
 					getScript(battleCode, 0), font, background, getArray(new Mutation[]{new Mutation(saveService, ProfileEnum.KNOWLEDGE, EnemyEnum.HARPY.toString())}),
 					getCheckScene(
@@ -158,7 +162,7 @@ public class EncounterBuilder {
 								getTextScenes(getScript(battleCode, 4), font, background, getEndScene(EndScene.Type.GAME_OVER))					
 							)
 						),
-						getTextScenes(getScript(battleCode, 3), font, background, 
+						getTextScenes(getScript(battleCode, 3), font, harpyFellatioBackground, 
 							getBattleScene(
 								saveService, battleCode, Stance.FELLATIO, Stance.FELLATIO,									
 								getTextScenes(getArray(new String[]{"You defeated the harpy!", "You receive 1 Experience."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.EXPERIENCE, 1)}), getEndScene(EndScene.Type.ENCOUNTER_OVER)),

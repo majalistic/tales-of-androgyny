@@ -26,6 +26,7 @@ public enum AssetEnum {
 	BATTLE_BG("enemies/ForestBG.jpg"),
 	WEREBITCH("enemies/WerebitchBasic.png"),
 	HARPY("enemies/Harpy.png"),
+	HARPY_FELLATIO("enemies/HarpyFellatio.png"),
 	BRIGAND("enemies/Brigand.png"),
 	SLIME("enemies/HeartSlime.png"), 
 	SLIME_DOGGY("enemies/HeartSlimeLoveDart.png"), 

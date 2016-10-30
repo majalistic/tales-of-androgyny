@@ -32,7 +32,7 @@ public class Background extends Actor{
 		this.texture2 = texture2;
 		this.width = width;
 		this.height  = height;
-		this.width2 = texture2 == null ? width2 : texture2.getWidth() / (texture2.getHeight() / height2);
+		this.width2 = texture2 == null ? width2 : (int) (texture2.getWidth() / (texture2.getHeight() / (height2 * 1.)) );
 		this.height2 = height2;
 	}
 	

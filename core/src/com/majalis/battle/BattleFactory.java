@@ -68,6 +68,9 @@ public class BattleFactory {
 		if (type == EnemyEnum.SLIME){
 			textures.put(Stance.DOGGY, assetManager.get(AssetEnum.SLIME_DOGGY.getPath(), Texture.class));
 		}
+		else if(type == EnemyEnum.HARPY){
+			textures.put(Stance.FELLATIO, assetManager.get(AssetEnum.HARPY_FELLATIO.getPath(), Texture.class));
+		}
 		
 		return textures;
 	}
