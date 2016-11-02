@@ -360,7 +360,7 @@ public class PlayerCharacter extends AbstractCharacter {
 		if(perks.containsKey(Perk.WELLROUNDED) && !this.perks.containsKey(Perk.WELLROUNDED.toString())){
 			increaseLowestStat();
 		}
-		else if(perks.containsKey(Perk.CATAMITE) && !this.perks.containsKey(Perk.CATAMITE.toString())){
+		if(perks.containsKey(Perk.CATAMITE) && !this.perks.containsKey(Perk.CATAMITE.toString())){
 			addSkill(Techniques.SIT_ON_IT, 1);
 			addSkill(Techniques.RIDE_ON_IT, 1);
 			addSkill(Techniques.STAND_OFF_IT, 1);
