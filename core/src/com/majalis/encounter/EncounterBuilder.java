@@ -139,7 +139,6 @@ public class EncounterBuilder {
 			case 1:
 				Texture fellatioTexture = assetManager.get(AssetEnum.HARPY_FELLATIO.getPath(), Texture.class);
 				int width = (int) (fellatioTexture.getWidth() / (fellatioTexture.getHeight() / 600f) );
-				System.out.println(width);
 				Background harpyFellatioBackground = new Background(backgroundTexture, fellatioTexture, 1280, 720, width, 600);
 				getTextScenes(
 					getScript(battleCode, 0), font, background, getArray(new Mutation[]{new Mutation(saveService, ProfileEnum.KNOWLEDGE, EnemyEnum.HARPY.toString())}),
@@ -508,7 +507,7 @@ public class EncounterBuilder {
 		return new ClickListener(){
 	        @Override
 	        public void clicked(InputEvent event, float x, float y) {
-	        	buttonSound.play(Gdx.app.getPreferences("trap-rpg-preferences").getFloat("volume") *.5f);
+	        	buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
 	        	// set new Scene as active based on choice
 	        	nextScene.setActive();
 	        	currentScene.finish();
@@ -524,7 +523,7 @@ public class EncounterBuilder {
 	        		// this should actually disable the button, but not as part of an on-click event
 	        	}
 	        	else {
-	        		buttonSound.play(Gdx.app.getPreferences("trap-rpg-preferences").getFloat("volume") *.5f);
+	        		buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
 		        	// set new Scene as active based on choice
 		        	nextScene.setActive();
 		        	currentScene.finish();

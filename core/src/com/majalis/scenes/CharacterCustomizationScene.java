@@ -69,7 +69,7 @@ public class CharacterCustomizationScene extends Scene {
 			new ClickListener(){
 				@Override
 		        public void clicked(InputEvent event, float x, float y) {
-					buttonSound.play(Gdx.app.getPreferences("trap-rpg-preferences").getFloat("volume") *.5f);
+					buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
 					nextScene();		   
 		        }
 			}
@@ -84,7 +84,7 @@ public class CharacterCustomizationScene extends Scene {
 			button.addListener(new ClickListener(){
 				@Override
 		        public void clicked(InputEvent event, float x, float y) {
-					buttonSound.play(Gdx.app.getPreferences("trap-rpg-preferences").getFloat("volume") *.5f);
+					buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
 					console = "You now have a " + buttSize.toString().toLowerCase() + " booty.";
 					character.setBootyliciousness(buttSize);
 					saveService.saveDataValue(SaveEnum.PLAYER, character);

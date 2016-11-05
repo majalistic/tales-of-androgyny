@@ -22,10 +22,8 @@ public class DesktopLauncher {
 		config.addIcon("icon32.png", Files.FileType.Internal);
 		config.addIcon("icon128.png", Files.FileType.Internal);
 		config.title = "Tales of Androgyny";
-		config.width = 1920;
-		config.height = 1080;
-		//config.fullscreen = true;
-		//config.vSyncEnabled = true;
+		config.width = 1;
+		config.height = 1;
 		config.allowSoftwareMode = true;
 		
 		Thread.setDefaultUncaughtExceptionHandler(new UncaughtExceptionHandler() {

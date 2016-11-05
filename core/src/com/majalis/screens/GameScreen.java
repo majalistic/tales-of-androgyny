@@ -127,7 +127,7 @@ public class GameScreen extends AbstractScreen {
 			new ClickListener(){
 				@Override
 		        public void clicked(InputEvent event, float x, float y) {
-					buttonSound.play(Gdx.app.getPreferences("trap-rpg-preferences").getFloat("volume") *.5f);
+					buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
 					showScreen(ScreenEnum.CHARACTER);		   
 		        }
 			}
@@ -149,7 +149,7 @@ public class GameScreen extends AbstractScreen {
 			new ClickListener(){
 				@Override
 		        public void clicked(InputEvent event, float x, float y) {
-					buttonSound.play(Gdx.app.getPreferences("trap-rpg-preferences").getFloat("volume") *.5f);
+					buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
 					saveService.saveDataValue(SaveEnum.FOOD, -4);	   
 					saveService.saveDataValue(SaveEnum.HEALTH, 10);	
 					if (character.getFood() < 4){
@@ -163,7 +163,7 @@ public class GameScreen extends AbstractScreen {
 		);
 		this.addActor(camp);
 		
-		music.setVolume(Gdx.app.getPreferences("trap-rpg-preferences").getFloat("musicVolume", 1) * .6f);
+		music.setVolume(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("musicVolume", 1) * .6f);
 		music.setLooping(true);
 		music.play();
 	}

@@ -1,6 +1,7 @@
 package com.majalis.traprpg;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
@@ -19,6 +20,15 @@ import com.majalis.world.GameWorldFactory;
  */
 public class TrapRPG extends Game {
 	public void create() {	
+		
+		Preferences prefs = Gdx.app.getPreferences("tales-of-androgyny-preferences");
+		if (prefs.getBoolean("fullScreen", false)){
+			Gdx.graphics.setFullscreenMode(Gdx.graphics.getDisplayMode());
+		}
+		else {
+			Gdx.graphics.setWindowedMode(prefs.getInteger("width", 1920), prefs.getInteger("height", 1080));	
+		}
+		
 		SaveManager saveManager = new SaveManager(false, "data/save.json", "data/profile.json");
 		EncounterReader encounterReader = new EncounterReader("script/encounters.json");
 		AssetManager assetManager = new AssetManager();

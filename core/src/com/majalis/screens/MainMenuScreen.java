@@ -78,7 +78,7 @@ public class MainMenuScreen extends AbstractScreen {
         this.addActor(table);
         table.addAction(Actions.moveTo(330, 130));
         music.play();
-        music.setVolume(Gdx.app.getPreferences("trap-rpg-preferences").getFloat("musicVolume", 1));
+        music.setVolume(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("musicVolume", 1));
         music.setLooping(true);
 	}
 	
@@ -132,7 +132,7 @@ public class MainMenuScreen extends AbstractScreen {
 		return new ClickListener(){
 	        @Override
 	        public void clicked(InputEvent event, float x, float y) {
-	        	buttonSound.play(Gdx.app.getPreferences("trap-rpg-preferences").getFloat("volume") *.5f);
+	        	buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
         		if (screenSelection == ScreenEnum.NEW_GAME){
         			// ONLY CALL THIS TO DESTROY OLD DATA AND REPLACE WITH A BRAND NEW SAVE
         			saveService.newSave();

@@ -93,7 +93,7 @@ public class SkillSelectionScene extends Scene {
 			new ClickListener(){
 				@Override
 		        public void clicked(InputEvent event, float x, float y) {
-					buttonSound.play(Gdx.app.getPreferences("trap-rpg-preferences").getFloat("volume") *.5f);
+					buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
 					nextScene();		   
 		        }
 			}
@@ -110,7 +110,7 @@ public class SkillSelectionScene extends Scene {
 			button.addListener(new ClickListener(){
 				@Override
 		        public void clicked(InputEvent event, float x, float y) {
-					buttonSound.play(Gdx.app.getPreferences("trap-rpg-preferences").getFloat("volume") *.5f);
+					buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
 					if (skillPoints > 0){
 						Integer level = skills.get(technique);
 						if (level == null) level = 0;
@@ -146,7 +146,7 @@ public class SkillSelectionScene extends Scene {
 			minusButton.addListener(new ClickListener(){
 				@Override
 		        public void clicked(InputEvent event, float x, float y) {
-					buttonSound.play(Gdx.app.getPreferences("trap-rpg-preferences").getFloat("volume") *.5f);
+					buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
 					
 					Integer level = skills.get(technique, 0);
 					if (level == 0){
@@ -181,7 +181,7 @@ public class SkillSelectionScene extends Scene {
 			button.addListener(new ClickListener(){
 				@Override
 		        public void clicked(InputEvent event, float x, float y) {
-					buttonSound.play(Gdx.app.getPreferences("trap-rpg-preferences").getFloat("volume") *.5f);
+					buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
 					if (perkPoints > 0){
 						Integer level = perks.get(perk, 0);
 						if (level < perk.getMaxRank()){
@@ -220,7 +220,7 @@ public class SkillSelectionScene extends Scene {
 			minusButton.addListener(new ClickListener(){
 				@Override
 		        public void clicked(InputEvent event, float x, float y) {
-					buttonSound.play(Gdx.app.getPreferences("trap-rpg-preferences").getFloat("volume") *.5f);
+					buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
 					
 					Integer level = perks.get(perk, 0);
 					if (level == 0){
@@ -261,7 +261,7 @@ public class SkillSelectionScene extends Scene {
 				button.addListener(new ClickListener(){
 					@Override
 			        public void clicked(InputEvent event, float x, float y) {
-						buttonSound.play(Gdx.app.getPreferences("trap-rpg-preferences").getFloat("volume") *.5f);
+						buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
 						if (magicPoints > 0){
 							Integer level = skills.get(technique, 0);
 							if (level < technique.getMaxRank()){
@@ -296,7 +296,7 @@ public class SkillSelectionScene extends Scene {
 				minusButton.addListener(new ClickListener(){
 					@Override
 			        public void clicked(InputEvent event, float x, float y) {
-						buttonSound.play(Gdx.app.getPreferences("trap-rpg-preferences").getFloat("volume") *.5f);
+						buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
 						
 						Integer level = skills.get(technique, 0);
 						if (level == 0){

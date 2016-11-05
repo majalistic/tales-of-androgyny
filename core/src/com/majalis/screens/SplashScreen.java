@@ -78,7 +78,7 @@ public class SplashScreen extends AbstractScreen {
 	@Override
 	public void show(){
 		super.show();
-		sound.play(Gdx.app.getPreferences("trap-rpg-preferences").getFloat("volume") *.7f);
+		sound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.7f);
 	    getRoot().getColor().a = 0;
 	    getRoot().addAction(Actions.fadeIn(0.5f));
 	}

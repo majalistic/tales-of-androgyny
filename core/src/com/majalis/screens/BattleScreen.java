@@ -59,7 +59,7 @@ public class BattleScreen extends AbstractScreen{
 	@Override
 	public void buildStage() {
 		addActor(battle);
-		music.setVolume(Gdx.app.getPreferences("trap-rpg-preferences").getFloat("musicVolume", 1) * .6f);
+		music.setVolume(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("musicVolume", 1) * .6f);
 		music.setLooping(true);
 		music.play();
 	}
