@@ -101,7 +101,7 @@ public class EnemyCharacter extends AbstractCharacter {
 	
 	private Array<Technique> getPossibleTechniques(AbstractCharacter target, Stance stance){
 		
-		if (enemyType == EnemyEnum.SLIME && stance != Stance.DOGGY && stance != Stance.FELLATIO && stance != Stance.SUPINE && stance != Stance.PRONE){
+		if (enemyType == EnemyEnum.SLIME && stance != Stance.DOGGY && stance != Stance.FELLATIO && stance != Stance.SUPINE && stance != Stance.PRONE && stance != Stance.COWGIRL && stance != Stance.STANDING && stance != Stance.HANDY){
 			return getTechniques(Techniques.SLIME_ATTACK, Techniques.SLIME_QUIVER); 			
 		}
 		
@@ -127,17 +127,8 @@ public class EnemyCharacter extends AbstractCharacter {
 			case KNEELING:
 				return getTechniques(Techniques.STAND_UP, Techniques.STAY_KNELT);
 			case DOGGY:
-				lust++;
-				if (enemyType != EnemyEnum.WERESLUT && lust > 14){
-					return getTechniques(Techniques.ERUPT_ANAL);
-				}
-				else if (enemyType == EnemyEnum.WERESLUT && lust > 17){
-					return getTechniques(Techniques.KNOT);
-				}
-				else {
-					return getTechniques(Techniques.POUND_DOGGY);
-				}
 			case ANAL:
+			case STANDING:
 				lust++;
 				if (enemyType != EnemyEnum.WERESLUT && lust > 14){
 					return getTechniques(Techniques.ERUPT_ANAL);
@@ -146,7 +137,15 @@ public class EnemyCharacter extends AbstractCharacter {
 					return getTechniques(Techniques.KNOT);
 				}
 				else {
-					return getTechniques(Techniques.POUND_ANAL);
+					if (stance == Stance.ANAL){
+						return getTechniques(Techniques.POUND_ANAL);
+					}
+					else if (stance == Stance.DOGGY){
+						return getTechniques(Techniques.POUND_DOGGY);
+					}
+					else {
+						return getTechniques(Techniques.POUND_STANDING);
+					}		
 				}
 			case COWGIRL:
 				lust++;
@@ -293,6 +292,7 @@ public class EnemyCharacter extends AbstractCharacter {
 		switch (stance){
 		case DOGGY:
 		case ANAL:
+		case STANDING:
 		case KNOTTED:
 		case FELLATIO:
 			return increaseLust(1);

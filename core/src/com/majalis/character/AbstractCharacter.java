@@ -246,7 +246,7 @@ public abstract class AbstractCharacter extends Actor {
 	}
 	
 	protected boolean alreadyIncapacitated(){
-		return stance == Stance.PRONE || stance == Stance.SUPINE || stance == Stance.FELLATIO || stance == Stance.DOGGY || stance == Stance.ANAL || stance == Stance.KNOTTED || stance == Stance.COWGIRL;
+		return stance == Stance.PRONE || stance == Stance.SUPINE || stance == Stance.FELLATIO || stance == Stance.DOGGY || stance == Stance.ANAL || stance == Stance.KNOTTED || stance == Stance.COWGIRL || stance == Stance.STANDING;
 	}
 	
 	public Attack doAttack(Attack resolvedAttack) {
@@ -268,7 +268,7 @@ public abstract class AbstractCharacter extends Actor {
 		if (buff != null){
 			statuses.put(buff.type.toString(), buff.power);
 		}
-		if (resolvedAttack.getForceStance() == Stance.DOGGY || resolvedAttack.getForceStance() == Stance.ANAL){
+		if (resolvedAttack.getForceStance() == Stance.DOGGY || resolvedAttack.getForceStance() == Stance.ANAL || resolvedAttack.getForceStance() == Stance.STANDING){
 			resolvedAttack.addMessage("You are being anally violated!");
 			resolvedAttack.addMessage("Your hole is stretched by her fat dick!");
 			resolvedAttack.addMessage("Your hole feels like it's on fire!");
@@ -549,13 +549,15 @@ public abstract class AbstractCharacter extends Actor {
 		AIRBORNE ((AssetEnum.AIRBORNE.getPath()), true, false, false), 
 		DOGGY (AssetEnum.DOGGY.getPath()), 
 		ANAL (AssetEnum.ANAL.getPath()), 
+		STANDING (AssetEnum.STANDING.getPath()),
+		HANDY (AssetEnum.HANDY.getPath()),
 		COWGIRL (AssetEnum.COWGIRL.getPath()),
 		KNOTTED (AssetEnum.KNOTTED.getPath()), 
 		FELLATIO (AssetEnum.FELLATIO.getPath()), 
 		CASTING (AssetEnum.CASTING.getPath()),
 		ERUPT (AssetEnum.ERUPT.getPath())
 		;
-		
+		// need to create: boolean anal, boolean oral, boolean method erotic, boolean incapacitated
 		private final String texturePath;
 		public final boolean receivesHighAttacks;
 		public final boolean receivesMediumAttacks;

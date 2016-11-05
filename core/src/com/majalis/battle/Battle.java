@@ -306,11 +306,11 @@ public class Battle extends Group{
 		printToConsole(firstCharacter.receiveAttack(attackForFirstCharacter));
 		printToConsole(secondCharacter.receiveAttack(attackForSecondCharacter));		
 		
-		if ( (oldStance == Stance.ANAL || oldStance == Stance.DOGGY || oldStance == Stance.COWGIRL) && (firstCharacter.getStance() == Stance.ANAL || firstCharacter.getStance() == Stance.DOGGY || firstCharacter.getStance() == Stance.COWGIRL)){
+		if ( (oldStance == Stance.ANAL || oldStance == Stance.DOGGY || oldStance == Stance.STANDING || oldStance == Stance.COWGIRL) && (firstCharacter.getStance() == Stance.ANAL || firstCharacter.getStance() == Stance.DOGGY || firstCharacter.getStance() == Stance.STANDING || firstCharacter.getStance() == Stance.COWGIRL)){
 			thwapping.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
 		}
 		
-		if ( (oldStance == Stance.ANAL || oldStance == Stance.DOGGY || oldStance == Stance.COWGIRL) && (firstCharacter.getStance() != Stance.ANAL && firstCharacter.getStance() != Stance.DOGGY && firstCharacter.getStance() != Stance.COWGIRL)){
+		if ( (oldStance == Stance.ANAL || oldStance == Stance.DOGGY || oldStance == Stance.STANDING || oldStance == Stance.COWGIRL) && (firstCharacter.getStance() != Stance.ANAL && firstCharacter.getStance() != Stance.DOGGY && firstCharacter.getStance() != Stance.STANDING && firstCharacter.getStance() != Stance.COWGIRL)){
 			thwapping.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
 			soundBuffer.add(new SoundTimer(pop, 105, .3f));
 		}

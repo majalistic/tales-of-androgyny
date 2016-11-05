@@ -365,7 +365,7 @@ public class EncounterBuilder {
 							getTextScenes(
 								getScript(battleCode, 12), font, background, 
 								getBattleScene(
-									saveService, battleCode, Stance.DOGGY, Stance.DOGGY,
+									saveService, battleCode, Stance.STANDING, Stance.STANDING,
 									getTextScenes(getArray(new String[]{"You defeated the brigand!", "You receive 1 Experience."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.EXPERIENCE, 1)}), getEndScene(EndScene.Type.ENCOUNTER_OVER)),
 									getTextScenes(getScript(battleCode, 13), font, background, 
 										getTextScenes(

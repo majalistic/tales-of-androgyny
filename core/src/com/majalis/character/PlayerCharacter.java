@@ -152,6 +152,11 @@ public class PlayerCharacter extends AbstractCharacter {
 					return getTechniques(Techniques.RECEIVE_ANAL, Techniques.BREAK_FREE_ANAL);
 				}
 				return getTechniques(Techniques.RECEIVE_ANAL, Techniques.STRUGGLE_ANAL);
+			case STANDING:
+				if (struggle <= 0){
+					return getTechniques(Techniques.RECEIVE_STANDING, Techniques.BREAK_FREE_ANAL);
+				}
+				return getTechniques(Techniques.RECEIVE_STANDING, Techniques.STRUGGLE_STANDING);
 			case COWGIRL:
 				return getTechniques(Techniques.RIDE_ON_IT, Techniques.STAND_OFF_IT);
 			case KNOTTED:

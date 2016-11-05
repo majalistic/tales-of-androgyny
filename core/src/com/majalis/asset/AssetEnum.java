@@ -42,10 +42,12 @@ public enum AssetEnum {
 	DOGGY("stances/Doggy.png"),
 	ERUPT("stances/Erupt.png"),
 	FELLATIO("stances/Fellatio.png"),
+	HANDY("stances/Handy.png"),
 	KNEELING("stances/Kneeling.png"),
 	KNOTTED("stances/Knotted.png"),
 	OFFENSIVE("stances/Offensive.png"),
 	PRONE("stances/Prone.png"),
+	STANDING("stances/Standing.png"),
 	SUPINE("stances/Supine.png"),
 	
 	STANCE_ARROW("stances/ChevronArrow.png"),
