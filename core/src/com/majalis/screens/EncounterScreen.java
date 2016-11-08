@@ -41,6 +41,7 @@ public class EncounterScreen extends AbstractScreen {
 		resourceRequirements.put(AssetEnum.CHARISMA.getPath(), Texture.class);
 		resourceRequirements.put(AssetEnum.SLIME_DOGGY.getPath(), Texture.class);
 		resourceRequirements.put(AssetEnum.HARPY_FELLATIO.getPath(), Texture.class);
+		resourceRequirements.put(AssetEnum.BRIGAND_ORAL.getPath(), Texture.class);
 		resourceRequirements.put(AssetEnum.ENCOUNTER_MUSIC.getPath(), Music.class);
 	}
 	private final AssetManager assetManager;

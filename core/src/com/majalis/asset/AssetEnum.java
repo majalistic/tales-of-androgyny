@@ -30,6 +30,7 @@ public enum AssetEnum {
 	HARPY("enemies/Harpy.png"),
 	HARPY_FELLATIO("enemies/HarpyFellatio.png"),
 	BRIGAND("enemies/Brigand.png"),
+	BRIGAND_ORAL("enemies/BrigandOral.jpg"),
 	SLIME("enemies/HeartSlime.png"), 
 	SLIME_DOGGY("enemies/HeartSlimeLoveDart.png"), 
 	TRAP_BONUS("enemies/TrapBonus.jpg"), 
@@ -62,6 +63,9 @@ public enum AssetEnum {
 	CHARISMA("stats/Charisma.png"), 
 	
 	SLASH("animation/ClawAttack.png"),
+	
+	GAME_OVER_GAPE("GameOverButt.jpg"),
+	GAME_OVER_TUCKERED("GameOverTuckered.jpg"),
 	
 	// sounds
 	BUTTON_SOUND("sound.wav"),
