@@ -16,6 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.majalis.asset.AssetEnum;
 import com.majalis.battle.BattleFactory.EnemyEnum;
+import com.majalis.encounter.Background;
 /*
  * The replay encounters.  UI that handles player input to select and load and encounters to experience again.
  */
@@ -31,6 +32,7 @@ public class ReplayScreen extends AbstractScreen {
 		resourceRequirements.put(AssetEnum.BRIGAND.getPath(), Texture.class);
 		resourceRequirements.put(AssetEnum.SLIME.getPath(), Texture.class);
 		resourceRequirements.put(AssetEnum.MAIN_MENU_MUSIC.getPath(), Music.class);
+		resourceRequirements.put(AssetEnum.DEFAULT_BACKGROUND.getPath(), Texture.class);
 	}
 	private final AssetManager assetManager;
 	private final ObjectMap<String, Integer> enemyKnowledge;
@@ -41,6 +43,7 @@ public class ReplayScreen extends AbstractScreen {
 	
 	public ReplayScreen(ScreenFactory factory, ScreenElements elements, AssetManager assetManager, ObjectMap<String, Integer> enemyKnowledge) {
 		super(factory, elements);
+		this.addActor(new Background(assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getPath(), Texture.class)));
 		this.assetManager = assetManager;
 		this.enemyKnowledge = enemyKnowledge;
 		this.skin = assetManager.get(AssetEnum.UI_SKIN.getPath(), Skin.class);
@@ -104,7 +107,7 @@ public class ReplayScreen extends AbstractScreen {
 		        }
 			}
 		);
-		done.addAction(Actions.moveTo(done.getX() + 1015, done.getY() + 20));
+		done.addAction(Actions.moveTo(done.getX() + 1015, done.getY() + 80));
 		this.addActor(done);
 	}
 	

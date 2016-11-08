@@ -7,6 +7,7 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -14,18 +15,21 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.majalis.asset.AssetEnum;
+import com.majalis.encounter.Background;
 
 public class CreditsScreen extends AbstractScreen{
 
 	public static final ObjectMap<String, Class<?>> resourceRequirements = new ObjectMap<String, Class<?>>();
 	static {
-		resourceRequirements.put("uiskin.json", Skin.class);
-		resourceRequirements.put("sound.wav", Sound.class);
+		resourceRequirements.put(AssetEnum.UI_SKIN.getPath(), Skin.class);
+		resourceRequirements.put(AssetEnum.BUTTON_SOUND.getPath(), Sound.class);
+		resourceRequirements.put(AssetEnum.DEFAULT_BACKGROUND.getPath(), Texture.class);
 		resourceRequirements.put(AssetEnum.MAIN_MENU_MUSIC.getPath(), Music.class);
 	}
 	private final String credits;
 	protected CreditsScreen(ScreenFactory screenFactory, ScreenElements elements, AssetManager assetManager) {
 		super(screenFactory, elements);
+		this.addActor(new Background(assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getPath(), Texture.class)));
 		Skin skin = assetManager.get(AssetEnum.UI_SKIN.getPath(), Skin.class);
 		final Sound sound = assetManager.get(AssetEnum.BUTTON_SOUND.getPath(), Sound.class);
 		final TextButton done = new TextButton("Done", skin);
@@ -41,7 +45,7 @@ public class CreditsScreen extends AbstractScreen{
 		        }
 			}
 		);
-		done.addAction(Actions.moveTo(done.getX() + 1015, done.getY() + 20));
+		done.addAction(Actions.moveTo(done.getX() + 1015, done.getY() + 80));
 		this.addActor(done);
 		
 		credits = "\"Broken Reality\", \"Danse Macabre - Sad Part - no violin\", \"Floating Cities\", \"Kings of Tara\""
@@ -67,7 +71,7 @@ public class CreditsScreen extends AbstractScreen{
 		batch.setTransformMatrix(camera.view);
 		camera.update();
 		batch.begin();
-		font.setColor(Color.WHITE);
+		font.setColor(Color.BLACK);
 		font.draw(batch, credits, 770, 1000);
 		batch.end();
 		

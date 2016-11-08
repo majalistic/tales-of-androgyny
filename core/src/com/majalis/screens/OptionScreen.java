@@ -8,6 +8,7 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -22,6 +23,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.majalis.asset.AssetEnum;
+import com.majalis.encounter.Background;
 /*
  * The options/configuration screen.  UI that handles player input to save Preferences to a player's file system.
  */
@@ -32,12 +34,14 @@ public class OptionScreen extends AbstractScreen {
 		resourceRequirements.put(AssetEnum.UI_SKIN.getPath(), Skin.class);
 		resourceRequirements.put(AssetEnum.BUTTON_SOUND.getPath(), Sound.class);
 		resourceRequirements.put(AssetEnum.MAIN_MENU_MUSIC.getPath(), Music.class);
+		resourceRequirements.put(AssetEnum.DEFAULT_BACKGROUND.getPath(), Texture.class);
 	}
 	
 	private final Preferences preferences;
 	private final Music music;
 	public OptionScreen(ScreenFactory factory, ScreenElements elements, AssetManager assetManager) {
 		super(factory, elements);
+		this.addActor(new Background(assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getPath(), Texture.class)));
 		Skin skin = assetManager.get(AssetEnum.UI_SKIN.getPath(), Skin.class);
 		this.music = assetManager.get(AssetEnum.MAIN_MENU_MUSIC.getPath(), Music.class);
 		final Sound sound = assetManager.get(AssetEnum.BUTTON_SOUND.getPath(), Sound.class);
@@ -79,7 +83,7 @@ public class OptionScreen extends AbstractScreen {
 	            preferences.putBoolean("fullScreen", val);
 	        }
 	    });
-		fullScreen.addAction(Actions.moveTo(500, 600));
+		fullScreen.addAction(Actions.moveTo(500, 580));
 		this.addActor(fullScreen);
 		
 		final SelectBox<Vector2> resolution = new SelectBox<Vector2>(skin);
@@ -109,7 +113,7 @@ public class OptionScreen extends AbstractScreen {
 		        }
 			}
 		);
-		done.addAction(Actions.moveTo(done.getX() + 1015, done.getY() + 20));
+		done.addAction(Actions.moveTo(done.getX() + 1015, done.getY() + 80));
 		this.addActor(done);
 	}
 	
@@ -125,7 +129,7 @@ public class OptionScreen extends AbstractScreen {
 		batch.setTransformMatrix(camera.view);
 		camera.update();
 		batch.begin();
-		font.setColor(Color.WHITE);
+		font.setColor(Color.BLACK);
 		font.draw(batch, "Sound volume:", 1170, 765);
 		font.draw(batch, "Music volume:", 1170, 660);
 		font.draw(batch, String.valueOf((int)(preferences.getFloat("volume", 1) * 100)) +"%", 1200, 750);

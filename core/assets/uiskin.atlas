@@ -5,79 +5,107 @@ filter: Nearest,Nearest
 repeat: none
 EmbelishedButton64L
   rotate: false
-  xy: 1, 414
+  xy: 1, 428
   size: 600, 72
   orig: 600, 72
   offset: 0, 0
   index: -1
 Slider
   rotate: false
-  xy: 1, 340
+  xy: 1, 354
   size: 600, 72
   orig: 600, 72
   offset: 0, 0
   index: -1
 TextFieldBG
   rotate: false
-  xy: 1, 266
-  size: 600, 72
-  orig: 600, 72
+  xy: 1, 280
+  size: 548, 72
+  orig: 548, 72
   offset: 0, 0
   index: -1
 SliderP
   rotate: false
-  xy: 1, 192
+  xy: 1, 206
   size: 511, 72
   orig: 511, 72
   offset: 0, 0
   index: -1
 EmbelishedButton128
   rotate: false
-  xy: 603, 350
+  xy: 603, 364
   size: 300, 136
   orig: 300, 136
   offset: 0, 0
   index: -1
 EmbelishedButton64
   rotate: false
-  xy: 1, 118
+  xy: 1, 132
   size: 300, 72
   orig: 300, 72
   offset: 0, 0
   index: -1
 EmbelishedButton64D
   rotate: false
-  xy: 603, 276
-  size: 300, 72
-  orig: 300, 72
-  offset: 0, 0
-  index: -1
-EmbelishedButton64F
-  rotate: false
-  xy: 1, 44
+  xy: 1, 58
   size: 300, 72
   orig: 300, 72
   offset: 0, 0
   index: -1
 NegButton
   rotate: false
-  xy: 303, 9
+  xy: 303, 23
   size: 176, 181
   orig: 176, 181
+  offset: 0, 0
+  index: -1
+EmbelishedButton64F
+  rotate: false
+  xy: 603, 290
+  size: 300, 72
+  orig: 300, 72
   offset: 0, 0
   index: -1
 PosButton
   rotate: false
-  xy: 481, 9
+  xy: 481, 23
   size: 176, 181
   orig: 176, 181
   offset: 0, 0
   index: -1
+Checked
+  rotate: false
+  xy: 659, 143
+  size: 134, 145
+  orig: 134, 145
+  offset: 0, 0
+  index: -1
+Unchecked
+  rotate: false
+  xy: 795, 143
+  size: 134, 145
+  orig: 134, 145
+  offset: 0, 0
+  index: -1
 SliderFill
   rotate: false
-  xy: 905, 431
+  xy: 1, 1
   size: 67, 55
   orig: 67, 55
+  offset: 0, 0
+  index: -1
+SliderKnob
+  rotate: false
+  xy: 659, 100
+  size: 60, 41
+  orig: 60, 41
+  offset: 0, 0
+  index: -1
+TextCursor
+  rotate: false
+  xy: 551, 285
+  size: 24, 67
+  orig: 24, 67
   offset: 0, 0
   index: -1
 SliderLead
@@ -86,21 +114,7 @@ SliderLead
   size: 1, 1
   orig: 1, 1
   offset: 0, 0
-  index: -1
-SliderKnob
-  rotate: false
-  xy: 1, 1
-  size: 60, 41
-  orig: 60, 41
-  offset: 0, 0
-  index: -1
-TextCursor
-  rotate: false
-  xy: 514, 197
-  size: 24, 67
-  orig: 24, 67
-  offset: 0, 0
-  index: -1
+  index: -1 
 white
   rotate: false
   xy: 174, 48
@@ -122,3 +136,4 @@ black
   orig: 1, 1
   offset: 0, 0
   index: -1
+

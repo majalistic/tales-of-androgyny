@@ -22,9 +22,9 @@ public class EncounterScreen extends AbstractScreen {
 	// these are required for all encounters, possibly - requirements for an individual encounter must be parsed by the EncounterFactory
 	public static final ObjectMap<String, Class<?>> resourceRequirements = new ObjectMap<String, Class<?>>();
 	static {
-		resourceRequirements.put("uiskin.json", Skin.class);
-		resourceRequirements.put("sound.wav", Sound.class);
-		resourceRequirements.put("DefaultBackground.jpg", Texture.class);
+		resourceRequirements.put(AssetEnum.UI_SKIN.getPath(), Skin.class);
+		resourceRequirements.put(AssetEnum.BUTTON_SOUND.getPath(), Sound.class);
+		resourceRequirements.put(AssetEnum.DEFAULT_BACKGROUND.getPath(), Texture.class);
 		resourceRequirements.put(AssetEnum.VIGNETTE.getPath(), Texture.class);
 		resourceRequirements.put("GameTypeSelect.jpg", Texture.class);
 		resourceRequirements.put("ClassSelect.jpg", Texture.class);
