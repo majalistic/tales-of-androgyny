@@ -1,0 +1,380 @@
+
+Harpy.png
+size: 1024,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Chest
+  rotate: false
+  xy: 851, 72
+  size: 169, 221
+  orig: 169, 221
+  offset: 0, 0
+  index: -1
+HairLBang
+  rotate: true
+  xy: 851, 2
+  size: 68, 88
+  orig: 68, 88
+  offset: 0, 0
+  index: -1
+HairRFore
+  rotate: true
+  xy: 851, 295
+  size: 174, 171
+  orig: 174, 171
+  offset: 0, 0
+  index: -1
+LADistalWing01
+  rotate: false
+  xy: 2, 355
+  size: 415, 667
+  orig: 415, 667
+  offset: 0, 0
+  index: -1
+LADistalWing02
+  rotate: true
+  xy: 419, 471
+  size: 551, 599
+  orig: 551, 599
+  offset: 0, 0
+  index: -1
+LAProximalWing1
+  rotate: true
+  xy: 2, 16
+  size: 337, 406
+  orig: 337, 406
+  offset: 0, 0
+  index: -1
+RADistalWing
+  rotate: true
+  xy: 419, 10
+  size: 459, 430
+  orig: 459, 430
+  offset: 0, 0
+  index: -1
+RAShoulder
+  rotate: false
+  xy: 941, 11
+  size: 79, 59
+  orig: 79, 59
+  offset: 0, 0
+  index: -1
+
+Harpy2.png
+size: 1024,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Balls
+  rotate: true
+  xy: 491, 3
+  size: 81, 86
+  orig: 81, 86
+  offset: 0, 0
+  index: -1
+BrowL
+  rotate: true
+  xy: 972, 618
+  size: 26, 41
+  orig: 26, 41
+  offset: 0, 0
+  index: -1
+BrowR
+  rotate: true
+  xy: 295, 81
+  size: 26, 17
+  orig: 26, 17
+  offset: 0, 0
+  index: -1
+EyeL
+  rotate: false
+  xy: 972, 827
+  size: 42, 46
+  orig: 42, 46
+  offset: 0, 0
+  index: -1
+EyeLSultry
+  rotate: false
+  xy: 972, 924
+  size: 43, 46
+  orig: 43, 46
+  offset: 0, 0
+  index: -1
+EyeLSurprise
+  rotate: false
+  xy: 972, 875
+  size: 42, 47
+  orig: 42, 47
+  offset: 0, 0
+  index: -1
+EyeLWink
+  rotate: false
+  xy: 972, 972
+  size: 45, 50
+  orig: 45, 50
+  offset: 0, 0
+  index: -1
+EyeR
+  rotate: true
+  xy: 295, 139
+  size: 28, 22
+  orig: 28, 22
+  offset: 0, 0
+  index: -1
+EyeRSultry
+  rotate: true
+  xy: 295, 109
+  size: 28, 22
+  orig: 28, 22
+  offset: 0, 0
+  index: -1
+EyeRSurprise
+  rotate: false
+  xy: 372, 25
+  size: 28, 26
+  orig: 28, 26
+  offset: 0, 0
+  index: -1
+EyeRWink
+  rotate: false
+  xy: 402, 26
+  size: 29, 25
+  orig: 29, 25
+  offset: 0, 0
+  index: -1
+Face
+  rotate: false
+  xy: 897, 112
+  size: 120, 134
+  orig: 120, 134
+  offset: 0, 0
+  index: -1
+HairLCrown
+  rotate: false
+  xy: 897, 248
+  size: 122, 160
+  orig: 122, 160
+  offset: 0, 0
+  index: -1
+HairRCrown
+  rotate: true
+  xy: 491, 261
+  size: 169, 140
+  orig: 169, 140
+  offset: 0, 0
+  index: -1
+LADistalWing1
+  rotate: false
+  xy: 2, 432
+  size: 629, 590
+  orig: 629, 590
+  offset: 0, 0
+  index: -1
+LAProximalWing
+  rotate: false
+  xy: 633, 55
+  size: 262, 559
+  orig: 262, 559
+  offset: 0, 0
+  index: -1
+LBreast
+  rotate: true
+  xy: 2, 20
+  size: 147, 185
+  orig: 147, 185
+  offset: 0, 0
+  index: -1
+LLThigh
+  rotate: true
+  xy: 2, 169
+  size: 261, 316
+  orig: 261, 316
+  offset: 0, 0
+  index: -1
+Mouth
+  rotate: false
+  xy: 972, 689
+  size: 39, 41
+  orig: 39, 41
+  offset: 0, 0
+  index: -1
+MouthGrit
+  rotate: false
+  xy: 972, 646
+  size: 39, 41
+  orig: 39, 41
+  offset: 0, 0
+  index: -1
+MouthNeutral
+  rotate: false
+  xy: 579, 45
+  size: 39, 39
+  orig: 39, 39
+  offset: 0, 0
+  index: -1
+MouthPurse
+  rotate: false
+  xy: 972, 732
+  size: 39, 43
+  orig: 39, 43
+  offset: 0, 0
+  index: -1
+MouthWideOpen
+  rotate: false
+  xy: 972, 777
+  size: 41, 48
+  orig: 41, 48
+  offset: 0, 0
+  index: -1
+Neck
+  rotate: true
+  xy: 897, 2
+  size: 108, 119
+  orig: 108, 119
+  offset: 0, 0
+  index: -1
+Penis
+  rotate: true
+  xy: 897, 410
+  size: 204, 125
+  orig: 204, 125
+  offset: 0, 0
+  index: -1
+PubesFore
+  rotate: false
+  xy: 335, 16
+  size: 35, 35
+  orig: 35, 35
+  offset: 0, 0
+  index: -1
+PubesHind
+  rotate: true
+  xy: 295, 14
+  size: 37, 38
+  orig: 37, 38
+  offset: 0, 0
+  index: -1
+RAProximalWing
+  rotate: false
+  xy: 633, 616
+  size: 337, 406
+  orig: 337, 406
+  offset: 0, 0
+  index: -1
+RBreast
+  rotate: false
+  xy: 491, 86
+  size: 134, 173
+  orig: 134, 173
+  offset: 0, 0
+  index: -1
+RLFoot
+  rotate: false
+  xy: 189, 14
+  size: 104, 153
+  orig: 104, 153
+  offset: 0, 0
+  index: -1
+RLThigh
+  rotate: false
+  xy: 320, 53
+  size: 169, 377
+  orig: 169, 377
+  offset: 0, 0
+  index: -1
+
+Harpy3.png
+size: 1024,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Abdomen
+  rotate: false
+  xy: 2, 201
+  size: 248, 209
+  orig: 248, 209
+  offset: 0, 0
+  index: -1
+Censor
+  rotate: false
+  xy: 555, 909
+  size: 320, 102
+  orig: 320, 102
+  offset: 0, 0
+  index: -1
+HairHind
+  rotate: false
+  xy: 555, 779
+  size: 181, 128
+  orig: 181, 128
+  offset: 0, 0
+  index: -1
+HairHindL
+  rotate: false
+  xy: 555, 685
+  size: 56, 92
+  orig: 56, 92
+  offset: 0, 0
+  index: -1
+LAShoulder
+  rotate: false
+  xy: 877, 923
+  size: 127, 88
+  orig: 127, 88
+  offset: 0, 0
+  index: -1
+LLCalf
+  rotate: false
+  xy: 2, 2
+  size: 211, 197
+  orig: 211, 197
+  offset: 0, 0
+  index: -1
+LLFoot
+  rotate: false
+  xy: 252, 212
+  size: 110, 88
+  orig: 110, 88
+  offset: 0, 0
+  index: -1
+RADistalWing2
+  rotate: false
+  xy: 2, 412
+  size: 551, 599
+  orig: 551, 599
+  offset: 0, 0
+  index: -1
+RLCalf
+  rotate: true
+  xy: 252, 302
+  size: 108, 266
+  orig: 108, 266
+  offset: 0, 0
+  index: -1
+
+Harpy4.png
+size: 1024,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+WingBlurL
+  rotate: false
+  xy: 2, 2
+  size: 524, 591
+  orig: 524, 591
+  offset: 0, 0
+  index: -1
+
+Harpy5.png
+size: 1024,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+WingBlurR
+  rotate: false
+  xy: 2, 2
+  size: 524, 591
+  orig: 524, 591
+  offset: 0, 0
+  index: -1

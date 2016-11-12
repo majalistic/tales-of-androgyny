@@ -2,7 +2,7 @@ package com.majalis.world;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -26,7 +26,7 @@ public class GameWorld {
 		encounterSelected = false;
 	}
 	
-	public void gameLoop(SpriteBatch batch, Vector3 position){
+	public void gameLoop(PolygonSpriteBatch batch, Vector3 position){
 		if (Gdx.input.isKeyJustPressed(Keys.TAB)){
 			displayHUD = !displayHUD;
 		}

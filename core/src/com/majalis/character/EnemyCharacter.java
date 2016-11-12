@@ -1,10 +1,19 @@
 package com.majalis.character;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.IntArray;
 import com.badlogic.gdx.utils.ObjectMap;
+import com.esotericsoftware.spine.AnimationState;
+import com.esotericsoftware.spine.AnimationStateData;
+import com.esotericsoftware.spine.Skeleton;
+import com.esotericsoftware.spine.SkeletonData;
+import com.esotericsoftware.spine.SkeletonJson;
+import com.esotericsoftware.spine.SkeletonMeshRenderer;
 import com.majalis.asset.AssetEnum;
 import com.majalis.battle.BattleFactory.EnemyEnum;
 
@@ -15,12 +24,17 @@ public class EnemyCharacter extends AbstractCharacter {
 
 	private transient ObjectMap<Stance, Texture> textures;
 	private transient Texture defaultTexture;
+	private transient TextureAtlas atlas;
+	private transient SkeletonMeshRenderer renderer;
+	private transient AnimationState state;
+	private transient Skeleton skeleton;
 	private String imagePath;
 	private ObjectMap<String, String> textureImagePaths;
 	private String bgPath;
 	
 	@SuppressWarnings("unused")
 	private EnemyCharacter(){}
+	
 	public EnemyCharacter(Texture texture, ObjectMap<Stance, Texture> textures, EnemyEnum enemyType){
 		super(true);
 		this.enemyType = enemyType;
@@ -283,12 +297,41 @@ public class EnemyCharacter extends AbstractCharacter {
 		Texture texture = textures.get(stance, defaultTexture);
 		int width = enemyType == EnemyEnum.HARPY && stance == Stance.FELLATIO ? 150 : 500;
 		int height = enemyType == EnemyEnum.HARPY && stance != Stance.FELLATIO ? 140 : 20;
-		batch.draw(texture, width, height, (int) (texture.getWidth() / (texture.getHeight() / 650.)), 650);
+		if (atlas == null || enemyType == EnemyEnum.HARPY && stance == Stance.FELLATIO){
+			batch.draw(texture, width, height, (int) (texture.getWidth() / (texture.getHeight() / 650.)), 650);
+		}
+		else {
+			state.update(Gdx.graphics.getDeltaTime());
+			state.apply(skeleton);
+			skeleton.updateWorldTransform();
+			renderer.draw((PolygonSpriteBatch)batch, skeleton);
+		}
     }
 	
 	public void init(Texture defaultTexture, ObjectMap<Stance, Texture> textures){
 		this.defaultTexture = defaultTexture;
 		this.textures = textures;
+		
+		if (enemyType == EnemyEnum.HARPY){
+			
+			renderer = new SkeletonMeshRenderer();
+			renderer.setPremultipliedAlpha(true);
+			atlas = new TextureAtlas(Gdx.files.internal("animation/Harpy.atlas"));
+			SkeletonJson json = new SkeletonJson(atlas); // This loads skeleton JSON data, which is stateless.
+			json.setScale(0.5f); // Load the skeleton at 50% the size it was in Spine.
+			SkeletonData skeletonData = json.readSkeletonData(Gdx.files.internal("animation/Harpy.json"));
+
+			skeleton = new Skeleton(skeletonData); // Skeleton holds skeleton state (bone positions, slot attachments, etc).
+			skeleton.setPosition(670, 375);
+
+			AnimationStateData stateData = new AnimationStateData(skeletonData); // Defines mixing (crossfading) between animations.
+
+			state = new AnimationState(stateData); // Holds the animation state for a skeleton (current animation, time, etc).
+			state.setTimeScale(1f); // Slow all animations down to 60% speed.
+
+			// Queue animations on tracks 0 and 1.
+			state.setAnimation(0, "Idle Erect", true);
+		}
 	}
 	// for init in battlefactory
 	public void setLust(int lust){ this.lust = lust; }

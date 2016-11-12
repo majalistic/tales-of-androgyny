@@ -4,7 +4,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.ObjectMap;
@@ -34,11 +34,11 @@ public class ScreenFactoryImpl implements ScreenFactory {
 	private final GameWorldFactory gameWorldFactory;
 	private final EncounterFactory encounterFactory;
 	private final BattleFactory battleFactory;
-	private final SpriteBatch batch;
+	private final PolygonSpriteBatch batch;
 	private final FreeTypeFontGenerator fontGenerator;
 	private boolean loading;
 	
-	public ScreenFactoryImpl(Game game, AssetManager assetManager, SaveManager saveManager, GameWorldFactory gameWorldFactory, EncounterFactory encounterFactory, BattleFactory battleFactory, SpriteBatch batch, FreeTypeFontGenerator fontGenerator) {
+	public ScreenFactoryImpl(Game game, AssetManager assetManager, SaveManager saveManager, GameWorldFactory gameWorldFactory, EncounterFactory encounterFactory, BattleFactory battleFactory, PolygonSpriteBatch batch, FreeTypeFontGenerator fontGenerator) {
 		this.game = game;
 		this.assetManager = assetManager;
 		this.saveService = saveManager;

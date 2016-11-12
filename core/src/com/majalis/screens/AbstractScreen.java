@@ -5,7 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 /*
  * Abstract class which all Screens inherit from; each screen has a a single master Stage.  Allows a Screen to switch to a different screen via an enum.
@@ -14,13 +14,13 @@ public abstract class AbstractScreen extends Stage implements Screen {
 	private final Game game;
 	private final ScreenFactory screenFactory;
 
-	protected final SpriteBatch batch;
+	protected final PolygonSpriteBatch batch;
 	protected final BitmapFont font;
 	protected final ScreenElements fontFactory;
 	protected boolean callClear;
 	
     protected AbstractScreen(ScreenFactory screenFactory, ScreenElements elements) {
-        super(elements.getViewport());
+        super(elements.getViewport(), elements.getBatch());
         this.game = screenFactory.getGame();
         this.screenFactory = screenFactory;
         this.batch = elements.getBatch();

@@ -1,7 +1,7 @@
 package com.majalis.screens;
 
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
 import com.badlogic.gdx.utils.viewport.FitViewport;
@@ -11,10 +11,10 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 public class ScreenElements {
 
 	private final FitViewport viewport;
-	private final SpriteBatch batch;
+	private final PolygonSpriteBatch batch;
 	private final FreeTypeFontGenerator fontGenerator;	
 	
-	public ScreenElements(FitViewport viewport, SpriteBatch batch, FreeTypeFontGenerator fontGenerator){
+	public ScreenElements(FitViewport viewport, PolygonSpriteBatch batch, FreeTypeFontGenerator fontGenerator){
 		this.viewport = viewport;
 		this.batch = batch;
 		this.fontGenerator = fontGenerator;
@@ -24,7 +24,7 @@ public class ScreenElements {
 		return viewport;
 	}
 	
-	public SpriteBatch getBatch(){
+	public PolygonSpriteBatch getBatch(){
 		return batch;
 	}
 	
