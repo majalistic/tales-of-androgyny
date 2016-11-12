@@ -252,10 +252,14 @@ public abstract class AbstractCharacter extends Actor {
 	public Attack doAttack(Attack resolvedAttack) {
 		resolvedAttack.setUser(label);
 		if (!resolvedAttack.isSuccessful()){
-			resolvedAttack.addMessage(resolvedAttack.getUser() + " used " + resolvedAttack.getName() + " but missed! ");
+			resolvedAttack.addMessage(resolvedAttack.getUser() + " used " + resolvedAttack.getName() + "! FAILURE!");
+			
 			if (enemyType == EnemyEnum.HARPY && stance == Stance.FELLATIO && resolvedAttack.getForceStance() == Stance.FELLATIO){
 				resolvedAttack.addMessage("She crashes to the ground!");
 				stance = Stance.PRONE;
+			}
+			else if(resolvedAttack.getForceStance() != null){
+				stance = oldStance;
 			}
 			return resolvedAttack;
 		}
@@ -290,6 +294,8 @@ public abstract class AbstractCharacter extends Actor {
 			}
 			else {
 				resolvedAttack.addMessage("She stuffs her cock into your face!");
+				resolvedAttack.addMessage("You suck on her cock!");
+				resolvedAttack.addMessage("She licks her lips!");
 			}
 		}
 		else if (resolvedAttack.getForceStance() == Stance.KNOTTED){
@@ -335,6 +341,15 @@ public abstract class AbstractCharacter extends Actor {
 				resolvedAttack.addMessage("They don't pull out! It twitches and throbs in your rectum!");
 				resolvedAttack.addMessage("They cum up your ass! Your stomach receives it!");				
 			}
+			else if (oldStance == Stance.HANDY){
+				resolvedAttack.addMessage("Their cock jerks in your hand! They're gonna spew!");
+				resolvedAttack.addMessage("Their eyes roll into the back of their head! Here it comes!");
+				resolvedAttack.addMessage("It's too late to dodge! They blast a rope of cum on your face!");
+				resolvedAttack.addMessage("Rope after rope lands all over face!");
+				resolvedAttack.addMessage("They spewed cum all over your face!");
+				resolvedAttack.addMessage("You look like a glazed donut! Hilarious!");
+				resolvedAttack.addMessage("You've been bukkaked!");
+			}
 			else {
 				resolvedAttack.addMessage("The " + getLabel() + " spews hot, thick semen into your bowels!");
 				resolvedAttack.addMessage("You are anally inseminated!");
@@ -364,6 +379,9 @@ public abstract class AbstractCharacter extends Actor {
 				result.add(attack.getUser() + " broke free!");
 				if (stance == Stance.FELLATIO){
 					result.add("It slips out of your mouth and you get to your feet!");
+				}
+				else if (stance == Stance.HANDY){
+					
 				}
 				else {
 					result.add("It pops out of your ass and you get to your feet!");

@@ -380,10 +380,10 @@ public class Battle extends Group{
 		// calls to enemy.getType() should all be replaced with polymorphic behavior of enemies
 		batch.draw(assetManager.get(enemy.getLustImagePath(), Texture.class), 1150, 450, 100, 115);
 		if (skillDisplay.equals("")){
-			font.draw(batch, console, 80, 270);
+			font.draw(batch, console, 65, 270);
 		}
 		else {
-			font.draw(batch, skillDisplay, 80, 270);
+			font.draw(batch, skillDisplay, 65, 270);
 		}
 		
     }

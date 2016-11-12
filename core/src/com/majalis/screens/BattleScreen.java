@@ -30,7 +30,7 @@ public class BattleScreen extends AbstractScreen{
 		
 		AssetEnum[] assets = new AssetEnum[]{
 			AssetEnum.BATTLE_BG, AssetEnum.WEREBITCH, AssetEnum.HARPY, AssetEnum.HARPY_FELLATIO, AssetEnum.SLIME, AssetEnum.SLIME_DOGGY, AssetEnum.BRIGAND, AssetEnum.STANCE_ARROW, AssetEnum.ANAL, AssetEnum.BLITZ,
-			AssetEnum.BALANCED, AssetEnum.DEFENSIVE, AssetEnum.DOGGY, AssetEnum.ERUPT, AssetEnum.FELLATIO, AssetEnum.KNEELING,
+			AssetEnum.BALANCED, AssetEnum.DEFENSIVE, AssetEnum.DOGGY, AssetEnum.ERUPT, AssetEnum.FELLATIO, AssetEnum.KNEELING, AssetEnum.HANDY, AssetEnum.COWGIRL,
 			AssetEnum.OFFENSIVE, AssetEnum.PRONE, AssetEnum.SUPINE, AssetEnum.STANDING, AssetEnum.AIRBORNE, AssetEnum.CASTING, AssetEnum.KNOTTED, AssetEnum.SLASH
 		};
 		for (AssetEnum asset: assets){

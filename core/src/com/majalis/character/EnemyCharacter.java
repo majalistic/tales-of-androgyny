@@ -83,15 +83,15 @@ public class EnemyCharacter extends AbstractCharacter {
 		if (resolvedAttack.getGrapple() > 0){
 			struggle -= resolvedAttack.getGrapple();
 			resolvedAttack.addMessage("They struggle to get you off!");
-			if (struggle >= 3){
+			if (struggle >= 3 && stance == Stance.COWGIRL){
 				resolvedAttack.addMessage("It's still stuck up inside of you!");
 				resolvedAttack.addMessage("Well, I guess you know that.");
 				resolvedAttack.addMessage("Kind of a colon crusher.");
 			}
-			else if (struggle > 0){
+			else if (struggle > 0 && stance == Stance.COWGIRL){
 				resolvedAttack.addMessage("They're difficult to ride on top of!");
 			}
-			else if (struggle <= 0){
+			else if (struggle <= 0 && stance == Stance.COWGIRL){
 				struggle = 0;
 				resolvedAttack.addMessage("They're about to buck you off!");
 			}
@@ -130,10 +130,10 @@ public class EnemyCharacter extends AbstractCharacter {
 			case ANAL:
 			case STANDING:
 				lust++;
-				if (enemyType != EnemyEnum.WERESLUT && lust > 14){
+				if (enemyType != EnemyEnum.WERESLUT && lust > 15){
 					return getTechniques(Techniques.ERUPT_ANAL);
 				}
-				else if (enemyType == EnemyEnum.WERESLUT && lust > 17){
+				else if (enemyType == EnemyEnum.WERESLUT && lust > 18){
 					return getTechniques(Techniques.KNOT);
 				}
 				else {
@@ -162,6 +162,12 @@ public class EnemyCharacter extends AbstractCharacter {
 				else {
 					return getTechniques(Techniques.BE_RIDDEN);
 				}
+			case HANDY:
+				lust++;
+				if (lust > 18){
+					return getTechniques(Techniques.ERUPT_FACIAL);
+				}
+				return getTechniques(Techniques.RECEIVE_HANDY);
 			case KNOTTED:
 				return getTechniques(Techniques.KNOT_BANG);
 			case AIRBORNE:
@@ -235,7 +241,8 @@ public class EnemyCharacter extends AbstractCharacter {
 	}
 	
 	private boolean willPounce(){
-		return lust >= 10 && stance != Stance.PRONE && stance != Stance.SUPINE && stance != Stance.AIRBORNE && stance != Stance.FELLATIO && stance != Stance.DOGGY && stance != Stance.ANAL && stance != Stance.ERUPT && stance != Stance.COWGIRL;
+		IntArray randomValues = new IntArray(new int[]{10, 11, 12, 13});
+		return lust >= randomValues.random() && stance != Stance.PRONE && stance != Stance.SUPINE && stance != Stance.AIRBORNE && stance != Stance.FELLATIO && stance != Stance.DOGGY && stance != Stance.ANAL && stance != Stance.ERUPT && stance != Stance.COWGIRL;
 	}
 	
 	private Technique getTechnique(Techniques technique){

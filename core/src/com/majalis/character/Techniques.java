@@ -56,7 +56,7 @@ public enum Techniques {
 	/* Enemy pouncing */
 	DIVEBOMB 			(new GrappleTechnique  (Stance.AIRBORNE, Stance.FELLATIO, "Divebomb", 2, Stance.FELLATIO, TechniqueHeight.HIGH)),
 	SAY_AHH 			(new GrappleTechnique  (Stance.BALANCED, Stance.FELLATIO, "Say 'Ahh'", 2, Stance.FELLATIO)),
-	IRRUMATIO 			(new NonAttackTechnique(Stance.FELLATIO, Stance.FELLATIO, "Irrumatio", 0, 0)), 
+	IRRUMATIO 			(new NonAttackTechnique(Stance.FELLATIO, Stance.FELLATIO, "Irrumatio", 0, 0, Stance.FELLATIO)), 
 	POUNCE_DOGGY		(new GrappleTechnique  (Stance.BALANCED, Stance.DOGGY, "Pounce", 2, Stance.DOGGY)), // Used to initiate doggy
 	POUND_DOGGY 		(new NonAttackTechnique(Stance.DOGGY, Stance.DOGGY, "Pound", 0, 1)), // Used to doggystyle
 	POUNCE_ANAL			(new GrappleTechnique  (Stance.BALANCED, Stance.ANAL, "Pounce", 2, Stance.ANAL)), // Used to initiate missionary
@@ -67,20 +67,26 @@ public enum Techniques {
 	KNOT_BANG 			(new NonAttackTechnique(Stance.KNOTTED, Stance.KNOTTED, "Knot Bang", 0, 0, Stance.KNOTTED, true)), // Used to knot by knotty weresluts and others - could end the battle
 	ERUPT_ANAL 			(new ClimaxTechnique   (Stance.DOGGY, Stance.DOGGY, "Erupt", Stance.PRONE, ClimaxType.ANAL )),
 	ERUPT_ORAL 			(new ClimaxTechnique   (Stance.FELLATIO, Stance.FELLATIO, "Erupt", Stance.KNEELING, ClimaxType.ORAL )),
+	ERUPT_FACIAL		(new ClimaxTechnique   (Stance.HANDY, Stance.HANDY, "Facial", Stance.KNEELING, ClimaxType.FACIAL )),
 	ERUPT_COWGIRL		(new ClimaxTechnique   (Stance.COWGIRL, Stance.SUPINE, "Erupt", Stance.KNEELING, ClimaxType.ANAL )),
 	BE_RIDDEN			(new GrappleTechnique(Stance.COWGIRL, Stance.COWGIRL, "Be Ridden", 0)),
+	RECEIVE_HANDY		(new GrappleTechnique(Stance.HANDY, Stance.HANDY, "Receive Handy", 0)),
 	PUSH_OFF			(new NonAttackTechnique(Stance.COWGIRL, Stance.BALANCED, "Push Off", 0, 0, Stance.BALANCED)), // Break hold
-
 	
 	SIT_ON_IT			(new GrappleTechnique(Stance.BALANCED, Stance.COWGIRL, "Sit on It", 1, Stance.COWGIRL, "Sit down on it - and yes, it's going right up there.\nDon't say I didn't warn you.")), 
-	
+	OPEN_WIDE 			(new GrappleTechnique(Stance.HANDY, Stance.FELLATIO, "Open Wide",  1, Stance.FELLATIO, "Open wide and swallow it down.")), 
+	GRAB_IT				(new GrappleTechnique(Stance.KNEELING, Stance.HANDY, "Grab It", 1, Stance.HANDY, "Grab it.")), 
+		
 	RIDE_ON_IT			(new EroticTechnique(Stance.COWGIRL, Stance.COWGIRL, "Ride on It", -1, 0, "Ride up and down on it.")), 
 	STAND_OFF_IT		(new GrappleTechnique(Stance.COWGIRL, Stance.BALANCED, "Stand up off It", 1, Stance.SUPINE, "Get up off it.")), 
+	STROKE_IT			(new EroticTechnique(Stance.HANDY, Stance.HANDY, "Stroke It", -1, 0, "Stroke it up and down.")), 
+	LET_GO				(new GrappleTechnique(Stance.HANDY, Stance.KNEELING, "Let It Go", 1, Stance.BALANCED, "Let go of it.")), 
+	
 	RECEIVE_DOGGY		(new EroticTechnique(Stance.DOGGY, Stance.DOGGY, "Receive", -1, 0, "Take it up the butt.")), 
 	RECEIVE_ANAL		(new EroticTechnique(Stance.ANAL, Stance.ANAL, "Receive", -1, 0, "Take it up the butt.")), 
 	RECEIVE_STANDING	(new EroticTechnique(Stance.STANDING, Stance.STANDING, "Receive", -1, 0, "Take it up the butt.")), 
 	RECEIVE_KNOT 		(new EroticTechnique(Stance.KNOTTED, Stance.KNOTTED, "Receive Knot", -1, 0, "Take that big knot up the butt.")), 
-	OPEN_WIDE 			(new EroticTechnique(Stance.FELLATIO, Stance.FELLATIO, "Open Wide", -1, 0, "Open wide and swallow it down.")), 
+	SUCK_IT 			(new EroticTechnique(Stance.FELLATIO, Stance.FELLATIO, "Suck It", -1, 0, "Open wide and swallow it down.")), 
 	STRUGGLE_DOGGY		(new GrappleTechnique(Stance.DOGGY, Stance.DOGGY, "Struggle", 4)),
 	STRUGGLE_ANAL		(new GrappleTechnique(Stance.ANAL, Stance.ANAL, "Struggle", 4)),
 	STRUGGLE_STANDING	(new GrappleTechnique(Stance.STANDING, Stance.STANDING, "Struggle", 4)),
