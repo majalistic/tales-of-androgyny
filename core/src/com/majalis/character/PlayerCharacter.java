@@ -81,6 +81,7 @@ public class PlayerCharacter extends AbstractCharacter {
 		baseTechniques.addAll(Techniques.POWER_ATTACK, Techniques.TEMPO_ATTACK, Techniques.RESERVED_ATTACK, Techniques.DUCK, Techniques.SPRING_ATTACK, Techniques.NEUTRAL_ATTACK, Techniques.REVERSAL_ATTACK, Techniques.CAREFUL_ATTACK, Techniques.BLOCK, Techniques.GUARD,
 		Techniques.KIP_UP, Techniques.STAND_UP, Techniques.STAY_KNELT, Techniques.KNEE_UP, Techniques.REST_FACE_DOWN, Techniques.REST, Techniques.JUMP_ATTACK, 
 		Techniques.RECEIVE_ANAL, Techniques.RECEIVE_DOGGY, Techniques.RECEIVE_STANDING, Techniques.STRUGGLE_ORAL, Techniques.STRUGGLE_DOGGY, Techniques.STRUGGLE_ANAL, Techniques.STRUGGLE_STANDING, Techniques.RECEIVE_KNOT, Techniques.SUCK_IT, Techniques.BREAK_FREE_ANAL, Techniques.BREAK_FREE_ORAL,
+		Techniques.SUBMIT, Techniques.STRUGLE_FULL_NELSON, Techniques.BREAK_FREE_FULL_NELSON,
 		Techniques.OPEN_WIDE, Techniques.GRAB_IT, Techniques.STROKE_IT, Techniques.LET_GO
 		);
 		return baseTechniques;
@@ -149,6 +150,11 @@ public class PlayerCharacter extends AbstractCharacter {
 				return possibles;
 			case AIRBORNE:
 				return getTechniques(Techniques.JUMP_ATTACK);
+			case FULL_NELSON:
+				if (struggle <= 0){
+					return getTechniques(Techniques.SUBMIT, Techniques.BREAK_FREE_FULL_NELSON);
+				}
+				return getTechniques(Techniques.SUBMIT, Techniques.STRUGLE_FULL_NELSON);
 			case DOGGY:
 				if (struggle <= 0){
 					return getTechniques(Techniques.RECEIVE_DOGGY, Techniques.BREAK_FREE_ANAL);

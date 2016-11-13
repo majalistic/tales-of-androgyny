@@ -60,8 +60,10 @@ public enum Techniques {
 	POUNCE_DOGGY		(new GrappleTechnique  (Stance.BALANCED, Stance.DOGGY, "Pounce", 2, Stance.DOGGY)), // Used to initiate doggy
 	POUND_DOGGY 		(new NonAttackTechnique(Stance.DOGGY, Stance.DOGGY, "Pound", 0, 1)), // Used to doggystyle
 	POUNCE_ANAL			(new GrappleTechnique  (Stance.BALANCED, Stance.ANAL, "Pounce", 2, Stance.ANAL)), // Used to initiate missionary
+	FULL_NELSON			(new GrappleTechnique  (Stance.BALANCED, Stance.FULL_NELSON, "Full Nelson", 2, Stance.FULL_NELSON)), // Used to initiate full nelson
+	HOLD	 			(new NonAttackTechnique(Stance.FULL_NELSON, Stance.FULL_NELSON, "Hold", 0, 1)), // Used to hold
+	PENETRATE_STANDING	(new GrappleTechnique  (Stance.FULL_NELSON, Stance.STANDING, "Penetrate", 2, Stance.STANDING)), // Used to initiate standing anal
 	POUND_ANAL 			(new NonAttackTechnique(Stance.ANAL, Stance.ANAL, "Pound", 0, 1)), // Used to missionary
-	POUNCE_STANDING		(new GrappleTechnique  (Stance.BALANCED, Stance.STANDING, "Pounce", 2, Stance.STANDING)), // Used to initiate standing anal
 	POUND_STANDING 		(new NonAttackTechnique(Stance.STANDING, Stance.STANDING, "Pound", 0, 1)), // Used to standing anal
 	KNOT 				(new NonAttackTechnique(Stance.DOGGY, Stance.KNOTTED, "Knot", 0, 0, Stance.KNOTTED, "Set Damage")), // Used to knot by knotty weresluts and others
 	KNOT_BANG 			(new NonAttackTechnique(Stance.KNOTTED, Stance.KNOTTED, "Knot Bang", 0, 0, Stance.KNOTTED, true)), // Used to knot by knotty weresluts and others - could end the battle
@@ -85,12 +87,15 @@ public enum Techniques {
 	RECEIVE_DOGGY		(new EroticTechnique(Stance.DOGGY, Stance.DOGGY, "Receive", -1, 0, "Take it up the butt.")), 
 	RECEIVE_ANAL		(new EroticTechnique(Stance.ANAL, Stance.ANAL, "Receive", -1, 0, "Take it up the butt.")), 
 	RECEIVE_STANDING	(new EroticTechnique(Stance.STANDING, Stance.STANDING, "Receive", -1, 0, "Take it up the butt.")), 
-	RECEIVE_KNOT 		(new EroticTechnique(Stance.KNOTTED, Stance.KNOTTED, "Receive Knot", -1, 0, "Take that big knot up the butt.")), 
+	SUBMIT				(new EroticTechnique(Stance.FULL_NELSON, Stance.FULL_NELSON, "Submit", -1, 0, "Don't try to struggle.\nShe's looking for an opening.\nLiterally.")), 
+	RECEIVE_KNOT		(new EroticTechnique(Stance.KNOTTED, Stance.KNOTTED, "Receive Knot", -1, 0, "Take that big knot up the butt.")), 
 	SUCK_IT 			(new EroticTechnique(Stance.FELLATIO, Stance.FELLATIO, "Suck It", -1, 0, "Open wide and swallow it down.")), 
 	STRUGGLE_DOGGY		(new GrappleTechnique(Stance.DOGGY, Stance.DOGGY, "Struggle", 4)),
 	STRUGGLE_ANAL		(new GrappleTechnique(Stance.ANAL, Stance.ANAL, "Struggle", 4)),
 	STRUGGLE_STANDING	(new GrappleTechnique(Stance.STANDING, Stance.STANDING, "Struggle", 4)),
 	STRUGGLE_ORAL		(new GrappleTechnique(Stance.FELLATIO, Stance.FELLATIO, "Struggle", 4)), 
+	STRUGLE_FULL_NELSON (new GrappleTechnique(Stance.FULL_NELSON, Stance.FULL_NELSON, "Struggle", 4)), 
+	BREAK_FREE_FULL_NELSON 	(new NonAttackTechnique(Stance.FULL_NELSON, Stance.BALANCED, "Struggle", 0, 0, Stance.BALANCED)), // Break hold
 	BREAK_FREE_ANAL		(new NonAttackTechnique(Stance.ANAL, Stance.BALANCED, "Struggle", 0, 0, Stance.BALANCED)), // Break hold
 	BREAK_FREE_ORAL		(new NonAttackTechnique(Stance.FELLATIO, Stance.BALANCED, "Struggle", 0, 0, Stance.BALANCED)), // Break hold
 	

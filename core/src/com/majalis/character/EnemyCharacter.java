@@ -31,6 +31,7 @@ public class EnemyCharacter extends AbstractCharacter {
 	private String imagePath;
 	private ObjectMap<String, String> textureImagePaths;
 	private String bgPath;
+	private int holdLength;
 	
 	@SuppressWarnings("unused")
 	private EnemyCharacter(){}
@@ -140,6 +141,15 @@ public class EnemyCharacter extends AbstractCharacter {
 				return getTechniques(Techniques.KIP_UP, Techniques.STAND_UP, Techniques.KNEE_UP, stance == Stance.PRONE ? Techniques.REST_FACE_DOWN : Techniques.REST);
 			case KNEELING:
 				return getTechniques(Techniques.STAND_UP, Techniques.STAY_KNELT);
+			case FULL_NELSON:
+				if (holdLength > 2){
+					holdLength = 0;
+					return getTechniques(Techniques.PENETRATE_STANDING);
+				}
+				else {
+					holdLength++;
+				}
+				return getTechniques(Techniques.HOLD);
 			case DOGGY:
 			case ANAL:
 			case STANDING:
@@ -214,6 +224,8 @@ public class EnemyCharacter extends AbstractCharacter {
 	public Technique getTechnique(AbstractCharacter target){
 		if (lust < 10) lust++;
 		
+		Array<Technique> possibleTechniques = getPossibleTechniques(target, stance);
+		
 		if (willPounce()){
 			if (target.stance == Stance.PRONE ){
 				return getTechnique(Techniques.POUNCE_DOGGY);
@@ -225,11 +237,13 @@ public class EnemyCharacter extends AbstractCharacter {
 				return getTechnique(Techniques.SAY_AHH);
 			}
 			else if (enemyType == EnemyEnum.HARPY){
-				return getTechnique(Techniques.FLY);
+				possibleTechniques.add(getTechnique(Techniques.FLY));
+			}
+			else if (target.stance.receivesMediumAttacks && enemyType == EnemyEnum.BRIGAND){
+				possibleTechniques.add(getTechnique(Techniques.FULL_NELSON));
 			}
 		}
 		
-		Array<Technique> possibleTechniques = getPossibleTechniques(target, stance);
 		int choice = getRandomWeighting(possibleTechniques.size); 
 		possibleTechniques.sort(new Technique.StaminaComparator());
 		possibleTechniques.reverse();

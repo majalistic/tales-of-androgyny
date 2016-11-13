@@ -22,6 +22,7 @@ public enum AssetEnum {
 	MEAT("worldmap/Meat.png"),
 	ROAD("worldmap/Road.png"),
 	CASTLE("worldmap/Castle.png"),
+	TOWN("worldmap/TownNode0.png"),
 	CHARACTER_SPRITE("worldmap/TinySprite0.png"),
 	
 	CHARACTER_SCREEN("ClassSelect.jpg"),
@@ -37,6 +38,8 @@ public enum AssetEnum {
 	SLIME_DOGGY("enemies/HeartSlimeLoveDart.png"), 
 	TRAP_BONUS("enemies/TrapBonus.jpg"), 
 	
+	SHOPKEEP("characters/AppleKeep.png"),
+	
 	BATTLE_HOVER("BattleHover.png"),
 	
 	AIRBORNE("stances/Airborne.png"),
@@ -49,6 +52,7 @@ public enum AssetEnum {
 	DOGGY("stances/Doggy.png"),
 	ERUPT("stances/Erupt.png"),
 	FELLATIO("stances/Fellatio.png"),
+	FULL_NELSON("stances/FullNelson.png"),
 	HANDY("stances/Handy.png"),
 	KNEELING("stances/Kneeling.png"),
 	KNOTTED("stances/Knotted.png"),
@@ -75,6 +79,7 @@ public enum AssetEnum {
 	
 	// sounds
 	BUTTON_SOUND("sound.wav"),
+	CLICK_SOUND("node_sound.wav"),
 	INTRO_SOUND("sounds/IntroSound.wav"),
 	UNPLUGGED_POP("sounds/UnpluggedPop.wav"),
 	ATTACK_SOUND("sounds/AttackSound.wav"),

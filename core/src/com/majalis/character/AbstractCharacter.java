@@ -565,6 +565,7 @@ public abstract class AbstractCharacter extends Actor {
 		SUPINE ((AssetEnum.SUPINE.getPath()), false, false, true),
 		KNEELING ((AssetEnum.KNEELING.getPath()), false, true, true),
 		AIRBORNE ((AssetEnum.AIRBORNE.getPath()), true, false, false), 
+		FULL_NELSON ((AssetEnum.FULL_NELSON.getPath())), 
 		DOGGY (AssetEnum.DOGGY.getPath()), 
 		ANAL (AssetEnum.ANAL.getPath()), 
 		STANDING (AssetEnum.STANDING.getPath()),
