@@ -336,8 +336,10 @@ public class EnemyCharacter extends AbstractCharacter {
 	}
 	
 	public void hitAnimation(){
-		state.setAnimation(0, "Hit Erect", false);
-		state.addAnimation(0, "Idle Erect", true, 1.0f);
+		if (state != null){
+			state.setAnimation(0, "Hit Erect", false);
+			state.addAnimation(0, "Idle Erect", true, 1.0f);
+		}
 	}
 	
 	// for init in battlefactory
