@@ -41,7 +41,6 @@ public class PlayerCharacter extends AbstractCharacter {
 	protected int analIntegrity;
 	protected int lustForDick;
 	protected Femininity femininity;
-	protected Bootyliciousness bootyliciousness;
 	protected LipFullness lipFullness;
 	
 	/* anatomy - contains current and permanent properties */

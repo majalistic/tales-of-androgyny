@@ -2,6 +2,7 @@ package com.majalis.character;
 
 import com.majalis.asset.AssetEnum;
 import com.majalis.battle.BattleFactory.EnemyEnum;
+import com.majalis.character.PlayerCharacter.Bootyliciousness;
 import com.majalis.save.SaveManager.JobClass;
 import com.majalis.technique.ClimaxTechnique.ClimaxType;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -68,6 +69,8 @@ public abstract class AbstractCharacter extends Actor {
 	
 	protected int buttful;
 	protected int mouthful;
+	
+	protected Bootyliciousness bootyliciousness;
 	
 	protected Stance stance;
 	private Stance oldStance;
@@ -367,6 +370,9 @@ public abstract class AbstractCharacter extends Actor {
 		boolean knockedDown = false;
 		
 		if (attack.isSuccessful()){
+			if (attack.getForceStance() == Stance.DOGGY)
+				result.add("They slap their hips against your " + bootyliciousness.toString().toLowerCase() + " booty!");
+			
 			if (!attack.isHealing() && attack.getBuff() == null){
 				result.add(attack.getUser() + " used " + attack.getName() +  " on " + (secondPerson ? label.toLowerCase() : label) + "!");
 			}
