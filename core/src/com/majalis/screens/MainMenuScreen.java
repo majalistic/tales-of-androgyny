@@ -114,11 +114,6 @@ public class MainMenuScreen extends AbstractScreen {
 		batch.end();
 	}
 
-	public void resize(int width, int height) {
-		this.getViewport().update(width, height, true);
-        this.getCamera().update();
-	}
-
 	@Override
 	public void dispose() {
 		for(String path: resourceRequirements.keys()){

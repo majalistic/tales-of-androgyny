@@ -39,8 +39,7 @@ public class TrapRPG extends Game {
             final int MAX = 2500 * 5;
             @Override
             public void draw (Texture texture, float[] spriteVertices, int offset, int count){
-                while(count > MAX)
-                {
+                while(count > MAX){
                     super.draw(texture, spriteVertices, offset, MAX);
                     offset += MAX;
                     count -= MAX;

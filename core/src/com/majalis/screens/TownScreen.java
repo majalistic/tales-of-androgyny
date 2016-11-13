@@ -1,9 +1,11 @@
 package com.majalis.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -62,7 +64,7 @@ public class TownScreen extends AbstractScreen {
 		
 		for (int ii = 0; ii < buttonLabels.size; ii++){
 			buttons.add(new TextButton(buttonLabels.get(ii), skin));
-			//buttons.get(ii).addListener(getListener(optionList.get(ii), ii));
+			buttons.get(ii).addListener(getListener(ii));
 			table.add(buttons.get(ii)).width(200).height(40).row();
 		}
 		
@@ -81,9 +83,52 @@ public class TownScreen extends AbstractScreen {
         this.addActor(background);
         this.addActor(table);
         table.addAction(Actions.moveTo(200, 130));
+        this.addActor(arrow);
+        arrow.setWidth(30);
+        arrow.setHeight(50);
         music.play();
         music.setVolume(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("musicVolume", 1));
         music.setLooping(true);
+	}
+	
+	@Override
+	public void render(float delta) {
+		super.render(delta);
+		OrthographicCamera camera = (OrthographicCamera) getCamera();
+        batch.setTransformMatrix(camera.view);
+        
+        if(Gdx.input.isKeyJustPressed(Keys.UP)){
+        	if (selection > 0) selection--;
+        	else selection = buttons.size-1;
+        }
+        else if(Gdx.input.isKeyJustPressed(Keys.DOWN)){
+        	if (selection < buttons.size- 1) selection++;
+        	else selection = 0;
+        }
+        else if(Gdx.input.isKeyJustPressed(Keys.ENTER)){
+        	InputEvent event1 = new InputEvent();
+            event1.setType(InputEvent.Type.touchDown);
+            buttons.get(selection).fire(event1);
+
+            InputEvent event2 = new InputEvent();
+            event2.setType(InputEvent.Type.touchUp);
+            buttons.get(selection).fire(event2);
+        }
+        arrow.addAction(Actions.moveTo(710, 525 - selection * 40));
+		camera.update();
+		batch.setProjectionMatrix(camera.combined);
+	}
+	
+	private ClickListener getListener(final int index){
+		return new ClickListener(){
+	        @Override
+	        public void clicked(InputEvent event, float x, float y) {
+	        }
+	        @Override
+	        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
+				selection = index;
+	        }
+	    };
 	}
 
 }

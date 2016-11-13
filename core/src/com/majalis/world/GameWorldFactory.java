@@ -48,15 +48,15 @@ public class GameWorldFactory {
 		
 		Zone zone2 = new Zone(saveService, loadService, font, assetManager, random, nodes, nodeMap, 8)
 				.addStartNode(zone.getEndNodes().get(0))
-				.addEndNode(1001, 1000, 1000, new Vector2(1800, 1800))
-				.addEndNode(1002, 1000, 1000, new Vector2(1200, 2400))
+				.addEndNode(1001, 1001, 1001, new Vector2(1800, 1800))
+				.addEndNode(1002, 1001, 1001, new Vector2(1200, 2400))
 				.buildZone();
 		
 		@SuppressWarnings("unused")
 		Zone zone3 = new Zone(saveService, loadService, font, assetManager, random, nodes, nodeMap, 8)
 				.addStartNode(zone2.getEndNodes().get(0))
-				.addEndNode(1003, 1000, 1000, new Vector2(3000, 3000))
-				.addEndNode(1004, 1000, 1000, new Vector2(3000, 1700))
+				.addEndNode(1003, 1001, 1001, new Vector2(3000, 3000))
+				.addEndNode(1004, 1001, 1001, new Vector2(3000, 1700))
 				.buildZone();
 		
 		nodeMap.get((Integer)loadService.loadDataValue(SaveEnum.NODE_CODE, Integer.class)).setAsCurrentNode();
