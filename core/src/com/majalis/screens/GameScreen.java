@@ -49,13 +49,14 @@ public class GameScreen extends AbstractScreen {
 	
 	public static final ObjectMap<String, Class<?>> resourceRequirements = new ObjectMap<String, Class<?>>();
 	static {
-		resourceRequirements.put("uiskin.json", Skin.class);
-		resourceRequirements.put("node_sound.wav", Sound.class);
+		resourceRequirements.put(AssetEnum.UI_SKIN.getPath(), Skin.class);
+		resourceRequirements.put(AssetEnum.CLICK_SOUND.getPath(), Sound.class);
 		resourceRequirements.put(AssetEnum.CHARACTER_SPRITE.getPath(), Texture.class);
 		resourceRequirements.put(AssetEnum.MOUNTAIN_ACTIVE.getPath(), Texture.class);
 		resourceRequirements.put(AssetEnum.FOREST_ACTIVE.getPath(), Texture.class);
 		resourceRequirements.put(AssetEnum.FOREST_INACTIVE.getPath(), Texture.class);
 		resourceRequirements.put(AssetEnum.CASTLE.getPath(), Texture.class);
+		resourceRequirements.put(AssetEnum.TOWN.getPath(), Texture.class);
 		resourceRequirements.put(AssetEnum.APPLE.getPath(), Texture.class);
 		resourceRequirements.put(AssetEnum.MEAT.getPath(), Texture.class);
 		resourceRequirements.put(AssetEnum.GRASS0.getPath(), Texture.class);
@@ -76,7 +77,7 @@ public class GameScreen extends AbstractScreen {
 		int arb = loadService.loadDataValue(SaveEnum.NODE_CODE, Integer.class);
 		food = arb % 2 == 0 ? assetManager.get(AssetEnum.APPLE.getPath(), Texture.class) : assetManager.get(AssetEnum.MEAT.getPath(), Texture.class);
 		grasses = new Array<Texture>(true, new Texture[]{assetManager.get(AssetEnum.GRASS0.getPath(), Texture.class), assetManager.get(AssetEnum.GRASS1.getPath(), Texture.class), assetManager.get(AssetEnum.GRASS2.getPath(), Texture.class)}, 0, 3);
-		trees = assetManager.get(AssetEnum.FOREST_INACTIVE.getPath(), Texture.class);
+		trees = assetManager.get(AssetEnum.FOREST_ACTIVE.getPath(), Texture.class);
 		cloud = assetManager.get(AssetEnum.CLOUD.getPath(), Texture.class);
 		UI = assetManager.get(AssetEnum.WORLD_MAP_UI.getPath(), Texture.class);
 		music = assetManager.get(AssetEnum.WORLD_MAP_MUSIC.getPath(), Music.class);

@@ -29,6 +29,7 @@ public class TownScreen extends AbstractScreen {
 	static {
 		resourceRequirements.put(AssetEnum.UI_SKIN.getPath(), Skin.class);
 		resourceRequirements.put(AssetEnum.TOWN_BG.getPath(), Texture.class);
+		resourceRequirements.put(AssetEnum.SHOPKEEP.getPath(), Texture.class);
 		resourceRequirements.put(AssetEnum.STANCE_ARROW.getPath(), Texture.class);
 		resourceRequirements.put(AssetEnum.ENCOUNTER_MUSIC.getPath(), Music.class);
 		resourceRequirements.put(AssetEnum.BUTTON_SOUND.getPath(), Sound.class);
@@ -40,6 +41,7 @@ public class TownScreen extends AbstractScreen {
 	private final Sound buttonSound;
 	private final Music music;
 	private final Array<TextButton> buttons;
+	private final Image shopkeep;
 	private int selection;
 	
 	protected TownScreen(ScreenFactory screenFactory, ScreenElements elements, AssetManager assetManager, SaveService saveService) {
@@ -50,6 +52,10 @@ public class TownScreen extends AbstractScreen {
 		arrow = new Image(assetManager.get(AssetEnum.STANCE_ARROW.getPath(), Texture.class));
 		music = assetManager.get(AssetEnum.ENCOUNTER_MUSIC.getPath(), Music.class);
 		buttonSound = assetManager.get(AssetEnum.BUTTON_SOUND.getPath(), Sound.class);
+		Texture shopkeepTexture = assetManager.get(AssetEnum.SHOPKEEP.getPath(), Texture.class);
+		shopkeep = new Image(shopkeepTexture);
+		shopkeep.setHeight(700);
+		shopkeep.setWidth(shopkeepTexture.getWidth() / (shopkeepTexture.getHeight() / 700f) );
 		
 		buttons = new Array<TextButton>();
 		selection = 0;
@@ -81,9 +87,13 @@ public class TownScreen extends AbstractScreen {
         table.setFillParent(true);
         
         this.addActor(background);
+        this.addActor(shopkeep);
+        shopkeep.addAction(Actions.moveTo(200, 0));
+        
         this.addActor(table);
         table.addAction(Actions.moveTo(200, 130));
         this.addActor(arrow);
+        
         arrow.setWidth(30);
         arrow.setHeight(50);
         music.play();

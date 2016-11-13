@@ -64,7 +64,8 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 		currentImage = assetManager.get(AssetEnum.CHARACTER_SPRITE.getPath(), Texture.class);
 		int encounterCode = encounter.getCode();
 		activeImage = 
-			encounterCode == 1000 ? assetManager.get(AssetEnum.CASTLE.getPath(), Texture.class)
+			encounterCode == 1001 ? assetManager.get(AssetEnum.CASTLE.getPath(), Texture.class)
+			: encounterCode == 1000 ? assetManager.get(AssetEnum.TOWN.getPath(), Texture.class)
 			: (encounterCode % 5 == 4 || encounterCode % 5 == 1 ? assetManager.get(AssetEnum.MOUNTAIN_ACTIVE.getPath(), Texture.class) : assetManager.get(AssetEnum.FOREST_ACTIVE.getPath(), Texture.class));
 		hoverImage = assetManager.get(AssetEnum.WORLD_MAP_HOVER.getPath(), Texture.class);
 		roadImage = assetManager.get(AssetEnum.ROAD.getPath(), Texture.class);
