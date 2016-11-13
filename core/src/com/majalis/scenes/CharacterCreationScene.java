@@ -99,7 +99,7 @@ public class CharacterCreationScene extends Scene {
 			buttonUp.addListener(new ClickListener(){
 				@Override
 		        public void clicked(InputEvent event, float x, float y) {
-					buttonSound.play(.5f);
+					buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
 					
 					int currentStatAllocation = statMap.get(stat);
 					if (statPoints > 0 && (currentStatAllocation < 1 || (currentStatAllocation < 2 && noStatsAtMax()))){
