@@ -41,17 +41,22 @@ public class GameWorldFactory {
 		Array<GameWorldNode> nodes = new Array<GameWorldNode>();
 		// specifying the start and end points to a getZone method which will perform the below functions, creating an array of nodes.  Can make it a class so that it can be chained?  Piping in the end points as start points
 
-		Zone zone = new Zone(saveService, loadService, font, assetManager, random, nodes, nodeMap)
+		Zone zone = new Zone(saveService, loadService, font, assetManager, random, nodes, nodeMap, 3)
 				.addStartNode(1, 0, -1, new Vector2(500, 500))
-				.addEndNode(1000, 1000, -1, new Vector2(1800, 1800))
-				.addEndNode(1001, 1000, -1, new Vector2(1200, 2400))
+				.addEndNode(1000, 1000, 1000, new Vector2(900, 900))
+				.buildZone();
+		
+		Zone zone2 = new Zone(saveService, loadService, font, assetManager, random, nodes, nodeMap, 8)
+				.addStartNode(zone.getEndNodes().get(0))
+				.addEndNode(1001, 1000, 1000, new Vector2(1800, 1800))
+				.addEndNode(1002, 1000, 1000, new Vector2(1200, 2400))
 				.buildZone();
 		
 		@SuppressWarnings("unused")
-		Zone zone2 = new Zone(saveService, loadService, font, assetManager, random, nodes, nodeMap)
-				.addStartNode(zone.getEndNodes().get(0))
-				.addEndNode(1002, 1000, -1, new Vector2(3000, 3000))
-				.addEndNode(1003, 1000, -1, new Vector2(3000, 1700))
+		Zone zone3 = new Zone(saveService, loadService, font, assetManager, random, nodes, nodeMap, 8)
+				.addStartNode(zone2.getEndNodes().get(0))
+				.addEndNode(1003, 1000, 1000, new Vector2(3000, 3000))
+				.addEndNode(1004, 1000, 1000, new Vector2(3000, 1700))
 				.buildZone();
 		
 		nodeMap.get((Integer)loadService.loadDataValue(SaveEnum.NODE_CODE, Integer.class)).setAsCurrentNode();

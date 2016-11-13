@@ -184,13 +184,6 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 	
 	public void visit(){
 		selected = true;
-		if (!visited){
-			saveService.saveDataValue(SaveEnum.ENCOUNTER_CODE, encounter.getCode());
-			saveService.saveDataValue(SaveEnum.VISITED_LIST, nodeCode);
-		}
-		else {
-			saveService.saveDataValue(SaveEnum.ENCOUNTER_CODE, encounter.getDefaultCode());
-		}
 		int modHealth = 0;
 		if (character.getFood() < 4){
 			modHealth = 4 - character.getFood();
@@ -203,7 +196,16 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 			saveService.saveDataValue(SaveEnum.CONTEXT, SaveManager.GameContext.GAME_OVER);
 		}
 		else {
-			saveService.saveDataValue(SaveEnum.CONTEXT, SaveManager.GameContext.ENCOUNTER);
+			if (!visited){
+				saveService.saveDataValue(SaveEnum.ENCOUNTER_CODE, encounter.getCode());
+				saveService.saveDataValue(SaveEnum.VISITED_LIST, nodeCode);
+				saveService.saveDataValue(SaveEnum.CONTEXT, encounter.getContext());
+			}
+			else {
+				saveService.saveDataValue(SaveEnum.ENCOUNTER_CODE, encounter.getDefaultCode());
+				saveService.saveDataValue(SaveEnum.CONTEXT, encounter.getDefaultContext());
+			}
+			
 		}
 		saveService.saveDataValue(SaveEnum.NODE_CODE, nodeCode);
 		saveService.saveDataValue(SaveEnum.CAMERA_POS, position);

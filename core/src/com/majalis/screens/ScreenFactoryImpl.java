@@ -130,7 +130,7 @@ public class ScreenFactoryImpl implements ScreenFactory {
 		return assetsLoaded;
 	}
 	
-	private AbstractScreen getEncounter(ScreenElements elements, PlayerCharacter character){
+	private EncounterScreen getEncounter(ScreenElements elements, PlayerCharacter character){
 		if (getAssetCheck(EncounterScreen.resourceRequirements)){
 			Integer encounterCode = loadService.loadDataValue(SaveEnum.ENCOUNTER_CODE, Integer.class);
 			return new EncounterScreen(this, elements, assetManager, saveService, encounterFactory.getEncounter(encounterCode, elements.getFont(18)));
@@ -140,7 +140,7 @@ public class ScreenFactoryImpl implements ScreenFactory {
 		}
 	}
 
-	private AbstractScreen getBattle(ScreenElements elements, PlayerCharacter character){
+	private BattleScreen getBattle(ScreenElements elements, PlayerCharacter character){
 		if (getAssetCheck(BattleScreen.resourceRequirements)){
 			BattleCode battleCode = loadService.loadDataValue(SaveEnum.BATTLE_CODE, BattleCode.class);
 			return new BattleScreen(this, elements, saveService, battleFactory.getBattle(battleCode, character), assetManager);
@@ -150,10 +150,18 @@ public class ScreenFactoryImpl implements ScreenFactory {
 		}
 	}
 	
-	private AbstractScreen getLevel(ScreenElements elements, PlayerCharacter character){
+	private LevelUpScreen getLevel(ScreenElements elements, PlayerCharacter character){
 		if (getAssetCheck(LevelUpScreen.resourceRequirements)){
 			// -3 is the magic number for the level up screen encounter
 			return new LevelUpScreen(this, elements, assetManager, saveService, encounterFactory.getEncounter(-3, elements.getFont(18)));
+		}
+		return null;
+	}
+	
+	private TownScreen getTown(ScreenElements elements, PlayerCharacter character){
+		if (getAssetCheck(TownScreen.resourceRequirements)){
+			// -3 is the magic number for the level up screen encounter
+			return new TownScreen(this, elements, assetManager, saveService);
 		}
 		return null;
 	}
@@ -172,6 +180,8 @@ public class ScreenFactoryImpl implements ScreenFactory {
 				return getBattle(elements, character);
 			case LEVEL:
 				return getLevel(elements, character);
+			case TOWN:
+				return getTown(elements, character); 
 			case GAME_OVER:
 				if (getAssetCheck(GameOverScreen.resourceRequirements)){
 					return new GameOverScreen(this, elements, assetManager);

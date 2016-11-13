@@ -25,13 +25,15 @@ public class Zone {
 	private final IntSet visitedCodesSet;
 	private final Sound sound;
 	private final PlayerCharacter character;
+	private final int repeats;
 	private GameWorldNode startNode;
 	
-	protected Zone(SaveService saveService, LoadService loadService, BitmapFont font, AssetManager assetManager, RandomXS128 random, Array<GameWorldNode> nodes, IntMap<GameWorldNode> nodeMap){
+	protected Zone(SaveService saveService, LoadService loadService, BitmapFont font, AssetManager assetManager, RandomXS128 random, Array<GameWorldNode> nodes, IntMap<GameWorldNode> nodeMap, int repeats){
 		this.saveService = saveService;
 		this.font = font;
 		this.assetManager = assetManager;
 		this.random = random;
+		this.repeats = repeats;
 		visitedCodesSet = loadService.loadDataValue(SaveEnum.VISITED_LIST, IntSet.class);
 		sound = assetManager.get("node_sound.wav", Sound.class);
 		character = loadService.loadDataValue(SaveEnum.PLAYER, PlayerCharacter.class);
@@ -62,7 +64,7 @@ public class Zone {
 	
 	@SuppressWarnings("unchecked")
 	protected Zone buildZone(){
-		for (int ii = 0; ii < 8; ii++){
+		for (int ii = 0; ii < repeats; ii++){
 			for (GameWorldNode requiredNode : requiredNodes){
 				Boolean nodeNotReached = true;
 				Vector2 currentNodePosition = startNode.getPosition();

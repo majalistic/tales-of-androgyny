@@ -320,6 +320,7 @@ public class SaveManager implements SaveService, LoadService{
 		WORLD_MAP,
 		BATTLE, 
 		LEVEL,
+		TOWN,
 		GAME_OVER
 	}
 }
