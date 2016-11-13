@@ -27,11 +27,11 @@ public class MainMenuScreen extends AbstractScreen {
 
 	public static final ObjectMap<String, Class<?>> resourceRequirements = new ObjectMap<String, Class<?>>();
 	static {
-		resourceRequirements.put("uiskin.json", Skin.class);
-		resourceRequirements.put("MainMenuScreen.jpg", Texture.class);
+		resourceRequirements.put(AssetEnum.UI_SKIN.getPath(), Skin.class);
+		resourceRequirements.put(AssetEnum.MAIN_MENU_SCREEN.getPath(), Texture.class);
 		resourceRequirements.put(AssetEnum.STANCE_ARROW.getPath(), Texture.class);
 		resourceRequirements.put(AssetEnum.MAIN_MENU_MUSIC.getPath(), Music.class);
-		resourceRequirements.put("sound.wav", Sound.class);
+		resourceRequirements.put(AssetEnum.BUTTON_SOUND.getPath(), Sound.class);
 	}
 	private final AssetManager assetManager;
 	private final SaveService saveService;
@@ -41,7 +41,6 @@ public class MainMenuScreen extends AbstractScreen {
 	private final Music music;
 	private final Sound buttonSound;
 	private final Array<TextButton> buttons;
-	private int clocktick = 0;
 	private int selection;
 
 	public MainMenuScreen(ScreenFactory factory, ScreenElements elements, AssetManager assetManager, SaveService saveService, LoadService loadService) {
@@ -111,7 +110,6 @@ public class MainMenuScreen extends AbstractScreen {
 		batch.begin(); 
 		batch.draw(arrowImage, 1520, 925 - selection * 40, 30, 50);
 		// need to make these relative to viewport
-		font.draw(batch, String.valueOf(clocktick++), 1850, 400);
 		font.draw(batch, "Version: 0.1.13.0", 1600, 1050);
 		batch.end();
 	}

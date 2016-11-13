@@ -4,6 +4,8 @@ public enum AssetEnum {
 	UI_SKIN("uiskin.json"),
 	SPLASH_SCREEN("Splash.png"),
 	
+	MAIN_MENU_SCREEN("MainMenuScreen.jpg"),
+	
 	DEFAULT_BACKGROUND("DefaultBackground.jpg"),
 	
 	WORLD_MAP_UI("worldmap/CharacterInfo.png"),
@@ -68,6 +70,8 @@ public enum AssetEnum {
 	
 	GAME_OVER_GAPE("GameOverButt.jpg"),
 	GAME_OVER_TUCKERED("GameOverTuckered.jpg"),
+	
+	TOWN_BG("town/TownBG.jpg"),
 	
 	// sounds
 	BUTTON_SOUND("sound.wav"),
