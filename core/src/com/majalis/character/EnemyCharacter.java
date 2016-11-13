@@ -256,7 +256,7 @@ public class EnemyCharacter extends AbstractCharacter {
 	
 	private boolean willPounce(){
 		IntArray randomValues = new IntArray(new int[]{10, 11, 12, 13});
-		return lust >= randomValues.random() && stance != Stance.PRONE && stance != Stance.SUPINE && stance != Stance.AIRBORNE && stance != Stance.FELLATIO && stance != Stance.DOGGY && stance != Stance.ANAL && stance != Stance.ERUPT && stance != Stance.COWGIRL;
+		return lust >= randomValues.random() && stance != Stance.PRONE && stance != Stance.SUPINE && stance != Stance.AIRBORNE && stance != Stance.FELLATIO && stance != Stance.DOGGY && stance != Stance.ANAL && stance != Stance.ERUPT && stance != Stance.COWGIRL && stance != Stance.STANDING && stance != Stance.HANDY;
 	}
 	
 	private Technique getTechnique(Techniques technique){
