@@ -329,6 +329,7 @@ public class Battle extends Group{
 			soundBuffer.add(new SoundTimer(attackSound, 15, .5f));
 			if (attackForSecondCharacter.isSuccessful()){
 				soundBuffer.add(new SoundTimer(hitSound, 35, .3f));
+				enemy.hitAnimation();
 			}
 		}
 		

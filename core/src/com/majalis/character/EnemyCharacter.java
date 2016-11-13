@@ -331,8 +331,15 @@ public class EnemyCharacter extends AbstractCharacter {
 
 			// Queue animations on tracks 0 and 1.
 			state.setAnimation(0, "Idle Erect", true);
+			
 		}
 	}
+	
+	public void hitAnimation(){
+		state.setAnimation(0, "Hit Erect", false);
+		state.addAnimation(0, "Idle Erect", true, 1.0f);
+	}
+	
 	// for init in battlefactory
 	public void setLust(int lust){ this.lust = lust; }
 	

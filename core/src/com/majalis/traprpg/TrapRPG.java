@@ -3,6 +3,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.math.RandomXS128;
@@ -34,7 +35,20 @@ public class TrapRPG extends Game {
 		AssetManager assetManager = new AssetManager();
         FreeTypeFontGenerator fontGenerator = new FreeTypeFontGenerator(Gdx.files.classpath("solstice.ttf"));
 		RandomXS128 random = new RandomXS128();
-		init(new ScreenFactoryImpl(this, assetManager, saveManager, new GameWorldFactory(saveManager, assetManager, fontGenerator, random), new EncounterFactory(encounterReader, assetManager, saveManager), new BattleFactory(saveManager, assetManager, fontGenerator), new PolygonSpriteBatch(), fontGenerator));
+		PolygonSpriteBatch batch = new PolygonSpriteBatch(2500){
+            final int MAX = 2500 * 5;
+            @Override
+            public void draw (Texture texture, float[] spriteVertices, int offset, int count){
+                while(count > MAX)
+                {
+                    super.draw(texture, spriteVertices, offset, MAX);
+                    offset += MAX;
+                    count -= MAX;
+                }
+                super.draw(texture, spriteVertices, offset, count);
+            }
+        };
+		init(new ScreenFactoryImpl(this, assetManager, saveManager, new GameWorldFactory(saveManager, assetManager, fontGenerator, random), new EncounterFactory(encounterReader, assetManager, saveManager), new BattleFactory(saveManager, assetManager, fontGenerator), batch, fontGenerator));
 	}
 	/*
 	 * Takes a factory implementation and uses it to generate a screen and switch to it
