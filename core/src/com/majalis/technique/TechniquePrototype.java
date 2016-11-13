@@ -96,7 +96,7 @@ public abstract class TechniquePrototype {
 			builder.append("Increases Strength dramatically, erodes - improved by Magic.\n");
 		}
 		if (isTaunt){
-			builder.append("Taunts, angering and/or arousing the enemy with a power of " + powerMod + ", improved by Charisma.\n");
+			builder.append("Taunts, angering and/or arousing the\n enemy with a power of " + powerMod + ", improved by Charisma.\n");
 		}
 		if (blockable){
 			builder.append("Can be blocked.\n");
@@ -105,7 +105,7 @@ public abstract class TechniquePrototype {
 			builder.append("CANNOT be blocked.\n");
 		}
 		if (guardMod > 0){
-			builder.append("Blocks against enemy attacks with " + guardMod + "% effectiveness.\n");
+			builder.append("Blocks against enemy attacks\nwith " + guardMod + "% effectiveness.\n");
 		}
 		if (staminaCost > 0){
 			builder.append("Costs " + staminaCost + " stamina, reduced by Endurance.\n");

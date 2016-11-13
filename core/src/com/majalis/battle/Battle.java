@@ -15,10 +15,12 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Scaling;
@@ -53,12 +55,13 @@ public class Battle extends Group{
 	private final Table table;
 	private final Skin skin;
 	private final Sound buttonSound;
-	private final Texture stanceArrow;
 	private String console;
 	private String skillDisplay;
 	private Array<Technique> options;
 	private Technique selectedTechnique;
-	private Texture hoverStance;
+	private Image hoverStance;
+	private final Image stanceArrow;
+	private final Texture selectionArrow;
 	public boolean battleOver;
 	public boolean victory;
 	public boolean gameExit;
@@ -72,6 +75,8 @@ public class Battle extends Group{
 	private final Sound hitSound;
 	private final Sound thwapping;
 	private final Array<SoundTimer> soundBuffer;
+	private final Image hoverImage;
+	private final Group hoverGroup;
 	
 	public Battle(SaveService saveService, AssetManager assetManager, BitmapFont font, PlayerCharacter character, EnemyCharacter enemy, int victoryScene, int defeatScene, Background battleBackground, Background battleUI){
 		this.saveService = saveService;
@@ -89,18 +94,42 @@ public class Battle extends Group{
 		this.addCharacter(character);
 		this.addCharacter(enemy);
 		this.addActor(battleUI);
+		this.hoverImage = new Image(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class));
+		hoverImage.addAction(Actions.moveTo(540, 0));
+		hoverImage.setWidth(350);
+		hoverImage.setHeight(320);
 		
-		stanceArrow = assetManager.get(AssetEnum.STANCE_ARROW.getPath(), Texture.class);
+		stanceArrow = new Image(assetManager.get(AssetEnum.STANCE_ARROW.getPath(), Texture.class));
+		selectionArrow = assetManager.get(AssetEnum.STANCE_ARROW.getPath(), Texture.class);
+
+		hoverGroup = new Group();
+		
+		hoverGroup.addActor(hoverImage);
+		stanceArrow.setWidth(50);
+		stanceArrow.setHeight(90);
+		stanceArrow.addAction(Actions.moveTo(450,  550));
+		hoverGroup.addActor(stanceArrow);
+		
+		hoverStance = new Image();
+		hoverStance.setWidth(100);
+		hoverStance.setHeight(115);
+		hoverStance.addAction(Actions.moveTo(515,  540));
+		hoverGroup.addActor(hoverStance);
 		
 		StanceActor newActor = new StanceActor(character, new Vector2(330, 540));
 		this.addActor(newActor);
 		newActor = new StanceActor(enemy, new Vector2(920, 540));
 		this.addActor(newActor);
+		
+		hoverGroup.addAction(Actions.visible(false));
+		this.addActor(hoverGroup);
+		
 		skin = assetManager.get("uiskin.json", Skin.class);
 		buttonSound = assetManager.get("sound.wav", Sound.class);
 		table = new Table();
 		this.addActor(table);
 		displayTechniqueOptions();
+		
 		struggle = 0;
 		inRear = false;
 		battleEndCount = 0;
@@ -346,11 +375,7 @@ public class Battle extends Group{
 	@Override
     public void draw(Batch batch, float parentAlpha) {
 		super.draw(batch, parentAlpha);
-		if (hoverStance != null){
-			batch.draw(stanceArrow, 450, 550, 50, 90);
-			batch.draw(hoverStance, 515, 540, 100, 115);
-		}
-		batch.draw(stanceArrow, 935, (147 + (int) ( (35/2.) * (options.size - 2) ) ) - 35 * selection, 30, 40);
+		batch.draw(selectionArrow, 935, (147 + (int) ( (35/2.) * (options.size - 2) ) ) - 35 * selection, 30, 40);
 		
 		font.setColor(Color.WHITE);
 		font.draw(batch, "Health: ", 70, 700);
@@ -379,13 +404,8 @@ public class Battle extends Group{
 		font.draw(batch, "Stance: " + enemy.getStance().toString(), 1100, 630);	
 		// calls to enemy.getType() should all be replaced with polymorphic behavior of enemies
 		batch.draw(assetManager.get(enemy.getLustImagePath(), Texture.class), 1150, 450, 100, 115);
-		if (skillDisplay.equals("")){
-			font.draw(batch, console, 65, 270);
-		}
-		else {
-			font.draw(batch, skillDisplay, 65, 270);
-		}
-		
+		font.draw(batch, console, 65, 270);
+		font.draw(batch, skillDisplay, 580, 260);
     }
 	// this should be on abstract character
 	private String getHealthDescription(int val){
@@ -445,13 +465,17 @@ public class Battle extends Group{
 	        @Override
 	        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
 				skillDisplay = technique.getTechniqueDescription();
-				hoverStance = getStanceImage(technique.getStance());
+				hoverStance.setDrawable(new TextureRegionDrawable(new TextureRegion(getStanceImage(technique.getStance()))));
 				selection = index;
+				hoverGroup.clearActions();
+				hoverGroup.addAction(Actions.visible(true));
+				hoverGroup.addAction(Actions.fadeIn(.25f));
+				
 			}
 			@Override
 	        public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
 				skillDisplay = "";
-				hoverStance = null;
+				hoverGroup.addAction(Actions.fadeOut(2f));
 			}
 	    };
 	}
