@@ -30,7 +30,7 @@ import com.majalis.world.GameWorld;
 /*
  * The screen that displays the world map.  UI that Handles player input while on the world map - will delegate to other screens depending on the gameWorld state.
  */
-public class GameScreen extends AbstractScreen {
+public class WorldMapScreen extends AbstractScreen {
 
 	private final AssetManager assetManager;
 	private final SaveService saveService;
@@ -70,7 +70,7 @@ public class GameScreen extends AbstractScreen {
 		resourceRequirements.put(AssetEnum.CHARACTER_SCREEN.getPath(), Texture.class);
 		resourceRequirements.put(AssetEnum.WORLD_MAP_MUSIC.getPath(), Music.class);
 	}
-	public GameScreen(ScreenFactory factory, ScreenElements elements, AssetManager assetManager, SaveService saveService, LoadService loadService, GameWorld world) {
+	public WorldMapScreen(ScreenFactory factory, ScreenElements elements, AssetManager assetManager, SaveService saveService, LoadService loadService, GameWorld world) {
 		super(factory, elements);
 		this.assetManager = assetManager;
 		this.saveService = saveService;

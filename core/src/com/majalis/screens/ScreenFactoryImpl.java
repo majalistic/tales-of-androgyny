@@ -73,7 +73,7 @@ public class ScreenFactoryImpl implements ScreenFactory {
 				if (tempScreen != null) return tempScreen;
 				break; 
 			case LOAD_GAME: 
-				tempScreen = getGameScreen(elements, character);
+				tempScreen = getWorldMapScreen(elements, character);
 				if (tempScreen != null) return tempScreen;
 				break;
 			case BATTLE:
@@ -166,14 +166,14 @@ public class ScreenFactoryImpl implements ScreenFactory {
 		return null;
 	}
 	
-	private AbstractScreen getGameScreen(ScreenElements elements, PlayerCharacter character){
+	private AbstractScreen getWorldMapScreen(ScreenElements elements, PlayerCharacter character){
 		SaveManager.GameContext context = loadService.loadDataValue(SaveEnum.CONTEXT, SaveManager.GameContext.class);
 		switch (context){
 			case ENCOUNTER: return getEncounter(elements, character);
 			case WORLD_MAP: 
-				if (getAssetCheck(GameScreen.resourceRequirements)){
+				if (getAssetCheck(WorldMapScreen.resourceRequirements)){
 					int worldSeed = loadService.loadDataValue(SaveEnum.WORLD_SEED, Integer.class);
-					return new GameScreen(this, elements, assetManager, saveService, loadService, gameWorldFactory.getGameWorld((OrthographicCamera)elements.getViewport().getCamera(), worldSeed));
+					return new WorldMapScreen(this, elements, assetManager, saveService, loadService, gameWorldFactory.getGameWorld((OrthographicCamera)elements.getViewport().getCamera(), worldSeed));
 				}
 				else return null;
 			case BATTLE:
