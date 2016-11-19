@@ -7,13 +7,18 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
@@ -38,14 +43,21 @@ public class WorldMapScreen extends AbstractScreen {
 	private final Texture food;
 	private final Array<Texture> grasses;
 	private final int[][] grassMap;
-	private final Texture trees;
 	private final Texture cloud;
 	private final Texture UI;
 	private final PlayerCharacter character;
+	private final Group group;
 	private final Group cloudGroup;
 	private final Music music;
+	private final FrameBuffer frameBuffer;
+	private boolean backgroundRendered = false;
+	private TextureRegion scenery;
+	private Image ui;
+	private Image foodIcon;
+	
 	private TextButton characterButton;
 	private TextButton camp;
+	
 	
 	public static final ObjectMap<String, Class<?>> resourceRequirements = new ObjectMap<String, Class<?>>();
 	static {
@@ -74,10 +86,13 @@ public class WorldMapScreen extends AbstractScreen {
 		super(factory, elements);
 		this.assetManager = assetManager;
 		this.saveService = saveService;
+		
+		group = new Group();
+		this.addActor(group);
+		
 		int arb = loadService.loadDataValue(SaveEnum.NODE_CODE, Integer.class);
 		food = arb % 2 == 0 ? assetManager.get(AssetEnum.APPLE.getPath(), Texture.class) : assetManager.get(AssetEnum.MEAT.getPath(), Texture.class);
 		grasses = new Array<Texture>(true, new Texture[]{assetManager.get(AssetEnum.GRASS0.getPath(), Texture.class), assetManager.get(AssetEnum.GRASS1.getPath(), Texture.class), assetManager.get(AssetEnum.GRASS2.getPath(), Texture.class)}, 0, 3);
-		trees = assetManager.get(AssetEnum.FOREST_ACTIVE.getPath(), Texture.class);
 		cloud = assetManager.get(AssetEnum.CLOUD.getPath(), Texture.class);
 		UI = assetManager.get(AssetEnum.WORLD_MAP_UI.getPath(), Texture.class);
 		music = assetManager.get(AssetEnum.WORLD_MAP_MUSIC.getPath(), Music.class);
@@ -89,7 +104,6 @@ public class WorldMapScreen extends AbstractScreen {
 		camera.translate(initialTranslation);
 		camera.update();
 		this.world = world;
-		callClear = false;
 		grassMap = new int[102][102];
 		for (int ii = 101; ii >= 0; ii--){
 			for (int jj = 100; jj >= 0; jj--){
@@ -104,13 +118,16 @@ public class WorldMapScreen extends AbstractScreen {
 		cloudGroup.addActor(new Cloud(cloud, 4000, 2000, getCamera()));
 		cloudGroup.addActor(new Cloud(cloud, 0, 3600, getCamera()));
 		cloudGroup.addActor(new Cloud(cloud, 300, 2600, getCamera()));
+		
+		frameBuffer = new FrameBuffer(Pixmap.Format.RGB888, 2000, 1000, false);
 	}
 
 	@Override
 	public void buildStage() {
 		for (Actor actor: world.getActors()){
-			this.addActor(actor);
+			group.addActor(actor);
 		}   
+		group.addActor(cloudGroup);
 		final Sound buttonSound = assetManager.get("node_sound.wav", Sound.class); 
 		Skin skin = assetManager.get("uiskin.json", Skin.class);
 		int storedLevels = character.getStoredLevels();
@@ -133,7 +150,7 @@ public class WorldMapScreen extends AbstractScreen {
 		        }
 			}
 		);
-		this.addActor(characterButton);
+		group.addActor(characterButton);
 		
 		camp = new TextButton("Camp", skin);
 		
@@ -162,7 +179,14 @@ public class WorldMapScreen extends AbstractScreen {
 		        }
 			}
 		);
-		this.addActor(camp);
+		group.addActor(camp);
+		ui = new Image(UI);
+		group.addActor(ui);
+		foodIcon = new Image(food);
+		foodIcon.setWidth(50);
+		foodIcon.setHeight(50);
+		group.addActor(foodIcon);
+
 		
 		music.setVolume(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("musicVolume", 1) * .6f);
 		music.setLooping(true);
@@ -171,27 +195,16 @@ public class WorldMapScreen extends AbstractScreen {
 	
 	@Override
 	public void render(float delta) {
-		super.clear();
-		Vector3 translationVector = new Vector3(0,0,0);
-
-		int speed = 5;
+		if (!backgroundRendered){
+			generateBackground();
+		}
+		translateCamera();
 		
-		if (Gdx.input.isKeyPressed(Keys.LEFT) && getCamera().position.x > 100){
-			translationVector.x -= speed;
-		}
-		else if (Gdx.input.isKeyPressed(Keys.RIGHT) && getCamera().position.x < 4000){
-			translationVector.x += speed;
-		}
-		if (Gdx.input.isKeyPressed(Keys.DOWN) && getCamera().position.y > 200){
-			translationVector.y -= speed;
-		}
-		else if (Gdx.input.isKeyPressed(Keys.UP) && getCamera().position.y < 4600){
-			translationVector.y += speed;
-		}
-		
-		getCamera().translate(translationVector);
 		characterButton.addAction(Actions.moveTo(getCamera().position.x-450, getCamera().position.y-200));
 		camp.addAction(Actions.moveTo(getCamera().position.x-320, getCamera().position.y-200));
+		foodIcon.addAction(Actions.moveTo(getCamera().position.x-630, getCamera().position.y-350));
+		ui.addAction(Actions.moveTo(getCamera().position.x-630, getCamera().position.y-350));		
+		
 		
 		if (Gdx.input.isKeyJustPressed(Keys.ENTER)){
 			showScreen(ScreenEnum.CHARACTER);
@@ -205,48 +218,66 @@ public class WorldMapScreen extends AbstractScreen {
 			showScreen(ScreenEnum.LOAD_GAME);
 		}
 		else {			
-			draw(delta);
 			super.render(delta);
-			drawClouds(delta);
+			drawText(delta);
 			world.gameLoop(batch, getCamera().position);
 		}
 	}
 	
-	public void draw(float delta){
+	public void drawText(float delta){
 		batch.begin();
 		OrthographicCamera camera = (OrthographicCamera) getCamera();
-		camera.update();
-		batch.setProjectionMatrix(camera.combined);
-		
-		// draw the base grass texture
-		for (int ii = 101; ii >= 0; ii-=2){
-			for (int jj = 100; jj >= 0; jj--){
-				batch.draw(grasses.get(grassMap[ii][jj]), ii*56, jj*55);
-				batch.draw(grasses.get(grassMap[ii-1][jj]), ((ii-1)*56), (jj*55)+30);
-			}	
-		}
-		batch.draw(trees, 500, 400);
-		batch.draw(trees, 600, 900);
-		batch.draw(trees, 200, 200);
-		batch.draw(trees, 200, 700);
-		batch.draw(trees, 1000, 300);
-		batch.draw(trees, 1100, 500);
+		batch.setColor(1.0f, 1.0f, 1.0f, 1);
+		font.draw(batch, String.valueOf(character.getCurrentHealth()), camera.position.x+295, camera.position.y+135);
+		font.draw(batch, "X " + character.getFood(), camera.position.x+23, camera.position.y+17);
 		batch.end();
 	}
 	
-	public void drawClouds(float delta){
-		batch.begin();
-		OrthographicCamera camera = (OrthographicCamera) getCamera();
-
-		cloudGroup.draw(batch, .3f);	
-	 	cloudGroup.act(delta);
-	 	
-		batch.setColor(1.0f, 1.0f, 1.0f, 1);
-		batch.draw(food, camera.position.x+3, camera.position.y+3, 50, 50);
-		batch.draw(UI, camera.position.x+3, camera.position.y+3);
-		font.draw(batch, String.valueOf(character.getCurrentHealth()), camera.position.x+295, camera.position.y+125);
-		font.draw(batch, "X " + character.getFood(), camera.position.x+23, camera.position.y+17);
-		batch.end();
+	private void translateCamera(){
+		Vector3 translationVector = new Vector3(0,0,0);
+		int speed = 5;
+		if (Gdx.input.isKeyPressed(Keys.SHIFT_LEFT)) speed = 10;
+		
+		if (Gdx.input.isKeyPressed(Keys.LEFT) && getCamera().position.x > 100){
+			translationVector.x -= speed;
+		}
+		else if (Gdx.input.isKeyPressed(Keys.RIGHT) && getCamera().position.x < 4000){
+			translationVector.x += speed;
+		}
+		if (Gdx.input.isKeyPressed(Keys.DOWN) && getCamera().position.y > 200){
+			translationVector.y -= speed;
+		}
+		else if (Gdx.input.isKeyPressed(Keys.UP) && getCamera().position.y < 4600){
+			translationVector.y += speed;
+		}
+		getCamera().translate(translationVector);
+	}
+	
+	private void generateBackground(){
+		backgroundRendered = true;
+		frameBuffer.begin();
+		SpriteBatch frameBufferBatch = new SpriteBatch();
+		frameBufferBatch.begin();
+		// draw the base grass texture
+		for (int ii = 101; ii >= 0; ii-=2){
+			for (int jj = 100; jj >= 0; jj--){
+				frameBufferBatch.draw(grasses.get(grassMap[ii][jj]), ii*56, jj*55);
+				frameBufferBatch.draw(grasses.get(grassMap[ii-1][jj]), ((ii-1)*56), (jj*55)+30);
+			}	
+		}
+		frameBufferBatch.end();
+		frameBuffer.end();		
+		frameBufferBatch.dispose();
+		scenery = new TextureRegion(frameBuffer.getColorBufferTexture());
+		scenery.setRegion(50, 50, scenery.getRegionWidth() - 50, scenery.getRegionHeight() - 50); 
+		scenery.flip(false, true);
+		for (int ii = 0; ii < 3; ii++){
+			for (int jj = 0; jj < 6; jj++){
+				Image background = new Image(scenery);
+				background.addAction(Actions.moveTo(-700+ii*scenery.getRegionWidth(), -300+jj*scenery.getRegionHeight()));
+				group.addActorAt(0, background);
+			}
+		}
 	}
 	
 	@Override
@@ -255,6 +286,7 @@ public class WorldMapScreen extends AbstractScreen {
 			if (path.equals("node_sound.wav")) continue;
 			assetManager.unload(path);
 		}
+		frameBuffer.dispose();
 	}
 	
 }
