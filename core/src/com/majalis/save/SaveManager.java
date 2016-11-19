@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.utils.Base64Coder;
+import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.badlogic.gdx.utils.IntArray;
 import com.badlogic.gdx.utils.IntSet;
 import com.badlogic.gdx.utils.Json;
@@ -113,7 +114,13 @@ public class SaveManager implements SaveService, LoadService{
             		enemyParent.removeActor(save.enemy, false);
             	}	
         	}
-        	file.writeString(json.prettyPrint(save), false);
+        	try {
+        		file.writeString(json.prettyPrint(save), false);
+        	}
+        	catch (GdxRuntimeException ex){
+        		ex.printStackTrace();
+        	}
+        	
         	if (playerParent != null) playerParent.addActor(save.player);
         	if (save.enemy != null){
         		if (enemyParent != null){
