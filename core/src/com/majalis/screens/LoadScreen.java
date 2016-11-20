@@ -1,6 +1,7 @@
 package com.majalis.screens;
 
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
@@ -36,7 +37,7 @@ public class LoadScreen extends AbstractScreen {
 		batch.setProjectionMatrix(camera.combined);
 		camera.update();
 		batch.begin();
-		
+		largeFont.setColor(Color.BLACK);
 		if (!assetManager.update() || clocktick++ < 25){
 			progress.setValue(assetManager.getProgress());
 			largeFont.draw(batch, "Loading: " + (int)(assetManager.getProgress() * 100) + "%", 1125, 750);

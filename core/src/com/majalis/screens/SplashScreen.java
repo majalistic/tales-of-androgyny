@@ -3,6 +3,7 @@ package com.majalis.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
@@ -63,6 +64,7 @@ public class SplashScreen extends AbstractScreen {
 		batch.setProjectionMatrix(camera.combined);
 		camera.update();
 		batch.begin();
+		font.setColor(Color.BLACK);
 		if (!assetManager.update() || clocktick++ < minTime){
 			batch.draw(background, 900, 300, background.getWidth() / (background.getHeight() / 800f), 800);
 			progress.setValue(assetManager.getProgress());

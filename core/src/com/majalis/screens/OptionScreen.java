@@ -20,7 +20,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Slider;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.majalis.asset.AssetEnum;
@@ -41,11 +40,9 @@ public class OptionScreen extends AbstractScreen {
 	private final Preferences preferences;
 	private final Music music;
 	private final Skin skin;
-	private boolean debug;
 	
 	public OptionScreen(ScreenFactory factory, ScreenElements elements, AssetManager assetManager) {
 		super(factory, elements);
-		debug = false;
 		this.addActor(new Background(assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getPath(), Texture.class)));
 		skin = assetManager.get(AssetEnum.UI_SKIN.getPath(), Skin.class);
 		this.music = assetManager.get(AssetEnum.MAIN_MENU_MUSIC.getPath(), Music.class);
@@ -172,24 +169,6 @@ public class OptionScreen extends AbstractScreen {
 		newLabel.setColor(Color.BLACK);
 		addActorAndListen(newLabel, x, y);
 		return newLabel;
-	}
-	
-	private void addActorAndListen(Actor actor, int x, int y){
-		this.addActor(actor);
-		actor.setPosition(x, y);
-		addDragListener(actor);
-	}
-	
-	private void addDragListener(final Actor actor){
-		actor.addListener(new DragListener(){
-			@Override
-		    public void drag(InputEvent event, float x, float y, int pointer) {
-				if (debug){
-			        actor.moveBy(x - actor.getWidth() / 2, y - actor.getHeight() / 2);
-			        System.out.println(actor.getX() + ", " + actor.getY());
-				}
-		    }
-		});
 	}
 	
 	@Override

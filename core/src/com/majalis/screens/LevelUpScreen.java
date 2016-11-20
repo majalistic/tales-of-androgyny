@@ -69,7 +69,7 @@ public class LevelUpScreen extends AbstractScreen {
 	@Override
 	public void dispose() {
 		for(String path: resourceRequirements.keys()){
-			if (path.equals("sound.wav")) continue;
+			if (path.equals(AssetEnum.BUTTON_SOUND.getPath())) continue;
 			assetManager.unload(path);
 		}
 	}

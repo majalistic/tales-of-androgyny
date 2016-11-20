@@ -6,11 +6,15 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
 /*
  * Abstract class which all Screens inherit from; each screen has a a single master Stage.  Allows a Screen to switch to a different screen via an enum.
  */
 public abstract class AbstractScreen extends Stage implements Screen {
+
 	private final Game game;
 	private final ScreenFactory screenFactory;
 
@@ -18,6 +22,7 @@ public abstract class AbstractScreen extends Stage implements Screen {
 	protected final BitmapFont font;
 	protected final ScreenElements fontFactory;
 	protected boolean clearScreen;
+	protected boolean debug = false;
 	
     protected AbstractScreen(ScreenFactory screenFactory, ScreenElements elements) {
         super(elements.getViewport(), elements.getBatch());
@@ -48,9 +53,27 @@ public abstract class AbstractScreen extends Stage implements Screen {
      
     public void clear(){
         // Clear screen
-        Gdx.gl.glClearColor(0, 0, 0, 1);
+        Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
     }
+    
+    protected void addActorAndListen(Actor actor, int x, int y){
+		this.addActor(actor);
+		actor.setPosition(x, y);
+		addDragListener(actor);
+	}
+	
+	private void addDragListener(final Actor actor){
+		actor.addListener(new DragListener(){
+			@Override
+		    public void drag(InputEvent event, float x, float y, int pointer) {
+				if (debug){
+			        actor.moveBy(x - actor.getWidth() / 2, y - actor.getHeight() / 2);
+			        System.out.println(actor.getX() + ", " + actor.getY());
+				}
+		    }
+		});
+	}
     
     @Override
     public void render(float delta) {
