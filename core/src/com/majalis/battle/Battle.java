@@ -124,8 +124,8 @@ public class Battle extends Group{
 		hoverGroup.addAction(Actions.visible(false));
 		this.addActor(hoverGroup);
 		
-		skin = assetManager.get("uiskin.json", Skin.class);
-		buttonSound = assetManager.get("sound.wav", Sound.class);
+		skin = assetManager.get(AssetEnum.UI_SKIN.getPath(), Skin.class);
+		buttonSound = assetManager.get(AssetEnum.BUTTON_SOUND.getPath(), Sound.class);
 		table = new Table();
 		this.addActor(table);
 		displayTechniqueOptions();

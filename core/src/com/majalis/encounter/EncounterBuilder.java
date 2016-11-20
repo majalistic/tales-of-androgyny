@@ -65,8 +65,8 @@ public class EncounterBuilder {
 	/* different encounter "templates" */
 	@SuppressWarnings("unchecked")
 	protected Encounter getClassChoiceEncounter(AssetManager assetManager, PlayerCharacter playerCharacter){	
-		Texture backgroundTexture = assetManager.get("DefaultBackground.jpg", Texture.class);
-		Texture classSelectTexture = assetManager.get("ClassSelect.jpg", Texture.class); 
+		Texture backgroundTexture = assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getPath(), Texture.class);
+		Texture classSelectTexture = assetManager.get(AssetEnum.CLASS_SELECT_BACKGROUND.getPath(), Texture.class); 
 		Background background = new Background(backgroundTexture);
 		Array<Mutation> classMutation = getArray(new Mutation[]{new Mutation(saveService, SaveEnum.CLASS, JobClass.ENCHANTRESS), new Mutation(saveService, SaveEnum.SKILL, Techniques.TAUNT), new Mutation(saveService, SaveEnum.SKILL, Techniques.SECOND_WIND), new Mutation(saveService, SaveEnum.SKILL, Techniques.COMBAT_FIRE)});
 				
@@ -97,7 +97,7 @@ public class EncounterBuilder {
 	}
 	
 	protected Encounter getLevelUpEncounter(AssetManager assetManager, PlayerCharacter playerCharacter){
-		Texture classSelectTexture = assetManager.get("ClassSelect.jpg", Texture.class);
+		Texture classSelectTexture = assetManager.get(AssetEnum.CLASS_SELECT_BACKGROUND.getPath(), Texture.class);
 		getSkillSelectionScene(
 				saveService, font, new Background(classSelectTexture), assetManager, playerCharacter, getEndScene(EndScene.Type.ENCOUNTER_OVER)
 		);
@@ -105,7 +105,7 @@ public class EncounterBuilder {
 	}
 	
 	protected Encounter getDefaultEncounter(AssetManager assetManager){
-		Texture backgroundTexture = assetManager.get("StickEncounter.jpg", Texture.class);
+		Texture backgroundTexture = assetManager.get(AssetEnum.STICK_BACKGROUND.getPath(), Texture.class);
 		Texture vignetteTexture = assetManager.get(AssetEnum.VIGNETTE.getPath(), Texture.class);
 		Background background = new Background(backgroundTexture, vignetteTexture);
 		
@@ -115,7 +115,7 @@ public class EncounterBuilder {
 	
 	@SuppressWarnings("unchecked")
 	protected Encounter getRandomEncounter(int encounterCode, AssetManager assetManager, PlayerCharacter character){
-		Texture backgroundTexture = assetManager.get("DefaultBackground.jpg", Texture.class);	
+		Texture backgroundTexture = assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getPath(), Texture.class);	
 		Background background = new Background(backgroundTexture);
 		// if there isn't already a battlecode set, it's determined by the encounterCode; for now, that means dividing the various encounters up by modulus
 		if (battleCode == -1) battleCode = encounterCode;
@@ -392,7 +392,7 @@ public class EncounterBuilder {
 				break;
 			// dryad
 			case 4:
-				backgroundTexture = assetManager.get("DryadApple.jpg", Texture.class);
+				backgroundTexture = assetManager.get(AssetEnum.DRYAD_BACKGROUND.getPath(), Texture.class);
 				Texture vignetteTexture = assetManager.get(AssetEnum.VIGNETTE.getPath(), Texture.class);
 				background = new Background(backgroundTexture, vignetteTexture, 540, 720);
 				getTextScenes(
@@ -487,9 +487,9 @@ public class EncounterBuilder {
 		// use sceneMap to generate the table
 		Table table = new Table();
 
-		Skin skin = assetManager.get("uiskin.json", Skin.class);
-		Sound buttonSound = assetManager.get("sound.wav", Sound.class);
-		Texture background = assetManager.get("DefaultBackground.jpg", Texture.class);
+		Skin skin = assetManager.get(AssetEnum.UI_SKIN.getPath(), Skin.class);
+		Sound buttonSound = assetManager.get(AssetEnum.BUTTON_SOUND.getPath(), Sound.class);
+		Texture background = assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getPath(), Texture.class);
 		
 		ChoiceScene choiceScene = new ChoiceScene(sceneMap, sceneCounter, saveService, font, choiceDialogue, table, new Background(background));
 		int ii = 0;
@@ -546,7 +546,7 @@ public class EncounterBuilder {
 	// accepts a list of values, will map those values to scenes in the scenemap in order
 	private OrderedMap<Integer, Scene> getCheckScene(AssetManager assetManager, Stat stat, IntArray checkValues, PlayerCharacter character, OrderedMap<Integer, Scene>... sceneMaps){
 		OrderedMap<Integer, Scene> sceneMap = aggregateMaps(sceneMaps);
-		Texture background = assetManager.get("DefaultBackground.jpg", Texture.class);
+		Texture background = assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getPath(), Texture.class);
 		OrderedMap<Integer, Scene> checkValueMap = new OrderedMap<Integer, Scene>();
 		for (int ii = 0; ii < checkValues.size; ii++){
 			checkValueMap.put(checkValues.get(ii), sceneMap.get(sceneMap.orderedKeys().get(ii)));
@@ -566,9 +566,9 @@ public class EncounterBuilder {
 	
 	private OrderedMap<Integer, Scene> getGameTypeScene(AssetManager assetManager, Array<String> buttonLabels, OrderedMap<Integer, Scene>... sceneMaps){
 		OrderedMap<Integer, Scene> sceneMap = aggregateMaps(sceneMaps);
-		Skin skin = assetManager.get("uiskin.json", Skin.class);
-		Sound buttonSound = assetManager.get("sound.wav", Sound.class);
-		Texture background = assetManager.get("GameTypeSelect.jpg", Texture.class);
+		Skin skin = assetManager.get(AssetEnum.UI_SKIN.getPath(), Skin.class);
+		Sound buttonSound = assetManager.get(AssetEnum.BUTTON_SOUND.getPath(), Sound.class);
+		Texture background = assetManager.get(AssetEnum.GAME_TYPE_BACKGROUND.getPath(), Texture.class);
 		
 		Array<TextButton> buttons = new Array<TextButton>();
 		for (String label : buttonLabels){

@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.OrderedMap;
+import com.majalis.asset.AssetEnum;
 import com.majalis.encounter.Background;
 import com.majalis.save.SaveService;
 /*
@@ -19,9 +20,9 @@ public class ChoiceScene extends AbstractChoiceScene {
 
 	public static final ObjectMap<String, Class<?>> resourceRequirements = new ObjectMap<String, Class<?>>();
 	static {
-		resourceRequirements.put("uiskin.json", Skin.class);
-		resourceRequirements.put("sound.wav", Sound.class);
-		resourceRequirements.put("DefaultBackground.jpg", Texture.class);
+		resourceRequirements.put(AssetEnum.UI_SKIN.getPath(), Skin.class);
+		resourceRequirements.put(AssetEnum.BUTTON_SOUND.getPath(), Sound.class);
+		resourceRequirements.put(AssetEnum.DEFAULT_BACKGROUND.getPath(), Texture.class);
 	}
 	
 	private final BitmapFont font;
