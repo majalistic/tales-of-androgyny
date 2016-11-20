@@ -143,7 +143,7 @@ public class EncounterBuilder {
 				getTextScenes(
 					getScript(battleCode, 0), font, background, getArray(new Mutation[]{new Mutation(saveService, ProfileEnum.KNOWLEDGE, EnemyEnum.HARPY.toString())}),
 					getCheckScene(
-						assetManager, Stat.AGILITY, new IntArray(new int[]{6, 4, 0}), character,
+						assetManager, Stat.AGILITY, new IntArray(new int[]{6, 4}), character,
 						getTextScenes(
 							getScript(battleCode, 1), font, background, 
 							// need to create a getBattleScene method
@@ -192,7 +192,7 @@ public class EncounterBuilder {
 										getCheckScene(
 											assetManager,
 											Stat.AGILITY,
-											new IntArray(new int[]{6, 0}),
+											new IntArray(new int[]{6}),
 											character,
 											getTextScenes(getScript(battleCode, 3), font, slimeBackground,
 												getTextScenes(getArray(new String[]{"You slew the slime!", "You receive 3 Experience."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.EXPERIENCE, 3)}), getEndScene(EndScene.Type.ENCOUNTER_OVER))
@@ -221,7 +221,7 @@ public class EncounterBuilder {
 									getCheckScene(
 										assetManager,
 										Stat.AGILITY,
-										new IntArray(new int[]{5, 0}),
+										new IntArray(new int[]{5}),
 										character,
 										getTextScenes(getScript(battleCode, 8), font, background, getEndScene(EndScene.Type.ENCOUNTER_OVER)),
 										getTextScenes(
@@ -260,7 +260,7 @@ public class EncounterBuilder {
 				getTextScenes(
 					getScript(battleCode, 0), font, background, getArray(new Mutation[]{new Mutation(saveService, ProfileEnum.KNOWLEDGE, EnemyEnum.BRIGAND.toString())}),
 					getCheckScene(
-						assetManager, Stat.PERCEPTION, new IntArray(new int[]{6, 4, 0}), character,
+						assetManager, Stat.PERCEPTION, new IntArray(new int[]{6, 4}), character,
 						getTextScenes(
 							getScript(battleCode, 1), font, background, 
 							getChoiceScene(
@@ -305,7 +305,7 @@ public class EncounterBuilder {
 												getTextScenes(
 													getScript(battleCode, 5), font, background,
 													getCheckScene(
-														assetManager, Stat.CHARISMA, new IntArray(new int[]{4, 0}), character,
+														assetManager, Stat.CHARISMA, new IntArray(new int[]{4}), character,
 														getTextScenes(
 															getScript(battleCode, 6), font, background,
 															getTextScenes(
@@ -325,7 +325,7 @@ public class EncounterBuilder {
 										getTextScenes(
 											getScript(battleCode, 8), font, background,
 											getCheckScene(
-												assetManager, Stat.CHARISMA, new IntArray(new int[]{5, 0}), character,
+												assetManager, Stat.CHARISMA, new IntArray(new int[]{5}), character,
 												getTextScenes(
 													getScript(battleCode, 9), font, background,
 													getEndScene(EndScene.Type.ENCOUNTER_OVER)
@@ -407,7 +407,7 @@ public class EncounterBuilder {
 							)
 						),
 						getCheckScene(
-							assetManager, Stat.CHARISMA, new IntArray(new int[]{5, 0}), character,
+							assetManager, Stat.CHARISMA, new IntArray(new int[]{5}), character,
 							getTextScenes(
 								getScript(battleCode, 2), font, background,
 								getTextScenes(
@@ -548,10 +548,11 @@ public class EncounterBuilder {
 		OrderedMap<Integer, Scene> sceneMap = aggregateMaps(sceneMaps);
 		Texture background = assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getPath(), Texture.class);
 		OrderedMap<Integer, Scene> checkValueMap = new OrderedMap<Integer, Scene>();
-		for (int ii = 0; ii < checkValues.size; ii++){
+		int ii = 0;
+		for (; ii < checkValues.size; ii++){
 			checkValueMap.put(checkValues.get(ii), sceneMap.get(sceneMap.orderedKeys().get(ii)));
 		}
-		CheckScene checkScene = new CheckScene(sceneMap, sceneCounter, saveService, font, new Background(background), stat, checkValueMap, character);
+		CheckScene checkScene = new CheckScene(sceneMap, sceneCounter, saveService, font, new Background(background), stat, checkValueMap, sceneMap.get(sceneMap.orderedKeys().get(ii)), character);
 		return addScene(checkScene);
 	}
 	
