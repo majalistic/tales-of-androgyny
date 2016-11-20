@@ -45,12 +45,11 @@ public class WorldMapScreen extends AbstractScreen {
 	private final GameWorld world;
 	private final Texture food;
 	private final Array<Texture> grasses;
-	private final int[][] grassMap;
 	private final Texture cloud;
 	private final Texture UI;
 	private final PlayerCharacter character;
 	private final Stage worldStage;
-	private final OrthographicCamera camera;
+	private final PerspectiveCamera camera;
 	private final Stage cloudStage;
 	private final PerspectiveCamera cloudCamera;
 	private final Group group;
@@ -90,43 +89,53 @@ public class WorldMapScreen extends AbstractScreen {
 		resourceRequirements.put(AssetEnum.WORLD_MAP_MUSIC.getPath(), Music.class);
 	}
 	
-
-	
 	public WorldMapScreen(ScreenFactory factory, ScreenElements elements, AssetManager assetManager, SaveService saveService, LoadService loadService, GameWorld world) {
 		super(factory, elements);
 		this.assetManager = assetManager;
 		this.saveService = saveService;
 		
-		camera = new OrthographicCamera();
+		camera = new PerspectiveCamera(70, 0, 1000);
         FitViewport viewport =  new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), camera);
-		worldStage = new Stage(viewport, batch);
+		worldStage = new Stage3D(viewport, batch);
+		
+		camera.position.set(0, 0, 500);
+		camera.near = 1f;
+		camera.far = 10000;
+		camera.lookAt(0,0,0);
+		camera.translate(1280/2, 720/2, 200);
 		
 		cloudCamera = new PerspectiveCamera(70, 0, 1000);
         FitViewport viewport2 =  new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), cloudCamera);
 		cloudStage = new Stage3D(viewport2, batch);
 		
+		cloudCamera.position.set(0, 0, 500);
+		cloudCamera.near = 1f;
+		cloudCamera.far = 10000;
+		cloudCamera.lookAt(0,0,0);
+		cloudCamera.translate(1280/2, 720/2, -200);
+		
+		// create base group for world stage
 		group = new Group();
 		worldStage.addActor(group);
 		
+		// load assets
 		int arb = loadService.loadDataValue(SaveEnum.NODE_CODE, Integer.class);
 		food = arb % 2 == 0 ? assetManager.get(AssetEnum.APPLE.getPath(), Texture.class) : assetManager.get(AssetEnum.MEAT.getPath(), Texture.class);
-		grasses = new Array<Texture>(true, new Texture[]{assetManager.get(AssetEnum.GRASS0.getPath(), Texture.class), assetManager.get(AssetEnum.GRASS1.getPath(), Texture.class), assetManager.get(AssetEnum.GRASS2.getPath(), Texture.class)}, 0, 3);
+		grasses = new Array<Texture>(true, new Texture[]{assetManager.get(AssetEnum.GRASS0.getPath(), Texture.class), assetManager.get(AssetEnum.GRASS1.getPath(), Texture.class), assetManager.get(AssetEnum.GRASS2.getPath(), Texture.class), assetManager.get(AssetEnum.FOREST_INACTIVE.getPath(), Texture.class)}, 0, 4);
 		cloud = assetManager.get(AssetEnum.CLOUD.getPath(), Texture.class);
 		UI = assetManager.get(AssetEnum.WORLD_MAP_UI.getPath(), Texture.class);
 		music = assetManager.get(AssetEnum.WORLD_MAP_MUSIC.getPath(), Music.class);
+		
+		// move camera to saved position
 		Vector3 initialTranslation = loadService.loadDataValue(SaveEnum.CAMERA_POS, Vector3.class);		
 		initialTranslation = new Vector3(initialTranslation);
 		initialTranslation.x -= camera.position.x;
 		initialTranslation.y -= camera.position.y;
 		camera.translate(initialTranslation);
 		camera.update();
+		
 		this.world = world;
-		grassMap = new int[102][102];
-		for (int ii = 101; ii >= 0; ii--){
-			for (int jj = 100; jj >= 0; jj--){
-				grassMap[ii][jj] = (int)(Math.random()*100) % 3;
-			}	
-		}
+		
 		this.character = loadService.loadDataValue(SaveEnum.PLAYER, PlayerCharacter.class);
 		this.cloudGroup = new Group();
 		for (int ii = 0; ii < 50; ii++){
@@ -139,7 +148,7 @@ public class WorldMapScreen extends AbstractScreen {
 		cloudGroup.addAction(Actions.moveBy(-5000, 0, 500));
 		cloudStage.addActor(cloudGroup);
 		
-		frameBuffer = new FrameBuffer(Pixmap.Format.RGB888, 2000, 1000, false);
+		frameBuffer = new FrameBuffer(Pixmap.Format.RGB888, 2016, 1008, false);
 		
 		clearScreen = false;
 		
@@ -224,12 +233,6 @@ public class WorldMapScreen extends AbstractScreen {
 		if (!backgroundRendered){
 			generateBackground();
 		}
-
-		cloudCamera.position.set(0, 0, 500);
-		cloudCamera.near = 1f;
-		cloudCamera.far = 10000;
-		cloudCamera.lookAt(0,0,0);
-		cloudCamera.translate(1280/2, 720/2, -200);
 	}
 	
 	@Override
@@ -303,18 +306,18 @@ public class WorldMapScreen extends AbstractScreen {
 		// draw the base grass texture
 		for (int ii = 101; ii >= 0; ii-=2){
 			for (int jj = 100; jj >= 0; jj--){
-				frameBufferBatch.draw(grasses.get(grassMap[ii][jj]), ii*56, jj*55);
-				frameBufferBatch.draw(grasses.get(grassMap[ii-1][jj]), ((ii-1)*56), (jj*55)+30);
+					frameBufferBatch.draw(grasses.get((int)(Math.random()*100) % 3), ii*56, jj*56);
+					frameBufferBatch.draw(grasses.get((int)(Math.random()*100) % 3), ((ii-1)*56), (jj*56)+30);
 			}	
 		}
 		frameBufferBatch.end();
 		frameBuffer.end();		
 		frameBufferBatch.dispose();
 		scenery = new TextureRegion(frameBuffer.getColorBufferTexture());
-		scenery.setRegion(50, 50, scenery.getRegionWidth() - 50, scenery.getRegionHeight() - 50); 
+		scenery.setRegion(56, 56, scenery.getRegionWidth() - 56, scenery.getRegionHeight() - 56); 
 		scenery.flip(false, true);
-		for (int ii = 0; ii < 3; ii++){
-			for (int jj = 0; jj < 6; jj++){
+		for (int ii = 2; ii >= 0; ii--){
+			for (int jj = 5; jj >= 0; jj--){
 				Image background = new Image(scenery);
 				background.addAction(Actions.moveTo(-700+ii*scenery.getRegionWidth(), -300+jj*scenery.getRegionHeight()));
 				group.addActorAt(0, background);
