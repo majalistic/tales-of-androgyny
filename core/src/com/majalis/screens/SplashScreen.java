@@ -49,8 +49,7 @@ public class SplashScreen extends AbstractScreen {
 		}
 		
 		progress = new ProgressBar(0, 1, .05f, false, skin);
-		progress.setWidth(280);
-		progress.setHeight(30);
+		progress.setSize(280, 30);
 		progress.addAction(Actions.moveTo(980, 70));
 		this.addActor(progress);
 		

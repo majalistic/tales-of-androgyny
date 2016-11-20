@@ -182,8 +182,7 @@ public class WorldMapScreen extends AbstractScreen {
 			characterButton.setStyle(style);
 		}
 		
-		characterButton.setWidth(120); 
-		characterButton.setHeight(40);
+		characterButton.setSize(120, 40); 
 		characterButton.addListener(
 			new ClickListener(){
 				@Override
@@ -204,8 +203,7 @@ public class WorldMapScreen extends AbstractScreen {
 			camp.setTouchable(Touchable.disabled);
 		}
 		
-		camp.setWidth(120); 
-		camp.setHeight(40);
+		camp.setSize(120, 40); 
 		camp.addListener(
 			new ClickListener(){
 				@Override
@@ -224,8 +222,7 @@ public class WorldMapScreen extends AbstractScreen {
 		);
 		this.addActor(camp);
 		foodIcon = new Image(food);
-		foodIcon.setWidth(50);
-		foodIcon.setHeight(50);
+		foodIcon.setSize(50, 50);
 		this.addActor(foodIcon);
 		
 		characterButton.addAction(Actions.moveTo(200, 30));

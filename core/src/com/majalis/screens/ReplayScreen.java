@@ -96,8 +96,7 @@ public class ReplayScreen extends AbstractScreen {
         
 		final TextButton done = new TextButton("Done", skin);
 		
-		done.setWidth(180);
-		done.setHeight(40);
+		done.setSize(180, 40);
 		done.addListener(
 			new ClickListener(){
 				@Override
