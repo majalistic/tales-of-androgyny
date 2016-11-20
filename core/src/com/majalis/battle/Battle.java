@@ -95,25 +95,22 @@ public class Battle extends Group{
 		this.addCharacter(enemy);
 		this.addActor(battleUI);
 		this.hoverImage = new Image(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class));
-		hoverImage.addAction(Actions.moveTo(540, 0));
-		hoverImage.setWidth(350);
-		hoverImage.setHeight(320);
+		hoverImage.setPosition(540, 0);
+		hoverImage.setSize(350, 320);
 		
 		stanceArrow = new Image(assetManager.get(AssetEnum.STANCE_ARROW.getPath(), Texture.class));
 		selectionArrow = assetManager.get(AssetEnum.STANCE_ARROW.getPath(), Texture.class);
 
 		hoverGroup = new Group();
-		
 		hoverGroup.addActor(hoverImage);
-		stanceArrow.setWidth(50);
-		stanceArrow.setHeight(90);
-		stanceArrow.addAction(Actions.moveTo(450,  550));
+
+		stanceArrow.setSize(50, 90);
+		stanceArrow.setPosition(450, 550);
 		hoverGroup.addActor(stanceArrow);
 		
 		hoverStance = new Image();
-		hoverStance.setWidth(100);
-		hoverStance.setHeight(115);
-		hoverStance.addAction(Actions.moveTo(515,  540));
+		hoverStance.setSize(100, 115);
+		hoverStance.setPosition(515, 540);
 		hoverGroup.addActor(hoverStance);
 		
 		StanceActor newActor = new StanceActor(character, new Vector2(330, 540));
@@ -145,8 +142,7 @@ public class Battle extends Group{
 		slash = new AnimatedImage(animation, Scaling.fit, Align.right);
 		slash.setState(1);
 		
-		slash.addAction(Actions.moveTo(500, 0));
-		
+		slash.setPosition(500, 0);
 		this.addActor(slash);
 		
 		pop = assetManager.get(AssetEnum.UNPLUGGED_POP.getPath(), Sound.class);
@@ -204,7 +200,7 @@ public class Battle extends Group{
 			Technique option = options.get(ii);
 			button = new TextButton(option.getTechniqueName() + (ii > POSSIBLE_KEYS_CHAR.length ? "" : " ("+POSSIBLE_KEYS_CHAR[ii]+")"), skin);
 			button.addListener(getListener(option, ii));
-			table.add(button).width(220).height(35).row();
+			table.add(button).size(220, 35).row();
 			if(character.outOfStaminaOrStability(option)){
 				TextButtonStyle style = new TextButtonStyle(button.getStyle());
 				style.fontColor = Color.RED;
@@ -218,8 +214,7 @@ public class Battle extends Group{
 
 		}
         table.setFillParent(true);
-        table.addAction(Actions.moveTo(1077, 150));
-        
+        table.setPosition(1077, 150);
 	}
 
 	public void battleLoop() {
@@ -452,8 +447,8 @@ public class Battle extends Group{
 	}
 	
 	public void dispose(){
-		assetManager.unload("uiskin.json");
-		assetManager.unload("sound.wav");
+		assetManager.unload(AssetEnum.UI_SKIN.getPath());
+		assetManager.unload(AssetEnum.BUTTON_SOUND.getPath());
 	}
 	
 	// this should pass in a technique that will be used if this button is pressed

@@ -13,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.utils.OrderedMap;
+import com.majalis.asset.AssetEnum;
 import com.majalis.character.PlayerCharacter;
 import com.majalis.encounter.Background;
 import com.majalis.save.SaveEnum;
@@ -35,8 +36,8 @@ public class CharacterCustomizationScene extends Scene {
 		this.addActor(background);
 		this.character = character;
 		
-		skin = assetManager.get("uiskin.json", Skin.class);
-		buttonSound = assetManager.get("sound.wav", Sound.class);
+		skin = assetManager.get(AssetEnum.UI_SKIN.getPath(), Skin.class);
+		buttonSound = assetManager.get(AssetEnum.BUTTON_SOUND.getPath(), Sound.class);
 		
 		console = "";
 	}
@@ -63,8 +64,7 @@ public class CharacterCustomizationScene extends Scene {
 
 		final TextButton done = new TextButton("Done", skin);
 		
-		done.setWidth(180); //Sets positional stuff for "done" button)
-		done.setHeight(40);
+		done.setSize(180, 40); 
 		done.addListener(
 			new ClickListener(){
 				@Override
@@ -74,7 +74,7 @@ public class CharacterCustomizationScene extends Scene {
 		        }
 			}
 		);
-		done.addAction(Actions.moveTo(done.getX() + 1015, done.getY() + 20));
+		done.setPosition(1015, 20);
 		addActor(done);
 		
 		final Table table = new Table();
@@ -90,13 +90,13 @@ public class CharacterCustomizationScene extends Scene {
 					saveService.saveDataValue(SaveEnum.PLAYER, character);
 		        }
 			});
-			table.add(button).width(220).height(40).row();
+			table.add(button).size(220, 40).row();
 		}
-		table.addAction(Actions.moveTo(table.getX() + 225, table.getY() + 350));
+		table.setPosition(225, 350);
 		addActor(table);
 		
 		final TextField nameField = new TextField("", skin);
-		nameField.addAction(Actions.moveTo(table.getX() + 155, table.getY() + 450));
+		nameField.setPosition(155, 450);
 		addActor(nameField);
 		this.addListener(new InputListener() {
 	        @Override

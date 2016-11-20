@@ -176,7 +176,7 @@ public class OptionScreen extends AbstractScreen {
 	
 	private void addActorAndListen(Actor actor, int x, int y){
 		this.addActor(actor);
-		actor.addAction(Actions.moveTo(x, y));
+		actor.setPosition(x, y);
 		addDragListener(actor);
 	}
 	

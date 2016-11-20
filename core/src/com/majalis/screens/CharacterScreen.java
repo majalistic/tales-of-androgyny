@@ -10,7 +10,6 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
@@ -73,8 +72,7 @@ public class CharacterScreen extends AbstractScreen {
 		final Sound buttonSound = assetManager.get(AssetEnum.CLICK_SOUND.getPath(), Sound.class); 
 		final TextButton done = new TextButton("Done", skin);
 		
-		done.setWidth(180);
-		done.setHeight(40);
+		done.setSize(180, 40);
 		done.addListener(
 			new ClickListener(){
 				@Override
@@ -85,15 +83,14 @@ public class CharacterScreen extends AbstractScreen {
 		        }
 			}
 		);
-		done.addAction(Actions.moveTo(done.getX() + 1015, done.getY() + 20));
+		done.setPosition(1015, 20);
 		this.addActor(done);
 		
 		if (character.needsLevelUp()){
 			final boolean levelup = character.getStoredLevels() > 0;
 			final TextButton levelUp = new TextButton(levelup ? "Level Up!" : "Learn Skills", skin);
 			
-			levelUp.setWidth(180); 
-			levelUp.setHeight(40);
+			levelUp.setSize(180, 40); 
 			TextButtonStyle style = new TextButtonStyle(levelUp.getStyle());
 			style.fontColor = levelup ? Color.OLIVE : Color.GOLDENROD;
 			levelUp.setStyle(style);
@@ -109,7 +106,7 @@ public class CharacterScreen extends AbstractScreen {
 			        }
 				}
 			);
-			levelUp.addAction(Actions.moveTo(done.getX() + 800, done.getY() + 20));
+			levelUp.setPosition(800, 20);
 			this.addActor(levelUp);
 		}
 	}

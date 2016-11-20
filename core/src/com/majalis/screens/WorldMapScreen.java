@@ -167,8 +167,8 @@ public class WorldMapScreen extends AbstractScreen {
 		for (Actor actor: world.getActors()){
 			group.addActor(actor);
 		}   
-		final Sound buttonSound = assetManager.get("node_sound.wav", Sound.class); 
-		Skin skin = assetManager.get("uiskin.json", Skin.class);
+		final Sound buttonSound = assetManager.get(AssetEnum.CLICK_SOUND.getPath(), Sound.class); 
+		Skin skin = assetManager.get(AssetEnum.UI_SKIN.getPath(), Skin.class);
 		int storedLevels = character.getStoredLevels();
 		
 		ui = new Image(UI);
@@ -225,8 +225,8 @@ public class WorldMapScreen extends AbstractScreen {
 		foodIcon.setSize(50, 50);
 		this.addActor(foodIcon);
 		
-		characterButton.addAction(Actions.moveTo(200, 30));
-		camp.addAction(Actions.moveTo(330, 30));
+		characterButton.setPosition(200, 30);
+		camp.setPosition(330, 30);
 		
 		music.setVolume(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("musicVolume", 1) * .6f);
 		music.setLooping(true);
@@ -337,7 +337,7 @@ public class WorldMapScreen extends AbstractScreen {
 	@Override
 	public void dispose() {
 		for(String path: resourceRequirements.keys()){
-			if (path.equals("node_sound.wav")) continue;
+			if (path.equals(AssetEnum.CLICK_SOUND.getPath())) continue;
 			assetManager.unload(path);
 		}
 		frameBuffer.dispose();

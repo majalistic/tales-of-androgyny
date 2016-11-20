@@ -502,7 +502,7 @@ public class EncounterBuilder {
 				button.addListener(getListener(choiceScene, sceneMap.get(sceneMap.orderedKeys().get(ii)), buttonSound));
 			}
 			
-			table.add(button).width(360).height(40).row();
+			table.add(button).size(360, 40).row();
 			ii++;
 		}
 				

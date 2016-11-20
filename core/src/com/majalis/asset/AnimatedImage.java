@@ -28,8 +28,7 @@ public class AnimatedImage extends Widget {
         setAnimation(animation);  
         this.scaling = scaling;  
         this.align = align;  
-        setWidth(getPrefWidth());  
-        setHeight(getPrefHeight());  
+        setSize(getPrefWidth(), getPrefHeight());  
     }  
       
     @Override

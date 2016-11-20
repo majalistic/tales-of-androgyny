@@ -44,7 +44,7 @@ public class CreditsScreen extends AbstractScreen{
 		        }
 			}
 		);
-		done.addAction(Actions.moveTo(done.getX() + 1015, done.getY() + 80));
+		done.setPosition(1015, 80);
 		this.addActor(done);
 		
 		credits = "\"Broken Reality\", \"Danse Macabre - Sad Part - no violin\", \"Floating Cities\", \"Kings of Tara\""

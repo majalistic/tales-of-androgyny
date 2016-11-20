@@ -16,6 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.OrderedMap;
+import com.majalis.asset.AssetEnum;
 import com.majalis.character.PlayerCharacter;
 import com.majalis.character.AbstractCharacter.Stat;
 import com.majalis.encounter.Background;
@@ -48,8 +49,8 @@ public class CharacterCreationScene extends Scene {
 		statPoints = 3;
 		statMap = resetObjectMap();
 		
-		Skin skin = assetManager.get("uiskin.json", Skin.class);
-		buttonSound = assetManager.get("sound.wav", Sound.class);
+		Skin skin = assetManager.get(AssetEnum.UI_SKIN.getPath(), Skin.class);
+		buttonSound = assetManager.get(AssetEnum.BUTTON_SOUND.getPath(), Sound.class);
 		
 		classMessage = "";
 		statMessage = "";
@@ -57,8 +58,7 @@ public class CharacterCreationScene extends Scene {
 		
 		final TextButton done = new TextButton("Done", skin);
 		
-		done.setWidth(180); //Sets positional stuff for "done" button)
-		done.setHeight(40);
+		done.setSize(180, 40); 
 		done.addListener(
 			new ClickListener(){
 				@Override
@@ -68,7 +68,7 @@ public class CharacterCreationScene extends Scene {
 		        }
 			}
 		);
-		done.addAction(Actions.moveTo(done.getX() + 1015, done.getY() + 20));
+		done.setPosition(1015, 20);
 
 		final Table statTable = new Table();
 		
@@ -77,9 +77,8 @@ public class CharacterCreationScene extends Scene {
 		int offset = 0;
 		for (final Stat stat: Stat.values()){
 			Image statImage = new Image(assetManager.get(stat.getPath(), Texture.class));
-			statImage.setWidth(statImage.getWidth() / (statImage.getHeight() / 35));
-			statImage.setHeight(35);
-			statImage.addAction(Actions.moveTo(550, 475 - offset));
+			statImage.setSize(statImage.getWidth() / (statImage.getHeight() / 35), 35);
+			statImage.setPosition(550, 475 - offset);
 			statImage.addListener(new ClickListener(){
 				@Override
 		        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
@@ -150,10 +149,10 @@ public class CharacterCreationScene extends Scene {
 					}
 		        }
 			});
-			statTable.add(buttonDown).width(30).height(50);
-			statTable.add(buttonUp).width(30).height(50).row();
+			statTable.add(buttonDown).size(30, 50);
+			statTable.add(buttonUp).size(30, 50).row();
 		}
-		statTable.addAction(Actions.moveTo(statTable.getX() + 515, statTable.getY() + 370));
+		statTable.setPosition(515, 370);
 		
 		statGroup.addAction(Actions.hide());
 		this.addActor(statGroup);
@@ -180,9 +179,9 @@ public class CharacterCreationScene extends Scene {
 					addActor(statTable);
 		        }
 			});
-			table.add(button).width(140).height(40).row();
+			table.add(button).size(140, 40).row();
 		}
-		table.addAction(Actions.moveTo(table.getX() + 325, table.getY() + 400));
+		table.setPosition(325, 400);
 		this.addActor(table);	
 	}
 

@@ -13,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.OrderedMap;
+import com.majalis.asset.AssetEnum;
 import com.majalis.character.Perk;
 import com.majalis.character.PlayerCharacter;
 import com.majalis.character.Techniques;
@@ -46,8 +47,8 @@ public class SkillSelectionScene extends Scene {
 		this.font = font;
 		this.character = character;
 		this.addActor(background);
-		skin = assetManager.get("uiskin.json", Skin.class);
-		buttonSound = assetManager.get("sound.wav", Sound.class);
+		skin = assetManager.get(AssetEnum.UI_SKIN.getPath(), Skin.class);
+		buttonSound = assetManager.get(AssetEnum.BUTTON_SOUND.getPath(), Sound.class);
 		console = "";
 		skillDisplay = "";
 		techniquesToButtons = new ObjectMap<Techniques, TextButton>();
@@ -87,8 +88,7 @@ public class SkillSelectionScene extends Scene {
 		perks = new ObjectMap<Perk, Integer>(cachedPerks);
 		
 		final TextButton done = new TextButton("Done", skin);
-		done.setWidth(180); 
-		done.setHeight(40);
+		done.setSize(180, 40); 
 		done.addListener(
 			new ClickListener(){
 				@Override
@@ -98,7 +98,7 @@ public class SkillSelectionScene extends Scene {
 		        }
 			}
 		);
-		done.addAction(Actions.moveTo(done.getX() + 1015, done.getY() + 20));
+		done.setPosition(1015, 20);
 		addActor(done);	
 		
 		final Table table = new Table();
@@ -167,10 +167,10 @@ public class SkillSelectionScene extends Scene {
 		        }
 			});
 			
-			table.add(button).width(220).height(40);
-			table.add(minusButton).width(30).height(40).row();
+			table.add(button).size(220, 40);
+			table.add(minusButton).size(30, 40).row();
 		}
-		table.addAction(Actions.moveTo(table.getX() + 145, table.getY() + 200));
+		table.setPosition(145, 200);
 		addActor(table);
 		
 		final Table perkTable = new Table();
@@ -246,10 +246,10 @@ public class SkillSelectionScene extends Scene {
 					}
 		        }
 			});
-			perkTable.add(button).width(220).height(40);
-			perkTable.add(minusButton).width(30).height(40).row();
+			perkTable.add(button).size(220, 40);
+			perkTable.add(minusButton).size(30, 40).row();
 		}
-		perkTable.addAction(Actions.moveTo(perkTable.getX() + 725, perkTable.getY() + 200));
+		perkTable.setPosition(725, 200);
 		addActor(perkTable);
 		
 		if (character.hasMagic()){
@@ -316,10 +316,10 @@ public class SkillSelectionScene extends Scene {
 						}
 			        }
 				});
-				magicTable.add(button).width(140).width(220).height(40);
-				magicTable.add(minusButton).width(30).height(40).row();
+				magicTable.add(button).size(220, 40);
+				magicTable.add(minusButton).size(30, 40).row();
 			}
-			magicTable.addAction(Actions.moveTo(magicTable.getX() + 435, magicTable.getY() + 200));
+			magicTable.setPosition(435, 200);
 			this.addActor(magicTable);
 		}
 	}

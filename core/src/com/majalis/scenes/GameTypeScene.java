@@ -33,11 +33,10 @@ public class GameTypeScene extends AbstractChoiceScene {
         	this.addActor(button);
         } 
         for(TextButton button : buttons){
-        	button.setHeight(36);
-        	button.setWidth(184);
+        	button.setSize(184, 36);
         }
-        buttons.get(0).addAction(Actions.moveTo(1030, 240));
-        buttons.get(1).addAction(Actions.moveTo(78, 240));	
+        buttons.get(0).setPosition(1030, 240);
+        buttons.get(1).setPosition(78, 240);	
         buttons.get(1).setTouchable(Touchable.disabled);
 	}
 

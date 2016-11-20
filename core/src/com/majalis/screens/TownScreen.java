@@ -9,7 +9,6 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -70,7 +69,7 @@ public class TownScreen extends AbstractScreen {
 		for (int ii = 0; ii < buttonLabels.size; ii++){
 			buttons.add(new TextButton(buttonLabels.get(ii), skin));
 			buttons.get(ii).addListener(getListener(ii));
-			table.add(buttons.get(ii)).width(200).height(40).row();
+			table.add(buttons.get(ii)).size(200, 40).row();
 		}
 		
 		buttons.get(3).addListener(new ClickListener(){
@@ -87,10 +86,10 @@ public class TownScreen extends AbstractScreen {
         
         this.addActor(background);
         this.addActor(shopkeep);
-        shopkeep.addAction(Actions.moveTo(200, 0));
+        shopkeep.setPosition(200, 0);
         
         this.addActor(table);
-        table.addAction(Actions.moveTo(200, 130));
+        table.setPosition(200, 130);
         this.addActor(arrow);
         
         arrow.setSize(30, 50);
@@ -122,7 +121,7 @@ public class TownScreen extends AbstractScreen {
             event2.setType(InputEvent.Type.touchUp);
             buttons.get(selection).fire(event2);
         }
-        arrow.addAction(Actions.moveTo(710, 525 - selection * 40));
+        arrow.setPosition(710, 525 - selection * 40);
 		camera.update();
 		batch.setProjectionMatrix(camera.combined);
 	}

@@ -51,7 +51,7 @@ public class LoadScreen extends AbstractScreen {
 	public void buildStage() {
 		progress = new ProgressBar(0, 1, .05f, false, skin);
 		progress.setWidth(350);
-		progress.addAction(Actions.moveTo(480, 400));
+		progress.setPosition(480, 400);
 		this.addActor(progress);
 	}
 	

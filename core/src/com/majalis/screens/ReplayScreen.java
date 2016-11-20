@@ -88,11 +88,11 @@ public class ReplayScreen extends AbstractScreen {
 			        }
 				}
 			);
-			table.add(button).width(120).height(40).row();
+			table.add(button).size(120, 40).row();
 		}
         table.setFillParent(true);        
         this.addActor(table);
-        table.addAction(Actions.moveTo(330, 130));
+        table.setPosition(330, 130);
         
 		final TextButton done = new TextButton("Done", skin);
 		
@@ -106,7 +106,7 @@ public class ReplayScreen extends AbstractScreen {
 		        }
 			}
 		);
-		done.addAction(Actions.moveTo(done.getX() + 1015, done.getY() + 80));
+		done.setPosition(1015, 80);
 		this.addActor(done);
 	}
 	

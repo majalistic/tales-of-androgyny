@@ -4,7 +4,6 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
@@ -34,7 +33,7 @@ public class ChoiceScene extends AbstractChoiceScene {
 		this.addActor(background);
 		
         table.setFillParent(true);
-        table.addAction(Actions.moveTo(640, 400));
+        table.setPosition(640, 400);
         // may need to add the background as an actor
         this.addActor(table);
         this.choiceDialogue = choiceDialogue;

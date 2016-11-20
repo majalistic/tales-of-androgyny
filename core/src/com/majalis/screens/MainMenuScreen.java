@@ -68,14 +68,14 @@ public class MainMenuScreen extends AbstractScreen {
 		for (int ii = 0; ii < buttonLabels.size; ii++){
 			buttons.add(new TextButton(buttonLabels.get(ii), skin));
 			buttons.get(ii).addListener(getListener(optionList.get(ii), ii));
-			table.add(buttons.get(ii)).width(120).height(40).row();
+			table.add(buttons.get(ii)).size(120, 40).row();
 		}
 	
         table.setFillParent(true);
         
         this.addActor(new Background(backgroundImage));
         this.addActor(table);
-        table.addAction(Actions.moveTo(330, 130));
+        table.setPosition(330, 130);
         music.play();
         music.setVolume(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("musicVolume", 1));
         music.setLooping(true);
