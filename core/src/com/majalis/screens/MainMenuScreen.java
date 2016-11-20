@@ -47,11 +47,11 @@ public class MainMenuScreen extends AbstractScreen {
 		super(factory, elements);
 		this.assetManager = assetManager;
 		this.saveService = saveService;
-		this.skin = assetManager.get("uiskin.json", Skin.class);
-		this.backgroundImage = assetManager.get("MainMenuScreen.jpg", Texture.class);
+		this.skin = assetManager.get(AssetEnum.UI_SKIN.getPath(), Skin.class);
+		this.backgroundImage = assetManager.get(AssetEnum.MAIN_MENU_SCREEN.getPath(), Texture.class);
 		this.arrowImage = assetManager.get(AssetEnum.STANCE_ARROW.getPath(), Texture.class);
 		this.music = assetManager.get(AssetEnum.MAIN_MENU_MUSIC.getPath(), Music.class);
-		this.buttonSound = assetManager.get("sound.wav", Sound.class);
+		this.buttonSound = assetManager.get(AssetEnum.BUTTON_SOUND.getPath(), Sound.class);
 		buttons = new Array<TextButton>();
 		selection = 0;
 	}

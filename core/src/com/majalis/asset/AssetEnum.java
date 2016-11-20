@@ -7,6 +7,10 @@ public enum AssetEnum {
 	MAIN_MENU_SCREEN("MainMenuScreen.jpg"),
 	
 	DEFAULT_BACKGROUND("DefaultBackground.jpg"),
+	GAME_TYPE_BACKGROUND("GameTypeSelect.jpg"),
+	CLASS_SELECT_BACKGROUND("ClassSelect.jpg"),
+	DRYAD_BACKGROUND("DryadApple.jpg"),
+	STICK_BACKGROUND("StickEncounter.jpg"),
 	
 	WORLD_MAP_UI("worldmap/CharacterInfo.png"),
 	WORLD_MAP_HOVER("worldmap/HoverBox.png"),

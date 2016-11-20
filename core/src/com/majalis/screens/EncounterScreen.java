@@ -26,10 +26,10 @@ public class EncounterScreen extends AbstractScreen {
 		resourceRequirements.put(AssetEnum.BUTTON_SOUND.getPath(), Sound.class);
 		resourceRequirements.put(AssetEnum.DEFAULT_BACKGROUND.getPath(), Texture.class);
 		resourceRequirements.put(AssetEnum.VIGNETTE.getPath(), Texture.class);
-		resourceRequirements.put("GameTypeSelect.jpg", Texture.class);
-		resourceRequirements.put("ClassSelect.jpg", Texture.class);
-		resourceRequirements.put("DryadApple.jpg", Texture.class);
-		resourceRequirements.put("StickEncounter.jpg", Texture.class);
+		resourceRequirements.put(AssetEnum.GAME_TYPE_BACKGROUND.getPath(), Texture.class);
+		resourceRequirements.put(AssetEnum.CLASS_SELECT_BACKGROUND.getPath(), Texture.class);
+		resourceRequirements.put(AssetEnum.DRYAD_BACKGROUND.getPath(), Texture.class);
+		resourceRequirements.put(AssetEnum.STICK_BACKGROUND.getPath(), Texture.class);
 		resourceRequirements.put(AssetEnum.TRAP_BONUS.getPath(), Texture.class);
 		resourceRequirements.put(AssetEnum.WEREBITCH.getPath(), Texture.class);
 		resourceRequirements.put(AssetEnum.SLIME.getPath(), Texture.class);

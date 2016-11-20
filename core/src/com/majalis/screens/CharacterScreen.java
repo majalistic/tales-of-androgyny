@@ -30,8 +30,8 @@ public class CharacterScreen extends AbstractScreen {
 
 	public static final ObjectMap<String, Class<?>> resourceRequirements = new ObjectMap<String, Class<?>>();
 	static {
-		resourceRequirements.put("uiskin.json", Skin.class);
-		resourceRequirements.put("node_sound.wav", Sound.class);
+		resourceRequirements.put(AssetEnum.UI_SKIN.getPath(), Skin.class);
+		resourceRequirements.put(AssetEnum.CLICK_SOUND.getPath(), Sound.class);
 		resourceRequirements.put(AssetEnum.CHARACTER_SPRITE.getPath(), Texture.class);
 		resourceRequirements.put(AssetEnum.MOUNTAIN_ACTIVE.getPath(), Texture.class);
 		resourceRequirements.put(AssetEnum.FOREST_ACTIVE.getPath(), Texture.class);
@@ -63,15 +63,15 @@ public class CharacterScreen extends AbstractScreen {
 	public CharacterScreen(ScreenFactory factory, ScreenElements elements, AssetManager assetManager, final SaveService saveService, final PlayerCharacter character) {
 		super(factory, elements);
 		this.character = character;
-		this.addActor(new Background((Texture)assetManager.get("ClassSelect.jpg", Texture.class))); 
+		this.addActor(new Background(assetManager.get(AssetEnum.CHARACTER_SCREEN.getPath(), Texture.class))); 
 		
 		statTextureMap = new ObjectMap<Stat, Texture>();
 		for (final Stat stat: Stat.values()){
 			statTextureMap.put(stat, assetManager.get(stat.getPath(), Texture.class));
 		}
 		
-		Skin skin = assetManager.get("uiskin.json", Skin.class);
-		final Sound buttonSound = assetManager.get("node_sound.wav", Sound.class); 
+		Skin skin = assetManager.get(AssetEnum.UI_SKIN.getPath(), Skin.class);
+		final Sound buttonSound = assetManager.get(AssetEnum.CLICK_SOUND.getPath(), Sound.class); 
 		final TextButton done = new TextButton("Done", skin);
 		
 		done.setWidth(180);
