@@ -110,7 +110,7 @@ public class MainMenuScreen extends AbstractScreen {
 		batch.begin(); 
 		batch.draw(arrowImage, 1520, 925 - selection * 40, 30, 50);
 		// need to make these relative to viewport
-		font.draw(batch, "Version: 0.1.13.0", 1600, 1050);
+		font.draw(batch, "Version: 0.1.13.0", 1500, 1070);
 		batch.end();
 	}
 

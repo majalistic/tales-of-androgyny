@@ -25,7 +25,7 @@ public abstract class AbstractScreen extends Stage implements Screen {
         this.screenFactory = screenFactory;
         this.batch = elements.getBatch();
         this.fontFactory = elements;
-        this.font = elements.getFont(18);
+        this.font = elements.getFont(32);
         clearScreen = true;
     }
  
