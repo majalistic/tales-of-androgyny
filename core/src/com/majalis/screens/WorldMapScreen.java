@@ -1,6 +1,7 @@
 package com.majalis.screens;
 
 import com.badlogic.gdx.Gdx;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.*;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.assets.AssetManager;
@@ -147,7 +148,7 @@ public class WorldMapScreen extends AbstractScreen {
 			int leftWrap = -1000;
 			int rightWrap = 5000;
 			// move from starting position to leftWrap, then warp to rightWrap, then repeat those two actions forever
-			actor.addAction(Actions.sequence(Actions.moveTo(leftWrap, actor.getY(), (actor.getX() - leftWrap) / speed), Actions.moveTo(rightWrap, actor.getY()), Actions.repeat(RepeatAction.FOREVER, Actions.sequence(Actions.moveTo(leftWrap, actor.getY(), rightWrap - leftWrap / speed), Actions.moveTo(rightWrap, actor.getY())))));
+			actor.addAction(sequence(moveTo(leftWrap, actor.getY(), (actor.getX() - leftWrap) / speed), moveTo(rightWrap, actor.getY()), repeat(RepeatAction.FOREVER, sequence(moveTo(leftWrap, actor.getY(), rightWrap - leftWrap / speed), moveTo(rightWrap, actor.getY())))));
 			cloudGroup.addActor(actor);
 		}
 		
