@@ -21,6 +21,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.actions.RepeatAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -69,7 +70,7 @@ public class WorldMapScreen extends AbstractScreen {
 	static {
 		resourceRequirements.put(AssetEnum.UI_SKIN.getPath(), Skin.class);
 		resourceRequirements.put(AssetEnum.CLICK_SOUND.getPath(), Sound.class);
-		resourceRequirements.put(AssetEnum.CHARACTER_SPRITE.getPath(), Texture.class);
+		resourceRequirements.put(AssetEnum.CHARACTER_ANIMATION.getPath(), Texture.class);
 		resourceRequirements.put(AssetEnum.MOUNTAIN_ACTIVE.getPath(), Texture.class);
 		resourceRequirements.put(AssetEnum.FOREST_ACTIVE.getPath(), Texture.class);
 		resourceRequirements.put(AssetEnum.FOREST_INACTIVE.getPath(), Texture.class);
@@ -140,12 +141,16 @@ public class WorldMapScreen extends AbstractScreen {
 		this.cloudGroup = new Group();
 		for (int ii = 0; ii < 50; ii++){
 			Actor actor = new Image(cloud);
-			actor.addAction(Actions.moveTo((float)Math.random()*5000-1000, (float)Math.random()*5000-1000));
+			actor.setPosition((float)Math.random()*5000-1000, (float)Math.random()*5000-1000);
+			actor.addAction(Actions.alpha(.3f));
+			float speed = 10f;
+			int leftWrap = -1000;
+			int rightWrap = 5000;
+			// move from starting position to leftWrap, then warp to rightWrap, then repeat those two actions forever
+			actor.addAction(Actions.sequence(Actions.moveTo(leftWrap, actor.getY(), (actor.getX() - leftWrap) / speed), Actions.moveTo(rightWrap, actor.getY()), Actions.repeat(RepeatAction.FOREVER, Actions.sequence(Actions.moveTo(leftWrap, actor.getY(), rightWrap - leftWrap / speed), Actions.moveTo(rightWrap, actor.getY())))));
 			cloudGroup.addActor(actor);
 		}
 		
-		cloudGroup.addAction(Actions.alpha(.3f));
-		cloudGroup.addAction(Actions.moveBy(-5000, 0, 500));
 		cloudStage.addActor(cloudGroup);
 		
 		frameBuffer = new FrameBuffer(Pixmap.Format.RGB888, 2016, 1008, false);
@@ -269,8 +274,8 @@ public class WorldMapScreen extends AbstractScreen {
 		batch.begin();
 		OrthographicCamera camera = (OrthographicCamera) getCamera();
 		batch.setColor(1.0f, 1.0f, 1.0f, 1);
-		font.draw(batch, String.valueOf(character.getCurrentHealth()), camera.position.x+295, camera.position.y+135);
-		font.draw(batch, "X " + character.getFood(), camera.position.x+23, camera.position.y+17);
+		font.draw(batch, String.valueOf(character.getCurrentHealth()), camera.position.x+282, camera.position.y+127);
+		font.draw(batch, "X " + character.getFood(), camera.position.x+23, camera.position.y+25);
 		batch.end();
 	}
 	

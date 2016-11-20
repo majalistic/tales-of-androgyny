@@ -4,11 +4,15 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -17,6 +21,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectSet;
+import com.badlogic.gdx.utils.Scaling;
+import com.majalis.asset.AnimatedImage;
 import com.majalis.asset.AssetEnum;
 import com.majalis.character.PlayerCharacter;
 import com.majalis.save.SaveEnum;
@@ -27,6 +33,7 @@ import com.majalis.save.SaveService;
  */
 public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 	private final ObjectSet<GameWorldNode> connectedNodes;
+	private final AssetManager assetManager;
 	private final Array<Path> paths;
 	private final SaveService saveService;
 	// temporary
@@ -43,7 +50,7 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 	private boolean active;
 	private int visibility;
 	private boolean hover;
-	private Texture currentImage;
+	private AnimatedImage currentImage;
 	private Texture activeImage;
 	private Texture roadImage;
 	private Texture hoverImage;
@@ -54,6 +61,7 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 	// all the nodes need are the encounter CODES, not the actual encounter - should probably pass in some kind of object that contains the encounter generation logic, rather than an encounter and defaultEncounter code - at least, need a description of the encounter attached
 	public GameWorldNode(SaveService saveService, BitmapFont font, final int nodeCode, GameWorldNodeEncounter encounter, Vector2 position, boolean visited, Sound sound, PlayerCharacter character, AssetManager assetManager){
 		this.connectedNodes = new ObjectSet<GameWorldNode>();
+		this.assetManager = assetManager;
 		paths = new Array<Path>();
 		this.saveService = saveService;
 		this.font = font;
@@ -61,7 +69,7 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 		this.position = position;
 		this.nodeCode = nodeCode;
 		this.visited = visited;
-		currentImage = assetManager.get(AssetEnum.CHARACTER_SPRITE.getPath(), Texture.class);
+
 		int encounterCode = encounter.getCode();
 		activeImage = 
 			encounterCode == 1001 ? assetManager.get(AssetEnum.CASTLE.getPath(), Texture.class)
@@ -109,21 +117,34 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 	}
 	
 	public void setAsCurrentNode(){
-		current = true;
+		Texture characterSheet = assetManager.get(AssetEnum.CHARACTER_ANIMATION.getPath(), Texture.class);
+		Array<TextureRegion> frames = new Array<TextureRegion>();
+		for (int ii = 0; ii < 4; ii++){
+			frames.add(new TextureRegion(characterSheet, ii * 72, 0, 72, 128));
+		}
+		
+		Animation animation = new Animation(.14f, frames);
+		animation.setPlayMode(PlayMode.LOOP);
+		currentImage = new AnimatedImage(animation, Scaling.fit, Align.right);
+		currentImage.setScale(.7f);
+		currentImage.setState(0);
+		currentImage.setPosition(20, 28);
+		this.addActor(currentImage);
 		for (GameWorldNode connectedNode : connectedNodes){
-			connectedNode.setActive();
+			connectedNode.setActive(currentImage, new Vector2(connectedNode.getPosition().x -position.x, connectedNode.getPosition().y - position.y));
 		}
 		ObjectSet<GameWorldNode> visibleSet = new ObjectSet<GameWorldNode>();
 		visibleSet.add(this);
 		setNeighborsVisibility(getPerceptionLevel(character.getScoutingScore()), 1, visibleSet);
 	}
 	
-	private void setActive(){
+	private void setActive(final AnimatedImage currentImage, final Vector2 movementVector){
 		active = true;
 		this.addListener(new ClickListener(){ 
 			@Override
 	        public void clicked(InputEvent event, float x, float y) {
 				sound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
+				currentImage.addAction(Actions.moveBy(movementVector.x, movementVector.y, 1.5f));
 				visit();
 			}
 			@Override
@@ -179,11 +200,19 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 			}
 		}
 		return neighbors;
-		
 	}
 	
 	
 	public void visit(){
+		this.addAction(Actions.sequence(Actions.delay(1), new Action(){
+			@Override
+			public boolean act(float delta) {
+				delayedVisit();
+				return true;
+			}}));
+	}
+	
+	public void delayedVisit(){
 		selected = true;
 		int modHealth = 0;
 		if (character.getFood() < 4){
@@ -214,17 +243,14 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 	
 	@Override
     public void draw(Batch batch, float parentAlpha) {
-		super.draw(batch, parentAlpha);
-	
 		batch.draw(activeImage, position.x, position.y);
-		if (current){
-			batch.draw(currentImage, position.x+20, position.y + 25);
-		}
 		if(active){
 			batch.draw(arrowImage, position.x+25, position.y+45+arrowHeight/5);
 			arrowHeight += arrowShift;
 			if (arrowHeight > 100 || arrowHeight < 0) arrowShift = 0 - arrowShift;
 		}
+		
+		super.draw(batch, parentAlpha);
     }
 	
 	public void drawHover(Batch batch, Vector2 hoverPosition){

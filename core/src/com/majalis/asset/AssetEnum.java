@@ -27,7 +27,7 @@ public enum AssetEnum {
 	ROAD("worldmap/Road.png"),
 	CASTLE("worldmap/Castle.png"),
 	TOWN("worldmap/TownNode0.png"),
-	CHARACTER_SPRITE("worldmap/TinySprite0.png"),
+	CHARACTER_ANIMATION("worldmap/TinySprite.png"),
 	
 	CHARACTER_SCREEN("ClassSelect.jpg"),
 	VIGNETTE("CreamVignetteBottom.png"),

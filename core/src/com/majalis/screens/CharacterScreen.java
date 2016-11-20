@@ -32,7 +32,6 @@ public class CharacterScreen extends AbstractScreen {
 	static {
 		resourceRequirements.put(AssetEnum.UI_SKIN.getPath(), Skin.class);
 		resourceRequirements.put(AssetEnum.CLICK_SOUND.getPath(), Sound.class);
-		resourceRequirements.put(AssetEnum.CHARACTER_SPRITE.getPath(), Texture.class);
 		resourceRequirements.put(AssetEnum.MOUNTAIN_ACTIVE.getPath(), Texture.class);
 		resourceRequirements.put(AssetEnum.FOREST_ACTIVE.getPath(), Texture.class);
 		resourceRequirements.put(AssetEnum.FOREST_INACTIVE.getPath(), Texture.class);

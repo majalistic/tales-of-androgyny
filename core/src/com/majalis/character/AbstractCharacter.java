@@ -370,7 +370,7 @@ public abstract class AbstractCharacter extends Actor {
 		boolean knockedDown = false;
 		
 		if (attack.isSuccessful()){
-			if (attack.getForceStance() == Stance.DOGGY)
+			if (attack.getForceStance() == Stance.DOGGY && bootyliciousness != null)
 				result.add("They slap their hips against your " + bootyliciousness.toString().toLowerCase() + " booty!");
 			
 			if (!attack.isHealing() && attack.getBuff() == null){
