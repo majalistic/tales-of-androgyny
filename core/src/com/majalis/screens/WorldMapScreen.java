@@ -2,11 +2,13 @@ package com.majalis.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.PerspectiveCamera;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -16,6 +18,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -25,12 +28,12 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.majalis.asset.AssetEnum;
 import com.majalis.character.PlayerCharacter;
 import com.majalis.save.LoadService;
 import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveService;
-import com.majalis.world.Cloud;
 import com.majalis.world.GameWorld;
 /*
  * The screen that displays the world map.  UI that Handles player input while on the world map - will delegate to other screens depending on the gameWorld state.
@@ -46,10 +49,15 @@ public class WorldMapScreen extends AbstractScreen {
 	private final Texture cloud;
 	private final Texture UI;
 	private final PlayerCharacter character;
+	private final Stage worldStage;
+	private final OrthographicCamera camera;
+	private final Stage cloudStage;
+	private final PerspectiveCamera cloudCamera;
 	private final Group group;
 	private final Group cloudGroup;
 	private final Music music;
 	private final FrameBuffer frameBuffer;
+	private final InputMultiplexer multi;
 	private boolean backgroundRendered = false;
 	private TextureRegion scenery;
 	private Image ui;
@@ -57,7 +65,6 @@ public class WorldMapScreen extends AbstractScreen {
 	
 	private TextButton characterButton;
 	private TextButton camp;
-	
 	
 	public static final ObjectMap<String, Class<?>> resourceRequirements = new ObjectMap<String, Class<?>>();
 	static {
@@ -82,13 +89,24 @@ public class WorldMapScreen extends AbstractScreen {
 		resourceRequirements.put(AssetEnum.CHARACTER_SCREEN.getPath(), Texture.class);
 		resourceRequirements.put(AssetEnum.WORLD_MAP_MUSIC.getPath(), Music.class);
 	}
+	
+
+	
 	public WorldMapScreen(ScreenFactory factory, ScreenElements elements, AssetManager assetManager, SaveService saveService, LoadService loadService, GameWorld world) {
 		super(factory, elements);
 		this.assetManager = assetManager;
 		this.saveService = saveService;
 		
+		camera = new OrthographicCamera();
+        FitViewport viewport =  new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), camera);
+		worldStage = new Stage(viewport, batch);
+		
+		cloudCamera = new PerspectiveCamera(70, 0, 1000);
+        FitViewport viewport2 =  new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), cloudCamera);
+		cloudStage = new Stage3D(viewport2, batch);
+		
 		group = new Group();
-		this.addActor(group);
+		worldStage.addActor(group);
 		
 		int arb = loadService.loadDataValue(SaveEnum.NODE_CODE, Integer.class);
 		food = arb % 2 == 0 ? assetManager.get(AssetEnum.APPLE.getPath(), Texture.class) : assetManager.get(AssetEnum.MEAT.getPath(), Texture.class);
@@ -98,7 +116,6 @@ public class WorldMapScreen extends AbstractScreen {
 		music = assetManager.get(AssetEnum.WORLD_MAP_MUSIC.getPath(), Music.class);
 		Vector3 initialTranslation = loadService.loadDataValue(SaveEnum.CAMERA_POS, Vector3.class);		
 		initialTranslation = new Vector3(initialTranslation);
-		OrthographicCamera camera = (OrthographicCamera) getCamera();
 		initialTranslation.x -= camera.position.x;
 		initialTranslation.y -= camera.position.y;
 		camera.translate(initialTranslation);
@@ -112,14 +129,23 @@ public class WorldMapScreen extends AbstractScreen {
 		}
 		this.character = loadService.loadDataValue(SaveEnum.PLAYER, PlayerCharacter.class);
 		this.cloudGroup = new Group();
-		cloudGroup.addActor(new Cloud(cloud, 300, 800, getCamera()));
-		cloudGroup.addActor(new Cloud(cloud, 2200, 600, getCamera()));
-		cloudGroup.addActor(new Cloud(cloud, 3000, 3000, getCamera()));
-		cloudGroup.addActor(new Cloud(cloud, 4000, 2000, getCamera()));
-		cloudGroup.addActor(new Cloud(cloud, 0, 3600, getCamera()));
-		cloudGroup.addActor(new Cloud(cloud, 300, 2600, getCamera()));
+		for (int ii = 0; ii < 50; ii++){
+			Actor actor = new Image(cloud);
+			actor.addAction(Actions.moveTo((float)Math.random()*5000-1000, (float)Math.random()*5000-1000));
+			cloudGroup.addActor(actor);
+		}
+		
+		cloudGroup.addAction(Actions.alpha(.3f));
+		cloudGroup.addAction(Actions.moveBy(-5000, 0, 500));
+		cloudStage.addActor(cloudGroup);
 		
 		frameBuffer = new FrameBuffer(Pixmap.Format.RGB888, 2000, 1000, false);
+		
+		clearScreen = false;
+		
+		multi = new InputMultiplexer();
+		multi.addProcessor(this);
+		multi.addProcessor(worldStage);
 	}
 
 	@Override
@@ -127,10 +153,13 @@ public class WorldMapScreen extends AbstractScreen {
 		for (Actor actor: world.getActors()){
 			group.addActor(actor);
 		}   
-		group.addActor(cloudGroup);
 		final Sound buttonSound = assetManager.get("node_sound.wav", Sound.class); 
 		Skin skin = assetManager.get("uiskin.json", Skin.class);
 		int storedLevels = character.getStoredLevels();
+		
+		ui = new Image(UI);
+		this.addActor(ui);
+		
 		characterButton = new TextButton(storedLevels > 0 ? "Level Up!" : "Character", skin);
 		
 		if (storedLevels > 0){
@@ -150,7 +179,7 @@ public class WorldMapScreen extends AbstractScreen {
 		        }
 			}
 		);
-		group.addActor(characterButton);
+		this.addActor(characterButton);
 		
 		camp = new TextButton("Camp", skin);
 		
@@ -179,32 +208,35 @@ public class WorldMapScreen extends AbstractScreen {
 		        }
 			}
 		);
-		group.addActor(camp);
-		ui = new Image(UI);
-		group.addActor(ui);
+		this.addActor(camp);
 		foodIcon = new Image(food);
 		foodIcon.setWidth(50);
 		foodIcon.setHeight(50);
-		group.addActor(foodIcon);
-
+		this.addActor(foodIcon);
+		
+		characterButton.addAction(Actions.moveTo(200, 30));
+		camp.addAction(Actions.moveTo(330, 30));
 		
 		music.setVolume(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("musicVolume", 1) * .6f);
 		music.setLooping(true);
 		music.play();
+		
+		if (!backgroundRendered){
+			generateBackground();
+		}
+
+		cloudCamera.position.set(0, 0, 500);
+		cloudCamera.near = 1f;
+		cloudCamera.far = 10000;
+		cloudCamera.lookAt(0,0,0);
+		cloudCamera.translate(1280/2, 720/2, -200);
 	}
 	
 	@Override
 	public void render(float delta) {
-		if (!backgroundRendered){
-			generateBackground();
-		}
+
 		translateCamera();
-		
-		characterButton.addAction(Actions.moveTo(getCamera().position.x-450, getCamera().position.y-200));
-		camp.addAction(Actions.moveTo(getCamera().position.x-320, getCamera().position.y-200));
-		foodIcon.addAction(Actions.moveTo(getCamera().position.x-630, getCamera().position.y-350));
-		ui.addAction(Actions.moveTo(getCamera().position.x-630, getCamera().position.y-350));		
-		
+		Gdx.input.setInputProcessor(multi);
 		
 		if (Gdx.input.isKeyJustPressed(Keys.ENTER)){
 			showScreen(ScreenEnum.CHARACTER);
@@ -217,14 +249,20 @@ public class WorldMapScreen extends AbstractScreen {
 			music.stop();
 			showScreen(ScreenEnum.LOAD_GAME);
 		}
-		else {			
+		else {
+			clear();
+			worldStage.act(delta);
+			worldStage.draw();
+			cloudStage.act(delta);
+			cloudStage.draw();
 			super.render(delta);
 			drawText(delta);
 			world.gameLoop(batch, getCamera().position);
 		}
 	}
 	
-	public void drawText(float delta){
+	// this should be replaced with label actors
+	private void drawText(float delta){
 		batch.begin();
 		OrthographicCamera camera = (OrthographicCamera) getCamera();
 		batch.setColor(1.0f, 1.0f, 1.0f, 1);
@@ -235,22 +273,26 @@ public class WorldMapScreen extends AbstractScreen {
 	
 	private void translateCamera(){
 		Vector3 translationVector = new Vector3(0,0,0);
-		int speed = 5;
-		if (Gdx.input.isKeyPressed(Keys.SHIFT_LEFT)) speed = 10;
+		int speed = 8;
+		if (Gdx.input.isKeyPressed(Keys.SHIFT_LEFT)) speed = 16;
 		
-		if (Gdx.input.isKeyPressed(Keys.LEFT) && getCamera().position.x > 100){
+		if (Gdx.input.isKeyPressed(Keys.LEFT) && camera.position.x > 500){
 			translationVector.x -= speed;
 		}
-		else if (Gdx.input.isKeyPressed(Keys.RIGHT) && getCamera().position.x < 4000){
+		else if (Gdx.input.isKeyPressed(Keys.RIGHT) && camera.position.x < 4000){
 			translationVector.x += speed;
 		}
-		if (Gdx.input.isKeyPressed(Keys.DOWN) && getCamera().position.y > 200){
+		if (Gdx.input.isKeyPressed(Keys.DOWN) && camera.position.y > 500){
 			translationVector.y -= speed;
 		}
-		else if (Gdx.input.isKeyPressed(Keys.UP) && getCamera().position.y < 4600){
+		else if (Gdx.input.isKeyPressed(Keys.UP) && camera.position.y < 4600){
 			translationVector.y += speed;
 		}
-		getCamera().translate(translationVector);
+		camera.translate(translationVector);
+		Vector3 cloudTranslate = new Vector3(translationVector);
+		cloudTranslate.x *= 2;
+		cloudTranslate.y *= 2;
+		cloudCamera.translate(cloudTranslate);
 	}
 	
 	private void generateBackground(){
@@ -279,6 +321,13 @@ public class WorldMapScreen extends AbstractScreen {
 			}
 		}
 	}
+	
+    @Override
+    public void resize(int width, int height) {
+    	super.resize(width, height);
+        worldStage.getViewport().update(width, height, false);
+        cloudStage.getViewport().update(width, height, false);
+    }
 	
 	@Override
 	public void dispose() {

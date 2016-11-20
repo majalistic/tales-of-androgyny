@@ -17,6 +17,7 @@ public abstract class AbstractScreen extends Stage implements Screen {
 	protected final PolygonSpriteBatch batch;
 	protected final BitmapFont font;
 	protected final ScreenElements fontFactory;
+	protected boolean clearScreen;
 	
     protected AbstractScreen(ScreenFactory screenFactory, ScreenElements elements) {
         super(elements.getViewport(), elements.getBatch());
@@ -25,6 +26,7 @@ public abstract class AbstractScreen extends Stage implements Screen {
         this.batch = elements.getBatch();
         this.fontFactory = elements;
         this.font = elements.getFont(18);
+        clearScreen = true;
     }
  
     // Subclasses must load actors in this method
@@ -52,7 +54,8 @@ public abstract class AbstractScreen extends Stage implements Screen {
     
     @Override
     public void render(float delta) {
-    	clear();
+    	if (clearScreen)
+    		clear();
     	// this calls actor.act() on all actors
     	super.act(delta);
         // this draws all actors
