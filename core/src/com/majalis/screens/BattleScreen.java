@@ -7,9 +7,13 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.majalis.asset.AssetEnum;
 import com.majalis.battle.Battle;
+import com.majalis.battle.BattleCode;
+import com.majalis.battle.BattleFactory.EnemyEnum;
+import com.majalis.character.EnemyCharacter;
 import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveManager;
 import com.majalis.save.SaveService;
@@ -29,17 +33,16 @@ public class BattleScreen extends AbstractScreen{
 		resourceRequirements.put(AssetEnum.BATTLE_MUSIC.getPath(), Music.class);
 		
 		AssetEnum[] assets = new AssetEnum[]{
-			AssetEnum.BATTLE_BG, AssetEnum.WEREBITCH, AssetEnum.HARPY, AssetEnum.HARPY_FELLATIO, AssetEnum.SLIME, AssetEnum.SLIME_DOGGY, AssetEnum.BRIGAND, AssetEnum.STANCE_ARROW, AssetEnum.ANAL, AssetEnum.BLITZ,
+			AssetEnum.BATTLE_BG,  AssetEnum.STANCE_ARROW, AssetEnum.ANAL, AssetEnum.BLITZ,
 			AssetEnum.BALANCED, AssetEnum.DEFENSIVE, AssetEnum.DOGGY, AssetEnum.ERUPT, AssetEnum.FELLATIO, AssetEnum.FULL_NELSON, AssetEnum.KNEELING, AssetEnum.HANDY, AssetEnum.COWGIRL,
 			AssetEnum.OFFENSIVE, AssetEnum.PRONE, AssetEnum.SUPINE, AssetEnum.STANDING, AssetEnum.AIRBORNE, AssetEnum.CASTING, AssetEnum.KNOTTED, AssetEnum.SLASH, AssetEnum.BATTLE_HOVER
 		};
 		for (AssetEnum asset: assets){
 			resourceRequirements.put(asset.getPath(), Texture.class);
 		}
-		
+			
 		String[] textureArray = new String[]{
-			"arousal/Human0.png", "arousal/Human1.png", "arousal/Human2.png", "arousal/Trap0.png", "arousal/Trap1.png", "arousal/Trap2.png", "arousal/Monster0.png", "arousal/Monster1.png", "arousal/Monster2.png",
-			"enemies/BrigandUI.png", "enemies/HarpyUI.png", "enemies/SlimeUI.png", "enemies/WereUI.png"
+			 "arousal/Trap0.png", "arousal/Trap1.png", "arousal/Trap2.png", 
 		};
 		for (String path: textureArray){
 			resourceRequirements.put(path, Texture.class);
@@ -100,6 +103,29 @@ public class BattleScreen extends AbstractScreen{
 	@Override
 	public void dispose(){
 		battle.dispose();
+	}
+
+	public static ObjectMap<String, Class<?>> getRequirements(BattleCode battleCode) {
+		ObjectMap<String, Class<?>> requirements = new ObjectMap<String, Class<?>>(BattleScreen.resourceRequirements);
+		Array<String> textureArray = new Array<String>();
+		switch (battleCode.battleCode){
+			case 0:
+				textureArray.addAll(AssetEnum.WEREBITCH.getPath(), "enemies/WereUI.png", "arousal/Monster0.png", "arousal/Monster1.png", "arousal/Monster2.png");
+				break;
+			case 1: 
+				textureArray.addAll(AssetEnum.HARPY.getPath(),  AssetEnum.HARPY_FELLATIO.getPath(), "enemies/HarpyUI.png", "arousal/Monster0.png", "arousal/Monster1.png", "arousal/Monster2.png");
+				break;
+			case 2: 
+				textureArray.addAll(AssetEnum.SLIME.getPath(),  AssetEnum.SLIME_DOGGY.getPath(), "enemies/SlimeUI.png", "arousal/Monster0.png", "arousal/Monster1.png", "arousal/Monster2.png");
+				break;
+			case 3: 
+				textureArray.addAll(AssetEnum.BRIGAND.getPath(),  AssetEnum.SLIME_DOGGY.getPath(), "enemies/BrigandUI.png", "arousal/Human0.png", "arousal/Human1.png", "arousal/Human2.png");
+				break;
+		}
+		for (String path: textureArray){
+			requirements.put(path, Texture.class);
+		}
+		return requirements;
 	}
 	
 }

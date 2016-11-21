@@ -131,7 +131,7 @@ public class ScreenFactoryImpl implements ScreenFactory {
 	}
 	
 	private EncounterScreen getEncounter(ScreenElements elements, PlayerCharacter character){
-		if (getAssetCheck(EncounterScreen.resourceRequirements)){
+		if (getAssetCheck(EncounterScreen.getRequirements((Integer)loadService.loadDataValue(SaveEnum.ENCOUNTER_CODE, Integer.class)))){
 			Integer encounterCode = loadService.loadDataValue(SaveEnum.ENCOUNTER_CODE, Integer.class);
 			return new EncounterScreen(this, elements, assetManager, saveService, encounterFactory.getEncounter(encounterCode, elements.getFont(18)));
 		}
@@ -141,7 +141,7 @@ public class ScreenFactoryImpl implements ScreenFactory {
 	}
 
 	private BattleScreen getBattle(ScreenElements elements, PlayerCharacter character){
-		if (getAssetCheck(BattleScreen.resourceRequirements)){
+		if (getAssetCheck(BattleScreen.getRequirements((BattleCode) loadService.loadDataValue(SaveEnum.BATTLE_CODE, BattleCode.class)))){
 			BattleCode battleCode = loadService.loadDataValue(SaveEnum.BATTLE_CODE, BattleCode.class);
 			return new BattleScreen(this, elements, saveService, battleFactory.getBattle(battleCode, character), assetManager);
 		}

@@ -20,28 +20,11 @@ import com.majalis.save.SaveService;
 public class EncounterScreen extends AbstractScreen {
 
 	// these are required for all encounters, possibly - requirements for an individual encounter must be parsed by the EncounterFactory
-	public static final ObjectMap<String, Class<?>> resourceRequirements = new ObjectMap<String, Class<?>>();
+	private static final ObjectMap<String, Class<?>> resourceRequirements = new ObjectMap<String, Class<?>>();
 	static {
 		resourceRequirements.put(AssetEnum.UI_SKIN.getPath(), Skin.class);
 		resourceRequirements.put(AssetEnum.BUTTON_SOUND.getPath(), Sound.class);
 		resourceRequirements.put(AssetEnum.DEFAULT_BACKGROUND.getPath(), Texture.class);
-		resourceRequirements.put(AssetEnum.VIGNETTE.getPath(), Texture.class);
-		resourceRequirements.put(AssetEnum.GAME_TYPE_BACKGROUND.getPath(), Texture.class);
-		resourceRequirements.put(AssetEnum.CLASS_SELECT_BACKGROUND.getPath(), Texture.class);
-		resourceRequirements.put(AssetEnum.DRYAD_BACKGROUND.getPath(), Texture.class);
-		resourceRequirements.put(AssetEnum.STICK_BACKGROUND.getPath(), Texture.class);
-		resourceRequirements.put(AssetEnum.TRAP_BONUS.getPath(), Texture.class);
-		resourceRequirements.put(AssetEnum.WEREBITCH.getPath(), Texture.class);
-		resourceRequirements.put(AssetEnum.SLIME.getPath(), Texture.class);
-		resourceRequirements.put(AssetEnum.STRENGTH.getPath(), Texture.class);
-		resourceRequirements.put(AssetEnum.ENDURANCE.getPath(), Texture.class);
-		resourceRequirements.put(AssetEnum.AGILITY.getPath(), Texture.class);
-		resourceRequirements.put(AssetEnum.PERCEPTION.getPath(), Texture.class);
-		resourceRequirements.put(AssetEnum.MAGIC.getPath(), Texture.class);
-		resourceRequirements.put(AssetEnum.CHARISMA.getPath(), Texture.class);
-		resourceRequirements.put(AssetEnum.SLIME_DOGGY.getPath(), Texture.class);
-		resourceRequirements.put(AssetEnum.HARPY_FELLATIO.getPath(), Texture.class);
-		resourceRequirements.put(AssetEnum.BRIGAND_ORAL.getPath(), Texture.class);
 		resourceRequirements.put(AssetEnum.ENCOUNTER_MUSIC.getPath(), Music.class);
 	}
 	private final AssetManager assetManager;
@@ -110,5 +93,64 @@ public class EncounterScreen extends AbstractScreen {
 			if (path.equals("sound.wav")) continue;
 			assetManager.unload(path);
 		}
+	}
+
+	public static ObjectMap<String, Class<?>> getRequirements(int encounterCode) {
+		ObjectMap<String, Class<?>> requirements = new ObjectMap<String, Class<?>>(EncounterScreen.resourceRequirements);
+
+		switch (encounterCode){
+			// level up
+			case -3: 
+				requirements.put(AssetEnum.CLASS_SELECT_BACKGROUND.getPath(), Texture.class);
+				requirements.put(AssetEnum.STRENGTH.getPath(), Texture.class);
+				requirements.put(AssetEnum.ENDURANCE.getPath(), Texture.class);
+				requirements.put(AssetEnum.AGILITY.getPath(), Texture.class);
+				requirements.put(AssetEnum.PERCEPTION.getPath(), Texture.class);
+				requirements.put(AssetEnum.MAGIC.getPath(), Texture.class);
+				requirements.put(AssetEnum.CHARISMA.getPath(), Texture.class);
+				break;
+			// class choice
+			case -2: 
+				requirements.put(AssetEnum.GAME_TYPE_BACKGROUND.getPath(), Texture.class);
+				requirements.put(AssetEnum.CLASS_SELECT_BACKGROUND.getPath(), Texture.class);
+				requirements.put(AssetEnum.STRENGTH.getPath(), Texture.class);
+				requirements.put(AssetEnum.ENDURANCE.getPath(), Texture.class);
+				requirements.put(AssetEnum.AGILITY.getPath(), Texture.class);
+				requirements.put(AssetEnum.PERCEPTION.getPath(), Texture.class);
+				requirements.put(AssetEnum.MAGIC.getPath(), Texture.class);
+				requirements.put(AssetEnum.CHARISMA.getPath(), Texture.class);
+				break;
+			// default stick
+			case -1: 
+				requirements.put(AssetEnum.STICK_BACKGROUND.getPath(), Texture.class);
+				requirements.put(AssetEnum.VIGNETTE.getPath(), Texture.class);
+				break;
+			// werebitch
+			case 0:
+				requirements.put(AssetEnum.WEREBITCH.getPath(), Texture.class);
+				break;
+			// harpy
+			case 1:
+				requirements.put(AssetEnum.HARPY_FELLATIO.getPath(), Texture.class);
+				break;
+			// slime
+			case 2:
+				requirements.put(AssetEnum.SLIME.getPath(), Texture.class);
+				requirements.put(AssetEnum.SLIME_DOGGY.getPath(), Texture.class);
+				break;
+			// brigand
+			case 3:
+				requirements.put(AssetEnum.BRIGAND_ORAL.getPath(), Texture.class);
+				break;
+			// dryad
+			case 4:
+				requirements.put(AssetEnum.DRYAD_BACKGROUND.getPath(), Texture.class);
+				requirements.put(AssetEnum.VIGNETTE.getPath(), Texture.class);
+				break;
+			default:
+				requirements.put(AssetEnum.TRAP_BONUS.getPath(), Texture.class);		
+				break;
+		}
+		return requirements;
 	}
 }
