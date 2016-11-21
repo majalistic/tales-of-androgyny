@@ -19,8 +19,8 @@ import com.majalis.save.SaveService;
  */
 public class EncounterScreen extends AbstractScreen {
 
-	// these are required for all encounters, possibly - requirements for an individual encounter must be parsed by the EncounterFactory
 	private static final ObjectMap<String, Class<?>> resourceRequirements = new ObjectMap<String, Class<?>>();
+	public static ObjectMap<String, Class<?>> requirementsToDispose = new ObjectMap<String, Class<?>>();
 	static {
 		resourceRequirements.put(AssetEnum.UI_SKIN.getPath(), Skin.class);
 		resourceRequirements.put(AssetEnum.BUTTON_SOUND.getPath(), Sound.class);
@@ -89,10 +89,11 @@ public class EncounterScreen extends AbstractScreen {
 
 	@Override
 	public void dispose() {
-		for(String path: resourceRequirements.keys()){
-			if (path.equals("sound.wav")) continue;
+		for(String path: requirementsToDispose.keys()){
+			if (path.equals(AssetEnum.BUTTON_SOUND.getPath())) continue;
 			assetManager.unload(path);
 		}
+		requirementsToDispose = new ObjectMap<String, Class<?>>();
 	}
 
 	public static ObjectMap<String, Class<?>> getRequirements(int encounterCode) {
@@ -151,6 +152,7 @@ public class EncounterScreen extends AbstractScreen {
 				requirements.put(AssetEnum.TRAP_BONUS.getPath(), Texture.class);		
 				break;
 		}
+		requirementsToDispose = requirements;
 		return requirements;
 	}
 }

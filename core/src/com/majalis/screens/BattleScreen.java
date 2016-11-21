@@ -12,8 +12,6 @@ import com.badlogic.gdx.utils.ObjectMap;
 import com.majalis.asset.AssetEnum;
 import com.majalis.battle.Battle;
 import com.majalis.battle.BattleCode;
-import com.majalis.battle.BattleFactory.EnemyEnum;
-import com.majalis.character.EnemyCharacter;
 import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveManager;
 import com.majalis.save.SaveService;
@@ -23,6 +21,7 @@ import com.majalis.save.SaveService;
 public class BattleScreen extends AbstractScreen{
 
 	public static final ObjectMap<String, Class<?>> resourceRequirements = new ObjectMap<String, Class<?>>();
+	public static ObjectMap<String, Class<?>> requirementsToDispose = new ObjectMap<String, Class<?>>();
 	static {
 		resourceRequirements.put(AssetEnum.UI_SKIN.getPath(), Skin.class);
 		resourceRequirements.put(AssetEnum.BUTTON_SOUND.getPath(), Sound.class);
@@ -50,12 +49,14 @@ public class BattleScreen extends AbstractScreen{
 	}
 	private final SaveService saveService;
 	private final Battle battle;
+	private final AssetManager assetManager;
 	private final Music music;
 	
 	protected BattleScreen(ScreenFactory screenFactory, ScreenElements elements, SaveService saveService, Battle battle, AssetManager assetManager) {
 		super(screenFactory, elements);
 		this.saveService = saveService;
 		this.battle = battle;
+		this.assetManager = assetManager;
 		this.music = assetManager.get(AssetEnum.BATTLE_MUSIC.getPath(), Music.class);
 	}
 
@@ -103,6 +104,11 @@ public class BattleScreen extends AbstractScreen{
 	@Override
 	public void dispose(){
 		battle.dispose();
+		for(String path: requirementsToDispose.keys()){
+			if (path.equals(AssetEnum.BUTTON_SOUND.getPath())) continue;
+			assetManager.unload(path);
+		}
+		requirementsToDispose = new ObjectMap<String, Class<?>>();
 	}
 
 	public static ObjectMap<String, Class<?>> getRequirements(BattleCode battleCode) {
@@ -125,6 +131,7 @@ public class BattleScreen extends AbstractScreen{
 		for (String path: textureArray){
 			requirements.put(path, Texture.class);
 		}
+		requirementsToDispose = requirements;
 		return requirements;
 	}
 	
