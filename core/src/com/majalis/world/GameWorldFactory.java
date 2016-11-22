@@ -1,7 +1,6 @@
 package com.majalis.world;
 
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
@@ -34,7 +33,7 @@ public class GameWorldFactory {
 		this.random = random;
 	}
 	
-	public GameWorld getGameWorld(OrthographicCamera camera, int seed) {
+	public GameWorld getGameWorld(int seed) {
 		random.setSeed(seed);
 
 		IntMap<GameWorldNode> nodeMap = new IntMap<GameWorldNode>();
