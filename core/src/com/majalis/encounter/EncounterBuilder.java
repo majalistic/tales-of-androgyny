@@ -17,11 +17,11 @@ import com.majalis.asset.AssetEnum;
 import com.majalis.battle.BattleCode;
 import com.majalis.battle.BattleFactory.EnemyEnum;
 import com.majalis.character.PlayerCharacter;
-import com.majalis.character.Techniques;
 import com.majalis.character.AbstractCharacter.Stance;
 import com.majalis.character.AbstractCharacter.Stat;
 import com.majalis.save.ProfileEnum;
 import com.majalis.save.SaveEnum;
+import com.majalis.save.SaveManager.GameMode;
 import com.majalis.save.SaveManager.JobClass;
 import com.majalis.save.SaveService;
 import com.majalis.scenes.AbstractChoiceScene;
@@ -68,14 +68,15 @@ public class EncounterBuilder {
 		Texture backgroundTexture = assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getPath(), Texture.class);
 		Texture classSelectTexture = assetManager.get(AssetEnum.CLASS_SELECT_BACKGROUND.getPath(), Texture.class); 
 		Background background = new Background(backgroundTexture);
-		Array<Mutation> classMutation = getArray(new Mutation[]{new Mutation(saveService, SaveEnum.CLASS, JobClass.ENCHANTRESS), new Mutation(saveService, SaveEnum.SKILL, Techniques.TAUNT), new Mutation(saveService, SaveEnum.SKILL, Techniques.SECOND_WIND), new Mutation(saveService, SaveEnum.SKILL, Techniques.COMBAT_FIRE)});
-				
+		Array<Mutation> classMutation = getArray(new Mutation[]{new Mutation(saveService, SaveEnum.CLASS, JobClass.ENCHANTRESS), new Mutation(saveService, SaveEnum.MODE, GameMode.STORY)});
+			// new Mutation(saveService, SaveEnum.SKILL, Techniques.TAUNT), new Mutation(saveService, SaveEnum.SKILL, Techniques.SECOND_WIND), new Mutation(saveService, SaveEnum.SKILL, Techniques.COMBAT_FIRE)
+		
 		getTextScenes(
 			getScript("INTRO"), font, background,
 			getGameTypeScene(
 				assetManager, getArray(new String[]{"Create Character", "Story (Patrons)"}),		
 				getTextScenes(
-					new String[]{"You've selected to create your character!", "Please choose your class."}, font, background,
+					getArray(new String[]{"You've selected to create your character!", "Please choose your class."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.MODE, GameMode.SKIRMISH)}),
 					getCharacterCreationScene(
 						saveService, font, new Background(classSelectTexture), assetManager, playerCharacter,
 						getSkillSelectionScene(
@@ -88,7 +89,7 @@ public class EncounterBuilder {
 					)
 				),
 				getTextScenes(
-					getArray(new String[]{"You have entered story mode.  You are now an Enchantress, alone in the world."}), font, background, classMutation,							
+					getArray(new String[]{"You have entered story mode.", "A tale of androgyny has begun..."}), font, background, classMutation,							
 					getEndScene(EndScene.Type.ENCOUNTER_OVER)						
 				)
 			)

@@ -24,11 +24,11 @@ public class GameWorldNodeEncounter {
 	}
 	
 	public SaveManager.GameContext getContext(){
-		return encounterCode == 1000 ? SaveManager.GameContext.TOWN : SaveManager.GameContext.ENCOUNTER;
+		return encounterCode == 1000 || encounterCode == 2000 ? SaveManager.GameContext.TOWN : SaveManager.GameContext.ENCOUNTER;
 	}
 	
 	public SaveManager.GameContext getDefaultContext(){
-		return defaultEncounterCode == 1000 ? SaveManager.GameContext.TOWN : SaveManager.GameContext.ENCOUNTER;
+		return defaultEncounterCode == 1000 || defaultEncounterCode == 2000 ? SaveManager.GameContext.TOWN : SaveManager.GameContext.ENCOUNTER;
 	}
 	
 	public String getDescription(int visibility, boolean visited){
@@ -46,6 +46,7 @@ public class GameWorldNodeEncounter {
 					case 3: return "Brigand";
 					case 4: return "Dryad";
 					case 1000: return "Small Settlement";
+					case 2000: return "Town of Nadir";
 					default: return "Unknown - No Info for encounter #" + encounterCode + " and perception level = 1";
 			}
 			case 2:
@@ -60,6 +61,7 @@ public class GameWorldNodeEncounter {
 					case 3: return "Brigand - Hostile!";
 					case 4: return "Dryad - Peaceful";
 					case 1000: return "Town of Silajam";
+					case 2000: return "Town of Nadir";
 					default: return "Unknown - No Info for encounter #" + encounterCode  + " and perception level = 2";
 				}
 			default: return "Perception level error.";

@@ -13,6 +13,7 @@ import com.badlogic.gdx.utils.OrderedMap;
 import com.majalis.asset.AssetEnum;
 import com.majalis.encounter.Background;
 import com.majalis.save.SaveService;
+import com.majalis.traprpg.TrapRPG;
 /*
  * Represents a choice displayed to the user in the course of an encounter.
  */
@@ -37,7 +38,8 @@ public class GameTypeScene extends AbstractChoiceScene {
         }
         buttons.get(0).setPosition(1030, 240);
         buttons.get(1).setPosition(78, 240);	
-        buttons.get(1).setTouchable(Touchable.disabled);
+        if(!TrapRPG.patron)
+        	buttons.get(1).setTouchable(Touchable.disabled);
 	}
 
 	@Override

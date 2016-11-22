@@ -70,6 +70,7 @@ public class SaveManager implements SaveService, LoadService{
 	    	case PERK:				save.player.addPerk((Perk) object, 1); break;
 	    	case FOOD:				save.player.modFood((Integer) object); break;
 	    	case EXPERIENCE:		save.player.modExperience((Integer) object); break;
+	    	case MODE:				save.mode = (GameMode) object; break;
     	}	
         saveToJson(save); //Saves current save immediately.
     }
@@ -95,6 +96,7 @@ public class SaveManager implements SaveService, LoadService{
 	    	case PERK:				return (T) (ObjectMap<Perk, Integer>) save.player.getPerks();	
 	    	case FOOD: 				return (T) (Integer) save.player.getFood();
 	    	case EXPERIENCE:		return (T) (Integer) save.player.getExperience();
+	    	case MODE:				return (T) (GameMode) save.mode;
     	}	
     	return null;
     }
@@ -188,6 +190,7 @@ public class SaveManager implements SaveService, LoadService{
     public static class GameSave {
     	
     	private GameContext context;
+    	private GameMode mode;
     	private int worldSeed;
     	private int sceneCode;
     	private int encounterCode;
@@ -330,4 +333,10 @@ public class SaveManager implements SaveService, LoadService{
 		TOWN,
 		GAME_OVER
 	}
+	
+	public enum GameMode {
+		STORY,
+		SKIRMISH
+	}
+	
 }

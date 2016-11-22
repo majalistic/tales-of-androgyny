@@ -20,6 +20,8 @@ import com.majalis.world.GameWorldFactory;
  * Package shared entry point for each platform.  Generates a ScreenFactory and service for dependency injection, and switches to the splash screen for loading.
  */
 public class TrapRPG extends Game {
+	public static boolean patron = true;
+	
 	public void create() {	
 		
 		Preferences prefs = Gdx.app.getPreferences("tales-of-androgyny-preferences");

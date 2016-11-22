@@ -149,7 +149,8 @@ public class EncounterScreen extends AbstractScreen {
 				requirements.put(AssetEnum.VIGNETTE.getPath(), Texture.class);
 				break;
 			default:
-				requirements.put(AssetEnum.TRAP_BONUS.getPath(), Texture.class);		
+				requirements.put(AssetEnum.TRAP_BONUS.getPath(), Texture.class);	
+				requirements.put(AssetEnum.VIGNETTE.getPath(), Texture.class);	
 				break;
 		}
 		requirementsToDispose = requirements;

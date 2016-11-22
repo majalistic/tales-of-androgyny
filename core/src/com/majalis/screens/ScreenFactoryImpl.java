@@ -19,6 +19,7 @@ import com.majalis.save.ProfileEnum;
 import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveManager;
 import com.majalis.save.SaveService;
+import com.majalis.save.SaveManager.GameMode;
 import com.majalis.world.GameWorldFactory;
 /*
  * ScreenFactory implementation to generate and cache screens.
@@ -160,7 +161,6 @@ public class ScreenFactoryImpl implements ScreenFactory {
 	
 	private TownScreen getTown(ScreenElements elements, PlayerCharacter character){
 		if (getAssetCheck(TownScreen.resourceRequirements)){
-			// -3 is the magic number for the level up screen encounter
 			return new TownScreen(this, elements, assetManager, saveService);
 		}
 		return null;
@@ -173,7 +173,7 @@ public class ScreenFactoryImpl implements ScreenFactory {
 			case WORLD_MAP: 
 				if (getAssetCheck(WorldMapScreen.resourceRequirements)){
 					int worldSeed = loadService.loadDataValue(SaveEnum.WORLD_SEED, Integer.class);
-					return new WorldMapScreen(this, elements, assetManager, saveService, loadService, gameWorldFactory.getGameWorld(worldSeed));
+					return new WorldMapScreen(this, elements, assetManager, saveService, loadService, gameWorldFactory.getGameWorld(worldSeed, (GameMode)loadService.loadDataValue(SaveEnum.MODE, GameMode.class)));
 				}
 				else return null;
 			case BATTLE:
