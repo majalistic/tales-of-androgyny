@@ -48,12 +48,13 @@ public class EncounterBuilder {
 	private final AssetManager assetManager;
 	private final SaveService saveService;
 	private final BitmapFont font;
+	private final BitmapFont smallFont;
 	private final int sceneCode;
 	private int battleCode;
 	// can probably be replaced with a call to scenes.size
 	private int sceneCounter;
 	
-	protected EncounterBuilder(EncounterReader reader, AssetManager assetManager, SaveService saveService, BitmapFont font, int sceneCode, int battleCode){
+	protected EncounterBuilder(EncounterReader reader, AssetManager assetManager, SaveService saveService, BitmapFont font, BitmapFont smallFont, int sceneCode, int battleCode){
 		scenes = new Array<Scene>();
 		endScenes = new Array<EndScene>();
 		battleScenes = new Array<BattleScene>();
@@ -61,6 +62,7 @@ public class EncounterBuilder {
 		this.assetManager = assetManager;
 		this.saveService = saveService;
 		this.font = font;
+		this.smallFont = smallFont;
 		this.sceneCode = sceneCode;
 		this.battleCode = battleCode;
 		sceneCounter = 0;
@@ -80,11 +82,11 @@ public class EncounterBuilder {
 				getTextScenes(
 					getArray(new String[]{"You've selected to create your character!", "Please choose your class."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.MODE, GameMode.SKIRMISH)}),
 					getCharacterCreationScene(
-						saveService, font, classSelectbackground.clone(), assetManager, playerCharacter,
+						saveService, smallFont, classSelectbackground.clone(), assetManager, playerCharacter,
 						getSkillSelectionScene(
-							saveService, font, classSelectbackground.clone(), assetManager, playerCharacter, 
+							saveService, smallFont, classSelectbackground.clone(), assetManager, playerCharacter, 
 							getCharacterCustomizationScene(
-								saveService, font, classSelectbackground.clone(), assetManager, playerCharacter, 
+								saveService, smallFont, classSelectbackground.clone(), assetManager, playerCharacter, 
 								getEndScene(EndScene.Type.ENCOUNTER_OVER)
 							)
 						)

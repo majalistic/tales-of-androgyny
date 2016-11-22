@@ -29,20 +29,23 @@ public class CheckScene extends AbstractTextScene {
 	@Override
 	public void setActive() {
 		super.setActive();
+		nextScene = getNextScene();	
+	}
+	
+	private Scene getNextScene(){
 		int amount = statToCheck == Stat.CHARISMA ? character.getLewdCharisma() : character.getStat(statToCheck);
 		toDisplay += "Your " + statToCheck.toString() + " score: " + amount + "\n\n";
 		for (Integer threshold : checkValues.keys()){
 			toDisplay += statToCheck.toString() + " check (" + threshold + "): ";
 			if (amount >= threshold){
-				nextScene = checkValues.get(threshold);
 				toDisplay += "PASSED!\n";
-				break;
+				return checkValues.get(threshold);
 			}
 			else {
 				toDisplay += "FAILURE!\n";
 			}
 		}
-		nextScene = defaultScene;
+		return defaultScene;
 	}
 
 	@Override

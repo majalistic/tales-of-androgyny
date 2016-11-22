@@ -134,7 +134,7 @@ public class ScreenFactoryImpl implements ScreenFactory {
 	private EncounterScreen getEncounter(ScreenElements elements, PlayerCharacter character){
 		if (getAssetCheck(EncounterScreen.getRequirements((Integer)loadService.loadDataValue(SaveEnum.ENCOUNTER_CODE, Integer.class)))){
 			Integer encounterCode = loadService.loadDataValue(SaveEnum.ENCOUNTER_CODE, Integer.class);
-			return new EncounterScreen(this, elements, assetManager, saveService, encounterFactory.getEncounter(encounterCode, elements.getFont(32)));
+			return new EncounterScreen(this, elements, assetManager, saveService, encounterFactory.getEncounter(encounterCode, elements.getFont(32), elements.getFont(24)));
 		}
 		else {
 			return null;
@@ -154,7 +154,7 @@ public class ScreenFactoryImpl implements ScreenFactory {
 	private LevelUpScreen getLevel(ScreenElements elements, PlayerCharacter character){
 		if (getAssetCheck(LevelUpScreen.resourceRequirements)){
 			// -3 is the magic number for the level up screen encounter
-			return new LevelUpScreen(this, elements, assetManager, saveService, encounterFactory.getEncounter(-3, elements.getFont(18)));
+			return new LevelUpScreen(this, elements, assetManager, saveService, encounterFactory.getEncounter(-3, elements.getFont(18), elements.getFont(18)));
 		}
 		return null;
 	}

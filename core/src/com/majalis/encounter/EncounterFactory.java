@@ -25,12 +25,12 @@ public class EncounterFactory {
 		this.loadService = saveManager;
 	}
 	
-	public Encounter getEncounter(int encounterCode, BitmapFont font) {
+	public Encounter getEncounter(int encounterCode, BitmapFont font, BitmapFont smallFont) {
 		Integer sceneCode = loadService.loadDataValue(SaveEnum.SCENE_CODE, Integer.class);
 		BattleCode battle = loadService.loadDataValue(SaveEnum.BATTLE_CODE, BattleCode.class);
 		int battleCode = -1;
 		if (battle != null) battleCode = battle.battleCode;
-		EncounterBuilder builder = new EncounterBuilder(reader, assetManager, saveService, font, sceneCode, battleCode);
+		EncounterBuilder builder = new EncounterBuilder(reader, assetManager, saveService, font, smallFont, sceneCode, battleCode);
 		switch (encounterCode){
 			case -3: return builder.getLevelUpEncounter((PlayerCharacter) loadService.loadDataValue(SaveEnum.PLAYER, PlayerCharacter.class));
 			case -2: return builder.getClassChoiceEncounter((PlayerCharacter) loadService.loadDataValue(SaveEnum.PLAYER, PlayerCharacter.class));
