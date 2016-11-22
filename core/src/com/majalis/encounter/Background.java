@@ -19,7 +19,7 @@ public class Background extends Group{
 			this.backgroundTexture = background;
 			this.width = width;
 			this.height = height;
-			this.x = 0;
+			this.x = (1280 - this.width) / 2;
 			this.y = 0;
 		}
 		

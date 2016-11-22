@@ -3,6 +3,7 @@ package com.majalis.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.ObjectMap;
@@ -42,7 +43,8 @@ public class GameOverScreen extends AbstractScreen {
 		batch.setProjectionMatrix(camera.combined);
 		camera.update();
 		batch.begin();
-		font.draw(batch, "Press Enter", 700, 400);
+		font.setColor(Color.BLACK);
+		font.draw(batch, "Press Enter", 650, 400);
 		font.draw(batch, String.valueOf(clocktick++), 1820, 400);
 		batch.end();
 		if (Gdx.input.isKeyJustPressed(Keys.ENTER) || clocktick >= 500)
