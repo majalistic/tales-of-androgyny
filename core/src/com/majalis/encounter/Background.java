@@ -2,9 +2,9 @@ package com.majalis.encounter;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
-public class Background extends Actor{
+public class Background extends Image{
 
 	private final Texture texture;
 	private  Texture texture2;
