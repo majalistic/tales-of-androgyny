@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.majalis.asset.AssetEnum;
-import com.majalis.encounter.Background;
+import com.majalis.encounter.Background.BackgroundBuilder;;
 /*
  * Screen for displaying "Game Over" - can return the player to the main menu or offer them the ability to save their GO encounter.  May be loaded with different splashes / music at runtime.
  */
@@ -31,7 +31,7 @@ public class GameOverScreen extends AbstractScreen {
 
 	@Override
 	public void buildStage() {
-		this.addActor(new Background(backgroundImage, 934, 720));
+		this.addActor(new BackgroundBuilder(backgroundImage, 934, 720).build());
 	}
 	
 	@Override

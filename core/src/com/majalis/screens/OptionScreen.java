@@ -23,7 +23,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.majalis.asset.AssetEnum;
-import com.majalis.encounter.Background;
+import com.majalis.encounter.Background.BackgroundBuilder;
 /*
  * The options/configuration screen.  UI that handles player input to save Preferences to a player's file system.
  */
@@ -43,7 +43,7 @@ public class OptionScreen extends AbstractScreen {
 	
 	public OptionScreen(ScreenFactory factory, ScreenElements elements, AssetManager assetManager) {
 		super(factory, elements);
-		this.addActor(new Background(assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getPath(), Texture.class)));
+		this.addActor(new BackgroundBuilder(assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getPath(), Texture.class)).build());
 		skin = assetManager.get(AssetEnum.UI_SKIN.getPath(), Skin.class);
 		this.music = assetManager.get(AssetEnum.MAIN_MENU_MUSIC.getPath(), Music.class);
 		final Sound sound = assetManager.get(AssetEnum.BUTTON_SOUND.getPath(), Sound.class);

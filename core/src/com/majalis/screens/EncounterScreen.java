@@ -25,6 +25,7 @@ public class EncounterScreen extends AbstractScreen {
 		resourceRequirements.put(AssetEnum.UI_SKIN.getPath(), Skin.class);
 		resourceRequirements.put(AssetEnum.BUTTON_SOUND.getPath(), Sound.class);
 		resourceRequirements.put(AssetEnum.DEFAULT_BACKGROUND.getPath(), Texture.class);
+		resourceRequirements.put(AssetEnum.BATTLE_HOVER.getPath(), Texture.class);
 		resourceRequirements.put(AssetEnum.ENCOUNTER_MUSIC.getPath(), Music.class);
 	}
 	private final AssetManager assetManager;

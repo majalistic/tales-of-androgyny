@@ -15,6 +15,29 @@
 		]
 	},
 	{
+		"key": "STORY",
+		"scriptLines": [
+			"...",
+			"..",
+			".",
+			"So it has come to this.",
+			"The first fires of creation have died out, and all that remains are the embers and ash of what could have been greatness.",
+			"Breakfast... is ruined.",
+			"You toss the burnt eggs into the same refuse pile that you usually do and sigh.  Is this all there is to life?  Failing to accomplish basic tasks and waiting to grow old?",
+			"No.  No, that can't be it, you assure yourself, even as the last gooey-yet-burnt drippings of your failure slough off the walls of the dilapitated hut you call home and into that same pile of ruined breakfasts where you keep your genetic legacy.",
+			"There is one thing that separates men from beasts, and you feel it strongly.",
+			"Your mother was a hero.  Bards sung songs of valorous deeds, and drunker bards sung songs of her valorous deeds in the wrong key while forgetting most of the words, and there are no surer signs of fame with virtue than that.  She defended the weak, and she looked great doing it.",
+			"Now, it's your turn.  The world may be a dark and foreboding place, full of monsters on four and two legs, but you will be a shining beacon in the darkness, a word of hope against despair, an uplifting wind in a still sea.",
+			"But most of all - you will have the money to pay for someone who knows how to cook eggs.  And that, you mumble half-sure to yourself, is all that matters.",
+			"With renewed vigor, you throw open the door, well, flap, to your abode, and greet the sunshine of day; it's so bright that it hurts your eyes and you almost immediately give up.",
+			"But you don't - and that's what counts.  For the one thing that separates men from beasts?",
+			"Denial.",
+			"{ Tales of Androgyny }",
+			"\n{ Tales of Androgyny }",
+			"\n\n{ Tales of Androgyny }"
+		]
+	},
+	{
 		"key": "TOWN",
 		"scriptLines": [
 			"This is a placeholder for the castle event."

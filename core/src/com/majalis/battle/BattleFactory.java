@@ -9,7 +9,7 @@ import com.badlogic.gdx.utils.ObjectMap;
 import com.majalis.asset.AssetEnum;
 import com.majalis.character.EnemyCharacter;
 import com.majalis.character.PlayerCharacter;
-import com.majalis.encounter.Background;
+import com.majalis.encounter.Background.BackgroundBuilder;
 import com.majalis.character.AbstractCharacter.Stance;
 import com.majalis.save.LoadService;
 import com.majalis.save.SaveEnum;
@@ -54,7 +54,7 @@ public class BattleFactory {
 		}
 		switch(battleCode.battleCode){	
 			default: 
-				return new Battle(saveService, assetManager, font, playerCharacter, enemy, battleCode.victoryScene, battleCode.defeatScene, new Background(assetManager.get(AssetEnum.BATTLE_BG.getPath(), Texture.class)), new Background(assetManager.get(enemy.getBGPath(), Texture.class)));
+				return new Battle(saveService, assetManager, font, playerCharacter, enemy, battleCode.victoryScene, battleCode.defeatScene, new BackgroundBuilder(assetManager.get(AssetEnum.BATTLE_BG.getPath(), Texture.class)).build(), new BackgroundBuilder(assetManager.get(enemy.getBGPath(), Texture.class)).build());
 		}
 	}
 	

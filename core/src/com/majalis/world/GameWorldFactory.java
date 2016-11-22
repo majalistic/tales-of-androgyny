@@ -29,7 +29,7 @@ public class GameWorldFactory {
 		this.loadService = saveManager;
 		this.assetManager = assetManager;
 		FreeTypeFontParameter fontParameter = new FreeTypeFontParameter();
-	    fontParameter.size = 18;
+	    fontParameter.size = 24;
 	    font = fontGenerator.generateFont(fontParameter);
 		this.random = random;
 	}

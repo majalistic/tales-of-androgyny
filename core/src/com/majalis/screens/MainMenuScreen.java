@@ -17,7 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.majalis.asset.AssetEnum;
-import com.majalis.encounter.Background;
+import com.majalis.encounter.Background.BackgroundBuilder;
 import com.majalis.save.LoadService;
 import com.majalis.save.SaveService;
 /*
@@ -73,7 +73,7 @@ public class MainMenuScreen extends AbstractScreen {
 	
         table.setFillParent(true);
         
-        this.addActor(new Background(backgroundImage));
+        this.addActor(new BackgroundBuilder(backgroundImage).build());
         this.addActor(table);
         table.setPosition(330, 130);
         music.play();

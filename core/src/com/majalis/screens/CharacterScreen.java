@@ -18,7 +18,7 @@ import com.badlogic.gdx.utils.ObjectMap;
 import com.majalis.asset.AssetEnum;
 import com.majalis.character.PlayerCharacter;
 import com.majalis.character.AbstractCharacter.Stat;
-import com.majalis.encounter.Background;
+import com.majalis.encounter.Background.BackgroundBuilder;
 import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveManager.GameContext;
 import com.majalis.save.SaveService;
@@ -61,7 +61,7 @@ public class CharacterScreen extends AbstractScreen {
 	public CharacterScreen(ScreenFactory factory, ScreenElements elements, AssetManager assetManager, final SaveService saveService, final PlayerCharacter character) {
 		super(factory, elements);
 		this.character = character;
-		this.addActor(new Background(assetManager.get(AssetEnum.CHARACTER_SCREEN.getPath(), Texture.class))); 
+		this.addActor(new BackgroundBuilder(assetManager.get(AssetEnum.CHARACTER_SCREEN.getPath(), Texture.class)).build()); 
 		
 		statTextureMap = new ObjectMap<Stat, Texture>();
 		for (final Stat stat: Stat.values()){

@@ -30,12 +30,12 @@ public class EncounterFactory {
 		BattleCode battle = loadService.loadDataValue(SaveEnum.BATTLE_CODE, BattleCode.class);
 		int battleCode = -1;
 		if (battle != null) battleCode = battle.battleCode;
-		EncounterBuilder builder = new EncounterBuilder(reader, saveService, font, sceneCode, battleCode);
+		EncounterBuilder builder = new EncounterBuilder(reader, assetManager, saveService, font, sceneCode, battleCode);
 		switch (encounterCode){
-			case -3: return builder.getLevelUpEncounter(assetManager, (PlayerCharacter) loadService.loadDataValue(SaveEnum.PLAYER, PlayerCharacter.class));
-			case -2: return builder.getClassChoiceEncounter(assetManager, (PlayerCharacter) loadService.loadDataValue(SaveEnum.PLAYER, PlayerCharacter.class));
-			case -1: return builder.getDefaultEncounter(assetManager);
-			default: return builder.getRandomEncounter(encounterCode, assetManager, (PlayerCharacter) loadService.loadDataValue(SaveEnum.PLAYER, PlayerCharacter.class));
+			case -3: return builder.getLevelUpEncounter((PlayerCharacter) loadService.loadDataValue(SaveEnum.PLAYER, PlayerCharacter.class));
+			case -2: return builder.getClassChoiceEncounter((PlayerCharacter) loadService.loadDataValue(SaveEnum.PLAYER, PlayerCharacter.class));
+			case -1: return builder.getDefaultEncounter();
+			default: return builder.getRandomEncounter(encounterCode, (PlayerCharacter) loadService.loadDataValue(SaveEnum.PLAYER, PlayerCharacter.class));
 		}
 	}
 }

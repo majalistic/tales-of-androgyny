@@ -18,6 +18,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.majalis.asset.AssetEnum;
 import com.majalis.encounter.Background;
+import com.majalis.encounter.Background.BackgroundBuilder;
 import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveManager;
 import com.majalis.save.SaveService;
@@ -47,7 +48,7 @@ public class TownScreen extends AbstractScreen {
 		super(screenFactory, elements);
 		this.saveService = saveService;
 		skin = assetManager.get(AssetEnum.UI_SKIN.getPath(), Skin.class);
-		background = new Background(assetManager.get(AssetEnum.TOWN_BG.getPath(), Texture.class));
+		background = new BackgroundBuilder(assetManager.get(AssetEnum.TOWN_BG.getPath(), Texture.class)).build();
 		arrow = new Image(assetManager.get(AssetEnum.STANCE_ARROW.getPath(), Texture.class));
 		music = assetManager.get(AssetEnum.ENCOUNTER_MUSIC.getPath(), Music.class);
 		buttonSound = assetManager.get(AssetEnum.BUTTON_SOUND.getPath(), Sound.class);

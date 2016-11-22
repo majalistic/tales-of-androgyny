@@ -601,12 +601,12 @@ public abstract class AbstractCharacter extends Actor {
 	}
 	
 	public enum Stat {
-		STRENGTH(AssetEnum.STRENGTH.getPath(), "Strength determines raw attack power, which affects damage,\nhow much attacks unbalance an enemies,\nand contests of strength, such aswrestling, struggling,\nor weapon locks."),
+		STRENGTH(AssetEnum.STRENGTH.getPath(), "Strength determines raw attack power, which affects damage,\nhow much attacks unbalance an enemies, and contests\nof strength, such as wrestling, struggling,\nor weapon locks."),
 		ENDURANCE(AssetEnum.ENDURANCE.getPath(), "Endurance determines stamina and resilience, which affects\nyour ability to keep up an assault without getting tired,\nyour ability to shrug off low damage attacks,\nand wear heavier armor without being tired."),
-		AGILITY(AssetEnum.AGILITY.getPath(), "Agility determines balance and skill,affecting your ability\nto keep a sure footing even while doing acrobatic maneuvers,\ngetting unblockable attacks against enemies,\nand evading enemy attacks."),
-		PERCEPTION(AssetEnum.PERCEPTION.getPath(), "Perception determines your ability to see what attacks\nan enemy may use next and prepare accordingly,\nas well as your base scouting ability, which determines\nwhat information you can see about upcoming areas."),
-		MAGIC(AssetEnum.MAGIC.getPath(), "Magic determines your magical capabilities, such as how powerful\nmagic spells are, and how many of them you can\ncast before becoming magically exhausted."),
-		CHARISMA(AssetEnum.CHARISMA.getPath(), "Charisma determines your ability to influence an enemy,\ngetting them\to calm down and listen to reason, enraging them,\nor seducing them.");
+		AGILITY(AssetEnum.AGILITY.getPath(), "Agility determines balance and skill,affecting your ability\nto keep a sure footing even while doing acrobatic\nmaneuvers,getting unblockable attacks against\nenemies, and evading enemy attacks."),
+		PERCEPTION(AssetEnum.PERCEPTION.getPath(), "Perception determines your ability to see what attacks an\nenemy may use next and prepare accordingly, as well as\nyour base scouting ability, which determines what\ninformation you can see about upcoming areas."),
+		MAGIC(AssetEnum.MAGIC.getPath(), "Magic determines your magical capabilities, such as how\npowerful magic spells are, and how many of them\nyou can cast before becoming magically exhausted."),
+		CHARISMA(AssetEnum.CHARISMA.getPath(), "Charisma determines your ability to influence an enemy,\ngetting them to calm down and listen to reason,\nenraging them, or seducing them.");
 
 		private final String path;
 		private final String description;

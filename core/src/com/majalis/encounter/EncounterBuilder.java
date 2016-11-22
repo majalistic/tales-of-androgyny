@@ -17,6 +17,7 @@ import com.majalis.asset.AssetEnum;
 import com.majalis.battle.BattleCode;
 import com.majalis.battle.BattleFactory.EnemyEnum;
 import com.majalis.character.PlayerCharacter;
+import com.majalis.encounter.Background.BackgroundBuilder;
 import com.majalis.character.AbstractCharacter.Stance;
 import com.majalis.character.AbstractCharacter.Stat;
 import com.majalis.save.ProfileEnum;
@@ -44,6 +45,7 @@ public class EncounterBuilder {
 	private final Array<EndScene> endScenes;
 	private final Array<BattleScene> battleScenes; 
 	private final EncounterReader reader;
+	private final AssetManager assetManager;
 	private final SaveService saveService;
 	private final BitmapFont font;
 	private final int sceneCode;
@@ -51,11 +53,12 @@ public class EncounterBuilder {
 	// can probably be replaced with a call to scenes.size
 	private int sceneCounter;
 	
-	protected EncounterBuilder(EncounterReader reader, SaveService saveService, BitmapFont font, int sceneCode, int battleCode){
+	protected EncounterBuilder(EncounterReader reader, AssetManager assetManager, SaveService saveService, BitmapFont font, int sceneCode, int battleCode){
 		scenes = new Array<Scene>();
 		endScenes = new Array<EndScene>();
 		battleScenes = new Array<BattleScene>();
 		this.reader = reader;
+		this.assetManager = assetManager;
 		this.saveService = saveService;
 		this.font = font;
 		this.sceneCode = sceneCode;
@@ -64,10 +67,9 @@ public class EncounterBuilder {
 	}
 	/* different encounter "templates" */
 	@SuppressWarnings("unchecked")
-	protected Encounter getClassChoiceEncounter(AssetManager assetManager, PlayerCharacter playerCharacter){	
-		Texture backgroundTexture = assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getPath(), Texture.class);
-		Texture classSelectTexture = assetManager.get(AssetEnum.CLASS_SELECT_BACKGROUND.getPath(), Texture.class); 
-		Background background = new Background(backgroundTexture);
+	protected Encounter getClassChoiceEncounter(PlayerCharacter playerCharacter){	
+		Background background = getDefaultTextBackground();
+		Background classSelectbackground = getClassSelectBackground();
 		Array<Mutation> classMutation = getArray(new Mutation[]{new Mutation(saveService, SaveEnum.CLASS, JobClass.ENCHANTRESS), new Mutation(saveService, SaveEnum.MODE, GameMode.STORY)});
 			// new Mutation(saveService, SaveEnum.SKILL, Techniques.TAUNT), new Mutation(saveService, SaveEnum.SKILL, Techniques.SECOND_WIND), new Mutation(saveService, SaveEnum.SKILL, Techniques.COMBAT_FIRE)
 		
@@ -78,11 +80,11 @@ public class EncounterBuilder {
 				getTextScenes(
 					getArray(new String[]{"You've selected to create your character!", "Please choose your class."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.MODE, GameMode.SKIRMISH)}),
 					getCharacterCreationScene(
-						saveService, font, new Background(classSelectTexture), assetManager, playerCharacter,
+						saveService, font, classSelectbackground.clone(), assetManager, playerCharacter,
 						getSkillSelectionScene(
-							saveService, font, new Background(classSelectTexture), assetManager, playerCharacter, 
+							saveService, font, classSelectbackground.clone(), assetManager, playerCharacter, 
 							getCharacterCustomizationScene(
-								saveService, font, new Background(classSelectTexture), assetManager, playerCharacter, 
+								saveService, font, classSelectbackground.clone(), assetManager, playerCharacter, 
 								getEndScene(EndScene.Type.ENCOUNTER_OVER)
 							)
 						)
@@ -90,40 +92,45 @@ public class EncounterBuilder {
 				),
 				getTextScenes(
 					getArray(new String[]{"You have entered story mode.", "A tale of androgyny has begun..."}), font, background, classMutation,							
-					getEndScene(EndScene.Type.ENCOUNTER_OVER)						
+					getTextScenes(
+						getScript("STORY"), font, background,
+						getEndScene(EndScene.Type.ENCOUNTER_OVER)						
+					)
 				)
 			)
 		);
 		return new Encounter(scenes, endScenes, new Array<BattleScene>(), getStartScene(scenes, sceneCode));
 	}
 	
-	protected Encounter getLevelUpEncounter(AssetManager assetManager, PlayerCharacter playerCharacter){
-		Texture classSelectTexture = assetManager.get(AssetEnum.CLASS_SELECT_BACKGROUND.getPath(), Texture.class);
+	private Background getDefaultTextBackground(){ return getDefaultTextBackground(assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getPath(), Texture.class)); }
+	
+	private Background getDefaultTextBackground(Texture background){ return new BackgroundBuilder(background).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class)).build(); }
+	
+	private Background getClassSelectBackground(){ return new BackgroundBuilder(assetManager.get(AssetEnum.CLASS_SELECT_BACKGROUND.getPath(), Texture.class)).build(); }
+	
+	protected Encounter getLevelUpEncounter(PlayerCharacter playerCharacter){
 		getSkillSelectionScene(
-				saveService, font, new Background(classSelectTexture), assetManager, playerCharacter, getEndScene(EndScene.Type.ENCOUNTER_OVER)
+				saveService, font, getClassSelectBackground(), assetManager, playerCharacter, getEndScene(EndScene.Type.ENCOUNTER_OVER)
 		);
 		return new Encounter(scenes, endScenes, new Array<BattleScene>(), getStartScene(scenes, sceneCode));
 	}
 	
-	protected Encounter getDefaultEncounter(AssetManager assetManager){
-		Texture backgroundTexture = assetManager.get(AssetEnum.STICK_BACKGROUND.getPath(), Texture.class);
-		Texture vignetteTexture = assetManager.get(AssetEnum.VIGNETTE.getPath(), Texture.class);
-		Background background = new Background(backgroundTexture, vignetteTexture);
-		
+	protected Encounter getDefaultEncounter(){
+		Background background = getDefaultTextBackground(assetManager.get(AssetEnum.STICK_BACKGROUND.getPath(), Texture.class));
 		getTextScenes(new String[]{"You encounter a stick!", "It's actually rather sexy looking.", "There is nothing left here to do."}, font, background, getEndScene(EndScene.Type.ENCOUNTER_OVER));
 		return new Encounter(scenes, endScenes, new Array<BattleScene>(), getStartScene(scenes, sceneCode));
 	}
 	
 	@SuppressWarnings("unchecked")
-	protected Encounter getRandomEncounter(int encounterCode, AssetManager assetManager, PlayerCharacter character){
+	protected Encounter getRandomEncounter(int encounterCode, PlayerCharacter character){
 		Texture backgroundTexture = assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getPath(), Texture.class);	
-		Background background = new Background(backgroundTexture);
+		Background background = getDefaultTextBackground();
 		// if there isn't already a battlecode set, it's determined by the encounterCode; for now, that means dividing the various encounters up by modulus
 		if (battleCode == -1) battleCode = encounterCode;
 		switch (battleCode){
 			// werebitch
 			case 0:
-				Background werebitchBackground = new Background(backgroundTexture, assetManager.get(AssetEnum.WEREBITCH.getPath(), Texture.class), 1280, 720, 450, 600);
+				Background werebitchBackground = new BackgroundBuilder(backgroundTexture).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class)).setForeground(assetManager.get(AssetEnum.WEREBITCH.getPath(), Texture.class)).build();
 				getTextScenes(
 					getScript(battleCode, 0), font, background, getArray(new Mutation[]{new Mutation(saveService, ProfileEnum.KNOWLEDGE, EnemyEnum.WERESLUT.toString())}),
 					getTextScenes( 
@@ -138,9 +145,7 @@ public class EncounterBuilder {
 				break;
 			// harpy
 			case 1:
-				Texture fellatioTexture = assetManager.get(AssetEnum.HARPY_FELLATIO.getPath(), Texture.class);
-				int width = (int) (fellatioTexture.getWidth() / (fellatioTexture.getHeight() / 600f) );
-				Background harpyFellatioBackground = new Background(backgroundTexture, fellatioTexture, 1280, 720, width, 600);
+				Background harpyFellatioBackground = new BackgroundBuilder(backgroundTexture).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class)).setForeground(assetManager.get(AssetEnum.HARPY_FELLATIO.getPath(), Texture.class)).build();
 				getTextScenes(
 					getScript(battleCode, 0), font, background, getArray(new Mutation[]{new Mutation(saveService, ProfileEnum.KNOWLEDGE, EnemyEnum.HARPY.toString())}),
 					getCheckScene(
@@ -174,8 +179,8 @@ public class EncounterBuilder {
 				break;
 			// slime
 			case 2:
-				Background slimeBackground = new Background(backgroundTexture, assetManager.get(AssetEnum.SLIME.getPath(), Texture.class), 1280, 720, 450, 600);
-				Background slimeDoggyBackground = new Background(backgroundTexture, assetManager.get(AssetEnum.SLIME_DOGGY.getPath(), Texture.class), 1280, 720, 450, 600);
+				Background slimeBackground= new BackgroundBuilder(backgroundTexture).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class)).setForeground(assetManager.get(AssetEnum.SLIME.getPath(), Texture.class)).build();
+				Background slimeDoggyBackground = new BackgroundBuilder(backgroundTexture).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class)).setForeground(assetManager.get(AssetEnum.SLIME_DOGGY.getPath(), Texture.class)).build();
 				getTextScenes(
 					getScript(battleCode, 0), font, slimeBackground, getArray(new Mutation[]{new Mutation(saveService, ProfileEnum.KNOWLEDGE, EnemyEnum.SLIME.toString())}),
 					getChoiceScene(
@@ -257,7 +262,7 @@ public class EncounterBuilder {
 				break;
 			// brigand
 			case 3:
-				Background brigandBackground = new Background(backgroundTexture, assetManager.get(AssetEnum.BRIGAND_ORAL.getPath(), Texture.class), 1280, 720, 450, 600);
+				Background brigandBackground = new BackgroundBuilder(backgroundTexture).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class)).setForeground(assetManager.get(AssetEnum.BRIGAND_ORAL.getPath(), Texture.class)).build();
 				getTextScenes(
 					getScript(battleCode, 0), font, background, getArray(new Mutation[]{new Mutation(saveService, ProfileEnum.KNOWLEDGE, EnemyEnum.BRIGAND.toString())}),
 					getCheckScene(
@@ -393,9 +398,7 @@ public class EncounterBuilder {
 				break;
 			// dryad
 			case 4:
-				backgroundTexture = assetManager.get(AssetEnum.DRYAD_BACKGROUND.getPath(), Texture.class);
-				Texture vignetteTexture = assetManager.get(AssetEnum.VIGNETTE.getPath(), Texture.class);
-				background = new Background(backgroundTexture, vignetteTexture, 540, 720);
+				background = new BackgroundBuilder(backgroundTexture).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class)).setForeground(assetManager.get(AssetEnum.DRYAD_BACKGROUND.getPath(), Texture.class)).build();
 				getTextScenes(
 					getScript(battleCode, 0), font, background, 
 					getChoiceScene(
@@ -428,9 +431,8 @@ public class EncounterBuilder {
 				);
 				break;
 			default:
-				backgroundTexture = assetManager.get(AssetEnum.TRAP_BONUS.getPath(), Texture.class);
 				getTextScenes(
-					getScript("TOWN"), font, new Background(backgroundTexture, assetManager.get(AssetEnum.VIGNETTE.getPath(), Texture.class), (int) (backgroundTexture.getWidth() / (backgroundTexture.getHeight() / 720f) ), 720), 
+					getScript("TOWN"), font, new BackgroundBuilder(assetManager.get(AssetEnum.TRAP_BONUS.getPath(), Texture.class)).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class)).build(),
 					getEndScene(EndScene.Type.ENCOUNTER_OVER)				
 				);		
 				break;
@@ -492,7 +494,7 @@ public class EncounterBuilder {
 		Sound buttonSound = assetManager.get(AssetEnum.BUTTON_SOUND.getPath(), Sound.class);
 		Texture background = assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getPath(), Texture.class);
 		
-		ChoiceScene choiceScene = new ChoiceScene(sceneMap, sceneCounter, saveService, font, choiceDialogue, table, new Background(background));
+		ChoiceScene choiceScene = new ChoiceScene(sceneMap, sceneCounter, saveService, font, choiceDialogue, table, new BackgroundBuilder(background).build());
 		int ii = 0;
 		for (String label  : buttonLabels){
 			TextButton button = new TextButton(label, skin);
@@ -553,7 +555,7 @@ public class EncounterBuilder {
 		for (; ii < checkValues.size; ii++){
 			checkValueMap.put(checkValues.get(ii), sceneMap.get(sceneMap.orderedKeys().get(ii)));
 		}
-		CheckScene checkScene = new CheckScene(sceneMap, sceneCounter, saveService, font, new Background(background), stat, checkValueMap, sceneMap.get(sceneMap.orderedKeys().get(ii)), character);
+		CheckScene checkScene = new CheckScene(sceneMap, sceneCounter, saveService, font, new BackgroundBuilder(background).build(), stat, checkValueMap, sceneMap.get(sceneMap.orderedKeys().get(ii)), character);
 		return addScene(checkScene);
 	}
 	
@@ -577,7 +579,7 @@ public class EncounterBuilder {
 			buttons.add(new TextButton(label, skin));
 		}
 		
-		GameTypeScene gameTypeScene = new GameTypeScene(sceneMap, sceneCounter, saveService, buttons, new Background(background));
+		GameTypeScene gameTypeScene = new GameTypeScene(sceneMap, sceneCounter, saveService, buttons, new BackgroundBuilder(background).build());
 		int ii = 0;
 		for (TextButton button : buttons){
 			button.addListener(getListener(gameTypeScene, sceneMap.get(sceneMap.orderedKeys().get(ii++)), buttonSound));
@@ -635,3 +637,4 @@ public class EncounterBuilder {
 		return null;
 	}
 }
+
