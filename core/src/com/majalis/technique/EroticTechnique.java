@@ -13,6 +13,4 @@ public class EroticTechnique extends NonAttackTechnique {
 	@Override public String getDescription() {
 		return description + "\n" + super.getDescription();
 	}
-	
-
 }

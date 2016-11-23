@@ -1,8 +1,9 @@
 package com.majalis.technique;
 
 import com.majalis.character.AbstractCharacter.Stance;
+import com.majalis.technique.TechniquePrototype.TechniqueHeight;
 
-public class AttackTechnique extends TechniquePrototype {
+public class AttackTechnique extends TechniqueBuilder {
 	public AttackTechnique(Stance usableStance, Stance resultingStance, String name, int powerMod, int staminaCost, int stabilityCost){
 		this(usableStance, resultingStance, name, powerMod, staminaCost, stabilityCost, TechniqueHeight.MEDIUM);
 	}

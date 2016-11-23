@@ -1,8 +1,9 @@
 package com.majalis.technique;
 
 import com.majalis.character.AbstractCharacter.Stance;
+import com.majalis.technique.TechniquePrototype.TechniqueHeight;
 
-public class GrappleTechnique extends TechniquePrototype{
+public class GrappleTechnique extends TechniqueBuilder{
 
 	private String description;
 	public GrappleTechnique(Stance usableStance, Stance resultingStance, String name, int staminaCost){

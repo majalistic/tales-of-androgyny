@@ -4,57 +4,60 @@ import com.majalis.character.AbstractCharacter.Stance;
 import com.majalis.character.StatusType;
 import com.majalis.technique.ClimaxTechnique.ClimaxType;
 
-public abstract class TechniquePrototype {
-	protected Stance usableStance;
-	protected Stance resultingStance;
-	protected String name;
-	protected boolean doesDamage;
-	protected boolean doesHealing;
-	protected int powerMod;
-	protected int staminaCost;
-	protected int stabilityCost;
-	protected int manaCost;
-	protected boolean isSpell;
-	protected boolean isTaunt;
-	protected Stance forceStance;
-	protected double knockdown;
-	protected int armorSunder;
-	protected int gutCheck;
-	protected TechniqueHeight height;
-	protected int guardMod;
-	protected boolean causeBattleOver;
-	protected boolean setDamage;
-	protected boolean blockable;
-	protected boolean grapple;
-	protected ClimaxType climaxType;
-	protected boolean selfTrip;
-	protected StatusType buff;
+public class TechniquePrototype {
+	protected final Stance usableStance;
+	protected final Stance resultingStance;
+	protected final String name;
+	protected final boolean doesDamage;
+	protected final boolean doesHealing;
+	protected final int powerMod;
+	protected final int staminaCost;
+	protected final int stabilityCost;
+	protected final int manaCost;
+	protected final boolean isSpell;
+	protected final boolean isTaunt;
+	protected final Stance forceStance;
+	protected final double knockdown;
+	protected final int armorSunder;
+	protected final int gutCheck;
+	protected final TechniqueHeight height;
+	protected final int guardMod;
+	protected final boolean causeBattleOver;
+	protected final boolean setDamage;
+	protected final boolean blockable;
+	protected final boolean grapple;
+	protected final ClimaxType climaxType;
+	protected final boolean selfTrip;
+	protected final StatusType buff;
+	protected final String description;
 	
-	protected TechniquePrototype(Stance usableStance, Stance resultingStance, String name){
+	protected TechniquePrototype( Stance usableStance, Stance resultingStance, String name, boolean doesDamage, boolean doesHealing, int powerMod, int staminaCost, int stabilityCost, int manaCost, boolean isSpell, boolean isTaunt, Stance forceStance, double knockdown, int armorSunder,
+			int gutCheck, TechniqueHeight height, int guardMod, boolean causeBattleOver, boolean setDamage, boolean blockable, boolean grapple, ClimaxType climaxType, boolean selfTrip, StatusType buff, String description) {
 		this.usableStance = usableStance;
 		this.resultingStance = resultingStance;
 		this.name = name;
-		doesDamage = false;
-		doesHealing = false;
-		powerMod = 0;
-		staminaCost = 0;
-		stabilityCost = 0;
-		manaCost = 0;
-		isSpell = false;
-		isTaunt = false;
-		forceStance = null;
-		knockdown = 0;
-		armorSunder = 0;
-		gutCheck = 0;
-		height = null;
-		guardMod = 0;
-		causeBattleOver = false;
-		setDamage = false;
-		blockable = false;
-		grapple = false;
-		selfTrip = false;
-		buff = null;
-		height = TechniqueHeight.NONE;
+		this.doesDamage = doesDamage;
+		this.doesHealing = doesHealing;
+		this.powerMod = powerMod;
+		this.staminaCost = staminaCost;
+		this.stabilityCost = stabilityCost;
+		this.manaCost = manaCost;
+		this.isSpell = isSpell;
+		this.isTaunt = isTaunt;
+		this.forceStance = forceStance;
+		this.knockdown = knockdown;
+		this.armorSunder = armorSunder;
+		this.gutCheck = gutCheck;
+		this.height = height;
+		this.guardMod = guardMod;
+		this.causeBattleOver = causeBattleOver;
+		this.setDamage = setDamage;
+		this.blockable = blockable;
+		this.grapple = grapple;
+		this.climaxType = climaxType;
+		this.selfTrip = selfTrip;
+		this.buff = buff;
+		this.description = description;
 	}
 	
 	public Stance getUsableStance(){ return usableStance; }
@@ -81,62 +84,7 @@ public abstract class TechniquePrototype {
 	public ClimaxType getClimaxType() { return climaxType; }
 	public boolean causesTrip() { return selfTrip; }
 	public StatusType getBuff() { return buff; }
-	
-	public String getDescription(){
-		StringBuilder builder = new StringBuilder();
-		builder.append("Usable in " + usableStance.toString() + " stance.\n");
-		builder.append("Results in " + resultingStance.toString() + " stance.\n");
-		if (doesDamage){
-			builder.append("Deals" + (powerMod > 0 ? " +" + powerMod : powerMod < 0 ? " " + powerMod : "") + " damage, improved by " + (isSpell ? "Magic" : "Strength") + ".\n");
-		}
-		if (doesHealing){
-			builder.append("Heals user with a power of " + powerMod + ", improved by Magic.\n");
-		}
-		if (buff != null){
-			builder.append("Increases Strength dramatically, erodes - improved by Magic.\n");
-		}
-		if (isTaunt){
-			builder.append("Taunts, angering and/or arousing the\n enemy with a power of " + powerMod + ", improved by Charisma.\n");
-		}
-		if (blockable){
-			builder.append("Can be blocked.\n");
-		}
-		else if (doesDamage){
-			builder.append("CANNOT be blocked.\n");
-		}
-		if (guardMod > 0){
-			builder.append("Blocks against enemy attacks\nwith " + guardMod + "% effectiveness.\n");
-		}
-		if (staminaCost > 0){
-			builder.append("Costs " + staminaCost + " stamina, reduced by Endurance.\n");
-		}
-		else if (staminaCost < 0){
-			builder.append("Recovers " + -staminaCost + " stamina, improved by Endurance.\n");
-		}
-		if (stabilityCost > 0){
-			builder.append("Causes " + stabilityCost + " instability, reduced by Agility.\n");			
-		}
-		if (manaCost > 0){
-			builder.append("Costs " + manaCost + " mana.\n");			
-		}
-		if (height != TechniqueHeight.NONE){
-			builder.append(height.toString() + "-height attack.\n");
-		}
-		if (forceStance != null){
-			builder.append("Forces enemy into " + forceStance.toString() + " stance.\n");
-		}
-		if (knockdown > 0){
-			builder.append("Causes " + (knockdown > 1.6 ? "heavy" : knockdown > 1.1 ? "medium" : "light") + " knockdown.\n");
-		}
-		if (armorSunder > 0){
-			builder.append("Causes " + (armorSunder > 1.6 ? "heavy" : armorSunder > 1.1 ? "medium" : "light") + " armor sundering.\n");
-		}
-		if (gutCheck > 0){
-			builder.append("Causes " + (armorSunder > 1.6 ? "heavy" : armorSunder > 1.1 ? "medium" : "light") + " enemy stamina destruction.\n");
-		}
-		
-		return builder.toString();
-	}
+	public String getDescription() { return description; }
 	
 	public enum TechniqueHeight{
 		HIGH,

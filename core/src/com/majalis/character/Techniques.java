@@ -18,104 +18,104 @@ import com.majalis.technique.TechniquePrototype.TechniqueHeight;
  */
 public enum Techniques {
 	/* Offensive Techniques */  
-	POWER_ATTACK 		(new AttackTechnique(Stance.OFFENSIVE, Stance.OFFENSIVE, "Power Attack", 3, 3, 4, TechniqueHeight.LOW)),
-	TEMPO_ATTACK  		(new AttackTechnique(Stance.OFFENSIVE, Stance.OFFENSIVE, "Tempo Attack", 2, 2, 3, TechniqueHeight.LOW)),
-	SPRING_ATTACK  		(new AttackTechnique(Stance.BALANCED, Stance.OFFENSIVE, "Spring Attack", 1, 4, 3, TechniqueHeight.LOW)),
+	POWER_ATTACK 		(new AttackTechnique(Stance.OFFENSIVE, Stance.OFFENSIVE, "Power Attack", 3, 3, 4, TechniqueHeight.LOW).build()),
+	TEMPO_ATTACK  		(new AttackTechnique(Stance.OFFENSIVE, Stance.OFFENSIVE, "Tempo Attack", 2, 2, 3, TechniqueHeight.LOW).build()),
+	SPRING_ATTACK  		(new AttackTechnique(Stance.BALANCED, Stance.OFFENSIVE, "Spring Attack", 1, 4, 3, TechniqueHeight.LOW).build()),
 
 	/* Blitz Techniques */
-	BLITZ_ATTACK  		(new AttackTechnique(Stance.OFFENSIVE, Stance.BLITZ, "Blitz Attack", 4, 4, 6, TechniqueHeight.LOW)),
-	ALL_OUT_BLITZ		(new AttackTechnique(Stance.BLITZ, Stance.BLITZ, "All-Out Blitz", 6, 4, 8, 1.5)),
-	HOLD_BACK			(new NonAttackTechnique(Stance.BLITZ, Stance.OFFENSIVE, "Hold Back", 0, 3)),
+	BLITZ_ATTACK  		(new AttackTechnique(Stance.OFFENSIVE, Stance.BLITZ, "Blitz Attack", 4, 4, 6, TechniqueHeight.LOW).build()),
+	ALL_OUT_BLITZ		(new AttackTechnique(Stance.BLITZ, Stance.BLITZ, "All-Out Blitz", 6, 4, 8, 1.5).build()),
+	HOLD_BACK			(new NonAttackTechnique(Stance.BLITZ, Stance.OFFENSIVE, "Hold Back", 0, 3).build()),
 	
 	/* Balanced Techniques */
-	RESERVED_ATTACK  	(new AttackTechnique(Stance.OFFENSIVE, Stance.BALANCED, "Reserved Attack", 1, 4, 1, TechniqueHeight.LOW)),
-	REVERSAL_ATTACK  	(new AttackTechnique(Stance.DEFENSIVE, Stance.BALANCED, "Reversal Attack", 0, 2, 2, TechniqueHeight.LOW)),
-	NEUTRAL_ATTACK  	(new AttackTechnique(Stance.BALANCED, Stance.BALANCED, "Low Attack", 0, 1, 1, TechniqueHeight.LOW)),
+	RESERVED_ATTACK  	(new AttackTechnique(Stance.OFFENSIVE, Stance.BALANCED, "Reserved Attack", 1, 4, 1, TechniqueHeight.LOW).build()),
+	REVERSAL_ATTACK  	(new AttackTechnique(Stance.DEFENSIVE, Stance.BALANCED, "Reversal Attack", 0, 2, 2, TechniqueHeight.LOW).build()),
+	NEUTRAL_ATTACK  	(new AttackTechnique(Stance.BALANCED, Stance.BALANCED, "Low Attack", 0, 1, 1, TechniqueHeight.LOW).build()),
 	/* Defensive Techniques */
-	CAREFUL_ATTACK  	(new AttackTechnique(Stance.DEFENSIVE, Stance.DEFENSIVE, "Careful Attack", 0, 0, 1)),
-	BLOCK				(new GuardTechnique	(Stance.BALANCED, Stance.DEFENSIVE, "Block", 0, 0)),
-	GUARD  				(new GuardTechnique	(Stance.DEFENSIVE, Stance.DEFENSIVE, "Guard", -2, -2)),
-	SECOND_WIND			(new NonAttackTechnique(Stance.DEFENSIVE, Stance.DEFENSIVE, "Second Wind", -4, -1)),
+	CAREFUL_ATTACK  	(new AttackTechnique(Stance.DEFENSIVE, Stance.DEFENSIVE, "Careful Attack", 0, 0, 1).build()),
+	BLOCK				(new GuardTechnique	(Stance.BALANCED, Stance.DEFENSIVE, "Block", 0, 0).build()),
+	GUARD  				(new GuardTechnique	(Stance.DEFENSIVE, Stance.DEFENSIVE, "Guard", -2, -2).build()),
+	SECOND_WIND			(new NonAttackTechnique(Stance.DEFENSIVE, Stance.DEFENSIVE, "Second Wind", -4, -1).build()),
 	/* Techniques from Prone/Supine */
-	KIP_UP				(new NonAttackTechnique(Stance.PRONE, Stance.BALANCED, "Kip Up", 5, -10)),
-	STAND_UP			(new NonAttackTechnique(Stance.PRONE, Stance.BALANCED, "Stand Up", 3, -6)),
-	KNEE_UP				(new NonAttackTechnique(Stance.PRONE, Stance.KNEELING, "Knee Up", 1, -10)),
-	STAY_KNELT			(new NonAttackTechnique(Stance.KNEELING, Stance.KNEELING, "Stay Knelt", -1, 0)),
-	REST				(new NonAttackTechnique(Stance.SUPINE, Stance.SUPINE, "Rest", -1, -1)),
-	REST_FACE_DOWN		(new NonAttackTechnique(Stance.PRONE, Stance.PRONE, "Rest", -1, -1)),
+	KIP_UP				(new NonAttackTechnique(Stance.PRONE, Stance.BALANCED, "Kip Up", 5, -10).build()),
+	STAND_UP			(new NonAttackTechnique(Stance.PRONE, Stance.BALANCED, "Stand Up", 3, -6).build()),
+	KNEE_UP				(new NonAttackTechnique(Stance.PRONE, Stance.KNEELING, "Knee Up", 1, -10).build()),
+	STAY_KNELT			(new NonAttackTechnique(Stance.KNEELING, Stance.KNEELING, "Stay Knelt", -1, 0).build()),
+	REST				(new NonAttackTechnique(Stance.SUPINE, Stance.SUPINE, "Rest", -1, -1).build()),
+	REST_FACE_DOWN		(new NonAttackTechnique(Stance.PRONE, Stance.PRONE, "Rest", -1, -1).build()),
 	/* Out of resources */
-	FIZZLE				(new NonAttackTechnique(Stance.CASTING, Stance.BALANCED, "Fizzle", 0, 0)),	 // run out of mana
+	FIZZLE				(new NonAttackTechnique(Stance.CASTING, Stance.BALANCED, "Fizzle", 0, 0).build()),	 // run out of mana
 	/* Positional */
-	DUCK				(new NonAttackTechnique(Stance.BALANCED, Stance.KNEELING, "Duck", 0, 0)),	 
-	FLY					(new NonAttackTechnique(Stance.BALANCED, Stance.AIRBORNE, "Fly", 0, 0)),	 
+	DUCK				(new NonAttackTechnique(Stance.BALANCED, Stance.KNEELING, "Duck", 0, 0).build()),	 
+	FLY					(new NonAttackTechnique(Stance.BALANCED, Stance.AIRBORNE, "Fly", 0, 0).build()),	 
 	/* Enemy attacks */
-	SLIME_ATTACK 		(new AttackTechnique(Stance.BALANCED, Stance.BALANCED, "Slime Attack", 7, 0, 5)),
-	SLIME_QUIVER 		(new NonAttackTechnique(Stance.BALANCED, Stance.DEFENSIVE, "Slime Quiver", -1, -1)),
-	GUT_CHECK			(new AttackTechnique(Stance.OFFENSIVE, Stance.OFFENSIVE, "Gutcheck", 3, 3, 4, 0, 1, false, TechniqueHeight.MEDIUM)),
+	SLIME_ATTACK 		(new AttackTechnique(Stance.BALANCED, Stance.BALANCED, "Slime Attack", 7, 0, 5).build()),
+	SLIME_QUIVER 		(new NonAttackTechnique(Stance.BALANCED, Stance.DEFENSIVE, "Slime Quiver", -1, -1).build()),
+	GUT_CHECK			(new AttackTechnique(Stance.OFFENSIVE, Stance.OFFENSIVE, "Gutcheck", 3, 3, 4, 0, 1, false, TechniqueHeight.MEDIUM).build()),
 	
 	/* Enemy pouncing */
-	DIVEBOMB 			(new GrappleTechnique  (Stance.AIRBORNE, Stance.FELLATIO, "Divebomb", 2, Stance.FELLATIO, TechniqueHeight.HIGH)),
-	SAY_AHH 			(new GrappleTechnique  (Stance.BALANCED, Stance.FELLATIO, "Say 'Ahh'", 2, Stance.FELLATIO)),
-	IRRUMATIO 			(new NonAttackTechnique(Stance.FELLATIO, Stance.FELLATIO, "Irrumatio", 0, 0, Stance.FELLATIO)), 
-	POUNCE_DOGGY		(new GrappleTechnique  (Stance.BALANCED, Stance.DOGGY, "Pounce", 2, Stance.DOGGY)), // Used to initiate doggy
-	POUND_DOGGY 		(new NonAttackTechnique(Stance.DOGGY, Stance.DOGGY, "Pound", 0, 1)), // Used to doggystyle
-	POUNCE_ANAL			(new GrappleTechnique  (Stance.BALANCED, Stance.ANAL, "Pounce", 2, Stance.ANAL)), // Used to initiate missionary
-	FULL_NELSON			(new GrappleTechnique  (Stance.BALANCED, Stance.FULL_NELSON, "Full Nelson", 2, Stance.FULL_NELSON)), // Used to initiate full nelson
-	HOLD	 			(new NonAttackTechnique(Stance.FULL_NELSON, Stance.FULL_NELSON, "Hold", 0, 1)), // Used to hold
-	PENETRATE_STANDING	(new GrappleTechnique  (Stance.FULL_NELSON, Stance.STANDING, "Penetrate", 2, Stance.STANDING)), // Used to initiate standing anal
-	POUND_ANAL 			(new NonAttackTechnique(Stance.ANAL, Stance.ANAL, "Pound", 0, 1)), // Used to missionary
-	POUND_STANDING 		(new NonAttackTechnique(Stance.STANDING, Stance.STANDING, "Pound", 0, 1)), // Used to standing anal
-	KNOT 				(new NonAttackTechnique(Stance.DOGGY, Stance.KNOTTED, "Knot", 0, 0, Stance.KNOTTED, "Set Damage")), // Used to knot by knotty weresluts and others
-	KNOT_BANG 			(new NonAttackTechnique(Stance.KNOTTED, Stance.KNOTTED, "Knot Bang", 0, 0, Stance.KNOTTED, true)), // Used to knot by knotty weresluts and others - could end the battle
-	ERUPT_ANAL 			(new ClimaxTechnique   (Stance.DOGGY, Stance.DOGGY, "Erupt", Stance.PRONE, ClimaxType.ANAL )),
-	ERUPT_ORAL 			(new ClimaxTechnique   (Stance.FELLATIO, Stance.FELLATIO, "Erupt", Stance.KNEELING, ClimaxType.ORAL )),
-	ERUPT_FACIAL		(new ClimaxTechnique   (Stance.HANDY, Stance.HANDY, "Facial", Stance.KNEELING, ClimaxType.FACIAL )),
-	ERUPT_COWGIRL		(new ClimaxTechnique   (Stance.COWGIRL, Stance.SUPINE, "Erupt", Stance.KNEELING, ClimaxType.ANAL )),
-	BE_RIDDEN			(new GrappleTechnique(Stance.COWGIRL, Stance.COWGIRL, "Be Ridden", 0)),
-	RECEIVE_HANDY		(new GrappleTechnique(Stance.HANDY, Stance.HANDY, "Receive Handy", 0)),
-	PUSH_OFF			(new NonAttackTechnique(Stance.COWGIRL, Stance.BALANCED, "Push Off", 0, 0, Stance.BALANCED)), // Break hold
+	DIVEBOMB 			(new GrappleTechnique  (Stance.AIRBORNE, Stance.FELLATIO, "Divebomb", 2, Stance.FELLATIO, TechniqueHeight.HIGH).build()),
+	SAY_AHH 			(new GrappleTechnique  (Stance.BALANCED, Stance.FELLATIO, "Say 'Ahh'", 2, Stance.FELLATIO).build()),
+	IRRUMATIO 			(new NonAttackTechnique(Stance.FELLATIO, Stance.FELLATIO, "Irrumatio", 0, 0, Stance.FELLATIO).build()), 
+	POUNCE_DOGGY		(new GrappleTechnique  (Stance.BALANCED, Stance.DOGGY, "Pounce", 2, Stance.DOGGY).build()), // Used to initiate doggy
+	POUND_DOGGY 		(new NonAttackTechnique(Stance.DOGGY, Stance.DOGGY, "Pound", 0, 1).build()), // Used to doggystyle
+	POUNCE_ANAL			(new GrappleTechnique  (Stance.BALANCED, Stance.ANAL, "Pounce", 2, Stance.ANAL).build()), // Used to initiate missionary
+	FULL_NELSON			(new GrappleTechnique  (Stance.BALANCED, Stance.FULL_NELSON, "Full Nelson", 2, Stance.FULL_NELSON).build()), // Used to initiate full nelson
+	HOLD	 			(new NonAttackTechnique(Stance.FULL_NELSON, Stance.FULL_NELSON, "Hold", 0, 1).build()), // Used to hold
+	PENETRATE_STANDING	(new GrappleTechnique  (Stance.FULL_NELSON, Stance.STANDING, "Penetrate", 2, Stance.STANDING).build()), // Used to initiate standing anal
+	POUND_ANAL 			(new NonAttackTechnique(Stance.ANAL, Stance.ANAL, "Pound", 0, 1).build()), // Used to missionary
+	POUND_STANDING 		(new NonAttackTechnique(Stance.STANDING, Stance.STANDING, "Pound", 0, 1).build()), // Used to standing anal
+	KNOT 				(new NonAttackTechnique(Stance.DOGGY, Stance.KNOTTED, "Knot", 0, 0, Stance.KNOTTED, "Set Damage").build()), // Used to knot by knotty weresluts and others
+	KNOT_BANG 			(new NonAttackTechnique(Stance.KNOTTED, Stance.KNOTTED, "Knot Bang", 0, 0, Stance.KNOTTED, true).build()), // Used to knot by knotty weresluts and others - could end the battle
+	ERUPT_ANAL 			(new ClimaxTechnique   (Stance.DOGGY, Stance.DOGGY, "Erupt", Stance.PRONE, ClimaxType.ANAL ).build()),
+	ERUPT_ORAL 			(new ClimaxTechnique   (Stance.FELLATIO, Stance.FELLATIO, "Erupt", Stance.KNEELING, ClimaxType.ORAL ).build()),
+	ERUPT_FACIAL		(new ClimaxTechnique   (Stance.HANDY, Stance.HANDY, "Facial", Stance.KNEELING, ClimaxType.FACIAL ).build()),
+	ERUPT_COWGIRL		(new ClimaxTechnique   (Stance.COWGIRL, Stance.SUPINE, "Erupt", Stance.KNEELING, ClimaxType.ANAL ).build()),
+	BE_RIDDEN			(new GrappleTechnique(Stance.COWGIRL, Stance.COWGIRL, "Be Ridden", 0).build()),
+	RECEIVE_HANDY		(new GrappleTechnique(Stance.HANDY, Stance.HANDY, "Receive Handy", 0).build()),
+	PUSH_OFF			(new NonAttackTechnique(Stance.COWGIRL, Stance.BALANCED, "Push Off", 0, 0, Stance.BALANCED).build()), // Break hold
 	
-	SIT_ON_IT			(new GrappleTechnique(Stance.BALANCED, Stance.COWGIRL, "Sit on It", 1, Stance.COWGIRL, "Sit down on it - and yes, it's going right up there.\nDon't say I didn't warn you.")), 
-	OPEN_WIDE 			(new GrappleTechnique(Stance.HANDY, Stance.FELLATIO, "Open Wide",  1, Stance.FELLATIO, "Open wide and swallow it down.")), 
-	GRAB_IT				(new GrappleTechnique(Stance.KNEELING, Stance.HANDY, "Grab It", 1, Stance.HANDY, "Grab it.")), 
+	SIT_ON_IT			(new GrappleTechnique(Stance.BALANCED, Stance.COWGIRL, "Sit on It", 1, Stance.COWGIRL, "Sit down on it - and yes, it's going right up there.\nDon't say I didn't warn you.").build()), 
+	OPEN_WIDE 			(new GrappleTechnique(Stance.HANDY, Stance.FELLATIO, "Open Wide",  1, Stance.FELLATIO, "Open wide and swallow it down.").build()), 
+	GRAB_IT				(new GrappleTechnique(Stance.KNEELING, Stance.HANDY, "Grab It", 1, Stance.HANDY, "Grab it.").build()), 
 		
-	RIDE_ON_IT			(new EroticTechnique(Stance.COWGIRL, Stance.COWGIRL, "Ride on It", -1, 0, "Ride up and down on it.")), 
-	STAND_OFF_IT		(new GrappleTechnique(Stance.COWGIRL, Stance.BALANCED, "Stand up off It", 1, Stance.SUPINE, "Get up off it.")), 
-	STROKE_IT			(new EroticTechnique(Stance.HANDY, Stance.HANDY, "Stroke It", -1, 0, "Stroke it up and down.")), 
-	LET_GO				(new GrappleTechnique(Stance.HANDY, Stance.KNEELING, "Let It Go", 1, Stance.BALANCED, "Let go of it.")), 
+	RIDE_ON_IT			(new EroticTechnique(Stance.COWGIRL, Stance.COWGIRL, "Ride on It", -1, 0, "Ride up and down on it.").build()), 
+	STAND_OFF_IT		(new GrappleTechnique(Stance.COWGIRL, Stance.BALANCED, "Stand up off It", 1, Stance.SUPINE, "Get up off it.").build()), 
+	STROKE_IT			(new EroticTechnique(Stance.HANDY, Stance.HANDY, "Stroke It", -1, 0, "Stroke it up and down.").build()), 
+	LET_GO				(new GrappleTechnique(Stance.HANDY, Stance.KNEELING, "Let It Go", 1, Stance.BALANCED, "Let go of it.").build()), 
 	
-	RECEIVE_DOGGY		(new EroticTechnique(Stance.DOGGY, Stance.DOGGY, "Receive", -1, 0, "Take it up the butt.")), 
-	RECEIVE_ANAL		(new EroticTechnique(Stance.ANAL, Stance.ANAL, "Receive", -1, 0, "Take it up the butt.")), 
-	RECEIVE_STANDING	(new EroticTechnique(Stance.STANDING, Stance.STANDING, "Receive", -1, 0, "Take it up the butt.")), 
-	SUBMIT				(new EroticTechnique(Stance.FULL_NELSON, Stance.FULL_NELSON, "Submit", -1, 0, "Don't try to struggle.\nShe's looking for an opening.\nLiterally.")), 
-	RECEIVE_KNOT		(new EroticTechnique(Stance.KNOTTED, Stance.KNOTTED, "Receive Knot", -1, 0, "Take that big knot up the butt.")), 
-	SUCK_IT 			(new EroticTechnique(Stance.FELLATIO, Stance.FELLATIO, "Suck It", -1, 0, "Open wide and swallow it down.")), 
-	STRUGGLE_DOGGY		(new GrappleTechnique(Stance.DOGGY, Stance.DOGGY, "Struggle", 4)),
-	STRUGGLE_ANAL		(new GrappleTechnique(Stance.ANAL, Stance.ANAL, "Struggle", 4)),
-	STRUGGLE_STANDING	(new GrappleTechnique(Stance.STANDING, Stance.STANDING, "Struggle", 4)),
-	STRUGGLE_ORAL		(new GrappleTechnique(Stance.FELLATIO, Stance.FELLATIO, "Struggle", 4)), 
-	STRUGLE_FULL_NELSON (new GrappleTechnique(Stance.FULL_NELSON, Stance.FULL_NELSON, "Struggle", 4)), 
-	BREAK_FREE_FULL_NELSON 	(new NonAttackTechnique(Stance.FULL_NELSON, Stance.BALANCED, "Struggle", 0, 0, Stance.BALANCED)), // Break hold
-	BREAK_FREE_ANAL		(new NonAttackTechnique(Stance.ANAL, Stance.BALANCED, "Struggle", 0, 0, Stance.BALANCED)), // Break hold
-	BREAK_FREE_ORAL		(new NonAttackTechnique(Stance.FELLATIO, Stance.BALANCED, "Struggle", 0, 0, Stance.BALANCED)), // Break hold
+	RECEIVE_DOGGY		(new EroticTechnique(Stance.DOGGY, Stance.DOGGY, "Receive", -1, 0, "Take it up the butt.").build()), 
+	RECEIVE_ANAL		(new EroticTechnique(Stance.ANAL, Stance.ANAL, "Receive", -1, 0, "Take it up the butt.").build()), 
+	RECEIVE_STANDING	(new EroticTechnique(Stance.STANDING, Stance.STANDING, "Receive", -1, 0, "Take it up the butt.").build()), 
+	SUBMIT				(new EroticTechnique(Stance.FULL_NELSON, Stance.FULL_NELSON, "Submit", -1, 0, "Don't try to struggle.\nShe's looking for an opening.\nLiterally.").build()), 
+	RECEIVE_KNOT		(new EroticTechnique(Stance.KNOTTED, Stance.KNOTTED, "Receive Knot", -1, 0, "Take that big knot up the butt.").build()), 
+	SUCK_IT 			(new EroticTechnique(Stance.FELLATIO, Stance.FELLATIO, "Suck It", -1, 0, "Open wide and swallow it down.").build()), 
+	STRUGGLE_DOGGY		(new GrappleTechnique(Stance.DOGGY, Stance.DOGGY, "Struggle", 4).build()),
+	STRUGGLE_ANAL		(new GrappleTechnique(Stance.ANAL, Stance.ANAL, "Struggle", 4).build()),
+	STRUGGLE_STANDING	(new GrappleTechnique(Stance.STANDING, Stance.STANDING, "Struggle", 4).build()),
+	STRUGGLE_ORAL		(new GrappleTechnique(Stance.FELLATIO, Stance.FELLATIO, "Struggle", 4).build()), 
+	STRUGLE_FULL_NELSON (new GrappleTechnique(Stance.FULL_NELSON, Stance.FULL_NELSON, "Struggle", 4).build()), 
+	BREAK_FREE_FULL_NELSON 	(new NonAttackTechnique(Stance.FULL_NELSON, Stance.BALANCED, "Struggle", 0, 0, Stance.BALANCED).build()), // Break hold
+	BREAK_FREE_ANAL		(new NonAttackTechnique(Stance.ANAL, Stance.BALANCED, "Struggle", 0, 0, Stance.BALANCED).build()), // Break hold
+	BREAK_FREE_ORAL		(new NonAttackTechnique(Stance.FELLATIO, Stance.BALANCED, "Struggle", 0, 0, Stance.BALANCED).build()), // Break hold
 	
-	INCANTATION 		(new NonAttackTechnique(Stance.BALANCED, Stance.CASTING, "Incantation", 0, 1)), 
+	INCANTATION 		(new NonAttackTechnique(Stance.BALANCED, Stance.CASTING, "Incantation", 0, 1).build()), 
 	
 	/* Learnable Skills*/
-	ARMOR_SUNDER		(new AttackTechnique(Stance.OFFENSIVE, Stance.OFFENSIVE, "Armor Sunder", 1, 7, 4, 0, 2, 0, true, TechniqueHeight.MEDIUM), 3),
-	CAUTIOUS_ATTACK  	(new AttackTechnique(Stance.BALANCED, Stance.DEFENSIVE, "Cautious Attack", -1, 0, 2), 3),
-	VAULT 				(new NonAttackTechnique(Stance.OFFENSIVE, Stance.AIRBORNE, "Vault", 2, 4)), 
-	JUMP_ATTACK 		(new AttackTechnique(Stance.AIRBORNE, Stance.BALANCED, "Jump Attack", 4, 4, 2)),
-	RECKLESS_ATTACK 	(new AttackTechnique(Stance.OFFENSIVE, Stance.OFFENSIVE, "Reckless Attack", 2, 3, 6, false), 3), // unguardable
+	ARMOR_SUNDER		(new AttackTechnique(Stance.OFFENSIVE, Stance.OFFENSIVE, "Armor Sunder", 1, 7, 4, 0, 2, 0, true, TechniqueHeight.MEDIUM).build(), 3),
+	CAUTIOUS_ATTACK  	(new AttackTechnique(Stance.BALANCED, Stance.DEFENSIVE, "Cautious Attack", -1, 0, 2).build(), 3),
+	VAULT 				(new NonAttackTechnique(Stance.OFFENSIVE, Stance.AIRBORNE, "Vault", 2, 4).build()), 
+	JUMP_ATTACK 		(new AttackTechnique(Stance.AIRBORNE, Stance.BALANCED, "Jump Attack", 4, 4, 2).build()),
+	RECKLESS_ATTACK 	(new AttackTechnique(Stance.OFFENSIVE, Stance.OFFENSIVE, "Reckless Attack", 2, 3, 6, false).build(), 3), // unguardable
 	
-	TAUNT 				(new NonAttackTechnique(Stance.DEFENSIVE, Stance.DEFENSIVE, "Taunt", 0, 0, true), 2), 
-	KNOCK_DOWN 			(new AttackTechnique(Stance.OFFENSIVE, Stance.OFFENSIVE, "Knock Down", 1, 3, 6, 2), 3), 
-	HIT_THE_DECK		(new FallDownTechnique(Stance.BALANCED, Stance.PRONE, "Hit the Deck")), 
-	PARRY  				(new GuardTechnique(Stance.DEFENSIVE, Stance.DEFENSIVE, "Parry", -1, 0)),
+	TAUNT 				(new NonAttackTechnique(Stance.DEFENSIVE, Stance.DEFENSIVE, "Taunt", 0, 0, true).build(), 2), 
+	KNOCK_DOWN 			(new AttackTechnique(Stance.OFFENSIVE, Stance.OFFENSIVE, "Knock Down", 1, 3, 6, 2).build(), 3), 
+	HIT_THE_DECK		(new FallDownTechnique(Stance.BALANCED, Stance.PRONE, "Hit the Deck").build()), 
+	PARRY  				(new GuardTechnique(Stance.DEFENSIVE, Stance.DEFENSIVE, "Parry", -1, 0).build()),
 	
-	COMBAT_HEAL  		(new SpellTechnique(Stance.CASTING, Stance.BALANCED, "Combat Heal", 10, 10, true), 3),
-	COMBAT_FIRE  		(new SpellTechnique(Stance.CASTING, Stance.BALANCED, "Combat Fire", 3, 5, false), 3),
-	TITAN_STRENGTH  	(new SpellTechnique(Stance.CASTING, Stance.BALANCED, "Titan Strength", 0, 2, false, StatusType.STRENGTH_BUFF), 3),
+	COMBAT_HEAL  		(new SpellTechnique(Stance.CASTING, Stance.BALANCED, "Combat Heal", 10, 10, true).build(), 3),
+	COMBAT_FIRE  		(new SpellTechnique(Stance.CASTING, Stance.BALANCED, "Combat Fire", 3, 5, false).build(), 3),
+	TITAN_STRENGTH  	(new SpellTechnique(Stance.CASTING, Stance.BALANCED, "Titan Strength", 0, 2, false, StatusType.STRENGTH_BUFF).build(), 3),
 	
 	;
 	
