@@ -1,6 +1,5 @@
 package com.majalis.scenes;
 
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.utils.OrderedMap;
@@ -26,12 +25,5 @@ public abstract class Scene extends Group {
 	public int getCode(){
 		return sceneCode;
 	}
-	public void poke(){
-		
-	}
-	
-	@Override
-    public void draw(Batch batch, float parentAlpha) {
-		super.draw(batch, parentAlpha);
-    }
+	public void poke(){}
 }
