@@ -29,7 +29,7 @@ public class TrapRPG extends Game {
 			Gdx.graphics.setFullscreenMode(Gdx.graphics.getDisplayMode());
 		}
 		else {
-			Gdx.graphics.setWindowedMode(prefs.getInteger("width", 1920), prefs.getInteger("height", 1080));	
+			Gdx.graphics.setWindowedMode(1920, 1080);	
 		}
 		
 		SaveManager saveManager = new SaveManager(false, "data/save.json", "data/profile.json");

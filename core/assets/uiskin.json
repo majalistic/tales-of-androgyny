@@ -9,42 +9,42 @@ com.badlogic.gdx.scenes.scene2d.ui.Skin$TintedDrawable: {
 	dialogDim: { name: white, color: { r: 0, g: 0, b: 0, a: 0.45 } }
 },
 com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle: {
-	default: { down: EmbelishedButton64D, up: EmbelishedButton64 },
-	toggle: { down: EmbelishedButton64D, checked: EmbelishedButton64D, up: EmbelishedButton64 }
+	default: { down: TextButtonClick, up: TextButton },
+	toggle: { down: TextButtonClick, checked: TextButtonHover, up: TextButton }
 },
 com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
-	default: { down: EmbelishedButton64D, up: EmbelishedButton64, font: default-font, fontColor: black },
-	toggle: { down: EmbelishedButton64D, up: EmbelishedButton64, checked: EmbelishedButton64D, font: default-font, fontColor: black, downFontColor: gray}
+	default: { down: TextButtonClick, up: TextButton, font: default-font, fontColor: black },
+	toggle: { down: TextButtonClick, up: TextButton, checked: TextButtonClick, font: default-font, fontColor: black, downFontColor: gray}
 },
 com.badlogic.gdx.scenes.scene2d.ui.TextField$TextFieldStyle: {
-	default: { selection: white, background: TextFieldBG, font: default-font, fontColor: black, cursor: TextCursor }
+	default: { selection: white, background: FancyBox, font: default-font, fontColor: black, cursor: Knob }
 },
 
 com.badlogic.gdx.scenes.scene2d.ui.ScrollPane$ScrollPaneStyle: {
-	default: { vScroll: Slider, hScrollKnob: EmbelishedButton64, background: TextFieldBG, hScroll: Slider, vScrollKnob: EmbelishedButton64 }
+	default: { vScroll: Knob, hScrollKnob: TextButton, background: FancyBox, hScroll:HScroll, vScrollKnob: Knob }
 },
 com.badlogic.gdx.scenes.scene2d.ui.SelectBox$SelectBoxStyle: {
 	default: {
-		font: default-font, fontColor: black, background: SliderKnob,
+		font: default-font, fontColor: black, background: FancyBox,
 		scrollStyle: default,
-		listStyle: { font: default-font, selection: SliderFill }
+		listStyle: { font: default-font, selection: Knob }
 	}
 },
 com.badlogic.gdx.scenes.scene2d.ui.SplitPane$SplitPaneStyle: {
-	default-vertical: { handle: EmbelishedButton64 },
-	default-horizontal: { handle: EmbelishedButton64 }
+	default-vertical: { handle: TextButton },
+	default-horizontal: { handle: TextButton }
 },
 com.badlogic.gdx.scenes.scene2d.ui.Window$WindowStyle: {
-	default: { titleFont: default-font, background: EmbelishedButton64, titleFontColor: white },
-	dialog: { titleFont: default-font, background: EmbelishedButton64, titleFontColor: white, stageBackground: EmbelishedButton64 }
+	default: { titleFont: default-font, background: FancyBox, titleFontColor: white },
+	dialog: { titleFont: default-font, background: FancyBox, titleFontColor: white, stageBackground: FancyBox }
 },
 com.badlogic.gdx.scenes.scene2d.ui.ProgressBar$ProgressBarStyle: {
-	default-horizontal: { background: SliderP, knobBefore: SliderFill},
-	default-vertical: { background: SliderP, knobBefore: SliderFill}
+	default-horizontal: { background: Bar, knobBefore: Fill},
+	default-vertical: { background: Bar, knobBefore: Fill}
 },
 com.badlogic.gdx.scenes.scene2d.ui.Slider$SliderStyle: {
-	default-horizontal: { background: SliderP, knob: SliderKnob },
-	default-vertical: { background: SliderP, knob: SliderKnob }
+	default-horizontal: { background: HScroll, knob: Knob },
+	default-vertical: { background: VScroll, knob: Knob }
 },
 com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
 	default: { font: default-font, fontColor: white }
@@ -53,12 +53,12 @@ com.badlogic.gdx.scenes.scene2d.ui.CheckBox$CheckBoxStyle: {
 	default: { checkboxOn: Checked, checkboxOff: Unchecked, font: default-font, fontColor: black }
 },
 com.badlogic.gdx.scenes.scene2d.ui.List$ListStyle: {
-	default: { fontColorUnselected: white, selection:EmbelishedButton64, fontColorSelected: white, font: default-font }
+	default: { fontColorUnselected: white, selection:TextButton, fontColorSelected: white, font: default-font }
 },
 com.badlogic.gdx.scenes.scene2d.ui.Touchpad$TouchpadStyle: {
-	default: { background: EmbelishedButton64, knob: EmbelishedButton64 }
+	default: { background: TextButton, knob: TextButton }
 },
 com.badlogic.gdx.scenes.scene2d.ui.Tree$TreeStyle: {
-	default: { minus: EmbelishedButton64, plus: EmbelishedButton64, selection: EmbelishedButton64}
+	default: { minus: TextButton, plus: TextButton, selection: TextButton}
 }
 }

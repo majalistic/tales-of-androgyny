@@ -84,6 +84,11 @@ public class Battle extends Group{
 	public int battleEndCount;
 	private int selection;
 	private boolean debug = true;
+	private float scaler = 1.5f; //scale distances
+	private float hoverXPos = 317; //Hover box x postition
+	private float hoverYPos = 35; 
+	private float consoleXPos = 800;
+	private float consoleYPos = 5;
 	
 	public Battle(SaveService saveService, AssetManager assetManager, BitmapFont font, PlayerCharacter character, EnemyCharacter enemy, int victoryScene, int defeatScene, Background battleBackground, Background battleUI){
 		this.saveService = saveService;
@@ -105,25 +110,24 @@ public class Battle extends Group{
 		
 		Image healthIcon = new Image(assetManager.get(AssetEnum.HEALTH_ICON.getPath(), Texture.class));
 		addActorAndListen(healthIcon, 130, 682);
-		healthIcon.setSize(25, 25);
 		characterHealth = new ProgressBar(0, 1, .05f, false, skin);
-		characterHealth.setWidth(200);
+		characterHealth.setWidth(300);
 		addActorAndListen(characterHealth, 160, 650);
 		characterHealth.setValue(character.getHealthPercent());
 		
 		Image staminaIcon = new Image(assetManager.get(AssetEnum.STAMINA_ICON.getPath(), Texture.class));
 		addActorAndListen(staminaIcon, 130, 650);
-		staminaIcon.setSize(25, 25);
+		//staminaIcon.setSize(25, 25);
 		characterStamina = new ProgressBar(0, 1, .05f, false, skin);
-		characterStamina.setWidth(200);
+		characterStamina.setWidth(300);
 		addActorAndListen(characterStamina, 160, 625);
 		characterStamina.setValue(character.getStaminaPercent());
 		
 		Image balanceIcon = new Image(assetManager.get(AssetEnum.BALANCE_ICON.getPath(), Texture.class));
 		addActorAndListen(balanceIcon, 130, 625);
-		balanceIcon.setSize(25, 25);
+		//balanceIcon.setSize(25, 25);
 		characterBalance = new ProgressBar(0, 1, .05f, false, skin);
-		characterBalance.setWidth(200);
+		characterBalance.setWidth(300);
 		addActorAndListen(characterBalance, 160, 600);
 		characterBalance.setValue(character.getBalancePercent());
 		
@@ -131,7 +135,7 @@ public class Battle extends Group{
 		addActorAndListen(manaIcon, 130, 600);
 		manaIcon.setSize(25, 25);
 		characterMana = new ProgressBar(0, 1, .05f, false, skin);
-		characterMana.setWidth(200);
+		characterMana.setWidth(300);
 		if (character.hasMagic()){
 			addActorAndListen(characterMana, 160, 575);
 		}
@@ -139,19 +143,19 @@ public class Battle extends Group{
 		
 		Image enemyHealthIcon = new Image(assetManager.get(AssetEnum.HEALTH_ICON.getPath(), Texture.class));
 		addActorAndListen(enemyHealthIcon, 1000, 682);
-		enemyHealthIcon.setSize(25, 25);
 		enemyHealth = new ProgressBar(0, 1, .05f, false, skin);
-		enemyHealth.setWidth(200);
+		enemyHealth.setWidth(300);
 		addActorAndListen(enemyHealth, 1035, 650);
 		enemyHealth.setValue(enemy.getHealthPercent());
 		
-		Image consoleBox = new Image(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class));
-		addActorAndListen(consoleBox, 800, -25);
-		consoleBox.setSize(500, 500);
+		Image consoleBox = new Image(assetManager.get(AssetEnum.BATTLE_TEXTBOX.getPath(), Texture.class));
+		addActorAndListen(consoleBox, consoleXPos, consoleYPos);
+
 		
 		this.hoverImage = new Image(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class));
-		hoverImage.setPosition(235, 0);
-		hoverImage.setSize(380, 380);
+		hoverImage.setPosition(hoverXPos, hoverYPos);		
+		hoverGroup = new Group();
+		hoverGroup.addActor(hoverImage);
 		
 		struggle = 0;
 		inRear = false;
@@ -159,25 +163,21 @@ public class Battle extends Group{
 		
 		Image characterPortrait = new Image(assetManager.get(AssetEnum.CHARACTER_POTRAIT.getPath(), Texture.class));
 		addActorAndListen(characterPortrait, 0, 618);
-		characterPortrait.setSize(102, 102);
-		
+
 		characterArousal = new Image(assetManager.get(character.getLustImagePath(), Texture.class));
 		addActorAndListen(characterArousal, 102, 490);
-		characterArousal.setSize(100, 100);
+		characterArousal.setSize(150, 150);
 		
 		enemyArousal = new Image(assetManager.get(enemy.getLustImagePath(), Texture.class));
 		addActorAndListen(enemyArousal, 1073, 505);
-		enemyArousal.setSize(100, 100);
-		
-		hoverGroup = new Group();
-		hoverGroup.addActor(hoverImage);
+		enemyArousal.setSize(150, 150);
 		
 		StanceActor newActor = new StanceActor(character);
 		addActorAndListen(newActor, 397, 565);
-		newActor.setSize(100, 115);
+		newActor.setSize(100*scaler, 115*scaler);
 		newActor = new StanceActor(enemy);
 		addActorAndListen(newActor, 866, 574);
-		newActor.setSize(100, 115);
+		newActor.setSize(100*scaler, 115*scaler);
 		
 		hoverGroup.addAction(Actions.visible(false));
 		this.addActor(hoverGroup);
@@ -207,21 +207,22 @@ public class Battle extends Group{
 		
 		consoleText = "";
 		console = new Label(consoleText, skin);
-		console.setSize(400, 200);
+		console.setSize(800, 200);
 		console.setWrap(true);
 		console.setColor(Color.BLACK);
+		console.setAlignment(Align.top);
 		ScrollPane pane = new ScrollPane(console);
-		pane.setPosition(860, 80);
-		pane.setSize(500, 350);
+		pane.setBounds(consoleXPos+350, consoleYPos - 240, 775, 600);
 		pane.setScrollingDisabled(true, false);
 		this.addActor(pane);
 		
 		skillDisplay = new Label("", skin);
-		skillDisplay.setSize(400, 500);
+		skillDisplay.setSize(350, 500);
 		skillDisplay.setWrap(true);
 		skillDisplay.setColor(Color.BLACK);
+		skillDisplay.setAlignment(Align.top);
 		ScrollPane pane2 = new ScrollPane(skillDisplay);
-		pane2.setBounds(280, 20, 300, 300);
+		pane2.setBounds(hoverXPos + 33, hoverYPos - 180, 500, 600);
 		pane2.setScrollingDisabled(true, false);
 		hoverGroup.addActor(pane2);
 	}
@@ -293,7 +294,8 @@ public class Battle extends Group{
 			TextButton button;
 			Technique option = options.get(ii);
 			button = new TextButton(option.getTechniqueName() + (ii > POSSIBLE_KEYS_CHAR.length ? "" : " ("+POSSIBLE_KEYS_CHAR[ii]+")"), skin);
-			table.add(button).size(220, 35).row();
+			//table.add(button).size(397, 76).row();
+			table.add(button).row();
 			optionButtons.add(button);
 			boolean outOfStamina = false;
 			boolean outOfStability = false;
@@ -313,8 +315,8 @@ public class Battle extends Group{
 		}
         table.setFillParent(true);
         table.align(Align.top);
-        table.setPosition(-50, 250);
-        table.addAction(Actions.moveBy(150, 0, .1f));
+        table.setPosition(25, 250*scaler);
+        table.addAction(Actions.moveBy(100, 0, .1f));
         newSelection(0);
 	}
 	
@@ -490,7 +492,7 @@ public class Battle extends Group{
 			batch.draw(getStanceImage(character.getStance()), getX(), getY(), getWidth(), getHeight());
 			if (hover){
 				batch.draw(hoverBox, getX() - 45, getY() - 60, getWidth() + 100, 40);
-				font.setColor(Color.WHITE);
+				font.setColor(Color.BLACK);
 				font.draw(batch, character.getStance().name(), getX(), getY() - 30, 100, Align.center, false);
 			}
 	    }
@@ -522,9 +524,9 @@ public class Battle extends Group{
 	/*
 	 * Temporary debug helper methods for positioning scene2d actors 
 	 */
-	private void addActorAndListen(Actor actor, int x, int y){
+	private void addActorAndListen(Actor actor, float x, float y){
 		this.addActor(actor);
-		actor.setPosition(x, y);
+		actor.setPosition(x*scaler, y*scaler);
 		addDragListener(actor);
 	}
 	

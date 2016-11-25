@@ -50,6 +50,7 @@ public enum AssetEnum {
 	PLAINS_BG("battle/AbandonedField.jpg"),
 	BATTLE_UI("battle/Treeframe.png"),
 	BATTLE_HOVER("battle/SkillHover.png"),
+	BATTLE_TEXTBOX("battle/TextBox.png"),
 	
 	SHOPKEEP("characters/AppleKeep.png"),
 	

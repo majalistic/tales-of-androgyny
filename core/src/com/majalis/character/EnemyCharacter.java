@@ -306,10 +306,10 @@ public class EnemyCharacter extends AbstractCharacter {
     public void draw(Batch batch, float parentAlpha) {
 		super.draw(batch, parentAlpha);
 		Texture texture = textures.get(stance, defaultTexture);
-		int width = enemyType == EnemyEnum.HARPY && stance == Stance.FELLATIO ? 150 : 500;
+		int width = enemyType == EnemyEnum.HARPY && stance == Stance.FELLATIO ? 150 : 600;
 		int height = enemyType == EnemyEnum.HARPY && stance != Stance.FELLATIO ? 140 : 20;
 		if (atlas == null || enemyType == EnemyEnum.HARPY && stance == Stance.FELLATIO){
-			batch.draw(texture, width, height, (int) (texture.getWidth() / (texture.getHeight() / 650.)), 650);
+			batch.draw(texture, width, height, (int) (texture.getWidth() / (texture.getHeight() / 975.)), 975);
 		}
 		else {
 			state.update(Gdx.graphics.getDeltaTime());
@@ -329,11 +329,11 @@ public class EnemyCharacter extends AbstractCharacter {
 			renderer.setPremultipliedAlpha(true);
 			atlas = new TextureAtlas(Gdx.files.internal("animation/Harpy.atlas"));
 			SkeletonJson json = new SkeletonJson(atlas); // This loads skeleton JSON data, which is stateless.
-			json.setScale(0.5f); // Load the skeleton at 50% the size it was in Spine.
+			json.setScale(.75f); // Load the skeleton at .65% the size it was in Spine.
 			SkeletonData skeletonData = json.readSkeletonData(Gdx.files.internal("animation/Harpy.json"));
 
 			skeleton = new Skeleton(skeletonData); // Skeleton holds skeleton state (bone positions, slot attachments, etc).
-			skeleton.setPosition(670, 375);
+			skeleton.setPosition(900, 550);
 
 			AnimationStateData stateData = new AnimationStateData(skeletonData); // Defines mixing (crossfading) between animations.
 

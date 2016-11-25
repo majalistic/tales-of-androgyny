@@ -12,22 +12,22 @@ public class Background extends Group{
 		int x, y, width, height, x2, y2, width2, height2, x3, y3, width3, height3;
 		
 		public BackgroundBuilder(Texture background){
-			this(background, 1280, 720);
+			this(background, 1920, 1080);
 		}
 		
 		public BackgroundBuilder(Texture background, int width, int height){
 			this.backgroundTexture = background;
 			this.width = width;
 			this.height = height;
-			this.x = (1280 - this.width) / 2;
+			this.x = (1920 - this.width) / 2;
 			this.y = 0;
 		}
 		
 		public BackgroundBuilder setForeground(Texture foregroundTexture){
 			this.foregroundTexture = foregroundTexture;
-			this.width2 = (int) (foregroundTexture.getWidth() / (foregroundTexture.getHeight() / 720f));
-			this.height2 = 720;
-			this.x2 = (1280 - width2) / 2;
+			this.width2 = (int) (foregroundTexture.getWidth() / (foregroundTexture.getHeight() / 1080f));
+			this.height2 = 1080;
+			this.x2 = (1920 - width2) / 2;
 			this.y2 = 0;
 			return this;
 		}

@@ -27,8 +27,8 @@ import com.majalis.world.GameWorldFactory;
  */
 public class ScreenFactoryImpl implements ScreenFactory {
 
-	private static final int winWidth = 1280;
-	private static final int winHeight = 720;
+	private static final int winWidth = 1920;
+	private static final int winHeight = 1080;
 	private final Game game;
 	private final AssetManager assetManager;
 	private final SaveService saveService;
