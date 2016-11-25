@@ -72,6 +72,7 @@ public class SaveManager implements SaveService, LoadService{
 	    	case EXPERIENCE:		save.player.modExperience((Integer) object); break;
 	    	case MODE:				save.mode = (GameMode) object; break;
 	    	case MUSIC:				save.music = (String) object; break;
+	    	case CONSOLE:			save.console = (String) object; break;
     	}	
         saveToJson(save); //Saves current save immediately.
     }
@@ -99,6 +100,7 @@ public class SaveManager implements SaveService, LoadService{
 	    	case EXPERIENCE:		return (T) (Integer) save.player.getExperience();
 	    	case MODE:				return (T) (GameMode) save.mode;
 	    	case MUSIC:				return (T) (String) save.music;
+	    	case CONSOLE:			return (T) (String) save.console;
     	}	
     	return null;
     }
@@ -198,6 +200,7 @@ public class SaveManager implements SaveService, LoadService{
     	private int sceneCode;
     	private int encounterCode;
     	private int nodeCode;
+    	private String console;
     	private Vector3 cameraPos;
     	private IntArray visitedList;
     	// this can probably be refactored to contain a particular battle, but may need to duplicate the player character
@@ -218,6 +221,7 @@ public class SaveManager implements SaveService, LoadService{
     			sceneCode = 0;
     			encounterCode = -2;
         		nodeCode = 1;
+        		console = "";
         		cameraPos = new Vector3(500, 500, 0);
         		visitedList = new IntArray(true, new int[]{1}, 0, 1);
         		player = new PlayerCharacter(true);

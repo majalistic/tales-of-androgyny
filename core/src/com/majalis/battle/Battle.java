@@ -90,7 +90,7 @@ public class Battle extends Group{
 	private float consoleXPos = 800;
 	private float consoleYPos = 5;
 	
-	public Battle(SaveService saveService, AssetManager assetManager, BitmapFont font, PlayerCharacter character, EnemyCharacter enemy, int victoryScene, int defeatScene, Background battleBackground, Background battleUI){
+	public Battle(SaveService saveService, AssetManager assetManager, BitmapFont font, PlayerCharacter character, EnemyCharacter enemy, int victoryScene, int defeatScene, Background battleBackground, Background battleUI, String consoleText){
 		this.saveService = saveService;
 		this.assetManager = assetManager;
 		this.font = font;
@@ -205,7 +205,7 @@ public class Battle extends Group{
 		thwapping = assetManager.get(AssetEnum.THWAPPING.getPath(), Sound.class);
 		soundBuffer = new Array<SoundTimer>();
 		
-		consoleText = "";
+		this.consoleText = consoleText;
 		console = new Label(consoleText, skin);
 		console.setSize(800, 200);
 		console.setWrap(true);
@@ -268,6 +268,7 @@ public class Battle extends Group{
 				displayTechniqueOptions();
 				saveService.saveDataValue(SaveEnum.PLAYER, character);
 				saveService.saveDataValue(SaveEnum.ENEMY, enemy);
+				saveService.saveDataValue(SaveEnum.CONSOLE, consoleText);
 			}
 		}
 
@@ -282,6 +283,7 @@ public class Battle extends Group{
 		if (battleOver){
 			character.refresh();
 			saveService.saveDataValue(SaveEnum.ENEMY, null);
+			saveService.saveDataValue(SaveEnum.CONSOLE, "");
 		}
 	}
 	

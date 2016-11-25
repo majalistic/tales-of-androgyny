@@ -20,5 +20,6 @@ public enum SaveEnum {
 	PERK, 
 	EXPERIENCE, 
 	MODE, 
-	MUSIC
+	MUSIC, 
+	CONSOLE
 }

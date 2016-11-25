@@ -54,7 +54,9 @@ public class BattleFactory {
 		}
 		switch(battleCode.battleCode){	
 			default: 
-				return new Battle(saveService, assetManager, font, playerCharacter, enemy, battleCode.victoryScene, battleCode.defeatScene, new BackgroundBuilder(assetManager.get(enemy.getBGPath(), Texture.class)).build(), new BackgroundBuilder(assetManager.get(AssetEnum.BATTLE_UI.getPath(), Texture.class)).build());
+				return new Battle(
+					saveService, assetManager, font, playerCharacter, enemy, battleCode.victoryScene, battleCode.defeatScene, 
+					new BackgroundBuilder(assetManager.get(enemy.getBGPath(), Texture.class)).build(), new BackgroundBuilder(assetManager.get(AssetEnum.BATTLE_UI.getPath(), Texture.class)).build(), (String) loadService.loadDataValue(SaveEnum.CONSOLE, String.class) );
 		}
 	}
 	
