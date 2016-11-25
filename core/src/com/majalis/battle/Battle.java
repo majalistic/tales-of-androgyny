@@ -10,17 +10,19 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
+import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Scaling;
@@ -30,7 +32,6 @@ import com.majalis.asset.AssetEnum;
 import com.majalis.character.AbstractCharacter;
 import com.majalis.character.AbstractCharacter.Stance;
 import com.majalis.character.Attack;
-import com.majalis.character.AbstractCharacter.Stat;
 import com.majalis.character.EnemyCharacter;
 import com.majalis.character.PlayerCharacter;
 import com.majalis.character.Technique;
@@ -55,20 +56,6 @@ public class Battle extends Group{
 	private final Table table;
 	private final Skin skin;
 	private final Sound buttonSound;
-	private String console;
-	private String skillDisplay;
-	private Array<Technique> options;
-	private Technique selectedTechnique;
-	private Image hoverStance;
-	private final Image stanceArrow;
-	private final Texture selectionArrow;
-	public boolean battleOver;
-	public boolean victory;
-	public boolean gameExit;
-	public int struggle;
-	public boolean inRear;
-	public int battleEndCount;
-	private int selection;
 	private final AnimatedImage slash;
 	private final Sound pop;
 	private final Sound attackSound;
@@ -77,6 +64,26 @@ public class Battle extends Group{
 	private final Array<SoundTimer> soundBuffer;
 	private final Image hoverImage;
 	private final Group hoverGroup;
+	private final Label console;
+	private final Label skillDisplay;
+	private final ProgressBar characterHealth;
+	private final ProgressBar characterStamina;
+	private final ProgressBar characterBalance;
+	private final ProgressBar characterMana;
+	private final ProgressBar enemyHealth;
+	private String consoleText;
+	private Array<TextButton> optionButtons;
+	private Technique selectedTechnique;
+	private Image characterArousal;
+	private Image enemyArousal;
+	public boolean battleOver;
+	public boolean victory;
+	public boolean gameExit;
+	public int struggle;
+	public boolean inRear;
+	public int battleEndCount;
+	private int selection;
+	private boolean debug = true;
 	
 	public Battle(SaveService saveService, AssetManager assetManager, BitmapFont font, PlayerCharacter character, EnemyCharacter enemy, int victoryScene, int defeatScene, Background battleBackground, Background battleUI){
 		this.saveService = saveService;
@@ -86,51 +93,98 @@ public class Battle extends Group{
 		this.enemy = enemy;
 		this.victoryScene = victoryScene;
 		this.defeatScene = defeatScene;
-		console = "";
-		skillDisplay = "";
 		battleOver = false;
 		gameExit = false;	
 		this.addActor(battleBackground);
 		this.addCharacter(character);
 		this.addCharacter(enemy);
 		this.addActor(battleUI);
-		this.hoverImage = new Image(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class));
-		hoverImage.setPosition(540, 0);
-		hoverImage.setSize(350, 320);
-		
-		stanceArrow = new Image(assetManager.get(AssetEnum.STANCE_ARROW.getPath(), Texture.class));
-		selectionArrow = assetManager.get(AssetEnum.STANCE_ARROW.getPath(), Texture.class);
-
-		hoverGroup = new Group();
-		hoverGroup.addActor(hoverImage);
-
-		stanceArrow.setSize(50, 90);
-		stanceArrow.setPosition(450, 550);
-		hoverGroup.addActor(stanceArrow);
-		
-		hoverStance = new Image();
-		hoverStance.setSize(100, 115);
-		hoverStance.setPosition(515, 540);
-		hoverGroup.addActor(hoverStance);
-		
-		StanceActor newActor = new StanceActor(character, new Vector2(330, 540));
-		this.addActor(newActor);
-		newActor = new StanceActor(enemy, new Vector2(920, 540));
-		this.addActor(newActor);
-		
-		hoverGroup.addAction(Actions.visible(false));
-		this.addActor(hoverGroup);
 		
 		skin = assetManager.get(AssetEnum.UI_SKIN.getPath(), Skin.class);
 		buttonSound = assetManager.get(AssetEnum.BUTTON_SOUND.getPath(), Sound.class);
-		table = new Table();
-		this.addActor(table);
-		displayTechniqueOptions();
+		
+		Image healthIcon = new Image(assetManager.get(AssetEnum.HEALTH_ICON.getPath(), Texture.class));
+		addActorAndListen(healthIcon, 130, 682);
+		healthIcon.setSize(25, 25);
+		characterHealth = new ProgressBar(0, 1, .05f, false, skin);
+		characterHealth.setWidth(200);
+		addActorAndListen(characterHealth, 160, 650);
+		characterHealth.setValue(character.getHealthPercent());
+		
+		Image staminaIcon = new Image(assetManager.get(AssetEnum.STAMINA_ICON.getPath(), Texture.class));
+		addActorAndListen(staminaIcon, 130, 650);
+		staminaIcon.setSize(25, 25);
+		characterStamina = new ProgressBar(0, 1, .05f, false, skin);
+		characterStamina.setWidth(200);
+		addActorAndListen(characterStamina, 160, 625);
+		characterStamina.setValue(character.getStaminaPercent());
+		
+		Image balanceIcon = new Image(assetManager.get(AssetEnum.BALANCE_ICON.getPath(), Texture.class));
+		addActorAndListen(balanceIcon, 130, 625);
+		balanceIcon.setSize(25, 25);
+		characterBalance = new ProgressBar(0, 1, .05f, false, skin);
+		characterBalance.setWidth(200);
+		addActorAndListen(characterBalance, 160, 600);
+		characterBalance.setValue(character.getBalancePercent());
+		
+		Image manaIcon = new Image(assetManager.get(AssetEnum.MANA_ICON.getPath(), Texture.class));
+		addActorAndListen(manaIcon, 130, 600);
+		manaIcon.setSize(25, 25);
+		characterMana = new ProgressBar(0, 1, .05f, false, skin);
+		characterMana.setWidth(200);
+		if (character.hasMagic()){
+			addActorAndListen(characterMana, 160, 575);
+		}
+		characterMana.setValue(character.getManaPercent());
+		
+		Image enemyHealthIcon = new Image(assetManager.get(AssetEnum.HEALTH_ICON.getPath(), Texture.class));
+		addActorAndListen(enemyHealthIcon, 1000, 682);
+		enemyHealthIcon.setSize(25, 25);
+		enemyHealth = new ProgressBar(0, 1, .05f, false, skin);
+		enemyHealth.setWidth(200);
+		addActorAndListen(enemyHealth, 1035, 650);
+		enemyHealth.setValue(enemy.getHealthPercent());
+		
+		Image consoleBox = new Image(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class));
+		addActorAndListen(consoleBox, 800, -25);
+		consoleBox.setSize(500, 500);
+		
+		this.hoverImage = new Image(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class));
+		hoverImage.setPosition(235, 0);
+		hoverImage.setSize(380, 380);
 		
 		struggle = 0;
 		inRear = false;
 		battleEndCount = 0;
-		selection = 0;
+		
+		Image characterPortrait = new Image(assetManager.get(AssetEnum.CHARACTER_POTRAIT.getPath(), Texture.class));
+		addActorAndListen(characterPortrait, 0, 618);
+		characterPortrait.setSize(102, 102);
+		
+		characterArousal = new Image(assetManager.get(character.getLustImagePath(), Texture.class));
+		addActorAndListen(characterArousal, 102, 490);
+		characterArousal.setSize(100, 100);
+		
+		enemyArousal = new Image(assetManager.get(enemy.getLustImagePath(), Texture.class));
+		addActorAndListen(enemyArousal, 1073, 505);
+		enemyArousal.setSize(100, 100);
+		
+		hoverGroup = new Group();
+		hoverGroup.addActor(hoverImage);
+		
+		StanceActor newActor = new StanceActor(character);
+		addActorAndListen(newActor, 397, 565);
+		newActor.setSize(100, 115);
+		newActor = new StanceActor(enemy);
+		addActorAndListen(newActor, 866, 574);
+		newActor.setSize(100, 115);
+		
+		hoverGroup.addAction(Actions.visible(false));
+		this.addActor(hoverGroup);
+		
+		table = new Table();
+		this.addActor(table);
+		displayTechniqueOptions();
 		
 		Texture slashSheet = assetManager.get(AssetEnum.SLASH.getPath(), Texture.class);
 		Array<TextureRegion> frames = new Array<TextureRegion>();
@@ -150,73 +204,36 @@ public class Battle extends Group{
 		hitSound = assetManager.get(AssetEnum.HIT_SOUND.getPath(), Sound.class);
 		thwapping = assetManager.get(AssetEnum.THWAPPING.getPath(), Sound.class);
 		soundBuffer = new Array<SoundTimer>();
-	}
-	
-	private void addCharacter(AbstractCharacter character){
-		Group g = new Group();
-		g.addActor(character);
-		addActor(g);
-	}
-	
-	private class StanceActor extends Actor{
 		
-		private final AbstractCharacter character;
-		private final Vector2 position;
-		private boolean hover;
-		public StanceActor(AbstractCharacter character, Vector2 position) {
-			this.character = character;
-			this.position = position;
-			this.setBounds(position.x, position.y, getStanceImage(character.getStance()).getWidth(), getStanceImage(character.getStance()).getHeight());
-			hover = false;
-			this.addListener(new ClickListener(){ 
-				@Override
-		        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-					hover = true;
-				}
-				@Override
-		        public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
-					hover = false;
-				}
-			});
-		}
-
-		@Override
-	    public void draw(Batch batch, float parentAlpha) {
-			super.draw(batch, parentAlpha);
-			batch.draw(getStanceImage(character.getStance()), position.x, position.y, 100, 115);
-			if (hover){
-				font.setColor(Color.GOLD);
-				font.draw(batch, character.getStance().name(), position.x, position.y);
-			}
-	    }
+		consoleText = "";
+		console = new Label(consoleText, skin);
+		console.setSize(400, 200);
+		console.setWrap(true);
+		console.setColor(Color.BLACK);
+		ScrollPane pane = new ScrollPane(console);
+		pane.setPosition(860, 80);
+		pane.setSize(500, 350);
+		pane.setScrollingDisabled(true, false);
+		this.addActor(pane);
 		
+		skillDisplay = new Label("", skin);
+		skillDisplay.setSize(400, 500);
+		skillDisplay.setWrap(true);
+		skillDisplay.setColor(Color.BLACK);
+		ScrollPane pane2 = new ScrollPane(skillDisplay);
+		pane2.setBounds(280, 20, 300, 300);
+		pane2.setScrollingDisabled(true, false);
+		hoverGroup.addActor(pane2);
 	}
 	
-	private void displayTechniqueOptions(){
-		table.clear();
-		options = character.getPossibleTechniques(enemy);
-		for (int ii = 0; ii < options.size; ii++){
-			TextButton button;
-			Technique option = options.get(ii);
-			button = new TextButton(option.getTechniqueName() + (ii > POSSIBLE_KEYS_CHAR.length ? "" : " ("+POSSIBLE_KEYS_CHAR[ii]+")"), skin);
-			button.addListener(getListener(option, ii));
-			table.add(button).size(220, 35).row();
-			if(character.outOfStaminaOrStability(option)){
-				TextButtonStyle style = new TextButtonStyle(button.getStyle());
-				style.fontColor = Color.RED;
-				button.setStyle(style);
-			}
-			else if (character.lowStaminaOrStability(option)){
-				TextButtonStyle style = new TextButtonStyle(button.getStyle());
-				style.fontColor = Color.ORANGE;
-				button.setStyle(style);
-			}
-
-		}
-        table.setFillParent(true);
-        table.setPosition(1077, 150);
+	public int getVictoryScene(){
+		return victoryScene;
 	}
-
+	
+	public int getDefeatScene(){
+		return defeatScene;
+	}
+	
 	public void battleLoop() {
 		Array<SoundTimer> toRemove = new Array<SoundTimer>();
 		for (SoundTimer timer : soundBuffer){
@@ -227,15 +244,15 @@ public class Battle extends Group{
 		soundBuffer.removeAll(toRemove, true);
 		
 		if(Gdx.input.isKeyJustPressed(Keys.UP)){
-        	if (selection > 0) selection--;
-        	else selection = options.size-1;
+        	if (selection > 0) changeSelection(selection - 1);
+        	else changeSelection(optionButtons.size-1);
 		}
         else if(Gdx.input.isKeyJustPressed(Keys.DOWN)){
-        	if (selection < options.size- 1) selection++;
-        	else selection = 0;
+        	if (selection < optionButtons.size- 1) changeSelection(selection + 1);
+        	else changeSelection(0);
         }
         else if(Gdx.input.isKeyJustPressed(Keys.ENTER)){
-        	selectedTechnique = options.get(selection);
+        	clickButton(optionButtons.get(selection));
         }
 		
 		if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)){
@@ -245,16 +262,14 @@ public class Battle extends Group{
 			Technique playerTechnique = getTechnique();
 			if (playerTechnique != null){		
 				buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
-	        	selection = 0;
 				// possibly construct a separate class for this
 				resolveTechniques(character, playerTechnique, enemy, enemy.getTechnique(character));
 				displayTechniqueOptions();
-				
 				saveService.saveDataValue(SaveEnum.PLAYER, character);
 				saveService.saveDataValue(SaveEnum.ENEMY, enemy);
 			}
 		}
-		
+
 		if (character.getCurrentHealth() <= 0){
 			victory = false;
 			battleOver = true;
@@ -269,6 +284,40 @@ public class Battle extends Group{
 		}
 	}
 	
+	private void displayTechniqueOptions(){
+		table.clear();
+		Array<Technique> options = character.getPossibleTechniques(enemy);
+		optionButtons = new Array<TextButton>();
+		
+		for (int ii = 0; ii < options.size; ii++){
+			TextButton button;
+			Technique option = options.get(ii);
+			button = new TextButton(option.getTechniqueName() + (ii > POSSIBLE_KEYS_CHAR.length ? "" : " ("+POSSIBLE_KEYS_CHAR[ii]+")"), skin);
+			table.add(button).size(220, 35).row();
+			optionButtons.add(button);
+			boolean outOfStamina = false;
+			boolean outOfStability = false;
+			if(character.outOfStaminaOrStability(option)){
+				outOfStamina = character.outOfStamina(option);
+				outOfStability = !outOfStamina;
+				TextButtonStyle style = new TextButtonStyle(button.getStyle());
+				style.fontColor = Color.RED;
+				button.setStyle(style);
+			}
+			else if (character.lowStaminaOrStability(option)){
+				TextButtonStyle style = new TextButtonStyle(button.getStyle());
+				style.fontColor = Color.ORANGE;
+				button.setStyle(style);
+			}
+			button.addListener(getListener(option, (outOfStamina ? "THIS WILL CAUSE YOU TO COLLAPSE!\n" : outOfStability ? "THIS WILL CAUSE YOU TO LOSE YOUR FOOTING!\n" : "") + option.getTechniqueDescription(), ii, button));
+		}
+        table.setFillParent(true);
+        table.align(Align.top);
+        table.setPosition(-50, 250);
+        table.addAction(Actions.moveBy(150, 0, .1f));
+        newSelection(0);
+	}
+	
 	private Technique getTechnique() {
 		if (selectedTechnique != null){
 			Technique temp = selectedTechnique;
@@ -278,8 +327,10 @@ public class Battle extends Group{
 		int ii = 0;
 		for (int possibleKey : POSSIBLE_KEYS){
 			if (Gdx.input.isKeyJustPressed(possibleKey)){
-				if (ii < options.size){
-					return options.get(ii);
+				if (ii < optionButtons.size){
+					Technique selectedTechnique = clickButton(optionButtons.get(ii));
+					this.selectedTechnique = null;
+					return selectedTechnique;
 				}
 			}
 			ii++;
@@ -287,20 +338,9 @@ public class Battle extends Group{
 		return null;
 	}
 	
-	private void printToConsole(Array<String> results){
-		for (String result: results){
-			printToConsole(result);
-		}
-	}
-	
-	private void printToConsole(String result){ 
-		console += result + "\n";
-	
-	}
-	
 	// should probably use String builder to build a string to display in the console - needs to properly be getting information from the interactions - may need to be broken up into its own class
 	private void resolveTechniques(AbstractCharacter firstCharacter, Technique firstTechnique, AbstractCharacter secondCharacter, Technique secondTechnique) {
-		console = "";
+		consoleText = "";
 		
 		Stance oldStance = firstCharacter.getStance();
 		
@@ -344,8 +384,119 @@ public class Battle extends Group{
 			battleOver = true;
 			victory = false;
 		}
+		
+		console.setText(consoleText);
+		
+		characterArousal = new Image(assetManager.get(character.getLustImagePath(), Texture.class));
+		enemyArousal = new Image(assetManager.get(enemy.getLustImagePath(), Texture.class));
+		characterHealth.setValue(character.getHealthPercent());
+		characterStamina.setValue(character.getStaminaPercent());
+		characterBalance.setValue(character.getBalancePercent());
+		enemyHealth.setValue(enemy.getHealthPercent());
 	}
 	
+	private void printToConsole(Array<String> results){
+		for (String result: results){
+			printToConsole(result);
+		}
+	}
+	
+	private void printToConsole(String result){ 
+		consoleText += result + "\n";
+	}
+	
+	private void changeSelection(int newSelection){
+		optionButtons.get(selection).addAction(Actions.sequence(Actions.delay(.05f), Actions.moveBy(-50, 0)));
+    	newSelection(newSelection);
+    	
+	}
+	
+	private void newSelection(int newSelection){
+    	optionButtons.get(newSelection).addAction(Actions.sequence(Actions.delay(.05f), Actions.moveBy(50, 0)));
+		selection = newSelection;
+	}
+	
+	/* Helper methods */
+	
+	private Texture getStanceImage(Stance stance){
+		return assetManager.get(stance.getPath(), Texture.class);
+	}
+	
+	private ClickListener getListener(final Technique technique, final String description, final int index, final TextButton button){
+		return new ClickListener(){
+	        @Override
+	        public void clicked(InputEvent event, float x, float y) {
+	        	selectedTechnique = technique;
+	        }
+	        @Override
+	        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
+				skillDisplay.setText(description);
+				changeSelection(index);		
+				hoverGroup.clearActions();
+				hoverGroup.addAction(Actions.visible(true));
+				hoverGroup.addAction(Actions.fadeIn(.25f));
+				
+			}
+			@Override
+	        public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
+				hoverGroup.addAction(Actions.fadeOut(2f));
+			}
+	    };
+	}
+
+	// creates a wrapper group for a character to be added to so that they can be removed and re-inserted during serialization
+	private void addCharacter(AbstractCharacter character){
+		Group g = new Group();
+		g.addActor(character);
+		addActor(g);
+	}
+	// simulates a button click for the button param
+	private Technique clickButton(TextButton button){
+		InputEvent event1 = new InputEvent();
+        event1.setType(InputEvent.Type.touchDown);
+        button.fire(event1);
+        InputEvent event2 = new InputEvent();
+        event2.setType(InputEvent.Type.touchUp);
+        button.fire(event2);
+        return selectedTechnique;
+	}
+	
+	/* REFACTOR AND REMOVE BEYOND THIS LINE */
+	
+	private class StanceActor extends Actor{
+		
+		private final AbstractCharacter character;
+		private final Texture hoverBox;
+		private boolean hover;
+		public StanceActor(AbstractCharacter character) {
+			this.character = character;
+			hover = false;
+			hoverBox = assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class);
+			this.addListener(new ClickListener(){ 
+				@Override
+		        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
+					hover = true;
+				}
+				@Override
+		        public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
+					hover = false;
+				}
+			});
+		}
+
+		@Override
+	    public void draw(Batch batch, float parentAlpha) {
+			super.draw(batch, parentAlpha);
+			batch.draw(getStanceImage(character.getStance()), getX(), getY(), getWidth(), getHeight());
+			if (hover){
+				batch.draw(hoverBox, getX() - 45, getY() - 60, getWidth() + 100, 40);
+				font.setColor(Color.WHITE);
+				font.draw(batch, character.getStance().name(), getX(), getY() - 30, 100, Align.center, false);
+			}
+	    }
+	}
+	
+	// this should be refactored into a delayed action
 	private class SoundTimer{
 		int timeLeft;
 		Sound sound;
@@ -368,111 +519,24 @@ public class Battle extends Group{
 		}
 	}
 	
-	@Override
-    public void draw(Batch batch, float parentAlpha) {
-		super.draw(batch, parentAlpha);
-		batch.draw(selectionArrow, 935, (147 + (int) ( (35/2.) * (options.size - 2) ) ) - 35 * selection, 30, 40);
-		
-		font.setColor(Color.WHITE);
-		font.draw(batch, "Health: ", 70, 700);
-		int healthDeg = character.getHealthDegradation();
-		font.setColor(getDegradataionColor(healthDeg));
-		font.draw(batch, String.valueOf(character.getCurrentHealth()) + " " + getHealthDescription(healthDeg), 125, 700);
-		font.setColor(Color.WHITE);
-		font.draw(batch, "Stamina: ", 70, 680);
-		int staminaDeg = character.getStaminaDegradation();
-		font.setColor(getDegradataionColor(staminaDeg));
-		font.draw(batch, String.valueOf(character.getCurrentStamina()) + " " + getStaminaDescription(staminaDeg), 125, 680);
-		font.setColor(Color.WHITE);
-		font.draw(batch, "Balance: ", 70, 660);
-		font.setColor(character.getStability() > 10 ? Color.WHITE : character.getStability() > 5 ? Color.GOLDENROD : Color.RED);
-		font.draw(batch, String.valueOf(character.getStability()) + " " + (character.getStability() > 10 ? "(Stable)" : character.getStability() > 5 ? "(Unbalanced)" : "(Teetering)"), 125, 660);
-		
-		font.setColor(Color.WHITE);
-		font.draw(batch, (character.getStat(Stat.MAGIC) > 1 ? "Mana: " + String.valueOf(character.getCurrentMana()) : "")  + "\nStance: " + character.getStance().toString(), 70, 640);		
-		batch.draw(assetManager.get(character.getLustImagePath(), Texture.class), 60, 450, 100, 115);
-		
-		font.draw(batch, "Health: ", 1100, 650);
-		int enemyHealthDeg = enemy.getHealthDegradation();
-		font.setColor(getDegradataionColor(enemyHealthDeg));
-		font.draw(batch, String.valueOf(enemy.getCurrentHealth()) + " " + getHealthDescription(enemyHealthDeg), 1150, 650);
-		font.setColor(Color.WHITE);
-		font.draw(batch, "Stance: " + enemy.getStance().toString(), 1100, 630);	
-		// calls to enemy.getType() should all be replaced with polymorphic behavior of enemies
-		batch.draw(assetManager.get(enemy.getLustImagePath(), Texture.class), 1150, 450, 100, 115);
-		font.draw(batch, console, 65, 270);
-		font.draw(batch, skillDisplay, 580, 260);
-    }
-	// this should be on abstract character
-	private String getHealthDescription(int val){
-		switch (val){
-			case 0: return "(Good)";
-			case 1: return "(Fair)";
-			case 2: return "(Weakened)";
-			case 3: return "(Critical)";
-			default: return "(ERROR)";
-		}
-	}
-	// this should be on abstract character
-	private String getStaminaDescription(int val){
-		switch (val){
-			case 0: return "(Good)";
-			case 1: return "(Winded)";
-			case 2: return "(Tired)";
-			case 3: return "(Exhausted)";
-			default: return "(ERROR)";
-		}
-	}
-	// this should be on abstract character
-	private Color getDegradataionColor(int val){
-		switch (val){
-			case 0: return Color.WHITE;
-			case 1: return Color.GOLDENROD;
-			case 2: return Color.ORANGE;
-			case 3: return Color.RED;
-			default: return Color.MAGENTA;
-		}
+	/*
+	 * Temporary debug helper methods for positioning scene2d actors 
+	 */
+	private void addActorAndListen(Actor actor, int x, int y){
+		this.addActor(actor);
+		actor.setPosition(x, y);
+		addDragListener(actor);
 	}
 	
-	private Texture getStanceImage(Stance stance){
-		return assetManager.get(stance.getPath(), Texture.class);
-	}
-	
-	public int getVictoryScene(){
-		return victoryScene;
-	}
-	
-	public int getDefeatScene(){
-		return defeatScene;
-	}
-	
-	public void dispose(){
-		assetManager.unload(AssetEnum.UI_SKIN.getPath());
-		assetManager.unload(AssetEnum.BUTTON_SOUND.getPath());
-	}
-	
-	// this should pass in a technique that will be used if this button is pressed
-	private ClickListener getListener(final Technique technique, final int index){
-		return new ClickListener(){
-	        @Override
-	        public void clicked(InputEvent event, float x, float y) {
-	        	selectedTechnique = technique;
-	        }
-	        @Override
-	        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-				skillDisplay = technique.getTechniqueDescription();
-				hoverStance.setDrawable(new TextureRegionDrawable(new TextureRegion(getStanceImage(technique.getStance()))));
-				selection = index;
-				hoverGroup.clearActions();
-				hoverGroup.addAction(Actions.visible(true));
-				hoverGroup.addAction(Actions.fadeIn(.25f));
-				
-			}
+	private void addDragListener(final Actor actor){
+		actor.addListener(new DragListener(){
 			@Override
-	        public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
-				skillDisplay = "";
-				hoverGroup.addAction(Actions.fadeOut(2f));
-			}
-	    };
+		    public void drag(InputEvent event, float x, float y, int pointer) {
+				if (debug){
+			        actor.moveBy(x - actor.getWidth() / 2, y - actor.getHeight() / 2);
+			        System.out.println(actor.getX() + ", " + actor.getY());
+				}
+		    }
+		});
 	}
 }

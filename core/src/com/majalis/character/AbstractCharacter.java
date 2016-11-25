@@ -131,6 +131,14 @@ public abstract class AbstractCharacter extends Actor {
 	public int getCurrentStamina(){ return currentStamina; }
 	
 	public int getCurrentMana(){ return currentMana; }
+		
+	public float getHealthPercent(){ return currentHealth / (getMaxHealth() * 1.0f); }
+	
+	public float getStaminaPercent(){ return currentStamina / (getMaxStamina() * 1.0f); }
+	
+	public float getBalancePercent() { return stability / (getMaxStability() * 1.0f); }
+	
+	public float getManaPercent(){ return currentMana / (getMaxMana() * 1.0f); }
 	
 	public int getStability(){ return stability; }
 	
@@ -539,7 +547,7 @@ public abstract class AbstractCharacter extends Actor {
 		return "arousal/" + phallus.label + lustLevel + ".png";
 	}
 	
-	protected boolean outOfStamina(Technique technique){
+	public boolean outOfStamina(Technique technique){
 		return getStaminaMod(technique) >= currentStamina;
 	}
 	

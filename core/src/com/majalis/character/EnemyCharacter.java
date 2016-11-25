@@ -42,26 +42,24 @@ public class EnemyCharacter extends AbstractCharacter {
 		init(texture, textures);
 		phallus = PhallusType.MONSTER;
 		textureImagePaths = new ObjectMap<String, String>();
+		bgPath = AssetEnum.FOREST_BG.getPath();
 		switch(enemyType){
 			case WERESLUT:
 				baseStrength = 5;
 				baseAgility = 8;
 				imagePath = AssetEnum.WEREBITCH.getPath();
-				bgPath = "enemies/WereUI.png";
 				break;
 			case HARPY:
 				baseStrength = 4;
 				baseAgility = 7;
 				textureImagePaths.put(Stance.FELLATIO.toString(), AssetEnum.HARPY_FELLATIO.getPath());
 				imagePath = AssetEnum.HARPY.getPath();
-				bgPath = "enemies/HarpyUI.png";
 				break;
 			case BRIGAND:
 				phallus = PhallusType.NORMAL;
 				baseStrength = 4;
 				baseAgility = 5;
 				imagePath = AssetEnum.BRIGAND.getPath();
-				bgPath = "enemies/BrigandUI.png";
 				break;
 			case SLIME:
 				baseStrength = 2;
@@ -69,7 +67,6 @@ public class EnemyCharacter extends AbstractCharacter {
 				baseAgility = 5;
 				textureImagePaths.put(Stance.DOGGY.toString(), AssetEnum.SLIME_DOGGY.getPath());
 				imagePath = AssetEnum.SLIME.getPath();
-				bgPath = "enemies/SlimeUI.png";
 				break;
 		}
 		staminaTiers.removeIndex(staminaTiers.size-1);

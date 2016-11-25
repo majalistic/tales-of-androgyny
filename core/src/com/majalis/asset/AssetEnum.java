@@ -30,9 +30,7 @@ public enum AssetEnum {
 	CHARACTER_ANIMATION("worldmap/TinySprite.png"),
 	
 	CHARACTER_SCREEN("ClassSelect.jpg"),
-	VIGNETTE("CreamVignetteBottom.png"),
 	
-	BATTLE_BG("enemies/ForestBG.jpg"),
 	WEREBITCH("enemies/WerebitchBasic.png"),
 	HARPY("enemies/Harpy.png"),
 	HARPY_FELLATIO("enemies/HarpyFellatio.png"),
@@ -42,10 +40,18 @@ public enum AssetEnum {
 	SLIME_DOGGY("enemies/HeartSlimeLoveDart.png"), 
 	TRAP_BONUS("enemies/TrapBonus.jpg"), 
 	
-	SHOPKEEP("characters/AppleKeep.png"),
+	HEALTH_ICON("battle/Heart.png"),
+	STAMINA_ICON("battle/Exertion.png"),
+	BALANCE_ICON("battle/Scale.png"),
+	MANA_ICON("battle/Scale.png"),
 	
+	CHARACTER_POTRAIT("battle/Neutral.png"),
+	FOREST_BG("battle/ForestBG.jpg"),
+	PLAINS_BG("battle/AbandonedField.jpg"),
 	BATTLE_UI("battle/Treeframe.png"),
-	BATTLE_HOVER("BattleHover.png"),
+	BATTLE_HOVER("battle/SkillHover.png"),
+	
+	SHOPKEEP("characters/AppleKeep.png"),
 	
 	AIRBORNE("stances/Airborne.png"),
 	ANAL("stances/Anal.png"),

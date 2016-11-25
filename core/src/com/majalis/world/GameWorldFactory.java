@@ -60,7 +60,7 @@ public class GameWorldFactory {
 					.buildZone();
 		}
 		else {
-			new Zone(saveService, loadService, font, assetManager, random, nodes, nodeMap, 2)
+			new Zone(saveService, loadService, font, assetManager, random, nodes, nodeMap, 1)
 					.addStartNode(1, 2000, 2000, new Vector2(500, 500))
 					.addEndNode(1000, 1000, 1000, new Vector2(900, 900))
 					.buildZone();

@@ -134,7 +134,6 @@ public class EncounterScreen extends AbstractScreen {
 			// default stick
 			case -1: 
 				requirements.put(AssetEnum.STICK_BACKGROUND.getPath(), Texture.class);
-				requirements.put(AssetEnum.VIGNETTE.getPath(), Texture.class);
 				break;
 			// werebitch
 			case 0:
@@ -156,11 +155,9 @@ public class EncounterScreen extends AbstractScreen {
 			// dryad
 			case 4:
 				requirements.put(AssetEnum.DRYAD_BACKGROUND.getPath(), Texture.class);
-				requirements.put(AssetEnum.VIGNETTE.getPath(), Texture.class);
 				break;
 			default:
 				requirements.put(AssetEnum.TRAP_BONUS.getPath(), Texture.class);	
-				requirements.put(AssetEnum.VIGNETTE.getPath(), Texture.class);	
 				break;
 		}
 		requirementsToDispose = requirements;

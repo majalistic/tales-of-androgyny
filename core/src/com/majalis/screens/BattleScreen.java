@@ -32,9 +32,10 @@ public class BattleScreen extends AbstractScreen{
 		resourceRequirements.put(AssetEnum.BATTLE_MUSIC.getPath(), Music.class);
 		
 		AssetEnum[] assets = new AssetEnum[]{
-			AssetEnum.BATTLE_BG,  AssetEnum.STANCE_ARROW, AssetEnum.ANAL, AssetEnum.BLITZ,
+			AssetEnum.FOREST_BG,  AssetEnum.STANCE_ARROW, AssetEnum.ANAL, AssetEnum.BLITZ,
 			AssetEnum.BALANCED, AssetEnum.DEFENSIVE, AssetEnum.DOGGY, AssetEnum.ERUPT, AssetEnum.FELLATIO, AssetEnum.FULL_NELSON, AssetEnum.KNEELING, AssetEnum.HANDY, AssetEnum.COWGIRL,
-			AssetEnum.OFFENSIVE, AssetEnum.PRONE, AssetEnum.SUPINE, AssetEnum.STANDING, AssetEnum.AIRBORNE, AssetEnum.CASTING, AssetEnum.KNOTTED, AssetEnum.SLASH, AssetEnum.BATTLE_HOVER
+			AssetEnum.OFFENSIVE, AssetEnum.PRONE, AssetEnum.SUPINE, AssetEnum.STANDING, AssetEnum.AIRBORNE, AssetEnum.CASTING, AssetEnum.KNOTTED, AssetEnum.SLASH, AssetEnum.BATTLE_HOVER,
+			AssetEnum.BATTLE_UI, AssetEnum.CHARACTER_POTRAIT, AssetEnum.HEALTH_ICON, AssetEnum.STAMINA_ICON, AssetEnum.BALANCE_ICON, AssetEnum.MANA_ICON
 		};
 		for (AssetEnum asset: assets){
 			resourceRequirements.put(asset.getPath(), Texture.class);
@@ -103,7 +104,6 @@ public class BattleScreen extends AbstractScreen{
 	// passthrough for battle.dispose
 	@Override
 	public void dispose(){
-		battle.dispose();
 		for(String path: requirementsToDispose.keys()){
 			if (path.equals(AssetEnum.BUTTON_SOUND.getPath())) continue;
 			assetManager.unload(path);
@@ -116,16 +116,16 @@ public class BattleScreen extends AbstractScreen{
 		Array<String> textureArray = new Array<String>();
 		switch (battleCode.battleCode){
 			case 0:
-				textureArray.addAll(AssetEnum.WEREBITCH.getPath(), "enemies/WereUI.png", "arousal/Monster0.png", "arousal/Monster1.png", "arousal/Monster2.png");
+				textureArray.addAll(AssetEnum.WEREBITCH.getPath(), "arousal/Monster0.png", "arousal/Monster1.png", "arousal/Monster2.png");
 				break;
 			case 1: 
-				textureArray.addAll(AssetEnum.HARPY.getPath(),  AssetEnum.HARPY_FELLATIO.getPath(), "enemies/HarpyUI.png", "arousal/Monster0.png", "arousal/Monster1.png", "arousal/Monster2.png");
+				textureArray.addAll(AssetEnum.HARPY.getPath(),  AssetEnum.HARPY_FELLATIO.getPath(), "arousal/Monster0.png", "arousal/Monster1.png", "arousal/Monster2.png");
 				break;
 			case 2: 
-				textureArray.addAll(AssetEnum.SLIME.getPath(),  AssetEnum.SLIME_DOGGY.getPath(), "enemies/SlimeUI.png", "arousal/Monster0.png", "arousal/Monster1.png", "arousal/Monster2.png");
+				textureArray.addAll(AssetEnum.SLIME.getPath(),  AssetEnum.SLIME_DOGGY.getPath(), "arousal/Monster0.png", "arousal/Monster1.png", "arousal/Monster2.png");
 				break;
 			case 3: 
-				textureArray.addAll(AssetEnum.BRIGAND.getPath(),  AssetEnum.SLIME_DOGGY.getPath(), "enemies/BrigandUI.png", "arousal/Human0.png", "arousal/Human1.png", "arousal/Human2.png");
+				textureArray.addAll(AssetEnum.BRIGAND.getPath(),  AssetEnum.SLIME_DOGGY.getPath(), "arousal/Human0.png", "arousal/Human1.png", "arousal/Human2.png");
 				break;
 		}
 		for (String path: textureArray){

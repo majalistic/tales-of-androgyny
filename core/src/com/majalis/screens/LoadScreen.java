@@ -30,6 +30,21 @@ public class LoadScreen extends AbstractScreen {
 	}
 
 	@Override
+	public void buildStage() {
+		progress = new ProgressBar(0, 1, .05f, false, skin);
+		progress.setWidth(350);
+		progress.setPosition(480, 400);
+		this.addActor(progress);
+	}
+	
+	@Override
+	public void show() {
+		super.show();
+	    getRoot().getColor().a = 0;
+	    getRoot().addAction(Actions.fadeIn(0.5f));
+	}	
+	
+	@Override
 	public void render(float delta){
 		super.render(delta);
 		OrthographicCamera camera = (OrthographicCamera) getCamera();
@@ -47,20 +62,4 @@ public class LoadScreen extends AbstractScreen {
 		}
 		batch.end();
 	}
-
-	@Override
-	public void buildStage() {
-		progress = new ProgressBar(0, 1, .05f, false, skin);
-		progress.setWidth(350);
-		progress.setPosition(480, 400);
-		this.addActor(progress);
-	}
-	
-	@Override
-	public void show() {
-		super.show();
-	    getRoot().getColor().a = 0;
-	    getRoot().addAction(Actions.fadeIn(0.5f));
-	}
-	
 }

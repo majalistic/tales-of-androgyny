@@ -29,7 +29,7 @@ public class BattleFactory {
 		this.loadService = saveManager;
 		this.assetManager = assetManager;
 		FreeTypeFontParameter fontParameter = new FreeTypeFontParameter();
-	    fontParameter.size = 18;
+	    fontParameter.size = 24;
 	    font = fontGenerator.generateFont(fontParameter);
 	}
 	
@@ -54,7 +54,7 @@ public class BattleFactory {
 		}
 		switch(battleCode.battleCode){	
 			default: 
-				return new Battle(saveService, assetManager, font, playerCharacter, enemy, battleCode.victoryScene, battleCode.defeatScene, new BackgroundBuilder(assetManager.get(AssetEnum.BATTLE_BG.getPath(), Texture.class)).build(), new BackgroundBuilder(assetManager.get(enemy.getBGPath(), Texture.class)).build());
+				return new Battle(saveService, assetManager, font, playerCharacter, enemy, battleCode.victoryScene, battleCode.defeatScene, new BackgroundBuilder(assetManager.get(enemy.getBGPath(), Texture.class)).build(), new BackgroundBuilder(assetManager.get(AssetEnum.BATTLE_UI.getPath(), Texture.class)).build());
 		}
 	}
 	
