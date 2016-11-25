@@ -97,6 +97,7 @@ public enum AssetEnum {
 	ATTACK_SOUND("sounds/AttackSound.wav"),
 	HIT_SOUND("sounds/HitSound.wav"),
 	THWAPPING("sounds/Thwapping.wav"),
+	SMUG_LAUGH("sounds/FemaleSmugLaugh.wav"),
 	// music
 	MAIN_MENU_MUSIC("music/MainMenuMusic.mp3"),
 	ENCOUNTER_MUSIC("music/EncounterMusic.mp3"),

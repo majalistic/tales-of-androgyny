@@ -41,6 +41,10 @@ public class EncounterScreen extends AbstractScreen {
 		this.encounter = encounter;
 		setMusic(musicPath);
 	}
+
+	public static void play(String soundPath) {
+		assetManager.get(soundPath, Sound.class).play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume", 1) * .6f);
+	}
 	
 	public static void setMusic(String musicPath){
 		if (EncounterScreen.music != null){
@@ -130,6 +134,7 @@ public class EncounterScreen extends AbstractScreen {
 				requirements.put(AssetEnum.MAGIC.getPath(), Texture.class);
 				requirements.put(AssetEnum.CHARISMA.getPath(), Texture.class);
 				requirements.put(AssetEnum.WAVES.getPath(), Music.class);
+				requirements.put(AssetEnum.SMUG_LAUGH.getPath(), Sound.class);
 				break;
 			// default stick
 			case -1: 
@@ -163,4 +168,5 @@ public class EncounterScreen extends AbstractScreen {
 		requirementsToDispose = requirements;
 		return requirements;
 	}
+
 }
