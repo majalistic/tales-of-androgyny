@@ -71,6 +71,7 @@ public class SaveManager implements SaveService, LoadService{
 	    	case FOOD:				save.player.modFood((Integer) object); break;
 	    	case EXPERIENCE:		save.player.modExperience((Integer) object); break;
 	    	case MODE:				save.mode = (GameMode) object; break;
+	    	case MUSIC:				save.music = (String) object; break;
     	}	
         saveToJson(save); //Saves current save immediately.
     }
@@ -97,6 +98,7 @@ public class SaveManager implements SaveService, LoadService{
 	    	case FOOD: 				return (T) (Integer) save.player.getFood();
 	    	case EXPERIENCE:		return (T) (Integer) save.player.getExperience();
 	    	case MODE:				return (T) (GameMode) save.mode;
+	    	case MUSIC:				return (T) (String) save.music;
     	}	
     	return null;
     }
@@ -191,6 +193,7 @@ public class SaveManager implements SaveService, LoadService{
     	
     	private GameContext context;
     	private GameMode mode;
+    	private String music;
     	private int worldSeed;
     	private int sceneCode;
     	private int encounterCode;

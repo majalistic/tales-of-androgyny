@@ -27,28 +27,36 @@ public class EncounterScreen extends AbstractScreen {
 		resourceRequirements.put(AssetEnum.DEFAULT_BACKGROUND.getPath(), Texture.class);
 		resourceRequirements.put(AssetEnum.BATTLE_HOVER.getPath(), Texture.class);
 		resourceRequirements.put(AssetEnum.ENCOUNTER_MUSIC.getPath(), Music.class);
+		
 	}
-	private final AssetManager assetManager;
+	private static AssetManager assetManager;
 	private final SaveService saveService;
 	private final Encounter encounter;
-	private final Music music;
+	private static Music music;
 	
-	protected EncounterScreen(ScreenFactory screenFactory, ScreenElements elements, AssetManager assetManager, SaveService saveService, Encounter encounter) {
+	protected EncounterScreen(ScreenFactory screenFactory, ScreenElements elements, AssetManager assetManager, SaveService saveService, String musicPath, Encounter encounter) {
 		super(screenFactory, elements);
-		this.assetManager = assetManager;
+		EncounterScreen.assetManager = assetManager;
 		this.saveService = saveService;
 		this.encounter = encounter;
-		this.music = assetManager.get(AssetEnum.ENCOUNTER_MUSIC.getPath(), Music.class);
+		setMusic(musicPath);
 	}
-
+	
+	public static void setMusic(String musicPath){
+		if (EncounterScreen.music != null){
+			EncounterScreen.music.stop();
+		}
+		EncounterScreen.music = assetManager.get(musicPath, Music.class);
+		music.setVolume(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("musicVolume", 1) * .6f);
+		music.setLooping(true);
+		music.play();
+	}
+	
 	@Override
 	public void buildStage() {
 		for (Actor actor: encounter.getActors()){
 			this.addActor(actor);
 		}        	
-		music.setVolume(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("musicVolume", 1) * .6f);
-		music.setLooping(true);
-		music.play();
 	}
 	
 	@Override
@@ -121,6 +129,7 @@ public class EncounterScreen extends AbstractScreen {
 				requirements.put(AssetEnum.PERCEPTION.getPath(), Texture.class);
 				requirements.put(AssetEnum.MAGIC.getPath(), Texture.class);
 				requirements.put(AssetEnum.CHARISMA.getPath(), Texture.class);
+				requirements.put(AssetEnum.WAVES.getPath(), Music.class);
 				break;
 			// default stick
 			case -1: 

@@ -95,8 +95,11 @@ public class EncounterBuilder {
 				getTextScenes(
 					getArray(new String[]{"You have entered story mode.", "A tale of androgyny has begun..."}), font, background, classMutation,							
 					getTextScenes(
-						getScript("STORY"), font, background,
-						getEndScene(EndScene.Type.ENCOUNTER_OVER)						
+						getScript("STORY-000"), font, background, new Array<Mutation>(), AssetEnum.WAVES.getPath(),
+						getTextScenes(
+							getScript("STORY-001"), font, background, new Array<Mutation>(), AssetEnum.ENCOUNTER_MUSIC.getPath(),
+							getEndScene(EndScene.Type.ENCOUNTER_OVER)						
+						)
 					)
 				)
 			)
@@ -469,20 +472,28 @@ public class EncounterBuilder {
 	private OrderedMap<Integer, Scene> getTextScenes(Array<String> script, BitmapFont font, Background background, OrderedMap<Integer, Scene> sceneMap){ return getTextScenes(script, font, background, new Array<Mutation>(), sceneMap); }
 	// pass in a list of script lines in chronological order, this will reverse their order and add them to the stack
 	private OrderedMap<Integer, Scene> getTextScenes(Array<String> script, BitmapFont font, Background background, Array<Mutation> mutations, OrderedMap<Integer, Scene> sceneMap){
+		return getTextScenes(script, font, background, mutations, null, sceneMap);
+	}
+	private OrderedMap<Integer, Scene> getTextScenes(Array<String> script, BitmapFont font, Background background, Array<Mutation> mutations, String music, OrderedMap<Integer, Scene> sceneMap){
 		mutations.reverse();
 		script.reverse();
 		
 		int mutationIndex = -(script.size - mutations.size);
+		TextScene newScene = null;
 		for (String scriptLine: script){
 			if (mutationIndex >= 0){
 				Mutation toApply = mutations.get(mutationIndex);
-				sceneMap = addScene(new TextScene(sceneMap, sceneCounter, saveService, font, background.clone(), scriptLine, new Array<Mutation>(true, new Mutation[]{toApply}, 0, 1)));
+				newScene = new TextScene(sceneMap, sceneCounter, saveService, font, background.clone(), scriptLine, new Array<Mutation>(true, new Mutation[]{toApply}, 0, 1));
 			}
 			else {
-				sceneMap = addScene(new TextScene(sceneMap, sceneCounter, saveService, font, background.clone(), scriptLine, new Array<Mutation>()));
+				newScene = new TextScene(sceneMap, sceneCounter, saveService, font, background.clone(), scriptLine, new Array<Mutation>());
 			}
+			sceneMap = addScene(newScene);
 			mutationIndex++;
 		}	
+		if (music != null){
+			newScene.setMusic(music);
+		}
 		return sceneMap;
 	}
 	
@@ -628,6 +639,7 @@ public class EncounterBuilder {
 	private Scene getStartScene(Array<Scene> scenes, Integer sceneCode){
 		// default case	
 		if (sceneCode == 0){
+			saveService.saveDataValue(SaveEnum.MUSIC, AssetEnum.ENCOUNTER_MUSIC.getPath());
 			// returns the final scene and plays in reverse order
 			return scenes.get(scenes.size - 1);
 		}

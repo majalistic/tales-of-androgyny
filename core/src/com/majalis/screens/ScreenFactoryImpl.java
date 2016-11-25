@@ -13,6 +13,7 @@ import com.majalis.asset.AssetEnum;
 import com.majalis.battle.BattleCode;
 import com.majalis.battle.BattleFactory;
 import com.majalis.character.PlayerCharacter;
+import com.majalis.encounter.Encounter;
 import com.majalis.encounter.EncounterFactory;
 import com.majalis.save.LoadService;
 import com.majalis.save.ProfileEnum;
@@ -134,7 +135,9 @@ public class ScreenFactoryImpl implements ScreenFactory {
 	private EncounterScreen getEncounter(ScreenElements elements, PlayerCharacter character){
 		if (getAssetCheck(EncounterScreen.getRequirements((Integer)loadService.loadDataValue(SaveEnum.ENCOUNTER_CODE, Integer.class)))){
 			Integer encounterCode = loadService.loadDataValue(SaveEnum.ENCOUNTER_CODE, Integer.class);
-			return new EncounterScreen(this, elements, assetManager, saveService, encounterFactory.getEncounter(encounterCode, elements.getFont(32), elements.getFont(24)));
+			Encounter encounter = encounterFactory.getEncounter(encounterCode, elements.getFont(32), elements.getFont(24));
+			String music = loadService.loadDataValue(SaveEnum.MUSIC, String.class);
+			return new EncounterScreen(this, elements, assetManager, saveService, music, encounter);
 		}
 		else {
 			return null;

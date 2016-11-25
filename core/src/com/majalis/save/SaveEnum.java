@@ -19,5 +19,6 @@ public enum SaveEnum {
 	FOOD, 
 	PERK, 
 	EXPERIENCE, 
-	MODE
+	MODE, 
+	MUSIC
 }

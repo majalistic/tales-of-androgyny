@@ -24,7 +24,7 @@ public abstract class AbstractTextScene extends Scene {
 		resourceRequirements.put(AssetEnum.BUTTON_SOUND.getPath(), Sound.class);
 		resourceRequirements.put(AssetEnum.GAME_TYPE_BACKGROUND.getPath(), Texture.class);
 	}
-	private final SaveService saveService;
+	protected final SaveService saveService;
 	private final BitmapFont font;
 		
 	protected AbstractTextScene(OrderedMap<Integer, Scene> sceneBranches, int sceneCode, SaveService saveService, BitmapFont font, Background background) {
@@ -44,7 +44,6 @@ public abstract class AbstractTextScene extends Scene {
 	
 	protected abstract String getDisplay();
 	
-	// this type of TextScene will be one that always pipes from one scene to the next with no branch - there will be another TextScene that actually has branching logic
 	@Override
 	public void poke(){
 		nextScene();
