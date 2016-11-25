@@ -140,6 +140,36 @@ public abstract class AbstractCharacter extends Actor {
 	
 	public float getManaPercent(){ return currentMana / (getMaxMana() * 1.0f); }
 	
+	public String getHealthDisplay(){ 
+		switch (getHealthDegradation()){
+			case 0: return AssetEnum.HEALTH_ICON_0.getPath();
+			case 1: return AssetEnum.HEALTH_ICON_1.getPath();
+			case 2: return AssetEnum.HEALTH_ICON_2.getPath();
+			case 3: return AssetEnum.HEALTH_ICON_2.getPath();
+			case 4: return AssetEnum.HEALTH_ICON_2.getPath();
+		}
+		return null;
+	}
+	
+	public String getStaminaDisplay(){ 
+		switch (getStaminaDegradation()){
+			case 0: return AssetEnum.STAMINA_ICON_0.getPath();
+			case 1: return AssetEnum.STAMINA_ICON_1.getPath();
+			case 2: return AssetEnum.STAMINA_ICON_2.getPath();
+			case 3: return AssetEnum.STAMINA_ICON_2.getPath();
+			case 4: return AssetEnum.STAMINA_ICON_2.getPath();
+		}
+		return null;
+	}
+	
+	public String getBalanceDisplay(){ 
+		return stability > 10 ?  AssetEnum.BALANCE_ICON_0.getPath() : stability > 5 ? AssetEnum.BALANCE_ICON_1.getPath() : AssetEnum.BALANCE_ICON_2.getPath();
+	}
+	
+	public String getManaDisplay(){ 
+		return AssetEnum.BALANCE_ICON_0.getPath();
+	}
+	
 	public int getStability(){ return stability; }
 	
 	public int getBattleOver(){ return battleOver; }

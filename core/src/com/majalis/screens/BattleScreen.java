@@ -35,7 +35,8 @@ public class BattleScreen extends AbstractScreen{
 			AssetEnum.FOREST_BG,  AssetEnum.STANCE_ARROW, AssetEnum.ANAL, AssetEnum.BLITZ,
 			AssetEnum.BALANCED, AssetEnum.DEFENSIVE, AssetEnum.DOGGY, AssetEnum.ERUPT, AssetEnum.FELLATIO, AssetEnum.FULL_NELSON, AssetEnum.KNEELING, AssetEnum.HANDY, AssetEnum.COWGIRL,
 			AssetEnum.OFFENSIVE, AssetEnum.PRONE, AssetEnum.SUPINE, AssetEnum.STANDING, AssetEnum.AIRBORNE, AssetEnum.CASTING, AssetEnum.KNOTTED, AssetEnum.SLASH, AssetEnum.BATTLE_HOVER,
-			AssetEnum.BATTLE_UI, AssetEnum.CHARACTER_POTRAIT, AssetEnum.HEALTH_ICON, AssetEnum.STAMINA_ICON, AssetEnum.BALANCE_ICON, AssetEnum.MANA_ICON, AssetEnum.BATTLE_TEXTBOX
+			AssetEnum.BATTLE_TEXTBOX, AssetEnum.BATTLE_UI, AssetEnum.CHARACTER_POTRAIT, AssetEnum.HEALTH_ICON_0, AssetEnum.STAMINA_ICON_0, AssetEnum.BALANCE_ICON_0, AssetEnum.MANA_ICON_0,
+			AssetEnum.HEALTH_ICON_1, AssetEnum.STAMINA_ICON_1, AssetEnum.BALANCE_ICON_1, AssetEnum.MANA_ICON_1, AssetEnum.HEALTH_ICON_2, AssetEnum.STAMINA_ICON_2, AssetEnum.BALANCE_ICON_2, AssetEnum.MANA_ICON_2
 		};
 		for (AssetEnum asset: assets){
 			resourceRequirements.put(asset.getPath(), Texture.class);

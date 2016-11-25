@@ -72,6 +72,11 @@ public class Battle extends Group{
 	private final ProgressBar characterBalance;
 	private final ProgressBar characterMana;
 	private final ProgressBar enemyHealth;
+	private final Image healthIcon;
+	private final Image staminaIcon;
+	private final Image balanceIcon;
+	private final Image manaIcon;
+	private final Image enemyHealthIcon;
 	private String consoleText;
 	private Array<TextButton> optionButtons;
 	private Technique selectedTechnique;
@@ -109,14 +114,14 @@ public class Battle extends Group{
 		skin = assetManager.get(AssetEnum.UI_SKIN.getPath(), Skin.class);
 		buttonSound = assetManager.get(AssetEnum.BUTTON_SOUND.getPath(), Sound.class);
 		
-		Image healthIcon = new Image(assetManager.get(AssetEnum.HEALTH_ICON.getPath(), Texture.class));
+		healthIcon = new Image(assetManager.get(character.getHealthDisplay(), Texture.class));
 		addActorAndListen(healthIcon, 130, 682);
 		characterHealth = new ProgressBar(0, 1, .05f, false, skin);
 		characterHealth.setWidth(300);
 		addActorAndListen(characterHealth, 160, 650);
 		characterHealth.setValue(character.getHealthPercent());
 		
-		Image staminaIcon = new Image(assetManager.get(AssetEnum.STAMINA_ICON.getPath(), Texture.class));
+		staminaIcon = new Image(assetManager.get(character.getStaminaDisplay(), Texture.class));
 		addActorAndListen(staminaIcon, 130, 650);
 		//staminaIcon.setSize(25, 25);
 		characterStamina = new ProgressBar(0, 1, .05f, false, skin);
@@ -124,7 +129,7 @@ public class Battle extends Group{
 		addActorAndListen(characterStamina, 160, 625);
 		characterStamina.setValue(character.getStaminaPercent());
 		
-		Image balanceIcon = new Image(assetManager.get(AssetEnum.BALANCE_ICON.getPath(), Texture.class));
+		balanceIcon = new Image(assetManager.get(character.getBalanceDisplay(), Texture.class));
 		addActorAndListen(balanceIcon, 130, 625);
 		//balanceIcon.setSize(25, 25);
 		characterBalance = new ProgressBar(0, 1, .05f, false, skin);
@@ -132,7 +137,7 @@ public class Battle extends Group{
 		addActorAndListen(characterBalance, 160, 600);
 		characterBalance.setValue(character.getBalancePercent());
 		
-		Image manaIcon = new Image(assetManager.get(AssetEnum.MANA_ICON.getPath(), Texture.class));
+		manaIcon = new Image(assetManager.get(character.getManaDisplay(), Texture.class));
 		addActorAndListen(manaIcon, 130, 600);
 		manaIcon.setSize(25, 25);
 		characterMana = new ProgressBar(0, 1, .05f, false, skin);
@@ -142,7 +147,7 @@ public class Battle extends Group{
 		}
 		characterMana.setValue(character.getManaPercent());
 		
-		Image enemyHealthIcon = new Image(assetManager.get(AssetEnum.HEALTH_ICON.getPath(), Texture.class));
+		enemyHealthIcon = new Image(assetManager.get(character.getHealthDisplay(), Texture.class));
 		addActorAndListen(enemyHealthIcon, 1000, 682);
 		enemyHealth = new ProgressBar(0, 1, .05f, false, skin);
 		enemyHealth.setWidth(300);
@@ -398,6 +403,11 @@ public class Battle extends Group{
 		characterStamina.setValue(character.getStaminaPercent());
 		characterBalance.setValue(character.getBalancePercent());
 		enemyHealth.setValue(enemy.getHealthPercent());
+		healthIcon.setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(character.getHealthDisplay(), Texture.class))));
+		staminaIcon.setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(character.getStaminaDisplay(), Texture.class))));
+		balanceIcon.setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(character.getBalanceDisplay(), Texture.class))));
+		manaIcon.setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(character.getManaDisplay(), Texture.class))));
+		enemyHealthIcon.setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(enemy.getHealthDisplay(), Texture.class))));
 	}
 	
 	private void printToConsole(Array<String> results){
