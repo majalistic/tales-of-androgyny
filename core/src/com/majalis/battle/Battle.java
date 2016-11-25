@@ -23,6 +23,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Scaling;
@@ -83,7 +84,7 @@ public class Battle extends Group{
 	public boolean inRear;
 	public int battleEndCount;
 	private int selection;
-	private boolean debug = true;
+	private boolean debug = false;
 	private float scaler = 1.5f; //scale distances
 	private float hoverXPos = 317; //Hover box x postition
 	private float hoverYPos = 35; 
@@ -391,8 +392,8 @@ public class Battle extends Group{
 		
 		console.setText(consoleText);
 		
-		characterArousal = new Image(assetManager.get(character.getLustImagePath(), Texture.class));
-		enemyArousal = new Image(assetManager.get(enemy.getLustImagePath(), Texture.class));
+		characterArousal.setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(character.getLustImagePath(), Texture.class))));
+		enemyArousal.setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(enemy.getLustImagePath(), Texture.class))));
 		characterHealth.setValue(character.getHealthPercent());
 		characterStamina.setValue(character.getStaminaPercent());
 		characterBalance.setValue(character.getBalancePercent());

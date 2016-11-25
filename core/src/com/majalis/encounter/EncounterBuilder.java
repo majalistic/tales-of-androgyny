@@ -95,10 +95,15 @@ public class EncounterBuilder {
 				getTextScenes(
 					getArray(new String[]{"You have entered story mode.", "A tale of androgyny has begun..."}), font, background, classMutation,							
 					getTextScenes(
+						// needs to be female silhouette from behind bg
 						getScript("STORY-000"), font, background, new Array<Mutation>(), AssetEnum.WAVES.getPath(), getArray(new String[]{null, null, null, null, null, null, null, null, null, AssetEnum.SMUG_LAUGH.getPath(), null, null, null, null, null, null, null, null, AssetEnum.SMUG_LAUGH.getPath()}),
 						getTextScenes(
+							// needs to be hovel BG
 							getScript("STORY-001"), font, background, new Array<Mutation>(), AssetEnum.ENCOUNTER_MUSIC.getPath(), new Array<String>(),
-							getEndScene(EndScene.Type.ENCOUNTER_OVER)						
+							getTextScenes(
+								getScript("STORY-002"), font, background, new Array<Mutation>(),
+								getEndScene(EndScene.Type.ENCOUNTER_OVER)						
+							)
 						)
 					)
 				)
