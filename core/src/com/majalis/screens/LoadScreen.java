@@ -33,7 +33,7 @@ public class LoadScreen extends AbstractScreen {
 	public void buildStage() {
 		progress = new ProgressBar(0, 1, .05f, false, skin);
 		progress.setWidth(350);
-		progress.setPosition(480, 400);
+		progress.setPosition(720, 600);
 		this.addActor(progress);
 	}
 	
@@ -55,7 +55,7 @@ public class LoadScreen extends AbstractScreen {
 		largeFont.setColor(Color.BLACK);
 		if (!assetManager.update() || clocktick++ < 25){
 			progress.setValue(assetManager.getProgress());
-			largeFont.draw(batch, "Loading: " + (int)(assetManager.getProgress() * 100) + "%", 1125, 750);
+			largeFont.draw(batch, "Loading: " + (int)(assetManager.getProgress() * 100) + "%", 1688, 1125);
 		}	
 		else {
 			showScreen(screenRequest);

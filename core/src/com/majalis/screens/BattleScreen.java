@@ -23,7 +23,7 @@ public class BattleScreen extends AbstractScreen{
 	public static final ObjectMap<String, Class<?>> resourceRequirements = new ObjectMap<String, Class<?>>();
 	public static ObjectMap<String, Class<?>> requirementsToDispose = new ObjectMap<String, Class<?>>();
 	static {
-		resourceRequirements.put(AssetEnum.UI_SKIN.getPath(), Skin.class);
+		resourceRequirements.put(AssetEnum.BATTLE_SKIN.getPath(), Skin.class);
 		resourceRequirements.put(AssetEnum.BUTTON_SOUND.getPath(), Sound.class);
 		resourceRequirements.put(AssetEnum.UNPLUGGED_POP.getPath(), Sound.class);
 		resourceRequirements.put(AssetEnum.ATTACK_SOUND.getPath(), Sound.class);

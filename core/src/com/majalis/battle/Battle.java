@@ -111,48 +111,47 @@ public class Battle extends Group{
 		this.addCharacter(enemy);
 		this.addActor(battleUI);
 		
-		skin = assetManager.get(AssetEnum.UI_SKIN.getPath(), Skin.class);
+		skin = assetManager.get(AssetEnum.BATTLE_SKIN.getPath(), Skin.class);
 		buttonSound = assetManager.get(AssetEnum.BUTTON_SOUND.getPath(), Sound.class);
 		
-		healthIcon = new Image(assetManager.get(character.getHealthDisplay(), Texture.class));
-		addActorAndListen(healthIcon, 130, 682);
 		characterHealth = new ProgressBar(0, 1, .05f, false, skin);
-		characterHealth.setWidth(300);
-		addActorAndListen(characterHealth, 160, 650);
+		characterHealth.setWidth(350);
+		addActorAndListen(characterHealth, 130, 690);
 		characterHealth.setValue(character.getHealthPercent());
+		healthIcon = new Image(assetManager.get(character.getHealthDisplay(), Texture.class));
+		addActorAndListen(healthIcon, 130, 690);
 		
-		staminaIcon = new Image(assetManager.get(character.getStaminaDisplay(), Texture.class));
-		addActorAndListen(staminaIcon, 130, 650);
-		//staminaIcon.setSize(25, 25);
 		characterStamina = new ProgressBar(0, 1, .05f, false, skin);
-		characterStamina.setWidth(300);
-		addActorAndListen(characterStamina, 160, 625);
+		characterStamina.setWidth(350);
+		addActorAndListen(characterStamina, 130, 660);
 		characterStamina.setValue(character.getStaminaPercent());
+		staminaIcon = new Image(assetManager.get(character.getStaminaDisplay(), Texture.class));
+		addActorAndListen(staminaIcon, 135, 660);
 		
-		balanceIcon = new Image(assetManager.get(character.getBalanceDisplay(), Texture.class));
-		addActorAndListen(balanceIcon, 130, 625);
-		//balanceIcon.setSize(25, 25);
 		characterBalance = new ProgressBar(0, 1, .05f, false, skin);
-		characterBalance.setWidth(300);
-		addActorAndListen(characterBalance, 160, 600);
+		characterBalance.setWidth(350);
+		addActorAndListen(characterBalance, 130, 630);
 		characterBalance.setValue(character.getBalancePercent());
+		balanceIcon = new Image(assetManager.get(character.getBalanceDisplay(), Texture.class));
+		addActorAndListen(balanceIcon, 130, 630);
 		
-		manaIcon = new Image(assetManager.get(character.getManaDisplay(), Texture.class));
-		addActorAndListen(manaIcon, 130, 600);
-		manaIcon.setSize(25, 25);
+
 		characterMana = new ProgressBar(0, 1, .05f, false, skin);
-		characterMana.setWidth(300);
+		characterMana.setWidth(350);
 		if (character.hasMagic()){
-			addActorAndListen(characterMana, 160, 575);
+			addActorAndListen(characterMana, 130, 600);
 		}
-		characterMana.setValue(character.getManaPercent());
+		characterMana.setValue(character.getManaPercent());	
+		manaIcon = new Image(assetManager.get(character.getManaDisplay(), Texture.class));
+		addActorAndListen(manaIcon, 130, 600);	
 		
-		enemyHealthIcon = new Image(assetManager.get(character.getHealthDisplay(), Texture.class));
-		addActorAndListen(enemyHealthIcon, 1000, 682);
+
 		enemyHealth = new ProgressBar(0, 1, .05f, false, skin);
-		enemyHealth.setWidth(300);
-		addActorAndListen(enemyHealth, 1035, 650);
+		enemyHealth.setWidth(350);
+		addActorAndListen(enemyHealth, 1000, 640);
 		enemyHealth.setValue(enemy.getHealthPercent());
+		enemyHealthIcon = new Image(assetManager.get(character.getHealthDisplay(), Texture.class));
+		addActorAndListen(enemyHealthIcon, 1000, 640);
 		
 		Image consoleBox = new Image(assetManager.get(AssetEnum.BATTLE_TEXTBOX.getPath(), Texture.class));
 		addActorAndListen(consoleBox, consoleXPos, consoleYPos);
@@ -213,12 +212,12 @@ public class Battle extends Group{
 		
 		this.consoleText = consoleText;
 		console = new Label(consoleText, skin);
-		console.setSize(800, 200);
+		console.setSize(700, 200);
 		console.setWrap(true);
 		console.setColor(Color.BLACK);
 		console.setAlignment(Align.top);
 		ScrollPane pane = new ScrollPane(console);
-		pane.setBounds(consoleXPos+350, consoleYPos - 240, 775, 600);
+		pane.setBounds(consoleXPos+450, -200, 625, 600);
 		pane.setScrollingDisabled(true, false);
 		this.addActor(pane);
 		
@@ -228,7 +227,7 @@ public class Battle extends Group{
 		skillDisplay.setColor(Color.BLACK);
 		skillDisplay.setAlignment(Align.top);
 		ScrollPane pane2 = new ScrollPane(skillDisplay);
-		pane2.setBounds(hoverXPos + 33, hoverYPos - 180, 500, 600);
+		pane2.setBounds(hoverXPos + 80, hoverYPos - 160, 500, 600);
 		pane2.setScrollingDisabled(true, false);
 		hoverGroup.addActor(pane2);
 	}
@@ -302,8 +301,7 @@ public class Battle extends Group{
 			TextButton button;
 			Technique option = options.get(ii);
 			button = new TextButton(option.getTechniqueName() + (ii > POSSIBLE_KEYS_CHAR.length ? "" : " ("+POSSIBLE_KEYS_CHAR[ii]+")"), skin);
-			//table.add(button).size(397, 76).row();
-			table.add(button).row();
+			table.add(button).size(440, 76).row();
 			optionButtons.add(button);
 			boolean outOfStamina = false;
 			boolean outOfStability = false;
@@ -324,7 +322,7 @@ public class Battle extends Group{
         table.setFillParent(true);
         table.align(Align.top);
         table.setPosition(25, 250*scaler);
-        table.addAction(Actions.moveBy(100, 0, .1f));
+        table.addAction(Actions.moveBy(125, 0, .1f));
         newSelection(0);
 	}
 	

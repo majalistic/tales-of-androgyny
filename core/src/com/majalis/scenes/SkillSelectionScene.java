@@ -58,16 +58,16 @@ public class SkillSelectionScene extends Scene {
     public void draw(Batch batch, float parentAlpha) {
 		super.draw(batch, parentAlpha);
 		font.setColor(0.5f,0.4f,0,1);
-		font.draw(batch, "Skill Selection", 145, 600);
+		font.draw(batch, "Skill Selection", 145, 900);
 		font.setColor(0.4f,0.4f,0.4f,1);
-		int base = 650;
+		int base = 975;
 		if ( !skillDisplay.equals("") ){
-			font.draw(batch, skillDisplay, base-600, 550);
+			font.draw(batch, skillDisplay, base-900, 825);
 		}
 		font.draw(batch, console, base, 650);
-		font.draw(batch, "Skill Points: " + skillPoints, base, 520);
-		font.draw(batch, "Magic Points: " + magicPoints, base, 490);
-		font.draw(batch, "Perk Points: " + perkPoints, base, 460);
+		font.draw(batch, "Skill Points: " + skillPoints, base, 780);
+		font.draw(batch, "Magic Points: " + magicPoints, base, 735);
+		font.draw(batch, "Perk Points: " + perkPoints, base, 690);
     }
 	
 	@Override
@@ -88,7 +88,6 @@ public class SkillSelectionScene extends Scene {
 		perks = new ObjectMap<Perk, Integer>(cachedPerks);
 		
 		final TextButton done = new TextButton("Done", skin);
-		done.setSize(180, 40); 
 		done.addListener(
 			new ClickListener(){
 				@Override
@@ -98,7 +97,7 @@ public class SkillSelectionScene extends Scene {
 		        }
 			}
 		);
-		done.setPosition(1015, 20);
+		done.setPosition(1523, 30);
 		addActor(done);	
 		
 		final Table table = new Table();
@@ -167,10 +166,10 @@ public class SkillSelectionScene extends Scene {
 		        }
 			});
 			
-			table.add(button).size(220, 40);
-			table.add(minusButton).size(30, 40).row();
+			table.add(button).size(350, 60);
+			table.add(minusButton).size(45, 60).row();
 		}
-		table.setPosition(145, 200);
+		table.setPosition(217, 300);
 		addActor(table);
 		
 		final Table perkTable = new Table();
@@ -246,10 +245,10 @@ public class SkillSelectionScene extends Scene {
 					}
 		        }
 			});
-			perkTable.add(button).size(220, 40);
-			perkTable.add(minusButton).size(30, 40).row();
+			perkTable.add(button).size(350, 60);
+			perkTable.add(minusButton).size(45, 60).row();
 		}
-		perkTable.setPosition(725, 200);
+		perkTable.setPosition(1087, 300);
 		addActor(perkTable);
 		
 		if (character.hasMagic()){
@@ -316,10 +315,10 @@ public class SkillSelectionScene extends Scene {
 						}
 			        }
 				});
-				magicTable.add(button).size(220, 40);
-				magicTable.add(minusButton).size(30, 40).row();
+				magicTable.add(button).size(350, 60);
+				magicTable.add(minusButton).size(45, 60).row();
 			}
-			magicTable.setPosition(435, 200);
+			magicTable.setPosition(653, 300);
 			this.addActor(magicTable);
 		}
 	}

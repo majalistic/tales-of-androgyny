@@ -135,7 +135,7 @@ public class ScreenFactoryImpl implements ScreenFactory {
 	private EncounterScreen getEncounter(ScreenElements elements, PlayerCharacter character){
 		if (getAssetCheck(EncounterScreen.getRequirements((Integer)loadService.loadDataValue(SaveEnum.ENCOUNTER_CODE, Integer.class)))){
 			Integer encounterCode = loadService.loadDataValue(SaveEnum.ENCOUNTER_CODE, Integer.class);
-			Encounter encounter = encounterFactory.getEncounter(encounterCode, elements.getFont(32), elements.getFont(24));
+			Encounter encounter = encounterFactory.getEncounter(encounterCode, elements.getFont(48), elements.getFont(32));
 			String music = loadService.loadDataValue(SaveEnum.MUSIC, String.class);
 			return new EncounterScreen(this, elements, assetManager, saveService, music, encounter);
 		}

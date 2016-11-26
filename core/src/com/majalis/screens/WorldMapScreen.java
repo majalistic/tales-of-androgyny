@@ -25,6 +25,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.actions.RepeatAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -48,7 +49,7 @@ public class WorldMapScreen extends AbstractScreen {
 	private final Texture food;
 	private final Array<Texture> grasses;
 	private final Texture cloud;
-	private final Texture UI;
+	private final Texture characterUITexture;
 	private final PlayerCharacter character;
 	private final Stage worldStage;
 	private final PerspectiveCamera camera;
@@ -61,7 +62,7 @@ public class WorldMapScreen extends AbstractScreen {
 	private final InputMultiplexer multi;
 	private boolean backgroundRendered = false;
 	private TextureRegion scenery;
-	private Image ui;
+	private Image characterUI;
 	private Image foodIcon;
 	
 	private TextButton characterButton;
@@ -125,7 +126,7 @@ public class WorldMapScreen extends AbstractScreen {
 		food = arb % 2 == 0 ? assetManager.get(AssetEnum.APPLE.getPath(), Texture.class) : assetManager.get(AssetEnum.MEAT.getPath(), Texture.class);
 		grasses = new Array<Texture>(true, new Texture[]{assetManager.get(AssetEnum.GRASS0.getPath(), Texture.class), assetManager.get(AssetEnum.GRASS1.getPath(), Texture.class), assetManager.get(AssetEnum.GRASS2.getPath(), Texture.class), assetManager.get(AssetEnum.FOREST_INACTIVE.getPath(), Texture.class)}, 0, 4);
 		cloud = assetManager.get(AssetEnum.CLOUD.getPath(), Texture.class);
-		UI = assetManager.get(AssetEnum.WORLD_MAP_UI.getPath(), Texture.class);
+		characterUITexture = assetManager.get(AssetEnum.WORLD_MAP_UI.getPath(), Texture.class);
 		music = assetManager.get(AssetEnum.WORLD_MAP_MUSIC.getPath(), Music.class);
 		
 		// move camera to saved position
@@ -172,8 +173,9 @@ public class WorldMapScreen extends AbstractScreen {
 		Skin skin = assetManager.get(AssetEnum.UI_SKIN.getPath(), Skin.class);
 		int storedLevels = character.getStoredLevels();
 		
-		ui = new Image(UI);
-		this.addActor(ui);
+		characterUI = new Image(characterUITexture);
+		this.addActor(characterUI);
+		characterUI.setScale(1.1f);
 		
 		characterButton = new TextButton(storedLevels > 0 ? "Level Up!" : "Character", skin);
 		
@@ -183,7 +185,13 @@ public class WorldMapScreen extends AbstractScreen {
 			characterButton.setStyle(style);
 		}
 		
-		characterButton.setSize(120, 40); 
+		Table table = new Table();
+		table.setPosition(377, 65);
+		this.addActor(table);
+		
+		table.add(characterButton).size(185, 40);
+		
+		characterButton.setBounds(185, 45, 185, 40);
 		characterButton.addListener(
 			new ClickListener(){
 				@Override
@@ -193,8 +201,6 @@ public class WorldMapScreen extends AbstractScreen {
 		        }
 			}
 		);
-		this.addActor(characterButton);
-		
 		camp = new TextButton("Camp", skin);
 		
 		if (character.getFood() < 4){
@@ -203,8 +209,8 @@ public class WorldMapScreen extends AbstractScreen {
 			camp.setStyle(style);
 			camp.setTouchable(Touchable.disabled);
 		}
-		
-		camp.setSize(120, 40); 
+	
+		table.add(camp).size(145, 40);
 		camp.addListener(
 			new ClickListener(){
 				@Override
@@ -221,13 +227,9 @@ public class WorldMapScreen extends AbstractScreen {
 		        }
 			}
 		);
-		this.addActor(camp);
 		foodIcon = new Image(food);
-		foodIcon.setSize(50, 50);
+		foodIcon.setSize(75, 75);
 		this.addActor(foodIcon);
-		
-		characterButton.setPosition(200, 30);
-		camp.setPosition(330, 30);
 		
 		music.setVolume(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("musicVolume", 1) * .6f);
 		music.setLooping(true);
@@ -272,7 +274,7 @@ public class WorldMapScreen extends AbstractScreen {
 		batch.begin();
 		OrthographicCamera camera = (OrthographicCamera) getCamera();
 		batch.setColor(1.0f, 1.0f, 1.0f, 1);
-		font.draw(batch, String.valueOf(character.getCurrentHealth()), camera.position.x+282, camera.position.y+127);
+		font.draw(batch, String.valueOf(character.getCurrentHealth()), camera.position.x+282*1.1f, camera.position.y+127*1.1f);
 		font.draw(batch, "X " + character.getFood(), camera.position.x+23, camera.position.y+25);
 		batch.end();
 	}

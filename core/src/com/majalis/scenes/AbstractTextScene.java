@@ -38,8 +38,8 @@ public abstract class AbstractTextScene extends Scene {
     public void draw(Batch batch, float parentAlpha) {
 		super.draw(batch, parentAlpha);
 		font.setColor(0, 0, 0, 1);
-		font.draw(batch, getDisplay(), 265, 215, 750, Align.center, true);
-		font.draw(batch, "Press CTRL to skip", 70, 120, 160, Align.center, true);
+		font.draw(batch, getDisplay(), 430, 322, 1125, Align.center, true);
+		font.draw(batch, "Press CTRL to skip", 105, 180, 240, Align.center, true);
     }
 	
 	protected abstract String getDisplay();

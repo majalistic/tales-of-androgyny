@@ -53,6 +53,7 @@ public enum AssetEnum {
 	BALANCE_ICON_2("battle/Scale2.png"),
 	MANA_ICON_2("battle/Scale2.png"),
 	
+	BATTLE_SKIN("battle/battleui.json"),
 	CHARACTER_POTRAIT("battle/Neutral.png"),
 	FOREST_BG("battle/ForestBG.jpg"),
 	PLAINS_BG("battle/AbandonedField.jpg"),

@@ -51,10 +51,10 @@ public class OptionScreen extends AbstractScreen {
 		preferences  = Gdx.app.getPreferences("tales-of-androgyny-preferences");
 		
 		/* Video options */
-		addLabelActor("- Video Options -", 575, 575);
+		addLabelActor("- Video Options -", 860, 820);
 		
 		/* Full Screen toggle */
-		final CheckBox fullScreen = new CheckBox("FullScreen", skin);
+		final CheckBox fullScreen = new CheckBox("    FullScreen", skin);
 		fullScreen.addListener(new ChangeListener() {
 	        @Override
 	        public void changed(ChangeEvent event, Actor actor) {
@@ -67,10 +67,10 @@ public class OptionScreen extends AbstractScreen {
 	        }
 	    });
 		fullScreen.getCells().get(0).size(50, 50);
-		addActorAndListen(fullScreen, 865, 425);
+		addActorAndListen(fullScreen, 1099, 651);
 		
 		/* Resolution selection */
-		addLabelActor("Resolution", 475, 525);
+		addLabelActor("Resolution", 700, 750);
 		final SelectBox<Vector2> resolution = new SelectBox<Vector2>(skin);
 		resolution.setItems(new Array<Vector2>(true, new Vector2[]{new Vector2(1920, 1080), new Vector2(1600, 900), new Vector2(1280, 720), new Vector2(960, 540)}, 0, 4));
 		resolution.addListener(new ChangeListener() {
@@ -85,14 +85,14 @@ public class OptionScreen extends AbstractScreen {
 	        }
 	    });
 		resolution.setWidth(150);
-		addActorAndListen(resolution, 480, 475);
+		addActorAndListen(resolution, 700, 700);
 		
 		/* Sound options */
-		addLabelActor("- Sound Options -", 575, 380);
-		addLabelActor("Sound volume:", 435, 320);
-		addLabelActor("Music volume:", 435, 220);
-		final Label soundVolumePercent = addLabelActor(String.valueOf((int)(preferences.getFloat("volume", 1) * 100)) +"%", 865, 260);
-		final Label musicVolumePercent = addLabelActor(String.valueOf((int)(preferences.getFloat("musicVolume", 1) * 100)) +"%", 865, 160);
+		addLabelActor("- Sound Options -", 860, 512);
+		addLabelActor("Sound volume:", 745, 440);
+		addLabelActor("Music volume:", 745, 280);
+		final Label soundVolumePercent = addLabelActor(String.valueOf((int)(preferences.getFloat("volume", 1) * 100)) +"%",1145, 375);
+		final Label musicVolumePercent = addLabelActor(String.valueOf((int)(preferences.getFloat("musicVolume", 1) * 100)) +"%", 1145, 190);
 		
 		/* Sound slider */
 		final Slider soundSlider = new Slider(0, 1, .1f, false, skin);
@@ -109,7 +109,7 @@ public class OptionScreen extends AbstractScreen {
 	    });
 		soundSlider.getStyle().knob.setMinHeight(40);
 		soundSlider.setSize(400, 40);
-		addActorAndListen(soundSlider, 435, 260);
+		addActorAndListen(soundSlider, 745, 375);
 		/* Music Slider */
 		final Slider musicSlider = new Slider(0, 1, .1f, false, skin);
 		
@@ -124,11 +124,10 @@ public class OptionScreen extends AbstractScreen {
 	        }
 	    });
 		musicSlider.setSize(400, 40);
-		addActorAndListen(musicSlider, 435, 160);
+		addActorAndListen(musicSlider, 745, 190);
 		
 		final TextButton done = new TextButton("Done", skin);
 		
-		done.setSize(180, 40);
 		done.addListener(
 			new ClickListener(){
 				@Override
@@ -140,7 +139,7 @@ public class OptionScreen extends AbstractScreen {
 		        }
 			}
 		);
-		addActorAndListen(done, 1015, 80);
+		addActorAndListen(done, 1500, 100);
 	}
 	
 	@Override

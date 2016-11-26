@@ -34,10 +34,10 @@ public class Background extends Group{
 		
 		public BackgroundBuilder setDialogBox(Texture dialogBoxTexture){
 			this.dialogBoxTexture = dialogBoxTexture;
-			this.width3 = 940;
-			this.height3 = 300;
-			this.x3 = 170;
-			this.y3 = -50;
+			this.width3 = 1410;
+			this.height3 = 450;
+			this.x3 = 255;
+			this.y3 = -75;
 			return this;
 		}
 		

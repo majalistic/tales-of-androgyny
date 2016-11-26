@@ -34,10 +34,10 @@ public class GameTypeScene extends AbstractChoiceScene {
         	this.addActor(button);
         } 
         for(TextButton button : buttons){
-        	button.setSize(184, 36);
+        	button.setSize(345, 90);
         }
-        buttons.get(0).setPosition(1030, 240);
-        buttons.get(1).setPosition(78, 240);	
+        buttons.get(0).setPosition(1515, 380);
+        buttons.get(1).setPosition(90, 380);	
         if(!TrapRPG.patron)
         	buttons.get(1).setTouchable(Touchable.disabled);
 	}

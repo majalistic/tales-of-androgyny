@@ -83,14 +83,14 @@ public class CharacterScreen extends AbstractScreen {
 		        }
 			}
 		);
-		done.setPosition(1015, 20);
+		done.setPosition(1523, 30);
 		this.addActor(done);
 		
 		if (character.needsLevelUp()){
 			final boolean levelup = character.getStoredLevels() > 0;
 			final TextButton levelUp = new TextButton(levelup ? "Level Up!" : "Learn Skills", skin);
 			
-			levelUp.setSize(180, 40); 
+			levelUp.setSize(270, 40); 
 			TextButtonStyle style = new TextButtonStyle(levelUp.getStyle());
 			style.fontColor = levelup ? Color.OLIVE : Color.GOLDENROD;
 			levelUp.setStyle(style);
@@ -106,7 +106,7 @@ public class CharacterScreen extends AbstractScreen {
 			        }
 				}
 			);
-			levelUp.setPosition(800, 20);
+			levelUp.setPosition(1200, 30);
 			this.addActor(levelUp);
 		}
 	}
@@ -114,7 +114,6 @@ public class CharacterScreen extends AbstractScreen {
 	@Override
 	public void buildStage() {
 		// TODO Auto-generated method stub
-		
 	}
 	
 	@Override
@@ -126,22 +125,22 @@ public class CharacterScreen extends AbstractScreen {
 		camera.update();
 		batch.begin();
 		font.setColor(0.4f,0.4f,0.4f,1);
-		int baseX = 750;
-		int baseY = 700;
+		int baseX = 1125;
+		int baseY = 1050;
 		int offset = 0;
 		for (Stat stat: PlayerCharacter.Stat.values()){
-			font.setColor(0.6f,0.2f,0.1f,1);
+			font.setColor(0.6f, 0.2f, 0.1f, 1);
 			Texture statTexture = statTextureMap.get(stat);
-			batch.draw(statTexture, baseX + 15, baseY - (offset + 20), statTexture.getWidth() / (statTexture.getHeight() / 35), 35);
-			font.draw(batch, ": ", baseX+180, baseY - offset);
+			batch.draw(statTexture, baseX + 22, baseY - (offset + 30), statTexture.getWidth() / (statTexture.getHeight() / 52), 52);
+			font.draw(batch, ": ", baseX + 270, baseY - offset);
 			int amount = character.getBaseStat(stat);
 			setFontColor(font, amount);
-			font.draw(batch, String.valueOf(amount), baseX+200, baseY - offset);
-			font.draw(batch, "- " + PlayerCharacter.getStatMap().get(stat).get(amount), baseX+215, baseY - offset);
-			offset += 50;
+			font.draw(batch, String.valueOf(amount), baseX + 300, baseY - offset);
+			font.draw(batch, "- " + PlayerCharacter.getStatMap().get(stat).get(amount), baseX+322, baseY - offset);
+			offset += 75;
 		}
 		int storedLevels = character.getStoredLevels();
-		font.draw(batch, "Level: " + character.getLevel() + "\nExperience: " + character.getExperience() + (storedLevels > 0 ? "\nAvailable Levels: " + storedLevels : ""), 800, 800);
+		font.draw(batch, "Level: " + character.getLevel() + "\nExperience: " + character.getExperience() + (storedLevels > 0 ? "\nAvailable Levels: " + storedLevels : ""), 1200, 1200);
 		batch.end();
 		if (Gdx.input.isKeyJustPressed(Keys.ENTER)){
 			showScreen(ScreenEnum.LOAD_GAME);

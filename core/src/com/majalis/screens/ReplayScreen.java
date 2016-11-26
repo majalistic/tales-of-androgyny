@@ -59,7 +59,7 @@ public class ReplayScreen extends AbstractScreen {
 		camera.update();
 		batch.begin();
 		if (enemyTexture != null){
-			batch.draw(enemyTexture, 700, 330, (enemyTexture.getWidth() / (enemyTexture.getHeight() / 770.f)), 770);
+			batch.draw(enemyTexture, 1450, 485, (enemyTexture.getWidth() / (enemyTexture.getHeight() / 1155.f)), 1155);
 		}
 		if(!nothingToDisplay.equals("")){
 			font.draw(batch, nothingToDisplay, 1170, 880);
@@ -88,15 +88,14 @@ public class ReplayScreen extends AbstractScreen {
 			        }
 				}
 			);
-			table.add(button).size(120, 40).row();
+			table.add(button).size(180, 60).row();
 		}
         table.setFillParent(true);        
         this.addActor(table);
-        table.setPosition(330, 130);
+        table.setPosition(495, 195);
         
 		final TextButton done = new TextButton("Done", skin);
 		
-		done.setSize(180, 40);
 		done.addListener(
 			new ClickListener(){
 				@Override
@@ -106,7 +105,7 @@ public class ReplayScreen extends AbstractScreen {
 		        }
 			}
 		);
-		done.setPosition(1015, 80);
+		done.setPosition(1500, 100);
 		this.addActor(done);
 	}
 	

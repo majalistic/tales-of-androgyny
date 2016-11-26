@@ -68,14 +68,14 @@ public class MainMenuScreen extends AbstractScreen {
 		for (int ii = 0; ii < buttonLabels.size; ii++){
 			buttons.add(new TextButton(buttonLabels.get(ii), skin));
 			buttons.get(ii).addListener(getListener(optionList.get(ii), ii));
-			table.add(buttons.get(ii)).size(120, 40).row();
+			table.add(buttons.get(ii)).size(180, 60).row();
 		}
 	
         table.setFillParent(true);
         
         this.addActor(new BackgroundBuilder(backgroundImage).build());
         this.addActor(table);
-        table.setPosition(330, 130);
+        table.setPosition(495, 195);
         music.play();
         music.setVolume(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("musicVolume", 1));
         music.setLooping(true);
@@ -108,9 +108,9 @@ public class MainMenuScreen extends AbstractScreen {
 		
 		batch.setProjectionMatrix(camera.combined);
 		batch.begin(); 
-		batch.draw(arrowImage, 1520, 925 - selection * 40, 30, 50);
+		batch.draw(arrowImage, 2280, 1398 - selection * 60, 30, 50);
 		// need to make these relative to viewport
-		font.draw(batch, "Version: 0.1.13.0", 1500, 1070);
+		font.draw(batch, "Version: 0.1.14.0", 2650, 600);
 		batch.end();
 	}
 

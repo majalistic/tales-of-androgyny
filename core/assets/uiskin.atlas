@@ -1,106 +1,120 @@
-UiSkin.png
-size: 409, 631
+
+uiskin.png
 format: RGBA8888
-filter: Linear,Linear
+filter: Nearest,Nearest
 repeat: none
-Bar
+EmbelishedButton64L
   rotate: false
-  xy: 0, 46
-  size: 362, 64
-  split: 169, 180, 30, 31
-  pad: 65, 14, 15, 14
-  orig: 362, 64
+  xy: 1, 428
+  size: 600, 72
+  orig: 600, 72
   offset: 0, 0
   index: -1
-FancyBox
+Slider
   rotate: false
-  xy: 46, 364
-  size: 258, 267
-  split: 123, 123, 128, 126
-  pad: 26, 28, 17, 18
-  orig: 258, 267
+  xy: 1, 354
+  size: 600, 72
+  orig: 600, 72
   offset: 0, 0
   index: -1
-Fill
+TextFieldBG
   rotate: false
-  xy: 0, 0
-  size: 102, 33
-  orig: 102, 33
+  xy: 1, 280
+  size: 548, 72
+  orig: 548, 72
   offset: 0, 0
   index: -1
-HScroll
+SliderP
   rotate: false
-  xy: 102, 0
-  size: 122, 46
-  split: 57, 63, 21, 23
-  pad: 12, 13, 10, 11
-  orig: 122, 46
+  xy: 1, 206
+  size: 511, 72
+  orig: 511, 72
   offset: 0, 0
   index: -1
-Knob
+EmbelishedButton128
   rotate: false
-  xy: 362, 46
-  size: 42, 69
-  orig: 42, 69
+  xy: 603, 364
+  size: 300, 136
+  orig: 300, 136
   offset: 0, 0
   index: -1
-TextButton
+EmbelishedButton64
   rotate: false
-  xy: 0, 115
-  size: 397, 75
-  split: 211, 175, 15, 14
-  pad: 107, 76, 21, 22
-  orig: 397, 75
+  xy: 1, 132
+  size: 300, 72
+  orig: 300, 72
   offset: 0, 0
   index: -1
-TextButtonClick
+EmbelishedButton64D
   rotate: false
-  xy: 0, 190
-  size: 409, 87
-  split: 209, 174, 22, 21
-  pad: 115, 83, 26, 27
-  orig: 409, 87
+  xy: 1, 58
+  size: 300, 72
+  orig: 300, 72
   offset: 0, 0
   index: -1
-TextButtonHover
+NegButton
   rotate: false
-  xy: 0, 277
-  size: 409, 87
-  split: 211, 172, 21, 22
-  pad: 112, 81, 26, 27
-  orig: 409, 87
+  xy: 303, 23
+  size: 176, 181
+  orig: 176, 181
   offset: 0, 0
   index: -1
-VScroll
+EmbelishedButton64F
   rotate: false
-  xy: 0, 364
-  size: 46, 122
-  split: 15, 17, 57, 63
-  pad: 10, 11, 12, 13
-  orig: 46, 122
+  xy: 603, 290
+  size: 300, 72
+  orig: 300, 72
   offset: 0, 0
   index: -1
-  SliderLead
+PosButton
+  rotate: false
+  xy: 481, 23
+  size: 176, 181
+  orig: 176, 181
+  offset: 0, 0
+  index: -1
+Checked
+  rotate: false
+  xy: 659, 143
+  size: 134, 145
+  orig: 134, 145
+  offset: 0, 0
+  index: -1
+Unchecked
+  rotate: false
+  xy: 795, 143
+  size: 134, 145
+  orig: 134, 145
+  offset: 0, 0
+  index: -1
+SliderFill
+  rotate: false
+  xy: 1, 1
+  size: 67, 55
+  orig: 67, 55
+  offset: 0, 0
+  index: -1
+SliderKnob
+  rotate: false
+  xy: 659, 100
+  size: 60, 41
+  orig: 60, 41
+  offset: 0, 0
+  index: -1
+TextCursor
+  rotate: false
+  xy: 551, 285
+  size: 24, 67
+  orig: 24, 67
+  offset: 0, 0
+  index: -1
+SliderLead
   rotate: false
   xy: 905, 431
   size: 1, 1
   orig: 1, 1
   offset: 0, 0
   index: -1 
-Checked
-  rotate: false
-  xy: 174, 48
-  size: 1, 1
-  orig: 1, 1
-  offset: 0, 0
-  index: -1
-Unchecked
-  rotate: false
-  xy: 174, 48
-  size: 1, 1
-  orig: 1, 1
-  offset: 0, 0
-  index: -1
 white
   rotate: false
   xy: 174, 48
@@ -122,3 +136,4 @@ black
   orig: 1, 1
   offset: 0, 0
   index: -1
+

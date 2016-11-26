@@ -32,7 +32,7 @@ public class GameOverScreen extends AbstractScreen {
 
 	@Override
 	public void buildStage() {
-		this.addActor(new BackgroundBuilder(backgroundImage, 934, 720).build());
+		this.addActor(new BackgroundBuilder(backgroundImage, 1381, 1080).build());
 	}
 	
 	@Override
@@ -44,8 +44,8 @@ public class GameOverScreen extends AbstractScreen {
 		camera.update();
 		batch.begin();
 		font.setColor(Color.BLACK);
-		font.draw(batch, "Press Enter", 650, 400);
-		font.draw(batch, String.valueOf(clocktick++), 1820, 400);
+		font.draw(batch, "Press Enter", 975, 600);
+		font.draw(batch, String.valueOf(clocktick++), 2800, 600);
 		batch.end();
 		if (Gdx.input.isKeyJustPressed(Keys.ENTER) || clocktick >= 500)
 			showScreen(ScreenEnum.MAIN_MENU);

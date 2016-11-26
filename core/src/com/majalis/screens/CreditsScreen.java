@@ -34,7 +34,7 @@ public class CreditsScreen extends AbstractScreen{
 		final Sound sound = assetManager.get(AssetEnum.BUTTON_SOUND.getPath(), Sound.class);
 		final TextButton done = new TextButton("Done", skin);
 		
-		done.setSize(180, 40);
+		
 		done.addListener(
 			new ClickListener(){
 				@Override
@@ -44,7 +44,7 @@ public class CreditsScreen extends AbstractScreen{
 		        }
 			}
 		);
-		done.setPosition(1015, 80);
+		done.setPosition(1523, 120);
 		this.addActor(done);
 		
 		credits = "\"Broken Reality\", \"Danse Macabre - Sad Part - no violin\", \"Floating Cities\", \"Kings of Tara\""
@@ -71,7 +71,7 @@ public class CreditsScreen extends AbstractScreen{
 		camera.update();
 		batch.begin();
 		font.setColor(Color.BLACK);
-		font.draw(batch, credits, 770, 1000);
+		font.draw(batch, credits, 1450, 1300);
 		batch.end();
 		
 		if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)){

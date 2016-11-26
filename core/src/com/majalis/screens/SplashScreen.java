@@ -51,7 +51,7 @@ public class SplashScreen extends AbstractScreen {
 		
 		progress = new ProgressBar(0, 1, .05f, false, skin);
 		progress.setSize(280, 30);
-		progress.setPosition(980, 70);
+		progress.setPosition(1600, 105);
 		this.addActor(progress);
 		
 	}
@@ -64,11 +64,11 @@ public class SplashScreen extends AbstractScreen {
 		batch.setProjectionMatrix(camera.combined);
 		camera.update();
 		batch.begin();
-		font.setColor(Color.BLACK);
 		if (!assetManager.update() || clocktick++ < minTime){
-			batch.draw(background, 900, 300, background.getWidth() / (background.getHeight() / 800f), 800);
+			batch.draw(background, 1500, 600, background.getWidth() / (background.getHeight() / 900f), 900);
 			progress.setValue(assetManager.getProgress());
-			font.draw(batch, "Loading: " + (int)(assetManager.getProgress() * 100) + "%", 1725, 400);
+			font.setColor(Color.BLACK);
+			font.draw(batch, "Loading: " + (int)(assetManager.getProgress() * 100) + "%", 2650, 600);
 		}	
 		else {
 			showScreen(ScreenEnum.MAIN_MENU);

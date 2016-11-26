@@ -1,0 +1,126 @@
+battleui.png
+size: 339, 561
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Bar
+  rotate: false
+  xy: 199, 0
+  size: 98, 48
+  split: 61, 24, 10, 11
+  pad: 46, 6, 11, 11
+  orig: 98, 48
+  offset: 0, 0
+  index: -1
+FancyBox
+  rotate: false
+  xy: 46, 294
+  size: 258, 267
+  split: 123, 123, 128, 126
+  pad: 26, 28, 17, 18
+  orig: 258, 267
+  offset: 0, 0
+  index: -1
+Fill
+  rotate: false
+  xy: 0, 0
+  size: 77, 25
+  split: 4, 4, 3, 4
+  pad: 1, 0, 0, 0
+  orig: 77, 25
+  offset: 0, 0
+  index: -1
+HScroll
+  rotate: false
+  xy: 77, 0
+  size: 122, 46
+  split: 57, 63, 21, 23
+  pad: 12, 13, 10, 11
+  orig: 122, 46
+  offset: 0, 0
+  index: -1
+Knob
+  rotate: false
+  xy: 297, 0
+  size: 42, 69
+  orig: 42, 69
+  offset: 0, 0
+  index: -1
+TextButton
+  rotate: false
+  xy: 0, 144
+  size: 307, 75
+  split: 169, 127, 19, 20
+  pad: 107, 78, 19, 20
+  orig: 307, 75
+  offset: 0, 0
+  index: -1
+TextButtonClick
+  rotate: false
+  xy: 0, 69
+  size: 307, 75
+  split: 164, 132, 19, 20
+  pad: 107, 75, 20, 19
+  orig: 307, 75
+  offset: 0, 0
+  index: -1
+TextButtonHover
+  rotate: false
+  xy: 0, 219
+  size: 307, 75
+  split: 179, 123, 19, 20
+  pad: 107, 75, 20, 20
+  orig: 307, 75
+  offset: 0, 0
+  index: -1
+VScroll
+  rotate: false
+  xy: 0, 294
+  size: 46, 122
+  split: 15, 17, 57, 63
+  pad: 10, 11, 12, 13
+  orig: 46, 122
+  offset: 0, 0
+  index: -1
+  SliderLead
+  rotate: false
+  xy: 905, 431
+  size: 1, 1
+  orig: 1, 1
+  offset: 0, 0
+  index: -1 
+Checked
+  rotate: false
+  xy: 174, 48
+  size: 1, 1
+  orig: 1, 1
+  offset: 0, 0
+  index: -1
+Unchecked
+  rotate: false
+  xy: 174, 48
+  size: 1, 1
+  orig: 1, 1
+  offset: 0, 0
+  index: -1
+white
+  rotate: false
+  xy: 174, 48
+  size: 1, 1
+  orig: 1, 1
+  offset: 0, 0
+  index: -1
+gray
+  rotate: false
+  xy: 174, 48
+  size: 1, 1
+  orig: 1, 1
+  offset: 0, 0
+  index: -1
+black
+  rotate: false
+  xy: 174, 48
+  size: 1, 1
+  orig: 1, 1
+  offset: 0, 0
+  index: -1

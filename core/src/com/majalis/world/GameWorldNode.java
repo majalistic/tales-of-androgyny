@@ -128,7 +128,7 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 		currentImage = new AnimatedImage(animation, Scaling.fit, Align.right);
 		currentImage.setScale(.7f);
 		currentImage.setState(0);
-		currentImage.setPosition(20, 28);
+		currentImage.setPosition(12, 25);
 		this.addActor(currentImage);
 		for (GameWorldNode connectedNode : connectedNodes){
 			connectedNode.setActive(currentImage, new Vector2(connectedNode.getPosition().x -position.x, connectedNode.getPosition().y - position.y));

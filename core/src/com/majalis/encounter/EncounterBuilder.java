@@ -506,6 +506,9 @@ public class EncounterBuilder {
 		return sceneMap;
 	}
 	
+	private OrderedMap<Integer, Scene> getChoiceScene(AssetManager assetManager, String choiceDialogue, Array<String> buttonLabels, OrderedMap<Integer, Scene>... sceneMaps){
+		return getChoiceScene(assetManager, choiceDialogue, buttonLabels, new Array<PlayerCharacter>(), sceneMaps);
+	}
 	private OrderedMap<Integer, Scene> getChoiceScene(AssetManager assetManager, String choiceDialogue, Array<String> buttonLabels, Array<PlayerCharacter> checks, OrderedMap<Integer, Scene>... sceneMaps){
 		OrderedMap<Integer, Scene> sceneMap = aggregateMaps(sceneMaps);
 		
@@ -527,16 +530,12 @@ public class EncounterBuilder {
 				button.addListener(getListener(choiceScene, sceneMap.get(sceneMap.orderedKeys().get(ii)), buttonSound));
 			}
 			
-			table.add(button).size(360, 40).row();
+			table.add(button).size(500, 60).row();
 			ii++;
 		}
 				
 		return addScene(choiceScene);
 		
-	}
-	
-	private OrderedMap<Integer, Scene> getChoiceScene(AssetManager assetManager, String choiceDialogue, Array<String> buttonLabels, OrderedMap<Integer, Scene>... sceneMaps){
-		return getChoiceScene(assetManager, choiceDialogue, buttonLabels, new Array<PlayerCharacter>(), sceneMaps);
 	}
 	
 	private ClickListener getListener(final AbstractChoiceScene currentScene, final Scene nextScene, final Sound buttonSound){

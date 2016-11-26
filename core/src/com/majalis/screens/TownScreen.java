@@ -54,7 +54,7 @@ public class TownScreen extends AbstractScreen {
 		buttonSound = assetManager.get(AssetEnum.BUTTON_SOUND.getPath(), Sound.class);
 		Texture shopkeepTexture = assetManager.get(AssetEnum.SHOPKEEP.getPath(), Texture.class);
 		shopkeep = new Image(shopkeepTexture);
-		shopkeep.setSize(shopkeepTexture.getWidth() / (shopkeepTexture.getHeight() / 700f), 700);
+		shopkeep.setSize(shopkeepTexture.getWidth() / (shopkeepTexture.getHeight() / 1050f), 1050);
 		
 		buttons = new Array<TextButton>();
 		selection = 0;
@@ -70,7 +70,7 @@ public class TownScreen extends AbstractScreen {
 		for (int ii = 0; ii < buttonLabels.size; ii++){
 			buttons.add(new TextButton(buttonLabels.get(ii), skin));
 			buttons.get(ii).addListener(getListener(ii));
-			table.add(buttons.get(ii)).size(200, 40).row();
+			table.add(buttons.get(ii)).size(300, 60).row();
 		}
 		
 		buttons.get(3).addListener(new ClickListener(){
@@ -87,13 +87,13 @@ public class TownScreen extends AbstractScreen {
         
         this.addActor(background);
         this.addActor(shopkeep);
-        shopkeep.setPosition(200, 0);
+        shopkeep.setPosition(300, 0);
         
         this.addActor(table);
-        table.setPosition(200, 130);
+        table.setPosition(300, 195);
         this.addActor(arrow);
         
-        arrow.setSize(30, 50);
+        arrow.setSize(45, 75);
         music.play();
         music.setVolume(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("musicVolume", 1));
         music.setLooping(true);
@@ -122,7 +122,7 @@ public class TownScreen extends AbstractScreen {
             event2.setType(InputEvent.Type.touchUp);
             buttons.get(selection).fire(event2);
         }
-        arrow.setPosition(710, 525 - selection * 40);
+        arrow.setPosition(1065, 788 - selection * 60);
 		camera.update();
 		batch.setProjectionMatrix(camera.combined);
 	}

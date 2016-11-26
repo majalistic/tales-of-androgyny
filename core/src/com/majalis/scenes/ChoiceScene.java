@@ -33,7 +33,7 @@ public class ChoiceScene extends AbstractChoiceScene {
 		this.addActor(background);
 		
         table.setFillParent(true);
-        table.setPosition(640, 400);
+        table.setPosition(960, 600);
         // may need to add the background as an actor
         this.addActor(table);
         this.choiceDialogue = choiceDialogue;
@@ -44,7 +44,7 @@ public class ChoiceScene extends AbstractChoiceScene {
     public void draw(Batch batch, float parentAlpha) {
 		super.draw(batch, parentAlpha);
 		font.setColor(0.5f,0.4f,0,1);
-		font.draw(batch, choiceDialogue, 400, 600, 480, Align.center, true);
+		font.draw(batch, choiceDialogue, 600, 900, 620, Align.center, true);
     }
 	
 	public int getCode(){

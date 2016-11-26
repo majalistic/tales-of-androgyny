@@ -46,11 +46,11 @@ public class CharacterCustomizationScene extends Scene {
     public void draw(Batch batch, float parentAlpha) {
 		super.draw(batch, parentAlpha);
 		font.setColor(0.5f,0.4f,0,1);
-		font.draw(batch, "Character Customization", 600, 600);
+		font.draw(batch, "Character Customization", 900, 900);
 		font.setColor(0.4f,0.4f,0.4f,1);
-		int base = 500;
-		font.draw(batch,  "Name:", base-345, 540);
-		font.draw(batch, console, base, 550);
+		int base = 75;
+		font.draw(batch,  "Name:", base + 100, 710);
+		font.draw(batch, console, base + 100, 825);
     }
 	
 	@Override
@@ -74,7 +74,7 @@ public class CharacterCustomizationScene extends Scene {
 		        }
 			}
 		);
-		done.setPosition(1015, 20);
+		done.setPosition(1522, 30);
 		addActor(done);
 		
 		final Table table = new Table();
@@ -92,11 +92,11 @@ public class CharacterCustomizationScene extends Scene {
 			});
 			table.add(button).size(220, 40).row();
 		}
-		table.setPosition(225, 350);
+		table.setPosition(383, 525);
 		addActor(table);
 		
 		final TextField nameField = new TextField("", skin);
-		nameField.setPosition(155, 450);
+		nameField.setPosition(233, 675);
 		addActor(nameField);
 		this.addListener(new InputListener() {
 	        @Override
