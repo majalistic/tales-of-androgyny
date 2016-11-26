@@ -265,15 +265,28 @@ public class Battle extends Group{
 			gameExit = true;
 		}
 		else {
-			Technique playerTechnique = getTechnique();
-			if (playerTechnique != null){		
+			if (selectedTechnique == null){
+				int ii = 0;
+				for (int possibleKey : POSSIBLE_KEYS){
+					if (Gdx.input.isKeyJustPressed(possibleKey)){
+						if (ii < optionButtons.size){
+							selectedTechnique = clickButton(optionButtons.get(ii));
+							break;
+						}
+					}
+					ii++;
+				}
+			}
+				
+			if (selectedTechnique != null){		
 				buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
 				// possibly construct a separate class for this
-				resolveTechniques(character, playerTechnique, enemy, enemy.getTechnique(character));
+				resolveTechniques(character, selectedTechnique, enemy, enemy.getTechnique(character));
+				selectedTechnique = null;
 				displayTechniqueOptions();
 				saveService.saveDataValue(SaveEnum.PLAYER, character);
 				saveService.saveDataValue(SaveEnum.ENEMY, enemy);
-				saveService.saveDataValue(SaveEnum.CONSOLE, consoleText);
+				saveService.saveDataValue(SaveEnum.CONSOLE, consoleText);				
 			}
 		}
 
@@ -324,26 +337,6 @@ public class Battle extends Group{
         table.setPosition(25, 250*scaler);
         table.addAction(Actions.moveBy(125, 0, .1f));
         newSelection(0);
-	}
-	
-	private Technique getTechnique() {
-		if (selectedTechnique != null){
-			Technique temp = selectedTechnique;
-			selectedTechnique = null;
-			return temp;
-		}
-		int ii = 0;
-		for (int possibleKey : POSSIBLE_KEYS){
-			if (Gdx.input.isKeyJustPressed(possibleKey)){
-				if (ii < optionButtons.size){
-					Technique selectedTechnique = clickButton(optionButtons.get(ii));
-					this.selectedTechnique = null;
-					return selectedTechnique;
-				}
-			}
-			ii++;
-		}
-		return null;
 	}
 	
 	// should probably use String builder to build a string to display in the console - needs to properly be getting information from the interactions - may need to be broken up into its own class
