@@ -40,7 +40,6 @@ public class SkillSelectionScene extends Scene {
 	private ObjectMap<Techniques, TextButton> techniquesToButtons;
 	private String skillDisplay;
 	
-	// needs a done button, as well as other interface elements
 	public SkillSelectionScene(OrderedMap<Integer, Scene> sceneBranches, int sceneCode, final SaveService saveService, BitmapFont font, Background background, AssetManager assetManager, PlayerCharacter character) {
 		super(sceneBranches, sceneCode);
 		this.saveService = saveService;

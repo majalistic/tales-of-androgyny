@@ -58,7 +58,6 @@ public class CharacterCreationScene extends Scene {
 		
 		final TextButton done = new TextButton("Done", skin);
 		
-		done.setSize(180, 40); 
 		done.addListener(
 			new ClickListener(){
 				@Override
