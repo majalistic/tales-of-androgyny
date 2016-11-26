@@ -37,6 +37,7 @@ import com.majalis.scenes.Mutation;
 import com.majalis.scenes.Scene;
 import com.majalis.scenes.SkillSelectionScene;
 import com.majalis.scenes.TextScene;
+import com.majalis.scenes.CheckScene.CheckType;
 /*
  * Given a sceneCode, reads that encounter and constructs it from a script file.
  */
@@ -162,7 +163,6 @@ public class EncounterBuilder {
 						assetManager, Stat.AGILITY, new IntArray(new int[]{6, 4}), character,
 						getTextScenes(
 							getScript(battleCode, 1), font, background, 
-							// need to create a getBattleScene method
 							getBattleScene(
 								saveService, battleCode, Stance.BALANCED, Stance.PRONE,
 								getTextScenes(getArray(new String[]{"You defeated the harpy!", "You receive 1 Experience."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.EXPERIENCE, 1)}), getEndScene(EndScene.Type.ENCOUNTER_OVER)),
@@ -440,6 +440,31 @@ public class EncounterBuilder {
 					)
 				);
 				break;
+			case 5:
+				Background centaurBackground = new BackgroundBuilder(backgroundTexture).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class)).setForeground(assetManager.get(AssetEnum.CENTAUR.getPath(), Texture.class)).build();
+				getTextScenes(
+					getScript(battleCode, 0), font, background, getArray(new Mutation[]{new Mutation(saveService, ProfileEnum.KNOWLEDGE, EnemyEnum.CENTAUR.toString())}),
+					getCheckScene(
+						assetManager, CheckType.VIRGIN, character,
+						getTextScenes(
+							getScript(battleCode, 1), font, centaurBackground, 
+							getBattleScene(
+								saveService, battleCode,
+								getTextScenes(getArray(new String[]{"You defeated the centaur!", "You receive 3 Experience."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.EXPERIENCE, 1)}), getEndScene(EndScene.Type.ENCOUNTER_OVER)),
+								getTextScenes(getScript(battleCode, 3), font, centaurBackground, getEndScene(EndScene.Type.ENCOUNTER_OVER))					
+							)
+						),
+						getTextScenes(
+							getScript(battleCode, 2), font, background, 
+							getBattleScene(
+								saveService, battleCode,
+								getTextScenes(getArray(new String[]{"You defeated the centaur!", "You receive 3 Experience."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.EXPERIENCE, 1)}), getEndScene(EndScene.Type.ENCOUNTER_OVER)),
+								getTextScenes(getScript(battleCode, 3), font, centaurBackground, getEndScene(EndScene.Type.ENCOUNTER_OVER))					
+							)
+						)
+					)
+				);		
+				break;	
 			default:
 				getTextScenes(
 					getScript("TOWN"), font, new BackgroundBuilder(assetManager.get(AssetEnum.TRAP_BONUS.getPath(), Texture.class)).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class)).build(),
@@ -577,6 +602,13 @@ public class EncounterBuilder {
 			checkValueMap.put(checkValues.get(ii), sceneMap.get(sceneMap.orderedKeys().get(ii)));
 		}
 		CheckScene checkScene = new CheckScene(sceneMap, sceneCounter, saveService, font, new BackgroundBuilder(background).build(), stat, checkValueMap, sceneMap.get(sceneMap.orderedKeys().get(ii)), character);
+		return addScene(checkScene);
+	}
+	
+	private OrderedMap<Integer, Scene> getCheckScene(AssetManager assetManager, CheckType checkType, PlayerCharacter character, OrderedMap<Integer, Scene>... sceneMaps){
+		OrderedMap<Integer, Scene> sceneMap = aggregateMaps(sceneMaps);
+		Texture background = assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getPath(), Texture.class);
+		CheckScene checkScene = new CheckScene(sceneMap, sceneCounter, saveService, font, new BackgroundBuilder(background).build(), checkType, sceneMap.get(sceneMap.orderedKeys().get(0)), sceneMap.get(sceneMap.orderedKeys().get(1)), character);
 		return addScene(checkScene);
 	}
 	

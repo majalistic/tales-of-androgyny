@@ -43,7 +43,7 @@ public class PlayerCharacter extends AbstractCharacter {
 	protected Femininity femininity;
 	protected LipFullness lipFullness;
 	
-	/* anatomy - contains current and permanent properties */
+	private boolean virgin;
 	private boolean a2m;
 	private boolean a2mcheevo;
 	
@@ -61,6 +61,7 @@ public class PlayerCharacter extends AbstractCharacter {
 			setStabilityToMax();
 			setManaToMax();
 			food = 40;
+			virgin = true;
 			a2m = false;
 			a2mcheevo = false;
 			battleOver = 0;
@@ -203,7 +204,6 @@ public class PlayerCharacter extends AbstractCharacter {
 				possibleTechniques.add(new Technique(technique.getTrait(), power));
 			}	
 		}
-		
 		return possibleTechniques;
 	}
 	
@@ -220,17 +220,25 @@ public class PlayerCharacter extends AbstractCharacter {
 				resolvedAttack.addMessage("You are almost free!");
 			}
 		}	
-		if (resolvedAttack.getForceStance() == Stance.DOGGY){
+		return super.doAttack(resolvedAttack);
+	}
+	
+	@Override
+	public Array<String> receiveAttack(Attack resolvedAttack){
+		super.receiveAttack(resolvedAttack);
+		if (stance == Stance.DOGGY || stance == Stance.ANAL || stance == Stance.STANDING || stance == Stance.COWGIRL){
+			virgin = false;
 			a2m = true;
 		}
-		else if (resolvedAttack.getForceStance() == Stance.FELLATIO && a2m){
+		else if (stance == Stance.FELLATIO && a2m){
 			resolvedAttack.addMessage("Bleugh! That was in your ass!");
 			if (!a2mcheevo){
 				a2mcheevo = true;
+				a2m = false;
 				resolvedAttack.addMessage("Achievement unlocked: Ass to Mouth.");
 			}
 		}
-		return super.doAttack(resolvedAttack);
+		return resolvedAttack.getMessages();		
 	}
 	
 	public void refresh(){
@@ -493,5 +501,9 @@ public class PlayerCharacter extends AbstractCharacter {
 
 	public boolean needsLevelUp() {
 		return skillPoints > 0 || magicPoints > 0 || perkPoints > 0 || getStoredLevels() > 0;
+	}
+	
+	public boolean isVirgin() {
+		return virgin;
 	}
 }

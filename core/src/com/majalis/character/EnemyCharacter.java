@@ -68,6 +68,13 @@ public class EnemyCharacter extends AbstractCharacter {
 				textureImagePaths.put(Stance.DOGGY.toString(), AssetEnum.SLIME_DOGGY.getPath());
 				imagePath = AssetEnum.SLIME.getPath();
 				break;
+			case CENTAUR:
+				baseStrength = 4;
+				baseAgility = 4;
+				basePerception = 5;
+				imagePath = AssetEnum.CENTAUR.getPath();
+				bgPath = AssetEnum.PLAINS_BG.getPath();
+				break;
 		}
 		staminaTiers.removeIndex(staminaTiers.size-1);
 		staminaTiers.add(10);

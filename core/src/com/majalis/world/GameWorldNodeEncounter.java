@@ -45,6 +45,7 @@ public class GameWorldNodeEncounter {
 					case 2: return "Slime";
 					case 3: return "Brigand";
 					case 4: return "Dryad";
+					case 5: return "Centaur";
 					case 1000: return "Small Settlement";
 					case 2000: return "Town of Nadir";
 					default: return "Unknown - No Info for encounter #" + encounterCode + " and perception level = 1";
@@ -60,6 +61,7 @@ public class GameWorldNodeEncounter {
 					case 2: return "Slime - Neutral";
 					case 3: return "Brigand - Hostile!";
 					case 4: return "Dryad - Peaceful";
+					case 5: return "Centaur - Neutral";
 					case 1000: return "Town of Silajam";
 					case 2000: return "Town of Nadir";
 					default: return "Unknown - No Info for encounter #" + encounterCode  + " and perception level = 2";

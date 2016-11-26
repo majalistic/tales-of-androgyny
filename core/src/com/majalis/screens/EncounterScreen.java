@@ -161,6 +161,10 @@ public class EncounterScreen extends AbstractScreen {
 			case 4:
 				requirements.put(AssetEnum.DRYAD_BACKGROUND.getPath(), Texture.class);
 				break;
+			// centaur
+			case 5:
+				requirements.put(AssetEnum.CENTAUR.getPath(), Texture.class);
+				break;
 			default:
 				requirements.put(AssetEnum.TRAP_BONUS.getPath(), Texture.class);	
 				break;

@@ -11,8 +11,10 @@ import com.majalis.save.SaveService;
 public class CheckScene extends AbstractTextScene {
 
 	private final PlayerCharacter character;
-	private final Stat statToCheck;
-	private final OrderedMap<Integer, Scene> checkValues;
+	private Stat statToCheck;
+	private OrderedMap<Integer, Scene> checkValues;
+	private CheckType checkType;
+	private Scene clearScene;
 	private final Scene defaultScene;
 	private String toDisplay;
 	private Scene nextScene;
@@ -25,6 +27,15 @@ public class CheckScene extends AbstractTextScene {
 		this.character = character;
 		toDisplay = "";
 	}
+	
+	public CheckScene(OrderedMap<Integer, Scene> sceneBranches, int sceneCode, SaveService saveService, BitmapFont font, Background background, CheckType checkType, Scene clearScene, Scene defaultScene, PlayerCharacter character) {
+		super(sceneBranches, sceneCode, saveService, font, background);
+		this.checkType = checkType;
+		this.clearScene = clearScene;
+		this.defaultScene = defaultScene;
+		this.character = character;
+		toDisplay = "";
+	}
 
 	@Override
 	public void setActive() {
@@ -33,6 +44,17 @@ public class CheckScene extends AbstractTextScene {
 	}
 	
 	private Scene getNextScene(){
+		if (checkType != null){
+			if (checkType.getCheck(character)){
+				toDisplay += checkType.getSuccess();
+				return clearScene;
+			}
+			else {
+				toDisplay += checkType.getFailure();
+				return defaultScene;
+			}			
+		}
+		
 		int amount = statToCheck == Stat.CHARISMA ? character.getLewdCharisma() : character.getStat(statToCheck);
 		toDisplay += "Your " + statToCheck.toString() + " score: " + amount + "\n\n";
 		for (Integer threshold : checkValues.keys()){
@@ -59,5 +81,25 @@ public class CheckScene extends AbstractTextScene {
 		nextScene.setActive();
 		isActive = false;
 		addAction(Actions.hide());	
+	}
+	
+	public enum CheckType {
+		VIRGIN ("Are you an anal virgin? PASSED!", "Are you an anal virgin? FAILURE!"){ 
+			@Override
+			protected boolean getCheck(PlayerCharacter character) { return character.isVirgin(); } 
+		};
+		
+		private final String success;
+		private final String failure;
+		
+		private CheckType(String success, String failure) { this.success = success; this.failure = failure; }
+		
+		protected abstract boolean getCheck(PlayerCharacter character);
+		protected String getSuccess(){
+			return success;
+		}
+		protected String getFailure(){
+			return failure;
+		}
 	}
 }

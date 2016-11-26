@@ -614,6 +614,30 @@
 		"scriptLines": [
 			"The dryad is unconvinced by your offer, and melds back into her tree, disappearing without a trace. Disappointed, you leave."
 		]
+	},
+	{
+		"key": "005-00",
+		"scriptLines": [
+			"You see a... horse?"
+		]
+	},
+	{
+		"key": "005-01",
+		"scriptLines": [
+			"You're a virgin!"
+		]
+	},
+	{
+		"key": "005-02",
+		"scriptLines": [
+			"You're not a virgin!"
+		]
+	},
+		{
+		"key": "005-03",
+		"scriptLines": [
+			"You lost!"
+		]
 	}
 ]
 }

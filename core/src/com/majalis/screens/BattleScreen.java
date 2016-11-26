@@ -32,7 +32,7 @@ public class BattleScreen extends AbstractScreen{
 		resourceRequirements.put(AssetEnum.BATTLE_MUSIC.getPath(), Music.class);
 		
 		AssetEnum[] assets = new AssetEnum[]{
-			AssetEnum.FOREST_BG,  AssetEnum.STANCE_ARROW, AssetEnum.ANAL, AssetEnum.BLITZ,
+			AssetEnum.ANAL, AssetEnum.BLITZ,
 			AssetEnum.BALANCED, AssetEnum.DEFENSIVE, AssetEnum.DOGGY, AssetEnum.ERUPT, AssetEnum.FELLATIO, AssetEnum.FULL_NELSON, AssetEnum.KNEELING, AssetEnum.HANDY, AssetEnum.COWGIRL,
 			AssetEnum.OFFENSIVE, AssetEnum.PRONE, AssetEnum.SUPINE, AssetEnum.STANDING, AssetEnum.AIRBORNE, AssetEnum.CASTING, AssetEnum.KNOTTED, AssetEnum.SLASH, AssetEnum.BATTLE_HOVER,
 			AssetEnum.BATTLE_TEXTBOX, AssetEnum.BATTLE_UI, AssetEnum.CHARACTER_POTRAIT, AssetEnum.HEALTH_ICON_0, AssetEnum.STAMINA_ICON_0, AssetEnum.BALANCE_ICON_0, AssetEnum.MANA_ICON_0,
@@ -117,16 +117,19 @@ public class BattleScreen extends AbstractScreen{
 		Array<String> textureArray = new Array<String>();
 		switch (battleCode.battleCode){
 			case 0:
-				textureArray.addAll(AssetEnum.WEREBITCH.getPath(), "arousal/Monster0.png", "arousal/Monster1.png", "arousal/Monster2.png");
+				textureArray.addAll(AssetEnum.WEREBITCH.getPath(), AssetEnum.FOREST_BG.getPath(), "arousal/Monster0.png", "arousal/Monster1.png", "arousal/Monster2.png");
 				break;
 			case 1: 
-				textureArray.addAll(AssetEnum.HARPY.getPath(),  AssetEnum.HARPY_FELLATIO.getPath(), "arousal/Monster0.png", "arousal/Monster1.png", "arousal/Monster2.png");
+				textureArray.addAll(AssetEnum.HARPY.getPath(),  AssetEnum.HARPY_FELLATIO.getPath(), AssetEnum.FOREST_BG.getPath(), "arousal/Monster0.png", "arousal/Monster1.png", "arousal/Monster2.png");
 				break;
 			case 2: 
-				textureArray.addAll(AssetEnum.SLIME.getPath(),  AssetEnum.SLIME_DOGGY.getPath(), "arousal/Monster0.png", "arousal/Monster1.png", "arousal/Monster2.png");
+				textureArray.addAll(AssetEnum.SLIME.getPath(),  AssetEnum.SLIME_DOGGY.getPath(), AssetEnum.FOREST_BG.getPath(), "arousal/Monster0.png", "arousal/Monster1.png", "arousal/Monster2.png");
 				break;
 			case 3: 
-				textureArray.addAll(AssetEnum.BRIGAND.getPath(),  AssetEnum.SLIME_DOGGY.getPath(), "arousal/Human0.png", "arousal/Human1.png", "arousal/Human2.png");
+				textureArray.addAll(AssetEnum.BRIGAND.getPath(),  AssetEnum.BRIGAND_ORAL.getPath(), AssetEnum.FOREST_BG.getPath(), "arousal/Human0.png", "arousal/Human1.png", "arousal/Human2.png");
+				break;
+			case 5: 
+				textureArray.addAll(AssetEnum.CENTAUR.getPath(), AssetEnum.PLAINS_BG.getPath(), "arousal/Monster0.png", "arousal/Monster1.png", "arousal/Monster2.png");
 				break;
 		}
 		for (String path: textureArray){

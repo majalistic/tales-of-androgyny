@@ -217,7 +217,7 @@ public class Battle extends Group{
 		console.setColor(Color.BLACK);
 		console.setAlignment(Align.top);
 		ScrollPane pane = new ScrollPane(console);
-		pane.setBounds(consoleXPos+450, -200, 625, 600);
+		pane.setBounds(consoleXPos+450, 50, 625, 350);
 		pane.setScrollingDisabled(true, false);
 		this.addActor(pane);
 		
