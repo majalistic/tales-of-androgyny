@@ -57,6 +57,7 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 	private Texture arrowImage;
 	private int arrowHeight;
 	private int arrowShift;
+	private boolean clicked = false;
 	
 	// all the nodes need are the encounter CODES, not the actual encounter - should probably pass in some kind of object that contains the encounter generation logic, rather than an encounter and defaultEncounter code - at least, need a description of the encounter attached
 	public GameWorldNode(SaveService saveService, BitmapFont font, final int nodeCode, GameWorldNodeEncounter encounter, Vector2 position, boolean visited, Sound sound, PlayerCharacter character, AssetManager assetManager){
@@ -143,9 +144,12 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 		this.addListener(new ClickListener(){ 
 			@Override
 	        public void clicked(InputEvent event, float x, float y) {
-				sound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
-				currentImage.addAction(Actions.moveBy(movementVector.x, movementVector.y, 1.5f));
-				visit();
+				if (!clicked){
+					clicked = true;
+					sound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
+					currentImage.addAction(Actions.moveBy(movementVector.x, movementVector.y, 1.5f));
+					visit();
+				}
 			}
 			@Override
 	        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
