@@ -31,7 +31,7 @@ public class Technique {
 	}
 	
 	public String getTechniqueDescription(){
-		return technique.getDescription();
+		return technique.getLightDescription();
 	}
 	
 	public Attack resolve(Technique otherTechnique){

@@ -30,9 +30,10 @@ public class TechniquePrototype {
 	protected final boolean selfTrip;
 	protected final StatusType buff;
 	protected final String description;
+	protected final String lightDescription;
 	
 	protected TechniquePrototype( Stance usableStance, Stance resultingStance, String name, boolean doesDamage, boolean doesHealing, int powerMod, int staminaCost, int stabilityCost, int manaCost, boolean isSpell, boolean isTaunt, Stance forceStance, double knockdown, int armorSunder,
-			int gutCheck, TechniqueHeight height, int guardMod, boolean causeBattleOver, boolean setDamage, boolean blockable, boolean grapple, ClimaxType climaxType, boolean selfTrip, StatusType buff, String description) {
+			int gutCheck, TechniqueHeight height, int guardMod, boolean causeBattleOver, boolean setDamage, boolean blockable, boolean grapple, ClimaxType climaxType, boolean selfTrip, StatusType buff, String description, String lightDescription) {
 		this.usableStance = usableStance;
 		this.resultingStance = resultingStance;
 		this.name = name;
@@ -58,6 +59,7 @@ public class TechniquePrototype {
 		this.selfTrip = selfTrip;
 		this.buff = buff;
 		this.description = description;
+		this.lightDescription = lightDescription;
 	}
 	
 	public Stance getUsableStance(){ return usableStance; }
@@ -85,6 +87,7 @@ public class TechniquePrototype {
 	public boolean causesTrip() { return selfTrip; }
 	public StatusType getBuff() { return buff; }
 	public String getDescription() { return description; }
+	public String getLightDescription() { return lightDescription; }
 	
 	public enum TechniqueHeight{
 		HIGH,

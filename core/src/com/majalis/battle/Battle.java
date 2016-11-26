@@ -91,10 +91,10 @@ public class Battle extends Group{
 	private int selection;
 	private boolean debug = false;
 	private float scaler = 1.5f; //scale distances
-	private float hoverXPos = 317; //Hover box x postition
-	private float hoverYPos = 35; 
-	private float consoleXPos = 800;
-	private float consoleYPos = 5;
+	private final float hoverXPos = 317; 
+	private final float hoverYPos = 35; 
+	private final float consoleXPos = 800;
+	private final float consoleYPos = 5;
 	
 	public Battle(SaveService saveService, AssetManager assetManager, BitmapFont font, PlayerCharacter character, EnemyCharacter enemy, int victoryScene, int defeatScene, Background battleBackground, Background battleUI, String consoleText){
 		this.saveService = saveService;
@@ -227,7 +227,7 @@ public class Battle extends Group{
 		skillDisplay.setColor(Color.BLACK);
 		skillDisplay.setAlignment(Align.top);
 		ScrollPane pane2 = new ScrollPane(skillDisplay);
-		pane2.setBounds(hoverXPos + 80, hoverYPos - 160, 500, 600);
+		pane2.setBounds(hoverXPos + 80, hoverYPos - 155, 500, 600);
 		pane2.setScrollingDisabled(true, false);
 		hoverGroup.addActor(pane2);
 	}
@@ -311,9 +311,9 @@ public class Battle extends Group{
 		optionButtons = new Array<TextButton>();
 		
 		for (int ii = 0; ii < options.size; ii++){
-			TextButton button;
+			SkillButton button;
 			Technique option = options.get(ii);
-			button = new TextButton(option.getTechniqueName() + (ii > POSSIBLE_KEYS_CHAR.length ? "" : " ("+POSSIBLE_KEYS_CHAR[ii]+")"), skin);
+			button = new SkillButton(option.getTechniqueName() + (ii > POSSIBLE_KEYS_CHAR.length ? "" : " ("+POSSIBLE_KEYS_CHAR[ii]+")"), skin, assetManager.get(option.getStance().getPath(), Texture.class));
 			table.add(button).size(440, 76).row();
 			optionButtons.add(button);
 			boolean outOfStamina = false;
@@ -334,7 +334,7 @@ public class Battle extends Group{
 		}
         table.setFillParent(true);
         table.align(Align.top);
-        table.setPosition(25, 250*scaler);
+        table.setPosition(25, 600);
         table.addAction(Actions.moveBy(125, 0, .1f));
         newSelection(0);
 	}
@@ -500,6 +500,19 @@ public class Battle extends Group{
 				font.draw(batch, character.getStance().name(), getX(), getY() - 30, 100, Align.center, false);
 			}
 	    }
+	}
+	
+	private class SkillButton extends TextButton{
+		Texture stanceIcon;
+		public SkillButton(String text, Skin skin, Texture stanceIcon) {
+			super(text, skin);
+			this.stanceIcon = stanceIcon;
+		}
+		@Override
+	    public void draw(Batch batch, float parentAlpha) {
+			super.draw(batch, parentAlpha);
+			batch.draw(stanceIcon, getX() + 372, getY()+3, 63, 76);
+		}		
 	}
 	
 	// this should be refactored into a delayed action

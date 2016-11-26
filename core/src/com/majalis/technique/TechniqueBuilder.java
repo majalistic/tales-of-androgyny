@@ -60,13 +60,19 @@ public class TechniqueBuilder {
 	}
 	
 	public TechniquePrototype build(){
-		return new TechniquePrototype(usableStance, resultingStance, name, doesDamage, doesHealing, powerMod, staminaCost, stabilityCost, manaCost, isSpell, isTaunt, forceStance, knockdown, armorSunder, gutCheck, height, guardMod, causeBattleOver, setDamage, blockable, grapple, climaxType, selfTrip, buff, getDescription()); 
+		String lightDescription = getDescription();
+		return new TechniquePrototype(usableStance, resultingStance, name, doesDamage, doesHealing, powerMod, staminaCost, stabilityCost, manaCost, isSpell, isTaunt, forceStance, knockdown, armorSunder, gutCheck, height, guardMod, causeBattleOver, setDamage, blockable, grapple, climaxType, selfTrip, buff, getStanceInfo() + lightDescription, lightDescription); 
+	}	
+
+	public String getStanceInfo(){ 
+		StringBuilder builder = new StringBuilder();
+		builder.append("Usable in " + usableStance.toString() + " stance.\n");
+		builder.append("Results in " + resultingStance.toString() + " stance.\n");
+		return builder.toString();
 	}
 	
 	public String getDescription(){
 		StringBuilder builder = new StringBuilder();
-		builder.append("Usable in " + usableStance.toString() + " stance.\n");
-		builder.append("Results in " + resultingStance.toString() + " stance.\n");
 		if (doesDamage){
 			builder.append("Deals" + (powerMod > 0 ? " +" + powerMod : powerMod < 0 ? " " + powerMod : "") + " damage, improved by " + (isSpell ? "Magic" : "Strength") + ".\n");
 		}
