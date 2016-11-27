@@ -32,11 +32,11 @@ public class BattleScreen extends AbstractScreen{
 		resourceRequirements.put(AssetEnum.BATTLE_MUSIC.getPath(), Music.class);
 		
 		AssetEnum[] assets = new AssetEnum[]{
-			AssetEnum.ANAL, AssetEnum.BLITZ,
-			AssetEnum.BALANCED, AssetEnum.DEFENSIVE, AssetEnum.DOGGY, AssetEnum.ERUPT, AssetEnum.FELLATIO, AssetEnum.FULL_NELSON, AssetEnum.KNEELING, AssetEnum.HANDY, AssetEnum.COWGIRL,
-			AssetEnum.OFFENSIVE, AssetEnum.PRONE, AssetEnum.SUPINE, AssetEnum.STANDING, AssetEnum.AIRBORNE, AssetEnum.CASTING, AssetEnum.KNOTTED, AssetEnum.SLASH, AssetEnum.BATTLE_HOVER,
-			AssetEnum.BATTLE_TEXTBOX, AssetEnum.BATTLE_UI, AssetEnum.CHARACTER_POTRAIT, AssetEnum.HEALTH_ICON_0, AssetEnum.STAMINA_ICON_0, AssetEnum.BALANCE_ICON_0, AssetEnum.MANA_ICON_0,
-			AssetEnum.HEALTH_ICON_1, AssetEnum.STAMINA_ICON_1, AssetEnum.BALANCE_ICON_1, AssetEnum.MANA_ICON_1, AssetEnum.HEALTH_ICON_2, AssetEnum.STAMINA_ICON_2, AssetEnum.BALANCE_ICON_2, AssetEnum.MANA_ICON_2
+			AssetEnum.ANAL, AssetEnum.BLITZ, AssetEnum.BALANCED, AssetEnum.DEFENSIVE, AssetEnum.DOGGY, AssetEnum.ERUPT, AssetEnum.FELLATIO, AssetEnum.FULL_NELSON, AssetEnum.KNEELING, AssetEnum.HANDY, AssetEnum.COWGIRL,
+			AssetEnum.OFFENSIVE, AssetEnum.PRONE, AssetEnum.SUPINE, AssetEnum.STANDING, AssetEnum.AIRBORNE, AssetEnum.CASTING, AssetEnum.KNOTTED, 
+			AssetEnum.SLASH,  AssetEnum.BATTLE_HOVER, AssetEnum.BATTLE_TEXTBOX, AssetEnum.BATTLE_UI, AssetEnum.CHARACTER_POTRAIT, AssetEnum.HEALTH_ICON_0, AssetEnum.STAMINA_ICON_0, AssetEnum.BALANCE_ICON_0, AssetEnum.MANA_ICON_0,
+			AssetEnum.HEALTH_ICON_1, AssetEnum.STAMINA_ICON_1, AssetEnum.BALANCE_ICON_1, AssetEnum.MANA_ICON_1, AssetEnum.HEALTH_ICON_2, AssetEnum.STAMINA_ICON_2, AssetEnum.BALANCE_ICON_2, AssetEnum.MANA_ICON_2,
+			AssetEnum.HEALTH_ICON_3, AssetEnum.STAMINA_ICON_3, AssetEnum.BALANCE_ICON_3, AssetEnum.MANA_ICON_3
 		};
 		for (AssetEnum asset: assets){
 			resourceRequirements.put(asset.getPath(), Texture.class);
@@ -102,7 +102,7 @@ public class BattleScreen extends AbstractScreen{
 		camera.update();
 		batch.end();
 	}
-	// passthrough for battle.dispose
+	
 	@Override
 	public void dispose(){
 		for(String path: requirementsToDispose.keys()){
@@ -120,6 +120,7 @@ public class BattleScreen extends AbstractScreen{
 				textureArray.addAll(AssetEnum.WEREBITCH.getPath(), AssetEnum.FOREST_BG.getPath(), "arousal/Monster0.png", "arousal/Monster1.png", "arousal/Monster2.png");
 				break;
 			case 1: 
+			case 2004:
 				textureArray.addAll(AssetEnum.HARPY.getPath(),  AssetEnum.HARPY_FELLATIO.getPath(), AssetEnum.FOREST_BG.getPath(), "arousal/Monster0.png", "arousal/Monster1.png", "arousal/Monster2.png");
 				break;
 			case 2: 

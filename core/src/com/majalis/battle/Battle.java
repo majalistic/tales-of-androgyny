@@ -135,17 +135,16 @@ public class Battle extends Group{
 		balanceIcon = new Image(assetManager.get(character.getBalanceDisplay(), Texture.class));
 		addActorAndListen(balanceIcon, 130, 630);
 		
-
 		characterMana = new ProgressBar(0, 1, .05f, false, skin);
 		characterMana.setWidth(350);
-		if (character.hasMagic()){
-			addActorAndListen(characterMana, 130, 600);
-		}
+
 		characterMana.setValue(character.getManaPercent());	
 		manaIcon = new Image(assetManager.get(character.getManaDisplay(), Texture.class));
-		addActorAndListen(manaIcon, 130, 600);	
+		if (character.hasMagic()){
+			addActorAndListen(characterMana, 130, 600);
+			addActorAndListen(manaIcon, 130, 600);	
+		}
 		
-
 		enemyHealth = new ProgressBar(0, 1, .05f, false, skin);
 		enemyHealth.setWidth(350);
 		addActorAndListen(enemyHealth, 1000, 640);

@@ -11,6 +11,7 @@ public enum AssetEnum {
 	CLASS_SELECT_BACKGROUND("ClassSelect.jpg"),
 	DRYAD_BACKGROUND("DryadApple.jpg"),
 	STICK_BACKGROUND("StickEncounter.jpg"),
+	TOWN_BG("town/TownBG.jpg"),
 	
 	WORLD_MAP_UI("worldmap/CharacterInfo.png"),
 	WORLD_MAP_HOVER("worldmap/HoverBox.png"),
@@ -44,15 +45,19 @@ public enum AssetEnum {
 	HEALTH_ICON_0("battle/Heart0.png"),
 	STAMINA_ICON_0("battle/Stam0.png"),
 	BALANCE_ICON_0("battle/Scale0.png"),
-	MANA_ICON_0("battle/Scale0.png"),
+	MANA_ICON_0("battle/Eye0.png"),
 	HEALTH_ICON_1("battle/Heart1.png"),
 	STAMINA_ICON_1("battle/Stam1.png"),
 	BALANCE_ICON_1("battle/Scale1.png"),
-	MANA_ICON_1("battle/Scale1.png"),
+	MANA_ICON_1("battle/Eye1.png"),
 	HEALTH_ICON_2("battle/Heart2.png"),
 	STAMINA_ICON_2("battle/Stam2.png"),
 	BALANCE_ICON_2("battle/Scale2.png"),
-	MANA_ICON_2("battle/Scale2.png"),
+	MANA_ICON_2("battle/Eye2.png"),
+	HEALTH_ICON_3("battle/Heart3.png"),
+	STAMINA_ICON_3("battle/Stam3.png"),
+	BALANCE_ICON_3("battle/Scale3.png"),
+	MANA_ICON_3("battle/Eye3.png"),
 	
 	BATTLE_SKIN("battle/battleui.json"),
 	CHARACTER_POTRAIT("battle/Neutral.png"),
@@ -96,8 +101,6 @@ public enum AssetEnum {
 	
 	GAME_OVER_GAPE("GameOverButt.jpg"),
 	GAME_OVER_TUCKERED("GameOverTuckered.jpg"),
-	
-	TOWN_BG("town/TownBG.jpg"),
 	
 	// sounds
 	BUTTON_SOUND("sound.wav"),

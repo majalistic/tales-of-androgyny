@@ -146,8 +146,8 @@ public abstract class AbstractCharacter extends Actor {
 			case 0: return AssetEnum.HEALTH_ICON_0.getPath();
 			case 1: return AssetEnum.HEALTH_ICON_1.getPath();
 			case 2: return AssetEnum.HEALTH_ICON_2.getPath();
-			case 3: return AssetEnum.HEALTH_ICON_2.getPath();
-			case 4: return AssetEnum.HEALTH_ICON_2.getPath();
+			case 3: return AssetEnum.HEALTH_ICON_3.getPath();
+			case 4: return AssetEnum.HEALTH_ICON_3.getPath();
 		}
 		return null;
 	}
@@ -157,8 +157,8 @@ public abstract class AbstractCharacter extends Actor {
 			case 0: return AssetEnum.STAMINA_ICON_0.getPath();
 			case 1: return AssetEnum.STAMINA_ICON_1.getPath();
 			case 2: return AssetEnum.STAMINA_ICON_2.getPath();
-			case 3: return AssetEnum.STAMINA_ICON_2.getPath();
-			case 4: return AssetEnum.STAMINA_ICON_2.getPath();
+			case 3: return AssetEnum.STAMINA_ICON_3.getPath();
+			case 4: return AssetEnum.STAMINA_ICON_3.getPath();
 		}
 		return null;
 	}
@@ -168,7 +168,14 @@ public abstract class AbstractCharacter extends Actor {
 	}
 	
 	public String getManaDisplay(){ 
-		return AssetEnum.BALANCE_ICON_0.getPath();
+		switch (4 - (int)(getManaPercent() * 100)/ 25){
+			case 0: return AssetEnum.MANA_ICON_0.getPath();
+			case 1: return AssetEnum.MANA_ICON_1.getPath();
+			case 2: return AssetEnum.MANA_ICON_2.getPath();
+			case 3: return AssetEnum.MANA_ICON_3.getPath();
+			case 4: return AssetEnum.MANA_ICON_3.getPath();
+		}
+		return null;
 	}
 	
 	public int getStability(){ return stability; }
