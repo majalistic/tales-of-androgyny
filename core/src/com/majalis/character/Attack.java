@@ -8,7 +8,7 @@ import com.majalis.technique.ClimaxTechnique.ClimaxType;
  */
 public class Attack {
 
-	private final boolean success;
+	private final Status status;
 	private final String name;
 	private final int damage;
 	private final int force;
@@ -24,8 +24,15 @@ public class Attack {
 	private final Buff buff;
 	private final boolean isAttack;
 	private String user;
-	protected Attack(boolean success, String name, int damage, int force, int armorBreak, int gutcheck, int healing, int lust, int grapple, ClimaxType climaxType, Stance forceStance, boolean isSpell, Buff buff, boolean isAttack){
-		this.success = success;
+	
+	public enum Status {
+		SUCCESS,
+		MISS,
+		FAILURE
+	}
+	
+	protected Attack(Status status, String name, int damage, int force, int armorBreak, int gutcheck, int healing, int lust, int grapple, ClimaxType climaxType, Stance forceStance, boolean isSpell, Buff buff, boolean isAttack){
+		this.status = status;
 		this.name = name;
 		this.damage = damage;
 		this.force = force;
@@ -89,8 +96,13 @@ public class Attack {
 	protected Stance getForceStance(){
 		return forceStance;
 	}
+	
 	public boolean isSuccessful(){
-		return success;
+		return status == Status.SUCCESS;
+	}
+	
+	public Status getStatus(){
+		return status;
 	}
 
 	protected void addMessage(String message) {

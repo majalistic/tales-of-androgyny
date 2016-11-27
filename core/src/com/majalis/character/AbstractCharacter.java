@@ -2,6 +2,7 @@ package com.majalis.character;
 
 import com.majalis.asset.AssetEnum;
 import com.majalis.battle.BattleFactory.EnemyEnum;
+import com.majalis.character.Attack.Status;
 import com.majalis.character.PlayerCharacter.Bootyliciousness;
 import com.majalis.save.SaveManager.JobClass;
 import com.majalis.technique.ClimaxTechnique.ClimaxType;
@@ -293,9 +294,9 @@ public abstract class AbstractCharacter extends Actor {
 	public Attack doAttack(Attack resolvedAttack) {
 		resolvedAttack.setUser(label);
 		if (!resolvedAttack.isSuccessful()){
-			resolvedAttack.addMessage(resolvedAttack.getUser() + " used " + resolvedAttack.getName() + "! FAILURE!");
+			resolvedAttack.addMessage(resolvedAttack.getUser() + " used " + resolvedAttack.getName() + (resolvedAttack.getStatus() == Status.MISS ? " but missed!" : "! FAILURE!"));
 			
-			if (enemyType == EnemyEnum.HARPY && stance == Stance.FELLATIO && resolvedAttack.getForceStance() == Stance.FELLATIO){
+			if (resolvedAttack.getStatus() == Status.MISS && enemyType == EnemyEnum.HARPY && stance == Stance.FELLATIO && resolvedAttack.getForceStance() == Stance.FELLATIO){
 				resolvedAttack.addMessage("She crashes to the ground!");
 				stance = Stance.PRONE;
 			}

@@ -3,6 +3,7 @@ package com.majalis.character;
 import java.util.Comparator;
 
 import com.majalis.character.AbstractCharacter.Stance;
+import com.majalis.character.Attack.Status;
 import com.majalis.technique.TechniquePrototype;
 import com.majalis.technique.TechniquePrototype.TechniqueHeight;
 /*
@@ -45,10 +46,14 @@ public class Technique {
 				(technique.getTechniqueHeight() == TechniqueHeight.LOW && otherTechnique.getStance().receivesLowAttacks) 
 				;
 		// this is temporarily to prevent struggling from failing to work properly on the same term an eruption or knot happens
-		if (isSuccessful) isSuccessful = otherTechnique.getForceStance() == null || otherTechnique.getForceStance() == Stance.KNOTTED || otherTechnique.getForceStance() == Stance.KNEELING;
+		boolean failure = false;
+		if (isSuccessful) {
+			isSuccessful = otherTechnique.getForceStance() == null || otherTechnique.getForceStance() == Stance.KNOTTED || otherTechnique.getForceStance() == Stance.KNEELING;
+			failure = !isSuccessful;
+		}
 		
 		return new Attack(
-			isSuccessful, 
+			isSuccessful ? Status.SUCCESS : failure ? Status.FAILURE : Status.MISS, 
 			technique.getName(), 
 			(int)(getDamage() * blockMod), 
 			((int) ((strength + technique.getPowerMod()) * technique.getKnockdown()))/2, 
