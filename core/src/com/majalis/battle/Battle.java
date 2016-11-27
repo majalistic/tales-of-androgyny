@@ -156,7 +156,6 @@ public class Battle extends Group{
 		
 		Image consoleBox = new Image(assetManager.get(AssetEnum.BATTLE_TEXTBOX.getPath(), Texture.class));
 		addActorAndListen(consoleBox, consoleXPos, consoleYPos);
-
 		
 		this.hoverImage = new Image(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class));
 		hoverImage.setPosition(hoverXPos, hoverYPos);		
@@ -331,7 +330,7 @@ public class Battle extends Group{
 				style.fontColor = Color.ORANGE;
 				button.setStyle(style);
 			}
-			button.addListener(getListener(option, (outOfStamina ? "THIS WILL CAUSE YOU TO COLLAPSE!\n" : outOfStability ? "THIS WILL CAUSE YOU TO LOSE YOUR FOOTING!\n" : "") + option.getTechniqueDescription(), ii, button));
+			button.addListener(getListener(option, (outOfStamina ? "THIS WILL CAUSE YOU TO COLLAPSE!\n" : outOfStability ? "THIS WILL CAUSE YOU TO LOSE YOUR FOOTING!\n" : "") + option.getTechniqueDescription(), ii));
 		}
         table.setFillParent(true);
         table.align(Align.top);
@@ -413,6 +412,7 @@ public class Battle extends Group{
 	}
 	
 	private void changeSelection(int newSelection){
+		if (selection == newSelection) return;
 		optionButtons.get(selection).addAction(Actions.sequence(Actions.delay(.05f), Actions.moveBy(-50, 0)));
     	newSelection(newSelection);
 	}
@@ -428,7 +428,7 @@ public class Battle extends Group{
 		return assetManager.get(stance.getPath(), Texture.class);
 	}
 	
-	private ClickListener getListener(final Technique technique, final String description, final int index, final TextButton button){
+	private ClickListener getListener(final Technique technique, final String description, final int index){
 		return new ClickListener(){
 	        @Override
 	        public void clicked(InputEvent event, float x, float y) {
