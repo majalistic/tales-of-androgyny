@@ -116,24 +116,26 @@ public class Battle extends Group{
 		
 		characterHealth = new ProgressBar(0, 1, .05f, false, skin);
 		characterHealth.setWidth(350);
-		addActorAndListen(characterHealth, 130, 690);
+		int barX = 130;
+	
 		characterHealth.setValue(character.getHealthPercent());
 		healthIcon = new Image(assetManager.get(character.getHealthDisplay(), Texture.class));
-		addActorAndListen(healthIcon, 130, 690);
+		addActorAndListen(characterHealth, barX, 690);
+		addActorAndListen(healthIcon, barX+2, 695);
 		
 		characterStamina = new ProgressBar(0, 1, .05f, false, skin);
 		characterStamina.setWidth(350);
-		addActorAndListen(characterStamina, 130, 660);
 		characterStamina.setValue(character.getStaminaPercent());
 		staminaIcon = new Image(assetManager.get(character.getStaminaDisplay(), Texture.class));
-		addActorAndListen(staminaIcon, 135, 660);
+		addActorAndListen(characterStamina, barX, 660);
+		addActorAndListen(staminaIcon, barX+5, 665);
 		
 		characterBalance = new ProgressBar(0, 1, .05f, false, skin);
 		characterBalance.setWidth(350);
-		addActorAndListen(characterBalance, 130, 630);
 		characterBalance.setValue(character.getBalancePercent());
 		balanceIcon = new Image(assetManager.get(character.getBalanceDisplay(), Texture.class));
-		addActorAndListen(balanceIcon, 130, 630);
+		addActorAndListen(characterBalance, barX, 630);
+		addActorAndListen(balanceIcon, barX+2, 635);
 		
 		characterMana = new ProgressBar(0, 1, .05f, false, skin);
 		characterMana.setWidth(350);
@@ -141,16 +143,16 @@ public class Battle extends Group{
 		characterMana.setValue(character.getManaPercent());	
 		manaIcon = new Image(assetManager.get(character.getManaDisplay(), Texture.class));
 		if (character.hasMagic()){
-			addActorAndListen(characterMana, 130, 600);
-			addActorAndListen(manaIcon, 130, 600);	
+			addActorAndListen(characterMana, barX, 600);
+			addActorAndListen(manaIcon, barX+2, 605);	
 		}
 		
 		enemyHealth = new ProgressBar(0, 1, .05f, false, skin);
 		enemyHealth.setWidth(350);
-		addActorAndListen(enemyHealth, 1000, 640);
 		enemyHealth.setValue(enemy.getHealthPercent());
-		enemyHealthIcon = new Image(assetManager.get(character.getHealthDisplay(), Texture.class));
-		addActorAndListen(enemyHealthIcon, 1000, 640);
+		enemyHealthIcon = new Image(assetManager.get(enemy.getHealthDisplay(), Texture.class));
+		addActorAndListen(enemyHealth, 1000, 640);
+		addActorAndListen(enemyHealthIcon, 1002, 645);
 		
 		Image consoleBox = new Image(assetManager.get(AssetEnum.BATTLE_TEXTBOX.getPath(), Texture.class));
 		addActorAndListen(consoleBox, consoleXPos, consoleYPos);
@@ -413,7 +415,6 @@ public class Battle extends Group{
 	private void changeSelection(int newSelection){
 		optionButtons.get(selection).addAction(Actions.sequence(Actions.delay(.05f), Actions.moveBy(-50, 0)));
     	newSelection(newSelection);
-    	
 	}
 	
 	private void newSelection(int newSelection){
