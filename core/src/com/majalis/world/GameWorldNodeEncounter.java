@@ -47,7 +47,11 @@ public class GameWorldNodeEncounter {
 					case 4: return "Dryad";
 					case 5: return "Centaur";
 					case 1000: return "Small Settlement";
-					case 2000: return "Town of Nadir";
+					case 2000:
+					case 2003:
+						return "Town of Nadir";	
+					case 2001: return "Cottage-on-the-Outskirts";
+					case 2004: return "Forest Clearing";
 					default: return "Unknown - No Info for encounter #" + encounterCode + " and perception level = 1";
 			}
 			case 2:
@@ -63,7 +67,10 @@ public class GameWorldNodeEncounter {
 					case 4: return "Dryad - Peaceful";
 					case 5: return "Centaur - Neutral";
 					case 1000: return "Town of Silajam";
-					case 2000: return "Town of Nadir";
+					case 2000:
+					case 2003: return "Town of Nadir";
+					case 2001: return "Cottage-on-the-Outskirts";
+					case 2004: return "Forest Clearing - signs of harpies";
 					default: return "Unknown - No Info for encounter #" + encounterCode  + " and perception level = 2";
 				}
 			default: return "Perception level error.";
@@ -73,6 +80,8 @@ public class GameWorldNodeEncounter {
 	private String getDefaultDescription(int visibility){
 		switch (defaultEncounterCode){
 			case 1000: return "Town of Silajam (visited)";
+			case 2000: return "Town of Nadir (visited)";
+			case 2002: return "Cottage-on-the-Outskirts (visited)";
 			default: return "Nothing here.";
 		}
 	}

@@ -9,7 +9,7 @@ public class Background extends Group{
 	public static class BackgroundBuilder{
 		
 		Texture backgroundTexture, foregroundTexture, dialogBoxTexture;
-		int x, y, width, height, x2, y2, width2, height2, x3, y3, width3, height3;
+		int x1, y1, width, height, x2, y2, width2, height2, x3, y3, width3, height3;
 		
 		public BackgroundBuilder(Texture background){
 			this(background, 1920, 1080);
@@ -19,17 +19,21 @@ public class Background extends Group{
 			this.backgroundTexture = background;
 			this.width = width;
 			this.height = height;
-			this.x = (1920 - this.width) / 2;
-			this.y = 0;
+			this.x1 = (1920 - this.width) / 2;
+			this.y1 = 0;
 		}
 		
-		public BackgroundBuilder setForeground(Texture foregroundTexture){
+		public BackgroundBuilder setForeground(Texture foregroundTexture, int x, int y){
 			this.foregroundTexture = foregroundTexture;
 			this.width2 = (int) (foregroundTexture.getWidth() / (foregroundTexture.getHeight() / 1080f));
 			this.height2 = 1080;
-			this.x2 = (1920 - width2) / 2;
-			this.y2 = 0;
+			x2 = x;
+			y2 = y;
 			return this;
+		}
+			
+		public BackgroundBuilder setForeground(Texture foregroundTexture){
+			return setForeground(foregroundTexture, (1920 - (int) (foregroundTexture.getWidth() / (foregroundTexture.getHeight() / 1080f))) / 2, 0);
 		}
 		
 		public BackgroundBuilder setDialogBox(Texture dialogBoxTexture){
@@ -42,7 +46,7 @@ public class Background extends Group{
 		}
 		
 		public Background build(){
-			return new Background(getImage(backgroundTexture, x, y, width, height), backgroundTexture, getImage(foregroundTexture, x2, y2, width2, height2), foregroundTexture, getImage(dialogBoxTexture, x3, y3, width3, height3), dialogBoxTexture);
+			return new Background(getImage(backgroundTexture, x1, y1, width, height), backgroundTexture, getImage(foregroundTexture, x2, y2, width2, height2), foregroundTexture, getImage(dialogBoxTexture, x3, y3, width3, height3), dialogBoxTexture);
 		}
 		
 		private Image getImage(Texture texture, int x, int y, int width, int height){

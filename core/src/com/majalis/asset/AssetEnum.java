@@ -11,6 +11,7 @@ public enum AssetEnum {
 	CLASS_SELECT_BACKGROUND("ClassSelect.jpg"),
 	DRYAD_BACKGROUND("DryadApple.jpg"),
 	STICK_BACKGROUND("StickEncounter.jpg"),
+	CABIN_BACKGROUND("WoodsCottage.jpg"),
 	TOWN_BG("town/TownBG.jpg"),
 	
 	WORLD_MAP_UI("worldmap/CharacterInfo.png"),
@@ -68,6 +69,8 @@ public enum AssetEnum {
 	BATTLE_TEXTBOX("battle/TextBox.png"),
 	
 	SHOPKEEP("characters/AppleKeep.png"),
+	TRAINER("characters/HeavyTrainer1.png"),
+	SILHOUETTE("characters/Silhouette.png"),
 	
 	AIRBORNE("stances/Airborne.png"),
 	ANAL("stances/Anal.png"),

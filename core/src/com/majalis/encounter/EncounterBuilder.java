@@ -73,6 +73,8 @@ public class EncounterBuilder {
 	protected Encounter getClassChoiceEncounter(PlayerCharacter playerCharacter){	
 		Background background = getDefaultTextBackground();
 		Background classSelectbackground = getClassSelectBackground();
+		Background silhouetteBackground = new BackgroundBuilder(assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getPath(), Texture.class)).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class)).setForeground(assetManager.get(AssetEnum.SILHOUETTE.getPath(), Texture.class), 1000, 0).build();
+		
 		Array<Mutation> classMutation = getArray(new Mutation[]{new Mutation(saveService, SaveEnum.CLASS, JobClass.ENCHANTRESS), new Mutation(saveService, SaveEnum.MODE, GameMode.STORY)});
 			// new Mutation(saveService, SaveEnum.SKILL, Techniques.TAUNT), new Mutation(saveService, SaveEnum.SKILL, Techniques.SECOND_WIND), new Mutation(saveService, SaveEnum.SKILL, Techniques.COMBAT_FIRE)
 		
@@ -96,12 +98,13 @@ public class EncounterBuilder {
 				getTextScenes(
 					getArray(new String[]{"You have entered story mode.", "A tale of androgyny has begun..."}), font, background, classMutation,							
 					getTextScenes(
-						// needs to be female silhouette from behind bg
-						getScript("STORY-000"), font, background, new Array<Mutation>(), AssetEnum.WAVES.getPath(), getArray(new String[]{null, null, null, null, null, null, null, null, null, AssetEnum.SMUG_LAUGH.getPath(), null, null, null, null, null, null, null, null, AssetEnum.SMUG_LAUGH.getPath()}),
+						// needs to be female silhouette from behind BG
+						getScript("STORY-000"), font, silhouetteBackground, new Array<Mutation>(), AssetEnum.WAVES.getPath(), getArray(new String[]{null, null, null, null, null, null, null, null, null, AssetEnum.SMUG_LAUGH.getPath(), null, null, null, null, null, null, null, null, AssetEnum.SMUG_LAUGH.getPath()}),
 						getTextScenes(
 							// needs to be hovel BG
 							getScript("STORY-001"), font, background, new Array<Mutation>(), AssetEnum.ENCOUNTER_MUSIC.getPath(), new Array<String>(),
 							getTextScenes(
+								// nneds to be bright-white BG
 								getScript("STORY-002"), font, background, new Array<Mutation>(),
 								getEndScene(EndScene.Type.ENCOUNTER_OVER)						
 							)
@@ -450,7 +453,7 @@ public class EncounterBuilder {
 							getScript(battleCode, 1), font, centaurBackground, 
 							getBattleScene(
 								saveService, battleCode,
-								getTextScenes(getArray(new String[]{"You defeated the centaur!", "You receive 3 Experience."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.EXPERIENCE, 1)}), getEndScene(EndScene.Type.ENCOUNTER_OVER)),
+								getTextScenes(getArray(new String[]{"You defeated the centaur!", "You receive 3 Experience."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.EXPERIENCE, 3)}), getEndScene(EndScene.Type.ENCOUNTER_OVER)),
 								getTextScenes(getScript(battleCode, 3), font, centaurBackground, getEndScene(EndScene.Type.ENCOUNTER_OVER))					
 							)
 						),
@@ -458,13 +461,69 @@ public class EncounterBuilder {
 							getScript(battleCode, 2), font, background, 
 							getBattleScene(
 								saveService, battleCode,
-								getTextScenes(getArray(new String[]{"You defeated the centaur!", "You receive 3 Experience."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.EXPERIENCE, 1)}), getEndScene(EndScene.Type.ENCOUNTER_OVER)),
+								getTextScenes(getArray(new String[]{"You defeated the centaur!", "You receive 3 Experience."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.EXPERIENCE, 3)}), getEndScene(EndScene.Type.ENCOUNTER_OVER)),
 								getTextScenes(getScript(battleCode, 3), font, centaurBackground, getEndScene(EndScene.Type.ENCOUNTER_OVER))					
 							)
 						)
 					)
 				);		
 				break;	
+				// initial trainer
+			case 2001:
+				background = new BackgroundBuilder(assetManager.get(AssetEnum.CABIN_BACKGROUND.getPath(), Texture.class)).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class)).setForeground(assetManager.get(AssetEnum.TRAINER.getPath(), Texture.class)).build();
+				getTextScenes(
+					getScript("STORY-003"), font, background, new Array<Mutation>(),
+					getEndScene(EndScene.Type.ENCOUNTER_OVER)						
+				);
+				break;
+			// return trainer
+			case 2002:
+				background = new BackgroundBuilder(assetManager.get(AssetEnum.CABIN_BACKGROUND.getPath(), Texture.class)).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class)).build();
+				getTextScenes(
+					getScript("STORY-004"), font, background, new Array<Mutation>(),
+					getEndScene(EndScene.Type.ENCOUNTER_OVER)						
+				);
+				break;
+			// initial shopkeep
+			case 2003: 
+				background = new BackgroundBuilder(assetManager.get(AssetEnum.TOWN_BG.getPath(), Texture.class)).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class)).build();
+				Background backgroundWithShopkeep = new BackgroundBuilder(assetManager.get(AssetEnum.TOWN_BG.getPath(), Texture.class)).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class)).setForeground(assetManager.get(AssetEnum.SHOPKEEP.getPath(), Texture.class)).build();
+				getTextScenes(
+					getScript("STORY-005"), font, background, new Array<Mutation>(),
+					getTextScenes (					
+						getScript("STORY-006"), font, backgroundWithShopkeep, new Array<Mutation>(),
+						getCheckScene(assetManager, Stat.CHARISMA, new IntArray(new int[]{6}), character,
+							getTextScenes (
+								getScript("STORY-006A"), font, backgroundWithShopkeep, new Array<Mutation>(),
+								getTextScenes (					
+									getScript("STORY-007"), font, background, new Array<Mutation>(),
+									getEndScene(EndScene.Type.ENCOUNTER_OVER)	
+								)	
+							),
+							getTextScenes (
+									getScript("STORY-006B"), font, backgroundWithShopkeep, new Array<Mutation>(),
+									getTextScenes (					
+										getScript("STORY-007"), font, background, new Array<Mutation>(),
+										getEndScene(EndScene.Type.ENCOUNTER_OVER)	
+									)	
+								)	
+						)			
+					)
+				);
+				break;
+			// initial shopkeep
+			case 2004: 
+				background = new BackgroundBuilder(assetManager.get(AssetEnum.FOREST_BG.getPath(), Texture.class)).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class)).build();
+				Background enemyBackground = new BackgroundBuilder(assetManager.get(AssetEnum.FOREST_BG.getPath(), Texture.class)).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class)).setForeground(assetManager.get(AssetEnum.HARPY.getPath(), Texture.class)).build();
+				getTextScenes(
+					getScript("STORY-FIGHT-001"), font, background, new Array<Mutation>(),
+					getBattleScene(
+						saveService, battleCode,
+						getTextScenes(getArray(new String[]{"You won!", "You receive 3 Experience."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.EXPERIENCE, 3)}), getEndScene(EndScene.Type.ENCOUNTER_OVER)),
+						getTextScenes(getScript("STORY-FIGHT-002"), font, enemyBackground, getEndScene(EndScene.Type.GAME_OVER))					
+					)
+				);
+				break;
 			default:
 				getTextScenes(
 					getScript("TOWN"), font, new BackgroundBuilder(assetManager.get(AssetEnum.TRAP_BONUS.getPath(), Texture.class)).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class)).build(),

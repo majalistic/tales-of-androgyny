@@ -133,6 +133,7 @@ public class EncounterScreen extends AbstractScreen {
 				requirements.put(AssetEnum.PERCEPTION.getPath(), Texture.class);
 				requirements.put(AssetEnum.MAGIC.getPath(), Texture.class);
 				requirements.put(AssetEnum.CHARISMA.getPath(), Texture.class);
+				requirements.put(AssetEnum.SILHOUETTE.getPath(), Texture.class);
 				requirements.put(AssetEnum.WAVES.getPath(), Music.class);
 				requirements.put(AssetEnum.SMUG_LAUGH.getPath(), Sound.class);
 				break;
@@ -145,6 +146,9 @@ public class EncounterScreen extends AbstractScreen {
 				requirements.put(AssetEnum.WEREBITCH.getPath(), Texture.class);
 				break;
 			// harpy
+			case 2004:
+				requirements.put(AssetEnum.HARPY.getPath(), Texture.class);
+				requirements.put(AssetEnum.FOREST_BG.getPath(), Texture.class);
 			case 1:
 				requirements.put(AssetEnum.HARPY_FELLATIO.getPath(), Texture.class);
 				break;
@@ -161,6 +165,18 @@ public class EncounterScreen extends AbstractScreen {
 			case 4:
 				requirements.put(AssetEnum.DRYAD_BACKGROUND.getPath(), Texture.class);
 				break;
+				// initial trainer
+			case 2001:
+				// return trainer
+			case 2002:
+				requirements.put(AssetEnum.CABIN_BACKGROUND.getPath(), Texture.class);
+				requirements.put(AssetEnum.TRAINER.getPath(), Texture.class);
+				break;
+			// initial shopkeep
+			case 2003: 
+				requirements.put(AssetEnum.TOWN_BG.getPath(), Texture.class);
+				requirements.put(AssetEnum.SHOPKEEP.getPath(), Texture.class);
+				break;	
 			// centaur
 			case 5:
 				requirements.put(AssetEnum.CENTAUR.getPath(), Texture.class);

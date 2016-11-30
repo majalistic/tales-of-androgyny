@@ -10,7 +10,7 @@
 			"Offensive stance has powerful abilities that can damage, unbalance, or otherwise upset your opponent, but at a high cost to stamina, stability, or both, or by lowering your defenses, depending on the ability.",
 			"Defensive stance has defensive abilities, and can be used to weather an enemy's brutal attacks, or to get on more stable footing or catch a breather, in preparation of launching a new offensive, or to let an enemy tire themselves out before you subdue them.",
 			"The core statistics are Strength, Endurance, Agility, Perception, Magic, Charisma.  All of a character's core statistics are used in determining encounter outcomes.  Your current statistic score is your base score and any more temporary modifiers, like being tired or injured.",
-			"Running out of Stamina will cause you to momentarily black out, falling over - running out of Balance will similarly cause you to trip.  Try to less strenuous abilities to preserve and recover stamina, and more stable abilities to remain balanced.",
+			"Running out of Stamina will cause you to momentarily black out, falling over - running out of Balance will similarly cause you to trip.  Try to use less strenuous abilities to preserve and recover stamina, and more stable abilities to remain balanced.",
 			"You're looking mighty fine, by the way.  Please select your game mode."	
 		]
 	},
@@ -46,7 +46,7 @@
 
 			"She walks away from him, taking a deep breath of the refreshing smell of sea salt and smoky oblivion, allowing him to watch her hips sway as she approaches the cliffside, where her viewing seat has been erected, and procures from it a flask of a particular oil.  She sits on her viewing seat, mostly out of his view, and he whines his complaints about this arrangement through his gag.",
 
-			"From his vantage, he can see her spread her legs, wide, her back arched, as she holds the flask high in the air, and then tilts it, pouring it down onto herself.  Indeed, she spours it directly into her girdle, where it slathers over her awakening beast while she moans in anticipation.",
+			"From his vantage, he can see her spread her legs, wide, her back arched, as she holds the flask high in the air, and then tilts it, pouring it down onto herself.  Indeed, she pours it directly into her girdle, where it slathers over her awakening beast while she moans in anticipation.",
 
 			"With the flask expended, she lets it fall to the ground, and rises to her feet, nearly done with her final preparations of the night.",
 
@@ -58,7 +58,7 @@
 
 			"Her semen tanks are utterly full - she'd waited a long time since she'd seeded her plan, and in all of the preparations and planning, she'd not seeded anything else.  Unfortunately for him, she had also arranged to fix that as soon as her victory was assured.",
 
-			"She grips his ankles - firmly, and stares wide-eyed at the onyx thing pulsing with energy pressing up against his spread hole.",
+			"She grips his ankles - firmly, and he stares wide-eyed at the onyx thing pulsing with energy pressing up against his spread hole.",
 
 			"She eases her hips forward, slowly, more, and more, and more... as he groans into the gag, feeling her push more and more of herself into him.  The monstrous, inhuman phallus stretches his insides in ways unthinkable, and his eyes, among other things, open as wide as they possibly can.",
 
@@ -79,23 +79,258 @@
 			"So it has come to this.",
 			"The first fires of creation have died out, and all that remains are the embers and ash of what could have been greatness.",
 			"Breakfast... is ruined.",
-			"You toss the burnt eggs into the same refuse pile that you usually do and sigh.  Is this all there is to life?  Failing to accomplish basic tasks and waiting to grow old?",
-			"No.  No, that can't be it, you assure yourself, even as the last gooey-yet-burnt drippings of your failure slough off the walls of the dilapitated hut you call home and into that same pile of ruined breakfasts where you keep your genetic legacy.",
-			"There is one thing that separates men from beasts, and you feel it strongly.",
-			"Your mother was a hero.  Bards sung songs of valorous deeds, and drunker bards sung songs of her valorous deeds in the wrong key while forgetting most of the words, and there are no surer signs of fame with virtue than that.  She defended the weak, and she looked great doing it.",
-			"Now, it's your turn.  The world may be a dark and foreboding place, full of monsters on four and two legs, but you will be a shining beacon in the darkness, a word of hope against despair, an uplifting wind in a still sea.",
-			"But most of all - you will have the money to pay for someone who knows how to cook eggs.  And that, you mumble half-sure to yourself, is all that matters.",
-			"With renewed vigor, you throw open the door, well, flap, to your abode, and greet the sunshine of day; it's so bright that it hurts your eyes and you almost immediately give up.",
-			"But you don't - and that's what counts.  For the one thing that separates men from beasts?",
-			"Denial.",
+			"You toss the burnt eggs into the same refuse pile that is your shrine to ruined meals and sigh.",
+			"It's been almost two decades since the Moon Lord's defeat and life in the outskirts of Nadir... aren't great, but the constant raids by moonmen have ceased, and the wellwater has never tasted less putrid.",
+			"Just the other day, that girl from the village even said your name - probably. And recently, all those forays into village library have proved fruitful.  Not only have you gained useful knowledge to put your life as a peon into perspective, but you now know the mating habits of ducks and...",
+			"Maybe they haven't been so fruitful after all.",
+			"You glance down at the dribbling eggs.  Is this all there is to life?  Failing to accomplish basic tasks and waiting to grow old?",
+			"No.  No, that can't be it, you assure yourself, even as the last gooey-yet-burnt drippings of your failure slough off the walls of the dilapidated hut you call home and into that same pile of ruined breakfasts where you keep your genetic legacy.",
+			"There is one thing that separates men from beasts, and you feel it strongly.  With renewed vigor, you throw open the door, well, flap, to your abode, and greet the sunshine of day; it's so bright that it hurts your eyes and you almost immediately give up."
 		]
 	},
 	{
 		"key": "STORY-002",
 		"scriptLines": [	
-			"-next scene-"
+			"But you don't - and that's what counts.  For the one thing that separates men from beasts?",
+			"Denial.",
+			"First things first - you have to go to him.  The man that's been waiting for you.  The man that taught your mother.  The legend of the nearby village, living alone in a cottage on the village outskirts - the place where your true destiny will first take root.",
+			"You pack your things - there isn't much - and leave for the cottage on the outskirts."
 		]
 	},
+	{
+		"key": "STORY-003",
+		"scriptLines": [	
+			"After a short trek, encountering nobody along the way (thankfully), you see the cottage in the distance.  Smoke billows from the chimney slowly - a dim fire lit within.  As you approach the front door, you hear a faint, muffled voice; a man is speaking.",
+			"You knock on the door, and the speech stops, only to be replaced with a fumbling of the lock and a louder, more resonant voice.",
+			"\"I've been waiting. It was only a matter of time,\" they say, unfastening the final lock, and pulling open the heavy oaken door, \"now, you can finally fulfill your destiny as...  who are you?\", the man standing in the doorway asks, once he's eyes fall on you.\"",
+			"You recognize him instantly, though he's aged years - years that have not been kind to him.  He was once a tall, proud, handsome man... now he's a tall, confused, kind-of-handsome-in-that-older-guy-way man, and he has clearly not been keeping up with the razor.",
+			"You rally your resolve. \"I am the son of the hero that defeated the Moon Lord, and I...\" you say, but he holds up his hand.",
+			"\"Hold on.  Moon Lord?  Why does that sound familiar?\" he says, scratching his beard pensively, \"Big guy?  Elephant head?  Could breathe pure dark flame?\"",
+			"You deflate slightly. \"No... I think that was Dark Lord... the Moon Lord--\"",
+			"\"--could conjure spiders by blinking, right?  A hundred feet tall, body made of corpses, wails of the legions of the damned whenever he spoke?\"",
+			"\"No, that was the Marquis of Death, if you rem--\"",
+			"\"Skeleton, big hands, spellcaster, huge fortress--\"",
+			"\"Overlord.\"",
+			"\"Lived in a palace on the moon, big snake...\"",
+			"\"Moon serpent.\"",
+			"\"But I'm getting closer, right?\"",
+			"\"No. The Moon Lord terrorized our lands for centuries. He destroyed our village.  Twice.  He killed YOUR parents.\"",
+			"\"Right, that guy.  What about him?\"",
+			"\"Nothing!  Nothing about him!  My mother slew him, and...\"",
+			"\"You've come to collect. Every day another poor schmoe is knocking on my door asking about a quest I put out years ago- look, there's a statute of limitations on this stuff.  I don't even have any more enchanted swords; you'll have to settle for like, enchanted silverware.\"",
+			"\"I don't want... I'm not here to collect anything! You taught my mother how to fight... how to be a hero... and I want you to teach me, too!\" you say, loudly and clearly.",
+			"He pauses, clearly deliberating... even as he slowly closes the door in your face.",
+			"\"Wait, wait!  I'll pay you!\" you say, jamming your foot in the door.",
+			"\"Will you?  What have you got?\", he asks, easing up, but not letting you pull the door open any more than it already is.",
+			"\"Well... nothing, but... ow!\" you exclaim, as he kicks the toes of your boot in an attempt to dislodge it from the door.",
+			"\"I'm tired of being paid nothing!  Folksy wisdom doesn't grow on trees, you know!  Take your \"Poon Lord\" talk and shove it!",
+			"He finally kicks your boot free, and slams the door shut.  You stand, dumbfounded, unsure what to do next... but after a few moments, he opens the door again.",
+			"\"Oh, are you still here? I thought the encounter was over\", he says, scratching his chest boorishly.",
+			"\"Even if... even if I can't pay you now... one day...\" you say, on the verge of tears, and he sighs.",
+			"\"One day you'll have a whole list of fantastic enemies, and one of them will slit my throat in my sleep.  Fine.  I welcome it,\" he says, stepping aside to let you in, \"but you get one consultation.  And I expect payment deferred.\"",
+			"You enter the cottage, expecting to see the walls lined with weapons and trophies from various evil beasts - instead, you see tea cozies and tasteful wall rugs,"
+			"\"I'm a retiree.  I've got plenty of time to decorate,\" he explains, before sitting into a well-cushioned armchair, oofing all the way.", 
+			"\"So... you trained my mother,\" you say, keeping on your feet, full of determination, even as he gestures for you to sit down. \"Now I want you to train me,\" you reaffirm, and he nods.",
+			"\"What for?\" he asks, peering over his steeped fingers, \"What are you hoping to accomplish?\"",
+			"You close your eyes. It's been so long. You were just a child, then... but not now. \"To defeat who even my mother could not,\" you say, will unwavering, unlike your voice.",
+			"\"The Dragon God...\" he says, in disbelieving tones, sitting forward in his chair.",
+			"\"No, the Demon King.\"",
+			"\"Right, the Demon King...\" he says, in disbelieving tones, still sitting forward in his chair. \"That's... not gonna lie, that's not happening. Still, though, we all have dreams,\" he says, sitting back in his chair, arms on the armrests, relaxed.  \"Worth a shot.\"",
+			"As reassuring as his words are, you feel a hint of trepidation.  You finally take his offer to sit, and he leans forward again to pour you some tea.  You take the floral cup he offers you and sip at it... it's long cold.  The fire is nearly extinguished.",
+			"\"So you'll train me, then?\" you ask, and he nods, \"Like you trained my mother?\"",
+			"\"I... wasn't your mother's trainer, per se.  I was -a- trainer, and she purchased my services once or twice... once...\" he says, trailing off, and you feel your heart sink.  \"B-but that still counts, right? Maybe without my help, she never would have killed the Moon Bug.\"",
+			"\"Moon Lord.\"",
+			"\"Right, that.  If I can help her kill the Worm Lord, I can help you kill the Demon King, theoretically.  Not a doubt in my mind,\" he says, although it's plain on his face that he's doubting even the basic premise of what he's saying, even putting aside what he said earlier.",
+			"\"You'll help me? Even though I can't even pay you?\" you say, gratefully, and he clicks his tongue.",
+			"\"Don't have to rub it in.  Yeah, I'll help you.  Right now.  Clock's ticking,\" he says, pointing to his clockpiece standing against the wall, which is... clearly broken.",
+			"\"Do you really think, if I start now, I could... maybe, one day... defeat the Demon King?\" you ask, trying to cling to hope.",
+			"\"Let me think... 'she slew a great demon in a faraway land.  What became of her afterwards, few know, not even her own son' - that's you, right? Or do I have the wrong Dune Fjord slaying mama?\" he says, apparently having finally recalled something about your mother and her story.",
+			"You ignore his error and focus on what he's implying.  \"My mother was great and powerful.  I'm... me,\" you say, dejected, and he stands up - you're so surprised, you stand up as well, and he grasps your shoulders.",
+			"\"Well, even she had to start somewhere.  She didn't simply take up the holy sword Irathel and march off to defeat the Moon Lord half-cocked.  She had to stab thousands of inconsequential slimes and fauna before that,\" he says, reassuring you.",
+			"\"My mother didn't take up the holy sword Irathel at all.  That was her cohort, the Paladin of Drepnir,\" you say, correcting him.",
+			"\"Holy sword, magic bracelet, whatever.  The point is that her magical items dropped off of some less powerful creatures, and the items she used to defeat those schlubs dropped off of even less powerful creatures, maybe even people.  In a world where the only way to get more powerful is to kill and steal, you have to start small,\" he says, his eyes full of kindness.",
+			"\"I don't know if I have it in me,\" you say, hesitance gnawing at you.",
+			"\"That's horse manure,\" he says, slapping your shoulder, painfully, \"If your mother could slay the Goon Lord, you can slay the Demon King.  Uh, 50/50 odds, at least.  Probably,\" he says, waving his hand about noncommitally.", 
+			"\"You think so?\" you ask, and he... admittedly takes a second to answer.",
+			"\"You're your mother's son. I'm sure you can take a life like the best of 'em.  And if you can't, a few hours bashing rats with a stick will get you up to speed,\" he says, confidently.  \"But first things first.  You'll need to pick a class.\"",
+			"You blink.  \"A... class?  Like, the remedial kind, or...?\"",
+			"\"No, no,\" he says, waving his hand dismissively, \"a hero class.  You know, what defines you as an adventurer.  It represents a lifetime of training, discipline, and learning, as well as your personal outlook, philosophy, and primary strategy.\"",
+			"You nod along.  \"Uh... then... shouldn't I have selected my class, like, a long time ago?\"",
+			"\"You'd think, right?  Anyway, just pick one.  This is important, and you shouldn't be reckless in choosing, but... I skipped lunch, and it's getting late, so, you know...\" he says, waving his hand along.",
+			"\"I don't... I don't even know what the options are,\" you say, already losing your nerve.",
+			"\"Oh, for the love of... alright, here I am, your glorified class selection menu.  Let's move this along.  Ready?  Here we go\", he says, holding his hands up in the approximation of a rectangle.",
+			"\"WARRIOR\", he says, out loud, before pausing for effect.",
+			"\"Warriors are martial adepts, boasting excellent fighting skills and physical fitness.  This is adventurer classic, but the classics are classics for a reason.\"",
+			"\"Awesome!  Mom was really strong.  I like it,\" you say, and he scratches his chin, trying to avoid eye contact.",
+			"\"Well, that's true, but... it doesn't really suit you.\"",
+			"\"Why do you say that?\"",
+			"\"Well... who's going to believe that someone that looks like you has a high STR score?\"",
+			"\"That's...\"",
+			"\"And besides, everyone picks Warrior.  It's like... vanilla ice cream.  You don't want to be boring, do you? Even if your mother was one, you've got to forge your own path.\"",
+			"\"I... I guess you're right.\"",
+			"\"Alright, next. ROGUE.\" he says, again, loudly, leaving an awkward silence lingering for a moment.",
+			"\"Rogues are highly skilled, lightly armored combatants.  They represent the cream of the crop in terms of their agility. They're masters of outmaneuvering their opponents and avoiding potentially fatal blows.  Pretty nice, huh?\"",
+			"\"Yeah!  I could use two weapons, and sneak behind enemies, and kill them before they even see me!  I wouldn't even have to be a good fighter.\"",
+			"\"True, true... but you'd also have a bad reputation.  Would your mother really be proud if her son became a world class, back-stabbing murderer?\"",
+			"\"...no, I guess not.  Fine.  Next.\"",
+			"\"PALADIN. Formidable, stalwart, and holier-than-thee...\"",
+			"\"Thou.\"",
+			"\"Pardon?\"",
+			"\"It's 'Holier-than-thou.'\"",
+			"\"That doesn't seem right.  Really?\"",
+			"\"I'm pretty sure.  If we go to the library, we could look it up.\"",
+			"\"I mean, yeah, but... do you want to go all the way to the library just to see how people used to talk?\" he says, implying that it's a giant waste of time.",
+			"\"It just sounds weird, is all,\" you say.",
+			"\"...\"",
+			"\"...\"",
+			"\"ANYWAY, Paladin...\"",
+			"\"Wouldn't the plural be 'Paladins'?\"",
+			"\"PALADINS are resilient and heavily armored, and are capable of holy magicks.  Are you going to say something about how I spelled 'magick'?\"",
+			"\"No... that... speaks for itself.\"",
+			"\"...I'll give you a sovereign if you'll shut up and let me describe the Paladin.\"",
+			"\"Done.\" {RECEIVED 1 GOLD SOVEREIGN}",
+			"\"...and so, because of this, they're the most defensive class. For some reason, there's no playable Cleric or Healer class, so they're the only healers.  They adhere to a strict code of ethics, and are sworn in by vows to uphold law, no matter the circumstance.  Are you prepared to take those vows?\"", 
+			"\"I'm more of a descriptivist myself, really.\"",
+			"\"...\"",
+			"\"RANGER. As their name suggests, they're unparalleled at ranged combat.  I could actually see you with a bow.\" he says, rubbing his chin under his beard.",
+			"\"What's that supposed to mean?\"",
+			"\"Nothing, you just seem like the type that would use a bow.\"",
+			"\"Why do you say that?\"",
+			"\"Because you're... uh...\"",
+			"\"You know what?  Never mind.  I don't want to be a Ranger anyway.  Mom never used a bow.\"",
+			"\"Right.  MAGE.  Mages wield the very nature of magic itself against their foes, and their power is legend, but their actual combat ability is without peer.  Because nobody's as bad at fighting as a mage.\"",
+			"\"That's not like mom at all.  I think I'll pass, phenomenal cosmic power or no.\"",
+			"\"That's probably a good call.  They're more of a party class, anyway.\"",
+			"You sigh.  You wonder just how many classes there are... and if it will really make a difference if none of them suit you.  Maybe you should just be a warrior and try to make it work...",
+			"He doesn't say anything for a bit.  He looks like he's thinking... about what, you're not sure.",
+			"\"...ENCHANT...ER.  Enchanters... can do just about everything.  High-level Enchanters are among the most powerful and revered of all adventurers.  Their stats are balanced, they can wear most equipment, and they can use both light and dark magicks. One of your mom's closest allies was an Enchanter, even.\"",
+			"\"...that sounds great.  Alright, I'll be an Enchanter.\"",
+			"\"Just like that?  You don't want to look at their st...\"",
+			"[You are now an Enchantress] [Level 1]",
+			"\"Alright!  Class selected.  What next?\"",
+			"\"Well, uh...  you should get familiar with your character information screen... uhm...\"",
+			"\"Why are all of my stats so... low?\"",
+			"\"They're... balanced.\"",
+			"\"Wait, my Charisma is 7?!  What does that even do?\"",
+			"\"Nothing, far as I can tell.  It's just, each class has one high stat.  Someone had to get the useless one.\"",
+			"\"You said Enchanters were really good!\"",
+			"\"I said 'high-level' Enchanters are among the most powerful and revered. Level 1 Enchanters are worse than worthless; nobody takes them seriously.  That's part of the reason why the high-level ones are respected - it takes a special individual to make the crappy starting class into something worthwhile.  Good luck.\"",
+			"You feel... numb.  Dumbfounded.  Before you even know what's happening, you realize that he's led you to the door, where he then pushes you outside.",
+			"\"W-wait!  What about my training?\" you ask, defiantly.",
+			"\"That was it.  I'm just certified as a class-change trainer. Never got my skill training certification. Bad grades. One time, we snuck on top of the school and--\"",
+			"\"THAT'S IT?  What am I supposed to do now?\" you ask, sounding more petulant than you intended.",
+			"\"Now... well, first thing is getting supplies.  Better visit the Shop in town.  You'll know which one - it's the only one.  And you'll need someone to teach you magic, since an Enchantress without magic is just asking for it, but it's magic, so I ain't gotta explain... look, my tea's getting cold. Run along now.\"",
+			"He slams the door shut.  You feel... different.  Certainly, you feel more in tune with the flowing of the air around you, and looking at your hands, there does seem to be a noticable... change in your appearance as well.  Supplies, he said... well, first thing's first.  Although, you suppose, this is now the second thing.",
+			"As you walk away from the cottage towards the village proper, you start to wonder.",
+			"To slay the Demon King... will that really improve the lives of the people you care most about?  You wonder.  You can barely remember it, but you've heard stories of what life was like under the Moon Lord's thumb... assuming it had a thumb, anyway.  The threat of the Demon King, by comparison, seems... remote.",
+			"Well, your job as village layabout has come to an end, surely.  If you can give back to all the people who helped and supported you, then that's just what you're going to do."
+		]
+	},
+	{
+		"key": "STORY-004",
+		"scriptLines": [	
+			"You return to the cottage, but find that he's no longer there.",
+			"You leave, disappointed."
+		]
+	},
+	{
+		"key": "STORY-005",
+		"scriptLines": [
+			"You enter the village proper - the main street stretches before you, and you know the shop isn't far.  On your way to it, you happen across a trio of old, crusty men telling stories around a bonfire, although one of them doesn't say a word at all.  You walk past, nonchalantly, but listen in on their conversation, hiding behind a nearby retaining wall.",
+			"\"Did ya hear about that adventurer boy what wandered into the orc camp down by Nagle's Crook?\" one man asks, although it's obvious from the reaction of the other two that they don't much know or care about it.",
+			"\"Nah.  They kill 'em?\"",
+			"\"Pahh, that'd be a borin' story, wouldnit?  Mighta been better for him, though.  Daft orcs couldn't tell 'em from a lass, so they blasted his ass six ways to sundown before he escaped.  Got back to town with enough orc jism up hit butt to qualify as a caravan hisself!\"",
+			"The man threw back his head in laughter, and his compatriot snickered, a grin visible beneath his mangy beard.",
+			"\"Ya think that's funny?  A fresh-faced lad said he'd slay that ogre prince fella making trouble in the lowlands, and bring 'is head to the princess in exchange for her hand in joyous marriage 'n all that.\"",
+			"He shakes his head, fighting back a fit of giggling.  Then he leans over and spits into a spittoon.",
+			"\"Next time anyone saw 'im, he was dressed much the same as the princess whose royal pussy he'd been chasin' after - and the ogre prince was slippin' him a fat one under the skirts and up his arse.  Ever seen an ogre dick?  Me neither, but I reckon that boy ain't a happy wife.\"",
+			"You feel a sinking feeling in your stomach.  Does that sort of thing really happen?  It can't be.  These old, dirty men must be telling tall baudy tales just to pass the time.  There's nothing more to it than that.",
+			"\"I can do ya one better.  Hear about those shebitches that caught licker... lycra... the wolf sickness, y'know what I mean,\" he says, and you're not sure if the drunkenness has adled his brain or if it came pre-addled."
+			"\"Yeah, what about 'em?\"",
+			"\"Well, rumor 'as it they've got between their legs what an alpha male wolf's got between 'is.  An' they like to pounce on unsuspecting men and give 'em what for,\" he says, pantomiming with his hands what everyone listening could picture in their heads.",
+			"\"Yah, so?  How does that compare to an ogre's fat one?\"",
+			"\"Well, y'see,\" he replies, leaning in, conspiratorially, but stage-whispering loud enough that you can still easily hear, \"when a dog is givin' another dog the business, they don't wan' 'em to leave before the business is concluded, y'see.  So it swells up, big as a dogfruit... an' I just got the name,\" he says, wiping his mouth in disgust.\"",
+			"\"Big as a dogfruit? Oof... tha' must be 'n ordeal.\"",
+			"\"Yah, let me tell ya, from one man to another, if a she bitch is lookin' frisky and ye can't fight her off, ye best off swallowin' yer tongue.\"",
+			"You back away from the two men, who seem awfully amused with themselves, and check that your sword is where you left it.  It sounds like you'll be needing it to be sharp and at the ready, because the world is a dangerous... uh... the image of a noble knight swearing to slay the ogre prince flashes in your mind, and then...",
+			"You shake your head.  The shop is just down this road.  You follow it, and spot the shop marked, well, 'Shop'.",
+			"When you enter, you see that the shop has fruit laid out in baskets on tables and on counters, more fruit than anyone has ever had need for.  Since you get your food courtesy of the township, you've never had reason to step inside.",
+			"Behind the counter, you see a fresh-faced girl who you've seen around town, but never spoken to."
+		]
+	},
+	{
+		"key": "STORY-006",
+		"scriptLines": [
+			"\"Hey there, what can I get for ya?\" she says, putting a basket full of apples down on the shop counter.",
+			"You can't quite place her accent.  She hasn't looked over at you yet responding only to the sound of the shop door shutting behind you.",
+			"\"Oh, you're new around here, aren't you?\" she asks, once she turns and sees your face.",
+			"\"I've... lived here my whole life...\" you say, but she just smiles politely in response.  She wipes her hands - she'd clearly just been working in the apple grotto - and clears her throat.",
+			"\"Name's Shopkeep.  You can call me Shopkeep,\" she says, full of energy. \"What would you like to buy?  Oh, and this cute thing isn't for sale,\" she says, gesturing to herself.",
+			"\"I... didn't think that...\" you say, flustered, and she looks down at her dress and pulls on the hem, lifting it slightly.",
+			"\"I made it myself.  It's my favorite dress.  Also my only one,\" she says, dropping the hem and shrugging. \"So, what'll it be?\"",
+			"You wipe your brow.  Her dress, obviously.  It's your turn to clear your throat.  \"Hrm... what do you sell?\""
+			"\"Oh, the usual,\" she says, although you're not sure what a 'shop' usually sells, \"apples, pomegranates, dogfruit, and other seasonal fruit and spices. Wait, are you an adventurer?\", she asks, eyes suddenly wide with excitement. At the mention of 'dogfruit', your sphincter tightens.",
+			"You feel a swelling of pride. \"Why, yes, yes I am,\" you say, confidently.",
+			"\"Well then. I sell swords, knives, axes, hammers, maces, flails, guns, bombs... did I say knives?  Knives,\" she says, smiling sweetly, even as she kicks the display behind her, which flips around to reveal... well, exactly what she'd said.  An arsenal.",
+			"Your mouth hangs agape."
+			"\"Oh, bows, also,\" she says, sensing your sudden anxiety looking like she just remembered something, pointing over her shoulder at an array of short and longbows.",
+			"\"No, no, I don't know how to... did you say bombs?  Uh... what kind of... swords do you have?\" you ask, trying to swallow your surprise.",
+			"\"All kinds - longswords, shortswords, broadswords, bastardswords, single-edged, which are just knives, really, double-edged, good to wear gauntlets with those, falchions, scimitars, rapiers, mediumswords, machetes...\" she continues, listing them off without taking a breath.",
+			"\"I think... uh... I think a longsword is fine.\"",
+			"Her eyes light up. \"What kind?\"",
+			"\"A pointy one, please,\" you say - you don't know the first thing about swords.",
+			"\"Got ya!\" she says, turning on her heel to face the display of weapons... only to open a big iron chest, which you can see is actually filled to the brim with swords of all kinds - there must be dozens, thrown haphazardly inside.  She dons a pair of thick gloves and then dives in.",
+			"You swallow, hard, as she searches deep in the chest... paying little mind to the fact that she's bending fully at the waist, and her skirt is not long enough to hide her panty-clad rear, which she wiggles at you in her search, either oblivious or uncaring.",
+			"You wonder if she didn't measure her height properly, or if her rear wasn't quite so large when she sewed the dress... but it's hard to really think through hypothetical scenarios.", 
+			"The fabric stretches thin over her admirably-sized bottom, but you don't have much time to gawk before she stands back up right, arms full of blades.",
+			"\"These are all pointy, good for stabbing and eviscerating, and more importantly, they're nice and light, so even weaklings can use them,\" she says, chipper as ever.  She doesn't seem to mean any insult by it, so it seems like it's just an honest appraisal of your abilities.  Which is... more insulting, probably.",
+			"\"T-thanks... I guess I'll pick one...\"",
+			"She drops the lot of them down on the counter - that can't be safe, or a good way to handle the merchandise - and you carefully peruse them.  There's a thin sword, clearly designed for thrusting, one that's a bit thicker, for thrusting or swinging it around, a thick one with a single edge, and a thick, double-edged one.",
+			"---insert shop menu here---",
+			"When you finish making your selection, you hold it out from your body, feeling more confident than you've ever felt - but you still have no idea how to use it.  Being Level 1 sucks.",
+			"\"Oh, no, not like that,\" she says, rounding the counter, \"here, let me show you.\"",
+			"She stands behind you and graps the sword, and you feel a lump in your throat.  Her soft form presses against your back, and your heart races.",
+			
+		]
+	},
+	{
+		"key": "STORY-006A",
+		"scriptLines": [
+			"\"Oh my... you're rather cute, aren't you?  A shame you're going on a journey...\" she says, and you feel your heart beating in your chest... and a stirring in your loins that isn't nearly as innocent.",
+			"Her hand rests on yours, and her fingers trace up towards your wrist, when suddenly, she stops.",
+			"\"Well, I'm sure you know how to use it,\" she says, and you swallow, as she rounds the counter again, her skirt trailing behind her.",
+			"She returns to her position behind the counter and stares at you, smiling brightly, but silently.  You start to turn away, and she finally speaks.",
+			"\"Thanks for coming!\" she says, waving to you as you leave, having procured the necessary - you hope - supplies.",	
+		]
+	},
+	{
+		"key": "STORY-006B",
+		"scriptLines": [
+			"?!",	
+		]
+	},
+	{
+		"key": "STORY-007",
+		"scriptLines": [
+			"...",
+			"..",
+			".",
+			"With weapon in hand, you set out.  First stop - someone who will teach you magic.  You could ask the townsfolk for a suggestion... but you have at least one option in mind: Meri, a magician your mother once travelled with, who now lives as a recluse a few days east, near the foot of the Burle mountains.",
+			"You leave the town, feeling more full of gumption than you ever have before."
+		]
+	},	
+	{
+		"key": "STORY-FIGHT-001",
+		"scriptLines": [
+			"You encounter an enemy thing!"
+		]
+	},	
+	{
+		"key": "STORY-FIGHT-002",
+		"scriptLines": [
+			"You lose!"
+		]
+	},	
 	{
 		"key": "TOWN",
 		"scriptLines": [

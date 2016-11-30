@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.IntMap;
 import com.badlogic.gdx.utils.IntSet;
+import com.majalis.asset.AssetEnum;
 import com.majalis.character.PlayerCharacter;
 import com.majalis.save.LoadService;
 import com.majalis.save.SaveEnum;
@@ -35,7 +36,7 @@ public class Zone {
 		this.random = random;
 		this.repeats = repeats;
 		visitedCodesSet = loadService.loadDataValue(SaveEnum.VISITED_LIST, IntSet.class);
-		sound = assetManager.get("node_sound.wav", Sound.class);
+		sound = assetManager.get(AssetEnum.CLICK_SOUND.getPath(), Sound.class);
 		character = loadService.loadDataValue(SaveEnum.PLAYER, PlayerCharacter.class);
 
 		this.nodes = nodes;

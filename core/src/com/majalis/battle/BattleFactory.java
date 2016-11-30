@@ -81,7 +81,8 @@ public class BattleFactory {
 		
 		switch(battleCode){
 			case 0: return new EnemyCharacter(getTexture(EnemyEnum.WERESLUT), getTextures(EnemyEnum.WERESLUT), EnemyEnum.WERESLUT);
-			case 1: return new EnemyCharacter(getTexture(EnemyEnum.HARPY), getTextures(EnemyEnum.HARPY), EnemyEnum.HARPY);
+			case 1: 
+			case 2004: return new EnemyCharacter(getTexture(EnemyEnum.HARPY), getTextures(EnemyEnum.HARPY), EnemyEnum.HARPY);
 			case 2: return new EnemyCharacter(getTexture(EnemyEnum.SLIME), getTextures(EnemyEnum.SLIME), EnemyEnum.SLIME);
 			case 3: return new EnemyCharacter(getTexture(EnemyEnum.BRIGAND), getTextures(EnemyEnum.BRIGAND), EnemyEnum.BRIGAND);
 			case 5: return new EnemyCharacter(getTexture(EnemyEnum.CENTAUR), getTextures(EnemyEnum.CENTAUR), EnemyEnum.CENTAUR);
