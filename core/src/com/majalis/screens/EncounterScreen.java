@@ -187,6 +187,7 @@ public class EncounterScreen extends AbstractScreen {
 			case 5:
 				requirements.put(AssetEnum.SHOP_MUSIC.getPath(), Music.class);
 				requirements.put(AssetEnum.CENTAUR.getPath(), Texture.class);
+				requirements.put(AssetEnum.UNICORN.getPath(), Texture.class);
 				break;
 			default:
 				requirements.put(AssetEnum.TRAP_BONUS.getPath(), Texture.class);	

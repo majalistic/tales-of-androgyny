@@ -31,7 +31,7 @@ public class TownScreen extends AbstractScreen {
 		resourceRequirements.put(AssetEnum.TOWN_BG.getPath(), Texture.class);
 		resourceRequirements.put(AssetEnum.SHOPKEEP.getPath(), Texture.class);
 		resourceRequirements.put(AssetEnum.STANCE_ARROW.getPath(), Texture.class);
-		resourceRequirements.put(AssetEnum.ENCOUNTER_MUSIC.getPath(), Music.class);
+		resourceRequirements.put(AssetEnum.SHOP_MUSIC.getPath(), Music.class);
 		resourceRequirements.put(AssetEnum.BUTTON_SOUND.getPath(), Sound.class);
 	}
 	private final SaveService saveService;
@@ -50,7 +50,7 @@ public class TownScreen extends AbstractScreen {
 		skin = assetManager.get(AssetEnum.UI_SKIN.getPath(), Skin.class);
 		background = new BackgroundBuilder(assetManager.get(AssetEnum.TOWN_BG.getPath(), Texture.class)).build();
 		arrow = new Image(assetManager.get(AssetEnum.STANCE_ARROW.getPath(), Texture.class));
-		music = assetManager.get(AssetEnum.ENCOUNTER_MUSIC.getPath(), Music.class);
+		music = assetManager.get(AssetEnum.SHOP_MUSIC.getPath(), Music.class);
 		buttonSound = assetManager.get(AssetEnum.BUTTON_SOUND.getPath(), Sound.class);
 		Texture shopkeepTexture = assetManager.get(AssetEnum.SHOPKEEP.getPath(), Texture.class);
 		shopkeep = new Image(shopkeepTexture);

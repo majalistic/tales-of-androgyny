@@ -86,6 +86,7 @@ public class BattleFactory {
 			case 2: return new EnemyCharacter(getTexture(EnemyEnum.SLIME), getTextures(EnemyEnum.SLIME), EnemyEnum.SLIME);
 			case 3: return new EnemyCharacter(getTexture(EnemyEnum.BRIGAND), getTextures(EnemyEnum.BRIGAND), EnemyEnum.BRIGAND);
 			case 5: return new EnemyCharacter(getTexture(EnemyEnum.CENTAUR), getTextures(EnemyEnum.CENTAUR), EnemyEnum.CENTAUR);
+			case 1005: return new EnemyCharacter(getTexture(EnemyEnum.UNICORN), getTextures(EnemyEnum.UNICORN), EnemyEnum.UNICORN);
 			default: return null;
 		}
 	}
@@ -95,7 +96,8 @@ public class BattleFactory {
 		HARPY ("Harpy", AssetEnum.HARPY.getPath()),
 		SLIME ("Slime", AssetEnum.SLIME.getPath()),
 		BRIGAND ("Brigand", AssetEnum.BRIGAND.getPath()),
-		CENTAUR ("Centaur", AssetEnum.CENTAUR.getPath());
+		CENTAUR ("Centaur", AssetEnum.CENTAUR.getPath()),
+		UNICORN ("Unicorn", AssetEnum.UNICORN.getPath());
 		
 		private final String text;
 		private final String path;

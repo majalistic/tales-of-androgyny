@@ -856,23 +856,41 @@
 	{
 		"key": "005-00",
 		"scriptLines": [
-			"You see a... horse?"
+			"The plains are vast, and you walk along them, humbled by the visions of the distant mountains.",
+			"In the far distance, you see... horses?  Something about their profile is odd.",
+			"As you get closer, in the hopes of satisfying your curiosity, they all but scatter - but as they do, you get a glimpse of one of them as they turn to look at you - and a very human gaze meets yours.",
+			"By the time you reach where the group of the strange half-horse creatures had been, none are left... but you detect a presence still lingering nearby."
 		]
 	},
 	{
 		"key": "005-01",
 		"scriptLines": [
-			"You're a virgin!"
+			"You hear a frenzied whinny, and spin around just in time to avoid being trampled by a brightly colored creature must like the one before.  When they turn to look at you, you see that it's female... a rather well-endowed female... and that her colors are quite vibrant.",
+			"Even more strange, she has a horn on her head... and... between her legs...",
+			"It's... rather erect... and the look on her face is quite mad - she wipes her saliva on her wrist, even as the thing pointed directly at you drools a clear strand down into the dirt, which quickly pools into mud.",
+			"You tense up, but in one place in particular.  It seems you'll have to fight off her amorous advances."
 		]
 	},
 	{
 		"key": "005-02",
 		"scriptLines": [
-			"You're not a virgin!"
+			"From hidden behind a nearby boulder emerges one member of the herd - a female, with a rather buxom appearance.  She approaches you serenely, proudly.",
+			"\"Human.  You are trespassing on centaur lands. Leave now and we will bring you no harm.  Or fight me - and earn your place at our campfire,\" she says, and it's clear those are your only two options... that is, until you spy something dangling between her legs. It's not aroused, but..."
 		]
 	},
-		{
+	{
 		"key": "005-03",
+		"scriptLines": [
+			"You get down your hands and knees - you can't believe you're doing this, but you also can't believe how much of a horse cock she has.",
+			"You pull your pants down and spread your cheeks, and she wastes little time in acquiescing to your subtle demands, trotting over, her cock freeing itself of its sheathe in search of another.",
+			"She doesn't hesitate to begin prodding it against your poor hole - once, twice, three times, and you yelp, as she begins to stuff it inside, your mouth agape in awe and your back door opening far wider than is comfortable.",
+			"Sweat drips down your face as she pushes it inside - even though you're holding yourself open, it's still a lot of dick to stuff into a very tight, soon to be cavernous pussy.",			
+			"It lurches inside you, putting a crushing pressure in your bowels, and you fear you've bitten off more than you can chew.  You get the feeling if you let her cum, you're going to be winking for days.",	
+			"\"Mmmm... we mate for life, you know,\" she says... and you realize you're going to have to fight your way out of this one."			
+		]
+	}
+	{
+		"key": "005-04",
 		"scriptLines": [
 			"You lost!"
 		]

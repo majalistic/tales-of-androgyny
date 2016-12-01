@@ -132,6 +132,9 @@ public class BattleScreen extends AbstractScreen{
 			case 5: 
 				textureArray.addAll(AssetEnum.CENTAUR.getPath(), AssetEnum.PLAINS_BG.getPath(), "arousal/Monster0.png", "arousal/Monster1.png", "arousal/Monster2.png");
 				break;
+			case 1005:
+				textureArray.addAll(AssetEnum.UNICORN.getPath(), AssetEnum.PLAINS_BG.getPath(), "arousal/Monster0.png", "arousal/Monster1.png", "arousal/Monster2.png");
+				break;
 		}
 		for (String path: textureArray){
 			requirements.put(path, Texture.class);

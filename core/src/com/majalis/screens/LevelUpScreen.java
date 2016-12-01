@@ -39,7 +39,6 @@ public class LevelUpScreen extends AbstractScreen {
 		}  
 	}
 	
-
 	@Override
 	public void render(float delta) {
 		super.render(delta);
