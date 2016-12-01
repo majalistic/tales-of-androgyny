@@ -136,6 +136,7 @@ public class EncounterScreen extends AbstractScreen {
 				requirements.put(AssetEnum.SILHOUETTE.getPath(), Texture.class);
 				requirements.put(AssetEnum.WAVES.getPath(), Music.class);
 				requirements.put(AssetEnum.SMUG_LAUGH.getPath(), Sound.class);
+				requirements.put(AssetEnum.HOVEL_MUSIC.getPath(), Music.class);	
 				break;
 			// default stick
 			case -1: 
@@ -143,6 +144,7 @@ public class EncounterScreen extends AbstractScreen {
 				break;
 			// werebitch
 			case 0:
+				requirements.put(AssetEnum.WEREWOLF_MUSIC.getPath(), Music.class);
 				requirements.put(AssetEnum.WEREBITCH.getPath(), Texture.class);
 				break;
 			// harpy
@@ -163,6 +165,7 @@ public class EncounterScreen extends AbstractScreen {
 				break;
 			// dryad
 			case 4:
+				requirements.put(AssetEnum.SHOP_MUSIC.getPath(), Music.class);
 				requirements.put(AssetEnum.DRYAD_BACKGROUND.getPath(), Texture.class);
 				break;
 				// initial trainer
@@ -171,14 +174,18 @@ public class EncounterScreen extends AbstractScreen {
 			case 2002:
 				requirements.put(AssetEnum.CABIN_BACKGROUND.getPath(), Texture.class);
 				requirements.put(AssetEnum.TRAINER.getPath(), Texture.class);
+				requirements.put(AssetEnum.TRAINER_MUSIC.getPath(), Music.class);		
 				break;
 			// initial shopkeep
 			case 2003: 
 				requirements.put(AssetEnum.TOWN_BG.getPath(), Texture.class);
 				requirements.put(AssetEnum.SHOPKEEP.getPath(), Texture.class);
+				requirements.put(AssetEnum.SMUG_LAUGH.getPath(), Sound.class);
+				requirements.put(AssetEnum.SHOP_MUSIC.getPath(), Music.class);
 				break;	
 			// centaur
 			case 5:
+				requirements.put(AssetEnum.SHOP_MUSIC.getPath(), Music.class);
 				requirements.put(AssetEnum.CENTAUR.getPath(), Texture.class);
 				break;
 			default:

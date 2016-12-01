@@ -102,7 +102,7 @@ public class EncounterBuilder {
 						getScript("STORY-000"), font, silhouetteBackground, new Array<Mutation>(), AssetEnum.WAVES.getPath(), getArray(new String[]{null, null, null, null, null, null, null, null, null, AssetEnum.SMUG_LAUGH.getPath(), null, null, null, null, null, null, null, null, AssetEnum.SMUG_LAUGH.getPath()}),
 						getTextScenes(
 							// needs to be hovel BG
-							getScript("STORY-001"), font, background, new Array<Mutation>(), AssetEnum.ENCOUNTER_MUSIC.getPath(), new Array<String>(),
+							getScript("STORY-001"), font, background, new Array<Mutation>(), AssetEnum.HOVEL_MUSIC.getPath(), new Array<String>(),
 							getTextScenes(
 								// nneds to be bright-white BG
 								getScript("STORY-002"), font, background, new Array<Mutation>(),
@@ -146,13 +146,13 @@ public class EncounterBuilder {
 			case 0:
 				Background werebitchBackground = new BackgroundBuilder(backgroundTexture).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class)).setForeground(assetManager.get(AssetEnum.WEREBITCH.getPath(), Texture.class)).build();
 				getTextScenes(
-					getScript(battleCode, 0), font, background, getArray(new Mutation[]{new Mutation(saveService, ProfileEnum.KNOWLEDGE, EnemyEnum.WERESLUT.toString())}),
+					getScript(battleCode, 0), font, background, getArray(new Mutation[]{new Mutation(saveService, ProfileEnum.KNOWLEDGE, EnemyEnum.WERESLUT.toString())}), AssetEnum.WEREWOLF_MUSIC.getPath(), new Array<String>(),
 					getTextScenes( 
 						getScript(battleCode, 1), font, werebitchBackground, 
 						getBattleScene(
 							saveService, battleCode, 
 							getTextScenes(getArray(new String[]{"You defeated the werebitch!", "You receive 2 Experience."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.EXPERIENCE, 2)}), getEndScene(EndScene.Type.ENCOUNTER_OVER)),
-							getTextScenes(getScript(battleCode, 2), font, werebitchBackground, getEndScene(EndScene.Type.GAME_OVER))				
+							getTextScenes(getScript(battleCode, 2), font, werebitchBackground, new Array<Mutation>(), AssetEnum.WEREWOLF_MUSIC.getPath(), new Array<String>(), getEndScene(EndScene.Type.GAME_OVER))				
 						)
 					)
 				);		
@@ -413,7 +413,7 @@ public class EncounterBuilder {
 			case 4:
 				background = new BackgroundBuilder(backgroundTexture).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class)).setForeground(assetManager.get(AssetEnum.DRYAD_BACKGROUND.getPath(), Texture.class)).build();
 				getTextScenes(
-					getScript(battleCode, 0), font, background, 
+					getScript(battleCode, 0), font, background, new Array<Mutation>(), AssetEnum.SHOP_MUSIC.getPath(), new Array<String>(),
 					getChoiceScene(
 						assetManager, "Do you offer her YOUR apple, or try to convince her to just hand it over?", getArray(new String[]{"Offer(Requires: Catamite)", "Plead with her"}), getArray(new PlayerCharacter[]{character, null}),												
 						getTextScenes(
@@ -446,7 +446,7 @@ public class EncounterBuilder {
 			case 5:
 				Background centaurBackground = new BackgroundBuilder(backgroundTexture).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class)).setForeground(assetManager.get(AssetEnum.CENTAUR.getPath(), Texture.class)).build();
 				getTextScenes(
-					getScript(battleCode, 0), font, background, getArray(new Mutation[]{new Mutation(saveService, ProfileEnum.KNOWLEDGE, EnemyEnum.CENTAUR.toString())}),
+					getScript(battleCode, 0), font, background, getArray(new Mutation[]{new Mutation(saveService, ProfileEnum.KNOWLEDGE, EnemyEnum.CENTAUR.toString())}), AssetEnum.SHOP_MUSIC.getPath(), new Array<String>(),
 					getCheckScene(
 						assetManager, CheckType.VIRGIN, character,
 						getTextScenes(
@@ -472,7 +472,7 @@ public class EncounterBuilder {
 			case 2001:
 				background = new BackgroundBuilder(assetManager.get(AssetEnum.CABIN_BACKGROUND.getPath(), Texture.class)).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class)).setForeground(assetManager.get(AssetEnum.TRAINER.getPath(), Texture.class)).build();
 				getTextScenes(
-					getScript("STORY-003"), font, background, new Array<Mutation>(),
+					getScript("STORY-003"), font, background, new Array<Mutation>(), AssetEnum.TRAINER_MUSIC.getPath(), new Array<String>(),
 					getEndScene(EndScene.Type.ENCOUNTER_OVER)						
 				);
 				break;
@@ -491,22 +491,22 @@ public class EncounterBuilder {
 				getTextScenes(
 					getScript("STORY-005"), font, background, new Array<Mutation>(),
 					getTextScenes (					
-						getScript("STORY-006"), font, backgroundWithShopkeep, new Array<Mutation>(),
+						getScript("STORY-006"), font, backgroundWithShopkeep, new Array<Mutation>(), AssetEnum.SHOP_MUSIC.getPath(), getArray(new String[]{null, null, null, null, AssetEnum.SMUG_LAUGH.getPath()}),
 						getCheckScene(assetManager, Stat.CHARISMA, new IntArray(new int[]{6}), character,
 							getTextScenes (
-								getScript("STORY-006A"), font, backgroundWithShopkeep, new Array<Mutation>(),
+								getScript("STORY-006A"), font, backgroundWithShopkeep, new Array<Mutation>(), AssetEnum.SHOP_MUSIC.getPath(), getArray(new String[]{ AssetEnum.SMUG_LAUGH.getPath()}),
 								getTextScenes (					
 									getScript("STORY-007"), font, background, new Array<Mutation>(),
 									getEndScene(EndScene.Type.ENCOUNTER_OVER)	
 								)	
 							),
 							getTextScenes (
-									getScript("STORY-006B"), font, backgroundWithShopkeep, new Array<Mutation>(),
-									getTextScenes (					
-										getScript("STORY-007"), font, background, new Array<Mutation>(),
-										getEndScene(EndScene.Type.ENCOUNTER_OVER)	
-									)	
+								getScript("STORY-006B"), font, backgroundWithShopkeep, new Array<Mutation>(),
+								getTextScenes (					
+									getScript("STORY-007"), font, background, new Array<Mutation>(),
+									getEndScene(EndScene.Type.ENCOUNTER_OVER)	
 								)	
+							)	
 						)			
 					)
 				);

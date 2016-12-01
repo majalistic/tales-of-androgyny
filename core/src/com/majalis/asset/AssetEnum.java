@@ -117,6 +117,10 @@ public enum AssetEnum {
 	// music
 	MAIN_MENU_MUSIC("music/MainMenuMusic.mp3"),
 	ENCOUNTER_MUSIC("music/EncounterMusic.mp3"),
+	SHOP_MUSIC("music/ShopkeepMusic.mp3"),
+	TRAINER_MUSIC("music/TrainerMusic.mp3"),
+	HOVEL_MUSIC("music/HovelMusic.mp3"),
+	WEREWOLF_MUSIC("music/WerewolfMusic.mp3"),
 	WORLD_MAP_MUSIC("music/WorldMapMusic.mp3"),
 	BATTLE_MUSIC("music/BattleMusic.mp3"),
 	WAVES("music/Waves.wav")

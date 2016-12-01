@@ -47,7 +47,7 @@ public class CreditsScreen extends AbstractScreen{
 		done.setPosition(1523, 120);
 		this.addActor(done);
 		
-		credits = "\"Broken Reality\", \"Danse Macabre - Sad Part - no violin\", \"Floating Cities\", \"Kings of Tara\""
+		credits = "\"Broken Reality\", \"Danse Macabre - Sad Part - no violin\", \"Floating Cities\", \"Kings of Tara\", \"Enchanted Valley\", \"Brittle Rille\", \"For Originz\""
 				+ "\nKevin MacLeod (incompetech.com)"
 				+ "\nLicensed under Creative Commons: By Attribution 3.0"
 				+ "\nhttp://creativecommons.org/licenses/by/3.0/"
