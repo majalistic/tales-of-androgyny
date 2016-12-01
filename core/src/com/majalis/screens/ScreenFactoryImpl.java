@@ -157,7 +157,7 @@ public class ScreenFactoryImpl implements ScreenFactory {
 	private LevelUpScreen getLevel(ScreenElements elements, PlayerCharacter character){
 		if (getAssetCheck(LevelUpScreen.resourceRequirements)){
 			// -3 is the magic number for the level up screen encounter
-			return new LevelUpScreen(this, elements, assetManager, saveService, encounterFactory.getEncounter(-3, elements.getFont(18), elements.getFont(18)));
+			return new LevelUpScreen(this, elements, assetManager, saveService, encounterFactory.getEncounter(-3, elements.getFont(48), elements.getFont(32)));
 		}
 		return null;
 	}
