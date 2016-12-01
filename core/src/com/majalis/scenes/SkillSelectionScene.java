@@ -61,7 +61,7 @@ public class SkillSelectionScene extends Scene {
 		font.setColor(0.4f,0.4f,0.4f,1);
 		int base = 975;
 		if ( !skillDisplay.equals("") ){
-			font.draw(batch, skillDisplay, base-900, 825);
+			font.draw(batch, skillDisplay, base-900, 870);
 		}
 		font.draw(batch, console, base, 650);
 		font.draw(batch, "Skill Points: " + skillPoints, base, 780);
