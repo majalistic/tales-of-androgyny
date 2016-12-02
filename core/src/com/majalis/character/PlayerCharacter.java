@@ -127,13 +127,13 @@ public class PlayerCharacter extends AbstractCharacter {
 				return getTechniques(Techniques.ALL_OUT_BLITZ, Techniques.HOLD_BACK);
 			case OFFENSIVE:
 				possibles = getTechniques(Techniques.BLITZ_ATTACK, Techniques.POWER_ATTACK, Techniques.ARMOR_SUNDER, Techniques.RECKLESS_ATTACK, Techniques.KNOCK_DOWN, Techniques.VAULT, Techniques.TEMPO_ATTACK, Techniques.RESERVED_ATTACK);
-				if (target.getStance() == Stance.SUPINE && target.isErect() && target.enemyType != EnemyEnum.SLIME){
+				if (target.getStance() == Stance.SUPINE && target.isErect() && target.enemyType != EnemyEnum.SLIME && target.enemyType != EnemyEnum.CENTAUR && target.enemyType != EnemyEnum.UNICORN){
 					possibles.addAll(getTechniques(Techniques.SIT_ON_IT));
 				}
 				return possibles;
 			case BALANCED:
 				possibles = getTechniques(Techniques.SPRING_ATTACK, Techniques.NEUTRAL_ATTACK, Techniques.CAUTIOUS_ATTACK, Techniques.BLOCK, Techniques.INCANTATION, Techniques.DUCK, Techniques.HIT_THE_DECK);;
-				if (target.getStance() == Stance.SUPINE && target.isErect() && target.enemyType != EnemyEnum.SLIME){
+				if (target.getStance() == Stance.SUPINE && target.isErect() && target.enemyType != EnemyEnum.SLIME && target.enemyType != EnemyEnum.CENTAUR && target.enemyType != EnemyEnum.UNICORN){
 					possibles.addAll(getTechniques(Techniques.SIT_ON_IT));
 				}
 				return possibles;
@@ -505,5 +505,9 @@ public class PlayerCharacter extends AbstractCharacter {
 	
 	public boolean isVirgin() {
 		return virgin;
+	}
+
+	public void setVirginity(Boolean virginity) {
+		virgin = virginity;
 	}
 }

@@ -73,6 +73,7 @@ public class SaveManager implements SaveService, LoadService{
 	    	case MODE:				save.mode = (GameMode) object; break;
 	    	case MUSIC:				save.music = (String) object; break;
 	    	case CONSOLE:			save.console = (String) object; break;
+	    	case VIRGIN:			save.player.setVirginity((Boolean) object); break;
     	}	
         saveToJson(save); //Saves current save immediately.
     }
@@ -101,6 +102,7 @@ public class SaveManager implements SaveService, LoadService{
 	    	case MODE:				return (T) (GameMode) save.mode;
 	    	case MUSIC:				return (T) (String) save.music;
 	    	case CONSOLE:			return (T) (String) save.console;
+	    	case VIRGIN:
     	}	
     	return null;
     }

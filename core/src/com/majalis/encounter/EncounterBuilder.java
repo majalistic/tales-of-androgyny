@@ -422,7 +422,7 @@ public class EncounterBuilder {
 						getTextScenes(
 							getScript(encounterCode, 1), font, background,
 							getTextScenes(
-								getArray(new String[]{"You take 5 damage from the splinters.", "You receive 10 food from the dryad.", "You receive 1 Experience."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.HEALTH, -5), new Mutation(saveService, SaveEnum.FOOD, 10), new Mutation(saveService, SaveEnum.EXPERIENCE, 1)}), 
+								getArray(new String[]{"So that happened.", "You take 5 damage from the splinters.", "You receive 10 food from the dryad.", "You receive 1 Experience."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.VIRGIN, false), new Mutation(saveService, SaveEnum.HEALTH, -5), new Mutation(saveService, SaveEnum.FOOD, 10), new Mutation(saveService, SaveEnum.EXPERIENCE, 1)}), 
 								getEndScene(EndScene.Type.ENCOUNTER_OVER)
 							)
 						),
@@ -627,7 +627,7 @@ public class EncounterBuilder {
 				button.addListener(getListener(choiceScene, sceneMap.get(sceneMap.orderedKeys().get(ii)), buttonSound));
 			}
 			
-			table.add(button).size(500, 60).row();
+			table.add(button).size(650, 60).row();
 			ii++;
 		}
 				

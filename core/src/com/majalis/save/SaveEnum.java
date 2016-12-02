@@ -21,5 +21,6 @@ public enum SaveEnum {
 	EXPERIENCE, 
 	MODE, 
 	MUSIC, 
-	CONSOLE
+	CONSOLE, 
+	VIRGIN
 }
