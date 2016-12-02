@@ -105,6 +105,11 @@
 		"scriptLines": [	
 			"After a short trek, encountering nobody along the way (thankfully), you see the cottage in the distance.  Smoke billows from the chimney slowly - a dim fire lit within.  As you approach the front door, you hear a faint, muffled voice; a man is speaking.",
 			"You knock on the door, and the speech stops, only to be replaced with a fumbling of the lock and a louder, more resonant voice.",
+		]
+	},
+	{
+		"key": "STORY-003A",
+		"scriptLines": [	
 			"\"I've been waiting. It was only a matter of time,\" they say, unfastening the final lock, and pulling open the heavy oaken door, \"now, you can finally fulfill your destiny as...  who are you?\", the man standing in the doorway asks, once he's eyes fall on you.\"",
 			"You recognize him instantly, though he's aged years - years that have not been kind to him.  He was once a tall, proud, handsome man... now he's a tall, confused, kind-of-handsome-in-that-older-guy-way man, and he has clearly not been keeping up with the razor.",
 			"You rally your resolve. \"I am the son of the hero that defeated the Moon Lord, and I...\" you say, but he holds up his hand.",
