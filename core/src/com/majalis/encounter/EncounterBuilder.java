@@ -159,6 +159,8 @@ public class EncounterBuilder {
 				break;
 			// harpy
 			case 1:
+			// storymode harpy
+			case 2004: 
 				Background harpyFellatioBackground = new BackgroundBuilder(backgroundTexture).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class)).setForeground(assetManager.get(AssetEnum.HARPY_FELLATIO.getPath(), Texture.class)).build();
 				getTextScenes(
 					getScript(encounterCode, 0), font, background, getArray(new Mutation[]{new Mutation(saveService, ProfileEnum.KNOWLEDGE, EnemyEnum.HARPY.toString())}),
@@ -530,20 +532,7 @@ public class EncounterBuilder {
 					)
 				);
 				break;
-			// initial shopkeep
-			case 2004: 
-				background = new BackgroundBuilder(assetManager.get(AssetEnum.FOREST_BG.getPath(), Texture.class)).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class)).build();
-				Background enemyBackground = new BackgroundBuilder(assetManager.get(AssetEnum.FOREST_BG.getPath(), Texture.class)).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class)).setForeground(assetManager.get(AssetEnum.HARPY.getPath(), Texture.class)).build();
-				getTextScenes(
-					getScript("STORY-FIGHT-001"), font, background, new Array<Mutation>(),
-					getBattleScene(
-						saveService, battleCode,
-						getTextScenes(getArray(new String[]{"You won!", "You receive 3 Experience."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.EXPERIENCE, 3)}), getEndScene(EndScene.Type.ENCOUNTER_OVER)),
-						getTextScenes(getScript("STORY-FIGHT-002"), font, enemyBackground, getEndScene(EndScene.Type.GAME_OVER))					
-					)
-				);
-				break;
-			default:
+				default:
 				getTextScenes(
 					getScript("TOWN"), font, new BackgroundBuilder(assetManager.get(AssetEnum.TRAP_BONUS.getPath(), Texture.class)).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class)).build(),
 					getEndScene(EndScene.Type.ENCOUNTER_OVER)				
