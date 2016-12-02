@@ -455,7 +455,13 @@ public class EncounterBuilder {
 							getBattleScene(
 								saveService, battleCode + 1000,
 								getTextScenes(getArray(new String[]{"You defeated the unicorn!", "You receive 3 Experience."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.EXPERIENCE, 3)}), getEndScene(EndScene.Type.ENCOUNTER_OVER)),
-								getTextScenes(getScript(encounterCode, 4), font, unicornBackground, getEndScene(EndScene.Type.ENCOUNTER_OVER))					
+								getTextScenes(
+									getScript(encounterCode, 4), font, unicornBackground, 
+									getTextScenes(
+										getArray(new String[]{"You rest, eating 5 food.", "You recover 10 health."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.FOOD, -5), new Mutation(saveService, SaveEnum.HEALTH, 10)}),
+										getEndScene(EndScene.Type.ENCOUNTER_OVER)
+									)
+								)
 							)
 						),
 						getTextScenes(
@@ -465,7 +471,7 @@ public class EncounterBuilder {
 								getBattleScene(
 									saveService, battleCode,
 									getTextScenes(getArray(new String[]{"You defeated the centaur!", "You are now welcome to sleep in their camp, and receive 10 food.", "You receive 2 Experience."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.EXPERIENCE, 2), new Mutation(saveService, SaveEnum.FOOD, 10)}), getEndScene(EndScene.Type.ENCOUNTER_OVER)),
-									getTextScenes(getScript(encounterCode, 4), font, centaurBackground, getEndScene(EndScene.Type.ENCOUNTER_OVER))					
+									getTextScenes(getScript(encounterCode, 5), font, centaurBackground, getEndScene(EndScene.Type.GAME_OVER))					
 								),
 								getEndScene(EndScene.Type.ENCOUNTER_OVER),
 								getTextScenes(
@@ -473,7 +479,7 @@ public class EncounterBuilder {
 									getBattleScene(
 										saveService, battleCode, Stance.DOGGY, Stance.DOGGY,
 										getTextScenes(getArray(new String[]{"You defeated the centaur!", "You receive 2 Experience."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.EXPERIENCE, 2)}), getEndScene(EndScene.Type.ENCOUNTER_OVER)),
-										getTextScenes(getScript(encounterCode, 4), font, centaurBackground, getEndScene(EndScene.Type.ENCOUNTER_OVER))					
+										getTextScenes(getScript(encounterCode, 5), font, centaurBackground, getEndScene(EndScene.Type.GAME_OVER))					
 									)
 								)
 							)

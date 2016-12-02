@@ -69,13 +69,12 @@ public class EnemyCharacter extends AbstractCharacter {
 				imagePath = AssetEnum.SLIME.getPath();
 				break;
 			case CENTAUR:
-				imagePath = AssetEnum.CENTAUR.getPath();
 			case UNICORN:
-				imagePath = AssetEnum.UNICORN.getPath();
 				baseStrength = 4;
 				baseAgility = 4;
 				basePerception = 5;
 				bgPath = AssetEnum.PLAINS_BG.getPath();
+				imagePath = enemyType == EnemyEnum.CENTAUR ? AssetEnum.CENTAUR.getPath() : AssetEnum.UNICORN.getPath();
 				break;
 		}
 		staminaTiers.removeIndex(staminaTiers.size-1);
