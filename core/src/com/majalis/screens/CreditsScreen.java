@@ -54,7 +54,7 @@ public class CreditsScreen extends AbstractScreen{
 				+ "\n\nSuccubus-Tier patrons that helped make this happen:"
 				+ "\nDarksideX, Ace, crufl"
 				+ "\nMucho kudos to Dern for programming, debugging and moral support <3"
-				+ "\n\nCopy-editing by T3mp3st, anonymous others"				
+				+ "\n\nCopy-editing by T3mp3st, Legion, anonymous others"				
 				;
 	}
 
