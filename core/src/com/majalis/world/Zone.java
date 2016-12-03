@@ -10,6 +10,7 @@ import com.badlogic.gdx.utils.IntMap;
 import com.badlogic.gdx.utils.IntSet;
 import com.majalis.asset.AssetEnum;
 import com.majalis.character.PlayerCharacter;
+import com.majalis.encounter.EncounterCode;
 import com.majalis.save.LoadService;
 import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveService;
@@ -45,8 +46,8 @@ public class Zone {
 	}
 	
 	@SuppressWarnings("unchecked")
-	protected Zone addStartNode(int nodeCode, int encounter, int defaultEncounter, Vector2 position){
-		startNode = getNode(nodeCode, encounter, defaultEncounter, position, visitedCodesSet.contains(nodeCode));
+	protected Zone addStartNode(int nodeCode, EncounterCode initialEncounter, EncounterCode defaultEncounter, Vector2 position){
+		startNode = getNode(nodeCode, initialEncounter, defaultEncounter, position, visitedCodesSet.contains(nodeCode));
 		addNode(startNode, nodeCode, nodes);		
 		return this;
 	}
@@ -57,8 +58,8 @@ public class Zone {
 	}
 	
 	@SuppressWarnings("unchecked")
-	protected Zone addEndNode(int nodeCode, int encounter, int defaultEncounter, Vector2 position){
-		requiredNodes.add(getNode(nodeCode, encounter, defaultEncounter, position, visitedCodesSet.contains(nodeCode)));
+	protected Zone addEndNode(int nodeCode, EncounterCode initialEncounter, EncounterCode defaultEncounter, Vector2 position){
+		requiredNodes.add(getNode(nodeCode, initialEncounter, defaultEncounter, position, visitedCodesSet.contains(nodeCode)));
 		addNode(requiredNodes.get(requiredNodes.size-1), nodeCode, nodes, requiredNodes);		
 		return this;
 	}
@@ -93,7 +94,7 @@ public class Zone {
 					// save the position for the next iteration
 					currentNodePosition = newNodePosition;
 					
-					GameWorldNode newNode = getNode(nodeCode, (nodeCode-1)%6, -1, currentNodePosition, visitedCodesSet.contains(nodeCode) ? true : false);
+					GameWorldNode newNode = getNode(nodeCode, EncounterCode.getEncounterCode((nodeCode-1)%6), EncounterCode.DEFAULT, currentNodePosition, visitedCodesSet.contains(nodeCode) ? true : false);
 					addNode(newNode, nodeCode, nodes);
 					// if we've reached the target node, we can terminate this run-through
 					nodeNotReached = !requiredNode.isAdjacent(newNode);
@@ -123,8 +124,8 @@ public class Zone {
 		nodeMap.put(nodeCode, newNode);
 	}
 	
-	private GameWorldNode getNode(int nodeCode, int encounter, int defaultEncounter, Vector2 position, boolean visited){
-		return new GameWorldNode(saveService, font, nodeCode, new GameWorldNodeEncounter(encounter, defaultEncounter), position, visited, sound, character, assetManager);
+	private GameWorldNode getNode(int nodeCode, EncounterCode initialEncounter, EncounterCode defaultEncounter, Vector2 position, boolean visited){
+		return new GameWorldNode(saveService, font, nodeCode, new GameWorldNodeEncounter(initialEncounter, defaultEncounter), position, visited, sound, character, assetManager);
 	}
 	
 }

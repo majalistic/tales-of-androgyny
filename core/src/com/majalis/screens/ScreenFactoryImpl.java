@@ -14,6 +14,7 @@ import com.majalis.battle.BattleCode;
 import com.majalis.battle.BattleFactory;
 import com.majalis.character.PlayerCharacter;
 import com.majalis.encounter.Encounter;
+import com.majalis.encounter.EncounterCode;
 import com.majalis.encounter.EncounterFactory;
 import com.majalis.save.LoadService;
 import com.majalis.save.ProfileEnum;
@@ -133,8 +134,8 @@ public class ScreenFactoryImpl implements ScreenFactory {
 	}
 	
 	private EncounterScreen getEncounter(ScreenElements elements, PlayerCharacter character){
-		if (getAssetCheck(EncounterScreen.getRequirements((Integer)loadService.loadDataValue(SaveEnum.ENCOUNTER_CODE, Integer.class)))){
-			Integer encounterCode = loadService.loadDataValue(SaveEnum.ENCOUNTER_CODE, Integer.class);
+		if (getAssetCheck(EncounterScreen.getRequirements((EncounterCode)loadService.loadDataValue(SaveEnum.ENCOUNTER_CODE, Integer.class)))){
+			EncounterCode encounterCode = loadService.loadDataValue(SaveEnum.ENCOUNTER_CODE, EncounterCode.class);
 			Encounter encounter = encounterFactory.getEncounter(encounterCode, elements.getFont(48), elements.getFont(32));
 			String music = loadService.loadDataValue(SaveEnum.MUSIC, String.class);
 			return new EncounterScreen(this, elements, assetManager, saveService, music, encounter);
@@ -157,7 +158,7 @@ public class ScreenFactoryImpl implements ScreenFactory {
 	private LevelUpScreen getLevel(ScreenElements elements, PlayerCharacter character){
 		if (getAssetCheck(LevelUpScreen.resourceRequirements)){
 			// -3 is the magic number for the level up screen encounter
-			return new LevelUpScreen(this, elements, assetManager, saveService, encounterFactory.getEncounter(-3, elements.getFont(48), elements.getFont(32)));
+			return new LevelUpScreen(this, elements, assetManager, saveService, encounterFactory.getEncounter(EncounterCode.LEVEL_UP, elements.getFont(48), elements.getFont(32)));
 		}
 		return null;
 	}

@@ -1,5 +1,6 @@
 package com.majalis.world;
 
+import static com.majalis.encounter.EncounterCode.*;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -11,6 +12,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.IntMap;
 import com.majalis.asset.AssetEnum;
 import com.majalis.character.PlayerCharacter;
+import com.majalis.encounter.EncounterCode;
 import com.majalis.save.LoadService;
 import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveManager;
@@ -20,7 +22,6 @@ import com.majalis.save.SaveManager.GameMode;
  * Generates a world map or returns the world map.
  */
 public class GameWorldFactory {
-
 	private final SaveService saveService;
 	private final LoadService loadService;
 	private final AssetManager assetManager;
@@ -55,31 +56,31 @@ public class GameWorldFactory {
 		
 		if (gameMode == GameMode.SKIRMISH){
 			Zone zone = new Zone(saveService, loadService, font, assetManager, random, nodes, nodeMap, 3)
-					.addStartNode(1, 0, -1, new Vector2(500, 500))
-					.addEndNode(1000, 1000, 1000, new Vector2(900, 900))
+					.addStartNode(1, INITIAL, DEFAULT, new Vector2(500, 500))
+					.addEndNode(1000, TOWN, TOWN, new Vector2(900, 900))
 					.buildZone();
 			
 			Zone zone2 = new Zone(saveService, loadService, font, assetManager, random, nodes, nodeMap, 8)
 					.addStartNode(zone.getEndNodes().get(0))
-					.addEndNode(1001, 1001, 1001, new Vector2(1800, 1800))
-					.addEndNode(1002, 1001, 1001, new Vector2(1200, 2400))
+					.addEndNode(1001, FORT, FORT, new Vector2(1800, 1800))
+					.addEndNode(1002, FORT, FORT, new Vector2(1200, 2400))
 					.buildZone();
 			
 			new Zone(saveService, loadService, font, assetManager, random, nodes, nodeMap, 8)
 					.addStartNode(zone2.getEndNodes().get(0))
-					.addEndNode(1003, 1001, 1001, new Vector2(3000, 3000))
-					.addEndNode(1004, 1001, 1001, new Vector2(3000, 1700))
+					.addEndNode(1003, FORT, FORT, new Vector2(3000, 3000))
+					.addEndNode(1004, FORT, FORT, new Vector2(3000, 1700))
 					.buildZone();
 		}
 		else {
-			addNode(getNode(1, -1, -1, new Vector2(500, 500), true), 1, nodes);
-			addNode(getNode(2, 2001, 2002, new Vector2(600, 600), false), 2, nodes);
-			addNode(getNode(3, 2003, 2000, new Vector2(700, 700), false), 3, nodes);
-			addNode(getNode(4, 2004, -1, new Vector2(800, 800), false), 4, nodes);
+			addNode(getNode(1, DEFAULT, DEFAULT, new Vector2(500, 500), true), 1, nodes);
+			addNode(getNode(2, COTTAGE_TRAINER, COTTAGE_TRAINER_VISIT, new Vector2(600, 600), false), 2, nodes);
+			addNode(getNode(3, TOWN_STORY, TOWN2, new Vector2(700, 700), false), 3, nodes);
+			addNode(getNode(4, FIRST_BATTLE_STORY, DEFAULT, new Vector2(800, 800), false), 4, nodes);
 			
 			new Zone(saveService, loadService, font, assetManager, random, nodes, nodeMap, 1)
 					.addStartNode(nodes.get(nodes.size-1))
-					.addEndNode(1000, 1000, 1000, new Vector2(1000, 1000))
+					.addEndNode(1000, TOWN, TOWN, new Vector2(1000, 1000))
 					.buildZone();
 		}
 		
@@ -95,7 +96,7 @@ public class GameWorldFactory {
 		nodeMap.put(nodeCode, newNode);
 	}
 	
-	private GameWorldNode getNode(int nodeCode, int encounter, int defaultEncounter, Vector2 position, boolean visited){
-		return new GameWorldNode(saveService, font, nodeCode, new GameWorldNodeEncounter(encounter, defaultEncounter), position, visited, sound, character, assetManager);
+	private GameWorldNode getNode(int nodeCode, EncounterCode initialEncounter, EncounterCode defaultEncounter, Vector2 position, boolean visited){
+		return new GameWorldNode(saveService, font, nodeCode, new GameWorldNodeEncounter(initialEncounter, defaultEncounter), position, visited, sound, character, assetManager);
 	}
 }

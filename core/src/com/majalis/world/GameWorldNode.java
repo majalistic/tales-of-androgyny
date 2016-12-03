@@ -25,6 +25,7 @@ import com.badlogic.gdx.utils.Scaling;
 import com.majalis.asset.AnimatedImage;
 import com.majalis.asset.AssetEnum;
 import com.majalis.character.PlayerCharacter;
+import com.majalis.encounter.EncounterCode;
 import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveManager;
 import com.majalis.save.SaveService;
@@ -90,20 +91,8 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 		visibility = -1;
 	}
 	
-	private Texture getNodeTexture(int encounterCode){
-		switch (encounterCode){
-			case 1000:
-			case 2000:
-			case 2003:
-				return assetManager.get(AssetEnum.TOWN.getPath(), Texture.class);
-			case 1001:
-				return assetManager.get(AssetEnum.CASTLE.getPath(), Texture.class);
-			case 2001:
-			case 2002:
-				return assetManager.get(AssetEnum.FOREST_ACTIVE.getPath(), Texture.class);
-		}
-		Texture	nodeTexture = (encounterCode % 5 == 4 || encounterCode % 5 == 1 ? assetManager.get(AssetEnum.MOUNTAIN_ACTIVE.getPath(), Texture.class) : assetManager.get(AssetEnum.FOREST_ACTIVE.getPath(), Texture.class));
-		return nodeTexture;
+	private Texture getNodeTexture(EncounterCode encounterCode){
+		return assetManager.get(encounterCode.getTexturePath(), Texture.class);
 	}
 
 	public boolean isAdjacent(GameWorldNode otherNode){

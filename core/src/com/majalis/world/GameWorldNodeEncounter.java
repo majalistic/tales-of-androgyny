@@ -1,34 +1,35 @@
 package com.majalis.world;
 
+import com.majalis.encounter.EncounterCode;
 import com.majalis.save.SaveManager;
 
 /*
- * Represents the stub information for an encounter to be retrieved when that encounter is created.
+ * Represents the stub information for an encounter to be retrieved when that encounter is created.  This will eventually need to be refactored to bundle together two EncounterCodes and do little else, or removed entirely.
  */
 public class GameWorldNodeEncounter {
 
-	private final int encounterCode;
-	private final int defaultEncounterCode;
+	private final EncounterCode encounterCode;
+	private final EncounterCode defaultEncounterCode;
 	
-	public GameWorldNodeEncounter(int encounterCode, int defaultEncounterCode){
-		this.encounterCode = encounterCode;
-		this.defaultEncounterCode = defaultEncounterCode;
+	public GameWorldNodeEncounter(EncounterCode initialEncounter, EncounterCode defaultEncounter){
+		this.encounterCode = initialEncounter;
+		this.defaultEncounterCode = defaultEncounter;
 	}
 	
-	public int getCode(){
+	public EncounterCode getCode(){
 		return encounterCode;
 	}
 	
-	public int getDefaultCode() {
+	public EncounterCode getDefaultCode() {
 		return defaultEncounterCode;
 	}
 	
 	public SaveManager.GameContext getContext(){
-		return encounterCode == 1000 || encounterCode == 2000 ? SaveManager.GameContext.TOWN : SaveManager.GameContext.ENCOUNTER;
+		return encounterCode == EncounterCode.TOWN || encounterCode == EncounterCode.TOWN2 ? SaveManager.GameContext.TOWN : SaveManager.GameContext.ENCOUNTER;
 	}
 	
 	public SaveManager.GameContext getDefaultContext(){
-		return defaultEncounterCode == 1000 || defaultEncounterCode == 2000 ? SaveManager.GameContext.TOWN : SaveManager.GameContext.ENCOUNTER;
+		return defaultEncounterCode == EncounterCode.TOWN || defaultEncounterCode == EncounterCode.TOWN2 ? SaveManager.GameContext.TOWN : SaveManager.GameContext.ENCOUNTER;
 	}
 	
 	public String getDescription(int visibility, boolean visited){
@@ -40,18 +41,18 @@ public class GameWorldNodeEncounter {
 				return "You are unsure of what awaits you!";
 			case 1:
 				switch (encounterCode){
-					case 0: return "Wereslut";
-					case 1: return "Harpy";
-					case 2: return "Slime";
-					case 3: return "Brigand";
-					case 4: return "Dryad";
-					case 5: return "Centaur";
-					case 1000: return "Small Settlement";
-					case 2000:
-					case 2003:
+					case WERESLUT: return "Wereslut";
+					case HARPY: return "Harpy";
+					case SLIME: return "Slime";
+					case BRIGAND: return "Brigand";
+					case DRYAD: return "Dryad";
+					case CENTAUR: return "Centaur";
+					case TOWN: return "Small Settlement";
+					case TOWN2:
+					case TOWN_STORY:
 						return "Town of Nadir";	
-					case 2001: return "Cottage-on-the-Outskirts";
-					case 2004: return "Forest Clearing";
+					case COTTAGE_TRAINER: return "Cottage-on-the-Outskirts";
+					case FIRST_BATTLE_STORY: return "Forest Clearing";
 					default: return "Unknown - No Info for encounter #" + encounterCode + " and perception level = 1";
 			}
 			case 2:
@@ -60,17 +61,17 @@ public class GameWorldNodeEncounter {
 			case 5:
 			case 6:
 				switch (encounterCode){
-					case 0: return "Wereslut - Hostile!";
-					case 1: return "Harpy - Hostile!";
-					case 2: return "Slime - Neutral";
-					case 3: return "Brigand - Hostile!";
-					case 4: return "Dryad - Peaceful";
-					case 5: return "Centaur - Neutral";
-					case 1000: return "Town of Silajam";
-					case 2000:
-					case 2003: return "Town of Nadir";
-					case 2001: return "Cottage-on-the-Outskirts";
-					case 2004: return "Forest Clearing - signs of harpies";
+					case WERESLUT: return "Wereslut - Hostile!";
+					case HARPY: return "Harpy - Hostile!";
+					case SLIME: return "Slime - Neutral";
+					case BRIGAND: return "Brigand - Hostile!";
+					case DRYAD: return "Dryad - Peaceful";
+					case CENTAUR: return "Centaur - Neutral";
+					case TOWN: return "Town of Silajam";
+					case TOWN2:
+					case TOWN_STORY: return "Town of Nadir";
+					case COTTAGE_TRAINER: return "Cottage-on-the-Outskirts";
+					case FIRST_BATTLE_STORY: return "Forest Clearing - signs of harpies";
 					default: return "Unknown - No Info for encounter #" + encounterCode  + " and perception level = 2";
 				}
 			default: return "Perception level error.";
@@ -79,9 +80,9 @@ public class GameWorldNodeEncounter {
 	
 	private String getDefaultDescription(int visibility){
 		switch (defaultEncounterCode){
-			case 1000: return "Town of Silajam (visited)";
-			case 2000: return "Town of Nadir (visited)";
-			case 2002: return "Cottage-on-the-Outskirts (visited)";
+			case TOWN: return "Town of Silajam (visited)";
+			case TOWN2: return "Town of Nadir (visited)";
+			case COTTAGE_TRAINER: return "Cottage-on-the-Outskirts (visited)";
 			default: return "Nothing here.";
 		}
 	}

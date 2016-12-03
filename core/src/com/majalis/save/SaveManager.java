@@ -18,6 +18,7 @@ import com.majalis.character.Perk;
 import com.majalis.character.PlayerCharacter;
 import com.majalis.character.AbstractCharacter.Stat;
 import com.majalis.character.Techniques;
+import com.majalis.encounter.EncounterCode;
 /*
  * Used for file handling, both reading and writing - both game files and encounter replay files.
  */
@@ -60,7 +61,7 @@ public class SaveManager implements SaveService, LoadService{
 	    	case CONTEXT: 			save.context = (GameContext) object; break;
 	    	case NODE_CODE: 		save.nodeCode = (Integer) object; break;
 	    	case CAMERA_POS:		save.cameraPos = new Vector3((Vector2) object, 0); break;
-	    	case ENCOUNTER_CODE:	save.encounterCode = (Integer) object; break;
+	    	case ENCOUNTER_CODE:	save.encounterCode = (EncounterCode) object; break;
 	    	case VISITED_LIST:		save.visitedList.add((Integer) object); break;
 	    	case BATTLE_CODE:		save.battleCode = (BattleCode) object; break;
 	    	case CLASS:				save.player.setJobClass((JobClass) object); break;
@@ -87,7 +88,7 @@ public class SaveManager implements SaveService, LoadService{
 	    	case CONTEXT: 			return (T) save.context;
 	    	case NODE_CODE: 		return (T) (Integer)save.nodeCode;
 	    	case CAMERA_POS: 		return (T) (Vector3)save.cameraPos;
-	    	case ENCOUNTER_CODE:	return (T) (Integer) save.encounterCode;
+	    	case ENCOUNTER_CODE:	return (T) save.encounterCode;
 	    	case VISITED_LIST:		IntSet set = new IntSet();
 	    							set.addAll(save.visitedList);
 	    							return (T) set;
@@ -200,7 +201,7 @@ public class SaveManager implements SaveService, LoadService{
     	private String music;
     	private int worldSeed;
     	private int sceneCode;
-    	private int encounterCode;
+    	private EncounterCode encounterCode;
     	private int nodeCode;
     	private String console;
     	private Vector3 cameraPos;
@@ -221,7 +222,7 @@ public class SaveManager implements SaveService, LoadService{
     			worldSeed = (int) (Math.random()*10000);
     			// 0 sceneCode is the magic number to designate that a scene doesn't need to be loaded; just use the first (last) scene in the list
     			sceneCode = 0;
-    			encounterCode = -2;
+    			encounterCode = EncounterCode.INITIAL;
         		nodeCode = 1;
         		console = "";
         		cameraPos = new Vector3(500, 500, 0);

@@ -136,14 +136,13 @@ public class EncounterBuilder {
 	}
 	
 	@SuppressWarnings("unchecked")
-	protected Encounter getRandomEncounter(int encounterCode, PlayerCharacter character){
+	protected Encounter getRandomEncounter(EncounterCode encounterCode, PlayerCharacter character){
 		Texture backgroundTexture = assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getPath(), Texture.class);	
 		Background background = getDefaultTextBackground();
 		// if there isn't already a battlecode set, it's determined by the encounterCode; for now, that means dividing the various encounters up by modulus
-		if (battleCode == -1) battleCode = encounterCode;
+		if (battleCode == -1) battleCode = encounterCode.getBattleCode();
 		switch (encounterCode){
-			// werebitch
-			case 0:
+			case WERESLUT:
 				Background werebitchBackground = new BackgroundBuilder(backgroundTexture).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class)).setForeground(assetManager.get(AssetEnum.WEREBITCH.getPath(), Texture.class)).build();
 				getTextScenes(
 					getScript(encounterCode, 0), font, background, getArray(new Mutation[]{new Mutation(saveService, ProfileEnum.KNOWLEDGE, EnemyEnum.WERESLUT.toString())}), AssetEnum.WEREWOLF_MUSIC.getPath(), new Array<String>(),
@@ -157,11 +156,10 @@ public class EncounterBuilder {
 					)
 				);		
 				break;
-			// harpy
-			case 1:
-			// storymode harpy
-			case 2004: 
-				encounterCode = 1;
+			case HARPY:
+			case FIRST_BATTLE_STORY: 
+				encounterCode = EncounterCode.HARPY;
+				battleCode = encounterCode.getBattleCode();
 				Background harpyFellatioBackground = new BackgroundBuilder(backgroundTexture).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class)).setForeground(assetManager.get(AssetEnum.HARPY_FELLATIO.getPath(), Texture.class)).build();
 				getTextScenes(
 					getScript(encounterCode, 0), font, background, getArray(new Mutation[]{new Mutation(saveService, ProfileEnum.KNOWLEDGE, EnemyEnum.HARPY.toString())}),
@@ -193,8 +191,7 @@ public class EncounterBuilder {
 					)
 				);		
 				break;
-			// slime
-			case 2:
+			case SLIME:
 				Background slimeBackground= new BackgroundBuilder(backgroundTexture).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class)).setForeground(assetManager.get(AssetEnum.SLIME.getPath(), Texture.class)).build();
 				Background slimeDoggyBackground = new BackgroundBuilder(backgroundTexture).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class)).setForeground(assetManager.get(AssetEnum.SLIME_DOGGY.getPath(), Texture.class)).build();
 				getTextScenes(
@@ -276,8 +273,7 @@ public class EncounterBuilder {
 					)
 				);
 				break;
-			// brigand
-			case 3:
+			case BRIGAND:
 				Background brigandBackground = new BackgroundBuilder(backgroundTexture).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class)).setForeground(assetManager.get(AssetEnum.BRIGAND_ORAL.getPath(), Texture.class)).build();
 				getTextScenes(
 					getScript(encounterCode, 0), font, background, getArray(new Mutation[]{new Mutation(saveService, ProfileEnum.KNOWLEDGE, EnemyEnum.BRIGAND.toString())}),
@@ -412,8 +408,7 @@ public class EncounterBuilder {
 					)
 				);	
 				break;
-			// dryad
-			case 4:
+			case DRYAD:
 				background = new BackgroundBuilder(backgroundTexture).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class)).setForeground(assetManager.get(AssetEnum.DRYAD_BACKGROUND.getPath(), Texture.class)).build();
 				getTextScenes(
 					getScript(encounterCode, 0), font, background, new Array<Mutation>(), AssetEnum.SHOP_MUSIC.getPath(), new Array<String>(),
@@ -446,7 +441,7 @@ public class EncounterBuilder {
 					)
 				);
 				break;
-			case 5:
+			case CENTAUR:
 				Background centaurBackground = new BackgroundBuilder(backgroundTexture).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class)).setForeground(assetManager.get(AssetEnum.CENTAUR.getPath(), Texture.class)).build();
 				Background unicornBackground = new BackgroundBuilder(backgroundTexture).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class)).setForeground(assetManager.get(AssetEnum.UNICORN.getPath(), Texture.class)).build();
 				getTextScenes(
@@ -490,8 +485,7 @@ public class EncounterBuilder {
 					)
 				);		
 				break;	
-			// initial trainer
-			case 2001:
+			case COTTAGE_TRAINER:
 				background = new BackgroundBuilder(assetManager.get(AssetEnum.CABIN_BACKGROUND.getPath(), Texture.class)).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class)).build();
 				Background trainerBackground = new BackgroundBuilder(assetManager.get(AssetEnum.CABIN_BACKGROUND.getPath(), Texture.class)).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class)).setForeground(assetManager.get(AssetEnum.TRAINER.getPath(), Texture.class)).build();
 				getTextScenes (
@@ -502,16 +496,14 @@ public class EncounterBuilder {
 					)
 				);
 				break;
-			// return trainer
-			case 2002:
+			case COTTAGE_TRAINER_VISIT:
 				background = new BackgroundBuilder(assetManager.get(AssetEnum.CABIN_BACKGROUND.getPath(), Texture.class)).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class)).build();
 				getTextScenes(
 					getScript("STORY-004"), font, background, new Array<Mutation>(),
 					getEndScene(EndScene.Type.ENCOUNTER_OVER)						
 				);
 				break;
-			// initial shopkeep
-			case 2003: 
+			case TOWN_STORY: 
 				background = new BackgroundBuilder(assetManager.get(AssetEnum.TOWN_BG.getPath(), Texture.class)).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class)).build();
 				Background backgroundWithShopkeep = new BackgroundBuilder(assetManager.get(AssetEnum.TOWN_BG.getPath(), Texture.class)).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class)).setForeground(assetManager.get(AssetEnum.SHOPKEEP.getPath(), Texture.class)).build();
 				getTextScenes(
@@ -737,8 +729,8 @@ public class EncounterBuilder {
 		return aggregatedMap;	
 	}
 	
-	private Array<String> getScript(int battleCode, int scene){
-		return getScript("00"+battleCode+"-"+ ( scene >= 10 ? scene : "0" + scene));
+	private Array<String> getScript(EncounterCode encounterCode, int scene){
+		return getScript("00"+encounterCode.getBattleCode()+"-"+ ( scene >= 10 ? scene : "0" + scene));
 	}
 	private Array<String> getScript(String code){
 		return getArray(reader.loadScript(code));

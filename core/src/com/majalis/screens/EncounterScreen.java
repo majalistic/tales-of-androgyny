@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.majalis.asset.AssetEnum;
 import com.majalis.encounter.Encounter;
+import com.majalis.encounter.EncounterCode;
 import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveManager;
 import com.majalis.save.SaveService;
@@ -109,12 +110,11 @@ public class EncounterScreen extends AbstractScreen {
 		requirementsToDispose = new ObjectMap<String, Class<?>>();
 	}
 
-	public static ObjectMap<String, Class<?>> getRequirements(int encounterCode) {
+	public static ObjectMap<String, Class<?>> getRequirements(EncounterCode encounterCode) {
 		ObjectMap<String, Class<?>> requirements = new ObjectMap<String, Class<?>>(EncounterScreen.resourceRequirements);
 
 		switch (encounterCode){
-			// level up
-			case -3: 
+			case LEVEL_UP: 
 				requirements.put(AssetEnum.CLASS_SELECT_BACKGROUND.getPath(), Texture.class);
 				requirements.put(AssetEnum.STRENGTH.getPath(), Texture.class);
 				requirements.put(AssetEnum.ENDURANCE.getPath(), Texture.class);
@@ -123,8 +123,7 @@ public class EncounterScreen extends AbstractScreen {
 				requirements.put(AssetEnum.MAGIC.getPath(), Texture.class);
 				requirements.put(AssetEnum.CHARISMA.getPath(), Texture.class);
 				break;
-			// class choice
-			case -2: 
+			case INITIAL: 
 				requirements.put(AssetEnum.GAME_TYPE_BACKGROUND.getPath(), Texture.class);
 				requirements.put(AssetEnum.CLASS_SELECT_BACKGROUND.getPath(), Texture.class);
 				requirements.put(AssetEnum.STRENGTH.getPath(), Texture.class);
@@ -138,57 +137,47 @@ public class EncounterScreen extends AbstractScreen {
 				requirements.put(AssetEnum.SMUG_LAUGH.getPath(), Sound.class);
 				requirements.put(AssetEnum.HOVEL_MUSIC.getPath(), Music.class);	
 				break;
-			// default stick
-			case -1: 
+			case DEFAULT: 
 				requirements.put(AssetEnum.STICK_BACKGROUND.getPath(), Texture.class);
 				break;
-			// werebitch
-			case 0:
+			case WERESLUT:
 				requirements.put(AssetEnum.WEREWOLF_MUSIC.getPath(), Music.class);
 				requirements.put(AssetEnum.WEREBITCH.getPath(), Texture.class);
 				break;
-			// harpy
-			case 2004:
+			case FIRST_BATTLE_STORY:
 				requirements.put(AssetEnum.HARPY.getPath(), Texture.class);
 				requirements.put(AssetEnum.FOREST_BG.getPath(), Texture.class);
-			case 1:
+			case HARPY:
 				requirements.put(AssetEnum.HARPY_FELLATIO.getPath(), Texture.class);
 				break;
-			// slime
-			case 2:
+			case SLIME:
 				requirements.put(AssetEnum.SLIME.getPath(), Texture.class);
 				requirements.put(AssetEnum.SLIME_DOGGY.getPath(), Texture.class);
 				break;
-			// brigand
-			case 3:
+			case BRIGAND:
 				requirements.put(AssetEnum.BRIGAND_ORAL.getPath(), Texture.class);
 				break;
-			// dryad
-			case 4:
+			case DRYAD:
 				requirements.put(AssetEnum.SHOP_MUSIC.getPath(), Music.class);
 				requirements.put(AssetEnum.DRYAD_BACKGROUND.getPath(), Texture.class);
 				break;
-				// initial trainer
-			case 2001:
-				// return trainer
-			case 2002:
+			case CENTAUR:
+				requirements.put(AssetEnum.SHOP_MUSIC.getPath(), Music.class);
+				requirements.put(AssetEnum.CENTAUR.getPath(), Texture.class);
+				requirements.put(AssetEnum.UNICORN.getPath(), Texture.class);
+				break;
+			case COTTAGE_TRAINER:
+			case COTTAGE_TRAINER_VISIT:
 				requirements.put(AssetEnum.CABIN_BACKGROUND.getPath(), Texture.class);
 				requirements.put(AssetEnum.TRAINER.getPath(), Texture.class);
 				requirements.put(AssetEnum.TRAINER_MUSIC.getPath(), Music.class);		
 				break;
-			// initial shopkeep
-			case 2003: 
+			case TOWN_STORY: 
 				requirements.put(AssetEnum.TOWN_BG.getPath(), Texture.class);
 				requirements.put(AssetEnum.SHOPKEEP.getPath(), Texture.class);
 				requirements.put(AssetEnum.SMUG_LAUGH.getPath(), Sound.class);
 				requirements.put(AssetEnum.SHOP_MUSIC.getPath(), Music.class);
 				break;	
-			// centaur
-			case 5:
-				requirements.put(AssetEnum.SHOP_MUSIC.getPath(), Music.class);
-				requirements.put(AssetEnum.CENTAUR.getPath(), Texture.class);
-				requirements.put(AssetEnum.UNICORN.getPath(), Texture.class);
-				break;
 			default:
 				requirements.put(AssetEnum.TRAP_BONUS.getPath(), Texture.class);	
 				break;
