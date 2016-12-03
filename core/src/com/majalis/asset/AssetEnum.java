@@ -82,6 +82,7 @@ public enum AssetEnum {
 	DEFENSIVE("stances/Defensive.png"),
 	DOGGY("stances/Doggy.png"),
 	ERUPT("stances/Erupt.png"),
+	FACE_SITTING("stances/Facesitting.png"),
 	FELLATIO("stances/Fellatio.png"),
 	FULL_NELSON("stances/FullNelson.png"),
 	HANDY("stances/Handy.png"),
@@ -89,6 +90,7 @@ public enum AssetEnum {
 	KNOTTED("stances/Knotted.png"),
 	OFFENSIVE("stances/Offensive.png"),
 	PRONE("stances/Prone.png"),
+	SIXTY_NINE("stances/SixyNine.png"),
 	STANDING("stances/Standing.png"),
 	SUPINE("stances/Supine.png"),
 	

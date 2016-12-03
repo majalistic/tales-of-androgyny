@@ -125,23 +125,40 @@ public class EnemyCharacter extends AbstractCharacter {
 		return super.doAttack(resolvedAttack);
 	}
 	
+	private boolean willFaceSit(AbstractCharacter target){
+		return target.getStance() == Stance.SUPINE && !isErect() && enemyType != EnemyEnum.CENTAUR && enemyType != EnemyEnum.UNICORN;
+	}
+	
 	private Array<Technique> getPossibleTechniques(AbstractCharacter target, Stance stance){
 		
 		if (enemyType == EnemyEnum.SLIME && stance != Stance.DOGGY && stance != Stance.FELLATIO && stance != Stance.SUPINE && stance != Stance.PRONE && stance != Stance.COWGIRL && stance != Stance.STANDING && stance != Stance.HANDY){
 			return getTechniques(Techniques.SLIME_ATTACK, Techniques.SLIME_QUIVER); 			
 		}
 		
+		Array<Technique> possibles = new Array<Technique>();
 		switch(stance){
 			case OFFENSIVE:
+				if (willFaceSit(target)){
+					possibles.addAll(getTechniques(Techniques.FACE_SIT));
+				}				
 				if (!target.stance.receivesMediumAttacks){
-					return getTechniques(Techniques.POWER_ATTACK, Techniques.TEMPO_ATTACK, Techniques.RESERVED_ATTACK);
+					possibles.addAll(getTechniques(Techniques.POWER_ATTACK, Techniques.TEMPO_ATTACK, Techniques.RESERVED_ATTACK));
 				}
-				return getTechniques(Techniques.POWER_ATTACK, Techniques.GUT_CHECK, Techniques.RECKLESS_ATTACK, Techniques.KNOCK_DOWN, Techniques.TEMPO_ATTACK, Techniques.RESERVED_ATTACK);
+				else {
+					possibles.addAll(getTechniques(Techniques.POWER_ATTACK, Techniques.GUT_CHECK, Techniques.RECKLESS_ATTACK, Techniques.KNOCK_DOWN, Techniques.TEMPO_ATTACK, Techniques.RESERVED_ATTACK));
+				}
+				return possibles;
 			case BALANCED:
+				if (willFaceSit(target)){
+					possibles.addAll(getTechniques(Techniques.FACE_SIT));
+				}				
 				if (!target.stance.receivesMediumAttacks){
-					return getTechniques(Techniques.SPRING_ATTACK, Techniques.NEUTRAL_ATTACK);
+					possibles.addAll(getTechniques(Techniques.SPRING_ATTACK, Techniques.NEUTRAL_ATTACK));
 				}
-				return getTechniques(Techniques.SPRING_ATTACK, Techniques.NEUTRAL_ATTACK, Techniques.CAUTIOUS_ATTACK, Techniques.BLOCK);
+				else {
+					possibles.addAll(getTechniques(Techniques.SPRING_ATTACK, Techniques.NEUTRAL_ATTACK, Techniques.CAUTIOUS_ATTACK, Techniques.BLOCK));
+				}
+				return possibles;
 			case DEFENSIVE:
 				if (!target.stance.receivesMediumAttacks){
 					getTechniques(Techniques.REVERSAL_ATTACK, Techniques.GUARD, Techniques.SECOND_WIND);
@@ -161,6 +178,20 @@ public class EnemyCharacter extends AbstractCharacter {
 					holdLength++;
 				}
 				return getTechniques(Techniques.HOLD);
+			case FACE_SITTING:
+				lust++;
+				if (isErect()){
+					return getTechniques(Techniques.SITTING_ORAL);
+				}
+				return getTechniques(Techniques.RIDE_FACE);
+			case SIXTY_NINE:
+				lust++;
+				if (lust > 14){
+					return getTechniques(Techniques.ERUPT_SIXTY_NINE);
+				}
+				else {
+					return getTechniques(Techniques.RECIPROCATE);
+				}	
 			case DOGGY:
 			case ANAL:
 			case STANDING:

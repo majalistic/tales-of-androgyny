@@ -1,5 +1,6 @@
 package com.majalis.screens;
 
+import static com.majalis.asset.AssetEnum.*;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
@@ -23,20 +24,20 @@ public class BattleScreen extends AbstractScreen{
 	public static final ObjectMap<String, Class<?>> resourceRequirements = new ObjectMap<String, Class<?>>();
 	public static ObjectMap<String, Class<?>> requirementsToDispose = new ObjectMap<String, Class<?>>();
 	static {
-		resourceRequirements.put(AssetEnum.BATTLE_SKIN.getPath(), Skin.class);
-		resourceRequirements.put(AssetEnum.BUTTON_SOUND.getPath(), Sound.class);
-		resourceRequirements.put(AssetEnum.UNPLUGGED_POP.getPath(), Sound.class);
-		resourceRequirements.put(AssetEnum.ATTACK_SOUND.getPath(), Sound.class);
-		resourceRequirements.put(AssetEnum.HIT_SOUND.getPath(), Sound.class);
-		resourceRequirements.put(AssetEnum.THWAPPING.getPath(), Sound.class);
-		resourceRequirements.put(AssetEnum.BATTLE_MUSIC.getPath(), Music.class);
+		resourceRequirements.put(BATTLE_SKIN.getPath(), Skin.class);
+		resourceRequirements.put(BUTTON_SOUND.getPath(), Sound.class);
+		resourceRequirements.put(UNPLUGGED_POP.getPath(), Sound.class);
+		resourceRequirements.put(ATTACK_SOUND.getPath(), Sound.class);
+		resourceRequirements.put(HIT_SOUND.getPath(), Sound.class);
+		resourceRequirements.put(THWAPPING.getPath(), Sound.class);
+		resourceRequirements.put(BATTLE_MUSIC.getPath(), Music.class);
 		
 		AssetEnum[] assets = new AssetEnum[]{
-			AssetEnum.ANAL, AssetEnum.BLITZ, AssetEnum.BALANCED, AssetEnum.DEFENSIVE, AssetEnum.DOGGY, AssetEnum.ERUPT, AssetEnum.FELLATIO, AssetEnum.FULL_NELSON, AssetEnum.KNEELING, AssetEnum.HANDY, AssetEnum.COWGIRL,
-			AssetEnum.OFFENSIVE, AssetEnum.PRONE, AssetEnum.SUPINE, AssetEnum.STANDING, AssetEnum.AIRBORNE, AssetEnum.CASTING, AssetEnum.KNOTTED, 
-			AssetEnum.SLASH,  AssetEnum.BATTLE_HOVER, AssetEnum.BATTLE_TEXTBOX, AssetEnum.BATTLE_UI, AssetEnum.CHARACTER_POTRAIT, AssetEnum.HEALTH_ICON_0, AssetEnum.STAMINA_ICON_0, AssetEnum.BALANCE_ICON_0, AssetEnum.MANA_ICON_0,
-			AssetEnum.HEALTH_ICON_1, AssetEnum.STAMINA_ICON_1, AssetEnum.BALANCE_ICON_1, AssetEnum.MANA_ICON_1, AssetEnum.HEALTH_ICON_2, AssetEnum.STAMINA_ICON_2, AssetEnum.BALANCE_ICON_2, AssetEnum.MANA_ICON_2,
-			AssetEnum.HEALTH_ICON_3, AssetEnum.STAMINA_ICON_3, AssetEnum.BALANCE_ICON_3, AssetEnum.MANA_ICON_3
+			ANAL, BLITZ, BALANCED, DEFENSIVE, DOGGY, ERUPT, FELLATIO, FULL_NELSON, KNEELING, HANDY, COWGIRL,
+			OFFENSIVE, PRONE, SUPINE, STANDING, AIRBORNE, CASTING, FACE_SITTING, SIXTY_NINE, KNOTTED, 
+			SLASH,  BATTLE_HOVER, BATTLE_TEXTBOX, BATTLE_UI, CHARACTER_POTRAIT, HEALTH_ICON_0, STAMINA_ICON_0, BALANCE_ICON_0, MANA_ICON_0,
+			HEALTH_ICON_1, STAMINA_ICON_1, BALANCE_ICON_1, MANA_ICON_1, HEALTH_ICON_2, STAMINA_ICON_2, BALANCE_ICON_2, MANA_ICON_2,
+			HEALTH_ICON_3, STAMINA_ICON_3, BALANCE_ICON_3, MANA_ICON_3
 		};
 		for (AssetEnum asset: assets){
 			resourceRequirements.put(asset.getPath(), Texture.class);
@@ -106,7 +107,7 @@ public class BattleScreen extends AbstractScreen{
 	@Override
 	public void dispose(){
 		for(String path: requirementsToDispose.keys()){
-			if (path.equals(AssetEnum.BUTTON_SOUND.getPath())) continue;
+			if (path.equals(BUTTON_SOUND.getPath())) continue;
 			assetManager.unload(path);
 		}
 		requirementsToDispose = new ObjectMap<String, Class<?>>();
@@ -117,23 +118,23 @@ public class BattleScreen extends AbstractScreen{
 		Array<String> textureArray = new Array<String>();
 		switch (battleCode.battleCode){
 			case 0:
-				textureArray.addAll(AssetEnum.WEREBITCH.getPath(), AssetEnum.FOREST_BG.getPath(), "arousal/Monster0.png", "arousal/Monster1.png", "arousal/Monster2.png");
+				textureArray.addAll(WEREBITCH.getPath(), FOREST_BG.getPath(), "arousal/Monster0.png", "arousal/Monster1.png", "arousal/Monster2.png");
 				break;
 			case 1: 
 			case 2004:
-				textureArray.addAll(AssetEnum.HARPY.getPath(),  AssetEnum.HARPY_FELLATIO.getPath(), AssetEnum.FOREST_BG.getPath(), "arousal/Monster0.png", "arousal/Monster1.png", "arousal/Monster2.png");
+				textureArray.addAll(HARPY.getPath(),  HARPY_FELLATIO.getPath(), FOREST_BG.getPath(), "arousal/Monster0.png", "arousal/Monster1.png", "arousal/Monster2.png");
 				break;
 			case 2: 
-				textureArray.addAll(AssetEnum.SLIME.getPath(),  AssetEnum.SLIME_DOGGY.getPath(), AssetEnum.FOREST_BG.getPath(), "arousal/Monster0.png", "arousal/Monster1.png", "arousal/Monster2.png");
+				textureArray.addAll(SLIME.getPath(),  SLIME_DOGGY.getPath(), FOREST_BG.getPath(), "arousal/Monster0.png", "arousal/Monster1.png", "arousal/Monster2.png");
 				break;
 			case 3: 
-				textureArray.addAll(AssetEnum.BRIGAND.getPath(),  AssetEnum.BRIGAND_ORAL.getPath(), AssetEnum.FOREST_BG.getPath(), "arousal/Human0.png", "arousal/Human1.png", "arousal/Human2.png");
+				textureArray.addAll(BRIGAND.getPath(), BRIGAND_ORAL.getPath(), FOREST_BG.getPath(), "arousal/Human0.png", "arousal/Human1.png", "arousal/Human2.png");
 				break;
 			case 5: 
-				textureArray.addAll(AssetEnum.CENTAUR.getPath(), AssetEnum.PLAINS_BG.getPath(), "arousal/Monster0.png", "arousal/Monster1.png", "arousal/Monster2.png");
+				textureArray.addAll(CENTAUR.getPath(), PLAINS_BG.getPath(), "arousal/Monster0.png", "arousal/Monster1.png", "arousal/Monster2.png");
 				break;
 			case 1005:
-				textureArray.addAll(AssetEnum.UNICORN.getPath(), AssetEnum.PLAINS_BG.getPath(), "arousal/Monster0.png", "arousal/Monster1.png", "arousal/Monster2.png");
+				textureArray.addAll(UNICORN.getPath(), PLAINS_BG.getPath(), "arousal/Monster0.png", "arousal/Monster1.png", "arousal/Monster2.png");
 				break;
 		}
 		for (String path: textureArray){

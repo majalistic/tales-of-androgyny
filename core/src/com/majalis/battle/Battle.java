@@ -350,7 +350,7 @@ public class Battle extends Group{
 		
 		firstTechnique = firstCharacter.extractCosts(firstTechnique);
 		secondTechnique = secondCharacter.extractCosts(secondTechnique);
-		
+	
 		Attack attackForFirstCharacter = secondCharacter.doAttack(secondTechnique.resolve(firstTechnique));
 		Attack attackForSecondCharacter = firstCharacter.doAttack(firstTechnique.resolve(secondTechnique));
 		

@@ -1,5 +1,6 @@
 package com.majalis.character;
 
+import static com.majalis.character.Techniques.*;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.IntArray;
 import com.badlogic.gdx.utils.ObjectMap;
@@ -80,11 +81,12 @@ public class PlayerCharacter extends AbstractCharacter {
 	
 	private static ObjectSet<Techniques> getBaseTechniques(){
 		ObjectSet<Techniques> baseTechniques = new ObjectSet<Techniques>();
-		baseTechniques.addAll(Techniques.POWER_ATTACK, Techniques.TEMPO_ATTACK, Techniques.RESERVED_ATTACK, Techniques.DUCK, Techniques.SPRING_ATTACK, Techniques.NEUTRAL_ATTACK, Techniques.REVERSAL_ATTACK, Techniques.CAREFUL_ATTACK, Techniques.BLOCK, Techniques.GUARD,
-		Techniques.KIP_UP, Techniques.STAND_UP, Techniques.STAY_KNELT, Techniques.KNEE_UP, Techniques.REST_FACE_DOWN, Techniques.REST, Techniques.JUMP_ATTACK, 
-		Techniques.RECEIVE_ANAL, Techniques.RECEIVE_DOGGY, Techniques.RECEIVE_STANDING, Techniques.STRUGGLE_ORAL, Techniques.STRUGGLE_DOGGY, Techniques.STRUGGLE_ANAL, Techniques.STRUGGLE_STANDING, Techniques.RECEIVE_KNOT, Techniques.SUCK_IT, Techniques.BREAK_FREE_ANAL, Techniques.BREAK_FREE_ORAL,
-		Techniques.SUBMIT, Techniques.STRUGLE_FULL_NELSON, Techniques.BREAK_FREE_FULL_NELSON,
-		Techniques.OPEN_WIDE, Techniques.GRAB_IT, Techniques.STROKE_IT, Techniques.LET_GO
+		baseTechniques.addAll(POWER_ATTACK, TEMPO_ATTACK, RESERVED_ATTACK, DUCK, SPRING_ATTACK, NEUTRAL_ATTACK, REVERSAL_ATTACK, CAREFUL_ATTACK, BLOCK, GUARD,
+				KIP_UP, STAND_UP, STAY_KNELT, KNEE_UP, REST_FACE_DOWN, REST, JUMP_ATTACK, 
+				RECEIVE_ANAL, RECEIVE_DOGGY, RECEIVE_STANDING, STRUGGLE_ORAL, STRUGGLE_DOGGY, STRUGGLE_ANAL, STRUGGLE_STANDING, RECEIVE_KNOT, SUCK_IT, BREAK_FREE_ANAL, BREAK_FREE_ORAL,
+				SUBMIT, STRUGGLE_FULL_NELSON, BREAK_FREE_FULL_NELSON,
+				OPEN_WIDE, GRAB_IT, STROKE_IT, LET_GO,
+				RECIPROCATE_FORCED, GET_FACE_RIDDEN, STRUGGLE_FACE_SIT, STRUGGLE_SIXTY_NINE, BREAK_FREE_FACE_SIT, ROLL_OVER_UP, ROLL_OVER_DOWN
 		);
 		return baseTechniques;
 	}
@@ -104,16 +106,16 @@ public class PlayerCharacter extends AbstractCharacter {
 		perkPoints = 2; 
 		magicPoints = 0;
 		food = 40; 
-		skills.remove(Techniques.COMBAT_HEAL.toString());
-		skills.remove(Techniques.INCANTATION.toString());
-		skills.remove(Techniques.BLITZ_ATTACK.toString());
-		skills.remove(Techniques.ALL_OUT_BLITZ.toString());
-		skills.remove(Techniques.HOLD_BACK.toString());
+		skills.remove(COMBAT_HEAL.toString());
+		skills.remove(INCANTATION.toString());
+		skills.remove(BLITZ_ATTACK.toString());
+		skills.remove(ALL_OUT_BLITZ.toString());
+		skills.remove(HOLD_BACK.toString());
 		perks.remove(Perk.WEAK_TO_ANAL.toString());
 		// warrior will need to get bonus stance options, Ranger will need to start with a bow
 		switch (jobClass){ 
-			case WARRIOR: skillPoints = 3; skills.put(Techniques.BLITZ_ATTACK.toString(), 1); skills.put(Techniques.ALL_OUT_BLITZ.toString(), 1); skills.put(Techniques.HOLD_BACK.toString(), 1); perks.put(Perk.WEAK_TO_ANAL.toString(), 1); break;
-			case PALADIN: addSkill(Techniques.COMBAT_HEAL, 1); break;
+			case WARRIOR: skillPoints = 3; skills.put(BLITZ_ATTACK.toString(), 1); skills.put(ALL_OUT_BLITZ.toString(), 1); skills.put(HOLD_BACK.toString(), 1); perks.put(Perk.WEAK_TO_ANAL.toString(), 1); break;
+			case PALADIN: addSkill(COMBAT_HEAL, 1); break;
 			case THIEF: skillPoints = 5; food = 80; break;
 			case MAGE: magicPoints = 2; break;
 			case ENCHANTRESS: magicPoints = 1; perkPoints = 3; break;
@@ -126,66 +128,75 @@ public class PlayerCharacter extends AbstractCharacter {
 		Array<Technique> possibles;
 		switch(stance){
 			case BLITZ:
-				return getTechniques(Techniques.ALL_OUT_BLITZ, Techniques.HOLD_BACK);
+				return getTechniques(ALL_OUT_BLITZ, HOLD_BACK);
 			case OFFENSIVE:
-				possibles = getTechniques(Techniques.BLITZ_ATTACK, Techniques.POWER_ATTACK, Techniques.ARMOR_SUNDER, Techniques.RECKLESS_ATTACK, Techniques.KNOCK_DOWN, Techniques.VAULT, Techniques.TEMPO_ATTACK, Techniques.RESERVED_ATTACK);
+				possibles = getTechniques(BLITZ_ATTACK, POWER_ATTACK, ARMOR_SUNDER, RECKLESS_ATTACK, KNOCK_DOWN, VAULT, TEMPO_ATTACK, RESERVED_ATTACK);
 				if (target.getStance() == Stance.SUPINE && target.isErect() && target.enemyType != EnemyEnum.SLIME && target.enemyType != EnemyEnum.CENTAUR && target.enemyType != EnemyEnum.UNICORN){
-					possibles.addAll(getTechniques(Techniques.SIT_ON_IT));
+					possibles.addAll(getTechniques(SIT_ON_IT));
 				}
 				return possibles;
 			case BALANCED:
-				possibles = getTechniques(Techniques.SPRING_ATTACK, Techniques.NEUTRAL_ATTACK, Techniques.CAUTIOUS_ATTACK, Techniques.BLOCK, Techniques.INCANTATION, Techniques.DUCK, Techniques.HIT_THE_DECK);;
+				possibles = getTechniques(SPRING_ATTACK, NEUTRAL_ATTACK, CAUTIOUS_ATTACK, BLOCK, INCANTATION, DUCK, HIT_THE_DECK);;
 				if (target.getStance() == Stance.SUPINE && target.isErect() && target.enemyType != EnemyEnum.SLIME && target.enemyType != EnemyEnum.CENTAUR && target.enemyType != EnemyEnum.UNICORN){
-					possibles.addAll(getTechniques(Techniques.SIT_ON_IT));
+					possibles.addAll(getTechniques(SIT_ON_IT));
 				}
 				return possibles;
 			case DEFENSIVE:
-				return getTechniques(Techniques.REVERSAL_ATTACK, Techniques.CAREFUL_ATTACK, Techniques.GUARD, Techniques.TAUNT, Techniques.SECOND_WIND, Techniques.INCANTATION, Techniques.DUCK, Techniques.HIT_THE_DECK, Techniques.PARRY);
+				return getTechniques(REVERSAL_ATTACK, CAREFUL_ATTACK, GUARD, TAUNT, SECOND_WIND, INCANTATION, DUCK, HIT_THE_DECK, PARRY);
 			case PRONE:
 			case SUPINE:
-				return getTechniques(Techniques.KIP_UP, Techniques.STAND_UP, Techniques.KNEE_UP, stance == Stance.PRONE ? Techniques.REST_FACE_DOWN : Techniques.REST);
+				return getTechniques(KIP_UP, STAND_UP, KNEE_UP, stance == Stance.PRONE ? REST_FACE_DOWN : REST, stance == Stance.PRONE ? ROLL_OVER_UP : ROLL_OVER_DOWN);
 			case KNEELING:
-				possibles = getTechniques(Techniques.STAND_UP, Techniques.STAY_KNELT);
+				possibles = getTechniques(STAND_UP, STAY_KNELT);
 				if (target.isErect() && target.enemyType != EnemyEnum.SLIME){
-					possibles.addAll(getTechniques(Techniques.GRAB_IT));
+					possibles.addAll(getTechniques(GRAB_IT));
 				}
 				return possibles;
 			case AIRBORNE:
-				return getTechniques(Techniques.JUMP_ATTACK);
+				return getTechniques(JUMP_ATTACK);
 			case FULL_NELSON:
 				if (struggle <= 0){
-					return getTechniques(Techniques.SUBMIT, Techniques.BREAK_FREE_FULL_NELSON);
+					return getTechniques(SUBMIT, BREAK_FREE_FULL_NELSON);
 				}
-				return getTechniques(Techniques.SUBMIT, Techniques.STRUGLE_FULL_NELSON);
+				return getTechniques(SUBMIT, STRUGGLE_FULL_NELSON);
 			case DOGGY:
 				if (struggle <= 0){
-					return getTechniques(Techniques.RECEIVE_DOGGY, Techniques.BREAK_FREE_ANAL);
+					return getTechniques(RECEIVE_DOGGY, BREAK_FREE_ANAL);
 				}
-				return getTechniques(Techniques.RECEIVE_DOGGY, Techniques.STRUGGLE_DOGGY);
+				return getTechniques(RECEIVE_DOGGY, STRUGGLE_DOGGY);
 			case ANAL:
 				if (struggle <= 0){
-					return getTechniques(Techniques.RECEIVE_ANAL, Techniques.BREAK_FREE_ANAL);
+					return getTechniques(RECEIVE_ANAL, BREAK_FREE_ANAL);
 				}
-				return getTechniques(Techniques.RECEIVE_ANAL, Techniques.STRUGGLE_ANAL);
+				return getTechniques(RECEIVE_ANAL, STRUGGLE_ANAL);
 			case HANDY:
-				
-				return getTechniques(Techniques.STROKE_IT, Techniques.LET_GO, Techniques.OPEN_WIDE);
+				return getTechniques(STROKE_IT, LET_GO, OPEN_WIDE);
 			case STANDING:
 				if (struggle <= 0){
-					return getTechniques(Techniques.RECEIVE_STANDING, Techniques.BREAK_FREE_ANAL);
+					return getTechniques(RECEIVE_STANDING, BREAK_FREE_ANAL);
 				}
-				return getTechniques(Techniques.RECEIVE_STANDING, Techniques.STRUGGLE_STANDING);
+				return getTechniques(RECEIVE_STANDING, STRUGGLE_STANDING);
 			case COWGIRL:
-				return getTechniques(Techniques.RIDE_ON_IT, Techniques.STAND_OFF_IT);
+				return getTechniques(RIDE_ON_IT, STAND_OFF_IT);
 			case KNOTTED:
-				return getTechniques(Techniques.RECEIVE_KNOT);
+				return getTechniques(RECEIVE_KNOT);
 			case FELLATIO:
 				if (struggle <= 0){
-					return getTechniques(Techniques.SUCK_IT, Techniques.BREAK_FREE_ORAL);
+					return getTechniques(SUCK_IT, BREAK_FREE_ORAL);
 				}
-				return getTechniques(Techniques.SUCK_IT, Techniques.STRUGGLE_ORAL);
+				return getTechniques(SUCK_IT, STRUGGLE_ORAL);
+			case FACE_SITTING:
+				if (struggle <= 0){
+					return getTechniques(GET_FACE_RIDDEN, STRUGGLE_FACE_SIT);
+				}
+				return getTechniques(GET_FACE_RIDDEN, BREAK_FREE_FACE_SIT);
+			case SIXTY_NINE:
+				if (struggle <= 0){
+					return getTechniques(RECIPROCATE_FORCED, STRUGGLE_SIXTY_NINE);
+				}
+				return getTechniques(RECIPROCATE_FORCED, BREAK_FREE_ORAL);
 			case CASTING:
-				return getTechniques(Techniques.COMBAT_FIRE, Techniques.COMBAT_HEAL, Techniques.TITAN_STRENGTH);
+				return getTechniques(COMBAT_FIRE, COMBAT_HEAL, TITAN_STRENGTH);
 			default: return null;
 		}
 	}
@@ -239,6 +250,9 @@ public class PlayerCharacter extends AbstractCharacter {
 				a2m = false;
 				resolvedAttack.addMessage("Achievement unlocked: Ass to Mouth.");
 			}
+		}
+		else if (stance == Stance.SIXTY_NINE){
+			resolvedAttack.addMessage("She shoves her cock down your throat while swallowing yours!");
 		}
 		return resolvedAttack.getMessages();		
 	}
@@ -391,9 +405,9 @@ public class PlayerCharacter extends AbstractCharacter {
 			increaseLowestStat();
 		}
 		if(perks.containsKey(Perk.CATAMITE) && !this.perks.containsKey(Perk.CATAMITE.toString())){
-			addSkill(Techniques.SIT_ON_IT, 1);
-			addSkill(Techniques.RIDE_ON_IT, 1);
-			addSkill(Techniques.STAND_OFF_IT, 1);
+			addSkill(SIT_ON_IT, 1);
+			addSkill(RIDE_ON_IT, 1);
+			addSkill(STAND_OFF_IT, 1);
 		}
 		this.perks.clear();
 		for (Perk key : perks.keys()){
@@ -439,17 +453,27 @@ public class PlayerCharacter extends AbstractCharacter {
 					spurt = "Awoo! Semen spurts out your untouched cock as your hole is violated!\n"
 						+	"You feel it with your ass, like a girl! Your face is red with shame!\n"
 						+	"Got a little too comfortable, eh?\n";
-				break;
+					break;
 				case COWGIRL:
 					spurt = "Awoo! Semen spurts out your untouched cock as your hole is violated!\n"
 							+	"You feel it with your ass, like a girl! Your face is red with shame!\n"
 							+	"It spews all over them!\n";
-				break;
+					break;
 				case FELLATIO:
 					spurt = "You spew while sucking!\n"
 						+	"Your worthless cum spurts into the dirt!\n"
 						+	"They don't even notice!\n";
-				break;
+					break;
+				case FACE_SITTING:
+					spurt = "You spew while she rides your face!\n"
+							+	"Your worthless cum spurts into the dirt!\n"
+							+	"They don't even notice!\n";
+					break;
+				case SIXTY_NINE:
+					spurt = "You spew into her mouth!\n"
+							+	"Her cock twitches in yours!\n"
+							+	"You're about to retun the favor!\n";
+					break;
 				default: spurt = "You spew your semen onto the ground!\n"; 
 			}
 			spurt += "You're now flaccid!\n";

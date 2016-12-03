@@ -330,7 +330,7 @@ public abstract class AbstractCharacter extends Actor {
 			resolvedAttack.addMessage("You are red-faced and embarassed because of her butt-stuffing!");
 			resolvedAttack.addMessage("Your cock is ignored!");
 		}		
-		else if(resolvedAttack.getForceStance() == Stance.FELLATIO){
+		else if(resolvedAttack.getForceStance() == Stance.FELLATIO || resolvedAttack.getForceStance() == Stance.SIXTY_NINE){
 			if (enemyType == EnemyEnum.HARPY){
 				resolvedAttack.addMessage("She tastes horrible! Harpies are highly unhygenic!");
 				resolvedAttack.addMessage("You learned Anatomy (Harpy)!");
@@ -346,6 +346,13 @@ public abstract class AbstractCharacter extends Actor {
 				resolvedAttack.addMessage("You suck on her cock!");
 				resolvedAttack.addMessage("She licks her lips!");
 			}
+			if (resolvedAttack.getForceStance() == Stance.SIXTY_NINE){
+				resolvedAttack.addMessage("She deepthroats your cock!");
+			}
+		}
+		else if (resolvedAttack.getForceStance() == Stance.FACE_SITTING){
+			resolvedAttack.addMessage("She rides your face!");
+			resolvedAttack.addMessage("You receive a faceful of ass!");
 		}
 		else if (resolvedAttack.getForceStance() == Stance.KNOTTED){
 			if (battleOver == 0){
@@ -399,10 +406,13 @@ public abstract class AbstractCharacter extends Actor {
 				resolvedAttack.addMessage("You look like a glazed donut! Hilarious!");
 				resolvedAttack.addMessage("You've been bukkaked!");
 			}
-			else {
+			else if (oldStance == Stance.STANDING || oldStance == Stance.DOGGY){
 				resolvedAttack.addMessage("The " + getLabel() + " spews hot, thick semen into your bowels!");
 				resolvedAttack.addMessage("You are anally inseminated!");
 				resolvedAttack.addMessage("You're going to be farting cum for days!");
+			}
+			else if (oldStance == Stance.SIXTY_NINE){
+				
 			}
 			stance = Stance.ERUPT;
 		}
@@ -631,6 +641,8 @@ public abstract class AbstractCharacter extends Actor {
 		COWGIRL (StanceType.EROTIC, AssetEnum.COWGIRL.getPath()),
 		KNOTTED (StanceType.EROTIC, AssetEnum.KNOTTED.getPath()), 
 		FELLATIO (StanceType.EROTIC, AssetEnum.FELLATIO.getPath()), 
+		FACE_SITTING(StanceType.EROTIC, AssetEnum.FACE_SITTING.getPath()),
+		SIXTY_NINE(StanceType.EROTIC, AssetEnum.SIXTY_NINE.getPath()),
 		CASTING (AssetEnum.CASTING.getPath()),
 		ERUPT (AssetEnum.ERUPT.getPath())
 		;
