@@ -330,7 +330,7 @@ public class Battle extends Group{
 				style.fontColor = Color.ORANGE;
 				button.setStyle(style);
 			}
-			button.addListener(getListener(option, (outOfStamina ? "THIS WILL CAUSE YOU TO COLLAPSE!\n" : outOfStability ? "THIS WILL CAUSE YOU TO LOSE YOUR FOOTING!\n" : "") + option.getTechniqueDescription(), ii));
+			button.addListener(getListener(option, (outOfStamina && !character.getStance().isIncapacitatingOrErotic() ? "THIS WILL CAUSE YOU TO COLLAPSE!\n" : outOfStability && !character.getStance().isIncapacitatingOrErotic() ? "THIS WILL CAUSE YOU TO LOSE YOUR FOOTING!\n" : "") + option.getTechniqueDescription(), ii));
 		}
         table.setFillParent(true);
         table.align(Align.top);

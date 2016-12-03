@@ -85,7 +85,7 @@ public abstract class AbstractCharacter extends Actor {
 			level = 1;
 			experience = 0;
 			baseStrength = baseEndurance = baseAgility = basePerception = baseMagic = baseCharisma = 3;
-			baseDefense = 5;
+			baseDefense = 4;
 			baseLuck = 0;
 			baseEvade = 0;
 			baseBlock = 0;
@@ -210,11 +210,11 @@ public abstract class AbstractCharacter extends Actor {
 	
 	protected void modMana(int manaMod){ this.currentMana += manaMod; if (currentMana > getMaxMana()) currentMana = getMaxMana(); }
 	
-	protected int getStrength(){ return Math.max(stepDown((baseStrength + getStrengthBuff()) - (getHealthDegradation() + getStaminaDegradation())), 0); }
+	protected int getStrength(){ return Math.max(stepDown((baseStrength + getStrengthBuff()) - (getHealthDegradation() + getStaminaDegradation())/2), 0); }
 	
 	private int getStrengthBuff(){ return statuses.get(StatusType.STRENGTH_BUFF.toString(), 0); }
 	
-	protected int stepDown(int value){ if (value < 4) return value; else return 4 + (value - 4)/2; } 
+	protected int stepDown(int value){ if (value < 3) return value; else if (value < 7) return 3 + (value - 3)/2; else return 5 + (value - 7)/3; } 
 	
 	protected int getEndurance(){ return Math.max(baseEndurance - getHealthDegradation(), 0); }
 	
@@ -607,42 +607,72 @@ public abstract class AbstractCharacter extends Actor {
 		return lust > 7;
 	}
 	
+	private enum StanceType{
+		EROTIC,
+		INCAPACITATED,
+		NORMAL
+	}
+	
 	public enum Stance {
 		BALANCED (AssetEnum.BALANCED.getPath()),
 		DEFENSIVE (AssetEnum.DEFENSIVE.getPath()),
 		OFFENSIVE (AssetEnum.OFFENSIVE.getPath()),
 		BLITZ (AssetEnum.BLITZ.getPath()),
 		STONEWALL (AssetEnum.BALANCED.getPath()),
-		PRONE ((AssetEnum.PRONE.getPath()), false, false, true),
-		SUPINE ((AssetEnum.SUPINE.getPath()), false, false, true),
-		KNEELING ((AssetEnum.KNEELING.getPath()), false, true, true),
-		AIRBORNE ((AssetEnum.AIRBORNE.getPath()), true, false, false), 
-		FULL_NELSON ((AssetEnum.FULL_NELSON.getPath())), 
-		DOGGY (AssetEnum.DOGGY.getPath()), 
-		ANAL (AssetEnum.ANAL.getPath()), 
-		STANDING (AssetEnum.STANDING.getPath()),
-		HANDY (AssetEnum.HANDY.getPath()),
-		COWGIRL (AssetEnum.COWGIRL.getPath()),
-		KNOTTED (AssetEnum.KNOTTED.getPath()), 
-		FELLATIO (AssetEnum.FELLATIO.getPath()), 
+		PRONE (StanceType.INCAPACITATED, AssetEnum.PRONE.getPath(), false, false, true),
+		SUPINE (StanceType.INCAPACITATED, AssetEnum.SUPINE.getPath(), false, false, true),
+		KNEELING (AssetEnum.KNEELING.getPath(), false, true, true),
+		AIRBORNE (AssetEnum.AIRBORNE.getPath(), true, false, false), 
+		FULL_NELSON (AssetEnum.FULL_NELSON.getPath()), 
+		DOGGY (StanceType.EROTIC, AssetEnum.DOGGY.getPath()), 
+		ANAL (StanceType.EROTIC, AssetEnum.ANAL.getPath()), 
+		STANDING (StanceType.EROTIC, AssetEnum.STANDING.getPath()),
+		HANDY (StanceType.EROTIC, AssetEnum.HANDY.getPath()),
+		COWGIRL (StanceType.EROTIC, AssetEnum.COWGIRL.getPath()),
+		KNOTTED (StanceType.EROTIC, AssetEnum.KNOTTED.getPath()), 
+		FELLATIO (StanceType.EROTIC, AssetEnum.FELLATIO.getPath()), 
 		CASTING (AssetEnum.CASTING.getPath()),
 		ERUPT (AssetEnum.ERUPT.getPath())
 		;
 		// need to create: boolean anal, boolean oral, boolean method erotic, boolean incapacitated
 		private final String texturePath;
+		private final StanceType type;
 		public final boolean receivesHighAttacks;
 		public final boolean receivesMediumAttacks;
 		public final boolean receivesLowAttacks;
+		
 		private Stance(String texturePath){
-			this(texturePath, true, true, true);
+			this(StanceType.NORMAL, texturePath, true, true, true);
 		}
+		
+		private Stance(StanceType type, String texturePath){
+			this(type, texturePath, true, true, true);
+		}
+		
 		private Stance(String texturePath, boolean receivesHigh, boolean receivesMedium, boolean receivesLow){
+			this(StanceType.NORMAL, texturePath, receivesHigh, receivesMedium, receivesLow);
+		}
+		
+		private Stance(StanceType type, String texturePath, boolean receivesHigh, boolean receivesMedium, boolean receivesLow){
+			this.type = type;
 			this.texturePath = texturePath;
 			receivesHighAttacks = receivesHigh;
 			receivesMediumAttacks = receivesMedium;
 			receivesLowAttacks = receivesLow;
 		}
 		public String getPath() { return texturePath; }
+		
+		public boolean isErotic(){
+			return type == StanceType.EROTIC;
+		}
+		
+		public boolean isIncapacitating(){
+			return type == StanceType.INCAPACITATED;
+		}
+		
+		public boolean isIncapacitatingOrErotic(){
+			return isErotic() || isIncapacitating(); 
+		}
 		
 	}
 	

@@ -65,7 +65,9 @@ public class PlayerCharacter extends AbstractCharacter {
 			a2m = false;
 			a2mcheevo = false;
 			battleOver = 0;
-			phallus = PhallusType.SMALL;			
+			phallus = PhallusType.SMALL;	
+			// this needs to be refactored - need "current defense" and for refresh method to set to max
+			baseDefense = 6;
 		}
 		
 		skills = new ObjectMap<String, Integer>();
@@ -250,7 +252,7 @@ public class PlayerCharacter extends AbstractCharacter {
 		battleOver = 0;
 		buttful = 0;
 		mouthful = 0;
-		baseDefense = 5;
+		baseDefense = 6;
 	}
 
 	public enum Femininity {
