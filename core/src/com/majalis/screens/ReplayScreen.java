@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -63,6 +64,7 @@ public class ReplayScreen extends AbstractScreen {
 			batch.draw(enemyTexture, 1450, 485, (enemyTexture.getWidth() / (enemyTexture.getHeight() / 1155.f)), 1155);
 		}
 		if(!nothingToDisplay.equals("")){
+			font.setColor(Color.BLACK);
 			font.draw(batch, nothingToDisplay, 1170, 880);
 		}
 		batch.end();
