@@ -210,7 +210,9 @@ public abstract class AbstractCharacter extends Actor {
 	
 	protected void modMana(int manaMod){ this.currentMana += manaMod; if (currentMana > getMaxMana()) currentMana = getMaxMana(); }
 	
-	protected int getStrength(){ return Math.max(stepDown((baseStrength + getStrengthBuff()) - (getHealthDegradation() + getStaminaDegradation())/2), 0); }
+	protected int getStrength(){ return stepDown(getRawStrength()); }
+	// no step down
+	protected int getRawStrength() { return Math.max((baseStrength + getStrengthBuff()) - (getHealthDegradation() + getStaminaDegradation())/2, 0); }
 	
 	private int getStrengthBuff(){ return statuses.get(StatusType.STRENGTH_BUFF.toString(), 0); }
 	
