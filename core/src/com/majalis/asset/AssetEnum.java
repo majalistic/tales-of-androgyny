@@ -12,6 +12,7 @@ public enum AssetEnum {
 	DRYAD_BACKGROUND("DryadApple.jpg"),
 	STICK_BACKGROUND("StickEncounter.jpg"),
 	CABIN_BACKGROUND("WoodsCottage.jpg"),
+	BURNING_FORT_BG("BurningFort.jpg"),
 	TOWN_BG("town/TownBG.jpg"),
 	
 	WORLD_MAP_UI("worldmap/CharacterInfo.png"),
