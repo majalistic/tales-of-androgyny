@@ -113,6 +113,7 @@ public class BattleScreen extends AbstractScreen{
 		requirementsToDispose = new ObjectMap<String, Class<?>>();
 	}
 
+	// this should simply return the battlecode's requirements, rather than use a switch
 	public static ObjectMap<String, Class<?>> getRequirements(BattleCode battleCode) {
 		ObjectMap<String, Class<?>> requirements = new ObjectMap<String, Class<?>>(BattleScreen.resourceRequirements);
 		Array<String> textureArray = new Array<String>();

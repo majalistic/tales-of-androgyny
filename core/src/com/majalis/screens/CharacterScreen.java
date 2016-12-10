@@ -10,14 +10,18 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.majalis.asset.AssetEnum;
 import com.majalis.character.PlayerCharacter;
 import com.majalis.character.AbstractCharacter.Stat;
+import com.majalis.character.Item;
 import com.majalis.encounter.Background.BackgroundBuilder;
 import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveManager.GameContext;
@@ -109,6 +113,35 @@ public class CharacterScreen extends AbstractScreen {
 			levelUp.setPosition(1200, 30);
 			this.addActor(levelUp);
 		}
+		
+		final Table inventoryTable = new Table();
+		final Label inventoryText = new Label("", skin);
+		inventoryTable.add(inventoryText).row();
+		inventoryTable.add(new Label("Inventory", skin)).row();
+		inventoryTable.setPosition(900, 800);
+		inventoryTable.align(Align.top);
+		this.addActor(inventoryTable);
+		
+		
+		for (final Item item : character.getInventory()){
+			final TextButton itemButton = new TextButton(item.getName(), skin);
+			
+			itemButton.setSize(270, 40); 
+			itemButton.addListener(
+				new ClickListener(){
+					@Override
+			        public void clicked(InputEvent event, float x, float y) {
+						buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
+						String result = character.consumeItem(item);
+						inventoryText.setText(result);
+						saveService.saveDataValue(SaveEnum.PLAYER, character);
+						inventoryTable.removeActor(itemButton);
+			        }
+				}
+			);
+			inventoryTable.add(itemButton).size(270, 40).row();
+		}
+		
 	}
 	
 	@Override

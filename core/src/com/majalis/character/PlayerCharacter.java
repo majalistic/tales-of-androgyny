@@ -6,6 +6,9 @@ import com.badlogic.gdx.utils.IntArray;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.ObjectSet;
 import com.majalis.battle.BattleFactory.EnemyEnum;
+import com.majalis.character.Item.EffectType;
+import com.majalis.character.Item.ItemEffect;
+import com.majalis.character.Item.Potion;
 import com.majalis.save.SaveManager.JobClass;
 
 /*
@@ -30,6 +33,8 @@ public class PlayerCharacter extends AbstractCharacter {
 	protected int skillPoints;
 	protected int magicPoints;
 	protected int perkPoints;
+	
+	private Array<Item> inventory;
 	
 	// advantage, range, and combat-lock(boolean) are shared properties between two creatures
 	
@@ -69,6 +74,10 @@ public class PlayerCharacter extends AbstractCharacter {
 			phallus = PhallusType.SMALL;	
 			// this needs to be refactored - need "current defense" and for refresh method to set to max
 			baseDefense = 6;
+			inventory = new Array<Item>();
+			for (int ii = 5; ii <= 20; ii += 5){
+				inventory.add(new Potion(ii));
+			}
 		}
 		
 		skills = new ObjectMap<String, Integer>();
@@ -94,6 +103,26 @@ public class PlayerCharacter extends AbstractCharacter {
 	public static ObjectMap<Stat, Array<String>> getStatMap(){
 		return statNameMap;
 	}
+	
+	public void addToInventory(Item item){
+		inventory.add(item);
+	}
+
+	public String consumeItem(Item item){
+		ItemEffect effect = item.getUseEffect();
+		String result = "";
+		if (effect.getType() == EffectType.HEALING){
+			int currentHealth = getCurrentHealth();
+			modHealth(effect.getMagnitude());
+			result = "You used " + item.getName() + " and restored " + String.valueOf(getCurrentHealth() - currentHealth) + " health!";
+			
+		}
+		
+		inventory.removeValue(item, true);
+		return result;
+	}
+	
+	public Array<Item> getInventory(){ return inventory; }
 	
 	public JobClass getJobClass() { return jobClass; }
 	
