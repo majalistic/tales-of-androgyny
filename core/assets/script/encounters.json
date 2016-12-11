@@ -294,7 +294,11 @@
 			"\"These are all pointy, good for stabbing and eviscerating, and more importantly, they're nice and light, so even weaklings can use them,\" she says, chipper as ever.  She doesn't seem to mean any insult by it, so it seems like it's just an honest appraisal of your abilities.  Which is... more insulting, probably.",
 			"\"T-thanks... I guess I'll pick one...\"",
 			"She drops the lot of them down on the counter - that can't be safe, or a good way to handle the merchandise - and you carefully peruse them.  There's a thin sword, clearly designed for thrusting, one that's a bit thicker, for thrusting or swinging it around, a thick one with a single edge, and a thick, double-edged one.",
-			"---insert shop menu here---",
+		]
+	},
+	{
+		"key": "STORY-006A",
+		"scriptLines": [
 			"When you finish making your selection, you hold it out from your body, feeling more confident than you've ever felt - but you still have no idea how to use it.  Being Level 1 sucks.",
 			"\"Oh, no, not like that,\" she says, rounding the counter, \"here, let me show you.\"",
 			"She stands behind you and graps the sword, and you feel a lump in your throat.  Her soft form presses against your back, and your heart races.",
@@ -302,7 +306,7 @@
 		]
 	},
 	{
-		"key": "STORY-006A",
+		"key": "STORY-006B",
 		"scriptLines": [
 			"\"Oh my... you're rather cute, aren't you?  A shame you're going on a journey...\" she says, and you feel your heart beating in your chest... and a stirring in your loins that isn't nearly as innocent.",
 			"Her hand rests on yours, and her fingers trace up towards your wrist, when suddenly, she stops.",
@@ -312,7 +316,7 @@
 		]
 	},
 	{
-		"key": "STORY-006B",
+		"key": "STORY-006C",
 		"scriptLines": [
 			"?!",	
 		]

@@ -35,6 +35,8 @@ import com.majalis.scenes.EndScene;
 import com.majalis.scenes.GameTypeScene;
 import com.majalis.scenes.Mutation;
 import com.majalis.scenes.Scene;
+import com.majalis.scenes.ShopScene;
+import com.majalis.scenes.ShopScene.ShopCode;
 import com.majalis.scenes.SkillSelectionScene;
 import com.majalis.scenes.TextScene;
 import com.majalis.scenes.CheckScene.CheckType;
@@ -506,26 +508,33 @@ public class EncounterBuilder {
 			case TOWN_STORY: 
 				background = new BackgroundBuilder(assetManager.get(AssetEnum.TOWN_BG.getPath(), Texture.class)).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class)).build();
 				Background backgroundWithShopkeep = new BackgroundBuilder(assetManager.get(AssetEnum.TOWN_BG.getPath(), Texture.class)).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class)).setForeground(assetManager.get(AssetEnum.SHOPKEEP.getPath(), Texture.class)).build();
+				Background shopBackground = new BackgroundBuilder(assetManager.get(AssetEnum.TOWN_BG.getPath(), Texture.class)).setForeground(assetManager.get(AssetEnum.SHOPKEEP.getPath(), Texture.class)).build();
 				getTextScenes(
 					getScript("STORY-005"), font, background, new Array<Mutation>(),
 					getTextScenes (					
 						getScript("STORY-006"), font, backgroundWithShopkeep, new Array<Mutation>(), AssetEnum.SHOP_MUSIC.getPath(), getArray(new String[]{null, null, null, null, AssetEnum.SMUG_LAUGH.getPath()}),
-						getCheckScene(assetManager, Stat.CHARISMA, new IntArray(new int[]{6}), character,
-							getTextScenes (
-								getScript("STORY-006A"), font, backgroundWithShopkeep, new Array<Mutation>(), AssetEnum.SHOP_MUSIC.getPath(), getArray(new String[]{ AssetEnum.SMUG_LAUGH.getPath()}),
-								getTextScenes (					
-									getScript("STORY-007"), font, background, new Array<Mutation>(),
-									getEndScene(EndScene.Type.ENCOUNTER_OVER)	
+						getShopScene(
+							assetManager, ShopCode.FIRST_STORY, character,	shopBackground, 
+							getTextScenes(					
+								getScript("STORY-006A"), font, backgroundWithShopkeep,
+								getCheckScene(assetManager, Stat.CHARISMA, new IntArray(new int[]{6}), character,
+									getTextScenes (
+										getScript("STORY-006B"), font, backgroundWithShopkeep, new Array<Mutation>(), AssetEnum.SHOP_MUSIC.getPath(), getArray(new String[]{ AssetEnum.SMUG_LAUGH.getPath()}),
+										getTextScenes (					
+											getScript("STORY-007"), font, background, new Array<Mutation>(),
+											getEndScene(EndScene.Type.ENCOUNTER_OVER)	
+										)	
+									),
+									getTextScenes (
+										getScript("STORY-006C"), font, backgroundWithShopkeep, new Array<Mutation>(),
+										getTextScenes (					
+											getScript("STORY-007"), font, background, new Array<Mutation>(),
+											getEndScene(EndScene.Type.ENCOUNTER_OVER)	
+										)	
+									)	
 								)	
-							),
-							getTextScenes (
-								getScript("STORY-006B"), font, backgroundWithShopkeep, new Array<Mutation>(),
-								getTextScenes (					
-									getScript("STORY-007"), font, background, new Array<Mutation>(),
-									getEndScene(EndScene.Type.ENCOUNTER_OVER)	
-								)	
-							)	
-						)			
+							)
+						)	
 					)
 				);
 				break;
@@ -623,8 +632,11 @@ public class EncounterBuilder {
 			ii++;
 		}
 				
-		return addScene(choiceScene);
-		
+		return addScene(choiceScene);	
+	}
+	
+	private OrderedMap<Integer, Scene> getShopScene(AssetManager assetManager, ShopCode shopCode, PlayerCharacter character, Background background, OrderedMap<Integer, Scene> sceneMap) {
+		return addScene(new ShopScene(sceneMap, sceneCounter, saveService, assetManager, character, background, shopCode));
 	}
 	
 	private ClickListener getListener(final AbstractChoiceScene currentScene, final Scene nextScene, final Sound buttonSound){

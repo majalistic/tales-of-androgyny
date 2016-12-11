@@ -29,7 +29,6 @@ public class CharacterCreationScene extends Scene {
 
 	private final SaveService saveService;
 	private final BitmapFont font;
-	private final Sound buttonSound;
 	private final PlayerCharacter character;
 	private String classMessage;
 	private String statMessage;
@@ -50,7 +49,7 @@ public class CharacterCreationScene extends Scene {
 		statMap = resetObjectMap();
 		
 		Skin skin = assetManager.get(AssetEnum.UI_SKIN.getPath(), Skin.class);
-		buttonSound = assetManager.get(AssetEnum.BUTTON_SOUND.getPath(), Sound.class);
+		final Sound buttonSound = assetManager.get(AssetEnum.BUTTON_SOUND.getPath(), Sound.class);
 		
 		classMessage = "";
 		statMessage = "";
