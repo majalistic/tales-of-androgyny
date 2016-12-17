@@ -164,7 +164,11 @@ public class EncounterScreen extends AbstractScreen {
 				break;	
 			case SHOP:
 				requirements.putAll(TownScreen.resourceRequirements);
-				break;				
+				break;	
+			case CAMP_AND_EAT:
+				requirements.put(AssetEnum.SHOP_MUSIC.getPath(), Music.class);
+			case STARVATION:
+				requirements.put(AssetEnum.WEREWOLF_MUSIC.getPath(), Music.class);
 			default:
 				requirements.put(AssetEnum.TRAP_BONUS.getPath(), Texture.class);	
 				break;

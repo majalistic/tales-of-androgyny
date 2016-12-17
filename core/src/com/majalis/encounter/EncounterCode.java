@@ -23,7 +23,9 @@ public enum EncounterCode {
 	COTTAGE_TRAINER_VISIT,
 	FIRST_BATTLE_STORY, 
 	LEVEL_UP, 
-	SHOP
+	SHOP, 
+	STARVATION,
+	CAMP_AND_EAT
 	;
 	
 	private final String texturePath;	

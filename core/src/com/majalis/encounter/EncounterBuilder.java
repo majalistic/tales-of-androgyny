@@ -555,6 +555,18 @@ public class EncounterBuilder {
 					)
 				);
 				break;
+			case CAMP_AND_EAT:
+				getTextScenes (					
+					getArray(new String[]{"You're too exhausted to continue, so instead you camp to rest.", "You nibble on your food reserves and spend an extra night without traveling.", "You restore 10 health and consume 4 food."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.HEALTH, 10)}), AssetEnum.SHOP_MUSIC.getPath(), getArray(new String[]{}),	
+					getEndScene(EndScene.Type.ENCOUNTER_OVER)	
+				);
+				break;
+			case STARVATION:
+				getTextScenes (					
+					getArray(new String[]{"You collapse from hunger.  Animals have their way with you."}), font, background, new Array<Mutation>(), AssetEnum.WEREWOLF_MUSIC.getPath(), new Array<String>(),
+					getEndScene(EndScene.Type.GAME_OVER)	
+				);
+				break;
 			default:
 				getTextScenes(
 					getScript("TOWN"), font, new BackgroundBuilder(assetManager.get(AssetEnum.TRAP_BONUS.getPath(), Texture.class)).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class)).build(),

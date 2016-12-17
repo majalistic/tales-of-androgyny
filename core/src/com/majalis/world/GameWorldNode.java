@@ -218,17 +218,22 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 	
 	public void delayedVisit(){
 		selected = true;
-		int modHealth = 0;
-		if (character.getFood() < 4){
-			modHealth = 4 - character.getFood();
-		}
+		int foodLeft = character.getFood() - 4;
 		saveService.saveDataValue(SaveEnum.FOOD, -4);
-		if (modHealth > 0){
-			saveService.saveDataValue(SaveEnum.HEALTH, -5 * modHealth);
+		if (foodLeft < 0){
+			saveService.saveDataValue(SaveEnum.HEALTH, 5 * foodLeft);
 		}
 		if (character.getCurrentHealth() <= 0){
-			// this should display the starvation encounter instead of game over
-			saveService.saveDataValue(SaveEnum.CONTEXT, SaveManager.GameContext.GAME_OVER);
+			if (foodLeft < 0){
+				saveService.saveDataValue(SaveEnum.ENCOUNTER_CODE, EncounterCode.STARVATION);			
+				saveService.saveDataValue(SaveEnum.CONTEXT, SaveManager.GameContext.ENCOUNTER);
+				saveService.saveDataValue(SaveEnum.RETURN_CONTEXT, SaveManager.GameContext.WORLD_MAP);
+			}
+			else {
+				saveService.saveDataValue(SaveEnum.ENCOUNTER_CODE, EncounterCode.CAMP_AND_EAT);			
+				saveService.saveDataValue(SaveEnum.CONTEXT, SaveManager.GameContext.ENCOUNTER);
+				saveService.saveDataValue(SaveEnum.RETURN_CONTEXT, SaveManager.GameContext.WORLD_MAP);
+			}
 		}
 		else {
 			if (!visited){
@@ -240,11 +245,11 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 			else {
 				saveService.saveDataValue(SaveEnum.ENCOUNTER_CODE, encounter.getDefaultCode());
 				saveService.saveDataValue(SaveEnum.CONTEXT, encounter.getDefaultContext());
+				saveService.saveDataValue(SaveEnum.RETURN_CONTEXT, SaveManager.GameContext.WORLD_MAP);
 			}
-			
+			saveService.saveDataValue(SaveEnum.NODE_CODE, nodeCode);
+			saveService.saveDataValue(SaveEnum.CAMERA_POS, position);
 		}
-		saveService.saveDataValue(SaveEnum.NODE_CODE, nodeCode);
-		saveService.saveDataValue(SaveEnum.CAMERA_POS, position);
 	}
 	
 	@Override
