@@ -22,7 +22,8 @@ public enum EncounterCode {
 	COTTAGE_TRAINER,
 	COTTAGE_TRAINER_VISIT,
 	FIRST_BATTLE_STORY, 
-	LEVEL_UP
+	LEVEL_UP, 
+	SHOP
 	;
 	
 	private final String texturePath;	
@@ -56,7 +57,7 @@ public enum EncounterCode {
 			case 4: return DRYAD;
 			case 5: return CENTAUR;
 		}
-		// Troja?
+		// Troja?  Need a way to get to here; currently no file input is read for the code param
 		return ERROR;
 	}
 }

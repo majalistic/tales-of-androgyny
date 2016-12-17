@@ -60,6 +60,7 @@ public class SaveManager implements SaveService, LoadService{
 	    	case ENEMY: 			save.enemy = (EnemyCharacter) object; break;
 	    	case SCENE_CODE: 		save.sceneCode = (Integer) object; break;
 	    	case CONTEXT: 			save.context = (GameContext) object; break;
+	    	case RETURN_CONTEXT: 	save.returnContext = (GameContext) object; break;
 	    	case NODE_CODE: 		save.nodeCode = (Integer) object; break;
 	    	case CAMERA_POS:		save.cameraPos = new Vector3((Vector2) object, 0); break;
 	    	case ENCOUNTER_CODE:	save.encounterCode = (EncounterCode) object; break;
@@ -88,6 +89,7 @@ public class SaveManager implements SaveService, LoadService{
 	    	case ENEMY: 			return (T) (EnemyCharacter)save.enemy;
 	    	case SCENE_CODE: 		return (T) (Integer)save.sceneCode;
 	    	case CONTEXT: 			return (T) save.context;
+	    	case RETURN_CONTEXT: 	return (T) save.returnContext;
 	    	case NODE_CODE: 		return (T) (Integer)save.nodeCode;
 	    	case CAMERA_POS: 		return (T) (Vector3)save.cameraPos;
 	    	case ENCOUNTER_CODE:	return (T) save.encounterCode;
@@ -198,8 +200,9 @@ public class SaveManager implements SaveService, LoadService{
     }
     
     public static class GameSave {
-    	
+		
 		private GameContext context;
+		private GameContext returnContext;
     	private GameMode mode;
     	private String music;
     	private int worldSeed;
@@ -227,6 +230,7 @@ public class SaveManager implements SaveService, LoadService{
     			// 0 sceneCode is the magic number to designate that a scene doesn't need to be loaded; just use the first (last) scene in the list
     			sceneCode = 0;
     			encounterCode = EncounterCode.INITIAL;
+    			returnContext = GameContext.WORLD_MAP;
         		nodeCode = 1;
         		console = "";
         		cameraPos = new Vector3(500, 500, 0);

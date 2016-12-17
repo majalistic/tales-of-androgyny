@@ -21,7 +21,6 @@ public class Encounter {
 	public boolean gameOver;
 	public boolean gameExit;
 	
-	
 	public Encounter(Array<Scene> scenes, Array<EndScene> endScenes, Array<BattleScene> battleScenes, Scene startScene){
 		this.scenes = scenes;
 		this.endScenes = endScenes;
@@ -58,10 +57,13 @@ public class Encounter {
 				switch(objScene.getType()){
 					case ENCOUNTER_OVER: encounterOver = true; break;
 					case GAME_OVER: gameOver = true; break;
-					case GAME_EXIT: gameExit = true; break;
 				} 
 			}
 		}
+	}
+	
+	public boolean isSwitching(){
+		return battle || encounterOver || gameOver;
 	}
 	
 	public Array<Actor> getActors(){

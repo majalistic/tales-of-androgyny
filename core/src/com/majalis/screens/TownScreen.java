@@ -19,6 +19,7 @@ import com.badlogic.gdx.utils.ObjectMap;
 import com.majalis.asset.AssetEnum;
 import com.majalis.encounter.Background;
 import com.majalis.encounter.Background.BackgroundBuilder;
+import com.majalis.encounter.EncounterCode;
 import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveManager;
 import com.majalis.save.SaveService;
@@ -31,8 +32,11 @@ public class TownScreen extends AbstractScreen {
 		resourceRequirements.put(AssetEnum.TOWN_BG.getPath(), Texture.class);
 		resourceRequirements.put(AssetEnum.SHOPKEEP.getPath(), Texture.class);
 		resourceRequirements.put(AssetEnum.STANCE_ARROW.getPath(), Texture.class);
+		resourceRequirements.put(AssetEnum.DEFAULT_BACKGROUND.getPath(), Texture.class);
+		resourceRequirements.put(AssetEnum.BATTLE_HOVER.getPath(), Texture.class);
 		resourceRequirements.put(AssetEnum.SHOP_MUSIC.getPath(), Music.class);
 		resourceRequirements.put(AssetEnum.BUTTON_SOUND.getPath(), Sound.class);
+		resourceRequirements.put(AssetEnum.ENCOUNTER_MUSIC.getPath(), Music.class);
 	}
 	private final SaveService saveService;
 	private final Skin skin;
@@ -72,6 +76,18 @@ public class TownScreen extends AbstractScreen {
 			buttons.get(ii).addListener(getListener(ii));
 			table.add(buttons.get(ii)).size(300, 60).row();
 		}
+		
+		buttons.get(0).addListener(new ClickListener(){
+	        @Override
+	        public void clicked(InputEvent event, float x, float y) {
+	        	buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
+	        	saveService.saveDataValue(SaveEnum.CONTEXT, SaveManager.GameContext.ENCOUNTER);
+	        	saveService.saveDataValue(SaveEnum.RETURN_CONTEXT, SaveManager.GameContext.TOWN);
+	        	saveService.saveDataValue(SaveEnum.ENCOUNTER_CODE, EncounterCode.SHOP);
+	        	music.stop();
+	        	showScreen(ScreenEnum.LOAD_GAME);    
+	        }
+	    });
 		
 		buttons.get(3).addListener(new ClickListener(){
 	        @Override

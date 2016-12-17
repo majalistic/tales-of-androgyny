@@ -23,5 +23,6 @@ public enum SaveEnum {
 	MUSIC, 
 	CONSOLE, 
 	VIRGIN, 
-	SHOP
+	SHOP, 
+	RETURN_CONTEXT
 }

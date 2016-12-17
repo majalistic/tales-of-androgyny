@@ -12,9 +12,6 @@ import com.badlogic.gdx.utils.ObjectMap;
 import com.majalis.asset.AssetEnum;
 import com.majalis.encounter.Encounter;
 import com.majalis.encounter.EncounterCode;
-import com.majalis.save.SaveEnum;
-import com.majalis.save.SaveManager;
-import com.majalis.save.SaveService;
 /*
  *Screen for displaying Encounters.  UI that Handles player input while in an encounter.
  */
@@ -28,17 +25,14 @@ public class EncounterScreen extends AbstractScreen {
 		resourceRequirements.put(AssetEnum.DEFAULT_BACKGROUND.getPath(), Texture.class);
 		resourceRequirements.put(AssetEnum.BATTLE_HOVER.getPath(), Texture.class);
 		resourceRequirements.put(AssetEnum.ENCOUNTER_MUSIC.getPath(), Music.class);
-		
 	}
 	private static AssetManager assetManager;
-	private final SaveService saveService;
 	private final Encounter encounter;
 	private static Music music;
 	
-	protected EncounterScreen(ScreenFactory screenFactory, ScreenElements elements, AssetManager assetManager, SaveService saveService, String musicPath, Encounter encounter) {
+	protected EncounterScreen(ScreenFactory screenFactory, ScreenElements elements, AssetManager assetManager, String musicPath, Encounter encounter) {
 		super(screenFactory, elements);
 		EncounterScreen.assetManager = assetManager;
-		this.saveService = saveService;
 		this.encounter = encounter;
 		setMusic(musicPath);
 	}
@@ -68,24 +62,13 @@ public class EncounterScreen extends AbstractScreen {
 	public void render(float delta) {
 		super.render(delta);
 		encounter.gameLoop();
-		if (encounter.battle){
-			saveService.saveDataValue(SaveEnum.CONTEXT, SaveManager.GameContext.BATTLE);
-			music.stop();
-			showScreen(ScreenEnum.BATTLE);
-		}
-		if (encounter.encounterOver){
-			saveService.saveDataValue(SaveEnum.CONTEXT, SaveManager.GameContext.WORLD_MAP);
-			saveService.saveDataValue(SaveEnum.SCENE_CODE, 0);
+		if (encounter.isSwitching()){
 			music.stop();
 			showScreen(ScreenEnum.LOAD_GAME);
 		}
-		if (encounter.gameExit){
+		else if (encounter.gameExit){
 			music.stop();
 			showScreen(ScreenEnum.MAIN_MENU);
-		}
-		else if (encounter.gameOver){
-			music.stop();
-			showScreen(ScreenEnum.GAME_OVER);
 		}
 		else {
 			draw();
@@ -179,6 +162,9 @@ public class EncounterScreen extends AbstractScreen {
 				requirements.put(AssetEnum.SMUG_LAUGH.getPath(), Sound.class);
 				requirements.put(AssetEnum.SHOP_MUSIC.getPath(), Music.class);
 				break;	
+			case SHOP:
+				requirements.putAll(TownScreen.resourceRequirements);
+				break;				
 			default:
 				requirements.put(AssetEnum.TRAP_BONUS.getPath(), Texture.class);	
 				break;

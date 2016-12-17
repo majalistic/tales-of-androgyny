@@ -1,13 +1,22 @@
 package com.majalis.scenes;
+
+import com.majalis.save.SaveEnum;
+import com.majalis.save.SaveManager;
+import com.majalis.save.SaveService;
+
 /*
  * Represents a scene that concludes an encounter
  */
 public class EndScene extends Scene{
 
-	private Type type;
-	public EndScene(Type type) {
+	private final Type type;
+	private final SaveService saveService;
+	private final SaveManager.GameContext context;
+	public EndScene(Type type, SaveService saveService, SaveManager.GameContext context) {
 		super(null, -1);
 		this.type = type;
+		this.saveService = saveService;
+		this.context = context;
 	}
 
 	public Type getType(){
@@ -17,6 +26,11 @@ public class EndScene extends Scene{
 	@Override
 	public void setActive() {
 		isActive = true;
+		saveService.saveDataValue(SaveEnum.CONTEXT, context);
+		if (type == Type.ENCOUNTER_OVER || type == Type.GAME_OVER){
+			saveService.saveDataValue(SaveEnum.RETURN_CONTEXT, null);
+		}
+		saveService.saveDataValue(SaveEnum.SCENE_CODE, 0);
 	}
 
 	@Override
@@ -26,8 +40,6 @@ public class EndScene extends Scene{
 	
 	public enum Type {
 		ENCOUNTER_OVER,
-		GAME_OVER,
-		GAME_EXIT
+		GAME_OVER
 	}
-
 }

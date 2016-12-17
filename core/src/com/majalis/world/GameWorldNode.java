@@ -227,6 +227,7 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 			saveService.saveDataValue(SaveEnum.HEALTH, -5 * modHealth);
 		}
 		if (character.getCurrentHealth() <= 0){
+			// this should display the starvation encounter instead of game over
 			saveService.saveDataValue(SaveEnum.CONTEXT, SaveManager.GameContext.GAME_OVER);
 		}
 		else {
@@ -234,6 +235,7 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 				saveService.saveDataValue(SaveEnum.ENCOUNTER_CODE, encounter.getCode());
 				saveService.saveDataValue(SaveEnum.VISITED_LIST, nodeCode);
 				saveService.saveDataValue(SaveEnum.CONTEXT, encounter.getContext());
+				saveService.saveDataValue(SaveEnum.RETURN_CONTEXT, SaveManager.GameContext.WORLD_MAP);
 			}
 			else {
 				saveService.saveDataValue(SaveEnum.ENCOUNTER_CODE, encounter.getDefaultCode());

@@ -22,6 +22,8 @@ import com.majalis.character.AbstractCharacter.Stance;
 import com.majalis.character.AbstractCharacter.Stat;
 import com.majalis.save.ProfileEnum;
 import com.majalis.save.SaveEnum;
+import com.majalis.save.SaveManager;
+import com.majalis.save.SaveManager.GameContext;
 import com.majalis.save.SaveManager.GameMode;
 import com.majalis.save.SaveManager.JobClass;
 import com.majalis.save.SaveService;
@@ -56,10 +58,11 @@ public class EncounterBuilder {
 	private final int sceneCode;
 	private int battleCode;
 	private final Shop shop;
+	private final GameContext returnContext;
 	// can probably be replaced with a call to scenes.size
 	private int sceneCounter;
 	
-	protected EncounterBuilder(EncounterReader reader, AssetManager assetManager, SaveService saveService, BitmapFont font, BitmapFont smallFont, int sceneCode, int battleCode, Shop shop){
+	protected EncounterBuilder(EncounterReader reader, AssetManager assetManager, SaveService saveService, BitmapFont font, BitmapFont smallFont, int sceneCode, int battleCode, Shop shop, GameContext returnContext){
 		scenes = new Array<Scene>();
 		endScenes = new Array<EndScene>();
 		battleScenes = new Array<BattleScene>();
@@ -71,6 +74,7 @@ public class EncounterBuilder {
 		this.sceneCode = sceneCode;
 		this.battleCode = battleCode;
 		this.shop = shop;
+		this.returnContext = returnContext;
 		sceneCounter = 0;
 	}
 	/* different encounter "templates" */
@@ -90,11 +94,11 @@ public class EncounterBuilder {
 				getTextScenes(
 					getArray(new String[]{"You've selected to create your character!", "Please choose your class."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.MODE, GameMode.SKIRMISH)}),
 					getCharacterCreationScene(
-						saveService, smallFont, classSelectbackground.clone(), assetManager, playerCharacter,
+						smallFont, classSelectbackground.clone(), assetManager, playerCharacter,
 						getSkillSelectionScene(
-							saveService, smallFont, classSelectbackground.clone(), assetManager, playerCharacter, 
+							smallFont, classSelectbackground.clone(), assetManager, playerCharacter, 
 							getCharacterCustomizationScene(
-								saveService, smallFont, classSelectbackground.clone(), assetManager, playerCharacter, 
+								smallFont, classSelectbackground.clone(), assetManager, playerCharacter, 
 								getEndScene(EndScene.Type.ENCOUNTER_OVER)
 							)
 						)
@@ -129,7 +133,7 @@ public class EncounterBuilder {
 	
 	protected Encounter getLevelUpEncounter(PlayerCharacter playerCharacter){
 		getSkillSelectionScene(
-				saveService, font, getClassSelectBackground(), assetManager, playerCharacter, getEndScene(EndScene.Type.ENCOUNTER_OVER)
+				font, getClassSelectBackground(), assetManager, playerCharacter, getEndScene(EndScene.Type.ENCOUNTER_OVER)
 		);
 		return new Encounter(scenes, endScenes, new Array<BattleScene>(), getStartScene(scenes, sceneCode));
 	}
@@ -517,7 +521,7 @@ public class EncounterBuilder {
 					getTextScenes (					
 						getScript("STORY-006"), font, backgroundWithShopkeep, new Array<Mutation>(), AssetEnum.SHOP_MUSIC.getPath(), getArray(new String[]{null, null, null, null, AssetEnum.SMUG_LAUGH.getPath()}),
 						getShopScene(
-							assetManager, ShopCode.FIRST_STORY, character,	shopBackground, 
+							assetManager, ShopCode.FIRST_STORY, character,shopBackground, 
 							getTextScenes(					
 								getScript("STORY-006A"), font, backgroundWithShopkeep,
 								getCheckScene(assetManager, Stat.CHARISMA, new IntArray(new int[]{6}), character,
@@ -541,7 +545,17 @@ public class EncounterBuilder {
 					)
 				);
 				break;
-				default:
+			case SHOP:
+				Background backgroundWithShopkeep2 = new BackgroundBuilder(assetManager.get(AssetEnum.TOWN_BG.getPath(), Texture.class)).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class)).setForeground(assetManager.get(AssetEnum.SHOPKEEP.getPath(), Texture.class)).build();
+				getTextScenes (					
+					getArray(new String[]{"You peruse the shop."}), font, backgroundWithShopkeep2, new Array<Mutation>(), AssetEnum.SHOP_MUSIC.getPath(), getArray(new String[]{}),	
+					getShopScene(
+						assetManager, ShopCode.FIRST_STORY, character,  new BackgroundBuilder(assetManager.get(AssetEnum.TOWN_BG.getPath(), Texture.class)).setForeground(assetManager.get(AssetEnum.SHOPKEEP.getPath(), Texture.class)).build(), 
+						getEndScene(EndScene.Type.ENCOUNTER_OVER)	
+					)
+				);
+				break;
+			default:
 				getTextScenes(
 					getScript("TOWN"), font, new BackgroundBuilder(assetManager.get(AssetEnum.TRAP_BONUS.getPath(), Texture.class)).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class)).build(),
 					getEndScene(EndScene.Type.ENCOUNTER_OVER)				
@@ -720,20 +734,20 @@ public class EncounterBuilder {
 		return addScene(gameTypeScene);
 	}
 	
-	private OrderedMap<Integer, Scene> getCharacterCreationScene(SaveService saveService, BitmapFont font, Background background, AssetManager assetManager, PlayerCharacter character, OrderedMap<Integer, Scene> sceneMap){
+	private OrderedMap<Integer, Scene> getCharacterCreationScene(BitmapFont font, Background background, AssetManager assetManager, PlayerCharacter character, OrderedMap<Integer, Scene> sceneMap){
 		return addScene(new CharacterCreationScene(sceneMap, sceneCounter, saveService, font, background, assetManager, character));
 	}
 	
-	private OrderedMap<Integer, Scene> getSkillSelectionScene(SaveService saveService, BitmapFont font, Background background, AssetManager assetManager, PlayerCharacter character, OrderedMap<Integer, Scene> sceneMap){
+	private OrderedMap<Integer, Scene> getSkillSelectionScene(BitmapFont font, Background background, AssetManager assetManager, PlayerCharacter character, OrderedMap<Integer, Scene> sceneMap){
 		return addScene(new SkillSelectionScene(sceneMap, sceneCounter, saveService, font, background, assetManager, character));
 	}
 	
-	private OrderedMap<Integer, Scene> getCharacterCustomizationScene(SaveService saveService, BitmapFont font, Background background, AssetManager assetManager, PlayerCharacter character, OrderedMap<Integer, Scene> sceneMap){
+	private OrderedMap<Integer, Scene> getCharacterCustomizationScene(BitmapFont font, Background background, AssetManager assetManager, PlayerCharacter character, OrderedMap<Integer, Scene> sceneMap){
 		return addScene(new CharacterCustomizationScene(sceneMap, sceneCounter, saveService, font, background, assetManager, character));
 	}
 	
 	private OrderedMap<Integer, Scene> getEndScene(EndScene.Type type){
-		return addScene(new EndScene(type));
+		return addScene(new EndScene(type, saveService, type == EndScene.Type.ENCOUNTER_OVER ? returnContext : SaveManager.GameContext.GAME_OVER));
 	}
 	
 	private OrderedMap<Integer, Scene> aggregateMaps(OrderedMap<Integer, Scene>... sceneMaps){

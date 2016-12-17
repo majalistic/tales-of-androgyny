@@ -76,7 +76,7 @@ public class ScreenFactoryImpl implements ScreenFactory {
 				if (tempScreen != null) return tempScreen;
 				break; 
 			case LOAD_GAME: 
-				tempScreen = getWorldMapScreen(elements, character);
+				tempScreen = getCurrentContextScreen(elements, character);
 				if (tempScreen != null) return tempScreen;
 				break;
 			case BATTLE:
@@ -138,7 +138,7 @@ public class ScreenFactoryImpl implements ScreenFactory {
 			EncounterCode encounterCode = loadService.loadDataValue(SaveEnum.ENCOUNTER_CODE, EncounterCode.class);
 			Encounter encounter = encounterFactory.getEncounter(encounterCode, elements.getFont(48), elements.getFont(32));
 			String music = loadService.loadDataValue(SaveEnum.MUSIC, String.class);
-			return new EncounterScreen(this, elements, assetManager, saveService, music, encounter);
+			return new EncounterScreen(this, elements, assetManager, music, encounter);
 		}
 		else {
 			return null;
@@ -170,7 +170,7 @@ public class ScreenFactoryImpl implements ScreenFactory {
 		return null;
 	}
 	
-	private AbstractScreen getWorldMapScreen(ScreenElements elements, PlayerCharacter character){
+	private AbstractScreen getCurrentContextScreen(ScreenElements elements, PlayerCharacter character){
 		SaveManager.GameContext context = loadService.loadDataValue(SaveEnum.CONTEXT, SaveManager.GameContext.class);
 		switch (context){
 			case ENCOUNTER: return getEncounter(elements, character);
