@@ -22,5 +22,6 @@ public enum SaveEnum {
 	MODE, 
 	MUSIC, 
 	CONSOLE, 
-	VIRGIN
+	VIRGIN, 
+	SHOP
 }

@@ -8,6 +8,7 @@ import com.majalis.save.LoadService;
 import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveManager;
 import com.majalis.save.SaveService;
+import com.majalis.scenes.ShopScene.Shop;
 /*
  * Retrieves encounters from internal files given an encounterId.  Need to create some kind of encounter builder helper class.
  */
@@ -30,7 +31,7 @@ public class EncounterFactory {
 		BattleCode battle = loadService.loadDataValue(SaveEnum.BATTLE_CODE, BattleCode.class);
 		int battleCode = -1;
 		if (battle != null) battleCode = battle.battleCode;
-		EncounterBuilder builder = new EncounterBuilder(reader, assetManager, saveService, font, smallFont, sceneCode, battleCode);
+		EncounterBuilder builder = new EncounterBuilder(reader, assetManager, saveService, font, smallFont, sceneCode, battleCode, (Shop)loadService.loadDataValue(SaveEnum.SHOP, Shop.class));
 		switch (encounterCode){
 			case LEVEL_UP: return builder.getLevelUpEncounter((PlayerCharacter) loadService.loadDataValue(SaveEnum.PLAYER, PlayerCharacter.class));
 			case INITIAL: return builder.getClassChoiceEncounter((PlayerCharacter) loadService.loadDataValue(SaveEnum.PLAYER, PlayerCharacter.class));

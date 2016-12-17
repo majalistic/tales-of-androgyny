@@ -36,6 +36,7 @@ import com.majalis.scenes.GameTypeScene;
 import com.majalis.scenes.Mutation;
 import com.majalis.scenes.Scene;
 import com.majalis.scenes.ShopScene;
+import com.majalis.scenes.ShopScene.Shop;
 import com.majalis.scenes.ShopScene.ShopCode;
 import com.majalis.scenes.SkillSelectionScene;
 import com.majalis.scenes.TextScene;
@@ -54,10 +55,11 @@ public class EncounterBuilder {
 	private final BitmapFont smallFont;
 	private final int sceneCode;
 	private int battleCode;
+	private final Shop shop;
 	// can probably be replaced with a call to scenes.size
 	private int sceneCounter;
 	
-	protected EncounterBuilder(EncounterReader reader, AssetManager assetManager, SaveService saveService, BitmapFont font, BitmapFont smallFont, int sceneCode, int battleCode){
+	protected EncounterBuilder(EncounterReader reader, AssetManager assetManager, SaveService saveService, BitmapFont font, BitmapFont smallFont, int sceneCode, int battleCode, Shop shop){
 		scenes = new Array<Scene>();
 		endScenes = new Array<EndScene>();
 		battleScenes = new Array<BattleScene>();
@@ -68,6 +70,7 @@ public class EncounterBuilder {
 		this.smallFont = smallFont;
 		this.sceneCode = sceneCode;
 		this.battleCode = battleCode;
+		this.shop = shop;
 		sceneCounter = 0;
 	}
 	/* different encounter "templates" */
@@ -636,7 +639,7 @@ public class EncounterBuilder {
 	}
 	
 	private OrderedMap<Integer, Scene> getShopScene(AssetManager assetManager, ShopCode shopCode, PlayerCharacter character, Background background, OrderedMap<Integer, Scene> sceneMap) {
-		return addScene(new ShopScene(sceneMap, sceneCounter, saveService, assetManager, character, background, shopCode));
+		return addScene(new ShopScene(sceneMap, sceneCounter, saveService, assetManager, character, background, shopCode, shop));
 	}
 	
 	private ClickListener getListener(final AbstractChoiceScene currentScene, final Scene nextScene, final Sound buttonSound){

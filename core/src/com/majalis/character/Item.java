@@ -4,9 +4,39 @@ package com.majalis.character;
  */
 public abstract class Item {
 
-	protected abstract int getValue();
+	public abstract int getValue();
 	protected abstract ItemEffect getUseEffect();
 	public abstract String getName();
+	
+	
+	public static class Weapon extends Item {
+
+		
+		private final String name;
+		public Weapon(){
+			this("Sword");
+		}
+		
+		public Weapon(String name){
+			this.name = name;
+		}
+		
+		@Override
+		public int getValue() {
+			return 10;
+		}
+
+		@Override
+		protected ItemEffect getUseEffect() {
+			return null;
+		}
+
+		@Override
+		public String getName() {
+			return name;
+		}
+		
+	}
 	
 	public static class Potion extends Item {
 
@@ -20,7 +50,7 @@ public abstract class Item {
 		}
 
 		@Override
-		protected int getValue() {
+		public int getValue() {
 			return 5;
 		}
 
@@ -51,8 +81,5 @@ public abstract class Item {
 		
 		public EffectType getType() { return type; }
 		public int getMagnitude() { return magnitude; }
-	}
-
-
-	
+	}	
 }

@@ -74,6 +74,7 @@ public class PlayerCharacter extends AbstractCharacter {
 			phallus = PhallusType.SMALL;	
 			// this needs to be refactored - need "current defense" and for refresh method to set to max
 			baseDefense = 6;
+			money = 20;
 			inventory = new Array<Item>();
 			for (int ii = 5; ii <= 20; ii += 5){
 				inventory.add(new Potion(ii));
@@ -564,5 +565,18 @@ public class PlayerCharacter extends AbstractCharacter {
 
 	public void setVirginity(Boolean virginity) {
 		virgin = virginity;
+	}
+
+	public boolean buyItem(Item item, int cost) {
+		if (cost > money){
+			return false;
+		}
+		money -= cost;
+		inventory.add(item);
+		return true;
+	}
+
+	public Integer getMoney() {
+		return money;
 	}
 }

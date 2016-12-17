@@ -19,6 +19,7 @@ import com.majalis.character.PlayerCharacter;
 import com.majalis.character.AbstractCharacter.Stat;
 import com.majalis.character.Techniques;
 import com.majalis.encounter.EncounterCode;
+import com.majalis.scenes.ShopScene.Shop;
 /*
  * Used for file handling, both reading and writing - both game files and encounter replay files.
  */
@@ -75,6 +76,7 @@ public class SaveManager implements SaveService, LoadService{
 	    	case MUSIC:				save.music = (String) object; break;
 	    	case CONSOLE:			save.console = (String) object; break;
 	    	case VIRGIN:			save.player.setVirginity((Boolean) object); break;
+	    	case SHOP:				save.shop = ((Shop) object); break;
     	}	
         saveToJson(save); //Saves current save immediately.
     }
@@ -104,6 +106,7 @@ public class SaveManager implements SaveService, LoadService{
 	    	case MUSIC:				return (T) (String) save.music;
 	    	case CONSOLE:			return (T) (String) save.console;
 	    	case VIRGIN:
+	    	case SHOP:				return (T) (Shop) save.shop;
     	}	
     	return null;
     }
@@ -196,7 +199,7 @@ public class SaveManager implements SaveService, LoadService{
     
     public static class GameSave {
     	
-    	private GameContext context;
+		private GameContext context;
     	private GameMode mode;
     	private String music;
     	private int worldSeed;
@@ -210,6 +213,7 @@ public class SaveManager implements SaveService, LoadService{
     	private BattleCode battleCode;
     	private PlayerCharacter player;
     	private EnemyCharacter enemy;
+    	private Shop shop;
     	
     	// 0-arg constructor for JSON serialization: DO NOT USE
 		@SuppressWarnings("unused")
