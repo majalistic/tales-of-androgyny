@@ -89,7 +89,7 @@ public class GameWorldFactory {
 		return new GameWorld(nodes);
 	}
 	
-	private void addNode(GameWorldNode newNode, int nodeCode, Array<GameWorldNode> ... nodes){
+	private void addNode(GameWorldNode newNode, int nodeCode, @SuppressWarnings("unchecked") Array<GameWorldNode> ... nodes){
 		for (Array<GameWorldNode> nodeArray: nodes){
 			nodeArray.add(newNode);
 		}

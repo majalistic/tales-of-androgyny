@@ -634,10 +634,10 @@ public class EncounterBuilder {
 		return sceneMap;
 	}
 	
-	private OrderedMap<Integer, Scene> getChoiceScene(AssetManager assetManager, String choiceDialogue, Array<String> buttonLabels, OrderedMap<Integer, Scene>... sceneMaps){
+	private OrderedMap<Integer, Scene> getChoiceScene(AssetManager assetManager, String choiceDialogue, Array<String> buttonLabels, @SuppressWarnings("unchecked") OrderedMap<Integer, Scene>... sceneMaps){
 		return getChoiceScene(assetManager, choiceDialogue, buttonLabels, new Array<PlayerCharacter>(), sceneMaps);
 	}
-	private OrderedMap<Integer, Scene> getChoiceScene(AssetManager assetManager, String choiceDialogue, Array<String> buttonLabels, Array<PlayerCharacter> checks, OrderedMap<Integer, Scene>... sceneMaps){
+	private OrderedMap<Integer, Scene> getChoiceScene(AssetManager assetManager, String choiceDialogue, Array<String> buttonLabels, Array<PlayerCharacter> checks, @SuppressWarnings("unchecked") OrderedMap<Integer, Scene>... sceneMaps){
 		OrderedMap<Integer, Scene> sceneMap = aggregateMaps(sceneMaps);
 		
 		// use sceneMap to generate the table
@@ -699,7 +699,7 @@ public class EncounterBuilder {
 	}
 	
 	// accepts a list of values, will map those values to scenes in the scenemap in order
-	private OrderedMap<Integer, Scene> getCheckScene(AssetManager assetManager, Stat stat, IntArray checkValues, PlayerCharacter character, OrderedMap<Integer, Scene>... sceneMaps){
+	private OrderedMap<Integer, Scene> getCheckScene(AssetManager assetManager, Stat stat, IntArray checkValues, PlayerCharacter character, @SuppressWarnings("unchecked") OrderedMap<Integer, Scene>... sceneMaps){
 		OrderedMap<Integer, Scene> sceneMap = aggregateMaps(sceneMaps);
 		Texture background = assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getPath(), Texture.class);
 		OrderedMap<Integer, Scene> checkValueMap = new OrderedMap<Integer, Scene>();
@@ -711,23 +711,23 @@ public class EncounterBuilder {
 		return addScene(checkScene);
 	}
 	
-	private OrderedMap<Integer, Scene> getCheckScene(AssetManager assetManager, CheckType checkType, PlayerCharacter character, OrderedMap<Integer, Scene>... sceneMaps){
+	private OrderedMap<Integer, Scene> getCheckScene(AssetManager assetManager, CheckType checkType, PlayerCharacter character, @SuppressWarnings("unchecked") OrderedMap<Integer, Scene>... sceneMaps){
 		OrderedMap<Integer, Scene> sceneMap = aggregateMaps(sceneMaps);
 		Texture background = assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getPath(), Texture.class);
 		CheckScene checkScene = new CheckScene(sceneMap, sceneCounter, saveService, font, new BackgroundBuilder(background).build(), checkType, sceneMap.get(sceneMap.orderedKeys().get(0)), sceneMap.get(sceneMap.orderedKeys().get(1)), character);
 		return addScene(checkScene);
 	}
 	
-	private OrderedMap<Integer, Scene> getBattleScene(SaveService saveService, int battleCode, OrderedMap<Integer, Scene>... sceneMaps){
+	private OrderedMap<Integer, Scene> getBattleScene(SaveService saveService, int battleCode, @SuppressWarnings("unchecked") OrderedMap<Integer, Scene>... sceneMaps){
 		return getBattleScene(saveService, battleCode, Stance.BALANCED, Stance.BALANCED, sceneMaps);
 	}
 	
-	private OrderedMap<Integer, Scene> getBattleScene(SaveService saveService, int battleCode, Stance playerStance, Stance enemyStance, OrderedMap<Integer, Scene>... sceneMaps){
+	private OrderedMap<Integer, Scene> getBattleScene(SaveService saveService, int battleCode, Stance playerStance, Stance enemyStance, @SuppressWarnings("unchecked") OrderedMap<Integer, Scene>... sceneMaps){
 		OrderedMap<Integer, Scene> sceneMap = aggregateMaps(sceneMaps);
 		return addScene(new BattleScene(sceneMap, saveService, battleCode, playerStance, enemyStance));
 	}
 	
-	private OrderedMap<Integer, Scene> getGameTypeScene(AssetManager assetManager, Array<String> buttonLabels, OrderedMap<Integer, Scene>... sceneMaps){
+	private OrderedMap<Integer, Scene> getGameTypeScene(AssetManager assetManager, Array<String> buttonLabels, @SuppressWarnings("unchecked") OrderedMap<Integer, Scene>... sceneMaps){
 		OrderedMap<Integer, Scene> sceneMap = aggregateMaps(sceneMaps);
 		Skin skin = assetManager.get(AssetEnum.UI_SKIN.getPath(), Skin.class);
 		Sound buttonSound = assetManager.get(AssetEnum.BUTTON_SOUND.getPath(), Sound.class);
@@ -763,7 +763,7 @@ public class EncounterBuilder {
 		return addScene(new EndScene(type, saveService, type == EndScene.Type.ENCOUNTER_OVER ? returnContext : SaveManager.GameContext.GAME_OVER));
 	}
 	
-	private OrderedMap<Integer, Scene> aggregateMaps(OrderedMap<Integer, Scene>... sceneMaps){
+	private OrderedMap<Integer, Scene> aggregateMaps(@SuppressWarnings("unchecked") OrderedMap<Integer, Scene>... sceneMaps){
 		OrderedMap<Integer, Scene> aggregatedMap = new OrderedMap<Integer, Scene>();
 		for (OrderedMap<Integer, Scene> map : sceneMaps){
 			aggregatedMap.putAll(map);

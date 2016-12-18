@@ -139,7 +139,7 @@ public class ShopScene extends Scene {
 		this.addActor(table);	
 		if (shop.done) addActor(done);
 	}
-	
+
 	private Shop initShop(ShopCode shopCode, Shop shop) {
 		if (shop != null) return shop;
 		shop = new Shop(shopCode);
