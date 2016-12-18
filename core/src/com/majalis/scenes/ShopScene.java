@@ -14,6 +14,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.OrderedMap;
 import com.majalis.asset.AssetEnum;
 import com.majalis.character.Item;
+import com.majalis.character.Item.Potion;
 import com.majalis.character.Item.Weapon;
 import com.majalis.character.PlayerCharacter;
 import com.majalis.encounter.Background;
@@ -31,11 +32,19 @@ public class ShopScene extends Scene {
 	private final Label money;
 	
 	public static class Shop{
-		private final Array<Weapon> weapons;
+		private Array<Weapon> weapons;
+		private Array<Potion> consumables;
+		private ShopCode shopCode;
 		private boolean done;
-		private Shop(){
+		private Shop(){}
+		private Shop(ShopCode shopCode){
+			this.shopCode = shopCode;
 			this.weapons = new Array<Weapon>();
+			this.consumables = new Array<Potion>();
 			done = false;
+		}
+		public String getShopCode(){
+			return shopCode.toString();
 		}
 	}
 	
@@ -62,14 +71,13 @@ public class ShopScene extends Scene {
 				@Override
 		        public void clicked(InputEvent event, float x, float y) {
 					buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
-					saveService.saveDataValue(SaveEnum.SHOP, null);
 					nextScene();		   
 		        }
 			}
 		);
 		done.setPosition(1522, 30);
 		
-		// need to create methods for buying and selling
+		// need to create methods for selling
 		// need to show description of items (should be an attribute of an item)	
 		// need to let a player equip items as they're purchased	
 		// need to split different types of items into different lists - weapons, armors, accessories, consumables, skills
@@ -99,8 +107,34 @@ public class ShopScene extends Scene {
 					
 		        }
 			});
+			
 			table.add(weaponButton).size(400, 60).row();
 		}
+		
+		for (final Potion potion: shop.consumables){
+			final TextButton potionButton = new TextButton(potion.getName() + " (" + potion.getValue() + ")", skin);
+			potionButton.addListener(new ClickListener(){
+				@Override
+		        public void clicked(InputEvent event, float x, float y) {
+					buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
+					if (buyItem(potion)){
+						addActor(done);
+						potionButton.addAction(Actions.removeActor());
+						shop.consumables.removeValue(potion, true);
+						shop.done = true;
+						money.setText(String.valueOf(character.getMoney())+" Gold");
+						saveService.saveDataValue(SaveEnum.SHOP, shop);
+						saveService.saveDataValue(SaveEnum.PLAYER, character);
+					}
+					else {
+						console.setText("You can't afford the " + potion.getName());
+					}
+					
+		        }
+			});
+			table.add(potionButton).size(400, 60).row();
+		}
+		
 		table.setPosition(500, 800);
 		this.addActor(table);	
 		if (shop.done) addActor(done);
@@ -108,12 +142,20 @@ public class ShopScene extends Scene {
 	
 	private Shop initShop(ShopCode shopCode, Shop shop) {
 		if (shop != null) return shop;
-		shop = new Shop();
+		shop = new Shop(shopCode);
 		switch (shopCode) {
 			case FIRST_STORY:
 				shop.weapons.add(new Weapon("Rapier"));
 				shop.weapons.add(new Weapon("Cutlass"));
 				shop.weapons.add(new Weapon("Broadsword"));
+				break;
+			case SHOP:
+				for (int ii = 10; ii <= 20; ii += 10){
+					shop.consumables.add(new Potion(ii));
+					shop.consumables.add(new Potion(ii));
+					shop.consumables.add(new Potion(ii));
+					shop.consumables.add(new Potion(ii));
+				}
 				break;
 			default:
 				break;
@@ -142,7 +184,7 @@ public class ShopScene extends Scene {
 	}
 	
 	public enum ShopCode {
-		FIRST_STORY
+		FIRST_STORY, SHOP
 	}
 	
 }

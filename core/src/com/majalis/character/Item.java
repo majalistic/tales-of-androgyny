@@ -51,7 +51,7 @@ public abstract class Item {
 
 		@Override
 		public int getValue() {
-			return 5;
+			return magnitude / 2;
 		}
 
 		@Override

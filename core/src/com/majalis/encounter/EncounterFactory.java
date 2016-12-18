@@ -2,6 +2,7 @@ package com.majalis.encounter;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.utils.ObjectMap;
 import com.majalis.battle.BattleCode;
 import com.majalis.character.PlayerCharacter;
 import com.majalis.save.LoadService;
@@ -33,7 +34,8 @@ public class EncounterFactory {
 		GameContext context = loadService.loadDataValue(SaveEnum.RETURN_CONTEXT, GameContext.class);
 		int battleCode = -1;
 		if (battle != null) battleCode = battle.battleCode;
-		EncounterBuilder builder = new EncounterBuilder(reader, assetManager, saveService, font, smallFont, sceneCode, battleCode, (Shop)loadService.loadDataValue(SaveEnum.SHOP, Shop.class), context);
+		@SuppressWarnings("unchecked")
+		EncounterBuilder builder = new EncounterBuilder(reader, assetManager, saveService, font, smallFont, sceneCode, battleCode, (ObjectMap<String, Shop>)loadService.loadDataValue(SaveEnum.SHOP, Shop.class), context);
 		switch (encounterCode){
 			case LEVEL_UP: return builder.getLevelUpEncounter((PlayerCharacter) loadService.loadDataValue(SaveEnum.PLAYER, PlayerCharacter.class));
 			case INITIAL: return builder.getClassChoiceEncounter((PlayerCharacter) loadService.loadDataValue(SaveEnum.PLAYER, PlayerCharacter.class));

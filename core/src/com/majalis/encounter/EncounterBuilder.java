@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.IntArray;
+import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.OrderedMap;
 import com.majalis.asset.AssetEnum;
 import com.majalis.battle.BattleCode;
@@ -57,12 +58,12 @@ public class EncounterBuilder {
 	private final BitmapFont smallFont;
 	private final int sceneCode;
 	private int battleCode;
-	private final Shop shop;
+	private final ObjectMap<String, Shop> shops;
 	private final GameContext returnContext;
 	// can probably be replaced with a call to scenes.size
 	private int sceneCounter;
 	
-	protected EncounterBuilder(EncounterReader reader, AssetManager assetManager, SaveService saveService, BitmapFont font, BitmapFont smallFont, int sceneCode, int battleCode, Shop shop, GameContext returnContext){
+	protected EncounterBuilder(EncounterReader reader, AssetManager assetManager, SaveService saveService, BitmapFont font, BitmapFont smallFont, int sceneCode, int battleCode, ObjectMap<String, Shop> shops, GameContext returnContext){
 		scenes = new Array<Scene>();
 		endScenes = new Array<EndScene>();
 		battleScenes = new Array<BattleScene>();
@@ -73,7 +74,7 @@ public class EncounterBuilder {
 		this.smallFont = smallFont;
 		this.sceneCode = sceneCode;
 		this.battleCode = battleCode;
-		this.shop = shop;
+		this.shops = shops == null ? new ObjectMap<String, Shop>() : shops;
 		this.returnContext = returnContext;
 		sceneCounter = 0;
 	}
@@ -550,7 +551,7 @@ public class EncounterBuilder {
 				getTextScenes (					
 					getArray(new String[]{"You peruse the shop."}), font, backgroundWithShopkeep2, new Array<Mutation>(), AssetEnum.SHOP_MUSIC.getPath(), getArray(new String[]{}),	
 					getShopScene(
-						assetManager, ShopCode.FIRST_STORY, character,  new BackgroundBuilder(assetManager.get(AssetEnum.TOWN_BG.getPath(), Texture.class)).setForeground(assetManager.get(AssetEnum.SHOPKEEP.getPath(), Texture.class)).build(), 
+						assetManager, ShopCode.SHOP, character,  new BackgroundBuilder(assetManager.get(AssetEnum.TOWN_BG.getPath(), Texture.class)).setForeground(assetManager.get(AssetEnum.SHOPKEEP.getPath(), Texture.class)).build(), 
 						getEndScene(EndScene.Type.ENCOUNTER_OVER)	
 					)
 				);
@@ -665,7 +666,7 @@ public class EncounterBuilder {
 	}
 	
 	private OrderedMap<Integer, Scene> getShopScene(AssetManager assetManager, ShopCode shopCode, PlayerCharacter character, Background background, OrderedMap<Integer, Scene> sceneMap) {
-		return addScene(new ShopScene(sceneMap, sceneCounter, saveService, assetManager, character, background, shopCode, shop));
+		return addScene(new ShopScene(sceneMap, sceneCounter, saveService, assetManager, character, background, shopCode, shops.get(shopCode.toString())));
 	}
 	
 	private ClickListener getListener(final AbstractChoiceScene currentScene, final Scene nextScene, final Sound buttonSound){

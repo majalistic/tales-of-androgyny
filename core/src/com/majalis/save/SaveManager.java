@@ -77,7 +77,7 @@ public class SaveManager implements SaveService, LoadService{
 	    	case MUSIC:				save.music = (String) object; break;
 	    	case CONSOLE:			save.console = (String) object; break;
 	    	case VIRGIN:			save.player.setVirginity((Boolean) object); break;
-	    	case SHOP:				save.shop = ((Shop) object); break;
+	    	case SHOP:				save.shops.put(((Shop) object).getShopCode(), (Shop) object); break;
     	}	
         saveToJson(save); //Saves current save immediately.
     }
@@ -108,7 +108,7 @@ public class SaveManager implements SaveService, LoadService{
 	    	case MUSIC:				return (T) (String) save.music;
 	    	case CONSOLE:			return (T) (String) save.console;
 	    	case VIRGIN:
-	    	case SHOP:				return (T) (Shop) save.shop;
+	    	case SHOP:				return (T) (ObjectMap<String, Shop>) save.shops;
     	}	
     	return null;
     }
@@ -216,7 +216,7 @@ public class SaveManager implements SaveService, LoadService{
     	private BattleCode battleCode;
     	private PlayerCharacter player;
     	private EnemyCharacter enemy;
-    	private Shop shop;
+    	private ObjectMap<String, Shop> shops;
     	
     	// 0-arg constructor for JSON serialization: DO NOT USE
 		@SuppressWarnings("unused")
@@ -233,6 +233,7 @@ public class SaveManager implements SaveService, LoadService{
     			returnContext = GameContext.WORLD_MAP;
         		nodeCode = 1;
         		console = "";
+        		shops = new ObjectMap<String, Shop>();
         		cameraPos = new Vector3(500, 500, 0);
         		visitedList = new IntArray(true, new int[]{1}, 0, 1);
         		player = new PlayerCharacter(true);
