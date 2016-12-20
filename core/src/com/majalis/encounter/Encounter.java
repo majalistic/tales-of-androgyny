@@ -21,7 +21,7 @@ public class Encounter {
 	public boolean gameOver;
 	public boolean gameExit;
 	
-	public Encounter(Array<Scene> scenes, Array<EndScene> endScenes, Array<BattleScene> battleScenes, Scene startScene){
+	public Encounter(Array<Scene> scenes, Array<EndScene> endScenes, Array<BattleScene> battleScenes, Scene startScene) {
 		this.scenes = scenes;
 		this.endScenes = endScenes;
 		this.startScene = startScene;
@@ -32,14 +32,14 @@ public class Encounter {
 		gameExit = false;
 	}
 	
-	public void gameLoop(){
-		if (Gdx.input.isKeyJustPressed(Keys.TAB)){
+	public void gameLoop() {
+		if (Gdx.input.isKeyJustPressed(Keys.TAB)) {
 			displayHUD = !displayHUD;
 		}
-		if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)){
+		if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
 			gameExit = true;
 		}
-		if (Gdx.input.isKeyJustPressed(Keys.ENTER) || Gdx.input.isKeyPressed(Keys.CONTROL_LEFT) || Gdx.input.isKeyPressed(Keys.CONTROL_RIGHT)){
+		if (Gdx.input.isKeyJustPressed(Keys.ENTER) || Gdx.input.isKeyJustPressed(Keys.SPACE) || Gdx.input.isKeyPressed(Keys.CONTROL_LEFT) || Gdx.input.isKeyPressed(Keys.CONTROL_RIGHT)) {
 			for (Scene scene: scenes){
 				if (scene.isActive()){
 					scene.poke();
@@ -47,14 +47,14 @@ public class Encounter {
 			}
 		}
 		
-		for (BattleScene objScene : battleScenes){
+		for (BattleScene objScene : battleScenes) {
 			if (objScene.isActive()){
 				battle = true;
 			}
 		}
-		for (EndScene objScene: endScenes){
+		for (EndScene objScene: endScenes) {
 			if (objScene.isActive()){
-				switch(objScene.getType()){
+				switch(objScene.getType()) {
 					case ENCOUNTER_OVER: encounterOver = true; break;
 					case GAME_OVER: gameOver = true; break;
 				} 
@@ -62,13 +62,13 @@ public class Encounter {
 		}
 	}
 	
-	public boolean isSwitching(){
+	public boolean isSwitching() {
 		return battle || encounterOver || gameOver;
 	}
 	
-	public Array<Actor> getActors(){
+	public Array<Actor> getActors() {
 		Array<Actor> actors = new Array<Actor>();
-		for (Actor actor: scenes){
+		for (Actor actor: scenes) {
 			actors.add(actor);
 		}
 		startScene.setActive();

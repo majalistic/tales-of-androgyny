@@ -8,9 +8,7 @@ public abstract class Item {
 	protected abstract ItemEffect getUseEffect();
 	public abstract String getName();
 	
-	
 	public static class Weapon extends Item {
-
 		
 		private final String name;
 		public Weapon(){
@@ -35,7 +33,6 @@ public abstract class Item {
 		public String getName() {
 			return name;
 		}
-		
 	}
 	
 	public static class Potion extends Item {
