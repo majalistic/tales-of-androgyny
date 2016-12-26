@@ -67,7 +67,7 @@ public class PlayerCharacter extends AbstractCharacter {
 			setStabilityToMax();
 			setManaToMax();
 			food = 40;
-			virgin = true;
+			setVirginity(true);
 			a2m = false;
 			a2mcheevo = false;
 			battleOver = 0;
@@ -270,7 +270,7 @@ public class PlayerCharacter extends AbstractCharacter {
 	public Array<String> receiveAttack(Attack resolvedAttack){
 		super.receiveAttack(resolvedAttack);
 		if (stance == Stance.DOGGY || stance == Stance.ANAL || stance == Stance.STANDING || stance == Stance.COWGIRL){
-			virgin = false;
+			setVirginity(false);
 			a2m = true;
 		}
 		else if (stance == Stance.FELLATIO && a2m){
