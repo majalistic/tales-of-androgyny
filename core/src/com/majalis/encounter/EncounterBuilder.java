@@ -149,6 +149,8 @@ public class EncounterBuilder {
 	protected Encounter getRandomEncounter(EncounterCode encounterCode, PlayerCharacter character){
 		Texture backgroundTexture = assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getPath(), Texture.class);	
 		Background background = getDefaultTextBackground();
+		Mutation virginityToFalse = new Mutation(saveService, SaveEnum.VIRGIN, false);
+		
 		// if there isn't already a battlecode set, it's determined by the encounterCode; for now, that means dividing the various encounters up by modulus
 		if (battleCode == -1) battleCode = encounterCode.getBattleCode();
 		switch (encounterCode){
@@ -161,7 +163,7 @@ public class EncounterBuilder {
 						getBattleScene(
 							saveService, battleCode, 
 							getTextScenes(getArray(new String[]{"You defeated the werebitch!", "You receive 2 Experience."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.EXPERIENCE, 2)}), getEndScene(EndScene.Type.ENCOUNTER_OVER)),
-							getTextScenes(getScript(encounterCode, 2), font, werebitchBackground, new Array<Mutation>(), AssetEnum.WEREWOLF_MUSIC.getPath(), new Array<String>(), getEndScene(EndScene.Type.GAME_OVER))				
+							getTextScenes(getScript(encounterCode, 2), font, werebitchBackground, getArray(new Mutation[]{virginityToFalse}), AssetEnum.WEREWOLF_MUSIC.getPath(), new Array<String>(), getEndScene(EndScene.Type.GAME_OVER))				
 						)
 					)
 				);		
@@ -188,14 +190,14 @@ public class EncounterBuilder {
 							getBattleScene(
 								saveService, battleCode, Stance.KNEELING, Stance.BALANCED,
 								getTextScenes(getArray(new String[]{"You defeated the harpy!", "You receive 1 Experience."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.EXPERIENCE, 1)}), getEndScene(EndScene.Type.ENCOUNTER_OVER)),
-								getTextScenes(getScript(encounterCode, 4), font, background, getEndScene(EndScene.Type.GAME_OVER))					
+								getTextScenes(getScript(encounterCode, 4), font, background, getArray(new Mutation[]{virginityToFalse}), getEndScene(EndScene.Type.GAME_OVER))					
 							)
 						),
 						getTextScenes(getScript(encounterCode, 3), font, harpyFellatioBackground, 
 							getBattleScene(
 								saveService, battleCode, Stance.FELLATIO, Stance.FELLATIO,									
 								getTextScenes(getArray(new String[]{"You defeated the harpy!", "You receive 1 Experience."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.EXPERIENCE, 1)}), getEndScene(EndScene.Type.ENCOUNTER_OVER)),
-								getTextScenes(getScript(encounterCode, 4), font, background, getEndScene(EndScene.Type.GAME_OVER))					
+								getTextScenes(getScript(encounterCode, 4), font, background, getArray(new Mutation[]{virginityToFalse}), getEndScene(EndScene.Type.GAME_OVER))					
 							)
 						)
 					)
@@ -274,7 +276,7 @@ public class EncounterBuilder {
 								getTextScenes(getScript(encounterCode, 11), font, slimeBackground,
 									getTextScenes(getArray(new String[]{"You banged the slime!", "You receive 2 Experience."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.EXPERIENCE, 2)}), getEndScene(EndScene.Type.ENCOUNTER_OVER))
 								),
-								getTextScenes(getScript(encounterCode, 12), font, slimeDoggyBackground,
+								getTextScenes(getScript(encounterCode, 12), font, slimeDoggyBackground, getArray(new Mutation[]{virginityToFalse}),
 									getTextScenes(getArray(new String[]{"You got banged by the slime!", "You receive 3 Experience."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.EXPERIENCE, 3)}), getEndScene(EndScene.Type.ENCOUNTER_OVER))
 								)
 							)
@@ -321,7 +323,7 @@ public class EncounterBuilder {
 									getChoiceScene(
 										assetManager, "Accept her offer?", getArray(new String[]{"Accept (Requires: Catamite)", "Decline"}), getArray(new PlayerCharacter[]{character, null}),
 										getTextScenes(
-											getScript(encounterCode, 3), font, background,
+											getScript(encounterCode, 3), font, background, getArray(new Mutation[]{virginityToFalse}),
 											getChoiceScene(
 												assetManager, "Tell her to pull out?", getArray(new String[]{"Say Nothing", "Ask her"}),
 												getTextScenes(
@@ -400,7 +402,7 @@ public class EncounterBuilder {
 						getTextScenes(
 							getArray(new String[]{"Ouch!  You take 5 damage!"}), font, background, getMutation(5),
 							getTextScenes(
-								getScript(encounterCode, 12), font, background, 
+								getScript(encounterCode, 12), font, background, getArray(new Mutation[]{virginityToFalse}),
 								getBattleScene(
 									saveService, battleCode, Stance.STANDING, Stance.STANDING,
 									getTextScenes(getArray(new String[]{"You defeated the brigand!", "You receive 1 Experience."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.EXPERIENCE, 1)}), getEndScene(EndScene.Type.ENCOUNTER_OVER)),
@@ -425,9 +427,9 @@ public class EncounterBuilder {
 					getChoiceScene(
 						assetManager, "Do you offer her YOUR apple, or try to convince her to just hand it over?", getArray(new String[]{"Offer(Requires: Catamite)", "Plead with her"}), getArray(new PlayerCharacter[]{character, null}),												
 						getTextScenes(
-							getScript(encounterCode, 1), font, background,
+							getScript(encounterCode, 1), font, background, getArray(new Mutation[]{virginityToFalse}),
 							getTextScenes(
-								getArray(new String[]{"So that happened.", "You take 5 damage from the splinters.", "You receive 10 food from the dryad.", "You receive 1 Experience."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.VIRGIN, false), new Mutation(saveService, SaveEnum.HEALTH, -5), new Mutation(saveService, SaveEnum.FOOD, 10), new Mutation(saveService, SaveEnum.EXPERIENCE, 1)}), 
+								getArray(new String[]{"So that happened.", "You take 5 damage from the splinters.", "You receive 10 food from the dryad.", "You receive 1 Experience."}), font, background, getArray(new Mutation[]{virginityToFalse, new Mutation(saveService, SaveEnum.HEALTH, -5), new Mutation(saveService, SaveEnum.FOOD, 10), new Mutation(saveService, SaveEnum.EXPERIENCE, 1)}), 
 								getEndScene(EndScene.Type.ENCOUNTER_OVER)
 							)
 						),
@@ -464,7 +466,7 @@ public class EncounterBuilder {
 								saveService, battleCode + 1000,
 								getTextScenes(getArray(new String[]{"You defeated the unicorn!", "You receive 3 Experience."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.EXPERIENCE, 3)}), getEndScene(EndScene.Type.ENCOUNTER_OVER)),
 								getTextScenes(
-									getScript(encounterCode, 4), font, unicornBackground, 
+									getScript(encounterCode, 4), font, unicornBackground, getArray(new Mutation[]{virginityToFalse}),
 									getTextScenes(
 										getArray(new String[]{"You rest, eating 5 food.", "You recover 10 health."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.FOOD, -5), new Mutation(saveService, SaveEnum.HEALTH, 10)}),
 										getEndScene(EndScene.Type.ENCOUNTER_OVER)
@@ -483,7 +485,7 @@ public class EncounterBuilder {
 								),
 								getEndScene(EndScene.Type.ENCOUNTER_OVER),
 								getTextScenes(
-									getScript(encounterCode, 3), font, centaurBackground, 
+									getScript(encounterCode, 3), font, centaurBackground, getArray(new Mutation[]{virginityToFalse}),
 									getBattleScene(
 										saveService, battleCode, Stance.DOGGY, Stance.DOGGY,
 										getTextScenes(getArray(new String[]{"You defeated the centaur!", "You receive 2 Experience."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.EXPERIENCE, 2)}), getEndScene(EndScene.Type.ENCOUNTER_OVER)),
@@ -564,7 +566,7 @@ public class EncounterBuilder {
 				break;
 			case STARVATION:
 				getTextScenes (					
-					getArray(new String[]{"You collapse from hunger.  Animals have their way with you."}), font, background, new Array<Mutation>(), AssetEnum.WEREWOLF_MUSIC.getPath(), new Array<String>(),
+					getArray(new String[]{"You collapse from hunger.  Animals have their way with you."}), font, background, getArray(new Mutation[]{virginityToFalse}), AssetEnum.WEREWOLF_MUSIC.getPath(), new Array<String>(),
 					getEndScene(EndScene.Type.GAME_OVER)	
 				);
 				break;
