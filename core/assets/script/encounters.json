@@ -939,6 +939,57 @@
 			"As the male centaur erupts, his runny semen filling and overflowing your bowels, a quick-shot by any measure, you hear the clopping of another centaur, ready to drain their foot-and-a-half-long cock in your already greased up innards, and you know that your adventure is over.",
 			"You will be fucked in the ass by horses that happen to be half-men until they get bored of you, which might be never.  You should have never trespassed in the centaur's land."
 		]
+	},
+	{
+		"key": "FORCED_CAMP",
+		"scriptLines": [
+			"You're too exhausted to continue, so instead you camp to rest.", "You nibble on your food reserves and spend an extra night without traveling.", "You restore 10 health and consume 4 food."
+		]
+	},
+	{
+		"key": "STARVATION",
+		"scriptLines": [
+			"Your hunger has gotten the better of you.  You're running out of strength.",
+			"As you wander, your vision starts to narrow, and you start to wobble on your legs... until you collapse to your knees, falling face-first into the dirt, and blackness takes you.",
+			"...",
+			"...",
+			"..",
+			"..",
+			".",
+			"You awake, face down in the dirt.",
+			"Your consciousness floats in and out... and you have a sinking feeling that something is... wrong.",
+			"You don't remember pulling your pants down.  Your mind is too fuzzy to know for certain... but you're pretty sure.",
+			"Your face is down, but your ass is in the air.",
+			"And... you can't quite place it... but something feels... off.",
+			"Your... hole... is sore.",
+			"You're surrounded by the footprints of some wild animal... and the stench of both wild animal and sex is in the air."
+			
+		]
+	},
+	{
+		"key": "STARVATION-REVEAL",
+		"scriptLines": [
+			"A frothy white liquid is cascading down your balls and thighs, pooling onto the ground.",
+			"Feeling it run down your legs, you suspect that it's the leavings of a satisfied animal, your heart sinking.		",
+			"The source of this waterfall of animal semen is... well, there's no polite way to say this: it's your poophole.  You apparently entertained some very confused beast while you were unconscious and... it must have thought that you were a female.  When it couldn't find a vagina to sow its seed, well...",
+			"Life... finds a way.",
+			"To put it mildly - your rectum has been ransacked.  The lust of a beast has left your bowels awkwardly sore, and bloated in a way that makes it more comfortable to push out the burbling beast cum than to let it stew.  Judging by how gaped and sore you are, the beast must have mated with you at length, or possibly multiple times - or possibly you welcomed a whole pack of feral animals into your not-so-exit-only-now boyhole.",
+			"You may never know exactly what happened after you lost consciousness, but all evidence points to a romantic rear rendezvous randy, rutting rectum-rummaging rascal.  ",
+			"In other words, you've been anally inseminated by a wild animal.  Oof."
+		]
+	},
+	{
+		"key": "STARVATION-VIRGIN",
+		"scriptLines": [		
+			"Congratulations, you lost your butt virginity. Err, sorry it had to be this way. I'm sure it was a handsome animal.  A... very romantic animal.",
+			"Look, there's no sugar-coating this.  Your first time, not only did you take it up the ass, but it was with a dumb animal who couldn't tell the difference."
+		]
+	},
+	{
+		"key": "STARVATION-CONTINUE",
+		"scriptLines": [
+			"While unconscious, you got butt-bombed by a wild animal. -5 dignity.  Gained beastmaster trait."	
+		]
 	}
 ]
 }
