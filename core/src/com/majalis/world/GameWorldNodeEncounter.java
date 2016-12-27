@@ -53,7 +53,7 @@ public class GameWorldNodeEncounter {
 						return "Town of Nadir";	
 					case COTTAGE_TRAINER: return "Cottage-on-the-Outskirts";
 					case FIRST_BATTLE_STORY: return "Forest Clearing";
-					default: return "Unknown - No Info for encounter #" + encounterCode + " and perception level = 1";
+					default: return "Unknown - No Info for encounter #" + encounterCode + " and perception level = " + visibility;
 			}
 			case 2:
 			case 3:
@@ -72,7 +72,7 @@ public class GameWorldNodeEncounter {
 					case TOWN_STORY: return "Town of Nadir";
 					case COTTAGE_TRAINER: return "Cottage-on-the-Outskirts";
 					case FIRST_BATTLE_STORY: return "Forest Clearing - signs of harpies";
-					default: return "Unknown - No Info for encounter #" + encounterCode  + " and perception level = 2";
+					default: return "Unknown - No Info for encounter #" + encounterCode  + " and perception level = " + visibility;
 				}
 			default: return "Perception level error.";
 		}
