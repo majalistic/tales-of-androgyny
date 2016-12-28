@@ -17,6 +17,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.majalis.asset.AssetEnum;
 import com.majalis.battle.BattleFactory.EnemyEnum;
+import com.majalis.character.EnemyCharacter;
+import com.majalis.character.AbstractCharacter.Stance;
 import com.majalis.encounter.Background.BackgroundBuilder;
 /*
  * The replay encounters.  UI that handles player input to select and load and encounters to experience again.
@@ -33,6 +35,7 @@ public class ReplayScreen extends AbstractScreen {
 		resourceRequirements.put(AssetEnum.BRIGAND.getPath(), Texture.class);
 		resourceRequirements.put(AssetEnum.SLIME.getPath(), Texture.class);
 		resourceRequirements.put(AssetEnum.CENTAUR.getPath(), Texture.class);
+		resourceRequirements.put(AssetEnum.UNICORN.getPath(), Texture.class);
 		resourceRequirements.put(AssetEnum.MAIN_MENU_MUSIC.getPath(), Music.class);
 		resourceRequirements.put(AssetEnum.DEFAULT_BACKGROUND.getPath(), Texture.class);
 	}
@@ -40,7 +43,7 @@ public class ReplayScreen extends AbstractScreen {
 	private final ObjectMap<String, Integer> enemyKnowledge;
 	private final Skin skin;
 	private final Sound sound;
-	private Texture enemyTexture;
+	private EnemyCharacter currentCharacter;
 	private String nothingToDisplay;
 	
 	public ReplayScreen(ScreenFactory factory, ScreenElements elements, AssetManager assetManager, ObjectMap<String, Integer> enemyKnowledge) {
@@ -60,9 +63,6 @@ public class ReplayScreen extends AbstractScreen {
         batch.setTransformMatrix(camera.view);
 		camera.update();
 		batch.begin();
-		if (enemyTexture != null){
-			batch.draw(enemyTexture, 1450, 485, (enemyTexture.getWidth() / (enemyTexture.getHeight() / 1155.f)), 1155);
-		}
 		if(!nothingToDisplay.equals("")){
 			font.setColor(Color.BLACK);
 			font.draw(batch, nothingToDisplay, 1170, 880);
@@ -82,12 +82,22 @@ public class ReplayScreen extends AbstractScreen {
 			if (!enemyKnowledge.containsKey(type.toString())) continue;
 			nothingToDisplay = "";
 			TextButton button = new TextButton(type.toString(), skin);
+			ObjectMap<Stance, Texture> textures = new ObjectMap<Stance, Texture>();
+			Texture enemyTexture = assetManager.get(type.getPath(), Texture.class);
+			textures.put(Stance.BALANCED, enemyTexture);
+			EnemyCharacter enemy = new EnemyCharacter(enemyTexture, textures, type);
+			this.addActor(enemy);
+			enemy.addAction(Actions.hide());
+			enemy.setPosition(700, 0);
 			button.addListener(
 				new ClickListener(){
 					@Override
 			        public void clicked(InputEvent event, float x, float y) {
 						sound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
-						enemyTexture = assetManager.get(type.getPath(), Texture.class);
+						if (currentCharacter != null)
+							currentCharacter.addAction(Actions.hide());
+						currentCharacter = enemy;
+						enemy.addAction(Actions.show());
 			        }
 				}
 			);
