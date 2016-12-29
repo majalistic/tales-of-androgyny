@@ -81,6 +81,7 @@ public class EnemyCharacter extends AbstractCharacter {
 					imagePath = AssetEnum.UNICORN.getPath();
 					lust = 20;
 				}
+				break;
 			case GOBLIN:
 				baseStrength = 4;
 				bgPath = AssetEnum.ENCHANTED_FOREST_BG.getPath();

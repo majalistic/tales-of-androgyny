@@ -86,7 +86,7 @@ public class ReplayScreen extends AbstractScreen {
 			ObjectMap<Stance, Texture> textures = new ObjectMap<Stance, Texture>();
 			Texture enemyTexture = assetManager.get(type.getPath(), Texture.class);
 			textures.put(Stance.BALANCED, enemyTexture);
-			EnemyCharacter enemy = new EnemyCharacter(enemyTexture, textures, type);
+			final EnemyCharacter enemy = new EnemyCharacter(enemyTexture, textures, type);
 			this.addActor(enemy);
 			enemy.addAction(Actions.hide());
 			enemy.setPosition(700, 0);
