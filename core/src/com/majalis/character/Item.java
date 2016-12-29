@@ -1,4 +1,8 @@
 package com.majalis.character;
+
+import com.badlogic.gdx.utils.ObjectMap;
+import com.majalis.character.AbstractCharacter.Stat;
+
 /*
  * Represents an individual, discrete item.
  */
@@ -10,13 +14,14 @@ public abstract class Item {
 	
 	public static class Weapon extends Item {
 		
-		private final String name;
-		public Weapon(){
-			this("Sword");
-		}
+		private WeaponType type;
+		private String name;
+
+		public Weapon(){}
 		
-		public Weapon(String name){
-			this.name = name;
+		public Weapon(WeaponType type){
+			this.type = type;
+			this.name = type.toString();
 		}
 		
 		@Override
@@ -33,6 +38,21 @@ public abstract class Item {
 		public String getName() {
 			return name;
 		}
+
+		public int getDamage(ObjectMap<Stat, Integer> stats) {
+			switch (type){
+				case Rapier: return (stats.get(Stat.AGILITY)) / 3 + 1;
+				case Cutlass: return (stats.get(Stat.STRENGTH) + stats.get(Stat.AGILITY)) / 5 + 1;
+				case Broadsword: return (stats.get(Stat.STRENGTH)) / 3 + 1;
+				default: return 0;
+			}
+		}
+	}
+	
+	public enum WeaponType {
+		Rapier,
+		Cutlass,
+		Broadsword
 	}
 	
 	public static class Potion extends Item {

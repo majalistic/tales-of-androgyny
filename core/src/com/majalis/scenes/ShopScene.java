@@ -16,6 +16,7 @@ import com.majalis.asset.AssetEnum;
 import com.majalis.character.Item;
 import com.majalis.character.Item.Potion;
 import com.majalis.character.Item.Weapon;
+import com.majalis.character.Item.WeaponType;
 import com.majalis.character.PlayerCharacter;
 import com.majalis.encounter.Background;
 import com.majalis.save.SaveEnum;
@@ -112,6 +113,7 @@ public class ShopScene extends Scene {
 		}
 		
 		for (final Potion potion: shop.consumables){
+			shop.done = true; // temporary measure to make the potion shop function properly
 			final TextButton potionButton = new TextButton(potion.getName() + " (" + potion.getValue() + ")", skin);
 			potionButton.addListener(new ClickListener(){
 				@Override
@@ -121,7 +123,7 @@ public class ShopScene extends Scene {
 						addActor(done);
 						potionButton.addAction(Actions.removeActor());
 						shop.consumables.removeValue(potion, true);
-						shop.done = true;
+						
 						money.setText(String.valueOf(character.getMoney())+" Gold");
 						saveService.saveDataValue(SaveEnum.SHOP, shop);
 						saveService.saveDataValue(SaveEnum.PLAYER, character);
@@ -145,9 +147,9 @@ public class ShopScene extends Scene {
 		shop = new Shop(shopCode);
 		switch (shopCode) {
 			case FIRST_STORY:
-				shop.weapons.add(new Weapon("Rapier"));
-				shop.weapons.add(new Weapon("Cutlass"));
-				shop.weapons.add(new Weapon("Broadsword"));
+				for (WeaponType type: WeaponType.values()){
+					shop.weapons.add(new Weapon(type));					
+				}
 				break;
 			case SHOP:
 				for (int ii = 10; ii <= 20; ii += 10){

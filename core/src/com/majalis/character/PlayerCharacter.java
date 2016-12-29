@@ -9,6 +9,7 @@ import com.majalis.battle.BattleFactory.EnemyEnum;
 import com.majalis.character.Item.EffectType;
 import com.majalis.character.Item.ItemEffect;
 import com.majalis.character.Item.Potion;
+import com.majalis.character.Item.Weapon;
 import com.majalis.save.SaveManager.JobClass;
 
 /*
@@ -239,12 +240,24 @@ public class PlayerCharacter extends AbstractCharacter {
 		return null;
 	}
 	
+	private ObjectMap<Stat, Integer> getStats(){
+		ObjectMap<Stat, Integer> stats = new ObjectMap<Stat, Integer>();
+		stats.put(Stat.STRENGTH, getStrength());
+		stats.put(Stat.ENDURANCE, getEndurance());
+		stats.put(Stat.AGILITY, getAgility());
+		stats.put(Stat.PERCEPTION, getPerception());
+		stats.put(Stat.MAGIC, getMagic());
+		stats.put(Stat.CHARISMA, getCharisma());
+		return stats;
+	}
+	
 	private Array<Technique> getTechniques(Techniques... possibilities) {
 		Array<Technique> possibleTechniques = new Array<Technique>();
 		
 		for (Techniques technique : possibilities){
 			if (skills.containsKey(technique.toString())){
-				int power = technique.getTrait().isSpell() ? (technique.getTrait().getBuff() != null ? stepDown(getMagic()) : getMagic()  ): technique.getTrait().isTaunt() ? getCharisma() : getStrength();
+				// this should pass the players stats and other relevant info to the technique, rather than passing some generic "force" value - also passing the weapon separately so that the technique can determine if it's relevant or not - basically, this class should create a "current state" object
+				int power = technique.getTrait().isSpell() ? (technique.getTrait().getBuff() != null ? stepDown(getMagic()) : getMagic()  ): technique.getTrait().isTaunt() ? getCharisma() : getStrength() + (weapon != null ? weapon.getDamage(getStats()) : 0);
 				power += skills.get(technique.toString()) - 1;
 				possibleTechniques.add(new Technique(technique.getTrait(), power));
 			}	
@@ -595,6 +608,9 @@ public class PlayerCharacter extends AbstractCharacter {
 		}
 		money -= cost;
 		inventory.add(item);
+		if (item instanceof Weapon){
+			weapon = (Weapon) item;
+		}
 		return true;
 	}
 

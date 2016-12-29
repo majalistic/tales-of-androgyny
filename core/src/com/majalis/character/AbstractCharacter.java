@@ -3,6 +3,7 @@ package com.majalis.character;
 import com.majalis.asset.AssetEnum;
 import com.majalis.battle.BattleFactory.EnemyEnum;
 import com.majalis.character.Attack.Status;
+import com.majalis.character.Item.Weapon;
 import com.majalis.character.PlayerCharacter.Bootyliciousness;
 import com.majalis.save.SaveManager.JobClass;
 import com.majalis.technique.ClimaxTechnique.ClimaxType;
@@ -56,7 +57,7 @@ public abstract class AbstractCharacter extends Actor {
 	protected int struggle;
 	protected int battleOver;
 	
-	// public Weapon weapon;
+	protected Weapon weapon;
 	// public Shield shield;
 	// public Armor armor;
 	// public Gauntlet gauntlet;
