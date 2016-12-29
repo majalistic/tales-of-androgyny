@@ -21,6 +21,7 @@ public enum AssetEnum {
 	MOUNTAIN_ACTIVE("worldmap/MountainNode0.png"),
 	FOREST_ACTIVE("worldmap/ForestNode1.png"),
 	FOREST_INACTIVE("worldmap/ForestNode0.png"),
+	ENCHANTED_FOREST("worldmap/ForestNode0.png"),
 	GRASS0("worldmap/BaseGrass0.png"),
 	GRASS1("worldmap/BaseGrass1.png"),
 	GRASS2("worldmap/BaseGrass2.png"),
@@ -43,6 +44,7 @@ public enum AssetEnum {
 	SLIME_DOGGY("enemies/HeartSlimeLoveDart.png"), 
 	CENTAUR("enemies/HorseCentaur.png"),
 	UNICORN("enemies/UnicornCentaur.png"),
+	GOBLIN("enemies/GoblinFuta.png"),
 	TRAP_BONUS("enemies/TrapBonus.jpg"), 
 	
 	HEALTH_ICON_0("battle/Heart0.png"),
@@ -66,6 +68,7 @@ public enum AssetEnum {
 	CHARACTER_POTRAIT("battle/Neutral.png"),
 	FOREST_BG("battle/ForestBG.jpg"),
 	PLAINS_BG("battle/AbandonedField.jpg"),
+	ENCHANTED_FOREST_BG("battle/MushroomForest.jpg"),
 	BATTLE_UI("battle/Treeframe.png"),
 	BATTLE_HOVER("battle/SkillHover.png"),
 	BATTLE_TEXTBOX("battle/TextBox.png"),

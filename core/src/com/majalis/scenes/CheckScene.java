@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.utils.OrderedMap;
 import com.majalis.character.PlayerCharacter;
+import com.majalis.battle.BattleFactory.EnemyEnum;
 import com.majalis.character.AbstractCharacter.Stat;
 import com.majalis.encounter.Background;
 import com.majalis.save.SaveService;
@@ -87,6 +88,10 @@ public class CheckScene extends AbstractTextScene {
 		VIRGIN ("Are you an anal virgin? PASSED!", "Are you an anal virgin? FAILURE!"){ 
 			@Override
 			protected boolean getCheck(PlayerCharacter character) { return character.isVirgin(); } 
+		},
+		GOBLIN_VIRGIN ("You've never had goblin cock up the ass before. (PASSED)", "You've had goblin cock up the ass before. (FAILURE)"){ 
+			@Override
+			protected boolean getCheck(PlayerCharacter character) { return character.isVirgin(EnemyEnum.GOBLIN); } 
 		};
 		
 		private final String success;

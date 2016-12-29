@@ -94,7 +94,7 @@ public class Zone {
 					// save the position for the next iteration
 					currentNodePosition = newNodePosition;
 					
-					GameWorldNode newNode = getNode(nodeCode, EncounterCode.getEncounterCode((nodeCode-1)%6), EncounterCode.DEFAULT, currentNodePosition, visitedCodesSet.contains(nodeCode) ? true : false);
+					GameWorldNode newNode = getNode(nodeCode, EncounterCode.getEncounterCode(getEncounterCodeForNode(nodeCode)), EncounterCode.DEFAULT, currentNodePosition, visitedCodesSet.contains(nodeCode) ? true : false);
 					addNode(newNode, nodeCode, nodes);
 					// if we've reached the target node, we can terminate this run-through
 					nodeNotReached = !requiredNode.isAdjacent(newNode);
@@ -111,6 +111,12 @@ public class Zone {
 			}
 		}
 		return this;
+	}
+	// this method for debugging purposes
+	private int getEncounterCodeForNode(int nodeCode){
+		//if (true) return 6; // magical number to see a particular encounter, should probably just perform this debug in the node itself
+		// this will return the appropriate array index
+		return (nodeCode-1) % EncounterCode.encounterArray.size;
 	}
 	
 	protected Array<GameWorldNode> getEndNodes(){

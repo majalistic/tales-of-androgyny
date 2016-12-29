@@ -36,6 +36,7 @@ public class ReplayScreen extends AbstractScreen {
 		resourceRequirements.put(AssetEnum.SLIME.getPath(), Texture.class);
 		resourceRequirements.put(AssetEnum.CENTAUR.getPath(), Texture.class);
 		resourceRequirements.put(AssetEnum.UNICORN.getPath(), Texture.class);
+		resourceRequirements.put(AssetEnum.GOBLIN.getPath(), Texture.class);
 		resourceRequirements.put(AssetEnum.MAIN_MENU_MUSIC.getPath(), Music.class);
 		resourceRequirements.put(AssetEnum.DEFAULT_BACKGROUND.getPath(), Texture.class);
 	}

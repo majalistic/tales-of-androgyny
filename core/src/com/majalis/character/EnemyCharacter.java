@@ -46,12 +46,12 @@ public class EnemyCharacter extends AbstractCharacter {
 		switch(enemyType){
 			case WERESLUT:
 				baseStrength = 5;
-				baseAgility = 8;
+				baseAgility = 6;
 				imagePath = AssetEnum.WEREBITCH.getPath();
 				break;
 			case HARPY:
 				baseStrength = 4;
-				baseAgility = 7;
+				baseAgility = 5;
 				textureImagePaths.put(Stance.FELLATIO.toString(), AssetEnum.HARPY_FELLATIO.getPath());
 				imagePath = AssetEnum.HARPY.getPath();
 				break;
@@ -70,7 +70,7 @@ public class EnemyCharacter extends AbstractCharacter {
 				break;
 			case CENTAUR:
 			case UNICORN:
-				baseStrength = 4;
+				baseStrength = 5;
 				baseAgility = 4;
 				basePerception = 5;
 				bgPath = AssetEnum.PLAINS_BG.getPath();
@@ -81,6 +81,11 @@ public class EnemyCharacter extends AbstractCharacter {
 					imagePath = AssetEnum.UNICORN.getPath();
 					lust = 20;
 				}
+			case GOBLIN:
+				baseStrength = 4;
+				bgPath = AssetEnum.ENCHANTED_FOREST_BG.getPath();
+				imagePath = AssetEnum.GOBLIN.getPath();
+				baseAgility = 7;
 				break;
 		}
 		staminaTiers.removeIndex(staminaTiers.size-1);

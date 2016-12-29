@@ -50,6 +50,7 @@ public class PlayerCharacter extends AbstractCharacter {
 	protected LipFullness lipFullness;
 	
 	private boolean virgin;
+	private boolean goblinVirgin;
 	private boolean a2m;
 	private boolean a2mcheevo;
 	
@@ -68,6 +69,7 @@ public class PlayerCharacter extends AbstractCharacter {
 			setManaToMax();
 			food = 40;
 			setVirginity(true);
+			setGoblinVirginity(true);
 			a2m = false;
 			a2mcheevo = false;
 			battleOver = 0;
@@ -88,7 +90,7 @@ public class PlayerCharacter extends AbstractCharacter {
 		
 		perks = new ObjectMap<String, Integer>();
 	}
-	
+
 	private static ObjectSet<Techniques> getBaseTechniques(){
 		ObjectSet<Techniques> baseTechniques = new ObjectSet<Techniques>();
 		baseTechniques.addAll(POWER_ATTACK, TEMPO_ATTACK, RESERVED_ATTACK, DUCK, SPRING_ATTACK, NEUTRAL_ATTACK, REVERSAL_ATTACK, CAREFUL_ATTACK, BLOCK, GUARD,
@@ -271,6 +273,9 @@ public class PlayerCharacter extends AbstractCharacter {
 		super.receiveAttack(resolvedAttack);
 		if (stance == Stance.DOGGY || stance == Stance.ANAL || stance == Stance.STANDING || stance == Stance.COWGIRL){
 			setVirginity(false);
+			if (resolvedAttack.getUser().equals("Goblin")){
+				setGoblinVirginity(false);
+			}
 			a2m = true;
 		}
 		else if (stance == Stance.FELLATIO && a2m){
@@ -564,11 +569,26 @@ public class PlayerCharacter extends AbstractCharacter {
 	public boolean isVirgin() {
 		return virgin;
 	}
+	
+	public boolean isVirgin(EnemyEnum enemyEnum) {
+		switch (enemyEnum){
+			case GOBLIN: return goblinVirgin;
+			default:
+		}
+		return false;
+	}
 
 	public void setVirginity(Boolean virginity) {
 		virgin = virginity;
 	}
 
+	public void setGoblinVirginity(boolean virginity) {
+		goblinVirgin = virginity;
+		if (!goblinVirgin){
+			virgin = false;
+		}
+	}
+	
 	public boolean buyItem(Item item, int cost) {
 		if (cost > money){
 			return false;

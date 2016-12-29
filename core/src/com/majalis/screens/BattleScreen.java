@@ -134,6 +134,8 @@ public class BattleScreen extends AbstractScreen{
 			case 5: 
 				textureArray.addAll(CENTAUR.getPath(), PLAINS_BG.getPath(), "arousal/Monster0.png", "arousal/Monster1.png", "arousal/Monster2.png");
 				break;
+			case 6: 
+				textureArray.addAll(GOBLIN.getPath(),  ENCHANTED_FOREST_BG.getPath(), "arousal/Monster0.png", "arousal/Monster1.png", "arousal/Monster2.png");
 			case 1005:
 				textureArray.addAll(UNICORN.getPath(), PLAINS_BG.getPath(), "arousal/Monster0.png", "arousal/Monster1.png", "arousal/Monster2.png");
 				break;

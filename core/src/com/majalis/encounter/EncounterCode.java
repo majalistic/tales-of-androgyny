@@ -1,6 +1,8 @@
 package com.majalis.encounter;
 
 import static com.majalis.asset.AssetEnum.*;
+
+import com.badlogic.gdx.utils.Array;
 import com.majalis.asset.AssetEnum;
 /*
  * Represents all the metadata for an Encounter and its representation on the world map.
@@ -25,7 +27,8 @@ public enum EncounterCode {
 	LEVEL_UP, 
 	SHOP, 
 	STARVATION,
-	CAMP_AND_EAT
+	CAMP_AND_EAT, 
+	GOBLIN (ENCHANTED_FOREST, 6)
 	;
 	
 	private final String texturePath;	
@@ -50,14 +53,16 @@ public enum EncounterCode {
 	public String getTexturePath(){	return texturePath; }
 	public int getBattleCode(){ return battleCode; }
 	
+	// for random gen
+	public static Array<EncounterCode> encounterArray;
+	static {
+		encounterArray = new Array<EncounterCode>();
+		encounterArray.addAll(WERESLUT, HARPY, SLIME, BRIGAND, DRYAD, CENTAUR, GOBLIN);
+	}
+	
 	public static EncounterCode getEncounterCode(int code){
-		switch (code){
-			case 0: return WERESLUT;
-			case 1: return HARPY;
-			case 2: return SLIME;
-			case 3: return BRIGAND;
-			case 4: return DRYAD;
-			case 5: return CENTAUR;
+		if (code < encounterArray.size){
+			return encounterArray.get(code);
 		}
 		// Troja?  Need a way to get to here; currently no file input is read for the code param
 		return ERROR;

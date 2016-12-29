@@ -150,6 +150,7 @@ public class EncounterBuilder {
 		Texture backgroundTexture = assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getPath(), Texture.class);	
 		Background background = getDefaultTextBackground();
 		Mutation virginityToFalse = new Mutation(saveService, SaveEnum.VIRGIN, false);
+		Mutation goblinVirginityToFalse = new Mutation(saveService, SaveEnum.GOBLIN_VIRGIN, false);
 		
 		// if there isn't already a battlecode set, it's determined by the encounterCode; for now, that means dividing the various encounters up by modulus
 		if (battleCode == -1) battleCode = encounterCode.getBattleCode();
@@ -457,11 +458,11 @@ public class EncounterBuilder {
 				Background centaurBackground = new BackgroundBuilder(backgroundTexture).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class)).setForeground(assetManager.get(AssetEnum.CENTAUR.getPath(), Texture.class)).build();
 				Background unicornBackground = new BackgroundBuilder(backgroundTexture).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class)).setForeground(assetManager.get(AssetEnum.UNICORN.getPath(), Texture.class)).build();
 				getTextScenes(
-					getScript(encounterCode, 0), font, background, getArray(new Mutation[]{new Mutation(saveService, ProfileEnum.KNOWLEDGE, EnemyEnum.CENTAUR.toString())}), AssetEnum.SHOP_MUSIC.getPath(), new Array<String>(),
+					getScript(encounterCode, 0), font, background, new Array<Mutation>(), AssetEnum.SHOP_MUSIC.getPath(), new Array<String>(),
 					getCheckScene(
 						assetManager, CheckType.VIRGIN, character,
 						getTextScenes(
-							getScript(encounterCode, 1), font, unicornBackground, 
+							getScript(encounterCode, 1), font, unicornBackground, getArray(new Mutation[]{new Mutation(saveService, ProfileEnum.KNOWLEDGE, EnemyEnum.UNICORN.toString())}),
 							getBattleScene(
 								saveService, battleCode + 1000,
 								getTextScenes(getArray(new String[]{"You defeated the unicorn!", "You receive 3 Experience."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.EXPERIENCE, 3)}), getEndScene(EndScene.Type.ENCOUNTER_OVER)),
@@ -475,7 +476,7 @@ public class EncounterBuilder {
 							)
 						),
 						getTextScenes(
-							getScript(encounterCode, 2), font, centaurBackground, 
+							getScript(encounterCode, 2), font, centaurBackground, getArray(new Mutation[]{new Mutation(saveService, ProfileEnum.KNOWLEDGE, EnemyEnum.CENTAUR.toString())}),
 							getChoiceScene(
 								assetManager, "Fight the centaur?", getArray(new String[]{"Fight Her", "Decline", "Ask for It (Requires: Catamite)"}), getArray(new PlayerCharacter[]{null, null, character}),
 								getBattleScene(
@@ -497,6 +498,299 @@ public class EncounterBuilder {
 					)
 				);		
 				break;	
+			case GOBLIN:
+				Background goblinBackground = new BackgroundBuilder(backgroundTexture).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class)).setForeground(assetManager.get(AssetEnum.GOBLIN.getPath(), Texture.class)).build();
+				Background buttBangedBackground2 = new BackgroundBuilder(assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getPath(), Texture.class)).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class)).setForeground(assetManager.get(AssetEnum.GAME_OVER_TUCKERED.getPath(), Texture.class)).build();
+				
+				OrderedMap<Integer, Scene> fightOff = 
+					getTextScenes(
+						getScript(encounterCode, 37), font, background,
+						getEndScene(EndScene.Type.ENCOUNTER_OVER)
+				);
+				
+				OrderedMap<Integer, Scene> postVirginityCheck = getChoiceScene(
+					assetManager, "Mouth, or ass?", getArray(new String[]{"In The Mouth", "Up The Ass"}),
+					getTextScenes(
+						getScript(encounterCode, 31), font, goblinBackground,
+						getEndScene(EndScene.Type.ENCOUNTER_OVER)
+					),
+					getTextScenes(
+						getScript(encounterCode, 32), font, goblinBackground,	
+						getCheckScene(
+							assetManager, Stat.ENDURANCE, new IntArray(new int[]{6}), character,
+							fightOff,
+							getTextScenes(
+								getScript(encounterCode, 33), font, goblinBackground,	
+								getCheckScene(
+									assetManager, Stat.ENDURANCE, new IntArray(new int[]{5}), character,
+									fightOff,
+									getTextScenes(
+										getScript(encounterCode, 34), font, goblinBackground,	
+										getCheckScene(
+											assetManager, Stat.ENDURANCE, new IntArray(new int[]{4}), character,
+											fightOff,
+											getTextScenes(
+												getScript(encounterCode, 35), font, goblinBackground,	
+												getTextScenes(
+													getScript(encounterCode, 36), font, buttBangedBackground2,	
+													getEndScene(EndScene.Type.ENCOUNTER_OVER)
+												)
+											)
+										)
+									)
+								)
+							)
+						)	
+					)
+				);
+				
+				OrderedMap<Integer, Scene> defeatScene = getTextScenes(getScript(encounterCode, 28), font, goblinBackground, getArray(new Mutation[]{goblinVirginityToFalse}),
+					getCheckScene(
+						assetManager, CheckType.GOBLIN_VIRGIN, character,
+						getTextScenes(getScript(encounterCode, 29), font, goblinBackground, postVirginityCheck),
+						getTextScenes(getScript(encounterCode, 30), font, goblinBackground, postVirginityCheck)
+					)						
+				);	
+					
+				
+				OrderedMap<Integer, Scene> battleScene = getBattleScene(saveService, battleCode, 
+					getTextScenes(getArray(new String[]{"You defeated the goblin!", "You receive 1 Experience."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.EXPERIENCE, 1)}), getEndScene(EndScene.Type.ENCOUNTER_OVER)),
+					defeatScene
+				);
+				
+				OrderedMap<Integer, Scene> pantsCutDown = getTextScenes(
+					getScript(encounterCode, 20), font, goblinBackground,
+					getBattleScene(saveService, battleCode, Stance.DOGGY, Stance.DOGGY,
+						getTextScenes(getArray(new String[]{"You defeated the goblin!", "You receive 1 Experience."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.EXPERIENCE, 1)}), getEndScene(EndScene.Type.ENCOUNTER_OVER)),
+						defeatScene
+					)
+				);
+				
+				OrderedMap<Integer, Scene> cutPantsScene = getTextScenes(
+					getScript(encounterCode, 9), font, goblinBackground, getArray(new Mutation[]{new Mutation(saveService, ProfileEnum.KNOWLEDGE, EnemyEnum.GOBLIN.toString())}),
+					getChoiceScene(
+						assetManager, "Quick, what do you do?", getArray(new String[]{"Catch Her (5 Agi)", "Trip Her (4 Agi)", "Disarm Her (3 Agi)", "Avoid Her (2 Agi)"}),
+						getCheckScene(
+							assetManager, Stat.AGILITY, new IntArray(new int[]{5}), character,
+							getTextScenes(
+								getScript(encounterCode, 10), font, goblinBackground,
+								getChoiceScene(
+									assetManager, "What do you do with her?", getArray(new String[]{"Put Her Down", "Turn Her Over Your Knee"}),	
+									getTextScenes(
+										getScript(encounterCode, 11), font, goblinBackground, getArray(new Mutation[]{new Mutation(saveService, ProfileEnum.KNOWLEDGE, EnemyEnum.GOBLIN.toString())}),
+										getChoiceScene(
+											assetManager, "Accept Her Offer?", getArray(new String[]{"Accept", "Decline"}),
+											getTextScenes(
+												getScript(encounterCode, 12), font, goblinBackground,
+												getEndScene(EndScene.Type.ENCOUNTER_OVER)
+											),
+											getTextScenes(
+												getScript(encounterCode, 13), font, goblinBackground,
+												getEndScene(EndScene.Type.ENCOUNTER_OVER)
+											)
+										)
+									),
+									getTextScenes(
+										getScript(encounterCode, 14), font, goblinBackground,
+										getCheckScene(
+											assetManager, Stat.STRENGTH, new IntArray(new int[]{5}), character,
+											getTextScenes(
+												getScript(encounterCode, 15), font, goblinBackground,
+												getEndScene(EndScene.Type.ENCOUNTER_OVER)
+											),
+											getTextScenes(
+												getScript(encounterCode, 16), font, goblinBackground, getMutation(5),
+												getEndScene(EndScene.Type.ENCOUNTER_OVER)
+											)
+										)
+									)	
+								)														
+							),
+							pantsCutDown
+						),
+						getCheckScene(
+							assetManager, Stat.AGILITY, new IntArray(new int[]{4}), character,
+							getTextScenes(
+								getScript(encounterCode, 17), font, goblinBackground, getArray(new Mutation[]{new Mutation(saveService, ProfileEnum.KNOWLEDGE, EnemyEnum.GOBLIN.toString())}),
+								getChoiceScene(
+									assetManager, "What do you do?", getArray(new String[]{"Attack", "Run"}),
+									getBattleScene(saveService, battleCode, Stance.OFFENSIVE, Stance.PRONE,
+										getTextScenes(getArray(new String[]{"You defeated the goblin!", "You receive 1 Experience."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.EXPERIENCE, 1)}), getEndScene(EndScene.Type.ENCOUNTER_OVER)),
+										defeatScene
+									),
+									getTextScenes(
+										getArray(new String[]{"While she struggles to her feet, you flee."}), font, background, 
+										getEndScene(EndScene.Type.ENCOUNTER_OVER)
+									)
+								)
+							),
+							pantsCutDown
+						),
+						getCheckScene(
+							assetManager, Stat.AGILITY, new IntArray(new int[]{3}), character, 
+							getTextScenes(
+								getScript(encounterCode, 18), font, goblinBackground, getArray(new Mutation[]{new Mutation(saveService, ProfileEnum.KNOWLEDGE, EnemyEnum.GOBLIN.toString())}),
+								getChoiceScene(
+									assetManager, "What do you do?", getArray(new String[]{"Attack Her", "Block Her", "Let Her Go"}),  // probably should be battle, convo, end encounter
+									getBattleScene(saveService, battleCode, Stance.OFFENSIVE, Stance.BALANCED,
+										getTextScenes(getArray(new String[]{"You defeated the goblin!", "You receive 1 Experience."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.EXPERIENCE, 1)}), getEndScene(EndScene.Type.ENCOUNTER_OVER)),
+										defeatScene
+									),
+									battleScene,
+									getTextScenes(
+										getArray(new String[]{"You let her flee, and proceed."}), font, background, 
+										getEndScene(EndScene.Type.ENCOUNTER_OVER)
+									)
+								)
+							),
+							pantsCutDown
+						),
+						getCheckScene(
+							assetManager, Stat.AGILITY, new IntArray(new int[]{2}), character,
+							getTextScenes(
+								getScript(encounterCode, 19), font, goblinBackground, getArray(new Mutation[]{new Mutation(saveService, ProfileEnum.KNOWLEDGE, EnemyEnum.GOBLIN.toString())}),
+								getChoiceScene(
+									assetManager, "What do you do?", getArray(new String[]{"Attack Her", "Block Her", "Let Her Go"}),  // probably should be battle, convo, end encounter
+									getBattleScene(saveService, battleCode, Stance.OFFENSIVE, Stance.BALANCED,
+										getTextScenes(getArray(new String[]{"You defeated the goblin!", "You receive 1 Experience."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.EXPERIENCE, 1)}), getEndScene(EndScene.Type.ENCOUNTER_OVER)),
+										defeatScene
+									),
+									battleScene,
+									getTextScenes(
+										getArray(new String[]{"You let her flee, and proceed."}), font, background, 
+										getEndScene(EndScene.Type.ENCOUNTER_OVER)
+									)
+								)
+							),
+							pantsCutDown
+						)
+					)	
+				);
+				
+				getTextScenes(
+					getScript(encounterCode, 0), font, background, new Array<Mutation>(), AssetEnum.WEREWOLF_MUSIC.getPath(), new Array<String>(),
+					getChoiceScene(
+						assetManager, "What path do you follow?", getArray(new String[]{"Pass By", "Enter the Small Path"}),
+						getTextScenes(
+							getScript(encounterCode, 1), font, background,
+							getEndScene(EndScene.Type.ENCOUNTER_OVER)
+						),
+						getTextScenes(
+							getScript(encounterCode, 2), font, background, getArray(new Mutation[]{new Mutation(saveService, ProfileEnum.KNOWLEDGE, EnemyEnum.GOBLIN.toString())}),
+							getCheckScene(
+								assetManager, Stat.PERCEPTION, new IntArray(new int[]{7, 4}), character,
+								getTextScenes(
+									getScript(encounterCode, 3), font, goblinBackground,
+									getCheckScene(
+										assetManager, Stat.AGILITY, new IntArray(new int[]{5, 3}), character,
+										getTextScenes(
+											getScript(encounterCode, 4), font, goblinBackground,
+											getCheckScene(
+												assetManager, Stat.STRENGTH, new IntArray(new int[]{5}), character,
+												getTextScenes(
+													getScript(encounterCode, 5), font, goblinBackground,
+													cutPantsScene
+												),
+												getTextScenes(
+													getScript(encounterCode, 6), font, goblinBackground,
+													cutPantsScene
+												)
+											)
+										),
+										getTextScenes(
+											getScript(encounterCode, 7), font, background,
+											cutPantsScene
+										),
+										getTextScenes(
+											getScript(encounterCode, 8), font, background, getMutation(5),
+											cutPantsScene
+										)
+									)
+								),
+								getTextScenes( // noticed
+									getScript(encounterCode, 21), font, background,
+									getCheckScene(
+										assetManager, Stat.AGILITY, new IntArray(new int[]{7, 5}), character,
+										getTextScenes(
+											getScript(encounterCode, 4), font, goblinBackground,
+											getCheckScene(
+												assetManager, Stat.STRENGTH, new IntArray(new int[]{5}), character,
+												getTextScenes(
+													getScript(encounterCode, 5), font, goblinBackground,
+													cutPantsScene
+												),
+												getTextScenes(
+													getScript(encounterCode, 6), font, goblinBackground,
+													cutPantsScene
+												)
+											)
+										),
+										getTextScenes(
+											getScript(encounterCode, 7), font, background,
+											cutPantsScene
+										),
+										getTextScenes(
+											getScript(encounterCode, 8), font, background, getMutation(5),
+											cutPantsScene
+										)
+									)
+								),
+								getTextScenes( // failed to notice
+									getScript(encounterCode, 22), font, background,
+									getCheckScene(
+										assetManager, Stat.AGILITY, new IntArray(new int[]{5}), character,
+										getTextScenes(
+											getScript(encounterCode, 23), font, background,
+											getCheckScene(
+												assetManager, Stat.AGILITY, new IntArray(new int[]{7, 5}), character,
+												getTextScenes(
+													getScript(encounterCode, 4), font, goblinBackground,
+													getCheckScene(
+														assetManager, Stat.STRENGTH, new IntArray(new int[]{5}), character,
+														getTextScenes(
+															getScript(encounterCode, 5), font, goblinBackground,
+															cutPantsScene
+														),
+														getTextScenes(
+															getScript(encounterCode, 6), font, goblinBackground,
+															cutPantsScene
+														)
+													)
+												),
+												getTextScenes(
+													getScript(encounterCode, 7), font, background,
+													cutPantsScene
+												),
+												getTextScenes(
+													getScript(encounterCode, 8), font, background, getMutation(5),
+													cutPantsScene
+												)
+											)
+										),
+										getCheckScene(
+											assetManager, Stat.ENDURANCE, new IntArray(new int[]{7}), character,
+											getTextScenes(
+												getScript(encounterCode, 24), font, background,
+												getEndScene(EndScene.Type.ENCOUNTER_OVER)
+											),
+											getTextScenes(
+												getScript(encounterCode, 25), font, background, getArray(new Mutation[]{goblinVirginityToFalse}),
+												getTextScenes(
+													getScript(encounterCode, 26), font, buttBangedBackground2,
+													getTextScenes(
+														getScript(encounterCode, 27), font, background,
+														getEndScene(EndScene.Type.ENCOUNTER_OVER)
+													)
+												)
+											)
+										)	
+									)
+								)
+							)
+						)
+					)
+				);
+				break;
 			case COTTAGE_TRAINER:
 				background = new BackgroundBuilder(assetManager.get(AssetEnum.CABIN_BACKGROUND.getPath(), Texture.class)).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class)).build();
 				Background trainerBackground = new BackgroundBuilder(assetManager.get(AssetEnum.CABIN_BACKGROUND.getPath(), Texture.class)).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class)).setForeground(assetManager.get(AssetEnum.TRAINER.getPath(), Texture.class)).build();

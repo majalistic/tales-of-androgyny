@@ -47,6 +47,7 @@ public class GameWorldNodeEncounter {
 					case BRIGAND: return "Brigand";
 					case DRYAD: return "Dryad";
 					case CENTAUR: return "Centaur";
+					case GOBLIN: return "Goblin";
 					case TOWN: return "Small Settlement";
 					case TOWN2:
 					case TOWN_STORY:
@@ -67,6 +68,7 @@ public class GameWorldNodeEncounter {
 					case BRIGAND: return "Brigand - Hostile!";
 					case DRYAD: return "Dryad - Peaceful";
 					case CENTAUR: return "Centaur - Neutral";
+					case GOBLIN: return "Goblin- Hostile!";
 					case TOWN: return "Town of Silajam";
 					case TOWN2:
 					case TOWN_STORY: return "Town of Nadir";

@@ -24,5 +24,6 @@ public enum SaveEnum {
 	CONSOLE, 
 	VIRGIN, 
 	SHOP, 
-	RETURN_CONTEXT
+	RETURN_CONTEXT, 
+	GOBLIN_VIRGIN
 }
