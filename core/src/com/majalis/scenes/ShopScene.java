@@ -14,6 +14,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.OrderedMap;
 import com.majalis.asset.AssetEnum;
 import com.majalis.character.Item;
+import com.majalis.character.Item.EffectType;
 import com.majalis.character.Item.Potion;
 import com.majalis.character.Item.Weapon;
 import com.majalis.character.Item.WeaponType;
@@ -88,7 +89,7 @@ public class ShopScene extends Scene {
 		final Table table = new Table();
 		
 		for (final Weapon weapon: shop.weapons){
-			final TextButton weaponButton = new TextButton(weapon.getName() + " (" + weapon.getValue() + ")", skin);
+			final TextButton weaponButton = new TextButton(weapon.getName() + " - " + weapon.getValue() + "G", skin);
 			weaponButton.addListener(new ClickListener(){
 				@Override
 		        public void clicked(InputEvent event, float x, float y) {
@@ -114,7 +115,7 @@ public class ShopScene extends Scene {
 		
 		for (final Potion potion: shop.consumables){
 			shop.done = true; // temporary measure to make the potion shop function properly
-			final TextButton potionButton = new TextButton(potion.getName() + " (" + potion.getValue() + ")", skin);
+			final TextButton potionButton = new TextButton(potion.getName() + " - " + potion.getValue() + "G", skin);
 			potionButton.addListener(new ClickListener(){
 				@Override
 		        public void clicked(InputEvent event, float x, float y) {
@@ -134,7 +135,7 @@ public class ShopScene extends Scene {
 					
 		        }
 			});
-			table.add(potionButton).size(400, 60).row();
+			table.add(potionButton).size(500, 60).row();
 		}
 		
 		table.setPosition(500, 800);
@@ -155,9 +156,10 @@ public class ShopScene extends Scene {
 				for (int ii = 10; ii <= 20; ii += 10){
 					shop.consumables.add(new Potion(ii));
 					shop.consumables.add(new Potion(ii));
-					shop.consumables.add(new Potion(ii));
-					shop.consumables.add(new Potion(ii));
 				}
+				shop.consumables.add(new Potion(3, EffectType.BONUS_STRENGTH));
+				shop.consumables.add(new Potion(3, EffectType.BONUS_AGILITY));
+				shop.consumables.add(new Potion(3, EffectType.BONUS_ENDURANCE));
 				break;
 			default:
 				break;

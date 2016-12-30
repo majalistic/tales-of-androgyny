@@ -6,7 +6,6 @@ import com.badlogic.gdx.utils.IntArray;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.ObjectSet;
 import com.majalis.battle.BattleFactory.EnemyEnum;
-import com.majalis.character.Item.EffectType;
 import com.majalis.character.Item.ItemEffect;
 import com.majalis.character.Item.Potion;
 import com.majalis.character.Item.Weapon;
@@ -115,13 +114,26 @@ public class PlayerCharacter extends AbstractCharacter {
 	public String consumeItem(Item item){
 		ItemEffect effect = item.getUseEffect();
 		String result = "";
-		if (effect.getType() == EffectType.HEALING){
-			int currentHealth = getCurrentHealth();
-			modHealth(effect.getMagnitude());
-			result = "You used " + item.getName() + " and restored " + String.valueOf(getCurrentHealth() - currentHealth) + " health!";
+		switch (effect.getType()){
+			case HEALING:
+				int currentHealth = getCurrentHealth();
+				modHealth(effect.getMagnitude());
+				result = "You used " + item.getName() + " and restored " + String.valueOf(getCurrentHealth() - currentHealth) + " health!";
+				break;
+			// this should perform buff stacking if need be - but these item buffs should be permanent until consumed
+			case BONUS_STRENGTH:
+				statuses.put(StatusType.STRENGTH_BUFF.toString(), effect.getMagnitude());
+				break;
+			case BONUS_ENDURANCE:
+				statuses.put(StatusType.ENDURANCE_BUFF.toString(), effect.getMagnitude());
+				break;
+			case BONUS_AGILITY:
+				statuses.put(StatusType.AGILITY_BUFF.toString(), effect.getMagnitude());
+				break;
+			default:
+				break;
 			
-		}
-		
+		}	
 		inventory.removeValue(item, true);
 		return result;
 	}

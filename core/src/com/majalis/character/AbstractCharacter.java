@@ -216,12 +216,14 @@ public abstract class AbstractCharacter extends Actor {
 	protected int getRawStrength() { return Math.max((baseStrength + getStrengthBuff()) - (getHealthDegradation() + getStaminaDegradation())/2, 0); }
 	
 	private int getStrengthBuff(){ return statuses.get(StatusType.STRENGTH_BUFF.toString(), 0); }
+	private int getEnduranceBuff(){ return statuses.get(StatusType.ENDURANCE_BUFF.toString(), 0); }
+	private int getAgilityBuff(){ return statuses.get(StatusType.AGILITY_BUFF.toString(), 0); }
 	
 	protected int stepDown(int value){ if (value < 3) return value; else if (value < 7) return 3 + (value - 3)/2; else return 5 + (value - 7)/3; } 
 	
-	protected int getEndurance(){ return Math.max(baseEndurance - getHealthDegradation(), 0); }
+	protected int getEndurance(){ return Math.max((baseEndurance + getEnduranceBuff()) - (getHealthDegradation()), 0); }
 	
-	protected int getAgility() { return Math.max(baseAgility - (getHealthDegradation() + getStaminaDegradation()), 0); }
+	protected int getAgility() { return Math.max((baseAgility + getAgilityBuff()) - (getHealthDegradation() + getStaminaDegradation()), 0); }
 
 	protected int getPerception() { return Math.max(basePerception, 0); }
 
@@ -270,6 +272,8 @@ public abstract class AbstractCharacter extends Actor {
 		Array<String> toRemove = new Array<String>();
 		// statuses degrade with time in a general way currently
 		for(String key: statuses.keys()){
+			StatusType type = StatusType.valueOf(key);
+			if (!type.degrades()) continue;
 			int value = statuses.get(key) - 1;
 			statuses.put(key, value);
 			if (value <= 0){

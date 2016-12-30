@@ -122,11 +122,9 @@ public class CharacterScreen extends AbstractScreen {
 		inventoryTable.align(Align.top);
 		this.addActor(inventoryTable);
 		
-		
 		for (final Item item : character.getInventory()){
 			final TextButton itemButton = new TextButton(item.getName(), skin);
 			
-			itemButton.setSize(270, 40); 
 			itemButton.addListener(
 				new ClickListener(){
 					@Override
@@ -139,7 +137,7 @@ public class CharacterScreen extends AbstractScreen {
 			        }
 				}
 			);
-			inventoryTable.add(itemButton).size(270, 40).row();
+			inventoryTable.add(itemButton).size(500, 40).row();
 		}
 		
 	}

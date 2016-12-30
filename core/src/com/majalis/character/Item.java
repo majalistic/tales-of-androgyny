@@ -58,32 +58,58 @@ public abstract class Item {
 	public static class Potion extends Item {
 
 		private final int magnitude;
+		private final EffectType effect;
 		public Potion() {
 			this(10);
 		}
 		
 		public Potion(int magnitude){
-			this.magnitude = magnitude;
+			this(magnitude, EffectType.HEALING);
 		}
-
+		
+		public Potion(int magnitude, EffectType effect){
+			this.magnitude = magnitude;
+			this.effect = effect;	
+		}
+		
 		@Override
 		public int getValue() {
-			return magnitude / 2;
+			switch (effect){
+			case BONUS_AGILITY:			
+			case BONUS_ENDURANCE:
+			case BONUS_STRENGTH:
+				return magnitude * 5;
+			case HEALING:
+				return magnitude / 2;
+			default:
+				return 0;
+			}
 		}
 
 		@Override
 		protected ItemEffect getUseEffect() {
-			return new ItemEffect(EffectType.HEALING, magnitude);
+			return new ItemEffect(effect, magnitude);
 		}
 
 		@Override
 		public String getName() {
-			return "Potion (" + magnitude + ")"; 
+			return effect.getDisplay() + " Potion (" + magnitude + ")"; 
 		}
 	}
 	
 	public enum EffectType {
-		HEALING		
+		HEALING ("Healing"),
+		BONUS_STRENGTH ("Ox"),
+		BONUS_AGILITY ("Cat"),
+		BONUS_ENDURANCE ("Bear");
+		
+		private final String display;
+		private EffectType (String display){
+			this.display = display;
+		}
+		
+		public String getDisplay(){ return display; }
+		
 	}
 	
 	public class ItemEffect {
