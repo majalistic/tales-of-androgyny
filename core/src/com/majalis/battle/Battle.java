@@ -421,6 +421,7 @@ public class Battle extends Group{
 		characterHealth.setValue(character.getHealthPercent());
 		characterStamina.setValue(character.getStaminaPercent());
 		characterBalance.setValue(character.getBalancePercent());
+		characterMana.setValue(character.getManaPercent());
 		enemyHealth.setValue(enemy.getHealthPercent());
 		healthLabel.setText(character.getCurrentHealth() + " / " + character.getMaxHealth());
 		staminaLabel.setText(character.getCurrentStamina() + " / " + character.getMaxStamina());
