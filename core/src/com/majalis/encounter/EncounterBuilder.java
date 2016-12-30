@@ -17,6 +17,7 @@ import com.badlogic.gdx.utils.OrderedMap;
 import com.majalis.asset.AssetEnum;
 import com.majalis.battle.BattleCode;
 import com.majalis.battle.BattleFactory.EnemyEnum;
+import com.majalis.character.EnemyCharacter;
 import com.majalis.character.PlayerCharacter;
 import com.majalis.encounter.Background.BackgroundBuilder;
 import com.majalis.character.AbstractCharacter.Stance;
@@ -173,6 +174,12 @@ public class EncounterBuilder {
 			case FIRST_BATTLE_STORY: 
 				encounterCode = EncounterCode.HARPY;
 				battleCode = encounterCode.getBattleCode();
+				ObjectMap<Stance, Texture> textures = new ObjectMap<Stance, Texture>();
+				Texture enemyTexture = assetManager.get(EnemyEnum.HARPY.getPath(), Texture.class);
+				textures.put(Stance.BALANCED, enemyTexture);
+				final EnemyCharacter enemy = new EnemyCharacter(enemyTexture, textures, EnemyEnum.HARPY);
+				
+				Background harpyBackground = new BackgroundBuilder(backgroundTexture).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class)).setForeground(enemy, 0, 0).build();
 				Background harpyFellatioBackground = new BackgroundBuilder(backgroundTexture).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class)).setForeground(assetManager.get(AssetEnum.HARPY_FELLATIO.getPath(), Texture.class)).build();
 				getTextScenes(
 					getScript(encounterCode, 0), font, background, getArray(new Mutation[]{new Mutation(saveService, ProfileEnum.KNOWLEDGE, EnemyEnum.HARPY.toString())}),
@@ -183,7 +190,7 @@ public class EncounterBuilder {
 							getBattleScene(
 								saveService, battleCode, Stance.BALANCED, Stance.PRONE,
 								getTextScenes(getArray(new String[]{"You defeated the harpy!", "You receive 1 Experience."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.EXPERIENCE, 1)}), getEndScene(EndScene.Type.ENCOUNTER_OVER)),
-								getTextScenes(getScript(encounterCode, 4), font, background, getEndScene(EndScene.Type.GAME_OVER))					
+								getTextScenes(getScript(encounterCode, 4), font, harpyBackground, getEndScene(EndScene.Type.GAME_OVER))					
 							)
 						),
 						getTextScenes(
@@ -191,14 +198,14 @@ public class EncounterBuilder {
 							getBattleScene(
 								saveService, battleCode, Stance.KNEELING, Stance.BALANCED,
 								getTextScenes(getArray(new String[]{"You defeated the harpy!", "You receive 1 Experience."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.EXPERIENCE, 1)}), getEndScene(EndScene.Type.ENCOUNTER_OVER)),
-								getTextScenes(getScript(encounterCode, 4), font, background, getArray(new Mutation[]{virginityToFalse}), getEndScene(EndScene.Type.GAME_OVER))					
+								getTextScenes(getScript(encounterCode, 4), font, harpyBackground, getArray(new Mutation[]{virginityToFalse}), getEndScene(EndScene.Type.GAME_OVER))					
 							)
 						),
 						getTextScenes(getScript(encounterCode, 3), font, harpyFellatioBackground, 
 							getBattleScene(
 								saveService, battleCode, Stance.FELLATIO, Stance.FELLATIO,									
 								getTextScenes(getArray(new String[]{"You defeated the harpy!", "You receive 1 Experience."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.EXPERIENCE, 1)}), getEndScene(EndScene.Type.ENCOUNTER_OVER)),
-								getTextScenes(getScript(encounterCode, 4), font, background, getArray(new Mutation[]{virginityToFalse}), getEndScene(EndScene.Type.GAME_OVER))					
+								getTextScenes(getScript(encounterCode, 4), font, harpyBackground, getArray(new Mutation[]{virginityToFalse}), getEndScene(EndScene.Type.GAME_OVER))					
 							)
 						)
 					)
@@ -921,13 +928,11 @@ public class EncounterBuilder {
 		int mutationIndex = -(script.size - mutations.size);
 		TextScene newScene = null;
 		for (String scriptLine: script){
+			Array<Mutation> toApply = new Array<Mutation>();
 			if (mutationIndex >= 0){
-				Mutation toApply = mutations.get(mutationIndex);
-				newScene = new TextScene(sceneMap, sceneCounter, saveService, font, background.clone(), scriptLine, new Array<Mutation>(true, new Mutation[]{toApply}, 0, 1));
+				toApply = getArray(new Mutation[]{mutations.get(mutationIndex)});
 			}
-			else {
-				newScene = new TextScene(sceneMap, sceneCounter, saveService, font, background.clone(), scriptLine, new Array<Mutation>());
-			}
+			newScene = new TextScene(sceneMap, sceneCounter, saveService, font, background.clone(), scriptLine, toApply);
 			if (soundIndex >= 0){
 				newScene.setSound(sounds.get(soundIndex));
 			}

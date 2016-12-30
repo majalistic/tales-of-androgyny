@@ -13,6 +13,7 @@ public class TextScene extends AbstractTextScene  {
 	
 	private final String toDisplay;
 	private final Array<Mutation> mutations;
+	private final Background background;
 	private String music;
 	private String sound;
 	
@@ -20,6 +21,7 @@ public class TextScene extends AbstractTextScene  {
 		super(sceneBranches, sceneCode, saveService, font, background);
 		this.toDisplay = toDisplay;
 		this.mutations = mutations;
+		this.background = background;
 	}
 	
 	public void setMusic(String music){
@@ -48,7 +50,7 @@ public class TextScene extends AbstractTextScene  {
 		if (sound != null){
 			EncounterScreen.play(sound);
 		}
-	
+		background.initEnemy();
 	}
 	// this type of TextScene will be one that always pipes from one scene to the next with no branch - there will be another TextScene that actually has branching logic
 	@Override

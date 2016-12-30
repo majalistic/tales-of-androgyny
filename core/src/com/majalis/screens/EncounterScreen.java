@@ -129,9 +129,9 @@ public class EncounterScreen extends AbstractScreen {
 				requirements.put(AssetEnum.WEREBITCH.getPath(), Texture.class);
 				break;
 			case FIRST_BATTLE_STORY:
-				requirements.put(AssetEnum.HARPY.getPath(), Texture.class);
 				requirements.put(AssetEnum.FOREST_BG.getPath(), Texture.class);
 			case HARPY:
+				requirements.put(AssetEnum.HARPY.getPath(), Texture.class);
 				requirements.put(AssetEnum.HARPY_FELLATIO.getPath(), Texture.class);
 				break;
 			case SLIME:
