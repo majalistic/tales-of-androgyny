@@ -588,7 +588,13 @@ public abstract class AbstractCharacter extends Actor {
 	protected abstract String increaseLust(int lustIncrease);
 	
 	public String getStanceTransform(Technique firstTechnique) {
-		return label + " adopt" + (secondPerson ? "" : "s") + " a(n) " + firstTechnique.getStance().toString() + " stance! ";
+		String stanceTransform = firstTechnique.getStance().toString();
+		String vowels = "aeiou";
+		String article = vowels.indexOf(Character.toLowerCase(stanceTransform.charAt(0))) != -1 ? "an" : "a";
+		if (oldStance.toString().equals(stanceTransform)){
+			return "";
+		}
+		return label + " adopt" + (secondPerson ? "" : "s") + " " + article + " " + stanceTransform + " stance! ";
  	}
 	
 	protected enum PhallusType {
