@@ -73,6 +73,10 @@ public class BattleFactory {
 		else if(type == EnemyEnum.HARPY){
 			textures.put(Stance.FELLATIO, assetManager.get(AssetEnum.HARPY_FELLATIO.getPath(), Texture.class));
 		}
+		else if (type == EnemyEnum.GOBLIN){
+			textures.put(Stance.FACE_SITTING, assetManager.get(AssetEnum.GOBLIN_FACE_SIT.getPath(), Texture.class));
+			textures.put(Stance.SIXTY_NINE, assetManager.get(AssetEnum.GOBLIN_FACE_SIT.getPath(), Texture.class));
+		}
 		
 		return textures;
 	}

@@ -45,6 +45,7 @@ public enum AssetEnum {
 	CENTAUR("enemies/HorseCentaur.png"),
 	UNICORN("enemies/UnicornCentaur.png"),
 	GOBLIN("enemies/GoblinFuta.png"),
+	GOBLIN_FACE_SIT("enemies/GoblinFaceSit.png"),
 	TRAP_BONUS("enemies/TrapBonus.jpg"), 
 	
 	HEALTH_ICON_0("battle/Heart0.png"),

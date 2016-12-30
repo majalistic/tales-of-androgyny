@@ -86,6 +86,8 @@ public class EnemyCharacter extends AbstractCharacter {
 				baseStrength = 4;
 				bgPath = AssetEnum.ENCHANTED_FOREST_BG.getPath();
 				imagePath = AssetEnum.GOBLIN.getPath();
+				textureImagePaths.put(Stance.FACE_SITTING.toString(), AssetEnum.GOBLIN_FACE_SIT.getPath());
+				textureImagePaths.put(Stance.SIXTY_NINE.toString(), AssetEnum.GOBLIN_FACE_SIT.getPath());
 				baseAgility = 7;
 				break;
 		}
@@ -357,8 +359,8 @@ public class EnemyCharacter extends AbstractCharacter {
     public void draw(Batch batch, float parentAlpha) {
 		super.draw(batch, parentAlpha);
 		Texture texture = textures.get(stance, defaultTexture);
-		int width = enemyType == EnemyEnum.HARPY && stance == Stance.FELLATIO ? 150 : 600;
-		int height = enemyType == EnemyEnum.HARPY && stance != Stance.FELLATIO ? 140 : 20;
+		int width = (enemyType == EnemyEnum.HARPY && stance == Stance.FELLATIO) || (enemyType == EnemyEnum.GOBLIN && stance == Stance.FACE_SITTING || stance == Stance.SIXTY_NINE) ? 150 : 600;
+		int height = (enemyType == EnemyEnum.HARPY && stance != Stance.FELLATIO) || (enemyType == EnemyEnum.GOBLIN && stance == Stance.FACE_SITTING || stance == Stance.SIXTY_NINE) ? 105 : 20;
 		if (atlas == null || enemyType == EnemyEnum.HARPY && stance == Stance.FELLATIO){
 			batch.draw(texture, width, height, (int) (texture.getWidth() / (texture.getHeight() / 975.)), 975);
 		}
