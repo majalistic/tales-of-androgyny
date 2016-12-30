@@ -162,6 +162,7 @@ public class EncounterScreen extends AbstractScreen {
 				requirements.put(AssetEnum.TRAINER_MUSIC.getPath(), Music.class);		
 				break;
 			case TOWN_STORY: 
+				requirements.putAll(TownScreen.resourceRequirements);
 				requirements.put(AssetEnum.TOWN_BG.getPath(), Texture.class);
 				requirements.put(AssetEnum.SHOPKEEP.getPath(), Texture.class);
 				requirements.put(AssetEnum.SMUG_LAUGH.getPath(), Sound.class);

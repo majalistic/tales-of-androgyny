@@ -73,6 +73,7 @@ public enum AssetEnum {
 	BATTLE_UI("battle/Treeframe.png"),
 	BATTLE_HOVER("battle/SkillHover.png"),
 	BATTLE_TEXTBOX("battle/TextBox.png"),
+	TEXT_BOX("battle/NameBox.png"),
 	
 	SHOPKEEP("characters/AppleKeep.png"),
 	TRAINER("characters/HeavyTrainer1.png"),

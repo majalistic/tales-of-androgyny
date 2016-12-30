@@ -11,6 +11,7 @@ public abstract class Item {
 	public abstract int getValue();
 	protected abstract ItemEffect getUseEffect();
 	public abstract String getName();
+	public abstract String getDescription();
 	
 	public static class Weapon extends Item {
 		
@@ -39,6 +40,16 @@ public abstract class Item {
 			return name;
 		}
 
+		@Override
+		public String getDescription() {
+			switch (type){
+				case Rapier: return "Weapon who efficacy is dependent on the wielder's agility. [Damage: 1 + Agility / 3]";
+				case Cutlass: return "Weapon who efficacy is dependent on both the wielder's strength and agility. [Damage: 1 + (Strength + Agility) / 3]";
+				case Broadsword: return "Weapon who efficacy is dependent on the wielder's agility. [Damage: 1 + Strength / 3]";
+				default: return "Unknown Weapon!";
+			}
+		}
+		
 		public int getDamage(ObjectMap<Stat, Integer> stats) {
 			switch (type){
 				case Rapier: return (stats.get(Stat.AGILITY)) / 3 + 1;
@@ -75,14 +86,14 @@ public abstract class Item {
 		@Override
 		public int getValue() {
 			switch (effect){
-			case BONUS_AGILITY:			
-			case BONUS_ENDURANCE:
-			case BONUS_STRENGTH:
-				return magnitude * 5;
-			case HEALING:
-				return magnitude / 2;
-			default:
-				return 0;
+				case BONUS_AGILITY:			
+				case BONUS_ENDURANCE:
+				case BONUS_STRENGTH:
+					return magnitude * 5;
+				case HEALING:
+					return magnitude / 2;
+				default:
+					return 0;
 			}
 		}
 
@@ -94,6 +105,22 @@ public abstract class Item {
 		@Override
 		public String getName() {
 			return effect.getDisplay() + " Potion (" + magnitude + ")"; 
+		}
+
+		@Override
+		public String getDescription() {
+			switch (effect){
+				case BONUS_AGILITY:		
+					return "Imbibe to increase Agility for the duration by " + magnitude + ".";
+				case BONUS_ENDURANCE:
+					return "Imbibe to increase Endurance for the duration by " + magnitude + ".";
+				case BONUS_STRENGTH:
+					return "Imbibe to increase Strength for the duration by " + magnitude + ".";
+				case HEALING:
+					return "Heals the imbiber " + magnitude + " health.";
+				default:
+					return "Unknown potion.";
+			}
 		}
 	}
 	

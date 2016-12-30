@@ -3,13 +3,20 @@ package com.majalis.scenes;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.OrderedMap;
 import com.majalis.asset.AssetEnum;
@@ -59,11 +66,26 @@ public class ShopScene extends Scene {
 		skin = assetManager.get(AssetEnum.UI_SKIN.getPath(), Skin.class);
 		buttonSound = assetManager.get(AssetEnum.BUTTON_SOUND.getPath(), Sound.class);
 		
+		final Group inventoryGroup = new Group();
+		Image inventoryBox = new Image(assetManager.get(AssetEnum.BATTLE_TEXTBOX.getPath(), Texture.class));
+		Image moneyBox = new Image(assetManager.get(AssetEnum.TEXT_BOX.getPath(), Texture.class));
+		
+		inventoryGroup.addActor(inventoryBox);
+		this.addActor(inventoryGroup);
+		this.addActor(moneyBox);
+		inventoryBox.setBounds(100, 100, 800, 1000);
+		moneyBox.setBounds(1500, 900, 300, 100);
+		
+		final Image hoverBox = new Image(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class));
+		
+		hoverBox.setBounds(950, 400, 850, 400);
+		
 		this.console = new Label("", skin);
 		this.money = new Label(String.valueOf(character.getMoney())+" Gold", skin);
-		console.setPosition(1300, 800);
+		this.money.setColor(Color.GOLDENROD);
+		console.setPosition(1300, 850);
 		this.addActor(console);
-		money.setPosition(1500, 900);
+		money.setPosition(1600, 940);
 		this.addActor(money);
 		
 		final TextButton done = new TextButton("Done", skin);
@@ -90,6 +112,15 @@ public class ShopScene extends Scene {
 		
 		for (final Weapon weapon: shop.weapons){
 			final TextButton weaponButton = new TextButton(weapon.getName() + " - " + weapon.getValue() + "G", skin);
+			final Label description = new Label(weapon.getDescription(), skin);		
+			description.setSize(700, 200);
+			description.setWrap(true);
+			description.setPosition(1050, 520);
+			description.setColor(Color.FOREST);
+			description.setAlignment(Align.top);
+			ScrollPane pane = new ScrollPane(description);
+			pane.setBounds(1050, 520, 625, 350);
+			pane.setScrollingDisabled(true, false);
 			weaponButton.addListener(new ClickListener(){
 				@Override
 		        public void clicked(InputEvent event, float x, float y) {
@@ -100,6 +131,7 @@ public class ShopScene extends Scene {
 						shop.weapons.removeValue(weapon, true);
 						shop.done = true;
 						money.setText(String.valueOf(character.getMoney())+" Gold");
+						console.setText("You purchase the " + weapon.getName() + ".");
 						saveService.saveDataValue(SaveEnum.SHOP, shop);
 						saveService.saveDataValue(SaveEnum.PLAYER, character);
 					}
@@ -108,6 +140,16 @@ public class ShopScene extends Scene {
 					}
 					
 		        }
+				@Override
+		        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
+					inventoryGroup.addActor(hoverBox);
+					inventoryGroup.addActor(description);
+				}
+				@Override
+		        public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
+					inventoryGroup.removeActor(hoverBox);
+					inventoryGroup.removeActor(description);
+				}
 			});
 			
 			table.add(weaponButton).size(400, 60).row();
@@ -116,6 +158,16 @@ public class ShopScene extends Scene {
 		for (final Potion potion: shop.consumables){
 			shop.done = true; // temporary measure to make the potion shop function properly
 			final TextButton potionButton = new TextButton(potion.getName() + " - " + potion.getValue() + "G", skin);
+			final Label description = new Label(potion.getDescription(), skin);
+			description.setSize(700, 200);
+			description.setWrap(true);
+			description.setPosition(1050, 520);
+			description.setColor(Color.FOREST);
+			description.setAlignment(Align.top);
+			ScrollPane pane = new ScrollPane(description);
+			pane.setBounds(1050, 520, 625, 350);
+			pane.setScrollingDisabled(true, false);
+			
 			potionButton.addListener(new ClickListener(){
 				@Override
 		        public void clicked(InputEvent event, float x, float y) {
@@ -126,6 +178,7 @@ public class ShopScene extends Scene {
 						shop.consumables.removeValue(potion, true);
 						
 						money.setText(String.valueOf(character.getMoney())+" Gold");
+						console.setText("You purchase the " + potion.getName() + ".");
 						saveService.saveDataValue(SaveEnum.SHOP, shop);
 						saveService.saveDataValue(SaveEnum.PLAYER, character);
 					}
@@ -134,6 +187,16 @@ public class ShopScene extends Scene {
 					}
 					
 		        }
+				@Override
+		        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
+					inventoryGroup.addActor(hoverBox);
+					inventoryGroup.addActor(pane);
+				}
+				@Override
+		        public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
+					inventoryGroup.removeActor(hoverBox);
+					inventoryGroup.removeActor(pane);
+				}
 			});
 			table.add(potionButton).size(500, 60).row();
 		}

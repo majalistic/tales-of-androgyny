@@ -34,6 +34,8 @@ public class TownScreen extends AbstractScreen {
 		resourceRequirements.put(AssetEnum.STANCE_ARROW.getPath(), Texture.class);
 		resourceRequirements.put(AssetEnum.DEFAULT_BACKGROUND.getPath(), Texture.class);
 		resourceRequirements.put(AssetEnum.BATTLE_HOVER.getPath(), Texture.class);
+		resourceRequirements.put(AssetEnum.BATTLE_TEXTBOX.getPath(), Texture.class);
+		resourceRequirements.put(AssetEnum.TEXT_BOX.getPath(), Texture.class);
 		resourceRequirements.put(AssetEnum.SHOP_MUSIC.getPath(), Music.class);
 		resourceRequirements.put(AssetEnum.BUTTON_SOUND.getPath(), Sound.class);
 		resourceRequirements.put(AssetEnum.ENCOUNTER_MUSIC.getPath(), Music.class);
