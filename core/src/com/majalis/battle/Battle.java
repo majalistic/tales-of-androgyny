@@ -279,12 +279,7 @@ public class Battle extends Group{
 		}
 		soundBuffer.removeAll(toRemove, true);
 		
-		if (battleOver) {
-			character.refresh();
-			saveService.saveDataValue(SaveEnum.ENEMY, null);
-			saveService.saveDataValue(SaveEnum.CONSOLE, "");
-		}
-		else {
+		if (!battleOver) {
 			if(Gdx.input.isKeyJustPressed(Keys.UP)){
 	        	if (selection > 0) changeSelection(selection - 1);
 	        	else changeSelection(optionButtons.size-1);
@@ -333,6 +328,11 @@ public class Battle extends Group{
 			if (enemy.getCurrentHealth() <= 0){
 				victory = true;
 				battleOver = true;
+			}
+			if (battleOver) {
+				character.refresh();
+				saveService.saveDataValue(SaveEnum.ENEMY, null);
+				saveService.saveDataValue(SaveEnum.CONSOLE, "");
 			}
 		}
 	}

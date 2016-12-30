@@ -5,7 +5,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Array;
@@ -83,8 +82,10 @@ public class BattleScreen extends AbstractScreen{
 			showScreen(ScreenEnum.MAIN_MENU);
 			music.stop();
 		}
-		else if (battle.battleOver){			
+		else if (battle.battleOver){	
+			// begin the process of switching off the battle - the battle itself should stop functioning except display
 			saveService.saveDataValue(SaveEnum.CONTEXT, SaveManager.GameContext.ENCOUNTER);
+			// this should save the correct scene code based on the end of battle status
 			if (battle.victory){
 				saveService.saveDataValue(SaveEnum.SCENE_CODE, battle.getVictoryScene());
 			}
@@ -92,20 +93,9 @@ public class BattleScreen extends AbstractScreen{
 				saveService.saveDataValue(SaveEnum.SCENE_CODE, battle.getDefeatScene());
 			}
 			showScreen(ScreenEnum.ENCOUNTER);
+			// this should play victory or defeat music
 			music.stop();
 		}
-		else {
-			draw();
-		}
-	}
-	
-	public void draw(){
-		batch.begin();
-		OrthographicCamera camera = (OrthographicCamera) getCamera();
-        batch.setTransformMatrix(camera.view);
-		batch.setProjectionMatrix(camera.combined);
-		camera.update();
-		batch.end();
 	}
 	
 	@Override
