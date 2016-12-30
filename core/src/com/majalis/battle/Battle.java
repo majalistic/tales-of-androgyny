@@ -171,7 +171,7 @@ public class Battle extends Group{
 		enemyHealth.setWidth(350);
 		enemyHealth.setValue(enemy.getHealthPercent());
 		enemyHealthIcon = new Image(assetManager.get(enemy.getHealthDisplay(), Texture.class));
-		enemyHealthLabel = new Label(enemy.getCurrentHealth() + " / " + character.getMaxHealth(), skin);
+		enemyHealthLabel = new Label(enemy.getCurrentHealth() + " / " + enemy.getMaxHealth(), skin);
 		enemyHealthLabel.setColor(Color.BROWN);
 		addActorAndListen(enemyHealth, 1000, 640);
 		addActorAndListen(enemyHealthIcon, 1002, 645);
