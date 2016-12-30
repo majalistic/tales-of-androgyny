@@ -151,7 +151,7 @@ public class Battle extends Group{
 		characterBalance.setWidth(350);
 		characterBalance.setValue(character.getBalancePercent());
 		balanceIcon = new Image(assetManager.get(character.getBalanceDisplay(), Texture.class));
-		balanceLabel = new Label(character.getStability() + " / " + character.getMaxStability(), skin);
+		balanceLabel = new Label(character.getStability() > 0 ? character.getStability() + " / " + character.getMaxStability() : "DOWN (" + -character.getStability() + ")", skin);
 		balanceLabel.setColor(Color.BROWN);
 		addActorAndListen(characterBalance, barX, 630);
 		addActorAndListen(balanceIcon, barX+2, 635);
@@ -451,7 +451,7 @@ public class Battle extends Group{
 		enemyHealth.setValue(enemy.getHealthPercent());
 		healthLabel.setText(character.getCurrentHealth() + " / " + character.getMaxHealth());
 		staminaLabel.setText(character.getCurrentStamina() + " / " + character.getMaxStamina());
-		balanceLabel.setText(character.getStability() + " / " + character.getMaxStability());
+		balanceLabel.setText(character.getStability() > 0 ? character.getStability() + " / " + character.getMaxStability() : "DOWN (" + -character.getStability() + ")");
 		manaLabel.setText(character.getCurrentMana() + " / " + character.getMaxMana());
 		enemyHealthLabel.setText(enemy.getCurrentHealth() + " / " + enemy.getMaxHealth());
 		healthIcon.setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(character.getHealthDisplay(), Texture.class))));
