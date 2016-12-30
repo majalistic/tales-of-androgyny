@@ -355,6 +355,7 @@ public abstract class AbstractCharacter extends Actor {
 			}
 			if (resolvedAttack.getForceStance() == Stance.SIXTY_NINE){
 				resolvedAttack.addMessage("She deepthroats your cock!");
+				resolvedAttack.addMessage("She pistons her own cock in and out of your mouth!");
 			}
 		}
 		else if (resolvedAttack.getForceStance() == Stance.FACE_SITTING){
@@ -419,7 +420,8 @@ public abstract class AbstractCharacter extends Actor {
 				resolvedAttack.addMessage("You're going to be farting cum for days!");
 			}
 			else if (oldStance == Stance.SIXTY_NINE){
-				
+				resolvedAttack.addMessage("Her cock erupts in your mouth!");
+				resolvedAttack.addMessage("You spit it up around her pulsing balls!!");
 			}
 			stance = Stance.ERUPT;
 		}
@@ -448,6 +450,9 @@ public abstract class AbstractCharacter extends Actor {
 				result.add(attack.getUser() + " broke free!");
 				if (stance == Stance.FELLATIO){
 					result.add("It slips out of your mouth and you get to your feet!");
+				}
+				else if (stance == Stance.SIXTY_NINE){
+					result.add("You spit out her cock and push her off!");
 				}
 				else if (stance == Stance.HANDY){
 					
