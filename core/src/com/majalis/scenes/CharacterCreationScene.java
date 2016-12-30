@@ -3,17 +3,20 @@ package com.majalis.scenes;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.OrderedMap;
 import com.majalis.asset.AssetEnum;
@@ -23,6 +26,7 @@ import com.majalis.encounter.Background;
 import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveManager;
 import com.majalis.save.SaveService;
+import com.majalis.save.SaveManager.JobClass;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 public class CharacterCreationScene extends Scene {
@@ -36,9 +40,10 @@ public class CharacterCreationScene extends Scene {
 	private int statPoints;
 	private ObjectMap<Stat, Integer> statMap;
 	private Group statGroup;
+	private TextButton enchanterButton;
 	
 	// needs a done button, as well as other interface elements
-	public CharacterCreationScene(OrderedMap<Integer, Scene> sceneBranches, int sceneCode, final SaveService saveService, BitmapFont font, Background background, AssetManager assetManager, final PlayerCharacter character) {
+	public CharacterCreationScene(OrderedMap<Integer, Scene> sceneBranches, int sceneCode, final SaveService saveService, BitmapFont font, Background background, AssetManager assetManager, final PlayerCharacter character, boolean story) {
 		super(sceneBranches, sceneCode);
 		this.saveService = saveService;
 		this.font = font;
@@ -156,34 +161,46 @@ public class CharacterCreationScene extends Scene {
 		this.addActor(statGroup);
 		
 		Table table = new Table();
+		this.addActor(table);	
 		
-		for (final SaveManager.JobClass jobClass: SaveManager.JobClass.values()){
+		for (final JobClass jobClass: JobClass.values()) {
 			TextButton button = new TextButton(jobClass.getLabel(), skin);
-			button.addListener(new ClickListener(){
-				@Override
-		        public void clicked(InputEvent event, float x, float y) {
-					buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
-					classMessage = "You are now " + getJobClass(jobClass) + ".\n"
-									+ getClassFeatures(jobClass);
-					statGroup.removeAction(Actions.hide());
-					statGroup.addAction(Actions.visible(true));
-					statGroup.addAction(Actions.show());
-					saveService.saveDataValue(SaveEnum.CLASS, jobClass);
-					if (statPoints == 0){
-						removeActor(done);
-					}
-					statPoints = 3;
-					statMap = resetObjectMap();
-					addActor(statTable);
-		        }
-			});
+			if (story && jobClass != JobClass.ENCHANTRESS) {
+				button.setTouchable(Touchable.disabled);
+				TextButtonStyle style = new TextButtonStyle(button.getStyle());
+				style.fontColor = Color.RED;
+				style.up = style.disabled;
+				button.setStyle(style);
+			}
+			else {
+				button.addListener(new ClickListener() {
+					@Override
+			        public void clicked(InputEvent event, float x, float y) {
+						buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
+						classMessage = "You are now " + getJobClass(jobClass) + ".\n"
+										+ getClassFeatures(jobClass);
+						statGroup.removeAction(Actions.hide());
+						statGroup.addAction(Actions.visible(true));
+						statGroup.addAction(Actions.show());
+						saveService.saveDataValue(SaveEnum.CLASS, jobClass);
+						if (statPoints == 0){
+							removeActor(done);
+						}
+						statPoints = 3;
+						statMap = resetObjectMap();
+						addActor(statTable);
+			        }
+				});
+			}
 			table.add(button).size(220, 60).row();
+			if (story && jobClass == JobClass.ENCHANTRESS) {
+				enchanterButton = button;
+			}
 		}
 		table.setPosition(488, 488);
-		this.addActor(table);	
 	}
 
-	private ObjectMap<Stat, Integer> resetObjectMap(){
+	private ObjectMap<Stat, Integer> resetObjectMap() {
 		ObjectMap<Stat, Integer> tempMap = new ObjectMap<Stat, Integer>();
 		for (final Stat stat: Stat.values()){
 			tempMap.put(stat, 0);
@@ -191,7 +208,7 @@ public class CharacterCreationScene extends Scene {
 		return tempMap;
 	}
 	
-	private boolean noStatsAtMax(){
+	private boolean noStatsAtMax() {
 		for (Integer value: statMap.values()){
 			if (value >= 2){
 				return false;
@@ -200,7 +217,7 @@ public class CharacterCreationScene extends Scene {
 		return true;
 	}
 	
-	private int statsAtNegative(){
+	private int statsAtNegative() {
 		int count = 0;
 		for (Integer value: statMap.values()){
 			if (value < 0){
@@ -210,8 +227,8 @@ public class CharacterCreationScene extends Scene {
 		return count;
 	}
 	
-	private String getJobClass(SaveManager.JobClass jobClass){ return jobClass == SaveManager.JobClass.ENCHANTRESS ? "an Enchantress" : "a " + jobClass.getLabel(); }
-	private String getClassFeatures(SaveManager.JobClass jobClass){
+	private String getJobClass(SaveManager.JobClass jobClass) { return jobClass == SaveManager.JobClass.ENCHANTRESS ? "an Enchantress" : "a " + jobClass.getLabel(); }
+	private String getClassFeatures(SaveManager.JobClass jobClass) {
 		switch (jobClass){
 			case WARRIOR: return "+1 Skill point.\nUnlocked \"Blitz\" Stance.\nGained perk \"Weak to Anal\".";
 			case PALADIN: return "Combat Heal learned.";
@@ -237,8 +254,8 @@ public class CharacterCreationScene extends Scene {
 		}
 		
 		int offset = 0;
-		if (!classMessage.equals("")){
-			for (Stat stat: PlayerCharacter.Stat.values()){
+		if (!classMessage.equals("")) {
+			for (Stat stat: PlayerCharacter.Stat.values()) {
 				font.setColor(0.6f, 0.2f, 0.1f, 1);
 				int amount = character.getBaseStat(stat);
 				setFontColor(font, amount);
@@ -265,10 +282,20 @@ public class CharacterCreationScene extends Scene {
 		this.addAction(Actions.visible(true));
 		this.addAction(Actions.show());
 		this.setBounds(0, 0, 2000, 2000);
+		
+		if (enchanterButton != null){
+			InputEvent event1 = new InputEvent();
+	        event1.setType(InputEvent.Type.touchDown);
+	        enchanterButton.fire(event1);
+	        InputEvent event2 = new InputEvent();
+	        event2.setType(InputEvent.Type.touchUp);
+	        enchanterButton.fire(event2);
+		}
+		
 		saveService.saveDataValue(SaveEnum.SCENE_CODE, sceneCode);
 	}
 	
-	private void nextScene(){
+	private void nextScene() {
 		sceneBranches.get(sceneBranches.orderedKeys().get(0)).setActive();
 		isActive = false;
 		addAction(Actions.hide());

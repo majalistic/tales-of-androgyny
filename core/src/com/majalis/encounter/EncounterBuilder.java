@@ -96,7 +96,7 @@ public class EncounterBuilder {
 				getTextScenes(
 					getArray(new String[]{"You've selected to create your character!", "Please choose your class."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.MODE, GameMode.SKIRMISH)}),
 					getCharacterCreationScene(
-						smallFont, classSelectbackground.clone(), assetManager, playerCharacter,
+						smallFont, classSelectbackground.clone(), assetManager, playerCharacter, false,
 						getSkillSelectionScene(
 							smallFont, classSelectbackground.clone(), assetManager, playerCharacter, 
 							getCharacterCustomizationScene(
@@ -805,7 +805,16 @@ public class EncounterBuilder {
 					getScript("STORY-003"), font, background, new Array<Mutation>(), AssetEnum.TRAINER_MUSIC.getPath(), new Array<String>(),
 					getTextScenes (
 						getScript("STORY-003A"), font, trainerBackground, 
-						getEndScene(EndScene.Type.ENCOUNTER_OVER)
+						getCharacterCreationScene(
+							smallFont, getClassSelectBackground(), assetManager, character, true,
+							getSkillSelectionScene(
+								smallFont, getClassSelectBackground(), assetManager, character, 
+								getCharacterCustomizationScene(
+									smallFont, getClassSelectBackground(), assetManager, character, 
+									getEndScene(EndScene.Type.ENCOUNTER_OVER)
+								)
+							)
+						)
 					)
 				);
 				break;
@@ -1059,8 +1068,8 @@ public class EncounterBuilder {
 		return addScene(gameTypeScene);
 	}
 	
-	private OrderedMap<Integer, Scene> getCharacterCreationScene(BitmapFont font, Background background, AssetManager assetManager, PlayerCharacter character, OrderedMap<Integer, Scene> sceneMap){
-		return addScene(new CharacterCreationScene(sceneMap, sceneCounter, saveService, font, background, assetManager, character));
+	private OrderedMap<Integer, Scene> getCharacterCreationScene(BitmapFont font, Background background, AssetManager assetManager, PlayerCharacter character, boolean story, OrderedMap<Integer, Scene> sceneMap){
+		return addScene(new CharacterCreationScene(sceneMap, sceneCounter, saveService, font, background, assetManager, character, story));
 	}
 	
 	private OrderedMap<Integer, Scene> getSkillSelectionScene(BitmapFont font, Background background, AssetManager assetManager, PlayerCharacter character, OrderedMap<Integer, Scene> sceneMap){

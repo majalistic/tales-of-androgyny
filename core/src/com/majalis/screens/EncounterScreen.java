@@ -156,6 +156,13 @@ public class EncounterScreen extends AbstractScreen {
 				requirements.put(AssetEnum.WEREWOLF_MUSIC.getPath(), Music.class);
 				break;
 			case COTTAGE_TRAINER:
+				requirements.put(AssetEnum.CLASS_SELECT_BACKGROUND.getPath(), Texture.class);
+				requirements.put(AssetEnum.STRENGTH.getPath(), Texture.class);
+				requirements.put(AssetEnum.ENDURANCE.getPath(), Texture.class);
+				requirements.put(AssetEnum.AGILITY.getPath(), Texture.class);
+				requirements.put(AssetEnum.PERCEPTION.getPath(), Texture.class);
+				requirements.put(AssetEnum.MAGIC.getPath(), Texture.class);
+				requirements.put(AssetEnum.CHARISMA.getPath(), Texture.class);
 			case COTTAGE_TRAINER_VISIT:
 				requirements.put(AssetEnum.CABIN_BACKGROUND.getPath(), Texture.class);
 				requirements.put(AssetEnum.TRAINER.getPath(), Texture.class);
