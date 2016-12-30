@@ -35,6 +35,7 @@ public class ShopScene extends Scene {
 	private final SaveService saveService;
 	private final Skin skin;
 	private final Sound buttonSound;
+	private final Sound itemSound;
 	private final Shop shop;
 	private final PlayerCharacter character;
 	private final Label console;
@@ -65,6 +66,7 @@ public class ShopScene extends Scene {
 		
 		skin = assetManager.get(AssetEnum.UI_SKIN.getPath(), Skin.class);
 		buttonSound = assetManager.get(AssetEnum.BUTTON_SOUND.getPath(), Sound.class);
+		itemSound = assetManager.get(AssetEnum.EQUIP.getPath(), Sound.class);
 		
 		final Group inventoryGroup = new Group();
 		Image inventoryBox = new Image(assetManager.get(AssetEnum.BATTLE_TEXTBOX.getPath(), Texture.class));
@@ -124,7 +126,7 @@ public class ShopScene extends Scene {
 			weaponButton.addListener(new ClickListener(){
 				@Override
 		        public void clicked(InputEvent event, float x, float y) {
-					buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
+					itemSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
 					if (buyItem(weapon)){
 						addActor(done);
 						weaponButton.addAction(Actions.removeActor());
@@ -171,7 +173,7 @@ public class ShopScene extends Scene {
 			potionButton.addListener(new ClickListener(){
 				@Override
 		        public void clicked(InputEvent event, float x, float y) {
-					buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
+					itemSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
 					if (buyItem(potion)){
 						addActor(done);
 						potionButton.addAction(Actions.removeActor());

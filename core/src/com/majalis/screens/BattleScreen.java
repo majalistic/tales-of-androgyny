@@ -29,6 +29,9 @@ public class BattleScreen extends AbstractScreen{
 		resourceRequirements.put(UNPLUGGED_POP.getPath(), Sound.class);
 		resourceRequirements.put(MOUTH_POP.getPath(), Sound.class);
 		resourceRequirements.put(ATTACK_SOUND.getPath(), Sound.class);
+		resourceRequirements.put(SWORD_SLASH_SOUND.getPath(), Sound.class);
+		resourceRequirements.put(FIREBALL_SOUND.getPath(), Sound.class);
+		resourceRequirements.put(INCANTATION.getPath(), Sound.class);
 		resourceRequirements.put(HIT_SOUND.getPath(), Sound.class);
 		resourceRequirements.put(THWAPPING.getPath(), Sound.class);
 		resourceRequirements.put(BATTLE_MUSIC.getPath(), Music.class);

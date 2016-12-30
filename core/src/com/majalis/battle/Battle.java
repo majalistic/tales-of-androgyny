@@ -63,6 +63,9 @@ public class Battle extends Group{
 	private final Sound mouthPop;
 	private final Sound attackSound;
 	private final Sound hitSound;
+	private final Sound swordSlashSound;
+	private final Sound fireBallSound;
+	private final Sound incantationSound;
 	private final Array<SoundTimer> soundBuffer;
 	private final Image hoverImage;
 	private final Group hoverGroup;
@@ -231,6 +234,9 @@ public class Battle extends Group{
 		mouthPop = assetManager.get(AssetEnum.MOUTH_POP.getPath(), Sound.class);
 		attackSound = assetManager.get(AssetEnum.ATTACK_SOUND.getPath(), Sound.class);
 		hitSound = assetManager.get(AssetEnum.HIT_SOUND.getPath(), Sound.class);
+		swordSlashSound = assetManager.get(AssetEnum.SWORD_SLASH_SOUND.getPath(), Sound.class);
+		fireBallSound = assetManager.get(AssetEnum.FIREBALL_SOUND.getPath(), Sound.class);
+		incantationSound = assetManager.get(AssetEnum.INCANTATION.getPath(), Sound.class);
 		thwapping = assetManager.get(AssetEnum.THWAPPING.getPath(), Sound.class);
 		soundBuffer = new Array<SoundTimer>();
 		
@@ -273,59 +279,61 @@ public class Battle extends Group{
 		}
 		soundBuffer.removeAll(toRemove, true);
 		
-		if(Gdx.input.isKeyJustPressed(Keys.UP)){
-        	if (selection > 0) changeSelection(selection - 1);
-        	else changeSelection(optionButtons.size-1);
-		}
-        else if(Gdx.input.isKeyJustPressed(Keys.DOWN)){
-        	if (selection < optionButtons.size- 1) changeSelection(selection + 1);
-        	else changeSelection(0);
-        }
-        else if(Gdx.input.isKeyJustPressed(Keys.ENTER)){
-        	clickButton(optionButtons.get(selection));
-        }
-		
-		if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)){
-			gameExit = true;
-		}
-		else {
-			if (selectedTechnique == null){
-				int ii = 0;
-				for (int possibleKey : POSSIBLE_KEYS){
-					if (Gdx.input.isKeyJustPressed(possibleKey)){
-						if (ii < optionButtons.size){
-							selectedTechnique = clickButton(optionButtons.get(ii));
-							break;
-						}
-					}
-					ii++;
-				}
-			}
-				
-			if (selectedTechnique != null){		
-				buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
-				// possibly construct a separate class for this
-				resolveTechniques(character, selectedTechnique, enemy, enemy.getTechnique(character));
-				selectedTechnique = null;
-				displayTechniqueOptions();
-				saveService.saveDataValue(SaveEnum.PLAYER, character);
-				saveService.saveDataValue(SaveEnum.ENEMY, enemy);
-				saveService.saveDataValue(SaveEnum.CONSOLE, consoleText);				
-			}
-		}
-
-		if (character.getCurrentHealth() <= 0){
-			victory = false;
-			battleOver = true;
-		}
-		if (enemy.getCurrentHealth() <= 0){
-			victory = true;
-			battleOver = true;
-		}
-		if (battleOver){
+		if (battleOver) {
 			character.refresh();
 			saveService.saveDataValue(SaveEnum.ENEMY, null);
 			saveService.saveDataValue(SaveEnum.CONSOLE, "");
+		}
+		else {
+			if(Gdx.input.isKeyJustPressed(Keys.UP)){
+	        	if (selection > 0) changeSelection(selection - 1);
+	        	else changeSelection(optionButtons.size-1);
+			}
+	        else if(Gdx.input.isKeyJustPressed(Keys.DOWN)){
+	        	if (selection < optionButtons.size- 1) changeSelection(selection + 1);
+	        	else changeSelection(0);
+	        }
+	        else if(Gdx.input.isKeyJustPressed(Keys.ENTER)){
+	        	clickButton(optionButtons.get(selection));
+	        }
+			
+			if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)){
+				gameExit = true;
+			}
+			else {
+				if (selectedTechnique == null){
+					int ii = 0;
+					for (int possibleKey : POSSIBLE_KEYS){
+						if (Gdx.input.isKeyJustPressed(possibleKey)){
+							if (ii < optionButtons.size){
+								selectedTechnique = clickButton(optionButtons.get(ii));
+								break;
+							}
+						}
+						ii++;
+					}
+				}
+					
+				if (selectedTechnique != null){		
+					buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
+					// possibly construct a separate class for this
+					resolveTechniques(character, selectedTechnique, enemy, enemy.getTechnique(character));
+					selectedTechnique = null;
+					displayTechniqueOptions();
+					saveService.saveDataValue(SaveEnum.PLAYER, character);
+					saveService.saveDataValue(SaveEnum.ENEMY, enemy);
+					saveService.saveDataValue(SaveEnum.CONSOLE, consoleText);				
+				}
+			}
+
+			if (character.getCurrentHealth() <= 0){
+				victory = false;
+				battleOver = true;
+			}
+			if (enemy.getCurrentHealth() <= 0){
+				victory = true;
+				battleOver = true;
+			}
 		}
 	}
 	
@@ -380,15 +388,33 @@ public class Battle extends Group{
 		
 		if (attackForFirstCharacter.isAttack()){
 			slash.setState(0);
-			soundBuffer.add(new SoundTimer(attackSound, 0, .5f));
-			if (attackForFirstCharacter.isSuccessful()){
+			if (!attackForFirstCharacter.isSuccessful()){
+				soundBuffer.add(new SoundTimer(attackSound, 0, .5f));
+			}
+			else {
 				soundBuffer.add(new SoundTimer(hitSound, 20, .3f));
 			}
 		}
+		if (character.getStance() == Stance.CASTING && attackForSecondCharacter.isSuccessful()){
+			soundBuffer.add(new SoundTimer(incantationSound, 5, .5f));
+		}
 		if (attackForSecondCharacter.isAttack()){
-			soundBuffer.add(new SoundTimer(attackSound, 15, .5f));
-			if (attackForSecondCharacter.isSuccessful()){
-				soundBuffer.add(new SoundTimer(hitSound, 35, .3f));
+			if (!attackForSecondCharacter.isSuccessful()){
+				soundBuffer.add(new SoundTimer(attackSound, 15, .5f));
+			}
+			else {
+				if (attackForSecondCharacter.isSpell()){
+					soundBuffer.add(new SoundTimer(fireBallSound, 5, .5f));
+				}
+				else {
+					if (character.getWeapon() != null){
+						soundBuffer.add(new SoundTimer(swordSlashSound, 5, .5f));
+					}
+					else {
+						soundBuffer.add(new SoundTimer(hitSound, 5, .3f));
+					}
+				}
+				
 				enemy.hitAnimation();
 			}
 		}

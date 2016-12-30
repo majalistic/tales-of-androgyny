@@ -153,6 +153,7 @@ public class EncounterScreen extends AbstractScreen {
 			case GOBLIN:
 				requirements.put(AssetEnum.GOBLIN.getPath(), Texture.class);
 				requirements.put(AssetEnum.GAME_OVER_TUCKERED.getPath(), Texture.class);
+				requirements.put(AssetEnum.LOUD_LAUGH.getPath(), Sound.class);
 				requirements.put(AssetEnum.WEREWOLF_MUSIC.getPath(), Music.class);
 				break;
 			case COTTAGE_TRAINER:
@@ -174,7 +175,6 @@ public class EncounterScreen extends AbstractScreen {
 				requirements.put(AssetEnum.SHOPKEEP.getPath(), Texture.class);
 				requirements.put(AssetEnum.SMUG_LAUGH.getPath(), Sound.class);
 				requirements.put(AssetEnum.SHOP_MUSIC.getPath(), Music.class);
-				break;	
 			case SHOP:
 				requirements.putAll(TownScreen.resourceRequirements);
 				break;	

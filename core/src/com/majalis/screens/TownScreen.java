@@ -38,6 +38,7 @@ public class TownScreen extends AbstractScreen {
 		resourceRequirements.put(AssetEnum.TEXT_BOX.getPath(), Texture.class);
 		resourceRequirements.put(AssetEnum.SHOP_MUSIC.getPath(), Music.class);
 		resourceRequirements.put(AssetEnum.BUTTON_SOUND.getPath(), Sound.class);
+		resourceRequirements.put(AssetEnum.EQUIP.getPath(), Sound.class);
 		resourceRequirements.put(AssetEnum.ENCOUNTER_MUSIC.getPath(), Music.class);
 	}
 	private final SaveService saveService;

@@ -683,7 +683,7 @@ public class EncounterBuilder {
 							getEndScene(EndScene.Type.ENCOUNTER_OVER)
 						),
 						getTextScenes(
-							getScript(encounterCode, 2), font, background, getArray(new Mutation[]{new Mutation(saveService, ProfileEnum.KNOWLEDGE, EnemyEnum.GOBLIN.toString())}),
+							getScript(encounterCode, 2), font, background, getArray(new Mutation[]{new Mutation(saveService, ProfileEnum.KNOWLEDGE, EnemyEnum.GOBLIN.toString())}), null, getArray(new String[]{ null, null, null, null, AssetEnum.LOUD_LAUGH.getPath()}),
 							getCheckScene(
 								assetManager, Stat.PERCEPTION, new IntArray(new int[]{7, 4}), character,
 								getTextScenes(

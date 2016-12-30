@@ -629,4 +629,8 @@ public class PlayerCharacter extends AbstractCharacter {
 	public Integer getMoney() {
 		return money;
 	}
+
+	public Weapon getWeapon() {
+		return weapon;
+	}
 }
