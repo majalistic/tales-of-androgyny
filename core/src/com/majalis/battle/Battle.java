@@ -78,6 +78,12 @@ public class Battle extends Group{
 	private final Image balanceIcon;
 	private final Image manaIcon;
 	private final Image enemyHealthIcon;
+	private final Label healthLabel;
+	private final Label staminaLabel;
+	private final Label balanceLabel;
+	private final Label manaLabel;
+	private final Label enemyHealthLabel;
+	
 	private String consoleText;
 	private Array<TextButton> optionButtons;
 	private Technique selectedTechnique;
@@ -121,39 +127,55 @@ public class Battle extends Group{
 	
 		characterHealth.setValue(character.getHealthPercent());
 		healthIcon = new Image(assetManager.get(character.getHealthDisplay(), Texture.class));
+
+		healthLabel = new Label(character.getCurrentHealth() + " / " + character.getMaxHealth(), skin);
+		healthLabel.setColor(Color.BROWN);
 		addActorAndListen(characterHealth, barX, 690);
 		addActorAndListen(healthIcon, barX+2, 695);
+		addActorAndListen(healthLabel, barX+50, 692);
 		
 		characterStamina = new ProgressBar(0, 1, .05f, false, skin);
 		characterStamina.setWidth(350);
 		characterStamina.setValue(character.getStaminaPercent());
 		staminaIcon = new Image(assetManager.get(character.getStaminaDisplay(), Texture.class));
+		staminaLabel = new Label(character.getCurrentStamina() + " / " + character.getMaxStamina(), skin);
+		staminaLabel.setColor(Color.BROWN);
 		addActorAndListen(characterStamina, barX, 660);
 		addActorAndListen(staminaIcon, barX+5, 665);
+		addActorAndListen(staminaLabel, barX+50, 662);
 		
 		characterBalance = new ProgressBar(0, 1, .05f, false, skin);
 		characterBalance.setWidth(350);
 		characterBalance.setValue(character.getBalancePercent());
 		balanceIcon = new Image(assetManager.get(character.getBalanceDisplay(), Texture.class));
+		balanceLabel = new Label(character.getStability() + " / " + character.getMaxStability(), skin);
+		balanceLabel.setColor(Color.BROWN);
 		addActorAndListen(characterBalance, barX, 630);
 		addActorAndListen(balanceIcon, barX+2, 635);
+		addActorAndListen(balanceLabel, barX+50, 632);
 		
 		characterMana = new ProgressBar(0, 1, .05f, false, skin);
 		characterMana.setWidth(350);
 
 		characterMana.setValue(character.getManaPercent());	
 		manaIcon = new Image(assetManager.get(character.getManaDisplay(), Texture.class));
+		manaLabel = new Label(character.getCurrentMana() + " / " + character.getMaxMana(), skin);
+		manaLabel.setColor(Color.BROWN);
 		if (character.hasMagic()){
 			addActorAndListen(characterMana, barX, 600);
 			addActorAndListen(manaIcon, barX+2, 605);	
+			addActorAndListen(manaLabel, barX+50, 602);	
 		}
 		
 		enemyHealth = new ProgressBar(0, 1, .05f, false, skin);
 		enemyHealth.setWidth(350);
 		enemyHealth.setValue(enemy.getHealthPercent());
 		enemyHealthIcon = new Image(assetManager.get(enemy.getHealthDisplay(), Texture.class));
+		enemyHealthLabel = new Label(enemy.getCurrentHealth() + " / " + character.getMaxHealth(), skin);
+		enemyHealthLabel.setColor(Color.BROWN);
 		addActorAndListen(enemyHealth, 1000, 640);
 		addActorAndListen(enemyHealthIcon, 1002, 645);
+		addActorAndListen(enemyHealthLabel, 1052, 642);
 		
 		Image consoleBox = new Image(assetManager.get(AssetEnum.BATTLE_TEXTBOX.getPath(), Texture.class));
 		addActorAndListen(consoleBox, consoleXPos, consoleYPos);
@@ -400,6 +422,11 @@ public class Battle extends Group{
 		characterStamina.setValue(character.getStaminaPercent());
 		characterBalance.setValue(character.getBalancePercent());
 		enemyHealth.setValue(enemy.getHealthPercent());
+		healthLabel.setText(character.getCurrentHealth() + " / " + character.getMaxHealth());
+		staminaLabel.setText(character.getCurrentStamina() + " / " + character.getMaxStamina());
+		balanceLabel.setText(character.getStability() + " / " + character.getMaxStability());
+		manaLabel.setText(character.getCurrentMana() + " / " + character.getMaxMana());
+		enemyHealthLabel.setText(enemy.getCurrentHealth() + " / " + enemy.getMaxHealth());
 		healthIcon.setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(character.getHealthDisplay(), Texture.class))));
 		staminaIcon.setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(character.getStaminaDisplay(), Texture.class))));
 		balanceIcon.setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(character.getBalanceDisplay(), Texture.class))));
