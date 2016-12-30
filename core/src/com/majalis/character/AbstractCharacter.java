@@ -625,7 +625,10 @@ public abstract class AbstractCharacter extends Actor {
 	}
 	
 	private enum StanceType{
-		EROTIC,
+		ANAL,
+		ORAL,
+		HANDJOB,
+		FACESIT,
 		INCAPACITATED,
 		NORMAL
 	}
@@ -641,15 +644,15 @@ public abstract class AbstractCharacter extends Actor {
 		KNEELING (AssetEnum.KNEELING.getPath(), false, true, true),
 		AIRBORNE (AssetEnum.AIRBORNE.getPath(), true, false, false), 
 		FULL_NELSON (AssetEnum.FULL_NELSON.getPath()), 
-		DOGGY (StanceType.EROTIC, AssetEnum.DOGGY.getPath()), 
-		ANAL (StanceType.EROTIC, AssetEnum.ANAL.getPath()), 
-		STANDING (StanceType.EROTIC, AssetEnum.STANDING.getPath()),
-		HANDY (StanceType.EROTIC, AssetEnum.HANDY.getPath()),
-		COWGIRL (StanceType.EROTIC, AssetEnum.COWGIRL.getPath()),
-		KNOTTED (StanceType.EROTIC, AssetEnum.KNOTTED.getPath()), 
-		FELLATIO (StanceType.EROTIC, AssetEnum.FELLATIO.getPath()), 
-		FACE_SITTING(StanceType.EROTIC, AssetEnum.FACE_SITTING.getPath()),
-		SIXTY_NINE(StanceType.EROTIC, AssetEnum.SIXTY_NINE.getPath()),
+		DOGGY (StanceType.ANAL, AssetEnum.DOGGY.getPath()), 
+		ANAL (StanceType.ANAL, AssetEnum.ANAL.getPath()), 
+		STANDING (StanceType.ANAL, AssetEnum.STANDING.getPath()),
+		HANDY (StanceType.HANDJOB, AssetEnum.HANDY.getPath()),
+		COWGIRL (StanceType.ANAL, AssetEnum.COWGIRL.getPath()),
+		KNOTTED (StanceType.ANAL, AssetEnum.KNOTTED.getPath()), 
+		FELLATIO (StanceType.ORAL, AssetEnum.FELLATIO.getPath()), 
+		FACE_SITTING(StanceType.FACESIT, AssetEnum.FACE_SITTING.getPath()),
+		SIXTY_NINE(StanceType.ORAL, AssetEnum.SIXTY_NINE.getPath()),
 		CASTING (AssetEnum.CASTING.getPath()),
 		ERUPT (AssetEnum.ERUPT.getPath())
 		;
@@ -660,19 +663,19 @@ public abstract class AbstractCharacter extends Actor {
 		public final boolean receivesMediumAttacks;
 		public final boolean receivesLowAttacks;
 		
-		private Stance(String texturePath){
+		private Stance(String texturePath) {
 			this(StanceType.NORMAL, texturePath, true, true, true);
 		}
 		
-		private Stance(StanceType type, String texturePath){
+		private Stance(StanceType type, String texturePath) {
 			this(type, texturePath, true, true, true);
 		}
 		
-		private Stance(String texturePath, boolean receivesHigh, boolean receivesMedium, boolean receivesLow){
+		private Stance(String texturePath, boolean receivesHigh, boolean receivesMedium, boolean receivesLow) {
 			this(StanceType.NORMAL, texturePath, receivesHigh, receivesMedium, receivesLow);
 		}
 		
-		private Stance(StanceType type, String texturePath, boolean receivesHigh, boolean receivesMedium, boolean receivesLow){
+		private Stance(StanceType type, String texturePath, boolean receivesHigh, boolean receivesMedium, boolean receivesLow) {
 			this.type = type;
 			this.texturePath = texturePath;
 			receivesHighAttacks = receivesHigh;
@@ -681,12 +684,19 @@ public abstract class AbstractCharacter extends Actor {
 		}
 		public String getPath() { return texturePath; }
 		
-		public boolean isErotic(){
-			return type == StanceType.EROTIC;
+		public boolean isErotic() {
+			return type == StanceType.ANAL || type == StanceType.ORAL || type == StanceType.HANDJOB || type == StanceType.FACESIT;
 		}
 		
-		public boolean isIncapacitating(){
+		public boolean isIncapacitating() {
 			return type == StanceType.INCAPACITATED;
+		}
+		
+		public boolean isAnal() {
+			return type == StanceType.ANAL;
+		}
+		public boolean isOral() {
+			return type == StanceType.ORAL;
 		}
 		
 		public boolean isIncapacitatingOrErotic(){

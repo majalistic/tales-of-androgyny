@@ -58,10 +58,11 @@ public class Battle extends Group{
 	private final Skin skin;
 	private final Sound buttonSound;
 	private final AnimatedImage slash;
+	private final Sound thwapping;
 	private final Sound pop;
+	private final Sound mouthPop;
 	private final Sound attackSound;
 	private final Sound hitSound;
-	private final Sound thwapping;
 	private final Array<SoundTimer> soundBuffer;
 	private final Image hoverImage;
 	private final Group hoverGroup;
@@ -205,6 +206,7 @@ public class Battle extends Group{
 		this.addActor(slash);
 		
 		pop = assetManager.get(AssetEnum.UNPLUGGED_POP.getPath(), Sound.class);
+		mouthPop = assetManager.get(AssetEnum.MOUTH_POP.getPath(), Sound.class);
 		attackSound = assetManager.get(AssetEnum.ATTACK_SOUND.getPath(), Sound.class);
 		hitSound = assetManager.get(AssetEnum.HIT_SOUND.getPath(), Sound.class);
 		thwapping = assetManager.get(AssetEnum.THWAPPING.getPath(), Sound.class);
@@ -372,13 +374,17 @@ public class Battle extends Group{
 		printToConsole(firstCharacter.receiveAttack(attackForFirstCharacter));
 		printToConsole(secondCharacter.receiveAttack(attackForSecondCharacter));		
 		
-		if ( (oldStance == Stance.ANAL || oldStance == Stance.DOGGY || oldStance == Stance.STANDING || oldStance == Stance.COWGIRL) && (firstCharacter.getStance() == Stance.ANAL || firstCharacter.getStance() == Stance.DOGGY || firstCharacter.getStance() == Stance.STANDING || firstCharacter.getStance() == Stance.COWGIRL)){
+		if (oldStance.isAnal() && firstCharacter.getStance().isAnal()){
 			thwapping.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
 		}
 		
-		if ( (oldStance == Stance.ANAL || oldStance == Stance.DOGGY || oldStance == Stance.STANDING || oldStance == Stance.COWGIRL) && (firstCharacter.getStance() != Stance.ANAL && firstCharacter.getStance() != Stance.DOGGY && firstCharacter.getStance() != Stance.STANDING && firstCharacter.getStance() != Stance.COWGIRL)){
+		if (oldStance.isAnal() && !firstCharacter.getStance().isAnal()){
 			thwapping.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
 			soundBuffer.add(new SoundTimer(pop, 105, .3f));
+		}
+		
+		if (oldStance.isOral() && !firstCharacter.getStance().isOral()){
+			mouthPop.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume"));
 		}
 		
 		if (secondCharacter.getBattleOver() >= 5){
