@@ -44,7 +44,7 @@ public abstract class Item {
 		public String getDescription() {
 			switch (type){
 				case Rapier: return "Weapon who efficacy is dependent on the wielder's agility. [Damage: 1 + Agility / 3]";
-				case Cutlass: return "Weapon who efficacy is dependent on both the wielder's strength and agility. [Damage: 1 + (Strength + Agility) / 3]";
+				case Cutlass: return "Weapon who efficacy is dependent on both the wielder's strength and agility. [Damage: 1 + (Strength + Agility) / 5]";
 				case Broadsword: return "Weapon who efficacy is dependent on the wielder's agility. [Damage: 1 + Strength / 3]";
 				default: return "Unknown Weapon!";
 			}
