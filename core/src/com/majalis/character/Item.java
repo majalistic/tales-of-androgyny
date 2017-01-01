@@ -12,6 +12,12 @@ public abstract class Item {
 	protected abstract ItemEffect getUseEffect();
 	public abstract String getName();
 	public abstract String getDescription();
+	public boolean isConsumable() {
+		return false;
+	}	
+	public boolean isEquippable() {
+		return false;
+	}
 	
 	public static class Weapon extends Item {
 		
@@ -24,6 +30,11 @@ public abstract class Item {
 			this.type = type;
 			this.name = type.toString();
 		}
+		
+		@Override
+		public boolean isEquippable() {
+			return true;
+		}			
 		
 		@Override
 		public int getValue() {
@@ -82,6 +93,11 @@ public abstract class Item {
 			this.magnitude = magnitude;
 			this.effect = effect;	
 		}
+		
+		@Override
+		public boolean isConsumable() {
+			return true;
+		}	
 		
 		@Override
 		public int getValue() {
@@ -151,5 +167,5 @@ public abstract class Item {
 		
 		public EffectType getType() { return type; }
 		public int getMagnitude() { return magnitude; }
-	}	
+	}
 }

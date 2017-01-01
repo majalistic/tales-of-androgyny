@@ -633,4 +633,10 @@ public class PlayerCharacter extends AbstractCharacter {
 	public Weapon getWeapon() {
 		return weapon;
 	}
+
+	// this should obviously only accept a Weapon parameter
+	public String setWeapon(Item item) {
+		weapon = (Weapon) item;
+		return "You equipped the " + item.getName() + ".";
+	}
 }

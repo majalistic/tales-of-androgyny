@@ -124,19 +124,35 @@ public class CharacterScreen extends AbstractScreen {
 		
 		for (final Item item : character.getInventory()){
 			final TextButton itemButton = new TextButton(item.getName(), skin);
+			if (item.isConsumable()){
+				itemButton.addListener(
+					new ClickListener(){
+						@Override
+				        public void clicked(InputEvent event, float x, float y) {
+							buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
+							String result = character.consumeItem(item);
+							inventoryText.setText(result);
+							saveService.saveDataValue(SaveEnum.PLAYER, character);
+							inventoryTable.removeActor(itemButton);
+				        }
+					}
+				);
+			}
+			else if (item.isEquippable()){
+				itemButton.addListener(
+					new ClickListener(){
+						@Override
+				        public void clicked(InputEvent event, float x, float y) {
+							buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
+							String result = character.setWeapon(item);
+							inventoryText.setText(result);
+							saveService.saveDataValue(SaveEnum.PLAYER, character);
+				        }
+					}
+				);
+			}
 			
-			itemButton.addListener(
-				new ClickListener(){
-					@Override
-			        public void clicked(InputEvent event, float x, float y) {
-						buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
-						String result = character.consumeItem(item);
-						inventoryText.setText(result);
-						saveService.saveDataValue(SaveEnum.PLAYER, character);
-						inventoryTable.removeActor(itemButton);
-			        }
-				}
-			);
+			
 			inventoryTable.add(itemButton).size(500, 40).row();
 		}
 		
