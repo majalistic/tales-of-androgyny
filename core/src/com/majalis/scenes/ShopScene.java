@@ -166,7 +166,7 @@ public class ShopScene extends Scene {
 			description.setPosition(1050, 520);
 			description.setColor(Color.FOREST);
 			description.setAlignment(Align.top);
-			ScrollPane pane = new ScrollPane(description);
+			final ScrollPane pane = new ScrollPane(description);
 			pane.setBounds(1050, 520, 625, 350);
 			pane.setScrollingDisabled(true, false);
 			
