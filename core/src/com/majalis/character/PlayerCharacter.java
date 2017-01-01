@@ -113,6 +113,7 @@ public class PlayerCharacter extends AbstractCharacter {
 
 	public String consumeItem(Item item){
 		ItemEffect effect = item.getUseEffect();
+		if (effect == null) { return "Item cannot be used."; }
 		String result = "";
 		switch (effect.getType()){
 			case HEALING:
