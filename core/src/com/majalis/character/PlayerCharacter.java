@@ -348,6 +348,18 @@ public class PlayerCharacter extends AbstractCharacter {
 		POUTY
 	}
 
+	public int getRawStat(Stat stat) {
+		switch(stat){
+			case STRENGTH: return getRawStrength();
+			case ENDURANCE: return getEndurance();
+			case AGILITY: return getAgility();
+			case PERCEPTION: return getPerception();
+			case MAGIC: return getMagic();
+			case CHARISMA: return getCharisma();
+			default: return -1;
+		}
+	}
+	
 	public int getStat(Stat stat) {
 		switch(stat){
 			case STRENGTH: return getStrength();

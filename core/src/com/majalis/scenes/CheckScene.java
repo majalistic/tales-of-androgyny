@@ -56,7 +56,7 @@ public class CheckScene extends AbstractTextScene {
 			}			
 		}
 		
-		int amount = statToCheck == Stat.CHARISMA ? character.getLewdCharisma() : character.getStat(statToCheck);
+		int amount = statToCheck == Stat.CHARISMA ? character.getLewdCharisma() : character.getRawStat(statToCheck);
 		toDisplay += "Your " + statToCheck.toString() + " score: " + amount + "\n\n";
 		for (Integer threshold : checkValues.keys()){
 			toDisplay += statToCheck.toString() + " check (" + threshold + "): ";
