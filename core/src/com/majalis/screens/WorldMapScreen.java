@@ -78,6 +78,7 @@ public class WorldMapScreen extends AbstractScreen {
 		resourceRequirements.put(AssetEnum.FOREST_INACTIVE.getPath(), Texture.class);
 		resourceRequirements.put(AssetEnum.CASTLE.getPath(), Texture.class);
 		resourceRequirements.put(AssetEnum.TOWN.getPath(), Texture.class);
+		resourceRequirements.put(AssetEnum.COTTAGE.getPath(), Texture.class);
 		resourceRequirements.put(AssetEnum.APPLE.getPath(), Texture.class);
 		resourceRequirements.put(AssetEnum.MEAT.getPath(), Texture.class);
 		resourceRequirements.put(AssetEnum.GRASS0.getPath(), Texture.class);
@@ -311,8 +312,8 @@ public class WorldMapScreen extends AbstractScreen {
 		// draw the base grass texture
 		for (int ii = 101; ii >= 0; ii-=2){
 			for (int jj = 100; jj >= 0; jj--){
-					frameBufferBatch.draw(grasses.get((int)(Math.random()*100) % 3), ii*56, jj*56);
-					frameBufferBatch.draw(grasses.get((int)(Math.random()*100) % 3), ((ii-1)*56), (jj*56)+30);
+				frameBufferBatch.draw(grasses.get((int)(Math.random()*100) % 3), ii*56, jj*56);
+				frameBufferBatch.draw(grasses.get((int)(Math.random()*100) % 3), ((ii-1)*56), (jj*56)+30);
 			}	
 		}
 		frameBufferBatch.end();
@@ -324,7 +325,7 @@ public class WorldMapScreen extends AbstractScreen {
 		for (int ii = 2; ii >= 0; ii--){
 			for (int jj = 5; jj >= 0; jj--){
 				Image background = new Image(scenery);
-				background.addAction(Actions.moveTo(-700+ii*scenery.getRegionWidth(), -300+jj*scenery.getRegionHeight()));
+				background.addAction(Actions.moveTo(-700+ii*scenery.getRegionWidth(), -300+jj*(scenery.getRegionHeight()-10)));
 				group.addActorAt(0, background);
 			}
 		}

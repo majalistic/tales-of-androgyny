@@ -30,6 +30,7 @@ public enum AssetEnum {
 	MEAT("worldmap/Meat.png"),
 	ROAD("worldmap/Road.png"),
 	CASTLE("worldmap/Castle.png"),
+	COTTAGE("worldmap/CottageNode0.png"),
 	TOWN("worldmap/TownNode0.png"),
 	CHARACTER_ANIMATION("worldmap/TinySprite.png"),
 	
