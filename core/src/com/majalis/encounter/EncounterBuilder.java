@@ -518,11 +518,11 @@ public class EncounterBuilder {
 				OrderedMap<Integer, Scene> postVirginityCheck = getChoiceScene(
 					assetManager, "Mouth, or ass?", getArray(new String[]{"In The Mouth", "Up The Ass"}),
 					getTextScenes(
-						getScript(encounterCode, 31), font, goblinBackground,
+						getScript(encounterCode, 31), font, goblinBackground, getArray(new Mutation[]{goblinVirginityToFalse}),
 						getEndScene(EndScene.Type.ENCOUNTER_OVER)
 					),
 					getTextScenes(
-						getScript(encounterCode, 32), font, goblinBackground,	
+						getScript(encounterCode, 32), font, goblinBackground, getArray(new Mutation[]{goblinVirginityToFalse}),	
 						getCheckScene(
 							assetManager, Stat.ENDURANCE, new IntArray(new int[]{6}), character,
 							fightOff,
@@ -551,14 +551,13 @@ public class EncounterBuilder {
 					)
 				);
 				
-				OrderedMap<Integer, Scene> defeatScene = getTextScenes(getScript(encounterCode, 28), font, goblinBackground, getArray(new Mutation[]{goblinVirginityToFalse}),
+				OrderedMap<Integer, Scene> defeatScene = getTextScenes(getScript(encounterCode, 28), font, goblinBackground,
 					getCheckScene(
 						assetManager, CheckType.GOBLIN_VIRGIN, character,
 						getTextScenes(getScript(encounterCode, 29), font, goblinBackground, postVirginityCheck),
 						getTextScenes(getScript(encounterCode, 30), font, goblinBackground, postVirginityCheck)
 					)						
-				);	
-					
+				);		
 				
 				OrderedMap<Integer, Scene> battleScene = getBattleScene(saveService, battleCode, 
 					getTextScenes(getArray(new String[]{"You defeated the goblin!", "You receive 1 Experience."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.EXPERIENCE, 1)}), getEndScene(EndScene.Type.ENCOUNTER_OVER)),
