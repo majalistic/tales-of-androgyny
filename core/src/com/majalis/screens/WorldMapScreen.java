@@ -136,6 +136,8 @@ public class WorldMapScreen extends AbstractScreen {
 		initialTranslation.x -= camera.position.x;
 		initialTranslation.y -= camera.position.y;
 		camera.translate(initialTranslation);
+		if (camera.position.x < 500) camera.position.x = 500;
+		if (camera.position.y < 500) camera.position.y = 500;
 		camera.update();
 		
 		this.world = world;
