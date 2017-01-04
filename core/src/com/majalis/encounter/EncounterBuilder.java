@@ -19,6 +19,7 @@ import com.majalis.battle.BattleCode;
 import com.majalis.battle.BattleFactory.EnemyEnum;
 import com.majalis.character.EnemyCharacter;
 import com.majalis.character.PlayerCharacter;
+import com.majalis.character.Techniques;
 import com.majalis.encounter.Background.BackgroundBuilder;
 import com.majalis.character.AbstractCharacter.Stance;
 import com.majalis.character.AbstractCharacter.Stat;
@@ -171,9 +172,6 @@ public class EncounterBuilder {
 				);		
 				break;
 			case HARPY:
-			case FIRST_BATTLE_STORY: 
-				encounterCode = EncounterCode.HARPY;
-				battleCode = encounterCode.getBattleCode();
 				ObjectMap<Stance, Texture> textures = new ObjectMap<Stance, Texture>();
 				Texture enemyTexture = assetManager.get(EnemyEnum.HARPY.getPath(), Texture.class);
 				textures.put(Stance.BALANCED, enemyTexture);
@@ -820,7 +818,7 @@ public class EncounterBuilder {
 			case COTTAGE_TRAINER_VISIT:
 				background = new BackgroundBuilder(assetManager.get(AssetEnum.CABIN_BACKGROUND.getPath(), Texture.class)).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class)).build();
 				getTextScenes(
-					getScript("STORY-004"), font, background, new Array<Mutation>(),
+					getScript("STORY-004"), font, background, new Array<Mutation>(), AssetEnum.TRAINER_MUSIC.getPath(), new Array<String>(),
 					getEndScene(EndScene.Type.ENCOUNTER_OVER)						
 				);
 				break;
@@ -855,6 +853,94 @@ public class EncounterBuilder {
 							)
 						)	
 					)
+				);
+				break;
+			case MERI_COTTAGE: 
+				background = new BackgroundBuilder(assetManager.get(AssetEnum.CABIN_BACKGROUND.getPath(), Texture.class)).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class)).build();
+				Background witchBackground = new BackgroundBuilder(assetManager.get(AssetEnum.CABIN_BACKGROUND.getPath(), Texture.class)).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class)).setForeground(assetManager.get(AssetEnum.MERI_SILHOUETTE.getPath(), Texture.class)).build();
+				getTextScenes (
+					getScript("STORY-WITCH-COTTAGE"), font, background, new Array<Mutation>(new Mutation[]{new Mutation(saveService, SaveEnum.SKILL, Techniques.COMBAT_FIRE)}), AssetEnum.TRAINER_MUSIC.getPath(), new Array<String>(),
+					getTextScenes (
+						getScript("STORY-WITCH-COTTAGE-MERI"), font, witchBackground, new Array<Mutation>(new Mutation[]{new Mutation(saveService, SaveEnum.SKILL, Techniques.COMBAT_FIRE)}), AssetEnum.WEREWOLF_MUSIC.getPath(), new Array<String>(),
+						getEndScene(EndScene.Type.ENCOUNTER_OVER)
+					)
+				);
+				break;
+			case MERI_COTTAGE_VISIT:
+				background = new BackgroundBuilder(assetManager.get(AssetEnum.CABIN_BACKGROUND.getPath(), Texture.class)).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class)).build();
+				getTextScenes(
+					getScript("STORY-WITCH-COTTAGE-VISIT"), font, background, new Array<Mutation>(), AssetEnum.TRAINER_MUSIC.getPath(), new Array<String>(),
+					getEndScene(EndScene.Type.ENCOUNTER_OVER)						
+				);
+				break;
+			case FIRST_BATTLE_STORY:
+				Background goblinBackground2 = new BackgroundBuilder(backgroundTexture).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class)).setForeground(assetManager.get(AssetEnum.GOBLIN.getPath(), Texture.class)).build();
+				getTextScenes(
+					getScript("STORY-FIGHT-FIRST"), font, background,
+					getTextScenes( 
+						getScript("STORY-FIGHT-GOBLIN"), font, goblinBackground2, 
+						getBattleScene(
+							saveService, battleCode, 
+							getTextScenes(getScript("STORY-FIGHT-GOBLIN-VICTORY"), font, goblinBackground2, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.EXPERIENCE, 2)}), 
+								getTextScenes(getScript("STORY-FIGHT-GOBLIN-VICTORY2"), font, background,  
+								getEndScene(EndScene.Type.ENCOUNTER_OVER))
+							),
+							getTextScenes(getScript("STORY-FIGHT-GOBLIN-DEFEAT"), font, background, getArray(new Mutation[]{virginityToFalse}), AssetEnum.WEREWOLF_MUSIC.getPath(), new Array<String>(), getEndScene(EndScene.Type.GAME_OVER))				
+						)
+					)
+				);		
+				break;
+			case OGRE_WARNING_STORY:
+				getTextScenes(
+					getScript("OGRE-WARN"), font, background, new Array<Mutation>(), AssetEnum.TRAINER_MUSIC.getPath(), new Array<String>(),
+					getEndScene(EndScene.Type.ENCOUNTER_OVER)						
+				);
+				break;
+			case OGRE_STORY:
+				Background ogreBackground = new BackgroundBuilder(backgroundTexture).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class)).setForeground(assetManager.get(AssetEnum.GAME_OGRE.getPath(), Texture.class)).build();
+				getTextScenes(
+					getScript("STORY-OGRE"), font, background, new Array<Mutation>(), AssetEnum.WEREWOLF_MUSIC.getPath(), new Array<String>(new String[]{null, null, null, null, AssetEnum.OGRE.getPath()}),
+					getChoiceScene(
+						assetManager, "Continue on?", getArray(new String[]{"Press On", "Turn back"}), 
+						getTextScenes(
+							getScript("STORY-OGRE-DEFEAT"), font, background, new Array<Mutation>(), AssetEnum.HEAVY_MUSIC.getPath(), new Array<String>(new String[]{null, null, null, AssetEnum.OGRE.getPath()}),
+							getTextScenes(
+								getScript("STORY-OGRE-AFTER"), font, ogreBackground,
+								getEndScene(EndScene.Type.GAME_OVER)	
+							)
+						),
+						getEndScene(EndScene.Type.ENCOUNTER_OVER)		
+					)
+				);
+				break;
+			case ECCENTRIC_MERCHANT:
+				getTextScenes(
+					getScript("STORY-MERCHANT"), font, background,
+					getEndScene(EndScene.Type.ENCOUNTER_OVER)	
+				);
+				break;
+			case STORY_FEM:
+				getTextScenes(
+					getScript("STORY-FEM"), font, background,
+					getEndScene(EndScene.Type.ENCOUNTER_OVER)	
+				);
+				break;
+			case STORY_SIGN:
+				getTextScenes(
+					getScript("CROSSROADS"), font, background,
+					getEndScene(EndScene.Type.ENCOUNTER_OVER)	 
+				);
+				break;
+			case WEST_PASS:
+				getTextScenes(
+					getScript("WEST-PASS"), font, background,
+					getEndScene(EndScene.Type.ENCOUNTER_OVER)	 
+				);
+				break;
+			case SOUTH_PASS:
+				getTextScenes(
+					getScript("SOUTH-PASS"), font, background,
+					getEndScene(EndScene.Type.ENCOUNTER_OVER)	 
 				);
 				break;
 			case SHOP:

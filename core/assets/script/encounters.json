@@ -232,20 +232,22 @@
 			"He slams the door shut.  You feel... different.  Certainly, you feel more in tune with the flowing of the air around you, and looking at your hands, there does seem to be a noticable... change in your appearance as well.  Supplies, he said... well, first thing's first.  Although, you suppose, this is now the second thing.",
 			"As you walk away from the cottage towards the village proper, you start to wonder.",
 			"To slay the Demon King... will that really improve the lives of the people you care most about?  You wonder.  You can barely remember it, but you've heard stories of what life was like under the Moon Lord's thumb... assuming it had a thumb, anyway.  The threat of the Demon King, by comparison, seems... remote.",
-			"Well, your job as village layabout has come to an end, surely.  If you can give back to all the people who helped and supported you, then that's just what you're going to do."
+			"Well, your job as village layabout has come to an end, surely.  If you can give back to all the people who helped and supported you, then that's just what you're going to do.",
+			"First, you set out for the village itself - knowing that the road to the Demon King's fortress, far in the northwest, beyond the mountains, will be daunting, you take your first true steps in that direction - to your first home, Nadir, and then beyond."
 		]
 	},
 	{
 		"key": "STORY-004",
 		"scriptLines": [	
 			"You return to the cottage, but find that he's no longer there.",
+			"You wait around for a while, but he doesn't return - maybe he's out on the town, or foraging for squirrels to eat.",
 			"You leave, disappointed."
 		]
 	},
 	{
 		"key": "STORY-005",
 		"scriptLines": [
-			"You enter the village proper - the main street stretches before you, and you know the shop isn't far.  On your way to it, you happen across a trio of old, crusty men telling stories around a bonfire, although one of them doesn't say a word at all.  You walk past, nonchalantly, but listen in on their conversation, hiding behind a nearby retaining wall.",
+			"You enter the village of Nadir proper - the main street stretches before you, and you know the shop isn't far.  On your way to it, you happen across a trio of old, crusty men telling stories around a bonfire, although one of them doesn't say a word at all.  You walk past, nonchalantly, but listen in on their conversation, hiding behind a nearby retaining wall.",
 			"\"Did ya hear about that adventurer boy what wandered into the orc camp down by Nagle's Crook?\" one man asks, although it's obvious from the reaction of the other two that they don't much know or care about it.",
 			"\"Nah.  They kill 'em?\"",
 			"\"Pahh, that'd be a borin' story, wouldnit?  Mighta been better for him, though.  Daft orcs couldn't tell 'em from a lass, so they blasted his ass six ways to sundown before he escaped.  Got back to town with enough orc jism up hit butt to qualify as a caravan hisself!\"",
@@ -302,8 +304,7 @@
 		"scriptLines": [
 			"When you finish making your selection, you hold it out from your body, feeling more confident than you've ever felt - but you still have no idea how to use it.  Being Level 1 sucks.",
 			"\"Oh, no, not like that,\" she says, rounding the counter, \"here, let me show you.\"",
-			"She stands behind you and grabs the sword, and you feel a lump in your throat.  Her soft form presses against your back, and your heart races.",
-			
+			"She stands behind you and grabs the sword, and you feel a lump in your throat.  Her soft form presses against your back, and your heart races.",			
 		]
 	},
 	{
@@ -331,23 +332,242 @@
 			"With weapon in hand, you set out.  First stop - someone who will teach you magic.  You could ask the townsfolk for a suggestion... but you have at least one option in mind: Meri, a magician your mother once travelled with, who now lives as a recluse a few days east, near the foot of the Burle mountains.",
 			"You leave the town, feeling more full of gumption than you ever have before."
 		]
-	},	
+	},
 	{
-		"key": "STORY-FIGHT-001",
+		"key": "STORY-WITCH-COTTAGE",
 		"scriptLines": [
-			"You encounter an enemy thing!"
+			"You manage to track down Meri's cottage - it being far on the opposite side of Nadir from your own humble hovel, you've never had an overwhelmingly compelling reason to come by here, and plenty of reason to stay away.",
+			"Your curiosity about your mother had long since been overruled by your self-preservation, as Meri had a reputation for making boys like yourself... disappear.  Whether it was something truly sinister or simply the murmurs of an ignorant peasantry jumping to conclusions about a local witch, you didn't want to chance it.",
+			"Faced with few other options now, however, you decide to give the old witch a chance - and remind yourself not to call her that to her face.",
+			"Her cottage is excessively plain - but there's an air of palpable... malice to it that you can't shake off.  You warily approach the door, one hand on your sword's sheathe, the other balled in a fist against your chest, which thumps steadily and powerfully.",
+			"You reach out said hand to knock, unwilling to remove your grip on your scabbard, and a hair's breadth away from the door, you hear a voice which stops you cold, as if frozen - \"come in,\" it says, merrily, inviting.",
+			"You drop your fingers down, slowly, carefully, to the door handle, and, after catch your breath, you push it open.",
+			"The inside of the cottage smells... rather pleasantly, actually, and it's much, much hotter than the autumn breeze outside.  As the door closes behind you, in fact, you feel an overwhelming sensation of comfort and familiarity, even though the inside of the cottage is wholly unfamiliar to you.",
+			"It's a bit like you expect a witch's cottage to be - in that it surprises you entirely.  The surfaces are immaculate, the fineries are quite fine, the upholstery looks pristine and expensive, deep blacks, oak browns, and fresh blood reds - it's the last thing you would expect on the outskirts of a town like Nadir.",
+			"There are, you eventually notice, some of the expected collections of a witch - tomes, less musty, but tomes nonetheless, and magic circles scrawled on the walls and floors, and great, beautiful crystals and orbs, sitting in holders the size of your hands to the length of your body, poised on top of them delicately enough to make you anxious."
 		]
 	},	
 	{
-		"key": "STORY-FIGHT-002",
+		"key": "STORY-WITCH-COTTAGE-MERI",
 		"scriptLines": [
-			"You lose!"
+			"And then, finally, you spot her, as a shadow darts across the floor and then seems to disappear beneath her garments.  Even wearing a full-length robe, the curves of her body are visible and... otherworldly.  No doubt the work of some foul magic.",
+			"She turns to face you, looking away from a spherical crystal - or is it an orb? - a smile on her lips, and a hunger in her eyes.  You smile politely at her and nod.",
+			"You didn't expect her to be so... voluptuous.  In fact, you had kind of expected her to be old and grizzled by now, like your mother's class trainer - instead, she doesn't look like she's aged a day since you were a child.",
+			"\"My, my.  Look who's all grown up.\", she says, her voice deep, her presence large.  Not exactly the slightness you would expect of a mage.",
+			"You find it difficult to respond - something about her presence is... intimidating.  She has long, goldenrod hair, bright blue eyes, an impressive chest, and flaring hips that lead into long, lithe legs.  She strikes a powerful figure, and the way her gaze fixes on you makes it near-impossible to return.",
+			"\"I remember you.  My, you look just like your mother.  Mmm... I love a man that looks anything but,\" she says, pumping her hips as she walks over to you, her heels striking a pleasant tone against her hard, wooden floor.",
+			"She grabs you by the chin, and turns your head to inspect you.  You finally work up the nerve to speak.  \"I'm an... enchanter now,\" you say, and she smiles politely, releasing your chin.",
+			"\"Enchantress.  But go on,\" she says, snapping her fingers, producing some phantasm of darkness that swirls around her fingertips like an ethereal bat, before she grabs hold of it and vanishes in a cloud of nothingness.",
+			"\"That's... that's why I'm here,\" you say, alluding to both your recent class change and the casual display she just put on, \"I'm interested in magic.\"",
+			"She giggles silently, bringing her hand lazily up her thigh, then pointing a long, sharp-nailed finger at you, flicking it upwards in a gentle arc.  You feel an immense pressure pushing you back - your shoes slide along the floor, until your entire body is spread against her closed door, as if the pull of gravity has changed directions.",
+			"\"Everyone is interested in magic,\" she says, \"but not everyone gets to meet a magician.  Aren't you interested in me?\" she asks, curling her finger back around to gesture for you to come to her - a beckoning which you literally cannot ignore.",
+			"You're pulled inexorably towards her, and further, until you're nestled between her breasts, your body pressed against hers, her arms slowly finding their way around your waist.",
+			"\"I... I know you travelled with my mother,\" you say, looking up from her breasts to her face, as she peers down at you serenly.  She smiles.  \"Didn't you?\"",
+			"She runs her hands up your chest, your neck, and clasps one around the back of your neck, and rests the other behind your head.  \"I did.  And do you think she was so oblivious to my charms?\"",
+			"You swallow.  Looking into her eyes... you feel... you can't move, you can barely think.  Something is stirring beneath her robes... something... alive...",
+			"...",
+			"..",
+			".",
+			"\"Rise and shine, boyo,\" she says, and you realize that at some point, your eyes closed... and, in fact, you're laying down on a long, cushioned seat in her cottage.  You feel your body - nothing appears to be missing - and you look around.",
+			"The room is as it was before, but now that you're further in, you can see some of the strange instruments laying about, as well as a ring of iron, the height and width of a person, mounted on a wall.",
+			"You also find the source of the voice, and it's her, the witch, Meri, standing in front of one of the orbs, her eyes closed, her lips curled into a smile.",
+			"She's surrounded by a kind of other-worldly light, her robe lifting in some impossible updraft, but then, it subsides, and the high ringing you had heard dissipitates.  ",
+			"\"You've been asleep a while.  I took the liberty of probing how awakened you are.  The answer is... not very, but enough.  The only question that remains is... what will you give me in exchange?\"",
+			"You sigh.  \"I don't have money.\"",
+			"She rolls her eyes.  \"I don't want money.  You have what I want,\" she says, sitting down next to you, and running her hand up your thigh.",
+			"You swallow.  She nearly gets to your erection, to the point of caressing it through your pants, and stops.  ",
+			"\"But... this first spell will be for free.  A spell that lets you channel magic into pure flame.  Just the kind of thing a mercenary like yourself can use,\" she says, running her finger down your chest.",
+			"\"I'm not a mercenary,\" you say, and she puckers her lips.",
+			"\"Bounty hunter, then?  You're so cute, you know?\" she says, leaning forward and kissing you, on the lips.  You feel... something flow into your body, down your throat, and into your chest - a warmth that spreads, and then a heat that sears.",
+			"You pull away, but your throat is too burned to speak or even make a sound, and steam rises from mouth.  You tighten your fists in pain, and feel the fire spread even there, to the tips of your fingers - until it becomes unbearable, and your fists are flung open, your fingers spread, and flames begin to whip around, as if held in the palms of your hands.",
+			"Panicked, you stumble backwards, thrashing around in the vain hope of extinguishing the flames on your hands - when your eyes catch Meri's gaze.  You freeze in place, although you can feel the fire rising in your throat, and you hear a simple command from Meri, though her lips never move.",
+			"\"Swallow it.\"",
+			"You close your fists.  You swallow as hard as you can, and the fire gets deeper, deeper inside... until it's just a heat again, sitting in your belly.",
+			"In the distance, you hear Meri clapping.",
+			"\"Congratulations!\" she says, smiling fakely. \"Now, you're a true spellcaster. Don't spend it all at once,\" she says, and you feel ready to pass out.  You start to stumble towards the door.",
+			"Compared to the the class change, this was... substantially less pleasant.  You reach the door, and Meri doesn't even try to stop you.",
+			"\"That won't be all the magic you need, you know.  But... it will get you started.  I'm sure you'll find your way back to me eventually,\" she says... and before you know it, you're standing outside of Meri's house, even though you don't recall opening the door.  Even stranger... there's fresh snow on the ground.",
+			"You learned Combat Fire!",
+			"You can now use Incantation to enter a Casting stance!"
 		]
 	},	
+	{
+		"key": "STORY-WITCH-COTTAGE-VISIT",
+		"scriptLines": [
+			"You return, hoping to perhaps learn new magicks... but the mysterious witch is nowhere to be found."
+		]
+	},
+	{
+	"key": "STORY-FIGHT-FIRST",
+		"scriptLines": [
+			"The forest is quiet, but somehow unfamiliar.  The world outside of the small town where you've lived your entire life feels unfamiliar, in fact.  The trees are the same here, the ground, the air... but you can't shake the feeling that nothing is the same at all.",
+			"You're finally leaving town... with a weapon in hand, and a class to your name.  You feel... unstoppable.  You'll gladly face death if it means being able to fulfill your destiny, the one that you've been ignoring for so long.",
+			"You come to a small clearing in the forest... and you hear a cackling.  You reach for your scabbard.  The voice sounded... almost human.  But not quite... and the malice was unmistakable.",
+			"You look around, trying to track the source - your entire body tenses, the pounding of your own pulse drumming your ears, the crunch of the soil underfoot such a burdensome distraction that you keep perfectly still.  This is it.  Your first battle.",
+			"The scabbard shakes as you grip it, as if you were shaking, but that can't be.  Your mind is focused, your spirit is willing, and as soon as you see the fangs and claws, you'll know what to do - or so you think, when suddenly, a figure emerges from behind a fallen log... and you immediately recognize how it had been hiding behind it."
+		]
+	},
+	{
+	"key": "STORY-FIGHT-GOBLIN",
+		"scriptLines": [
+			"It's... a little green goblin.  From the proportions, it looks like a female.  She's stumbling around, laughing... there's no doubt about it - she's drunk.",
+			"\"Heya! Hey! You! The boy with the fat butt!\" she says, before immediately laughing herself silly, apparently finding the reddening of your ears hilarious.  \"Why don't... you don't... why don't...\" she slurs, and then falls over, her loincloth falling out of place to give you an eyeful.  You're apparently not the only one with some junk in the trunk.",
+			"You start to relax your grip on the hilt of your sword when, in a startling moment of sobriety, she kips up to her feet.  Moreover, she pulls out a small dagger and licks the blade.",
+			"\"Ya didn't see that!\" she says, cutting the air clumsily.",
+			"She's... pathetic.  A half pint without even a proper weapon, taking on someone twice her size... while drunk.  This couldn't be any easier.",
+			"\"Wanna play with me?  Nyaha!\"",
+			"Her skin's green, so it's hard to tell, but... it seems like she's blushing.  How she wasn't already blushing while drunk like juice or when she flashed her ass at you, you don't know.",
+			"You ready your weapon.  There's no point in trying to argue with a bratty, maniacal half-pint.  If you can subdue her, maybe you can talk some sense into her."
+		]
+	},
+	{
+		"key": "STORY-FIGHT-GOBLIN-VICTORY",
+		"scriptLines": [
+			"She's still, unmoving... until suddenly, she explodes into frenetic action.  \"Hey, hey!  I think I sobered up!  What's for dinner?  Nyaha!\"",
+			"You watch her waringly as picks up her things, barely seeming to register that she just lost a vicious battle.",
+			"\"I thought you were dead!\" you cry, and she stops, and cocks her head to look at you, like you're the crazy one.",
+			"\"0 HP doesn't mean 'dead', doofus, or you'd be stepping over adventurer corpses on your way to the adventurer corpse burrito stand next to the adventurer corpse disposal facility,\" she says, painting a mental image that you neither like nor appreciate.",
+			"\"Then... what?\" you say, almost speechless.",
+			"\"It means you can't fight anymore!  There's a pretty big gap between 'out of the fight' and 'dead'!  We don't use numbers for that.\",",
+			"\"But... you're bleeding...\"",
+			"\"Oh, don't worry about that.  You'll trip over as many rocks as stanching agents.  And I'm a gobbo, so I've got super healing!\" she says, demonstrating by wiping her bloody arm... only to reveal that underneath the blood, her wounds are already bloodless.",
+			"You close your eyes.  It all makes sense now.  Adventurers aren't all stalwart, fearless heroes... they just don't suffer from permadeath.  You nod to yourself, silently.  You feel like you've already learned so much.",
+			"\"Anyway, ya beat me!  How's it gonna be then?\"",
+			"You blink twice.  \"How's... what gonna be?\"",
+			"\"Nyaha!  Don't be coy!  How do you like your gobbo - stuffed or filled with cream?  Or are you one of those fey boys that wants a buttered up gobbo cock right up the ass?\"",
+			"\"Huh?!\" you exclaim, flabbergasted.  You have no idea what she's talking about - is she... is she coming on to you?",
+			"\"Come on, pinkskin! Whip it out!\" she says, slapping her palm against the bulge in her loincloth, apparently indicating what, exactly, you should whip out. \"Or I'll whip mine out and give ya a big, fat GAME OVER where it counts!\"",
+		]
+	},	
+	{
+		"key": "STORY-FIGHT-GOBLIN-VICTORY2",
+		"scriptLines": [
+			"You... run.  You turn heel and make a break for it.  What is she talking about?  Why does she just assume...",
+			"Your thoughts can barely catch up to you, the stinging of the cuts on your face from the battle and the branches are so much more immediate than the confusion that trails you like the mist off someone emerging from a hot bath into the cool air.",
+			"You can picture her... a goblin, emerging from the water, looking bashful, but confident... tumescent... and you shut your eyes to block out the image.  This proves unwise for two reasons - the first, that you can still see her in your mind's eye, and the second, that you almost immediately crash into a tree, knocking yourself to the ground.",
+			"You lay on your back, thinking about what the goblin suggested.  Not only did she fully expect for you to ravage her... she even suggested... you can picture her bulge.  You doubt there was a banana hiding under her loincloth.  If she had won...",
+			"You thought that death and dismemberment were par for the course... but... was that goblin just spouting off her own twisted, warped views, or... your sphincter tightens at the thought.",
+			"You close your eyes. This is going to be a long journey.  You exhale slowly, hearing the chirping of birds and the rustling of leaves in the forest... and, thankfully, not the pitter-patter of a goblin coming to make good on her promise."
+		]
+	},	
+	{
+		"key": "STORY-FIGHT-GOBLIN-DEFEAT",
+		"scriptLines": [
+			"...",
+			"..",
+			".",
+			"Inch by inch, it slides into your anus.  You wrists, knees, and cheek lay against the dirt, and you disbelievingly accept it.  You lost to a level 1 goblin.",
+			"Somewhere, in a far off place, brave adventurers are fighting amazing, spectacular battles against dragons, and monsters, and gods.  But, you?",
+			"You feel the wart as they slide in, and you know you're going to feel them as they slide out."
+			"\"Nyahaha!  Gonna breed your butt good!  Gonna fuck you in the ass every night, 'hero'!\"",
+			"\"She\" bottoms out, and you feel them, \"her\" testicles.  Packed with enough semen to give a newly-minted adventurer's bowels a white-washing of shame.",
+			"She makes good on her promise to fuck you in the ass every night.  You're a stone's-throw away from home, but rather than return with the shame, you remain the goblin's undignified, humiliated fucktoy.  She constantly reminds you of your pretensions to herodom... all the while crushing your prostate with her low-level enemy dick.",
+			"You end every night with your balls coated in her semen, and never expect otherwise come the dawn.",
+			"CLASS CHANGE!",
+			"Enchantress -> Goblin Fucktoy",
+			"...",
+			"..",
+			".",
+			"GOBBO DICK OVER."
+		]
+	},	
+	{
+		"key": "OGRE-WARN",
+		"scriptLines": [
+			"You come across an old, wisened man on the side of the road.",
+			"\"Oagh, boy, there's an ogre thataways.\"",
+			"\"What do you mean, there's an ogre 'thataways?' Surely there's more than one way through a forest.\"",
+			"\"Look'n, I'm not a cartographer, y'here?  All I know is, y'wander in that direction, y'll be fartin' ogre cum till the last of yer days.  Heed m' warning or not, I don't figgy care.\"",
+			"He walks away, giving you a rude gesture."
+		]
+	},
+	{
+	"key": "STORY-OGRE",
+		"scriptLines": [
+			"You ignored the old man's warnings - there's no telling how accurate a rumor from a random stranger could possibly be.  The path has been relatively clear thus far... and quiet.",
+			"The air has gotten thick - there's a scent you can pick up that's only getting stronger the more you travel on.",
+			"You hear a loud thud.  Then another.",
+			"The ground begins to shake with each one... whatever it is, it's absolutely huge.", 
+			"You hear a low, deep growling... seems the old man was right after all.",
+			"Is this... a meat gate?",
+			"You're extremely hesitant to continue... an ogre sounds like it's far outside your capabilities at the moment."
+		]
+	},
+	{
+	"key": "STORY-OGRE-DEFEAT",
+		"scriptLines": [
+			"...",
+			"..",
+			".",
+			"The ogre's massive cock bores you into as he lowers you down onto it over and over again.",
+			"The length and girth of it is visible on your abdomen.",
+			"You try to resist, but to little avail - you fling your spunk into the air as you are bounced, full body, onto the ogre's massive schlong.",
+			"It seems, indeed, the ogre was a meat gate... your only miscalculation was what the 'meat' entailed."
+		]
+	},
+	{
+	"key": "STORY-OGRE-AFTER",
+		"scriptLines": [
+			"As he pulls you off, a flood of ogre cum rushes out of you, and you twitch, unable to move under your own power.",
+			"...",
+			"..",
+			".",
+			"GAME OGRE."
+		]
+	},
+	{
+	"key": "STORY-MERCHANT",
+		"scriptLines": [
+			"The merchant smirks at you.  She seems to have something untoward on her mind.",
+			"She offers you a look at her wares, so you take a peak."
+		]
+	},
+	{
+	"key": "STORY-FEM",
+		"scriptLines": [
+			"You come across a fellow traveller on the road, clad in ostentatious armor, riding what appears to be a giant bird.",
+			"As they approach, you think they might be a woman, or a man... and by the time they're within ear-shot, you can't tell.",
+			"\"I'm traveling to some dreadful place called Nadir. I'm told a powerful mage lives there that I must consult. I'll be coming back this way as soon as possible,\" they explain, unbidden.",
+			"\"I'm crossing the mountains to the northeast, on a quest,\" you say, and they nod, seemingly only half-listening as they look down at you.",
+			"\"Good, good. I'll have need of servants.\"   They brush their hair out of their eyes and peer at you.  \"What are you, some kind of... spellsword?\"",
+			"You think about it for a moment.  \"Let's go with that.\"",
+			"\"Hmph.  Magic... it'll turn against you, someday.  Where are you off to?\" they ask, as if you haven't already said.",
+			"You look off, towards the mountains in the distance, barely visible through the treeline - the first major hurdle in your journey. \"I'm going to slay the Demon King.\"",
+			"They nod slowly, then scoff, hiding their chuckle behind a gauntlet.  \"Are you... serious?  Alone?\"",
+			"You stare daggers at them.  \"Yes.  Why?\"",
+			"They draw their sword - a blinding light reflects off the blade and you shield your eyes.  \"You'll never even see the Demon King's gate. If you step foot in demon country at all, it'll be as a slave.  But...\" they say, holding up the point of the blade in your direction, \"...if you join me as a servant, you just might stand a chance.\"",
+			"\"You're... you're also on a quest to slay the Demon King?\"",
+			"They smile, then sheathe their sword again. \"Nothing so pedestrian.  But I may, while I'm on to bigger and better things, make a quick stop at the Demon King's castle.  If I happen to take their head while I'm there, you could bask in some of the residual glory.\"",
+			"\"So... you don't care what happens?  You just want... a trophy?\"",
+			"They sneer.  \"I'm sure you're very different.  A paragon of virtue, destined to make the world a better place.  It's purely coincidence that before you began your quest you were a miserable layabout,\" he says, bitterly.  \"Please, save your sanctimony.  Will you join me, or should I be going?\"",
+			"You shake your head.  They snicker.",
+			"\"Well then.  Maybe next time,\" they say, turning to leave.  You watch them disappear around a bend in the trail, and, feeling a little hurt, continue on your own way."
+		]
+	},	
+	{
+		"key": "CROSSROADS",
+		"scriptLines": [
+			"You come to a crossroads.  There are several signs pointing to various far-off locales, but of particular interest are the two marked \"West Pass\" and \"South Pass\".  Strangely, \"South Pass\" is to the East, and \"West Pass\" is to the North - but you can see the distant breaks in the mountains to the Northeast.",
+			"The pass to the North is less traveled, but shorter - the pass to the east is a long haul, but the mountains in either case aren't particularly treacherous to cross, and the weather is mild.",
+			"Which way will you go?"
+		]
+	},
+	{
+		"key": "WEST-PASS",
+		"scriptLines": [
+			"The west pass.  It's... very westy.  THANKS FOR GETTING THIS FAR GAME IS DEVELOP STILL MANY LOVES IDDDDDDD"
+		]
+	},
+	{
+		"key": "SOUTH-PASS",
+		"scriptLines": [
+			"The south pass.  There's a long journey ahead, but it's not done yet, so have this complimentary crab () . . ()"
+		]
+	},
 	{
 		"key": "TOWN",
 		"scriptLines": [
-			"This is a placeholder for the castle event."
+			"Whoa! Didn't expect you to get here already.  This game is still unfinished, you know?  Anyway, thanks for playing already!  If you ran into any issues, please let Majalis know, either by posting on itch.io, Patreon, or popping into our discord server!  Anyway, keep your eyes out for easter eggs for enterprising players such as yourself!"
 		]
 	},
 	{

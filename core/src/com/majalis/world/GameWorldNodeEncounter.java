@@ -54,6 +54,14 @@ public class GameWorldNodeEncounter {
 						return "Town of Nadir";	
 					case COTTAGE_TRAINER: return "Cottage-on-the-Outskirts";
 					case FIRST_BATTLE_STORY: return "Forest Clearing";
+					case MERI_COTTAGE: return "Witch's Cottage";
+					case ECCENTRIC_MERCHANT: return "Merchant Path";
+					case OGRE_WARNING_STORY: return "Lean-to in the Forest";
+					case OGRE_STORY: return "Forest Pass";
+					case SOUTH_PASS: return "South Pass";
+					case STORY_FEM: return "Unwalked Path";
+					case STORY_SIGN: return "Crossroads";
+					case WEST_PASS: return "West Pass";
 					default: return "Unknown - No Info for encounter #" + encounterCode + " and perception level = " + visibility;
 			}
 			case 2:
@@ -73,7 +81,15 @@ public class GameWorldNodeEncounter {
 					case TOWN2:
 					case TOWN_STORY: return "Town of Nadir";
 					case COTTAGE_TRAINER: return "Cottage-on-the-Outskirts";
-					case FIRST_BATTLE_STORY: return "Forest Clearing - signs of harpies";
+					case FIRST_BATTLE_STORY: return "Forest Clearing - signs of hostile creature";
+					case MERI_COTTAGE: return "Witch's Cottage";
+					case ECCENTRIC_MERCHANT: return "Merchant Path";
+					case OGRE_WARNING_STORY: return "Lean-to in the Forest";
+					case OGRE_STORY: return "Forest Pass";
+					case SOUTH_PASS: return "South Pass";
+					case STORY_FEM: return "Unwalked Path";
+					case STORY_SIGN: return "Crossroads";
+					case WEST_PASS: return "West Pass";
 					default: return "Unknown - No Info for encounter #" + encounterCode  + " and perception level = " + visibility;
 				}
 			default: return "Perception level error.";
@@ -84,7 +100,8 @@ public class GameWorldNodeEncounter {
 		switch (defaultEncounterCode){
 			case TOWN: return "Town of Silajam (visited)";
 			case TOWN2: return "Town of Nadir (visited)";
-			case COTTAGE_TRAINER: return "Cottage-on-the-Outskirts (visited)";
+			case COTTAGE_TRAINER_VISIT: return "Cottage-on-the-Outskirts (visited)";
+			case MERI_COTTAGE_VISIT: return "Witch's Cottage (visited)";
 			default: return "Nothing here.";
 		}
 	}

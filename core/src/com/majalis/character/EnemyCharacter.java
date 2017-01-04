@@ -83,7 +83,8 @@ public class EnemyCharacter extends AbstractCharacter {
 				}
 				break;
 			case GOBLIN:
-				baseStrength = 4;
+				baseStrength = 6;
+				baseEndurance = 6;
 				bgPath = AssetEnum.ENCHANTED_FOREST_BG.getPath();
 				imagePath = AssetEnum.GOBLIN.getPath();
 				textureImagePaths.put(Stance.FACE_SITTING.toString(), AssetEnum.GOBLIN_FACE_SIT.getPath());
@@ -340,7 +341,9 @@ public class EnemyCharacter extends AbstractCharacter {
 			randomWeighting.add(ii);
 		}
 		switch (enemyType){
-			case WERESLUT: randomWeighting.add(-1); break;
+			case WERESLUT:
+			case GOBLIN:
+				randomWeighting.add(-1); break;
 			case BRIGAND: randomWeighting.add(0); randomWeighting.add(1); break;
 			default: break;
 		}

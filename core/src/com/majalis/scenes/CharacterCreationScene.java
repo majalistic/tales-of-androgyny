@@ -43,14 +43,14 @@ public class CharacterCreationScene extends Scene {
 	private TextButton enchanterButton;
 	
 	// needs a done button, as well as other interface elements
-	public CharacterCreationScene(OrderedMap<Integer, Scene> sceneBranches, int sceneCode, final SaveService saveService, BitmapFont font, Background background, AssetManager assetManager, final PlayerCharacter character, boolean story) {
+	public CharacterCreationScene(OrderedMap<Integer, Scene> sceneBranches, int sceneCode, final SaveService saveService, BitmapFont font, Background background, AssetManager assetManager, final PlayerCharacter character, final boolean story) {
 		super(sceneBranches, sceneCode);
 		this.saveService = saveService;
 		this.font = font;
 		this.character = character;
 		this.addActor(background);
 
-		statPoints = 3;
+		statPoints = story ? 1 : 3;
 		statMap = resetObjectMap();
 		
 		Skin skin = assetManager.get(AssetEnum.UI_SKIN.getPath(), Skin.class);
@@ -143,7 +143,7 @@ public class CharacterCreationScene extends Scene {
 						statMessage = "";
 					}
 					else {
-						if (currentStatAllocation <= -1){
+						if (currentStatAllocation <= (story ? 0 : -1)){
 							statMessage = "Your " + stat.toString() + " is at minimum!\nIt cannot be lowered.";
 						}
 						else {
@@ -176,7 +176,9 @@ public class CharacterCreationScene extends Scene {
 				button.addListener(new ClickListener() {
 					@Override
 			        public void clicked(InputEvent event, float x, float y) {
-						buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
+						if (!story){
+							buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
+						}
 						classMessage = "You are now " + getJobClass(jobClass) + ".\n"
 										+ getClassFeatures(jobClass);
 						statGroup.removeAction(Actions.hide());
@@ -186,7 +188,7 @@ public class CharacterCreationScene extends Scene {
 						if (statPoints == 0){
 							removeActor(done);
 						}
-						statPoints = 3;
+						statPoints = story ? 1 : 3;
 						statMap = resetObjectMap();
 						addActor(statTable);
 			        }
@@ -197,6 +199,11 @@ public class CharacterCreationScene extends Scene {
 				enchanterButton = button;
 			}
 		}
+		
+		if (story) {
+			character.setBaseDefense(2);
+		}
+		
 		table.setPosition(488, 488);
 	}
 
@@ -283,6 +290,12 @@ public class CharacterCreationScene extends Scene {
 		this.addAction(Actions.show());
 		this.setBounds(0, 0, 2000, 2000);
 		
+		saveService.saveDataValue(SaveEnum.SCENE_CODE, sceneCode);
+	}
+	
+	@Override
+	public void act(float delta) {
+		super.act(delta);
 		if (enchanterButton != null){
 			InputEvent event1 = new InputEvent();
 	        event1.setType(InputEvent.Type.touchDown);
@@ -290,9 +303,8 @@ public class CharacterCreationScene extends Scene {
 	        InputEvent event2 = new InputEvent();
 	        event2.setType(InputEvent.Type.touchUp);
 	        enchanterButton.fire(event2);
+	        enchanterButton = null;
 		}
-		
-		saveService.saveDataValue(SaveEnum.SCENE_CODE, sceneCode);
 	}
 	
 	private void nextScene() {

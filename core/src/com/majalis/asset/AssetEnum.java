@@ -78,6 +78,7 @@ public enum AssetEnum {
 	
 	SHOPKEEP("characters/AppleKeep.png"),
 	TRAINER("characters/HeavyTrainer1.png"),
+	MERI_SILHOUETTE("characters/Witch.png"),
 	SILHOUETTE("characters/Silhouette.png"),
 	
 	AIRBORNE("stances/Airborne.png"),
@@ -114,7 +115,7 @@ public enum AssetEnum {
 	
 	GAME_OVER_GAPE("GameOverButt.jpg"),
 	GAME_OVER_TUCKERED("GameOverTuckered.jpg"),
-	
+	GAME_OGRE("PostOgre.jpg"),
 	// sounds
 	BUTTON_SOUND("sound.wav"),
 	CLICK_SOUND("node_sound.wav"),
@@ -132,6 +133,7 @@ public enum AssetEnum {
 	INCANTATION("sounds/Incantation.wav"),
 	THWAPPING("sounds/Thwapping.wav"),
 	SMUG_LAUGH("sounds/FemaleSmugLaugh.wav"),
+	OGRE("sounds/Ogre.wav"),
 	// music
 	MAIN_MENU_MUSIC("music/MainMenuMusic.mp3"),
 	ENCOUNTER_MUSIC("music/EncounterMusic.mp3"),
@@ -139,6 +141,7 @@ public enum AssetEnum {
 	TRAINER_MUSIC("music/TrainerMusic.mp3"),
 	HOVEL_MUSIC("music/HovelMusic.mp3"),
 	WEREWOLF_MUSIC("music/WerewolfMusic.mp3"),
+	HEAVY_MUSIC("music/Mechanolith.mp3"),
 	WORLD_MAP_MUSIC("music/WorldMapMusic.mp3"),
 	BATTLE_MUSIC("music/BattleMusic.mp3"),
 	WAVES("music/Waves.wav")

@@ -128,8 +128,6 @@ public class EncounterScreen extends AbstractScreen {
 				requirements.put(AssetEnum.WEREWOLF_MUSIC.getPath(), Music.class);
 				requirements.put(AssetEnum.WEREBITCH.getPath(), Texture.class);
 				break;
-			case FIRST_BATTLE_STORY:
-				requirements.put(AssetEnum.FOREST_BG.getPath(), Texture.class);
 			case HARPY:
 				requirements.put(AssetEnum.HARPY.getPath(), Texture.class);
 				requirements.put(AssetEnum.HARPY_FELLATIO.getPath(), Texture.class);
@@ -150,6 +148,8 @@ public class EncounterScreen extends AbstractScreen {
 				requirements.put(AssetEnum.CENTAUR.getPath(), Texture.class);
 				requirements.put(AssetEnum.UNICORN.getPath(), Texture.class);
 				break;
+			case FIRST_BATTLE_STORY:
+				requirements.put(AssetEnum.FOREST_BG.getPath(), Texture.class);
 			case GOBLIN:
 				requirements.put(AssetEnum.GOBLIN.getPath(), Texture.class);
 				requirements.put(AssetEnum.GAME_OVER_TUCKERED.getPath(), Texture.class);
@@ -178,8 +178,28 @@ public class EncounterScreen extends AbstractScreen {
 			case SHOP:
 				requirements.putAll(TownScreen.resourceRequirements);
 				break;	
+			case OGRE_WARNING_STORY:
+				requirements.put(AssetEnum.TRAINER_MUSIC.getPath(), Music.class);
+				break;
+			case OGRE_STORY:
+				requirements.put(AssetEnum.GAME_OGRE.getPath(), Texture.class);
+				requirements.put(AssetEnum.OGRE.getPath(), Sound.class);
+				requirements.put(AssetEnum.WEREWOLF_MUSIC.getPath(), Music.class);
+				requirements.put(AssetEnum.HEAVY_MUSIC.getPath(), Music.class);
+				break;
+			case MERI_COTTAGE:
+				requirements.put(AssetEnum.MERI_SILHOUETTE.getPath(), Texture.class);
+				requirements.put(AssetEnum.CABIN_BACKGROUND.getPath(), Texture.class);
+				requirements.put(AssetEnum.TRAINER_MUSIC.getPath(), Music.class);
+				requirements.put(AssetEnum.WEREWOLF_MUSIC.getPath(), Music.class);	
+				break;
+			case MERI_COTTAGE_VISIT:
+				requirements.put(AssetEnum.CABIN_BACKGROUND.getPath(), Texture.class);
+				requirements.put(AssetEnum.TRAINER_MUSIC.getPath(), Music.class);
+				break;
 			case CAMP_AND_EAT:
 				requirements.put(AssetEnum.SHOP_MUSIC.getPath(), Music.class);
+				break;
 			case STARVATION:
 				requirements.put(AssetEnum.GAME_OVER_TUCKERED.getPath(), Texture.class);
 				requirements.put(AssetEnum.WEREWOLF_MUSIC.getPath(), Music.class);

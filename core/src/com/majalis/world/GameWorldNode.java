@@ -91,6 +91,8 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 		visibility = -1;
 	}
 	
+	protected int getNodeCode(){ return nodeCode; }
+	
 	private Texture getNodeTexture(EncounterCode encounterCode){
 		return assetManager.get(encounterCode.getTexturePath(), Texture.class);
 	}

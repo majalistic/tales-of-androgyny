@@ -652,4 +652,8 @@ public class PlayerCharacter extends AbstractCharacter {
 		weapon = (Weapon) item;
 		return "You equipped the " + item.getName() + ".";
 	}
+	
+	public void setBaseDefense(int defense) {
+		baseDefense = defense;
+	}
 }

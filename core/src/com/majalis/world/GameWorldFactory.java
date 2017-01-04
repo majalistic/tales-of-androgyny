@@ -73,15 +73,34 @@ public class GameWorldFactory {
 					.buildZone();
 		}
 		else {
-			addNode(getNode(1, DEFAULT, DEFAULT, new Vector2(500, 500), true), 1, nodes);
-			addNode(getNode(2, COTTAGE_TRAINER, COTTAGE_TRAINER_VISIT, new Vector2(600, 600), false), 2, nodes);
-			addNode(getNode(3, TOWN_STORY, TOWN2, new Vector2(700, 700), false), 3, nodes);
-			addNode(getNode(4, FIRST_BATTLE_STORY, DEFAULT, new Vector2(800, 800), false), 4, nodes);
+			int nodeCode = 1;
+			addNode(getNode(nodeCode++, DEFAULT, DEFAULT, new Vector2(-200, 300), true), nodes);
+			addNode(getNode(nodeCode++, COTTAGE_TRAINER, COTTAGE_TRAINER_VISIT, new Vector2(-50, 285), false), nodes);
+			addNode(getNode(nodeCode++, TOWN_STORY, TOWN2, new Vector2(145, 350), false), nodes);
+			addNode(getNode(nodeCode++, FIRST_BATTLE_STORY, DEFAULT, new Vector2(325, 480), false), nodes);
+			addNode(getNode(nodeCode++, EncounterCode.MERI_COTTAGE, EncounterCode.MERI_COTTAGE_VISIT, new Vector2(350, 270), false), nodes);
+			addNode(getNode(nodeCode++, EncounterCode.ECCENTRIC_MERCHANT, DEFAULT, new Vector2(555, 450), false), nodes);	
+			addNode(getNode(nodeCode++, EncounterCode.STORY_FEM, DEFAULT, new Vector2(545, 590), false), nodes);
+			addNode(getNode(nodeCode++, EncounterCode.STORY_SIGN, DEFAULT, new Vector2(790, 530), false), nodes);
+			addNode(getNode(nodeCode++, EncounterCode.WEST_PASS, DEFAULT, new Vector2(820, 770), false), nodes);
+			addNode(getNode(nodeCode++, EncounterCode.SOUTH_PASS, DEFAULT, new Vector2(1040, 460), false), nodes);
 			
-			new Zone(saveService, loadService, font, assetManager, random, nodes, nodeMap, 1)
-					.addStartNode(nodes.get(nodes.size-1))
-					.addEndNode(1000, TOWN, TOWN, new Vector2(1000, 1000))
-					.buildZone();
+			addNode(getNode(nodeCode++, EncounterCode.OGRE_WARNING_STORY, DEFAULT, new Vector2(180, 675), false), nodes);	
+			addNode(getNode(nodeCode++, EncounterCode.OGRE_STORY, DEFAULT, new Vector2(150, 875), false), nodes);
+			
+			new Zone(saveService, loadService, font, assetManager, random, nodes, nodeMap, 2)
+				.addStartNode(nodes.get(nodes.size-1))
+				.addEndNode(1003, FORT, FORT, new Vector2(240, 1400))
+				.buildZone();
+			
+			
+			for (int ii = 0; ii < nodes.size-1; ii++){
+				for (int jj = ii + 1; jj < nodes.size; jj++){
+					if (nodes.get(ii).isAdjacent(nodes.get(jj))){
+						nodes.get(ii).connectTo(nodes.get(jj));
+					}
+				}
+			}
 		}
 		
 		nodeMap.get((Integer)loadService.loadDataValue(SaveEnum.NODE_CODE, Integer.class)).setAsCurrentNode();
@@ -89,11 +108,11 @@ public class GameWorldFactory {
 		return new GameWorld(nodes);
 	}
 	
-	private void addNode(GameWorldNode newNode, int nodeCode, @SuppressWarnings("unchecked") Array<GameWorldNode> ... nodes){
+	private void addNode(GameWorldNode newNode, @SuppressWarnings("unchecked") Array<GameWorldNode> ... nodes){
 		for (Array<GameWorldNode> nodeArray: nodes){
 			nodeArray.add(newNode);
 		}
-		nodeMap.put(nodeCode, newNode);
+		nodeMap.put(newNode.getNodeCode(), newNode);
 	}
 	
 	private GameWorldNode getNode(int nodeCode, EncounterCode initialEncounter, EncounterCode defaultEncounter, Vector2 position, boolean visited){
