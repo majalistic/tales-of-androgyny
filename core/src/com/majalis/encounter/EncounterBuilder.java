@@ -804,13 +804,7 @@ public class EncounterBuilder {
 						getScript("STORY-003A"), font, trainerBackground, 
 						getCharacterCreationScene(
 							smallFont, getClassSelectBackground(), assetManager, character, true,
-							getSkillSelectionScene(
-								smallFont, getClassSelectBackground(), assetManager, character, 
-								getCharacterCustomizationScene(
-									smallFont, getClassSelectBackground(), assetManager, character, 
-									getEndScene(EndScene.Type.ENCOUNTER_OVER)
-								)
-							)
+							getEndScene(EndScene.Type.ENCOUNTER_OVER)
 						)
 					)
 				);
