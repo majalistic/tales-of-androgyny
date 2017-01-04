@@ -903,7 +903,7 @@ public class EncounterBuilder {
 					getChoiceScene(
 						assetManager, "Continue on?", getArray(new String[]{"Press On", "Turn back"}), 
 						getTextScenes(
-							getScript("STORY-OGRE-DEFEAT"), font, background, new Array<Mutation>(), AssetEnum.HEAVY_MUSIC.getPath(), new Array<String>(new String[]{null, null, null, AssetEnum.OGRE.getPath()}),
+							getScript("STORY-OGRE-DEFEAT"), font, background, new Array<Mutation>(), AssetEnum.HEAVY_MUSIC.getPath(), new Array<String>(new String[]{null, null, null, AssetEnum.OGRE.getPath(), null, null, null, null, null, AssetEnum.OGRE.getPath(), null, null, AssetEnum.OGRE.getPath()}),
 							getTextScenes(
 								getScript("STORY-OGRE-AFTER"), font, ogreBackground,
 								getEndScene(EndScene.Type.GAME_OVER)	
