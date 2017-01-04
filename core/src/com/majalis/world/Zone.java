@@ -94,7 +94,7 @@ public class Zone {
 					// save the position for the next iteration
 					currentNodePosition = newNodePosition;
 					
-					GameWorldNode newNode = getNode(nodeCode, EncounterCode.getEncounterCode(getEncounterCodeForNode(nodeCode)), EncounterCode.DEFAULT, currentNodePosition, visitedCodesSet.contains(nodeCode) ? true : false);
+					GameWorldNode newNode = getNode(nodeCode, EncounterCode.getEncounterCode(getEncounterCodeForNode(nodeCode)), EncounterCode.DEFAULT, currentNodePosition, visitedCodesSet.contains(nodeCode));
 					addNode(newNode, nodeCode, nodes);
 					// if we've reached the target node, we can terminate this run-through
 					nodeNotReached = !requiredNode.isAdjacent(newNode);

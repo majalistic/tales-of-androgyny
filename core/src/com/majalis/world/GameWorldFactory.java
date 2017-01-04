@@ -10,6 +10,7 @@ import com.badlogic.gdx.math.RandomXS128;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.IntMap;
+import com.badlogic.gdx.utils.IntSet;
 import com.majalis.asset.AssetEnum;
 import com.majalis.character.PlayerCharacter;
 import com.majalis.encounter.EncounterCode;
@@ -74,25 +75,25 @@ public class GameWorldFactory {
 		}
 		else {
 			int nodeCode = 1;
-			addNode(getNode(nodeCode++, DEFAULT, DEFAULT, new Vector2(-200, 300), true), nodes);
-			addNode(getNode(nodeCode++, COTTAGE_TRAINER, COTTAGE_TRAINER_VISIT, new Vector2(-50, 285), false), nodes);
-			addNode(getNode(nodeCode++, TOWN_STORY, TOWN2, new Vector2(145, 350), false), nodes);
-			addNode(getNode(nodeCode++, FIRST_BATTLE_STORY, DEFAULT, new Vector2(325, 480), false), nodes);
-			addNode(getNode(nodeCode++, EncounterCode.MERI_COTTAGE, EncounterCode.MERI_COTTAGE_VISIT, new Vector2(350, 270), false), nodes);
-			addNode(getNode(nodeCode++, EncounterCode.ECCENTRIC_MERCHANT, DEFAULT, new Vector2(555, 450), false), nodes);	
-			addNode(getNode(nodeCode++, EncounterCode.STORY_FEM, DEFAULT, new Vector2(545, 590), false), nodes);
-			addNode(getNode(nodeCode++, EncounterCode.STORY_SIGN, DEFAULT, new Vector2(790, 530), false), nodes);
-			addNode(getNode(nodeCode++, EncounterCode.WEST_PASS, DEFAULT, new Vector2(820, 770), false), nodes);
-			addNode(getNode(nodeCode++, EncounterCode.SOUTH_PASS, DEFAULT, new Vector2(1040, 460), false), nodes);
+			IntSet visitedCodesSet = loadService.loadDataValue(SaveEnum.VISITED_LIST, IntSet.class);
+			addNode(getNode(nodeCode, DEFAULT, DEFAULT, new Vector2(-200, 300), visitedCodesSet.contains(nodeCode++)), nodes);
+			addNode(getNode(nodeCode, COTTAGE_TRAINER, COTTAGE_TRAINER_VISIT, new Vector2(-50, 285), visitedCodesSet.contains(nodeCode++)), nodes);
+			addNode(getNode(nodeCode, TOWN_STORY, TOWN2, new Vector2(145, 350), visitedCodesSet.contains(nodeCode++)), nodes);
+			addNode(getNode(nodeCode, FIRST_BATTLE_STORY, DEFAULT, new Vector2(325, 480), visitedCodesSet.contains(nodeCode++)), nodes);
+			addNode(getNode(nodeCode, EncounterCode.MERI_COTTAGE, EncounterCode.MERI_COTTAGE_VISIT, new Vector2(350, 270), visitedCodesSet.contains(nodeCode++)), nodes);
+			addNode(getNode(nodeCode, EncounterCode.ECCENTRIC_MERCHANT, DEFAULT, new Vector2(555, 450), visitedCodesSet.contains(nodeCode++)), nodes);	
+			addNode(getNode(nodeCode, EncounterCode.STORY_FEM, DEFAULT, new Vector2(545, 590), visitedCodesSet.contains(nodeCode++)), nodes);
+			addNode(getNode(nodeCode, EncounterCode.STORY_SIGN, DEFAULT, new Vector2(790, 530), visitedCodesSet.contains(nodeCode++)), nodes);
+			addNode(getNode(nodeCode, EncounterCode.WEST_PASS, DEFAULT, new Vector2(820, 770), visitedCodesSet.contains(nodeCode++)), nodes);
+			addNode(getNode(nodeCode, EncounterCode.SOUTH_PASS, DEFAULT, new Vector2(1040, 460), visitedCodesSet.contains(nodeCode++)), nodes);
 			
-			addNode(getNode(nodeCode++, EncounterCode.OGRE_WARNING_STORY, DEFAULT, new Vector2(180, 675), false), nodes);	
-			addNode(getNode(nodeCode++, EncounterCode.OGRE_STORY, DEFAULT, new Vector2(150, 875), false), nodes);
+			addNode(getNode(nodeCode, EncounterCode.OGRE_WARNING_STORY, DEFAULT, new Vector2(180, 675), visitedCodesSet.contains(nodeCode++)), nodes);	
+			addNode(getNode(nodeCode, EncounterCode.OGRE_STORY, DEFAULT, new Vector2(150, 875), visitedCodesSet.contains(nodeCode++)), nodes);
 			
 			new Zone(saveService, loadService, font, assetManager, random, nodes, nodeMap, 2)
 				.addStartNode(nodes.get(nodes.size-1))
 				.addEndNode(1003, FORT, FORT, new Vector2(240, 1400))
 				.buildZone();
-			
 			
 			for (int ii = 0; ii < nodes.size-1; ii++){
 				for (int jj = ii + 1; jj < nodes.size; jj++){
