@@ -140,7 +140,8 @@ public class EnemyCharacter extends AbstractCharacter {
 	
 	private Array<Technique> getPossibleTechniques(AbstractCharacter target, Stance stance){
 		
-		if (enemyType == EnemyEnum.SLIME && stance != Stance.DOGGY && stance != Stance.FELLATIO && stance != Stance.SUPINE && stance != Stance.PRONE && stance != Stance.COWGIRL && stance != Stance.STANDING && stance != Stance.HANDY){
+		if (enemyType == EnemyEnum.SLIME && stance != Stance.DOGGY && stance != Stance.FELLATIO && stance != Stance.SUPINE && stance != Stance.PRONE && stance != Stance.COWGIRL && stance != Stance.STANDING && stance != Stance.HANDY
+				&& stance != Stance.FACE_SITTING && stance != Stance.SIXTY_NINE) {
 			return getTechniques(Techniques.SLIME_ATTACK, Techniques.SLIME_QUIVER); 			
 		}
 		

@@ -302,7 +302,9 @@ public abstract class AbstractCharacter extends Actor {
 	}
 	
 	protected boolean alreadyIncapacitated(){
-		return stance == Stance.PRONE || stance == Stance.SUPINE || stance == Stance.FELLATIO || stance == Stance.DOGGY || stance == Stance.ANAL || stance == Stance.KNOTTED || stance == Stance.COWGIRL || stance == Stance.STANDING;
+		return 
+			stance == Stance.PRONE || stance == Stance.SUPINE || stance == Stance.FELLATIO || stance == Stance.DOGGY || stance == Stance.ANAL || stance == Stance.KNOTTED || stance == Stance.COWGIRL || 
+			stance == Stance.STANDING || stance == Stance.FACE_SITTING || stance == Stance.SIXTY_NINE;
 	}
 	
 	public Attack doAttack(Attack resolvedAttack) {
