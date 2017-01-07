@@ -174,9 +174,10 @@ public class EncounterBuilder {
 					getTextScenes( 
 						getScript(encounterCode, 1), font, werebitchBackground, 
 						getBattleScene(
-							saveService, battleCode, 
+							saveService, battleCode, new Array<Outcome>(new Outcome[]{Outcome.VICTORY, Outcome.KNOT, Outcome.DEFEAT}), 
 							getTextScenes(getArray(new String[]{"You defeated the werebitch!", "You receive 2 Experience."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.EXPERIENCE, 2)}), getEndScene(EndScene.Type.ENCOUNTER_OVER)),
-							getTextScenes(getScript(encounterCode, 2), font, werebitchBackground, getArray(new Mutation[]{virginityToFalse}), AssetEnum.WEREWOLF_MUSIC.getPath(), new Array<String>(), getEndScene(EndScene.Type.GAME_OVER))				
+							getTextScenes(getScript(encounterCode, 2), font, werebitchBackground, getArray(new Mutation[]{virginityToFalse}), AssetEnum.WEREWOLF_MUSIC.getPath(), new Array<String>(), getEndScene(EndScene.Type.GAME_OVER)),
+							getTextScenes(getScript(encounterCode, 3), font, werebitchBackground, getArray(new Mutation[]{virginityToFalse}), AssetEnum.WEREWOLF_MUSIC.getPath(), new Array<String>(), getEndScene(EndScene.Type.ENCOUNTER_OVER))
 						)
 					)
 				);		

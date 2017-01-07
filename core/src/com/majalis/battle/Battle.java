@@ -110,8 +110,7 @@ public class Battle extends Group{
 	private boolean battleOver;
 	
 	public enum Outcome {
-		VICTORY,
-		DEFEAT
+		VICTORY, DEFEAT, KNOT
 	}
 	
 	public Battle(SaveService saveService, AssetManager assetManager, BitmapFont font, PlayerCharacter character, EnemyCharacter enemy, ObjectMap<String, Integer> outcomes, Background battleBackground, Background battleUI, String consoleText){
@@ -454,9 +453,11 @@ public class Battle extends Group{
 			mouthPop.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume"));
 		}
 		
+		// this needs to be secondCharacter.getOutcome() or something similar
 		if (secondCharacter.getBattleOver() >= 5){
 			battleOutcomeDecided = true;
-			outcome = Outcome.DEFEAT; // should be outcome 'knotted'
+			outcome = Outcome.KNOT; 
+			skillDisplay.setText("You've been knotted!!!\nYou are at her whims, now.");
 		}
 		
 		console.setText(consoleText);
