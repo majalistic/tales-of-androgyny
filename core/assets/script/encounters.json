@@ -640,6 +640,13 @@
 		]
 	},
 	{
+		"key": "000-04",
+		"scriptLines": [
+			"She seems content.  Her dangling genitalia are no longer aroused, which gives you a sense of ease that you otherwise don't feel; after all, you did just swallow all of her runny wolf cum.",
+			"She saunters off, in a daze."
+		]
+	},
+	{
 		"key": "001-00",
 		"scriptLines": [
 			"You look around. There don't appear to be any harpies here.", "That being said, there's a rather pungent scent in the air, and you've been hearing squawks and the flappings of tremendous wings for a while.", "You look up and behind you to try to spot the source, but the sky is empty - however, when you turn back, you can plainly see a figure approaching rapidly, talons extended!"
@@ -698,6 +705,12 @@
 			"*SCREEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEECH*", 
 			"*SPLURT, SPLURT*",
 			"Bad End."
+		]
+	},		
+	{
+		"key": "001-05",
+		"scriptLines": [
+			"The harpy seems satisfied."
 		]
 	},		
 	{
@@ -1061,6 +1074,12 @@
 			"After emptying her nutsack in a torrent of semen into your face, she simply hoists up her pants, glances sideways at you, doubled-over, drooling it out in thick globs onto the floor, and then saunters off into the forest, her goal complete.",			
 			"Finally coming back to your senses, you cough and spit up what you can of the nasty, thick stuff at the base of a tree, wiping your mouth clean with your sleeve, though its coated in saliva and her cum and precum - a real mess.  You clean it up as best you can, and spit it up as best you can, but there's still a few load's worth bubbling in your stomach, which is very upset about your choice of meal.",
 			"With the brigand's greasy lust weighing heavily in your gut, you rest to heal your wounds, feeling particularly nauseous about the whole affair."
+		]
+	},
+	{
+		"key": "003-15",
+		"scriptLines": [
+			"Having drained her load in you, the Brigand seems satisfied.  She sheathes her weapon, and also puts away her sword, and leaves you to puzzle out what do with all of her semen."
 		]
 	},
 	{

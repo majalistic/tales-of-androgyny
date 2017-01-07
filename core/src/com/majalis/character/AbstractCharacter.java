@@ -55,7 +55,7 @@ public abstract class AbstractCharacter extends Actor {
 	
 	protected int lust; 
 	protected int struggle;
-	protected int battleOver;
+	protected int knotInflate;
 	
 	protected Weapon weapon;
 	// public Shield shield;
@@ -180,8 +180,6 @@ public abstract class AbstractCharacter extends Actor {
 	}
 	
 	public int getStability(){ return stability; }
-	
-	public int getBattleOver(){ return battleOver; }
 	
 	public int getLust(){ return lust; }
 	
@@ -365,14 +363,14 @@ public abstract class AbstractCharacter extends Actor {
 			resolvedAttack.addMessage("You receive a faceful of ass!");
 		}
 		else if (resolvedAttack.getForceStance() == Stance.KNOTTED){
-			if (battleOver == 0){
+			if (knotInflate == 0){
 				resolvedAttack.addMessage("Her powerful hips try to force something big inside!");
 				resolvedAttack.addMessage("You struggle... but can't escape!");
 				resolvedAttack.addMessage("Her grapefruit-sized knot slips into your rectum!  You take 4 damage!");
 				resolvedAttack.addMessage("You learned about Anatomy(Wereslut)! You are being bred!");
 				resolvedAttack.addMessage("Your anus is permanently stretched!");
 			}
-			else if (battleOver < 3){
+			else if (knotInflate < 3){
 				resolvedAttack.addMessage("Her tremendous knot is still lodged in your rectum!");
 				resolvedAttack.addMessage("You can't dislodge it; it's too large!");
 				resolvedAttack.addMessage("You're drooling!");
@@ -383,7 +381,7 @@ public abstract class AbstractCharacter extends Actor {
 				resolvedAttack.addMessage("You are about to be bred like a bitch!");
 				resolvedAttack.addMessage("She's going to ejaculate her runny dog cum in your bowels!");	
 			}
-			battleOver++;
+			knotInflate++;
 		}
 		// all climax logic should go here
 		if (resolvedAttack.isClimax()){

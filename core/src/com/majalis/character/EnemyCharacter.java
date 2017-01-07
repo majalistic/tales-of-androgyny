@@ -15,6 +15,7 @@ import com.esotericsoftware.spine.SkeletonData;
 import com.esotericsoftware.spine.SkeletonJson;
 import com.esotericsoftware.spine.SkeletonMeshRenderer;
 import com.majalis.asset.AssetEnum;
+import com.majalis.battle.Battle.Outcome;
 import com.majalis.battle.BattleFactory.EnemyEnum;
 
 /*
@@ -32,6 +33,7 @@ public class EnemyCharacter extends AbstractCharacter {
 	private ObjectMap<String, String> textureImagePaths;
 	private String bgPath;
 	private int holdLength;
+	private int climaxCounter;
 	
 	@SuppressWarnings("unused")
 	private EnemyCharacter(){}
@@ -130,7 +132,10 @@ public class EnemyCharacter extends AbstractCharacter {
 				struggle = 0;
 				resolvedAttack.addMessage("They're about to buck you off!");
 			}
-		}	
+		}
+		if (resolvedAttack.isSuccessful() && resolvedAttack.isClimax()){
+			climaxCounter++;
+		}
 		return super.doAttack(resolvedAttack);
 	}
 	
@@ -453,4 +458,43 @@ public class EnemyCharacter extends AbstractCharacter {
 		}
 	}
 	
+	public Outcome getOutcome(AbstractCharacter enemy) {
+		if (currentHealth <= 0) return Outcome.VICTORY;
+		else if (enemy.getCurrentHealth() <= 0) return Outcome.DEFEAT;
+		switch(enemyType) {
+			case BRIGAND:
+				if (climaxCounter >= 3) return Outcome.SATISFIED;
+				break;
+			case CENTAUR:
+				if (climaxCounter >= 1) return Outcome.SATISFIED;
+				break;
+			case GOBLIN:
+				break;
+			case HARPY:
+				if (climaxCounter >= 3) return Outcome.SATISFIED;
+				break;
+			case SLIME:
+				break;
+			case UNICORN:
+				break;
+			case WERESLUT:
+				if (climaxCounter >= 3) return Outcome.SATISFIED;
+				if (knotInflate >= 5) return Outcome.KNOT;
+				break;
+			default:
+		
+		}
+		return null;
+	}
+	
+	public String getOutcomeText(AbstractCharacter enemy) {
+		switch (getOutcome(enemy)) {
+			case KNOT: return "You've been knotted!!!\nYou are at her whims, now.";
+			case SATISFIED: return "She seems satisfied. She's no longer hostile.";
+			case DEFEAT: return enemy.getDefeatMessage();
+			case VICTORY: return getDefeatMessage();
+		}
+		
+		return null;
+	}
 } 

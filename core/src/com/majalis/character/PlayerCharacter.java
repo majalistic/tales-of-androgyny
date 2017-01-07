@@ -72,7 +72,6 @@ public class PlayerCharacter extends AbstractCharacter {
 			setGoblinVirginity(true);
 			a2m = false;
 			a2mcheevo = false;
-			battleOver = 0;
 			phallus = PhallusType.SMALL;	
 			// this needs to be refactored - need "current defense" and for refresh method to set to max
 			baseDefense = 6;
@@ -324,7 +323,6 @@ public class PlayerCharacter extends AbstractCharacter {
 		setManaToMax();
 		stance = Stance.BALANCED;
 		a2m = false;
-		battleOver = 0;
 		buttful = 0;
 		mouthful = 0;
 		baseDefense = 6;

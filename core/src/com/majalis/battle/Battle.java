@@ -110,7 +110,7 @@ public class Battle extends Group{
 	private boolean battleOver;
 	
 	public enum Outcome {
-		VICTORY, DEFEAT, KNOT
+		VICTORY, DEFEAT, KNOT, SATISFIED
 	}
 	
 	public Battle(SaveService saveService, AssetManager assetManager, BitmapFont font, PlayerCharacter character, EnemyCharacter enemy, ObjectMap<String, Integer> outcomes, Background battleBackground, Background battleUI, String consoleText){
@@ -454,10 +454,11 @@ public class Battle extends Group{
 		}
 		
 		// this needs to be secondCharacter.getOutcome() or something similar
-		if (secondCharacter.getBattleOver() >= 5){
+		Outcome battleOutcome = ((EnemyCharacter) secondCharacter).getOutcome(firstCharacter);
+		if (battleOutcome != null){
 			battleOutcomeDecided = true;
-			outcome = Outcome.KNOT; 
-			skillDisplay.setText("You've been knotted!!!\nYou are at her whims, now.");
+			outcome = battleOutcome; 
+			skillDisplay.setText(((EnemyCharacter) secondCharacter).getOutcomeText(firstCharacter));
 		}
 		
 		console.setText(consoleText);

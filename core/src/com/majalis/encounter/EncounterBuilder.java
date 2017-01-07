@@ -163,6 +163,7 @@ public class EncounterBuilder {
 		Background background = getDefaultTextBackground();
 		Mutation virginityToFalse = new Mutation(saveService, SaveEnum.VIRGIN, false);
 		Mutation goblinVirginityToFalse = new Mutation(saveService, SaveEnum.GOBLIN_VIRGIN, false);
+		Array<Outcome> normalOutcomes = new Array<Outcome>(new Outcome[]{Outcome.VICTORY, Outcome.DEFEAT, Outcome.SATISFIED});
 		
 		// if there isn't already a battlecode set, it's determined by the encounterCode; for now, that means dividing the various encounters up by modulus
 		if (battleCode == -1) battleCode = encounterCode.getBattleCode();
@@ -174,10 +175,11 @@ public class EncounterBuilder {
 					getTextScenes( 
 						getScript(encounterCode, 1), font, werebitchBackground, 
 						getBattleScene(
-							saveService, battleCode, new Array<Outcome>(new Outcome[]{Outcome.VICTORY, Outcome.KNOT, Outcome.DEFEAT}), 
+							saveService, battleCode, new Array<Outcome>(new Outcome[]{Outcome.VICTORY, Outcome.KNOT, Outcome.DEFEAT, Outcome.SATISFIED}), 
 							getTextScenes(getArray(new String[]{"You defeated the werebitch!", "You receive 2 Experience."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.EXPERIENCE, 2)}), getEndScene(EndScene.Type.ENCOUNTER_OVER)),
 							getTextScenes(getScript(encounterCode, 2), font, werebitchBackground, getArray(new Mutation[]{virginityToFalse}), AssetEnum.WEREWOLF_MUSIC.getPath(), new Array<String>(), getEndScene(EndScene.Type.GAME_OVER)),
-							getTextScenes(getScript(encounterCode, 3), font, werebitchBackground, getArray(new Mutation[]{virginityToFalse}), AssetEnum.WEREWOLF_MUSIC.getPath(), new Array<String>(), getEndScene(EndScene.Type.ENCOUNTER_OVER))
+							getTextScenes(getScript(encounterCode, 3), font, werebitchBackground, getArray(new Mutation[]{}), AssetEnum.WEREWOLF_MUSIC.getPath(), new Array<String>(), getEndScene(EndScene.Type.ENCOUNTER_OVER)),
+							getTextScenes(getScript(encounterCode, 4), font, werebitchBackground, getArray(new Mutation[]{}), AssetEnum.WEREWOLF_MUSIC.getPath(), new Array<String>(), getEndScene(EndScene.Type.ENCOUNTER_OVER))
 						)
 					)
 				);		
@@ -190,31 +192,39 @@ public class EncounterBuilder {
 				
 				Background harpyBackground = new BackgroundBuilder(backgroundTexture).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class)).setForeground(enemy, 0, 0).build();
 				Background harpyFellatioBackground = new BackgroundBuilder(backgroundTexture).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class)).setForeground(assetManager.get(AssetEnum.HARPY_FELLATIO.getPath(), Texture.class)).build();
+				
+				OrderedMap<Integer, Scene> winFight = getTextScenes(getArray(new String[]{"You defeated the harpy!", "You receive 1 Experience."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.EXPERIENCE, 1)}), getEndScene(EndScene.Type.ENCOUNTER_OVER));
+				OrderedMap<Integer, Scene> loseFight = getTextScenes(getScript(encounterCode, 4), font, harpyBackground, getArray(new Mutation[]{virginityToFalse}), getEndScene(EndScene.Type.GAME_OVER));
+				OrderedMap<Integer, Scene> satisfiedFight = getTextScenes(getScript(encounterCode, 5), font, harpyBackground, getArray(new Mutation[]{}), getEndScene(EndScene.Type.ENCOUNTER_OVER))	;
+				
 				getTextScenes(
 					getScript(encounterCode, 0), font, background, getArray(new Mutation[]{new Mutation(saveService, ProfileEnum.KNOWLEDGE, EnemyEnum.HARPY.toString())}),
 					getCheckScene(
-						assetManager, Stat.AGILITY, new IntArray(new int[]{6, 4}), character,
+						assetManager, Stat.AGILITY, new IntArray(new int[]{6, 4}), character, 
 						getTextScenes(
 							getScript(encounterCode, 1), font, background, 
 							getBattleScene(
-								saveService, battleCode, Stance.BALANCED, Stance.PRONE,
-								getTextScenes(getArray(new String[]{"You defeated the harpy!", "You receive 1 Experience."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.EXPERIENCE, 1)}), getEndScene(EndScene.Type.ENCOUNTER_OVER)),
-								getTextScenes(getScript(encounterCode, 4), font, harpyBackground, getEndScene(EndScene.Type.GAME_OVER))					
+								saveService, battleCode, Stance.BALANCED, Stance.PRONE, normalOutcomes,
+								winFight,
+								loseFight,
+								satisfiedFight
 							)
 						),
 						getTextScenes(
 							getScript(encounterCode, 2), font, background, 
 							getBattleScene(
-								saveService, battleCode, Stance.KNEELING, Stance.BALANCED,
-								getTextScenes(getArray(new String[]{"You defeated the harpy!", "You receive 1 Experience."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.EXPERIENCE, 1)}), getEndScene(EndScene.Type.ENCOUNTER_OVER)),
-								getTextScenes(getScript(encounterCode, 4), font, harpyBackground, getArray(new Mutation[]{virginityToFalse}), getEndScene(EndScene.Type.GAME_OVER))					
+								saveService, battleCode, Stance.KNEELING, Stance.BALANCED, normalOutcomes,
+								winFight,
+								loseFight,
+								satisfiedFight
 							)
 						),
 						getTextScenes(getScript(encounterCode, 3), font, harpyFellatioBackground, 
 							getBattleScene(
-								saveService, battleCode, Stance.FELLATIO, Stance.FELLATIO,									
-								getTextScenes(getArray(new String[]{"You defeated the harpy!", "You receive 1 Experience."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.EXPERIENCE, 1)}), getEndScene(EndScene.Type.ENCOUNTER_OVER)),
-								getTextScenes(getScript(encounterCode, 4), font, harpyBackground, getArray(new Mutation[]{virginityToFalse}), getEndScene(EndScene.Type.GAME_OVER))					
+								saveService, battleCode, Stance.FELLATIO, Stance.FELLATIO, normalOutcomes,				
+								winFight,
+								loseFight,
+								satisfiedFight
 							)
 						)
 					)
@@ -304,6 +314,18 @@ public class EncounterBuilder {
 				break;
 			case BRIGAND:
 				Background brigandBackground = new BackgroundBuilder(backgroundTexture).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class)).setForeground(assetManager.get(AssetEnum.BRIGAND_ORAL.getPath(), Texture.class)).build();
+				
+				OrderedMap<Integer, Scene> winFight2 = getTextScenes(getArray(new String[]{"You defeated the brigand!", "You receive 1 Experience."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.EXPERIENCE, 1)}), getEndScene(EndScene.Type.ENCOUNTER_OVER));
+				OrderedMap<Integer, Scene> loseFight2 = getTextScenes(getScript(encounterCode, 13), font, background, 
+					getTextScenes(getScript(encounterCode, 14), font, brigandBackground, 	
+							getTextScenes(
+								getArray(new String[]{"You rest, eating 5 food.", "You recover 10 health."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.FOOD, -5), new Mutation(saveService, SaveEnum.HEALTH, 10)}),
+								getEndScene(EndScene.Type.ENCOUNTER_OVER)
+							)
+						)
+					);
+				OrderedMap<Integer, Scene> satisfiedFight2 = getTextScenes(getScript(encounterCode, 15), font, background, getArray(new Mutation[]{}), getEndScene(EndScene.Type.ENCOUNTER_OVER));
+				
 				getTextScenes(
 					getScript(encounterCode, 0), font, background, getArray(new Mutation[]{new Mutation(saveService, ProfileEnum.KNOWLEDGE, EnemyEnum.BRIGAND.toString())}),
 					getCheckScene(
@@ -312,28 +334,16 @@ public class EncounterBuilder {
 							getScript(encounterCode, 1), font, background, 
 							getChoiceScene(
 								assetManager, "How do you handle the brigand?", getArray(new String[]{"Charge", "Ready an Arrow", "Speak"}),
-								getBattleScene(saveService, battleCode, Stance.OFFENSIVE, Stance.BALANCED,
-									getTextScenes(getArray(new String[]{"You defeated the brigand!", "You receive 1 Experience."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.EXPERIENCE, 1)}), getEndScene(EndScene.Type.ENCOUNTER_OVER)),
-									getTextScenes(getScript(encounterCode, 13), font, background, 
-										getTextScenes(getScript(encounterCode, 14), font, brigandBackground, 	
-											getTextScenes(
-												getArray(new String[]{"You rest, eating 5 food.", "You recover 10 health."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.FOOD, -5), new Mutation(saveService, SaveEnum.HEALTH, 10)}),
-												getEndScene(EndScene.Type.ENCOUNTER_OVER)
-											)
-										)
-									)
+								getBattleScene(saveService, battleCode, Stance.OFFENSIVE, Stance.BALANCED, normalOutcomes,
+									winFight2,
+									loseFight2,
+									satisfiedFight2
 								),
 								getBattleScene(
-									saveService, battleCode,
-									getTextScenes(getArray(new String[]{"You defeated the brigand!", "You receive 1 Experience."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.EXPERIENCE, 1)}), getEndScene(EndScene.Type.ENCOUNTER_OVER)),
-									getTextScenes(getScript(encounterCode, 13), font, background, 
-										getTextScenes(getScript(encounterCode, 14), font, brigandBackground, 	
-											getTextScenes(
-												getArray(new String[]{"You rest, eating 5 food.", "You recover 10 health."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.FOOD, -5), new Mutation(saveService, SaveEnum.HEALTH, 10)}),
-												getEndScene(EndScene.Type.ENCOUNTER_OVER)
-											)
-										)
-									)
+									saveService, battleCode, normalOutcomes,
+									winFight2,
+									loseFight2,
+									satisfiedFight2
 								),
 								getTextScenes(
 									getScript(encounterCode, 2), font, background,
@@ -380,16 +390,10 @@ public class EncounterBuilder {
 												getTextScenes(
 													getScript(encounterCode, 10), font, background,
 													getBattleScene(
-														saveService, battleCode,
-														getTextScenes(getArray(new String[]{"You defeated the brigand!", "You receive 1 Experience."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.EXPERIENCE, 1)}), getEndScene(EndScene.Type.ENCOUNTER_OVER)),
-														getTextScenes(getScript(encounterCode, 13), font, background, 
-															getTextScenes(getScript(encounterCode, 14), font, brigandBackground, 	
-																getTextScenes(
-																	getArray(new String[]{"You rest, eating 5 food.", "You recover 10 health."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.FOOD, -5), new Mutation(saveService, SaveEnum.HEALTH, 10)}),
-																	getEndScene(EndScene.Type.ENCOUNTER_OVER)
-																)
-															)
-														)
+														saveService, battleCode, normalOutcomes,
+														winFight2,
+														loseFight2,
+														satisfiedFight2
 													)
 												)		
 											)
@@ -403,16 +407,10 @@ public class EncounterBuilder {
 							getTextScenes(
 								getScript(encounterCode, 11), font, background, 
 								getBattleScene(
-									saveService, battleCode,
-									getTextScenes(getArray(new String[]{"You defeated the brigand!", "You receive 1 Experience."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.EXPERIENCE, 1)}), getEndScene(EndScene.Type.ENCOUNTER_OVER)),
-									getTextScenes(getScript(encounterCode, 13), font, background, 
-										getTextScenes(getScript(encounterCode, 14), font, brigandBackground, 	
-											getTextScenes(
-												getArray(new String[]{"You rest, eating 5 food.", "You recover 10 health."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.FOOD, -5), new Mutation(saveService, SaveEnum.HEALTH, 10)}),
-												getEndScene(EndScene.Type.ENCOUNTER_OVER)
-											)
-										)
-									)
+									saveService, battleCode, normalOutcomes,
+									winFight2,
+									loseFight2,
+									satisfiedFight2
 								)
 							)
 						),
@@ -421,16 +419,10 @@ public class EncounterBuilder {
 							getTextScenes(
 								getScript(encounterCode, 12), font, background, getArray(new Mutation[]{virginityToFalse}),
 								getBattleScene(
-									saveService, battleCode, Stance.STANDING, Stance.STANDING,
-									getTextScenes(getArray(new String[]{"You defeated the brigand!", "You receive 1 Experience."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.EXPERIENCE, 1)}), getEndScene(EndScene.Type.ENCOUNTER_OVER)),
-									getTextScenes(getScript(encounterCode, 13), font, background, 
-										getTextScenes(getScript(encounterCode, 14), font, brigandBackground, 	
-											getTextScenes(
-												getArray(new String[]{"You rest, eating 5 food.", "You recover 10 health."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.FOOD, -5), new Mutation(saveService, SaveEnum.HEALTH, 10)}),
-												getEndScene(EndScene.Type.ENCOUNTER_OVER)
-											)
-										)
-									)
+									saveService, battleCode, Stance.STANDING, Stance.STANDING, normalOutcomes,
+									winFight2,
+									loseFight2,
+									satisfiedFight2
 								)
 							)
 						)
@@ -480,7 +472,7 @@ public class EncounterBuilder {
 						getTextScenes(
 							getScript(encounterCode, 1), font, unicornBackground, getArray(new Mutation[]{new Mutation(saveService, ProfileEnum.KNOWLEDGE, EnemyEnum.UNICORN.toString())}),
 							getBattleScene(
-								saveService, battleCode + 1000,
+								saveService, battleCode + 1000, 
 								getTextScenes(getArray(new String[]{"You defeated the unicorn!", "You receive 3 Experience."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.EXPERIENCE, 3)}), getEndScene(EndScene.Type.ENCOUNTER_OVER)),
 								getTextScenes(
 									getScript(encounterCode, 4), font, unicornBackground, getArray(new Mutation[]{virginityToFalse}),
@@ -496,17 +488,19 @@ public class EncounterBuilder {
 							getChoiceScene(
 								assetManager, "Fight the centaur?", getArray(new String[]{"Fight Her", "Decline", "Ask for It (Requires: Catamite)"}), getArray(new PlayerCharacter[]{null, null, character}),
 								getBattleScene(
-									saveService, battleCode,
+									saveService, battleCode, normalOutcomes,
 									getTextScenes(getArray(new String[]{"You defeated the centaur!", "You are now welcome to sleep in their camp, and receive 10 food.", "You receive 2 Experience."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.EXPERIENCE, 2), new Mutation(saveService, SaveEnum.FOOD, 10)}), getEndScene(EndScene.Type.ENCOUNTER_OVER)),
-									getTextScenes(getScript(encounterCode, 5), font, centaurBackground, getEndScene(EndScene.Type.GAME_OVER))					
+									getTextScenes(getScript(encounterCode, 5), font, centaurBackground, getEndScene(EndScene.Type.GAME_OVER)),
+									getTextScenes(getScript(encounterCode, 5), font, centaurBackground, getEndScene(EndScene.Type.GAME_OVER))
 								),
 								getEndScene(EndScene.Type.ENCOUNTER_OVER),
 								getTextScenes(
 									getScript(encounterCode, 3), font, centaurBackground, getArray(new Mutation[]{virginityToFalse}),
 									getBattleScene(
-										saveService, battleCode, Stance.DOGGY, Stance.DOGGY,
+										saveService, battleCode, Stance.DOGGY, Stance.DOGGY, normalOutcomes,
 										getTextScenes(getArray(new String[]{"You defeated the centaur!", "You receive 2 Experience."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.EXPERIENCE, 2)}), getEndScene(EndScene.Type.ENCOUNTER_OVER)),
-										getTextScenes(getScript(encounterCode, 5), font, centaurBackground, getEndScene(EndScene.Type.GAME_OVER))					
+										getTextScenes(getScript(encounterCode, 5), font, centaurBackground, getEndScene(EndScene.Type.GAME_OVER)),
+										getTextScenes(getScript(encounterCode, 5), font, centaurBackground, getEndScene(EndScene.Type.GAME_OVER))
 									)
 								)
 							)
