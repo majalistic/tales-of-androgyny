@@ -129,7 +129,7 @@ public class CharacterScreen extends AbstractScreen {
 		weaponTable.align(Align.top);
 		this.addActor(weaponTable);
 		
-		final Label weaponText = new Label("Weapon: " + character.getWeapon().getName(), skin);
+		final Label weaponText = new Label(character.getWeapon() != null ? "Weapon: " + character.getWeapon().getName() : "Weapon: Unarmed", skin);
 		weaponText.setPosition(900, 950);
 		this.addActor(weaponText);
 		
