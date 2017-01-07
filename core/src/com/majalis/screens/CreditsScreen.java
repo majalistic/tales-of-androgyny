@@ -52,9 +52,9 @@ public class CreditsScreen extends AbstractScreen{
 				+ "\nLicensed under Creative Commons: By Attribution 3.0"
 				+ "\nhttp://creativecommons.org/licenses/by/3.0/"
 				+ "\n\nSuccubus-Tier patrons that helped make this happen:"
-				+ "\nDarksideX, Ace, crufl"
+				+ "\nDarksideX, Ace, crufl, JennaTran, Joel Fields, Laersect"
 				+ "\nMucho kudos to official contributor Dern for programming, debugging and moral support <3"
-				+ "\n\nCopy-editing by T3mp3st, Legion, anonymous others"				
+				+ "\n\nCopy-editing and play-testing by T3mp3st, Legion, Fattycakes, and anonymous others"
 				;
 	}
 
