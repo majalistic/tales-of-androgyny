@@ -1,5 +1,6 @@
 package com.majalis.battle;
 
+import com.badlogic.gdx.utils.ObjectMap;
 import com.majalis.character.AbstractCharacter.Stance;
 
 /*
@@ -8,18 +9,16 @@ import com.majalis.character.AbstractCharacter.Stance;
 public class BattleCode {
 
 	public int battleCode;
-	public int victoryScene;
-	public int defeatScene;
+	public ObjectMap<String, Integer> outcomes;
 	public Stance playerStance;
 	public Stance enemyStance;
 	
 	@SuppressWarnings("unused")
 	private BattleCode(){}
 	
-	public BattleCode(int battleCode, int victoryScene, int defeatScene, Stance playerStance, Stance enemyStance) {
+	public BattleCode(int battleCode, ObjectMap<String, Integer> outcomes, Stance playerStance, Stance enemyStance) {
 		this.battleCode = battleCode;
-		this.victoryScene = victoryScene;
-		this.defeatScene = defeatScene;
+		this.outcomes = outcomes;
 		this.playerStance = playerStance;
 		this.enemyStance = enemyStance;
 	}

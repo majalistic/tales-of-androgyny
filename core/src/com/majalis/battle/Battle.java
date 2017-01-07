@@ -25,6 +25,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.majalis.asset.AnimatedImage;
@@ -43,6 +44,7 @@ import com.majalis.save.SaveService;
  */
 public class Battle extends Group{
 
+	// this needs to be refactored so that it accepts the number keys 
 	private static int[] POSSIBLE_KEYS = new int[]{Keys.A, Keys.S, Keys.D, Keys.F, Keys.G, Keys.H, Keys.J, Keys.K, Keys.L, Keys.Z, Keys.X, Keys.C, Keys.V};
 	private static char[] POSSIBLE_KEYS_CHAR = new char[]{'A','S','D','F','G','H','J','K','L','Z','X','C','V'};
 	
@@ -51,12 +53,13 @@ public class Battle extends Group{
 	private final SaveService saveService;
 	private final AssetManager assetManager;
 	private final BitmapFont font;
-	private final int victoryScene;
-	private final int defeatScene;
+	private final ObjectMap<String, Integer> outcomes;
 	private final Table table;
 	private final Skin skin;
-	private final Sound buttonSound;
+	
 	private final AnimatedImage slash;
+	
+	private final Sound buttonSound;
 	private final Sound thwapping;
 	private final Sound pop;
 	private final Sound mouthPop;
@@ -65,6 +68,7 @@ public class Battle extends Group{
 	private final Sound swordSlashSound;
 	private final Sound fireBallSound;
 	private final Sound incantationSound;
+
 	private final Array<SoundTimer> soundBuffer;
 	private final Image hoverImage;
 	private final Group hoverGroup;
@@ -91,8 +95,6 @@ public class Battle extends Group{
 	private Technique selectedTechnique;
 	private Image characterArousal;
 	private Image enemyArousal;
-	private boolean battleOutcomeDecided;
-	public boolean gameExit;
 	public int struggle;
 	public boolean inRear;
 	public int battleEndCount;
@@ -103,6 +105,8 @@ public class Battle extends Group{
 	private final float consoleYPos = 5;
 	
 	private Outcome outcome;
+	public boolean gameExit;
+	private boolean battleOutcomeDecided;
 	private boolean battleOver;
 	
 	public enum Outcome {
@@ -110,15 +114,15 @@ public class Battle extends Group{
 		DEFEAT
 	}
 	
-	public Battle(SaveService saveService, AssetManager assetManager, BitmapFont font, PlayerCharacter character, EnemyCharacter enemy, int victoryScene, int defeatScene, Background battleBackground, Background battleUI, String consoleText){
+	public Battle(SaveService saveService, AssetManager assetManager, BitmapFont font, PlayerCharacter character, EnemyCharacter enemy, ObjectMap<String, Integer> outcomes, Background battleBackground, Background battleUI, String consoleText){
 		this.saveService = saveService;
 		this.assetManager = assetManager;
 		this.font = font;
 		this.character = character;
 		this.enemy = enemy;
-		this.victoryScene = victoryScene;
-		this.defeatScene = defeatScene;
+		this.outcomes = outcomes;
 		battleOver = false;
+		battleOutcomeDecided = false;
 		gameExit = false;	
 		this.addActor(battleBackground);
 		this.addCharacter(character);
@@ -264,14 +268,6 @@ public class Battle extends Group{
 		pane2.setBounds(hoverXPos + 80, hoverYPos - 155, 500, 600);
 		pane2.setScrollingDisabled(true, false);
 		hoverGroup.addActor(pane2);
-	}
-	
-	public int getVictoryScene(){
-		return victoryScene;
-	}
-	
-	public int getDefeatScene(){
-		return defeatScene;
 	}
 	
 	public void battleLoop() {
@@ -592,8 +588,8 @@ public class Battle extends Group{
 		return battleOver;
 	}
 	
-	public Outcome getOutcome() {
-		return outcome;
+	public int getOutcomeScene() {
+		return outcomes.get(outcome.toString());
 	}
 	
 	private class SkillButton extends TextButton{

@@ -52,12 +52,9 @@ public class BattleFactory {
 			}
 			enemy.init(assetManager.get(enemy.getImagePath(), Texture.class), textures);
 		}
-		switch(battleCode.battleCode){	
-			default: 
-				return new Battle(
-					saveService, assetManager, font, playerCharacter, enemy, battleCode.victoryScene, battleCode.defeatScene, 
-					new BackgroundBuilder(assetManager.get(enemy.getBGPath(), Texture.class)).build(), new BackgroundBuilder(assetManager.get(AssetEnum.BATTLE_UI.getPath(), Texture.class)).build(), (String) loadService.loadDataValue(SaveEnum.CONSOLE, String.class) );
-		}
+		return new Battle(
+			saveService, assetManager, font, playerCharacter, enemy, battleCode.outcomes, 
+			new BackgroundBuilder(assetManager.get(enemy.getBGPath(), Texture.class)).build(), new BackgroundBuilder(assetManager.get(AssetEnum.BATTLE_UI.getPath(), Texture.class)).build(), (String) loadService.loadDataValue(SaveEnum.CONSOLE, String.class) );
 	}
 	
 	private Texture getTexture(EnemyEnum type){

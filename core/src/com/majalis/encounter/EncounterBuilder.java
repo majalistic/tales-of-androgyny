@@ -16,6 +16,7 @@ import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.OrderedMap;
 import com.majalis.asset.AssetEnum;
 import com.majalis.battle.BattleCode;
+import com.majalis.battle.Battle.Outcome;
 import com.majalis.battle.BattleFactory.EnemyEnum;
 import com.majalis.character.EnemyCharacter;
 import com.majalis.character.PlayerCharacter;
@@ -987,7 +988,7 @@ public class EncounterBuilder {
 				break;
 		}
 		// reporting that the battle code has been consumed - this should be encounter code
-		saveService.saveDataValue(SaveEnum.BATTLE_CODE, new BattleCode(-1, -1, -1, Stance.BALANCED, Stance.BALANCED));
+		saveService.saveDataValue(SaveEnum.BATTLE_CODE, new BattleCode(-1, null, Stance.BALANCED, Stance.BALANCED));
 		return new Encounter(scenes, endScenes, battleScenes, getStartScene(scenes, sceneCode));	
 	}
 	
@@ -1108,7 +1109,7 @@ public class EncounterBuilder {
 	}
 	
 	// accepts a list of values, will map those values to scenes in the scenemap in order
-	private OrderedMap<Integer, Scene> getCheckScene(AssetManager assetManager, Stat stat, IntArray checkValues, PlayerCharacter character, @SuppressWarnings("unchecked") OrderedMap<Integer, Scene>... sceneMaps){
+	private OrderedMap<Integer, Scene> getCheckScene(AssetManager assetManager, Stat stat, IntArray checkValues, PlayerCharacter character, @SuppressWarnings("unchecked") OrderedMap<Integer, Scene>... sceneMaps) {
 		OrderedMap<Integer, Scene> sceneMap = aggregateMaps(sceneMaps);
 		Texture background = assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getPath(), Texture.class);
 		OrderedMap<Integer, Scene> checkValueMap = new OrderedMap<Integer, Scene>();
@@ -1120,20 +1121,33 @@ public class EncounterBuilder {
 		return addScene(checkScene);
 	}
 	
-	private OrderedMap<Integer, Scene> getCheckScene(AssetManager assetManager, CheckType checkType, PlayerCharacter character, @SuppressWarnings("unchecked") OrderedMap<Integer, Scene>... sceneMaps){
+	private OrderedMap<Integer, Scene> getCheckScene(AssetManager assetManager, CheckType checkType, PlayerCharacter character, @SuppressWarnings("unchecked") OrderedMap<Integer, Scene>... sceneMaps) {
 		OrderedMap<Integer, Scene> sceneMap = aggregateMaps(sceneMaps);
 		Texture background = assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getPath(), Texture.class);
 		CheckScene checkScene = new CheckScene(sceneMap, sceneCounter, saveService, font, new BackgroundBuilder(background).build(), checkType, sceneMap.get(sceneMap.orderedKeys().get(0)), sceneMap.get(sceneMap.orderedKeys().get(1)), character);
 		return addScene(checkScene);
 	}
 	
-	private OrderedMap<Integer, Scene> getBattleScene(SaveService saveService, int battleCode, @SuppressWarnings("unchecked") OrderedMap<Integer, Scene>... sceneMaps){
+	private OrderedMap<Integer, Scene> getBattleScene(SaveService saveService, int battleCode, @SuppressWarnings("unchecked") OrderedMap<Integer, Scene>... sceneMaps) {
 		return getBattleScene(saveService, battleCode, Stance.BALANCED, Stance.BALANCED, sceneMaps);
 	}
 	
-	private OrderedMap<Integer, Scene> getBattleScene(SaveService saveService, int battleCode, Stance playerStance, Stance enemyStance, @SuppressWarnings("unchecked") OrderedMap<Integer, Scene>... sceneMaps){
+	private OrderedMap<Integer, Scene> getBattleScene(SaveService saveService, int battleCode, Array<Outcome> outcomes, @SuppressWarnings("unchecked") OrderedMap<Integer, Scene>... sceneMaps) {
+		return getBattleScene(saveService, battleCode, Stance.BALANCED, Stance.BALANCED, outcomes, sceneMaps);
+	}
+		
+	private OrderedMap<Integer, Scene> getBattleScene(SaveService saveService, int battleCode, Stance playerStance, Stance enemyStance, @SuppressWarnings("unchecked") OrderedMap<Integer, Scene>... sceneMaps) {
+		return getBattleScene(saveService, battleCode, playerStance, enemyStance, new Array<Outcome>(new Outcome[]{Outcome.VICTORY, Outcome.DEFEAT}), sceneMaps);
+	}
+	
+	private OrderedMap<Integer, Scene> getBattleScene(SaveService saveService, int battleCode, Stance playerStance, Stance enemyStance, Array<Outcome> outcomes, @SuppressWarnings("unchecked") OrderedMap<Integer, Scene>... sceneMaps) {
 		OrderedMap<Integer, Scene> sceneMap = aggregateMaps(sceneMaps);
-		return addScene(new BattleScene(sceneMap, saveService, battleCode, playerStance, enemyStance));
+		ObjectMap<String, Integer> outcomeToScene = new ObjectMap<String, Integer>();
+		for (int ii = 0; ii < outcomes.size; ii++){
+			outcomeToScene.put(outcomes.get(ii).toString(), sceneMap.get(sceneMap.orderedKeys().get(ii)).getCode());
+		}
+		
+		return addScene(new BattleScene(aggregateMaps(sceneMaps), saveService, battleCode, playerStance, enemyStance, outcomeToScene));
 	}
 	
 	private OrderedMap<Integer, Scene> getGameTypeScene(AssetManager assetManager, Array<String> buttonLabels, @SuppressWarnings("unchecked") OrderedMap<Integer, Scene>... sceneMaps){
