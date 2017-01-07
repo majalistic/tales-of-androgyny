@@ -121,6 +121,17 @@ public class CharacterScreen extends AbstractScreen {
 		inventoryTable.setPosition(900, 800);
 		inventoryTable.align(Align.top);
 		this.addActor(inventoryTable);
+		final Table weaponTable = new Table();
+		final Label weaponTableText = new Label("", skin);
+		weaponTable.add(weaponTableText).row();
+		weaponTable.add(new Label("Weapons", skin)).row();
+		weaponTable.setPosition(400, 800);
+		weaponTable.align(Align.top);
+		this.addActor(weaponTable);
+		
+		final Label weaponText = new Label("Weapon: " + character.getWeapon().getName(), skin);
+		weaponText.setPosition(900, 950);
+		this.addActor(weaponText);
 		
 		for (final Item item : character.getInventory()){
 			final TextButton itemButton = new TextButton(item.getName(), skin);
@@ -137,6 +148,7 @@ public class CharacterScreen extends AbstractScreen {
 				        }
 					}
 				);
+				inventoryTable.add(itemButton).size(500, 40).row();
 			}
 			else if (item.isEquippable()){
 				itemButton.addListener(
@@ -145,17 +157,15 @@ public class CharacterScreen extends AbstractScreen {
 				        public void clicked(InputEvent event, float x, float y) {
 							buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
 							String result = character.setWeapon(item);
-							inventoryText.setText(result);
+							weaponTableText.setText(result);
+							weaponText.setText("Weapon: " + character.getWeapon().getName());
 							saveService.saveDataValue(SaveEnum.PLAYER, character);
 				        }
 					}
 				);
+				weaponTable.add(itemButton).size(500, 40).row();
 			}
-			
-			
-			inventoryTable.add(itemButton).size(500, 40).row();
-		}
-		
+		}	
 	}
 	
 	@Override
@@ -187,7 +197,7 @@ public class CharacterScreen extends AbstractScreen {
 			offset += 75;
 		}
 		int storedLevels = character.getStoredLevels();
-		font.draw(batch, "Level: " + character.getLevel() + "\nExperience: " + character.getExperience() + (storedLevels > 0 ? "\nAvailable Levels: " + storedLevels : ""), 1200, 1200);
+		font.draw(batch, "Level: " + character.getLevel() + "\nExperience: " + character.getExperience() + (storedLevels > 0 ? "\nAvailable Levels: " + storedLevels : ""), 1200, 1400);
 		batch.end();
 		if (Gdx.input.isKeyJustPressed(Keys.ENTER)){
 			showScreen(ScreenEnum.LOAD_GAME);
