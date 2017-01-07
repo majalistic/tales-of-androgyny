@@ -9,6 +9,7 @@ import com.majalis.save.LoadService;
 import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveManager;
 import com.majalis.save.SaveManager.GameContext;
+import com.majalis.save.SaveManager.GameMode;
 import com.majalis.save.SaveService;
 import com.majalis.scenes.ShopScene.Shop;
 /*
@@ -37,7 +38,7 @@ public class EncounterFactory {
 		@SuppressWarnings("unchecked")
 		EncounterBuilder builder = new EncounterBuilder(reader, assetManager, saveService, font, smallFont, sceneCode, battleCode, (ObjectMap<String, Shop>)loadService.loadDataValue(SaveEnum.SHOP, Shop.class), context);
 		switch (encounterCode){
-			case LEVEL_UP: return builder.getLevelUpEncounter((PlayerCharacter) loadService.loadDataValue(SaveEnum.PLAYER, PlayerCharacter.class));
+			case LEVEL_UP: return builder.getLevelUpEncounter((PlayerCharacter) loadService.loadDataValue(SaveEnum.PLAYER, PlayerCharacter.class), (GameMode) loadService.loadDataValue(SaveEnum.MODE, Shop.class) == GameMode.STORY);
 			case INITIAL: return builder.getClassChoiceEncounter((PlayerCharacter) loadService.loadDataValue(SaveEnum.PLAYER, PlayerCharacter.class));
 			case DEFAULT: return builder.getDefaultEncounter();
 			default: return builder.getRandomEncounter(encounterCode, (PlayerCharacter) loadService.loadDataValue(SaveEnum.PLAYER, PlayerCharacter.class));

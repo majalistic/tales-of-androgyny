@@ -20,6 +20,8 @@ public class LevelUpScreen extends AbstractScreen {
 		resourceRequirements.put(AssetEnum.UI_SKIN.getPath(), Skin.class);
 		resourceRequirements.put(AssetEnum.BUTTON_SOUND.getPath(), Sound.class);
 		resourceRequirements.put(AssetEnum.CHARACTER_SCREEN.getPath(), Texture.class);
+		resourceRequirements.put(AssetEnum.DEFAULT_BACKGROUND.getPath(), Texture.class);
+		resourceRequirements.put(AssetEnum.BATTLE_HOVER.getPath(), Texture.class);
 	}
 	
 	private final AssetManager assetManager;

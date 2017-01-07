@@ -134,10 +134,19 @@ public class EncounterBuilder {
 	
 	private Background getClassSelectBackground(){ return new BackgroundBuilder(assetManager.get(AssetEnum.CLASS_SELECT_BACKGROUND.getPath(), Texture.class)).build(); }
 	
-	protected Encounter getLevelUpEncounter(PlayerCharacter playerCharacter){
-		getSkillSelectionScene(
+	protected Encounter getLevelUpEncounter(PlayerCharacter playerCharacter, boolean storyMode){
+		
+		if (storyMode) {
+			getTextScenes(
+				getArray(new String[]{"You have no skills to select!"}), font, getDefaultTextBackground(), 
+				getEndScene(EndScene.Type.ENCOUNTER_OVER)
+			);
+		}
+		else {
+			getSkillSelectionScene(
 				font, getClassSelectBackground(), assetManager, playerCharacter, getEndScene(EndScene.Type.ENCOUNTER_OVER)
-		);
+			);
+		}
 		return new Encounter(scenes, endScenes, new Array<BattleScene>(), getStartScene(scenes, sceneCode));
 	}
 	
