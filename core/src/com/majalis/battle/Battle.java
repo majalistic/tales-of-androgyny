@@ -22,7 +22,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
@@ -92,19 +91,24 @@ public class Battle extends Group{
 	private Technique selectedTechnique;
 	private Image characterArousal;
 	private Image enemyArousal;
-	public boolean battleOver;
-	public boolean victory;
+	private boolean battleOutcomeDecided;
 	public boolean gameExit;
 	public int struggle;
 	public boolean inRear;
 	public int battleEndCount;
 	private int selection;
-	private boolean debug = false;
-	private float scaler = 1.5f; //scale distances
 	private final float hoverXPos = 317; 
 	private final float hoverYPos = 35; 
 	private final float consoleXPos = 800;
 	private final float consoleYPos = 5;
+	
+	private Outcome outcome;
+	private boolean battleOver;
+	
+	public enum Outcome {
+		VICTORY,
+		DEFEAT
+	}
 	
 	public Battle(SaveService saveService, AssetManager assetManager, BitmapFont font, PlayerCharacter character, EnemyCharacter enemy, int victoryScene, int defeatScene, Background battleBackground, Background battleUI, String consoleText){
 		this.saveService = saveService;
@@ -205,10 +209,10 @@ public class Battle extends Group{
 		
 		StanceActor newActor = new StanceActor(character);
 		addActorAndListen(newActor, 397, 565);
-		newActor.setSize(100*scaler, 115*scaler);
+		newActor.setSize(150, 172.5f);
 		newActor = new StanceActor(enemy);
 		addActorAndListen(newActor, 866, 574);
-		newActor.setSize(100*scaler, 115*scaler);
+		newActor.setSize(150, 172.5f);
 		
 		hoverGroup.addAction(Actions.visible(false));
 		this.addActor(hoverGroup);
@@ -279,24 +283,24 @@ public class Battle extends Group{
 		}
 		soundBuffer.removeAll(toRemove, true);
 		
-		if (!battleOver) {
-			if(Gdx.input.isKeyJustPressed(Keys.UP)){
+		if (!battleOutcomeDecided) {
+			if(Gdx.input.isKeyJustPressed(Keys.UP)) {
 	        	if (selection > 0) changeSelection(selection - 1);
 	        	else changeSelection(optionButtons.size-1);
 			}
-	        else if(Gdx.input.isKeyJustPressed(Keys.DOWN)){
+	        else if(Gdx.input.isKeyJustPressed(Keys.DOWN)) {
 	        	if (selection < optionButtons.size- 1) changeSelection(selection + 1);
 	        	else changeSelection(0);
 	        }
-	        else if(Gdx.input.isKeyJustPressed(Keys.ENTER)){
+	        else if(Gdx.input.isKeyJustPressed(Keys.ENTER)) {
 	        	clickButton(optionButtons.get(selection));
 	        }
 			
-			if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)){
+			if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
 				gameExit = true;
 			}
 			else {
-				if (selectedTechnique == null){
+				if (selectedTechnique == null) {
 					int ii = 0;
 					for (int possibleKey : POSSIBLE_KEYS){
 						if (Gdx.input.isKeyJustPressed(possibleKey)){
@@ -309,7 +313,7 @@ public class Battle extends Group{
 					}
 				}
 					
-				if (selectedTechnique != null){		
+				if (selectedTechnique != null) {		
 					buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
 					// possibly construct a separate class for this
 					resolveTechniques(character, selectedTechnique, enemy, enemy.getTechnique(character));
@@ -321,19 +325,38 @@ public class Battle extends Group{
 				}
 			}
 
-			if (character.getCurrentHealth() <= 0){
-				victory = false;
-				battleOver = true;
+			if (character.getCurrentHealth() <= 0) {
+				outcome = Outcome.DEFEAT;
+				battleOutcomeDecided = true;
+				skillDisplay.setText("DEFEAT!\n" + character.getDefeatMessage());
 			}
-			if (enemy.getCurrentHealth() <= 0){
-				victory = true;
-				battleOver = true;
+			if (enemy.getCurrentHealth() <= 0) {
+				outcome = Outcome.VICTORY;
+				battleOutcomeDecided = true;
+				skillDisplay.setText("VICTORY!\n" + enemy.getDefeatMessage());
 			}
-			if (battleOver) {
+			if (battleOutcomeDecided) {
 				character.refresh();
-				saveService.saveDataValue(SaveEnum.ENEMY, null);
 				saveService.saveDataValue(SaveEnum.CONSOLE, "");
+				this.removeActor(table);
+				hoverGroup.clearActions();
+				hoverGroup.addAction(Actions.visible(true));
+				hoverGroup.addAction(Actions.moveTo(400, 380));
+				hoverGroup.addAction(Actions.fadeIn(.1f));
+				this.addListener(
+					new ClickListener(){
+				        @Override
+				        public void clicked(InputEvent event, float x, float y) {
+				        	battleOver = true;
+				        }
+					}
+				);
 			}
+		}
+		else {
+			if(Gdx.input.isKeyJustPressed(Keys.ENTER)) {
+	        	battleOver = true;
+	        }
 		}
 	}
 	
@@ -436,8 +459,8 @@ public class Battle extends Group{
 		}
 		
 		if (secondCharacter.getBattleOver() >= 5){
-			battleOver = true;
-			victory = false;
+			battleOutcomeDecided = true;
+			outcome = Outcome.DEFEAT; // should be outcome 'knotted'
 		}
 		
 		console.setText(consoleText);
@@ -505,7 +528,9 @@ public class Battle extends Group{
 			}
 			@Override
 	        public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
-				hoverGroup.addAction(Actions.fadeOut(2f));
+				if (!battleOutcomeDecided) {
+					hoverGroup.addAction(Actions.fadeOut(2f));
+				}
 			}
 	    };
 	}
@@ -541,6 +566,7 @@ public class Battle extends Group{
 			this.addListener(new ClickListener(){ 
 				@Override
 		        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
+					// this could actually perform the action rather than relying on a boolean
 					hover = true;
 				}
 				@Override
@@ -560,6 +586,14 @@ public class Battle extends Group{
 				font.draw(batch, character.getStance().name(), getX(), getY() - 30, 100, Align.center, false);
 			}
 	    }
+	}
+	
+	public boolean isBattleOver() {
+		return battleOver;
+	}
+	
+	public Outcome getOutcome() {
+		return outcome;
 	}
 	
 	private class SkillButton extends TextButton{
@@ -603,19 +637,6 @@ public class Battle extends Group{
 	 */
 	private void addActorAndListen(Actor actor, float x, float y){
 		this.addActor(actor);
-		actor.setPosition(x*scaler, y*scaler);
-		addDragListener(actor);
-	}
-	
-	private void addDragListener(final Actor actor){
-		actor.addListener(new DragListener(){
-			@Override
-		    public void drag(InputEvent event, float x, float y, int pointer) {
-				if (debug){
-			        actor.moveBy(x - actor.getWidth() / 2, y - actor.getHeight() / 2);
-			        System.out.println(actor.getX() + ", " + actor.getY());
-				}
-		    }
-		});
+		actor.setPosition(x*1.5f, y*1.5f);
 	}
 }

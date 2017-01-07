@@ -560,6 +560,10 @@ public abstract class AbstractCharacter extends Actor {
 			}
 		}
 		
+		if (currentHealth <= 0) {
+			result.add(label + (secondPerson ? " are " : " is ")  + "defeated!");
+		}
+		
 		return result;
 	}
 
@@ -610,16 +614,16 @@ public abstract class AbstractCharacter extends Actor {
 		}
 	}
 	
-	public String getLustImagePath(){
+	public String getLustImagePath() {
 		int lustLevel = lust > 7 ? 2 : lust > 3 ? 1 : 0;
 		return "arousal/" + phallus.label + lustLevel + ".png";
 	}
 	
-	public boolean outOfStamina(Technique technique){
+	public boolean outOfStamina(Technique technique) {
 		return getStaminaMod(technique) >= currentStamina;
 	}
 	
-	protected boolean outOfStability(Technique technique){
+	protected boolean outOfStability(Technique technique) {
 		return technique.getStabilityCost() - getStabilityRegen() >= stability;
 	}
 	
@@ -633,8 +637,12 @@ public abstract class AbstractCharacter extends Actor {
 	
 	}
 	
-	protected boolean isErect(){
+	protected boolean isErect() {
 		return lust > 7;
+	}
+	
+	public String getDefeatMessage() {
+		return label + (secondPerson ? " are " : " is ") + "defeated!";
 	}
 	
 	private enum StanceType{

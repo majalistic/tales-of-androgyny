@@ -273,25 +273,25 @@ public class EnemyCharacter extends AbstractCharacter {
 		return possibleTechniques;
 	}
 	
-	public Technique getTechnique(AbstractCharacter target){
+	public Technique getTechnique(AbstractCharacter target) {
 		if (lust < 10) lust++;
 		
 		Array<Technique> possibleTechniques = getPossibleTechniques(target, stance);
 		
 		if (willPounce()){
-			if (target.stance == Stance.PRONE ){
+			if (target.stance == Stance.PRONE ) {
 				return getTechnique(Techniques.POUNCE_DOGGY);
 			}
-			else if (target.stance == Stance.SUPINE){
+			else if (target.stance == Stance.SUPINE) {
 				return getTechnique(Techniques.POUNCE_ANAL);
 			}
-			else if (target.stance == Stance.KNEELING){
+			else if (target.stance == Stance.KNEELING) {
 				return getTechnique(Techniques.SAY_AHH);
 			}
-			else if (enemyType == EnemyEnum.HARPY){
+			else if (enemyType == EnemyEnum.HARPY) {
 				possibleTechniques.add(getTechnique(Techniques.FLY));
 			}
-			else if (target.stance.receivesMediumAttacks && enemyType == EnemyEnum.BRIGAND){
+			else if (target.stance.receivesMediumAttacks && enemyType == EnemyEnum.BRIGAND) {
 				possibleTechniques.add(getTechnique(Techniques.FULL_NELSON));
 			}
 		}
@@ -300,7 +300,7 @@ public class EnemyCharacter extends AbstractCharacter {
 		possibleTechniques.sort(new Technique.StaminaComparator());
 		possibleTechniques.reverse();
 		Technique technique = possibleTechniques.get(choice);
-		while (outOfStamina(technique) && choice < possibleTechniques.size){
+		while (outOfStamina(technique) && choice < possibleTechniques.size) {
 			technique = possibleTechniques.get(choice);
 			choice++;
 		}
@@ -311,7 +311,7 @@ public class EnemyCharacter extends AbstractCharacter {
 			if (possibleTechnique == technique) choice = ii;
 			ii++;
 		}
-		while (outOfStability(technique) && choice < possibleTechniques.size){
+		while (outOfStability(technique) && choice < possibleTechniques.size) {
 			technique = possibleTechniques.get(choice);
 			choice++;
 		}
@@ -320,16 +320,16 @@ public class EnemyCharacter extends AbstractCharacter {
 		
 	}
 	
-	private boolean willPounce(){
+	private boolean willPounce() {
 		IntArray randomValues = new IntArray(new int[]{10, 11, 12, 13});
 		return enemyType != EnemyEnum.UNICORN && lust >= randomValues.random() && stance != Stance.PRONE && stance != Stance.SUPINE && stance != Stance.AIRBORNE && stance != Stance.FELLATIO && stance != Stance.DOGGY && stance != Stance.ANAL && stance != Stance.ERUPT && stance != Stance.COWGIRL && stance != Stance.STANDING && stance != Stance.HANDY;
 	}
 	
-	private Technique getTechnique(Techniques technique){
+	private Technique getTechnique(Techniques technique) {
 		return new Technique(technique.getTrait(), getStrength());
 	}
 	
-	private int getRandomWeighting(int size){
+	private int getRandomWeighting(int size) {
 		IntArray randomOptions = new IntArray();
 		for (int ii = 0; ii < size; ii++){
 			randomOptions.add(ii);
@@ -376,7 +376,7 @@ public class EnemyCharacter extends AbstractCharacter {
 		}
     }
 	
-	public void init(Texture defaultTexture, ObjectMap<Stance, Texture> textures){
+	public void init(Texture defaultTexture, ObjectMap<Stance, Texture> textures) {
 		this.defaultTexture = defaultTexture;
 		this.textures = textures;
 		
@@ -403,7 +403,7 @@ public class EnemyCharacter extends AbstractCharacter {
 		}
 	}
 	
-	public void hitAnimation(){
+	public void hitAnimation() {
 		if (state != null){
 			state.setAnimation(0, "Hit Erect", false);
 			state.addAnimation(0, "Idle Erect", true, 1.0f);
@@ -411,26 +411,46 @@ public class EnemyCharacter extends AbstractCharacter {
 	}
 	
 	// for init in battlefactory
-	public void setLust(int lust){ this.lust = lust; }
+	public void setLust(int lust) { this.lust = lust; }
 	
 	// can put text here for an enemy getting more aroused
 	@Override
 	protected String increaseLust() {
-		switch (stance){
-		case DOGGY:
-		case ANAL:
-		case STANDING:
-		case KNOTTED:
-		case FELLATIO:
-			return increaseLust(1);
-		default: return null;
-	}
+		switch (stance) {
+			case DOGGY:
+			case ANAL:
+			case STANDING:
+			case KNOTTED:
+			case FELLATIO:
+				return increaseLust(1);
+			default: return null;
+		}
 	}
 	// can put text here for an enemy getting more aroused
 	@Override
 	protected String increaseLust(int lustIncrease) {
 		lust += lustIncrease;
 		return null;
+	}
+	
+	@Override
+	public String getDefeatMessage() {
+		switch (enemyType) {
+			case BRIGAND:
+				return "You defeated the Brigand!\nShe kneels to the ground, unable to lift her weapon.";
+			case CENTAUR:
+				return "You defeated the Centaur!\nShe smiles, haggardly, acknowledging your strength, and bows slightly.";
+			case GOBLIN:
+				return "The Goblin is knocked to the ground, defeated!";
+			case HARPY:
+				return "The Harpy falls out of the sky, crashing to the ground!\nShe is defeated!";
+			case SLIME:
+				return "The Slime becomes unable to hold her form!\nShe is defeated!";
+			case UNICORN:
+			case WERESLUT:
+			default:
+				return super.getDefeatMessage();		
+		}
 	}
 	
 } 

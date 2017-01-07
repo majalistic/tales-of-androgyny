@@ -36,7 +36,7 @@ public class BattleFactory {
 	public Battle getBattle(BattleCode battleCode, PlayerCharacter playerCharacter) {
 		EnemyCharacter enemy = loadService.loadDataValue(SaveEnum.ENEMY, EnemyCharacter.class);
 		// need a new Enemy
-		if (enemy == null || enemy.getCurrentHealth() <= 0){
+		if (enemy == null) {
 			enemy = getEnemy(battleCode.battleCode);
 			enemy.setStance(battleCode.enemyStance);
 			if (enemy.getStance() == Stance.DOGGY || enemy.getStance() == Stance.FELLATIO || enemy.getStance() == Stance.ANAL || enemy.getStance() == Stance.STANDING || enemy.getStance() == Stance.HANDY || enemy.getStance() == Stance.COWGIRL ){

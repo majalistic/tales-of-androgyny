@@ -11,6 +11,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.majalis.asset.AssetEnum;
 import com.majalis.battle.Battle;
+import com.majalis.battle.Battle.Outcome;
 import com.majalis.battle.BattleCode;
 import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveManager;
@@ -82,16 +83,18 @@ public class BattleScreen extends AbstractScreen{
 			showScreen(ScreenEnum.MAIN_MENU);
 			music.stop();
 		}
-		else if (battle.battleOver){	
+		else if (battle.isBattleOver()){	
 			// begin the process of switching off the battle - the battle itself should stop functioning except display
 			saveService.saveDataValue(SaveEnum.CONTEXT, SaveManager.GameContext.ENCOUNTER);
 			// this should save the correct scene code based on the end of battle status
-			if (battle.victory){
+			Outcome battleOutcome = battle.getOutcome();
+			if (battleOutcome == Outcome.VICTORY) {
 				saveService.saveDataValue(SaveEnum.SCENE_CODE, battle.getVictoryScene());
 			}
-			else {
+			else if (battleOutcome == Outcome.DEFEAT) {
 				saveService.saveDataValue(SaveEnum.SCENE_CODE, battle.getDefeatScene());
 			}
+			saveService.saveDataValue(SaveEnum.ENEMY, null); // this may need to be removed if the enemy needs to persist until the end of the encounter; endScenes would have to perform this save or the encounter screen itself
 			showScreen(ScreenEnum.ENCOUNTER);
 			// this should play victory or defeat music
 			music.stop();
