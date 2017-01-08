@@ -19,6 +19,7 @@ import com.majalis.battle.BattleCode;
 import com.majalis.battle.Battle.Outcome;
 import com.majalis.battle.BattleFactory.EnemyEnum;
 import com.majalis.character.EnemyCharacter;
+import com.majalis.character.Perk;
 import com.majalis.character.PlayerCharacter;
 import com.majalis.character.Techniques;
 import com.majalis.encounter.Background.BackgroundBuilder;
@@ -466,6 +467,16 @@ public class EncounterBuilder {
 			case CENTAUR:
 				Background centaurBackground = new BackgroundBuilder(backgroundTexture).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class)).setForeground(assetManager.get(AssetEnum.CENTAUR.getPath(), Texture.class)).build();
 				Background unicornBackground = new BackgroundBuilder(backgroundTexture).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class)).setForeground(assetManager.get(AssetEnum.UNICORN.getPath(), Texture.class)).build();
+				OrderedMap<Integer, Scene> catamite = getTextScenes(
+					getScript(encounterCode, 3), font, centaurBackground, getArray(new Mutation[]{analReceive}),
+					getBattleScene(
+						saveService, battleCode, Stance.DOGGY, Stance.DOGGY, normalOutcomes,
+						getTextScenes(getArray(new String[]{"You defeated the centaur!", "You receive 2 Experience."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.EXPERIENCE, 2)}), getEndScene(EndScene.Type.ENCOUNTER_OVER)),
+						getTextScenes(getScript(encounterCode, 5), font, centaurBackground, getEndScene(EndScene.Type.GAME_OVER)),
+						getTextScenes(getScript(encounterCode, 5), font, centaurBackground, getEndScene(EndScene.Type.GAME_OVER))
+					)
+				);
+				
 				getTextScenes(
 					getScript(encounterCode, 0), font, background, new Array<Mutation>(), AssetEnum.SHOP_MUSIC.getPath(), new Array<String>(),
 					getCheckScene(
@@ -486,23 +497,19 @@ public class EncounterBuilder {
 						),
 						getTextScenes(
 							getScript(encounterCode, 2), font, centaurBackground, getArray(new Mutation[]{new Mutation(saveService, ProfileEnum.KNOWLEDGE, EnemyEnum.CENTAUR.toString())}),
-							getChoiceScene(
-								assetManager, "Fight the centaur?", getArray(new String[]{"Fight Her", "Decline", "Ask for It (Requires: Catamite)"}), getArray(new PlayerCharacter[]{null, null, character}),
-								getBattleScene(
-									saveService, battleCode, normalOutcomes,
-									getTextScenes(getArray(new String[]{"You defeated the centaur!", "You are now welcome to sleep in their camp, and receive 10 food.", "You receive 2 Experience."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.EXPERIENCE, 2), new Mutation(saveService, SaveEnum.FOOD, 10)}), getEndScene(EndScene.Type.ENCOUNTER_OVER)),
-									getTextScenes(getScript(encounterCode, 5), font, centaurBackground, getEndScene(EndScene.Type.GAME_OVER)),
-									getTextScenes(getScript(encounterCode, 5), font, centaurBackground, getEndScene(EndScene.Type.GAME_OVER))
-								),
-								getEndScene(EndScene.Type.ENCOUNTER_OVER),
-								getTextScenes(
-									getScript(encounterCode, 3), font, centaurBackground, getArray(new Mutation[]{analReceive}),
+							getCheckScene(
+								assetManager, Perk.ANAL_LOVER, new IntArray(new int[]{3}), character,
+								catamite,
+								getChoiceScene(
+									assetManager, "Fight the centaur?", getArray(new String[]{"Fight Her", "Decline", "Ask for It (Requires: Catamite)"}), getArray(new PlayerCharacter[]{null, null, character}),
 									getBattleScene(
-										saveService, battleCode, Stance.DOGGY, Stance.DOGGY, normalOutcomes,
-										getTextScenes(getArray(new String[]{"You defeated the centaur!", "You receive 2 Experience."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.EXPERIENCE, 2)}), getEndScene(EndScene.Type.ENCOUNTER_OVER)),
+										saveService, battleCode, normalOutcomes,
+										getTextScenes(getArray(new String[]{"You defeated the centaur!", "You are now welcome to sleep in their camp, and receive 10 food.", "You receive 2 Experience."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.EXPERIENCE, 2), new Mutation(saveService, SaveEnum.FOOD, 10)}), getEndScene(EndScene.Type.ENCOUNTER_OVER)),
 										getTextScenes(getScript(encounterCode, 5), font, centaurBackground, getEndScene(EndScene.Type.GAME_OVER)),
 										getTextScenes(getScript(encounterCode, 5), font, centaurBackground, getEndScene(EndScene.Type.GAME_OVER))
-									)
+									),
+									getEndScene(EndScene.Type.ENCOUNTER_OVER),
+									catamite
 								)
 							)
 						)
@@ -1112,6 +1119,18 @@ public class EncounterBuilder {
 	        	}
 	        }
 	    };
+	}
+	
+	private OrderedMap<Integer, Scene> getCheckScene(AssetManager assetManager, Perk perk, IntArray checkValues, PlayerCharacter character, @SuppressWarnings("unchecked") OrderedMap<Integer, Scene>... sceneMaps) {
+		OrderedMap<Integer, Scene> sceneMap = aggregateMaps(sceneMaps);
+		Texture background = assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getPath(), Texture.class);
+		OrderedMap<Integer, Scene> checkValueMap = new OrderedMap<Integer, Scene>();
+		int ii = 0;
+		for (; ii < checkValues.size; ii++){
+			checkValueMap.put(checkValues.get(ii), sceneMap.get(sceneMap.orderedKeys().get(ii)));
+		}
+		CheckScene checkScene = new CheckScene(sceneMap, sceneCounter, saveService, font, new BackgroundBuilder(background).build(), perk, checkValueMap, sceneMap.get(sceneMap.orderedKeys().get(ii)), character);
+		return addScene(checkScene);
 	}
 	
 	// accepts a list of values, will map those values to scenes in the scenemap in order

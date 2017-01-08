@@ -6,23 +6,35 @@ import com.badlogic.gdx.utils.OrderedMap;
 import com.majalis.character.PlayerCharacter;
 import com.majalis.battle.BattleFactory.EnemyEnum;
 import com.majalis.character.AbstractCharacter.Stat;
+import com.majalis.character.Perk;
 import com.majalis.encounter.Background;
 import com.majalis.save.SaveService;
 
 public class CheckScene extends AbstractTextScene {
 
 	private final PlayerCharacter character;
+	private final Scene defaultScene;
 	private Stat statToCheck;
+	private Perk perkToCheck;
 	private OrderedMap<Integer, Scene> checkValues;
 	private CheckType checkType;
 	private Scene clearScene;
-	private final Scene defaultScene;
+	
 	private String toDisplay;
 	private Scene nextScene;
 	
 	public CheckScene(OrderedMap<Integer, Scene> sceneBranches, int sceneCode, SaveService saveService, BitmapFont font, Background background, Stat stat, OrderedMap<Integer, Scene> checkValues, Scene defaultScene, PlayerCharacter character) {
 		super(sceneBranches, sceneCode, saveService, font, background);
 		this.statToCheck = stat;
+		this.checkValues = checkValues;
+		this.defaultScene = defaultScene;
+		this.character = character;
+		toDisplay = "";
+	}
+	
+	public CheckScene(OrderedMap<Integer, Scene> sceneBranches, int sceneCode, SaveService saveService, BitmapFont font, Background background, Perk perk, OrderedMap<Integer, Scene> checkValues, Scene defaultScene, PlayerCharacter character) {
+		super(sceneBranches, sceneCode, saveService, font, background);
+		this.perkToCheck = perk;
 		this.checkValues = checkValues;
 		this.defaultScene = defaultScene;
 		this.character = character;
@@ -44,9 +56,11 @@ public class CheckScene extends AbstractTextScene {
 		nextScene = getNextScene();	
 	}
 	
-	private Scene getNextScene(){
-		if (checkType != null){
-			if (checkType.getCheck(character)){
+	private Scene getNextScene() {
+		String passValue = "PASSED!\n";
+		String failValue = "FAILURE!\n";
+		if (checkType != null) {
+			if (checkType.getCheck(character)) {
 				toDisplay += checkType.getSuccess();
 				return clearScene;
 			}
@@ -55,24 +69,40 @@ public class CheckScene extends AbstractTextScene {
 				return defaultScene;
 			}			
 		}
-		
-		int amount = statToCheck == Stat.CHARISMA ? character.getLewdCharisma() : character.getRawStat(statToCheck);
-		toDisplay += "Your " + statToCheck.toString() + " score: " + amount + "\n\n";
-		for (Integer threshold : checkValues.keys()){
-			toDisplay += statToCheck.toString() + " check (" + threshold + "): ";
-			if (amount >= threshold){
-				toDisplay += "PASSED!\n";
-				return checkValues.get(threshold);
+		else if (perkToCheck != null) {
+			int amount = character.getPerks().get(perkToCheck, 0);
+			toDisplay += "Your " + perkToCheck.toString() + " score: " + amount + "\n\n";
+			for (Integer threshold : checkValues.keys()) {
+				toDisplay += perkToCheck.toString() + " check (" + threshold + "): ";
+				if (amount >= threshold) {
+					toDisplay += perkToCheck.isPositive() ? passValue : failValue;
+					return checkValues.get(threshold);
+				}
+				else {
+					toDisplay += perkToCheck.isPositive() ? failValue : passValue;
+				}
 			}
-			else {
-				toDisplay += "FAILURE!\n";
-			}
+			return defaultScene;
 		}
-		return defaultScene;
+		else {
+			int amount = statToCheck == Stat.CHARISMA ? character.getLewdCharisma() : character.getRawStat(statToCheck);
+			toDisplay += "Your " + statToCheck.toString() + " score: " + amount + "\n\n";
+			for (Integer threshold : checkValues.keys()) {
+				toDisplay += statToCheck.toString() + " check (" + threshold + "): ";
+				if (amount >= threshold) {
+					toDisplay += passValue;
+					return checkValues.get(threshold);
+				}
+				else {
+					toDisplay += failValue;
+				}
+			}
+			return defaultScene;
+		}
 	}
 
 	@Override
-	protected String getDisplay(){
+	protected String getDisplay() {
 		return toDisplay;
 	}
 	
@@ -85,11 +115,11 @@ public class CheckScene extends AbstractTextScene {
 	}
 	
 	public enum CheckType {
-		VIRGIN ("Are you an anal virgin? PASSED!", "Are you an anal virgin? FAILURE!"){ 
+		VIRGIN ("Are you an anal virgin? PASSED!", "Are you an anal virgin? FAILURE!") { 
 			@Override
 			protected boolean getCheck(PlayerCharacter character) { return character.isVirgin(); } 
 		},
-		GOBLIN_VIRGIN ("You've never had goblin cock up the ass before. (PASSED)", "You've had goblin cock up the ass before. (FAILURE)"){ 
+		GOBLIN_VIRGIN ("You've never had goblin cock up the ass before. (PASSED)", "You've had goblin cock up the ass before. (FAILURE)") { 
 			@Override
 			protected boolean getCheck(PlayerCharacter character) { return character.isVirgin(EnemyEnum.GOBLIN); } 
 		};
@@ -100,10 +130,10 @@ public class CheckScene extends AbstractTextScene {
 		private CheckType(String success, String failure) { this.success = success; this.failure = failure; }
 		
 		protected abstract boolean getCheck(PlayerCharacter character);
-		protected String getSuccess(){
+		protected String getSuccess() {
 			return success;
 		}
-		protected String getFailure(){
+		protected String getFailure() {
 			return failure;
 		}
 	}
