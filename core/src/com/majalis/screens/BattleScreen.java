@@ -40,17 +40,12 @@ public class BattleScreen extends AbstractScreen{
 			OFFENSIVE, PRONE, SUPINE, STANDING, AIRBORNE, CASTING, FACE_SITTING, SIXTY_NINE, KNOTTED, 
 			SLASH,  BATTLE_HOVER, BATTLE_TEXTBOX, BATTLE_UI, CHARACTER_POTRAIT, HEALTH_ICON_0, STAMINA_ICON_0, BALANCE_ICON_0, MANA_ICON_0,
 			HEALTH_ICON_1, STAMINA_ICON_1, BALANCE_ICON_1, MANA_ICON_1, HEALTH_ICON_2, STAMINA_ICON_2, BALANCE_ICON_2, MANA_ICON_2,
-			HEALTH_ICON_3, STAMINA_ICON_3, BALANCE_ICON_3, MANA_ICON_3
+			HEALTH_ICON_3, STAMINA_ICON_3, BALANCE_ICON_3, MANA_ICON_3, MARS_ICON_0, MARS_ICON_1, MARS_ICON_2, MARS_ICON_3, MARS_ICON_4,
+			SMALL_DONG_0, SMALL_DONG_1, SMALL_DONG_2
+			
 		};
 		for (AssetEnum asset: assets){
 			resourceRequirements.put(asset.getPath(), Texture.class);
-		}
-			
-		String[] textureArray = new String[]{
-			 "arousal/Trap0.png", "arousal/Trap1.png", "arousal/Trap2.png", 
-		};
-		for (String path: textureArray){
-			resourceRequirements.put(path, Texture.class);
 		}
 	}
 	private final SaveService saveService;

@@ -16,6 +16,7 @@ import com.majalis.battle.BattleCode;
 import com.majalis.character.EnemyCharacter;
 import com.majalis.character.Perk;
 import com.majalis.character.PlayerCharacter;
+import com.majalis.character.SexualExperience;
 import com.majalis.character.AbstractCharacter.Stat;
 import com.majalis.character.Techniques;
 import com.majalis.encounter.EncounterCode;
@@ -76,7 +77,7 @@ public class SaveManager implements SaveService, LoadService{
 	    	case MODE:				save.mode = (GameMode) object; break;
 	    	case MUSIC:				save.music = (String) object; break;
 	    	case CONSOLE:			save.console = (String) object; break;
-	    	case VIRGIN:			save.player.setVirginity((Boolean) object); break;
+	    	case ANAL:				save.player.receiveSex((SexualExperience) object); break;
 	    	case GOBLIN_VIRGIN:		save.player.setGoblinVirginity((Boolean) object); break;
 	    	case SHOP:				save.shops.put(((Shop) object).getShopCode(), (Shop) object); break;
     	}	
@@ -108,7 +109,7 @@ public class SaveManager implements SaveService, LoadService{
 	    	case MODE:				return (T) (GameMode) save.mode;
 	    	case MUSIC:				return (T) (String) save.music;
 	    	case CONSOLE:			return (T) (String) save.console;
-	    	case VIRGIN:			
+	    	case ANAL:			
 	    	case GOBLIN_VIRGIN:		break;
 	    	case SHOP:				return (T) (ObjectMap<String, Shop>) save.shops;
     	}	

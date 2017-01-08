@@ -75,7 +75,7 @@ public abstract class AbstractCharacter extends Actor {
 	protected Bootyliciousness bootyliciousness;
 	
 	protected Stance stance;
-	private Stance oldStance;
+	protected Stance oldStance;
 	public ObjectMap<String, Integer> statuses; // status effects will be represented by a map of Enum to Status object
 
 	/* Constructors */
@@ -534,15 +534,14 @@ public abstract class AbstractCharacter extends Actor {
 			}	
 			
 			if (attack.getClimaxType() == ClimaxType.ANAL){
-				buttful = 3;
+				fillButt(3);
 			}
 			else if (attack.getClimaxType() == ClimaxType.ORAL){
-				mouthful = 1;
+				fillMouth(1);
 			}
 			
 			if (buttful > 0) result.add(getLeakMessage());
 			if (mouthful > 0) result.add(getDroolMessage());
-			
 		}
 		if (!alreadyIncapacitated() && !knockedDown){
 			// you tripped
@@ -564,6 +563,21 @@ public abstract class AbstractCharacter extends Actor {
 		
 		return result;
 	}
+	
+	protected void fillMouth(int mouthful) {
+		this.mouthful += mouthful;
+	}
+	protected void fillButt(int buttful) {
+		this.buttful += buttful;
+	}
+	
+	protected void drainMouth() {
+		mouthful--;
+	}
+	
+	protected void drainButt() {
+		buttful--;
+	}
 
 	private String getLeakMessage(){
 		String message = "";
@@ -573,7 +587,7 @@ public abstract class AbstractCharacter extends Actor {
 		else {
 			message = "The last of the cum runs out of your hole!";
 		}
-		buttful--;
+		drainButt();
 		return message;
 	}
 	private String getDroolMessage(){
@@ -584,7 +598,7 @@ public abstract class AbstractCharacter extends Actor {
 		else {
 			message = "You spit all of their cum out onto the ground!";
 		}
-		mouthful--;
+		drainMouth();
 		return message;
 	}
 	

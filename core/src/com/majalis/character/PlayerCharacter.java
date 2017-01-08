@@ -5,6 +5,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.IntArray;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.ObjectSet;
+import com.majalis.asset.AssetEnum;
 import com.majalis.battle.BattleFactory.EnemyEnum;
 import com.majalis.character.Item.ItemEffect;
 import com.majalis.character.Item.Potion;
@@ -41,15 +42,17 @@ public class PlayerCharacter extends AbstractCharacter {
 	/* out of battle only statistics */
 	protected int money;
 	protected int food;
-	
-	protected int dignity;
-	protected int integrity;
-	protected int analIntegrity;
-	protected int lustForDick;
+
 	protected Femininity femininity;
 	protected LipFullness lipFullness;
+
+	private int receivedAnal;
+	private int receivedOral;	
+	private int analCreampie;
+	private int oralCreampie;
+	private int cameFromAnal;
+	private int cameFromOral;
 	
-	private boolean virgin;
 	private boolean goblinVirgin;
 	private boolean a2m;
 	private boolean a2mcheevo;
@@ -68,7 +71,6 @@ public class PlayerCharacter extends AbstractCharacter {
 			setStabilityToMax();
 			setManaToMax();
 			food = 40;
-			setVirginity(true);
 			setGoblinVirginity(true);
 			a2m = false;
 			a2mcheevo = false;
@@ -296,19 +298,22 @@ public class PlayerCharacter extends AbstractCharacter {
 	@Override
 	public Array<String> receiveAttack(Attack resolvedAttack){
 		super.receiveAttack(resolvedAttack);
-		if (stance == Stance.DOGGY || stance == Stance.ANAL || stance == Stance.STANDING || stance == Stance.COWGIRL){
-			setVirginity(false);
+		if (!oldStance.isAnal() && stance.isAnal()){
+			receiveAnal(); 
 			if (resolvedAttack.getUser().equals("Goblin")){
 				setGoblinVirginity(false);
 			}
 			a2m = true;
 		}
-		else if (stance == Stance.FELLATIO && a2m){
-			resolvedAttack.addMessage("Bleugh! That was in your ass!");
-			if (!a2mcheevo){
-				a2mcheevo = true;
+		else if (!oldStance.isOral() && stance.isOral()) {
+			receiveOral();
+			if(a2m) {
+				resolvedAttack.addMessage("Bleugh! That was in your ass!");
+				if (!a2mcheevo){
+					a2mcheevo = true;
+					resolvedAttack.addMessage("Achievement unlocked: Ass to Mouth.");
+				}
 				a2m = false;
-				resolvedAttack.addMessage("Achievement unlocked: Ass to Mouth.");
 			}
 		}
 		else if (stance == Stance.SIXTY_NINE){
@@ -526,16 +531,19 @@ public class PlayerCharacter extends AbstractCharacter {
 					spurt = "Awoo! Semen spurts out your untouched cock as your hole is violated!\n"
 						+	"You feel it with your ass, like a girl! Your face is red with shame!\n"
 						+	"Got a little too comfortable, eh?\n";
+					cameFromAnal++;
 					break;
 				case COWGIRL:
 					spurt = "Awoo! Semen spurts out your untouched cock as your hole is violated!\n"
 							+	"You feel it with your ass, like a girl! Your face is red with shame!\n"
 							+	"It spews all over them!\n";
+					cameFromAnal++;
 					break;
 				case FELLATIO:
 					spurt = "You spew while sucking!\n"
 						+	"Your worthless cum spurts into the dirt!\n"
 						+	"They don't even notice!\n";
+					cameFromOral++;
 					break;
 				case FACE_SITTING:
 					spurt = "You spew while she rides your face!\n"
@@ -546,6 +554,7 @@ public class PlayerCharacter extends AbstractCharacter {
 					spurt = "You spew into her mouth!\n"
 							+	"Her cock twitches in yours!\n"
 							+	"You're about to retun the favor!\n";
+					cameFromOral++;
 					break;
 				default: spurt = "You spew your semen onto the ground!\n"; 
 			}
@@ -603,7 +612,28 @@ public class PlayerCharacter extends AbstractCharacter {
 	}
 	
 	public boolean isVirgin() {
-		return virgin;
+		return receivedAnal == 0;
+	}
+	
+	public boolean isOralVirgin() {
+		return receivedOral == 0;
+	}
+	
+	public boolean tastedCumAnally() {
+		return analCreampie != 0;
+	}
+	
+	public boolean tastedCumOrally() {
+		return oralCreampie != 0;
+	}
+	
+	private int getMasculinityLevel() {
+		return (int) Math.round(receivedOral / 5. + receivedAnal / 3. + oralCreampie / 3. + analCreampie + cameFromOral + cameFromAnal);		
+	}
+	
+	public String getMasculinityPath() {
+		int masculinityLevel = getMasculinityLevel();
+		return masculinityLevel < 1 ? AssetEnum.MARS_ICON_0.getPath() : masculinityLevel < 3 ? AssetEnum.MARS_ICON_1.getPath() : masculinityLevel < 8 ? AssetEnum.MARS_ICON_2.getPath() : masculinityLevel < 15 ? AssetEnum.MARS_ICON_3.getPath() : AssetEnum.MARS_ICON_4.getPath();
 	}
 	
 	public boolean isVirgin(EnemyEnum enemyEnum) {
@@ -614,14 +644,30 @@ public class PlayerCharacter extends AbstractCharacter {
 		return false;
 	}
 
-	public void setVirginity(Boolean virginity) {
-		virgin = virginity;
+	private void receiveAnal() {
+		receivedAnal++;
 	}
-
+	
+	private void receiveOral() {
+		receivedOral++;
+	}
+	
+	@Override
+	protected void fillButt(int buttful) {
+		super.fillButt(buttful);
+		analCreampie++;
+	}
+	
+	@Override
+	protected void fillMouth(int mouthful) {
+		super.fillButt(buttful);
+		oralCreampie++;
+	}
+	
 	public void setGoblinVirginity(boolean virginity) {
 		goblinVirgin = virginity;
 		if (!goblinVirgin){
-			virgin = false;
+			receivedAnal++;
 		}
 	}
 	
@@ -653,5 +699,21 @@ public class PlayerCharacter extends AbstractCharacter {
 	
 	public void setBaseDefense(int defense) {
 		baseDefense = defense;
+	}
+
+	public void receiveSex(SexualExperience sex) {
+		for (int ii = 0; ii < sex.getAnalSex(); ii++) {
+			receiveAnal();
+		}
+		for (int ii = 0; ii < sex.getCreampies(); ii++) {
+			fillButt(3);
+		}
+		for (int ii = 0; ii < sex.getOralSex(); ii++) {
+			receiveOral();
+		}
+		for (int ii = 0; ii < sex.getOralCreampies(); ii++) {
+			fillMouth(1);
+		}
+		
 	}
 }

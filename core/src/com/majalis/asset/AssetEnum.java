@@ -66,6 +66,16 @@ public enum AssetEnum {
 	BALANCE_ICON_3("battle/Scale3.png"),
 	MANA_ICON_3("battle/Eye3.png"),
 	
+	MARS_ICON_0("battle/MaleSymbol00.png"),
+	MARS_ICON_1("battle/MaleSymbol01.png"),
+	MARS_ICON_2("battle/MaleSymbol02.png"),
+	MARS_ICON_3("battle/MaleSymbol03.png"),
+	MARS_ICON_4("battle/MaleSymbol04.png"),
+	
+	SMALL_DONG_0("arousal/Trap0.png"),
+	SMALL_DONG_1("arousal/Trap1.png"),
+	SMALL_DONG_2("arousal/Trap2.png"),
+	
 	BATTLE_SKIN("battle/battleui.json"),
 	CHARACTER_POTRAIT("battle/Neutral.png"),
 	FOREST_BG("battle/ForestBG.jpg"),

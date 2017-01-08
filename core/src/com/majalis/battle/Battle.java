@@ -83,6 +83,7 @@ public class Battle extends Group{
 	private final Image staminaIcon;
 	private final Image balanceIcon;
 	private final Image manaIcon;
+	private final Image masculinityIcon;
 	private final Image enemyHealthIcon;
 	private final Label healthLabel;
 	private final Label staminaLabel;
@@ -131,9 +132,14 @@ public class Battle extends Group{
 		skin = assetManager.get(AssetEnum.BATTLE_SKIN.getPath(), Skin.class);
 		buttonSound = assetManager.get(AssetEnum.BUTTON_SOUND.getPath(), Sound.class);
 		
+		int barX = 130;
+		
+		masculinityIcon = new Image(assetManager.get(character.getMasculinityPath(), Texture.class));
+		masculinityIcon.setScale(.15f);
+		addActorAndListen(masculinityIcon, barX + 100, 450);
+		
 		characterHealth = new ProgressBar(0, 1, .05f, false, skin);
 		characterHealth.setWidth(350);
-		int barX = 130;
 	
 		characterHealth.setValue(character.getHealthPercent());
 		healthIcon = new Image(assetManager.get(character.getHealthDisplay(), Texture.class));
@@ -480,6 +486,8 @@ public class Battle extends Group{
 		balanceIcon.setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(character.getBalanceDisplay(), Texture.class))));
 		manaIcon.setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(character.getManaDisplay(), Texture.class))));
 		enemyHealthIcon.setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(enemy.getHealthDisplay(), Texture.class))));
+		
+		masculinityIcon.setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(character.getMasculinityPath(), Texture.class))));
 	}
 	
 	private void printToConsole(Array<String> results){
