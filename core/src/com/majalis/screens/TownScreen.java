@@ -7,6 +7,7 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -14,6 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.majalis.asset.AssetEnum;
@@ -36,6 +38,7 @@ public class TownScreen extends AbstractScreen {
 		resourceRequirements.put(AssetEnum.BATTLE_HOVER.getPath(), Texture.class);
 		resourceRequirements.put(AssetEnum.BATTLE_TEXTBOX.getPath(), Texture.class);
 		resourceRequirements.put(AssetEnum.TEXT_BOX.getPath(), Texture.class);
+		resourceRequirements.put(AssetEnum.TRAINER.getPath(), Texture.class);
 		resourceRequirements.put(AssetEnum.SHOP_MUSIC.getPath(), Music.class);
 		resourceRequirements.put(AssetEnum.BUTTON_SOUND.getPath(), Sound.class);
 		resourceRequirements.put(AssetEnum.EQUIP.getPath(), Sound.class);
@@ -70,9 +73,11 @@ public class TownScreen extends AbstractScreen {
 	@Override
 	public void buildStage() {
 		Table table = new Table();
+		table.align(Align.bottomLeft);
+        table.setPosition(1200, 595);
 		
 		Array<String> buttonLabels = new Array<String>();
-		buttonLabels.addAll("General Store", "Town Crier", "Inn", "Depart");
+		buttonLabels.addAll("General Store", "Blacksmith", "Town Crier", "Inn", "Depart");
 		
 		for (int ii = 0; ii < buttonLabels.size; ii++){
 			buttons.add(new TextButton(buttonLabels.get(ii), skin));
@@ -92,7 +97,19 @@ public class TownScreen extends AbstractScreen {
 	        }
 	    });
 		
-		buttons.get(3).addListener(new ClickListener(){
+		buttons.get(1).addListener(new ClickListener(){
+	        @Override
+	        public void clicked(InputEvent event, float x, float y) {
+	        	buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
+	        	saveService.saveDataValue(SaveEnum.CONTEXT, SaveManager.GameContext.ENCOUNTER);
+	        	saveService.saveDataValue(SaveEnum.RETURN_CONTEXT, SaveManager.GameContext.TOWN);
+	        	saveService.saveDataValue(SaveEnum.ENCOUNTER_CODE, EncounterCode.WEAPON_SHOP);
+	        	music.stop();
+	        	showScreen(ScreenEnum.LOAD_GAME);    
+	        }
+	    });
+		
+		buttons.get(4).addListener(new ClickListener(){
 	        @Override
 	        public void clicked(InputEvent event, float x, float y) {
 	        	buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
@@ -101,18 +118,18 @@ public class TownScreen extends AbstractScreen {
 	        	showScreen(ScreenEnum.LOAD_GAME);    
 	        }
 	    });
-	
-        table.setFillParent(true);
-        
+		
         this.addActor(background);
         this.addActor(shopkeep);
         shopkeep.setPosition(300, 0);
         
         this.addActor(table);
-        table.setPosition(300, 195);
         this.addActor(arrow);
         
         arrow.setSize(45, 75);
+        setArrowPosition();
+        arrow.setPosition(arrow.getX(), arrow.getY() + 60 * (buttons.size-1));
+        
         music.play();
         music.setVolume(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("musicVolume", 1));
         music.setLooping(true);
@@ -127,10 +144,12 @@ public class TownScreen extends AbstractScreen {
         if(Gdx.input.isKeyJustPressed(Keys.UP)){
         	if (selection > 0) selection--;
         	else selection = buttons.size-1;
+        	setArrowPosition();
         }
         else if(Gdx.input.isKeyJustPressed(Keys.DOWN)){
         	if (selection < buttons.size- 1) selection++;
         	else selection = 0;
+        	setArrowPosition();
         }
         else if(Gdx.input.isKeyJustPressed(Keys.ENTER)){
         	InputEvent event1 = new InputEvent();
@@ -141,19 +160,22 @@ public class TownScreen extends AbstractScreen {
             event2.setType(InputEvent.Type.touchUp);
             buttons.get(selection).fire(event2);
         }
-        arrow.setPosition(1065, 788 - selection * 60);
+        
 		camera.update();
 		batch.setProjectionMatrix(camera.combined);
+	}
+	
+	private void setArrowPosition() {
+		Vector2 buttonPosition = buttons.get(selection).localToStageCoordinates(new Vector2(0,0));
+		arrow.setPosition(buttonPosition.x-43, buttonPosition.y-8);
 	}
 	
 	private ClickListener getListener(final int index){
 		return new ClickListener(){
 	        @Override
-	        public void clicked(InputEvent event, float x, float y) {
-	        }
-	        @Override
 	        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
 				selection = index;
+				setArrowPosition();
 	        }
 	    };
 	}

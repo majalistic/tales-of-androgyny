@@ -952,6 +952,16 @@ public class EncounterBuilder {
 					)
 				);
 				break;
+			case WEAPON_SHOP:
+				Background backgroundWithBlacksmith = new BackgroundBuilder(assetManager.get(AssetEnum.TOWN_BG.getPath(), Texture.class)).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class)).setForeground(assetManager.get(AssetEnum.TRAINER.getPath(), Texture.class)).build();
+				getTextScenes (					
+					getArray(new String[]{"You peruse the shop."}), font, backgroundWithBlacksmith, new Array<Mutation>(), AssetEnum.SHOP_MUSIC.getPath(), getArray(new String[]{}),	
+					getShopScene(
+						assetManager, ShopCode.WEAPON_SHOP, character, new BackgroundBuilder(assetManager.get(AssetEnum.TOWN_BG.getPath(), Texture.class)).setForeground(assetManager.get(AssetEnum.TRAINER.getPath(), Texture.class)).build(), 
+						getEndScene(EndScene.Type.ENCOUNTER_OVER)	
+					)
+				);
+				break;
 			case CAMP_AND_EAT:
 				getTextScenes (					
 					getScript("FORCED_CAMP"), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.HEALTH, 10)}), AssetEnum.SHOP_MUSIC.getPath(), getArray(new String[]{}),	

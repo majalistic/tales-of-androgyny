@@ -205,7 +205,7 @@ public class ShopScene extends Scene {
 		
 		table.setPosition(500, 800);
 		this.addActor(table);	
-		if (shop.done) addActor(done);
+		if (shop.done || shopCode != ShopCode.FIRST_STORY) addActor(done);
 	}
 
 	private Shop initShop(ShopCode shopCode, Shop shop) {
@@ -213,6 +213,7 @@ public class ShopScene extends Scene {
 		shop = new Shop(shopCode);
 		switch (shopCode) {
 			case FIRST_STORY:
+			case WEAPON_SHOP:
 				for (WeaponType type: WeaponType.values()){
 					shop.weapons.add(new Weapon(type));					
 				}
@@ -253,7 +254,7 @@ public class ShopScene extends Scene {
 	}
 	
 	public enum ShopCode {
-		FIRST_STORY, SHOP
+		FIRST_STORY, SHOP, WEAPON_SHOP
 	}
 	
 }

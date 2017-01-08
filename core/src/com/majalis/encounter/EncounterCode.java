@@ -17,15 +17,16 @@ public enum EncounterCode {
 	BRIGAND (3),
 	DRYAD (MOUNTAIN_ACTIVE, 4), 
 	CENTAUR (5), 
+	GOBLIN (ENCHANTED_FOREST, 6), 
 	FORT (CASTLE), 
 	TOWN (AssetEnum.TOWN),
 	TOWN2 (AssetEnum.TOWN),
-	
-	LEVEL_UP, 
 	SHOP, 
+	WEAPON_SHOP,
 	STARVATION,
 	CAMP_AND_EAT, 
-	GOBLIN (ENCHANTED_FOREST, 6), 
+	
+	LEVEL_UP, 
 	
 	/* Story Mode */
 	

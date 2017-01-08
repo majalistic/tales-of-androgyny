@@ -176,6 +176,7 @@ public class EncounterScreen extends AbstractScreen {
 				requirements.put(AssetEnum.SMUG_LAUGH.getPath(), Sound.class);
 				requirements.put(AssetEnum.SHOP_MUSIC.getPath(), Music.class);
 			case SHOP:
+			case WEAPON_SHOP:
 				requirements.putAll(TownScreen.resourceRequirements);
 				break;	
 			case OGRE_WARNING_STORY:
