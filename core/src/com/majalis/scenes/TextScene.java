@@ -16,6 +16,7 @@ public class TextScene extends AbstractTextScene  {
 	private final Background background;
 	private String music;
 	private String sound;
+	private String mutationResults;
 	
 	public TextScene(OrderedMap<Integer, Scene> sceneBranches, int sceneCode, SaveService saveService, BitmapFont font, Background background, String toDisplay, Array<Mutation> mutations) {
 		super(sceneBranches, sceneCode, saveService, font, background);
@@ -34,14 +35,11 @@ public class TextScene extends AbstractTextScene  {
 
 	@Override
 	protected String getDisplay(){
-		return toDisplay;
+		return toDisplay + mutationResults;
 	}
 	
 	@Override
 	public void setActive() {
-		for (Mutation mutator: mutations){
-			mutator.mutate();
-		}
 		super.setActive();
 		if (music != null) {
 			EncounterScreen.setMusic(music);
@@ -51,6 +49,11 @@ public class TextScene extends AbstractTextScene  {
 			EncounterScreen.play(sound);
 		}
 		background.initEnemy();
+		mutationResults = "";
+		for (Mutation mutator: mutations){
+			String result = mutator.mutate();
+			if (result != null) mutationResults += " ["+result+"]";
+		}
 	}
 	// this type of TextScene will be one that always pipes from one scene to the next with no branch - there will be another TextScene that actually has branching logic
 	@Override

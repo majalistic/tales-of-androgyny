@@ -295,7 +295,6 @@ public abstract class AbstractCharacter extends Actor {
 		oldStance = stance;
 		stance = technique.getStance();
 		
-		
 		return technique;
 	}
 	
@@ -425,7 +424,6 @@ public abstract class AbstractCharacter extends Actor {
 			}
 			stance = Stance.ERUPT;
 		}
-		oldStance = stance;
 		return resolvedAttack;
 	}
 	
@@ -533,12 +531,14 @@ public abstract class AbstractCharacter extends Actor {
 				result.add(label + (secondPerson ? " are taunted " : " is taunted ") + "! " + (secondPerson ? " Your " : " Their ") + "lust raises by" + attack.getLust());
 			}	
 			
+			String internalShotText = null;
 			if (attack.getClimaxType() == ClimaxType.ANAL){
-				fillButt(3);
+				internalShotText = fillButt(3);
 			}
 			else if (attack.getClimaxType() == ClimaxType.ORAL){
-				fillMouth(1);
+				internalShotText = fillMouth(1);
 			}
+			if (internalShotText != null) result.add(internalShotText);
 			
 			if (buttful > 0) result.add(getLeakMessage());
 			if (mouthful > 0) result.add(getDroolMessage());
@@ -564,11 +564,13 @@ public abstract class AbstractCharacter extends Actor {
 		return result;
 	}
 	
-	protected void fillMouth(int mouthful) {
+	protected String fillMouth(int mouthful) {
 		this.mouthful += mouthful;
+		return null;
 	}
-	protected void fillButt(int buttful) {
+	protected String fillButt(int buttful) {
 		this.buttful += buttful;
+		return null;
 	}
 	
 	protected void drainMouth() {

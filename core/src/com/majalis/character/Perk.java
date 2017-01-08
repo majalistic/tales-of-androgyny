@@ -6,7 +6,12 @@ public enum Perk {
 	SURVEYOR ("Increases effective perception for scouting purposes by 2 per rank.", 3),
 	EROTIC ("Increases effective charisma for arousing others by 2 per rank.", 3), 
 	CATAMITE ("Unlocks more options for being willingly receptive.", 1),
-	WEAK_TO_ANAL ("Weak to butt stuff. Causes quick pew pews while penetrated.", false);
+	WEAK_TO_ANAL ("Weak to butt stuff. Causes quick pew pews while penetrated.", false),
+	ANAL_LOVER ("Loves butt stuff. Or, more accurately, getting butt stuffed.", 3, false),
+	MOUTH_MANIAC ("Loves suckin' it.", 3, false),
+	CREAMPIE_ADDICT ("Loves to get cream-filled like a creampuff.", 3, false),
+	SEMEN_SWALLOWER ("Loves to drink jizz.", 3, false)
+	;
 	
 	private final int maxRank;
 	private final boolean positive;

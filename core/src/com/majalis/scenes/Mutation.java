@@ -25,15 +25,17 @@ public class Mutation {
 		this.value = value;
 	}
 
-	public void mutate() {
+	public String mutate() {
 		if (saveService == null){
-			return;
+			return null;
 		}
 		if (path != null){
-			saveService.saveDataValue(path, value);
+			return saveService.saveDataValue(path, value, false);
 		}
 		else {
-			saveService.saveDataValue(pathProfile, value);
+			saveService.saveDataValue(pathProfile, value, false);
+			return null;
 		}
 	}
+	
 }

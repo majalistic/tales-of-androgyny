@@ -40,22 +40,33 @@ public class SaveManager implements SaveService, LoadService{
         profileSave = getProfileSave();
     }
     
-    public void saveDataValue(ProfileEnum key, Object object){
+    public void saveDataValue(ProfileEnum key, Object object) {
+    	saveDataValue(key, object, true);
+    }
+    
+    public void saveDataValue(ProfileEnum key, Object object, boolean saveToJson) {
     	switch (key) {
-    		case KNOWLEDGE: 		profileSave.addKnowledge((String) object); break;
+			case KNOWLEDGE: 		profileSave.addKnowledge((String) object); break;
+		}
+    	if (saveToJson) {
+    		saveToProfileJson(profileSave);
     	}
-    	saveToProfileJson(profileSave);
     }
     
     @SuppressWarnings("unchecked")
-    public <T> T loadDataValue(ProfileEnum key, Class<?> type){
+    public <T> T loadDataValue(ProfileEnum key, Class<?> type) {
     	switch (key) {
 			case KNOWLEDGE: 		return (T) (ObjectMap<String, Integer>) profileSave.enemyKnowledge;
 		}
     	return null;
     }
     
-	public void saveDataValue(SaveEnum key, Object object){
+	public String saveDataValue(SaveEnum key, Object object) {
+		return saveDataValue(key, object, true);
+    }
+    
+	public String saveDataValue(SaveEnum key, Object object, boolean saveToJson) {
+		String result = null;
     	switch (key) {
 	    	case PLAYER: 			save.player = (PlayerCharacter) object; break;
 	    	case ENEMY: 			save.enemy = (EnemyCharacter) object; break;
@@ -77,13 +88,17 @@ public class SaveManager implements SaveService, LoadService{
 	    	case MODE:				save.mode = (GameMode) object; break;
 	    	case MUSIC:				save.music = (String) object; break;
 	    	case CONSOLE:			save.console = (String) object; break;
-	    	case ANAL:				save.player.receiveSex((SexualExperience) object); break;
+	    	case ANAL:				result = save.player.receiveSex((SexualExperience) object); break;
 	    	case GOBLIN_VIRGIN:		save.player.setGoblinVirginity((Boolean) object); break;
 	    	case SHOP:				save.shops.put(((Shop) object).getShopCode(), (Shop) object); break;
     	}	
-        saveToJson(save); //Saves current save immediately.
-    }
-    
+    	if (saveToJson) {
+    		saveToJson(save); //Saves current save immediately.
+    	}
+        return result;
+	
+	}
+	
     @SuppressWarnings("unchecked")
     public <T> T loadDataValue(SaveEnum key, Class<?> type){
     	switch (key) {

@@ -298,15 +298,19 @@ public class PlayerCharacter extends AbstractCharacter {
 	@Override
 	public Array<String> receiveAttack(Attack resolvedAttack){
 		super.receiveAttack(resolvedAttack);
+		
+		String result;
 		if (!oldStance.isAnal() && stance.isAnal()){
-			receiveAnal(); 
+			result = receiveAnal(); 
+			if (result != null) { resolvedAttack.addMessage(result); } 
 			if (resolvedAttack.getUser().equals("Goblin")){
 				setGoblinVirginity(false);
 			}
 			a2m = true;
 		}
 		else if (!oldStance.isOral() && stance.isOral()) {
-			receiveOral();
+			result = receiveOral();
+			if (result != null) { resolvedAttack.addMessage(result); } 
 			if(a2m) {
 				resolvedAttack.addMessage("Bleugh! That was in your ass!");
 				if (!a2mcheevo){
@@ -521,6 +525,7 @@ public class PlayerCharacter extends AbstractCharacter {
 	@Override
 	protected String increaseLust(int lustIncrease) {
 		String spurt = "";
+		String result = null;
 		lust += lustIncrease;
 		if (lust > 10){
 			lust = 0;
@@ -532,18 +537,21 @@ public class PlayerCharacter extends AbstractCharacter {
 						+	"You feel it with your ass, like a girl! Your face is red with shame!\n"
 						+	"Got a little too comfortable, eh?\n";
 					cameFromAnal++;
+					result = incrementPerk(cameFromAnal, Perk.ANAL_LOVER, 5, 3, 1);
 					break;
 				case COWGIRL:
 					spurt = "Awoo! Semen spurts out your untouched cock as your hole is violated!\n"
 							+	"You feel it with your ass, like a girl! Your face is red with shame!\n"
 							+	"It spews all over them!\n";
 					cameFromAnal++;
+					result = incrementPerk(cameFromAnal, Perk.ANAL_LOVER, 5, 3, 1);
 					break;
 				case FELLATIO:
 					spurt = "You spew while sucking!\n"
 						+	"Your worthless cum spurts into the dirt!\n"
 						+	"They don't even notice!\n";
 					cameFromOral++;
+					result = incrementPerk(cameFromOral, Perk.MOUTH_MANIAC, 5, 3, 1);
 					break;
 				case FACE_SITTING:
 					spurt = "You spew while she rides your face!\n"
@@ -555,9 +563,11 @@ public class PlayerCharacter extends AbstractCharacter {
 							+	"Her cock twitches in yours!\n"
 							+	"You're about to retun the favor!\n";
 					cameFromOral++;
+					result = incrementPerk(cameFromOral, Perk.MOUTH_MANIAC, 5, 3, 1);
 					break;
 				default: spurt = "You spew your semen onto the ground!\n"; 
 			}
+			if (result != null) spurt += result + "\n";
 			spurt += "You're now flaccid!\n";
 		}
 		return !spurt.isEmpty() ? spurt : null;
@@ -643,25 +653,43 @@ public class PlayerCharacter extends AbstractCharacter {
 		}
 		return false;
 	}
-
-	private void receiveAnal() {
+	
+	private String receiveAnal() {
 		receivedAnal++;
+		return incrementPerk(receivedAnal, Perk.ANAL_LOVER, 10, 6, 3);
 	}
 	
-	private void receiveOral() {
+	private String receiveOral() {
 		receivedOral++;
+		return incrementPerk(receivedOral, Perk.MOUTH_MANIAC, 10, 6, 3);
 	}
 	
 	@Override
-	protected void fillButt(int buttful) {
+	protected String fillButt(int buttful) {
 		super.fillButt(buttful);
 		analCreampie++;
+		return incrementPerk(analCreampie, Perk.CREAMPIE_ADDICT, 10, 6, 3);
 	}
 	
 	@Override
-	protected void fillMouth(int mouthful) {
-		super.fillButt(buttful);
+	protected String fillMouth(int mouthful) {
+		super.fillMouth(mouthful);
 		oralCreampie++;
+		return incrementPerk(oralCreampie, Perk.SEMEN_SWALLOWER, 10, 6, 3);
+	}
+	
+	private String incrementPerk(int currentValueOfStat, Perk perkToIncrement, int ... valuesToCheck) {
+		int currentValueOfPerk = perks.get(perkToIncrement.toString(), 0);
+		int valueToApply = valuesToCheck.length;
+		for (int valueToCheck : valuesToCheck) {
+			if (valueToApply <= currentValueOfPerk) break;
+			if (currentValueOfStat >= valueToCheck) {
+				perks.put(perkToIncrement.toString(), valueToApply);
+				return "You gained " + perkToIncrement.toString() + " (Rank " + valueToApply + ")!";
+			}
+			valueToApply--;
+		}
+		return null;
 	}
 	
 	public void setGoblinVirginity(boolean virginity) {
@@ -701,19 +729,34 @@ public class PlayerCharacter extends AbstractCharacter {
 		baseDefense = defense;
 	}
 
-	public void receiveSex(SexualExperience sex) {
+	public String receiveSex(SexualExperience sex) {
+		String result = "";
+		String temp;
 		for (int ii = 0; ii < sex.getAnalSex(); ii++) {
-			receiveAnal();
+			temp = receiveAnal();
+			if (temp != null) {
+				result += temp + "\n";
+			}
 		}
 		for (int ii = 0; ii < sex.getCreampies(); ii++) {
-			fillButt(3);
+			temp = fillButt(3);
+			if (temp != null) {
+				result += temp + "\n";
+			}
 		}
 		for (int ii = 0; ii < sex.getOralSex(); ii++) {
-			receiveOral();
+			temp = receiveOral();
+			if (temp != null) {
+				result += temp + "\n";
+			}
 		}
 		for (int ii = 0; ii < sex.getOralCreampies(); ii++) {
-			fillMouth(1);
+			temp = fillMouth(1);
+			if (temp != null) {
+				result += temp + "\n";
+			}
 		}
 		
+		return result;
 	}
 }
