@@ -1036,20 +1036,15 @@ public class EncounterBuilder {
 		sounds.reverse();
 		
 		int soundIndex = -(script.size - sounds.size);
-		int mutationIndex = -(script.size - mutations.size);
 		TextScene newScene = null;
 		for (String scriptLine: script){
-			Array<Mutation> toApply = new Array<Mutation>();
-			if (mutationIndex >= 0){
-				toApply = getArray(new Mutation[]{mutations.get(mutationIndex)});
-			}
-			newScene = new TextScene(sceneMap, sceneCounter, saveService, font, background.clone(), scriptLine, toApply);
+			newScene = new TextScene(sceneMap, sceneCounter, saveService, font, background.clone(), scriptLine, mutations);
+			mutations = new Array<Mutation>();
 			if (soundIndex >= 0){
 				newScene.setSound(sounds.get(soundIndex));
 			}
 			sceneMap = addScene(newScene);
 			soundIndex++;
-			mutationIndex++;
 		}	
 		if (music != null){
 			newScene.setMusic(music);

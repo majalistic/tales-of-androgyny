@@ -35,7 +35,12 @@ public class TextScene extends AbstractTextScene  {
 
 	@Override
 	protected String getDisplay(){
-		return toDisplay + mutationResults;
+		return toDisplay;
+	}
+	
+	@Override
+	protected String getStatusResults(){
+		return mutationResults;
 	}
 	
 	@Override
