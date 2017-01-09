@@ -685,7 +685,7 @@ public class PlayerCharacter extends AbstractCharacter {
 			if (valueToApply <= currentValueOfPerk) break;
 			if (currentValueOfStat >= valueToCheck) {
 				perks.put(perkToIncrement.toString(), valueToApply);
-				return "You gained " + perkToIncrement.toString() + " (Rank " + valueToApply + ")!";
+				return "You gained " + perkToIncrement.getLabel() + " (Rank " + valueToApply + ")!";
 			}
 			valueToApply--;
 		}
