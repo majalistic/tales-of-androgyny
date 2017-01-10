@@ -54,9 +54,10 @@ public abstract class Item {
 		@Override
 		public String getDescription() {
 			switch (type){
-				case Rapier: return "Weapon who efficacy is dependent on the wielder's agility. [Damage: 1 + Agility / 3]";
-				case Cutlass: return "Weapon who efficacy is dependent on both the wielder's strength and agility. [Damage: 1 + (Strength + Agility) / 5]";
-				case Broadsword: return "Weapon who efficacy is dependent on the wielder's agility. [Damage: 1 + Strength / 3]";
+				case Rapier: return "Thrusting weapon whose efficacy is dependent on the wielder's agility. [Damage: 1 + Agility / 3]";
+				case Gladius: return "Thrusting and slashing weapon whose efficacy is dependent on both the wielder's strength and agility. [Damage: 1 + (Strength + Agility) / 5]";
+				case Cutlass: return "Slashing weapon Weapon whose efficacy is dependent on both the wielder's strength and agility. [Damage: 1 + (Strength + Agility) / 5]";
+				case Broadsword: return "Thrusting and slashing weapon whose efficacy is dependent on the wielder's strength. [Damage: 1 + Strength / 3]";
 				default: return "Unknown Weapon!";
 			}
 		}
@@ -64,6 +65,7 @@ public abstract class Item {
 		public int getDamage(ObjectMap<Stat, Integer> stats) {
 			switch (type){
 				case Rapier: return (stats.get(Stat.AGILITY)) / 3 + 1;
+				case Gladius:
 				case Cutlass: return (stats.get(Stat.STRENGTH) + stats.get(Stat.AGILITY)) / 5 + 1;
 				case Broadsword: return (stats.get(Stat.STRENGTH)) / 3 + 1;
 				default: return 0;
@@ -73,6 +75,7 @@ public abstract class Item {
 	
 	public enum WeaponType {
 		Rapier,
+		Gladius,
 		Cutlass,
 		Broadsword
 	}
