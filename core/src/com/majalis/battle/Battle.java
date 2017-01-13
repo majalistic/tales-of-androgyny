@@ -355,7 +355,7 @@ public class Battle extends Group{
 			}
 		}
 		else {
-			if(Gdx.input.isKeyJustPressed(Keys.ENTER)) {
+			if(Gdx.input.isKeyJustPressed(Keys.ENTER) || Gdx.input.isKeyJustPressed(Keys.SPACE)) {
 	        	battleOver = true;
 	        }
 		}
