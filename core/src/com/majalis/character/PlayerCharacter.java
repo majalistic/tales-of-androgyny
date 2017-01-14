@@ -58,11 +58,11 @@ public class PlayerCharacter extends AbstractCharacter {
 	private boolean a2mcheevo;
 	
 	@SuppressWarnings("unused")
-	private PlayerCharacter(){}
+	private PlayerCharacter() {}
 	
-	public PlayerCharacter(boolean defaultValues){
+	public PlayerCharacter(boolean defaultValues) {
 		super(defaultValues);
-		if (defaultValues){
+		if (defaultValues) {
 			label = "You";
 			secondPerson = true;
 			healthTiers = new IntArray(new int[]{15, 15, 15, 15});
@@ -85,14 +85,14 @@ public class PlayerCharacter extends AbstractCharacter {
 		}
 		
 		skills = new ObjectMap<String, Integer>();
-		for (Techniques basicTechnique: getBaseTechniques()){
+		for (Techniques basicTechnique: getBaseTechniques()) {
 			skills.put(basicTechnique.toString(), 1);
 		}
 		
 		perks = new ObjectMap<String, Integer>();
 	}
 
-	private static ObjectSet<Techniques> getBaseTechniques(){
+	private static ObjectSet<Techniques> getBaseTechniques() {
 		ObjectSet<Techniques> baseTechniques = new ObjectSet<Techniques>();
 		baseTechniques.addAll(POWER_ATTACK, TEMPO_ATTACK, RESERVED_ATTACK, DUCK, SPRING_ATTACK, NEUTRAL_ATTACK, REVERSAL_ATTACK, CAREFUL_ATTACK, BLOCK, GUARD,
 			KIP_UP, STAND_UP, STAY_KNELT, KNEE_UP, REST_FACE_DOWN, REST, JUMP_ATTACK, 
@@ -104,19 +104,19 @@ public class PlayerCharacter extends AbstractCharacter {
 		return baseTechniques;
 	}
 	
-	public static ObjectMap<Stat, Array<String>> getStatMap(){
+	public static ObjectMap<Stat, Array<String>> getStatMap() {
 		return statNameMap;
 	}
 	
-	public void addToInventory(Item item){
+	public void addToInventory(Item item) {
 		inventory.add(item);
 	}
 
-	public String consumeItem(Item item){
+	public String consumeItem(Item item) {
 		ItemEffect effect = item.getUseEffect();
 		if (effect == null) { return "Item cannot be used."; }
 		String result = "";
-		switch (effect.getType()){
+		switch (effect.getType()) {
 			case HEALING:
 				int currentHealth = getCurrentHealth();
 				modHealth(effect.getMagnitude());
@@ -140,12 +140,12 @@ public class PlayerCharacter extends AbstractCharacter {
 		return result;
 	}
 	
-	public Array<Item> getInventory(){ return inventory; }
+	public Array<Item> getInventory() { return inventory; }
 	
 	public JobClass getJobClass() { return jobClass; }
 	
-	public void setJobClass(JobClass jobClass){
-		for (Stat stat: Stat.values()){
+	public void setJobClass(JobClass jobClass) {
+		for (Stat stat: Stat.values()) {
 			setStat(stat, jobClass.getBaseStat(stat));
 		}
 		this.jobClass = jobClass;
@@ -160,7 +160,7 @@ public class PlayerCharacter extends AbstractCharacter {
 		skills.remove(HOLD_BACK.toString());
 		perks.remove(Perk.WEAK_TO_ANAL.toString());
 		// warrior will need to get bonus stance options, Ranger will need to start with a bow
-		switch (jobClass){ 
+		switch (jobClass) { 
 			case WARRIOR: skillPoints = 3; skills.put(BLITZ_ATTACK.toString(), 1); skills.put(ALL_OUT_BLITZ.toString(), 1); skills.put(HOLD_BACK.toString(), 1); perks.put(Perk.WEAK_TO_ANAL.toString(), 1); break;
 			case PALADIN: addSkill(COMBAT_HEAL, 1); break;
 			case THIEF: skillPoints = 5; food = 80; break;
@@ -171,20 +171,20 @@ public class PlayerCharacter extends AbstractCharacter {
 	}
 	
 	// this needs to consolidate logic with the getTechniques method
-	public Array<Technique> getPossibleTechniques(AbstractCharacter target){
+	public Array<Technique> getPossibleTechniques(AbstractCharacter target) {
 		Array<Technique> possibles;
-		switch(stance){
+		switch(stance) {
 			case BLITZ:
 				return getTechniques(ALL_OUT_BLITZ, HOLD_BACK);
 			case OFFENSIVE:
 				possibles = getTechniques(BLITZ_ATTACK, POWER_ATTACK, ARMOR_SUNDER, RECKLESS_ATTACK, KNOCK_DOWN, VAULT, TEMPO_ATTACK, RESERVED_ATTACK);
-				if (target.getStance() == Stance.SUPINE && target.isErect() && target.enemyType != EnemyEnum.SLIME && target.enemyType != EnemyEnum.CENTAUR && target.enemyType != EnemyEnum.UNICORN){
+				if (target.getStance() == Stance.SUPINE && target.isErect() && target.enemyType != EnemyEnum.SLIME && target.enemyType != EnemyEnum.CENTAUR && target.enemyType != EnemyEnum.UNICORN) {
 					possibles.addAll(getTechniques(SIT_ON_IT));
 				}
 				return possibles;
 			case BALANCED:
 				possibles = getTechniques(SPRING_ATTACK, NEUTRAL_ATTACK, CAUTIOUS_ATTACK, BLOCK, INCANTATION, DUCK, HIT_THE_DECK);;
-				if (target.getStance() == Stance.SUPINE && target.isErect() && target.enemyType != EnemyEnum.SLIME && target.enemyType != EnemyEnum.CENTAUR && target.enemyType != EnemyEnum.UNICORN){
+				if (target.getStance() == Stance.SUPINE && target.isErect() && target.enemyType != EnemyEnum.SLIME && target.enemyType != EnemyEnum.CENTAUR && target.enemyType != EnemyEnum.UNICORN) {
 					possibles.addAll(getTechniques(SIT_ON_IT));
 				}
 				return possibles;
@@ -195,31 +195,31 @@ public class PlayerCharacter extends AbstractCharacter {
 				return getTechniques(KIP_UP, STAND_UP, KNEE_UP, stance == Stance.PRONE ? REST_FACE_DOWN : REST, stance == Stance.PRONE ? ROLL_OVER_UP : ROLL_OVER_DOWN);
 			case KNEELING:
 				possibles = getTechniques(STAND_UP, STAY_KNELT);
-				if (target.isErect() && target.enemyType != EnemyEnum.SLIME){
+				if (target.isErect() && target.enemyType != EnemyEnum.SLIME) {
 					possibles.addAll(getTechniques(GRAB_IT));
 				}
 				return possibles;
 			case AIRBORNE:
 				return getTechniques(JUMP_ATTACK);
 			case FULL_NELSON:
-				if (struggle <= 0){
+				if (struggle <= 0) {
 					return getTechniques(SUBMIT, BREAK_FREE_FULL_NELSON);
 				}
 				return getTechniques(SUBMIT, STRUGGLE_FULL_NELSON);
 			case DOGGY:
-				if (struggle <= 0){
+				if (struggle <= 0) {
 					return getTechniques(RECEIVE_DOGGY, BREAK_FREE_ANAL);
 				}
 				return getTechniques(RECEIVE_DOGGY, STRUGGLE_DOGGY);
 			case ANAL:
-				if (struggle <= 0){
+				if (struggle <= 0) {
 					return getTechniques(RECEIVE_ANAL, BREAK_FREE_ANAL);
 				}
 				return getTechniques(RECEIVE_ANAL, STRUGGLE_ANAL);
 			case HANDY:
 				return getTechniques(STROKE_IT, LET_GO, OPEN_WIDE);
 			case STANDING:
-				if (struggle <= 0){
+				if (struggle <= 0) {
 					return getTechniques(RECEIVE_STANDING, BREAK_FREE_ANAL);
 				}
 				return getTechniques(RECEIVE_STANDING, STRUGGLE_STANDING);
@@ -228,17 +228,17 @@ public class PlayerCharacter extends AbstractCharacter {
 			case KNOTTED:
 				return getTechniques(RECEIVE_KNOT);
 			case FELLATIO:
-				if (struggle <= 0){
+				if (struggle <= 0) {
 					return getTechniques(SUCK_IT, BREAK_FREE_ORAL);
 				}
 				return getTechniques(SUCK_IT, STRUGGLE_ORAL);
 			case FACE_SITTING:
-				if (struggle <= 0){
+				if (struggle <= 0) {
 					return getTechniques(GET_FACE_RIDDEN, STRUGGLE_FACE_SIT);
 				}
 				return getTechniques(GET_FACE_RIDDEN, BREAK_FREE_FACE_SIT);
 			case SIXTY_NINE:
-				if (struggle <= 0){
+				if (struggle <= 0) {
 					return getTechniques(RECIPROCATE_FORCED, STRUGGLE_SIXTY_NINE);
 				}
 				return getTechniques(RECIPROCATE_FORCED, BREAK_FREE_ORAL);
@@ -249,12 +249,12 @@ public class PlayerCharacter extends AbstractCharacter {
 	}
 	
 	
-	public Technique getTechnique(AbstractCharacter target){
+	public Technique getTechnique(AbstractCharacter target) {
 		// this should be re-architected - player characters likely won't use this method
 		return null;
 	}
 	
-	private ObjectMap<Stat, Integer> getStats(){
+	private ObjectMap<Stat, Integer> getStats() {
 		ObjectMap<Stat, Integer> stats = new ObjectMap<Stat, Integer>();
 		stats.put(Stat.STRENGTH, getStrength());
 		stats.put(Stat.ENDURANCE, getEndurance());
@@ -268,8 +268,8 @@ public class PlayerCharacter extends AbstractCharacter {
 	private Array<Technique> getTechniques(Techniques... possibilities) {
 		Array<Technique> possibleTechniques = new Array<Technique>();
 		
-		for (Techniques technique : possibilities){
-			if (skills.containsKey(technique.toString())){
+		for (Techniques technique : possibilities) {
+			if (skills.containsKey(technique.toString())) {
 				// this should pass the players stats and other relevant info to the technique, rather than passing some generic "force" value - also passing the weapon separately so that the technique can determine if it's relevant or not - basically, this class should create a "current state" object
 				int power = technique.getTrait().isSpell() ? (technique.getTrait().getBuff() != null ? stepDown(getMagic()) : getMagic()  ): technique.getTrait().isTaunt() ? getCharisma() : getStrength() + (weapon != null ? weapon.getDamage(getStats()) : 0);
 				power += skills.get(technique.toString()) - 1;
@@ -281,13 +281,13 @@ public class PlayerCharacter extends AbstractCharacter {
 	
 	@Override
 	public Attack doAttack(Attack resolvedAttack) {
-		if (resolvedAttack.getGrapple() > 0){
+		if (resolvedAttack.getGrapple() > 0) {
 			struggle -= resolvedAttack.getGrapple();
 			resolvedAttack.addMessage("You struggle to break free!");
-			if (struggle <= 3){
+			if (struggle <= 3) {
 				resolvedAttack.addMessage("You feel their grasp slipping away!");
 			}
-			else if (struggle <= 0){
+			else if (struggle <= 0) {
 				struggle = 0;
 				resolvedAttack.addMessage("You are almost free!");
 			}
@@ -296,14 +296,14 @@ public class PlayerCharacter extends AbstractCharacter {
 	}
 	
 	@Override
-	public Array<String> receiveAttack(Attack resolvedAttack){
+	public Array<String> receiveAttack(Attack resolvedAttack) {
 		super.receiveAttack(resolvedAttack);
 		
 		String result;
-		if (!oldStance.isAnal() && stance.isAnal()){
+		if (!oldStance.isAnal() && stance.isAnal()) {
 			result = receiveAnal(); 
 			if (result != null) { resolvedAttack.addMessage(result); } 
-			if (resolvedAttack.getUser().equals("Goblin")){
+			if (resolvedAttack.getUser().equals("Goblin")) {
 				setGoblinVirginity(false);
 			}
 			a2m = true;
@@ -313,20 +313,20 @@ public class PlayerCharacter extends AbstractCharacter {
 			if (result != null) { resolvedAttack.addMessage(result); } 
 			if(a2m) {
 				resolvedAttack.addMessage("Bleugh! That was in your ass!");
-				if (!a2mcheevo){
+				if (!a2mcheevo) {
 					a2mcheevo = true;
 					resolvedAttack.addMessage("Achievement unlocked: Ass to Mouth.");
 				}
 				a2m = false;
 			}
 		}
-		else if (stance == Stance.SIXTY_NINE){
+		else if (stance == Stance.SIXTY_NINE) {
 			resolvedAttack.addMessage("She shoves her cock down your throat while swallowing yours!");
 		}
 		return resolvedAttack.getMessages();		
 	}
 	
-	public void refresh(){
+	public void refresh() {
 		setStaminaToMax();
 		setStabilityToMax();
 		setManaToMax();
@@ -356,7 +356,7 @@ public class PlayerCharacter extends AbstractCharacter {
 	}
 
 	public int getRawStat(Stat stat) {
-		switch(stat){
+		switch(stat) {
 			case STRENGTH: return getRawStrength();
 			case ENDURANCE: return getEndurance();
 			case AGILITY: return getAgility();
@@ -368,7 +368,7 @@ public class PlayerCharacter extends AbstractCharacter {
 	}
 	
 	public int getStat(Stat stat) {
-		switch(stat){
+		switch(stat) {
 			case STRENGTH: return getStrength();
 			case ENDURANCE: return getEndurance();
 			case AGILITY: return getAgility();
@@ -379,8 +379,8 @@ public class PlayerCharacter extends AbstractCharacter {
 		}
 	}
 	
-	public int getBaseStat(Stat stat){
-		switch(stat){
+	public int getBaseStat(Stat stat) {
+		switch(stat) {
 			case STRENGTH: return getBaseStrength();
 			case ENDURANCE: return getBaseEndurance();
 			case AGILITY: return getBaseAgility();
@@ -415,8 +415,8 @@ public class PlayerCharacter extends AbstractCharacter {
 		return baseStrength;
 	}
 
-	public void setStat(Stat stat, int amount){
-		switch(stat){
+	public void setStat(Stat stat, int amount) {
+		switch(stat) {
 			case STRENGTH: baseStrength = amount; break;
 			case ENDURANCE: baseEndurance = amount; break;
 			case AGILITY: baseAgility = amount; break;
@@ -434,7 +434,7 @@ public class PlayerCharacter extends AbstractCharacter {
 	// need to add the list of default skills, the actual variable, and some way to access it for skill selection purposes (filter)
 	public void addSkill(Techniques newTech, int rank) {
 		// if it's a spell, add incantation
-		if (newTech.getTrait().isSpell()){
+		if (newTech.getTrait().isSpell()) {
 			skills.put(Techniques.INCANTATION.toString(), 1);
 		}
 		skills.put(newTech.toString(), rank);	
@@ -447,7 +447,7 @@ public class PlayerCharacter extends AbstractCharacter {
 
 	public ObjectMap<Techniques, Integer> getSkills() {
 		ObjectMap<Techniques, Integer> tempSkills = new ObjectMap<Techniques, Integer>();
-		for (String key : skills.keys()){
+		for (String key : skills.keys()) {
 			tempSkills.put(Techniques.valueOf(key), skills.get(key));
 		}
 		return tempSkills;
@@ -455,7 +455,7 @@ public class PlayerCharacter extends AbstractCharacter {
 	
 	public ObjectMap<Perk, Integer> getPerks() {
 		ObjectMap<Perk, Integer> tempPerks = new ObjectMap<Perk, Integer>();
-		for (String key : perks.keys()){
+		for (String key : perks.keys()) {
 			tempPerks.put(Perk.valueOf(key), perks.get(key));
 		}
 		return tempPerks;
@@ -463,16 +463,16 @@ public class PlayerCharacter extends AbstractCharacter {
 	
 	public void setSkills(ObjectMap<Techniques, Integer> skills) {
 		this.skills.clear();
-		for (Techniques key : skills.keys()){
+		for (Techniques key : skills.keys()) {
 			addSkill(key, skills.get(key));
 		}
 	}
 
-	private void increaseLowestStat(){
+	private void increaseLowestStat() {
 		int min = getBaseStrength();
 		Stat minStat = Stat.STRENGTH;
-		for (Stat stat : Stat.values()){
-			if (getStat(stat) < min){
+		for (Stat stat : Stat.values()) {
+			if (getStat(stat) < min) {
 				min = getStat(stat);
 				minStat = stat;
 			}
@@ -481,16 +481,16 @@ public class PlayerCharacter extends AbstractCharacter {
 	}
 	
 	public void setPerks(ObjectMap<Perk, Integer> perks) {
-		if(perks.containsKey(Perk.WELLROUNDED) && !this.perks.containsKey(Perk.WELLROUNDED.toString())){
+		if(perks.containsKey(Perk.WELLROUNDED) && !this.perks.containsKey(Perk.WELLROUNDED.toString())) {
 			increaseLowestStat();
 		}
-		if(perks.containsKey(Perk.CATAMITE) && !this.perks.containsKey(Perk.CATAMITE.toString())){
+		if(perks.containsKey(Perk.CATAMITE) && !this.perks.containsKey(Perk.CATAMITE.toString())) {
 			addSkill(SIT_ON_IT, 1);
 			addSkill(RIDE_ON_IT, 1);
 			addSkill(STAND_OFF_IT, 1);
 		}
 		this.perks.clear();
-		for (Perk key : perks.keys()){
+		for (Perk key : perks.keys()) {
 			addPerk(key, perks.get(key));
 		}
 	}
@@ -507,8 +507,8 @@ public class PlayerCharacter extends AbstractCharacter {
 		return perks.containsKey(Perk.CATAMITE.toString());
 	}
 	@Override
-	protected String increaseLust(){
-		switch (stance){
+	protected String increaseLust() {
+		switch (stance) {
 			case DOGGY:
 			case KNOTTED:
 			case ANAL:
@@ -529,7 +529,7 @@ public class PlayerCharacter extends AbstractCharacter {
 		lust += lustIncrease;
 		if (lust > 10){
 			lust = 0;
-			switch (stance){
+			switch (stance) {
 				case KNOTTED:
 				case DOGGY: 
 				case ANAL:
@@ -575,7 +575,7 @@ public class PlayerCharacter extends AbstractCharacter {
 
 	public void modExperience(Integer exp) { experience += exp; }
 	
-	public int getExperience(){ return experience; }
+	public int getExperience() { return experience; }
 
 	public void modFood(Integer foodChange) { food += foodChange; if (food < 0) food = 0; }
 
@@ -608,7 +608,7 @@ public class PlayerCharacter extends AbstractCharacter {
 		level++;
 		skillPoints += 2;
 		perkPoints++;
-		if (hasMagic()){
+		if (hasMagic()) {
 			magicPoints++;
 		}
 	}
@@ -647,7 +647,7 @@ public class PlayerCharacter extends AbstractCharacter {
 	}
 	
 	public boolean isVirgin(EnemyEnum enemyEnum) {
-		switch (enemyEnum){
+		switch (enemyEnum) {
 			case GOBLIN: return goblinVirgin;
 			default:
 		}
@@ -694,18 +694,18 @@ public class PlayerCharacter extends AbstractCharacter {
 	
 	public void setGoblinVirginity(boolean virginity) {
 		goblinVirgin = virginity;
-		if (!goblinVirgin){
+		if (!goblinVirgin) {
 			receivedAnal++;
 		}
 	}
 	
 	public boolean buyItem(Item item, int cost) {
-		if (cost > money){
+		if (cost > money) {
 			return false;
 		}
 		money -= cost;
 		inventory.add(item);
-		if (item instanceof Weapon){
+		if (item instanceof Weapon) {
 			weapon = (Weapon) item;
 		}
 		return true;

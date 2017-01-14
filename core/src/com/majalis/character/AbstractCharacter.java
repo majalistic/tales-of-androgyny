@@ -79,9 +79,9 @@ public abstract class AbstractCharacter extends Actor {
 	public ObjectMap<String, Integer> statuses; // status effects will be represented by a map of Enum to Status object
 
 	/* Constructors */
-	protected AbstractCharacter(){}
-	protected AbstractCharacter(boolean defaultValues){
-		if (defaultValues){
+	protected AbstractCharacter() {}
+	protected AbstractCharacter(boolean defaultValues) {
+		if (defaultValues) {
 			secondPerson = false;
 			level = 1;
 			experience = 0;
@@ -108,42 +108,42 @@ public abstract class AbstractCharacter extends Actor {
 	
 	protected abstract Technique getTechnique(AbstractCharacter target);
 	
-	protected IntArray getDefaultHealthTiers(){ return new IntArray(new int[]{10, 10, 10, 10}); }
-	protected IntArray getDefaultStaminaTiers(){ return new IntArray(new int[]{5, 5, 5, 5}); }
-	protected IntArray getDefaultManaTiers(){ return new IntArray(new int[]{0}); }
+	protected IntArray getDefaultHealthTiers() { return new IntArray(new int[]{10, 10, 10, 10}); }
+	protected IntArray getDefaultStaminaTiers() { return new IntArray(new int[]{5, 5, 5, 5}); }
+	protected IntArray getDefaultManaTiers() { return new IntArray(new int[]{0}); }
 	
 	public int getMaxHealth() { return getMax(healthTiers); }
 	public int getMaxStamina() { return getMax(staminaTiers); }
 	public int getMaxMana() { return getMax(manaTiers); }
 	public int getMaxStability() { return getAgility() * 3 + 9; }
-	protected int getMax(IntArray tiers){
+	protected int getMax(IntArray tiers) {
 		int max = 0;
-		for (int ii = 0; ii < tiers.size; ii++){
+		for (int ii = 0; ii < tiers.size; ii++) {
 			max += tiers.get(ii);
 		}
 		return max;
 	}
 	
-	public Stance getStance(){ return stance; }
+	public Stance getStance() { return stance; }
 	
-	public void setStance(Stance stance){ this.stance = stance; }
+	public void setStance(Stance stance) { this.stance = stance; }
 	
-	public int getCurrentHealth(){ return currentHealth; }
+	public int getCurrentHealth() { return currentHealth; }
 	
-	public int getCurrentStamina(){ return currentStamina; }
+	public int getCurrentStamina() { return currentStamina; }
 	
-	public int getCurrentMana(){ return currentMana; }
+	public int getCurrentMana() { return currentMana; }
 		
-	public float getHealthPercent(){ return currentHealth / (getMaxHealth() * 1.0f); }
+	public float getHealthPercent() { return currentHealth / (getMaxHealth() * 1.0f); }
 	
-	public float getStaminaPercent(){ return currentStamina / (getMaxStamina() * 1.0f); }
+	public float getStaminaPercent() { return currentStamina / (getMaxStamina() * 1.0f); }
 	
 	public float getBalancePercent() { return stability / (getMaxStability() * 1.0f); }
 	
-	public float getManaPercent(){ return currentMana / (getMaxMana() * 1.0f); }
+	public float getManaPercent() { return currentMana / (getMaxMana() * 1.0f); }
 	
-	public String getHealthDisplay(){ 
-		switch (getHealthDegradation()){
+	public String getHealthDisplay() { 
+		switch (getHealthDegradation()) {
 			case 0: return AssetEnum.HEALTH_ICON_0.getPath();
 			case 1: return AssetEnum.HEALTH_ICON_1.getPath();
 			case 2: return AssetEnum.HEALTH_ICON_2.getPath();
@@ -153,8 +153,8 @@ public abstract class AbstractCharacter extends Actor {
 		return null;
 	}
 	
-	public String getStaminaDisplay(){ 
-		switch (getStaminaDegradation()){
+	public String getStaminaDisplay() { 
+		switch (getStaminaDegradation()) {
 			case 0: return AssetEnum.STAMINA_ICON_0.getPath();
 			case 1: return AssetEnum.STAMINA_ICON_1.getPath();
 			case 2: return AssetEnum.STAMINA_ICON_2.getPath();
@@ -164,11 +164,11 @@ public abstract class AbstractCharacter extends Actor {
 		return null;
 	}
 	
-	public String getBalanceDisplay(){ 
+	public String getBalanceDisplay() { 
 		return stability > 10 ?  AssetEnum.BALANCE_ICON_0.getPath() : stability > 5 ? AssetEnum.BALANCE_ICON_1.getPath() : AssetEnum.BALANCE_ICON_2.getPath();
 	}
 	
-	public String getManaDisplay(){ 
+	public String getManaDisplay() {  
 		switch (4 - (int)(getManaPercent() * 100)/ 25){
 			case 0: return AssetEnum.MANA_ICON_0.getPath();
 			case 1: return AssetEnum.MANA_ICON_1.getPath();
@@ -179,47 +179,47 @@ public abstract class AbstractCharacter extends Actor {
 		return null;
 	}
 	
-	public int getStability(){ return stability; }
+	public int getStability() { return stability; }
 	
-	public int getLust(){ return lust; }
+	public int getLust() { return lust; }
 	
-	public void modHealth(int healthMod){ this.currentHealth += healthMod; if (currentHealth > getMaxHealth()) currentHealth = getMaxHealth(); }
+	public void modHealth(int healthMod) { this.currentHealth += healthMod; if (currentHealth > getMaxHealth()) currentHealth = getMaxHealth(); }
 	
 	protected int getStaminaRegen() { return getEndurance()/2; }
 	
 	protected int getStabilityRegen() { return getAgility()/2; }
 	
-	protected String getLabel (){ return label; }
+	protected String getLabel() { return label; }
 	
-	protected Boolean getSecondPerson(){ return secondPerson; }
+	protected Boolean getSecondPerson() { return secondPerson; }
 	
 	protected void setHealthToMax() { currentHealth = getMaxHealth(); }
 	
 	protected void setStaminaToMax() { currentStamina = getMaxStamina(); }
 	
-	protected void modStamina(int staminaMod){ this.currentStamina += staminaMod; if (currentStamina > getMaxStamina()) currentStamina = getMaxStamina(); }
+	protected void modStamina(int staminaMod) { this.currentStamina += staminaMod; if (currentStamina > getMaxStamina()) currentStamina = getMaxStamina(); }
 	
-	protected void setStabilityToMax(){ stability = getMaxStability(); }
+	protected void setStabilityToMax() { stability = getMaxStability(); }
 	
-	protected void setStabilityToMin(){ stability = -5; }
+	protected void setStabilityToMin() { stability = -5; }
 	
-	protected void modStability(int stabilityMod){ this.stability += stabilityMod; if (stability > getMaxStability()) stability = getMaxStability(); }
+	protected void modStability(int stabilityMod) { this.stability += stabilityMod; if (stability > getMaxStability()) stability = getMaxStability(); }
 	
 	protected void setManaToMax() { currentMana = getMaxMana(); }
 	
-	protected void modMana(int manaMod){ this.currentMana += manaMod; if (currentMana > getMaxMana()) currentMana = getMaxMana(); }
+	protected void modMana(int manaMod) { this.currentMana += manaMod; if (currentMana > getMaxMana()) currentMana = getMaxMana(); }
 	
-	protected int getStrength(){ return stepDown(getRawStrength()); }
+	protected int getStrength() { return stepDown(getRawStrength()); }
 	// no step down
 	protected int getRawStrength() { return Math.max((baseStrength + getStrengthBuff()) - (getHealthDegradation() + getStaminaDegradation())/2, 0); }
 	
-	private int getStrengthBuff(){ return statuses.get(StatusType.STRENGTH_BUFF.toString(), 0); }
-	private int getEnduranceBuff(){ return statuses.get(StatusType.ENDURANCE_BUFF.toString(), 0); }
-	private int getAgilityBuff(){ return statuses.get(StatusType.AGILITY_BUFF.toString(), 0); }
+	private int getStrengthBuff() { return statuses.get(StatusType.STRENGTH_BUFF.toString(), 0); }
+	private int getEnduranceBuff() { return statuses.get(StatusType.ENDURANCE_BUFF.toString(), 0); }
+	private int getAgilityBuff() { return statuses.get(StatusType.AGILITY_BUFF.toString(), 0); }
 	
-	protected int stepDown(int value){ if (value < 3) return value; else if (value < 7) return 3 + (value - 3)/2; else return 5 + (value - 7)/3; } 
+	protected int stepDown(int value) { if (value < 3) return value; else if (value < 7) return 3 + (value - 3)/2; else return 5 + (value - 7)/3; } 
 	
-	protected int getEndurance(){ return Math.max((baseEndurance + getEnduranceBuff()) - (getHealthDegradation()), 0); }
+	protected int getEndurance() { return Math.max((baseEndurance + getEnduranceBuff()) - (getHealthDegradation()), 0); }
 	
 	protected int getAgility() { return Math.max((baseAgility + getAgilityBuff()) - (getHealthDegradation() + getStaminaDegradation()), 0); }
 
@@ -229,13 +229,13 @@ public abstract class AbstractCharacter extends Actor {
 
 	protected int getCharisma() { return Math.max(baseCharisma, 0); }
 	
-	protected int getDefense(){ return Math.max(baseDefense, 0); }
-	protected int getTraction(){ return 2; }
+	protected int getDefense() { return Math.max(baseDefense, 0); }
+	protected int getTraction() { return 2; }
 	
-	public int getHealthDegradation(){ return getDegradation(healthTiers, currentHealth); }
-	public int getStaminaDegradation(){ return getDegradation(staminaTiers, currentStamina); }
+	public int getHealthDegradation() { return getDegradation(healthTiers, currentHealth); }
+	public int getStaminaDegradation() { return getDegradation(staminaTiers, currentStamina); }
 	
-	protected int getDegradation(IntArray tiers, int currentValue){
+	protected int getDegradation(IntArray tiers, int currentValue) {
 		int numTiers = tiers.size;
 		int value = currentValue;
 		for (int tier : tiers.items){
@@ -248,9 +248,9 @@ public abstract class AbstractCharacter extends Actor {
 	
 	public void modLust(int lustMod) { lust += lustMod; }
 	
-	protected int getStaminaMod(Technique technique){
+	protected int getStaminaMod(Technique technique) {
 		int staminaMod = technique.getStaminaCost();
-		if (staminaMod >= 0){
+		if (staminaMod >= 0) {
 			staminaMod -= getStaminaRegen();
 			if (staminaMod < 0) staminaMod = 0;
 		}
@@ -260,7 +260,7 @@ public abstract class AbstractCharacter extends Actor {
 		return staminaMod;
 	}
 	// right now this and "doAttack" handle once-per-turn character activities
-	public Technique extractCosts(Technique technique){
+	public Technique extractCosts(Technique technique) {
 		int staminaMod = getStaminaMod(technique); 
 		modStamina(-staminaMod);
 		modStability(-technique.getStabilityCost());
@@ -269,26 +269,26 @@ public abstract class AbstractCharacter extends Actor {
 		
 		Array<String> toRemove = new Array<String>();
 		// statuses degrade with time in a general way currently
-		for(String key: statuses.keys()){
+		for(String key: statuses.keys()) {
 			StatusType type = StatusType.valueOf(key);
 			if (!type.degrades()) continue;
 			int value = statuses.get(key) - 1;
 			statuses.put(key, value);
-			if (value <= 0){
+			if (value <= 0) {
 				toRemove.add(key);
 			}
 		}
-		for(String key: toRemove){
+		for(String key: toRemove) {
 			statuses.remove(key);
 		}
 		
 		// this should be moved to technique failure
-		if (technique.isSpell() && currentMana < 0){
+		if (technique.isSpell() && currentMana < 0) {
 			technique = new Technique(Techniques.FIZZLE.getTrait(), 0);
 			currentMana = 0;
 		}
 		
-		if (technique.isFallDown()){
+		if (technique.isFallDown()) {
 			setStabilityToMin();
 		}
 		
@@ -298,18 +298,16 @@ public abstract class AbstractCharacter extends Actor {
 		return technique;
 	}
 	
-	protected boolean alreadyIncapacitated(){
-		return 
-			stance == Stance.PRONE || stance == Stance.SUPINE || stance == Stance.FELLATIO || stance == Stance.DOGGY || stance == Stance.ANAL || stance == Stance.KNOTTED || stance == Stance.COWGIRL || 
-			stance == Stance.STANDING || stance == Stance.FACE_SITTING || stance == Stance.SIXTY_NINE;
+	protected boolean alreadyIncapacitated() {
+		return stance.isIncapacitatingOrErotic();
 	}
 	
 	public Attack doAttack(Attack resolvedAttack) {
 		resolvedAttack.setUser(label);
-		if (!resolvedAttack.isSuccessful()){
+		if (!resolvedAttack.isSuccessful()) {
 			resolvedAttack.addMessage(resolvedAttack.getUser() + " used " + resolvedAttack.getName() + (resolvedAttack.getStatus() == Status.MISS ? " but missed!" : "! FAILURE!"));
 			
-			if (resolvedAttack.getStatus() == Status.MISS && enemyType == EnemyEnum.HARPY && stance == Stance.FELLATIO && resolvedAttack.getForceStance() == Stance.FELLATIO){
+			if (resolvedAttack.getStatus() == Status.MISS && enemyType == EnemyEnum.HARPY && stance == Stance.FELLATIO && resolvedAttack.getForceStance() == Stance.FELLATIO) {
 				resolvedAttack.addMessage("She crashes to the ground!");
 				stance = Stance.PRONE;
 			}
@@ -318,16 +316,16 @@ public abstract class AbstractCharacter extends Actor {
 			}
 			return resolvedAttack;
 		}
-		if (resolvedAttack.isHealing()){
+		if (resolvedAttack.isHealing()) {
 			modHealth(resolvedAttack.getHealing());
 			
 			resolvedAttack.addMessage("You heal for " + resolvedAttack.getHealing()+"!");
 		}
 		Buff buff = resolvedAttack.getBuff();
-		if (buff != null){
+		if (buff != null) {
 			statuses.put(buff.type.toString(), buff.power);
 		}
-		if (resolvedAttack.getForceStance() == Stance.DOGGY || resolvedAttack.getForceStance() == Stance.ANAL || resolvedAttack.getForceStance() == Stance.STANDING){
+		if (resolvedAttack.getForceStance() == Stance.DOGGY || resolvedAttack.getForceStance() == Stance.ANAL || resolvedAttack.getForceStance() == Stance.STANDING) {
 			resolvedAttack.addMessage("You are being anally violated!");
 			resolvedAttack.addMessage("Your hole is stretched by her fat dick!");
 			resolvedAttack.addMessage("Your hole feels like it's on fire!");
@@ -336,7 +334,7 @@ public abstract class AbstractCharacter extends Actor {
 			resolvedAttack.addMessage("You are red-faced and embarassed because of her butt-stuffing!");
 			resolvedAttack.addMessage("Your cock is ignored!");
 		}		
-		else if(resolvedAttack.getForceStance() == Stance.FELLATIO || resolvedAttack.getForceStance() == Stance.SIXTY_NINE){
+		else if(resolvedAttack.getForceStance() == Stance.FELLATIO || resolvedAttack.getForceStance() == Stance.SIXTY_NINE) {
 			if (enemyType == EnemyEnum.HARPY){
 				resolvedAttack.addMessage("She tastes horrible! Harpies are highly unhygenic!");
 				resolvedAttack.addMessage("You learned Anatomy (Harpy)!");
@@ -352,24 +350,24 @@ public abstract class AbstractCharacter extends Actor {
 				resolvedAttack.addMessage("You suck on her cock!");
 				resolvedAttack.addMessage("She licks her lips!");
 			}
-			if (resolvedAttack.getForceStance() == Stance.SIXTY_NINE){
+			if (resolvedAttack.getForceStance() == Stance.SIXTY_NINE) {
 				resolvedAttack.addMessage("She deepthroats your cock!");
 				resolvedAttack.addMessage("She pistons her own cock in and out of your mouth!");
 			}
 		}
-		else if (resolvedAttack.getForceStance() == Stance.FACE_SITTING){
+		else if (resolvedAttack.getForceStance() == Stance.FACE_SITTING) {
 			resolvedAttack.addMessage("She rides your face!");
 			resolvedAttack.addMessage("You receive a faceful of ass!");
 		}
-		else if (resolvedAttack.getForceStance() == Stance.KNOTTED){
-			if (knotInflate == 0){
+		else if (resolvedAttack.getForceStance() == Stance.KNOTTED) {
+			if (knotInflate == 0) {
 				resolvedAttack.addMessage("Her powerful hips try to force something big inside!");
 				resolvedAttack.addMessage("You struggle... but can't escape!");
 				resolvedAttack.addMessage("Her grapefruit-sized knot slips into your rectum!  You take 4 damage!");
 				resolvedAttack.addMessage("You learned about Anatomy(Wereslut)! You are being bred!");
 				resolvedAttack.addMessage("Your anus is permanently stretched!");
 			}
-			else if (knotInflate < 3){
+			else if (knotInflate < 3) {
 				resolvedAttack.addMessage("Her tremendous knot is still lodged in your rectum!");
 				resolvedAttack.addMessage("You can't dislodge it; it's too large!");
 				resolvedAttack.addMessage("You're drooling!");
@@ -383,10 +381,10 @@ public abstract class AbstractCharacter extends Actor {
 			knotInflate++;
 		}
 		// all climax logic should go here
-		if (resolvedAttack.isClimax()){
+		if (resolvedAttack.isClimax()) {
 			lust -= 14;
-			if (oldStance == Stance.FELLATIO){
-				if (enemyType == EnemyEnum.HARPY){
+			if (oldStance == Stance.FELLATIO) {
+				if (enemyType == EnemyEnum.HARPY) {
 					resolvedAttack.addMessage("A harpy semen bomb explodes in your mouth!  It tastes awful!");
 					resolvedAttack.addMessage("You are going to vomit!");
 					resolvedAttack.addMessage("You spew up harpy cum!  The harpy preens her feathers.");
@@ -396,15 +394,15 @@ public abstract class AbstractCharacter extends Actor {
 					resolvedAttack.addMessage("You swallow all of her semen!");
 				}
 			}
-			else if (oldStance == Stance.COWGIRL){
+			else if (oldStance == Stance.COWGIRL) {
 				resolvedAttack.addMessage("The " + getLabel() + " blasts off in your intestines while you bounce\non their cumming cock! You got butt-bombed!");
 			}
-			else if (oldStance == Stance.ANAL){
+			else if (oldStance == Stance.ANAL) {
 				resolvedAttack.addMessage("The " + getLabel() + "'s lovemaking reaches a climax!");
 				resolvedAttack.addMessage("They don't pull out! It twitches and throbs in your rectum!");
 				resolvedAttack.addMessage("They cum up your ass! Your stomach receives it!");				
 			}
-			else if (oldStance == Stance.HANDY){
+			else if (oldStance == Stance.HANDY) {
 				resolvedAttack.addMessage("Their cock jerks in your hand! They're gonna spew!");
 				resolvedAttack.addMessage("Their eyes roll into the back of their head! Here it comes!");
 				resolvedAttack.addMessage("It's too late to dodge! They blast a rope of cum on your face!");
@@ -418,7 +416,7 @@ public abstract class AbstractCharacter extends Actor {
 				resolvedAttack.addMessage("You are anally inseminated!");
 				resolvedAttack.addMessage("You're going to be farting cum for days!");
 			}
-			else if (oldStance == Stance.SIXTY_NINE){
+			else if (oldStance == Stance.SIXTY_NINE) {
 				resolvedAttack.addMessage("Her cock erupts in your mouth!");
 				resolvedAttack.addMessage("You spit it up around her pulsing balls!!");
 			}
@@ -427,12 +425,12 @@ public abstract class AbstractCharacter extends Actor {
 		return resolvedAttack;
 	}
 	
-	public Array<String> receiveAttack(Attack attack){
+	public Array<String> receiveAttack(Attack attack) {
 		Array<String> result = attack.getMessages();
 		
 		boolean knockedDown = false;
 		
-		if (attack.isSuccessful()){
+		if (attack.isSuccessful()) {
 			if (attack.getForceStance() == Stance.DOGGY && bootyliciousness != null)
 				result.add("They slap their hips against your " + bootyliciousness.toString().toLowerCase() + " booty!");
 			
@@ -441,18 +439,18 @@ public abstract class AbstractCharacter extends Actor {
 			}
 			
 			struggle += attack.getGrapple();
-			if (attack.isClimax()){
+			if (attack.isClimax()) {
 				struggle = 0;
 			}
-			if (attack.getForceStance() == Stance.BALANCED){
+			if (attack.getForceStance() == Stance.BALANCED) {
 				result.add(attack.getUser() + " broke free!");
-				if (stance == Stance.FELLATIO){
+				if (stance == Stance.FELLATIO) {
 					result.add("It slips out of your mouth and you get to your feet!");
 				}
-				else if (stance == Stance.SIXTY_NINE){
+				else if (stance == Stance.SIXTY_NINE) {
 					result.add("You spit out her cock and push her off!");
 				}
-				else if (stance == Stance.HANDY){
+				else if (stance == Stance.HANDY) {
 					
 				}
 				else {
@@ -461,22 +459,22 @@ public abstract class AbstractCharacter extends Actor {
 			}
 			
 			int damage = attack.getDamage();
-			if (!attack.isSpell()){
+			if (!attack.isSpell()) {
 				damage -= getDefense();
 			}
 			
-			if (damage > 0){	
+			if (damage > 0) {	
 				currentHealth -= damage;
 				result.add("The blow strikes for " + damage + " damage!");
 			}
 			
 			int knockdown = attack.getForce();
 			knockdown -= getTraction();
-			if (knockdown > 0){
-				if (!alreadyIncapacitated()){
+			if (knockdown > 0) {
+				if (!alreadyIncapacitated()) {
 					stability -= knockdown;
 					result.add("It's a solid blow! It reduces balance by " + knockdown + "!");
-					if (stability <= 0){
+					if (stability <= 0) {
 						result.add(label + (secondPerson ? " are " : " is ") + "knocked to the ground!");
 						setStabilityToMin();
 						stance = Stance.SUPINE;
@@ -486,9 +484,9 @@ public abstract class AbstractCharacter extends Actor {
 			}
 			
 			int armorSunder = attack.getArmorSunder();
-			if (armorSunder > 0){
+			if (armorSunder > 0) {
 				// this shouldn't lower baseDefense, instead sundering armor
-				if (baseDefense > 0){
+				if (baseDefense > 0) {
 					result.add("It's an armor shattering blow! It reduces armor by " + (armorSunder > baseDefense ? baseDefense : armorSunder) + "!");
 					baseDefense -= armorSunder;
 					if (baseDefense < 0) baseDefense = 0;
@@ -497,11 +495,11 @@ public abstract class AbstractCharacter extends Actor {
 			}
 			
 			int gutcheck = attack.getGutCheck();
-			if (gutcheck > 0){
-				if (!alreadyIncapacitated()){
+			if (gutcheck > 0) {
+				if (!alreadyIncapacitated()) {
 					currentStamina -= gutcheck;
 					result.add("It's a blow to the stomach! It reduces stamina by " + gutcheck + "!");
-					if (currentStamina <= 0){
+					if (currentStamina <= 0) {
 						result.add(label + (secondPerson ? " fall " : " falls ") + " to the ground!");
 						setStabilityToMin();
 						stance = Stance.PRONE;
@@ -511,13 +509,13 @@ public abstract class AbstractCharacter extends Actor {
 			}
 			
 			Stance forcedStance = attack.getForceStance();
-			if (forcedStance != null){
+			if (forcedStance != null) {
 				result.add(label + (secondPerson ? " are " : " is ") + "forced into " + forcedStance.toString() + " stance!");
 				stance = forcedStance;
 				if (forcedStance == Stance.PRONE || forcedStance == Stance.SUPINE){
 					setStabilityToMin();
 				}
-				else if (forcedStance == Stance.KNEELING && stability > getMaxStability() / 2){
+				else if (forcedStance == Stance.KNEELING && stability > getMaxStability() / 2) {
 					stability = getMaxStability() / 2;
 				}
 			}
@@ -525,17 +523,17 @@ public abstract class AbstractCharacter extends Actor {
 			String lustIncrease = increaseLust();
 			if (lustIncrease != null) result.add(lustIncrease);
 			
-			if (attack.getLust() > 0){
+			if (attack.getLust() > 0) {
 				lustIncrease = increaseLust(attack.getLust());
 				if (lustIncrease != null) result.add(lustIncrease);
 				result.add(label + (secondPerson ? " are taunted " : " is taunted ") + "! " + (secondPerson ? " Your " : " Their ") + "lust raises by" + attack.getLust());
 			}	
 			
 			String internalShotText = null;
-			if (attack.getClimaxType() == ClimaxType.ANAL){
+			if (attack.getClimaxType() == ClimaxType.ANAL) {
 				internalShotText = fillButt(3);
 			}
-			else if (attack.getClimaxType() == ClimaxType.ORAL){
+			else if (attack.getClimaxType() == ClimaxType.ORAL) {
 				internalShotText = fillMouth(1);
 			}
 			if (internalShotText != null) result.add(internalShotText);
@@ -543,15 +541,15 @@ public abstract class AbstractCharacter extends Actor {
 			if (buttful > 0) result.add(getLeakMessage());
 			if (mouthful > 0) result.add(getDroolMessage());
 		}
-		if (!alreadyIncapacitated() && !knockedDown){
+		if (!alreadyIncapacitated() && !knockedDown) {
 			// you tripped
-			if (stability <= 0){
+			if (stability <= 0) {
 				stance = Stance.PRONE;
 				result.add(label + (secondPerson ? " lose your" : " loses their") + " footing and " + (secondPerson ? "trip" : "trips") + "!");
 				setStabilityToMin();
 			}
 			// you blacked out
-			else if (currentStamina <= 0){
+			else if (currentStamina <= 0) {
 				result.add(label + " runs out of breath and " + (secondPerson ? "collapse" : "collapses") + "!");
 				stance = Stance.SUPINE;
 			}
@@ -581,9 +579,9 @@ public abstract class AbstractCharacter extends Actor {
 		buttful--;
 	}
 
-	private String getLeakMessage(){
+	private String getLeakMessage() {
 		String message = "";
-		if (buttful > 1){
+		if (buttful > 1) {
 			message = "You drool cum from your hole!";
 		}
 		else {
@@ -592,9 +590,9 @@ public abstract class AbstractCharacter extends Actor {
 		drainButt();
 		return message;
 	}
-	private String getDroolMessage(){
+	private String getDroolMessage() {
 		String message = "";
-		if (mouthful > 1){
+		if (mouthful > 1) {
 			message = "You try to spit up all of their cum!";
 		}
 		else {
@@ -611,7 +609,7 @@ public abstract class AbstractCharacter extends Actor {
 		String stanceTransform = firstTechnique.getStance().toString();
 		String vowels = "aeiou";
 		String article = vowels.indexOf(Character.toLowerCase(stanceTransform.charAt(0))) != -1 ? "an" : "a";
-		if (oldStance != null && oldStance.toString().equals(stanceTransform)){
+		if (oldStance != null && oldStance.toString().equals(stanceTransform)) {
 			return "";
 		}
 		return label + " adopt" + (secondPerson ? "" : "s") + " " + article + " " + stanceTransform + " stance! ";
@@ -659,7 +657,7 @@ public abstract class AbstractCharacter extends Actor {
 		return label + (secondPerson ? " are " : " is ") + "defeated!";
 	}
 	
-	private enum StanceType{
+	private enum StanceType {
 		ANAL,
 		ORAL,
 		HANDJOB,
@@ -734,7 +732,7 @@ public abstract class AbstractCharacter extends Actor {
 			return type == StanceType.ORAL;
 		}
 		
-		public boolean isIncapacitatingOrErotic(){
+		public boolean isIncapacitatingOrErotic() {
 			return isErotic() || isIncapacitating(); 
 		}
 		

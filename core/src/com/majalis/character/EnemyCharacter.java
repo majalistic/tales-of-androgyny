@@ -36,16 +36,16 @@ public class EnemyCharacter extends AbstractCharacter {
 	private int climaxCounter;
 	
 	@SuppressWarnings("unused")
-	private EnemyCharacter(){}
+	private EnemyCharacter() {}
 	
-	public EnemyCharacter(Texture texture, ObjectMap<Stance, Texture> textures, EnemyEnum enemyType){
+	public EnemyCharacter(Texture texture, ObjectMap<Stance, Texture> textures, EnemyEnum enemyType) {
 		super(true);
 		this.enemyType = enemyType;
 		init(texture, textures);
 		phallus = PhallusType.MONSTER;
 		textureImagePaths = new ObjectMap<String, String>();
 		bgPath = AssetEnum.FOREST_BG.getPath();
-		switch(enemyType){
+		switch(enemyType) {
 			case WERESLUT:
 				baseStrength = 5;
 				baseAgility = 6;
@@ -103,47 +103,47 @@ public class EnemyCharacter extends AbstractCharacter {
 		this.stance = Stance.BALANCED;
 	}
 	
-	public String getImagePath(){
+	public String getImagePath() {
 		return imagePath;
 	}
 	
-	public ObjectMap<String, String> getTextureImagePaths(){
+	public ObjectMap<String, String> getTextureImagePaths() {
 		return textureImagePaths;
 	}
 	
-	public String getBGPath(){
+	public String getBGPath() {
 		return bgPath;
 	}
 	
 	@Override
 	public Attack doAttack(Attack resolvedAttack) {
-		if (resolvedAttack.getGrapple() > 0){
+		if (resolvedAttack.getGrapple() > 0) {
 			struggle -= resolvedAttack.getGrapple();
 			resolvedAttack.addMessage("They struggle to get you off!");
-			if (struggle >= 3 && stance == Stance.COWGIRL){
+			if (struggle >= 3 && stance == Stance.COWGIRL) {
 				resolvedAttack.addMessage("It's still stuck up inside of you!");
 				resolvedAttack.addMessage("Well, I guess you know that.");
 				resolvedAttack.addMessage("Kind of a colon crusher.");
 			}
-			else if (struggle > 0 && stance == Stance.COWGIRL){
+			else if (struggle > 0 && stance == Stance.COWGIRL) {
 				resolvedAttack.addMessage("They're difficult to ride on top of!");
 			}
-			else if (struggle <= 0 && stance == Stance.COWGIRL){
+			else if (struggle <= 0 && stance == Stance.COWGIRL) {
 				struggle = 0;
 				resolvedAttack.addMessage("They're about to buck you off!");
 			}
 		}
-		if (resolvedAttack.isSuccessful() && resolvedAttack.isClimax()){
+		if (resolvedAttack.isSuccessful() && resolvedAttack.isClimax()) {
 			climaxCounter++;
 		}
 		return super.doAttack(resolvedAttack);
 	}
 	
-	private boolean willFaceSit(AbstractCharacter target){
+	private boolean willFaceSit(AbstractCharacter target) {
 		return target.getStance() == Stance.SUPINE && !isErect() && enemyType != EnemyEnum.CENTAUR && enemyType != EnemyEnum.UNICORN;
 	}
 	
-	private Array<Technique> getPossibleTechniques(AbstractCharacter target, Stance stance){
+	private Array<Technique> getPossibleTechniques(AbstractCharacter target, Stance stance) {
 		
 		if (enemyType == EnemyEnum.SLIME && stance != Stance.DOGGY && stance != Stance.FELLATIO && stance != Stance.SUPINE && stance != Stance.PRONE && stance != Stance.COWGIRL && stance != Stance.STANDING && stance != Stance.HANDY
 				&& stance != Stance.FACE_SITTING && stance != Stance.SIXTY_NINE) {
@@ -151,12 +151,12 @@ public class EnemyCharacter extends AbstractCharacter {
 		}
 		
 		Array<Technique> possibles = new Array<Technique>();
-		switch(stance){
+		switch(stance) {
 			case OFFENSIVE:
-				if (willFaceSit(target)){
+				if (willFaceSit(target)) {
 					possibles.addAll(getTechniques(Techniques.FACE_SIT));
 				}				
-				if (!target.stance.receivesMediumAttacks){
+				if (!target.stance.receivesMediumAttacks) {
 					possibles.addAll(getTechniques(Techniques.POWER_ATTACK, Techniques.TEMPO_ATTACK, Techniques.RESERVED_ATTACK));
 				}
 				else {
@@ -164,10 +164,10 @@ public class EnemyCharacter extends AbstractCharacter {
 				}
 				return possibles;
 			case BALANCED:
-				if (willFaceSit(target)){
+				if (willFaceSit(target)) {
 					possibles.addAll(getTechniques(Techniques.FACE_SIT));
 				}				
-				if (!target.stance.receivesMediumAttacks){
+				if (!target.stance.receivesMediumAttacks) {
 					possibles.addAll(getTechniques(Techniques.SPRING_ATTACK, Techniques.NEUTRAL_ATTACK));
 				}
 				else {
@@ -175,7 +175,7 @@ public class EnemyCharacter extends AbstractCharacter {
 				}
 				return possibles;
 			case DEFENSIVE:
-				if (!target.stance.receivesMediumAttacks){
+				if (!target.stance.receivesMediumAttacks) {
 					getTechniques(Techniques.REVERSAL_ATTACK, Techniques.GUARD, Techniques.SECOND_WIND);
 				}
 				return getTechniques(Techniques.REVERSAL_ATTACK, Techniques.CAREFUL_ATTACK, Techniques.GUARD, Techniques.SECOND_WIND);
@@ -185,7 +185,7 @@ public class EnemyCharacter extends AbstractCharacter {
 			case KNEELING:
 				return getTechniques(Techniques.STAND_UP, Techniques.STAY_KNELT);
 			case FULL_NELSON:
-				if (holdLength > 2){
+				if (holdLength > 2) {
 					holdLength = 0;
 					return getTechniques(Techniques.PENETRATE_STANDING);
 				}
@@ -195,13 +195,13 @@ public class EnemyCharacter extends AbstractCharacter {
 				return getTechniques(Techniques.HOLD);
 			case FACE_SITTING:
 				lust++;
-				if (isErect()){
+				if (isErect()) {
 					return getTechniques(Techniques.SITTING_ORAL);
 				}
 				return getTechniques(Techniques.RIDE_FACE);
 			case SIXTY_NINE:
 				lust++;
-				if (lust > 14){
+				if (lust > 14) {
 					return getTechniques(Techniques.ERUPT_SIXTY_NINE);
 				}
 				else {
@@ -211,17 +211,17 @@ public class EnemyCharacter extends AbstractCharacter {
 			case ANAL:
 			case STANDING:
 				lust++;
-				if (enemyType != EnemyEnum.WERESLUT && lust > 15){
+				if (enemyType != EnemyEnum.WERESLUT && lust > 15) {
 					return getTechniques(Techniques.ERUPT_ANAL);
 				}
-				else if (enemyType == EnemyEnum.WERESLUT && lust > 18){
+				else if (enemyType == EnemyEnum.WERESLUT && lust > 18) {
 					return getTechniques(Techniques.KNOT);
 				}
 				else {
-					if (stance == Stance.ANAL){
+					if (stance == Stance.ANAL) {
 						return getTechniques(Techniques.POUND_ANAL);
 					}
-					else if (stance == Stance.DOGGY){
+					else if (stance == Stance.DOGGY) {
 						return getTechniques(Techniques.POUND_DOGGY);
 					}
 					else {
@@ -230,10 +230,10 @@ public class EnemyCharacter extends AbstractCharacter {
 				}
 			case COWGIRL:
 				lust++;
-				if (enemyType == EnemyEnum.WERESLUT && lust > 20){
+				if (enemyType == EnemyEnum.WERESLUT && lust > 20) {
 					return getTechniques(Techniques.KNOT);
 				}
-				else if (enemyType != EnemyEnum.WERESLUT && lust > 20){
+				else if (enemyType != EnemyEnum.WERESLUT && lust > 20) {
 					struggle = 0;
 					return getTechniques(Techniques.ERUPT_COWGIRL);
 				}
@@ -255,7 +255,7 @@ public class EnemyCharacter extends AbstractCharacter {
 				return getTechniques(Techniques.DIVEBOMB);
 			case FELLATIO:
 				lust++;
-				if (lust > 14){
+				if (lust > 14) {
 					return getTechniques(Techniques.ERUPT_ORAL);
 				}
 				else {
@@ -271,7 +271,7 @@ public class EnemyCharacter extends AbstractCharacter {
 	private Array<Technique> getTechniques(Techniques... possibilities) {
 		Array<Technique> possibleTechniques = new Array<Technique>();
 		
-		for (Techniques technique : possibilities){
+		for (Techniques technique : possibilities) {
 			possibleTechniques.add(new Technique(technique.getTrait(), technique.getTrait().isSpell() ? getMagic() : technique.getTrait().isTaunt() ? getCharisma() : getStrength()));
 		}
 		
@@ -283,7 +283,7 @@ public class EnemyCharacter extends AbstractCharacter {
 		
 		Array<Technique> possibleTechniques = getPossibleTechniques(target, stance);
 		
-		if (willPounce()){
+		if (willPounce()) {
 			if (target.stance == Stance.PRONE ) {
 				return getTechnique(Techniques.POUNCE_DOGGY);
 			}
@@ -336,7 +336,7 @@ public class EnemyCharacter extends AbstractCharacter {
 	
 	private int getRandomWeighting(int size) {
 		IntArray randomOptions = new IntArray();
-		for (int ii = 0; ii < size; ii++){
+		for (int ii = 0; ii < size; ii++) {
 			randomOptions.add(ii);
 		}
 		
@@ -346,7 +346,7 @@ public class EnemyCharacter extends AbstractCharacter {
 		for (int ii = -1; ii < 2; ii++) {
 			randomWeighting.add(ii);
 		}
-		switch (enemyType){
+		switch (enemyType) {
 			case WERESLUT:
 			case GOBLIN:
 				randomWeighting.add(-1); break;
@@ -355,10 +355,10 @@ public class EnemyCharacter extends AbstractCharacter {
 		}
 		
 		randomResult += randomWeighting.random();
-		if (randomResult >= size){
+		if (randomResult >= size) {
 			randomResult = size - 1;
 		}
-		else if (randomResult < 0){
+		else if (randomResult < 0) {
 			randomResult = 0;
 		}
 		return randomResult;
@@ -370,7 +370,7 @@ public class EnemyCharacter extends AbstractCharacter {
 		Texture texture = textures.get(stance, defaultTexture);
 		int width = (enemyType == EnemyEnum.HARPY && stance == Stance.FELLATIO) || (enemyType == EnemyEnum.GOBLIN && stance == Stance.FACE_SITTING || stance == Stance.SIXTY_NINE) ? 150 : 600;
 		int height = (enemyType == EnemyEnum.HARPY && stance != Stance.FELLATIO) || (enemyType == EnemyEnum.GOBLIN && stance == Stance.FACE_SITTING || stance == Stance.SIXTY_NINE) ? 105 : 20;
-		if (atlas == null || enemyType == EnemyEnum.HARPY && stance == Stance.FELLATIO){
+		if (atlas == null || enemyType == EnemyEnum.HARPY && stance == Stance.FELLATIO) {
 			batch.draw(texture, width, height, (int) (texture.getWidth() / (texture.getHeight() / 975.)), 975);
 		}
 		else {
@@ -385,7 +385,7 @@ public class EnemyCharacter extends AbstractCharacter {
 		this.defaultTexture = defaultTexture;
 		this.textures = textures;
 		
-		if (enemyType == EnemyEnum.HARPY){
+		if (enemyType == EnemyEnum.HARPY) {
 			
 			renderer = new SkeletonMeshRenderer();
 			renderer.setPremultipliedAlpha(true);
@@ -494,7 +494,6 @@ public class EnemyCharacter extends AbstractCharacter {
 			case DEFEAT: return enemy.getDefeatMessage();
 			case VICTORY: return getDefeatMessage();
 		}
-		
 		return null;
 	}
 } 
