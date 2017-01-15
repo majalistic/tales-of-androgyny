@@ -2,6 +2,7 @@ package com.majalis.character;
 import com.badlogic.gdx.utils.Array;
 import com.majalis.character.AbstractCharacter.Stance;
 import com.majalis.technique.ClimaxTechnique.ClimaxType;
+import com.majalis.technique.Bonus;
 
 /*
  * Represents the result of an attack after it has been filtered through an opposing action.
@@ -23,6 +24,8 @@ public class Attack {
 	private final boolean isSpell;
 	private final Buff buff;
 	private final boolean isAttack;
+	private final Array<Bonus> bonuses;
+	// this should be refactored to be passed in
 	private String user;
 	
 	public enum Status {
@@ -32,7 +35,7 @@ public class Attack {
 		FIZZLE
 	}
 	
-	protected Attack(Status status, String name, int damage, int force, int armorBreak, int gutcheck, int healing, int lust, int grapple, ClimaxType climaxType, Stance forceStance, boolean isSpell, Buff buff, boolean isAttack){
+	protected Attack(Status status, String name, int damage, int force, int armorBreak, int gutcheck, int healing, int lust, int grapple, ClimaxType climaxType, Stance forceStance, boolean isSpell, Buff buff, boolean isAttack, Array<Bonus> bonuses){
 		this.status = status;
 		this.name = name;
 		this.damage = damage;
@@ -48,6 +51,7 @@ public class Attack {
 		this.results = new Array<String>();
 		this.buff = buff;
 		this.isAttack = isAttack;
+		this.bonuses = bonuses;
 	}
 	
 	protected String getName(){
@@ -132,6 +136,10 @@ public class Attack {
 	
 	public Buff getBuff() {
 		return buff.type == null ? null : buff;
+	}
+	
+	public Array<Bonus> getBonuses() {
+		return bonuses;
 	}
 	
 }

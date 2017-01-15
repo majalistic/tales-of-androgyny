@@ -12,7 +12,8 @@ public class CharacterState {
 	private final Weapon weapon;
 	private final boolean lowBalance;
 	private final int currentMana;
-	private final AbstractCharacter target;
+	private final boolean enemyLowStability;
+	private final boolean enemyOnGround;
 	
 	// will likely need stats with and without stepdowns, or will need to implement stepdown here as well
 	public CharacterState(ObjectMap<Stat, Integer> stats, ObjectMap<Stat, Integer> rawStats, Weapon weapon, boolean lowBalance, int currentMana, AbstractCharacter target) {
@@ -21,7 +22,14 @@ public class CharacterState {
 		this.weapon = weapon;
 		this.lowBalance = lowBalance;
 		this.currentMana = currentMana;
-		this.target = target;
+		if (target != null) {
+			enemyLowStability = target.lowStability();
+			enemyOnGround = target.getStance() == Stance.SUPINE || target.getStance() == Stance.PRONE;
+		}
+		else {
+			enemyLowStability = false;
+			enemyOnGround = false;
+		}
 	}
 
 	public int getStat(Stat stat) {
@@ -55,13 +63,11 @@ public class CharacterState {
 	}*/
 
 	public boolean getEnemyLowStability() {
-		if (target != null) return target.lowStability();
-		return false;
+		return enemyLowStability;
 	}
 
 	public boolean isEnemyOnGround() {
-		if (target != null) return target.getStance() == Stance.SUPINE || target.getStance() == Stance.PRONE;
-		return false;
+		return enemyOnGround;
 	}
 	
 	

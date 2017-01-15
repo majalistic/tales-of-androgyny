@@ -4,8 +4,8 @@ import com.badlogic.gdx.utils.ObjectMap;
 import com.majalis.character.AbstractCharacter.Stance;
 import com.majalis.character.StatusType;
 import com.majalis.technique.ClimaxTechnique.ClimaxType;
-import com.majalis.technique.TechniqueBuilder.Bonus;
-import com.majalis.technique.TechniqueBuilder.BonusCondition;
+import com.majalis.technique.Bonus;
+import com.majalis.technique.Bonus.BonusCondition;
 
 public class TechniquePrototype {
 	private final Stance usableStance;

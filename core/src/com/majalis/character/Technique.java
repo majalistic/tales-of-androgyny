@@ -8,9 +8,9 @@ import com.majalis.character.AbstractCharacter.Stance;
 import com.majalis.character.AbstractCharacter.Stat;
 import com.majalis.character.Attack.Status;
 import com.majalis.technique.TechniquePrototype;
-import com.majalis.technique.TechniqueBuilder.Bonus;
-import com.majalis.technique.TechniqueBuilder.BonusCondition;
-import com.majalis.technique.TechniqueBuilder.BonusType;
+import com.majalis.technique.Bonus;
+import com.majalis.technique.Bonus.BonusCondition;
+import com.majalis.technique.Bonus.BonusType;
 import com.majalis.technique.TechniquePrototype.TechniqueHeight;
 /*
  * Represents an action taken by a character in battle.  Will likely need a builder helper.
@@ -24,6 +24,7 @@ public class Technique {
 	
 	private class TechniquePayload {
 		private final TechniquePrototype technique;
+		private final Array<Bonus> bonuses;
 		// after bonuses
 		private final int basePower;
 		private final int powerMod;
@@ -34,12 +35,14 @@ public class Technique {
 		private final int armorSunder;
 		private final int gutCheck;
 		private final double knockdown;
+		private final boolean hasPriority;
 		
 		//before bonuses
 		//private final int powerModBeforeBonuses;
 		
 		private TechniquePayload(TechniquePrototype technique, CharacterState currentState, int skillLevel, Array<Bonus> toApply) {
 			this.technique = technique;
+			this.bonuses = toApply;
 			this.basePower = technique.isSpell() ? (technique.getBuff() != null ? currentState.getRawStat(Stat.MAGIC) : currentState.getStat(Stat.MAGIC)): technique.isTaunt() ? currentState.getRawStat(Stat.CHARISMA) : 
 				// should check if technique can use weapon, and the weapon base damage should come from currentState.getWeaponDamage() rather than exposing these weapons
 				currentState.getStat(Stat.STRENGTH) + (currentState.getWeapon() != null ? currentState.getWeapon().getDamage(currentState.getStats()) : 0);	
@@ -53,6 +56,7 @@ public class Technique {
 			int armorSunderCalc = technique.getArmorSunder();
 			int gutCheckCalc = technique.getGutCheck();
 			double knockdownCalc = technique.getKnockdown();
+			boolean hasPriorityCalc = false;
 			
 			for (Bonus bonusBundle : toApply) {	
 				for (ObjectMap.Entry<BonusType, Integer> bonus : bonusBundle.getBonusMap()) {
@@ -81,6 +85,9 @@ public class Technique {
 						case STAMINA_COST:
 							staminaCalc += bonus.value;
 							break;
+						case PRIORITY:
+							hasPriorityCalc = true;
+							break;
 					}
 				}
 			}
@@ -93,6 +100,7 @@ public class Technique {
 			armorSunder = armorSunderCalc;
 			gutCheck = gutCheckCalc;
 			knockdown = knockdownCalc;
+			hasPriority = hasPriorityCalc;
 		}
 		
 		private int getStaminaCost() {
@@ -130,6 +138,14 @@ public class Technique {
 			return gutCheck;
 		}
 		
+		private boolean hasPriority() {
+			return hasPriority;
+		}
+		
+		private Array<Bonus> getBonuses() {
+			return bonuses;
+		}
+		
 	}
 	
 	public Technique(TechniquePrototype technique, CharacterState currentState, int skillLevel) {
@@ -143,10 +159,9 @@ public class Technique {
 		Array<Bonus> bonusesToApply = new Array<Bonus>();
 		for ( ObjectMap.Entry<BonusCondition, Bonus> bonusToCheck: technique.getBonuses().entries()) {
 			int bonusLevel = doesBonusApply(technique, currentState, skillLevel, bonusToCheck.key);
-			while(bonusLevel-- > 0) {
-				bonusesToApply.add(bonusToCheck.value);
+			if (bonusLevel > 0) {
+				bonusesToApply.add(bonusToCheck.value.combine(bonusLevel));
 			}
-			
 		}
 		return new TechniquePayload(technique, currentState, skillLevel, bonusesToApply);
 	}
@@ -172,10 +187,9 @@ public class Technique {
 		Array<Bonus> bonusesToApply = new Array<Bonus>();
 		for ( ObjectMap.Entry<BonusCondition, Bonus> bonusToCheck: technique.getBonuses().entries()) {
 			int bonusLevel = doesBonusApply(technique, currentState, skillLevel, bonusToCheck.key, otherTechnique);
-			while(bonusLevel-- > 0) {
-				bonusesToApply.add(bonusToCheck.value);
+			if (bonusLevel > 0) {
+				bonusesToApply.add(bonusToCheck.value.combine(bonusLevel));
 			}
-			
 		}
 		return new TechniquePayload(technique, currentState, skillLevel, bonusesToApply);
 	}
@@ -231,7 +245,7 @@ public class Technique {
 		// this is temporarily to prevent struggling from failing to work properly on the same term an eruption or knot happens
 		boolean failure = false;
 		if (isSuccessful) {
-			isSuccessful = otherTechnique.getForceStance() == null || otherTechnique.getForceStance() == Stance.KNOTTED || otherTechnique.getForceStance() == Stance.KNEELING;
+			isSuccessful = otherTechnique.getForceStance() == null || otherTechnique.getForceStance() == Stance.KNOTTED || otherTechnique.getForceStance() == Stance.KNEELING || (thisPayload.hasPriority() && !otherPayload.hasPriority());
 			failure = !isSuccessful;
 		}
 		boolean fizzle = thisPayload.getManaCost() > currentState.getMana();
@@ -250,7 +264,8 @@ public class Technique {
 			getForceStance(),
 			technique.isSpell(),
 			new Buff(technique.getBuff(), thisPayload.getTotalPower()),
-			technique.isDamaging() && !technique.doesSetDamage()
+			technique.isDamaging() && !technique.doesSetDamage(),
+			thisPayload.getBonuses()
 		);
 	}
 

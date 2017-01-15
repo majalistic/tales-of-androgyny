@@ -2,7 +2,8 @@ package com.majalis.technique;
 
 import com.majalis.character.AbstractCharacter.Stance;
 import com.majalis.technique.TechniquePrototype.TechniqueHeight;
-
+import com.majalis.technique.Bonus.BonusCondition;
+import com.majalis.technique.Bonus.BonusType;
 public class AttackTechnique extends TechniqueBuilder {
 	public AttackTechnique(Stance usableStance, Stance resultingStance, String name, int powerMod, int staminaCost, int stabilityCost){
 		this(usableStance, resultingStance, name, powerMod, staminaCost, stabilityCost, TechniqueHeight.MEDIUM);
@@ -42,6 +43,6 @@ public class AttackTechnique extends TechniqueBuilder {
 		this.gutCheck = gutCheck;
 		this.blockable = isBlockable;
 		this.height = height;
-		bonuses.put(BonusCondition.SKILL_LEVEL, new Bonus(BonusType.POWER_MOD, 1));
+		bonuses.put(BonusCondition.SKILL_LEVEL, new Bonus(BonusCondition.SKILL_LEVEL, BonusType.POWER_MOD, 1));
 	}
 }

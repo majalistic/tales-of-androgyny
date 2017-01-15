@@ -7,6 +7,7 @@ import com.majalis.character.Item.Weapon;
 import com.majalis.character.PlayerCharacter.Bootyliciousness;
 import com.majalis.save.SaveManager.JobClass;
 import com.majalis.technique.ClimaxTechnique.ClimaxType;
+import com.majalis.technique.Bonus;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.IntArray;
@@ -418,6 +419,14 @@ public abstract class AbstractCharacter extends Actor {
 			}
 			stance = Stance.ERUPT;
 		}
+		
+		for (Bonus bonus : resolvedAttack.getBonuses()) {
+			String bonusDescription = bonus.getDescription(label);
+			if (bonusDescription != null) {
+				resolvedAttack.addMessage(bonusDescription);
+			}
+		}
+		
 		return resolvedAttack;
 	}
 	

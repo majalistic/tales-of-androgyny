@@ -3,6 +3,8 @@ package com.majalis.technique;
 import com.majalis.character.StatusType;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.majalis.character.AbstractCharacter.Stance;
+import com.majalis.technique.Bonus.BonusCondition;
+import com.majalis.technique.Bonus.BonusType;
 import com.majalis.technique.ClimaxTechnique.ClimaxType;
 import com.majalis.technique.TechniquePrototype.TechniqueHeight;
 
@@ -124,40 +126,13 @@ public class TechniqueBuilder {
 		return builder.toString();
 	}
 	
-	public enum BonusCondition {
-		SKILL_LEVEL,
-		ENEMY_LOW_STABILITY,
-		ENEMY_ON_GROUND,
-		ENEMY_BLOODY,
-		STRENGTH_OVERPOWER,
-		STRENGTH_OVERPOWER_STRONG,
-		OUTMANEUVER,
-		OUTMANUEVER_STRONG
+
+	public TechniqueBuilder addBonus(BonusCondition condition, BonusType type) {
+		return addBonus(condition, type, 1);
 	}
 	
-	public enum BonusType {
-		POWER_MOD,
-		STAMINA_COST,
-		STABILTIY_COST,
-		MANA_COST,
-		KNOCKDOWN,
-		ARMOR_SUNDER,
-		GUT_CHECK,
-		GUARD_MOD;
+	public TechniqueBuilder addBonus(BonusCondition condition, BonusType type, int amount) {
+		bonuses.put(condition, new Bonus(condition, type, amount));
+		return this;
 	}
-	// represents a bonus, which is a wrapper around a map of BonusType to Magnitude
-	public class Bonus {
-		private final ObjectMap<BonusType, Integer> typeWithMagnitude;
-		// convenience constructor
-		protected Bonus(BonusType type, int magnitude) {
-			typeWithMagnitude = new ObjectMap<BonusType, Integer>();
-			typeWithMagnitude.put(type, magnitude);
-		}
-		
-		public ObjectMap<BonusType, Integer> getBonusMap() {
-			return typeWithMagnitude;
-		}
-		
-	}
-	
 }
