@@ -96,19 +96,19 @@ public class Battle extends Group{
 	private Technique selectedTechnique;
 	private Image characterArousal;
 	private Image enemyArousal;
-	public int struggle;
-	public boolean inRear;
-	public int battleEndCount;
 	private int selection;
 	private final float hoverXPos = 317; 
 	private final float hoverYPos = 35; 
-	private final float consoleXPos = 800;
+	private final float consoleXPos = 1200;
 	private final float consoleYPos = 5;
 	
 	private Outcome outcome;
 	public boolean gameExit;
 	private boolean battleOutcomeDecided;
 	private boolean battleOver;
+	
+	private Group uiGroup;
+	private boolean uiHidden;
 	
 	public enum Outcome {
 		VICTORY, DEFEAT, KNOT, SATISFIED
@@ -193,17 +193,17 @@ public class Battle extends Group{
 		addActorAndListen(enemyHealthIcon, 1002, 645);
 		addActorAndListen(enemyHealthLabel, 1052, 642);
 		
+		uiHidden = false;
+		uiGroup = new Group();
 		Image consoleBox = new Image(assetManager.get(AssetEnum.BATTLE_TEXTBOX.getPath(), Texture.class));
-		addActorAndListen(consoleBox, consoleXPos, consoleYPos);
+		uiGroup.addActor(consoleBox);
+		consoleBox.setPosition(consoleXPos, consoleYPos);
 		
 		this.hoverImage = new Image(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class));
-		hoverImage.setPosition(hoverXPos, hoverYPos);		
+		hoverImage.setPosition(hoverXPos, hoverYPos);	
+		hoverImage.setWidth(hoverImage.getWidth() + 100);
 		hoverGroup = new Group();
 		hoverGroup.addActor(hoverImage);
-		
-		struggle = 0;
-		inRear = false;
-		battleEndCount = 0;
 		
 		Image characterPortrait = new Image(assetManager.get(AssetEnum.CHARACTER_POTRAIT.getPath(), Texture.class));
 		addActorAndListen(characterPortrait, 0, 618);
@@ -224,10 +224,10 @@ public class Battle extends Group{
 		newActor.setSize(150, 172.5f);
 		
 		hoverGroup.addAction(Actions.visible(false));
-		this.addActor(hoverGroup);
-		
+		uiGroup.addActor(hoverGroup);
+			
 		table = new Table();
-		this.addActor(table);
+		uiGroup.addActor(table);
 		displayTechniqueOptions();
 		
 		Texture slashSheet = assetManager.get(AssetEnum.SLASH.getPath(), Texture.class);
@@ -251,8 +251,9 @@ public class Battle extends Group{
 		fireBallSound = assetManager.get(AssetEnum.FIREBALL_SOUND.getPath(), Sound.class);
 		incantationSound = assetManager.get(AssetEnum.INCANTATION.getPath(), Sound.class);
 		thwapping = assetManager.get(AssetEnum.THWAPPING.getPath(), Sound.class);
-		soundBuffer = new Array<SoundTimer>();
+		soundBuffer = new Array<SoundTimer>();	
 		
+		this.addActor(uiGroup);
 		this.consoleText = consoleText;
 		console = new Label(consoleText, skin);
 		console.setSize(700, 200);
@@ -260,17 +261,18 @@ public class Battle extends Group{
 		console.setColor(Color.BLACK);
 		console.setAlignment(Align.top);
 		ScrollPane pane = new ScrollPane(console);
-		pane.setBounds(consoleXPos+450, 50, 625, 350);
+		pane.setBounds(consoleXPos+50, 50, 625, 350);
 		pane.setScrollingDisabled(true, false);
-		this.addActor(pane);
+	
+		uiGroup.addActor(pane);
 		
 		skillDisplay = new Label("", skin);
-		skillDisplay.setSize(350, 500);
+		skillDisplay.setSize(450, 500);
 		skillDisplay.setWrap(true);
 		skillDisplay.setColor(Color.BLACK);
 		skillDisplay.setAlignment(Align.top);
 		ScrollPane pane2 = new ScrollPane(skillDisplay);
-		pane2.setBounds(hoverXPos + 80, hoverYPos - 155, 500, 600);
+		pane2.setBounds(hoverXPos + 80, hoverYPos - 155, 600, 600);
 		pane2.setScrollingDisabled(true, false);
 		hoverGroup.addActor(pane2);
 	}
@@ -296,6 +298,16 @@ public class Battle extends Group{
 	        else if(Gdx.input.isKeyJustPressed(Keys.ENTER)) {
 	        	clickButton(optionButtons.get(selection));
 	        }
+			
+			if (Gdx.input.isKeyJustPressed(Keys.TAB)) {
+				if (uiHidden) {
+					uiGroup.addAction(Actions.show());
+				}
+				else {
+					uiGroup.addAction(Actions.hide());
+				}
+				uiHidden = !uiHidden;
+			}
 			
 			if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
 				gameExit = true;
