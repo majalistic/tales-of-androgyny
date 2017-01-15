@@ -25,6 +25,7 @@ public class TechniquePrototype {
 	private final int gutCheck;
 	private final TechniqueHeight height;
 	private final int guardMod;
+	private final int parryMod;
 	private final boolean setDamage;
 	private final boolean blockable;
 	private final boolean grapple;
@@ -35,7 +36,7 @@ public class TechniquePrototype {
 	private final ObjectMap<BonusCondition, Bonus> bonuses;
 	
 	protected TechniquePrototype( Stance usableStance, Stance resultingStance, String name, boolean doesDamage, boolean doesHealing, int powerMod, int staminaCost, int stabilityCost, int manaCost, boolean isSpell, boolean isTaunt, Stance forceStance, double knockdown, int armorSunder,
-			int gutCheck, TechniqueHeight height, int guardMod, boolean setDamage, boolean blockable, boolean grapple, ClimaxType climaxType, StatusType buff, String description, String lightDescription, ObjectMap<BonusCondition, Bonus> bonuses) {
+			int gutCheck, TechniqueHeight height, int guardMod, int parryMod, boolean setDamage, boolean blockable, boolean grapple, ClimaxType climaxType, StatusType buff, String description, String lightDescription, ObjectMap<BonusCondition, Bonus> bonuses) {
 		this.usableStance = usableStance;
 		this.resultingStance = resultingStance;
 		this.name = name;
@@ -53,6 +54,7 @@ public class TechniquePrototype {
 		this.gutCheck = gutCheck;
 		this.height = height;
 		this.guardMod = guardMod;
+		this.parryMod = parryMod;
 		this.setDamage = setDamage;
 		this.blockable = blockable;
 		this.grapple = grapple;
@@ -79,6 +81,7 @@ public class TechniquePrototype {
 	public int getManaCost(){ return manaCost; }
 	public TechniqueHeight getTechniqueHeight(){ return height; }
 	public int getGuardMod(){ return guardMod; }
+	public int getParryMod() {	return parryMod; }
 	public boolean doesSetDamage(){ return setDamage; }
 	public boolean isBlockable() { return blockable; }
 	public boolean isGrapple() { return grapple; }

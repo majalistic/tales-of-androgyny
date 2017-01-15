@@ -112,7 +112,8 @@ public class Bonus {
 		ARMOR_SUNDER,
 		GUT_CHECK,
 		GUARD_MOD,
-		PRIORITY;
+		PRIORITY, 
+		PARRY;
 	}
 	
 }

@@ -32,6 +32,7 @@ public class Technique {
 		private final int stabilityCost;
 		private final int manaCost;
 		private final int block;
+		private final int parry;
 		private final int armorSunder;
 		private final int gutCheck;
 		private final double knockdown;
@@ -53,6 +54,7 @@ public class Technique {
 			int manaCalc = technique.getManaCost();
 			// this should also include + currentState.getGuardMod
 			int blockCalc = technique.getGuardMod();
+			int parryCalc = technique.getParryMod();
 			int armorSunderCalc = technique.getArmorSunder();
 			int gutCheckCalc = technique.getGutCheck();
 			double knockdownCalc = technique.getKnockdown();
@@ -66,6 +68,9 @@ public class Technique {
 							break;
 						case GUARD_MOD:
 							blockCalc  += bonus.value;
+							break;
+						case PARRY:
+							parryCalc += bonus.value;
 							break;
 						case GUT_CHECK:
 							gutCheckCalc += bonus.value;
@@ -94,6 +99,7 @@ public class Technique {
 			
 			powerMod = powerCalc;
 			block = blockCalc;
+			parry = parryCalc;
 			staminaCost = staminaCalc;
 			stabilityCost = stabilityCalc;
 			manaCost = manaCalc;
@@ -114,6 +120,10 @@ public class Technique {
 		}
 		private int getBlock() {
 			return block;
+		}
+		
+		private int getParry() {
+			return parry;
 		}
 		
 		private int getTotalPower() {
@@ -234,7 +244,11 @@ public class Technique {
 		TechniquePayload thisPayload = getPayload(otherTechnique);
 		
 		int rand = (int) Math.floor(Math.random() * 100);
-		double blockMod = technique.isBlockable() ? (otherPayload.getBlock() > rand * 2 ? 0 : otherPayload.getBlock() > rand ? .5 : 1) : 1;
+		double blockMod = isBlockable() ? (otherPayload.getBlock() > rand * 2 ? 0 : otherPayload.getBlock() > rand ? .5 : 1) : 1;
+		
+		// instead of 100, this should be modified by Outmanuever
+		boolean parried = isBlockable() && otherPayload.getParry() >= 100;
+		boolean parryOther = otherTechnique.isBlockable() && thisPayload.getParry() >= 100;
 		
 		boolean isSuccessful = 
 				technique.getTechniqueHeight() == TechniqueHeight.NONE ||
@@ -251,7 +265,7 @@ public class Technique {
 		boolean fizzle = thisPayload.getManaCost() > currentState.getMana();
 		
 		return new Attack(
-			fizzle ? Status.FIZZLE : isSuccessful ? Status.SUCCESS : failure ? Status.FAILURE : Status.MISS, 
+			parried ? Status.PARRIED : parryOther ? Status.PARRY : fizzle ? Status.FIZZLE : isSuccessful ? Status.SUCCESS : failure ? Status.FAILURE : Status.MISSED, 
 			technique.getName(), 
 			(int)(thisPayload.getDamage() * blockMod), 
 			((int) ((thisPayload.getTotalPower()) * thisPayload.getKnockdown()))/2, 
@@ -267,6 +281,10 @@ public class Technique {
 			technique.isDamaging() && !technique.doesSetDamage(),
 			thisPayload.getBonuses()
 		);
+	}
+
+	private boolean isBlockable() {
+		return technique.isBlockable();
 	}
 
 	public Stance getStance() {

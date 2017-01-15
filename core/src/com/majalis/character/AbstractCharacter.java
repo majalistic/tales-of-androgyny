@@ -302,9 +302,9 @@ public abstract class AbstractCharacter extends Actor {
 	public Attack doAttack(Attack resolvedAttack) {
 		resolvedAttack.setUser(label);
 		if (!resolvedAttack.isSuccessful()) {
-			resolvedAttack.addMessage(resolvedAttack.getUser() + " used " + resolvedAttack.getName() + (resolvedAttack.getStatus() == Status.MISS ? " but missed!" : resolvedAttack.getStatus() == Status.FIZZLE ? " but the spell fizzled!" : "! FAILURE!"));
+			resolvedAttack.addMessage(resolvedAttack.getUser() + " used " + resolvedAttack.getName() + (resolvedAttack.getStatus() == Status.MISSED ? " but missed!" : resolvedAttack.getStatus() == Status.PARRIED ? " but was parried!" : resolvedAttack.getStatus() == Status.FIZZLE ? " but the spell fizzled!" : "! FAILURE!"));
 			
-			if (resolvedAttack.getStatus() == Status.MISS && enemyType == EnemyEnum.HARPY && stance == Stance.FELLATIO && resolvedAttack.getForceStance() == Stance.FELLATIO) {
+			if (resolvedAttack.getStatus() == Status.MISSED && enemyType == EnemyEnum.HARPY && stance == Stance.FELLATIO && resolvedAttack.getForceStance() == Stance.FELLATIO) {
 				resolvedAttack.addMessage("She crashes to the ground!");
 				stance = Stance.PRONE;
 			}
@@ -505,7 +505,7 @@ public abstract class AbstractCharacter extends Actor {
 					currentStamina -= gutcheck;
 					result.add("It's a blow to the stomach! It reduces stamina by " + gutcheck + "!");
 					if (currentStamina <= 0) {
-						result.add(label + (secondPerson ? " fall " : " falls ") + " to the ground!");
+						result.add(label + (secondPerson ? " fall " : " falls ") + "to the ground!");
 						setStabilityToMin();
 						stance = Stance.PRONE;
 						knockedDown = true;

@@ -25,6 +25,7 @@ public class TechniqueBuilder {
 	protected int armorSunder;
 	protected int gutCheck;
 	protected int guardMod;
+	protected int parryMod;
 	protected Stance forceStance;
 	protected TechniqueHeight height;
 	protected boolean setDamage;
@@ -52,6 +53,7 @@ public class TechniqueBuilder {
 		gutCheck = 0;
 		height = null;
 		guardMod = 0;
+		parryMod = 0;
 		setDamage = false;
 		blockable = false;
 		grapple = false;
@@ -62,7 +64,7 @@ public class TechniqueBuilder {
 	
 	public TechniquePrototype build(){
 		String lightDescription = getDescription();
-		return new TechniquePrototype(usableStance, resultingStance, name, doesDamage, doesHealing, powerMod, staminaCost, stabilityCost, manaCost, isSpell, isTaunt, forceStance, knockdown, armorSunder, gutCheck, height, guardMod, setDamage, blockable, grapple, climaxType, buff, getStanceInfo() + lightDescription, lightDescription, bonuses); 
+		return new TechniquePrototype(usableStance, resultingStance, name, doesDamage, doesHealing, powerMod, staminaCost, stabilityCost, manaCost, isSpell, isTaunt, forceStance, knockdown, armorSunder, gutCheck, height, guardMod, parryMod, setDamage, blockable, grapple, climaxType, buff, getStanceInfo() + lightDescription, lightDescription, bonuses); 
 	}	
 
 	public String getStanceInfo(){ 
@@ -94,6 +96,9 @@ public class TechniqueBuilder {
 		}
 		if (guardMod > 0){
 			builder.append("Blocks against enemy attacks\nwith " + guardMod + "% effectiveness.\n");
+		}
+		if (parryMod > 0){
+			builder.append("Parries enemy attacks\nwith " + guardMod + "% effectiveness.\n");
 		}
 		if (staminaCost > 0){
 			builder.append("Costs " + staminaCost + " stamina, reduced by Endurance.\n");

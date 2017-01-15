@@ -53,20 +53,20 @@ public class EnemyCharacter extends AbstractCharacter {
 				break;
 			case HARPY:
 				baseStrength = 4;
-				baseAgility = 5;
+				baseAgility = 3;
 				textureImagePaths.put(Stance.FELLATIO.toString(), AssetEnum.HARPY_FELLATIO.getPath());
 				imagePath = AssetEnum.HARPY.getPath();
 				break;
 			case BRIGAND:
 				phallus = PhallusType.NORMAL;
 				baseStrength = 4;
-				baseAgility = 5;
+				baseAgility = 3;
 				imagePath = AssetEnum.BRIGAND.getPath();
 				break;
 			case SLIME:
 				baseStrength = 2;
 				baseEndurance = 4;
-				baseAgility = 5;
+				baseAgility = 4;
 				textureImagePaths.put(Stance.DOGGY.toString(), AssetEnum.SLIME_DOGGY.getPath());
 				imagePath = AssetEnum.SLIME.getPath();
 				break;

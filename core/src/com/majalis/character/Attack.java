@@ -30,11 +30,15 @@ public class Attack {
 	
 	public enum Status {
 		SUCCESS,
-		MISS,
+		PARRIED, // this attack was parried
+		PARRY,   // this attack parried another attack
+		BLOCKED,
+		MISSED,
 		FAILURE, 
 		FIZZLE
 	}
 	
+	// this should have all the info for an attack, including damage or effects that were blocked
 	protected Attack(Status status, String name, int damage, int force, int armorBreak, int gutcheck, int healing, int lust, int grapple, ClimaxType climaxType, Stance forceStance, boolean isSpell, Buff buff, boolean isAttack, Array<Bonus> bonuses){
 		this.status = status;
 		this.name = name;
@@ -103,7 +107,7 @@ public class Attack {
 	}
 	
 	public boolean isSuccessful(){
-		return status == Status.SUCCESS;
+		return status == Status.SUCCESS || status == Status.PARRY || status == Status.BLOCKED;
 	}
 	
 	public Status getStatus(){
