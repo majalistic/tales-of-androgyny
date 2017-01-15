@@ -45,8 +45,8 @@ import com.majalis.save.SaveService;
 public class Battle extends Group{
 
 	// this needs to be refactored so that it accepts the number keys 
-	private static int[] POSSIBLE_KEYS = new int[]{Keys.A, Keys.S, Keys.D, Keys.F, Keys.G, Keys.H, Keys.J, Keys.K, Keys.L, Keys.Z, Keys.X, Keys.C, Keys.V};
-	private static char[] POSSIBLE_KEYS_CHAR = new char[]{'A','S','D','F','G','H','J','K','L','Z','X','C','V'};
+	private static int[] POSSIBLE_KEYS = new int[]{Keys.A, Keys.S, Keys.D, Keys.F, Keys.G, Keys.H, Keys.J, Keys.K, Keys.L, Keys.Z, Keys.X, Keys.C, Keys.V, Keys.B, Keys.N};
+	private static char[] POSSIBLE_KEYS_CHAR = new char[]{'A','S','D','F','G','H','J','K','L','Z','X','C','V', 'B', 'N'};
 	
 	private final PlayerCharacter character;
 	private final EnemyCharacter enemy;
@@ -124,75 +124,55 @@ public class Battle extends Group{
 		battleOver = false;
 		battleOutcomeDecided = false;
 		gameExit = false;	
+		pop = assetManager.get(AssetEnum.UNPLUGGED_POP.getPath(), Sound.class);
+		mouthPop = assetManager.get(AssetEnum.MOUTH_POP.getPath(), Sound.class);
+		attackSound = assetManager.get(AssetEnum.ATTACK_SOUND.getPath(), Sound.class);
+		hitSound = assetManager.get(AssetEnum.HIT_SOUND.getPath(), Sound.class);
+		swordSlashSound = assetManager.get(AssetEnum.SWORD_SLASH_SOUND.getPath(), Sound.class);
+		fireBallSound = assetManager.get(AssetEnum.FIREBALL_SOUND.getPath(), Sound.class);
+		incantationSound = assetManager.get(AssetEnum.INCANTATION.getPath(), Sound.class);
+		thwapping = assetManager.get(AssetEnum.THWAPPING.getPath(), Sound.class);
+		soundBuffer = new Array<SoundTimer>();	
 		this.addActor(battleBackground);
 		this.addCharacter(character);
 		this.addCharacter(enemy);
-		this.addActor(battleUI);
+		this.addActor(battleUI);	
 		
 		skin = assetManager.get(AssetEnum.BATTLE_SKIN.getPath(), Skin.class);
 		buttonSound = assetManager.get(AssetEnum.BUTTON_SOUND.getPath(), Sound.class);
 		
-		int barX = 130;
+		float barX = 130 * 1.5f;
 		
-		masculinityIcon = new Image(assetManager.get(character.getMasculinityPath(), Texture.class));
+		masculinityIcon = initImage(assetManager.get(character.getMasculinityPath(), Texture.class), barX + 150, 450 * 1.5f);
 		masculinityIcon.setScale(.15f);
-		addActorAndListen(masculinityIcon, barX + 100, 450);
 		
-		characterHealth = new ProgressBar(0, 1, .05f, false, skin);
-		characterHealth.setWidth(350);
-	
-		characterHealth.setValue(character.getHealthPercent());
-		healthIcon = new Image(assetManager.get(character.getHealthDisplay(), Texture.class));
+		characterHealth = initBar(0, 1, .05f, false, skin, 350, character.getHealthPercent(), barX , 690 * 1.5f);
+		healthIcon = initImage(assetManager.get(character.getHealthDisplay(), Texture.class), barX+3, 695 * 1.5f);
+		healthLabel = initLabel(character.getCurrentHealth() + " / " + character.getMaxHealth(), skin, Color.BROWN, barX + 75, 692 * 1.5f);
+		
+		characterStamina = initBar(0, 1, .05f, false, skin, 350, character.getStaminaPercent(), barX, 660 * 1.5f);
+		staminaIcon = initImage(assetManager.get(character.getStaminaDisplay(), Texture.class), barX + 7.5f, 665 * 1.5f);
+		staminaLabel = initLabel(character.getCurrentStamina() + " / " + character.getMaxStamina(), skin, Color.BROWN, barX + 75, 662 * 1.5f);
 
-		healthLabel = new Label(character.getCurrentHealth() + " / " + character.getMaxHealth(), skin);
-		healthLabel.setColor(Color.BROWN);
-		addActorAndListen(characterHealth, barX, 690);
-		addActorAndListen(healthIcon, barX+2, 695);
-		addActorAndListen(healthLabel, barX+50, 692);
+		characterBalance = initBar(0, 1, .05f, false, skin, 350, character.getBalancePercent(), barX, 630 * 1.5f);
+		balanceIcon = initImage(assetManager.get(character.getBalanceDisplay(), Texture.class), barX + 3, 635 * 1.5f);
+		balanceLabel = initLabel(character.getStability() > 0 ? character.getStability() + " / " + character.getMaxStability() : "DOWN (" + -character.getStability() + ")", skin, Color.BROWN, barX + 75, 632 * 1.5f);
 		
-		characterStamina = new ProgressBar(0, 1, .05f, false, skin);
-		characterStamina.setWidth(350);
-		characterStamina.setValue(character.getStaminaPercent());
-		staminaIcon = new Image(assetManager.get(character.getStaminaDisplay(), Texture.class));
-		staminaLabel = new Label(character.getCurrentStamina() + " / " + character.getMaxStamina(), skin);
-		staminaLabel.setColor(Color.BROWN);
-		addActorAndListen(characterStamina, barX, 660);
-		addActorAndListen(staminaIcon, barX+5, 665);
-		addActorAndListen(staminaLabel, barX+50, 662);
-		
-		characterBalance = new ProgressBar(0, 1, .05f, false, skin);
-		characterBalance.setWidth(350);
-		characterBalance.setValue(character.getBalancePercent());
-		balanceIcon = new Image(assetManager.get(character.getBalanceDisplay(), Texture.class));
-		balanceLabel = new Label(character.getStability() > 0 ? character.getStability() + " / " + character.getMaxStability() : "DOWN (" + -character.getStability() + ")", skin);
-		balanceLabel.setColor(Color.BROWN);
-		addActorAndListen(characterBalance, barX, 630);
-		addActorAndListen(balanceIcon, barX+2, 635);
-		addActorAndListen(balanceLabel, barX+50, 632);
-		
-		characterMana = new ProgressBar(0, 1, .05f, false, skin);
-		characterMana.setWidth(350);
-
-		characterMana.setValue(character.getManaPercent());	
-		manaIcon = new Image(assetManager.get(character.getManaDisplay(), Texture.class));
-		manaLabel = new Label(character.getCurrentMana() + " / " + character.getMaxMana(), skin);
-		manaLabel.setColor(Color.BROWN);
-		if (character.hasMagic()){
-			addActorAndListen(characterMana, barX, 600);
-			addActorAndListen(manaIcon, barX+2, 605);	
-			addActorAndListen(manaLabel, barX+50, 602);	
+		if (character.hasMagic()) {
+			characterMana = initBar(0, 1, .05f, false, skin, 350, character.getManaPercent(), barX, 600 * 1.5f);
+			manaIcon = initImage(assetManager.get(character.getManaDisplay(), Texture.class), barX + 3, 605 * 1.5f);
+			manaLabel = initLabel(character.getCurrentMana() + " / " + character.getMaxMana(), skin, Color.BROWN, barX + 75, 602 * 1.5f);
+		}
+		else {
+			characterMana = null;
+			manaIcon = null;
+			manaLabel = null;
 		}
 		
-		enemyHealth = new ProgressBar(0, 1, .05f, false, skin);
-		enemyHealth.setWidth(350);
-		enemyHealth.setValue(enemy.getHealthPercent());
-		enemyHealthIcon = new Image(assetManager.get(enemy.getHealthDisplay(), Texture.class));
-		enemyHealthLabel = new Label(enemy.getCurrentHealth() + " / " + enemy.getMaxHealth(), skin);
-		enemyHealthLabel.setColor(Color.BROWN);
-		addActorAndListen(enemyHealth, 1000, 640);
-		addActorAndListen(enemyHealthIcon, 1002, 645);
-		addActorAndListen(enemyHealthLabel, 1052, 642);
-		
+		enemyHealth = initBar(0, 1, .05f, false, skin, 350, enemy.getHealthPercent(), 1500 , 640 * 1.5f);
+		enemyHealthIcon = initImage(assetManager.get(enemy.getHealthDisplay(), Texture.class), 1503, 645 * 1.5f);
+		enemyHealthLabel = initLabel(enemy.getCurrentHealth() + " / " + enemy.getMaxHealth(), skin, Color.BROWN, 1578, 642 * 1.5f);
+			
 		uiHidden = false;
 		uiGroup = new Group();
 		Image consoleBox = new Image(assetManager.get(AssetEnum.BATTLE_TEXTBOX.getPath(), Texture.class));
@@ -242,16 +222,6 @@ public class Battle extends Group{
 		
 		slash.setPosition(500, 0);
 		this.addActor(slash);
-		
-		pop = assetManager.get(AssetEnum.UNPLUGGED_POP.getPath(), Sound.class);
-		mouthPop = assetManager.get(AssetEnum.MOUTH_POP.getPath(), Sound.class);
-		attackSound = assetManager.get(AssetEnum.ATTACK_SOUND.getPath(), Sound.class);
-		hitSound = assetManager.get(AssetEnum.HIT_SOUND.getPath(), Sound.class);
-		swordSlashSound = assetManager.get(AssetEnum.SWORD_SLASH_SOUND.getPath(), Sound.class);
-		fireBallSound = assetManager.get(AssetEnum.FIREBALL_SOUND.getPath(), Sound.class);
-		incantationSound = assetManager.get(AssetEnum.INCANTATION.getPath(), Sound.class);
-		thwapping = assetManager.get(AssetEnum.THWAPPING.getPath(), Sound.class);
-		soundBuffer = new Array<SoundTimer>();	
 		
 		this.addActor(uiGroup);
 		this.consoleText = consoleText;
@@ -568,6 +538,30 @@ public class Battle extends Group{
         event2.setType(InputEvent.Type.touchUp);
         button.fire(event2);
         return selectedTechnique;
+	}
+	
+	private ProgressBar initBar(float min, float max, float stepSize, boolean vertical, Skin skin, int width, float value, float x, float y) {
+		ProgressBar newBar = new ProgressBar(min, max, stepSize, vertical, skin);
+		newBar.setWidth(width);
+		newBar.setPosition(x, y);
+		newBar.setValue(value);
+		this.addActor(newBar);
+		return newBar;
+	}
+	
+	private Image initImage(Texture texture, float x, float y) {
+		Image newImage = new Image(texture);
+		newImage.setPosition(x, y);
+		this.addActor(newImage);
+		return newImage;
+	}
+	
+	private Label initLabel(String value, Skin skin, Color color, float x, float y) {
+		Label newLabel = new Label(value, skin);
+		newLabel.setColor(color);
+		newLabel.setPosition(x, y);
+		this.addActor(newLabel);
+		return newLabel;
 	}
 	
 	/* REFACTOR AND REMOVE BEYOND THIS LINE */
