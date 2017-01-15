@@ -207,11 +207,9 @@ public abstract class AbstractCharacter extends Actor {
 	
 	protected void setManaToMax() { currentMana = getMaxMana(); }
 	
-	protected void modMana(int manaMod) { this.currentMana += manaMod; if (currentMana > getMaxMana()) currentMana = getMaxMana(); }
-	
-	protected int getStrength() { return stepDown(getRawStrength()); }
-	// no step down
-	protected int getRawStrength() { return Math.max((baseStrength + getStrengthBuff()) - (getHealthDegradation() + getStaminaDegradation())/2, 0); }
+	protected void modMana(int manaMod) { this.currentMana += manaMod; if (currentMana > getMaxMana()) currentMana = getMaxMana(); if (currentMana < 0) currentMana = 0; }
+
+	protected int getStrength() { return Math.max((baseStrength + getStrengthBuff()) - (getHealthDegradation() + getStaminaDegradation())/2, 0); }
 	
 	private int getStrengthBuff() { return statuses.get(StatusType.STRENGTH_BUFF.toString(), 0); }
 	private int getEnduranceBuff() { return statuses.get(StatusType.ENDURANCE_BUFF.toString(), 0); }
@@ -248,6 +246,7 @@ public abstract class AbstractCharacter extends Actor {
 	
 	public void modLust(int lustMod) { lust += lustMod; }
 	
+	// this method can be removed, as the CharacterState could dictate what modifiers are applied to the stamina cost of a technique
 	protected int getStaminaMod(Technique technique) {
 		int staminaMod = technique.getStaminaCost();
 		if (staminaMod >= 0) {
@@ -282,20 +281,17 @@ public abstract class AbstractCharacter extends Actor {
 			statuses.remove(key);
 		}
 		
-		// this should be moved to technique failure
-		if (technique.isSpell() && currentMana < 0) {
-			technique = new Technique(Techniques.FIZZLE.getTrait(), 0);
-			currentMana = 0;
-		}
-		
-		if (technique.isFallDown()) {
+		oldStance = stance;
+		stance = technique.getStance();
+		if (oldStance != Stance.PRONE && oldStance != Stance.SUPINE && (stance == Stance.PRONE || stance == Stance.SUPINE)) {
 			setStabilityToMin();
 		}
 		
-		oldStance = stance;
-		stance = technique.getStance();
-		
 		return technique;
+	}
+	
+	protected CharacterState getCurrentState(AbstractCharacter target) {		
+		return new CharacterState(getStats(), getRawStats(), weapon, stability < 5, currentMana, target);
 	}
 	
 	protected boolean alreadyIncapacitated() {
@@ -305,7 +301,7 @@ public abstract class AbstractCharacter extends Actor {
 	public Attack doAttack(Attack resolvedAttack) {
 		resolvedAttack.setUser(label);
 		if (!resolvedAttack.isSuccessful()) {
-			resolvedAttack.addMessage(resolvedAttack.getUser() + " used " + resolvedAttack.getName() + (resolvedAttack.getStatus() == Status.MISS ? " but missed!" : "! FAILURE!"));
+			resolvedAttack.addMessage(resolvedAttack.getUser() + " used " + resolvedAttack.getName() + (resolvedAttack.getStatus() == Status.MISS ? " but missed!" : resolvedAttack.getStatus() == Status.FIZZLE ? " but the spell fizzled!" : "! FAILURE!"));
 			
 			if (resolvedAttack.getStatus() == Status.MISS && enemyType == EnemyEnum.HARPY && stance == Stance.FELLATIO && resolvedAttack.getForceStance() == Stance.FELLATIO) {
 				resolvedAttack.addMessage("She crashes to the ground!");
@@ -605,6 +601,75 @@ public abstract class AbstractCharacter extends Actor {
 	protected abstract String increaseLust();
 	protected abstract String increaseLust(int lustIncrease);
 	
+	protected ObjectMap<Stat, Integer> getStats() {
+		ObjectMap<Stat, Integer> stats = new ObjectMap<Stat, Integer>();
+		for (Stat stat: Stat.values()) {
+			stats.put(stat, getStat(stat));
+		}
+		return stats;
+	}
+	
+	protected ObjectMap<Stat, Integer> getRawStats() {
+		ObjectMap<Stat, Integer> stats = new ObjectMap<Stat, Integer>();
+		for (Stat stat: Stat.values()) {
+			stats.put(stat, getStat(stat));
+		}
+		return stats;
+	}
+	
+	protected int getStat(Stat stat) {
+		return stepDown(getRawStat(stat));
+	}
+	
+
+	public int getRawStat(Stat stat) {
+		switch(stat) {
+			case STRENGTH: return getStrength();
+			case ENDURANCE: return getEndurance();
+			case AGILITY: return getAgility();
+			case PERCEPTION: return getPerception();
+			case MAGIC: return getMagic();
+			case CHARISMA: return getCharisma();
+			default: return -1;
+		}
+	}
+	
+	public int getBaseStat(Stat stat) {
+		switch(stat) {
+			case STRENGTH: return getBaseStrength();
+			case ENDURANCE: return getBaseEndurance();
+			case AGILITY: return getBaseAgility();
+			case PERCEPTION: return getBasePerception();
+			case MAGIC: return getBaseMagic();
+			case CHARISMA: return getBaseCharisma();
+			default: return -1;
+		}
+	}
+	
+	private int getBaseCharisma() {
+		return baseCharisma;
+	}
+
+	private int getBaseMagic() {
+		return baseMagic;
+	}
+
+	private int getBasePerception() {
+		return basePerception;
+	}
+
+	private int getBaseAgility() {
+		return baseAgility;
+	}
+
+	private int getBaseEndurance() {
+		return baseEndurance;
+	}
+	// just for player character, this is protected instead of private
+	protected int getBaseStrength() {
+		return baseStrength;
+	}
+	
 	public String getStanceTransform(Technique firstTechnique) {
 		String stanceTransform = firstTechnique.getStance().toString();
 		String vowels = "aeiou";
@@ -645,8 +710,11 @@ public abstract class AbstractCharacter extends Actor {
 	}
 
 	public boolean lowStaminaOrStability(Technique technique) {
-		return getStaminaMod(technique) >= currentStamina - 5 || technique.getStabilityCost() - getStabilityRegen() >= stability - 5;
+		return getStaminaMod(technique) >= currentStamina - 5 || technique.getStabilityCost() - getStabilityRegen() >= stability - 5;	
+	}
 	
+	protected boolean lowStability() {
+		return stability <= 5;
 	}
 	
 	protected boolean isErect() {

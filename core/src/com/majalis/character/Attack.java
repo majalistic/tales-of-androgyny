@@ -28,7 +28,8 @@ public class Attack {
 	public enum Status {
 		SUCCESS,
 		MISS,
-		FAILURE
+		FAILURE, 
+		FIZZLE
 	}
 	
 	protected Attack(Status status, String name, int damage, int force, int armorBreak, int gutcheck, int healing, int lust, int grapple, ClimaxType climaxType, Stance forceStance, boolean isSpell, Buff buff, boolean isAttack){

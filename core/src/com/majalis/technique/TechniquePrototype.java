@@ -1,39 +1,41 @@
 package com.majalis.technique;
 
+import com.badlogic.gdx.utils.ObjectMap;
 import com.majalis.character.AbstractCharacter.Stance;
 import com.majalis.character.StatusType;
 import com.majalis.technique.ClimaxTechnique.ClimaxType;
+import com.majalis.technique.TechniqueBuilder.Bonus;
+import com.majalis.technique.TechniqueBuilder.BonusCondition;
 
 public class TechniquePrototype {
-	protected final Stance usableStance;
-	protected final Stance resultingStance;
-	protected final String name;
-	protected final boolean doesDamage;
-	protected final boolean doesHealing;
-	protected final int powerMod;
-	protected final int staminaCost;
-	protected final int stabilityCost;
-	protected final int manaCost;
-	protected final boolean isSpell;
-	protected final boolean isTaunt;
-	protected final Stance forceStance;
-	protected final double knockdown;
-	protected final int armorSunder;
-	protected final int gutCheck;
-	protected final TechniqueHeight height;
-	protected final int guardMod;
-	protected final boolean causeBattleOver;
-	protected final boolean setDamage;
-	protected final boolean blockable;
-	protected final boolean grapple;
-	protected final ClimaxType climaxType;
-	protected final boolean selfTrip;
-	protected final StatusType buff;
-	protected final String description;
-	protected final String lightDescription;
+	private final Stance usableStance;
+	private final Stance resultingStance;
+	private final String name;
+	private final boolean doesDamage;
+	private final boolean doesHealing;
+	private final int powerMod;
+	private final int staminaCost;
+	private final int stabilityCost;
+	private final int manaCost;
+	private final boolean isSpell;
+	private final boolean isTaunt;
+	private final Stance forceStance;
+	private final double knockdown;
+	private final int armorSunder;
+	private final int gutCheck;
+	private final TechniqueHeight height;
+	private final int guardMod;
+	private final boolean setDamage;
+	private final boolean blockable;
+	private final boolean grapple;
+	private final ClimaxType climaxType;
+	private final StatusType buff;
+	private final String description;
+	private final String lightDescription;
+	private final ObjectMap<BonusCondition, Bonus> bonuses;
 	
 	protected TechniquePrototype( Stance usableStance, Stance resultingStance, String name, boolean doesDamage, boolean doesHealing, int powerMod, int staminaCost, int stabilityCost, int manaCost, boolean isSpell, boolean isTaunt, Stance forceStance, double knockdown, int armorSunder,
-			int gutCheck, TechniqueHeight height, int guardMod, boolean causeBattleOver, boolean setDamage, boolean blockable, boolean grapple, ClimaxType climaxType, boolean selfTrip, StatusType buff, String description, String lightDescription) {
+			int gutCheck, TechniqueHeight height, int guardMod, boolean setDamage, boolean blockable, boolean grapple, ClimaxType climaxType, StatusType buff, String description, String lightDescription, ObjectMap<BonusCondition, Bonus> bonuses) {
 		this.usableStance = usableStance;
 		this.resultingStance = resultingStance;
 		this.name = name;
@@ -51,15 +53,14 @@ public class TechniquePrototype {
 		this.gutCheck = gutCheck;
 		this.height = height;
 		this.guardMod = guardMod;
-		this.causeBattleOver = causeBattleOver;
 		this.setDamage = setDamage;
 		this.blockable = blockable;
 		this.grapple = grapple;
 		this.climaxType = climaxType;
-		this.selfTrip = selfTrip;
 		this.buff = buff;
 		this.description = description;
 		this.lightDescription = lightDescription;
+		this.bonuses = bonuses;
 	}
 	
 	public Stance getUsableStance(){ return usableStance; }
@@ -78,16 +79,15 @@ public class TechniquePrototype {
 	public int getManaCost(){ return manaCost; }
 	public TechniqueHeight getTechniqueHeight(){ return height; }
 	public int getGuardMod(){ return guardMod; }
-	public boolean causesBattleOver(){ return causeBattleOver; }
 	public boolean doesSetDamage(){ return setDamage; }
 	public boolean isBlockable() { return blockable; }
 	public boolean isGrapple() { return grapple; }
 	public boolean isTaunt(){ return isTaunt; }
 	public ClimaxType getClimaxType() { return climaxType; }
-	public boolean causesTrip() { return selfTrip; }
 	public StatusType getBuff() { return buff; }
 	public String getDescription() { return description; }
 	public String getLightDescription() { return lightDescription; }
+	public ObjectMap<BonusCondition, Bonus> getBonuses() { return bonuses; }
 	
 	public enum TechniqueHeight{
 		HIGH,

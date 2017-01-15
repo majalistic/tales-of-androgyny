@@ -175,75 +175,75 @@ public class PlayerCharacter extends AbstractCharacter {
 		Array<Technique> possibles;
 		switch(stance) {
 			case BLITZ:
-				return getTechniques(ALL_OUT_BLITZ, HOLD_BACK);
+				return getTechniques(target, ALL_OUT_BLITZ, HOLD_BACK);
 			case OFFENSIVE:
-				possibles = getTechniques(BLITZ_ATTACK, POWER_ATTACK, ARMOR_SUNDER, RECKLESS_ATTACK, KNOCK_DOWN, VAULT, TEMPO_ATTACK, RESERVED_ATTACK);
+				possibles = getTechniques(target, BLITZ_ATTACK, POWER_ATTACK, ARMOR_SUNDER, RECKLESS_ATTACK, KNOCK_DOWN, VAULT, TEMPO_ATTACK, RESERVED_ATTACK);
 				if (target.getStance() == Stance.SUPINE && target.isErect() && target.enemyType != EnemyEnum.SLIME && target.enemyType != EnemyEnum.CENTAUR && target.enemyType != EnemyEnum.UNICORN) {
-					possibles.addAll(getTechniques(SIT_ON_IT));
+					possibles.addAll(getTechniques(target, SIT_ON_IT));
 				}
 				return possibles;
 			case BALANCED:
-				possibles = getTechniques(SPRING_ATTACK, NEUTRAL_ATTACK, CAUTIOUS_ATTACK, BLOCK, INCANTATION, DUCK, HIT_THE_DECK);;
+				possibles = getTechniques(target, SPRING_ATTACK, NEUTRAL_ATTACK, CAUTIOUS_ATTACK, BLOCK, INCANTATION, DUCK, HIT_THE_DECK);
 				if (target.getStance() == Stance.SUPINE && target.isErect() && target.enemyType != EnemyEnum.SLIME && target.enemyType != EnemyEnum.CENTAUR && target.enemyType != EnemyEnum.UNICORN) {
-					possibles.addAll(getTechniques(SIT_ON_IT));
+					possibles.addAll(getTechniques(target, SIT_ON_IT));
 				}
 				return possibles;
 			case DEFENSIVE:
-				return getTechniques(REVERSAL_ATTACK, CAREFUL_ATTACK, GUARD, TAUNT, SECOND_WIND, INCANTATION, DUCK, HIT_THE_DECK, PARRY);
+				return getTechniques(target, REVERSAL_ATTACK, CAREFUL_ATTACK, GUARD, TAUNT, SECOND_WIND, INCANTATION, DUCK, HIT_THE_DECK, PARRY);
 			case PRONE:
 			case SUPINE:
-				return getTechniques(KIP_UP, STAND_UP, KNEE_UP, stance == Stance.PRONE ? REST_FACE_DOWN : REST, stance == Stance.PRONE ? ROLL_OVER_UP : ROLL_OVER_DOWN);
+				return getTechniques(target, KIP_UP, STAND_UP, KNEE_UP, stance == Stance.PRONE ? REST_FACE_DOWN : REST, stance == Stance.PRONE ? ROLL_OVER_UP : ROLL_OVER_DOWN);
 			case KNEELING:
-				possibles = getTechniques(STAND_UP, STAY_KNELT);
+				possibles = getTechniques(target, STAND_UP, STAY_KNELT);
 				if (target.isErect() && target.enemyType != EnemyEnum.SLIME) {
-					possibles.addAll(getTechniques(GRAB_IT));
+					possibles.addAll(getTechniques(target, GRAB_IT));
 				}
 				return possibles;
 			case AIRBORNE:
-				return getTechniques(JUMP_ATTACK);
+				return getTechniques(target, JUMP_ATTACK);
 			case FULL_NELSON:
 				if (struggle <= 0) {
-					return getTechniques(SUBMIT, BREAK_FREE_FULL_NELSON);
+					return getTechniques(target, SUBMIT, BREAK_FREE_FULL_NELSON);
 				}
-				return getTechniques(SUBMIT, STRUGGLE_FULL_NELSON);
+				return getTechniques(target, SUBMIT, STRUGGLE_FULL_NELSON);
 			case DOGGY:
 				if (struggle <= 0) {
-					return getTechniques(RECEIVE_DOGGY, BREAK_FREE_ANAL);
+					return getTechniques(target, RECEIVE_DOGGY, BREAK_FREE_ANAL);
 				}
-				return getTechniques(RECEIVE_DOGGY, STRUGGLE_DOGGY);
+				return getTechniques(target, RECEIVE_DOGGY, STRUGGLE_DOGGY);
 			case ANAL:
 				if (struggle <= 0) {
-					return getTechniques(RECEIVE_ANAL, BREAK_FREE_ANAL);
+					return getTechniques(target, RECEIVE_ANAL, BREAK_FREE_ANAL);
 				}
-				return getTechniques(RECEIVE_ANAL, STRUGGLE_ANAL);
+				return getTechniques(target, RECEIVE_ANAL, STRUGGLE_ANAL);
 			case HANDY:
-				return getTechniques(STROKE_IT, LET_GO, OPEN_WIDE);
+				return getTechniques(target, STROKE_IT, LET_GO, OPEN_WIDE);
 			case STANDING:
 				if (struggle <= 0) {
-					return getTechniques(RECEIVE_STANDING, BREAK_FREE_ANAL);
+					return getTechniques(target, RECEIVE_STANDING, BREAK_FREE_ANAL);
 				}
-				return getTechniques(RECEIVE_STANDING, STRUGGLE_STANDING);
+				return getTechniques(target, RECEIVE_STANDING, STRUGGLE_STANDING);
 			case COWGIRL:
-				return getTechniques(RIDE_ON_IT, STAND_OFF_IT);
+				return getTechniques(target, RIDE_ON_IT, STAND_OFF_IT);
 			case KNOTTED:
-				return getTechniques(RECEIVE_KNOT);
+				return getTechniques(target, RECEIVE_KNOT);
 			case FELLATIO:
 				if (struggle <= 0) {
-					return getTechniques(SUCK_IT, BREAK_FREE_ORAL);
+					return getTechniques(target, SUCK_IT, BREAK_FREE_ORAL);
 				}
-				return getTechniques(SUCK_IT, STRUGGLE_ORAL);
+				return getTechniques(target, SUCK_IT, STRUGGLE_ORAL);
 			case FACE_SITTING:
 				if (struggle <= 0) {
-					return getTechniques(GET_FACE_RIDDEN, STRUGGLE_FACE_SIT);
+					return getTechniques(target, GET_FACE_RIDDEN, STRUGGLE_FACE_SIT);
 				}
-				return getTechniques(GET_FACE_RIDDEN, BREAK_FREE_FACE_SIT);
+				return getTechniques(target, GET_FACE_RIDDEN, BREAK_FREE_FACE_SIT);
 			case SIXTY_NINE:
 				if (struggle <= 0) {
-					return getTechniques(RECIPROCATE_FORCED, STRUGGLE_SIXTY_NINE);
+					return getTechniques(target, RECIPROCATE_FORCED, STRUGGLE_SIXTY_NINE);
 				}
-				return getTechniques(RECIPROCATE_FORCED, BREAK_FREE_ORAL);
+				return getTechniques(target, RECIPROCATE_FORCED, BREAK_FREE_ORAL);
 			case CASTING:
-				return getTechniques(COMBAT_FIRE, COMBAT_HEAL, TITAN_STRENGTH);
+				return getTechniques(target, COMBAT_FIRE, COMBAT_HEAL, TITAN_STRENGTH);
 			default: return null;
 		}
 	}
@@ -254,26 +254,14 @@ public class PlayerCharacter extends AbstractCharacter {
 		return null;
 	}
 	
-	private ObjectMap<Stat, Integer> getStats() {
-		ObjectMap<Stat, Integer> stats = new ObjectMap<Stat, Integer>();
-		stats.put(Stat.STRENGTH, getStrength());
-		stats.put(Stat.ENDURANCE, getEndurance());
-		stats.put(Stat.AGILITY, getAgility());
-		stats.put(Stat.PERCEPTION, getPerception());
-		stats.put(Stat.MAGIC, getMagic());
-		stats.put(Stat.CHARISMA, getCharisma());
-		return stats;
-	}
-	
-	private Array<Technique> getTechniques(Techniques... possibilities) {
+	private Array<Technique> getTechniques(AbstractCharacter target, Techniques... possibilities) {
 		Array<Technique> possibleTechniques = new Array<Technique>();
 		
 		for (Techniques technique : possibilities) {
 			if (skills.containsKey(technique.toString())) {
 				// this should pass the players stats and other relevant info to the technique, rather than passing some generic "force" value - also passing the weapon separately so that the technique can determine if it's relevant or not - basically, this class should create a "current state" object
-				int power = technique.getTrait().isSpell() ? (technique.getTrait().getBuff() != null ? stepDown(getMagic()) : getMagic()  ): technique.getTrait().isTaunt() ? getCharisma() : getStrength() + (weapon != null ? weapon.getDamage(getStats()) : 0);
-				power += skills.get(technique.toString()) - 1;
-				possibleTechniques.add(new Technique(technique.getTrait(), power));
+				// this may need to filter out techniques which are not possible because of current state evalutations?
+				possibleTechniques.add(new Technique(technique.getTrait(), getCurrentState(target), skills.get(technique.toString(), 0)));
 			}	
 		}
 		return possibleTechniques;
@@ -353,66 +341,6 @@ public class PlayerCharacter extends AbstractCharacter {
 	
 	public enum LipFullness {
 		POUTY
-	}
-
-	public int getRawStat(Stat stat) {
-		switch(stat) {
-			case STRENGTH: return getRawStrength();
-			case ENDURANCE: return getEndurance();
-			case AGILITY: return getAgility();
-			case PERCEPTION: return getPerception();
-			case MAGIC: return getMagic();
-			case CHARISMA: return getCharisma();
-			default: return -1;
-		}
-	}
-	
-	public int getStat(Stat stat) {
-		switch(stat) {
-			case STRENGTH: return getStrength();
-			case ENDURANCE: return getEndurance();
-			case AGILITY: return getAgility();
-			case PERCEPTION: return getPerception();
-			case MAGIC: return getMagic();
-			case CHARISMA: return getCharisma();
-			default: return -1;
-		}
-	}
-	
-	public int getBaseStat(Stat stat) {
-		switch(stat) {
-			case STRENGTH: return getBaseStrength();
-			case ENDURANCE: return getBaseEndurance();
-			case AGILITY: return getBaseAgility();
-			case PERCEPTION: return getBasePerception();
-			case MAGIC: return getBaseMagic();
-			case CHARISMA: return getBaseCharisma();
-			default: return -1;
-		}
-	}
-	
-	private int getBaseCharisma() {
-		return baseCharisma;
-	}
-
-	private int getBaseMagic() {
-		return baseMagic;
-	}
-
-	private int getBasePerception() {
-		return basePerception;
-	}
-
-	private int getBaseAgility() {
-		return baseAgility;
-	}
-
-	private int getBaseEndurance() {
-		return baseEndurance;
-	}
-
-	private int getBaseStrength() {
-		return baseStrength;
 	}
 
 	public void setStat(Stat stat, int amount) {

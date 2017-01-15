@@ -1,6 +1,7 @@
 package com.majalis.technique;
 
 import com.majalis.character.StatusType;
+import com.badlogic.gdx.utils.ObjectMap;
 import com.majalis.character.AbstractCharacter.Stance;
 import com.majalis.technique.ClimaxTechnique.ClimaxType;
 import com.majalis.technique.TechniquePrototype.TechniqueHeight;
@@ -12,25 +13,24 @@ public class TechniqueBuilder {
 	protected String name;
 	protected boolean doesDamage;
 	protected boolean doesHealing;
+	protected boolean isSpell;
+	protected boolean isTaunt;
 	protected int powerMod;
 	protected int staminaCost;
 	protected int stabilityCost;
 	protected int manaCost;
-	protected boolean isSpell;
-	protected boolean isTaunt;
-	protected Stance forceStance;
 	protected double knockdown;
 	protected int armorSunder;
 	protected int gutCheck;
-	protected TechniqueHeight height;
 	protected int guardMod;
-	protected boolean causeBattleOver;
+	protected Stance forceStance;
+	protected TechniqueHeight height;
 	protected boolean setDamage;
 	protected boolean blockable;
 	protected boolean grapple;
 	protected ClimaxType climaxType;
-	protected boolean selfTrip;
 	protected StatusType buff;
+	protected ObjectMap<BonusCondition, Bonus> bonuses;
 	
 	public TechniqueBuilder(Stance usableStance, Stance resultingStance, String name){
 		this.usableStance = usableStance;
@@ -50,18 +50,17 @@ public class TechniqueBuilder {
 		gutCheck = 0;
 		height = null;
 		guardMod = 0;
-		causeBattleOver = false;
 		setDamage = false;
 		blockable = false;
 		grapple = false;
-		selfTrip = false;
 		buff = null;
 		height = TechniqueHeight.NONE;
+		bonuses = new ObjectMap<BonusCondition, Bonus>();
 	}
 	
 	public TechniquePrototype build(){
 		String lightDescription = getDescription();
-		return new TechniquePrototype(usableStance, resultingStance, name, doesDamage, doesHealing, powerMod, staminaCost, stabilityCost, manaCost, isSpell, isTaunt, forceStance, knockdown, armorSunder, gutCheck, height, guardMod, causeBattleOver, setDamage, blockable, grapple, climaxType, selfTrip, buff, getStanceInfo() + lightDescription, lightDescription); 
+		return new TechniquePrototype(usableStance, resultingStance, name, doesDamage, doesHealing, powerMod, staminaCost, stabilityCost, manaCost, isSpell, isTaunt, forceStance, knockdown, armorSunder, gutCheck, height, guardMod, setDamage, blockable, grapple, climaxType, buff, getStanceInfo() + lightDescription, lightDescription, bonuses); 
 	}	
 
 	public String getStanceInfo(){ 
@@ -123,6 +122,42 @@ public class TechniqueBuilder {
 		}
 		
 		return builder.toString();
+	}
+	
+	public enum BonusCondition {
+		SKILL_LEVEL,
+		ENEMY_LOW_STABILITY,
+		ENEMY_ON_GROUND,
+		ENEMY_BLOODY,
+		STRENGTH_OVERPOWER,
+		STRENGTH_OVERPOWER_STRONG,
+		OUTMANEUVER,
+		OUTMANUEVER_STRONG
+	}
+	
+	public enum BonusType {
+		POWER_MOD,
+		STAMINA_COST,
+		STABILTIY_COST,
+		MANA_COST,
+		KNOCKDOWN,
+		ARMOR_SUNDER,
+		GUT_CHECK,
+		GUARD_MOD;
+	}
+	// represents a bonus, which is a wrapper around a map of BonusType to Magnitude
+	public class Bonus {
+		private final ObjectMap<BonusType, Integer> typeWithMagnitude;
+		// convenience constructor
+		protected Bonus(BonusType type, int magnitude) {
+			typeWithMagnitude = new ObjectMap<BonusType, Integer>();
+			typeWithMagnitude.put(type, magnitude);
+		}
+		
+		public ObjectMap<BonusType, Integer> getBonusMap() {
+			return typeWithMagnitude;
+		}
+		
 	}
 	
 }
