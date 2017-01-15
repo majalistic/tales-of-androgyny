@@ -58,17 +58,9 @@ public class Battle extends Group{
 	private final Skin skin;
 	
 	private final AnimatedImage slash;
-	
-	private final Sound buttonSound;
-	private final Sound thwapping;
-	private final Sound pop;
-	private final Sound mouthPop;
-	private final Sound attackSound;
-	private final Sound hitSound;
-	private final Sound swordSlashSound;
-	private final Sound fireBallSound;
-	private final Sound incantationSound;
 
+	private final ObjectMap<AssetEnum, Sound> soundMap;
+	
 	private final Array<SoundTimer> soundBuffer;
 	private final Image hoverImage;
 	private final Group hoverGroup;
@@ -97,10 +89,6 @@ public class Battle extends Group{
 	private Image characterArousal;
 	private Image enemyArousal;
 	private int selection;
-	private final float hoverXPos = 317; 
-	private final float hoverYPos = 35; 
-	private final float consoleXPos = 1200;
-	private final float consoleYPos = 5;
 	
 	private Outcome outcome;
 	public boolean gameExit;
@@ -109,10 +97,6 @@ public class Battle extends Group{
 	
 	private Group uiGroup;
 	private boolean uiHidden;
-	
-	public enum Outcome {
-		VICTORY, DEFEAT, KNOT, SATISFIED
-	}
 	
 	public Battle(SaveService saveService, AssetManager assetManager, BitmapFont font, PlayerCharacter character, EnemyCharacter enemy, ObjectMap<String, Integer> outcomes, Background battleBackground, Background battleUI, String consoleText){
 		this.saveService = saveService;
@@ -124,14 +108,13 @@ public class Battle extends Group{
 		battleOver = false;
 		battleOutcomeDecided = false;
 		gameExit = false;	
-		pop = assetManager.get(AssetEnum.UNPLUGGED_POP.getPath(), Sound.class);
-		mouthPop = assetManager.get(AssetEnum.MOUTH_POP.getPath(), Sound.class);
-		attackSound = assetManager.get(AssetEnum.ATTACK_SOUND.getPath(), Sound.class);
-		hitSound = assetManager.get(AssetEnum.HIT_SOUND.getPath(), Sound.class);
-		swordSlashSound = assetManager.get(AssetEnum.SWORD_SLASH_SOUND.getPath(), Sound.class);
-		fireBallSound = assetManager.get(AssetEnum.FIREBALL_SOUND.getPath(), Sound.class);
-		incantationSound = assetManager.get(AssetEnum.INCANTATION.getPath(), Sound.class);
-		thwapping = assetManager.get(AssetEnum.THWAPPING.getPath(), Sound.class);
+		
+		soundMap = new ObjectMap<AssetEnum, Sound>();
+		AssetEnum[] battleSounds = new AssetEnum[]{AssetEnum.UNPLUGGED_POP, AssetEnum.MOUTH_POP, AssetEnum.ATTACK_SOUND, AssetEnum.HIT_SOUND, AssetEnum.SWORD_SLASH_SOUND, AssetEnum.FIREBALL_SOUND, AssetEnum.INCANTATION, AssetEnum.THWAPPING, AssetEnum.BUTTON_SOUND};
+		for (AssetEnum soundPath: battleSounds) {
+			soundMap.put(soundPath, assetManager.get(soundPath.getPath(), Sound.class));
+		}
+		
 		soundBuffer = new Array<SoundTimer>();	
 		this.addActor(battleBackground);
 		this.addCharacter(character);
@@ -139,9 +122,12 @@ public class Battle extends Group{
 		this.addActor(battleUI);	
 		
 		skin = assetManager.get(AssetEnum.BATTLE_SKIN.getPath(), Skin.class);
-		buttonSound = assetManager.get(AssetEnum.BUTTON_SOUND.getPath(), Sound.class);
 		
 		float barX = 130 * 1.5f;
+		float hoverXPos = 317; 
+		float hoverYPos = 35; 
+		float consoleXPos = 1200;
+		float consoleYPos = 5;
 		
 		masculinityIcon = initImage(assetManager.get(character.getMasculinityPath(), Texture.class), barX + 150, 450 * 1.5f);
 		masculinityIcon.setScale(.15f);
@@ -297,7 +283,7 @@ public class Battle extends Group{
 				}
 					
 				if (selectedTechnique != null) {		
-					buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
+					soundMap.get(AssetEnum.BUTTON_SOUND).play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
 					// possibly construct a separate class for this
 					resolveTechniques(character, selectedTechnique, enemy, enemy.getTechnique(character));
 					selectedTechnique = null;
@@ -395,29 +381,29 @@ public class Battle extends Group{
 		if (attackForFirstCharacter.isAttack()){
 			slash.setState(0);
 			if (!attackForFirstCharacter.isSuccessful()){
-				soundBuffer.add(new SoundTimer(attackSound, 0, .5f));
+				soundBuffer.add(new SoundTimer(soundMap.get(AssetEnum.ATTACK_SOUND), 0, .5f));
 			}
 			else {
-				soundBuffer.add(new SoundTimer(hitSound, 20, .3f));
+				soundBuffer.add(new SoundTimer(soundMap.get(AssetEnum.HIT_SOUND), 20, .3f));
 			}
 		}
 		if (character.getStance() == Stance.CASTING && attackForSecondCharacter.isSuccessful()){
-			soundBuffer.add(new SoundTimer(incantationSound, 5, .5f));
+			soundBuffer.add(new SoundTimer(soundMap.get(AssetEnum.INCANTATION), 5, .5f));
 		}
 		if (attackForSecondCharacter.isAttack()){
 			if (!attackForSecondCharacter.isSuccessful()){
-				soundBuffer.add(new SoundTimer(attackSound, 15, .5f));
+				soundBuffer.add(new SoundTimer(soundMap.get(AssetEnum.ATTACK_SOUND), 15, .5f));
 			}
 			else {
 				if (attackForSecondCharacter.isSpell()){
-					soundBuffer.add(new SoundTimer(fireBallSound, 5, .5f));
+					soundBuffer.add(new SoundTimer(soundMap.get(AssetEnum.FIREBALL_SOUND), 5, .5f));
 				}
 				else {
 					if (character.getWeapon() != null){
-						soundBuffer.add(new SoundTimer(swordSlashSound, 5, .5f));
+						soundBuffer.add(new SoundTimer(soundMap.get(AssetEnum.SWORD_SLASH_SOUND), 5, .5f));
 					}
 					else {
-						soundBuffer.add(new SoundTimer(hitSound, 5, .3f));
+						soundBuffer.add(new SoundTimer(soundMap.get(AssetEnum.HIT_SOUND), 5, .3f));
 					}
 				}
 				
@@ -429,16 +415,16 @@ public class Battle extends Group{
 		printToConsole(secondCharacter.receiveAttack(attackForSecondCharacter));		
 		
 		if (oldStance.isAnal() && firstCharacter.getStance().isAnal()){
-			thwapping.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
+			soundMap.get(AssetEnum.THWAPPING).play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
 		}
 		
 		if (oldStance.isAnal() && !firstCharacter.getStance().isAnal()){
-			thwapping.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
-			soundBuffer.add(new SoundTimer(pop, 105, .3f));
+			soundMap.get(AssetEnum.THWAPPING).play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
+			soundBuffer.add(new SoundTimer(soundMap.get(AssetEnum.UNPLUGGED_POP), 105, .3f));
 		}
 		
 		if (oldStance.isOral() && !firstCharacter.getStance().isOral()){
-			mouthPop.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume"));
+			soundMap.get(AssetEnum.MOUTH_POP).play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume"));
 		}
 		
 		// this needs to be secondCharacter.getOutcome() or something similar
@@ -562,6 +548,10 @@ public class Battle extends Group{
 		newLabel.setPosition(x, y);
 		this.addActor(newLabel);
 		return newLabel;
+	}
+	
+	public enum Outcome {
+		VICTORY, DEFEAT, KNOT, SATISFIED
 	}
 	
 	/* REFACTOR AND REMOVE BEYOND THIS LINE */
