@@ -33,6 +33,8 @@ public class BattleScreen extends AbstractScreen{
 		resourceRequirements.put(INCANTATION.getPath(), Sound.class);
 		resourceRequirements.put(HIT_SOUND.getPath(), Sound.class);
 		resourceRequirements.put(THWAPPING.getPath(), Sound.class);
+		resourceRequirements.put(PARRY_SOUND.getPath(), Sound.class);
+		resourceRequirements.put(BLOCK_SOUND.getPath(), Sound.class);
 		resourceRequirements.put(BATTLE_MUSIC.getPath(), Music.class);
 		
 		AssetEnum[] assets = new AssetEnum[]{

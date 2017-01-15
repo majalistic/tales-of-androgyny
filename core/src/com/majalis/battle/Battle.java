@@ -32,6 +32,7 @@ import com.majalis.asset.AnimatedImage;
 import com.majalis.asset.AssetEnum;
 import com.majalis.character.AbstractCharacter;
 import com.majalis.character.AbstractCharacter.Stance;
+import com.majalis.character.Attack.Status;
 import com.majalis.character.Attack;
 import com.majalis.character.EnemyCharacter;
 import com.majalis.character.PlayerCharacter;
@@ -110,7 +111,7 @@ public class Battle extends Group{
 		gameExit = false;	
 		
 		soundMap = new ObjectMap<AssetEnum, Sound>();
-		AssetEnum[] battleSounds = new AssetEnum[]{AssetEnum.UNPLUGGED_POP, AssetEnum.MOUTH_POP, AssetEnum.ATTACK_SOUND, AssetEnum.HIT_SOUND, AssetEnum.SWORD_SLASH_SOUND, AssetEnum.FIREBALL_SOUND, AssetEnum.INCANTATION, AssetEnum.THWAPPING, AssetEnum.BUTTON_SOUND};
+		AssetEnum[] battleSounds = new AssetEnum[]{AssetEnum.UNPLUGGED_POP, AssetEnum.MOUTH_POP, AssetEnum.ATTACK_SOUND, AssetEnum.HIT_SOUND, AssetEnum.SWORD_SLASH_SOUND, AssetEnum.FIREBALL_SOUND, AssetEnum.INCANTATION, AssetEnum.THWAPPING, AssetEnum.BUTTON_SOUND, AssetEnum.PARRY_SOUND, AssetEnum.BLOCK_SOUND};
 		for (AssetEnum soundPath: battleSounds) {
 			soundMap.put(soundPath, assetManager.get(soundPath.getPath(), Sound.class));
 		}
@@ -307,7 +308,7 @@ public class Battle extends Group{
 			if (battleOutcomeDecided) {
 				character.refresh();
 				saveService.saveDataValue(SaveEnum.CONSOLE, "");
-				this.removeActor(table);
+				uiGroup.removeActor(table);
 				hoverGroup.clearActions();
 				hoverGroup.addAction(Actions.visible(true));
 				hoverGroup.addAction(Actions.moveTo(400, 380));
@@ -382,9 +383,17 @@ public class Battle extends Group{
 			slash.setState(0);
 			if (!attackForFirstCharacter.isSuccessful()){
 				soundBuffer.add(new SoundTimer(soundMap.get(AssetEnum.ATTACK_SOUND), 0, .5f));
+				if (attackForFirstCharacter.getStatus() == Status.PARRIED) {
+					soundBuffer.add(new SoundTimer(soundMap.get(AssetEnum.PARRY_SOUND), 5, .5f));
+				}
 			}
 			else {
-				soundBuffer.add(new SoundTimer(soundMap.get(AssetEnum.HIT_SOUND), 20, .3f));
+				if (attackForFirstCharacter.getStatus() == Status.BLOCKED) {
+					soundBuffer.add(new SoundTimer(soundMap.get(AssetEnum.BLOCK_SOUND), 5, .5f));
+				}
+				else {
+					soundBuffer.add(new SoundTimer(soundMap.get(AssetEnum.HIT_SOUND), 20, .3f));
+				}
 			}
 		}
 		if (character.getStance() == Stance.CASTING && attackForSecondCharacter.isSuccessful()){
@@ -393,20 +402,25 @@ public class Battle extends Group{
 		if (attackForSecondCharacter.isAttack()){
 			if (!attackForSecondCharacter.isSuccessful()){
 				soundBuffer.add(new SoundTimer(soundMap.get(AssetEnum.ATTACK_SOUND), 15, .5f));
+				if (attackForSecondCharacter.getStatus() == Status.PARRIED) {
+					soundBuffer.add(new SoundTimer(soundMap.get(AssetEnum.PARRY_SOUND), 5, .5f));
+				}
 			}
 			else {
 				if (attackForSecondCharacter.isSpell()){
 					soundBuffer.add(new SoundTimer(soundMap.get(AssetEnum.FIREBALL_SOUND), 5, .5f));
 				}
 				else {
-					if (character.getWeapon() != null){
+					if (attackForSecondCharacter.getStatus() == Status.BLOCKED) {
+						soundBuffer.add(new SoundTimer(soundMap.get(AssetEnum.BLOCK_SOUND), 5, .5f));
+					}
+					else if (character.getWeapon() != null){
 						soundBuffer.add(new SoundTimer(soundMap.get(AssetEnum.SWORD_SLASH_SOUND), 5, .5f));
 					}
 					else {
 						soundBuffer.add(new SoundTimer(soundMap.get(AssetEnum.HIT_SOUND), 5, .3f));
 					}
 				}
-				
 				enemy.hitAnimation();
 			}
 		}
@@ -442,19 +456,20 @@ public class Battle extends Group{
 		characterHealth.setValue(character.getHealthPercent());
 		characterStamina.setValue(character.getStaminaPercent());
 		characterBalance.setValue(character.getBalancePercent());
-		characterMana.setValue(character.getManaPercent());
+		if (character.hasMagic()) {
+			characterMana.setValue(character.getManaPercent());
+			manaLabel.setText(character.getCurrentMana() + " / " + character.getMaxMana());
+			manaIcon.setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(character.getManaDisplay(), Texture.class))));
+		}
 		enemyHealth.setValue(enemy.getHealthPercent());
 		healthLabel.setText(character.getCurrentHealth() + " / " + character.getMaxHealth());
 		staminaLabel.setText(character.getCurrentStamina() + " / " + character.getMaxStamina());
 		balanceLabel.setText(character.getStability() > 0 ? character.getStability() + " / " + character.getMaxStability() : "DOWN (" + -character.getStability() + ")");
-		manaLabel.setText(character.getCurrentMana() + " / " + character.getMaxMana());
 		enemyHealthLabel.setText(enemy.getCurrentHealth() + " / " + enemy.getMaxHealth());
 		healthIcon.setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(character.getHealthDisplay(), Texture.class))));
 		staminaIcon.setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(character.getStaminaDisplay(), Texture.class))));
 		balanceIcon.setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(character.getBalanceDisplay(), Texture.class))));
-		manaIcon.setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(character.getManaDisplay(), Texture.class))));
 		enemyHealthIcon.setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(enemy.getHealthDisplay(), Texture.class))));
-		
 		masculinityIcon.setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(character.getMasculinityPath(), Texture.class))));
 	}
 	
@@ -598,7 +613,7 @@ public class Battle extends Group{
 		return outcomes.get(outcome.toString());
 	}
 	
-	private class SkillButton extends TextButton{
+	private class SkillButton extends TextButton {
 		Texture stanceIcon;
 		public SkillButton(String text, Skin skin, Texture stanceIcon) {
 			super(text, skin);
@@ -612,7 +627,7 @@ public class Battle extends Group{
 	}
 	
 	// this should be refactored into a delayed action
-	private class SoundTimer{
+	private class SoundTimer {
 		int timeLeft;
 		Sound sound;
 		float volume;
@@ -623,12 +638,11 @@ public class Battle extends Group{
 			this.volume = volume;
 		}
 		
-		public boolean decreaseTime(){
+		public boolean decreaseTime() {
 			timeLeft--;
 			boolean played = timeLeft <= 0;
-			if (played){
-				sound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *volume);
-				
+			if (played) {
+				sound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") * volume);
 			}
 			return played;
 		}

@@ -265,7 +265,7 @@ public class Technique {
 		boolean fizzle = thisPayload.getManaCost() > currentState.getMana();
 		
 		return new Attack(
-			parried ? Status.PARRIED : parryOther ? Status.PARRY : fizzle ? Status.FIZZLE : isSuccessful ? Status.SUCCESS : failure ? Status.FAILURE : Status.MISSED, 
+			parried ? Status.PARRIED : parryOther ? Status.PARRY : fizzle ? Status.FIZZLE : isSuccessful ? (blockMod < 1 ? Status.BLOCKED : Status.SUCCESS) : failure ? Status.FAILURE : Status.MISSED, 
 			technique.getName(), 
 			(int)(thisPayload.getDamage() * blockMod), 
 			((int) ((thisPayload.getTotalPower()) * thisPayload.getKnockdown()))/2, 

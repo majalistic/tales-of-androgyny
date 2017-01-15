@@ -138,6 +138,8 @@ public enum AssetEnum {
 	SLOPPY_01("sounds/Sloppy01.wav"),
 	ATTACK_SOUND("sounds/AttackSound.wav"),
 	HIT_SOUND("sounds/HitSound.wav"),
+	PARRY_SOUND("sounds/Parry.wav"),
+	BLOCK_SOUND("sounds/Block.wav"),
 	SWORD_SLASH_SOUND("sounds/SwordSlash.wav"),
 	FIREBALL_SOUND("sounds/Fireball.wav"),
 	INCANTATION("sounds/Incantation.wav"),
