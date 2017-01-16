@@ -148,6 +148,9 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 	        public void clicked(InputEvent event, float x, float y) {
 				if (!clicked){
 					clicked = true;
+					for (GameWorldNode connectedNode : connectedNodes) {
+						connectedNode.setClickedAndAdjacentClicked();						
+					}
 					sound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
 					currentImage.addAction(Actions.moveBy(movementVector.x, movementVector.y, 1.5f));
 					visit();
@@ -164,6 +167,13 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 		});
 	}
 	
+	private void setClickedAndAdjacentClicked() {
+		clicked = true;
+		for (GameWorldNode connectedNode : connectedNodes) {
+			connectedNode.clicked = true;						
+		}
+	}
+
 	private void setVisibility(int visibility){
 		this.visibility = visibility;
 		if (!active && !current){
