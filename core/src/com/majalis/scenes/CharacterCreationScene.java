@@ -5,18 +5,18 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.OrderedMap;
 import com.majalis.asset.AssetEnum;
@@ -32,33 +32,22 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 public class CharacterCreationScene extends Scene {
 
 	private final SaveService saveService;
-	private final BitmapFont font;
-	private final PlayerCharacter character;
-	private String classMessage;
-	private String statMessage;
-	private String statDescription;
-	private int statPoints;
 	private ObjectMap<Stat, Integer> statMap;
-	private Group statGroup;
 	private TextButton enchanterButton;
+	private int statPoints;
 	
-	// needs a done button, as well as other interface elements
-	public CharacterCreationScene(OrderedMap<Integer, Scene> sceneBranches, int sceneCode, final SaveService saveService, BitmapFont font, Background background, AssetManager assetManager, final PlayerCharacter character, final boolean story) {
+	public CharacterCreationScene(OrderedMap<Integer, Scene> sceneBranches, int sceneCode, final SaveService saveService, Background background, AssetManager assetManager, final PlayerCharacter character, final boolean story) {
 		super(sceneBranches, sceneCode);
 		this.saveService = saveService;
-		this.font = font;
-		this.character = character;
 		this.addActor(background);
 
 		statPoints = story ? 1 : 3;
 		statMap = resetObjectMap();
 		
+		final Group statGroup = new Group();
+		
 		Skin skin = assetManager.get(AssetEnum.UI_SKIN.getPath(), Skin.class);
 		final Sound buttonSound = assetManager.get(AssetEnum.BUTTON_SOUND.getPath(), Sound.class);
-		
-		classMessage = "";
-		statMessage = "";
-		statDescription = "";
 		
 		final TextButton done = new TextButton("Done", skin);
 		
@@ -73,26 +62,57 @@ public class CharacterCreationScene extends Scene {
 		);
 		done.setPosition(1522, 30);
 
+		final Label statPointDisplay = new Label("Stat points: " + statPoints, skin);
+		statPointDisplay.setColor(Color.GRAY);
+		statPointDisplay.setPosition(800, 100);
+		
+		int classBase = 230;
+		
+		final Label classMessage = new Label("", skin);
+		classMessage.setColor(Color.BLACK);
+		classMessage.setPosition(classBase, 800);
+		classMessage.setAlignment(Align.center);
+		final Label statMessage = new Label("", skin);
+		statMessage.setColor(Color.RED);
+		final Label statDescription = new Label("", skin);
+		statDescription.setColor(Color.BLACK);
+		statMessage.setPosition(525, 800);
+		statDescription.setPosition(525, 800);
+		this.addActor(classMessage);
+		this.addActor(statMessage);
+		this.addActor(statDescription);
+		this.addActor(statPointDisplay);
+		
 		final Table statTable = new Table();
 		
-		statGroup = new Group();
-		
+		final ObjectMap<Stat, Label> statToLabel = new ObjectMap<Stat, Label>();
 		int offset = 0;
+		int base = 700;
 		for (final Stat stat: Stat.values()){
 			Image statImage = new Image(assetManager.get(stat.getPath(), Texture.class));
+			Label statLabel = new Label("", skin);
+			statToLabel.put(stat, statLabel);
+			int amount = character.getBaseStat(stat);
+			setFontColor(statLabel, amount);
+			setStatText(stat, character, statLabel);
+		
+			statLabel.setPosition(base + 175, 665 - offset);			
 			statImage.setSize(statImage.getWidth() / (statImage.getHeight() / 35), 35);
-			statImage.setPosition(825, 650 - offset);
+			statImage.setPosition(base + 25, 647 - offset);
 			statImage.addListener(new ClickListener(){
 				@Override
 		        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-					statDescription = stat.getDescription();
+					statDescription.setText(stat.getDescription());
+					statDescription.addAction(Actions.show());
+					statMessage.addAction(Actions.hide());
 				}
 				@Override
 		        public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
-					statDescription = "";
+					statDescription.addAction(Actions.hide());
+					statMessage.addAction(Actions.show());
 				}
 			});
-
+			statGroup.addActor(statLabel);
 			statGroup.addActor(statImage);
 			offset += 75;
 			
@@ -108,22 +128,29 @@ public class CharacterCreationScene extends Scene {
 						character.setStat(stat, character.getBaseStat(stat)+1);
 						saveService.saveDataValue(SaveEnum.PLAYER, character);
 						statPoints--;
+						statPointDisplay.setText("Stat points: " + statPoints);
 						statMap.put(stat, currentStatAllocation+1);
 						if (statPoints <= 0){
 							addActor(done);
 						}
-						statMessage = "";
+						setFontColor(statLabel, character.getBaseStat(stat));
+						setStatText(stat, character, statLabel);
+						statMessage.addAction(Actions.hide());
+						statMessage.setText("");
 					}
 					else {
 						if (statPoints <= 0){
-							statMessage = "You are out of stat points to allocate!";
+							statMessage.setText("You are out of stat points to allocate!");
+							
 						}
 						else if (currentStatAllocation < 2){
-							statMessage = "Only one stat may be\ntwo points above its base score!";
+							statMessage.setText("Only one stat may be\ntwo points above its base score!");
 						}
 						else {
-							statMessage = "Your " + stat.toString() + " is at maximum!\nIt cannot be raised any more.";
+							statMessage.setText("Your " + stat.toString() + " is at maximum!\nIt cannot be raised any more.");
+							
 						}
+						statMessage.addAction(Actions.show());
 					}
 		        }
 			});
@@ -139,28 +166,35 @@ public class CharacterCreationScene extends Scene {
 							removeActor(done);
 						}
 						statPoints++;	
+						statPointDisplay.setText("Stat points: " + statPoints);
 						statMap.put(stat, currentStatAllocation - 1);
-						statMessage = "";
+						setFontColor(statLabel, character.getBaseStat(stat));
+						setStatText(stat, character, statLabel);
+						statMessage.addAction(Actions.hide());
+						statMessage.setText("");
 					}
 					else {
 						if (currentStatAllocation <= (story ? 0 : -1)){
-							statMessage = "Your " + stat.toString() + " is at minimum!\nIt cannot be lowered.";
+							statMessage.setText("Your " + stat.toString() + " is at minimum!\nIt cannot be lowered.");
 						}
 						else {
-							statMessage = "You can only lower two stats below their base scores.";
+							statMessage.setText("You can only lower two stats below their base scores.");
 						}
+						statMessage.addAction(Actions.show());
 					}
 		        }
 			});
 			statTable.add(buttonDown).size(45, 75);
 			statTable.add(buttonUp).size(45, 75).row();
 		}
-		statTable.setPosition(773, 473);
+		statTable.setPosition(673, 473);
 		
 		statGroup.addAction(Actions.hide());
 		this.addActor(statGroup);
 		
 		Table table = new Table();
+
+		table.setPosition(classBase, 488);
 		this.addActor(table);	
 		
 		for (final JobClass jobClass: JobClass.values()) {
@@ -179,8 +213,8 @@ public class CharacterCreationScene extends Scene {
 						if (!story){
 							buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
 						}
-						classMessage = "You are now " + getJobClass(jobClass) + ".\n"
-										+ getClassFeatures(jobClass);
+						classMessage.setText("You are now " + getJobClass(jobClass) + ".\n"
+										+ getClassFeatures(jobClass));
 						statGroup.removeAction(Actions.hide());
 						statGroup.addAction(Actions.visible(true));
 						statGroup.addAction(Actions.show());
@@ -189,7 +223,13 @@ public class CharacterCreationScene extends Scene {
 							removeActor(done);
 						}
 						statPoints = story ? 1 : 3;
+						statPointDisplay.setText("Stat points: " + statPoints);
 						statMap = resetObjectMap();
+						for (Stat stat: Stat.values()) {
+							Label statLabel = statToLabel.get(stat);
+							setFontColor(statLabel, character.getBaseStat(stat));
+							setStatText(stat, character, statLabel);
+						}
 						addActor(statTable);
 			        }
 				});
@@ -203,8 +243,6 @@ public class CharacterCreationScene extends Scene {
 		if (story) {
 			character.setBaseDefense(2);
 		}
-		
-		table.setPosition(488, 488);
 	}
 
 	private ObjectMap<Stat, Integer> resetObjectMap() {
@@ -247,39 +285,27 @@ public class CharacterCreationScene extends Scene {
 		}
 	}
 	
-	@Override
-    public void draw(Batch batch, float parentAlpha) {
-		super.draw(batch, parentAlpha);
-		font.setColor(0.4f,0.4f,0.4f,1);
-		int base = 800;
-		font.draw(batch, classMessage, base-450, 565 * 1.5f);
-		if (statDescription.equals("")){
-			font.draw(batch, statMessage, base - 50, 900);
+	private void setFontColor(Label font, int amount){
+		Color toApply = Color.WHITE;
+		switch (amount) {
+			case 0: toApply = Color.DARK_GRAY; break;
+			case 1: toApply = Color.GRAY; break;
+			case 2: toApply = Color.OLIVE; break;
+			case 3: toApply = Color.FOREST; break;
+			case 4: toApply = Color.LIME; break;
+			case 5: toApply = Color.GOLD; break;
+			case 6: toApply = Color.GOLDENROD; break;
+			case 7: toApply = Color.ORANGE; break;
+			case 8: toApply = Color.SCARLET; break;
+			case 9: toApply = Color.RED; break;
+			case 10: toApply = Color.PINK; break;
 		}
-		else {
-			font.draw(batch, statDescription, base - 50, 900);
-		}
-		
-		int offset = 0;
-		if (!classMessage.equals("")) {
-			for (Stat stat: PlayerCharacter.Stat.values()) {
-				font.setColor(0.6f, 0.2f, 0.1f, 1);
-				int amount = character.getBaseStat(stat);
-				setFontColor(font, amount);
-				font.draw(batch, String.valueOf(amount), base+200, 675 - offset);
-				font.draw(batch, "("+String.valueOf(statMap.get(stat))+")", base+215, 675 - offset);
-				font.draw(batch, "- " + PlayerCharacter.getStatMap().get(stat).get(amount), base+260, 675 - offset);
-				offset += 75;
-			}
-			font.draw(batch, "Stat points: " + statPoints, base + 100, 150);
-		}
-    }
+		font.setColor(toApply);
+	}
 	
-	private void setFontColor(BitmapFont font, int amount){
-		float red = amount / 10.0f;
-		float green = .3f;
-		float blue = (1 - (amount/10))/2;
-		font.setColor(red, green, blue, 1);
+	private void setStatText(Stat stat, PlayerCharacter character, Label label) {
+		int amount = character.getBaseStat(stat);
+		label.setText(amount + " ("+String.valueOf(statMap.get(stat))+")" + " - " + PlayerCharacter.getStatMap().get(stat).get(amount));
 	}
 	
 	@Override

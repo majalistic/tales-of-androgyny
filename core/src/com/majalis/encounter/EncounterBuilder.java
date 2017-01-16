@@ -1191,7 +1191,7 @@ public class EncounterBuilder {
 	}
 	
 	private OrderedMap<Integer, Scene> getCharacterCreationScene(BitmapFont font, Background background, AssetManager assetManager, PlayerCharacter character, boolean story, OrderedMap<Integer, Scene> sceneMap){
-		return addScene(new CharacterCreationScene(sceneMap, sceneCounter, saveService, font, background, assetManager, character, story));
+		return addScene(new CharacterCreationScene(sceneMap, sceneCounter, saveService, background, assetManager, character, story));
 	}
 	
 	private OrderedMap<Integer, Scene> getSkillSelectionScene(BitmapFont font, Background background, AssetManager assetManager, PlayerCharacter character, OrderedMap<Integer, Scene> sceneMap){
