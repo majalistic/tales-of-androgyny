@@ -288,17 +288,16 @@ public class CharacterCreationScene extends Scene {
 	private void setFontColor(Label font, int amount){
 		Color toApply = Color.WHITE;
 		switch (amount) {
-			case 0: toApply = Color.DARK_GRAY; break;
-			case 1: toApply = Color.GRAY; break;
-			case 2: toApply = Color.OLIVE; break;
-			case 3: toApply = Color.FOREST; break;
-			case 4: toApply = Color.LIME; break;
-			case 5: toApply = Color.GOLD; break;
-			case 6: toApply = Color.GOLDENROD; break;
-			case 7: toApply = Color.ORANGE; break;
-			case 8: toApply = Color.SCARLET; break;
-			case 9: toApply = Color.RED; break;
-			case 10: toApply = Color.PINK; break;
+			case 0: toApply = Color.BLACK; break;
+			case 1: toApply = Color.DARK_GRAY; break;
+			case 2: toApply = Color.GRAY; break;
+			case 3: toApply = Color.NAVY; break;
+			case 4: toApply = Color.ROYAL; break;
+			case 5: toApply = Color.FOREST; break;
+			case 6: toApply = Color.OLIVE; break;	
+			case 7: toApply = Color.LIME; break;	
+			case 8: toApply = Color.GOLDENROD; break;
+			case 9: toApply = Color.GOLD; break;
 		}
 		font.setColor(toApply);
 	}
