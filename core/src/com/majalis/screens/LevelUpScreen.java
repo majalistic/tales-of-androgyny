@@ -36,7 +36,7 @@ public class LevelUpScreen extends AbstractScreen {
 
 	@Override
 	public void buildStage() {
-		for (Actor actor: encounter.getActors()){
+		for (Actor actor: encounter.getActors()) {
 			this.addActor(actor);
 		}  
 	}
@@ -45,12 +45,12 @@ public class LevelUpScreen extends AbstractScreen {
 	public void render(float delta) {
 		super.render(delta);
 		encounter.gameLoop();
-		if (encounter.encounterOver){
+		if (encounter.encounterOver) {
 			saveService.saveDataValue(SaveEnum.CONTEXT, SaveManager.GameContext.WORLD_MAP);
 			saveService.saveDataValue(SaveEnum.SCENE_CODE, 0);
 			showScreen(ScreenEnum.CHARACTER);
 		}
-		if (encounter.gameExit){
+		if (encounter.gameExit) {
 			showScreen(ScreenEnum.MAIN_MENU);
 		}
 		else {
@@ -58,7 +58,7 @@ public class LevelUpScreen extends AbstractScreen {
 		}
 	}
 	
-	public void draw(){
+	public void draw() {
 		batch.begin();
 		OrthographicCamera camera = (OrthographicCamera) getCamera();
         batch.setTransformMatrix(camera.view);
@@ -69,7 +69,7 @@ public class LevelUpScreen extends AbstractScreen {
 
 	@Override
 	public void dispose() {
-		for(String path: resourceRequirements.keys()){
+		for(String path: resourceRequirements.keys()) {
 			if (path.equals(AssetEnum.BUTTON_SOUND.getPath())) continue;
 			assetManager.unload(path);
 		}

@@ -41,8 +41,8 @@ public class EncounterScreen extends AbstractScreen {
 		assetManager.get(soundPath, Sound.class).play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume", 1) * .6f);
 	}
 	
-	public static void setMusic(String musicPath){
-		if (EncounterScreen.music != null){
+	public static void setMusic(String musicPath) {
+		if (EncounterScreen.music != null) {
 			EncounterScreen.music.stop();
 		}
 		EncounterScreen.music = assetManager.get(musicPath, Music.class);
@@ -53,7 +53,7 @@ public class EncounterScreen extends AbstractScreen {
 	
 	@Override
 	public void buildStage() {
-		for (Actor actor: encounter.getActors()){
+		for (Actor actor: encounter.getActors()) {
 			this.addActor(actor);
 		}        	
 	}
@@ -62,11 +62,11 @@ public class EncounterScreen extends AbstractScreen {
 	public void render(float delta) {
 		super.render(delta);
 		encounter.gameLoop();
-		if (encounter.isSwitching()){
+		if (encounter.isSwitching()) {
 			music.stop();
 			showScreen(ScreenEnum.LOAD_GAME);
 		}
-		else if (encounter.gameExit){
+		else if (encounter.gameExit) {
 			music.stop();
 			showScreen(ScreenEnum.MAIN_MENU);
 		}
@@ -75,7 +75,7 @@ public class EncounterScreen extends AbstractScreen {
 		}
 	}
 	
-	public void draw(){
+	public void draw() {
 		batch.begin();
 		OrthographicCamera camera = (OrthographicCamera) getCamera();
         batch.setTransformMatrix(camera.view);
@@ -86,7 +86,7 @@ public class EncounterScreen extends AbstractScreen {
 
 	@Override
 	public void dispose() {
-		for(String path: requirementsToDispose.keys()){
+		for(String path: requirementsToDispose.keys()) {
 			if (path.equals(AssetEnum.BUTTON_SOUND.getPath())) continue;
 			assetManager.unload(path);
 		}
@@ -96,7 +96,7 @@ public class EncounterScreen extends AbstractScreen {
 	public static ObjectMap<String, Class<?>> getRequirements(EncounterCode encounterCode) {
 		ObjectMap<String, Class<?>> requirements = new ObjectMap<String, Class<?>>(EncounterScreen.resourceRequirements);
 
-		switch (encounterCode){
+		switch (encounterCode) {
 			case LEVEL_UP: 
 				requirements.put(AssetEnum.CLASS_SELECT_BACKGROUND.getPath(), Texture.class);
 				requirements.put(AssetEnum.STRENGTH.getPath(), Texture.class);

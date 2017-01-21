@@ -68,7 +68,7 @@ public class EncounterBuilder {
 	// can probably be replaced with a call to scenes.size
 	private int sceneCounter;
 	
-	protected EncounterBuilder(EncounterReader reader, AssetManager assetManager, SaveService saveService, BitmapFont font, BitmapFont smallFont, int sceneCode, int battleCode, ObjectMap<String, Shop> shops, GameContext returnContext){
+	protected EncounterBuilder(EncounterReader reader, AssetManager assetManager, SaveService saveService, BitmapFont font, BitmapFont smallFont, int sceneCode, int battleCode, ObjectMap<String, Shop> shops, GameContext returnContext) {
 		scenes = new Array<Scene>();
 		endScenes = new Array<EndScene>();
 		battleScenes = new Array<BattleScene>();
@@ -85,7 +85,7 @@ public class EncounterBuilder {
 	}
 	/* different encounter "templates" */
 	@SuppressWarnings("unchecked")
-	protected Encounter getClassChoiceEncounter(PlayerCharacter playerCharacter){	
+	protected Encounter getClassChoiceEncounter(PlayerCharacter playerCharacter) {	
 		Background background = getDefaultTextBackground();
 		Background classSelectbackground = getClassSelectBackground();	
 		Background silhouetteBackground = new BackgroundBuilder(assetManager.get(AssetEnum.BURNING_FORT_BG.getPath(), Texture.class)).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class)).setForeground(assetManager.get(AssetEnum.SILHOUETTE.getPath(), Texture.class), 1000, 0).build();
@@ -131,13 +131,13 @@ public class EncounterBuilder {
 		return new Encounter(scenes, endScenes, new Array<BattleScene>(), getStartScene(scenes, sceneCode));
 	}
 	
-	private Background getDefaultTextBackground(){ return getDefaultTextBackground(assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getPath(), Texture.class)); }
+	private Background getDefaultTextBackground() { return getDefaultTextBackground(assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getPath(), Texture.class)); }
 	
-	private Background getDefaultTextBackground(Texture background){ return new BackgroundBuilder(background).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class)).build(); }
+	private Background getDefaultTextBackground(Texture background) { return new BackgroundBuilder(background).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class)).build(); }
 	
-	private Background getClassSelectBackground(){ return new BackgroundBuilder(assetManager.get(AssetEnum.CLASS_SELECT_BACKGROUND.getPath(), Texture.class)).build(); }
+	private Background getClassSelectBackground() { return new BackgroundBuilder(assetManager.get(AssetEnum.CLASS_SELECT_BACKGROUND.getPath(), Texture.class)).build(); }
 	
-	protected Encounter getLevelUpEncounter(PlayerCharacter playerCharacter, boolean storyMode){
+	protected Encounter getLevelUpEncounter(PlayerCharacter playerCharacter, boolean storyMode) {
 		
 		if (storyMode) {
 			getTextScenes(
@@ -153,14 +153,14 @@ public class EncounterBuilder {
 		return new Encounter(scenes, endScenes, new Array<BattleScene>(), getStartScene(scenes, sceneCode));
 	}
 	
-	protected Encounter getDefaultEncounter(){
+	protected Encounter getDefaultEncounter() {
 		Background background = getDefaultTextBackground(assetManager.get(AssetEnum.STICK_BACKGROUND.getPath(), Texture.class));
 		getTextScenes(new String[]{"You encounter a stick!", "It's actually rather sexy looking.", "There is nothing left here to do."}, font, background, getEndScene(EndScene.Type.ENCOUNTER_OVER));
 		return new Encounter(scenes, endScenes, new Array<BattleScene>(), getStartScene(scenes, sceneCode));
 	}
 	
 	@SuppressWarnings("unchecked")
-	protected Encounter getRandomEncounter(EncounterCode encounterCode, PlayerCharacter character){
+	protected Encounter getRandomEncounter(EncounterCode encounterCode, PlayerCharacter character) {
 		Texture backgroundTexture = assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getPath(), Texture.class);	
 		Background background = getDefaultTextBackground();
 		Mutation analReceive = new Mutation(saveService, SaveEnum.ANAL, new SexualExperienceBuilder().build());
@@ -169,7 +169,7 @@ public class EncounterBuilder {
 		
 		// if there isn't already a battlecode set, it's determined by the encounterCode; for now, that means dividing the various encounters up by modulus
 		if (battleCode == -1) battleCode = encounterCode.getBattleCode();
-		switch (encounterCode){
+		switch (encounterCode) {
 			case WERESLUT:
 				Background werebitchBackground = new BackgroundBuilder(backgroundTexture).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class)).setForeground(assetManager.get(AssetEnum.WEREBITCH.getPath(), Texture.class)).build();
 				getTextScenes(
@@ -1005,17 +1005,17 @@ public class EncounterBuilder {
 		return new Encounter(scenes, endScenes, battleScenes, getStartScene(scenes, sceneCode));	
 	}
 	
-	private Array<Mutation> getMutation(int damage){
+	private Array<Mutation> getMutation(int damage) {
 		Array<Mutation> mutations = new Array<Mutation>();
 		mutations.add(new Mutation(saveService, SaveEnum.HEALTH, -damage));
 		return mutations;
 	}
 	
-	private OrderedMap<Integer, Scene> addScene(Scene scene){ return addScene(new Array<Scene>(true, new Scene[]{scene}, 0, 1)); }
+	private OrderedMap<Integer, Scene> addScene(Scene scene) { return addScene(new Array<Scene>(true, new Scene[]{scene}, 0, 1)); }
 	// pass in one or multiple scenes that the next scene will branch into
-	private OrderedMap<Integer, Scene> addScene(Array<Scene> scenes){
+	private OrderedMap<Integer, Scene> addScene(Array<Scene> scenes) {
 		OrderedMap<Integer, Scene> sceneMap = new OrderedMap<Integer, Scene>();
-		for (Scene scene : scenes){
+		for (Scene scene : scenes) {
 			this.scenes.add(scene);
 			if (scene instanceof BattleScene) battleScenes.add((BattleScene)scene);
 			if (scene instanceof EndScene) endScenes.add((EndScene)scene);
@@ -1026,36 +1026,36 @@ public class EncounterBuilder {
 	
 	/* Scene type getters - these should all wrap themselves in addScene - look for anywhere they aren't currently to confirm*/
 	
-	private OrderedMap<Integer, Scene> getTextScenes(String[] script, BitmapFont font, Background background, OrderedMap<Integer, Scene> sceneMap){ return getTextScenes(new Array<String>(true, script, 0, script.length), font, background, sceneMap); }	
-	private OrderedMap<Integer, Scene> getTextScenes(Array<String> script, BitmapFont font, Background background, OrderedMap<Integer, Scene> sceneMap){ return getTextScenes(script, font, background, new Array<Mutation>(), sceneMap); }
+	private OrderedMap<Integer, Scene> getTextScenes(String[] script, BitmapFont font, Background background, OrderedMap<Integer, Scene> sceneMap) { return getTextScenes(new Array<String>(true, script, 0, script.length), font, background, sceneMap); }	
+	private OrderedMap<Integer, Scene> getTextScenes(Array<String> script, BitmapFont font, Background background, OrderedMap<Integer, Scene> sceneMap) { return getTextScenes(script, font, background, new Array<Mutation>(), sceneMap); }
 	// pass in a list of script lines in chronological order, this will reverse their order and add them to the stack
-	private OrderedMap<Integer, Scene> getTextScenes(Array<String> script, BitmapFont font, Background background, Array<Mutation> mutations, OrderedMap<Integer, Scene> sceneMap){ return getTextScenes(script, font, background, mutations, null, new Array<String>(), sceneMap); }
-	private OrderedMap<Integer, Scene> getTextScenes(Array<String> script, BitmapFont font, Background background, Array<Mutation> mutations, String music, Array<String> sounds, OrderedMap<Integer, Scene> sceneMap){
+	private OrderedMap<Integer, Scene> getTextScenes(Array<String> script, BitmapFont font, Background background, Array<Mutation> mutations, OrderedMap<Integer, Scene> sceneMap) { return getTextScenes(script, font, background, mutations, null, new Array<String>(), sceneMap); }
+	private OrderedMap<Integer, Scene> getTextScenes(Array<String> script, BitmapFont font, Background background, Array<Mutation> mutations, String music, Array<String> sounds, OrderedMap<Integer, Scene> sceneMap) {
 		mutations.reverse();
 		script.reverse();
 		sounds.reverse();
 		
 		int soundIndex = -(script.size - sounds.size);
 		TextScene newScene = null;
-		for (String scriptLine: script){
+		for (String scriptLine: script) {
 			newScene = new TextScene(sceneMap, sceneCounter, saveService, font, background.clone(), scriptLine, mutations);
 			mutations = new Array<Mutation>();
-			if (soundIndex >= 0){
+			if (soundIndex >= 0) {
 				newScene.setSound(sounds.get(soundIndex));
 			}
 			sceneMap = addScene(newScene);
 			soundIndex++;
 		}	
-		if (music != null){
+		if (music != null) {
 			newScene.setMusic(music);
 		}
 		return sceneMap;
 	}
 	
-	private OrderedMap<Integer, Scene> getChoiceScene(AssetManager assetManager, String choiceDialogue, Array<String> buttonLabels, @SuppressWarnings("unchecked") OrderedMap<Integer, Scene>... sceneMaps){
+	private OrderedMap<Integer, Scene> getChoiceScene(AssetManager assetManager, String choiceDialogue, Array<String> buttonLabels, @SuppressWarnings("unchecked") OrderedMap<Integer, Scene>... sceneMaps) {
 		return getChoiceScene(assetManager, choiceDialogue, buttonLabels, new Array<PlayerCharacter>(), sceneMaps);
 	}
-	private OrderedMap<Integer, Scene> getChoiceScene(AssetManager assetManager, String choiceDialogue, Array<String> buttonLabels, Array<PlayerCharacter> checks, @SuppressWarnings("unchecked") OrderedMap<Integer, Scene>... sceneMaps){
+	private OrderedMap<Integer, Scene> getChoiceScene(AssetManager assetManager, String choiceDialogue, Array<String> buttonLabels, Array<PlayerCharacter> checks, @SuppressWarnings("unchecked") OrderedMap<Integer, Scene>... sceneMaps) {
 		OrderedMap<Integer, Scene> sceneMap = aggregateMaps(sceneMaps);
 		
 		// use sceneMap to generate the table
@@ -1067,9 +1067,9 @@ public class EncounterBuilder {
 		
 		ChoiceScene choiceScene = new ChoiceScene(sceneMap, sceneCounter, saveService, font, choiceDialogue, table, new BackgroundBuilder(background).build());
 		int ii = 0;
-		for (String label  : buttonLabels){
+		for (String label  : buttonLabels) {
 			TextButton button = new TextButton(label, skin);
-			if (ii < checks.size && checks.get(ii) != null){
+			if (ii < checks.size && checks.get(ii) != null) {
 				button.addListener(getListener(choiceScene, sceneMap.get(sceneMap.orderedKeys().get(ii)), buttonSound, checks.get(ii)));
 			}
 			else {
@@ -1087,8 +1087,8 @@ public class EncounterBuilder {
 		return addScene(new ShopScene(sceneMap, sceneCounter, saveService, assetManager, character, background, shopCode, shops.get(shopCode.toString())));
 	}
 	
-	private ClickListener getListener(final AbstractChoiceScene currentScene, final Scene nextScene, final Sound buttonSound){
-		return new ClickListener(){
+	private ClickListener getListener(final AbstractChoiceScene currentScene, final Scene nextScene, final Sound buttonSound) {
+		return new ClickListener() {
 	        @Override
 	        public void clicked(InputEvent event, float x, float y) {
 	        	buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
@@ -1099,11 +1099,11 @@ public class EncounterBuilder {
 	    };
 	}
 	
-	private ClickListener getListener(final AbstractChoiceScene currentScene, final Scene nextScene, final Sound buttonSound, final PlayerCharacter character){
-		return new ClickListener(){
+	private ClickListener getListener(final AbstractChoiceScene currentScene, final Scene nextScene, final Sound buttonSound, final PlayerCharacter character) {
+		return new ClickListener() {
 	        @Override
 	        public void clicked(InputEvent event, float x, float y) {
-	        	if (!character.isLewd()){
+	        	if (!character.isLewd()) {
 	        		// this should actually disable the button, but not as part of an on-click event
 	        	}
 	        	else {
@@ -1121,7 +1121,7 @@ public class EncounterBuilder {
 		Texture background = assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getPath(), Texture.class);
 		OrderedMap<Integer, Scene> checkValueMap = new OrderedMap<Integer, Scene>();
 		int ii = 0;
-		for (; ii < checkValues.size; ii++){
+		for (; ii < checkValues.size; ii++) {
 			checkValueMap.put(checkValues.get(ii), sceneMap.get(sceneMap.orderedKeys().get(ii)));
 		}
 		CheckScene checkScene = new CheckScene(sceneMap, sceneCounter, saveService, font, new BackgroundBuilder(background).build(), perk, checkValueMap, sceneMap.get(sceneMap.orderedKeys().get(ii)), character);
@@ -1134,7 +1134,7 @@ public class EncounterBuilder {
 		Texture background = assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getPath(), Texture.class);
 		OrderedMap<Integer, Scene> checkValueMap = new OrderedMap<Integer, Scene>();
 		int ii = 0;
-		for (; ii < checkValues.size; ii++){
+		for (; ii < checkValues.size; ii++) {
 			checkValueMap.put(checkValues.get(ii), sceneMap.get(sceneMap.orderedKeys().get(ii)));
 		}
 		CheckScene checkScene = new CheckScene(sceneMap, sceneCounter, saveService, font, new BackgroundBuilder(background).build(), stat, checkValueMap, sceneMap.get(sceneMap.orderedKeys().get(ii)), character);
@@ -1163,77 +1163,77 @@ public class EncounterBuilder {
 	private OrderedMap<Integer, Scene> getBattleScene(SaveService saveService, int battleCode, Stance playerStance, Stance enemyStance, Array<Outcome> outcomes, @SuppressWarnings("unchecked") OrderedMap<Integer, Scene>... sceneMaps) {
 		OrderedMap<Integer, Scene> sceneMap = aggregateMaps(sceneMaps);
 		ObjectMap<String, Integer> outcomeToScene = new ObjectMap<String, Integer>();
-		for (int ii = 0; ii < outcomes.size; ii++){
+		for (int ii = 0; ii < outcomes.size; ii++) {
 			outcomeToScene.put(outcomes.get(ii).toString(), sceneMap.get(sceneMap.orderedKeys().get(ii)).getCode());
 		}
 		
 		return addScene(new BattleScene(aggregateMaps(sceneMaps), saveService, battleCode, playerStance, enemyStance, outcomeToScene));
 	}
 	
-	private OrderedMap<Integer, Scene> getGameTypeScene(AssetManager assetManager, Array<String> buttonLabels, @SuppressWarnings("unchecked") OrderedMap<Integer, Scene>... sceneMaps){
+	private OrderedMap<Integer, Scene> getGameTypeScene(AssetManager assetManager, Array<String> buttonLabels, @SuppressWarnings("unchecked") OrderedMap<Integer, Scene>... sceneMaps) {
 		OrderedMap<Integer, Scene> sceneMap = aggregateMaps(sceneMaps);
 		Skin skin = assetManager.get(AssetEnum.UI_SKIN.getPath(), Skin.class);
 		Sound buttonSound = assetManager.get(AssetEnum.BUTTON_SOUND.getPath(), Sound.class);
 		Texture background = assetManager.get(AssetEnum.GAME_TYPE_BACKGROUND.getPath(), Texture.class);
 		
 		Array<TextButton> buttons = new Array<TextButton>();
-		for (String label : buttonLabels){
+		for (String label : buttonLabels) {
 			buttons.add(new TextButton(label, skin));
 		}
 		
 		GameTypeScene gameTypeScene = new GameTypeScene(sceneMap, sceneCounter, saveService, buttons, new BackgroundBuilder(background).build());
 		int ii = 0;
-		for (TextButton button : buttons){
+		for (TextButton button : buttons) {
 			button.addListener(getListener(gameTypeScene, sceneMap.get(sceneMap.orderedKeys().get(ii++)), buttonSound));
 		}
 				
 		return addScene(gameTypeScene);
 	}
 	
-	private OrderedMap<Integer, Scene> getCharacterCreationScene(BitmapFont font, Background background, AssetManager assetManager, PlayerCharacter character, boolean story, OrderedMap<Integer, Scene> sceneMap){
+	private OrderedMap<Integer, Scene> getCharacterCreationScene(BitmapFont font, Background background, AssetManager assetManager, PlayerCharacter character, boolean story, OrderedMap<Integer, Scene> sceneMap) {
 		return addScene(new CharacterCreationScene(sceneMap, sceneCounter, saveService, background, assetManager, character, story));
 	}
 	
-	private OrderedMap<Integer, Scene> getSkillSelectionScene(Background background, AssetManager assetManager, PlayerCharacter character, OrderedMap<Integer, Scene> sceneMap){
+	private OrderedMap<Integer, Scene> getSkillSelectionScene(Background background, AssetManager assetManager, PlayerCharacter character, OrderedMap<Integer, Scene> sceneMap) {
 		return addScene(new SkillSelectionScene(sceneMap, sceneCounter, saveService, background, assetManager, character));
 	}
 	
-	private OrderedMap<Integer, Scene> getCharacterCustomizationScene(BitmapFont font, Background background, AssetManager assetManager, PlayerCharacter character, OrderedMap<Integer, Scene> sceneMap){
+	private OrderedMap<Integer, Scene> getCharacterCustomizationScene(BitmapFont font, Background background, AssetManager assetManager, PlayerCharacter character, OrderedMap<Integer, Scene> sceneMap) {
 		return addScene(new CharacterCustomizationScene(sceneMap, sceneCounter, saveService, font, background, assetManager, character));
 	}
 	
-	private OrderedMap<Integer, Scene> getEndScene(EndScene.Type type){
+	private OrderedMap<Integer, Scene> getEndScene(EndScene.Type type) {
 		return addScene(new EndScene(type, saveService, type == EndScene.Type.ENCOUNTER_OVER ? returnContext : SaveManager.GameContext.GAME_OVER));
 	}
 	
-	private OrderedMap<Integer, Scene> aggregateMaps(@SuppressWarnings("unchecked") OrderedMap<Integer, Scene>... sceneMaps){
+	private OrderedMap<Integer, Scene> aggregateMaps(@SuppressWarnings("unchecked") OrderedMap<Integer, Scene>... sceneMaps) {
 		OrderedMap<Integer, Scene> aggregatedMap = new OrderedMap<Integer, Scene>();
-		for (OrderedMap<Integer, Scene> map : sceneMaps){
+		for (OrderedMap<Integer, Scene> map : sceneMaps) {
 			aggregatedMap.putAll(map);
 		}
 		return aggregatedMap;	
 	}
 	
-	private Array<String> getScript(EncounterCode encounterCode, int scene){
+	private Array<String> getScript(EncounterCode encounterCode, int scene) {
 		return getScript("00"+encounterCode.getBattleCode()+"-"+ ( scene >= 10 ? scene : "0" + scene));
 	}
-	private Array<String> getScript(String code){
+	private Array<String> getScript(String code) {
 		return getArray(reader.loadScript(code));
 	}
 	
-	private Array<String> getArray(String[] array){ return new Array<String>(true, array, 0, array.length); }
-	private Array<Mutation> getArray(Mutation[] array){ return new Array<Mutation>(true, array, 0, array.length); }
+	private Array<String> getArray(String[] array) { return new Array<String>(true, array, 0, array.length); }
+	private Array<Mutation> getArray(Mutation[] array) { return new Array<Mutation>(true, array, 0, array.length); }
 	private Array<PlayerCharacter> getArray(PlayerCharacter[] array) { return new Array<PlayerCharacter>(true, array, 0, array.length);  }
 	
-	private Scene getStartScene(Array<Scene> scenes, Integer sceneCode){
+	private Scene getStartScene(Array<Scene> scenes, Integer sceneCode) {
 		// default case	
-		if (sceneCode == 0){
+		if (sceneCode == 0) {
 			saveService.saveDataValue(SaveEnum.MUSIC, AssetEnum.ENCOUNTER_MUSIC.getPath());
 			// returns the final scene and plays in reverse order
 			return scenes.get(scenes.size - 1);
 		}
-		for (Scene objScene: scenes){
-			if (objScene.getCode() == sceneCode){
+		for (Scene objScene: scenes) {
+			if (objScene.getCode() == sceneCode) {
 				return objScene;
 			}
 		}

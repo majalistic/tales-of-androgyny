@@ -22,7 +22,7 @@ public class EncounterFactory {
 	private final SaveService saveService;
 	private final LoadService loadService;
 
-	public EncounterFactory(EncounterReader reader, AssetManager assetManager, SaveManager saveManager){
+	public EncounterFactory(EncounterReader reader, AssetManager assetManager, SaveManager saveManager) {
 		this.reader = reader;
 		this.assetManager = assetManager;
 		this.saveService = saveManager;
@@ -37,7 +37,7 @@ public class EncounterFactory {
 		if (battle != null) battleCode = battle.battleCode;
 		@SuppressWarnings("unchecked")
 		EncounterBuilder builder = new EncounterBuilder(reader, assetManager, saveService, font, smallFont, sceneCode, battleCode, (ObjectMap<String, Shop>)loadService.loadDataValue(SaveEnum.SHOP, Shop.class), context);
-		switch (encounterCode){
+		switch (encounterCode) {
 			case LEVEL_UP: return builder.getLevelUpEncounter((PlayerCharacter) loadService.loadDataValue(SaveEnum.PLAYER, PlayerCharacter.class), (GameMode) loadService.loadDataValue(SaveEnum.MODE, Shop.class) == GameMode.STORY);
 			case INITIAL: return builder.getClassChoiceEncounter((PlayerCharacter) loadService.loadDataValue(SaveEnum.PLAYER, PlayerCharacter.class));
 			case DEFAULT: return builder.getDefaultEncounter();
