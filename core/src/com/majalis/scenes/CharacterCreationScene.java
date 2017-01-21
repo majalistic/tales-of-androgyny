@@ -46,6 +46,24 @@ public class CharacterCreationScene extends Scene {
 		
 		final Group statGroup = new Group();
 		
+		final Texture boxTexture = assetManager.get(AssetEnum.NORMAL_BOX.getPath(), Texture.class);
+		final Image classSelectBox = new Image(boxTexture);
+		classSelectBox.setBounds(80, 250, 300, 470);
+		final Image statSelectBox = new Image(boxTexture);
+		statSelectBox.setBounds(500, 100, 750, 570);
+		final Image classDescriptionBox = new Image(boxTexture);
+		classDescriptionBox.setBounds(-10, 700, 480, 190);
+		final Image statDescriptionBox = new Image(boxTexture);
+		statDescriptionBox.setBounds(425, 700, 990, 190);
+		final Image statPointsBox = new Image(boxTexture);
+		statPointsBox.setBounds(760, 40, 240, 50);
+		
+		this.addActor(classSelectBox);
+		this.addActor(statSelectBox);
+		this.addActor(classDescriptionBox);
+		this.addActor(statDescriptionBox);
+		this.addActor(statPointsBox);
+		
 		Skin skin = assetManager.get(AssetEnum.UI_SKIN.getPath(), Skin.class);
 		final Sound buttonSound = assetManager.get(AssetEnum.BUTTON_SOUND.getPath(), Sound.class);
 		
@@ -64,7 +82,7 @@ public class CharacterCreationScene extends Scene {
 
 		final Label statPointDisplay = new Label("Stat points: " + statPoints, skin);
 		statPointDisplay.setColor(Color.GRAY);
-		statPointDisplay.setPosition(800, 100);
+		statPointDisplay.setPosition(800, 50);
 		
 		int classBase = 230;
 		
@@ -96,9 +114,9 @@ public class CharacterCreationScene extends Scene {
 			setFontColor(statLabel, amount);
 			setStatText(stat, character, statLabel);
 		
-			statLabel.setPosition(base + 175, 665 - offset);			
+			statLabel.setPosition(base + 175, 585 - offset);			
 			statImage.setSize(statImage.getWidth() / (statImage.getHeight() / 35), 35);
-			statImage.setPosition(base + 25, 647 - offset);
+			statImage.setPosition(base + 25, 567 - offset);
 			statImage.addListener(new ClickListener(){
 				@Override
 		        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
@@ -187,7 +205,7 @@ public class CharacterCreationScene extends Scene {
 			statTable.add(buttonDown).size(45, 75);
 			statTable.add(buttonUp).size(45, 75).row();
 		}
-		statTable.setPosition(673, 473);
+		statTable.setPosition(673, 393);
 		
 		statGroup.addAction(Actions.hide());
 		this.addActor(statGroup);
@@ -293,8 +311,8 @@ public class CharacterCreationScene extends Scene {
 			case 2: toApply = Color.GRAY; break;
 			case 3: toApply = Color.NAVY; break;
 			case 4: toApply = Color.ROYAL; break;
-			case 5: toApply = Color.FOREST; break;
-			case 6: toApply = Color.OLIVE; break;	
+			case 5: toApply = Color.OLIVE; break;	
+			case 6: toApply = Color.FOREST; break;
 			case 7: toApply = Color.LIME; break;	
 			case 8: toApply = Color.GOLDENROD; break;
 			case 9: toApply = Color.GOLD; break;
