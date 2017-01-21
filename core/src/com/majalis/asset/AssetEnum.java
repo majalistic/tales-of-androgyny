@@ -8,7 +8,8 @@ public enum AssetEnum {
 	
 	DEFAULT_BACKGROUND("DefaultBackground.jpg"),
 	GAME_TYPE_BACKGROUND("GameTypeSelect.jpg"),
-	CLASS_SELECT_BACKGROUND("ClassSelect.jpg"),
+	CLASS_SELECT_BACKGROUND("ClassSelect.png"),
+	SKILL_SELECTION_BACKGROUND("SkillSelect.png"),
 	DRYAD_BACKGROUND("DryadApple.jpg"),
 	STICK_BACKGROUND("StickEncounter.jpg"),
 	CABIN_BACKGROUND("WoodsCottage.jpg"),
@@ -34,7 +35,7 @@ public enum AssetEnum {
 	TOWN("worldmap/TownNode0.png"),
 	CHARACTER_ANIMATION("worldmap/TinySprite.png"),
 	
-	CHARACTER_SCREEN("ClassSelect.jpg"),
+	CHARACTER_SCREEN("CharacterScreen.png"),
 	
 	WEREBITCH("enemies/WerebitchBasic.png"),
 	HARPY("enemies/Harpy.png"),

@@ -70,7 +70,7 @@ public class CharacterCreationScene extends Scene {
 		final TextButton done = new TextButton("Done", skin);
 		
 		done.addListener(
-			new ClickListener(){
+			new ClickListener() {
 				@Override
 		        public void clicked(InputEvent event, float x, float y) {
 					buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
@@ -81,7 +81,7 @@ public class CharacterCreationScene extends Scene {
 		done.setPosition(1522, 30);
 
 		final Label statPointDisplay = new Label("Stat points: " + statPoints, skin);
-		statPointDisplay.setColor(Color.GRAY);
+		statPointDisplay.setColor(Color.GOLD);
 		statPointDisplay.setPosition(800, 50);
 		
 		int classBase = 230;
@@ -106,7 +106,7 @@ public class CharacterCreationScene extends Scene {
 		final ObjectMap<Stat, Label> statToLabel = new ObjectMap<Stat, Label>();
 		int offset = 0;
 		int base = 700;
-		for (final Stat stat: Stat.values()){
+		for (final Stat stat: Stat.values()) {
 			Image statImage = new Image(assetManager.get(stat.getPath(), Texture.class));
 			Label statLabel = new Label("", skin);
 			statToLabel.put(stat, statLabel);
@@ -117,7 +117,7 @@ public class CharacterCreationScene extends Scene {
 			statLabel.setPosition(base + 175, 585 - offset);			
 			statImage.setSize(statImage.getWidth() / (statImage.getHeight() / 35), 35);
 			statImage.setPosition(base + 25, 567 - offset);
-			statImage.addListener(new ClickListener(){
+			statImage.addListener(new ClickListener() {
 				@Override
 		        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
 					statDescription.setText(stat.getDescription());
@@ -136,19 +136,19 @@ public class CharacterCreationScene extends Scene {
 			
 			TextButton buttonUp = new TextButton("+", skin);
 			TextButton buttonDown = new TextButton("-", skin);
-			buttonUp.addListener(new ClickListener(){
+			buttonUp.addListener(new ClickListener() {
 				@Override
 		        public void clicked(InputEvent event, float x, float y) {
 					buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
 					
 					int currentStatAllocation = statMap.get(stat);
-					if (statPoints > 0 && (currentStatAllocation < 1 || (currentStatAllocation < 2 && noStatsAtMax()))){
+					if (statPoints > 0 && (currentStatAllocation < 1 || (currentStatAllocation < 2 && noStatsAtMax()))) {
 						character.setStat(stat, character.getBaseStat(stat)+1);
 						saveService.saveDataValue(SaveEnum.PLAYER, character);
 						statPoints--;
 						statPointDisplay.setText("Stat points: " + statPoints);
 						statMap.put(stat, currentStatAllocation+1);
-						if (statPoints <= 0){
+						if (statPoints <= 0) {
 							addActor(done);
 						}
 						setFontColor(statLabel, character.getBaseStat(stat));
@@ -157,11 +157,11 @@ public class CharacterCreationScene extends Scene {
 						statMessage.setText("");
 					}
 					else {
-						if (statPoints <= 0){
+						if (statPoints <= 0) {
 							statMessage.setText("You are out of stat points to allocate!");
 							
 						}
-						else if (currentStatAllocation < 2){
+						else if (currentStatAllocation < 2) {
 							statMessage.setText("Only one stat may be\ntwo points above its base score!");
 						}
 						else {
@@ -172,15 +172,15 @@ public class CharacterCreationScene extends Scene {
 					}
 		        }
 			});
-			buttonDown.addListener(new ClickListener(){
+			buttonDown.addListener(new ClickListener() {
 				@Override
 		        public void clicked(InputEvent event, float x, float y) {
 					buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
 					int currentStatAllocation = statMap.get(stat);
-					if (currentStatAllocation > 0 || (currentStatAllocation > -1 && statsAtNegative() < 2)){
+					if (currentStatAllocation > 0 || (currentStatAllocation > -1 && statsAtNegative() < 2)) {
 						character.setStat(stat, character.getBaseStat(stat)-1);
 						saveService.saveDataValue(SaveEnum.PLAYER, character);
-						if (statPoints == 0){
+						if (statPoints == 0) {
 							removeActor(done);
 						}
 						statPoints++;	
@@ -192,7 +192,7 @@ public class CharacterCreationScene extends Scene {
 						statMessage.setText("");
 					}
 					else {
-						if (currentStatAllocation <= (story ? 0 : -1)){
+						if (currentStatAllocation <= (story ? 0 : -1)) {
 							statMessage.setText("Your " + stat.toString() + " is at minimum!\nIt cannot be lowered.");
 						}
 						else {
@@ -228,7 +228,7 @@ public class CharacterCreationScene extends Scene {
 				button.addListener(new ClickListener() {
 					@Override
 			        public void clicked(InputEvent event, float x, float y) {
-						if (!story){
+						if (!story) {
 							buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
 						}
 						classMessage.setText("You are now " + getJobClass(jobClass) + ".\n"
@@ -237,7 +237,7 @@ public class CharacterCreationScene extends Scene {
 						statGroup.addAction(Actions.visible(true));
 						statGroup.addAction(Actions.show());
 						saveService.saveDataValue(SaveEnum.CLASS, jobClass);
-						if (statPoints == 0){
+						if (statPoints == 0) {
 							removeActor(done);
 						}
 						statPoints = story ? 1 : 3;
@@ -265,15 +265,15 @@ public class CharacterCreationScene extends Scene {
 
 	private ObjectMap<Stat, Integer> resetObjectMap() {
 		ObjectMap<Stat, Integer> tempMap = new ObjectMap<Stat, Integer>();
-		for (final Stat stat: Stat.values()){
+		for (final Stat stat: Stat.values()) {
 			tempMap.put(stat, 0);
 		}
 		return tempMap;
 	}
 	
 	private boolean noStatsAtMax() {
-		for (Integer value: statMap.values()){
-			if (value >= 2){
+		for (Integer value: statMap.values()) {
+			if (value >= 2) {
 				return false;
 			}
 		}
@@ -282,8 +282,8 @@ public class CharacterCreationScene extends Scene {
 	
 	private int statsAtNegative() {
 		int count = 0;
-		for (Integer value: statMap.values()){
-			if (value < 0){
+		for (Integer value: statMap.values()) {
+			if (value < 0) {
 				count++;
 			}
 		}
@@ -292,7 +292,7 @@ public class CharacterCreationScene extends Scene {
 	
 	private String getJobClass(SaveManager.JobClass jobClass) { return jobClass == SaveManager.JobClass.ENCHANTRESS ? "an Enchantress" : "a " + jobClass.getLabel(); }
 	private String getClassFeatures(SaveManager.JobClass jobClass) {
-		switch (jobClass){
+		switch (jobClass) {
 			case WARRIOR: return "+1 Skill point.\nUnlocked \"Blitz\" Stance.\nGained perk \"Weak to Anal\".";
 			case PALADIN: return "Combat Heal learned.";
 			case THIEF:   return "+3 Skill points.\n+40 food.";
@@ -303,7 +303,7 @@ public class CharacterCreationScene extends Scene {
 		}
 	}
 	
-	private void setFontColor(Label font, int amount){
+	private void setFontColor(Label font, int amount) {
 		Color toApply = Color.WHITE;
 		switch (amount) {
 			case 0: toApply = Color.BLACK; break;
@@ -339,7 +339,7 @@ public class CharacterCreationScene extends Scene {
 	@Override
 	public void act(float delta) {
 		super.act(delta);
-		if (enchanterButton != null){
+		if (enchanterButton != null) {
 			InputEvent event1 = new InputEvent();
 	        event1.setType(InputEvent.Type.touchDown);
 	        enchanterButton.fire(event1);

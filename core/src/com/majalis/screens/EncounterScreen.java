@@ -118,6 +118,7 @@ public class EncounterScreen extends AbstractScreen {
 				requirements.put(AssetEnum.SILHOUETTE.getPath(), Texture.class);
 				requirements.put(AssetEnum.BURNING_FORT_BG.getPath(), Texture.class);
 				requirements.put(AssetEnum.NORMAL_BOX.getPath(), Texture.class);
+				requirements.put(AssetEnum.SKILL_SELECTION_BACKGROUND.getPath(), Texture.class);
 				requirements.put(AssetEnum.WAVES.getPath(), Music.class);
 				requirements.put(AssetEnum.SMUG_LAUGH.getPath(), Sound.class);
 				requirements.put(AssetEnum.HOVEL_MUSIC.getPath(), Music.class);	

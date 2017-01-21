@@ -87,7 +87,7 @@ public class EncounterBuilder {
 	@SuppressWarnings("unchecked")
 	protected Encounter getClassChoiceEncounter(PlayerCharacter playerCharacter){	
 		Background background = getDefaultTextBackground();
-		Background classSelectbackground = getClassSelectBackground();
+		Background classSelectbackground = getClassSelectBackground();	
 		Background silhouetteBackground = new BackgroundBuilder(assetManager.get(AssetEnum.BURNING_FORT_BG.getPath(), Texture.class)).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class)).setForeground(assetManager.get(AssetEnum.SILHOUETTE.getPath(), Texture.class), 1000, 0).build();
 		
 		Array<Mutation> classMutation = getArray(new Mutation[]{new Mutation(saveService, SaveEnum.CLASS, JobClass.ENCHANTRESS), new Mutation(saveService, SaveEnum.MODE, GameMode.STORY)});
@@ -102,7 +102,7 @@ public class EncounterBuilder {
 					getCharacterCreationScene(
 						smallFont, classSelectbackground.clone(), assetManager, playerCharacter, false,
 						getSkillSelectionScene(
-							smallFont, classSelectbackground.clone(), assetManager, playerCharacter, 
+							new BackgroundBuilder(assetManager.get(AssetEnum.SKILL_SELECTION_BACKGROUND.getPath(), Texture.class)).build(), assetManager, playerCharacter, 
 							getCharacterCustomizationScene(
 								smallFont, classSelectbackground.clone(), assetManager, playerCharacter, 
 								getEndScene(EndScene.Type.ENCOUNTER_OVER)
@@ -147,7 +147,7 @@ public class EncounterBuilder {
 		}
 		else {
 			getSkillSelectionScene(
-				font, getClassSelectBackground(), assetManager, playerCharacter, getEndScene(EndScene.Type.ENCOUNTER_OVER)
+				new BackgroundBuilder(assetManager.get(AssetEnum.SKILL_SELECTION_BACKGROUND.getPath(), Texture.class)).build(), assetManager, playerCharacter, getEndScene(EndScene.Type.ENCOUNTER_OVER)
 			);
 		}
 		return new Encounter(scenes, endScenes, new Array<BattleScene>(), getStartScene(scenes, sceneCode));
@@ -1194,8 +1194,8 @@ public class EncounterBuilder {
 		return addScene(new CharacterCreationScene(sceneMap, sceneCounter, saveService, background, assetManager, character, story));
 	}
 	
-	private OrderedMap<Integer, Scene> getSkillSelectionScene(BitmapFont font, Background background, AssetManager assetManager, PlayerCharacter character, OrderedMap<Integer, Scene> sceneMap){
-		return addScene(new SkillSelectionScene(sceneMap, sceneCounter, saveService, font, background, assetManager, character));
+	private OrderedMap<Integer, Scene> getSkillSelectionScene(Background background, AssetManager assetManager, PlayerCharacter character, OrderedMap<Integer, Scene> sceneMap){
+		return addScene(new SkillSelectionScene(sceneMap, sceneCounter, saveService, background, assetManager, character));
 	}
 	
 	private OrderedMap<Integer, Scene> getCharacterCustomizationScene(BitmapFont font, Background background, AssetManager assetManager, PlayerCharacter character, OrderedMap<Integer, Scene> sceneMap){
