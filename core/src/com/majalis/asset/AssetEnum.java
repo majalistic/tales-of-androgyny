@@ -10,6 +10,7 @@ public enum AssetEnum {
 	GAME_TYPE_BACKGROUND("GameTypeSelect.jpg"),
 	CLASS_SELECT_BACKGROUND("ClassSelect.png"),
 	SKILL_SELECTION_BACKGROUND("SkillSelect.png"),
+	CHARACTER_CUSTOM_BACKGROUND("CharCustom.png"),
 	DRYAD_BACKGROUND("DryadApple.jpg"),
 	STICK_BACKGROUND("StickEncounter.jpg"),
 	CABIN_BACKGROUND("WoodsCottage.jpg"),

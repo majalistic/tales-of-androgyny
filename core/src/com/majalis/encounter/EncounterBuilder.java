@@ -104,7 +104,7 @@ public class EncounterBuilder {
 						getSkillSelectionScene(
 							new BackgroundBuilder(assetManager.get(AssetEnum.SKILL_SELECTION_BACKGROUND.getPath(), Texture.class)).build(), assetManager, playerCharacter, 
 							getCharacterCustomizationScene(
-								smallFont, classSelectbackground.clone(), assetManager, playerCharacter, 
+								new BackgroundBuilder(assetManager.get(AssetEnum.CHARACTER_CUSTOM_BACKGROUND.getPath(), Texture.class)).build(), assetManager, playerCharacter, 
 								getEndScene(EndScene.Type.ENCOUNTER_OVER)
 							)
 						)
@@ -1198,7 +1198,7 @@ public class EncounterBuilder {
 		return addScene(new SkillSelectionScene(sceneMap, sceneCounter, saveService, background, assetManager, character));
 	}
 	
-	private OrderedMap<Integer, Scene> getCharacterCustomizationScene(BitmapFont font, Background background, AssetManager assetManager, PlayerCharacter character, OrderedMap<Integer, Scene> sceneMap) {
+	private OrderedMap<Integer, Scene> getCharacterCustomizationScene(Background background, AssetManager assetManager, PlayerCharacter character, OrderedMap<Integer, Scene> sceneMap) {
 		return addScene(new CharacterCustomizationScene(sceneMap, sceneCounter, saveService, font, background, assetManager, character));
 	}
 	

@@ -340,7 +340,10 @@ public class PlayerCharacter extends AbstractCharacter {
 	}
 	
 	public enum LipFullness {
-		POUTY
+		Thin,
+		Pouty,
+		Beestung,
+		Full
 	}
 
 	public void setStat(Stat stat, int amount) {
@@ -511,6 +514,8 @@ public class PlayerCharacter extends AbstractCharacter {
 
 	public void setBootyliciousness(Bootyliciousness buttSize) { bootyliciousness = buttSize; }
 
+	public void setLipFullness(LipFullness lipFullness) { this.lipFullness = lipFullness;	}
+	
 	public int getSkillPoints() { return skillPoints; }
 
 	public int getMagicPoints() { return magicPoints; }

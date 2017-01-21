@@ -8,7 +8,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -54,22 +53,6 @@ public class SkillSelectionScene extends Scene {
 		techniquesToButtons = new ObjectMap<Techniques, Label>();
 	}
 	
-	private Label addLabel(String text, Color color, float x, float y) {
-		Label newLabel = new Label(text, skin);
-		newLabel.setColor(color);
-		newLabel.setPosition(x, y);
-		this.addActor(newLabel);
-		return newLabel;
-	}
-	
-	private Image addImage(Texture texture, Color color, float x, float y, float width, float height) {
-		Image newImage = new Image(texture);
-		newImage.setBounds(x, y, width, height);
-		this.addActor(newImage);
-		newImage.setColor(color);
-		return newImage;
-	}
-	
 	@Override
 	public void setActive() {
 		isActive = true;
@@ -83,13 +66,13 @@ public class SkillSelectionScene extends Scene {
 		this.magicPoints = character.getMagicPoints();
 		this.perkPoints = character.getPerkPoints();
 		
-		skillPointsDisplay = addLabel("Skill Points: " + skillPoints, Color.BLACK, 140, 50);
-		Label magicPointsDisplay = addLabel("Magic Points: " + magicPoints, Color.BLACK, 540, 50);
-		Label perkPointsDisplay = addLabel("Perk Points: " + perkPoints, Color.BLACK, 980, 50);
+		skillPointsDisplay = addLabel("Skill Points: " + skillPoints, skin, Color.BLACK, 140, 50);
+		Label magicPointsDisplay = addLabel("Magic Points: " + magicPoints, skin, Color.BLACK, 540, 50);
+		Label perkPointsDisplay = addLabel("Perk Points: " + perkPoints, skin, Color.BLACK, 980, 50);
 		
-		addLabel("Skills", Color.BROWN, 170, 880);
-		addLabel("Spells", Color.PURPLE, 600, 880);
-		addLabel("Perk", Color.GOLDENROD, 1040, 880);
+		addLabel("Skills", skin, Color.BROWN, 170, 880);
+		addLabel("Spells", skin, Color.PURPLE, 600, 880);
+		addLabel("Perk", skin, Color.GOLDENROD, 1040, 880);
 
 		addImage(boxTexture, Color.BROWN, 0, 100, 470, 825);
 		addImage(boxTexture, Color.PURPLE, 450, 100, 430, 825);
