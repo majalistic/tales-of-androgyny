@@ -33,10 +33,11 @@ public class TechniquePrototype {
 	private final StatusType buff;
 	private final String description;
 	private final String lightDescription;
+	private final String bonusInfo;
 	private final ObjectMap<BonusCondition, Bonus> bonuses;
 	
 	protected TechniquePrototype( Stance usableStance, Stance resultingStance, String name, boolean doesDamage, boolean doesHealing, int powerMod, int staminaCost, int stabilityCost, int manaCost, boolean isSpell, boolean isTaunt, Stance forceStance, double knockdown, int armorSunder,
-			int gutCheck, TechniqueHeight height, int guardMod, int parryMod, boolean setDamage, boolean blockable, boolean grapple, ClimaxType climaxType, StatusType buff, String description, String lightDescription, ObjectMap<BonusCondition, Bonus> bonuses) {
+			int gutCheck, TechniqueHeight height, int guardMod, int parryMod, boolean setDamage, boolean blockable, boolean grapple, ClimaxType climaxType, StatusType buff, String description, String lightDescription, String bonusInfo, ObjectMap<BonusCondition, Bonus> bonuses) {
 		this.usableStance = usableStance;
 		this.resultingStance = resultingStance;
 		this.name = name;
@@ -62,6 +63,7 @@ public class TechniquePrototype {
 		this.buff = buff;
 		this.description = description;
 		this.lightDescription = lightDescription;
+		this.bonusInfo = bonusInfo;
 		this.bonuses = bonuses;
 	}
 	
@@ -90,6 +92,7 @@ public class TechniquePrototype {
 	public StatusType getBuff() { return buff; }
 	public String getDescription() { return description; }
 	public String getLightDescription() { return lightDescription; }
+	public String getBonusInfo() { return bonusInfo; }
 	public ObjectMap<BonusCondition, Bonus> getBonuses() { return bonuses; }
 	
 	public enum TechniqueHeight{

@@ -1,7 +1,7 @@
 package com.majalis.technique;
 
 import com.majalis.character.StatusType;
-import com.badlogic.gdx.utils.ObjectMap;
+import com.badlogic.gdx.utils.OrderedMap;
 import com.majalis.character.AbstractCharacter.Stance;
 import com.majalis.technique.Bonus.BonusCondition;
 import com.majalis.technique.Bonus.BonusType;
@@ -33,9 +33,9 @@ public class TechniqueBuilder {
 	protected boolean grapple;
 	protected ClimaxType climaxType;
 	protected StatusType buff;
-	protected ObjectMap<BonusCondition, Bonus> bonuses;
+	protected OrderedMap<BonusCondition, Bonus> bonuses;
 	
-	public TechniqueBuilder(Stance usableStance, Stance resultingStance, String name){
+	public TechniqueBuilder(Stance usableStance, Stance resultingStance, String name) {
 		this.usableStance = usableStance;
 		this.resultingStance = resultingStance;
 		this.name = name;
@@ -59,85 +59,95 @@ public class TechniqueBuilder {
 		grapple = false;
 		buff = null;
 		height = TechniqueHeight.NONE;
-		bonuses = new ObjectMap<BonusCondition, Bonus>();
+		bonuses = new OrderedMap<BonusCondition, Bonus>();
 	}
 	
-	public TechniquePrototype build(){
-		String lightDescription = getDescription();
-		return new TechniquePrototype(usableStance, resultingStance, name, doesDamage, doesHealing, powerMod, staminaCost, stabilityCost, manaCost, isSpell, isTaunt, forceStance, knockdown, armorSunder, gutCheck, height, guardMod, parryMod, setDamage, blockable, grapple, climaxType, buff, getStanceInfo() + lightDescription, lightDescription, bonuses); 
-	}	
+	public TechniqueBuilder addBonus(BonusCondition condition, BonusType type) {
+		return addBonus(condition, type, 1);
+	}
+	
+	public TechniqueBuilder addBonus(BonusCondition condition, BonusType type, int amount) {
+		Bonus bonus = bonuses.get(condition, new Bonus(condition, type, amount));
+		bonus.getBonusMap().put(type,  amount);
+		bonuses.put(condition, bonus);
+		return this;
+	}
 
-	public String getStanceInfo(){ 
+	public TechniquePrototype build() {
+		String lightDescription = getDescription();
+		return new TechniquePrototype(usableStance, resultingStance, name, doesDamage, doesHealing, powerMod, staminaCost, stabilityCost, manaCost, isSpell, isTaunt, forceStance, knockdown, armorSunder, gutCheck, height, guardMod, parryMod, setDamage, blockable, grapple, climaxType, buff, getStanceInfo() + lightDescription, lightDescription, getBonusInfo(), bonuses); 
+	}	
+	
+	protected String getStanceInfo() { 
 		StringBuilder builder = new StringBuilder();
 		builder.append("Usable in " + usableStance.toString() + " stance.\n");
 		builder.append("Results in " + resultingStance.toString() + " stance.\n");
 		return builder.toString();
 	}
 	
-	public String getDescription(){
+	protected String getBonusInfo() {
 		StringBuilder builder = new StringBuilder();
-		if (doesDamage){
+		for (OrderedMap.Entry<BonusCondition, Bonus> bonus : bonuses.entries()) {
+			builder.append(bonus.key.getDescription() + "\n");
+			builder.append(bonus.value.getDescription());
+		}
+		return builder.toString();
+	}
+	
+	protected String getDescription() {
+		StringBuilder builder = new StringBuilder();
+		if (doesDamage) {
 			builder.append("Deals" + (powerMod > 0 ? " +" + powerMod : powerMod < 0 ? " " + powerMod : "") + " damage, improved by " + (isSpell ? "Magic" : "Strength") + ".\n");
 		}
-		if (doesHealing){
+		if (doesHealing) {
 			builder.append("Heals user with a power of " + powerMod + ", improved by Magic.\n");
 		}
-		if (buff != null){
+		if (buff != null) {
 			builder.append("Increases Strength dramatically, erodes - improved by Magic.\n");
 		}
-		if (isTaunt){
+		if (isTaunt) {
 			builder.append("Taunts, angering and/or arousing the\n enemy with a power of " + powerMod + ", improved by Charisma.\n");
 		}
-		if (blockable){
+		if (blockable) {
 			builder.append("Can be blocked.\n");
 		}
-		else if (doesDamage){
+		else if (doesDamage) {
 			builder.append("CANNOT be blocked.\n");
 		}
-		if (guardMod > 0){
+		if (guardMod > 0) {
 			builder.append("Blocks against enemy attacks\nwith " + guardMod + "% effectiveness.\n");
 		}
-		if (parryMod > 0){
+		if (parryMod > 0) {
 			builder.append("Parries enemy attacks\nwith " + guardMod + "% effectiveness.\n");
 		}
-		if (staminaCost > 0){
+		if (staminaCost > 0) {
 			builder.append("Costs " + staminaCost + " stamina, reduced by Endurance.\n");
 		}
-		else if (staminaCost < 0){
+		else if (staminaCost < 0) {
 			builder.append("Recovers " + -staminaCost + " stamina, improved by Endurance.\n");
 		}
-		if (stabilityCost > 0){
+		if (stabilityCost > 0) {
 			builder.append("Causes " + stabilityCost + " instability, reduced by Agility.\n");			
 		}
-		if (manaCost > 0){
+		if (manaCost > 0) {
 			builder.append("Costs " + manaCost + " mana.\n");			
 		}
-		if (height != TechniqueHeight.NONE){
+		if (height != TechniqueHeight.NONE) {
 			builder.append(height.toString() + "-height attack.\n");
 		}
-		if (forceStance != null){
+		if (forceStance != null) {
 			builder.append("Forces enemy into " + forceStance.toString() + " stance.\n");
 		}
-		if (knockdown > 0){
+		if (knockdown > 0) {
 			builder.append("Causes " + (knockdown > 1.6 ? "heavy" : knockdown > 1.1 ? "medium" : "light") + " knockdown.\n");
 		}
-		if (armorSunder > 0){
+		if (armorSunder > 0) {
 			builder.append("Causes " + (armorSunder > 1.6 ? "heavy" : armorSunder > 1.1 ? "medium" : "light") + " armor sundering.\n");
 		}
-		if (gutCheck > 0){
+		if (gutCheck > 0) {
 			builder.append("Causes " + (armorSunder > 1.6 ? "heavy" : armorSunder > 1.1 ? "medium" : "light") + " enemy stamina destruction.\n");
 		}
 		
 		return builder.toString();
-	}
-	
-
-	public TechniqueBuilder addBonus(BonusCondition condition, BonusType type) {
-		return addBonus(condition, type, 1);
-	}
-	
-	public TechniqueBuilder addBonus(BonusCondition condition, BonusType type, int amount) {
-		bonuses.put(condition, new Bonus(condition, type, amount));
-		return this;
 	}
 }

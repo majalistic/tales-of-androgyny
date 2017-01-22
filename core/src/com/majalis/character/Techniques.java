@@ -118,15 +118,15 @@ public enum Techniques {
 	INCANTATION 		(new NonAttackTechnique(Stance.BALANCED, Stance.CASTING, "Incantation", 0, 1).build()), 
 	
 	/* Learnable Skills*/
-	ARMOR_SUNDER		(new AttackTechnique(Stance.OFFENSIVE, Stance.OFFENSIVE, "Armor Sunder", 1, 7, 4, 0, 2, 0, true, TechniqueHeight.MEDIUM).build(), 3),
-	CAUTIOUS_ATTACK  	(new AttackTechnique(Stance.BALANCED, Stance.DEFENSIVE, "Cautious Attack", -1, 0, 2).build(), 3),
-	VAULT 				(new NonAttackTechnique(Stance.OFFENSIVE, Stance.AIRBORNE, "Vault", 2, 4).build()), 
-	JUMP_ATTACK 		(new AttackTechnique(Stance.AIRBORNE, Stance.BALANCED, "Jump Attack", 4, 4, 2).build()),
-	RECKLESS_ATTACK 	(new AttackTechnique(Stance.OFFENSIVE, Stance.OFFENSIVE, "Reckless Attack", 2, 3, 6, false).build(), 3), // unguardable
-	
-	TAUNT 				(new NonAttackTechnique(Stance.DEFENSIVE, Stance.DEFENSIVE, "Taunt", 0, 0, true).build(), 2), 
-	KNOCK_DOWN 			(new AttackTechnique(Stance.OFFENSIVE, Stance.OFFENSIVE, "Knock Down", 1, 3, 6, 2).build(), 3), 
+	ARMOR_SUNDER		(new AttackTechnique(Stance.OFFENSIVE, Stance.OFFENSIVE, "Armor Crusher", 1, 7, 4, 0, 1, 0, true, TechniqueHeight.MEDIUM).addBonus(BonusCondition.SKILL_LEVEL, BonusType.ARMOR_SUNDER).build(), 3),
+	CAUTIOUS_ATTACK  	(new AttackTechnique(Stance.BALANCED, Stance.DEFENSIVE, "Fade-Away", -1, 0, 2).addBonus(BonusCondition.OUTMANEUVER, BonusType.GUARD_MOD, 25).addBonus(BonusCondition.SKILL_LEVEL, BonusType.GUARD_MOD, 25).build(), 3),
+	VAULT 				(new NonAttackTechnique(Stance.OFFENSIVE, Stance.AIRBORNE, "Vault", 2, 4).addBonus(BonusCondition.OUTMANEUVER, BonusType.GUARD_MOD, 25).build()), // needs to be changed to evasion mod 
+	JUMP_ATTACK 		(new AttackTechnique(Stance.AIRBORNE, Stance.BALANCED, "Jump Attack", 4, 4, 2).addBonus(BonusCondition.ENEMY_ON_GROUND, BonusType.POWER_MOD, 4).build()),
+	RECKLESS_ATTACK 	(new AttackTechnique(Stance.OFFENSIVE, Stance.OFFENSIVE, "Assault", 2, 3, 6, false).addBonus(BonusCondition.STRENGTH_OVERPOWER, BonusType.KNOCKDOWN, 1).build(), 3), // unguardable
+	KNOCK_DOWN 			(new AttackTechnique(Stance.OFFENSIVE, Stance.OFFENSIVE, "Overrun", 1, 3, 6, 1).addBonus(BonusCondition.SKILL_LEVEL, BonusType.KNOCKDOWN, 1).build(), 3), 
+	TAUNT 				(new NonAttackTechnique(Stance.DEFENSIVE, Stance.DEFENSIVE, "Taunt", 0, 0, true).addBonus(BonusCondition.SKILL_LEVEL, BonusType.POWER_MOD, 1).build(), 2), 
 	HIT_THE_DECK		(new FallDownTechnique(Stance.BALANCED, Stance.PRONE, "Hit the Deck").build()), 
+	FEINT_AND_STRIKE	(new AttackTechnique(Stance.OFFENSIVE, Stance.OFFENSIVE, "Feint Strike", -1, 3, 7).addBonus(BonusCondition.OUTMANEUVER, BonusType.POWER_MOD).addBonus(BonusCondition.OUTMANEUVER, BonusType.GUARD_MOD, 25).addBonus(BonusCondition.SKILL_LEVEL, BonusType.STABILTIY_COST, 1).build(), 3), // needs to be evasion
 	PARRY  				(new GuardTechnique(Stance.DEFENSIVE, Stance.DEFENSIVE, "Parry", -1, 0, 0, false).addBonus(BonusCondition.SKILL_LEVEL, BonusType.PARRY, 25).addBonus(BonusCondition.OUTMANEUVER, BonusType.PARRY, 25).build(), 3),
 	
 	COMBAT_HEAL  		(new SpellTechnique(Stance.CASTING, Stance.BALANCED, "Combat Heal", 10, 10, true).build(), 3),
@@ -149,7 +149,7 @@ public enum Techniques {
 	public int getMaxRank() { return maxRank; }
 	
 	public static Array<Techniques> getLearnableSkills() {
-		Techniques[] learnables = new Techniques[]{ARMOR_SUNDER, CAUTIOUS_ATTACK, VAULT, RECKLESS_ATTACK, TAUNT, KNOCK_DOWN, SECOND_WIND, HIT_THE_DECK, PARRY};
+		Techniques[] learnables = new Techniques[]{ARMOR_SUNDER, CAUTIOUS_ATTACK, VAULT, RECKLESS_ATTACK, KNOCK_DOWN,TAUNT, SECOND_WIND, FEINT_AND_STRIKE, HIT_THE_DECK, PARRY};
 		return new Array<Techniques>(true, learnables, 0, learnables.length);
 	}
 	public static Array<Techniques> getLearnableSpells() {

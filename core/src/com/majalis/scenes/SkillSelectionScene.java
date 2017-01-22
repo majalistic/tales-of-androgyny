@@ -97,8 +97,13 @@ public class SkillSelectionScene extends Scene {
 		Label skillDisplay = new Label("", skin);
 		skillDisplay.setWrap(true);
 		skillDisplay.setColor(Color.BLACK);
-		skillDisplayTable.add(skillDisplay).width(550);
+		skillDisplayTable.add(skillDisplay).width(550).row();
 		skillDisplayTable.align(Align.top);
+		
+		Label bonusDisplay = new Label("", skin);
+		bonusDisplay.setWrap(true);
+		bonusDisplay.setColor(Color.FOREST);
+		skillDisplayTable.add(bonusDisplay).width(550);		
 		
 		this.addActor(skillDisplayTable);
 		
@@ -140,6 +145,7 @@ public class SkillSelectionScene extends Scene {
 				@Override
 		        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
 					skillDisplay.setText(technique.getTrait().getDescription());
+					bonusDisplay.setText(technique.getTrait().getBonusInfo());
 					skillDisplayTable.addAction(Actions.show());
 					consoleTable.addAction(Actions.hide());
 				}
@@ -230,6 +236,7 @@ public class SkillSelectionScene extends Scene {
 				@Override
 		        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
 					skillDisplay.setText(perk.getDescription());
+					bonusDisplay.setText("");
 					skillDisplayTable.addAction(Actions.show());
 					consoleTable.addAction(Actions.hide());
 				}
@@ -331,6 +338,7 @@ public class SkillSelectionScene extends Scene {
 					@Override
 			        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
 						skillDisplay.setText(technique.getTrait().getDescription());
+						bonusDisplay.setText(technique.getTrait().getBonusInfo());
 						skillDisplayTable.addAction(Actions.show());
 						consoleTable.addAction(Actions.hide());
 					}
