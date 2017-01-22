@@ -36,6 +36,7 @@ public class Technique {
 		private final int armorSunder;
 		private final int gutCheck;
 		private final int disarm;
+		private final int trip;
 		private final double knockdown;
 		private final boolean hasPriority;
 		
@@ -60,6 +61,7 @@ public class Technique {
 			int gutCheckCalc = technique.getGutCheck();
 			int disarmCalc = 0;
 			double knockdownCalc = technique.getKnockdown();
+			int tripCalc = 0;
 			boolean hasPriorityCalc = false;
 			
 			for (Bonus bonusBundle : toApply) {	
@@ -98,6 +100,8 @@ public class Technique {
 						case DISARM:
 							disarmCalc += bonus.value;
 							break;
+						case TRIP:
+							tripCalc += bonus.value;
 					}
 				}
 			}
@@ -111,6 +115,7 @@ public class Technique {
 			armorSunder = armorSunderCalc;
 			gutCheck = gutCheckCalc;
 			disarm = disarmCalc;
+			trip = tripCalc;
 			knockdown = knockdownCalc;
 			hasPriority = hasPriorityCalc;
 		}
@@ -166,6 +171,9 @@ public class Technique {
 			return disarm; 
 		}
 		
+		private int getTrip() {
+			return trip; 
+		}
 	}
 	
 	public Technique(TechniquePrototype technique, CharacterState currentState, int skillLevel) {
@@ -286,6 +294,7 @@ public class Technique {
 			technique.isTaunt() ? thisPayload.getTotalPower() : 0, 
 			technique.isGrapple() ? thisPayload.getTotalPower() : 0,
 			otherTechnique.isBlockable() ? thisPayload.getDisarm() : 0,
+			thisPayload.getTrip(),
 			technique.getClimaxType(), 
 			getForceStance(),
 			technique.isSpell(),

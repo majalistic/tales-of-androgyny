@@ -491,6 +491,16 @@ public abstract class AbstractCharacter extends Actor {
 				}
 			}
 			
+			int trip = attack.getTrip();
+			if (trip >= 100) {
+				if (!alreadyIncapacitated()) {
+					setStabilityToMin();
+					stance = Stance.PRONE;
+					result.add(label + (secondPerson ? " are " : " is ") + "tripped and "+ (secondPerson ? "fall" : "falls") +" prone!");
+					knockedDown = true;
+				}
+			}
+			
 			int armorSunder = attack.getArmorSunder();
 			if (armorSunder > 0) {
 				// this shouldn't lower baseDefense, instead sundering armor

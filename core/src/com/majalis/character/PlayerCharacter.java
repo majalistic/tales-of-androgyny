@@ -183,7 +183,7 @@ public class PlayerCharacter extends AbstractCharacter {
 				}
 				return possibles;
 			case BALANCED:
-				possibles = getTechniques(target, SPRING_ATTACK, NEUTRAL_ATTACK, CAUTIOUS_ATTACK, BLOCK, INCANTATION, DUCK, HIT_THE_DECK);
+				possibles = getTechniques(target, SPRING_ATTACK, NEUTRAL_ATTACK, CAUTIOUS_ATTACK, BLOCK, INCANTATION, SLIDE, DUCK, HIT_THE_DECK);
 				if (target.getStance() == Stance.SUPINE && target.isErect() && target.enemyType != EnemyEnum.SLIME && target.enemyType != EnemyEnum.CENTAUR && target.enemyType != EnemyEnum.UNICORN) {
 					possibles.addAll(getTechniques(target, SIT_ON_IT));
 				}
@@ -194,7 +194,7 @@ public class PlayerCharacter extends AbstractCharacter {
 			case SUPINE:
 				return getTechniques(target, KIP_UP, STAND_UP, KNEE_UP, stance == Stance.PRONE ? REST_FACE_DOWN : REST, stance == Stance.PRONE ? ROLL_OVER_UP : ROLL_OVER_DOWN);
 			case KNEELING:
-				possibles = getTechniques(target, STAND_UP, STAY_KNELT);
+				possibles = getTechniques(target, UPPERCUT, STAND_UP, STAY_KNELT);
 				if (target.isErect() && target.enemyType != EnemyEnum.SLIME) {
 					possibles.addAll(getTechniques(target, GRAB_IT));
 				}

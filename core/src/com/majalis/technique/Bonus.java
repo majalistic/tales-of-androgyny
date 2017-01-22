@@ -131,6 +131,8 @@ public class Bonus {
 				case DISARM:
 					description += "Disarm +" + bonus.value + "%";
 					break;
+				case TRIP:
+					description += "Trip +" + bonus.value + "%";
 			}
 			description += "\n";
 		}
@@ -166,6 +168,7 @@ public class Bonus {
 		GUARD_MOD,
 		PRIORITY, 
 		DISARM,
-		PARRY;
+		PARRY,
+		TRIP;
 	}
 }

@@ -20,6 +20,7 @@ public class Attack {
 	private final int lust;
 	private final int grapple;
 	private final int disarm;
+	private final int trip;
 	private final ClimaxType climaxType;
 	private final Stance forceStance;
 	private final Array<String> results;
@@ -42,7 +43,7 @@ public class Attack {
 	}
 	
 	// this should have all the info for an attack, including damage or effects that were blocked
-	protected Attack(Status status, String name, int rawDamage, double blockMod, int force, int rawArmorBreak, int gutcheck, int healing, int lust, int grapple, int disarm, ClimaxType climaxType, Stance forceStance, boolean isSpell, Buff buff, boolean isAttack, boolean ignoresArmor, Array<Bonus> bonuses) {
+	protected Attack(Status status, String name, int rawDamage, double blockMod, int force, int rawArmorBreak, int gutcheck, int healing, int lust, int grapple, int disarm, int trip, ClimaxType climaxType, Stance forceStance, boolean isSpell, Buff buff, boolean isAttack, boolean ignoresArmor, Array<Bonus> bonuses) {
 		this.status = status;
 		this.name = name;
 		this.rawDamage = rawDamage;
@@ -54,6 +55,7 @@ public class Attack {
 		this.lust = lust;
 		this.grapple = grapple;
 		this.disarm = disarm;
+		this.trip = trip;
 		this.climaxType = climaxType;
 		this.forceStance = forceStance;
 		this.isSpell = isSpell;
@@ -110,6 +112,10 @@ public class Attack {
 	
 	protected int getDisarm() {
 		return disarm;
+	}
+	
+	protected int getTrip() {
+		return trip;
 	}
 	
 	protected Stance getForceStance() {

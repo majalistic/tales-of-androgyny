@@ -66,22 +66,22 @@ public class SkillSelectionScene extends Scene {
 		this.magicPoints = character.getMagicPoints();
 		this.perkPoints = character.getPerkPoints();
 		
-		skillPointsDisplay = addLabel("Skill Points: " + skillPoints, skin, Color.BLACK, 140, 50);
-		Label magicPointsDisplay = addLabel("Magic Points: " + magicPoints, skin, Color.BLACK, 540, 50);
-		Label perkPointsDisplay = addLabel("Perk Points: " + perkPoints, skin, Color.BLACK, 980, 50);
+		skillPointsDisplay = addLabel("Skill Points: " + skillPoints, skin, Color.BLACK, 140, 10);
+		Label magicPointsDisplay = addLabel("Magic Points: " + magicPoints, skin, Color.BLACK, 540, 10);
+		Label perkPointsDisplay = addLabel("Perk Points: " + perkPoints, skin, Color.BLACK, 980, 10);
 		
 		addLabel("Skills", skin, Color.BROWN, 170, 880);
 		addLabel("Spells", skin, Color.PURPLE, 600, 880);
 		addLabel("Perk", skin, Color.GOLDENROD, 1040, 880);
 
-		addImage(boxTexture, Color.BROWN, 0, 100, 470, 825);
-		addImage(boxTexture, Color.PURPLE, 450, 100, 430, 825);
-		addImage(boxTexture, Color.GOLDENROD, 875, 100, 400, 825);		
+		addImage(boxTexture, Color.BROWN, 0, 15, 470, 910);
+		addImage(boxTexture, Color.PURPLE, 450, 15, 430, 910);
+		addImage(boxTexture, Color.GOLDENROD, 875, 15, 400, 910);		
 		addImage(boxTexture, Color.GRAY, 1250, 40, 700, 1080);
 		
-		addImage(boxTexture, Color.BROWN, 100, 30, 260, 75);
-		addImage(boxTexture, Color.PURPLE, 500, 30, 280, 75);
-		addImage(boxTexture, Color.GOLDENROD, 945, 30, 260, 75);
+		addImage(boxTexture, Color.BROWN, 100, -10, 260, 75);
+		addImage(boxTexture, Color.PURPLE, 500, -10, 280, 75);
+		addImage(boxTexture, Color.GOLDENROD, 945, -10, 260, 75);
 		
 		final Table consoleTable = new Table();
 		consoleTable.setPosition(1610,  1000);

@@ -6,11 +6,15 @@ import com.majalis.technique.TechniquePrototype.TechniqueHeight;
 public class NonAttackTechnique extends TechniqueBuilder {
 
 	public NonAttackTechnique(Stance usableStance, Stance resultingStance, String name, int staminaCost, int stabilityCost){
-		this(usableStance, resultingStance, name, staminaCost, stabilityCost, null);
+		this(usableStance, resultingStance, name, staminaCost, stabilityCost, null, TechniqueHeight.NONE);
 	}
 
 	public NonAttackTechnique(Stance usableStance, Stance resultingStance, String name, int staminaCost, int stabilityCost, Stance forceStance) {
 		this(usableStance, resultingStance, name, staminaCost, stabilityCost, forceStance, null, TechniqueHeight.NONE);
+	}
+	
+	public NonAttackTechnique(Stance usableStance, Stance resultingStance, String name, int staminaCost, int stabilityCost, TechniqueHeight height) {
+		this(usableStance, resultingStance, name, staminaCost, stabilityCost, null, null, height);
 	}
 	
 	public NonAttackTechnique(Stance usableStance, Stance resultingStance, String name, int staminaCost, int stabilityCost, Stance forceStance, String setDamage) {
