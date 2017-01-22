@@ -46,14 +46,14 @@ public class ShopScene extends Scene {
 		private Array<Potion> consumables;
 		private ShopCode shopCode;
 		private boolean done;
-		private Shop(){}
-		private Shop(ShopCode shopCode){
+		private Shop() {}
+		private Shop(ShopCode shopCode) {
 			this.shopCode = shopCode;
 			this.weapons = new Array<Weapon>();
 			this.consumables = new Array<Potion>();
 			done = false;
 		}
-		public String getShopCode(){
+		public String getShopCode() {
 			return shopCode.toString();
 		}
 	}
@@ -93,7 +93,7 @@ public class ShopScene extends Scene {
 		final TextButton done = new TextButton("Done", skin);
 		
 		done.addListener(
-			new ClickListener(){
+			new ClickListener() {
 				@Override
 		        public void clicked(InputEvent event, float x, float y) {
 					buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
@@ -112,22 +112,20 @@ public class ShopScene extends Scene {
 		
 		final Table table = new Table();
 		
-		for (final Weapon weapon: shop.weapons){
+		for (final Weapon weapon: shop.weapons) {
 			final TextButton weaponButton = new TextButton(weapon.getName() + " - " + weapon.getValue() + "G", skin);
 			final Label description = new Label(weapon.getDescription(), skin);		
-			description.setSize(700, 200);
 			description.setWrap(true);
-			description.setPosition(1050, 520);
 			description.setColor(Color.FOREST);
 			description.setAlignment(Align.top);
 			ScrollPane pane = new ScrollPane(description);
-			pane.setBounds(1050, 520, 625, 350);
+			pane.setBounds(1060, 415, 675, 350);
 			pane.setScrollingDisabled(true, false);
-			weaponButton.addListener(new ClickListener(){
+			weaponButton.addListener(new ClickListener() {
 				@Override
 		        public void clicked(InputEvent event, float x, float y) {
 					itemSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
-					if (buyItem(weapon)){
+					if (buyItem(weapon)) {
 						addActor(done);
 						weaponButton.addAction(Actions.removeActor());
 						shop.weapons.removeValue(weapon, true);
@@ -145,36 +143,34 @@ public class ShopScene extends Scene {
 				@Override
 		        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
 					inventoryGroup.addActor(hoverBox);
-					inventoryGroup.addActor(description);
+					inventoryGroup.addActor(pane);
 				}
 				@Override
 		        public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
 					inventoryGroup.removeActor(hoverBox);
-					inventoryGroup.removeActor(description);
+					inventoryGroup.removeActor(pane);
 				}
 			});
 			
 			table.add(weaponButton).size(400, 60).row();
 		}
 		
-		for (final Potion potion: shop.consumables){
+		for (final Potion potion: shop.consumables) {
 			shop.done = true; // temporary measure to make the potion shop function properly
 			final TextButton potionButton = new TextButton(potion.getName() + " - " + potion.getValue() + "G", skin);
 			final Label description = new Label(potion.getDescription(), skin);
-			description.setSize(700, 200);
 			description.setWrap(true);
-			description.setPosition(1050, 520);
 			description.setColor(Color.FOREST);
 			description.setAlignment(Align.top);
 			final ScrollPane pane = new ScrollPane(description);
-			pane.setBounds(1050, 520, 625, 350);
+			pane.setBounds(1060, 415, 675, 350);
 			pane.setScrollingDisabled(true, false);
 			
-			potionButton.addListener(new ClickListener(){
+			potionButton.addListener(new ClickListener() {
 				@Override
 		        public void clicked(InputEvent event, float x, float y) {
 					itemSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
-					if (buyItem(potion)){
+					if (buyItem(potion)) {
 						addActor(done);
 						potionButton.addAction(Actions.removeActor());
 						shop.consumables.removeValue(potion, true);
@@ -214,12 +210,14 @@ public class ShopScene extends Scene {
 		switch (shopCode) {
 			case FIRST_STORY:
 			case WEAPON_SHOP:
-				for (WeaponType type: WeaponType.values()){
-					shop.weapons.add(new Weapon(type));					
+				for (WeaponType type: WeaponType.values()) {
+					if (type != WeaponType.Bow && type != WeaponType.Dagger) {
+						shop.weapons.add(new Weapon(type));	
+					}									
 				}
 				break;
 			case SHOP:
-				for (int ii = 10; ii <= 20; ii += 10){
+				for (int ii = 10; ii <= 20; ii += 10) {
 					shop.consumables.add(new Potion(ii));
 					shop.consumables.add(new Potion(ii));
 				}
@@ -233,7 +231,7 @@ public class ShopScene extends Scene {
 		return shop;
 	}
 	
-	private boolean buyItem(Item item){
+	private boolean buyItem(Item item) {
 		return character.buyItem(item, item.getValue());
 	}
 
