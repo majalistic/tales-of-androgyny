@@ -84,7 +84,7 @@ public class SkillSelectionScene extends Scene {
 		addImage(boxTexture, Color.GOLDENROD, 945, 30, 260, 75);
 		
 		final Table consoleTable = new Table();
-		consoleTable.setPosition(1620,  1000);
+		consoleTable.setPosition(1610,  1000);
 		console = new Label("", skin);
 		console.setWrap(true);
 		console.setColor(Color.BLACK);
@@ -93,17 +93,17 @@ public class SkillSelectionScene extends Scene {
 		this.addActor(consoleTable);
 		
 		final Table skillDisplayTable = new Table();
-		skillDisplayTable.setPosition(1620,  1000);
+		skillDisplayTable.setPosition(1610,  1000);
 		Label skillDisplay = new Label("", skin);
 		skillDisplay.setWrap(true);
 		skillDisplay.setColor(Color.BLACK);
-		skillDisplayTable.add(skillDisplay).width(550).row();
+		skillDisplayTable.add(skillDisplay).width(540).row();
 		skillDisplayTable.align(Align.top);
 		
 		Label bonusDisplay = new Label("", skin);
 		bonusDisplay.setWrap(true);
 		bonusDisplay.setColor(Color.FOREST);
-		skillDisplayTable.add(bonusDisplay).width(550);		
+		skillDisplayTable.add(bonusDisplay).width(540);		
 		
 		this.addActor(skillDisplayTable);
 		
