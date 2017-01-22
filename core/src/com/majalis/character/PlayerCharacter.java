@@ -95,7 +95,7 @@ public class PlayerCharacter extends AbstractCharacter {
 	private static ObjectSet<Techniques> getBaseTechniques() {
 		ObjectSet<Techniques> baseTechniques = new ObjectSet<Techniques>();
 		baseTechniques.addAll(POWER_ATTACK, TEMPO_ATTACK, RESERVED_ATTACK, DUCK, SPRING_ATTACK, NEUTRAL_ATTACK, REVERSAL_ATTACK, CAREFUL_ATTACK, BLOCK, GUARD,
-			KIP_UP, STAND_UP, STAY_KNELT, KNEE_UP, REST_FACE_DOWN, REST, JUMP_ATTACK, 
+			KIP_UP, STAND_UP, STAY_KNELT, KNEE_UP, REST_FACE_DOWN, REST, JUMP_ATTACK, VAULT_OVER,
 			RECEIVE_ANAL, RECEIVE_DOGGY, RECEIVE_STANDING, STRUGGLE_ORAL, STRUGGLE_DOGGY, STRUGGLE_ANAL, STRUGGLE_STANDING, RECEIVE_KNOT, SUCK_IT, BREAK_FREE_ANAL, BREAK_FREE_ORAL,
 			SUBMIT, STRUGGLE_FULL_NELSON, BREAK_FREE_FULL_NELSON,
 			OPEN_WIDE, GRAB_IT, STROKE_IT, LET_GO,
@@ -200,7 +200,7 @@ public class PlayerCharacter extends AbstractCharacter {
 				}
 				return possibles;
 			case AIRBORNE:
-				return getTechniques(target, JUMP_ATTACK);
+				return getTechniques(target, JUMP_ATTACK, VAULT_OVER);
 			case FULL_NELSON:
 				if (struggle <= 0) {
 					return getTechniques(target, SUBMIT, BREAK_FREE_FULL_NELSON);

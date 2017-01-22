@@ -47,7 +47,7 @@ public class GameOverScreen extends AbstractScreen {
 		font.draw(batch, "Press Enter", 975, 600);
 		font.draw(batch, String.valueOf(clocktick++), 2800, 600);
 		batch.end();
-		if (Gdx.input.isKeyJustPressed(Keys.ENTER) || clocktick >= 500)
+		if (Gdx.input.isKeyJustPressed(Keys.ENTER) || Gdx.input.isKeyJustPressed(Keys.ESCAPE) || clocktick >= 500)
 			showScreen(ScreenEnum.MAIN_MENU);
 	}
 	

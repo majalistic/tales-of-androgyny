@@ -317,7 +317,7 @@ public class Battle extends Group{
 			}
 			if (battleOutcomeDecided) {
 				character.refresh();
-				saveService.saveDataValue(SaveEnum.CONSOLE, "");
+				bonusDisplay.setText("");
 				uiGroup.removeActor(table);
 				hoverGroup.clearActions();
 				hoverGroup.addAction(Actions.visible(true));
@@ -328,6 +328,7 @@ public class Battle extends Group{
 				        @Override
 				        public void clicked(InputEvent event, float x, float y) {
 				        	battleOver = true;
+				        	saveService.saveDataValue(SaveEnum.CONSOLE, "");
 				        }
 					}
 				);
