@@ -6,10 +6,9 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -59,24 +58,15 @@ public class CharacterScreen extends AbstractScreen {
 		resourceRequirements.put(AssetEnum.WORLD_MAP_MUSIC.getPath(), Music.class);
 	}
 	
-	private final PlayerCharacter character;
-	private ObjectMap<Stat, Texture> statTextureMap;
-	
 	public CharacterScreen(ScreenFactory factory, ScreenElements elements, AssetManager assetManager, final SaveService saveService, final PlayerCharacter character) {
 		super(factory, elements);
-		this.character = character;
 		this.addActor(new BackgroundBuilder(assetManager.get(AssetEnum.CHARACTER_SCREEN.getPath(), Texture.class)).build()); 
-		
-		statTextureMap = new ObjectMap<Stat, Texture>();
-		for (final Stat stat: Stat.values()){
-			statTextureMap.put(stat, assetManager.get(stat.getPath(), Texture.class));
-		}
 		
 		Skin skin = assetManager.get(AssetEnum.UI_SKIN.getPath(), Skin.class);
 		final Sound buttonSound = assetManager.get(AssetEnum.CLICK_SOUND.getPath(), Sound.class); 
 		final TextButton done = new TextButton("Done", skin);
 		
-		done.setSize(180, 40);
+		done.setSize(180, 60);
 		done.addListener(
 			new ClickListener(){
 				@Override
@@ -87,14 +77,54 @@ public class CharacterScreen extends AbstractScreen {
 		        }
 			}
 		);
-		done.setPosition(1523, 30);
+		done.setPosition(1700, 30);
 		this.addActor(done);
+
+		final Table overview = new Table();
+		overview.align(Align.top);
+		overview.setPosition(200, 1040);
+		this.addActor(overview);
+		overview.add(getLabel("Name: ", skin, Color.BLACK)).align(Align.left);
+		overview.add(getLabel(character.getName() != null ? character.getName() : "Hiro", skin, Color.DARK_GRAY)).align(Align.left).row();
+		overview.add(getLabel("Class: ", skin, Color.BLACK)).align(Align.left);
+		
+		overview.add(getLabel(character.getJobClass().getLabel(), skin, Color.FIREBRICK)).align(Align.left).row();
+		
+		int storedLevels = character.getStoredLevels();
+		overview.add(getLabel("Level: ", skin, Color.BLACK)).align(Align.left);
+		overview.add(getLabel(String.valueOf(character.getLevel()), skin, Color.GOLD)).align(Align.left).row();
+		overview.add(getLabel("Experience: ", skin, Color.BLACK)).align(Align.left);
+		overview.add(getLabel(String.valueOf(character.getExperience()), skin, Color.GOLD)).align(Align.left).row();
+		if (storedLevels > 0) {
+			overview.add(getLabel("Available Levels: " + storedLevels, skin, Color.GOLD)).align(Align.left).row();
+		}
+		
+		overview.add(getLabel("Booty: ", skin, Color.BLACK)).align(Align.left);
+		overview.add(getLabel(character.getBootyLiciousness(), skin, Color.PINK)).align(Align.left).row();
+		overview.add(getLabel("Lips: ", skin, Color.BLACK)).align(Align.left);
+		overview.add(getLabel(character.getLipFullness(), skin, Color.PINK)).align(Align.left).row();
+		
+		final Table statTable = new Table();
+
+		for (final Stat stat: Stat.values()) {
+			Image statImage = new Image(assetManager.get(stat.getPath(), Texture.class));
+			Label statLabel = new Label("", skin);
+			
+			int amount = character.getBaseStat(stat);
+			setFontColor(statLabel, amount);
+			setStatText(stat, character, statLabel);
+			statTable.add(statImage).size(statImage.getWidth() / (statImage.getHeight() / 35), 35).align(Align.left).padRight(20);
+			statTable.add(statLabel).align(Align.left).row();
+		}
+		statTable.setPosition(250, 750);
+		statTable.align(Align.top);
+		this.addActor(statTable);
 		
 		if (character.needsLevelUp()){
 			final boolean levelup = character.getStoredLevels() > 0;
 			final TextButton levelUp = new TextButton(levelup ? "Level Up!" : "Learn Skills", skin);
 			
-			levelUp.setSize(270, 40); 
+			levelUp.setSize(270, 60); 
 			TextButtonStyle style = new TextButtonStyle(levelUp.getStyle());
 			style.fontColor = levelup ? Color.OLIVE : Color.GOLDENROD;
 			levelUp.setStyle(style);
@@ -110,28 +140,37 @@ public class CharacterScreen extends AbstractScreen {
 			        }
 				}
 			);
-			levelUp.setPosition(1200, 30);
+			levelUp.setPosition(1400, 30);
 			this.addActor(levelUp);
 		}
 		
 		final Table inventoryTable = new Table();
 		final Label inventoryText = new Label("", skin);
 		inventoryTable.add(inventoryText).row();
-		inventoryTable.add(new Label("Inventory", skin)).row();
-		inventoryTable.setPosition(900, 800);
+		inventoryTable.add(getLabel("Inventory", skin, Color.BLACK)).row();
+		inventoryTable.setPosition(700, 500);
 		inventoryTable.align(Align.top);
 		this.addActor(inventoryTable);
 		final Table weaponTable = new Table();
 		final Label weaponTableText = new Label("", skin);
 		weaponTable.add(weaponTableText).row();
-		weaponTable.add(new Label("Weapons", skin)).row();
-		weaponTable.setPosition(400, 800);
+		weaponTable.add(getLabel("Weapons", skin, Color.BLACK)).row();
+		weaponTable.setPosition(200, 500);
 		weaponTable.align(Align.top);
 		this.addActor(weaponTable);
 		
-		final Label weaponText = new Label(character.getWeapon() != null ? "Weapon: " + character.getWeapon().getName() : "Weapon: Unarmed", skin);
-		weaponText.setPosition(900, 950);
-		this.addActor(weaponText);
+		Table equipmentTable = new Table();
+		equipmentTable.align(Align.top);
+		final Label weaponText = getLabel(character.getWeapon() != null ? "Weapon: " + character.getWeapon().getName() : "Weapon: Unarmed", skin, Color.BLACK);
+		equipmentTable.setPosition(800, 1040);
+		this.addActor(equipmentTable);
+		equipmentTable.add(weaponText).align(Align.left).row();
+		equipmentTable.add(getLabel("Shield: ", skin, Color.DARK_GRAY)).align(Align.left).row();
+		equipmentTable.add(getLabel("Armor: ", skin, Color.DARK_GRAY)).align(Align.left).row();
+		equipmentTable.add(getLabel("Headgear: ", skin, Color.DARK_GRAY)).align(Align.left).row();
+		equipmentTable.add(getLabel("Legwear: ", skin, Color.DARK_GRAY)).align(Align.left).row();
+		equipmentTable.add(getLabel("Armwear: ", skin, Color.DARK_GRAY)).align(Align.left).row();
+		
 		
 		for (final Item item : character.getInventory()){
 			final TextButton itemButton = new TextButton(item.getName(), skin);
@@ -148,7 +187,7 @@ public class CharacterScreen extends AbstractScreen {
 				        }
 					}
 				);
-				inventoryTable.add(itemButton).size(500, 40).row();
+				inventoryTable.add(itemButton).size(450, 40).row();
 			}
 			else if (item.isEquippable()){
 				itemButton.addListener(
@@ -168,46 +207,43 @@ public class CharacterScreen extends AbstractScreen {
 		}	
 	}
 	
+	private Label getLabel(String label, Skin skin, Color color) {
+		Label newLabel = new Label(label, skin);
+		newLabel.setColor(color);
+		return newLabel;
+	}
+	
+	private void setFontColor(Label font, int amount) {
+		Color toApply = Color.WHITE;
+		switch (amount) {
+			case 0: toApply = Color.BLACK; break;
+			case 1: toApply = Color.DARK_GRAY; break;
+			case 2: toApply = Color.GRAY; break;
+			case 3: toApply = Color.NAVY; break;
+			case 4: toApply = Color.ROYAL; break;
+			case 5: toApply = Color.OLIVE; break;	
+			case 6: toApply = Color.FOREST; break;
+			case 7: toApply = Color.LIME; break;	
+			case 8: toApply = Color.GOLDENROD; break;
+			case 9: toApply = Color.GOLD; break;
+		}
+		font.setColor(toApply);
+	}
+	
+	private void setStatText(Stat stat, PlayerCharacter character, Label label) {
+		int amount = character.getBaseStat(stat);
+		label.setText(amount + " - " + PlayerCharacter.getStatMap().get(stat).get(amount));
+	}
+	
 	@Override
 	public void buildStage() {
-		// TODO Auto-generated method stub
 	}
 	
 	@Override
 	public void render(float delta) {
 		super.render(delta);
-		OrthographicCamera camera = (OrthographicCamera) getCamera();
-        batch.setTransformMatrix(camera.view);
-		batch.setProjectionMatrix(camera.combined);
-		camera.update();
-		batch.begin();
-		font.setColor(0.4f,0.4f,0.4f,1);
-		int baseX = 1125;
-		int baseY = 1050;
-		int offset = 0;
-		for (Stat stat: PlayerCharacter.Stat.values()){
-			font.setColor(0.6f, 0.2f, 0.1f, 1);
-			Texture statTexture = statTextureMap.get(stat);
-			batch.draw(statTexture, baseX + 22, baseY - (offset + 30), statTexture.getWidth() / (statTexture.getHeight() / 52), 52);
-			font.draw(batch, ": ", baseX + 270, baseY - offset);
-			int amount = character.getBaseStat(stat);
-			setFontColor(font, amount);
-			font.draw(batch, String.valueOf(amount), baseX + 300, baseY - offset);
-			font.draw(batch, "- " + PlayerCharacter.getStatMap().get(stat).get(amount), baseX+322, baseY - offset);
-			offset += 75;
-		}
-		int storedLevels = character.getStoredLevels();
-		font.draw(batch, "Level: " + character.getLevel() + "\nExperience: " + character.getExperience() + (storedLevels > 0 ? "\nAvailable Levels: " + storedLevels : ""), 1200, 1400);
-		batch.end();
 		if (Gdx.input.isKeyJustPressed(Keys.ENTER)){
 			showScreen(ScreenEnum.LOAD_GAME);
 		}			
-	}
-	
-	private void setFontColor(BitmapFont font, int amount){
-		float red = amount / 10.0f;
-		float green = .3f;
-		float blue = (1 - (amount/10))/2;
-		font.setColor(red, green, blue, 1);
 	}
 }

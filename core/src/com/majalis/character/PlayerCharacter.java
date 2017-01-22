@@ -692,4 +692,12 @@ public class PlayerCharacter extends AbstractCharacter {
 		
 		return result;
 	}
+
+	public String getBootyLiciousness() {
+		return bootyliciousness != null ? bootyliciousness.toString() : Bootyliciousness.Bubble.toString();
+	}
+	
+	public String getLipFullness() {
+		return lipFullness != null ? lipFullness.toString() : LipFullness.Thin.toString(); 
+	}
 }
