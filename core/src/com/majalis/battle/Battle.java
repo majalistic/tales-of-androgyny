@@ -84,6 +84,7 @@ public class Battle extends Group{
 	private final Label balanceLabel;
 	private final Label manaLabel;
 	private final Label enemyHealthLabel;
+	private final Label enemyWeaponLabel;
 	
 	private String consoleText;
 	private Array<TextButton> optionButtons;
@@ -125,31 +126,31 @@ public class Battle extends Group{
 		
 		skin = assetManager.get(AssetEnum.BATTLE_SKIN.getPath(), Skin.class);
 		
-		float barX = 130 * 1.5f;
+		float barX = 195;
 		float hoverXPos = 317; 
 		float hoverYPos = 35; 
 		float consoleXPos = 1200;
 		float consoleYPos = 5;
 		
-		masculinityIcon = initImage(assetManager.get(character.getMasculinityPath(), Texture.class), barX + 150, 450 * 1.5f);
+		masculinityIcon = initImage(assetManager.get(character.getMasculinityPath(), Texture.class), barX + 150, 675);
 		masculinityIcon.setScale(.15f);
 		
-		characterHealth = initBar(0, 1, .05f, false, skin, 350, character.getHealthPercent(), barX , 690 * 1.5f);
-		healthIcon = initImage(assetManager.get(character.getHealthDisplay(), Texture.class), barX+3, 695 * 1.5f);
-		healthLabel = initLabel(character.getCurrentHealth() + " / " + character.getMaxHealth(), skin, Color.BROWN, barX + 75, 692 * 1.5f);
+		characterHealth = initBar(0, 1, .05f, false, skin, 350, character.getHealthPercent(), barX , 1035);
+		healthIcon = initImage(assetManager.get(character.getHealthDisplay(), Texture.class), barX+3, 1042.5f);
+		healthLabel = initLabel(character.getCurrentHealth() + " / " + character.getMaxHealth(), skin, Color.BROWN, barX + 75, 1038);
 		
-		characterStamina = initBar(0, 1, .05f, false, skin, 350, character.getStaminaPercent(), barX, 660 * 1.5f);
-		staminaIcon = initImage(assetManager.get(character.getStaminaDisplay(), Texture.class), barX + 7.5f, 665 * 1.5f);
-		staminaLabel = initLabel(character.getCurrentStamina() + " / " + character.getMaxStamina(), skin, Color.BROWN, barX + 75, 662 * 1.5f);
+		characterStamina = initBar(0, 1, .05f, false, skin, 350, character.getStaminaPercent(), barX, 990);
+		staminaIcon = initImage(assetManager.get(character.getStaminaDisplay(), Texture.class), barX + 7.5f, 1002.5f);
+		staminaLabel = initLabel(character.getCurrentStamina() + " / " + character.getMaxStamina(), skin, Color.BROWN, barX + 75, 993);
 
-		characterBalance = initBar(0, 1, .05f, false, skin, 350, character.getBalancePercent(), barX, 630 * 1.5f);
-		balanceIcon = initImage(assetManager.get(character.getBalanceDisplay(), Texture.class), barX + 3, 635 * 1.5f);
-		balanceLabel = initLabel(character.getStability() > 0 ? character.getStability() + " / " + character.getMaxStability() : "DOWN (" + -character.getStability() + ")", skin, Color.BROWN, barX + 75, 632 * 1.5f);
+		characterBalance = initBar(0, 1, .05f, false, skin, 350, character.getBalancePercent(), barX, 945);
+		balanceIcon = initImage(assetManager.get(character.getBalanceDisplay(), Texture.class), barX + 3, 952.5f);
+		balanceLabel = initLabel(character.getStability() > 0 ? character.getStability() + " / " + character.getMaxStability() : "DOWN (" + -character.getStability() + ")", skin, Color.BROWN, barX + 75, 948);
 		
 		if (character.hasMagic()) {
-			characterMana = initBar(0, 1, .05f, false, skin, 350, character.getManaPercent(), barX, 600 * 1.5f);
-			manaIcon = initImage(assetManager.get(character.getManaDisplay(), Texture.class), barX + 3, 605 * 1.5f);
-			manaLabel = initLabel(character.getCurrentMana() + " / " + character.getMaxMana(), skin, Color.BROWN, barX + 75, 602 * 1.5f);
+			characterMana = initBar(0, 1, .05f, false, skin, 350, character.getManaPercent(), barX, 900);
+			manaIcon = initImage(assetManager.get(character.getManaDisplay(), Texture.class), barX + 3, 912.5f);
+			manaLabel = initLabel(character.getCurrentMana() + " / " + character.getMaxMana(), skin, Color.BROWN, barX + 75, 903);
 		}
 		else {
 			characterMana = null;
@@ -157,10 +158,11 @@ public class Battle extends Group{
 			manaLabel = null;
 		}
 		
-		enemyHealth = initBar(0, 1, .05f, false, skin, 350, enemy.getHealthPercent(), 1500 , 640 * 1.5f);
-		enemyHealthIcon = initImage(assetManager.get(enemy.getHealthDisplay(), Texture.class), 1503, 645 * 1.5f);
-		enemyHealthLabel = initLabel(enemy.getCurrentHealth() + " / " + enemy.getMaxHealth(), skin, Color.BROWN, 1578, 642 * 1.5f);
-			
+		enemyHealth = initBar(0, 1, .05f, false, skin, 350, enemy.getHealthPercent(), 1500 , 960);
+		enemyHealthIcon = initImage(assetManager.get(enemy.getHealthDisplay(), Texture.class), 1503, 967.5f);
+		enemyHealthLabel = initLabel(enemy.getCurrentHealth() + " / " + enemy.getMaxHealth(), skin, Color.BROWN, 1578, 963);
+		enemyWeaponLabel = initLabel("Weapon: " + (enemy.getWeapon() != null ? enemy.getWeapon().getName() : "Unarmed"), skin, Color.LIGHT_GRAY, 1578, 700);	
+		
 		uiHidden = false;
 		uiGroup = new Group();
 		Image consoleBox = new Image(assetManager.get(AssetEnum.BATTLE_TEXTBOX.getPath(), Texture.class));
@@ -479,6 +481,7 @@ public class Battle extends Group{
 		staminaLabel.setText(character.getCurrentStamina() + " / " + character.getMaxStamina());
 		balanceLabel.setText(character.getStability() > 0 ? character.getStability() + " / " + character.getMaxStability() : "DOWN (" + -character.getStability() + ")");
 		enemyHealthLabel.setText(enemy.getCurrentHealth() + " / " + enemy.getMaxHealth());
+		enemyWeaponLabel.setText("Weapon: " + (enemy.getWeapon() != null ? enemy.getWeapon().getName() : "Unarmed"));
 		healthIcon.setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(character.getHealthDisplay(), Texture.class))));
 		staminaIcon.setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(character.getStaminaDisplay(), Texture.class))));
 		balanceIcon.setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(character.getBalanceDisplay(), Texture.class))));

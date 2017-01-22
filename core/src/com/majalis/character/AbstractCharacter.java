@@ -519,10 +519,10 @@ public abstract class AbstractCharacter extends Actor {
 			int disarm = attack.getDisarm();
 			if (disarm > 0) {
 				if (disarm >= 100) {
-					result.add((secondPerson ? "You are " : label + " is ") + "disarmed!");
-					disarm();
+					if (disarm()) {
+						result.add((secondPerson ? "You are " : label + " is ") + "disarmed!");
+					}
 				}
-				
 			}
 			
 			Stance forcedStance = attack.getForceStance();
@@ -579,9 +579,14 @@ public abstract class AbstractCharacter extends Actor {
 		return result;
 	}
 	
-	private void disarm() {
-		disarmedWeapon = weapon;
-		weapon = null;
+	private boolean disarm() {
+		if (weapon != null && weapon.isDisarmable()) {
+			disarmedWeapon = weapon;
+			weapon = null;
+			return true;
+		}
+		return false;
+		
 	}
 	protected String fillMouth(int mouthful) {
 		this.mouthful += mouthful;

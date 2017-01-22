@@ -65,12 +65,18 @@ public abstract class Item {
 		
 		public int getDamage(ObjectMap<Stat, Integer> stats) {
 			switch (type){
+				case Dagger: return stats.get(Stat.AGILITY) / 2;
 				case Rapier: return (stats.get(Stat.AGILITY)) / 3 + 1;
 				case Gladius:
 				case Cutlass: return (stats.get(Stat.STRENGTH) + stats.get(Stat.AGILITY)) / 5 + 1;
 				case Broadsword: return (stats.get(Stat.STRENGTH)) / 3 + 1;
+				case Bow: return 2;
 				default: return 0;
 			}
+		}
+
+		public boolean isDisarmable() {
+			return type != WeaponType.Bow;
 		}
 	}
 	
@@ -79,7 +85,8 @@ public abstract class Item {
 		Rapier,
 		Gladius,
 		Cutlass,
-		Broadsword
+		Broadsword,
+		Bow
 	}
 	
 	public static class Potion extends Item {
@@ -156,7 +163,7 @@ public abstract class Item {
 			this.display = display;
 		}
 		
-		public String getDisplay(){ return display; }
+		public String getDisplay() { return display; }
 		
 	}
 	
