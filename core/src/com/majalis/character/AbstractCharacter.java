@@ -231,7 +231,7 @@ public abstract class AbstractCharacter extends Actor {
 
 	protected int getCharisma() { return Math.max(baseCharisma, 0); }
 	
-	protected int getDefense() { return Math.max(baseDefense, 0); }
+	public int getDefense() { return Math.max(baseDefense, 0); }
 	protected int getTraction() { return 2; }
 	
 	public int getHealthDegradation() { return getDegradation(healthTiers, currentHealth); }

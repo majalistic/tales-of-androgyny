@@ -51,6 +51,7 @@ public enum AssetEnum {
 	GOBLIN_FACE_SIT("enemies/GoblinFaceSit.png"),
 	TRAP_BONUS("enemies/TrapBonus.jpg"), 
 	
+	ARMOR("battle/Armor.png"),
 	HEALTH_ICON_0("battle/Heart0.png"),
 	STAMINA_ICON_0("battle/Stam0.png"),
 	BALANCE_ICON_0("battle/Scale0.png"),

@@ -85,6 +85,8 @@ public class Battle extends Group{
 	private final Label manaLabel;
 	private final Label enemyHealthLabel;
 	private final Label enemyWeaponLabel;
+	private final Label armorLabel;
+	private final Label enemyArmorLabel;
 	
 	private String consoleText;
 	private Array<TextButton> optionButtons;
@@ -162,6 +164,12 @@ public class Battle extends Group{
 		enemyHealthIcon = initImage(assetManager.get(enemy.getHealthDisplay(), Texture.class), 1503, 967.5f);
 		enemyHealthLabel = initLabel(enemy.getCurrentHealth() + " / " + enemy.getMaxHealth(), skin, Color.BROWN, 1578, 963);
 		enemyWeaponLabel = initLabel("Weapon: " + (enemy.getWeapon() != null ? enemy.getWeapon().getName() : "Unarmed"), skin, Color.LIGHT_GRAY, 1578, 700);	
+		
+		Texture armorTexture = assetManager.get(AssetEnum.ARMOR.getPath(), Texture.class);
+		initImage(armorTexture, barX + 300, 800, 50);
+		initImage(armorTexture, 1500, 800, 50);
+		armorLabel = initLabel("" + character.getDefense(), skin, Color.BROWN, barX + 312, 805);		
+		enemyArmorLabel = initLabel("" + enemy.getDefense(), skin, Color.BROWN, 1512, 805);
 		
 		uiHidden = false;
 		uiGroup = new Group();
@@ -487,6 +495,8 @@ public class Battle extends Group{
 		balanceIcon.setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(character.getBalanceDisplay(), Texture.class))));
 		enemyHealthIcon.setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(enemy.getHealthDisplay(), Texture.class))));
 		masculinityIcon.setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(character.getMasculinityPath(), Texture.class))));
+		armorLabel.setText("" + character.getDefense());
+		enemyArmorLabel.setText("" + enemy.getDefense());
 	}
 	
 	private void printToConsole(Array<String> results) {
@@ -570,6 +580,14 @@ public class Battle extends Group{
 	private Image initImage(Texture texture, float x, float y) {
 		Image newImage = new Image(texture);
 		newImage.setPosition(x, y);
+		this.addActor(newImage);
+		return newImage;
+	}
+	private Image initImage(Texture texture, float x, float y, int height) {
+		Image newImage = new Image(texture);
+		newImage.setPosition(x, y);
+		newImage.setHeight(height);
+		newImage.setWidth((int) (texture.getWidth() / (texture.getHeight() / (1.0 * height))) );
 		this.addActor(newImage);
 		return newImage;
 	}
