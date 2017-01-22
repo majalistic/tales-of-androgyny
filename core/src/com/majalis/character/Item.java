@@ -24,7 +24,8 @@ public abstract class Item {
 		private WeaponType type;
 		private String name;
 
-		public Weapon(){}
+		@SuppressWarnings("unused")
+		private Weapon(){}
 		
 		public Weapon(WeaponType type){
 			this.type = type;
@@ -74,6 +75,7 @@ public abstract class Item {
 	}
 	
 	public enum WeaponType {
+		Dagger,
 		Rapier,
 		Gladius,
 		Cutlass,

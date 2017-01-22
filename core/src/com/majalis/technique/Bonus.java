@@ -83,6 +83,8 @@ public class Bonus {
 						break;
 					case STAMINA_COST:
 						break;
+					case DISARM:
+						break;
 					default:
 						break;
 				}
@@ -100,10 +102,10 @@ public class Bonus {
 					description += "Armor sundering multiplier +" + bonus.value * 100 + "%";
 					break;
 				case GUARD_MOD:
-					description += "Guard +" + bonus.value+"%";
+					description += "Guard +" + bonus.value + "%";
 					break;
 				case PARRY:
-					description += "Parry +" + bonus.value+"%";
+					description += "Parry +" + bonus.value + "%";
 					break;
 				case GUT_CHECK:
 					description += "Stamina destruction +" + bonus.value;
@@ -125,6 +127,9 @@ public class Bonus {
 					break;
 				case STAMINA_COST:
 					description += "Stamina cost -" + Math.abs(bonus.value);
+					break;
+				case DISARM:
+					description += "Disarm +" + bonus.value + "%";
 					break;
 			}
 			description += "\n";
@@ -160,6 +165,7 @@ public class Bonus {
 		GUT_CHECK,
 		GUARD_MOD,
 		PRIORITY, 
+		DISARM,
 		PARRY;
 	}
 }

@@ -17,6 +17,8 @@ import com.esotericsoftware.spine.SkeletonMeshRenderer;
 import com.majalis.asset.AssetEnum;
 import com.majalis.battle.Battle.Outcome;
 import com.majalis.battle.BattleFactory.EnemyEnum;
+import com.majalis.character.Item.Weapon;
+import com.majalis.character.Item.WeaponType;
 
 /*
  * Abstract class that all enemies extend - currently concrete to represent a generic "enemy".
@@ -58,8 +60,9 @@ public class EnemyCharacter extends AbstractCharacter {
 				imagePath = AssetEnum.HARPY.getPath();
 				break;
 			case BRIGAND:
+				weapon = new Weapon(WeaponType.Gladius);
 				phallus = PhallusType.NORMAL;
-				baseStrength = 4;
+				baseStrength = 3;
 				baseAgility = 3;
 				imagePath = AssetEnum.BRIGAND.getPath();
 				break;
@@ -85,13 +88,14 @@ public class EnemyCharacter extends AbstractCharacter {
 				}
 				break;
 			case GOBLIN:
-				baseStrength = 6;
-				baseEndurance = 6;
+				weapon = new Weapon(WeaponType.Dagger);
+				baseStrength = 4;
+				baseEndurance = 4;
 				bgPath = AssetEnum.ENCHANTED_FOREST_BG.getPath();
 				imagePath = AssetEnum.GOBLIN.getPath();
 				textureImagePaths.put(Stance.FACE_SITTING.toString(), AssetEnum.GOBLIN_FACE_SIT.getPath());
 				textureImagePaths.put(Stance.SIXTY_NINE.toString(), AssetEnum.GOBLIN_FACE_SIT.getPath());
-				baseAgility = 7;
+				baseAgility = 5;
 				break;
 		}
 		staminaTiers.removeIndex(staminaTiers.size-1);

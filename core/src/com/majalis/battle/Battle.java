@@ -100,7 +100,7 @@ public class Battle extends Group{
 	private Group uiGroup;
 	private boolean uiHidden;
 	
-	public Battle(SaveService saveService, AssetManager assetManager, BitmapFont font, PlayerCharacter character, EnemyCharacter enemy, ObjectMap<String, Integer> outcomes, Background battleBackground, Background battleUI, String consoleText){
+	public Battle(SaveService saveService, AssetManager assetManager, BitmapFont font, PlayerCharacter character, EnemyCharacter enemy, ObjectMap<String, Integer> outcomes, Background battleBackground, Background battleUI, String consoleText) {
 		this.saveService = saveService;
 		this.assetManager = assetManager;
 		this.font = font;
@@ -201,7 +201,7 @@ public class Battle extends Group{
 		
 		Texture slashSheet = assetManager.get(AssetEnum.SLASH.getPath(), Texture.class);
 		Array<TextureRegion> frames = new Array<TextureRegion>();
-		for (int ii = 0; ii < 6; ii++){
+		for (int ii = 0; ii < 6; ii++) {
 			frames.add(new TextureRegion(slashSheet, ii * 512, 0, 512, 512));
 		}
 		
@@ -245,8 +245,8 @@ public class Battle extends Group{
 	
 	public void battleLoop() {
 		Array<SoundTimer> toRemove = new Array<SoundTimer>();
-		for (SoundTimer timer : soundBuffer){
-			if (timer.decreaseTime()){
+		for (SoundTimer timer : soundBuffer) {
+			if (timer.decreaseTime()) {
 				toRemove.add(timer);
 			}
 		}
@@ -281,9 +281,9 @@ public class Battle extends Group{
 			else {
 				if (selectedTechnique == null) {
 					int ii = 0;
-					for (int possibleKey : POSSIBLE_KEYS){
-						if (Gdx.input.isKeyJustPressed(possibleKey)){
-							if (ii < optionButtons.size){
+					for (int possibleKey : POSSIBLE_KEYS) {
+						if (Gdx.input.isKeyJustPressed(possibleKey)) {
+							if (ii < optionButtons.size) {
 								selectedTechnique = clickButton(optionButtons.get(ii));
 								break;
 							}
@@ -323,7 +323,7 @@ public class Battle extends Group{
 				hoverGroup.addAction(Actions.moveTo(400, 380));
 				hoverGroup.addAction(Actions.fadeIn(.1f));
 				this.addListener(
-					new ClickListener(){
+					new ClickListener() {
 				        @Override
 				        public void clicked(InputEvent event, float x, float y) {
 				        	battleOver = true;
@@ -340,12 +340,12 @@ public class Battle extends Group{
 		}
 	}
 	
-	private void displayTechniqueOptions(){
+	private void displayTechniqueOptions() {
 		table.clear();
 		Array<Technique> options = character.getPossibleTechniques(enemy);
 		optionButtons = new Array<TextButton>();
 		
-		for (int ii = 0; ii < options.size; ii++){
+		for (int ii = 0; ii < options.size; ii++) {
 			SkillButton button;
 			Technique option = options.get(ii);
 			button = new SkillButton(option.getTechniqueName() + (ii > POSSIBLE_KEYS_CHAR.length ? "" : " ("+POSSIBLE_KEYS_CHAR[ii]+")"), skin, assetManager.get(option.getStance().getPath(), Texture.class));
@@ -353,14 +353,14 @@ public class Battle extends Group{
 			optionButtons.add(button);
 			boolean outOfStamina = false;
 			boolean outOfStability = false;
-			if(character.outOfStaminaOrStability(option)){
+			if(character.outOfStaminaOrStability(option)) {
 				outOfStamina = character.outOfStamina(option);
 				outOfStability = !outOfStamina;
 				TextButtonStyle style = new TextButtonStyle(button.getStyle());
 				style.fontColor = Color.RED;
 				button.setStyle(style);
 			}
-			else if (character.lowStaminaOrStability(option)){
+			else if (character.lowStaminaOrStability(option)) {
 				TextButtonStyle style = new TextButtonStyle(button.getStyle());
 				style.fontColor = Color.ORANGE;
 				button.setStyle(style);
@@ -389,9 +389,9 @@ public class Battle extends Group{
 		Attack attackForFirstCharacter = secondCharacter.doAttack(secondTechnique.resolve(firstTechnique));
 		Attack attackForSecondCharacter = firstCharacter.doAttack(firstTechnique.resolve(secondTechnique));
 		
-		if (attackForFirstCharacter.isAttack()){
+		if (attackForFirstCharacter.isAttack()) {
 			slash.setState(0);
-			if (!attackForFirstCharacter.isSuccessful()){
+			if (!attackForFirstCharacter.isSuccessful()) {
 				soundBuffer.add(new SoundTimer(soundMap.get(AssetEnum.ATTACK_SOUND), 0, .5f));
 				if (attackForFirstCharacter.getStatus() == Status.PARRIED) {
 					soundBuffer.add(new SoundTimer(soundMap.get(AssetEnum.PARRY_SOUND), 5, .5f));
@@ -401,30 +401,33 @@ public class Battle extends Group{
 				if (attackForFirstCharacter.getStatus() == Status.BLOCKED) {
 					soundBuffer.add(new SoundTimer(soundMap.get(AssetEnum.BLOCK_SOUND), 5, .5f));
 				}
+				else if (enemy.getWeapon() != null) {
+					soundBuffer.add(new SoundTimer(soundMap.get(AssetEnum.SWORD_SLASH_SOUND), 5, .5f));
+				}
 				else {
 					soundBuffer.add(new SoundTimer(soundMap.get(AssetEnum.HIT_SOUND), 20, .3f));
 				}
 			}
 		}
-		if (character.getStance() == Stance.CASTING && attackForSecondCharacter.isSuccessful()){
+		if (character.getStance() == Stance.CASTING && attackForSecondCharacter.isSuccessful()) {
 			soundBuffer.add(new SoundTimer(soundMap.get(AssetEnum.INCANTATION), 5, .5f));
 		}
-		if (attackForSecondCharacter.isAttack()){
-			if (!attackForSecondCharacter.isSuccessful()){
+		if (attackForSecondCharacter.isAttack()) {
+			if (!attackForSecondCharacter.isSuccessful()) {
 				soundBuffer.add(new SoundTimer(soundMap.get(AssetEnum.ATTACK_SOUND), 15, .5f));
 				if (attackForSecondCharacter.getStatus() == Status.PARRIED) {
 					soundBuffer.add(new SoundTimer(soundMap.get(AssetEnum.PARRY_SOUND), 5, .5f));
 				}
 			}
 			else {
-				if (attackForSecondCharacter.isSpell()){
+				if (attackForSecondCharacter.isSpell()) {
 					soundBuffer.add(new SoundTimer(soundMap.get(AssetEnum.FIREBALL_SOUND), 5, .5f));
 				}
 				else {
 					if (attackForSecondCharacter.getStatus() == Status.BLOCKED) {
 						soundBuffer.add(new SoundTimer(soundMap.get(AssetEnum.BLOCK_SOUND), 5, .5f));
 					}
-					else if (character.getWeapon() != null){
+					else if (character.getWeapon() != null) {
 						soundBuffer.add(new SoundTimer(soundMap.get(AssetEnum.SWORD_SLASH_SOUND), 5, .5f));
 					}
 					else {
@@ -438,22 +441,22 @@ public class Battle extends Group{
 		printToConsole(firstCharacter.receiveAttack(attackForFirstCharacter));
 		printToConsole(secondCharacter.receiveAttack(attackForSecondCharacter));		
 		
-		if (oldStance.isAnal() && firstCharacter.getStance().isAnal()){
+		if (oldStance.isAnal() && firstCharacter.getStance().isAnal()) {
 			soundMap.get(AssetEnum.THWAPPING).play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
 		}
 		
-		if (oldStance.isAnal() && !firstCharacter.getStance().isAnal()){
+		if (oldStance.isAnal() && !firstCharacter.getStance().isAnal()) {
 			soundMap.get(AssetEnum.THWAPPING).play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
 			soundBuffer.add(new SoundTimer(soundMap.get(AssetEnum.UNPLUGGED_POP), 105, .3f));
 		}
 		
-		if (oldStance.isOral() && !firstCharacter.getStance().isOral()){
+		if (oldStance.isOral() && !firstCharacter.getStance().isOral()) {
 			soundMap.get(AssetEnum.MOUTH_POP).play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume"));
 		}
 		
 		// this needs to be secondCharacter.getOutcome() or something similar
 		Outcome battleOutcome = ((EnemyCharacter) secondCharacter).getOutcome(firstCharacter);
-		if (battleOutcome != null){
+		if (battleOutcome != null) {
 			battleOutcomeDecided = true;
 			outcome = battleOutcome; 
 			skillDisplay.setText(((EnemyCharacter) secondCharacter).getOutcomeText(firstCharacter));
@@ -483,35 +486,35 @@ public class Battle extends Group{
 		masculinityIcon.setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(character.getMasculinityPath(), Texture.class))));
 	}
 	
-	private void printToConsole(Array<String> results){
-		for (String result: results){
+	private void printToConsole(Array<String> results) {
+		for (String result: results) {
 			printToConsole(result);
 		}
 	}
 	
-	private void printToConsole(String result){ 
+	private void printToConsole(String result) { 
 		consoleText += result + "\n";
 	}
 	
-	private void changeSelection(int newSelection){
+	private void changeSelection(int newSelection) {
 		if (selection == newSelection) return;
 		optionButtons.get(selection).addAction(Actions.sequence(Actions.delay(.05f), Actions.moveBy(-50, 0)));
     	newSelection(newSelection);
 	}
 	
-	private void newSelection(int newSelection){
+	private void newSelection(int newSelection) {
     	optionButtons.get(newSelection).addAction(Actions.sequence(Actions.delay(.05f), Actions.moveBy(50, 0)));
 		selection = newSelection;
 	}
 	
 	/* Helper methods */
 	
-	private Texture getStanceImage(Stance stance){
+	private Texture getStanceImage(Stance stance) {
 		return assetManager.get(stance.getPath(), Texture.class);
 	}
 	
-	private ClickListener getListener(final Technique technique, final String description, final String bonusDescription, final int index){
-		return new ClickListener(){
+	private ClickListener getListener(final Technique technique, final String description, final String bonusDescription, final int index) {
+		return new ClickListener() {
 	        @Override
 	        public void clicked(InputEvent event, float x, float y) {
 	        	selectedTechnique = technique;
@@ -536,13 +539,13 @@ public class Battle extends Group{
 	}
 
 	// creates a wrapper group for a character to be added to so that they can be removed and re-inserted during serialization
-	private void addCharacter(AbstractCharacter character){
+	private void addCharacter(AbstractCharacter character) {
 		Group g = new Group();
 		g.addActor(character);
 		addActor(g);
 	}
 	// simulates a button click for the button param
-	private Technique clickButton(TextButton button){
+	private Technique clickButton(TextButton button) {
 		InputEvent event1 = new InputEvent();
         event1.setType(InputEvent.Type.touchDown);
         button.fire(event1);
@@ -591,7 +594,7 @@ public class Battle extends Group{
 			this.character = character;
 			hover = false;
 			hoverBox = assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class);
-			this.addListener(new ClickListener(){ 
+			this.addListener(new ClickListener() { 
 				@Override
 		        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
 					// this could actually perform the action rather than relying on a boolean
@@ -608,7 +611,7 @@ public class Battle extends Group{
 	    public void draw(Batch batch, float parentAlpha) {
 			super.draw(batch, parentAlpha);
 			batch.draw(getStanceImage(character.getStance()), getX(), getY(), getWidth(), getHeight());
-			if (hover){
+			if (hover) {
 				batch.draw(hoverBox, getX() - 45, getY() - 60, getWidth() + 100, 40);
 				font.setColor(Color.BLACK);
 				font.draw(batch, character.getStance().name(), getX(), getY() - 30, 100, Align.center, false);
@@ -643,7 +646,7 @@ public class Battle extends Group{
 		Sound sound;
 		float volume;
 		
-		SoundTimer(Sound sound, int timeLeft, float volume){
+		SoundTimer(Sound sound, int timeLeft, float volume) {
 			this.sound = sound;
 			this.timeLeft = timeLeft;
 			this.volume = volume;
@@ -662,7 +665,7 @@ public class Battle extends Group{
 	/*
 	 * Temporary debug helper methods for positioning scene2d actors 
 	 */
-	private void addActorAndListen(Actor actor, float x, float y){
+	private void addActorAndListen(Actor actor, float x, float y) {
 		this.addActor(actor);
 		actor.setPosition(x*1.5f, y*1.5f);
 	}

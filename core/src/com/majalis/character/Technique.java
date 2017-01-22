@@ -35,6 +35,7 @@ public class Technique {
 		private final int parry;
 		private final int armorSunder;
 		private final int gutCheck;
+		private final int disarm;
 		private final double knockdown;
 		private final boolean hasPriority;
 		
@@ -57,6 +58,7 @@ public class Technique {
 			int parryCalc = technique.getParryMod();
 			int armorSunderCalc = technique.getArmorSunder();
 			int gutCheckCalc = technique.getGutCheck();
+			int disarmCalc = 0;
 			double knockdownCalc = technique.getKnockdown();
 			boolean hasPriorityCalc = false;
 			
@@ -93,6 +95,9 @@ public class Technique {
 						case PRIORITY:
 							hasPriorityCalc = true;
 							break;
+						case DISARM:
+							disarmCalc += bonus.value;
+							break;
 					}
 				}
 			}
@@ -105,6 +110,7 @@ public class Technique {
 			manaCost = manaCalc;
 			armorSunder = armorSunderCalc;
 			gutCheck = gutCheckCalc;
+			disarm = disarmCalc;
 			knockdown = knockdownCalc;
 			hasPriority = hasPriorityCalc;
 		}
@@ -154,6 +160,10 @@ public class Technique {
 		
 		private Array<Bonus> getBonuses() {
 			return bonuses;
+		}
+
+		private int getDisarm() {
+			return disarm; 
 		}
 		
 	}
@@ -267,13 +277,15 @@ public class Technique {
 		return new Attack(
 			parried ? Status.PARRIED : parryOther ? Status.PARRY : fizzle ? Status.FIZZLE : isSuccessful ? (blockMod < 1 ? Status.BLOCKED : Status.SUCCESS) : failure ? Status.FAILURE : Status.MISSED, 
 			technique.getName(), 
-			(int)(thisPayload.getDamage() * blockMod), 
+			thisPayload.getDamage(),
+			blockMod,
 			((int) ((thisPayload.getTotalPower()) * thisPayload.getKnockdown()))/2, 
-			((int)(thisPayload.getDamage() * blockMod) * thisPayload.getArmorSunder() ) /4, 
+			thisPayload.getArmorSunder(), 
 			thisPayload.getTotalPower() * thisPayload.getGutCheck(), 
 			technique.isHealing() ? thisPayload.getTotalPower() : 0,
 			technique.isTaunt() ? thisPayload.getTotalPower() : 0, 
 			technique.isGrapple() ? thisPayload.getTotalPower() : 0,
+			otherTechnique.isBlockable() ? thisPayload.getDisarm() : 0,
 			technique.getClimaxType(), 
 			getForceStance(),
 			technique.isSpell(),

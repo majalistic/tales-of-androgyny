@@ -323,6 +323,8 @@ public class PlayerCharacter extends AbstractCharacter {
 		buttful = 0;
 		mouthful = 0;
 		baseDefense = 6;
+		weapon = disarmedWeapon;
+		disarmedWeapon = null;
 	}
 
 	public enum Femininity {
@@ -400,7 +402,7 @@ public class PlayerCharacter extends AbstractCharacter {
 	}
 
 	private void increaseLowestStat() {
-		int min = getBaseStrength();
+		int min = getStat(Stat.STRENGTH);
 		Stat minStat = Stat.STRENGTH;
 		for (Stat stat : Stat.values()) {
 			if (getStat(stat) < min) {
@@ -646,10 +648,6 @@ public class PlayerCharacter extends AbstractCharacter {
 
 	public Integer getMoney() {
 		return money;
-	}
-
-	public Weapon getWeapon() {
-		return weapon;
 	}
 
 	// this should obviously only accept a Weapon parameter

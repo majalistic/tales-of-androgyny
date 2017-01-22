@@ -66,6 +66,8 @@ public abstract class AbstractCharacter extends Actor {
 	// public Accessory firstAccessory;
 	// public Accessory secondAccessory;
 	
+	protected Weapon disarmedWeapon;
+	
 	// public Hole hole;  // bowels contents, tightness, number of copulations, number of creampies, etc. 
 	// public Mouth mouth; 
 	protected PhallusType phallus;	
@@ -78,6 +80,7 @@ public abstract class AbstractCharacter extends Actor {
 	protected Stance stance;
 	protected Stance oldStance;
 	public ObjectMap<String, Integer> statuses; // status effects will be represented by a map of Enum to Status object
+	
 
 	/* Constructors */
 	protected AbstractCharacter() {}
@@ -513,6 +516,15 @@ public abstract class AbstractCharacter extends Actor {
 				}
 			}
 			
+			int disarm = attack.getDisarm();
+			if (disarm > 0) {
+				if (disarm >= 100) {
+					result.add((secondPerson ? "You are " : label + " is ") + "disarmed!");
+					disarm();
+				}
+				
+			}
+			
 			Stance forcedStance = attack.getForceStance();
 			if (forcedStance != null) {
 				result.add(label + (secondPerson ? " are " : " is ") + "forced into " + forcedStance.toString() + " stance!");
@@ -567,6 +579,10 @@ public abstract class AbstractCharacter extends Actor {
 		return result;
 	}
 	
+	private void disarm() {
+		disarmedWeapon = weapon;
+		weapon = null;
+	}
 	protected String fillMouth(int mouthful) {
 		this.mouthful += mouthful;
 		return null;
@@ -674,9 +690,13 @@ public abstract class AbstractCharacter extends Actor {
 	private int getBaseEndurance() {
 		return baseEndurance;
 	}
-	// just for player character, this is protected instead of private
-	protected int getBaseStrength() {
+	
+	private int getBaseStrength() {
 		return baseStrength;
+	}
+	
+	public Weapon getWeapon() {
+		return weapon;
 	}
 	
 	public String getStanceTransform(Technique firstTechnique) {
