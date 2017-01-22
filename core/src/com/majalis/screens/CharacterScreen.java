@@ -68,7 +68,7 @@ public class CharacterScreen extends AbstractScreen {
 		
 		done.setSize(180, 60);
 		done.addListener(
-			new ClickListener(){
+			new ClickListener() {
 				@Override
 		        public void clicked(InputEvent event, float x, float y) {
 					buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
@@ -120,7 +120,7 @@ public class CharacterScreen extends AbstractScreen {
 		statTable.align(Align.top);
 		this.addActor(statTable);
 		
-		if (character.needsLevelUp()){
+		if (character.needsLevelUp()) {
 			final boolean levelup = character.getStoredLevels() > 0;
 			final TextButton levelUp = new TextButton(levelup ? "Level Up!" : "Learn Skills", skin);
 			
@@ -129,7 +129,7 @@ public class CharacterScreen extends AbstractScreen {
 			style.fontColor = levelup ? Color.OLIVE : Color.GOLDENROD;
 			levelUp.setStyle(style);
 			levelUp.addListener(
-				new ClickListener(){
+				new ClickListener() {
 					@Override
 			        public void clicked(InputEvent event, float x, float y) {
 						buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
@@ -148,14 +148,14 @@ public class CharacterScreen extends AbstractScreen {
 		final Label inventoryText = new Label("", skin);
 		inventoryTable.add(inventoryText).row();
 		inventoryTable.add(getLabel("Inventory", skin, Color.BLACK)).row();
-		inventoryTable.setPosition(700, 500);
+		inventoryTable.setPosition(780, 500);
 		inventoryTable.align(Align.top);
 		this.addActor(inventoryTable);
 		final Table weaponTable = new Table();
 		final Label weaponTableText = new Label("", skin);
 		weaponTable.add(weaponTableText).row();
 		weaponTable.add(getLabel("Weapons", skin, Color.BLACK)).row();
-		weaponTable.setPosition(200, 500);
+		weaponTable.setPosition(260, 500);
 		weaponTable.align(Align.top);
 		this.addActor(weaponTable);
 		
@@ -172,11 +172,11 @@ public class CharacterScreen extends AbstractScreen {
 		equipmentTable.add(getLabel("Armwear: ", skin, Color.DARK_GRAY)).align(Align.left).row();
 		
 		
-		for (final Item item : character.getInventory()){
+		for (final Item item : character.getInventory()) {
 			final TextButton itemButton = new TextButton(item.getName(), skin);
-			if (item.isConsumable()){
+			if (item.isConsumable()) {
 				itemButton.addListener(
-					new ClickListener(){
+					new ClickListener() {
 						@Override
 				        public void clicked(InputEvent event, float x, float y) {
 							buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
@@ -189,9 +189,9 @@ public class CharacterScreen extends AbstractScreen {
 				);
 				inventoryTable.add(itemButton).size(450, 40).row();
 			}
-			else if (item.isEquippable()){
+			else if (item.isEquippable()) {
 				itemButton.addListener(
-					new ClickListener(){
+					new ClickListener() {
 						@Override
 				        public void clicked(InputEvent event, float x, float y) {
 							buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
@@ -242,7 +242,7 @@ public class CharacterScreen extends AbstractScreen {
 	@Override
 	public void render(float delta) {
 		super.render(delta);
-		if (Gdx.input.isKeyJustPressed(Keys.ENTER)){
+		if (Gdx.input.isKeyJustPressed(Keys.ENTER)) {
 			showScreen(ScreenEnum.LOAD_GAME);
 		}			
 	}

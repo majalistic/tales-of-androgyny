@@ -124,12 +124,15 @@ public class PlayerCharacter extends AbstractCharacter {
 				break;
 			// this should perform buff stacking if need be - but these item buffs should be permanent until consumed
 			case BONUS_STRENGTH:
+				result = "You used " + item.getName() + " and temporarily increased Strength by " + effect.getMagnitude() + "!";
 				statuses.put(StatusType.STRENGTH_BUFF.toString(), effect.getMagnitude());
 				break;
 			case BONUS_ENDURANCE:
+				result = "You used " + item.getName() + " and temporarily increased Endurance by " + effect.getMagnitude() + "!";
 				statuses.put(StatusType.ENDURANCE_BUFF.toString(), effect.getMagnitude());
 				break;
 			case BONUS_AGILITY:
+				result = "You used " + item.getName() + " and temporarily increased Agility by " + effect.getMagnitude() + "!";
 				statuses.put(StatusType.AGILITY_BUFF.toString(), effect.getMagnitude());
 				break;
 			default:
