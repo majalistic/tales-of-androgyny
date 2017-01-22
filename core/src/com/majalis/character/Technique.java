@@ -328,4 +328,8 @@ public class Technique {
 	        return Integer.compare(a.getStabilityCost(), b.getStabilityCost());
 	    }
 	}
+
+	public String getBonusDescription() {
+		return technique.getBonusInfo();
+	}
 }

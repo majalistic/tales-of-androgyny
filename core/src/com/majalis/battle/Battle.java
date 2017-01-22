@@ -67,6 +67,7 @@ public class Battle extends Group{
 	private final Group hoverGroup;
 	private final Label console;
 	private final Label skillDisplay;
+	private final Label bonusDisplay;
 	private final ProgressBar characterHealth;
 	private final ProgressBar characterStamina;
 	private final ProgressBar characterBalance;
@@ -169,6 +170,7 @@ public class Battle extends Group{
 		this.hoverImage = new Image(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class));
 		hoverImage.setPosition(hoverXPos, hoverYPos);	
 		hoverImage.setWidth(hoverImage.getWidth() + 100);
+		hoverImage.setHeight(hoverImage.getHeight() + 100);
 		hoverGroup = new Group();
 		hoverGroup.addActor(hoverImage);
 		
@@ -228,9 +230,17 @@ public class Battle extends Group{
 		skillDisplay.setWrap(true);
 		skillDisplay.setColor(Color.BLACK);
 		skillDisplay.setAlignment(Align.top);
-		ScrollPane pane2 = new ScrollPane(skillDisplay);
-		pane2.setBounds(hoverXPos + 80, hoverYPos - 155, 600, 600);
-		pane2.setScrollingDisabled(true, false);
+		Table pane2 = new Table();
+		pane2.align(Align.top);
+		pane2.add(skillDisplay).row();
+		
+		bonusDisplay = new Label("", skin);
+		bonusDisplay.setWrap(true);
+		bonusDisplay.setColor(Color.FOREST);
+		bonusDisplay.setAlignment(Align.top);
+		pane2.add(bonusDisplay);
+		
+		pane2.setBounds(hoverXPos + 80, hoverYPos - 155, 600, 700);
 		hoverGroup.addActor(pane2);
 	}
 	
@@ -355,7 +365,7 @@ public class Battle extends Group{
 				style.fontColor = Color.ORANGE;
 				button.setStyle(style);
 			}
-			button.addListener(getListener(option, (outOfStamina && !character.getStance().isIncapacitatingOrErotic() ? "THIS WILL CAUSE YOU TO COLLAPSE!\n" : outOfStability && !character.getStance().isIncapacitatingOrErotic() ? "THIS WILL CAUSE YOU TO LOSE YOUR FOOTING!\n" : "") + option.getTechniqueDescription(), ii));
+			button.addListener(getListener(option, (outOfStamina && !character.getStance().isIncapacitatingOrErotic() ? "THIS WILL CAUSE YOU TO COLLAPSE!\n" : outOfStability && !character.getStance().isIncapacitatingOrErotic() ? "THIS WILL CAUSE YOU TO LOSE YOUR FOOTING!\n" : "") + option.getTechniqueDescription(), option.getBonusDescription(), ii));
 		}
         table.setFillParent(true);
         table.align(Align.top);
@@ -500,7 +510,7 @@ public class Battle extends Group{
 		return assetManager.get(stance.getPath(), Texture.class);
 	}
 	
-	private ClickListener getListener(final Technique technique, final String description, final int index){
+	private ClickListener getListener(final Technique technique, final String description, final String bonusDescription, final int index){
 		return new ClickListener(){
 	        @Override
 	        public void clicked(InputEvent event, float x, float y) {
@@ -509,6 +519,7 @@ public class Battle extends Group{
 	        @Override
 	        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
 				skillDisplay.setText(description);
+				bonusDisplay.setText(bonusDescription);
 				changeSelection(index);		
 				hoverGroup.clearActions();
 				hoverGroup.addAction(Actions.visible(true));
