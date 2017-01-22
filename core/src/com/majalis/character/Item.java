@@ -25,9 +25,9 @@ public abstract class Item {
 		private String name;
 
 		@SuppressWarnings("unused")
-		private Weapon(){}
+		private Weapon() {}
 		
-		public Weapon(WeaponType type){
+		public Weapon(WeaponType type) {
 			this.type = type;
 			this.name = type.toString();
 		}
@@ -54,7 +54,8 @@ public abstract class Item {
 
 		@Override
 		public String getDescription() {
-			switch (type){
+			switch (type) {
+				case Dagger: return "Thrusting weapon whose efficacy is dependent on the wielder's agility. [Damage: 0 + Agility / 2]";
 				case Rapier: return "Thrusting weapon whose efficacy is dependent on the wielder's agility. [Damage: 1 + Agility / 3]";
 				case Gladius: return "Thrusting and slashing weapon whose efficacy is dependent on both the wielder's strength and agility. [Damage: 1 + (Strength + Agility) / 5]";
 				case Cutlass: return "Slashing weapon Weapon whose efficacy is dependent on both the wielder's strength and agility. [Damage: 1 + (Strength + Agility) / 5]";
@@ -64,7 +65,7 @@ public abstract class Item {
 		}
 		
 		public int getDamage(ObjectMap<Stat, Integer> stats) {
-			switch (type){
+			switch (type) {
 				case Dagger: return stats.get(Stat.AGILITY) / 2;
 				case Rapier: return (stats.get(Stat.AGILITY)) / 3 + 1;
 				case Gladius:
@@ -97,11 +98,11 @@ public abstract class Item {
 			this(10);
 		}
 		
-		public Potion(int magnitude){
+		public Potion(int magnitude) {
 			this(magnitude, EffectType.HEALING);
 		}
 		
-		public Potion(int magnitude, EffectType effect){
+		public Potion(int magnitude, EffectType effect) {
 			this.magnitude = magnitude;
 			this.effect = effect;	
 		}
@@ -113,7 +114,7 @@ public abstract class Item {
 		
 		@Override
 		public int getValue() {
-			switch (effect){
+			switch (effect) {
 				case BONUS_AGILITY:			
 				case BONUS_ENDURANCE:
 				case BONUS_STRENGTH:
@@ -137,7 +138,7 @@ public abstract class Item {
 
 		@Override
 		public String getDescription() {
-			switch (effect){
+			switch (effect) {
 				case BONUS_AGILITY:		
 					return "Imbibe to increase Agility for the duration by " + magnitude + ".";
 				case BONUS_ENDURANCE:
@@ -159,7 +160,7 @@ public abstract class Item {
 		BONUS_ENDURANCE ("Bear");
 		
 		private final String display;
-		private EffectType (String display){
+		private EffectType (String display) {
 			this.display = display;
 		}
 		
@@ -172,7 +173,7 @@ public abstract class Item {
 		private final EffectType type;
 		private final int magnitude;
 		
-		private ItemEffect(EffectType type, int magnitude){
+		private ItemEffect(EffectType type, int magnitude) {
 			this.type = type;
 			this.magnitude = magnitude;
 		}
