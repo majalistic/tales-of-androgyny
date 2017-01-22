@@ -24,6 +24,7 @@ public class Attack {
 	private final boolean isSpell;
 	private final Buff buff;
 	private final boolean isAttack;
+	private final boolean ignoresArmor;
 	private final Array<Bonus> bonuses;
 	// this should be refactored to be passed in
 	private String user;
@@ -39,7 +40,7 @@ public class Attack {
 	}
 	
 	// this should have all the info for an attack, including damage or effects that were blocked
-	protected Attack(Status status, String name, int damage, int force, int armorBreak, int gutcheck, int healing, int lust, int grapple, ClimaxType climaxType, Stance forceStance, boolean isSpell, Buff buff, boolean isAttack, Array<Bonus> bonuses){
+	protected Attack(Status status, String name, int damage, int force, int armorBreak, int gutcheck, int healing, int lust, int grapple, ClimaxType climaxType, Stance forceStance, boolean isSpell, Buff buff, boolean isAttack, boolean ignoresArmor, Array<Bonus> bonuses){
 		this.status = status;
 		this.name = name;
 		this.damage = damage;
@@ -55,6 +56,7 @@ public class Attack {
 		this.results = new Array<String>();
 		this.buff = buff;
 		this.isAttack = isAttack;
+		this.ignoresArmor = ignoresArmor;
 		this.bonuses = bonuses;
 	}
 	
@@ -144,6 +146,10 @@ public class Attack {
 	
 	public Array<Bonus> getBonuses() {
 		return bonuses;
+	}
+
+	public boolean ignoresArmor() {
+		return ignoresArmor;
 	}
 	
 }

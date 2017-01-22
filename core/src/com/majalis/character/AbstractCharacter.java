@@ -464,7 +464,7 @@ public abstract class AbstractCharacter extends Actor {
 			}
 			
 			int damage = attack.getDamage();
-			if (!attack.isSpell()) {
+			if (!attack.ignoresArmor()) {
 				damage -= getDefense();
 			}
 			

@@ -279,6 +279,7 @@ public class Technique {
 			technique.isSpell(),
 			new Buff(technique.getBuff(), thisPayload.getTotalPower()),
 			technique.isDamaging() && !technique.doesSetDamage(),
+			technique.isDamaging() && !technique.doesSetDamage() && !technique.isSpell(),
 			thisPayload.getBonuses()
 		);
 	}

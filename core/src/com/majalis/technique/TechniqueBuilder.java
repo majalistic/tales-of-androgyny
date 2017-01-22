@@ -114,6 +114,9 @@ public class TechniqueBuilder {
 		else if (doesDamage) {
 			builder.append("CANNOT be blocked.\n");
 		}
+		if (doesDamage && (isSpell || setDamage)) {
+			builder.append("Ignores armor.\n");
+		}
 		if (guardMod > 0) {
 			builder.append("Blocks against enemy attacks\nwith " + guardMod + "% effectiveness.\n");
 		}

@@ -226,19 +226,18 @@ public class Battle extends Group{
 		uiGroup.addActor(pane);
 		
 		skillDisplay = new Label("", skin);
-		skillDisplay.setSize(450, 500);
 		skillDisplay.setWrap(true);
 		skillDisplay.setColor(Color.BLACK);
 		skillDisplay.setAlignment(Align.top);
 		Table pane2 = new Table();
 		pane2.align(Align.top);
-		pane2.add(skillDisplay).row();
+		pane2.add(skillDisplay).width(600).row();
 		
 		bonusDisplay = new Label("", skin);
 		bonusDisplay.setWrap(true);
 		bonusDisplay.setColor(Color.FOREST);
 		bonusDisplay.setAlignment(Align.top);
-		pane2.add(bonusDisplay);
+		pane2.add(bonusDisplay).width(600);
 		
 		pane2.setBounds(hoverXPos + 80, hoverYPos - 155, 600, 700);
 		hoverGroup.addActor(pane2);
