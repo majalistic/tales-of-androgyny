@@ -575,6 +575,11 @@ public class EncounterBuilder {
 					defeatScene
 				);
 				
+				OrderedMap<Integer, Scene> battleSceneDisarm = getBattleScene(saveService, battleCode, Stance.BALANCED, Stance.BALANCED, true, new Array<Outcome>(new Outcome[]{Outcome.VICTORY, Outcome.DEFEAT}),
+						getTextScenes(getArray(new String[]{"You defeated the goblin!", "You receive 1 Experience."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.EXPERIENCE, 1)}), getEndScene(EndScene.Type.ENCOUNTER_OVER)),
+						defeatScene
+					);
+				
 				OrderedMap<Integer, Scene> pantsCutDown = getTextScenes(
 					getScript(encounterCode, 20), font, goblinBackground,
 					getBattleScene(saveService, battleCode, Stance.DOGGY, Stance.DOGGY,
@@ -653,7 +658,7 @@ public class EncounterBuilder {
 										getTextScenes(getArray(new String[]{"You defeated the goblin!", "You receive 1 Experience."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.EXPERIENCE, 1)}), getEndScene(EndScene.Type.ENCOUNTER_OVER)),
 										defeatScene
 									),
-									battleScene,
+									battleSceneDisarm,
 									getTextScenes(
 										getArray(new String[]{"You let her flee, and proceed."}), font, background, 
 										getEndScene(EndScene.Type.ENCOUNTER_OVER)
@@ -1001,7 +1006,7 @@ public class EncounterBuilder {
 				break;
 		}
 		// reporting that the battle code has been consumed - this should be encounter code
-		saveService.saveDataValue(SaveEnum.BATTLE_CODE, new BattleCode(-1, null, Stance.BALANCED, Stance.BALANCED));
+		saveService.saveDataValue(SaveEnum.BATTLE_CODE, new BattleCode(-1, null, Stance.BALANCED, Stance.BALANCED, false));
 		return new Encounter(scenes, endScenes, battleScenes, getStartScene(scenes, sceneCode));	
 	}
 	
@@ -1161,13 +1166,17 @@ public class EncounterBuilder {
 	}
 	
 	private OrderedMap<Integer, Scene> getBattleScene(SaveService saveService, int battleCode, Stance playerStance, Stance enemyStance, Array<Outcome> outcomes, @SuppressWarnings("unchecked") OrderedMap<Integer, Scene>... sceneMaps) {
+		return getBattleScene(saveService, battleCode, playerStance, enemyStance, false, outcomes, sceneMaps);
+	}
+	
+	private OrderedMap<Integer, Scene> getBattleScene(SaveService saveService, int battleCode, Stance playerStance, Stance enemyStance, boolean disarm, Array<Outcome> outcomes, @SuppressWarnings("unchecked") OrderedMap<Integer, Scene>... sceneMaps) {
 		OrderedMap<Integer, Scene> sceneMap = aggregateMaps(sceneMaps);
 		ObjectMap<String, Integer> outcomeToScene = new ObjectMap<String, Integer>();
 		for (int ii = 0; ii < outcomes.size; ii++) {
 			outcomeToScene.put(outcomes.get(ii).toString(), sceneMap.get(sceneMap.orderedKeys().get(ii)).getCode());
 		}
 		
-		return addScene(new BattleScene(aggregateMaps(sceneMaps), saveService, battleCode, playerStance, enemyStance, outcomeToScene));
+		return addScene(new BattleScene(aggregateMaps(sceneMaps), saveService, battleCode, playerStance, enemyStance, disarm, outcomeToScene));
 	}
 	
 	private OrderedMap<Integer, Scene> getGameTypeScene(AssetManager assetManager, Array<String> buttonLabels, @SuppressWarnings("unchecked") OrderedMap<Integer, Scene>... sceneMaps) {

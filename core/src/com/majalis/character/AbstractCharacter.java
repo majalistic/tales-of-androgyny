@@ -589,7 +589,7 @@ public abstract class AbstractCharacter extends Actor {
 		return result;
 	}
 	
-	private boolean disarm() {
+	public boolean disarm() {
 		if (weapon != null && weapon.isDisarmable()) {
 			disarmedWeapon = weapon;
 			weapon = null;

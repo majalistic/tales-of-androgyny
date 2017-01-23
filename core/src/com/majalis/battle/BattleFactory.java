@@ -42,6 +42,7 @@ public class BattleFactory {
 			if (enemy.getStance() == Stance.DOGGY || enemy.getStance() == Stance.FELLATIO || enemy.getStance() == Stance.ANAL || enemy.getStance() == Stance.STANDING || enemy.getStance() == Stance.HANDY || enemy.getStance() == Stance.COWGIRL ){
 				enemy.setLust(10);
 			}
+			enemy.disarm();
 			playerCharacter.setStance(battleCode.playerStance);			
 		}
 		// loading old enemy
