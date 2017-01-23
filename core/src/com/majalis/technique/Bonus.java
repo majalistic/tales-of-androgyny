@@ -133,6 +133,10 @@ public class Bonus {
 					break;
 				case TRIP:
 					description += "Trip +" + bonus.value + "%";
+					break;
+				case EVASION:
+					description += "Evasion +" + bonus.value + "%";
+					break;
 			}
 			description += "\n";
 		}
@@ -169,6 +173,7 @@ public class Bonus {
 		PRIORITY, 
 		DISARM,
 		PARRY,
-		TRIP;
+		TRIP,
+		EVASION;
 	}
 }

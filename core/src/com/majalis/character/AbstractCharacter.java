@@ -305,9 +305,9 @@ public abstract class AbstractCharacter extends Actor {
 	public Attack doAttack(Attack resolvedAttack) {
 		resolvedAttack.setUser(label);
 		if (!resolvedAttack.isSuccessful()) {
-			resolvedAttack.addMessage(resolvedAttack.getUser() + " used " + resolvedAttack.getName() + (resolvedAttack.getStatus() == Status.MISSED ? " but missed!" : resolvedAttack.getStatus() == Status.PARRIED ? " but was parried!" : resolvedAttack.getStatus() == Status.FIZZLE ? " but the spell fizzled!" : "! FAILURE!"));
+			resolvedAttack.addMessage(resolvedAttack.getUser() + " used " + resolvedAttack.getName() + (resolvedAttack.getStatus() == Status.MISSED ? " but missed!" : (resolvedAttack.getStatus() == Status.EVADED ? " but was evaded!" : resolvedAttack.getStatus() == Status.PARRIED ? " but was parried!" : resolvedAttack.getStatus() == Status.FIZZLE ? " but the spell fizzled!" : "! FAILURE!")));
 			
-			if (resolvedAttack.getStatus() == Status.MISSED && enemyType == EnemyEnum.HARPY && stance == Stance.FELLATIO && resolvedAttack.getForceStance() == Stance.FELLATIO) {
+			if (resolvedAttack.getStatus() == Status.MISSED || resolvedAttack.getStatus() == Status.EVADED && enemyType == EnemyEnum.HARPY && stance == Stance.FELLATIO && resolvedAttack.getForceStance() == Stance.FELLATIO) {
 				resolvedAttack.addMessage("She crashes to the ground!");
 				stance = Stance.PRONE;
 			}
@@ -652,7 +652,7 @@ public abstract class AbstractCharacter extends Actor {
 	protected ObjectMap<Stat, Integer> getRawStats() {
 		ObjectMap<Stat, Integer> stats = new ObjectMap<Stat, Integer>();
 		for (Stat stat: Stat.values()) {
-			stats.put(stat, getStat(stat));
+			stats.put(stat, getRawStat(stat));
 		}
 		return stats;
 	}

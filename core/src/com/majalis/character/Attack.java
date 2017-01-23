@@ -39,7 +39,8 @@ public class Attack {
 		BLOCKED,
 		MISSED,
 		FAILURE, 
-		FIZZLE
+		FIZZLE, 
+		EVADED // this attack was evaded
 	}
 	
 	// this should have all the info for an attack, including damage or effects that were blocked

@@ -50,12 +50,11 @@ public class EnemyCharacter extends AbstractCharacter {
 		switch(enemyType) {
 			case WERESLUT:
 				baseStrength = 5;
-				baseAgility = 6;
+				baseAgility = 5;
 				imagePath = AssetEnum.WEREBITCH.getPath();
 				break;
 			case HARPY:
 				baseStrength = 4;
-				baseAgility = 3;
 				textureImagePaths.put(Stance.FELLATIO.toString(), AssetEnum.HARPY_FELLATIO.getPath());
 				imagePath = AssetEnum.HARPY.getPath();
 				break;

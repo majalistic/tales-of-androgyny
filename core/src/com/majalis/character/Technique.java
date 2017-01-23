@@ -37,6 +37,7 @@ public class Technique {
 		private final int gutCheck;
 		private final int disarm;
 		private final int trip;
+		private final int evasion;
 		private final double knockdown;
 		private final boolean hasPriority;
 		
@@ -62,6 +63,7 @@ public class Technique {
 			int disarmCalc = 0;
 			double knockdownCalc = technique.getKnockdown();
 			int tripCalc = 0;
+			int evasionCalc = 0;
 			boolean hasPriorityCalc = false;
 			
 			for (Bonus bonusBundle : toApply) {	
@@ -102,6 +104,10 @@ public class Technique {
 							break;
 						case TRIP:
 							tripCalc += bonus.value;
+							break;
+						case EVASION:
+							evasionCalc += bonus.value;
+							break;
 					}
 				}
 			}
@@ -117,6 +123,7 @@ public class Technique {
 			disarm = disarmCalc;
 			trip = tripCalc;
 			knockdown = knockdownCalc;
+			evasion = evasionCalc;
 			hasPriority = hasPriorityCalc;
 		}
 		
@@ -173,6 +180,10 @@ public class Technique {
 		
 		private int getTrip() {
 			return trip; 
+		}
+		
+		private int getEvasion() {
+			return evasion;
 		}
 	}
 	
@@ -233,9 +244,9 @@ public class Technique {
 			case SKILL_LEVEL:
 				return skillLevel;
 			case OUTMANEUVER:
-				return currentState.getStat(Stat.AGILITY) - otherTechnique.getStat(Stat.AGILITY);
+				return currentState.getRawStat(Stat.AGILITY) - otherTechnique.getRawStat(Stat.AGILITY);
 			case OUTMANUEVER_STRONG:
-				return (currentState.getStat(Stat.AGILITY) - otherTechnique.getStat(Stat.AGILITY)) - 3;
+				return (currentState.getRawStat(Stat.AGILITY) - otherTechnique.getRawStat(Stat.AGILITY)) - 3;
 			case STRENGTH_OVERPOWER:
 				return currentState.getStat(Stat.STRENGTH) - otherTechnique.getStat(Stat.STRENGTH);
 			case STRENGTH_OVERPOWER_STRONG:
@@ -244,6 +255,10 @@ public class Technique {
 		}
 	}
 	
+	private int getRawStat(Stat stat) {
+		return currentState.getRawStat(stat);
+	}
+
 	private int getStat(Stat stat) {
 		return currentState.getStat(stat);
 	}
@@ -267,6 +282,7 @@ public class Technique {
 		// instead of 100, this should be modified by Outmanuever
 		boolean parried = isBlockable() && otherPayload.getParry() >= 100;
 		boolean parryOther = otherTechnique.isBlockable() && thisPayload.getParry() >= 100;
+		boolean evaded = technique.getTechniqueHeight() != TechniqueHeight.NONE && otherPayload.getEvasion() >= 100;		
 		
 		boolean isSuccessful = 
 				technique.getTechniqueHeight() == TechniqueHeight.NONE ||
@@ -283,7 +299,7 @@ public class Technique {
 		boolean fizzle = thisPayload.getManaCost() > currentState.getMana();
 		
 		return new Attack(
-			parried ? Status.PARRIED : parryOther ? Status.PARRY : fizzle ? Status.FIZZLE : isSuccessful ? (blockMod < 1 ? Status.BLOCKED : Status.SUCCESS) : failure ? Status.FAILURE : Status.MISSED, 
+			evaded ? Status.EVADED : parried ? Status.PARRIED : parryOther ? Status.PARRY : fizzle ? Status.FIZZLE : isSuccessful ? (blockMod < 1 ? Status.BLOCKED : Status.SUCCESS) : failure ? Status.FAILURE : Status.MISSED, 
 			technique.getName(), 
 			thisPayload.getDamage(),
 			blockMod,
