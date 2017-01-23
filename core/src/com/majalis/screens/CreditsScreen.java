@@ -36,7 +36,7 @@ public class CreditsScreen extends AbstractScreen{
 		
 		
 		done.addListener(
-			new ClickListener(){
+			new ClickListener() {
 				@Override
 		        public void clicked(InputEvent event, float x, float y) {
 					sound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
@@ -47,7 +47,7 @@ public class CreditsScreen extends AbstractScreen{
 		done.setPosition(1523, 120);
 		this.addActor(done);
 		
-		credits = "\"Broken Reality\", \"Perspectives\", \"Floating Cities\", \"Kings of Tara\", \"Enchanted Valley\", \"Brittle Rille\", \"For Originz\""
+		credits = "\"Broken Reality\", \"Perspectives\", \"Floating Cities\", \"Kings of Tara\", \"Enchanted Valley\", \"Brittle Rille\", \"For Originz\", \"Phantom from Space\", \"Mechanolith\""
 				+ "\nKevin MacLeod (incompetech.com)"
 				+ "\nLicensed under Creative Commons: By Attribution 3.0"
 				+ "\nhttp://creativecommons.org/licenses/by/3.0/"
@@ -71,15 +71,15 @@ public class CreditsScreen extends AbstractScreen{
 		camera.update();
 		batch.begin();
 		font.setColor(Color.BLACK);
-		font.draw(batch, credits, 1450, 1300);
+		font.draw(batch, credits, 1100, 1300);
 		batch.end();
 		
-		if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)){
+		if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
 			exitScreen();
 		}
 	}
 	
-	private void exitScreen(){
+	private void exitScreen() {
 		showScreen(ScreenEnum.MAIN_MENU);
 	}
 
