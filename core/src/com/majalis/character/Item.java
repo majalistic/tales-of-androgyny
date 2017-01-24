@@ -146,7 +146,7 @@ public abstract class Item {
 				case BONUS_STRENGTH:
 					return "Imbibe to increase Strength for the duration by " + magnitude + ".";
 				case HEALING:
-					return "Heals the imbiber " + magnitude + " health.";
+					return "Heals the imbiber for " + magnitude + " health.";
 				default:
 					return "Unknown potion.";
 			}
