@@ -418,10 +418,10 @@ public class PlayerCharacter extends AbstractCharacter {
 	}
 	
 	public void setPerks(ObjectMap<Perk, Integer> perks) {
-		if(perks.containsKey(Perk.WELLROUNDED) && !this.perks.containsKey(Perk.WELLROUNDED.toString())) {
+		if(perks.get(Perk.WELLROUNDED, 0) > 0 && !(this.perks.get(Perk.WELLROUNDED.toString(), 0) > 0) ) {
 			increaseLowestStat();
 		}
-		if(perks.containsKey(Perk.CATAMITE) && !this.perks.containsKey(Perk.CATAMITE.toString())) {
+		if(perks.get(Perk.CATAMITE, 0) > 0 && !(this.perks.get(Perk.CATAMITE.toString(), 0) > 0)) {
 			addSkill(SIT_ON_IT, 1);
 			addSkill(RIDE_ON_IT, 1);
 			addSkill(STAND_OFF_IT, 1);
@@ -433,15 +433,15 @@ public class PlayerCharacter extends AbstractCharacter {
 	}
 	
 	public int getScoutingScore() {
-		return getPerception() + (perks.containsKey(Perk.SURVEYOR.toString()) ? perks.get(Perk.SURVEYOR.toString()) * 2 : 0);
+		return getPerception() + (perks.get(Perk.SURVEYOR.toString(), 0) > 0 ? perks.get(Perk.SURVEYOR.toString()) * 2 : 0);
 	}
 	
 	public int getLewdCharisma() {
-		return getCharisma() + (perks.containsKey(Perk.EROTIC.toString()) ? perks.get(Perk.EROTIC.toString()) * 2 : 0);
+		return getCharisma() + (perks.get(Perk.EROTIC.toString(), 0) > 0 ? perks.get(Perk.EROTIC.toString()) * 2 : 0);
 	}	
 	
 	public boolean isLewd() {
-		return perks.containsKey(Perk.CATAMITE.toString());
+		return perks.get(Perk.CATAMITE.toString(), 0) > 0;
 	}
 	@Override
 	protected String increaseLust() {
@@ -451,7 +451,7 @@ public class PlayerCharacter extends AbstractCharacter {
 			case ANAL:
 			case STANDING:
 			case COWGIRL:
-				if (perks.containsKey(Perk.WEAK_TO_ANAL.toString())) return increaseLust(2);
+				if (perks.get(Perk.WEAK_TO_ANAL.toString(), 0) > 0) return increaseLust(2);
 			case FELLATIO:
 			case SIXTY_NINE:
 				return increaseLust(1);
