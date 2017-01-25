@@ -22,6 +22,7 @@ public class LevelUpScreen extends AbstractScreen {
 		resourceRequirements.put(AssetEnum.SKILL_SELECTION_BACKGROUND.getPath(), Texture.class);
 		resourceRequirements.put(AssetEnum.DEFAULT_BACKGROUND.getPath(), Texture.class);
 		resourceRequirements.put(AssetEnum.NORMAL_BOX.getPath(), Texture.class);
+		resourceRequirements.put(AssetEnum.BATTLE_HOVER.getPath(), Texture.class);
 	}
 	
 	private final AssetManager assetManager;
