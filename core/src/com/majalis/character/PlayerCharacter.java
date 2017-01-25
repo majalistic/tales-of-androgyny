@@ -79,7 +79,7 @@ public class PlayerCharacter extends AbstractCharacter {
 			baseDefense = 6;
 			money = 40;
 			inventory = new Array<Item>();
-			for (int ii = 5; ii <= 20; ii += 5){
+			for (int ii = 5; ii <= 20; ii += 5) {
 				inventory.add(new Potion(ii));
 			}
 		}
@@ -261,10 +261,11 @@ public class PlayerCharacter extends AbstractCharacter {
 		Array<Technique> possibleTechniques = new Array<Technique>();
 		
 		for (Techniques technique : possibilities) {
-			if (skills.containsKey(technique.toString())) {
+			int skillLevel = skills.get(technique.toString(), 0);
+			if (skillLevel > 0) {
 				// this should pass the players stats and other relevant info to the technique, rather than passing some generic "force" value - also passing the weapon separately so that the technique can determine if it's relevant or not - basically, this class should create a "current state" object
 				// this may need to filter out techniques which are not possible because of current state evalutations?
-				possibleTechniques.add(new Technique(technique.getTrait(), getCurrentState(target), skills.get(technique.toString(), 0)));
+				possibleTechniques.add(new Technique(technique.getTrait(), getCurrentState(target), skillLevel));
 			}	
 		}
 		return possibleTechniques;
@@ -463,7 +464,7 @@ public class PlayerCharacter extends AbstractCharacter {
 		String spurt = "";
 		String result = null;
 		lust += lustIncrease;
-		if (lust > 10){
+		if (lust > 10) {
 			lust = 0;
 			switch (stance) {
 				case KNOTTED:
