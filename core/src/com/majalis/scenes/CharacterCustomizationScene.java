@@ -5,6 +5,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
@@ -27,6 +28,7 @@ public class CharacterCustomizationScene extends Scene {
 	private final Skin skin;
 	private final Sound buttonSound;
 	private final PlayerCharacter character;
+	private String tempConsole;
 	// customize name, face, body, skin, hair, length, facial markings
 	public CharacterCustomizationScene(OrderedMap<Integer, Scene> sceneBranches, int sceneCode, final SaveService saveService, BitmapFont font, Background background, AssetManager assetManager, PlayerCharacter character) {
 		super(sceneBranches, sceneCode);
@@ -64,6 +66,7 @@ public class CharacterCustomizationScene extends Scene {
 		
 		final Table table = new Table();
 		
+		Label buttSizeLabel = addLabel("Bubble", skin, Color.SALMON, 500, 660);
 		for (final PlayerCharacter.Bootyliciousness buttSize : PlayerCharacter.Bootyliciousness.values()) {
 			final TextButton button = new TextButton(buttSize.toString(), skin);
 			button.addListener(new ClickListener() {
@@ -73,7 +76,17 @@ public class CharacterCustomizationScene extends Scene {
 					console.setText("You now have a " + buttSize.toString().toLowerCase() + " booty.");
 					character.setBootyliciousness(buttSize);
 					saveService.saveDataValue(SaveEnum.PLAYER, character);
+					buttSizeLabel.setText(buttSize.toString());
 		        }
+				@Override
+		        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
+					tempConsole = console.getText().toString();
+					console.setText(buttSize.getDescription());
+				}
+				@Override
+		        public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
+					console.setText(tempConsole != null ? tempConsole : "");
+				}
 			});
 			table.add(button).size(180, 40).row();
 		}
@@ -83,6 +96,7 @@ public class CharacterCustomizationScene extends Scene {
 		
 		final Table lipTable = new Table();
 		
+		Label lipSizeLabel = addLabel("Thin", skin, Color.SALMON, 500, 480);
 		for (final PlayerCharacter.LipFullness lipFullness : PlayerCharacter.LipFullness.values()) {
 			final TextButton button = new TextButton(lipFullness.toString(), skin);
 			button.addListener(new ClickListener() {
@@ -92,7 +106,17 @@ public class CharacterCustomizationScene extends Scene {
 					console.setText("You now have " + lipFullness.toString().toLowerCase() + " lips.");
 					character.setLipFullness(lipFullness);
 					saveService.saveDataValue(SaveEnum.PLAYER, character);
+					lipSizeLabel.setText(lipFullness.toString());
 		        }
+				@Override
+		        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
+					tempConsole = console.getText().toString();
+					console.setText(lipFullness.getDescription());
+				}
+				@Override
+		        public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
+					console.setText(tempConsole != null ? tempConsole : "");
+				}
 			});
 			lipTable.add(button).size(180, 40).row();
 		}
@@ -101,7 +125,7 @@ public class CharacterCustomizationScene extends Scene {
 		addActor(lipTable);
 		
 		addLabel("Name:", skin, Color.BLACK, 130, 820);
-		final TextField nameField = new TextField("", skin);
+		final TextField nameField = new TextField("Hiro", skin);
 		nameField.setPosition(233, 800);
 		addActor(nameField);
 		this.addListener(new InputListener() {

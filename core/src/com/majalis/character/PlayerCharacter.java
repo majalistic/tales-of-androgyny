@@ -340,16 +340,34 @@ public class PlayerCharacter extends AbstractCharacter {
 	}
 	
 	public enum Bootyliciousness {
-		Bubble,
-		Round,
-		Fat // dear diary, the ass was fat
+		Bubble ("A tight, round, firm, pleasing tush."),
+		Round ("A soft, round rear with give to it."),
+		Fat ("Dear diary, the ass was fat. A big booty.") // dear diary, the ass was fat
+		;
+		private final String description;
+		private Bootyliciousness(String description) {
+			this.description = description;
+		}
+		
+		public String getDescription() {
+			return description;
+		}
 	}
 	
 	public enum LipFullness {
-		Thin,
-		Pouty,
-		Beestung,
-		Full
+		Thin ("Svelte lips."),
+		Pouty ("Soft, feminine lips."),
+		Full ("Full, luscious lips."),
+		Beestung ("Prominent, kissable lips.")
+		;
+		private final String description;
+		private LipFullness(String description) {
+			this.description = description;
+		}
+		
+		public String getDescription() {
+			return description;
+		}
 	}
 
 	public void setStat(Stat stat, int amount) {
