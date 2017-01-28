@@ -1043,7 +1043,7 @@ public class EncounterBuilder {
 		int soundIndex = -(script.size - sounds.size);
 		TextScene newScene = null;
 		for (String scriptLine: script) {
-			newScene = new TextScene(sceneMap, sceneCounter, saveService, font, background.clone(), scriptLine, mutations);
+			newScene = new TextScene(sceneMap, sceneCounter, assetManager, font, saveService, background.clone(), scriptLine, mutations);
 			mutations = new Array<Mutation>();
 			if (soundIndex >= 0) {
 				newScene.setSound(sounds.get(soundIndex));
@@ -1129,7 +1129,7 @@ public class EncounterBuilder {
 		for (; ii < checkValues.size; ii++) {
 			checkValueMap.put(checkValues.get(ii), sceneMap.get(sceneMap.orderedKeys().get(ii)));
 		}
-		CheckScene checkScene = new CheckScene(sceneMap, sceneCounter, saveService, font, new BackgroundBuilder(background).build(), perk, checkValueMap, sceneMap.get(sceneMap.orderedKeys().get(ii)), character);
+		CheckScene checkScene = new CheckScene(sceneMap, sceneCounter, assetManager, saveService, font, new BackgroundBuilder(background).build(), perk, checkValueMap, sceneMap.get(sceneMap.orderedKeys().get(ii)), character);
 		return addScene(checkScene);
 	}
 	
@@ -1142,14 +1142,14 @@ public class EncounterBuilder {
 		for (; ii < checkValues.size; ii++) {
 			checkValueMap.put(checkValues.get(ii), sceneMap.get(sceneMap.orderedKeys().get(ii)));
 		}
-		CheckScene checkScene = new CheckScene(sceneMap, sceneCounter, saveService, font, new BackgroundBuilder(background).build(), stat, checkValueMap, sceneMap.get(sceneMap.orderedKeys().get(ii)), character);
+		CheckScene checkScene = new CheckScene(sceneMap, sceneCounter, assetManager, saveService, font, new BackgroundBuilder(background).build(), stat, checkValueMap, sceneMap.get(sceneMap.orderedKeys().get(ii)), character);
 		return addScene(checkScene);
 	}
 	
 	private OrderedMap<Integer, Scene> getCheckScene(AssetManager assetManager, CheckType checkType, PlayerCharacter character, @SuppressWarnings("unchecked") OrderedMap<Integer, Scene>... sceneMaps) {
 		OrderedMap<Integer, Scene> sceneMap = aggregateMaps(sceneMaps);
 		Texture background = assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getPath(), Texture.class);
-		CheckScene checkScene = new CheckScene(sceneMap, sceneCounter, saveService, font, new BackgroundBuilder(background).build(), checkType, sceneMap.get(sceneMap.orderedKeys().get(0)), sceneMap.get(sceneMap.orderedKeys().get(1)), character);
+		CheckScene checkScene = new CheckScene(sceneMap, sceneCounter, assetManager, saveService, font, new BackgroundBuilder(background).build(), checkType, sceneMap.get(sceneMap.orderedKeys().get(0)), sceneMap.get(sceneMap.orderedKeys().get(1)), character);
 		return addScene(checkScene);
 	}
 	

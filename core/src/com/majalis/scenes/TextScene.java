@@ -1,5 +1,6 @@
 package com.majalis.scenes;
 
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.utils.Array;
@@ -11,16 +12,14 @@ import com.majalis.screens.EncounterScreen;
 
 public class TextScene extends AbstractTextScene  {
 	
-	private final String toDisplay;
 	private final Array<Mutation> mutations;
 	private final Background background;
 	private String music;
 	private String sound;
-	private String mutationResults;
 	
-	public TextScene(OrderedMap<Integer, Scene> sceneBranches, int sceneCode, SaveService saveService, BitmapFont font, Background background, String toDisplay, Array<Mutation> mutations) {
-		super(sceneBranches, sceneCode, saveService, font, background);
-		this.toDisplay = toDisplay;
+	public TextScene(OrderedMap<Integer, Scene> sceneBranches, int sceneCode, AssetManager assetManager, BitmapFont font, SaveService saveService, Background background, String toDisplay, Array<Mutation> mutations) {
+		super(sceneBranches, sceneCode, assetManager, font, saveService, background);
+		display.setText(toDisplay);
 		this.mutations = mutations;
 		this.background = background;
 	}
@@ -31,16 +30,6 @@ public class TextScene extends AbstractTextScene  {
 	
 	public void setSound(String sound){
 		this.sound = sound;
-	}
-
-	@Override
-	protected String getDisplay(){
-		return toDisplay;
-	}
-	
-	@Override
-	protected String getStatusResults(){
-		return mutationResults;
 	}
 	
 	@Override
@@ -54,11 +43,12 @@ public class TextScene extends AbstractTextScene  {
 			EncounterScreen.play(sound);
 		}
 		background.initEnemy();
-		mutationResults = "";
+		String mutationResults = "";
 		for (Mutation mutator: mutations){
 			String result = mutator.mutate();
 			if (result != null) mutationResults += " ["+result+"]";
 		}
+		statusResults.setText(mutationResults);
 	}
 	// this type of TextScene will be one that always pipes from one scene to the next with no branch - there will be another TextScene that actually has branching logic
 	@Override

@@ -1,14 +1,15 @@
 package com.majalis.scenes;
 
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.OrderedMap;
 import com.majalis.asset.AssetEnum;
@@ -25,27 +26,22 @@ public abstract class AbstractTextScene extends Scene {
 		resourceRequirements.put(AssetEnum.GAME_TYPE_BACKGROUND.getPath(), Texture.class);
 	}
 	protected final SaveService saveService;
-	private final BitmapFont font;
-		
-	protected AbstractTextScene(OrderedMap<Integer, Scene> sceneBranches, int sceneCode, SaveService saveService, BitmapFont font, Background background) {
+	protected final Label display;
+	protected final Label statusResults;
+	
+	protected AbstractTextScene(OrderedMap<Integer, Scene> sceneBranches, int sceneCode, AssetManager assetManager, BitmapFont font, SaveService saveService, Background background) {
 		super(sceneBranches, sceneCode);
 		this.saveService = saveService;
-		this.font = font;
 		this.addActor(background);
+		Skin skin = assetManager.get(AssetEnum.UI_SKIN.getPath(), Skin.class);
+		display = addLabel("", skin, font, Color.BLACK, 430, 322);
+		display.setWidth(1125);
+		statusResults = addLabel("", skin, font, Color.BLACK, 1430, 950);
+		statusResults.setWidth(400);
+		Label skipText = addLabel("Press CTRL to skip", skin, font, Color.BLACK, 105, 180);
+		skipText.setWidth(240);
 	}
 
-	@Override
-    public void draw(Batch batch, float parentAlpha) {
-		super.draw(batch, parentAlpha);
-		font.setColor(0, 0, 0, 1);
-		font.draw(batch, getDisplay(), 430, 322, 1125, Align.center, true);
-		font.draw(batch, getStatusResults(), 1430, 950, 400, Align.center, true);
-		font.draw(batch, "Press CTRL to skip", 105, 180, 240, Align.center, true);
-    }
-	
-	protected abstract String getDisplay();
-	protected String getStatusResults() { return ""; }
-	
 	@Override
 	public void poke(){
 		nextScene();

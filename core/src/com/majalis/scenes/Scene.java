@@ -2,11 +2,13 @@ package com.majalis.scenes;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.OrderedMap;
 /*
  * Controls the logic for a single "scene", whether it be a text and image splash, a battle entry-point, or a selection dialog
@@ -23,9 +25,20 @@ public abstract class Scene extends Group {
 	}
 	
 	protected Label addLabel(String text, Skin skin, Color color, float x, float y) {
+		return addLabel(text, skin, null, color, x, y);
+	}
+	
+	protected Label addLabel(String text, Skin skin, BitmapFont font, Color color, float x, float y) {
 		Label newLabel = new Label(text, skin);
 		newLabel.setColor(color);
 		newLabel.setPosition(x, y);
+		if (font != null) {
+			Label.LabelStyle style = new Label.LabelStyle(newLabel.getStyle());
+			style.font = font;
+			newLabel.setStyle(style);
+			newLabel.setWrap(true);
+			newLabel.setAlignment(Align.top);
+		}
 		this.addActor(newLabel);
 		return newLabel;
 	}

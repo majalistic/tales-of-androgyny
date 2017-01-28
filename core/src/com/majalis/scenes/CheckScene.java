@@ -1,5 +1,6 @@
 package com.majalis.scenes;
 
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.utils.OrderedMap;
@@ -19,35 +20,30 @@ public class CheckScene extends AbstractTextScene {
 	private OrderedMap<Integer, Scene> checkValues;
 	private CheckType checkType;
 	private Scene clearScene;
-	
-	private String toDisplay;
 	private Scene nextScene;
 	
-	public CheckScene(OrderedMap<Integer, Scene> sceneBranches, int sceneCode, SaveService saveService, BitmapFont font, Background background, Stat stat, OrderedMap<Integer, Scene> checkValues, Scene defaultScene, PlayerCharacter character) {
-		super(sceneBranches, sceneCode, saveService, font, background);
+	public CheckScene(OrderedMap<Integer, Scene> sceneBranches, int sceneCode, AssetManager assetManager, SaveService saveService, BitmapFont font, Background background, Stat stat, OrderedMap<Integer, Scene> checkValues, Scene defaultScene, PlayerCharacter character) {
+		super(sceneBranches, sceneCode, assetManager, font, saveService, background);
 		this.statToCheck = stat;
 		this.checkValues = checkValues;
 		this.defaultScene = defaultScene;
 		this.character = character;
-		toDisplay = "";
 	}
 	
-	public CheckScene(OrderedMap<Integer, Scene> sceneBranches, int sceneCode, SaveService saveService, BitmapFont font, Background background, Perk perk, OrderedMap<Integer, Scene> checkValues, Scene defaultScene, PlayerCharacter character) {
-		super(sceneBranches, sceneCode, saveService, font, background);
+	public CheckScene(OrderedMap<Integer, Scene> sceneBranches, int sceneCode, AssetManager assetManager, SaveService saveService, BitmapFont font, Background background, Perk perk, OrderedMap<Integer, Scene> checkValues, Scene defaultScene, PlayerCharacter character) {
+		super(sceneBranches, sceneCode, assetManager, font, saveService, background);
 		this.perkToCheck = perk;
 		this.checkValues = checkValues;
 		this.defaultScene = defaultScene;
 		this.character = character;
-		toDisplay = "";
 	}
 	
-	public CheckScene(OrderedMap<Integer, Scene> sceneBranches, int sceneCode, SaveService saveService, BitmapFont font, Background background, CheckType checkType, Scene clearScene, Scene defaultScene, PlayerCharacter character) {
-		super(sceneBranches, sceneCode, saveService, font, background);
+	public CheckScene(OrderedMap<Integer, Scene> sceneBranches, int sceneCode, AssetManager assetManager, SaveService saveService, BitmapFont font, Background background, CheckType checkType, Scene clearScene, Scene defaultScene, PlayerCharacter character) {
+		super(sceneBranches, sceneCode, assetManager, font, saveService, background);
 		this.checkType = checkType;
 		this.clearScene = clearScene;
 		this.defaultScene = defaultScene;
 		this.character = character;
-		toDisplay = "";
 	}
 
 	@Override
@@ -59,13 +55,16 @@ public class CheckScene extends AbstractTextScene {
 	private Scene getNextScene() {
 		String passValue = "PASSED!\n";
 		String failValue = "FAILURE!\n";
+		String toDisplay = "";
 		if (checkType != null) {
 			if (checkType.getCheck(character)) {
 				toDisplay += checkType.getSuccess();
+				display.setText(toDisplay);
 				return clearScene;
 			}
 			else {
 				toDisplay += checkType.getFailure();
+				display.setText(toDisplay);
 				return defaultScene;
 			}			
 		}
@@ -76,6 +75,7 @@ public class CheckScene extends AbstractTextScene {
 				toDisplay += perkToCheck.toString() + " check (" + threshold + "): ";
 				if (amount >= threshold) {
 					toDisplay += perkToCheck.isPositive() ? passValue : failValue;
+					display.setText(toDisplay);
 					return checkValues.get(threshold);
 				}
 				else {
@@ -91,21 +91,17 @@ public class CheckScene extends AbstractTextScene {
 				toDisplay += statToCheck.toString() + " check (" + threshold + "): ";
 				if (amount >= threshold) {
 					toDisplay += passValue;
+					display.setText(toDisplay);
 					return checkValues.get(threshold);
 				}
 				else {
 					toDisplay += failValue;
 				}
 			}
+			display.setText(toDisplay);
 			return defaultScene;
 		}
 	}
-
-	@Override
-	protected String getDisplay() {
-		return toDisplay;
-	}
-	
 	
 	@Override
 	protected void nextScene() {
