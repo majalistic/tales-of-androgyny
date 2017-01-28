@@ -28,7 +28,6 @@ public class CharacterCustomizationScene extends Scene {
 	private final Skin skin;
 	private final Sound buttonSound;
 	private final PlayerCharacter character;
-	private String tempConsole;
 	// customize name, face, body, skin, hair, length, facial markings
 	public CharacterCustomizationScene(OrderedMap<Integer, Scene> sceneBranches, int sceneCode, final SaveService saveService, BitmapFont font, Background background, AssetManager assetManager, PlayerCharacter character) {
 		super(sceneBranches, sceneCode);
@@ -62,7 +61,8 @@ public class CharacterCustomizationScene extends Scene {
 		done.setPosition(1522, 30);
 		addActor(done);
 
-		final Label console = addLabel("", skin, Color.BLACK, 1000, 800);
+		final Label description = addLabel("", skin, Color.BLACK, 1000, 800);
+		final Label console = addLabel("", skin, Color.GOLD, 1000, 400);
 		
 		final Table table = new Table();
 		
@@ -80,12 +80,11 @@ public class CharacterCustomizationScene extends Scene {
 		        }
 				@Override
 		        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-					tempConsole = console.getText().toString();
-					console.setText(buttSize.getDescription());
+					description.setText(buttSize.getDescription());
 				}
 				@Override
 		        public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
-					console.setText(tempConsole != null ? tempConsole : "");
+					description.setText("");
 				}
 			});
 			table.add(button).size(180, 40).row();
@@ -110,12 +109,11 @@ public class CharacterCustomizationScene extends Scene {
 		        }
 				@Override
 		        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-					tempConsole = console.getText().toString();
-					console.setText(lipFullness.getDescription());
+					description.setText(lipFullness.getDescription());
 				}
 				@Override
 		        public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
-					console.setText(tempConsole != null ? tempConsole : "");
+					description.setText("");
 				}
 			});
 			lipTable.add(button).size(180, 40).row();
