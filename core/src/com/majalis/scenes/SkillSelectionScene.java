@@ -41,6 +41,9 @@ public class SkillSelectionScene extends Scene {
 	private ObjectMap<Techniques, Integer> skills;
 	private ObjectMap<Perk, Integer> perks;
 	private ObjectMap<Techniques, Label> techniquesToButtons;
+	private Row selectedRow;
+	private boolean locked;
+	private boolean justUnlocked;
 	
 	public SkillSelectionScene(OrderedMap<Integer, Scene> sceneBranches, int sceneCode, final SaveService saveService, Background background, AssetManager assetManager, PlayerCharacter character) {
 		super(sceneBranches, sceneCode);
@@ -51,6 +54,88 @@ public class SkillSelectionScene extends Scene {
 		skin = assetManager.get(AssetEnum.UI_SKIN.getPath(), Skin.class);
 		buttonSound = assetManager.get(AssetEnum.BUTTON_SOUND.getPath(), Sound.class);
 		techniquesToButtons = new ObjectMap<Techniques, Label>();
+		locked = false;
+		justUnlocked = false;
+	}
+	
+	private class Row {
+		private final Techniques technique;
+		private final Perk perk;
+		private final Label label;
+		private final Label skillDisplay;
+		private final Label bonusDisplay;
+		private final Table skillDisplayTable;
+		private final Table consoleTable;
+		
+		private Row(Techniques technique, Label label, Label skillDisplay, Label bonusDisplay, Table skillDisplayTable, Table consoleTable) {
+			this(technique, null, label, skillDisplay, bonusDisplay, skillDisplayTable, consoleTable);
+		}
+		
+		private Row(Perk perk, Label label, Label skillDisplay, Label bonusDisplay, Table skillDisplayTable, Table consoleTable) {
+			this(null, perk, label, skillDisplay, bonusDisplay, skillDisplayTable, consoleTable);
+		}
+		
+		private Row(Techniques technique, Perk perk, Label label, Label skillDisplay, Label bonusDisplay, Table skillDisplayTable, Table consoleTable) {
+			this.technique = technique;
+			this.perk = perk;
+			this.label = label;
+			this.skillDisplay = skillDisplay;
+			this.bonusDisplay = bonusDisplay;
+			this.skillDisplayTable = skillDisplayTable;
+			this.consoleTable = consoleTable;
+		}
+
+		private void setSelected() {
+			label.setColor(Color.FOREST);
+			if (technique != null) {
+				skillDisplay.setText(technique.getTrait().getDescription());
+				bonusDisplay.setText(technique.getTrait().getBonusInfo());
+			}
+			else {
+				skillDisplay.setText(perk.getDescription());
+				bonusDisplay.setText("");
+			}
+
+			skillDisplayTable.addAction(Actions.show());
+			consoleTable.addAction(Actions.hide());
+		}		
+		
+		private void setUnselected() {
+			label.setColor(Color.BLACK);
+			consoleTable.addAction(Actions.show());
+			skillDisplayTable.addAction(Actions.hide());
+		}
+	}
+	
+	private void setSelectedRow(Row row) { // row your boat
+		if (selectedRow != null) selectedRow.setUnselected();
+		selectedRow = row;
+		row.setSelected();
+	}
+	
+	private void setUnselectedRow(Row row) { // gently down the stream
+		row.setUnselected();
+		selectedRow = null;
+	}
+	
+	private ClickListener getListener(Row row) { // merrily merrily merrily merrily
+		return new ClickListener() {
+			@Override
+	        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
+				setSelectedRow(row);
+			}
+			@Override
+	        public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
+				if (!locked) {
+					if (!justUnlocked) {
+						setUnselectedRow(row);
+					}
+					else {
+						justUnlocked = false;
+					}
+				}	
+			}
+		};
 	}
 	
 	@Override
@@ -140,21 +225,20 @@ public class SkillSelectionScene extends Scene {
 			
 			techniquesToButtons.put(technique, value);
 			final TextButton plusButton = new TextButton("+", skin);
+			final TextButton minusButton = new TextButton("-", skin);
+			
+			final Row row = new Row(technique, label, skillDisplay, bonusDisplay, skillDisplayTable, consoleTable);
 			
 			label.addListener(new ClickListener() {
 				@Override
-		        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-					skillDisplay.setText(technique.getTrait().getDescription());
-					bonusDisplay.setText(technique.getTrait().getBonusInfo());
-					skillDisplayTable.addAction(Actions.show());
-					consoleTable.addAction(Actions.hide());
-				}
-				@Override
-		        public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
-					consoleTable.addAction(Actions.show());
-					skillDisplayTable.addAction(Actions.hide());
+		        public void clicked(InputEvent event, float x, float y) {
+					locked = !locked;
+					justUnlocked = !locked;
 				}
 			});
+			label.addListener(getListener(row));
+			plusButton.addListener(getListener(row));
+			minusButton.addListener(getListener(row));
 			plusButton.addListener(new ClickListener() {
 				@Override
 		        public void clicked(InputEvent event, float x, float y) {
@@ -183,7 +267,7 @@ public class SkillSelectionScene extends Scene {
 					}
 		        }
 			});
-			final TextButton minusButton = new TextButton("-", skin);
+			
 			minusButton.addListener(new ClickListener() {
 				@Override
 		        public void clicked(InputEvent event, float x, float y) {
@@ -232,21 +316,21 @@ public class SkillSelectionScene extends Scene {
 			final Label value = new Label(level > 0 ? "(" + level + ")" : "", skin);
 			value.setAlignment(Align.right);
 			
+			final Row row = new Row(perk, label, skillDisplay, bonusDisplay, skillDisplayTable, consoleTable);
+			final TextButton plusButton = new TextButton("+", skin);
+			final TextButton minusButton = new TextButton("-", skin);
+			
 			label.addListener(new ClickListener() {
 				@Override
-		        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-					skillDisplay.setText(perk.getDescription());
-					bonusDisplay.setText("");
-					skillDisplayTable.addAction(Actions.show());
-					consoleTable.addAction(Actions.hide());
-				}
-				@Override
-		        public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
-					consoleTable.addAction(Actions.show());
-					skillDisplayTable.addAction(Actions.hide());
+		        public void clicked(InputEvent event, float x, float y) {
+					locked = !locked;
+					justUnlocked = !locked;
 				}
 			});
-			final TextButton plusButton = new TextButton("+", skin);
+			label.addListener(getListener(row));
+			plusButton.addListener(getListener(row));
+			minusButton.addListener(getListener(row));
+			
 			plusButton.addListener(new ClickListener() {
 				@Override
 		        public void clicked(InputEvent event, float x, float y) {
@@ -278,7 +362,6 @@ public class SkillSelectionScene extends Scene {
 					}
 		        }
 			});
-			final TextButton minusButton = new TextButton("-", skin);
 			minusButton.addListener(new ClickListener() {
 				@Override
 		        public void clicked(InputEvent event, float x, float y) {
@@ -334,22 +417,21 @@ public class SkillSelectionScene extends Scene {
 				final Label value = new Label(level > 0 ? "(" + level + ")" : "", skin);
 				value.setAlignment(Align.right);
 				
+				final Row row = new Row(technique, label, skillDisplay, bonusDisplay, skillDisplayTable, consoleTable);
+				final TextButton plusButton = new TextButton("+", skin);
+				final TextButton minusButton = new TextButton("-", skin);
+				
 				label.addListener(new ClickListener() {
 					@Override
-			        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-						skillDisplay.setText(technique.getTrait().getDescription());
-						bonusDisplay.setText(technique.getTrait().getBonusInfo());
-						skillDisplayTable.addAction(Actions.show());
-						consoleTable.addAction(Actions.hide());
-					}
-					@Override
-			        public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
-						skillDisplayTable.addAction(Actions.hide());
-						consoleTable.addAction(Actions.show());
+			        public void clicked(InputEvent event, float x, float y) {
+						locked = !locked;
+						justUnlocked = !locked;
 					}
 				});
+				label.addListener(getListener(row));
+				plusButton.addListener(getListener(row));
+				minusButton.addListener(getListener(row));
 				
-				final TextButton plusButton = new TextButton("+", skin);
 				plusButton.addListener(new ClickListener() {
 					@Override
 			        public void clicked(InputEvent event, float x, float y) {
@@ -377,7 +459,6 @@ public class SkillSelectionScene extends Scene {
 						}
 			        }
 				});
-				final TextButton minusButton = new TextButton("-", skin);
 				minusButton.addListener(new ClickListener() {
 					@Override
 			        public void clicked(InputEvent event, float x, float y) {
