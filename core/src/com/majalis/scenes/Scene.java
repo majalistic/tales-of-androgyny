@@ -47,7 +47,9 @@ public abstract class Scene extends Group {
 		Image newImage = new Image(texture);
 		newImage.setBounds(x, y, width, height);
 		this.addActor(newImage);
-		newImage.setColor(color);
+		if (color != null) {
+			newImage.setColor(color);
+		}
 		return newImage;
 	}
 	

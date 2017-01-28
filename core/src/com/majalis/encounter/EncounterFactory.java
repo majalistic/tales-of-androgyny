@@ -36,12 +36,12 @@ public class EncounterFactory {
 		int battleCode = -1;
 		if (battle != null) battleCode = battle.battleCode;
 		@SuppressWarnings("unchecked")
-		EncounterBuilder builder = new EncounterBuilder(reader, assetManager, saveService, font, smallFont, sceneCode, battleCode, (ObjectMap<String, Shop>)loadService.loadDataValue(SaveEnum.SHOP, Shop.class), context);
+		EncounterBuilder builder = new EncounterBuilder(reader, assetManager, saveService, font, smallFont, sceneCode, battleCode, (ObjectMap<String, Shop>)loadService.loadDataValue(SaveEnum.SHOP, Shop.class), (PlayerCharacter) loadService.loadDataValue(SaveEnum.PLAYER, PlayerCharacter.class), context);
 		switch (encounterCode) {
-			case LEVEL_UP: return builder.getLevelUpEncounter((PlayerCharacter) loadService.loadDataValue(SaveEnum.PLAYER, PlayerCharacter.class), (GameMode) loadService.loadDataValue(SaveEnum.MODE, Shop.class) == GameMode.STORY);
-			case INITIAL: return builder.getClassChoiceEncounter((PlayerCharacter) loadService.loadDataValue(SaveEnum.PLAYER, PlayerCharacter.class));
+			case LEVEL_UP: return builder.getLevelUpEncounter((GameMode) loadService.loadDataValue(SaveEnum.MODE, Shop.class) == GameMode.STORY);
+			case INITIAL: return builder.getClassChoiceEncounter();
 			case DEFAULT: return builder.getDefaultEncounter();
-			default: return builder.getRandomEncounter(encounterCode, (PlayerCharacter) loadService.loadDataValue(SaveEnum.PLAYER, PlayerCharacter.class));
+			default: return builder.getRandomEncounter(encounterCode);
 		}
 	}
 }

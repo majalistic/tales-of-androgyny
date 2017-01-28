@@ -24,6 +24,11 @@ public class EncounterScreen extends AbstractScreen {
 		resourceRequirements.put(AssetEnum.BUTTON_SOUND.getPath(), Sound.class);
 		resourceRequirements.put(AssetEnum.DEFAULT_BACKGROUND.getPath(), Texture.class);
 		resourceRequirements.put(AssetEnum.BATTLE_HOVER.getPath(), Texture.class);
+		resourceRequirements.put(AssetEnum.MARS_ICON_0.getPath(), Texture.class);
+		resourceRequirements.put(AssetEnum.MARS_ICON_1.getPath(), Texture.class);
+		resourceRequirements.put(AssetEnum.MARS_ICON_2.getPath(), Texture.class);
+		resourceRequirements.put(AssetEnum.MARS_ICON_3.getPath(), Texture.class);
+		resourceRequirements.put(AssetEnum.MARS_ICON_4.getPath(), Texture.class);
 		resourceRequirements.put(AssetEnum.ENCOUNTER_MUSIC.getPath(), Music.class);
 	}
 	private static AssetManager assetManager;

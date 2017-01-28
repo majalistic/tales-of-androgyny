@@ -23,28 +23,28 @@ public class CheckScene extends AbstractTextScene {
 	private Scene nextScene;
 	
 	public CheckScene(OrderedMap<Integer, Scene> sceneBranches, int sceneCode, AssetManager assetManager, SaveService saveService, BitmapFont font, Background background, Stat stat, OrderedMap<Integer, Scene> checkValues, Scene defaultScene, PlayerCharacter character) {
-		super(sceneBranches, sceneCode, assetManager, font, saveService, background);
-		this.statToCheck = stat;
-		this.checkValues = checkValues;
-		this.defaultScene = defaultScene;
-		this.character = character;
+		this(sceneBranches, sceneCode, assetManager, saveService, font, background, stat, null, null, checkValues, null, defaultScene, character);
 	}
 	
 	public CheckScene(OrderedMap<Integer, Scene> sceneBranches, int sceneCode, AssetManager assetManager, SaveService saveService, BitmapFont font, Background background, Perk perk, OrderedMap<Integer, Scene> checkValues, Scene defaultScene, PlayerCharacter character) {
-		super(sceneBranches, sceneCode, assetManager, font, saveService, background);
-		this.perkToCheck = perk;
-		this.checkValues = checkValues;
-		this.defaultScene = defaultScene;
-		this.character = character;
+		this(sceneBranches, sceneCode, assetManager, saveService, font, background, null, perk, null, checkValues, null, defaultScene, character);
 	}
 	
 	public CheckScene(OrderedMap<Integer, Scene> sceneBranches, int sceneCode, AssetManager assetManager, SaveService saveService, BitmapFont font, Background background, CheckType checkType, Scene clearScene, Scene defaultScene, PlayerCharacter character) {
-		super(sceneBranches, sceneCode, assetManager, font, saveService, background);
-		this.checkType = checkType;
+		this(sceneBranches, sceneCode, assetManager, saveService, font, background, null, null, checkType, null, clearScene, defaultScene, character);
+	}
+	
+	public CheckScene(OrderedMap<Integer, Scene> sceneBranches, int sceneCode, AssetManager assetManager, SaveService saveService, BitmapFont font, Background background, Stat stat, Perk perk, CheckType checkType, OrderedMap<Integer, Scene> checkValues, Scene clearScene, Scene defaultScene, PlayerCharacter character) {
+		super(sceneBranches, sceneCode, assetManager, font, character, saveService, background);
+		this.checkValues = checkValues;
 		this.clearScene = clearScene;
 		this.defaultScene = defaultScene;
 		this.character = character;
+		this.statToCheck = stat;
+		this.perkToCheck = perk;
+		this.checkType = checkType;
 	}
+	
 
 	@Override
 	public void setActive() {

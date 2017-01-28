@@ -1,10 +1,14 @@
 package com.majalis.scenes;
 
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.OrderedMap;
+import com.majalis.character.PlayerCharacter;
 import com.majalis.encounter.Background;
 import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveService;
@@ -14,21 +18,19 @@ public class TextScene extends AbstractTextScene  {
 	
 	private final Array<Mutation> mutations;
 	private final Background background;
-	private String music;
-	private String sound;
+	private final AssetManager assetManager;
+	private final PlayerCharacter character;
+	private final String music;
+	private final String sound;
 	
-	public TextScene(OrderedMap<Integer, Scene> sceneBranches, int sceneCode, AssetManager assetManager, BitmapFont font, SaveService saveService, Background background, String toDisplay, Array<Mutation> mutations) {
-		super(sceneBranches, sceneCode, assetManager, font, saveService, background);
+	public TextScene(OrderedMap<Integer, Scene> sceneBranches, int sceneCode, AssetManager assetManager, BitmapFont font, SaveService saveService, Background background, String toDisplay, Array<Mutation> mutations, PlayerCharacter character, String music, String sound) {
+		super(sceneBranches, sceneCode, assetManager, font, character, saveService, background);
+		this.assetManager = assetManager;
+		this.character = character;
 		display.setText(toDisplay);
 		this.mutations = mutations;
 		this.background = background;
-	}
-	
-	public void setMusic(String music){
 		this.music = music;
-	}
-	
-	public void setSound(String sound){
 		this.sound = sound;
 	}
 	
@@ -49,6 +51,7 @@ public class TextScene extends AbstractTextScene  {
 			if (result != null) mutationResults += " ["+result+"]";
 		}
 		statusResults.setText(mutationResults);
+		masculinityIcon.setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(character.getMasculinityPath(), Texture.class))));
 	}
 	// this type of TextScene will be one that always pipes from one scene to the next with no branch - there will be another TextScene that actually has branching logic
 	@Override

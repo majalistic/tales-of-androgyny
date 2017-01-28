@@ -7,12 +7,14 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.OrderedMap;
 import com.majalis.asset.AssetEnum;
+import com.majalis.character.PlayerCharacter;
 import com.majalis.encounter.Background;
 import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveService;
@@ -28,8 +30,9 @@ public abstract class AbstractTextScene extends Scene {
 	protected final SaveService saveService;
 	protected final Label display;
 	protected final Label statusResults;
+	protected final Image masculinityIcon;
 	
-	protected AbstractTextScene(OrderedMap<Integer, Scene> sceneBranches, int sceneCode, AssetManager assetManager, BitmapFont font, SaveService saveService, Background background) {
+	protected AbstractTextScene(OrderedMap<Integer, Scene> sceneBranches, int sceneCode, AssetManager assetManager, BitmapFont font, PlayerCharacter character, SaveService saveService, Background background) {
 		super(sceneBranches, sceneCode);
 		this.saveService = saveService;
 		this.addActor(background);
@@ -40,6 +43,8 @@ public abstract class AbstractTextScene extends Scene {
 		statusResults.setWidth(400);
 		Label skipText = addLabel("Press CTRL to skip", skin, font, Color.BLACK, 105, 180);
 		skipText.setWidth(240);
+		Texture icon = assetManager.get(character.getMasculinityPath(), Texture.class);
+		masculinityIcon = addImage(icon, null, 105, 900, icon.getWidth() / (icon.getHeight() / 100f), 100);
 	}
 
 	@Override

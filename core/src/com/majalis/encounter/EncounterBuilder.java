@@ -64,11 +64,12 @@ public class EncounterBuilder {
 	private final int sceneCode;
 	private int battleCode;
 	private final ObjectMap<String, Shop> shops;
+	private final PlayerCharacter character;
 	private final GameContext returnContext;
 	// can probably be replaced with a call to scenes.size
 	private int sceneCounter;
 	
-	protected EncounterBuilder(EncounterReader reader, AssetManager assetManager, SaveService saveService, BitmapFont font, BitmapFont smallFont, int sceneCode, int battleCode, ObjectMap<String, Shop> shops, GameContext returnContext) {
+	protected EncounterBuilder(EncounterReader reader, AssetManager assetManager, SaveService saveService, BitmapFont font, BitmapFont smallFont, int sceneCode, int battleCode, ObjectMap<String, Shop> shops, PlayerCharacter character, GameContext returnContext) {
 		scenes = new Array<Scene>();
 		endScenes = new Array<EndScene>();
 		battleScenes = new Array<BattleScene>();
@@ -80,12 +81,13 @@ public class EncounterBuilder {
 		this.sceneCode = sceneCode;
 		this.battleCode = battleCode;
 		this.shops = shops == null ? new ObjectMap<String, Shop>() : shops;
+		this.character = character;
 		this.returnContext = returnContext;
 		sceneCounter = 0;
 	}
 	/* different encounter "templates" */
 	@SuppressWarnings("unchecked")
-	protected Encounter getClassChoiceEncounter(PlayerCharacter playerCharacter) {	
+	protected Encounter getClassChoiceEncounter() {	
 		Background background = getDefaultTextBackground();
 		Background classSelectbackground = getClassSelectBackground();	
 		Background silhouetteBackground = new BackgroundBuilder(assetManager.get(AssetEnum.BURNING_FORT_BG.getPath(), Texture.class)).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class)).setForeground(assetManager.get(AssetEnum.SILHOUETTE.getPath(), Texture.class), 1000, 0).build();
@@ -100,11 +102,11 @@ public class EncounterBuilder {
 				getTextScenes(
 					getArray(new String[]{"You've selected to create your character!", "Please choose your class."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.MODE, GameMode.SKIRMISH)}),
 					getCharacterCreationScene(
-						smallFont, classSelectbackground.clone(), assetManager, playerCharacter, false,
+						smallFont, classSelectbackground.clone(), assetManager, character, false,
 						getSkillSelectionScene(
-							new BackgroundBuilder(assetManager.get(AssetEnum.SKILL_SELECTION_BACKGROUND.getPath(), Texture.class)).build(), assetManager, playerCharacter, 
+							new BackgroundBuilder(assetManager.get(AssetEnum.SKILL_SELECTION_BACKGROUND.getPath(), Texture.class)).build(), assetManager, character, 
 							getCharacterCustomizationScene(
-								new BackgroundBuilder(assetManager.get(AssetEnum.CHARACTER_CUSTOM_BACKGROUND.getPath(), Texture.class)).build(), assetManager, playerCharacter, 
+								new BackgroundBuilder(assetManager.get(AssetEnum.CHARACTER_CUSTOM_BACKGROUND.getPath(), Texture.class)).build(), assetManager, character, 
 								getEndScene(EndScene.Type.ENCOUNTER_OVER)
 							)
 						)
@@ -137,7 +139,7 @@ public class EncounterBuilder {
 	
 	private Background getClassSelectBackground() { return new BackgroundBuilder(assetManager.get(AssetEnum.CLASS_SELECT_BACKGROUND.getPath(), Texture.class)).build(); }
 	
-	protected Encounter getLevelUpEncounter(PlayerCharacter playerCharacter, boolean storyMode) {
+	protected Encounter getLevelUpEncounter(boolean storyMode) {
 		
 		if (storyMode) {
 			getTextScenes(
@@ -147,7 +149,7 @@ public class EncounterBuilder {
 		}
 		else {
 			getSkillSelectionScene(
-				new BackgroundBuilder(assetManager.get(AssetEnum.SKILL_SELECTION_BACKGROUND.getPath(), Texture.class)).build(), assetManager, playerCharacter, getEndScene(EndScene.Type.ENCOUNTER_OVER)
+				new BackgroundBuilder(assetManager.get(AssetEnum.SKILL_SELECTION_BACKGROUND.getPath(), Texture.class)).build(), assetManager, character, getEndScene(EndScene.Type.ENCOUNTER_OVER)
 			);
 		}
 		return new Encounter(scenes, endScenes, new Array<BattleScene>(), getStartScene(scenes, sceneCode));
@@ -160,7 +162,7 @@ public class EncounterBuilder {
 	}
 	
 	@SuppressWarnings("unchecked")
-	protected Encounter getRandomEncounter(EncounterCode encounterCode, PlayerCharacter character) {
+	protected Encounter getRandomEncounter(EncounterCode encounterCode) {
 		Texture backgroundTexture = assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getPath(), Texture.class);	
 		Background background = getDefaultTextBackground();
 		Mutation analReceive = new Mutation(saveService, SaveEnum.ANAL, new SexualExperienceBuilder().build());
@@ -1041,19 +1043,12 @@ public class EncounterBuilder {
 		sounds.reverse();
 		
 		int soundIndex = -(script.size - sounds.size);
-		TextScene newScene = null;
+		int ii = 1;
 		for (String scriptLine: script) {
-			newScene = new TextScene(sceneMap, sceneCounter, assetManager, font, saveService, background.clone(), scriptLine, mutations);
-			mutations = new Array<Mutation>();
-			if (soundIndex >= 0) {
-				newScene.setSound(sounds.get(soundIndex));
-			}
-			sceneMap = addScene(newScene);
+			sceneMap = addScene(new TextScene(sceneMap, sceneCounter, assetManager, font, saveService, background.clone(), scriptLine, mutations, character, soundIndex >= 0 ? sounds.get(soundIndex) : null, ii == script.size ? music : null));
 			soundIndex++;
+			ii++;
 		}	
-		if (music != null) {
-			newScene.setMusic(music);
-		}
 		return sceneMap;
 	}
 	
