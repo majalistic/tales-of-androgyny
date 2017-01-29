@@ -124,8 +124,8 @@ public class ShopScene extends Scene {
 			weaponButton.addListener(new ClickListener() {
 				@Override
 		        public void clicked(InputEvent event, float x, float y) {
-					itemSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
 					if (buyItem(weapon)) {
+						itemSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
 						addActor(done);
 						weaponButton.addAction(Actions.removeActor());
 						shop.weapons.removeValue(weapon, true);
@@ -169,8 +169,8 @@ public class ShopScene extends Scene {
 			potionButton.addListener(new ClickListener() {
 				@Override
 		        public void clicked(InputEvent event, float x, float y) {
-					itemSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
 					if (buyItem(potion)) {
+						itemSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
 						addActor(done);
 						potionButton.addAction(Actions.removeActor());
 						shop.consumables.removeValue(potion, true);
