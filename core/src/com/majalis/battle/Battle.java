@@ -134,9 +134,6 @@ public class Battle extends Group{
 		float consoleXPos = 1200;
 		float consoleYPos = 5;
 		
-		masculinityIcon = initImage(assetManager.get(character.getMasculinityPath(), Texture.class), barX + 150, 675);
-		masculinityIcon.setScale(.15f);
-		
 		characterHealth = initBar(0, 1, .05f, false, skin, 350, character.getHealthPercent(), barX , 1035);
 		healthIcon = initImage(assetManager.get(character.getHealthDisplay(), Texture.class), barX+3, 1042.5f);
 		healthLabel = initLabel(character.getCurrentHealth() + " / " + character.getMaxHealth(), skin, Color.BROWN, barX + 75, 1038);
@@ -166,10 +163,10 @@ public class Battle extends Group{
 		enemyWeaponLabel = initLabel("Weapon: " + (enemy.getWeapon() != null ? enemy.getWeapon().getName() : "Unarmed"), skin, Color.LIGHT_GRAY, 1578, 700);	
 		
 		Texture armorTexture = assetManager.get(AssetEnum.ARMOR.getPath(), Texture.class);
-		initImage(armorTexture, barX + 300, 800, 50);
-		initImage(armorTexture, 1500, 800, 50);
-		armorLabel = initLabel("" + character.getDefense(), skin, Color.BROWN, barX + 312, 805);		
-		enemyArmorLabel = initLabel("" + enemy.getDefense(), skin, Color.BROWN, 1512, 805);
+		initImage(armorTexture, barX + 320, 1032, 50);
+		initImage(armorTexture, 1820, 960, 50);
+		armorLabel = initLabel("" + character.getDefense(), skin, Color.BROWN, barX + 332, 1037);		
+		enemyArmorLabel = initLabel("" + enemy.getDefense(), skin, Color.BROWN, 1832, 965);
 		
 		uiHidden = false;
 		uiGroup = new Group();
@@ -187,6 +184,9 @@ public class Battle extends Group{
 		Image characterPortrait = new Image(assetManager.get(AssetEnum.CHARACTER_POTRAIT.getPath(), Texture.class));
 		addActorAndListen(characterPortrait, 0, 618);
 
+		masculinityIcon = initImage(assetManager.get(character.getMasculinityPath(), Texture.class), barX - 150, 850);
+		masculinityIcon.setScale(.15f);
+		
 		characterArousal = new Image(assetManager.get(character.getLustImagePath(), Texture.class));
 		addActorAndListen(characterArousal, 102, 490);
 		characterArousal.setSize(150, 150);
