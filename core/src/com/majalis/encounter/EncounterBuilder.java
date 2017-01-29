@@ -99,15 +99,15 @@ public class EncounterBuilder {
 		getTextScenes(
 			getScript("INTRO"), font, background,
 			getGameTypeScene(
-				assetManager, getArray(new String[]{"Create Character", "Story (Patrons)"}),		
+				getArray(new String[]{"Create Character", "Story (Patrons)"}),		
 				getTextScenes(
 					getArray(new String[]{"You've selected to create your character!", "Please choose your class."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.MODE, GameMode.SKIRMISH)}),
 					getCharacterCreationScene(
-						smallFont, classSelectbackground.clone(), assetManager, character, false,
+						smallFont, classSelectbackground.clone(), false,
 						getSkillSelectionScene(
-							new BackgroundBuilder(assetManager.get(AssetEnum.SKILL_SELECTION_BACKGROUND.getPath(), Texture.class)).build(), assetManager, character, 
+							new BackgroundBuilder(assetManager.get(AssetEnum.SKILL_SELECTION_BACKGROUND.getPath(), Texture.class)).build(), 
 							getCharacterCustomizationScene(
-								new BackgroundBuilder(assetManager.get(AssetEnum.CHARACTER_CUSTOM_BACKGROUND.getPath(), Texture.class)).build(), assetManager, character, 
+								new BackgroundBuilder(assetManager.get(AssetEnum.CHARACTER_CUSTOM_BACKGROUND.getPath(), Texture.class)).build(), 
 								getEndScene(EndScene.Type.ENCOUNTER_OVER)
 							)
 						)
@@ -150,7 +150,7 @@ public class EncounterBuilder {
 		}
 		else {
 			getSkillSelectionScene(
-				new BackgroundBuilder(assetManager.get(AssetEnum.SKILL_SELECTION_BACKGROUND.getPath(), Texture.class)).build(), assetManager, character, getEndScene(EndScene.Type.ENCOUNTER_OVER)
+				new BackgroundBuilder(assetManager.get(AssetEnum.SKILL_SELECTION_BACKGROUND.getPath(), Texture.class)).build(), getEndScene(EndScene.Type.ENCOUNTER_OVER)
 			);
 		}
 		return new Encounter(scenes, endScenes, new Array<BattleScene>(), getStartScene(scenes, sceneCode));
@@ -180,7 +180,7 @@ public class EncounterBuilder {
 					getTextScenes( 
 						getScript(encounterCode, 1), font, werebitchBackground, 
 						getBattleScene(
-							saveService, battleCode, new Array<Outcome>(new Outcome[]{Outcome.VICTORY, Outcome.KNOT, Outcome.DEFEAT, Outcome.SATISFIED}), 
+							battleCode, new Array<Outcome>(new Outcome[]{Outcome.VICTORY, Outcome.KNOT, Outcome.DEFEAT, Outcome.SATISFIED}), 
 							getTextScenes(getArray(new String[]{"You defeated the werebitch!", "You receive 2 Experience."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.EXPERIENCE, 2)}), getEndScene(EndScene.Type.ENCOUNTER_OVER)),
 							getTextScenes(getScript(encounterCode, 2), font, werebitchBackground, getArray(new Mutation[]{analReceive}), AssetEnum.WEREWOLF_MUSIC.getPath(), new Array<String>(), getEndScene(EndScene.Type.GAME_OVER)),
 							getTextScenes(getScript(encounterCode, 3), font, werebitchBackground, getArray(new Mutation[]{}), AssetEnum.WEREWOLF_MUSIC.getPath(), new Array<String>(), getEndScene(EndScene.Type.ENCOUNTER_OVER)),
@@ -205,11 +205,11 @@ public class EncounterBuilder {
 				getTextScenes(
 					getScript(encounterCode, 0), font, background, getArray(new Mutation[]{new Mutation(saveService, ProfileEnum.KNOWLEDGE, EnemyEnum.HARPY.toString())}),
 					getCheckScene(
-						assetManager, Stat.AGILITY, new IntArray(new int[]{6, 4}), character, 
+						Stat.AGILITY, new IntArray(new int[]{6, 4}),  
 						getTextScenes(
 							getScript(encounterCode, 1), font, background, 
 							getBattleScene(
-								saveService, battleCode, Stance.BALANCED, Stance.PRONE, normalOutcomes,
+								battleCode, Stance.BALANCED, Stance.PRONE, normalOutcomes,
 								winFight,
 								loseFight,
 								satisfiedFight
@@ -218,7 +218,7 @@ public class EncounterBuilder {
 						getTextScenes(
 							getScript(encounterCode, 2), font, background, 
 							getBattleScene(
-								saveService, battleCode, Stance.KNEELING, Stance.BALANCED, normalOutcomes,
+								battleCode, Stance.KNEELING, Stance.BALANCED, normalOutcomes,
 								winFight,
 								loseFight,
 								satisfiedFight
@@ -226,7 +226,7 @@ public class EncounterBuilder {
 						),
 						getTextScenes(getScript(encounterCode, 3), font, harpyFellatioBackground, 
 							getBattleScene(
-								saveService, battleCode, Stance.FELLATIO, Stance.FELLATIO, normalOutcomes,				
+								battleCode, Stance.FELLATIO, Stance.FELLATIO, normalOutcomes,				
 								winFight,
 								loseFight,
 								satisfiedFight
@@ -241,22 +241,19 @@ public class EncounterBuilder {
 				getTextScenes(
 					getScript(encounterCode, 0), font, slimeBackground, getArray(new Mutation[]{new Mutation(saveService, ProfileEnum.KNOWLEDGE, EnemyEnum.SLIME.toString())}),
 					getChoiceScene(
-						assetManager, "What do you do with the slime?", getArray(new String[]{"Fight Her", "Smooch Her", "Leave Her Be"}),
+						"What do you do with the slime?", getArray(new String[]{"Fight Her", "Smooch Her", "Leave Her Be"}),
 						getBattleScene(
-							saveService, battleCode,
+							battleCode,
 							getTextScenes(
 								getScript(encounterCode, 1), font, slimeBackground, 
 								getChoiceScene(
-									assetManager,
 									"Slay the slime?",
 									getArray(new String[]{"Stab the core", "Spare her"}),
 									getTextScenes(
 										getScript(encounterCode, 2), font, slimeBackground,
 										getCheckScene(
-											assetManager,
 											Stat.AGILITY,
 											new IntArray(new int[]{6}),
-											character,
 											getTextScenes(getScript(encounterCode, 3), font, slimeBackground,
 												getTextScenes(getArray(new String[]{"You slew the slime!", "You receive 3 Experience."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.EXPERIENCE, 3)}), getEndScene(EndScene.Type.ENCOUNTER_OVER))
 											),
@@ -272,7 +269,6 @@ public class EncounterBuilder {
 								getScript(encounterCode, 6),
 								font, slimeBackground, 
 								getChoiceScene(
-									assetManager,
 									"What do you do?",
 									getArray(new String[]{"Try to speak", "Run!"}),
 									getTextScenes(
@@ -282,10 +278,8 @@ public class EncounterBuilder {
 												getEndScene(EndScene.Type.ENCOUNTER_OVER))
 									),
 									getCheckScene(
-										assetManager,
 										Stat.AGILITY,
 										new IntArray(new int[]{5}),
-										character,
 										getTextScenes(getScript(encounterCode, 8), font, background, getEndScene(EndScene.Type.ENCOUNTER_OVER)),
 										getTextScenes(
 											getScript(encounterCode, 9), font, background, 
@@ -301,7 +295,6 @@ public class EncounterBuilder {
 						getTextScenes(
 							getScript(encounterCode, 10), font, slimeBackground, 
 							getChoiceScene(
-								assetManager,
 								"Do you enter the slime, or...?",
 								getArray(new String[]{"Go In", "Love Dart (Requires: Catamite)"}),
 								getArray(new PlayerCharacter[]{null, character}),
@@ -334,18 +327,18 @@ public class EncounterBuilder {
 				getTextScenes(
 					getScript(encounterCode, 0), font, background, getArray(new Mutation[]{new Mutation(saveService, ProfileEnum.KNOWLEDGE, EnemyEnum.BRIGAND.toString())}),
 					getCheckScene(
-						assetManager, Stat.PERCEPTION, new IntArray(new int[]{6, 4}), character,
+						Stat.PERCEPTION, new IntArray(new int[]{6, 4}),
 						getTextScenes(
 							getScript(encounterCode, 1), font, background, 
 							getChoiceScene(
-								assetManager, "How do you handle the brigand?", getArray(new String[]{"Charge", "Ready an Arrow", "Speak"}),
-								getBattleScene(saveService, battleCode, Stance.OFFENSIVE, Stance.BALANCED, normalOutcomes,
+								"How do you handle the brigand?", getArray(new String[]{"Charge", "Ready an Arrow", "Speak"}),
+								getBattleScene(battleCode, Stance.OFFENSIVE, Stance.BALANCED, normalOutcomes,
 									winFight2,
 									loseFight2,
 									satisfiedFight2
 								),
 								getBattleScene(
-									saveService, battleCode, normalOutcomes,
+									battleCode, normalOutcomes,
 									winFight2,
 									loseFight2,
 									satisfiedFight2
@@ -353,11 +346,11 @@ public class EncounterBuilder {
 								getTextScenes(
 									getScript(encounterCode, 2), font, background,
 									getChoiceScene(
-										assetManager, "Accept her offer?", getArray(new String[]{"Accept (Requires: Catamite)", "Decline"}), getArray(new PlayerCharacter[]{character, null}),
+										"Accept her offer?", getArray(new String[]{"Accept (Requires: Catamite)", "Decline"}), getArray(new PlayerCharacter[]{character, null}),
 										getTextScenes(
 											getScript(encounterCode, 3), font, background, getArray(new Mutation[]{analReceive}),
 											getChoiceScene(
-												assetManager, "Tell her to pull out?", getArray(new String[]{"Say Nothing", "Ask her"}),
+												"Tell her to pull out?", getArray(new String[]{"Say Nothing", "Ask her"}),
 												getTextScenes(
 													getScript(encounterCode, 4), font, background,
 													getTextScenes(
@@ -367,7 +360,7 @@ public class EncounterBuilder {
 												getTextScenes(
 													getScript(encounterCode, 5), font, background,
 													getCheckScene(
-														assetManager, Stat.CHARISMA, new IntArray(new int[]{4}), character,
+														Stat.CHARISMA, new IntArray(new int[]{4}),
 														getTextScenes(
 															getScript(encounterCode, 6), font, background,
 															getTextScenes(
@@ -387,7 +380,7 @@ public class EncounterBuilder {
 										getTextScenes(
 											getScript(encounterCode, 8), font, background,
 											getCheckScene(
-												assetManager, Stat.CHARISMA, new IntArray(new int[]{5}), character,
+												Stat.CHARISMA, new IntArray(new int[]{5}), 
 												getTextScenes(
 													getScript(encounterCode, 9), font, background,
 													getEndScene(EndScene.Type.ENCOUNTER_OVER)
@@ -395,7 +388,7 @@ public class EncounterBuilder {
 												getTextScenes(
 													getScript(encounterCode, 10), font, background,
 													getBattleScene(
-														saveService, battleCode, normalOutcomes,
+														battleCode, normalOutcomes,
 														winFight2,
 														loseFight2,
 														satisfiedFight2
@@ -412,7 +405,7 @@ public class EncounterBuilder {
 							getTextScenes(
 								getScript(encounterCode, 11), font, background, 
 								getBattleScene(
-									saveService, battleCode, normalOutcomes,
+									battleCode, normalOutcomes,
 									winFight2,
 									loseFight2,
 									satisfiedFight2
@@ -424,7 +417,7 @@ public class EncounterBuilder {
 							getTextScenes(
 								getScript(encounterCode, 12), font, background, getArray(new Mutation[]{analReceive}),
 								getBattleScene(
-									saveService, battleCode, Stance.STANDING, Stance.STANDING, normalOutcomes,
+									battleCode, Stance.STANDING, Stance.STANDING, normalOutcomes,
 									winFight2,
 									loseFight2,
 									satisfiedFight2
@@ -439,7 +432,7 @@ public class EncounterBuilder {
 				getTextScenes(
 					getScript(encounterCode, 0), font, background, new Array<Mutation>(), AssetEnum.SHOP_MUSIC.getPath(), new Array<String>(),
 					getChoiceScene(
-						assetManager, "Do you offer her YOUR apple, or try to convince her to just hand it over?", getArray(new String[]{"Offer (Requires: Catamite)", "Plead with her"}), getArray(new PlayerCharacter[]{character, null}),												
+						"Do you offer her YOUR apple, or try to convince her to just hand it over?", getArray(new String[]{"Offer (Requires: Catamite)", "Plead with her"}), getArray(new PlayerCharacter[]{character, null}),												
 						getTextScenes(
 							getScript(encounterCode, 1), font, background, getArray(new Mutation[]{analReceive}),
 							getTextScenes(
@@ -448,7 +441,7 @@ public class EncounterBuilder {
 							)
 						),
 						getCheckScene(
-							assetManager, Stat.CHARISMA, new IntArray(new int[]{5}), character,
+							Stat.CHARISMA, new IntArray(new int[]{5}),
 							getTextScenes(
 								getScript(encounterCode, 2), font, background,
 								getTextScenes(
@@ -473,7 +466,7 @@ public class EncounterBuilder {
 				OrderedMap<Integer, Scene> catamite = getTextScenes(
 					getScript(encounterCode, 3), font, centaurBackground, getArray(new Mutation[]{analReceive}),
 					getBattleScene(
-						saveService, battleCode, Stance.DOGGY, Stance.DOGGY, normalOutcomes,
+						battleCode, Stance.DOGGY, Stance.DOGGY, normalOutcomes,
 						getTextScenes(getArray(new String[]{"You defeated the centaur!", "You receive 2 Experience."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.EXPERIENCE, 2)}), getEndScene(EndScene.Type.ENCOUNTER_OVER)),
 						getTextScenes(getScript(encounterCode, 5), font, centaurBackground, getEndScene(EndScene.Type.GAME_OVER)),
 						getTextScenes(getScript(encounterCode, 5), font, centaurBackground, getEndScene(EndScene.Type.GAME_OVER))
@@ -483,11 +476,11 @@ public class EncounterBuilder {
 				getTextScenes(
 					getScript(encounterCode, 0), font, background, new Array<Mutation>(), AssetEnum.SHOP_MUSIC.getPath(), new Array<String>(),
 					getCheckScene(
-						assetManager, CheckType.VIRGIN, character,
+						CheckType.VIRGIN,
 						getTextScenes(
 							getScript(encounterCode, 1), font, unicornBackground, getArray(new Mutation[]{new Mutation(saveService, ProfileEnum.KNOWLEDGE, EnemyEnum.UNICORN.toString())}),
 							getBattleScene(
-								saveService, battleCode + 1000, 
+								battleCode + 1000, 
 								getTextScenes(getArray(new String[]{"You defeated the unicorn!", "You receive 3 Experience."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.EXPERIENCE, 3)}), getEndScene(EndScene.Type.ENCOUNTER_OVER)),
 								getTextScenes(
 									getScript(encounterCode, 4), font, unicornBackground, getArray(new Mutation[]{analReceive}),
@@ -501,12 +494,12 @@ public class EncounterBuilder {
 						getTextScenes(
 							getScript(encounterCode, 2), font, centaurBackground, getArray(new Mutation[]{new Mutation(saveService, ProfileEnum.KNOWLEDGE, EnemyEnum.CENTAUR.toString())}),
 							getCheckScene(
-								assetManager, Perk.ANAL_LOVER, new IntArray(new int[]{3}), character,
+								Perk.ANAL_LOVER, new IntArray(new int[]{3}),
 								catamite,
 								getChoiceScene(
-									assetManager, "Fight the centaur?", getArray(new String[]{"Fight Her", "Decline", "Ask for It (Requires: Catamite)"}), getArray(new PlayerCharacter[]{null, null, character}),
+									"Fight the centaur?", getArray(new String[]{"Fight Her", "Decline", "Ask for It (Requires: Catamite)"}), getArray(new PlayerCharacter[]{null, null, character}),
 									getBattleScene(
-										saveService, battleCode, normalOutcomes,
+										battleCode, normalOutcomes,
 										getTextScenes(getArray(new String[]{"You defeated the centaur!", "You are now welcome to sleep in their camp, and receive 10 food.", "You receive 2 Experience."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.EXPERIENCE, 2), new Mutation(saveService, SaveEnum.FOOD, 10)}), getEndScene(EndScene.Type.ENCOUNTER_OVER)),
 										getTextScenes(getScript(encounterCode, 5), font, centaurBackground, getEndScene(EndScene.Type.GAME_OVER)),
 										getTextScenes(getScript(encounterCode, 5), font, centaurBackground, getEndScene(EndScene.Type.GAME_OVER))
@@ -530,7 +523,7 @@ public class EncounterBuilder {
 				);
 				
 				OrderedMap<Integer, Scene> postVirginityCheck = getChoiceScene(
-					assetManager, "Mouth, or ass?", getArray(new String[]{"In The Mouth", "Up The Ass"}),
+					"Mouth, or ass?", getArray(new String[]{"In The Mouth", "Up The Ass"}),
 					getTextScenes(
 						getScript(encounterCode, 31), font, goblinBackground, getArray(new Mutation[]{goblinVirginityToFalse}),
 						getEndScene(EndScene.Type.ENCOUNTER_OVER)
@@ -538,17 +531,17 @@ public class EncounterBuilder {
 					getTextScenes(
 						getScript(encounterCode, 32), font, goblinBackground, getArray(new Mutation[]{goblinVirginityToFalse}),	
 						getCheckScene(
-							assetManager, Stat.ENDURANCE, new IntArray(new int[]{6}), character,
+							Stat.ENDURANCE, new IntArray(new int[]{6}),
 							fightOff,
 							getTextScenes(
 								getScript(encounterCode, 33), font, goblinBackground,	
 								getCheckScene(
-									assetManager, Stat.ENDURANCE, new IntArray(new int[]{5}), character,
+									Stat.ENDURANCE, new IntArray(new int[]{5}),
 									fightOff,
 									getTextScenes(
 										getScript(encounterCode, 34), font, goblinBackground,	
 										getCheckScene(
-											assetManager, Stat.ENDURANCE, new IntArray(new int[]{4}), character,
+											Stat.ENDURANCE, new IntArray(new int[]{4}),
 											fightOff,
 											getTextScenes(
 												getScript(encounterCode, 35), font, goblinBackground,	
@@ -567,25 +560,25 @@ public class EncounterBuilder {
 				
 				OrderedMap<Integer, Scene> defeatScene = getTextScenes(getScript(encounterCode, 28), font, goblinBackground,
 					getCheckScene(
-						assetManager, CheckType.GOBLIN_VIRGIN, character,
+						CheckType.GOBLIN_VIRGIN,
 						getTextScenes(getScript(encounterCode, 29), font, goblinBackground, postVirginityCheck),
 						getTextScenes(getScript(encounterCode, 30), font, goblinBackground, postVirginityCheck)
 					)						
 				);		
 				
-				OrderedMap<Integer, Scene> battleScene = getBattleScene(saveService, battleCode, 
+				OrderedMap<Integer, Scene> battleScene = getBattleScene(battleCode, 
 					getTextScenes(getArray(new String[]{"You defeated the goblin!", "You receive 1 Experience."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.EXPERIENCE, 1)}), getEndScene(EndScene.Type.ENCOUNTER_OVER)),
 					defeatScene
 				);
 				
-				OrderedMap<Integer, Scene> battleSceneDisarm = getBattleScene(saveService, battleCode, Stance.BALANCED, Stance.BALANCED, true, new Array<Outcome>(new Outcome[]{Outcome.VICTORY, Outcome.DEFEAT}),
+				OrderedMap<Integer, Scene> battleSceneDisarm = getBattleScene(battleCode, Stance.BALANCED, Stance.BALANCED, true, new Array<Outcome>(new Outcome[]{Outcome.VICTORY, Outcome.DEFEAT}),
 						getTextScenes(getArray(new String[]{"You defeated the goblin!", "You receive 1 Experience."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.EXPERIENCE, 1)}), getEndScene(EndScene.Type.ENCOUNTER_OVER)),
 						defeatScene
 					);
 				
 				OrderedMap<Integer, Scene> pantsCutDown = getTextScenes(
 					getScript(encounterCode, 20), font, goblinBackground,
-					getBattleScene(saveService, battleCode, Stance.DOGGY, Stance.DOGGY,
+					getBattleScene(battleCode, Stance.DOGGY, Stance.DOGGY,
 						getTextScenes(getArray(new String[]{"You defeated the goblin!", "You receive 1 Experience."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.EXPERIENCE, 1)}), getEndScene(EndScene.Type.ENCOUNTER_OVER)),
 						defeatScene
 					)
@@ -594,17 +587,17 @@ public class EncounterBuilder {
 				OrderedMap<Integer, Scene> cutPantsScene = getTextScenes(
 					getScript(encounterCode, 9), font, goblinBackground, getArray(new Mutation[]{new Mutation(saveService, ProfileEnum.KNOWLEDGE, EnemyEnum.GOBLIN.toString())}),
 					getChoiceScene(
-						assetManager, "Quick, what do you do?", getArray(new String[]{"Catch Her (5 Agi)", "Trip Her (4 Agi)", "Disarm Her (3 Agi)", "Avoid Her (2 Agi)"}),
+						"Quick, what do you do?", getArray(new String[]{"Catch Her (5 Agi)", "Trip Her (4 Agi)", "Disarm Her (3 Agi)", "Avoid Her (2 Agi)"}),
 						getCheckScene(
-							assetManager, Stat.AGILITY, new IntArray(new int[]{5}), character,
+							Stat.AGILITY, new IntArray(new int[]{5}),
 							getTextScenes(
 								getScript(encounterCode, 10), font, goblinBackground,
 								getChoiceScene(
-									assetManager, "What do you do with her?", getArray(new String[]{"Put Her Down", "Turn Her Over Your Knee"}),	
+									"What do you do with her?", getArray(new String[]{"Put Her Down", "Turn Her Over Your Knee"}),	
 									getTextScenes(
 										getScript(encounterCode, 11), font, goblinBackground, getArray(new Mutation[]{new Mutation(saveService, ProfileEnum.KNOWLEDGE, EnemyEnum.GOBLIN.toString())}),
 										getChoiceScene(
-											assetManager, "Accept Her Offer?", getArray(new String[]{"Accept", "Decline"}),
+											"Accept Her Offer?", getArray(new String[]{"Accept", "Decline"}),
 											getTextScenes(
 												getScript(encounterCode, 12), font, goblinBackground,
 												getEndScene(EndScene.Type.ENCOUNTER_OVER)
@@ -618,7 +611,7 @@ public class EncounterBuilder {
 									getTextScenes(
 										getScript(encounterCode, 14), font, goblinBackground,
 										getCheckScene(
-											assetManager, Stat.STRENGTH, new IntArray(new int[]{5}), character,
+											 Stat.STRENGTH, new IntArray(new int[]{5}),
 											getTextScenes(
 												getScript(encounterCode, 15), font, goblinBackground,
 												getEndScene(EndScene.Type.ENCOUNTER_OVER)
@@ -634,12 +627,12 @@ public class EncounterBuilder {
 							pantsCutDown
 						),
 						getCheckScene(
-							assetManager, Stat.AGILITY, new IntArray(new int[]{4}), character,
+							Stat.AGILITY, new IntArray(new int[]{4}),
 							getTextScenes(
 								getScript(encounterCode, 17), font, goblinBackground, getArray(new Mutation[]{new Mutation(saveService, ProfileEnum.KNOWLEDGE, EnemyEnum.GOBLIN.toString())}),
 								getChoiceScene(
-									assetManager, "What do you do?", getArray(new String[]{"Attack", "Run"}),
-									getBattleScene(saveService, battleCode, Stance.OFFENSIVE, Stance.PRONE,
+									"What do you do?", getArray(new String[]{"Attack", "Run"}),
+									getBattleScene(battleCode, Stance.OFFENSIVE, Stance.PRONE,
 										getTextScenes(getArray(new String[]{"You defeated the goblin!", "You receive 1 Experience."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.EXPERIENCE, 1)}), getEndScene(EndScene.Type.ENCOUNTER_OVER)),
 										defeatScene
 									),
@@ -652,12 +645,12 @@ public class EncounterBuilder {
 							pantsCutDown
 						),
 						getCheckScene(
-							assetManager, Stat.AGILITY, new IntArray(new int[]{3}), character, 
+							Stat.AGILITY, new IntArray(new int[]{3}), 
 							getTextScenes(
 								getScript(encounterCode, 18), font, goblinBackground, getArray(new Mutation[]{new Mutation(saveService, ProfileEnum.KNOWLEDGE, EnemyEnum.GOBLIN.toString())}),
 								getChoiceScene(
-									assetManager, "What do you do?", getArray(new String[]{"Attack Her", "Block Her", "Let Her Go"}),  // probably should be battle, convo, end encounter
-									getBattleScene(saveService, battleCode, Stance.OFFENSIVE, Stance.BALANCED,
+									"What do you do?", getArray(new String[]{"Attack Her", "Block Her", "Let Her Go"}),  // probably should be battle, convo, end encounter
+									getBattleScene(battleCode, Stance.OFFENSIVE, Stance.BALANCED,
 										getTextScenes(getArray(new String[]{"You defeated the goblin!", "You receive 1 Experience."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.EXPERIENCE, 1)}), getEndScene(EndScene.Type.ENCOUNTER_OVER)),
 										defeatScene
 									),
@@ -671,12 +664,12 @@ public class EncounterBuilder {
 							pantsCutDown
 						),
 						getCheckScene(
-							assetManager, Stat.AGILITY, new IntArray(new int[]{2}), character,
+							Stat.AGILITY, new IntArray(new int[]{2}),
 							getTextScenes(
 								getScript(encounterCode, 19), font, goblinBackground, getArray(new Mutation[]{new Mutation(saveService, ProfileEnum.KNOWLEDGE, EnemyEnum.GOBLIN.toString())}),
 								getChoiceScene(
-									assetManager, "What do you do?", getArray(new String[]{"Attack Her", "Block Her", "Let Her Go"}),  // probably should be battle, convo, end encounter
-									getBattleScene(saveService, battleCode, Stance.OFFENSIVE, Stance.BALANCED,
+									"What do you do?", getArray(new String[]{"Attack Her", "Block Her", "Let Her Go"}),  // probably should be battle, convo, end encounter
+									getBattleScene(battleCode, Stance.OFFENSIVE, Stance.BALANCED,
 										getTextScenes(getArray(new String[]{"You defeated the goblin!", "You receive 1 Experience."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.EXPERIENCE, 1)}), getEndScene(EndScene.Type.ENCOUNTER_OVER)),
 										defeatScene
 									),
@@ -695,7 +688,7 @@ public class EncounterBuilder {
 				getTextScenes(
 					getScript(encounterCode, 0), font, background, new Array<Mutation>(), AssetEnum.WEREWOLF_MUSIC.getPath(), new Array<String>(),
 					getChoiceScene(
-						assetManager, "What path do you follow?", getArray(new String[]{"Pass By", "Enter the Small Path"}),
+						"What path do you follow?", getArray(new String[]{"Pass By", "Enter the Small Path"}),
 						getTextScenes(
 							getScript(encounterCode, 1), font, background,
 							getEndScene(EndScene.Type.ENCOUNTER_OVER)
@@ -703,15 +696,15 @@ public class EncounterBuilder {
 						getTextScenes(
 							getScript(encounterCode, 2), font, background, getArray(new Mutation[]{new Mutation(saveService, ProfileEnum.KNOWLEDGE, EnemyEnum.GOBLIN.toString())}), null, getArray(new String[]{ null, null, null, null, AssetEnum.LOUD_LAUGH.getPath()}),
 							getCheckScene(
-								assetManager, Stat.PERCEPTION, new IntArray(new int[]{7, 4}), character,
+								Stat.PERCEPTION, new IntArray(new int[]{7, 4}),
 								getTextScenes(
 									getScript(encounterCode, 3), font, goblinBackground,
 									getCheckScene(
-										assetManager, Stat.AGILITY, new IntArray(new int[]{5, 3}), character,
+										Stat.AGILITY, new IntArray(new int[]{5, 3}),
 										getTextScenes(
 											getScript(encounterCode, 4), font, goblinBackground,
 											getCheckScene(
-												assetManager, Stat.STRENGTH, new IntArray(new int[]{5}), character,
+												Stat.STRENGTH, new IntArray(new int[]{5}),
 												getTextScenes(
 													getScript(encounterCode, 5), font, goblinBackground,
 													cutPantsScene
@@ -735,11 +728,11 @@ public class EncounterBuilder {
 								getTextScenes( // noticed
 									getScript(encounterCode, 21), font, background,
 									getCheckScene(
-										assetManager, Stat.AGILITY, new IntArray(new int[]{7, 5}), character,
+										Stat.AGILITY, new IntArray(new int[]{7, 5}),
 										getTextScenes(
 											getScript(encounterCode, 4), font, goblinBackground,
 											getCheckScene(
-												assetManager, Stat.STRENGTH, new IntArray(new int[]{5}), character,
+												Stat.STRENGTH, new IntArray(new int[]{5}),
 												getTextScenes(
 													getScript(encounterCode, 5), font, goblinBackground,
 													cutPantsScene
@@ -763,15 +756,15 @@ public class EncounterBuilder {
 								getTextScenes( // failed to notice
 									getScript(encounterCode, 22), font, background,
 									getCheckScene(
-										assetManager, Stat.AGILITY, new IntArray(new int[]{5}), character,
+										Stat.AGILITY, new IntArray(new int[]{5}),
 										getTextScenes(
 											getScript(encounterCode, 23), font, background,
 											getCheckScene(
-												assetManager, Stat.AGILITY, new IntArray(new int[]{7, 5}), character,
+												Stat.AGILITY, new IntArray(new int[]{7, 5}),
 												getTextScenes(
 													getScript(encounterCode, 4), font, goblinBackground,
 													getCheckScene(
-														assetManager, Stat.STRENGTH, new IntArray(new int[]{5}), character,
+														Stat.STRENGTH, new IntArray(new int[]{5}),
 														getTextScenes(
 															getScript(encounterCode, 5), font, goblinBackground,
 															cutPantsScene
@@ -793,7 +786,7 @@ public class EncounterBuilder {
 											)
 										),
 										getCheckScene(
-											assetManager, Stat.ENDURANCE, new IntArray(new int[]{7}), character,
+											Stat.ENDURANCE, new IntArray(new int[]{7}),
 											getTextScenes(
 												getScript(encounterCode, 24), font, background,
 												getEndScene(EndScene.Type.ENCOUNTER_OVER)
@@ -824,7 +817,7 @@ public class EncounterBuilder {
 					getTextScenes (
 						getScript("STORY-003A"), font, trainerBackground, 
 						getCharacterCreationScene(
-							smallFont, getClassSelectBackground(), assetManager, character, true,
+							smallFont, getClassSelectBackground(), true,
 							getEndScene(EndScene.Type.ENCOUNTER_OVER)
 						)
 					)
@@ -846,10 +839,10 @@ public class EncounterBuilder {
 					getTextScenes (					
 						getScript("STORY-006"), font, backgroundWithShopkeep, new Array<Mutation>(), AssetEnum.SHOP_MUSIC.getPath(), getArray(new String[]{null, null, null, null, AssetEnum.SMUG_LAUGH.getPath()}),
 						getShopScene(
-							assetManager, ShopCode.FIRST_STORY, character,shopBackground, 
+							ShopCode.FIRST_STORY, shopBackground, 
 							getTextScenes(					
 								getScript("STORY-006A"), font, backgroundWithShopkeep,
-								getCheckScene(assetManager, Stat.CHARISMA, new IntArray(new int[]{6}), character,
+								getCheckScene(Stat.CHARISMA, new IntArray(new int[]{6}),
 									getTextScenes (
 										getScript("STORY-006B"), font, backgroundWithShopkeep, new Array<Mutation>(), AssetEnum.SHOP_MUSIC.getPath(), getArray(new String[]{ AssetEnum.SMUG_LAUGH.getPath()}),
 										getTextScenes (					
@@ -895,7 +888,7 @@ public class EncounterBuilder {
 					getTextScenes( 
 						getScript("STORY-FIGHT-GOBLIN"), font, goblinBackground2, 
 						getBattleScene(
-							saveService, battleCode, 
+							battleCode, 
 							getTextScenes(getScript("STORY-FIGHT-GOBLIN-VICTORY"), font, goblinBackground2, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.EXPERIENCE, 2)}), 
 								getTextScenes(getScript("STORY-FIGHT-GOBLIN-VICTORY2"), font, background,  
 								getEndScene(EndScene.Type.ENCOUNTER_OVER))
@@ -916,7 +909,7 @@ public class EncounterBuilder {
 				getTextScenes(
 					getScript("STORY-OGRE"), font, background, new Array<Mutation>(), AssetEnum.WEREWOLF_MUSIC.getPath(), new Array<String>(new String[]{null, null, null, null, AssetEnum.OGRE.getPath()}),
 					getChoiceScene(
-						assetManager, "Continue on?", getArray(new String[]{"Press On", "Turn back"}), 
+						"Continue on?", getArray(new String[]{"Press On", "Turn back"}), 
 						getTextScenes(
 							getScript("STORY-OGRE-DEFEAT"), font, background, new Array<Mutation>(), AssetEnum.HEAVY_MUSIC.getPath(), new Array<String>(new String[]{null, null, null, AssetEnum.OGRE.getPath(), null, null, null, null, null, AssetEnum.OGRE.getPath(), null, null, AssetEnum.OGRE.getPath()}),
 							getTextScenes(
@@ -963,7 +956,7 @@ public class EncounterBuilder {
 				getTextScenes (					
 					getArray(new String[]{"You peruse the shop."}), font, backgroundWithShopkeep2, new Array<Mutation>(), AssetEnum.SHOP_MUSIC.getPath(), getArray(new String[]{}),	
 					getShopScene(
-						assetManager, ShopCode.SHOP, character,  new BackgroundBuilder(assetManager.get(AssetEnum.TOWN_BG.getPath(), Texture.class)).setForeground(assetManager.get(AssetEnum.SHOPKEEP.getPath(), Texture.class)).build(), 
+						ShopCode.SHOP, new BackgroundBuilder(assetManager.get(AssetEnum.TOWN_BG.getPath(), Texture.class)).setForeground(assetManager.get(AssetEnum.SHOPKEEP.getPath(), Texture.class)).build(), 
 						getEndScene(EndScene.Type.ENCOUNTER_OVER)	
 					)
 				);
@@ -973,7 +966,7 @@ public class EncounterBuilder {
 				getTextScenes (					
 					getArray(new String[]{"You peruse the shop."}), font, backgroundWithBlacksmith, new Array<Mutation>(), AssetEnum.SHOP_MUSIC.getPath(), getArray(new String[]{}),	
 					getShopScene(
-						assetManager, ShopCode.WEAPON_SHOP, character, new BackgroundBuilder(assetManager.get(AssetEnum.TOWN_BG.getPath(), Texture.class)).setForeground(assetManager.get(AssetEnum.TRAINER.getPath(), Texture.class)).build(), 
+						ShopCode.WEAPON_SHOP, new BackgroundBuilder(assetManager.get(AssetEnum.TOWN_BG.getPath(), Texture.class)).setForeground(assetManager.get(AssetEnum.TRAINER.getPath(), Texture.class)).build(), 
 						getEndScene(EndScene.Type.ENCOUNTER_OVER)	
 					)
 				);
@@ -991,7 +984,7 @@ public class EncounterBuilder {
 					getScript("STARVATION"), font, background, new Array<Mutation>(), AssetEnum.WEREWOLF_MUSIC.getPath(), new Array<String>(),
 					getTextScenes(getScript("STARVATION-REVEAL"), font, buttBangedBackground, 
 						getCheckScene(
-							assetManager, CheckType.VIRGIN, character,
+							CheckType.VIRGIN,
 							getTextScenes(getScript("STARVATION-VIRGIN"), font, buttBangedBackground, getArray(new Mutation[]{analReceive}),
 								getTextScenes(getScript("STARVATION-CONTINUE"), font, buttBangedBackground,	
 								getEndScene(EndScene.Type.GAME_OVER))
@@ -1053,10 +1046,10 @@ public class EncounterBuilder {
 		return sceneMap;
 	}
 	
-	private OrderedMap<Integer, Scene> getChoiceScene(AssetManager assetManager, String choiceDialogue, Array<String> buttonLabels, @SuppressWarnings("unchecked") OrderedMap<Integer, Scene>... sceneMaps) {
-		return getChoiceScene(assetManager, choiceDialogue, buttonLabels, new Array<PlayerCharacter>(), sceneMaps);
+	private OrderedMap<Integer, Scene> getChoiceScene(String choiceDialogue, Array<String> buttonLabels, @SuppressWarnings("unchecked") OrderedMap<Integer, Scene>... sceneMaps) {
+		return getChoiceScene(choiceDialogue, buttonLabels, new Array<PlayerCharacter>(), sceneMaps);
 	}
-	private OrderedMap<Integer, Scene> getChoiceScene(AssetManager assetManager, String choiceDialogue, Array<String> buttonLabels, Array<PlayerCharacter> checks, @SuppressWarnings("unchecked") OrderedMap<Integer, Scene>... sceneMaps) {
+	private OrderedMap<Integer, Scene> getChoiceScene(String choiceDialogue, Array<String> buttonLabels, Array<PlayerCharacter> checks, @SuppressWarnings("unchecked") OrderedMap<Integer, Scene>... sceneMaps) {
 		OrderedMap<Integer, Scene> sceneMap = aggregateMaps(sceneMaps);
 		
 		// use sceneMap to generate the table
@@ -1084,7 +1077,7 @@ public class EncounterBuilder {
 		return addScene(choiceScene);	
 	}
 	
-	private OrderedMap<Integer, Scene> getShopScene(AssetManager assetManager, ShopCode shopCode, PlayerCharacter character, Background background, OrderedMap<Integer, Scene> sceneMap) {
+	private OrderedMap<Integer, Scene> getShopScene(ShopCode shopCode, Background background, OrderedMap<Integer, Scene> sceneMap) {
 		return addScene(new ShopScene(sceneMap, sceneCounter, saveService, assetManager, character, background, shopCode, shops.get(shopCode.toString())));
 	}
 	
@@ -1117,7 +1110,7 @@ public class EncounterBuilder {
 	    };
 	}
 	
-	private OrderedMap<Integer, Scene> getCheckScene(AssetManager assetManager, Perk perk, IntArray checkValues, PlayerCharacter character, @SuppressWarnings("unchecked") OrderedMap<Integer, Scene>... sceneMaps) {
+	private OrderedMap<Integer, Scene> getCheckScene(Perk perk, IntArray checkValues, @SuppressWarnings("unchecked") OrderedMap<Integer, Scene>... sceneMaps) {
 		OrderedMap<Integer, Scene> sceneMap = aggregateMaps(sceneMaps);
 		Texture background = assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getPath(), Texture.class);
 		OrderedMap<Integer, Scene> checkValueMap = new OrderedMap<Integer, Scene>();
@@ -1130,7 +1123,7 @@ public class EncounterBuilder {
 	}
 	
 	// accepts a list of values, will map those values to scenes in the scenemap in order
-	private OrderedMap<Integer, Scene> getCheckScene(AssetManager assetManager, Stat stat, IntArray checkValues, PlayerCharacter character, @SuppressWarnings("unchecked") OrderedMap<Integer, Scene>... sceneMaps) {
+	private OrderedMap<Integer, Scene> getCheckScene(Stat stat, IntArray checkValues, @SuppressWarnings("unchecked") OrderedMap<Integer, Scene>... sceneMaps) {
 		OrderedMap<Integer, Scene> sceneMap = aggregateMaps(sceneMaps);
 		Texture background = assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getPath(), Texture.class);
 		OrderedMap<Integer, Scene> checkValueMap = new OrderedMap<Integer, Scene>();
@@ -1142,30 +1135,30 @@ public class EncounterBuilder {
 		return addScene(checkScene);
 	}
 	
-	private OrderedMap<Integer, Scene> getCheckScene(AssetManager assetManager, CheckType checkType, PlayerCharacter character, @SuppressWarnings("unchecked") OrderedMap<Integer, Scene>... sceneMaps) {
+	private OrderedMap<Integer, Scene> getCheckScene(CheckType checkType, @SuppressWarnings("unchecked") OrderedMap<Integer, Scene>... sceneMaps) {
 		OrderedMap<Integer, Scene> sceneMap = aggregateMaps(sceneMaps);
 		Texture background = assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getPath(), Texture.class);
 		CheckScene checkScene = new CheckScene(sceneMap, sceneCounter, assetManager, saveService, font, new BackgroundBuilder(background).build(), checkType, sceneMap.get(sceneMap.orderedKeys().get(0)), sceneMap.get(sceneMap.orderedKeys().get(1)), character);
 		return addScene(checkScene);
 	}
 	
-	private OrderedMap<Integer, Scene> getBattleScene(SaveService saveService, int battleCode, @SuppressWarnings("unchecked") OrderedMap<Integer, Scene>... sceneMaps) {
-		return getBattleScene(saveService, battleCode, Stance.BALANCED, Stance.BALANCED, sceneMaps);
+	private OrderedMap<Integer, Scene> getBattleScene(int battleCode, @SuppressWarnings("unchecked") OrderedMap<Integer, Scene>... sceneMaps) {
+		return getBattleScene(battleCode, Stance.BALANCED, Stance.BALANCED, sceneMaps);
 	}
 	
-	private OrderedMap<Integer, Scene> getBattleScene(SaveService saveService, int battleCode, Array<Outcome> outcomes, @SuppressWarnings("unchecked") OrderedMap<Integer, Scene>... sceneMaps) {
-		return getBattleScene(saveService, battleCode, Stance.BALANCED, Stance.BALANCED, outcomes, sceneMaps);
+	private OrderedMap<Integer, Scene> getBattleScene(int battleCode, Array<Outcome> outcomes, @SuppressWarnings("unchecked") OrderedMap<Integer, Scene>... sceneMaps) {
+		return getBattleScene(battleCode, Stance.BALANCED, Stance.BALANCED, outcomes, sceneMaps);
 	}
 		
-	private OrderedMap<Integer, Scene> getBattleScene(SaveService saveService, int battleCode, Stance playerStance, Stance enemyStance, @SuppressWarnings("unchecked") OrderedMap<Integer, Scene>... sceneMaps) {
-		return getBattleScene(saveService, battleCode, playerStance, enemyStance, new Array<Outcome>(new Outcome[]{Outcome.VICTORY, Outcome.DEFEAT}), sceneMaps);
+	private OrderedMap<Integer, Scene> getBattleScene(int battleCode, Stance playerStance, Stance enemyStance, @SuppressWarnings("unchecked") OrderedMap<Integer, Scene>... sceneMaps) {
+		return getBattleScene(battleCode, playerStance, enemyStance, new Array<Outcome>(new Outcome[]{Outcome.VICTORY, Outcome.DEFEAT}), sceneMaps);
 	}
 	
-	private OrderedMap<Integer, Scene> getBattleScene(SaveService saveService, int battleCode, Stance playerStance, Stance enemyStance, Array<Outcome> outcomes, @SuppressWarnings("unchecked") OrderedMap<Integer, Scene>... sceneMaps) {
-		return getBattleScene(saveService, battleCode, playerStance, enemyStance, false, outcomes, sceneMaps);
+	private OrderedMap<Integer, Scene> getBattleScene(int battleCode, Stance playerStance, Stance enemyStance, Array<Outcome> outcomes, @SuppressWarnings("unchecked") OrderedMap<Integer, Scene>... sceneMaps) {
+		return getBattleScene(battleCode, playerStance, enemyStance, false, outcomes, sceneMaps);
 	}
 	
-	private OrderedMap<Integer, Scene> getBattleScene(SaveService saveService, int battleCode, Stance playerStance, Stance enemyStance, boolean disarm, Array<Outcome> outcomes, @SuppressWarnings("unchecked") OrderedMap<Integer, Scene>... sceneMaps) {
+	private OrderedMap<Integer, Scene> getBattleScene(int battleCode, Stance playerStance, Stance enemyStance, boolean disarm, Array<Outcome> outcomes, @SuppressWarnings("unchecked") OrderedMap<Integer, Scene>... sceneMaps) {
 		OrderedMap<Integer, Scene> sceneMap = aggregateMaps(sceneMaps);
 		ObjectMap<String, Integer> outcomeToScene = new ObjectMap<String, Integer>();
 		for (int ii = 0; ii < outcomes.size; ii++) {
@@ -1175,7 +1168,7 @@ public class EncounterBuilder {
 		return addScene(new BattleScene(aggregateMaps(sceneMaps), saveService, battleCode, playerStance, enemyStance, disarm, outcomeToScene));
 	}
 	
-	private OrderedMap<Integer, Scene> getGameTypeScene(AssetManager assetManager, Array<String> buttonLabels, @SuppressWarnings("unchecked") OrderedMap<Integer, Scene>... sceneMaps) {
+	private OrderedMap<Integer, Scene> getGameTypeScene(Array<String> buttonLabels, @SuppressWarnings("unchecked") OrderedMap<Integer, Scene>... sceneMaps) {
 		OrderedMap<Integer, Scene> sceneMap = aggregateMaps(sceneMaps);
 		Skin skin = assetManager.get(AssetEnum.UI_SKIN.getPath(), Skin.class);
 		Sound buttonSound = assetManager.get(AssetEnum.BUTTON_SOUND.getPath(), Sound.class);
@@ -1195,15 +1188,15 @@ public class EncounterBuilder {
 		return addScene(gameTypeScene);
 	}
 	
-	private OrderedMap<Integer, Scene> getCharacterCreationScene(BitmapFont font, Background background, AssetManager assetManager, PlayerCharacter character, boolean story, OrderedMap<Integer, Scene> sceneMap) {
+	private OrderedMap<Integer, Scene> getCharacterCreationScene(BitmapFont font, Background background, boolean story, OrderedMap<Integer, Scene> sceneMap) {
 		return addScene(new CharacterCreationScene(sceneMap, sceneCounter, saveService, background, assetManager, character, story));
 	}
 	
-	private OrderedMap<Integer, Scene> getSkillSelectionScene(Background background, AssetManager assetManager, PlayerCharacter character, OrderedMap<Integer, Scene> sceneMap) {
+	private OrderedMap<Integer, Scene> getSkillSelectionScene(Background background, OrderedMap<Integer, Scene> sceneMap) {
 		return addScene(new SkillSelectionScene(sceneMap, sceneCounter, saveService, background, assetManager, character));
 	}
 	
-	private OrderedMap<Integer, Scene> getCharacterCustomizationScene(Background background, AssetManager assetManager, PlayerCharacter character, OrderedMap<Integer, Scene> sceneMap) {
+	private OrderedMap<Integer, Scene> getCharacterCustomizationScene(Background background, OrderedMap<Integer, Scene> sceneMap) {
 		return addScene(new CharacterCustomizationScene(sceneMap, sceneCounter, saveService, font, background, assetManager, character));
 	}
 	
