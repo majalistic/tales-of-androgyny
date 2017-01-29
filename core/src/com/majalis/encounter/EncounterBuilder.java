@@ -3,6 +3,7 @@ package com.majalis.encounter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -438,7 +439,7 @@ public class EncounterBuilder {
 				getTextScenes(
 					getScript(encounterCode, 0), font, background, new Array<Mutation>(), AssetEnum.SHOP_MUSIC.getPath(), new Array<String>(),
 					getChoiceScene(
-						assetManager, "Do you offer her YOUR apple, or try to convince her to just hand it over?", getArray(new String[]{"Offer(Requires: Catamite)", "Plead with her"}), getArray(new PlayerCharacter[]{character, null}),												
+						assetManager, "Do you offer her YOUR apple, or try to convince her to just hand it over?", getArray(new String[]{"Offer (Requires: Catamite)", "Plead with her"}), getArray(new PlayerCharacter[]{character, null}),												
 						getTextScenes(
 							getScript(encounterCode, 1), font, background, getArray(new Mutation[]{analReceive}),
 							getTextScenes(
@@ -1045,7 +1046,7 @@ public class EncounterBuilder {
 		int soundIndex = -(script.size - sounds.size);
 		int ii = 1;
 		for (String scriptLine: script) {
-			sceneMap = addScene(new TextScene(sceneMap, sceneCounter, assetManager, font, saveService, background.clone(), scriptLine, ii == script.size ? mutations : null, character, soundIndex >= 0 ? sounds.get(soundIndex) : null, ii == script.size ? music : null));
+			sceneMap = addScene(new TextScene(sceneMap, sceneCounter, assetManager, font, saveService, background.clone(), scriptLine, ii == script.size ? mutations : null, character, ii == script.size ? music : null, soundIndex >= 0 ? sounds.get(soundIndex) : null));
 			soundIndex++;
 			ii++;
 		}	
@@ -1070,7 +1071,7 @@ public class EncounterBuilder {
 		for (String label  : buttonLabels) {
 			TextButton button = new TextButton(label, skin);
 			if (ii < checks.size && checks.get(ii) != null) {
-				button.addListener(getListener(choiceScene, sceneMap.get(sceneMap.orderedKeys().get(ii)), buttonSound, checks.get(ii)));
+				button.addListener(getListener(choiceScene, sceneMap.get(sceneMap.orderedKeys().get(ii)), buttonSound, checks.get(ii), button));
 			}
 			else {
 				button.addListener(getListener(choiceScene, sceneMap.get(sceneMap.orderedKeys().get(ii)), buttonSound));
@@ -1099,12 +1100,12 @@ public class EncounterBuilder {
 	    };
 	}
 	
-	private ClickListener getListener(final AbstractChoiceScene currentScene, final Scene nextScene, final Sound buttonSound, final PlayerCharacter character) {
+	private ClickListener getListener(final AbstractChoiceScene currentScene, final Scene nextScene, final Sound buttonSound, final PlayerCharacter character, final TextButton button) {
 		return new ClickListener() {
 	        @Override
 	        public void clicked(InputEvent event, float x, float y) {
 	        	if (!character.isLewd()) {
-	        		// this should actually disable the button, but not as part of an on-click event
+	        		button.setColor(Color.GRAY);
 	        	}
 	        	else {
 	        		buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
