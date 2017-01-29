@@ -372,10 +372,12 @@ public class EnemyCharacter extends AbstractCharacter {
     public void draw(Batch batch, float parentAlpha) {
 		super.draw(batch, parentAlpha);
 		Texture texture = textures.get(stance, defaultTexture);
-		int width = (enemyType == EnemyEnum.HARPY && stance == Stance.FELLATIO) || (enemyType == EnemyEnum.GOBLIN && stance == Stance.FACE_SITTING || stance == Stance.SIXTY_NINE) ? 150 : 600;
-		int height = (enemyType == EnemyEnum.HARPY && stance != Stance.FELLATIO) || (enemyType == EnemyEnum.GOBLIN && stance == Stance.FACE_SITTING || stance == Stance.SIXTY_NINE) ? 105 : 20;
+		int x = (enemyType == EnemyEnum.HARPY && stance == Stance.FELLATIO) ? 150 : (enemyType == EnemyEnum.GOBLIN && stance == Stance.FACE_SITTING || stance == Stance.SIXTY_NINE) ? 400 : 600;
+		int y = (enemyType == EnemyEnum.HARPY && stance != Stance.FELLATIO) ? 105 : (enemyType == EnemyEnum.GOBLIN && stance == Stance.FACE_SITTING || stance == Stance.SIXTY_NINE) ? 0 : 20;
+		int width = (enemyType == EnemyEnum.GOBLIN && stance == Stance.FACE_SITTING || stance == Stance.SIXTY_NINE) ? (int) (texture.getWidth() / (texture.getHeight() / 1080.)) : (int) (texture.getWidth() / (texture.getHeight() / 975.));
+		int height = (enemyType == EnemyEnum.GOBLIN && stance == Stance.FACE_SITTING || stance == Stance.SIXTY_NINE) ? 1080 : 975;
 		if (atlas == null || enemyType == EnemyEnum.HARPY && stance == Stance.FELLATIO) {
-			batch.draw(texture, width, height, (int) (texture.getWidth() / (texture.getHeight() / 975.)), 975);
+			batch.draw(texture, x, y, width, height);
 		}
 		else {
 			state.update(Gdx.graphics.getDeltaTime());
