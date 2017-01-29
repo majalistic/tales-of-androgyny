@@ -2,7 +2,9 @@ package com.majalis.encounter;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.majalis.character.EnemyCharacter;
 
 public class Background extends Group{
@@ -79,6 +81,7 @@ public class Background extends Group{
 	private final Image background;
 	private final Image foreground;
 	private final Image dialogBox;
+	private boolean dialogBoxVisible;
 	
 	private Background(Image background, Texture backgroundTexture, EnemyCharacter enemy, Image dialogBox, Texture dialogBoxTexture){
 		this.background = background;
@@ -97,6 +100,7 @@ public class Background extends Group{
 		if (dialogBox != null){
 			this.addActor(dialogBox);
 		}
+		dialogBoxVisible = true;
 	}
 		
 	private Background(Image background, Texture backgroundTexture, Image foreground, Texture foregroundTexture, Image dialogBox, Texture dialogBoxTexture){
@@ -116,6 +120,7 @@ public class Background extends Group{
 		if (dialogBox != null){
 			this.addActor(dialogBox);
 		}
+		dialogBoxVisible = true;
 	}
 	
 	protected Background clone(){
@@ -139,6 +144,19 @@ public class Background extends Group{
 	public void initEnemy() {
 		if (enemy != null)
 			this.addActorAfter(background, enemy);
+	}
+
+	public void toggleDialogBox(Label display) {
+		if (dialogBoxVisible) {
+			dialogBox.addAction(Actions.hide());
+			display.addAction(Actions.hide());
+			dialogBoxVisible = false;
+		}
+		else {
+			dialogBox.addAction(Actions.show());
+			display.addAction(Actions.show());
+			dialogBoxVisible = true;
+		}
 	}
 
 }

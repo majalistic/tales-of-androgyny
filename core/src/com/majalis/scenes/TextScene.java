@@ -1,7 +1,10 @@
 package com.majalis.scenes;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
@@ -28,10 +31,18 @@ public class TextScene extends AbstractTextScene  {
 		this.assetManager = assetManager;
 		this.character = character;
 		display.setText(toDisplay);
-		this.mutations = mutations;
+		this.mutations = mutations != null ? mutations : new Array<Mutation>();
 		this.background = background;
 		this.music = music;
 		this.sound = sound;
+	}
+	
+	@Override
+	public void draw(Batch batch, float parentAlpha) {
+		super.draw(batch, parentAlpha);
+		if (Gdx.input.isKeyJustPressed(Keys.TAB)) {
+			background.toggleDialogBox(display);
+		}
 	}
 	
 	@Override
