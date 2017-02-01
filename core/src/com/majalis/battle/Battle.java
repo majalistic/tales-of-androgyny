@@ -182,7 +182,8 @@ public class Battle extends Group{
 		hoverGroup.addActor(hoverImage);
 		
 		Image characterPortrait = new Image(assetManager.get(AssetEnum.CHARACTER_POTRAIT.getPath(), Texture.class));
-		addActorAndListen(characterPortrait, 0, 618);
+		addActorAndListen(characterPortrait, -5, 615);
+		characterPortrait.setScale(.9f);
 
 		masculinityIcon = initImage(assetManager.get(character.getMasculinityPath(), Texture.class), barX - 150, 850);
 		masculinityIcon.setScale(.15f);
