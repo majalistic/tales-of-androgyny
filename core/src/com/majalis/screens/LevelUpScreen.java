@@ -1,5 +1,8 @@
 package com.majalis.screens;
 
+
+import static com.majalis.asset.AssetEnum.*;
+
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -23,6 +26,12 @@ public class LevelUpScreen extends AbstractScreen {
 		resourceRequirements.put(AssetEnum.DEFAULT_BACKGROUND.getPath(), Texture.class);
 		resourceRequirements.put(AssetEnum.NORMAL_BOX.getPath(), Texture.class);
 		resourceRequirements.put(AssetEnum.BATTLE_HOVER.getPath(), Texture.class);
+		AssetEnum[] assets = new AssetEnum[]{
+			MARS_ICON_0, MARS_ICON_1, MARS_ICON_2, MARS_ICON_3, MARS_ICON_4
+		};
+		for (AssetEnum asset: assets){
+			resourceRequirements.put(asset.getPath(), Texture.class);
+		}
 	}
 	
 	private final AssetManager assetManager;
