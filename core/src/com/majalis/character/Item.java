@@ -118,9 +118,11 @@ public abstract class Item {
 				case BONUS_AGILITY:			
 				case BONUS_ENDURANCE:
 				case BONUS_STRENGTH:
-					return magnitude * 5;
+					return magnitude * 15;
 				case HEALING:
 					return magnitude / 2;
+				case MEAT:
+					return magnitude * 2;
 				default:
 					return 0;
 			}
@@ -133,7 +135,7 @@ public abstract class Item {
 
 		@Override
 		public String getName() {
-			return effect.getDisplay() + " Potion (" + magnitude + ")"; 
+			return effect.getDisplay() + " (" + magnitude + ")"; 
 		}
 
 		@Override
@@ -147,6 +149,8 @@ public abstract class Item {
 					return "Imbibe to increase Strength for the duration by " + magnitude + ".";
 				case HEALING:
 					return "Heals the imbiber for " + magnitude + " health.";
+				case MEAT:
+					return "Increases food stores by " + magnitude + ".";
 				default:
 					return "Unknown potion.";
 			}
@@ -154,10 +158,11 @@ public abstract class Item {
 	}
 	
 	public enum EffectType {
-		HEALING ("Healing"),
-		BONUS_STRENGTH ("Ox"),
-		BONUS_AGILITY ("Cat"),
-		BONUS_ENDURANCE ("Bear");
+		HEALING ("Healing Potion"),
+		BONUS_STRENGTH ("Ox Potion"),
+		BONUS_AGILITY ("Cat Potion"),
+		BONUS_ENDURANCE ("Bear Potion"),
+		MEAT ("Meat");
 		
 		private final String display;
 		private EffectType (String display) {

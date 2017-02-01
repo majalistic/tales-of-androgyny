@@ -809,6 +809,76 @@ public class EncounterBuilder {
 					)
 				);
 				break;
+			case GADGETEER:
+				Background backgroundWithGadgeteer = new BackgroundBuilder(assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getPath(), Texture.class)).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class)).setForeground(assetManager.get(AssetEnum.GADGETEER.getPath(), Texture.class)).build();
+				Background shopGadgeteer = new BackgroundBuilder(assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getPath(), Texture.class)).setForeground(assetManager.get(AssetEnum.GADGETEER.getPath(), Texture.class), 900, 0).build();
+				Mutation[] dryAnal = new Mutation[]{new Mutation(saveService, SaveEnum.ANAL, new SexualExperienceBuilder(1).setAnalEjaculations(1).build())};
+				OrderedMap<Integer, Scene> noScene = getTextScenes(
+					getScript("GADGETEER-NO"), font, backgroundWithGadgeteer,
+					getEndScene(EndScene.Type.ENCOUNTER_OVER)
+				);
+				getTextScenes (
+					getScript("GADGETEER-00"), font, backgroundWithGadgeteer, new Array<Mutation>(), AssetEnum.GADGETEER_MUSIC.getPath(), new Array<String>(),
+					getChoiceScene(
+						"Do you want to peruse her wares?", getArray(new String[]{"Peruse", "No Thanks"}),
+						getShopScene(
+							ShopCode.GADGETEER_SHOP, shopGadgeteer, 
+							getTextScenes(
+								getScript("GADGETEER-01"), font, backgroundWithGadgeteer,
+								getCheckScene(
+									Perk.ANAL_LOVER, new IntArray(new int[]{3, 2, 1}),
+									getTextScenes(
+										getScript("GADGETEER-02"), font, backgroundWithGadgeteer, 
+										getChoiceScene(
+											"Become hers?", getArray(new String[]{"Yes", "Yes", "Yes"}),
+											getTextScenes(
+												getScript("GADGETEER-03"), font, backgroundWithGadgeteer, getArray(dryAnal),
+												getEndScene(EndScene.Type.GAME_OVER)	
+											),
+											getTextScenes(
+												getScript("GADGETEER-03"), font, backgroundWithGadgeteer, getArray(dryAnal),
+												getEndScene(EndScene.Type.GAME_OVER)	
+											),
+											getTextScenes(
+												getScript("GADGETEER-03"), font, backgroundWithGadgeteer, getArray(dryAnal),
+												getEndScene(EndScene.Type.GAME_OVER)	
+											)
+										)
+									),
+									getTextScenes(
+										getScript("GADGETEER-04"), font, backgroundWithGadgeteer, getArray(dryAnal),
+										getEndScene(EndScene.Type.ENCOUNTER_OVER)
+									),
+									getTextScenes(
+										getScript("GADGETEER-05"), font, backgroundWithGadgeteer,
+										getChoiceScene(
+											"Try the toys?", getArray(new String[]{"Yes", "No thanks"}),
+											getTextScenes(
+												getScript("GADGETEER-06"), font, backgroundWithGadgeteer, getArray(dryAnal),
+												getEndScene(EndScene.Type.ENCOUNTER_OVER)
+											),
+											noScene
+										)
+									),
+									getTextScenes(
+										getScript("GADGETEER-07"), font, backgroundWithGadgeteer,
+										getChoiceScene(
+											"Try the toys?", getArray(new String[]{"Yes (Requires: Catamite)", "No thanks"}),
+											getArray(new PlayerCharacter[]{character, null}),
+											getTextScenes(
+												getScript("GADGETEER-08"), font, backgroundWithGadgeteer, getArray(dryAnal),
+												getEndScene(EndScene.Type.ENCOUNTER_OVER)
+											),
+											noScene
+										)
+									)
+								)
+							)
+						),
+						noScene
+					)								
+				);
+				break;
 			case COTTAGE_TRAINER:
 				background = new BackgroundBuilder(assetManager.get(AssetEnum.CABIN_BACKGROUND.getPath(), Texture.class)).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class)).build();
 				Background trainerBackground = new BackgroundBuilder(assetManager.get(AssetEnum.CABIN_BACKGROUND.getPath(), Texture.class)).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class)).setForeground(assetManager.get(AssetEnum.TRAINER.getPath(), Texture.class)).build();

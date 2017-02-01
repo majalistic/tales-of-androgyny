@@ -101,7 +101,7 @@ public class ShopScene extends Scene {
 		        }
 			}
 		);
-		done.setPosition(1522, 30);
+		done.setPosition(1522, 100);
 		
 		// need to create methods for selling
 		// need to show description of items (should be an attribute of an item)	
@@ -124,7 +124,7 @@ public class ShopScene extends Scene {
 			weaponButton.addListener(new ClickListener() {
 				@Override
 		        public void clicked(InputEvent event, float x, float y) {
-					if (buyItem(weapon)) {
+					if (buyItem(weapon, shopCode)) {
 						itemSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
 						addActor(done);
 						weaponButton.addAction(Actions.removeActor());
@@ -157,7 +157,7 @@ public class ShopScene extends Scene {
 		
 		for (final Potion potion: shop.consumables) {
 			shop.done = true; // temporary measure to make the potion shop function properly
-			final TextButton potionButton = new TextButton(potion.getName() + " - " + potion.getValue() + "G", skin);
+			final TextButton potionButton = new TextButton(potion.getName() + " - " + potion.getValue() / ( shopCode == ShopCode.GADGETEER_SHOP ? 3 : 1 ) + "G", skin);
 			final Label description = new Label(potion.getDescription(), skin);
 			description.setWrap(true);
 			description.setColor(Color.FOREST);
@@ -169,7 +169,7 @@ public class ShopScene extends Scene {
 			potionButton.addListener(new ClickListener() {
 				@Override
 		        public void clicked(InputEvent event, float x, float y) {
-					if (buyItem(potion)) {
+					if (buyItem(potion, shopCode)) {
 						itemSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
 						addActor(done);
 						potionButton.addAction(Actions.removeActor());
@@ -199,7 +199,8 @@ public class ShopScene extends Scene {
 			table.add(potionButton).size(500, 60).row();
 		}
 		
-		table.setPosition(500, 800);
+		table.setPosition(500, 1000);
+		table.align(Align.top);
 		this.addActor(table);	
 		if (shop.done || shopCode != ShopCode.FIRST_STORY) addActor(done);
 	}
@@ -221,18 +222,29 @@ public class ShopScene extends Scene {
 					shop.consumables.add(new Potion(ii));
 					shop.consumables.add(new Potion(ii));
 				}
+				for (int ii = 0; ii < 4; ii++) {
+					shop.consumables.add(new Potion(5, EffectType.MEAT));
+				}
 				shop.consumables.add(new Potion(3, EffectType.BONUS_STRENGTH));
 				shop.consumables.add(new Potion(3, EffectType.BONUS_AGILITY));
 				shop.consumables.add(new Potion(3, EffectType.BONUS_ENDURANCE));
 				break;
-			default:
+			case GADGETEER_SHOP:
+				shop.consumables.add(new Potion(15));
+				shop.consumables.add(new Potion(15));
+				shop.consumables.add(new Potion(3, EffectType.BONUS_STRENGTH));
+				shop.consumables.add(new Potion(3, EffectType.BONUS_STRENGTH));
+				shop.consumables.add(new Potion(3, EffectType.BONUS_AGILITY));
+				shop.consumables.add(new Potion(3, EffectType.BONUS_AGILITY));
+				shop.consumables.add(new Potion(3, EffectType.BONUS_ENDURANCE));
+				shop.consumables.add(new Potion(3, EffectType.BONUS_ENDURANCE));
 				break;
 		}
 		return shop;
 	}
 	
-	private boolean buyItem(Item item) {
-		return character.buyItem(item, item.getValue());
+	private boolean buyItem(Item item, ShopCode shopCode) {
+		return character.buyItem(item, item.getValue() / (shopCode == ShopCode.GADGETEER_SHOP ? 3 : 1));
 	}
 
 	@Override
@@ -252,7 +264,7 @@ public class ShopScene extends Scene {
 	}
 	
 	public enum ShopCode {
-		FIRST_STORY, SHOP, WEAPON_SHOP
+		FIRST_STORY, SHOP, WEAPON_SHOP, GADGETEER_SHOP
 	}
 	
 }

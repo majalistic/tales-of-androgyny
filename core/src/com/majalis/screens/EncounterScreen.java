@@ -125,8 +125,8 @@ public class EncounterScreen extends AbstractScreen {
 				requirements.put(AssetEnum.NORMAL_BOX.getPath(), Texture.class);
 				requirements.put(AssetEnum.SKILL_SELECTION_BACKGROUND.getPath(), Texture.class);
 				requirements.put(AssetEnum.CHARACTER_CUSTOM_BACKGROUND.getPath(), Texture.class);
-				requirements.put(AssetEnum.WAVES.getPath(), Music.class);
 				requirements.put(AssetEnum.SMUG_LAUGH.getPath(), Sound.class);
+				requirements.put(AssetEnum.WAVES.getPath(), Music.class);
 				requirements.put(AssetEnum.HOVEL_MUSIC.getPath(), Music.class);	
 				break;
 			case DEFAULT: 
@@ -155,6 +155,13 @@ public class EncounterScreen extends AbstractScreen {
 				requirements.put(AssetEnum.SHOP_MUSIC.getPath(), Music.class);
 				requirements.put(AssetEnum.CENTAUR.getPath(), Texture.class);
 				requirements.put(AssetEnum.UNICORN.getPath(), Texture.class);
+				break;
+			case GADGETEER:
+				requirements.put(AssetEnum.GADGETEER.getPath(), Texture.class);
+				requirements.put(AssetEnum.BATTLE_TEXTBOX.getPath(), Texture.class);
+				requirements.put(AssetEnum.TEXT_BOX.getPath(), Texture.class);
+				requirements.put(AssetEnum.EQUIP.getPath(), Sound.class);				
+				requirements.put(AssetEnum.GADGETEER_MUSIC.getPath(), Music.class);
 				break;
 			case FIRST_BATTLE_STORY:
 				requirements.put(AssetEnum.FOREST_BG.getPath(), Texture.class);

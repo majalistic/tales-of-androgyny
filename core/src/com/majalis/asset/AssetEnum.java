@@ -94,6 +94,7 @@ public enum AssetEnum {
 	TRAINER("characters/HeavyTrainer1.png"),
 	MERI_SILHOUETTE("characters/Witch.png"),
 	SILHOUETTE("characters/Silhouette.png"),
+	GADGETEER("characters/Gadgeteer.png"),
 	
 	AIRBORNE("stances/Airborne.png"),
 	ANAL("stances/Anal.png"),
@@ -160,7 +161,8 @@ public enum AssetEnum {
 	HEAVY_MUSIC("music/Mechanolith.mp3"),
 	WORLD_MAP_MUSIC("music/WorldMapMusic.mp3"),
 	BATTLE_MUSIC("music/BattleMusic.mp3"),
-	WAVES("music/Waves.wav")
+	GADGETEER_MUSIC("music/GadgeteerMusic.mp3"),
+	WAVES("music/Waves.wav"), 
 	;
 	
 	private final String path;

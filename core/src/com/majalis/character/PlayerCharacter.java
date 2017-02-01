@@ -135,6 +135,10 @@ public class PlayerCharacter extends AbstractCharacter {
 				result = "You used " + item.getName() + " and temporarily increased Agility by " + effect.getMagnitude() + "!";
 				statuses.put(StatusType.AGILITY_BUFF.toString(), effect.getMagnitude());
 				break;
+			case MEAT:
+				result = "You ate the " + item.getName() + "! Food stores increased by 5.";
+				modFood(effect.getMagnitude());
+				break;
 			default:
 				break;
 			
@@ -697,6 +701,9 @@ public class PlayerCharacter extends AbstractCharacter {
 				result += temp + "\n";
 			}
 		}
+		for (int ii = 0; ii < sex.getAnalEjaculations(); ii++) {
+			cameFromAnal++;
+		}
 		for (int ii = 0; ii < sex.getOralSex(); ii++) {
 			temp = receiveOral();
 			if (temp != null) {
@@ -708,6 +715,9 @@ public class PlayerCharacter extends AbstractCharacter {
 			if (temp != null) {
 				result += temp + "\n";
 			}
+		}
+		for (int ii = 0; ii < sex.getFellatioEjaculations(); ii++) {
+			cameFromOral++;
 		}
 		
 		return result;

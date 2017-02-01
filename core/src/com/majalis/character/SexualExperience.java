@@ -4,37 +4,53 @@ public class SexualExperience {
 
 	private final int analSex;
 	private final int creampies;
+	private final int analEjaculation;
 	private final int oralSex;
 	private final int oralCreampies;
+	private final int fellatioEjaculation;
 	
 	public static class SexualExperienceBuilder {
 		
 		private int analSex;
 		private int creampies;
+		private int analEjaculation;
 		private int oralSex;
 		private int oralCreampies;
+		private int fellatioEjaculation;
 		
 		public SexualExperienceBuilder() {
 			this.analSex = 1;
 			this.creampies = 1;
 		}
 		
-		public SexualExperience build() {
-			return new SexualExperience(analSex, creampies, oralSex, oralCreampies);
+		public SexualExperienceBuilder(int anal) {
+			this.analSex = anal;
 		}
 		
+		public SexualExperienceBuilder setAnalEjaculations(int num) {
+			analEjaculation = num;
+			return this;
+		}
+		
+		public SexualExperience build() {
+			return new SexualExperience(analSex, creampies, analEjaculation, oralSex, oralCreampies, fellatioEjaculation);
+		}		
 	}
 	
-	private SexualExperience(int analSex, int creampies, int oralSex, int oralCreampies) {
+	private SexualExperience(int analSex, int creampies, int analEjaculation, int oralSex, int oralCreampies, int fellatioEjaculation) {
 		this.analSex = analSex;
 		this.creampies = creampies;
+		this.analEjaculation = analEjaculation;
 		this.oralSex = oralSex;
 		this.oralCreampies = oralCreampies;
+		this.fellatioEjaculation = fellatioEjaculation;
 	}
 	
 	public int getAnalSex() { return analSex; }
 	public int getCreampies() { return creampies; }
+	public int getAnalEjaculations() { return analEjaculation; }
 	public int getOralSex() { return oralSex; }
 	public int getOralCreampies() { return oralCreampies; }
+	public int getFellatioEjaculations() { return fellatioEjaculation; }
 	
 }

@@ -48,6 +48,7 @@ public class GameWorldNodeEncounter {
 					case DRYAD: return "Dryad";
 					case CENTAUR: return "Centaur";
 					case GOBLIN: return "Goblin";
+					case GADGETEER: return "Merchant";
 					case TOWN: return "Small Settlement";
 					case TOWN2:
 					case TOWN_STORY:
@@ -76,7 +77,8 @@ public class GameWorldNodeEncounter {
 					case BRIGAND: return "Brigand - Hostile!";
 					case DRYAD: return "Dryad - Peaceful";
 					case CENTAUR: return "Centaur - Neutral";
-					case GOBLIN: return "Goblin- Hostile!";
+					case GOBLIN: return "Goblin - Hostile!";
+					case GADGETEER: return "Suspicious Merchant";
 					case TOWN: return "Town of Silajam";
 					case TOWN2:
 					case TOWN_STORY: return "Town of Nadir";
@@ -102,6 +104,7 @@ public class GameWorldNodeEncounter {
 			case TOWN2: return "Town of Nadir (visited)";
 			case COTTAGE_TRAINER_VISIT: return "Cottage-on-the-Outskirts (visited)";
 			case MERI_COTTAGE_VISIT: return "Witch's Cottage (visited)";
+			case GADGETEER: return "Strange Gadgeteer";
 			default: return "Nothing here.";
 		}
 	}
