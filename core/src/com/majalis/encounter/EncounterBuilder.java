@@ -461,7 +461,11 @@ public class EncounterBuilder {
 				);
 				break;
 			case CENTAUR:
-				Background centaurBackground = new BackgroundBuilder(backgroundTexture).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class)).setForeground(assetManager.get(AssetEnum.CENTAUR.getPath(), Texture.class)).build();
+				ObjectMap<Stance, Texture> textures2 = new ObjectMap<Stance, Texture>();
+				Texture enemyTexture2 = assetManager.get(EnemyEnum.CENTAUR.getPath(), Texture.class);
+				textures2.put(Stance.BALANCED, enemyTexture2);
+				final EnemyCharacter enemy2 = new EnemyCharacter(enemyTexture2, textures2, EnemyEnum.CENTAUR);
+				Background centaurBackground = new BackgroundBuilder(backgroundTexture).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class)).setForeground(enemy2, 0, 0).build();
 				Background unicornBackground = new BackgroundBuilder(backgroundTexture).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class)).setForeground(assetManager.get(AssetEnum.UNICORN.getPath(), Texture.class)).build();
 				OrderedMap<Integer, Scene> catamite = getTextScenes(
 					getScript(encounterCode, 3), font, centaurBackground, getArray(new Mutation[]{analReceive}),

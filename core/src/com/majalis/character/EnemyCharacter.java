@@ -74,11 +74,12 @@ public class EnemyCharacter extends AbstractCharacter {
 				break;
 			case CENTAUR:
 			case UNICORN:
+				weapon = new Weapon(WeaponType.Bow);
 				baseStrength = 5;
 				baseAgility = 4;
 				basePerception = 5;
 				bgPath = AssetEnum.PLAINS_BG.getPath();
-				if (enemyType == EnemyEnum.CENTAUR){
+				if (enemyType == EnemyEnum.CENTAUR) {
 					imagePath =  AssetEnum.CENTAUR.getPath();
 				}
 				else {
@@ -240,7 +241,7 @@ public class EnemyCharacter extends AbstractCharacter {
 					struggle = 0;
 					return getTechniques(target, Techniques.ERUPT_COWGIRL);
 				}
-				if (struggle <= 0){
+				if (struggle <= 0) {
 					return getTechniques(target, Techniques.PUSH_OFF);
 				}
 				else {
@@ -248,7 +249,7 @@ public class EnemyCharacter extends AbstractCharacter {
 				}
 			case HANDY:
 				lust++;
-				if (lust > 18){
+				if (lust > 18) {
 					return getTechniques(target, Techniques.ERUPT_FACIAL);
 				}
 				return getTechniques(target, Techniques.RECEIVE_HANDY);
@@ -391,22 +392,22 @@ public class EnemyCharacter extends AbstractCharacter {
 		this.defaultTexture = defaultTexture;
 		this.textures = textures;
 		
-		if (enemyType == EnemyEnum.HARPY) {
+		if (enemyType == EnemyEnum.HARPY || enemyType == EnemyEnum.CENTAUR) {
 			
 			renderer = new SkeletonMeshRenderer();
 			renderer.setPremultipliedAlpha(true);
-			atlas = new TextureAtlas(Gdx.files.internal("animation/Harpy.atlas"));
+			atlas = new TextureAtlas(Gdx.files.internal(enemyType == EnemyEnum.HARPY ? "animation/Harpy.atlas" : "animation/Centaur.atlas"));
 			SkeletonJson json = new SkeletonJson(atlas); // This loads skeleton JSON data, which is stateless.
-			json.setScale(.75f); // Load the skeleton at .65% the size it was in Spine.
-			SkeletonData skeletonData = json.readSkeletonData(Gdx.files.internal("animation/Harpy.json"));
+			json.setScale(enemyType == EnemyEnum.HARPY ? .75f : .60f);
+			SkeletonData skeletonData = json.readSkeletonData(Gdx.files.internal(enemyType == EnemyEnum.HARPY ? "animation/Harpy.json" : "animation/Centaur.json"));
 
 			skeleton = new Skeleton(skeletonData); // Skeleton holds skeleton state (bone positions, slot attachments, etc).
-			skeleton.setPosition(900, 550);
+			skeleton.setPosition(enemyType == EnemyEnum.HARPY ? 900 : 1000, 550);
 
 			AnimationStateData stateData = new AnimationStateData(skeletonData); // Defines mixing (crossfading) between animations.
 
 			state = new AnimationState(stateData); // Holds the animation state for a skeleton (current animation, time, etc).
-			state.setTimeScale(1f); // Slow all animations down to 60% speed.
+			state.setTimeScale(enemyType == EnemyEnum.HARPY ? 1f : 1.8f); 
 
 			// Queue animations on tracks 0 and 1.
 			state.setAnimation(0, "Idle Erect", true);
@@ -415,7 +416,7 @@ public class EnemyCharacter extends AbstractCharacter {
 	}
 	
 	public void hitAnimation() {
-		if (state != null){
+		if (state != null) {
 			state.setAnimation(0, "Hit Erect", false);
 			state.addAnimation(0, "Idle Erect", true, 1.0f);
 		}

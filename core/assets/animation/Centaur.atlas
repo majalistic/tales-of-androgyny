@@ -1,0 +1,276 @@
+
+Centaur.png
+size: 1024,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+BraSash
+  rotate: false
+  xy: 2, 2
+  size: 321, 105
+  orig: 321, 105
+  offset: 0, 0
+  index: -1
+CannonFL
+  rotate: false
+  xy: 377, 7
+  size: 152, 238
+  orig: 152, 238
+  offset: 0, 0
+  index: -1
+EarL
+  rotate: true
+  xy: 887, 4
+  size: 39, 72
+  orig: 39, 72
+  offset: 0, 0
+  index: -1
+EarR
+  rotate: false
+  xy: 325, 19
+  size: 45, 89
+  orig: 45, 89
+  offset: 0, 0
+  index: -1
+FetlockFL
+  rotate: false
+  xy: 290, 110
+  size: 85, 135
+  orig: 85, 135
+  offset: 0, 0
+  index: -1
+FetlockFR
+  rotate: true
+  xy: 887, 45
+  size: 111, 120
+  orig: 111, 120
+  offset: 0, 0
+  index: -1
+ForearmR
+  rotate: false
+  xy: 752, 4
+  size: 133, 152
+  orig: 133, 152
+  offset: 0, 0
+  index: -1
+ForelegL
+  rotate: true
+  xy: 531, 10
+  size: 235, 219
+  orig: 235, 219
+  offset: 0, 0
+  index: -1
+HandR
+  rotate: false
+  xy: 2, 109
+  size: 286, 913
+  orig: 286, 913
+  offset: 0, 0
+  index: -1
+HorseTorso
+  rotate: true
+  xy: 325, 247
+  size: 775, 683
+  orig: 775, 683
+  offset: 0, 0
+  index: -1
+UpperArmR
+  rotate: true
+  xy: 752, 158
+  size: 87, 262
+  orig: 87, 262
+  offset: 0, 0
+  index: -1
+
+Centaur2.png
+size: 1024,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+CannonBR
+  rotate: true
+  xy: 2, 3
+  size: 142, 410
+  orig: 142, 410
+  offset: 0, 0
+  index: -1
+CannonFR
+  rotate: true
+  xy: 414, 29
+  size: 116, 388
+  orig: 116, 388
+  offset: 0, 0
+  index: -1
+FetlockHL
+  rotate: false
+  xy: 804, 2
+  size: 197, 147
+  orig: 197, 147
+  offset: 0, 0
+  index: -1
+HumanTorso
+  rotate: false
+  xy: 2, 147
+  size: 532, 864
+  orig: 532, 864
+  offset: 0, 0
+  index: -1
+Tail
+  rotate: false
+  xy: 536, 151
+  size: 443, 860
+  orig: 443, 860
+  offset: 0, 0
+  index: -1
+
+Centaur3.png
+size: 1024,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Arrow
+  rotate: true
+  xy: 2, 26
+  size: 71, 183
+  orig: 71, 183
+  offset: 0, 0
+  index: -1
+Back
+  rotate: false
+  xy: 769, 479
+  size: 89, 64
+  orig: 89, 64
+  offset: 0, 0
+  index: -1
+BoobL
+  rotate: false
+  xy: 469, 2
+  size: 215, 213
+  orig: 215, 213
+  offset: 0, 0
+  index: -1
+BoobR
+  rotate: false
+  xy: 677, 243
+  size: 194, 234
+  orig: 194, 234
+  offset: 0, 0
+  index: -1
+Cawk
+  rotate: true
+  xy: 273, 68
+  size: 338, 194
+  orig: 338, 194
+  offset: 0, 0
+  index: -1
+ForearmL
+  rotate: false
+  xy: 2, 99
+  size: 269, 307
+  orig: 269, 307
+  offset: 0, 0
+  index: -1
+ForelegR
+  rotate: false
+  xy: 460, 750
+  size: 327, 264
+  orig: 327, 264
+  offset: 0, 0
+  index: -1
+FringeBack
+  rotate: false
+  xy: 383, 481
+  size: 52, 185
+  orig: 52, 185
+  offset: 0, 0
+  index: -1
+FringeF
+  rotate: true
+  xy: 686, 32
+  size: 209, 205
+  orig: 209, 205
+  offset: 0, 0
+  index: -1
+GaskinL
+  rotate: false
+  xy: 873, 418
+  size: 114, 110
+  orig: 114, 110
+  offset: 0, 0
+  index: -1
+Head
+  rotate: false
+  xy: 789, 758
+  size: 211, 256
+  orig: 211, 256
+  offset: 0, 0
+  index: -1
+HoofBR
+  rotate: true
+  xy: 769, 545
+  size: 203, 159
+  orig: 203, 159
+  offset: 0, 0
+  index: -1
+HoofFL
+  rotate: false
+  xy: 873, 339
+  size: 114, 77
+  orig: 114, 77
+  offset: 0, 0
+  index: -1
+HoofFR
+  rotate: false
+  xy: 930, 530
+  size: 83, 117
+  orig: 83, 117
+  offset: 0, 0
+  index: -1
+Neck
+  rotate: false
+  xy: 930, 649
+  size: 92, 107
+  orig: 92, 107
+  offset: 0, 0
+  index: -1
+Ponytail
+  rotate: false
+  xy: 2, 668
+  size: 456, 346
+  orig: 456, 346
+  offset: 0, 0
+  index: -1
+StifleL
+  rotate: false
+  xy: 469, 217
+  size: 206, 260
+  orig: 206, 260
+  offset: 0, 0
+  index: -1
+UpperArmL
+  rotate: true
+  xy: 460, 479
+  size: 269, 307
+  orig: 269, 307
+  offset: 0, 0
+  index: -1
+WaistSash
+  rotate: false
+  xy: 2, 408
+  size: 379, 258
+  orig: 379, 258
+  offset: 0, 0
+  index: -1
+
+Centaur4.png
+size: 256,256
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+CannonHL
+  rotate: false
+  xy: 2, 2
+  size: 191, 194
+  orig: 191, 194
+  offset: 0, 0
+  index: -1
