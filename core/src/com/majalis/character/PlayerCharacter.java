@@ -10,6 +10,7 @@ import com.majalis.battle.BattleFactory.EnemyEnum;
 import com.majalis.character.Item.ItemEffect;
 import com.majalis.character.Item.Potion;
 import com.majalis.character.Item.Weapon;
+import com.majalis.character.Item.WeaponType;
 import com.majalis.save.SaveManager.JobClass;
 
 /*
@@ -166,12 +167,14 @@ public class PlayerCharacter extends AbstractCharacter {
 		skills.remove(ALL_OUT_BLITZ.toString());
 		skills.remove(HOLD_BACK.toString());
 		perks.remove(Perk.WEAK_TO_ANAL.toString());
+		weapon = null;
 		// warrior will need to get bonus stance options, Ranger will need to start with a bow
 		switch (jobClass) { 
 			case WARRIOR: skillPoints = 3; skills.put(BLITZ_ATTACK.toString(), 1); skills.put(ALL_OUT_BLITZ.toString(), 1); skills.put(HOLD_BACK.toString(), 1); perks.put(Perk.WEAK_TO_ANAL.toString(), 1); break;
 			case PALADIN: addSkill(COMBAT_HEAL, 1); break;
 			case THIEF: skillPoints = 5; food = 80; break;
 			case MAGE: magicPoints = 2; break;
+			case RANGER: weapon = new Weapon(WeaponType.Bow); break;
 			case ENCHANTRESS: magicPoints = 1; perkPoints = 3; break;
 			default:
 		}
