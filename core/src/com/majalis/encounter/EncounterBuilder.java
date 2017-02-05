@@ -166,7 +166,7 @@ public class EncounterBuilder {
 	protected Encounter getRandomEncounter(EncounterCode encounterCode) {
 		Texture backgroundTexture = assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getPath(), Texture.class);	
 		Background background = getDefaultTextBackground();
-		Mutation analReceive = new Mutation(saveService, SaveEnum.ANAL, new SexualExperienceBuilder().build());
+		Mutation analReceive = new Mutation(saveService, SaveEnum.ANAL, new SexualExperienceBuilder().setAnalSex(1, 1, 0).build());
 		Mutation goblinVirginityToFalse = new Mutation(saveService, SaveEnum.GOBLIN_VIRGIN, false);
 		Array<Outcome> normalOutcomes = new Array<Outcome>(new Outcome[]{Outcome.VICTORY, Outcome.DEFEAT, Outcome.SATISFIED});
 		
@@ -315,14 +315,18 @@ public class EncounterBuilder {
 				
 				OrderedMap<Integer, Scene> winFight2 = getTextScenes(getArray(new String[]{"You defeated the brigand!", "You receive 1 Experience."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.EXPERIENCE, 1)}), getEndScene(EndScene.Type.ENCOUNTER_OVER));
 				OrderedMap<Integer, Scene> loseFight2 = getTextScenes(getScript(encounterCode, 13), font, background, 
-					getTextScenes(getScript(encounterCode, 14), font, brigandBackground, 	
+					getTextScenes(
+						getScript(encounterCode, 14), font, brigandBackground, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.ANAL, new SexualExperienceBuilder().setOralSex(1).build())}), 
 							getTextScenes(
-								getArray(new String[]{"You rest, eating 5 food.", "You recover 10 health."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.FOOD, -5), new Mutation(saveService, SaveEnum.HEALTH, 10)}),
-								getEndScene(EndScene.Type.ENCOUNTER_OVER)
+								getScript(encounterCode, 15), font, brigandBackground, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.ANAL, new SexualExperienceBuilder().setOralCreampie(1).build())}), 
+								getTextScenes(
+									getArray(new String[]{"You rest, eating 5 food.", "You recover 10 health."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.FOOD, -5), new Mutation(saveService, SaveEnum.HEALTH, 10)}),
+									getEndScene(EndScene.Type.ENCOUNTER_OVER)
+								)
 							)
 						)
 					);
-				OrderedMap<Integer, Scene> satisfiedFight2 = getTextScenes(getScript(encounterCode, 15), font, background, getArray(new Mutation[]{}), getEndScene(EndScene.Type.ENCOUNTER_OVER));
+				OrderedMap<Integer, Scene> satisfiedFight2 = getTextScenes(getScript(encounterCode, 16), font, background, getArray(new Mutation[]{}), getEndScene(EndScene.Type.ENCOUNTER_OVER));
 				
 				getTextScenes(
 					getScript(encounterCode, 0), font, background, getArray(new Mutation[]{new Mutation(saveService, ProfileEnum.KNOWLEDGE, EnemyEnum.BRIGAND.toString())}),
@@ -415,7 +419,7 @@ public class EncounterBuilder {
 						getTextScenes(
 							getArray(new String[]{"Ouch!  You take 5 damage!"}), font, background, getMutation(5),
 							getTextScenes(
-								getScript(encounterCode, 12), font, background, getArray(new Mutation[]{analReceive}),
+								getScript(encounterCode, 12), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.ANAL, new SexualExperienceBuilder(1).build())}),
 								getBattleScene(
 									battleCode, Stance.STANDING, Stance.STANDING, normalOutcomes,
 									winFight2,
@@ -524,34 +528,52 @@ public class EncounterBuilder {
 					getTextScenes(
 						getScript(encounterCode, 37), font, background,
 						getEndScene(EndScene.Type.ENCOUNTER_OVER)
-				);
+				);		
+				
+				
+				Array<Mutation> analAndCreampie = getArray(new Mutation[]{new Mutation(saveService, SaveEnum.ANAL, new SexualExperienceBuilder().setAnalSex(1, 1, 0).build())});
 				
 				OrderedMap<Integer, Scene> postVirginityCheck = getChoiceScene(
 					"Mouth, or ass?", getArray(new String[]{"In The Mouth", "Up The Ass"}),
 					getTextScenes(
-						getScript(encounterCode, 31), font, goblinBackground, getArray(new Mutation[]{goblinVirginityToFalse}),
-						getEndScene(EndScene.Type.ENCOUNTER_OVER)
-					),
-					getTextScenes(
-						getScript(encounterCode, 32), font, goblinBackground, getArray(new Mutation[]{goblinVirginityToFalse}),	
-						getCheckScene(
-							Stat.ENDURANCE, new IntArray(new int[]{6}),
-							fightOff,
+						getScript(encounterCode, "MOUTH-01"), font, goblinBackground, 
+						getTextScenes(
+							getScript(encounterCode, "MOUTH-02"), font, goblinBackground, getArray(new Mutation[]{goblinVirginityToFalse}),
 							getTextScenes(
-								getScript(encounterCode, 33), font, goblinBackground,	
+								getScript(encounterCode, "MOUTH-03"), font, goblinBackground, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.ANAL, new SexualExperienceBuilder().setOralSex(1).build())}),
+								getTextScenes(
+									getScript(encounterCode, "MOUTH-04"), font, goblinBackground, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.ANAL, new SexualExperienceBuilder().setOralCreampie(1).build())}),
+									getEndScene(EndScene.Type.ENCOUNTER_OVER)
+								)
+							)
+						)
+					),	
+					getTextScenes(
+						getScript(encounterCode, "ASS-01"), font, goblinBackground, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.ANAL, new SexualExperienceBuilder().setOralSex(1).build())}),
+						getTextScenes(
+							getScript(encounterCode, "ASS-02"), font, goblinBackground, getArray(new Mutation[]{goblinVirginityToFalse}),
+							getTextScenes(
+								getScript(encounterCode, "ASS-03"), font, goblinBackground,  getArray(new Mutation[]{new Mutation(saveService, SaveEnum.ANAL, new SexualExperienceBuilder().setAnalEjaculations(1).build())}),
 								getCheckScene(
-									Stat.ENDURANCE, new IntArray(new int[]{5}),
+									Stat.ENDURANCE, new IntArray(new int[]{6}),
 									fightOff,
 									getTextScenes(
-										getScript(encounterCode, 34), font, goblinBackground,	
+										getScript(encounterCode, 33), font, goblinBackground, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.ANAL, new SexualExperienceBuilder().setAnalSex(1, 2, 0).build())}),
 										getCheckScene(
-											Stat.ENDURANCE, new IntArray(new int[]{4}),
+											Stat.ENDURANCE, new IntArray(new int[]{5}),
 											fightOff,
 											getTextScenes(
-												getScript(encounterCode, 35), font, goblinBackground,	
-												getTextScenes(
-													getScript(encounterCode, 36), font, buttBangedBackground2,	
-													getEndScene(EndScene.Type.ENCOUNTER_OVER)
+												getScript(encounterCode, 34), font, goblinBackground, analAndCreampie,
+												getCheckScene(
+													Stat.ENDURANCE, new IntArray(new int[]{4}),
+													fightOff,
+													getTextScenes(
+														getScript(encounterCode, 35), font, goblinBackground, analAndCreampie,	
+														getTextScenes(
+															getScript(encounterCode, 36), font, buttBangedBackground2,	
+															getEndScene(EndScene.Type.ENCOUNTER_OVER)
+														)
+													)
 												)
 											)
 										)
@@ -1079,7 +1101,7 @@ public class EncounterBuilder {
 		saveService.saveDataValue(SaveEnum.BATTLE_CODE, new BattleCode(-1, null, Stance.BALANCED, Stance.BALANCED, false));
 		return new Encounter(scenes, endScenes, battleScenes, getStartScene(scenes, sceneCode));	
 	}
-	
+
 	private Array<Mutation> getMutation(int damage) {
 		Array<Mutation> mutations = new Array<Mutation>();
 		mutations.add(new Mutation(saveService, SaveEnum.HEALTH, -damage));
@@ -1284,6 +1306,10 @@ public class EncounterBuilder {
 			aggregatedMap.putAll(map);
 		}
 		return aggregatedMap;	
+	}
+	
+	private Array<String> getScript(EncounterCode encounterCode, String string) {
+		return getScript("00"+encounterCode.getBattleCode() + "-" + string);
 	}
 	
 	private Array<String> getScript(EncounterCode encounterCode, int scene) {

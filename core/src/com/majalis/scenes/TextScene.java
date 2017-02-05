@@ -59,7 +59,7 @@ public class TextScene extends AbstractTextScene  {
 		String mutationResults = "";
 		for (Mutation mutator: mutations){
 			String result = mutator.mutate();
-			if (result != null) mutationResults += " ["+result+"]";
+			if (result != null) mutationResults += " ["+result+"]\n";
 		}
 		statusResults.setText(mutationResults);
 		characterPortrait.setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(character.getPortraitPath(), Texture.class))));

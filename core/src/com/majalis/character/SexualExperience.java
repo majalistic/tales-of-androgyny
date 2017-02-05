@@ -18,17 +18,30 @@ public class SexualExperience {
 		private int oralCreampies;
 		private int fellatioEjaculation;
 		
-		public SexualExperienceBuilder() {
-			this.analSex = 1;
-			this.creampies = 1;
-		}
+		public SexualExperienceBuilder() {}
 		
 		public SexualExperienceBuilder(int anal) {
 			this.analSex = anal;
 		}
+
+		public SexualExperienceBuilder setAnalSex(int anal, int analCreampies, int analEjaculation) {
+			this.analSex = anal;
+			this.analEjaculation = analEjaculation;
+			return this;
+		}
 		
 		public SexualExperienceBuilder setAnalEjaculations(int num) {
 			analEjaculation = num;
+			return this;
+		}
+		
+		public SexualExperienceBuilder setOralSex(int num) {
+			oralSex = num;
+			return this;
+		}
+		
+		public SexualExperienceBuilder setOralCreampie(int num) {
+			oralCreampies = num;
 			return this;
 		}
 		

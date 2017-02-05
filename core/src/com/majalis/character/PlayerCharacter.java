@@ -368,7 +368,7 @@ public class PlayerCharacter extends AbstractCharacter {
 		baseDefense = 6;
 		weapon = disarmedWeapon;
 		disarmedWeapon = null;
-		setCurrentPortrait(AssetEnum.PORTRAIT_HAPPY);
+		setCurrentPortrait(getNeutralFace());
 	}
 
 	public enum Femininity {
@@ -694,7 +694,7 @@ public class PlayerCharacter extends AbstractCharacter {
 	public void setGoblinVirginity(boolean virginity) {
 		goblinVirgin = virginity;
 		if (!goblinVirgin) {
-			receivedAnal++;
+			receiveSex(new SexualExperience.SexualExperienceBuilder(1).build());
 		}
 	}
 	
@@ -729,8 +729,8 @@ public class PlayerCharacter extends AbstractCharacter {
 		String temp;
 		for (int ii = 0; ii < sex.getAnalSex(); ii++) {
 			temp = receiveAnal();
+			setCurrentPortrait(perks.get(Perk.ANAL_LOVER.toString(), 0) > 1 ? AssetEnum.PORTRAIT_LUST : AssetEnum.PORTRAIT_HIT);
 			if (temp != null) {
-				setCurrentPortrait(perks.get(Perk.ANAL_LOVER.toString(), 0) > 1 ? AssetEnum.PORTRAIT_LUST : AssetEnum.PORTRAIT_HIT);
 				result += temp + "\n";
 			}
 		}
@@ -742,18 +742,19 @@ public class PlayerCharacter extends AbstractCharacter {
 		}
 		for (int ii = 0; ii < sex.getAnalEjaculations(); ii++) {
 			cumFromAnal();
+			setCurrentPortrait(AssetEnum.PORTRAIT_AHEGAO);
 		}
 		for (int ii = 0; ii < sex.getOralSex(); ii++) {
 			temp = receiveOral();
+			setCurrentPortrait(AssetEnum.PORTRAIT_FELLATIO);
 			if (temp != null) {
-				setCurrentPortrait(AssetEnum.PORTRAIT_FELLATIO);
 				result += temp + "\n";
 			}
 		}
 		for (int ii = 0; ii < sex.getOralCreampies(); ii++) {
 			temp = fillMouth(1);
+			setCurrentPortrait(AssetEnum.PORTRAIT_MOUTHBOMB);
 			if (temp != null) {
-				setCurrentPortrait(AssetEnum.PORTRAIT_MOUTHBOMB);
 				result += temp + "\n";
 			}
 		}
@@ -788,7 +789,7 @@ public class PlayerCharacter extends AbstractCharacter {
 			return AssetEnum.PORTRAIT_AHEGAO.getPath();
 		}
 		String currentDisplay = currentPortrait;
-		currentPortrait = getNeutralFace();
+		currentPortrait = getNeutralFace().getPath();
 		return currentDisplay;
 	}
 	
@@ -800,13 +801,11 @@ public class PlayerCharacter extends AbstractCharacter {
 		return currentPortrait;
 	}
 
-	private String getNeutralFace() {
-		AssetEnum portrait;
+	private AssetEnum getNeutralFace() {
 		switch (getHealthDegradation()) {
-			case 0: portrait = AssetEnum.PORTRAIT_SMILE;
-			case 1: portrait = AssetEnum.PORTRAIT_HAPPY;
-			default: portrait = AssetEnum.PORTRAIT_NEUTRAL;		
+			case 0: return AssetEnum.PORTRAIT_SMILE;
+			case 1: return AssetEnum.PORTRAIT_HAPPY;
+			default: return AssetEnum.PORTRAIT_NEUTRAL;		
 		}
-		return portrait.getPath();
 	}
 }
