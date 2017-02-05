@@ -78,6 +78,7 @@ public class EnemyCharacter extends AbstractCharacter {
 				baseStrength = 5;
 				baseAgility = 4;
 				basePerception = 5;
+				baseEndurance = 4;
 				bgPath = AssetEnum.PLAINS_BG.getPath();
 				if (enemyType == EnemyEnum.CENTAUR) {
 					imagePath =  AssetEnum.CENTAUR.getPath();

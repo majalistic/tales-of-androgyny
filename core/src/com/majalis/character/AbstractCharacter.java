@@ -189,7 +189,7 @@ public abstract class AbstractCharacter extends Actor {
 	
 	public void modHealth(int healthMod) { this.currentHealth += healthMod; if (currentHealth > getMaxHealth()) currentHealth = getMaxHealth(); }
 	
-	protected int getStaminaRegen() { return getEndurance()/2; }
+	protected int getStaminaRegen() { return Math.max(getEndurance()/2, 0); }
 	
 	protected int getStabilityRegen() { return getAgility()/2; }
 	

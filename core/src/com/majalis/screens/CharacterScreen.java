@@ -21,6 +21,7 @@ import com.majalis.asset.AssetEnum;
 import com.majalis.character.PlayerCharacter;
 import com.majalis.character.AbstractCharacter.Stat;
 import com.majalis.character.Item;
+import com.majalis.character.Perk;
 import com.majalis.encounter.Background.BackgroundBuilder;
 import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveManager.GameContext;
@@ -162,7 +163,7 @@ public class CharacterScreen extends AbstractScreen {
 		Table equipmentTable = new Table();
 		equipmentTable.align(Align.top);
 		final Label weaponText = getLabel(character.getWeapon() != null ? "Weapon: " + character.getWeapon().getName() : "Weapon: Unarmed", skin, Color.BLACK);
-		equipmentTable.setPosition(800, 1040);
+		equipmentTable.setPosition(700, 1040);
 		this.addActor(equipmentTable);
 		equipmentTable.add(weaponText).align(Align.left).row();
 		equipmentTable.add(getLabel("Shield: ", skin, Color.DARK_GRAY)).align(Align.left).row();
@@ -171,6 +172,14 @@ public class CharacterScreen extends AbstractScreen {
 		equipmentTable.add(getLabel("Legwear: ", skin, Color.DARK_GRAY)).align(Align.left).row();
 		equipmentTable.add(getLabel("Armwear: ", skin, Color.DARK_GRAY)).align(Align.left).row();
 		
+		Table perkTable = new Table();
+		perkTable.align(Align.top);
+		perkTable.setPosition(1100, 1040);
+		this.addActor(perkTable);
+		perkTable.add(getLabel("Perks: ", skin, Color.FOREST)).align(Align.left).row();
+		for (ObjectMap.Entry<Perk, Integer> perk : character.getPerks().entries()) {
+			perkTable.add(getLabel(perk.key.getLabel() + " (" + perk.value.toString() + ")", skin, Color.BLACK)).align(Align.left).row();
+		}
 		
 		for (final Item item : character.getInventory()) {
 			final TextButton itemButton = new TextButton(item.getName(), skin);
