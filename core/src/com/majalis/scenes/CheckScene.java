@@ -45,7 +45,6 @@ public class CheckScene extends AbstractTextScene {
 		this.checkType = checkType;
 	}
 	
-
 	@Override
 	public void setActive() {
 		super.setActive();

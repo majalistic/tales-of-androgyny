@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -64,6 +65,7 @@ public class Battle extends Group{
 	
 	private final Array<SoundTimer> soundBuffer;
 	private final Image hoverImage;
+	private final Image characterPortrait;
 	private final Group hoverGroup;
 	private final Label console;
 	private final Label skillDisplay;
@@ -181,7 +183,7 @@ public class Battle extends Group{
 		hoverGroup = new Group();
 		hoverGroup.addActor(hoverImage);
 		
-		Image characterPortrait = new Image(assetManager.get(AssetEnum.CHARACTER_POTRAIT.getPath(), Texture.class));
+		characterPortrait = new Image(assetManager.get(character.getPortraitPath(), Texture.class));
 		addActorAndListen(characterPortrait, -5, 615);
 		characterPortrait.setScale(.9f);
 
@@ -263,7 +265,10 @@ public class Battle extends Group{
 		}
 		soundBuffer.removeAll(toRemove, true);
 		
-		if (!battleOutcomeDecided) {
+		if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
+			gameExit = true;
+		}
+		else if (!battleOutcomeDecided) {
 			if(Gdx.input.isKeyJustPressed(Keys.UP)) {
 	        	if (selection > 0) changeSelection(selection - 1);
 	        	else changeSelection(optionButtons.size-1);
@@ -286,33 +291,28 @@ public class Battle extends Group{
 				uiHidden = !uiHidden;
 			}
 			
-			if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
-				gameExit = true;
-			}
-			else {
-				if (selectedTechnique == null) {
-					int ii = 0;
-					for (int possibleKey : POSSIBLE_KEYS) {
-						if (Gdx.input.isKeyJustPressed(possibleKey)) {
-							if (ii < optionButtons.size) {
-								selectedTechnique = clickButton(optionButtons.get(ii));
-								break;
-							}
+			if (selectedTechnique == null) {
+				int ii = 0;
+				for (int possibleKey : POSSIBLE_KEYS) {
+					if (Gdx.input.isKeyJustPressed(possibleKey)) {
+						if (ii < optionButtons.size) {
+							selectedTechnique = clickButton(optionButtons.get(ii));
+							break;
 						}
-						ii++;
 					}
+					ii++;
 				}
-					
-				if (selectedTechnique != null) {		
-					soundMap.get(AssetEnum.BUTTON_SOUND).play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
-					// possibly construct a separate class for this
-					resolveTechniques(character, selectedTechnique, enemy, enemy.getTechnique(character));
-					selectedTechnique = null;
-					displayTechniqueOptions();
-					saveService.saveDataValue(SaveEnum.PLAYER, character);
-					saveService.saveDataValue(SaveEnum.ENEMY, enemy);
-					saveService.saveDataValue(SaveEnum.CONSOLE, consoleText);				
-				}
+			}
+				
+			if (selectedTechnique != null) {		
+				soundMap.get(AssetEnum.BUTTON_SOUND).play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
+				// possibly construct a separate class for this
+				resolveTechniques(character, selectedTechnique, enemy, enemy.getTechnique(character));
+				selectedTechnique = null;
+				displayTechniqueOptions();
+				saveService.saveDataValue(SaveEnum.PLAYER, character);
+				saveService.saveDataValue(SaveEnum.ENEMY, enemy);
+				saveService.saveDataValue(SaveEnum.CONSOLE, consoleText);				
 			}
 
 			if (character.getCurrentHealth() <= 0) {
@@ -400,6 +400,7 @@ public class Battle extends Group{
 		Attack attackForFirstCharacter = secondCharacter.doAttack(secondTechnique.resolve(firstTechnique));
 		Attack attackForSecondCharacter = firstCharacter.doAttack(firstTechnique.resolve(secondTechnique));
 		
+		
 		if (attackForFirstCharacter.isAttack()) {
 			slash.setState(0);
 			if (!attackForFirstCharacter.isSuccessful()) {
@@ -412,11 +413,13 @@ public class Battle extends Group{
 				if (attackForFirstCharacter.getStatus() == Status.BLOCKED) {
 					soundBuffer.add(new SoundTimer(soundMap.get(AssetEnum.BLOCK_SOUND), 5, .5f));
 				}
-				else if (enemy.getWeapon() != null) {
-					soundBuffer.add(new SoundTimer(soundMap.get(AssetEnum.SWORD_SLASH_SOUND), 5, .5f));
-				}
 				else {
-					soundBuffer.add(new SoundTimer(soundMap.get(AssetEnum.HIT_SOUND), 20, .3f));
+					if (enemy.getWeapon() != null) {
+						soundBuffer.add(new SoundTimer(soundMap.get(AssetEnum.SWORD_SLASH_SOUND), 5, .5f));
+					}
+					else {
+						soundBuffer.add(new SoundTimer(soundMap.get(AssetEnum.HIT_SOUND), 20, .3f));
+					}
 				}
 			}
 		}
@@ -451,6 +454,22 @@ public class Battle extends Group{
 		
 		printToConsole(firstCharacter.receiveAttack(attackForFirstCharacter));
 		printToConsole(secondCharacter.receiveAttack(attackForSecondCharacter));		
+		
+		if (attackForFirstCharacter.isAttack() && attackForFirstCharacter.isSuccessful() && attackForFirstCharacter.getStatus() != Status.BLOCKED) {
+			characterPortrait.setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(AssetEnum.PORTRAIT_HIT.getPath(), Texture.class))));
+			characterPortrait.addAction(Actions.sequence(Actions.moveBy(-10, -10), Actions.delay(.1f), Actions.moveBy(0, 20), Actions.delay(.1f), Actions.moveBy(20, -20), Actions.delay(.1f), Actions.moveBy(0, 20), Actions.delay(.1f), Actions.moveTo(-5 * 1.5f, 615 * 1.5f),  
+				new Action(){
+					@Override
+					public boolean act(float delta) {
+						characterPortrait.setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(character.getPortraitPath(), Texture.class))));	
+						return true;
+					}
+				})
+			);
+		}
+		else {
+			characterPortrait.setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(character.getPortraitPath(), Texture.class))));	
+		}
 		
 		if (oldStance.isAnal() && firstCharacter.getStance().isAnal()) {
 			soundMap.get(AssetEnum.THWAPPING).play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
@@ -497,7 +516,7 @@ public class Battle extends Group{
 		enemyHealthIcon.setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(enemy.getHealthDisplay(), Texture.class))));
 		masculinityIcon.setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(character.getMasculinityPath(), Texture.class))));
 		armorLabel.setText("" + character.getDefense());
-		enemyArmorLabel.setText("" + enemy.getDefense());
+		enemyArmorLabel.setText("" + enemy.getDefense());		
 	}
 	
 	private void printToConsole(Array<String> results) {

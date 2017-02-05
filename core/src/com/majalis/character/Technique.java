@@ -307,7 +307,7 @@ public class Technique {
 			thisPayload.getArmorSunder(), 
 			thisPayload.getTotalPower() * thisPayload.getGutCheck(), 
 			technique.isHealing() ? thisPayload.getTotalPower() : 0,
-			technique.isTaunt() ? thisPayload.getTotalPower() : 0, 
+			technique.isTaunt() ? thisPayload.getTotalPower() : 0,  // lust
 			technique.isGrapple() ? thisPayload.getTotalPower() : 0,
 			otherTechnique.isBlockable() ? thisPayload.getDisarm() : 0,
 			thisPayload.getTrip(),

@@ -53,6 +53,9 @@ public class PlayerCharacter extends AbstractCharacter {
 	private int oralCreampie;
 	private int cameFromAnal;
 	private int cameFromOral;
+	private boolean justCame;
+	
+	private String currentPortrait;
 	
 	private boolean goblinVirgin;
 	private boolean a2m;
@@ -91,6 +94,8 @@ public class PlayerCharacter extends AbstractCharacter {
 		}
 		
 		perks = new ObjectMap<String, Integer>();
+		justCame = false;
+		setCurrentPortrait(AssetEnum.PORTRAIT_SMILE); // his smile and optimism, not yet gone
 	}
 
 	private static ObjectSet<Techniques> getBaseTechniques() {
@@ -107,6 +112,10 @@ public class PlayerCharacter extends AbstractCharacter {
 	
 	public static ObjectMap<Stat, Array<String>> getStatMap() {
 		return statNameMap;
+	}
+	
+	private void setCurrentPortrait(AssetEnum portrait) {
+		currentPortrait = portrait.getPath();
 	}
 	
 	public void addToInventory(Item item) {
@@ -279,6 +288,17 @@ public class PlayerCharacter extends AbstractCharacter {
 	}
 	
 	@Override
+	public Technique extractCosts(Technique technique) {
+		Technique newTechnique = super.extractCosts(technique);
+		switch (getHealthDegradation()) {
+			case 0: setCurrentPortrait(AssetEnum.PORTRAIT_SMILE);
+			case 1: setCurrentPortrait(AssetEnum.PORTRAIT_HAPPY);
+			default: setCurrentPortrait(AssetEnum.PORTRAIT_NEUTRAL);		
+		}
+		return newTechnique;
+	}
+	
+	@Override
 	public Attack doAttack(Attack resolvedAttack) {
 		if (resolvedAttack.getGrapple() > 0) {
 			struggle -= resolvedAttack.getGrapple();
@@ -290,7 +310,10 @@ public class PlayerCharacter extends AbstractCharacter {
 				struggle = 0;
 				resolvedAttack.addMessage("You are almost free!");
 			}
-		}	
+		}
+		if (resolvedAttack.getLust() > 0) {
+			currentPortrait = AssetEnum.PORTRAIT_GRIN.getPath();
+		}
 		return super.doAttack(resolvedAttack);
 	}
 	
@@ -299,8 +322,27 @@ public class PlayerCharacter extends AbstractCharacter {
 		super.receiveAttack(resolvedAttack);
 		
 		String result;
+		if (resolvedAttack.isClimax()) {
+			if (oldStance.isAnal()) {
+				setCurrentPortrait(perks.get(Perk.ANAL_LOVER.toString(), 0) > 1 ? AssetEnum.PORTRAIT_AHEGAO : AssetEnum.PORTRAIT_POUT);
+			}
+			else if (oldStance.isOral()){
+				setCurrentPortrait(AssetEnum.PORTRAIT_MOUTHBOMB);
+			}
+				
+		}
+		if (stance.isAnal()) {
+			setCurrentPortrait(perks.get(Perk.ANAL_LOVER.toString(), 0) > 1 ? AssetEnum.PORTRAIT_LUST : AssetEnum.PORTRAIT_HIT);
+		}
+		else if (stance.isOral()) {
+			setCurrentPortrait(resolvedAttack.isClimax() ? AssetEnum.PORTRAIT_MOUTHBOMB : AssetEnum.PORTRAIT_FELLATIO);
+		}
+		
 		if (!oldStance.isAnal() && stance.isAnal()) {
 			result = receiveAnal(); 
+			
+			setCurrentPortrait(perks.get(Perk.ANAL_LOVER.toString(), 0) > 1 ? AssetEnum.PORTRAIT_LOVE : AssetEnum.PORTRAIT_SURPRISE);
+			
 			if (result != null) { resolvedAttack.addMessage(result); } 
 			if (resolvedAttack.getUser().equals("Goblin")) {
 				setGoblinVirginity(false);
@@ -312,6 +354,7 @@ public class PlayerCharacter extends AbstractCharacter {
 			if (result != null) { resolvedAttack.addMessage(result); } 
 			if(a2m) {
 				resolvedAttack.addMessage("Bleugh! That was in your ass!");
+				// gross portrait
 				if (!a2mcheevo) {
 					a2mcheevo = true;
 					resolvedAttack.addMessage("Achievement unlocked: Ass to Mouth.");
@@ -336,6 +379,7 @@ public class PlayerCharacter extends AbstractCharacter {
 		baseDefense = 6;
 		weapon = disarmedWeapon;
 		disarmedWeapon = null;
+		setCurrentPortrait(AssetEnum.PORTRAIT_HAPPY);
 	}
 
 	public enum Femininity {
@@ -489,6 +533,7 @@ public class PlayerCharacter extends AbstractCharacter {
 		String spurt = "";
 		String result = null;
 		lust += lustIncrease;
+		boolean weakToAnal = perks.get(Perk.WEAK_TO_ANAL.toString(), 0) > 0;
 		if (lust > 10) {
 			lust = 0;
 			switch (stance) {
@@ -498,21 +543,21 @@ public class PlayerCharacter extends AbstractCharacter {
 					spurt = "Awoo! Semen spurts out your untouched cock as your hole is violated!\n"
 						+	"You feel it with your ass, like a girl! Your face is red with shame!\n"
 						+	"Got a little too comfortable, eh?\n";
-					cameFromAnal++;
-					result = incrementPerk(cameFromAnal, Perk.ANAL_LOVER, 5, 3, 1);
+					cumFromAnal();
+					result = incrementPerk(cameFromAnal, Perk.ANAL_LOVER, weakToAnal ? 3 : 5, weakToAnal ? 2 : 3, 1);
 					break;
 				case COWGIRL:
 					spurt = "Awoo! Semen spurts out your untouched cock as your hole is violated!\n"
 							+	"You feel it with your ass, like a girl! Your face is red with shame!\n"
 							+	"It spews all over them!\n";
-					cameFromAnal++;
-					result = incrementPerk(cameFromAnal, Perk.ANAL_LOVER, 5, 3, 1);
+					cumFromAnal();
+					result = incrementPerk(cameFromAnal, Perk.ANAL_LOVER, weakToAnal ? 3 : 5, weakToAnal ? 2 : 3, 1);
 					break;
 				case FELLATIO:
 					spurt = "You spew while sucking!\n"
 						+	"Your worthless cum spurts into the dirt!\n"
 						+	"They don't even notice!\n";
-					cameFromOral++;
+					cumFromOral();
 					result = incrementPerk(cameFromOral, Perk.MOUTH_MANIAC, 5, 3, 1);
 					break;
 				case FACE_SITTING:
@@ -524,7 +569,7 @@ public class PlayerCharacter extends AbstractCharacter {
 					spurt = "You spew into her mouth!\n"
 							+	"Her cock twitches in yours!\n"
 							+	"You're about to retun the favor!\n";
-					cameFromOral++;
+					cumFromOral();
 					result = incrementPerk(cameFromOral, Perk.MOUTH_MANIAC, 5, 3, 1);
 					break;
 				default: spurt = "You spew your semen onto the ground!\n"; 
@@ -620,7 +665,8 @@ public class PlayerCharacter extends AbstractCharacter {
 	
 	private String receiveAnal() {
 		receivedAnal++;
-		return incrementPerk(receivedAnal, Perk.ANAL_LOVER, 10, 6, 3);
+		boolean weakToAnal = perks.get(Perk.WEAK_TO_ANAL.toString(), 0) > 0;
+		return incrementPerk(receivedAnal, Perk.ANAL_LOVER, weakToAnal ? 5 : 10, weakToAnal ? 3 : 6, weakToAnal ? 1 : 3);
 	}
 	
 	private String receiveOral() {
@@ -705,7 +751,7 @@ public class PlayerCharacter extends AbstractCharacter {
 			}
 		}
 		for (int ii = 0; ii < sex.getAnalEjaculations(); ii++) {
-			cameFromAnal++;
+			cumFromAnal();
 		}
 		for (int ii = 0; ii < sex.getOralSex(); ii++) {
 			temp = receiveOral();
@@ -720,10 +766,20 @@ public class PlayerCharacter extends AbstractCharacter {
 			}
 		}
 		for (int ii = 0; ii < sex.getFellatioEjaculations(); ii++) {
-			cameFromOral++;
+			cumFromOral();
 		}
 		
 		return result;
+	}
+	
+	private void cumFromAnal() {
+		cameFromAnal++;
+		justCame = true;
+	}
+	
+	private void cumFromOral() {
+		cameFromOral++;
+		justCame = true;
 	}
 
 	public String getBootyLiciousness() {
@@ -732,5 +788,13 @@ public class PlayerCharacter extends AbstractCharacter {
 	
 	public String getLipFullness() {
 		return lipFullness != null ? lipFullness.toString() : LipFullness.Thin.toString(); 
+	}
+
+	public String getPortraitPath() {
+		if (justCame) {
+			justCame = false;
+			return AssetEnum.PORTRAIT_AHEGAO.getPath();
+		}
+		return currentPortrait;
 	}
 }
