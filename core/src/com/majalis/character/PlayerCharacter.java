@@ -288,17 +288,6 @@ public class PlayerCharacter extends AbstractCharacter {
 	}
 	
 	@Override
-	public Technique extractCosts(Technique technique) {
-		Technique newTechnique = super.extractCosts(technique);
-		switch (getHealthDegradation()) {
-			case 0: setCurrentPortrait(AssetEnum.PORTRAIT_SMILE);
-			case 1: setCurrentPortrait(AssetEnum.PORTRAIT_HAPPY);
-			default: setCurrentPortrait(AssetEnum.PORTRAIT_NEUTRAL);		
-		}
-		return newTechnique;
-	}
-	
-	@Override
 	public Attack doAttack(Attack resolvedAttack) {
 		if (resolvedAttack.getGrapple() > 0) {
 			struggle -= resolvedAttack.getGrapple();
@@ -795,6 +784,18 @@ public class PlayerCharacter extends AbstractCharacter {
 			justCame = false;
 			return AssetEnum.PORTRAIT_AHEGAO.getPath();
 		}
-		return currentPortrait;
+		String currentDisplay = currentPortrait;
+		currentPortrait = getNeutralFace();
+		return currentDisplay;
+	}
+
+	private String getNeutralFace() {
+		AssetEnum portrait;
+		switch (getHealthDegradation()) {
+			case 0: portrait = AssetEnum.PORTRAIT_SMILE;
+			case 1: portrait = AssetEnum.PORTRAIT_HAPPY;
+			default: portrait = AssetEnum.PORTRAIT_NEUTRAL;		
+		}
+		return portrait.getPath();
 	}
 }
