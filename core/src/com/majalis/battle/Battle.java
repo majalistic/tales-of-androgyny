@@ -254,6 +254,29 @@ public class Battle extends Group{
 		
 		pane2.setBounds(hoverXPos + 80, hoverYPos - 155, 600, 700);
 		hoverGroup.addActor(pane2);
+		
+		Outcome battleOutcome = enemy.getOutcome(character);
+		if (battleOutcome != null) {
+			battleOutcomeDecided = true;
+			outcome = battleOutcome; 
+			skillDisplay.setText(enemy.getOutcomeText(character));
+			character.refresh();
+			bonusDisplay.setText("");
+			uiGroup.removeActor(table);
+			hoverGroup.clearActions();
+			hoverGroup.addAction(Actions.visible(true));
+			hoverGroup.addAction(Actions.moveTo(400, 380));
+			hoverGroup.addAction(Actions.fadeIn(.1f));
+			this.addListener(
+				new ClickListener() {
+			        @Override
+			        public void clicked(InputEvent event, float x, float y) {
+			        	battleOver = true;
+			        	saveService.saveDataValue(SaveEnum.CONSOLE, "");
+			        }
+				}
+			);
+		}
 	}
 	
 	public void battleLoop() {
