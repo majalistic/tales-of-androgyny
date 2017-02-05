@@ -183,7 +183,7 @@ public class Battle extends Group{
 		hoverGroup = new Group();
 		hoverGroup.addActor(hoverImage);
 		
-		characterPortrait = new Image(assetManager.get(character.getPortraitPath(), Texture.class));
+		characterPortrait = new Image(assetManager.get(character.popPortraitPath(), Texture.class));
 		addActorAndListen(characterPortrait, -5, 615);
 		characterPortrait.setScale(.9f);
 
@@ -484,14 +484,14 @@ public class Battle extends Group{
 				new Action(){
 					@Override
 					public boolean act(float delta) {
-						characterPortrait.setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(character.getPortraitPath(), Texture.class))));	
+						characterPortrait.setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(character.popPortraitPath(), Texture.class))));	
 						return true;
 					}
 				})
 			);
 		}
 		else {
-			characterPortrait.setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(character.getPortraitPath(), Texture.class))));	
+			characterPortrait.setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(character.popPortraitPath(), Texture.class))));	
 		}
 		
 		if (oldStance.isAnal() && firstCharacter.getStance().isAnal()) {

@@ -33,6 +33,7 @@ public abstract class AbstractTextScene extends Scene {
 	protected final SaveService saveService;
 	protected final Label display;
 	protected final Label statusResults;
+	protected final Image characterPortrait;
 	protected final Image masculinityIcon;
 	
 	protected AbstractTextScene(OrderedMap<Integer, Scene> sceneBranches, int sceneCode, AssetManager assetManager, BitmapFont font, PlayerCharacter character, SaveService saveService, Background background) {
@@ -46,8 +47,10 @@ public abstract class AbstractTextScene extends Scene {
 		statusResults.setWidth(400);
 		Label skipText = addLabel("Press CTRL to skip", skin, font, Color.BLACK, 105, 180);
 		skipText.setWidth(240);
+		Texture portrait = assetManager.get(character.getPortraitPath(), Texture.class);
+		characterPortrait = addImage(portrait, null, 105, 800, portrait.getWidth() / (portrait.getHeight() / 200f), 200);
 		Texture icon = assetManager.get(character.getMasculinityPath(), Texture.class);
-		masculinityIcon = addImage(icon, null, 105, 900, icon.getWidth() / (icon.getHeight() / 100f), 100);
+		masculinityIcon = addImage(icon, null, 105, 705, icon.getWidth() / (icon.getHeight() / 100f), 100);
 	}
 
 	@Override

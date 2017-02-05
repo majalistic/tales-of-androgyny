@@ -1,5 +1,6 @@
 package com.majalis.screens;
 
+import static com.majalis.asset.AssetEnum.*;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
@@ -22,13 +23,15 @@ public class EncounterScreen extends AbstractScreen {
 	static {
 		resourceRequirements.put(AssetEnum.UI_SKIN.getPath(), Skin.class);
 		resourceRequirements.put(AssetEnum.BUTTON_SOUND.getPath(), Sound.class);
-		resourceRequirements.put(AssetEnum.DEFAULT_BACKGROUND.getPath(), Texture.class);
-		resourceRequirements.put(AssetEnum.BATTLE_HOVER.getPath(), Texture.class);
-		resourceRequirements.put(AssetEnum.MARS_ICON_0.getPath(), Texture.class);
-		resourceRequirements.put(AssetEnum.MARS_ICON_1.getPath(), Texture.class);
-		resourceRequirements.put(AssetEnum.MARS_ICON_2.getPath(), Texture.class);
-		resourceRequirements.put(AssetEnum.MARS_ICON_3.getPath(), Texture.class);
-		resourceRequirements.put(AssetEnum.MARS_ICON_4.getPath(), Texture.class);
+		AssetEnum[] assets = new AssetEnum[]{
+				DEFAULT_BACKGROUND, BATTLE_HOVER,
+				PORTRAIT_NEUTRAL, PORTRAIT_AHEGAO, PORTRAIT_FELLATIO, PORTRAIT_MOUTHBOMB, PORTRAIT_GRIN, PORTRAIT_HIT, PORTRAIT_LOVE, PORTRAIT_LUST, PORTRAIT_SMILE, PORTRAIT_SURPRISE, PORTRAIT_GRIMACE, PORTRAIT_POUT, PORTRAIT_HAPPY, 
+				MARS_ICON_0, MARS_ICON_1, MARS_ICON_2, MARS_ICON_3, MARS_ICON_4
+			};
+		for (AssetEnum asset: assets){
+			resourceRequirements.put(asset.getPath(), Texture.class);
+		}
+		
 		resourceRequirements.put(AssetEnum.ENCOUNTER_MUSIC.getPath(), Music.class);
 	}
 	private static AssetManager assetManager;

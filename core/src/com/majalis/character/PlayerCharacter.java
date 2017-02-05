@@ -730,6 +730,7 @@ public class PlayerCharacter extends AbstractCharacter {
 		for (int ii = 0; ii < sex.getAnalSex(); ii++) {
 			temp = receiveAnal();
 			if (temp != null) {
+				setCurrentPortrait(perks.get(Perk.ANAL_LOVER.toString(), 0) > 1 ? AssetEnum.PORTRAIT_LUST : AssetEnum.PORTRAIT_HIT);
 				result += temp + "\n";
 			}
 		}
@@ -745,12 +746,14 @@ public class PlayerCharacter extends AbstractCharacter {
 		for (int ii = 0; ii < sex.getOralSex(); ii++) {
 			temp = receiveOral();
 			if (temp != null) {
+				setCurrentPortrait(AssetEnum.PORTRAIT_FELLATIO);
 				result += temp + "\n";
 			}
 		}
 		for (int ii = 0; ii < sex.getOralCreampies(); ii++) {
 			temp = fillMouth(1);
 			if (temp != null) {
+				setCurrentPortrait(AssetEnum.PORTRAIT_MOUTHBOMB);
 				result += temp + "\n";
 			}
 		}
@@ -779,7 +782,7 @@ public class PlayerCharacter extends AbstractCharacter {
 		return lipFullness != null ? lipFullness.toString() : LipFullness.Thin.toString(); 
 	}
 
-	public String getPortraitPath() {
+	public String popPortraitPath() {
 		if (justCame) {
 			justCame = false;
 			return AssetEnum.PORTRAIT_AHEGAO.getPath();
@@ -787,6 +790,14 @@ public class PlayerCharacter extends AbstractCharacter {
 		String currentDisplay = currentPortrait;
 		currentPortrait = getNeutralFace();
 		return currentDisplay;
+	}
+	
+	public String getPortraitPath() {
+		if (justCame) {
+			justCame = false;
+			return AssetEnum.PORTRAIT_AHEGAO.getPath();
+		}
+		return currentPortrait;
 	}
 
 	private String getNeutralFace() {
