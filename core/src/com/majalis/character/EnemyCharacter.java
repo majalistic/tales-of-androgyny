@@ -277,7 +277,6 @@ public class EnemyCharacter extends AbstractCharacter {
 		Array<Technique> possibleTechniques = new Array<Technique>();
 		
 		for (Techniques technique : possibilities) {
-			//possibleTechniques.add(new Technique(technique.getTrait(), technique.getTrait().isSpell() ? getMagic() : technique.getTrait().isTaunt() ? getCharisma() : getStrength()));
 			possibleTechniques.add(getTechnique(target, technique));
 		}
 		
@@ -285,7 +284,7 @@ public class EnemyCharacter extends AbstractCharacter {
 	}
 	
 	public Technique getTechnique(AbstractCharacter target) {
-		if (lust < 10) lust++;
+		if (lust < 10 && enemyType != EnemyEnum.CENTAUR) lust++;
 		
 		Array<Technique> possibleTechniques = getPossibleTechniques(target, stance);
 		

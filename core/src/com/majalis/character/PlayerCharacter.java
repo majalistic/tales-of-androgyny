@@ -698,12 +698,16 @@ public class PlayerCharacter extends AbstractCharacter {
 		}
 	}
 	
+	public void receiveItem(Item item) {
+		inventory.add(item);
+	}
+	
 	public boolean buyItem(Item item, int cost) {
 		if (cost > money) {
 			return false;
 		}
 		money -= cost;
-		inventory.add(item);
+		receiveItem(item);
 		if (item instanceof Weapon) {
 			weapon = (Weapon) item;
 		}
@@ -760,6 +764,11 @@ public class PlayerCharacter extends AbstractCharacter {
 		}
 		for (int ii = 0; ii < sex.getFellatioEjaculations(); ii++) {
 			cumFromOral();
+		}
+		
+		if (sex.isCentaurSex() && perks.get(Perk.HORSE_LOVER.toString(), 0) == 0) {
+			result += "You gained " + Perk.HORSE_LOVER.getLabel() + " (Rank " + 1 + ")!";
+			perks.put(Perk.HORSE_LOVER.toString(), 1);
 		}
 		
 		return result;

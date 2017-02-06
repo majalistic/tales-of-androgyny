@@ -161,9 +161,9 @@ public class CharacterScreen extends AbstractScreen {
 		this.addActor(weaponTable);
 		
 		Table equipmentTable = new Table();
-		equipmentTable.align(Align.top);
+		equipmentTable.align(Align.topLeft);
 		final Label weaponText = getLabel(character.getWeapon() != null ? "Weapon: " + character.getWeapon().getName() : "Weapon: Unarmed", skin, Color.BLACK);
-		equipmentTable.setPosition(700, 1040);
+		equipmentTable.setPosition(600, 1040);
 		this.addActor(equipmentTable);
 		equipmentTable.add(weaponText).align(Align.left).row();
 		equipmentTable.add(getLabel("Shield: ", skin, Color.DARK_GRAY)).align(Align.left).row();
@@ -173,8 +173,8 @@ public class CharacterScreen extends AbstractScreen {
 		equipmentTable.add(getLabel("Armwear: ", skin, Color.DARK_GRAY)).align(Align.left).row();
 		
 		Table perkTable = new Table();
-		perkTable.align(Align.top);
-		perkTable.setPosition(1100, 1040);
+		perkTable.align(Align.topLeft);
+		perkTable.setPosition(1000, 1040);
 		this.addActor(perkTable);
 		perkTable.add(getLabel("Perks: ", skin, Color.FOREST)).align(Align.left).row();
 		for (ObjectMap.Entry<Perk, Integer> perk : character.getPerks().entries()) {

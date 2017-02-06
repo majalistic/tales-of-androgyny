@@ -14,10 +14,12 @@ import com.badlogic.gdx.utils.JsonWriter.OutputType;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.majalis.battle.BattleCode;
 import com.majalis.character.EnemyCharacter;
+import com.majalis.character.Item;
 import com.majalis.character.Perk;
 import com.majalis.character.PlayerCharacter;
 import com.majalis.character.SexualExperience;
 import com.majalis.character.AbstractCharacter.Stat;
+import com.majalis.character.Item.WeaponType;
 import com.majalis.character.Techniques;
 import com.majalis.encounter.EncounterCode;
 import com.majalis.scenes.ShopScene.Shop;
@@ -90,6 +92,7 @@ public class SaveManager implements SaveService, LoadService{
 	    	case CONSOLE:			save.console = (String) object; break;
 	    	case ANAL:				result = save.player.receiveSex((SexualExperience) object); break;
 	    	case GOBLIN_VIRGIN:		save.player.setGoblinVirginity((Boolean) object); break;
+	    	case ITEM:				save.player.receiveItem(new Item.Weapon(WeaponType.Bow)); result = "You have received a bow!"; break;
 	    	case SHOP:				save.shops.put(((Shop) object).getShopCode(), (Shop) object); break;
     	}	
     	if (saveToJson) {
@@ -125,6 +128,7 @@ public class SaveManager implements SaveService, LoadService{
 	    	case MUSIC:				return (T) (String) save.music;
 	    	case CONSOLE:			return (T) (String) save.console;
 	    	case ANAL:			
+	    	case ITEM:
 	    	case GOBLIN_VIRGIN:		break;
 	    	case SHOP:				return (T) (ObjectMap<String, Shop>) save.shops;
     	}	

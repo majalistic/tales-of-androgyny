@@ -471,13 +471,17 @@ public class EncounterBuilder {
 				final EnemyCharacter enemy2 = new EnemyCharacter(enemyTexture2, textures2, EnemyEnum.CENTAUR);
 				Background centaurBackground = new BackgroundBuilder(backgroundTexture).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class)).setForeground(enemy2, 0, 0).build();
 				Background unicornBackground = new BackgroundBuilder(backgroundTexture).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class)).setForeground(assetManager.get(AssetEnum.UNICORN.getPath(), Texture.class)).build();
+				OrderedMap<Integer, Scene> satisfy = 
+						getTextScenes(getScript(encounterCode, 6), font, centaurBackground, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.ANAL, new SexualExperienceBuilder().setHorse().build())}),
+							getTextScenes(getScript(encounterCode, 7), font, centaurBackground, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.ITEM, null)}), getEndScene(EndScene.Type.ENCOUNTER_OVER)));
+						
 				OrderedMap<Integer, Scene> catamite = getTextScenes(
 					getScript(encounterCode, 3), font, centaurBackground, getArray(new Mutation[]{analReceive}),
 					getBattleScene(
 						battleCode, Stance.DOGGY, Stance.DOGGY, normalOutcomes,
 						getTextScenes(getArray(new String[]{"You defeated the centaur!", "You receive 2 Experience."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.EXPERIENCE, 2)}), getEndScene(EndScene.Type.ENCOUNTER_OVER)),
 						getTextScenes(getScript(encounterCode, 5), font, centaurBackground, getEndScene(EndScene.Type.GAME_OVER)),
-						getTextScenes(getScript(encounterCode, 5), font, centaurBackground, getEndScene(EndScene.Type.GAME_OVER))
+						satisfy
 					)
 				);
 				
@@ -510,7 +514,7 @@ public class EncounterBuilder {
 										battleCode, normalOutcomes,
 										getTextScenes(getArray(new String[]{"You defeated the centaur!", "You are now welcome to sleep in their camp, and receive 10 food.", "You receive 2 Experience."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.EXPERIENCE, 2), new Mutation(saveService, SaveEnum.FOOD, 10)}), getEndScene(EndScene.Type.ENCOUNTER_OVER)),
 										getTextScenes(getScript(encounterCode, 5), font, centaurBackground, getEndScene(EndScene.Type.GAME_OVER)),
-										getTextScenes(getScript(encounterCode, 5), font, centaurBackground, getEndScene(EndScene.Type.GAME_OVER))
+										satisfy
 									),
 									getEndScene(EndScene.Type.ENCOUNTER_OVER),
 									catamite
