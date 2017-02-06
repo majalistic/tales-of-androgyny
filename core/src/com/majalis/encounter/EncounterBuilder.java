@@ -93,9 +93,6 @@ public class EncounterBuilder {
 		Background classSelectbackground = getClassSelectBackground();	
 		Background silhouetteBackground = new BackgroundBuilder(assetManager.get(AssetEnum.BURNING_FORT_BG.getPath(), Texture.class)).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class)).setForeground(assetManager.get(AssetEnum.SILHOUETTE.getPath(), Texture.class), 1000, 0).build();
 		
-		Array<Mutation> classMutation = getArray(new Mutation[]{new Mutation(saveService, SaveEnum.CLASS, JobClass.ENCHANTRESS), new Mutation(saveService, SaveEnum.MODE, GameMode.STORY)});
-			// new Mutation(saveService, SaveEnum.SKILL, Techniques.TAUNT), new Mutation(saveService, SaveEnum.SKILL, Techniques.SECOND_WIND), new Mutation(saveService, SaveEnum.SKILL, Techniques.COMBAT_FIRE)
-		
 		getTextScenes(
 			getScript("INTRO"), font, background,
 			getGameTypeScene(
@@ -114,7 +111,7 @@ public class EncounterBuilder {
 					)
 				),
 				getTextScenes(
-					getArray(new String[]{"You have entered story mode.", "A tale of androgyny has begun..."}), font, background, classMutation,							
+					getArray(new String[]{"You have entered story mode.", "A tale of androgyny has begun..."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.MODE, GameMode.STORY)}),							
 					getTextScenes(
 						// needs to be female silhouette from behind BG
 						getScript("STORY-000"), font, silhouetteBackground, new Array<Mutation>(), AssetEnum.WAVES.getPath(), getArray(new String[]{null, null, null, null, null, null, null, null, null, AssetEnum.SMUG_LAUGH.getPath(), null, null, null, null, null, null, null, null, AssetEnum.SMUG_LAUGH.getPath()}),
@@ -122,8 +119,8 @@ public class EncounterBuilder {
 							// needs to be hovel BG
 							getScript("STORY-001"), font, background, new Array<Mutation>(), AssetEnum.HOVEL_MUSIC.getPath(), new Array<String>(),
 							getTextScenes(
-								// nneds to be bright-white BG
-								getScript("STORY-002"), font, background, new Array<Mutation>(),
+								// needs to be bright-white BG
+								getScript("STORY-002"), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.CLASS, JobClass.ENCHANTRESS)}),
 								getEndScene(EndScene.Type.ENCOUNTER_OVER)						
 							)
 						)

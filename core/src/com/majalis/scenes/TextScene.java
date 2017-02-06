@@ -52,22 +52,26 @@ public class TextScene extends AbstractTextScene  {
 			EncounterScreen.setMusic(music);
 			saveService.saveDataValue(SaveEnum.MUSIC, music);
 		};
-		if (sound != null){
+		if (sound != null) {
 			EncounterScreen.play(sound);
 		}
 		background.initEnemy();
 		String mutationResults = "";
-		for (Mutation mutator: mutations){
+		for (Mutation mutator: mutations) {
 			String result = mutator.mutate();
 			if (result != null) mutationResults += " ["+result+"]\n";
 		}
 		statusResults.setText(mutationResults);
-		characterPortrait.setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(character.getPortraitPath(), Texture.class))));
-		masculinityIcon.setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(character.getMasculinityPath(), Texture.class))));
+		if (character.isLoaded()) {
+			characterPortrait.addAction(Actions.show());
+			characterPortrait.setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(character.getPortraitPath(), Texture.class))));
+			masculinityIcon.addAction(Actions.show());
+			masculinityIcon.setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(character.getMasculinityPath(), Texture.class))));
+		}
 	}
 	// this type of TextScene will be one that always pipes from one scene to the next with no branch - there will be another TextScene that actually has branching logic
 	@Override
-	protected void nextScene(){
+	protected void nextScene() {
 		sceneBranches.get(sceneBranches.orderedKeys().get(0)).setActive();
 		isActive = false;
 		addAction(Actions.hide());

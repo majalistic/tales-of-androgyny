@@ -61,6 +61,8 @@ public class PlayerCharacter extends AbstractCharacter {
 	private boolean a2m;
 	private boolean a2mcheevo;
 	
+	private boolean loaded;
+	
 	@SuppressWarnings("unused")
 	private PlayerCharacter() {}
 	
@@ -74,7 +76,7 @@ public class PlayerCharacter extends AbstractCharacter {
 			setStaminaToMax();
 			setStabilityToMax();
 			setManaToMax();
-			food = 40;
+			food = 60;
 			setGoblinVirginity(true);
 			a2m = false;
 			a2mcheevo = false;
@@ -95,6 +97,7 @@ public class PlayerCharacter extends AbstractCharacter {
 		
 		perks = new ObjectMap<String, Integer>();
 		justCame = false;
+		loaded = false;
 		setCurrentPortrait(AssetEnum.PORTRAIT_SMILE); // his smile and optimism, not yet gone
 	}
 
@@ -816,5 +819,13 @@ public class PlayerCharacter extends AbstractCharacter {
 			case 1: return AssetEnum.PORTRAIT_HAPPY;
 			default: return AssetEnum.PORTRAIT_NEUTRAL;		
 		}
+	}
+
+	public boolean isLoaded() {
+		return loaded;
+	}
+
+	public void load() {
+		loaded = true;
 	}
 }

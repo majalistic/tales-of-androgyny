@@ -49,8 +49,10 @@ public abstract class AbstractTextScene extends Scene {
 		skipText.setWidth(240);
 		Texture portrait = assetManager.get(character.getPortraitPath(), Texture.class);
 		characterPortrait = addImage(portrait, null, 105, 800, portrait.getWidth() / (portrait.getHeight() / 200f), 200);
+		characterPortrait.addAction(Actions.hide());
 		Texture icon = assetManager.get(character.getMasculinityPath(), Texture.class);
 		masculinityIcon = addImage(icon, null, 105, 705, icon.getWidth() / (icon.getHeight() / 100f), 100);
+		masculinityIcon.addAction(Actions.hide());
 	}
 
 	@Override
@@ -68,7 +70,7 @@ public abstract class AbstractTextScene extends Scene {
 		this.addAction(Actions.visible(true));
 		this.addAction(Actions.show());
 		this.setBounds(0, 0, 2000, 2000);
-		this.addListener(new ClickListener(){ 
+		this.addListener(new ClickListener() { 
 			@Override
 	        public void clicked(InputEvent event, float x, float y) {
 				nextScene();
