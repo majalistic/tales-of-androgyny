@@ -75,7 +75,6 @@ public class EnemyCharacter extends AbstractCharacter {
 			case CENTAUR:
 			case UNICORN:
 				weapon = new Weapon(WeaponType.Bow);
-				baseStrength = 5;
 				baseAgility = 4;
 				basePerception = 5;
 				baseEndurance = 4;
