@@ -208,7 +208,7 @@ public class PlayerCharacter extends AbstractCharacter {
 				}
 				return possibles;
 			case DEFENSIVE:
-				return getTechniques(target, REVERSAL_ATTACK, CAREFUL_ATTACK, GUARD, TAUNT, SECOND_WIND, INCANTATION, DUCK, HIT_THE_DECK, PARRY);
+				return getTechniques(target, REVERSAL_ATTACK, CAREFUL_ATTACK, GUARD, TAUNT, SECOND_WIND, INCANTATION, DUCK, PARRY);
 			case PRONE:
 			case SUPINE:
 				return getTechniques(target, KIP_UP, STAND_UP, KNEE_UP, stance == Stance.PRONE ? REST_FACE_DOWN : REST, stance == Stance.PRONE ? ROLL_OVER_UP : ROLL_OVER_DOWN);
