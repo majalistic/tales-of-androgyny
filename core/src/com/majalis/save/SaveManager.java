@@ -12,6 +12,7 @@ import com.badlogic.gdx.utils.IntSet;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonWriter.OutputType;
 import com.badlogic.gdx.utils.ObjectMap;
+import com.badlogic.gdx.utils.SerializationException;
 import com.majalis.battle.BattleCode;
 import com.majalis.character.EnemyCharacter;
 import com.majalis.character.Item;
@@ -34,7 +35,7 @@ public class SaveManager implements SaveService, LoadService{
     private GameSave save;
     private ProfileSave profileSave;
    
-    public SaveManager(boolean encoded, String path, String profilePath){
+    public SaveManager(boolean encoded, String path, String profilePath) {
         this.encoded = encoded;
         file = Gdx.files.local(path);   
         profileFile = Gdx.files.local(profilePath);
@@ -103,7 +104,7 @@ public class SaveManager implements SaveService, LoadService{
 	}
 	
     @SuppressWarnings("unchecked")
-    public <T> T loadDataValue(SaveEnum key, Class<?> type){
+    public <T> T loadDataValue(SaveEnum key, Class<?> type) {
     	switch (key) {
 	    	case PLAYER: 			return (T) (PlayerCharacter)save.player;
 	    	case ENEMY: 			return (T) (EnemyCharacter)save.enemy;
@@ -135,7 +136,7 @@ public class SaveManager implements SaveService, LoadService{
     	return null;
     }
     
-    private void saveToJson(GameSave save){
+    private void saveToJson(GameSave save) {
         Json json = new Json();
         json.setOutputType(OutputType.json);
         if(encoded) file.writeString(Base64Coder.encodeString(json.prettyPrint(save)), false);
@@ -144,29 +145,29 @@ public class SaveManager implements SaveService, LoadService{
        
         	if (playerParent != null) playerParent.removeActor(save.player, false);
         	Group enemyParent = new Group();
-        	if (save.enemy != null){
+        	if (save.enemy != null) {
             	enemyParent = save.enemy.getParent();
-            	if (enemyParent != null){
+            	if (enemyParent != null) {
             		enemyParent.removeActor(save.enemy, false);
             	}	
         	}
         	try {
         		file.writeString(json.prettyPrint(save), false);
         	}
-        	catch (GdxRuntimeException ex){
+        	catch (GdxRuntimeException ex) {
         		ex.printStackTrace();
         	}
         	
         	if (playerParent != null) playerParent.addActor(save.player);
-        	if (save.enemy != null){
-        		if (enemyParent != null){
+        	if (save.enemy != null) {
+        		if (enemyParent != null) {
         			enemyParent.addActor(save.enemy);
         		}	
         	}
         }
     }
     
-    private void saveToProfileJson(ProfileSave save){
+    private void saveToProfileJson(ProfileSave save) {
         Json json = new Json();
         json.setOutputType(OutputType.json);
         if(encoded) profileFile.writeString(Base64Coder.encodeString(json.prettyPrint(save)), false);
@@ -175,13 +176,18 @@ public class SaveManager implements SaveService, LoadService{
         }
     }
     
-    private GameSave getSave(){
+    private GameSave getSave() {
         GameSave save;
-        if(file.exists()){
+        if(file.exists()) {
 	        Json json = new Json();
-	        if(encoded)save = json.fromJson(GameSave.class, Base64Coder.decodeString(file.readString()));
-	        else {
-	        	save = json.fromJson(GameSave.class,file.readString());
+	        try {
+		        if(encoded)save = json.fromJson(GameSave.class, Base64Coder.decodeString(file.readString()));
+		        else {
+		        	save = json.fromJson(GameSave.class,file.readString());
+		        }
+	        }
+	        catch(SerializationException ex) {
+	        	save = getDefaultSave();
 	        }
         }
         else {
@@ -190,9 +196,9 @@ public class SaveManager implements SaveService, LoadService{
         return save==null ? new GameSave(true) : save;
     }
     
-    private ProfileSave getProfileSave(){
+    private ProfileSave getProfileSave() {
     	ProfileSave save;
-        if(profileFile.exists()){
+        if(profileFile.exists()) {
 	        Json json = new Json();
 	        if(encoded)save = json.fromJson(ProfileSave.class, Base64Coder.decodeString(profileFile.readString()));
 	        else {
@@ -205,17 +211,17 @@ public class SaveManager implements SaveService, LoadService{
         return save==null ? new ProfileSave(true) : save;
     }
     
-    public void newSave(){
+    public void newSave() {
     	save = getDefaultSave();
     }
     
-    private GameSave getDefaultSave(){
+    private GameSave getDefaultSave() {
     	GameSave tempSave = new GameSave(true);
     	saveToJson(tempSave);
     	return tempSave;
     }
     
-    private ProfileSave getDefaultProfileSave(){
+    private ProfileSave getDefaultProfileSave() {
     	ProfileSave tempSave = new ProfileSave(true);
     	saveToProfileJson(tempSave);
     	return tempSave;
@@ -246,7 +252,7 @@ public class SaveManager implements SaveService, LoadService{
     	
 		// default save values-
     	public GameSave(boolean defaultValues) {
-    		if (defaultValues){
+    		if (defaultValues) {
     			context = GameContext.ENCOUNTER;
     			worldSeed = (int) (Math.random()*10000);
     			// 0 sceneCode is the magic number to designate that a scene doesn't need to be loaded; just use the first (last) scene in the list
@@ -273,8 +279,8 @@ public class SaveManager implements SaveService, LoadService{
     		enemyKnowledge = new ObjectMap<String, Integer>();
     	}
     	
-    	protected void addKnowledge(String knowledge){ addKnowledge(knowledge, 1); }
-    	protected void addKnowledge(String knowledge, int amount){ enemyKnowledge.put(knowledge, amount); }
+    	protected void addKnowledge(String knowledge) { addKnowledge(knowledge, 1); }
+    	protected void addKnowledge(String knowledge, int amount) { enemyKnowledge.put(knowledge, amount); }
     	
     }
     
@@ -282,7 +288,7 @@ public class SaveManager implements SaveService, LoadService{
 		WARRIOR ("Warrior") {
 			@Override
 			public int getBaseStat(Stat stat) {
-				switch (stat){
+				switch (stat) {
 					case STRENGTH:    return 7;
 					case ENDURANCE:   return 5;
 					case AGILITY:     return 4;
@@ -295,7 +301,7 @@ public class SaveManager implements SaveService, LoadService{
 		PALADIN ("Paladin") {
 			@Override
 			public int getBaseStat(Stat stat) {
-				switch (stat){
+				switch (stat) {
 					case STRENGTH:    return 4;
 					case ENDURANCE:   return 7;
 					case AGILITY:     return 2;
@@ -308,7 +314,7 @@ public class SaveManager implements SaveService, LoadService{
 		THIEF ("Thief") {
 			@Override
 			public int getBaseStat(Stat stat) {
-				switch (stat){
+				switch (stat) {
 					case STRENGTH:    return 3;
 					case ENDURANCE:   return 3;
 					case AGILITY:     return 7;
@@ -321,7 +327,7 @@ public class SaveManager implements SaveService, LoadService{
 		RANGER ("Ranger") {
 			@Override
 			public int getBaseStat(Stat stat) {
-				switch (stat){
+				switch (stat) {
 					case STRENGTH:    return 3;
 					case ENDURANCE:   return 2;
 					case AGILITY:     return 5;
@@ -334,7 +340,7 @@ public class SaveManager implements SaveService, LoadService{
 		MAGE ("Mage") {
 			@Override
 			public int getBaseStat(Stat stat) {
-				switch (stat){
+				switch (stat) {
 					case STRENGTH:    return 2;
 					case ENDURANCE:   return 2;
 					case AGILITY:     return 2;
@@ -347,7 +353,7 @@ public class SaveManager implements SaveService, LoadService{
 		ENCHANTRESS ("Enchanter") {
 			@Override
 			public int getBaseStat(Stat stat) {
-				switch (stat){
+				switch (stat) {
 					case STRENGTH:    return 3;
 					case ENDURANCE:   return 3;
 					case AGILITY:     return 3;
@@ -362,7 +368,7 @@ public class SaveManager implements SaveService, LoadService{
 		JobClass(String label) {
 		    this.label = label;
 		 }
-		public String getLabel(){return label;}
+		public String getLabel() {return label;}
 		public abstract int getBaseStat(Stat stat);
 	}
 	
