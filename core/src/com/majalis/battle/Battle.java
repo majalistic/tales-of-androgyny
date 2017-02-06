@@ -131,7 +131,7 @@ public class Battle extends Group{
 		skin = assetManager.get(AssetEnum.BATTLE_SKIN.getPath(), Skin.class);
 		
 		float barX = 195;
-		float hoverXPos = 317; 
+		float hoverXPos = 330; 
 		float hoverYPos = 35; 
 		float consoleXPos = 1200;
 		float consoleYPos = 5;
