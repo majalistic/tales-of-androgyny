@@ -466,8 +466,9 @@ public class EncounterBuilder {
 				Texture enemyTexture2 = assetManager.get(EnemyEnum.CENTAUR.getPath(), Texture.class);
 				textures2.put(Stance.BALANCED, enemyTexture2);
 				final EnemyCharacter enemy2 = new EnemyCharacter(enemyTexture2, textures2, EnemyEnum.CENTAUR);
+				final EnemyCharacter enemy3 = new EnemyCharacter(enemyTexture2, textures2, EnemyEnum.UNICORN);
 				Background centaurBackground = new BackgroundBuilder(backgroundTexture).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class)).setForeground(enemy2, 0, 0).build();
-				Background unicornBackground = new BackgroundBuilder(backgroundTexture).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class)).setForeground(assetManager.get(AssetEnum.UNICORN.getPath(), Texture.class)).build();
+				Background unicornBackground = new BackgroundBuilder(backgroundTexture).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class)).setForeground(enemy3, 0, 0).build();
 				OrderedMap<Integer, Scene> satisfy = 
 						getTextScenes(getScript(encounterCode, 6), font, centaurBackground, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.ANAL, new SexualExperienceBuilder().setHorse().build())}),
 							getTextScenes(getScript(encounterCode, 7), font, centaurBackground, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.ITEM, null)}), getEndScene(EndScene.Type.ENCOUNTER_OVER)));

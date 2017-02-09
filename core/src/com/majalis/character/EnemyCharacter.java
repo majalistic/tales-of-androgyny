@@ -391,7 +391,7 @@ public class EnemyCharacter extends AbstractCharacter {
 		this.defaultTexture = defaultTexture;
 		this.textures = textures;
 		
-		if (enemyType == EnemyEnum.HARPY || enemyType == EnemyEnum.CENTAUR) {
+		if (enemyType == EnemyEnum.HARPY || enemyType == EnemyEnum.CENTAUR || enemyType == EnemyEnum.UNICORN) {
 			
 			renderer = new SkeletonMeshRenderer();
 			renderer.setPremultipliedAlpha(true);
@@ -399,10 +399,17 @@ public class EnemyCharacter extends AbstractCharacter {
 			SkeletonJson json = new SkeletonJson(atlas); // This loads skeleton JSON data, which is stateless.
 			json.setScale(enemyType == EnemyEnum.HARPY ? .75f : .60f);
 			SkeletonData skeletonData = json.readSkeletonData(Gdx.files.internal(enemyType == EnemyEnum.HARPY ? "animation/Harpy.json" : "animation/Centaur.json"));
-
+			
 			skeleton = new Skeleton(skeletonData); // Skeleton holds skeleton state (bone positions, slot attachments, etc).
 			skeleton.setPosition(enemyType == EnemyEnum.HARPY ? 900 : 1000, 550);
-
+			
+			if (enemyType == EnemyEnum.CENTAUR) {
+				skeleton.setSkin("BrownCentaur");
+			}
+			else if (enemyType == EnemyEnum.UNICORN) {
+				skeleton.setSkin("WhiteUnicorn");
+			}
+			
 			AnimationStateData stateData = new AnimationStateData(skeletonData); // Defines mixing (crossfading) between animations.
 
 			state = new AnimationState(stateData); // Holds the animation state for a skeleton (current animation, time, etc).

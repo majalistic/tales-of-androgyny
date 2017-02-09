@@ -12,52 +12,10 @@ BraSash
   offset: 0, 0
   index: -1
 CannonFL
-  rotate: false
-  xy: 377, 7
+  rotate: true
+  xy: 780, 8
   size: 152, 238
   orig: 152, 238
-  offset: 0, 0
-  index: -1
-EarL
-  rotate: true
-  xy: 887, 4
-  size: 39, 72
-  orig: 39, 72
-  offset: 0, 0
-  index: -1
-EarR
-  rotate: false
-  xy: 325, 19
-  size: 45, 89
-  orig: 45, 89
-  offset: 0, 0
-  index: -1
-FetlockFL
-  rotate: false
-  xy: 290, 110
-  size: 85, 135
-  orig: 85, 135
-  offset: 0, 0
-  index: -1
-FetlockFR
-  rotate: true
-  xy: 887, 45
-  size: 111, 120
-  orig: 111, 120
-  offset: 0, 0
-  index: -1
-ForearmR
-  rotate: false
-  xy: 752, 4
-  size: 133, 152
-  orig: 133, 152
-  offset: 0, 0
-  index: -1
-ForelegL
-  rotate: true
-  xy: 531, 10
-  size: 235, 219
-  orig: 235, 219
   offset: 0, 0
   index: -1
 HandR
@@ -67,18 +25,39 @@ HandR
   orig: 286, 913
   offset: 0, 0
   index: -1
-HorseTorso
+Layer 19
   rotate: true
-  xy: 325, 247
-  size: 775, 683
-  orig: 775, 683
+  xy: 444, 15
+  size: 92, 107
+  orig: 92, 107
   offset: 0, 0
   index: -1
-UpperArmR
+Layer 30
+  rotate: false
+  xy: 578, 3
+  size: 200, 157
+  orig: 200, 157
+  offset: 0, 0
+  index: -1
+Layer 6
   rotate: true
-  xy: 752, 158
-  size: 87, 262
-  orig: 87, 262
+  xy: 325, 2
+  size: 105, 117
+  orig: 105, 117
+  offset: 0, 0
+  index: -1
+Layer1
+  rotate: false
+  xy: 290, 109
+  size: 286, 913
+  orig: 286, 913
+  offset: 0, 0
+  index: -1
+Tail
+  rotate: false
+  xy: 578, 162
+  size: 443, 860
+  orig: 443, 860
   offset: 0, 0
   index: -1
 
@@ -87,39 +66,116 @@ size: 1024,1024
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
-CannonBR
+Arrow
   rotate: true
-  xy: 2, 3
+  xy: 2, 11
+  size: 66, 183
+  orig: 66, 183
+  offset: 0, 0
+  index: -1
+CannonBR
+  rotate: false
+  xy: 779, 612
   size: 142, 410
   orig: 142, 410
   offset: 0, 0
   index: -1
-CannonFR
+EarL
   rotate: true
-  xy: 414, 29
-  size: 116, 388
-  orig: 116, 388
+  xy: 686, 39
+  size: 39, 72
+  orig: 39, 72
   offset: 0, 0
   index: -1
-FetlockHL
+FetlockFR
   rotate: false
-  xy: 804, 2
-  size: 197, 147
-  orig: 197, 147
+  xy: 907, 60
+  size: 111, 120
+  orig: 111, 120
   offset: 0, 0
   index: -1
-HumanTorso
-  rotate: false
-  xy: 2, 147
-  size: 532, 864
-  orig: 532, 864
+FringeBack
+  rotate: true
+  xy: 499, 26
+  size: 52, 185
+  orig: 52, 185
   offset: 0, 0
   index: -1
-Tail
+HorseTorso
   rotate: false
-  xy: 536, 151
-  size: 443, 860
-  orig: 443, 860
+  xy: 2, 339
+  size: 775, 683
+  orig: 775, 683
+  offset: 0, 0
+  index: -1
+Layer 1
+  rotate: true
+  xy: 187, 11
+  size: 66, 183
+  orig: 66, 183
+  offset: 0, 0
+  index: -1
+Layer 22
+  rotate: true
+  xy: 923, 710
+  size: 312, 90
+  orig: 312, 90
+  offset: 0, 0
+  index: -1
+Layer 23
+  rotate: false
+  xy: 383, 80
+  size: 378, 257
+  orig: 378, 257
+  offset: 0, 0
+  index: -1
+Layer 26
+  rotate: false
+  xy: 383, 2
+  size: 114, 76
+  orig: 114, 76
+  offset: 0, 0
+  index: -1
+Layer 29
+  rotate: false
+  xy: 779, 200
+  size: 142, 410
+  orig: 142, 410
+  offset: 0, 0
+  index: -1
+Layer 35
+  rotate: true
+  xy: 763, 2
+  size: 196, 142
+  orig: 196, 142
+  offset: 0, 0
+  index: -1
+Layer 4
+  rotate: false
+  xy: 923, 446
+  size: 87, 262
+  orig: 87, 262
+  offset: 0, 0
+  index: -1
+Layer 8
+  rotate: true
+  xy: 907, 13
+  size: 45, 110
+  orig: 45, 110
+  offset: 0, 0
+  index: -1
+UpperArmR
+  rotate: false
+  xy: 923, 182
+  size: 87, 262
+  orig: 87, 262
+  offset: 0, 0
+  index: -1
+WaistSash
+  rotate: false
+  xy: 2, 79
+  size: 379, 258
+  orig: 379, 258
   offset: 0, 0
   index: -1
 
@@ -128,149 +184,364 @@ size: 1024,1024
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
-Arrow
-  rotate: true
-  xy: 2, 26
-  size: 71, 183
-  orig: 71, 183
-  offset: 0, 0
-  index: -1
 Back
   rotate: false
-  xy: 769, 479
+  xy: 883, 9
   size: 89, 64
   orig: 89, 64
   offset: 0, 0
   index: -1
-BoobL
+FetlockFL
   rotate: false
-  xy: 469, 2
-  size: 215, 213
-  orig: 215, 213
+  xy: 709, 23
+  size: 85, 135
+  orig: 85, 135
   offset: 0, 0
   index: -1
-BoobR
+FetlockHL
   rotate: false
-  xy: 677, 243
-  size: 194, 234
-  orig: 194, 234
+  xy: 510, 7
+  size: 197, 147
+  orig: 197, 147
   offset: 0, 0
   index: -1
-Cawk
-  rotate: true
-  xy: 273, 68
-  size: 338, 194
-  orig: 338, 194
-  offset: 0, 0
-  index: -1
-ForearmL
+ForearmR
   rotate: false
-  xy: 2, 99
-  size: 269, 307
-  orig: 269, 307
-  offset: 0, 0
-  index: -1
-ForelegR
-  rotate: false
-  xy: 460, 750
-  size: 327, 264
-  orig: 327, 264
-  offset: 0, 0
-  index: -1
-FringeBack
-  rotate: false
-  xy: 383, 481
-  size: 52, 185
-  orig: 52, 185
-  offset: 0, 0
-  index: -1
-FringeF
-  rotate: true
-  xy: 686, 32
-  size: 209, 205
-  orig: 209, 205
-  offset: 0, 0
-  index: -1
-GaskinL
-  rotate: false
-  xy: 873, 418
-  size: 114, 110
-  orig: 114, 110
-  offset: 0, 0
-  index: -1
-Head
-  rotate: false
-  xy: 789, 758
-  size: 211, 256
-  orig: 211, 256
-  offset: 0, 0
-  index: -1
-HoofBR
-  rotate: true
-  xy: 769, 545
-  size: 203, 159
-  orig: 203, 159
-  offset: 0, 0
-  index: -1
-HoofFL
-  rotate: false
-  xy: 873, 339
-  size: 114, 77
-  orig: 114, 77
+  xy: 2, 2
+  size: 133, 152
+  orig: 133, 152
   offset: 0, 0
   index: -1
 HoofFR
-  rotate: false
-  xy: 930, 530
+  rotate: true
+  xy: 883, 75
   size: 83, 117
   orig: 83, 117
   offset: 0, 0
   index: -1
+Layer 18
+  rotate: false
+  xy: 2, 156
+  size: 535, 864
+  orig: 535, 864
+  offset: 0, 0
+  index: -1
+Layer 24
+  rotate: true
+  xy: 272, 5
+  size: 149, 236
+  orig: 149, 236
+  offset: 0, 0
+  index: -1
+Layer 25
+  rotate: false
+  xy: 796, 24
+  size: 85, 134
+  orig: 85, 134
+  offset: 0, 0
+  index: -1
+Layer 3
+  rotate: false
+  xy: 137, 2
+  size: 133, 152
+  orig: 133, 152
+  offset: 0, 0
+  index: -1
+Layer 36
+  rotate: false
+  xy: 539, 160
+  size: 441, 860
+  orig: 441, 860
+  offset: 0, 0
+  index: -1
+horn
+  rotate: false
+  xy: 982, 943
+  size: 39, 77
+  orig: 39, 77
+  offset: 0, 0
+  index: -1
+
+Centaur4.png
+size: 1024,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+BoobL
+  rotate: false
+  xy: 807, 112
+  size: 215, 213
+  orig: 215, 213
+  offset: 0, 0
+  index: -1
+CannonFR
+  rotate: true
+  xy: 85, 39
+  size: 116, 388
+  orig: 116, 388
+  offset: 0, 0
+  index: -1
+ForearmL
+  rotate: false
+  xy: 536, 18
+  size: 269, 307
+  orig: 269, 307
+  offset: 0, 0
+  index: -1
+HumanTorso
+  rotate: false
+  xy: 2, 157
+  size: 532, 864
+  orig: 532, 864
+  offset: 0, 0
+  index: -1
+Layer 13
+  rotate: false
+  xy: 475, 68
+  size: 48, 87
+  orig: 48, 87
+  offset: 0, 0
+  index: -1
+Layer 21
+  rotate: false
+  xy: 536, 327
+  size: 453, 346
+  orig: 453, 346
+  offset: 0, 0
+  index: -1
+Layer 33
+  rotate: true
+  xy: 807, 2
+  size: 108, 110
+  orig: 108, 110
+  offset: 0, 0
+  index: -1
+Layer 7
+  rotate: false
+  xy: 2, 38
+  size: 81, 117
+  orig: 81, 117
+  offset: 0, 0
+  index: -1
 Neck
   rotate: false
-  xy: 930, 649
+  xy: 919, 3
   size: 92, 107
   orig: 92, 107
   offset: 0, 0
   index: -1
 Ponytail
   rotate: false
-  xy: 2, 668
+  xy: 536, 675
   size: 456, 346
   orig: 456, 346
   offset: 0, 0
   index: -1
-StifleL
+
+Centaur5.png
+size: 1024,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+BoobR
+  rotate: true
+  xy: 534, 143
+  size: 194, 234
+  orig: 194, 234
+  offset: 0, 0
+  index: -1
+EarR
   rotate: false
-  xy: 469, 217
+  xy: 950, 7
+  size: 45, 89
+  orig: 45, 89
+  offset: 0, 0
+  index: -1
+ForelegL
+  rotate: false
+  xy: 779, 803
+  size: 235, 219
+  orig: 235, 219
+  offset: 0, 0
+  index: -1
+ForelegR
+  rotate: true
+  xy: 2, 10
+  size: 327, 264
+  orig: 327, 264
+  offset: 0, 0
+  index: -1
+GaskinL
+  rotate: false
+  xy: 896, 268
+  size: 114, 110
+  orig: 114, 110
+  offset: 0, 0
+  index: -1
+HoofFL
+  rotate: false
+  xy: 896, 189
+  size: 114, 77
+  orig: 114, 77
+  offset: 0, 0
+  index: -1
+Layer 11
+  rotate: true
+  xy: 268, 10
+  size: 327, 264
+  orig: 327, 264
+  offset: 0, 0
+  index: -1
+Layer 12
+  rotate: false
+  xy: 896, 2
+  size: 52, 185
+  orig: 52, 185
+  offset: 0, 0
+  index: -1
+Layer 14
+  rotate: true
+  xy: 779, 380
+  size: 200, 234
+  orig: 200, 234
+  offset: 0, 0
+  index: -1
+Layer 20
+  rotate: true
+  xy: 950, 98
+  size: 89, 64
+  orig: 89, 64
+  offset: 0, 0
+  index: -1
+Layer 27
+  rotate: false
+  xy: 779, 582
+  size: 234, 219
+  orig: 234, 219
+  offset: 0, 0
+  index: -1
+Layer 28
+  rotate: false
+  xy: 2, 339
+  size: 775, 683
+  orig: 775, 683
+  offset: 0, 0
+  index: -1
+Layer 5
+  rotate: false
+  xy: 779, 9
+  size: 115, 369
+  orig: 115, 369
+  offset: 0, 0
+  index: -1
+
+Centaur6.png
+size: 1024,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+CannonHL
+  rotate: true
+  xy: 411, 5
+  size: 191, 194
+  orig: 191, 194
+  offset: 0, 0
+  index: -1
+Cawk
+  rotate: true
+  xy: 2, 49
+  size: 338, 194
+  orig: 338, 194
+  offset: 0, 0
+  index: -1
+FringeF
+  rotate: true
+  xy: 627, 202
+  size: 209, 205
+  orig: 209, 205
+  offset: 0, 0
+  index: -1
+Head
+  rotate: false
+  xy: 273, 440
+  size: 211, 256
+  orig: 211, 256
+  offset: 0, 0
+  index: -1
+HoofBR
+  rotate: true
+  xy: 748, 413
+  size: 203, 159
+  orig: 203, 159
+  offset: 0, 0
+  index: -1
+Layer 10
+  rotate: false
+  xy: 198, 131
+  size: 211, 256
+  orig: 211, 256
+  offset: 0, 0
+  index: -1
+Layer 15
+  rotate: false
+  xy: 411, 198
+  size: 214, 213
+  orig: 214, 213
+  offset: 0, 0
+  index: -1
+Layer 16
+  rotate: false
+  xy: 2, 698
+  size: 269, 307
+  orig: 269, 307
+  offset: 0, 0
+  index: -1
+Layer 17
+  rotate: false
+  xy: 2, 389
+  size: 269, 307
+  orig: 269, 307
+  offset: 0, 0
+  index: -1
+Layer 31
+  rotate: false
+  xy: 544, 829
+  size: 337, 176
+  orig: 337, 176
+  offset: 0, 0
+  index: -1
+Layer 32
+  rotate: true
+  xy: 544, 621
+  size: 206, 260
+  orig: 206, 260
+  offset: 0, 0
+  index: -1
+Layer 34
+  rotate: false
+  xy: 607, 2
+  size: 192, 194
+  orig: 192, 194
+  offset: 0, 0
+  index: -1
+Layer 9
+  rotate: true
+  xy: 806, 618
+  size: 209, 199
+  orig: 209, 199
+  offset: 0, 0
+  index: -1
+StifleL
+  rotate: true
+  xy: 486, 413
   size: 206, 260
   orig: 206, 260
   offset: 0, 0
   index: -1
 UpperArmL
-  rotate: true
-  xy: 460, 479
+  rotate: false
+  xy: 273, 698
   size: 269, 307
   orig: 269, 307
-  offset: 0, 0
-  index: -1
-WaistSash
-  rotate: false
-  xy: 2, 408
-  size: 379, 258
-  orig: 379, 258
-  offset: 0, 0
-  index: -1
-
-Centaur4.png
-size: 256,256
-format: RGBA8888
-filter: Linear,Linear
-repeat: none
-CannonHL
-  rotate: false
-  xy: 2, 2
-  size: 191, 194
-  orig: 191, 194
   offset: 0, 0
   index: -1
