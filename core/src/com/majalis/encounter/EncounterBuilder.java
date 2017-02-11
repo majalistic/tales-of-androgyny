@@ -98,7 +98,7 @@ public class EncounterBuilder {
 			getGameTypeScene(
 				getArray(new String[]{"Create Character", "Story (Patrons)"}),		
 				getTextScenes(
-					getArray(new String[]{"You've selected to create your character!", "Please choose your class."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.MODE, GameMode.SKIRMISH)}),
+					getArray(new String[]{"You've selected to create your character!", "Please choose your class."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.MODE, GameMode.SKIRMISH)}), AssetEnum.INITIAL_MUSIC.getPath(), new Array<String>(),
 					getCharacterCreationScene(
 						smallFont, classSelectbackground.clone(), false,
 						getSkillSelectionScene(

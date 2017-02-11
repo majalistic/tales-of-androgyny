@@ -131,6 +131,7 @@ public class EncounterScreen extends AbstractScreen {
 				requirements.put(AssetEnum.SMUG_LAUGH.getPath(), Sound.class);
 				requirements.put(AssetEnum.WAVES.getPath(), Music.class);
 				requirements.put(AssetEnum.HOVEL_MUSIC.getPath(), Music.class);	
+				requirements.put(AssetEnum.INITIAL_MUSIC.getPath(), Music.class);
 				break;
 			case DEFAULT: 
 				requirements.put(AssetEnum.STICK_BACKGROUND.getPath(), Texture.class);
