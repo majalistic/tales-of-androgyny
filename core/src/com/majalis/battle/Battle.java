@@ -184,25 +184,30 @@ public class Battle extends Group{
 		hoverGroup.addActor(hoverImage);
 		
 		characterPortrait = new Image(assetManager.get(character.popPortraitPath(), Texture.class));
-		addActorAndListen(characterPortrait, -5, 615);
+		this.addActor(characterPortrait);
+		characterPortrait.setPosition(-7.5f, 922);
 		characterPortrait.setScale(.9f);
 
 		masculinityIcon = initImage(assetManager.get(character.getMasculinityPath(), Texture.class), barX - 150, 850);
 		masculinityIcon.setScale(.15f);
 		
 		characterArousal = new Image(assetManager.get(character.getLustImagePath(), Texture.class));
-		addActorAndListen(characterArousal, 102, 490);
+		this.addActor(characterArousal);
+		characterArousal.setPosition(153, 490 * 1.5f);
 		characterArousal.setSize(150, 150);
 		
 		enemyArousal = new Image(assetManager.get(enemy.getLustImagePath(), Texture.class));
-		addActorAndListen(enemyArousal, 1073, 505);
+		this.addActor(enemyArousal);
+		enemyArousal.setPosition(1073 * 1.5f, 505 * 1.5f);
 		enemyArousal.setSize(150, 150);
 		
 		StanceActor newActor = new StanceActor(character);
-		addActorAndListen(newActor, 397, 565);
+		this.addActor(newActor);
+		newActor.setPosition(397 * 1.5f, 565 * 1.5f);
 		newActor.setSize(150, 172.5f);
 		newActor = new StanceActor(enemy);
-		addActorAndListen(newActor, 866, 574);
+		this.addActor(newActor);
+		newActor.setPosition(866 * 1.5f, 574 * 1.5f);
 		newActor.setSize(150, 172.5f);
 		
 		hoverGroup.addAction(Actions.visible(false));
@@ -517,8 +522,6 @@ public class Battle extends Group{
 		
 		console.setText(consoleText);
 		
-		characterArousal.setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(character.getLustImagePath(), Texture.class))));
-		enemyArousal.setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(enemy.getLustImagePath(), Texture.class))));
 		characterHealth.setValue(character.getHealthPercent());
 		characterStamina.setValue(character.getStaminaPercent());
 		characterBalance.setValue(character.getBalancePercent());
@@ -533,13 +536,20 @@ public class Battle extends Group{
 		balanceLabel.setText(character.getStability() > 0 ? character.getStability() + " / " + character.getMaxStability() : "DOWN (" + -character.getStability() + ")");
 		enemyHealthLabel.setText(enemy.getCurrentHealth() + " / " + enemy.getMaxHealth());
 		enemyWeaponLabel.setText("Weapon: " + (enemy.getWeapon() != null ? enemy.getWeapon().getName() : "Unarmed"));
-		healthIcon.setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(character.getHealthDisplay(), Texture.class))));
-		staminaIcon.setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(character.getStaminaDisplay(), Texture.class))));
-		balanceIcon.setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(character.getBalanceDisplay(), Texture.class))));
-		enemyHealthIcon.setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(enemy.getHealthDisplay(), Texture.class))));
-		masculinityIcon.setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(character.getMasculinityPath(), Texture.class))));
 		armorLabel.setText("" + character.getDefense());
-		enemyArmorLabel.setText("" + enemy.getDefense());		
+		enemyArmorLabel.setText("" + enemy.getDefense());	
+		
+		characterArousal.setDrawable(getDrawable(character.getLustImagePath()));
+		enemyArousal.setDrawable(getDrawable(enemy.getHealthDisplay()));
+		healthIcon.setDrawable(getDrawable(character.getHealthDisplay()));
+		staminaIcon.setDrawable(getDrawable(character.getStaminaDisplay()));
+		balanceIcon.setDrawable(getDrawable(character.getBalanceDisplay()));
+		enemyHealthIcon.setDrawable(getDrawable(enemy.getHealthDisplay()));
+		masculinityIcon.setDrawable(getDrawable(character.getMasculinityPath()));	
+	}
+	
+	private TextureRegionDrawable getDrawable(String texturePath) {
+		return new TextureRegionDrawable(new TextureRegion(assetManager.get(texturePath, Texture.class)));
 	}
 	
 	private void printToConsole(Array<String> results) {
@@ -724,13 +734,5 @@ public class Battle extends Group{
 			}
 			return played;
 		}
-	}
-	
-	/*
-	 * Temporary debug helper methods for positioning scene2d actors 
-	 */
-	private void addActorAndListen(Actor actor, float x, float y) {
-		this.addActor(actor);
-		actor.setPosition(x*1.5f, y*1.5f);
 	}
 }
