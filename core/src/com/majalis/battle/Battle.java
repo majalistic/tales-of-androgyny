@@ -76,6 +76,8 @@ public class Battle extends Group{
 	private final ProgressBar characterBalance;
 	private final ProgressBar characterMana;
 	private final ProgressBar enemyHealth;
+	private final Image characterArousal;
+	private final Image enemyArousal;
 	private final Image healthIcon;
 	private final Image staminaIcon;
 	private final Image balanceIcon;
@@ -94,15 +96,12 @@ public class Battle extends Group{
 	private String consoleText;
 	private Array<TextButton> optionButtons;
 	private Technique selectedTechnique;
-	private Image characterArousal;
-	private Image enemyArousal;
-	private int selection;
-	
+	private int selection;	
 	private Outcome outcome;
 	public boolean gameExit;
 	private boolean battleOutcomeDecided;
 	private boolean battleOver;
-	
+
 	private Group uiGroup;
 	private boolean uiHidden;
 	
@@ -113,6 +112,7 @@ public class Battle extends Group{
 		this.character = character;
 		this.enemy = enemy;
 		this.outcomes = outcomes;
+		this.consoleText = consoleText;
 		battleOver = false;
 		battleOutcomeDecided = false;
 		gameExit = false;	
@@ -176,39 +176,22 @@ public class Battle extends Group{
 		uiGroup.addActor(consoleBox);
 		consoleBox.setPosition(consoleXPos, consoleYPos);
 		
-		this.hoverImage = new Image(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class));
-		hoverImage.setPosition(hoverXPos, hoverYPos);	
-		hoverImage.setWidth(hoverImage.getWidth() + 100);
-		hoverImage.setHeight(hoverImage.getHeight() + 100);
+		hoverImage = new Image(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class));
+		hoverImage.setBounds(hoverXPos, hoverYPos, hoverImage.getWidth() + 100, hoverImage.getHeight() + 100);
 		hoverGroup = new Group();
 		hoverGroup.addActor(hoverImage);
 		
-		characterPortrait = new Image(assetManager.get(character.popPortraitPath(), Texture.class));
-		this.addActor(characterPortrait);
-		characterPortrait.setPosition(-7.5f, 922);
+		characterPortrait = initImage(assetManager.get(character.popPortraitPath(), Texture.class), -7.5f, 922);
 		characterPortrait.setScale(.9f);
 
 		masculinityIcon = initImage(assetManager.get(character.getMasculinityPath(), Texture.class), barX - 150, 850);
 		masculinityIcon.setScale(.15f);
 		
-		characterArousal = new Image(assetManager.get(character.getLustImagePath(), Texture.class));
-		this.addActor(characterArousal);
-		characterArousal.setPosition(153, 490 * 1.5f);
-		characterArousal.setSize(150, 150);
+		characterArousal = initImage(assetManager.get(character.getLustImagePath(), Texture.class), 153, 490 * 1.5f, 150, 150);
+		enemyArousal = initImage(assetManager.get(enemy.getLustImagePath(), Texture.class), 1073 * 1.5f, 505 * 1.5f, 150, 150);
 		
-		enemyArousal = new Image(assetManager.get(enemy.getLustImagePath(), Texture.class));
-		this.addActor(enemyArousal);
-		enemyArousal.setPosition(1073 * 1.5f, 505 * 1.5f);
-		enemyArousal.setSize(150, 150);
-		
-		StanceActor newActor = new StanceActor(character);
-		this.addActor(newActor);
-		newActor.setPosition(397 * 1.5f, 565 * 1.5f);
-		newActor.setSize(150, 172.5f);
-		newActor = new StanceActor(enemy);
-		this.addActor(newActor);
-		newActor.setPosition(866 * 1.5f, 574 * 1.5f);
-		newActor.setSize(150, 172.5f);
+		initStanceActor(new StanceActor(character), 397 * 1.5f, 565 * 1.5f, 150, 172.5f);
+		initStanceActor(new StanceActor(enemy), 866 * 1.5f, 574 * 1.5f, 150, 172.5f);
 		
 		hoverGroup.addAction(Actions.visible(false));
 		uiGroup.addActor(hoverGroup);
@@ -227,13 +210,11 @@ public class Battle extends Group{
 		slash = new AnimatedImage(animation, Scaling.fit, Align.right);
 		slash.setState(1);
 		
-		slash.setPosition(500, 0);
+		slash.setPosition(700, 500);
 		this.addActor(slash);
 		
 		this.addActor(uiGroup);
-		this.consoleText = consoleText;
 		console = new Label(consoleText, skin);
-		console.setSize(700, 200);
 		console.setWrap(true);
 		console.setColor(Color.BLACK);
 		console.setAlignment(Align.top);
@@ -259,29 +240,7 @@ public class Battle extends Group{
 		
 		pane2.setBounds(hoverXPos + 80, hoverYPos - 155, 600, 700);
 		hoverGroup.addActor(pane2);
-		
-		Outcome battleOutcome = enemy.getOutcome(character);
-		if (battleOutcome != null) {
-			battleOutcomeDecided = true;
-			outcome = battleOutcome; 
-			skillDisplay.setText(enemy.getOutcomeText(character));
-			character.refresh();
-			bonusDisplay.setText("");
-			uiGroup.removeActor(table);
-			hoverGroup.clearActions();
-			hoverGroup.addAction(Actions.visible(true));
-			hoverGroup.addAction(Actions.moveTo(400, 380));
-			hoverGroup.addAction(Actions.fadeIn(.1f));
-			this.addListener(
-				new ClickListener() {
-			        @Override
-			        public void clicked(InputEvent event, float x, float y) {
-			        	battleOver = true;
-			        	saveService.saveDataValue(SaveEnum.CONSOLE, "");
-			        }
-				}
-			);
-		}
+		checkEndBattle();
 	}
 	
 	public void battleLoop() {
@@ -335,34 +294,7 @@ public class Battle extends Group{
 				saveService.saveDataValue(SaveEnum.CONSOLE, consoleText);				
 			}
 
-			if (character.getCurrentHealth() <= 0) {
-				outcome = Outcome.DEFEAT;
-				battleOutcomeDecided = true;
-				skillDisplay.setText("DEFEAT!\n" + character.getDefeatMessage());
-			}
-			if (enemy.getCurrentHealth() <= 0) {
-				outcome = Outcome.VICTORY;
-				battleOutcomeDecided = true;
-				skillDisplay.setText("VICTORY!\n" + enemy.getDefeatMessage());
-			}
-			if (battleOutcomeDecided) {
-				character.refresh();
-				bonusDisplay.setText("");
-				uiGroup.removeActor(table);
-				hoverGroup.clearActions();
-				hoverGroup.addAction(visible(true));
-				hoverGroup.addAction(moveTo(400, 380));
-				hoverGroup.addAction(fadeIn(.1f));
-				this.addListener(
-					new ClickListener() {
-				        @Override
-				        public void clicked(InputEvent event, float x, float y) {
-				        	battleOver = true;
-				        	saveService.saveDataValue(SaveEnum.CONSOLE, "");
-				        }
-					}
-				);
-			}
+			checkEndBattle();
 		}
 		else {
 			if(Gdx.input.isKeyJustPressed(Keys.ENTER) || Gdx.input.isKeyJustPressed(Keys.SPACE)) {
@@ -564,8 +496,32 @@ public class Battle extends Group{
 		selection = newSelection;
 	}
 	
-	/* Helper methods */
+	private void checkEndBattle() {
+		Outcome battleOutcome = enemy.getOutcome(character);
+		if (battleOutcome != null) {
+			battleOutcomeDecided = true;
+			outcome = battleOutcome; 
+			skillDisplay.setText(enemy.getOutcomeText(character));
+			character.refresh();
+			bonusDisplay.setText("");
+			uiGroup.removeActor(table);
+			hoverGroup.clearActions();
+			hoverGroup.addAction(Actions.visible(true));
+			hoverGroup.addAction(Actions.moveTo(300, 380));
+			hoverGroup.addAction(Actions.fadeIn(.1f));
+			this.addListener(
+				new ClickListener() {
+			        @Override
+			        public void clicked(InputEvent event, float x, float y) {
+			        	battleOver = true;
+			        	saveService.saveDataValue(SaveEnum.CONSOLE, "");
+			        }
+				}
+			);
+		}
+	}
 	
+	/* Helper methods */
 	private Texture getStanceImage(Stance stance) {
 		return assetManager.get(stance.getPath(), Texture.class);
 	}
@@ -621,17 +577,11 @@ public class Battle extends Group{
 		return newBar;
 	}
 	
-	private Image initImage(Texture texture, float x, float y) {
+	private Image initImage(Texture texture, float x, float y) { return initImage(texture, x, y, texture.getWidth(), texture.getHeight()); }
+	private Image initImage(Texture texture, float x, float y, float height) { return initImage(texture, x, y,  (texture.getWidth() / (texture.getHeight() / (1.0f * height))), height); }	
+	private Image initImage(Texture texture, float x, float y, float width, float height) {
 		Image newImage = new Image(texture);
-		newImage.setPosition(x, y);
-		this.addActor(newImage);
-		return newImage;
-	}
-	private Image initImage(Texture texture, float x, float y, int height) {
-		Image newImage = new Image(texture);
-		newImage.setPosition(x, y);
-		newImage.setHeight(height);
-		newImage.setWidth((int) (texture.getWidth() / (texture.getHeight() / (1.0 * height))) );
+		newImage.setBounds(x, y, width, height);
 		this.addActor(newImage);
 		return newImage;
 	}
@@ -642,6 +592,12 @@ public class Battle extends Group{
 		newLabel.setPosition(x, y);
 		this.addActor(newLabel);
 		return newLabel;
+	}
+	
+	private StanceActor initStanceActor(StanceActor actor, float x, float y, float width, float height) {
+		this.addActor(actor);
+		actor.setBounds(x, y, width, height);
+		return actor;
 	}
 	
 	public enum Outcome {
@@ -705,7 +661,6 @@ public class Battle extends Group{
 		}		
 	}
 	
-	// this should be refactored into a delayed action
 	private class SoundAction extends Action {
 		private final Sound sound;
 		private final float volume;
