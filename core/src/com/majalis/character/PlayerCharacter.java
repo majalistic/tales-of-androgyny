@@ -172,7 +172,7 @@ public class PlayerCharacter extends AbstractCharacter {
 		skillPoints = 2; 
 		perkPoints = 2; 
 		magicPoints = 0;
-		food = 40; 
+		food = 60; 
 		skills.remove(COMBAT_HEAL.toString());
 		skills.remove(INCANTATION.toString());
 		skills.remove(BLITZ_ATTACK.toString());
