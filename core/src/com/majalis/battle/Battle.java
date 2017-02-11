@@ -1,5 +1,7 @@
 package com.majalis.battle;
 
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.*;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.assets.AssetManager;
@@ -63,7 +65,6 @@ public class Battle extends Group{
 
 	private final ObjectMap<AssetEnum, Sound> soundMap;
 	
-	private final Array<SoundTimer> soundBuffer;
 	private final Image hoverImage;
 	private final Image characterPortrait;
 	private final Group hoverGroup;
@@ -122,7 +123,6 @@ public class Battle extends Group{
 			soundMap.put(soundPath, assetManager.get(soundPath.getPath(), Sound.class));
 		}
 		
-		soundBuffer = new Array<SoundTimer>();	
 		this.addActor(battleBackground);
 		this.addCharacter(character);
 		this.addCharacter(enemy);
@@ -285,14 +285,6 @@ public class Battle extends Group{
 	}
 	
 	public void battleLoop() {
-		Array<SoundTimer> toRemove = new Array<SoundTimer>();
-		for (SoundTimer timer : soundBuffer) {
-			if (timer.decreaseTime()) {
-				toRemove.add(timer);
-			}
-		}
-		soundBuffer.removeAll(toRemove, true);
-		
 		if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
 			gameExit = true;
 		}
@@ -311,10 +303,10 @@ public class Battle extends Group{
 			
 			if (Gdx.input.isKeyJustPressed(Keys.TAB)) {
 				if (uiHidden) {
-					uiGroup.addAction(Actions.show());
+					uiGroup.addAction(show());
 				}
 				else {
-					uiGroup.addAction(Actions.hide());
+					uiGroup.addAction(hide());
 				}
 				uiHidden = !uiHidden;
 			}
@@ -358,9 +350,9 @@ public class Battle extends Group{
 				bonusDisplay.setText("");
 				uiGroup.removeActor(table);
 				hoverGroup.clearActions();
-				hoverGroup.addAction(Actions.visible(true));
-				hoverGroup.addAction(Actions.moveTo(400, 380));
-				hoverGroup.addAction(Actions.fadeIn(.1f));
+				hoverGroup.addAction(visible(true));
+				hoverGroup.addAction(moveTo(400, 380));
+				hoverGroup.addAction(fadeIn(.1f));
 				this.addListener(
 					new ClickListener() {
 				        @Override
@@ -385,9 +377,8 @@ public class Battle extends Group{
 		optionButtons = new Array<TextButton>();
 		
 		for (int ii = 0; ii < options.size; ii++) {
-			SkillButton button;
 			Technique option = options.get(ii);
-			button = new SkillButton(option.getTechniqueName() + (ii > POSSIBLE_KEYS_CHAR.length ? "" : " ("+POSSIBLE_KEYS_CHAR[ii]+")"), skin, assetManager.get(option.getStance().getPath(), Texture.class));
+			SkillButton button = new SkillButton(option.getTechniqueName() + (ii > POSSIBLE_KEYS_CHAR.length ? "" : " ("+POSSIBLE_KEYS_CHAR[ii]+")"), skin, assetManager.get(option.getStance().getPath(), Texture.class));
 			table.add(button).size(440, 76).row();
 			optionButtons.add(button);
 			boolean outOfStamina = false;
@@ -432,48 +423,48 @@ public class Battle extends Group{
 		if (attackForFirstCharacter.isAttack()) {
 			slash.setState(0);
 			if (!attackForFirstCharacter.isSuccessful()) {
-				soundBuffer.add(new SoundTimer(soundMap.get(AssetEnum.ATTACK_SOUND), 0, .5f));
+				this.addAction(new SoundAction(soundMap.get(AssetEnum.ATTACK_SOUND), .5f));
 				if (attackForFirstCharacter.getStatus() == Status.PARRIED) {
-					soundBuffer.add(new SoundTimer(soundMap.get(AssetEnum.PARRY_SOUND), 5, .5f));
+					this.addAction(sequence(delay(5/60f), new SoundAction(soundMap.get(AssetEnum.PARRY_SOUND), .5f)));
 				}
 			}
 			else {
 				if (attackForFirstCharacter.getStatus() == Status.BLOCKED) {
-					soundBuffer.add(new SoundTimer(soundMap.get(AssetEnum.BLOCK_SOUND), 5, .5f));
+					this.addAction(sequence(delay(5/60f), new SoundAction(soundMap.get(AssetEnum.BLOCK_SOUND), .5f)));
 				}
 				else {
 					if (enemy.getWeapon() != null) {
-						soundBuffer.add(new SoundTimer(soundMap.get(AssetEnum.SWORD_SLASH_SOUND), 5, .5f));
+						this.addAction(sequence(delay(5/60f), new SoundAction(soundMap.get(AssetEnum.SWORD_SLASH_SOUND), .5f)));
 					}
 					else {
-						soundBuffer.add(new SoundTimer(soundMap.get(AssetEnum.HIT_SOUND), 20, .3f));
+						this.addAction(sequence(delay(20/60f), new SoundAction(soundMap.get(AssetEnum.HIT_SOUND), .3f)));
 					}
 				}
 			}
 		}
 		if (character.getStance() == Stance.CASTING && attackForSecondCharacter.isSuccessful()) {
-			soundBuffer.add(new SoundTimer(soundMap.get(AssetEnum.INCANTATION), 5, .5f));
+			this.addAction(sequence(delay(5/60f), new SoundAction(soundMap.get(AssetEnum.INCANTATION), .5f)));
 		}
 		if (attackForSecondCharacter.isAttack()) {
 			if (!attackForSecondCharacter.isSuccessful()) {
-				soundBuffer.add(new SoundTimer(soundMap.get(AssetEnum.ATTACK_SOUND), 15, .5f));
+				this.addAction(sequence(delay(15/60f), new SoundAction(soundMap.get(AssetEnum.ATTACK_SOUND), .5f)));
 				if (attackForSecondCharacter.getStatus() == Status.PARRIED) {
-					soundBuffer.add(new SoundTimer(soundMap.get(AssetEnum.PARRY_SOUND), 5, .5f));
+					this.addAction(sequence(delay(5/60f), new SoundAction(soundMap.get(AssetEnum.PARRY_SOUND), .5f)));
 				}
 			}
 			else {
 				if (attackForSecondCharacter.isSpell()) {
-					soundBuffer.add(new SoundTimer(soundMap.get(AssetEnum.FIREBALL_SOUND), 5, .5f));
+					this.addAction(sequence(delay(5/60f), new SoundAction(soundMap.get(AssetEnum.FIREBALL_SOUND), .5f)));
 				}
 				else {
 					if (attackForSecondCharacter.getStatus() == Status.BLOCKED) {
-						soundBuffer.add(new SoundTimer(soundMap.get(AssetEnum.BLOCK_SOUND), 5, .5f));
+						this.addAction(sequence(delay(5/60f), new SoundAction(soundMap.get(AssetEnum.BLOCK_SOUND), .5f)));
 					}
 					else if (character.getWeapon() != null) {
-						soundBuffer.add(new SoundTimer(soundMap.get(AssetEnum.SWORD_SLASH_SOUND), 5, .5f));
+						this.addAction(sequence(delay(5/60f), new SoundAction(soundMap.get(AssetEnum.SWORD_SLASH_SOUND), .5f)));
 					}
 					else {
-						soundBuffer.add(new SoundTimer(soundMap.get(AssetEnum.HIT_SOUND), 5, .3f));
+						this.addAction(sequence(delay(5/60f), new SoundAction(soundMap.get(AssetEnum.HIT_SOUND), .3f)));
 					}
 				}
 				enemy.hitAnimation();
@@ -505,7 +496,7 @@ public class Battle extends Group{
 		
 		if (oldStance.isAnal() && !firstCharacter.getStance().isAnal()) {
 			soundMap.get(AssetEnum.THWAPPING).play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
-			soundBuffer.add(new SoundTimer(soundMap.get(AssetEnum.UNPLUGGED_POP), 105, .3f));
+			this.addAction(sequence(delay(105/60f), new SoundAction(soundMap.get(AssetEnum.UNPLUGGED_POP), .3f)));
 		}
 		
 		if (oldStance.isOral() && !firstCharacter.getStance().isOral()) {
@@ -540,7 +531,7 @@ public class Battle extends Group{
 		enemyArmorLabel.setText("" + enemy.getDefense());	
 		
 		characterArousal.setDrawable(getDrawable(character.getLustImagePath()));
-		enemyArousal.setDrawable(getDrawable(enemy.getHealthDisplay()));
+		enemyArousal.setDrawable(getDrawable(enemy.getLustImagePath()));
 		healthIcon.setDrawable(getDrawable(character.getHealthDisplay()));
 		staminaIcon.setDrawable(getDrawable(character.getStaminaDisplay()));
 		balanceIcon.setDrawable(getDrawable(character.getBalanceDisplay()));
@@ -715,24 +706,19 @@ public class Battle extends Group{
 	}
 	
 	// this should be refactored into a delayed action
-	private class SoundTimer {
-		int timeLeft;
-		Sound sound;
-		float volume;
+	private class SoundAction extends Action {
+		private final Sound sound;
+		private final float volume;
 		
-		SoundTimer(Sound sound, int timeLeft, float volume) {
+		private SoundAction(Sound sound, float volume) {
 			this.sound = sound;
-			this.timeLeft = timeLeft;
 			this.volume = volume;
 		}
-		
-		public boolean decreaseTime() {
-			timeLeft--;
-			boolean played = timeLeft <= 0;
-			if (played) {
-				sound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") * volume);
-			}
-			return played;
+
+		@Override
+		public boolean act(float delta) {
+			sound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") * volume);
+			return true;
 		}
 	}
 }
