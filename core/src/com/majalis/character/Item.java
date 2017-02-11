@@ -158,10 +158,10 @@ public abstract class Item {
 	}
 	
 	public enum EffectType {
-		HEALING ("Healing Potion"),
-		BONUS_STRENGTH ("Ox Potion"),
-		BONUS_AGILITY ("Cat Potion"),
-		BONUS_ENDURANCE ("Bear Potion"),
+		HEALING ("Health Pot."),
+		BONUS_STRENGTH ("Ox Pot."),
+		BONUS_AGILITY ("Cat Pot."),
+		BONUS_ENDURANCE ("Bear Pot."),
 		MEAT ("Meat");
 		
 		private final String display;

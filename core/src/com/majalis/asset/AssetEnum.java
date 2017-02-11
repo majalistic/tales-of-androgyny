@@ -121,6 +121,7 @@ public enum AssetEnum {
 	FELLATIO("stances/Fellatio.png"),
 	FULL_NELSON("stances/FullNelson.png"),
 	HANDY("stances/Handy.png"),
+	ITEM("stances/Item.png"),
 	KNEELING("stances/Kneeling.png"),
 	KNOTTED("stances/Knotted.png"),
 	OFFENSIVE("stances/Offensive.png"),

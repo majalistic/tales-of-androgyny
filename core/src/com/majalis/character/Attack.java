@@ -29,6 +29,7 @@ public class Attack {
 	private final boolean isAttack;
 	private final boolean ignoresArmor;
 	private final Array<Bonus> bonuses;
+	private final Item useItem;
 	// this should be refactored to be passed in
 	private String user;
 	
@@ -44,7 +45,7 @@ public class Attack {
 	}
 	
 	// this should have all the info for an attack, including damage or effects that were blocked
-	protected Attack(Status status, String name, int rawDamage, double blockMod, int force, int rawArmorBreak, int gutcheck, int healing, int lust, int grapple, int disarm, int trip, ClimaxType climaxType, Stance forceStance, boolean isSpell, Buff buff, boolean isAttack, boolean ignoresArmor, Array<Bonus> bonuses) {
+	protected Attack(Status status, String name, int rawDamage, double blockMod, int force, int rawArmorBreak, int gutcheck, int healing, int lust, int grapple, int disarm, int trip, ClimaxType climaxType, Stance forceStance, boolean isSpell, Buff buff, boolean isAttack, boolean ignoresArmor, Array<Bonus> bonuses, Item useItem) {
 		this.status = status;
 		this.name = name;
 		this.rawDamage = rawDamage;
@@ -65,6 +66,7 @@ public class Attack {
 		this.isAttack = isAttack;
 		this.ignoresArmor = ignoresArmor;
 		this.bonuses = bonuses;
+		this.useItem = useItem;
 	}
 	
 	protected String getName() {
@@ -165,6 +167,10 @@ public class Attack {
 
 	public boolean ignoresArmor() {
 		return ignoresArmor;
+	}
+	
+	public Item getItem() {
+		return useItem;
 	}
 	
 }

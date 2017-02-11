@@ -3,6 +3,7 @@ package com.majalis.character;
 import com.majalis.asset.AssetEnum;
 import com.majalis.battle.BattleFactory.EnemyEnum;
 import com.majalis.character.Attack.Status;
+import com.majalis.character.Item.ItemEffect;
 import com.majalis.character.Item.Weapon;
 import com.majalis.character.PlayerCharacter.Bootyliciousness;
 import com.majalis.save.SaveManager.JobClass;
@@ -81,6 +82,8 @@ public abstract class AbstractCharacter extends Actor {
 	protected Stance oldStance;
 	public ObjectMap<String, Integer> statuses; // status effects will be represented by a map of Enum to Status object
 	
+	protected Array<Item> inventory;
+	protected int food;
 
 	/* Constructors */
 	protected AbstractCharacter() {}
@@ -316,6 +319,11 @@ public abstract class AbstractCharacter extends Actor {
 			}
 			return resolvedAttack;
 		}
+		
+		if (resolvedAttack.getItem() != null) {
+			resolvedAttack.addMessage(consumeItem(resolvedAttack.getItem()));
+		}
+		
 		if (resolvedAttack.isHealing()) {
 			modHealth(resolvedAttack.getHealing());
 			
@@ -442,7 +450,7 @@ public abstract class AbstractCharacter extends Actor {
 			if (attack.getForceStance() == Stance.DOGGY && bootyliciousness != null)
 				result.add("They slap their hips against your " + bootyliciousness.toString().toLowerCase() + " booty!");
 			
-			if (!attack.isHealing() && attack.getBuff() == null){
+			if (!attack.isHealing() && attack.getBuff() == null && attack.getItem() != null){
 				result.add(attack.getUser() + " used " + attack.getName() +  " on " + (secondPerson ? label.toLowerCase() : label) + "!");
 			}
 			
@@ -586,6 +594,41 @@ public abstract class AbstractCharacter extends Actor {
 			result.add(label + (secondPerson ? " are " : " is ")  + "defeated!");
 		}
 		
+		return result;
+	}
+	
+	public String consumeItem(Item item) {
+		ItemEffect effect = item.getUseEffect();
+		if (effect == null) { return "Item cannot be used."; }
+		String result = "";
+		switch (effect.getType()) {
+			case HEALING:
+				int currentHealth = getCurrentHealth();
+				modHealth(effect.getMagnitude());
+				result = "You used " + item.getName() + " and restored " + String.valueOf(getCurrentHealth() - currentHealth) + " health!";
+				break;
+			// this should perform buff stacking if need be - but these item buffs should be permanent until consumed
+			case BONUS_STRENGTH:
+				result = "You used " + item.getName() + " and temporarily increased Strength by " + effect.getMagnitude() + "!";
+				statuses.put(StatusType.STRENGTH_BUFF.toString(), effect.getMagnitude());
+				break;
+			case BONUS_ENDURANCE:
+				result = "You used " + item.getName() + " and temporarily increased Endurance by " + effect.getMagnitude() + "!";
+				statuses.put(StatusType.ENDURANCE_BUFF.toString(), effect.getMagnitude());
+				break;
+			case BONUS_AGILITY:
+				result = "You used " + item.getName() + " and temporarily increased Agility by " + effect.getMagnitude() + "!";
+				statuses.put(StatusType.AGILITY_BUFF.toString(), effect.getMagnitude());
+				break;
+			case MEAT:
+				result = "You ate the " + item.getName() + "! Food stores increased by 5.";
+				modFood(effect.getMagnitude());
+				break;
+			default:
+				break;
+			
+		}	
+		inventory.removeValue(item, true);
 		return result;
 	}
 	
@@ -769,6 +812,8 @@ public abstract class AbstractCharacter extends Actor {
 		return label + (secondPerson ? " are " : " is ") + "defeated!";
 	}
 	
+	public void modFood(Integer foodChange) { food += foodChange; if (food < 0) food = 0; }
+	
 	private enum StanceType {
 		ANAL,
 		ORAL,
@@ -799,7 +844,8 @@ public abstract class AbstractCharacter extends Actor {
 		FACE_SITTING(StanceType.FACESIT, AssetEnum.FACE_SITTING.getPath()),
 		SIXTY_NINE(StanceType.ORAL, AssetEnum.SIXTY_NINE.getPath()),
 		CASTING (AssetEnum.CASTING.getPath()),
-		ERUPT (AssetEnum.ERUPT.getPath())
+		ERUPT (AssetEnum.ERUPT.getPath()), 
+		ITEM (AssetEnum.ITEM.getPath()),
 		;
 		// need to create: boolean anal, boolean oral, boolean method erotic, boolean incapacitated
 		private final String texturePath;

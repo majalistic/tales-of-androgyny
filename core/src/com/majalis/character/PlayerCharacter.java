@@ -7,7 +7,6 @@ import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.ObjectSet;
 import com.majalis.asset.AssetEnum;
 import com.majalis.battle.BattleFactory.EnemyEnum;
-import com.majalis.character.Item.ItemEffect;
 import com.majalis.character.Item.Potion;
 import com.majalis.character.Item.Weapon;
 import com.majalis.character.Item.WeaponType;
@@ -36,13 +35,10 @@ public class PlayerCharacter extends AbstractCharacter {
 	protected int magicPoints;
 	protected int perkPoints;
 	
-	private Array<Item> inventory;
-	
 	// advantage, range, and combat-lock(boolean) are shared properties between two creatures
 	
 	/* out of battle only statistics */
 	protected int money;
-	protected int food;
 
 	protected Femininity femininity;
 	protected LipFullness lipFullness;
@@ -85,7 +81,8 @@ public class PlayerCharacter extends AbstractCharacter {
 			baseDefense = 6;
 			money = 40;
 			inventory = new Array<Item>();
-			for (int ii = 5; ii <= 20; ii += 5) {
+			for (int ii = 10; ii <= 20; ii += 10) {
+				inventory.add(new Potion(ii));
 				inventory.add(new Potion(ii));
 			}
 		}
@@ -107,7 +104,7 @@ public class PlayerCharacter extends AbstractCharacter {
 			KIP_UP, STAND_UP, STAY_KNELT, KNEE_UP, REST_FACE_DOWN, REST, JUMP_ATTACK, VAULT_OVER,
 			RECEIVE_ANAL, RECEIVE_DOGGY, RECEIVE_STANDING, STRUGGLE_ORAL, STRUGGLE_DOGGY, STRUGGLE_ANAL, STRUGGLE_STANDING, RECEIVE_KNOT, SUCK_IT, BREAK_FREE_ANAL, BREAK_FREE_ORAL,
 			SUBMIT, STRUGGLE_FULL_NELSON, BREAK_FREE_FULL_NELSON,
-			OPEN_WIDE, GRAB_IT, STROKE_IT, LET_GO,
+			OPEN_WIDE, GRAB_IT, STROKE_IT, LET_GO, USE_ITEM, ITEM_OR_CANCEL,
 			RECIPROCATE_FORCED, GET_FACE_RIDDEN, STRUGGLE_FACE_SIT, STRUGGLE_SIXTY_NINE, BREAK_FREE_FACE_SIT, ROLL_OVER_UP, ROLL_OVER_DOWN
 		);
 		return baseTechniques;
@@ -123,41 +120,6 @@ public class PlayerCharacter extends AbstractCharacter {
 	
 	public void addToInventory(Item item) {
 		inventory.add(item);
-	}
-
-	public String consumeItem(Item item) {
-		ItemEffect effect = item.getUseEffect();
-		if (effect == null) { return "Item cannot be used."; }
-		String result = "";
-		switch (effect.getType()) {
-			case HEALING:
-				int currentHealth = getCurrentHealth();
-				modHealth(effect.getMagnitude());
-				result = "You used " + item.getName() + " and restored " + String.valueOf(getCurrentHealth() - currentHealth) + " health!";
-				break;
-			// this should perform buff stacking if need be - but these item buffs should be permanent until consumed
-			case BONUS_STRENGTH:
-				result = "You used " + item.getName() + " and temporarily increased Strength by " + effect.getMagnitude() + "!";
-				statuses.put(StatusType.STRENGTH_BUFF.toString(), effect.getMagnitude());
-				break;
-			case BONUS_ENDURANCE:
-				result = "You used " + item.getName() + " and temporarily increased Endurance by " + effect.getMagnitude() + "!";
-				statuses.put(StatusType.ENDURANCE_BUFF.toString(), effect.getMagnitude());
-				break;
-			case BONUS_AGILITY:
-				result = "You used " + item.getName() + " and temporarily increased Agility by " + effect.getMagnitude() + "!";
-				statuses.put(StatusType.AGILITY_BUFF.toString(), effect.getMagnitude());
-				break;
-			case MEAT:
-				result = "You ate the " + item.getName() + "! Food stores increased by 5.";
-				modFood(effect.getMagnitude());
-				break;
-			default:
-				break;
-			
-		}	
-		inventory.removeValue(item, true);
-		return result;
 	}
 	
 	public Array<Item> getInventory() { return inventory; }
@@ -205,7 +167,7 @@ public class PlayerCharacter extends AbstractCharacter {
 				}
 				return possibles;
 			case BALANCED:
-				possibles = getTechniques(target, SPRING_ATTACK, NEUTRAL_ATTACK, CAUTIOUS_ATTACK, BLOCK, INCANTATION, SLIDE, DUCK, HIT_THE_DECK);
+				possibles = getTechniques(target, SPRING_ATTACK, NEUTRAL_ATTACK, CAUTIOUS_ATTACK, BLOCK, INCANTATION, SLIDE, DUCK, HIT_THE_DECK, USE_ITEM);
 				if (target.getStance() == Stance.SUPINE && target.isErect() && target.enemyType != EnemyEnum.SLIME && target.enemyType != EnemyEnum.CENTAUR && target.enemyType != EnemyEnum.UNICORN) {
 					possibles.addAll(getTechniques(target, SIT_ON_IT));
 				}
@@ -266,10 +228,23 @@ public class PlayerCharacter extends AbstractCharacter {
 				return getTechniques(target, RECIPROCATE_FORCED, BREAK_FREE_ORAL);
 			case CASTING:
 				return getTechniques(target, COMBAT_FIRE, COMBAT_HEAL, TITAN_STRENGTH);
+			case ITEM:
+				possibles = getConsumableItems(target);
+				possibles.addAll(getTechniques(target, ITEM_OR_CANCEL));
+				return possibles;
 			default: return null;
 		}
 	}
 	
+	private Array<Technique> getConsumableItems(AbstractCharacter target) {
+		Array<Technique> consumableItems = new Array<Technique>();
+		for (Item item : inventory) {
+			if (item.isConsumable()) {
+				consumableItems.add(new Technique(ITEM_OR_CANCEL.getTrait(), getCurrentState(target), 1, item));
+			}
+		}
+		return consumableItems;
+	}
 	
 	public Technique getTechnique(AbstractCharacter target) {
 		// this should be re-architected - player characters likely won't use this method
@@ -575,8 +550,6 @@ public class PlayerCharacter extends AbstractCharacter {
 	public void modExperience(Integer exp) { experience += exp; }
 	
 	public int getExperience() { return experience; }
-
-	public void modFood(Integer foodChange) { food += foodChange; if (food < 0) food = 0; }
 
 	public Integer getFood() { return food; }
 
