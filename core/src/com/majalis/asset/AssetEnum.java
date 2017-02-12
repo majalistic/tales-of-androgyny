@@ -167,7 +167,7 @@ public enum AssetEnum {
 	// music
 	MAIN_MENU_MUSIC("music/MainMenuMusic.mp3"),
 	ENCOUNTER_MUSIC("music/EncounterMusic.mp3"),
-	INITIAL_MUSIC("music/KingsOfTara.mp3"),
+	INITIAL_MUSIC("music/KingsofTara.mp3"),
 	SHOP_MUSIC("music/ShopkeepMusic.mp3"),
 	TRAINER_MUSIC("music/TrainerMusic.mp3"),
 	HOVEL_MUSIC("music/HovelMusic.mp3"),
