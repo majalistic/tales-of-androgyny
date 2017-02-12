@@ -194,7 +194,7 @@ public class Technique {
 	}
 	
 	public String getTechniqueDescription() {
-		return technique.getLightDescription();
+		return useItem == null ? technique.getLightDescription() : useItem.getDescription();
 	}
 	
 	public static class StaminaComparator implements Comparator<Technique> {
