@@ -146,7 +146,7 @@ public class PlayerCharacter extends AbstractCharacter {
 		switch (jobClass) { 
 			case WARRIOR: skillPoints = 3; skills.put(BLITZ_ATTACK.toString(), 1); skills.put(ALL_OUT_BLITZ.toString(), 1); skills.put(HOLD_BACK.toString(), 1); perks.put(Perk.WEAK_TO_ANAL.toString(), 1); break;
 			case PALADIN: addSkill(COMBAT_HEAL, 1); break;
-			case THIEF: skillPoints = 5; food = 80; break;
+			case THIEF: skillPoints = 5; food += 40; break;
 			case MAGE: magicPoints = 2; break;
 			case RANGER: weapon = new Weapon(WeaponType.Bow); break;
 			case ENCHANTRESS: magicPoints = 1; perkPoints = 3; break;
