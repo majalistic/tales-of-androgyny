@@ -27,7 +27,20 @@ public class LevelUpScreen extends AbstractScreen {
 		resourceRequirements.put(AssetEnum.NORMAL_BOX.getPath(), Texture.class);
 		resourceRequirements.put(AssetEnum.BATTLE_HOVER.getPath(), Texture.class);
 		AssetEnum[] assets = new AssetEnum[]{
-			MARS_ICON_0, MARS_ICON_1, MARS_ICON_2, MARS_ICON_3, MARS_ICON_4
+			MARS_ICON_0, MARS_ICON_1, MARS_ICON_2, MARS_ICON_3, MARS_ICON_4,
+			PORTRAIT_NEUTRAL, 
+			PORTRAIT_AHEGAO,
+			PORTRAIT_FELLATIO,
+			PORTRAIT_MOUTHBOMB,
+			PORTRAIT_GRIN,
+			PORTRAIT_LOVE,
+			PORTRAIT_LUST,
+			PORTRAIT_SURPRISE,
+			PORTRAIT_GRIMACE,
+			PORTRAIT_HIT,
+			PORTRAIT_POUT,
+			PORTRAIT_HAPPY,
+			PORTRAIT_SMILE
 		};
 		for (AssetEnum asset: assets){
 			resourceRequirements.put(asset.getPath(), Texture.class);
