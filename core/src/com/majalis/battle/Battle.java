@@ -71,6 +71,7 @@ public class Battle extends Group{
 	private final Label console;
 	private final Label skillDisplay;
 	private final Label bonusDisplay;
+	private final Label penaltyDisplay;
 	private final ProgressBar characterHealth;
 	private final ProgressBar characterStamina;
 	private final ProgressBar characterBalance;
@@ -184,6 +185,8 @@ public class Battle extends Group{
 		characterPortrait = initImage(assetManager.get(character.popPortraitPath(), Texture.class), -7.5f, 922);
 		characterPortrait.setScale(.9f);
 
+		characterPortrait.addListener(getListener(character));
+		
 		masculinityIcon = initImage(assetManager.get(character.getMasculinityPath(), Texture.class), barX - 150, 850);
 		masculinityIcon.setScale(.15f);
 		
@@ -236,10 +239,17 @@ public class Battle extends Group{
 		bonusDisplay.setWrap(true);
 		bonusDisplay.setColor(Color.FOREST);
 		bonusDisplay.setAlignment(Align.top);
-		pane2.add(bonusDisplay).width(600);
+		pane2.add(bonusDisplay).width(600).row();
+		
+		penaltyDisplay = new Label("", skin);
+		penaltyDisplay.setWrap(true);
+		penaltyDisplay.setColor(Color.RED);
+		penaltyDisplay.setAlignment(Align.top);
+		pane2.add(penaltyDisplay).width(600);
 		
 		pane2.setBounds(hoverXPos + 80, hoverYPos - 155, 600, 700);
 		hoverGroup.addActor(pane2);
+		hideHoverGroup();
 		checkEndBattle();
 	}
 	
@@ -526,6 +536,23 @@ public class Battle extends Group{
 		return assetManager.get(stance.getPath(), Texture.class);
 	}
 	
+	private ClickListener getListener(final PlayerCharacter character) {
+		return new ClickListener() {
+	        @Override
+	        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
+				skillDisplay.setText(character.getStatTextDisplay());
+				bonusDisplay.setText(character.getStatBonusDisplay());
+				penaltyDisplay.setText(character.getStatPenaltyDisplay());
+				showHoverGroup();
+			}
+			@Override
+	        public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
+				hideHoverGroup();
+				penaltyDisplay.setText("");
+			}
+	    };	
+	}
+	
 	private ClickListener getListener(final Technique technique, final String description, final String bonusDescription, final int index) {
 		return new ClickListener() {
 	        @Override
@@ -536,19 +563,27 @@ public class Battle extends Group{
 	        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
 				skillDisplay.setText(description);
 				bonusDisplay.setText(bonusDescription);
+				bonusDisplay.setColor(Color.FOREST);
 				changeSelection(index);		
-				hoverGroup.clearActions();
-				hoverGroup.addAction(Actions.visible(true));
-				hoverGroup.addAction(Actions.fadeIn(.25f));
-				
+				showHoverGroup();
 			}
 			@Override
 	        public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
-				if (!battleOutcomeDecided) {
-					hoverGroup.addAction(Actions.fadeOut(2f));
-				}
+				hideHoverGroup();
 			}
 	    };
+	}
+	
+	private void showHoverGroup() {
+		hoverGroup.clearActions();
+		hoverGroup.addAction(visible(true));
+		hoverGroup.addAction(alpha(1));
+	}
+	
+	private void hideHoverGroup() {
+		if (!battleOutcomeDecided) {
+			hoverGroup.addAction(fadeOut(2f));
+		}
 	}
 
 	// creates a wrapper group for a character to be added to so that they can be removed and re-inserted during serialization

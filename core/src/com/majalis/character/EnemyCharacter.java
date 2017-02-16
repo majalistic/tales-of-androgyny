@@ -343,7 +343,7 @@ public class EnemyCharacter extends AbstractCharacter {
 			}
 			else {
 				results.add("Her cock erupts in your mouth!");
-				results.add("You swallow all of her semen!");
+				results.add("You're forced to swallow her semen!");
 			}
 		}
 		else if (oldStance == Stance.COWGIRL) {

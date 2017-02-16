@@ -24,6 +24,7 @@ import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.actions.RepeatAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -228,6 +229,10 @@ public class WorldMapScreen extends AbstractScreen {
 		foodIcon.setSize(75, 75);
 		this.addActor(foodIcon);
 		
+		Label console = new Label("", skin);
+		this.addActor(console);
+		console.setPosition(820, 80);
+		
 		TextButton saveButton = new TextButton("Save", skin);
 		this.addActor(saveButton);
 		saveButton.setBounds(600, 50, 200, 50);
@@ -236,7 +241,10 @@ public class WorldMapScreen extends AbstractScreen {
 				@Override
 		        public void clicked(InputEvent event, float x, float y) {
 					buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
-					saveService.manualSave("data/test.json");
+					saveService.manualSave("data/save01.json");
+					console.setText("Game Saved.");
+					console.addAction(Actions.alpha(1));
+					console.addAction(Actions.fadeOut(4));
 		        }
 			}
 		);	

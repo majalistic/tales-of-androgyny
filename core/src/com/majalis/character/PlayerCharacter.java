@@ -808,4 +808,48 @@ public class PlayerCharacter extends AbstractCharacter {
 	public void load() {
 		loaded = true;
 	}
+
+	public String getStatBonusDisplay() {
+		String display = "";
+		int strBuff = getStrengthBuff();
+		if (strBuff > 0) {
+			display += "Strength buff: +" + strBuff + "\n";
+		}
+		int agiBuff = getAgilityBuff();
+		if (agiBuff > 0) {
+			display += "Agility buff: +" + agiBuff + "\n";
+		}
+		int endBuff = getEnduranceBuff();
+		if (endBuff > 0) {
+			display += "Endurance buff: +" + endBuff + "\n";
+		}
+		return display;
+	}
+		
+	public String getStatPenaltyDisplay() {
+		String display = "";
+		int healthDegradation = getHealthDegradation();
+		if (healthDegradation > 0) {
+			display += "Low health: -" + healthDegradation + " STR, END, AGI\n";
+		}
+		
+		int staminaDegradation = getStaminaDegradation();
+		if (staminaDegradation > 0) {
+			display += "Low stamina: -" + staminaDegradation + " STR, AGI\n";
+		}
+		int cumFilled = getCumInflation();
+		if (cumFilled > 0) {
+			display += "Too full of cum: -" + cumFilled + " AGI\n";
+		}
+		
+		return display;
+	}
+
+	public String getStatTextDisplay() {
+		String display = "Current Stats:\n";
+		for (ObjectMap.Entry<Stat, Integer> statEntry : getStats()) {
+			display += statEntry.key + " - " + statEntry.value + "\n";
+		}
+		return display;		
+	}
 }

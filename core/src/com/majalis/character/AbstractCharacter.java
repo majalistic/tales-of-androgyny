@@ -13,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.IntArray;
 import com.badlogic.gdx.utils.ObjectMap;
+import com.badlogic.gdx.utils.OrderedMap;
 /*
  * Abstract character class, both enemies and player characters extend this class
  */
@@ -218,9 +219,9 @@ public abstract class AbstractCharacter extends Actor {
 
 	protected int getStrength() { return Math.max((baseStrength + getStrengthBuff()) - (getHealthDegradation() + getStaminaDegradation())/2, 0); }
 	
-	private int getStrengthBuff() { return statuses.get(StatusType.STRENGTH_BUFF.toString(), 0); }
-	private int getEnduranceBuff() { return statuses.get(StatusType.ENDURANCE_BUFF.toString(), 0); }
-	private int getAgilityBuff() { return statuses.get(StatusType.AGILITY_BUFF.toString(), 0); }
+	protected int getStrengthBuff() { return statuses.get(StatusType.STRENGTH_BUFF.toString(), 0); }
+	protected int getEnduranceBuff() { return statuses.get(StatusType.ENDURANCE_BUFF.toString(), 0); }
+	protected int getAgilityBuff() { return statuses.get(StatusType.AGILITY_BUFF.toString(), 0); }
 	
 	protected int stepDown(int value) { if (value < 3) return value; else if (value < 7) return 3 + (value - 3)/2; else return 5 + (value - 7)/3; } 
 	
@@ -661,8 +662,8 @@ public abstract class AbstractCharacter extends Actor {
 	protected abstract String increaseLust();
 	protected abstract String increaseLust(int lustIncrease);
 	
-	protected ObjectMap<Stat, Integer> getStats() {
-		ObjectMap<Stat, Integer> stats = new ObjectMap<Stat, Integer>();
+	protected OrderedMap<Stat, Integer> getStats() {
+		OrderedMap<Stat, Integer> stats = new OrderedMap<Stat, Integer>();
 		for (Stat stat: Stat.values()) {
 			stats.put(stat, getStat(stat));
 		}
