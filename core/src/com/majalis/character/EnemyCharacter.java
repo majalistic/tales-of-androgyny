@@ -324,9 +324,57 @@ public class EnemyCharacter extends AbstractCharacter {
 			technique = possibleTechniques.get(choice);
 			choice++;
 		}
-		
 		return technique;
 		
+	}
+	
+	@Override
+	protected String climax() {
+		Array<String> results = new Array<String>();
+		switch (enemyType) {
+			case GOBLIN: lust -= 2; break;
+			default: lust -= 14;
+		}
+		if (oldStance == Stance.FELLATIO) {
+			if (enemyType == EnemyEnum.HARPY) {
+				results.add("A harpy semen bomb explodes in your mouth!  It tastes awful!");
+				results.add("You are going to vomit!");
+				results.add("You spew up harpy cum!  The harpy preens her feathers.");
+			}
+			else {
+				results.add("Her cock erupts in your mouth!");
+				results.add("You swallow all of her semen!");
+			}
+		}
+		else if (oldStance == Stance.COWGIRL) {
+			results.add("The " + getLabel() + " blasts off in your intestines while you bounce\non their cumming cock! You got butt-bombed!");
+		}
+		else if (oldStance == Stance.ANAL) {
+			results.add("The " + getLabel() + "'s lovemaking reaches a climax!");
+			results.add("They don't pull out! It twitches and throbs in your rectum!");
+			results.add("They cum up your ass! Your stomach receives it!");				
+		}
+		else if (oldStance == Stance.HANDY) {
+			results.add("Their cock jerks in your hand! They're gonna spew!");
+			results.add("Their eyes roll into the back of their head! Here it comes!");
+			results.add("It's too late to dodge! They blast a rope of cum on your face!");
+			results.add("Rope after rope lands all over face!");
+			results.add("They spewed cum all over your face!");
+			results.add("You look like a glazed donut! Hilarious!");
+			results.add("You've been bukkaked!");
+		}
+		else if (oldStance == Stance.STANDING || oldStance == Stance.DOGGY){
+			results.add("The " + getLabel() + " spews hot, thick semen into your bowels!");
+			results.add("You are anally inseminated!");
+			results.add("You're going to be farting cum for days!");
+		}
+		else if (oldStance == Stance.SIXTY_NINE) {
+			results.add("Her cock erupts in your mouth!");
+			results.add("You spit it up around her pulsing balls!!");
+		}
+		stance = Stance.ERUPT;
+		String[] foo = results.toArray(String.class);
+		return String.join("\n", foo);
 	}
 	
 	private boolean willPounce() {
@@ -508,5 +556,15 @@ public class EnemyCharacter extends AbstractCharacter {
 			case VICTORY: return getDefeatMessage();
 		}
 		return null;
+	}
+	@Override
+	protected int getClimaxVolume() {
+		super.getClimaxVolume();
+		switch(enemyType) {
+			case CENTAUR: 
+			case UNICORN: return 20;
+			case GOBLIN: return 10;
+			default: return 5;
+		}
 	}
 } 

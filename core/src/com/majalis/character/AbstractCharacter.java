@@ -298,7 +298,7 @@ public abstract class AbstractCharacter extends Actor {
 	}
 	
 	protected CharacterState getCurrentState(AbstractCharacter target) {		
-		return new CharacterState(getStats(), getRawStats(), weapon, stability < 5, currentMana, target);
+		return new CharacterState(getStats(), getRawStats(), weapon, stability < 5, currentMana, this, target);
 	}
 	
 	protected boolean alreadyIncapacitated() {
@@ -306,7 +306,6 @@ public abstract class AbstractCharacter extends Actor {
 	}
 	
 	public Attack doAttack(Attack resolvedAttack) {
-		resolvedAttack.setUser(label);
 		if (!resolvedAttack.isSuccessful()) {
 			resolvedAttack.addMessage(resolvedAttack.getUser() + " used " + resolvedAttack.getName() + (resolvedAttack.getStatus() == Status.MISSED ? " but missed!" : (resolvedAttack.getStatus() == Status.EVADED ? " but was evaded!" : resolvedAttack.getStatus() == Status.PARRIED ? " but was parried!" : resolvedAttack.getStatus() == Status.FIZZLE ? " but the spell fizzled!" : "! FAILURE!")));
 			
@@ -390,45 +389,7 @@ public abstract class AbstractCharacter extends Actor {
 		}
 		// all climax logic should go here
 		if (resolvedAttack.isClimax()) {
-			lust -= 14;
-			if (oldStance == Stance.FELLATIO) {
-				if (enemyType == EnemyEnum.HARPY) {
-					resolvedAttack.addMessage("A harpy semen bomb explodes in your mouth!  It tastes awful!");
-					resolvedAttack.addMessage("You are going to vomit!");
-					resolvedAttack.addMessage("You spew up harpy cum!  The harpy preens her feathers.");
-				}
-				else {
-					resolvedAttack.addMessage("Her cock erupts in your mouth!");
-					resolvedAttack.addMessage("You swallow all of her semen!");
-				}
-			}
-			else if (oldStance == Stance.COWGIRL) {
-				resolvedAttack.addMessage("The " + getLabel() + " blasts off in your intestines while you bounce\non their cumming cock! You got butt-bombed!");
-			}
-			else if (oldStance == Stance.ANAL) {
-				resolvedAttack.addMessage("The " + getLabel() + "'s lovemaking reaches a climax!");
-				resolvedAttack.addMessage("They don't pull out! It twitches and throbs in your rectum!");
-				resolvedAttack.addMessage("They cum up your ass! Your stomach receives it!");				
-			}
-			else if (oldStance == Stance.HANDY) {
-				resolvedAttack.addMessage("Their cock jerks in your hand! They're gonna spew!");
-				resolvedAttack.addMessage("Their eyes roll into the back of their head! Here it comes!");
-				resolvedAttack.addMessage("It's too late to dodge! They blast a rope of cum on your face!");
-				resolvedAttack.addMessage("Rope after rope lands all over face!");
-				resolvedAttack.addMessage("They spewed cum all over your face!");
-				resolvedAttack.addMessage("You look like a glazed donut! Hilarious!");
-				resolvedAttack.addMessage("You've been bukkaked!");
-			}
-			else if (oldStance == Stance.STANDING || oldStance == Stance.DOGGY){
-				resolvedAttack.addMessage("The " + getLabel() + " spews hot, thick semen into your bowels!");
-				resolvedAttack.addMessage("You are anally inseminated!");
-				resolvedAttack.addMessage("You're going to be farting cum for days!");
-			}
-			else if (oldStance == Stance.SIXTY_NINE) {
-				resolvedAttack.addMessage("Her cock erupts in your mouth!");
-				resolvedAttack.addMessage("You spit it up around her pulsing balls!!");
-			}
-			stance = Stance.ERUPT;
+			resolvedAttack.addMessage(climax());
 		}
 		
 		for (Bonus bonus : resolvedAttack.getBonuses()) {
@@ -566,15 +527,15 @@ public abstract class AbstractCharacter extends Actor {
 			
 			String internalShotText = null;
 			if (attack.getClimaxType() == ClimaxType.ANAL) {
-				internalShotText = fillButt(3);
+				internalShotText = fillButt(attack.getClimaxVolume());
 			}
 			else if (attack.getClimaxType() == ClimaxType.ORAL) {
 				internalShotText = fillMouth(1);
 			}
 			if (internalShotText != null) result.add(internalShotText);
 			
-			if (buttful > 0) result.add(getLeakMessage());
-			if (mouthful > 0) result.add(getDroolMessage());
+			if (buttful > 0 && !stance.isAnal()) result.add(getLeakMessage());
+			if (mouthful > 0 && !stance.isOral()) result.add(getDroolMessage());
 		}
 		if (!alreadyIncapacitated() && !knockedDown) {
 			// you tripped
@@ -596,6 +557,8 @@ public abstract class AbstractCharacter extends Actor {
 		
 		return result;
 	}
+	
+	protected abstract String climax();
 	
 	public String consumeItem(Item item) {
 		ItemEffect effect = item.getUseEffect();
@@ -651,7 +614,7 @@ public abstract class AbstractCharacter extends Actor {
 	}
 	
 	protected void drainMouth() {
-		mouthful--;
+		mouthful = 0;
 	}
 	
 	protected void drainButt() {
@@ -660,19 +623,32 @@ public abstract class AbstractCharacter extends Actor {
 
 	private String getLeakMessage() {
 		String message = "";
-		if (buttful > 1) {
+		
+		if (buttful > 20) {
+			message = "Your belly looks pregnant, full of baby batter! It drools out of your well-used hole!";
+		}
+		else if (buttful > 10) {
+			message = "Your gut is stuffed with semen!  It drools out!";
+		}
+		else if (buttful > 5) {
+			message = "Cum runs out of your full ass!";
+		}
+		else if (buttful > 1) {
 			message = "You drool cum from your hole!";
 		}
-		else {
-			message = "The last of the cum runs out of your hole!";
+		else if (buttful == 1) {
+			message = " The last of the cum runs out of your hole!";
 		}
 		drainButt();
 		return message;
 	}
 	private String getDroolMessage() {
 		String message = "";
-		if (mouthful > 1) {
-			message = "You try to spit up all of their cum!";
+		if (mouthful > 10) {
+			message = "You vomit their tremendous load onto the ground!";
+		}
+		else if (mouthful > 5) {
+			message = "You spew their massive load onto the ground!";
 		}
 		else {
 			message = "You spit all of their cum out onto the ground!";
@@ -814,6 +790,10 @@ public abstract class AbstractCharacter extends Actor {
 	
 	public void modFood(Integer foodChange) { food += foodChange; if (food < 0) food = 0; }
 	
+	protected int getClimaxVolume() {
+		return 3;
+	}
+	
 	private enum StanceType {
 		ANAL,
 		ORAL,
@@ -917,4 +897,6 @@ public abstract class AbstractCharacter extends Actor {
 			return description;
 		}
 	}
+
+	
 }

@@ -159,7 +159,8 @@ public class Technique {
 			technique.isDamaging() && !technique.doesSetDamage(),
 			technique.isDamaging() && !technique.doesSetDamage() && !technique.isSpell(),
 			thisPayload.getBonuses(),
-			useItem
+			useItem,
+			currentState.getCharacter() // this needs to be refactored so that there is a counter-attack token
 		);
 	}
 

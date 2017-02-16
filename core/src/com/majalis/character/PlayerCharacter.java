@@ -498,53 +498,60 @@ public class PlayerCharacter extends AbstractCharacter {
 	@Override
 	protected String increaseLust(int lustIncrease) {
 		String spurt = "";
-		String result = null;
 		lust += lustIncrease;
-		boolean weakToAnal = perks.get(Perk.WEAK_TO_ANAL.toString(), 0) > 0;
 		if (lust > 10) {
-			lust = 0;
-			switch (stance) {
-				case KNOTTED:
-				case DOGGY: 
-				case ANAL:
-					spurt = "Awoo! Semen spurts out your untouched cock as your hole is violated!\n"
-						+	"You feel it with your ass, like a girl! Your face is red with shame!\n"
-						+	"Got a little too comfortable, eh?\n";
-					cumFromAnal();
-					result = incrementPerk(cameFromAnal, Perk.ANAL_LOVER, weakToAnal ? 3 : 5, weakToAnal ? 2 : 3, 1);
-					break;
-				case COWGIRL:
-					spurt = "Awoo! Semen spurts out your untouched cock as your hole is violated!\n"
-							+	"You feel it with your ass, like a girl! Your face is red with shame!\n"
-							+	"It spews all over them!\n";
-					cumFromAnal();
-					result = incrementPerk(cameFromAnal, Perk.ANAL_LOVER, weakToAnal ? 3 : 5, weakToAnal ? 2 : 3, 1);
-					break;
-				case FELLATIO:
-					spurt = "You spew while sucking!\n"
-						+	"Your worthless cum spurts into the dirt!\n"
-						+	"They don't even notice!\n";
-					cumFromOral();
-					result = incrementPerk(cameFromOral, Perk.MOUTH_MANIAC, 5, 3, 1);
-					break;
-				case FACE_SITTING:
-					spurt = "You spew while she rides your face!\n"
-							+	"Your worthless cum spurts into the dirt!\n"
-							+	"They don't even notice!\n";
-					break;
-				case SIXTY_NINE:
-					spurt = "You spew into her mouth!\n"
-							+	"Her cock twitches in yours!\n"
-							+	"You're about to retun the favor!\n";
-					cumFromOral();
-					result = incrementPerk(cameFromOral, Perk.MOUTH_MANIAC, 5, 3, 1);
-					break;
-				default: spurt = "You spew your semen onto the ground!\n"; 
-			}
-			if (result != null) spurt += result + "\n";
-			spurt += "You're now flaccid!\n";
+			spurt = climax();
 		}
 		return !spurt.isEmpty() ? spurt : null;
+	}
+	
+	@Override
+	protected String climax() {
+		String spurt = "";
+		String result = null;
+		boolean weakToAnal = perks.get(Perk.WEAK_TO_ANAL.toString(), 0) > 0;
+		lust = 0;
+		switch (stance) {
+			case KNOTTED:
+			case DOGGY: 
+			case ANAL:
+				spurt = "Awoo! Semen spurts out your untouched cock as your hole is violated!\n"
+					+	"You feel it with your ass, like a girl! Your face is red with shame!\n"
+					+	"Got a little too comfortable, eh?\n";
+				cumFromAnal();
+				result = incrementPerk(cameFromAnal, Perk.ANAL_LOVER, weakToAnal ? 3 : 5, weakToAnal ? 2 : 3, 1);
+				break;
+			case COWGIRL:
+				spurt = "Awoo! Semen spurts out your untouched cock as your hole is violated!\n"
+						+	"You feel it with your ass, like a girl! Your face is red with shame!\n"
+						+	"It spews all over them!\n";
+				cumFromAnal();
+				result = incrementPerk(cameFromAnal, Perk.ANAL_LOVER, weakToAnal ? 3 : 5, weakToAnal ? 2 : 3, 1);
+				break;
+			case FELLATIO:
+				spurt = "You spew while sucking!\n"
+					+	"Your worthless cum spurts into the dirt!\n"
+					+	"They don't even notice!\n";
+				cumFromOral();
+				result = incrementPerk(cameFromOral, Perk.MOUTH_MANIAC, 5, 3, 1);
+				break;
+			case FACE_SITTING:
+				spurt = "You spew while she rides your face!\n"
+						+	"Your worthless cum spurts into the dirt!\n"
+						+	"They don't even notice!\n";
+				break;
+			case SIXTY_NINE:
+				spurt = "You spew into her mouth!\n"
+						+	"Her cock twitches in yours!\n"
+						+	"You're about to retun the favor!\n";
+				cumFromOral();
+				result = incrementPerk(cameFromOral, Perk.MOUTH_MANIAC, 5, 3, 1);
+				break;
+			default: spurt = "You spew your semen onto the ground!\n"; 
+		}
+		if (result != null) spurt += result + "\n";
+		spurt += "You're now flaccid!\n";
+		return spurt;
 	}
 
 	public void modExperience(Integer exp) { experience += exp; }
