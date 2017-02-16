@@ -226,7 +226,7 @@ public abstract class AbstractCharacter extends Actor {
 	
 	protected int getEndurance() { return Math.max((baseEndurance + getEnduranceBuff()) - (getHealthDegradation()), 0); }
 	
-	protected int getAgility() { return Math.max((baseAgility + getAgilityBuff()) - (getHealthDegradation() + getStaminaDegradation()), 0); }
+	protected int getAgility() { return Math.max((baseAgility + getAgilityBuff()) - (getHealthDegradation() + getStaminaDegradation() + getCumInflation()), 0); }
 
 	protected int getPerception() { return Math.max(basePerception, 0); }
 
@@ -239,6 +239,7 @@ public abstract class AbstractCharacter extends Actor {
 	
 	public int getHealthDegradation() { return getDegradation(healthTiers, currentHealth); }
 	public int getStaminaDegradation() { return getDegradation(staminaTiers, currentStamina); }
+	public int getCumInflation() { return buttful > 20 || mouthful > 20 ? 2 : buttful > 10 || mouthful > 10 ? 1 : 0; } 
 	
 	protected int getDegradation(IntArray tiers, int currentValue) {
 		int numTiers = tiers.size;
@@ -625,10 +626,10 @@ public abstract class AbstractCharacter extends Actor {
 		String message = "";
 		
 		if (buttful > 20) {
-			message = "Your belly looks pregnant, full of baby batter! It drools out of your well-used hole!";
+			message = "Your belly looks pregnant, full of baby batter! It drools out of your well-used hole! Your movements are sluggish! -2 Agility.";
 		}
 		else if (buttful > 10) {
-			message = "Your gut is stuffed with semen!  It drools out!";
+			message = "Your gut is stuffed with semen!  It drools out!  You're too queasy to move quickly! -1 Agility.";
 		}
 		else if (buttful > 5) {
 			message = "Cum runs out of your full ass!";

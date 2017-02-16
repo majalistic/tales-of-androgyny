@@ -562,7 +562,7 @@ public class EnemyCharacter extends AbstractCharacter {
 		super.getClimaxVolume();
 		switch(enemyType) {
 			case CENTAUR: 
-			case UNICORN: return 20;
+			case UNICORN: return 21;
 			case GOBLIN: return 10;
 			default: return 5;
 		}
