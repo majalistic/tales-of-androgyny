@@ -75,7 +75,8 @@ public class ScreenFactoryImpl implements ScreenFactory {
 				tempScreen = getEncounter(elements, character);
 				if (tempScreen != null) return tempScreen;
 				break; 
-			case LOAD_GAME: 
+			case CONTINUE: 
+			case LOAD_GAME:
 				tempScreen = getCurrentContextScreen(elements, character);
 				if (tempScreen != null) return tempScreen;
 				break;

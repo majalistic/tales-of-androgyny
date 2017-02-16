@@ -6,6 +6,7 @@ public enum ScreenEnum {
 	SPLASH,
     MAIN_MENU, 
     NEW_GAME,
+    CONTINUE,
     LOAD_GAME,
     ENCOUNTER,
     BATTLE,

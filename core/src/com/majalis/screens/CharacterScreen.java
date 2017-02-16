@@ -74,7 +74,7 @@ public class CharacterScreen extends AbstractScreen {
 		        public void clicked(InputEvent event, float x, float y) {
 					buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
 					saveService.saveDataValue(SaveEnum.CONTEXT, GameContext.WORLD_MAP);
-					showScreen(ScreenEnum.LOAD_GAME);		   
+					showScreen(ScreenEnum.CONTINUE);		   
 		        }
 			}
 		);
@@ -137,7 +137,7 @@ public class CharacterScreen extends AbstractScreen {
 						if (levelup) character.levelUp();
 						saveService.saveDataValue(SaveEnum.PLAYER, character);
 						saveService.saveDataValue(SaveEnum.CONTEXT, GameContext.LEVEL);
-						showScreen(ScreenEnum.LOAD_GAME);
+						showScreen(ScreenEnum.CONTINUE);
 			        }
 				}
 			);
@@ -252,7 +252,7 @@ public class CharacterScreen extends AbstractScreen {
 	public void render(float delta) {
 		super.render(delta);
 		if (Gdx.input.isKeyJustPressed(Keys.ENTER)) {
-			showScreen(ScreenEnum.LOAD_GAME);
+			showScreen(ScreenEnum.CONTINUE);
 		}			
 	}
 }

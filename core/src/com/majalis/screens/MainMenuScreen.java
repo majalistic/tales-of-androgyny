@@ -63,10 +63,10 @@ public class MainMenuScreen extends AbstractScreen {
 		
 		Array<String> buttonLabels = new Array<String>();
 		Array<ScreenEnum> optionList = new Array<ScreenEnum>();
-		buttonLabels.addAll("Begin", "Continue", "Options", "Pervert", "Credits", "Exit");
-		optionList.addAll(ScreenEnum.NEW_GAME, ScreenEnum.LOAD_GAME, ScreenEnum.OPTIONS, ScreenEnum.REPLAY, ScreenEnum.CREDITS, ScreenEnum.EXIT);
+		buttonLabels.addAll("Begin", "Continue", "Load", "Options", "Pervert", "Credits", "Exit");
+		optionList.addAll(ScreenEnum.NEW_GAME, ScreenEnum.CONTINUE, ScreenEnum.LOAD_GAME, ScreenEnum.OPTIONS, ScreenEnum.REPLAY, ScreenEnum.CREDITS, ScreenEnum.EXIT);
 		
-		for (int ii = 0; ii < buttonLabels.size; ii++){
+		for (int ii = 0; ii < buttonLabels.size; ii++) {
 			buttons.add(new TextButton(buttonLabels.get(ii), skin));
 			buttons.get(ii).addListener(getListener(optionList.get(ii), ii));
 			table.add(buttons.get(ii)).size(180, 60).row();
@@ -88,15 +88,15 @@ public class MainMenuScreen extends AbstractScreen {
 		OrthographicCamera camera = (OrthographicCamera) getCamera();
         batch.setTransformMatrix(camera.view);
         
-        if(Gdx.input.isKeyJustPressed(Keys.UP)){
+        if(Gdx.input.isKeyJustPressed(Keys.UP)) {
         	if (selection > 0) selection--;
         	else selection = buttons.size-1;
         }
-        else if(Gdx.input.isKeyJustPressed(Keys.DOWN)){
+        else if(Gdx.input.isKeyJustPressed(Keys.DOWN)) {
         	if (selection < buttons.size- 1) selection++;
         	else selection = 0;
         }
-        else if(Gdx.input.isKeyJustPressed(Keys.ENTER)){
+        else if(Gdx.input.isKeyJustPressed(Keys.ENTER)) {
         	InputEvent event1 = new InputEvent();
             event1.setType(InputEvent.Type.touchDown);
             buttons.get(selection).fire(event1);
@@ -110,28 +110,31 @@ public class MainMenuScreen extends AbstractScreen {
 		batch.setProjectionMatrix(camera.combined);
 		batch.begin(); 
 		// need to make these actors
-		batch.draw(arrowImage, 2280, 1398 - selection * 60, 30, 50);
+		batch.draw(arrowImage, 2280, 1428 - selection * 60, 30, 50);
 		font.draw(batch, "Version: 0.1.16.2" + (TrapRPG.patron ? " Patron-Only" : ""), 2450, 600);
 		batch.end();
 	}
 
 	@Override
 	public void dispose() {
-		for(String path: resourceRequirements.keys()){
+		for(String path: resourceRequirements.keys()) {
 			assetManager.unload(path);
 		}
 	}
 	
-	private ClickListener getListener(final ScreenEnum screenSelection, final int index){
-		return new ClickListener(){
+	private ClickListener getListener(final ScreenEnum screenSelection, final int index) {
+		return new ClickListener() {
 	        @Override
 	        public void clicked(InputEvent event, float x, float y) {
 	        	buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
-        		if (screenSelection == ScreenEnum.NEW_GAME){
+        		if (screenSelection == ScreenEnum.NEW_GAME) {
         			// ONLY CALL THIS TO DESTROY OLD DATA AND REPLACE WITH A BRAND NEW SAVE
         			saveService.newSave();
         		}
-        		if (!(screenSelection == ScreenEnum.OPTIONS || screenSelection == ScreenEnum.CREDITS || screenSelection == ScreenEnum.REPLAY)){
+        		if (screenSelection == ScreenEnum.LOAD_GAME) {
+        			saveService.newSave("data/test.json");
+        		}
+        		if (!(screenSelection == ScreenEnum.OPTIONS || screenSelection == ScreenEnum.CREDITS || screenSelection == ScreenEnum.REPLAY)) {
         			music.stop();
         		}
 	        	showScreen(screenSelection);    

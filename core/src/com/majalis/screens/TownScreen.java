@@ -93,7 +93,7 @@ public class TownScreen extends AbstractScreen {
 	        	saveService.saveDataValue(SaveEnum.RETURN_CONTEXT, SaveManager.GameContext.TOWN);
 	        	saveService.saveDataValue(SaveEnum.ENCOUNTER_CODE, EncounterCode.SHOP);
 	        	music.stop();
-	        	showScreen(ScreenEnum.LOAD_GAME);    
+	        	showScreen(ScreenEnum.CONTINUE);    
 	        }
 	    });
 		
@@ -105,7 +105,7 @@ public class TownScreen extends AbstractScreen {
 	        	saveService.saveDataValue(SaveEnum.RETURN_CONTEXT, SaveManager.GameContext.TOWN);
 	        	saveService.saveDataValue(SaveEnum.ENCOUNTER_CODE, EncounterCode.WEAPON_SHOP);
 	        	music.stop();
-	        	showScreen(ScreenEnum.LOAD_GAME);    
+	        	showScreen(ScreenEnum.CONTINUE);    
 	        }
 	    });
 		
@@ -115,7 +115,7 @@ public class TownScreen extends AbstractScreen {
 	        	buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
 	        	saveService.saveDataValue(SaveEnum.CONTEXT, SaveManager.GameContext.WORLD_MAP);
 	        	music.stop();
-	        	showScreen(ScreenEnum.LOAD_GAME);    
+	        	showScreen(ScreenEnum.CONTINUE);    
 	        }
 	    });
 		

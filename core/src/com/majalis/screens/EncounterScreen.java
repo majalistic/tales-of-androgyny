@@ -72,7 +72,7 @@ public class EncounterScreen extends AbstractScreen {
 		encounter.gameLoop();
 		if (encounter.isSwitching()) {
 			music.stop();
-			showScreen(ScreenEnum.LOAD_GAME);
+			showScreen(ScreenEnum.CONTINUE);
 		}
 		else if (encounter.gameExit) {
 			music.stop();

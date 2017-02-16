@@ -228,6 +228,19 @@ public class WorldMapScreen extends AbstractScreen {
 		foodIcon.setSize(75, 75);
 		this.addActor(foodIcon);
 		
+		TextButton saveButton = new TextButton("Save", skin);
+		this.addActor(saveButton);
+		saveButton.setBounds(600, 50, 200, 50);
+		saveButton.addListener(
+			new ClickListener() {
+				@Override
+		        public void clicked(InputEvent event, float x, float y) {
+					buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
+					saveService.manualSave("data/test.json");
+		        }
+			}
+		);	
+		
 		music.setVolume(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("musicVolume", 1) * .6f);
 		music.setLooping(true);
 		music.play();
@@ -252,7 +265,7 @@ public class WorldMapScreen extends AbstractScreen {
 		}
 		else if (world.encounterSelected) {
 			music.stop();
-			showScreen(ScreenEnum.LOAD_GAME);
+			showScreen(ScreenEnum.CONTINUE);
 		}
 		else {
 			clear();

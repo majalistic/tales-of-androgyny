@@ -27,7 +27,7 @@ import com.majalis.scenes.ShopScene.Shop;
 /*
  * Used for file handling, both reading and writing - both game files and encounter replay files.
  */
-public class SaveManager implements SaveService, LoadService{
+public class SaveManager implements SaveService, LoadService {
     
 	private boolean encoded;
     private final FileHandle file; 
@@ -35,12 +35,25 @@ public class SaveManager implements SaveService, LoadService{
     private GameSave save;
     private ProfileSave profileSave;
    
+    public SaveManager(SaveManager original, String path) {
+    	this.encoded = original.encoded;
+    	this.profileFile = original.profileFile;
+    	this.file = Gdx.files.local(path);
+    	save = original.save;
+    	profileSave = original.profileSave;
+    	saveToJson(save);
+    }
+    
     public SaveManager(boolean encoded, String path, String profilePath) {
         this.encoded = encoded;
         file = Gdx.files.local(path);   
         profileFile = Gdx.files.local(profilePath);
         save = getSave();
         profileSave = getProfileSave();
+    }
+    
+    public void manualSave(String path) {
+    	new SaveManager(this, path);
     }
     
     public void saveDataValue(ProfileEnum key, Object object) {
@@ -213,6 +226,11 @@ public class SaveManager implements SaveService, LoadService{
     
     public void newSave() {
     	save = getDefaultSave();
+    }
+    
+    public void newSave(String path) {
+    	save = new SaveManager(encoded, path, profileFile.path()).save;
+    	saveToJson(save);
     }
     
     private GameSave getDefaultSave() {
