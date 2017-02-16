@@ -61,12 +61,6 @@ public class WorldMapScreen extends AbstractScreen {
 	private final FrameBuffer frameBuffer;
 	private final InputMultiplexer multi;
 	private boolean backgroundRendered = false;
-	private TextureRegion scenery;
-	private Image characterUI;
-	private Image foodIcon;
-	
-	private TextButton characterButton;
-	private TextButton camp;
 	
 	public static final ObjectMap<String, Class<?>> resourceRequirements = new ObjectMap<String, Class<?>>();
 	static {
@@ -144,7 +138,7 @@ public class WorldMapScreen extends AbstractScreen {
 		
 		this.character = loadService.loadDataValue(SaveEnum.PLAYER, PlayerCharacter.class);
 		this.cloudGroup = new Group();
-		for (int ii = 0; ii < 50; ii++){
+		for (int ii = 0; ii < 50; ii++) {
 			Actor actor = new Image(cloud);
 			actor.setPosition((float)Math.random()*5000-1000, (float)Math.random()*5000-1000);
 			actor.addAction(Actions.alpha(.3f));
@@ -169,20 +163,20 @@ public class WorldMapScreen extends AbstractScreen {
 
 	@Override
 	public void buildStage() {
-		for (Actor actor: world.getActors()){
+		for (Actor actor: world.getActors()) {
 			group.addActor(actor);
 		}   
 		final Sound buttonSound = assetManager.get(AssetEnum.CLICK_SOUND.getPath(), Sound.class); 
 		Skin skin = assetManager.get(AssetEnum.UI_SKIN.getPath(), Skin.class);
 		int storedLevels = character.getStoredLevels();
 		
-		characterUI = new Image(characterUITexture);
+		Image characterUI = new Image(characterUITexture);
 		this.addActor(characterUI);
 		characterUI.setScale(1.1f);
 		
-		characterButton = new TextButton(storedLevels > 0 ? "Level Up!" : "Character", skin);
+		TextButton characterButton = new TextButton(storedLevels > 0 ? "Level Up!" : "Character", skin);
 		
-		if (storedLevels > 0){
+		if (storedLevels > 0) {
 			TextButtonStyle style = new TextButtonStyle(characterButton.getStyle());
 			style.fontColor = Color.OLIVE;
 			characterButton.setStyle(style);
@@ -196,7 +190,7 @@ public class WorldMapScreen extends AbstractScreen {
 		
 		characterButton.setBounds(185, 45, 185, 40);
 		characterButton.addListener(
-			new ClickListener(){
+			new ClickListener() {
 				@Override
 		        public void clicked(InputEvent event, float x, float y) {
 					buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
@@ -204,9 +198,9 @@ public class WorldMapScreen extends AbstractScreen {
 		        }
 			}
 		);
-		camp = new TextButton("Camp", skin);
+		TextButton camp = new TextButton("Camp", skin);
 		
-		if (character.getFood() < 4){
+		if (character.getFood() < 4) {
 			TextButtonStyle style = new TextButtonStyle(camp.getStyle());
 			style.fontColor = Color.RED;
 			camp.setStyle(style);
@@ -215,13 +209,13 @@ public class WorldMapScreen extends AbstractScreen {
 	
 		table.add(camp).size(145, 40);
 		camp.addListener(
-			new ClickListener(){
+			new ClickListener() {
 				@Override
 		        public void clicked(InputEvent event, float x, float y) {
 					buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
 					saveService.saveDataValue(SaveEnum.FOOD, -4);	   
 					saveService.saveDataValue(SaveEnum.HEALTH, 10);	
-					if (character.getFood() < 4){
+					if (character.getFood() < 4) {
 						TextButtonStyle style = new TextButtonStyle(camp.getStyle());
 						style.fontColor = Color.RED;
 						camp.setStyle(style);
@@ -230,7 +224,7 @@ public class WorldMapScreen extends AbstractScreen {
 		        }
 			}
 		);
-		foodIcon = new Image(food);
+		Image foodIcon = new Image(food);
 		foodIcon.setSize(75, 75);
 		this.addActor(foodIcon);
 		
@@ -238,7 +232,7 @@ public class WorldMapScreen extends AbstractScreen {
 		music.setLooping(true);
 		music.play();
 		
-		if (!backgroundRendered){
+		if (!backgroundRendered) {
 			generateBackground();
 		}
 	}
@@ -249,14 +243,14 @@ public class WorldMapScreen extends AbstractScreen {
 		translateCamera();
 		Gdx.input.setInputProcessor(multi);
 		
-		if (Gdx.input.isKeyJustPressed(Keys.ENTER)){
+		if (Gdx.input.isKeyJustPressed(Keys.ENTER)) {
 			showScreen(ScreenEnum.CHARACTER);
 		}			
-		else if (world.gameExit){
+		else if (world.gameExit) {
 			music.stop();
 			showScreen(ScreenEnum.MAIN_MENU);
 		}
-		else if (world.encounterSelected){
+		else if (world.encounterSelected) {
 			music.stop();
 			showScreen(ScreenEnum.LOAD_GAME);
 		}
@@ -273,7 +267,7 @@ public class WorldMapScreen extends AbstractScreen {
 	}
 	
 	// this should be replaced with label actors
-	private void drawText(float delta){
+	private void drawText(float delta) {
 		batch.begin();
 		OrthographicCamera camera = (OrthographicCamera) getCamera();
 		batch.setColor(1.0f, 1.0f, 1.0f, 1);
@@ -282,21 +276,21 @@ public class WorldMapScreen extends AbstractScreen {
 		batch.end();
 	}
 	
-	private void translateCamera(){
+	private void translateCamera() {
 		Vector3 translationVector = new Vector3(0,0,0);
 		int speed = 8;
 		if (Gdx.input.isKeyPressed(Keys.SHIFT_LEFT)) speed = 16;
 		
-		if (Gdx.input.isKeyPressed(Keys.LEFT) && camera.position.x > 500){
+		if (Gdx.input.isKeyPressed(Keys.LEFT) && camera.position.x > 500) {
 			translationVector.x -= speed;
 		}
-		else if (Gdx.input.isKeyPressed(Keys.RIGHT) && camera.position.x < 4000){
+		else if (Gdx.input.isKeyPressed(Keys.RIGHT) && camera.position.x < 4000) {
 			translationVector.x += speed;
 		}
-		if (Gdx.input.isKeyPressed(Keys.DOWN) && camera.position.y > 500){
+		if (Gdx.input.isKeyPressed(Keys.DOWN) && camera.position.y > 500) {
 			translationVector.y -= speed;
 		}
-		else if (Gdx.input.isKeyPressed(Keys.UP) && camera.position.y < 4600){
+		else if (Gdx.input.isKeyPressed(Keys.UP) && camera.position.y < 4600) {
 			translationVector.y += speed;
 		}
 		camera.translate(translationVector);
@@ -306,14 +300,14 @@ public class WorldMapScreen extends AbstractScreen {
 		cloudCamera.translate(cloudTranslate);
 	}
 	
-	private void generateBackground(){
+	private void generateBackground() {
 		backgroundRendered = true;
 		frameBuffer.begin();
 		SpriteBatch frameBufferBatch = new SpriteBatch();
 		frameBufferBatch.begin();
 		// draw the base grass texture
-		for (int ii = 101; ii >= 0; ii-=2){
-			for (int jj = 100; jj >= 0; jj--){
+		for (int ii = 101; ii >= 0; ii-=2) {
+			for (int jj = 100; jj >= 0; jj--) {
 				frameBufferBatch.draw(grasses.get((int)(Math.random()*100) % 3), ii*56, jj*56);
 				frameBufferBatch.draw(grasses.get((int)(Math.random()*100) % 3), ((ii-1)*56), (jj*56)+30);
 			}	
@@ -321,11 +315,11 @@ public class WorldMapScreen extends AbstractScreen {
 		frameBufferBatch.end();
 		frameBuffer.end();		
 		frameBufferBatch.dispose();
-		scenery = new TextureRegion(frameBuffer.getColorBufferTexture());
+		TextureRegion scenery = new TextureRegion(frameBuffer.getColorBufferTexture());
 		scenery.setRegion(56, 56, scenery.getRegionWidth() - 56, scenery.getRegionHeight() - 56); 
 		scenery.flip(false, true);
-		for (int ii = 2; ii >= 0; ii--){
-			for (int jj = 5; jj >= 0; jj--){
+		for (int ii = 2; ii >= 0; ii--) {
+			for (int jj = 5; jj >= 0; jj--) {
 				Image background = new Image(scenery);
 				background.addAction(Actions.moveTo(-700+ii*scenery.getRegionWidth(), -300+jj*(scenery.getRegionHeight()-10)));
 				group.addActorAt(0, background);
@@ -342,7 +336,7 @@ public class WorldMapScreen extends AbstractScreen {
 	
 	@Override
 	public void dispose() {
-		for(String path: resourceRequirements.keys()){
+		for(String path: resourceRequirements.keys()) {
 			if (path.equals(AssetEnum.CLICK_SOUND.getPath())) continue;
 			assetManager.unload(path);
 		}
