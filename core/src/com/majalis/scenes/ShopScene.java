@@ -218,12 +218,15 @@ public class ShopScene extends Scene {
 				}
 				break;
 			case SHOP:
+				for (int ii = 0; ii < 4; ii++) {
+					shop.consumables.add(new Potion(5, EffectType.MEAT));
+				}
+				shop.consumables.add(new Potion(10, EffectType.BANDAGE));
+				shop.consumables.add(new Potion(10, EffectType.BANDAGE));
+				shop.consumables.add(new Potion(10, EffectType.BANDAGE));
 				for (int ii = 10; ii <= 20; ii += 10) {
 					shop.consumables.add(new Potion(ii));
 					shop.consumables.add(new Potion(ii));
-				}
-				for (int ii = 0; ii < 4; ii++) {
-					shop.consumables.add(new Potion(5, EffectType.MEAT));
 				}
 				shop.consumables.add(new Potion(3, EffectType.BONUS_STRENGTH));
 				shop.consumables.add(new Potion(3, EffectType.BONUS_AGILITY));

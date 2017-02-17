@@ -126,10 +126,13 @@ public abstract class Item {
 					return magnitude / 2;
 				case MEAT:
 					return magnitude * 2;
+				case BANDAGE:
+					return 2;
 				default:
 					return 0;
 			}
 		}
+		
 		@Override
 		public boolean instantUse() {
 			return effect == EffectType.MEAT;
@@ -142,7 +145,7 @@ public abstract class Item {
 
 		@Override
 		public String getName() {
-			return effect.getDisplay() + " (" + magnitude + ")"; 
+			return effect.getDisplay() + (effect == EffectType.MEAT || effect == EffectType.BANDAGE ? "" : " (" + magnitude + ")"); 
 		}
 
 		@Override
@@ -158,6 +161,8 @@ public abstract class Item {
 					return "Heals the imbiber for " + magnitude + " health.";
 				case MEAT:
 					return "Increases food stores by " + magnitude + ".";
+				case BANDAGE:
+					return "Use to heal blood loss by " + magnitude + ".";
 				default:
 					return "Unknown potion.";
 			}
@@ -169,7 +174,8 @@ public abstract class Item {
 		BONUS_STRENGTH ("Ox Pot."),
 		BONUS_AGILITY ("Cat Pot."),
 		BONUS_ENDURANCE ("Bear Pot."),
-		MEAT ("Meat");
+		MEAT ("Meat"),
+		BANDAGE ("Bandage");
 		
 		private final String display;
 		private EffectType (String display) {
@@ -177,7 +183,6 @@ public abstract class Item {
 		}
 		
 		public String getDisplay() { return display; }
-		
 	}
 	
 	public class ItemEffect {

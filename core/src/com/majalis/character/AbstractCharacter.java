@@ -331,10 +331,11 @@ public abstract class AbstractCharacter extends Actor {
 			return resolvedAttack;
 		}
 		
-		resolvedAttack.addMessage(resolvedAttack.getUser() + " used " + resolvedAttack.getName() + "!");
-		
 		if (resolvedAttack.getItem() != null) {
 			resolvedAttack.addMessage(consumeItem(resolvedAttack.getItem()));
+		}
+		else if (!resolvedAttack.isAttack() && !resolvedAttack.isClimax() && resolvedAttack.getLust() == 0) {
+			resolvedAttack.addMessage(resolvedAttack.getUser() + " used " + resolvedAttack.getName() + "!");
 		}
 		
 		if (resolvedAttack.isHealing()) {
@@ -425,7 +426,7 @@ public abstract class AbstractCharacter extends Actor {
 			if (attack.getForceStance() == Stance.DOGGY && bootyliciousness != null)
 				result.add("They slap their hips against your " + bootyliciousness.toString().toLowerCase() + " booty!");
 			
-			if (!attack.isHealing() && attack.getBuff() == null && attack.getItem() != null){
+			if (attack.isAttack() || attack.isClimax() || attack.getLust() > 0) {
 				result.add(attack.getUser() + " used " + attack.getName() +  " on " + (secondPerson ? label.toLowerCase() : label) + "!");
 			}
 			
@@ -605,6 +606,13 @@ public abstract class AbstractCharacter extends Actor {
 			case MEAT:
 				result = "You ate the " + item.getName() + "! Food stores increased by 5.";
 				modFood(effect.getMagnitude());
+				break;
+			case BANDAGE:
+				int currentBleed = statuses.get(StatusType.BLEEDING.toString(), 0);
+				if (currentBleed != 0) {
+					result = "You applied the " + item.getName() + " to staunch bleeding by " + Math.max(currentBleed, effect.getMagnitude()) + "!";
+					statuses.put(StatusType.BLEEDING.toString(), Math.max(currentBleed - effect.getMagnitude(), 0));
+				}
 				break;
 			default:
 				break;
