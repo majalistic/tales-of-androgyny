@@ -22,10 +22,10 @@ public enum Techniques {
 	/* Offensive Techniques */  
 	POWER_ATTACK 		(new AttackTechnique(Stance.OFFENSIVE, Stance.OFFENSIVE, "Power Attack", 3, 3, 4, TechniqueHeight.LOW).addBonus(BonusCondition.ENEMY_ON_GROUND, BonusType.POWER_MOD, 4).build()),
 	TEMPO_ATTACK  		(new AttackTechnique(Stance.OFFENSIVE, Stance.OFFENSIVE, "Tempo Attack", 2, 2, 3, TechniqueHeight.LOW).build()),
-	SPRING_ATTACK  		(new AttackTechnique(Stance.BALANCED, Stance.OFFENSIVE, "Spring Attack", 1, 4, 3, TechniqueHeight.LOW).build()),
+	SPRING_ATTACK  		(new AttackTechnique(Stance.BALANCED, Stance.OFFENSIVE, "Spring Attack", 1, 4, 3, TechniqueHeight.LOW).addBonus(BonusCondition.OUTMANEUVER, BonusType.BLEEDING, 1).build()),
 
 	/* Blitz Techniques */
-	BLITZ_ATTACK  		(new AttackTechnique(Stance.OFFENSIVE, Stance.BLITZ, "Blitz Attack", 4, 4, 6, TechniqueHeight.LOW).build()),
+	BLITZ_ATTACK  		(new AttackTechnique(Stance.OFFENSIVE, Stance.BLITZ, "Blitz Attack", 4, 4, 6, TechniqueHeight.LOW).addBonus(BonusCondition.OUTMANEUVER, BonusType.BLEEDING, 1).build()),
 	ALL_OUT_BLITZ		(new AttackTechnique(Stance.BLITZ, Stance.BLITZ, "All-Out Blitz", 6, 4, 8, 1.5).build()),
 	HOLD_BACK			(new NonAttackTechnique(Stance.BLITZ, Stance.OFFENSIVE, "Hold Back", 0, 3).build()),
 	
