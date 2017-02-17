@@ -105,6 +105,7 @@ public class Battle extends Group{
 
 	private Group uiGroup;
 	private boolean uiHidden;
+	private boolean onload = true;
 	
 	public Battle(SaveService saveService, AssetManager assetManager, BitmapFont font, PlayerCharacter character, EnemyCharacter enemy, ObjectMap<String, Integer> outcomes, Background battleBackground, Background battleUI, String consoleText) {
 		this.saveService = saveService;
@@ -519,9 +520,9 @@ public class Battle extends Group{
 			bonusDisplay.setText("");
 			uiGroup.removeActor(table);
 			hoverGroup.clearActions();
-			hoverGroup.addAction(Actions.visible(true));
-			hoverGroup.addAction(Actions.moveTo(300, 380));
-			hoverGroup.addAction(Actions.fadeIn(.1f));
+			hoverGroup.addAction(visible(true));
+			hoverGroup.addAction(moveTo(300, 380));
+			hoverGroup.addAction(fadeIn(.1f));
 			this.addListener(
 				new ClickListener() {
 			        @Override
@@ -543,15 +544,19 @@ public class Battle extends Group{
 		return new ClickListener() {
 	        @Override
 	        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-				skillDisplay.setText(character.getStatTextDisplay());
-				bonusDisplay.setText(character.getStatBonusDisplay());
-				penaltyDisplay.setText(character.getStatPenaltyDisplay());
-				showHoverGroup();
+	        	if (onload) {
+	        		onload = false;
+	        	}
+	        	else {
+					skillDisplay.setText(character.getStatTextDisplay());
+					bonusDisplay.setText(character.getStatBonusDisplay());
+					penaltyDisplay.setText(character.getStatPenaltyDisplay());
+					showHoverGroup();
+	        	}
 			}
 			@Override
 	        public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
 				hideHoverGroup();
-				penaltyDisplay.setText("");
 			}
 	    };	
 	}
@@ -567,6 +572,7 @@ public class Battle extends Group{
 				skillDisplay.setText(description);
 				bonusDisplay.setText(bonusDescription);
 				bonusDisplay.setColor(Color.FOREST);
+				penaltyDisplay.setText("");
 				changeSelection(index);		
 				showHoverGroup();
 			}
