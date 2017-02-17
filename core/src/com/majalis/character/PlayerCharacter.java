@@ -167,7 +167,10 @@ public class PlayerCharacter extends AbstractCharacter {
 				}
 				return possibles;
 			case BALANCED:
-				possibles = getTechniques(target, SPRING_ATTACK, NEUTRAL_ATTACK, CAUTIOUS_ATTACK, BLOCK, INCANTATION, SLIDE, DUCK, HIT_THE_DECK, USE_ITEM);
+				possibles = getTechniques(target, SPRING_ATTACK, NEUTRAL_ATTACK, CAUTIOUS_ATTACK, BLOCK, INCANTATION, SLIDE, DUCK, HIT_THE_DECK);
+				if (hasItemsToUse()) {
+					possibles.addAll(getTechniques(target, USE_ITEM));
+				}
 				if (target.getStance() == Stance.SUPINE && target.isErect() && target.enemyType != EnemyEnum.SLIME && target.enemyType != EnemyEnum.CENTAUR && target.enemyType != EnemyEnum.UNICORN) {
 					possibles.addAll(getTechniques(target, SIT_ON_IT));
 				}
@@ -236,6 +239,15 @@ public class PlayerCharacter extends AbstractCharacter {
 		}
 	}
 	
+	private boolean hasItemsToUse() {
+		for (Item item : inventory) {
+			if (item.isConsumable()) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	private Array<Technique> getConsumableItems(AbstractCharacter target) {
 		Array<Technique> consumableItems = new Array<Technique>();
 		for (Item item : inventory) {
