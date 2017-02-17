@@ -15,6 +15,9 @@ public abstract class Item {
 	public boolean isConsumable() {
 		return false;
 	}	
+	public boolean instantUse() {
+		return false;
+	}
 	public boolean isEquippable() {
 		return false;
 	}
@@ -126,6 +129,10 @@ public abstract class Item {
 				default:
 					return 0;
 			}
+		}
+		@Override
+		public boolean instantUse() {
+			return effect == EffectType.MEAT;
 		}
 
 		@Override

@@ -690,7 +690,12 @@ public class PlayerCharacter extends AbstractCharacter {
 	}
 	
 	public void receiveItem(Item item) {
-		inventory.add(item);
+		if (item.instantUse()) {
+			consumeItem(item);
+		}
+		else {
+			inventory.add(item);
+		}
 	}
 	
 	public boolean buyItem(Item item, int cost) {
