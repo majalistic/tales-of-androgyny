@@ -137,11 +137,79 @@ public class EnemyCharacter extends AbstractCharacter {
 				resolvedAttack.addMessage("They're about to buck you off!");
 			}
 		}
-		if (resolvedAttack.isSuccessful() && resolvedAttack.isClimax()) {
-			if (enemyType == EnemyEnum.SLIME) {
-				resolvedAttack.addDialog("\"Here comes the slime, honey!\" she cries.");
+		if (resolvedAttack.isSuccessful()) {
+			if (resolvedAttack.getForceStance() == Stance.FULL_NELSON && enemyType == EnemyEnum.BRIGAND) {
+				resolvedAttack.addDialog("\"Got ya!\" she says, as she manhandles you from behind.");
 			}
-			climaxCounter++;
+			
+			if (oldStance != Stance.OFFENSIVE && stance == Stance.OFFENSIVE) {
+				switch (enemyType) {
+					case BRIGAND:
+						resolvedAttack.addDialog("\"Oorah!\"");
+						break;
+					case WERESLUT:
+						resolvedAttack.addDialog("\"Raaawr!\"");
+						break;
+					default:
+				}
+			}
+			if (!oldStance.isErotic() && stance.isErotic()) {
+				switch (enemyType) {
+					case BRIGAND:
+						if (stance.isAnal()) {
+							resolvedAttack.addDialog("\"Oooooryah!\"");
+						}
+						else if (stance.isAnal()) {
+							resolvedAttack.addDialog("\"Yeah, that's right, suck it!\"");
+						} 
+						break;
+					case CENTAUR:
+						if (stance.isAnal()) {
+							resolvedAttack.addDialog("\"Hmph.\"");
+						}
+						else if (stance.isAnal()) {
+							resolvedAttack.addDialog("\"Open up.\"");
+						} 
+						break;
+					case GOBLIN:
+						if (stance.isAnal()) {
+							resolvedAttack.addDialog("\"Nyahaha! Up the butt!\"");
+						}
+						else if (stance.isAnal()) {
+							resolvedAttack.addDialog("\"That's right, pinkskin, suck on that gobbo dick!\"");
+						} 
+						break;
+					case HARPY:
+						break;
+					case SLIME:
+						break;
+					case UNICORN:
+						break;
+					case WERESLUT:
+						break;
+				}
+			}
+			
+			if (resolvedAttack.isClimax()) {
+				switch (enemyType) {
+					case SLIME:
+						resolvedAttack.addDialog("\"Here comes the slime, honey!\" she cries.");
+						break;
+					case BRIGAND:
+						break;
+					case CENTAUR:
+						break;
+					case GOBLIN:
+						break;
+					case HARPY:
+						break;
+					case UNICORN:
+						break;
+					case WERESLUT:
+						break;
+					}
+				climaxCounter++;
+			}
 		}
 		return super.doAttack(resolvedAttack);
 	}
