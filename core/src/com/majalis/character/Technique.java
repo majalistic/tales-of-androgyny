@@ -152,6 +152,7 @@ public class Technique {
 			technique.isGrapple() ? thisPayload.getTotalPower() : 0,
 			otherTechnique.isBlockable() ? thisPayload.getDisarm() : 0,
 			thisPayload.getTrip(),
+			thisPayload.getBleeding(),
 			technique.getClimaxType(), 
 			getForceStance(),
 			technique.isSpell(),
@@ -230,6 +231,7 @@ public class Technique {
 		private final int disarm;
 		private final int trip;
 		private final int evasion;
+		private final int bleeding;
 		private final double knockdown;
 		private final boolean hasPriority;
 		
@@ -256,6 +258,7 @@ public class Technique {
 			double knockdownCalc = technique.getKnockdown();
 			int tripCalc = 0;
 			int evasionCalc = 0;
+			int bleedingCalc = technique.isDamaging() && !technique.isSpell() ? basePower / 3 : 0;
 			boolean hasPriorityCalc = false;
 			
 			for (Bonus bonusBundle : toApply) {	
@@ -300,6 +303,9 @@ public class Technique {
 						case EVASION:
 							evasionCalc += bonus.value;
 							break;
+						case BLEEDING:
+							bleedingCalc += bonus.value;
+							break;
 					}
 				}
 			}
@@ -316,18 +322,22 @@ public class Technique {
 			trip = tripCalc;
 			knockdown = knockdownCalc;
 			evasion = evasionCalc;
+			bleeding = currentState.getWeapon() != null ? bleedingCalc : 0;
 			hasPriority = hasPriorityCalc;
 		}
 		
 		private int getStaminaCost() {
 			return staminaCost;
 		}
+		
 		private int getStabilityCost() {
 			return stabilityCost;
 		}
+		
 		private int getManaCost() {
 			return manaCost;
 		}
+		
 		private int getBlock() {
 			return block;
 		}
@@ -376,6 +386,10 @@ public class Technique {
 		
 		private int getEvasion() {
 			return evasion;
+		}
+		
+		private int getBleeding() {
+			return bleeding;
 		}
 	}
 }

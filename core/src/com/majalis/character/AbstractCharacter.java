@@ -267,6 +267,7 @@ public abstract class AbstractCharacter extends Actor {
 		}
 		return staminaMod;
 	}
+	
 	// right now this and "doAttack" handle once-per-turn character activities
 	public void extractCosts(Technique technique) {
 		int staminaMod = getStaminaMod(technique); 
@@ -274,6 +275,7 @@ public abstract class AbstractCharacter extends Actor {
 		modStability(-technique.getStabilityCost());
 		modStability(getStabilityRegen());
 		modMana(-technique.getManaCost());
+		modHealth(-getBloodLossDamage());
 		
 		Array<String> toRemove = new Array<String>();
 		// statuses degrade with time in a general way currently
@@ -297,6 +299,10 @@ public abstract class AbstractCharacter extends Actor {
 		}
 	}
 	
+	private int getBloodLossDamage() {
+		return Math.max(0, statuses.get(StatusType.BLEEDING.toString(), 0) - getEndurance());
+	}
+	
 	protected CharacterState getCurrentState(AbstractCharacter target) {		
 		return new CharacterState(getStats(), getRawStats(), weapon, stability < 5, currentMana, this, target);
 	}
@@ -306,8 +312,14 @@ public abstract class AbstractCharacter extends Actor {
 	}
 	
 	public Attack doAttack(Attack resolvedAttack) {
+		
+		int bleedDamage = getBloodLossDamage();
+		if (bleedDamage > 0) {
+			resolvedAttack.addMessage(label + (secondPerson? " bleed" : " bleeds") + " out for " + getBloodLossDamage() + " damage!");
+		}
+		
 		if (!resolvedAttack.isSuccessful()) {
-			resolvedAttack.addMessage(resolvedAttack.getUser() + " used " + resolvedAttack.getName() + (resolvedAttack.getStatus() == Status.MISSED ? " but missed!" : (resolvedAttack.getStatus() == Status.EVADED ? " but was evaded!" : resolvedAttack.getStatus() == Status.PARRIED ? " but was parried!" : resolvedAttack.getStatus() == Status.FIZZLE ? " but the spell fizzled!" : "! FAILURE!")));
+			resolvedAttack.addMessage(resolvedAttack.getUser() + " used " + resolvedAttack.getName() + (resolvedAttack.getStatus() == Status.MISSED ? " but missed!" : (resolvedAttack.getStatus() == Status.EVADED ? " but was evaded!" : resolvedAttack.getStatus() == Status.PARRIED ? " but was parried!" : resolvedAttack.getStatus() == Status.FIZZLE ? " but the spell fizzled!" : "! FAILURE!")));			
 			
 			if (resolvedAttack.getStatus() == Status.MISSED || resolvedAttack.getStatus() == Status.EVADED && enemyType == EnemyEnum.HARPY && stance == Stance.FELLATIO && resolvedAttack.getForceStance() == Stance.FELLATIO) {
 				resolvedAttack.addMessage("She crashes to the ground!");
@@ -315,9 +327,11 @@ public abstract class AbstractCharacter extends Actor {
 			}
 			else if(resolvedAttack.getForceStance() != null){
 				stance = oldStance;
-			}
+			}	
 			return resolvedAttack;
 		}
+		
+		resolvedAttack.addMessage(resolvedAttack.getUser() + " used " + resolvedAttack.getName() + "!");
 		
 		if (resolvedAttack.getItem() != null) {
 			resolvedAttack.addMessage(consumeItem(resolvedAttack.getItem()));
@@ -443,6 +457,11 @@ public abstract class AbstractCharacter extends Actor {
 			if (damage > 0) {	
 				currentHealth -= damage;
 				result.add("The blow strikes for " + damage + " damage!");
+				int bleed = attack.getBleeding();
+				if (bleed > 0) {
+					result.add("It opens wounds! +" + bleed + " blood loss!");
+					statuses.put(StatusType.BLEEDING.toString(), statuses.get(StatusType.BLEEDING.toString(), 0) + bleed);
+				}
 			}
 			
 			int knockdown = attack.getForce();

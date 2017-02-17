@@ -137,6 +137,9 @@ public class Bonus {
 				case EVASION:
 					description += "Evasion +" + bonus.value + "%";
 					break;
+				case BLEEDING:
+					description += "Bleeding +" + bonus.value;
+					break;
 			}
 			description += "\n";
 		}
@@ -174,6 +177,7 @@ public class Bonus {
 		DISARM,
 		PARRY,
 		TRIP,
-		EVASION;
+		EVASION,
+		BLEEDING;
 	}
 }

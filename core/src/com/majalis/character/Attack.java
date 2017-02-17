@@ -21,6 +21,7 @@ public class Attack {
 	private final int grapple;
 	private final int disarm;
 	private final int trip;
+	private final int bleeding;
 	private final ClimaxType climaxType;
 	private final Stance forceStance;
 	private final Array<String> results;
@@ -45,7 +46,7 @@ public class Attack {
 	}
 	
 	// this should have all the info for an attack, including damage or effects that were blocked
-	protected Attack(Status status, String name, int rawDamage, double blockMod, int force, int rawArmorBreak, int gutcheck, int healing, int lust, int grapple, int disarm, int trip, ClimaxType climaxType, Stance forceStance, boolean isSpell, Buff buff, boolean isAttack, boolean ignoresArmor, Array<Bonus> bonuses, Item useItem, AbstractCharacter user) {
+	protected Attack(Status status, String name, int rawDamage, double blockMod, int force, int rawArmorBreak, int gutcheck, int healing, int lust, int grapple, int disarm, int trip, int bleeding, ClimaxType climaxType, Stance forceStance, boolean isSpell, Buff buff, boolean isAttack, boolean ignoresArmor, Array<Bonus> bonuses, Item useItem, AbstractCharacter user) {
 		this.status = status;
 		this.name = name;
 		this.rawDamage = rawDamage;
@@ -58,6 +59,7 @@ public class Attack {
 		this.grapple = grapple;
 		this.disarm = disarm;
 		this.trip = trip;
+		this.bleeding = bleeding;
 		this.climaxType = climaxType;
 		this.forceStance = forceStance;
 		this.isSpell = isSpell;
@@ -172,6 +174,10 @@ public class Attack {
 	
 	public int getClimaxVolume() {
 		return user.getClimaxVolume();
+	}
+	
+	public int getBleeding() {
+		return (int) (bleeding * blockMod);
 	}
 	
 }

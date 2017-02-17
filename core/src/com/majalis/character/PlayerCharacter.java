@@ -344,9 +344,17 @@ public class PlayerCharacter extends AbstractCharacter {
 		buttful = 0;
 		mouthful = 0;
 		baseDefense = 6;
-		weapon = disarmedWeapon;
-		disarmedWeapon = null;
+		if (disarmedWeapon != null) {
+			weapon = disarmedWeapon;
+			disarmedWeapon = null;
+		}
+
 		setCurrentPortrait(getNeutralFace());
+		int currentBleed = statuses.get(StatusType.BLEEDING.toString(), 0);
+		if (currentBleed != 0) {
+			statuses.put(StatusType.BLEEDING.toString(), Math.max(currentBleed - 5, 0));
+		}
+		
 	}
 
 	public enum Femininity {

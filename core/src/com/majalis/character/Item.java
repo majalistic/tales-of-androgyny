@@ -55,11 +55,11 @@ public abstract class Item {
 		@Override
 		public String getDescription() {
 			switch (type) {
-				case Dagger: return "Thrusting weapon whose efficacy is dependent on the wielder's agility. [Damage: 0 + Agility / 2]";
-				case Rapier: return "Thrusting weapon whose efficacy is dependent on the wielder's agility. [Damage: 1 + Agility / 3]";
-				case Gladius: return "Thrusting and slashing weapon whose efficacy is dependent on both the wielder's strength and agility. [Damage: 1 + (Strength + Agility) / 5]";
-				case Cutlass: return "Slashing weapon Weapon whose efficacy is dependent on both the wielder's strength and agility. [Damage: 1 + (Strength + Agility) / 5]";
-				case Broadsword: return "Thrusting and slashing weapon whose efficacy is dependent on the wielder's strength. [Damage: 1 + Strength / 3]";
+				case Dagger: return "Thrusting weapon whose efficacy is dependent on the wielder's agility. Causes bleed. [Damage: 0 + Agility / 2]";
+				case Rapier: return "Thrusting weapon whose efficacy is dependent on the wielder's agility. Causes bleed. [Damage: 1 + Agility / 3]";
+				case Gladius: return "Thrusting and slashing weapon whose efficacy is dependent on both the wielder's strength and agility. Causes bleed. [Damage: 1 + (Strength + Agility) / 5]";
+				case Cutlass: return "Slashing weapon Weapon whose efficacy is dependent on both the wielder's strength and agility. Causes bleed. [Damage: 1 + (Strength + Agility) / 5]";
+				case Broadsword: return "Thrusting and slashing weapon whose efficacy is dependent on the wielder's strength. Causes bleed. [Damage: 1 + Strength / 3]";
 				default: return "Unknown Weapon!";
 			}
 		}
