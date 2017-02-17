@@ -138,6 +138,9 @@ public class EnemyCharacter extends AbstractCharacter {
 			}
 		}
 		if (resolvedAttack.isSuccessful() && resolvedAttack.isClimax()) {
+			if (enemyType == EnemyEnum.SLIME) {
+				resolvedAttack.addDialog("\"Here comes the slime, honey!\" she cries.");
+			}
 			climaxCounter++;
 		}
 		return super.doAttack(resolvedAttack);

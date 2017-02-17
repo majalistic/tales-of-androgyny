@@ -68,7 +68,9 @@ public class Battle extends Group{
 	private final Image hoverImage;
 	private final Image characterPortrait;
 	private final Group hoverGroup;
+	private final Group dialogGroup;
 	private final Label console;
+	private final Label dialog;
 	private final Label skillDisplay;
 	private final Label bonusDisplay;
 	private final Label penaltyDisplay;
@@ -95,6 +97,7 @@ public class Battle extends Group{
 	private final Label enemyArmorLabel;
 	
 	private String consoleText;
+	private String dialogText;
 	private Array<TextButton> optionButtons;
 	private Technique selectedTechnique;
 	private int selection;	
@@ -107,7 +110,7 @@ public class Battle extends Group{
 	private boolean uiHidden;
 	private boolean onload = true;
 	
-	public Battle(SaveService saveService, AssetManager assetManager, BitmapFont font, PlayerCharacter character, EnemyCharacter enemy, ObjectMap<String, Integer> outcomes, Background battleBackground, Background battleUI, String consoleText) {
+	public Battle(SaveService saveService, AssetManager assetManager, BitmapFont font, PlayerCharacter character, EnemyCharacter enemy, ObjectMap<String, Integer> outcomes, Background battleBackground, Background battleUI, String consoleText, String dialogText) {
 		this.saveService = saveService;
 		this.assetManager = assetManager;
 		this.font = font;
@@ -115,6 +118,7 @@ public class Battle extends Group{
 		this.enemy = enemy;
 		this.outcomes = outcomes;
 		this.consoleText = consoleText;
+		this.dialogText = dialogText;
 		battleOver = false;
 		battleOutcomeDecided = false;
 		gameExit = false;	
@@ -178,6 +182,12 @@ public class Battle extends Group{
 		uiGroup.addActor(consoleBox);
 		consoleBox.setPosition(consoleXPos, consoleYPos);
 		
+		dialogGroup = new Group();
+		
+		Image dialogBox = new Image(assetManager.get(AssetEnum.BATTLE_TEXTBOX.getPath(), Texture.class));
+		dialogGroup.addActor(dialogBox);
+		dialogBox.setBounds(consoleXPos + 150, consoleYPos + 450, 400, 125);
+		
 		hoverImage = new Image(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class));
 		hoverImage.setBounds(hoverXPos, hoverYPos, hoverImage.getWidth() + 100, hoverImage.getHeight() + 100);
 		hoverGroup = new Group();
@@ -227,6 +237,21 @@ public class Battle extends Group{
 		pane.setScrollingDisabled(true, false);
 	
 		uiGroup.addActor(pane);
+		
+		dialog = new Label(dialogText, skin);
+		dialog.setWrap(true);
+		dialog.setColor(Color.PURPLE);
+		dialog.setAlignment(Align.top);
+		ScrollPane paneDialog = new ScrollPane(dialog);
+		paneDialog.setBounds(consoleXPos + 150, 350, 400, 220);
+		paneDialog.setScrollingDisabled(true, false);
+	
+		dialogGroup.addActor(paneDialog);
+		
+		uiGroup.addActor(dialogGroup);
+		if (dialogText.isEmpty()) {
+			dialogGroup.addAction(hide());
+		}
 		
 		skillDisplay = new Label("", skin);
 		skillDisplay.setWrap(true);
@@ -302,7 +327,10 @@ public class Battle extends Group{
 				displayTechniqueOptions();
 				saveService.saveDataValue(SaveEnum.PLAYER, character);
 				saveService.saveDataValue(SaveEnum.ENEMY, enemy);
-				saveService.saveDataValue(SaveEnum.CONSOLE, consoleText);				
+				Array<String> consoleComponents = new Array<String>();
+				consoleComponents.add(consoleText);
+				consoleComponents.add(dialogText);
+				saveService.saveDataValue(SaveEnum.CONSOLE, consoleComponents);
 			}
 
 			checkEndBattle();
@@ -347,9 +375,10 @@ public class Battle extends Group{
         newSelection(0);
 	}
 	
-	// should probably use String builder to build a string to display in the console - needs to properly be getting information from the interactions - may need to be broken up into its own class
+	//  may need to be broken up into its own class or have much of it refactored into AbstractCharacter for loose coupling
 	private void resolveTechniques(AbstractCharacter firstCharacter, Technique firstTechnique, AbstractCharacter secondCharacter, Technique secondTechnique) {
 		consoleText = "";
+		dialogText = "";
 		
 		// cache player character's stance from the previous turn; playerCharacter will cache stance at the start of this turn
 		Stance oldStance = firstCharacter.getStance();
@@ -416,9 +445,22 @@ public class Battle extends Group{
 				enemy.hitAnimation();
 			}
 		}
+		
 		// final mutations - attacks are applied to each character, their cached state within the techniques makes the ordering her irrelevant
-		printToConsole(firstCharacter.receiveAttack(attackForFirstCharacter));
-		printToConsole(secondCharacter.receiveAttack(attackForSecondCharacter));		
+		Array<Array<String>> results1 = firstCharacter.receiveAttack(attackForFirstCharacter);
+		Array<Array<String>> results2 = secondCharacter.receiveAttack(attackForSecondCharacter);
+		
+		printToConsole(results1.get(0));
+		printToConsole(results2.get(0));
+		printToDialog(results1.get(1));
+		printToDialog(results2.get(1));
+		
+		if (dialogText.isEmpty()) {
+			dialogGroup.addAction(hide());
+		}
+		else {
+			dialogGroup.addAction(show());
+		}
 		
 		if (attackForFirstCharacter.isAttack() && attackForFirstCharacter.isSuccessful() && attackForFirstCharacter.getStatus() != Status.BLOCKED) {
 			characterPortrait.setDrawable(getDrawable(AssetEnum.PORTRAIT_HIT.getPath()));
@@ -458,6 +500,7 @@ public class Battle extends Group{
 		}
 		
 		console.setText(consoleText);
+		dialog.setText(dialogText);
 		
 		characterHealth.setValue(character.getHealthPercent());
 		characterStamina.setValue(character.getStaminaPercent());
@@ -498,6 +541,16 @@ public class Battle extends Group{
 	private void printToConsole(String result) { 
 		consoleText += result + "\n";
 	}
+
+	private void printToDialog(Array<String> results) {
+		for (String result: results) {
+			printToDialog(result);
+		}
+	}
+	
+	private void printToDialog(String result) { 
+		dialogText += result + "\n";
+	}
 	
 	private void changeSelection(int newSelection) {
 		if (selection == newSelection) return;
@@ -528,7 +581,7 @@ public class Battle extends Group{
 			        @Override
 			        public void clicked(InputEvent event, float x, float y) {
 			        	battleOver = true;
-			        	saveService.saveDataValue(SaveEnum.CONSOLE, "");
+			        	saveService.saveDataValue(SaveEnum.CONSOLE, new Array<String>());
 			        }
 				}
 			);

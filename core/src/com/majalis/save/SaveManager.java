@@ -5,6 +5,7 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Base64Coder;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.badlogic.gdx.utils.IntArray;
@@ -103,7 +104,7 @@ public class SaveManager implements SaveService, LoadService {
 	    	case EXPERIENCE:		save.player.modExperience((Integer) object); result = "+" + ((Integer) object).toString() + " XP!"; break; // this should get a result back from modExperience
 	    	case MODE:				save.mode = (GameMode) object; if ((GameMode) object == GameMode.SKIRMISH) save.player.load() ; break;
 	    	case MUSIC:				save.music = (String) object; break;
-	    	case CONSOLE:			save.console = (String) object; break;
+	    	case CONSOLE:			save.console = extracted(object); break;
 	    	case ANAL:				result = save.player.receiveSex((SexualExperience) object); break;
 	    	case GOBLIN_VIRGIN:		save.player.setGoblinVirginity((Boolean) object); break;
 	    	case ITEM:				save.player.receiveItem(new Item.Weapon(WeaponType.Bow)); result = "You have received a bow!"; break;
@@ -114,6 +115,11 @@ public class SaveManager implements SaveService, LoadService {
     	}
         return result;
 	
+	}
+
+	@SuppressWarnings("unchecked")
+	private Array<String> extracted(Object object) {
+		return (Array<String>) object;
 	}
 	
     @SuppressWarnings("unchecked")
@@ -140,7 +146,7 @@ public class SaveManager implements SaveService, LoadService {
 	    	case EXPERIENCE:		return (T) (Integer) save.player.getExperience();
 	    	case MODE:				return (T) (GameMode) save.mode;
 	    	case MUSIC:				return (T) (String) save.music;
-	    	case CONSOLE:			return (T) (String) save.console;
+	    	case CONSOLE:			return (T) (Array<String>) save.console;
 	    	case ANAL:			
 	    	case ITEM:
 	    	case GOBLIN_VIRGIN:		break;
@@ -255,7 +261,7 @@ public class SaveManager implements SaveService, LoadService {
     	private int sceneCode;
     	private EncounterCode encounterCode;
     	private int nodeCode;
-    	private String console;
+    	private Array<String> console;
     	private Vector3 cameraPos;
     	private IntArray visitedList;
     	// this can probably be refactored to contain a particular battle, but may need to duplicate the player character
@@ -278,7 +284,7 @@ public class SaveManager implements SaveService, LoadService {
     			encounterCode = EncounterCode.INITIAL;
     			returnContext = GameContext.WORLD_MAP;
         		nodeCode = 1;
-        		console = "";
+        		console = new Array<String>();
         		shops = new ObjectMap<String, Shop>();
         		cameraPos = new Vector3(500, 500, 0);
         		visitedList = new IntArray(true, new int[]{1}, 0, 1);

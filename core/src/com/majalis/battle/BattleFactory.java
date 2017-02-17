@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.majalis.asset.AssetEnum;
 import com.majalis.character.EnemyCharacter;
@@ -53,9 +54,12 @@ public class BattleFactory {
 			}
 			enemy.init(assetManager.get(enemy.getImagePath(), Texture.class), textures);
 		}
+		@SuppressWarnings("unchecked")
+		Array<String> console = (Array<String>) loadService.loadDataValue(SaveEnum.CONSOLE, Array.class);
 		return new Battle(
 			saveService, assetManager, font, playerCharacter, enemy, battleCode.outcomes, 
-			new BackgroundBuilder(assetManager.get(enemy.getBGPath(), Texture.class)).build(), new BackgroundBuilder(assetManager.get(AssetEnum.BATTLE_UI.getPath(), Texture.class)).build(), (String) loadService.loadDataValue(SaveEnum.CONSOLE, String.class) );
+			new BackgroundBuilder(assetManager.get(enemy.getBGPath(), Texture.class)).build(), new BackgroundBuilder(assetManager.get(AssetEnum.BATTLE_UI.getPath(), Texture.class)).build(), console.size > 0 ? console.get(0) : "", console.size > 1 ? console.get(1) : ""
+		);
 	}
 	
 	private Texture getTexture(EnemyEnum type){

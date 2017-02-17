@@ -417,7 +417,7 @@ public abstract class AbstractCharacter extends Actor {
 		return resolvedAttack;
 	}
 	
-	public Array<String> receiveAttack(Attack attack) {
+	public Array<Array<String>> receiveAttack(Attack attack) {
 		Array<String> result = attack.getMessages();
 		
 		boolean knockedDown = false;
@@ -574,8 +574,10 @@ public abstract class AbstractCharacter extends Actor {
 		if (currentHealth <= 0) {
 			result.add(label + (secondPerson ? " are " : " is ")  + "defeated!");
 		}
-		
-		return result;
+		Array<Array<String>> results =  new Array<Array<String>>();
+		results.add(result);
+		results.add(new Array<String>());
+		return results;
 	}
 	
 	protected abstract String climax();

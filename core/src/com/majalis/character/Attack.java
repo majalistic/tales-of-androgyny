@@ -24,7 +24,6 @@ public class Attack {
 	private final int bleeding;
 	private final ClimaxType climaxType;
 	private final Stance forceStance;
-	private final Array<String> results;
 	private final boolean isSpell;
 	private final Buff buff;
 	private final boolean isAttack;
@@ -33,6 +32,9 @@ public class Attack {
 	private final Item useItem;
 	// this should be refactored to be passed in
 	private final AbstractCharacter user;
+	
+	private final Array<String> results;
+	private final Array<String> dialog;
 	
 	public enum Status {
 		SUCCESS,
@@ -63,13 +65,15 @@ public class Attack {
 		this.climaxType = climaxType;
 		this.forceStance = forceStance;
 		this.isSpell = isSpell;
-		this.results = new Array<String>();
 		this.buff = buff;
 		this.isAttack = isAttack;
 		this.ignoresArmor = ignoresArmor;
 		this.bonuses = bonuses;
 		this.useItem = useItem;
 		this.user = user;
+
+		this.results = new Array<String>();
+		this.dialog = new Array<String>();
 	}
 	
 	protected String getName() {
@@ -139,7 +143,15 @@ public class Attack {
 	protected Array<String> getMessages() {
 		return results;
 	}
+	
+	protected void addDialog(String message) {
+		dialog.add(message);
+	}
 
+	protected Array<String> getDialog() {
+		return dialog;
+	}
+	
 	protected boolean isClimax() {
 		return climaxType != null;
 	}
