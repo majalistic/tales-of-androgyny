@@ -459,7 +459,7 @@ public abstract class AbstractCharacter extends Actor {
 				currentHealth -= damage;
 				result.add("The blow strikes for " + damage + " damage!");
 				int bleed = attack.getBleeding();
-				if (bleed > 0) {
+				if (bleed > 0 && canBleed()) {
 					result.add("It opens wounds! +" + bleed + " blood loss!");
 					statuses.put(StatusType.BLEEDING.toString(), statuses.get(StatusType.BLEEDING.toString(), 0) + bleed);
 				}
@@ -579,6 +579,7 @@ public abstract class AbstractCharacter extends Actor {
 	}
 	
 	protected abstract String climax();
+	protected boolean canBleed() { return true; }
 	
 	public String consumeItem(Item item) {
 		ItemEffect effect = item.getUseEffect();

@@ -567,4 +567,7 @@ public class EnemyCharacter extends AbstractCharacter {
 			default: return 5;
 		}
 	}
+	
+	@Override
+	protected boolean canBleed() { return enemyType != EnemyEnum.SLIME; }
 } 
