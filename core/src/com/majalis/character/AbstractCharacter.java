@@ -268,7 +268,7 @@ public abstract class AbstractCharacter extends Actor {
 		return staminaMod;
 	}
 	// right now this and "doAttack" handle once-per-turn character activities
-	public Technique extractCosts(Technique technique) {
+	public void extractCosts(Technique technique) {
 		int staminaMod = getStaminaMod(technique); 
 		modStamina(-staminaMod);
 		modStability(-technique.getStabilityCost());
@@ -295,8 +295,6 @@ public abstract class AbstractCharacter extends Actor {
 		if (oldStance != Stance.PRONE && oldStance != Stance.SUPINE && (stance == Stance.PRONE || stance == Stance.SUPINE)) {
 			setStabilityToMin();
 		}
-		
-		return technique;
 	}
 	
 	protected CharacterState getCurrentState(AbstractCharacter target) {		

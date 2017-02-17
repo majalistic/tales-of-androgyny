@@ -350,17 +350,20 @@ public class Battle extends Group{
 	private void resolveTechniques(AbstractCharacter firstCharacter, Technique firstTechnique, AbstractCharacter secondCharacter, Technique secondTechnique) {
 		consoleText = "";
 		
+		// cache player character's stance from the previous turn; playerCharacter will cache stance at the start of this turn
 		Stance oldStance = firstCharacter.getStance();
 		
+		// no mutations occur here - characters return their stance modification text
 		printToConsole(firstCharacter.getStanceTransform(firstTechnique));
 		printToConsole(secondCharacter.getStanceTransform(secondTechnique));
 		
-		firstTechnique = firstCharacter.extractCosts(firstTechnique);
-		secondTechnique = secondCharacter.extractCosts(secondTechnique);
+		// first mutation - characters lose stamina, stability, mana, cache their current stance, change their current stance, 
+		firstCharacter.extractCosts(firstTechnique);
+		secondCharacter.extractCosts(secondTechnique);
 	
+		// receive the final state information from each character to apply to their attacks
 		Attack attackForFirstCharacter = secondCharacter.doAttack(secondTechnique.resolve(firstTechnique));
 		Attack attackForSecondCharacter = firstCharacter.doAttack(firstTechnique.resolve(secondTechnique));
-		
 		
 		if (attackForFirstCharacter.isAttack()) {
 			slash.setState(0);
@@ -412,24 +415,24 @@ public class Battle extends Group{
 				enemy.hitAnimation();
 			}
 		}
-		
+		// final mutations - attacks are applied to each character, their cached state within the techniques makes the ordering her irrelevant
 		printToConsole(firstCharacter.receiveAttack(attackForFirstCharacter));
 		printToConsole(secondCharacter.receiveAttack(attackForSecondCharacter));		
 		
 		if (attackForFirstCharacter.isAttack() && attackForFirstCharacter.isSuccessful() && attackForFirstCharacter.getStatus() != Status.BLOCKED) {
-			characterPortrait.setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(AssetEnum.PORTRAIT_HIT.getPath(), Texture.class))));
+			characterPortrait.setDrawable(getDrawable(AssetEnum.PORTRAIT_HIT.getPath()));
 			characterPortrait.addAction(Actions.sequence(Actions.moveBy(-10, -10), Actions.delay(.1f), Actions.moveBy(0, 20), Actions.delay(.1f), Actions.moveBy(20, -20), Actions.delay(.1f), Actions.moveBy(0, 20), Actions.delay(.1f), Actions.moveTo(-5 * 1.5f, 615 * 1.5f),  
 				new Action(){
 					@Override
 					public boolean act(float delta) {
-						characterPortrait.setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(character.popPortraitPath(), Texture.class))));	
+						characterPortrait.setDrawable(getDrawable(character.popPortraitPath()));	
 						return true;
 					}
 				})
 			);
 		}
 		else {
-			characterPortrait.setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(character.popPortraitPath(), Texture.class))));	
+			characterPortrait.setDrawable(getDrawable(character.popPortraitPath()));	
 		}
 		
 		if (oldStance.isAnal() && firstCharacter.getStance().isAnal()) {
