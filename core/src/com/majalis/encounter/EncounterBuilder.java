@@ -298,8 +298,10 @@ public class EncounterBuilder {
 								getTextScenes(getScript(encounterCode, 11), font, slimeBackground,
 									getTextScenes(getArray(new String[]{"You banged the slime!", "You receive 2 Experience."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.EXPERIENCE, 2)}), getEndScene(EndScene.Type.ENCOUNTER_OVER))
 								),
-								getTextScenes(getScript(encounterCode, 12), font, slimeDoggyBackground, getArray(new Mutation[]{analReceive}),
-									getTextScenes(getArray(new String[]{"You got banged by the slime!", "You receive 3 Experience."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.EXPERIENCE, 3)}), getEndScene(EndScene.Type.ENCOUNTER_OVER))
+								getTextScenes(getScript(encounterCode, 12), font, slimeBackground, 
+									getTextScenes(getScript(encounterCode, 13), font, slimeDoggyBackground, getArray(new Mutation[]{analReceive}),
+										getTextScenes(getArray(new String[]{"You got banged by the slime!", "You receive 3 Experience."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.EXPERIENCE, 3)}), getEndScene(EndScene.Type.ENCOUNTER_OVER))
+									)
 								)
 							)
 						),
