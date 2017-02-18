@@ -25,7 +25,7 @@ public class BattleFactory {
 	private final LoadService loadService;
 	private final AssetManager assetManager;
 	private final BitmapFont font;
-	public BattleFactory(SaveManager saveManager, AssetManager assetManager, FreeTypeFontGenerator fontGenerator){
+	public BattleFactory(SaveManager saveManager, AssetManager assetManager, FreeTypeFontGenerator fontGenerator) {
 		this.saveService = saveManager;
 		this.loadService = saveManager;
 		this.assetManager = assetManager;
@@ -40,16 +40,18 @@ public class BattleFactory {
 		if (enemy == null) {
 			enemy = getEnemy(battleCode.battleCode);
 			enemy.setStance(battleCode.enemyStance);
-			if (enemy.getStance() == Stance.DOGGY || enemy.getStance() == Stance.FELLATIO || enemy.getStance() == Stance.ANAL || enemy.getStance() == Stance.STANDING || enemy.getStance() == Stance.HANDY || enemy.getStance() == Stance.COWGIRL ){
+			if (enemy.getStance() == Stance.DOGGY || enemy.getStance() == Stance.FELLATIO || enemy.getStance() == Stance.ANAL || enemy.getStance() == Stance.STANDING || enemy.getStance() == Stance.HANDY || enemy.getStance() == Stance.COWGIRL ) {
 				enemy.setLust(10);
 			}
-			enemy.disarm();
+			if (battleCode.disarm) {
+				enemy.disarm();
+			}
 			playerCharacter.setStance(battleCode.playerStance);			
 		}
 		// loading old enemy
 		else {
 			ObjectMap<Stance, Texture> textures = new ObjectMap<Stance, Texture>();
-			for (String key : enemy.getTextureImagePaths().keys()){
+			for (String key : enemy.getTextureImagePaths().keys()) {
 				textures.put(Stance.valueOf(key), assetManager.get(enemy.getTextureImagePaths().get(key), Texture.class)) ;
 			}
 			enemy.init(assetManager.get(enemy.getImagePath(), Texture.class), textures);
@@ -62,20 +64,20 @@ public class BattleFactory {
 		);
 	}
 	
-	private Texture getTexture(EnemyEnum type){
+	private Texture getTexture(EnemyEnum type) {
 		return assetManager.get(type.getPath(), Texture.class);
 	}
 	
-	private ObjectMap<Stance, Texture> getTextures(EnemyEnum type){
+	private ObjectMap<Stance, Texture> getTextures(EnemyEnum type) {
 		ObjectMap<Stance, Texture> textures = new ObjectMap<Stance, Texture>();
 		
-		if (type == EnemyEnum.SLIME){
+		if (type == EnemyEnum.SLIME) {
 			textures.put(Stance.DOGGY, assetManager.get(AssetEnum.SLIME_DOGGY.getPath(), Texture.class));
 		}
-		else if(type == EnemyEnum.HARPY){
+		else if(type == EnemyEnum.HARPY) {
 			textures.put(Stance.FELLATIO, assetManager.get(AssetEnum.HARPY_FELLATIO.getPath(), Texture.class));
 		}
-		else if (type == EnemyEnum.GOBLIN){
+		else if (type == EnemyEnum.GOBLIN) {
 			textures.put(Stance.FACE_SITTING, assetManager.get(AssetEnum.GOBLIN_FACE_SIT.getPath(), Texture.class));
 			textures.put(Stance.SIXTY_NINE, assetManager.get(AssetEnum.GOBLIN_FACE_SIT.getPath(), Texture.class));
 		}
@@ -83,9 +85,9 @@ public class BattleFactory {
 		return textures;
 	}
 	
-	private EnemyCharacter getEnemy(int battleCode){
+	private EnemyCharacter getEnemy(int battleCode) {
 		
-		switch(battleCode){
+		switch(battleCode) {
 			case 0: return new EnemyCharacter(getTexture(EnemyEnum.WERESLUT), getTextures(EnemyEnum.WERESLUT), EnemyEnum.WERESLUT);
 			case 1: 
 			case 2004: return new EnemyCharacter(getTexture(EnemyEnum.HARPY), getTextures(EnemyEnum.HARPY), EnemyEnum.HARPY);
