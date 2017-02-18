@@ -824,6 +824,10 @@ public abstract class AbstractCharacter extends Actor {
 		return 3;
 	}
 	
+	public int getBleed() {
+		return statuses.get(StatusType.BLEEDING.toString(), 0);
+	}
+	
 	private enum StanceType {
 		ANAL,
 		ORAL,
