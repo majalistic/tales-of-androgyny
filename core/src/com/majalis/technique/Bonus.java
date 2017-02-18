@@ -140,6 +140,9 @@ public class Bonus {
 				case BLEEDING:
 					description += "Bleeding +" + bonus.value;
 					break;
+				case COUNTER:
+					description += "Counter +" + bonus.value + "%";
+					break;
 			}
 			description += "\n";
 		}
@@ -178,6 +181,7 @@ public class Bonus {
 		PARRY,
 		TRIP,
 		EVASION,
-		BLEEDING;
+		BLEEDING,
+		COUNTER;
 	}
 }

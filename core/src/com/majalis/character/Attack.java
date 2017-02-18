@@ -48,7 +48,8 @@ public class Attack {
 	}
 	
 	// this should have all the info for an attack, including damage or effects that were blocked
-	protected Attack(Status status, String name, int rawDamage, double blockMod, int force, int rawArmorBreak, int gutcheck, int healing, int lust, int grapple, int disarm, int trip, int bleeding, ClimaxType climaxType, Stance forceStance, boolean isSpell, Buff buff, boolean isAttack, boolean ignoresArmor, Array<Bonus> bonuses, Item useItem, AbstractCharacter user) {
+	protected Attack(Status status, String name, int rawDamage, double blockMod, int force, int rawArmorBreak, int gutcheck, int healing, int lust, int grapple, int disarm, int trip, int bleeding, ClimaxType climaxType, Stance forceStance, boolean isSpell, Buff buff, 
+					boolean isAttack, boolean ignoresArmor, Array<Bonus> bonuses, Item useItem, AbstractCharacter user) {
 		this.status = status;
 		this.name = name;
 		this.rawDamage = rawDamage;
@@ -169,11 +170,11 @@ public class Attack {
 	}
 	
 	public Buff getBuff() {
-		return buff.type == null ? null : buff;
+		return buff == null ? null : buff.type == null ? null : buff;
 	}
 	
 	public Array<Bonus> getBonuses() {
-		return bonuses;
+		return bonuses != null ? bonuses : new Array<Bonus>();
 	}
 
 	public boolean ignoresArmor() {

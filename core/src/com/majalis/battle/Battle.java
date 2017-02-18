@@ -375,6 +375,14 @@ public class Battle extends Group{
         newSelection(0);
 	}
 	
+	private Array<Attack> doAttacks(AbstractCharacter character, Array<Attack> attacks) {
+		Array<Attack> resolvedAttacks = new Array<Attack>();
+		for (Attack attack : attacks) {
+			resolvedAttacks.add(character.doAttack(attack));
+		}
+		return resolvedAttacks;
+	}
+	
 	//  may need to be broken up into its own class or have much of it refactored into AbstractCharacter for loose coupling
 	private void resolveTechniques(AbstractCharacter firstCharacter, Technique firstTechnique, AbstractCharacter secondCharacter, Technique secondTechnique) {
 		consoleText = "";
@@ -392,90 +400,99 @@ public class Battle extends Group{
 		secondCharacter.extractCosts(secondTechnique);
 	
 		// receive the final state information from each character to apply to their attacks
-		Attack attackForFirstCharacter = secondCharacter.doAttack(secondTechnique.resolve(firstTechnique));
-		Attack attackForSecondCharacter = firstCharacter.doAttack(firstTechnique.resolve(secondTechnique));
+		Array<Attack> attacksForFirstCharacter = doAttacks(secondCharacter, secondTechnique.resolve(firstTechnique));
+		Array<Attack> attacksForSecondCharacter = doAttacks(firstCharacter, firstTechnique.resolve(secondTechnique));
 		
-		if (attackForFirstCharacter.isAttack()) {
-			slash.setState(0);
-			if (!attackForFirstCharacter.isSuccessful()) {
-				this.addAction(new SoundAction(soundMap.get(AssetEnum.ATTACK_SOUND), .5f));
-				if (attackForFirstCharacter.getStatus() == Status.PARRIED) {
-					this.addAction(sequence(delay(5/60f), new SoundAction(soundMap.get(AssetEnum.PARRY_SOUND), .5f)));
-				}
-			}
-			else {
-				if (attackForFirstCharacter.getStatus() == Status.BLOCKED) {
-					this.addAction(sequence(delay(5/60f), new SoundAction(soundMap.get(AssetEnum.BLOCK_SOUND), .5f)));
-				}
-				else {
-					if (enemy.getWeapon() != null) {
-						this.addAction(sequence(delay(5/60f), new SoundAction(soundMap.get(AssetEnum.SWORD_SLASH_SOUND), .5f)));
-					}
-					else {
-						this.addAction(sequence(delay(20/60f), new SoundAction(soundMap.get(AssetEnum.HIT_SOUND), .3f)));
+		for (Attack attackForFirstCharacter : attacksForFirstCharacter) {
+			if (attackForFirstCharacter.isAttack()) {
+				slash.setState(0);
+				if (!attackForFirstCharacter.isSuccessful()) {
+					this.addAction(new SoundAction(soundMap.get(AssetEnum.ATTACK_SOUND), .5f));
+					if (attackForFirstCharacter.getStatus() == Status.PARRIED) {
+						this.addAction(sequence(delay(5/60f), new SoundAction(soundMap.get(AssetEnum.PARRY_SOUND), .5f)));
 					}
 				}
-			}
-		}
-		if (character.getStance() == Stance.CASTING && attackForSecondCharacter.isSuccessful()) {
-			this.addAction(sequence(delay(5/60f), new SoundAction(soundMap.get(AssetEnum.INCANTATION), .5f)));
-		}
-		if (attackForSecondCharacter.isAttack()) {
-			if (!attackForSecondCharacter.isSuccessful()) {
-				this.addAction(sequence(delay(15/60f), new SoundAction(soundMap.get(AssetEnum.ATTACK_SOUND), .5f)));
-				if (attackForSecondCharacter.getStatus() == Status.PARRIED) {
-					this.addAction(sequence(delay(5/60f), new SoundAction(soundMap.get(AssetEnum.PARRY_SOUND), .5f)));
-				}
-			}
-			else {
-				if (attackForSecondCharacter.isSpell()) {
-					this.addAction(sequence(delay(5/60f), new SoundAction(soundMap.get(AssetEnum.FIREBALL_SOUND), .5f)));
-				}
 				else {
-					if (attackForSecondCharacter.getStatus() == Status.BLOCKED) {
+					if (attackForFirstCharacter.getStatus() == Status.BLOCKED) {
 						this.addAction(sequence(delay(5/60f), new SoundAction(soundMap.get(AssetEnum.BLOCK_SOUND), .5f)));
 					}
-					else if (character.getWeapon() != null) {
-						this.addAction(sequence(delay(5/60f), new SoundAction(soundMap.get(AssetEnum.SWORD_SLASH_SOUND), .5f)));
-					}
 					else {
-						this.addAction(sequence(delay(5/60f), new SoundAction(soundMap.get(AssetEnum.HIT_SOUND), .3f)));
+						if (enemy.getWeapon() != null) {
+							this.addAction(sequence(delay(5/60f), new SoundAction(soundMap.get(AssetEnum.SWORD_SLASH_SOUND), .5f)));
+						}
+						else {
+							this.addAction(sequence(delay(20/60f), new SoundAction(soundMap.get(AssetEnum.HIT_SOUND), .3f)));
+						}
 					}
 				}
-				enemy.hitAnimation();
+			}
+			
+			if (attackForFirstCharacter.isAttack() && attackForFirstCharacter.isSuccessful() && attackForFirstCharacter.getStatus() != Status.BLOCKED) {
+				characterPortrait.setDrawable(getDrawable(AssetEnum.PORTRAIT_HIT.getPath()));
+				characterPortrait.addAction(Actions.sequence(Actions.moveBy(-10, -10), Actions.delay(.1f), Actions.moveBy(0, 20), Actions.delay(.1f), Actions.moveBy(20, -20), Actions.delay(.1f), Actions.moveBy(0, 20), Actions.delay(.1f), Actions.moveTo(-5 * 1.5f, 615 * 1.5f),  
+					new Action(){
+						@Override
+						public boolean act(float delta) {
+							characterPortrait.setDrawable(getDrawable(character.popPortraitPath()));	
+							return true;
+						}
+					})
+				);
+			}
+			else {
+				characterPortrait.setDrawable(getDrawable(character.popPortraitPath()));	
+			}
+		}
+		
+		for (Attack attackForSecondCharacter : attacksForSecondCharacter) {
+			if (character.getStance() == Stance.CASTING && attackForSecondCharacter.isSuccessful()) {
+				this.addAction(sequence(delay(5/60f), new SoundAction(soundMap.get(AssetEnum.INCANTATION), .5f)));
+			}
+			if (attackForSecondCharacter.isAttack()) {
+				if (!attackForSecondCharacter.isSuccessful()) {
+					this.addAction(sequence(delay(15/60f), new SoundAction(soundMap.get(AssetEnum.ATTACK_SOUND), .5f)));
+					if (attackForSecondCharacter.getStatus() == Status.PARRIED) {
+						this.addAction(sequence(delay(5/60f), new SoundAction(soundMap.get(AssetEnum.PARRY_SOUND), .5f)));
+					}
+				}
+				else {
+					if (attackForSecondCharacter.isSpell()) {
+						this.addAction(sequence(delay(5/60f), new SoundAction(soundMap.get(AssetEnum.FIREBALL_SOUND), .5f)));
+					}
+					else {
+						if (attackForSecondCharacter.getStatus() == Status.BLOCKED) {
+							this.addAction(sequence(delay(5/60f), new SoundAction(soundMap.get(AssetEnum.BLOCK_SOUND), .5f)));
+						}
+						else if (character.getWeapon() != null) {
+							this.addAction(sequence(delay(5/60f), new SoundAction(soundMap.get(AssetEnum.SWORD_SLASH_SOUND), .5f)));
+						}
+						else {
+							this.addAction(sequence(delay(5/60f), new SoundAction(soundMap.get(AssetEnum.HIT_SOUND), .3f)));
+						}
+					}
+					enemy.hitAnimation();
+				}
 			}
 		}
 		
 		// final mutations - attacks are applied to each character, their cached state within the techniques makes the ordering her irrelevant
-		Array<Array<String>> results1 = firstCharacter.receiveAttack(attackForFirstCharacter);
-		Array<Array<String>> results2 = secondCharacter.receiveAttack(attackForSecondCharacter);
+		for (Attack attackForFirstCharacter : attacksForFirstCharacter) {
+			Array<Array<String>> results = firstCharacter.receiveAttack(attackForFirstCharacter);
+			printToConsole(results.get(0));
+			printToDialog(results.get(1));
+		}
 		
-		printToConsole(results1.get(0));
-		printToConsole(results2.get(0));
-		printToDialog(results1.get(1));
-		printToDialog(results2.get(1));
+		for (Attack attackForSecondCharacter : attacksForSecondCharacter) {
+			Array<Array<String>> results = secondCharacter.receiveAttack(attackForSecondCharacter);
+			printToConsole(results.get(0));
+			printToDialog(results.get(1));
+		}
 		
 		if (dialogText.isEmpty()) {
 			dialogGroup.addAction(hide());
 		}
 		else {
 			dialogGroup.addAction(show());
-		}
-		
-		if (attackForFirstCharacter.isAttack() && attackForFirstCharacter.isSuccessful() && attackForFirstCharacter.getStatus() != Status.BLOCKED) {
-			characterPortrait.setDrawable(getDrawable(AssetEnum.PORTRAIT_HIT.getPath()));
-			characterPortrait.addAction(Actions.sequence(Actions.moveBy(-10, -10), Actions.delay(.1f), Actions.moveBy(0, 20), Actions.delay(.1f), Actions.moveBy(20, -20), Actions.delay(.1f), Actions.moveBy(0, 20), Actions.delay(.1f), Actions.moveTo(-5 * 1.5f, 615 * 1.5f),  
-				new Action(){
-					@Override
-					public boolean act(float delta) {
-						characterPortrait.setDrawable(getDrawable(character.popPortraitPath()));	
-						return true;
-					}
-				})
-			);
-		}
-		else {
-			characterPortrait.setDrawable(getDrawable(character.popPortraitPath()));	
 		}
 		
 		if (oldStance.isAnal() && firstCharacter.getStance().isAnal()) {

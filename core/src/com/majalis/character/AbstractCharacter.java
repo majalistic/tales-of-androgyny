@@ -838,6 +838,7 @@ public abstract class AbstractCharacter extends Actor {
 		DEFENSIVE (AssetEnum.DEFENSIVE.getPath()),
 		OFFENSIVE (AssetEnum.OFFENSIVE.getPath()),
 		BLITZ (AssetEnum.BLITZ.getPath()),
+		COUNTER (AssetEnum.COUNTER.getPath()),
 		STONEWALL (AssetEnum.BALANCED.getPath()),
 		PRONE (StanceType.INCAPACITATED, AssetEnum.PRONE.getPath(), false, false, true),
 		SUPINE (StanceType.INCAPACITATED, AssetEnum.SUPINE.getPath(), false, false, true),
@@ -855,7 +856,7 @@ public abstract class AbstractCharacter extends Actor {
 		SIXTY_NINE(StanceType.ORAL, AssetEnum.SIXTY_NINE.getPath()),
 		CASTING (AssetEnum.CASTING.getPath()),
 		ERUPT (AssetEnum.ERUPT.getPath()), 
-		ITEM (AssetEnum.ITEM.getPath()),
+		ITEM (AssetEnum.ITEM.getPath()), 
 		;
 		// need to create: boolean anal, boolean oral, boolean method erotic, boolean incapacitated
 		private final String texturePath;
