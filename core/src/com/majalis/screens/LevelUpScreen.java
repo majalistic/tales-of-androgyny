@@ -1,17 +1,13 @@
 package com.majalis.screens;
 
-
-import static com.majalis.asset.AssetEnum.*;
-
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.majalis.asset.AssetEnum;
 import com.majalis.encounter.Encounter;
+import com.majalis.encounter.EncounterCode;
 import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveManager;
 import com.majalis.save.SaveService;
@@ -20,31 +16,9 @@ public class LevelUpScreen extends AbstractScreen {
 
 	public static final ObjectMap<String, Class<?>> resourceRequirements = new ObjectMap<String, Class<?>>();
 	static {
-		resourceRequirements.put(AssetEnum.UI_SKIN.getPath(), Skin.class);
-		resourceRequirements.put(AssetEnum.BUTTON_SOUND.getPath(), Sound.class);
 		resourceRequirements.put(AssetEnum.SKILL_SELECTION_BACKGROUND.getPath(), Texture.class);
-		resourceRequirements.put(AssetEnum.DEFAULT_BACKGROUND.getPath(), Texture.class);
 		resourceRequirements.put(AssetEnum.NORMAL_BOX.getPath(), Texture.class);
-		resourceRequirements.put(AssetEnum.BATTLE_HOVER.getPath(), Texture.class);
-		AssetEnum[] assets = new AssetEnum[]{
-			MARS_ICON_0, MARS_ICON_1, MARS_ICON_2, MARS_ICON_3, MARS_ICON_4,
-			PORTRAIT_NEUTRAL, 
-			PORTRAIT_AHEGAO,
-			PORTRAIT_FELLATIO,
-			PORTRAIT_MOUTHBOMB,
-			PORTRAIT_GRIN,
-			PORTRAIT_LOVE,
-			PORTRAIT_LUST,
-			PORTRAIT_SURPRISE,
-			PORTRAIT_GRIMACE,
-			PORTRAIT_HIT,
-			PORTRAIT_POUT,
-			PORTRAIT_HAPPY,
-			PORTRAIT_SMILE
-		};
-		for (AssetEnum asset: assets){
-			resourceRequirements.put(asset.getPath(), Texture.class);
-		}
+		resourceRequirements.putAll(EncounterScreen.getRequirements(EncounterCode.LEVEL_UP));
 	}
 	
 	private final AssetManager assetManager;
