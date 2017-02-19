@@ -251,8 +251,8 @@ public class CharacterScreen extends AbstractScreen {
 	@Override
 	public void render(float delta) {
 		super.render(delta);
-		if (Gdx.input.isKeyJustPressed(Keys.ENTER)) {
+		if (Gdx.input.isKeyJustPressed(Keys.ENTER) || Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
 			showScreen(ScreenEnum.CONTINUE);
-		}			
+		}
 	}
 }
