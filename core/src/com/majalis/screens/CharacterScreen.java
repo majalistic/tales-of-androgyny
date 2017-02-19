@@ -86,7 +86,7 @@ public class CharacterScreen extends AbstractScreen {
 		overview.setPosition(200, 1040);
 		this.addActor(overview);
 		overview.add(getLabel("Name: ", skin, Color.BLACK)).align(Align.left);
-		overview.add(getLabel(character.getName() != null ? character.getName() : "Hiro", skin, Color.DARK_GRAY)).align(Align.left).row();
+		overview.add(getLabel(character.getCharacterName() != null ? character.getCharacterName() : "Hiro", skin, Color.DARK_GRAY)).align(Align.left).row();
 		overview.add(getLabel("Class: ", skin, Color.BLACK)).align(Align.left);
 		
 		overview.add(getLabel(character.getJobClass().getLabel(), skin, Color.FIREBRICK)).align(Align.left).row();

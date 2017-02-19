@@ -1138,7 +1138,9 @@ public class EncounterBuilder {
 		
 		int soundIndex = -(script.size - sounds.size);
 		int ii = 1;
+		String characterName = character.getCharacterName();
 		for (String scriptLine: script) {
+			scriptLine = scriptLine.replace("<NAME>", characterName);
 			sceneMap = addScene(new TextScene(sceneMap, sceneCounter, assetManager, font, saveService, background.clone(), scriptLine, ii == script.size ? mutations : null, character, ii == script.size ? music : null, soundIndex >= 0 ? sounds.get(soundIndex) : null));
 			soundIndex++;
 			ii++;

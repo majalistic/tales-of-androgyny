@@ -85,6 +85,7 @@ public class PlayerCharacter extends AbstractCharacter {
 				inventory.add(new Potion(ii));
 				inventory.add(new Potion(ii));
 			}
+			setCharacterName("Hiro");
 		}
 		
 		skills = new ObjectMap<String, Integer>();
@@ -97,7 +98,7 @@ public class PlayerCharacter extends AbstractCharacter {
 		loaded = false;
 		setCurrentPortrait(AssetEnum.PORTRAIT_SMILE); // his smile and optimism, not yet gone
 	}
-
+	
 	private static ObjectSet<Techniques> getBaseTechniques() {
 		ObjectSet<Techniques> baseTechniques = new ObjectSet<Techniques>();
 		baseTechniques.addAll(POWER_ATTACK, TEMPO_ATTACK, RESERVED_ATTACK, DUCK, SPRING_ATTACK, NEUTRAL_ATTACK, REVERSAL_ATTACK, CAREFUL_ATTACK, BLOCK, GUARD,
@@ -880,5 +881,13 @@ public class PlayerCharacter extends AbstractCharacter {
 			display += statEntry.key + " - " + statEntry.value + "\n";
 		}
 		return display;		
+	}
+
+	public void setCharacterName(String s) {
+		name = s;
+	}
+	
+	public String getCharacterName() {
+		return name;
 	}
 }

@@ -130,7 +130,7 @@ public class CharacterCustomizationScene extends Scene {
 	        @Override
 	        public boolean keyUp(InputEvent event, int keycode) {
 	        	if (!nameField.getText().equals(character.getName())) {
-	        		character.setName(nameField.getText());
+	        		character.setCharacterName(nameField.getText());
 	        		saveService.saveDataValue(SaveEnum.PLAYER, character);
 	        	}
 	        	return false;
