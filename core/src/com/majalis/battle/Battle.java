@@ -101,6 +101,8 @@ public class Battle extends Group{
 	private final Label bloodLabel;
 	private final Label enemyBloodLabel;
 	
+	private final String musicPath;
+	
 	private String consoleText;
 	private String dialogText;
 	private Array<TextButton> optionButtons;
@@ -115,7 +117,7 @@ public class Battle extends Group{
 	private boolean uiHidden;
 	private boolean onload = true;
 	
-	public Battle(SaveService saveService, AssetManager assetManager, BitmapFont font, PlayerCharacter character, EnemyCharacter enemy, ObjectMap<String, Integer> outcomes, Background battleBackground, Background battleUI, String consoleText, String dialogText) {
+	public Battle(SaveService saveService, AssetManager assetManager, BitmapFont font, PlayerCharacter character, EnemyCharacter enemy, ObjectMap<String, Integer> outcomes, Background battleBackground, Background battleUI, String consoleText, String dialogText, String musicPath) {
 		this.saveService = saveService;
 		this.assetManager = assetManager;
 		this.font = font;
@@ -124,6 +126,7 @@ public class Battle extends Group{
 		this.outcomes = outcomes;
 		this.consoleText = consoleText;
 		this.dialogText = dialogText;
+		this.musicPath = musicPath;
 		battleOver = false;
 		battleOutcomeDecided = false;
 		gameExit = false;	
@@ -184,8 +187,10 @@ public class Battle extends Group{
 		Texture bloodTexture = assetManager.get(AssetEnum.BLEED.getPath(), Texture.class);
 		bloodImage = initImage(bloodTexture, 470, 850, 50);
 		enemyBloodImage = initImage(bloodTexture, 1860, 963, 50);
-		bloodLabel = initLabel("" + character.getBleed(), skin, Color.RED, 470 + 4, 850 + 1);		
+		bloodLabel = initLabel("" + character.getBleed(), skin, Color.RED, 470 + 8, 850 + 1);	
+		bloodLabel.setAlignment(Align.center);
 		enemyBloodLabel = initLabel("" + enemy.getBleed(), skin, Color.RED, 1860 + 8, 963 + 1);
+		enemyBloodLabel.setAlignment(Align.center);
 		
 		if (character.getBleed() == 0) {
 			bloodImage.addAction(hide());
@@ -297,6 +302,10 @@ public class Battle extends Group{
 		hoverGroup.addActor(pane2);
 		hideHoverGroup();
 		checkEndBattle();
+	}
+	
+	public String getMusicPath() {
+		return musicPath;
 	}
 	
 	public void battleLoop() {

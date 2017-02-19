@@ -59,7 +59,7 @@ public class BattleScreen extends AbstractScreen{
 		this.saveService = saveService;
 		this.battle = battle;
 		this.assetManager = assetManager;
-		this.music = assetManager.get(AssetEnum.BATTLE_MUSIC.getPath(), Music.class);
+		this.music = assetManager.get(battle.getMusicPath(), Music.class);
 	}
 
 	@Override
@@ -121,6 +121,11 @@ public class BattleScreen extends AbstractScreen{
 				break;
 			case 6: 
 				textureArray.addAll(GOBLIN.getPath(),  GOBLIN_FACE_SIT.getPath(), ENCHANTED_FOREST_BG.getPath(), "arousal/Monster0.png", "arousal/Monster1.png", "arousal/Monster2.png");
+				break;
+			case 7:
+				textureArray.addAll(ORC.getPath(), FOREST_BG.getPath(), "arousal/Monster0.png", "arousal/Monster1.png", "arousal/Monster2.png");
+				requirements.put(AssetEnum.BOSS_MUSIC.getPath(), Music.class);
+				break;
 			case 1005:
 				textureArray.addAll(UNICORN.getPath(), PLAINS_BG.getPath(), "arousal/Monster0.png", "arousal/Monster1.png", "arousal/Monster2.png");
 				break;

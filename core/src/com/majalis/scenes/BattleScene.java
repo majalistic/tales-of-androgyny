@@ -18,8 +18,9 @@ public class BattleScene extends Scene {
 	private final Stance playerStance;
 	private final Stance enemyStance;
 	private final boolean disarm;
+	private final int climaxCounter;
 	
-	public BattleScene(OrderedMap<Integer, Scene> sceneBranches, SaveService saveService, int battleCode, Stance playerStance, Stance enemyStance, boolean disarm, ObjectMap<String, Integer> outcomes) {
+	public BattleScene(OrderedMap<Integer, Scene> sceneBranches, SaveService saveService, int battleCode, Stance playerStance, Stance enemyStance, boolean disarm, int climaxCounter, ObjectMap<String, Integer> outcomes) {
 		super(sceneBranches, -1);
 		this.saveService = saveService;
 		this.battleCode = battleCode;
@@ -27,13 +28,14 @@ public class BattleScene extends Scene {
 		this.enemyStance = enemyStance;
 		this.outcomes = outcomes;
 		this.disarm = disarm;
+		this.climaxCounter = climaxCounter;
 	}
 	
 	
 	@Override
 	public void setActive() {
 		isActive = true;
-		saveService.saveDataValue(SaveEnum.BATTLE_CODE, new BattleCode(battleCode, outcomes, playerStance, enemyStance, disarm));
+		saveService.saveDataValue(SaveEnum.BATTLE_CODE, new BattleCode(battleCode, outcomes, playerStance, enemyStance, disarm, climaxCounter));
 		saveService.saveDataValue(SaveEnum.CONTEXT, SaveManager.GameContext.BATTLE);
 	}
 }

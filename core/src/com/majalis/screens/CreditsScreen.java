@@ -34,7 +34,6 @@ public class CreditsScreen extends AbstractScreen{
 		final Sound sound = assetManager.get(AssetEnum.BUTTON_SOUND.getPath(), Sound.class);
 		final TextButton done = new TextButton("Done", skin);
 		
-		
 		done.addListener(
 			new ClickListener() {
 				@Override
@@ -47,7 +46,7 @@ public class CreditsScreen extends AbstractScreen{
 		done.setPosition(1523, 120);
 		this.addActor(done);
 		
-		credits = "\"Broken Reality\", \"Perspectives\", \"Floating Cities\", \"Kings of Tara\", \"Enchanted Valley\", \"Brittle Rille\", \"For Originz\", \"Phantom from Space\",\n\"Mechanolith,\", \"Fearless First\", \"Danger Storm\""
+		credits = "\"Broken Reality\", \"Perspectives\", \"Floating Cities\", \"Kings of Tara\", \"Enchanted Valley\", \"Brittle Rille\", \"For Originz\", \"Phantom from Space\",\n\"Mechanolith,\", \"Fearless First\", \"Danger Storm\", \"Killers\""
 				+ "\nKevin MacLeod (incompetech.com)"
 				+ "\nLicensed under Creative Commons: By Attribution 3.0"
 				+ "\nhttp://creativecommons.org/licenses/by/3.0/"

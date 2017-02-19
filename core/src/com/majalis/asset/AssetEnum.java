@@ -49,6 +49,7 @@ public enum AssetEnum {
 	UNICORN("enemies/UnicornCentaur.png"),
 	GOBLIN("enemies/GoblinFuta.png"),
 	GOBLIN_FACE_SIT("enemies/GoblinFaceSit.png"),
+	ORC("enemies/OrcFuta.png"),
 	TRAP_BONUS("enemies/TrapBonus.jpg"), 
 	
 	ARMOR("battle/Armor.png"),
@@ -143,6 +144,7 @@ public enum AssetEnum {
 	
 	SLASH("animation/ClawAttack.png"),
 	
+	GAPE("GapedButtBG.jpg"),
 	GAME_OVER_GAPE("GameOverButt.jpg"),
 	GAME_OVER_TUCKERED("GameOverTuckered.jpg"),
 	GAME_OGRE("PostOgre.jpg"),
@@ -178,6 +180,7 @@ public enum AssetEnum {
 	WORLD_MAP_MUSIC("music/WorldMapMusic.mp3"),
 	BATTLE_MUSIC("music/BattleMusic.mp3"),
 	GADGETEER_MUSIC("music/GadgeteerMusic.mp3"),
+	BOSS_MUSIC("music/BossMusic.mp3"),
 	WAVES("music/Waves.wav"), 
 	;
 	

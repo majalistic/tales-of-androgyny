@@ -167,6 +167,11 @@ public class EncounterScreen extends AbstractScreen {
 				requirements.put(AssetEnum.EQUIP.getPath(), Sound.class);				
 				requirements.put(AssetEnum.GADGETEER_MUSIC.getPath(), Music.class);
 				break;
+			case ORC:
+				requirements.put(AssetEnum.ORC.getPath(), Texture.class);
+				requirements.put(AssetEnum.GAPE.getPath(), Texture.class);
+				requirements.put(AssetEnum.WEREWOLF_MUSIC.getPath(), Music.class);
+				break;
 			case FIRST_BATTLE_STORY:
 				requirements.put(AssetEnum.FOREST_BG.getPath(), Texture.class);
 			case GOBLIN:

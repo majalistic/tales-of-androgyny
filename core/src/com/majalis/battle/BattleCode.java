@@ -13,15 +13,17 @@ public class BattleCode {
 	public Stance playerStance;
 	public Stance enemyStance;
 	public boolean disarm;
+	public int climaxCounter;
 	
 	@SuppressWarnings("unused")
 	private BattleCode(){}
 	
-	public BattleCode(int battleCode, ObjectMap<String, Integer> outcomes, Stance playerStance, Stance enemyStance, boolean disarm) {
+	public BattleCode(int battleCode, ObjectMap<String, Integer> outcomes, Stance playerStance, Stance enemyStance, boolean disarm, int climaxCounter) {
 		this.battleCode = battleCode;
 		this.outcomes = outcomes;
 		this.playerStance = playerStance;
 		this.enemyStance = enemyStance;
 		this.disarm = disarm;
+		this.climaxCounter = climaxCounter;
 	}
 }

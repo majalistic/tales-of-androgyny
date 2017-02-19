@@ -58,6 +58,7 @@ public class PlayerCharacter extends AbstractCharacter {
 	private boolean a2mcheevo;
 	
 	private boolean loaded;
+	private int orcResult; // 0 - not encountered, 1 - courage, 2 - coward
 	
 	@SuppressWarnings("unused")
 	private PlayerCharacter() {}
@@ -889,5 +890,13 @@ public class PlayerCharacter extends AbstractCharacter {
 	
 	public String getCharacterName() {
 		return name;
+	}
+
+	public void setOrcResult(int option) {
+		orcResult = option;
+	}
+	
+	public int getOrcResult() {
+		return orcResult;
 	}
 }

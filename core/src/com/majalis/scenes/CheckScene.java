@@ -118,6 +118,14 @@ public class CheckScene extends AbstractTextScene {
 		GOBLIN_VIRGIN ("You've never had goblin cock up the ass before. (PASSED)", "You've had goblin cock up the ass before. (FAILURE)") { 
 			@Override
 			protected boolean getCheck(PlayerCharacter character) { return character.isVirgin(EnemyEnum.GOBLIN); } 
+		}, 
+		ORC_ENCOUNTERED ("You come across a bizarre sight.", "You see her, again.  The orc.") {
+			@Override
+			protected boolean getCheck(PlayerCharacter character) { return character.getOrcResult() == 0; } 
+		},
+		ORC_COWARD ("You've been brave!", "You were cowardly.") { 
+			@Override
+			protected boolean getCheck(PlayerCharacter character) { return character.getOrcResult() == 1; } 
 		};
 		
 		private final String success;

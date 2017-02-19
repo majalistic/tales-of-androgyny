@@ -74,13 +74,16 @@ public abstract class Item {
 				case Gladius:
 				case Cutlass: return (stats.get(Stat.STRENGTH) + stats.get(Stat.AGILITY)) / 5 + 1;
 				case Broadsword: return (stats.get(Stat.STRENGTH)) / 3 + 1;
-				case Bow: return 2;
+				case Bow: return 1;
+				case Flail: return (stats.get(Stat.STRENGTH)) / 3 + 2;
+				case Talon: 
+				case Claw: return 0;
 				default: return 0;
 			}
 		}
 
 		public boolean isDisarmable() {
-			return type != WeaponType.Bow;
+			return type.disarmable;
 		}
 	}
 	
@@ -90,7 +93,19 @@ public abstract class Item {
 		Gladius,
 		Cutlass,
 		Broadsword,
-		Bow
+		Bow (false), 
+		Flail,
+		Claw (false),
+		Talon (false)
+		;
+		
+		private final boolean disarmable;
+		private WeaponType() { 
+			this(true);
+		}
+		private WeaponType(boolean disarmable) {
+			this.disarmable = disarmable;
+		}
 	}
 	
 	public static class Potion extends Item {

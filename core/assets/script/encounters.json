@@ -1712,6 +1712,36 @@
 		]
 	},
 	{
+	"key": "007-00",
+		"scriptLines": [
+			"INTRO"
+		]
+	},
+	{
+	"key": "007-01",
+		"scriptLines": [
+			"ORC ENCOUNTER"
+		]
+	},
+	{
+	"key": "007-02",
+		"scriptLines": [
+			"ZOOM"
+		]
+	},
+	{
+	"key": "007-03",
+		"scriptLines": [
+			"DOWN ZOOM"
+		]
+	},
+	{
+	"key": "007-04",
+		"scriptLines": [
+			"BOTTOM ZOOM"
+		]
+	},
+	{
 	"key": "006-MOUTH-01",
 		"scriptLines": [
 			"She nods, knowingly, and moves her loincloth out of the way to reveal a warty, inhuman looking schlong.",

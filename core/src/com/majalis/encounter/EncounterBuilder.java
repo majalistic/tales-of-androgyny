@@ -6,6 +6,7 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -601,7 +602,7 @@ public class EncounterBuilder {
 					defeatScene
 				);
 				
-				OrderedMap<Integer, Scene> battleSceneDisarm = getBattleScene(battleCode, Stance.BALANCED, Stance.BALANCED, true, new Array<Outcome>(new Outcome[]{Outcome.VICTORY, Outcome.DEFEAT}),
+				OrderedMap<Integer, Scene> battleSceneDisarm = getBattleScene(battleCode, Stance.BALANCED, Stance.BALANCED, true, 0, new Array<Outcome>(new Outcome[]{Outcome.VICTORY, Outcome.DEFEAT}),
 						getTextScenes(getArray(new String[]{"You defeated the goblin!", "You receive 1 Experience."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.EXPERIENCE, 1)}), getEndScene(EndScene.Type.ENCOUNTER_OVER)),
 						defeatScene
 					);
@@ -836,6 +837,102 @@ public class EncounterBuilder {
 								)
 							)
 						)
+					)
+				);
+				break;
+			case ORC:
+				Texture orc = assetManager.get(AssetEnum.ORC.getPath(), Texture.class);
+				Background backgroundWithOrc = new BackgroundBuilder(assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getPath(), Texture.class)).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class)).setForeground(orc).build();
+				Background backgroundWithOrcZoom = new BackgroundBuilder(assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getPath(), Texture.class)).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class)).setForeground(new TextureRegion(orc, 500, 700, 700, 700)).build();
+				Background backgroundWithOrcZoomUp = new BackgroundBuilder(assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getPath(), Texture.class)).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class)).setForeground(new TextureRegion(orc, 500, 200, 700, 700)).build();
+				Background backgroundWithOrcZoomDown = new BackgroundBuilder(assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getPath(), Texture.class)).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class)).setForeground(new TextureRegion(orc, 500, 1270, 700, 700)).build();
+				
+				Background gapeBackground = new BackgroundBuilder(assetManager.get(AssetEnum.GAPE.getPath(), Texture.class)).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class)).build();
+				
+				OrderedMap<Integer, Scene> leaveOrc = 
+					getTextScenes(
+						getScript(encounterCode, 1), font, backgroundWithOrc, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.ORC, 2)}),
+						getTextScenes(
+							getScript(encounterCode, 1), font, gapeBackground, 
+							getEndScene(EndScene.Type.ENCOUNTER_OVER)
+						)
+					);
+				getTextScenes(
+					getScript(encounterCode, 0), font, background, new Array<Mutation>(), AssetEnum.WEREWOLF_MUSIC.getPath(), new Array<String>(),	
+					getCheckScene(
+						CheckType.ORC_ENCOUNTERED,		
+						getTextScenes(
+							getScript(encounterCode, 0), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.ORC, 1)}),
+							getTextScenes(
+								getScript(encounterCode, 1), font, backgroundWithOrc, 
+								getChoiceScene(
+									"Do you speak up?", getArray(new String[]{"Speak up", "Remain silent"}),
+									getTextScenes(
+										getScript(encounterCode, 1), font, backgroundWithOrc, 
+										getTextScenes(
+											getScript(encounterCode, 2), font, backgroundWithOrcZoomUp, 
+											getTextScenes(
+												getScript(encounterCode, 3), font, backgroundWithOrcZoom, 
+												getTextScenes(
+													getScript(encounterCode, 4), font, backgroundWithOrcZoomDown, 
+													getChoiceScene(
+														"How do you respond?", getArray(new String[]{"Step forward", "Remain still"}),
+														getBattleScene(
+															battleCode, 4, normalOutcomes,
+															getTextScenes(
+																getScript(encounterCode, 1), font, backgroundWithOrc, 
+																getEndScene(EndScene.Type.ENCOUNTER_OVER)
+															),
+															getTextScenes(
+																getScript(encounterCode, 1), font, backgroundWithOrc, 
+																getEndScene(EndScene.Type.ENCOUNTER_OVER)
+															),
+															getTextScenes(
+																getScript(encounterCode, 1), font, backgroundWithOrc, 
+																getEndScene(EndScene.Type.ENCOUNTER_OVER)
+															)
+														),		
+														getTextScenes(
+															getScript(encounterCode, 1), font, backgroundWithOrc, // she puts it back in
+															leaveOrc
+														)
+													)
+												)
+											)
+										)
+									),	
+									getTextScenes( // remain silent
+										getScript(encounterCode, 1), font, backgroundWithOrc, 	// she goes about her business
+										leaveOrc
+									)
+								)
+							)
+						),
+						getCheckScene(
+							CheckType.ORC_COWARD,	
+							getTextScenes(
+								getScript(encounterCode, 0), font, background,
+								getEndScene(EndScene.Type.ENCOUNTER_OVER)
+							),
+							getTextScenes(
+								getScript(encounterCode, 0), font, background,
+								getBattleScene(
+									battleCode, normalOutcomes, // this battle should have the climax counter at 4 already so that she's satisfied after one go
+									getTextScenes(
+										getScript(encounterCode, 1), font, backgroundWithOrc, 
+										getEndScene(EndScene.Type.ENCOUNTER_OVER)
+									),
+									getTextScenes(
+										getScript(encounterCode, 1), font, backgroundWithOrc, 
+										getEndScene(EndScene.Type.ENCOUNTER_OVER)
+									),
+									getTextScenes(
+										getScript(encounterCode, 1), font, backgroundWithOrc, 
+										getEndScene(EndScene.Type.ENCOUNTER_OVER)
+									)
+								)	
+							)
+						) 
 					)
 				);
 				break;
@@ -1102,7 +1199,7 @@ public class EncounterBuilder {
 				break;
 		}
 		// reporting that the battle code has been consumed - this should be encounter code
-		saveService.saveDataValue(SaveEnum.BATTLE_CODE, new BattleCode(-1, null, Stance.BALANCED, Stance.BALANCED, false));
+		saveService.saveDataValue(SaveEnum.BATTLE_CODE, new BattleCode(-1, null, Stance.BALANCED, Stance.BALANCED, false, 0));
 		return new Encounter(scenes, endScenes, battleScenes, getStartScene(scenes, sceneCode));	
 	}
 
@@ -1139,8 +1236,9 @@ public class EncounterBuilder {
 		int soundIndex = -(script.size - sounds.size);
 		int ii = 1;
 		String characterName = character.getCharacterName();
+		String buttsize = character.getBootyLiciousness();
 		for (String scriptLine: script) {
-			scriptLine = scriptLine.replace("<NAME>", characterName);
+			scriptLine = scriptLine.replace("<NAME>", characterName).replace("<BUTTSIZE>", buttsize);
 			sceneMap = addScene(new TextScene(sceneMap, sceneCounter, assetManager, font, saveService, background.clone(), scriptLine, ii == script.size ? mutations : null, character, ii == script.size ? music : null, soundIndex >= 0 ? sounds.get(soundIndex) : null));
 			soundIndex++;
 			ii++;
@@ -1251,23 +1349,27 @@ public class EncounterBuilder {
 	private OrderedMap<Integer, Scene> getBattleScene(int battleCode, Array<Outcome> outcomes, @SuppressWarnings("unchecked") OrderedMap<Integer, Scene>... sceneMaps) {
 		return getBattleScene(battleCode, Stance.BALANCED, Stance.BALANCED, outcomes, sceneMaps);
 	}
-		
+	
+	private OrderedMap<Integer, Scene> getBattleScene(int battleCode, int climaxCounter, Array<Outcome> outcomes, @SuppressWarnings("unchecked") OrderedMap<Integer, Scene>... sceneMaps) {
+		return getBattleScene(battleCode, Stance.BALANCED, Stance.BALANCED, false, climaxCounter, outcomes, sceneMaps);
+	}
+	
 	private OrderedMap<Integer, Scene> getBattleScene(int battleCode, Stance playerStance, Stance enemyStance, @SuppressWarnings("unchecked") OrderedMap<Integer, Scene>... sceneMaps) {
 		return getBattleScene(battleCode, playerStance, enemyStance, new Array<Outcome>(new Outcome[]{Outcome.VICTORY, Outcome.DEFEAT}), sceneMaps);
 	}
 	
 	private OrderedMap<Integer, Scene> getBattleScene(int battleCode, Stance playerStance, Stance enemyStance, Array<Outcome> outcomes, @SuppressWarnings("unchecked") OrderedMap<Integer, Scene>... sceneMaps) {
-		return getBattleScene(battleCode, playerStance, enemyStance, false, outcomes, sceneMaps);
+		return getBattleScene(battleCode, playerStance, enemyStance, false, 0, outcomes, sceneMaps);
 	}
 	
-	private OrderedMap<Integer, Scene> getBattleScene(int battleCode, Stance playerStance, Stance enemyStance, boolean disarm, Array<Outcome> outcomes, @SuppressWarnings("unchecked") OrderedMap<Integer, Scene>... sceneMaps) {
+	private OrderedMap<Integer, Scene> getBattleScene(int battleCode, Stance playerStance, Stance enemyStance, boolean disarm, int climaxCounter, Array<Outcome> outcomes, @SuppressWarnings("unchecked") OrderedMap<Integer, Scene>... sceneMaps) {
 		OrderedMap<Integer, Scene> sceneMap = aggregateMaps(sceneMaps);
 		ObjectMap<String, Integer> outcomeToScene = new ObjectMap<String, Integer>();
 		for (int ii = 0; ii < outcomes.size; ii++) {
 			outcomeToScene.put(outcomes.get(ii).toString(), sceneMap.get(sceneMap.orderedKeys().get(ii)).getCode());
 		}
 		
-		return addScene(new BattleScene(aggregateMaps(sceneMaps), saveService, battleCode, playerStance, enemyStance, disarm, outcomeToScene));
+		return addScene(new BattleScene(aggregateMaps(sceneMaps), saveService, battleCode, playerStance, enemyStance, disarm, climaxCounter, outcomeToScene));
 	}
 	
 	private OrderedMap<Integer, Scene> getGameTypeScene(Array<String> buttonLabels, @SuppressWarnings("unchecked") OrderedMap<Integer, Scene>... sceneMaps) {

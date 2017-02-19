@@ -51,11 +51,13 @@ public class EnemyCharacter extends AbstractCharacter {
 		bgPath = AssetEnum.FOREST_BG.getPath();
 		switch(enemyType) {
 			case WERESLUT:
+				weapon = new Weapon(WeaponType.Claw);
 				baseStrength = 5;
 				baseAgility = 5;
 				imagePath = AssetEnum.WEREBITCH.getPath();
 				break;
 			case HARPY:
+				weapon = new Weapon(WeaponType.Talon);
 				baseStrength = 4;
 				textureImagePaths.put(Stance.FELLATIO.toString(), AssetEnum.HARPY_FELLATIO.getPath());
 				imagePath = AssetEnum.HARPY.getPath();
@@ -98,6 +100,15 @@ public class EnemyCharacter extends AbstractCharacter {
 				textureImagePaths.put(Stance.FACE_SITTING.toString(), AssetEnum.GOBLIN_FACE_SIT.getPath());
 				textureImagePaths.put(Stance.SIXTY_NINE.toString(), AssetEnum.GOBLIN_FACE_SIT.getPath());
 				baseAgility = 5;
+				break;
+			case ORC:
+				weapon = new Weapon(WeaponType.Flail);
+				baseDefense = 6;
+				healthTiers.add(10);
+				baseStrength = 7;
+				baseEndurance = 5;
+				baseAgility = 4;
+				imagePath = AssetEnum.ORC.getPath();
 				break;
 		}
 		staminaTiers.removeIndex(staminaTiers.size-1);
@@ -161,7 +172,7 @@ public class EnemyCharacter extends AbstractCharacter {
 						if (stance.isAnal()) {
 							resolvedAttack.addDialog("\"Oooooryah!\"");
 						}
-						else if (stance.isAnal()) {
+						else if (stance.isOral()) {
 							resolvedAttack.addDialog("\"Yeah, that's right, suck it!\"");
 						} 
 						break;
@@ -169,7 +180,7 @@ public class EnemyCharacter extends AbstractCharacter {
 						if (stance.isAnal()) {
 							resolvedAttack.addDialog("\"Hmph.\"");
 						}
-						else if (stance.isAnal()) {
+						else if (stance.isOral()) {
 							resolvedAttack.addDialog("\"Open up.\"");
 						} 
 						break;
@@ -177,7 +188,7 @@ public class EnemyCharacter extends AbstractCharacter {
 						if (stance.isAnal()) {
 							resolvedAttack.addDialog("\"Nyahaha! Up the butt!\"");
 						}
-						else if (stance.isAnal()) {
+						else if (stance.isOral()) {
 							resolvedAttack.addDialog("\"That's right, pinkskin, suck on that gobbo dick!\"");
 						} 
 						break;
@@ -189,6 +200,13 @@ public class EnemyCharacter extends AbstractCharacter {
 						break;
 					case WERESLUT:
 						break;
+					case ORC:
+						if (stance.isAnal()) {
+							resolvedAttack.addDialog("\"Oooooryah!\"");
+						}	
+						else if (stance.isOral()) {
+							resolvedAttack.addDialog("\"Open wide!\"");
+						}	
 				}
 			}
 			
@@ -209,6 +227,9 @@ public class EnemyCharacter extends AbstractCharacter {
 						break;
 					case WERESLUT:
 						break;
+					case ORC:
+						resolvedAttack.addDialog("\"Catch it in your gut, pinkskin!\" she bellows.");
+						break;						
 					}
 				climaxCounter++;
 			}
@@ -237,7 +258,7 @@ public class EnemyCharacter extends AbstractCharacter {
 					possibles.addAll(getTechniques(target, POWER_ATTACK, TEMPO_ATTACK, RESERVED_ATTACK));
 				}
 				else {
-					if (enemyType == EnemyEnum.BRIGAND) {
+					if (enemyType == EnemyEnum.BRIGAND || enemyType == EnemyEnum.ORC) {
 						possibles.addAll(getTechniques(target, ARMOR_SUNDER));
 					}
 					possibles.addAll(getTechniques(target, POWER_ATTACK, GUT_CHECK, RECKLESS_ATTACK, KNOCK_DOWN, TEMPO_ATTACK, RESERVED_ATTACK));
@@ -262,7 +283,7 @@ public class EnemyCharacter extends AbstractCharacter {
 					possibles.addAll(getTechniques(target, REVERSAL_ATTACK, CAREFUL_ATTACK, GUARD, SECOND_WIND));
 				}
 				if (enemyType == EnemyEnum.BRIGAND) {
-					possibles.addAll(getTechniques(target, ARMOR_SUNDER));
+					possibles.addAll(getTechniques(target, PARRY));
 				}
 				return possibles;
 			case PRONE:
@@ -613,6 +634,9 @@ public class EnemyCharacter extends AbstractCharacter {
 				break;
 			case GOBLIN:
 				break;
+			case ORC:
+				if (climaxCounter >= 5) return Outcome.SATISFIED;
+				break;
 			case HARPY:
 				if (climaxCounter >= 3) return Outcome.SATISFIED;
 				break;
@@ -652,4 +676,8 @@ public class EnemyCharacter extends AbstractCharacter {
 	
 	@Override
 	protected boolean canBleed() { return enemyType != EnemyEnum.SLIME; }
+
+	public void setClimaxCounter(int climaxCounter) {
+		this.climaxCounter = climaxCounter;
+	}
 } 

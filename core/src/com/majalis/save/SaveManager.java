@@ -109,6 +109,7 @@ public class SaveManager implements SaveService, LoadService {
 	    	case GOBLIN_VIRGIN:		save.player.setGoblinVirginity((Boolean) object); break;
 	    	case ITEM:				save.player.receiveItem(new Item.Weapon(WeaponType.Bow)); result = "You have received a bow!"; break;
 	    	case SHOP:				save.shops.put(((Shop) object).getShopCode(), (Shop) object); break;
+	    	case ORC: 			save.player.setOrcResult((Integer) object); break;
     	}	
     	if (saveToJson) {
     		saveToJson(save); //Saves current save immediately.
@@ -151,6 +152,7 @@ public class SaveManager implements SaveService, LoadService {
 	    	case ITEM:
 	    	case GOBLIN_VIRGIN:		break;
 	    	case SHOP:				return (T) (ObjectMap<String, Shop>) save.shops;
+	    	case ORC:			return (T) (Integer) save.player.getOrcResult();
     	}	
     	return null;
     }

@@ -25,6 +25,7 @@ public enum SaveEnum {
 	SHOP, 
 	RETURN_CONTEXT, 
 	GOBLIN_VIRGIN,
-	ANAL, ITEM
-	
+	ANAL, 
+	ITEM,
+	ORC
 }

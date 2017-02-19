@@ -43,7 +43,8 @@ public enum EncounterCode {
 	STORY_SIGN (FOREST_INACTIVE), 
 	SOUTH_PASS (MOUNTAIN_ACTIVE), 
 	WEST_PASS (MOUNTAIN_ACTIVE), 
-	GADGETEER (FOREST_INACTIVE)
+	GADGETEER (FOREST_INACTIVE), 
+	ORC (FOREST_INACTIVE, 7)
 	;
 	
 	private final String texturePath;	
@@ -72,7 +73,7 @@ public enum EncounterCode {
 	public static Array<EncounterCode> encounterArray;
 	static {
 		encounterArray = new Array<EncounterCode>();
-		encounterArray.addAll(WERESLUT, HARPY, SLIME, BRIGAND, DRYAD, CENTAUR, GOBLIN);
+		encounterArray.addAll(WERESLUT, HARPY, SLIME, BRIGAND, DRYAD, CENTAUR, GOBLIN, ORC);
 	}
 	
 	public static EncounterCode getEncounterCode(int code){
