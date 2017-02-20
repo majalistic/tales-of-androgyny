@@ -286,6 +286,8 @@ public class EnemyCharacter extends AbstractCharacter {
 					possibles.addAll(getTechniques(target, PARRY));
 				}
 				return possibles;
+			case COUNTER:
+				return getTechniques(target, RIPOSTE, EN_GARDE);
 			case PRONE:
 			case SUPINE:
 				return getTechniques(target, KIP_UP, STAND_UP, KNEE_UP, stance == Stance.PRONE ? REST_FACE_DOWN : REST);
