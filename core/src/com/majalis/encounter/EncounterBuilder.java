@@ -618,7 +618,7 @@ public class EncounterBuilder {
 				OrderedMap<Integer, Scene> cutPantsScene = getTextScenes(
 					getScript(encounterCode, 9), font, goblinBackground, getArray(new Mutation[]{new Mutation(saveService, ProfileEnum.KNOWLEDGE, EnemyEnum.GOBLIN.toString())}),
 					getChoiceScene(
-						"Quick, what do you do?", getArray(new String[]{"Catch Her (5 Agi)", "Trip Her (4 Agi)", "Disarm Her (3 Agi)", "Avoid Her (2 Agi)"}),
+						"Quick, what do you do?", getArray(new String[]{"Catch Her (5 AGI)", "Trip Her (4 AGI)", "Disarm Her (3 AGI)", "Avoid Her (2 AGI)"}),
 						getCheckScene(
 							Stat.AGILITY, new IntArray(new int[]{5}),
 							getTextScenes(
@@ -851,84 +851,183 @@ public class EncounterBuilder {
 				
 				OrderedMap<Integer, Scene> leaveOrc = 
 					getTextScenes(
-						getScript(encounterCode, 1), font, backgroundWithOrc, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.ORC, 2)}),
+						getScript(encounterCode, 23), font, backgroundWithOrc, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.ORC, 2)}),
 						getTextScenes(
-							getScript(encounterCode, 1), font, gapeBackground, 
+							getScript(encounterCode, "23A"), font, background,
+							getTextScenes(
+								getScript(encounterCode, 24), font, gapeBackground, 
+								getEndScene(EndScene.Type.ENCOUNTER_OVER)
+							)
+						)
+					);
+				
+				OrderedMap<Integer, Scene> battleVictory = 
+					getTextScenes(
+						getScript(encounterCode, 8), font, backgroundWithOrc, 
+						getChoiceScene(
+							"Front, back, or decline?", getArray(new String[]{"Front (Requires: Catamite)", "Back", "Decline"}), getArray(new PlayerCharacter[]{character, null, null}),
+							getTextScenes(
+								getScript(encounterCode, 9), font, backgroundWithOrc, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.ANAL, new SexualExperienceBuilder().setAnalSex(1, 1, 1).build())}),
+								getEndScene(EndScene.Type.ENCOUNTER_OVER)
+							),
+							getTextScenes(
+								getScript(encounterCode, 10), font, backgroundWithOrc, 
+								getEndScene(EndScene.Type.ENCOUNTER_OVER)
+							),
+							getTextScenes(
+								getScript(encounterCode, 11), font, backgroundWithOrc, 
+								getEndScene(EndScene.Type.ENCOUNTER_OVER)
+							)
+						)
+					);
+				
+				OrderedMap<Integer, Scene> oralScene = 
+					getTextScenes(
+						getScript(encounterCode, 14), font, backgroundWithOrc, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.ANAL, new SexualExperienceBuilder().setOralSex(1).setOralCreampie(1).build())}),
+						getTextScenes(
+							getScript(encounterCode, 15), font, backgroundWithOrc, 
 							getEndScene(EndScene.Type.ENCOUNTER_OVER)
 						)
 					);
+					
+				OrderedMap<Integer, Scene> failCharismaScene = 
+					getTextScenes(
+						getScript(encounterCode, 18), font, backgroundWithOrc, 
+						oralScene
+					);
+				
 				getTextScenes(
-					getScript(encounterCode, 0), font, background, new Array<Mutation>(), AssetEnum.WEREWOLF_MUSIC.getPath(), new Array<String>(),	
+					getScript(encounterCode, 0), font, background, getArray(new Mutation[]{new Mutation(saveService, ProfileEnum.KNOWLEDGE, EnemyEnum.ORC.toString())}), AssetEnum.WEREWOLF_MUSIC.getPath(), new Array<String>(),	// intro filler
 					getCheckScene(
 						CheckType.ORC_ENCOUNTERED,		
 						getTextScenes(
-							getScript(encounterCode, 0), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.ORC, 1)}),
-							getTextScenes(
-								getScript(encounterCode, 1), font, backgroundWithOrc, 
-								getChoiceScene(
-									"Do you speak up?", getArray(new String[]{"Speak up", "Remain silent"}),
+							getScript(encounterCode, 1), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.ORC, 1)}), // before you spot the orc
+							getChoiceScene(
+								"Do you speak up?", getArray(new String[]{"Speak up", "Remain silent"}),
+								getTextScenes(
+									getScript(encounterCode, 2), font, background, 
 									getTextScenes(
-										getScript(encounterCode, 1), font, backgroundWithOrc, 
+										getScript(encounterCode, 3), font, backgroundWithOrcZoomUp, 
 										getTextScenes(
-											getScript(encounterCode, 2), font, backgroundWithOrcZoomUp, 
+											getScript(encounterCode, 4), font, backgroundWithOrcZoom, 
 											getTextScenes(
-												getScript(encounterCode, 3), font, backgroundWithOrcZoom, 
+												getScript(encounterCode, 5), font, backgroundWithOrcZoomDown, 
 												getTextScenes(
-													getScript(encounterCode, 4), font, backgroundWithOrcZoomDown, 
+													getScript(encounterCode, 6), font, backgroundWithOrc,
 													getChoiceScene(
-														"How do you respond?", getArray(new String[]{"Step forward", "Remain still"}),
+														"How do you respond?", getArray(new String[]{"Attack", "Remain still"}),
 														getBattleScene(
 															battleCode, 4, normalOutcomes,
 															getTextScenes(
-																getScript(encounterCode, 1), font, backgroundWithOrc, 
-																getEndScene(EndScene.Type.ENCOUNTER_OVER)
+																getScript(encounterCode, 7), font, backgroundWithOrc, // different from if you beat her in the second encounter
+																battleVictory
 															),
 															getTextScenes(
-																getScript(encounterCode, 1), font, backgroundWithOrc, 
-																getEndScene(EndScene.Type.ENCOUNTER_OVER)
+																getScript(encounterCode, 12), font, backgroundWithOrc, // options to finish off the orc
+																getChoiceScene(
+																	"What do you offer?", getArray(new String[]{"Anal (Requires: Catamite)", "Oral", "Nasal", "Facial (4 CHA)", "Penal (6 CHA)"}), getArray(new PlayerCharacter[]{character, null, null, null, null}),
+																	getTextScenes(
+																		getScript(encounterCode, 9), font, backgroundWithOrc, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.ANAL, new SexualExperienceBuilder().setAnalSex(1, 1, 1).build())}),
+																		getEndScene(EndScene.Type.ENCOUNTER_OVER)
+																	),
+																	getTextScenes(
+																		getScript(encounterCode, 13), font, backgroundWithOrc, 
+																		oralScene
+																	),
+																	getTextScenes(
+																		getScript(encounterCode, 16), font, backgroundWithOrc, 
+																		getEndScene(EndScene.Type.ENCOUNTER_OVER)
+																	),
+																	getCheckScene(
+																		Stat.CHARISMA, new IntArray(new int[]{4}), 
+																		getTextScenes(
+																			getScript(encounterCode, 17), font, backgroundWithOrc, 
+																			getEndScene(EndScene.Type.ENCOUNTER_OVER)
+																		),
+																		failCharismaScene
+																	),
+																	getCheckScene(
+																		Stat.CHARISMA, new IntArray(new int[]{6}), 
+																		getTextScenes(
+																			getScript(encounterCode, 19), font, backgroundWithOrc, 
+																			getEndScene(EndScene.Type.ENCOUNTER_OVER)
+																		),
+																		failCharismaScene
+																	)
+																)
 															),
 															getTextScenes(
-																getScript(encounterCode, 1), font, backgroundWithOrc, 
+																getScript(encounterCode, 20), font, backgroundWithOrc, // orc is satisfied
 																getEndScene(EndScene.Type.ENCOUNTER_OVER)
 															)
 														),		
 														getTextScenes(
-															getScript(encounterCode, 1), font, backgroundWithOrc, // she puts it back in
+															getScript(encounterCode, 21), font, backgroundWithOrc, // she puts it back in
 															leaveOrc
 														)
 													)
 												)
 											)
 										)
-									),	
-									getTextScenes( // remain silent
-										getScript(encounterCode, 1), font, backgroundWithOrc, 	// she goes about her business
-										leaveOrc
 									)
+								),	
+								getTextScenes( // remain silent
+									getScript(encounterCode, 22), font, backgroundWithOrc, 	// she goes about her business
+									leaveOrc
 								)
 							)
 						),
 						getCheckScene(
 							CheckType.ORC_COWARD,	
 							getTextScenes(
-								getScript(encounterCode, 0), font, background,
-								getEndScene(EndScene.Type.ENCOUNTER_OVER)
+								getScript(encounterCode, 25), font, backgroundWithOrc,
+								getChoiceScene(
+									"Accept her invitation?", getArray(new String[]{"Accept (Requires: Catamite)", "Decline"}), getArray(new PlayerCharacter[]{character, null}),
+									getTextScenes(
+										getScript(encounterCode, 26), font, backgroundWithOrc, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.FOOD, 15), new Mutation(saveService, SaveEnum.ANAL, new SexualExperienceBuilder().setAnalSex(3, 3, 2).build())}),
+										getEndScene(EndScene.Type.ENCOUNTER_OVER)
+									),
+									getTextScenes(
+										getScript(encounterCode, 27), font, backgroundWithOrc, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.FOOD, 5)}),
+										getEndScene(EndScene.Type.ENCOUNTER_OVER)
+									)
+								)
 							),
 							getTextScenes(
-								getScript(encounterCode, 0), font, background,
-								getBattleScene(
-									battleCode, normalOutcomes, // this battle should have the climax counter at 4 already so that she's satisfied after one go
+								getScript(encounterCode, 28), font, backgroundWithOrc,
+								getChoiceScene(
+									"Well?", getArray(new String[]{"Yes (Requires: Catamite)", "No"}), getArray(new PlayerCharacter[]{character, null, null}),
 									getTextScenes(
-										getScript(encounterCode, 1), font, backgroundWithOrc, 
+										getScript(encounterCode, 29), font, backgroundWithOrc, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.ANAL, new SexualExperienceBuilder().setAnalSex(1, 1, 1).build())}),
 										getEndScene(EndScene.Type.ENCOUNTER_OVER)
 									),
 									getTextScenes(
-										getScript(encounterCode, 1), font, backgroundWithOrc, 
-										getEndScene(EndScene.Type.ENCOUNTER_OVER)
-									),
-									getTextScenes(
-										getScript(encounterCode, 1), font, backgroundWithOrc, 
-										getEndScene(EndScene.Type.ENCOUNTER_OVER)
+										getScript(encounterCode, 30), font, backgroundWithOrc,
+										getBattleScene(
+											battleCode, normalOutcomes,
+											getTextScenes(
+												getScript(encounterCode, 31), font, backgroundWithOrc, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.ORC, 1)}),
+												battleVictory
+											),
+											getTextScenes(
+												getScript(encounterCode, 32), font, backgroundWithOrc, 
+												getChoiceScene(
+													"Man or woman?", getArray(new String[]{"Man", "Woman"}),
+													getTextScenes(
+														getScript(encounterCode, 33), font, backgroundWithOrc,
+														getEndScene(EndScene.Type.GAME_OVER)
+													),
+													getTextScenes(
+														getScript(encounterCode, 34), font, backgroundWithOrc, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.ANAL, new SexualExperienceBuilder().setAnalSex(1, 1, 5).build())}),
+														getEndScene(EndScene.Type.GAME_OVER)
+													)
+												)
+											),
+											getTextScenes(
+												getScript(encounterCode, 35), font, backgroundWithOrc, 
+												getEndScene(EndScene.Type.GAME_OVER)
+											)
+										)
 									)
 								)	
 							)

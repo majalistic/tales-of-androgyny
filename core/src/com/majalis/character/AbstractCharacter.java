@@ -157,6 +157,7 @@ public abstract class AbstractCharacter extends Actor {
 			case 2: return AssetEnum.HEALTH_ICON_2.getPath();
 			case 3: return AssetEnum.HEALTH_ICON_3.getPath();
 			case 4: return AssetEnum.HEALTH_ICON_3.getPath();
+			case 5: return AssetEnum.HEALTH_ICON_3.getPath();
 		}
 		return null;
 	}
