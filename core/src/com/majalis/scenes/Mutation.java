@@ -33,7 +33,7 @@ public class Mutation {
 			return saveService.saveDataValue(path, value, false);
 		}
 		else {
-			saveService.saveDataValue(pathProfile, value, false);
+			saveService.saveDataValue(pathProfile, value, true);
 			return null;
 		}
 	}
