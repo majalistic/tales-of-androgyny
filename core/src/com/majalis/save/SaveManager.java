@@ -19,6 +19,7 @@ import com.majalis.character.EnemyCharacter;
 import com.majalis.character.Item;
 import com.majalis.character.Perk;
 import com.majalis.character.PlayerCharacter;
+import com.majalis.character.PlayerCharacter.QuestFlag;
 import com.majalis.character.SexualExperience;
 import com.majalis.character.AbstractCharacter.Stat;
 import com.majalis.character.Item.WeaponType;
@@ -106,10 +107,10 @@ public class SaveManager implements SaveService, LoadService {
 	    	case MUSIC:				save.music = (String) object; break;
 	    	case CONSOLE:			save.console = extracted(object); break;
 	    	case ANAL:				result = save.player.receiveSex((SexualExperience) object); break;
-	    	case GOBLIN_VIRGIN:		save.player.setGoblinVirginity((Boolean) object); break;
 	    	case ITEM:				save.player.receiveItem(new Item.Weapon(WeaponType.Bow)); result = "You have received a bow!"; break;
 	    	case SHOP:				save.shops.put(((Shop) object).getShopCode(), (Shop) object); break;
-	    	case ORC: 			save.player.setOrcResult((Integer) object); break;
+	    	case GOBLIN_VIRGIN:		save.player.setGoblinVirginity((Boolean) object); break;
+	    	case QUEST: 				QuestFlag flag = (QuestFlag) object; save.player.setQuestStatus(flag.type, flag.value); break;
     	}	
     	if (saveToJson) {
     		saveToJson(save); //Saves current save immediately.
@@ -152,7 +153,7 @@ public class SaveManager implements SaveService, LoadService {
 	    	case ITEM:
 	    	case GOBLIN_VIRGIN:		break;
 	    	case SHOP:				return (T) (ObjectMap<String, Shop>) save.shops;
-	    	case ORC:			return (T) (Integer) save.player.getOrcResult();
+	    	case QUEST:				break;
     	}	
     	return null;
     }

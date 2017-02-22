@@ -58,7 +58,7 @@ public class PlayerCharacter extends AbstractCharacter {
 	private boolean a2mcheevo;
 	
 	private boolean loaded;
-	private int orcResult; // 0 - not encountered, 1 - courage, 2 - coward
+	private ObjectMap<String, Integer> questFlags;
 	
 	@SuppressWarnings("unused")
 	private PlayerCharacter() {}
@@ -87,6 +87,7 @@ public class PlayerCharacter extends AbstractCharacter {
 				inventory.add(new Potion(ii));
 			}
 			setCharacterName("Hiro");
+			questFlags = new ObjectMap<String, Integer>();
 		}
 		
 		skills = new ObjectMap<String, Integer>();
@@ -891,12 +892,26 @@ public class PlayerCharacter extends AbstractCharacter {
 	public String getCharacterName() {
 		return name;
 	}
-
-	public void setOrcResult(int option) {
-		orcResult = option;
+	
+	public int getQuestStatus(QuestType type) {
+		return questFlags.get(type.toString(), 0);
+	}	
+	
+	public void setQuestStatus(QuestType type, int status) {
+		questFlags.put(type.toString(), status);
 	}
 	
-	public int getOrcResult() {
-		return orcResult;
+	public enum QuestType {
+		ORC
 	}
+	
+	public static class QuestFlag {
+		public final QuestType type;
+		public final int value;
+		public QuestFlag(QuestType type, int value) {
+			this.type = type;
+			this.value = value;
+		}		
+	}
+
 }

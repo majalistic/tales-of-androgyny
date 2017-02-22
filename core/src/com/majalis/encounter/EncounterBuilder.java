@@ -23,6 +23,8 @@ import com.majalis.battle.BattleFactory.EnemyEnum;
 import com.majalis.character.EnemyCharacter;
 import com.majalis.character.Perk;
 import com.majalis.character.PlayerCharacter;
+import com.majalis.character.PlayerCharacter.QuestFlag;
+import com.majalis.character.PlayerCharacter.QuestType;
 import com.majalis.character.Techniques;
 import com.majalis.encounter.Background.BackgroundBuilder;
 import com.majalis.character.SexualExperience.SexualExperienceBuilder;
@@ -851,7 +853,7 @@ public class EncounterBuilder {
 				
 				OrderedMap<Integer, Scene> leaveOrc = 
 					getTextScenes(
-						getScript(encounterCode, 23), font, backgroundWithOrc, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.ORC, 2)}),
+						getScript(encounterCode, 23), font, backgroundWithOrc, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.QUEST, new QuestFlag(QuestType.ORC, 2))}),
 						getTextScenes(
 							getScript(encounterCode, "23A"), font, background,
 							getTextScenes(
@@ -901,7 +903,7 @@ public class EncounterBuilder {
 					getCheckScene(
 						CheckType.ORC_ENCOUNTERED,		
 						getTextScenes(
-							getScript(encounterCode, 1), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.ORC, 1)}), // before you spot the orc
+							getScript(encounterCode, 1), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.QUEST, new QuestFlag(QuestType.ORC, 1))}), // before you spot the orc
 							getChoiceScene(
 								"Do you speak up?", getArray(new String[]{"Speak up", "Remain silent"}),
 								getTextScenes(
@@ -1006,7 +1008,7 @@ public class EncounterBuilder {
 										getBattleScene(
 											battleCode, normalOutcomes,
 											getTextScenes(
-												getScript(encounterCode, 31), font, backgroundWithOrc, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.ORC, 1)}),
+												getScript(encounterCode, 31), font, backgroundWithOrc, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.QUEST, new QuestFlag(QuestType.ORC, 1))}),
 												battleVictory
 											),
 											getTextScenes(
@@ -1108,9 +1110,9 @@ public class EncounterBuilder {
 			case COTTAGE_TRAINER:
 				background = new BackgroundBuilder(assetManager.get(AssetEnum.CABIN_BACKGROUND.getPath(), Texture.class)).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class)).build();
 				Background trainerBackground = new BackgroundBuilder(assetManager.get(AssetEnum.CABIN_BACKGROUND.getPath(), Texture.class)).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class)).setForeground(assetManager.get(AssetEnum.TRAINER.getPath(), Texture.class)).build();
-				getTextScenes (
+				getTextScenes(
 					getScript("STORY-003"), font, background, new Array<Mutation>(), AssetEnum.TRAINER_MUSIC.getPath(), new Array<String>(),
-					getTextScenes (
+					getTextScenes(
 						getScript("STORY-003A"), font, trainerBackground, 
 						getCharacterCreationScene(
 							smallFont, getClassSelectBackground(), true,

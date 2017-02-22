@@ -7,6 +7,7 @@ import com.badlogic.gdx.utils.OrderedMap;
 import com.majalis.character.PlayerCharacter;
 import com.majalis.battle.BattleFactory.EnemyEnum;
 import com.majalis.character.AbstractCharacter.Stat;
+import com.majalis.character.PlayerCharacter.QuestType;
 import com.majalis.character.Perk;
 import com.majalis.encounter.Background;
 import com.majalis.save.SaveService;
@@ -121,13 +122,13 @@ public class CheckScene extends AbstractTextScene {
 		}, 
 		ORC_ENCOUNTERED ("You come across a bizarre sight.", "You see her, again.  The orc.") {
 			@Override
-			protected boolean getCheck(PlayerCharacter character) { return character.getOrcResult() == 0; } 
+			protected boolean getCheck(PlayerCharacter character) { return character.getQuestStatus(QuestType.ORC) == 0; } 
 		},
-		ORC_COWARD ("You've been brave!", "You were cowardly.") { 
+		ORC_COWARD ("You confidently approach her.", "You recall your cowardice.") { 
 			@Override
-			protected boolean getCheck(PlayerCharacter character) { return character.getOrcResult() == 1; } 
-		};
-		
+			protected boolean getCheck(PlayerCharacter character) { return character.getQuestStatus(QuestType.ORC) == 1; } 
+		}, 
+		;
 		private final String success;
 		private final String failure;
 		
