@@ -70,6 +70,20 @@ public class TownScreen extends AbstractScreen {
 		selection = 0;
 	}
 
+	private ClickListener getListener(EncounterCode code) {
+		return new ClickListener(){
+	        @Override
+	        public void clicked(InputEvent event, float x, float y) {
+	        	buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
+	        	saveService.saveDataValue(SaveEnum.CONTEXT, SaveManager.GameContext.ENCOUNTER);
+	        	saveService.saveDataValue(SaveEnum.RETURN_CONTEXT, SaveManager.GameContext.TOWN);
+	        	saveService.saveDataValue(SaveEnum.ENCOUNTER_CODE, code);
+	        	music.stop();
+	        	showScreen(ScreenEnum.CONTINUE);    
+	        }
+	    };
+	}
+	
 	@Override
 	public void buildStage() {
 		Table table = new Table();
@@ -85,29 +99,8 @@ public class TownScreen extends AbstractScreen {
 			table.add(buttons.get(ii)).size(300, 60).row();
 		}
 		
-		buttons.get(0).addListener(new ClickListener(){
-	        @Override
-	        public void clicked(InputEvent event, float x, float y) {
-	        	buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
-	        	saveService.saveDataValue(SaveEnum.CONTEXT, SaveManager.GameContext.ENCOUNTER);
-	        	saveService.saveDataValue(SaveEnum.RETURN_CONTEXT, SaveManager.GameContext.TOWN);
-	        	saveService.saveDataValue(SaveEnum.ENCOUNTER_CODE, EncounterCode.SHOP);
-	        	music.stop();
-	        	showScreen(ScreenEnum.CONTINUE);    
-	        }
-	    });
-		
-		buttons.get(1).addListener(new ClickListener(){
-	        @Override
-	        public void clicked(InputEvent event, float x, float y) {
-	        	buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
-	        	saveService.saveDataValue(SaveEnum.CONTEXT, SaveManager.GameContext.ENCOUNTER);
-	        	saveService.saveDataValue(SaveEnum.RETURN_CONTEXT, SaveManager.GameContext.TOWN);
-	        	saveService.saveDataValue(SaveEnum.ENCOUNTER_CODE, EncounterCode.WEAPON_SHOP);
-	        	music.stop();
-	        	showScreen(ScreenEnum.CONTINUE);    
-	        }
-	    });
+		buttons.get(0).addListener(getListener(EncounterCode.SHOP));
+		buttons.get(1).addListener(getListener(EncounterCode.WEAPON_SHOP));
 		
 		buttons.get(4).addListener(new ClickListener(){
 	        @Override
