@@ -66,7 +66,7 @@ public class EnemyCharacter extends AbstractCharacter {
 				weapon = new Weapon(WeaponType.Gladius);
 				phallus = PhallusType.NORMAL;
 				baseStrength = 3;
-				baseAgility = 3;
+				baseAgility = 4;
 				imagePath = AssetEnum.BRIGAND.getPath();
 				break;
 			case SLIME:
@@ -488,7 +488,7 @@ public class EnemyCharacter extends AbstractCharacter {
 	}
 	
 	private Technique getTechnique(AbstractCharacter target, Techniques technique) {
-		return new Technique(technique.getTrait(), getCurrentState(target), 1);
+		return new Technique(technique.getTrait(), getCurrentState(target), enemyType == EnemyEnum.BRIGAND && technique == Techniques.PARRY ? 3 : 1);
 	}
 	
 	private int getRandomWeighting(int size) {
