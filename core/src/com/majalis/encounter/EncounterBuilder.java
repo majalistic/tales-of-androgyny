@@ -297,7 +297,7 @@ public class EncounterBuilder {
 							getChoiceScene(
 								"Do you enter the slime, or...?",
 								getArray(new String[]{"Go In", "Love Dart (Requires: Catamite)"}),
-								getArray(new PlayerCharacter[]{null, character}),
+								getArray(new ChoiceCheckType[]{null, ChoiceCheckType.LEWD}),
 								getTextScenes(getScript(encounterCode, 11), font, slimeBackground,
 									getTextScenes(getArray(new String[]{"You banged the slime!", "You receive 2 Experience."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.EXPERIENCE, 2)}), getEndScene(EndScene.Type.ENCOUNTER_OVER))
 								),
@@ -352,7 +352,7 @@ public class EncounterBuilder {
 								getTextScenes(
 									getScript(encounterCode, 2), font, background,
 									getChoiceScene(
-										"Accept her offer?", getArray(new String[]{"Accept (Requires: Catamite)", "Decline"}), getArray(new PlayerCharacter[]{character, null}),
+										"Accept her offer?", getArray(new String[]{"Accept (Requires: Catamite)", "Decline"}), getArray(new ChoiceCheckType[]{ChoiceCheckType.LEWD, null}),
 										getTextScenes(
 											getScript(encounterCode, 3), font, background, getArray(new Mutation[]{analReceive}),
 											getChoiceScene(
@@ -438,7 +438,7 @@ public class EncounterBuilder {
 				getTextScenes(
 					getScript(encounterCode, 0), font, background, new Array<Mutation>(), AssetEnum.SHOP_MUSIC.getPath(), new Array<String>(),
 					getChoiceScene(
-						"Do you offer her YOUR apple, or try to convince her to just hand it over?", getArray(new String[]{"Offer (Requires: Catamite)", "Plead with her"}), getArray(new PlayerCharacter[]{character, null}),												
+						"Do you offer her YOUR apple, or try to convince her to just hand it over?", getArray(new String[]{"Offer (Requires: Catamite)", "Plead with her"}), getArray(new ChoiceCheckType[]{ChoiceCheckType.LEWD, null}),												
 						getTextScenes(
 							getScript(encounterCode, 1), font, background, getArray(new Mutation[]{analReceive}),
 							getTextScenes(
@@ -512,7 +512,7 @@ public class EncounterBuilder {
 								Perk.ANAL_LOVER, new IntArray(new int[]{3}),
 								catamite,
 								getChoiceScene(
-									"Fight the centaur?", getArray(new String[]{"Fight Her", "Decline", "Ask for It (Requires: Catamite)"}), getArray(new PlayerCharacter[]{null, null, character}),
+									"Fight the centaur?", getArray(new String[]{"Fight Her", "Decline", "Ask for It (Requires: Catamite)"}), getArray(new ChoiceCheckType[]{null, null, ChoiceCheckType.LEWD}),
 									getBattleScene(
 										battleCode, normalOutcomes,
 										getTextScenes(getArray(new String[]{"You defeated the centaur!", "You are now welcome to sleep in their camp, and receive 10 food.", "You receive 2 Experience."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.EXPERIENCE, 2), new Mutation(saveService, SaveEnum.FOOD, 10)}), getEndScene(EndScene.Type.ENCOUNTER_OVER)),
@@ -867,7 +867,7 @@ public class EncounterBuilder {
 					getTextScenes(
 						getScript(encounterCode, 8), font, backgroundWithOrc, 
 						getChoiceScene(
-							"Front, back, or decline?", getArray(new String[]{"Front (Requires: Catamite)", "Back", "Decline"}), getArray(new PlayerCharacter[]{character, null, null}),
+							"Front, back, or decline?", getArray(new String[]{"Front (Requires: Catamite)", "Back", "Decline"}), getArray(new ChoiceCheckType[]{ChoiceCheckType.LEWD, null, null}),
 							getTextScenes(
 								getScript(encounterCode, 9), font, backgroundWithOrc, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.ANAL, new SexualExperienceBuilder().setAnalSex(1, 1, 1).build())}),
 								getEndScene(EndScene.Type.ENCOUNTER_OVER)
@@ -927,7 +927,7 @@ public class EncounterBuilder {
 															getTextScenes(
 																getScript(encounterCode, 12), font, backgroundWithOrc, // options to finish off the orc
 																getChoiceScene(
-																	"What do you offer?", getArray(new String[]{"Anal (Requires: Catamite)", "Oral", "Nasal", "Facial (4 CHA)", "Penal (6 CHA)"}), getArray(new PlayerCharacter[]{character, null, null, null, null}),
+																	"What do you offer?", getArray(new String[]{"Anal (Requires: Catamite)", "Oral", "Nasal", "Facial (4 CHA)", "Penal (6 CHA)"}), getArray(new ChoiceCheckType[]{ChoiceCheckType.LEWD, null, null, null, null}),
 																	getTextScenes(
 																		getScript(encounterCode, 9), font, backgroundWithOrc, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.ANAL, new SexualExperienceBuilder().setAnalSex(1, 1, 1).build())}),
 																		getEndScene(EndScene.Type.ENCOUNTER_OVER)
@@ -984,7 +984,7 @@ public class EncounterBuilder {
 							getTextScenes(
 								getScript(encounterCode, 25), font, backgroundWithOrc,
 								getChoiceScene(
-									"Accept her invitation?", getArray(new String[]{"Accept (Requires: Catamite)", "Decline"}), getArray(new PlayerCharacter[]{character, null}),
+									"Accept her invitation?", getArray(new String[]{"Accept (Requires: Catamite)", "Decline"}), getArray(new ChoiceCheckType[]{ChoiceCheckType.LEWD, null}),
 									getTextScenes(
 										getScript(encounterCode, 26), font, backgroundWithOrc, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.FOOD, 15), new Mutation(saveService, SaveEnum.ANAL, new SexualExperienceBuilder().setAnalSex(3, 3, 2).build())}),
 										getEndScene(EndScene.Type.ENCOUNTER_OVER)
@@ -998,7 +998,7 @@ public class EncounterBuilder {
 							getTextScenes(
 								getScript(encounterCode, 28), font, backgroundWithOrc,
 								getChoiceScene(
-									"Well?", getArray(new String[]{"Yes (Requires: Catamite)", "No"}), getArray(new PlayerCharacter[]{character, null, null}),
+									"Well?", getArray(new String[]{"Yes (Requires: Catamite)", "No"}), getArray(new ChoiceCheckType[]{ChoiceCheckType.LEWD, null, null}),
 									getTextScenes(
 										getScript(encounterCode, 29), font, backgroundWithOrc, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.QUEST, new QuestFlag(QuestType.ORC, 1)), new Mutation(saveService, SaveEnum.ANAL, new SexualExperienceBuilder().setAnalSex(1, 1, 1).build())}),
 										getEndScene(EndScene.Type.ENCOUNTER_OVER)
@@ -1092,7 +1092,7 @@ public class EncounterBuilder {
 										getScript("GADGETEER-07"), font, backgroundWithGadgeteer,
 										getChoiceScene(
 											"Try the toys?", getArray(new String[]{"Yes (Requires: Catamite)", "No thanks"}),
-											getArray(new PlayerCharacter[]{character, null}),
+											getArray(new ChoiceCheckType[]{ChoiceCheckType.LEWD, null}),
 											getTextScenes(
 												getScript("GADGETEER-08"), font, backgroundWithGadgeteer, getArray(dryAnal),
 												getEndScene(EndScene.Type.ENCOUNTER_OVER)
@@ -1348,9 +1348,9 @@ public class EncounterBuilder {
 	}
 	
 	private OrderedMap<Integer, Scene> getChoiceScene(String choiceDialogue, Array<String> buttonLabels, @SuppressWarnings("unchecked") OrderedMap<Integer, Scene>... sceneMaps) {
-		return getChoiceScene(choiceDialogue, buttonLabels, new Array<PlayerCharacter>(), sceneMaps);
+		return getChoiceScene(choiceDialogue, buttonLabels, new Array<ChoiceCheckType>(), sceneMaps);
 	}
-	private OrderedMap<Integer, Scene> getChoiceScene(String choiceDialogue, Array<String> buttonLabels, Array<PlayerCharacter> checks, @SuppressWarnings("unchecked") OrderedMap<Integer, Scene>... sceneMaps) {
+	private OrderedMap<Integer, Scene> getChoiceScene(String choiceDialogue, Array<String> buttonLabels, Array<ChoiceCheckType> checks, @SuppressWarnings("unchecked") OrderedMap<Integer, Scene>... sceneMaps) {
 		OrderedMap<Integer, Scene> sceneMap = aggregateMaps(sceneMaps);
 		
 		// use sceneMap to generate the table
@@ -1394,21 +1394,34 @@ public class EncounterBuilder {
 	    };
 	}
 	
-	private ClickListener getListener(final AbstractChoiceScene currentScene, final Scene nextScene, final Sound buttonSound, final PlayerCharacter character, final TextButton button) {
+	private enum ChoiceCheckType {
+		LEWD
+	}
+	
+	private ClickListener getListener(final AbstractChoiceScene currentScene, final Scene nextScene, final Sound buttonSound, ChoiceCheckType type, final TextButton button) {
 		return new ClickListener() {
 	        @Override
 	        public void clicked(InputEvent event, float x, float y) {
-	        	if (!character.isLewd()) {
-	        		button.setColor(Color.GRAY);
-	        	}
-	        	else {
+	        	if (isValidChoice(type)) {
 	        		buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
 		        	// set new Scene as active based on choice
 		        	nextScene.setActive();
 		        	currentScene.finish();
 	        	}
+	        	else {
+		        	button.setColor(Color.GRAY);
+	        	}
 	        }
 	    };
+	}
+	
+	private boolean isValidChoice(ChoiceCheckType type) {
+		switch (type) {
+		case LEWD:
+			return character.isLewd();
+		default:
+			return false;
+		}
 	}
 	
 	private OrderedMap<Integer, Scene> getCheckScene(Perk perk, IntArray checkValues, @SuppressWarnings("unchecked") OrderedMap<Integer, Scene>... sceneMaps) {
@@ -1528,6 +1541,7 @@ public class EncounterBuilder {
 		return getArray(reader.loadScript(code));
 	}
 	
+	private Array<ChoiceCheckType> getArray(ChoiceCheckType[] array) { return new Array<ChoiceCheckType>(true, array, 0, array.length); }
 	private Array<String> getArray(String[] array) { return new Array<String>(true, array, 0, array.length); }
 	private Array<Mutation> getArray(Mutation[] array) { return new Array<Mutation>(true, array, 0, array.length); }
 	private Array<PlayerCharacter> getArray(PlayerCharacter[] array) { return new Array<PlayerCharacter>(true, array, 0, array.length);  }
