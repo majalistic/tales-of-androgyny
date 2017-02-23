@@ -1000,7 +1000,7 @@ public class EncounterBuilder {
 								getChoiceScene(
 									"Well?", getArray(new String[]{"Yes (Requires: Catamite)", "No"}), getArray(new PlayerCharacter[]{character, null, null}),
 									getTextScenes(
-										getScript(encounterCode, 29), font, backgroundWithOrc, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.ANAL, new SexualExperienceBuilder().setAnalSex(1, 1, 1).build())}),
+										getScript(encounterCode, 29), font, backgroundWithOrc, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.QUEST, new QuestFlag(QuestType.ORC, 1)), new Mutation(saveService, SaveEnum.ANAL, new SexualExperienceBuilder().setAnalSex(1, 1, 1).build())}),
 										getEndScene(EndScene.Type.ENCOUNTER_OVER)
 									),
 									getTextScenes(
