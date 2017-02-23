@@ -432,6 +432,19 @@ public class Battle extends Group{
 		Array<Attack> attacksForFirstCharacter = doAttacks(secondCharacter, secondTechnique.resolve(firstTechnique));
 		Array<Attack> attacksForSecondCharacter = doAttacks(firstCharacter, firstTechnique.resolve(secondTechnique));
 		
+		// final mutations - attacks are applied to each character, their cached state within the techniques makes the ordering her irrelevant
+		for (Attack attackForFirstCharacter : attacksForFirstCharacter) {
+			Array<Array<String>> results = firstCharacter.receiveAttack(attackForFirstCharacter);
+			printToConsole(results.get(0));
+			printToDialog(results.get(1));
+		}
+		
+		for (Attack attackForSecondCharacter : attacksForSecondCharacter) {
+			Array<Array<String>> results = secondCharacter.receiveAttack(attackForSecondCharacter);
+			printToConsole(results.get(0));
+			printToDialog(results.get(1));
+		}
+		
 		for (Attack attackForFirstCharacter : attacksForFirstCharacter) {
 			if (attackForFirstCharacter.isAttack()) {
 				slash.setState(0);
@@ -502,19 +515,6 @@ public class Battle extends Group{
 					enemy.hitAnimation();
 				}
 			}
-		}
-		
-		// final mutations - attacks are applied to each character, their cached state within the techniques makes the ordering her irrelevant
-		for (Attack attackForFirstCharacter : attacksForFirstCharacter) {
-			Array<Array<String>> results = firstCharacter.receiveAttack(attackForFirstCharacter);
-			printToConsole(results.get(0));
-			printToDialog(results.get(1));
-		}
-		
-		for (Attack attackForSecondCharacter : attacksForSecondCharacter) {
-			Array<Array<String>> results = secondCharacter.receiveAttack(attackForSecondCharacter);
-			printToConsole(results.get(0));
-			printToDialog(results.get(1));
 		}
 		
 		if (dialogText.isEmpty()) {
