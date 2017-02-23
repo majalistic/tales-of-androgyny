@@ -212,7 +212,7 @@ public class ShopScene extends Scene {
 			case FIRST_STORY:
 			case WEAPON_SHOP:
 				for (WeaponType type: WeaponType.values()) {
-					if (type != WeaponType.Bow && type != WeaponType.Dagger) {
+					if (type.isBuyable()) {
 						shop.weapons.add(new Weapon(type));	
 					}									
 				}

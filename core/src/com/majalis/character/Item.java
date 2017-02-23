@@ -88,23 +88,28 @@ public abstract class Item {
 	}
 	
 	public enum WeaponType {
-		Dagger,
+		Dagger (true, false),
 		Rapier,
 		Gladius,
 		Cutlass,
 		Broadsword,
-		Bow (false), 
-		Flail,
-		Claw (false),
-		Talon (false)
+		Bow (false, false), 
+		Flail (true, false),
+		Claw (false, false),
+		Talon (false, false)
 		;
 		
 		private final boolean disarmable;
+		private final boolean buyable;
 		private WeaponType() { 
-			this(true);
+			this(true, true);
 		}
-		private WeaponType(boolean disarmable) {
+		private WeaponType(boolean disarmable, boolean buyable) {
 			this.disarmable = disarmable;
+			this.buyable = buyable;
+		}
+		public boolean isBuyable() {
+			return buyable;
 		}
 	}
 	
