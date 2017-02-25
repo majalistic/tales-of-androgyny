@@ -81,6 +81,7 @@ public class Battle extends Group{
 	private final ProgressBar enemyHealth;
 	private final Image characterArousal;
 	private final Image enemyArousal;
+	private final Image characterBelly;
 	private final Image healthIcon;
 	private final Image staminaIcon;
 	private final Image balanceIcon;
@@ -223,11 +224,13 @@ public class Battle extends Group{
 
 		characterPortrait.addListener(getListener(character));
 		
-		masculinityIcon = initImage(assetManager.get(character.getMasculinityPath(), Texture.class), barX - 150, 850);
+		masculinityIcon = initImage(assetManager.get(character.getMasculinityPath(), Texture.class), barX - 175, 790);
 		masculinityIcon.setScale(.15f);
 		
-		characterArousal = initImage(assetManager.get(character.getLustImagePath(), Texture.class), 150, 490 * 1.5f, 150, 150);
-		enemyArousal = initImage(assetManager.get(enemy.getLustImagePath(), Texture.class), 1078 * 1.5f, 490 * 1.5f, 150, 150);
+		characterArousal = initImage(assetManager.get(character.getLustImagePath(), Texture.class), 150, 735, 150, 150);
+		enemyArousal = initImage(assetManager.get(enemy.getLustImagePath(), Texture.class), 1078 * 1.5f, 735, 150, 150);
+		
+		characterBelly = initImage(assetManager.get(character.getCumInflationPath(), Texture.class), 0, 850, 100, 100); 
 		
 		initStanceActor(new StanceActor(character), 600.5f, 880, 150, 172.5f);
 		initStanceActor(new StanceActor(enemy), 1305, 880, 150, 172.5f);
@@ -584,6 +587,7 @@ public class Battle extends Group{
 			enemyBloodLabel.addAction(show());
 		}
 		
+		characterBelly.setDrawable(getDrawable(character.getCumInflationPath()));
 		characterArousal.setDrawable(getDrawable(character.getLustImagePath()));
 		enemyArousal.setDrawable(getDrawable(enemy.getLustImagePath()));
 		healthIcon.setDrawable(getDrawable(character.getHealthDisplay()));

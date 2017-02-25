@@ -361,7 +361,7 @@ public class PlayerCharacter extends AbstractCharacter {
 		setManaToMax();
 		stance = Stance.BALANCED;
 		a2m = false;
-		buttful = 0;
+		buttful = Math.max(0, buttful - 10);
 		mouthful = 0;
 		baseDefense = 6;
 		if (disarmedWeapon != null) {
