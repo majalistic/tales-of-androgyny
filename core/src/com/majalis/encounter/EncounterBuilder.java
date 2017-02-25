@@ -197,7 +197,24 @@ public class EncounterBuilder {
 				Background harpyFellatioBackground = new BackgroundBuilder(backgroundTexture).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class)).setForeground(assetManager.get(AssetEnum.HARPY_FELLATIO.getPath(), Texture.class)).build();
 				
 				OrderedMap<Integer, Scene> winFight = getTextScenes(getArray(new String[]{"You defeated the harpy!", "You receive 1 Experience."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.EXPERIENCE, 1)}), getEndScene(EndScene.Type.ENCOUNTER_OVER));
-				OrderedMap<Integer, Scene> loseFight = getTextScenes(getScript(encounterCode, 4), font, harpyBackground, getArray(new Mutation[]{analReceive}), getEndScene(EndScene.Type.GAME_OVER));
+				OrderedMap<Integer, Scene> loseFight = 
+					getTextScenes(
+						getScript(encounterCode, 4), font, harpyBackground, 
+						getTextScenes(
+							getScript(encounterCode, "04-A"), font, harpyBackground, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.ANAL, new SexualExperienceBuilder().setAnalSex(1, 0, 0).build())}),
+							getTextScenes(
+								getScript(encounterCode, "04-B"), font, harpyBackground, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.ANAL, new SexualExperienceBuilder().setAnalSex(0, 0, 1).build())}),
+								getTextScenes(
+									getScript(encounterCode, "04-C"), font, harpyBackground, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.ANAL, new SexualExperienceBuilder().setAnalSex(0, 1, 0).build())}),
+									getTextScenes(
+										getScript(encounterCode, "04-D"), font, harpyBackground, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.ANAL, new SexualExperienceBuilder().setAnalSex(10, 10, 0).build())}),
+										getEndScene(EndScene.Type.GAME_OVER)
+									)
+								)
+							)
+						)
+					);
+						
 				OrderedMap<Integer, Scene> satisfiedFight = getTextScenes(getScript(encounterCode, 5), font, harpyBackground, getArray(new Mutation[]{}), getEndScene(EndScene.Type.ENCOUNTER_OVER))	;
 				
 				getTextScenes(
