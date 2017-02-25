@@ -24,7 +24,6 @@ import com.esotericsoftware.spine.SkeletonMeshRenderer;
 public class GameOverScreen extends AbstractScreen {
 
 	public static final ObjectMap<String, Class<?>> resourceRequirements = new ObjectMap<String, Class<?>>();
-	static {}
 	private final AssetManager assetManager;
 	private TextureAtlas atlas;
 	private SkeletonMeshRenderer renderer;
@@ -40,7 +39,7 @@ public class GameOverScreen extends AbstractScreen {
 	public void buildStage() {
 		Actor click = new Actor();
 		click.setBounds(0, 0, 2000, 2000);
-		click.addListener(new ClickListener(){
+		click.addListener(new ClickListener() {
 			@Override
 	        public void clicked(InputEvent event, float x, float y) {
 				showScreen(ScreenEnum.MAIN_MENU);
@@ -76,7 +75,7 @@ public class GameOverScreen extends AbstractScreen {
 		batch.setProjectionMatrix(camera.combined);
 		camera.update();
 		batch.begin();
-		Gdx.gl.glClearColor(.75f, .5f, .5f, 1);
+		Gdx.gl.glClearColor(Color.SLATE.r, Color.SLATE.g, Color.SLATE.b, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		state.update(Gdx.graphics.getDeltaTime());
 		state.apply(skeleton);
@@ -85,8 +84,9 @@ public class GameOverScreen extends AbstractScreen {
 		font.setColor(Color.BLACK);
 		font.draw(batch, "GAME OVER - Press Enter", 975, 600);
 		batch.end();
-		if (Gdx.input.isKeyJustPressed(Keys.ENTER) || Gdx.input.isKeyJustPressed(Keys.ESCAPE) || Gdx.input.isKeyJustPressed(Keys.SPACE))
+		if (Gdx.input.isKeyJustPressed(Keys.ENTER) || Gdx.input.isKeyJustPressed(Keys.ESCAPE) || Gdx.input.isKeyJustPressed(Keys.SPACE)) {
 			showScreen(ScreenEnum.MAIN_MENU);
+		}
 	}
 	
 	@Override
@@ -96,7 +96,7 @@ public class GameOverScreen extends AbstractScreen {
 	
 	@Override
 	public void dispose() {
-		for(String path: resourceRequirements.keys()){
+		for(String path: resourceRequirements.keys()) {
 			assetManager.unload(path);
 		}
 	}
