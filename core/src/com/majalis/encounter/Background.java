@@ -57,7 +57,7 @@ public class Background extends Group{
 		
 		public BackgroundBuilder setForeground(AnimatedActor foreground, int x, int y) {
 			this.animation = foreground;
-			animation.setSkeletonPosition(x, y);
+			if (!(x == y && x == 0)) animation.setSkeletonPosition(x, y);
 			this.width2 = (int) (foreground.getWidth() / (foreground.getHeight() / 1080f));
 			this.height2 = 1080;
 			x2 = x;
