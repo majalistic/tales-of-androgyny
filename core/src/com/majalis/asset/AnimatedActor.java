@@ -20,6 +20,8 @@ public class AnimatedActor extends Actor {
 	
 	public AnimatedActor(String atlasPath, String jsonPath) {
 		this(atlasPath, jsonPath, 1, 1);
+		state.setAnimation(0, "Splurt", false);
+		state.addAnimation(0, "Idle", true, 5f);
 	}
 	
 	public AnimatedActor(String atlasPath, String jsonPath, float scale, float timeScale) {

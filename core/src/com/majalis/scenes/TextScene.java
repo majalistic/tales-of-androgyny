@@ -55,7 +55,7 @@ public class TextScene extends AbstractTextScene  {
 		if (sound != null) {
 			EncounterScreen.play(sound);
 		}
-		background.initEnemy();
+		background.initAnimation();
 		String mutationResults = "";
 		for (Mutation mutator: mutations) {
 			String result = mutator.mutate();

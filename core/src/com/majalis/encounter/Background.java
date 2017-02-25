@@ -12,9 +12,9 @@ public class Background extends Group{
 
 	public static class BackgroundBuilder{
 		
-		AnimatedActor enemy;
-		TextureRegion backgroundTexture, foregroundTexture, dialogBoxTexture;
-		int x1, y1, width, height, x2, y2, width2, height2, x3, y3, width3, height3;
+		private AnimatedActor animation;
+		private TextureRegion backgroundTexture, foregroundTexture, dialogBoxTexture;
+		private int x1, y1, width, height, x2, y2, width2, height2, x3, y3, width3, height3;
 		
 		public BackgroundBuilder(Texture background) {
 			this(background, 1920, 1080);
@@ -56,7 +56,8 @@ public class Background extends Group{
 		}
 		
 		public BackgroundBuilder setForeground(AnimatedActor foreground, int x, int y) {
-			this.enemy = foreground;
+			this.animation = foreground;
+			animation.setSkeletonPosition(x, y);
 			this.width2 = (int) (foreground.getWidth() / (foreground.getHeight() / 1080f));
 			this.height2 = 1080;
 			x2 = x;
@@ -74,8 +75,8 @@ public class Background extends Group{
 		}
 		
 		public Background build() {
-			if (enemy != null) {
-				return new Background(getImage(backgroundTexture, x1, y1, width, height), backgroundTexture, enemy, getImage(dialogBoxTexture, x3, y3, width3, height3), dialogBoxTexture);
+			if (animation != null) {
+				return new Background(getImage(backgroundTexture, x1, y1, width, height), backgroundTexture, animation, getImage(dialogBoxTexture, x3, y3, width3, height3), dialogBoxTexture);
 			}
 			return new Background(getImage(backgroundTexture, x1, y1, width, height), backgroundTexture, getImage(foregroundTexture, x2, y2, width2, height2), foregroundTexture, getImage(dialogBoxTexture, x3, y3, width3, height3), dialogBoxTexture);
 		}
@@ -91,26 +92,26 @@ public class Background extends Group{
 	
 	private final TextureRegion backgroundTexture;
 	private final TextureRegion foregroundTexture;
-	private final AnimatedActor enemy;
+	private final AnimatedActor animation;
 	private final TextureRegion dialogBoxTexture;
 	private final Image background;
 	private final Image foreground;
 	private final Image dialogBox;
 	private boolean dialogBoxVisible;
 	
-	private Background(Image background, TextureRegion backgroundTexture, AnimatedActor enemy, Image dialogBox, TextureRegion dialogBoxTexture) {
+	private Background(Image background, TextureRegion backgroundTexture, AnimatedActor animation, Image dialogBox, TextureRegion dialogBoxTexture) {
 		this.background = background;
 		this.backgroundTexture = backgroundTexture;
 		this.foreground = null;
 		this.foregroundTexture = null;
-		this.enemy = enemy;
+		this.animation = animation;
 		this.dialogBox = dialogBox;
 		this.dialogBoxTexture = dialogBoxTexture;
 		if (background != null) {
 			this.addActor(background);
 		}
-		if (enemy != null) {
-			this.addActor(enemy);
+		if (animation != null) {
+			this.addActor(animation);
 		}
 		if (dialogBox != null) {
 			this.addActor(dialogBox);
@@ -122,7 +123,7 @@ public class Background extends Group{
 		this.background = background;
 		this.backgroundTexture = backgroundTexture;
 		this.foreground = foreground;
-		this.enemy = null;
+		this.animation = null;
 		this.foregroundTexture = foregroundTexture;
 		this.dialogBox = dialogBox;
 		this.dialogBoxTexture = dialogBoxTexture;
@@ -142,8 +143,8 @@ public class Background extends Group{
 		Image newBackground = cloneImage(background, backgroundTexture);
 		Image newForeground = cloneImage(foreground, foregroundTexture);
 		Image newDialogBox = cloneImage(dialogBox, dialogBoxTexture);
-		if (enemy != null) {
-			return new Background(newBackground, backgroundTexture, enemy, newDialogBox, dialogBoxTexture);
+		if (animation != null) {
+			return new Background(newBackground, backgroundTexture, animation, newDialogBox, dialogBoxTexture);
 		}
 		return new Background(newBackground, backgroundTexture, newForeground, foregroundTexture, newDialogBox, dialogBoxTexture);
 	}
@@ -156,9 +157,9 @@ public class Background extends Group{
 		return temp;
 	}
 
-	public void initEnemy() {
-		if (enemy != null)
-			this.addActorAfter(background, enemy);
+	public void initAnimation() {
+		if (animation != null)
+			this.addActorAfter(background, animation);
 	}
 
 	public void toggleDialogBox(Label display) {

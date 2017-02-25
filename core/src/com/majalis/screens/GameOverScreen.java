@@ -31,8 +31,6 @@ public class GameOverScreen extends AbstractScreen {
 	@Override
 	public void buildStage() {
 		AnimatedActor background = new AnimatedActor("animation/SplurtGO.atlas", "animation/SplurtGO.json");
-		background.setAnimation(0, "Splurt", false);
-		background.addAnimation(0, "Idle", true, 5f);
 		background.setSkeletonPosition(555, 520);
 		background.setSize(2000, 2000);
 		background.addListener(new ClickListener() {
