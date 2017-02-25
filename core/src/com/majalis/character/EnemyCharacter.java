@@ -565,7 +565,7 @@ public class EnemyCharacter extends AbstractCharacter {
 	}
 	
 	public void hitAnimation() {
-		if (animation != null) {
+		if (animation != null && enemyType != EnemyEnum.BRIGAND) {
 			animation.setAnimation(0, "Hit Erect", false);
 			animation.addAnimation(0, "Idle Erect", true, 1.0f);
 		}
