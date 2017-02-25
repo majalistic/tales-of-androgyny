@@ -28,6 +28,7 @@ public class EnemyCharacter extends AbstractCharacter {
 	private int holdLength;
 	private int climaxCounter;
 	private transient AnimatedActor animation;
+	private String currentDisplay;
 	
 	@SuppressWarnings("unused")
 	private EnemyCharacter() {}
@@ -533,6 +534,7 @@ public class EnemyCharacter extends AbstractCharacter {
 		this.defaultTexture = defaultTexture;
 		this.textures = textures;
 		animation = getAnimatedActor(enemyType);
+		currentDisplay = enemyType == EnemyEnum.BRIGAND ? "IFOS100N" :"Idle Erect";
 	}
 	
 	public static AnimatedActor getAnimatedActor(EnemyEnum enemyType) {
@@ -557,9 +559,7 @@ public class EnemyCharacter extends AbstractCharacter {
 			else if (enemyType == EnemyEnum.UNICORN) {
 				animation.setSkeletonSkin("WhiteUnicorn");
 			}
-			
-			// Queue animations on tracks 0 and 1.
-			animation.setAnimation(0, enemyType == EnemyEnum.BRIGAND ? "IFOS100" :"Idle Erect", true);
+			animation.setAnimation(0, enemyType == EnemyEnum.BRIGAND ? "IFOS100N" :"Idle Erect", true);
 		}
 		return animation;
 	}
@@ -671,5 +671,12 @@ public class EnemyCharacter extends AbstractCharacter {
 
 	public void setClimaxCounter(int climaxCounter) {
 		this.climaxCounter = climaxCounter;
+	}
+
+	public void toggle() {
+		if (enemyType == EnemyEnum.BRIGAND) {
+			currentDisplay = currentDisplay.equals("IFOS100") ? "IFOS100N" : "IFOS100";
+			animation.setAnimation(0, currentDisplay, true);
+		}
 	}
 } 

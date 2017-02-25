@@ -338,6 +338,10 @@ public class Battle extends Group{
 				uiHidden = !uiHidden;
 			}
 			
+			if (Gdx.input.isKeyJustPressed(Keys.SHIFT_LEFT)) {
+				enemy.toggle();
+			}
+			
 			if (selectedTechnique == null) {
 				int ii = 0;
 				for (int possibleKey : POSSIBLE_KEYS) {
