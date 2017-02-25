@@ -1,0 +1,75 @@
+
+SplurtGO.png
+size: 2048,2048
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Butt
+  rotate: false
+  xy: 2, 812
+  size: 1573, 1056
+  orig: 1573, 1056
+  offset: 0, 0
+  index: -1
+Eye
+  rotate: false
+  xy: 1504, 753
+  size: 31, 57
+  orig: 31, 57
+  offset: 0, 0
+  index: -1
+Head
+  rotate: false
+  xy: 2, 2
+  size: 408, 259
+  orig: 408, 259
+  offset: 0, 0
+  index: -1
+Hole
+  rotate: true
+  xy: 412, 12
+  size: 249, 380
+  orig: 249, 380
+  offset: 0, 0
+  index: -1
+Legsploodge
+  rotate: false
+  xy: 1577, 1073
+  size: 148, 78
+  orig: 148, 78
+  offset: 0, 0
+  index: -1
+Shadow
+  rotate: false
+  xy: 2, 263
+  size: 1500, 547
+  orig: 1500, 547
+  offset: 0, 0
+  index: -1
+Squirt
+  rotate: true
+  xy: 794, 12
+  size: 249, 365
+  orig: 249, 365
+  offset: 0, 0
+  index: -1
+Torso
+  rotate: true
+  xy: 1577, 1153
+  size: 715, 341
+  orig: 715, 341
+  offset: 0, 0
+  index: -1
+
+SplurtGO2.png
+size: 1024,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Cocksplodge
+  rotate: false
+  xy: 2, 2
+  size: 860, 896
+  orig: 860, 896
+  offset: 0, 0
+  index: -1
