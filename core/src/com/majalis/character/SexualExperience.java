@@ -31,6 +31,7 @@ public class SexualExperience {
 
 		public SexualExperienceBuilder setAnalSex(int anal, int analCreampies, int analEjaculation) {
 			this.analSex = anal;
+			this.creampies = analCreampies;
 			this.analEjaculation = analEjaculation;
 			return this;
 		}

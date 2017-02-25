@@ -35,6 +35,7 @@ public abstract class AbstractTextScene extends Scene {
 	protected final Label statusResults;
 	protected final Image characterPortrait;
 	protected final Image masculinityIcon;
+	protected final Image fullnessIcon;
 	
 	protected AbstractTextScene(OrderedMap<Integer, Scene> sceneBranches, int sceneCode, AssetManager assetManager, BitmapFont font, PlayerCharacter character, SaveService saveService, Background background) {
 		super(sceneBranches, sceneCode);
@@ -53,6 +54,9 @@ public abstract class AbstractTextScene extends Scene {
 		Texture icon = assetManager.get(character.getMasculinityPath(), Texture.class);
 		masculinityIcon = addImage(icon, null, 105, 705, icon.getWidth() / (icon.getHeight() / 100f), 100);
 		masculinityIcon.addAction(Actions.hide());
+		Texture fullness = assetManager.get(character.getCumInflationPath(), Texture.class);
+		fullnessIcon = addImage(icon, null, 42, 755, fullness.getWidth() / (fullness.getHeight() / 100f), 100);
+		fullnessIcon.addAction(Actions.hide());
 	}
 
 	@Override

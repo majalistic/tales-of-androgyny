@@ -67,6 +67,8 @@ public class TextScene extends AbstractTextScene  {
 			characterPortrait.setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(character.getPortraitPath(), Texture.class))));
 			masculinityIcon.addAction(Actions.show());
 			masculinityIcon.setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(character.getMasculinityPath(), Texture.class))));
+			fullnessIcon.addAction(Actions.show());
+			fullnessIcon.setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(character.getCumInflationPath(), Texture.class))));
 		}
 	}
 	// this type of TextScene will be one that always pipes from one scene to the next with no branch - there will be another TextScene that actually has branching logic

@@ -81,6 +81,11 @@ public enum AssetEnum {
 	SMALL_DONG_1("arousal/Trap1.png"),
 	SMALL_DONG_2("arousal/Trap2.png"),
 	
+	STUFFED_BELLY("bellies/Stuffed.png"), 
+	FULL_BELLY("bellies/Full.png"), 
+	BIG_BELLY("bellies/Half.png"), 
+	FLAT_BELLY("bellies/Empty.png"), 
+	
 	BATTLE_SKIN("battle/battleui.json"),
 	PORTRAIT_NEUTRAL("portraits/Neutral.png"),
 	PORTRAIT_AHEGAO("portraits/Ahegao.png"),

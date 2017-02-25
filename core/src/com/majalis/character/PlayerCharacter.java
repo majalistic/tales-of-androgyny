@@ -754,7 +754,7 @@ public class PlayerCharacter extends AbstractCharacter {
 			}
 		}
 		for (int ii = 0; ii < sex.getCreampies(); ii++) {
-			temp = fillButt(3);
+			temp = fillButt(5);
 			if (temp != null) {
 				result += temp + "\n";
 			}
@@ -771,7 +771,7 @@ public class PlayerCharacter extends AbstractCharacter {
 			}
 		}
 		for (int ii = 0; ii < sex.getOralCreampies(); ii++) {
-			temp = fillMouth(1);
+			temp = fillMouth(5);
 			setCurrentPortrait(AssetEnum.PORTRAIT_MOUTHBOMB);
 			if (temp != null) {
 				result += temp + "\n";

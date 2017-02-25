@@ -241,7 +241,7 @@ public abstract class AbstractCharacter extends Actor {
 	
 	public int getHealthDegradation() { return getDegradation(healthTiers, currentHealth); }
 	public int getStaminaDegradation() { return getDegradation(staminaTiers, currentStamina); }
-	public int getCumInflation() { return buttful > 20 || mouthful > 20 ? 2 : buttful > 10 || mouthful > 10 ? 1 : 0; } 
+	public int getCumInflation() { return buttful >= 20 || mouthful >= 20 ? 2 : buttful >=10 || mouthful >= 10 ? 1 : 0; } 
 	
 	protected int getDegradation(IntArray tiers, int currentValue) {
 		int numTiers = tiers.size;
@@ -652,16 +652,31 @@ public abstract class AbstractCharacter extends Actor {
 		buttful--;
 	}
 
+	public String getCumInflationPath() {
+		if (buttful >= 20) {
+			return AssetEnum.STUFFED_BELLY.getPath();
+		}
+		else if (buttful >= 10) {
+			return AssetEnum.FULL_BELLY.getPath();
+		}
+		else if (buttful >= 5 || mouthful >= 10) {
+			return AssetEnum.BIG_BELLY.getPath();
+		}
+		else {
+			return AssetEnum.FLAT_BELLY.getPath(); 
+		}
+	}
+	
 	private String getLeakMessage() {
 		String message = "";
 		
-		if (buttful > 20) {
+		if (buttful >= 20) {
 			message = "Your belly looks pregnant, full of baby batter! It drools out of your well-used hole! Your movements are sluggish! -2 Agility.";
 		}
-		else if (buttful > 10) {
+		else if (buttful >= 10) {
 			message = "Your gut is stuffed with semen!  It drools out!  You're too queasy to move quickly! -1 Agility.";
 		}
-		else if (buttful > 5) {
+		else if (buttful >= 5) {
 			message = "Cum runs out of your full ass!";
 		}
 		else if (buttful > 1) {
@@ -774,16 +789,6 @@ public abstract class AbstractCharacter extends Actor {
 		return label + " adopt" + (secondPerson ? "" : "s") + " " + article + " " + stanceTransform + " stance! ";
  	}
 	
-	protected enum PhallusType {
-		SMALL("Trap"),
-		NORMAL("Human"),
-		MONSTER("Monster");
-		private final String label;
-
-		PhallusType(String label) {
-		    this.label = label;
-		}
-	}
 	
 	public String getLustImagePath() {
 		int lustLevel = lust > 7 ? 2 : lust > 3 ? 1 : 0;
@@ -910,6 +915,17 @@ public abstract class AbstractCharacter extends Actor {
 			return isErotic() || isIncapacitating(); 
 		}
 		
+	}
+	
+	protected enum PhallusType {
+		SMALL("Trap"),
+		NORMAL("Human"),
+		MONSTER("Monster");
+		private final String label;
+
+		PhallusType(String label) {
+		    this.label = label;
+		}
 	}
 	
 	public enum Stat {
