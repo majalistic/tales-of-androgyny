@@ -42,7 +42,7 @@ public abstract class AbstractTextScene extends Scene {
 		this.saveService = saveService;
 		this.addActor(background);
 		Skin skin = assetManager.get(AssetEnum.UI_SKIN.getPath(), Skin.class);
-		display = addLabel("", skin, font, Color.BLACK, 430, 322);
+		display = addLabel("", skin, font, Color.BLACK, 430, 330);
 		display.setWidth(1125);
 		statusResults = addLabel("", skin, font, Color.BLACK, 1430, 950);
 		statusResults.setWidth(400);
