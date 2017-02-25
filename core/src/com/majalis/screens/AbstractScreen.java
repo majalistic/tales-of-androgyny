@@ -23,6 +23,7 @@ public abstract class AbstractScreen extends Stage implements Screen {
 	protected final ScreenElements fontFactory;
 	protected boolean clearScreen;
 	protected boolean debug = false;
+	private float clearRed, clearGreen, clearBlue, clearAlpha;
 	
     protected AbstractScreen(ScreenFactory screenFactory, ScreenElements elements) {
         super(elements.getViewport(), elements.getBatch());
@@ -32,6 +33,7 @@ public abstract class AbstractScreen extends Stage implements Screen {
         this.fontFactory = elements;
         this.font = elements.getFont(32);
         clearScreen = true;
+        clearRed = clearGreen = clearBlue = clearAlpha = 1;
     }
  
     // Subclasses must load actors in this method
@@ -50,11 +52,18 @@ public abstract class AbstractScreen extends Stage implements Screen {
     	newScreen.buildStage();
         game.setScreen(newScreen);
     }  
-     
+    
     public void clear(){
         // Clear screen
-        Gdx.gl.glClearColor(1, 1, 1, 1);
+        Gdx.gl.glClearColor(clearRed, clearGreen, clearBlue, clearAlpha);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+    }
+    
+    protected void setClearColor(float clearRed, float clearGreen, float clearBlue, float clearAlpha) {
+    	this.clearRed = clearRed;
+    	this.clearGreen = clearGreen;
+    	this.clearBlue = clearBlue;
+    	this.clearAlpha = clearAlpha;
     }
     
     protected void addActorAndListen(Actor actor, int x, int y){
