@@ -16,6 +16,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.IntArray;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.OrderedMap;
+import com.majalis.asset.AnimatedActor;
 import com.majalis.asset.AssetEnum;
 import com.majalis.battle.BattleCode;
 import com.majalis.battle.Battle.Outcome;
@@ -190,10 +191,7 @@ public class EncounterBuilder {
 				);		
 				break;
 			case HARPY:
-				ObjectMap<Stance, Texture> textures = new ObjectMap<Stance, Texture>();
-				Texture enemyTexture = assetManager.get(EnemyEnum.HARPY.getPath(), Texture.class);
-				textures.put(Stance.BALANCED, enemyTexture);
-				final EnemyCharacter enemy = new EnemyCharacter(enemyTexture, textures, EnemyEnum.HARPY);
+				final AnimatedActor enemy = EnemyCharacter.getAnimatedActor(EnemyEnum.HARPY);
 				
 				Background harpyBackground = new BackgroundBuilder(backgroundTexture).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class)).setForeground(enemy, 0, 0).build();
 				Background harpyFellatioBackground = new BackgroundBuilder(backgroundTexture).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class)).setForeground(assetManager.get(AssetEnum.HARPY_FELLATIO.getPath(), Texture.class)).build();
@@ -467,11 +465,8 @@ public class EncounterBuilder {
 				);
 				break;
 			case CENTAUR:
-				ObjectMap<Stance, Texture> textures2 = new ObjectMap<Stance, Texture>();
-				Texture enemyTexture2 = assetManager.get(EnemyEnum.CENTAUR.getPath(), Texture.class);
-				textures2.put(Stance.BALANCED, enemyTexture2);
-				final EnemyCharacter enemy2 = new EnemyCharacter(enemyTexture2, textures2, EnemyEnum.CENTAUR);
-				final EnemyCharacter enemy3 = new EnemyCharacter(enemyTexture2, textures2, EnemyEnum.UNICORN);
+				final AnimatedActor enemy2 = EnemyCharacter.getAnimatedActor(EnemyEnum.CENTAUR);
+				final AnimatedActor enemy3 = EnemyCharacter.getAnimatedActor(EnemyEnum.UNICORN);
 				Background centaurBackground = new BackgroundBuilder(backgroundTexture).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class)).setForeground(enemy2, 0, 0).build();
 				Background unicornBackground = new BackgroundBuilder(backgroundTexture).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class)).setForeground(enemy3, 0, 0).build();
 				OrderedMap<Integer, Scene> satisfy = 

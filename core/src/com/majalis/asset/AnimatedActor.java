@@ -19,11 +19,15 @@ public class AnimatedActor extends Actor {
 	private Skeleton skeleton;
 	
 	public AnimatedActor(String atlasPath, String jsonPath) {
+		this(atlasPath, jsonPath, 1, 1);
+	}
+	
+	public AnimatedActor(String atlasPath, String jsonPath, float scale, float timeScale) {
 		renderer = new SkeletonMeshRenderer();
 		renderer.setPremultipliedAlpha(true);
 		atlas = new TextureAtlas(Gdx.files.internal(atlasPath));
 		SkeletonJson json = new SkeletonJson(atlas); // This loads skeleton JSON data, which is stateless.
-		json.setScale(1f);
+		json.setScale(scale);
 		SkeletonData skeletonData = json.readSkeletonData(Gdx.files.internal(jsonPath));
 		
 		skeleton = new Skeleton(skeletonData); // Skeleton holds skeleton state (bone positions, slot attachments, etc).
@@ -31,11 +35,7 @@ public class AnimatedActor extends Actor {
 		AnimationStateData stateData = new AnimationStateData(skeletonData); // Defines mixing (crossfading) between animations.
 
 		state = new AnimationState(stateData); // Holds the animation state for a skeleton (current animation, time, etc).
-		state.setTimeScale(1f); 
-
-		// Queue animations on tracks 0 and 1.
-		state.setAnimation(0, "Splurt", false);
-		state.addAnimation(0, "Idle", true, 5f);
+		state.setTimeScale(timeScale); 
 	}
 	
 	@Override
@@ -47,7 +47,19 @@ public class AnimatedActor extends Actor {
 		renderer.draw((PolygonSpriteBatch)batch, skeleton);
 	}
 	
+	public void setAnimation(int track, String animationName, boolean loop) {
+		state.setAnimation(track, animationName, loop);
+	}
+	
+	public void addAnimation(int track, String animationName, boolean loop, float delay) {
+		state.addAnimation(track, animationName, loop, delay);
+	}
+	
 	public void setSkeletonPosition(float x, float y) {
 		skeleton.setPosition(x, y);
+	}
+
+	public void setSkeletonSkin(String skin) {
+		skeleton.setSkin(skin);
 	}
 }

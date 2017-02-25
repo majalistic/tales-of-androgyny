@@ -2,20 +2,13 @@ package com.majalis.character;
 
 import static com.majalis.character.Techniques.*;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.IntArray;
 import com.badlogic.gdx.utils.ObjectMap;
-import com.esotericsoftware.spine.AnimationState;
-import com.esotericsoftware.spine.AnimationStateData;
-import com.esotericsoftware.spine.Skeleton;
-import com.esotericsoftware.spine.SkeletonData;
-import com.esotericsoftware.spine.SkeletonJson;
-import com.esotericsoftware.spine.SkeletonMeshRenderer;
+import com.majalis.asset.AnimatedActor;
 import com.majalis.asset.AssetEnum;
 import com.majalis.battle.Battle.Outcome;
 import com.majalis.battle.BattleFactory.EnemyEnum;
@@ -29,15 +22,12 @@ public class EnemyCharacter extends AbstractCharacter {
 
 	private transient ObjectMap<Stance, Texture> textures;
 	private transient Texture defaultTexture;
-	private transient TextureAtlas atlas;
-	private transient SkeletonMeshRenderer renderer;
-	private transient AnimationState state;
-	private transient Skeleton skeleton;
 	private String imagePath;
 	private ObjectMap<String, String> textureImagePaths;
 	private String bgPath;
 	private int holdLength;
 	private int climaxCounter;
+	private transient AnimatedActor animation;
 	
 	@SuppressWarnings("unused")
 	private EnemyCharacter() {}
@@ -529,63 +519,55 @@ public class EnemyCharacter extends AbstractCharacter {
 		int y = (enemyType == EnemyEnum.HARPY && stance != Stance.FELLATIO) ? 105 : (enemyType == EnemyEnum.GOBLIN && stance == Stance.FACE_SITTING || stance == Stance.SIXTY_NINE) ? 0 : 20;
 		int width = (enemyType == EnemyEnum.GOBLIN && stance == Stance.FACE_SITTING || stance == Stance.SIXTY_NINE) ? (int) (texture.getWidth() / (texture.getHeight() / 1080.)) : (int) (texture.getWidth() / (texture.getHeight() / 975.));
 		int height = (enemyType == EnemyEnum.GOBLIN && stance == Stance.FACE_SITTING || stance == Stance.SIXTY_NINE) ? 1080 : 975;
-		if (atlas == null || (enemyType == EnemyEnum.HARPY && stance == Stance.FELLATIO) || (enemyType == EnemyEnum.BRIGAND && !(stance == Stance.DOGGY || stance == Stance.STANDING))) {
+		if (animation == null || (enemyType == EnemyEnum.HARPY && stance == Stance.FELLATIO) || (enemyType == EnemyEnum.BRIGAND && !(stance == Stance.DOGGY || stance == Stance.STANDING))) {
 			batch.draw(texture, x, y, width, height);
+			if (animation != null) animation.addAction(Actions.hide());
 		}
 		else {
-			state.update(Gdx.graphics.getDeltaTime());
-			state.apply(skeleton);
-			skeleton.updateWorldTransform();
-			renderer.draw((PolygonSpriteBatch)batch, skeleton);
+			animation.addAction(Actions.show());
+			animation.draw(batch, parentAlpha);
 		}
     }
 	
 	public void init(Texture defaultTexture, ObjectMap<Stance, Texture> textures) {
 		this.defaultTexture = defaultTexture;
 		this.textures = textures;
-		
+		animation = getAnimatedActor(enemyType);
+	}
+	
+	public static AnimatedActor getAnimatedActor(EnemyEnum enemyType) {
+		AnimatedActor animation = null; 
 		if (enemyType == EnemyEnum.HARPY || enemyType == EnemyEnum.CENTAUR || enemyType == EnemyEnum.UNICORN || enemyType == EnemyEnum.BRIGAND) {
+					
+			animation = new AnimatedActor(enemyType.getAnimationPath() + ".atlas", enemyType.getAnimationPath() + ".json", enemyType == EnemyEnum.HARPY ? .75f : enemyType == EnemyEnum.BRIGAND ? .475f : .60f, enemyType == EnemyEnum.HARPY || enemyType == EnemyEnum.BRIGAND ? 1f : 1.8f);
 			
-			renderer = new SkeletonMeshRenderer();
-			renderer.setPremultipliedAlpha(true);
-			atlas = new TextureAtlas(Gdx.files.internal(enemyType.getAnimationPath() + ".atlas"));
-			SkeletonJson json = new SkeletonJson(atlas); // This loads skeleton JSON data, which is stateless.
-			json.setScale(enemyType == EnemyEnum.HARPY ? .75f : enemyType == EnemyEnum.BRIGAND ? .475f : .60f);
-			SkeletonData skeletonData = json.readSkeletonData(Gdx.files.internal(enemyType.getAnimationPath() + ".json"));
-			
-			skeleton = new Skeleton(skeletonData); // Skeleton holds skeleton state (bone positions, slot attachments, etc).
 			if (enemyType == EnemyEnum.HARPY) {
-				skeleton.setPosition(900, 550);
+				animation.setSkeletonPosition(900, 550);
 			}
 			else if (enemyType == EnemyEnum.BRIGAND) {
-				skeleton.setPosition(775, 505);
+				animation.setSkeletonPosition(775, 505);
 			}
 			else {
-				skeleton.setPosition(1000, 550);
+				animation.setSkeletonPosition(1000, 550);
 			}
-			
 			
 			if (enemyType == EnemyEnum.CENTAUR) {
-				skeleton.setSkin("BrownCentaur");
+				animation.setSkeletonSkin("BrownCentaur");
 			}
 			else if (enemyType == EnemyEnum.UNICORN) {
-				skeleton.setSkin("WhiteUnicorn");
+				animation.setSkeletonSkin("WhiteUnicorn");
 			}
 			
-			AnimationStateData stateData = new AnimationStateData(skeletonData); // Defines mixing (crossfading) between animations.
-
-			state = new AnimationState(stateData); // Holds the animation state for a skeleton (current animation, time, etc).
-			state.setTimeScale(enemyType == EnemyEnum.HARPY || enemyType == EnemyEnum.BRIGAND ? 1f : 1.8f); 
-
 			// Queue animations on tracks 0 and 1.
-			state.setAnimation(0, enemyType == EnemyEnum.BRIGAND ? "IFOS100" :"Idle Erect", true);
+			animation.setAnimation(0, enemyType == EnemyEnum.BRIGAND ? "IFOS100" :"Idle Erect", true);
 		}
+		return animation;
 	}
 	
 	public void hitAnimation() {
-		if (state != null) {
-			state.setAnimation(0, "Hit Erect", false);
-			state.addAnimation(0, "Idle Erect", true, 1.0f);
+		if (animation != null) {
+			animation.setAnimation(0, "Hit Erect", false);
+			animation.addAnimation(0, "Idle Erect", true, 1.0f);
 		}
 	}
 	

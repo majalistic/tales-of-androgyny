@@ -6,13 +6,13 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.majalis.character.EnemyCharacter;
+import com.majalis.asset.AnimatedActor;
 
 public class Background extends Group{
 
 	public static class BackgroundBuilder{
 		
-		EnemyCharacter enemy;
+		AnimatedActor enemy;
 		TextureRegion backgroundTexture, foregroundTexture, dialogBoxTexture;
 		int x1, y1, width, height, x2, y2, width2, height2, x3, y3, width3, height3;
 		
@@ -55,9 +55,9 @@ public class Background extends Group{
 			return this;
 		}
 		
-		public BackgroundBuilder setForeground(EnemyCharacter foregroundTexture, int x, int y) {
-			this.enemy = foregroundTexture;
-			this.width2 = (int) (foregroundTexture.getWidth() / (foregroundTexture.getHeight() / 1080f));
+		public BackgroundBuilder setForeground(AnimatedActor foreground, int x, int y) {
+			this.enemy = foreground;
+			this.width2 = (int) (foreground.getWidth() / (foreground.getHeight() / 1080f));
 			this.height2 = 1080;
 			x2 = x;
 			y2 = y;
@@ -91,14 +91,14 @@ public class Background extends Group{
 	
 	private final TextureRegion backgroundTexture;
 	private final TextureRegion foregroundTexture;
-	private final EnemyCharacter enemy;
+	private final AnimatedActor enemy;
 	private final TextureRegion dialogBoxTexture;
 	private final Image background;
 	private final Image foreground;
 	private final Image dialogBox;
 	private boolean dialogBoxVisible;
 	
-	private Background(Image background, TextureRegion backgroundTexture, EnemyCharacter enemy, Image dialogBox, TextureRegion dialogBoxTexture) {
+	private Background(Image background, TextureRegion backgroundTexture, AnimatedActor enemy, Image dialogBox, TextureRegion dialogBoxTexture) {
 		this.background = background;
 		this.backgroundTexture = backgroundTexture;
 		this.foreground = null;
