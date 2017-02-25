@@ -107,19 +107,22 @@ public class BattleFactory {
 
 	public enum EnemyEnum {
 		WERESLUT ("Wereslut", AssetEnum.WEREBITCH.getPath()),
-		HARPY ("Harpy", AssetEnum.HARPY.getPath()),
+		HARPY ("Harpy", AssetEnum.HARPY.getPath(), "animation/Harpy"),
 		SLIME ("Slime", AssetEnum.SLIME.getPath()),
-		BRIGAND ("Brigand", AssetEnum.BRIGAND.getPath()),
-		CENTAUR ("Centaur", AssetEnum.CENTAUR.getPath()),
-		UNICORN ("Unicorn", AssetEnum.UNICORN.getPath()),
+		BRIGAND ("Brigand", AssetEnum.BRIGAND.getPath(), "animation/skeleton"),
+		CENTAUR ("Centaur", AssetEnum.CENTAUR.getPath(), "animation/Centaur"),
+		UNICORN ("Unicorn", AssetEnum.UNICORN.getPath(), "animation/Centaur"),
 		GOBLIN ("Goblin", AssetEnum.GOBLIN.getPath()), 
 		ORC ("Orc", AssetEnum.ORC.getPath()), ;
 		
 		private final String text;
 		private final String path;
-	    private EnemyEnum(final String text, final String path) { this.text = text; this.path = path; }
+		private final String animationPath;
+	    private EnemyEnum(final String text, final String path) { this(text, path, ""); }
+	    private EnemyEnum(final String text, final String path, final String animationPath) { this.text = text; this.path = path; this.animationPath = animationPath; }
 	    @Override
 	    public String toString() { return text; }	
 	    public String getPath() { return path; }
+	    public String getAnimationPath() { return animationPath; }
 	}
 }

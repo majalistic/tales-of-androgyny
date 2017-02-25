@@ -529,7 +529,7 @@ public class EnemyCharacter extends AbstractCharacter {
 		int y = (enemyType == EnemyEnum.HARPY && stance != Stance.FELLATIO) ? 105 : (enemyType == EnemyEnum.GOBLIN && stance == Stance.FACE_SITTING || stance == Stance.SIXTY_NINE) ? 0 : 20;
 		int width = (enemyType == EnemyEnum.GOBLIN && stance == Stance.FACE_SITTING || stance == Stance.SIXTY_NINE) ? (int) (texture.getWidth() / (texture.getHeight() / 1080.)) : (int) (texture.getWidth() / (texture.getHeight() / 975.));
 		int height = (enemyType == EnemyEnum.GOBLIN && stance == Stance.FACE_SITTING || stance == Stance.SIXTY_NINE) ? 1080 : 975;
-		if (atlas == null || enemyType == EnemyEnum.HARPY && stance == Stance.FELLATIO) {
+		if (atlas == null || (enemyType == EnemyEnum.HARPY && stance == Stance.FELLATIO) || (enemyType == EnemyEnum.BRIGAND && !(stance == Stance.DOGGY || stance == Stance.STANDING))) {
 			batch.draw(texture, x, y, width, height);
 		}
 		else {
@@ -544,17 +544,26 @@ public class EnemyCharacter extends AbstractCharacter {
 		this.defaultTexture = defaultTexture;
 		this.textures = textures;
 		
-		if (enemyType == EnemyEnum.HARPY || enemyType == EnemyEnum.CENTAUR || enemyType == EnemyEnum.UNICORN) {
+		if (enemyType == EnemyEnum.HARPY || enemyType == EnemyEnum.CENTAUR || enemyType == EnemyEnum.UNICORN || enemyType == EnemyEnum.BRIGAND) {
 			
 			renderer = new SkeletonMeshRenderer();
 			renderer.setPremultipliedAlpha(true);
-			atlas = new TextureAtlas(Gdx.files.internal(enemyType == EnemyEnum.HARPY ? "animation/Harpy.atlas" : "animation/Centaur.atlas"));
+			atlas = new TextureAtlas(Gdx.files.internal(enemyType.getAnimationPath() + ".atlas"));
 			SkeletonJson json = new SkeletonJson(atlas); // This loads skeleton JSON data, which is stateless.
-			json.setScale(enemyType == EnemyEnum.HARPY ? .75f : .60f);
-			SkeletonData skeletonData = json.readSkeletonData(Gdx.files.internal(enemyType == EnemyEnum.HARPY ? "animation/Harpy.json" : "animation/Centaur.json"));
+			json.setScale(enemyType == EnemyEnum.HARPY ? .75f : enemyType == EnemyEnum.BRIGAND ? .475f : .60f);
+			SkeletonData skeletonData = json.readSkeletonData(Gdx.files.internal(enemyType.getAnimationPath() + ".json"));
 			
 			skeleton = new Skeleton(skeletonData); // Skeleton holds skeleton state (bone positions, slot attachments, etc).
-			skeleton.setPosition(enemyType == EnemyEnum.HARPY ? 900 : 1000, 550);
+			if (enemyType == EnemyEnum.HARPY) {
+				skeleton.setPosition(900, 550);
+			}
+			else if (enemyType == EnemyEnum.BRIGAND) {
+				skeleton.setPosition(775, 505);
+			}
+			else {
+				skeleton.setPosition(1000, 550);
+			}
+			
 			
 			if (enemyType == EnemyEnum.CENTAUR) {
 				skeleton.setSkin("BrownCentaur");
@@ -566,11 +575,10 @@ public class EnemyCharacter extends AbstractCharacter {
 			AnimationStateData stateData = new AnimationStateData(skeletonData); // Defines mixing (crossfading) between animations.
 
 			state = new AnimationState(stateData); // Holds the animation state for a skeleton (current animation, time, etc).
-			state.setTimeScale(enemyType == EnemyEnum.HARPY ? 1f : 1.8f); 
+			state.setTimeScale(enemyType == EnemyEnum.HARPY || enemyType == EnemyEnum.BRIGAND ? 1f : 1.8f); 
 
 			// Queue animations on tracks 0 and 1.
-			state.setAnimation(0, "Idle Erect", true);
-			
+			state.setAnimation(0, enemyType == EnemyEnum.BRIGAND ? "IFOS100" :"Idle Erect", true);
 		}
 	}
 	

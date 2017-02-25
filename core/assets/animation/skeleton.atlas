@@ -1,0 +1,104 @@
+
+skeleton.png
+size: 2048,2048
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+BBalls
+  rotate: false
+  xy: 1845, 387
+  size: 166, 435
+  orig: 166, 435
+  offset: 0, 0
+  index: -1
+BBody
+  rotate: false
+  xy: 750, 801
+  size: 894, 1200
+  orig: 894, 1200
+  offset: 0, 0
+  index: -1
+BPenis
+  rotate: true
+  xy: 1646, 824
+  size: 463, 373
+  orig: 463, 373
+  offset: 0, 0
+  index: -1
+BackWall
+  rotate: false
+  xy: 874, 211
+  size: 712, 340
+  orig: 712, 340
+  offset: 0, 0
+  index: -1
+Bladder
+  rotate: true
+  xy: 1845, 188
+  size: 197, 167
+  orig: 197, 167
+  offset: 0, 0
+  index: -1
+BottomWall
+  rotate: true
+  xy: 1646, 1289
+  size: 712, 395
+  orig: 712, 395
+  offset: 0, 0
+  index: -1
+Box
+  rotate: false
+  xy: 2, 2
+  size: 870, 497
+  orig: 870, 497
+  offset: 0, 0
+  index: -1
+Pelvis
+  rotate: true
+  xy: 1797, 41
+  size: 127, 115
+  orig: 127, 115
+  offset: 0, 0
+  index: -1
+Prostate
+  rotate: true
+  xy: 1914, 62
+  size: 124, 118
+  orig: 124, 118
+  offset: 0, 0
+  index: -1
+Spine
+  rotate: false
+  xy: 874, 7
+  size: 584, 202
+  orig: 584, 202
+  offset: 0, 0
+  index: -1
+TBalls
+  rotate: true
+  xy: 1460, 20
+  size: 148, 335
+  orig: 148, 335
+  offset: 0, 0
+  index: -1
+TBod
+  rotate: false
+  xy: 2, 501
+  size: 746, 1500
+  orig: 746, 1500
+  offset: 0, 0
+  index: -1
+TPenis
+  rotate: true
+  xy: 1588, 170
+  size: 629, 255
+  orig: 629, 255
+  offset: 0, 0
+  index: -1
+TopWall
+  rotate: false
+  xy: 750, 553
+  size: 731, 246
+  orig: 731, 246
+  offset: 0, 0
+  index: -1
