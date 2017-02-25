@@ -1107,6 +1107,107 @@ public class EncounterBuilder {
 					)								
 				);
 				break;
+			case TOWN_CRIER:
+				getCheckScene(
+					CheckType.CRIER,
+					getTextScenes(
+						getScript("CRIER-NEW"), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.QUEST, new QuestFlag(QuestType.CRIER, 1))}),
+						getEndScene(EndScene.Type.ENCOUNTER_OVER)
+					),
+					getTextScenes(
+						getScript("CRIER-OLD"), font, background,
+						getEndScene(EndScene.Type.ENCOUNTER_OVER)
+					)
+				);
+				break;
+			case CRIER_QUEST:
+				getCheckScene(
+					CheckType.CRIER_QUEST,
+					getTextScenes(
+						getScript("CRIER-NEW"), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.QUEST, new QuestFlag(QuestType.CRIER, 2))}),
+						getEndScene(EndScene.Type.ENCOUNTER_OVER)
+					),
+					getTextScenes(
+						getScript("CRIER-OLD"), font, background,
+						getEndScene(EndScene.Type.ENCOUNTER_OVER)
+					)
+				);
+			case INN:
+				Background backgroundKeyhole = new BackgroundBuilder(assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getPath(), Texture.class)).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class)).setForeground(assetManager.get(AssetEnum.KEYHOLE.getPath(), Texture.class)).build();
+				Background backgroundKeyholeGO = new BackgroundBuilder(assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getPath(), Texture.class)).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class)).setForeground(assetManager.get(AssetEnum.GAME_OVER_KEYHOLE.getPath(), Texture.class)).build();
+				
+				getTextScenes(
+					new Array<String>(), font, background,	
+					getChoiceScene(
+						"Stay the night?", getArray(new String[]{"Rest at Inn (10 Gold)", "Rest at Inn (Low Funds)", "Leave"}), getArray(new ChoiceCheckType[]{ChoiceCheckType.GOLD_GREATER_THAN_10, ChoiceCheckType.GOLD_LESS_THAN_10, null}),
+						getTextScenes(
+							new Array<String>(), font, background, 
+							getEndScene(EndScene.Type.ENCOUNTER_OVER)
+						),
+						getTextScenes(
+							new Array<String>(), font, background,
+							getCheckScene(
+								CheckType.INN_0,
+								getTextScenes(
+									new Array<String>(), font, background,
+									getChoiceScene(
+										"Take his offer?", getArray(new String[]{"Get under table", "Leave"}),
+										getTextScenes(
+											new Array<String>(new String[]{"1"}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.QUEST, new QuestFlag(QuestType.INNKEEP, 1))}),
+											getEndScene(EndScene.Type.ENCOUNTER_OVER)
+										),
+										getEndScene(EndScene.Type.ENCOUNTER_OVER)
+									)
+								),
+								getCheckScene(
+									CheckType.INN_1,
+									getTextScenes(
+										new Array<String>(), font, background,
+										getChoiceScene(
+											"Take his offer?", getArray(new String[]{"Go to his room", "Leave"}),
+											getTextScenes(
+												new Array<String>(new String[]{"1"}), font, backgroundKeyhole, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.QUEST, new QuestFlag(QuestType.INNKEEP, 2))}),
+												getEndScene(EndScene.Type.ENCOUNTER_OVER)
+											),
+											getEndScene(EndScene.Type.ENCOUNTER_OVER)
+										)
+									),
+									getCheckScene(
+										CheckType.INN_2,
+										getTextScenes(
+											new Array<String>(), font, background,
+											getChoiceScene(
+												"Take his offer?", getArray(new String[]{"Join him", "Leave"}),
+												getTextScenes(
+													new Array<String>(new String[]{"1"}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.QUEST, new QuestFlag(QuestType.INNKEEP, 3))}),
+													getEndScene(EndScene.Type.ENCOUNTER_OVER)
+												),
+												getEndScene(EndScene.Type.ENCOUNTER_OVER)
+											)
+										),
+										getCheckScene(
+											CheckType.INN_3,
+											getTextScenes(
+												new Array<String>(), font, background,
+												getChoiceScene(
+													"Take his offer?", getArray(new String[]{"Marry him", "Leave"}),
+													getTextScenes(
+														new Array<String>(new String[]{"1"}), font, backgroundKeyholeGO, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.QUEST, new QuestFlag(QuestType.INNKEEP, 4))}),
+														getEndScene(EndScene.Type.GAME_OVER)
+													),
+													getEndScene(EndScene.Type.ENCOUNTER_OVER)
+												)
+											),
+											getEndScene(EndScene.Type.ENCOUNTER_OVER) // should never get here
+										)
+									)
+								)
+							)
+						),
+						getEndScene(EndScene.Type.ENCOUNTER_OVER)
+					)
+				);
+				break;
 			case COTTAGE_TRAINER:
 				background = new BackgroundBuilder(assetManager.get(AssetEnum.CABIN_BACKGROUND.getPath(), Texture.class)).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class)).build();
 				Background trainerBackground = new BackgroundBuilder(assetManager.get(AssetEnum.CABIN_BACKGROUND.getPath(), Texture.class)).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class)).setForeground(assetManager.get(AssetEnum.TRAINER.getPath(), Texture.class)).build();
@@ -1395,7 +1496,9 @@ public class EncounterBuilder {
 	}
 	
 	private enum ChoiceCheckType {
-		LEWD
+		LEWD,
+		GOLD_GREATER_THAN_10,
+		GOLD_LESS_THAN_10
 	}
 	
 	private ClickListener getListener(final AbstractChoiceScene currentScene, final Scene nextScene, final Sound buttonSound, ChoiceCheckType type, final TextButton button) {
@@ -1419,6 +1522,10 @@ public class EncounterBuilder {
 		switch (type) {
 		case LEWD:
 			return character.isLewd();
+		case GOLD_GREATER_THAN_10:
+			return character.getMoney() >= 10;
+		case GOLD_LESS_THAN_10:
+			return character.getMoney() < 10;
 		default:
 			return false;
 		}
@@ -1544,7 +1651,6 @@ public class EncounterBuilder {
 	private Array<ChoiceCheckType> getArray(ChoiceCheckType[] array) { return new Array<ChoiceCheckType>(true, array, 0, array.length); }
 	private Array<String> getArray(String[] array) { return new Array<String>(true, array, 0, array.length); }
 	private Array<Mutation> getArray(Mutation[] array) { return new Array<Mutation>(true, array, 0, array.length); }
-	private Array<PlayerCharacter> getArray(PlayerCharacter[] array) { return new Array<PlayerCharacter>(true, array, 0, array.length);  }
 	
 	private Scene getStartScene(Array<Scene> scenes, Integer sceneCode) {
 		// default case	

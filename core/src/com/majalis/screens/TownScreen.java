@@ -32,17 +32,18 @@ public class TownScreen extends AbstractScreen {
 	static {
 		resourceRequirements.put(AssetEnum.UI_SKIN.getPath(), Skin.class);
 		resourceRequirements.put(AssetEnum.TOWN_BG.getPath(), Texture.class);
-		resourceRequirements.put(AssetEnum.SHOPKEEP.getPath(), Texture.class);
 		resourceRequirements.put(AssetEnum.STANCE_ARROW.getPath(), Texture.class);
 		resourceRequirements.put(AssetEnum.DEFAULT_BACKGROUND.getPath(), Texture.class);
 		resourceRequirements.put(AssetEnum.BATTLE_HOVER.getPath(), Texture.class);
 		resourceRequirements.put(AssetEnum.BATTLE_TEXTBOX.getPath(), Texture.class);
 		resourceRequirements.put(AssetEnum.TEXT_BOX.getPath(), Texture.class);
+		resourceRequirements.put(AssetEnum.SHOPKEEP.getPath(), Texture.class);
 		resourceRequirements.put(AssetEnum.TRAINER.getPath(), Texture.class);
 		resourceRequirements.put(AssetEnum.SHOP_MUSIC.getPath(), Music.class);
 		resourceRequirements.put(AssetEnum.BUTTON_SOUND.getPath(), Sound.class);
 		resourceRequirements.put(AssetEnum.EQUIP.getPath(), Sound.class);
 		resourceRequirements.put(AssetEnum.ENCOUNTER_MUSIC.getPath(), Music.class);
+		resourceRequirements.putAll(EncounterScreen.getRequirements(EncounterCode.TOWN));
 	}
 	private final SaveService saveService;
 	private final Skin skin;
@@ -51,7 +52,6 @@ public class TownScreen extends AbstractScreen {
 	private final Sound buttonSound;
 	private final Music music;
 	private final Array<TextButton> buttons;
-	private final Image shopkeep;
 	private int selection;
 	
 	protected TownScreen(ScreenFactory screenFactory, ScreenElements elements, AssetManager assetManager, SaveService saveService) {
@@ -62,9 +62,6 @@ public class TownScreen extends AbstractScreen {
 		arrow = new Image(assetManager.get(AssetEnum.STANCE_ARROW.getPath(), Texture.class));
 		music = assetManager.get(AssetEnum.SHOP_MUSIC.getPath(), Music.class);
 		buttonSound = assetManager.get(AssetEnum.BUTTON_SOUND.getPath(), Sound.class);
-		Texture shopkeepTexture = assetManager.get(AssetEnum.SHOPKEEP.getPath(), Texture.class);
-		shopkeep = new Image(shopkeepTexture);
-		shopkeep.setSize(shopkeepTexture.getWidth() / (shopkeepTexture.getHeight() / 1050f), 1050);
 		
 		buttons = new Array<TextButton>();
 		selection = 0;
@@ -91,7 +88,7 @@ public class TownScreen extends AbstractScreen {
         table.setPosition(1200, 595);
 		
 		Array<String> buttonLabels = new Array<String>();
-		buttonLabels.addAll("General Store", "Blacksmith", "Town Crier", "Inn", "Depart");
+		buttonLabels.addAll("General Store", "Blacksmith", "Inn", "Town Crier", "Depart");
 		
 		for (int ii = 0; ii < buttonLabels.size; ii++){
 			buttons.add(new TextButton(buttonLabels.get(ii), skin));
@@ -101,7 +98,8 @@ public class TownScreen extends AbstractScreen {
 		
 		buttons.get(0).addListener(getListener(EncounterCode.SHOP));
 		buttons.get(1).addListener(getListener(EncounterCode.WEAPON_SHOP));
-		
+		buttons.get(2).addListener(getListener(EncounterCode.INN));  		
+		//buttons.get(3).addListener(getListener(EncounterCode.TOWN_CRIER)); 
 		buttons.get(4).addListener(new ClickListener(){
 	        @Override
 	        public void clicked(InputEvent event, float x, float y) {
@@ -113,8 +111,6 @@ public class TownScreen extends AbstractScreen {
 	    });
 		
         this.addActor(background);
-        this.addActor(shopkeep);
-        shopkeep.setPosition(300, 0);
         
         this.addActor(table);
         this.addActor(arrow);

@@ -54,6 +54,7 @@ public class GameWorldNodeEncounter {
 					case TOWN2:
 					case TOWN_STORY:
 						return "Town of Nadir";	
+					case CRIER_QUEST: return "Mountain";
 					case COTTAGE_TRAINER: return "Cottage-on-the-Outskirts";
 					case FIRST_BATTLE_STORY: return "Forest Clearing";
 					case MERI_COTTAGE: return "Witch's Cottage";
@@ -84,6 +85,7 @@ public class GameWorldNodeEncounter {
 					case TOWN: return "Town of Silajam";
 					case TOWN2:
 					case TOWN_STORY: return "Town of Nadir";
+					case CRIER_QUEST: return "Mount Wip";
 					case COTTAGE_TRAINER: return "Cottage-on-the-Outskirts";
 					case FIRST_BATTLE_STORY: return "Forest Clearing - signs of hostile creature";
 					case MERI_COTTAGE: return "Witch's Cottage";

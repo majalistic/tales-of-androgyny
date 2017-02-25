@@ -59,6 +59,7 @@ public class GameWorldFactory {
 			Zone zone = new Zone(saveService, loadService, font, assetManager, random, nodes, nodeMap, 3)
 					.addStartNode(1, INITIAL, DEFAULT, new Vector2(500, 500))
 					.addEndNode(1000, TOWN, TOWN, new Vector2(900, 900))
+					//.addEndNode(5000, CRIER_QUEST, CRIER_QUEST, new Vector2(1300, 1300))
 					.addEndNode(10000, GADGETEER, DEFAULT, new Vector2(500, 800))
 					.buildZone();
 			

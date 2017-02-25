@@ -128,6 +128,30 @@ public class CheckScene extends AbstractTextScene {
 			@Override
 			protected boolean getCheck(PlayerCharacter character) { return character.getQuestStatus(QuestType.ORC) == 1; } 
 		}, 
+		CRIER (".", ".") { 
+			@Override
+			protected boolean getCheck(PlayerCharacter character) { return character.getQuestStatus(QuestType.CRIER) == 0; }  
+		}, 
+		CRIER_QUEST (".", ".") { 
+			@Override
+			protected boolean getCheck(PlayerCharacter character) { return character.getQuestStatus(QuestType.CRIER) == 1; }  
+		}, 
+		INN_0 (".", ".") { 
+			@Override
+			protected boolean getCheck(PlayerCharacter character) { return character.getQuestStatus(QuestType.INNKEEP) == 0; }  
+		}, 
+		INN_1 ("..", "..") { 
+			@Override
+			protected boolean getCheck(PlayerCharacter character) { return character.getQuestStatus(QuestType.INNKEEP) == 1; }  
+		}, 
+		INN_2 ("...", "...") { 
+			@Override
+			protected boolean getCheck(PlayerCharacter character) { return character.getQuestStatus(QuestType.INNKEEP) == 2; }  
+		}, 
+		INN_3 ("....", "....") { 
+			@Override
+			protected boolean getCheck(PlayerCharacter character) { return character.getQuestStatus(QuestType.INNKEEP) == 3; }  
+		}, 
 		;
 		private final String success;
 		private final String failure;

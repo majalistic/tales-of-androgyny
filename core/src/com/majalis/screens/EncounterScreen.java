@@ -172,6 +172,10 @@ public class EncounterScreen extends AbstractScreen {
 				requirements.put(AssetEnum.GAPE.getPath(), Texture.class);
 				requirements.put(AssetEnum.WEREWOLF_MUSIC.getPath(), Music.class);
 				break;
+			case INN:
+				requirements.put(AssetEnum.KEYHOLE.getPath(), Texture.class);
+				requirements.put(AssetEnum.GAME_OVER_KEYHOLE.getPath(), Texture.class);
+				break;
 			case FIRST_BATTLE_STORY:
 				requirements.put(AssetEnum.FOREST_BG.getPath(), Texture.class);
 			case GOBLIN:
@@ -195,9 +199,7 @@ public class EncounterScreen extends AbstractScreen {
 				requirements.put(AssetEnum.TRAINER_MUSIC.getPath(), Music.class);		
 				break;
 			case TOWN_STORY: 
-				requirements.putAll(TownScreen.resourceRequirements);
 				requirements.put(AssetEnum.TOWN_BG.getPath(), Texture.class);
-				requirements.put(AssetEnum.SHOPKEEP.getPath(), Texture.class);
 				requirements.put(AssetEnum.SMUG_LAUGH.getPath(), Sound.class);
 				requirements.put(AssetEnum.SHOP_MUSIC.getPath(), Music.class);
 			case SHOP:

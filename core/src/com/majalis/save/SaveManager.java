@@ -110,7 +110,7 @@ public class SaveManager implements SaveService, LoadService {
 	    	case ITEM:				save.player.receiveItem(new Item.Weapon(WeaponType.Bow)); result = "You have received a bow!"; break;
 	    	case SHOP:				save.shops.put(((Shop) object).getShopCode(), (Shop) object); break;
 	    	case GOBLIN_VIRGIN:		save.player.setGoblinVirginity((Boolean) object); break;
-	    	case QUEST: 				QuestFlag flag = (QuestFlag) object; save.player.setQuestStatus(flag.type, flag.value); break;
+	    	case QUEST: 			QuestFlag flag = (QuestFlag) object; save.player.setQuestStatus(flag.type, flag.value); break;
     	}	
     	if (saveToJson) {
     		saveToJson(save); //Saves current save immediately.

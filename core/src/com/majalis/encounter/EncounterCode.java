@@ -23,11 +23,13 @@ public enum EncounterCode {
 	FORT (CASTLE), 
 	TOWN (AssetEnum.TOWN),
 	TOWN2 (AssetEnum.TOWN),
+	TOWN_CRIER,
+	CRIER_QUEST (MOUNTAIN_ACTIVE), 
+	INN,
 	SHOP, 
 	WEAPON_SHOP,
 	STARVATION,
 	CAMP_AND_EAT, 
-	
 	LEVEL_UP, 
 	
 	/* Story Mode */
