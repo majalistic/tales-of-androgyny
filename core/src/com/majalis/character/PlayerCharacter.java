@@ -914,4 +914,8 @@ public class PlayerCharacter extends AbstractCharacter {
 		}		
 	}
 
+	public void modMoney(Integer gold) {
+		money += gold;
+	}
+
 }

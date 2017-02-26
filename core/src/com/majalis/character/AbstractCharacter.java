@@ -192,7 +192,14 @@ public abstract class AbstractCharacter extends Actor {
 	
 	public int getLust() { return lust; }
 	
-	public void modHealth(int healthMod) { this.currentHealth += healthMod; if (currentHealth > getMaxHealth()) currentHealth = getMaxHealth(); }
+	public String modHealth(int healthMod) { 
+		int healthChange = this.currentHealth;
+		this.currentHealth += healthMod; 
+		if (currentHealth > getMaxHealth()) 
+			currentHealth = getMaxHealth();  
+		healthChange = this.currentHealth - healthChange;
+		return healthChange > 0 ? "Gained " + healthChange + " health!" : "You take " + -healthChange + " damage!"; 
+	}
 	
 	protected int getStaminaRegen() { return Math.max(getEndurance()/2, 0); }
 	
