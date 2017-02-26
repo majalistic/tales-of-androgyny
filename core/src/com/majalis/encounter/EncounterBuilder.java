@@ -1163,70 +1163,103 @@ public class EncounterBuilder {
 				Background backgroundKeyhole = new BackgroundBuilder(assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getPath(), Texture.class)).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class)).setForeground(assetManager.get(AssetEnum.KEYHOLE.getPath(), Texture.class)).build();
 				Background backgroundKeyholeGO = new BackgroundBuilder(assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getPath(), Texture.class)).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class)).setForeground(assetManager.get(AssetEnum.GAME_OVER_KEYHOLE.getPath(), Texture.class)).build();
 				
+				OrderedMap<Integer, Scene> afterScene = getTextScenes(
+					getScript("INNKEEP-10"), font, backgroundKeyhole, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.ANAL, new SexualExperienceBuilder().setAnalSex(5, 2, 3).build())}),
+					 getTextScenes(
+						getScript("INNKEEP-11"), font, background,
+						getTextScenes(
+							new Array<String>(new String[]{"."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.FOOD, 15), new Mutation(saveService, SaveEnum.HEALTH, 100)}),
+							getEndScene(EndScene.Type.ENCOUNTER_OVER)
+						)
+					)
+				);
+				
 				getTextScenes(
-					new Array<String>(), font, background,	
+					getScript("INNKEEP-01"), font, background,	
 					getChoiceScene(
 						"Stay the night?", getArray(new String[]{"Rest at Inn (10 Gold)", "Rest at Inn (Low Funds)", "Leave"}), getArray(new ChoiceCheckType[]{ChoiceCheckType.GOLD_GREATER_THAN_10, ChoiceCheckType.GOLD_LESS_THAN_10, null}),
 						getTextScenes(
-							new Array<String>(), font, background, 
+							getScript("INNKEEP-02"), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.GOLD, -10), new Mutation(saveService, SaveEnum.FOOD, 15), new Mutation(saveService, SaveEnum.HEALTH, 100)}),
 							getEndScene(EndScene.Type.ENCOUNTER_OVER)
 						),
-						getTextScenes(
-							new Array<String>(), font, background,
-							getCheckScene(
-								CheckType.INN_0,
-								getTextScenes(
-									new Array<String>(), font, background,
-									getChoiceScene(
-										"Take his offer?", getArray(new String[]{"Get under table", "Leave"}),
+						getCheckScene(
+							CheckType.INN_0,
+							getTextScenes(
+								getScript("INNKEEP-03"), font, background,
+								getChoiceScene(
+									"Take his offer?", getArray(new String[]{"Get under table", "Leave"}),
+									getTextScenes(
+										getScript("INNKEEP-04"), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.QUEST, new QuestFlag(QuestType.INNKEEP, 1))}),
 										getTextScenes(
-											new Array<String>(new String[]{"1"}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.QUEST, new QuestFlag(QuestType.INNKEEP, 1))}),
-											getEndScene(EndScene.Type.ENCOUNTER_OVER)
+											getScript("INNKEEP-05"), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.ANAL, new SexualExperienceBuilder().setOralSex(1).build())}),
+											getTextScenes(
+												getScript("INNKEEP-06"), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.ANAL, new SexualExperienceBuilder().setOralCreampie(1).build())}),
+												getTextScenes(
+													new Array<String>(new String[]{"."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.FOOD, 15), new Mutation(saveService, SaveEnum.HEALTH, 100)}),
+													getEndScene(EndScene.Type.ENCOUNTER_OVER)
+												)
+											)
+										)
+									),
+									getEndScene(EndScene.Type.ENCOUNTER_OVER)
+								)
+							),
+							getCheckScene(
+								CheckType.INN_1,
+								getTextScenes(
+									getScript("INNKEEP-07"), font, background,
+									getChoiceScene(
+										"Take his offer?", getArray(new String[]{"Go to his room", "Leave"}),
+										getTextScenes(
+											getScript("INNKEEP-08"), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.QUEST, new QuestFlag(QuestType.INNKEEP, 2))}),
+											getCheckScene(
+												CheckType.VIRGIN,
+												getTextScenes(
+													getScript("INNKEEP-09"), font, background,
+													afterScene
+												),
+												afterScene
+											)
 										),
 										getEndScene(EndScene.Type.ENCOUNTER_OVER)
 									)
 								),
 								getCheckScene(
-									CheckType.INN_1,
+									CheckType.INN_2,
 									getTextScenes(
-										new Array<String>(), font, background,
+										getScript("INNKEEP-12"), font, background,
 										getChoiceScene(
-											"Take his offer?", getArray(new String[]{"Go to his room", "Leave"}),
+											"Take his offer?", getArray(new String[]{"Join him", "Leave"}),
 											getTextScenes(
-												new Array<String>(new String[]{"1"}), font, backgroundKeyhole, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.QUEST, new QuestFlag(QuestType.INNKEEP, 2))}),
-												getEndScene(EndScene.Type.ENCOUNTER_OVER)
+												getScript("INNKEEP-13"), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.QUEST, new QuestFlag(QuestType.INNKEEP, 3))}),
+												getTextScenes(
+													getScript("INNKEEP-14"), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.ANAL, new SexualExperienceBuilder().setAnalSex(1, 0, 0).build())}),
+													getTextScenes(
+														getScript("INNKEEP-15"), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.ANAL, new SexualExperienceBuilder().setAnalEjaculations(1).build())}),
+														getTextScenes(
+															new Array<String>(new String[]{"."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.FOOD, 15), new Mutation(saveService, SaveEnum.HEALTH, 100)}),
+															getEndScene(EndScene.Type.ENCOUNTER_OVER)
+														)
+													)
+												)
 											),
 											getEndScene(EndScene.Type.ENCOUNTER_OVER)
 										)
 									),
 									getCheckScene(
-										CheckType.INN_2,
+										CheckType.INN_3,
 										getTextScenes(
-											new Array<String>(), font, background,
+											getScript("INNKEEP-16"), font, background,
 											getChoiceScene(
-												"Take his offer?", getArray(new String[]{"Join him", "Leave"}),
+												"Take his offer?", getArray(new String[]{"Marry him", "Leave"}),
 												getTextScenes(
-													new Array<String>(new String[]{"1"}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.QUEST, new QuestFlag(QuestType.INNKEEP, 3))}),
-													getEndScene(EndScene.Type.ENCOUNTER_OVER)
+													getScript("INNKEEP-17"), font, backgroundKeyholeGO, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.QUEST, new QuestFlag(QuestType.INNKEEP, 4))}),
+													getEndScene(EndScene.Type.GAME_OVER)
 												),
 												getEndScene(EndScene.Type.ENCOUNTER_OVER)
 											)
 										),
-										getCheckScene(
-											CheckType.INN_3,
-											getTextScenes(
-												new Array<String>(), font, background,
-												getChoiceScene(
-													"Take his offer?", getArray(new String[]{"Marry him", "Leave"}),
-													getTextScenes(
-														new Array<String>(new String[]{"1"}), font, backgroundKeyholeGO, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.QUEST, new QuestFlag(QuestType.INNKEEP, 4))}),
-														getEndScene(EndScene.Type.GAME_OVER)
-													),
-													getEndScene(EndScene.Type.ENCOUNTER_OVER)
-												)
-											),
-											getEndScene(EndScene.Type.ENCOUNTER_OVER) // should never get here
-										)
+										getEndScene(EndScene.Type.ENCOUNTER_OVER) // should never get here
 									)
 								)
 							)
