@@ -627,7 +627,7 @@ public class EnemyCharacter extends AbstractCharacter {
 			case GOBLIN:
 				break;
 			case ORC:
-				if (climaxCounter >= 3) return Outcome.SATISFIED;
+				if (climaxCounter >= 5) return Outcome.SATISFIED;
 				break;
 			case HARPY:
 				if (climaxCounter >= 2) return Outcome.SATISFIED;
