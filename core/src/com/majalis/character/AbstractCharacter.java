@@ -178,7 +178,7 @@ public abstract class AbstractCharacter extends Actor {
 	}
 	
 	public String getManaDisplay() {  
-		switch (4 - (int)(getManaPercent() * 100)/ 25){
+		switch (4 - (int)(getManaPercent() * 100)/ 25) {
 			case 0: return AssetEnum.MANA_ICON_0.getPath();
 			case 1: return AssetEnum.MANA_ICON_1.getPath();
 			case 2: return AssetEnum.MANA_ICON_2.getPath();
@@ -253,7 +253,7 @@ public abstract class AbstractCharacter extends Actor {
 	protected int getDegradation(IntArray tiers, int currentValue) {
 		int numTiers = tiers.size;
 		int value = currentValue;
-		for (int tier : tiers.items){
+		for (int tier : tiers.items) {
 			value -= tier;
 			numTiers--;
 			if (value <= 0) return numTiers;
@@ -329,11 +329,11 @@ public abstract class AbstractCharacter extends Actor {
 		if (!resolvedAttack.isSuccessful()) {
 			resolvedAttack.addMessage(resolvedAttack.getUser() + " used " + resolvedAttack.getName() + (resolvedAttack.getStatus() == Status.MISSED ? " but missed!" : (resolvedAttack.getStatus() == Status.EVADED ? " but was evaded!" : resolvedAttack.getStatus() == Status.PARRIED ? " but was parried!" : resolvedAttack.getStatus() == Status.FIZZLE ? " but the spell fizzled!" : "! FAILURE!")));			
 			
-			if (resolvedAttack.getStatus() == Status.MISSED || resolvedAttack.getStatus() == Status.EVADED && enemyType == EnemyEnum.HARPY && stance == Stance.FELLATIO && resolvedAttack.getForceStance() == Stance.FELLATIO) {
+			if ((resolvedAttack.getStatus() == Status.MISSED || resolvedAttack.getStatus() == Status.EVADED) && enemyType == EnemyEnum.HARPY && stance == Stance.FELLATIO && resolvedAttack.getForceStance() == Stance.FELLATIO_BOTTOM) {
 				resolvedAttack.addMessage("She crashes to the ground!");
 				stance = Stance.PRONE;
 			}
-			else if(resolvedAttack.getForceStance() != null){
+			else if(resolvedAttack.getForceStance() != null) {
 				stance = oldStance;
 			}	
 			return resolvedAttack;
@@ -355,61 +355,64 @@ public abstract class AbstractCharacter extends Actor {
 		if (buff != null) {
 			statuses.put(buff.type.toString(), buff.power);
 		}
-		if (resolvedAttack.getForceStance() == Stance.DOGGY || resolvedAttack.getForceStance() == Stance.ANAL || resolvedAttack.getForceStance() == Stance.STANDING) {
-			resolvedAttack.addMessage("You are being anally violated!");
-			resolvedAttack.addMessage("Your hole is stretched by her fat dick!");
-			resolvedAttack.addMessage("Your hole feels like it's on fire!");
-			resolvedAttack.addMessage("Her cock glides smoothly through your irritated anal mucosa!");
-			resolvedAttack.addMessage("Her rhythmic thrusting in and out of your asshole is emasculating!");
-			resolvedAttack.addMessage("You are red-faced and embarassed because of her butt-stuffing!");
-			resolvedAttack.addMessage("Your cock is ignored!");
-		}		
-		else if(resolvedAttack.getForceStance() == Stance.FELLATIO || resolvedAttack.getForceStance() == Stance.SIXTY_NINE) {
-			if (enemyType == EnemyEnum.HARPY){
-				resolvedAttack.addMessage("She tastes horrible! Harpies are highly unhygenic!");
-				resolvedAttack.addMessage("You learned Anatomy (Harpy)!");
-				resolvedAttack.addMessage("You learned Behavior (Harpy)!");
-				resolvedAttack.addMessage("There is a phallus in your mouth!");
-				resolvedAttack.addMessage("It blew past your lips!");
-				resolvedAttack.addMessage("The harpy is holding your head in place with");
-				resolvedAttack.addMessage("her talons and balancing herself with her wings!");
-				resolvedAttack.addMessage("She flaps violently while humping your face!  Her cock tastes awful!");
+		if (enemyType != null) {
+			if (resolvedAttack.getForceStance() == Stance.DOGGY_BOTTOM || resolvedAttack.getForceStance() == Stance.ANAL_BOTTOM || resolvedAttack.getForceStance() == Stance.STANDING_BOTTOM) {
+				resolvedAttack.addMessage("You are being anally violated!");
+				resolvedAttack.addMessage("Your hole is stretched by her fat dick!");
+				resolvedAttack.addMessage("Your hole feels like it's on fire!");
+				resolvedAttack.addMessage("Her cock glides smoothly through your irritated anal mucosa!");
+				resolvedAttack.addMessage("Her rhythmic thrusting in and out of your asshole is emasculating!");
+				resolvedAttack.addMessage("You are red-faced and embarassed because of her butt-stuffing!");
+				resolvedAttack.addMessage("Your cock is ignored!");
+			}		
+			else if(resolvedAttack.getForceStance() == Stance.FELLATIO_BOTTOM || resolvedAttack.getForceStance() == Stance.SIXTY_NINE_BOTTOM) {
+				if (enemyType == EnemyEnum.HARPY) {
+					resolvedAttack.addMessage("She tastes horrible! Harpies are highly unhygenic!");
+					resolvedAttack.addMessage("You learned Anatomy (Harpy)!");
+					resolvedAttack.addMessage("You learned Behavior (Harpy)!");
+					resolvedAttack.addMessage("There is a phallus in your mouth!");
+					resolvedAttack.addMessage("It blew past your lips!");
+					resolvedAttack.addMessage("The harpy is holding your head in place with");
+					resolvedAttack.addMessage("her talons and balancing herself with her wings!");
+					resolvedAttack.addMessage("She flaps violently while humping your face!  Her cock tastes awful!");
+				}
+				else {
+					resolvedAttack.addMessage("She stuffs her cock into your face!");
+					resolvedAttack.addMessage("You suck on her cock!");
+					resolvedAttack.addMessage("She licks her lips!");
+				}
+				if (resolvedAttack.getForceStance() == Stance.SIXTY_NINE_BOTTOM) {
+					resolvedAttack.addMessage("She deepthroats your cock!");
+					resolvedAttack.addMessage("She pistons her own cock in and out of your mouth!");
+				}
 			}
-			else {
-				resolvedAttack.addMessage("She stuffs her cock into your face!");
-				resolvedAttack.addMessage("You suck on her cock!");
-				resolvedAttack.addMessage("She licks her lips!");
+			else if (resolvedAttack.getForceStance() == Stance.FACE_SITTING_BOTTOM) {
+				resolvedAttack.addMessage("She rides your face!");
+				resolvedAttack.addMessage("You receive a faceful of ass!");
 			}
-			if (resolvedAttack.getForceStance() == Stance.SIXTY_NINE) {
-				resolvedAttack.addMessage("She deepthroats your cock!");
-				resolvedAttack.addMessage("She pistons her own cock in and out of your mouth!");
+			else if (resolvedAttack.getForceStance() == Stance.KNOTTED_BOTTOM) {
+				if (knotInflate == 0) {
+					resolvedAttack.addMessage("Her powerful hips try to force something big inside!");
+					resolvedAttack.addMessage("You struggle... but can't escape!");
+					resolvedAttack.addMessage("Her grapefruit-sized knot slips into your rectum!  You take 4 damage!");
+					resolvedAttack.addMessage("You learned about Anatomy(Wereslut)! You are being bred!");
+					resolvedAttack.addMessage("Your anus is permanently stretched!");
+				}
+				else if (knotInflate < 3) {
+					resolvedAttack.addMessage("Her tremendous knot is still lodged in your rectum!");
+					resolvedAttack.addMessage("You can't dislodge it; it's too large!");
+					resolvedAttack.addMessage("You're drooling!");
+					resolvedAttack.addMessage("Her fat thing is plugging your shithole!");					
+				}
+				else {
+					resolvedAttack.addMessage("The battle is over, but your ordeal has just begun!");
+					resolvedAttack.addMessage("You are about to be bred like a bitch!");
+					resolvedAttack.addMessage("She's going to ejaculate her runny dog cum in your bowels!");	
+				}
+				knotInflate++;
 			}
 		}
-		else if (resolvedAttack.getForceStance() == Stance.FACE_SITTING) {
-			resolvedAttack.addMessage("She rides your face!");
-			resolvedAttack.addMessage("You receive a faceful of ass!");
-		}
-		else if (resolvedAttack.getForceStance() == Stance.KNOTTED) {
-			if (knotInflate == 0) {
-				resolvedAttack.addMessage("Her powerful hips try to force something big inside!");
-				resolvedAttack.addMessage("You struggle... but can't escape!");
-				resolvedAttack.addMessage("Her grapefruit-sized knot slips into your rectum!  You take 4 damage!");
-				resolvedAttack.addMessage("You learned about Anatomy(Wereslut)! You are being bred!");
-				resolvedAttack.addMessage("Your anus is permanently stretched!");
-			}
-			else if (knotInflate < 3) {
-				resolvedAttack.addMessage("Her tremendous knot is still lodged in your rectum!");
-				resolvedAttack.addMessage("You can't dislodge it; it's too large!");
-				resolvedAttack.addMessage("You're drooling!");
-				resolvedAttack.addMessage("Her fat thing is plugging your shithole!");					
-			}
-			else {
-				resolvedAttack.addMessage("The battle is over, but your ordeal has just begun!");
-				resolvedAttack.addMessage("You are about to be bred like a bitch!");
-				resolvedAttack.addMessage("She's going to ejaculate her runny dog cum in your bowels!");	
-			}
-			knotInflate++;
-		}
+		
 		// all climax logic should go here
 		if (resolvedAttack.isClimax()) {
 			resolvedAttack.addMessage(climax());
@@ -431,7 +434,7 @@ public abstract class AbstractCharacter extends Actor {
 		boolean knockedDown = false;
 		
 		if (attack.isSuccessful()) {
-			if (attack.getForceStance() == Stance.DOGGY && bootyliciousness != null)
+			if (attack.getForceStance() == Stance.DOGGY_BOTTOM && bootyliciousness != null)
 				result.add("They slap their hips against your " + bootyliciousness.toString().toLowerCase() + " booty!");
 			
 			if (attack.isAttack() || attack.isClimax() || attack.getLust() > 0) {
@@ -444,16 +447,16 @@ public abstract class AbstractCharacter extends Actor {
 			}
 			if (attack.getForceStance() == Stance.BALANCED) {
 				result.add(attack.getUser() + " broke free!");
-				if (stance == Stance.FELLATIO) {
+				if (stance == Stance.FELLATIO_BOTTOM) {
 					result.add("It slips out of your mouth and you get to your feet!");
 				}
-				else if (stance == Stance.SIXTY_NINE) {
+				else if (stance == Stance.SIXTY_NINE_BOTTOM) {
 					result.add("You spit out her cock and push her off!");
 				}
-				else if (stance == Stance.HANDY) {
+				else if (stance == Stance.HANDY_BOTTOM) {
 					
 				}
-				else {
+				else if (stance.isAnalReceptive()) {
 					result.add("It pops out of your ass and you get to your feet!");
 				}
 			}
@@ -536,7 +539,7 @@ public abstract class AbstractCharacter extends Actor {
 			if (forcedStance != null) {
 				result.add(label + (secondPerson ? " are " : " is ") + "forced into " + forcedStance.toString() + " stance!");
 				stance = forcedStance;
-				if (forcedStance == Stance.PRONE || forcedStance == Stance.SUPINE){
+				if (forcedStance == Stance.PRONE || forcedStance == Stance.SUPINE) {
 					setStabilityToMin();
 				}
 				else if (forcedStance == Stance.KNEELING && stability > getMaxStability() / 2) {
@@ -562,8 +565,8 @@ public abstract class AbstractCharacter extends Actor {
 			}
 			if (internalShotText != null) result.add(internalShotText);
 			
-			if (buttful > 0 && !stance.isAnal()) result.add(getLeakMessage());
-			if (mouthful > 0 && !stance.isOral()) result.add(getDroolMessage());
+			if (buttful > 0 && !stance.isAnalReceptive()) result.add(getLeakMessage());
+			if (mouthful > 0 && !stance.isOralReceptive()) result.add(getDroolMessage());
 		}
 		if (!alreadyIncapacitated() && !knockedDown) {
 			// you tripped
@@ -684,7 +687,7 @@ public abstract class AbstractCharacter extends Actor {
 			message = "Your gut is stuffed with semen!  It drools out!  You're too queasy to move quickly! -1 Agility.";
 		}
 		else if (buttful >= 5) {
-			message = "Cum runs out of your full ass!";
+			message = "Cum runs out of " + (secondPerson ? "your" : "their") + " full ass!";
 		}
 		else if (buttful > 1) {
 			message = "You drool cum from your hole!";
@@ -843,9 +846,13 @@ public abstract class AbstractCharacter extends Actor {
 	
 	private enum StanceType {
 		ANAL,
+		ANAL_BOTTOM,
 		ORAL,
+		ORAL_BOTTOM,
 		HANDJOB,
+		HANDJOB_BOTTOM,
 		FACESIT,
+		FACESIT_BOTTOM,
 		INCAPACITATED,
 		NORMAL
 	}
@@ -861,6 +868,9 @@ public abstract class AbstractCharacter extends Actor {
 		SUPINE (StanceType.INCAPACITATED, AssetEnum.SUPINE.getPath(), false, false, true),
 		KNEELING (AssetEnum.KNEELING.getPath(), false, true, true),
 		AIRBORNE (AssetEnum.AIRBORNE.getPath(), true, false, false), 
+		CASTING (AssetEnum.CASTING.getPath()),
+		ITEM (AssetEnum.ITEM.getPath()), 
+		
 		FULL_NELSON (AssetEnum.FULL_NELSON.getPath()), 
 		DOGGY (StanceType.ANAL, AssetEnum.DOGGY.getPath()), 
 		ANAL (StanceType.ANAL, AssetEnum.ANAL.getPath()), 
@@ -871,9 +881,19 @@ public abstract class AbstractCharacter extends Actor {
 		FELLATIO (StanceType.ORAL, AssetEnum.FELLATIO.getPath()), 
 		FACE_SITTING(StanceType.FACESIT, AssetEnum.FACE_SITTING.getPath()),
 		SIXTY_NINE(StanceType.ORAL, AssetEnum.SIXTY_NINE.getPath()),
-		CASTING (AssetEnum.CASTING.getPath()),
+		
+		FULL_NELSON_BOTTOM (AssetEnum.FULL_NELSON.getPath()), 
+		DOGGY_BOTTOM (StanceType.ANAL_BOTTOM, AssetEnum.DOGGY.getPath()), 
+		ANAL_BOTTOM (StanceType.ANAL_BOTTOM, AssetEnum.ANAL.getPath()), 
+		STANDING_BOTTOM (StanceType.ANAL_BOTTOM, AssetEnum.STANDING.getPath()),
+		HANDY_BOTTOM (StanceType.HANDJOB_BOTTOM, AssetEnum.HANDY.getPath()),
+		COWGIRL_BOTTOM (StanceType.ANAL_BOTTOM, AssetEnum.COWGIRL.getPath()),
+		KNOTTED_BOTTOM (StanceType.ANAL_BOTTOM, AssetEnum.KNOTTED.getPath()), 
+		FELLATIO_BOTTOM (StanceType.ORAL_BOTTOM, AssetEnum.FELLATIO.getPath()), 
+		FACE_SITTING_BOTTOM (StanceType.FACESIT_BOTTOM, AssetEnum.FACE_SITTING.getPath()),
+		SIXTY_NINE_BOTTOM (StanceType.ORAL_BOTTOM, AssetEnum.SIXTY_NINE.getPath()),
+		
 		ERUPT (AssetEnum.ERUPT.getPath()), 
-		ITEM (AssetEnum.ITEM.getPath()), 
 		;
 		// need to create: boolean anal, boolean oral, boolean method erotic, boolean incapacitated
 		private final String texturePath;
@@ -904,6 +924,14 @@ public abstract class AbstractCharacter extends Actor {
 		public String getPath() { return texturePath; }
 		
 		public boolean isErotic() {
+			 return isEroticReceptive() || isEroticPenetration();
+		}
+		
+		public boolean isEroticReceptive() {
+			return type == StanceType.ANAL_BOTTOM || type == StanceType.ORAL_BOTTOM || type == StanceType.HANDJOB_BOTTOM || type == StanceType.FACESIT_BOTTOM;
+		}
+		
+		public boolean isEroticPenetration() {
 			return type == StanceType.ANAL || type == StanceType.ORAL || type == StanceType.HANDJOB || type == StanceType.FACESIT;
 		}
 		
@@ -911,10 +939,18 @@ public abstract class AbstractCharacter extends Actor {
 			return type == StanceType.INCAPACITATED;
 		}
 		
-		public boolean isAnal() {
+		public boolean isAnalReceptive() {
+			return type == StanceType.ANAL_BOTTOM;
+		}
+		
+		public boolean isOralReceptive() {
+			return type == StanceType.ORAL_BOTTOM;
+		}
+		
+		public boolean isAnalPenetration() {
 			return type == StanceType.ANAL;
 		}
-		public boolean isOral() {
+		public boolean isOralPenetration() {
 			return type == StanceType.ORAL;
 		}
 		
@@ -945,7 +981,7 @@ public abstract class AbstractCharacter extends Actor {
 
 		private final String path;
 		private final String description;
-		private Stat(String path, String description){
+		private Stat(String path, String description) {
 			this.path = path;
 			this.description = description;
 		}

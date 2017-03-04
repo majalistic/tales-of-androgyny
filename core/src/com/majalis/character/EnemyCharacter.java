@@ -160,26 +160,26 @@ public class EnemyCharacter extends AbstractCharacter {
 			if (!oldStance.isErotic() && stance.isErotic()) {
 				switch (enemyType) {
 					case BRIGAND:
-						if (stance.isAnal()) {
+						if (stance.isAnalPenetration()) {
 							resolvedAttack.addDialog("\"Oooooryah!\"");
 						}
-						else if (stance.isOral()) {
+						else if (stance.isOralPenetration()) {
 							resolvedAttack.addDialog("\"Yeah, that's right, suck it!\"");
 						} 
 						break;
 					case CENTAUR:
-						if (stance.isAnal()) {
+						if (stance.isAnalPenetration()) {
 							resolvedAttack.addDialog("\"Hmph.\"");
 						}
-						else if (stance.isOral()) {
+						else if (stance.isOralPenetration()) {
 							resolvedAttack.addDialog("\"Open up.\"");
 						} 
 						break;
 					case GOBLIN:
-						if (stance.isAnal()) {
+						if (stance.isAnalPenetration()) {
 							resolvedAttack.addDialog("\"Nyahaha! Up the butt!\"");
 						}
-						else if (stance.isOral()) {
+						else if (stance.isOralPenetration()) {
 							resolvedAttack.addDialog("\"That's right, pinkskin, suck on that gobbo dick!\"");
 						} 
 						break;
@@ -192,10 +192,10 @@ public class EnemyCharacter extends AbstractCharacter {
 					case WERESLUT:
 						break;
 					case ORC:
-						if (stance.isAnal()) {
+						if (stance.isAnalPenetration()) {
 							resolvedAttack.addDialog("\"Oooooryah!\"");
 						}	
-						else if (stance.isOral()) {
+						else if (stance.isOralPenetration()) {
 							resolvedAttack.addDialog("\"Open wide!\"");
 						}	
 				}
@@ -219,7 +219,9 @@ public class EnemyCharacter extends AbstractCharacter {
 					case WERESLUT:
 						break;
 					case ORC:
-						resolvedAttack.addDialog("\"Catch it in your gut, pinkskin!\" she bellows.");
+						if (stance.isAnalPenetration() || stance.isOralPenetration()) {
+							resolvedAttack.addDialog("\"Catch it in your gut, pinkskin!\" she bellows.");
+						}
 						break;						
 					}
 				climaxCounter++;
@@ -234,8 +236,7 @@ public class EnemyCharacter extends AbstractCharacter {
 	
 	private Array<Technique> getPossibleTechniques(AbstractCharacter target, Stance stance) {
 		
-		if (enemyType == EnemyEnum.SLIME && stance != Stance.DOGGY && stance != Stance.FELLATIO && stance != Stance.SUPINE && stance != Stance.PRONE && stance != Stance.COWGIRL && stance != Stance.STANDING && stance != Stance.HANDY
-				&& stance != Stance.FACE_SITTING && stance != Stance.SIXTY_NINE) {
+		if (enemyType == EnemyEnum.SLIME && !stance.isIncapacitatingOrErotic()) {
 			return getTechniques(target, SLIME_ATTACK, SLIME_QUIVER); 			
 		}
 		
@@ -364,6 +365,21 @@ public class EnemyCharacter extends AbstractCharacter {
 			case ERUPT:
 				stance = Stance.BALANCED;
 				return getPossibleTechniques(target, stance);
+			case DOGGY_BOTTOM:
+				if (struggle <= 0) {
+					return getTechniques(target, RECEIVE_DOGGY);
+				}
+				return getTechniques(target, RECEIVE_DOGGY);
+			case ANAL_BOTTOM:
+				if (struggle <= 0) {
+					return getTechniques(target, RECEIVE_ANAL, BREAK_FREE_ANAL);
+				}
+				return getTechniques(target, RECEIVE_ANAL, STRUGGLE_ANAL);
+			case FELLATIO_BOTTOM:
+				if (struggle <= 0) {
+					return getTechniques(target, SUCK_IT, BREAK_FREE_ORAL);
+				}
+				return getTechniques(target, SUCK_IT, STRUGGLE_ORAL);
 		default: return null;
 		}
 	}
@@ -459,7 +475,7 @@ public class EnemyCharacter extends AbstractCharacter {
 			results.add("You look like a glazed donut! Hilarious!");
 			results.add("You've been bukkaked!");
 		}
-		else if (oldStance == Stance.STANDING || oldStance == Stance.DOGGY){
+		else if (oldStance == Stance.STANDING || oldStance == Stance.DOGGY) {
 			results.add("The " + getLabel() + " spews hot, thick semen into your bowels!");
 			results.add("You are anally inseminated!");
 			results.add("You're going to be farting cum for days!");
@@ -475,7 +491,7 @@ public class EnemyCharacter extends AbstractCharacter {
 	
 	private boolean willPounce() {
 		IntArray randomValues = new IntArray(new int[]{10, 11, 12, 13});
-		return enemyType != EnemyEnum.UNICORN && lust >= randomValues.random() && stance != Stance.PRONE && stance != Stance.SUPINE && stance != Stance.AIRBORNE && stance != Stance.FELLATIO && stance != Stance.DOGGY && stance != Stance.ANAL && stance != Stance.ERUPT && stance != Stance.COWGIRL && stance != Stance.STANDING && stance != Stance.HANDY;
+		return enemyType != EnemyEnum.UNICORN && lust >= randomValues.random() && !stance.isIncapacitatingOrErotic();
 	}
 	
 	private Technique getTechnique(AbstractCharacter target, Techniques technique) {

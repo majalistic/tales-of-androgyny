@@ -64,17 +64,17 @@ public enum Techniques {
 	GUT_CHECK			(new AttackTechnique(Stance.OFFENSIVE, Stance.OFFENSIVE, "Gutcheck", 3, 3, 4, 0, 1, false, TechniqueHeight.MEDIUM).build()),
 	
 	/* Enemy pouncing */
-	DIVEBOMB 			(new GrappleTechnique  (Stance.AIRBORNE, Stance.FELLATIO, "Divebomb", 2, Stance.FELLATIO, TechniqueHeight.HIGH).build()),
-	SAY_AHH 			(new GrappleTechnique  (Stance.BALANCED, Stance.FELLATIO, "Say 'Ahh'", 2, Stance.FELLATIO).addBonus(BonusCondition.OUTMANEUVER, BonusType.PRIORITY).build()),
-	FULL_NELSON			(new GrappleTechnique  (Stance.BALANCED, Stance.FULL_NELSON, "Full Nelson", 2, Stance.FULL_NELSON).build()), // Used to initiate full nelson
-	POUNCE_DOGGY		(new GrappleTechnique  (Stance.BALANCED, Stance.DOGGY, "Pounce", 2, Stance.DOGGY).build()), // Used to initiate doggy
-	POUNCE_ANAL			(new GrappleTechnique  (Stance.BALANCED, Stance.ANAL, "Pounce", 2, Stance.ANAL).build()), // Used to initiate missionary
-	PENETRATE_STANDING	(new GrappleTechnique  (Stance.FULL_NELSON, Stance.STANDING, "Penetrate", 2, Stance.STANDING).build()), // Used to initiate standing anal
-	FACE_SIT			(new GrappleTechnique  (Stance.BALANCED, Stance.FACE_SITTING, "Plop Down", 2, Stance.FACE_SITTING).build()), // Used to initiate face-sitting
-	SITTING_ORAL		(new GrappleTechnique  (Stance.FACE_SITTING, Stance.SIXTY_NINE, "Say 'Ahh'", 2, Stance.SIXTY_NINE).build()), // Used to initiate face-sitting
-	KNOT 				(new NonAttackTechnique(Stance.DOGGY, Stance.KNOTTED, "Knot", 0, 0, Stance.KNOTTED, "Set Damage").build()), // Used to knot by knotty weresluts and others
+	DIVEBOMB 			(new GrappleTechnique  (Stance.AIRBORNE, Stance.FELLATIO, "Divebomb", 2, Stance.FELLATIO_BOTTOM, TechniqueHeight.HIGH).build()),
+	SAY_AHH 			(new GrappleTechnique  (Stance.BALANCED, Stance.FELLATIO, "Say 'Ahh'", 2, Stance.FELLATIO_BOTTOM).addBonus(BonusCondition.OUTMANEUVER, BonusType.PRIORITY).build()),
+	FULL_NELSON			(new GrappleTechnique  (Stance.BALANCED, Stance.FULL_NELSON, "Full Nelson", 2, Stance.FULL_NELSON_BOTTOM).build()), // Used to initiate full nelson
+	POUNCE_DOGGY		(new GrappleTechnique  (Stance.BALANCED, Stance.DOGGY, "Pounce", 2, Stance.DOGGY_BOTTOM).build()), // Used to initiate doggy
+	POUNCE_ANAL			(new GrappleTechnique  (Stance.BALANCED, Stance.ANAL, "Pounce", 2, Stance.ANAL_BOTTOM).build()), // Used to initiate missionary
+	PENETRATE_STANDING	(new GrappleTechnique  (Stance.FULL_NELSON, Stance.STANDING, "Penetrate", 2, Stance.STANDING_BOTTOM).build()), // Used to initiate standing anal
+	FACE_SIT			(new GrappleTechnique  (Stance.BALANCED, Stance.FACE_SITTING, "Plop Down", 2, Stance.FACE_SITTING_BOTTOM).build()), // Used to initiate face-sitting
+	SITTING_ORAL		(new GrappleTechnique  (Stance.FACE_SITTING, Stance.SIXTY_NINE, "Say 'Ahh'", 2, Stance.SIXTY_NINE_BOTTOM).build()), // Used to initiate face-sitting
+	KNOT 				(new NonAttackTechnique(Stance.DOGGY, Stance.KNOTTED, "Knot", 0, 0, Stance.KNOTTED_BOTTOM, "Set Damage").build()), // Used to knot by knotty weresluts and others
 	
-	IRRUMATIO 			(new NonAttackTechnique(Stance.FELLATIO, Stance.FELLATIO, "Irrumatio", 0, 0, Stance.FELLATIO).build()), 
+	IRRUMATIO 			(new NonAttackTechnique(Stance.FELLATIO, Stance.FELLATIO, "Irrumatio", 0, 0, Stance.FELLATIO_BOTTOM).build()), 
 	HOLD	 			(new NonAttackTechnique(Stance.FULL_NELSON, Stance.FULL_NELSON, "Hold", 0, 1).build()), // Used to hold
 	POUND_DOGGY 		(new NonAttackTechnique(Stance.DOGGY, Stance.DOGGY, "Pound", 0, 0).build()), // Used to doggystyle
 	POUND_ANAL 			(new NonAttackTechnique(Stance.ANAL, Stance.ANAL, "Pound", 0, 0).build()), // Used to missionary
@@ -93,35 +93,35 @@ public enum Techniques {
 	RECEIVE_HANDY		(new GrappleTechnique(Stance.HANDY, Stance.HANDY, "Receive Handy", 0).build()),
 	PUSH_OFF			(new NonAttackTechnique(Stance.COWGIRL, Stance.BALANCED, "Push Off", 0, 0, Stance.BALANCED).build()), // Break hold
 	
-	SIT_ON_IT			(new GrappleTechnique(Stance.BALANCED, Stance.COWGIRL, "Sit on It", 1, Stance.COWGIRL, "Sit down on it - and yes, it's going right up there.\nDon't say I didn't warn you.").build()), 
-	OPEN_WIDE 			(new GrappleTechnique(Stance.HANDY, Stance.FELLATIO, "Open Wide",  1, Stance.FELLATIO, "Open wide and swallow it down.").build()), 
-	GRAB_IT				(new GrappleTechnique(Stance.KNEELING, Stance.HANDY, "Grab It", 1, Stance.HANDY, "Grab it.").addBonus(BonusCondition.OUTMANEUVER, BonusType.PRIORITY).build()), 
+	SIT_ON_IT			(new GrappleTechnique(Stance.BALANCED, Stance.COWGIRL_BOTTOM, "Sit on It", 1, Stance.COWGIRL, "Sit down on it - and yes, it's going right up there.\nDon't say I didn't warn you.").build()), 
+	OPEN_WIDE 			(new GrappleTechnique(Stance.HANDY, Stance.FELLATIO_BOTTOM, "Open Wide",  1, Stance.FELLATIO, "Open wide and swallow it down.").build()), 
+	GRAB_IT				(new GrappleTechnique(Stance.KNEELING, Stance.HANDY_BOTTOM, "Grab It", 1, Stance.HANDY, "Grab it.").addBonus(BonusCondition.OUTMANEUVER, BonusType.PRIORITY).build()), 
 		
-	RIDE_ON_IT			(new EroticTechnique(Stance.COWGIRL, Stance.COWGIRL, "Ride on It", -1, 0, "Ride up and down on it.").build()), 
-	STAND_OFF_IT		(new GrappleTechnique(Stance.COWGIRL, Stance.BALANCED, "Stand up off It", 1, Stance.SUPINE, "Get up off it.").build()), 
-	STROKE_IT			(new EroticTechnique(Stance.HANDY, Stance.HANDY, "Stroke It", -1, 0, "Stroke it up and down.").build()), 
-	LET_GO				(new GrappleTechnique(Stance.HANDY, Stance.KNEELING, "Let It Go", 1, Stance.BALANCED, "Let go of it.").build()), 
+	RIDE_ON_IT			(new EroticTechnique(Stance.COWGIRL_BOTTOM, Stance.COWGIRL_BOTTOM, "Ride on It", -1, 0, "Ride up and down on it.").build()), 
+	STAND_OFF_IT		(new GrappleTechnique(Stance.COWGIRL_BOTTOM, Stance.BALANCED, "Stand up off It", 1, Stance.SUPINE, "Get up off it.").build()), 
+	STROKE_IT			(new EroticTechnique(Stance.HANDY_BOTTOM, Stance.HANDY_BOTTOM, "Stroke It", -1, 0, "Stroke it up and down.").build()), 
+	LET_GO				(new GrappleTechnique(Stance.HANDY_BOTTOM, Stance.KNEELING, "Let It Go", 1, Stance.BALANCED, "Let go of it.").build()), 
 	
-	RECEIVE_DOGGY		(new EroticTechnique(Stance.DOGGY, Stance.DOGGY, "Receive", -1, 0, "Take it up the butt.").build()), 
-	RECEIVE_ANAL		(new EroticTechnique(Stance.ANAL, Stance.ANAL, "Receive", -1, 0, "Take it up the butt.").build()), 
-	RECEIVE_STANDING	(new EroticTechnique(Stance.STANDING, Stance.STANDING, "Receive", -1, 0, "Take it up the butt.").build()), 
-	RECIPROCATE_FORCED	(new EroticTechnique(Stance.SIXTY_NINE, Stance.SIXTY_NINE, "Reciprocate", -1, 0, "Give head and take it.").build()), 
-	SUBMIT				(new EroticTechnique(Stance.FULL_NELSON, Stance.FULL_NELSON, "Submit", -1, 0, "Don't try to struggle.\nShe's looking for an opening.\nLiterally.").build()), 
-	GET_FACE_RIDDEN		(new EroticTechnique(Stance.FACE_SITTING, Stance.FACE_SITTING, "Endure", -1, 0, "Let her press her ass all over your face.").build()), 
-	RECEIVE_KNOT		(new EroticTechnique(Stance.KNOTTED, Stance.KNOTTED, "Receive Knot", -1, 0, "Take that big knot up the butt.").build()), 
-	SUCK_IT 			(new EroticTechnique(Stance.FELLATIO, Stance.FELLATIO, "Suck It", -1, 0, "Open wide and swallow it down.").build()), 
-	STRUGGLE_DOGGY		(new GrappleTechnique(Stance.DOGGY, Stance.DOGGY, "Struggle", 4).build()),
-	STRUGGLE_ANAL		(new GrappleTechnique(Stance.ANAL, Stance.ANAL, "Struggle", 4).build()),
-	STRUGGLE_STANDING	(new GrappleTechnique(Stance.STANDING, Stance.STANDING, "Struggle", 4).build()),
-	STRUGGLE_ORAL		(new GrappleTechnique(Stance.FELLATIO, Stance.FELLATIO, "Struggle", 4).build()), 
-	STRUGGLE_FULL_NELSON(new GrappleTechnique(Stance.FULL_NELSON, Stance.FULL_NELSON, "Struggle", 4).build()), 
-	STRUGGLE_FACE_SIT   (new GrappleTechnique(Stance.FACE_SITTING, Stance.FACE_SITTING, "Struggle", 4).build()), 
-	STRUGGLE_SIXTY_NINE (new GrappleTechnique(Stance.SIXTY_NINE, Stance.SIXTY_NINE, "Struggle", 4).build()), 
+	RECEIVE_DOGGY		(new EroticTechnique(Stance.DOGGY_BOTTOM, Stance.DOGGY_BOTTOM, "Receive", -1, 0, "Take it up the butt.").build()), 
+	RECEIVE_ANAL		(new EroticTechnique(Stance.ANAL_BOTTOM, Stance.ANAL_BOTTOM, "Receive", -1, 0, "Take it up the butt.").build()), 
+	RECEIVE_STANDING	(new EroticTechnique(Stance.STANDING_BOTTOM, Stance.STANDING_BOTTOM, "Receive", -1, 0, "Take it up the butt.").build()), 
+	RECIPROCATE_FORCED	(new EroticTechnique(Stance.SIXTY_NINE_BOTTOM, Stance.SIXTY_NINE_BOTTOM, "Reciprocate", -1, 0, "Give head and take it.").build()), 
+	SUBMIT				(new EroticTechnique(Stance.FULL_NELSON_BOTTOM, Stance.FULL_NELSON_BOTTOM, "Submit", -1, 0, "Don't try to struggle.\nShe's looking for an opening.\nLiterally.").build()), 
+	GET_FACE_RIDDEN		(new EroticTechnique(Stance.FACE_SITTING_BOTTOM, Stance.FACE_SITTING_BOTTOM, "Endure", -1, 0, "Let her press her ass all over your face.").build()), 
+	RECEIVE_KNOT		(new EroticTechnique(Stance.KNOTTED_BOTTOM, Stance.KNOTTED_BOTTOM, "Receive Knot", -1, 0, "Take that big knot up the butt.").build()), 
+	SUCK_IT 			(new EroticTechnique(Stance.FELLATIO_BOTTOM, Stance.FELLATIO_BOTTOM, "Suck It", -1, 0, "Open wide and swallow it down.").build()), 
+	STRUGGLE_DOGGY		(new GrappleTechnique(Stance.DOGGY_BOTTOM, Stance.DOGGY_BOTTOM, "Struggle", 4).build()),
+	STRUGGLE_ANAL		(new GrappleTechnique(Stance.ANAL_BOTTOM, Stance.ANAL_BOTTOM, "Struggle", 4).build()),
+	STRUGGLE_STANDING	(new GrappleTechnique(Stance.STANDING_BOTTOM, Stance.STANDING_BOTTOM, "Struggle", 4).build()),
+	STRUGGLE_ORAL		(new GrappleTechnique(Stance.FELLATIO_BOTTOM, Stance.FELLATIO_BOTTOM, "Struggle", 4).build()), 
+	STRUGGLE_FULL_NELSON(new GrappleTechnique(Stance.FULL_NELSON_BOTTOM, Stance.FULL_NELSON_BOTTOM, "Struggle", 4).build()), 
+	STRUGGLE_FACE_SIT   (new GrappleTechnique(Stance.FACE_SITTING_BOTTOM, Stance.FACE_SITTING_BOTTOM, "Struggle", 4).build()), 
+	STRUGGLE_SIXTY_NINE (new GrappleTechnique(Stance.SIXTY_NINE_BOTTOM, Stance.SIXTY_NINE_BOTTOM, "Struggle", 4).build()), 
 	
-	BREAK_FREE_FULL_NELSON 	(new NonAttackTechnique(Stance.FULL_NELSON, Stance.BALANCED, "Struggle", 0, 0, Stance.BALANCED).build()), // Break hold
-	BREAK_FREE_FACE_SIT	(new NonAttackTechnique(Stance.FACE_SITTING, Stance.BALANCED, "Struggle", 0, 0, Stance.BALANCED).build()), // Break hold
-	BREAK_FREE_ANAL		(new NonAttackTechnique(Stance.ANAL, Stance.BALANCED, "Struggle", 0, 0, Stance.BALANCED).build()), // Break hold
-	BREAK_FREE_ORAL		(new NonAttackTechnique(Stance.FELLATIO, Stance.BALANCED, "Struggle", 0, 0, Stance.BALANCED).build()), // Break hold
+	BREAK_FREE_FULL_NELSON 	(new NonAttackTechnique(Stance.FULL_NELSON_BOTTOM, Stance.BALANCED, "Struggle", 0, 0, Stance.BALANCED).build()), // Break hold
+	BREAK_FREE_FACE_SIT	(new NonAttackTechnique(Stance.FACE_SITTING_BOTTOM, Stance.BALANCED, "Struggle", 0, 0, Stance.BALANCED).build()), // Break hold
+	BREAK_FREE_ANAL		(new NonAttackTechnique(Stance.ANAL_BOTTOM, Stance.BALANCED, "Struggle", 0, 0, Stance.BALANCED).build()), // Break hold
+	BREAK_FREE_ORAL		(new NonAttackTechnique(Stance.FELLATIO_BOTTOM, Stance.BALANCED, "Struggle", 0, 0, Stance.BALANCED).build()), // Break hold
 	
 	INCANTATION 		(new NonAttackTechnique(Stance.BALANCED, Stance.CASTING, "Incantation", 0, 1).build()), 
 	

@@ -241,7 +241,7 @@ public class EncounterBuilder {
 						),
 						getTextScenes(getScript(encounterCode, 3), font, harpyFellatioBackground, 
 							getBattleScene(
-								battleCode, Stance.FELLATIO, Stance.FELLATIO, normalOutcomes,				
+								battleCode, Stance.FELLATIO_BOTTOM, Stance.FELLATIO, normalOutcomes,				
 								winFight,
 								loseFight,
 								satisfiedFight
@@ -438,7 +438,7 @@ public class EncounterBuilder {
 							getTextScenes(
 								getScript(encounterCode, 12), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.ANAL, new SexualExperienceBuilder(1).build())}),
 								getBattleScene(
-									battleCode, Stance.STANDING, Stance.STANDING, normalOutcomes,
+									battleCode, Stance.STANDING_BOTTOM, Stance.STANDING, normalOutcomes,
 									winFight2,
 									loseFight2,
 									satisfiedFight2
@@ -493,7 +493,7 @@ public class EncounterBuilder {
 				OrderedMap<Integer, Scene> catamite = getTextScenes(
 					getScript(encounterCode, 3), font, centaurBackground, getArray(new Mutation[]{analReceive}),
 					getBattleScene(
-						battleCode, Stance.DOGGY, Stance.DOGGY, normalOutcomes,
+						battleCode, Stance.DOGGY_BOTTOM, Stance.DOGGY, normalOutcomes,
 						getTextScenes(getArray(new String[]{"You defeated the centaur!", "You receive 2 Experience."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.EXPERIENCE, 2)}), getEndScene(EndScene.Type.ENCOUNTER_OVER)),
 						getTextScenes(getScript(encounterCode, 5), font, centaurBackground, getEndScene(EndScene.Type.GAME_OVER)),
 						satisfy
@@ -638,7 +638,7 @@ public class EncounterBuilder {
 				
 				OrderedMap<Integer, Scene> pantsCutDown = getTextScenes(
 					getScript(encounterCode, 20), font, goblinBackground,
-					getBattleScene(battleCode, Stance.DOGGY, Stance.DOGGY,
+					getBattleScene(battleCode, Stance.DOGGY_BOTTOM, Stance.DOGGY,
 						getTextScenes(getArray(new String[]{"You defeated the goblin!", "You receive 1 Experience."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.EXPERIENCE, 1)}), getEndScene(EndScene.Type.ENCOUNTER_OVER)),
 						defeatScene
 					)

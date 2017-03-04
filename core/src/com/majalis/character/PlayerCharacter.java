@@ -108,7 +108,7 @@ public class PlayerCharacter extends AbstractCharacter {
 			RECEIVE_ANAL, RECEIVE_DOGGY, RECEIVE_STANDING, STRUGGLE_ORAL, STRUGGLE_DOGGY, STRUGGLE_ANAL, STRUGGLE_STANDING, RECEIVE_KNOT, SUCK_IT, BREAK_FREE_ANAL, BREAK_FREE_ORAL,
 			SUBMIT, STRUGGLE_FULL_NELSON, BREAK_FREE_FULL_NELSON,
 			OPEN_WIDE, GRAB_IT, STROKE_IT, LET_GO, USE_ITEM, ITEM_OR_CANCEL,
-			RECIPROCATE_FORCED, GET_FACE_RIDDEN, STRUGGLE_FACE_SIT, STRUGGLE_SIXTY_NINE, BREAK_FREE_FACE_SIT, ROLL_OVER_UP, ROLL_OVER_DOWN, RIPOSTE, EN_GARDE
+			RECIPROCATE_FORCED, GET_FACE_RIDDEN, STRUGGLE_FACE_SIT, STRUGGLE_SIXTY_NINE, BREAK_FREE_FACE_SIT, ROLL_OVER_UP, ROLL_OVER_DOWN, RIPOSTE, EN_GARDE, POUNCE_DOGGY, POUND_DOGGY, POUNCE_ANAL, POUND_ANAL, ERUPT_ANAL
 		);
 		return baseTechniques;
 	}
@@ -170,6 +170,12 @@ public class PlayerCharacter extends AbstractCharacter {
 				if (target.getStance() == Stance.SUPINE && target.isErect() && target.enemyType != EnemyEnum.SLIME && target.enemyType != EnemyEnum.CENTAUR && target.enemyType != EnemyEnum.UNICORN) {
 					possibles.addAll(getTechniques(target, SIT_ON_IT));
 				}
+				if (target.stance == Stance.PRONE && isErect()) {
+					possibles.addAll(getTechniques(target, POUNCE_DOGGY));
+				}
+				else if (target.stance == Stance.SUPINE && isErect()) {
+					possibles.addAll(getTechniques(target, POUNCE_ANAL));
+				}
 				return possibles;
 			case BALANCED:
 				possibles = getTechniques(target, SPRING_ATTACK, NEUTRAL_ATTACK, CAUTIOUS_ATTACK, BLOCK, INCANTATION, SLIDE, DUCK, HIT_THE_DECK);
@@ -193,43 +199,43 @@ public class PlayerCharacter extends AbstractCharacter {
 				return possibles;
 			case AIRBORNE:
 				return getTechniques(target, JUMP_ATTACK, VAULT_OVER);
-			case FULL_NELSON:
+			case FULL_NELSON_BOTTOM:
 				if (struggle <= 0) {
 					return getTechniques(target, SUBMIT, BREAK_FREE_FULL_NELSON);
 				}
 				return getTechniques(target, SUBMIT, STRUGGLE_FULL_NELSON);
-			case DOGGY:
+			case DOGGY_BOTTOM:
 				if (struggle <= 0) {
 					return getTechniques(target, RECEIVE_DOGGY, BREAK_FREE_ANAL);
 				}
 				return getTechniques(target, RECEIVE_DOGGY, STRUGGLE_DOGGY);
-			case ANAL:
+			case ANAL_BOTTOM:
 				if (struggle <= 0) {
 					return getTechniques(target, RECEIVE_ANAL, BREAK_FREE_ANAL);
 				}
 				return getTechniques(target, RECEIVE_ANAL, STRUGGLE_ANAL);
-			case HANDY:
+			case HANDY_BOTTOM:
 				return getTechniques(target, STROKE_IT, LET_GO, OPEN_WIDE);
-			case STANDING:
+			case STANDING_BOTTOM:
 				if (struggle <= 0) {
 					return getTechniques(target, RECEIVE_STANDING, BREAK_FREE_ANAL);
 				}
 				return getTechniques(target, RECEIVE_STANDING, STRUGGLE_STANDING);
-			case COWGIRL:
+			case COWGIRL_BOTTOM:
 				return getTechniques(target, RIDE_ON_IT, STAND_OFF_IT);
-			case KNOTTED:
+			case KNOTTED_BOTTOM:
 				return getTechniques(target, RECEIVE_KNOT);
-			case FELLATIO:
+			case FELLATIO_BOTTOM:
 				if (struggle <= 0) {
 					return getTechniques(target, SUCK_IT, BREAK_FREE_ORAL);
 				}
 				return getTechniques(target, SUCK_IT, STRUGGLE_ORAL);
-			case FACE_SITTING:
+			case FACE_SITTING_BOTTOM:
 				if (struggle <= 0) {
 					return getTechniques(target, GET_FACE_RIDDEN, STRUGGLE_FACE_SIT);
 				}
 				return getTechniques(target, GET_FACE_RIDDEN, BREAK_FREE_FACE_SIT);
-			case SIXTY_NINE:
+			case SIXTY_NINE_BOTTOM:
 				if (struggle <= 0) {
 					return getTechniques(target, RECIPROCATE_FORCED, STRUGGLE_SIXTY_NINE);
 				}
@@ -239,6 +245,29 @@ public class PlayerCharacter extends AbstractCharacter {
 			case ITEM:
 				possibles = getConsumableItems(target);
 				possibles.addAll(getTechniques(target, ITEM_OR_CANCEL));
+				return possibles;
+			case DOGGY:
+			case ANAL:
+			case STANDING:
+				lust++;
+				if (lust > 10) {
+					return getTechniques(target, ERUPT_ANAL);
+				}
+				else {
+					if (stance == Stance.ANAL) {
+						return getTechniques(target, POUND_ANAL);
+					}
+					else if (stance == Stance.DOGGY) {
+						return getTechniques(target, POUND_DOGGY);
+					}
+					else {
+						return getTechniques(target, POUND_STANDING);
+					}		
+				}
+			case ERUPT:
+				stance = Stance.BALANCED;
+				possibles = getPossibleTechniques(target);
+				stance = Stance.ERUPT;
 				return possibles;
 			default: return null;
 		}
@@ -307,22 +336,22 @@ public class PlayerCharacter extends AbstractCharacter {
 		
 		String result;
 		if (resolvedAttack.isClimax()) {
-			if (oldStance.isAnal()) {
+			if (oldStance.isAnalReceptive()) {
 				setCurrentPortrait(perks.get(Perk.ANAL_LOVER.toString(), 0) > 1 ? AssetEnum.PORTRAIT_AHEGAO : AssetEnum.PORTRAIT_POUT);
 			}
-			else if (oldStance.isOral()){
+			else if (oldStance.isOralReceptive()){
 				setCurrentPortrait(AssetEnum.PORTRAIT_MOUTHBOMB);
 			}
 				
 		}
-		if (stance.isAnal()) {
+		if (stance.isAnalReceptive()) {
 			setCurrentPortrait(perks.get(Perk.ANAL_LOVER.toString(), 0) > 1 ? AssetEnum.PORTRAIT_LUST : AssetEnum.PORTRAIT_HIT);
 		}
-		else if (stance.isOral()) {
+		else if (stance.isOralReceptive()) {
 			setCurrentPortrait(resolvedAttack.isClimax() ? AssetEnum.PORTRAIT_MOUTHBOMB : AssetEnum.PORTRAIT_FELLATIO);
 		}
 		
-		if (!oldStance.isAnal() && stance.isAnal()) {
+		if (!oldStance.isAnalReceptive() && stance.isAnalReceptive()) {
 			result = receiveAnal(); 
 			
 			setCurrentPortrait(perks.get(Perk.ANAL_LOVER.toString(), 0) > 1 ? AssetEnum.PORTRAIT_LOVE : AssetEnum.PORTRAIT_SURPRISE);
@@ -333,7 +362,7 @@ public class PlayerCharacter extends AbstractCharacter {
 			}
 			a2m = true;
 		}
-		else if (!oldStance.isOral() && stance.isOral()) {
+		else if (!oldStance.isOralReceptive() && stance.isOralReceptive()) {
 			result = receiveOral();
 			if (result != null) { resolvedAttack.addMessage(result); } 
 			if(a2m) {
@@ -509,14 +538,14 @@ public class PlayerCharacter extends AbstractCharacter {
 	@Override
 	protected String increaseLust() {
 		switch (stance) {
-			case DOGGY:
-			case KNOTTED:
-			case ANAL:
-			case STANDING:
-			case COWGIRL:
+			case DOGGY_BOTTOM:
+			case KNOTTED_BOTTOM:
+			case ANAL_BOTTOM:
+			case STANDING_BOTTOM:
+			case COWGIRL_BOTTOM:
 				if (perks.get(Perk.WEAK_TO_ANAL.toString(), 0) > 0) return increaseLust(2);
-			case FELLATIO:
-			case SIXTY_NINE:
+			case FELLATIO_BOTTOM:
+			case SIXTY_NINE_BOTTOM:
 				return increaseLust(1);
 			default: return null;
 		}
@@ -539,40 +568,45 @@ public class PlayerCharacter extends AbstractCharacter {
 		boolean weakToAnal = perks.get(Perk.WEAK_TO_ANAL.toString(), 0) > 0;
 		lust = 0;
 		switch (stance) {
-			case KNOTTED:
-			case DOGGY: 
-			case ANAL:
+			case KNOTTED_BOTTOM:
+			case DOGGY_BOTTOM: 
+			case ANAL_BOTTOM:
 				spurt = "Awoo! Semen spurts out your untouched cock as your hole is violated!\n"
 					+	"You feel it with your ass, like a girl! Your face is red with shame!\n"
 					+	"Got a little too comfortable, eh?\n";
 				cumFromAnal();
 				result = incrementPerk(cameFromAnal, Perk.ANAL_LOVER, weakToAnal ? 3 : 5, weakToAnal ? 2 : 3, 1);
 				break;
-			case COWGIRL:
+			case COWGIRL_BOTTOM:
 				spurt = "Awoo! Semen spurts out your untouched cock as your hole is violated!\n"
 						+	"You feel it with your ass, like a girl! Your face is red with shame!\n"
 						+	"It spews all over them!\n";
 				cumFromAnal();
 				result = incrementPerk(cameFromAnal, Perk.ANAL_LOVER, weakToAnal ? 3 : 5, weakToAnal ? 2 : 3, 1);
 				break;
-			case FELLATIO:
+			case FELLATIO_BOTTOM:
 				spurt = "You spew while sucking!\n"
 					+	"Your worthless cum spurts into the dirt!\n"
 					+	"They don't even notice!\n";
 				cumFromOral();
 				result = incrementPerk(cameFromOral, Perk.MOUTH_MANIAC, 5, 3, 1);
 				break;
-			case FACE_SITTING:
+			case FACE_SITTING_BOTTOM:
 				spurt = "You spew while she rides your face!\n"
 						+	"Your worthless cum spurts into the dirt!\n"
 						+	"They don't even notice!\n";
 				break;
-			case SIXTY_NINE:
+			case SIXTY_NINE_BOTTOM:
 				spurt = "You spew into her mouth!\n"
 						+	"Her cock twitches in yours!\n"
 						+	"You're about to retun the favor!\n";
 				cumFromOral();
 				result = incrementPerk(cameFromOral, Perk.MOUTH_MANIAC, 5, 3, 1);
+				break;
+			case ANAL:
+			case DOGGY:
+			case FELLATIO:
+				stance = Stance.ERUPT;
 				break;
 			default: spurt = "You spew your semen onto the ground!\n"; 
 		}

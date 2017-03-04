@@ -40,7 +40,7 @@ public class BattleFactory {
 		if (enemy == null) {
 			enemy = getEnemy(battleCode.battleCode);
 			enemy.setStance(battleCode.enemyStance);
-			if (enemy.getStance() == Stance.DOGGY || enemy.getStance() == Stance.FELLATIO || enemy.getStance() == Stance.ANAL || enemy.getStance() == Stance.STANDING || enemy.getStance() == Stance.HANDY || enemy.getStance() == Stance.COWGIRL ) {
+			if (enemy.getStance().isEroticPenetration() ) {
 				enemy.setLust(10);
 			}
 			if (battleCode.disarm) {

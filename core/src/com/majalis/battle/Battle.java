@@ -531,16 +531,16 @@ public class Battle extends Group{
 			dialogGroup.addAction(show());
 		}
 		
-		if (oldStance.isAnal() && firstCharacter.getStance().isAnal()) {
+		if (oldStance.isAnalReceptive() && firstCharacter.getStance().isAnalReceptive()) {
 			soundMap.get(AssetEnum.THWAPPING).play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
 		}
 		
-		if (oldStance.isAnal() && !firstCharacter.getStance().isAnal()) {
+		if (oldStance.isAnalReceptive() && !firstCharacter.getStance().isAnalReceptive()) {
 			soundMap.get(AssetEnum.THWAPPING).play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
 			this.addAction(sequence(delay(105/60f), new SoundAction(soundMap.get(AssetEnum.UNPLUGGED_POP), .3f)));
 		}
 		
-		if (oldStance.isOral() && !firstCharacter.getStance().isOral()) {
+		if (oldStance.isOralReceptive() && !firstCharacter.getStance().isOralReceptive()) {
 			soundMap.get(AssetEnum.MOUTH_POP).play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume"));
 		}
 		
