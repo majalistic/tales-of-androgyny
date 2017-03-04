@@ -113,6 +113,7 @@ public class GameWorldNodeEncounter {
 			case COTTAGE_TRAINER_VISIT: return "Cottage-on-the-Outskirts (visited)";
 			case MERI_COTTAGE_VISIT: return "Witch's Cottage (visited)";
 			case GADGETEER: return "Strange Gadgeteer";
+			case FORT: return "Fort";
 			default: return "Nothing here.";
 		}
 	}
