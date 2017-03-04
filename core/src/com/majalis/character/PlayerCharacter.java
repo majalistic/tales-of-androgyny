@@ -176,6 +176,9 @@ public class PlayerCharacter extends AbstractCharacter {
 				else if (target.stance == Stance.SUPINE && isErect()) {
 					possibles.addAll(getTechniques(target, POUNCE_ANAL));
 				}
+				else if (target.stance == Stance.KNEELING && isErect()) {
+					possibles.addAll(getTechniques(target, IRRUMATIO));
+				}
 				return possibles;
 			case BALANCED:
 				possibles = getTechniques(target, SPRING_ATTACK, NEUTRAL_ATTACK, CAUTIOUS_ATTACK, BLOCK, INCANTATION, SLIDE, DUCK, HIT_THE_DECK);
@@ -246,11 +249,19 @@ public class PlayerCharacter extends AbstractCharacter {
 				possibles = getConsumableItems(target);
 				possibles.addAll(getTechniques(target, ITEM_OR_CANCEL));
 				return possibles;
+			case FELLATIO:
+				lust++;
+				if (lust > 12) {
+					return getTechniques(target, ERUPT_ORAL);
+				}
+				else {
+					return getTechniques(target, IRRUMATIO);
+				}	
 			case DOGGY:
 			case ANAL:
 			case STANDING:
 				lust++;
-				if (lust > 10) {
+				if (lust > 12) {
 					return getTechniques(target, ERUPT_ANAL);
 				}
 				else {
@@ -382,6 +393,45 @@ public class PlayerCharacter extends AbstractCharacter {
 		results.add(resolvedAttack.getMessages());
 		results.add(resolvedAttack.getDialog());
 		return results;	
+	}
+	
+	@Override
+	protected String getLeakMessage() {
+		String message = "";
+		
+		if (buttful >= 20) {
+			message = "Your belly looks pregnant, full of baby batter! It drools out of your well-used hole! Your movements are sluggish! -2 Agility.";
+		}
+		else if (buttful >= 10) {
+			message = "Your gut is stuffed with semen!  It drools out!  You're too queasy to move quickly! -1 Agility.";
+		}
+		else if (buttful >= 5) {
+			message = "Cum runs out of your full ass!";
+		}
+		else if (buttful > 1) {
+			message = "You drool cum from your hole!";
+		}
+		else if (buttful == 1) {
+			message = " The last of the cum runs out of your hole!";
+		}
+		drainButt();
+		return message;
+	}
+	
+	@Override
+	protected String getDroolMessage() {
+		String message = "";
+		if (mouthful > 10) {
+			message = "You vomit their tremendous load onto the ground!";
+		}
+		else if (mouthful > 5) {
+			message = "You spew their massive load onto the ground!";
+		}
+		else {
+			message = "You spit all of their cum out onto the ground!";
+		}
+		drainMouth();
+		return message;
 	}
 	
 	public void refresh() {

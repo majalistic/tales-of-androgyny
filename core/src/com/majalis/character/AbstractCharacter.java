@@ -677,41 +677,8 @@ public abstract class AbstractCharacter extends Actor {
 		}
 	}
 	
-	private String getLeakMessage() {
-		String message = "";
-		
-		if (buttful >= 20) {
-			message = "Your belly looks pregnant, full of baby batter! It drools out of your well-used hole! Your movements are sluggish! -2 Agility.";
-		}
-		else if (buttful >= 10) {
-			message = "Your gut is stuffed with semen!  It drools out!  You're too queasy to move quickly! -1 Agility.";
-		}
-		else if (buttful >= 5) {
-			message = "Cum runs out of " + (secondPerson ? "your" : "their") + " full ass!";
-		}
-		else if (buttful > 1) {
-			message = "You drool cum from your hole!";
-		}
-		else if (buttful == 1) {
-			message = " The last of the cum runs out of your hole!";
-		}
-		drainButt();
-		return message;
-	}
-	private String getDroolMessage() {
-		String message = "";
-		if (mouthful > 10) {
-			message = "You vomit their tremendous load onto the ground!";
-		}
-		else if (mouthful > 5) {
-			message = "You spew their massive load onto the ground!";
-		}
-		else {
-			message = "You spit all of their cum out onto the ground!";
-		}
-		drainMouth();
-		return message;
-	}
+	protected abstract String getLeakMessage();
+	protected abstract String getDroolMessage();
 	
 	protected abstract String increaseLust();
 	protected abstract String increaseLust(int lustIncrease);

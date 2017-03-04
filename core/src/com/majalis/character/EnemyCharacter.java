@@ -372,14 +372,14 @@ public class EnemyCharacter extends AbstractCharacter {
 				return getTechniques(target, RECEIVE_DOGGY);
 			case ANAL_BOTTOM:
 				if (struggle <= 0) {
-					return getTechniques(target, RECEIVE_ANAL, BREAK_FREE_ANAL);
+					return getTechniques(target, RECEIVE_ANAL);
 				}
-				return getTechniques(target, RECEIVE_ANAL, STRUGGLE_ANAL);
+				return getTechniques(target, RECEIVE_ANAL);
 			case FELLATIO_BOTTOM:
 				if (struggle <= 0) {
-					return getTechniques(target, SUCK_IT, BREAK_FREE_ORAL);
+					return getTechniques(target, SUCK_IT);
 				}
-				return getTechniques(target, SUCK_IT, STRUGGLE_ORAL);
+				return getTechniques(target, SUCK_IT);
 		default: return null;
 		}
 	}
@@ -438,6 +438,45 @@ public class EnemyCharacter extends AbstractCharacter {
 		}
 		return technique;
 		
+	}
+	
+	@Override
+	protected String getLeakMessage() {
+		String message = "";
+		
+		if (buttful >= 20) {
+			message = "Their belly looks pregnant, full of baby batter! It drools out of their well-used hole! Their movements are sluggish! -2 Agility.";
+		}
+		else if (buttful >= 10) {
+			message = "Their gut is stuffed with semen!  It drools out!  They're too queasy to move quickly! -1 Agility.";
+		}
+		else if (buttful >= 5) {
+			message = "Cum runs out of their full ass!";
+		}
+		else if (buttful > 1) {
+			message = "They drool cum from their hole!";
+		}
+		else if (buttful == 1) {
+			message = " The last of the cum runs out of their hole!";
+		}
+		drainButt();
+		return message;
+	}
+
+	@Override
+	protected String getDroolMessage() {
+		String message = "";
+		if (mouthful > 10) {
+			message = "They vomit a tremendous load onto the ground!";
+		}
+		else if (mouthful > 5) {
+			message = "They spew a massive load onto the ground!";
+		}
+		else {
+			message = "They spit all of the cum in their mouth out onto the ground!";
+		}
+		drainMouth();
+		return message;
 	}
 	
 	@Override
