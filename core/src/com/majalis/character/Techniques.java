@@ -81,7 +81,7 @@ public enum Techniques {
 	POUND_STANDING 		(new NonAttackTechnique(Stance.STANDING, Stance.STANDING, "Pound", 0, 0).build()), // Used to standing anal
 	RIDE_FACE			(new NonAttackTechnique(Stance.FACE_SITTING, Stance.FACE_SITTING, "Ride", 0, 0).build()), // Used to faceride
 	RECIPROCATE			(new NonAttackTechnique(Stance.SIXTY_NINE, Stance.SIXTY_NINE, "Reciprocate", 0, 0).build()), // Used to sixty nine
-	KNOT_BANG 			(new NonAttackTechnique(Stance.KNOTTED, Stance.KNOTTED, "Knot Bang", 0, 0, Stance.KNOTTED).build()), // Used to knot by knotty weresluts and others - could end the battle
+	KNOT_BANG 			(new NonAttackTechnique(Stance.KNOTTED, Stance.KNOTTED, "Knot Bang", 0, 0, Stance.KNOTTED_BOTTOM).build()), // Used to knot by knotty weresluts and others - could end the battle
 	
 	ERUPT_ANAL 			(new ClimaxTechnique   (Stance.DOGGY, Stance.DOGGY, "Erupt", Stance.PRONE, ClimaxType.ANAL ).build()),
 	ERUPT_ORAL 			(new ClimaxTechnique   (Stance.FELLATIO, Stance.FELLATIO, "Erupt", Stance.KNEELING, ClimaxType.ORAL ).build()),
