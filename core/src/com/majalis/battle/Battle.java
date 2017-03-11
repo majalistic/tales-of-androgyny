@@ -339,9 +339,14 @@ public class Battle extends Group{
 		checkEndBattle();
 		
 		setEnemyTechnique();
+		
+		saveService.saveDataValue(SaveEnum.PLAYER, character);
+		saveService.saveDataValue(SaveEnum.ENEMY, enemy);
+		Array<String> consoleComponents = new Array<String>();
+		consoleComponents.add(consoleText);
+		consoleComponents.add(dialogText);
+		saveService.saveDataValue(SaveEnum.CONSOLE, consoleComponents);
 	}
-	
-	
 	public String getMusicPath() {
 		return musicPath;
 	}

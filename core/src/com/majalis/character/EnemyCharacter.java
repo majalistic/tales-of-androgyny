@@ -29,6 +29,8 @@ public class EnemyCharacter extends AbstractCharacter {
 	private int climaxCounter;
 	private transient AnimatedActor animation;
 	private String currentDisplay;
+	private Techniques nextMove;
+	private boolean initializedMove;
 	
 	@SuppressWarnings("unused")
 	private EnemyCharacter() {}
@@ -234,13 +236,13 @@ public class EnemyCharacter extends AbstractCharacter {
 		return target.getStance() == Stance.SUPINE && !isErect() && enemyType != EnemyEnum.CENTAUR && enemyType != EnemyEnum.UNICORN;
 	}
 	
-	private Array<Technique> getPossibleTechniques(AbstractCharacter target, Stance stance) {
+	private Array<Techniques> getPossibleTechniques(AbstractCharacter target, Stance stance) {
 		
 		if (enemyType == EnemyEnum.SLIME && !stance.isIncapacitatingOrErotic()) {
 			return getTechniques(target, SLIME_ATTACK, SLIME_QUIVER); 			
 		}
 		
-		Array<Technique> possibles = new Array<Technique>();
+		Array<Techniques> possibles = new Array<Techniques>();
 		switch(stance) {
 			case OFFENSIVE:
 				if (willFaceSit(target)) {
@@ -384,60 +386,67 @@ public class EnemyCharacter extends AbstractCharacter {
 		}
 	}
 
-	private Array<Technique> getTechniques(AbstractCharacter target, Techniques... possibilities) {
-		Array<Technique> possibleTechniques = new Array<Technique>();
-		
-		for (Techniques technique : possibilities) {
-			possibleTechniques.add(getTechnique(target, technique));
-		}
-		
-		return possibleTechniques;
+	private Array<Techniques> getTechniques(AbstractCharacter target, Techniques... possibilities) {
+		return new Array<Techniques>(possibilities);
 	}
 	
 	public Technique getTechnique(AbstractCharacter target) {
+		if (initializedMove && nextMove != null) {
+			initializedMove = false;
+			return getTechnique(target, nextMove);
+		}
+		
 		if (lust < 10 && enemyType != EnemyEnum.CENTAUR) lust++;
 		
-		Array<Technique> possibleTechniques = getPossibleTechniques(target, stance);
+		Array<Techniques> possibleTechniques = getPossibleTechniques(target, stance);
 		
 		if (willPounce()) {
 			if (target.stance == Stance.PRONE ) {
-				return getTechnique(target, POUNCE_DOGGY);
+				possibleTechniques = getTechniques(target, POUNCE_DOGGY);
 			}
 			else if (target.stance == Stance.SUPINE) {
-				return getTechnique(target, POUNCE_ANAL);
+				possibleTechniques = getTechniques(target, POUNCE_ANAL);
 			}
 			else if (target.stance == Stance.KNEELING) {
-				return getTechnique(target, SAY_AHH);
+				possibleTechniques =  getTechniques(target, SAY_AHH);
 			}
 			else if (enemyType == EnemyEnum.HARPY) {
-				possibleTechniques.add(getTechnique(target, FLY));
+				possibleTechniques.add(FLY);
 			}
 			else if (target.stance.receivesMediumAttacks && enemyType == EnemyEnum.BRIGAND) {
-				possibleTechniques.add(getTechnique(target, FULL_NELSON));
+				possibleTechniques.add(FULL_NELSON);
 			}
 		}
 		
-		int choice = getRandomWeighting(possibleTechniques.size); 
-		possibleTechniques.sort(new Technique.StaminaComparator());
-		possibleTechniques.reverse();
-		Technique technique = possibleTechniques.get(choice);
-		while (outOfStamina(technique) && choice < possibleTechniques.size) {
-			technique = possibleTechniques.get(choice);
+		ObjectMap<Technique, Techniques> techniqueToToken = new ObjectMap<Technique, Techniques>();
+		Array<Technique> candidates = new Array<Technique>();
+		for (Techniques token : possibleTechniques) {
+			Technique candidate = getTechnique(target, token);
+			techniqueToToken.put(candidate, token);
+			candidates.add(candidate);
+		}
+
+		int choice = getRandomWeighting(candidates.size); 
+		candidates.sort(new Technique.StaminaComparator());
+		candidates.reverse();
+		Technique technique = candidates.get(choice);
+		while (outOfStamina(technique) && choice < candidates.size) {
+			technique = candidates.get(choice);
 			choice++;
 		}
-		possibleTechniques.sort(new Technique.StabilityComparator());
-		possibleTechniques.reverse();
+		candidates.sort(new Technique.StabilityComparator());
+		candidates.reverse();
 		int ii = 0;
-		for (Technique possibleTechnique : possibleTechniques) {
+		for (Technique possibleTechnique : candidates) {
 			if (possibleTechnique == technique) choice = ii;
 			ii++;
 		}
-		while (outOfStability(technique) && choice < possibleTechniques.size) {
-			technique = possibleTechniques.get(choice);
+		while (outOfStability(technique) && choice < candidates.size) {
+			technique = candidates.get(choice);
 			choice++;
 		}
-		return technique;
-		
+		nextMove = techniqueToToken.get(technique);
+		return technique;	
 	}
 	
 	@Override
@@ -590,6 +599,7 @@ public class EnemyCharacter extends AbstractCharacter {
 		this.textures = textures;
 		animation = getAnimatedActor(enemyType);
 		currentDisplay = enemyType == EnemyEnum.BRIGAND ? "IFOS100N" :"Idle Erect";
+		initializedMove = true;
 	}
 	
 	public static AnimatedActor getAnimatedActor(EnemyEnum enemyType) {
