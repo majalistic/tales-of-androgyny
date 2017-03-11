@@ -3,8 +3,10 @@ package com.majalis.screens;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.majalis.asset.AssetEnum;
@@ -16,6 +18,7 @@ public class LoadScreen extends AbstractScreen {
 	private final AssetManager assetManager;
 	private final ScreenEnum screenRequest;
 	private final BitmapFont largeFont;
+	private final Image loadingImage;
 	private ProgressBar progress;
 	private int clocktick;
 	private final Skin skin;
@@ -24,6 +27,7 @@ public class LoadScreen extends AbstractScreen {
 		super(factory, elements);
 		this.assetManager = assetManager;
 		this.skin = assetManager.get(AssetEnum.UI_SKIN.getPath(), Skin.class);
+		this.loadingImage = new Image(assetManager.get(AssetEnum.LOADING.getPath(), Texture.class));
 		this.screenRequest = screenRequest;
 		this.largeFont = fontFactory.getFont(72);
 		clocktick = 0;
@@ -35,6 +39,9 @@ public class LoadScreen extends AbstractScreen {
 		progress.setWidth(350);
 		progress.setPosition(720, 600);
 		this.addActor(progress);
+		this.addActor(loadingImage);
+		loadingImage.setPosition(900, 0);
+		loadingImage.setScale(.3f);
 	}
 	
 	@Override

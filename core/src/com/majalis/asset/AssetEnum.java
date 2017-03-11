@@ -3,6 +3,7 @@ package com.majalis.asset;
 public enum AssetEnum {
 	UI_SKIN("uiskin.json"),
 	SPLASH_SCREEN("Splash.png"),
+	LOADING("Loading.png"),
 	
 	MAIN_MENU_SCREEN("MainMenuScreen.jpg"),
 	

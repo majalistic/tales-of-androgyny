@@ -49,6 +49,8 @@ public class SplashScreen extends AbstractScreen {
 			}
 		}
 		
+		assetManager.load(AssetEnum.LOADING.getPath(), Texture.class);
+		
 		progress = new ProgressBar(0, 1, .05f, false, skin);
 		progress.setSize(280, 30);
 		progress.setPosition(1600, 105);
