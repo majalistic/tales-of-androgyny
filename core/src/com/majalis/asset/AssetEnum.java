@@ -110,6 +110,7 @@ public enum AssetEnum {
 	TEXT_BOX("battle/NameBox.png"),
 	
 	SHOPKEEP("characters/AppleKeep.png"),
+	INNKEEPER("characters/Innkeeper.png"),
 	TRAINER("characters/HeavyTrainer1.png"),
 	MERI_SILHOUETTE("characters/Witch.png"),
 	SILHOUETTE("characters/Silhouette.png"),
@@ -152,7 +153,7 @@ public enum AssetEnum {
 	GAPE("GapedButtBG.jpg"),
 	GAME_OVER_GAPE("GameOverButt.jpg"),
 	GAME_OVER_TUCKERED("GameOverTuckered.jpg"),
-	KEYHOLE("GameOverKeyhole.jpg"),
+	KEYHOLE("Keyhole.jpg"),
 	GAME_OVER_KEYHOLE("GameOverKeyhole.jpg"),
 	GAME_OGRE("PostOgre.jpg"),
 	// sounds

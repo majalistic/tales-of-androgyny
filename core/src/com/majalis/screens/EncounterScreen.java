@@ -173,6 +173,7 @@ public class EncounterScreen extends AbstractScreen {
 				requirements.put(AssetEnum.WEREWOLF_MUSIC.getPath(), Music.class);
 				break;
 			case INN:
+				requirements.put(AssetEnum.INNKEEPER.getPath(), Texture.class);
 				requirements.put(AssetEnum.KEYHOLE.getPath(), Texture.class);
 				requirements.put(AssetEnum.GAME_OVER_KEYHOLE.getPath(), Texture.class);
 				break;

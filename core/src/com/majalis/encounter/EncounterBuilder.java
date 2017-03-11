@@ -1160,6 +1160,7 @@ public class EncounterBuilder {
 					)
 				);
 			case INN:
+				Background innkeeper = new BackgroundBuilder(assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getPath(), Texture.class)).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class)).setForeground(assetManager.get(AssetEnum.INNKEEPER.getPath(), Texture.class)).build();
 				Background backgroundKeyhole = new BackgroundBuilder(assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getPath(), Texture.class)).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class)).setForeground(assetManager.get(AssetEnum.KEYHOLE.getPath(), Texture.class)).build();
 				Background backgroundKeyholeGO = new BackgroundBuilder(assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getPath(), Texture.class)).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class)).setForeground(assetManager.get(AssetEnum.GAME_OVER_KEYHOLE.getPath(), Texture.class)).build();
 				
@@ -1175,27 +1176,27 @@ public class EncounterBuilder {
 				);
 				
 				getTextScenes(
-					getScript("INNKEEP-01"), font, background,	
+					getScript("INNKEEP-01"), font, innkeeper,	
 					getChoiceScene(
 						"Stay the night?", getArray(new String[]{"Rest at Inn (10 Gold)", "Rest at Inn (Low Funds)", "Leave"}), getArray(new ChoiceCheckType[]{ChoiceCheckType.GOLD_GREATER_THAN_10, ChoiceCheckType.GOLD_LESS_THAN_10, null}),
 						getTextScenes(
-							getScript("INNKEEP-02"), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.GOLD, -10), new Mutation(saveService, SaveEnum.FOOD, 15), new Mutation(saveService, SaveEnum.HEALTH, 100)}),
+							getScript("INNKEEP-02"), font, innkeeper, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.GOLD, -10), new Mutation(saveService, SaveEnum.FOOD, 15), new Mutation(saveService, SaveEnum.HEALTH, 100)}),
 							getEndScene(EndScene.Type.ENCOUNTER_OVER)
 						),
 						getCheckScene(
 							CheckType.INN_0,
 							getTextScenes(
-								getScript("INNKEEP-03"), font, background,
+								getScript("INNKEEP-03"), font, innkeeper,
 								getChoiceScene(
 									"Take his offer?", getArray(new String[]{"Get under table", "Leave"}),
 									getTextScenes(
-										getScript("INNKEEP-04"), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.QUEST, new QuestFlag(QuestType.INNKEEP, 1))}),
+										getScript("INNKEEP-04"), font, innkeeper, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.QUEST, new QuestFlag(QuestType.INNKEEP, 1))}),
 										getTextScenes(
-											getScript("INNKEEP-05"), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.ANAL, new SexualExperienceBuilder().setOralSex(1).build())}),
+											getScript("INNKEEP-05"), font, innkeeper, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.ANAL, new SexualExperienceBuilder().setOralSex(1).build())}),
 											getTextScenes(
-												getScript("INNKEEP-06"), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.ANAL, new SexualExperienceBuilder().setOralCreampie(1).build())}),
+												getScript("INNKEEP-06"), font, innkeeper, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.ANAL, new SexualExperienceBuilder().setOralCreampie(1).build())}),
 												getTextScenes(
-													new Array<String>(new String[]{"."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.FOOD, 15), new Mutation(saveService, SaveEnum.HEALTH, 100)}),
+													new Array<String>(new String[]{"."}), font, innkeeper, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.FOOD, 15), new Mutation(saveService, SaveEnum.HEALTH, 100)}),
 													getEndScene(EndScene.Type.ENCOUNTER_OVER)
 												)
 											)
@@ -1207,15 +1208,15 @@ public class EncounterBuilder {
 							getCheckScene(
 								CheckType.INN_1,
 								getTextScenes(
-									getScript("INNKEEP-07"), font, background,
+									getScript("INNKEEP-07"), font, innkeeper,
 									getChoiceScene(
 										"Take his offer?", getArray(new String[]{"Go to his room", "Leave"}),
 										getTextScenes(
-											getScript("INNKEEP-08"), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.QUEST, new QuestFlag(QuestType.INNKEEP, 2))}),
+											getScript("INNKEEP-08"), font, innkeeper, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.QUEST, new QuestFlag(QuestType.INNKEEP, 2))}),
 											getCheckScene(
 												CheckType.VIRGIN,
 												getTextScenes(
-													getScript("INNKEEP-09"), font, background,
+													getScript("INNKEEP-09"), font, innkeeper,
 													afterScene
 												),
 												afterScene
@@ -1227,17 +1228,17 @@ public class EncounterBuilder {
 								getCheckScene(
 									CheckType.INN_2,
 									getTextScenes(
-										getScript("INNKEEP-12"), font, background,
+										getScript("INNKEEP-12"), font, innkeeper,
 										getChoiceScene(
 											"Take his offer?", getArray(new String[]{"Join him", "Leave"}),
 											getTextScenes(
-												getScript("INNKEEP-13"), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.QUEST, new QuestFlag(QuestType.INNKEEP, 3))}),
+												getScript("INNKEEP-13"), font, innkeeper, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.QUEST, new QuestFlag(QuestType.INNKEEP, 3))}),
 												getTextScenes(
-													getScript("INNKEEP-14"), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.ANAL, new SexualExperienceBuilder().setAnalSex(1, 0, 0).build())}),
+													getScript("INNKEEP-14"), font, innkeeper, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.ANAL, new SexualExperienceBuilder().setAnalSex(1, 0, 0).build())}),
 													getTextScenes(
-														getScript("INNKEEP-15"), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.ANAL, new SexualExperienceBuilder().setAnalEjaculations(1).build())}),
+														getScript("INNKEEP-15"), font, innkeeper, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.ANAL, new SexualExperienceBuilder().setAnalEjaculations(1).build())}),
 														getTextScenes(
-															new Array<String>(new String[]{"."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.FOOD, 15), new Mutation(saveService, SaveEnum.HEALTH, 100)}),
+															new Array<String>(new String[]{"."}), font, innkeeper, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.FOOD, 15), new Mutation(saveService, SaveEnum.HEALTH, 100)}),
 															getEndScene(EndScene.Type.ENCOUNTER_OVER)
 														)
 													)
@@ -1249,7 +1250,7 @@ public class EncounterBuilder {
 									getCheckScene(
 										CheckType.INN_3,
 										getTextScenes(
-											getScript("INNKEEP-16"), font, background,
+											getScript("INNKEEP-16"), font, innkeeper,
 											getChoiceScene(
 												"Take his offer?", getArray(new String[]{"Marry him", "Leave"}),
 												getTextScenes(
