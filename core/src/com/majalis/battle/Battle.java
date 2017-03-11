@@ -104,10 +104,13 @@ public class Battle extends Group{
 	
 	private final String musicPath;
 	
+	private SkillText enemySkill;
+	
 	private String consoleText;
 	private String dialogText;
 	private Array<TextButton> optionButtons;
 	private Technique selectedTechnique;
+	private Technique enemySelectedTechnique;
 	private int selection;	
 	private Outcome outcome;
 	public boolean gameExit;
@@ -305,7 +308,10 @@ public class Battle extends Group{
 		hoverGroup.addActor(pane2);
 		hideHoverGroup();
 		checkEndBattle();
+		
+		setEnemyTechnique();
 	}
+	
 	
 	public String getMusicPath() {
 		return musicPath;
@@ -354,11 +360,11 @@ public class Battle extends Group{
 					ii++;
 				}
 			}
-				
+			
 			if (selectedTechnique != null) {		
 				soundMap.get(AssetEnum.BUTTON_SOUND).play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
 				// possibly construct a separate class for this
-				resolveTechniques(character, selectedTechnique, enemy, enemy.getTechnique(character));
+				resolveTechniques(character, selectedTechnique, enemy, enemySelectedTechnique);
 				selectedTechnique = null;
 				displayTechniqueOptions();
 				saveService.saveDataValue(SaveEnum.PLAYER, character);
@@ -552,6 +558,8 @@ public class Battle extends Group{
 			skillDisplay.setText(((EnemyCharacter) secondCharacter).getOutcomeText(firstCharacter));
 		}
 		
+		setEnemyTechnique();
+		
 		console.setText(consoleText);
 		dialog.setText(dialogText);
 		
@@ -599,6 +607,17 @@ public class Battle extends Group{
 		balanceIcon.setDrawable(getDrawable(character.getBalanceDisplay()));
 		enemyHealthIcon.setDrawable(getDrawable(enemy.getHealthDisplay()));
 		masculinityIcon.setDrawable(getDrawable(character.getMasculinityPath()));	
+	}
+	
+	private void setEnemyTechnique() {
+		enemySelectedTechnique = enemy.getTechnique(character);
+		this.removeActor(enemySkill);
+		enemySkill = new SkillText(enemySelectedTechnique.getTechniqueName(), skin, assetManager.get(enemySelectedTechnique.getStance().getPath(), Texture.class));		
+		this.addActor(enemySkill);
+		enemySkill.setPosition(1400, 750);
+		if (character.getBattlePerception() < 7) {
+			enemySkill.addAction(Actions.hide());
+		}
 	}
 	
 	private TextureRegionDrawable getDrawable(String texturePath) {
@@ -776,6 +795,15 @@ public class Battle extends Group{
 	
 	/* REFACTOR AND REMOVE BEYOND THIS LINE */
 	
+
+	public boolean isBattleOver() {
+		return battleOver;
+	}
+	
+	public int getOutcomeScene() {
+		return outcomes.get(outcome.toString());
+	}
+	
 	private class StanceActor extends Actor{
 		
 		private final AbstractCharacter character;
@@ -810,12 +838,19 @@ public class Battle extends Group{
 	    }
 	}
 	
-	public boolean isBattleOver() {
-		return battleOver;
-	}
-	
-	public int getOutcomeScene() {
-		return outcomes.get(outcome.toString());
+	private class SkillText extends Label {
+		Texture stanceIcon;
+		public SkillText(String text, Skin skin, Texture stanceIcon) {
+			super("Next:\n" + text, skin);
+			this.stanceIcon = stanceIcon;
+		}
+		
+		@Override
+	    public void draw(Batch batch, float parentAlpha) {
+			super.draw(batch, parentAlpha);
+			batch.setColor(Color.WHITE);
+			batch.draw(stanceIcon, getX() + 75, getY()+30, 63, 76);
+		}		
 	}
 	
 	private class SkillButton extends TextButton {
