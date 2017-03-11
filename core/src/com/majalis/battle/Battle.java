@@ -79,6 +79,8 @@ public class Battle extends Group{
 	private final ProgressBar characterBalance;
 	private final ProgressBar characterMana;
 	private final ProgressBar enemyHealth;
+	private final ProgressBar enemyStamina;
+	private final ProgressBar enemyBalance;
 	private final Image characterArousal;
 	private final Image enemyArousal;
 	private final Image characterBelly;
@@ -88,6 +90,8 @@ public class Battle extends Group{
 	private final Image manaIcon;
 	private final Image masculinityIcon;
 	private final Image enemyHealthIcon;
+	private final Image enemyStaminaIcon;
+	private final Image enemyBalanceIcon;
 	private final Image bloodImage;
 	private final Image enemyBloodImage;
 	
@@ -96,6 +100,8 @@ public class Battle extends Group{
 	private final Label balanceLabel;
 	private final Label manaLabel;
 	private final Label enemyHealthLabel;
+	private final Label enemyStaminaLabel;
+	private final Label enemyBalanceLabel;
 	private final Label enemyWeaponLabel;
 	private final Label armorLabel;
 	private final Label enemyArmorLabel;
@@ -149,11 +155,13 @@ public class Battle extends Group{
 		skin = assetManager.get(AssetEnum.BATTLE_SKIN.getPath(), Skin.class);
 		
 		float barX = 195;
+		float enemyBarX = 1500;
 		float hoverXPos = 330; 
 		float hoverYPos = 35; 
 		float consoleXPos = 1200;
 		float consoleYPos = 5;
 		
+		// these should be wrapped as components that accept a character
 		characterHealth = initBar(0, 1, .05f, false, skin, 350, character.getHealthPercent(), barX , 1035);
 		healthIcon = initImage(assetManager.get(character.getHealthDisplay(), Texture.class), barX+3, 1042.5f);
 		healthLabel = initLabel(character.getCurrentHealth() + " / " + character.getMaxHealth(), skin, Color.BROWN, barX + 75, 1038);
@@ -177,16 +185,37 @@ public class Battle extends Group{
 			manaLabel = null;
 		}
 		
-		enemyHealth = initBar(0, 1, .05f, false, skin, 350, enemy.getHealthPercent(), 1500 , 990);
-		enemyHealthIcon = initImage(assetManager.get(enemy.getHealthDisplay(), Texture.class), 1503, 997.5f);
-		enemyHealthLabel = initLabel(enemy.getCurrentHealth() + " / " + enemy.getMaxHealth(), skin, Color.BROWN, 1578, 993);
-		enemyWeaponLabel = initLabel("Weapon: " + (enemy.getWeapon() != null ? enemy.getWeapon().getName() : "Unarmed"), skin, Color.GOLDENROD, 1578, 950);	
+		enemyHealth = initBar(0, 1, .05f, false, skin, 350, enemy.getHealthPercent(), enemyBarX , 1035);
+		enemyHealthIcon = initImage(assetManager.get(enemy.getHealthDisplay(), Texture.class), enemyBarX + 3, 1042.5f);
+		enemyHealthLabel = initLabel(enemy.getCurrentHealth() + " / " + enemy.getMaxHealth(), skin, Color.BROWN, enemyBarX + 75, 1038);
+		
+		enemyStamina = initBar(0, 1, .05f, false, skin, 350, enemy.getStaminaPercent(), enemyBarX, 990);
+		enemyStaminaIcon = initImage(assetManager.get(enemy.getStaminaDisplay(), Texture.class), enemyBarX + 7.5f, 997.5f);
+		enemyStaminaLabel = initLabel(enemy.getCurrentStamina() + " / " + enemy.getMaxStamina(), skin, Color.BROWN, enemyBarX + 75, 993);
+
+		if (character.getBattlePerception() < 4) {
+			enemyStamina.addAction(Actions.hide());
+			enemyStaminaIcon.addAction(Actions.hide());
+			enemyStaminaLabel.addAction(Actions.hide());
+		}
+		
+		enemyBalance = initBar(0, 1, .05f, false, skin, 350, enemy.getBalancePercent(), enemyBarX, 945);
+		enemyBalanceIcon = initImage(assetManager.get(enemy.getBalanceDisplay(), Texture.class), enemyBarX + 3, 952.5f);
+		enemyBalanceLabel = initLabel(enemy.getStability() > 0 ? enemy.getStability() + " / " + enemy.getMaxStability() : "DOWN (" + -enemy.getStability() + ")", skin, Color.BROWN, enemyBarX + 75, 948);
+		
+		if (character.getBattlePerception() < 3) {
+			enemyBalance.addAction(Actions.hide());
+			enemyBalanceIcon.addAction(Actions.hide());
+			enemyBalanceLabel.addAction(Actions.hide());
+		}
+		
+		enemyWeaponLabel = initLabel("Weapon: " + (enemy.getWeapon() != null ? enemy.getWeapon().getName() : "Unarmed"), skin, Color.GOLDENROD, 1578, 900);	
 		
 		Texture armorTexture = assetManager.get(AssetEnum.ARMOR.getPath(), Texture.class);
 		initImage(armorTexture, barX + 320, 1032, 50);
-		initImage(armorTexture, 1820, 992, 50);
+		initImage(armorTexture, 1820, 1032, 50);
 		armorLabel = initLabel("" + character.getDefense(), skin, Color.BROWN, barX + 332, 1037);		
-		enemyArmorLabel = initLabel("" + enemy.getDefense(), skin, Color.BROWN, 1832, 997);
+		enemyArmorLabel = initLabel("" + enemy.getDefense(), skin, Color.BROWN, 1832, 1037);
 		
 		Texture bloodTexture = assetManager.get(AssetEnum.BLEED.getPath(), Texture.class);
 		bloodImage = initImage(bloodTexture, 470, 850, 50);
@@ -572,10 +601,14 @@ public class Battle extends Group{
 			manaIcon.setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(character.getManaDisplay(), Texture.class))));
 		}
 		enemyHealth.setValue(enemy.getHealthPercent());
+		enemyStamina.setValue(enemy.getStaminaPercent());
+		enemyBalance.setValue(enemy.getBalancePercent());
 		healthLabel.setText(character.getCurrentHealth() + " / " + character.getMaxHealth());
 		staminaLabel.setText(character.getCurrentStamina() + " / " + character.getMaxStamina());
 		balanceLabel.setText(character.getStability() > 0 ? character.getStability() + " / " + character.getMaxStability() : "DOWN (" + -character.getStability() + ")");
 		enemyHealthLabel.setText(enemy.getCurrentHealth() + " / " + enemy.getMaxHealth());
+		enemyStaminaLabel.setText(enemy.getCurrentStamina() + " / " + enemy.getMaxStamina());
+		enemyBalanceLabel.setText(enemy.getStability() > 0 ? enemy.getStability() + " / " + enemy.getMaxStability() : "DOWN (" + -enemy.getStability() + ")");
 		enemyWeaponLabel.setText("Weapon: " + (enemy.getWeapon() != null ? enemy.getWeapon().getName() : "Unarmed"));
 		armorLabel.setText("" + character.getDefense());
 		enemyArmorLabel.setText("" + enemy.getDefense());	
@@ -606,16 +639,19 @@ public class Battle extends Group{
 		staminaIcon.setDrawable(getDrawable(character.getStaminaDisplay()));
 		balanceIcon.setDrawable(getDrawable(character.getBalanceDisplay()));
 		enemyHealthIcon.setDrawable(getDrawable(enemy.getHealthDisplay()));
+		enemyStaminaIcon.setDrawable(getDrawable(enemy.getStaminaDisplay()));
+		enemyBalanceIcon.setDrawable(getDrawable(enemy.getBalanceDisplay()));
+				
 		masculinityIcon.setDrawable(getDrawable(character.getMasculinityPath()));	
 	}
 	
 	private void setEnemyTechnique() {
 		enemySelectedTechnique = enemy.getTechnique(character);
 		this.removeActor(enemySkill);
-		enemySkill = new SkillText(enemySelectedTechnique.getTechniqueName(), skin, assetManager.get(enemySelectedTechnique.getStance().getPath(), Texture.class));		
+		enemySkill = new SkillText(character.getBattlePerception() < 7 ? "" : enemySelectedTechnique.getTechniqueName(), skin, assetManager.get(enemySelectedTechnique.getStance().getPath(), Texture.class));		
 		this.addActor(enemySkill);
 		enemySkill.setPosition(1400, 750);
-		if (character.getBattlePerception() < 7) {
+		if (character.getBattlePerception() < 5) {
 			enemySkill.addAction(Actions.hide());
 		}
 	}
