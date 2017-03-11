@@ -560,10 +560,23 @@ public class PlayerCharacter extends AbstractCharacter {
 	}
 	
 	public void setPerks(ObjectMap<Perk, Integer> perks) {
-		if(perks.get(Perk.WELLROUNDED, 0) > 0 && !(this.perks.get(Perk.WELLROUNDED.toString(), 0) > 0) ) {
+		if (perks.get(Perk.WELLROUNDED, 0) > 0 && !(this.perks.get(Perk.WELLROUNDED.toString(), 0) > 0) ) {
 			increaseLowestStat();
 		}
-		if(perks.get(Perk.CATAMITE, 0) > 0 && !(this.perks.get(Perk.CATAMITE.toString(), 0) > 0)) {
+		if (perks.get(Perk.STRONGER, 0) > this.perks.get(Perk.STRONGER.toString(), 0)) {
+			int strIncrease = perks.get(Perk.STRONGER, 0) -  this.perks.get(Perk.STRONGER.toString(), 0);
+			baseStrength += strIncrease;
+		}
+		if (perks.get(Perk.HARDER, 0) > this.perks.get(Perk.HARDER.toString(), 0)) {
+			int endIncrease = perks.get(Perk.HARDER, 0) -  this.perks.get(Perk.HARDER.toString(), 0);
+			baseEndurance += endIncrease;
+		}
+		if (perks.get(Perk.FASTER, 0) > this.perks.get(Perk.FASTER.toString(), 0)) {
+			int agiIncrease = perks.get(Perk.FASTER, 0) -  this.perks.get(Perk.FASTER.toString(), 0);
+			baseAgility += agiIncrease;
+		}
+		
+		if (perks.get(Perk.CATAMITE, 0) > 0 && !(this.perks.get(Perk.CATAMITE.toString(), 0) > 0)) {
 			addSkill(SIT_ON_IT, 1);
 			addSkill(RIDE_ON_IT, 1);
 			addSkill(STAND_OFF_IT, 1);
@@ -692,11 +705,11 @@ public class PlayerCharacter extends AbstractCharacter {
 	}
 
 	public int getStoredLevels() {
-		return experience / 10;
+		return experience / 5;
 	}
 
 	public void levelUp() {
-		experience -= 10;
+		experience -= 5;
 		level++;
 		skillPoints += 2;
 		perkPoints++;

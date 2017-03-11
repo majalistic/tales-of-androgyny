@@ -1,11 +1,14 @@
 package com.majalis.character;
 
 public enum Perk {
-	SKILLED ("Increases number of skill points to allocate by 2 per rank.", 5), 
+	SKILLED ("Increases number of skill points to allocate by 2 per rank. (5 Ranks)", 5), 
 	WELLROUNDED ("Increases current lowest stat by 1.", 1),
 	SURVEYOR ("Increases effective perception for scouting purposes by 2 per rank.", 3),
 	EROTIC ("Increases effective charisma for arousing others by 2 per rank.", 3), 
 	CATAMITE ("Unlocks more options for being willingly receptive.", 1),
+	STRONGER ("Increases strength by 1 per rank.", 3),
+	HARDER ("Increases endurance by 1 per rank.", 3),
+	FASTER ("Increases agility by 1 per rank.", 3),
 	WEAK_TO_ANAL ("Weak to butt stuff. Causes quick pew pews while penetrated.", false),
 	ANAL_LOVER ("Loves butt stuff. Or, more accurately, getting butt stuffed.", 3, false),
 	MOUTH_MANIAC ("Loves suckin' it.", 3, false),

@@ -940,7 +940,7 @@ public abstract class AbstractCharacter extends Actor {
 	
 	public enum Stat {
 		STRENGTH(AssetEnum.STRENGTH.getPath(), "Strength determines raw attack power, which affects damage,\nhow much attacks unbalance an enemies, and contests\nof strength, such as wrestling, struggling,\nor weapon locks."),
-		ENDURANCE(AssetEnum.ENDURANCE.getPath(), "Endurance determines stamina and resilience, which affects\nyour ability to keep up an assault without getting tired,\nyour ability to shrug off low damage attacks,\nand wear heavier armor without being tired."),
+		ENDURANCE(AssetEnum.ENDURANCE.getPath(), "Endurance determines stamina and resilience, which affects\nyour ability to keep up an assault without getting tired,\nyour ability to shrug off low damage attacks,\nand wear heavier armor without becoming exhausted."),
 		AGILITY(AssetEnum.AGILITY.getPath(), "Agility determines balance and skill, affecting your ability\nto keep a sure footing even while doing acrobatic\nmaneuvers, getting unblockable attacks against\nenemies, and evading enemy attacks."),
 		PERCEPTION(AssetEnum.PERCEPTION.getPath(), "Perception determines your ability to see what attacks an\nenemy may use next and prepare accordingly, as well as\nyour base scouting ability, which determines what\ninformation you can see about upcoming areas."),
 		MAGIC(AssetEnum.MAGIC.getPath(), "Magic determines your magical capabilities, such as how\npowerful magic spells are, and how many of them\nyou can cast before becoming magically exhausted."),
