@@ -31,6 +31,7 @@ public class EnemyCharacter extends AbstractCharacter {
 	private String currentDisplay;
 	private Techniques nextMove;
 	private boolean initializedMove;
+	private int range;
 	
 	@SuppressWarnings("unused")
 	private EnemyCharacter() {}
@@ -39,6 +40,7 @@ public class EnemyCharacter extends AbstractCharacter {
 		super(true);
 		this.enemyType = enemyType;
 		init(texture, textures);
+		initializedMove = false;
 		phallus = PhallusType.MONSTER;
 		textureImagePaths = new ObjectMap<String, String>();
 		bgPath = AssetEnum.FOREST_BG.getPath();
@@ -584,8 +586,17 @@ public class EnemyCharacter extends AbstractCharacter {
 		int y = (enemyType == EnemyEnum.HARPY && stance != Stance.FELLATIO) ? 105 : (enemyType == EnemyEnum.GOBLIN && stance == Stance.FACE_SITTING || stance == Stance.SIXTY_NINE) ? 0 : 20;
 		int width = (enemyType == EnemyEnum.GOBLIN && stance == Stance.FACE_SITTING || stance == Stance.SIXTY_NINE) ? (int) (texture.getWidth() / (texture.getHeight() / 1080.)) : (int) (texture.getWidth() / (texture.getHeight() / 975.));
 		int height = (enemyType == EnemyEnum.GOBLIN && stance == Stance.FACE_SITTING || stance == Stance.SIXTY_NINE) ? 1080 : 975;
+		range = 0;
 		if (animation == null || (enemyType == EnemyEnum.HARPY && stance == Stance.FELLATIO) || (enemyType == EnemyEnum.BRIGAND && !(stance == Stance.DOGGY || stance == Stance.STANDING))) {
-			batch.draw(texture, x, y, width, height);
+			if (range == 0) {
+				batch.draw(texture, x, y, width, height);
+			}
+			else if (range == 1) {
+				batch.draw(texture, x + 150, y + 150, width / 2, height / 2);
+			}
+			else {
+				batch.draw(texture, x + 200, y + 350, width / 3, height / 3);
+			}
 			if (animation != null) animation.addAction(Actions.hide());
 		}
 		else {
