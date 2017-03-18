@@ -55,7 +55,6 @@ public class EnemyCharacter extends AbstractCharacter {
 				weapon = new Weapon(WeaponType.Talon);
 				baseStrength = 4;
 				textureImagePaths.put(Stance.FELLATIO.toString(), AssetEnum.HARPY_FELLATIO.getPath());
-				imagePath = AssetEnum.HARPY.getPath();
 				break;
 			case BRIGAND:
 				weapon = new Weapon(WeaponType.Gladius);
@@ -78,11 +77,7 @@ public class EnemyCharacter extends AbstractCharacter {
 				basePerception = 5;
 				baseEndurance = 4;
 				bgPath = AssetEnum.PLAINS_BG.getPath();
-				if (enemyType == EnemyEnum.CENTAUR) {
-					imagePath =  AssetEnum.CENTAUR.getPath();
-				}
-				else {
-					imagePath = AssetEnum.UNICORN.getPath();
+				if (enemyType == EnemyEnum.UNICORN) {
 					lust = 20;
 				}
 				break;
@@ -581,13 +576,13 @@ public class EnemyCharacter extends AbstractCharacter {
 	@Override
     public void draw(Batch batch, float parentAlpha) {
 		super.draw(batch, parentAlpha);
-		Texture texture = textures.get(stance, defaultTexture);
-		int x = (enemyType == EnemyEnum.HARPY && stance == Stance.FELLATIO) ? 150 : (enemyType == EnemyEnum.GOBLIN && stance == Stance.FACE_SITTING || stance == Stance.SIXTY_NINE) ? 400 : 600;
-		int y = (enemyType == EnemyEnum.HARPY && stance != Stance.FELLATIO) ? 105 : (enemyType == EnemyEnum.GOBLIN && stance == Stance.FACE_SITTING || stance == Stance.SIXTY_NINE) ? 0 : 20;
-		int width = (enemyType == EnemyEnum.GOBLIN && stance == Stance.FACE_SITTING || stance == Stance.SIXTY_NINE) ? (int) (texture.getWidth() / (texture.getHeight() / 1080.)) : (int) (texture.getWidth() / (texture.getHeight() / 975.));
-		int height = (enemyType == EnemyEnum.GOBLIN && stance == Stance.FACE_SITTING || stance == Stance.SIXTY_NINE) ? 1080 : 975;
-		range = 0;
 		if (animation == null || (enemyType == EnemyEnum.HARPY && stance == Stance.FELLATIO) || (enemyType == EnemyEnum.BRIGAND && !(stance == Stance.DOGGY || stance == Stance.STANDING))) {
+			Texture texture = textures.get(stance, defaultTexture);
+			int x = (enemyType == EnemyEnum.HARPY && stance == Stance.FELLATIO) ? 150 : (enemyType == EnemyEnum.GOBLIN && stance == Stance.FACE_SITTING || stance == Stance.SIXTY_NINE) ? 400 : 600;
+			int y = (enemyType == EnemyEnum.HARPY && stance != Stance.FELLATIO) ? 105 : (enemyType == EnemyEnum.GOBLIN && stance == Stance.FACE_SITTING || stance == Stance.SIXTY_NINE) ? 0 : 20;
+			int width = (enemyType == EnemyEnum.GOBLIN && stance == Stance.FACE_SITTING || stance == Stance.SIXTY_NINE) ? (int) (texture.getWidth() / (texture.getHeight() / 1080.)) : (int) (texture.getWidth() / (texture.getHeight() / 975.));
+			int height = (enemyType == EnemyEnum.GOBLIN && stance == Stance.FACE_SITTING || stance == Stance.SIXTY_NINE) ? 1080 : 975;
+			range = 0;
 			if (range == 0) {
 				batch.draw(texture, x, y, width, height);
 			}

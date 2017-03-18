@@ -141,7 +141,6 @@ public class EncounterScreen extends AbstractScreen {
 				requirements.put(AssetEnum.WEREBITCH.getPath(), Texture.class);
 				break;
 			case HARPY:
-				requirements.put(AssetEnum.HARPY.getPath(), Texture.class);
 				requirements.put(AssetEnum.HARPY_FELLATIO.getPath(), Texture.class);
 				break;
 			case SLIME:
@@ -157,8 +156,6 @@ public class EncounterScreen extends AbstractScreen {
 				break;
 			case CENTAUR:
 				requirements.put(AssetEnum.SHOP_MUSIC.getPath(), Music.class);
-				requirements.put(AssetEnum.CENTAUR.getPath(), Texture.class);
-				requirements.put(AssetEnum.UNICORN.getPath(), Texture.class);
 				break;
 			case GADGETEER:
 				requirements.put(AssetEnum.GADGETEER.getPath(), Texture.class);

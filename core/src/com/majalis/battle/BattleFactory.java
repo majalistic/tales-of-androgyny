@@ -58,7 +58,7 @@ public class BattleFactory {
 			for (String key : enemy.getTextureImagePaths().keys()) {
 				textures.put(Stance.valueOf(key), assetManager.get(enemy.getTextureImagePaths().get(key), Texture.class)) ;
 			}
-			enemy.init(assetManager.get(enemy.getImagePath(), Texture.class), textures);
+			enemy.init(enemy.getImagePath() == null ? null : assetManager.get(enemy.getImagePath(), Texture.class), textures);
 		}
 		@SuppressWarnings("unchecked")
 		Array<String> console = (Array<String>) loadService.loadDataValue(SaveEnum.CONSOLE, Array.class);
@@ -94,24 +94,24 @@ public class BattleFactory {
 		switch(battleCode) {
 			case 0: return new EnemyCharacter(getTexture(EnemyEnum.WERESLUT), getTextures(EnemyEnum.WERESLUT), EnemyEnum.WERESLUT);
 			case 1: 
-			case 2004: return new EnemyCharacter(getTexture(EnemyEnum.HARPY), getTextures(EnemyEnum.HARPY), EnemyEnum.HARPY);
+			case 2004: return new EnemyCharacter(null, getTextures(EnemyEnum.HARPY), EnemyEnum.HARPY);
 			case 2: return new EnemyCharacter(getTexture(EnemyEnum.SLIME), getTextures(EnemyEnum.SLIME), EnemyEnum.SLIME);
 			case 3: return new EnemyCharacter(getTexture(EnemyEnum.BRIGAND), getTextures(EnemyEnum.BRIGAND), EnemyEnum.BRIGAND);
-			case 5: return new EnemyCharacter(getTexture(EnemyEnum.CENTAUR), getTextures(EnemyEnum.CENTAUR), EnemyEnum.CENTAUR);
+			case 5: return new EnemyCharacter(null, getTextures(EnemyEnum.CENTAUR), EnemyEnum.CENTAUR);
 			case 6: return new EnemyCharacter(getTexture(EnemyEnum.GOBLIN), getTextures(EnemyEnum.GOBLIN), EnemyEnum.GOBLIN);
 			case 7: return new EnemyCharacter(getTexture(EnemyEnum.ORC), getTextures(EnemyEnum.ORC), EnemyEnum.ORC);
-			case 1005: return new EnemyCharacter(getTexture(EnemyEnum.UNICORN), getTextures(EnemyEnum.UNICORN), EnemyEnum.UNICORN);
+			case 1005: return new EnemyCharacter(null, getTextures(EnemyEnum.UNICORN), EnemyEnum.UNICORN);
 			default: return null;
 		}
 	}
 
 	public enum EnemyEnum {
 		WERESLUT ("Wereslut", AssetEnum.WEREBITCH.getPath()),
-		HARPY ("Harpy", AssetEnum.HARPY.getPath(), "animation/Harpy"),
+		HARPY ("Harpy", null, "animation/Harpy"),
 		SLIME ("Slime", AssetEnum.SLIME.getPath()),
 		BRIGAND ("Brigand", AssetEnum.BRIGAND.getPath(), "animation/skeleton"),
-		CENTAUR ("Centaur", AssetEnum.CENTAUR.getPath(), "animation/Centaur"),
-		UNICORN ("Unicorn", AssetEnum.UNICORN.getPath(), "animation/Centaur"),
+		CENTAUR ("Centaur", null, "animation/Centaur"),
+		UNICORN ("Unicorn", null, "animation/Centaur"),
 		GOBLIN ("Goblin", AssetEnum.GOBLIN.getPath()), 
 		ORC ("Orc", AssetEnum.ORC.getPath()), ;
 		

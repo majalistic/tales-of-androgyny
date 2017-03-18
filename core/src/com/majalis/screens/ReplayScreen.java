@@ -31,11 +31,8 @@ public class ReplayScreen extends AbstractScreen {
 		resourceRequirements.put(AssetEnum.BUTTON_SOUND.getPath(), Sound.class);
 		resourceRequirements.put(AssetEnum.BUTTON_SOUND.getPath(), Sound.class);
 		resourceRequirements.put(AssetEnum.WEREBITCH.getPath(), Texture.class);
-		resourceRequirements.put(AssetEnum.HARPY.getPath(), Texture.class);
 		resourceRequirements.put(AssetEnum.BRIGAND.getPath(), Texture.class);
 		resourceRequirements.put(AssetEnum.SLIME.getPath(), Texture.class);
-		resourceRequirements.put(AssetEnum.CENTAUR.getPath(), Texture.class);
-		resourceRequirements.put(AssetEnum.UNICORN.getPath(), Texture.class);
 		resourceRequirements.put(AssetEnum.GOBLIN.getPath(), Texture.class);
 		resourceRequirements.put(AssetEnum.ORC.getPath(), Texture.class);
 		resourceRequirements.put(AssetEnum.MAIN_MENU_MUSIC.getPath(), Music.class);
@@ -84,8 +81,11 @@ public class ReplayScreen extends AbstractScreen {
 			if (!enemyKnowledge.containsKey(type.toString())) continue;
 			nothingToDisplay = "";
 			TextButton button = new TextButton(type.toString(), skin);
-			ObjectMap<Stance, Texture> textures = new ObjectMap<Stance, Texture>();
-			Texture enemyTexture = assetManager.get(type.getPath(), Texture.class);
+			ObjectMap<Stance, Texture> textures = new ObjectMap<Stance, Texture>();			
+			Texture enemyTexture = null;
+			if (type.getPath() != null) {
+				enemyTexture = assetManager.get(type.getPath(), Texture.class);
+			}
 			textures.put(Stance.BALANCED, enemyTexture);
 			final EnemyCharacter enemy = new EnemyCharacter(enemyTexture, textures, type);
 			this.addActor(enemy);

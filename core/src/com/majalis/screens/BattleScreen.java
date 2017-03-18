@@ -107,7 +107,7 @@ public class BattleScreen extends AbstractScreen{
 				break;
 			case 1: 
 			case 2004:
-				textureArray.addAll(HARPY.getPath(),  HARPY_FELLATIO.getPath(), FOREST_BG.getPath(), "arousal/Monster0.png", "arousal/Monster1.png", "arousal/Monster2.png");
+				textureArray.addAll(HARPY_FELLATIO.getPath(), FOREST_BG.getPath(), "arousal/Monster0.png", "arousal/Monster1.png", "arousal/Monster2.png");
 				break;
 			case 2: 
 				textureArray.addAll(SLIME.getPath(),  SLIME_DOGGY.getPath(), FOREST_BG.getPath(), "arousal/Monster0.png", "arousal/Monster1.png", "arousal/Monster2.png");
@@ -116,7 +116,7 @@ public class BattleScreen extends AbstractScreen{
 				textureArray.addAll(BRIGAND.getPath(), BRIGAND_ORAL.getPath(), FOREST_BG.getPath(), "arousal/Human0.png", "arousal/Human1.png", "arousal/Human2.png");
 				break;
 			case 5: 
-				textureArray.addAll(CENTAUR.getPath(), PLAINS_BG.getPath(), "arousal/Monster0.png", "arousal/Monster1.png", "arousal/Monster2.png");
+				textureArray.addAll(PLAINS_BG.getPath(), "arousal/Monster0.png", "arousal/Monster1.png", "arousal/Monster2.png");
 				break;
 			case 6: 
 				textureArray.addAll(GOBLIN.getPath(),  GOBLIN_FACE_SIT.getPath(), ENCHANTED_FOREST_BG.getPath(), "arousal/Monster0.png", "arousal/Monster1.png", "arousal/Monster2.png");
@@ -126,7 +126,7 @@ public class BattleScreen extends AbstractScreen{
 				requirements.put(AssetEnum.BOSS_MUSIC.getPath(), Music.class);
 				break;
 			case 1005:
-				textureArray.addAll(UNICORN.getPath(), PLAINS_BG.getPath(), "arousal/Monster0.png", "arousal/Monster1.png", "arousal/Monster2.png");
+				textureArray.addAll(PLAINS_BG.getPath(), "arousal/Monster0.png", "arousal/Monster1.png", "arousal/Monster2.png");
 				break;
 		}
 		for (String path: textureArray){
