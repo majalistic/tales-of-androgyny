@@ -242,6 +242,9 @@ public class EnemyCharacter extends AbstractCharacter {
 						break;
 					}
 				climaxCounter++;
+				if (enemyType == EnemyEnum.GOBLIN && climaxCounter % 5 == 0) {
+					lust = 3;
+				}
 			}
 		}
 		return super.doAttack(resolvedAttack);
