@@ -541,9 +541,9 @@
 			"You look off, towards the mountains in the distance, barely visible through the treeline - the first major hurdle in your journey. \"I'm going to slay the Demon King.\"",
 			"They nod slowly, then scoff, hiding their chuckle behind a gauntlet.  \"Are you... serious?  Alone?\"",
 			"You stare daggers at them.  \"Yes.  Why?\"",
-			"They draw their sword - a blinding light reflects off the blade and you shield your eyes.  \"You'll never even see the Demon King's gate. If you step foot in demon country at all, it'll be as a slave.  But...\" they say, holding up the point of the blade in your direction, \"...if you join me as a servant, you just might stand a chance.\"",
+			"They draw their axe - a blinding light reflects off the blade and you shield your eyes.  \"You'll never even see the Demon King's gate. If you step foot in demon country at all, it'll be as a slave.  But...\" they say, holding up the point of the blade in your direction, \"...if you join me as a servant, you just might stand a chance.\"",
 			"\"You're... you're also on a quest to slay the Demon King?\"",
-			"They smile, then sheathe their sword again. \"Nothing so pedestrian.  But I may, while I'm on to bigger and better things, make a quick stop at the Demon King's castle.  If I happen to take their head while I'm there, you could bask in some of the residual glory.\"",
+			"They smile. \"Nothing so pedestrian.  But I may, while I'm on to bigger and better things, make a quick stop at the Demon King's castle.  If I happen to take their head while I'm there, you could bask in some of the residual glory.\"",
 			"\"So... you don't care what happens?  You just want... a trophy?\"",
 			"They sneer.  \"I'm sure you're very different.  A paragon of virtue, destined to make the world a better place.  It's purely coincidence that before you began your quest you were a miserable layabout,\" he says, bitterly.  \"Please, save your sanctimony.  Will you join me, or should I be going?\"",
 			"You shake your head.  They snicker.",
@@ -2462,6 +2462,12 @@
 			"This is to say nothing of Urka, who frequently stains the outside of your dresses, whether while ejaculating all over your face, or when you cought out her cum or it spews out of your nose, or simply when it runs or explodes out of your stretched and pounded asshole, particularly after she buttfucks you ten times in one night.",
 			"It's not all bad - orc dick is the only thing that can make you cum anymore, so that works out, and the only times you don't cum are when she's punishing you, which is rare enough.",
 			"But your days as a true \"adventurer\" are over - if they ever really began."
+		]
+	},
+	{
+	"key": "008-00",
+		"scriptLines": [
+			"You cross paths with another adventurer - their outfit is... boisterous, and their weapon of choice is a large battle-axe."
 		]
 	},
 	{

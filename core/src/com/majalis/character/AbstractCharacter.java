@@ -930,7 +930,7 @@ public abstract class AbstractCharacter extends Actor {
 	}
 	
 	protected enum PhallusType {
-		SMALL("Trap"),
+		SMALL("Small"),
 		NORMAL("Human"),
 		MONSTER("Monster");
 		private final String label;

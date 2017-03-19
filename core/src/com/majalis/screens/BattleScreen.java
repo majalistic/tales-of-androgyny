@@ -100,6 +100,7 @@ public class BattleScreen extends AbstractScreen{
 	// this should simply return the battlecode's requirements, rather than use a switch
 	public static ObjectMap<String, Class<?>> getRequirements(BattleCode battleCode) {
 		ObjectMap<String, Class<?>> requirements = new ObjectMap<String, Class<?>>(BattleScreen.resourceRequirements);
+		// this should be assetEnum
 		Array<String> textureArray = new Array<String>();
 		switch (battleCode.battleCode){
 			case 0:
@@ -119,10 +120,14 @@ public class BattleScreen extends AbstractScreen{
 				textureArray.addAll(PLAINS_BG.getPath(), "arousal/Monster0.png", "arousal/Monster1.png", "arousal/Monster2.png");
 				break;
 			case 6: 
-				textureArray.addAll(GOBLIN.getPath(),  GOBLIN_FACE_SIT.getPath(), ENCHANTED_FOREST_BG.getPath(), "arousal/Monster0.png", "arousal/Monster1.png", "arousal/Monster2.png");
+				textureArray.addAll(GOBLIN.getPath(), GOBLIN_FACE_SIT.getPath(), ENCHANTED_FOREST_BG.getPath(), "arousal/Monster0.png", "arousal/Monster1.png", "arousal/Monster2.png");
 				break;
 			case 7:
 				textureArray.addAll(ORC.getPath(), FOREST_BG.getPath(), "arousal/Monster0.png", "arousal/Monster1.png", "arousal/Monster2.png");
+				requirements.put(AssetEnum.BOSS_MUSIC.getPath(), Music.class);
+				break;
+			case 8:
+				textureArray.addAll(ADVENTURER.getPath(), FOREST_BG.getPath(), SMALL_DONG_0.getPath(), SMALL_DONG_0.getPath(), SMALL_DONG_0.getPath());
 				requirements.put(AssetEnum.BOSS_MUSIC.getPath(), Music.class);
 				break;
 			case 1005:

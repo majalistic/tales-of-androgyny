@@ -102,6 +102,17 @@ public class EnemyCharacter extends AbstractCharacter {
 				baseAgility = 4;
 				imagePath = AssetEnum.ORC.getPath();
 				break;
+			case ADVENTURER:
+				weapon = new Weapon(WeaponType.Axe);
+				baseDefense = 6;
+				healthTiers.add(10);
+				baseStrength = 4;
+				baseEndurance = 4;
+				baseAgility = 4;
+				imagePath = AssetEnum.ADVENTURER.getPath();
+				pronouns = PronounSet.MALE;
+				phallus = PhallusType.SMALL;
+				break;
 		}
 		staminaTiers.removeIndex(staminaTiers.size-1);
 		staminaTiers.add(10);
@@ -199,6 +210,9 @@ public class EnemyCharacter extends AbstractCharacter {
 						else if (stance.isOralPenetration()) {
 							resolvedAttack.addDialog("\"Open wide!\"");
 						}	
+						break;
+					case ADVENTURER:
+						break;
 				}
 			}
 			
@@ -224,6 +238,8 @@ public class EnemyCharacter extends AbstractCharacter {
 							resolvedAttack.addDialog("\"Catch it in your gut, pinkskin!\" she bellows.");
 						}
 						break;						
+					case ADVENTURER:
+						break;
 					}
 				climaxCounter++;
 			}
@@ -712,6 +728,9 @@ public class EnemyCharacter extends AbstractCharacter {
 			case WERESLUT:
 				if (climaxCounter >= 2) return Outcome.SATISFIED;
 				if (knotInflate >= 5) return Outcome.KNOT;
+				break;
+			case ADVENTURER:
+				if (climaxCounter >= 1) return Outcome.SATISFIED;
 				break;
 			default:
 		

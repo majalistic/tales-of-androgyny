@@ -11,12 +11,12 @@ public class GameWorldNodeEncounter {
 	private final EncounterCode encounterCode;
 	private final EncounterCode defaultEncounterCode;
 	
-	public GameWorldNodeEncounter(EncounterCode initialEncounter, EncounterCode defaultEncounter){
+	public GameWorldNodeEncounter(EncounterCode initialEncounter, EncounterCode defaultEncounter) {
 		this.encounterCode = initialEncounter;
 		this.defaultEncounterCode = defaultEncounter;
 	}
 	
-	public EncounterCode getCode(){
+	public EncounterCode getCode() {
 		return encounterCode;
 	}
 	
@@ -24,23 +24,23 @@ public class GameWorldNodeEncounter {
 		return defaultEncounterCode;
 	}
 	
-	public SaveManager.GameContext getContext(){
+	public SaveManager.GameContext getContext() {
 		return encounterCode == EncounterCode.TOWN || encounterCode == EncounterCode.TOWN2 ? SaveManager.GameContext.TOWN : SaveManager.GameContext.ENCOUNTER;
 	}
 	
-	public SaveManager.GameContext getDefaultContext(){
+	public SaveManager.GameContext getDefaultContext() {
 		return defaultEncounterCode == EncounterCode.TOWN || defaultEncounterCode == EncounterCode.TOWN2 ? SaveManager.GameContext.TOWN : SaveManager.GameContext.ENCOUNTER;
 	}
 	
-	public String getDescription(int visibility, boolean visited){
-		if (visited){
+	public String getDescription(int visibility, boolean visited) {
+		if (visited) {
 			return getDefaultDescription(visibility);
 		}
-		switch(visibility){
+		switch(visibility) {
 			case 0:
 				return "You are unsure of what awaits you!";
 			case 1:
-				switch (encounterCode){
+				switch (encounterCode) {
 					case WERESLUT: return "Wereslut";
 					case HARPY: return "Harpy";
 					case SLIME: return "Slime";
@@ -49,6 +49,7 @@ public class GameWorldNodeEncounter {
 					case CENTAUR: return "Centaur";
 					case GOBLIN: return "Goblin";
 					case ORC: return "Orc";
+					case ADVENTURER: return "Adventurer";
 					case GADGETEER: return "Merchant";
 					case TOWN: return "Small Settlement";
 					case TOWN2:
@@ -74,7 +75,7 @@ public class GameWorldNodeEncounter {
 			case 4:
 			case 5:
 			case 6:
-				switch (encounterCode){
+				switch (encounterCode) {
 					case WERESLUT: return "Wereslut - Hostile!";
 					case HARPY: return "Harpy - Hostile!";
 					case SLIME: return "Slime - Neutral";
@@ -83,6 +84,7 @@ public class GameWorldNodeEncounter {
 					case CENTAUR: return "Centaur - Neutral";
 					case GOBLIN: return "Goblin - Hostile!";
 					case ORC: return "Orc - Neutral";
+					case ADVENTURER: return "Adventurer - Neutral";
 					case GADGETEER: return "Suspicious Merchant";
 					case TOWN: return "Town of Silajam";
 					case TOWN2:
@@ -106,8 +108,8 @@ public class GameWorldNodeEncounter {
 		}
 	}
 	
-	private String getDefaultDescription(int visibility){
-		switch (defaultEncounterCode){
+	private String getDefaultDescription(int visibility) {
+		switch (defaultEncounterCode) {
 			case TOWN: return "Town of Silajam (visited)";
 			case TOWN2: return "Town of Nadir (visited)";
 			case COTTAGE_TRAINER_VISIT: return "Cottage-on-the-Outskirts (visited)";

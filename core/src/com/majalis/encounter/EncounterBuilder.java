@@ -1064,6 +1064,27 @@ public class EncounterBuilder {
 					)
 				);
 				break;
+			case ADVENTURER:
+				Background backgroundWithAdventurer = new BackgroundBuilder(assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getPath(), Texture.class)).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class)).setForeground(assetManager.get(AssetEnum.ADVENTURER.getPath(), Texture.class)).build();
+				getTextScenes (
+					getScript(encounterCode, 0), font, backgroundWithAdventurer, new Array<Mutation>(), AssetEnum.GADGETEER_MUSIC.getPath(), new Array<String>(),
+					getBattleScene(
+						battleCode, normalOutcomes,
+						getTextScenes(
+							getScript(encounterCode, 0), font, backgroundWithAdventurer, 
+							getEndScene(EndScene.Type.ENCOUNTER_OVER)
+						),
+						getTextScenes(
+							getScript(encounterCode, 0), font, backgroundWithAdventurer, 
+							getEndScene(EndScene.Type.ENCOUNTER_OVER)
+						),
+						getTextScenes(
+							getScript(encounterCode, 0), font, backgroundWithAdventurer, 
+							getEndScene(EndScene.Type.ENCOUNTER_OVER)
+						)
+					)
+				);
+				break;
 			case GADGETEER:
 				Background backgroundWithGadgeteer = new BackgroundBuilder(assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getPath(), Texture.class)).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class)).setForeground(assetManager.get(AssetEnum.GADGETEER.getPath(), Texture.class)).build();
 				Background shopGadgeteer = new BackgroundBuilder(assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getPath(), Texture.class)).setForeground(assetManager.get(AssetEnum.GADGETEER.getPath(), Texture.class), 900, 0).build();
@@ -1388,8 +1409,9 @@ public class EncounterBuilder {
 				);
 				break;
 			case STORY_FEM:
+				Background backgroundWithAdventurer2 = new BackgroundBuilder(assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getPath(), Texture.class)).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class)).setForeground(assetManager.get(AssetEnum.ADVENTURER.getPath(), Texture.class)).build();
 				getTextScenes(
-					getScript("STORY-FEM"), font, background,
+					getScript("STORY-FEM"), font, backgroundWithAdventurer2,
 					getEndScene(EndScene.Type.ENCOUNTER_OVER)	
 				);
 				break;

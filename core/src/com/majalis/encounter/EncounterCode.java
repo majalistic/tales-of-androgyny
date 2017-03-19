@@ -20,6 +20,7 @@ public enum EncounterCode {
 	GOBLIN (ENCHANTED_FOREST, 6),
 	GADGETEER (FOREST_INACTIVE), 
 	ORC (FOREST_INACTIVE, 7),
+	ADVENTURER (FOREST_INACTIVE, 8),
 	FORT (CASTLE), 
 	TOWN (AssetEnum.TOWN),
 	TOWN2 (AssetEnum.TOWN),
@@ -75,7 +76,7 @@ public enum EncounterCode {
 	public static Array<EncounterCode> encounterArray;
 	static {
 		encounterArray = new Array<EncounterCode>();
-		encounterArray.addAll(WERESLUT, HARPY, SLIME, BRIGAND, DRYAD, CENTAUR, GOBLIN, ORC);
+		encounterArray.addAll(WERESLUT, HARPY, SLIME, BRIGAND, DRYAD, CENTAUR, GOBLIN, ORC, ADVENTURER);
 	}
 	
 	public static EncounterCode getEncounterCode(int code){

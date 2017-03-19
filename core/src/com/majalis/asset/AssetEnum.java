@@ -48,6 +48,7 @@ public enum AssetEnum {
 	GOBLIN("enemies/GoblinFuta.png"),
 	GOBLIN_FACE_SIT("enemies/GoblinFaceSit.png"),
 	ORC("enemies/OrcFuta.png"),
+	ADVENTURER("enemies/Adventurer.png"), 
 	TRAP_BONUS("enemies/TrapBonus.jpg"), 
 	
 	ARMOR("battle/Armor.png"),
@@ -75,9 +76,9 @@ public enum AssetEnum {
 	MARS_ICON_3("battle/MaleSymbol03.png"),
 	MARS_ICON_4("battle/MaleSymbol04.png"),
 	
-	SMALL_DONG_0("arousal/Trap0.png"),
-	SMALL_DONG_1("arousal/Trap1.png"),
-	SMALL_DONG_2("arousal/Trap2.png"),
+	SMALL_DONG_0("arousal/Small0.png"),
+	SMALL_DONG_1("arousal/Small1.png"),
+	SMALL_DONG_2("arousal/Small2.png"),
 	
 	STUFFED_BELLY("bellies/Stuffed.png"), 
 	FULL_BELLY("bellies/Full.png"), 

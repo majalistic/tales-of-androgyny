@@ -90,7 +90,6 @@ public class BattleFactory {
 	}
 	
 	private EnemyCharacter getEnemy(int battleCode) {
-		
 		switch(battleCode) {
 			case 0: return new EnemyCharacter(getTexture(EnemyEnum.WERESLUT), getTextures(EnemyEnum.WERESLUT), EnemyEnum.WERESLUT);
 			case 1: 
@@ -100,6 +99,7 @@ public class BattleFactory {
 			case 5: return new EnemyCharacter(null, getTextures(EnemyEnum.CENTAUR), EnemyEnum.CENTAUR);
 			case 6: return new EnemyCharacter(getTexture(EnemyEnum.GOBLIN), getTextures(EnemyEnum.GOBLIN), EnemyEnum.GOBLIN);
 			case 7: return new EnemyCharacter(getTexture(EnemyEnum.ORC), getTextures(EnemyEnum.ORC), EnemyEnum.ORC);
+			case 8: return new EnemyCharacter(getTexture(EnemyEnum.ADVENTURER), getTextures(EnemyEnum.ADVENTURER), EnemyEnum.ADVENTURER);
 			case 1005: return new EnemyCharacter(null, getTextures(EnemyEnum.UNICORN), EnemyEnum.UNICORN);
 			default: return null;
 		}
@@ -113,7 +113,8 @@ public class BattleFactory {
 		CENTAUR ("Centaur", null, "animation/Centaur"),
 		UNICORN ("Unicorn", null, "animation/Centaur"),
 		GOBLIN ("Goblin", AssetEnum.GOBLIN.getPath()), 
-		ORC ("Orc", AssetEnum.ORC.getPath()), ;
+		ORC ("Orc", AssetEnum.ORC.getPath()), 
+		ADVENTURER ("Adventurer", AssetEnum.ADVENTURER.getPath());
 		
 		private final String text;
 		private final String path;

@@ -71,6 +71,7 @@ public abstract class Item {
 			switch (type) {
 				case Dagger: return stats.get(Stat.AGILITY) / 2;
 				case Rapier: return (stats.get(Stat.AGILITY)) / 3 + 1;
+				case Axe:
 				case Gladius:
 				case Cutlass: return (stats.get(Stat.STRENGTH) + stats.get(Stat.AGILITY)) / 5 + 1;
 				case Broadsword: return (stats.get(Stat.STRENGTH)) / 3 + 1;
@@ -93,6 +94,7 @@ public abstract class Item {
 		Gladius,
 		Cutlass,
 		Broadsword,
+		Axe (true, false),
 		Bow (false, false), 
 		Flail (true, false),
 		Claw (false, false),
