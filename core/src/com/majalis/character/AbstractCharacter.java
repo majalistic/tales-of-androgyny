@@ -22,6 +22,7 @@ public abstract class AbstractCharacter extends Actor {
 	// some of these ints will be enumerators or objects in time
 	/* permanent stats */
 	protected String label;
+	protected PronounSet pronouns;
 	protected boolean secondPerson;
 	
 	/* rigid stats */
@@ -323,14 +324,14 @@ public abstract class AbstractCharacter extends Actor {
 		
 		int bleedDamage = getBloodLossDamage();
 		if (bleedDamage > 0) {
-			resolvedAttack.addMessage(label + (secondPerson? " bleed" : " bleeds") + " out for " + getBloodLossDamage() + " damage!");
+			resolvedAttack.addMessage(label + (secondPerson ? " bleed" : " bleeds") + " out for " + getBloodLossDamage() + " damage!");
 		}
 		
 		if (!resolvedAttack.isSuccessful()) {
-			resolvedAttack.addMessage(resolvedAttack.getUser() + " used " + resolvedAttack.getName() + (resolvedAttack.getStatus() == Status.MISSED ? " but missed!" : (resolvedAttack.getStatus() == Status.EVADED ? " but was evaded!" : resolvedAttack.getStatus() == Status.PARRIED ? " but was parried!" : resolvedAttack.getStatus() == Status.FIZZLE ? " but the spell fizzled!" : "! FAILURE!")));			
+			resolvedAttack.addMessage(resolvedAttack.getUser() + " used " + resolvedAttack.getName() + (resolvedAttack.getStatus() == Status.MISSED ? " but missed!" : (resolvedAttack.getStatus() == Status.EVADED ? " but was evaded!" : resolvedAttack.getStatus() == Status.PARRIED ? " but was parried!" : resolvedAttack.getStatus() == Status.FIZZLE ? " but the spell fizzled!" : "! FAILURE!")));
 			
 			if ((resolvedAttack.getStatus() == Status.MISSED || resolvedAttack.getStatus() == Status.EVADED) && enemyType == EnemyEnum.HARPY && stance == Stance.FELLATIO && resolvedAttack.getForceStance() == Stance.FELLATIO_BOTTOM) {
-				resolvedAttack.addMessage("She crashes to the ground!");
+				resolvedAttack.addMessage(properCase(pronouns.getNominative()) + " crashes to the ground!");
 				stance = Stance.PRONE;
 			}
 			else if(resolvedAttack.getForceStance() != null) {
@@ -358,56 +359,55 @@ public abstract class AbstractCharacter extends Actor {
 		if (enemyType != null) {
 			if (resolvedAttack.getForceStance() == Stance.DOGGY_BOTTOM || resolvedAttack.getForceStance() == Stance.ANAL_BOTTOM || resolvedAttack.getForceStance() == Stance.STANDING_BOTTOM) {
 				resolvedAttack.addMessage("You are being anally violated!");
-				resolvedAttack.addMessage("Your hole is stretched by her fat dick!");
+				resolvedAttack.addMessage("Your hole is stretched by " + pronouns.getPossessive() + " fat dick!");
 				resolvedAttack.addMessage("Your hole feels like it's on fire!");
-				resolvedAttack.addMessage("Her cock glides smoothly through your irritated anal mucosa!");
-				resolvedAttack.addMessage("Her rhythmic thrusting in and out of your asshole is emasculating!");
-				resolvedAttack.addMessage("You are red-faced and embarassed because of her butt-stuffing!");
+				resolvedAttack.addMessage(properCase(pronouns.getPossessive()) + " cock glides smoothly through your irritated anal mucosa!");
+				resolvedAttack.addMessage(properCase(pronouns.getPossessive()) + " rhythmic thrusting in and out of your asshole is emasculating!");
+				resolvedAttack.addMessage("You are red-faced and embarassed because of " + pronouns.getPossessive() + " butt-stuffing!");
 				resolvedAttack.addMessage("Your cock is ignored!");
 			}		
 			else if(resolvedAttack.getForceStance() == Stance.FELLATIO_BOTTOM || resolvedAttack.getForceStance() == Stance.SIXTY_NINE_BOTTOM) {
 				if (enemyType == EnemyEnum.HARPY) {
-					resolvedAttack.addMessage("She tastes horrible! Harpies are highly unhygenic!");
+					resolvedAttack.addMessage(properCase(pronouns.getNominative()) + " tastes horrible! Harpies are highly unhygenic!");
 					resolvedAttack.addMessage("You learned Anatomy (Harpy)!");
 					resolvedAttack.addMessage("You learned Behavior (Harpy)!");
 					resolvedAttack.addMessage("There is a phallus in your mouth!");
 					resolvedAttack.addMessage("It blew past your lips!");
-					resolvedAttack.addMessage("The harpy is holding your head in place with");
-					resolvedAttack.addMessage("her talons and balancing herself with her wings!");
-					resolvedAttack.addMessage("She flaps violently while humping your face!  Her cock tastes awful!");
+					resolvedAttack.addMessage("The harpy is holding your head in place with " + pronouns.getPossessive() + " talons and balancing herself with her wings!");
+					resolvedAttack.addMessage(properCase(pronouns.getNominative()) + " flaps violently while humping your face!  Her cock tastes awful!");
 				}
 				else {
-					resolvedAttack.addMessage("She stuffs her cock into your face!");
-					resolvedAttack.addMessage("You suck on her cock!");
-					resolvedAttack.addMessage("She licks her lips!");
+					resolvedAttack.addMessage(properCase(pronouns.getNominative()) + " stuffs her cock into your face!");
+					resolvedAttack.addMessage("You suck on " + pronouns.getPossessive() + " cock!");
+					resolvedAttack.addMessage(properCase(pronouns.getNominative()) + " licks her lips!");
 				}
 				if (resolvedAttack.getForceStance() == Stance.SIXTY_NINE_BOTTOM) {
-					resolvedAttack.addMessage("She deepthroats your cock!");
-					resolvedAttack.addMessage("She pistons her own cock in and out of your mouth!");
+					resolvedAttack.addMessage(properCase(pronouns.getNominative()) + " deepthroats your cock!");
+					resolvedAttack.addMessage(properCase(pronouns.getNominative()) + " pistons " + pronouns.getPossessive() + " own cock in and out of your mouth!");
 				}
 			}
 			else if (resolvedAttack.getForceStance() == Stance.FACE_SITTING_BOTTOM) {
-				resolvedAttack.addMessage("She rides your face!");
+				resolvedAttack.addMessage(properCase(pronouns.getNominative()) + " rides your face!");
 				resolvedAttack.addMessage("You receive a faceful of ass!");
 			}
 			else if (resolvedAttack.getForceStance() == Stance.KNOTTED_BOTTOM) {
 				if (knotInflate == 0) {
-					resolvedAttack.addMessage("Her powerful hips try to force something big inside!");
+					resolvedAttack.addMessage(properCase(pronouns.getPossessive()) + " powerful hips try to force something big inside!");
 					resolvedAttack.addMessage("You struggle... but can't escape!");
-					resolvedAttack.addMessage("Her grapefruit-sized knot slips into your rectum!  You take 4 damage!");
+					resolvedAttack.addMessage(properCase(pronouns.getPossessive()) + " grapefruit-sized knot slips into your rectum!  You take 4 damage!");
 					resolvedAttack.addMessage("You learned about Anatomy(Wereslut)! You are being bred!");
 					resolvedAttack.addMessage("Your anus is permanently stretched!");
 				}
 				else if (knotInflate < 3) {
-					resolvedAttack.addMessage("Her tremendous knot is still lodged in your rectum!");
+					resolvedAttack.addMessage(properCase(pronouns.getPossessive()) + " tremendous knot is still lodged in your rectum!");
 					resolvedAttack.addMessage("You can't dislodge it; it's too large!");
 					resolvedAttack.addMessage("You're drooling!");
-					resolvedAttack.addMessage("Her fat thing is plugging your shithole!");					
+					resolvedAttack.addMessage(properCase(pronouns.getPossessive()) + " fat thing is plugging your shithole!");					
 				}
 				else {
 					resolvedAttack.addMessage("The battle is over, but your ordeal has just begun!");
 					resolvedAttack.addMessage("You are about to be bred like a bitch!");
-					resolvedAttack.addMessage("She's going to ejaculate her runny dog cum in your bowels!");	
+					resolvedAttack.addMessage(properCase(pronouns.getNominative()) + "'s going to ejaculate her runny dog cum in your bowels!");	
 				}
 				knotInflate++;
 			}
@@ -432,7 +432,6 @@ public abstract class AbstractCharacter extends Actor {
 		Array<String> result = attack.getMessages();
 		
 		boolean knockedDown = false;
-		
 		if (attack.isSuccessful()) {
 			if (attack.getForceStance() == Stance.DOGGY_BOTTOM && bootyliciousness != null)
 				result.add("They slap their hips against your " + bootyliciousness.toString().toLowerCase() + " booty!");
@@ -451,7 +450,7 @@ public abstract class AbstractCharacter extends Actor {
 					result.add("It slips out of your mouth and you get to your feet!");
 				}
 				else if (stance == Stance.SIXTY_NINE_BOTTOM) {
-					result.add("You spit out her cock and push her off!");
+					result.add("You spit out their cock and push them off!");
 				}
 				else if (stance == Stance.HANDY_BOTTOM) {
 					
@@ -811,6 +810,10 @@ public abstract class AbstractCharacter extends Actor {
 		return statuses.get(StatusType.BLEEDING.toString(), 0);
 	}
 	
+	protected String properCase(String sample) {
+		return sample.substring(0, 1).toUpperCase() + sample.substring(1);
+	}
+	
 	private enum StanceType {
 		ANAL,
 		ANAL_BOTTOM,
@@ -923,8 +926,7 @@ public abstract class AbstractCharacter extends Actor {
 		
 		public boolean isIncapacitatingOrErotic() {
 			return isErotic() || isIncapacitating(); 
-		}
-		
+		}	
 	}
 	
 	protected enum PhallusType {
@@ -960,5 +962,22 @@ public abstract class AbstractCharacter extends Actor {
 		}
 	}
 
-	
+	protected enum PronounSet {
+		MALE ("he", "him", "his", "himself"),
+		FEMALE ("she", "her", "her", "herself"),
+		SECOND_PERSON ("you", "you", "your", "yourself")
+		;
+		private final String nominative, objective, possessive, reflexive;
+		private PronounSet(String nominative, String objective, String possessive, String reflexive) {
+			this.nominative = nominative;
+			this.objective = objective;
+			this.possessive = possessive;
+			this.reflexive = reflexive;
+		}
+		public String getNominative() { return nominative; }
+		public String getObjective() { return objective; }
+		public String getPossessive() { return possessive; }
+		public String getReflexive() { return reflexive; }
+		
+	}
 }

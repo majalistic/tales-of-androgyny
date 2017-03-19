@@ -43,7 +43,9 @@ public class EnemyCharacter extends AbstractCharacter {
 		initializedMove = false;
 		phallus = PhallusType.MONSTER;
 		textureImagePaths = new ObjectMap<String, String>();
-		bgPath = AssetEnum.FOREST_BG.getPath();
+		bgPath = AssetEnum.FOREST_BG.getPath();		
+		pronouns = PronounSet.FEMALE;
+		
 		switch(enemyType) {
 			case WERESLUT:
 				weapon = new Weapon(WeaponType.Claw);

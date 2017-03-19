@@ -68,6 +68,7 @@ public class PlayerCharacter extends AbstractCharacter {
 		if (defaultValues) {
 			label = "You";
 			secondPerson = true;
+			pronouns = PronounSet.SECOND_PERSON;
 			healthTiers = new IntArray(new int[]{15, 15, 15, 15});
 			currentHealth = getMaxHealth();	
 			setStaminaToMax();
