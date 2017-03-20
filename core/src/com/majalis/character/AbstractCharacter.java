@@ -552,7 +552,7 @@ public abstract class AbstractCharacter extends Actor {
 			if (attack.getLust() > 0) {
 				lustIncrease = increaseLust(attack.getLust());
 				if (lustIncrease != null) result.add(lustIncrease);
-				result.add(label + (secondPerson ? " are taunted " : " is taunted ") + "! " + (secondPerson ? " Your " : " Their ") + "lust raises by " + attack.getLust());
+				result.add(label + (secondPerson ? " are seduced" : " is seduced") + "! " + (secondPerson ? " Your " : " Their ") + "lust raises by " + attack.getLust() + "!");
 			}	
 			
 			String internalShotText = null;

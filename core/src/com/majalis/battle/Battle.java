@@ -493,6 +493,12 @@ public class Battle extends Group{
 		}
 		
 		for (Attack attackForFirstCharacter : attacksForFirstCharacter) {
+			if (enemy.getStance() == Stance.CASTING && attackForFirstCharacter.isSuccessful()) {
+				this.addAction(new SoundAction(soundMap.get(AssetEnum.INCANTATION), .5f));
+			}
+			if (attackForFirstCharacter.isSpell()) {
+				this.addAction(new SoundAction(soundMap.get(AssetEnum.FIREBALL_SOUND), .5f));
+			}
 			if (attackForFirstCharacter.isAttack()) {
 				slash.setState(0);
 				if (!attackForFirstCharacter.isSuccessful()) {
@@ -502,15 +508,17 @@ public class Battle extends Group{
 					}
 				}
 				else {
-					if (attackForFirstCharacter.getStatus() == Status.BLOCKED) {
-						this.addAction(sequence(delay(5/60f), new SoundAction(soundMap.get(AssetEnum.BLOCK_SOUND), .5f)));
-					}
-					else {
-						if (enemy.getWeapon() != null) {
-							this.addAction(sequence(delay(5/60f), new SoundAction(soundMap.get(AssetEnum.SWORD_SLASH_SOUND), .5f)));
+					if (!attackForFirstCharacter.isSpell()) {
+						if (attackForFirstCharacter.getStatus() == Status.BLOCKED) {
+							this.addAction(sequence(delay(5/60f), new SoundAction(soundMap.get(AssetEnum.BLOCK_SOUND), .5f)));
 						}
 						else {
-							this.addAction(sequence(delay(20/60f), new SoundAction(soundMap.get(AssetEnum.HIT_SOUND), .3f)));
+							if (enemy.getWeapon() != null) {
+								this.addAction(sequence(delay(5/60f), new SoundAction(soundMap.get(AssetEnum.SWORD_SLASH_SOUND), .5f)));
+							}
+							else {
+								this.addAction(sequence(delay(20/60f), new SoundAction(soundMap.get(AssetEnum.HIT_SOUND), .3f)));
+							}
 						}
 					}
 				}
@@ -537,6 +545,9 @@ public class Battle extends Group{
 			if (character.getStance() == Stance.CASTING && attackForSecondCharacter.isSuccessful()) {
 				this.addAction(sequence(delay(5/60f), new SoundAction(soundMap.get(AssetEnum.INCANTATION), .5f)));
 			}
+			if (attackForSecondCharacter.isSpell()) {
+				this.addAction(sequence(delay(5/60f), new SoundAction(soundMap.get(AssetEnum.FIREBALL_SOUND), .5f)));
+			}
 			if (attackForSecondCharacter.isAttack()) {
 				if (!attackForSecondCharacter.isSuccessful()) {
 					this.addAction(sequence(delay(15/60f), new SoundAction(soundMap.get(AssetEnum.ATTACK_SOUND), .5f)));
@@ -545,10 +556,7 @@ public class Battle extends Group{
 					}
 				}
 				else {
-					if (attackForSecondCharacter.isSpell()) {
-						this.addAction(sequence(delay(5/60f), new SoundAction(soundMap.get(AssetEnum.FIREBALL_SOUND), .5f)));
-					}
-					else {
+					if (!attackForSecondCharacter.isSpell()) {
 						if (attackForSecondCharacter.getStatus() == Status.BLOCKED) {
 							this.addAction(sequence(delay(5/60f), new SoundAction(soundMap.get(AssetEnum.BLOCK_SOUND), .5f)));
 						}

@@ -109,16 +109,20 @@ public class EnemyCharacter extends AbstractCharacter {
 				baseStrength = 4;
 				baseEndurance = 4;
 				baseAgility = 4;
+				baseMagic = 4;
+				baseCharisma = 6;
 				imagePath = AssetEnum.ADVENTURER.getPath();
 				pronouns = PronounSet.MALE;
 				phallus = PhallusType.SMALL;
+				manaTiers = new IntArray(new int[]{20});
+				setManaToMax();
 				break;
 		}
 		staminaTiers.removeIndex(staminaTiers.size-1);
 		staminaTiers.add(10);
 		setStaminaToMax();
 		lust = 0;
-		label = enemyType.toString();
+		label = enemyType == EnemyEnum.ADVENTURER ? "Trudy" : enemyType.toString();
 		this.currentHealth = getMaxHealth();
 		this.stance = Stance.BALANCED;
 	}
@@ -286,6 +290,9 @@ public class EnemyCharacter extends AbstractCharacter {
 				else {
 					possibles.addAll(getTechniques(target, SPRING_ATTACK, NEUTRAL_ATTACK, CAUTIOUS_ATTACK, BLOCK));
 				}
+				if (enemyType == EnemyEnum.ADVENTURER && (((currentHealth < 30 && currentMana >= 7) || (currentMana % 7 != 0 && currentMana > 2 && statuses.get(StatusType.STRENGTH_BUFF.toString(), 0) == 0)))) {
+					return getTechniques(target, INCANTATION);
+				}
 				return possibles;
 			case DEFENSIVE:
 				if (!target.stance.receivesMediumAttacks) {
@@ -294,12 +301,23 @@ public class EnemyCharacter extends AbstractCharacter {
 				else {
 					possibles.addAll(getTechniques(target, REVERSAL_ATTACK, CAREFUL_ATTACK, GUARD, SECOND_WIND));
 				}
-				if (enemyType == EnemyEnum.BRIGAND) {
+				if (enemyType == EnemyEnum.BRIGAND || enemyType == EnemyEnum.ADVENTURER) {
 					possibles.addAll(getTechniques(target, PARRY));
+				}
+				if (enemyType == EnemyEnum.ADVENTURER) {
+					possibles.addAll(getTechniques(target, TAUNT));
 				}
 				return possibles;
 			case COUNTER:
 				return getTechniques(target, RIPOSTE, EN_GARDE);
+			case CASTING:
+				if (currentHealth < 30 && currentMana >= 7) {
+					return getTechniques(target, COMBAT_HEAL);
+				}
+				if (currentMana % 7 != 0 && currentMana > 2 && statuses.get(StatusType.STRENGTH_BUFF.toString(), 0) == 0) {
+					return getTechniques(target, TITAN_STRENGTH);
+				}
+				return getTechniques(target, ITEM_OR_CANCEL);
 			case PRONE:
 			case SUPINE:
 				return getTechniques(target, KIP_UP, STAND_UP, KNEE_UP, stance == Stance.PRONE ? REST_FACE_DOWN : REST);
@@ -579,6 +597,7 @@ public class EnemyCharacter extends AbstractCharacter {
 		switch (enemyType) {
 			case WERESLUT:
 			case GOBLIN:
+			case ADVENTURER:
 				randomWeighting.add(-1); break;
 			case BRIGAND: randomWeighting.add(0); randomWeighting.add(1); break;
 			default: break;
