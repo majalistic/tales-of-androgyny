@@ -1066,24 +1066,122 @@ public class EncounterBuilder {
 				break;
 			case ADVENTURER:
 				Background backgroundWithAdventurer = new BackgroundBuilder(assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getPath(), Texture.class)).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class)).setForeground(assetManager.get(AssetEnum.ADVENTURER.getPath(), Texture.class)).build();
-				getTextScenes (
-					getScript(encounterCode, 0), font, backgroundWithAdventurer, new Array<Mutation>(), AssetEnum.GADGETEER_MUSIC.getPath(), new Array<String>(),
-					getBattleScene(
-						battleCode, normalOutcomes,
-						getTextScenes(
-							getScript(encounterCode, 0), font, backgroundWithAdventurer, 
-							getEndScene(EndScene.Type.ENCOUNTER_OVER)
+				Background buttBangedBackground3 = new BackgroundBuilder(assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getPath(), Texture.class)).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class)).setForeground(new AnimatedActor("animation/SplurtGO.atlas", "animation/SplurtGO.json"), 555, 520).build();
+				
+				OrderedMap<Integer, Scene> trudyCaught = getTextScenes(
+					getScript(encounterCode, 12), font, backgroundWithAdventurer, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.QUEST, new QuestFlag(QuestType.TRUDY, 2))}),
+					 getTextScenes(
+						getScript(encounterCode, 12), font, background,
+						getEndScene(EndScene.Type.ENCOUNTER_OVER)
+					)
+				);
+				
+				OrderedMap<Integer, Scene> playerCaught = getTextScenes (
+						getScript(encounterCode, 9), font, background,
+						getTextScenes (
+							getScript(encounterCode, 10), font, backgroundWithAdventurer,
+							getTextScenes (
+								getScript(encounterCode, 11), font, buttBangedBackground3, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.QUEST, new QuestFlag(QuestType.TRUDY, 3)), new Mutation(saveService, SaveEnum.ANAL, new SexualExperienceBuilder().setAnalSex(1, 1, 1).build())}),
+								getEndScene(EndScene.Type.ENCOUNTER_OVER)
+							)
+						)
+					);
+				
+				getTextScenes(
+					getScript(encounterCode, "INTRO"), font, background, getArray(new Mutation[]{new Mutation(saveService, ProfileEnum.KNOWLEDGE, EnemyEnum.ADVENTURER.toString())}), AssetEnum.GADGETEER_MUSIC.getPath(), new Array<String>(),	// intro filler
+					getCheckScene(
+						CheckType.ADVENTURER_ENCOUNTERED,		
+						getTextScenes (
+							getScript(encounterCode, 0), font, backgroundWithAdventurer, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.QUEST, new QuestFlag(QuestType.TRUDY, 1))}),
+							getTextScenes (
+								getScript(encounterCode, 1), font, backgroundWithAdventurer, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.FOOD, 10)}),
+								getEndScene(EndScene.Type.ENCOUNTER_OVER)
+							)
 						),
-						getTextScenes(
-							getScript(encounterCode, 0), font, backgroundWithAdventurer, 
-							getEndScene(EndScene.Type.ENCOUNTER_OVER)
-						),
-						getTextScenes(
-							getScript(encounterCode, 0), font, backgroundWithAdventurer, 
-							getEndScene(EndScene.Type.ENCOUNTER_OVER)
+						getCheckScene(
+							CheckType.ADVENTURER_HUNT,		
+							getTextScenes (
+								getScript(encounterCode, 2), font, backgroundWithAdventurer, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.FOOD, 10)}),
+								getCheckScene(
+									Stat.PERCEPTION, new IntArray(new int[]{6, 3}),
+									getTextScenes (
+										getScript(encounterCode, 3), font, backgroundWithAdventurer, 
+										getTextScenes (
+											getScript(encounterCode, 4), font, backgroundWithAdventurer, 
+											trudyCaught
+										)
+									),	
+									getTextScenes (
+										getScript(encounterCode, 3), font, backgroundWithAdventurer, 
+										getTextScenes (
+											getScript(encounterCode, 5), font, backgroundWithAdventurer, 
+											getTextScenes (
+												getScript(encounterCode, 6), font, background, 
+												getCheckScene(
+													Stat.AGILITY, new IntArray(new int[]{5}),
+													getTextScenes (
+														getScript(encounterCode, 7), font, background, 				
+														trudyCaught
+													),
+													getTextScenes (
+														getScript(encounterCode, 8), font, background, 	
+														playerCaught
+													)
+												)
+											)
+										)
+									),
+									playerCaught
+								)						
+							),
+							getCheckScene(
+								CheckType.TRUDY_GOT_IT,	
+								getTextScenes (
+									getScript(encounterCode, 14), font, backgroundWithAdventurer, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.QUEST, new QuestFlag(QuestType.TRUDY, 4))}),
+									getBattleScene(
+										battleCode, normalOutcomes,
+										getTextScenes(
+											getScript(encounterCode, 16), font, backgroundWithAdventurer, 
+											getEndScene(EndScene.Type.ENCOUNTER_OVER)
+										),
+										getTextScenes(
+											getScript(encounterCode, 17), font, backgroundWithAdventurer, 
+											getEndScene(EndScene.Type.ENCOUNTER_OVER)
+										),
+										getTextScenes(
+											getScript(encounterCode, 18), font, backgroundWithAdventurer, 
+											getEndScene(EndScene.Type.ENCOUNTER_OVER)
+										)
+									)
+								),
+								getCheckScene(
+									CheckType.PLAYER_GOT_IT,
+									getTextScenes (
+										getScript(encounterCode, 15), font, backgroundWithAdventurer, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.QUEST, new QuestFlag(QuestType.TRUDY, 4))}),
+										getBattleScene(
+											battleCode, normalOutcomes,
+											getTextScenes(
+												getScript(encounterCode, 16), font, backgroundWithAdventurer, 
+												getEndScene(EndScene.Type.ENCOUNTER_OVER)
+											),
+											getTextScenes(
+												getScript(encounterCode, 17), font, backgroundWithAdventurer, 
+												getEndScene(EndScene.Type.ENCOUNTER_OVER)
+											),
+											getTextScenes(
+												getScript(encounterCode, 18), font, backgroundWithAdventurer, 
+												getEndScene(EndScene.Type.ENCOUNTER_OVER)
+											)
+										)
+									),
+									getEndScene(EndScene.Type.ENCOUNTER_OVER)
+								)
+							)
 						)
 					)
 				);
+				
+				/*;*/
 				break;
 			case GADGETEER:
 				Background backgroundWithGadgeteer = new BackgroundBuilder(assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getPath(), Texture.class)).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class)).setForeground(assetManager.get(AssetEnum.GADGETEER.getPath(), Texture.class)).build();
@@ -1411,7 +1509,7 @@ public class EncounterBuilder {
 			case STORY_FEM:
 				Background backgroundWithAdventurer2 = new BackgroundBuilder(assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getPath(), Texture.class)).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class)).setForeground(assetManager.get(AssetEnum.ADVENTURER.getPath(), Texture.class)).build();
 				getTextScenes(
-					getScript("STORY-FEM"), font, backgroundWithAdventurer2,
+					getScript("STORY-FEM"), font, backgroundWithAdventurer2, new Array<Mutation>(), AssetEnum.GADGETEER_MUSIC.getPath(), new Array<String>(),
 					getEndScene(EndScene.Type.ENCOUNTER_OVER)	
 				);
 				break;

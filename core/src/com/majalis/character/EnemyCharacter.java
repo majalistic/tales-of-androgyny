@@ -216,6 +216,12 @@ public class EnemyCharacter extends AbstractCharacter {
 						}	
 						break;
 					case ADVENTURER:
+						if (stance.isAnalPenetration()) {
+							resolvedAttack.addDialog("\"Mmm... you'll do,\" he says, as he slips his wet one inside.");
+						}
+						if (stance.isAnalReceptive()) {
+							resolvedAttack.addDialog("\"W-wait! Nn--nnff!\"");
+						}
 						break;
 				}
 			}

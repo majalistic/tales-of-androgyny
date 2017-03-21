@@ -1000,7 +1000,7 @@ public class PlayerCharacter extends AbstractCharacter {
 	}
 	
 	public enum QuestType {
-		ORC, CRIER, INNKEEP
+		ORC, CRIER, INNKEEP, TRUDY
 	}
 	
 	public static class QuestFlag {
