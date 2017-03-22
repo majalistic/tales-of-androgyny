@@ -26,6 +26,7 @@ import com.majalis.encounter.Background.BackgroundBuilder;
 public class ReplayScreen extends AbstractScreen {
 	
 	public static final ObjectMap<String, Class<?>> resourceRequirements = new ObjectMap<String, Class<?>>();
+	// this should load the requisite enemy textures/animations depending on knowledge
 	static {
 		resourceRequirements.put(AssetEnum.UI_SKIN.getPath(), Skin.class);
 		resourceRequirements.put(AssetEnum.BUTTON_SOUND.getPath(), Sound.class);
@@ -35,6 +36,7 @@ public class ReplayScreen extends AbstractScreen {
 		resourceRequirements.put(AssetEnum.SLIME.getPath(), Texture.class);
 		resourceRequirements.put(AssetEnum.GOBLIN.getPath(), Texture.class);
 		resourceRequirements.put(AssetEnum.ORC.getPath(), Texture.class);
+		resourceRequirements.put(AssetEnum.ADVENTURER.getPath(), Texture.class);
 		resourceRequirements.put(AssetEnum.MAIN_MENU_MUSIC.getPath(), Music.class);
 		resourceRequirements.put(AssetEnum.DEFAULT_BACKGROUND.getPath(), Texture.class);
 	}
@@ -103,7 +105,7 @@ public class ReplayScreen extends AbstractScreen {
 			        }
 				}
 			);
-			table.add(button).size(180, 60).row();
+			table.add(button).size(250, 60).row();
 		}
         table.setFillParent(true);        
         this.addActor(table);

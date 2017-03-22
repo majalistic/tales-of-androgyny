@@ -139,6 +139,7 @@ public class EnemyCharacter extends AbstractCharacter {
 		return bgPath;
 	}
 	
+	// rather than override doAttack, doAttack should call an abstract processAttack method in AbstractCharacter and this functionality should be built there, instead of calling return super.doAttack
 	@Override
 	public Attack doAttack(Attack resolvedAttack) {
 		if (resolvedAttack.getGrapple() > 0) {
