@@ -2487,13 +2487,13 @@
 	{
 	"key": "008-01",
 		"scriptLines": [
-			"You share a meal around a campfire, surrounded by leagues of grass, dark forests hiding the sleeping sun.  Trudy smiles at your jokes and regales you with tales of their heroism, noting that their axe has taken the heads of ogres and minotaurs alike.",
+			"You share a meal around a campfire, surrounded by leagues of grass, with the dark forests hiding the sleeping sun.  Trudy smiles at your jokes and regales you with tales of their heroism, noting that their axe has taken the heads of ogres and minotaurs alike.",
 			"\"So, then...\" they say, resting their finger under your chin, \"would you like to spend the night with me?\"",
 			"You feel your chest tighten... and your underwear.  Trudy notices this sudden stirring... and then, you notice a similar protrusion down their leg.  Before you can say anything, they clear their throat, suddenly red in the face.",
 			"\"Just to be clear... you are a man, yes?\" they ask, and when you nod, they sigh.  \"Hm.  I see.\"",
-			"\"Are... you?\" you ask, and he blinks.",
+			"\"Are... you?\" you ask, and they blink.",
 			"\"Am I... what?\"",
-			"You scratch your head.  There's not a delicate way to say it.  \"A man?\"",
+			"You scratch your head.  There's no delicate way to say it.  \"A man?\"",
 			"Trudy's jaw drops.  \"I- you- of COURSE I am!  I've... argh!\" he says, stomping over to collect his things.",
 			"He shoots you an indignant glance as he takes up his axe, hoisting it over his shoulder, and he leaves in a huff, apparently quite annoyed."
 		]
@@ -2506,8 +2506,8 @@
 			"A local noble was slain trying to tame a warg.  While lone wargs are rarely a danger, the noble was well-jeweled at his untimely departure from the land of the living, and Trudy is trying to recover said jewels for fun and profit.",
 			"Seeing an opportunity to make some much-needed travelling coin, you join Trudy on his treasure hunt.",
 			"You scout out the warg together, and he details his plan, which is simple: he'll distract the beast while you loot the body, and then you'll reconvene at a pre-arranged meeting place - Trudy's camp.  He's confident of his technique, but in the worst case...",
-			"\"It's a fearsome beast... but it's their meeting season, and it seems there are no female wargs around.  It doesn't seem to have a taste for humans, if the state of our noble is any indication,\" he says, as you watch the warg gnawing on a bone, the fallen noble decaying next to him.",
-			"There doesn't seem to be any obvious external injuries - you wonder what did the poor guy in, but it doesn't seem it was the warg itself, despite it's hulking, dangerous appearance.",
+			"\"It's a fearsome beast... but it's their mating season, and it seems there are no female wargs around.  It doesn't seem to have a taste for humans, if the state of our noble is any indication,\" he says, as you watch the warg gnawing on a bone, the fallen noble decaying next to him.",
+			"There doesn't seem to be any obvious external injuries - you wonder what did the poor guy in, but it doesn't seem it was the warg itself, despite its hulking, dangerous appearance.",
 			"After making note of the area surrounding the warg's den, the two of you make your way back to Trudy's camp, where you leave the bulk of your heaviest gear so as to be more mobile.",
 			"You spend the night in Trudy's camp, sharing a meal again.",
 			"...",
@@ -2558,14 +2558,14 @@
 	"key": "008-09",
 		"scriptLines": [
 			"You feel something wrap around your leg.",
-			"As the snare is triggered, the heavy stone anchoring to it falls, clanging bells that were hidden and affixed to it making a raucous noise as it does.  Almost immediately, you can hear the growling of the warg."
+			"As the snare is triggered, the heavy stone anchored to it falls, clanging bells that were hidden and affixed to it making a raucous noise as it does.  Almost immediately, you can hear the growling of the warg."
 		]
 	},
 	{
 	"key": "008-10",
 		"scriptLines": [
 			"As Trudy pilfers the missing traveller's things, the warg tears up your clothing with its teeth, eager to breed, apparently uncaring that you are both male and human.  An awful premonition comes to mind, and as you feel the heat and pressure of the warg's bestial staff between your cheeks, a lump forms in your throat.",
-			"Trudy escapes with the stolen goods, but not before blowing you a mocking kiss.  Almost simultaneously, you feel it - your hole yawns opening, tasting the breadth of Trudy's treachery.",
+			"Trudy escapes with the stolen goods, but not before blowing you a mocking kiss.  Almost simultaneously, you feel it - your hole yawns open, tasting the breadth of Trudy's treachery.",
 		]
 	},
 	{
@@ -2579,7 +2579,7 @@
 	{
 	"key": "008-12",
 		"scriptLines": [
-			"As the snare is triggered, the heavy stone anchoring to it falls, clanging bells that were hidden and affixed to it making a raucous noise as it does.  Almost immediately, you can hear the growling of the warg."
+			"As the snare is triggered, the heavy stone anchored to it falls, clanging bells that were hidden and affixed to it making a raucous noise as it does.  Almost immediately, you can hear the growling of the warg."
 			"You duck out of sight, and the warg quickly makes its appearance.  You keep out of its field of vision while making your way to where the fallen noble lies."			
 		]
 	},

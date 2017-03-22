@@ -1071,7 +1071,7 @@ public class EncounterBuilder {
 				OrderedMap<Integer, Scene> trudyCaught = getTextScenes(
 					getScript(encounterCode, 12), font, backgroundWithAdventurer, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.QUEST, new QuestFlag(QuestType.TRUDY, 2))}),
 					 getTextScenes(
-						getScript(encounterCode, 12), font, background,
+						getScript(encounterCode, 13), font, background,
 						getEndScene(EndScene.Type.ENCOUNTER_OVER)
 					)
 				);
