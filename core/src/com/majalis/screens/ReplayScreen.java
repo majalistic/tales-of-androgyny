@@ -31,12 +31,12 @@ public class ReplayScreen extends AbstractScreen {
 		resourceRequirements.put(AssetEnum.UI_SKIN.getPath(), Skin.class);
 		resourceRequirements.put(AssetEnum.BUTTON_SOUND.getPath(), Sound.class);
 		resourceRequirements.put(AssetEnum.BUTTON_SOUND.getPath(), Sound.class);
-		resourceRequirements.put(AssetEnum.WEREBITCH.getPath(), Texture.class);
-		resourceRequirements.put(AssetEnum.BRIGAND.getPath(), Texture.class);
-		resourceRequirements.put(AssetEnum.SLIME.getPath(), Texture.class);
-		resourceRequirements.put(AssetEnum.GOBLIN.getPath(), Texture.class);
-		resourceRequirements.put(AssetEnum.ORC.getPath(), Texture.class);
-		resourceRequirements.put(AssetEnum.ADVENTURER.getPath(), Texture.class);
+
+		for (final EnemyEnum type : EnemyEnum.values()) {
+			if (type.getPath() == null) continue;
+			resourceRequirements.put(type.getPath(), Texture.class);
+		}
+		
 		resourceRequirements.put(AssetEnum.MAIN_MENU_MUSIC.getPath(), Music.class);
 		resourceRequirements.put(AssetEnum.DEFAULT_BACKGROUND.getPath(), Texture.class);
 	}
