@@ -289,7 +289,7 @@ public class Technique {
 			double knockdownCalc = technique.getKnockdown();
 			int tripCalc = 0;
 			int evasionCalc = 0;
-			int bleedingCalc = technique.isDamaging() && !technique.isSpell() ? basePower / 3 : 0;
+			int bleedingCalc = technique.isDamaging() && !technique.isSpell() ? basePower / 4 : 0;
 			int counterCalc = 0;
 			boolean hasPriorityCalc = false;
 			
