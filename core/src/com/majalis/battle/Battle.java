@@ -466,6 +466,7 @@ public class Battle extends Group{
 		
 		// cache player character's stance from the previous turn; playerCharacter will cache stance at the start of this turn
 		Stance oldStance = firstCharacter.getStance();
+		Stance oldEnemyStance = secondCharacter.getStance();
 		
 		// no mutations occur here - characters return their stance modification text
 		printToConsole(firstCharacter.getStanceTransform(firstTechnique));
@@ -579,16 +580,16 @@ public class Battle extends Group{
 			dialogGroup.addAction(show());
 		}
 		
-		if (oldStance.isAnalReceptive() && firstCharacter.getStance().isAnalReceptive()) {
+		if ( (oldStance.isAnalReceptive() && firstCharacter.getStance().isAnalReceptive()) || (oldEnemyStance.isAnalReceptive() && secondCharacter.getStance().isAnalReceptive()) ) {
 			soundMap.get(AssetEnum.THWAPPING).play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
 		}
 		
-		if (oldStance.isAnalReceptive() && !firstCharacter.getStance().isAnalReceptive()) {
+		if ((oldStance.isAnalReceptive() && !firstCharacter.getStance().isAnalReceptive()) || (oldEnemyStance.isAnalReceptive() && !secondCharacter.getStance().isAnalReceptive())) {
 			soundMap.get(AssetEnum.THWAPPING).play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
 			this.addAction(sequence(delay(105/60f), new SoundAction(soundMap.get(AssetEnum.UNPLUGGED_POP), .3f)));
 		}
 		
-		if (oldStance.isOralReceptive() && !firstCharacter.getStance().isOralReceptive()) {
+		if ((oldStance.isOralReceptive() && !firstCharacter.getStance().isOralReceptive()) || (oldEnemyStance.isOralReceptive() && !secondCharacter.getStance().isOralReceptive())) {
 			soundMap.get(AssetEnum.MOUTH_POP).play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume"));
 		}
 		
