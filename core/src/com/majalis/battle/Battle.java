@@ -593,6 +593,16 @@ public class Battle extends Group{
 			soundMap.get(AssetEnum.MOUTH_POP).play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume"));
 		}
 		
+		// temporary measure to ensure erotic stances are never one-sided
+		if (firstCharacter.getStance().isErotic() != secondCharacter.getStance().isErotic()) {
+			if (firstCharacter.getStance().isErotic()) {
+				firstCharacter.setStance(Stance.BALANCED);
+			}
+			else {
+				secondCharacter.setStance(Stance.BALANCED);
+			}
+		}
+		
 		// this needs to be secondCharacter.getOutcome() or something similar
 		Outcome battleOutcome = ((EnemyCharacter) secondCharacter).getOutcome(firstCharacter);
 		if (battleOutcome != null) {
