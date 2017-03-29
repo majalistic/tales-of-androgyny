@@ -1139,7 +1139,7 @@ public class EncounterBuilder {
 								getTextScenes (
 									getScript(encounterCode, 14), font, backgroundWithAdventurer, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.QUEST, new QuestFlag(QuestType.TRUDY, 4))}),
 									getBattleScene(
-										battleCode, normalOutcomes,
+										battleCode, new Array<Outcome>(new Outcome[]{Outcome.VICTORY, Outcome.DEFEAT, Outcome.SATISFIED, Outcome.SUBMISSION}),
 										getTextScenes(
 											getScript(encounterCode, 16), font, backgroundWithAdventurer, 
 											getEndScene(EndScene.Type.ENCOUNTER_OVER)
@@ -1150,6 +1150,10 @@ public class EncounterBuilder {
 										),
 										getTextScenes(
 											getScript(encounterCode, 18), font, backgroundWithAdventurer, 
+											getEndScene(EndScene.Type.ENCOUNTER_OVER)
+										),
+										getTextScenes(
+											getScript(encounterCode, 19), font, backgroundWithAdventurer, 
 											getEndScene(EndScene.Type.ENCOUNTER_OVER)
 										)
 									)
@@ -1170,6 +1174,10 @@ public class EncounterBuilder {
 											),
 											getTextScenes(
 												getScript(encounterCode, 18), font, backgroundWithAdventurer, 
+												getEndScene(EndScene.Type.ENCOUNTER_OVER)
+											),
+											getTextScenes(
+												getScript(encounterCode, 19), font, backgroundWithAdventurer, 
 												getEndScene(EndScene.Type.ENCOUNTER_OVER)
 											)
 										)

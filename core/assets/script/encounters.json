@@ -2624,6 +2624,12 @@
 		]
 	},
 	{
+	"key": "008-19",
+		"scriptLines": [
+			"Trudy is loopy."
+		]
+	},
+	{
 		"key": "FORCED_CAMP",
 		"scriptLines": [
 			"You're too exhausted to continue, so instead you camp to rest.", "You nibble on your food reserves and spend an extra night without traveling.", "You restore 10 health and consume 4 food."

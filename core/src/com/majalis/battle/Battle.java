@@ -850,7 +850,7 @@ public class Battle extends Group{
 	}
 	
 	public enum Outcome {
-		VICTORY, DEFEAT, KNOT, SATISFIED
+		VICTORY, DEFEAT, KNOT, SATISFIED, SUBMISSION
 	}
 	
 	/* REFACTOR AND REMOVE BEYOND THIS LINE */

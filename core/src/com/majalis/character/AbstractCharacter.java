@@ -926,7 +926,7 @@ public abstract class AbstractCharacter extends Actor {
 		
 		public boolean isIncapacitatingOrErotic() {
 			return isErotic() || isIncapacitating(); 
-		}	
+		}
 	}
 	
 	protected enum PhallusType {

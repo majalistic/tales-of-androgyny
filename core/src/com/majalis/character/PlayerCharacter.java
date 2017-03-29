@@ -335,10 +335,6 @@ public class PlayerCharacter extends AbstractCharacter {
 			}
 		}
 		
-		if (stance.isErotic()) {
-			lust++;
-		}
-		
 		if (resolvedAttack.getLust() > 0) {
 			currentPortrait = AssetEnum.PORTRAIT_GRIN.getPath();
 			// taunt increases self lust too
@@ -604,9 +600,16 @@ public class PlayerCharacter extends AbstractCharacter {
 	public boolean isLewd() {
 		return perks.get(Perk.CATAMITE.toString(), 0) > 0;
 	}
+	
 	@Override
 	protected String increaseLust() {
 		switch (stance) {
+			case DOGGY:
+			case ANAL:
+			case STANDING:
+			case KNOTTED:
+			case FELLATIO:
+				return increaseLust(1);
 			case DOGGY_BOTTOM:
 			case KNOTTED_BOTTOM:
 			case ANAL_BOTTOM:
@@ -624,7 +627,7 @@ public class PlayerCharacter extends AbstractCharacter {
 	protected String increaseLust(int lustIncrease) {
 		String spurt = "";
 		lust += lustIncrease;
-		if (lust > 10) {
+		if (lust > 10 && stance.isEroticReceptive()) {
 			spurt = climax();
 		}
 		return !spurt.isEmpty() ? spurt : null;

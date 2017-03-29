@@ -14,6 +14,7 @@ import com.majalis.battle.Battle.Outcome;
 import com.majalis.battle.BattleFactory.EnemyEnum;
 import com.majalis.character.Item.Weapon;
 import com.majalis.character.Item.WeaponType;
+import com.majalis.technique.ClimaxTechnique.ClimaxType;
 
 /*
  * Abstract class that all enemies extend - currently concrete to represent a generic "enemy".
@@ -26,7 +27,8 @@ public class EnemyCharacter extends AbstractCharacter {
 	private ObjectMap<String, String> textureImagePaths;
 	private String bgPath;
 	private int holdLength;
-	private int climaxCounter;
+	private ObjectMap <String, Integer> climaxCounters;
+	
 	private transient AnimatedActor animation;
 	private String currentDisplay;
 	private Techniques nextMove;
@@ -45,6 +47,7 @@ public class EnemyCharacter extends AbstractCharacter {
 		textureImagePaths = new ObjectMap<String, String>();
 		bgPath = AssetEnum.FOREST_BG.getPath();		
 		pronouns = PronounSet.FEMALE;
+		climaxCounters = new ObjectMap<String, Integer>();
 		
 		switch(enemyType) {
 			case WERESLUT:
@@ -122,7 +125,8 @@ public class EnemyCharacter extends AbstractCharacter {
 		staminaTiers.add(10);
 		setStaminaToMax();
 		lust = 0;
-		label = enemyType == EnemyEnum.ADVENTURER ? "Trudy" : enemyType.toString();
+		label = //enemyType == EnemyEnum.ADVENTURER ? "Trudy" : 
+			enemyType.toString();
 		this.currentHealth = getMaxHealth();
 		this.stance = Stance.BALANCED;
 	}
@@ -252,13 +256,33 @@ public class EnemyCharacter extends AbstractCharacter {
 					case ADVENTURER:
 						break;
 					}
-				climaxCounter++;
-				if (enemyType == EnemyEnum.GOBLIN && climaxCounter % 5 == 0) {
+				
+				climaxCounters.put(resolvedAttack.getClimaxType().toString(), climaxCounters.get(resolvedAttack.getClimaxType().toString(), 0) + 1);
+				
+				if (enemyType == EnemyEnum.GOBLIN && getClimaxCount() % 5 == 0) {
 					lust = 3;
 				}
 			}
 		}
 		return super.doAttack(resolvedAttack);
+	}
+	
+	private int getClimaxCount() {
+		int climaxCount = 0;
+		for (ObjectMap.Entry<String, Integer> entry : climaxCounters.entries()) {
+			climaxCount += entry.value;
+		}
+		return climaxCount;
+	}
+	
+	private int getToppingClimaxCount() {
+		return getClimaxCount() - getReceptiveClimaxCount();
+	}
+	private int getReceptiveClimaxCount() {
+		int climaxCount = 0;
+		climaxCount += climaxCounters.get(ClimaxType.ANAL_RECEPTIVE.toString(), 0);
+		climaxCount += climaxCounters.get(ClimaxType.ORAL_RECEPTIVE.toString(), 0);
+		return climaxCount;
 	}
 	
 	private boolean willFaceSit(AbstractCharacter target) {
@@ -538,44 +562,62 @@ public class EnemyCharacter extends AbstractCharacter {
 			case GOBLIN: lust -= 2; break;
 			default: lust -= 14;
 		}
-		if (oldStance == Stance.FELLATIO) {
-			if (enemyType == EnemyEnum.HARPY) {
-				results.add("A harpy semen bomb explodes in your mouth!  It tastes awful!");
-				results.add("You are going to vomit!");
-				results.add("You spew up harpy cum!  The harpy preens her feathers.");
-			}
-			else {
+		
+		switch (oldStance) {
+			case ANAL:
+				results.add("The " + getLabel() + "'s lovemaking reaches a climax!");
+				results.add("They don't pull out! It twitches and throbs in your rectum!");
+				results.add("They cum up your ass! Your stomach receives it!");		
+				break;
+			case COWGIRL:
+				results.add("The " + getLabel() + " blasts off in your intestines while you bounce\non their cumming cock! You got butt-bombed!");
+				break;
+			case FELLATIO:
+				if (enemyType == EnemyEnum.HARPY) {
+					results.add("A harpy semen bomb explodes in your mouth!  It tastes awful!");
+					results.add("You are going to vomit!");
+					results.add("You spew up harpy cum!  The harpy preens her feathers.");
+				}
+				else {
+					results.add("Her cock erupts in your mouth!");
+					results.add("You're forced to swallow her semen!");
+				}
+				break;
+			case HANDY:
+				results.add("Their cock jerks in your hand! They're gonna spew!");
+				results.add("Their eyes roll into the back of their head! Here it comes!");
+				results.add("It's too late to dodge! They blast a rope of cum on your face!");
+				results.add("Rope after rope lands all over face!");
+				results.add("They spewed cum all over your face!");
+				results.add("You look like a glazed donut! Hilarious!");
+				results.add("You've been bukkaked!");
+				break;
+			case SIXTY_NINE:
 				results.add("Her cock erupts in your mouth!");
-				results.add("You're forced to swallow her semen!");
-			}
+				results.add("You spit it up around her pulsing balls!!");
+				break;
+			case ANAL_BOTTOM:
+			case DOGGY_BOTTOM:
+			case STANDING_BOTTOM:
+			case COWGIRL_BOTTOM:
+			case FELLATIO_BOTTOM:
+			case SIXTY_NINE_BOTTOM:
+				results.add("The " + getLabel() + " ejaculates!");
+				ClimaxType climaxType = stance.isAnalReceptive() ? ClimaxType.ANAL_RECEPTIVE : ClimaxType.ORAL_RECEPTIVE;
+				climaxCounters.put(climaxType.toString(), climaxCounters.get(climaxType.toString(), 0) + 1);
+				break;
+			case STANDING:
+			case DOGGY:
+				results.add("The " + getLabel() + " spews hot, thick semen into your bowels!");
+				results.add("You are anally inseminated!");
+				results.add("You're going to be farting cum for days!");
+				break;
+			default:
 		}
-		else if (oldStance == Stance.COWGIRL) {
-			results.add("The " + getLabel() + " blasts off in your intestines while you bounce\non their cumming cock! You got butt-bombed!");
+	
+		if (stance.isEroticPenetration()) {
+			stance = Stance.ERUPT;
 		}
-		else if (oldStance == Stance.ANAL) {
-			results.add("The " + getLabel() + "'s lovemaking reaches a climax!");
-			results.add("They don't pull out! It twitches and throbs in your rectum!");
-			results.add("They cum up your ass! Your stomach receives it!");				
-		}
-		else if (oldStance == Stance.HANDY) {
-			results.add("Their cock jerks in your hand! They're gonna spew!");
-			results.add("Their eyes roll into the back of their head! Here it comes!");
-			results.add("It's too late to dodge! They blast a rope of cum on your face!");
-			results.add("Rope after rope lands all over face!");
-			results.add("They spewed cum all over your face!");
-			results.add("You look like a glazed donut! Hilarious!");
-			results.add("You've been bukkaked!");
-		}
-		else if (oldStance == Stance.STANDING || oldStance == Stance.DOGGY) {
-			results.add("The " + getLabel() + " spews hot, thick semen into your bowels!");
-			results.add("You are anally inseminated!");
-			results.add("You're going to be farting cum for days!");
-		}
-		else if (oldStance == Stance.SIXTY_NINE) {
-			results.add("Her cock erupts in your mouth!");
-			results.add("You spit it up around her pulsing balls!!");
-		}
-		stance = Stance.ERUPT;
 		String[] foo = results.toArray(String.class);
 		return String.join("\n", foo);
 	}
@@ -691,8 +733,7 @@ public class EnemyCharacter extends AbstractCharacter {
 	
 	// for init in battlefactory
 	public void setLust(int lust) { this.lust = lust; }
-	
-	// can put text here for an enemy getting more aroused
+
 	@Override
 	protected String increaseLust() {
 		switch (stance) {
@@ -702,14 +743,27 @@ public class EnemyCharacter extends AbstractCharacter {
 			case KNOTTED:
 			case FELLATIO:
 				return increaseLust(1);
+			case DOGGY_BOTTOM:
+			case KNOTTED_BOTTOM:
+			case ANAL_BOTTOM:
+			case STANDING_BOTTOM:
+			case COWGIRL_BOTTOM:
+				return increaseLust(2);
+			case FELLATIO_BOTTOM:
+			case SIXTY_NINE_BOTTOM:
+				return increaseLust(1);
 			default: return null;
 		}
 	}
-	// can put text here for an enemy getting more aroused
+	
 	@Override
 	protected String increaseLust(int lustIncrease) {
+		String spurt = "";
 		lust += lustIncrease;
-		return null;
+		if (lust > 16 && stance.isEroticReceptive()) {
+			spurt = climax();
+		}
+		return !spurt.isEmpty() ? spurt : null;
 	}
 	
 	@Override
@@ -737,29 +791,30 @@ public class EnemyCharacter extends AbstractCharacter {
 		else if (enemy.getCurrentHealth() <= 0) return Outcome.DEFEAT;
 		switch(enemyType) {
 			case BRIGAND:
-				if (climaxCounter >= 2) return Outcome.SATISFIED;
+				if (getClimaxCount() >= 2) return Outcome.SATISFIED;
 				break;
 			case CENTAUR:
-				if (climaxCounter >= 1) return Outcome.SATISFIED;
+				if (getClimaxCount() >= 1) return Outcome.SATISFIED;
 				break;
 			case GOBLIN:
 				break;
 			case ORC:
-				if (climaxCounter >= 5) return Outcome.SATISFIED;
+				if (getClimaxCount() >= 5) return Outcome.SATISFIED;
 				break;
 			case HARPY:
-				if (climaxCounter >= 2) return Outcome.SATISFIED;
+				if (getClimaxCount() >= 2) return Outcome.SATISFIED;
 				break;
 			case SLIME:
 				break;
 			case UNICORN:
 				break;
 			case WERESLUT:
-				if (climaxCounter >= 2) return Outcome.SATISFIED;
+				if (getClimaxCount() >= 2) return Outcome.SATISFIED;
 				if (knotInflate >= 5) return Outcome.KNOT;
 				break;
 			case ADVENTURER:
-				if (climaxCounter >= 1) return Outcome.SATISFIED;
+				if (getReceptiveClimaxCount() >= 1 ) return Outcome.SUBMISSION;
+				if (getToppingClimaxCount() >= 1) return Outcome.SATISFIED;
 				break;
 			default:
 		
@@ -771,6 +826,7 @@ public class EnemyCharacter extends AbstractCharacter {
 		switch (getOutcome(enemy)) {
 			case KNOT: return "You've been knotted!!!\nYou are at her whims, now.";
 			case SATISFIED: return enemyType == EnemyEnum.CENTAUR ? "You've been dominated by the centaur's massive horsecock." : "She seems satisfied. She's no longer hostile.";
+			case SUBMISSION: return "They're completely fucked silly! They're no longer hostile.";
 			case DEFEAT: return enemy.getDefeatMessage();
 			case VICTORY: return getDefeatMessage();
 		}
@@ -791,7 +847,7 @@ public class EnemyCharacter extends AbstractCharacter {
 	protected boolean canBleed() { return enemyType != EnemyEnum.SLIME; }
 
 	public void setClimaxCounter(int climaxCounter) {
-		this.climaxCounter = climaxCounter;
+		climaxCounters.put(ClimaxType.BACKWASH.toString(), climaxCounter);
 	}
 
 	public void toggle() {
