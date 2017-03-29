@@ -109,7 +109,7 @@ public class PlayerCharacter extends AbstractCharacter {
 			RECEIVE_ANAL, RECEIVE_DOGGY, RECEIVE_STANDING, STRUGGLE_ORAL, STRUGGLE_DOGGY, STRUGGLE_ANAL, STRUGGLE_STANDING, RECEIVE_KNOT, SUCK_IT, BREAK_FREE_ANAL, BREAK_FREE_ORAL,
 			SUBMIT, STRUGGLE_FULL_NELSON, BREAK_FREE_FULL_NELSON,
 			OPEN_WIDE, GRAB_IT, STROKE_IT, LET_GO, USE_ITEM, ITEM_OR_CANCEL,
-			RECIPROCATE_FORCED, GET_FACE_RIDDEN, STRUGGLE_FACE_SIT, STRUGGLE_SIXTY_NINE, BREAK_FREE_FACE_SIT, ROLL_OVER_UP, ROLL_OVER_DOWN, RIPOSTE, EN_GARDE, POUNCE_DOGGY, POUND_DOGGY, POUNCE_ANAL, POUND_ANAL, ERUPT_ANAL
+			RECIPROCATE_FORCED, GET_FACE_RIDDEN, STRUGGLE_FACE_SIT, STRUGGLE_SIXTY_NINE, BREAK_FREE_FACE_SIT, ROLL_OVER_UP, ROLL_OVER_DOWN, RIPOSTE, EN_GARDE, POUNCE_DOGGY, POUND_DOGGY, POUNCE_ANAL, POUND_ANAL, ERUPT_ANAL, PULL_OUT, PULL_OUT_ORAL, PULL_OUT_ANAL, PULL_OUT_STANDING
 		);
 		return baseTechniques;
 	}
@@ -251,29 +251,27 @@ public class PlayerCharacter extends AbstractCharacter {
 				possibles.addAll(getTechniques(target, ITEM_OR_CANCEL));
 				return possibles;
 			case FELLATIO:
-				lust++;
 				if (lust > 12) {
 					return getTechniques(target, ERUPT_ORAL);
 				}
 				else {
-					return getTechniques(target, IRRUMATIO);
+					return getTechniques(target, IRRUMATIO, PULL_OUT_ORAL);
 				}	
 			case DOGGY:
 			case ANAL:
 			case STANDING:
-				lust++;
 				if (lust > 12) {
 					return getTechniques(target, ERUPT_ANAL);
 				}
 				else {
 					if (stance == Stance.ANAL) {
-						return getTechniques(target, POUND_ANAL);
+						return getTechniques(target, POUND_ANAL, PULL_OUT_ANAL);
 					}
 					else if (stance == Stance.DOGGY) {
-						return getTechniques(target, POUND_DOGGY);
+						return getTechniques(target, POUND_DOGGY, PULL_OUT);
 					}
 					else {
-						return getTechniques(target, POUND_STANDING);
+						return getTechniques(target, POUND_STANDING, PULL_OUT_STANDING);
 					}		
 				}
 			case ERUPT:
@@ -336,8 +334,15 @@ public class PlayerCharacter extends AbstractCharacter {
 				resolvedAttack.addMessage("You are almost free!");
 			}
 		}
+		
+		if (stance.isErotic()) {
+			lust++;
+		}
+		
 		if (resolvedAttack.getLust() > 0) {
 			currentPortrait = AssetEnum.PORTRAIT_GRIN.getPath();
+			// taunt increases self lust too
+			lust++;
 		}
 		return super.doAttack(resolvedAttack);
 	}

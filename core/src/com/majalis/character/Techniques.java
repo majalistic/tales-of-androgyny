@@ -74,11 +74,11 @@ public enum Techniques {
 	SITTING_ORAL		(new GrappleTechnique  (Stance.FACE_SITTING, Stance.SIXTY_NINE, "Say 'Ahh'", 2, Stance.SIXTY_NINE_BOTTOM).build()), // Used to initiate face-sitting
 	KNOT 				(new NonAttackTechnique(Stance.DOGGY, Stance.KNOTTED, "Knot", 0, 0, Stance.KNOTTED_BOTTOM, "Set Damage").build()), // Used to knot by knotty weresluts and others
 	
-	IRRUMATIO 			(new NonAttackTechnique(Stance.FELLATIO, Stance.FELLATIO, "Irrumatio", 0, 0, Stance.FELLATIO_BOTTOM).build()), 
+	IRRUMATIO 			(new NonAttackTechnique(Stance.FELLATIO, Stance.FELLATIO, "Irrumatio", 1, 0, Stance.FELLATIO_BOTTOM).build()), 
 	HOLD	 			(new NonAttackTechnique(Stance.FULL_NELSON, Stance.FULL_NELSON, "Hold", 0, 1).build()), // Used to hold
-	POUND_DOGGY 		(new NonAttackTechnique(Stance.DOGGY, Stance.DOGGY, "Pound", 0, 0).build()), // Used to doggystyle
-	POUND_ANAL 			(new NonAttackTechnique(Stance.ANAL, Stance.ANAL, "Pound", 0, 0).build()), // Used to missionary
-	POUND_STANDING 		(new NonAttackTechnique(Stance.STANDING, Stance.STANDING, "Pound", 0, 0).build()), // Used to standing anal
+	POUND_DOGGY 		(new NonAttackTechnique(Stance.DOGGY, Stance.DOGGY, "Pound", 2, 0).build()), // Used to doggystyle
+	POUND_ANAL 			(new NonAttackTechnique(Stance.ANAL, Stance.ANAL, "Pound", 2, 0).build()), // Used to missionary
+	POUND_STANDING 		(new NonAttackTechnique(Stance.STANDING, Stance.STANDING, "Pound", 2, 0).build()), // Used to standing anal
 	RIDE_FACE			(new NonAttackTechnique(Stance.FACE_SITTING, Stance.FACE_SITTING, "Ride", 0, 0).build()), // Used to faceride
 	RECIPROCATE			(new NonAttackTechnique(Stance.SIXTY_NINE, Stance.SIXTY_NINE, "Reciprocate", 0, 0).build()), // Used to sixty nine
 	KNOT_BANG 			(new NonAttackTechnique(Stance.KNOTTED, Stance.KNOTTED, "Knot Bang", 0, 0, Stance.KNOTTED_BOTTOM).build()), // Used to knot by knotty weresluts and others - could end the battle
@@ -99,6 +99,12 @@ public enum Techniques {
 		
 	RIDE_ON_IT			(new EroticTechnique(Stance.COWGIRL_BOTTOM, Stance.COWGIRL_BOTTOM, "Ride on It", -1, 0, "Ride up and down on it.").build()), 
 	STAND_OFF_IT		(new GrappleTechnique(Stance.COWGIRL_BOTTOM, Stance.BALANCED, "Stand up off It", 1, Stance.SUPINE, "Get up off it.").build()), 
+	PULL_OUT			(new GrappleTechnique(Stance.DOGGY, Stance.BALANCED, "Pull Out", 1, Stance.PRONE, "Pull out.").build()), 
+	PULL_OUT_ANAL		(new GrappleTechnique(Stance.ANAL, Stance.KNEELING, "Pull Out", 1, Stance.SUPINE, "Pull out.").build()), 
+	PULL_OUT_ORAL		(new GrappleTechnique(Stance.FELLATIO, Stance.BALANCED, "Pull Out", 1, Stance.KNEELING, "Pull Out.").build()), 
+	PULL_OUT_STANDING	(new GrappleTechnique(Stance.STANDING, Stance.BALANCED, "Pull Out", 1, Stance.BALANCED, "Pull Out.").build()), 
+	
+	
 	STROKE_IT			(new EroticTechnique(Stance.HANDY_BOTTOM, Stance.HANDY_BOTTOM, "Stroke It", -1, 0, "Stroke it up and down.").build()), 
 	LET_GO				(new GrappleTechnique(Stance.HANDY_BOTTOM, Stance.KNEELING, "Let It Go", 1, Stance.BALANCED, "Let go of it.").build()), 
 	
