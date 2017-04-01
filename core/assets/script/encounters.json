@@ -2596,7 +2596,7 @@
 	{
 	"key": "008-14",
 		"scriptLines": [
-			"Trudy stares at you, defiantly.  Last you heard, he was being buggered silly by a warg."
+			"Trudy stares at you, defiantly.  Last you heard, he was being buggered silly by a warg.  His gait is slightly askew, and you stifle a snicker, even as you ready yourself."
 		]
 	},
 	{
@@ -2627,6 +2627,12 @@
 	"key": "008-19",
 		"scriptLines": [
 			"Trudy is loopy."
+		]
+	},
+	{
+	"key": "008-END",
+		"scriptLines": [
+			"You cross paths with Trudy once again. You maintain eye contact as you pass each other, but interact little otherwise."
 		]
 	},
 	{
