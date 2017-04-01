@@ -30,7 +30,7 @@ public class Zone {
 	private final int repeats;
 	private GameWorldNode startNode;
 	
-	protected Zone(SaveService saveService, LoadService loadService, BitmapFont font, AssetManager assetManager, RandomXS128 random, Array<GameWorldNode> nodes, IntMap<GameWorldNode> nodeMap, int repeats){
+	protected Zone(SaveService saveService, LoadService loadService, BitmapFont font, AssetManager assetManager, RandomXS128 random, Array<GameWorldNode> nodes, IntMap<GameWorldNode> nodeMap, int repeats) {
 		this.saveService = saveService;
 		this.font = font;
 		this.assetManager = assetManager;
@@ -46,31 +46,31 @@ public class Zone {
 	}
 	
 	@SuppressWarnings("unchecked")
-	protected Zone addStartNode(int nodeCode, EncounterCode initialEncounter, EncounterCode defaultEncounter, Vector2 position){
+	protected Zone addStartNode(int nodeCode, EncounterCode initialEncounter, EncounterCode defaultEncounter, Vector2 position) {
 		startNode = getNode(nodeCode, initialEncounter, defaultEncounter, position, visitedCodesSet.contains(nodeCode));
 		addNode(startNode, nodeCode, nodes);		
 		return this;
 	}
 	
-	protected Zone addStartNode(GameWorldNode node){
+	protected Zone addStartNode(GameWorldNode node) {
 		startNode = node;
 		return this;
 	}
 	
 	@SuppressWarnings("unchecked")
-	protected Zone addEndNode(int nodeCode, EncounterCode initialEncounter, EncounterCode defaultEncounter, Vector2 position){
+	protected Zone addEndNode(int nodeCode, EncounterCode initialEncounter, EncounterCode defaultEncounter, Vector2 position) {
 		requiredNodes.add(getNode(nodeCode, initialEncounter, defaultEncounter, position, visitedCodesSet.contains(nodeCode)));
 		addNode(requiredNodes.get(requiredNodes.size-1), nodeCode, nodes, requiredNodes);		
 		return this;
 	}
 	
 	@SuppressWarnings("unchecked")
-	protected Zone buildZone(){
-		for (int ii = 0; ii < repeats; ii++){
-			for (GameWorldNode requiredNode : requiredNodes){
+	protected Zone buildZone() {
+		for (int ii = 0; ii < repeats; ii++) {
+			for (GameWorldNode requiredNode : requiredNodes) {
 				Boolean nodeNotReached = true;
 				Vector2 currentNodePosition = startNode.getPosition();
-				for (int nodeCode = nodes.size; nodeNotReached; nodeCode++){
+				for (int nodeCode = nodes.size; nodeNotReached; nodeCode++) {
 					Vector2 newNodePosition;
 					boolean overlap = true;
 					int tries = 10;
@@ -82,8 +82,8 @@ public class Zone {
 						// start with the last point, then add a vector to it with a randomly chosen angle of a fixed or minimally variant distance		
 						newNodePosition = new Vector2(newNodePosition.add(target.sub(newNodePosition).setLength(random.nextInt()%60+200).rotate(random.nextInt()%90)));
 						overlap = false;
-						for (GameWorldNode node: nodes){
-							if (node.isOverlapping(newNodePosition)){
+						for (GameWorldNode node: nodes) {
+							if (node.isOverlapping(newNodePosition)) {
 								overlap = true;
 							}
 						}
@@ -103,9 +103,9 @@ public class Zone {
 		}
 		
 		// connect all nodes that consider themselves adjacent to nearby nodes - some nodes, like permanent nodes, might have a longer "reach" then others
-		for (int ii = 0; ii < nodes.size-1; ii++){
-			for (int jj = ii + 1; jj < nodes.size; jj++){
-				if (nodes.get(ii).isAdjacent(nodes.get(jj))){
+		for (int ii = 0; ii < nodes.size-1; ii++) {
+			for (int jj = ii + 1; jj < nodes.size; jj++) {
+				if (nodes.get(ii).isAdjacent(nodes.get(jj))) {
 					nodes.get(ii).connectTo(nodes.get(jj));
 				}
 			}
@@ -113,24 +113,24 @@ public class Zone {
 		return this;
 	}
 	// this method for debugging purposes
-	private int getEncounterCodeForNode(int nodeCode){
-		//if (true) return 6; // magical number to see a particular encounter, should probably just perform this debug in the node itself
+	private int getEncounterCodeForNode(int nodeCode) {
+		return 6; // magical number to see a particular encounter, should probably just perform this debug in the node itself
 		// this will return the appropriate array index
-		return (nodeCode-1) % EncounterCode.encounterArray.size;
+	//	return (nodeCode-1) % EncounterCode.encounterArray.size;
 	}
 	
-	protected Array<GameWorldNode> getEndNodes(){
+	protected Array<GameWorldNode> getEndNodes() {
 		return requiredNodes;
 	}
 	
-	private void addNode(GameWorldNode newNode, int nodeCode, @SuppressWarnings("unchecked") Array<GameWorldNode> ... nodes){
-		for (Array<GameWorldNode> nodeArray: nodes){
+	private void addNode(GameWorldNode newNode, int nodeCode, @SuppressWarnings("unchecked") Array<GameWorldNode> ... nodes) {
+		for (Array<GameWorldNode> nodeArray: nodes) {
 			nodeArray.add(newNode);
 		}
 		nodeMap.put(nodeCode, newNode);
 	}
 	
-	private GameWorldNode getNode(int nodeCode, EncounterCode initialEncounter, EncounterCode defaultEncounter, Vector2 position, boolean visited){
+	private GameWorldNode getNode(int nodeCode, EncounterCode initialEncounter, EncounterCode defaultEncounter, Vector2 position, boolean visited) {
 		return new GameWorldNode(saveService, font, nodeCode, new GameWorldNodeEncounter(initialEncounter, defaultEncounter), position, visited, sound, character, assetManager);
 	}
 	

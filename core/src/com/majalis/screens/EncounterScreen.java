@@ -183,6 +183,7 @@ public class EncounterScreen extends AbstractScreen {
 				requirements.put(AssetEnum.FOREST_BG.getPath(), Texture.class);
 			case GOBLIN:
 				requirements.put(AssetEnum.GOBLIN.getPath(), Texture.class);
+				requirements.put(AssetEnum.GOBLIN_MALE.getPath(), Texture.class);
 				requirements.put(AssetEnum.GAME_OVER_TUCKERED.getPath(), Texture.class);
 				requirements.put(AssetEnum.LOUD_LAUGH.getPath(), Sound.class);
 				requirements.put(AssetEnum.WEREWOLF_MUSIC.getPath(), Music.class);

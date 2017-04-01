@@ -87,14 +87,20 @@ public class EnemyCharacter extends AbstractCharacter {
 				}
 				break;
 			case GOBLIN:
+			case GOBLIN_MALE:
 				weapon = new Weapon(WeaponType.Dagger);
 				baseStrength = 4;
 				baseEndurance = 4;
-				bgPath = AssetEnum.ENCHANTED_FOREST_BG.getPath();
-				imagePath = AssetEnum.GOBLIN.getPath();
-				textureImagePaths.put(Stance.FACE_SITTING.toString(), AssetEnum.GOBLIN_FACE_SIT.getPath());
-				textureImagePaths.put(Stance.SIXTY_NINE.toString(), AssetEnum.GOBLIN_FACE_SIT.getPath());
 				baseAgility = 5;
+				bgPath = AssetEnum.ENCHANTED_FOREST_BG.getPath();
+				if (enemyType == EnemyEnum.GOBLIN) {
+					textureImagePaths.put(Stance.FACE_SITTING.toString(), AssetEnum.GOBLIN_FACE_SIT.getPath());
+					textureImagePaths.put(Stance.SIXTY_NINE.toString(), AssetEnum.GOBLIN_FACE_SIT.getPath());
+					imagePath = AssetEnum.GOBLIN.getPath();
+				}
+				else {
+					imagePath = AssetEnum.GOBLIN_MALE.getPath();
+				}
 				break;
 			case ORC:
 				weapon = new Weapon(WeaponType.Flail);
@@ -197,6 +203,7 @@ public class EnemyCharacter extends AbstractCharacter {
 						} 
 						break;
 					case GOBLIN:
+					case GOBLIN_MALE:
 						if (stance.isAnalPenetration()) {
 							resolvedAttack.addDialog("\"Nyahaha! Up the butt!\"");
 						}
@@ -241,6 +248,7 @@ public class EnemyCharacter extends AbstractCharacter {
 					case CENTAUR:
 						break;
 					case GOBLIN:
+					case GOBLIN_MALE:
 						break;
 					case HARPY:
 						break;
@@ -259,7 +267,7 @@ public class EnemyCharacter extends AbstractCharacter {
 				
 				climaxCounters.put(resolvedAttack.getClimaxType().toString(), climaxCounters.get(resolvedAttack.getClimaxType().toString(), 0) + 1);
 				
-				if (enemyType == EnemyEnum.GOBLIN && getClimaxCount() % 5 == 0) {
+				if ((enemyType == EnemyEnum.GOBLIN || enemyType == EnemyEnum.GOBLIN_MALE) && getClimaxCount() % 5 == 0) {
 					lust = 3;
 				}
 			}
@@ -559,7 +567,9 @@ public class EnemyCharacter extends AbstractCharacter {
 	protected String climax() {
 		Array<String> results = new Array<String>();
 		switch (enemyType) {
-			case GOBLIN: lust -= 2; break;
+			case GOBLIN: 
+			case GOBLIN_MALE: 
+				lust -= 2; break;
 			default: lust -= 14;
 		}
 		
@@ -797,6 +807,7 @@ public class EnemyCharacter extends AbstractCharacter {
 				if (getClimaxCount() >= 1) return Outcome.SATISFIED;
 				break;
 			case GOBLIN:
+			case GOBLIN_MALE:
 				break;
 			case ORC:
 				if (getClimaxCount() >= 5) return Outcome.SATISFIED;

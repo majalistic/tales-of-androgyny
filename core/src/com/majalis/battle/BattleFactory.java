@@ -98,6 +98,7 @@ public class BattleFactory {
 			case 3: return new EnemyCharacter(getTexture(EnemyEnum.BRIGAND), getTextures(EnemyEnum.BRIGAND), EnemyEnum.BRIGAND);
 			case 5: return new EnemyCharacter(null, getTextures(EnemyEnum.CENTAUR), EnemyEnum.CENTAUR);
 			case 6: return new EnemyCharacter(getTexture(EnemyEnum.GOBLIN), getTextures(EnemyEnum.GOBLIN), EnemyEnum.GOBLIN);
+			case 1006: return new EnemyCharacter(getTexture(EnemyEnum.GOBLIN_MALE), getTextures(EnemyEnum.GOBLIN_MALE), EnemyEnum.GOBLIN_MALE);
 			case 7: return new EnemyCharacter(getTexture(EnemyEnum.ORC), getTextures(EnemyEnum.ORC), EnemyEnum.ORC);
 			case 8: return new EnemyCharacter(getTexture(EnemyEnum.ADVENTURER), getTextures(EnemyEnum.ADVENTURER), EnemyEnum.ADVENTURER);
 			case 1005: return new EnemyCharacter(null, getTextures(EnemyEnum.UNICORN), EnemyEnum.UNICORN);
@@ -114,8 +115,9 @@ public class BattleFactory {
 		UNICORN ("Unicorn", null, "animation/Centaur"),
 		GOBLIN ("Goblin", AssetEnum.GOBLIN.getPath()), 
 		ORC ("Orc", AssetEnum.ORC.getPath()), 
-		ADVENTURER ("Adventurer", AssetEnum.ADVENTURER.getPath());
-		
+		ADVENTURER ("Adventurer", AssetEnum.ADVENTURER.getPath()),
+		GOBLIN_MALE ("Goblin (Male)", AssetEnum.GOBLIN_MALE.getPath())
+		;
 		private final String text;
 		private final String path;
 		private final String animationPath;

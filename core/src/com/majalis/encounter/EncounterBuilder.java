@@ -547,6 +547,7 @@ public class EncounterBuilder {
 				break;	
 			case GOBLIN:
 				Background goblinBackground = new BackgroundBuilder(backgroundTexture).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class)).setForeground(assetManager.get(AssetEnum.GOBLIN.getPath(), Texture.class)).build();
+				Background goblinMaleBackground = new BackgroundBuilder(backgroundTexture).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class)).setForeground(assetManager.get(AssetEnum.GOBLIN_MALE.getPath(), Texture.class)).build();
 				Background buttBangedBackground2 = new BackgroundBuilder(assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getPath(), Texture.class)).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class)).setForeground(new AnimatedActor("animation/SplurtGO.atlas", "animation/SplurtGO.json"), 555, 520).build();
 				
 				OrderedMap<Integer, Scene> fightOff = 
@@ -745,123 +746,181 @@ public class EncounterBuilder {
 					)	
 				);
 				
-				getTextScenes(
-					getScript(encounterCode, 0), font, background, new Array<Mutation>(), AssetEnum.WEREWOLF_MUSIC.getPath(), new Array<String>(),
-					getChoiceScene(
-						"What path do you follow?", getArray(new String[]{"Pass By", "Enter the Small Path"}),
-						getTextScenes(
-							getScript(encounterCode, 1), font, background,
-							getEndScene(EndScene.Type.ENCOUNTER_OVER)
-						),
-						getTextScenes(
-							getScript(encounterCode, 2), font, background, getArray(new Mutation[]{new Mutation(saveService, ProfileEnum.KNOWLEDGE, EnemyEnum.GOBLIN.toString())}), null, getArray(new String[]{ null, null, null, null, AssetEnum.LOUD_LAUGH.getPath()}),
-							getCheckScene(
-								Stat.PERCEPTION, new IntArray(new int[]{7, 4}),
-								getTextScenes(
-									getScript(encounterCode, 3), font, goblinBackground,
-									getCheckScene(
-										Stat.AGILITY, new IntArray(new int[]{5, 3}),
-										getTextScenes(
-											getScript(encounterCode, 4), font, goblinBackground,
-											getCheckScene(
-												Stat.STRENGTH, new IntArray(new int[]{5}),
-												getTextScenes(
-													getScript(encounterCode, 5), font, goblinBackground,
-													cutPantsScene
-												),
-												getTextScenes(
-													getScript(encounterCode, 6), font, goblinBackground,
-													cutPantsScene
-												)
-											)
-										),
-										getTextScenes(
-											getScript(encounterCode, 7), font, background,
-											cutPantsScene
-										),
-										getTextScenes(
-											getScript(encounterCode, 8), font, background, getMutation(5),
-											cutPantsScene
-										)
-									)
-								),
-								getTextScenes( // noticed
-									getScript(encounterCode, 21), font, background,
-									getCheckScene(
-										Stat.AGILITY, new IntArray(new int[]{7, 5}),
-										getTextScenes(
-											getScript(encounterCode, 4), font, goblinBackground,
-											getCheckScene(
-												Stat.STRENGTH, new IntArray(new int[]{5}),
-												getTextScenes(
-													getScript(encounterCode, 5), font, goblinBackground,
-													cutPantsScene
-												),
-												getTextScenes(
-													getScript(encounterCode, 6), font, goblinBackground,
-													cutPantsScene
-												)
-											)
-										),
-										getTextScenes(
-											getScript(encounterCode, 7), font, background,
-											cutPantsScene
-										),
-										getTextScenes(
-											getScript(encounterCode, 8), font, background, getMutation(5),
-											cutPantsScene
-										)
-									)
-								),
-								getTextScenes( // failed to notice
-									getScript(encounterCode, 22), font, background,
-									getCheckScene(
-										Stat.AGILITY, new IntArray(new int[]{5}),
-										getTextScenes(
-											getScript(encounterCode, 23), font, background,
-											getCheckScene(
-												Stat.AGILITY, new IntArray(new int[]{7, 5}),
-												getTextScenes(
-													getScript(encounterCode, 4), font, goblinBackground,
-													getCheckScene(
-														Stat.STRENGTH, new IntArray(new int[]{5}),
-														getTextScenes(
-															getScript(encounterCode, 5), font, goblinBackground,
-															cutPantsScene
-														),
-														getTextScenes(
-															getScript(encounterCode, 6), font, goblinBackground,
-															cutPantsScene
-														)
-													)
-												),
-												getTextScenes(
-													getScript(encounterCode, 7), font, background,
-													cutPantsScene
-												),
-												getTextScenes(
-													getScript(encounterCode, 8), font, background, getMutation(5),
-													cutPantsScene
-												)
-											)
-										),
+				// opening
+				getCheckScene(
+					CheckType.GOBLIN_KNOWN,
+					getTextScenes(
+						getScript(encounterCode, 0), font, background, new Array<Mutation>(), AssetEnum.WEREWOLF_MUSIC.getPath(), new Array<String>(),
+						getChoiceScene(
+							"What path do you follow?", getArray(new String[]{"Pass By", "Enter the Small Path"}),
+							getTextScenes(
+								getScript(encounterCode, 1), font, background,
+								getEndScene(EndScene.Type.ENCOUNTER_OVER)
+							),
+							getTextScenes(
+								getScript(encounterCode, 2), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.QUEST, new QuestFlag(QuestType.GOBLIN, 1)), new Mutation(saveService, ProfileEnum.KNOWLEDGE, EnemyEnum.GOBLIN.toString())}), null, getArray(new String[]{ null, null, null, null, AssetEnum.LOUD_LAUGH.getPath()}),
+								getCheckScene(
+									Stat.PERCEPTION, new IntArray(new int[]{7, 4}),
+									getTextScenes(
+										getScript(encounterCode, 3), font, goblinBackground,
 										getCheckScene(
-											Stat.ENDURANCE, new IntArray(new int[]{7}),
+											Stat.AGILITY, new IntArray(new int[]{5, 3}),
 											getTextScenes(
-												getScript(encounterCode, 24), font, background,
-												getEndScene(EndScene.Type.ENCOUNTER_OVER)
+												getScript(encounterCode, 4), font, goblinBackground,
+												getCheckScene(
+													Stat.STRENGTH, new IntArray(new int[]{5}),
+													getTextScenes(
+														getScript(encounterCode, 5), font, goblinBackground,
+														cutPantsScene
+													),
+													getTextScenes(
+														getScript(encounterCode, 6), font, goblinBackground,
+														cutPantsScene
+													)
+												)
 											),
 											getTextScenes(
-												getScript(encounterCode, 25), font, background, getArray(new Mutation[]{goblinVirginityToFalse}),
-												getTextScenes(
-													getScript(encounterCode, 26), font, buttBangedBackground2,
+												getScript(encounterCode, 7), font, background,
+												cutPantsScene
+											),
+											getTextScenes(
+												getScript(encounterCode, 8), font, background, getMutation(5),
+												cutPantsScene
+											)
+										)
+									),
+									getTextScenes( // noticed
+										getScript(encounterCode, 21), font, background,
+										getCheckScene(
+											Stat.AGILITY, new IntArray(new int[]{7, 5}),
+											getTextScenes(
+												getScript(encounterCode, 4), font, goblinBackground,
+												getCheckScene(
+													Stat.STRENGTH, new IntArray(new int[]{5}),
 													getTextScenes(
-														getScript(encounterCode, 27), font, background,
-														getEndScene(EndScene.Type.ENCOUNTER_OVER)
+														getScript(encounterCode, 5), font, goblinBackground,
+														cutPantsScene
+													),
+													getTextScenes(
+														getScript(encounterCode, 6), font, goblinBackground,
+														cutPantsScene
+													)
+												)
+											),
+											getTextScenes(
+												getScript(encounterCode, 7), font, background,
+												cutPantsScene
+											),
+											getTextScenes(
+												getScript(encounterCode, 8), font, background, getMutation(5),
+												cutPantsScene
+											)
+										)
+									),
+									getTextScenes( // failed to notice
+										getScript(encounterCode, 22), font, background,
+										getCheckScene(
+											Stat.AGILITY, new IntArray(new int[]{5}),
+											getTextScenes(
+												getScript(encounterCode, 23), font, background,
+												getCheckScene(
+													Stat.AGILITY, new IntArray(new int[]{7, 5}),
+													getTextScenes(
+														getScript(encounterCode, 4), font, goblinBackground,
+														getCheckScene(
+															Stat.STRENGTH, new IntArray(new int[]{5}),
+															getTextScenes(
+																getScript(encounterCode, 5), font, goblinBackground,
+																cutPantsScene
+															),
+															getTextScenes(
+																getScript(encounterCode, 6), font, goblinBackground,
+																cutPantsScene
+															)
+														)
+													),
+													getTextScenes(
+														getScript(encounterCode, 7), font, background,
+														cutPantsScene
+													),
+													getTextScenes(
+														getScript(encounterCode, 8), font, background, getMutation(5),
+														cutPantsScene
+													)
+												)
+											),
+											getCheckScene(
+												Stat.ENDURANCE, new IntArray(new int[]{7}),
+												getTextScenes(
+													getScript(encounterCode, 24), font, background,
+													getEndScene(EndScene.Type.ENCOUNTER_OVER)
+												),
+												getTextScenes(
+													getScript(encounterCode, 25), font, background, getArray(new Mutation[]{goblinVirginityToFalse}),
+													getTextScenes(
+														getScript(encounterCode, 26), font, buttBangedBackground2,
+														getTextScenes(
+															getScript(encounterCode, 27), font, background,
+															getEndScene(EndScene.Type.ENCOUNTER_OVER)
+														)
+													)
+												)
+											)	
+										)
+									)
+								)
+							)
+						)
+					),
+					getTextScenes(
+						getScript(encounterCode, "RE"), font, background,
+						getChoiceScene( 
+							"Which path do you follow?", getArray(new String[]{"Familiar warning sign", "Other way"}),
+							getTextScenes(
+								getScript(encounterCode, "FEM-00"), font, background,
+								getTextScenes(
+									getScript(encounterCode, "FEM-01"), font, goblinBackground,
+									getEndScene(EndScene.Type.ENCOUNTER_OVER)
+								)
+							),
+							getTextScenes(
+								getScript(encounterCode, "MALE-00"), font, background,
+								getTextScenes(
+									getScript(encounterCode, "MALE-01"), font, goblinMaleBackground,
+									getBattleScene(battleCode + 1000, 
+										getTextScenes(
+											getScript(encounterCode, "MALE-02"), font, goblinMaleBackground, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.EXPERIENCE, 1)}),
+											getEndScene(EndScene.Type.ENCOUNTER_OVER)
+										),
+										getTextScenes(
+											getScript(encounterCode, "MALE-03"), font, goblinMaleBackground, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.ANAL, new SexualExperienceBuilder().setOralSex(1).build())}),
+											getTextScenes(
+												getScript(encounterCode, "MALE-04"), font, goblinMaleBackground, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.ANAL, new SexualExperienceBuilder().setAnalSex(1, 0, 1).build())}),
+												getTextScenes(
+													getScript(encounterCode, "MALE-05"), font, goblinMaleBackground, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.ANAL, new SexualExperienceBuilder().setOralSex(1).build())}),
+													getTextScenes(
+														getScript(encounterCode, "MALE-06"), font, goblinMaleBackground, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.ANAL, new SexualExperienceBuilder().setAnalSex(1, 0, 1).build())}),
+														getTextScenes(
+															getScript(encounterCode, "MALE-07"), font, goblinMaleBackground, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.ANAL, new SexualExperienceBuilder().setOralSex(1).build())}),
+															getTextScenes(
+																getScript(encounterCode, "MALE-08"), font, goblinMaleBackground, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.ANAL, new SexualExperienceBuilder().setAnalSex(1, 0, 1).build())}),
+																getTextScenes(
+																	getScript(encounterCode, "MALE-09"), font, goblinMaleBackground, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.ANAL, new SexualExperienceBuilder().setOralSex(1).setOralCreampie(1).build())}),
+																	getTextScenes(
+																		getScript(encounterCode, "MALE-10"), font, goblinMaleBackground, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.ANAL, new SexualExperienceBuilder().setAnalSex(2, 2, 2).build())}),
+																		getTextScenes(
+																			getScript(encounterCode, "MALE-11"), font, goblinMaleBackground, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.ANAL, new SexualExperienceBuilder().setAnalSex(5, 20, 5).build())}),
+																			getEndScene(EndScene.Type.GAME_OVER)
+																		)
+																	)
+																)
+															)
+														)
 													)
 												)
 											)
-										)	
+												
+										)
 									)
 								)
 							)

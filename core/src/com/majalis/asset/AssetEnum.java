@@ -46,6 +46,7 @@ public enum AssetEnum {
 	SLIME("enemies/HeartSlime.png"), 
 	SLIME_DOGGY("enemies/HeartSlimeLoveDart.png"), 
 	GOBLIN("enemies/GoblinFuta.png"),
+	GOBLIN_MALE("enemies/GoblinMale.png"),
 	GOBLIN_FACE_SIT("enemies/GoblinFaceSit.png"),
 	ORC("enemies/OrcFuta.png"),
 	ADVENTURER("enemies/Adventurer.png"), 
