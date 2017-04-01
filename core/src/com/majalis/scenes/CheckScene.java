@@ -160,11 +160,11 @@ public class CheckScene extends AbstractTextScene {
 			@Override
 			protected boolean getCheck(PlayerCharacter character) { return character.getQuestStatus(QuestType.TRUDY) == 1; }  
 		},
-		TRUDY_GOT_IT ("...", "..") { 
+		TRUDY_GOT_IT ("...", "...") { 
 			@Override
 			protected boolean getCheck(PlayerCharacter character) { return character.getQuestStatus(QuestType.TRUDY) == 2; }  
 		},
-		PLAYER_GOT_IT ("....", "..") { 
+		PLAYER_GOT_IT ("....", "....") { 
 			@Override
 			protected boolean getCheck(PlayerCharacter character) { return character.getQuestStatus(QuestType.TRUDY) == 3; }  
 		},

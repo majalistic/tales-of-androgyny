@@ -1020,8 +1020,14 @@ public class PlayerCharacter extends AbstractCharacter {
 		}		
 	}
 
-	public void modMoney(Integer gold) {
+	public String modMoney(Integer gold) {
+		int loss = money > gold ? -gold : money; 
 		money += gold;
+		if (money < 0) {
+			money = 0;
+		}
+		
+		return gold  > 0 ? "Gained " + gold + " gold!" : "-" + loss + " gold!";
 	}
 	
 	public int getBattlePerception() {

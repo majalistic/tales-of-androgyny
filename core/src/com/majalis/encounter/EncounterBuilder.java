@@ -1088,21 +1088,44 @@ public class EncounterBuilder {
 					);
 				
 				OrderedMap<Integer, Scene> trudyBattle = getBattleScene(
-						battleCode, normalOutcomes,
+						battleCode, new Array<Outcome>(new Outcome[]{Outcome.VICTORY, Outcome.DEFEAT, Outcome.SATISFIED, Outcome.SUBMISSION}),
 						getTextScenes(
 							getScript(encounterCode, 16), font, backgroundWithAdventurer, 
+							getChoiceScene(
+								"What's the plan?", getArray(new String[]{"Mount him", "MOUNT him (Requires: Catamite)", "Rob him"}), getArray(new ChoiceCheckType[]{null, ChoiceCheckType.LEWD, null}),
+								getTextScenes(
+									getScript(encounterCode, 17), font, backgroundWithAdventurer, 
+									getEndScene(EndScene.Type.ENCOUNTER_OVER)
+								),
+								getTextScenes(
+									getScript(encounterCode, 18), font, backgroundWithAdventurer, 
+									getTextScenes(
+										getScript(encounterCode, 19), font, backgroundWithAdventurer, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.ANAL, new SexualExperienceBuilder().setAnalSex(1, 0, 0).build())}),
+										getTextScenes(
+											getScript(encounterCode, 20), font, backgroundWithAdventurer, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.ANAL, new SexualExperienceBuilder().setAnalSex(0, 1, 1).build())}),
+											getEndScene(EndScene.Type.ENCOUNTER_OVER)
+										)
+									)
+								),
+								getTextScenes(
+									getScript(encounterCode, 21), font, backgroundWithAdventurer, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.GOLD, 10)}),
+									getEndScene(EndScene.Type.ENCOUNTER_OVER)
+								)
+							)
+						),
+						getTextScenes(
+							getScript(encounterCode, 22), font, backgroundWithAdventurer, 
+							getTextScenes(
+								getScript(encounterCode, 23), font, backgroundWithAdventurer, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.GOLD, -10)}),
+								getEndScene(EndScene.Type.ENCOUNTER_OVER)
+							)
+						),
+						getTextScenes(
+							getScript(encounterCode, 24), font, backgroundWithAdventurer, 
 							getEndScene(EndScene.Type.ENCOUNTER_OVER)
 						),
 						getTextScenes(
-							getScript(encounterCode, 17), font, backgroundWithAdventurer, 
-							getEndScene(EndScene.Type.ENCOUNTER_OVER)
-						),
-						getTextScenes(
-							getScript(encounterCode, 18), font, backgroundWithAdventurer, 
-							getEndScene(EndScene.Type.ENCOUNTER_OVER)
-						),
-						getTextScenes(
-							getScript(encounterCode, 19), font, backgroundWithAdventurer, 
+							getScript(encounterCode, 25), font, backgroundWithAdventurer, 
 							getEndScene(EndScene.Type.ENCOUNTER_OVER)
 						)
 					);
