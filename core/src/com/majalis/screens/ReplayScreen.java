@@ -105,7 +105,7 @@ public class ReplayScreen extends AbstractScreen {
 			        }
 				}
 			);
-			table.add(button).size(250, 60).row();
+			table.add(button).size(265, 60).row();
 		}
         table.setFillParent(true);        
         this.addActor(table);

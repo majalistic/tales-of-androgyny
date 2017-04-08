@@ -712,8 +712,8 @@ public class EncounterBuilder {
 								getChoiceScene(
 									"What do you do?", getArray(new String[]{"Attack Her", "Block Her", "Let Her Go"}),  // probably should be battle, convo, end encounter
 									getBattleScene(battleCode, Stance.BALANCED, Stance.OFFENSIVE, true, 0, new Array<Outcome>(new Outcome[]{Outcome.VICTORY, Outcome.DEFEAT}),
-											getTextScenes(getArray(new String[]{"You defeated the goblin!", "You receive 1 Experience."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.EXPERIENCE, 1)}), getEndScene(EndScene.Type.ENCOUNTER_OVER)),
-											defeatScene
+										getTextScenes(getArray(new String[]{"You defeated the goblin!", "You receive 1 Experience."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.EXPERIENCE, 1)}), getEndScene(EndScene.Type.ENCOUNTER_OVER)),
+										defeatScene
 									),
 									battleSceneDisarm,
 									getTextScenes(
@@ -884,7 +884,7 @@ public class EncounterBuilder {
 								)
 							),
 							getTextScenes(
-								getScript(encounterCode, "MALE-00"), font, background,
+								getScript(encounterCode, "MALE-00"), font, background, getArray(new Mutation[]{new Mutation(saveService, ProfileEnum.KNOWLEDGE, EnemyEnum.GOBLIN_MALE.toString())}),
 								getTextScenes(
 									getScript(encounterCode, "MALE-01"), font, goblinMaleBackground,
 									getBattleScene(battleCode + 1000, 
