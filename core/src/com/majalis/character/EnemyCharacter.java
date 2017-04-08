@@ -836,7 +836,7 @@ public class EnemyCharacter extends AbstractCharacter {
 	public String getOutcomeText(AbstractCharacter enemy) {
 		switch (getOutcome(enemy)) {
 			case KNOT: return "You've been knotted!!!\nYou are at her whims, now.";
-			case SATISFIED: return enemyType == EnemyEnum.CENTAUR ? "You've been dominated by the centaur's massive horsecock." : "She seems satisfied. She's no longer hostile.";
+			case SATISFIED: return enemyType == EnemyEnum.CENTAUR ? "You've been dominated by the centaur's massive horsecock." : properCase(pronouns.getNominative()) + " seems satisfied. " + properCase(pronouns.getNominative()) + "'s no longer hostile.";
 			case SUBMISSION: return "They're completely fucked silly! They're no longer hostile.";
 			case DEFEAT: return enemy.getDefeatMessage();
 			case VICTORY: return getDefeatMessage();

@@ -581,9 +581,6 @@ public abstract class AbstractCharacter extends Actor {
 			}
 		}
 		
-		if (currentHealth <= 0) {
-			result.add(label + (secondPerson ? " are " : " is ")  + "defeated!");
-		}
 		Array<Array<String>> results =  new Array<Array<String>>();
 		results.add(result);
 		results.add(new Array<String>());
