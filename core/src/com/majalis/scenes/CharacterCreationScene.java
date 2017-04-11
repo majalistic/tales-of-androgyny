@@ -46,7 +46,7 @@ public class CharacterCreationScene extends Scene {
 		
 		final Group statGroup = new Group();
 		
-		final Texture boxTexture = assetManager.get(AssetEnum.NORMAL_BOX.getPath(), Texture.class);
+		final Texture boxTexture = assetManager.get(AssetEnum.NORMAL_BOX.getTexture());
 		final Image classSelectBox = new Image(boxTexture);
 		classSelectBox.setBounds(80, 250, 300, 470);
 		final Image statSelectBox = new Image(boxTexture);
@@ -64,8 +64,8 @@ public class CharacterCreationScene extends Scene {
 		this.addActor(statDescriptionBox);
 		this.addActor(statPointsBox);
 		
-		Skin skin = assetManager.get(AssetEnum.UI_SKIN.getPath(), Skin.class);
-		final Sound buttonSound = assetManager.get(AssetEnum.BUTTON_SOUND.getPath(), Sound.class);
+		Skin skin = assetManager.get(AssetEnum.UI_SKIN.getSkin());
+		final Sound buttonSound = assetManager.get(AssetEnum.BUTTON_SOUND.getSound());
 		
 		final TextButton done = new TextButton("Done", skin);
 		
@@ -107,7 +107,7 @@ public class CharacterCreationScene extends Scene {
 		int offset = 0;
 		int base = 700;
 		for (final Stat stat: Stat.values()) {
-			Image statImage = new Image(assetManager.get(stat.getPath(), Texture.class));
+			Image statImage = new Image((Texture) assetManager.get(stat.getAsset()));
 			Label statLabel = new Label("", skin);
 			statToLabel.put(stat, statLabel);
 			int amount = character.getBaseStat(stat);

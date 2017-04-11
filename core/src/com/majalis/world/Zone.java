@@ -37,7 +37,7 @@ public class Zone {
 		this.random = random;
 		this.repeats = repeats;
 		visitedCodesSet = loadService.loadDataValue(SaveEnum.VISITED_LIST, IntSet.class);
-		sound = assetManager.get(AssetEnum.CLICK_SOUND.getPath(), Sound.class);
+		sound = assetManager.get(AssetEnum.CLICK_SOUND.getSound());
 		character = loadService.loadDataValue(SaveEnum.PLAYER, PlayerCharacter.class);
 
 		this.nodes = nodes;

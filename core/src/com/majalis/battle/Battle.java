@@ -4,7 +4,9 @@ import static com.badlogic.gdx.scenes.scene2d.actions.Actions.*;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
@@ -108,7 +110,7 @@ public class Battle extends Group{
 	private final Label bloodLabel;
 	private final Label enemyBloodLabel;
 	
-	private final String musicPath;
+	private final AssetDescriptor<Music> musicPath;
 	
 	private SkillText enemySkill;
 	
@@ -127,7 +129,7 @@ public class Battle extends Group{
 	private boolean uiHidden;
 	private boolean onload = true;
 	
-	public Battle(SaveService saveService, AssetManager assetManager, BitmapFont font, PlayerCharacter character, EnemyCharacter enemy, ObjectMap<String, Integer> outcomes, Background battleBackground, Background battleUI, String consoleText, String dialogText, String musicPath) {
+	public Battle(SaveService saveService, AssetManager assetManager, BitmapFont font, PlayerCharacter character, EnemyCharacter enemy, ObjectMap<String, Integer> outcomes, Background battleBackground, Background battleUI, String consoleText, String dialogText, AssetDescriptor<Music> musicPath) {
 		this.saveService = saveService;
 		this.assetManager = assetManager;
 		this.font = font;
@@ -144,7 +146,7 @@ public class Battle extends Group{
 		soundMap = new ObjectMap<AssetEnum, Sound>();
 		AssetEnum[] battleSounds = new AssetEnum[]{AssetEnum.UNPLUGGED_POP, AssetEnum.MOUTH_POP, AssetEnum.ATTACK_SOUND, AssetEnum.HIT_SOUND, AssetEnum.SWORD_SLASH_SOUND, AssetEnum.FIREBALL_SOUND, AssetEnum.INCANTATION, AssetEnum.THWAPPING, AssetEnum.BUTTON_SOUND, AssetEnum.PARRY_SOUND, AssetEnum.BLOCK_SOUND};
 		for (AssetEnum soundPath: battleSounds) {
-			soundMap.put(soundPath, assetManager.get(soundPath.getPath(), Sound.class));
+			soundMap.put(soundPath, assetManager.get(soundPath.getSound()));
 		}
 		
 		this.addActor(battleBackground);
@@ -152,7 +154,7 @@ public class Battle extends Group{
 		this.addCharacter(enemy);
 		this.addActor(battleUI);	
 		
-		skin = assetManager.get(AssetEnum.BATTLE_SKIN.getPath(), Skin.class);
+		skin = assetManager.get(AssetEnum.BATTLE_SKIN.getSkin());
 		
 		float barX = 195;
 		float enemyBarX = 1500;
@@ -163,20 +165,20 @@ public class Battle extends Group{
 		
 		// these should be wrapped as components that accept a character
 		characterHealth = initBar(0, 1, .05f, false, skin, 350, character.getHealthPercent(), barX , 1035);
-		healthIcon = initImage(assetManager.get(character.getHealthDisplay(), Texture.class), barX+3, 1042.5f);
+		healthIcon = initImage(assetManager.get(character.getHealthDisplay()), barX+3, 1042.5f);
 		healthLabel = initLabel(character.getCurrentHealth() + " / " + character.getMaxHealth(), skin, Color.BROWN, barX + 75, 1038);
 		
 		characterStamina = initBar(0, 1, .05f, false, skin, 350, character.getStaminaPercent(), barX, 990);
-		staminaIcon = initImage(assetManager.get(character.getStaminaDisplay(), Texture.class), barX + 7.5f, 997.5f);
+		staminaIcon = initImage(assetManager.get(character.getStaminaDisplay()), barX + 7.5f, 997.5f);
 		staminaLabel = initLabel(character.getCurrentStamina() + " / " + character.getMaxStamina(), skin, Color.BROWN, barX + 75, 993);
 
 		characterBalance = initBar(0, 1, .05f, false, skin, 350, character.getBalancePercent(), barX, 945);
-		balanceIcon = initImage(assetManager.get(character.getBalanceDisplay(), Texture.class), barX + 3, 952.5f);
+		balanceIcon = initImage(assetManager.get(character.getBalanceDisplay()), barX + 3, 952.5f);
 		balanceLabel = initLabel(character.getStability() > 0 ? character.getStability() + " / " + character.getMaxStability() : "DOWN (" + -character.getStability() + ")", skin, Color.BROWN, barX + 75, 948);
 		
 		if (character.hasMagic()) {
 			characterMana = initBar(0, 1, .05f, false, skin, 350, character.getManaPercent(), barX, 900);
-			manaIcon = initImage(assetManager.get(character.getManaDisplay(), Texture.class), barX + 3, 912.5f);
+			manaIcon = initImage(assetManager.get(character.getManaDisplay()), barX + 3, 912.5f);
 			manaLabel = initLabel(character.getCurrentMana() + " / " + character.getMaxMana(), skin, Color.BROWN, barX + 75, 903);
 		}
 		else {
@@ -186,11 +188,11 @@ public class Battle extends Group{
 		}
 		
 		enemyHealth = initBar(0, 1, .05f, false, skin, 350, enemy.getHealthPercent(), enemyBarX , 1035);
-		enemyHealthIcon = initImage(assetManager.get(enemy.getHealthDisplay(), Texture.class), enemyBarX + 3, 1042.5f);
+		enemyHealthIcon = initImage(assetManager.get(enemy.getHealthDisplay()), enemyBarX + 3, 1042.5f);
 		enemyHealthLabel = initLabel(enemy.getCurrentHealth() + " / " + enemy.getMaxHealth(), skin, Color.BROWN, enemyBarX + 75, 1038);
 		
 		enemyStamina = initBar(0, 1, .05f, false, skin, 350, enemy.getStaminaPercent(), enemyBarX, 990);
-		enemyStaminaIcon = initImage(assetManager.get(enemy.getStaminaDisplay(), Texture.class), enemyBarX + 7.5f, 997.5f);
+		enemyStaminaIcon = initImage(assetManager.get(enemy.getStaminaDisplay()), enemyBarX + 7.5f, 997.5f);
 		enemyStaminaLabel = initLabel(enemy.getCurrentStamina() + " / " + enemy.getMaxStamina(), skin, Color.BROWN, enemyBarX + 75, 993);
 
 		if (character.getBattlePerception() < 4) {
@@ -200,7 +202,7 @@ public class Battle extends Group{
 		}
 		
 		enemyBalance = initBar(0, 1, .05f, false, skin, 350, enemy.getBalancePercent(), enemyBarX, 945);
-		enemyBalanceIcon = initImage(assetManager.get(enemy.getBalanceDisplay(), Texture.class), enemyBarX + 3, 952.5f);
+		enemyBalanceIcon = initImage(assetManager.get(enemy.getBalanceDisplay()), enemyBarX + 3, 952.5f);
 		enemyBalanceLabel = initLabel(enemy.getStability() > 0 ? enemy.getStability() + " / " + enemy.getMaxStability() : "DOWN (" + -enemy.getStability() + ")", skin, Color.BROWN, enemyBarX + 75, 948);
 		
 		if (character.getBattlePerception() < 3) {
@@ -211,13 +213,13 @@ public class Battle extends Group{
 		
 		enemyWeaponLabel = initLabel("Weapon: " + (enemy.getWeapon() != null ? enemy.getWeapon().getName() : "Unarmed"), skin, Color.GOLDENROD, 1578, 900);	
 		
-		Texture armorTexture = assetManager.get(AssetEnum.ARMOR.getPath(), Texture.class);
+		Texture armorTexture = assetManager.get(AssetEnum.ARMOR.getTexture());
 		initImage(armorTexture, barX + 320, 1032, 50);
 		initImage(armorTexture, 1820, 1032, 50);
 		armorLabel = initLabel("" + character.getDefense(), skin, Color.BROWN, barX + 332, 1037);		
 		enemyArmorLabel = initLabel("" + enemy.getDefense(), skin, Color.BROWN, 1832, 1037);
 		
-		Texture bloodTexture = assetManager.get(AssetEnum.BLEED.getPath(), Texture.class);
+		Texture bloodTexture = assetManager.get(AssetEnum.BLEED.getTexture());
 		bloodImage = initImage(bloodTexture, 470, 850, 50);
 		enemyBloodImage = initImage(bloodTexture, 1860, 963, 50);
 		bloodLabel = initLabel("" + character.getBleed(), skin, Color.RED, 470 + 8, 850 + 1);	
@@ -236,33 +238,33 @@ public class Battle extends Group{
 		
 		uiHidden = false;
 		uiGroup = new Group();
-		Image consoleBox = new Image(assetManager.get(AssetEnum.BATTLE_TEXTBOX.getPath(), Texture.class));
+		Image consoleBox = new Image(assetManager.get(AssetEnum.BATTLE_TEXTBOX.getTexture()));
 		uiGroup.addActor(consoleBox);
 		consoleBox.setPosition(consoleXPos, consoleYPos);
 		
 		dialogGroup = new Group();
 		
-		Image dialogBox = new Image(assetManager.get(AssetEnum.BATTLE_TEXTBOX.getPath(), Texture.class));
+		Image dialogBox = new Image(assetManager.get(AssetEnum.BATTLE_TEXTBOX.getTexture()));
 		dialogGroup.addActor(dialogBox);
 		dialogBox.setBounds(consoleXPos + 150, consoleYPos + 450, 400, 125);
 		
-		hoverImage = new Image(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class));
+		hoverImage = new Image(assetManager.get(AssetEnum.BATTLE_HOVER.getTexture()));
 		hoverImage.setBounds(hoverXPos, hoverYPos, hoverImage.getWidth() + 100, hoverImage.getHeight() + 100);
 		hoverGroup = new Group();
 		hoverGroup.addActor(hoverImage);
 		
-		characterPortrait = initImage(assetManager.get(character.popPortraitPath(), Texture.class), -7.5f, 922);
+		characterPortrait = initImage(assetManager.get(character.popPortraitPath()), -7.5f, 922);
 		characterPortrait.setScale(.9f);
 
 		characterPortrait.addListener(getListener(character));
 		
-		masculinityIcon = initImage(assetManager.get(character.getMasculinityPath(), Texture.class), barX - 175, 790);
+		masculinityIcon = initImage(assetManager.get(character.getMasculinityPath()), barX - 175, 790);
 		masculinityIcon.setScale(.15f);
 		
-		characterArousal = initImage(assetManager.get(character.getLustImagePath(), Texture.class), 150, 735, 150, 150);
-		enemyArousal = initImage(assetManager.get(enemy.getLustImagePath(), Texture.class), 1078 * 1.5f, 735, 150, 150);
+		characterArousal = initImage(assetManager.get(character.getLustImagePath()), 150, 735, 150, 150);
+		enemyArousal = initImage(assetManager.get(enemy.getLustImagePath()), 1078 * 1.5f, 735, 150, 150);
 		
-		characterBelly = initImage(assetManager.get(character.getCumInflationPath(), Texture.class), 0, 850, 100, 100); 
+		characterBelly = initImage(assetManager.get(character.getCumInflationPath()), 0, 850, 100, 100); 
 		
 		initStanceActor(new StanceActor(character), 600.5f, 880, 150, 172.5f);
 		initStanceActor(new StanceActor(enemy), 1305, 880, 150, 172.5f);
@@ -274,7 +276,7 @@ public class Battle extends Group{
 		uiGroup.addActor(table);
 		displayTechniqueOptions();
 		
-		Texture slashSheet = assetManager.get(AssetEnum.SLASH.getPath(), Texture.class);
+		Texture slashSheet = assetManager.get(AssetEnum.SLASH.getTexture());
 		Array<TextureRegion> frames = new Array<TextureRegion>();
 		for (int ii = 0; ii < 6; ii++) {
 			frames.add(new TextureRegion(slashSheet, ii * 512, 0, 512, 512));
@@ -347,7 +349,7 @@ public class Battle extends Group{
 		consoleComponents.add(dialogText);
 		saveService.saveDataValue(SaveEnum.CONSOLE, consoleComponents);
 	}
-	public String getMusicPath() {
+	public AssetDescriptor<Music> getMusicPath() {
 		return musicPath;
 	}
 	
@@ -425,7 +427,7 @@ public class Battle extends Group{
 		
 		for (int ii = 0; ii < options.size; ii++) {
 			Technique option = options.get(ii);
-			SkillButton button = new SkillButton(option.getTechniqueName() + (ii > POSSIBLE_KEYS_CHAR.length ? "" : " ("+POSSIBLE_KEYS_CHAR[ii]+")"), skin, assetManager.get(option.getStance().getPath(), Texture.class));
+			SkillButton button = new SkillButton(option.getTechniqueName() + (ii > POSSIBLE_KEYS_CHAR.length ? "" : " ("+POSSIBLE_KEYS_CHAR[ii]+")"), skin, assetManager.get(option.getStance().getTexture()));
 			table.add(button).size(440, 76).row();
 			optionButtons.add(button);
 			boolean outOfStamina = false;
@@ -526,7 +528,7 @@ public class Battle extends Group{
 			}
 			
 			if (attackForFirstCharacter.isAttack() && attackForFirstCharacter.isSuccessful() && attackForFirstCharacter.getStatus() != Status.BLOCKED) {
-				characterPortrait.setDrawable(getDrawable(AssetEnum.PORTRAIT_HIT.getPath()));
+				characterPortrait.setDrawable(getDrawable(AssetEnum.PORTRAIT_HIT.getTexture()));
 				characterPortrait.addAction(Actions.sequence(Actions.moveBy(-10, -10), Actions.delay(.1f), Actions.moveBy(0, 20), Actions.delay(.1f), Actions.moveBy(20, -20), Actions.delay(.1f), Actions.moveBy(0, 20), Actions.delay(.1f), Actions.moveTo(-5 * 1.5f, 615 * 1.5f),  
 					new Action(){
 						@Override
@@ -622,8 +624,9 @@ public class Battle extends Group{
 		if (character.hasMagic()) {
 			characterMana.setValue(character.getManaPercent());
 			manaLabel.setText(character.getCurrentMana() + " / " + character.getMaxMana());
-			manaIcon.setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(character.getManaDisplay(), Texture.class))));
+			manaIcon.setDrawable(new TextureRegionDrawable(new TextureRegion()));
 		}
+		
 		enemyHealth.setValue(enemy.getHealthPercent());
 		enemyStamina.setValue(enemy.getStaminaPercent());
 		enemyBalance.setValue(enemy.getBalancePercent());
@@ -672,7 +675,7 @@ public class Battle extends Group{
 	private void setEnemyTechnique() {
 		enemySelectedTechnique = enemy.getTechnique(character);
 		this.removeActor(enemySkill);
-		enemySkill = new SkillText(character.getBattlePerception() < 7 ? "" : enemySelectedTechnique.getTechniqueName(), skin, assetManager.get(enemySelectedTechnique.getStance().getPath(), Texture.class));		
+		enemySkill = new SkillText(character.getBattlePerception() < 7 ? "" : enemySelectedTechnique.getTechniqueName(), skin, assetManager.get(enemySelectedTechnique.getStance().getTexture()));		
 		this.addActor(enemySkill);
 		enemySkill.setPosition(1400, 750);
 		if (character.getBattlePerception() < 5) {
@@ -680,8 +683,8 @@ public class Battle extends Group{
 		}
 	}
 	
-	private TextureRegionDrawable getDrawable(String texturePath) {
-		return new TextureRegionDrawable(new TextureRegion(assetManager.get(texturePath, Texture.class)));
+	private TextureRegionDrawable getDrawable(AssetDescriptor<Texture> AssetInfo) {
+		return new TextureRegionDrawable(new TextureRegion(assetManager.get(AssetInfo)));
 	}
 	
 	private void printToConsole(Array<String> results) {
@@ -742,7 +745,7 @@ public class Battle extends Group{
 	
 	/* Helper methods */
 	private Texture getStanceImage(Stance stance) {
-		return assetManager.get(stance.getPath(), Texture.class);
+		return assetManager.get(stance.getTexture());
 	}
 	
 	private ClickListener getListener(final PlayerCharacter character) {
@@ -872,7 +875,7 @@ public class Battle extends Group{
 		public StanceActor(AbstractCharacter character) {
 			this.character = character;
 			hover = false;
-			hoverBox = assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class);
+			hoverBox = (Texture) assetManager.get(AssetEnum.BATTLE_HOVER.getAsset());
 			this.addListener(new ClickListener() { 
 				@Override
 		        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {

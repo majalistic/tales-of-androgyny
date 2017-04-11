@@ -50,9 +50,9 @@ public class SkillSelectionScene extends Scene {
 		this.saveService = saveService;
 		this.character = character;
 		this.addActor(background);
-		boxTexture = assetManager.get(AssetEnum.NORMAL_BOX.getPath(), Texture.class);
-		skin = assetManager.get(AssetEnum.UI_SKIN.getPath(), Skin.class);
-		buttonSound = assetManager.get(AssetEnum.BUTTON_SOUND.getPath(), Sound.class);
+		boxTexture = assetManager.get(AssetEnum.NORMAL_BOX.getTexture());
+		skin = assetManager.get(AssetEnum.UI_SKIN.getSkin());
+		buttonSound = assetManager.get(AssetEnum.BUTTON_SOUND.getSound());
 		techniquesToButtons = new ObjectMap<Techniques, Label>();
 		locked = false;
 		justUnlocked = false;

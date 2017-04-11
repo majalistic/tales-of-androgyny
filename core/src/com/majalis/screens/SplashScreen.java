@@ -1,6 +1,7 @@
 package com.majalis.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
@@ -9,7 +10,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.utils.ObjectMap;
+import com.badlogic.gdx.utils.Array;
 import com.majalis.asset.AssetEnum;
 /*
  * Splash screen for initial load.
@@ -35,30 +36,33 @@ public class SplashScreen extends AbstractScreen {
 
 	@Override
 	public void buildStage() {
-		assetManager.load(AssetEnum.INTRO_SOUND.getPath(), Sound.class);
-		assetManager.load(AssetEnum.UI_SKIN.getPath(), Skin.class);
-		assetManager.load(AssetEnum.SPLASH_SCREEN.getPath(), Texture.class);
+		assetManager.load(AssetEnum.INTRO_SOUND.getSound());
+		assetManager.load(AssetEnum.UI_SKIN.getSkin());
+		assetManager.load(AssetEnum.SPLASH_SCREEN.getTexture());
 		assetManager.finishLoading();
-		sound = assetManager.get(AssetEnum.INTRO_SOUND.getPath(), Sound.class);
-		skin = assetManager.get(AssetEnum.UI_SKIN.getPath(), Skin.class);
-		background = assetManager.get(AssetEnum.SPLASH_SCREEN.getPath(), Texture.class);
+		sound = assetManager.get(AssetEnum.INTRO_SOUND.getSound());
+		skin = assetManager.get(AssetEnum.UI_SKIN.getSkin());
+		background = assetManager.get(AssetEnum.SPLASH_SCREEN.getTexture());
 		
 		if (fullLoad) {
+			// need a better way to ensure all assets are loaded
+			for (AssetEnum value : AssetEnum.values()) {
+				assetManager.load(value.getAsset());
+			}
 			for (AssetEnum value : AssetEnum.values()) {
 				assetManager.load(value.getAsset());
 			}
 		}
-		
 		else {
 			// asynchronous
-			ObjectMap<String, Class<?>> pathToType = MainMenuScreen.resourceRequirements;
-			for (String path: pathToType.keys()){
-				if (!assetManager.isLoaded(path)){
-					assetManager.load(path, pathToType.get(path));
+			Array<AssetDescriptor<?>> pathToType = MainMenuScreen.resourceRequirements;
+			for (AssetDescriptor<?> path: pathToType) {
+				if (!assetManager.isLoaded(path.fileName)) {
+					assetManager.load(path);
 				}
 			}
 			
-			assetManager.load(AssetEnum.LOADING.getPath(), Texture.class);
+			assetManager.load(AssetEnum.LOADING.getTexture());
 			
 		}
 		
@@ -66,7 +70,6 @@ public class SplashScreen extends AbstractScreen {
 		progress.setSize(280, 30);
 		progress.setPosition(1600, 105);
 		this.addActor(progress);
-		
 	}
 	
 	@Override
@@ -77,7 +80,7 @@ public class SplashScreen extends AbstractScreen {
 		batch.setProjectionMatrix(camera.combined);
 		camera.update();
 		batch.begin();
-		if (!assetManager.update() || clocktick++ < minTime){
+		if (!assetManager.update() || clocktick++ < minTime) {
 			batch.draw(background, 1500, 600, background.getWidth() / (background.getHeight() / 900f), 900);
 			progress.setValue(assetManager.getProgress());
 			font.setColor(Color.BLACK);
@@ -90,7 +93,7 @@ public class SplashScreen extends AbstractScreen {
 	}
 	
 	@Override
-	public void show(){
+	public void show() {
 		super.show();
 		sound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.7f);
 	    getRoot().getColor().a = 0;

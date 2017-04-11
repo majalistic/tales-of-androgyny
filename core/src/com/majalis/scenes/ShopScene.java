@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -64,13 +63,13 @@ public class ShopScene extends Scene {
 		this.addActor(background);
 		this.character = character;
 		
-		skin = assetManager.get(AssetEnum.UI_SKIN.getPath(), Skin.class);
-		buttonSound = assetManager.get(AssetEnum.BUTTON_SOUND.getPath(), Sound.class);
-		itemSound = assetManager.get(AssetEnum.EQUIP.getPath(), Sound.class);
+		skin = assetManager.get(AssetEnum.UI_SKIN.getSkin());
+		buttonSound = assetManager.get(AssetEnum.BUTTON_SOUND.getSound());
+		itemSound = assetManager.get(AssetEnum.EQUIP.getSound());
 		
 		final Group inventoryGroup = new Group();
-		Image inventoryBox = new Image(assetManager.get(AssetEnum.BATTLE_TEXTBOX.getPath(), Texture.class));
-		Image moneyBox = new Image(assetManager.get(AssetEnum.TEXT_BOX.getPath(), Texture.class));
+		Image inventoryBox = new Image(assetManager.get(AssetEnum.BATTLE_TEXTBOX.getTexture()));
+		Image moneyBox = new Image(assetManager.get(AssetEnum.TEXT_BOX.getTexture()));
 		
 		inventoryGroup.addActor(inventoryBox);
 		this.addActor(inventoryGroup);
@@ -78,7 +77,7 @@ public class ShopScene extends Scene {
 		inventoryBox.setBounds(100, 100, 800, 1000);
 		moneyBox.setBounds(1500, 900, 300, 100);
 		
-		final Image hoverBox = new Image(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class));
+		final Image hoverBox = new Image(assetManager.get(AssetEnum.BATTLE_HOVER.getTexture()));
 		
 		hoverBox.setBounds(950, 400, 850, 400);
 		

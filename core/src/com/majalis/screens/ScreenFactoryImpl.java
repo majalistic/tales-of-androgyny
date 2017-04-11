@@ -2,11 +2,13 @@ package com.majalis.screens;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.majalis.asset.AssetEnum;
@@ -115,7 +117,7 @@ public class ScreenFactoryImpl implements ScreenFactory {
 		return new LoadScreen(this, elements, assetManager, screenRequest);
 	}
 
-	private boolean getAssetCheck(ObjectMap<String, Class<?>> pathToType) {
+	private boolean getAssetCheck(Array<AssetDescriptor<?>> assetsToLoad) {
 		// if the loading screen has just loaded the assets, don't perform the checks or increment the reference counts
 		if (loading) {
 			loading = false;
@@ -123,22 +125,22 @@ public class ScreenFactoryImpl implements ScreenFactory {
 		}
 		// if screens are being switched but no assets need to be loaded, don't call the loading screen
 		boolean assetsLoaded = true;
-		for (String path: pathToType.keys()) {
-			if (!assetManager.isLoaded(path)) {
+		for (AssetDescriptor<?> path: assetsToLoad) {
+			if (!assetManager.isLoaded(path.fileName)) {
 				assetsLoaded = false;
 			}
-			assetManager.load(path, pathToType.get(path));
+			assetManager.load(path);
 		}
 		// temporary hack to ensure skin is always loaded
-		assetManager.load(AssetEnum.UI_SKIN.getPath(), Skin.class);
+		assetManager.load(AssetEnum.UI_SKIN.getSkin());
 		return assetsLoaded;
 	}
 	
 	private EncounterScreen getEncounter(ScreenElements elements, PlayerCharacter character) {
 		if (getAssetCheck(EncounterScreen.getRequirements((EncounterCode)loadService.loadDataValue(SaveEnum.ENCOUNTER_CODE, Integer.class)))) {
 			EncounterCode encounterCode = loadService.loadDataValue(SaveEnum.ENCOUNTER_CODE, EncounterCode.class);
-			Encounter encounter = encounterFactory.getEncounter(encounterCode, elements.getFont(48), elements.getFont(32));
-			String music = loadService.loadDataValue(SaveEnum.MUSIC, String.class);
+			Encounter encounter = encounterFactory.getEncounter(encounterCode, elements.getFont(48), elements.getFont(32));			
+			AssetDescriptor<Music> music = new AssetDescriptor<Music>((String)loadService.loadDataValue(SaveEnum.MUSIC, String.class), Music.class);
 			return new EncounterScreen(this, elements, assetManager, music, encounter);
 		}
 		else {
@@ -201,7 +203,7 @@ public class ScreenFactoryImpl implements ScreenFactory {
 		return game;
 	}
 	
-	private class ExitScreen extends AbstractScreen{
+	private class ExitScreen extends AbstractScreen {
 		protected ExitScreen(ScreenFactory factory, ScreenElements elements) {
 			super(factory, elements);
 		}

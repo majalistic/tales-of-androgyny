@@ -1,10 +1,10 @@
 package com.majalis.screens;
 
+import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.utils.ObjectMap;
+import com.badlogic.gdx.utils.Array;
 import com.majalis.asset.AssetEnum;
 import com.majalis.encounter.Encounter;
 import com.majalis.encounter.EncounterCode;
@@ -14,11 +14,11 @@ import com.majalis.save.SaveService;
 
 public class LevelUpScreen extends AbstractScreen {
 
-	public static final ObjectMap<String, Class<?>> resourceRequirements = new ObjectMap<String, Class<?>>();
+	public static final Array<AssetDescriptor<?>> resourceRequirements = new Array<AssetDescriptor<?>>();
 	static {
-		resourceRequirements.put(AssetEnum.SKILL_SELECTION_BACKGROUND.getPath(), Texture.class);
-		resourceRequirements.put(AssetEnum.NORMAL_BOX.getPath(), Texture.class);
-		resourceRequirements.putAll(EncounterScreen.getRequirements(EncounterCode.LEVEL_UP));
+		resourceRequirements.add(AssetEnum.SKILL_SELECTION_BACKGROUND.getTexture());
+		resourceRequirements.add(AssetEnum.NORMAL_BOX.getTexture());
+		resourceRequirements.addAll(EncounterScreen.getRequirements(EncounterCode.LEVEL_UP));
 	}
 	
 	private final AssetManager assetManager;
@@ -66,9 +66,9 @@ public class LevelUpScreen extends AbstractScreen {
 
 	@Override
 	public void dispose() {
-		for(String path: resourceRequirements.keys()) {
-			if (path.equals(AssetEnum.BUTTON_SOUND.getPath())) continue;
-			assetManager.unload(path);
+		for(AssetDescriptor<?> path: resourceRequirements) {
+			if (path.fileName.equals(AssetEnum.BUTTON_SOUND.getSound().fileName)) continue;
+			assetManager.unload(path.fileName);
 		}
 	}
 	

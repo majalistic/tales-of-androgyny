@@ -6,6 +6,7 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
+@SuppressWarnings("unchecked")
 public enum AssetEnum {
 	UI_SKIN("uiskin.json", Skin.class),
 	BATTLE_SKIN("battle/battleui.json", Skin.class),
@@ -207,25 +208,39 @@ public enum AssetEnum {
 	WAVES("music/Waves.wav", Music.class),
 	;
 	
-	private final String path;
-	private final Class<?> assetType;
+	private final AssetDescriptor<?> assetDescriptor;
 	
 	AssetEnum(String path) {
 	    this(path, Texture.class);
 	}
 	
+	@SuppressWarnings({ "rawtypes" })
 	AssetEnum(String path, Class<?> assetType) {
-	    this.path = path;
-	    this.assetType = assetType;
+	    this.assetDescriptor = new AssetDescriptor(path, assetType);
 	}
 	
-	public String getPath(){return path;}
-	public Class<?> getAssetType() {
-		return assetType;
-	}
-	
-	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public AssetDescriptor<?> getAsset() {
-		return new AssetDescriptor(path, assetType);
+		return assetDescriptor;
 	}
+		
+	public AssetDescriptor<Skin> getSkin() {
+		return (AssetDescriptor<Skin>) assetDescriptor;
+	}
+	
+	public AssetDescriptor<Texture> getTexture() {
+		return (AssetDescriptor<Texture>) assetDescriptor;
+	}
+	
+	public AssetDescriptor<Music> getMusic() {
+		return (AssetDescriptor<Music>) assetDescriptor;
+	}
+	
+	public AssetDescriptor<Sound> getSound() {
+		return (AssetDescriptor<Sound>) assetDescriptor;
+	}
+	
+	public String getPath() {
+		return assetDescriptor.fileName;
+	}
+	
 }

@@ -2,36 +2,35 @@ package com.majalis.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.utils.ObjectMap;
+import com.badlogic.gdx.utils.Array;
 import com.majalis.asset.AssetEnum;
 import com.majalis.encounter.Background.BackgroundBuilder;;
 
 public class CreditsScreen extends AbstractScreen{
-
-	public static final ObjectMap<String, Class<?>> resourceRequirements = new ObjectMap<String, Class<?>>();
+	public static final Array<AssetDescriptor<?>> resourceRequirements = new Array<AssetDescriptor<?>>();
 	static {
-		resourceRequirements.put(AssetEnum.UI_SKIN.getPath(), Skin.class);
-		resourceRequirements.put(AssetEnum.BUTTON_SOUND.getPath(), Sound.class);
-		resourceRequirements.put(AssetEnum.DEFAULT_BACKGROUND.getPath(), Texture.class);
-		resourceRequirements.put(AssetEnum.MAIN_MENU_MUSIC.getPath(), Music.class);
+		resourceRequirements.add(AssetEnum.UI_SKIN.getSkin());
+		resourceRequirements.add(AssetEnum.BUTTON_SOUND.getSound());
+		resourceRequirements.add(AssetEnum.MAIN_MENU_MUSIC.getMusic());
+		resourceRequirements.add(AssetEnum.DEFAULT_BACKGROUND.getTexture());
 	}
+	
 	private final String credits;
 	protected CreditsScreen(ScreenFactory screenFactory, ScreenElements elements, AssetManager assetManager) {
 		super(screenFactory, elements);
-		this.addActor(new BackgroundBuilder(assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getPath(), Texture.class)).build());
-		Skin skin = assetManager.get(AssetEnum.UI_SKIN.getPath(), Skin.class);
-		final Sound sound = assetManager.get(AssetEnum.BUTTON_SOUND.getPath(), Sound.class);
+		this.addActor(new BackgroundBuilder(assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getTexture())).build());
+		Skin skin = assetManager.get(AssetEnum.UI_SKIN.getSkin());
+		final Sound sound = assetManager.get(AssetEnum.BUTTON_SOUND.getSound());
 		final TextButton done = new TextButton("Done", skin);
 		
 		done.addListener(

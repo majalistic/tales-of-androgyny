@@ -2,8 +2,8 @@ package com.majalis.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
@@ -16,6 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.majalis.asset.AssetEnum;
 import com.majalis.character.PlayerCharacter;
@@ -31,40 +32,40 @@ import com.majalis.save.SaveService;
  */
 public class CharacterScreen extends AbstractScreen {
 
-	public static final ObjectMap<String, Class<?>> resourceRequirements = new ObjectMap<String, Class<?>>();
+	public static final Array<AssetDescriptor<?>> resourceRequirements = new Array<AssetDescriptor<?>>();
 	static {
-		resourceRequirements.put(AssetEnum.UI_SKIN.getPath(), Skin.class);
-		resourceRequirements.put(AssetEnum.CLICK_SOUND.getPath(), Sound.class);
-		resourceRequirements.put(AssetEnum.MOUNTAIN_ACTIVE.getPath(), Texture.class);
-		resourceRequirements.put(AssetEnum.FOREST_ACTIVE.getPath(), Texture.class);
-		resourceRequirements.put(AssetEnum.FOREST_INACTIVE.getPath(), Texture.class);
-		resourceRequirements.put(AssetEnum.CASTLE.getPath(), Texture.class);
-		resourceRequirements.put(AssetEnum.APPLE.getPath(), Texture.class);
-		resourceRequirements.put(AssetEnum.MEAT.getPath(), Texture.class);
-		resourceRequirements.put(AssetEnum.GRASS0.getPath(), Texture.class);
-		resourceRequirements.put(AssetEnum.GRASS1.getPath(), Texture.class);
-		resourceRequirements.put(AssetEnum.GRASS2.getPath(), Texture.class);
-		resourceRequirements.put(AssetEnum.CLOUD.getPath(), Texture.class);
-		resourceRequirements.put(AssetEnum.ROAD.getPath(), Texture.class);
-		resourceRequirements.put(AssetEnum.WORLD_MAP_UI.getPath(), Texture.class);
-		resourceRequirements.put(AssetEnum.WORLD_MAP_HOVER.getPath(), Texture.class);
-		resourceRequirements.put(AssetEnum.ARROW.getPath(), Texture.class);
-		resourceRequirements.put(AssetEnum.CHARACTER_SCREEN.getPath(), Texture.class);
-		resourceRequirements.put(AssetEnum.STRENGTH.getPath(), Texture.class);
-		resourceRequirements.put(AssetEnum.ENDURANCE.getPath(), Texture.class);
-		resourceRequirements.put(AssetEnum.AGILITY.getPath(), Texture.class);
-		resourceRequirements.put(AssetEnum.PERCEPTION.getPath(), Texture.class);
-		resourceRequirements.put(AssetEnum.MAGIC.getPath(), Texture.class);
-		resourceRequirements.put(AssetEnum.CHARISMA.getPath(), Texture.class);
-		resourceRequirements.put(AssetEnum.WORLD_MAP_MUSIC.getPath(), Music.class);
+		resourceRequirements.add(AssetEnum.UI_SKIN.getSkin());
+		resourceRequirements.add(AssetEnum.CLICK_SOUND.getSound());
+		resourceRequirements.add(AssetEnum.MOUNTAIN_ACTIVE.getTexture()); 
+		resourceRequirements.add(AssetEnum.FOREST_ACTIVE.getTexture());
+		resourceRequirements.add(AssetEnum.FOREST_INACTIVE.getTexture());
+		resourceRequirements.add(AssetEnum.CASTLE.getTexture());
+		resourceRequirements.add(AssetEnum.APPLE.getTexture());
+		resourceRequirements.add(AssetEnum.MEAT.getTexture());
+		resourceRequirements.add(AssetEnum.GRASS0.getTexture());
+		resourceRequirements.add(AssetEnum.GRASS1.getTexture());
+		resourceRequirements.add(AssetEnum.GRASS2.getTexture());
+		resourceRequirements.add(AssetEnum.CLOUD.getTexture());
+		resourceRequirements.add(AssetEnum.ROAD.getTexture());
+		resourceRequirements.add(AssetEnum.WORLD_MAP_UI.getTexture());
+		resourceRequirements.add(AssetEnum.WORLD_MAP_HOVER.getTexture());
+		resourceRequirements.add(AssetEnum.ARROW.getTexture());
+		resourceRequirements.add(AssetEnum.CHARACTER_SCREEN.getTexture());
+		resourceRequirements.add(AssetEnum.STRENGTH.getTexture());
+		resourceRequirements.add(AssetEnum.ENDURANCE.getTexture());
+		resourceRequirements.add(AssetEnum.AGILITY.getTexture());
+		resourceRequirements.add(AssetEnum.PERCEPTION.getTexture());
+		resourceRequirements.add(AssetEnum.MAGIC.getTexture());
+		resourceRequirements.add(AssetEnum.CHARISMA.getTexture());
+		resourceRequirements.add(AssetEnum.WORLD_MAP_MUSIC.getMusic());
 	}
 	
 	public CharacterScreen(ScreenFactory factory, ScreenElements elements, AssetManager assetManager, final SaveService saveService, final PlayerCharacter character) {
 		super(factory, elements);
-		this.addActor(new BackgroundBuilder(assetManager.get(AssetEnum.CHARACTER_SCREEN.getPath(), Texture.class)).build()); 
+		this.addActor(new BackgroundBuilder(assetManager.get(AssetEnum.CHARACTER_SCREEN.getTexture())).build()); 
 		
-		Skin skin = assetManager.get(AssetEnum.UI_SKIN.getPath(), Skin.class);
-		final Sound buttonSound = assetManager.get(AssetEnum.CLICK_SOUND.getPath(), Sound.class); 
+		Skin skin = assetManager.get(AssetEnum.UI_SKIN.getSkin());
+		final Sound buttonSound = assetManager.get(AssetEnum.CLICK_SOUND.getSound()); 
 		final TextButton done = new TextButton("Done", skin);
 		
 		done.setSize(180, 60);
@@ -108,7 +109,7 @@ public class CharacterScreen extends AbstractScreen {
 		final Table statTable = new Table();
 
 		for (final Stat stat: Stat.values()) {
-			Image statImage = new Image(assetManager.get(stat.getPath(), Texture.class));
+			Image statImage = new Image((Texture) assetManager.get(stat.getAsset()));
 			Label statLabel = new Label("", skin);
 			
 			int amount = character.getBaseStat(stat);

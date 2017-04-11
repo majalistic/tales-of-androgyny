@@ -1,5 +1,6 @@
 package com.majalis.battle;
 
+import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -56,34 +57,34 @@ public class BattleFactory {
 		else {
 			ObjectMap<Stance, Texture> textures = new ObjectMap<Stance, Texture>();
 			for (String key : enemy.getTextureImagePaths().keys()) {
-				textures.put(Stance.valueOf(key), assetManager.get(enemy.getTextureImagePaths().get(key), Texture.class)) ;
+				textures.put(Stance.valueOf(key), assetManager.get(enemy.getTextureImagePaths().get(key))) ;
 			}
-			enemy.init(enemy.getImagePath() == null ? null : assetManager.get(enemy.getImagePath(), Texture.class), textures);
+			enemy.init(enemy.getImagePath() == null ? null : assetManager.get(enemy.getImagePath()), textures);
 		}
 		@SuppressWarnings("unchecked")
 		Array<String> console = (Array<String>) loadService.loadDataValue(SaveEnum.CONSOLE, Array.class);
 		return new Battle(
 			saveService, assetManager, font, playerCharacter, enemy, battleCode.outcomes, 
-			new BackgroundBuilder(assetManager.get(enemy.getBGPath(), Texture.class)).build(), new BackgroundBuilder(assetManager.get(AssetEnum.BATTLE_UI.getPath(), Texture.class)).build(), console.size > 0 ? console.get(0) : "", console.size > 1 ? console.get(1) : "", battleCode.battleCode == 7 || battleCode.battleCode == 8 ? AssetEnum.BOSS_MUSIC.getPath() : battleCode.battleCode == 9 ? AssetEnum.HEAVY_MUSIC.getPath() : AssetEnum.BATTLE_MUSIC.getPath()
+			new BackgroundBuilder(assetManager.get(enemy.getBGPath())).build(), new BackgroundBuilder(assetManager.get(AssetEnum.BATTLE_UI.getTexture())).build(), console.size > 0 ? console.get(0) : "", console.size > 1 ? console.get(1) : "", battleCode.battleCode == 7 || battleCode.battleCode == 8 ? AssetEnum.BOSS_MUSIC.getMusic() : battleCode.battleCode == 9 ? AssetEnum.HEAVY_MUSIC.getMusic() : AssetEnum.BATTLE_MUSIC.getMusic()
 		);
 	}
 	
 	private Texture getTexture(EnemyEnum type) {
-		return assetManager.get(type.getPath(), Texture.class);
+		return assetManager.get(type.getTexture());
 	}
 	
 	private ObjectMap<Stance, Texture> getTextures(EnemyEnum type) {
 		ObjectMap<Stance, Texture> textures = new ObjectMap<Stance, Texture>();
 		
 		if (type == EnemyEnum.SLIME) {
-			textures.put(Stance.DOGGY, assetManager.get(AssetEnum.SLIME_DOGGY.getPath(), Texture.class));
+			textures.put(Stance.DOGGY, assetManager.get(AssetEnum.SLIME_DOGGY.getTexture()));
 		}
 		else if(type == EnemyEnum.HARPY) {
-			textures.put(Stance.FELLATIO, assetManager.get(AssetEnum.HARPY_FELLATIO.getPath(), Texture.class));
+			textures.put(Stance.FELLATIO, assetManager.get(AssetEnum.HARPY_FELLATIO.getTexture()));
 		}
 		else if (type == EnemyEnum.GOBLIN) {
-			textures.put(Stance.FACE_SITTING, assetManager.get(AssetEnum.GOBLIN_FACE_SIT.getPath(), Texture.class));
-			textures.put(Stance.SIXTY_NINE, assetManager.get(AssetEnum.GOBLIN_FACE_SIT.getPath(), Texture.class));
+			textures.put(Stance.FACE_SITTING, assetManager.get(AssetEnum.GOBLIN_FACE_SIT.getTexture()));
+			textures.put(Stance.SIXTY_NINE, assetManager.get(AssetEnum.GOBLIN_FACE_SIT.getTexture()));
 		}
 		
 		return textures;
@@ -108,26 +109,26 @@ public class BattleFactory {
 	}
 
 	public enum EnemyEnum {
-		WERESLUT ("Wereslut", AssetEnum.WEREBITCH.getPath()),
+		WERESLUT ("Wereslut", AssetEnum.WEREBITCH.getTexture()),
 		HARPY ("Harpy", null, "animation/Harpy"),
-		SLIME ("Slime", AssetEnum.SLIME.getPath()),
-		BRIGAND ("Brigand", AssetEnum.BRIGAND.getPath(), "animation/skeleton"),
+		SLIME ("Slime", AssetEnum.SLIME.getTexture()),
+		BRIGAND ("Brigand", AssetEnum.BRIGAND.getTexture(), "animation/skeleton"),
 		CENTAUR ("Centaur", null, "animation/Centaur"),
 		UNICORN ("Unicorn", null, "animation/Centaur"),
-		GOBLIN ("Goblin", AssetEnum.GOBLIN.getPath()), 
-		ORC ("Orc", AssetEnum.ORC.getPath()), 
-		ADVENTURER ("Adventurer", AssetEnum.ADVENTURER.getPath()),
-		GOBLIN_MALE ("Goblin (Male)", AssetEnum.GOBLIN_MALE.getPath()),
-		OGRE ("Ogre", AssetEnum.OGRE.getPath())
+		GOBLIN ("Goblin", AssetEnum.GOBLIN.getTexture()), 
+		ORC ("Orc", AssetEnum.ORC.getTexture()), 
+		ADVENTURER ("Adventurer", AssetEnum.ADVENTURER.getTexture()),
+		GOBLIN_MALE ("Goblin (Male)", AssetEnum.GOBLIN_MALE.getTexture()),
+		OGRE ("Ogre", AssetEnum.OGRE.getTexture())
 		;
 		private final String text;
-		private final String path;
+		private final AssetDescriptor<Texture> path;
 		private final String animationPath;
-	    private EnemyEnum(final String text, final String path) { this(text, path, ""); }
-	    private EnemyEnum(final String text, final String path, final String animationPath) { this.text = text; this.path = path; this.animationPath = animationPath; }
+	    private EnemyEnum(final String text, final AssetDescriptor<Texture> path) { this(text, path, ""); }
+	    private EnemyEnum(final String text, final AssetDescriptor<Texture> path, final String animationPath) { this.text = text; this.path = path; this.animationPath = animationPath; }
 	    @Override
 	    public String toString() { return text; }	
-	    public String getPath() { return path; }
+	    public AssetDescriptor<Texture> getTexture() { return path; }
 	    public String getAnimationPath() { return animationPath; }
 	}
 }

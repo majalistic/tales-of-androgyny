@@ -34,8 +34,8 @@ public class CharacterCustomizationScene extends Scene {
 		this.saveService = saveService;
 		this.addActor(background);
 		this.character = character;
-		skin = assetManager.get(AssetEnum.UI_SKIN.getPath(), Skin.class);
-		buttonSound = assetManager.get(AssetEnum.BUTTON_SOUND.getPath(), Sound.class);
+		skin = assetManager.get(AssetEnum.UI_SKIN.getSkin());
+		buttonSound = assetManager.get(AssetEnum.BUTTON_SOUND.getSound());
 	}
 	
 	@Override

@@ -211,6 +211,7 @@ public class SaveManager implements SaveService, LoadService {
 		        }
 	        }
 	        catch(SerializationException ex) {
+	        	System.err.println(ex.getMessage());
 	        	save = getDefaultSave();
 	        }
         }

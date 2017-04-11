@@ -2,8 +2,10 @@ package com.majalis.scenes;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -23,10 +25,10 @@ public class TextScene extends AbstractTextScene  {
 	private final Background background;
 	private final AssetManager assetManager;
 	private final PlayerCharacter character;
-	private final String music;
-	private final String sound;
+	private final AssetDescriptor<Music> music;
+	private final AssetDescriptor<Sound> sound;
 	
-	public TextScene(OrderedMap<Integer, Scene> sceneBranches, int sceneCode, AssetManager assetManager, BitmapFont font, SaveService saveService, Background background, String toDisplay, Array<Mutation> mutations, PlayerCharacter character, String music, String sound) {
+	public TextScene(OrderedMap<Integer, Scene> sceneBranches, int sceneCode, AssetManager assetManager, BitmapFont font, SaveService saveService, Background background, String toDisplay, Array<Mutation> mutations, PlayerCharacter character, AssetDescriptor<Music> music, AssetDescriptor<Sound> sound) {
 		super(sceneBranches, sceneCode, assetManager, font, character, saveService, background);
 		this.assetManager = assetManager;
 		this.character = character;
@@ -50,7 +52,7 @@ public class TextScene extends AbstractTextScene  {
 		super.setActive();
 		if (music != null) {
 			EncounterScreen.setMusic(music);
-			saveService.saveDataValue(SaveEnum.MUSIC, music);
+			saveService.saveDataValue(SaveEnum.MUSIC, music.fileName);
 		};
 		if (sound != null) {
 			EncounterScreen.play(sound);
@@ -64,11 +66,11 @@ public class TextScene extends AbstractTextScene  {
 		statusResults.setText(mutationResults);
 		if (character.isLoaded()) {
 			characterPortrait.addAction(Actions.show());
-			characterPortrait.setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(character.getPortraitPath(), Texture.class))));
+			characterPortrait.setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(character.getPortraitPath()))));
 			masculinityIcon.addAction(Actions.show());
-			masculinityIcon.setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(character.getMasculinityPath(), Texture.class))));
+			masculinityIcon.setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(character.getMasculinityPath()))));
 			fullnessIcon.addAction(Actions.show());
-			fullnessIcon.setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(character.getCumInflationPath(), Texture.class))));
+			fullnessIcon.setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(character.getCumInflationPath()))));
 		}
 	}
 	// this type of TextScene will be one that always pipes from one scene to the next with no branch - there will be another TextScene that actually has branching logic

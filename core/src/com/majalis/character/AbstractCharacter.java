@@ -9,6 +9,8 @@ import com.majalis.character.PlayerCharacter.Bootyliciousness;
 import com.majalis.save.SaveManager.JobClass;
 import com.majalis.technique.ClimaxTechnique.ClimaxType;
 import com.majalis.technique.Bonus;
+import com.badlogic.gdx.assets.AssetDescriptor;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.IntArray;
@@ -151,40 +153,40 @@ public abstract class AbstractCharacter extends Actor {
 	
 	public float getManaPercent() { return currentMana / (getMaxMana() * 1.0f); }
 	
-	public String getHealthDisplay() { 
+	public AssetDescriptor<Texture> getHealthDisplay() { 
 		switch (getHealthDegradation()) {
-			case 0: return AssetEnum.HEALTH_ICON_0.getPath();
-			case 1: return AssetEnum.HEALTH_ICON_1.getPath();
-			case 2: return AssetEnum.HEALTH_ICON_2.getPath();
-			case 3: return AssetEnum.HEALTH_ICON_3.getPath();
-			case 4: return AssetEnum.HEALTH_ICON_3.getPath();
-			case 5: return AssetEnum.HEALTH_ICON_3.getPath();
+			case 0: return AssetEnum.HEALTH_ICON_0.getTexture();
+			case 1: return AssetEnum.HEALTH_ICON_1.getTexture();
+			case 2: return AssetEnum.HEALTH_ICON_2.getTexture();
+			case 3: return AssetEnum.HEALTH_ICON_3.getTexture();
+			case 4: return AssetEnum.HEALTH_ICON_3.getTexture();
+			case 5: return AssetEnum.HEALTH_ICON_3.getTexture();
 		}
 		return null;
 	}
 	
-	public String getStaminaDisplay() { 
+	public AssetDescriptor<Texture> getStaminaDisplay() { 
 		switch (getStaminaDegradation()) {
-			case 0: return AssetEnum.STAMINA_ICON_0.getPath();
-			case 1: return AssetEnum.STAMINA_ICON_1.getPath();
-			case 2: return AssetEnum.STAMINA_ICON_2.getPath();
-			case 3: return AssetEnum.STAMINA_ICON_3.getPath();
-			case 4: return AssetEnum.STAMINA_ICON_3.getPath();
+			case 0: return AssetEnum.STAMINA_ICON_0.getTexture();
+			case 1: return AssetEnum.STAMINA_ICON_1.getTexture();
+			case 2: return AssetEnum.STAMINA_ICON_2.getTexture();
+			case 3: return AssetEnum.STAMINA_ICON_3.getTexture();
+			case 4: return AssetEnum.STAMINA_ICON_3.getTexture();
 		}
 		return null;
 	}
 	
-	public String getBalanceDisplay() { 
-		return stability > 10 ?  AssetEnum.BALANCE_ICON_0.getPath() : stability > 5 ? AssetEnum.BALANCE_ICON_1.getPath() : AssetEnum.BALANCE_ICON_2.getPath();
+	public AssetDescriptor<Texture> getBalanceDisplay() { 
+		return stability > 10 ?  AssetEnum.BALANCE_ICON_0.getTexture() : stability > 5 ? AssetEnum.BALANCE_ICON_1.getTexture() : AssetEnum.BALANCE_ICON_2.getTexture();
 	}
 	
-	public String getManaDisplay() {  
+	public AssetDescriptor<Texture> getManaDisplay() {  
 		switch (4 - (int)(getManaPercent() * 100)/ 25) {
-			case 0: return AssetEnum.MANA_ICON_0.getPath();
-			case 1: return AssetEnum.MANA_ICON_1.getPath();
-			case 2: return AssetEnum.MANA_ICON_2.getPath();
-			case 3: return AssetEnum.MANA_ICON_3.getPath();
-			case 4: return AssetEnum.MANA_ICON_3.getPath();
+			case 0: return AssetEnum.MANA_ICON_0.getTexture();
+			case 1: return AssetEnum.MANA_ICON_1.getTexture();
+			case 2: return AssetEnum.MANA_ICON_2.getTexture();
+			case 3: return AssetEnum.MANA_ICON_3.getTexture();
+			case 4: return AssetEnum.MANA_ICON_3.getTexture();
 		}
 		return null;
 	}
@@ -690,18 +692,18 @@ public abstract class AbstractCharacter extends Actor {
 		buttful--;
 	}
 
-	public String getCumInflationPath() {
+	public AssetDescriptor<Texture> getCumInflationPath() {
 		if (buttful >= 20) {
-			return AssetEnum.STUFFED_BELLY.getPath();
+			return AssetEnum.STUFFED_BELLY.getTexture();
 		}
 		else if (buttful >= 10) {
-			return AssetEnum.FULL_BELLY.getPath();
+			return AssetEnum.FULL_BELLY.getTexture();
 		}
 		else if (buttful >= 5 || mouthful >= 10) {
-			return AssetEnum.BIG_BELLY.getPath();
+			return AssetEnum.BIG_BELLY.getTexture();
 		}
 		else {
-			return AssetEnum.FLAT_BELLY.getPath(); 
+			return AssetEnum.FLAT_BELLY.getTexture(); 
 		}
 	}
 	
@@ -794,7 +796,7 @@ public abstract class AbstractCharacter extends Actor {
 		return label + " adopt" + (secondPerson ? "" : "s") + " " + article + " " + stanceTransform + " stance! ";
  	}
 	
-	public String getLustImagePath() {
+	public AssetDescriptor<Texture> getLustImagePath() {
 		int lustLevel = lust > 7 ? 2 : lust > 3 ? 1 : 0;
 		return phallus.getPhallusState(lustLevel);
 	}
@@ -856,70 +858,70 @@ public abstract class AbstractCharacter extends Actor {
 	}
 	
 	public enum Stance {
-		BALANCED (AssetEnum.BALANCED.getPath()),
-		DEFENSIVE (AssetEnum.DEFENSIVE.getPath()),
-		OFFENSIVE (AssetEnum.OFFENSIVE.getPath()),
-		BLITZ (AssetEnum.BLITZ.getPath()),
-		COUNTER (AssetEnum.COUNTER.getPath()),
-		STONEWALL (AssetEnum.BALANCED.getPath()),
-		PRONE (StanceType.INCAPACITATED, AssetEnum.PRONE.getPath(), false, false, true),
-		SUPINE (StanceType.INCAPACITATED, AssetEnum.SUPINE.getPath(), false, false, true),
-		KNEELING (AssetEnum.KNEELING.getPath(), false, true, true),
-		AIRBORNE (AssetEnum.AIRBORNE.getPath(), true, false, false), 
-		CASTING (AssetEnum.CASTING.getPath()),
-		ITEM (AssetEnum.ITEM.getPath()), 
+		BALANCED (AssetEnum.BALANCED),
+		DEFENSIVE (AssetEnum.DEFENSIVE),
+		OFFENSIVE (AssetEnum.OFFENSIVE),
+		BLITZ (AssetEnum.BLITZ),
+		COUNTER (AssetEnum.COUNTER),
+		STONEWALL (AssetEnum.BALANCED),
+		PRONE (StanceType.INCAPACITATED, AssetEnum.PRONE, false, false, true),
+		SUPINE (StanceType.INCAPACITATED, AssetEnum.SUPINE, false, false, true),
+		KNEELING (AssetEnum.KNEELING, false, true, true),
+		AIRBORNE (AssetEnum.AIRBORNE, true, false, false), 
+		CASTING (AssetEnum.CASTING),
+		ITEM (AssetEnum.ITEM), 
 		
-		FULL_NELSON (AssetEnum.FULL_NELSON.getPath()), 
-		DOGGY (StanceType.ANAL, AssetEnum.DOGGY.getPath()), 
-		ANAL (StanceType.ANAL, AssetEnum.ANAL.getPath()), 
-		STANDING (StanceType.ANAL, AssetEnum.STANDING.getPath()),
-		HANDY (StanceType.HANDJOB, AssetEnum.HANDY.getPath()),
-		COWGIRL (StanceType.ANAL, AssetEnum.COWGIRL.getPath()),
-		KNOTTED (StanceType.ANAL, AssetEnum.KNOTTED.getPath()), 
-		FELLATIO (StanceType.ORAL, AssetEnum.FELLATIO.getPath()), 
-		FACE_SITTING(StanceType.FACESIT, AssetEnum.FACE_SITTING.getPath()),
-		SIXTY_NINE(StanceType.ORAL, AssetEnum.SIXTY_NINE.getPath()),
+		FULL_NELSON (AssetEnum.FULL_NELSON), 
+		DOGGY (StanceType.ANAL, AssetEnum.DOGGY), 
+		ANAL (StanceType.ANAL, AssetEnum.ANAL), 
+		STANDING (StanceType.ANAL, AssetEnum.STANDING),
+		HANDY (StanceType.HANDJOB, AssetEnum.HANDY),
+		COWGIRL (StanceType.ANAL, AssetEnum.COWGIRL),
+		KNOTTED (StanceType.ANAL, AssetEnum.KNOTTED), 
+		FELLATIO (StanceType.ORAL, AssetEnum.FELLATIO), 
+		FACE_SITTING(StanceType.FACESIT, AssetEnum.FACE_SITTING),
+		SIXTY_NINE(StanceType.ORAL, AssetEnum.SIXTY_NINE),
 		
-		FULL_NELSON_BOTTOM (AssetEnum.FULL_NELSON.getPath()), 
-		DOGGY_BOTTOM (StanceType.ANAL_BOTTOM, AssetEnum.DOGGY.getPath()), 
-		ANAL_BOTTOM (StanceType.ANAL_BOTTOM, AssetEnum.ANAL.getPath()), 
-		STANDING_BOTTOM (StanceType.ANAL_BOTTOM, AssetEnum.STANDING.getPath()),
-		HANDY_BOTTOM (StanceType.HANDJOB_BOTTOM, AssetEnum.HANDY.getPath()),
-		COWGIRL_BOTTOM (StanceType.ANAL_BOTTOM, AssetEnum.COWGIRL.getPath()),
-		KNOTTED_BOTTOM (StanceType.ANAL_BOTTOM, AssetEnum.KNOTTED.getPath()), 
-		FELLATIO_BOTTOM (StanceType.ORAL_BOTTOM, AssetEnum.FELLATIO.getPath()), 
-		FACE_SITTING_BOTTOM (StanceType.FACESIT_BOTTOM, AssetEnum.FACE_SITTING.getPath()),
-		SIXTY_NINE_BOTTOM (StanceType.ORAL_BOTTOM, AssetEnum.SIXTY_NINE.getPath()),
+		FULL_NELSON_BOTTOM (AssetEnum.FULL_NELSON), 
+		DOGGY_BOTTOM (StanceType.ANAL_BOTTOM, AssetEnum.DOGGY), 
+		ANAL_BOTTOM (StanceType.ANAL_BOTTOM, AssetEnum.ANAL), 
+		STANDING_BOTTOM (StanceType.ANAL_BOTTOM, AssetEnum.STANDING),
+		HANDY_BOTTOM (StanceType.HANDJOB_BOTTOM, AssetEnum.HANDY),
+		COWGIRL_BOTTOM (StanceType.ANAL_BOTTOM, AssetEnum.COWGIRL),
+		KNOTTED_BOTTOM (StanceType.ANAL_BOTTOM, AssetEnum.KNOTTED), 
+		FELLATIO_BOTTOM (StanceType.ORAL_BOTTOM, AssetEnum.FELLATIO), 
+		FACE_SITTING_BOTTOM (StanceType.FACESIT_BOTTOM, AssetEnum.FACE_SITTING),
+		SIXTY_NINE_BOTTOM (StanceType.ORAL_BOTTOM, AssetEnum.SIXTY_NINE),
 		
-		ERUPT (AssetEnum.ERUPT.getPath()), 
+		ERUPT (AssetEnum.ERUPT), 
 		;
 		// need to create: boolean anal, boolean oral, boolean method erotic, boolean incapacitated
-		private final String texturePath;
+		private final AssetEnum asset;
 		private final StanceType type;
 		public final boolean receivesHighAttacks;
 		public final boolean receivesMediumAttacks;
 		public final boolean receivesLowAttacks;
 		
-		private Stance(String texturePath) {
-			this(StanceType.NORMAL, texturePath, true, true, true);
+		private Stance(AssetEnum asset) {
+			this(StanceType.NORMAL, asset, true, true, true);
 		}
 		
-		private Stance(StanceType type, String texturePath) {
-			this(type, texturePath, true, true, true);
+		private Stance(StanceType type, AssetEnum asset) {
+			this(type, asset, true, true, true);
 		}
 		
-		private Stance(String texturePath, boolean receivesHigh, boolean receivesMedium, boolean receivesLow) {
-			this(StanceType.NORMAL, texturePath, receivesHigh, receivesMedium, receivesLow);
+		private Stance(AssetEnum asset, boolean receivesHigh, boolean receivesMedium, boolean receivesLow) {
+			this(StanceType.NORMAL, asset, receivesHigh, receivesMedium, receivesLow);
 		}
 		
-		private Stance(StanceType type, String texturePath, boolean receivesHigh, boolean receivesMedium, boolean receivesLow) {
+		private Stance(StanceType type, AssetEnum asset, boolean receivesHigh, boolean receivesMedium, boolean receivesLow) {
 			this.type = type;
-			this.texturePath = texturePath;
+			this.asset = asset;
 			receivesHighAttacks = receivesHigh;
 			receivesMediumAttacks = receivesMedium;
 			receivesLowAttacks = receivesLow;
 		}
-		public String getPath() { return texturePath; }
+		public AssetDescriptor<Texture> getTexture() { return asset.getTexture(); }
 		
 		public boolean isErotic() {
 			 return isEroticReceptive() || isEroticPenetration();
@@ -967,27 +969,27 @@ public abstract class AbstractCharacter extends Actor {
 		    this.phallusStates = new Array<AssetEnum>(phallusStates);
 		}
 		
-		private String getPhallusState(int stateIndex) {
-			return phallusStates.get(stateIndex).getPath();
+		private AssetDescriptor<Texture> getPhallusState(int stateIndex) {
+			return phallusStates.get(stateIndex).getTexture();
 		}
 	}
 	
 	public enum Stat {
-		STRENGTH(AssetEnum.STRENGTH.getPath(), "Strength determines raw attack power, which affects damage,\nhow much attacks unbalance an enemies, and contests\nof strength, such as wrestling, struggling,\nor weapon locks."),
-		ENDURANCE(AssetEnum.ENDURANCE.getPath(), "Endurance determines stamina and resilience, which affects\nyour ability to keep up an assault without getting tired,\nyour ability to shrug off low damage attacks,\nand wear heavier armor without becoming exhausted."),
-		AGILITY(AssetEnum.AGILITY.getPath(), "Agility determines balance and skill, affecting your ability\nto keep a sure footing even while doing acrobatic\nmaneuvers, getting unblockable attacks against\nenemies, and evading enemy attacks."),
-		PERCEPTION(AssetEnum.PERCEPTION.getPath(), "Perception determines your ability to see what attacks an\nenemy may use next and prepare accordingly, as well as\nyour base scouting ability, which determines what\ninformation you can see about upcoming areas."),
-		MAGIC(AssetEnum.MAGIC.getPath(), "Magic determines your magical capabilities, such as how\npowerful magic spells are, and how many of them\nyou can cast before becoming magically exhausted."),
-		CHARISMA(AssetEnum.CHARISMA.getPath(), "Charisma determines your ability to influence an enemy,\ngetting them to calm down and listen to reason,\nenraging them, or seducing them.");
+		STRENGTH(AssetEnum.STRENGTH, "Strength determines raw attack power, which affects damage,\nhow much attacks unbalance an enemies, and contests\nof strength, such as wrestling, struggling,\nor weapon locks."),
+		ENDURANCE(AssetEnum.ENDURANCE, "Endurance determines stamina and resilience, which affects\nyour ability to keep up an assault without getting tired,\nyour ability to shrug off low damage attacks,\nand wear heavier armor without becoming exhausted."),
+		AGILITY(AssetEnum.AGILITY, "Agility determines balance and skill, affecting your ability\nto keep a sure footing even while doing acrobatic\nmaneuvers, getting unblockable attacks against\nenemies, and evading enemy attacks."),
+		PERCEPTION(AssetEnum.PERCEPTION, "Perception determines your ability to see what attacks an\nenemy may use next and prepare accordingly, as well as\nyour base scouting ability, which determines what\ninformation you can see about upcoming areas."),
+		MAGIC(AssetEnum.MAGIC, "Magic determines your magical capabilities, such as how\npowerful magic spells are, and how many of them\nyou can cast before becoming magically exhausted."),
+		CHARISMA(AssetEnum.CHARISMA, "Charisma determines your ability to influence an enemy,\ngetting them to calm down and listen to reason,\nenraging them, or seducing them.");
 
-		private final String path;
+		private final AssetEnum asset;
 		private final String description;
-		private Stat(String path, String description) {
-			this.path = path;
+		private Stat(AssetEnum asset, String description) {
+			this.asset = asset;
 			this.description = description;
 		}
-		public String getPath() {
-			return path;
+		public AssetDescriptor<?> getAsset() {
+			return asset.getAsset();
 		}
 		public String getDescription() {
 			return description;

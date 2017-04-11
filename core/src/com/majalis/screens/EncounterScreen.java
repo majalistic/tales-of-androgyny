@@ -2,70 +2,70 @@ package com.majalis.screens;
 
 import static com.majalis.asset.AssetEnum.*;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.utils.ObjectMap;
+import com.badlogic.gdx.utils.Array;
 import com.majalis.asset.AssetEnum;
 import com.majalis.encounter.Encounter;
 import com.majalis.encounter.EncounterCode;
+
 /*
  *Screen for displaying Encounters.  UI that Handles player input while in an encounter.
  */
 public class EncounterScreen extends AbstractScreen {
-
-	private static final ObjectMap<String, Class<?>> resourceRequirements = new ObjectMap<String, Class<?>>();
-	public static ObjectMap<String, Class<?>> requirementsToDispose = new ObjectMap<String, Class<?>>();
+	private static final Array<AssetDescriptor<?>> resourceRequirements = new Array<AssetDescriptor<?>>();
+	public static Array<AssetDescriptor<?>> requirementsToDispose = new Array<AssetDescriptor<?>>();
 	static {
-		resourceRequirements.put(AssetEnum.UI_SKIN.getPath(), Skin.class);
-		resourceRequirements.put(AssetEnum.BUTTON_SOUND.getPath(), Sound.class);
-		AssetEnum[] assets = new AssetEnum[]{
-				DEFAULT_BACKGROUND, BATTLE_HOVER,
-				PORTRAIT_NEUTRAL, PORTRAIT_AHEGAO, PORTRAIT_FELLATIO, PORTRAIT_MOUTHBOMB, PORTRAIT_GRIN, PORTRAIT_HIT, PORTRAIT_LOVE, PORTRAIT_LUST, PORTRAIT_SMILE, PORTRAIT_SURPRISE, PORTRAIT_GRIMACE, PORTRAIT_POUT, PORTRAIT_HAPPY, 
-				MARS_ICON_0, MARS_ICON_1, MARS_ICON_2, MARS_ICON_3, MARS_ICON_4, STUFFED_BELLY, FULL_BELLY, BIG_BELLY, FLAT_BELLY
-			};
-		for (AssetEnum asset: assets){
-			resourceRequirements.put(asset.getPath(), Texture.class);
+		resourceRequirements.add(AssetEnum.UI_SKIN.getSkin());
+		resourceRequirements.add(AssetEnum.BUTTON_SOUND.getSound());
+		AssetEnum[] assets = new AssetEnum[] { DEFAULT_BACKGROUND, BATTLE_HOVER, PORTRAIT_NEUTRAL, PORTRAIT_AHEGAO,
+				PORTRAIT_FELLATIO, PORTRAIT_MOUTHBOMB, PORTRAIT_GRIN, PORTRAIT_HIT, PORTRAIT_LOVE, PORTRAIT_LUST,
+				PORTRAIT_SMILE, PORTRAIT_SURPRISE, PORTRAIT_GRIMACE, PORTRAIT_POUT, PORTRAIT_HAPPY, MARS_ICON_0,
+				MARS_ICON_1, MARS_ICON_2, MARS_ICON_3, MARS_ICON_4, STUFFED_BELLY, FULL_BELLY, BIG_BELLY, FLAT_BELLY };
+		for (AssetEnum asset : assets) {
+			resourceRequirements.add(asset.getTexture());
 		}
-		
-		resourceRequirements.put(AssetEnum.ENCOUNTER_MUSIC.getPath(), Music.class);
+
+		resourceRequirements.add(AssetEnum.ENCOUNTER_MUSIC.getMusic());
 	}
 	private static AssetManager assetManager;
 	private final Encounter encounter;
 	private static Music music;
-	
-	protected EncounterScreen(ScreenFactory screenFactory, ScreenElements elements, AssetManager assetManager, String musicPath, Encounter encounter) {
+
+	protected EncounterScreen(ScreenFactory screenFactory, ScreenElements elements, AssetManager assetManager,
+			AssetDescriptor<Music> musicPath, Encounter encounter) {
 		super(screenFactory, elements);
 		EncounterScreen.assetManager = assetManager;
 		this.encounter = encounter;
 		setMusic(musicPath);
 	}
 
-	public static void play(String soundPath) {
-		assetManager.get(soundPath, Sound.class).play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume", 1) * .6f);
+	public static void play(AssetDescriptor<Sound> sound) {
+		assetManager.get(sound)
+				.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume", 1) * .6f);
 	}
-	
-	public static void setMusic(String musicPath) {
+
+	public static void setMusic(AssetDescriptor<Music> musicPath) {
 		if (EncounterScreen.music != null) {
 			EncounterScreen.music.stop();
 		}
-		EncounterScreen.music = assetManager.get(musicPath, Music.class);
+		EncounterScreen.music = assetManager.get(musicPath);
 		music.setVolume(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("musicVolume", 1) * .6f);
 		music.setLooping(true);
 		music.play();
 	}
-	
+
 	@Override
 	public void buildStage() {
-		for (Actor actor: encounter.getActors()) {
+		for (Actor actor : encounter.getActors()) {
 			this.addActor(actor);
-		}        	
+		}
 	}
-	
+
 	@Override
 	public void render(float delta) {
 		super.render(delta);
@@ -73,20 +73,18 @@ public class EncounterScreen extends AbstractScreen {
 		if (encounter.isSwitching()) {
 			music.stop();
 			showScreen(ScreenEnum.CONTINUE);
-		}
-		else if (encounter.gameExit) {
+		} else if (encounter.gameExit) {
 			music.stop();
 			showScreen(ScreenEnum.MAIN_MENU);
-		}
-		else {
+		} else {
 			draw();
 		}
 	}
-	
+
 	public void draw() {
 		batch.begin();
 		OrthographicCamera camera = (OrthographicCamera) getCamera();
-        batch.setTransformMatrix(camera.view);
+		batch.setTransformMatrix(camera.view);
 		batch.setProjectionMatrix(camera.combined);
 		camera.update();
 		batch.end();
@@ -94,156 +92,158 @@ public class EncounterScreen extends AbstractScreen {
 
 	@Override
 	public void dispose() {
-		for(String path: requirementsToDispose.keys()) {
-			if (path.equals(AssetEnum.BUTTON_SOUND.getPath())) continue;
-			assetManager.unload(path);
+		for (AssetDescriptor<?> path : requirementsToDispose) {
+			if (path.fileName.equals(AssetEnum.BUTTON_SOUND.getSound().fileName))
+				continue;
+			assetManager.unload(path.fileName);
 		}
-		requirementsToDispose = new ObjectMap<String, Class<?>>();
+		requirementsToDispose = new Array<AssetDescriptor<?>>();
 	}
 
-	public static ObjectMap<String, Class<?>> getRequirements(EncounterCode encounterCode) {
-		ObjectMap<String, Class<?>> requirements = new ObjectMap<String, Class<?>>(EncounterScreen.resourceRequirements);
+	public static Array<AssetDescriptor<?>> getRequirements(EncounterCode encounterCode) {
+		Array<AssetDescriptor<?>> requirements = new Array<AssetDescriptor<?>>(EncounterScreen.resourceRequirements);
 
-		// remove this switch, place these asset requirements in the encounter code itself
+		// remove this switch, place these asset requirements in the encounter
+		// code itself
 		switch (encounterCode) {
-			case LEVEL_UP: 
-				requirements.put(AssetEnum.CLASS_SELECT_BACKGROUND.getPath(), Texture.class);
-				requirements.put(AssetEnum.STRENGTH.getPath(), Texture.class);
-				requirements.put(AssetEnum.ENDURANCE.getPath(), Texture.class);
-				requirements.put(AssetEnum.AGILITY.getPath(), Texture.class);
-				requirements.put(AssetEnum.PERCEPTION.getPath(), Texture.class);
-				requirements.put(AssetEnum.MAGIC.getPath(), Texture.class);
-				requirements.put(AssetEnum.CHARISMA.getPath(), Texture.class);
-				break;
-			case INITIAL: 
-				requirements.put(AssetEnum.GAME_TYPE_BACKGROUND.getPath(), Texture.class);
-				requirements.put(AssetEnum.CLASS_SELECT_BACKGROUND.getPath(), Texture.class);
-				requirements.put(AssetEnum.STRENGTH.getPath(), Texture.class);
-				requirements.put(AssetEnum.ENDURANCE.getPath(), Texture.class);
-				requirements.put(AssetEnum.AGILITY.getPath(), Texture.class);
-				requirements.put(AssetEnum.PERCEPTION.getPath(), Texture.class);
-				requirements.put(AssetEnum.MAGIC.getPath(), Texture.class);
-				requirements.put(AssetEnum.CHARISMA.getPath(), Texture.class);
-				requirements.put(AssetEnum.SILHOUETTE.getPath(), Texture.class);
-				requirements.put(AssetEnum.BURNING_FORT_BG.getPath(), Texture.class);
-				requirements.put(AssetEnum.NORMAL_BOX.getPath(), Texture.class);
-				requirements.put(AssetEnum.SKILL_SELECTION_BACKGROUND.getPath(), Texture.class);
-				requirements.put(AssetEnum.CHARACTER_CUSTOM_BACKGROUND.getPath(), Texture.class);
-				requirements.put(AssetEnum.SMUG_LAUGH.getPath(), Sound.class);
-				requirements.put(AssetEnum.WAVES.getPath(), Music.class);
-				requirements.put(AssetEnum.HOVEL_MUSIC.getPath(), Music.class);	
-				requirements.put(AssetEnum.INITIAL_MUSIC.getPath(), Music.class);
-				break;
-			case DEFAULT: 
-				requirements.put(AssetEnum.STICK_BACKGROUND.getPath(), Texture.class);
-				break;
-			case WERESLUT:
-				requirements.put(AssetEnum.WEREWOLF_MUSIC.getPath(), Music.class);
-				requirements.put(AssetEnum.WEREBITCH.getPath(), Texture.class);
-				break;
-			case HARPY:
-				requirements.put(AssetEnum.HARPY_FELLATIO.getPath(), Texture.class);
-				break;
-			case SLIME:
-				requirements.put(AssetEnum.SLIME.getPath(), Texture.class);
-				requirements.put(AssetEnum.SLIME_DOGGY.getPath(), Texture.class);
-				break;
-			case BRIGAND:
-				requirements.put(AssetEnum.BRIGAND_ORAL.getPath(), Texture.class);
-				break;
-			case DRYAD:
-				requirements.put(AssetEnum.SHOP_MUSIC.getPath(), Music.class);
-				requirements.put(AssetEnum.DRYAD_BACKGROUND.getPath(), Texture.class);
-				break;
-			case CENTAUR:
-				requirements.put(AssetEnum.SHOP_MUSIC.getPath(), Music.class);
-				break;
-			case GADGETEER:
-				requirements.put(AssetEnum.GADGETEER.getPath(), Texture.class);
-				requirements.put(AssetEnum.BATTLE_TEXTBOX.getPath(), Texture.class);
-				requirements.put(AssetEnum.TEXT_BOX.getPath(), Texture.class);
-				requirements.put(AssetEnum.EQUIP.getPath(), Sound.class);				
-				requirements.put(AssetEnum.GADGETEER_MUSIC.getPath(), Music.class);
-				break;
-			case ORC:
-				requirements.put(AssetEnum.ORC.getPath(), Texture.class);
-				requirements.put(AssetEnum.GAPE.getPath(), Texture.class);
-				requirements.put(AssetEnum.WEREWOLF_MUSIC.getPath(), Music.class);
-				break;
-			case ADVENTURER:
-			case STORY_FEM:
-				requirements.put(AssetEnum.ADVENTURER.getPath(), Texture.class);
-				requirements.put(AssetEnum.GADGETEER_MUSIC.getPath(), Music.class);
-				break;
-			case OGRE:	
-				requirements.put(AssetEnum.OGRE.getPath(), Texture.class);
-				requirements.put(AssetEnum.OGRE_BANGED.getPath(), Texture.class);
-				requirements.put(AssetEnum.WEREWOLF_MUSIC.getPath(), Music.class);
-				break;
-			case INN:
-				requirements.put(AssetEnum.INNKEEPER.getPath(), Texture.class);
-				requirements.put(AssetEnum.KEYHOLE.getPath(), Texture.class);
-				requirements.put(AssetEnum.GAME_OVER_KEYHOLE.getPath(), Texture.class);
-				break;
-			case FIRST_BATTLE_STORY:
-				requirements.put(AssetEnum.FOREST_BG.getPath(), Texture.class);
-			case GOBLIN:
-				requirements.put(AssetEnum.GOBLIN.getPath(), Texture.class);
-				requirements.put(AssetEnum.GOBLIN_MALE.getPath(), Texture.class);
-				requirements.put(AssetEnum.GAME_OVER_TUCKERED.getPath(), Texture.class);
-				requirements.put(AssetEnum.LOUD_LAUGH.getPath(), Sound.class);
-				requirements.put(AssetEnum.WEREWOLF_MUSIC.getPath(), Music.class);
-				break;
-			case COTTAGE_TRAINER:
-				requirements.put(AssetEnum.CLASS_SELECT_BACKGROUND.getPath(), Texture.class);
-				requirements.put(AssetEnum.STRENGTH.getPath(), Texture.class);
-				requirements.put(AssetEnum.ENDURANCE.getPath(), Texture.class);
-				requirements.put(AssetEnum.AGILITY.getPath(), Texture.class);
-				requirements.put(AssetEnum.PERCEPTION.getPath(), Texture.class);
-				requirements.put(AssetEnum.MAGIC.getPath(), Texture.class);
-				requirements.put(AssetEnum.CHARISMA.getPath(), Texture.class);
-				requirements.put(AssetEnum.NORMAL_BOX.getPath(), Texture.class);
-			case COTTAGE_TRAINER_VISIT:
-				requirements.put(AssetEnum.CABIN_BACKGROUND.getPath(), Texture.class);
-				requirements.put(AssetEnum.TRAINER.getPath(), Texture.class);
-				requirements.put(AssetEnum.TRAINER_MUSIC.getPath(), Music.class);		
-				break;
-			case TOWN_STORY: 
-				requirements.put(AssetEnum.TOWN_BG.getPath(), Texture.class);
-				requirements.put(AssetEnum.SMUG_LAUGH.getPath(), Sound.class);
-				requirements.put(AssetEnum.SHOP_MUSIC.getPath(), Music.class);
-			case SHOP:
-			case WEAPON_SHOP:
-				requirements.putAll(TownScreen.resourceRequirements);
-				break;	
-			case OGRE_WARNING_STORY:
-				requirements.put(AssetEnum.TRAINER_MUSIC.getPath(), Music.class);
-				break;
-			case OGRE_STORY:
-				requirements.put(AssetEnum.GAME_OGRE.getPath(), Texture.class);
-				requirements.put(AssetEnum.OGRE_GROWL.getPath(), Sound.class);
-				requirements.put(AssetEnum.WEREWOLF_MUSIC.getPath(), Music.class);
-				requirements.put(AssetEnum.HEAVY_MUSIC.getPath(), Music.class);
-				break;
-			case MERI_COTTAGE:
-				requirements.put(AssetEnum.MERI_SILHOUETTE.getPath(), Texture.class);
-				requirements.put(AssetEnum.CABIN_BACKGROUND.getPath(), Texture.class);
-				requirements.put(AssetEnum.TRAINER_MUSIC.getPath(), Music.class);
-				requirements.put(AssetEnum.WEREWOLF_MUSIC.getPath(), Music.class);	
-				break;
-			case MERI_COTTAGE_VISIT:
-				requirements.put(AssetEnum.CABIN_BACKGROUND.getPath(), Texture.class);
-				requirements.put(AssetEnum.TRAINER_MUSIC.getPath(), Music.class);
-				break;
-			case CAMP_AND_EAT:
-				requirements.put(AssetEnum.SHOP_MUSIC.getPath(), Music.class);
-				break;
-			case STARVATION:
-				requirements.put(AssetEnum.GAME_OVER_TUCKERED.getPath(), Texture.class);
-				requirements.put(AssetEnum.WEREWOLF_MUSIC.getPath(), Music.class);
-			default:
-				requirements.put(AssetEnum.TRAP_BONUS.getPath(), Texture.class);	
-				break;
+		case LEVEL_UP:
+			requirements.add(AssetEnum.CLASS_SELECT_BACKGROUND.getTexture());
+			requirements.add(AssetEnum.STRENGTH.getTexture());
+			requirements.add(AssetEnum.ENDURANCE.getTexture());
+			requirements.add(AssetEnum.AGILITY.getTexture());
+			requirements.add(AssetEnum.PERCEPTION.getTexture());
+			requirements.add(AssetEnum.MAGIC.getTexture());
+			requirements.add(AssetEnum.CHARISMA.getTexture());
+			break;
+		case INITIAL:
+			requirements.add(AssetEnum.GAME_TYPE_BACKGROUND.getTexture());
+			requirements.add(AssetEnum.CLASS_SELECT_BACKGROUND.getTexture());
+			requirements.add(AssetEnum.STRENGTH.getTexture());
+			requirements.add(AssetEnum.ENDURANCE.getTexture());
+			requirements.add(AssetEnum.AGILITY.getTexture());
+			requirements.add(AssetEnum.PERCEPTION.getTexture());
+			requirements.add(AssetEnum.MAGIC.getTexture());
+			requirements.add(AssetEnum.CHARISMA.getTexture());
+			requirements.add(AssetEnum.SILHOUETTE.getTexture());
+			requirements.add(AssetEnum.BURNING_FORT_BG.getTexture());
+			requirements.add(AssetEnum.NORMAL_BOX.getTexture());
+			requirements.add(AssetEnum.SKILL_SELECTION_BACKGROUND.getTexture());
+			requirements.add(AssetEnum.CHARACTER_CUSTOM_BACKGROUND.getTexture());
+			requirements.add(AssetEnum.SMUG_LAUGH.getSound());
+			requirements.add(AssetEnum.WAVES.getMusic());
+			requirements.add(AssetEnum.HOVEL_MUSIC.getMusic());
+			requirements.add(AssetEnum.INITIAL_MUSIC.getMusic());
+			break;
+		case DEFAULT:
+			requirements.add(AssetEnum.STICK_BACKGROUND.getTexture());
+			break;
+		case WERESLUT:
+			requirements.add(AssetEnum.WEREWOLF_MUSIC.getMusic());
+			requirements.add(AssetEnum.WEREBITCH.getTexture());
+			break;
+		case HARPY:
+			requirements.add(AssetEnum.HARPY_FELLATIO.getTexture());
+			break;
+		case SLIME:
+			requirements.add(AssetEnum.SLIME.getTexture());
+			requirements.add(AssetEnum.SLIME_DOGGY.getTexture());
+			break;
+		case BRIGAND:
+			requirements.add(AssetEnum.BRIGAND_ORAL.getTexture());
+			break;
+		case DRYAD:
+			requirements.add(AssetEnum.SHOP_MUSIC.getMusic());
+			requirements.add(AssetEnum.DRYAD_BACKGROUND.getTexture());
+			break;
+		case CENTAUR:
+			requirements.add(AssetEnum.SHOP_MUSIC.getMusic());
+			break;
+		case GADGETEER:
+			requirements.add(AssetEnum.GADGETEER.getTexture());
+			requirements.add(AssetEnum.BATTLE_TEXTBOX.getTexture());
+			requirements.add(AssetEnum.TEXT_BOX.getTexture());
+			requirements.add(AssetEnum.EQUIP.getSound());
+			requirements.add(AssetEnum.GADGETEER_MUSIC.getMusic());
+			break;
+		case ORC:
+			requirements.add(AssetEnum.ORC.getTexture());
+			requirements.add(AssetEnum.GAPE.getTexture());
+			requirements.add(AssetEnum.WEREWOLF_MUSIC.getMusic());
+			break;
+		case ADVENTURER:
+		case STORY_FEM:
+			requirements.add(AssetEnum.ADVENTURER.getTexture());
+			requirements.add(AssetEnum.GADGETEER_MUSIC.getMusic());
+			break;
+		case OGRE:
+			requirements.add(AssetEnum.OGRE.getTexture());
+			requirements.add(AssetEnum.OGRE_BANGED.getTexture());
+			requirements.add(AssetEnum.WEREWOLF_MUSIC.getMusic());
+			break;
+		case INN:
+			requirements.add(AssetEnum.INNKEEPER.getTexture());
+			requirements.add(AssetEnum.KEYHOLE.getTexture());
+			requirements.add(AssetEnum.GAME_OVER_KEYHOLE.getTexture());
+			break;
+		case FIRST_BATTLE_STORY:
+			requirements.add(AssetEnum.FOREST_BG.getTexture());
+		case GOBLIN:
+			requirements.add(AssetEnum.GOBLIN.getTexture());
+			requirements.add(AssetEnum.GOBLIN_MALE.getTexture());
+			requirements.add(AssetEnum.GAME_OVER_TUCKERED.getTexture());
+			requirements.add(AssetEnum.LOUD_LAUGH.getSound());
+			requirements.add(AssetEnum.WEREWOLF_MUSIC.getMusic());
+			break;
+		case COTTAGE_TRAINER:
+			requirements.add(AssetEnum.CLASS_SELECT_BACKGROUND.getTexture());
+			requirements.add(AssetEnum.STRENGTH.getTexture());
+			requirements.add(AssetEnum.ENDURANCE.getTexture());
+			requirements.add(AssetEnum.AGILITY.getTexture());
+			requirements.add(AssetEnum.PERCEPTION.getTexture());
+			requirements.add(AssetEnum.MAGIC.getTexture());
+			requirements.add(AssetEnum.CHARISMA.getTexture());
+			requirements.add(AssetEnum.NORMAL_BOX.getTexture());
+		case COTTAGE_TRAINER_VISIT:
+			requirements.add(AssetEnum.CABIN_BACKGROUND.getTexture());
+			requirements.add(AssetEnum.TRAINER.getTexture());
+			requirements.add(AssetEnum.TRAINER_MUSIC.getMusic());
+			break;
+		case TOWN_STORY:
+			requirements.add(AssetEnum.TOWN_BG.getTexture());
+			requirements.add(AssetEnum.SMUG_LAUGH.getSound());
+			requirements.add(AssetEnum.SHOP_MUSIC.getMusic());
+		case SHOP:
+		case WEAPON_SHOP:
+			requirements.addAll(TownScreen.resourceRequirements);
+			break;
+		case OGRE_WARNING_STORY:
+			requirements.add(AssetEnum.TRAINER_MUSIC.getMusic());
+			break;
+		case OGRE_STORY:
+			requirements.add(AssetEnum.GAME_OGRE.getTexture());
+			requirements.add(AssetEnum.OGRE_GROWL.getSound());
+			requirements.add(AssetEnum.WEREWOLF_MUSIC.getMusic());
+			requirements.add(AssetEnum.HEAVY_MUSIC.getMusic());
+			break;
+		case MERI_COTTAGE:
+			requirements.add(AssetEnum.MERI_SILHOUETTE.getTexture());
+			requirements.add(AssetEnum.CABIN_BACKGROUND.getTexture());
+			requirements.add(AssetEnum.TRAINER_MUSIC.getMusic());
+			requirements.add(AssetEnum.WEREWOLF_MUSIC.getMusic());
+			break;
+		case MERI_COTTAGE_VISIT:
+			requirements.add(AssetEnum.CABIN_BACKGROUND.getTexture());
+			requirements.add(AssetEnum.TRAINER_MUSIC.getMusic());
+			break;
+		case CAMP_AND_EAT:
+			requirements.add(AssetEnum.SHOP_MUSIC.getMusic());
+			break;
+		case STARVATION:
+			requirements.add(AssetEnum.GAME_OVER_TUCKERED.getTexture());
+			requirements.add(AssetEnum.WEREWOLF_MUSIC.getMusic());
+		default:
+			requirements.add(AssetEnum.TRAP_BONUS.getTexture());
+			break;
 		}
 		requirementsToDispose = requirements;
 		return requirements;

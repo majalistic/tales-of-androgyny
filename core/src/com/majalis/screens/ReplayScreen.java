@@ -2,8 +2,8 @@ package com.majalis.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -14,6 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.majalis.asset.AssetEnum;
 import com.majalis.battle.BattleFactory.EnemyEnum;
@@ -25,20 +26,19 @@ import com.majalis.encounter.Background.BackgroundBuilder;
  */
 public class ReplayScreen extends AbstractScreen {
 	
-	public static final ObjectMap<String, Class<?>> resourceRequirements = new ObjectMap<String, Class<?>>();
+	public static final Array<AssetDescriptor<?>> resourceRequirements = new Array<AssetDescriptor<?>>();
 	// this should load the requisite enemy textures/animations depending on knowledge
 	static {
-		resourceRequirements.put(AssetEnum.UI_SKIN.getPath(), Skin.class);
-		resourceRequirements.put(AssetEnum.BUTTON_SOUND.getPath(), Sound.class);
-		resourceRequirements.put(AssetEnum.BUTTON_SOUND.getPath(), Sound.class);
+		resourceRequirements.add(AssetEnum.UI_SKIN.getSkin());
+		resourceRequirements.add(AssetEnum.BUTTON_SOUND.getSound());
 
 		for (final EnemyEnum type : EnemyEnum.values()) {
-			if (type.getPath() == null) continue;
-			resourceRequirements.put(type.getPath(), Texture.class);
+			if (type.getTexture() == null) continue;
+			resourceRequirements.add(type.getTexture());
 		}
 		
-		resourceRequirements.put(AssetEnum.MAIN_MENU_MUSIC.getPath(), Music.class);
-		resourceRequirements.put(AssetEnum.DEFAULT_BACKGROUND.getPath(), Texture.class);
+		resourceRequirements.add(AssetEnum.MAIN_MENU_MUSIC.getMusic());
+		resourceRequirements.add(AssetEnum.DEFAULT_BACKGROUND.getTexture());
 	}
 	private final AssetManager assetManager;
 	private final ObjectMap<String, Integer> enemyKnowledge;
@@ -49,11 +49,11 @@ public class ReplayScreen extends AbstractScreen {
 	
 	public ReplayScreen(ScreenFactory factory, ScreenElements elements, AssetManager assetManager, ObjectMap<String, Integer> enemyKnowledge) {
 		super(factory, elements);
-		this.addActor(new BackgroundBuilder(assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getPath(), Texture.class)).build());
+		this.addActor(new BackgroundBuilder(assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getTexture())).build());
 		this.assetManager = assetManager;
 		this.enemyKnowledge = enemyKnowledge;
-		this.skin = assetManager.get(AssetEnum.UI_SKIN.getPath(), Skin.class);
-		this.sound = assetManager.get(AssetEnum.BUTTON_SOUND.getPath(), Sound.class);
+		this.skin = assetManager.get(AssetEnum.UI_SKIN.getSkin());
+		this.sound = assetManager.get(AssetEnum.BUTTON_SOUND.getSound());
 		nothingToDisplay = "No knowledge to display yet.";
 	}
 
@@ -85,8 +85,8 @@ public class ReplayScreen extends AbstractScreen {
 			TextButton button = new TextButton(type.toString(), skin);
 			ObjectMap<Stance, Texture> textures = new ObjectMap<Stance, Texture>();			
 			Texture enemyTexture = null;
-			if (type.getPath() != null) {
-				enemyTexture = assetManager.get(type.getPath(), Texture.class);
+			if (type.getTexture() != null) {
+				enemyTexture = assetManager.get(type.getTexture());
 			}
 			textures.put(Stance.BALANCED, enemyTexture);
 			final EnemyCharacter enemy = new EnemyCharacter(enemyTexture, textures, type);

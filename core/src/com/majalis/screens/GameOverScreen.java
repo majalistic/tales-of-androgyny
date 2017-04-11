@@ -2,13 +2,14 @@ package com.majalis.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.utils.ObjectMap;
+import com.badlogic.gdx.utils.Array;
 import com.majalis.asset.AnimatedActor;
 import com.majalis.asset.AssetEnum;
 /*
@@ -16,9 +17,9 @@ import com.majalis.asset.AssetEnum;
  */
 public class GameOverScreen extends AbstractScreen {
 
-	public static final ObjectMap<String, Class<?>> resourceRequirements = new ObjectMap<String, Class<?>>();
+	public static final Array<AssetDescriptor<?>> resourceRequirements = new Array<AssetDescriptor<?>>();
 	static {
-		resourceRequirements.put(AssetEnum.UI_SKIN.getPath(), Skin.class);
+		resourceRequirements.add(AssetEnum.UI_SKIN.getSkin());
 	}
 	private final AssetManager assetManager;
 	
@@ -41,7 +42,7 @@ public class GameOverScreen extends AbstractScreen {
 		});
 		this.addActor(background);
 		
-		Skin skin = assetManager.get(AssetEnum.UI_SKIN.getPath(), Skin.class);
+		Skin skin = assetManager.get(AssetEnum.UI_SKIN.getSkin());
 		Label gameOver = new Label("GAME OVER - Press Enter", skin);
 		gameOver.setColor(Color.BLACK);
 		gameOver.setPosition(100, 50);
@@ -63,8 +64,8 @@ public class GameOverScreen extends AbstractScreen {
 	
 	@Override
 	public void dispose() {
-		for(String path: resourceRequirements.keys()) {
-			assetManager.unload(path);
+		for(AssetDescriptor<?> path: resourceRequirements) {
+			assetManager.unload(path.fileName);
 		}
 	}
 }

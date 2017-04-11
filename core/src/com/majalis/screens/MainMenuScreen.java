@@ -2,6 +2,7 @@ package com.majalis.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
@@ -15,7 +16,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.ObjectMap;
 import com.majalis.asset.AssetEnum;
 import com.majalis.encounter.Background.BackgroundBuilder;
 import com.majalis.save.LoadService;
@@ -26,13 +26,13 @@ import com.majalis.traprpg.TalesOfAndrogyny;
  */
 public class MainMenuScreen extends AbstractScreen {
 
-	public static final ObjectMap<String, Class<?>> resourceRequirements = new ObjectMap<String, Class<?>>();
+	public static final Array<AssetDescriptor<?>> resourceRequirements = new Array<AssetDescriptor<?>>();
 	static {
-		resourceRequirements.put(AssetEnum.UI_SKIN.getPath(), Skin.class);
-		resourceRequirements.put(AssetEnum.MAIN_MENU_SCREEN.getPath(), Texture.class);
-		resourceRequirements.put(AssetEnum.STANCE_ARROW.getPath(), Texture.class);
-		resourceRequirements.put(AssetEnum.MAIN_MENU_MUSIC.getPath(), Music.class);
-		resourceRequirements.put(AssetEnum.BUTTON_SOUND.getPath(), Sound.class);
+		resourceRequirements.add(AssetEnum.UI_SKIN.getSkin());
+		resourceRequirements.add(AssetEnum.BUTTON_SOUND.getSound());
+		resourceRequirements.add(AssetEnum.MAIN_MENU_MUSIC.getMusic());
+		resourceRequirements.add(AssetEnum.STANCE_ARROW.getTexture());
+		resourceRequirements.add(AssetEnum.MAIN_MENU_SCREEN.getTexture());
 	}
 	private final AssetManager assetManager;
 	private final SaveService saveService;
@@ -48,11 +48,11 @@ public class MainMenuScreen extends AbstractScreen {
 		super(factory, elements);
 		this.assetManager = assetManager;
 		this.saveService = saveService;
-		this.skin = assetManager.get(AssetEnum.UI_SKIN.getPath(), Skin.class);
-		this.backgroundImage = assetManager.get(AssetEnum.MAIN_MENU_SCREEN.getPath(), Texture.class);
-		this.arrowImage = assetManager.get(AssetEnum.STANCE_ARROW.getPath(), Texture.class);
-		this.music = assetManager.get(AssetEnum.MAIN_MENU_MUSIC.getPath(), Music.class);
-		this.buttonSound = assetManager.get(AssetEnum.BUTTON_SOUND.getPath(), Sound.class);
+		this.skin = assetManager.get(AssetEnum.UI_SKIN.getSkin());
+		this.backgroundImage = assetManager.get(AssetEnum.MAIN_MENU_SCREEN.getTexture());
+		this.arrowImage = assetManager.get(AssetEnum.STANCE_ARROW.getTexture());
+		this.music = assetManager.get(AssetEnum.MAIN_MENU_MUSIC.getMusic());
+		this.buttonSound = assetManager.get(AssetEnum.BUTTON_SOUND.getSound());
 		buttons = new Array<TextButton>();
 		selection = 0;
 	}
@@ -117,8 +117,8 @@ public class MainMenuScreen extends AbstractScreen {
 
 	@Override
 	public void dispose() {
-		for(String path: resourceRequirements.keys()) {
-			assetManager.unload(path);
+		for(AssetDescriptor<?> path: resourceRequirements) {
+			assetManager.unload(path.fileName);
 		}
 	}
 	

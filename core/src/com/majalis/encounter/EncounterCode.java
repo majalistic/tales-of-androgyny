@@ -51,7 +51,7 @@ public enum EncounterCode {
 	WEST_PASS (MOUNTAIN_ACTIVE), 
 	;
 	
-	private final String texturePath;	
+	private final AssetEnum texture;	
 	private final int battleCode;	
 	private EncounterCode() {
 		this(FOREST_ACTIVE);
@@ -66,11 +66,11 @@ public enum EncounterCode {
 	}
 	
 	private EncounterCode(AssetEnum texture, int battleCode) {
-		this.texturePath = texture.getPath();
+		this.texture = texture;
 		this.battleCode = battleCode;
 	}
 	
-	public String getTexturePath() {	return texturePath; }
+	public AssetEnum getTexture() { return texture; }
 	public int getBattleCode() { return battleCode; }
 	
 	// for random gen

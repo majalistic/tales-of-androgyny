@@ -52,7 +52,7 @@ public class GameWorldFactory {
 		nodes = new Array<GameWorldNode>();
 		// specifying the start and end points to a getZone method which will perform the below functions, creating an array of nodes.  Can make it a class so that it can be chained?  Piping in the end points as start points
 
-		sound = assetManager.get(AssetEnum.CLICK_SOUND.getPath(), Sound.class);
+		sound = assetManager.get(AssetEnum.CLICK_SOUND.getSound());
 		character = loadService.loadDataValue(SaveEnum.PLAYER, PlayerCharacter.class);
 		
 		if (gameMode == GameMode.SKIRMISH){

@@ -3,11 +3,11 @@ package com.majalis.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Preferences;
+import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -21,7 +21,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.ObjectMap;
 import com.majalis.asset.AssetEnum;
 import com.majalis.encounter.Background.BackgroundBuilder;
 /*
@@ -29,12 +28,12 @@ import com.majalis.encounter.Background.BackgroundBuilder;
  */
 public class OptionScreen extends AbstractScreen {
 	
-	public static final ObjectMap<String, Class<?>> resourceRequirements = new ObjectMap<String, Class<?>>();
+	public static final Array<AssetDescriptor<?>> resourceRequirements = new Array<AssetDescriptor<?>>();
 	static {
-		resourceRequirements.put(AssetEnum.UI_SKIN.getPath(), Skin.class);
-		resourceRequirements.put(AssetEnum.BUTTON_SOUND.getPath(), Sound.class);
-		resourceRequirements.put(AssetEnum.MAIN_MENU_MUSIC.getPath(), Music.class);
-		resourceRequirements.put(AssetEnum.DEFAULT_BACKGROUND.getPath(), Texture.class);
+		resourceRequirements.add(AssetEnum.UI_SKIN.getSkin());
+		resourceRequirements.add(AssetEnum.BUTTON_SOUND.getSound());
+		resourceRequirements.add(AssetEnum.MAIN_MENU_MUSIC.getMusic());
+		resourceRequirements.add(AssetEnum.DEFAULT_BACKGROUND.getTexture());
 	}
 	
 	private final Preferences preferences;
@@ -43,10 +42,10 @@ public class OptionScreen extends AbstractScreen {
 	
 	public OptionScreen(ScreenFactory factory, ScreenElements elements, AssetManager assetManager) {
 		super(factory, elements);
-		this.addActor(new BackgroundBuilder(assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getPath(), Texture.class)).build());
-		skin = assetManager.get(AssetEnum.UI_SKIN.getPath(), Skin.class);
-		this.music = assetManager.get(AssetEnum.MAIN_MENU_MUSIC.getPath(), Music.class);
-		final Sound sound = assetManager.get(AssetEnum.BUTTON_SOUND.getPath(), Sound.class);
+		this.addActor(new BackgroundBuilder(assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getTexture())).build());
+		skin = assetManager.get(AssetEnum.UI_SKIN.getSkin());
+		this.music = assetManager.get(AssetEnum.MAIN_MENU_MUSIC.getMusic());
+		final Sound sound = assetManager.get(AssetEnum.BUTTON_SOUND.getSound());
 		
 		preferences  = Gdx.app.getPreferences("tales-of-androgyny-preferences");
 		

@@ -1,6 +1,9 @@
 package com.majalis.character;
 
 import static com.majalis.character.Techniques.*;
+
+import com.badlogic.gdx.assets.AssetDescriptor;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.IntArray;
 import com.badlogic.gdx.utils.ObjectMap;
@@ -119,7 +122,7 @@ public class PlayerCharacter extends AbstractCharacter {
 	}
 	
 	private void setCurrentPortrait(AssetEnum portrait) {
-		currentPortrait = portrait.getPath();
+		currentPortrait = portrait.getTexture().fileName;
 	}
 	
 	public void addToInventory(Item item) {
@@ -336,7 +339,7 @@ public class PlayerCharacter extends AbstractCharacter {
 		}
 		
 		if (resolvedAttack.getLust() > 0) {
-			currentPortrait = AssetEnum.PORTRAIT_GRIN.getPath();
+			currentPortrait = AssetEnum.PORTRAIT_GRIN.getTexture().fileName;
 			// taunt increases self lust too
 			lust++;
 		}
@@ -755,9 +758,9 @@ public class PlayerCharacter extends AbstractCharacter {
 		return (int) Math.round(receivedOral / 5. + receivedAnal / 3. + oralCreampie / 3. + analCreampie + cameFromOral + cameFromAnal);		
 	}
 	
-	public String getMasculinityPath() {
+	public AssetDescriptor<Texture> getMasculinityPath() {
 		int masculinityLevel = getMasculinityLevel();
-		return masculinityLevel < 1 ? AssetEnum.MARS_ICON_0.getPath() : masculinityLevel < 3 ? AssetEnum.MARS_ICON_1.getPath() : masculinityLevel < 8 ? AssetEnum.MARS_ICON_2.getPath() : masculinityLevel < 15 ? AssetEnum.MARS_ICON_3.getPath() : AssetEnum.MARS_ICON_4.getPath();
+		return masculinityLevel < 1 ? AssetEnum.MARS_ICON_0.getTexture() : masculinityLevel < 3 ? AssetEnum.MARS_ICON_1.getTexture() : masculinityLevel < 8 ? AssetEnum.MARS_ICON_2.getTexture() : masculinityLevel < 15 ? AssetEnum.MARS_ICON_3.getTexture() : AssetEnum.MARS_ICON_4.getTexture();
 	}
 	
 	public boolean isVirgin(EnemyEnum enemyEnum) {
@@ -913,22 +916,22 @@ public class PlayerCharacter extends AbstractCharacter {
 		return lipFullness != null ? lipFullness.toString() : LipFullness.Thin.toString(); 
 	}
 
-	public String popPortraitPath() {
+	public AssetDescriptor<Texture> popPortraitPath() {
 		if (justCame) {
 			justCame = false;
-			return AssetEnum.PORTRAIT_AHEGAO.getPath();
+			return AssetEnum.PORTRAIT_AHEGAO.getTexture();
 		}
-		String currentDisplay = currentPortrait;
-		currentPortrait = getNeutralFace().getPath();
+		AssetDescriptor<Texture> currentDisplay = new AssetDescriptor<Texture>(currentPortrait, Texture.class);
+		currentPortrait = getNeutralFace().getTexture().fileName;
 		return currentDisplay;
 	}
 	
-	public String getPortraitPath() {
+	public AssetDescriptor<Texture> getPortraitPath() {
 		if (justCame) {
 			justCame = false;
-			return AssetEnum.PORTRAIT_AHEGAO.getPath();
+			return AssetEnum.PORTRAIT_AHEGAO.getTexture();
 		}
-		return currentPortrait;
+		return new AssetDescriptor<Texture>(currentPortrait, Texture.class);
 	}
 
 	private AssetEnum getNeutralFace() {
