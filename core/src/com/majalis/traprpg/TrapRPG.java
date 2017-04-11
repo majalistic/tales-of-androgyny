@@ -25,7 +25,7 @@ public class TrapRPG extends Game {
 	public void create() {	
 		
 		Preferences prefs = Gdx.app.getPreferences("tales-of-androgyny-preferences");
-		if (prefs.getBoolean("fullScreen", false)){
+		if (prefs.getBoolean("fullScreen", false)) {
 			Gdx.graphics.setFullscreenMode(Gdx.graphics.getDisplayMode());
 		}
 		else {
@@ -37,11 +37,11 @@ public class TrapRPG extends Game {
 		AssetManager assetManager = new AssetManager();
         FreeTypeFontGenerator fontGenerator = new FreeTypeFontGenerator(Gdx.files.classpath("solstice.ttf"));
 		RandomXS128 random = new RandomXS128();
-		PolygonSpriteBatch batch = new PolygonSpriteBatch(2500){
+		PolygonSpriteBatch batch = new PolygonSpriteBatch(2500) {
             final int MAX = 2500 * 5;
             @Override
-            public void draw (Texture texture, float[] spriteVertices, int offset, int count){
-                while(count > MAX){
+            public void draw (Texture texture, float[] spriteVertices, int offset, int count) {
+                while(count > MAX) {
                     super.draw(texture, spriteVertices, offset, MAX);
                     offset += MAX;
                     count -= MAX;
@@ -54,7 +54,7 @@ public class TrapRPG extends Game {
 	/*
 	 * Takes a factory implementation and uses it to generate a screen and switch to it
 	 */
-	public void init(ScreenFactory factory){
+	public void init(ScreenFactory factory) {
 		AbstractScreen screen = factory.getScreen(ScreenEnum.SPLASH);
 		screen.buildStage();
 		setScreen(screen);

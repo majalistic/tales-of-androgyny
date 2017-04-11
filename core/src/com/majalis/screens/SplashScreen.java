@@ -18,16 +18,18 @@ public class SplashScreen extends AbstractScreen {
 
 	private final AssetManager assetManager;
 	private final int minTime;
+	private final boolean fullLoad;
 	private int clocktick;
 	private Sound sound;
 	private Skin skin;
 	private ProgressBar progress;
 	private Texture background;
 	
-	public SplashScreen(ScreenFactory factory, ScreenElements elements, AssetManager assetManager, int minTime) {
+	public SplashScreen(ScreenFactory factory, ScreenElements elements, AssetManager assetManager, int minTime, boolean fullLoad) {
 		super(factory, elements);
 		this.assetManager = assetManager;
 		this.minTime = minTime;
+		this.fullLoad = fullLoad;
 		clocktick = 0;
 	}
 
@@ -41,15 +43,24 @@ public class SplashScreen extends AbstractScreen {
 		skin = assetManager.get(AssetEnum.UI_SKIN.getPath(), Skin.class);
 		background = assetManager.get(AssetEnum.SPLASH_SCREEN.getPath(), Texture.class);
 		
-		// asynchronous
-		ObjectMap<String, Class<?>> pathToType = MainMenuScreen.resourceRequirements;
-		for (String path: pathToType.keys()){
-			if (!assetManager.isLoaded(path)){
-				assetManager.load(path, pathToType.get(path));
+		if (fullLoad) {
+			for (AssetEnum value : AssetEnum.values()) {
+				assetManager.load(value.getAsset());
 			}
 		}
 		
-		assetManager.load(AssetEnum.LOADING.getPath(), Texture.class);
+		else {
+			// asynchronous
+			ObjectMap<String, Class<?>> pathToType = MainMenuScreen.resourceRequirements;
+			for (String path: pathToType.keys()){
+				if (!assetManager.isLoaded(path)){
+					assetManager.load(path, pathToType.get(path));
+				}
+			}
+			
+			assetManager.load(AssetEnum.LOADING.getPath(), Texture.class);
+			
+		}
 		
 		progress = new ProgressBar(0, 1, .05f, false, skin);
 		progress.setSize(280, 30);

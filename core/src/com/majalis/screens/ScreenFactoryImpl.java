@@ -2,6 +2,7 @@ package com.majalis.screens;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
@@ -62,11 +63,11 @@ public class ScreenFactoryImpl implements ScreenFactory {
         ScreenElements elements = new ScreenElements(viewport, batch, fontGenerator);
         PlayerCharacter character = loadService.loadDataValue(SaveEnum.PLAYER, PlayerCharacter.class);
 		AbstractScreen tempScreen;
-		switch(screenRequest){
+		switch(screenRequest) {
 			case SPLASH: 
-				return new SplashScreen(this, elements, assetManager, 25);
+				return new SplashScreen(this, elements, assetManager, 25, Gdx.app.getPreferences("tales-of-androgyny-preferences").getBoolean("preload", false));
 			case MAIN_MENU: 
-				if (getAssetCheck(MainMenuScreen.resourceRequirements)){
+				if (getAssetCheck(MainMenuScreen.resourceRequirements)) {
 					return new MainMenuScreen(this, elements, assetManager, saveService, loadService); 
 				}
 				break;
@@ -85,27 +86,27 @@ public class ScreenFactoryImpl implements ScreenFactory {
 				if (tempScreen != null) return tempScreen;
 				break;
 			case CHARACTER:
-				if (getAssetCheck(CharacterScreen.resourceRequirements)){
+				if (getAssetCheck(CharacterScreen.resourceRequirements)) {
 					return new CharacterScreen(this, elements, assetManager, saveService, character);
 				}
 				break;
 			case GAME_OVER:				
-				if (getAssetCheck(GameOverScreen.resourceRequirements)){
+				if (getAssetCheck(GameOverScreen.resourceRequirements)) {
 					return new GameOverScreen(this, elements, assetManager);
 				}
 				break;
 			case OPTIONS: 	
-				if (getAssetCheck(OptionScreen.resourceRequirements)){
+				if (getAssetCheck(OptionScreen.resourceRequirements)) {
 					return new OptionScreen(this, elements, assetManager);
 				}
 				break;
 			case REPLAY:
-				if (getAssetCheck(ReplayScreen.resourceRequirements)){
+				if (getAssetCheck(ReplayScreen.resourceRequirements)) {
 					return new ReplayScreen(this, elements, assetManager, (ObjectMap<String, Integer>) loadService.loadDataValue(ProfileEnum.KNOWLEDGE, ObjectMap.class));
 				}
 				break;
 			case CREDITS:
-				if (getAssetCheck(CreditsScreen.resourceRequirements)){
+				if (getAssetCheck(CreditsScreen.resourceRequirements)) {
 					return new CreditsScreen(this, elements, assetManager);
 				}
 				break;
@@ -115,16 +116,16 @@ public class ScreenFactoryImpl implements ScreenFactory {
 		return new LoadScreen(this, elements, assetManager, screenRequest);
 	}
 
-	private boolean getAssetCheck(ObjectMap<String, Class<?>> pathToType){
+	private boolean getAssetCheck(ObjectMap<String, Class<?>> pathToType) {
 		// if the loading screen has just loaded the assets, don't perform the checks or increment the reference counts
-		if (loading){
+		if (loading) {
 			loading = false;
 			return true;
 		}
 		// if screens are being switched but no assets need to be loaded, don't call the loading screen
 		boolean assetsLoaded = true;
-		for (String path: pathToType.keys()){
-			if (!assetManager.isLoaded(path)){
+		for (String path: pathToType.keys()) {
+			if (!assetManager.isLoaded(path)) {
 				assetsLoaded = false;
 			}
 			assetManager.load(path, pathToType.get(path));
@@ -134,8 +135,8 @@ public class ScreenFactoryImpl implements ScreenFactory {
 		return assetsLoaded;
 	}
 	
-	private EncounterScreen getEncounter(ScreenElements elements, PlayerCharacter character){
-		if (getAssetCheck(EncounterScreen.getRequirements((EncounterCode)loadService.loadDataValue(SaveEnum.ENCOUNTER_CODE, Integer.class)))){
+	private EncounterScreen getEncounter(ScreenElements elements, PlayerCharacter character) {
+		if (getAssetCheck(EncounterScreen.getRequirements((EncounterCode)loadService.loadDataValue(SaveEnum.ENCOUNTER_CODE, Integer.class)))) {
 			EncounterCode encounterCode = loadService.loadDataValue(SaveEnum.ENCOUNTER_CODE, EncounterCode.class);
 			Encounter encounter = encounterFactory.getEncounter(encounterCode, elements.getFont(48), elements.getFont(32));
 			String music = loadService.loadDataValue(SaveEnum.MUSIC, String.class);
@@ -146,8 +147,8 @@ public class ScreenFactoryImpl implements ScreenFactory {
 		}
 	}
 
-	private BattleScreen getBattle(ScreenElements elements, PlayerCharacter character){
-		if (getAssetCheck(BattleScreen.getRequirements((BattleCode) loadService.loadDataValue(SaveEnum.BATTLE_CODE, BattleCode.class)))){
+	private BattleScreen getBattle(ScreenElements elements, PlayerCharacter character) {
+		if (getAssetCheck(BattleScreen.getRequirements((BattleCode) loadService.loadDataValue(SaveEnum.BATTLE_CODE, BattleCode.class)))) {
 			BattleCode battleCode = loadService.loadDataValue(SaveEnum.BATTLE_CODE, BattleCode.class);
 			return new BattleScreen(this, elements, saveService, battleFactory.getBattle(battleCode, character), assetManager);
 		}
@@ -156,27 +157,27 @@ public class ScreenFactoryImpl implements ScreenFactory {
 		}
 	}
 	
-	private LevelUpScreen getLevel(ScreenElements elements, PlayerCharacter character){
-		if (getAssetCheck(LevelUpScreen.resourceRequirements)){
+	private LevelUpScreen getLevel(ScreenElements elements, PlayerCharacter character) {
+		if (getAssetCheck(LevelUpScreen.resourceRequirements)) {
 			// -3 is the magic number for the level up screen encounter
 			return new LevelUpScreen(this, elements, assetManager, saveService, encounterFactory.getEncounter(EncounterCode.LEVEL_UP, elements.getFont(48), elements.getFont(32)));
 		}
 		return null;
 	}
 	
-	private TownScreen getTown(ScreenElements elements, PlayerCharacter character){
-		if (getAssetCheck(TownScreen.resourceRequirements)){
+	private TownScreen getTown(ScreenElements elements, PlayerCharacter character) {
+		if (getAssetCheck(TownScreen.resourceRequirements)) {
 			return new TownScreen(this, elements, assetManager, saveService);
 		}
 		return null;
 	}
 	
-	private AbstractScreen getCurrentContextScreen(ScreenElements elements, PlayerCharacter character){
+	private AbstractScreen getCurrentContextScreen(ScreenElements elements, PlayerCharacter character) {
 		SaveManager.GameContext context = loadService.loadDataValue(SaveEnum.CONTEXT, SaveManager.GameContext.class);
-		switch (context){
+		switch (context) {
 			case ENCOUNTER: return getEncounter(elements, character);
 			case WORLD_MAP: 
-				if (getAssetCheck(WorldMapScreen.resourceRequirements)){
+				if (getAssetCheck(WorldMapScreen.resourceRequirements)) {
 					int worldSeed = loadService.loadDataValue(SaveEnum.WORLD_SEED, Integer.class);
 					return new WorldMapScreen(this, elements, assetManager, saveService, loadService, gameWorldFactory.getGameWorld(worldSeed, (GameMode)loadService.loadDataValue(SaveEnum.MODE, GameMode.class)));
 				}
@@ -188,7 +189,7 @@ public class ScreenFactoryImpl implements ScreenFactory {
 			case TOWN:
 				return getTown(elements, character); 
 			case GAME_OVER:
-				if (getAssetCheck(GameOverScreen.resourceRequirements)){
+				if (getAssetCheck(GameOverScreen.resourceRequirements)) {
 					return new GameOverScreen(this, elements, assetManager);
 				}
 				else return null;
