@@ -309,7 +309,7 @@ public abstract class AbstractCharacter extends Actor {
 	}
 	
 	private int getBloodLossDamage() {
-		return Math.max(0, statuses.get(StatusType.BLEEDING.toString(), 0) - getEndurance());
+		return Math.max(0, (statuses.get(StatusType.BLEEDING.toString(), 0) - getEndurance()) / 3);
 	}
 	
 	protected CharacterState getCurrentState(AbstractCharacter target) {		
