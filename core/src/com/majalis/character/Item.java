@@ -71,7 +71,8 @@ public abstract class Item {
 			switch (type) {
 				case Dagger: return stats.get(Stat.AGILITY) / 2;
 				case Rapier: return (stats.get(Stat.AGILITY)) / 3 + 1;
-				case Axe: return (stats.get(Stat.STRENGTH)) / 3 + 2;
+				case Axe: 
+				case Club: return (stats.get(Stat.STRENGTH)) / 3 + 2;
 				case Gladius:
 				case Cutlass: return (stats.get(Stat.STRENGTH) + stats.get(Stat.AGILITY)) / 5 + 1;
 				case Broadsword: return (stats.get(Stat.STRENGTH)) / 3 + 1;
@@ -86,30 +87,39 @@ public abstract class Item {
 		public boolean isDisarmable() {
 			return type.disarmable;
 		}
+		
+		public boolean causesBleed() {
+			return type.causeBleed;
+		}
 	}
 	
 	public enum WeaponType {
-		Dagger (true, false),
+		Dagger (true, false, true),
 		Rapier,
 		Gladius,
 		Cutlass,
 		Broadsword,
-		Axe (true, false),
-		Bow (false, false), 
-		Flail (true, false),
-		Claw (false, false),
-		Talon (false, false)
+		Axe (true, false, true),
+		Bow (false, false, true), 
+		Flail (true, false, true),
+		Claw (false, false, true),
+		Talon (false, false, true), 
+		Club (true, false, false)
 		;
 		
 		private final boolean disarmable;
 		private final boolean buyable;
+		private final boolean causeBleed;
 		private WeaponType() { 
-			this(true, true);
+			this(true, true, true);
 		}
-		private WeaponType(boolean disarmable, boolean buyable) {
+		
+		private WeaponType(boolean disarmable, boolean buyable, boolean causeBleed) {
 			this.disarmable = disarmable;
 			this.buyable = buyable;
+			this.causeBleed = causeBleed;
 		}
+		
 		public boolean isBuyable() {
 			return buyable;
 		}

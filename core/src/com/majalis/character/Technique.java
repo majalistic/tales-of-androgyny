@@ -357,7 +357,7 @@ public class Technique {
 			trip = tripCalc;
 			knockdown = knockdownCalc;
 			evasion = evasionCalc;
-			bleeding = currentState.getWeapon() != null ? bleedingCalc : 0;
+			bleeding = currentState.getWeapon() != null && currentState.getWeapon().causesBleed()? bleedingCalc : 0;
 			counter = counterCalc;
 			hasPriority = hasPriorityCalc;
 		}
