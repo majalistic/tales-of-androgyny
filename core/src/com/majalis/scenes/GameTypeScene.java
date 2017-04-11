@@ -13,7 +13,7 @@ import com.badlogic.gdx.utils.OrderedMap;
 import com.majalis.asset.AssetEnum;
 import com.majalis.encounter.Background;
 import com.majalis.save.SaveService;
-import com.majalis.traprpg.TrapRPG;
+import com.majalis.traprpg.TalesOfAndrogyny;
 /*
  * Represents a choice displayed to the user in the course of an encounter.
  */
@@ -38,7 +38,7 @@ public class GameTypeScene extends AbstractChoiceScene {
         }
         buttons.get(0).setPosition(1515, 380);
         buttons.get(1).setPosition(90, 380);	
-        if(!TrapRPG.patron)
+        if(!TalesOfAndrogyny.patron)
         	buttons.get(1).setTouchable(Touchable.disabled);
 	}
 

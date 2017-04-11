@@ -11,7 +11,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.badlogic.gdx.files.FileHandle;
-import com.majalis.traprpg.TrapRPG;
+import com.majalis.traprpg.TalesOfAndrogyny;
 /*
  * Entry point of the package for desktop implementations - sets configuration elements and initializes the generic entry point.
  */
@@ -40,6 +40,6 @@ public class DesktopLauncher {
 	         }
 	      });
 		
-		new LwjglApplication(new TrapRPG(), config);
+		new LwjglApplication(new TalesOfAndrogyny(), config);
 	}
 }

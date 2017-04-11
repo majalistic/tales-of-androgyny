@@ -20,7 +20,7 @@ import com.majalis.asset.AssetEnum;
 import com.majalis.encounter.Background.BackgroundBuilder;
 import com.majalis.save.LoadService;
 import com.majalis.save.SaveService;
-import com.majalis.traprpg.TrapRPG;
+import com.majalis.traprpg.TalesOfAndrogyny;
 /*
  * The main menu screen loaded initially.  UI that handles player input to switch to different screens.
  */
@@ -111,7 +111,7 @@ public class MainMenuScreen extends AbstractScreen {
 		batch.begin(); 
 		// need to make these actors
 		batch.draw(arrowImage, 2280, 1428 - selection * 60, 30, 50);
-		font.draw(batch, "Version: 0.1.18.1" + (TrapRPG.patron ? " Patron-Only" : ""), 2450, 600);
+		font.draw(batch, "Version: 0.1.18.1" + (TalesOfAndrogyny.patron ? " Patron-Only" : ""), 2450, 600);
 		batch.end();
 	}
 
