@@ -125,7 +125,20 @@ public class EnemyCharacter extends AbstractCharacter {
 				phallus = PhallusType.SMALL;
 				manaTiers = new IntArray(new int[]{20});
 				setManaToMax();
+				
 				break;
+			case OGRE:
+				weapon = new Weapon(WeaponType.Club);
+				baseDefense = 8;
+				healthTiers.add(20);
+				baseStrength = 8;
+				baseEndurance = 8;
+				baseAgility = 4;
+				imagePath = AssetEnum.OGRE.getPath();
+				bgPath = AssetEnum.FOREST_UP_BG.getPath();
+				pronouns = PronounSet.MALE;
+				break;
+				
 		}
 		staminaTiers.removeIndex(staminaTiers.size-1);
 		staminaTiers.add(10);
@@ -235,6 +248,11 @@ public class EnemyCharacter extends AbstractCharacter {
 							resolvedAttack.addDialog("\"W-wait! Nn--nnff!\"");
 						}
 						break;
+					case OGRE:
+						if (stance.isAnalPenetration()) {
+							resolvedAttack.addDialog("He vocalizes gruffly as he impales you on his massive phallus.");
+						}
+						break;
 				}
 			}
 			
@@ -263,8 +281,12 @@ public class EnemyCharacter extends AbstractCharacter {
 						break;						
 					case ADVENTURER:
 						break;
-					}
-				
+					case OGRE:
+						if (stance.isAnalPenetration()) {
+							resolvedAttack.addDialog("He roars as he fills you with his thick, disgusting ogre semen.");
+						}
+				}
+					
 				climaxCounters.put(resolvedAttack.getClimaxType().toString(), climaxCounters.get(resolvedAttack.getClimaxType().toString(), 0) + 1);
 				
 				if ((enemyType == EnemyEnum.GOBLIN || enemyType == EnemyEnum.GOBLIN_MALE) && getClimaxCount() % 5 == 0) {
@@ -302,6 +324,20 @@ public class EnemyCharacter extends AbstractCharacter {
 		if (enemyType == EnemyEnum.SLIME && !stance.isIncapacitatingOrErotic()) {
 			return getTechniques(target, SLIME_ATTACK, SLIME_QUIVER); 			
 		}
+		else if (enemyType == EnemyEnum.OGRE && !stance.isIncapacitatingOrErotic()) {
+			if (weapon != null) {
+				if (stance == Stance.OFFENSIVE) {
+					return getTechniques(target, SMASH);
+				}
+				if (stance == Stance.BALANCED) {
+					return getTechniques(target, LIFT_WEAPON);
+				}
+			}
+			else {
+				return getTechniques(target, SLAM);
+			}
+			
+		}
 		
 		Array<Techniques> possibles = new Array<Techniques>();
 		switch(stance) {
@@ -313,7 +349,7 @@ public class EnemyCharacter extends AbstractCharacter {
 					possibles.addAll(getTechniques(target, POWER_ATTACK, TEMPO_ATTACK, RESERVED_ATTACK));
 				}
 				else {
-					if (enemyType == EnemyEnum.BRIGAND || enemyType == EnemyEnum.ORC) {
+					if (enemyType == EnemyEnum.BRIGAND || enemyType == EnemyEnum.ORC || enemyType == EnemyEnum.ADVENTURER) {
 						possibles.addAll(getTechniques(target, ARMOR_SUNDER));
 					}
 					possibles.addAll(getTechniques(target, POWER_ATTACK, GUT_CHECK, RECKLESS_ATTACK, KNOCK_DOWN, TEMPO_ATTACK, RESERVED_ATTACK));
@@ -359,7 +395,7 @@ public class EnemyCharacter extends AbstractCharacter {
 				return getTechniques(target, ITEM_OR_CANCEL);
 			case PRONE:
 			case SUPINE:
-				return getTechniques(target, KIP_UP, STAND_UP, KNEE_UP, stance == Stance.PRONE ? REST_FACE_DOWN : REST);
+				return enemyType == EnemyEnum.OGRE ? getTechniques(target, STAND_UP, KNEE_UP, stance == Stance.PRONE ? REST_FACE_DOWN : REST) : getTechniques(target, KIP_UP, STAND_UP, KNEE_UP, stance == Stance.PRONE ? REST_FACE_DOWN : REST);
 			case KNEELING:
 				return getTechniques(target, STAND_UP, STAY_KNELT);
 			case FULL_NELSON:
@@ -471,7 +507,9 @@ public class EnemyCharacter extends AbstractCharacter {
 			return getTechnique(target, nextMove);
 		}
 		
-		if (lust < 10 && enemyType != EnemyEnum.CENTAUR) lust++;
+		if (lust < 10) {
+			if (enemyType != EnemyEnum.CENTAUR) lust++;
+		}
 		
 		Array<Techniques> possibleTechniques = getPossibleTechniques(target, stance);
 		
@@ -482,7 +520,7 @@ public class EnemyCharacter extends AbstractCharacter {
 			else if (target.stance == Stance.SUPINE) {
 				possibleTechniques = getTechniques(target, POUNCE_ANAL);
 			}
-			else if (target.stance == Stance.KNEELING) {
+			else if (target.stance == Stance.KNEELING && enemyType != EnemyEnum.OGRE) {
 				possibleTechniques =  getTechniques(target, SAY_AHH);
 			}
 			else if (enemyType == EnemyEnum.HARPY) {
@@ -827,6 +865,9 @@ public class EnemyCharacter extends AbstractCharacter {
 				if (getReceptiveClimaxCount() >= 1 ) return Outcome.SUBMISSION;
 				if (getToppingClimaxCount() >= 1) return Outcome.SATISFIED;
 				break;
+			case OGRE:
+				if (climaxCounters.get(ClimaxType.ANAL.toString(), 0) >= 1) return Outcome.SATISFIED;
+				break;
 			default:
 		
 		}
@@ -836,7 +877,10 @@ public class EnemyCharacter extends AbstractCharacter {
 	public String getOutcomeText(AbstractCharacter enemy) {
 		switch (getOutcome(enemy)) {
 			case KNOT: return "You've been knotted!!!\nYou are at her whims, now.";
-			case SATISFIED: return enemyType == EnemyEnum.CENTAUR ? "You've been dominated by the centaur's massive horsecock." : properCase(pronouns.getNominative()) + " seems satisfied. " + properCase(pronouns.getNominative()) + "'s no longer hostile.";
+			case SATISFIED: return enemyType == EnemyEnum.CENTAUR ? "You've been dominated by the centaur's massive horsecock."
+				: enemyType == EnemyEnum.OGRE ? "The ogre has filled your guts with ogre cum.  You are well and truly fucked."
+				: properCase(pronouns.getNominative()) + " seems satisfied. " + properCase(pronouns.getNominative()) + "'s no longer hostile.";
+			
 			case SUBMISSION: return "They're completely fucked silly! They're no longer hostile.";
 			case DEFEAT: return enemy.getDefeatMessage();
 			case VICTORY: return getDefeatMessage();
@@ -847,6 +891,7 @@ public class EnemyCharacter extends AbstractCharacter {
 	protected int getClimaxVolume() {
 		super.getClimaxVolume();
 		switch(enemyType) {
+			case OGRE:
 			case CENTAUR: 
 			case UNICORN: return 21;
 			case GOBLIN: return 10;

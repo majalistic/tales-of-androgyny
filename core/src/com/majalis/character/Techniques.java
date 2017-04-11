@@ -63,6 +63,10 @@ public enum Techniques {
 	SLIME_QUIVER 		(new NonAttackTechnique(Stance.BALANCED, Stance.DEFENSIVE, "Slime Quiver", -1, -1).build()),
 	GUT_CHECK			(new AttackTechnique(Stance.OFFENSIVE, Stance.OFFENSIVE, "Gutcheck", 3, 3, 4, 0, 1, false, TechniqueHeight.MEDIUM).build()),
 	
+	SMASH				(new AttackTechnique(Stance.OFFENSIVE, Stance.BALANCED, "Smash", 4, 5, 5, 2).build()),
+	LIFT_WEAPON			(new NonAttackTechnique(Stance.BALANCED, Stance.OFFENSIVE, "Raise Club", 1, 1).build()),
+	SLAM				(new AttackTechnique(Stance.BALANCED, Stance.OFFENSIVE, "Slam", -2, 3, 3).build()),
+	
 	/* Enemy pouncing */
 	DIVEBOMB 			(new GrappleTechnique  (Stance.AIRBORNE, Stance.FELLATIO, "Divebomb", 2, Stance.FELLATIO_BOTTOM, TechniqueHeight.HIGH).build()),
 	SAY_AHH 			(new GrappleTechnique  (Stance.BALANCED, Stance.FELLATIO, "Say 'Ahh'", 2, Stance.FELLATIO_BOTTOM).addBonus(BonusCondition.OUTMANEUVER, BonusType.PRIORITY).build()),

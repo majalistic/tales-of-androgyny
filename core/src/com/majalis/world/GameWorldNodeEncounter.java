@@ -49,6 +49,7 @@ public class GameWorldNodeEncounter {
 					case CENTAUR: return "Centaur";
 					case GOBLIN: return "Goblin";
 					case ORC: return "Orc";
+					case OGRE: return "Ogre";
 					case ADVENTURER: return "Adventurer";
 					case GADGETEER: return "Merchant";
 					case TOWN: return "Small Settlement";
@@ -85,6 +86,7 @@ public class GameWorldNodeEncounter {
 					case GOBLIN: return "Goblin - Hostile!";
 					case ORC: return "Orc - Neutral";
 					case ADVENTURER: return "Adventurer - Neutral";
+					case OGRE: return "Ogre - Danger!";
 					case GADGETEER: return "Suspicious Merchant";
 					case TOWN: return "Town of Silajam";
 					case TOWN2:

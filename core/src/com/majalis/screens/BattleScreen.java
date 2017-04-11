@@ -136,6 +136,10 @@ public class BattleScreen extends AbstractScreen{
 				textureArray.addAll(ADVENTURER.getPath(), FOREST_BG.getPath(), SMALL_DONG_0.getPath(), SMALL_DONG_0.getPath(), SMALL_DONG_0.getPath());
 				requirements.put(AssetEnum.BOSS_MUSIC.getPath(), Music.class);
 				break;
+			case 9:
+				textureArray.addAll(OGRE.getPath(), FOREST_UP_BG.getPath(), "arousal/Monster0.png", "arousal/Monster1.png", "arousal/Monster2.png");
+				requirements.put(AssetEnum.HEAVY_MUSIC.getPath(), Music.class);
+				break;
 		}
 		for (String path: textureArray){
 			requirements.put(path, Texture.class);

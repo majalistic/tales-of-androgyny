@@ -2823,6 +2823,31 @@
 		]
 	},
 	{
+	"key": "009-00",
+		"scriptLines": [
+			"You come across an... ogre.  He looks angry.  And his cock is huge.  Uh... good luck."
+		]
+	},
+	{
+	"key": "009-01",
+		"scriptLines": [
+			"You won, somehow!",
+			"You gain 5 Experience."
+		]
+	},
+	{
+	"key": "009-02",
+		"scriptLines": [
+			"You were defeated.  Duh."
+		]
+	},
+	{
+	"key": "009-03",
+		"scriptLines": [
+			"The ogre pulls you off of his massive cock, and his cum drools out of your utterly destroyed asshole in rivers."
+		]
+	},
+	{
 		"key": "FORCED_CAMP",
 		"scriptLines": [
 			"You're too exhausted to continue, so instead you camp to rest.", "You nibble on your food reserves and spend an extra night without traveling.", "You restore 10 health and consume 4 food."

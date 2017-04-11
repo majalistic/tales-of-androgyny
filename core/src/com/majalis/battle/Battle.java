@@ -514,7 +514,7 @@ public class Battle extends Group{
 							this.addAction(sequence(delay(5/60f), new SoundAction(soundMap.get(AssetEnum.BLOCK_SOUND), .5f)));
 						}
 						else {
-							if (enemy.getWeapon() != null) {
+							if (enemy.getWeapon() != null && enemy.getWeapon().causesBleed()) {
 								this.addAction(sequence(delay(5/60f), new SoundAction(soundMap.get(AssetEnum.SWORD_SLASH_SOUND), .5f)));
 							}
 							else {

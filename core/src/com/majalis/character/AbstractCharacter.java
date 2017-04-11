@@ -358,13 +358,19 @@ public abstract class AbstractCharacter extends Actor {
 		}
 		if (enemyType != null) {
 			if (resolvedAttack.getForceStance() == Stance.DOGGY_BOTTOM || resolvedAttack.getForceStance() == Stance.ANAL_BOTTOM || resolvedAttack.getForceStance() == Stance.STANDING_BOTTOM) {
-				resolvedAttack.addMessage("You are being anally violated!");
-				resolvedAttack.addMessage("Your hole is stretched by " + pronouns.getPossessive() + " fat dick!");
-				resolvedAttack.addMessage("Your hole feels like it's on fire!");
-				resolvedAttack.addMessage(properCase(pronouns.getPossessive()) + " cock glides smoothly through your irritated anal mucosa!");
-				resolvedAttack.addMessage(properCase(pronouns.getPossessive()) + " rhythmic thrusting in and out of your asshole is emasculating!");
-				resolvedAttack.addMessage("You are red-faced and embarassed because of " + pronouns.getPossessive() + " butt-stuffing!");
-				resolvedAttack.addMessage("Your cock is ignored!");
+				if (enemyType == EnemyEnum.OGRE) {
+					resolvedAttack.addMessage(properCase(pronouns.getPossessive()) + " tremendous, fat cock visibly bulges out your stomach!");		
+					resolvedAttack.addMessage("You are being anally violated by an ogre!");
+				}
+				else {
+					resolvedAttack.addMessage("You are being anally violated!");
+					resolvedAttack.addMessage("Your hole is stretched by " + pronouns.getPossessive() + " fat dick!");
+					resolvedAttack.addMessage("Your hole feels like it's on fire!");
+					resolvedAttack.addMessage(properCase(pronouns.getPossessive()) + " cock glides smoothly through your irritated anal mucosa!");
+					resolvedAttack.addMessage(properCase(pronouns.getPossessive()) + " rhythmic thrusting in and out of your asshole is emasculating!");
+					resolvedAttack.addMessage("You are red-faced and embarassed because of " + pronouns.getPossessive() + " butt-stuffing!");
+					resolvedAttack.addMessage("Your cock is ignored!");
+				}
 			}		
 			else if(resolvedAttack.getForceStance() == Stance.FELLATIO_BOTTOM || resolvedAttack.getForceStance() == Stance.SIXTY_NINE_BOTTOM) {
 				if (enemyType == EnemyEnum.HARPY) {
@@ -481,11 +487,21 @@ public abstract class AbstractCharacter extends Actor {
 				if (!alreadyIncapacitated()) {
 					stability -= knockdown;
 					result.add("It's a solid blow! It reduces balance by " + knockdown + "!");
-					if (stability <= 0) {
-						result.add(label + (secondPerson ? " are " : " is ") + "knocked to the ground!");
-						setStabilityToMin();
-						stance = Stance.SUPINE;
-						knockedDown = true;
+					if (enemyType == EnemyEnum.OGRE) {
+						if (stability <= 0) {
+							result.add(label + (secondPerson ? " are " : " is ") + "knocked to their knees!");
+							stability = 0;
+							stance = Stance.KNEELING;
+							knockedDown = true;
+						}
+					}
+					else {
+						if (stability <= 0) {
+							result.add(label + (secondPerson ? " are " : " is ") + "knocked to the ground!");
+							setStabilityToMin();
+							stance = Stance.SUPINE;
+							knockedDown = true;
+						}
 					}
 				}
 			}
@@ -568,16 +584,32 @@ public abstract class AbstractCharacter extends Actor {
 			if (mouthful > 0 && !stance.isOralReceptive()) result.add(getDroolMessage());
 		}
 		if (!alreadyIncapacitated() && !knockedDown) {
-			// you tripped
-			if (stability <= 0) {
-				stance = Stance.PRONE;
-				result.add(label + (secondPerson ? " lose your" : " loses their") + " footing and " + (secondPerson ? "trip" : "trips") + "!");
-				setStabilityToMin();
+			if (enemyType == EnemyEnum.OGRE) {
+				if (stability <= 0 || currentStamina <= 0) {
+					stance = Stance.KNEELING;
+					result.add(label + (secondPerson ? " lose your" : " loses their") + " footing and " + (secondPerson ? "trip" : "trips") + "!");
+					stability = 1;
+				}
+				// you blacked out
+				else if (currentStamina <= 0) {
+					result.add(label + " runs out of breath and " + (secondPerson ? "collapse" : "collapses") + "!");
+					stance = Stance.KNEELING;
+					stability = 1;
+				}
 			}
-			// you blacked out
-			else if (currentStamina <= 0) {
-				result.add(label + " runs out of breath and " + (secondPerson ? "collapse" : "collapses") + "!");
-				stance = Stance.SUPINE;
+			else {
+				// you tripped
+				if (stability <= 0) {
+					stance = Stance.PRONE;
+					result.add(label + (secondPerson ? " lose your" : " loses their") + " footing and " + (secondPerson ? "trip" : "trips") + "!");
+					setStabilityToMin();
+				}
+				// you blacked out
+				else if (currentStamina <= 0) {
+					result.add(label + " runs out of breath and " + (secondPerson ? "collapse" : "collapses") + "!");
+					stance = Stance.SUPINE;
+					setStabilityToMin();
+				}
 			}
 		}
 		

@@ -171,13 +171,13 @@ public class PlayerCharacter extends AbstractCharacter {
 				if (target.getStance() == Stance.SUPINE && target.isErect() && target.enemyType != EnemyEnum.SLIME && target.enemyType != EnemyEnum.CENTAUR && target.enemyType != EnemyEnum.UNICORN) {
 					possibles.addAll(getTechniques(target, SIT_ON_IT));
 				}
-				if (target.stance == Stance.PRONE && isErect()) {
+				if (target.stance == Stance.PRONE && isErect() && target.enemyType != EnemyEnum.OGRE) {
 					possibles.addAll(getTechniques(target, POUNCE_DOGGY));
 				}
-				else if (target.stance == Stance.SUPINE && isErect()) {
+				else if (target.stance == Stance.SUPINE && isErect() && target.enemyType != EnemyEnum.OGRE) {
 					possibles.addAll(getTechniques(target, POUNCE_ANAL));
 				}
-				else if (target.stance == Stance.KNEELING && isErect()) {
+				else if (target.stance == Stance.KNEELING && isErect() && target.enemyType != EnemyEnum.OGRE) {
 					possibles.addAll(getTechniques(target, IRRUMATIO));
 				}
 				return possibles;
@@ -197,7 +197,7 @@ public class PlayerCharacter extends AbstractCharacter {
 				return getTechniques(target, KIP_UP, STAND_UP, KNEE_UP, stance == Stance.PRONE ? REST_FACE_DOWN : REST, stance == Stance.PRONE ? ROLL_OVER_UP : ROLL_OVER_DOWN);
 			case KNEELING:
 				possibles = getTechniques(target, UPPERCUT, STAND_UP, STAY_KNELT);
-				if (target.isErect() && target.enemyType != EnemyEnum.SLIME) {
+				if (target.isErect() && target.enemyType != EnemyEnum.SLIME && target.enemyType != EnemyEnum.OGRE) {
 					possibles.addAll(getTechniques(target, GRAB_IT));
 				}
 				return possibles;

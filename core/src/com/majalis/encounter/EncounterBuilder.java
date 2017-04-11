@@ -1258,6 +1258,29 @@ public class EncounterBuilder {
 					)
 				);
 				break;
+			case OGRE: 
+				Background backgroundWithOgre = new BackgroundBuilder(assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getPath(), Texture.class)).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class)).setForeground(assetManager.get(AssetEnum.OGRE.getPath(), Texture.class)).build();
+				Background backgroundOgreBanged = new BackgroundBuilder(assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getPath(), Texture.class)).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class)).setForeground(assetManager.get(AssetEnum.OGRE_BANGED.getPath(), Texture.class)).build();
+				
+				getTextScenes(
+					getScript(encounterCode, 0), font, backgroundWithOgre, getArray(new Mutation[]{new Mutation(saveService, ProfileEnum.KNOWLEDGE, EnemyEnum.OGRE.toString())}), AssetEnum.WEREWOLF_MUSIC.getPath(), new Array<String>(),	// intro filler
+					getBattleScene(
+						battleCode, normalOutcomes,
+						getTextScenes(
+							getScript(encounterCode, 1), font, background, 
+							getEndScene(EndScene.Type.ENCOUNTER_OVER)
+						),
+						getTextScenes(
+							getScript(encounterCode, 2), font, backgroundOgreBanged, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.ANAL, new SexualExperienceBuilder().setAnalSex(100, 5, 5).build())}),
+							getEndScene(EndScene.Type.GAME_OVER)
+						),
+						getTextScenes(
+							getScript(encounterCode, 3), font, backgroundOgreBanged, 
+							getEndScene(EndScene.Type.GAME_OVER)
+						)
+					)
+				);
+				break;
 			case GADGETEER:
 				Background backgroundWithGadgeteer = new BackgroundBuilder(assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getPath(), Texture.class)).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class)).setForeground(assetManager.get(AssetEnum.GADGETEER.getPath(), Texture.class)).build();
 				Background shopGadgeteer = new BackgroundBuilder(assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getPath(), Texture.class)).setForeground(assetManager.get(AssetEnum.GADGETEER.getPath(), Texture.class), 900, 0).build();
@@ -1561,11 +1584,11 @@ public class EncounterBuilder {
 			case OGRE_STORY:
 				Background ogreBackground = new BackgroundBuilder(backgroundTexture).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getPath(), Texture.class)).setForeground(assetManager.get(AssetEnum.GAME_OGRE.getPath(), Texture.class)).build();
 				getTextScenes(
-					getScript("STORY-OGRE"), font, background, new Array<Mutation>(), AssetEnum.WEREWOLF_MUSIC.getPath(), new Array<String>(new String[]{null, null, null, null, AssetEnum.OGRE.getPath()}),
+					getScript("STORY-OGRE"), font, background, new Array<Mutation>(), AssetEnum.WEREWOLF_MUSIC.getPath(), new Array<String>(new String[]{null, null, null, null, AssetEnum.OGRE_GROWL.getPath()}),
 					getChoiceScene(
 						"Continue on?", getArray(new String[]{"Press On", "Turn back"}), 
 						getTextScenes(
-							getScript("STORY-OGRE-DEFEAT"), font, background, new Array<Mutation>(), AssetEnum.HEAVY_MUSIC.getPath(), new Array<String>(new String[]{null, null, null, AssetEnum.OGRE.getPath(), null, null, null, null, null, AssetEnum.OGRE.getPath(), null, null, AssetEnum.OGRE.getPath()}),
+							getScript("STORY-OGRE-DEFEAT"), font, background, new Array<Mutation>(), AssetEnum.HEAVY_MUSIC.getPath(), new Array<String>(new String[]{null, null, null, AssetEnum.OGRE_GROWL.getPath(), null, null, null, null, null, AssetEnum.OGRE_GROWL.getPath(), null, null, AssetEnum.OGRE_GROWL.getPath()}),
 							getTextScenes(
 								getScript("STORY-OGRE-AFTER"), font, ogreBackground,
 								getEndScene(EndScene.Type.GAME_OVER)	

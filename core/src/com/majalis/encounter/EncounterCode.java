@@ -21,6 +21,7 @@ public enum EncounterCode {
 	GADGETEER (FOREST_INACTIVE), 
 	ORC (FOREST_INACTIVE, 7),
 	ADVENTURER (FOREST_INACTIVE, 8),
+	OGRE (9), 
 	FORT (CASTLE), 
 	TOWN (AssetEnum.TOWN),
 	TOWN2 (AssetEnum.TOWN),
@@ -52,35 +53,35 @@ public enum EncounterCode {
 	
 	private final String texturePath;	
 	private final int battleCode;	
-	private EncounterCode(){
+	private EncounterCode() {
 		this(FOREST_ACTIVE);
 	}
 	
-	private EncounterCode(AssetEnum texture){
+	private EncounterCode(AssetEnum texture) {
 		this(texture, -1);
 	}
 	
-	private EncounterCode(int battleCode){
+	private EncounterCode(int battleCode) {
 		this(FOREST_ACTIVE, battleCode);
 	}
 	
-	private EncounterCode(AssetEnum texture, int battleCode){
+	private EncounterCode(AssetEnum texture, int battleCode) {
 		this.texturePath = texture.getPath();
 		this.battleCode = battleCode;
 	}
 	
-	public String getTexturePath(){	return texturePath; }
-	public int getBattleCode(){ return battleCode; }
+	public String getTexturePath() {	return texturePath; }
+	public int getBattleCode() { return battleCode; }
 	
 	// for random gen
 	public static Array<EncounterCode> encounterArray;
 	static {
 		encounterArray = new Array<EncounterCode>();
-		encounterArray.addAll(WERESLUT, HARPY, SLIME, BRIGAND, DRYAD, CENTAUR, GOBLIN, ORC, ADVENTURER);
+		encounterArray.addAll(WERESLUT, HARPY, SLIME, BRIGAND, DRYAD, CENTAUR, GOBLIN, ORC, ADVENTURER, OGRE);
 	}
 	
-	public static EncounterCode getEncounterCode(int code){
-		if (code < encounterArray.size){
+	public static EncounterCode getEncounterCode(int code) {
+		if (code < encounterArray.size) {
 			return encounterArray.get(code);
 		}
 		// Troja?  Need a way to get to here; currently no file input is read for the code param

@@ -174,6 +174,11 @@ public class EncounterScreen extends AbstractScreen {
 				requirements.put(AssetEnum.ADVENTURER.getPath(), Texture.class);
 				requirements.put(AssetEnum.GADGETEER_MUSIC.getPath(), Music.class);
 				break;
+			case OGRE:	
+				requirements.put(AssetEnum.OGRE.getPath(), Texture.class);
+				requirements.put(AssetEnum.OGRE_BANGED.getPath(), Texture.class);
+				requirements.put(AssetEnum.WEREWOLF_MUSIC.getPath(), Music.class);
+				break;
 			case INN:
 				requirements.put(AssetEnum.INNKEEPER.getPath(), Texture.class);
 				requirements.put(AssetEnum.KEYHOLE.getPath(), Texture.class);
@@ -215,7 +220,7 @@ public class EncounterScreen extends AbstractScreen {
 				break;
 			case OGRE_STORY:
 				requirements.put(AssetEnum.GAME_OGRE.getPath(), Texture.class);
-				requirements.put(AssetEnum.OGRE.getPath(), Sound.class);
+				requirements.put(AssetEnum.OGRE_GROWL.getPath(), Sound.class);
 				requirements.put(AssetEnum.WEREWOLF_MUSIC.getPath(), Music.class);
 				requirements.put(AssetEnum.HEAVY_MUSIC.getPath(), Music.class);
 				break;

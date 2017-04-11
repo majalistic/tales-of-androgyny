@@ -49,6 +49,8 @@ public enum AssetEnum {
 	GOBLIN_MALE("enemies/GoblinMale.png"),
 	GOBLIN_FACE_SIT("enemies/GoblinFaceSit.png"),
 	ORC("enemies/OrcFuta.png"),
+	OGRE("enemies/Ogre.png"),
+	OGRE_BANGED("enemies/OgrePost.jpg"),
 	ADVENTURER("enemies/Adventurer.png"), 
 	TRAP_BONUS("enemies/TrapBonus.jpg"), 
 	
@@ -101,6 +103,7 @@ public enum AssetEnum {
 	PORTRAIT_HAPPY("portraits/SlightHappy.png"),
 	PORTRAIT_SMILE("portraits/Smile.png"),
 	FOREST_BG("battle/ForestBG.jpg"),
+	FOREST_UP_BG("battle/ForestUp.jpg"),
 	PLAINS_BG("battle/AbandonedField.jpg"),
 	ENCHANTED_FOREST_BG("battle/MushroomForest.jpg"),
 	BATTLE_UI("battle/Treeframe.png"),
@@ -155,7 +158,7 @@ public enum AssetEnum {
 	GAME_OVER_TUCKERED("GameOverTuckered.jpg"),
 	KEYHOLE("Keyhole.jpg"),
 	GAME_OVER_KEYHOLE("GameOverKeyhole.jpg"),
-	GAME_OGRE("PostOgre.jpg"),
+	GAME_OGRE("enemies/OgrePost.jpg"),
 	// sounds
 	BUTTON_SOUND("sound.wav"),
 	CLICK_SOUND("node_sound.wav"),
@@ -175,7 +178,7 @@ public enum AssetEnum {
 	INCANTATION("sounds/Incantation.wav"),
 	THWAPPING("sounds/Thwapping.wav"),
 	SMUG_LAUGH("sounds/FemaleSmugLaugh.wav"),
-	OGRE("sounds/Ogre.wav"),
+	OGRE_GROWL("sounds/Ogre.wav"),
 	// music
 	MAIN_MENU_MUSIC("music/MainMenuMusic.mp3"),
 	ENCOUNTER_MUSIC("music/EncounterMusic.mp3"),
