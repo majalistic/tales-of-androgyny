@@ -1,7 +1,14 @@
 package com.majalis.asset;
 
+import com.badlogic.gdx.assets.AssetDescriptor;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+
 public enum AssetEnum {
-	UI_SKIN("uiskin.json"),
+	UI_SKIN("uiskin.json", Skin.class),
+	BATTLE_SKIN("battle/battleui.json", Skin.class),
 	SPLASH_SCREEN("Splash.png"),
 	LOADING("Loading.png"),
 	
@@ -83,12 +90,19 @@ public enum AssetEnum {
 	SMALL_DONG_1("arousal/Small1.png"),
 	SMALL_DONG_2("arousal/Small2.png"),
 	
+	LARGE_DONG_0("arousal/Human0.png"),
+	LARGE_DONG_1("arousal/Human1.png"),
+	LARGE_DONG_2("arousal/Human2.png"),
+	
+	MONSTER_DONG_0("arousal/Monster0.png"),
+	MONSTER_DONG_1("arousal/Monster1.png"),
+	MONSTER_DONG_2("arousal/Monster2.png"),
+	
 	STUFFED_BELLY("bellies/Stuffed.png"), 
 	FULL_BELLY("bellies/Full.png"), 
 	BIG_BELLY("bellies/Half.png"), 
 	FLAT_BELLY("bellies/Empty.png"), 
 	
-	BATTLE_SKIN("battle/battleui.json"),
 	PORTRAIT_NEUTRAL("portraits/Neutral.png"),
 	PORTRAIT_AHEGAO("portraits/Ahegao.png"),
 	PORTRAIT_FELLATIO("portraits/BJ.png"),
@@ -160,45 +174,58 @@ public enum AssetEnum {
 	GAME_OVER_KEYHOLE("GameOverKeyhole.jpg"),
 	GAME_OGRE("enemies/OgrePost.jpg"),
 	// sounds
-	BUTTON_SOUND("sound.wav"),
-	CLICK_SOUND("node_sound.wav"),
-	INTRO_SOUND("sounds/IntroSound.wav"),
-	EQUIP("sounds/Equip.wav"),
-	LOUD_LAUGH("sounds/LoudLaugh.wav"),
-	UNPLUGGED_POP("sounds/UnpluggedPop.wav"),
-	MOUTH_POP("sounds/MouthPop.wav"),
-	SLIPPY_01("sounds/Slippy01.wav"),
-	SLOPPY_01("sounds/Sloppy01.wav"),
-	ATTACK_SOUND("sounds/AttackSound.wav"),
-	HIT_SOUND("sounds/HitSound.wav"),
-	PARRY_SOUND("sounds/Parry.wav"),
-	BLOCK_SOUND("sounds/Block.wav"),
-	SWORD_SLASH_SOUND("sounds/SwordSlash.wav"),
-	FIREBALL_SOUND("sounds/Fireball.wav"),
-	INCANTATION("sounds/Incantation.wav"),
-	THWAPPING("sounds/Thwapping.wav"),
-	SMUG_LAUGH("sounds/FemaleSmugLaugh.wav"),
-	OGRE_GROWL("sounds/Ogre.wav"),
+	BUTTON_SOUND("sound.wav", Sound.class),
+	CLICK_SOUND("node_sound.wav", Sound.class),
+	INTRO_SOUND("sounds/IntroSound.wav", Sound.class),
+	EQUIP("sounds/Equip.wav", Sound.class),
+	LOUD_LAUGH("sounds/LoudLaugh.wav", Sound.class),
+	UNPLUGGED_POP("sounds/UnpluggedPop.wav", Sound.class),
+	MOUTH_POP("sounds/MouthPop.wav", Sound.class),
+	ATTACK_SOUND("sounds/AttackSound.wav", Sound.class),
+	HIT_SOUND("sounds/HitSound.wav", Sound.class),
+	PARRY_SOUND("sounds/Parry.wav", Sound.class),
+	BLOCK_SOUND("sounds/Block.wav", Sound.class),
+	SWORD_SLASH_SOUND("sounds/SwordSlash.wav", Sound.class),
+	FIREBALL_SOUND("sounds/Fireball.wav", Sound.class),
+	INCANTATION("sounds/Incantation.wav", Sound.class),
+	THWAPPING("sounds/Thwapping.wav", Sound.class),
+	SMUG_LAUGH("sounds/FemaleSmugLaugh.wav", Sound.class),
+	OGRE_GROWL("sounds/Ogre.wav", Sound.class),
 	// music
-	MAIN_MENU_MUSIC("music/MainMenuMusic.mp3"),
-	ENCOUNTER_MUSIC("music/EncounterMusic.mp3"),
-	INITIAL_MUSIC("music/KingsofTara.mp3"),
-	SHOP_MUSIC("music/ShopkeepMusic.mp3"),
-	TRAINER_MUSIC("music/TrainerMusic.mp3"),
-	HOVEL_MUSIC("music/HovelMusic.mp3"),
-	WEREWOLF_MUSIC("music/WerewolfMusic.mp3"),
-	HEAVY_MUSIC("music/Mechanolith.mp3"),
-	WORLD_MAP_MUSIC("music/WorldMapMusic.mp3"),
-	BATTLE_MUSIC("music/BattleMusic.mp3"),
-	GADGETEER_MUSIC("music/GadgeteerMusic.mp3"),
-	BOSS_MUSIC("music/BossMusic.mp3"),
-	WAVES("music/Waves.wav"), 
+	MAIN_MENU_MUSIC("music/MainMenuMusic.mp3", Music.class),
+	ENCOUNTER_MUSIC("music/EncounterMusic.mp3", Music.class),
+	INITIAL_MUSIC("music/KingsofTara.mp3", Music.class),
+	SHOP_MUSIC("music/ShopkeepMusic.mp3", Music.class),
+	TRAINER_MUSIC("music/TrainerMusic.mp3", Music.class),
+	HOVEL_MUSIC("music/HovelMusic.mp3", Music.class),
+	WEREWOLF_MUSIC("music/WerewolfMusic.mp3", Music.class),
+	HEAVY_MUSIC("music/Mechanolith.mp3", Music.class),
+	WORLD_MAP_MUSIC("music/WorldMapMusic.mp3", Music.class),
+	BATTLE_MUSIC("music/BattleMusic.mp3", Music.class),
+	GADGETEER_MUSIC("music/GadgeteerMusic.mp3", Music.class),
+	BOSS_MUSIC("music/BossMusic.mp3", Music.class),
+	WAVES("music/Waves.wav", Music.class),
 	;
 	
 	private final String path;
-
+	private final Class<?> assetType;
+	
 	AssetEnum(String path) {
+	    this(path, Texture.class);
+	}
+	
+	AssetEnum(String path, Class<?> assetType) {
 	    this.path = path;
-	 }
+	    this.assetType = assetType;
+	}
+	
 	public String getPath(){return path;}
+	public Class<?> getAssetType() {
+		return assetType;
+	}
+	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public AssetDescriptor<?> getAsset() {
+		return new AssetDescriptor(path, assetType);
+	}
 }

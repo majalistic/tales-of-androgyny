@@ -104,6 +104,7 @@ public class EncounterScreen extends AbstractScreen {
 	public static ObjectMap<String, Class<?>> getRequirements(EncounterCode encounterCode) {
 		ObjectMap<String, Class<?>> requirements = new ObjectMap<String, Class<?>>(EncounterScreen.resourceRequirements);
 
+		// remove this switch, place these asset requirements in the encounter code itself
 		switch (encounterCode) {
 			case LEVEL_UP: 
 				requirements.put(AssetEnum.CLASS_SELECT_BACKGROUND.getPath(), Texture.class);

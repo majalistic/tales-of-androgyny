@@ -104,40 +104,40 @@ public class BattleScreen extends AbstractScreen{
 		Array<String> textureArray = new Array<String>();
 		switch (battleCode.battleCode){
 			case 0:
-				textureArray.addAll(WEREBITCH.getPath(), FOREST_BG.getPath(), "arousal/Monster0.png", "arousal/Monster1.png", "arousal/Monster2.png");
+				textureArray.addAll(WEREBITCH.getPath(), FOREST_BG.getPath(), MONSTER_DONG_0.getPath(), MONSTER_DONG_1.getPath(), MONSTER_DONG_2.getPath());
 				break;
 			case 1: 
 			case 2004:
-				textureArray.addAll(HARPY_FELLATIO.getPath(), FOREST_BG.getPath(), "arousal/Monster0.png", "arousal/Monster1.png", "arousal/Monster2.png");
+				textureArray.addAll(HARPY_FELLATIO.getPath(), FOREST_BG.getPath(), MONSTER_DONG_0.getPath(), MONSTER_DONG_1.getPath(), MONSTER_DONG_2.getPath());
 				break;
 			case 2: 
-				textureArray.addAll(SLIME.getPath(),  SLIME_DOGGY.getPath(), FOREST_BG.getPath(), "arousal/Monster0.png", "arousal/Monster1.png", "arousal/Monster2.png");
+				textureArray.addAll(SLIME.getPath(),  SLIME_DOGGY.getPath(), FOREST_BG.getPath(), MONSTER_DONG_0.getPath(), MONSTER_DONG_1.getPath(), MONSTER_DONG_2.getPath());
 				break;
 			case 3: 
-				textureArray.addAll(BRIGAND.getPath(), BRIGAND_ORAL.getPath(), FOREST_BG.getPath(), "arousal/Human0.png", "arousal/Human1.png", "arousal/Human2.png");
+				textureArray.addAll(BRIGAND.getPath(), BRIGAND_ORAL.getPath(), FOREST_BG.getPath(), LARGE_DONG_0.getPath(), LARGE_DONG_1.getPath(), LARGE_DONG_2.getPath());
 				break;
 			case 5: 
-				textureArray.addAll(PLAINS_BG.getPath(), "arousal/Monster0.png", "arousal/Monster1.png", "arousal/Monster2.png");
+				textureArray.addAll(PLAINS_BG.getPath(), MONSTER_DONG_0.getPath(), MONSTER_DONG_1.getPath(), MONSTER_DONG_2.getPath());
 				break;
 			case 1005:
-				textureArray.addAll(PLAINS_BG.getPath(), "arousal/Monster0.png", "arousal/Monster1.png", "arousal/Monster2.png");
+				textureArray.addAll(PLAINS_BG.getPath(), MONSTER_DONG_0.getPath(), MONSTER_DONG_1.getPath(), MONSTER_DONG_2.getPath());
 				break;
 			case 6: 
-				textureArray.addAll(GOBLIN.getPath(), GOBLIN_FACE_SIT.getPath(), ENCHANTED_FOREST_BG.getPath(), "arousal/Monster0.png", "arousal/Monster1.png", "arousal/Monster2.png");
+				textureArray.addAll(GOBLIN.getPath(), GOBLIN_FACE_SIT.getPath(), ENCHANTED_FOREST_BG.getPath(), MONSTER_DONG_0.getPath(), MONSTER_DONG_1.getPath(), MONSTER_DONG_2.getPath());
 				break;
 			case 1006: 
-				textureArray.addAll(GOBLIN_MALE.getPath(), ENCHANTED_FOREST_BG.getPath(), "arousal/Monster0.png", "arousal/Monster1.png", "arousal/Monster2.png");
+				textureArray.addAll(GOBLIN_MALE.getPath(), ENCHANTED_FOREST_BG.getPath(), MONSTER_DONG_0.getPath(), MONSTER_DONG_1.getPath(), MONSTER_DONG_2.getPath());
 				break;
 			case 7:
-				textureArray.addAll(ORC.getPath(), FOREST_BG.getPath(), "arousal/Monster0.png", "arousal/Monster1.png", "arousal/Monster2.png");
+				textureArray.addAll(ORC.getPath(), FOREST_BG.getPath(), MONSTER_DONG_0.getPath(), MONSTER_DONG_1.getPath(), MONSTER_DONG_2.getPath());
 				requirements.put(AssetEnum.BOSS_MUSIC.getPath(), Music.class);
 				break;
 			case 8:
-				textureArray.addAll(ADVENTURER.getPath(), FOREST_BG.getPath(), SMALL_DONG_0.getPath(), SMALL_DONG_0.getPath(), SMALL_DONG_0.getPath());
+				textureArray.addAll(ADVENTURER.getPath(), FOREST_BG.getPath(), SMALL_DONG_0.getPath(), SMALL_DONG_1.getPath(), SMALL_DONG_2.getPath());
 				requirements.put(AssetEnum.BOSS_MUSIC.getPath(), Music.class);
 				break;
 			case 9:
-				textureArray.addAll(OGRE.getPath(), FOREST_UP_BG.getPath(), "arousal/Monster0.png", "arousal/Monster1.png", "arousal/Monster2.png");
+				textureArray.addAll(OGRE.getPath(), FOREST_UP_BG.getPath(), MONSTER_DONG_0.getPath(), MONSTER_DONG_1.getPath(), MONSTER_DONG_2.getPath());
 				requirements.put(AssetEnum.HEAVY_MUSIC.getPath(), Music.class);
 				break;
 		}

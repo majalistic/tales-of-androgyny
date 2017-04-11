@@ -794,10 +794,9 @@ public abstract class AbstractCharacter extends Actor {
 		return label + " adopt" + (secondPerson ? "" : "s") + " " + article + " " + stanceTransform + " stance! ";
  	}
 	
-	
 	public String getLustImagePath() {
 		int lustLevel = lust > 7 ? 2 : lust > 3 ? 1 : 0;
-		return "arousal/" + phallus.label + lustLevel + ".png";
+		return phallus.getPhallusState(lustLevel);
 	}
 	
 	public boolean outOfStamina(Technique technique) {
@@ -959,13 +958,17 @@ public abstract class AbstractCharacter extends Actor {
 	}
 	
 	protected enum PhallusType {
-		SMALL("Small"),
-		NORMAL("Human"),
-		MONSTER("Monster");
-		private final String label;
+		SMALL(AssetEnum.SMALL_DONG_0, AssetEnum.SMALL_DONG_1, AssetEnum.SMALL_DONG_2),
+		NORMAL(AssetEnum.LARGE_DONG_0, AssetEnum.LARGE_DONG_1, AssetEnum.LARGE_DONG_2),
+		MONSTER(AssetEnum.MONSTER_DONG_0, AssetEnum.MONSTER_DONG_1, AssetEnum.MONSTER_DONG_2);
+		private final Array<AssetEnum> phallusStates;
 
-		PhallusType(String label) {
-		    this.label = label;
+		PhallusType(AssetEnum... phallusStates ) {
+		    this.phallusStates = new Array<AssetEnum>(phallusStates);
+		}
+		
+		private String getPhallusState(int stateIndex) {
+			return phallusStates.get(stateIndex).getPath();
 		}
 	}
 	
