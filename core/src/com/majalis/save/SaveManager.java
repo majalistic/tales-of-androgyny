@@ -14,7 +14,7 @@ import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonWriter.OutputType;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.SerializationException;
-import com.majalis.battle.BattleCode;
+import com.majalis.battle.BattleAttributes;
 import com.majalis.character.EnemyCharacter;
 import com.majalis.character.Item;
 import com.majalis.character.Perk;
@@ -95,7 +95,7 @@ public class SaveManager implements SaveService, LoadService {
 	    	case CAMERA_POS:		save.cameraPos = new Vector3((Vector2) object, 0); break;
 	    	case ENCOUNTER_CODE:	save.encounterCode = (EncounterCode) object; break;
 	    	case VISITED_LIST:		save.visitedList.add((Integer) object); break;
-	    	case BATTLE_CODE:		save.battleCode = (BattleCode) object; break;
+	    	case BATTLE_CODE:		save.battleAttributes = (BattleAttributes) object; break;
 	    	case CLASS:				save.player.setJobClass((JobClass) object); save.player.load(); break;
 	    	case WORLD_SEED:		save.worldSeed = (Integer) object; break;
 	    	case HEALTH: 			result = save.player.modHealth((Integer) object); break; 
@@ -139,7 +139,7 @@ public class SaveManager implements SaveService, LoadService {
 	    	case VISITED_LIST:		IntSet set = new IntSet();
 	    							set.addAll(save.visitedList);
 	    							return (T) set;
-	    	case BATTLE_CODE:		return (T) save.battleCode;
+	    	case BATTLE_CODE:		return (T) save.battleAttributes;
 	    	case CLASS:				return (T) save.player.getJobClass();
 	    	case WORLD_SEED:		return (T) (Integer) save.worldSeed;
 	    	case HEALTH:			return (T) (Integer) save.player.getCurrentHealth();
@@ -271,7 +271,7 @@ public class SaveManager implements SaveService, LoadService {
     	private Vector3 cameraPos;
     	private IntArray visitedList;
     	// this can probably be refactored to contain a particular battle, but may need to duplicate the player character
-    	private BattleCode battleCode;
+    	private BattleAttributes battleAttributes;
     	private PlayerCharacter player;
     	private EnemyCharacter enemy;
     	private ObjectMap<String, Shop> shops;

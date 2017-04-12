@@ -8,7 +8,7 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.utils.Array;
 import com.majalis.asset.AssetEnum;
 import com.majalis.battle.Battle;
-import com.majalis.battle.BattleCode;
+import com.majalis.battle.BattleAttributes;
 import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveManager;
 import com.majalis.save.SaveService;
@@ -90,52 +90,9 @@ public class BattleScreen extends AbstractScreen{
 	}
 
 	// this should simply return the battlecode's requirements, rather than use a switch
-	public static Array<AssetDescriptor<?>> getRequirements(BattleCode battleCode) {
+	public static Array<AssetDescriptor<?>> getRequirements(BattleAttributes battleAttributes) {
 		Array<AssetDescriptor<?>> requirements = new Array<AssetDescriptor<?>>(BattleScreen.resourceRequirements);
-		// this should be assetEnum
-		Array<AssetEnum> textureArray = new Array<AssetEnum>();
-		switch (battleCode.battleCode) {
-		case 0:
-			textureArray.addAll(WEREBITCH, FOREST_BG, MONSTER_DONG_0, MONSTER_DONG_1, MONSTER_DONG_2);
-			break;
-		case 1: 
-		case 2004:
-			textureArray.addAll(HARPY_FELLATIO, FOREST_BG, MONSTER_DONG_0, MONSTER_DONG_1, MONSTER_DONG_2);
-			break;
-		case 2: 
-			textureArray.addAll(SLIME,  SLIME_DOGGY, FOREST_BG, MONSTER_DONG_0, MONSTER_DONG_1, MONSTER_DONG_2);
-			break;
-		case 3: 
-			textureArray.addAll(BRIGAND, BRIGAND_ORAL, FOREST_BG, LARGE_DONG_0, LARGE_DONG_1, LARGE_DONG_2);
-			break;
-		case 5: 
-			textureArray.addAll(PLAINS_BG, MONSTER_DONG_0, MONSTER_DONG_1, MONSTER_DONG_2);
-			break;
-		case 1005:
-			textureArray.addAll(PLAINS_BG, MONSTER_DONG_0, MONSTER_DONG_1, MONSTER_DONG_2);
-			break;
-		case 6: 
-			textureArray.addAll(GOBLIN, GOBLIN_FACE_SIT, ENCHANTED_FOREST_BG, MONSTER_DONG_0, MONSTER_DONG_1, MONSTER_DONG_2);
-			break;
-		case 1006: 
-			textureArray.addAll(GOBLIN_MALE, ENCHANTED_FOREST_BG, MONSTER_DONG_0, MONSTER_DONG_1, MONSTER_DONG_2);
-			break;
-		case 7:
-			textureArray.addAll(ORC, FOREST_BG, MONSTER_DONG_0, MONSTER_DONG_1, MONSTER_DONG_2);
-			requirements.add(AssetEnum.BOSS_MUSIC.getMusic());
-			break;
-		case 8:
-			textureArray.addAll(ADVENTURER, FOREST_BG, SMALL_DONG_0, SMALL_DONG_1, SMALL_DONG_2);
-			requirements.add(AssetEnum.BOSS_MUSIC.getMusic());
-			break;
-		case 9:
-			textureArray.addAll(OGRE, FOREST_UP_BG, MONSTER_DONG_0, MONSTER_DONG_1, MONSTER_DONG_2);
-			requirements.add(AssetEnum.HEAVY_MUSIC.getMusic());
-			break;
-		}
-		for (AssetEnum path: textureArray) {
-			requirements.add(path.getTexture());
-		}
+		requirements.addAll(battleAttributes.getRequirements());
 		requirementsToDispose = requirements;
 		return requirements;
 	}

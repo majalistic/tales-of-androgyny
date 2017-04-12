@@ -69,14 +69,13 @@ public class EncounterBuilder {
 	private final BitmapFont font;
 	private final BitmapFont smallFont;
 	private final int sceneCode;
-	private int battleCode;
 	private final ObjectMap<String, Shop> shops;
 	private final PlayerCharacter character;
 	private final GameContext returnContext;
 	// can probably be replaced with a call to scenes.size
 	private int sceneCounter;
 	
-	protected EncounterBuilder(EncounterReader reader, AssetManager assetManager, SaveService saveService, BitmapFont font, BitmapFont smallFont, int sceneCode, int battleCode, ObjectMap<String, Shop> shops, PlayerCharacter character, GameContext returnContext) {
+	protected EncounterBuilder(EncounterReader reader, AssetManager assetManager, SaveService saveService, BitmapFont font, BitmapFont smallFont, int sceneCode, ObjectMap<String, Shop> shops, PlayerCharacter character, GameContext returnContext) {
 		scenes = new Array<Scene>();
 		endScenes = new Array<EndScene>();
 		battleScenes = new Array<BattleScene>();
@@ -86,7 +85,6 @@ public class EncounterBuilder {
 		this.font = font;
 		this.smallFont = smallFont;
 		this.sceneCode = sceneCode;
-		this.battleCode = battleCode;
 		this.shops = shops == null ? new ObjectMap<String, Shop>() : shops;
 		this.character = character;
 		this.returnContext = returnContext;
@@ -175,10 +173,11 @@ public class EncounterBuilder {
 		Mutation goblinVirginityToFalse = new Mutation(saveService, SaveEnum.GOBLIN_VIRGIN, false);
 		Array<Outcome> normalOutcomes = new Array<Outcome>(new Outcome[]{Outcome.VICTORY, Outcome.DEFEAT, Outcome.SATISFIED});
 		
-		// if there isn't already a battlecode set, it's determined by the encounterCode; for now, that means dividing the various encounters up by modulus
-		if (battleCode == -1) battleCode = encounterCode.getBattleCode();
+		BattleCode battleCode;
+		
 		switch (encounterCode) {
 			case WERESLUT:
+				battleCode = BattleCode.WERESLUT;
 				Background werebitchBackground = new BackgroundBuilder(backgroundTexture).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getTexture())).setForeground(assetManager.get(AssetEnum.WEREBITCH.getTexture())).build();
 				getTextScenes(
 					getScript(encounterCode, 0), font, background, getArray(new Mutation[]{new Mutation(saveService, ProfileEnum.KNOWLEDGE, EnemyEnum.WERESLUT.toString())}), AssetEnum.WEREWOLF_MUSIC.getMusic(), 
@@ -195,6 +194,7 @@ public class EncounterBuilder {
 				);		
 				break;
 			case HARPY:
+				battleCode = BattleCode.HARPY;
 				final AnimatedActor enemy = EnemyCharacter.getAnimatedActor(EnemyEnum.HARPY);
 				
 				Background harpyBackground = new BackgroundBuilder(backgroundTexture).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getTexture())).setForeground(enemy, 0, 0).build();
@@ -255,6 +255,7 @@ public class EncounterBuilder {
 				);		
 				break;
 			case SLIME:
+				battleCode = BattleCode.SLIME;
 				Background slimeBackground= new BackgroundBuilder(backgroundTexture).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getTexture())).setForeground(assetManager.get(AssetEnum.SLIME.getTexture())).build();
 				Background slimeDoggyBackground = new BackgroundBuilder(backgroundTexture).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getTexture())).setForeground(assetManager.get(AssetEnum.SLIME_DOGGY.getTexture())).build();
 				getTextScenes(
@@ -332,6 +333,7 @@ public class EncounterBuilder {
 				);
 				break;
 			case BRIGAND:
+				battleCode = BattleCode.BRIGAND;
 				Background brigandBackground = new BackgroundBuilder(backgroundTexture).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getTexture())).setForeground(assetManager.get(AssetEnum.BRIGAND_ORAL.getTexture())).build();
 				
 				OrderedMap<Integer, Scene> winFight2 = getTextScenes(getArray(new String[]{"You defeated the brigand!", "You receive 1 Experience."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.EXPERIENCE, 1)}), getEndScene(EndScene.Type.ENCOUNTER_OVER));
@@ -486,6 +488,7 @@ public class EncounterBuilder {
 				);
 				break;
 			case CENTAUR:
+				battleCode = BattleCode.CENTAUR;
 				final AnimatedActor enemy2 = EnemyCharacter.getAnimatedActor(EnemyEnum.CENTAUR);
 				final AnimatedActor enemy3 = EnemyCharacter.getAnimatedActor(EnemyEnum.UNICORN);
 				Background centaurBackground = new BackgroundBuilder(backgroundTexture).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getTexture())).setForeground(enemy2, 0, 0).build();
@@ -511,7 +514,7 @@ public class EncounterBuilder {
 						getTextScenes(
 							getScript(encounterCode, 1), font, unicornBackground, getArray(new Mutation[]{new Mutation(saveService, ProfileEnum.KNOWLEDGE, EnemyEnum.UNICORN.toString())}),
 							getBattleScene(
-								battleCode + 1000, 
+								BattleCode.UNICORN, 
 								getTextScenes(getArray(new String[]{"You defeated the unicorn!", "You receive 3 Experience."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.EXPERIENCE, 3)}), getEndScene(EndScene.Type.ENCOUNTER_OVER)),
 								getTextScenes(
 									getScript(encounterCode, 4), font, unicornBackground,
@@ -550,6 +553,7 @@ public class EncounterBuilder {
 				);		
 				break;	
 			case GOBLIN:
+				battleCode = BattleCode.GOBLIN;
 				Background goblinBackground = new BackgroundBuilder(backgroundTexture).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getTexture())).setForeground(assetManager.get(AssetEnum.GOBLIN.getTexture())).build();
 				Background goblinMaleBackground = new BackgroundBuilder(backgroundTexture).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getTexture())).setForeground(assetManager.get(AssetEnum.GOBLIN_MALE.getTexture())).build();
 				Background buttBangedBackground2 = new BackgroundBuilder(assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getTexture())).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getTexture())).setForeground(new AnimatedActor("animation/SplurtGO.atlas", "animation/SplurtGO.json"), 555, 520).build();
@@ -891,7 +895,7 @@ public class EncounterBuilder {
 								getScript(encounterCode, "MALE-00"), font, background, getArray(new Mutation[]{new Mutation(saveService, ProfileEnum.KNOWLEDGE, EnemyEnum.GOBLIN_MALE.toString())}),
 								getTextScenes(
 									getScript(encounterCode, "MALE-01"), font, goblinMaleBackground,
-									getBattleScene(battleCode + 1000, 
+									getBattleScene(BattleCode.GOBLIN_MALE, 
 										getTextScenes(
 											getScript(encounterCode, "MALE-02"), font, goblinMaleBackground, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.EXPERIENCE, 1)}),
 											getEndScene(EndScene.Type.ENCOUNTER_OVER)
@@ -933,6 +937,7 @@ public class EncounterBuilder {
 				);
 				break;
 			case ORC:
+				battleCode = BattleCode.ORC;
 				Texture orc = assetManager.get(AssetEnum.ORC.getTexture());
 				Background backgroundWithOrc = new BackgroundBuilder(assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getTexture())).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getTexture())).setForeground(orc).build();
 				Background backgroundWithOrcZoom = new BackgroundBuilder(assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getTexture())).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getTexture())).setForeground(new TextureRegion(orc, 500, 700, 700, 700)).build();
@@ -1128,6 +1133,7 @@ public class EncounterBuilder {
 				);
 				break;
 			case ADVENTURER:
+				battleCode = BattleCode.ADVENTURER;
 				Background backgroundWithAdventurer = new BackgroundBuilder(assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getTexture())).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getTexture())).setForeground(assetManager.get(AssetEnum.ADVENTURER.getTexture())).build();
 				Background buttBangedBackground3 = new BackgroundBuilder(assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getTexture())).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getTexture())).setForeground(new AnimatedActor("animation/SplurtGO.atlas", "animation/SplurtGO.json"), 555, 520).build();
 				
@@ -1263,6 +1269,7 @@ public class EncounterBuilder {
 				);
 				break;
 			case OGRE: 
+				battleCode = BattleCode.OGRE;
 				Background backgroundWithOgre = new BackgroundBuilder(assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getTexture())).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getTexture())).setForeground(assetManager.get(AssetEnum.OGRE.getTexture())).build();
 				Background backgroundOgreBanged = new BackgroundBuilder(assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getTexture())).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getTexture())).setForeground(assetManager.get(AssetEnum.OGRE_BANGED.getTexture())).build();
 				
@@ -1563,6 +1570,7 @@ public class EncounterBuilder {
 				);
 				break;
 			case FIRST_BATTLE_STORY:
+				battleCode = BattleCode.GOBLIN_STORY;
 				Background goblinBackground2 = new BackgroundBuilder(backgroundTexture).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getTexture())).setForeground(assetManager.get(AssetEnum.GOBLIN.getTexture())).build();
 				getTextScenes(
 					getScript("STORY-FIGHT-FIRST"), font, background,
@@ -1683,8 +1691,6 @@ public class EncounterBuilder {
 				);		
 				break;
 		}
-		// reporting that the battle code has been consumed - this should be encounter code
-		saveService.saveDataValue(SaveEnum.BATTLE_CODE, new BattleCode(-1, null, Stance.BALANCED, Stance.BALANCED, false, 0));
 		return new Encounter(scenes, endScenes, battleScenes, getStartScene(scenes, sceneCode));	
 	}
 
@@ -1847,27 +1853,27 @@ public class EncounterBuilder {
 		return addScene(checkScene);
 	}
 	
-	private OrderedMap<Integer, Scene> getBattleScene(int battleCode, @SuppressWarnings("unchecked") OrderedMap<Integer, Scene>... sceneMaps) {
+	private OrderedMap<Integer, Scene> getBattleScene(BattleCode battleCode, @SuppressWarnings("unchecked") OrderedMap<Integer, Scene>... sceneMaps) {
 		return getBattleScene(battleCode, Stance.BALANCED, Stance.BALANCED, sceneMaps);
 	}
 	
-	private OrderedMap<Integer, Scene> getBattleScene(int battleCode, Array<Outcome> outcomes, @SuppressWarnings("unchecked") OrderedMap<Integer, Scene>... sceneMaps) {
+	private OrderedMap<Integer, Scene> getBattleScene(BattleCode battleCode, Array<Outcome> outcomes, @SuppressWarnings("unchecked") OrderedMap<Integer, Scene>... sceneMaps) {
 		return getBattleScene(battleCode, Stance.BALANCED, Stance.BALANCED, outcomes, sceneMaps);
 	}
 	
-	private OrderedMap<Integer, Scene> getBattleScene(int battleCode, int climaxCounter, Array<Outcome> outcomes, @SuppressWarnings("unchecked") OrderedMap<Integer, Scene>... sceneMaps) {
+	private OrderedMap<Integer, Scene> getBattleScene(BattleCode battleCode, int climaxCounter, Array<Outcome> outcomes, @SuppressWarnings("unchecked") OrderedMap<Integer, Scene>... sceneMaps) {
 		return getBattleScene(battleCode, Stance.BALANCED, Stance.BALANCED, false, climaxCounter, outcomes, sceneMaps);
 	}
 	
-	private OrderedMap<Integer, Scene> getBattleScene(int battleCode, Stance playerStance, Stance enemyStance, @SuppressWarnings("unchecked") OrderedMap<Integer, Scene>... sceneMaps) {
+	private OrderedMap<Integer, Scene> getBattleScene(BattleCode battleCode, Stance playerStance, Stance enemyStance, @SuppressWarnings("unchecked") OrderedMap<Integer, Scene>... sceneMaps) {
 		return getBattleScene(battleCode, playerStance, enemyStance, new Array<Outcome>(new Outcome[]{Outcome.VICTORY, Outcome.DEFEAT}), sceneMaps);
 	}
 	
-	private OrderedMap<Integer, Scene> getBattleScene(int battleCode, Stance playerStance, Stance enemyStance, Array<Outcome> outcomes, @SuppressWarnings("unchecked") OrderedMap<Integer, Scene>... sceneMaps) {
+	private OrderedMap<Integer, Scene> getBattleScene(BattleCode battleCode, Stance playerStance, Stance enemyStance, Array<Outcome> outcomes, @SuppressWarnings("unchecked") OrderedMap<Integer, Scene>... sceneMaps) {
 		return getBattleScene(battleCode, playerStance, enemyStance, false, 0, outcomes, sceneMaps);
 	}
 	
-	private OrderedMap<Integer, Scene> getBattleScene(int battleCode, Stance playerStance, Stance enemyStance, boolean disarm, int climaxCounter, Array<Outcome> outcomes, @SuppressWarnings("unchecked") OrderedMap<Integer, Scene>... sceneMaps) {
+	private OrderedMap<Integer, Scene> getBattleScene(BattleCode battleCode, Stance playerStance, Stance enemyStance, boolean disarm, int climaxCounter, Array<Outcome> outcomes, @SuppressWarnings("unchecked") OrderedMap<Integer, Scene>... sceneMaps) {
 		OrderedMap<Integer, Scene> sceneMap = aggregateMaps(sceneMaps);
 		ObjectMap<String, Integer> outcomeToScene = new ObjectMap<String, Integer>();
 		for (int ii = 0; ii < outcomes.size; ii++) {

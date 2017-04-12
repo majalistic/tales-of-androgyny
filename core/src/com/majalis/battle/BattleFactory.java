@@ -35,23 +35,24 @@ public class BattleFactory {
 	    font = fontGenerator.generateFont(fontParameter);
 	}
 	
-	public Battle getBattle(BattleCode battleCode, PlayerCharacter playerCharacter) {
+	public Battle getBattle(BattleAttributes battleAttributes, PlayerCharacter playerCharacter) {
 		EnemyCharacter enemy = loadService.loadDataValue(SaveEnum.ENEMY, EnemyCharacter.class);
 		// need a new Enemy
 		if (enemy == null) {
-			enemy = getEnemy(battleCode.battleCode);
-			enemy.setStance(battleCode.enemyStance);
+			enemy = getEnemy(battleAttributes.getBattleCode());
+			enemy.setStance(battleAttributes.getEnemyStance());
 			if (enemy.getStance().isEroticPenetration() ) {
 				enemy.setLust(10);
 			}
-			if (battleCode.disarm) {
+			if (battleAttributes.getDisarm()) {
 				enemy.disarm();
 			}
-			if (battleCode.climaxCounter > 0) {
+			if (battleAttributes.getClimaxCounter() > 0) {
 				enemy.setLust(10);
+				enemy.setClimaxCounter(battleAttributes.getClimaxCounter());
 			}
-			enemy.setClimaxCounter(battleCode.climaxCounter);
-			playerCharacter.setStance(battleCode.playerStance);			
+			
+			playerCharacter.setStance(battleAttributes.getPlayerStance());			
 		}
 		// loading old enemy
 		else {
@@ -64,8 +65,9 @@ public class BattleFactory {
 		@SuppressWarnings("unchecked")
 		Array<String> console = (Array<String>) loadService.loadDataValue(SaveEnum.CONSOLE, Array.class);
 		return new Battle(
-			saveService, assetManager, font, playerCharacter, enemy, battleCode.outcomes, 
-			new BackgroundBuilder(assetManager.get(enemy.getBGPath())).build(), new BackgroundBuilder(assetManager.get(AssetEnum.BATTLE_UI.getTexture())).build(), console.size > 0 ? console.get(0) : "", console.size > 1 ? console.get(1) : "", battleCode.battleCode == 7 || battleCode.battleCode == 8 ? AssetEnum.BOSS_MUSIC.getMusic() : battleCode.battleCode == 9 ? AssetEnum.HEAVY_MUSIC.getMusic() : AssetEnum.BATTLE_MUSIC.getMusic()
+			saveService, assetManager, font, playerCharacter, enemy, battleAttributes.getOutcomes(), 
+			new BackgroundBuilder(assetManager.get(enemy.getBGPath())).build(), new BackgroundBuilder(assetManager.get(AssetEnum.BATTLE_UI.getTexture())).build(),
+			console.size > 0 ? console.get(0) : "", console.size > 1 ? console.get(1) : "", battleAttributes.getMusic()
 		);
 	}
 	
@@ -90,24 +92,6 @@ public class BattleFactory {
 		return textures;
 	}
 	
-	private EnemyCharacter getEnemy(int battleCode) {
-		switch(battleCode) {
-			case 0: return new EnemyCharacter(getTexture(EnemyEnum.WERESLUT), getTextures(EnemyEnum.WERESLUT), EnemyEnum.WERESLUT);
-			case 1: 
-			case 2004: return new EnemyCharacter(null, getTextures(EnemyEnum.HARPY), EnemyEnum.HARPY);
-			case 2: return new EnemyCharacter(getTexture(EnemyEnum.SLIME), getTextures(EnemyEnum.SLIME), EnemyEnum.SLIME);
-			case 3: return new EnemyCharacter(getTexture(EnemyEnum.BRIGAND), getTextures(EnemyEnum.BRIGAND), EnemyEnum.BRIGAND);
-			case 5: return new EnemyCharacter(null, getTextures(EnemyEnum.CENTAUR), EnemyEnum.CENTAUR);
-			case 1005: return new EnemyCharacter(null, getTextures(EnemyEnum.UNICORN), EnemyEnum.UNICORN);
-			case 6: return new EnemyCharacter(getTexture(EnemyEnum.GOBLIN), getTextures(EnemyEnum.GOBLIN), EnemyEnum.GOBLIN);
-			case 1006: return new EnemyCharacter(getTexture(EnemyEnum.GOBLIN_MALE), getTextures(EnemyEnum.GOBLIN_MALE), EnemyEnum.GOBLIN_MALE);
-			case 7: return new EnemyCharacter(getTexture(EnemyEnum.ORC), getTextures(EnemyEnum.ORC), EnemyEnum.ORC);
-			case 8: return new EnemyCharacter(getTexture(EnemyEnum.ADVENTURER), getTextures(EnemyEnum.ADVENTURER), EnemyEnum.ADVENTURER);
-			case 9: return new EnemyCharacter(getTexture(EnemyEnum.OGRE), getTextures(EnemyEnum.OGRE), EnemyEnum.OGRE);
-			default: return null;
-		}
-	}
-
 	public enum EnemyEnum {
 		WERESLUT ("Wereslut", AssetEnum.WEREBITCH.getTexture()),
 		HARPY ("Harpy", null, "animation/Harpy"),
@@ -130,5 +114,23 @@ public class BattleFactory {
 	    public String toString() { return text; }	
 	    public AssetDescriptor<Texture> getTexture() { return path; }
 	    public String getAnimationPath() { return animationPath; }
+	}
+	
+	protected EnemyCharacter getEnemy(BattleCode battleCode) {
+		switch(battleCode) {
+			case WERESLUT: return new EnemyCharacter(getTexture(EnemyEnum.WERESLUT), getTextures(EnemyEnum.WERESLUT), EnemyEnum.WERESLUT);
+			case HARPY: 
+			case HARPY_STORY: return new EnemyCharacter(null, getTextures(EnemyEnum.HARPY), EnemyEnum.HARPY);
+			case SLIME: return new EnemyCharacter(getTexture(EnemyEnum.SLIME), getTextures(EnemyEnum.SLIME), EnemyEnum.SLIME);
+			case BRIGAND: return new EnemyCharacter(getTexture(EnemyEnum.BRIGAND), getTextures(EnemyEnum.BRIGAND), EnemyEnum.BRIGAND);
+			case CENTAUR: return new EnemyCharacter(null, getTextures(EnemyEnum.CENTAUR), EnemyEnum.CENTAUR);
+			case UNICORN: return new EnemyCharacter(null, getTextures(EnemyEnum.UNICORN), EnemyEnum.UNICORN);
+			case GOBLIN: return new EnemyCharacter(getTexture(EnemyEnum.GOBLIN), getTextures(EnemyEnum.GOBLIN), EnemyEnum.GOBLIN);
+			case GOBLIN_MALE: return new EnemyCharacter(getTexture(EnemyEnum.GOBLIN_MALE), getTextures(EnemyEnum.GOBLIN_MALE), EnemyEnum.GOBLIN_MALE);
+			case ORC: return new EnemyCharacter(getTexture(EnemyEnum.ORC), getTextures(EnemyEnum.ORC), EnemyEnum.ORC);
+			case ADVENTURER: return new EnemyCharacter(getTexture(EnemyEnum.ADVENTURER), getTextures(EnemyEnum.ADVENTURER), EnemyEnum.ADVENTURER);
+			case OGRE: return new EnemyCharacter(getTexture(EnemyEnum.OGRE), getTextures(EnemyEnum.OGRE), EnemyEnum.OGRE);
+			default: return null;
+		}
 	}
 }

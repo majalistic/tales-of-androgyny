@@ -12,7 +12,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.majalis.asset.AssetEnum;
-import com.majalis.battle.BattleCode;
+import com.majalis.battle.BattleAttributes;
 import com.majalis.battle.BattleFactory;
 import com.majalis.character.PlayerCharacter;
 import com.majalis.encounter.Encounter;
@@ -149,8 +149,8 @@ public class ScreenFactoryImpl implements ScreenFactory {
 	}
 
 	private BattleScreen getBattle(ScreenElements elements, PlayerCharacter character) {
-		if (getAssetCheck(BattleScreen.getRequirements((BattleCode) loadService.loadDataValue(SaveEnum.BATTLE_CODE, BattleCode.class)))) {
-			BattleCode battleCode = loadService.loadDataValue(SaveEnum.BATTLE_CODE, BattleCode.class);
+		if (getAssetCheck(BattleScreen.getRequirements((BattleAttributes) loadService.loadDataValue(SaveEnum.BATTLE_CODE, BattleAttributes.class)))) {
+			BattleAttributes battleCode = loadService.loadDataValue(SaveEnum.BATTLE_CODE, BattleAttributes.class);
 			return new BattleScreen(this, elements, saveService, battleFactory.getBattle(battleCode, character), assetManager);
 		}
 		else {
