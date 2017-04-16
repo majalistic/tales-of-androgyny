@@ -69,10 +69,34 @@ public class OptionScreen extends AbstractScreen {
 		fullScreen.getCells().get(0).size(50, 50);
 		addActorAndListen(fullScreen, 1099, 651);
 		
+		
+		final CheckBox preload = new CheckBox("    Preload (Restart game for effect)", skin);
+		preload.setChecked(preferences.getBoolean("preload", false));
+		preload.addListener(new ChangeListener() {
+	        @Override
+	        public void changed(ChangeEvent event, Actor actor) {
+	            final boolean val = preload.isChecked();
+	            preferences.putBoolean("preload", val);
+	            if (!debug){
+		    		if(val) Gdx.graphics.setFullscreenMode(Gdx.graphics.getDisplayMode());
+		    		else Gdx.graphics.setWindowedMode(preferences.getInteger("width", 1920), preferences.getInteger("height", 1080));
+	            }
+	        }
+	    });
+		preload.getCells().get(0).size(50, 50);
+		addActorAndListen(preload, 700, 850);
+		
 		/* Resolution selection */
 		addLabelActor("Resolution", 700, 750);
 		final SelectBox<Vector2> resolution = new SelectBox<Vector2>(skin);
 		resolution.setItems(new Array<Vector2>(true, new Vector2[]{new Vector2(1920, 1080), new Vector2(1600, 900), new Vector2(1280, 720), new Vector2(960, 540)}, 0, 4));
+		Vector2 currentResolution = new Vector2(preferences.getInteger("width", 1920), preferences.getInteger("height", 1080));
+		for (Vector2 resolutionToCheck : resolution.getItems()) {
+			if (resolutionToCheck.epsilonEquals(currentResolution, 1)) {
+				resolution.setSelected(resolutionToCheck);
+			}
+
+		}
 		resolution.addListener(new ChangeListener() {
 	        @Override
 	        public void changed(ChangeEvent event, Actor actor) {
