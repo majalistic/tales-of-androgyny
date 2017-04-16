@@ -54,6 +54,7 @@ public class OptionScreen extends AbstractScreen {
 		
 		/* Full Screen toggle */
 		final CheckBox fullScreen = new CheckBox("    FullScreen", skin);
+		fullScreen.setChecked(preferences.getBoolean("fullScreen", false));
 		fullScreen.addListener(new ChangeListener() {
 	        @Override
 	        public void changed(ChangeEvent event, Actor actor) {
