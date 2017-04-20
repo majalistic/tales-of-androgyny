@@ -624,7 +624,7 @@ public class Battle extends Group{
 		if (character.hasMagic()) {
 			characterMana.setValue(character.getManaPercent());
 			manaLabel.setText(character.getCurrentMana() + " / " + character.getMaxMana());
-			manaIcon.setDrawable(new TextureRegionDrawable(new TextureRegion()));
+			manaIcon.setDrawable(getDrawable(character.getManaDisplay()));
 		}
 		
 		enemyHealth.setValue(enemy.getHealthPercent());
