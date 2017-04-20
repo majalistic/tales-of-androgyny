@@ -881,6 +881,8 @@ public abstract class AbstractCharacter extends Actor {
 		FELLATIO (StanceType.ORAL, AssetEnum.FELLATIO), 
 		FACE_SITTING(StanceType.FACESIT, AssetEnum.FACE_SITTING),
 		SIXTY_NINE(StanceType.ORAL, AssetEnum.SIXTY_NINE),
+		HOLDING(AssetEnum.FULL_NELSON),
+		CRUSHING(StanceType.ANAL, AssetEnum.FULL_NELSON),
 		
 		FULL_NELSON_BOTTOM (AssetEnum.FULL_NELSON), 
 		DOGGY_BOTTOM (StanceType.ANAL_BOTTOM, AssetEnum.DOGGY), 
@@ -892,6 +894,9 @@ public abstract class AbstractCharacter extends Actor {
 		FELLATIO_BOTTOM (StanceType.ORAL_BOTTOM, AssetEnum.FELLATIO), 
 		FACE_SITTING_BOTTOM (StanceType.FACESIT_BOTTOM, AssetEnum.FACE_SITTING),
 		SIXTY_NINE_BOTTOM (StanceType.ORAL_BOTTOM, AssetEnum.SIXTY_NINE),
+		HELD(AssetEnum.SPREAD),
+		SPREAD(StanceType.ANAL_BOTTOM, AssetEnum.SPREAD),
+		PENETRATED(StanceType.ANAL_BOTTOM, AssetEnum.PENETRATED),
 		
 		ERUPT (AssetEnum.ERUPT), 
 		;

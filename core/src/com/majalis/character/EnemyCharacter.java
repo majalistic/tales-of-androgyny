@@ -167,7 +167,7 @@ public class EnemyCharacter extends AbstractCharacter {
 	public Attack doAttack(Attack resolvedAttack) {
 		if (resolvedAttack.getGrapple() > 0) {
 			struggle -= resolvedAttack.getGrapple();
-			resolvedAttack.addMessage("They struggle to get you off!");
+			//resolvedAttack.addMessage("They struggle to get you off!");
 			if (struggle >= 3 && stance == Stance.COWGIRL) {
 				resolvedAttack.addMessage("It's still stuck up inside of you!");
 				resolvedAttack.addMessage("Well, I guess you know that.");
@@ -196,6 +196,9 @@ public class EnemyCharacter extends AbstractCharacter {
 						break;
 					default:
 				}
+			}
+			if (stance == Stance.HOLDING) {
+				resolvedAttack.addDialog("The ogre grunts as he hoists you up by your legs, bringing your small hole to his throbbing mast.");
 			}
 			if (!oldStance.isErotic() && stance.isErotic()) {
 				switch (enemyType) {
@@ -320,11 +323,15 @@ public class EnemyCharacter extends AbstractCharacter {
 	}
 	
 	private Array<Techniques> getPossibleTechniques(AbstractCharacter target, Stance stance) {
-		
+				
 		if (enemyType == EnemyEnum.SLIME && !stance.isIncapacitatingOrErotic()) {
 			return getTechniques(target, SLIME_ATTACK, SLIME_QUIVER); 			
 		}
-		else if (enemyType == EnemyEnum.OGRE && !stance.isIncapacitatingOrErotic()) {
+		else if (enemyType == EnemyEnum.OGRE && !stance.isIncapacitatingOrErotic() && stance != Stance.HOLDING) {
+			if (willPounce() && lust > 20) {
+				lust = 20;
+				return getTechniques(target, SEIZE);						
+			}
 			if (weapon != null) {
 				if (stance == Stance.OFFENSIVE) {
 					return getTechniques(target, SMASH);
@@ -335,8 +342,7 @@ public class EnemyCharacter extends AbstractCharacter {
 			}
 			else {
 				return getTechniques(target, SLAM);
-			}
-			
+			}	
 		}
 		
 		Array<Techniques> possibles = new Array<Techniques>();
@@ -352,6 +358,7 @@ public class EnemyCharacter extends AbstractCharacter {
 					if (enemyType == EnemyEnum.BRIGAND || enemyType == EnemyEnum.ORC || enemyType == EnemyEnum.ADVENTURER) {
 						possibles.addAll(getTechniques(target, ARMOR_SUNDER));
 					}
+					
 					possibles.addAll(getTechniques(target, POWER_ATTACK, GUT_CHECK, RECKLESS_ATTACK, KNOCK_DOWN, TEMPO_ATTACK, RESERVED_ATTACK));
 				}
 				return possibles;
@@ -493,6 +500,16 @@ public class EnemyCharacter extends AbstractCharacter {
 					return getTechniques(target, SUCK_IT);
 				}
 				return getTechniques(target, SUCK_IT);
+			case HOLDING:
+				return getTechniques(target, OGRE_SMASH);
+			case CRUSHING:
+				lust++;
+				if (lust > 28) {
+					return getTechniques(target, ERUPT_ANAL);
+				}
+				else {
+					return getTechniques(target, target.stance == Stance.SPREAD ? CRUSH : PULL_UP);
+				}
 		default: return null;
 		}
 	}
@@ -507,20 +524,20 @@ public class EnemyCharacter extends AbstractCharacter {
 			return getTechnique(target, nextMove);
 		}
 		
-		if (lust < 10) {
+		if (lust < 10 || enemyType == EnemyEnum.OGRE) {
 			if (enemyType != EnemyEnum.CENTAUR) lust++;
 		}
 		
 		Array<Techniques> possibleTechniques = getPossibleTechniques(target, stance);
 		
-		if (willPounce()) {
+		if (willPounce() && enemyType != EnemyEnum.OGRE) {
 			if (target.stance == Stance.PRONE ) {
 				possibleTechniques = getTechniques(target, POUNCE_DOGGY);
 			}
 			else if (target.stance == Stance.SUPINE) {
 				possibleTechniques = getTechniques(target, POUNCE_ANAL);
 			}
-			else if (target.stance == Stance.KNEELING && enemyType != EnemyEnum.OGRE) {
+			else if (target.stance == Stance.KNEELING) {
 				possibleTechniques =  getTechniques(target, SAY_AHH);
 			}
 			else if (enemyType == EnemyEnum.HARPY) {

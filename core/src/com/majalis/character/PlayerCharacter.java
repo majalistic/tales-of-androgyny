@@ -112,7 +112,7 @@ public class PlayerCharacter extends AbstractCharacter {
 			RECEIVE_ANAL, RECEIVE_DOGGY, RECEIVE_STANDING, STRUGGLE_ORAL, STRUGGLE_DOGGY, STRUGGLE_ANAL, STRUGGLE_STANDING, RECEIVE_KNOT, SUCK_IT, BREAK_FREE_ANAL, BREAK_FREE_ORAL,
 			SUBMIT, STRUGGLE_FULL_NELSON, BREAK_FREE_FULL_NELSON,
 			OPEN_WIDE, GRAB_IT, STROKE_IT, LET_GO, USE_ITEM, ITEM_OR_CANCEL,
-			RECIPROCATE_FORCED, GET_FACE_RIDDEN, STRUGGLE_FACE_SIT, STRUGGLE_SIXTY_NINE, BREAK_FREE_FACE_SIT, ROLL_OVER_UP, ROLL_OVER_DOWN, RIPOSTE, EN_GARDE, POUNCE_DOGGY, POUND_DOGGY, POUNCE_ANAL, POUND_ANAL, ERUPT_ANAL, PULL_OUT, PULL_OUT_ORAL, PULL_OUT_ANAL, PULL_OUT_STANDING
+			RECIPROCATE_FORCED, GET_FACE_RIDDEN, STRUGGLE_FACE_SIT, STRUGGLE_SIXTY_NINE, BREAK_FREE_FACE_SIT, ROLL_OVER_UP, ROLL_OVER_DOWN, RIPOSTE, EN_GARDE, POUNCE_DOGGY, POUND_DOGGY, POUNCE_ANAL, POUND_ANAL, ERUPT_ANAL, PULL_OUT, PULL_OUT_ORAL, PULL_OUT_ANAL, PULL_OUT_STANDING, RECEIVE_COCK, HURK, UH_OH
 		);
 		return baseTechniques;
 	}
@@ -247,6 +247,12 @@ public class PlayerCharacter extends AbstractCharacter {
 					return getTechniques(target, RECIPROCATE_FORCED, STRUGGLE_SIXTY_NINE);
 				}
 				return getTechniques(target, RECIPROCATE_FORCED, BREAK_FREE_ORAL);
+			case HELD:
+				return getTechniques(target, UH_OH);
+			case SPREAD:
+				return getTechniques(target, RECEIVE_COCK);
+			case PENETRATED:
+				return getTechniques(target, HURK);
 			case CASTING:
 				return getTechniques(target, COMBAT_FIRE, COMBAT_HEAL, TITAN_STRENGTH);
 			case ITEM:
@@ -367,10 +373,21 @@ public class PlayerCharacter extends AbstractCharacter {
 			setCurrentPortrait(resolvedAttack.isClimax() ? AssetEnum.PORTRAIT_MOUTHBOMB : AssetEnum.PORTRAIT_FELLATIO);
 		}
 		
+		if (stance == Stance.HELD) {
+			setCurrentPortrait(perks.get(Perk.GIANT_LOVER.toString(), 0) > 1 ? AssetEnum.PORTRAIT_LOVE : AssetEnum.PORTRAIT_SURPRISE);
+		}
+		
 		if (!oldStance.isAnalReceptive() && stance.isAnalReceptive()) {
 			result = receiveAnal(); 
 			
-			setCurrentPortrait(perks.get(Perk.ANAL_LOVER.toString(), 0) > 1 ? AssetEnum.PORTRAIT_LOVE : AssetEnum.PORTRAIT_SURPRISE);
+			if (stance != Stance.PENETRATED) {
+				setCurrentPortrait(perks.get(Perk.ANAL_LOVER.toString(), 0) > 1 ? AssetEnum.PORTRAIT_LOVE : AssetEnum.PORTRAIT_SURPRISE);
+			}
+			
+			else {
+				setCurrentPortrait(perks.get(Perk.ANAL_LOVER.toString(), 0) > 1 ? AssetEnum.PORTRAIT_LOVE : AssetEnum.PORTRAIT_AHEGAO);
+			}
+			
 			
 			if (result != null) { resolvedAttack.addMessage(result); } 
 			if (resolvedAttack.getUser().equals("Goblin")) {
@@ -894,6 +911,10 @@ public class PlayerCharacter extends AbstractCharacter {
 			result += "You gained " + Perk.HORSE_LOVER.getLabel() + " (Rank " + 1 + ")!";
 			perks.put(Perk.HORSE_LOVER.toString(), 1);
 		}
+		if (sex.isOgreSex() && perks.get(Perk.GIANT_LOVER.toString(), 0) != 3) {
+			result += "You gained " + Perk.GIANT_LOVER.getLabel() + " (Rank " + perks.get(Perk.GIANT_LOVER.toString(), 0) + 1 + ")!";
+			perks.put(Perk.GIANT_LOVER.toString(), perks.get(Perk.GIANT_LOVER.toString(), 0) + 1);
+		}
 		
 		return result;
 	}
@@ -1011,7 +1032,7 @@ public class PlayerCharacter extends AbstractCharacter {
 	}
 	
 	public enum QuestType {
-		ORC, CRIER, INNKEEP, TRUDY, GOBLIN
+		ORC, CRIER, INNKEEP, TRUDY, GOBLIN, OGRE
 	}
 	
 	public static class QuestFlag {

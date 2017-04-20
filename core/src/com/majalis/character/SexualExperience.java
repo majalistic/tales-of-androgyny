@@ -9,6 +9,7 @@ public class SexualExperience {
 	private final int oralCreampies;
 	private final int fellatioEjaculation;
 	private final boolean horse;
+	private final boolean ogre;
 	
 	public static class SexualExperienceBuilder {
 		
@@ -19,6 +20,7 @@ public class SexualExperience {
 		private int oralCreampies;
 		private int fellatioEjaculation;
 		private boolean horse;
+		private boolean ogre;
 		
 		public SexualExperienceBuilder() {
 			this (0);
@@ -56,12 +58,17 @@ public class SexualExperience {
 			return this;
 		}
 		
+		public SexualExperienceBuilder setOgre() {
+			ogre = true;
+			return this;
+		}
+		
 		public SexualExperience build() {
-			return new SexualExperience(analSex, creampies, analEjaculation, oralSex, oralCreampies, fellatioEjaculation, horse);
+			return new SexualExperience(analSex, creampies, analEjaculation, oralSex, oralCreampies, fellatioEjaculation, horse, ogre);
 		}		
 	}
 	
-	private SexualExperience(int analSex, int creampies, int analEjaculation, int oralSex, int oralCreampies, int fellatioEjaculation, boolean horse) {
+	private SexualExperience(int analSex, int creampies, int analEjaculation, int oralSex, int oralCreampies, int fellatioEjaculation, boolean horse, boolean ogre) {
 		this.analSex = analSex;
 		this.creampies = creampies;
 		this.analEjaculation = analEjaculation;
@@ -69,6 +76,7 @@ public class SexualExperience {
 		this.oralCreampies = oralCreampies;
 		this.fellatioEjaculation = fellatioEjaculation;
 		this.horse = horse;
+		this.ogre = ogre;
 	}
 	
 	protected int getAnalSex() { return analSex; }
@@ -78,5 +86,6 @@ public class SexualExperience {
 	protected int getOralCreampies() { return oralCreampies; }
 	protected int getFellatioEjaculations() { return fellatioEjaculation; }
 	protected boolean isCentaurSex() { return horse; }
+	protected boolean isOgreSex() { return ogre; }
 	
 }

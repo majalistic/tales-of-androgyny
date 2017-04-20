@@ -74,6 +74,7 @@ public enum Techniques {
 	POUNCE_DOGGY		(new GrappleTechnique  (Stance.BALANCED, Stance.DOGGY, "Pounce", 2, Stance.DOGGY_BOTTOM).build()), // Used to initiate doggy
 	POUNCE_ANAL			(new GrappleTechnique  (Stance.BALANCED, Stance.ANAL, "Pounce", 2, Stance.ANAL_BOTTOM).build()), // Used to initiate missionary
 	PENETRATE_STANDING	(new GrappleTechnique  (Stance.FULL_NELSON, Stance.STANDING, "Penetrate", 2, Stance.STANDING_BOTTOM).build()), // Used to initiate standing anal
+	SEIZE				(new GrappleTechnique  (Stance.BALANCED, Stance.HOLDING, "Seize", 2, Stance.HELD).build()), // Used to initiate giant sex
 	FACE_SIT			(new GrappleTechnique  (Stance.BALANCED, Stance.FACE_SITTING, "Plop Down", 2, Stance.FACE_SITTING_BOTTOM).build()), // Used to initiate face-sitting
 	SITTING_ORAL		(new GrappleTechnique  (Stance.FACE_SITTING, Stance.SIXTY_NINE, "Say 'Ahh'", 2, Stance.SIXTY_NINE_BOTTOM).build()), // Used to initiate face-sitting
 	KNOT 				(new NonAttackTechnique(Stance.DOGGY, Stance.KNOTTED, "Knot", 0, 0, Stance.KNOTTED_BOTTOM, "Set Damage").build()), // Used to knot by knotty weresluts and others
@@ -83,6 +84,10 @@ public enum Techniques {
 	POUND_DOGGY 		(new NonAttackTechnique(Stance.DOGGY, Stance.DOGGY, "Pound", 2, 0).build()), // Used to doggystyle
 	POUND_ANAL 			(new NonAttackTechnique(Stance.ANAL, Stance.ANAL, "Pound", 2, 0).build()), // Used to missionary
 	POUND_STANDING 		(new NonAttackTechnique(Stance.STANDING, Stance.STANDING, "Pound", 2, 0).build()), // Used to standing anal
+	OGRE_SMASH	 		(new NonAttackTechnique(Stance.HOLDING, Stance.CRUSHING, "Ogre Smash", 2, 0, Stance.PENETRATED).build()), // Used to bring down onto giant's cock first time
+	CRUSH		 		(new NonAttackTechnique(Stance.CRUSHING, Stance.CRUSHING, "Crush", 2, 0, Stance.PENETRATED).build()), // Used to bring down onto giant's cock
+	PULL_UP		 		(new NonAttackTechnique(Stance.CRUSHING, Stance.CRUSHING, "Pull Up", 2, 0, Stance.SPREAD).build()), // Used to bring down onto giant's cock
+	
 	RIDE_FACE			(new NonAttackTechnique(Stance.FACE_SITTING, Stance.FACE_SITTING, "Ride", 0, 0).build()), // Used to faceride
 	RECIPROCATE			(new NonAttackTechnique(Stance.SIXTY_NINE, Stance.SIXTY_NINE, "Reciprocate", 0, 0).build()), // Used to sixty nine
 	KNOT_BANG 			(new NonAttackTechnique(Stance.KNOTTED, Stance.KNOTTED, "Knot Bang", 0, 0, Stance.KNOTTED_BOTTOM).build()), // Used to knot by knotty weresluts and others - could end the battle
@@ -108,7 +113,6 @@ public enum Techniques {
 	PULL_OUT_ORAL		(new GrappleTechnique(Stance.FELLATIO, Stance.BALANCED, "Pull Out", 1, Stance.KNEELING, "Pull Out.").build()), 
 	PULL_OUT_STANDING	(new GrappleTechnique(Stance.STANDING, Stance.BALANCED, "Pull Out", 1, Stance.BALANCED, "Pull Out.").build()), 
 	
-	
 	STROKE_IT			(new EroticTechnique(Stance.HANDY_BOTTOM, Stance.HANDY_BOTTOM, "Stroke It", -1, 0, "Stroke it up and down.").build()), 
 	LET_GO				(new GrappleTechnique(Stance.HANDY_BOTTOM, Stance.KNEELING, "Let It Go", 1, Stance.BALANCED, "Let go of it.").build()), 
 	
@@ -116,6 +120,9 @@ public enum Techniques {
 	RECEIVE_ANAL		(new EroticTechnique(Stance.ANAL_BOTTOM, Stance.ANAL_BOTTOM, "Receive", -1, 0, "Take it up the butt.").build()), 
 	RECEIVE_STANDING	(new EroticTechnique(Stance.STANDING_BOTTOM, Stance.STANDING_BOTTOM, "Receive", -1, 0, "Take it up the butt.").build()), 
 	RECIPROCATE_FORCED	(new EroticTechnique(Stance.SIXTY_NINE_BOTTOM, Stance.SIXTY_NINE_BOTTOM, "Reciprocate", -1, 0, "Give head and take it.").build()), 
+	UH_OH				(new EroticTechnique(Stance.HELD, Stance.PENETRATED, "Uh-Oh", 0, 0, "Oh no. Oh no no no. Wait... wait, wait wait wait wait wait wait wait wait wait wait wait wait wait wait wait wait wait wait wait wait wait wait wait wait wait wait wait wait wait--!!!").build()), 
+	RECEIVE_COCK		(new EroticTechnique(Stance.SPREAD, Stance.PENETRATED, "Receive Cock", -1, 0, "That is a lot of dick.").build()), 
+	HURK				(new EroticTechnique(Stance.PENETRATED, Stance.SPREAD, "Hurk!", -1, 0, "Hurk.").build()), 
 	SUBMIT				(new EroticTechnique(Stance.FULL_NELSON_BOTTOM, Stance.FULL_NELSON_BOTTOM, "Submit", -1, 0, "Don't try to struggle.\nShe's looking for an opening.\nLiterally.").build()), 
 	GET_FACE_RIDDEN		(new EroticTechnique(Stance.FACE_SITTING_BOTTOM, Stance.FACE_SITTING_BOTTOM, "Endure", -1, 0, "Let her press her ass all over your face.").build()), 
 	RECEIVE_KNOT		(new EroticTechnique(Stance.KNOTTED_BOTTOM, Stance.KNOTTED_BOTTOM, "Receive Knot", -1, 0, "Take that big knot up the butt.").build()), 

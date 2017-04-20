@@ -246,7 +246,7 @@ public class Battle extends Group{
 		
 		Image dialogBox = new Image(assetManager.get(AssetEnum.BATTLE_TEXTBOX.getTexture()));
 		dialogGroup.addActor(dialogBox);
-		dialogBox.setBounds(consoleXPos + 150, consoleYPos + 450, 400, 125);
+		dialogBox.setBounds(consoleXPos + 140, consoleYPos + 425, 415, 150);
 		
 		hoverImage = new Image(assetManager.get(AssetEnum.BATTLE_HOVER.getTexture()));
 		hoverImage.setBounds(hoverXPos, hoverYPos, hoverImage.getWidth() + 100, hoverImage.getHeight() + 100);

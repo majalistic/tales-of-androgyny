@@ -1273,22 +1273,151 @@ public class EncounterBuilder {
 				Background backgroundWithOgre = new BackgroundBuilder(assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getTexture())).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getTexture())).setForeground(assetManager.get(AssetEnum.OGRE.getTexture())).build();
 				Background backgroundOgreBanged = new BackgroundBuilder(assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getTexture())).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getTexture())).setForeground(assetManager.get(AssetEnum.OGRE_BANGED.getTexture())).build();
 				
-				getTextScenes(
-					getScript(encounterCode, 0), font, backgroundWithOgre, getArray(new Mutation[]{new Mutation(saveService, ProfileEnum.KNOWLEDGE, EnemyEnum.OGRE.toString())}), AssetEnum.WEREWOLF_MUSIC.getMusic(), 
+				OrderedMap<Integer, Scene> passerby =
+					getTextScenes(
+						getScript(encounterCode, 16), font, backgroundWithOgre,
+						getEndScene(EndScene.Type.ENCOUNTER_OVER)
+					);
+				
+				OrderedMap<Integer, Scene> partingScene = 
+						getCheckScene(
+							Perk.GIANT_LOVER, new IntArray(new int[]{3, 2, 1}),
+							getTextScenes(
+								getScript(encounterCode, 6), font, backgroundWithOgre, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.ANAL, new SexualExperienceBuilder().setAnalSex(100, 5, 5).build())}),
+								getEndScene(EndScene.Type.GAME_OVER)
+							),
+							getTextScenes(
+								getScript(encounterCode, 7), font, backgroundWithOgre,
+								passerby
+							),
+							getTextScenes(
+								getScript(encounterCode, 8), font, backgroundWithOgre,
+								passerby
+							),
+							passerby					
+						);
+					
+				OrderedMap<Integer, Scene> ogreFirstBattle = 
 					getBattleScene(
 						battleCode, normalOutcomes,
 						getTextScenes(
-							getScript(encounterCode, 1), font, background, 
+							getScript(encounterCode, 9), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.GOLD, 50), new Mutation(saveService, SaveEnum.EXPERIENCE, 5)}),
 							getEndScene(EndScene.Type.ENCOUNTER_OVER)
 						),
 						getTextScenes(
-							getScript(encounterCode, 2), font, backgroundOgreBanged, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.ANAL, new SexualExperienceBuilder().setAnalSex(100, 5, 5).build())}),
-							getEndScene(EndScene.Type.GAME_OVER)
+							getScript(encounterCode, 10), font, backgroundOgreBanged, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.ANAL, new SexualExperienceBuilder().setAnalSex(1, 1, 1).build())}),
+							partingScene
 						),
 						getTextScenes(
-							getScript(encounterCode, 3), font, backgroundOgreBanged, 
-							getEndScene(EndScene.Type.GAME_OVER)
+							getScript(encounterCode, 11), font, backgroundOgreBanged, 
+							partingScene
 						)
+					);
+						
+				OrderedMap<Integer, Scene> ogreFirstBattleDisarm = 
+					getBattleScene(
+						battleCode, Stance.OFFENSIVE, Stance.BALANCED, true, 0, normalOutcomes,
+						getTextScenes(
+							getScript(encounterCode, 9), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.GOLD, 50), new Mutation(saveService, SaveEnum.EXPERIENCE, 5)}),
+							getEndScene(EndScene.Type.ENCOUNTER_OVER)
+						),
+						getTextScenes(
+							getScript(encounterCode, 10), font, backgroundOgreBanged, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.ANAL, new SexualExperienceBuilder().setAnalSex(1, 1, 1).build())}),
+							partingScene
+						),
+						getTextScenes(
+							getScript(encounterCode, 11), font, backgroundOgreBanged, 
+							partingScene
+						)
+					);
+				
+				OrderedMap<Integer, Scene> ogreSecondBattle = 
+						getBattleScene(
+							battleCode, normalOutcomes,
+							getTextScenes(
+								getScript(encounterCode, 9), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.EXPERIENCE, 5)}),
+								getEndScene(EndScene.Type.ENCOUNTER_OVER)
+							),
+							getTextScenes(
+								getScript(encounterCode, 10), font, backgroundOgreBanged, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.ANAL, new SexualExperienceBuilder().setAnalSex(1, 1, 1).build())}),
+								partingScene
+							),
+							getTextScenes(
+								getScript(encounterCode, 11), font, backgroundOgreBanged, 
+								partingScene
+							)
+						);
+				
+				OrderedMap<Integer, Scene> grabbedByOgre = 
+					getTextScenes( // blundered into ogre, same as steal fail
+						getScript(encounterCode, 12), font, backgroundOgreBanged, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.ANAL, new SexualExperienceBuilder().setAnalSex(1, 1, 1).build())}), // buggered by ogre
+						getCheckScene( 
+							Stat.ENDURANCE, new IntArray(new int[]{4}),
+							getTextScenes( // endured ogre and escaped
+								getScript(encounterCode, 13), font, backgroundWithOgre, 
+								getEndScene(EndScene.Type.ENCOUNTER_OVER)
+							),
+							getEndScene(EndScene.Type.GAME_OVER) // failed to escape
+						)
+					);
+						
+				
+				getTextScenes(
+					getScript(encounterCode, "INTRO"), font, background, getArray(new Mutation[]{new Mutation(saveService, ProfileEnum.KNOWLEDGE, EnemyEnum.OGRE.toString())}), AssetEnum.WEREWOLF_MUSIC.getMusic(), 
+					getCheckScene(
+						CheckType.OGRE_DONE,		
+						getTextScenes(
+							getScript(encounterCode, 0), font, background, 
+							getCheckScene( 
+								Stat.PERCEPTION, new IntArray(new int[]{3}),
+								getTextScenes(
+									getScript(encounterCode, 1), font, background, 
+									getChoiceScene(
+										"Do you attempt to steal from the ogre or ambush him?", getArray(new String[]{"Steal", "Ambush", "Leave"}),
+										getTextScenes(
+											getScript(encounterCode, 2), font, backgroundWithOgre, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.QUEST, new QuestFlag(QuestType.OGRE, 1))}), 
+											getCheckScene(
+												Stat.AGILITY, new IntArray(new int[]{7, 5}),
+												getTextScenes(
+													getScript(encounterCode, 3), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.GOLD, 20)}), 
+													getEndScene(EndScene.Type.ENCOUNTER_OVER)
+												),
+												getTextScenes(
+													getScript(encounterCode, 4), font, background, 
+													ogreFirstBattle
+												),
+												grabbedByOgre
+											)
+										),
+										getTextScenes(
+											getScript(encounterCode, 2), font, backgroundWithOgre, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.QUEST, new QuestFlag(QuestType.OGRE, 1))}), 
+											getCheckScene(
+												Stat.AGILITY, new IntArray(new int[]{5}),
+												getChoiceScene(
+													"Pre-emptive ranged attack or kick away his club?", getArray(new String[]{"Ranged Attack", "Kick Away Club"}),
+													ogreFirstBattle,
+													ogreFirstBattleDisarm
+												),
+												getTextScenes(
+													getScript(encounterCode, 5), font, backgroundWithOgre, 
+													ogreFirstBattle
+												)
+											)
+										),
+										getEndScene(EndScene.Type.ENCOUNTER_OVER)
+									)
+								),
+								getTextScenes(
+									getScript(encounterCode, 14), font, backgroundWithOgre,
+									grabbedByOgre			
+								)	
+							)
+						),
+						// should include perception check, then ability to avoid or fight
+						getTextScenes(
+							getScript(encounterCode, 15), font, backgroundWithOgre,
+							ogreSecondBattle				
+						)	
 					)
 				);
 				break;

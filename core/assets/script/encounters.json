@@ -2823,30 +2823,138 @@
 		]
 	},
 	{
+	"key": "009-INTRO",
+		"scriptLines": [
+			"."
+		]
+	},	
+	{
 	"key": "009-00",
 		"scriptLines": [
-			"You come across an... ogre.  He looks angry.  And his cock is huge.  Uh... good luck."
+			"The air around you is heavy, and you can hear a deep rumbling noise an unclear distance away."
 		]
 	},
 	{
 	"key": "009-01",
 		"scriptLines": [
-			"You won, somehow!",
-			"You gain 5 Experience."
+			"The sound gets louder and louder, and you realize that it's snoring - loud snoring.",
+			"You come across... a sleeping ogre, thankfully still sleeping, cradling a pile of jewels.",
+			"Your eyes widen - the jewels look particularly enticing... but something else catches your eye as well.",
+			"Your sphincter tightens with an audible squeak - the thing is monstrous... and so is the ogre. If the ogre can't tell that it's your out hole, you're going to be walking funny for weeks, at best.",
+			"You could try to stealthfully steal from the ogre, or get the drop on him... but you best be certain that you can handle him at his worst."
 		]
 	},
 	{
 	"key": "009-02",
 		"scriptLines": [
-			"You were defeated.  Duh."
+			"You approach the ogre, keeping quiet all the while, your footfalls barely louder than your heartbeat."
 		]
 	},
 	{
 	"key": "009-03",
 		"scriptLines": [
-			"The ogre pulls you off of his massive cock, and his cum drools out of your utterly destroyed asshole in rivers."
+			"As you get closer, you notice one of the jewels is substantially larger and expensive looking... and as you reach for it, feeling the ogre's breath exhaled from his nostrils nearly lift you off your feet... you manage to pluck it from the pile without alerting him.",
+			"Satisfied that you've got the best of the situation, you hastily, but carefully, make your retreat, visions of gold flashing before your eyes."	
 		]
 	},
+	{
+	"key": "009-04",
+		"scriptLines": [
+			"As you get closer, you notice one of the jewels is substantially larger and expensive looking... and as you reach for it, feeling the ogre's breath exhaled from his nostrils nearly lift you off your feet... you step back, onto a twig, snapping it.",
+			"The ogre's eyes open, and he clumsily gets to his feet... before hefting his massive club, ready to defend his hoard!"			
+		]
+	},
+	{
+	"key": "009-05",
+		"scriptLines": [
+			"You fail to ambush the ogre - and he is not amused! He wakes, digs into the earth with his nails as he dregs up his club, and attacks!"
+		]
+	},
+	{
+	"key": "009-06",
+		"scriptLines": [
+			"You follow the ogre back to his lair... where you spend the rest of your days."
+		]
+	},
+	{
+	"key": "009-07",
+		"scriptLines": [
+			"You bend over to show the ogre your gaping asshole, but you're not sure why.  Before you can take it back, he inserts a massive digit, perhaps out of curiosity, and though you had been thoroughly stretched by his massive dong, feeling him root around in your distended, aching rectum makes you grit your teeth, hard.",
+			"As soon as he loses interest, you turn away, hiding your recently vacated hole from his view.  You may have an... unhealthy fixation with large creatures, but you're not stupid.  You come back to your senses."
+		]
+	},
+	{
+	"key": "009-08",
+		"scriptLines": [
+			"You mumble out a meek, \"hey, uh... call me?\" before your senses return.  The ogre doesn't seem to notice."
+		]
+	},
+	{
+	"key": "009-09",
+		"scriptLines": [
+			"You won, somehow!  You gather the scattered gems in order to sell them.",
+			"You gain 5 Experience."
+		]
+	},
+	{
+	"key": "009-10",
+		"scriptLines": [
+			"You were defeated.  Duh.",
+			"The ogre lifts you up by your legs, and you squeal in surprise as you feel his thick tower threatening to impale you.",
+			"Aided by gravity, the ogre's fat cockhead has enters your ass!",
+			"You are completely at his mercy - each inch up or down he controls by grasping your legs and dragging you like a doll across his towering mast.",
+			"He twitches, deep in your bowels, and it feels like a volcano erupting your guts - the ogre cum enema you never hoped to receive. The sound of it is enough to cause your ears to ring.",
+			"You lay there, finding it difficult to move, as the ogre's cum bubbles out of your gaped butthole."
+		]
+	},
+	{
+	"key": "009-11",
+		"scriptLines": [
+			"The ogre pulls you off of his massive cock, and his cum drools out of your utterly destroyed asshole in rivers, before he discards you on the ground."
+		]
+	},
+	{
+	"key": "009-12",
+		"scriptLines": [
+			"All at once, the ogre snaps you up in his massive fist! You are completely helpless in his grasp!",
+			"Aided by gravity, the ogre's fat cockhead smashes into your ass!",
+			"You are completely at his mercy - each inch up or down he controls by grasping your legs and dragging you like a doll across his towering mast.",
+			"He twitches, deep in your bowels, and it feels like a volcano erupting your guts - the ogre cum enema you never hoped to receive. The sound of it is enough to cause your ears to ring."
+			"You lay there, finding it difficult to move, as the ogre's cum bubbles out of your gaped butthole."
+		]
+	},	
+	{
+	"key": "009-13",
+		"scriptLines": [
+			"Despite the... rough encounter, you manage to get to your feet and leave before the ogre wakes from his nap."
+		]
+	},	
+	{
+	"key": "009-14",
+		"scriptLines": [
+			"You can't locate the source of the sound, even as it grows louder - while looking around, you're so distracted that you bumble into something.",
+			"Something... something large... and fleshy. You trace your gaze upwards... at an ogre."
+		]
+	},	
+	{
+	"key": "009-15",
+		"scriptLines": [
+			"You come across an ogre!  It attacks!"
+		]
+	},	
+	{
+	"key": "009-16",
+		"scriptLines": [
+			"By the time you return to the road, you collapse, exhausted.",
+			"A passing merchant stumbles upon you, and sees the ogre's handiwork.",
+			"\"Whew!  Look at that butthole.  You must shit pancakes, boy. Must've have had a pretty good time.\"",
+			"\"Actually, I was attacked. An ogre... had his way with me,\" you explain.",
+			"\"The wilds can be cruel to the unprepared, eh?\" he says, \"You can ride on my cart back to town.\"",
+			"You accept his offer, and put the ogre behind you... well, not literally."			
+		]
+	},	
+	
+	
 	{
 		"key": "FORCED_CAMP",
 		"scriptLines": [

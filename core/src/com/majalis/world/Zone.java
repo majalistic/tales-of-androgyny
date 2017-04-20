@@ -114,7 +114,7 @@ public class Zone {
 	}
 	// this method for debugging purposes
 	private int getEncounterCodeForNode(int nodeCode) {
-		//return 6; // magical number to see a particular encounter, should probably just perform this debug in the node itself
+		//return 9; // magical number to see a particular encounter, should probably just perform this debug in the node itself
 		// this will return the appropriate array index
 		return (nodeCode-1) % EncounterCode.encounterArray.size;
 	}
