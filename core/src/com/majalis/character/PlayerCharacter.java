@@ -912,7 +912,7 @@ public class PlayerCharacter extends AbstractCharacter {
 			perks.put(Perk.HORSE_LOVER.toString(), 1);
 		}
 		if (sex.isOgreSex() && perks.get(Perk.GIANT_LOVER.toString(), 0) != 3) {
-			result += "You gained " + Perk.GIANT_LOVER.getLabel() + " (Rank " + perks.get(Perk.GIANT_LOVER.toString(), 0) + 1 + ")!";
+			result += "You gained " + Perk.GIANT_LOVER.getLabel() + " (Rank " + (perks.get(Perk.GIANT_LOVER.toString(), 0) + 1) + ")!";
 			perks.put(Perk.GIANT_LOVER.toString(), perks.get(Perk.GIANT_LOVER.toString(), 0) + 1);
 		}
 		
