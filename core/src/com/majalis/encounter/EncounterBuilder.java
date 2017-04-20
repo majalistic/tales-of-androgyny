@@ -1305,7 +1305,7 @@ public class EncounterBuilder {
 							getEndScene(EndScene.Type.ENCOUNTER_OVER)
 						),
 						getTextScenes(
-							getScript(encounterCode, 10), font, backgroundOgreBanged, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.ANAL, new SexualExperienceBuilder().setAnalSex(1, 1, 1).build())}),
+							getScript(encounterCode, 10), font, backgroundOgreBanged, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.ANAL, new SexualExperienceBuilder().setAnalSex(1, 1, 1).setOgre().build())}),
 							partingScene
 						),
 						getTextScenes(
@@ -1322,7 +1322,7 @@ public class EncounterBuilder {
 							getEndScene(EndScene.Type.ENCOUNTER_OVER)
 						),
 						getTextScenes(
-							getScript(encounterCode, 10), font, backgroundOgreBanged, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.ANAL, new SexualExperienceBuilder().setAnalSex(1, 1, 1).build())}),
+							getScript(encounterCode, 10), font, backgroundOgreBanged, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.ANAL, new SexualExperienceBuilder().setAnalSex(1, 1, 1).setOgre().build())}),
 							partingScene
 						),
 						getTextScenes(
@@ -1339,7 +1339,7 @@ public class EncounterBuilder {
 								getEndScene(EndScene.Type.ENCOUNTER_OVER)
 							),
 							getTextScenes(
-								getScript(encounterCode, 10), font, backgroundOgreBanged, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.ANAL, new SexualExperienceBuilder().setAnalSex(1, 1, 1).build())}),
+								getScript(encounterCode, 10), font, backgroundOgreBanged, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.ANAL, new SexualExperienceBuilder().setAnalSex(1, 1, 1).setOgre().build())}),
 								partingScene
 							),
 							getTextScenes(
@@ -1350,7 +1350,7 @@ public class EncounterBuilder {
 				
 				OrderedMap<Integer, Scene> grabbedByOgre = 
 					getTextScenes( // blundered into ogre, same as steal fail
-						getScript(encounterCode, 12), font, backgroundOgreBanged, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.ANAL, new SexualExperienceBuilder().setAnalSex(1, 1, 1).build())}), // buggered by ogre
+						getScript(encounterCode, 12), font, backgroundOgreBanged, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.ANAL, new SexualExperienceBuilder().setAnalSex(1, 1, 1).setOgre().build())}), // buggered by ogre
 						getCheckScene( 
 							Stat.ENDURANCE, new IntArray(new int[]{4}),
 							getTextScenes( // endured ogre and escaped
