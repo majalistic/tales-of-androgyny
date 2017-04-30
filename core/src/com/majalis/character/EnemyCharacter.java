@@ -882,26 +882,26 @@ public class EnemyCharacter extends AbstractCharacter {
 		else if (enemy.getCurrentHealth() <= 0) return Outcome.DEFEAT;
 		switch(enemyType) {
 			case BRIGAND:
-				if (getClimaxCount() >= 2) return Outcome.SATISFIED;
+				if (getToppingClimaxCount() >= 2) return Outcome.SATISFIED;
 				break;
 			case CENTAUR:
-				if (getClimaxCount() >= 1) return Outcome.SATISFIED;
+				if (getToppingClimaxCount() >= 1) return Outcome.SATISFIED;
 				break;
 			case GOBLIN:
 			case GOBLIN_MALE:
 				break;
 			case ORC:
-				if (getClimaxCount() >= 5) return Outcome.SATISFIED;
+				if (getToppingClimaxCount() >= 5) return Outcome.SATISFIED;
 				break;
 			case HARPY:
-				if (getClimaxCount() >= 2) return Outcome.SATISFIED;
+				if (getToppingClimaxCount() >= 2) return Outcome.SATISFIED;
 				break;
 			case SLIME:
 				break;
 			case UNICORN:
 				break;
 			case WERESLUT:
-				if (getClimaxCount() >= 2) return Outcome.SATISFIED;
+				if (getToppingClimaxCount() >= 2) return Outcome.SATISFIED;
 				if (knotInflate >= 5) return Outcome.KNOT;
 				break;
 			case ADVENTURER:
