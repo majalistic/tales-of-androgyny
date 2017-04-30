@@ -454,7 +454,7 @@ public class EnemyCharacter extends AbstractCharacter {
 						return getTechniques(target, POUND_ANAL);
 					}
 					else if (stance == Stance.DOGGY) {
-						return getTechniques(target, POUND_DOGGY);
+						return getTechniques(target, POUND_DOGGY, CRUSH_ASS);
 					}
 					else {
 						return getTechniques(target, POUND_STANDING);
@@ -491,7 +491,7 @@ public class EnemyCharacter extends AbstractCharacter {
 					return getTechniques(target, ERUPT_ORAL);
 				}
 				else {
-					return getTechniques(target, IRRUMATIO);
+					return getTechniques(target, IRRUMATIO, FORCE_DEEPTHROAT);
 				}	
 			case ERUPT:
 				stance = Stance.BALANCED;
@@ -511,6 +511,8 @@ public class EnemyCharacter extends AbstractCharacter {
 					return getTechniques(target, SUCK_IT);
 				}
 				return getTechniques(target, SUCK_IT);
+			case COWGIRL_BOTTOM:
+				return getTechniques(target, RIDE_ON_IT, BOUNCE_ON_IT, SQUEEZE_IT);
 			case HOLDING:
 				return getTechniques(target, OGRE_SMASH);
 			case CRUSHING:
@@ -540,6 +542,10 @@ public class EnemyCharacter extends AbstractCharacter {
 		}
 		
 		Array<Techniques> possibleTechniques = getPossibleTechniques(target, stance);
+		
+		if (enemyType != EnemyEnum.ADVENTURER && target.stance == Stance.SUPINE && target.isErect()) {
+			possibleTechniques = getTechniques(target, SIT_ON_IT);
+		}
 		
 		if (willPounce() && enemyType != EnemyEnum.OGRE) {
 			if (target.stance == Stance.PRONE ) {

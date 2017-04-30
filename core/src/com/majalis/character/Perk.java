@@ -10,12 +10,12 @@ public enum Perk {
 	HARDER ("Increases endurance by 1 per rank.", 3),
 	FASTER ("Increases agility by 1 per rank.", 3),
 	WEAK_TO_ANAL ("Weak to butt stuff. Causes quick pew pews while penetrated.", false),
-	ANAL_LOVER ("Loves butt stuff. Or, more accurately, getting butt stuffed.", 3, false),
-	MOUTH_MANIAC ("Loves suckin' it.", 3, false),
+	ANAL_LOVER ("Loves butt stuff. Or, more accurately, getting butt stuffed. Unlocks skills for anal.", 3, false),
+	MOUTH_MANIAC ("Loves suckin' it. Unlocks skills for fellatio.", 3, false),
 	CREAMPIE_ADDICT ("Loves to get cream-filled like a creampuff.", 3, false),
 	SEMEN_SWALLOWER ("Loves to drink jizz.", 3, false),
-	HORSE_LOVER ("Has a thing for equine phalluses.", 1, false),
-	GIANT_LOVER ("Likes 'em big. For a certain definition of \"'em\"", 3, false)
+	HORSE_LOVER ("Has a thing for equine phalluses. Be careful!", 1, false),
+	GIANT_LOVER ("Likes 'em big. For a certain definition of \"'em\" Be careful!", 3, false)
 	;
 	
 	private final int maxRank;

@@ -59,6 +59,7 @@ public class PlayerCharacter extends AbstractCharacter {
 	private boolean goblinVirgin;
 	private boolean a2m;
 	private boolean a2mcheevo;
+	private boolean wrapLegs;
 	
 	private boolean loaded;
 	private ObjectMap<String, Integer> questFlags;
@@ -112,7 +113,8 @@ public class PlayerCharacter extends AbstractCharacter {
 			RECEIVE_ANAL, RECEIVE_DOGGY, RECEIVE_STANDING, STRUGGLE_ORAL, STRUGGLE_DOGGY, STRUGGLE_ANAL, STRUGGLE_STANDING, RECEIVE_KNOT, SUCK_IT, BREAK_FREE_ANAL, BREAK_FREE_ORAL,
 			SUBMIT, STRUGGLE_FULL_NELSON, BREAK_FREE_FULL_NELSON,
 			OPEN_WIDE, GRAB_IT, STROKE_IT, LET_GO, USE_ITEM, ITEM_OR_CANCEL,
-			RECIPROCATE_FORCED, GET_FACE_RIDDEN, STRUGGLE_FACE_SIT, STRUGGLE_SIXTY_NINE, BREAK_FREE_FACE_SIT, ROLL_OVER_UP, ROLL_OVER_DOWN, RIPOSTE, EN_GARDE, POUNCE_DOGGY, POUND_DOGGY, POUNCE_ANAL, POUND_ANAL, ERUPT_ANAL, PULL_OUT, PULL_OUT_ORAL, PULL_OUT_ANAL, PULL_OUT_STANDING, RECEIVE_COCK, HURK, UH_OH
+			RECIPROCATE_FORCED, GET_FACE_RIDDEN, STRUGGLE_FACE_SIT, STRUGGLE_SIXTY_NINE, BREAK_FREE_FACE_SIT, ROLL_OVER_UP, ROLL_OVER_DOWN, RIPOSTE, EN_GARDE, POUNCE_DOGGY, POUND_DOGGY, POUNCE_ANAL, POUND_ANAL, ERUPT_ANAL, PULL_OUT, PULL_OUT_ORAL, PULL_OUT_ANAL, PULL_OUT_STANDING, RECEIVE_COCK, HURK, UH_OH,
+			FORCE_DEEPTHROAT, CRUSH_ASS, BOUNCE_ON_IT, SQUEEZE_IT, BE_RIDDEN, PUSH_OFF, SELF_SPANK, POUT, DEEPTHROAT, WRAP_LEGS
 		);
 		return baseTechniques;
 	}
@@ -213,14 +215,30 @@ public class PlayerCharacter extends AbstractCharacter {
 				return getTechniques(target, SUBMIT, STRUGGLE_FULL_NELSON);
 			case DOGGY_BOTTOM:
 				if (struggle <= 0) {
-					return getTechniques(target, RECEIVE_DOGGY, BREAK_FREE_ANAL);
+					possibles = getTechniques(target, RECEIVE_DOGGY, BREAK_FREE_ANAL);
 				}
-				return getTechniques(target, RECEIVE_DOGGY, STRUGGLE_DOGGY);
+				else {
+					possibles = getTechniques(target, RECEIVE_DOGGY, STRUGGLE_ANAL);
+				}
+				if (perks.get(Perk.CATAMITE.toString(), 0) > 0 || perks.get(Perk.ANAL_LOVER.toString(), 0) > 1) {
+					possibles.addAll(getTechniques(target, SELF_SPANK));
+				}
+				return possibles;
+				
 			case ANAL_BOTTOM:
-				if (struggle <= 0) {
-					return getTechniques(target, RECEIVE_ANAL, BREAK_FREE_ANAL);
+				if (wrapLegs) {
+					return getTechniques(target, RECEIVE_ANAL);
 				}
-				return getTechniques(target, RECEIVE_ANAL, STRUGGLE_ANAL);
+				if (struggle <= 0) {
+					possibles = getTechniques(target, RECEIVE_ANAL, POUT, BREAK_FREE_ANAL);
+				}
+				else {
+					possibles = getTechniques(target, RECEIVE_ANAL, POUT, STRUGGLE_ANAL);
+				}
+				if (!wrapLegs && (perks.get(Perk.CATAMITE.toString(), 0) > 0 || perks.get(Perk.ANAL_LOVER.toString(), 0) > 1)) {
+					possibles.addAll(getTechniques(target, WRAP_LEGS));
+				}
+				return possibles;
 			case HANDY_BOTTOM:
 				return getTechniques(target, STROKE_IT, LET_GO, OPEN_WIDE);
 			case STANDING_BOTTOM:
@@ -229,14 +247,21 @@ public class PlayerCharacter extends AbstractCharacter {
 				}
 				return getTechniques(target, RECEIVE_STANDING, STRUGGLE_STANDING);
 			case COWGIRL_BOTTOM:
-				return getTechniques(target, RIDE_ON_IT, STAND_OFF_IT);
+				return getTechniques(target, RIDE_ON_IT, BOUNCE_ON_IT, SQUEEZE_IT, STAND_OFF_IT);
 			case KNOTTED_BOTTOM:
 				return getTechniques(target, RECEIVE_KNOT);
 			case FELLATIO_BOTTOM:
 				if (struggle <= 0) {
-					return getTechniques(target, SUCK_IT, BREAK_FREE_ORAL);
+					possibles = getTechniques(target, SUCK_IT, BREAK_FREE_ORAL);
 				}
-				return getTechniques(target, SUCK_IT, STRUGGLE_ORAL);
+				else {
+					possibles = getTechniques(target, SUCK_IT, STRUGGLE_ORAL);
+				}
+				if (perks.get(Perk.MOUTH_MANIAC.toString(), 0) > 1) {
+					possibles.addAll(getTechniques(target, DEEPTHROAT));
+				}
+				return possibles;
+			
 			case FACE_SITTING_BOTTOM:
 				if (struggle <= 0) {
 					return getTechniques(target, GET_FACE_RIDDEN, STRUGGLE_FACE_SIT);
@@ -277,11 +302,22 @@ public class PlayerCharacter extends AbstractCharacter {
 						return getTechniques(target, POUND_ANAL, PULL_OUT_ANAL);
 					}
 					else if (stance == Stance.DOGGY) {
-						return getTechniques(target, POUND_DOGGY, PULL_OUT);
+						return getTechniques(target, POUND_DOGGY, CRUSH_ASS, PULL_OUT);
 					}
 					else {
 						return getTechniques(target, POUND_STANDING, PULL_OUT_STANDING);
 					}		
+				}
+			case COWGIRL:
+				if (lust > 12) {
+					struggle = 0;
+					return getTechniques(target, ERUPT_COWGIRL);
+				}
+				if (struggle <= 0) {
+					return getTechniques(target, PUSH_OFF);
+				}
+				else {
+					return getTechniques(target, BE_RIDDEN);
 				}
 			case ERUPT:
 				stance = Stance.BALANCED;
@@ -349,6 +385,14 @@ public class PlayerCharacter extends AbstractCharacter {
 			// taunt increases self lust too
 			lust++;
 		}
+		
+		if (wrapLegs) {
+			resolvedAttack.addMessage("Your legs are wrapped around them!");
+		}
+		
+		if (resolvedAttack.isSuccessful() && resolvedAttack.getName().equals("Wrap Legs")) {
+			wrapLegs = true;
+		}
 		return super.doAttack(resolvedAttack);
 	}
 	
@@ -375,6 +419,10 @@ public class PlayerCharacter extends AbstractCharacter {
 		
 		if (stance == Stance.HELD) {
 			setCurrentPortrait(perks.get(Perk.GIANT_LOVER.toString(), 0) > 1 ? AssetEnum.PORTRAIT_LOVE : AssetEnum.PORTRAIT_SURPRISE);
+		}
+		
+		if (oldStance.isAnalReceptive() && !stance.isAnalReceptive()) {
+			wrapLegs = false;
 		}
 		
 		if (!oldStance.isAnalReceptive() && stance.isAnalReceptive()) {
@@ -475,6 +523,7 @@ public class PlayerCharacter extends AbstractCharacter {
 		if (currentBleed != 0) {
 			statuses.put(StatusType.BLEEDING.toString(), Math.max(currentBleed - getEndurance() * 2, 0));
 		}
+		wrapLegs = false;
 	}
 
 	public enum Femininity {
