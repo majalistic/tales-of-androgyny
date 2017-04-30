@@ -310,7 +310,7 @@ public class PlayerCharacter extends AbstractCharacter {
 				}
 			case COWGIRL:
 				if (lust > 12) {
-					struggle = 0;
+					struggle = -1;
 					return getTechniques(target, ERUPT_COWGIRL);
 				}
 				if (struggle <= 0) {
@@ -368,14 +368,17 @@ public class PlayerCharacter extends AbstractCharacter {
 	
 	@Override
 	public Attack doAttack(Attack resolvedAttack) {
-		if (resolvedAttack.getGrapple() > 0) {
-			struggle -= resolvedAttack.getGrapple();
+		if (resolvedAttack.isSuccessful() && resolvedAttack.getName().contains("Struggle") && struggle == 0) {
+			setStruggleToMin();
+		}
+		
+		if (resolvedAttack.getGrapple() > 0) {			
+			struggle(resolvedAttack.getGrapple());
 			resolvedAttack.addMessage("You struggle to break free!");
 			if (struggle <= 3) {
 				resolvedAttack.addMessage("You feel their grasp slipping away!");
 			}
 			else if (struggle <= 0) {
-				struggle = 0;
 				resolvedAttack.addMessage("You are almost free!");
 			}
 		}
@@ -393,6 +396,8 @@ public class PlayerCharacter extends AbstractCharacter {
 		if (resolvedAttack.isSuccessful() && resolvedAttack.getName().equals("Wrap Legs")) {
 			wrapLegs = true;
 		}
+		
+		
 		return super.doAttack(resolvedAttack);
 	}
 	
@@ -524,6 +529,7 @@ public class PlayerCharacter extends AbstractCharacter {
 			statuses.put(StatusType.BLEEDING.toString(), Math.max(currentBleed - getEndurance() * 2, 0));
 		}
 		wrapLegs = false;
+		struggle = -1;
 	}
 
 	public enum Femininity {

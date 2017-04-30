@@ -177,7 +177,7 @@ public class EnemyCharacter extends AbstractCharacter {
 		}
 		
 		if (resolvedAttack.getGrapple() > 0) {
-			struggle -= resolvedAttack.getGrapple();
+			struggle = Math.max(0, struggle - resolvedAttack.getGrapple());
 			//resolvedAttack.addMessage("They struggle to get you off!");
 			if (struggle >= 3 && stance == Stance.COWGIRL) {
 				resolvedAttack.addMessage("It's still stuck up inside of you!");

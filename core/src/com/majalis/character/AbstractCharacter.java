@@ -111,7 +111,7 @@ public abstract class AbstractCharacter extends Actor {
 			currentMana = getMaxMana();
 			stability = focus = fortune = 10;
 			stance = Stance.BALANCED;
-			struggle = 0;
+			setStruggleToMin();
 			phallus = PhallusType.NORMAL;
 			statuses = new ObjectMap<String, Integer>();
 		}
@@ -448,9 +448,11 @@ public abstract class AbstractCharacter extends Actor {
 				result.add(attack.getUser() + " used " + attack.getName() +  " on " + (secondPerson ? label.toLowerCase() : label) + "!");
 			}
 			
-			struggle += attack.getGrapple();
+			int grapple = attack.getGrapple();
+			setStruggle(grapple);
+			
 			if (attack.isClimax()) {
-				struggle = 0;
+				setStruggleToMin();
 			}
 			if (attack.getForceStance() == Stance.BALANCED) {
 				result.add(attack.getUser() + " broke free!");
@@ -842,6 +844,18 @@ public abstract class AbstractCharacter extends Actor {
 	
 	protected String properCase(String sample) {
 		return sample.substring(0, 1).toUpperCase() + sample.substring(1);
+	}
+	
+	protected void setStruggle(int struggle) {
+		if (this.struggle == -1) this.struggle = struggle;
+	}
+	
+	protected void struggle(int amountToStruggle) {
+		if (this.struggle != -1) struggle = Math.max(0, struggle - amountToStruggle);
+	}
+	
+	protected void setStruggleToMin() {
+		struggle = -1;
 	}
 	
 	private enum StanceType {
