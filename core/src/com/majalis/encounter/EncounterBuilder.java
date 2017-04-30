@@ -1309,7 +1309,7 @@ public class EncounterBuilder {
 							partingScene
 						),
 						getTextScenes(
-							getScript(encounterCode, 11), font, backgroundOgreBanged, 
+							getScript(encounterCode, 11), font, backgroundOgreBanged, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.ANAL, new SexualExperienceBuilder().setAnalSex(1, 1, 1).setOgre().build())}),
 							partingScene
 						)
 					);
@@ -1326,7 +1326,7 @@ public class EncounterBuilder {
 							partingScene
 						),
 						getTextScenes(
-							getScript(encounterCode, 11), font, backgroundOgreBanged, 
+							getScript(encounterCode, 11), font, backgroundOgreBanged, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.ANAL, new SexualExperienceBuilder().setAnalSex(1, 1, 1).setOgre().build())}),
 							partingScene
 						)
 					);
@@ -1343,7 +1343,7 @@ public class EncounterBuilder {
 								partingScene
 							),
 							getTextScenes(
-								getScript(encounterCode, 11), font, backgroundOgreBanged, 
+								getScript(encounterCode, 11), font, backgroundOgreBanged, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.ANAL, new SexualExperienceBuilder().setAnalSex(1, 1, 1).setOgre().build())}),
 								partingScene
 							)
 						);
