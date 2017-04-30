@@ -48,7 +48,10 @@ public enum AssetEnum {
 	CHARACTER_SCREEN("CharacterScreen.png"),
 	
 	WEREBITCH("enemies/WerebitchBasic.png"),
-	HARPY_FELLATIO("enemies/HarpyFellatio.png"),
+	HARPY_FELLATIO_0("enemies/HarpyBJ1.png"),
+	HARPY_FELLATIO_1("enemies/HarpyBJ2.png"),
+	HARPY_FELLATIO_2("enemies/HarpyBJ3.png"),
+	HARPY_FELLATIO_3("enemies/HarpyBJ4.png"),
 	BRIGAND("enemies/Brigand.png"),
 	BRIGAND_ORAL("enemies/BrigandOral.jpg"),
 	SLIME("enemies/HeartSlime.png"), 

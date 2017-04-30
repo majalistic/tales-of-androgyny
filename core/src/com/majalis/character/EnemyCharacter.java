@@ -21,10 +21,10 @@ import com.majalis.technique.ClimaxTechnique.ClimaxType;
  */
 public class EnemyCharacter extends AbstractCharacter {
 
-	private transient ObjectMap<Stance, Texture> textures;
+	private transient ObjectMap<Stance, Array<Texture>> textures;
 	private transient Texture defaultTexture;
 	private String imagePath;
-	private ObjectMap<String, String> textureImagePaths;
+	private ObjectMap<String, Array<String>> textureImagePaths;
 	private String bgPath;
 	private int holdLength;
 	private ObjectMap <String, Integer> climaxCounters;
@@ -34,20 +34,22 @@ public class EnemyCharacter extends AbstractCharacter {
 	private Techniques nextMove;
 	private boolean initializedMove;
 	private int range;
+	private int currentFrame;
 	
 	@SuppressWarnings("unused")
 	private EnemyCharacter() {}
 	
-	public EnemyCharacter(Texture texture, ObjectMap<Stance, Texture> textures, EnemyEnum enemyType) {
+	public EnemyCharacter(Texture texture, ObjectMap<Stance, Array<Texture>> textures, EnemyEnum enemyType) {
 		super(true);
 		this.enemyType = enemyType;
 		init(texture, textures);
 		initializedMove = false;
 		phallus = PhallusType.MONSTER;
-		textureImagePaths = new ObjectMap<String, String>();
+		textureImagePaths = new ObjectMap<String, Array<String>>();
 		bgPath = AssetEnum.FOREST_BG.getPath();		
 		pronouns = PronounSet.FEMALE;
 		climaxCounters = new ObjectMap<String, Integer>();
+		currentFrame = 0;
 		
 		switch(enemyType) {
 			case WERESLUT:
@@ -59,7 +61,7 @@ public class EnemyCharacter extends AbstractCharacter {
 			case HARPY:
 				weapon = new Weapon(WeaponType.Talon);
 				baseStrength = 4;
-				textureImagePaths.put(Stance.FELLATIO.toString(), AssetEnum.HARPY_FELLATIO.getPath());
+				textureImagePaths.put(Stance.FELLATIO.toString(), new Array<String>(new String[]{AssetEnum.HARPY_FELLATIO_0.getPath(), AssetEnum.HARPY_FELLATIO_1.getPath(), AssetEnum.HARPY_FELLATIO_2.getPath(), AssetEnum.HARPY_FELLATIO_3.getPath()}));
 				break;
 			case BRIGAND:
 				weapon = new Weapon(WeaponType.Gladius);
@@ -72,7 +74,7 @@ public class EnemyCharacter extends AbstractCharacter {
 				baseStrength = 2;
 				baseEndurance = 4;
 				baseAgility = 4;
-				textureImagePaths.put(Stance.DOGGY.toString(), AssetEnum.SLIME_DOGGY.getPath());
+				textureImagePaths.put(Stance.DOGGY.toString(),new Array<String>(new String[]{AssetEnum.SLIME_DOGGY.getPath()}));
 				imagePath = AssetEnum.SLIME.getPath();
 				break;
 			case CENTAUR:
@@ -94,8 +96,8 @@ public class EnemyCharacter extends AbstractCharacter {
 				baseAgility = 5;
 				bgPath = AssetEnum.ENCHANTED_FOREST_BG.getPath();
 				if (enemyType == EnemyEnum.GOBLIN) {
-					textureImagePaths.put(Stance.FACE_SITTING.toString(), AssetEnum.GOBLIN_FACE_SIT.getPath());
-					textureImagePaths.put(Stance.SIXTY_NINE.toString(), AssetEnum.GOBLIN_FACE_SIT.getPath());
+					textureImagePaths.put(Stance.FACE_SITTING.toString(), new Array<String>(new String[]{AssetEnum.GOBLIN_FACE_SIT.getPath()}));
+					textureImagePaths.put(Stance.SIXTY_NINE.toString(), new Array<String>(new String[]{AssetEnum.GOBLIN_FACE_SIT.getPath()}));
 					imagePath = AssetEnum.GOBLIN.getPath();
 				}
 				else {
@@ -154,7 +156,7 @@ public class EnemyCharacter extends AbstractCharacter {
 		return imagePath;
 	}
 	
-	public ObjectMap<String, String> getTextureImagePaths() {
+	public ObjectMap<String, Array<String>> getTextureImagePaths() {
 		return textureImagePaths;
 	}
 	
@@ -165,6 +167,15 @@ public class EnemyCharacter extends AbstractCharacter {
 	// rather than override doAttack, doAttack should call an abstract processAttack method in AbstractCharacter and this functionality should be built there, instead of calling return super.doAttack
 	@Override
 	public Attack doAttack(Attack resolvedAttack) {
+		if (stance == Stance.FELLATIO && enemyType == EnemyEnum.HARPY) {
+			currentFrame++;
+			if (currentFrame == 4) currentFrame = 0;
+		}
+		
+		if (oldStance.isOralPenetration() && !stance.isOralPenetration()) {
+			currentFrame = 0;
+		}
+		
 		if (resolvedAttack.getGrapple() > 0) {
 			struggle -= resolvedAttack.getGrapple();
 			//resolvedAttack.addMessage("They struggle to get you off!");
@@ -731,12 +742,21 @@ public class EnemyCharacter extends AbstractCharacter {
     public void draw(Batch batch, float parentAlpha) {
 		super.draw(batch, parentAlpha);
 		if (animation == null || (enemyType == EnemyEnum.HARPY && stance == Stance.FELLATIO) || (enemyType == EnemyEnum.BRIGAND && !(stance == Stance.DOGGY || stance == Stance.STANDING))) {
-			Texture texture = textures.get(stance, defaultTexture);
-			int x = (enemyType == EnemyEnum.HARPY && stance == Stance.FELLATIO) ? 150 : (enemyType == EnemyEnum.GOBLIN && stance == Stance.FACE_SITTING || stance == Stance.SIXTY_NINE) ? 400 : 600;
-			int y = (enemyType == EnemyEnum.HARPY && stance != Stance.FELLATIO) ? 105 : (enemyType == EnemyEnum.GOBLIN && stance == Stance.FACE_SITTING || stance == Stance.SIXTY_NINE) ? 0 : 20;
+			Array<Texture> textureCandidates = textures.get(stance, new Array<Texture>(new Texture[]{defaultTexture}));
+			Texture texture = textureCandidates.get(textureCandidates.size == 1 ? 0 : currentFrame);
+			int x = (enemyType == EnemyEnum.GOBLIN && stance == Stance.FACE_SITTING || stance == Stance.SIXTY_NINE) ? 400 : 600;
+			int y = (enemyType == EnemyEnum.GOBLIN && stance == Stance.FACE_SITTING || stance == Stance.SIXTY_NINE) ? 0 : 20;
 			int width = (enemyType == EnemyEnum.GOBLIN && stance == Stance.FACE_SITTING || stance == Stance.SIXTY_NINE) ? (int) (texture.getWidth() / (texture.getHeight() / 1080.)) : (int) (texture.getWidth() / (texture.getHeight() / 975.));
 			int height = (enemyType == EnemyEnum.GOBLIN && stance == Stance.FACE_SITTING || stance == Stance.SIXTY_NINE) ? 1080 : 975;
 			range = 0;
+			
+			if (enemyType == EnemyEnum.HARPY && stance == Stance.FELLATIO) {
+				x = 0;
+				y = 0;
+				width = (int) (texture.getWidth() / (texture.getHeight() / 1080.));
+				height = 1080;
+			}
+			
 			if (range == 0) {
 				batch.draw(texture, x, y, width, height);
 			}
@@ -754,7 +774,7 @@ public class EnemyCharacter extends AbstractCharacter {
 		}
     }
 	
-	public void init(Texture defaultTexture, ObjectMap<Stance, Texture> textures) {
+	public void init(Texture defaultTexture, ObjectMap<Stance, Array<Texture>> textures) {
 		this.defaultTexture = defaultTexture;
 		this.textures = textures;
 		animation = getAnimatedActor(enemyType);

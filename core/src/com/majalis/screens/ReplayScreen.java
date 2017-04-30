@@ -83,12 +83,12 @@ public class ReplayScreen extends AbstractScreen {
 			if (!enemyKnowledge.containsKey(type.toString())) continue;
 			nothingToDisplay = "";
 			TextButton button = new TextButton(type.toString(), skin);
-			ObjectMap<Stance, Texture> textures = new ObjectMap<Stance, Texture>();			
+			ObjectMap<Stance, Array<Texture>> textures = new ObjectMap<Stance, Array<Texture>>();			
 			Texture enemyTexture = null;
 			if (type.getTexture() != null) {
 				enemyTexture = assetManager.get(type.getTexture());
 			}
-			textures.put(Stance.BALANCED, enemyTexture);
+			textures.put(Stance.BALANCED, new Array<Texture>(new Texture[]{enemyTexture}));
 			final EnemyCharacter enemy = new EnemyCharacter(enemyTexture, textures, type);
 			this.addActor(enemy);
 			enemy.addAction(Actions.hide());

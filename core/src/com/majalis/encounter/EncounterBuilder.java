@@ -198,7 +198,7 @@ public class EncounterBuilder {
 				final AnimatedActor enemy = EnemyCharacter.getAnimatedActor(EnemyEnum.HARPY);
 				
 				Background harpyBackground = new BackgroundBuilder(backgroundTexture).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getTexture())).setForeground(enemy, 0, 0).build();
-				Background harpyFellatioBackground = new BackgroundBuilder(backgroundTexture).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getTexture())).setForeground(assetManager.get(AssetEnum.HARPY_FELLATIO.getTexture())).build();
+				Background harpyFellatioBackground = new BackgroundBuilder(backgroundTexture).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getTexture())).setForeground(assetManager.get(AssetEnum.HARPY_FELLATIO_1.getTexture())).build();
 				
 				OrderedMap<Integer, Scene> winFight = getTextScenes(getArray(new String[]{"You defeated the harpy!", "You receive 1 Experience."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.EXPERIENCE, 1)}), getEndScene(EndScene.Type.ENCOUNTER_OVER));
 				OrderedMap<Integer, Scene> loseFight = 

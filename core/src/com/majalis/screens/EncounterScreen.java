@@ -142,7 +142,7 @@ public class EncounterScreen extends AbstractScreen {
 			requirements.add(AssetEnum.WEREBITCH.getTexture());
 			break;
 		case HARPY:
-			requirements.add(AssetEnum.HARPY_FELLATIO.getTexture());
+			requirements.add(AssetEnum.HARPY_FELLATIO_1.getTexture());
 			break;
 		case SLIME:
 			requirements.add(AssetEnum.SLIME.getTexture());

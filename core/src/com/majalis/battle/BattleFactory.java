@@ -56,9 +56,13 @@ public class BattleFactory {
 		}
 		// loading old enemy
 		else {
-			ObjectMap<Stance, Texture> textures = new ObjectMap<Stance, Texture>();
-			for (String key : enemy.getTextureImagePaths().keys()) {
-				textures.put(Stance.valueOf(key), assetManager.get(enemy.getTextureImagePaths().get(key))) ;
+			ObjectMap<Stance, Array<Texture>> textures = new ObjectMap<Stance,  Array<Texture>>();
+			for (ObjectMap.Entry<String, Array<String>> entry : enemy.getTextureImagePaths().entries()) {
+				Array<Texture> textureList = new Array<Texture>();
+				for (String s: entry.value) {
+					textureList.add(assetManager.get(s));
+				}
+				textures.put(Stance.valueOf(entry.key), textureList);
 			}
 			enemy.init(enemy.getImagePath() == null ? null : assetManager.get(enemy.getImagePath()), textures);
 		}
@@ -75,18 +79,18 @@ public class BattleFactory {
 		return assetManager.get(type.getTexture());
 	}
 	
-	private ObjectMap<Stance, Texture> getTextures(EnemyEnum type) {
-		ObjectMap<Stance, Texture> textures = new ObjectMap<Stance, Texture>();
+	private ObjectMap<Stance, Array<Texture>> getTextures(EnemyEnum type) {
+		ObjectMap<Stance, Array<Texture>> textures = new ObjectMap<Stance, Array<Texture>>();
 		
 		if (type == EnemyEnum.SLIME) {
-			textures.put(Stance.DOGGY, assetManager.get(AssetEnum.SLIME_DOGGY.getTexture()));
+			textures.put(Stance.DOGGY, new Array<Texture>(new Texture[]{assetManager.get(AssetEnum.SLIME_DOGGY.getTexture())}));
 		}
 		else if(type == EnemyEnum.HARPY) {
-			textures.put(Stance.FELLATIO, assetManager.get(AssetEnum.HARPY_FELLATIO.getTexture()));
+			textures.put(Stance.FELLATIO, new Array<Texture>(new Texture[]{assetManager.get(AssetEnum.HARPY_FELLATIO_0.getTexture()), assetManager.get(AssetEnum.HARPY_FELLATIO_1.getTexture()), assetManager.get(AssetEnum.HARPY_FELLATIO_2.getTexture()), assetManager.get(AssetEnum.HARPY_FELLATIO_3.getTexture())}));
 		}
 		else if (type == EnemyEnum.GOBLIN) {
-			textures.put(Stance.FACE_SITTING, assetManager.get(AssetEnum.GOBLIN_FACE_SIT.getTexture()));
-			textures.put(Stance.SIXTY_NINE, assetManager.get(AssetEnum.GOBLIN_FACE_SIT.getTexture()));
+			textures.put(Stance.FACE_SITTING, new Array<Texture>(new Texture[]{assetManager.get(AssetEnum.GOBLIN_FACE_SIT.getTexture())}));
+			textures.put(Stance.SIXTY_NINE, new Array<Texture>(new Texture[]{assetManager.get(AssetEnum.GOBLIN_FACE_SIT.getTexture())}));
 		}
 		
 		return textures;
