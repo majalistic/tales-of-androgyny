@@ -111,8 +111,8 @@ public enum Techniques {
 	GRAB_IT				(new GrappleTechnique(Stance.KNEELING, Stance.HANDY_BOTTOM, "Grab It", 1, Stance.HANDY, "Grab it.").addBonus(BonusCondition.OUTMANEUVER, BonusType.PRIORITY).build()), 
 		
 	RIDE_ON_IT			(new EroticTechnique(Stance.COWGIRL_BOTTOM, Stance.COWGIRL_BOTTOM, "Ride on It", -1, 0, "Keep it deep and stir it around inside.").build()), 
-	BOUNCE_ON_IT		(new EroticTechnique(Stance.COWGIRL_BOTTOM, Stance.COWGIRL_BOTTOM, "Ride on It", -1, 0, "Bounce up and down on it.").build()), 
-	SQUEEZE_IT			(new EroticTechnique(Stance.COWGIRL_BOTTOM, Stance.COWGIRL_BOTTOM, "Ride on It", -1, 0, "Squeeze it with your hole.").build()),
+	BOUNCE_ON_IT		(new EroticTechnique(Stance.COWGIRL_BOTTOM, Stance.COWGIRL_BOTTOM, "Bounce on It", -1, 0, "Bounce up and down on it.").build()), 
+	SQUEEZE_IT			(new EroticTechnique(Stance.COWGIRL_BOTTOM, Stance.COWGIRL_BOTTOM, "Squeeze It", -1, 0, "Squeeze it with your hole.").build()),
 	
 	STAND_OFF_IT		(new GrappleTechnique(Stance.COWGIRL_BOTTOM, Stance.BALANCED, "Stand up off It", 1, Stance.SUPINE, "Get up off it.").build()), 
 	PULL_OUT			(new GrappleTechnique(Stance.DOGGY, Stance.BALANCED, "Pull Out", 1, Stance.PRONE, "Pull out.").build()), 
