@@ -77,10 +77,6 @@ public class OptionScreen extends AbstractScreen {
 	        public void changed(ChangeEvent event, Actor actor) {
 	            final boolean val = preload.isChecked();
 	            preferences.putBoolean("preload", val);
-	            if (!debug){
-		    		if(val) Gdx.graphics.setFullscreenMode(Gdx.graphics.getDisplayMode());
-		    		else Gdx.graphics.setWindowedMode(preferences.getInteger("width", 1920), preferences.getInteger("height", 1080));
-	            }
 	        }
 	    });
 		preload.getCells().get(0).size(50, 50);
