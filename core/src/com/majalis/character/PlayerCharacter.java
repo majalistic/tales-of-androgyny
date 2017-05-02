@@ -114,7 +114,7 @@ public class PlayerCharacter extends AbstractCharacter {
 			SUBMIT, STRUGGLE_FULL_NELSON, BREAK_FREE_FULL_NELSON,
 			OPEN_WIDE, GRAB_IT, STROKE_IT, LET_GO, USE_ITEM, ITEM_OR_CANCEL,
 			RECIPROCATE_FORCED, GET_FACE_RIDDEN, STRUGGLE_FACE_SIT, STRUGGLE_SIXTY_NINE, BREAK_FREE_FACE_SIT, ROLL_OVER_UP, ROLL_OVER_DOWN, RIPOSTE, EN_GARDE, POUNCE_DOGGY, POUND_DOGGY, POUNCE_ANAL, POUND_ANAL, ERUPT_ANAL, PULL_OUT, PULL_OUT_ORAL, PULL_OUT_ANAL, PULL_OUT_STANDING, RECEIVE_COCK, HURK, UH_OH,
-			FORCE_DEEPTHROAT, CRUSH_ASS, BOUNCE_ON_IT, SQUEEZE_IT, BE_RIDDEN, PUSH_OFF, SELF_SPANK, POUT, DEEPTHROAT, WRAP_LEGS
+			FORCE_DEEPTHROAT, CRUSH_ASS, BOUNCE_ON_IT, SQUEEZE_IT, BE_RIDDEN, PUSH_OFF, SELF_SPANK, POUT, DEEPTHROAT, WRAP_LEGS, PUSH_OFF_ATTEMPT
 		);
 		return baseTechniques;
 	}
@@ -314,10 +314,10 @@ public class PlayerCharacter extends AbstractCharacter {
 					return getTechniques(target, ERUPT_COWGIRL);
 				}
 				if (struggle <= 0) {
-					return getTechniques(target, PUSH_OFF);
+					return getTechniques(target, BE_RIDDEN, PUSH_OFF);
 				}
 				else {
-					return getTechniques(target, BE_RIDDEN);
+					return getTechniques(target, BE_RIDDEN, PUSH_OFF_ATTEMPT);
 				}
 			case ERUPT:
 				stance = Stance.BALANCED;
