@@ -567,16 +567,19 @@ public class EnemyCharacter extends AbstractCharacter {
 		
 		ObjectMap<Technique, Techniques> techniqueToToken = new ObjectMap<Technique, Techniques>();
 		Array<Technique> candidates = new Array<Technique>();
+		// for all possible techniques, generate an actual technique ready to be used
 		for (Techniques token : possibleTechniques) {
 			Technique candidate = getTechnique(target, token);
 			techniqueToToken.put(candidate, token);
 			candidates.add(candidate);
 		}
 
+		// choose a random skill to start
 		int choice = getRandomWeighting(candidates.size); 
 		candidates.sort(new Technique.StaminaComparator());
 		candidates.reverse();
 		Technique technique = candidates.get(choice);
+		// if the skill would lead to 0 stamina, choose a skill that would take less stamina
 		while (outOfStamina(technique) && choice < candidates.size) {
 			technique = candidates.get(choice);
 			choice++;
@@ -584,14 +587,22 @@ public class EnemyCharacter extends AbstractCharacter {
 		candidates.sort(new Technique.StabilityComparator());
 		candidates.reverse();
 		int ii = 0;
+		// start at the selection based on stamina
 		for (Technique possibleTechnique : candidates) {
 			if (possibleTechnique == technique) choice = ii;
 			ii++;
 		}
+		// if the skill would lead to 0 stability, choose a skill that would take less stability
 		while (outOfStability(technique) && choice < candidates.size) {
 			technique = candidates.get(choice);
 			choice++;
 		}
+		// if no technique can be used to prevent a falldown, use the technique that takes the least stamina (ideally recovering it)
+		if (outOfStamina(technique)) {
+			candidates.sort(new Technique.StaminaComparator());
+			technique = candidates.get(0);
+		}
+		
 		nextMove = techniqueToToken.get(technique);
 		return technique;	
 	}
