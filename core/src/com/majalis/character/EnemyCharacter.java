@@ -543,7 +543,7 @@ public class EnemyCharacter extends AbstractCharacter {
 		
 		Array<Techniques> possibleTechniques = getPossibleTechniques(target, stance);
 		
-		if (enemyType != EnemyEnum.ADVENTURER && target.stance == Stance.SUPINE && target.isErect()) {
+		if (enemyType == EnemyEnum.ADVENTURER && target.stance == Stance.SUPINE && target.isErect()) {
 			possibleTechniques = getTechniques(target, SIT_ON_IT);
 		}
 		
