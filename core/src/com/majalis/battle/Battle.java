@@ -60,7 +60,8 @@ public class Battle extends Group{
 	private final AssetManager assetManager;
 	private final BitmapFont font;
 	private final ObjectMap<String, Integer> outcomes;
-	private final Table table;
+	private final ScrollPane techniquePane;
+	private final Table techniqueTable;
 	private final Skin skin;
 	
 	private final AnimatedImage slash;
@@ -272,8 +273,14 @@ public class Battle extends Group{
 		hoverGroup.addAction(Actions.visible(false));
 		uiGroup.addActor(hoverGroup);
 			
-		table = new Table();
-		uiGroup.addActor(table);
+		
+		techniqueTable = new Table();
+		techniquePane = new ScrollPane(techniqueTable);
+		techniquePane.setScrollingDisabled(true, false);
+		techniquePane.setOverscroll(false, false);
+		techniquePane.setBounds(-150, 0, 600, 700);
+		uiGroup.addActor(techniquePane);
+		
 		displayTechniqueOptions();
 		
 		Texture slashSheet = assetManager.get(AssetEnum.SLASH.getTexture());
@@ -297,7 +304,8 @@ public class Battle extends Group{
 		ScrollPane pane = new ScrollPane(console);
 		pane.setBounds(consoleXPos+50, 50, 625, 350);
 		pane.setScrollingDisabled(true, false);
-	
+		pane.setOverscroll(false, false);
+		
 		uiGroup.addActor(pane);
 		
 		dialog = new Label(dialogText, skin);
@@ -421,14 +429,14 @@ public class Battle extends Group{
 	}
 	
 	private void displayTechniqueOptions() {
-		table.clear();
+		techniqueTable.clear();
 		Array<Technique> options = character.getPossibleTechniques(enemy);
 		optionButtons = new Array<TextButton>();
 		
 		for (int ii = 0; ii < options.size; ii++) {
 			Technique option = options.get(ii);
-			SkillButton button = new SkillButton(option.getTechniqueName() + (ii > POSSIBLE_KEYS_CHAR.length ? "" : " ("+POSSIBLE_KEYS_CHAR[ii]+")"), skin, assetManager.get(option.getStance().getTexture()));
-			table.add(button).size(440, 76).row();
+			SkillButton button = new SkillButton(option.getTechniqueName() + (ii >= POSSIBLE_KEYS_CHAR.length ? "" : " ("+POSSIBLE_KEYS_CHAR[ii]+")"), skin, assetManager.get(option.getStance().getTexture()));
+			techniqueTable.add(button).size(440, 76).row();
 			optionButtons.add(button);
 			boolean outOfStamina = false;
 			boolean outOfStability = false;
@@ -446,10 +454,10 @@ public class Battle extends Group{
 			}
 			button.addListener(getListener(option, (outOfStamina && !character.getStance().isIncapacitatingOrErotic() ? "THIS WILL CAUSE YOU TO COLLAPSE!\n" : outOfStability && !character.getStance().isIncapacitatingOrErotic() ? "THIS WILL CAUSE YOU TO LOSE YOUR FOOTING!\n" : "") + option.getTechniqueDescription(), option.getBonusDescription(), ii));
 		}
-        table.setFillParent(true);
-        table.align(Align.top);
-        table.setPosition(25, 600);
-        table.addAction(Actions.moveBy(125, 0, .1f));
+		techniqueTable.setFillParent(false);
+		techniqueTable.align(Align.top);
+		techniquePane.setPosition(-275, 0);
+        techniquePane.addAction(Actions.moveBy(125, 0, .1f));
         newSelection(0);
 	}
 	
@@ -714,6 +722,7 @@ public class Battle extends Group{
 	}
 	
 	private void newSelection(int newSelection) {
+		techniquePane.setScrollY(newSelection * 76);
     	optionButtons.get(newSelection).addAction(Actions.sequence(Actions.delay(.05f), Actions.moveBy(50, 0)));
 		selection = newSelection;
 	}
@@ -726,7 +735,7 @@ public class Battle extends Group{
 			skillDisplay.setText(enemy.getOutcomeText(character));
 			character.refresh();
 			bonusDisplay.setText("");
-			uiGroup.removeActor(table);
+			uiGroup.removeActor(techniquePane);
 			hoverGroup.clearActions();
 			hoverGroup.addAction(visible(true));
 			hoverGroup.addAction(moveTo(300, 380));
