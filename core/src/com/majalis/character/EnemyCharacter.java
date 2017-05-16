@@ -442,6 +442,7 @@ public class EnemyCharacter extends AbstractCharacter {
 			case DOGGY:
 			case ANAL:
 			case STANDING:
+			case PRONE_BONE:
 				lust++;
 				if (enemyType != EnemyEnum.WERESLUT && lust > 15) {
 					return getTechniques(target, ERUPT_ANAL);
@@ -455,6 +456,9 @@ public class EnemyCharacter extends AbstractCharacter {
 					}
 					else if (stance == Stance.DOGGY) {
 						return getTechniques(target, POUND_DOGGY, CRUSH_ASS);
+					}
+					else if (stance == Stance.PRONE_BONE) {
+						return getTechniques(target, POUND_PRONE_BONE);
 					}
 					else {
 						return getTechniques(target, POUND_STANDING);
@@ -506,6 +510,11 @@ public class EnemyCharacter extends AbstractCharacter {
 					return getTechniques(target, RECEIVE_ANAL);
 				}
 				return getTechniques(target, RECEIVE_ANAL);
+			case PRONE_BONE_BOTTOM:
+				if (struggle <= 0) {
+					return getTechniques(target, RECEIVE_PRONE_BONE);
+				}
+				return getTechniques(target, RECEIVE_PRONE_BONE);
 			case FELLATIO_BOTTOM:
 				if (struggle <= 0) {
 					return getTechniques(target, SUCK_IT);
@@ -550,6 +559,9 @@ public class EnemyCharacter extends AbstractCharacter {
 		if (willPounce() && enemyType != EnemyEnum.OGRE) {
 			if (target.stance == Stance.PRONE ) {
 				possibleTechniques = getTechniques(target, POUNCE_DOGGY);
+				if (enemyType.canProneBone()) {
+					possibleTechniques.addAll(getTechniques(target, POUNCE_PRONE_BONE));
+				}
 			}
 			else if (target.stance == Stance.SUPINE) {
 				possibleTechniques = getTechniques(target, POUNCE_ANAL);

@@ -114,7 +114,7 @@ public class PlayerCharacter extends AbstractCharacter {
 			SUBMIT, STRUGGLE_FULL_NELSON, BREAK_FREE_FULL_NELSON,
 			OPEN_WIDE, GRAB_IT, STROKE_IT, LET_GO, USE_ITEM, ITEM_OR_CANCEL,
 			RECIPROCATE_FORCED, GET_FACE_RIDDEN, STRUGGLE_FACE_SIT, STRUGGLE_SIXTY_NINE, BREAK_FREE_FACE_SIT, ROLL_OVER_UP, ROLL_OVER_DOWN, RIPOSTE, EN_GARDE, POUNCE_DOGGY, POUND_DOGGY, POUNCE_ANAL, POUND_ANAL, ERUPT_ANAL, PULL_OUT, PULL_OUT_ORAL, PULL_OUT_ANAL, PULL_OUT_STANDING, RECEIVE_COCK, HURK, UH_OH,
-			FORCE_DEEPTHROAT, CRUSH_ASS, BOUNCE_ON_IT, SQUEEZE_IT, BE_RIDDEN, PUSH_OFF, SELF_SPANK, POUT, DEEPTHROAT, WRAP_LEGS, PUSH_OFF_ATTEMPT
+			FORCE_DEEPTHROAT, CRUSH_ASS, BOUNCE_ON_IT, SQUEEZE_IT, BE_RIDDEN, PUSH_OFF, SELF_SPANK, POUT, DEEPTHROAT, WRAP_LEGS, PUSH_OFF_ATTEMPT, TURN_AND_SIT, RIDE_ON_IT_REVERSE, BOUNCE_ON_IT_REVERSE, SQUEEZE_IT_REVERSE
 		);
 		return baseTechniques;
 	}
@@ -174,7 +174,7 @@ public class PlayerCharacter extends AbstractCharacter {
 			case OFFENSIVE:
 				possibles = getTechniques(target, BLITZ_ATTACK, POWER_ATTACK, ARMOR_SUNDER, RECKLESS_ATTACK, KNOCK_DOWN, VAULT, FEINT_AND_STRIKE, TEMPO_ATTACK, RESERVED_ATTACK);
 				if (target.getStance() == Stance.SUPINE && target.isErect() && target.enemyType != EnemyEnum.SLIME && target.enemyType != EnemyEnum.CENTAUR && target.enemyType != EnemyEnum.UNICORN) {
-					possibles.addAll(getTechniques(target, SIT_ON_IT));
+					possibles.addAll(getTechniques(target, SIT_ON_IT, TURN_AND_SIT));
 				}
 				if (target.stance == Stance.PRONE && isErect() && target.enemyType != EnemyEnum.OGRE) {
 					possibles.addAll(getTechniques(target, POUNCE_DOGGY));
@@ -192,7 +192,7 @@ public class PlayerCharacter extends AbstractCharacter {
 					possibles.addAll(getTechniques(target, USE_ITEM));
 				}
 				if (target.getStance() == Stance.SUPINE && target.isErect() && target.enemyType != EnemyEnum.SLIME && target.enemyType != EnemyEnum.CENTAUR && target.enemyType != EnemyEnum.UNICORN) {
-					possibles.addAll(getTechniques(target, SIT_ON_IT));
+					possibles.addAll(getTechniques(target, SIT_ON_IT, TURN_AND_SIT));
 				}
 				return possibles;
 			case DEFENSIVE:
@@ -224,7 +224,14 @@ public class PlayerCharacter extends AbstractCharacter {
 					possibles.addAll(getTechniques(target, SELF_SPANK));
 				}
 				return possibles;
-				
+			case PRONE_BONE_BOTTOM:
+				if (struggle <= 0) {
+					possibles = getTechniques(target, RECEIVE_PRONE_BONE, BREAK_FREE_ANAL);
+				}
+				else {
+					possibles = getTechniques(target, RECEIVE_PRONE_BONE, STRUGGLE_ANAL);
+				}
+				return possibles;
 			case ANAL_BOTTOM:
 				if (wrapLegs) {
 					return getTechniques(target, RECEIVE_ANAL);
@@ -248,6 +255,8 @@ public class PlayerCharacter extends AbstractCharacter {
 				return getTechniques(target, RECEIVE_STANDING, STRUGGLE_STANDING);
 			case COWGIRL_BOTTOM:
 				return getTechniques(target, RIDE_ON_IT, BOUNCE_ON_IT, SQUEEZE_IT, STAND_OFF_IT);
+			case REVERSE_COWGIRL_BOTTOM:
+				return getTechniques(target, RIDE_ON_IT_REVERSE, BOUNCE_ON_IT_REVERSE, SQUEEZE_IT_REVERSE, STAND_OFF_IT);
 			case KNOTTED_BOTTOM:
 				return getTechniques(target, RECEIVE_KNOT);
 			case FELLATIO_BOTTOM:
@@ -291,6 +300,7 @@ public class PlayerCharacter extends AbstractCharacter {
 				else {
 					return getTechniques(target, IRRUMATIO, PULL_OUT_ORAL);
 				}	
+			case PRONE_BONE:
 			case DOGGY:
 			case ANAL:
 			case STANDING:
@@ -303,6 +313,9 @@ public class PlayerCharacter extends AbstractCharacter {
 					}
 					else if (stance == Stance.DOGGY) {
 						return getTechniques(target, POUND_DOGGY, CRUSH_ASS, PULL_OUT);
+					}
+					else if (stance == Stance.PRONE_BONE) {
+						return getTechniques(target, POUND_PRONE_BONE, PULL_OUT);
 					}
 					else {
 						return getTechniques(target, POUND_STANDING, PULL_OUT_STANDING);

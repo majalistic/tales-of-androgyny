@@ -118,6 +118,9 @@ public class BattleFactory {
 	    public String toString() { return text; }	
 	    public AssetDescriptor<Texture> getTexture() { return path; }
 	    public String getAnimationPath() { return animationPath; }
+		public boolean canProneBone() {
+			return this == BRIGAND || this == GOBLIN || this == ORC || this == ADVENTURER || this == GOBLIN_MALE;
+		}
 	}
 	
 	protected EnemyCharacter getEnemy(BattleCode battleCode) {

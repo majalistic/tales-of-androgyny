@@ -156,6 +156,8 @@ public enum AssetEnum {
 	KNOTTED("stances/Knotted.png"),
 	OFFENSIVE("stances/Offensive.png"),
 	PRONE("stances/Prone.png"),
+	PRONEBONE("stances/ProneBone.png"),
+	REVERSE_COWGIRL("stances/ReverseCowgirl.png"),
 	SIXTY_NINE("stances/SixyNine.png"),
 	SPREAD("stances/SpreadEagle.png"),
 	PENETRATED("stances/SpreadEaglePen.png"),
