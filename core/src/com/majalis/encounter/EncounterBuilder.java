@@ -31,7 +31,7 @@ import com.majalis.character.PlayerCharacter.QuestType;
 import com.majalis.character.Techniques;
 import com.majalis.encounter.Background.BackgroundBuilder;
 import com.majalis.character.SexualExperience.SexualExperienceBuilder;
-import com.majalis.character.AbstractCharacter.Stance;
+import com.majalis.character.Stance;
 import com.majalis.character.AbstractCharacter.Stat;
 import com.majalis.save.ProfileEnum;
 import com.majalis.save.SaveEnum;

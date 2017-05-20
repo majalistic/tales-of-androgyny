@@ -4,7 +4,7 @@ import java.util.Comparator;
 
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
-import com.majalis.character.AbstractCharacter.Stance;
+import com.majalis.character.Stance;
 import com.majalis.character.AbstractCharacter.Stat;
 import com.majalis.character.Attack.Status;
 import com.majalis.technique.TechniquePrototype;

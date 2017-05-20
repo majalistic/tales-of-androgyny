@@ -1,7 +1,7 @@
 package com.majalis.character;
 
 import com.badlogic.gdx.utils.Array;
-import com.majalis.character.AbstractCharacter.Stance;
+import com.majalis.character.Stance;
 import com.majalis.technique.AttackTechnique;
 import com.majalis.technique.ClimaxTechnique;
 import com.majalis.technique.ClimaxTechnique.ClimaxType;

@@ -19,7 +19,7 @@ import com.badlogic.gdx.utils.ObjectMap;
 import com.majalis.asset.AssetEnum;
 import com.majalis.battle.BattleFactory.EnemyEnum;
 import com.majalis.character.EnemyCharacter;
-import com.majalis.character.AbstractCharacter.Stance;
+import com.majalis.character.Stance;
 import com.majalis.encounter.Background.BackgroundBuilder;
 /*
  * The replay encounters.  UI that handles player input to select and load and encounters to experience again.

@@ -4,7 +4,7 @@ import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
-import com.majalis.character.AbstractCharacter.Stance;
+import com.majalis.character.Stance;
 
 /*
  * Represents the info about a battle for saving and loading.

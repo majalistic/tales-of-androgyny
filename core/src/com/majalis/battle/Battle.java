@@ -36,7 +36,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.majalis.asset.AnimatedImage;
 import com.majalis.asset.AssetEnum;
 import com.majalis.character.AbstractCharacter;
-import com.majalis.character.AbstractCharacter.Stance;
+import com.majalis.character.Stance;
 import com.majalis.character.Attack.Status;
 import com.majalis.character.Attack;
 import com.majalis.character.EnemyCharacter;

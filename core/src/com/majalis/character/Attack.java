@@ -1,6 +1,6 @@
 package com.majalis.character;
 import com.badlogic.gdx.utils.Array;
-import com.majalis.character.AbstractCharacter.Stance;
+import com.majalis.character.Stance;
 import com.majalis.technique.ClimaxTechnique.ClimaxType;
 import com.majalis.technique.Bonus;
 

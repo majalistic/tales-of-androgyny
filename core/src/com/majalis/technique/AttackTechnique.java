@@ -1,6 +1,6 @@
 package com.majalis.technique;
 
-import com.majalis.character.AbstractCharacter.Stance;
+import com.majalis.character.Stance;
 import com.majalis.technique.TechniquePrototype.TechniqueHeight;
 import com.majalis.technique.Bonus.BonusCondition;
 import com.majalis.technique.Bonus.BonusType;

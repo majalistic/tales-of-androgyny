@@ -1,6 +1,6 @@
 package com.majalis.technique;
 
-import com.majalis.character.AbstractCharacter.Stance;
+import com.majalis.character.Stance;
 
 public class FallDownTechnique extends TechniqueBuilder{
 

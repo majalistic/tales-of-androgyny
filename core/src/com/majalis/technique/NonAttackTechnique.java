@@ -1,6 +1,6 @@
 package com.majalis.technique;
 
-import com.majalis.character.AbstractCharacter.Stance;
+import com.majalis.character.Stance;
 import com.majalis.technique.TechniquePrototype.TechniqueHeight;
 
 public class NonAttackTechnique extends TechniqueBuilder {

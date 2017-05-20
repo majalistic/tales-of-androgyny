@@ -1,7 +1,7 @@
 package com.majalis.character;
 
 import com.badlogic.gdx.utils.ObjectMap;
-import com.majalis.character.AbstractCharacter.Stance;
+import com.majalis.character.Stance;
 import com.majalis.character.AbstractCharacter.Stat;
 import com.majalis.character.Item.Weapon;
 

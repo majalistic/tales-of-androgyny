@@ -1,7 +1,7 @@
 package com.majalis.technique;
 
 import com.badlogic.gdx.utils.ObjectMap;
-import com.majalis.character.AbstractCharacter.Stance;
+import com.majalis.character.Stance;
 import com.majalis.character.StatusType;
 import com.majalis.technique.ClimaxTechnique.ClimaxType;
 import com.majalis.technique.Bonus;
