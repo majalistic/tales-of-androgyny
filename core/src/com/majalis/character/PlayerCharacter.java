@@ -277,9 +277,9 @@ public class PlayerCharacter extends AbstractCharacter {
 				return getTechniques(target, GET_FACE_RIDDEN, STRUGGLE_FACE_SIT);
 			case SIXTY_NINE_BOTTOM:
 				if (struggle <= 0) {
-					return getTechniques(target, RECIPROCATE_FORCED, STRUGGLE_SIXTY_NINE);
+					return getTechniques(target, RECIPROCATE_FORCED, BREAK_FREE_ORAL);
 				}
-				return getTechniques(target, RECIPROCATE_FORCED, BREAK_FREE_ORAL);
+				return getTechniques(target, RECIPROCATE_FORCED, STRUGGLE_SIXTY_NINE);
 			case HELD:
 				return getTechniques(target, UH_OH);
 			case SPREAD:
