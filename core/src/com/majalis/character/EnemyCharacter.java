@@ -9,10 +9,8 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.IntArray;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.majalis.asset.AnimatedActor;
-import com.majalis.asset.AssetEnum;
 import com.majalis.battle.Battle.Outcome;
 import com.majalis.character.Item.Weapon;
-import com.majalis.character.Item.WeaponType;
 import com.majalis.technique.ClimaxTechnique.ClimaxType;
 
 /*
@@ -43,109 +41,29 @@ public class EnemyCharacter extends AbstractCharacter {
 		this.enemyType = enemyType;
 		init(texture, textures);
 		initializedMove = false;
-		phallus = PhallusType.MONSTER;
-		textureImagePaths = new ObjectMap<String, Array<String>>();
-		bgPath = AssetEnum.FOREST_BG.getPath();		
-		pronouns = PronounSet.FEMALE;
 		climaxCounters = new ObjectMap<String, Integer>();
 		currentFrame = 0;
 		
-		switch(enemyType) {
-			case WERESLUT:
-				weapon = new Weapon(WeaponType.Claw);
-				baseStrength = 5;
-				baseAgility = 5;
-				imagePath = AssetEnum.WEREBITCH.getPath();
-				break;
-			case HARPY:
-				weapon = new Weapon(WeaponType.Talon);
-				baseStrength = 4;
-				textureImagePaths.put(Stance.FELLATIO.toString(), new Array<String>(new String[]{AssetEnum.HARPY_FELLATIO_0.getPath(), AssetEnum.HARPY_FELLATIO_1.getPath(), AssetEnum.HARPY_FELLATIO_2.getPath(), AssetEnum.HARPY_FELLATIO_3.getPath()}));
-				break;
-			case BRIGAND:
-				weapon = new Weapon(WeaponType.Gladius);
-				phallus = PhallusType.NORMAL;
-				baseAgility = 4;
-				imagePath = AssetEnum.BRIGAND.getPath();
-				break;
-			case SLIME:
-				baseStrength = 2;
-				baseEndurance = 4;
-				baseAgility = 4;
-				textureImagePaths.put(Stance.DOGGY.toString(),new Array<String>(new String[]{AssetEnum.SLIME_DOGGY.getPath()}));
-				imagePath = AssetEnum.SLIME.getPath();
-				break;
-			case CENTAUR:
-			case UNICORN:
-				weapon = new Weapon(WeaponType.Bow);
-				baseAgility = 4;
-				basePerception = 5;
-				baseEndurance = 4;
-				bgPath = AssetEnum.PLAINS_BG.getPath();
-				break;
-			case GOBLIN:
-			case GOBLIN_MALE:
-				weapon = new Weapon(WeaponType.Dagger);
-				baseStrength = 4;
-				baseEndurance = 4;
-				baseAgility = 5;
-				bgPath = AssetEnum.ENCHANTED_FOREST_BG.getPath();
-				if (enemyType == EnemyEnum.GOBLIN) {
-					textureImagePaths.put(Stance.FACE_SITTING.toString(), new Array<String>(new String[]{AssetEnum.GOBLIN_FACE_SIT.getPath()}));
-					textureImagePaths.put(Stance.SIXTY_NINE.toString(), new Array<String>(new String[]{AssetEnum.GOBLIN_FACE_SIT.getPath()}));
-					imagePath = AssetEnum.GOBLIN.getPath();
-				}
-				else {
-					imagePath = AssetEnum.GOBLIN_MALE.getPath();
-				}
-				break;
-			case ORC:
-				weapon = new Weapon(WeaponType.Flail);
-				baseDefense = 6;
-				healthTiers.add(10);
-				baseStrength = 7;
-				baseEndurance = 5;
-				baseAgility = 4;
-				imagePath = AssetEnum.ORC.getPath();
-				break;
-			case ADVENTURER:
-				weapon = new Weapon(WeaponType.Axe);
-				baseDefense = 6;
-				healthTiers.add(10);
-				baseStrength = 4;
-				baseEndurance = 4;
-				baseAgility = 4;
-				baseMagic = 4;
-				baseCharisma = 6;
-				imagePath = AssetEnum.ADVENTURER.getPath();
-				pronouns = PronounSet.MALE;
-				phallus = PhallusType.SMALL;
-				manaTiers = new IntArray(new int[]{20});
-				
-				break;
-			case OGRE:
-				weapon = new Weapon(WeaponType.Club);
-				baseDefense = 8;
-				healthTiers.add(20);
-				baseStrength = 8;
-				baseEndurance = 8;
-				baseAgility = 4;
-				imagePath = AssetEnum.OGRE.getPath();
-				bgPath = AssetEnum.FOREST_UP_BG.getPath();
-				pronouns = PronounSet.MALE;
-				break;
-				
-		}
+		weapon = enemyType.getWeaponType() != null ? new Weapon (enemyType.getWeaponType()): null;
+		baseStrength = enemyType.getStrength();
+		baseAgility = enemyType.getAgility();
+		baseEndurance = enemyType.getEndurance();
+		basePerception = enemyType.getPerception();
+		baseMagic = enemyType.getMagic();
+		baseCharisma = enemyType.getCharisma();
+		healthTiers = enemyType.getHealthTiers();
+		manaTiers = enemyType.getManaTiers();
+		imagePath = enemyType.getPath();
+		textureImagePaths = enemyType.getImagePaths();
+		phallus = enemyType.getPhallusType();
+		bgPath = enemyType.getBGPath();
+		pronouns = enemyType.getPronounSet();
+		lust = enemyType.getStartingLust();
+		label = enemyType.toString();
 		staminaTiers.removeIndex(staminaTiers.size - 1);
 		staminaTiers.add(10);
 		setStaminaToMax();
-		setManaToMax();
-		lust = 0;
-		if (enemyType == EnemyEnum.UNICORN) {
-			lust = 20;
-		}
-		label = //enemyType == EnemyEnum.ADVENTURER ? "Trudy" : 
-			enemyType.toString();
+		setManaToMax();		
 		this.currentHealth = getMaxHealth();
 		this.stance = Stance.BALANCED;
 	}
@@ -328,7 +246,7 @@ public class EnemyCharacter extends AbstractCharacter {
 	}
 	
 	private boolean willFaceSit(AbstractCharacter target) {
-		return target.getStance() == Stance.SUPINE && !isErect() && enemyType != EnemyEnum.CENTAUR && enemyType != EnemyEnum.UNICORN;
+		return target.getStance() == Stance.SUPINE && !isErect() && enemyType.willFaceSit();
 	}
 	
 	private Array<Techniques> getPossibleTechniques(AbstractCharacter target, Stance stance) {
@@ -364,7 +282,7 @@ public class EnemyCharacter extends AbstractCharacter {
 					possibles.addAll(getTechniques(target, POWER_ATTACK, TEMPO_ATTACK, RESERVED_ATTACK));
 				}
 				else {
-					if (enemyType == EnemyEnum.BRIGAND || enemyType == EnemyEnum.ORC || enemyType == EnemyEnum.ADVENTURER) {
+					if (enemyType.willArmorSunder()) {
 						possibles.addAll(getTechniques(target, ARMOR_SUNDER));
 					}
 					
@@ -392,7 +310,7 @@ public class EnemyCharacter extends AbstractCharacter {
 				else {
 					possibles.addAll(getTechniques(target, REVERSAL_ATTACK, CAREFUL_ATTACK, GUARD, SECOND_WIND));
 				}
-				if (enemyType == EnemyEnum.BRIGAND || enemyType == EnemyEnum.ADVENTURER) {
+				if (enemyType.willParry()) {
 					possibles.addAll(getTechniques(target, PARRY));
 				}
 				if (enemyType == EnemyEnum.ADVENTURER) {
