@@ -21,7 +21,7 @@ public enum EnemyEnum {
 	GOBLIN_MALE (new EnemyTemplate(WeaponType.Dagger).setStrength(4).setEndurance(4).setAgility(5), "Goblin (Male)", AssetEnum.GOBLIN_MALE.getTexture()),
 	ORC (new EnemyTemplate(WeaponType.Flail, 7, 5, 4, 3, 3, 3).setDefense(6).addHealth(10), "Orc", AssetEnum.ORC.getTexture()), 
 	ADVENTURER (new EnemyTemplate(WeaponType.Axe, 4, 4, 4, 3, 4, 6).setDefense(6).addHealth(10).setMana(20), "Adventurer", AssetEnum.ADVENTURER.getTexture()),
-	OGRE (new EnemyTemplate(WeaponType.Club), "Ogre", AssetEnum.OGRE.getTexture())
+	OGRE (new EnemyTemplate(WeaponType.Club, 8, 8, 4, 3, 3, 3).addHealth(20), "Ogre", AssetEnum.OGRE.getTexture())
 	;
 	private final String text;
 	private final AssetDescriptor<Texture> path;
