@@ -272,9 +272,9 @@ public class PlayerCharacter extends AbstractCharacter {
 			
 			case FACE_SITTING_BOTTOM:
 				if (struggle <= 0) {
-					return getTechniques(target, GET_FACE_RIDDEN, STRUGGLE_FACE_SIT);
+					return getTechniques(target, GET_FACE_RIDDEN, BREAK_FREE_FACE_SIT);
 				}
-				return getTechniques(target, GET_FACE_RIDDEN, BREAK_FREE_FACE_SIT);
+				return getTechniques(target, GET_FACE_RIDDEN, STRUGGLE_FACE_SIT);
 			case SIXTY_NINE_BOTTOM:
 				if (struggle <= 0) {
 					return getTechniques(target, RECIPROCATE_FORCED, STRUGGLE_SIXTY_NINE);
