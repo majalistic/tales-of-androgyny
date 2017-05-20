@@ -65,7 +65,6 @@ public class EnemyCharacter extends AbstractCharacter {
 			case BRIGAND:
 				weapon = new Weapon(WeaponType.Gladius);
 				phallus = PhallusType.NORMAL;
-				baseStrength = 3;
 				baseAgility = 4;
 				imagePath = AssetEnum.BRIGAND.getPath();
 				break;
@@ -83,9 +82,6 @@ public class EnemyCharacter extends AbstractCharacter {
 				basePerception = 5;
 				baseEndurance = 4;
 				bgPath = AssetEnum.PLAINS_BG.getPath();
-				if (enemyType == EnemyEnum.UNICORN) {
-					lust = 20;
-				}
 				break;
 			case GOBLIN:
 			case GOBLIN_MALE:
@@ -125,7 +121,6 @@ public class EnemyCharacter extends AbstractCharacter {
 				pronouns = PronounSet.MALE;
 				phallus = PhallusType.SMALL;
 				manaTiers = new IntArray(new int[]{20});
-				setManaToMax();
 				
 				break;
 			case OGRE:
@@ -141,10 +136,14 @@ public class EnemyCharacter extends AbstractCharacter {
 				break;
 				
 		}
-		staminaTiers.removeIndex(staminaTiers.size-1);
+		staminaTiers.removeIndex(staminaTiers.size - 1);
 		staminaTiers.add(10);
 		setStaminaToMax();
+		setManaToMax();
 		lust = 0;
+		if (enemyType == EnemyEnum.UNICORN) {
+			lust = 20;
+		}
 		label = //enemyType == EnemyEnum.ADVENTURER ? "Trudy" : 
 			enemyType.toString();
 		this.currentHealth = getMaxHealth();
