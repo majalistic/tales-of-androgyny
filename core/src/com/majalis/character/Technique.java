@@ -127,9 +127,9 @@ public class Technique {
 		
 		boolean isSuccessful = 
 				technique.getTechniqueHeight() == TechniqueHeight.NONE ||
-				(technique.getTechniqueHeight() == TechniqueHeight.HIGH && otherTechnique.getStance().receivesHighAttacks) || 
-				(technique.getTechniqueHeight() == TechniqueHeight.MEDIUM && otherTechnique.getStance().receivesMediumAttacks) || 
-				(technique.getTechniqueHeight() == TechniqueHeight.LOW && otherTechnique.getStance().receivesLowAttacks) 
+				(technique.getTechniqueHeight() == TechniqueHeight.HIGH && otherTechnique.getStance().receivesHighAttacks()) || 
+				(technique.getTechniqueHeight() == TechniqueHeight.MEDIUM && otherTechnique.getStance().receivesMediumAttacks()) || 
+				(technique.getTechniqueHeight() == TechniqueHeight.LOW && otherTechnique.getStance().receivesLowAttacks()) 
 				;
 		// this is temporarily to prevent struggling from failing to work properly on the same term an eruption or knot happens
 		boolean failure = false;

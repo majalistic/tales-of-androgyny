@@ -54,9 +54,9 @@ public enum Stance {
 	// need to create: boolean anal, boolean oral, boolean method erotic, boolean incapacitated
 	private final AssetEnum asset;
 	private final StanceType type;
-	public final boolean receivesHighAttacks;
-	public final boolean receivesMediumAttacks;
-	public final boolean receivesLowAttacks;
+	private final boolean receivesHighAttacks;
+	private final boolean receivesMediumAttacks;
+	private final boolean receivesLowAttacks;
 	
 	private Stance(AssetEnum asset) {
 		this(StanceType.NORMAL, asset, true, true, true);
@@ -77,43 +77,21 @@ public enum Stance {
 		receivesMediumAttacks = receivesMedium;
 		receivesLowAttacks = receivesLow;
 	}
+		
 	public AssetDescriptor<Texture> getTexture() { return asset.getTexture(); }
+	public boolean isErotic() { return isEroticReceptive() || isEroticPenetration(); }	
+	public boolean isEroticReceptive() { return type == StanceType.ANAL_BOTTOM || type == StanceType.ORAL_BOTTOM || type == StanceType.HANDJOB_BOTTOM || type == StanceType.FACESIT_BOTTOM; }
+	public boolean isEroticPenetration() { return type == StanceType.ANAL || type == StanceType.ORAL || type == StanceType.HANDJOB || type == StanceType.FACESIT; }	
+	public boolean isIncapacitating() { return type == StanceType.INCAPACITATED; }
+	public boolean isAnalReceptive() { return type == StanceType.ANAL_BOTTOM; }
+	public boolean isOralReceptive() { 	return type == StanceType.ORAL_BOTTOM; }	
+	public boolean isAnalPenetration() { return type == StanceType.ANAL; } 
+	public boolean isOralPenetration() { return type == StanceType.ORAL; }	
+	public boolean isIncapacitatingOrErotic() { return isErotic() || isIncapacitating(); }	
+	public boolean receivesHighAttacks() { return receivesHighAttacks; }
+	public boolean receivesMediumAttacks() { return receivesMediumAttacks; }
+	public boolean receivesLowAttacks() { return receivesLowAttacks; }
 	
-	public boolean isErotic() {
-		 return isEroticReceptive() || isEroticPenetration();
-	}
-	
-	public boolean isEroticReceptive() {
-		return type == StanceType.ANAL_BOTTOM || type == StanceType.ORAL_BOTTOM || type == StanceType.HANDJOB_BOTTOM || type == StanceType.FACESIT_BOTTOM;
-	}
-	
-	public boolean isEroticPenetration() {
-		return type == StanceType.ANAL || type == StanceType.ORAL || type == StanceType.HANDJOB || type == StanceType.FACESIT;
-	}
-	
-	public boolean isIncapacitating() {
-		return type == StanceType.INCAPACITATED;
-	}
-	
-	public boolean isAnalReceptive() {
-		return type == StanceType.ANAL_BOTTOM;
-	}
-	
-	public boolean isOralReceptive() {
-		return type == StanceType.ORAL_BOTTOM;
-	}
-	
-	public boolean isAnalPenetration() {
-		return type == StanceType.ANAL;
-	}
-	public boolean isOralPenetration() {
-		return type == StanceType.ORAL;
-	}
-	
-	public boolean isIncapacitatingOrErotic() {
-		return isErotic() || isIncapacitating(); 
-	}
-
 	private enum StanceType {
 		ANAL,
 		ANAL_BOTTOM,

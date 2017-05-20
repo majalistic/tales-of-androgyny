@@ -362,7 +362,7 @@ public class EnemyCharacter extends AbstractCharacter {
 				if (willFaceSit(target)) {
 					possibles.addAll(getTechniques(target, FACE_SIT));
 				}				
-				if (!target.stance.receivesMediumAttacks) {
+				if (!target.stance.receivesMediumAttacks()) {
 					possibles.addAll(getTechniques(target, POWER_ATTACK, TEMPO_ATTACK, RESERVED_ATTACK));
 				}
 				else {
@@ -377,7 +377,7 @@ public class EnemyCharacter extends AbstractCharacter {
 				if (willFaceSit(target)) {
 					possibles.addAll(getTechniques(target, FACE_SIT));
 				}				
-				if (!target.stance.receivesMediumAttacks) {
+				if (!target.stance.receivesMediumAttacks()) {
 					possibles.addAll(getTechniques(target, SPRING_ATTACK, NEUTRAL_ATTACK));
 				}
 				else {
@@ -388,7 +388,7 @@ public class EnemyCharacter extends AbstractCharacter {
 				}
 				return possibles;
 			case DEFENSIVE:
-				if (!target.stance.receivesMediumAttacks) {
+				if (!target.stance.receivesMediumAttacks()) {
 					possibles.addAll(getTechniques(target, REVERSAL_ATTACK, GUARD, SECOND_WIND));
 				}
 				else {
@@ -572,7 +572,7 @@ public class EnemyCharacter extends AbstractCharacter {
 			else if (enemyType == EnemyEnum.HARPY) {
 				possibleTechniques.add(FLY);
 			}
-			else if (target.stance.receivesMediumAttacks && enemyType == EnemyEnum.BRIGAND) {
+			else if (target.stance.receivesMediumAttacks() && enemyType == EnemyEnum.BRIGAND) {
 				possibleTechniques.add(FULL_NELSON);
 			}
 		}
