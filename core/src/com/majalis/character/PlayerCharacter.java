@@ -9,7 +9,6 @@ import com.badlogic.gdx.utils.IntArray;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.ObjectSet;
 import com.majalis.asset.AssetEnum;
-import com.majalis.battle.BattleFactory.EnemyEnum;
 import com.majalis.character.Item.Potion;
 import com.majalis.character.Item.Weapon;
 import com.majalis.character.Item.WeaponType;

@@ -1,7 +1,6 @@
 package com.majalis.character;
 
 import com.majalis.asset.AssetEnum;
-import com.majalis.battle.BattleFactory.EnemyEnum;
 import com.majalis.character.Attack.Status;
 import com.majalis.character.Item.ItemEffect;
 import com.majalis.character.Item.Weapon;

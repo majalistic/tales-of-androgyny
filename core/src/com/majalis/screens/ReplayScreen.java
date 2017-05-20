@@ -17,7 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.majalis.asset.AssetEnum;
-import com.majalis.battle.BattleFactory.EnemyEnum;
+import com.majalis.character.EnemyEnum;
 import com.majalis.character.EnemyCharacter;
 import com.majalis.character.Stance;
 import com.majalis.encounter.Background.BackgroundBuilder;

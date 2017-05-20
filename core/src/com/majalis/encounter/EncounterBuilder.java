@@ -22,7 +22,7 @@ import com.majalis.asset.AnimatedActor;
 import com.majalis.asset.AssetEnum;
 import com.majalis.battle.BattleCode;
 import com.majalis.battle.Battle.Outcome;
-import com.majalis.battle.BattleFactory.EnemyEnum;
+import com.majalis.character.EnemyEnum;
 import com.majalis.character.EnemyCharacter;
 import com.majalis.character.Perk;
 import com.majalis.character.PlayerCharacter;

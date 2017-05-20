@@ -11,7 +11,6 @@ import com.badlogic.gdx.utils.ObjectMap;
 import com.majalis.asset.AnimatedActor;
 import com.majalis.asset.AssetEnum;
 import com.majalis.battle.Battle.Outcome;
-import com.majalis.battle.BattleFactory.EnemyEnum;
 import com.majalis.character.Item.Weapon;
 import com.majalis.character.Item.WeaponType;
 import com.majalis.technique.ClimaxTechnique.ClimaxType;
