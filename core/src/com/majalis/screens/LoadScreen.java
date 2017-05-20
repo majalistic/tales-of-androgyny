@@ -51,7 +51,7 @@ public class LoadScreen extends AbstractScreen {
 	}	
 	
 	@Override
-	public void render(float delta){
+	public void render(float delta) {
 		super.render(delta);
 		OrthographicCamera camera = (OrthographicCamera) getCamera();
         batch.setTransformMatrix(camera.view);
@@ -59,7 +59,7 @@ public class LoadScreen extends AbstractScreen {
 		camera.update();
 		batch.begin();
 		largeFont.setColor(Color.BLACK);
-		if (!assetManager.update() || clocktick++ < 25){
+		if (!assetManager.update() || clocktick++ < 25) {
 			progress.setValue(assetManager.getProgress());
 			largeFont.draw(batch, "Loading: " + (int)(assetManager.getProgress() * 100) + "%", 1688, 1125);
 		}	
