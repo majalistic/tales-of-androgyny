@@ -154,6 +154,7 @@ public enum Techniques {
 	
 	/* Struggle Skills */
 	STRUGGLE_DOGGY		(new GrappleTechnique(Stance.DOGGY_BOTTOM, Stance.DOGGY_BOTTOM, "Struggle", 4).build()),
+	STRUGGLE_PRONE_BONE	(new GrappleTechnique(Stance.PRONE_BONE_BOTTOM, Stance.PRONE_BONE_BOTTOM, "Struggle", 4).build()),
 	STRUGGLE_ANAL		(new GrappleTechnique(Stance.ANAL_BOTTOM, Stance.ANAL_BOTTOM, "Struggle", 4).build()),
 	STRUGGLE_STANDING	(new GrappleTechnique(Stance.STANDING_BOTTOM, Stance.STANDING_BOTTOM, "Struggle", 4).build()),
 	STRUGGLE_ORAL		(new GrappleTechnique(Stance.FELLATIO_BOTTOM, Stance.FELLATIO_BOTTOM, "Struggle", 4).build()), 
