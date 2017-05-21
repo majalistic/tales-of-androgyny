@@ -10,7 +10,7 @@ import com.badlogic.gdx.utils.OrderedMap;
 import com.majalis.asset.AssetEnum;
 import com.majalis.encounter.Background;
 import com.majalis.save.SaveService;
-import com.majalis.traprpg.TalesOfAndrogyny;
+import com.majalis.talesofandrogyny.TalesOfAndrogyny;
 /*
  * Represents a choice displayed to the user in the course of an encounter.
  */

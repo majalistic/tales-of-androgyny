@@ -20,7 +20,7 @@ import com.majalis.asset.AssetEnum;
 import com.majalis.encounter.Background.BackgroundBuilder;
 import com.majalis.save.LoadService;
 import com.majalis.save.SaveService;
-import com.majalis.traprpg.TalesOfAndrogyny;
+import com.majalis.talesofandrogyny.TalesOfAndrogyny;
 /*
  * The main menu screen loaded initially.  UI that handles player input to switch to different screens.
  */

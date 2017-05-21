@@ -1,4 +1,4 @@
-package com.majalis.traprpg.desktop;
+package com.majalis.talesofandrogyny.desktop;
 
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
@@ -11,7 +11,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.badlogic.gdx.files.FileHandle;
-import com.majalis.traprpg.TalesOfAndrogyny;
+import com.majalis.talesofandrogyny.TalesOfAndrogyny;
 /*
  * Entry point of the package for desktop implementations - sets configuration elements and initializes the generic entry point.
  */

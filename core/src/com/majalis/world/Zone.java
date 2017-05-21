@@ -14,7 +14,7 @@ import com.majalis.encounter.EncounterCode;
 import com.majalis.save.LoadService;
 import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveService;
-import com.majalis.traprpg.TalesOfAndrogyny;
+import com.majalis.talesofandrogyny.TalesOfAndrogyny;
 
 public class Zone {
 
