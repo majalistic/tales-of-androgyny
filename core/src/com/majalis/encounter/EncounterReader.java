@@ -13,7 +13,7 @@ public class EncounterReader {
 	private final ObjectMap<String, String[]> scriptData;
 	
     public EncounterReader(String path){
-        file = Gdx.files.classpath(path);
+        file = Gdx.files.internal(path);
         scriptData = getScriptData();
     }
    

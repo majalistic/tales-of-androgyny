@@ -118,7 +118,7 @@ public class SkillSelectionScene extends Scene {
 		selectedRow = null;
 	}
 	
-	private ClickListener getListener(Row row) { // merrily merrily merrily merrily
+	private ClickListener getListener(final Row row) { // merrily merrily merrily merrily
 		return new ClickListener() {
 			@Override
 	        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
@@ -152,8 +152,8 @@ public class SkillSelectionScene extends Scene {
 		this.perkPoints = character.getPerkPoints();
 		
 		skillPointsDisplay = addLabel("Skill Points: " + skillPoints, skin, Color.BLACK, 140, 10);
-		Label magicPointsDisplay = addLabel("Magic Points: " + magicPoints, skin, Color.BLACK, 540, 10);
-		Label perkPointsDisplay = addLabel("Perk Points: " + perkPoints, skin, Color.BLACK, 980, 10);
+		final Label magicPointsDisplay = addLabel("Magic Points: " + magicPoints, skin, Color.BLACK, 540, 10);
+		final Label perkPointsDisplay = addLabel("Perk Points: " + perkPoints, skin, Color.BLACK, 980, 10);
 		
 		addLabel("Skills", skin, Color.BROWN, 170, 880);
 		addLabel("Spells", skin, Color.PURPLE, 600, 880);

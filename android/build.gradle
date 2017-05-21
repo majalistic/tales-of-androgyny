@@ -18,7 +18,15 @@ android {
         applicationId "com.majalis.talesofandrogyny"
         minSdkVersion 8
         targetSdkVersion 25
+		jackOptions {
+			enabled true
+		}
     }
+	compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+	
 }
 
 

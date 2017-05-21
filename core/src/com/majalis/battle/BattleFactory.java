@@ -60,17 +60,17 @@ public class BattleFactory {
 			for (ObjectMap.Entry<String, Array<String>> entry : enemy.getTextureImagePaths().entries()) {
 				Array<Texture> textureList = new Array<Texture>();
 				for (String s: entry.value) {
-					textureList.add(assetManager.get(s));
+					textureList.add((Texture)assetManager.get(s));
 				}
 				textures.put(Stance.valueOf(entry.key), textureList);
 			}
-			enemy.init(enemy.getImagePath() == null ? null : assetManager.get(enemy.getImagePath()), textures);
+			enemy.init(enemy.getImagePath() == null ? null : (Texture)assetManager.get(enemy.getImagePath()), textures);
 		}
 		@SuppressWarnings("unchecked")
 		Array<String> console = (Array<String>) loadService.loadDataValue(SaveEnum.CONSOLE, Array.class);
 		return new Battle(
 			saveService, assetManager, font, playerCharacter, enemy, battleAttributes.getOutcomes(), 
-			new BackgroundBuilder(assetManager.get(enemy.getBGPath())).build(), new BackgroundBuilder(assetManager.get(AssetEnum.BATTLE_UI.getTexture())).build(),
+			new BackgroundBuilder((Texture)assetManager.get(enemy.getBGPath())).build(), new BackgroundBuilder((Texture)assetManager.get(AssetEnum.BATTLE_UI.getTexture())).build(),
 			console.size > 0 ? console.get(0) : "", console.size > 1 ? console.get(1) : "", battleAttributes.getMusic()
 		);
 	}

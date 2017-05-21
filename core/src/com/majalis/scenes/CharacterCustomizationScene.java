@@ -66,7 +66,7 @@ public class CharacterCustomizationScene extends Scene {
 		
 		final Table table = new Table();
 		
-		Label buttSizeLabel = addLabel("Bubble", skin, Color.SALMON, 500, 660);
+		final Label buttSizeLabel = addLabel("Bubble", skin, Color.SALMON, 500, 660);
 		for (final PlayerCharacter.Bootyliciousness buttSize : PlayerCharacter.Bootyliciousness.values()) {
 			final TextButton button = new TextButton(buttSize.toString(), skin);
 			button.addListener(new ClickListener() {
@@ -95,7 +95,7 @@ public class CharacterCustomizationScene extends Scene {
 		
 		final Table lipTable = new Table();
 		
-		Label lipSizeLabel = addLabel("Thin", skin, Color.SALMON, 500, 480);
+		final Label lipSizeLabel = addLabel("Thin", skin, Color.SALMON, 500, 480);
 		for (final PlayerCharacter.LipFullness lipFullness : PlayerCharacter.LipFullness.values()) {
 			final TextButton button = new TextButton(lipFullness.toString(), skin);
 			button.addListener(new ClickListener() {

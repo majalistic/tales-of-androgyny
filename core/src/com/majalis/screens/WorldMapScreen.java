@@ -199,7 +199,7 @@ public class WorldMapScreen extends AbstractScreen {
 		        }
 			}
 		);
-		TextButton camp = new TextButton("Camp", skin);
+		final TextButton camp = new TextButton("Camp", skin);
 		
 		if (character.getFood() < 4) {
 			TextButtonStyle style = new TextButtonStyle(camp.getStyle());
@@ -229,7 +229,7 @@ public class WorldMapScreen extends AbstractScreen {
 		foodIcon.setSize(75, 75);
 		this.addActor(foodIcon);
 		
-		Label console = new Label("", skin);
+		final Label console = new Label("", skin);
 		this.addActor(console);
 		console.setPosition(820, 80);
 		

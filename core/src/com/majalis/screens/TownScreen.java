@@ -66,7 +66,7 @@ public class TownScreen extends AbstractScreen {
 		selection = 0;
 	}
 
-	private ClickListener getListener(EncounterCode code) {
+	private ClickListener getListener(final EncounterCode code) {
 		return new ClickListener() {
 	        @Override
 	        public void clicked(InputEvent event, float x, float y) {

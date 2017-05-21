@@ -1943,7 +1943,7 @@ public class EncounterBuilder {
 		GOLD_LESS_THAN_10
 	}
 	
-	private ClickListener getListener(final AbstractChoiceScene currentScene, final Scene nextScene, final Sound buttonSound, ChoiceCheckType type, final TextButton button) {
+	private ClickListener getListener(final AbstractChoiceScene currentScene, final Scene nextScene, final Sound buttonSound, final ChoiceCheckType type, final TextButton button) {
 		return new ClickListener() {
 	        @Override
 	        public void clicked(InputEvent event, float x, float y) {

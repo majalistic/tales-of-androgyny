@@ -37,7 +37,7 @@ public class TalesOfAndrogyny extends Game {
 		SaveManager saveManager = new SaveManager(false, "data/save.json", "data/profile.json");
 		EncounterReader encounterReader = new EncounterReader("script/encounters.json");
 		AssetManager assetManager = new AssetManager();
-        FreeTypeFontGenerator fontGenerator = new FreeTypeFontGenerator(Gdx.files.classpath("solstice.ttf"));
+        FreeTypeFontGenerator fontGenerator = new FreeTypeFontGenerator(Gdx.files.internal("solstice.ttf"));
 		RandomXS128 random = new RandomXS128();
 		PolygonSpriteBatch batch = new PolygonSpriteBatch(2500) {
             final int MAX = 2500 * 5;

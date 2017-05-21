@@ -57,7 +57,7 @@ public class ShopScene extends Scene {
 		}
 	}
 	
-	public ShopScene(OrderedMap<Integer, Scene> sceneBranches, int sceneCode, final SaveService saveService, AssetManager assetManager, final PlayerCharacter character, Background background, ShopCode shopCode, Shop loadedShop) {
+	public ShopScene(OrderedMap<Integer, Scene> sceneBranches, int sceneCode, final SaveService saveService, AssetManager assetManager, final PlayerCharacter character, Background background, final ShopCode shopCode, Shop loadedShop) {
 		super(sceneBranches, sceneCode);
 		this.saveService = saveService;
 		this.addActor(background);
@@ -117,7 +117,7 @@ public class ShopScene extends Scene {
 			description.setWrap(true);
 			description.setColor(Color.FOREST);
 			description.setAlignment(Align.top);
-			ScrollPane pane = new ScrollPane(description);
+			final ScrollPane pane = new ScrollPane(description);
 			pane.setBounds(1060, 415, 675, 350);
 			pane.setScrollingDisabled(true, false);
 			weaponButton.addListener(new ClickListener() {

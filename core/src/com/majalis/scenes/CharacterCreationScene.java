@@ -108,7 +108,7 @@ public class CharacterCreationScene extends Scene {
 		int base = 700;
 		for (final Stat stat: Stat.values()) {
 			Image statImage = new Image((Texture) assetManager.get(stat.getAsset()));
-			Label statLabel = new Label("", skin);
+			final Label statLabel = new Label("", skin);
 			statToLabel.put(stat, statLabel);
 			int amount = character.getBaseStat(stat);
 			setFontColor(statLabel, amount);
