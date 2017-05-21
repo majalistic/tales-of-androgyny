@@ -660,8 +660,13 @@ public class EnemyCharacter extends AbstractCharacter {
 		if (stance.isEroticPenetration()) {
 			stance = Stance.ERUPT;
 		}
-		String[] foo = results.toArray(String.class);
-		return String.join("\n", foo);
+		String joined = "";
+		for (String foo : (String[]) results.toArray(String.class)) {
+			joined += foo + "\n";
+		}
+		joined = joined.trim();
+		
+		return joined;
 	}
 	
 	private boolean willPounce() {
