@@ -21,7 +21,8 @@ public enum EnemyEnum {
 	GOBLIN_MALE (new EnemyTemplate(WeaponType.Dagger).setStrength(4).setEndurance(4).setAgility(5), "Goblin (Male)", AssetEnum.GOBLIN_MALE.getTexture()),
 	ORC (new EnemyTemplate(WeaponType.Flail, 7, 5, 4, 3, 3, 3).setDefense(6).addHealth(10), "Orc", AssetEnum.ORC.getTexture()), 
 	ADVENTURER (new EnemyTemplate(WeaponType.Axe, 4, 4, 4, 3, 4, 6).setDefense(6).addHealth(10).setMana(20), "Adventurer", AssetEnum.ADVENTURER.getTexture()),
-	OGRE (new EnemyTemplate(WeaponType.Club, 8, 8, 4, 3, 3, 3).addHealth(20), "Ogre", AssetEnum.OGRE.getTexture())
+	OGRE (new EnemyTemplate(WeaponType.Club, 8, 8, 4, 3, 3, 3).addHealth(20), "Ogre", AssetEnum.OGRE.getTexture()),
+	BEASTMISTRESS (new EnemyTemplate(WeaponType.Claw).setStrength(6).setAgility(6).addHealth(10), "Beast Mistress", AssetEnum.BEASTMISTRESS.getTexture()), 
 	;
 	private final String text;
 	private final AssetDescriptor<Texture> path;
@@ -44,7 +45,7 @@ public enum EnemyEnum {
     	}
     	return textureImagePaths; 
     }
-    public PhallusType getPhallusType() { return this == BRIGAND ? PhallusType.NORMAL : this == ADVENTURER ? PhallusType.SMALL : PhallusType.MONSTER; }
+    public PhallusType getPhallusType() { return this == BRIGAND || this == BEASTMISTRESS ? PhallusType.NORMAL : this == ADVENTURER ? PhallusType.SMALL : PhallusType.MONSTER; }
     public PronounSet getPronounSet() { return this == ADVENTURER || this == OGRE ? PronounSet.MALE : PronounSet.FEMALE; }
     
     public String getAnimationPath() { return animationPath; }
@@ -63,9 +64,10 @@ public enum EnemyEnum {
 	public IntArray getHealthTiers() { return template.getHealthTiers(); }
 	public IntArray getManaTiers() { return template.getManaTiers(); }
 	public WeaponType getWeaponType() { return template.getWeaponType(); }
-	public boolean willFaceSit() { return this != EnemyEnum.CENTAUR && this != EnemyEnum.UNICORN; } 
-	public boolean willArmorSunder() { return this == EnemyEnum.BRIGAND || this == EnemyEnum.ORC || this == EnemyEnum.ADVENTURER; }
-	public boolean willParry() { return this == EnemyEnum.BRIGAND || this == EnemyEnum.ADVENTURER; }
+	public boolean willFaceSit() { return this != CENTAUR && this != UNICORN; } 
+	public boolean willArmorSunder() { return this == BRIGAND || this == ORC || this == ADVENTURER; }
+	public boolean willParry() { return this == BRIGAND || this == ADVENTURER; }
+	public boolean canBeRidden() { return this != SLIME && this != CENTAUR && this != UNICORN && this != BEASTMISTRESS; }
 	
 	private static class EnemyTemplate {
 		private int strength;
@@ -117,6 +119,5 @@ public enum EnemyEnum {
 		private EnemyTemplate setMana(int mana) { this.manaTiers = new IntArray(new int[]{mana}); return this; }
 		
 		private WeaponType getWeaponType() { return weaponType; }
-		
 	}
 }

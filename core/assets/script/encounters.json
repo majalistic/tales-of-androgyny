@@ -2953,7 +2953,12 @@
 			"You accept his offer, and put the ogre behind you... well, not literally."			
 		]
 	},	
-	
+	{
+	"key": "010-INTRO",
+		"scriptLines": [
+			"You come across a dark-skinned elf woman riding atop a... big cat."		
+		]
+	},
 	
 	{
 		"key": "FORCED_CAMP",

@@ -1421,6 +1421,29 @@ public class EncounterBuilder {
 					)
 				);
 				break;
+			case BEASTMISTRESS:
+				battleCode = BattleCode.BEASTMISTRESS;
+				Background backgroundWithBM = new BackgroundBuilder(assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getTexture())).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getTexture())).setForeground(assetManager.get(AssetEnum.BEASTMISTRESS.getTexture())).build();
+				
+				getTextScenes(
+					getScript(encounterCode, "INTRO"), font, backgroundWithBM, getArray(new Mutation[]{new Mutation(saveService, ProfileEnum.KNOWLEDGE, EnemyEnum.BEASTMISTRESS.toString())}), AssetEnum.WEREWOLF_MUSIC.getMusic(), 
+					getBattleScene(
+						battleCode, normalOutcomes,
+						getTextScenes(
+							getScript(encounterCode, "INTRO"), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.EXPERIENCE, 5)}),
+							getEndScene(EndScene.Type.ENCOUNTER_OVER)
+						),
+						getTextScenes(
+							getScript(encounterCode, "INTRO"), font, backgroundWithBM, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.ANAL, new SexualExperienceBuilder().setAnalSex(1, 1, 1).build())}),
+							getEndScene(EndScene.Type.GAME_OVER)
+						),
+						getTextScenes(
+							getScript(encounterCode, "INTRO"), font, backgroundWithBM, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.ANAL, new SexualExperienceBuilder().setAnalSex(1, 1, 1).build())}),
+							getEndScene(EndScene.Type.GAME_OVER)
+						)
+					)
+				);
+				break;
 			case GADGETEER:
 				Background backgroundWithGadgeteer = new BackgroundBuilder(assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getTexture())).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getTexture())).setForeground(assetManager.get(AssetEnum.GADGETEER.getTexture())).build();
 				Background shopGadgeteer = new BackgroundBuilder(assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getTexture())).setForeground(assetManager.get(AssetEnum.GADGETEER.getTexture()), 900, 0).build();
@@ -2057,7 +2080,7 @@ public class EncounterBuilder {
 	}
 	
 	private Array<String> getScript(EncounterCode encounterCode, String string) {
-		return getScript("00"+encounterCode.getBattleCode() + "-" + string);
+		return getScript("0"+ (encounterCode.getBattleCode() < 10 ? "0" + encounterCode.getBattleCode() : encounterCode.getBattleCode()) + "-" + string);
 	}
 	
 	private Array<String> getScript(EncounterCode encounterCode, int scene) {

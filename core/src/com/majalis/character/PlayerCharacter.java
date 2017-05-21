@@ -172,7 +172,7 @@ public class PlayerCharacter extends AbstractCharacter {
 				return getTechniques(target, RIPOSTE, EN_GARDE);
 			case OFFENSIVE:
 				possibles = getTechniques(target, BLITZ_ATTACK, POWER_ATTACK, ARMOR_SUNDER, RECKLESS_ATTACK, KNOCK_DOWN, VAULT, FEINT_AND_STRIKE, TEMPO_ATTACK, RESERVED_ATTACK);
-				if (target.getStance() == Stance.SUPINE && target.isErect() && target.enemyType != EnemyEnum.SLIME && target.enemyType != EnemyEnum.CENTAUR && target.enemyType != EnemyEnum.UNICORN) {
+				if (target.getStance() == Stance.SUPINE && target.isErect() && target.enemyType.canBeRidden()) {
 					possibles.addAll(getTechniques(target, SIT_ON_IT, TURN_AND_SIT));
 				}
 				if (target.stance == Stance.PRONE && isErect() && target.enemyType != EnemyEnum.OGRE) {

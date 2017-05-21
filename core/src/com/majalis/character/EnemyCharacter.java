@@ -183,6 +183,8 @@ public class EnemyCharacter extends AbstractCharacter {
 							resolvedAttack.addDialog("He vocalizes gruffly as he impales you on his massive phallus.");
 						}
 						break;
+					case BEASTMISTRESS:
+					break;
 				}
 			}
 			
@@ -215,6 +217,8 @@ public class EnemyCharacter extends AbstractCharacter {
 						if (stance.isAnalPenetration()) {
 							resolvedAttack.addDialog("He roars as he fills you with his thick, disgusting ogre semen.");
 						}
+					case BEASTMISTRESS:
+						break;
 				}
 					
 				climaxCounters.put(resolvedAttack.getClimaxType().toString(), climaxCounters.get(resolvedAttack.getClimaxType().toString(), 0) + 1);
@@ -662,7 +666,7 @@ public class EnemyCharacter extends AbstractCharacter {
 	
 	private boolean willPounce() {
 		IntArray randomValues = new IntArray(new int[]{10, 11, 12, 13});
-		return enemyType != EnemyEnum.UNICORN && lust >= randomValues.random() && !stance.isIncapacitatingOrErotic();
+		return enemyType != EnemyEnum.UNICORN && enemyType != EnemyEnum.BEASTMISTRESS && lust >= randomValues.random() && !stance.isIncapacitatingOrErotic();
 	}
 	
 	private Technique getTechnique(AbstractCharacter target, Techniques technique) {

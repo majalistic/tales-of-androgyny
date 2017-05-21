@@ -109,7 +109,7 @@ public class ReplayScreen extends AbstractScreen {
 		}
         table.setFillParent(true);        
         this.addActor(table);
-        table.setPosition(495, 195);
+        table.setPosition(495, 100);
         
 		final TextButton done = new TextButton("Done", skin);
 		

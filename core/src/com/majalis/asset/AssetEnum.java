@@ -63,6 +63,7 @@ public enum AssetEnum {
 	OGRE("enemies/Ogre.png"),
 	OGRE_BANGED("enemies/OgrePost.jpg"),
 	ADVENTURER("enemies/Adventurer.png"), 
+	BEASTMISTRESS("enemies/BeastMaster.png"),
 	TRAP_BONUS("enemies/TrapBonus.jpg"), 
 	
 	ARMOR("battle/Armor.png"),

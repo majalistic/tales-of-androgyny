@@ -111,6 +111,7 @@ public class BattleFactory {
 			case ORC: return new EnemyCharacter(getTexture(EnemyEnum.ORC), getTextures(EnemyEnum.ORC), EnemyEnum.ORC);
 			case ADVENTURER: return new EnemyCharacter(getTexture(EnemyEnum.ADVENTURER), getTextures(EnemyEnum.ADVENTURER), EnemyEnum.ADVENTURER);
 			case OGRE: return new EnemyCharacter(getTexture(EnemyEnum.OGRE), getTextures(EnemyEnum.OGRE), EnemyEnum.OGRE);
+			case BEASTMISTRESS: return new EnemyCharacter(getTexture(EnemyEnum.BEASTMISTRESS), getTextures(EnemyEnum.BEASTMISTRESS), EnemyEnum.BEASTMISTRESS);
 			default: return null;
 		}
 	}

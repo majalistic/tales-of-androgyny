@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.math.RandomXS128;
 import com.majalis.battle.BattleFactory;
+import com.majalis.encounter.EncounterCode;
 import com.majalis.encounter.EncounterFactory;
 import com.majalis.encounter.EncounterReader;
 import com.majalis.save.SaveManager;
@@ -21,6 +22,7 @@ import com.majalis.world.GameWorldFactory;
  */
 public class TalesOfAndrogyny extends Game {
 	public static boolean patron = true;
+	public static EncounterCode setEncounter = null;
 	
 	public void create() {	
 		

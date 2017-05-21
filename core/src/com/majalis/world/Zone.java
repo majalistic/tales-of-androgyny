@@ -14,6 +14,7 @@ import com.majalis.encounter.EncounterCode;
 import com.majalis.save.LoadService;
 import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveService;
+import com.majalis.traprpg.TalesOfAndrogyny;
 
 public class Zone {
 
@@ -94,7 +95,7 @@ public class Zone {
 					// save the position for the next iteration
 					currentNodePosition = newNodePosition;
 					
-					GameWorldNode newNode = getNode(nodeCode, EncounterCode.getEncounterCode(getEncounterCodeForNode(nodeCode)), EncounterCode.DEFAULT, currentNodePosition, visitedCodesSet.contains(nodeCode));
+					GameWorldNode newNode = getNode(nodeCode, TalesOfAndrogyny.setEncounter == null ? EncounterCode.getEncounterCode(getEncounterCodeForNode(nodeCode)) : TalesOfAndrogyny.setEncounter, EncounterCode.DEFAULT, currentNodePosition, visitedCodesSet.contains(nodeCode));
 					addNode(newNode, nodeCode, nodes);
 					// if we've reached the target node, we can terminate this run-through
 					nodeNotReached = !requiredNode.isAdjacent(newNode);
@@ -114,7 +115,7 @@ public class Zone {
 	}
 	// this method for debugging purposes
 	private int getEncounterCodeForNode(int nodeCode) {
-		//return 9; // magical number to see a particular encounter, should probably just perform this debug in the node itself
+		//return 10; // magical number to see a particular encounter, should probably just perform this debug in the node itself
 		// this will return the appropriate array index
 		return (nodeCode-1) % EncounterCode.encounterArray.size;
 	}
