@@ -943,6 +943,7 @@ public class EncounterBuilder {
 				Background backgroundWithOrcZoom = new BackgroundBuilder(assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getTexture())).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getTexture())).setForeground(new TextureRegion(orc, 500, 700, 700, 700)).build();
 				Background backgroundWithOrcZoomUp = new BackgroundBuilder(assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getTexture())).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getTexture())).setForeground(new TextureRegion(orc, 500, 200, 700, 700)).build();
 				Background backgroundWithOrcZoomDown = new BackgroundBuilder(assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getTexture())).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getTexture())).setForeground(new TextureRegion(orc, 500, 1270, 700, 700)).build();
+				Background backgroundWithProneBone = new BackgroundBuilder(assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getTexture())).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getTexture())).setForeground(assetManager.get(AssetEnum.ORC_PRONE_BONE.getTexture())).build();
 				
 				Background gapeBackground = new BackgroundBuilder(assetManager.get(AssetEnum.GAPE.getTexture())).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getTexture())).build();
 				
@@ -964,7 +965,7 @@ public class EncounterBuilder {
 						getChoiceScene(
 							"Front, back, or decline?", getArray(new String[]{"Front (Requires: Catamite)", "Back", "Decline"}), getArray(new ChoiceCheckType[]{ChoiceCheckType.LEWD, null, null}),
 							getTextScenes(
-								getScript(encounterCode, 9), font, backgroundWithOrc, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.ANAL, new SexualExperienceBuilder().setAnalSex(1, 1, 1).build())}),
+								getScript(encounterCode, 9), font, backgroundWithProneBone, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.ANAL, new SexualExperienceBuilder().setAnalSex(1, 1, 1).build())}),
 								getEndScene(EndScene.Type.ENCOUNTER_OVER)
 							),
 							getTextScenes(
@@ -980,7 +981,7 @@ public class EncounterBuilder {
 				
 				OrderedMap<Integer, Scene> oralScene = 
 					getTextScenes(
-						getScript(encounterCode, 14), font, backgroundWithOrc, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.ANAL, new SexualExperienceBuilder().setOralSex(1).setOralCreampie(1).build())}),
+						getScript(encounterCode, 14), font, backgroundWithProneBone, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.ANAL, new SexualExperienceBuilder().setOralSex(1).setOralCreampie(1).build())}),
 						getTextScenes(
 							getScript(encounterCode, 15), font, backgroundWithOrc, 
 							getEndScene(EndScene.Type.ENCOUNTER_OVER)
@@ -1024,7 +1025,7 @@ public class EncounterBuilder {
 																getChoiceScene(
 																	"What do you offer?", getArray(new String[]{"Anal (Requires: Catamite)", "Oral", "Nasal", "Facial (4 CHA)", "Penal (6 CHA)"}), getArray(new ChoiceCheckType[]{ChoiceCheckType.LEWD, null, null, null, null}),
 																	getTextScenes(
-																		getScript(encounterCode, 9), font, backgroundWithOrc, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.ANAL, new SexualExperienceBuilder().setAnalSex(1, 1, 1).build())}),
+																		getScript(encounterCode, 9), font, backgroundWithProneBone, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.ANAL, new SexualExperienceBuilder().setAnalSex(1, 1, 1).build())}),
 																		getEndScene(EndScene.Type.ENCOUNTER_OVER)
 																	),
 																	getTextScenes(
@@ -1081,7 +1082,7 @@ public class EncounterBuilder {
 								getChoiceScene(
 									"Accept her invitation?", getArray(new String[]{"Accept (Requires: Catamite)", "Decline"}), getArray(new ChoiceCheckType[]{ChoiceCheckType.LEWD, null}),
 									getTextScenes(
-										getScript(encounterCode, 26), font, backgroundWithOrc, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.FOOD, 15), new Mutation(saveService, SaveEnum.ANAL, new SexualExperienceBuilder().setAnalSex(3, 3, 2).build())}),
+										getScript(encounterCode, 26), font, backgroundWithProneBone, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.FOOD, 15), new Mutation(saveService, SaveEnum.ANAL, new SexualExperienceBuilder().setAnalSex(3, 3, 2).build())}),
 										getEndScene(EndScene.Type.ENCOUNTER_OVER)
 									),
 									getTextScenes(
@@ -1095,7 +1096,7 @@ public class EncounterBuilder {
 								getChoiceScene(
 									"Well?", getArray(new String[]{"Yes (Requires: Catamite)", "No"}), getArray(new ChoiceCheckType[]{ChoiceCheckType.LEWD, null, null}),
 									getTextScenes(
-										getScript(encounterCode, 29), font, backgroundWithOrc, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.QUEST, new QuestFlag(QuestType.ORC, 1)), new Mutation(saveService, SaveEnum.ANAL, new SexualExperienceBuilder().setAnalSex(1, 1, 1).build())}),
+										getScript(encounterCode, 29), font, backgroundWithProneBone, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.QUEST, new QuestFlag(QuestType.ORC, 1)), new Mutation(saveService, SaveEnum.ANAL, new SexualExperienceBuilder().setAnalSex(1, 1, 1).build())}),
 										getEndScene(EndScene.Type.ENCOUNTER_OVER)
 									),
 									getTextScenes(
@@ -1115,7 +1116,7 @@ public class EncounterBuilder {
 														getEndScene(EndScene.Type.GAME_OVER)
 													),
 													getTextScenes(
-														getScript(encounterCode, 34), font, backgroundWithOrc, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.ANAL, new SexualExperienceBuilder().setAnalSex(1, 1, 5).build())}),
+														getScript(encounterCode, 34), font, backgroundWithProneBone, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.ANAL, new SexualExperienceBuilder().setAnalSex(1, 1, 5).build())}),
 														getEndScene(EndScene.Type.GAME_OVER)
 													)
 												)
@@ -1881,8 +1882,9 @@ public class EncounterBuilder {
 		int ii = 1;
 		String characterName = character.getCharacterName();
 		String buttsize = character.getBootyLiciousness();
+		String lipsize = character.getLipFullness();
 		for (String scriptLine: script) {
-			scriptLine = scriptLine.replace("<NAME>", characterName).replace("<BUTTSIZE>", buttsize);
+			scriptLine = scriptLine.replace("<NAME>", characterName).replace("<BUTTSIZE>", buttsize).replace("<LIPSIZE>", lipsize);
 			sceneMap = addScene(new TextScene(sceneMap, sceneCounter, assetManager, font, saveService, background.clone(), scriptLine, ii == script.size ? mutations : null, character, ii == script.size ? music : null, soundIndex >= 0 ? sounds.get(soundIndex) : null));
 			soundIndex++;
 			ii++;

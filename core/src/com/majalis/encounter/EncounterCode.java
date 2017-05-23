@@ -166,21 +166,6 @@ public enum EncounterCode {
 			default: return "Nothing here.";
 		}
 	}
-	
-	// for random gen
-	public static Array<EncounterCode> encounterArray;
-	static {
-		encounterArray = new Array<EncounterCode>();
-		encounterArray.addAll(WERESLUT, HARPY, SLIME, BRIGAND, DRYAD, CENTAUR, GOBLIN, ORC, ADVENTURER, OGRE, BEASTMISTRESS);
-	}
-	
-	public static EncounterCode getEncounterCode(int code) {
-		if (code < encounterArray.size) {
-			return encounterArray.get(code);
-		}
-		// Troja?  Need a way to get to here; currently no file input is read for the code param
-		return ERROR;
-	}
 
 	public Array<AssetDescriptor<?>> getRequirements() {
 		switch (this) {
@@ -248,6 +233,7 @@ public enum EncounterCode {
 			case ORC:
 				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{  
 					AssetEnum.ORC.getTexture(),
+					AssetEnum.ORC_PRONE_BONE.getTexture(),
 					AssetEnum.GAPE.getTexture(),
 					AssetEnum.WEREWOLF_MUSIC.getMusic()
 				});
@@ -344,5 +330,19 @@ public enum EncounterCode {
 			default:
 				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{AssetEnum.TRAP_BONUS.getTexture()});
 		}
+	}
+	// for random gen
+	public static Array<EncounterCode> encounterArray;
+	static {
+		encounterArray = new Array<EncounterCode>();
+		encounterArray.addAll(WERESLUT, HARPY, SLIME, BRIGAND, DRYAD, CENTAUR, GOBLIN, ORC, ADVENTURER, OGRE, BEASTMISTRESS);
+	}
+	
+	public static EncounterCode getEncounterCode(int code) {
+		if (code < encounterArray.size) {
+			return encounterArray.get(code);
+		}
+		// Troja?  Need a way to get to here; currently no file input is read for the code param
+		return ERROR;
 	}
 }

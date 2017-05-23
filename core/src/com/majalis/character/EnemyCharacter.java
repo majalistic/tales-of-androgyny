@@ -727,6 +727,12 @@ public class EnemyCharacter extends AbstractCharacter {
 				width = (int) (texture.getWidth() / (texture.getHeight() / 1080.));
 				height = 1080;
 			}
+			else if (enemyType == EnemyEnum.ORC && stance == Stance.PRONE_BONE) {
+				x = 0;
+				y = 0;
+				width = (int) (texture.getWidth() / (texture.getHeight() / 1080.));
+				height = 1080;
+			}
 			
 			if (range == 0) {
 				batch.draw(texture, x, y, width, height);

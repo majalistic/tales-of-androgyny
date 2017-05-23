@@ -85,6 +85,9 @@ public class BattleFactory {
 		if (type == EnemyEnum.SLIME) {
 			textures.put(Stance.DOGGY, new Array<Texture>(new Texture[]{assetManager.get(AssetEnum.SLIME_DOGGY.getTexture())}));
 		}
+		else if (type == EnemyEnum.ORC) {
+			textures.put(Stance.PRONE_BONE, new Array<Texture>(new Texture[]{assetManager.get(AssetEnum.ORC_PRONE_BONE.getTexture())}));
+		}
 		else if(type == EnemyEnum.HARPY) {
 			textures.put(Stance.FELLATIO, new Array<Texture>(new Texture[]{assetManager.get(AssetEnum.HARPY_FELLATIO_0.getTexture()), assetManager.get(AssetEnum.HARPY_FELLATIO_1.getTexture()), assetManager.get(AssetEnum.HARPY_FELLATIO_2.getTexture()), assetManager.get(AssetEnum.HARPY_FELLATIO_3.getTexture())}));
 		}
