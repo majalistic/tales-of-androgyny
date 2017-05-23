@@ -47,7 +47,7 @@ public enum EnemyEnum {
     	return textureImagePaths; 
     }
     public PhallusType getPhallusType() { return this == BRIGAND || this == BEASTMISTRESS ? PhallusType.NORMAL : this == ADVENTURER ? PhallusType.SMALL : PhallusType.MONSTER; }
-    public PronounSet getPronounSet() { return this == ADVENTURER || this == OGRE ? PronounSet.MALE : PronounSet.FEMALE; }
+    public PronounSet getPronounSet() { return this == ADVENTURER || this == OGRE || this == GOBLIN_MALE ? PronounSet.MALE : PronounSet.FEMALE; }
     
     public String getAnimationPath() { return animationPath; }
 	public boolean canProneBone() {
