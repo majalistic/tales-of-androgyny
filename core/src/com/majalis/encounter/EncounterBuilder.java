@@ -927,7 +927,6 @@ public class EncounterBuilder {
 													)
 												)
 											)
-												
 										)
 									)
 								)
@@ -1916,7 +1915,7 @@ public class EncounterBuilder {
 				button.addListener(getListener(choiceScene, sceneMap.get(sceneMap.orderedKeys().get(ii)), buttonSound));
 			}
 			
-			table.add(button).size(650, 60).row();
+			table.add(button).size(650, 150).row();
 			ii++;
 		}
 				
