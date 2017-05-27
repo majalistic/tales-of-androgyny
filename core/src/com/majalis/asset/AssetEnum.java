@@ -156,6 +156,7 @@ public enum AssetEnum {
 	ITEM("stances/Item.png"),
 	KNEELING("stances/Kneeling.png"),
 	KNOTTED("stances/Knotted.png"),
+	NULL("stances/Null.png"),
 	OFFENSIVE("stances/Offensive.png"),
 	PRONE("stances/Prone.png"),
 	PRONEBONE("stances/ProneBone.png"),

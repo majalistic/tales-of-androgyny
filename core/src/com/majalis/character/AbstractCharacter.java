@@ -303,7 +303,7 @@ public abstract class AbstractCharacter extends Actor {
 		}
 		
 		oldStance = stance;
-		stance = technique.getStance();
+		stance = !technique.getStance().isNull() ? technique.getStance() : stance;
 		if (oldStance != Stance.PRONE && oldStance != Stance.SUPINE && (stance == Stance.PRONE || stance == Stance.SUPINE)) {
 			setStabilityToMin();
 		}
@@ -788,12 +788,13 @@ public abstract class AbstractCharacter extends Actor {
 	}
 	
 	public String getStanceTransform(Technique firstTechnique) {
-		String stanceTransform = firstTechnique.getStance().toString();
-		String vowels = "aeiou";
-		String article = vowels.indexOf(Character.toLowerCase(stanceTransform.charAt(0))) != -1 ? "an" : "a";
-		if (oldStance != null && oldStance.toString().equals(stanceTransform)) {
+		Stance newStance = firstTechnique.getStance();
+		if (newStance.isNull() || (oldStance != null && oldStance == newStance)) {
 			return "";
 		}
+		String stanceTransform = newStance.toString();
+		String vowels = "aeiou";
+		String article = vowels.indexOf(Character.toLowerCase(stanceTransform.charAt(0))) != -1 ? "an" : "a";
 		return label + " adopt" + (secondPerson ? "" : "s") + " " + article + " " + stanceTransform + " stance! ";
  	}
 	

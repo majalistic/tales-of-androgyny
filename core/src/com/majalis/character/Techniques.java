@@ -19,6 +19,9 @@ import com.majalis.technique.TechniquePrototype.TechniqueHeight;
  * List of all techniques and their generic attributes.
  */
 public enum Techniques {
+	
+	DO_NOTHING			(new NonAttackTechnique(Stance.NULL, Stance.NULL, "Do Nothing", 0, 0).build()),
+	
 	/* Offensive Techniques */  
 	POWER_ATTACK 		(new AttackTechnique(Stance.OFFENSIVE, Stance.OFFENSIVE, "Power Attack", 3, 3, 4, TechniqueHeight.LOW).addBonus(BonusCondition.ENEMY_ON_GROUND, BonusType.POWER_MOD, 4).build()),
 	TEMPO_ATTACK  		(new AttackTechnique(Stance.OFFENSIVE, Stance.OFFENSIVE, "Tempo Attack", 2, 2, 3, TechniqueHeight.LOW).build()),

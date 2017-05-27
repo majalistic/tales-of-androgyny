@@ -107,7 +107,8 @@ public class PlayerCharacter extends AbstractCharacter {
 	
 	private static ObjectSet<Techniques> getBaseTechniques() {
 		ObjectSet<Techniques> baseTechniques = new ObjectSet<Techniques>();
-		baseTechniques.addAll(POWER_ATTACK, TEMPO_ATTACK, RESERVED_ATTACK, DUCK, SPRING_ATTACK, NEUTRAL_ATTACK, REVERSAL_ATTACK, CAREFUL_ATTACK, BLOCK, GUARD,
+		baseTechniques.addAll(
+			DO_NOTHING, POWER_ATTACK, TEMPO_ATTACK, RESERVED_ATTACK, DUCK, SPRING_ATTACK, NEUTRAL_ATTACK, REVERSAL_ATTACK, CAREFUL_ATTACK, BLOCK, GUARD,
 			KIP_UP, STAND_UP, STAY_KNELT, KNEE_UP, REST_FACE_DOWN, REST, JUMP_ATTACK, VAULT_OVER,
 			RECEIVE_ANAL, RECEIVE_DOGGY, RECEIVE_STANDING, STRUGGLE_ORAL, STRUGGLE_DOGGY, STRUGGLE_ANAL, STRUGGLE_STANDING, RECEIVE_KNOT, SUCK_IT, BREAK_FREE_ANAL, BREAK_FREE_ORAL,
 			SUBMIT, STRUGGLE_FULL_NELSON, BREAK_FREE_FULL_NELSON, STRUGGLE_PRONE_BONE, STRUGGLE_DOGGY,
@@ -164,6 +165,12 @@ public class PlayerCharacter extends AbstractCharacter {
 	
 	// this needs to consolidate logic with the getTechniques method
 	public Array<Technique> getPossibleTechniques(AbstractCharacter target) {
+		Array<Technique> possibles = getPossibleKnownTechniques(target);
+		if (possibles.size == 0) possibles.addAll(getTechniques(target, DO_NOTHING));
+		return possibles;
+	}
+	
+	private Array<Technique> getPossibleKnownTechniques(AbstractCharacter target) {
 		Array<Technique> possibles;
 		switch(stance) {
 			case BLITZ:

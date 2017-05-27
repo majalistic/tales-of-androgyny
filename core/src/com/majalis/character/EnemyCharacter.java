@@ -469,7 +469,7 @@ public class EnemyCharacter extends AbstractCharacter {
 				else {
 					return getTechniques(target, target.stance == Stance.SPREAD ? CRUSH : PULL_UP);
 				}
-		default: return null;
+			default: return getTechniques(target, DO_NOTHING);
 		}
 	}
 
@@ -549,9 +549,11 @@ public class EnemyCharacter extends AbstractCharacter {
 		// if no technique can be used to prevent a falldown, use the technique that takes the least stamina (ideally recovering it)
 		if (outOfStamina(technique)) {
 			candidates.sort(new Technique.StaminaComparator());
-			technique = candidates.get(0);
+			if (candidates.size > 0) {
+				technique = candidates.get(0);
+			}
 		}
-		
+
 		nextMove = techniqueToToken.get(technique);
 		return technique;	
 	}
