@@ -30,7 +30,7 @@ public class ChoiceScene extends AbstractChoiceScene {
 		this.font = font;
 		this.addActor(background);
 		
-        table.setPosition(960, 825);
+        table.setPosition(960, 775);
         table.align(Align.top);
         // may need to add the background as an actor
         this.addActor(table);
