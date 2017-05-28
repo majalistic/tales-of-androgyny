@@ -69,6 +69,8 @@ public enum EnemyEnum {
 	public boolean willArmorSunder() { return this == BRIGAND || this == ORC || this == ADVENTURER; }
 	public boolean willParry() { return this == BRIGAND || this == ADVENTURER; }
 	public boolean canBeRidden() { return this != SLIME && this != CENTAUR && this != UNICORN && this != BEASTMISTRESS; }
+	public boolean willPounce() { return this != EnemyEnum.UNICORN && this != EnemyEnum.BEASTMISTRESS; }
+	public boolean isPounceable() { return this != EnemyEnum.OGRE && this != EnemyEnum.BEASTMISTRESS; }
 	
 	private static class EnemyTemplate {
 		private int strength;

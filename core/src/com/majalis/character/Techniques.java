@@ -20,7 +20,7 @@ import com.majalis.technique.TechniquePrototype.TechniqueHeight;
  */
 public enum Techniques {
 	
-	DO_NOTHING			(new NonAttackTechnique(Stance.NULL, Stance.NULL, "Do Nothing", 0, 0).build()),
+	DO_NOTHING			(new NonAttackTechnique(Stance.NULL, Stance.NULL, "Do Nothing", -1, 0).build()),
 	
 	/* Offensive Techniques */  
 	POWER_ATTACK 		(new AttackTechnique(Stance.OFFENSIVE, Stance.OFFENSIVE, "Power Attack", 3, 3, 4, TechniqueHeight.LOW).addBonus(BonusCondition.ENEMY_ON_GROUND, BonusType.POWER_MOD, 4).build()),

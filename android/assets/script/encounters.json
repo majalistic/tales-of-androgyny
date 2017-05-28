@@ -1090,7 +1090,7 @@
 		"key": "001-05",
 		"scriptLines": [
 			"The harpies tongue lolls out of her mouth, and her throbbing birdcock is now considerably less throbby, as it deflates, slick with the remains of her ejaculate.",
-			"She seems to be in some sort of dazy, stumbling about on her talons, with little regard for your presence.  You take the opportunity to flee, having had enough bird cum for one lifetime."
+			"She seems to be in some sort of daze, stumbling about on her talons, with little regard for your presence.  You take the opportunity to flee, having had enough bird cum for one lifetime."
 		]
 	},		
 	{
@@ -2956,10 +2956,224 @@
 	{
 	"key": "010-INTRO",
 		"scriptLines": [
-			"You come across a dark-skinned elf woman riding atop a... big cat."		
+			"You hear a growl.",
+			"Walking through the enchanted forest, you're already on your guard, but the growl causes your hairs to stand on end.",
+			"It isn't the first.  You're being hunted... but even as you ready yourself for a fight, the creature never emerges. In fact - as you approach the source of the sound, it seems to vanish, like a territorial, but shy animal.",
+			"Still, though, as you progress through the enchanted woods, the creature's rumbling voice does not leave you.  Rather, it seems to be getting closer and closer.",
+			"It's possible that its territory is far larger than you might have expected, but with each passing minute, you find this less and less likely.",
+			"You occasionally catch a glimpse of a shadow passing between dense undergrowth and fronds, something moving on four legs - something quite large.  Your first impression is that of a bear, but it's much swifter than a bear would be.",
+			"What's even stranger is that you also manage to glimpse fur at times, and, at others, a grayish skin.  Some creatures losing hair in splotches might explain the erratic behavior, but something seems... off.  You also see smatterings of bright red - blood?",
+			"At wit's end, you start to give chase - picking up your footfalls at first, and then breaking into a run as the creature retreats further into the brush.",
+			"You're nearly out of breath when you break away into a clearing, and, for the first time, get a full view of the beast in its majesty."	
 		]
 	},
-	
+	{
+	"key": "010-00",
+		"scriptLines": [
+			"Rather than a single creature, you see that it's a beast and its rider - or, more aptly, a woman and her mount, with a cat-like grin on either of them.",
+			"The feline beast turns towards you at the rider's command, and is... kind of cute looking, actually, but its body is thick and muscular; you could be excused for confusing it for a bear.",
+			"The rider is a... boisterously dressed woman, with light gray skin, short white hair, blood-red eyes, purple lips, a heaving bosom that is barely concealed, and a curvy, if powerful-looking figure.",
+			"Perched atop her shoulder is a third creature - a brightly colored bird who, you assume, is named \"Steve.\"  Steve's a good bird.  Around her waist coils a dark snake menacingly.",
+			"Your first assumption is that she is some kind of feral woman, but the tips of her ears peeking through her boyish haircut reveal that she is likely some kind of goblin or elf.",
+			"As she dismounts from her... steed... you find her elvenhood unlikely, as her figure is, indeed, rather full.  Whatever her diet, it is not missing her hips and thighs.",
+			"Seven eyes focus on you, intently, four glowing softly in the dim light.",
+			"\"Mmhmhm... the hunter's become the hunted.  This little human has quite the haul,\" she says, breaking the silence - her voice a crisp alto with a noticable reverberation.  An elf, then?",
+			"\"Why are you stalking me?\" you ask, feeling a tenseness at your throat as you watch the direcat sit, motionless, its powerful muscles ready to pounce.",
+			"She pets her cat casually, while the black snake coils around her shoulder, then down between her breasts.  She peers at you, as still as her cat - and similarly, you worry, eager to strike.",
+			"Just as you open your mouth to demand an explanation, your eyes follow the snake's path downward, and your gaze falls on something... similarly shaped and full of venom.",
+			"The bulge in her shorts is... not something easy to miss.  A wry, subtle smile creeps onto her lips as she sees you stare at it, and it suddenly lurches upwards, held tightly by her garments, striking a noticable profile.",
+			"The snake curls around her waist, running up against her pulsing... elvenhood.  She licks her teeth at the sensation, her gaze fixed.",
+			"\"Isn't it obvious?\" she says, running her palm down her abdomen.  \"I'm a huntress.  And you're my prey.\"",
+			"You see it twitch again, but try to focus on her face, although keeping your gaze away from the area between her thighs or the sharp fangs of her direcat proves difficult.",
+			"\"A huntress?  What is that?\" you ask, and she lets her palm run along her thigh, conspiciously missing the engorged area.",
+			"\"Then, you've never met an underdweller? So...  this will be a lot of new experiences for you,\" she says, coyly.",
+			"You keep your weight on your heel, anticipating a chance to run - but you doubt you'll get far from that beast, or her cat.",
+			"She places her hand on her hip - she seems to be in no hurry.  \"Listen well, human.  I am one of the few among my kind who see the light of the fire above.  We are huntresses,\" she explains.",
+			"You nod, slowly, mesmerized, as she traces her finger along her thigh.",
+			"\"We hunt.  We bring back game from the surface, we reconnoiter, and we bring those who escape the matriarch's kindness back into the fold... if we find mercy,\" she says.",
+			"You swallow, not fully understanding, but sensing... danger.",
+			"\"And...\" she says, her finger finally reaching the elven rod she has stuffed inside her short trousers, \"...personally, I find attractive surface dwellers to sate my desires.\"",
+			"You swallow, and quickly try to change the topic.  \"Surface dweller?\"",
+			"She smirks.  \"You're a curious one, human.  But it's not the time for a cultural exchange.  A fluid exchange, perhaps...\"",
+			"\"I think you have the wrong idea,\" you say, cautiously.",
+			"She licks her lips.  \"We're already engaged in courtship, human - it's just in an unfamiliar form to you.  The web of fate draws us inexorably closer...\" she says, twirling her finger around in the air, as if caught in a thread.",
+			"\"I don't think... we have that kind of a relationship,\" you say, on guard.",
+			"\"Whether the fly believes itself doomed is of no importance.  Human, your body is already full of my venom - you just don't know it yet.\"",
+			"You tense.  The throbbing in her garments is... not svelte in the way you expect elves to be.",
+			"\"Well then...\" she says, grabbing hold of it with her hand, which would you prefer?  Snake or pussy?\" she says, and you get the sense that she's not being literal."
+		]
+	},
+	{
+	"key": "010-01",
+		"scriptLines": [
+			"Her grin becomes cat-like, and your eyes can barely track her actual cat as it bounds towards you.",
+			"It nudges you towards her insistently, until your body is pressed against hers.  You can feel the underdweller's underdweller snug in her shorts.",
+			"Her arms wrap around your waist, reaching down the small of your back.  She smiles, showing sharp teeth.",
+			"\"Don't be scared.  I don't bite too hard,\" she says, biting your bare shoulder, even as her hands roam further down.",
+			"She reaches down between your legs, and you tremble at her touch.  She presses her fingers against your backdoor, and licks her teeth, before spinning you around to face her cat.",
+			"\"Why don't you try riding him?\" she says, and shoves you over the cat's back... before immediately pulling down your pants.",
+			"She spreads your cheeks with her hands.  \"Don't worry.  As a dweller below, I'm very good at getting into tight spaces...\" she explains.",
+			"She frees her own snake from its confines, and presses it against your waiting hole.  She leans over you, and it pops inside."
+		]
+	},
+	{
+	"key": "010-02",
+		"scriptLines": [
+			"She's in no hurry, slowly digging it into your tight cavern, which sticks fast to her mostly-dry thing even as she expertly works it inside anyway.",
+			"She grips onto your hanging legs as she feeds it into you, and begans to rock back and forth - building and building the pace and pitch into your aching rear.",
+			"\"If only all surface walkers were as easy as you,\" she says, sweat dripping down her face, her nails scratching your thighs and back.",
+			"She slides it in and out of you, making your eyes roll into the back of your head.  You feel ready to ejaculate from her anal torment any moment.",
+			"\"Don't cum on my cat, pervert.\"",
+			"But you do.  You cum all over her cat.  Pervert.",
+			"Ropes of cum streak through its fur, and, similarly, ropes of cum streak through your bowels, as she floods your cavern.",
+			"She pulls out, and a thick wad of elven cum drools out with it, having just been punched into your pussy without a care.",
+			"You hang, suspended, from the back of her cat, as she flicks the remaining cum off into the dirt.  \"I told you not to cum on my cat,\" she says, before hoisting you up off of it, and depositing you onto the ground.",
+			"After grooming her cat's fur, she mounts it again, and then it bounds off - disappearing into the forest once more."			
+		]
+	},
+	{
+	"key": "010-03",
+		"scriptLines": [
+			"\"Very well,\" she says, grinning broadly, \"you want my pussy?  You're going to get it,\" she says, and then quickly mounts.  The beast charges at you!"	
+		]
+	},
+	{
+	"key": "010-04",
+		"scriptLines": [
+			"Her direcat limps as it maintains its distance from you, and its rider dismounts, unwilling to continue the fight.",
+			"She braces herself against a mushroom stalk... and then arches her back, presenting herself.",
+			"\"Mmm... you wanted my pussy, didn't you?  Well, I do have a cavern you can go spelunking in,\" she says, grabbing hold of her cheeks flirtariously."
+		]
+	},
+	{
+	"key": "010-05",
+		"scriptLines": [
+			"You're right there behind her almost immediately.  Her shorts are tight, and peeling them off causes her thick, half-flaccid meat to flop down between her thighs, making you gulp with anticipation.",
+			"You bring yourself to bear and she reaches between her legs as you push your way inside.  You don't need to hold it steady - her sphincter grips it tightly in a ring that keeps you stuck fast.",
+			"Her wide hips give you ample to hold onto as you fill her tight asshole with your cock.  The view of her grey, fat ass accepting all of it fills you with determination to fill her elvish bowels with your baby gravy.",
+			"You can't last long - you mutter an apology as you feel it rising up the shaft... when suddenly, she tightens like a vice, and you whine.",
+			"\"Not just yet,\" she says, stroking herself casually, as you knead her plump hips, trying to force it out of the tip, to no avail.",
+			"You resume thrusting, although you're now on a hair-trigger - it won't be long before her elven halls get a fresh coat of white human paint.",
+			"And again, your balls contract, you grit your teeth, and... her elven ass-pussy clenches fast, corking your semen inside.  You groan in pain and frustration, and she chuckles demurely as she continues to run her fingers up and down her shaft.",
+			"Each time you nearly blast off, she tightens her sphincter and you can't get it out.  It's driving you mad.",
+			"Eventually, she starts to tense up involuntarily, and you know she's about to explode all over the ground and the mushroom stalk she's braced against.  You can almost hear her forceful ejaculation.",
+			"She loosens up, and you feel it rise once more - you can tell that she's spurting all over the mushroom stalk, so the timing is perfect... and then, to your great frustration, she tightens like a vice.",
+			"She continues to slightly relax and tighten as her orgasm is splattered all over the phallic mushroom stalk... but never enough for you to release.",
+			"\"I'm afraid I'm done,\" she says, and with deftness, she pulls your still-erect pole from her still-dry bum.",
+			"You collapse to your knees, vision turning white.  Your cock bobs in the open air, drooling precum, twitching powerfully.",
+			"\"Hope you enjoyed my ass,\" she says, taunting you.",
+			"She walks away, confidently, leaving your balls nearly the color of her skin, her big bottom mostly dry within.  You watch her full moon sway side to side... until it recedes into the darkness."
+		]
+	},
+	{
+	"key": "010-06",
+		"scriptLines": [
+			"She clicks her teeth.  She walks away, confidently, her snake wrapping around her wrist, and her cat following in tow, as if nothing had happened."		
+		]
+	},
+	{
+	"key": "010-07",
+		"scriptLines": [
+			"You fall under the intensity of the cat's assault.  She dismounts it with an air of smug condescension.  You watch the beast stirring in her loins... but she doesn't approach.",
+			"\"Hmmm, seems my kitty's got a new toy...\" she says, her voice full of vinegar.",
+			"Her cat approaches you, and you shake your head.  No - this can't be.",
+			"\"Hm... a human male, are you?\" she says, a sinister smile slowly creeping across her face. \"I see that now,\" she says, licking her finger as her mount closes in on you.",
+			"You scramble on the ground, but the beast is soon upon you.",
+			"\"This my pet kitty.  Every underdweller huntress has one.  I'm... very proud of mine.  You should be honored,\" she says, barely containing a mocking snicker.",
+			"Fangs tear into the seat of your pants, leaving you exposed.",
+			"\"Mmmm, this is going to be... salacious.  You should be glad that nobody is around to witness - I know this kind of thing is frowned upon among surface dwellers.\"",
+			"You can feel the heat of the thing approaching... the beast drops its weight on you, and you lose your chance to escape.",
+			"\"He's been acting antsy with his gonads so full - I was worried he would start getting disobedient if he didn't have a vessel to catch his seed, and he'd turn on me.\"",
+			"She approaches the bizarre sight and squats down, noting your erection.",
+			"\"I didn't expect for his gracious semen host to be a man, though.\"",
+			"She flicks your exposed penis, and then rests her chin on her hands.",
+			"\"Interspecies love isn't taboo below the surface... in fact, it's encourage to introduce your defeated enemies to your most amorous pets, as a reward.  I'll let you decide who's being rewarded.\"",
+			"The beast starts to try to penetrate you, but it has difficulty finding its breeding target.",
+			"\"I'm afraid the time to deny my kitty his pussy has passed.  Open up for him, human.\"",
+			"She reaches underneath her mount to spread your cheeks for the breeding.",
+			"\"As long as I spread your cheeks like this for him, he'll be able to start anally violating you.\""
+		]
+	},
+	{
+	"key": "010-08",
+		"scriptLines": [
+			"You can't believe this is happening - that is, until you feel a strange object force its way inside, and your vision goes white.",
+			"\"Painful, isn't it?  The barbs are meant to force a female to ovulate... in your ass, though, it's just an unfortunate mismatch.\"",
+			"The feline phallus bores into you, straightening out your rectal pipe as it does, but even when it withdraws, it isn't a relief, as the barbs scrape your smooth walls.",
+			"You whine and moan and begin shaking your hips at the rude sensation.  Your teeth stay grit and your fingers dig into the dirt.",
+			"\"Hmmm... you're acting like quite the female,\" she says, smugly. \"My kitty is very smart, you know.  If this was homo sex, he'd know.\"",
+			"Your voice is hoarse and your eyes stare up at some unseen threat.  Meanwhile, your human pecker drools precum - not quite ovulation, but close enough.",
+			"\"Not exactly your proudest moment, is it?  Getting fucked in the ass by an overgrown housecat,\" she says, straightening up, and walking to the front side of her mount.",
+			"She eyes your <LIPSIZE> lips, licking her own as the mass in her tight shorts swells and stiffens.",
+			"\"Open up, human.  Kitty's not the only one who's been getting antsy,\" she says, having the direcat turn slightly so that she can reach you."
+		]
+	},
+	{
+	"key": "010-09",
+		"scriptLines": [
+			"She frees her elven prick from its confines, and then she pries open your mouth with her fingers, before pushing the length of it into your teary-eyed face.",
+			"In comparison to the feral breeding from behind, her thrusting in and out of your face is relatively subdued, but you're still forced to repeatedly swallow her dark elf dick down your gullet faster than you can adjust to it, and choke pathetically around her schlong as her beast pummels your backdoor.",
+			"\"Mmm... if you swallow mine, I'll have kitty cum elsewhere,\" she offers, and you nod along, albeit because she forces your head to bob up and down onto her shaft.",
+			"As she sloppily fucks your face, her impending spew-frenzy seems more and more imminent... until, suddenly, her saliva-coated cock is deep inside, and pulsing in, your throat."			
+		]
+	},
+	{
+	"key": "010-10",
+		"scriptLines": [
+			"\"Swallow my sticky stuff, human,\" she says, although she leaves you little choice - with her dark meat pulsing in your throat, she ejaculates almost directly into your stomach.",
+			"You gag horrifically as she dumps her elven ejaculate into your belly, and you finally get a breath of air as she withdraws it from your lips.",
+			"\"I lied.  I'm going to let kitty sow his seed in your bowels like a womb. Enjoy the humiliation, human toilet.\"",
+			"Between the pumping and the scraping, the anal ordeal has proven incredibly difficult, even as you've drooled your own seed into the dirt.  You feel an intense rumbling in your stomach, and then heat, and then... humiliation."
+		]
+	},
+	{
+	"key": "010-11",
+		"scriptLines": [
+			"Getting kitty cock up your kitty litter hole is one thing - being the queen in heat to a powerful tom and being bred is another.  You whine as your intestines are pumped full of goo, inseminated and disgraced.",
+			"As he pulls his barbed cock free, you let out an inhuman sound, the underdweller's cum still drooling from your lips, and you collapse into the dirt thereafter.",
+			"\"A toy it is,\" she says, watching you dismissively.  \"I won't use your kittyhole - that's for his exclusive use now. It would be disgusting to use the same fuckhole as an animal, after all,\" she says, looking down on you.",
+			"She pulls your head up by your hair, and puts her half-flaccid dark meat back inside.",
+			"\"Get used to my taste, human.  I would say to get used to the barbs... but you won't.  Isn't that right, kitty?\" she says, and you know there's no going back now.",
+			"In the end, you find yourself living underground, wearing cat ears that she fashioned for you, while you suck her off and get bred by her direcat, for the rest of your days."		
+		]
+	},
+	{
+	"key": "010-12",
+		"scriptLines": [
+			"The huntress jumps from her mount as it passes, but you manage to evade!",
+			"She falls to the ground, face-down and dazed.  Her cat bounds over to where she's falling - and you see that she wasn't the only one who'd become eager.",
+			"\"Bad kitty!\" she says, as it tears a hole in the seat of her pants.  You watch with some horror as it mounts her - forcing its spiny looking, massive schlong into her fat gray rear.",
+			"If she was opposed to this... carnal mating, she showed it by spewing cum all over the ground after a few thrusts.  You sneak away before her mount has time to return the favor.",
+			"You still hear growling as you retreat from the scene, but it's accompanied also by mewling and gurgling, so you know the beast is no longer a threat.",
+		]
+	},
+	{
+	"key": "010-13",
+		"scriptLines": [
+			"The huntress dismounts from her direcat, and you fail to evade!  She slams you to the ground, disarming you in the process.",
+			"\"Caught you!\" she says, and you try to lift your face out of the dirt, but are met with sharp teeth and a snarl from her furry companion.  The feathered familiar lands on its head.",
+			"She pulls off your pants, and though you can't turn to see, you can tell her dark-skinned, sizable member is at full-mast."			
+		]
+	},
+	{
+	"key": "010-14",
+		"scriptLines": [
+			"\"You shouldn't have teased me, human,\" she says, voice dripping with lust.  Within seconds, she's inside of you all the way to the hilt.",
+			"Although moments ago you were battling her ferocious mount, she is now mounting you - and giving you a furious ass-blasting, at that.",
+			"Eager to join the fray, her cat bounds over... and tears a hole in the seat of her pants.  Her voice gives out a moment later with a muted \"hrrk\", and you feel the thing inside of you swell and become even more rigid.",
+			"With the weight of her and her feline friend on top of you, you feel crushed - which is appropriate, as the cat's thrusts are transmitted through to you, so that she crushes some serious ass.",
+			"With her furry friend reaming her hole and pounding her prostate, her buried elven rod in your guts is hard like slate and twitching with a foreboding urgency.",
+			"\"Ohoh... here it comes, human...\" she says, and you don't have to turn your head to understand what - a deep thunk in the pit of your stomach that fills it with a gluggy warmness makes it obvious what, exactly, is coming.",
+			"You groan as she inseminates you, even as she groans coyly as her mount breeds her.  You can feel the warmth in her abdomen as it presses against your back.",
+			"\"Don't feel too bad... kitty just gave me a kitty-cum enema,\" she confirms.  Having difficulty breathing, you lose consciousness."
+		]
+	},
+	{
+	"key": "010-15",
+		"scriptLines": [
+			"When you awake, the huntress and her beasts are gone, and your ass is... quite sore."		
+		]
+	},
 	{
 		"key": "FORCED_CAMP",
 		"scriptLines": [

@@ -278,6 +278,8 @@ public class EnemyCharacter extends AbstractCharacter {
 		
 		Array<Techniques> possibles = new Array<Techniques>();
 		switch(stance) {
+			case BLITZ:
+				return getTechniques(target, ALL_OUT_BLITZ, HOLD_BACK);
 			case OFFENSIVE:
 				if (willFaceSit(target)) {
 					possibles.addAll(getTechniques(target, FACE_SIT));
@@ -289,16 +291,23 @@ public class EnemyCharacter extends AbstractCharacter {
 					if (enemyType.willArmorSunder()) {
 						possibles.addAll(getTechniques(target, ARMOR_SUNDER));
 					}
-					
-					possibles.addAll(getTechniques(target, POWER_ATTACK, GUT_CHECK, RECKLESS_ATTACK, KNOCK_DOWN, TEMPO_ATTACK, RESERVED_ATTACK));
+					if (enemyType == EnemyEnum.BEASTMISTRESS) {
+						possibles.addAll(getTechniques(target, BLITZ_ATTACK, POWER_ATTACK,RECKLESS_ATTACK, KNOCK_DOWN, TEMPO_ATTACK, RESERVED_ATTACK));
+					}
+					else {
+						possibles.addAll(getTechniques(target, POWER_ATTACK, GUT_CHECK, RECKLESS_ATTACK, KNOCK_DOWN, TEMPO_ATTACK, RESERVED_ATTACK));
+					}
 				}
 				return possibles;
 			case BALANCED:
 				if (willFaceSit(target)) {
 					possibles.addAll(getTechniques(target, FACE_SIT));
 				}				
-				if (!target.stance.receivesMediumAttacks()) {
-					possibles.addAll(getTechniques(target, SPRING_ATTACK, NEUTRAL_ATTACK));
+				if (enemyType == EnemyEnum.BEASTMISTRESS) {
+					possibles.addAll(getTechniques(target, SPRING_ATTACK, NEUTRAL_ATTACK, DO_NOTHING));
+				}
+				else if (!target.stance.receivesMediumAttacks()) {
+					possibles.addAll(getTechniques(target, SPRING_ATTACK, NEUTRAL_ATTACK, BLOCK));
 				}
 				else {
 					possibles.addAll(getTechniques(target, SPRING_ATTACK, NEUTRAL_ATTACK, CAUTIOUS_ATTACK, BLOCK));
@@ -484,7 +493,7 @@ public class EnemyCharacter extends AbstractCharacter {
 		}
 		
 		if (lust < 10 || enemyType == EnemyEnum.OGRE) {
-			if (enemyType != EnemyEnum.CENTAUR) lust++;
+			if (enemyType != EnemyEnum.CENTAUR && enemyType != EnemyEnum.BEASTMISTRESS) lust++;
 		}
 		
 		Array<Techniques> possibleTechniques = getPossibleTechniques(target, stance);
@@ -673,7 +682,7 @@ public class EnemyCharacter extends AbstractCharacter {
 	
 	private boolean willPounce() {
 		IntArray randomValues = new IntArray(new int[]{10, 11, 12, 13});
-		return enemyType != EnemyEnum.UNICORN && enemyType != EnemyEnum.BEASTMISTRESS && lust >= randomValues.random() && !stance.isIncapacitatingOrErotic();
+		return enemyType.willPounce() &&  lust >= randomValues.random() && !stance.isIncapacitatingOrErotic();
 	}
 	
 	private Technique getTechnique(AbstractCharacter target, Techniques technique) {
@@ -883,6 +892,9 @@ public class EnemyCharacter extends AbstractCharacter {
 				break;
 			case OGRE:
 				if (climaxCounters.get(ClimaxType.ANAL.toString(), 0) >= 1) return Outcome.SATISFIED;
+				break;
+			case BEASTMISTRESS:
+				if (isErect()) return Outcome.SATISFIED;
 				break;
 			default:
 		
