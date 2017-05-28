@@ -22,7 +22,7 @@ public enum EnemyEnum {
 	ORC (new EnemyTemplate(WeaponType.Flail, 7, 5, 4, 3, 3, 3).setDefense(6).addHealth(10), "Orc", AssetEnum.ORC.getTexture()), 
 	ADVENTURER (new EnemyTemplate(WeaponType.Axe, 4, 4, 4, 3, 4, 6).setDefense(6).addHealth(10).setMana(20), "Adventurer", AssetEnum.ADVENTURER.getTexture()),
 	OGRE (new EnemyTemplate(WeaponType.Club, 8, 8, 4, 3, 3, 3).addHealth(20), "Ogre", AssetEnum.OGRE.getTexture()),
-	BEASTMISTRESS (new EnemyTemplate(WeaponType.Claw).setStrength(6).setAgility(6).addHealth(10), "Beast Mistress", AssetEnum.BEASTMISTRESS.getTexture()), 
+	BEASTMISTRESS (new EnemyTemplate(WeaponType.Claw).setStrength(6).setAgility(8).setEndurance(5).addHealth(10), "Beast Mistress", AssetEnum.BEASTMISTRESS.getTexture()), 
 	;
 	private final String text;
 	private final AssetDescriptor<Texture> path;
