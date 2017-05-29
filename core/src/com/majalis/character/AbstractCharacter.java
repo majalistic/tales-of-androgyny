@@ -906,11 +906,11 @@ public abstract class AbstractCharacter extends Actor {
 		Disoriented (AssetEnum.BALANCE_ICON_2, 0),
 		Dazed (AssetEnum.BALANCE_ICON_2, 0),
 		Down (AssetEnum.BALANCE_ICON_2, 0),
-		Teetering (AssetEnum.BALANCE_ICON_2, 10),
-		Weakfooted (AssetEnum.BALANCE_ICON_1, 25),
-		Unstable (AssetEnum.BALANCE_ICON_1, 50),
-		Stable (AssetEnum.BALANCE_ICON_0, 75),
-		Surefooted (AssetEnum.BALANCE_ICON_0, 100);
+		Teetering (AssetEnum.BALANCE_ICON_2, .1f),
+		Weakfooted (AssetEnum.BALANCE_ICON_1, .25f),
+		Unstable (AssetEnum.BALANCE_ICON_1, .50f),
+		Stable (AssetEnum.BALANCE_ICON_0, .75f),
+		Surefooted (AssetEnum.BALANCE_ICON_0, 1);
 
 		private final AssetEnum texture;
 		private final float percent;
