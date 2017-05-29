@@ -261,7 +261,14 @@ public enum EncounterCode {
 					AssetEnum.GAME_OVER_KEYHOLE.getTexture()
 				});
 			case FIRST_BATTLE_STORY:
-				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{AssetEnum.FOREST_BG.getTexture()});
+				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{
+					AssetEnum.FOREST_BG.getTexture(),
+					AssetEnum.GOBLIN.getTexture(),
+					AssetEnum.GAME_OVER_TUCKERED.getTexture(),
+					AssetEnum.LOUD_LAUGH.getSound(),
+					AssetEnum.WEREWOLF_MUSIC.getMusic()
+					
+				});
 			case GOBLIN:
 				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{  
 					AssetEnum.GOBLIN.getTexture(),
