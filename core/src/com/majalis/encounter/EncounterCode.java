@@ -291,11 +291,13 @@ public enum EncounterCode {
 					AssetEnum.TRAINER_MUSIC.getMusic()
 				});
 			case TOWN_STORY:
-				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{  
+				Array<AssetDescriptor<?>> reqs = new Array<AssetDescriptor<?>>(new AssetDescriptor[]{  
 					AssetEnum.TOWN_BG.getTexture(),
 					AssetEnum.SMUG_LAUGH.getSound(),
 					AssetEnum.SHOP_MUSIC.getMusic()
 				});
+				reqs.addAll(TownScreen.resourceRequirements);
+				return reqs;				
 			case SHOP:
 			case WEAPON_SHOP:
 				return TownScreen.resourceRequirements;
