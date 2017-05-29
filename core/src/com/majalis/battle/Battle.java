@@ -175,7 +175,7 @@ public class Battle extends Group{
 
 		characterBalance = initBar(0, 1, .05f, false, skin, 350, character.getBalancePercent(), barX, 945);
 		balanceIcon = initImage(assetManager.get(character.getBalanceDisplay()), barX + 3, 952.5f);
-		balanceLabel = initLabel(character.getStability() > 0 ? character.getStability() + " / " + character.getMaxStability() : "DOWN (" + -character.getStability() + ")", skin, Color.BROWN, barX + 75, 948);
+		balanceLabel = initLabel(character.getStability(), skin, Color.BROWN, barX + 75, 948);
 		
 		if (character.hasMagic()) {
 			characterMana = initBar(0, 1, .05f, false, skin, 350, character.getManaPercent(), barX, 900);
@@ -204,7 +204,7 @@ public class Battle extends Group{
 		
 		enemyBalance = initBar(0, 1, .05f, false, skin, 350, enemy.getBalancePercent(), enemyBarX, 945);
 		enemyBalanceIcon = initImage(assetManager.get(enemy.getBalanceDisplay()), enemyBarX + 3, 952.5f);
-		enemyBalanceLabel = initLabel(enemy.getStability() > 0 ? enemy.getStability() + " / " + enemy.getMaxStability() : "DOWN (" + -enemy.getStability() + ")", skin, Color.BROWN, enemyBarX + 75, 948);
+		enemyBalanceLabel = initLabel(enemy.getStability(), skin, Color.BROWN, enemyBarX + 75, 948);
 		
 		if (character.getBattlePerception() < 3) {
 			enemyBalance.addAction(Actions.hide());
@@ -640,10 +640,10 @@ public class Battle extends Group{
 		enemyBalance.setValue(enemy.getBalancePercent());
 		healthLabel.setText(character.getCurrentHealth() + " / " + character.getMaxHealth());
 		staminaLabel.setText(character.getCurrentStamina() + " / " + character.getMaxStamina());
-		balanceLabel.setText(character.getStability() > 0 ? character.getStability() + " / " + character.getMaxStability() : "DOWN (" + -character.getStability() + ")");
+		balanceLabel.setText(character.getStability());
 		enemyHealthLabel.setText(enemy.getCurrentHealth() + " / " + enemy.getMaxHealth());
 		enemyStaminaLabel.setText(enemy.getCurrentStamina() + " / " + enemy.getMaxStamina());
-		enemyBalanceLabel.setText(enemy.getStability() > 0 ? enemy.getStability() + " / " + enemy.getMaxStability() : "DOWN (" + -enemy.getStability() + ")");
+		enemyBalanceLabel.setText(enemy.getStability());
 		enemyWeaponLabel.setText("Weapon: " + (enemy.getWeapon() != null ? enemy.getWeapon().getName() : "Unarmed"));
 		armorLabel.setText("" + character.getDefense());
 		enemyArmorLabel.setText("" + enemy.getDefense());	

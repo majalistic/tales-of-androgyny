@@ -54,7 +54,7 @@ public abstract class AbstractCharacter extends Actor {
 	protected int currentStamina;
 	protected int currentMana; // mana might be replaced with spell slots that get refreshed
 	
-	protected int stability;
+	protected Stability stability;
 	protected int focus;
 	protected int fortune;
 	
@@ -108,7 +108,8 @@ public abstract class AbstractCharacter extends Actor {
 			currentHealth = getMaxHealth();
 			currentStamina = getMaxStamina();
 			currentMana = getMaxMana();
-			stability = focus = fortune = 10;
+			stability = Stability.Surefooted;
+			focus = fortune = 10;
 			stance = Stance.BALANCED;
 			setStruggleToMin();
 			phallus = PhallusType.NORMAL;
@@ -148,7 +149,7 @@ public abstract class AbstractCharacter extends Actor {
 	
 	public float getStaminaPercent() { return currentStamina / (getMaxStamina() * 1.0f); }
 	
-	public float getBalancePercent() { return stability / (getMaxStability() * 1.0f); }
+	public float getBalancePercent() { return stability.getPercent(); }
 	
 	public float getManaPercent() { return currentMana / (getMaxMana() * 1.0f); }
 	
@@ -176,7 +177,7 @@ public abstract class AbstractCharacter extends Actor {
 	}
 	
 	public AssetDescriptor<Texture> getBalanceDisplay() { 
-		return stability > 10 ?  AssetEnum.BALANCE_ICON_0.getTexture() : stability > 5 ? AssetEnum.BALANCE_ICON_1.getTexture() : AssetEnum.BALANCE_ICON_2.getTexture();
+		return stability.getDisplay();
 	}
 	
 	public AssetDescriptor<Texture> getManaDisplay() {  
@@ -190,7 +191,7 @@ public abstract class AbstractCharacter extends Actor {
 		return null;
 	}
 	
-	public int getStability() { return stability; }
+	public String getStability() { return stability.toString(); }
 	
 	public int getLust() { return lust; }
 	
@@ -217,11 +218,11 @@ public abstract class AbstractCharacter extends Actor {
 	
 	protected void modStamina(int staminaMod) { this.currentStamina += staminaMod; if (currentStamina > getMaxStamina()) currentStamina = getMaxStamina(); }
 	
-	protected void setStabilityToMax() { stability = getMaxStability(); }
+	protected void setStabilityToMax() { stability = Stability.Surefooted; }
 	
-	protected void setStabilityToMin() { stability = -5; }
+	protected void setStabilityToMin() { stability = Stability.Dazed; }
 	
-	protected void modStability(int stabilityMod) { this.stability += stabilityMod; if (stability > getMaxStability()) stability = getMaxStability(); }
+	protected void modStability(int stabilityMod) { stability = stability.shift(stabilityMod); if (stance.isIncapacitating() && !stability.isDown()) stability = Stability.Down; }
 	
 	protected void setManaToMax() { currentMana = getMaxMana(); }
 	
@@ -280,10 +281,16 @@ public abstract class AbstractCharacter extends Actor {
 	
 	// right now this and "doAttack" handle once-per-turn character activities
 	public void extractCosts(Technique technique) {
+		
+		oldStance = stance;
+		stance = !technique.getStance().isNull() ? technique.getStance() : stance;
+		if (oldStance != Stance.PRONE && oldStance != Stance.SUPINE && (stance == Stance.PRONE || stance == Stance.SUPINE)) {
+			setStabilityToMin();
+		}
+		
 		int staminaMod = getStaminaMod(technique); 
 		modStamina(-staminaMod);
-		modStability(-technique.getStabilityCost());
-		modStability(getStabilityRegen());
+		modStability(getStabilityRegen() - technique.getStabilityCost());
 		modMana(-technique.getManaCost());
 		modHealth(-getBloodLossDamage());
 		
@@ -301,12 +308,6 @@ public abstract class AbstractCharacter extends Actor {
 		for(String key: toRemove) {
 			statuses.remove(key);
 		}
-		
-		oldStance = stance;
-		stance = !technique.getStance().isNull() ? technique.getStance() : stance;
-		if (oldStance != Stance.PRONE && oldStance != Stance.SUPINE && (stance == Stance.PRONE || stance == Stance.SUPINE)) {
-			setStabilityToMin();
-		}
 	}
 	
 	private int getBloodLossDamage() {
@@ -314,7 +315,7 @@ public abstract class AbstractCharacter extends Actor {
 	}
 	
 	protected CharacterState getCurrentState(AbstractCharacter target) {		
-		return new CharacterState(getStats(), getRawStats(), weapon, stability < 5, currentMana, this, target);
+		return new CharacterState(getStats(), getRawStats(), weapon, stability.lowBalance(), currentMana, this, target);
 	}
 	
 	protected boolean alreadyIncapacitated() {
@@ -488,23 +489,21 @@ public abstract class AbstractCharacter extends Actor {
 			knockdown -= getTraction();
 			if (knockdown > 0) {
 				if (!alreadyIncapacitated()) {
-					stability -= knockdown;
+					modStability(-knockdown);
 					result.add("It's a solid blow! It reduces balance by " + knockdown + "!");
-					if (enemyType == EnemyEnum.OGRE) {
-						if (stability <= 0) {
+					if (stability.isDown()) {
+						if (enemyType == EnemyEnum.OGRE) {
 							result.add(label + (secondPerson ? " are " : " is ") + "knocked to their knees!");
-							stability = 0;
+							stability = Stability.Teetering;
 							stance = Stance.KNEELING;
-							knockedDown = true;
 						}
-					}
-					else {
-						if (stability <= 0) {
+						else {
 							result.add(label + (secondPerson ? " are " : " is ") + "knocked to the ground!");
 							setStabilityToMin();
 							stance = Stance.SUPINE;
-							knockedDown = true;
+							
 						}
+						knockedDown = true;
 					}
 				}
 			}
@@ -560,8 +559,8 @@ public abstract class AbstractCharacter extends Actor {
 				if (forcedStance == Stance.PRONE || forcedStance == Stance.SUPINE) {
 					setStabilityToMin();
 				}
-				else if (forcedStance == Stance.KNEELING && stability > getMaxStability() / 2) {
-					stability = getMaxStability() / 2;
+				else if (forcedStance == Stance.KNEELING && stability.isGood()) {
+					stability = Stability.Unstable;
 				}
 			}
 			
@@ -588,21 +587,21 @@ public abstract class AbstractCharacter extends Actor {
 		}
 		if (!alreadyIncapacitated() && !knockedDown) {
 			if (enemyType == EnemyEnum.OGRE) {
-				if (stability <= 0 || currentStamina <= 0) {
+				if (stability.isDown()) {
 					stance = Stance.KNEELING;
 					result.add(label + (secondPerson ? " lose your" : " loses their") + " footing and " + (secondPerson ? "trip" : "trips") + "!");
-					stability = 1;
+					stability = Stability.Teetering;
 				}
 				// you blacked out
 				else if (currentStamina <= 0) {
 					result.add(label + " runs out of breath and " + (secondPerson ? "collapse" : "collapses") + "!");
 					stance = Stance.KNEELING;
-					stability = 1;
+					stability = Stability.Teetering;
 				}
 			}
 			else {
 				// you tripped
-				if (stability <= 0) {
+				if (stability.isDown()) {
 					stance = Stance.PRONE;
 					result.add(label + (secondPerson ? " lose your" : " loses their") + " footing and " + (secondPerson ? "trip" : "trips") + "!");
 					setStabilityToMin();
@@ -807,8 +806,16 @@ public abstract class AbstractCharacter extends Actor {
 		return getStaminaMod(technique) >= currentStamina;
 	}
 	
+	private Stability checkStability(int stabilityModifier) {
+		Stability currentStability = stability;
+		modStability(stabilityModifier);
+		Stability resultingStability = stability;
+		stability = currentStability;
+		return resultingStability;
+	}
+	
 	protected boolean outOfStability(Technique technique) {
-		return technique.getStabilityCost() - getStabilityRegen() >= stability;
+		return checkStability(getStabilityRegen() - technique.getStabilityCost()).isDown();
 	}
 	
 	
@@ -817,11 +824,11 @@ public abstract class AbstractCharacter extends Actor {
 	}
 
 	public boolean lowStaminaOrStability(Technique technique) {
-		return getStaminaMod(technique) >= currentStamina - 5 || technique.getStabilityCost() - getStabilityRegen() >= stability - 5;	
+		return getStaminaMod(technique) >= currentStamina - 5 || checkStability(getStabilityRegen() - technique.getStabilityCost()).lowBalance();	
 	}
 	
 	protected boolean lowStability() {
-		return stability <= 5;
+		return stability.lowBalance();
 	}
 	
 	protected boolean isErect() {
@@ -895,6 +902,59 @@ public abstract class AbstractCharacter extends Actor {
 		}
 	}
 
+	public enum Stability {
+		Disoriented (AssetEnum.BALANCE_ICON_2, 0),
+		Dazed (AssetEnum.BALANCE_ICON_2, 0),
+		Down (AssetEnum.BALANCE_ICON_2, 0),
+		Teetering (AssetEnum.BALANCE_ICON_2, 10),
+		Weakfooted (AssetEnum.BALANCE_ICON_1, 25),
+		Unstable (AssetEnum.BALANCE_ICON_1, 50),
+		Stable (AssetEnum.BALANCE_ICON_0, 75),
+		Surefooted (AssetEnum.BALANCE_ICON_0, 100);
+
+		private final AssetEnum texture;
+		private final float percent;
+		private Stability(AssetEnum texture, float percent) {
+			this.texture = texture;
+			this.percent = percent;
+		}
+		
+		public AssetDescriptor<Texture> getDisplay() {
+			return texture.getTexture();
+		}
+		public float getPercent() {
+			return percent;
+		}
+		public boolean isDown() {
+			return this.ordinal() < 3;
+		}
+		public boolean lowBalance() {
+			return this.ordinal() < 4;
+		}
+		public boolean isGood() {
+			return this.ordinal() > 5;
+		}
+		
+		public Stability shift(int stabilityMod) {
+			int shift = 0;
+			if (stabilityMod > 5) {
+				shift = 2;
+			}
+			else if (stabilityMod > 0) {
+				shift = 1;
+			}
+			else if (stabilityMod < -5) {
+				shift = -1;
+			}
+			else if (stabilityMod < -1) {
+				shift = -2;
+			}
+			int ordinal = this.ordinal() + shift;
+			Stability [] values = Stability.values();
+			return values.length < ordinal + 1 ? values[values.length - 1] : ordinal < 0 ? values[0] : values[ordinal];			
+		}
+	}
+	
 	protected enum PronounSet {
 		MALE ("he", "him", "his", "himself"),
 		FEMALE ("she", "her", "her", "herself"),
