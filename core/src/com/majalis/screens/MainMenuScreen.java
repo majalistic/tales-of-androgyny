@@ -111,7 +111,7 @@ public class MainMenuScreen extends AbstractScreen {
 		batch.begin(); 
 		// need to make these actors
 		batch.draw(arrowImage, 2280, 1428 - selection * 60, 30, 50);
-		font.draw(batch, "Version: 0.1.19.2" + (TalesOfAndrogyny.patron ? " Patron-Only" : ""), 2450, 600);
+		font.draw(batch, "Version: 0.1.19.3" + (TalesOfAndrogyny.patron ? " Patron-Only" : ""), 2450, 600);
 		batch.end();
 	}
 
