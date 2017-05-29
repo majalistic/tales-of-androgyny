@@ -937,6 +937,9 @@ public abstract class AbstractCharacter extends Actor {
 		
 		public Stability shift(int stabilityMod) {
 			int shift = 0;
+			if (stabilityMod > 10) {
+				shift = 4;
+			}
 			if (stabilityMod > 5) {
 				shift = 2;
 			}
