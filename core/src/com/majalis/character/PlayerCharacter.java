@@ -114,7 +114,8 @@ public class PlayerCharacter extends AbstractCharacter {
 			SUBMIT, STRUGGLE_FULL_NELSON, BREAK_FREE_FULL_NELSON, STRUGGLE_PRONE_BONE, STRUGGLE_DOGGY,
 			OPEN_WIDE, GRAB_IT, STROKE_IT, LET_GO, USE_ITEM, ITEM_OR_CANCEL,
 			RECIPROCATE_FORCED, GET_FACE_RIDDEN, STRUGGLE_FACE_SIT, STRUGGLE_SIXTY_NINE, BREAK_FREE_FACE_SIT, ROLL_OVER_UP, ROLL_OVER_DOWN, RIPOSTE, EN_GARDE, POUNCE_DOGGY, POUND_DOGGY, POUNCE_ANAL, POUND_ANAL, ERUPT_ANAL, PULL_OUT, PULL_OUT_ORAL, PULL_OUT_ANAL, PULL_OUT_STANDING, RECEIVE_COCK, HURK, UH_OH,
-			FORCE_DEEPTHROAT, CRUSH_ASS, BOUNCE_ON_IT, SQUEEZE_IT, BE_RIDDEN, PUSH_OFF, SELF_SPANK, POUT, DEEPTHROAT, WRAP_LEGS, PUSH_OFF_ATTEMPT, RIDE_ON_IT_REVERSE, BOUNCE_ON_IT_REVERSE, SQUEEZE_IT_REVERSE, RECEIVE_PRONE_BONE, BE_RIDDEN_REVERSE, PUSH_OFF_REVERSE, PUSH_OFF_ATTEMPT_REVERSE
+			FORCE_DEEPTHROAT, CRUSH_ASS, BOUNCE_ON_IT, SQUEEZE_IT, BE_RIDDEN, PUSH_OFF, SELF_SPANK, POUT, DEEPTHROAT, WRAP_LEGS, PUSH_OFF_ATTEMPT, RIDE_ON_IT_REVERSE, BOUNCE_ON_IT_REVERSE, SQUEEZE_IT_REVERSE, RECEIVE_PRONE_BONE, BE_RIDDEN_REVERSE, PUSH_OFF_REVERSE, PUSH_OFF_ATTEMPT_REVERSE,
+			OUROBOROS, ROUND_AND_ROUND, RECEIVE_OUROBOROS, STRUGGLE_OUROBOROS, MOUNT_FACE, FACEFUCK, GET_FACEFUCKED, STRUGGLE_FACEFUCK
 		);
 		return baseTechniques;
 	}
@@ -186,7 +187,7 @@ public class PlayerCharacter extends AbstractCharacter {
 					possibles.addAll(getTechniques(target, POUNCE_DOGGY));
 				}
 				else if (target.stance == Stance.SUPINE && isErect() && target.enemyType.isPounceable()) {
-					possibles.addAll(getTechniques(target, POUNCE_ANAL));
+					possibles.addAll(getTechniques(target, POUNCE_ANAL, MOUNT_FACE));
 				}
 				else if (target.stance == Stance.KNEELING && isErect() && target.enemyType.isPounceable()) {
 					possibles.addAll(getTechniques(target, IRRUMATIO));
@@ -276,7 +277,22 @@ public class PlayerCharacter extends AbstractCharacter {
 					possibles.addAll(getTechniques(target, DEEPTHROAT));
 				}
 				return possibles;
-			
+			case FACEFUCK_BOTTOM:
+				if (struggle <= 0) {
+					possibles = getTechniques(target, GET_FACEFUCKED, BREAK_FREE_ORAL);
+				}
+				else {
+					possibles = getTechniques(target, GET_FACEFUCKED, STRUGGLE_FACEFUCK);
+				}
+				return possibles;
+			case OUROBOROS_BOTTOM:
+				if (struggle <= 0) {
+					possibles = getTechniques(target, RECEIVE_OUROBOROS, BREAK_FREE_ORAL);
+				}
+				else {
+					possibles = getTechniques(target, RECEIVE_OUROBOROS, STRUGGLE_OUROBOROS);
+				}
+				return possibles;
 			case FACE_SITTING_BOTTOM:
 				if (struggle <= 0) {
 					return getTechniques(target, GET_FACE_RIDDEN, BREAK_FREE_FACE_SIT);
@@ -305,6 +321,20 @@ public class PlayerCharacter extends AbstractCharacter {
 				}
 				else {
 					return getTechniques(target, IRRUMATIO, PULL_OUT_ORAL);
+				}	
+			case FACEFUCK:
+				if (lust > 12) {
+					return getTechniques(target, ERUPT_ORAL);
+				}
+				else {
+					return getTechniques(target, FACEFUCK, PULL_OUT_ORAL);
+				}	
+			case OUROBOROS:
+				if (lust > 12) {
+					return getTechniques(target, ERUPT_ORAL);
+				}
+				else {
+					return getTechniques(target, ROUND_AND_ROUND, PULL_OUT_ORAL);
 				}	
 			case PRONE_BONE:
 			case DOGGY:

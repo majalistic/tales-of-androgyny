@@ -82,8 +82,9 @@ public enum Techniques {
 	PENETRATE_STANDING	(new GrappleTechnique  (Stance.FULL_NELSON, Stance.STANDING, "Penetrate", 2, Stance.STANDING_BOTTOM).build()), // Used to initiate standing anal
 	SEIZE				(new GrappleTechnique  (Stance.BALANCED, Stance.HOLDING, "Seize", 2, Stance.HELD).build()), // Used to initiate giant sex
 	FACE_SIT			(new GrappleTechnique  (Stance.BALANCED, Stance.FACE_SITTING, "Plop Down", 2, Stance.FACE_SITTING_BOTTOM).build()), // Used to initiate face-sitting
-	SITTING_ORAL		(new GrappleTechnique  (Stance.FACE_SITTING, Stance.SIXTY_NINE, "Say 'Ahh'", 2, Stance.SIXTY_NINE_BOTTOM).build()), // Used to initiate face-sitting
-
+	SITTING_ORAL		(new GrappleTechnique  (Stance.FACE_SITTING, Stance.SIXTY_NINE, "Say 'Ahh'", 2, Stance.SIXTY_NINE_BOTTOM).build()), // Used to initiate sixty nine
+	OUROBOROS			(new GrappleTechnique  (Stance.BALANCED, Stance.OUROBOROS, "Ouroboros", 2, Stance.OUROBOROS_BOTTOM).build()), // Used to initiate ouroboros
+	MOUNT_FACE			(new GrappleTechnique  (Stance.BALANCED, Stance.FACEFUCK, "Mount Face", 2, Stance.FACEFUCK_BOTTOM).build()), // Used to initiate facefuck
 	
 	KNOT 				(new NonAttackTechnique(Stance.DOGGY, Stance.KNOTTED, "Knot", 0, 0, Stance.KNOTTED_BOTTOM, "Set Damage").build()), // Used to knot by knotty weresluts and others
 	
@@ -93,7 +94,8 @@ public enum Techniques {
 	POUND_DOGGY 		(new NonAttackTechnique(Stance.DOGGY, Stance.DOGGY, "Pound", 2, 0).build()), // Used to doggystyle
 	CRUSH_ASS	 		(new NonAttackTechnique(Stance.DOGGY, Stance.DOGGY, "Crush Ass", 2, 0).build()), // Used to doggystyle
 	POUND_PRONE_BONE	(new NonAttackTechnique(Stance.PRONE_BONE, Stance.PRONE_BONE, "Prone Bone", 2, 0).build()), // Used to prone bone
-	
+	ROUND_AND_ROUND		(new NonAttackTechnique(Stance.OUROBOROS, Stance.OUROBOROS, "Round and Round", 2, 0).build()), // Used to ouroboros
+	FACEFUCK			(new NonAttackTechnique(Stance.FACEFUCK, Stance.FACEFUCK, "Facefuck", 2, 0).build()), // Used to ouroboros
 	POUND_ANAL 			(new NonAttackTechnique(Stance.ANAL, Stance.ANAL, "Pound", 2, 0).build()), // Used to missionary
 	POUND_STANDING 		(new NonAttackTechnique(Stance.STANDING, Stance.STANDING, "Pound", 2, 0).build()), // Used to standing anal
 	OGRE_SMASH	 		(new NonAttackTechnique(Stance.HOLDING, Stance.CRUSHING, "Ogre Smash", 2, 0, Stance.PENETRATED).build()), // Used to bring down onto giant's cock first time
@@ -117,7 +119,6 @@ public enum Techniques {
 	PUSH_OFF_ATTEMPT	(new GrappleTechnique(Stance.COWGIRL, Stance.COWGIRL, "Push Off", 4).build()),
 	PUSH_OFF_REVERSE			(new NonAttackTechnique(Stance.COWGIRL, Stance.BALANCED, "Push Off", 0, 0, Stance.BALANCED).build()), // Break hold
 	PUSH_OFF_ATTEMPT_REVERSE	(new GrappleTechnique(Stance.COWGIRL, Stance.COWGIRL, "Push Off", 4).build()),
-	
 	
 	SIT_ON_IT			(new GrappleTechnique(Stance.BALANCED, Stance.COWGIRL_BOTTOM, "Sit on It", 1, Stance.COWGIRL, "Sit down on it - and yes, it's going right up there.\nDon't say I didn't warn you.").build()), 
 	TURN_AND_SIT		(new GrappleTechnique(Stance.BALANCED, Stance.REVERSE_COWGIRL_BOTTOM, "Turn and Sit", 1, Stance.REVERSE_COWGIRL_BOTTOM, "Turn around and sit on it - and yes, it's going right up there.\nBut at least you'll give 'em a show.").build()), 
@@ -158,6 +159,8 @@ public enum Techniques {
 	RECEIVE_KNOT		(new EroticTechnique(Stance.KNOTTED_BOTTOM, Stance.KNOTTED_BOTTOM, "Receive Knot", -1, 0, "Take that big knot up the butt.").build()), 
 	SUCK_IT 			(new EroticTechnique(Stance.FELLATIO_BOTTOM, Stance.FELLATIO_BOTTOM, "Suck It", -1, 0, "Open wide and swallow it down.").build()), 
 	DEEPTHROAT			(new EroticTechnique(Stance.FELLATIO_BOTTOM, Stance.FELLATIO_BOTTOM, "Deepthroat", -1, 0, "Take it down your throat.").build()), 
+	RECEIVE_OUROBOROS	(new EroticTechnique(Stance.OUROBOROS_BOTTOM, Stance.OUROBOROS_BOTTOM, "Round and Round", -1, 0, "Open wide and swallow it down.").build()), 
+	GET_FACEFUCKED		(new EroticTechnique(Stance.FACEFUCK_BOTTOM, Stance.FACEFUCK_BOTTOM, "Get Facefucked", -1, 0, "Open wide and swallow it down.").build()), 
 	
 	/* Struggle Skills */
 	STRUGGLE_DOGGY		(new GrappleTechnique(Stance.DOGGY_BOTTOM, Stance.DOGGY_BOTTOM, "Struggle", 4).build()),
@@ -168,6 +171,8 @@ public enum Techniques {
 	STRUGGLE_FULL_NELSON(new GrappleTechnique(Stance.FULL_NELSON_BOTTOM, Stance.FULL_NELSON_BOTTOM, "Struggle", 4).build()), 
 	STRUGGLE_FACE_SIT   (new GrappleTechnique(Stance.FACE_SITTING_BOTTOM, Stance.FACE_SITTING_BOTTOM, "Struggle", 4).build()), 
 	STRUGGLE_SIXTY_NINE (new GrappleTechnique(Stance.SIXTY_NINE_BOTTOM, Stance.SIXTY_NINE_BOTTOM, "Struggle", 4).build()), 
+	STRUGGLE_OUROBOROS (new GrappleTechnique(Stance.OUROBOROS_BOTTOM, Stance.OUROBOROS_BOTTOM, "Struggle", 4).build()), 
+	STRUGGLE_FACEFUCK  (new GrappleTechnique(Stance.FACEFUCK_BOTTOM, Stance.FACEFUCK_BOTTOM, "Struggle", 4).build()), 
 	
 	/* Break Free Skills */
 	BREAK_FREE_FULL_NELSON 	(new NonAttackTechnique(Stance.FULL_NELSON_BOTTOM, Stance.BALANCED, "Struggle", 0, 0, Stance.BALANCED).build()), // Break hold

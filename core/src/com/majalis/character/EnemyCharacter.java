@@ -441,6 +441,22 @@ public class EnemyCharacter extends AbstractCharacter {
 				else {
 					return getTechniques(target, IRRUMATIO, FORCE_DEEPTHROAT);
 				}	
+			case FACEFUCK:
+				lust++;
+				if (lust > 14) {
+					return getTechniques(target, ERUPT_ORAL);
+				}
+				else {
+					return getTechniques(target, FACEFUCK);
+				}	
+			case OUROBOROS:
+				lust++;
+				if (lust > 14) {
+					return getTechniques(target, ERUPT_ORAL);
+				}
+				else {
+					return getTechniques(target, ROUND_AND_ROUND);
+				}	
 			case ERUPT:
 				stance = Stance.BALANCED;
 				return getPossibleTechniques(target, stance);
@@ -464,6 +480,16 @@ public class EnemyCharacter extends AbstractCharacter {
 					return getTechniques(target, SUCK_IT);
 				}
 				return getTechniques(target, SUCK_IT);
+			case FACEFUCK_BOTTOM:
+				if (struggle <= 0) {
+					return getTechniques(target, GET_FACEFUCKED);
+				}
+				return getTechniques(target, GET_FACEFUCKED);
+			case OUROBOROS_BOTTOM:
+				if (struggle <= 0) {
+					return getTechniques(target, RECEIVE_OUROBOROS);
+				}
+				return getTechniques(target, RECEIVE_OUROBOROS);
 			case COWGIRL_BOTTOM:
 				return getTechniques(target, RIDE_ON_IT, BOUNCE_ON_IT, SQUEEZE_IT);
 			case REVERSE_COWGIRL_BOTTOM:
@@ -510,10 +536,13 @@ public class EnemyCharacter extends AbstractCharacter {
 				}
 			}
 			else if (target.stance == Stance.SUPINE) {
-				possibleTechniques = getTechniques(target, POUNCE_ANAL);
+				possibleTechniques = getTechniques(target, enemyType == EnemyEnum.GOBLIN || enemyType == EnemyEnum.GOBLIN_MALE || enemyType == EnemyEnum.HARPY ? MOUNT_FACE : POUNCE_ANAL);
 			}
 			else if (target.stance == Stance.KNEELING) {
 				possibleTechniques =  getTechniques(target, SAY_AHH);
+			}
+			else if (target.stance == Stance.AIRBORNE && enemyType == EnemyEnum.ORC) {
+				possibleTechniques =  getTechniques(target, OUROBOROS);
 			}
 			else if (enemyType == EnemyEnum.HARPY) {
 				possibleTechniques.add(FLY);
