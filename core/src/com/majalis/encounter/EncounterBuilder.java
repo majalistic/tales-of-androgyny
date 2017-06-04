@@ -766,7 +766,7 @@ public class EncounterBuilder {
 								getEndScene(EndScene.Type.ENCOUNTER_OVER)
 							),
 							getTextScenes(
-								getScript(encounterCode, 2), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.QUEST, new QuestFlag(QuestType.GOBLIN, 1)), new Mutation(saveService, ProfileEnum.KNOWLEDGE, EnemyEnum.GOBLIN.toString())}), null, getArray(new AssetDescriptor[]{ null, null, null, null, AssetEnum.LOUD_LAUGH.getSound()}),
+								getScript(encounterCode, 2), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.QUEST, new QuestFlag(QuestType.GOBLIN, 1)), new Mutation(saveService, ProfileEnum.KNOWLEDGE, EnemyEnum.GOBLIN.toString())}), AssetEnum.CARNIVAL_MUSIC.getMusic(), getArray(new AssetDescriptor[]{ null, null, null, null, AssetEnum.LOUD_LAUGH.getSound()}),
 								getCheckScene(
 									Stat.PERCEPTION, new IntArray(new int[]{7, 4}),
 									getTextScenes(
@@ -892,7 +892,7 @@ public class EncounterBuilder {
 								)
 							),
 							getTextScenes(
-								getScript(encounterCode, "MALE-00"), font, background, getArray(new Mutation[]{new Mutation(saveService, ProfileEnum.KNOWLEDGE, EnemyEnum.GOBLIN_MALE.toString())}),
+								getScript(encounterCode, "MALE-00"), font, background, getArray(new Mutation[]{new Mutation(saveService, ProfileEnum.KNOWLEDGE, EnemyEnum.GOBLIN_MALE.toString())}), AssetEnum.CARNIVAL_MUSIC.getMusic(),
 								getTextScenes(
 									getScript(encounterCode, "MALE-01"), font, goblinMaleBackground,
 									getBattleScene(BattleCode.GOBLIN_MALE, 

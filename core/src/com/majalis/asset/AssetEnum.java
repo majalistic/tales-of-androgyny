@@ -210,6 +210,7 @@ public enum AssetEnum {
 	TRAINER_MUSIC("music/TrainerMusic.mp3", Music.class),
 	HOVEL_MUSIC("music/HovelMusic.mp3", Music.class),
 	WEREWOLF_MUSIC("music/WerewolfMusic.mp3", Music.class),
+	CARNIVAL_MUSIC("music/CarnivalMusic.mp3", Music.class),
 	HEAVY_MUSIC("music/Mechanolith.mp3", Music.class),
 	WORLD_MAP_MUSIC("music/WorldMapMusic.mp3", Music.class),
 	BATTLE_MUSIC("music/BattleMusic.mp3", Music.class),

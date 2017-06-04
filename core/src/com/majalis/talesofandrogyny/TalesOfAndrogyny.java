@@ -17,9 +17,11 @@ import com.majalis.screens.ScreenEnum;
 import com.majalis.screens.ScreenFactory;
 import com.majalis.screens.ScreenFactoryImpl;
 import com.majalis.world.GameWorldFactory;
+import static com.majalis.encounter.EncounterCode.*;
 /*
  * Package shared entry point for each platform.  Generates a ScreenFactory and service for dependency injection, and switches to the splash screen for loading.
  */
+@SuppressWarnings("unused")
 public class TalesOfAndrogyny extends Game {
 	public static boolean patron = true;
 	public static EncounterCode setEncounter = null;

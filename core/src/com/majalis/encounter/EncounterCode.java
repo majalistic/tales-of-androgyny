@@ -275,7 +275,8 @@ public enum EncounterCode {
 					AssetEnum.GOBLIN_MALE.getTexture(),
 					AssetEnum.GAME_OVER_TUCKERED.getTexture(),
 					AssetEnum.LOUD_LAUGH.getSound(),
-					AssetEnum.WEREWOLF_MUSIC.getMusic()
+					AssetEnum.WEREWOLF_MUSIC.getMusic(),
+					AssetEnum.CARNIVAL_MUSIC.getMusic()
 				});
 			case COTTAGE_TRAINER:
 				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{  
