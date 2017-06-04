@@ -70,10 +70,10 @@ project(":android") {
 project(":core") {
     apply plugin: "java"
 
-
     dependencies {
         compile "com.badlogicgames.gdx:gdx:$gdxVersion"
         compile "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
+		compile "com.esotericsoftware.spine:spine-libgdx:3.5.51.1"
     }
 }
 

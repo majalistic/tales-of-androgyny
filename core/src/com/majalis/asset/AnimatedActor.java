@@ -46,7 +46,10 @@ public class AnimatedActor extends Actor {
 		state.update(Gdx.graphics.getDeltaTime());
 		state.apply(skeleton);
 		skeleton.updateWorldTransform();
+		int blendSrc = batch.getBlendSrcFunc();
+		int blendDst = batch.getBlendDstFunc();
 		renderer.draw((PolygonSpriteBatch)batch, skeleton);
+		batch.setBlendFunction(blendSrc, blendDst);
 	}
 	
 	public void setAnimation(int track, String animationName, boolean loop) {
