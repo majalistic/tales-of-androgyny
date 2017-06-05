@@ -4,6 +4,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.majalis.character.PlayerCharacter;
+import com.majalis.encounter.EncounterBuilder2.EncounterReader2;
 import com.majalis.save.LoadService;
 import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveManager;
@@ -37,7 +38,9 @@ public class EncounterFactory {
 			case LEVEL_UP: return builder.getLevelUpEncounter((GameMode) loadService.loadDataValue(SaveEnum.MODE, Shop.class) == GameMode.STORY);
 			case INITIAL: return builder.getClassChoiceEncounter();
 			case DEFAULT: return builder.getDefaultEncounter();
-			default: return encounterCode == EncounterCode.WERESLUT ? new EncounterBuilder2().getEncounter() : builder.getRandomEncounter(encounterCode);
+			default: return encounterCode == EncounterCode.WERESLUT ? 
+					 new EncounterBuilder2(new EncounterReader2("script/encounters2.json"), assetManager, saveService, font, smallFont, sceneCode, (ObjectMap<String, Shop>)loadService.loadDataValue(SaveEnum.SHOP, Shop.class), (PlayerCharacter) loadService.loadDataValue(SaveEnum.PLAYER, PlayerCharacter.class), context).getEncounter() : 
+					builder.getRandomEncounter(encounterCode);
 		}
 	}
 }
