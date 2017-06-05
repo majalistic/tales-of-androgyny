@@ -78,8 +78,6 @@ public enum EncounterCode {
 	
 	public String getDescription(int visibility) {
 		switch(visibility) {
-		
-		
 			case 0:
 				return "You are unsure of what awaits you!";
 			case 1:

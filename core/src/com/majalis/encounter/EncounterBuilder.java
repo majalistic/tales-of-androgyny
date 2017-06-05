@@ -186,9 +186,9 @@ public class EncounterBuilder {
 						getBattleScene(
 							battleCode, new Array<Outcome>(new Outcome[]{Outcome.VICTORY, Outcome.KNOT, Outcome.DEFEAT, Outcome.SATISFIED}), 
 							getTextScenes(getArray(new String[]{"You defeated the werebitch!", "You receive 2 Experience."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.EXPERIENCE, 2)}), getEndScene(EndScene.Type.ENCOUNTER_OVER)),
-							getTextScenes(getScript(encounterCode, 2), font, werebitchBackground, getArray(new Mutation[]{analReceive}), AssetEnum.WEREWOLF_MUSIC.getMusic(), getEndScene(EndScene.Type.GAME_OVER)),
-							getTextScenes(getScript(encounterCode, 3), font, werebitchBackground, getArray(new Mutation[]{}), AssetEnum.WEREWOLF_MUSIC.getMusic(), getEndScene(EndScene.Type.ENCOUNTER_OVER)),
-							getTextScenes(getScript(encounterCode, 4), font, werebitchBackground, getArray(new Mutation[]{}), AssetEnum.WEREWOLF_MUSIC.getMusic(), getEndScene(EndScene.Type.ENCOUNTER_OVER))
+							getTextScenes(getScript(encounterCode, 2), font, werebitchBackground, getArray(new Mutation[]{analReceive}), getEndScene(EndScene.Type.GAME_OVER)),
+							getTextScenes(getScript(encounterCode, 3), font, werebitchBackground, getArray(new Mutation[]{}), getEndScene(EndScene.Type.ENCOUNTER_OVER)),
+							getTextScenes(getScript(encounterCode, 4), font, werebitchBackground, getArray(new Mutation[]{}), getEndScene(EndScene.Type.ENCOUNTER_OVER))
 						)
 					)
 				);		
@@ -1903,7 +1903,7 @@ public class EncounterBuilder {
 		return mutations;
 	}
 	
-	private OrderedMap<Integer, Scene> addScene(Scene scene) { return addScene(new Array<Scene>(true, new Scene[]{scene}, 0, 1)); }
+	private OrderedMap<Integer, Scene> addScene(Scene scene) { return addScene(new Array<Scene>(new Scene[]{scene})); }
 	// pass in one or multiple scenes that the next scene will branch into
 	private OrderedMap<Integer, Scene> addScene(Array<Scene> scenes) {
 		OrderedMap<Integer, Scene> sceneMap = new OrderedMap<Integer, Scene>();

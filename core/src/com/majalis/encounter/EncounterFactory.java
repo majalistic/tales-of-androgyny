@@ -37,7 +37,7 @@ public class EncounterFactory {
 			case LEVEL_UP: return builder.getLevelUpEncounter((GameMode) loadService.loadDataValue(SaveEnum.MODE, Shop.class) == GameMode.STORY);
 			case INITIAL: return builder.getClassChoiceEncounter();
 			case DEFAULT: return builder.getDefaultEncounter();
-			default: return builder.getRandomEncounter(encounterCode);
+			default: return encounterCode == EncounterCode.WERESLUT ? new EncounterBuilder2().getEncounter() : builder.getRandomEncounter(encounterCode);
 		}
 	}
 }
