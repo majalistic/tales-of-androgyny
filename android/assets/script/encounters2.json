@@ -4,11 +4,12 @@
 		"scriptLines": [
 			{
 				"music": "WEREWOLF_MUSIC",
-				"mutations": [{"profileSaveType":"KNOWLEDGE", "value":"Wereslut"}],
+				"mutations": [{"profileSaveType":"KNOWLEDGE", "value":{"class": "java.lang.String", "value": "Wereslut"},}],
 				"text": "There are wolves in the forest - you know, because you've been hearing them howl in the distance, and as you traverse the woods, you've been hearing the occasional growling - albeit higher pitched than you would expect."}, 
 			{"text":"The growling gets louder and louder, until, finally, a wolf emerges from the bushes... and she has big, fat boobs!"},
 			{
-				"background":"WEREBITCH", 
+				
+				"foreground":"WEREBITCH", 
 				"text": "\"Grrr...\" she growls, holding up her clawed paws.  \"Just kidding,\" she says, dropping them to her skirt, \"I'm not gonna eat ya!  I just want to mate!\""},
 			{"text": "You look her up and down.  \"Mate\"?  Her proportions are amazing - she's no slouch.  She's dressed like a nearby villager, but her clothes are in tatters.  You wonder what she is - maybe a werewolf?  It's possible her libido has been out of control since she was turned."},
 			{"text": "You start to consider taking her up on her offer, but something about the way she's standing is a little... strange.  \"Oh... I get to mate, finally!\" she says, gripping onto her tattered skirt, which draws your attention to the anomaly."},
@@ -22,15 +23,15 @@
 	{
 		"key": "WEREWOLF-VICTORY",
 		"scriptLines": [
-			{"mutations": [{"saveType":"EXPERIENCE", "value":2}],"text": "There are wolves in the forest - you know, because you've been hearing them howl in the distance, and as you traverse the woods, you've been hearing the occasional growling - albeit higher pitched than you would expect."}, 
-			{"text": "The growling gets louder and louder, until, finally, a wolf emerges from the bushes... and she has big, fat boobs!"}
+			{"text": "You defeated the werebitch!"}, 
+			{"mutations": [{"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": 2}}],"text": "You receive 2 Experience."}
 		]
 	},
 	{
 		"key": "WEREWOLF-KNOT",
 		"scriptLines": [
 			{
-			"mutations": [{"saveType":"ANAL", "value":{"analSex":1,"analEjaculation":1}}],
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1,"analEjaculation":1}}],
 			"text": "Now that her knotty wolf-cock has ended up exactly where she wanted it, her personality is much more subdued - although she's howling with delight and panting, so she still comes off as quite exciteable.  \"Mating!  Mating!\" she cries out, while you try not to cry out that your asshole is too small for her \"mating\"."},	
 			{"text": "Of course, it's past your asshole now - stuck fast in your rectum, which feels the pressure as if you'd stuffed a melon in there. Your ass feels like it's on fire - her big, round, hard genital-adornment is far too big for your modestly-sized hole."},
 			{"text": "Your fingers dig into the dirt, but you have no hope of dislodging the embedded sphere in your rectum."},
@@ -44,10 +45,10 @@
 			{"text": "There's no way you're going to be able to get that -thing- out of you before your colon becomes the cozy new home to some very confused sperm - your own testicles twitch as you anticipate her pure semen enema."},
 			{"text": "\"Awooooooooooooooooooooooooooo!\""},
 			{
-			"mutations": [{"saveType":"ANAL", "value":{"creampies":1}}],
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "creampies":1}}],
 			"text": "*SPLORT*"},
 			{
-			"mutations": [{"saveType":"ANAL", "value":{"creampies":1}}],
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "creampies":1}}],
 			"text": "*GLORP*"},
 			{"text": "She howls, and you see white - and so would anyone taking a cursory look up your funhole.  It's hot and slimy and fills every nook and cranny as it spews out of her, and because of the knot, it's sealed inside your hot innards, bloating your intestines uncomfortably."},
 			{"text": "She blasts a tremendous amount inside - it is obvious that not only is her inhuman capacity far greater, but that her breeding senses have made her save up as much as she can.  Without a doubt, such an insemination would have impregnated any female of her species - instead, an enormous jet of cum displaces any feces in your bowels and a deluge of semen replaces it."},  
@@ -57,13 +58,13 @@
 			{"text": "Your bowels are so bloated and stuffed with semen that any additional nut being pumped into your gut causes uncomfortable spasms, as your aching bowels try to accommodate thick semen where it won't cause too much painful stretching, in a direct reversal of the digestive process.  You want to relieve the pressure more than anything."},
 			{"text": "After several minutes, she begins to tug on the thing connecting the two of you, and you get to experience the reverse of her penetration process."},
 			{"text": "\"I mated with a human... how embarassing,\" she whines, tugging at the knot to try to free it, making you grit your teeth in agony. You eventually realize that aiding her by pushing is better than being stuck in impatient-werebitch hell, and through her efforts, the efforts of your bowels, and lubricated by her cum, it pops free, like a stuck cork."},
-			{"text": "Your anus gapes widely, her doggy cum running out into mud on the ground, and you can feel the air rush in now that the knot isn't obstructing it."
-			{"text": "You have no strength in your legs, and can't stand.  You're glad to hear, at least, that the wolfgirl who just completely obliterated your butthole is also somewhat embarrassed about the whole ordeal.  She fixes her skirt and bounds off, leaving you alone."
-			{"text": "You drift asleep - too exhausted to continue.  After several hours, you wake, and are face to face with that very same wolfgirl, her eyes shining brightly, her smile more befitting a cat than a dog."
+			{"text": "Your anus gapes widely, her doggy cum running out into mud on the ground, and you can feel the air rush in now that the knot isn't obstructing it."},
+			{"text": "You have no strength in your legs, and can't stand.  You're glad to hear, at least, that the wolfgirl who just completely obliterated your butthole is also somewhat embarrassed about the whole ordeal.  She fixes her skirt and bounds off, leaving you alone."},
+			{"text": "You drift asleep - too exhausted to continue.  After several hours, you wake, and are face to face with that very same wolfgirl, her eyes shining brightly, her smile more befitting a cat than a dog."},
 			{"text": "\"You're awake!  Woof woof!  Are you ready for more mating?!\" she says, excitedly, her voice wavering as if she can't contain her excitement.  Looking down past her face, you see her cock, just as erect as it was when you first saw it, and your stomach growls."},
-			{"text": "At her mention of the word \"mating\"}, your nearly-closed asshole cramps up, knowing what its fate will be."},
-			{"text": "It's still sore and awkwardly stretched out from your first \"mating\"}, and you highly doubt she'll see reason and understand why her peculiar method of \"mating\" won't result in offspring, and will continue to shove her flawed approach where it doesn't belong, resulting in little more than a waterlogged rectum and a useless, stretched out asshole."},
-			{"text": "After another vigorous round of \"mating\"}, the wereslut keeps you as her mate - you try to reason with her that you can't brood her puppies, but she isn't hearing it.  She doubles up her efforts, so you stop goading her, but you can't escape, as by the time you recover from one \"mating\"}, the next is about to begin."},
+			{"text": "At her mention of the word \"mating\", your nearly-closed asshole cramps up, knowing what its fate will be."},
+			{"text": "It's still sore and awkwardly stretched out from your first \"mating\", and you highly doubt she'll see reason and understand why her peculiar method of \"mating\" won't result in offspring, and will continue to shove her flawed approach where it doesn't belong, resulting in little more than a waterlogged rectum and a useless, stretched out asshole."},
+			{"text": "After another vigorous round of \"mating\", the wereslut keeps you as her mate - you try to reason with her that you can't brood her puppies, but she isn't hearing it.  She doubles up her efforts, so you stop goading her, but you can't escape, as by the time you recover from one \"mating\", the next is about to begin."},
 			{"text": "Eventually it is no longer painful; instead, all that remains is the uncomfortable sensations of having something large and phallic shoved up your ass, something thick and rough sliding in and out of your rectum, and something thick and slimy pumped into your bowels."},
 			{"text": "The unpleasant sensations of receptive anal sex become more and more familiar, until your goo-stuffed innards learn the best way to deal with it."},
 			{"text": "Your adventure is over, but your ordeal has just begun."}

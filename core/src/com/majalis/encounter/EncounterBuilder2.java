@@ -18,6 +18,7 @@ import com.majalis.character.PlayerCharacter;
 import com.majalis.character.Stance;
 import com.majalis.save.ProfileEnum;
 import com.majalis.save.SaveEnum;
+import com.majalis.save.SaveManager;
 import com.majalis.save.SaveService;
 import com.majalis.save.SaveManager.GameContext;
 import com.majalis.scenes.BattleScene;
@@ -38,6 +39,7 @@ public class EncounterBuilder2 {
 	private final ObjectMap<String, Shop> shops;
 	private final PlayerCharacter character;
 	private final GameContext returnContext;
+	private final OrderedMap<Integer, Scene> masterSceneMap;
 	// can probably be replaced with a call to scenes.size
 	private int sceneCounter;
 	
@@ -51,7 +53,8 @@ public class EncounterBuilder2 {
 		this.shops = shops == null ? new ObjectMap<String, Shop>() : shops;
 		this.character = character;
 		this.returnContext = returnContext;
-		sceneCounter = 0;
+		sceneCounter = 1;
+		masterSceneMap = new OrderedMap<Integer, Scene>();
 	}
 	
 	// this needs to be moved into EncounterCode
@@ -63,7 +66,6 @@ public class EncounterBuilder2 {
 		    .textScene("WEREWOLF-INTRO").battleScene(
 		    	battleCode,
 		    	// this has a reference to the first node in this branch, which gets welded with the current context node
-		    	
 		        new Branch(Outcome.VICTORY).textScene("WEREWOLF-VICTORY").encounterEnd(),
 		        new Branch(Outcome.KNOT).textScene("WEREWOLF-KNOT").gameEnd(),
 		        new Branch(Outcome.DEFEAT).textScene("WEREWOLF-DEFEAT").encounterEnd(),
@@ -75,7 +77,8 @@ public class EncounterBuilder2 {
 		Choice,
 		Check,
 		Battle,
-		End
+		EndEncounter,
+		EndGame
 	}
 	public class Branch {
 		
@@ -89,10 +92,10 @@ public class EncounterBuilder2 {
 		boolean disarm;
 		int climaxCounter;
 		
+		boolean preprocessed;
 		Array<Scene> scenes;
 		Array<BattleScene> battleScenes;
 		Array<EndScene> endScenes;
-		
 		
 		public Branch () {
 			init();
@@ -136,52 +139,83 @@ public class EncounterBuilder2 {
 		}
 		
 		public Branch encounterEnd() {
+			branchToken = new EndSceneToken(EndTokenType.EndEncounter);			
 			return this;
 		}
 		
 		public Branch gameEnd() {
+			branchToken = new EndSceneToken(EndTokenType.EndGame);	
 			return this;
+		}
+		
+		private void preprocess() {
+			preprocess(null, null, null);
+		}
+		
+		private void preprocess(AssetEnum startBackground, AssetEnum startForeground, EnemyEnum startAnimatedForeground) {
+			if (preprocessed) return;
+			sceneTokens.get(0).preprocess(startBackground, startForeground, startAnimatedForeground);			
 		}
 		
 		private void upsertScenes() {
 			if (scenes != null) return;
+			preprocess();
+			
+			// set fields
 			scenes = new Array<Scene>();
 			battleScenes = new Array<BattleScene>();
 			endScenes = new Array<EndScene>();
+						
+			// set shadows
+		    Array<Scene> scenes = new Array<Scene>();
+		    Array<BattleScene> battleScenes = new Array<BattleScene>();
+		    Array<EndScene> endScenes = new Array<EndScene>();
 			OrderedMap<Integer, Scene> sceneMap = new OrderedMap<Integer, Scene>();
 			
-			switch (branchToken.type) {
-				case Battle:
-					// for each branch get the scenes, the first entry in that list is what this branchToken scene should be tied to
-					ObjectMap<String, Integer> outcomeToScene = new ObjectMap<String, Integer>();
-					for (ObjectMap.Entry<Object, Branch> next : branchOptions) {
-						// grab the first scene, add it to the map, use the map to generate the appropriate scene
-						battleScenes.addAll(next.value.getBattleScenes());
-						endScenes.addAll(next.value.getEndScenes());
-						Array<Scene> nextScenes = next.value.getScenes();
-						scenes.addAll(nextScenes);
-						Scene nextScene = nextScenes.first();
-						sceneMap.put(nextScene.getCode(), nextScene);
-						outcomeToScene.put(((Outcome) next.key).toString(), nextScene.getCode());
-					}
-					BattleScene newBattleScene = new BattleScene(sceneMap, saveService, battleCode, playerStance, enemyStance, disarm, climaxCounter, outcomeToScene);
-					scenes.add(newBattleScene);
-					sceneMap = new OrderedMap<Integer, Scene>();
-					sceneMap.put(newBattleScene.getCode(), newBattleScene);
-				case Check:
-					break;
-				case Choice:
-					break;
-				case End:
-					break;
-				default:
-					break;
+			if (branchToken != null) {
+				switch (branchToken.type) {
+					case Battle:
+						// for each branch get the scenes, the first entry in that list is what this branchToken scene should be tied to
+						ObjectMap<String, Integer> outcomeToScene = new ObjectMap<String, Integer>();
+						for (ObjectMap.Entry<Object, Branch> next : branchOptions) {
+							next.value.preprocess();
+							// grab the first scene, add it to the map, use the map to generate the appropriate scene
+							battleScenes.addAll(next.value.getBattleScenes());
+							endScenes.addAll(next.value.getEndScenes());
+							Array<Scene> nextScenes = next.value.getScenes();
+							scenes.addAll(nextScenes);
+							Scene nextScene = nextScenes.first();
+							sceneMap.put(nextScene.getCode(), nextScene);
+							outcomeToScene.put(((Outcome) next.key).toString(), nextScene.getCode());
+						}
+						
+						BattleScene newBattleScene = new BattleScene(sceneMap, saveService, battleCode, playerStance, enemyStance, disarm, climaxCounter, outcomeToScene);
+						scenes.add(newBattleScene);
+						battleScenes.add(newBattleScene);
+						sceneMap = new OrderedMap<Integer, Scene>();
+						sceneMap.put(newBattleScene.getCode(), newBattleScene);
+					case Check:
+						break;
+					case Choice:
+						break;
+					case EndGame:
+					case EndEncounter:
+						EndScene newEndScene;
+						if (branchToken.type == EndTokenType.EndEncounter) newEndScene = new EndScene(EndScene.Type.ENCOUNTER_OVER, saveService, returnContext);
+						else newEndScene = new EndScene(EndScene.Type.GAME_OVER, saveService, SaveManager.GameContext.GAME_OVER);
+						endScenes.add(newEndScene);
+						scenes.add(newEndScene);
+						sceneMap = new OrderedMap<Integer, Scene>();
+						sceneMap.put(newEndScene.getCode(), newEndScene);
+						break;
+					default:
+						break;
+				}
 			}
-			
+				
 			String characterName = character.getCharacterName();
 			String buttsize = character.getBootyLiciousness();
 			String lipsize = character.getLipFullness();
-		
 
 			// run through the tokens once and create a list of backgrounds using clone when it persists (need to check both background and animated background, clone if it doesn't, then reverse that list
 			// probably need to make the variables foreground, background, and animatedbackground - think hoverbox is consistent for now
@@ -192,90 +226,52 @@ public class EncounterBuilder2 {
 
 			Texture dialogBoxTexture = assetManager.get(AssetEnum.BATTLE_HOVER.getTexture());
 			
+			// iterate through and every time either background or foreground/animatedforeground change, create a new background
 			for (SceneToken token: sceneTokens) {
 				// if all of the tokens are  the same, clone the last background
-				if (token.foreground == foreground && token.animatedForeground == animatedForeground && token.background == background) {
-					backgrounds.add(backgrounds.get(backgrounds.size - 1).clone());
-				}
-				else if (token.foreground != null) {
-					backgrounds.add(new BackgroundBuilder(assetManager.get(token.background.getTexture())).setDialogBox(dialogBoxTexture).setForeground(assetManager.get(token.foreground.getTexture())).build());
-				}
-				else if (token.animatedForeground != null) {
-					backgrounds.add(new BackgroundBuilder(assetManager.get(token.background.getTexture())).setDialogBox(dialogBoxTexture).setForeground(EnemyCharacter.getAnimatedActor(animatedForeground), 0, 0).build());	
+				if ((token.foreground == null || token.foreground == foreground) && (token.animatedForeground == null || token.animatedForeground == animatedForeground) && (token.background == null || token.background == background)) {
+					if (backgrounds.size > 0) {
+						backgrounds.add(backgrounds.get(backgrounds.size - 1).clone());
+					}
+					else {
+						backgrounds.add(new BackgroundBuilder(assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getTexture())).setDialogBox(dialogBoxTexture).build());
+					}
 				}
 				else {
-					backgrounds.add(new BackgroundBuilder(assetManager.get(token.background.getTexture())).setDialogBox(dialogBoxTexture).build());
+					BackgroundBuilder backgroundBuilder = new BackgroundBuilder(assetManager.get(token.background != null ? token.background.getTexture() : background != null ? background.getTexture() : AssetEnum.DEFAULT_BACKGROUND.getTexture())).setDialogBox(dialogBoxTexture); 
+					if (token.animatedForeground != null) backgroundBuilder.setForeground(EnemyCharacter.getAnimatedActor(token.animatedForeground), 0, 0);
+					else if (animatedForeground != null) backgroundBuilder.setForeground(EnemyCharacter.getAnimatedActor(animatedForeground), 0, 0);
+					else if (token.foreground != null) backgroundBuilder.setForeground(assetManager.get(token.foreground.getTexture()));
+					else if (foreground != null) backgroundBuilder.setForeground(assetManager.get(foreground.getTexture()));
+					backgrounds.add(backgroundBuilder.build());
 				}
+				background = token.background != null ? token.background : background;
+				foreground = token.foreground != null ? token.foreground : foreground;
+				animatedForeground = token.animatedForeground != null ? token.animatedForeground : animatedForeground;
 			}
 			
 			backgrounds.reverse();
+			sceneTokens.reverse();
 			
 			// taking the branchToken scene and use it as the entrypoint, traversing the sceneTokens backwards and putting them into each other
 			int ii = 0;
 			for (SceneToken token: sceneTokens) {
 				String scriptLine = token.text.replace("<NAME>", characterName).replace("<BUTTSIZE>", buttsize).replace("<LIPSIZE>", lipsize);
 				// create the scene
-				Scene newScene = new TextScene(sceneMap, sceneCounter, assetManager, font, saveService, backgrounds.get(ii++), scriptLine, getMutations(token.mutations), character, token.music.getMusic(), token.sound.getSound());
+				Scene newScene = new TextScene(sceneMap, sceneCounter, assetManager, font, saveService, backgrounds.get(ii++), scriptLine, getMutations(token.mutations), character, token.music != null ? token.music.getMusic() : null, token.sound != null ? token.sound.getSound() : null);
 				// add it to array
-				
+				scenes.add(newScene);
 				// use it to make the map
-				
+				sceneMap = new OrderedMap<Integer, Scene>();
+				masterSceneMap.put(sceneCounter, newScene);
+				sceneMap.put(sceneCounter++, newScene);
 			}
 			
 			scenes.reverse();
-			
+			this.scenes.addAll(scenes);
+			this.battleScenes.addAll(battleScenes);
+			this.endScenes.addAll(endScenes);
 		}
-		
-		/*
-		 * 
-		private OrderedMap<Integer, Scene> addScene(Array<Scene> scenes) {
-			OrderedMap<Integer, Scene> sceneMap = new OrderedMap<Integer, Scene>();
-			for (Scene scene : scenes) {
-				this.scenes.add(scene);
-				if (scene instanceof BattleScene) battleScenes.add((BattleScene)scene);
-				if (scene instanceof EndScene) endScenes.add((EndScene)scene);
-				sceneMap.put(sceneCounter++, scene);
-			}
-			return sceneMap;
-		}
-		
-		private OrderedMap<Integer, Scene> getTextScenes(Array<String> script, BitmapFont font, Background background, Array<Mutation> mutations, AssetDescriptor<Music> music, Array<AssetDescriptor<Sound>> sounds, OrderedMap<Integer, Scene> sceneMap) {
-			mutations.reverse();
-			script.reverse();
-			sounds.reverse();
-			
-			int soundIndex = -(script.size - sounds.size);
-			int ii = 1;
-			String characterName = character.getCharacterName();
-			String buttsize = character.getBootyLiciousness();
-			String lipsize = character.getLipFullness();
-			for (String scriptLine: script) {
-				scriptLine = scriptLine.replace("<NAME>", characterName).replace("<BUTTSIZE>", buttsize).replace("<LIPSIZE>", lipsize);
-				sceneMap = addScene(new TextScene(sceneMap, sceneCounter, assetManager, font, saveService, background.clone(), scriptLine, ii == script.size ? mutations : null, character, ii == script.size ? music : null, soundIndex >= 0 ? sounds.get(soundIndex) : null));
-				soundIndex++;
-				ii++;
-			}	
-			return sceneMap;
-		}
-		
-		private OrderedMap<Integer, Scene> aggregateMaps(@SuppressWarnings("unchecked") OrderedMap<Integer, Scene>... sceneMaps) {
-		OrderedMap<Integer, Scene> aggregatedMap = new OrderedMap<Integer, Scene>();
-			for (OrderedMap<Integer, Scene> map : sceneMaps) {
-				aggregatedMap.putAll(map);
-			}
-			return aggregatedMap;	
-		}
-		
-		
-		private OrderedMap<Integer, Scene> getBattleScene(BattleCode battleCode, Stance playerStance, Stance enemyStance, boolean disarm, int climaxCounter, Array<Outcome> outcomes, @SuppressWarnings("unchecked") OrderedMap<Integer, Scene>... sceneMaps) {
-			OrderedMap<Integer, Scene> sceneMap = aggregateMaps(sceneMaps);
-			ObjectMap<String, Integer> outcomeToScene = new ObjectMap<String, Integer>();
-			for (int ii = 0; ii < outcomes.size; ii++) {
-				outcomeToScene.put(outcomes.get(ii).toString(), sceneMap.get(sceneMap.orderedKeys().get(ii)).getCode());
-			}
-			
-			return addScene(new BattleScene(aggregateMaps(sceneMaps), saveService, battleCode, playerStance, enemyStance, disarm, climaxCounter, outcomeToScene));
-		}*/
 		
 		public Array<Scene> getScenes() {
 			upsertScenes();
@@ -295,45 +291,59 @@ public class EncounterBuilder2 {
 		public Scene getStartScene() {
 			// returns the first scene or the current scene based on sceneCode
 			upsertScenes();
-			return scenes.get(0);
+			if (sceneCode == -1) {
+				saveService.saveDataValue(SaveEnum.MUSIC, AssetEnum.ENCOUNTER_MUSIC.getPath());
+				return scenes.get(0);
+			}
+			return masterSceneMap.get(sceneCode);
 		}
 		
 		public Encounter getEncounter() {
 			return new Encounter(getScenes(), getEndScenes(), getBattleScenes(), getStartScene());
 		}
-		
 	}
 	
 	
 	public Array<Mutation> getMutations(Array<MutateToken> tokens) {
 		Array<Mutation> mutations = new Array<Mutation>();
+		if (tokens == null) { return mutations; }
 		for (MutateToken token: tokens) {
-			mutations.add(token.getMutation());
+			mutations.add(token.getMutation(saveService));
 		}
 		return mutations;	
 	}
 	
 	public class BranchToken {
 		private final EndTokenType type;
-		EndTokenType getType() { return type; }
 		protected BranchToken(EndTokenType type) {
 			this.type = type;
 		}
+		EndTokenType getType() { return type; }
 	}
 	
+	// this should have playerstance, disarm, etc. - right now this is basically unused
 	public class BattleSceneToken extends BranchToken {
 		private final BattleCode battleCode;
 		public BattleSceneToken(BattleCode battleCode) {
 			super(EndTokenType.Battle);
 			this.battleCode = battleCode;
 		}
+		public BattleCode getBattleCode() { return battleCode; }
 		
 	}
-	// as scenetokens arrays are retrieved, they're placed into a map of key to scene token array to prevent duplicates - and another map is used for the actual scenes so they aren't duplicated (scenes are individual at that point, not in an array, and that key is the new scenecode)
 	
-	// this represents a text-like scene - it should be able to display text, show who is talking, display a new background, play an animation, play a sound, mutate the game state, 
+	// this should have playerstance, disarm, etc. - right now this is basically unused
+	public class EndSceneToken extends BranchToken {
+		public EndSceneToken(EndTokenType endType) {
+			super(endType);
+		}
+	}
+	
+	// as scenetokens arrays are retrieved, they're placed into a map of key to scene token array to prevent duplicates - and another map is used for the actual scenes so they aren't duplicated (scenes are individual at that point, not in an array, and that key is the new scenecode) - this is currently not implemented
+	
+	// this represents a text-like scene - it should be able to display text, show who is talking, display a new background, play an animation, play a sound, mutate the game state 
 	// these will be serialized into the actual script and have their own key
-	public class SceneToken {
+	public static class SceneToken {
 		String text;
 		String speaker;
 		AssetEnum background;
@@ -342,17 +352,22 @@ public class EncounterBuilder2 {
 		AssetEnum sound;
 		AssetEnum music;
 		Array<MutateToken> mutations;
+		public void preprocess(AssetEnum startBackground, AssetEnum startForeground, EnemyEnum startAnimatedForeground) {
+			if (background == null) background = startBackground;
+			if (foreground == null) foreground = startForeground;
+			if (startAnimatedForeground == null) animatedForeground = startAnimatedForeground;
+		}
 		
 		// this should also have a fontEnum to determine what font the text is displayed in
 		
 	}
 	
-	public class MutateToken {
+	public static class MutateToken {
 		SaveEnum saveType;
 		ProfileEnum profileSaveType;
 		Object value;
-		
-		public Mutation getMutation() {
+				
+		public Mutation getMutation(SaveService saveService) {
 			if (saveType != null) { return new Mutation(saveService, saveType, value); }
 			else return new Mutation(saveService, profileSaveType, value);
 		}
