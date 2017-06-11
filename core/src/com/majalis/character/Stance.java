@@ -56,7 +56,7 @@ public enum Stance {
 	PENETRATED(StanceType.ANAL_BOTTOM, AssetEnum.PENETRATED),
 	
 	ERUPT (AssetEnum.ERUPT), 
-	NULL (AssetEnum.NULL)
+	NULL (AssetEnum.NULL_STANCE)
 	;
 	// need to create: boolean anal, boolean oral, boolean method erotic, boolean incapacitated
 	private final AssetEnum asset;

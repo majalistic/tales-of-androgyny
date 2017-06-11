@@ -2,15 +2,20 @@ package com.majalis.encounter;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.IntArray;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.OrderedMap;
-import com.majalis.asset.AnimatedActor;
 import com.majalis.asset.AssetEnum;
 import com.majalis.battle.BattleCode;
 import com.majalis.battle.Battle.Outcome;
@@ -19,20 +24,22 @@ import com.majalis.character.EnemyEnum;
 import com.majalis.character.PlayerCharacter;
 import com.majalis.character.Stance;
 import com.majalis.character.AbstractCharacter.Stat;
-import com.majalis.character.SexualExperience.SexualExperienceBuilder;
 import com.majalis.save.ProfileEnum;
 import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveManager;
 import com.majalis.save.SaveService;
 import com.majalis.save.SaveManager.GameContext;
+import com.majalis.scenes.AbstractChoiceScene;
 import com.majalis.scenes.BattleScene;
 import com.majalis.scenes.CheckScene;
+import com.majalis.scenes.ChoiceScene;
 import com.majalis.scenes.EndScene;
 import com.majalis.scenes.Mutation;
 import com.majalis.scenes.Scene;
 import com.majalis.scenes.TextScene;
 import com.majalis.scenes.ShopScene.Shop;
 import com.majalis.encounter.Background.BackgroundBuilder;
+import com.majalis.encounter.EncounterBuilder.ChoiceCheckType;
 
 public class EncounterBuilder2 {
 	private final EncounterReader2 reader;
@@ -135,7 +142,36 @@ public class EncounterBuilder2 {
 			case SHOP:
 				break;
 			case SLIME:
-				break;
+				return new Branch().textScene("SLIME-INTRO").choiceScene(
+					"What do you do with the slime?",
+					new Branch("Fight Her").battleScene(
+						BattleCode.SLIME,
+						new Branch(Outcome.VICTORY).textScene("SLIME-VICTORY").choiceScene(
+							"Slay the slime?",
+							new Branch("Stab the core").textScene("SLIME-STAB").checkScene(
+								Stat.AGILITY,
+								new Branch(6).textScene("SLIME-SHATTER").encounterEnd(),
+								new Branch(0).textScene("SLIME-FAIL").gameEnd()
+							),
+							new Branch("Spare her").textScene("SLIME-SPARE")						
+						),
+						new Branch(Outcome.DEFEAT).textScene("SLIME-DEFEAT").choiceScene(
+							"What do you do?",
+							new Branch("Try to speak").textScene("SLIME-MOUTH").encounterEnd(),
+							new Branch("Run!").checkScene(
+								Stat.AGILITY, 
+								new Branch(5).textScene("SLIME-FLEE").encounterEnd(),
+								new Branch(0).textScene("SLIME-FALL").encounterEnd()								
+							)
+						)
+					),
+					new Branch("Smooch Her").textScene("SLIME-APPROACH").choiceScene(
+						"Do you enter the slime, or...?",
+						new Branch("Go In").textScene("SLIME-ENTER").encounterEnd(),
+						new Branch("Love Dart (Requires: Catamite)").require(ChoiceCheckType.LEWD).textScene("SLIME-LOVEDART").encounterEnd()
+					),
+					new Branch("Leave Her Be").encounterEnd()			
+				).getEncounter();
 			case SOUTH_PASS:
 				break;
 			case STARVATION:
@@ -187,6 +223,7 @@ public class EncounterBuilder2 {
 		Stance enemyStance;
 		boolean disarm;
 		int climaxCounter;
+		ChoiceCheckType require;
 		
 		boolean preprocessed;
 		Array<Scene> scenes;
@@ -194,19 +231,26 @@ public class EncounterBuilder2 {
 		Array<EndScene> endScenes;
 		
 		public Branch () {
-			init();
+			this((Object)null);
 		}
-	
+
 		public Branch (int check) {
-			init();
-			key = check;
+			this((Object)check);
 		}
 		
 		public Branch (Outcome type) {
-			init();
-			key = type;
+			this((Object)type);
 		}
 		
+		public Branch(String key) {
+			this((Object)key);
+		}
+		
+		public Branch (Object key) {
+			init();
+			this.key = key;
+		}
+
 		private void init() {
 			sceneTokens = new Array<SceneToken>();
 			branchOptions = new OrderedMap<Object, Branch>();
@@ -214,6 +258,14 @@ public class EncounterBuilder2 {
 		
 		public Branch textScene(String key) {
 			sceneTokens.addAll(reader.loadScript(key));
+			return this;
+		}
+		
+		public Branch choiceScene(String toDisplay, Branch ... branches) {
+			branchToken = new ChoiceSceneToken(toDisplay);
+			for (Branch branch : branches) {
+				branchOptions.put(branch.getKey(), branch);
+			}
 			return this;
 		}
 		
@@ -238,6 +290,11 @@ public class EncounterBuilder2 {
 			return this;
 		}
 		
+		public Branch require(ChoiceCheckType type) {
+			require = type;
+			return this;
+		}
+		
 		public Object getKey() {
 			return key;
 		}
@@ -255,10 +312,20 @@ public class EncounterBuilder2 {
 		private void preprocess() {
 			preprocess(null, null, null);
 		}
-		
+	
 		private void preprocess(AssetEnum startBackground, AssetEnum startForeground, EnemyEnum startAnimatedForeground) {
 			if (preprocessed) return;
-			sceneTokens.get(0).preprocess(startBackground, startForeground, startAnimatedForeground);			
+			preprocessed = true;
+			for (SceneToken token : sceneTokens) {
+				token.preprocess(startBackground, startForeground, startAnimatedForeground);
+				startBackground = token.background;
+				startForeground = token.foreground;
+				startAnimatedForeground = token.animatedForeground;
+			}
+			
+			for (OrderedMap.Entry<Object, Branch> next : branchOptions) {
+				next.value.preprocess(startBackground, startForeground, startAnimatedForeground);				
+			}
 		}
 		
 		private void upsertScenes() {
@@ -282,7 +349,6 @@ public class EncounterBuilder2 {
 						// for each branch get the scenes, the first entry in that list is what this branchToken scene should be tied to
 						ObjectMap<String, Integer> outcomeToScene = new ObjectMap<String, Integer>();
 						for (OrderedMap.Entry<Object, Branch> next : branchOptions) {
-							next.value.preprocess();
 							// grab the first scene, add it to the map, use the map to generate the appropriate scene
 							battleScenes.addAll(next.value.getBattleScenes());
 							endScenes.addAll(next.value.getEndScenes());
@@ -301,8 +367,7 @@ public class EncounterBuilder2 {
 						break;
 					case Check:
 						OrderedMap<Integer, Scene> checkValueMap = new OrderedMap<Integer, Scene>();
-						for (ObjectMap.Entry<Object, Branch> next : branchOptions) {
-							next.value.preprocess();
+						for (OrderedMap.Entry<Object, Branch> next : branchOptions) {
 							// grab the first scene, add it to the map, use the map to generate the appropriate scene
 							battleScenes.addAll(next.value.getBattleScenes());
 							endScenes.addAll(next.value.getEndScenes());
@@ -319,6 +384,35 @@ public class EncounterBuilder2 {
 						masterSceneMap.put(sceneCounter++, checkScene);
 						break;
 					case Choice:
+						Table table = new Table();
+						Skin skin = assetManager.get(AssetEnum.UI_SKIN.getSkin());
+						Sound buttonSound = assetManager.get(AssetEnum.BUTTON_SOUND.getSound());
+						ChoiceSceneToken choiceBranchToken = (ChoiceSceneToken)branchToken;
+						for (OrderedMap.Entry<Object, Branch> next : branchOptions) {
+							// a lot of this is boilerplate for all branches and should be refactored and consolidated into a method
+							// grab the first scene, add it to the map, use the map to generate the appropriate scene
+							battleScenes.addAll(next.value.getBattleScenes());
+							endScenes.addAll(next.value.getEndScenes());
+							Array<Scene> nextScenes = next.value.getScenes();
+							scenes.addAll(nextScenes);
+							Scene nextScene = nextScenes.first();
+							sceneMap.put(nextScene.getCode(), nextScene);
+						}
+						
+						ChoiceScene choiceScene = new ChoiceScene(sceneMap, sceneCounter, saveService, font, choiceBranchToken.getToDisplay(), table, new BackgroundBuilder(assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getTexture())).build());
+						// need the choiceScene in order to create the buttons, so iterate through again
+						for (OrderedMap.Entry<Object, Branch> next : branchOptions) {
+							Scene nextScene = next.value.getScenes().first();
+							TextButton button = new TextButton((String)next.key, skin);
+							// this needs the logic for checks as well
+							button.addListener(getListener(choiceScene, nextScene, buttonSound, next.value.require, button));
+							table.add(button).size(650, 150).row();
+						}
+						
+						scenes.add(choiceScene);
+						sceneMap = new OrderedMap<Integer, Scene>();
+						sceneMap.put(choiceScene.getCode(), choiceScene);
+						masterSceneMap.put(sceneCounter++, choiceScene);
 						break;
 					case EndGame:
 					case EndEncounter:
@@ -329,8 +423,6 @@ public class EncounterBuilder2 {
 						scenes.add(newEndScene);
 						sceneMap = new OrderedMap<Integer, Scene>();
 						sceneMap.put(newEndScene.getCode(), newEndScene);
-						break;
-					default:
 						break;
 				}
 			}
@@ -423,6 +515,36 @@ public class EncounterBuilder2 {
 		public Encounter getEncounter() {
 			return new Encounter(getScenes(), getEndScenes(), getBattleScenes(), getStartScene());
 		}
+		
+		private ClickListener getListener(final AbstractChoiceScene currentScene, final Scene nextScene, final Sound buttonSound, final ChoiceCheckType type, final TextButton button) {
+			return new ClickListener() {
+		        @Override
+		        public void clicked(InputEvent event, float x, float y) {
+		        	if (type == null || isValidChoice(type)) {
+		        		buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
+			        	// set new Scene as active based on choice
+			        	nextScene.setActive();
+			        	currentScene.finish();
+		        	}
+		        	else {
+			        	button.setColor(Color.GRAY);
+		        	}
+		        }
+		    };
+		}
+		
+		private boolean isValidChoice(ChoiceCheckType type) {
+			switch (type) {
+			case LEWD:
+				return character.isLewd();
+			case GOLD_GREATER_THAN_10:
+				return character.getMoney() >= 10;
+			case GOLD_LESS_THAN_10:
+				return character.getMoney() < 10;
+			default:
+				return false;
+			}
+		}
 	}
 	
 	
@@ -454,18 +576,32 @@ public class EncounterBuilder2 {
 		
 	}
 	
-	// this should have playerstance, disarm, etc. - right now this is basically unused
-		public class CheckSceneToken extends BranchToken {
-			private final Stat stat;
-			public CheckSceneToken(Stat stat) {
-				super(EndTokenType.Check);
-				this.stat = stat;
-			}
-			public Stat getStat() { return stat; }
-			
+	public class CheckSceneToken extends BranchToken {
+		private final Stat stat;
+		public CheckSceneToken(Stat stat) {
+			super(EndTokenType.Check);
+			this.stat = stat;
 		}
+		public Stat getStat() { return stat; }
+		
+	}
 	
-	// this should have playerstance, disarm, etc. - right now this is basically unused
+	public class ChoiceSceneToken extends BranchToken {
+		private final String toDisplay;
+		private final ChoiceCheckType require;
+		public ChoiceSceneToken(String toDisplay) {
+			this(toDisplay, null);
+		}
+		public ChoiceSceneToken(String toDisplay, ChoiceCheckType require) {
+			super(EndTokenType.Choice);
+			this.toDisplay = toDisplay;
+			this.require = require;
+		}
+		public ChoiceCheckType getRequire() { return require; }
+		public String getToDisplay() { return toDisplay; }
+		
+	}
+	
 	public class EndSceneToken extends BranchToken {
 		public EndSceneToken(EndTokenType endType) {
 			super(endType);
