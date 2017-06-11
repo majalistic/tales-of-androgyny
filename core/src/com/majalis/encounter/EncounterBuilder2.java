@@ -13,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.IntArray;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.OrderedMap;
@@ -133,7 +134,15 @@ public class EncounterBuilder2 {
 			case DEFAULT:
 				break;
 			case DRYAD:
-				break;
+				return new Branch().textScene("DRYAD-INTRO").choiceScene(
+					"Do you offer her YOUR apple, or try to convince her to just hand it over?",
+					new Branch("Offer (Requires: Catamite)").require(ChoiceCheckType.LEWD).textScene("DRYAD-OFFER").encounterEnd(),
+					new Branch("Plead with her").checkScene(
+						Stat.CHARISMA,
+						new Branch(5).textScene("DRYAD-CONVINCE"),
+						new Branch(0).textScene("DRYAD-FAIL")
+					)
+			    ).getEncounter();
 			case ECCENTRIC_MERCHANT:
 				break;
 			case ERROR:

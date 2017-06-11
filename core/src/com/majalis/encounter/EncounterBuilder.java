@@ -176,39 +176,6 @@ public class EncounterBuilder {
 		BattleCode battleCode;
 		
 		switch (encounterCode) {
-			case DRYAD:
-				background = new BackgroundBuilder(backgroundTexture).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getTexture())).setForeground(assetManager.get(AssetEnum.DRYAD_BACKGROUND.getTexture())).build();
-				getTextScenes(
-					getScript(encounterCode, 0), font, background, new Array<Mutation>(), AssetEnum.SHOP_MUSIC.getMusic(), 
-					getChoiceScene(
-						"Do you offer her YOUR apple, or try to convince her to just hand it over?", getArray(new String[]{"Offer (Requires: Catamite)", "Plead with her"}), getArray(new ChoiceCheckType[]{ChoiceCheckType.LEWD, null}),												
-						getTextScenes(
-							getScript(encounterCode, 1), font, background, getArray(new Mutation[]{analReceive}),
-							getTextScenes(
-								getArray(new String[]{"So that happened.", "You take 5 damage from the splinters.", "You receive 10 food from the dryad.", "You receive 1 Experience."}), font, background, getArray(new Mutation[]{analReceive, new Mutation(saveService, SaveEnum.HEALTH, -5), new Mutation(saveService, SaveEnum.FOOD, 10), new Mutation(saveService, SaveEnum.EXPERIENCE, 1)}), 
-								getEndScene(EndScene.Type.ENCOUNTER_OVER)
-							)
-						),
-						getCheckScene(
-							Stat.CHARISMA, new IntArray(new int[]{5}),
-							getTextScenes(
-								getScript(encounterCode, 2), font, background,
-								getTextScenes(
-									getArray(new String[]{"You receive 10 food from the dryad.", "You receive 1 Experience."}),
-									font,
-									background,
-									getArray(new Mutation[]{new Mutation(saveService, SaveEnum.FOOD, 10), new Mutation(saveService, SaveEnum.EXPERIENCE, 1)}),
-									getEndScene(EndScene.Type.ENCOUNTER_OVER)
-								)
-							),
-							getTextScenes(
-								getScript(encounterCode, 3), font, background,
-								getEndScene(EndScene.Type.ENCOUNTER_OVER)
-							)
-						)			
-					)
-				);
-				break;
 			case CENTAUR:
 				battleCode = BattleCode.CENTAUR;
 				final AnimatedActor enemy2 = EnemyCharacter.getAnimatedActor(EnemyEnum.CENTAUR);
