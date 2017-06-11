@@ -77,7 +77,49 @@ public class EncounterBuilder2 {
 			case BEASTMISTRESS:
 				break;
 			case BRIGAND:
-				break;
+				Branch[] battleBranches2 = new Branch[]{new Branch(Outcome.VICTORY).textScene("BRIGAND-VICTORY").encounterEnd(), new Branch(Outcome.DEFEAT).textScene("BRIGAND-DEFEAT").encounterEnd(), new Branch(Outcome.SATISFIED).textScene("BRIGAND-SATISFIED").encounterEnd()};
+				return new Branch().textScene("BRIGAND-INTRO").checkScene(
+					Stat.PERCEPTION, 
+					new Branch(6).textScene("BRIGAND-SPOT").choiceScene(
+						"How do you handle the brigand?",
+						new Branch("Charge").battleScene(
+							BattleCode.BRIGAND, Stance.OFFENSIVE, Stance.BALANCED,
+							battleBranches2
+						),
+						new Branch("Ready an Arrow").battleScene(
+							BattleCode.BRIGAND, 
+							battleBranches2
+						),
+						new Branch("Speak").textScene("BRIGAND-HAIL").choiceScene(
+							"Accept her offer?",
+							new Branch("Accept").require(ChoiceCheckType.LEWD).textScene("BRIGAND-ACCEPT").choiceScene(
+								"Tell her to pull out?",
+								new Branch("Say Nothing").textScene("BRIGAND-CATCH").encounterEnd(),
+								new Branch("Ask her").textScene("BRIGAND-REQUEST").checkScene(
+									Stat.CHARISMA,
+									new Branch(4).textScene("BRIGAND-FACIAL").encounterEnd(),
+									new Branch(0).textScene("BRIGAND-BADTASTE").encounterEnd()
+								)
+							),
+							new Branch("Decline").textScene("BRIGAND-DECLINE").checkScene(
+								Stat.CHARISMA,
+								new Branch(5).textScene("BRIGAND-CONVINCE").encounterEnd(),
+								new Branch(0).textScene("BRIGAND-FAIL").battleScene(
+									BattleCode.BRIGAND, 
+									battleBranches2
+								)
+							)
+						)
+					),
+					new Branch(4).textScene("BRIGAND-STAB").battleScene(
+						BattleCode.BRIGAND, 
+						battleBranches2
+					),
+					new Branch(0).textScene("BRIGAND-BACKSTAB").battleScene(
+						BattleCode.BRIGAND, Stance.STANDING_BOTTOM, Stance.STANDING,
+						battleBranches2	
+					)	
+				).getEncounter();
 			case CAMP_AND_EAT:
 				break;
 			case CENTAUR:

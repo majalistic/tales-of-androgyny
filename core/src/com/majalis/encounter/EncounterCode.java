@@ -212,7 +212,10 @@ public enum EncounterCode {
 					AssetEnum.SLIME_DOGGY.getTexture()
 				});
 			case BRIGAND:
-				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{AssetEnum.BRIGAND_ORAL.getTexture()});
+				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{
+					AssetEnum.BRIGAND_ORAL.getTexture(),
+					AssetEnum.BRIGAND.getTexture(),
+				});
 			case DRYAD:
 				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{  
 				AssetEnum.SHOP_MUSIC.getMusic(),
