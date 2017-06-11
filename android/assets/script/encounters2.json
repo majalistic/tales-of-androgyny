@@ -673,4 +673,133 @@
 			{"text": "The dryad is unconvinced by your offer, and melds back into her tree, disappearing without a trace. Disappointed, you leave."}
 		]
 	},
+	{
+		"key": "CENTAUR-INTRO",
+		"scriptLines": [
+			{
+			"music": "SHOP_MUSIC",
+			"text": "The plains are vast, and you walk along them, humbled by the visions of the distant mountains."},
+			{"text": "In the far distance, you see... horses?  Something about their profile is odd."},
+			{"text": "As you get closer, in the hopes of satisfying your curiosity, they all but scatter - but as they do, you get a glimpse of one of them as they turn to look at you - and a very human gaze meets yours."},
+			{"text": "By the time you reach where the group of the strange half-horse creatures had been, none are left... but you detect a presence still lingering nearby."}
+		]
+	},
+	{
+		"key": "UNICORN-ENTRANCE",
+		"scriptLines": [
+			{
+			"animatedForeground": "UNICORN",
+			"mutations": [{"profileSaveType":"KNOWLEDGE", "value":{"class": "java.lang.String", "value": "Unicorn"}}],
+			"text": "You hear a frenzied whinny, and spin around just in time to avoid being trampled by a brightly colored creature much like the one before.  When they turn to look at you, you see that it's female... a rather well-endowed female... and that her colors are quite vibrant."},
+			{"text": "Even more strange, she has a horn on her head... and... between her legs..."},
+			{"text": "It's... rather erect... and the look on her face is quite mad - she wipes her saliva on her wrist, even as the thing pointed directly at you drools a clear strand down into the dirt, which quickly pools into mud."},
+			{"text": "You tense up, but in one place in particular.  It seems you'll have to fight off her amorous advances."}
+		]
+	},
+	{
+		"key": "UNICORN-VICTORY",
+		"scriptLines": [
+			{
+			"mutations": [{"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": 3}}],
+			"text": "You defeated the unicorn!"},
+		]
+	},
+	{
+		"key": "UNICORN-DEFEAT",
+		"scriptLines": [
+			{"text": "You collapse to the ground.  You will your legs to move - you know that if she gets the chance to, she's going to blow your ass away."},
+			{"text": "You spot it as she trots past you to reach your upturned behind - it must be nearly two feet long, and it is clearly raring to go.  You consider telling her that you're male, but you get the sense that anatomical incompatibilities are not at the top of her concerns."},
+			{"text": "She's completely in a lustful frenzy - there's no mistaking what she plans to do with her two feet of grade-A horse meat, her swollen equine testicles desperate to be drained, and she is going to absolutely destroy your ass if she manages to get it in."},
+			{"text": "\"A virgin...\" she says, wistfully, like a schoolgirl in love - even as her rigid pooper-pusher bobs considerably under its own weight with each of her excited steps."},
+			{"text": "You don't know why the colorful girl has a very male centaur's equipment, but you're not much in the mood for trivia, any more than she's in the mood for conversation."},
+			{"text": "You expect her to ram all eighteen inches of her rectal rooter right up your rear, and to subsequently die, but instead she sits, bringing her human body forward, clearly drooling with anticipation, her face wide-eyed with anticipation, excitement and fuck-craziness."},
+			{"text": "She spreads your cheeks and dives in tongue-first - you have no time to prepare your heart before her strangely-human tongue wriggles itself up inside of your butt, where she begins to flex it around skillfully to reach every crevice and coat it with her saliva."},
+			{"text": "Your legs are still numb, but tingling as she probes your hole with her spongy but still-rigid tongue, and you're sure that her cock is still just as stiff as when you last saw it, so... you know what's about to happen. Still, you moan, trying to get out the words that will give her pause, but the words don't come."},
+			{"text": "She returns to her feet, and all but immediately presses her fat head square up against your hole, knocking the wind out of you.  Thankfully, she doesn't gain purchase, but it's only a matter of time before she does."},
+			{"text": "Again and again she taps it, full force, against her makeshift mare's hole, threatening each time to initiate an equine anal adventure that you will likely never forget - and for the next few days, at least, your rectum and a mare's pussy will share certain characteristics."},
+			{"text": "Namely width, elasticity, and equine semen content.  You wonder where horse-cum enema rates on the dignity scale, but it can't be very high."},
+			{"text": "You feel her lustful stickiness dripping down your own testicles as she coats your button hole with it with each lewd kiss, until finally, you start to feel something give way - as does she, and rather than retracting for another tap, she begins to lean her weight forward."},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1, "analEjaculation":1, "creampies":1, "horse":true}}],
+			"text": "\"Virgin... virgin...\" she chants, mesmerized, as your sphincter gives it up - it begins to open up, and you feel her leathery funstick start to sink inside - until, much to your consternation, it opens wide to accept its new gift and semi-permanent shape, and the entire plains hears your frustration as you receive your first taste of horsecock right up the butthole."},
+			{"text": "You lose your virginity in a completely unmistakable fashion, and as she moans in high-pitched excitement, you know that she got exactly what she came for."},
+			{"text": "She's crushing your guts with it, as a visible bulge moves up and down your abdomen.  Her upper body is still, and indeed, her lower body is mostly still as well, but even the slightest movement sends several inches of horsecock squelching up into or out of your stretched-wide hole."},
+			{"text": "She drills it into you, scooping out your recently repurposed shitpipe with exactly the care and finesse you would expect of a horse.  By the time you've received ten lengths of her horse schlong via her erratic jerks and thrusts, you know quite well that centaur unicorns are poor lovers - and that anal sex isn't always the answer to life's problems."},
+			{"text": "At the very least, your first time (embarrassed and humiliated by a woman with a big horse cock) is mercifully short, her breath itself getting shorter and shorter and higher and higher pitched until she says the magic words, her leathery dick scraping against your bowels earnestly all the while."},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "creampies":1, "horse":true}}],
+			"text": "\"I'm... cumming!\" she groans, right before that is made incredibly obvious as your stomach balloons outwards, her stinging unicorn cum enema probably the least subtle creampie ever - especially for someone who's never experienced a creampie of any kind before."},
+			{"text": "She pumps a full load of it inside before the sudden shock finally gives you enough strength to clamber forward, her rapidly drooping horse cock slipping out of you, spilling the rest of its payload into the grass."},
+			{"text": "A geyser of white and clear liquid erupts from your devastated hole - clearing several feet behind you, dousing everything in the general region with her still-hot horse cum."},
+			{"text": "Somewhat shellshocked, she kneels again to inspect your gaping winker.  She smells your gaped-open mare pocket, which, of course, smells of her overflowing cum, and her ear twitches.  She rears up, and turns away sharply, then breaks into a run - apparently, now that you're no longer an anal virgin, she has no use for you."},
+			{"text": "You lay there for a few hours, until finally, you feel strong enough in the legs, and enough of her sauce has run out, and you manage to get to your feet, a bit unstable, looking like a newborn deer."},
+			{"text": "At the very least, it seems her kind won't bother you again - although it is somewhat bittersweet, knowing that's because you had your first sexual experience on the end of a big horse dick, and have the crater and shotgun creampie remnants to prove it."},
+			{
+			"mutations": [{"saveType":"FOOD", "value":{"class": "java.lang.Integer", "value": -5}}, {"saveType":"HEALTH", "value":{"class": "java.lang.Integer", "value": 10}}],
+			"text": "You rest, eating 5 food. You recover 10 health."}
+		]
+	},
+	{
+		"key": "CENTAUR-ENTRANCE",
+		"scriptLines": [
+			{
+			"animatedForeground": "CENTAUR",
+			"mutations": [{"profileSaveType":"KNOWLEDGE", "value":{"class": "java.lang.String", "value": "Centaur"}}],
+			"text": "From hidden behind a nearby boulder emerges one member of the herd - a female, with a rather buxom appearance.  She approaches you serenely, proudly."},
+			{"text": "\"Human.  You are trespassing on centaur lands. Leave now and we will bring you no harm.  Or fight me - and earn your place at our campfire,\" she says, and it's clear those are your only two options... that is, until you spy something dangling between her legs. It's not aroused, but..."}
+		]
+	},
+	{
+		"key": "CENTAUR-CATAMITE",
+		"scriptLines": [
+			{"text": "You get down on your hands and knees - you can't believe you're doing this, but you also can't believe how much of a horse cock she has."},
+			{"text": "You pull your pants down and spread your cheeks, and she wastes little time in acquiescing to your subtle demands, trotting over, her cock freeing itself of its sheathe in search of another."},
+			{"text": "She doesn't hesitate to begin prodding it against your poor hole - once, twice, three times, and you yelp, as she begins to stuff it inside, your mouth agape in awe and your backdoor opening far wider than is comfortable."},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1, "analEjaculation":1, "creampies":1, "horse":true}}],
+			"text": "Sweat drips down your face as she pushes it inside - even though you're holding yourself open, it's still a lot of dick to stuff into a very tight, soon to be cavernous pussy."},
+			{"text": "It lurches inside you, putting a crushing pressure in your bowels, and you fear you've bitten off more than you can chew.  You get the feeling if you let her cum, you're going to be winking for days."},
+			{"text": "\"Mmmm... we mate for life, you know,\" she says... and you realize you're going to have to fight your way out of this one."},
+		]
+	}
+	{
+		"key": "CENTAUR-VICTORY",
+		"scriptLines": [
+			{
+			"mutations": [{"saveType":"FOOD", "value":{"class": "java.lang.Integer", "value": 10}}, {"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": 2}}],
+			"text": "You defeated the centaur!  You are now welcome to sleep in their camp, and receive 10 food.  You receive 2 Experience."}
+		]
+	}
+	{
+		"key": "CENTAUR-DEFEAT",
+		"scriptLines": [
+			{"text": "The centaur hoists you up, limp and spiritless."},
+			{"text": "\"So weak. You trespass on our land, and then you offend me with such a trivial challenge?  Hmph,\" she snorts, and slings you onto her back.  She kicks off into a trot, with you still haplessly strung across her back."},
+			{"text": "When the wind returns to your lungs, you ask her where she's taking you."},
+			{"text": "\"Our menfolk haven't had any surrogate mares as of late.  I'm sure they'll find a use for a cute, girlish human like you,\" she says, snickering."},
+			{"text": "Your mind reels.  She couldn't mean... your mind pictures the anatomy of a male horse, and your sphincter tightens with an audible squeak."},
+			{"text": "You try to convince her that she's wrong - that you're male, and that you're not suitable as a mare... to which she sternly replies that you shouldn't be so hard on yourself."},
+			{"text": "The gathering of centaurs, perhaps a herd, is large indeed - thirty or forty of them.  You are disheartened to learn, quite quickly, that around half of them are men."},
+			{"text": "She wasn't wrong about the menfolk finding a use for you."},
+			{"text": "By the day's end, you find yourself grasping the forelegs of a male centaur while he thoroughly makes you his mare, an anal ordeal that is the first of many.  You grit your teeth as sweat pours down your face and your ass is ruined by a horse's dick - that it happens to be gay sex is the least of your worries."},
+			{"text": "As the male centaur erupts, his runny semen filling and overflowing your bowels, a quick-shot by any measure, you hear the clopping of another centaur, ready to drain their foot-and-a-half-long cock in your already greased up innards, and you know that your adventure is over."},
+			{"text": "You will be fucked in the ass by horses that happen to be half-men until they get bored of you, which might be never.  You should have never trespassed in the centaur's land."},
+			{"text": "But then, what is the greater trespass - yours into their land, or theirs into your ass?"}
+		]
+	},
+	{
+		"key": "CENTAUR-SATISFIED",
+		"scriptLines": [
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "horse":true}}],
+			"text": "With the centaur cum filling your stomach, you have little energy to fight her.  Her cock is so large you thought you might pass out."},
+			{"text": "\"Hmm.  I'm a bit ashamed that I was so easily seduced,\" she says, her face red.  The large object that had been dangling between her legs has slowly retracted."},
+			{"text": "You can't really respond - all you can do is cough up the semen that she's lodged in your digestive tract."},
+			{"text": "She canters about, apparently not at all winded by your 'fight'.  You watch her warily."},
+			{"text": "\"I didn't think humans were so interested in the affections of centaurs,\" she says, somewhat amused.  \"I suppose I should thank you for your hospitality.\""},
+			{
+			"mutations": [{"saveType":"ITEM", "value":null}, {"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": 2}}],
+			"text": "You lay motionless as she trots up to you, kneels, and lays her bow on the ground.  Without another word, she trots off, having already gotten her satisfaction with your too-small body."}
+		]
+	},
 ]}

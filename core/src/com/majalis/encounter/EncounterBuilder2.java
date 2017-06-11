@@ -21,6 +21,7 @@ import com.majalis.battle.BattleCode;
 import com.majalis.battle.Battle.Outcome;
 import com.majalis.character.EnemyCharacter;
 import com.majalis.character.EnemyEnum;
+import com.majalis.character.Perk;
 import com.majalis.character.PlayerCharacter;
 import com.majalis.character.Stance;
 import com.majalis.character.AbstractCharacter.Stat;
@@ -37,6 +38,7 @@ import com.majalis.scenes.EndScene;
 import com.majalis.scenes.Mutation;
 import com.majalis.scenes.Scene;
 import com.majalis.scenes.TextScene;
+import com.majalis.scenes.CheckScene.CheckType;
 import com.majalis.scenes.ShopScene.Shop;
 import com.majalis.encounter.Background.BackgroundBuilder;
 import com.majalis.encounter.EncounterBuilder.ChoiceCheckType;
@@ -123,7 +125,35 @@ public class EncounterBuilder2 {
 			case CAMP_AND_EAT:
 				break;
 			case CENTAUR:
-				break;
+				Branch[] centaurBattle = new Branch[]{new Branch(Outcome.VICTORY).textScene("CENTAUR-VICTORY").encounterEnd(), new Branch(Outcome.DEFEAT).textScene("CENTAUR-DEFEAT").gameEnd(), new Branch(Outcome.SATISFIED).textScene("CENTAUR-SATISFIED").encounterEnd()};
+				Branch[] unicornBattle = new Branch[]{new Branch(Outcome.VICTORY).textScene("UNICORN-VICTORY").encounterEnd(), new Branch(Outcome.DEFEAT).textScene("UNICORN-DEFEAT").encounterEnd()};
+				
+				return new Branch().textScene("CENTAUR-INTRO").checkScene(
+					CheckType.VIRGIN, 
+					new Branch(true).textScene("UNICORN-ENTRANCE").battleScene(
+						BattleCode.UNICORN,
+						unicornBattle
+					),
+					new Branch(false).textScene("CENTAUR-ENTRANCE").checkScene(
+						Perk.ANAL_LOVER,
+						new Branch(3).textScene("CENTAUR-CATAMITE").battleScene(
+							BattleCode.CENTAUR, Stance.DOGGY_BOTTOM, Stance.DOGGY,
+							centaurBattle
+						),
+						new Branch(0).choiceScene(
+							"Fight the centaur?",
+							new Branch("Fight Her").battleScene(
+								BattleCode.CENTAUR,
+								centaurBattle
+							),
+							new Branch("Decline").encounterEnd(),
+							new Branch("Ask For It").require(ChoiceCheckType.LEWD).textScene("CENTAUR-CATAMITE").battleScene(
+								BattleCode.CENTAUR, Stance.DOGGY_BOTTOM, Stance.DOGGY,
+								centaurBattle
+							)
+						)
+					)
+				).getEncounter();
 			case COTTAGE_TRAINER:
 				break;
 			case COTTAGE_TRAINER_VISIT:
@@ -138,8 +168,8 @@ public class EncounterBuilder2 {
 					new Branch("Offer (Requires: Catamite)").require(ChoiceCheckType.LEWD).textScene("DRYAD-OFFER").encounterEnd(),
 					new Branch("Plead with her").checkScene(
 						Stat.CHARISMA,
-						new Branch(5).textScene("DRYAD-CONVINCE"),
-						new Branch(0).textScene("DRYAD-FAIL")
+						new Branch(5).textScene("DRYAD-CONVINCE").encounterEnd(),
+						new Branch(0).textScene("DRYAD-FAIL").encounterEnd()
 					)
 			    ).getEncounter();
 			case ECCENTRIC_MERCHANT:
@@ -313,14 +343,25 @@ public class EncounterBuilder2 {
 		
 		public Branch choiceScene(String toDisplay, Branch ... branches) {
 			branchToken = new ChoiceSceneToken(toDisplay);
-			for (Branch branch : branches) {
-				branchOptions.put(branch.getKey(), branch);
-			}
-			return this;
+			return weldBranches(branches);
 		}
 		
 		public Branch checkScene(Stat toCheck, Branch ... branches) {
 			branchToken = new CheckSceneToken(toCheck);
+			return weldBranches(branches);
+		}
+		
+		public Branch checkScene(Perk toCheck, Branch ... branches) {
+			branchToken = new CheckSceneToken(toCheck);
+			return weldBranches(branches);
+		}
+		
+		public Branch checkScene(CheckType toCheck, Branch ... branches) {
+			branchToken = new CheckSceneToken(toCheck);
+			return weldBranches(branches);
+		}
+		
+		public Branch weldBranches(Branch[] branches) {
 			for (Branch branch : branches) {
 				branchOptions.put(branch.getKey(), branch);
 			}
@@ -331,13 +372,10 @@ public class EncounterBuilder2 {
 		public Branch battleScene(BattleCode battleCode, Stance playerStance, Stance enemyStance, Branch ... branches) {
 			// for each of the branches, add them to the next map with their associated code
 			branchToken = new BattleSceneToken(battleCode);
-			for (Branch branch : branches) {
-				branchOptions.put(branch.getKey(), branch);
-			}
 			this.battleCode = battleCode;
 			this.playerStance = playerStance;
 			this.enemyStance = enemyStance;
-			return this;
+			return weldBranches(branches);
 		}
 		
 		public Branch require(ChoiceCheckType type) {
@@ -428,12 +466,28 @@ public class EncounterBuilder2 {
 						sceneMap = addScene(scenes, newBattleScene, false);						
 						break;
 					case Check:
-						OrderedMap<Integer, Scene> checkValueMap = new OrderedMap<Integer, Scene>();
-						for (OrderedMap.Entry<Object, Branch> next : branchOptions) {
-							Scene nextScene = weld(scenes, battleScenes, endScenes, next, sceneMap);
-							checkValueMap.put(((Integer) next.key), nextScene);
+						CheckSceneToken checkBranchToken = ((CheckSceneToken)branchToken);
+						if (checkBranchToken.getStat() != null || checkBranchToken.getPerk() != null) {
+							OrderedMap<Integer, Scene> checkValueMap = new OrderedMap<Integer, Scene>();
+							for (OrderedMap.Entry<Object, Branch> next : branchOptions) {
+								Scene nextScene = weld(scenes, battleScenes, endScenes, next, sceneMap);
+								checkValueMap.put(((Integer) next.key), nextScene);
+							}
+							if (checkBranchToken.getStat() != null) {
+								sceneMap = addScene(scenes, new CheckScene(sceneMap, sceneCounter, assetManager, saveService, font, new BackgroundBuilder(assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getTexture())).build(), checkBranchToken.getStat(), checkValueMap, checkValueMap.get(0), character), true);						
+							}
+							else {
+								sceneMap = addScene(scenes, new CheckScene(sceneMap, sceneCounter, assetManager, saveService, font, new BackgroundBuilder(assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getTexture())).build(), checkBranchToken.getPerk(), checkValueMap, checkValueMap.get(0), character), true);						
+							}
 						}
-						sceneMap = addScene(scenes, new CheckScene(sceneMap, sceneCounter, assetManager, saveService, font,  new BackgroundBuilder(assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getTexture())).build(), ((CheckSceneToken)branchToken).getStat(), checkValueMap, checkValueMap.get(0), character), true);						
+						else {
+							OrderedMap<Boolean, Scene> checkValueMap = new OrderedMap<Boolean, Scene>();
+							for (OrderedMap.Entry<Object, Branch> next : branchOptions) {
+								Scene nextScene = weld(scenes, battleScenes, endScenes, next, sceneMap);
+								checkValueMap.put(((Boolean) next.key), nextScene);
+							}
+							sceneMap = addScene(scenes, new CheckScene(sceneMap, sceneCounter, assetManager, saveService, font, new BackgroundBuilder(assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getTexture())).build(), checkBranchToken.getCheckType(), checkValueMap.get(true), checkValueMap.get(false), character), true);						
+						}
 						break;
 					case Choice:
 						Table table = new Table();
@@ -586,7 +640,6 @@ public class EncounterBuilder2 {
 		}
 	}
 	
-	
 	public Array<Mutation> getMutations(Array<MutateToken> tokens) {
 		Array<Mutation> mutations = new Array<Mutation>();
 		if (tokens == null) { return mutations; }
@@ -617,12 +670,27 @@ public class EncounterBuilder2 {
 	
 	public class CheckSceneToken extends BranchToken {
 		private final Stat stat;
+		private final CheckType checkType;
+		private final Perk perk;
 		public CheckSceneToken(Stat stat) {
+			this(stat, null, null);
+		}
+		public CheckSceneToken(CheckType checkType) {
+			this(null, checkType, null);
+		}
+		public CheckSceneToken(Perk perk) {
+			this(null, null, perk);
+		}
+		public CheckSceneToken(Stat stat, CheckType checkType, Perk perk) {
 			super(EndTokenType.Check);
 			this.stat = stat;
+			this.checkType = checkType;
+			this.perk = perk;
 		}
-		public Stat getStat() { return stat; }
 		
+		public Stat getStat() { return stat; }
+		public CheckType getCheckType() { return checkType; }
+		public Perk getPerk() { return perk; }
 	}
 	
 	public class ChoiceSceneToken extends BranchToken {
