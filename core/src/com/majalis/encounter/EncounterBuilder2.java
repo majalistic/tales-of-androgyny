@@ -13,7 +13,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.IntArray;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.OrderedMap;
@@ -379,6 +378,26 @@ public class EncounterBuilder2 {
 			}
 		}
 		
+		private Scene weld(Array<Scene> scenes, Array<BattleScene> battleScenes, Array<EndScene> endScenes, OrderedMap.Entry<Object, Branch> next, OrderedMap<Integer, Scene> sceneMap) {
+			battleScenes.addAll(next.value.getBattleScenes());
+			endScenes.addAll(next.value.getEndScenes());
+			Array<Scene> nextScenes = next.value.getScenes();
+			scenes.addAll(nextScenes);
+			Scene nextScene = nextScenes.first();
+			sceneMap.put(nextScene.getCode(), nextScene);
+			return nextScene;
+		}
+		
+		private OrderedMap<Integer, Scene> addScene(Array<Scene> scenes, Scene toAdd, boolean addToMasterMap) {
+			OrderedMap<Integer, Scene> sceneMap = new OrderedMap<Integer, Scene>();
+			scenes.add(toAdd);
+			sceneMap = new OrderedMap<Integer, Scene>();
+			if (addToMasterMap) masterSceneMap.put(toAdd.getCode(), toAdd);
+			sceneMap.put(toAdd.getCode(), toAdd);
+			sceneCounter++;
+			return sceneMap;
+		}
+		
 		private void upsertScenes() {
 			if (scenes != null) return;
 			preprocess();
@@ -400,39 +419,21 @@ public class EncounterBuilder2 {
 						// for each branch get the scenes, the first entry in that list is what this branchToken scene should be tied to
 						ObjectMap<String, Integer> outcomeToScene = new ObjectMap<String, Integer>();
 						for (OrderedMap.Entry<Object, Branch> next : branchOptions) {
-							// grab the first scene, add it to the map, use the map to generate the appropriate scene
-							battleScenes.addAll(next.value.getBattleScenes());
-							endScenes.addAll(next.value.getEndScenes());
-							Array<Scene> nextScenes = next.value.getScenes();
-							scenes.addAll(nextScenes);
-							Scene nextScene = nextScenes.first();
-							sceneMap.put(nextScene.getCode(), nextScene);
+							Scene nextScene = weld(scenes, battleScenes, endScenes, next, sceneMap);
 							outcomeToScene.put(((Outcome) next.key).toString(), nextScene.getCode());
 						}
 						
 						BattleScene newBattleScene = new BattleScene(sceneMap, saveService, battleCode, playerStance, enemyStance, disarm, climaxCounter, outcomeToScene);
-						scenes.add(newBattleScene);
 						battleScenes.add(newBattleScene);
-						sceneMap = new OrderedMap<Integer, Scene>();
-						sceneMap.put(newBattleScene.getCode(), newBattleScene);
+						sceneMap = addScene(scenes, newBattleScene, false);						
 						break;
 					case Check:
 						OrderedMap<Integer, Scene> checkValueMap = new OrderedMap<Integer, Scene>();
 						for (OrderedMap.Entry<Object, Branch> next : branchOptions) {
-							// grab the first scene, add it to the map, use the map to generate the appropriate scene
-							battleScenes.addAll(next.value.getBattleScenes());
-							endScenes.addAll(next.value.getEndScenes());
-							Array<Scene> nextScenes = next.value.getScenes();
-							scenes.addAll(nextScenes);
-							Scene nextScene = nextScenes.first();
-							sceneMap.put(nextScene.getCode(), nextScene);
+							Scene nextScene = weld(scenes, battleScenes, endScenes, next, sceneMap);
 							checkValueMap.put(((Integer) next.key), nextScene);
 						}
-						CheckScene checkScene = new CheckScene(sceneMap, sceneCounter, assetManager, saveService, font,  new BackgroundBuilder(assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getTexture())).build(), ((CheckSceneToken)branchToken).getStat(), checkValueMap, checkValueMap.get(0), character);
-						scenes.add(checkScene);
-						sceneMap = new OrderedMap<Integer, Scene>();
-						sceneMap.put(checkScene.getCode(), checkScene);
-						masterSceneMap.put(sceneCounter++, checkScene);
+						sceneMap = addScene(scenes, new CheckScene(sceneMap, sceneCounter, assetManager, saveService, font,  new BackgroundBuilder(assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getTexture())).build(), ((CheckSceneToken)branchToken).getStat(), checkValueMap, checkValueMap.get(0), character), true);						
 						break;
 					case Choice:
 						Table table = new Table();
@@ -440,14 +441,7 @@ public class EncounterBuilder2 {
 						Sound buttonSound = assetManager.get(AssetEnum.BUTTON_SOUND.getSound());
 						ChoiceSceneToken choiceBranchToken = (ChoiceSceneToken)branchToken;
 						for (OrderedMap.Entry<Object, Branch> next : branchOptions) {
-							// a lot of this is boilerplate for all branches and should be refactored and consolidated into a method
-							// grab the first scene, add it to the map, use the map to generate the appropriate scene
-							battleScenes.addAll(next.value.getBattleScenes());
-							endScenes.addAll(next.value.getEndScenes());
-							Array<Scene> nextScenes = next.value.getScenes();
-							scenes.addAll(nextScenes);
-							Scene nextScene = nextScenes.first();
-							sceneMap.put(nextScene.getCode(), nextScene);
+							weld(scenes, battleScenes, endScenes, next, sceneMap);
 						}
 						
 						ChoiceScene choiceScene = new ChoiceScene(sceneMap, sceneCounter, saveService, font, choiceBranchToken.getToDisplay(), table, new BackgroundBuilder(assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getTexture())).build());
@@ -459,11 +453,7 @@ public class EncounterBuilder2 {
 							button.addListener(getListener(choiceScene, nextScene, buttonSound, next.value.require, button));
 							table.add(button).size(650, 150).row();
 						}
-						
-						scenes.add(choiceScene);
-						sceneMap = new OrderedMap<Integer, Scene>();
-						sceneMap.put(choiceScene.getCode(), choiceScene);
-						masterSceneMap.put(sceneCounter++, choiceScene);
+						sceneMap = addScene(scenes, choiceScene, true);						
 						break;
 					case EndGame:
 					case EndEncounter:
@@ -471,9 +461,7 @@ public class EncounterBuilder2 {
 						if (branchToken.type == EndTokenType.EndEncounter) newEndScene = new EndScene(EndScene.Type.ENCOUNTER_OVER, saveService, returnContext);
 						else newEndScene = new EndScene(EndScene.Type.GAME_OVER, saveService, SaveManager.GameContext.GAME_OVER);
 						endScenes.add(newEndScene);
-						scenes.add(newEndScene);
-						sceneMap = new OrderedMap<Integer, Scene>();
-						sceneMap.put(newEndScene.getCode(), newEndScene);
+						sceneMap = addScene(scenes, newEndScene, false);		
 						break;
 				}
 			}
