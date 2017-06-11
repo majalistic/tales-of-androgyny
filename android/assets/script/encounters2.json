@@ -4,11 +4,10 @@
 		"scriptLines": [
 			{
 				"music": "WEREWOLF_MUSIC",
-				"mutations": [{"profileSaveType":"KNOWLEDGE", "value":{"class": "java.lang.String", "value": "Wereslut"},}],
+				"mutations": [{"profileSaveType":"KNOWLEDGE", "value":{"class": "java.lang.String", "value": "Wereslut"}}],
 				"text": "There are wolves in the forest - you know, because you've been hearing them howl in the distance, and as you traverse the woods, you've been hearing the occasional growling - albeit higher pitched than you would expect."}, 
 			{"text":"The growling gets louder and louder, until, finally, a wolf emerges from the bushes... and she has big, fat boobs!"},
 			{
-				
 				"foreground":"WEREBITCH", 
 				"text": "\"Grrr...\" she growls, holding up her clawed paws.  \"Just kidding,\" she says, dropping them to her skirt, \"I'm not gonna eat ya!  I just want to mate!\""},
 			{"text": "You look her up and down.  \"Mate\"?  Her proportions are amazing - she's no slouch.  She's dressed like a nearby villager, but her clothes are in tatters.  You wonder what she is - maybe a werewolf?  It's possible her libido has been out of control since she was turned."},
@@ -23,8 +22,7 @@
 	{
 		"key": "WEREWOLF-VICTORY",
 		"scriptLines": [
-			{"text": "You defeated the werebitch!"}, 
-			{"mutations": [{"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": 2}}],"text": "You receive 2 Experience."}
+			{"mutations": [{"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": 2}}], "text": "You defeated the werebitch!"}
 		]
 	},
 	{
@@ -81,6 +79,103 @@
 		"scriptLines": [
 			{"text": "She seems content.  Her dangling genitalia are no longer aroused, which gives you a sense of ease that you otherwise don't feel; after all, you did just swallow all of her runny wolf cum."},
 			{"text": "She saunters off, in a daze."}
+		]
+	},
+	{
+		"key": "HARPY-INTRO",
+		"scriptLines": [
+			{
+			"mutations": [{"profileSaveType":"KNOWLEDGE", "value":{"class": "java.lang.String", "value": "Harpy"}}],
+			"text": "You look around. There don't appear to be any harpies here."}, 
+			{"text": "That being said, there's a rather pungent scent in the air, and you've been hearing squawks and the flappings of tremendous wings for a while."},
+			{"text": "You look up and behind you to try to spot the source, but the sky is empty - however, when you turn back, you can plainly see a figure approaching rapidly, talons extended!"}
+		]
+	},
+	{
+		"key": "HARPY-DODGE",
+		"scriptLines": [
+			{"text": "You deftly sidestep the harpy's dive, extending your arm to clothesline her in the process."},
+			{"text": "The impact nearly drags you both to the ground, but the robust harpy seems relatively unharmed, though she crashes to the floor with her face in the dirt."},
+			{"text": "It's time to act!"}
+		]
+	},
+	{
+		"key": "HARPY-DUCK",
+		"scriptLines": [
+			{"text": "You manage to duck underneath the approaching figure, which has the unfortunate side effect of giving you a full view of her intentions."}, 
+			{"text": "Her heavily foreskinned bird dick just narrowly misses its intended target - your mouth - and flies by as a blur."},
+			{"text": "It's time to act!"}
+		]
+	},
+	{
+		"key": "HARPY-HORK",
+		"scriptLines": [
+			{
+			"foreground": "HARPY_FELLATIO_1",
+			"text": "You're too slow to dodge the harpy!"},
+			{"text": "Her lower body crashes into your face at high speed - you're knocked to the ground, and your mouth, open in surprise, is filled!"},
+			{"text": "The harpy lets out a moaning screech, and her tongue lolls out in satisfaction!"},
+			{"text": "Before you even know what happened, you're tasting the worst the harpy has to offer - her slimy penis!"},
+			{"text": "It tastes like it's never been washed, and the harpy looks down at you with frenzy in her wild eyes; she obviously has taken a liking to your lips in an unfortunate way!"},
+			{"text": "Her talons grip your head and she gets ready to begin pistoning into your face.  It's time to act!"}
+		]
+	},	
+	{
+		"key": "HARPY-VICTORY",
+		"scriptLines": [
+			{"mutations": [{"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": 2}}], "text": "You defeated the harpy!"}		
+		]
+	},
+	{
+		"key": "HARPY-DEFEAT",
+		"scriptLines": [
+			{
+			"animatedForeground": "HARPY",
+			"text": "You collapse to the floor, unable to withstand the harpy's attacks.  You anticipate the killing blow, face-down in the dirt, but it never comes.  Instead, you can sense the harpy stalking around you, inspecting you closely.  Finally, with a squawk, she rears up, takes off into the air, and grabs your clothes with her talons, hoisting you into the air."},
+			{"text": "You're terrified that her talons will finish ripping your shirt and send you plummeting to the ground as she carries you, mostly immobile, high into the air, over the countryside.  The view is startling, but breathtaking - as the sun visibly sets below far off mountains, a shadow is cast across the land, and the sky dyes itself in vivid orange and purples."},
+			{"text": "While she carries you, she flies in the direction of the distant mountains - and a dark premonition settles in your fight-hazed mind - is she bringing you back to her nest as a fresh kill?"},
+			{"text": "Looking up, you can make out her still-stiff willy, buffeted by the wind as she flies. You wonder if it's causing a noticable amount of drag, but it's nearly impossible to tell how fast you're actually moving."},
+			{"text": "Travelling between mountain peaks, you see that there are other harpies about - hundreds of them. Again, a dark thought enters your mind, as the harpies converge and attempt to steal her bounty, resulting in you plummeting to the ground amidst the struggle.  Thankfully, the other harpies are content to screech and caw at you."},
+			{"text": "You see small inlets lining a mountain face, a sheer drop down to the valley below, and you wonder if they're naturally made or somehow carved out, seeing how regular they are. In most, if not all of them, is a bundle of straw and twigs - likely brought by the harpies from miles away, much like yourself."},
+			{"text": "You are dropped in one such nest, and the harpy works quickly to dispel any notion that she intends to consume you, and, simultaneously, to consummate your marriage."},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1}}],
+			"text": "It isn't long before you are pantsless, red-faced, and anally penetrated - any hope that the harpy's covered dick wasn't hard for you is dashed along with the cock-emptiness of your rectum."},
+			{"text": "It sits heavily in there, throbbing and fat, as you acclimate to her avian mating ritual."},
+			{"text": "\"Man, man! Caw! Eggs, eggs!\" she exclaims, in broken human tongue, as her filthy cock emasculates you with hawk-like efficiency."},
+			{"text": "It occurs to you that she hadn't said a word to you in between taking you back to her home and anally violating you - she was so swift at it, in fact, that you're still not able to understand it. You know she has a cock and you know your ass feels full, but their true connection is only slowly dawning."},  
+			{"text": "You're hanging quite nearly over the ledge, and you can see downwards that you can't actually see where the sky ends and the ground begins, and you aren't too keen on going down to investigate. She thrusts from behind, flat against you, and you push back to prevent from sliding forward - which means you're an active participant in this consummation."},
+			{"text": "With what looks like a thousand foot drop as your only other option, it seems you really don't have much of a choice."},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analEjaculation":1}}],
+			"text": "If the harpy was quick to start, she's incredibly slow to finish - slow enough, in fact, that the heat and pressure in your bowels gives way to a pressure coming from within your testicles, which, soon enough, expresses itself outwards."},
+			{"text": "As you ejaculate from harpy-induced anal frustration, you remain mostly silent - unlike the harpy, who, at the moment of her triumph, screeches for all to hear."},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "creampies":1}}],
+			"text": "As that high wail assaults your ears, her birdy semen assaults your bowels - and by the volume she puts out, you doubt that she's about to fly you back down now that she's finished."},
+			{"text": "She pulls out, and cradles you in her wings - a sweet gesture, but you have difficulty appreciating it."},			
+			{"text": "Your asshole is twitching uncomfortably - the harpy's unnatural mating has left it feeling rather like a mishandled pussy, with roughly the same amount of nasty, runny harpy semen drooling out of it, and a similar gaping, clearly-used appearance."},
+			{"text": "Having been wrong-holed by an unwashed harpy, your dignity as a man has taken a nosedive, but, on the bright side, at least you can only be pegged by a birdgirl with a dick for the first time once."},
+			{"text": "Indeed, it wasn't the last time that the harpy's stinky bird dick rummaged through your rectum during a frantic, feathery anal sex session - trapped in the high-up, remote nest, it became a daily occurence, as the harpy returned with food, pre-chewed, as well as baubles, and also a big need to seed to fertilize some non-existent eggs."},
+			{"text": "Her romantic overtures aren't exactly unrequited - she becomes audibly irritated with you whenever you cover her nesting material in sticky, wasted semen, which itself is a daily occurence, coinciding with her daily matings, which instill in you a certain perverse desire, the tangible result of which is a spurt of semen that never fails to bring a redness to your cheeks."},
+			{"text": "Your only visitors are rival harpies, which, thankfully, she defends you from quite handily - she seems to be something of a fighter.  Still, they often gather and gawk and squawk as you attend to your \"wifely\" duties, and the fire that you feel in your at-the-time harpy-invaded hole is nothing compared to the shame of their bird-brained jeers and misaimed hoots of encouragement."},
+			{"text": "Well, not nothing - your harpy wife's chubby bird schlong rubs the stretched-thin membrane of your anus with so much determined friction that no one would ever mistake, at a glance, your puffy, irritated hole as anything but something that a harpy-with-a-dick has on lockdown, but, still.  It's embarrassing."},
+			{"text": "Your time as an adventurer becomes a distant dream while you live your life high atop that nameless mountain peak, wetting her nesting material with your wasted semen while she fills your stretched and pummeled rectum with hers.  You regret losing in battle to her - if you hadn't, perhaps you wouldn't have lived the rest of your life getting butt-stuffed by her inhuman cock without rest."},
+			{"text": "With a whimper, that thought leaves your mind, as you sprinkle her straw with your anally-induced sperm for what might be the thousandth time.  Soon, she'll screech, and dump her bird-brained excuse of a reproductive act in your bowels, likewise for the thousandth time, but all you can think about, with that thought returning, is what would have happened if you won."}
+			{"text": "*SCREEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEECH*"}, 
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":10, "creampies":10}}],
+			"text": "*SPLURT, SPLURT*"},
+			{"text": "Bad End."}
+		]
+	},		
+	{
+		"key": "HARPY-SATISFIED",
+		"scriptLines": [
+			{
+			"animatedForeground": "HARPY",
+			"text": "The harpies tongue lolls out of her mouth, and her throbbing birdcock is now considerably less throbby, as it deflates, slick with the remains of her ejaculate."},
+			{"text": "She seems to be in some sort of daze, stumbling about on her talons, with little regard for your presence.  You take the opportunity to flee, having had enough bird cum for one lifetime."}
 		]
 	}
 ]}

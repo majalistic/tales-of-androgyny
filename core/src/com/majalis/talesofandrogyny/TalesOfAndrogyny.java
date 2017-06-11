@@ -24,7 +24,7 @@ import static com.majalis.encounter.EncounterCode.*;
 @SuppressWarnings("unused")
 public class TalesOfAndrogyny extends Game {
 	public static boolean patron = true;
-	public static EncounterCode setEncounter = WERESLUT;
+	public static EncounterCode setEncounter = HARPY;
 	
 	public void create() {	
 		

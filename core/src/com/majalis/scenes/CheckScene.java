@@ -72,6 +72,7 @@ public class CheckScene extends AbstractTextScene {
 			int amount = character.getPerks().get(perkToCheck, 0);
 			toDisplay += "Your " + perkToCheck.getLabel() + " score: " + amount + "\n\n";
 			for (Integer threshold : checkValues.keys()) {
+				if (threshold == 0) break;
 				toDisplay += perkToCheck.getLabel() + " check (" + threshold + "): ";
 				if (amount >= threshold) {
 					toDisplay += perkToCheck.isPositive() ? passValue : failValue;
@@ -83,12 +84,13 @@ public class CheckScene extends AbstractTextScene {
 				}
 			}
 			display.setText(toDisplay);
-			return defaultScene;
+			return checkValues.get(0);
 		}
 		else {
 			int amount = statToCheck == Stat.CHARISMA ? character.getLewdCharisma() : character.getRawStat(statToCheck);
 			toDisplay += "Your " + statToCheck.toString() + " score: " + amount + "\n\n";
 			for (Integer threshold : checkValues.keys()) {
+				if (threshold == 0) break;
 				toDisplay += statToCheck.toString() + " check (" + threshold + "): ";
 				if (amount >= threshold) {
 					toDisplay += passValue;
@@ -100,7 +102,7 @@ public class CheckScene extends AbstractTextScene {
 				}
 			}
 			display.setText(toDisplay);
-			return defaultScene;
+			return checkValues.get(0);
 		}
 	}
 	

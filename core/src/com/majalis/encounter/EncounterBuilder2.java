@@ -6,9 +6,11 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.IntArray;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.OrderedMap;
+import com.majalis.asset.AnimatedActor;
 import com.majalis.asset.AssetEnum;
 import com.majalis.battle.BattleCode;
 import com.majalis.battle.Battle.Outcome;
@@ -16,12 +18,15 @@ import com.majalis.character.EnemyCharacter;
 import com.majalis.character.EnemyEnum;
 import com.majalis.character.PlayerCharacter;
 import com.majalis.character.Stance;
+import com.majalis.character.AbstractCharacter.Stat;
+import com.majalis.character.SexualExperience.SexualExperienceBuilder;
 import com.majalis.save.ProfileEnum;
 import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveManager;
 import com.majalis.save.SaveService;
 import com.majalis.save.SaveManager.GameContext;
 import com.majalis.scenes.BattleScene;
+import com.majalis.scenes.CheckScene;
 import com.majalis.scenes.EndScene;
 import com.majalis.scenes.Mutation;
 import com.majalis.scenes.Scene;
@@ -58,19 +63,110 @@ public class EncounterBuilder2 {
 	}
 	
 	// this needs to be moved into EncounterCode
-	protected Encounter getEncounter() {
-		BattleCode battleCode = BattleCode.WERESLUT;
-		
-		// should probably be BattleBranch?
-		return new Branch()
-		    .textScene("WEREWOLF-INTRO").battleScene(
-		    	battleCode,
-		    	// this has a reference to the first node in this branch, which gets welded with the current context node
-		        new Branch(Outcome.VICTORY).textScene("WEREWOLF-VICTORY").encounterEnd(),
-		        new Branch(Outcome.KNOT).textScene("WEREWOLF-KNOT").gameEnd(),
-		        new Branch(Outcome.DEFEAT).textScene("WEREWOLF-DEFEAT").encounterEnd(),
-		        new Branch(Outcome.SATISFIED).textScene("WEREWOLF-SATISFIED").encounterEnd()
-		    ).getEncounter();
+	protected Encounter getEncounter(EncounterCode encounterCode) {
+		switch (encounterCode) {
+			case ADVENTURER:
+				break;
+			case BEASTMISTRESS:
+				break;
+			case BRIGAND:
+				break;
+			case CAMP_AND_EAT:
+				break;
+			case CENTAUR:
+				break;
+			case COTTAGE_TRAINER:
+				break;
+			case COTTAGE_TRAINER_VISIT:
+				break;
+			case CRIER_QUEST:
+				break;
+			case DEFAULT:
+				break;
+			case DRYAD:
+				break;
+			case ECCENTRIC_MERCHANT:
+				break;
+			case ERROR:
+				break;
+			case FIRST_BATTLE_STORY:
+				break;
+			case FORT:
+				break;
+			case GADGETEER:
+				break;
+			case GOBLIN:
+				break;
+			case HARPY:
+				Branch[] battleBranches = new Branch[]{new Branch(Outcome.VICTORY).textScene("HARPY-VICTORY").encounterEnd(), new Branch(Outcome.DEFEAT).textScene("HARPY-DEFEAT").gameEnd(), new Branch(Outcome.SATISFIED).textScene("HARPY-SATISFIED").encounterEnd()};
+				return new Branch().textScene("HARPY-INTRO").checkScene(
+					Stat.AGILITY,
+					new Branch(6).textScene("HARPY-DODGE").battleScene(
+						BattleCode.HARPY, Stance.BALANCED, Stance.PRONE,
+						battleBranches
+					),
+					new Branch(4).textScene("HARPY-DUCK").battleScene(
+						BattleCode.HARPY, Stance.KNEELING, Stance.BALANCED,
+						battleBranches
+					),
+					new Branch(0).textScene("HARPY-HORK").battleScene(
+						BattleCode.HARPY, Stance.FELLATIO_BOTTOM, Stance.FELLATIO,
+						battleBranches
+					) 
+			    ).getEncounter();
+			case INITIAL:
+				break;
+			case INN:
+				break;
+			case LEVEL_UP:
+				break;
+			case MERI_COTTAGE:
+				break;
+			case MERI_COTTAGE_VISIT:
+				break;
+			case OGRE:
+				break;
+			case OGRE_STORY:
+				break;
+			case OGRE_WARNING_STORY:
+				break;
+			case ORC:
+				break;
+			case SHOP:
+				break;
+			case SLIME:
+				break;
+			case SOUTH_PASS:
+				break;
+			case STARVATION:
+				break;
+			case STORY_FEM:
+				break;
+			case STORY_SIGN:
+				break;
+			case TOWN:
+				break;
+			case TOWN2:
+				break;
+			case TOWN_CRIER:
+				break;
+			case TOWN_STORY:
+				break;
+			case WEAPON_SHOP:
+				break;
+			case WERESLUT:
+				return new Branch().textScene("WEREWOLF-INTRO").battleScene(
+			    	BattleCode.WERESLUT,
+			    	// this has a reference to the first node in this branch, which gets welded with the current context node
+			        new Branch(Outcome.VICTORY).textScene("WEREWOLF-VICTORY").encounterEnd(),
+			        new Branch(Outcome.KNOT).textScene("WEREWOLF-KNOT").gameEnd(),
+			        new Branch(Outcome.DEFEAT).textScene("WEREWOLF-DEFEAT").encounterEnd(),
+			        new Branch(Outcome.SATISFIED).textScene("WEREWOLF-SATISFIED").encounterEnd()
+			    ).getEncounter();
+			case WEST_PASS:
+				break;
+		}
+		return null;
 	}
 
 	enum EndTokenType {
@@ -83,7 +179,7 @@ public class EncounterBuilder2 {
 	public class Branch {
 		
 		Array<SceneToken> sceneTokens;
-		ObjectMap<Object, Branch> branchOptions;
+		OrderedMap<Object, Branch> branchOptions;
 		Object key;
 		BranchToken branchToken;
 		BattleCode battleCode;
@@ -100,6 +196,12 @@ public class EncounterBuilder2 {
 		public Branch () {
 			init();
 		}
+	
+		public Branch (int check) {
+			init();
+			key = check;
+		}
+		
 		public Branch (Outcome type) {
 			init();
 			key = type;
@@ -107,14 +209,19 @@ public class EncounterBuilder2 {
 		
 		private void init() {
 			sceneTokens = new Array<SceneToken>();
-			branchOptions = new ObjectMap<Object, Branch>();
+			branchOptions = new OrderedMap<Object, Branch>();
 		}
 		
 		public Branch textScene(String key) {
-			// this needs to persist certain things like sound/music/background until they're changed - the tokens themselves should have a reference to that persistence
-			// if field == null, populate current running value
-			// need to be careful with this - should only populate background if animatedBackground is null and vice versa as well
 			sceneTokens.addAll(reader.loadScript(key));
+			return this;
+		}
+		
+		public Branch checkScene(Stat toCheck, Branch ... branches) {
+			branchToken = new CheckSceneToken(toCheck);
+			for (Branch branch : branches) {
+				branchOptions.put(branch.getKey(), branch);
+			}
 			return this;
 		}
 		
@@ -123,9 +230,6 @@ public class EncounterBuilder2 {
 			// for each of the branches, add them to the next map with their associated code
 			branchToken = new BattleSceneToken(battleCode);
 			for (Branch branch : branches) {
-				// this needs to call a method to persist certain things on each of these branches
-				// if field == null, populate current running value
-				// need to be careful with this - should only populate background if animatedBackground is null and vice versa as well
 				branchOptions.put(branch.getKey(), branch);
 			}
 			this.battleCode = battleCode;
@@ -177,7 +281,7 @@ public class EncounterBuilder2 {
 					case Battle:
 						// for each branch get the scenes, the first entry in that list is what this branchToken scene should be tied to
 						ObjectMap<String, Integer> outcomeToScene = new ObjectMap<String, Integer>();
-						for (ObjectMap.Entry<Object, Branch> next : branchOptions) {
+						for (OrderedMap.Entry<Object, Branch> next : branchOptions) {
 							next.value.preprocess();
 							// grab the first scene, add it to the map, use the map to generate the appropriate scene
 							battleScenes.addAll(next.value.getBattleScenes());
@@ -194,7 +298,25 @@ public class EncounterBuilder2 {
 						battleScenes.add(newBattleScene);
 						sceneMap = new OrderedMap<Integer, Scene>();
 						sceneMap.put(newBattleScene.getCode(), newBattleScene);
+						break;
 					case Check:
+						OrderedMap<Integer, Scene> checkValueMap = new OrderedMap<Integer, Scene>();
+						for (ObjectMap.Entry<Object, Branch> next : branchOptions) {
+							next.value.preprocess();
+							// grab the first scene, add it to the map, use the map to generate the appropriate scene
+							battleScenes.addAll(next.value.getBattleScenes());
+							endScenes.addAll(next.value.getEndScenes());
+							Array<Scene> nextScenes = next.value.getScenes();
+							scenes.addAll(nextScenes);
+							Scene nextScene = nextScenes.first();
+							sceneMap.put(nextScene.getCode(), nextScene);
+							checkValueMap.put(((Integer) next.key), nextScene);
+						}
+						CheckScene checkScene = new CheckScene(sceneMap, sceneCounter, assetManager, saveService, font,  new BackgroundBuilder(assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getTexture())).build(), ((CheckSceneToken)branchToken).getStat(), checkValueMap, checkValueMap.get(0), character);
+						scenes.add(checkScene);
+						sceneMap = new OrderedMap<Integer, Scene>();
+						sceneMap.put(checkScene.getCode(), checkScene);
+						masterSceneMap.put(sceneCounter++, checkScene);
 						break;
 					case Choice:
 						break;
@@ -333,6 +455,17 @@ public class EncounterBuilder2 {
 	}
 	
 	// this should have playerstance, disarm, etc. - right now this is basically unused
+		public class CheckSceneToken extends BranchToken {
+			private final Stat stat;
+			public CheckSceneToken(Stat stat) {
+				super(EndTokenType.Check);
+				this.stat = stat;
+			}
+			public Stat getStat() { return stat; }
+			
+		}
+	
+	// this should have playerstance, disarm, etc. - right now this is basically unused
 	public class EndSceneToken extends BranchToken {
 		public EndSceneToken(EndTokenType endType) {
 			super(endType);
@@ -344,6 +477,7 @@ public class EncounterBuilder2 {
 	// this represents a text-like scene - it should be able to display text, show who is talking, display a new background, play an animation, play a sound, mutate the game state 
 	// these will be serialized into the actual script and have their own key
 	public static class SceneToken {
+		// this should also have a fontEnum to determine what font the text is displayed in
 		String text;
 		String speaker;
 		AssetEnum background;
@@ -355,11 +489,8 @@ public class EncounterBuilder2 {
 		public void preprocess(AssetEnum startBackground, AssetEnum startForeground, EnemyEnum startAnimatedForeground) {
 			if (background == null) background = startBackground;
 			if (foreground == null) foreground = startForeground;
-			if (startAnimatedForeground == null) animatedForeground = startAnimatedForeground;
-		}
-		
-		// this should also have a fontEnum to determine what font the text is displayed in
-		
+			if (animatedForeground == null) animatedForeground = startAnimatedForeground;
+		}		
 	}
 	
 	public static class MutateToken {
@@ -408,7 +539,6 @@ public class EncounterBuilder2 {
     	public ScriptData[] script;
     	// 0-arg constructor for JSON serialization: DO NOT USE
 		private FullScript(){}
-
     }
     
     /* package for containing the data in a pretty format, an array of which deserializes to an IntMap */
@@ -418,7 +548,4 @@ public class EncounterBuilder2 {
     	// 0-arg constructor for JSON serialization: DO NOT USE
 		private ScriptData(){}
     }
-
-	
-	
 }
