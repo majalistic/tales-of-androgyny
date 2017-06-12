@@ -1835,7 +1835,7 @@
 	{
 		"key": "ADVENTURER-SNARE",
 		"scriptLines": [
-			{"text": "You notice it - a snare.  Tied to a hefty rock, it seems.   It would take some time for a person to be free of it, were it to snare their leg.  It wasn't there when you passed by earlier, for certain, or one of you would have doubtless tripped it."},
+			{"text": "You notice it - a snare.  Tied to a hefty rock, it seems. It would take some time for a person to be free of it, were it to snare their leg.  It wasn't there when you passed by earlier, for certain, or one of you would have doubtless tripped it."},
 			{"text": "You stop walking... and notice that Trudy stops half a pace behind you.  Their gaze flicks over to the snare for but a moment, then meets yours."},
 			{"text": "\"W-What's the matter? Do you hear something?\" they say, and you can tell that they're feigning ignorance."}
 		]
@@ -2037,19 +2037,22 @@
 		]
 	},
 	{
-		"key": "009-INTRO",
+		"key": "OGRE-INTRO",
 		"scriptLines": [
-			{"text": "."}
+			{
+			"mutations": [{"profileSaveType":"KNOWLEDGE", "value":{"class": "java.lang.String", "value": "Ogre"}}],			
+			"music": "WEREWOLF_MUSIC",
+			"text": "."}
 		]
 	},
 	{
-		"key": "009-00",
+		"key": "OGRE-ENTRANCE",
 		"scriptLines": [
 			{"text": "The air around you is heavy, and you can hear a deep rumbling noise an unclear distance away."}
 		]
 	},
 	{
-		"key": "009-01",
+		"key": "OGRE-SPOTTED",
 		"scriptLines": [
 			{"text": "The sound gets louder and louder, and you realize that it's snoring - loud snoring."},
 			{"text": "You come across... a sleeping ogre, thankfully still sleeping, cradling a pile of jewels."},
@@ -2059,105 +2062,138 @@
 		]
 	},
 	{
-		"key": "009-02",
+		"key": "OGRE-STEALTH",
 		"scriptLines": [
-			{"text": "You approach the ogre, keeping quiet all the while, your footfalls barely louder than your heartbeat."}
+			{
+			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "OGRE", "value":1}}],
+			"foreground": "OGRE",
+			"text": "You approach the ogre, keeping quiet all the while, your footfalls barely louder than your heartbeat."}
 		]
 	},
 	{
-		"key": "009-03",
+		"key": "OGRE-STEAL",
 		"scriptLines": [
-			{"text": "As you get closer, you notice one of the jewels is substantially larger and expensive looking... and as you reach for it, feeling the ogre's breath exhaled from his nostrils nearly lifts you off your feet... you manage to pluck it from the pile without alerting him."},
+			{
+			"mutations": [{"saveType":"GOLD", "value":{"class": "java.lang.Integer", "value": 20}}],
+			"text": "As you get closer, you notice one of the jewels is substantially larger and expensive looking... and as you reach for it, feeling the ogre's breath exhaled from his nostrils nearly lifts you off your feet... you manage to pluck it from the pile without alerting him."},
 			{"text": "Satisfied that you've got the best of the situation, you hastily, but carefully, make your retreat, visions of gold flashing before your eyes."}
 		]
 	},
 	{
-		"key": "009-04",
+		"key": "OGRE-WAKE",
 		"scriptLines": [
 			{"text": "As you get closer, you notice one of the jewels is substantially larger and expensive looking... and as you reach for it, feeling the ogre's breath exhaled from his nostrils nearly lifts you off your feet... you step back, onto a twig, snapping it."},
 			{"text": "The ogre's eyes open, and he clumsily gets to his feet... before hefting his massive club, ready to defend his hoard!"}
 		]
 	},
 	{
-		"key": "009-05",
+		"key": "OGRE-WAKE2",
 		"scriptLines": [
 			{"text": "You fail to ambush the ogre - and he is not amused! He wakes, digs into the earth with his nails as he dregs up his club, and attacks!"}
 		]
 	},
 	{
-		"key": "009-06",
+		"key": "OGRE-MARRY",
 		"scriptLines": [
-			{"text": "You follow the ogre back to his lair... where you spend the rest of your days."}
+			{
+			"foreground": "OGRE_BANGED",
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":100, "creampies": 5, "analEjaculation": 5, "ogre":true}}],				
+			"text": "You follow the ogre back to his lair... where you spend the rest of your days."}
 		]
 	},
 	{
-		"key": "009-07",
+		"key": "OGRE-HARDSELL",
 		"scriptLines": [
 			{"text": "You bend over to show the ogre your gaping asshole, but you're not sure why.  Before you can take it back, he inserts a massive digit, perhaps out of curiosity, and though you had been thoroughly stretched by his massive dong, feeling him root around in your distended, aching rectum makes you grit your teeth, hard."},
 			{"text": "As soon as he loses interest, you turn away, hiding your recently vacated hole from his view.  You may have an... unhealthy fixation with large creatures, but you're not stupid.  You come back to your senses."}
 		]
 	},
 	{
-		"key": "009-08",
+		"key": "OGRE-FLIRT",
 		"scriptLines": [
 			{"text": "You mumble out a meek, \"hey, uh... call me?\" before your senses return.  The ogre doesn't seem to notice."}
 		]
 	},
+
 	{
-		"key": "009-09",
+		"key": "OGRE-VICTORY",
 		"scriptLines": [
-			{"text": "You won, somehow!  You gather the scattered gems in order to sell them."},
-			{"text": "You gain 5 Experience."}
+			{
+			"mutations": [{"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": 5}}],
+			"text": "You won, somehow!  You gain 5 Experience."}
 		]
 	},
 	{
-		"key": "009-10",
+		"key": "OGRE-VICTORY-GOLD",
+		"scriptLines": [
+			{
+			"mutations": [{"saveType":"GOLD", "value":{"class": "java.lang.Integer", "value": 50}}],
+			"text": "You gather the scattered gems in order to sell them."}
+		]
+	},
+	{
+		"key": "OGRE-DEFEAT",
 		"scriptLines": [
 			{"text": "You were defeated.  Duh."},
 			{"text": "The ogre lifts you up by your legs, and you squeal in surprise as you feel his thick tower threatening to impale you."},
-			{"text": "Aided by gravity, the ogre's fat cockhead enters your ass!"},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1, "creampies": 2, "ogre":true}}],				
+			"text": "Aided by gravity, the ogre's fat cockhead enters your ass!"},
 			{"text": "You are completely at his mercy - each inch up or down he controls by grasping your legs and dragging you like a doll across his towering mast."},
-			{"text": "He twitches, deep in your bowels, and it feels like a volcano erupting inside your guts - the ogre cum enema you never hoped to receive. The sound of it is enough to cause your ears to ring."},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analEjaculation":1, "creampies": 4}}],
+			"text": "He twitches, deep in your bowels, and it feels like a volcano erupting inside your guts - the ogre cum enema you never hoped to receive. The sound of it is enough to cause your ears to ring."},
 			{"text": "You lay there, finding it difficult to move, as the ogre's cum bubbles out of your gaped butthole."}
 		]
 	},
 	{
-		"key": "009-11",
+		"key": "OGRE-SATISFIED",
 		"scriptLines": [
-			{"text": "The ogre pulls you off of his massive cock, and his cum drools out of your utterly destroyed asshole in rivers, before he discards you on the ground."}
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analEjaculation":1, "ogre":true}}],
+			"text": "The ogre pulls you off of his massive cock, and his cum drools out of your utterly destroyed asshole in rivers, before he discards you on the ground."}
 		]
 	},
 	{
-		"key": "009-12",
+		"key": "OGRE-GRABBED",
 		"scriptLines": [
 			{"text": "All at once, the ogre snaps you up in his massive fist! You are completely helpless in his grasp!"},
-			{"text": "Aided by gravity, the ogre's fat cockhead smashes into your ass!"},
+			{
+			"foreground": "OGRE_BANGED",
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1, "creampies": 2, "ogre":true}}],				
+			"text": "Aided by gravity, the ogre's fat cockhead smashes into your ass!"},
 			{"text": "You are completely at his mercy - each inch up or down he controls by grasping your legs and dragging you like a doll across his towering mast."},
-			{"text": "He twitches, deep in your bowels, and it feels like a volcano erupting your guts - the ogre cum enema you never hoped to receive. The sound of it is enough to cause your ears to ring."}
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analEjaculation":1, "creampies": 4}}],
+			"text": "He twitches, deep in your bowels, and it feels like a volcano erupting your guts - the ogre cum enema you never hoped to receive. The sound of it is enough to cause your ears to ring."}
 			{"text": "You lay there, finding it difficult to move, as the ogre's cum bubbles out of your gaped butthole."}
 		]
 	},
 	{
-		"key": "009-13",
+		"key": "OGRE-ENDURE",
 		"scriptLines": [
-			{"text": "Despite the... rough encounter, you manage to get to your feet and leave before the ogre wakes from his nap."}
+			{
+			"foreground": "OGRE",
+			"text": "Despite the... rough encounter, you manage to get to your feet and leave before the ogre wakes from his nap."}
 		]
 	},
 	{
-		"key": "009-14",
+		"key": "OGRE-SURPRISE",
 		"scriptLines": [
 			{"text": "You can't locate the source of the sound, even as it grows louder - while looking around, you're so distracted that you bumble into something."},
 			{"text": "Something... something large... and fleshy. You trace your gaze upwards... at an ogre."}
 		]
 	},
 	{
-		"key": "009-15",
+		"key": "OGRE-BATTLE",
 		"scriptLines": [
-			{"text": "You come across an ogre!  It attacks!"}
+			{
+			"foreground": "OGRE",
+			"text": "You come across an ogre!  It attacks!"}
 		]
 	},
 	{
-		"key": "009-16",
+		"key": "OGRE-PASSERBY",
 		"scriptLines": [
 			{"text": "By the time you return to the road, you collapse, exhausted."},
 			{"text": "A passing merchant stumbles upon you, and sees the ogre's handiwork."},

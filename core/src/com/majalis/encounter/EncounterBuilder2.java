@@ -96,8 +96,6 @@ public class EncounterBuilder2 {
 					new Branch(0).textScene("ADVENTURER-SNARE-FAIL").concat(playerCaught)
 					
 				);
-				Branch inTheMiddle = new Branch().textScene("ADVENTURER-SNARE");
-				
 				return new Branch().textScene("ADVENTURER-INTRO").checkScene(
 					CheckType.ADVENTURER_ENCOUNTERED,
 					new Branch(true).textScene("ADVENTURER-ENTRANCE").encounterEnd(),
@@ -105,8 +103,8 @@ public class EncounterBuilder2 {
 						CheckType.ADVENTURER_HUNT, 
 						new Branch(true).textScene("ADVENTURER-HUNT-INTRO").checkScene(
 							Stat.PERCEPTION,
-							new Branch(6).concat(inTheMiddle).concat(scene1),
-							new Branch(3).concat(inTheMiddle).concat(scene2),
+							new Branch(6).textScene("ADVENTURER-SNARE").concat(scene1),
+							new Branch(3).textScene("ADVENTURER-SNARE").concat(scene2),
 							new Branch(0).concat(playerCaught)
 						),
 						new Branch(false).checkScene(
@@ -400,7 +398,56 @@ public class EncounterBuilder2 {
 			case MERI_COTTAGE_VISIT:
 				break;
 			case OGRE:
-				break;
+				Branch passerby = new Branch().textScene("OGRE-PASSERBY").encounterEnd();
+				Branch partingScene = new Branch().checkScene(
+					Perk.GIANT_LOVER,
+					new Branch(3).textScene("OGRE-MARRY").gameEnd(), 
+					new Branch(2).textScene("OGRE-HARDSELL").concat(passerby),  
+					new Branch(1).textScene("OGRE-FLIRT").concat(passerby), 
+					new Branch(0).concat(passerby)
+				);
+				Branch ogreFirstBattle = new Branch().battleScene(
+					BattleCode.OGRE, 
+					new Branch(Outcome.VICTORY).textScene("OGRE-VICTORY").concat(new Branch().textScene("OGRE-VICTORY-GOLD").encounterEnd()),
+					new Branch(Outcome.SATISFIED).textScene("OGRE-SATISFIED").concat(partingScene),
+					new Branch(Outcome.DEFEAT).textScene("OGRE-DEFEAT").concat(partingScene)
+				);
+				Branch ogreFirstBattleDisarm = new Branch().battleScene(BattleCode.OGRE, Stance.BALANCED, Stance.BALANCED, true, new Branch(Outcome.VICTORY).textScene("OGRE-VICTORY").concat(new Branch().textScene("OGRE-VICTORY-GOLD").encounterEnd()), new Branch(Outcome.SATISFIED).textScene("OGRE-SATISFIED").concat(partingScene));
+				Branch ogreSecondBattle = new Branch().battleScene(BattleCode.OGRE, new Branch(Outcome.VICTORY).textScene("OGRE-VICTORY").encounterEnd(), new Branch(Outcome.DEFEAT).textScene("OGRE-DEFEAT").concat(partingScene), new Branch(Outcome.SATISFIED).textScene("OGRE-SATISFIED").concat(partingScene));
+				Branch grabbedByOgre = new Branch().textScene("OGRE-GRABBED").checkScene(
+					Stat.ENDURANCE,
+					new Branch(4).textScene("OGRE-ENDURE").encounterEnd(), 
+					new Branch(0).gameEnd()
+				);
+				
+				return new Branch().textScene("OGRE-INTRO").checkScene(
+					CheckType.OGRE_DONE,
+					new Branch(true).textScene("OGRE-ENTRANCE").checkScene(
+						Stat.PERCEPTION, 
+						new Branch(3).textScene("OGRE-SPOTTED").choiceScene(
+							"Do you attempt to steal from the ogre or ambush him?",
+							new Branch("Steal").textScene("OGRE-STEALTH").checkScene(
+								Stat.AGILITY,
+								new Branch(7).textScene("OGRE-STEAL").encounterEnd(),
+								new Branch(5).textScene("OGRE-WAKE").concat(ogreFirstBattle),
+								new Branch(0).concat(grabbedByOgre)
+							), 
+							new Branch("Ambush").textScene("OGRE-STEALTH").checkScene(
+								Stat.AGILITY, 
+								new Branch(5).choiceScene(
+									"Pre-emptive ranged attack or kick away his club?",
+									new Branch("Ranged Attack").concat(ogreFirstBattle),
+									new Branch("Kick Away Club").concat(ogreFirstBattleDisarm)
+								),
+								new Branch(0).textScene("OGRE-WAKE2").concat(ogreFirstBattle)
+							),
+							new Branch("Leave").encounterEnd()
+						),
+						new Branch(0).textScene("OGRE-SURPRISE").concat(grabbedByOgre)
+					),
+					new Branch(false).textScene("OGRE-BATTLE").concat(ogreSecondBattle)
+					
+			    ).getEncounter();			
 			case OGRE_STORY:
 				break;
 			case OGRE_WARNING_STORY:
@@ -555,6 +602,7 @@ public class EncounterBuilder2 {
 		boolean disarm;
 		int climaxCounter;
 		ChoiceCheckType require;
+		int concatCounter;
 		
 		boolean preprocessed;
 		Array<Scene> scenes;
@@ -618,7 +666,7 @@ public class EncounterBuilder2 {
 		
 		public Branch weldBranches(Branch[] branches) {
 			for (Branch branch : branches) {
-				branchOptions.put(branch.getKey() != null ? branch.getKey() : true, branch);
+				branchOptions.put(branch.getKey() != null ? branch.getKey() : "CONCAT-"+concatCounter++, branch);
 			}
 			return this;
 		}
@@ -711,7 +759,10 @@ public class EncounterBuilder2 {
 		    Array<EndScene> endScenes = new Array<EndScene>();
 			OrderedMap<Integer, Scene> sceneMap = new OrderedMap<Integer, Scene>();
 			
+			boolean reverse = false;
+			
 			if (branchToken != null) {
+				reverse = true;
 				switch (branchToken.type) {
 					case Battle:
 						// for each branch get the scenes, the first entry in that list is what this branchToken scene should be tied to
@@ -798,56 +849,61 @@ public class EncounterBuilder2 {
 
 			Texture dialogBoxTexture = assetManager.get(AssetEnum.BATTLE_HOVER.getTexture());
 			
-			// iterate through and every time either background or foreground/animatedforeground change, create a new background
-			for (SceneToken token: sceneTokens) {
-				// if all of the tokens are  the same, clone the last background
-				if ((token.foreground == null || token.foreground == foreground) && (token.animatedForeground == null || token.animatedForeground == animatedForeground) && (token.background == null || token.background == background)) {
-					if (backgrounds.size > 0) {
-						backgrounds.add(backgrounds.get(backgrounds.size - 1).clone());
+			if (sceneTokens.size > 0) {
+				reverse = false;
+				// iterate through and every time either background or foreground/animatedforeground change, create a new background
+				for (SceneToken token: sceneTokens) {
+					// if all of the tokens are  the same, clone the last background
+					if ((token.foreground == null || token.foreground == foreground) && (token.animatedForeground == null || token.animatedForeground == animatedForeground) && (token.background == null || token.background == background)) {
+						if (backgrounds.size > 0) {
+							backgrounds.add(backgrounds.get(backgrounds.size - 1).clone());
+						}
+						else {
+							backgrounds.add(new BackgroundBuilder(assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getTexture())).setDialogBox(dialogBoxTexture).build());
+						}
 					}
 					else {
-						backgrounds.add(new BackgroundBuilder(assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getTexture())).setDialogBox(dialogBoxTexture).build());
+						BackgroundBuilder backgroundBuilder = new BackgroundBuilder(assetManager.get(token.background != null ? token.background.getTexture() : background != null ? background.getTexture() : AssetEnum.DEFAULT_BACKGROUND.getTexture())).setDialogBox(dialogBoxTexture); 
+						if (token.animatedForeground != null) {
+							int x = token.animatedForeground == EnemyEnum.BUTTBANG ? 555 : 0;
+							int y = token.animatedForeground == EnemyEnum.BUTTBANG ? 520 : 0;
+							backgroundBuilder.setForeground(EnemyCharacter.getAnimatedActor(token.animatedForeground), x, y);
+						}
+						else if (animatedForeground != null) {
+							int x = animatedForeground == EnemyEnum.BUTTBANG ? 555 : 0;
+							int y = animatedForeground == EnemyEnum.BUTTBANG ? 520 : 0;
+							backgroundBuilder.setForeground(EnemyCharacter.getAnimatedActor(animatedForeground), x, y);
+						}
+						else if (token.foreground != null) backgroundBuilder.setForeground(assetManager.get(token.foreground.getTexture()));
+						else if (foreground != null) backgroundBuilder.setForeground(assetManager.get(foreground.getTexture()));
+						backgrounds.add(backgroundBuilder.build());
 					}
+					background = token.background != null ? token.background : background;
+					foreground = token.foreground != null ? token.foreground : foreground;
+					animatedForeground = token.animatedForeground != null ? token.animatedForeground : animatedForeground;
 				}
-				else {
-					BackgroundBuilder backgroundBuilder = new BackgroundBuilder(assetManager.get(token.background != null ? token.background.getTexture() : background != null ? background.getTexture() : AssetEnum.DEFAULT_BACKGROUND.getTexture())).setDialogBox(dialogBoxTexture); 
-					if (token.animatedForeground != null) {
-						int x = token.animatedForeground == EnemyEnum.BUTTBANG ? 555 : 0;
-						int y = token.animatedForeground == EnemyEnum.BUTTBANG ? 520 : 0;
-						backgroundBuilder.setForeground(EnemyCharacter.getAnimatedActor(token.animatedForeground), x, y);
-					}
-					else if (animatedForeground != null) {
-						int x = animatedForeground == EnemyEnum.BUTTBANG ? 555 : 0;
-						int y = animatedForeground == EnemyEnum.BUTTBANG ? 520 : 0;
-						backgroundBuilder.setForeground(EnemyCharacter.getAnimatedActor(animatedForeground), x, y);
-					}
-					else if (token.foreground != null) backgroundBuilder.setForeground(assetManager.get(token.foreground.getTexture()));
-					else if (foreground != null) backgroundBuilder.setForeground(assetManager.get(foreground.getTexture()));
-					backgrounds.add(backgroundBuilder.build());
+				
+				backgrounds.reverse();
+				sceneTokens.reverse();
+				
+				// taking the branchToken scene and use it as the entrypoint, traversing the sceneTokens backwards and putting them into each other
+				int ii = 0;
+				for (SceneToken token: sceneTokens) {
+					String scriptLine = token.text.replace("<NAME>", characterName).replace("<BUTTSIZE>", buttsize).replace("<LIPSIZE>", lipsize);
+					// create the scene
+					Scene newScene = new TextScene(sceneMap, sceneCounter, assetManager, font, saveService, backgrounds.get(ii++), scriptLine, getMutations(token.mutations), character, token.music != null ? token.music.getMusic() : null, token.sound != null ? token.sound.getSound() : null);
+					// add it to array
+					scenes.add(newScene);
+					// use it to make the map
+					sceneMap = new OrderedMap<Integer, Scene>();
+					masterSceneMap.put(sceneCounter, newScene);
+					sceneMap.put(sceneCounter++, newScene);
 				}
-				background = token.background != null ? token.background : background;
-				foreground = token.foreground != null ? token.foreground : foreground;
-				animatedForeground = token.animatedForeground != null ? token.animatedForeground : animatedForeground;
+				
+				scenes.reverse();
 			}
 			
-			backgrounds.reverse();
-			sceneTokens.reverse();
-			
-			// taking the branchToken scene and use it as the entrypoint, traversing the sceneTokens backwards and putting them into each other
-			int ii = 0;
-			for (SceneToken token: sceneTokens) {
-				String scriptLine = token.text.replace("<NAME>", characterName).replace("<BUTTSIZE>", buttsize).replace("<LIPSIZE>", lipsize);
-				// create the scene
-				Scene newScene = new TextScene(sceneMap, sceneCounter, assetManager, font, saveService, backgrounds.get(ii++), scriptLine, getMutations(token.mutations), character, token.music != null ? token.music.getMusic() : null, token.sound != null ? token.sound.getSound() : null);
-				// add it to array
-				scenes.add(newScene);
-				// use it to make the map
-				sceneMap = new OrderedMap<Integer, Scene>();
-				masterSceneMap.put(sceneCounter, newScene);
-				sceneMap.put(sceneCounter++, newScene);
-			}
-			
-			scenes.reverse();
+			if (reverse) scenes.reverse();
 			this.scenes.addAll(scenes);
 			this.battleScenes.addAll(battleScenes);
 			this.endScenes.addAll(endScenes);
@@ -1045,9 +1101,7 @@ public class EncounterBuilder2 {
 			return convertedData;
 		}
 	  
-	    public SceneToken[] loadScript(String key){
-	    	return scriptData.get(key);
-	    }
+	    public SceneToken[] loadScript(String key) { return scriptData.get(key); }
 	   
 	}
 	

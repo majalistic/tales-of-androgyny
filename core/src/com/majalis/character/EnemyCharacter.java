@@ -258,7 +258,7 @@ public class EnemyCharacter extends AbstractCharacter {
 		if (enemyType == EnemyEnum.SLIME && !stance.isIncapacitatingOrErotic()) {
 			return getTechniques(target, SLIME_ATTACK, SLIME_QUIVER); 			
 		}
-		else if (enemyType == EnemyEnum.OGRE && !stance.isIncapacitatingOrErotic() && stance != Stance.HOLDING) {
+		else if (enemyType == EnemyEnum.OGRE && stance != Stance.KNEELING && !stance.isIncapacitatingOrErotic() && stance != Stance.HOLDING) {
 			if (willPounce() && lust > 20) {
 				lust = 20;
 				return getTechniques(target, SEIZE);						
