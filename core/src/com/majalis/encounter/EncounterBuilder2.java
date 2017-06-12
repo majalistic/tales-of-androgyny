@@ -127,7 +127,6 @@ public class EncounterBuilder2 {
 			case CENTAUR:
 				Branch[] centaurBattle = new Branch[]{new Branch(Outcome.VICTORY).textScene("CENTAUR-VICTORY").encounterEnd(), new Branch(Outcome.DEFEAT).textScene("CENTAUR-DEFEAT").gameEnd(), new Branch(Outcome.SATISFIED).textScene("CENTAUR-SATISFIED").encounterEnd()};
 				Branch[] unicornBattle = new Branch[]{new Branch(Outcome.VICTORY).textScene("UNICORN-VICTORY").encounterEnd(), new Branch(Outcome.DEFEAT).textScene("UNICORN-DEFEAT").encounterEnd()};
-				
 				return new Branch().textScene("CENTAUR-INTRO").checkScene(
 					CheckType.VIRGIN, 
 					new Branch(true).textScene("UNICORN-ENTRANCE").battleScene(
@@ -183,7 +182,152 @@ public class EncounterBuilder2 {
 			case GADGETEER:
 				break;
 			case GOBLIN:
-				break;
+				Branch postVirginityCheck = new Branch().choiceScene(
+					"Mouth, or ass?",
+					new Branch("In the Mouth").textScene("GOBLIN-MOUTH").encounterEnd(),
+					new Branch("Up The Ass").textScene("GOBLIN-ANAL").checkScene(
+						Stat.ENDURANCE, 
+						new Branch(3).textScene("GOBLIN-FIGHTOFF").encounterEnd(),
+						new Branch(0).textScene("GOBLIN-SECONDS").checkScene(
+							Stat.ENDURANCE,
+							new Branch(2).textScene("GOBLIN-FIGHTOFF").encounterEnd(),
+							new Branch(0).textScene("GOBLIN-THIRDS").checkScene(
+								Stat.ENDURANCE, 
+								new Branch(1).textScene("GOBLIN-FIGHTOFF").encounterEnd(),
+								new Branch(0).textScene("GOBLIN-FOURTHS").encounterEnd()
+							)
+						)
+					)
+				);
+				Branch[] battleScenes = new Branch[]{
+					new Branch(Outcome.VICTORY).textScene("GOBLIN-VICTORY").encounterEnd(), 
+					new Branch(Outcome.DEFEAT).textScene("GOBLIN-DEFEAT").checkScene(
+						CheckType.GOBLIN_VIRGIN,
+						new Branch(true).textScene("GOBLIN-VIRGIN").concat(postVirginityCheck),
+						new Branch(false).textScene("GOBLIN-EXPERT").concat(postVirginityCheck)
+					)
+				};
+				Branch pantsCutDown = new Branch(0).textScene("GOBLIN-PANTS-DOWN").battleScene(BattleCode.GOBLIN, Stance.DOGGY_BOTTOM, Stance.DOGGY, battleScenes);
+				
+				Branch cutPants = new Branch().textScene("GOBLIN-POST-SPEAR").choiceScene(
+					"Quick, what do you do?",
+					new Branch("Catch Her (5 AGI)").checkScene(
+						Stat.AGILITY,
+						new Branch(5).textScene("GOBLIN-CATCH").choiceScene(
+							"What do you do with her?",
+							new Branch("Put Her Down").textScene("GOBLIN-RELEASE").choiceScene(
+								"Accept Her Offer?",
+								new Branch("Accept").textScene("GOBLIN-ACCEPT").encounterEnd(),
+								new Branch("Decline").textScene("GOBLIN-DECLINE").encounterEnd()
+							),
+							new Branch("Turn Her Over Your Knee").textScene("GOBLIN-FLIP").checkScene(
+								Stat.STRENGTH,
+								new Branch(5).textScene("GOBLIN-SPANK").encounterEnd(),
+								new Branch(0).textScene("GOBLIN-GETBIT").encounterEnd()
+							)
+						),
+						pantsCutDown
+					),
+					new Branch("Trip Her (4 AGI)").checkScene(
+						Stat.AGILITY,
+						new Branch(4).textScene("GOBLIN-TRIP").choiceScene(
+							"What do you do?",
+							new Branch("Attack").battleScene(
+								BattleCode.GOBLIN, Stance.OFFENSIVE, Stance.PRONE,
+								battleScenes
+							),
+							new Branch("Run").textScene("GOBLIN-FLEE").encounterEnd()
+						),
+						pantsCutDown
+					),
+					new Branch("Disarm Her (3 AGI)").checkScene(
+						Stat.AGILITY,
+						new Branch(3).textScene("GOBLIN-DISARM").choiceScene(
+							"What do you do?",
+							new Branch("Attack Her").battleScene(
+								BattleCode.GOBLIN, Stance.OFFENSIVE, Stance.BALANCED, true,
+								battleScenes
+							),
+							new Branch("Block Her").battleScene(
+								BattleCode.GOBLIN, Stance.BALANCED, Stance.BALANCED, true,
+								battleScenes
+							),
+							new Branch("Let Her Go").encounterEnd()
+						),
+						pantsCutDown
+					),
+					new Branch("Avoid Her (2 AGI)").checkScene(
+						Stat.AGILITY,
+						new Branch(2).textScene("GOBLIN-DODGE").choiceScene(
+							"What do you do?",
+							new Branch("Attack Her").battleScene(
+								BattleCode.GOBLIN, Stance.OFFENSIVE, Stance.BALANCED,
+								battleScenes
+							),
+							new Branch("Block Her").battleScene(
+								BattleCode.GOBLIN, Stance.BALANCED, Stance.BALANCED,
+								battleScenes
+							),
+							new Branch("Let Her Go").encounterEnd()
+						),
+						pantsCutDown
+					)
+				);
+				
+				Branch[] goblinStrength = new Branch[]{new Branch(5).textScene("GOBLIN-SPEAR-STEAL").concat(cutPants),
+						new Branch(0).textScene("GOBLIN-SPEAR-DROP").concat(cutPants)};
+				Branch[] goblinSpear = new Branch[]{
+					new Branch(7).textScene("GOBLIN-SPEAR-GRAB").checkScene(
+						Stat.STRENGTH, 
+						goblinStrength
+					),
+					new Branch(5).textScene("GOBLIN-SPEAR-DODGE").concat(cutPants), 
+					new Branch(0).textScene("GOBLIN-SPEAR-STABBED").concat(cutPants)
+				};
+				
+				return new Branch().checkScene(
+					CheckType.GOBLIN_KNOWN,
+					new Branch(true).textScene("GOBLIN-INTRO").choiceScene(
+						"What path do you follow?",
+						new Branch("Pass By").textScene("GOBLIN-PASSBY").encounterEnd(),
+						new Branch("Enter the Small Path").textScene("GOBLIN-ENTRANCE").checkScene(
+							Stat.PERCEPTION, 
+							new Branch(7).textScene("GOBLIN-EAGLE-EYE").checkScene(
+								Stat.AGILITY,
+								new Branch(5).textScene("GOBLIN-SPEAR-GRAB").checkScene(
+									Stat.STRENGTH,
+									goblinStrength
+								),
+								new Branch(3).textScene("GOBLIN-SPEAR-DODGE").concat(cutPants),
+								new Branch(0).textScene("GOBLIN-SPEAR-STABBED").concat(cutPants)
+							),
+							new Branch(4).textScene("GOBLIN-CONTRAPTION").checkScene(
+								Stat.AGILITY,
+								goblinSpear
+							),
+							new Branch(0).textScene("GOBLIN-AMBUSH").checkScene(
+								Stat.AGILITY, 
+								new Branch(5).textScene("GOBLIN-LOG-DODGE").checkScene(
+									Stat.AGILITY, goblinSpear
+								),
+								new Branch(0).checkScene(
+									Stat.ENDURANCE,
+									new Branch(7).textScene("GOBLIN-OBLIVIOUS").encounterEnd(),
+									new Branch(0).textScene("GOBLIN-TOTALFAIL").encounterEnd()
+								)
+							)
+						)
+					),	
+					new Branch(false).textScene("GOBLIN-SECOND-QUEST").choiceScene(
+						"Which path do you follow?", 
+						new Branch("Familiar warning sign").textScene("GOBLIN-REUNION").encounterEnd(), 
+						new Branch("Other way").textScene("GOBLIN-MALE-INTRO").battleScene(
+							BattleCode.GOBLIN_MALE,
+							new Branch(Outcome.VICTORY).textScene("GOBLIN-MALE-VICTORY").encounterEnd(),
+							new Branch(Outcome.DEFEAT).textScene("GOBLIN-MALE-DEFEAT").gameEnd()
+						)
+					)
+				).getEncounter();
 			case HARPY:
 				Branch[] battleBranches = new Branch[]{new Branch(Outcome.VICTORY).textScene("HARPY-VICTORY").encounterEnd(), new Branch(Outcome.DEFEAT).textScene("HARPY-DEFEAT").gameEnd(), new Branch(Outcome.SATISFIED).textScene("HARPY-SATISFIED").encounterEnd()};
 				return new Branch().textScene("HARPY-INTRO").checkScene(
@@ -341,6 +485,10 @@ public class EncounterBuilder2 {
 			return this;
 		}
 		
+		public Branch concat(Branch branch) {
+			return weldBranches(new Branch[]{branch});
+		}
+		
 		public Branch choiceScene(String toDisplay, Branch ... branches) {
 			branchToken = new ChoiceSceneToken(toDisplay);
 			return weldBranches(branches);
@@ -363,18 +511,20 @@ public class EncounterBuilder2 {
 		
 		public Branch weldBranches(Branch[] branches) {
 			for (Branch branch : branches) {
-				branchOptions.put(branch.getKey(), branch);
+				branchOptions.put(branch.getKey() != null ? branch.getKey() : true, branch);
 			}
 			return this;
 		}
 		
 		public Branch battleScene(BattleCode battleCode, Branch ... branches) { return battleScene(battleCode, Stance.BALANCED, Stance.BALANCED, branches); }		
-		public Branch battleScene(BattleCode battleCode, Stance playerStance, Stance enemyStance, Branch ... branches) {
+		public Branch battleScene(BattleCode battleCode, Stance playerStance, Stance enemyStance, Branch ... branches) { return battleScene(battleCode, playerStance, enemyStance, false, branches); }
+		public Branch battleScene(BattleCode battleCode, Stance playerStance, Stance enemyStance, boolean disarm, Branch ... branches) {
 			// for each of the branches, add them to the next map with their associated code
 			branchToken = new BattleSceneToken(battleCode);
 			this.battleCode = battleCode;
 			this.playerStance = playerStance;
 			this.enemyStance = enemyStance;
+			this.disarm = disarm;
 			return weldBranches(branches);
 		}
 		
@@ -519,6 +669,11 @@ public class EncounterBuilder2 {
 						break;
 				}
 			}
+			else {
+				for (OrderedMap.Entry<Object, Branch> next : branchOptions) {
+					weld(scenes, battleScenes, endScenes, next, sceneMap);
+				}
+			}
 				
 			String characterName = character.getCharacterName();
 			String buttsize = character.getBootyLiciousness();
@@ -546,8 +701,16 @@ public class EncounterBuilder2 {
 				}
 				else {
 					BackgroundBuilder backgroundBuilder = new BackgroundBuilder(assetManager.get(token.background != null ? token.background.getTexture() : background != null ? background.getTexture() : AssetEnum.DEFAULT_BACKGROUND.getTexture())).setDialogBox(dialogBoxTexture); 
-					if (token.animatedForeground != null) backgroundBuilder.setForeground(EnemyCharacter.getAnimatedActor(token.animatedForeground), 0, 0);
-					else if (animatedForeground != null) backgroundBuilder.setForeground(EnemyCharacter.getAnimatedActor(animatedForeground), 0, 0);
+					if (token.animatedForeground != null) {
+						int x = token.animatedForeground == EnemyEnum.BUTTBANG ? 555 : 0;
+						int y = token.animatedForeground == EnemyEnum.BUTTBANG ? 520 : 0;
+						backgroundBuilder.setForeground(EnemyCharacter.getAnimatedActor(token.animatedForeground), x, y);
+					}
+					else if (animatedForeground != null) {
+						int x = animatedForeground == EnemyEnum.BUTTBANG ? 555 : 0;
+						int y = animatedForeground == EnemyEnum.BUTTBANG ? 520 : 0;
+						backgroundBuilder.setForeground(EnemyCharacter.getAnimatedActor(animatedForeground), x, y);
+					}
 					else if (token.foreground != null) backgroundBuilder.setForeground(assetManager.get(token.foreground.getTexture()));
 					else if (foreground != null) backgroundBuilder.setForeground(assetManager.get(foreground.getTexture()));
 					backgrounds.add(backgroundBuilder.build());

@@ -801,8 +801,10 @@ public class EnemyCharacter extends AbstractCharacter {
 	
 	public static AnimatedActor getAnimatedActor(EnemyEnum enemyType) {
 		AnimatedActor animation = null; 
+		if (enemyType == EnemyEnum.BUTTBANG) {
+			return new AnimatedActor("animation/SplurtGO.atlas", "animation/SplurtGO.json");
+		}
 		if (enemyType == EnemyEnum.HARPY || enemyType == EnemyEnum.CENTAUR || enemyType == EnemyEnum.UNICORN || enemyType == EnemyEnum.BRIGAND) {
-					
 			animation = new AnimatedActor(enemyType.getAnimationPath() + ".atlas", enemyType.getAnimationPath() + ".json", enemyType == EnemyEnum.HARPY ? .75f : enemyType == EnemyEnum.BRIGAND ? .475f : .60f, enemyType == EnemyEnum.HARPY || enemyType == EnemyEnum.BRIGAND ? 1f : 1.8f);
 			
 			if (enemyType == EnemyEnum.HARPY) {
