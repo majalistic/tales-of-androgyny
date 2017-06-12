@@ -40,7 +40,7 @@ public class EncounterFactory {
 			case DEFAULT: return builder.getDefaultEncounter();
 			default: return
 					encounterCode == EncounterCode.WERESLUT || encounterCode == EncounterCode.HARPY || encounterCode == EncounterCode.SLIME || encounterCode == EncounterCode.BRIGAND || encounterCode == EncounterCode.DRYAD || encounterCode == EncounterCode.CENTAUR || encounterCode == EncounterCode.GOBLIN
-					|| encounterCode == EncounterCode.ORC
+					|| encounterCode == EncounterCode.ORC || encounterCode == EncounterCode.ADVENTURER
 					? 
 					 new EncounterBuilder2(new EncounterReader2("script/encounters2.json"), assetManager, saveService, font, smallFont, sceneCode == 0 ? -1 : sceneCode, (ObjectMap<String, Shop>)loadService.loadDataValue(SaveEnum.SHOP, Shop.class), (PlayerCharacter) loadService.loadDataValue(SaveEnum.PLAYER, PlayerCharacter.class), context).getEncounter(encounterCode) : 
 					builder.getRandomEncounter(encounterCode);

@@ -75,7 +75,51 @@ public class EncounterBuilder2 {
 	protected Encounter getEncounter(EncounterCode encounterCode) {
 		switch (encounterCode) {
 			case ADVENTURER:
-				break;
+				Branch trudyBattle = new Branch().battleScene(
+					BattleCode.ADVENTURER,
+					new Branch(Outcome.VICTORY).textScene("ADVENTURER-VICTORY").choiceScene(
+						"What's the plan?", 
+						new Branch("Mount him").textScene("ADVENTURER-TOPPED").encounterEnd(), 
+						new Branch("MOUNT him (Requires: Catamite)").require(ChoiceCheckType.LEWD).textScene("ADVENTURER-BOTTOMED").encounterEnd(), 
+						new Branch("Rob him").textScene("ADVENTURER-ROBBED").encounterEnd()
+					),
+					new Branch(Outcome.DEFEAT).textScene("ADVENTURER-DEFEAT").encounterEnd(),
+					new Branch(Outcome.SATISFIED).textScene("ADVENTURER-SATISFIED").encounterEnd(),
+					new Branch(Outcome.SUBMISSION).textScene("ADVENTURER-SUBMISSION").encounterEnd()
+				);
+				Branch trudyCaught = new Branch().textScene("ADVENTURER-TRUDY-CAUGHT").encounterEnd();
+				Branch playerCaught = new Branch().textScene("ADVENTURER-SNARE-CAUGHT").encounterEnd();
+				Branch scene1 = new Branch().textScene("ADVENTURER-TRUDY-TRIP").concat(trudyCaught);
+				Branch scene2 = new Branch().textScene("ADVENTURER-STEP-OVER").checkScene(
+					Stat.AGILITY, 
+					new Branch(5).textScene("ADVENTURER-SNARE-DODGE").concat(trudyCaught),
+					new Branch(0).textScene("ADVENTURER-SNARE-FAIL").concat(playerCaught)
+					
+				);
+				Branch inTheMiddle = new Branch().textScene("ADVENTURER-SNARE");
+				
+				return new Branch().textScene("ADVENTURER-INTRO").checkScene(
+					CheckType.ADVENTURER_ENCOUNTERED,
+					new Branch(true).textScene("ADVENTURER-ENTRANCE").encounterEnd(),
+					new Branch(false).checkScene(
+						CheckType.ADVENTURER_HUNT, 
+						new Branch(true).textScene("ADVENTURER-HUNT-INTRO").checkScene(
+							Stat.PERCEPTION,
+							new Branch(6).concat(inTheMiddle).concat(scene1),
+							new Branch(3).concat(inTheMiddle).concat(scene2),
+							new Branch(0).concat(playerCaught)
+						),
+						new Branch(false).checkScene(
+							CheckType.TRUDY_GOT_IT,
+							new Branch(true).textScene("ADVENTURER-ANGRY-REUNION").concat(trudyBattle),
+							new Branch(false).checkScene(
+								CheckType.PLAYER_GOT_IT,
+								new Branch(true).textScene("ADVENTURER-SMUG-REUNION").concat(trudyBattle),
+								new Branch(false).textScene("ADVENTURER-END").encounterEnd()
+							)
+						)
+					)
+				).getEncounter();
 			case BEASTMISTRESS:
 				break;
 			case BRIGAND:

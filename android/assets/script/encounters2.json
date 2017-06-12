@@ -1774,15 +1774,21 @@
 		]
 	},
 	{
-		"key": "008-INTRO",
+		"key": "ADVENTURER-INTRO",
 		"scriptLines": [
-			{"text": "..."}
+			{
+			"music": "GADGETEER_MUSIC",
+			"mutations": [{"profileSaveType":"KNOWLEDGE", "value":{"class": "java.lang.String", "value": "Adventurer"}}],
+			"text": "..."}
 		]
 	},
 	{
-		"key": "008-00",
+		"key": "ADVENTURER-ENTRANCE",
 		"scriptLines": [
-			{"text": "The elmwood tinted rays of the sun cast long shadows against the well-used trail, as you cross the paths of travelling merchants, pilgrims, and, to your surprise, a fellow hired blade - with a battle-axe of some impressive make."},
+			{
+			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "TRUDY", "value":1}}],
+			"foreground": "ADVENTURER",
+			"text": "The elmwood tinted rays of the sun cast long shadows against the well-used trail, as you cross the paths of travelling merchants, pilgrims, and, to your surprise, a fellow hired blade - with a battle-axe of some impressive make."},
 			{"text": "They're dressed rather ostentatiously in fine cloths and silks, their armor light but of just as high quality as their weapon."},
 			{"text": "You can't tell if they're a man or a woman even when they speak, their husky voice just as ambiguous; the androgyny persists even when they introduce themselves as \"Trudy\"."},
 			{"text": "\"And you?\" they ask, looking you up and down, clearly taking note of your inferior armaments and accoutraments."},
@@ -1790,13 +1796,10 @@
 			{"text": "\"<NAME>, is it?  Hmph.  Well then, <NAME>, the day grows long.  If you'd accompany me for dinner, I would be willing to share,\" they say, and, feeling the growling of your own stomach, and a desire for a friendly face after so long alone, you agree."},
 			{"text": "..."},
 			{"text": ".."},
-			{"text": "."}
-		]
-	},
-	{
-		"key": "008-01",
-		"scriptLines": [
-			{"text": "You share a meal around a campfire, surrounded by leagues of grass, with the dark forests hiding the sleeping sun.  Trudy smiles at your jokes and regales you with tales of their heroism, noting that their axe has taken the heads of ogres and minotaurs alike."},
+			{"text": "."},
+			{
+			"mutations": [{"saveType":"FOOD", "value":{"class": "java.lang.Integer", "value": 10}}, {"saveType":"HEALTH", "value":{"class": "java.lang.Integer", "value": 5}}],
+			"text": "You share a meal around a campfire, surrounded by leagues of grass, with the dark forests hiding the sleeping sun.  Trudy smiles at your jokes and regales you with tales of their heroism, noting that their axe has taken the heads of ogres and minotaurs alike."},
 			{"text": "\"So, then...\" they say, resting their finger under your chin, \"would you like to spend the night with me?\""},
 			{"text": "You feel your chest tighten... and your underwear.  Trudy notices this sudden stirring... and then, you notice a similar protrusion down their leg.  Before you can say anything, they clear their throat, suddenly red in the face."},
 			{"text": "\"Just to be clear... you are a man, yes?\" they ask, and when you nod, they sigh.  \"Hm.  I see.\""},
@@ -1808,9 +1811,11 @@
 		]
 	},
 	{
-		"key": "008-02",
+		"key": "ADVENTURER-HUNT-INTRO",
 		"scriptLines": [
-			{"text": "You encounter Trudy again in the woods - their cheeks redden as you approach."},
+			{
+			"foreground": "ADVENTURER",
+			"text": "You encounter Trudy again in the woods - their cheeks redden as you approach."},
 			{"text": "\"I could use your help,\" he says, and after he explains the situation, you agree to lend your metal."},
 			{"text": "A local noble was slain trying to tame a warg.  While lone wargs are rarely a danger, the noble was well-jeweled at his untimely departure from the land of the living, and Trudy is trying to recover said jewels for fun and profit."},
 			{"text": "Seeing an opportunity to make some much-needed travelling coin, you join Trudy on his treasure hunt."},
@@ -1818,7 +1823,9 @@
 			{"text": "\"It's a fearsome beast... but it's their mating season, and it seems there are no female wargs around.  It doesn't seem to have a taste for humans, if the state of our noble is any indication,\" he says, as you watch the warg gnawing on a bone, the fallen noble decaying next to him."},
 			{"text": "There doesn't seem to be any obvious external injuries - you wonder what did the poor guy in, but it doesn't seem it was the warg itself, despite its hulking, dangerous appearance."},
 			{"text": "After making note of the area surrounding the warg's den, the two of you make your way back to Trudy's camp, where you leave the bulk of your heaviest gear so as to be more mobile."},
-			{"text": "You spend the night in Trudy's camp, sharing a meal again."},
+			{
+			"mutations": [{"saveType":"FOOD", "value":{"class": "java.lang.Integer", "value": 10}}, {"saveType":"HEALTH", "value":{"class": "java.lang.Integer", "value": 5}}],
+			"text": "You spend the night in Trudy's camp, sharing a meal again."},
 			{"text": "..."},
 			{"text": ".."},
 			{"text": "."},
@@ -1826,7 +1833,7 @@
 		]
 	},
 	{
-		"key": "008-03",
+		"key": "ADVENTURER-SNARE",
 		"scriptLines": [
 			{"text": "You notice it - a snare.  Tied to a hefty rock, it seems.   It would take some time for a person to be free of it, were it to snare their leg.  It wasn't there when you passed by earlier, for certain, or one of you would have doubtless tripped it."},
 			{"text": "You stop walking... and notice that Trudy stops half a pace behind you.  Their gaze flicks over to the snare for but a moment, then meets yours."},
@@ -1834,68 +1841,63 @@
 		]
 	},
 	{
-		"key": "008-04",
+		"key": "ADVENTURER-TRUDY-TRIP",
 		"scriptLines": [
 			{"text": "\"It's behind you!\" you shout, and Trudy spins to face the threat, taking a wide backstep... thus triggering the snare."}
 		]
 	},
 	{
-		"key": "008-05",
+		"key": "ADVENTURER-STEP-OVER",
 		"scriptLines": [
-			{"text": "You decide to step over it."}
+			{"text": "You decide to step over it."},
+			{
+			"foreground": "NULL",
+			"text": "You shake your head, and motion to step over the wire."}
 		]
 	},
 	{
-		"key": "008-06",
-		"scriptLines": [
-			{"text": "You shake your head, and motion to step over the wire."}
-		]
-	},
-	{
-		"key": "008-07",
+		"key": "ADVENTURER-SNARE-DODGE",
 		"scriptLines": [
 			{"text": "As Trudy's axe handle trips the snare, you manage to dodge the rope at the last moment... causing his leg to get caught in it."}
 		]
 	},
 	{
-		"key": "008-08",
+		"key": "ADVENTURER-SNARE-FAIL",
 		"scriptLines": [
 			{"text": "Trudy's axe handle trips the snare, and your trailing foot is caught in it!"}
 		]
 	},
 	{
-		"key": "008-09",
+		"key": "ADVENTURER-SNARE-CAUGHT",
 		"scriptLines": [
-			{"text": "You feel something wrap around your leg."},
-			{"text": "As the snare is triggered, the heavy stone anchored to it falls, clanging bells that were hidden and affixed to it making a raucous noise as it does.  Almost immediately, you can hear the growling of the warg."}
-		]
-	},
-	{
-		"key": "008-10",
-		"scriptLines": [
-			{"text": "As Trudy pilfers the missing traveller's things, the warg tears up your clothing with its teeth, eager to breed, apparently uncaring that you are both male and human.  An awful premonition comes to mind, and as you feel the heat and pressure of the warg's bestial staff between your cheeks, a lump forms in your throat."},
+			{
+			"foreground": "NULL",
+			"text": "You feel something wrap around your leg."},
+			{"text": "As the snare is triggered, the heavy stone anchored to it falls, clanging bells that were hidden and affixed to it making a raucous noise as it does.  Almost immediately, you can hear the growling of the warg."},
+			{
+			"foreground": "ADVENTURER",
+			"text": "As Trudy pilfers the missing traveller's things, the warg tears up your clothing with its teeth, eager to breed, apparently uncaring that you are both male and human.  An awful premonition comes to mind, and as you feel the heat and pressure of the warg's bestial staff between your cheeks, a lump forms in your throat."},
 			{"text": "Trudy escapes with the stolen goods, but not before blowing you a mocking kiss.  Almost simultaneously, you feel it - your hole yawns open, tasting the breadth of Trudy's treachery."},
-		]
-	},
-	{
-		"key": "008-11",
-		"scriptLines": [
-			{"text": "The animal has its way with you, eventually forcing some large mass inside your rectum before filling it entirely with its animal semen, your own sticky stuff blasting out across the ground in a shameful moment of defeat."},
+			{
+			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "TRUDY", "value":3}}, {"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1, "creampies":1, "analEjaculation":1}}],			
+			"animatedForeground": "BUTTBANG",
+			"text": "The animal has its way with you, eventually forcing some large mass inside your rectum before filling it entirely with its animal semen, your own sticky stuff blasting out across the ground in a shameful moment of defeat."},
 			{"text": "When it finally pulls itself free, it leaves you be, luckily, and you scamper away, relieved, at least, that no one saw your shameful mating.  Your well-puckered hole drools and tenses oddly for hours afterwards, causing you to picture Trudy's smug face each time."},
 			{"text": "You have no doubt that his intention was to get you ass-blasted by an animal as a sort of sick joke.  Red-faced, you curse yourself for falling for his scheme."}
 		]
 	},
 	{
-		"key": "008-12",
+		"key": "ADVENTURER-TRUDY-CAUGHT",
 		"scriptLines": [
-			{"text": "As the snare is triggered, the heavy stone anchored to it falls, clanging bells that were hidden and affixed to it making a raucous noise as it does.  Almost immediately, you can hear the growling of the warg."}
-			{"text": "You duck out of sight, and the warg quickly makes its appearance.  You keep out of its field of vision while making your way to where the fallen noble lies."}
-		]
-	},
-	{
-		"key": "008-13",
-		"scriptLines": [
-			{"text": "You pilfer his jewelry, not wanting to spend more time than necessary.  When next you see Trudy, he's on his hands and knees, with the warg towering over him."},
+			{
+			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "TRUDY", "value":2}}],
+			"foreground": "ADVENTURER",
+			"text": "As the snare is triggered, the heavy stone anchored to it falls, clanging bells that were hidden and affixed to it making a raucous noise as it does.  Almost immediately, you can hear the growling of the warg."}
+			{"text": "You duck out of sight, and the warg quickly makes its appearance.  You keep out of its field of vision while making your way to where the fallen noble lies."},
+			{
+			"mutations": [{"saveType":"GOLD", "value":{"class": "java.lang.Integer", "value": 30}}],
+			"foreground": "NULL",
+			"text": "You pilfer his jewelry, not wanting to spend more time than necessary.  When next you see Trudy, he's on his hands and knees, with the warg towering over him."},
 			{"text": "You feel a bit of remorse knowing what's coming... but knowing that he had fully intended for you to be in his place, your sympathy is short-lived.  The warg bites through Trudy's underskirt, revealing their naked rear."},
 			{"text": "His upturned butt looks intensely feminine, something the beast seems to note with a certain swelling of its nether region.  Though he lacks certain familiar parts, you swallow hoarsely, knowing that the simple creature will still likely find a place to put it.  Your sphincter tightens."},
 			{"text": "You turn away and depart, knowing that the squeals, groans and grunts you hear behind you are the evidence for a very tight hole unfortunately being forced open by a feral phallus, a perverse mating that the recipient is probably not too enthusiastic about."},
@@ -1903,20 +1905,26 @@
 		]
 	},
 	{
-		"key": "008-14",
+		"key": "ADVENTURER-ANGRY-REUNION",
 		"scriptLines": [
-			{"text": "Trudy stares at you, defiantly.  Last you heard, he was being buggered silly by a warg.  His gait is slightly askew, and you stifle a snicker, even as you ready yourself."},
+			{
+			"foreground": "ADVENTURER",
+			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "TRUDY", "value":4}}],
+			"text": "Trudy stares at you, defiantly.  Last you heard, he was being buggered silly by a warg.  His gait is slightly askew, and you stifle a snicker, even as you ready yourself."},
 			{"text": "\"If you expect me to just take that lying down...\" Trudy begins, although he stops himself, his face falling. Poor choice of words. His face red with anger and embarrassment, he attacks!"}
 		]
 	},
 	{
-		"key": "008-15",
+		"key": "ADVENTURER-SMUG-REUNION",
 		"scriptLines": [
-			{"text": "\"Hmph.  I'm surprised you're not a little more knock-kneed,\" Trudy says, as you approach.  Teeth grit at his betrayal, you attack!"}
+			{
+			"foreground": "ADVENTURER",
+			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "TRUDY", "value":4}}],
+			"text": "\"Hmph.  I'm surprised you're not a little more knock-kneed,\" Trudy says, as you approach.  Teeth grit at his betrayal, you attack!"}
 		]
 	},
 	{
-		"key": "008-16",
+		"key": "ADVENTURER-VICTORY",
 		"scriptLines": [
 			{"text": "Trudy fights hard to stay upright, but his fight is obviously gone - his axe-blade dug into the ground, he leans on the handle for support, his knees buckling."},
 			{"text": "You approach slowly.  Trudy watches you with trepidation... but you notice that his skirt is bulging outwards.  Though his gaze remains stalwart, his hands are trembling."},
@@ -1924,7 +1932,7 @@
 		]
 	},
 	{
-		"key": "008-17",
+		"key": "ADVENTURER-TOPPED",
 		"scriptLines": [
 			{"text": "You brush your hand against Trudy's face, and you press your thumb between his lips. You feel a thump against your rear, a sudden jerk upwards from beneath his skirt, and you fix him with a wry look."},
 			{"text": "Trudy's legs begin to spread subtly underneath you, though he won't look at you.  You run your other hand down his abdomen, but miss his dick - sliding your hand under his skirt, and gripping his undergarments at the hip."},
@@ -1948,41 +1956,37 @@
 		]
 	},
 	{
-		"key": "008-18",
+		"key": "ADVENTURER-BOTTOMED",
 		"scriptLines": [
 			{"text": "You waste little time.  You'd been hoping for this ever since you first saw Trudy, and the sudden mountain stuck between your cheeks has done nothing to dull you passion."},
 			{"text": "Trudy's mouth hangs open in surprise as you pull down his underwear, revealing a cock that is ready for action."},
-			{"text": "You straddle him, and position it beneath you, and then, you drop."}
-		]
-	},
-	{
-		"key": "008-19",
-		"scriptLines": [
-			{"text": "You sit down on it, forcing it up into your rectal works, and he brings his hands to his face, unsure."},
+			{"text": "You straddle him, and position it beneath you, and then, you drop."},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1}}],				
+			"text": "You sit down on it, forcing it up into your rectal works, and he brings his hands to his face, unsure."},
 			{"text": "Trudy seems incredibly hesitant to be giving it to another guy, but you continue to sit on his schlong anyway."},
 			{"text": "You hold his wrists down as you bounce on it, and Trudy watches your own cock flop up and down as you take him inside."},
 			{"text": "The intensity builds and builds, and Trudy feels himself swallowed by your boyhole over and over again, which has a noticable effect on his rigidity and verve."},
 			{"text": "\"Wait... I'm...\" he says, and it's obvious that he's about to blow, but you have no interest in letting him out to do so.  If he's going to explode, it's going to be while snugly inside your semen-accepting rectum."},
-			{"text": "Trudy tries to buck you off, hoping to pop in the open air, but you insistently keep it inside, causing his gyrations to only bring about the inevitable.  You feel it tense up, rigid inside of you, and Trudy tries one last forceful buck - but that does nothing but force it all the way into your guts."}
-		]
-	},
-	{
-		"key": "008-20",
-		"scriptLines": [
-			{"text": "Trudy is wide-eyed with fear as his cum swells up through his shaft."},
+			{"text": "Trudy tries to buck you off, hoping to pop in the open air, but you insistently keep it inside, causing his gyrations to only bring about the inevitable.  You feel it tense up, rigid inside of you, and Trudy tries one last forceful buck - but that does nothing but force it all the way into your guts."},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "creampies":1, "analEjaculation":1}}],
+			"text": "Trudy is wide-eyed with fear as his cum swells up through his shaft."},
 			{"text": "It goes off like a geyser inside, and it's obvious that Trudy is red-faced with embarrassment about -where- it's shooting off its payload.  It jets off so forcefully that some of it is forced out by the pressure, coating Trudy's balls in his own slime."},
 			{"text": "Trudy continues to volley off inside of you as you dribble yours onto his stomach.  Whereas his was an explosion, yours was a gentle lava flow of pent-up passion which is going to stain his skirt."},
 			{"text": "With little regrets, you stand up off of him, popping like a champagne cork, and Trudy lays back into the dirt, exhausted by the experience.  You leave him there, self-satisfied."}
 		]
 	},
 	{
-		"key": "008-21",
+		"key": "ADVENTURER-ROBBED",
 		"scriptLines": [
-			{"text": "You rifle through Trudy's skirts, eventually discovering what you were looking for - a coin purse.  He watches, defeated, as you drain it, stuffing the spoils into your own pocket, and then you leave him, drained and empty."}
+			{
+			"mutations": [{"saveType":"GOLD", "value":{"class": "java.lang.Integer", "value": 10}}],
+			"text": "You rifle through Trudy's skirts, eventually discovering what you were looking for - a coin purse.  He watches, defeated, as you drain it, stuffing the spoils into your own pocket, and then you leave him, drained and empty."}
 		]
 	},
 	{
-		"key": "008-22",
+		"key": "ADVENTURER-DEFEAT",
 		"scriptLines": [
 			{"text": "Unable to continue fighting, you fall to the ground.  Trudy looks down at you, smugly."},
 			{"text": "\"Well, well.  Guess I came up on top after all,\" he says, and you notice the bulge in his skirts with a solid gulp."},
@@ -1999,23 +2003,20 @@
 			{"text": "Finally, he relaxes his sphincter once more, and you cum inside.  Trudy rubs your cumming cock against his prostate, and you watch his cock jerk upwards, and then... white."},
 			{"text": "You sputter under the weight of his facial, even as you pump your cum into his guts.  He sits down on you insistently, and his orgasm makes him involuntarily constrict your cocklet as it spurts inside."},
 			{"text": "He nearly collapses on top of you, breathing heavily. \"Mmm... that was excellent.\" he purrs, stroking your face.  He doesn't get up off of you... on the contrary, he waits, with your flaccid cock still inside, until it stirs back to life.  And then, he wrangles the life - and the cum - out of it again."},
-			{"text": "You eventually pass out, and when you wake, Trudy is gone, along with all of the cum in your balls.  You're covered in cum as well, and it's uncertain how much of it is yours.  Your mouth is full of it as well - you HOPE that's yours."}
+			{"text": "You eventually pass out, and when you wake, Trudy is gone, along with all of the cum in your balls.  You're covered in cum as well, and it's uncertain how much of it is yours.  Your mouth is full of it as well - you HOPE that's yours."},
+			{
+			"mutations": [{"saveType":"GOLD", "value":{"class": "java.lang.Integer", "value": -10}}],
+			"text": "With no-one else in sight, you pack up your things and leave, discovering your coin pouch a bit lighter.  Visions of Trudy having his way with you dancing across your mind as you flee the scene of the crime."}
 		]
 	},
 	{
-		"key": "008-23",
-		"scriptLines": [
-			{"text": "With no-one else in sight, you pack up your things and leave, discovering your coin pouch a bit lighter.  Visions of Trudy having his way with you dancing across your mind as you flee the scene of the crime."}
-		]
-	},
-	{
-		"key": "008-24",
+		"key": "ADVENTURER-SATISFIED",
 		"scriptLines": [
 			{"text": "\"Hmph\", Trudy chuckles.  Having gotten his fill, he seems to have little interest in continuing the battle.  Feeling a bit embarrassed, you don't see the point in continuing, and you leave him to his own devices."}
 		]
 	},
 	{
-		"key": "008-25",
+		"key": "ADVENTURER-SUBMISSION",
 		"scriptLines": [
 			{"text": "Trudy is loopy.  He seems a little... different.  You've definitely swipped some kind of switch.  He gets down on his knees, spreads his legs, and reaches back to clasp his own cheeks under his skirt."},
 			{"text": "\"Fuck me.\" he demands, in a throaty voice, full of need.  You're... willing to oblige him.  In for a penny..."},
@@ -2028,9 +2029,11 @@
 		]
 	},
 	{
-		"key": "008-END",
+		"key": "ADVENTURER-END",
 		"scriptLines": [
-			{"text": "You cross paths with Trudy once again. You maintain eye contact as you pass each other, but interact little otherwise."}
+			{
+			"foreground": "ADVENTURER",
+			"text": "You cross paths with Trudy once again. You maintain eye contact as you pass each other, but interact little otherwise."}
 		]
 	},
 	{
