@@ -362,7 +362,70 @@ public class EncounterBuilder2 {
 			case OGRE_WARNING_STORY:
 				break;
 			case ORC:
-				break;
+				Branch leaveOrc = new Branch().textScene("ORC-LEAVE").encounterEnd();
+				Branch oralScene = new Branch().textScene("ORC-ORAL").encounterEnd();
+				Branch failedCharisma = new Branch(0).textScene("ORC-OFFER-FAIL").concat(oralScene);
+				Branch battleVictory = new Branch().textScene("ORC-VICTORY").choiceScene(
+					"Front, back, or decline?", 
+					new Branch("Front (Requires: Catamite)").require(ChoiceCheckType.LEWD).textScene("ORC-ANAL").encounterEnd(),
+					new Branch("Back").textScene("ORC-BOTTOM").encounterEnd(),
+					new Branch("Decline").textScene("ORC-DECLINE").encounterEnd()
+				);
+				
+				return new Branch().textScene("ORC-INTRO").checkScene(
+					CheckType.ORC_ENCOUNTERED,
+					new Branch(true).textScene("ORC-OLDMEN").choiceScene(
+						"Do you speak up?",
+						new Branch("Speak up").textScene("ORC-VIEW").choiceScene( 
+							"How do you respond?", 
+							new Branch("Attack").battleScene(
+								BattleCode.ORC, 4,
+								new Branch(Outcome.VICTORY).textScene("ORC-VICTORY1").concat(battleVictory),
+								new Branch(Outcome.DEFEAT).textScene("ORC-DEFEAT").choiceScene(
+									"What do you offer?",
+									new Branch("Anal (Requires: Catamite)").require(ChoiceCheckType.LEWD).textScene("ORC-ANAL").encounterEnd(),
+									new Branch("Oral").textScene("ORC-OFFER-ORAL").concat(oralScene), 
+									new Branch("Nasal").textScene("ORC-NASAL").encounterEnd(),
+									new Branch("Facial (4 CHA)").checkScene(
+										Stat.CHARISMA, 
+										new Branch(4).textScene("ORC-FACIAL").encounterEnd(),
+										failedCharisma 
+									),
+									new Branch("Nasal (6 CHA)").checkScene(
+										Stat.CHARISMA, 
+										new Branch(6).textScene("ORC-PENAL").encounterEnd(),
+										failedCharisma 
+									)
+								),
+								new Branch(Outcome.SATISFIED).textScene("ORC-SATISFIED").encounterEnd()
+							),
+							new Branch("Remain still").textScene("ORC-STILL").concat(leaveOrc) 
+						), 
+						new Branch("Remain silent").textScene("ORC-SILENT").concat(leaveOrc) 
+					),
+					new Branch(false).checkScene(
+						CheckType.ORC_COWARD, 
+						new Branch(true).textScene("ORC-REUNION").choiceScene(
+							"Accept her invitation?",
+							new Branch("Accept (Requires: Catamite)").require(ChoiceCheckType.LEWD).textScene("ORC-REUNION-ACCEPT").encounterEnd(),
+							new Branch("Decline").textScene("ORC-REUNION-DECLINE").encounterEnd()
+						),
+						new Branch(false).textScene("ORC-COWARD-CALLOUT").choiceScene(
+							"Well?",
+							new Branch("Yes (Requires: Catamite)").require(ChoiceCheckType.LEWD).textScene("ORC-CATAMITE").encounterEnd(),
+							new Branch("No").textScene("ORC-ANGER").battleScene(
+								BattleCode.ORC,
+								new Branch(Outcome.VICTORY).textScene("ORC-VICTORY2").concat(battleVictory),
+								new Branch(Outcome.DEFEAT).textScene("ORC-DENIGRATION").choiceScene(
+									"Man or woman?", 
+									new Branch("Man").textScene("ORC-BAD-END").gameEnd(),
+									new Branch("Woman").textScene("ORC-WIFE").gameEnd()
+								),
+								new Branch(Outcome.SATISFIED).textScene("ORC-VIOLATED").gameEnd()
+							)
+						)
+					)
+				).getEncounter();
 			case SHOP:
 				break;
 			case SLIME:
@@ -516,15 +579,18 @@ public class EncounterBuilder2 {
 			return this;
 		}
 		
-		public Branch battleScene(BattleCode battleCode, Branch ... branches) { return battleScene(battleCode, Stance.BALANCED, Stance.BALANCED, branches); }		
+		public Branch battleScene(BattleCode battleCode, Branch ... branches) { return battleScene(battleCode, Stance.BALANCED, Stance.BALANCED, branches); }
+		public Branch battleScene(BattleCode battleCode, int climaxCounter, Branch ... branches) { return battleScene(battleCode, Stance.BALANCED, Stance.BALANCED, false, climaxCounter, branches); }		
 		public Branch battleScene(BattleCode battleCode, Stance playerStance, Stance enemyStance, Branch ... branches) { return battleScene(battleCode, playerStance, enemyStance, false, branches); }
-		public Branch battleScene(BattleCode battleCode, Stance playerStance, Stance enemyStance, boolean disarm, Branch ... branches) {
+		public Branch battleScene(BattleCode battleCode, Stance playerStance, Stance enemyStance, boolean disarm, Branch ... branches) { return battleScene(battleCode, playerStance, enemyStance, disarm, 0, branches); }
+		public Branch battleScene(BattleCode battleCode, Stance playerStance, Stance enemyStance, boolean disarm, int climaxCounter, Branch ... branches) {
 			// for each of the branches, add them to the next map with their associated code
 			branchToken = new BattleSceneToken(battleCode);
 			this.battleCode = battleCode;
 			this.playerStance = playerStance;
 			this.enemyStance = enemyStance;
 			this.disarm = disarm;
+			this.climaxCounter = climaxCounter;
 			return weldBranches(branches);
 		}
 		

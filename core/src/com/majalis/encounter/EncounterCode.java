@@ -234,6 +234,9 @@ public enum EncounterCode {
 			case ORC:
 				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{  
 					AssetEnum.ORC.getTexture(),
+					AssetEnum.ORC_ZOOM_UP.getTexture(),
+					AssetEnum.ORC_ZOOM.getTexture(),
+					AssetEnum.ORC_ZOOM_DOWN.getTexture(),
 					AssetEnum.ORC_PRONE_BONE.getTexture(),
 					AssetEnum.GAPE.getTexture(),
 					AssetEnum.WEREWOLF_MUSIC.getMusic()

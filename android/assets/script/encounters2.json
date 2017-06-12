@@ -1374,15 +1374,20 @@
 		]
 	},
 	{
-		"key": "007-00",
+		"key": "ORC-INTRO",
 		"scriptLines": [
-			{"text": "..."}
+			{
+			"music": "WEREWOLF_MUSIC",
+			"mutations": [{"profileSaveType":"KNOWLEDGE", "value":{"class": "java.lang.String", "value": "Orc"}}],			
+			"text": "..."}
 		]
 	},
 	{
-		"key": "007-01",
+		"key": "ORC-OLDMEN",
 		"scriptLines": [
-			{"text": "The forest trail is a lonely one, and you haven't seen anyone else for a day's time, when you come across two men on the trail's edge, peering through the underbrush at something conspiratorially.  You slow your pace and still your step as you approach them, making sure that they see you before you get too close."},
+			{
+			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "ORC", "value":1}}],
+			"text": "The forest trail is a lonely one, and you haven't seen anyone else for a day's time, when you come across two men on the trail's edge, peering through the underbrush at something conspiratorially.  You slow your pace and still your step as you approach them, making sure that they see you before you get too close."},
 			{"text": "The two men are sloppy, unshaven and unkempt, likely vagabonds.  They smell of rum, both wet and dried, as evidenced by the stains on their otherwise filthy jerkins.  One man is holding a bottle, half empty, and the other, a pole, either an unencumbered bindle or a walking stick."},
 			{"text": "The one with the stick notices you first, and waves you over with it, conspiratorially.  He's got one dead eye, and a queer smile, but he's got rough, work-worn hands - a laborer, not a throat-slitter.  You crouch-walk carefully towards them, and then the drunker of the two spots you, looking alarmed for a moment."},
 			{"text": "\"Ey, ey... it's another one,\" he says, watching you bleary-eyed as you approach.  You don't know what he means, but he seems rather pleased with himself, and very, very inebriated."},
@@ -1399,48 +1404,36 @@
 		]
 	},
 	{
-		"key": "007-02",
+		"key": "ORC-VIEW",
 		"scriptLines": [
 			{"text": "\"Oi, oi!\" says the one-eyed man, trying to grab your shoulder but falling short as you crawl out into the clearing where the orc is having her way with what appears to be a fellow adventurer. \"Are you out of yer mind?\" he calls after you."},
-			{"text": "\"Hey! You!\" you call out, and the orc stops... without bothering to turn to acknowledge you.  After a moment, they slowly back away from the recipient of their leisure, an audible squelching as they are freed from their innards."}
-		]
-	},
-	{
-		"key": "007-03",
-		"scriptLines": [
-			{"text": "You're surprised to see, as they turn their head towards you, that they look remarkably feminine... and then you notice the presence of breasts.  Not only are they an orc... they're female?"}
-		]
-	},
-	{
-		"key": "007-04",
-		"scriptLines": [
-			{"text": "Looking more closely at the shape of their body, that much is clear..."}
-		]
-	},
-	{
-		"key": "007-05",
-		"scriptLines": [
-			{"text": "But then, the slick, recently anally-vacated appendage falls into view.  It's... truly massive, thick like a club and with bumpy ridges.  Her big, round, green gonads are also visible, clearly engorged with a need to inseminate... apparently, you interrupted towards the latter end of the engagement."},
-			{"text": "A single strand of precum connects her pulsing, twitching slab to the innards of the stretched open hole - her helmet wet and slick and clearly on the verge of spewing hot, sticky cum.  You begin to drool.  Her loincloth slides down off the adventurer's back, hiding them from view. "}
-		]
-	},
-	{
-		"key": "007-06",
-		"scriptLines": [
-			{"text": "\"Yes?\" she asks, with a husky voice, drawing your attention back up to her alluring gaze.  They're holding some sort of weapon attached to a chain - one that looks absolutely lethal."},
+			{"text": "\"Hey! You!\" you call out, and the orc stops... without bothering to turn to acknowledge you.  After a moment, they slowly back away from the recipient of their leisure, an audible squelching as they are freed from their innards."},
+			{
+			"foreground": "ORC_ZOOM_UP",
+			"text": "You're surprised to see, as they turn their head towards you, that they look remarkably feminine... and then you notice the presence of breasts.  Not only are they an orc... they're female?"},
+			{
+			"foreground": "ORC_ZOOM",
+			"text": "Looking more closely at the shape of their body, that much is clear..."},
+			{
+			"foreground": "ORC_ZOOM_DOWN",
+			"text": "But then, the slick, recently anally-vacated appendage falls into view.  It's... truly massive, thick like a club and with bumpy ridges.  Her big, round, green gonads are also visible, clearly engorged with a need to inseminate... apparently, you interrupted towards the latter end of the engagement."},
+			{"text": "A single strand of precum connects her pulsing, twitching slab to the innards of the stretched open hole - her helmet wet and slick and clearly on the verge of spewing hot, sticky cum.  You begin to drool.  Her loincloth slides down off the adventurer's back, hiding them from view. "},
+			{
+			"foreground": "ORC",
+			"text": "\"Yes?\" she asks, with a husky voice, drawing your attention back up to her alluring gaze.  They're holding some sort of weapon attached to a chain - one that looks absolutely lethal."},
 			{"text": "\"Leave her alone!\" you say, your voice cracking.  "},
 			{"text": "She sizes you up and down.  \"Mhm.  Make me,\" she says, staying perfectly still, her iron-clad grasp on her chain tightening.  You feel a wave of fear overcome you.  It seems she won't back down without a fight."}
 		]
 	},
 	{
-		"key": "007-07",
+		"key": "ORC-VICTORY1",
 		"scriptLines": [
 			{"text": "She falls on her butt, and seems out of fight.  Her loincloth tents upwards - she's still quite tumescent.  You look over to see that the adventurer she had been plowing is nowhere in sight."},
 			{"text": "\"Well... you're stronger than you look... mmm...\" she says, her voice a bit deep and throaty.  She looks you up and down."},
 		]
 	},
 	{
-		"key": "007-08",
+		"key": "ORC-VICTORY",
 		"scriptLines": [
 			{"text": "You stand over her, ready to strike if she catches a second wind, but she seems pacified."},
 			{"text": "\"What's your name, strong one?\""},
@@ -1455,22 +1448,29 @@
 		]
 	},
 	{
-		"key": "007-09",
+		"key": "ORC-ANAL",
 		"scriptLines": [
 			{"text": "\"My... ass...\" you say, ashamedly... and she chuckles heartily.  "},
 			{"text": "\"Is that all it was?  You wanted it for yourself?  Well...\" she says, pulling you forward so that you're on your knees, your ass facing her, \"...fine with me.\""},
 			{"text": "You remember how full and ready to bust her balls looked, and you swallow.  You also remember how thick and long it looked, and go a bit pale."},
-			{"text": "She spreads your cheeks, firmly, with her strong hands and slams her helmet against your unprepared starfish.  Any hopes you had of her going easy on you evaporates."},
+			{
+			"foreground": "ORC_PRONE_BONE",
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1}}],
+			"text": "She spreads your cheeks, firmly, with her strong hands and slams her helmet against your unprepared starfish.  Any hopes you had of her going easy on you evaporates."},
 			{"text": "With a \"hoah!\" she bucks a thrust back and fro, burying a few inches of orc meat in your ass without warning - and you see stars."},
-			{"text": "With several powerful, lunging thrusts, she buries herself up into your guts, and immediately you feel the scalding heat and the intense pressure of her desperate cumblast.  With little time to prepare your heart, you almost jump off of it, but she holds firmly on your shoulders as she empties her testicles out in your guts."},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "creampies":1}}],
+			"text": "With several powerful, lunging thrusts, she buries herself up into your guts, and immediately you feel the scalding heat and the intense pressure of her desperate cumblast.  With little time to prepare your heart, you almost jump off of it, but she holds firmly on your shoulders as she empties her testicles out in your guts."},
 			{"text": "It feels like you sat on a geyser - apparently you spared that other adventurer from a pretty messy, hot creampie.  It's so pressurized that you feel it jet out of you around her stuck schlong - which would be semen wasted, were it not all going to waste inside your infertile insides."},
-			{"text": "Thankfully, it doesn't last long... nor do you, spraying onto the floor shamelessly.  Apparently, even a few seconds of pure orc sex is enough for you.  She slimes your insides unromantically, then pulls out, just as curtly."},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analEjaculation":1}}],
+			"text": "Thankfully, it doesn't last long... nor do you, spraying onto the floor shamelessly.  Apparently, even a few seconds of pure orc sex is enough for you.  She slimes your insides unromantically, then pulls out, just as curtly."},
 			{"text": "You feel a stinging smack on your rear, which is sure to leave a red handprint, and she tucks herself back into her loincloth, chuckling to herself as she walks off."},
 			{"text": "The two men who'd been watching are in hysterics, saying \"your arse\" is never going to be the same - they might be right."}
 		]
 	},
 	{
-		"key": "007-10",
+		"key": "ORC-BOTTOM",
 		"scriptLines": [
 			{"text": "You reach down, running your hand along the curves of her body, then bringing it towards the back so that you're cupping her surprisingly plump behind."},
 			{"text": "\"Mmm... a strong man who wants to come inside of me... Urka's been good,\" she says, and you lean in closer to her, as she rests her head on your chest, pressing her hips back against you."},
@@ -1498,42 +1498,43 @@
 		]
 	},
 	{
-		"key": "007-11",
+		"key": "ORC-DECLINE",
 		"scriptLines": [
 			{"text": "You push her away. \"Sorry, but, no thanks,\" you say, rejecting her seduction."},
 			{"text": "She shrugs. \"Hmph. I'll find someone else then,\" she says, dismissing you.  She retrieves her flail and stomps off, proudly."}
 		]
 	},
 	{
-		"key": "007-12",
+		"key": "ORC-DEFEAT",
 		"scriptLines": [
 			{"text": "With the last of your strength, you kneel, unable to continue against her ferocious onslaught.  She grabs hold of your hair, and makes you look up at her face, her rock-solid phallus crossing your field of vision."},
 			{"text": "\"Though you're not much of a warrior, pinkskin, your courage is obvious.  I have some... spoils that I have need to offload.  Your suggestion?\""}
 		]
 	},
 	{
-		"key": "007-13",
+		"key": "ORC-OFFER-ORAL",
 		"scriptLines": [
 			{"text": "\"Hmph,\" she says, as you open your mouth, apparently pleased that you submitted so readily.  Since her cock was quite recently in someone else's ass, you think you might regret the decision."}
 		]
 	},
 	{
-		"key": "007-14",
+		"key": "ORC-ORAL",
 		"scriptLines": [
-			{"text": "All at once, you find the head of an orc's cock at the back of your throat, and gag around it.  With your face stuffed full of her green meat, you squint up at her, unable to breathe.  Thankfully, the sensation you next feel as her cock-eye opens on your uvula allays your suffocation concerns."},
-			{"text": "It blurts out over and around said uvula, a torrent of hot, vile orc-nut goop-soup.  The shock makes you pull back, which proves to be... not ideal."},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "oralSex":1}}],
+			"text": "All at once, you find the head of an orc's cock at the back of your throat, and gag around it.  With your face stuffed full of her green meat, you squint up at her, unable to breathe.  Thankfully, the sensation you next feel as her cock-eye opens on your uvula allays your suffocation concerns."},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "oralCreampies":1}}],
+			"text": "It blurts out over and around said uvula, a torrent of hot, vile orc-nut goop-soup.  The shock makes you pull back, which proves to be... not ideal."},
 			{"text": "It spurts out of your nostrils, both of them, at once, a sneeze of orc slime that you won't soon forget.  You're pretty sure your tears are white.  What's worse is that the next volley sends even more out of your nose like very-much-not-milk."},
-			{"text": "Once she finishes, you feel it clogging your throat and filling your sinuses - your face is full of her noxious orc cum, and you're drooling it out of your nostril pathetically.  She pulls free of your lips and you immediately burp up a thick glob of it, spitting up as much orc semen as you can onto the ground."}
+			{"text": "Once she finishes, you feel it clogging your throat and filling your sinuses - your face is full of her noxious orc cum, and you're drooling it out of your nostril pathetically.  She pulls free of your lips and you immediately burp up a thick glob of it, spitting up as much orc semen as you can onto the ground."},
+			{
+			"foreground": "NULL",
+			"text": "By the time you wipe your mouth and look up again, she's gone."}
 		]
 	},
 	{
-		"key": "007-15",
-		"scriptLines": [
-			{"text": "By the time you wipe your mouth and look up again, she's gone."}
-		]
-	},
-	{
-		"key": "007-16",
+		"key": "ORC-NASAL",
 		"scriptLines": [
 			{"text": "You put a finger to one nostril, offering up the other as a somewhat unconventional sacrifice."},
 			{"text": "She tilts her head.  Apparently even orcs aren't that kinky.  \"Hmph.  Fine.  I'll try anything once.  I'll have your head if you complain about the smell, though,\" she says, brining her unpleasant smelling penis up to your nostril, evidence of her near-certain ejaculation already forming a bubble on the tip."},
@@ -1547,7 +1548,7 @@
 		]
 	},
 	{
-		"key": "007-17",
+		"key": "ORC-FACIAL",
 		"scriptLines": [
 			{"text": "You point to your face, and, after considering it a second, she drops her dick into your hand and grunts while nodding.  It's thick and leathery-skinned and has a supririsng heft to it, but rather than playing around with it, you form a tight circle with your fingers and begin to work it up and down... while pointing it directly at your currently dry face."},
 			{"text": "She nudges herself forward, and makes you kiss her full balls.  You drop a smooch on one, feeling how full it is, before she pulls back, letting you continue to stroke her to completion."},
@@ -1560,13 +1561,13 @@
 		]
 	},
 	{
-		"key": "007-18",
+		"key": "ORC-OFFER-FAIL",
 		"scriptLines": [
 			{"text": "She shakes her head, and pinches your nose, out of patience.  It seems you're about to learn what orc tastes like."}
 		]
 	},
 	{
-		"key": "007-19",
+		"key": "ORC-PENAL",
 		"scriptLines": [
 			{"text": "You point to your own dick, and she smiles.  \"Mmm, fine,\" she says, and squats down to bring her dick somewhat level with yours, before taking your hand in hers and guiding it to the thing it will be stroking for the next minute or so."},
 			{"text": "It's thick and leathery-skinned and has a supririsng heft to it, considerably more of a presence than your own, which is now shamefully erect, even as it threatens to be drenched in orc cum."},
@@ -1576,13 +1577,13 @@
 		]
 	},
 	{
-		"key": "007-20",
+		"key": "ORC-SATISFIED",
 		"scriptLines": [
 			{"text": "Having gotten what she wanted to begin with, the orc has little interest in you any more.  The men jeer at you for failing so badly to fight her, and she wanders off, leaving you sorer for the experience."}
 		]
 	},
 	{
-		"key": "007-21",
+		"key": "ORC-STILL",
 		"scriptLines": [
 			{"text": "You can't bring yourself to come any closer.  She watches you, full of interest at first, then dulling, and you think you see a faint smirk creep onto her tusk-hidden lips, before she turns away, disinterested and uncautious."},
 			{"text": "With that, she wraps her chain around her wrists, and lifts her loincloth leisurely, reaching down to grasp her slick member in hand.  She lines it up with the temporarily vacated anus of her 'opponent', and then, all at once, she throws her green sausage back into their innards."},
@@ -1590,45 +1591,42 @@
 		]
 	},
 	{
-		"key": "007-22",
+		"key": "ORC-SILENT",
 		"scriptLines": [
 			{"text": "You remain unseen, too afraid to confront the mighty orc.  After some more scrutiny, you see that it's actually a she-orc, her breasts visible occasionally as she lifts her arms above her head, or when she leans forward to pull her unseen paramour's hair."}
 		]
 	},
 	{
-		"key": "007-23",
+		"key": "ORC-LEAVE",
 		"scriptLines": [
-			{"text": "The thick testicles dangling between her thighs are so obviously about to violently empty that you can almost feel it in your own gut - a powerful whitewash of their insides that you would have done nothing to prevent.  Assuming that orc cum is white, anyway, although you expect you'll soon find out."},
+			{
+			"foreground": "ORC",
+			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "ORC", "value":2}}],
+			"text": "The thick testicles dangling between her thighs are so obviously about to violently empty that you can almost feel it in your own gut - a powerful whitewash of their insides that you would have done nothing to prevent.  Assuming that orc cum is white, anyway, although you expect you'll soon find out."},
 			{"text": "She grips tightly onto their hips, and with her immense strength, there is little hope of them avoiding an inter-species creampie of terrifying proportions."},
 			{"text": "The orc woman lets out a boisterous warcry, and you and the vagabonds watch red-faced as she goes balls-deep into her humiliated receptacle, her over-sized, overly full orc nuts tensing and pulsing visibly, before the embarassing explosion of cum squeezes itself out of their plugged butthole with force."},
 			{"text": "You watch, helplessly, as she inseminates the human with an intensity you could have only dreamed of - their cock-punched-up bowels now waterlogged and bleached by a flood of orcish semen while you stood idly by."},
 			{"text": "When her climax has been spent, she lurches out of her partner, and you hear an awful squelching noise as she pulls free and her half-erect monster flops into view."},
-			{"text": "It seems as if, for a brief moment, she casts a glance directly at you, but it's so fleeting that you're not sure if you imagined it.  Apparently having had her fill, she leaves the collapsed human, walking off into the woods, apparently satisfied."}
-		]
-	},
-	{
-		"key": "007-23A",
-		"scriptLines": [
-			{"text": "The vagabonds come out from their hiding place, and you meet up with them, before investigating the now-collapsed person on the receiving end of the orc's anal ordeal."},
+			{"text": "It seems as if, for a brief moment, she casts a glance directly at you, but it's so fleeting that you're not sure if you imagined it.  Apparently having had her fill, she leaves the collapsed human, walking off into the woods, apparently satisfied."},
+			{
+			"foreground": "NULL",
+			"text": "The vagabonds come out from their hiding place, and you meet up with them, before investigating the now-collapsed person on the receiving end of the orc's anal ordeal."},
 			{"text": "\"Oi... poor lass. Fooked senseless by an orc,\" says the one-eyed man."},
 			{"text": "\"Up the shitter, no less... quite the indignity, ain't it?\" says the drunkard, taking another swig."},
 			{"text": "\"At least she won't be squirtin' out an orc baby in 4 months,\" comes the reply, as you reluctantly step forward to see the result of the orc's handiwork."},
 			{"text": "\"No, but she's fartin' out a lot more orc cum than she'd like t', I'd think.\""},
 			{"text": "Seeing them, you notice it.  The drunken man slaps his companion's chest, urgently."},
-			{"text": "\"Oi, that's no lass.\""}
-		]
-	},
-	{
-		"key": "007-24",
-		"scriptLines": [
-			{"text": "You can see that now.  That explains the... method of entry. He's face down in the dirt, and his hole has been fucked into a crater - it's wide and gaping, drooling a slurry of strangely tinted cum - apparently the leavings of an orc."},
+			{"text": "\"Oi, that's no lass.\""},
+			{
+			"background": "GAPE",
+			"text": "You can see that now.  That explains the... method of entry. He's face down in the dirt, and his hole has been fucked into a crater - it's wide and gaping, drooling a slurry of strangely tinted cum - apparently the leavings of an orc."},
 			{"text": "You ask if they need any help, and they sheepishly explain that they're fine.  You decide not to gawk, turning away to inspect the scene."},
 			{"text": "On closer inspection, the armor and weaponry strewn across the ground are unmarred, looking almost pristine, with a few scuff marks and scratches.  Their clothes, tellingly, are similarly intact.  "},
 			{"text": "You wonder exactly what took place, but the longer you're around the aftermath of such a violent orc breeding, the more squeamish you feel.  You say good day to your fellow adventurer, who is still clearly sore from being ass-fucked by an orc, and the two vagabonds, who seem bemused by the whole affair."}
 		]
 	},
 	{
-		"key": "007-25",
+		"key": "ORC-REUNION",
 		"scriptLines": [
 			{"text": "\"Hmph.  Look who it is again,\" you hear, a familiar voice emerging from the trees nearby.  You turn to face the source."},
 			{"text": "\"Urka!\" you say, having recognized the orc immediately."},
@@ -1638,57 +1636,67 @@
 		]
 	},
 	{
-		"key": "007-26",
+		"key": "ORC-REUNION-ACCEPT",
 		"scriptLines": [
-			{"text": "Minutes later, without any real foreplay (Urka proves impatient), you find yourself wrist-locked, on your knees, which are spread wide apart, as Urka teaches you the ins and outs of orcish love-making - mainly, slamming her cock in and out of your ass hard enough to knock the wind out of you."},
+			{
+			"foreground": "ORC_PRONE_BONE",
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":3, "creampies":3, "analEjaculation":2}}, {"saveType":"FOOD", "value":{"class": "java.lang.Integer", "value":15}}],
+			"text": "Minutes later, without any real foreplay (Urka proves impatient), you find yourself wrist-locked, on your knees, which are spread wide apart, as Urka teaches you the ins and outs of orcish love-making - mainly, slamming her cock in and out of your ass hard enough to knock the wind out of you."},
 			{"text": "You knew what you were signing up for, but still, being stretched and pounded by orc dick is as difficult as expected, and getting inseminated anally proves inevitable.  Though you're exhausted after one round, Urka isn't finished."},
 			{"text": "After spending the night getting pounded out by Urka, you feel... rather sore, but still, the meal was nice, and you can't say that Urka -wasn't- an entertaining host, even if the full length and girth of her orcish dong didn't really need to excavate your insides."}
 		]
 	},
 	{
-		"key": "007-27",
+		"key": "ORC-REUNION-DECLINE",
 		"scriptLines": [
-			{"text": "You decline, and Urka shrugs, keeping her food to herself, although she does leave you with some to take on your trip."}
+			{
+			"mutations": [{"saveType":"FOOD", "value":{"class": "java.lang.Integer", "value":5}}],
+			"text": "You decline, and Urka shrugs, keeping her food to herself, although she does leave you with some to take on your trip."}
 		]
 	},
 	{
-		"key": "007-28",
+		"key": "ORC-COWARD-CALLOUT",
 		"scriptLines": [
 			{"text": "\"Your courage failed you then.  Not that my toy minded much...\" she says, and you feel a weight in your stomach. \"So, you saw what I do to cowardly boys like you.  Are you... stiffening up, in anticipation?\""}
 		]
 	},
 	{
-		"key": "007-29",
+		"key": "ORC-CATAMITE",
 		"scriptLines": [
 			{"text": "\"Hrm... so then, you didn't say anything because you were enjoying the sight?  That's fortunate for me... less fortunate for your boy-hole.\""},
-			{"text": "Seconds later, you find yourself wrist-locked, on your knees, which are spread wide apart, as she slams her cock in and out of your ass hard enough to knock the wind out of you."},
+			{
+			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "ORC", "value":1}}, {"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1, "creampies":1, "analEjaculation":1}}],
+			"foreground": "ORC_PRONE_BONE",
+			"text": "Seconds later, you find yourself wrist-locked, on your knees, which are spread wide apart, as she slams her cock in and out of your ass hard enough to knock the wind out of you."},
 			{"text": "You knew what you were signing up for, but still, being stretched and pounded by orc dick is as difficult as expected, and getting inseminated anally proves inevitable."}
 			{"text": "\"I thought you were a coward... seems you were just a catamite.  If we cross paths again...\" she says, gesturing to the bulge in her loin cloth."},
 			{"text": "With that, she leaves you in peace... although it's a rather sore peace."}
 		]
 	},
 	{
-		"key": "007-30",
+		"key": "ORC-ANGER",
 		"scriptLines": [
 			{"text": "\"I see.  A true coward, then.  Fine, let's test your mettle.  If you're as weak as you are cowardly, you'll learn how he felt,\" she says, and lets her chain unfurl.  She's clearly aggressive, so you nervously adopt a fighting stance."}
 		]
 	},
 	{
-		"key": "007-31",
+		"key": "ORC-VICTORY2",
 		"scriptLines": [
-			{"text": "She falls on her butt.  Dark-green bruises appear on her skin, mixing with the dark blue of her open cuts.  She fixes her gaze on you."},
+			{
+			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "ORC", "value":1}}],
+			"text": "She falls on her butt.  Dark-green bruises appear on her skin, mixing with the dark blue of her open cuts.  She fixes her gaze on you."},
 			{"text": "\"Hmph.  Stronger than you look,\" she says, and the loincloth between her legs slowly starts to stretch and deform."}
 		]
 	},
 	{
-		"key": "007-32",
+		"key": "ORC-DENIGRATION",
 		"scriptLines": [
 			{"text": "You collapse, utterly thrashed.  She pulls you by the hair to your knees."},
 			{"text": "\"Do you die a man... or live as my woman?\" she asks, dead serious."}
 		]
 	},
 	{
-		"key": "007-33",
+		"key": "ORC-BAD-END",
 		"scriptLines": [
 			{"text": "She nods, solemnly."},
 			{"text": "*THUD*"},
@@ -1696,7 +1704,7 @@
 		]
 	},
 	{
-		"key": "007-34",
+		"key": "ORC-WIFE",
 		"scriptLines": [
 			{"text": "She peers down at you, disgust creeping onto her face.  \"A date with my special meat on the menu, then.\""},
 			{"text": "She tosses you to the ground, and then grabs ahold of your pants and rips them in half."},
@@ -1709,15 +1717,26 @@
 			{"text": "You try to bite her hand, but she doesn't seem to feel it."},
 			{"text": "\"Now, suddenly, with a throbbing orc pole about to impale you, you found some courage? And how are you going to mewl when I butter your hole with this nice meat?  Or when I baste your insides with my gunk?\""},
 			{"text": "You can feel the alarmingly large presence throbbing just behind your already throbbing hole.  You feel her grip tense on your shoulders, and..."},
-			{"text": "You feel the uncomfortable feeling of it prodding inside, spreading your insides bit by bit and she begins to anally violate you.  It's so thick... and you saw that the length was no reassurance either."},
+			{
+			"foreground": "ORC_PRONE_BONE",
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1}}],
+			"text": "You feel the uncomfortable feeling of it prodding inside, spreading your insides bit by bit and she begins to anally violate you.  It's so thick... and you saw that the length was no reassurance either."},
 			{"text": "Inch by inch, the orc defiles you, your eyes rolling into the back of your head as she spreads your rectum for her purposes, her blunt instrument forcing open your anal walls without mercy."},
 			{"text": "As she claps her hips against your smooth rear for the first time, she lets out a deep sigh."},
 			{"text": "\"Soft and pillowy, I thought so,\" she says, as she taps again against your <BUTTSIZE> butt.  Your hole stretched wide, you have little choice but to submit.  \"Now, I'll make you a woman,\" she says, and with that, she begins to solidly thrust into you, in - out - in - out."},
 			{"text": "She runs her hand down your back, and then slaps your ass with a stinging strike.  You wince, and then she does it again."},
-			{"text": "\"You aren't the first human boy I've met who enjoyed being made into a woman,\" she says, and you're painfully aware of your full stiffy, ready for the dam to break at any moment.  She gives you a solid thrust, and another spank, and you blast your shame all over the grass."},
-			{"text": "Once she's done fucking you through your anal ejaculation, she hoists your leg up, and begins to slip it into your ass while your limp noodle dangles between your legs lopsidedly.  It flops and flops as she skewers your anal cavity, until, after enough stimulation, it begins to harden again."},
-			{"text": "It isn't long before you feel another one burning a hole in your balls, and she manages to coax out another humiliating orgasm while railing your shitter without regard for the incompatibility of her massive dong and your tight hole."},
-			{"text": "She releases your leg, then forces your face forward into the dirt - you turn onto your cheek to be able to breathe, and she puts her foot down aside your body and begins to piledrive herself into your upturned hole.  You can feel your flat stomach getting pushed out by her protruding invader, her dick reshaping your abdomen in the very worst way."},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analEjaculation":1}}],
+			"text": "\"You aren't the first human boy I've met who enjoyed being made into a woman,\" she says, and you're painfully aware of your full stiffy, ready for the dam to break at any moment.  She gives you a solid thrust, and another spank, and you blast your shame all over the grass."},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1}}],
+			"text": "Once she's done fucking you through your anal ejaculation, she hoists your leg up, and begins to slip it into your ass while your limp noodle dangles between your legs lopsidedly.  It flops and flops as she skewers your anal cavity, until, after enough stimulation, it begins to harden again."},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analEjaculation":1}}],
+			"text": "It isn't long before you feel another one burning a hole in your balls, and she manages to coax out another humiliating orgasm while railing your shitter without regard for the incompatibility of her massive dong and your tight hole."},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1}}],
+			"text": "She releases your leg, then forces your face forward into the dirt - you turn onto your cheek to be able to breathe, and she puts her foot down aside your body and begins to piledrive herself into your upturned hole.  You can feel your flat stomach getting pushed out by her protruding invader, her dick reshaping your abdomen in the very worst way."},
 			{"text": "\"How do you like that?  Being a man made to cum repeatedly, like a woman? Do you want me to finish, or do you desire more?\"  She says it with such vitriol, but your balls, feeling her large ones slap against them, are quite ready for another declaration of defeat."},
 			{"text": "Though your cock hasn't even hardened again yet, your toes curl as you cum, again, feeling her rod slide in and out of you at a breakneck pace.  You feel a pleasant feeling spread through your body even as she stretches your rectum in untold ways, straightening your guts out with her throbbing orc weapon. You don't know when she'll cum, but you know when she does, your stomach will catch it readily."},
 			{"text": "She pulls your head up by your hair and continues to slam you from behind."},
@@ -1728,8 +1747,12 @@
 			{"text": "Your throat is hoarse from moaning and groaning, and you want more, even if it means giving her everything she wants with your body.  Your legs are trembling, your teeth are grit, and your fingers are digging into the dirt... but you want more."},
 			{"text": "\"I'm done with you.\""},
 			{"text": "She pushes your face into the dirt again as she slams her entire shaft into your upturned <BUTTSIZE> butt.  This time, you have no choice but to eat it."},
-			{"text": "When you feel her orc cum whale-blast into your sore, aching guts, you know this is it - your days as a man are over.  You bite into the dirt and catch her cum... and you cum yourself, again, but nothing comes out."},
-			{"text": "She spends her entire load inside of you, grunting non-committally.  Your hole feels like it's on fire even before she blows her wad into it, and the thickened pulsing of her shaft stretches your hole even more, her mucousy cum irritating your cock-burned intestinal walls."},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "creampies":2}}],
+			"text": "When you feel her orc cum whale-blast into your sore, aching guts, you know this is it - your days as a man are over.  You bite into the dirt and catch her cum... and you cum yourself, again, but nothing comes out."},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1, "creampies":1}}],
+			"text": "She spends her entire load inside of you, grunting non-committally.  Your hole feels like it's on fire even before she blows her wad into it, and the thickened pulsing of her shaft stretches your hole even more, her mucousy cum irritating your cock-burned intestinal walls."},
 			{"text": "You spend the rest of your days having more orc sex than dignity, as Urka anally violates you in front of other humans.  She dresses you in the stolen clothing of village girls and has you introduce yourself as \"Lala\". "},
 			{"text": "None of the onlookers you come across have any idea that within the skirts of the she-orc's toy is a cock, filling the skirt with unused jism - a cock that no one ever touches or sees again.  "},
 			{"text": "Filling dresses with semen becomes a part of your daily routine, so that no matter how many she steals, you're always stuck wearing crusty, cum-stained clothing, and you never take off a dress without having at least one embarrassing anally-induced ejaculation inside of it."},
@@ -1739,7 +1762,7 @@
 		]
 	},
 	{
-		"key": "007-35",
+		"key": "ORC-VIOLATED",
 		"scriptLines": [
 			{"text": "Tired from fighting and being fucked, the orc continues to fuck you senseless - you are taken anally and orally for hours on end, until, finally, she grows bored of you, and sets up camp."},
 			{"text": "You spend the rest of your days having more orc sex than dignity, as Urka anally violates you in front of other humans.  She dresses you in the stolen clothing of village girls and has you introduce yourself as \"Lala\". "},
