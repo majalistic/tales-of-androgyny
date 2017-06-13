@@ -1,9 +1,11 @@
 package com.majalis.scenes;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -26,6 +28,7 @@ import com.majalis.character.Item.Weapon;
 import com.majalis.character.Item.WeaponType;
 import com.majalis.character.PlayerCharacter;
 import com.majalis.encounter.Background;
+import com.majalis.encounter.Background.BackgroundBuilder;
 import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveService;
 
@@ -266,7 +269,48 @@ public class ShopScene extends Scene {
 	}
 	
 	public enum ShopCode {
-		FIRST_STORY, SHOP, WEAPON_SHOP, GADGETEER_SHOP
+		FIRST_STORY, SHOP, WEAPON_SHOP, GADGETEER_SHOP;
+	
+		public AssetDescriptor<Texture> getBackground() {
+			switch(this) {
+				case FIRST_STORY:
+					break;
+				case GADGETEER_SHOP:
+					return AssetEnum.DEFAULT_BACKGROUND.getTexture();
+				case SHOP:
+					break;
+				case WEAPON_SHOP:
+					break;
+				default:
+					break;
+				
+				}
+			return null;
+		}
+
+		public AssetDescriptor<Texture> getForeground() {
+			switch(this) {
+				case FIRST_STORY:
+					break;
+				case GADGETEER_SHOP:
+					return AssetEnum.GADGETEER.getTexture();
+				case SHOP:
+					break;
+				case WEAPON_SHOP:
+					break;
+				default:
+					break;
+			}
+			return null;
+		}
+		
+		public int getX() {
+			return this == GADGETEER_SHOP ? 900 : 0;
+		}
+
+		public int getY() {
+			return 0;
+		}
 	}
 	
 }

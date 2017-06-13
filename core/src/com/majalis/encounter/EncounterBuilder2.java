@@ -13,7 +13,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.IntArray;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.OrderedMap;
@@ -26,7 +25,6 @@ import com.majalis.character.Perk;
 import com.majalis.character.PlayerCharacter;
 import com.majalis.character.Stance;
 import com.majalis.character.AbstractCharacter.Stat;
-import com.majalis.character.SexualExperience.SexualExperienceBuilder;
 import com.majalis.save.ProfileEnum;
 import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveManager;
@@ -39,9 +37,11 @@ import com.majalis.scenes.ChoiceScene;
 import com.majalis.scenes.EndScene;
 import com.majalis.scenes.Mutation;
 import com.majalis.scenes.Scene;
+import com.majalis.scenes.ShopScene;
 import com.majalis.scenes.TextScene;
 import com.majalis.scenes.CheckScene.CheckType;
 import com.majalis.scenes.ShopScene.Shop;
+import com.majalis.scenes.ShopScene.ShopCode;
 import com.majalis.encounter.Background.BackgroundBuilder;
 import com.majalis.encounter.EncounterBuilder.ChoiceCheckType;
 
@@ -241,7 +241,28 @@ public class EncounterBuilder2 {
 			case FORT:
 				break;
 			case GADGETEER:
-				break;
+				Branch no = new Branch("No thanks").textScene("GADGETEER-NO").encounterEnd();
+				Branch yes = new Branch().textScene("GADGETEER-SLAVE").gameEnd();
+				Branch[] yesyesyes = new Branch[]{new Branch("yes").concat(yes), new Branch("yeS").concat(yes), new Branch("YES").concat(yes)};
+				return new Branch().textScene("GADGETEER-INTRO").choiceScene(
+					"Do you want to peruse her wares?", 
+					new Branch("Peruse").shopScene(ShopCode.GADGETEER_SHOP).textScene("GADGETEER-POSTSHOP").checkScene(
+						Perk.ANAL_LOVER,
+						new Branch(3).textScene("GADGETEER-PEGGED").choiceScene("Become hers?", yesyesyes),
+						new Branch(2).textScene("GADGETEER-PLUGS").encounterEnd(),
+						new Branch(1).textScene("GADGETEER-HESITANT").choiceScene(
+							"Try the toys?", 
+							new Branch("Yes").textScene("GADGETEER-BALLS").encounterEnd(), 
+							no
+						),
+						new Branch(0).textScene("GADGETEER-CONFUSED").choiceScene(
+							"Try the toys?", 
+							new Branch("Yes (Requires: Catamite)").require(ChoiceCheckType.LEWD).textScene("GADGETEER-BREAKINGIN").encounterEnd(),
+							no
+						)
+					), 
+					no
+				).getEncounter();
 			case GOBLIN:
 				Branch postVirginityCheck = new Branch().choiceScene(
 					"Mouth, or ass?",
@@ -659,6 +680,11 @@ public class EncounterBuilder2 {
 			return this;
 		}
 		
+		public Branch shopScene(ShopCode shopCode) {
+			sceneTokens.add(new ShopSceneToken(shopCode));
+			return this;
+		}
+		
 		public Branch concat(Branch branch) {
 			return weldBranches(new Branch[]{branch});
 		}
@@ -872,6 +898,7 @@ public class EncounterBuilder2 {
 				reverse = false;
 				// iterate through and every time either background or foreground/animatedforeground change, create a new background
 				for (SceneToken token: sceneTokens) {
+					if (token instanceof ShopSceneToken) continue;					
 					// if all of the tokens are  the same, clone the last background
 					if ((token.foreground == null || token.foreground == foreground) && (token.animatedForeground == null || token.animatedForeground == animatedForeground) && (token.background == null || token.background == background)) {
 						if (backgrounds.size > 0) {
@@ -908,9 +935,17 @@ public class EncounterBuilder2 {
 				// taking the branchToken scene and use it as the entrypoint, traversing the sceneTokens backwards and putting them into each other
 				int ii = 0;
 				for (SceneToken token: sceneTokens) {
-					String scriptLine = token.text.replace("<NAME>", characterName).replace("<BUTTSIZE>", buttsize).replace("<LIPSIZE>", lipsize);
-					// create the scene
-					Scene newScene = new TextScene(sceneMap, sceneCounter, assetManager, font, saveService, backgrounds.get(ii++), scriptLine, getMutations(token.mutations), character, token.music != null ? token.music.getMusic() : null, token.sound != null ? token.sound.getSound() : null);
+					Scene newScene = null;
+					if (token instanceof ShopSceneToken) {
+						ShopCode shopCode = ((ShopSceneToken) token).shopCode;
+						// this needs to get the proper background, probably from shopcode attributes
+						newScene = new ShopScene(sceneMap, sceneCounter, saveService, assetManager, character, new BackgroundBuilder(assetManager.get(shopCode.getBackground())).setForeground(assetManager.get(shopCode.getForeground()), shopCode.getX(), shopCode.getY()).build(), shopCode, shops.get(shopCode.toString()));
+					}
+					else {
+						String scriptLine = token.text.replace("<NAME>", characterName).replace("<BUTTSIZE>", buttsize).replace("<LIPSIZE>", lipsize);
+						// create the scene
+						newScene = new TextScene(sceneMap, sceneCounter, assetManager, font, saveService, backgrounds.get(ii++), scriptLine, getMutations(token.mutations), character, token.music != null ? token.music.getMusic() : null, token.sound != null ? token.sound.getSound() : null);		
+					}
 					// add it to array
 					scenes.add(newScene);
 					// use it to make the map
@@ -1082,6 +1117,13 @@ public class EncounterBuilder2 {
 			if (foreground == null) foreground = startForeground;
 			if (animatedForeground == null) animatedForeground = startAnimatedForeground;
 		}		
+	}
+	
+	public static class ShopSceneToken extends SceneToken {
+		ShopCode shopCode;
+		public ShopSceneToken (ShopCode shopCode) {
+			this.shopCode = shopCode;
+		}
 	}
 	
 	public static class MutateToken {
