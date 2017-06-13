@@ -222,7 +222,7 @@ public class EncounterBuilder2 {
 			case COTTAGE_TRAINER:
 				return new Branch().textScene("STORY-003").characterCreation(true).encounterEnd().getEncounter(); 		
 			case COTTAGE_TRAINER_VISIT:
-				break;
+				return new Branch().textScene("STORY-004").encounterEnd().getEncounter();
 			case CRIER_QUEST:
 				return new Branch().checkScene(
 					CheckType.CRIER_QUEST, 

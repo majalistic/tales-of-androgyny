@@ -88,13 +88,6 @@ public class EncounterBuilder {
 		BattleCode battleCode;
 		
 		switch (encounterCode) {	
-			case COTTAGE_TRAINER_VISIT:
-				background = new BackgroundBuilder(assetManager.get(AssetEnum.CABIN_BACKGROUND.getTexture())).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getTexture())).build();
-				getTextScenes(
-					getScript("STORY-004"), font, background, new Array<Mutation>(), AssetEnum.TRAINER_MUSIC.getMusic(),
-					getEndScene(EndScene.Type.ENCOUNTER_OVER)						
-				);
-				break;
 			case TOWN_STORY: 
 				background = new BackgroundBuilder(assetManager.get(AssetEnum.TOWN_BG.getTexture())).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getTexture())).build();
 				Background backgroundWithShopkeep = new BackgroundBuilder(assetManager.get(AssetEnum.TOWN_BG.getTexture())).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getTexture())).setForeground(assetManager.get(AssetEnum.SHOPKEEP.getTexture())).build();

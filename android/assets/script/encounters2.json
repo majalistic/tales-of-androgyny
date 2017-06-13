@@ -233,7 +233,10 @@
 	{
 		"key": "STORY-004",
 		"scriptLines": [
-			{"text": "You return to the cottage, but find that he's no longer there."},
+			{
+			"background": "CABIN_BACKGROUND",
+			"music": "TRAINER_MUSIC",
+			"text": "You return to the cottage, but find that he's no longer there."},
 			{"text": "You wait around for a while, but he doesn't return - maybe he's out on the town, or foraging for squirrels to eat."},
 			{"text": "You leave, disappointed."}
 		]
