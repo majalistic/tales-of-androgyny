@@ -117,7 +117,6 @@ public class SaveManager implements SaveService, LoadService {
     		saveToJson(save); //Saves current save immediately.
     	}
         return result;
-	
 	}
 
 	@SuppressWarnings("unchecked")

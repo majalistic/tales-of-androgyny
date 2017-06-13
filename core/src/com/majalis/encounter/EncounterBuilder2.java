@@ -490,9 +490,9 @@ public class EncounterBuilder2 {
 					return new Branch().skillSelection().encounterEnd().getEncounter(); 	
 				}
 			case MERI_COTTAGE:
-				break;
+				return new Branch().textScene("STORY-WITCH-COTTAGE").encounterEnd().getEncounter(); 	
 			case MERI_COTTAGE_VISIT:
-				break;
+				return new Branch().textScene("STORY-WITCH-COTTAGE-VISIT").encounterEnd().getEncounter(); 
 			case OGRE:
 				Branch passerby = new Branch().textScene("OGRE-PASSERBY").encounterEnd();
 				Branch partingScene = new Branch().checkScene(

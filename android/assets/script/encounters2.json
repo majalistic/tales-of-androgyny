@@ -341,7 +341,10 @@
 	{
 		"key": "STORY-WITCH-COTTAGE",
 		"scriptLines": [
-			{"text": "You manage to track down Meri's cottage - it being far on the opposite side of Nadir from your own humble hovel, you've never had an overwhelmingly compelling reason to come by here, and plenty of reason to stay away."},
+			{
+			"music": "TRAINER_MUSIC",
+			"background": "CABIN_BACKGROUND",
+			"text": "You manage to track down Meri's cottage - it being far on the opposite side of Nadir from your own humble hovel, you've never had an overwhelmingly compelling reason to come by here, and plenty of reason to stay away."},
 			{"text": "Your curiosity about your mother had long since been overruled by your self-preservation, as Meri had a reputation for making boys like yourself... disappear.  Whether it was something truly sinister or simply the murmurs of an ignorant peasantry jumping to conclusions about a local witch, you didn't want to chance it."},
 			{"text": "Faced with few other options now, however, you decide to give the old witch a chance - and remind yourself not to call her that to her face."},
 			{"text": "Her cottage is excessively plain - but there's an air of palpable... malice to it that you can't shake off.  You warily approach the door, one hand on your sword's sheathe, the other balled in a fist against your chest, which thumps steadily and powerfully."},
@@ -349,13 +352,11 @@
 			{"text": "You drop your fingers down, slowly, carefully, to the door handle, and, after catching your breath, you push it open."},
 			{"text": "The inside of the cottage smells... rather pleasantly, actually, and it's much, much hotter than the autumn breeze outside.  As the door closes behind you, in fact, you feel an overwhelming sensation of comfort and familiarity, even though the inside of the cottage is wholly unfamiliar to you."},
 			{"text": "It's a bit like you expect a witch's cottage to be - in that it surprises you entirely.  The surfaces are immaculate, the fineries are quite fine, the upholstery looks pristine and expensive, deep blacks, oak browns, and fresh blood reds - it's the last thing you would expect on the outskirts of a town like Nadir."},
-			{"text": "There are, you eventually notice, some of the expected collections of a witch - tomes, less musty, but tomes nonetheless, and magic circles scrawled on the walls and floors, and great, beautiful crystals and orbs, each poisoned on top of a holder, some large, some small, delicately enough to make you anxious."}
-		]
-	},
-	{
-		"key": "STORY-WITCH-COTTAGE-MERI",
-		"scriptLines": [
-			{"text": "And then, finally, you spot her, as a shadow darts across the floor and then seems to disappear beneath her garments.  Even wearing a full-length robe, the curves of her body are visible and... otherworldly.  No doubt the work of some foul magic."},
+			{"text": "There are, you eventually notice, some of the expected collections of a witch - tomes, less musty, but tomes nonetheless, and magic circles scrawled on the walls and floors, and great, beautiful crystals and orbs, each poisoned on top of a holder, some large, some small, delicately enough to make you anxious."},
+			{
+			"music": "WEREWOLF_MUSIC",
+			"foreground": "MERI_SILHOUETTE",
+			"text": "And then, finally, you spot her, as a shadow darts across the floor and then seems to disappear beneath her garments.  Even wearing a full-length robe, the curves of her body are visible and... otherworldly.  No doubt the work of some foul magic."},
 			{"text": "She turns to face you, looking away from a spherical crystal - or is it an orb? - a smile on her lips, and a hunger in her eyes.  You smile politely at her and nod."},
 			{"text": "You didn't expect her to be so... voluptuous.  In fact, you had kind of expected her to be old and grizzled by now, like your mother's class trainer - instead, she doesn't look like she's aged a day since you were a child."},
 			{"text": "\"My, my.  Look who's all grown up.\", she says, her voice deep, her presence large.  Not exactly the slightness you would expect of a mage."},
@@ -373,7 +374,9 @@
 			{"text": "..."},
 			{"text": ".."},
 			{"text": "."},
-			{"text": "\"Rise and shine, boyo,\" she says, and you realize that at some point, your eyes closed... and, in fact, you're laying down on a long, cushioned seat in her cottage.  You feel your body - nothing appears to be missing - and you look around."},
+			{
+			"mutations": [{"saveType":"SKILL", "value":{"class": "com.majalis.character.Techniques", "value": "COMBAT_FIRE"}}],
+			"text": "\"Rise and shine, boyo,\" she says, and you realize that at some point, your eyes closed... and, in fact, you're laying down on a long, cushioned seat in her cottage.  You feel your body - nothing appears to be missing - and you look around."},
 			{"text": "The room is as it was before, but now that you're further in, you can see some of the strange instruments laying about, as well as a ring of iron, the height and width of a person, mounted on a wall."},
 			{"text": "You also find the source of the voice, and it's her, the witch, Meri, standing in front of one of the orbs, her eyes closed, her lips curled into a smile."},
 			{"text": "She's surrounded by a kind of other-worldly light, her robe lifting in some impossible updraft, but then, it subsides, and the high ringing you had heard dissipitates.  "},
@@ -399,7 +402,10 @@
 	{
 		"key": "STORY-WITCH-COTTAGE-VISIT",
 		"scriptLines": [
-			{"text": "You return, hoping to perhaps learn new magicks... but the mysterious witch is nowhere to be found."}
+			{
+			"music": "TRAINER_MUSIC",
+			"background": "CABIN_BACKGROUND",
+			"text": "You return, hoping to perhaps learn new magicks... but the mysterious witch is nowhere to be found."}
 		]
 	},
 	{

@@ -21,7 +21,6 @@ import com.majalis.asset.AssetEnum;
 import com.majalis.battle.BattleCode;
 import com.majalis.battle.Battle.Outcome;
 import com.majalis.character.PlayerCharacter;
-import com.majalis.character.Techniques;
 import com.majalis.encounter.Background.BackgroundBuilder;
 import com.majalis.character.SexualExperience.SexualExperienceBuilder;
 import com.majalis.character.Stance;
@@ -86,24 +85,6 @@ public class EncounterBuilder {
 		BattleCode battleCode;
 		
 		switch (encounterCode) {	
-			case MERI_COTTAGE: 
-				background = new BackgroundBuilder(assetManager.get(AssetEnum.CABIN_BACKGROUND.getTexture())).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getTexture())).build();
-				Background witchBackground = new BackgroundBuilder(assetManager.get(AssetEnum.CABIN_BACKGROUND.getTexture())).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getTexture())).setForeground(assetManager.get(AssetEnum.MERI_SILHOUETTE.getTexture())).build();
-				getTextScenes (
-					getScript("STORY-WITCH-COTTAGE"), font, background, new Array<Mutation>(new Mutation[]{new Mutation(saveService, SaveEnum.SKILL, Techniques.COMBAT_FIRE)}), AssetEnum.TRAINER_MUSIC.getMusic(), 
-					getTextScenes (
-						getScript("STORY-WITCH-COTTAGE-MERI"), font, witchBackground, new Array<Mutation>(new Mutation[]{new Mutation(saveService, SaveEnum.SKILL, Techniques.COMBAT_FIRE)}), AssetEnum.WEREWOLF_MUSIC.getMusic(),
-						getEndScene(EndScene.Type.ENCOUNTER_OVER)
-					)
-				);
-				break;
-			case MERI_COTTAGE_VISIT:
-				background = new BackgroundBuilder(assetManager.get(AssetEnum.CABIN_BACKGROUND.getTexture())).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getTexture())).build();
-				getTextScenes(
-					getScript("STORY-WITCH-COTTAGE-VISIT"), font, background, new Array<Mutation>(), AssetEnum.TRAINER_MUSIC.getMusic(), 
-					getEndScene(EndScene.Type.ENCOUNTER_OVER)						
-				);
-				break;
 			case FIRST_BATTLE_STORY:
 				battleCode = BattleCode.GOBLIN_STORY;
 				Background goblinBackground2 = new BackgroundBuilder(backgroundTexture).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getTexture())).setForeground(assetManager.get(AssetEnum.GOBLIN.getTexture())).build();
