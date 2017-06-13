@@ -70,38 +70,7 @@ public class EncounterBuilder {
 		Background background = getDefaultTextBackground();
 		Mutation analReceive = new Mutation(saveService, SaveEnum.ANAL, new SexualExperienceBuilder().setAnalSex(1, 1, 0).build());
 		
-		switch (encounterCode) {	
-			case ECCENTRIC_MERCHANT:
-				getTextScenes(
-					getScript("STORY-MERCHANT"), font, background,
-					getEndScene(EndScene.Type.ENCOUNTER_OVER)	
-				);
-				break;
-			case STORY_FEM:
-				Background backgroundWithAdventurer2 = new BackgroundBuilder(assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getTexture())).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getTexture())).setForeground(assetManager.get(AssetEnum.ADVENTURER.getTexture())).build();
-				getTextScenes(
-					getScript("STORY-FEM"), font, backgroundWithAdventurer2, new Array<Mutation>(), AssetEnum.GADGETEER_MUSIC.getMusic(),
-					getEndScene(EndScene.Type.ENCOUNTER_OVER)	
-				);
-				break;
-			case STORY_SIGN:
-				getTextScenes(
-					getScript("CROSSROADS"), font, background,
-					getEndScene(EndScene.Type.ENCOUNTER_OVER)	 
-				);
-				break;
-			case WEST_PASS:
-				getTextScenes(
-					getScript("WEST-PASS"), font, background,
-					getEndScene(EndScene.Type.ENCOUNTER_OVER)	 
-				);
-				break;
-			case SOUTH_PASS:
-				getTextScenes(
-					getScript("SOUTH-PASS"), font, background,
-					getEndScene(EndScene.Type.ENCOUNTER_OVER)	 
-				);
-				break;
+		switch (encounterCode) {			
 			case SHOP:
 				Background backgroundWithShopkeep2 = new BackgroundBuilder(assetManager.get(AssetEnum.TOWN_BG. getTexture())).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getTexture())).setForeground(assetManager.get(AssetEnum.SHOPKEEP.getTexture())).build();
 				getTextScenes (					

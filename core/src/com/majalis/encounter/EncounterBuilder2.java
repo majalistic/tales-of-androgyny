@@ -242,7 +242,7 @@ public class EncounterBuilder2 {
 					)
 			    ).getEncounter();
 			case ECCENTRIC_MERCHANT:
-				break;
+				return new Branch().textScene("STORY-MERCHANT").encounterEnd().getEncounter();
 			case ERROR:
 				break;
 			case FIRST_BATTLE_STORY:
@@ -655,13 +655,13 @@ public class EncounterBuilder2 {
 					new Branch("Leave Her Be").encounterEnd()			
 				).getEncounter();
 			case SOUTH_PASS:
-				break;
+				return new Branch().textScene("SOUTH-PASS").encounterEnd().getEncounter();
 			case STARVATION:
 				break;
 			case STORY_FEM:
-				break;
+				return new Branch().textScene("STORY-FEM").encounterEnd().getEncounter();
 			case STORY_SIGN:
-				break;
+				return new Branch().textScene("CROSSROADS").encounterEnd().getEncounter();
 			case TOWN:
 				break;
 			case TOWN2:
@@ -691,7 +691,7 @@ public class EncounterBuilder2 {
 			        new Branch(Outcome.SATISFIED).textScene("WEREWOLF-SATISFIED").encounterEnd()
 			    ).getEncounter();
 			case WEST_PASS:
-				break;
+				return new Branch().textScene("WEST-PASS").encounterEnd().getEncounter();
 		}
 		return null;
 	}

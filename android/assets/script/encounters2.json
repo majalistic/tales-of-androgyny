@@ -558,7 +558,10 @@
 	{
 		"key": "STORY-FEM",
 		"scriptLines": [
-			{"text": "You come across a fellow traveller on the road, clad in ostentatious armor, riding what appears to be a giant bird."},
+			{
+			"music": "GADGETEER_MUSIC",
+			"foreground": "ADVENTURER",
+			"text": "You come across a fellow traveller on the road, clad in ostentatious armor, riding what appears to be a giant bird."},
 			{"text": "As they approach, you think they might be a woman, or a man... and by the time they're within ear-shot, you can't tell."},
 			{"text": "\"I'm traveling to some dreadful place called Nadir. I'm told a powerful mage lives there that I must consult. I'll be coming back this way as soon as possible,\" they explain, unbidden."},
 			{"text": "\"I'm crossing the mountains to the northeast, on a quest,\" you say, and they nod, seemingly only half-listening as they look down at you."},
