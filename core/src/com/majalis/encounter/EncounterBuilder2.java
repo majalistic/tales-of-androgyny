@@ -665,7 +665,12 @@ public class EncounterBuilder2 {
 					new Branch(false).textScene("CRIER-OLD").encounterEnd()
 				).getEncounter();
 			case TOWN_STORY:
-				break;
+				Branch leaveTown = new Branch().textScene("STORY-007").encounterEnd();
+				return new Branch().textScene("STORY-005").shopScene(ShopCode.FIRST_STORY).textScene("STORY-006A").checkScene(
+					Stat.CHARISMA,
+					new Branch(6).textScene("STORY-006B").concat(leaveTown),
+					new Branch(0).textScene("STORY-006C").concat(leaveTown)
+				).getEncounter();
 			case WEAPON_SHOP:
 				break;
 			case WERESLUT:

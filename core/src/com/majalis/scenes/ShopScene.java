@@ -272,14 +272,12 @@ public class ShopScene extends Scene {
 	
 		public AssetDescriptor<Texture> getBackground() {
 			switch(this) {
-				case FIRST_STORY:
-					break;
 				case GADGETEER_SHOP:
 					return AssetEnum.DEFAULT_BACKGROUND.getTexture();
-				case SHOP:
-					break;
 				case WEAPON_SHOP:
-					break;
+				case SHOP:
+				case FIRST_STORY:
+					return AssetEnum.TOWN_BG.getTexture();
 				default:
 					break;
 				
@@ -290,13 +288,12 @@ public class ShopScene extends Scene {
 		public AssetDescriptor<Texture> getForeground() {
 			switch(this) {
 				case FIRST_STORY:
-					break;
+				case SHOP:
+					return AssetEnum.SHOPKEEP.getTexture();
 				case GADGETEER_SHOP:
 					return AssetEnum.GADGETEER.getTexture();
-				case SHOP:
-					break;
 				case WEAPON_SHOP:
-					break;
+					return AssetEnum.TRAINER.getTexture();
 				default:
 					break;
 			}
@@ -304,7 +301,7 @@ public class ShopScene extends Scene {
 		}
 		
 		public int getX() {
-			return this == GADGETEER_SHOP ? 900 : 0;
+			return 900;
 		}
 
 		public int getY() {

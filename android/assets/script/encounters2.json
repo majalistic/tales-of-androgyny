@@ -244,7 +244,9 @@
 	{
 		"key": "STORY-005",
 		"scriptLines": [
-			{"text": "You enter the village of Nadir proper - the main street stretches before you, and you know the shop isn't far.  On your way to it, you happen across a trio of old, crusty men telling stories around a bonfire, although one of them doesn't say a word at all.  You walk past, nonchalantly, but listen in on their conversation, hiding behind a nearby retaining wall."},
+			{
+			"background": "TOWN_BG",
+			"text": "You enter the village of Nadir proper - the main street stretches before you, and you know the shop isn't far.  On your way to it, you happen across a trio of old, crusty men telling stories around a bonfire, although one of them doesn't say a word at all.  You walk past, nonchalantly, but listen in on their conversation, hiding behind a nearby retaining wall."},
 			{"text": "\"Did ya hear about that adventurer boy what wandered into the orc camp down by Nagle's Crook?\" one man asks, although it's obvious from the reaction of the other two that they don't much know or care about it."},
 			{"text": "\"Nah.  They kill 'em?\""},
 			{"text": "\"Pahh, that'd be a borin' story, wouldnit?  Mighta been better for him, though.  Daft orcs couldn't tell 'em from a lass, so they blasted his ass six ways to sundown before he escaped.  Got back to town with enough orc jism up his butt to qualify as a caravan hisself!\""},
@@ -263,17 +265,17 @@
 			{"text": "You back away from the two men, who seem awfully amused with themselves, and check that your training sword is where you left it.  It sounds like you'll be needing it to be sharp and at the ready, because the world is a dangerous... uh... the image of a noble knight swearing to slay the ogre prince flashes in your mind, and then..."},
 			{"text": "You shake your head.  The shop is just down this road.  You follow it, and spot the shop marked, well, 'Shop'."},
 			{"text": "When you enter, you see that the shop has fruit laid out in baskets on tables and on counters, more fruit than anyone has ever had need for.  Since you get your food courtesy of the township, you've never had reason to step inside."},
-			{"text": "Behind the counter, you see a fresh-faced girl who you've seen around town, but never spoken to."}
-		]
-	},
-	{
-		"key": "STORY-006",
-		"scriptLines": [
-			{"text": "\"Hey there, what can I get for ya?\" she says, putting a basket full of apples down on the shop counter."},
+			{"text": "Behind the counter, you see a fresh-faced girl who you've seen around town, but never spoken to."},
+			{
+			"music": "SHOP_MUSIC",
+			"foreground": "SHOPKEEP",
+			"text": "\"Hey there, what can I get for ya?\" she says, putting a basket full of apples down on the shop counter."},
 			{"text": "You can't quite place her accent.  She hasn't looked over at you yet responding only to the sound of the shop door shutting behind you."},
 			{"text": "\"Oh, you're new around here, aren't you?\" she asks, once she turns and sees your face."},
 			{"text": "\"I've... lived here my whole life...\" you say, but she just smiles politely in response.  She wipes her hands - she'd clearly just been working in the apple grotto - and clears her throat."},
-			{"text": "\"Name's Shopkeep.  You can call me Shopkeep,\" she says, full of energy. \"What would you like to buy?  Oh, and this cute thing isn't for sale,\" she says, gesturing to herself."},
+			{
+			"sound": "SMUG_LAUGH",
+			"text": "\"Name's Shopkeep.  You can call me Shopkeep,\" she says, full of energy. \"What would you like to buy?  Oh, and this cute thing isn't for sale,\" she says, gesturing to herself."},
 			{"text": "\"I... didn't think that...\" you say, flustered, and she looks down at her dress and pulls on the hem, lifting it slightly."},
 			{"text": "\"I made it myself.  It's my favorite dress.  Also my only one,\" she says, dropping the hem and shrugging. \"So, what'll it be?\""},
 			{"text": "You wipe your brow.  Her dress, obviously.  It's your turn to clear your throat.  \"Hrm... what do you sell?\""},
@@ -307,7 +309,11 @@
 	{
 		"key": "STORY-006B",
 		"scriptLines": [
-			{"text": "\"Oh my... you're rather cute, aren't you?  A shame you're going on a journey...\" she says, and you feel your heart beating in your chest... and a stirring in your loins that isn't nearly as innocent."},
+			{
+			"background": "TOWN_BG",
+			"foreground": "SHOPKEEP",
+			"sound": "SMUG_LAUGH",
+			"text": "\"Oh my... you're rather cute, aren't you?  A shame you're going on a journey...\" she says, and you feel your heart beating in your chest... and a stirring in your loins that isn't nearly as innocent."},
 			{"text": "Her hand rests on yours, and her fingers trace up towards your wrist, when suddenly, she stops."},
 			{"text": "\"Well, I'm sure you know how to use it,\" she says, and you swallow, as she rounds the counter again, her skirt trailing behind her."},
 			{"text": "She returns to her position behind the counter and stares at you, smiling brightly, but silently.  You start to turn away, and she finally speaks."},
@@ -323,7 +329,9 @@
 	{
 		"key": "STORY-007",
 		"scriptLines": [
-			{"text": "..."},
+			{
+			"foreground": "NULL",
+			"text": "..."},
 			{"text": ".."},
 			{"text": "."},
 			{"text": "With weapon in hand, you set out.  First stop - someone who will teach you magic.  You could ask the townsfolk for a suggestion... but you have at least one option in mind: Meri, a magician your mother once travelled with, who now lives as a recluse a few days east, near the foot of the Burle mountains."},

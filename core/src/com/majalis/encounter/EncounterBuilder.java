@@ -14,7 +14,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.IntArray;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.OrderedMap;
 import com.majalis.asset.AnimatedActor;
@@ -26,7 +25,6 @@ import com.majalis.character.Techniques;
 import com.majalis.encounter.Background.BackgroundBuilder;
 import com.majalis.character.SexualExperience.SexualExperienceBuilder;
 import com.majalis.character.Stance;
-import com.majalis.character.AbstractCharacter.Stat;
 import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveManager;
 import com.majalis.save.SaveManager.GameContext;
@@ -88,39 +86,6 @@ public class EncounterBuilder {
 		BattleCode battleCode;
 		
 		switch (encounterCode) {	
-			case TOWN_STORY: 
-				background = new BackgroundBuilder(assetManager.get(AssetEnum.TOWN_BG.getTexture())).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getTexture())).build();
-				Background backgroundWithShopkeep = new BackgroundBuilder(assetManager.get(AssetEnum.TOWN_BG.getTexture())).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getTexture())).setForeground(assetManager.get(AssetEnum.SHOPKEEP.getTexture())).build();
-				Background shopBackground = new BackgroundBuilder(assetManager.get(AssetEnum.TOWN_BG.getTexture())).setForeground(assetManager.get(AssetEnum.SHOPKEEP.getTexture())).build();
-				getTextScenes(
-					getScript("STORY-005"), font, background, new Array<Mutation>(),
-					getTextScenes (					
-						getScript("STORY-006"), font, backgroundWithShopkeep, new Array<Mutation>(), AssetEnum.SHOP_MUSIC.getMusic(), getArray(new AssetDescriptor[]{null, null, null, null, AssetEnum.SMUG_LAUGH.getSound()}),
-						getShopScene(
-							ShopCode.FIRST_STORY, shopBackground, 
-							getTextScenes(					
-								getScript("STORY-006A"), font, backgroundWithShopkeep,
-								getCheckScene(Stat.CHARISMA, new IntArray(new int[]{6}),
-									getTextScenes (
-										getScript("STORY-006B"), font, backgroundWithShopkeep, new Array<Mutation>(), AssetEnum.SHOP_MUSIC.getMusic(), getArray(new AssetDescriptor[]{ AssetEnum.SMUG_LAUGH.getSound()}),
-										getTextScenes (					
-											getScript("STORY-007"), font, background, new Array<Mutation>(),
-											getEndScene(EndScene.Type.ENCOUNTER_OVER)	
-										)	
-									),
-									getTextScenes (
-										getScript("STORY-006C"), font, backgroundWithShopkeep, new Array<Mutation>(),
-										getTextScenes (					
-											getScript("STORY-007"), font, background, new Array<Mutation>(),
-											getEndScene(EndScene.Type.ENCOUNTER_OVER)	
-										)	
-									)	
-								)	
-							)
-						)	
-					)
-				);
-				break;
 			case MERI_COTTAGE: 
 				background = new BackgroundBuilder(assetManager.get(AssetEnum.CABIN_BACKGROUND.getTexture())).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getTexture())).build();
 				Background witchBackground = new BackgroundBuilder(assetManager.get(AssetEnum.CABIN_BACKGROUND.getTexture())).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getTexture())).setForeground(assetManager.get(AssetEnum.MERI_SILHOUETTE.getTexture())).build();
@@ -383,19 +348,6 @@ public class EncounterBuilder {
 		default:
 			return false;
 		}
-	}
-	
-	// accepts a list of values, will map those values to scenes in the scenemap in order
-	private OrderedMap<Integer, Scene> getCheckScene(Stat stat, IntArray checkValues, @SuppressWarnings("unchecked") OrderedMap<Integer, Scene>... sceneMaps) {
-		OrderedMap<Integer, Scene> sceneMap = aggregateMaps(sceneMaps);
-		Texture background = assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getTexture());
-		OrderedMap<Integer, Scene> checkValueMap = new OrderedMap<Integer, Scene>();
-		int ii = 0;
-		for (; ii < checkValues.size; ii++) {
-			checkValueMap.put(checkValues.get(ii), sceneMap.get(sceneMap.orderedKeys().get(ii)));
-		}
-		CheckScene checkScene = new CheckScene(sceneMap, sceneCounter, assetManager, saveService, font, new BackgroundBuilder(background).build(), stat, checkValueMap, sceneMap.get(sceneMap.orderedKeys().get(ii)), character);
-		return addScene(checkScene);
 	}
 	
 	private OrderedMap<Integer, Scene> getCheckScene(CheckType checkType, @SuppressWarnings("unchecked") OrderedMap<Integer, Scene>... sceneMaps) {
