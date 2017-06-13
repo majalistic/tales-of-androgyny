@@ -40,6 +40,7 @@ public class EncounterFactory {
 					|| encounterCode == EncounterCode.ORC || encounterCode == EncounterCode.ADVENTURER || encounterCode == EncounterCode.OGRE || encounterCode == EncounterCode.BEASTMISTRESS || encounterCode == EncounterCode.GADGETEER || encounterCode == EncounterCode.INN
 					|| encounterCode == EncounterCode.TOWN_CRIER || encounterCode == EncounterCode.CRIER_QUEST || encounterCode == EncounterCode.INITIAL || encounterCode == EncounterCode.COTTAGE_TRAINER || encounterCode == EncounterCode.COTTAGE_TRAINER_VISIT || encounterCode == EncounterCode.LEVEL_UP 
 					|| encounterCode == EncounterCode.DEFAULT || encounterCode == EncounterCode.TOWN_STORY || encounterCode == EncounterCode.MERI_COTTAGE || encounterCode == EncounterCode.MERI_COTTAGE_VISIT || encounterCode == EncounterCode.FIRST_BATTLE_STORY
+					|| encounterCode == EncounterCode.OGRE_WARNING_STORY || encounterCode == EncounterCode.OGRE_STORY
 					? 
 					 new EncounterBuilder2(new EncounterReader2("script/encounters2.json"), assetManager, saveService, font, sceneCode == 0 ? -1 : sceneCode, (ObjectMap<String, Shop>)loadService.loadDataValue(SaveEnum.SHOP, Shop.class), (PlayerCharacter) loadService.loadDataValue(SaveEnum.PLAYER, PlayerCharacter.class), context, (GameMode) loadService.loadDataValue(SaveEnum.MODE, GameMode.class)).getEncounter(encounterCode) : 
 					builder.getRandomEncounter(encounterCode);

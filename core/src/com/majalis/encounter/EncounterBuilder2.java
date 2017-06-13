@@ -549,9 +549,13 @@ public class EncounterBuilder2 {
 					
 			    ).getEncounter();			
 			case OGRE_STORY:
-				break;
+				return new Branch().textScene("STORY-OGRE").choiceScene(
+					"Continue on?",
+					new Branch("Press on").textScene("STORY-OGRE-DEFEAT").gameEnd(), 
+					new Branch("Turn back").encounterEnd()
+				).getEncounter();
 			case OGRE_WARNING_STORY:
-				break;
+				return new Branch().textScene("OGRE-WARN").encounterEnd().getEncounter();
 			case ORC:
 				Branch leaveOrc = new Branch().textScene("ORC-LEAVE").encounterEnd();
 				Branch oralScene = new Branch().textScene("ORC-ORAL").encounterEnd();

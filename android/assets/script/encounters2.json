@@ -490,7 +490,9 @@
 	{
 		"key": "OGRE-WARN",
 		"scriptLines": [
-			{"text": "You come across an old, wisened man on the side of the road."},
+			{
+			"music": "TRAINER_MUSIC",
+			"text": "You come across an old, wisened man on the side of the road."},
 			{"text": "\"Oagh, boy, there's an ogre thataways.\""},
 			{"text": "\"What do you mean, there's an ogre 'thataways?' Surely there's more than one way through a forest.\""},
 			{"text": "\"Look'n, I'm not a cartographer, y'here?  All I know is, y'wander in that direction, y'll be fartin' ogre cum till the last of yer days.  Heed m' warning or not, I don't figgy care.\""},
@@ -500,11 +502,15 @@
 	{
 		"key": "STORY-OGRE",
 		"scriptLines": [
-			{"text": "You ignored the old man's warnings - there's no telling how accurate a rumor from a random stranger could possibly be.  The path has been relatively clear thus far... and quiet."},
+			{
+			"music": "WEREWOLF_MUSIC",
+			"text": "You ignored the old man's warnings - there's no telling how accurate a rumor from a random stranger could possibly be.  The path has been relatively clear thus far... and quiet."},
 			{"text": "The air has gotten thick - there's a scent you can pick up that's only getting stronger the more you travel on."},
 			{"text": "You hear a loud thud.  Then another."},
 			{"text": "The ground begins to shake with each one... whatever it is, it's absolutely huge."},
-			{"text": "You hear a low, deep growling... seems the old man was right after all."},
+			{
+			"sound": "OGRE_GROWL",
+			"text": "You hear a low, deep growling... seems the old man was right after all."},
 			{"text": "Is this... a meat gate?"},
 			{"text": "You're extremely hesitant to continue... an ogre sounds like it's far outside your capabilities at the moment."}
 		]
@@ -512,25 +518,30 @@
 	{
 		"key": "STORY-OGRE-DEFEAT",
 		"scriptLines": [
-			{"text": "..."},
+			{
+			"music": "HEAVY_MUSIC",
+			"text": "..."},
 			{"text": ".."},
 			{"text": "."},
-			{"text": "The ogre's massive cock bores into you as he lowers you down onto it over and over again."},
+			{
+			"sound": "OGRE_GROWL",
+			"text": "The ogre's massive cock bores into you as he lowers you down onto it over and over again."},
 			{"text": "The length and girth of it is visible as it slides up and down in your abdomen."},
 			{"text": "Your hole is stretched beyond recognition - it's unlikely it will ever return to its former shape or tightness"},
 			{"text": "All the while, you feel it bubbling up your cock, which bounces uselessly in the wind."},
 			{"text": "You try to resist, but to little avail - you fling your spunk into the air as you are bounced, full body, onto the ogre's massive schlong."},
 			{"text": "It seems, indeed, the ogre was a meat gate... your only miscalculation was what the 'meat' entailed."},
-			{"text": "He roars, apparently nearing climax."},
+			{
+			"sound": "OGRE_GROWL",
+			"text": "He roars, apparently nearing climax."},
 			{"text": "You feel it pulsing within the massive cock inside of you even before you feel it glurg out inside, filling every last crevice and nook of your intestines with the ogre's salty load."},
 			{"text": "He pulls you up by your hair, slowly, as you feel his totemic rod pulse within you, filling you with creamy, disgusting ogre spunk."},
-			{"text": "This is... not ideal."}
-		]
-	},
-	{
-		"key": "STORY-OGRE-AFTER",
-		"scriptLines": [
-			{"text": "As he pulls you off, a flood of ogre cum rushes out of you, and you twitch, unable to move under your own power."},
+			{
+			"sound": "OGRE_GROWL",
+			"text": "This is... not ideal."},
+			{
+			"foreground": "GAME_OGRE",
+			"text": "As he pulls you off, a flood of ogre cum rushes out of you, and you twitch, unable to move under your own power."},
 			{"text": "..."},
 			{"text": ".."},
 			{"text": "."},

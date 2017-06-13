@@ -1,18 +1,11 @@
 package com.majalis.encounter;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.OrderedMap;
@@ -25,10 +18,8 @@ import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveManager;
 import com.majalis.save.SaveManager.GameContext;
 import com.majalis.save.SaveService;
-import com.majalis.scenes.AbstractChoiceScene;
 import com.majalis.scenes.BattleScene;
 import com.majalis.scenes.CheckScene;
-import com.majalis.scenes.ChoiceScene;
 import com.majalis.scenes.EndScene;
 import com.majalis.scenes.Mutation;
 import com.majalis.scenes.Scene;
@@ -76,34 +67,10 @@ public class EncounterBuilder {
 	
 	@SuppressWarnings("unchecked")
 	protected Encounter getRandomEncounter(EncounterCode encounterCode) {
-		Texture backgroundTexture = assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getTexture());	
 		Background background = getDefaultTextBackground();
 		Mutation analReceive = new Mutation(saveService, SaveEnum.ANAL, new SexualExperienceBuilder().setAnalSex(1, 1, 0).build());
 		
 		switch (encounterCode) {	
-			case OGRE_WARNING_STORY:
-				getTextScenes(
-					getScript("OGRE-WARN"), font, background, new Array<Mutation>(), AssetEnum.TRAINER_MUSIC.getMusic(), 
-					getEndScene(EndScene.Type.ENCOUNTER_OVER)						
-				);
-				break;
-			case OGRE_STORY:
-				Background ogreBackground = new BackgroundBuilder(backgroundTexture).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getTexture())).setForeground(assetManager.get(AssetEnum.GAME_OGRE.getTexture())).build();
-				getTextScenes(
-					getScript("STORY-OGRE"), font, background, new Array<Mutation>(), AssetEnum.WEREWOLF_MUSIC.getMusic(), getArray(new AssetDescriptor[]{null, null, null, null, AssetEnum.OGRE_GROWL.getSound()}),
-					getChoiceScene(
-						"Continue on?", getArray(new String[]{"Press On", "Turn back"}), 
-						getTextScenes(
-							getScript("STORY-OGRE-DEFEAT"), font, background, new Array<Mutation>(), AssetEnum.HEAVY_MUSIC.getMusic(), getArray(new AssetDescriptor[]{null, null, null, AssetEnum.OGRE_GROWL.getSound(), null, null, null, null, null, AssetEnum.OGRE_GROWL.getSound(), null, null, AssetEnum.OGRE_GROWL.getSound()}),
-							getTextScenes(
-								getScript("STORY-OGRE-AFTER"), font, ogreBackground,
-								getEndScene(EndScene.Type.GAME_OVER)	
-							)
-						),
-						getEndScene(EndScene.Type.ENCOUNTER_OVER)		
-					)
-				);
-				break;
 			case ECCENTRIC_MERCHANT:
 				getTextScenes(
 					getScript("STORY-MERCHANT"), font, background,
@@ -226,87 +193,14 @@ public class EncounterBuilder {
 		return sceneMap;
 	}
 	
-	private OrderedMap<Integer, Scene> getChoiceScene(String choiceDialogue, Array<String> buttonLabels, @SuppressWarnings("unchecked") OrderedMap<Integer, Scene>... sceneMaps) {
-		return getChoiceScene(choiceDialogue, buttonLabels, new Array<ChoiceCheckType>(), sceneMaps);
-	}
-	private OrderedMap<Integer, Scene> getChoiceScene(String choiceDialogue, Array<String> buttonLabels, Array<ChoiceCheckType> checks, @SuppressWarnings("unchecked") OrderedMap<Integer, Scene>... sceneMaps) {
-		OrderedMap<Integer, Scene> sceneMap = aggregateMaps(sceneMaps);
-		
-		// use sceneMap to generate the table
-		Table table = new Table();
-
-		Skin skin = assetManager.get(AssetEnum.UI_SKIN.getSkin());
-		Sound buttonSound = assetManager.get(AssetEnum.BUTTON_SOUND.getSound());
-		Texture background = assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getTexture());
-		
-		ChoiceScene choiceScene = new ChoiceScene(sceneMap, sceneCounter, saveService, font, choiceDialogue, table, new BackgroundBuilder(background).build());
-		int ii = 0;
-		for (String label  : buttonLabels) {
-			TextButton button = new TextButton(label, skin);
-			if (ii < checks.size && checks.get(ii) != null) {
-				button.addListener(getListener(choiceScene, sceneMap.get(sceneMap.orderedKeys().get(ii)), buttonSound, checks.get(ii), button));
-			}
-			else {
-				button.addListener(getListener(choiceScene, sceneMap.get(sceneMap.orderedKeys().get(ii)), buttonSound));
-			}
-			
-			table.add(button).size(650, 150).row();
-			ii++;
-		}
-				
-		return addScene(choiceScene);	
-	}
-	
 	private OrderedMap<Integer, Scene> getShopScene(ShopCode shopCode, Background background, OrderedMap<Integer, Scene> sceneMap) {
 		return addScene(new ShopScene(sceneMap, sceneCounter, saveService, assetManager, character, background, shopCode, shops.get(shopCode.toString())));
-	}
-	
-	private ClickListener getListener(final AbstractChoiceScene currentScene, final Scene nextScene, final Sound buttonSound) {
-		return new ClickListener() {
-	        @Override
-	        public void clicked(InputEvent event, float x, float y) {
-	        	buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
-	        	// set new Scene as active based on choice
-	        	nextScene.setActive();
-	        	currentScene.finish();
-	        }
-	    };
 	}
 	
 	protected enum ChoiceCheckType {
 		LEWD,
 		GOLD_GREATER_THAN_10,
 		GOLD_LESS_THAN_10
-	}
-	
-	private ClickListener getListener(final AbstractChoiceScene currentScene, final Scene nextScene, final Sound buttonSound, final ChoiceCheckType type, final TextButton button) {
-		return new ClickListener() {
-	        @Override
-	        public void clicked(InputEvent event, float x, float y) {
-	        	if (isValidChoice(type)) {
-	        		buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
-		        	// set new Scene as active based on choice
-		        	nextScene.setActive();
-		        	currentScene.finish();
-	        	}
-	        	else {
-		        	button.setColor(Color.GRAY);
-	        	}
-	        }
-	    };
-	}
-	
-	private boolean isValidChoice(ChoiceCheckType type) {
-		switch (type) {
-		case LEWD:
-			return character.isLewd();
-		case GOLD_GREATER_THAN_10:
-			return character.getMoney() >= 10;
-		case GOLD_LESS_THAN_10:
-			return character.getMoney() < 10;
-		default:
-			return false;
-		}
 	}
 	
 	private OrderedMap<Integer, Scene> getCheckScene(CheckType checkType, @SuppressWarnings("unchecked") OrderedMap<Integer, Scene>... sceneMaps) {
@@ -334,7 +228,6 @@ public class EncounterBuilder {
 	
 	private Array<String> getArray(String[] array) { return new Array<String>(array); }
 	private Array<Mutation> getArray(Mutation[] array) { return new Array<Mutation>(array); }
-	private Array<AssetDescriptor<Sound>> getArray(AssetDescriptor<Sound>[] AssetDescriptors) {	return new Array<AssetDescriptor<Sound>>(AssetDescriptors); }
 	
 	private Scene getStartScene(Array<Scene> scenes, Integer sceneCode) {
 		// default case	
