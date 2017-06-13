@@ -539,7 +539,7 @@ public class EnemyCharacter extends AbstractCharacter {
 					possibleTechniques.addAll(getTechniques(target, POUNCE_PRONE_BONE));
 				}
 			}
-			else if (target.stance == Stance.SUPINE) {
+			else if (target.stance == Stance.SUPINE && enemyType != EnemyEnum.CENTAUR) {
 				possibleTechniques = getTechniques(target, enemyType == EnemyEnum.GOBLIN || enemyType == EnemyEnum.GOBLIN_MALE || enemyType == EnemyEnum.HARPY ? MOUNT_FACE : POUNCE_ANAL);
 			}
 			else if (target.stance == Stance.KNEELING) {
