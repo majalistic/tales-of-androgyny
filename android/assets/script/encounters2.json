@@ -759,6 +759,23 @@
 		]
 	},
 	{
+		"key": "STICK",
+		"scriptLines": [
+			{
+			"background": "STICK_BACKGROUND", 
+			"text": "You encounter a stick!"},
+			{"text": "It's actually rather sexy looking."},
+			{"text": "There is nothing left here to do."}
+		]
+	},
+	{
+		"key": "NO-SKILLS",
+		"scriptLines": [
+			{"text": "You have no skills to select!"}
+
+		]
+	},
+	{
 		"key": "FORCED_CAMP",
 		"scriptLines": [
 			{"text": "You're too exhausted to continue, so instead you camp to rest."},

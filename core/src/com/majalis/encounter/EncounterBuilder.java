@@ -41,7 +41,6 @@ import com.majalis.scenes.Scene;
 import com.majalis.scenes.ShopScene;
 import com.majalis.scenes.ShopScene.Shop;
 import com.majalis.scenes.ShopScene.ShopCode;
-import com.majalis.scenes.SkillSelectionScene;
 import com.majalis.scenes.TextScene;
 import com.majalis.scenes.CheckScene.CheckType;
 /*
@@ -80,28 +79,6 @@ public class EncounterBuilder {
 	private Background getDefaultTextBackground() { return getDefaultTextBackground(assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getTexture())); }
 	
 	private Background getDefaultTextBackground(Texture background) { return new BackgroundBuilder(background).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getTexture())).build(); }
-
-	protected Encounter getLevelUpEncounter(boolean storyMode) {
-		
-		if (storyMode) {
-			getTextScenes(
-				getArray(new String[]{"You have no skills to select!"}), font, getDefaultTextBackground(), 
-				getEndScene(EndScene.Type.ENCOUNTER_OVER)
-			);
-		}
-		else {
-			getSkillSelectionScene(
-				new BackgroundBuilder(assetManager.get(AssetEnum.SKILL_SELECTION_BACKGROUND.getTexture())).build(), getEndScene(EndScene.Type.ENCOUNTER_OVER)
-			);
-		}
-		return new Encounter(scenes, endScenes, new Array<BattleScene>(), getStartScene(scenes, sceneCode));
-	}
-	
-	protected Encounter getDefaultEncounter() {
-		Background background = getDefaultTextBackground(assetManager.get(AssetEnum.STICK_BACKGROUND.getTexture()));
-		getTextScenes(new String[]{"You encounter a stick!", "It's actually rather sexy looking.", "There is nothing left here to do."}, font, background, getEndScene(EndScene.Type.ENCOUNTER_OVER));
-		return new Encounter(scenes, endScenes, new Array<BattleScene>(), getStartScene(scenes, sceneCode));
-	}
 	
 	@SuppressWarnings("unchecked")
 	protected Encounter getRandomEncounter(EncounterCode encounterCode) {
@@ -309,7 +286,6 @@ public class EncounterBuilder {
 	
 	/* Scene type getters - these should all wrap themselves in addScene - look for anywhere they aren't currently to confirm*/
 	
-	private OrderedMap<Integer, Scene> getTextScenes(String[] script, BitmapFont font, Background background, OrderedMap<Integer, Scene> sceneMap) { return getTextScenes(new Array<String>(true, script, 0, script.length), font, background, sceneMap); }	
 	private OrderedMap<Integer, Scene> getTextScenes(Array<String> script, BitmapFont font, Background background, OrderedMap<Integer, Scene> sceneMap) { return getTextScenes(script, font, background, new Array<Mutation>(), sceneMap); }
 	// pass in a list of script lines in chronological order, this will reverse their order and add them to the stack
 	private OrderedMap<Integer, Scene> getTextScenes(Array<String> script, BitmapFont font, Background background, Array<Mutation> mutations, OrderedMap<Integer, Scene> sceneMap) { return getTextScenes(script, font, background, mutations, null, new Array<AssetDescriptor<Sound>>(), sceneMap); }
@@ -456,10 +432,6 @@ public class EncounterBuilder {
 		}
 		
 		return addScene(new BattleScene(aggregateMaps(sceneMaps), saveService, battleCode, playerStance, enemyStance, disarm, climaxCounter, outcomeToScene));
-	}
-	
-	private OrderedMap<Integer, Scene> getSkillSelectionScene(Background background, OrderedMap<Integer, Scene> sceneMap) {
-		return addScene(new SkillSelectionScene(sceneMap, sceneCounter, saveService, background, assetManager, character));
 	}
 	
 	private OrderedMap<Integer, Scene> getEndScene(EndScene.Type type) {

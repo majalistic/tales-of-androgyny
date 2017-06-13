@@ -30,6 +30,7 @@ import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveManager;
 import com.majalis.save.SaveService;
 import com.majalis.save.SaveManager.GameContext;
+import com.majalis.save.SaveManager.GameMode;
 import com.majalis.scenes.AbstractChoiceScene;
 import com.majalis.scenes.BattleScene;
 import com.majalis.scenes.CharacterCreationScene;
@@ -58,11 +59,12 @@ public class EncounterBuilder2 {
 	private final ObjectMap<String, Shop> shops;
 	private final PlayerCharacter character;
 	private final GameContext returnContext;
+	private final GameMode mode;
 	private final OrderedMap<Integer, Scene> masterSceneMap;
 	// can probably be replaced with a call to scenes.size
 	private int sceneCounter;
 	
-	protected EncounterBuilder2(EncounterReader2 reader, AssetManager assetManager, SaveService saveService, BitmapFont font, int sceneCode, ObjectMap<String, Shop> shops, PlayerCharacter character, GameContext returnContext) {
+	protected EncounterBuilder2(EncounterReader2 reader, AssetManager assetManager, SaveService saveService, BitmapFont font, int sceneCode, ObjectMap<String, Shop> shops, PlayerCharacter character, GameContext returnContext, GameMode mode) {
 		this.reader = reader;
 		this.assetManager = assetManager;
 		this.saveService = saveService;
@@ -71,6 +73,7 @@ public class EncounterBuilder2 {
 		this.shops = shops == null ? new ObjectMap<String, Shop>() : shops;
 		this.character = character;
 		this.returnContext = returnContext;
+		this.mode = mode;
 		sceneCounter = 1;
 		masterSceneMap = new OrderedMap<Integer, Scene>();
 	}
@@ -227,7 +230,7 @@ public class EncounterBuilder2 {
 					new Branch(false).textScene("CRIER-OLD2").encounterEnd()
 				).getEncounter();
 			case DEFAULT:
-				break;
+				return new Branch().textScene("STICK").encounterEnd().getEncounter();
 			case DRYAD:
 				return new Branch().textScene("DRYAD-INTRO").choiceScene(
 					"Do you offer her YOUR apple, or try to convince her to just hand it over?",
@@ -438,34 +441,6 @@ public class EncounterBuilder2 {
 					new Branch("Create Character").textScene("CHARACTER-CREATE").characterCreation(false).skillSelection().characterCustomization().encounterEnd(),
 					new Branch("Story (Patrons)").textScene("STORY-MODE").encounterEnd()
 				).getEncounter(); 	
-				/*
-				 * 
-				 Background background = getDefaultTextBackground();
-				Background classSelectbackground = getClassSelectBackground();	
-				Background silhouetteBackground = new BackgroundBuilder(assetManager.get(AssetEnum.BURNING_FORT_BG.getTexture())).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getTexture())).setForeground(assetManager.get(AssetEnum.SILHOUETTE.getTexture()), 1000, 0).build();
-				
-				getTextScenes(
-					getScript("INTRO"), font, background,
-					getGameTypeScene(
-						getTextScenes(
-							getArray(new String[]{"You have entered story mode.", "A tale of androgyny has begun..."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.MODE, GameMode.STORY)}),							
-							getTextScenes(
-								// needs to be female silhouette from behind BG
-								getScript("STORY-000"), font, silhouetteBackground, new Array<Mutation>(), AssetEnum.WAVES.getMusic(), getArray(new AssetDescriptor[]{null, null, null, null, null, null, null, null, null, AssetEnum.SMUG_LAUGH.getSound(), null, null, null, null, null, null, null, null, AssetEnum.SMUG_LAUGH.getSound()}),
-								getTextScenes(
-									// needs to be hovel BG
-									getScript("STORY-001"), font, background, new Array<Mutation>(), AssetEnum.HOVEL_MUSIC.getMusic(),
-									getTextScenes(
-										// needs to be bright-white BG
-										getScript("STORY-002"), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.CLASS, JobClass.ENCHANTRESS)}),
-										getEndScene(EndScene.Type.ENCOUNTER_OVER)						
-									)
-								)
-							)
-						)
-					)
-				);
-				 */
 			case INN:
 				Branch afterScene = new Branch().textScene("INNKEEP-10").encounterEnd();  
 				Branch leave = new Branch("Leave").encounterEnd();
@@ -508,7 +483,12 @@ public class EncounterBuilder2 {
 					leave
 			    ).getEncounter();
 			case LEVEL_UP:
-				break;
+				if (mode == GameMode.STORY) {
+					return new Branch().textScene("NO-SKILLS").encounterEnd().getEncounter(); 	
+				}
+				else {
+					return new Branch().skillSelection().encounterEnd().getEncounter(); 	
+				}
 			case MERI_COTTAGE:
 				break;
 			case MERI_COTTAGE_VISIT:
