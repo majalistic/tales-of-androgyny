@@ -28,16 +28,12 @@ public class EncounterFactory {
 		this.loadService = saveManager;
 	}
 	
-	public Encounter getEncounter(EncounterCode encounterCode, BitmapFont font, BitmapFont smallFont) {
+	@SuppressWarnings("unchecked")
+	public Encounter getEncounter(EncounterCode encounterCode, BitmapFont font) {
 		Integer sceneCode = loadService.loadDataValue(SaveEnum.SCENE_CODE, Integer.class);
 		GameContext context = loadService.loadDataValue(SaveEnum.RETURN_CONTEXT, GameContext.class);
-		@SuppressWarnings("unchecked")
-		EncounterBuilder builder = new EncounterBuilder(reader, assetManager, saveService, font, smallFont, sceneCode, (ObjectMap<String, Shop>)loadService.loadDataValue(SaveEnum.SHOP, Shop.class), (PlayerCharacter) loadService.loadDataValue(SaveEnum.PLAYER, PlayerCharacter.class), context);
-		switch (encounterCode) {
-			case LEVEL_UP: return builder.getLevelUpEncounter((GameMode) loadService.loadDataValue(SaveEnum.MODE, Shop.class) == GameMode.STORY);
-			case INITIAL: return builder.getClassChoiceEncounter();
-			case DEFAULT: return builder.getDefaultEncounter();
-			default: return builder.getRandomEncounter(encounterCode);
-		}
+		return new EncounterBuilder(
+			reader, assetManager, saveService, font, sceneCode == 0 ? -1 : sceneCode, (ObjectMap<String, Shop>)loadService.loadDataValue(SaveEnum.SHOP, Shop.class), (PlayerCharacter) loadService.loadDataValue(SaveEnum.PLAYER, PlayerCharacter.class), context,
+			(GameMode) loadService.loadDataValue(SaveEnum.MODE, GameMode.class)).getEncounter(encounterCode); 
 	}
 }

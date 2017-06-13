@@ -10,6 +10,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 public enum AssetEnum {
 	UI_SKIN("uiskin.json", Skin.class),
 	BATTLE_SKIN("battle/battleui.json", Skin.class),
+	
+	NULL("Null.png"),
 	SPLASH_SCREEN("Splash.png"),
 	LOADING("Loading.png"),
 	
@@ -60,6 +62,9 @@ public enum AssetEnum {
 	GOBLIN_MALE("enemies/GoblinMale.png"),
 	GOBLIN_FACE_SIT("enemies/GoblinFaceSit.png"),
 	ORC("enemies/OrcFuta.png"),
+	ORC_ZOOM_UP("enemies/OrcZoom0.png"),
+	ORC_ZOOM("enemies/OrcZoom1.png"),
+	ORC_ZOOM_DOWN("enemies/OrcZoom2.png"),
 	ORC_PRONE_BONE("enemies/OrcFutaMount.jpg"),
 	OGRE("enemies/Ogre.png"),
 	OGRE_BANGED("enemies/OgrePost.jpg"),
@@ -158,7 +163,7 @@ public enum AssetEnum {
 	ITEM("stances/Item.png"),
 	KNEELING("stances/Kneeling.png"),
 	KNOTTED("stances/Knotted.png"),
-	NULL("stances/Null.png"),
+	NULL_STANCE("stances/Null.png"),
 	OFFENSIVE("stances/Offensive.png"),
 	PRONE("stances/Prone.png"),
 	PRONEBONE("stances/ProneBone.png"),

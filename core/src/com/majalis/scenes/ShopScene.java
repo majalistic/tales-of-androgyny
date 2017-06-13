@@ -1,9 +1,11 @@
 package com.majalis.scenes;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -266,7 +268,45 @@ public class ShopScene extends Scene {
 	}
 	
 	public enum ShopCode {
-		FIRST_STORY, SHOP, WEAPON_SHOP, GADGETEER_SHOP
+		FIRST_STORY, SHOP, WEAPON_SHOP, GADGETEER_SHOP;
+	
+		public AssetDescriptor<Texture> getBackground() {
+			switch(this) {
+				case GADGETEER_SHOP:
+					return AssetEnum.DEFAULT_BACKGROUND.getTexture();
+				case WEAPON_SHOP:
+				case SHOP:
+				case FIRST_STORY:
+					return AssetEnum.TOWN_BG.getTexture();
+				default:
+					break;
+				
+				}
+			return null;
+		}
+
+		public AssetDescriptor<Texture> getForeground() {
+			switch(this) {
+				case FIRST_STORY:
+				case SHOP:
+					return AssetEnum.SHOPKEEP.getTexture();
+				case GADGETEER_SHOP:
+					return AssetEnum.GADGETEER.getTexture();
+				case WEAPON_SHOP:
+					return AssetEnum.TRAINER.getTexture();
+				default:
+					break;
+			}
+			return null;
+		}
+		
+		public int getX() {
+			return 800;
+		}
+
+		public int getY() {
+			return -100;
+		}
 	}
 	
 }

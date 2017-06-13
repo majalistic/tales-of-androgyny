@@ -78,8 +78,6 @@ public enum EncounterCode {
 	
 	public String getDescription(int visibility) {
 		switch(visibility) {
-		
-		
 			case 0:
 				return "You are unsure of what awaits you!";
 			case 1:
@@ -214,7 +212,10 @@ public enum EncounterCode {
 					AssetEnum.SLIME_DOGGY.getTexture()
 				});
 			case BRIGAND:
-				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{AssetEnum.BRIGAND_ORAL.getTexture()});
+				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{
+					AssetEnum.BRIGAND_ORAL.getTexture(),
+					AssetEnum.BRIGAND.getTexture(),
+				});
 			case DRYAD:
 				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{  
 				AssetEnum.SHOP_MUSIC.getMusic(),
@@ -233,6 +234,9 @@ public enum EncounterCode {
 			case ORC:
 				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{  
 					AssetEnum.ORC.getTexture(),
+					AssetEnum.ORC_ZOOM_UP.getTexture(),
+					AssetEnum.ORC_ZOOM.getTexture(),
+					AssetEnum.ORC_ZOOM_DOWN.getTexture(),
 					AssetEnum.ORC_PRONE_BONE.getTexture(),
 					AssetEnum.GAPE.getTexture(),
 					AssetEnum.WEREWOLF_MUSIC.getMusic()

@@ -68,6 +68,8 @@ public class SexualExperience {
 		}		
 	}
 	
+	private SexualExperience() { this(0, 0, 0, 0, 0, 0, false, false); }
+	
 	private SexualExperience(int analSex, int creampies, int analEjaculation, int oralSex, int oralCreampies, int fellatioEjaculation, boolean horse, boolean ogre) {
 		this.analSex = analSex;
 		this.creampies = creampies;

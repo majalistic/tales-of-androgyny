@@ -139,7 +139,7 @@ public class ScreenFactoryImpl implements ScreenFactory {
 	private EncounterScreen getEncounter(ScreenElements elements, PlayerCharacter character) {
 		if (getAssetCheck(EncounterScreen.getRequirements((EncounterCode)loadService.loadDataValue(SaveEnum.ENCOUNTER_CODE, Integer.class)))) {
 			EncounterCode encounterCode = loadService.loadDataValue(SaveEnum.ENCOUNTER_CODE, EncounterCode.class);
-			Encounter encounter = encounterFactory.getEncounter(encounterCode, elements.getFont(48), elements.getFont(32));			
+			Encounter encounter = encounterFactory.getEncounter(encounterCode, elements.getFont(48));			
 			AssetDescriptor<Music> music = new AssetDescriptor<Music>((String)loadService.loadDataValue(SaveEnum.MUSIC, String.class), Music.class);
 			return new EncounterScreen(this, elements, assetManager, music, encounter);
 		}
@@ -161,7 +161,7 @@ public class ScreenFactoryImpl implements ScreenFactory {
 	private LevelUpScreen getLevel(ScreenElements elements, PlayerCharacter character) {
 		if (getAssetCheck(LevelUpScreen.resourceRequirements)) {
 			// -3 is the magic number for the level up screen encounter
-			return new LevelUpScreen(this, elements, assetManager, saveService, encounterFactory.getEncounter(EncounterCode.LEVEL_UP, elements.getFont(48), elements.getFont(32)));
+			return new LevelUpScreen(this, elements, assetManager, saveService, encounterFactory.getEncounter(EncounterCode.LEVEL_UP, elements.getFont(48)));
 		}
 		return null;
 	}

@@ -1156,6 +1156,8 @@ public class PlayerCharacter extends AbstractCharacter {
 	public static class QuestFlag {
 		public final QuestType type;
 		public final int value;
+		public QuestFlag() { type = null; value = 0; }
+		
 		public QuestFlag(QuestType type, int value) {
 			this.type = type;
 			this.value = value;

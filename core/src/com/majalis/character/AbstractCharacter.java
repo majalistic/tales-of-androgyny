@@ -201,7 +201,7 @@ public abstract class AbstractCharacter extends Actor {
 		if (currentHealth > getMaxHealth()) 
 			currentHealth = getMaxHealth();  
 		healthChange = this.currentHealth - healthChange;
-		return healthChange > 0 ? "Gained " + healthChange + " health!" : "You take " + -healthChange + " damage!"; 
+		return healthChange > 0 ? "Gained " + healthChange + " health!" : healthChange < 0 ? "You take " + -healthChange + " damage!" : ""; 
 	}
 	
 	protected int getStaminaRegen() { return Math.max(getEndurance()/2, 0); }

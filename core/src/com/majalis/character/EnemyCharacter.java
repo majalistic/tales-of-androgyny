@@ -184,7 +184,9 @@ public class EnemyCharacter extends AbstractCharacter {
 						}
 						break;
 					case BEASTMISTRESS:
-					break;
+						break;
+					case BUTTBANG:
+						break;
 				}
 			}
 			
@@ -218,6 +220,8 @@ public class EnemyCharacter extends AbstractCharacter {
 							resolvedAttack.addDialog("He roars as he fills you with his thick, disgusting ogre semen.");
 						}
 					case BEASTMISTRESS:
+						break;
+					case BUTTBANG:
 						break;
 				}
 					
@@ -258,7 +262,7 @@ public class EnemyCharacter extends AbstractCharacter {
 		if (enemyType == EnemyEnum.SLIME && !stance.isIncapacitatingOrErotic()) {
 			return getTechniques(target, SLIME_ATTACK, SLIME_QUIVER); 			
 		}
-		else if (enemyType == EnemyEnum.OGRE && !stance.isIncapacitatingOrErotic() && stance != Stance.HOLDING) {
+		else if (enemyType == EnemyEnum.OGRE && stance != Stance.KNEELING && !stance.isIncapacitatingOrErotic() && stance != Stance.HOLDING) {
 			if (willPounce() && lust > 20) {
 				lust = 20;
 				return getTechniques(target, SEIZE);						
@@ -755,10 +759,10 @@ public class EnemyCharacter extends AbstractCharacter {
 		if (animation == null || (enemyType == EnemyEnum.HARPY && stance == Stance.FELLATIO) || (enemyType == EnemyEnum.BRIGAND && !(stance == Stance.DOGGY || stance == Stance.STANDING))) {
 			Array<Texture> textureCandidates = textures.get(stance, new Array<Texture>(new Texture[]{defaultTexture}));
 			Texture texture = textureCandidates.get(textureCandidates.size == 1 ? 0 : currentFrame);
-			int x = (enemyType == EnemyEnum.GOBLIN && stance == Stance.FACE_SITTING || stance == Stance.SIXTY_NINE) ? 400 : 600;
-			int y = (enemyType == EnemyEnum.GOBLIN && stance == Stance.FACE_SITTING || stance == Stance.SIXTY_NINE) ? 0 : 20;
-			int width = (enemyType == EnemyEnum.GOBLIN && stance == Stance.FACE_SITTING || stance == Stance.SIXTY_NINE) ? (int) (texture.getWidth() / (texture.getHeight() / 1080.)) : (int) (texture.getWidth() / (texture.getHeight() / 975.));
-			int height = (enemyType == EnemyEnum.GOBLIN && stance == Stance.FACE_SITTING || stance == Stance.SIXTY_NINE) ? 1080 : 975;
+			int x = (enemyType == EnemyEnum.GOBLIN && (stance == Stance.FACE_SITTING || stance == Stance.SIXTY_NINE)) ? 400 : 600;
+			int y = (enemyType == EnemyEnum.GOBLIN && (stance == Stance.FACE_SITTING || stance == Stance.SIXTY_NINE)) ? 0 : 20;
+			int width = (enemyType == EnemyEnum.GOBLIN && (stance == Stance.FACE_SITTING || stance == Stance.SIXTY_NINE)) ? (int) (texture.getWidth() / (texture.getHeight() / 1080.)) : (int) (texture.getWidth() / (texture.getHeight() / 975.));
+			int height = (enemyType == EnemyEnum.GOBLIN && (stance == Stance.FACE_SITTING || stance == Stance.SIXTY_NINE)) ? 1080 : 975;
 			range = 0;
 			
 			if (enemyType == EnemyEnum.HARPY && stance == Stance.FELLATIO) {
@@ -801,8 +805,10 @@ public class EnemyCharacter extends AbstractCharacter {
 	
 	public static AnimatedActor getAnimatedActor(EnemyEnum enemyType) {
 		AnimatedActor animation = null; 
+		if (enemyType == EnemyEnum.BUTTBANG) {
+			return new AnimatedActor("animation/SplurtGO.atlas", "animation/SplurtGO.json");
+		}
 		if (enemyType == EnemyEnum.HARPY || enemyType == EnemyEnum.CENTAUR || enemyType == EnemyEnum.UNICORN || enemyType == EnemyEnum.BRIGAND) {
-					
 			animation = new AnimatedActor(enemyType.getAnimationPath() + ".atlas", enemyType.getAnimationPath() + ".json", enemyType == EnemyEnum.HARPY ? .75f : enemyType == EnemyEnum.BRIGAND ? .475f : .60f, enemyType == EnemyEnum.HARPY || enemyType == EnemyEnum.BRIGAND ? 1f : 1.8f);
 			
 			if (enemyType == EnemyEnum.HARPY) {
