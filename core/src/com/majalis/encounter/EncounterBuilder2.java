@@ -528,7 +528,7 @@ public class EncounterBuilder2 {
 					new Branch(Outcome.SATISFIED).textScene("OGRE-SATISFIED").concat(partingScene),
 					new Branch(Outcome.DEFEAT).textScene("OGRE-DEFEAT").concat(partingScene)
 				);
-				Branch ogreFirstBattleDisarm = new Branch().battleScene(BattleCode.OGRE, Stance.BALANCED, Stance.BALANCED, true, new Branch(Outcome.VICTORY).textScene("OGRE-VICTORY").concat(new Branch().textScene("OGRE-VICTORY-GOLD").encounterEnd()), new Branch(Outcome.SATISFIED).textScene("OGRE-SATISFIED").concat(partingScene));
+				Branch ogreFirstBattleDisarm = new Branch().battleScene(BattleCode.OGRE, Stance.BALANCED, Stance.BALANCED, true, new Branch(Outcome.VICTORY).textScene("OGRE-VICTORY").concat(new Branch().textScene("OGRE-VICTORY-GOLD").encounterEnd()), new Branch(Outcome.DEFEAT).textScene("OGRE-DEFEAT").concat(partingScene), new Branch(Outcome.SATISFIED).textScene("OGRE-SATISFIED").concat(partingScene));
 				Branch ogreSecondBattle = new Branch().battleScene(BattleCode.OGRE, new Branch(Outcome.VICTORY).textScene("OGRE-VICTORY").encounterEnd(), new Branch(Outcome.DEFEAT).textScene("OGRE-DEFEAT").concat(partingScene), new Branch(Outcome.SATISFIED).textScene("OGRE-SATISFIED").concat(partingScene));
 				Branch grabbedByOgre = new Branch().textScene("OGRE-GRABBED").checkScene(
 					Stat.ENDURANCE,
