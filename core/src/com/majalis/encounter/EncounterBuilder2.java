@@ -13,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.IntArray;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.OrderedMap;
@@ -25,6 +26,7 @@ import com.majalis.character.Perk;
 import com.majalis.character.PlayerCharacter;
 import com.majalis.character.Stance;
 import com.majalis.character.AbstractCharacter.Stat;
+import com.majalis.character.SexualExperience.SexualExperienceBuilder;
 import com.majalis.save.ProfileEnum;
 import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveManager;
@@ -119,7 +121,24 @@ public class EncounterBuilder2 {
 					)
 				).getEncounter();
 			case BEASTMISTRESS:
-				break;
+				return new Branch().textScene("BEASTMISTRESS-INTRO").choiceScene(
+					"Snake or Pussy?", 
+					new Branch("Snake").textScene("BEASTMISTRESS-ENTRANCE").encounterEnd(),
+					new Branch("Pussy").textScene("BEASTMISTRESS-PUSSY").battleScene(
+						BattleCode.BEASTMISTRESS,
+						new Branch(Outcome.VICTORY).textScene("BEASTMISTRESS-VICTORY").choiceScene(
+							"Well?", 
+							new Branch("Go Spelunking").textScene("BEASTMISTRESS-SPELUNKING").encounterEnd(), 
+							new Branch("Go Home").textScene("BEASTMISTRESS-DECLINE").encounterEnd()
+						),
+						new Branch(Outcome.DEFEAT).textScene("BEASTMISTRESS-QUEEN").gameEnd(),
+						new Branch(Outcome.SATISFIED).checkScene(
+							Stat.AGILITY,
+							new Branch(4).textScene("BEASTMISTRESS-DODGE").encounterEnd(),
+							new Branch(0).textScene("BEASTMISTRESS-FAIL").encounterEnd()
+						)
+					)
+				).getEncounter();
 			case BRIGAND:
 				Branch[] battleBranches2 = new Branch[]{new Branch(Outcome.VICTORY).textScene("BRIGAND-VICTORY").encounterEnd(), new Branch(Outcome.DEFEAT).textScene("BRIGAND-DEFEAT").encounterEnd(), new Branch(Outcome.SATISFIED).textScene("BRIGAND-SATISFIED").encounterEnd()};
 				return new Branch().textScene("BRIGAND-INTRO").checkScene(

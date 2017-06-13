@@ -169,88 +169,9 @@ public class EncounterBuilder {
 		Texture backgroundTexture = assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getTexture());	
 		Background background = getDefaultTextBackground();
 		Mutation analReceive = new Mutation(saveService, SaveEnum.ANAL, new SexualExperienceBuilder().setAnalSex(1, 1, 0).build());
-		Array<Outcome> normalOutcomes = new Array<Outcome>(new Outcome[]{Outcome.VICTORY, Outcome.DEFEAT, Outcome.SATISFIED});
-		
 		BattleCode battleCode;
 		
 		switch (encounterCode) {	
-				
-
-				
-			case BEASTMISTRESS:
-				battleCode = BattleCode.BEASTMISTRESS;
-				Background backgroundWithBM = new BackgroundBuilder(assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getTexture())).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getTexture())).setForeground(assetManager.get(AssetEnum.BEASTMISTRESS.getTexture())).build();
-				
-				getTextScenes(
-					getScript(encounterCode, "INTRO"), font, background, getArray(new Mutation[]{new Mutation(saveService, ProfileEnum.KNOWLEDGE, EnemyEnum.BEASTMISTRESS.toString())}), AssetEnum.WEREWOLF_MUSIC.getMusic(), 
-					getTextScenes(
-						getScript(encounterCode, 0), font, backgroundWithBM,
-						getChoiceScene(
-							"Snake or Pussy?", getArray(new String[]{"Snake", "Pussy"}),
-							getTextScenes(
-								getScript(encounterCode, 1), font, backgroundWithBM,
-								getTextScenes(
-									getScript(encounterCode, 2), font, backgroundWithBM, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.ANAL, new SexualExperienceBuilder().setAnalSex(1, 1, 1).build())}),
-									getEndScene(EndScene.Type.ENCOUNTER_OVER)
-								)
-							),
-							getTextScenes(
-								getScript(encounterCode, 3), font, backgroundWithBM, 
-								getBattleScene(
-									battleCode, normalOutcomes,
-									getTextScenes(
-										getScript(encounterCode, 4), font, backgroundWithBM, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.EXPERIENCE, 5)}),
-										getChoiceScene(
-											"Well?", getArray(new String[]{"Go Spelunking", "Go Home"}),
-											getTextScenes(
-												getScript(encounterCode, 5), font, backgroundWithBM, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.EXPERIENCE, 1)}),
-												getEndScene(EndScene.Type.ENCOUNTER_OVER)
-											),
-											getTextScenes(
-												getScript(encounterCode, 6), font, backgroundWithBM, 
-												getEndScene(EndScene.Type.ENCOUNTER_OVER)
-											)
-										)
-									),
-									getTextScenes(
-										getScript(encounterCode, 7), font, backgroundWithBM, 
-										getTextScenes(
-											getScript(encounterCode, 8), font, backgroundWithBM, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.ANAL, new SexualExperienceBuilder().setAnalSex(1, 0, 0).build())}),
-											getTextScenes(
-												getScript(encounterCode, 9), font, backgroundWithBM, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.ANAL, new SexualExperienceBuilder().setOralSex(1).build())}),
-												getTextScenes(
-													getScript(encounterCode, 10), font, backgroundWithBM, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.ANAL, new SexualExperienceBuilder().setOralCreampie(1).build())}),
-													getTextScenes(
-														getScript(encounterCode, 11), font, backgroundWithBM, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.ANAL, new SexualExperienceBuilder().setAnalSex(4, 3, 1).build())}),
-														getEndScene(EndScene.Type.GAME_OVER)
-													)
-												)
-											)
-										)
-									),
-									getCheckScene(
-										Stat.AGILITY, new IntArray(new int[]{4}),	
-										getTextScenes(
-											getScript(encounterCode, 12), font, backgroundWithBM, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.EXPERIENCE, 3)}),
-											getEndScene(EndScene.Type.ENCOUNTER_OVER)
-										),
-										getTextScenes(
-											getScript(encounterCode, 13), font, backgroundWithBM, 
-											getTextScenes(
-												getScript(encounterCode, 14), font, backgroundWithBM, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.ANAL, new SexualExperienceBuilder().setAnalSex(1, 1, 1).build())}),
-												getTextScenes(
-													getScript(encounterCode, 15), font, background,
-													getEndScene(EndScene.Type.ENCOUNTER_OVER)
-												)
-											)
-										)
-									)
-								)
-							)
-						)
-					)
-				);
-				break;
 			case GADGETEER:
 				Background backgroundWithGadgeteer = new BackgroundBuilder(assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getTexture())).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getTexture())).setForeground(assetManager.get(AssetEnum.GADGETEER.getTexture())).build();
 				Background shopGadgeteer = new BackgroundBuilder(assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getTexture())).setForeground(assetManager.get(AssetEnum.GADGETEER.getTexture()), 900, 0).build();
