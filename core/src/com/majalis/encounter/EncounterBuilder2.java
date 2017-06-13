@@ -219,7 +219,11 @@ public class EncounterBuilder2 {
 			case COTTAGE_TRAINER_VISIT:
 				break;
 			case CRIER_QUEST:
-				break;
+				return new Branch().checkScene(
+					CheckType.CRIER_QUEST, 
+					new Branch(true).textScene("CRIER-NEW2").encounterEnd(), 
+					new Branch(false).textScene("CRIER-OLD2").encounterEnd()
+				).getEncounter();
 			case DEFAULT:
 				break;
 			case DRYAD:
@@ -430,7 +434,46 @@ public class EncounterBuilder2 {
 			case INITIAL:
 				break;
 			case INN:
-				break;
+				Branch afterScene = new Branch().textScene("INNKEEP-10").encounterEnd();  
+				Branch leave = new Branch("Leave").encounterEnd();
+				return new Branch().textScene("INNKEEP-01").choiceScene(
+					"Stay the night?",
+					new Branch("Rest at Inn (10 Gold)").require(ChoiceCheckType.GOLD_GREATER_THAN_10).textScene("INNKEEP-02").encounterEnd(),
+					new Branch("Rest at Inn (Low Funds)").require(ChoiceCheckType.GOLD_LESS_THAN_10).checkScene(
+						CheckType.INN_0,
+						new Branch(true).textScene("INNKEEP-03").choiceScene(
+							"Take his offer?",
+							new Branch("Get under the table").textScene("INNKEEP-04").encounterEnd(),
+							leave
+						),
+						new Branch(false).checkScene(
+							CheckType.INN_1,
+							new Branch(true).textScene("INNKEEP-07").choiceScene(
+								"Take his offer?",
+								new Branch("Go to his room").textScene("INNKEEP-08").checkScene(
+									CheckType.VIRGIN, 
+									new Branch(true).textScene("INNKEEP-09").concat(afterScene), 
+									new Branch(false).concat(afterScene)
+								),
+								leave
+							),
+							new Branch(false).checkScene(
+								CheckType.INN_2,
+								new Branch(true).textScene("INNKEEP-12").choiceScene(
+									"Take his offer?",
+									new Branch("Join him").textScene("INNKEEP-13").encounterEnd(),
+									leave
+								), 
+								new Branch(false).textScene("INNKEEP-16").choiceScene(
+									"Take his offer?",
+									new Branch("Marry him").textScene("INNKEEP-17").gameEnd(),
+									leave
+								)
+							)
+						)
+					),
+					leave
+			    ).getEncounter();
 			case LEVEL_UP:
 				break;
 			case MERI_COTTAGE:
@@ -603,7 +646,11 @@ public class EncounterBuilder2 {
 			case TOWN2:
 				break;
 			case TOWN_CRIER:
-				break;
+				return new Branch().checkScene(
+					CheckType.CRIER, 
+					new Branch(true).textScene("CRIER-NEW").encounterEnd(), 
+					new Branch(false).textScene("CRIER-OLD").encounterEnd()
+				).getEncounter();
 			case TOWN_STORY:
 				break;
 			case WEAPON_SHOP:
