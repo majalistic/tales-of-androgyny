@@ -32,12 +32,16 @@ import com.majalis.save.SaveService;
 import com.majalis.save.SaveManager.GameContext;
 import com.majalis.scenes.AbstractChoiceScene;
 import com.majalis.scenes.BattleScene;
+import com.majalis.scenes.CharacterCreationScene;
+import com.majalis.scenes.CharacterCustomizationScene;
 import com.majalis.scenes.CheckScene;
 import com.majalis.scenes.ChoiceScene;
 import com.majalis.scenes.EndScene;
+import com.majalis.scenes.GameTypeScene;
 import com.majalis.scenes.Mutation;
 import com.majalis.scenes.Scene;
 import com.majalis.scenes.ShopScene;
+import com.majalis.scenes.SkillSelectionScene;
 import com.majalis.scenes.TextScene;
 import com.majalis.scenes.CheckScene.CheckType;
 import com.majalis.scenes.ShopScene.Shop;
@@ -50,7 +54,6 @@ public class EncounterBuilder2 {
 	private final AssetManager assetManager;
 	private final SaveService saveService;
 	private final BitmapFont font;
-	private final BitmapFont smallFont;
 	private final int sceneCode;
 	private final ObjectMap<String, Shop> shops;
 	private final PlayerCharacter character;
@@ -59,12 +62,11 @@ public class EncounterBuilder2 {
 	// can probably be replaced with a call to scenes.size
 	private int sceneCounter;
 	
-	protected EncounterBuilder2(EncounterReader2 reader, AssetManager assetManager, SaveService saveService, BitmapFont font, BitmapFont smallFont, int sceneCode, ObjectMap<String, Shop> shops, PlayerCharacter character, GameContext returnContext) {
+	protected EncounterBuilder2(EncounterReader2 reader, AssetManager assetManager, SaveService saveService, BitmapFont font, int sceneCode, ObjectMap<String, Shop> shops, PlayerCharacter character, GameContext returnContext) {
 		this.reader = reader;
 		this.assetManager = assetManager;
 		this.saveService = saveService;
 		this.font = font;
-		this.smallFont = smallFont;
 		this.sceneCode = sceneCode;
 		this.shops = shops == null ? new ObjectMap<String, Shop>() : shops;
 		this.character = character;
@@ -215,7 +217,7 @@ public class EncounterBuilder2 {
 					)
 				).getEncounter();
 			case COTTAGE_TRAINER:
-				break;
+				return new Branch().textScene("STORY-003").characterCreation(true).encounterEnd().getEncounter(); 		
 			case COTTAGE_TRAINER_VISIT:
 				break;
 			case CRIER_QUEST:
@@ -432,7 +434,38 @@ public class EncounterBuilder2 {
 					) 
 			    ).getEncounter();
 			case INITIAL:
-				break;
+				return new Branch().textScene("INTRO").gameTypeScene(
+					new Branch("Create Character").textScene("CHARACTER-CREATE").characterCreation(false).skillSelection().characterCustomization().encounterEnd(),
+					new Branch("Story (Patrons)").textScene("STORY-MODE").encounterEnd()
+				).getEncounter(); 	
+				/*
+				 * 
+				 Background background = getDefaultTextBackground();
+				Background classSelectbackground = getClassSelectBackground();	
+				Background silhouetteBackground = new BackgroundBuilder(assetManager.get(AssetEnum.BURNING_FORT_BG.getTexture())).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getTexture())).setForeground(assetManager.get(AssetEnum.SILHOUETTE.getTexture()), 1000, 0).build();
+				
+				getTextScenes(
+					getScript("INTRO"), font, background,
+					getGameTypeScene(
+						getTextScenes(
+							getArray(new String[]{"You have entered story mode.", "A tale of androgyny has begun..."}), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.MODE, GameMode.STORY)}),							
+							getTextScenes(
+								// needs to be female silhouette from behind BG
+								getScript("STORY-000"), font, silhouetteBackground, new Array<Mutation>(), AssetEnum.WAVES.getMusic(), getArray(new AssetDescriptor[]{null, null, null, null, null, null, null, null, null, AssetEnum.SMUG_LAUGH.getSound(), null, null, null, null, null, null, null, null, AssetEnum.SMUG_LAUGH.getSound()}),
+								getTextScenes(
+									// needs to be hovel BG
+									getScript("STORY-001"), font, background, new Array<Mutation>(), AssetEnum.HOVEL_MUSIC.getMusic(),
+									getTextScenes(
+										// needs to be bright-white BG
+										getScript("STORY-002"), font, background, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.CLASS, JobClass.ENCHANTRESS)}),
+										getEndScene(EndScene.Type.ENCOUNTER_OVER)						
+									)
+								)
+							)
+						)
+					)
+				);
+				 */
 			case INN:
 				Branch afterScene = new Branch().textScene("INNKEEP-10").encounterEnd();  
 				Branch leave = new Branch("Leave").encounterEnd();
@@ -674,8 +707,9 @@ public class EncounterBuilder2 {
 		Choice,
 		Check,
 		Battle,
+		Gametype,
 		EndEncounter,
-		EndGame
+		EndGame 
 	}
 	public class Branch {
 		
@@ -727,6 +761,21 @@ public class EncounterBuilder2 {
 			return this;
 		}
 		
+		public Branch characterCreation(boolean storyMode) {
+			sceneTokens.add(new CharacterCreationToken(storyMode));
+			return this;
+		}
+		
+		public Branch characterCustomization() {
+			sceneTokens.add(new CharacterCustomizationToken());
+			return this;
+		}
+
+		public Branch skillSelection() {
+			sceneTokens.add(new SkillSelectionToken());
+			return this;
+		}
+		
 		public Branch shopScene(ShopCode shopCode) {
 			sceneTokens.add(new ShopSceneToken(shopCode));
 			return this;
@@ -738,6 +787,11 @@ public class EncounterBuilder2 {
 		
 		public Branch choiceScene(String toDisplay, Branch ... branches) {
 			branchToken = new ChoiceSceneToken(toDisplay);
+			return weldBranches(branches);
+		}
+		
+		public Branch gameTypeScene(Branch... branches) {
+			branchToken = new GameTypeSceneToken();
 			return weldBranches(branches);
 		}
 		
@@ -893,24 +947,41 @@ public class EncounterBuilder2 {
 						}
 						break;
 					case Choice:
-						Table table = new Table();
+					case Gametype:
 						Skin skin = assetManager.get(AssetEnum.UI_SKIN.getSkin());
 						Sound buttonSound = assetManager.get(AssetEnum.BUTTON_SOUND.getSound());
-						ChoiceSceneToken choiceBranchToken = (ChoiceSceneToken)branchToken;
 						for (OrderedMap.Entry<Object, Branch> next : branchOptions) {
 							weld(scenes, battleScenes, endScenes, next, sceneMap);
 						}
-						
-						ChoiceScene choiceScene = new ChoiceScene(sceneMap, sceneCounter, saveService, font, choiceBranchToken.getToDisplay(), table, new BackgroundBuilder(assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getTexture())).build());
-						// need the choiceScene in order to create the buttons, so iterate through again
-						for (OrderedMap.Entry<Object, Branch> next : branchOptions) {
-							Scene nextScene = next.value.getScenes().first();
-							TextButton button = new TextButton((String)next.key, skin);
-							// this needs the logic for checks as well
-							button.addListener(getListener(choiceScene, nextScene, buttonSound, next.value.require, button));
-							table.add(button).size(650, 150).row();
+						if (branchToken.type == EndTokenType.Choice) {
+							Table table = new Table();
+							ChoiceSceneToken choiceBranchToken = (ChoiceSceneToken)branchToken;
+							ChoiceScene choiceScene = new ChoiceScene(sceneMap, sceneCounter, saveService, font, choiceBranchToken.getToDisplay(), table, new BackgroundBuilder(assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getTexture())).build());
+							// need the choiceScene in order to create the buttons, so iterate through again
+							for (OrderedMap.Entry<Object, Branch> next : branchOptions) {
+								Scene nextScene = next.value.getScenes().first();
+								TextButton button = new TextButton((String)next.key, skin);
+								// this needs the logic for checks as well
+								button.addListener(getListener(choiceScene, nextScene, buttonSound, next.value.require, button));
+								table.add(button).size(650, 150).row();
+							}
+							sceneMap = addScene(scenes, choiceScene, true);	
 						}
-						sceneMap = addScene(scenes, choiceScene, true);						
+						else {
+							Array<TextButton> buttons = new Array<TextButton>();
+							for (OrderedMap.Entry<Object, Branch> next : branchOptions) {
+								TextButton button = new TextButton((String)next.key, skin);
+								buttons.add(button);
+							}
+							GameTypeScene gameTypeScene = new GameTypeScene(sceneMap, sceneCounter, saveService, buttons, new BackgroundBuilder(assetManager.get(AssetEnum.GAME_TYPE_BACKGROUND.getTexture())).build());
+							int ii = 0;
+							for (OrderedMap.Entry<Object, Branch> next : branchOptions) {
+								Scene nextScene = next.value.getScenes().first();
+								buttons.get(ii).addListener(getListener(gameTypeScene, nextScene, buttonSound, next.value.require, buttons.get(ii)));
+								ii++;
+							}	
+							sceneMap = addScene(scenes, gameTypeScene, true);	
+						}
 						break;
 					case EndGame:
 					case EndEncounter:
@@ -945,7 +1016,8 @@ public class EncounterBuilder2 {
 				reverse = false;
 				// iterate through and every time either background or foreground/animatedforeground change, create a new background
 				for (SceneToken token: sceneTokens) {
-					if (token instanceof ShopSceneToken) continue;					
+					if (token instanceof ShopSceneToken || token instanceof CharacterCreationToken || token instanceof CharacterCustomizationToken || token instanceof SkillSelectionToken) continue;	
+										
 					// if all of the tokens are  the same, clone the last background
 					if ((token.foreground == null || token.foreground == foreground) && (token.animatedForeground == null || token.animatedForeground == animatedForeground) && (token.background == null || token.background == background)) {
 						if (backgrounds.size > 0) {
@@ -967,8 +1039,22 @@ public class EncounterBuilder2 {
 							int y = animatedForeground == EnemyEnum.BUTTBANG ? 520 : 0;
 							backgroundBuilder.setForeground(EnemyCharacter.getAnimatedActor(animatedForeground), x, y);
 						}
-						else if (token.foreground != null) backgroundBuilder.setForeground(assetManager.get(token.foreground.getTexture()));
-						else if (foreground != null) backgroundBuilder.setForeground(assetManager.get(foreground.getTexture()));
+						else if (token.foreground != null) {
+							if (token.foreground == AssetEnum.SILHOUETTE) {
+								backgroundBuilder.setForeground(assetManager.get(token.foreground.getTexture()), 1000, 0);
+							}
+							else {
+								backgroundBuilder.setForeground(assetManager.get(token.foreground.getTexture()));
+							}
+						}
+						else if (foreground != null) {
+							if (foreground == AssetEnum.SILHOUETTE) {
+								backgroundBuilder.setForeground(assetManager.get(foreground.getTexture()), 1000, 0);
+							}
+							else {
+								backgroundBuilder.setForeground(assetManager.get(foreground.getTexture()));
+							}
+						}
 						backgrounds.add(backgroundBuilder.build());
 					}
 					background = token.background != null ? token.background : background;
@@ -987,6 +1073,16 @@ public class EncounterBuilder2 {
 						ShopCode shopCode = ((ShopSceneToken) token).shopCode;
 						// this needs to get the proper background, probably from shopcode attributes
 						newScene = new ShopScene(sceneMap, sceneCounter, saveService, assetManager, character, new BackgroundBuilder(assetManager.get(shopCode.getBackground())).setForeground(assetManager.get(shopCode.getForeground()), shopCode.getX(), shopCode.getY()).build(), shopCode, shops.get(shopCode.toString()));
+					}
+					else if (token instanceof CharacterCreationToken) {
+						boolean storyMode = ((CharacterCreationToken) token).storyMode;
+						newScene = new CharacterCreationScene(sceneMap, sceneCounter, saveService, new BackgroundBuilder(assetManager.get(AssetEnum.CLASS_SELECT_BACKGROUND.getTexture())).build(), assetManager, character, storyMode);
+					}
+					else if (token instanceof SkillSelectionToken) {
+						newScene = new SkillSelectionScene(sceneMap, sceneCounter, saveService, new BackgroundBuilder(assetManager.get(AssetEnum.SKILL_SELECTION_BACKGROUND.getTexture())).build(), assetManager, character);
+					}
+					else if (token instanceof CharacterCustomizationToken) {
+						newScene = new CharacterCustomizationScene(sceneMap, sceneCounter, saveService, font, new BackgroundBuilder(assetManager.get(AssetEnum.CHARACTER_CUSTOM_BACKGROUND.getTexture())).build(), assetManager, character);
 					}
 					else {
 						String scriptLine = token.text.replace("<NAME>", characterName).replace("<BUTTSIZE>", buttsize).replace("<LIPSIZE>", lipsize);
@@ -1098,6 +1194,12 @@ public class EncounterBuilder2 {
 		
 	}
 	
+	public class GameTypeSceneToken extends BranchToken {
+		public GameTypeSceneToken() {
+			super(EndTokenType.Gametype);
+		}
+	}
+	
 	public class CheckSceneToken extends BranchToken {
 		private final Stat stat;
 		private final CheckType checkType;
@@ -1173,6 +1275,18 @@ public class EncounterBuilder2 {
 		}
 	}
 	
+	public static class CharacterCreationToken extends SceneToken {
+		boolean storyMode;
+		public CharacterCreationToken (boolean storyMode) {
+			this.storyMode = storyMode;
+		}
+	}
+	
+	public static class CharacterCustomizationToken extends SceneToken {}
+	
+	public static class SkillSelectionToken extends SceneToken {}
+	
+	
 	public static class MutateToken {
 		SaveEnum saveType;
 		ProfileEnum profileSaveType;
@@ -1188,22 +1302,22 @@ public class EncounterBuilder2 {
 		private final FileHandle file;   
 		private final ObjectMap<String, SceneToken[]> scriptData;
 		
-	    public EncounterReader2(String path){
+	    public EncounterReader2(String path) {
 	        file = Gdx.files.internal(path);
 	        scriptData = getScriptData();
 	    }
 	   
-		private ObjectMap<String, SceneToken[]> getScriptData(){
+		private ObjectMap<String, SceneToken[]> getScriptData() {
 			ObjectMap<String, SceneToken[]> data = new ObjectMap<String, SceneToken[]>();
-	        if(file.exists()){
+	        if(file.exists()) {
 	        	data = convertToIntMap(new Json().fromJson(FullScript.class, file.readString()));
 	        }
 	        return data;
 	    }
 		
-		private ObjectMap<String, SceneToken[]> convertToIntMap(FullScript data){
+		private ObjectMap<String, SceneToken[]> convertToIntMap(FullScript data) {
 			ObjectMap<String, SceneToken[]> convertedData = new ObjectMap<String, SceneToken[]>();
-			for (ScriptData datum: data.script){
+			for (ScriptData datum: data.script) {
 				convertedData.put(datum.key, datum.scriptLines);
 			}
 			return convertedData;
@@ -1213,17 +1327,17 @@ public class EncounterBuilder2 {
 	   
 	}
 	
-	private static class FullScript{
+	private static class FullScript {
     	public ScriptData[] script;
     	// 0-arg constructor for JSON serialization: DO NOT USE
-		private FullScript(){}
+		private FullScript() {}
     }
     
     /* package for containing the data in a pretty format, an array of which deserializes to an IntMap */
-    private static class ScriptData{
+    private static class ScriptData {
     	public String key;
     	public SceneToken[] scriptLines;
     	// 0-arg constructor for JSON serialization: DO NOT USE
-		private ScriptData(){}
+		private ScriptData() {}
     }
 }

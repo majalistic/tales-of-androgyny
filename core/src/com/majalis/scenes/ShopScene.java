@@ -28,7 +28,6 @@ import com.majalis.character.Item.Weapon;
 import com.majalis.character.Item.WeaponType;
 import com.majalis.character.PlayerCharacter;
 import com.majalis.encounter.Background;
-import com.majalis.encounter.Background.BackgroundBuilder;
 import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveService;
 

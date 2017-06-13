@@ -16,9 +16,26 @@
 		]
 	},
 	{
-		"key": "STORY-000",
+		"key": "CHARACTER-CREATE",
 		"scriptLines": [
-			{"text": "..."},
+			{
+			"mutations": [{"saveType":"MODE", "value":{"class": "com.majalis.save.SaveManager$GameMode", "value": "SKIRMISH"}}],
+			"text": "You've selected to create your character!"},
+			{"text": "Please choose your class."}
+		]
+	},
+		{
+		"key": "STORY-MODE",
+		"scriptLines": [
+			{
+			"mutations": [{"saveType":"MODE", "value":{"class": "com.majalis.save.SaveManager$GameMode", "value": "STORY"}}],
+			"text": "You have entered story mode."},
+			{"text": "A tale of androgyny has begun..."},
+			{
+			"music": "WAVES",
+			"background": "BURNING_FORT_BG",
+			"foreground": "SILHOUETTE",
+			"text": "..."},
 			{"text": ".."},
 			{"text": "."},
 			{"text": "The wind is warm and carries the smell of the sea and smoke alike; distant thunder comes not from the sky, but across leagues of night-black ocean."},
@@ -27,7 +44,9 @@
 			{"text": "The moon has never seemed so full as tonight, she muses to herself, and yet his armies lay broken, his dominion shattered, his very life, she relishes, like the moonlight reflected in her drink - insubstantial, and soon to be gone forever.  Because of her.  Her purple, stained-red lips stretch into a fanged smile, and she licks her teeth in satisfaction."},
 			{"text": "This - she thinks to herself, as the fires rage on and the once great fortress sinks in large part into the sea - is what victory tastes like."},
 			{"text": "With that, she presses the goblet to her lips and tilts her head back, draining the last of it.  The moonlight reflects off her eyes, deep and red as her drink, but as bright as the fires blazing in the summer breeze."},
-			{"text": "She stands gracefully from her viewing seat of bone, and casts the goblet into the abyss, feeling free and merry.  She crosses her arms on her chest, grasping herself in excitement, her breath ragged and terse."},
+			{
+			"sound": "SMUG_LAUGH",
+			"text": "She stands gracefully from her viewing seat of bone, and casts the goblet into the abyss, feeling free and merry.  She crosses her arms on her chest, grasping herself in excitement, her breath ragged and terse."},
 			{"text": "She hears a whimper, and is suddenly reminded that she's not alone to bask in this momentous occasion - there is also... another."},
 			{"text": "He was his lord's second in command - an effeminate youth who fell madly, brazenly in love with her, and who was instrumental in helping to bring about the night's key events.  He has to be rewarded, she realizes."},
 			{"text": "He was promised her... affection, if only he turn traitor, and he'd performed his duties admirably, so she is in no position to refuse.  She'd strung him up earlier in the evening, suspended from the trees above with a rope each around his ankles and wrists, but when she approaches him, clearly drunk and eager to... canoodle, it pricks up immediately, even as he hangs there, immobilized and naked."},
@@ -46,13 +65,12 @@
 			{"text": "Tonight, she thinks, is a good night."},
 			{"text": "{ Tales of Androgyny }"},
 			{"text": "\n\n{ Tales of Androgyny }"},
-			{"text": "\n\n\n\n{ Tales of Androgyny }"}
-		]
-	},
-	{
-		"key": "STORY-001",
-		"scriptLines": [
-			{"text": "..."},
+			{"text": "\n\n\n\n{ Tales of Androgyny }"},
+			{
+			"music": "HOVEL_MUSIC",
+			"background": "DEFAULT_BACKGROUND",
+			"foreground": "NULL",
+			"text": "..."},
 			{"text": ".."},
 			{"text": "."},
 			{"text": "So it has come to this."},
@@ -67,13 +85,10 @@
 			{"text": "Maybe they haven't been so fruitful after all."},
 			{"text": "You glance down at the dribbling eggs.  Is this all there is to life?  Failing to accomplish basic tasks and waiting to grow old?"},
 			{"text": "No.  No, that can't be it, you assure yourself, even as the last gooey-yet-burnt drippings of your failure slough off the walls of the dilapidated hut you call home and into that same pile of ruined breakfasts where you keep your genetic legacy."},
-			{"text": "There is one thing that separates men from beasts, and you feel it strongly.  With renewed vigor, you throw open the door, well, flap, to your abode, and greet the sunshine of day; it's so bright that it hurts your eyes and you almost immediately give up."}
-		]
-	},
-	{
-		"key": "STORY-002",
-		"scriptLines": [
-			{"text": "But you don't - and that's what counts.  For the one thing that separates men from beasts?"},
+			{"text": "There is one thing that separates men from beasts, and you feel it strongly.  With renewed vigor, you throw open the door, well, flap, to your abode, and greet the sunshine of day; it's so bright that it hurts your eyes and you almost immediately give up."},	
+			{
+			"mutations": [{"saveType":"CLASS", "value":{"class": "com.majalis.save.SaveManager$JobClass", "value": "ENCHANTRESS"}}],
+			"text": "But you don't - and that's what counts.  For the one thing that separates men from beasts?"},
 			{"text": "Denial."},
 			{"text": "First things first - you have to go to him.  The man that's been waiting for you.  The man that taught your mother.  The legend of the nearby village, living alone in a cottage on the village outskirts - the place where your true destiny will first take root."},
 			{"text": "You pack your things - there isn't much - and leave for the cottage on the outskirts."}
@@ -82,14 +97,14 @@
 	{
 		"key": "STORY-003",
 		"scriptLines": [
-			{"text": "After a short trek, encountering nobody along the way (thankfully), you see the cottage in the distance.  Smoke billows from the chimney slowly - a dim fire lit within.  As you approach the front door, you hear a faint, muffled voice; a man is speaking."},
+			{
+			"background": "CABIN_BACKGROUND",
+			"music": "TRAINER_MUSIC",
+			"text": "After a short trek, encountering nobody along the way (thankfully), you see the cottage in the distance.  Smoke billows from the chimney slowly - a dim fire lit within.  As you approach the front door, you hear a faint, muffled voice; a man is speaking."},
 			{"text": "You knock on the door, and the speech stops, only to be replaced with a fumbling of the lock and a louder, more resonant voice."},
-		]
-	},
-	{
-		"key": "STORY-003A",
-		"scriptLines": [
-			{"text": "\"I've been waiting. It was only a matter of time,\" they say, unfastening the final lock, and pulling open the heavy oaken door, \"now, you can finally fulfill your destiny as...  who are you?\", the man standing in the doorway asks, once his eyes fall on you.\""},
+			{
+			"foreground": "TRAINER",
+			"text": "\"I've been waiting. It was only a matter of time,\" they say, unfastening the final lock, and pulling open the heavy oaken door, \"now, you can finally fulfill your destiny as...  who are you?\", the man standing in the doorway asks, once his eyes fall on you.\""},
 			{"text": "You recognize him instantly, though he's aged years - years that have not been kind to him.  He was once a tall, proud, handsome man... now he's a tall, confused, kind-of-handsome-in-that-older-guy-way man, and he has clearly not been keeping up with the razor."},
 			{"text": "You rally your resolve. \"I am the son of the hero that defeated the Moon Lord, and I...\" you say, but he holds up his hand."},
 			{"text": "\"Hold on.  Moon Lord?  Why does that sound familiar?\" he says, scratching his beard pensively, \"Big guy?  Elephant head?  Breathes pure dark flame?\""},

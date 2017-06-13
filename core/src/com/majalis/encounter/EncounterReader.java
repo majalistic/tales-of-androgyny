@@ -12,14 +12,14 @@ public class EncounterReader {
 	private final FileHandle file;   
 	private final ObjectMap<String, String[]> scriptData;
 	
-    public EncounterReader(String path){
+    public EncounterReader(String path) {
         file = Gdx.files.internal(path);
         scriptData = getScriptData();
     }
    
-	private ObjectMap<String, String[]> getScriptData(){
+	private ObjectMap<String, String[]> getScriptData() {
 		ObjectMap<String, String[]> data = new ObjectMap<String, String[]>();
-        if(file.exists()){
+        if(file.exists()) {
         	data = convertToIntMap(new Json().fromJson(FullScript.class, file.readString()));
         }
         else {
@@ -28,21 +28,21 @@ public class EncounterReader {
         return data;
     }
 	
-	private ObjectMap<String, String[]> convertToIntMap(FullScript data){
+	private ObjectMap<String, String[]> convertToIntMap(FullScript data) {
 		ObjectMap<String, String[]> convertedData = new ObjectMap<String, String[]>();
-		for (ScriptData datum: data.script){
+		for (ScriptData datum: data.script) {
 			convertedData.put(datum.key, datum.scriptLines);
 		}
 		return convertedData;
 	}
 	
-    private void saveToJson(FullScript data){
+    private void saveToJson(FullScript data) {
         Json json = new Json();
         json.setOutputType(OutputType.json);
         file.writeString(json.prettyPrint(data), false);
     }
   
-    public String[] loadScript(String key){
+    public String[] loadScript(String key) {
     	return scriptData.get(key);
     }
     
@@ -50,8 +50,8 @@ public class EncounterReader {
     	public ScriptData[] script;
     	// 0-arg constructor for JSON serialization: DO NOT USE
     	@SuppressWarnings("unused")
-		private FullScript(){}
-    	protected FullScript(ScriptData[] script){
+		private FullScript() {}
+    	protected FullScript(ScriptData[] script) {
     		this.script = script;
     	}
     }
@@ -62,8 +62,8 @@ public class EncounterReader {
     	public String[] scriptLines;
     	// 0-arg constructor for JSON serialization: DO NOT USE
     	@SuppressWarnings("unused")
-		private ScriptData(){}
-    	protected ScriptData(String key, String[] scriptLines){
+		private ScriptData() {}
+    	protected ScriptData(String key, String[] scriptLines) {
     		this.key = key;
     		this.scriptLines = scriptLines;
     	}

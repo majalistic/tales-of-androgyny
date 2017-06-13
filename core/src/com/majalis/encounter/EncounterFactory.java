@@ -29,21 +29,20 @@ public class EncounterFactory {
 		this.loadService = saveManager;
 	}
 	
-	public Encounter getEncounter(EncounterCode encounterCode, BitmapFont font, BitmapFont smallFont) {
+	@SuppressWarnings("unchecked")
+	public Encounter getEncounter(EncounterCode encounterCode, BitmapFont font) {
 		Integer sceneCode = loadService.loadDataValue(SaveEnum.SCENE_CODE, Integer.class);
 		GameContext context = loadService.loadDataValue(SaveEnum.RETURN_CONTEXT, GameContext.class);
-		@SuppressWarnings("unchecked")
-		EncounterBuilder builder = new EncounterBuilder(reader, assetManager, saveService, font, smallFont, sceneCode, (ObjectMap<String, Shop>)loadService.loadDataValue(SaveEnum.SHOP, Shop.class), (PlayerCharacter) loadService.loadDataValue(SaveEnum.PLAYER, PlayerCharacter.class), context);
+		EncounterBuilder builder = new EncounterBuilder(reader, assetManager, saveService, font, sceneCode, (ObjectMap<String, Shop>)loadService.loadDataValue(SaveEnum.SHOP, Shop.class), (PlayerCharacter) loadService.loadDataValue(SaveEnum.PLAYER, PlayerCharacter.class), context);
 		switch (encounterCode) {
 			case LEVEL_UP: return builder.getLevelUpEncounter((GameMode) loadService.loadDataValue(SaveEnum.MODE, Shop.class) == GameMode.STORY);
-			case INITIAL: return builder.getClassChoiceEncounter();
 			case DEFAULT: return builder.getDefaultEncounter();
 			default: return
 					encounterCode == EncounterCode.WERESLUT || encounterCode == EncounterCode.HARPY || encounterCode == EncounterCode.SLIME || encounterCode == EncounterCode.BRIGAND || encounterCode == EncounterCode.DRYAD || encounterCode == EncounterCode.CENTAUR || encounterCode == EncounterCode.GOBLIN
 					|| encounterCode == EncounterCode.ORC || encounterCode == EncounterCode.ADVENTURER || encounterCode == EncounterCode.OGRE || encounterCode == EncounterCode.BEASTMISTRESS || encounterCode == EncounterCode.GADGETEER || encounterCode == EncounterCode.INN
-					|| encounterCode == EncounterCode.TOWN_CRIER || encounterCode == EncounterCode.CRIER_QUEST
+					|| encounterCode == EncounterCode.TOWN_CRIER || encounterCode == EncounterCode.CRIER_QUEST || encounterCode == EncounterCode.INITIAL || encounterCode == EncounterCode.COTTAGE_TRAINER
 					? 
-					 new EncounterBuilder2(new EncounterReader2("script/encounters2.json"), assetManager, saveService, font, smallFont, sceneCode == 0 ? -1 : sceneCode, (ObjectMap<String, Shop>)loadService.loadDataValue(SaveEnum.SHOP, Shop.class), (PlayerCharacter) loadService.loadDataValue(SaveEnum.PLAYER, PlayerCharacter.class), context).getEncounter(encounterCode) : 
+					 new EncounterBuilder2(new EncounterReader2("script/encounters2.json"), assetManager, saveService, font, sceneCode == 0 ? -1 : sceneCode, (ObjectMap<String, Shop>)loadService.loadDataValue(SaveEnum.SHOP, Shop.class), (PlayerCharacter) loadService.loadDataValue(SaveEnum.PLAYER, PlayerCharacter.class), context).getEncounter(encounterCode) : 
 					builder.getRandomEncounter(encounterCode);
 		}
 	}
