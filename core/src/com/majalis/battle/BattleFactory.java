@@ -70,7 +70,7 @@ public class BattleFactory {
 		Array<String> console = (Array<String>) loadService.loadDataValue(SaveEnum.CONSOLE, Array.class);
 		return new Battle(
 			saveService, assetManager, font, playerCharacter, enemy, battleAttributes.getOutcomes(), 
-			new BackgroundBuilder((Texture)assetManager.get(enemy.getBGPath())).build(), new BackgroundBuilder((Texture)assetManager.get(AssetEnum.BATTLE_UI.getTexture())).build(),
+			new BackgroundBuilder((Texture)assetManager.get(enemy.getBGPath())).build(), new BackgroundBuilder(assetManager.get(AssetEnum.BATTLE_UI.getTexture())).build(),
 			console.size > 0 ? console.get(0) : "", console.size > 1 ? console.get(1) : "", battleAttributes.getMusic()
 		);
 	}

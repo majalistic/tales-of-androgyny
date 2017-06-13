@@ -153,7 +153,11 @@ public class Battle extends Group{
 		this.addActor(battleBackground);
 		this.addCharacter(character);
 		this.addCharacter(enemy);
-		this.addActor(battleUI);	
+
+		uiGroup = new Group();
+		uiHidden = false;
+		
+		uiGroup.addActor(battleUI);	
 		
 		skin = assetManager.get(AssetEnum.BATTLE_SKIN.getSkin());
 		
@@ -237,8 +241,6 @@ public class Battle extends Group{
 			enemyBloodLabel.addAction(hide());
 		}
 		
-		uiHidden = false;
-		uiGroup = new Group();
 		Image consoleBox = new Image(assetManager.get(AssetEnum.BATTLE_TEXTBOX.getTexture()));
 		uiGroup.addActor(consoleBox);
 		consoleBox.setPosition(consoleXPos, consoleYPos);
@@ -682,9 +684,9 @@ public class Battle extends Group{
 	
 	private void setEnemyTechnique() {
 		enemySelectedTechnique = enemy.getTechnique(character);
-		this.removeActor(enemySkill);
+		uiGroup.removeActor(enemySkill);
 		enemySkill = new SkillText(character.getBattlePerception() < 7 ? "" : enemySelectedTechnique.getTechniqueName(), skin, assetManager.get(enemySelectedTechnique.getStance().getTexture()));		
-		this.addActor(enemySkill);
+		uiGroup.addActor(enemySkill);
 		enemySkill.setPosition(1400, 750);
 		if (character.getBattlePerception() < 5) {
 			enemySkill.addAction(Actions.hide());
@@ -834,7 +836,7 @@ public class Battle extends Group{
 		newBar.setWidth(width);
 		newBar.setPosition(x, y);
 		newBar.setValue(value);
-		this.addActor(newBar);
+		uiGroup.addActor(newBar);
 		return newBar;
 	}
 	
@@ -843,7 +845,7 @@ public class Battle extends Group{
 	private Image initImage(Texture texture, float x, float y, float width, float height) {
 		Image newImage = new Image(texture);
 		newImage.setBounds(x, y, width, height);
-		this.addActor(newImage);
+		uiGroup.addActor(newImage);
 		return newImage;
 	}
 	
@@ -851,12 +853,12 @@ public class Battle extends Group{
 		Label newLabel = new Label(value, skin);
 		newLabel.setColor(color);
 		newLabel.setPosition(x, y);
-		this.addActor(newLabel);
+		uiGroup.addActor(newLabel);
 		return newLabel;
 	}
 	
 	private StanceActor initStanceActor(StanceActor actor, float x, float y, float width, float height) {
-		this.addActor(actor);
+		uiGroup.addActor(actor);
 		actor.setBounds(x, y, width, height);
 		return actor;
 	}
