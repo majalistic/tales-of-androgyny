@@ -184,7 +184,9 @@ public class EnemyCharacter extends AbstractCharacter {
 						}
 						break;
 					case BEASTMISTRESS:
-					break;
+						break;
+					case BUTTBANG:
+						break;
 				}
 			}
 			
@@ -218,6 +220,8 @@ public class EnemyCharacter extends AbstractCharacter {
 							resolvedAttack.addDialog("He roars as he fills you with his thick, disgusting ogre semen.");
 						}
 					case BEASTMISTRESS:
+						break;
+					case BUTTBANG:
 						break;
 				}
 					

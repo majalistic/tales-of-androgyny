@@ -301,11 +301,11 @@ public class ShopScene extends Scene {
 		}
 		
 		public int getX() {
-			return 900;
+			return 800;
 		}
 
 		public int getY() {
-			return 0;
+			return -100;
 		}
 	}
 	
