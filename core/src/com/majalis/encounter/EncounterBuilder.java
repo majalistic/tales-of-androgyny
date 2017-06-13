@@ -18,12 +18,9 @@ import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.OrderedMap;
 import com.majalis.asset.AnimatedActor;
 import com.majalis.asset.AssetEnum;
-import com.majalis.battle.BattleCode;
-import com.majalis.battle.Battle.Outcome;
 import com.majalis.character.PlayerCharacter;
 import com.majalis.encounter.Background.BackgroundBuilder;
 import com.majalis.character.SexualExperience.SexualExperienceBuilder;
-import com.majalis.character.Stance;
 import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveManager;
 import com.majalis.save.SaveManager.GameContext;
@@ -82,27 +79,8 @@ public class EncounterBuilder {
 		Texture backgroundTexture = assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getTexture());	
 		Background background = getDefaultTextBackground();
 		Mutation analReceive = new Mutation(saveService, SaveEnum.ANAL, new SexualExperienceBuilder().setAnalSex(1, 1, 0).build());
-		BattleCode battleCode;
 		
 		switch (encounterCode) {	
-			case FIRST_BATTLE_STORY:
-				battleCode = BattleCode.GOBLIN_STORY;
-				Background goblinBackground2 = new BackgroundBuilder(backgroundTexture).setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getTexture())).setForeground(assetManager.get(AssetEnum.GOBLIN.getTexture())).build();
-				getTextScenes(
-					getScript("STORY-FIGHT-FIRST"), font, background,
-					getTextScenes( 
-						getScript("STORY-FIGHT-GOBLIN"), font, goblinBackground2, 
-						getBattleScene(
-							battleCode, 
-							getTextScenes(getScript("STORY-FIGHT-GOBLIN-VICTORY"), font, goblinBackground2, getArray(new Mutation[]{new Mutation(saveService, SaveEnum.EXPERIENCE, 2)}), 
-								getTextScenes(getScript("STORY-FIGHT-GOBLIN-VICTORY2"), font, background,  
-								getEndScene(EndScene.Type.ENCOUNTER_OVER))
-							),
-							getTextScenes(getScript("STORY-FIGHT-GOBLIN-DEFEAT"), font, background, getArray(new Mutation[]{analReceive}), AssetEnum.WEREWOLF_MUSIC.getMusic(), getEndScene(EndScene.Type.GAME_OVER))				
-						)
-					)
-				);		
-				break;
 			case OGRE_WARNING_STORY:
 				getTextScenes(
 					getScript("OGRE-WARN"), font, background, new Array<Mutation>(), AssetEnum.TRAINER_MUSIC.getMusic(), 
@@ -336,28 +314,6 @@ public class EncounterBuilder {
 		Texture background = assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getTexture());
 		CheckScene checkScene = new CheckScene(sceneMap, sceneCounter, assetManager, saveService, font, new BackgroundBuilder(background).build(), checkType, sceneMap.get(sceneMap.orderedKeys().get(0)), sceneMap.get(sceneMap.orderedKeys().get(1)), character);
 		return addScene(checkScene);
-	}
-	
-	private OrderedMap<Integer, Scene> getBattleScene(BattleCode battleCode, @SuppressWarnings("unchecked") OrderedMap<Integer, Scene>... sceneMaps) {
-		return getBattleScene(battleCode, Stance.BALANCED, Stance.BALANCED, sceneMaps);
-	}
-
-	private OrderedMap<Integer, Scene> getBattleScene(BattleCode battleCode, Stance playerStance, Stance enemyStance, @SuppressWarnings("unchecked") OrderedMap<Integer, Scene>... sceneMaps) {
-		return getBattleScene(battleCode, playerStance, enemyStance, new Array<Outcome>(new Outcome[]{Outcome.VICTORY, Outcome.DEFEAT}), sceneMaps);
-	}
-	
-	private OrderedMap<Integer, Scene> getBattleScene(BattleCode battleCode, Stance playerStance, Stance enemyStance, Array<Outcome> outcomes, @SuppressWarnings("unchecked") OrderedMap<Integer, Scene>... sceneMaps) {
-		return getBattleScene(battleCode, playerStance, enemyStance, false, 0, outcomes, sceneMaps);
-	}
-	
-	private OrderedMap<Integer, Scene> getBattleScene(BattleCode battleCode, Stance playerStance, Stance enemyStance, boolean disarm, int climaxCounter, Array<Outcome> outcomes, @SuppressWarnings("unchecked") OrderedMap<Integer, Scene>... sceneMaps) {
-		OrderedMap<Integer, Scene> sceneMap = aggregateMaps(sceneMaps);
-		ObjectMap<String, Integer> outcomeToScene = new ObjectMap<String, Integer>();
-		for (int ii = 0; ii < outcomes.size; ii++) {
-			outcomeToScene.put(outcomes.get(ii).toString(), sceneMap.get(sceneMap.orderedKeys().get(ii)).getCode());
-		}
-		
-		return addScene(new BattleScene(aggregateMaps(sceneMaps), saveService, battleCode, playerStance, enemyStance, disarm, climaxCounter, outcomeToScene));
 	}
 	
 	private OrderedMap<Integer, Scene> getEndScene(EndScene.Type type) {

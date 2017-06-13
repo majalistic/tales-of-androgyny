@@ -415,13 +415,10 @@
 			{"text": "You're finally leaving town... with a weapon in hand, and a class to your name.  You feel... unstoppable.  You'll gladly face death if it means being able to fulfill your destiny, the one that you've been ignoring for so long."},
 			{"text": "You come to a small clearing in the forest... and you hear a cackling.  You reach for your scabbard.  The voice sounded... almost human.  But not quite... and the malice was unmistakable."},
 			{"text": "You look around, trying to track the source - your entire body tenses, the pounding of your own pulse drumming your ears, the crunch of the soil underfoot such a burdensome distraction that you keep perfectly still.  This is it.  Your first battle."},
-			{"text": "The scabbard shakes as you grip it, as if you were shaking, but that can't be.  Your mind is focused, your spirit is willing, and as soon as you see the fangs and claws, you'll know what to do - or so you think, when suddenly, a figure emerges from behind a fallen log... and you immediately recognize how it had been hiding behind it."}
-		]
-	},
-	{
-		"key": "STORY-FIGHT-GOBLIN",
-		"scriptLines": [
-			{"text": "It's... a little green goblin.  From the proportions, it looks like a female.  She's stumbling around, laughing... there's no doubt about it - she's drunk."},
+			{"text": "The scabbard shakes as you grip it, as if you were shaking, but that can't be.  Your mind is focused, your spirit is willing, and as soon as you see the fangs and claws, you'll know what to do - or so you think, when suddenly, a figure emerges from behind a fallen log... and you immediately recognize how it had been hiding behind it."},
+			{
+			"foreground": "GOBLIN",
+			"text": "It's... a little green goblin.  From the proportions, it looks like a female.  She's stumbling around, laughing... there's no doubt about it - she's drunk."},
 			{"text": "\"Heya! Hey! You! The boy with the fat butt!\" she says, before immediately laughing herself silly, apparently finding the reddening of your ears hilarious.  \"Why don't... you don't... why don't...\" she slurs, and then falls over, her loincloth falling out of place to give you an eyeful.  You're apparently not the only one with some junk in the trunk."},
 			{"text": "You start to relax your grip on the hilt of your sword when, in a startling moment of sobriety, she kips up to her feet.  Moreover, she pulls out a small dagger and licks the blade."},
 			{"text": "\"Ya didn't see that!\" she says, cutting the air clumsily."},
@@ -434,7 +431,10 @@
 	{
 		"key": "STORY-FIGHT-GOBLIN-VICTORY",
 		"scriptLines": [
-			{"text": "She's still, unmoving... until suddenly, she explodes into frenetic action.  \"Hey, hey!  I think I sobered up!  What's for dinner?  Nyaha!\""},
+			{
+			"mutations": [{"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": 2}}],
+			"sound": "LOUD_LAUGH",
+			"text": "She's still, unmoving... until suddenly, she explodes into frenetic action.  \"Hey, hey!  I think I sobered up!  What's for dinner?  Nyaha!\""},
 			{"text": "You watch her warily as she picks up her things, barely seeming to register that she just lost a vicious battle."},
 			{"text": "\"I thought you were dead!\" you cry, and she stops, and cocks her head to look at you, like you're the crazy one."},
 			{"text": "\"0 HP doesn't mean 'dead', doofus, or you'd be stepping over adventurer corpses on your way to the adventurer corpse burrito stand next to the adventurer corpse disposal facility,\" she says, painting a mental image that you neither like nor appreciate."},
@@ -448,12 +448,9 @@
 			{"text": "\"Nyaha!  Don't be coy!  How do you like your gobbo - stuffed or filled with cream?  Or are you one of those fey boys that wants a buttered up gobbo cock right up the ass?\""},
 			{"text": "\"Huh?!\" you exclaim, flabbergasted.  You have no idea what she's talking about - is she... is she coming on to you?"},
 			{"text": "\"Come on, pinkskin! Whip it out!\" she says, slapping her palm against the bulge in her loincloth, apparently indicating what, exactly, you should whip out. \"Or I'll whip mine out and give ya a big, fat GAME OVER where it counts!\""},
-		]
-	},
-	{
-		"key": "STORY-FIGHT-GOBLIN-VICTORY2",
-		"scriptLines": [
-			{"text": "You... run.  You turn heel and make a break for it.  What is she talking about?  Why does she just assume..."},
+			{
+			"foreground": "NULL",
+			"text": "You... run.  You turn heel and make a break for it.  What is she talking about?  Why does she just assume..."},
 			{"text": "Your thoughts can barely catch up to you, the stinging of the cuts on your face from the battle and the branches are so much more immediate than the confusion that trails you like the mist off someone emerging from a hot bath into the cool air."},
 			{"text": "You can picture her... a goblin, emerging from the water, looking bashful, but confident... tumescent... and you shut your eyes to block out the image.  This proves unwise for two reasons - the first, that you can still see her in your mind's eye, and the second, that you almost immediately crash into a tree, knocking yourself to the ground."},
 			{"text": "You lay on your back, thinking about what the goblin suggested.  Not only did she fully expect for you to ravage her... she even suggested... you can picture her bulge.  You doubt there was a banana hiding under her loincloth.  If she had won..."},
@@ -464,15 +461,23 @@
 	{
 		"key": "STORY-FIGHT-GOBLIN-DEFEAT",
 		"scriptLines": [
-			{"text": "..."},
+			{
+			"music": "WEREWOLF_MUSIC",
+			"text": "..."},
 			{"text": ".."},
 			{"text": "."},
-			{"text": "Inch by inch, it slides into your anus.  Your wrists, knees, and cheek lay against the dirt, and you disbelievingly accept it.  You lost to a level 1 goblin."},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1}}],
+			"text": "Inch by inch, it slides into your anus.  Your wrists, knees, and cheek lay against the dirt, and you disbelievingly accept it.  You lost to a level 1 goblin."},
 			{"text": "Somewhere, in a far off place, brave adventurers are fighting amazing, spectacular battles against dragons, and monsters, and gods.  But, you?"},
 			{"text": "You feel the warts as they slide in, and you know you're going to feel them as they slide out."},
-			{"text": "\"Nyahaha!  Gonna breed your butt good!  Gonna fuck you in the ass every night, 'hero'!\""},
+			{
+			"sound": "LOUD_LAUGH",
+			"text": "\"Nyahaha!  Gonna breed your butt good!  Gonna fuck you in the ass every night, 'hero'!\""},
 			{"text": "\"She\" bottoms out, and you feel them, \"her\" testicles.  Packed with enough semen to give a newly-minted adventurer's bowels a white-washing of shame."},
-			{"text": "She makes good on her promise to fuck you in the ass every night.  You're a stone's-throw away from home, but rather than return with the shame, you remain the goblin's undignified, humiliated fucktoy.  She constantly reminds you of your pretensions to herodom... all the while crushing your prostate with her low-level enemy dick."},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "creampies":2}}],
+			"text": "She makes good on her promise to fuck you in the ass every night.  You're a stone's-throw away from home, but rather than return with the shame, you remain the goblin's undignified, humiliated fucktoy.  She constantly reminds you of your pretensions to herodom... all the while crushing your prostate with her low-level enemy dick."},
 			{"text": "You end every night with your balls coated in her semen, and never expect otherwise come the dawn."},
 			{"text": "CLASS CHANGE!"},
 			{"text": "Enchantress -> Goblin Fucktoy"},

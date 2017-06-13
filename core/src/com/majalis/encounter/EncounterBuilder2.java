@@ -246,7 +246,11 @@ public class EncounterBuilder2 {
 			case ERROR:
 				break;
 			case FIRST_BATTLE_STORY:
-				break;
+				return new Branch().textScene("STORY-FIGHT-FIRST").battleScene(
+					BattleCode.GOBLIN_STORY,
+					new Branch(Outcome.VICTORY).textScene("STORY-FIGHT-GOBLIN-VICTORY").encounterEnd(),
+					new Branch(Outcome.DEFEAT).textScene("STORY-FIGHT-GOBLIN-DEFEAT").gameEnd()
+				).getEncounter();
 			case FORT:
 				break;
 			case GADGETEER:
