@@ -44,6 +44,9 @@ public enum EnemyEnum {
     		textureImagePaths.put(Stance.FACE_SITTING.toString(), new Array<String>(new String[]{AssetEnum.GOBLIN_FACE_SIT.getPath()}));
     		textureImagePaths.put(Stance.SIXTY_NINE.toString(), new Array<String>(new String[]{AssetEnum.GOBLIN_FACE_SIT.getPath()}));
     	}
+    	else if (this == CENTAUR) {
+    		textureImagePaths.put(Stance.DOGGY.toString(), new Array<String>(new String[]{AssetEnum.CENTAUR_ANAL.getPath(), AssetEnum.CENTAUR_ANAL_XRAY.getPath()})); 
+    	}
     	return textureImagePaths; 
     }
     public PhallusType getPhallusType() { return this == BRIGAND || this == BEASTMISTRESS ? PhallusType.NORMAL : this == ADVENTURER ? PhallusType.SMALL : PhallusType.MONSTER; }

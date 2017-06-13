@@ -14,6 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.OrderedMap;
+import com.majalis.asset.AnimatedActor;
 import com.majalis.asset.AssetEnum;
 import com.majalis.battle.BattleCode;
 import com.majalis.battle.Battle.Outcome;
@@ -58,6 +59,7 @@ public class EncounterBuilder {
 	private final GameContext returnContext;
 	private final GameMode mode;
 	private final OrderedMap<Integer, Scene> masterSceneMap;
+	private final ObjectMap<EnemyEnum, AnimatedActor> animationCache;
 	// can probably be replaced with a call to scenes.size
 	private int sceneCounter;
 	
@@ -71,6 +73,7 @@ public class EncounterBuilder {
 		this.character = character;
 		this.returnContext = returnContext;
 		this.mode = mode;
+		this.animationCache = new ObjectMap<EnemyEnum, AnimatedActor>();
 		sceneCounter = 1;
 		masterSceneMap = new OrderedMap<Integer, Scene>();
 	}
@@ -895,7 +898,6 @@ public class EncounterBuilder {
 		private void upsertScenes() {
 			if (scenes != null) return;
 			preprocess();
-			
 			// set fields
 			scenes = new Array<Scene>();
 			battleScenes = new Array<BattleScene>();
@@ -911,6 +913,7 @@ public class EncounterBuilder {
 			
 			if (branchToken != null) {
 				reverse = true;
+				
 				switch (branchToken.type) {
 					case Battle:
 						// for each branch get the scenes, the first entry in that list is what this branchToken scene should be tied to
@@ -1005,8 +1008,6 @@ public class EncounterBuilder {
 			String buttsize = character.getBootyLiciousness();
 			String lipsize = character.getLipFullness();
 
-			// run through the tokens once and create a list of backgrounds using clone when it persists (need to check both background and animated background, clone if it doesn't, then reverse that list
-			// probably need to make the variables foreground, background, and animatedbackground - think hoverbox is consistent for now
 			Array<Background> backgrounds = new Array<Background>();
 			AssetEnum background = null;
 			AssetEnum foreground = null;
@@ -1019,7 +1020,6 @@ public class EncounterBuilder {
 				// iterate through and every time either background or foreground/animatedforeground change, create a new background
 				for (SceneToken token: sceneTokens) {
 					if (token instanceof ShopSceneToken || token instanceof CharacterCreationToken || token instanceof CharacterCustomizationToken || token instanceof SkillSelectionToken) continue;	
-										
 					// if all of the tokens are  the same, clone the last background
 					if ((token.foreground == null || token.foreground == foreground) && (token.animatedForeground == null || token.animatedForeground == animatedForeground) && (token.background == null || token.background == background)) {
 						if (backgrounds.size > 0) {
@@ -1034,12 +1034,7 @@ public class EncounterBuilder {
 						if (token.animatedForeground != null) {
 							int x = token.animatedForeground == EnemyEnum.BUTTBANG ? 555 : 0;
 							int y = token.animatedForeground == EnemyEnum.BUTTBANG ? 520 : 0;
-							backgroundBuilder.setForeground(EnemyCharacter.getAnimatedActor(token.animatedForeground), x, y);
-						}
-						else if (animatedForeground != null) {
-							int x = animatedForeground == EnemyEnum.BUTTBANG ? 555 : 0;
-							int y = animatedForeground == EnemyEnum.BUTTBANG ? 520 : 0;
-							backgroundBuilder.setForeground(EnemyCharacter.getAnimatedActor(animatedForeground), x, y);
+							backgroundBuilder.setForeground(getAnimation(token.animatedForeground), x, y);
 						}
 						else if (token.foreground != null) {
 							if (token.foreground == AssetEnum.SILHOUETTE) {
@@ -1048,6 +1043,11 @@ public class EncounterBuilder {
 							else {
 								backgroundBuilder.setForeground(assetManager.get(token.foreground.getTexture()));
 							}
+						}
+						else if (animatedForeground != null) {
+							int x = animatedForeground == EnemyEnum.BUTTBANG ? 555 : 0;
+							int y = animatedForeground == EnemyEnum.BUTTBANG ? 520 : 0;
+							backgroundBuilder.setForeground(getAnimation(animatedForeground), x, y);
 						}
 						else if (foreground != null) {
 							if (foreground == AssetEnum.SILHOUETTE) {
@@ -1059,14 +1059,16 @@ public class EncounterBuilder {
 						}
 						backgrounds.add(backgroundBuilder.build());
 					}
-					background = token.background != null ? token.background : background;
-					foreground = token.foreground != null ? token.foreground : foreground;
-					animatedForeground = token.animatedForeground != null ? token.animatedForeground : animatedForeground;
+					background = token.background;
+					foreground = token.foreground;
+					animatedForeground = token.animatedForeground;
 				}
 				
 				backgrounds.reverse();
 				sceneTokens.reverse();
-				
+					
+				// run through the tokens once and create a list of backgrounds using clone when it persists (need to check both background and animated background, clone if it doesn't, then reverse that list
+				// probably need to make the variables foreground, background, and animatedbackground - think hoverbox is consistent for now
 				// taking the branchToken scene and use it as the entrypoint, traversing the sceneTokens backwards and putting them into each other
 				int ii = 0;
 				for (SceneToken token: sceneTokens) {
@@ -1106,6 +1108,15 @@ public class EncounterBuilder {
 			this.scenes.addAll(scenes);
 			this.battleScenes.addAll(battleScenes);
 			this.endScenes.addAll(endScenes);
+		}
+		
+		private AnimatedActor getAnimation(EnemyEnum type) {
+			AnimatedActor animation = animationCache.get(type);
+			if (animation == null) {
+				animation = EnemyCharacter.getAnimatedActor(type);
+				animationCache.put(type, animation);
+			}			
+			return animation;
 		}
 		
 		public Array<Scene> getScenes() {
@@ -1264,8 +1275,15 @@ public class EncounterBuilder {
 		AssetEnum music;
 		Array<MutateToken> mutations;
 		public void preprocess(AssetEnum startBackground, AssetEnum startForeground, EnemyEnum startAnimatedForeground) {
+			//if foreground == null and token.foreground != null and animatedForeground != null -> foreground = token.foreground, animatedForeground = null
+					
 			if (background == null) background = startBackground;
-			if (foreground == null) foreground = startForeground;
+			if (foreground == null) {
+				foreground = startForeground;
+			}
+			else if (animatedForeground == null) {
+				startAnimatedForeground = null;
+			}
 			if (animatedForeground == null) animatedForeground = startAnimatedForeground;
 		}		
 	}

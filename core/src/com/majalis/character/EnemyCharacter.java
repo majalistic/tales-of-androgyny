@@ -756,13 +756,19 @@ public class EnemyCharacter extends AbstractCharacter {
 	@Override
     public void draw(Batch batch, float parentAlpha) {
 		super.draw(batch, parentAlpha);
-		if (animation == null || (enemyType == EnemyEnum.HARPY && stance == Stance.FELLATIO) || (enemyType == EnemyEnum.BRIGAND && !(stance == Stance.DOGGY || stance == Stance.STANDING))) {
+		if (animation == null || (enemyType == EnemyEnum.HARPY && stance == Stance.FELLATIO) || (enemyType == EnemyEnum.CENTAUR && stance == Stance.DOGGY) || (enemyType == EnemyEnum.BRIGAND && !(stance == Stance.DOGGY || stance == Stance.STANDING))) {
 			Array<Texture> textureCandidates = textures.get(stance, new Array<Texture>(new Texture[]{defaultTexture}));
 			Texture texture = textureCandidates.get(textureCandidates.size == 1 ? 0 : currentFrame);
 			int x = (enemyType == EnemyEnum.GOBLIN && (stance == Stance.FACE_SITTING || stance == Stance.SIXTY_NINE)) ? 400 : 600;
 			int y = (enemyType == EnemyEnum.GOBLIN && (stance == Stance.FACE_SITTING || stance == Stance.SIXTY_NINE)) ? 0 : 20;
-			int width = (enemyType == EnemyEnum.GOBLIN && (stance == Stance.FACE_SITTING || stance == Stance.SIXTY_NINE)) ? (int) (texture.getWidth() / (texture.getHeight() / 1080.)) : (int) (texture.getWidth() / (texture.getHeight() / 975.));
-			int height = (enemyType == EnemyEnum.GOBLIN && (stance == Stance.FACE_SITTING || stance == Stance.SIXTY_NINE)) ? 1080 : 975;
+			float width = (enemyType == EnemyEnum.GOBLIN && (stance == Stance.FACE_SITTING || stance == Stance.SIXTY_NINE)) ? (int) (texture.getWidth() / (texture.getHeight() / 1080.)) : (int) (texture.getWidth() / (texture.getHeight() / 975.));
+			float height = (enemyType == EnemyEnum.GOBLIN && (stance == Stance.FACE_SITTING || stance == Stance.SIXTY_NINE)) ? 1080 : 975;
+			if (enemyType == EnemyEnum.CENTAUR) {
+				width = texture.getWidth();
+				height = texture.getHeight();
+				x = 0;
+				y = 0;
+			}
 			range = 0;
 			
 			if (enemyType == EnemyEnum.HARPY && stance == Stance.FELLATIO) {
@@ -973,6 +979,9 @@ public class EnemyCharacter extends AbstractCharacter {
 		if (enemyType == EnemyEnum.BRIGAND) {
 			currentDisplay = currentDisplay.equals("IFOS100") ? "IFOS100N" : "IFOS100";
 			animation.setAnimation(0, currentDisplay, true);
+		}
+		else if (enemyType == EnemyEnum.CENTAUR) {
+			currentFrame = 1 - currentFrame;
 		}
 	}
 } 

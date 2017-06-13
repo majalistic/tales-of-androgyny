@@ -222,7 +222,13 @@ public enum EncounterCode {
 				AssetEnum.DRYAD_BACKGROUND.getTexture()
 				});
 			case CENTAUR:
-				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{AssetEnum.SHOP_MUSIC.getMusic()});
+				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{
+					AssetEnum.UNICORN_ANAL.getTexture(), 
+					AssetEnum.UNICORN_ANAL_XRAY.getTexture(),
+					AssetEnum.CENTAUR_ANAL.getTexture(),
+					AssetEnum.CENTAUR_ANAL_XRAY.getTexture(),
+					AssetEnum.SHOP_MUSIC.getMusic()
+				});
 			case GADGETEER:
 				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{  
 					AssetEnum.GADGETEER.getTexture(),

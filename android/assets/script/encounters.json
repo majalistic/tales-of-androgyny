@@ -1607,6 +1607,7 @@
 			{"text": "Namely width, elasticity, and equine semen content.  You wonder where horse-cum enema rates on the dignity scale, but it can't be very high."},
 			{"text": "You feel her lustful stickiness dripping down your own testicles as she coats your button hole with it with each lewd kiss, until finally, you start to feel something give way - as does she, and rather than retracting for another tap, she begins to lean her weight forward."},
 			{
+			"foreground": "UNICORN_ANAL",
 			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1, "analEjaculation":1, "creampies":1, "horse":true}}],
 			"text": "\"Virgin... virgin...\" she chants, mesmerized, as your sphincter gives it up - it begins to open up, and you feel her leathery funstick start to sink inside - until, much to your consternation, it opens wide to accept its new gift and semi-permanent shape, and the entire plains hears your frustration as you receive your first taste of horsecock right up the butthole."},
 			{"text": "You lose your virginity in a completely unmistakable fashion, and as she moans in high-pitched excitement, you know that she got exactly what she came for."},
@@ -1614,6 +1615,7 @@
 			{"text": "She drills it into you, scooping out your recently repurposed shitpipe with exactly the care and finesse you would expect of a horse.  By the time you've received ten lengths of her horse schlong via her erratic jerks and thrusts, you know quite well that centaur unicorns are poor lovers - and that anal sex isn't always the answer to life's problems."},
 			{"text": "At the very least, your first time (embarrassed and humiliated by a woman with a big horse cock) is mercifully short, her breath itself getting shorter and shorter and higher and higher pitched until she says the magic words, her leathery dick scraping against your bowels earnestly all the while."},
 			{
+			"foreground": "UNICORN_ANAL_XRAY",
 			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "creampies":1, "horse":true}}],
 			"text": "\"I'm... cumming!\" she groans, right before that is made incredibly obvious as your stomach balloons outwards, her stinging unicorn cum enema probably the least subtle creampie ever - especially for someone who's never experienced a creampie of any kind before."},
 			{"text": "She pumps a full load of it inside before the sudden shock finally gives you enough strength to clamber forward, her rapidly drooping horse cock slipping out of you, spilling the rest of its payload into the grass."},
@@ -1643,6 +1645,7 @@
 			{"text": "You pull your pants down and spread your cheeks, and she wastes little time in acquiescing to your subtle demands, trotting over, her cock freeing itself of its sheathe in search of another."},
 			{"text": "She doesn't hesitate to begin prodding it against your poor hole - once, twice, three times, and you yelp, as she begins to stuff it inside, your mouth agape in awe and your backdoor opening far wider than is comfortable."},
 			{
+			"foreground": "CENTAUR_ANAL",
 			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1, "analEjaculation":1, "creampies":1, "horse":true}}],
 			"text": "Sweat drips down your face as she pushes it inside - even though you're holding yourself open, it's still a lot of dick to stuff into a very tight, soon to be cavernous pussy."},
 			{"text": "It lurches inside you, putting a crushing pressure in your bowels, and you fear you've bitten off more than you can chew.  You get the feeling if you let her cum, you're going to be winking for days."},
@@ -1653,6 +1656,7 @@
 		"key": "CENTAUR-VICTORY",
 		"scriptLines": [
 			{
+			"animatedForeground": "CENTAUR",
 			"mutations": [{"saveType":"FOOD", "value":{"class": "java.lang.Integer", "value": 10}}, {"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": 2}}],
 			"text": "You defeated the centaur!  You are now welcome to sleep in their camp, and receive 10 food.  You receive 2 Experience."}
 		]
@@ -1660,7 +1664,9 @@
 	{
 		"key": "CENTAUR-DEFEAT",
 		"scriptLines": [
-			{"text": "The centaur hoists you up, limp and spiritless."},
+			{
+			"animatedForeground": "CENTAUR",
+			"text": "The centaur hoists you up, limp and spiritless."},
 			{"text": "\"So weak. You trespass on our land, and then you offend me with such a trivial challenge?  Hmph,\" she snorts, and slings you onto her back.  She kicks off into a trot, with you still haplessly strung across her back."},
 			{"text": "When the wind returns to your lungs, you ask her where she's taking you."},
 			{"text": "\"Our menfolk haven't had any surrogate mares as of late.  I'm sure they'll find a use for a cute, girlish human like you,\" she says, snickering."},
@@ -1680,7 +1686,9 @@
 			{
 			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "horse":true}}],
 			"text": "With the centaur cum filling your stomach, you have little energy to fight her.  Her cock is so large you thought you might pass out."},
-			{"text": "\"Hmm.  I'm a bit ashamed that I was so easily seduced,\" she says, her face red.  The large object that had been dangling between her legs has slowly retracted."},
+			{
+			"animatedForeground": "CENTAUR",
+			"text": "\"Hmm.  I'm a bit ashamed that I was so easily seduced,\" she says, her face red.  The large object that had been dangling between her legs has slowly retracted."},
 			{"text": "You can't really respond - all you can do is cough up the semen that she's lodged in your digestive tract."},
 			{"text": "She canters about, apparently not at all winded by your 'fight'.  You watch her warily."},
 			{"text": "\"I didn't think humans were so interested in the affections of centaurs,\" she says, somewhat amused.  \"I suppose I should thank you for your hospitality.\""},

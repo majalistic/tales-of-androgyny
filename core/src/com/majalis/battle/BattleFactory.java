@@ -91,6 +91,9 @@ public class BattleFactory {
 		else if(type == EnemyEnum.HARPY) {
 			textures.put(Stance.FELLATIO, new Array<Texture>(new Texture[]{assetManager.get(AssetEnum.HARPY_FELLATIO_0.getTexture()), assetManager.get(AssetEnum.HARPY_FELLATIO_1.getTexture()), assetManager.get(AssetEnum.HARPY_FELLATIO_2.getTexture()), assetManager.get(AssetEnum.HARPY_FELLATIO_3.getTexture())}));
 		}
+		else if (type == EnemyEnum.CENTAUR) {
+			textures.put(Stance.DOGGY, new Array<Texture>(new Texture[]{assetManager.get(AssetEnum.CENTAUR_ANAL.getTexture()), assetManager.get(AssetEnum.CENTAUR_ANAL_XRAY.getTexture())}));
+		}
 		else if (type == EnemyEnum.GOBLIN) {
 			textures.put(Stance.FACE_SITTING, new Array<Texture>(new Texture[]{assetManager.get(AssetEnum.GOBLIN_FACE_SIT.getTexture())}));
 			textures.put(Stance.SIXTY_NINE, new Array<Texture>(new Texture[]{assetManager.get(AssetEnum.GOBLIN_FACE_SIT.getTexture())}));
