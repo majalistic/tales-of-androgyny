@@ -446,7 +446,7 @@ public class PlayerCharacter extends AbstractCharacter {
 		if (resolvedAttack.getLust() > 0) {
 			currentPortrait = AssetEnum.PORTRAIT_GRIN.getTexture().fileName;
 			// taunt increases self lust too
-			lust++;
+			lust += 2;
 		}
 		
 		if (wrapLegs) {
@@ -741,24 +741,13 @@ public class PlayerCharacter extends AbstractCharacter {
 	
 	@Override
 	protected String increaseLust() {
-		switch (stance) {
-			case DOGGY:
-			case ANAL:
-			case STANDING:
-			case KNOTTED:
-			case FELLATIO:
-				return increaseLust(1);
-			case DOGGY_BOTTOM:
-			case KNOTTED_BOTTOM:
-			case ANAL_BOTTOM:
-			case STANDING_BOTTOM:
-			case COWGIRL_BOTTOM:
-				if (perks.get(Perk.WEAK_TO_ANAL.toString(), 0) > 0) return increaseLust(2);
-			case FELLATIO_BOTTOM:
-			case SIXTY_NINE_BOTTOM:
-				return increaseLust(1);
-			default: return null;
+		if (stance.isEroticPenetration() || stance.isOralReceptive()) {
+			return increaseLust(1);
 		}
+		else if (stance.isAnalReceptive()) {
+			if (perks.get(Perk.WEAK_TO_ANAL.toString(), 0) > 0) return increaseLust(2);
+		}
+		return null;
 	}
 	
 	@Override
