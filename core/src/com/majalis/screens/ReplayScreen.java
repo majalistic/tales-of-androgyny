@@ -64,13 +64,13 @@ public class ReplayScreen extends AbstractScreen {
         batch.setTransformMatrix(camera.view);
 		camera.update();
 		batch.begin();
-		if(!nothingToDisplay.equals("")){
+		if(!nothingToDisplay.equals("")) {
 			font.setColor(Color.BLACK);
 			font.draw(batch, nothingToDisplay, 1170, 880);
 		}
 		batch.end();
 
-		if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)){
+		if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
 			showScreen(ScreenEnum.MAIN_MENU);
 		}
 	}
@@ -79,7 +79,8 @@ public class ReplayScreen extends AbstractScreen {
 	public void buildStage() {
 		Table table = new Table();
 		
-		for (final EnemyEnum type : EnemyEnum.values()){
+		for (final EnemyEnum type : EnemyEnum.values()) {
+			if (type == EnemyEnum.BUTTBANG) continue;
 			if (!enemyKnowledge.containsKey(type.toString())) continue;
 			nothingToDisplay = "";
 			TextButton button = new TextButton(type.toString(), skin);
@@ -94,7 +95,7 @@ public class ReplayScreen extends AbstractScreen {
 			enemy.addAction(Actions.hide());
 			enemy.setPosition(700, 0);
 			button.addListener(
-				new ClickListener(){
+				new ClickListener() {
 					@Override
 			        public void clicked(InputEvent event, float x, float y) {
 						sound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
@@ -114,7 +115,7 @@ public class ReplayScreen extends AbstractScreen {
 		final TextButton done = new TextButton("Done", skin);
 		
 		done.addListener(
-			new ClickListener(){
+			new ClickListener() {
 				@Override
 		        public void clicked(InputEvent event, float x, float y) {
 					sound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
