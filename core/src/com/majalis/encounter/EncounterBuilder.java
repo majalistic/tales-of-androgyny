@@ -652,7 +652,7 @@ public class EncounterBuilder {
 						new Branch("Go In").textScene("SLIME-ENTER").encounterEnd(),
 						new Branch("Love Dart (Requires: Catamite)").require(ChoiceCheckType.LEWD).textScene("SLIME-LOVEDART").encounterEnd()
 					),
-					new Branch("Leave Her Be").encounterEnd()			
+					new Branch("Leave Her Be")			
 				).getEncounter();
 			case SOUTH_PASS:
 				return new Branch().textScene("SOUTH-PASS").encounterEnd().getEncounter();
@@ -1003,7 +1003,15 @@ public class EncounterBuilder {
 					weld(scenes, battleScenes, endScenes, next, sceneMap);
 				}
 			}
-				
+			
+			// catch if there's an unplugged branch without an end scene
+			if (sceneMap.size == 0) {
+				EndScene newEndScene;
+				newEndScene = new EndScene(EndScene.Type.ENCOUNTER_OVER, saveService, returnContext);
+				endScenes.add(newEndScene);
+				sceneMap = addScene(scenes, newEndScene, false);		
+			}
+			
 			String characterName = character.getCharacterName();
 			String buttsize = character.getBootyLiciousness();
 			String lipsize = character.getLipFullness();
