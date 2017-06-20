@@ -1149,8 +1149,9 @@ public class EncounterBuilder {
 				saveService.saveDataValue(SaveEnum.MUSIC, AssetEnum.ENCOUNTER_MUSIC.getPath());
 				return scenes.get(0);
 			}
-			return masterSceneMap.get(sceneCode);
+			return masterSceneMap.get(sceneCode, scenes.get(0));
 		}
+		
 		
 		public Encounter getEncounter() {
 			return new Encounter(getScenes(), getEndScenes(), getBattleScenes(), getStartScene());
