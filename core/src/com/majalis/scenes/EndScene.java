@@ -30,7 +30,7 @@ public class EndScene extends Scene{
 		if (type == Type.ENCOUNTER_OVER || type == Type.GAME_OVER){
 			saveService.saveDataValue(SaveEnum.RETURN_CONTEXT, null);
 		}
-		saveService.saveDataValue(SaveEnum.SCENE_CODE, 0);
+		saveService.saveDataValue(SaveEnum.SCENE_CODE, -1);
 	}
 
 	@Override

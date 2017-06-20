@@ -1152,7 +1152,6 @@ public class EncounterBuilder {
 			return masterSceneMap.get(sceneCode, scenes.get(0));
 		}
 		
-		
 		public Encounter getEncounter() {
 			return new Encounter(getScenes(), getEndScenes(), getBattleScenes(), getStartScene());
 		}

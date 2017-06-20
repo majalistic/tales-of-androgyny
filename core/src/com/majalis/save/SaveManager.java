@@ -284,8 +284,8 @@ public class SaveManager implements SaveService, LoadService {
     		if (defaultValues) {
     			context = GameContext.ENCOUNTER;
     			worldSeed = (int) (Math.random()*10000);
-    			// 0 sceneCode is the magic number to designate that a scene doesn't need to be loaded; just use the first (last) scene in the list
-    			sceneCode = 0;
+    			// -1 sceneCode is the magic number to designate that a scene doesn't need to be loaded; just use the first (last) scene in the list
+    			sceneCode = -1;
     			encounterCode = EncounterCode.INITIAL;
     			returnContext = GameContext.WORLD_MAP;
         		nodeCode = 1;
