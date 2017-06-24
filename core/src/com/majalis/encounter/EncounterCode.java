@@ -13,18 +13,18 @@ public enum EncounterCode {
 	DEFAULT, 
 	ERROR, 
 	INITIAL, 
-	WERESLUT (0), 
-	HARPY (MOUNTAIN_ACTIVE, 1), 
-	SLIME (2),
-	BRIGAND (3),
-	DRYAD (MOUNTAIN_ACTIVE, 4), 
-	CENTAUR (5), 
-	GOBLIN (ENCHANTED_FOREST, 6),
+	WERESLUT, 
+	HARPY (MOUNTAIN_ACTIVE), 
+	SLIME,
+	BRIGAND,
+	DRYAD (MOUNTAIN_ACTIVE), 
+	CENTAUR, 
+	GOBLIN (ENCHANTED_FOREST),
 	GADGETEER (FOREST_INACTIVE), 
-	ORC (FOREST_INACTIVE, 7),
-	ADVENTURER (FOREST_INACTIVE, 8),
-	OGRE (9), 
-	BEASTMISTRESS (10),
+	ORC (FOREST_INACTIVE),
+	ADVENTURER (FOREST_INACTIVE),
+	OGRE, 
+	BEASTMISTRESS,
 	FORT (CASTLE), 
 	TOWN (AssetEnum.TOWN),
 	TOWN2 (AssetEnum.TOWN),
@@ -42,7 +42,7 @@ public enum EncounterCode {
 	COTTAGE_TRAINER (AssetEnum.COTTAGE),
 	COTTAGE_TRAINER_VISIT (AssetEnum.COTTAGE),
 	TOWN_STORY (AssetEnum.TOWN),
-	FIRST_BATTLE_STORY (6), 
+	FIRST_BATTLE_STORY, 
 	MERI_COTTAGE (AssetEnum.COTTAGE),
 	MERI_COTTAGE_VISIT (AssetEnum.COTTAGE), 
 	OGRE_WARNING_STORY (FOREST_INACTIVE),
@@ -55,26 +55,16 @@ public enum EncounterCode {
 	;
 	
 	private final AssetEnum texture;	
-	private final int battleCode;	
+	
 	private EncounterCode() {
 		this(FOREST_ACTIVE);
 	}
 	
 	private EncounterCode(AssetEnum texture) {
-		this(texture, -1);
-	}
-	
-	private EncounterCode(int battleCode) {
-		this(FOREST_ACTIVE, battleCode);
-	}
-	
-	private EncounterCode(AssetEnum texture, int battleCode) {
 		this.texture = texture;
-		this.battleCode = battleCode;
 	}
-	
+
 	public AssetEnum getTexture() { return texture; }
-	public int getBattleCode() { return battleCode; }
 	
 	public String getDescription(int visibility) {
 		switch(visibility) {
