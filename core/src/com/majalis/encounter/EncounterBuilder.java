@@ -654,6 +654,23 @@ public class EncounterBuilder {
 					),
 					new Branch("Leave Her Be")			
 				).getEncounter();
+			case SPIDER:
+				Branch spiderBattle = new Branch().battleScene(BattleCode.SPIDER, new Branch(Outcome.VICTORY).textScene("SPIDER-VICTORY").encounterEnd(), new Branch(Outcome.DEFEAT).textScene("SPIDER-DEFEAT").gameEnd(), new Branch(Outcome.KNOT).textScene("SPIDER-OVIPOSITION").gameEnd());
+				
+				Branch afterSigil = new Branch().textScene("SPIDER-BABY").choiceScene(
+					"What do you do?", 
+					new Branch("Try to crush the tiny spider").checkScene(Stat.PERCEPTION, new Branch(6).textScene("SPIDER-AWARE").concat(spiderBattle), new Branch(0).textScene("SPIDER-AMBUSH").concat(spiderBattle)), 
+					new Branch("Try to pet the tiny spider").textScene("SPIDER-GET").concat(spiderBattle), 
+					new Branch("Leave the tiny spider alone").textScene("SPIDER-IGNORE").choiceScene("Do you fight or flee?", new Branch("Fight").concat(spiderBattle), new Branch("Flee").checkScene(Stat.AGILITY, new Branch(4).textScene("SPIDER-FLEE-PASS").checkScene(Stat.ENDURANCE, new Branch(4).textScene("SPIDER-FULL-FLEE").encounterEnd(), new Branch(0).textScene("SPIDER-FLEE-FAIL").concat(spiderBattle)), new Branch(0).textScene("SPIDER-FLEE-FAIL").concat(spiderBattle)))
+				);
+				Branch afterTrap1 = new Branch().textScene("SPIDER-SIGIL").choiceScene("Touch the sigil?", new Branch("Touch it").checkScene(Stat.MAGIC, new Branch(4).textScene("SPIDER-SIGIL-SUCCESS").concat(afterSigil), new Branch(2).textScene("SPIDER-SIGIL-PARTIAL").concat(afterSigil), new Branch(0).textScene("SPIDER-SIGIL-FAILURE").concat(afterSigil)), new Branch("Don't touch it").concat(afterSigil));
+				Branch receiveTrap = new Branch().checkScene(CheckType.ALIVE, new Branch(true).concat(afterTrap1), new Branch(false).textScene("SPIDER-UNCONSCIOUS").gameEnd());
+				Branch afterRoom1 = new Branch().textScene("SPIDER-TRAP-APPROACH").checkScene(Stat.AGILITY, new Branch(7).textScene("SPIDER-AVOID-TRAP").concat(afterTrap1), new Branch(0).textScene("SPIDER-FAIL-TRAP").checkScene(Stat.ENDURANCE, new Branch(7).textScene("SPIDER-ENDURE").concat(receiveTrap), new Branch(4).textScene("SPIDER-PARTIAL-ENDURE").concat(receiveTrap), new Branch(0).textScene("SPIDER-FAIL-ENDURE").concat(receiveTrap)));
+				return new Branch().textScene("SPIDER-INTRO").choiceScene(
+					"What do you do?",
+					new Branch("Traverse the Ruins").textScene("SPIDER-ENTER").choiceScene("Enter the room?", new Branch("Enter").checkScene(Stat.PERCEPTION, new Branch(5).textScene("SPIDER-FIND1").concat(afterRoom1), new Branch(0).textScene("SPIDER-FIND1-FAIL").concat(afterRoom1)), new Branch("Pass by").concat(afterRoom1)),
+					new Branch("Turn Back").encounterEnd()
+				).getEncounter();
 			case SOUTH_PASS:
 				return new Branch().textScene("SOUTH-PASS").encounterEnd().getEncounter();
 			case STARVATION:

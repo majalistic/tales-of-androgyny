@@ -25,6 +25,7 @@ public enum EncounterCode {
 	ADVENTURER (FOREST_INACTIVE),
 	OGRE, 
 	BEASTMISTRESS,
+	SPIDER (CASTLE),
 	FORT (CASTLE), 
 	TOWN (AssetEnum.TOWN),
 	TOWN2 (AssetEnum.TOWN),
@@ -82,6 +83,7 @@ public enum EncounterCode {
 					case ORC: return "Orc";
 					case OGRE: return "Ogre";
 					case BEASTMISTRESS: return "Drow";
+					case SPIDER: return "Ruins";
 					case ADVENTURER: return "Adventurer";
 					case GADGETEER: return "Merchant";
 					case TOWN: return "Small Settlement";
@@ -120,6 +122,7 @@ public enum EncounterCode {
 					case ADVENTURER: return "Adventurer - Neutral";
 					case OGRE: return "Ogre - Danger!";
 					case BEASTMISTRESS: return "Drow Beastmistress - Hostile!";
+					case SPIDER: return "Ruins - Danger!";
 					case GADGETEER: return "Suspicious Merchant";
 					case TOWN: return "Town of Silajam";
 					case TOWN2:
@@ -254,6 +257,13 @@ public enum EncounterCode {
 					AssetEnum.BEASTMISTRESS.getTexture(),
 					AssetEnum.WEREWOLF_MUSIC.getMusic()
 				});
+			case SPIDER:
+				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{  
+					AssetEnum.SPIDER.getTexture(),
+					AssetEnum.TINY_SPIDER.getTexture(),
+					AssetEnum.TINY_SPIDER_LOW.getTexture(),
+					AssetEnum.WEREWOLF_MUSIC.getMusic()
+			});
 			case INN:
 				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{  
 					AssetEnum.INNKEEPER.getTexture(),

@@ -65,7 +65,7 @@ public class GameWorldFactory {
 			
 			Zone zone2 = new Zone(saveService, loadService, font, assetManager, random, nodes, nodeMap, 8)
 					.addStartNode(zone.getEndNodes().get(0))
-					.addEndNode(1001, FORT, FORT, new Vector2(1800, 1800))
+					.addEndNode(1001, SPIDER, SPIDER, new Vector2(1800, 1800))
 					.addEndNode(1002, FORT, FORT, new Vector2(1200, 2400))
 					.buildZone();
 			

@@ -22,7 +22,9 @@ public enum EnemyEnum {
 	ORC (new EnemyTemplate(WeaponType.Flail, 7, 5, 4, 3, 3, 3).setDefense(6).addHealth(10), "Orc", AssetEnum.ORC.getTexture()), 
 	ADVENTURER (new EnemyTemplate(WeaponType.Axe, 4, 4, 4, 3, 4, 6).setDefense(6).addHealth(10).setMana(20), "Adventurer", AssetEnum.ADVENTURER.getTexture()),
 	OGRE (new EnemyTemplate(WeaponType.Club, 8, 8, 4, 3, 3, 3).addHealth(20), "Ogre", AssetEnum.OGRE.getTexture()),
-	BEASTMISTRESS (new EnemyTemplate(WeaponType.Claw).setStrength(6).setAgility(8).setEndurance(5).addHealth(10), "Beast Mistress", AssetEnum.BEASTMISTRESS.getTexture()), BUTTBANG(null, null, null), 
+	BEASTMISTRESS (new EnemyTemplate(WeaponType.Claw).setStrength(6).setAgility(8).setEndurance(5).addHealth(10), "Beast Mistress", AssetEnum.BEASTMISTRESS.getTexture()),
+	SPIDER (new EnemyTemplate(WeaponType.Claw).setStrength(6).setAgility(5).setEndurance(5).setHealth(new IntArray(new int[]{20, 20, 20, 20})), "Arachne", AssetEnum.SPIDER.getTexture()), 
+	BUTTBANG(null, null, null), 
 	;
 	private final String text;
 	private final AssetDescriptor<Texture> path;
@@ -121,6 +123,7 @@ public enum EnemyEnum {
 		@SuppressWarnings("unused") private EnemyTemplate setMagic(int magic) { this.magic = magic;  return this; }
 		@SuppressWarnings("unused") private EnemyTemplate setCharisma(int charisma) { this.charisma = charisma;  return this; }
 		private EnemyTemplate setDefense(int defense) { this.defense = defense; return this; }
+		private EnemyTemplate setHealth(IntArray healthTiers) { this.healthTiers = healthTiers; return this; }
 		private EnemyTemplate addHealth(int health) { this.healthTiers.add(health); return this; }
 		private EnemyTemplate setMana(int mana) { this.manaTiers = new IntArray(new int[]{mana}); return this; }
 		

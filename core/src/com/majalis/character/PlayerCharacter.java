@@ -115,7 +115,7 @@ public class PlayerCharacter extends AbstractCharacter {
 			OPEN_WIDE, GRAB_IT, STROKE_IT, LET_GO, USE_ITEM, ITEM_OR_CANCEL,
 			RECIPROCATE_FORCED, GET_FACE_RIDDEN, STRUGGLE_FACE_SIT, STRUGGLE_SIXTY_NINE, BREAK_FREE_FACE_SIT, ROLL_OVER_UP, ROLL_OVER_DOWN, RIPOSTE, EN_GARDE, POUNCE_DOGGY, POUND_DOGGY, POUNCE_ANAL, POUND_ANAL, ERUPT_ANAL, PULL_OUT, PULL_OUT_ORAL, PULL_OUT_ANAL, PULL_OUT_STANDING, RECEIVE_COCK, HURK, UH_OH,
 			FORCE_DEEPTHROAT, CRUSH_ASS, BOUNCE_ON_IT, SQUEEZE_IT, BE_RIDDEN, PUSH_OFF, SELF_SPANK, POUT, DEEPTHROAT, WRAP_LEGS, PUSH_OFF_ATTEMPT, RIDE_ON_IT_REVERSE, BOUNCE_ON_IT_REVERSE, SQUEEZE_IT_REVERSE, RECEIVE_PRONE_BONE, BE_RIDDEN_REVERSE, PUSH_OFF_REVERSE, PUSH_OFF_ATTEMPT_REVERSE,
-			OUROBOROS, ROUND_AND_ROUND, RECEIVE_OUROBOROS, STRUGGLE_OUROBOROS, MOUNT_FACE, FACEFUCK, GET_FACEFUCKED, STRUGGLE_FACEFUCK
+			OUROBOROS, ROUND_AND_ROUND, RECEIVE_OUROBOROS, STRUGGLE_OUROBOROS, MOUNT_FACE, FACEFUCK, GET_FACEFUCKED, STRUGGLE_FACEFUCK, RECEIVE_EGGS
 		);
 		return baseTechniques;
 	}
@@ -266,6 +266,8 @@ public class PlayerCharacter extends AbstractCharacter {
 				return getTechniques(target, RIDE_ON_IT_REVERSE, BOUNCE_ON_IT_REVERSE, SQUEEZE_IT_REVERSE, STAND_OFF_IT);
 			case KNOTTED_BOTTOM:
 				return getTechniques(target, RECEIVE_KNOT);
+			case OVIPOSITION_BOTTOM:
+				return getTechniques(target, RECEIVE_EGGS);
 			case FELLATIO_BOTTOM:
 				if (struggle <= 0) {
 					possibles = getTechniques(target, SUCK_IT, BREAK_FREE_ORAL);
@@ -488,6 +490,10 @@ public class PlayerCharacter extends AbstractCharacter {
 		
 		if (oldStance.isAnalReceptive() && !stance.isAnalReceptive()) {
 			wrapLegs = false;
+		}
+		
+		if (stance == Stance.OVIPOSITION_BOTTOM) {
+			receiveEggs();
 		}
 		
 		if (!oldStance.isAnalReceptive() && stance.isAnalReceptive()) {
@@ -911,6 +917,11 @@ public class PlayerCharacter extends AbstractCharacter {
 		super.fillButt(buttful);
 		analCreampie++;
 		return incrementPerk(analCreampie, Perk.CREAMPIE_ADDICT, 10, 6, 3);
+	}
+	
+	protected String receiveEggs() {
+		this.buttful += 5;
+		return null;
 	}
 	
 	@Override

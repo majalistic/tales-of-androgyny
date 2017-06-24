@@ -185,6 +185,8 @@ public class EnemyCharacter extends AbstractCharacter {
 						break;
 					case BEASTMISTRESS:
 						break;
+					case SPIDER:
+						break;
 					case BUTTBANG:
 						break;
 				}
@@ -220,6 +222,8 @@ public class EnemyCharacter extends AbstractCharacter {
 							resolvedAttack.addDialog("He roars as he fills you with his thick, disgusting ogre semen.");
 						}
 					case BEASTMISTRESS:
+						break;
+					case SPIDER:
 						break;
 					case BUTTBANG:
 						break;
@@ -352,7 +356,12 @@ public class EnemyCharacter extends AbstractCharacter {
 			case FULL_NELSON:
 				if (holdLength > 2) {
 					holdLength = 0;
-					return getTechniques(target, PENETRATE_STANDING);
+					if (enemyType == EnemyEnum.SPIDER) {
+						return getTechniques(target, OVIPOSITION);
+					}
+					else {
+						return getTechniques(target, PENETRATE_STANDING);
+					}
 				}
 				else {
 					holdLength++;
@@ -461,6 +470,8 @@ public class EnemyCharacter extends AbstractCharacter {
 				else {
 					return getTechniques(target, ROUND_AND_ROUND);
 				}	
+			case OVIPOSITION:
+				return getTechniques(target, LAY_EGGS);
 			case ERUPT:
 				stance = Stance.BALANCED;
 				return getPossibleTechniques(target, stance);
@@ -551,7 +562,7 @@ public class EnemyCharacter extends AbstractCharacter {
 			else if (enemyType == EnemyEnum.HARPY) {
 				possibleTechniques.add(FLY);
 			}
-			else if (target.stance.receivesMediumAttacks() && enemyType == EnemyEnum.BRIGAND) {
+			else if (target.stance.receivesMediumAttacks() && enemyType == EnemyEnum.BRIGAND || enemyType == EnemyEnum.SPIDER) {
 				possibleTechniques.add(FULL_NELSON);
 			}
 		}
@@ -737,7 +748,9 @@ public class EnemyCharacter extends AbstractCharacter {
 		switch (enemyType) {
 			case WERESLUT:
 			case GOBLIN:
+			case ORC:
 			case ADVENTURER:
+			case SPIDER:
 				randomWeighting.add(-1); break;
 			case BRIGAND: randomWeighting.add(0); randomWeighting.add(1); break;
 			default: break;
@@ -937,6 +950,8 @@ public class EnemyCharacter extends AbstractCharacter {
 			case BEASTMISTRESS:
 				if (isErect()) return Outcome.SATISFIED;
 				break;
+			case SPIDER:
+				if (knotInflate >= 5) return Outcome.KNOT;
 			default:
 		
 		}
@@ -945,7 +960,7 @@ public class EnemyCharacter extends AbstractCharacter {
 	
 	public String getOutcomeText(AbstractCharacter enemy) {
 		switch (getOutcome(enemy)) {
-			case KNOT: return "You've been knotted!!!\nYou are at her whims, now.";
+			case KNOT: return enemyType == EnemyEnum.WERESLUT ? "You've been knotted!!!\nYou are at her whims, now." : "You've been stuffed full of eggs.";
 			case SATISFIED: return enemyType == EnemyEnum.CENTAUR ? "You've been dominated by the centaur's massive horsecock."
 				: enemyType == EnemyEnum.OGRE ? "The ogre has filled your guts with ogre cum.  You are well and truly fucked."
 				: properCase(pronouns.getNominative()) + " seems satisfied. " + properCase(pronouns.getNominative()) + "'s no longer hostile.";

@@ -3519,5 +3519,170 @@
 			"foreground": "NULL",
 			"text": "When you awake, the huntress and her beasts are gone, and your ass is... quite sore."}
 		]
+	},
+	{
+		"key": "SPIDER-INTRO",
+		"scriptLines": [
+			{
+			"mutations": [{"profileSaveType":"KNOWLEDGE", "value":{"class": "java.lang.String", "value": "Arachne"}}],
+			"music": "WEREWOLF_MUSIC",
+			"text": "."}
+		]
+	},
+	{
+		"key": "SPIDER-ENTER",
+		"scriptLines": [
+			{"text": "."}
+		]
+	},
+	{
+		"key": "SPIDER-FIND1",
+		"scriptLines": [
+			{"text": "."}
+		]
+	},
+	{
+		"key": "SPIDER-FIND1-FAIL",
+		"scriptLines": [
+			{"text": "."}
+		]
+	},
+	{
+		"key": "SPIDER-TRAP-APPROACH",
+		"scriptLines": [
+			{"text": "."}
+		]
+	},
+	{
+		"key": "SPIDER-AVOID-TRAP",
+		"scriptLines": [
+			{"text": "."}
+		]
+	},
+	{
+		"key": "SPIDER-FAIL-TRAP",
+		"scriptLines": [
+			{"text": "."}
+		]
+	},
+	{
+		"key": "SPIDER-ENDURE",
+		"scriptLines": [
+			{"text": "."}
+		]
+	},
+	{
+		"key": "SPIDER-PARTIAL-ENDURE",
+		"scriptLines": [
+			{"text": "."}
+		]
+	},
+	{
+		"key": "SPIDER-FAIL-ENDURE",
+		"scriptLines": [
+			{"text": "."}
+		]
+	},
+	{
+		"key": "SPIDER-UNCONSCIOUS",
+		"scriptLines": [
+			{"text": "."}
+		]
+	},
+	{
+		"key": "SPIDER-SIGIL",
+		"scriptLines": [
+			{"text": "."}
+		]
+	},
+	{
+		"key": "SPIDER-SIGIL-SUCCESS",
+		"scriptLines": [
+			{"text": "."}
+		]
+	},
+	{
+		"key": "SPIDER-SIGIL-PARTIAL",
+		"scriptLines": [
+			{"text": "."}
+		]
+	},
+	{
+		"key": "SPIDER-SIGIL-FAILURE",
+		"scriptLines": [
+			{"text": "."}
+		]
+	},
+	{
+		"key": "SPIDER-BABY",
+		"scriptLines": [
+			{
+			"foreground": "TINY_SPIDER_LOW",
+			"text": "Wait, what's this?  Behind the text box?"},
+			{
+			"foreground": "TINY_SPIDER",
+			"text": "It's a spider!"}
+		]
+	},
+	{
+		"key": "SPIDER-AWARE",
+		"scriptLines": [
+			{"text": "."}
+		]
+	},
+	{
+		"key": "SPIDER-AMBUSH",
+		"scriptLines": [
+			{"text": "."}
+		]
+	},
+	{
+		"key": "SPIDER-GET",
+		"scriptLines": [
+			{"text": "You pick the spider up off the ground and stow it away in your pouch.  Um.  What are you doing?"},
+			{"text": "The spider is strangely content to become an inventory item.  Stranger things have happened."}
+		]
+	},
+	{
+		"key": "SPIDER-IGNORE",
+		"scriptLines": [
+			{"text": "."}
+		]
+	},
+	{
+		"key": "SPIDER-FLEE-PASS",
+		"scriptLines": [
+			{"text": "."}
+		]
+	},
+	{
+		"key": "SPIDER-FULL-FLEE",
+		"scriptLines": [
+			{"text": "."}
+		]
+	},
+	{
+		"key": "SPIDER-FLEE-FAIL",
+		"scriptLines": [
+			{"text": "."}
+		]
+	},
+	{
+		"key": "SPIDER-VICTORY",
+		"scriptLines": [
+			{"text": "."}
+		]
+	},
+	{
+		"key": "SPIDER-DEFEAT",
+		"scriptLines": [
+			{"text": "."}
+		]
+	},
+	{
+		"key": "SPIDER-OVIPOSITION",
+		"scriptLines": [
+			{"text": "."}
+		]
 	}
 ]}

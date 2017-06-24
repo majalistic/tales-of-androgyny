@@ -419,6 +419,19 @@ public abstract class AbstractCharacter extends Actor {
 				}
 				knotInflate++;
 			}
+			else if (resolvedAttack.getForceStance() == Stance.OVIPOSITION_BOTTOM) {
+				if (knotInflate == 0) {
+					
+				}
+				else if (knotInflate < 3) {
+									
+				}
+				else {
+					resolvedAttack.addMessage("The battle is over, but your ordeal has just begun!");
+					resolvedAttack.addMessage("You are full of " + pronouns.getPossessive() + " eggs!");
+				}
+				knotInflate++;
+			}
 		}
 		
 		// all climax logic should go here
@@ -554,13 +567,15 @@ public abstract class AbstractCharacter extends Actor {
 			
 			Stance forcedStance = attack.getForceStance();
 			if (forcedStance != null) {
-				result.add(label + (secondPerson ? " are " : " is ") + "forced into " + forcedStance.toString() + " stance!");
-				stance = forcedStance;
-				if (forcedStance == Stance.PRONE || forcedStance == Stance.SUPINE) {
-					setStabilityToMin();
-				}
-				else if (forcedStance == Stance.KNEELING && stability.isGood()) {
-					stability = Stability.Unstable;
+				if (stance != forcedStance) { 
+					result.add(label + (secondPerson ? " are " : " is ") + "forced into " + forcedStance.toString() + " stance!");
+					stance = forcedStance;
+					if (forcedStance == Stance.PRONE || forcedStance == Stance.SUPINE) {
+						setStabilityToMin();
+					}
+					else if (forcedStance == Stance.KNEELING && stability.isGood()) {
+						stability = Stability.Unstable;
+					}
 				}
 			}
 			
