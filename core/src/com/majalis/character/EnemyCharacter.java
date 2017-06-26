@@ -830,8 +830,10 @@ public class EnemyCharacter extends AbstractCharacter {
 		this.animations = new Array<AnimatedActor>();
 		this.currentAnimationsPlaying = new ObjectSet<AnimatedActor>();
 		AnimatedActor animation = getAnimatedActor(enemyType);
-		if (animation != null) this.animations.add(animation);
-		currentAnimationsPlaying.add(animation);
+		if (animation != null) {
+			this.animations.add(animation);
+			currentAnimationsPlaying.add(animation);
+		}
 		if (enemyType == EnemyEnum.HARPY) addAdditionalAnimations();
 		
 		currentDisplay = enemyType == EnemyEnum.BRIGAND ? "IFOS100N" :"Idle Erect";
@@ -882,7 +884,9 @@ public class EnemyCharacter extends AbstractCharacter {
 	@Override
 	public void act(float delta) {
 		super.act(delta);
-		animations.get(0).act(delta);
+		if (animations.size > 0) {
+			animations.get(0).act(delta);
+		}
 	}
 	
 	public void attackAnimation() {
@@ -919,7 +923,7 @@ public class EnemyCharacter extends AbstractCharacter {
 	}
 	
 	public void hitAnimation() {
-		if (currentAnimationsPlaying.contains(animations.get(0)) && enemyType != EnemyEnum.BRIGAND) {
+		if (animations.size > 0 && currentAnimationsPlaying.contains(animations.get(0)) && enemyType != EnemyEnum.BRIGAND) {
 			animations.get(0).setAnimation(0, "Hit Erect", false);
 			animations.get(0).addAnimation(0, "Idle Erect", true, 1.0f);
 			if (enemyType == EnemyEnum.HARPY) {
