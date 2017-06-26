@@ -1,0 +1,48 @@
+
+Feathers.png
+size: 128,128
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+feather
+  rotate: false
+  xy: 2, 60
+  size: 93, 61
+  orig: 93, 61
+  offset: 0, 0
+  index: -1
+feather1
+  rotate: false
+  xy: 2, 2
+  size: 40, 56
+  orig: 40, 56
+  offset: 0, 0
+  index: -1
+fluff0
+  rotate: false
+  xy: 97, 101
+  size: 6, 6
+  orig: 6, 6
+  offset: 0, 0
+  index: -1
+fluff1
+  rotate: false
+  xy: 97, 109
+  size: 11, 12
+  orig: 11, 12
+  offset: 0, 0
+  index: -1
+fluff2
+  rotate: false
+  xy: 110, 115
+  size: 6, 6
+  orig: 6, 6
+  offset: 0, 0
+  index: -1
+fluff3
+  rotate: false
+  xy: 44, 51
+  size: 8, 7
+  orig: 8, 7
+  offset: 0, 0
+  index: -1

@@ -4,10 +4,12 @@ import static com.majalis.character.Techniques.*;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.IntArray;
 import com.badlogic.gdx.utils.ObjectMap;
+import com.badlogic.gdx.utils.ObjectSet;
 import com.majalis.asset.AnimatedActor;
 import com.majalis.battle.Battle.Outcome;
 import com.majalis.character.Item.Weapon;
@@ -26,7 +28,8 @@ public class EnemyCharacter extends AbstractCharacter {
 	private int holdLength;
 	private ObjectMap <String, Integer> climaxCounters;
 	
-	private transient AnimatedActor animation;
+	private transient Array<AnimatedActor> animations;
+	private transient ObjectSet<AnimatedActor> currentAnimationsPlaying;
 	private String currentDisplay;
 	private Techniques nextMove;
 	private boolean initializedMove;
@@ -90,6 +93,11 @@ public class EnemyCharacter extends AbstractCharacter {
 		
 		if (oldStance.isOralPenetration() && !stance.isOralPenetration()) {
 			currentFrame = 0;
+		}
+		
+		// play the dive bomb animation for now
+		if (resolvedAttack.getForceStance() == Stance.FELLATIO_BOTTOM && enemyType == EnemyEnum.HARPY) {
+			attackAnimation();
 		}
 		
 		if (resolvedAttack.getGrapple() > 0) {
@@ -769,7 +777,8 @@ public class EnemyCharacter extends AbstractCharacter {
 	@Override
     public void draw(Batch batch, float parentAlpha) {
 		super.draw(batch, parentAlpha);
-		if (animation == null || (enemyType == EnemyEnum.HARPY && stance == Stance.FELLATIO) || (enemyType == EnemyEnum.CENTAUR && stance == Stance.DOGGY) || (enemyType == EnemyEnum.BRIGAND && !(stance == Stance.DOGGY || stance == Stance.STANDING))) {
+		if (currentAnimationsPlaying.size == 0 && enemyType == EnemyEnum.HARPY && !stance.isOralPenetration()) currentAnimationsPlaying.add(animations.get(0));
+		if (currentAnimationsPlaying.size == 0 || (enemyType == EnemyEnum.CENTAUR && stance == Stance.DOGGY) || (enemyType == EnemyEnum.BRIGAND && !(stance == Stance.DOGGY || stance == Stance.STANDING))) {
 			Array<Texture> textureCandidates = textures.get(stance, new Array<Texture>(new Texture[]{defaultTexture}));
 			Texture texture = textureCandidates.get(textureCandidates.size == 1 ? 0 : currentFrame);
 			int x = (enemyType == EnemyEnum.GOBLIN && (stance == Stance.FACE_SITTING || stance == Stance.SIXTY_NINE)) ? 400 : 600;
@@ -806,20 +815,39 @@ public class EnemyCharacter extends AbstractCharacter {
 			else {
 				batch.draw(texture, x + 200, y + 350, width / 3, height / 3);
 			}
-			if (animation != null) animation.addAction(Actions.hide());
+			//if (currentAnimation != null) currentAnimation.addAction(Actions.hide());
 		}
 		else {
-			animation.addAction(Actions.show());
-			animation.draw(batch, parentAlpha);
+			for (AnimatedActor animation: currentAnimationsPlaying) {
+				animation.draw(batch,  parentAlpha);
+			}
 		}
     }
 	
 	public void init(Texture defaultTexture, ObjectMap<Stance, Array<Texture>> textures) {
 		this.defaultTexture = defaultTexture;
 		this.textures = textures;
-		animation = getAnimatedActor(enemyType);
+		this.animations = new Array<AnimatedActor>();
+		this.currentAnimationsPlaying = new ObjectSet<AnimatedActor>();
+		AnimatedActor animation = getAnimatedActor(enemyType);
+		if (animation != null) this.animations.add(animation);
+		currentAnimationsPlaying.add(animation);
+		if (enemyType == EnemyEnum.HARPY) addAdditionalAnimations();
+		
 		currentDisplay = enemyType == EnemyEnum.BRIGAND ? "IFOS100N" :"Idle Erect";
 		initializedMove = true;
+	}
+	
+	private void addAdditionalAnimations() {
+		animations.add(new AnimatedActor("animation/Attack Still.atlas", "animation/Attack Still.json", .75f, 1f));	
+		animations.get(1).setSkeletonPosition(800, 450);
+		animations.get(1).setAnimation(0, "attack", false);
+		animations.add(new AnimatedActor("animation/Feathers.atlas", "animation/Feathers.json", .75f, 1f));	
+		animations.get(2).setSkeletonPosition(900, 500);
+		animations.get(2).setAnimation(0, "featherpoof1", true);
+		animations.add(new AnimatedActor("animation/Feathers2.atlas", "animation/Feathers2.json", .75f, 1f));	
+		animations.get(3).setSkeletonPosition(900, 500);
+		animations.get(3).setAnimation(0, "Featherpoof2", true);	
 	}
 	
 	public static AnimatedActor getAnimatedActor(EnemyEnum enemyType) {
@@ -850,11 +878,69 @@ public class EnemyCharacter extends AbstractCharacter {
 		}
 		return animation;
 	}
+
+	@Override
+	public void act(float delta) {
+		super.act(delta);
+		animations.get(0).act(delta);
+	}
+	
+	public void attackAnimation() {
+		Boolean fellatio = stance.isOralPenetration();
+		if (animations.size > 1) {
+			String preAttack = fellatio ? "Air BJ" : "Attack Erect";
+			String attack = fellatio ? "bj" : "attack";
+			animations.get(0).addAction(Actions.sequence(
+				Actions.delay(1), 
+				new Action(){
+					@Override
+					public boolean act(float delta) {
+						animations.get(0).setAnimation(0, preAttack, false);
+						animations.get(0).addAnimation(0, "Idle Erect", true, 1.6f);
+						return true;
+				}},	
+				Actions.delay(1), 
+				new Action(){
+					@Override
+					public boolean act(float delta) {
+						animations.get(1).setAnimation(0, attack, false);
+						currentAnimationsPlaying.add(animations.get(1));
+						currentAnimationsPlaying.remove(animations.get(0));
+						return true;
+				}}, Actions.delay(2), new Action(){
+				@Override
+				public boolean act(float delta) {
+					if (!fellatio) currentAnimationsPlaying.add(animations.get(0));
+					currentAnimationsPlaying.remove(animations.get(1));
+					return true;
+				}
+			}));
+		}
+	}
 	
 	public void hitAnimation() {
-		if (animation != null && enemyType != EnemyEnum.BRIGAND) {
-			animation.setAnimation(0, "Hit Erect", false);
-			animation.addAnimation(0, "Idle Erect", true, 1.0f);
+		if (currentAnimationsPlaying.contains(animations.get(0)) && enemyType != EnemyEnum.BRIGAND) {
+			animations.get(0).setAnimation(0, "Hit Erect", false);
+			animations.get(0).addAnimation(0, "Idle Erect", true, 1.0f);
+			if (enemyType == EnemyEnum.HARPY) {
+				animations.get(0).addAction(Actions.sequence(
+					new Action(){
+						@Override
+						public boolean act(float delta) {
+							currentAnimationsPlaying.add(animations.get(2));
+							currentAnimationsPlaying.add(animations.get(3));
+							return true;
+					}},	
+					Actions.delay(1), 
+					new Action(){
+						@Override
+						public boolean act(float delta) {
+							currentAnimationsPlaying.remove(animations.get(2));
+							currentAnimationsPlaying.remove(animations.get(3));
+							return true;
+					}}
+				));
+			}
 		}
 	}
 	
@@ -993,7 +1079,7 @@ public class EnemyCharacter extends AbstractCharacter {
 	public void toggle() {
 		if (enemyType == EnemyEnum.BRIGAND) {
 			currentDisplay = currentDisplay.equals("IFOS100") ? "IFOS100N" : "IFOS100";
-			animation.setAnimation(0, currentDisplay, true);
+			animations.get(0).setAnimation(0, currentDisplay, true);
 		}
 		else if (enemyType == EnemyEnum.CENTAUR) {
 			currentFrame = 1 - currentFrame;

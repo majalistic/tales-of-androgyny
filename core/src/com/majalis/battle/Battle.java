@@ -523,17 +523,18 @@ public class Battle extends Group{
 				else {
 					if (!attackForFirstCharacter.isSpell()) {
 						if (attackForFirstCharacter.getStatus() == Status.BLOCKED) {
-							this.addAction(sequence(delay(5/60f), new SoundAction(soundMap.get(AssetEnum.BLOCK_SOUND), .5f)));
+							this.addAction(sequence(delay(5/60f), new SoundAction(soundMap.get(AssetEnum.BLOCK_SOUND), 1.5f)));
 						}
 						else {
 							if (enemy.getWeapon() != null && enemy.getWeapon().causesBleed()) {
-								this.addAction(sequence(delay(5/60f), new SoundAction(soundMap.get(AssetEnum.SWORD_SLASH_SOUND), .5f)));
+								this.addAction(sequence(delay(5/60f), new SoundAction(soundMap.get(AssetEnum.SWORD_SLASH_SOUND), 1.5f)));
 							}
 							else {
 								this.addAction(sequence(delay(20/60f), new SoundAction(soundMap.get(AssetEnum.HIT_SOUND), .3f)));
 							}
 						}
 					}
+					enemy.attackAnimation();
 				}
 			}
 			

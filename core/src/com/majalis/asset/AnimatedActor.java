@@ -13,10 +13,10 @@ import com.esotericsoftware.spine.SkeletonJson;
 import com.esotericsoftware.spine.SkeletonMeshRenderer;
 
 public class AnimatedActor extends Actor {
-	private TextureAtlas atlas;
-	private SkeletonMeshRenderer renderer;
-	private AnimationState state;
-	private Skeleton skeleton;
+	private transient TextureAtlas atlas;
+	private transient SkeletonMeshRenderer renderer;
+	private transient AnimationState state;
+	private transient Skeleton skeleton;
 	
 	public AnimatedActor(String atlasPath, String jsonPath) {
 		this(atlasPath, jsonPath, 1, 1);

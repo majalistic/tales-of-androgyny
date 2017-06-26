@@ -1,0 +1,27 @@
+
+Attack Still.png
+size: 2048,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+attackBlur
+  rotate: false
+  xy: 2, 42
+  size: 684, 644
+  orig: 684, 644
+  offset: 0, 0
+  index: -1
+attackStill
+  rotate: true
+  xy: 1374, 2
+  size: 684, 576
+  orig: 684, 576
+  offset: 0, 0
+  index: -1
+bjStill
+  rotate: false
+  xy: 688, 110
+  size: 684, 576
+  orig: 684, 576
+  offset: 0, 0
+  index: -1
