@@ -1,5 +1,8 @@
 package com.majalis.encounter;
-
+/*
+ * Class used for building an encounter from an encounter code and current state information.
+ */
+// this class currently has a lot of imports - part of its refactor will be to minimize integration points
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
@@ -18,7 +21,7 @@ import com.majalis.asset.AnimatedActor;
 import com.majalis.asset.AssetEnum;
 import com.majalis.battle.BattleCode;
 import com.majalis.battle.Battle.Outcome;
-import com.majalis.character.EnemyCharacter;
+import com.majalis.character.EnemyCharacter; // should be animated actor
 import com.majalis.character.EnemyEnum;
 import com.majalis.character.Perk;
 import com.majalis.character.PlayerCharacter;
@@ -28,9 +31,9 @@ import com.majalis.save.ProfileEnum;
 import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveManager;
 import com.majalis.save.SaveService;
-import com.majalis.save.SaveManager.GameContext;
-import com.majalis.save.SaveManager.GameMode;
-import com.majalis.scenes.AbstractChoiceScene;
+import com.majalis.save.SaveManager.GameContext; // this should probably be moved out of SaveManager
+import com.majalis.save.SaveManager.GameMode; // this should probably be moved out of SaveManager
+import com.majalis.scenes.AbstractChoiceScene; // this should be refactored so that encounterbuilder receives a scenebuilder
 import com.majalis.scenes.BattleScene;
 import com.majalis.scenes.CharacterCreationScene;
 import com.majalis.scenes.CharacterCustomizationScene;
@@ -655,8 +658,14 @@ public class EncounterBuilder {
 					new Branch("Leave Her Be")			
 				).getEncounter();
 			case SPIDER:
-				Branch spiderBattle = new Branch().battleScene(BattleCode.SPIDER, new Branch(Outcome.VICTORY).textScene("SPIDER-VICTORY").encounterEnd(), new Branch(Outcome.DEFEAT).textScene("SPIDER-DEFEAT").gameEnd(), new Branch(Outcome.KNOT).textScene("SPIDER-OVIPOSITION").gameEnd());
-				
+				Branch spiderBattle = new Branch().battleScene(
+					BattleCode.SPIDER, 
+					new Branch(Outcome.VICTORY).textScene("SPIDER-VICTORY").encounterEnd(),
+					new Branch(Outcome.DEFEAT).textScene("SPIDER-DEFEAT").choiceScene("Pick your poison.",
+						new Branch("Become her lover").textScene("SPIDER-LOVER").textScene("SPIDER-OVIPOSITION").textScene("SPIDER-END").gameEnd(),
+						new Branch("Become her dinner").textScene("SPIDER-BITE").gameEnd()
+					),
+					new Branch(Outcome.KNOT).textScene("SPIDER-OVIPOSITION").textScene("SPIDER-NO-FERTILIZE").gameEnd());
 				Branch afterSigil = new Branch().textScene("SPIDER-BABY").choiceScene(
 					"What do you do?", 
 					new Branch("Try to crush the tiny spider").checkScene(Stat.PERCEPTION, new Branch(6).textScene("SPIDER-AWARE").concat(spiderBattle), new Branch(0).textScene("SPIDER-AMBUSH").concat(spiderBattle)), 
@@ -666,10 +675,14 @@ public class EncounterBuilder {
 				Branch afterTrap1 = new Branch().textScene("SPIDER-SIGIL").choiceScene("Touch the sigil?", new Branch("Touch it").checkScene(Stat.MAGIC, new Branch(4).textScene("SPIDER-SIGIL-SUCCESS").concat(afterSigil), new Branch(2).textScene("SPIDER-SIGIL-PARTIAL").concat(afterSigil), new Branch(0).textScene("SPIDER-SIGIL-FAILURE").concat(afterSigil)), new Branch("Don't touch it").concat(afterSigil));
 				Branch receiveTrap = new Branch().checkScene(CheckType.ALIVE, new Branch(true).concat(afterTrap1), new Branch(false).textScene("SPIDER-UNCONSCIOUS").gameEnd());
 				Branch afterRoom1 = new Branch().textScene("SPIDER-TRAP-APPROACH").checkScene(Stat.AGILITY, new Branch(7).textScene("SPIDER-AVOID-TRAP").concat(afterTrap1), new Branch(0).textScene("SPIDER-FAIL-TRAP").checkScene(Stat.ENDURANCE, new Branch(7).textScene("SPIDER-ENDURE").concat(receiveTrap), new Branch(4).textScene("SPIDER-PARTIAL-ENDURE").concat(receiveTrap), new Branch(0).textScene("SPIDER-FAIL-ENDURE").concat(receiveTrap)));
-				return new Branch().textScene("SPIDER-INTRO").choiceScene(
-					"What do you do?",
-					new Branch("Traverse the Ruins").textScene("SPIDER-ENTER").choiceScene("Enter the room?", new Branch("Enter").checkScene(Stat.PERCEPTION, new Branch(5).textScene("SPIDER-FIND1").concat(afterRoom1), new Branch(0).textScene("SPIDER-FIND1-FAIL").concat(afterRoom1)), new Branch("Pass by").concat(afterRoom1)),
-					new Branch("Turn Back").encounterEnd()
+				return new Branch().checkScene(
+					CheckType.SPIDER, 
+					new Branch(true).textScene("SPIDER-INTRO").choiceScene(
+						"What do you do?",
+						new Branch("Traverse the Ruins").textScene("SPIDER-ENTER").choiceScene("Enter the room?", new Branch("Enter").textScene("SPIDER-ROOM").checkScene(Stat.PERCEPTION, new Branch(5).textScene("SPIDER-FIND1").concat(afterRoom1), new Branch(0).textScene("SPIDER-FIND1-FAIL").concat(afterRoom1)), new Branch("Pass by").concat(afterRoom1)),
+						new Branch("Turn Back").encounterEnd()
+					),
+					new Branch(false).textScene("SPIDER-REVISIT").encounterEnd()
 				).getEncounter();
 			case SOUTH_PASS:
 				return new Branch().textScene("SOUTH-PASS").encounterEnd().getEncounter();
@@ -1170,6 +1183,7 @@ public class EncounterBuilder {
 		}
 		
 		public Encounter getEncounter() {
+			// this should accept some kind of object that has assetmanager and whatever else to actually build the scenes			
 			return new Encounter(getScenes(), getEndScenes(), getBattleScenes(), getStartScene());
 		}
 		

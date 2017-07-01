@@ -178,6 +178,10 @@ public class CheckScene extends AbstractTextScene {
 			@Override
 			protected boolean getCheck(PlayerCharacter character) { return character.getQuestStatus(QuestType.OGRE) == 0; }  
 		},
+		SPIDER (".", ".") { 
+			@Override
+			protected boolean getCheck(PlayerCharacter character) { return character.getQuestStatus(QuestType.SPIDER) == 0; }  
+		},
 		ALIVE ("You're still conscious.", "You fall unconscious!") { 
 			@Override
 			protected boolean getCheck(PlayerCharacter character) { return character.getCurrentHealth() > 0; }  
