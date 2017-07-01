@@ -1,7 +1,7 @@
 package com.majalis.character;
 
 public enum Perk {
-	SKILLED ("Increases number of skill points to allocate by 2 per rank. (5 Ranks)", 5), 
+	SKILLED ("Increases number of skill points to allocate by 2 per perk rank. (5 Ranks)", 5), 
 	WELLROUNDED ("Increases current lowest stat by 1.", 1),
 	SURVEYOR ("Increases effective perception for scouting purposes by 2 per rank.", 3),
 	EROTIC ("Increases effective charisma for arousing others by 2 per rank.", 3), 
