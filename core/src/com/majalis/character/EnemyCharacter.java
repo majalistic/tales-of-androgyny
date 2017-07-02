@@ -907,11 +907,11 @@ public class EnemyCharacter extends AbstractCharacter {
 	}
 	
 	public void attackAnimation() {
-		Boolean fellatio = stance.isOralPenetration();
+		final Boolean fellatio = stance.isOralPenetration();
 		if (animations.size > 1) {
 			if (enemyType == EnemyEnum.HARPY) {
-				String preAttack = fellatio ? "Air BJ" : "Attack Erect";
-				String attack = fellatio ? "bj" : "attack";
+				final String preAttack = fellatio ? "Air BJ" : "Attack Erect";
+				final String attack = fellatio ? "bj" : "attack";
 				animations.get(0).addAction(Actions.sequence(
 					Actions.delay(1), 
 					new Action(){
