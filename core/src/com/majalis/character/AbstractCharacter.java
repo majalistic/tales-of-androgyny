@@ -387,7 +387,7 @@ public abstract class AbstractCharacter extends Actor {
 				else {
 					resolvedAttack.addMessage(properCase(pronouns.getNominative()) + " stuffs her cock into your face!");
 					resolvedAttack.addMessage("You suck on " + pronouns.getPossessive() + " cock!");
-					resolvedAttack.addMessage(properCase(pronouns.getNominative()) + " licks her lips!");
+					resolvedAttack.addMessage(properCase(pronouns.getNominative()) + " licks " + (pronouns.getPossessive()) + " lips!");
 				}
 				if (resolvedAttack.getForceStance() == Stance.SIXTY_NINE_BOTTOM) {
 					resolvedAttack.addMessage(properCase(pronouns.getNominative()) + " deepthroats your cock!");
