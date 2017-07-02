@@ -108,7 +108,7 @@ public class BattleFactory {
 			case HARPY: 
 			case HARPY_STORY: return new EnemyCharacter(null, getTextures(EnemyEnum.HARPY), EnemyEnum.HARPY);
 			case SLIME: return new EnemyCharacter(getTexture(EnemyEnum.SLIME), getTextures(EnemyEnum.SLIME), EnemyEnum.SLIME);
-			case BRIGAND: return new EnemyCharacter(getTexture(EnemyEnum.BRIGAND), getTextures(EnemyEnum.BRIGAND), EnemyEnum.BRIGAND);
+			case BRIGAND: return new EnemyCharacter(null, getTextures(EnemyEnum.BRIGAND), EnemyEnum.BRIGAND);
 			case CENTAUR: return new EnemyCharacter(null, getTextures(EnemyEnum.CENTAUR), EnemyEnum.CENTAUR);
 			case UNICORN: return new EnemyCharacter(null, getTextures(EnemyEnum.UNICORN), EnemyEnum.UNICORN);
 			case GOBLIN: 

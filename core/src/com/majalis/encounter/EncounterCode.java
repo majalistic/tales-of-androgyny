@@ -206,8 +206,7 @@ public enum EncounterCode {
 				});
 			case BRIGAND:
 				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{
-					AssetEnum.BRIGAND_ORAL.getTexture(),
-					AssetEnum.BRIGAND.getTexture(),
+					AssetEnum.BRIGAND_ORAL.getTexture()
 				});
 			case DRYAD:
 				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{  

@@ -1304,7 +1304,7 @@
 		"key": "BRIGAND-SPOT",
 		"scriptLines": [
 			{
-			"foreground": "BRIGAND",
+			"animatedForeground": "BRIGAND",
 			"text": "You spot her before she reveals herself - judging by her appearance, you would guess that she's a lone brigand - you scan the area, but you don't detect the presence of any more of her merry band."}, 
 			{"text": "You're fortunate - she didn't expect you to spot her, and she's caught unawares.  What will you do?"}
 		]
@@ -1470,7 +1470,7 @@
 		"key": "BRIGAND-DEFEAT",
 		"scriptLines": [
 			{
-			"foreground": "BRIGAND",
+			"animatedForeground": "BRIGAND",
 			"text": "Your weapon falls to the ground as the brigand bats it away with her targe. \"Well, well. We coulda done this the easy way. But now we're gonna do it... hard,\" she says, grinning, and the bulge in her pants is indicative of exactly what she means."},
 			{"text": "\"Mmm... look at those pouty lips. Almost as full as my bloated nutsack. Y'know, it can get awfully lonely, living alone in the woods. But I never touch myself. Y'now why?\" she asks, raising her eyebrow suggestively."},
 			{"text": "You remain silent, looking down at the tremendous bulge in her pants - which seem to be getting even tighter."},

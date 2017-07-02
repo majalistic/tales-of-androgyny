@@ -1,0 +1,125 @@
+
+Brigand.png
+size: 2048,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+ArmL
+  rotate: true
+  xy: 1716, 102
+  size: 170, 273
+  orig: 170, 273
+  offset: 0, 0
+  index: -1
+ArmR
+  rotate: true
+  xy: 1456, 294
+  size: 215, 297
+  orig: 215, 297
+  offset: 0, 0
+  index: -1
+Backsleave
+  rotate: false
+  xy: 1991, 227
+  size: 34, 45
+  orig: 34, 45
+  offset: 0, 0
+  index: -1
+Bangs
+  rotate: false
+  xy: 1716, 2
+  size: 124, 98
+  orig: 124, 98
+  offset: 0, 0
+  index: -1
+Cape
+  rotate: true
+  xy: 2, 100
+  size: 409, 510
+  orig: 409, 510
+  offset: 0, 0
+  index: -1
+Eyes
+  rotate: false
+  xy: 686, 32
+  size: 49, 27
+  orig: 49, 27
+  offset: 0, 0
+  index: -1
+FringeBack
+  rotate: false
+  xy: 1842, 19
+  size: 82, 81
+  orig: 82, 81
+  offset: 0, 0
+  index: -1
+Hair
+  rotate: false
+  xy: 686, 61
+  size: 120, 123
+  orig: 120, 123
+  offset: 0, 0
+  index: -1
+Head
+  rotate: true
+  xy: 808, 68
+  size: 116, 127
+  orig: 116, 127
+  offset: 0, 0
+  index: -1
+LegL
+  rotate: true
+  xy: 942, 346
+  size: 163, 512
+  orig: 163, 512
+  offset: 0, 0
+  index: -1
+LegR
+  rotate: true
+  xy: 942, 192
+  size: 152, 488
+  orig: 152, 488
+  offset: 0, 0
+  index: -1
+Mouth
+  rotate: true
+  xy: 2027, 245
+  size: 27, 19
+  orig: 27, 19
+  offset: 0, 0
+  index: -1
+Ponytail
+  rotate: true
+  xy: 514, 186
+  size: 323, 426
+  orig: 323, 426
+  offset: 0, 0
+  index: -1
+PonytailFront
+  rotate: true
+  xy: 1432, 35
+  size: 257, 282
+  orig: 257, 282
+  offset: 0, 0
+  index: -1
+Shield
+  rotate: true
+  xy: 514, 20
+  size: 164, 170
+  orig: 164, 170
+  offset: 0, 0
+  index: -1
+Sword
+  rotate: false
+  xy: 2, 28
+  size: 165, 70
+  orig: 165, 70
+  offset: 0, 0
+  index: -1
+Torso
+  rotate: true
+  xy: 1755, 274
+  size: 235, 283
+  orig: 235, 283
+  offset: 0, 0
+  index: -1

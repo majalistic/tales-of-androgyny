@@ -14,7 +14,7 @@ public enum EnemyEnum {
 	WERESLUT (new EnemyTemplate(WeaponType.Claw).setStrength(5).setAgility(5), "Wereslut", AssetEnum.WEREBITCH.getTexture()),
 	HARPY (new EnemyTemplate(WeaponType.Talon).setStrength(4), "Harpy", null, "animation/Harpy"),
 	SLIME (new EnemyTemplate(null).setStrength(2).setEndurance(4).setAgility(4), "Slime", AssetEnum.SLIME.getTexture()),
-	BRIGAND (new EnemyTemplate(WeaponType.Gladius).setAgility(4), "Brigand", AssetEnum.BRIGAND.getTexture(), "animation/skeleton"),
+	BRIGAND (new EnemyTemplate(WeaponType.Gladius).setAgility(4), "Brigand", null, "animation/Brigand"),
 	CENTAUR (new EnemyTemplate(WeaponType.Bow).setEndurance(4).setAgility(4).setPerception(5), "Centaur", null, "animation/Centaur"),
 	UNICORN (new EnemyTemplate(WeaponType.Bow).setEndurance(4).setAgility(4).setPerception(5), "Unicorn", null, "animation/Centaur"),
 	GOBLIN (new EnemyTemplate(WeaponType.Dagger).setStrength(4).setEndurance(4).setAgility(5), "Goblin", AssetEnum.GOBLIN.getTexture()), 
