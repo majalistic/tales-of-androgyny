@@ -3525,7 +3525,7 @@
 		"scriptLines": [
 			{
 			"music": "WEREWOLF_MUSIC",
-			"text": "You approach ruins that look as old as the surrounding rocks - truly ancient and forgotten. The entrance is vine-covered, half-collapsed, filled in-part by recent rainwaters. It seems as if the structure was built partially inside of natural caves, some of which have since crumbled."},  
+			"text": "You approach ruins that look as old as the surrounding rocks - truly ancient and forgotten. The entrance is vine-covered, half-collapsed, and filled in-part by recent rainwaters. It seems as if the structure was built partially inside of natural caves, some of which have since crumbled."},  
 			{"text": "One glimpse at it tells you that you'll have to be on guard if you plan to go inside."}
 		]
 	},
@@ -3535,7 +3535,7 @@
 			{
 			"mutations": [{"profileSaveType":"KNOWLEDGE", "value":{"class": "java.lang.String", "value": "Arachne"}}, {"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "SPIDER", "value":1}}],
 			"text": "Braving the entrance, you begin to carefully make your way through the ruins. It isn't long before you find yourself without a roof over your head again - although still walled in, with ancient trees growing within."},
-			{"text": "The forest has reclaimed much of the ruins, that which hadn't been initially claimed by the caves. You sense that the structure had some kind of religious significance - there don't appear to be many living quarters or furnishings, and instead there are daises and small shrines."},
+			{"text": "The forest has reclaimed much of the ruins, that which hadn't been initially claimed by the caves. You sense that the structure had some kind of religious significance - there doesn't appear to be many living quarters or furnishings, and instead there are daises and small shrines."},
 			{"text": "You do come across a small room behind a crumbling, rusted door."}
 		]
 	},
@@ -3573,7 +3573,7 @@
 	{
 		"key": "SPIDER-AVOID-TRAP",
 		"scriptLines": [
-			{"text": "You manage to leap free of the collapse, grabbing ahold of the edge created by the collapsing floor before hoisting yourself back up.  You shudder to wonder what would have happened had not been so quick."}
+			{"text": "You manage to leap free of the collapse, grabbing ahold of the edge created by the collapsing floor before hoisting yourself back up.  You shudder to wonder what would have happened had you not been so quick."}
 		]
 	},
 	{
@@ -3593,7 +3593,7 @@
 		"scriptLines": [
 			{
 			"mutations": [{"saveType":"HEALTH", "value":{"class": "java.lang.Integer", "value": -25}}],
-			"text": "By the time you reach the surface, your lungs feel like they're on fire.  You've taken on water, partially drowned, and you struggle to breathe even in the dry air while draggin yourself back onto solid ground."}
+			"text": "By the time you reach the surface, your lungs feel like they're on fire.  You've taken on water, partially drowned, and you struggle to breathe even in the dry air while dragging yourself back onto solid ground."}
 		]
 	},
 	{
@@ -3614,13 +3614,13 @@
 			{"text": "As you blink away your weariness, however, you realize that you are, in fact, upside-down, and your arms are bound at your sides. In fact, you can't move at all - you're completely encased in something, save your face."},	
 			{"text": "A figure slowly emerges from the darkness... and while at first she seems large, as the rest of her steps into the dim light, you see that her body is truly massive."},	
 			{"foreground": "SPIDER",
-			"text": "\"Caught by a spider... what a poor little insect you are,\" she says, her voice dripping with venom. She approaches you slowly, then kneels, a collosal spider-like abdomen following her.  She clasps her face in your longer, slender fingers."},
+			"text": "\"Caught by a spider... what a poor little insect you are,\" she says, her voice dripping with venom. She approaches you slowly, then kneels, a collosal spider-like abdomen following her.  She clasps your face in your longer, slender fingers."},
 			{"text": "Her face comes close to yours, and you smell a sweetness on her breath... and then, her lips press against yours, and you feel your manhood stirring within its silk confines. Her kiss takes your breath away."},
 			{"text": "Looking down her body as she steals your lips, you see some kind of bright red appendage between her legs, and your eyes go wide."},
 			{"text": "\"Mmm...\" she says, pulling her lips away from yours, \"where are your eyes wondering, my little fly?\""},
 			{"text": "She pulls a thread of webbing from her abdomen and traces it around your head, again and again, until you're unable to see around the makeshift blindfold, leaving only the lower half of your face uncovered by her sticky silk."},
 			{"text": "With her webbing covering your eyes, blinding you, your body breaks into a sweat."},	
-			{"text": "Again, you feel her lips against yours, and then feel her smirk grow on her face. Her slender hand traces along yours, gently, until she inserts her thumb into your mouth and wrenches it open."},	
+			{"text": "Again, you feel her lips against yours, and then feel her smirk grow on her face. Her slender hand traces along your face, gently, until she inserts her thumb into your mouth and wrenches it open."},	
 			{"text": "\"Open up.\" she says, as she pulls her hand away, and you can tell that she returns to her full height, now towering above your upside-down form."},	
 			{"text": "You can sense something... stirring.  Something hot and thick, curving downwards... towards your still-open mouth.  When you try to close it, you realize that her webbing is keeping it forced open."},	
 			{"text": "Though you can't see it, something presses against your face - something hard, with strange ridges, with a wetness at the tip.  There's an odd smell to it."},	
@@ -3644,7 +3644,7 @@
 			{"text": "\"It's a reproductive desire. One far stronger than you would hope for,\" she says, and the the thing in your throat begins to sag somewhere between you and her... with weight?"},
 			{"text": "You wait a few more endless moments... and then the area between your lips begins to expand... and expand... and you realize, with horror, that something is trying to pass through the object lodged in your mouth and throat."},
 			{"text": "\"Are you hoping a hero will come to save you?  It would be the ideal moment, right now... before my dark plans for you come to fruition... unfortunately, no hero is coming. Something else is, however.\""},
-			{"text": "It passes between your lips, something larger than a fist, and quickly slides upwards your throat... immediately after, you can feel your throat bulging outwards as the large mass passing through her anatomy is forced through it.."},
+			{"text": "It passes between your lips, something larger than a fist, and quickly slides upwards towards your throat... immediately after, you can feel your throat bulging outwards as the large mass passing through her anatomy is forced through it.."},
 			{"text": "At last, it travels up to the very tip of her strange obstruction, which had opened up - and you feel something fall out of it, the very object that had just choked you as it slid down your gullet."},
 			{"text": "Your stomach is unsettled by the hard, round object."},
 			{"text": "\"The oldest and most eager to hatch. I'm so proud,\" she says, and the mention of the word hatch makes your pupils shrink to the size of pinpricks."},
@@ -3818,14 +3818,14 @@
 			{"text": "You don't know if it's because of the curse or if she was naturally endowed with an unbustable nut, but the statuesque be-dicked lady pounding your pucker and prostate shows little sign of needing to release her sperm anytime soon."},
 			{"text": "The frequent tugging on your bowels from her plates shifting in and out of your spider-dick blasted hole makes it impossible to get bored, as does the general fact that a huge spider bitch is anally violating you with her exoskeleton-endowed extremity."},
 			{"text": "You struggle to break free of the webbing, but the bonds are too tight to break. In. Out. In. Out. Still too tight. In. Out. In. Out. The only thing loosening up is your plundered butthole."},			
-			{"text": "The unnatural mating comes with it its own plosive sound as she pops her ridges out of your hole and then forces them back in."},
+			{"text": "The unnatural mating comes with its own plosive sound as she pops her ridges out of your hole and then forces them back in."},
 			{"text": "You moan into the bed, your face partially obscured by webbing so only your one uncovered eye can be seen to roll up into your skull from the sheer pressure and pleasure of being reamed."},
 			{"text": "\"Mmm... don't be alarmed, but I have to lay down some bedding for my eggs.  It will contain my seed, so... prepare your heart.\""},	
 			{
 			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "creampies":2}}],
 			"text": "The plosive sound becomes wet as she deposits her thick, slimelike spermatazoa soup into your raw, aching bowels, now thoroughly moistened from her concluded anal mating."},
 			{"text": "She injects her venom into your upturned backside for long enough that you feel it pooling inside... and then all at once, she withdraws her thick, hard appendage."},	
-			{"text": "You have little time to relax, however - her plated penis is quickly replaced with an sharp stinger of some kind, one that she buries deeper in your back passage than she could previously reach."},	
+			{"text": "You have little time to relax, however - her plated penis is quickly replaced with a sharp stinger of some kind, one that she buries deeper in your back passage than she could previously reach."},	
 			{"text": "Moments later, the first of many spherical harbingers forces its way through her strange stinger, and therefore, through your rectal passage."},	
 			{"text": "You know, with some dread, what they are - eggs."},	
 			{
@@ -3856,7 +3856,7 @@
 			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1}}],
 			"foreground": "SPIDER",
 			"text": "\"Too full of eggs, aren't you? Well, let's get you ready,\" she says, as you struggle to stand under the weight of the eggs filling your abdomen."},
-			{"text": "With your feet and hands bound by her webbing, and your stomach gurgles under the incredible strain of all those eggs filling your large intestines, you are red-faced from embarrassment and strain."},
+			{"text": "With your feet and hands bound by her webbing, and your stomach gurgling under the incredible strain of all those eggs filling your large intestines, you are red-faced from embarrassment and strain."},
 			{"text": "You lost track of how many she laid inside - probably quite a bit more than the grand total of monstrous spider legs laid in the rectums of the vast majority of other humans who have ever lived."},
 			{"text": "\"Once I've finished emasculating you with my eggs, brood mother, I'll seal up this hole of yours so that they'll stay in your womb until they're ready to make their grand debut,\" she says, as you feel another of her fat eggs pry open your sphincter and force its way inside."},
 			{
