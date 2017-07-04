@@ -49,7 +49,7 @@ public class ChoiceScene extends AbstractChoiceScene {
 			button.addListener(getListener(ii++, choice.scene, choice.clickSound));
 			table.add(button).size(665, 150).row();	
 		}	
-        table.setPosition(960, 775);
+        table.setPosition(960, 900);
         table.align(Align.top);
         // may need to add the background as an actor
         this.addActor(table);
@@ -88,7 +88,7 @@ public class ChoiceScene extends AbstractChoiceScene {
     public void draw(Batch batch, float parentAlpha) {
 		super.draw(batch, parentAlpha);
 		font.setColor(0.5f,0.4f,0,1);
-		font.draw(batch, choiceDialogue, 600, 900, 620, Align.center, true);
+		font.draw(batch, choiceDialogue, 600, 1025, 620, Align.center, true);
 		if(Gdx.input.isKeyJustPressed(Keys.UP)) {
         	if (selection > 0) selection--;
         	else selection = buttons.size-1;
@@ -129,7 +129,7 @@ public class ChoiceScene extends AbstractChoiceScene {
 	        	else selection = 0;
 	        }
 		}
-		batch.draw(arrowImage, 525, 625 - selection * 150, 100, 150);
+		batch.draw(arrowImage, 525, 750 - selection * 150, 100, 150);
     }
 	
 	public int getCode(){

@@ -321,67 +321,52 @@ public class EncounterBuilder {
 				
 				Branch cutPants = new Branch().textScene("GOBLIN-POST-SPEAR").choiceScene(
 					"Quick, what do you do?",
-					new Branch("Catch Her (5 AGI)").checkScene(
-						Stat.AGILITY,
-						new Branch(5).textScene("GOBLIN-CATCH").choiceScene(
-							"What do you do with her?",
-							new Branch("Put Her Down").textScene("GOBLIN-RELEASE").choiceScene(
-								"Accept Her Offer?",
-								new Branch("Accept").textScene("GOBLIN-ACCEPT").encounterEnd(),
-								new Branch("Decline").textScene("GOBLIN-DECLINE").encounterEnd()
-							),
-							new Branch("Turn Her Over Your Knee").textScene("GOBLIN-FLIP").checkScene(
-								Stat.STRENGTH,
-								new Branch(5).textScene("GOBLIN-SPANK").encounterEnd(),
-								new Branch(0).textScene("GOBLIN-GETBIT").encounterEnd()
-							)
+					new Branch("Catch Her (5 AGI)").require(ChoiceCheckType.STAT_GREATER_THAN_X, Stat.AGILITY, 5).textScene("GOBLIN-CATCH").choiceScene(
+						"What do you do with her?",
+						new Branch("Put Her Down").textScene("GOBLIN-RELEASE").choiceScene(
+							"Accept Her Offer?",
+							new Branch("Accept").textScene("GOBLIN-ACCEPT").encounterEnd(),
+							new Branch("Decline").textScene("GOBLIN-DECLINE").encounterEnd()
 						),
-						pantsCutDown
+						new Branch("Turn Her Over Your Knee").textScene("GOBLIN-FLIP").checkScene(
+							Stat.STRENGTH,
+							new Branch(5).textScene("GOBLIN-SPANK").encounterEnd(),
+							new Branch(0).textScene("GOBLIN-GETBIT").encounterEnd()
+						)
 					),
-					new Branch("Trip Her (4 AGI)").checkScene(
-						Stat.AGILITY,
-						new Branch(4).textScene("GOBLIN-TRIP").choiceScene(
-							"What do you do?",
-							new Branch("Attack").battleScene(
-								BattleCode.GOBLIN, Stance.OFFENSIVE, Stance.PRONE,
-								battleScenes
-							),
-							new Branch("Run").textScene("GOBLIN-FLEE").encounterEnd()
+					new Branch("Trip Her (4 AGI)").require(ChoiceCheckType.STAT_GREATER_THAN_X, Stat.AGILITY, 4).textScene("GOBLIN-TRIP").choiceScene(
+						"What do you do?",
+						new Branch("Attack").battleScene(
+							BattleCode.GOBLIN, Stance.OFFENSIVE, Stance.PRONE,
+							battleScenes
 						),
-						pantsCutDown
+						new Branch("Run").textScene("GOBLIN-FLEE").encounterEnd()
 					),
-					new Branch("Disarm Her (3 AGI)").checkScene(
-						Stat.AGILITY,
-						new Branch(3).textScene("GOBLIN-DISARM").choiceScene(
-							"What do you do?",
-							new Branch("Attack Her").battleScene(
-								BattleCode.GOBLIN, Stance.OFFENSIVE, Stance.BALANCED, true,
-								battleScenes
-							),
-							new Branch("Block Her").battleScene(
-								BattleCode.GOBLIN, Stance.BALANCED, Stance.BALANCED, true,
-								battleScenes
-							),
-							new Branch("Let Her Go").encounterEnd()
+					new Branch("Disarm Her (3 AGI)").require(ChoiceCheckType.STAT_GREATER_THAN_X, Stat.AGILITY, 3).textScene("GOBLIN-DISARM").choiceScene(
+						"What do you do?",
+						new Branch("Attack Her").battleScene(
+							BattleCode.GOBLIN, Stance.OFFENSIVE, Stance.BALANCED, true,
+							battleScenes
 						),
-						pantsCutDown
+						new Branch("Block Her").battleScene(
+							BattleCode.GOBLIN, Stance.BALANCED, Stance.BALANCED, true,
+							battleScenes
+						),
+						new Branch("Let Her Go").encounterEnd()
 					),
-					new Branch("Avoid Her (2 AGI)").checkScene(
-						Stat.AGILITY,
-						new Branch(2).textScene("GOBLIN-DODGE").choiceScene(
-							"What do you do?",
-							new Branch("Attack Her").battleScene(
-								BattleCode.GOBLIN, Stance.OFFENSIVE, Stance.BALANCED,
-								battleScenes
-							),
-							new Branch("Block Her").battleScene(
-								BattleCode.GOBLIN, Stance.BALANCED, Stance.BALANCED,
-								battleScenes
-							),
-							new Branch("Let Her Go").encounterEnd()
+					new Branch("Avoid Her (2 AGI)").require(ChoiceCheckType.STAT_GREATER_THAN_X, Stat.AGILITY, 2).textScene("GOBLIN-DODGE").choiceScene(
+						"What do you do?",
+						new Branch("Attack Her").battleScene(
+							BattleCode.GOBLIN, Stance.OFFENSIVE, Stance.BALANCED,
+							battleScenes
 						),
-						pantsCutDown
-					)
+						new Branch("Block Her").battleScene(
+							BattleCode.GOBLIN, Stance.BALANCED, Stance.BALANCED,
+							battleScenes
+						),
+						new Branch("Let Her Go").encounterEnd()
+					),
+					new Branch("Nothing").concat(pantsCutDown)
 				);
 				
 				Branch[] goblinStrength = new Branch[]{new Branch(5).textScene("GOBLIN-SPEAR-STEAL").concat(cutPants),
@@ -596,16 +581,9 @@ public class EncounterBuilder {
 									new Branch("Anal (Requires: Catamite)").require(ChoiceCheckType.LEWD).textScene("ORC-ANAL").encounterEnd(),
 									new Branch("Oral").textScene("ORC-OFFER-ORAL").concat(oralScene), 
 									new Branch("Nasal").textScene("ORC-NASAL").encounterEnd(),
-									new Branch("Facial (4 CHA)").checkScene(
-										Stat.CHARISMA, 
-										new Branch(4).textScene("ORC-FACIAL").encounterEnd(),
-										failedCharisma 
-									),
-									new Branch("Nasal (6 CHA)").checkScene(
-										Stat.CHARISMA, 
-										new Branch(6).textScene("ORC-PENAL").encounterEnd(),
-										failedCharisma 
-									)
+									new Branch("Penal (6 CHA)").require(ChoiceCheckType.STAT_GREATER_THAN_X, Stat.CHARISMA, 6).textScene("ORC-PENAL").encounterEnd(),
+									new Branch("Facial (4 CHA)").require(ChoiceCheckType.STAT_GREATER_THAN_X, Stat.CHARISMA, 4).textScene("ORC-FACIAL").encounterEnd(),
+									new Branch("Nothing").concat(failedCharisma)
 								),
 								new Branch(Outcome.SATISFIED).textScene("ORC-SATISFIED").encounterEnd()
 							),
@@ -755,7 +733,11 @@ public class EncounterBuilder {
 	public enum ChoiceCheckType {
 		LEWD,
 		GOLD_GREATER_THAN_X,
-		GOLD_LESS_THAN_X;
+		GOLD_LESS_THAN_X,
+		STAT_GREATER_THAN_X,
+		STAT_LESS_THAN_X,
+		PERK_GREATER_THAN_X,
+		PERK_LESS_THAN_X;
 		
 		public boolean isValidChoice(PlayerCharacter character, Stat statToCheck, Perk perkToCheck, int target) {
 			switch (this) {
@@ -765,9 +747,16 @@ public class EncounterBuilder {
 					return character.getMoney() >= target;
 				case GOLD_LESS_THAN_X:
 					return character.getMoney() < target;
-				default:
-					return false;
+				case PERK_GREATER_THAN_X:
+					return character.getPerks().get(perkToCheck, 0) >= target;
+				case PERK_LESS_THAN_X:
+					return character.getPerks().get(perkToCheck, 0) < target;
+				case STAT_GREATER_THAN_X:
+					return character.getRawStat(statToCheck) >= target;
+				case STAT_LESS_THAN_X:
+					return character.getRawStat(statToCheck) < target;
 			}
+			return false;
 		}
 	}
 	
