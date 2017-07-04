@@ -155,7 +155,7 @@ public class CharacterScreen extends AbstractScreen {
 		final Label inventoryText = new Label("", skin);
 		inventoryTable.add(inventoryText).row();
 		inventoryTable.add(getLabel("Inventory", skin, Color.BLACK)).row();
-		inventoryTable.setPosition(780, 500);
+		inventoryTable.setPosition(850, 800);
 		inventoryTable.align(Align.top);
 		this.addActor(inventoryTable);
 		final Table weaponTable = new Table();
@@ -180,7 +180,7 @@ public class CharacterScreen extends AbstractScreen {
 		
 		Table perkTable = new Table();
 		perkTable.align(Align.topLeft);
-		perkTable.setPosition(1000, 1040);
+		perkTable.setPosition(1100, 1040);
 		this.addActor(perkTable);
 		perkTable.add(getLabel("Perks: ", skin, Color.FOREST)).align(Align.left).row();
 		for (ObjectMap.Entry<Perk, Integer> perk : character.getPerks().entries()) {
