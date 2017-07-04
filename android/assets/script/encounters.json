@@ -1172,12 +1172,10 @@
 	{
 		"key": "SLIME-SHATTER",
 		"scriptLines": [
-			{"text": "You successfully shatter the slime's core. In her last moments, she looks at you with... sadness, and then, her form is completely lost - the slime that was once her spreads out due solely to the force of gravity, and begins to denature and dim."},
-			{"text": "You receive some worthless goo."},
+			{"text": "You successfully shatter the slime's core. In her last moments, she looks at you with... sadness, and then, her form is completely lost - the slime that was once her spreads out due solely to the force of gravity, and begins to denature and dim."},			
 			{
-			"mutations": [{"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": 3}}],
-			"text": "You slew the slime!"}
-			
+			"mutations": [{"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": 3}}, {"saveType":"ITEM", "value":{"class": "com.majalis.character.Item$Potion", "effect": "SLIME", "magnitude": "1"}}],
+			"text": "You slew the slime! You receive some worthless goo."}			
 		]
 	},	
 	{
@@ -1200,9 +1198,9 @@
 			{"text": "You put away your weapon. This slime is no danger to anyone who isn't already a danger to others themselves.  You turn away, but the slime stops you."},
 			{"text": "\"Thank you for understanding. Please, have some slime,\" she says, and though you think to reject her... generous offer, she dumps about a pound of pristine goop into your hand.  You wrap it in some rags, and store it carefully in your bag."},
 			{"text": "You nod to the slime, and begin to leave again."},
-			{"text": "\"It won't spoil, not as long as I'm alive. Do with it what you will,\" she says, calling after you.  You receive some slime goo."},
-			{"mutations": [{"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": 3}}],
-			"text": "You spared the slime!"}
+			{
+			"mutations": [{"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": 3}}, {"saveType":"ITEM", "value":{"class": "com.majalis.character.Item$Potion", "effect": "SLIME", "magnitude": "3"}}],
+			"text": "\"It won't spoil, not as long as I'm alive. Do with it what you will,\" she says, calling after you.  You receive some slime goo. You spared the slime!"}
 		]
 	},	
 	{

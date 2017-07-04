@@ -670,6 +670,9 @@ public abstract class AbstractCharacter extends Actor {
 				result = "You ate the " + item.getName() + "?! WHY?! Hunger decreased by 5, uhhhhhhh?";
 				modFood(effect.getMagnitude());
 				break;
+			case SLIME:
+				result = "You ate the " + item.getName() + ", temporarily increasing defense by " + effect.getMagnitude() + ".";
+				baseDefense += effect.getMagnitude();
 			case BANDAGE:
 				int currentBleed = statuses.get(StatusType.BLEEDING.toString(), 0);
 				if (currentBleed != 0) {
