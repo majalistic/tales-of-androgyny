@@ -3826,8 +3826,8 @@
 			"foreground": "NULL",
 			"text": "Though you manage to bring her to her knees, she doesn't seem down for the count.  Worse, the many spiders revealing themselves could prove an insurmountable challenge.  You get out while the getting is good."},
 			{
-			"mutations": [{"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": 10}}],
-			"text": "Emerging victorious, you feel quite accomplished for the day."}
+			"mutations": [{"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": 10}}, {"saveType":"ITEM", "value":{"class": "com.majalis.character.Item$Weapon", "type": "Gladius", "bonus": "2"}}],
+			"text": "Emerging victorious, you feel quite accomplished for the day. You managed to find a powerful weapon within the spider queen's lair."}
 		]
 	},
 	{
