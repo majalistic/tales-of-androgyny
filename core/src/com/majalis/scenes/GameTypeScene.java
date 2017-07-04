@@ -2,6 +2,7 @@ package com.majalis.scenes;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -13,6 +14,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.OrderedMap;
 import com.majalis.encounter.Background;
+import com.majalis.encounter.EncounterBuilder.BranchChoice;
+import com.majalis.encounter.EncounterBuilder.ChoiceCheckType;
 import com.majalis.save.SaveService;
 import com.majalis.talesofandrogyny.TalesOfAndrogyny;
 /*
@@ -21,35 +24,43 @@ import com.majalis.talesofandrogyny.TalesOfAndrogyny;
 public class GameTypeScene extends AbstractChoiceScene {
 	private final Array<TextButton> buttons;
 	private int selection;
-	public GameTypeScene(OrderedMap<Integer, Scene> sceneBranches, int sceneCode, SaveService saveService, Array<TextButton> buttons, Background background) {
+	public GameTypeScene(OrderedMap<Integer, Scene> sceneBranches, int sceneCode, SaveService saveService, Array<BranchChoice> choices, Background background) {
 		super(sceneBranches, sceneCode, saveService);
 		this.buttons = new Array<TextButton>();
 		this.addActor(background);
         // may need to add the background as an actor
 		int ii = 0;
-        for (TextButton button : buttons) {
+        for (BranchChoice choice : choices) {
+        	TextButton button = choice.button;
         	this.addActor(button);
         	this.buttons.add(button);
         	button.setSize(345, 90);
-        	button.addListener(getListener(ii++));
+        	button.addListener(getListener(ii++, choice.scene, choice.clickSound, choice.require));
         } 
         buttons.get(0).setPosition(1515, 380);
         buttons.get(1).setPosition(90, 380);	
         	
         selection = 1;
         selected(0);
-        if(!TalesOfAndrogyny.patron) {
+        if(!TalesOfAndrogyny.patron) { // this should be refactored to just be another choicechecktype that checks for TalesOfAndrogyny.patron
         	buttons.get(1).setTouchable(Touchable.disabled);
         	buttons.get(1).setColor(Color.GRAY);
         	this.buttons.removeIndex(1);
         }
 	}
 	
-	private ClickListener getListener(final int selection) {
+	private ClickListener getListener(final int index, final Scene nextScene, final Sound buttonSound, final ChoiceCheckType type) {
 		return new ClickListener() {
 	        @Override
+	        public void clicked(InputEvent event, float x, float y) {
+        		buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
+	        	// set new Scene as active based on choice
+	        	nextScene.setActive();
+	        	finish();
+	        }
+	        @Override
 	        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-	        	selected(selection);
+				selected(index);
 	        }
 	    };
 	}

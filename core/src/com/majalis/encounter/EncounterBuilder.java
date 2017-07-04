@@ -3,16 +3,12 @@ package com.majalis.encounter;
  * Class used for building an encounter from an encounter code and current state information.
  */
 // this class currently has a lot of imports - part of its refactor will be to minimize integration points
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.OrderedMap;
@@ -32,8 +28,8 @@ import com.majalis.save.SaveManager;
 import com.majalis.save.SaveService;
 import com.majalis.save.SaveManager.GameContext; // this should probably be moved out of SaveManager
 import com.majalis.save.SaveManager.GameMode; // this should probably be moved out of SaveManager
-import com.majalis.scenes.AbstractChoiceScene; // this should be refactored so that encounterbuilder receives a scenebuilder
-import com.majalis.scenes.BattleScene;
+import com.majalis.scenes.AbstractChoiceScene;
+import com.majalis.scenes.BattleScene; // this should be refactored so that encounterbuilder receives a scenebuilder
 import com.majalis.scenes.CharacterCreationScene;
 import com.majalis.scenes.CharacterCustomizationScene;
 import com.majalis.scenes.CheckScene;
@@ -756,7 +752,7 @@ public class EncounterBuilder {
 		EndGame 
 	}
 	
-	protected enum ChoiceCheckType {
+	public enum ChoiceCheckType {
 		LEWD,
 		GOLD_GREATER_THAN_10,
 		GOLD_GREATER_THAN_25,
@@ -1005,43 +1001,19 @@ public class EncounterBuilder {
 						for (OrderedMap.Entry<Object, Branch> next : branchOptions) {
 							weld(scenes, battleScenes, endScenes, next, sceneMap);
 						}
-						if (branchToken.type == EndTokenType.Choice) {
-							Array<TextButton> buttons = new Array<TextButton>();
-							ChoiceSceneToken choiceBranchToken = (ChoiceSceneToken)branchToken;
-							for (OrderedMap.Entry<Object, Branch> next : branchOptions) {
-								buttons.add(new TextButton((String)next.key, skin));							
-							}
-							ChoiceScene choiceScene = new ChoiceScene(sceneMap, sceneCounter, saveService, font, choiceBranchToken.getToDisplay(), buttons, assetManager.get(AssetEnum.STANCE_ARROW.getTexture()), new BackgroundBuilder(assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getTexture())).build());
-							// need the choiceScene in order to create the buttons, so iterate through again
-							int ii = 0;
-							for (OrderedMap.Entry<Object, Branch> next : branchOptions) {
-								Scene nextScene = next.value.getScenes().first();
-								buttons.get(ii).addListener(getListener(choiceScene, nextScene, buttonSound, next.value.require, buttons.get(ii)));			
-								ii++;
-							}
-							sceneMap = addScene(scenes, choiceScene, true);	
+						Array<BranchChoice> choices = new Array<BranchChoice>();
+						for (OrderedMap.Entry<Object, Branch> next : branchOptions) {
+							Scene nextScene = next.value.getScenes().first();
+							choices.add(new BranchChoice(new TextButton((String)next.key, skin), nextScene, next.value.require, buttonSound));							
 						}
-						else {
-							Array<TextButton> buttons = new Array<TextButton>();
-							for (OrderedMap.Entry<Object, Branch> next : branchOptions) {
-								TextButton button = new TextButton((String)next.key, skin);
-								buttons.add(button);
-							}
-							GameTypeScene gameTypeScene = new GameTypeScene(sceneMap, sceneCounter, saveService, buttons, new BackgroundBuilder(assetManager.get(AssetEnum.GAME_TYPE_BACKGROUND.getTexture())).build());
-							int ii = 0;
-							for (OrderedMap.Entry<Object, Branch> next : branchOptions) {
-								Scene nextScene = next.value.getScenes().first();
-								buttons.get(ii).addListener(getListener(gameTypeScene, nextScene, buttonSound, next.value.require, buttons.get(ii)));
-								ii++;
-							}	
-							sceneMap = addScene(scenes, gameTypeScene, true);	
-						}
+						AbstractChoiceScene choiceScene = branchToken.type == EndTokenType.Choice ? new ChoiceScene(sceneMap, sceneCounter, saveService, font, ((ChoiceSceneToken)branchToken).getToDisplay(), choices, assetManager.get(AssetEnum.STANCE_ARROW.getTexture()), character, new BackgroundBuilder(assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getTexture())).build())
+						: new GameTypeScene(sceneMap, sceneCounter, saveService, choices, new BackgroundBuilder(assetManager.get(AssetEnum.GAME_TYPE_BACKGROUND.getTexture())).build());
+						// need the choiceScene in order to create the buttons, so iterate through again
+						sceneMap = addScene(scenes, choiceScene, true);						
 						break;
 					case EndGame:
 					case EndEncounter:
-						EndScene newEndScene;
-						if (branchToken.type == EndTokenType.EndEncounter) newEndScene = new EndScene(EndScene.Type.ENCOUNTER_OVER, saveService, returnContext);
-						else newEndScene = new EndScene(EndScene.Type.GAME_OVER, saveService, SaveManager.GameContext.GAME_OVER);
+						EndScene newEndScene = branchToken.type == EndTokenType.EndEncounter ? newEndScene = new EndScene(EndScene.Type.ENCOUNTER_OVER, saveService, returnContext) : new EndScene(EndScene.Type.GAME_OVER, saveService, SaveManager.GameContext.GAME_OVER);
 						endScenes.add(newEndScene);
 						sceneMap = addScene(scenes, newEndScene, false);		
 						break;
@@ -1207,36 +1179,19 @@ public class EncounterBuilder {
 			return new Encounter(getScenes(), getEndScenes(), getBattleScenes(), getStartScene());
 		}
 		
-		private ClickListener getListener(final AbstractChoiceScene currentScene, final Scene nextScene, final Sound buttonSound, final ChoiceCheckType type, final TextButton button) {
-			return new ClickListener() {
-		        @Override
-		        public void clicked(InputEvent event, float x, float y) {
-		        	if (type == null || isValidChoice(type)) {
-		        		buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
-			        	// set new Scene as active based on choice
-			        	nextScene.setActive();
-			        	currentScene.finish();
-		        	}
-		        	else {
-			        	button.setColor(Color.GRAY);
-		        	}
-		        }
-		    };
-		}
-		
-		private boolean isValidChoice(ChoiceCheckType type) {
-			switch (type) {
-			case LEWD:
-				return character.isLewd();
-			case GOLD_GREATER_THAN_25:
-				return character.getMoney() >= 25;
-			case GOLD_GREATER_THAN_10:
-				return character.getMoney() >= 10;
-			case GOLD_LESS_THAN_10:
-				return character.getMoney() < 10;
-			default:
-				return false;
-			}
+	}
+	
+	
+	public static class BranchChoice {
+		public final TextButton button;
+		public final Scene scene;
+		public final ChoiceCheckType require;
+		public final Sound clickSound;
+		public BranchChoice(TextButton button, Scene scene, ChoiceCheckType require, Sound clickSound) {
+			this.button = button;
+			this.scene = scene;
+			this.require = require;
+			this.clickSound = clickSound;
 		}
 	}
 	
