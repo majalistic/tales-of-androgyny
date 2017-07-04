@@ -15,7 +15,6 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.OrderedMap;
 import com.majalis.encounter.Background;
 import com.majalis.encounter.EncounterBuilder.BranchChoice;
-import com.majalis.encounter.EncounterBuilder.ChoiceCheckType;
 import com.majalis.save.SaveService;
 import com.majalis.talesofandrogyny.TalesOfAndrogyny;
 /*
@@ -35,7 +34,7 @@ public class GameTypeScene extends AbstractChoiceScene {
         	this.addActor(button);
         	this.buttons.add(button);
         	button.setSize(345, 90);
-        	button.addListener(getListener(ii++, choice.scene, choice.clickSound, choice.require));
+        	button.addListener(getListener(ii++, choice.scene, choice.clickSound));
         } 
         buttons.get(0).setPosition(1515, 380);
         buttons.get(1).setPosition(90, 380);	
@@ -49,7 +48,7 @@ public class GameTypeScene extends AbstractChoiceScene {
         }
 	}
 	
-	private ClickListener getListener(final int index, final Scene nextScene, final Sound buttonSound, final ChoiceCheckType type) {
+	private ClickListener getListener(final int index, final Scene nextScene, final Sound buttonSound) {
 		return new ClickListener() {
 	        @Override
 	        public void clicked(InputEvent event, float x, float y) {

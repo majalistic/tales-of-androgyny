@@ -19,7 +19,6 @@ import com.badlogic.gdx.utils.OrderedMap;
 import com.majalis.character.PlayerCharacter;
 import com.majalis.encounter.Background;
 import com.majalis.encounter.EncounterBuilder.BranchChoice;
-import com.majalis.encounter.EncounterBuilder.ChoiceCheckType;
 import com.majalis.save.SaveService;
 /*
  * Represents a choice displayed to the user in the course of an encounter.
@@ -47,7 +46,7 @@ public class ChoiceScene extends AbstractChoiceScene {
 		for (BranchChoice choice: choices) {
 			TextButton button = choice.button;
 			buttons.add(button);
-			button.addListener(getListener(ii++, choice.scene, choice.clickSound, choice.require));
+			button.addListener(getListener(ii++, choice.scene, choice.clickSound));
 			table.add(button).size(665, 150).row();	
 		}	
         table.setPosition(960, 775);
@@ -62,15 +61,14 @@ public class ChoiceScene extends AbstractChoiceScene {
 	public void setActive() {
 		super.setActive();
 		for (BranchChoice choice : choices) {
-			if (!isValidChoice(choice.require)) {
+			if (choice.require != null && !choice.require.isValidChoice(character)) {
 				choice.button.setTouchable(Touchable.disabled);
 				choice.button.setColor(Color.GRAY);
-				//buttons.removeValue(choice.button, true);
 			}
 		}
 	}
 	
-	private ClickListener getListener(final int index, final Scene nextScene, final Sound buttonSound, final ChoiceCheckType type) {
+	private ClickListener getListener(final int index, final Scene nextScene, final Sound buttonSound) {
 		return new ClickListener() {
 	        @Override
 	        public void clicked(InputEvent event, float x, float y) {
@@ -84,22 +82,6 @@ public class ChoiceScene extends AbstractChoiceScene {
 				selection = index;
 	        }
 	    };
-	}
-	
-	private boolean isValidChoice(ChoiceCheckType type) {
-		if (type == null) return true;
-		switch (type) {
-			case LEWD:
-				return character.isLewd();
-			case GOLD_GREATER_THAN_25:
-				return character.getMoney() >= 25;
-			case GOLD_GREATER_THAN_10:
-				return character.getMoney() >= 10;
-			case GOLD_LESS_THAN_10:
-				return character.getMoney() < 10;
-			default:
-				return false;
-		}
 	}
 	
 	@Override

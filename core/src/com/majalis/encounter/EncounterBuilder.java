@@ -126,7 +126,7 @@ public class EncounterBuilder {
 			case BANK:
 				return new Branch().textScene("BANK").checkScene(
 					CheckType.HAVE_DEBT,
-					new Branch(true).choiceScene("Pay back debt?", new Branch("Pay Debt (10 GP)").require(ChoiceCheckType.GOLD_GREATER_THAN_10).textScene("BANK-PAY"), new Branch("Leave")),
+					new Branch(true).choiceScene("Pay back debt?", new Branch("Pay Debt (10 GP)").require(ChoiceCheckType.GOLD_GREATER_THAN_X, 10).textScene("BANK-PAY"), new Branch("Leave")),
 					new Branch(false).choiceScene("Do you want to borrow?", new Branch("Borrow (50 GP)").textScene("BANK-BORROW"), new Branch("Leave"))
 				).getEncounter();
 			case BEASTMISTRESS:
@@ -465,8 +465,8 @@ public class EncounterBuilder {
 				Branch leave = new Branch("Leave").encounterEnd();
 				return new Branch().textScene("INNKEEP-01").choiceScene(
 					"Stay the night?",
-					new Branch("Rest at Inn (10 Gold)").require(ChoiceCheckType.GOLD_GREATER_THAN_10).textScene("INNKEEP-02").encounterEnd(),
-					new Branch("Rest at Inn (Low Funds)").require(ChoiceCheckType.GOLD_LESS_THAN_10).checkScene(
+					new Branch("Rest at Inn (10 Gold)").require(ChoiceCheckType.GOLD_GREATER_THAN_X, 10).textScene("INNKEEP-02").encounterEnd(),
+					new Branch("Rest at Inn (Low Funds)").require(ChoiceCheckType.GOLD_LESS_THAN_X, 10).checkScene(
 						CheckType.INN_0,
 						new Branch(true).textScene("INNKEEP-03").choiceScene(
 							"Take his offer?",
@@ -754,9 +754,21 @@ public class EncounterBuilder {
 	
 	public enum ChoiceCheckType {
 		LEWD,
-		GOLD_GREATER_THAN_10,
-		GOLD_GREATER_THAN_25,
-		GOLD_LESS_THAN_10
+		GOLD_GREATER_THAN_X,
+		GOLD_LESS_THAN_X;
+		
+		public boolean isValidChoice(PlayerCharacter character, Stat statToCheck, Perk perkToCheck, int target) {
+			switch (this) {
+				case LEWD:
+					return character.isLewd();
+				case GOLD_GREATER_THAN_X:
+					return character.getMoney() >= target;
+				case GOLD_LESS_THAN_X:
+					return character.getMoney() < target;
+				default:
+					return false;
+			}
+		}
 	}
 	
 	public class Branch {
@@ -770,7 +782,7 @@ public class EncounterBuilder {
 		Stance enemyStance;
 		boolean disarm;
 		int climaxCounter;
-		ChoiceCheckType require;
+		ChoiceCheckToken require;
 		int concatCounter;
 		
 		boolean preprocessed;
@@ -881,7 +893,22 @@ public class EncounterBuilder {
 		}
 		
 		public Branch require(ChoiceCheckType type) {
-			require = type;
+			require = new ChoiceCheckToken(type);
+			return this;
+		}
+		
+		public Branch require(ChoiceCheckType type, int target) {
+			require = new ChoiceCheckToken(type, target);
+			return this;
+		}
+		
+		public Branch require(ChoiceCheckType type, Stat stat, int target) {
+			require = new ChoiceCheckToken(type, target, stat);
+			return this;
+		}
+		
+		public Branch require(ChoiceCheckType type, Perk perk, int target) {
+			require = new ChoiceCheckToken(type, target, perk);
 			return this;
 		}
 		
@@ -1181,13 +1208,41 @@ public class EncounterBuilder {
 		
 	}
 	
+	public static class ChoiceCheckToken {
+		public final ChoiceCheckType type;
+		public final Stat statToCheck;
+		public final Perk perkToCheck;
+		public final int target;
+		
+		public ChoiceCheckToken(ChoiceCheckType type) {
+			this(type, 0);
+		}
+		public ChoiceCheckToken(ChoiceCheckType type, int target) {
+			this(type, target, null, null);
+		}
+		public ChoiceCheckToken(ChoiceCheckType type, int target, Stat statToCheck) {
+			this(type, target, statToCheck, null);
+		}
+		public ChoiceCheckToken(ChoiceCheckType type, int target, Perk perkToCheck) {
+			this(type, target, null, perkToCheck);
+		}
+		public ChoiceCheckToken(ChoiceCheckType type, int target, Stat statToCheck, Perk perkToCheck) {
+			this.type = type;
+			this.target = target;
+			this.statToCheck = statToCheck;
+			this.perkToCheck = perkToCheck;
+		}
+		public boolean isValidChoice(PlayerCharacter character) {
+			return type.isValidChoice(character, statToCheck, perkToCheck, target);
+		}
+	}
 	
 	public static class BranchChoice {
 		public final TextButton button;
 		public final Scene scene;
-		public final ChoiceCheckType require;
+		public final ChoiceCheckToken require;
 		public final Sound clickSound;
-		public BranchChoice(TextButton button, Scene scene, ChoiceCheckType require, Sound clickSound) {
+		public BranchChoice(TextButton button, Scene scene, ChoiceCheckToken require, Sound clickSound) {
 			this.button = button;
 			this.scene = scene;
 			this.require = require;
