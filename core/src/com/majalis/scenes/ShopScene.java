@@ -217,10 +217,12 @@ public class ShopScene extends Scene {
 						shop.weapons.add(new Weapon(type));	
 					}									
 				}
-				for (WeaponType type: WeaponType.values()) {
-					if (type.isBuyable()) {
-						shop.weapons.add(new Weapon(type, 1));	
-					}									
+				if (shopCode == ShopCode.WEAPON_SHOP) {
+					for (WeaponType type: WeaponType.values()) {
+						if (type.isBuyable()) {
+							shop.weapons.add(new Weapon(type, 1));	
+						}									
+					}
 				}
 				break;
 			case SHOP:
