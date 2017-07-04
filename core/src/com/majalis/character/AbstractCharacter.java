@@ -663,7 +663,11 @@ public abstract class AbstractCharacter extends Actor {
 				statuses.put(StatusType.AGILITY_BUFF.toString(), effect.getMagnitude());
 				break;
 			case MEAT:
-				result = "You ate the " + item.getName() + "! Food stores increased by 5.";
+				result = "You ate the " + item.getName() + "! Hunger decreased by 5.";
+				modFood(effect.getMagnitude());
+				break;
+			case SPIDER:
+				result = "You ate the " + item.getName() + "?! WHY?! Hunger decreased by 5, uhhhhhhh?";
 				modFood(effect.getMagnitude());
 				break;
 			case BANDAGE:

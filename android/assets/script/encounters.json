@@ -3781,7 +3781,9 @@
 	{
 		"key": "SPIDER-GET",
 		"scriptLines": [
-			{"text": "You pick the spider up off the ground and stow it away in your pouch.  Um.  What are you doing?"},
+			{
+			"mutations": [{"saveType":"ITEM", "value":{"class": "com.majalis.character.Item$Potion", "effect": "SPIDER", "magnitude": "5"}}, {"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": 1}}],
+			"text": "You pick the spider up off the ground and stow it away in your pouch.  Um.  What are you doing?"},
 			{"text": "The spider is strangely content to become an inventory item.  Stranger things have happened."},
 			{"text": "While you're busy stuffing an arachnid in your pouch, someone approaches, and you notice them."},
 			{

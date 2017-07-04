@@ -181,7 +181,7 @@ public abstract class Item {
 
 		@Override
 		public String getName() {
-			return effect.getDisplay() + (effect == EffectType.MEAT || effect == EffectType.BANDAGE ? "" : " (" + magnitude + ")"); 
+			return effect.getDisplay() + (effect == EffectType.SPIDER || effect == EffectType.MEAT || effect == EffectType.BANDAGE ? "" : " (" + magnitude + ")"); 
 		}
 
 		@Override
@@ -196,7 +196,9 @@ public abstract class Item {
 				case HEALING:
 					return "Heals the imbiber for " + magnitude + " health.";
 				case MEAT:
-					return "Increases food stores by " + magnitude + ".";
+					return "Eat to restore " + magnitude + " hunger.";
+				case SPIDER:
+					return "Eat to restore " + magnitude + " hunger...?!";
 				case BANDAGE:
 					return "Use to heal blood loss by " + magnitude + ".";
 				default:
@@ -206,6 +208,7 @@ public abstract class Item {
 	}
 	
 	public enum EffectType {
+		SPIDER ("Spider"),
 		HEALING ("Health Pot."),
 		BONUS_STRENGTH ("Ox Pot."),
 		BONUS_AGILITY ("Cat Pot."),
