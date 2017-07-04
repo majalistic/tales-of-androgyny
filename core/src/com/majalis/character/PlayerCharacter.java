@@ -41,6 +41,7 @@ public class PlayerCharacter extends AbstractCharacter {
 	
 	/* out of battle only statistics */
 	protected int money;
+	private int debt;
 
 	protected Femininity femininity;
 	protected LipFullness lipFullness;
@@ -85,6 +86,7 @@ public class PlayerCharacter extends AbstractCharacter {
 			// this needs to be refactored - need "current defense" and for refresh method to set to max
 			baseDefense = 6;
 			money = 40;
+			debt = 0;
 			inventory = new Array<Item>();
 			for (int ii = 10; ii <= 20; ii += 10) {
 				inventory.add(new Potion(ii));
@@ -1150,7 +1152,7 @@ public class PlayerCharacter extends AbstractCharacter {
 	}
 	
 	public enum QuestType {
-		ORC, CRIER, INNKEEP, TRUDY, GOBLIN, OGRE, SPIDER
+		ORC, CRIER, INNKEEP, TRUDY, GOBLIN, OGRE, SPIDER, BROTHEL
 	}
 	
 	public static class QuestFlag {
@@ -1174,8 +1176,23 @@ public class PlayerCharacter extends AbstractCharacter {
 		return gold  > 0 ? "Gained " + gold + " gold!" : "-" + loss + " gold!";
 	}
 	
+	public String modDebt(Integer gold) {
+		int loss = debt > gold ? -gold : debt; 
+		debt += gold;
+		if (debt < 0) {
+			debt = 0;
+		}
+		
+		return gold > 0 ? "You have incurred " + gold + " gold worth of debt." : "You've been relieved of " + loss + " gold worth of debt!";
+	}
+	
 	public int getBattlePerception() {
 		return getPerception();
 	}
 
+	public int getCurrentDebt() {
+		return debt;
+	}
+
+	
 }

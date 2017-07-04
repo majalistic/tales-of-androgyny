@@ -64,7 +64,7 @@ public class SaveManager implements SaveService, LoadService {
     
     public void saveDataValue(ProfileEnum key, Object object, boolean saveToJson) {
     	switch (key) {
-			case KNOWLEDGE: 		profileSave.addKnowledge((String) object); break;
+			case KNOWLEDGE:		profileSave.addKnowledge((String) object); break;
 		}
     	if (saveToJson) {
     		saveToProfileJson(profileSave);
@@ -104,6 +104,7 @@ public class SaveManager implements SaveService, LoadService {
 	    	case FOOD:				save.player.modFood((Integer) object); result = (Integer) object > 0 ? "+" + ((Integer) object).toString() + " food!" : ((Integer) object).toString() + " food!"; break; // this should get a result back from modFood
 	    	case EXPERIENCE:		save.player.modExperience((Integer) object); result = "+" + ((Integer) object).toString() + " XP!"; break; // this should get a result back from modExperience
 	    	case GOLD:				result = save.player.modMoney((Integer) object); break; 
+	    	case DEBT:				result = save.player.modDebt((Integer) object); break;
 	    	case MODE:				save.mode = (GameMode) object; if ((GameMode) object == GameMode.SKIRMISH) save.player.load() ; break;
 	    	case MUSIC:				save.music = (String) object; break;
 	    	case CONSOLE:			save.console = extracted(object); break;
@@ -152,6 +153,7 @@ public class SaveManager implements SaveService, LoadService {
 	    	case ANAL:			
 	    	case ITEM:
 	    	case GOLD:
+	    	case DEBT:
 	    	case GOBLIN_VIRGIN:		break;
 	    	case SHOP:				return (T) (ObjectMap<String, Shop>) save.shops;
 	    	case QUEST:				break;

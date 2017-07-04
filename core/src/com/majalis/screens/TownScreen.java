@@ -87,7 +87,7 @@ public class TownScreen extends AbstractScreen {
         table.setPosition(1200, 595);
 		
 		Array<String> buttonLabels = new Array<String>();
-		buttonLabels.addAll("General Store", "Blacksmith", "Inn", "Town Crier", "Depart");
+		buttonLabels.addAll("General Store", "Blacksmith", "Inn", "Bank", "Brothel", "Town Crier", "Depart");
 		
 		for (int ii = 0; ii < buttonLabels.size; ii++) {
 			buttons.add(new TextButton(buttonLabels.get(ii), skin));
@@ -97,9 +97,11 @@ public class TownScreen extends AbstractScreen {
 		
 		buttons.get(0).addListener(getListener(EncounterCode.SHOP));
 		buttons.get(1).addListener(getListener(EncounterCode.WEAPON_SHOP));
-		buttons.get(2).addListener(getListener(EncounterCode.INN));  		
-		//buttons.get(3).addListener(getListener(EncounterCode.TOWN_CRIER)); 
-		buttons.get(4).addListener(new ClickListener() {
+		buttons.get(2).addListener(getListener(EncounterCode.INN));  	
+		buttons.get(3).addListener(getListener(EncounterCode.BANK));  	
+		buttons.get(4).addListener(getListener(EncounterCode.BROTHEL));  	
+		buttons.get(5).addListener(getListener(EncounterCode.TOWN_CRIER)); 
+		buttons.get(6).addListener(new ClickListener() {
 	        @Override
 	        public void clicked(InputEvent event, float x, float y) {
 	        	buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);

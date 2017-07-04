@@ -127,6 +127,12 @@ public class EncounterBuilder {
 						)
 					)
 				).getEncounter();
+			case BANK:
+				return new Branch().textScene("BANK").checkScene(
+					CheckType.HAVE_DEBT,
+					new Branch(true).choiceScene("Pay back debt?", new Branch("Pay Debt (10 GP)").require(ChoiceCheckType.GOLD_GREATER_THAN_10).textScene("BANK-PAY"), new Branch("Leave")),
+					new Branch(false).choiceScene("Do you want to borrow?", new Branch("Borrow (50 GP)").textScene("BANK-BORROW"), new Branch("Leave"))
+				).getEncounter();
 			case BEASTMISTRESS:
 				return new Branch().textScene("BEASTMISTRESS-INTRO").choiceScene(
 					"Snake or Pussy?", 
@@ -189,6 +195,17 @@ public class EncounterBuilder {
 						BattleCode.BRIGAND, Stance.STANDING_BOTTOM, Stance.STANDING,
 						battleBranches2	
 					)	
+				).getEncounter();
+			case BROTHEL:
+				Branch onceSignedUp = new Branch().textScene("BROTHEL-MEMBER").choiceScene("What service do you offer?", new Branch("Blowjobs"), new Branch("Ass"), new Branch("GFXP"));
+				return new Branch().textScene("BROTHEL").checkScene(
+					CheckType.PROSTITUTE, 	
+					new Branch(true).concat(onceSignedUp),
+					new Branch(false).choiceScene(
+						"Do you want to sign up?",
+						new Branch ("What's the worst that could happen?").require(ChoiceCheckType.LEWD).textScene("BROTHEL-SIGN-UP").concat(onceSignedUp),
+						new Branch ("Leave")
+					)
 				).getEncounter();
 			case CAMP_AND_EAT:
 				return new Branch().textScene("FORCED-CAMP").encounterEnd().getEncounter();
@@ -742,6 +759,7 @@ public class EncounterBuilder {
 	protected enum ChoiceCheckType {
 		LEWD,
 		GOLD_GREATER_THAN_10,
+		GOLD_GREATER_THAN_25,
 		GOLD_LESS_THAN_10
 	}
 	
@@ -1046,7 +1064,8 @@ public class EncounterBuilder {
 			String characterName = character.getCharacterName();
 			String buttsize = character.getBootyLiciousness();
 			String lipsize = character.getLipFullness();
-
+			String debt = character.getCurrentDebt() > 0 ? "You currently owe " + character.getCurrentDebt() + " gold." : "";
+			
 			Array<Background> backgrounds = new Array<Background>();
 			AssetEnum background = null;
 			AssetEnum foreground = null;
@@ -1128,7 +1147,7 @@ public class EncounterBuilder {
 						newScene = new CharacterCustomizationScene(sceneMap, sceneCounter, saveService, font, new BackgroundBuilder(assetManager.get(AssetEnum.CHARACTER_CUSTOM_BACKGROUND.getTexture())).build(), assetManager, character);
 					}
 					else {
-						String scriptLine = token.text.replace("<NAME>", characterName).replace("<BUTTSIZE>", buttsize).replace("<LIPSIZE>", lipsize);
+						String scriptLine = token.text.replace("<NAME>", characterName).replace("<BUTTSIZE>", buttsize).replace("<LIPSIZE>", lipsize).replace("<DEBT>", debt);
 						// create the scene
 						newScene = new TextScene(sceneMap, sceneCounter, assetManager, font, saveService, backgrounds.get(ii++), scriptLine, getMutations(token.mutations), character, token.music != null ? token.music.getMusic() : null, token.sound != null ? token.sound.getSound() : null);		
 					}
@@ -1209,6 +1228,8 @@ public class EncounterBuilder {
 			switch (type) {
 			case LEWD:
 				return character.isLewd();
+			case GOLD_GREATER_THAN_25:
+				return character.getMoney() >= 25;
 			case GOLD_GREATER_THAN_10:
 				return character.getMoney() >= 10;
 			case GOLD_LESS_THAN_10:

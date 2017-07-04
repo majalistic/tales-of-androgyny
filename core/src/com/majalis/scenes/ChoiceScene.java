@@ -36,7 +36,7 @@ public class ChoiceScene extends AbstractChoiceScene {
 		int ii = 0;
 		for (TextButton button: buttons) {
 			button.addListener(getListener(ii++));
-			table.add(button).size(650, 150).row();	
+			table.add(button).size(665, 150).row();	
 		}	
         table.setPosition(960, 775);
         table.align(Align.top);

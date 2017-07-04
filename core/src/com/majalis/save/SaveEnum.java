@@ -28,5 +28,6 @@ public enum SaveEnum {
 	ITEM,
 	GOBLIN_VIRGIN,
 	QUEST, 
-	GOLD
+	GOLD,
+	DEBT
 }

@@ -827,6 +827,56 @@
 		]
 	},
 	{
+		"key": "BANK",
+		"scriptLines": [
+			{
+			"music": "SHOP_MUSIC",
+			"background": "TOWN_BG", 
+			"foreground": "TRAINER",
+			"text": "You enter the bank. <DEBT>"}
+		]
+	},
+	{
+		"key": "BANK-PAY",
+		"scriptLines": [
+			{
+			"mutations": [{"saveType":"GOLD", "value":{"class": "java.lang.Integer", "value": -10}}, {"saveType":"DEBT", "value":{"class": "java.lang.Integer", "value": -10}}],
+			"text": "You hand the coins over to the teller."}
+		]
+	},
+	{
+		"key": "BANK-BORROW",
+		"scriptLines": [
+			{
+			"mutations": [{"saveType":"GOLD", "value":{"class": "java.lang.Integer", "value": 50}}, {"saveType":"DEBT", "value":{"class": "java.lang.Integer", "value": 50}}],
+			"text": "You hand the coins over to the teller."}
+		]
+	},
+	{
+		"key": "BROTHEL",
+		"scriptLines": [
+			{
+			"music": "SHOP_MUSIC",
+			"background": "TOWN_BG", 
+			"foreground": "TRAINER",
+			"text": "You enter the brothel."}
+		]
+	},
+	{
+		"key": "BROTHEL-SIGN-UP",
+		"scriptLines": [
+			{
+			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "BROTHEL", "value":1}}],
+			"text": "."}
+		]
+	},
+	{
+		"key": "BROTHEL-MEMBER",
+		"scriptLines": [
+			{"text": "."}
+		]
+	},
+	{
 		"key": "NO-SKILLS",
 		"scriptLines": [
 			{"text": "You have no skills to select!"}

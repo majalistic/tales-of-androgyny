@@ -44,9 +44,9 @@ public abstract class AbstractTextScene extends Scene {
 		Skin skin = assetManager.get(AssetEnum.UI_SKIN.getSkin());
 		display = addLabel("", skin, font, Color.BLACK, 430, 330);
 		display.setWidth(1125);
-		statusResults = addLabel("", skin, font, Color.BLACK, 1430, 950);
+		statusResults = addLabel("", skin, font, Color.GOLD, 1430, 950);
 		statusResults.setWidth(400);
-		Label skipText = addLabel("Press CTRL to skip", skin, font, Color.BLACK, 105, 180);
+		Label skipText = addLabel("Press CTRL to skip", skin, font, Color.GRAY, 105, 180);
 		skipText.setWidth(240);
 		Texture portrait = assetManager.get(character.getPortraitPath());
 		characterPortrait = addImage(portrait, null, 105, 800, portrait.getWidth() / (portrait.getHeight() / 200f), 200);

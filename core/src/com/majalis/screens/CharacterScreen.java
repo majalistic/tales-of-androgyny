@@ -96,10 +96,15 @@ public class CharacterScreen extends AbstractScreen {
 		overview.add(getLabel("Level: ", skin, Color.BLACK)).align(Align.left);
 		overview.add(getLabel(String.valueOf(character.getLevel()), skin, Color.GOLD)).align(Align.left).row();
 		overview.add(getLabel("Experience: ", skin, Color.BLACK)).align(Align.left);
-		overview.add(getLabel(String.valueOf(character.getExperience()), skin, Color.GOLD)).align(Align.left).row();
+		overview.add(getLabel(String.valueOf(character.getExperience()), skin, Color.FOREST)).align(Align.left).row();
 		if (storedLevels > 0) {
 			overview.add(getLabel("Available Levels: " + storedLevels, skin, Color.GOLD)).align(Align.left).row();
 		}
+		overview.add(getLabel("Gold: ", skin, Color.BLACK)).align(Align.left);
+		overview.add(getLabel(String.valueOf(character.getMoney()), skin, Color.GOLD)).align(Align.left).row();
+		overview.add(getLabel("Debt: ", skin, Color.BLACK)).align(Align.left);
+		overview.add(getLabel(String.valueOf(character.getCurrentDebt()), skin, Color.FIREBRICK)).align(Align.left).row();
+		
 		
 		overview.add(getLabel("Booty: ", skin, Color.BLACK)).align(Align.left);
 		overview.add(getLabel(character.getBootyLiciousness(), skin, Color.PINK)).align(Align.left).row();
@@ -118,7 +123,7 @@ public class CharacterScreen extends AbstractScreen {
 			statTable.add(statImage).size(statImage.getWidth() / (statImage.getHeight() / 35), 35).align(Align.left).padRight(20);
 			statTable.add(statLabel).align(Align.left).row();
 		}
-		statTable.setPosition(250, 750);
+		statTable.setPosition(250, 700);
 		statTable.align(Align.top);
 		this.addActor(statTable);
 		

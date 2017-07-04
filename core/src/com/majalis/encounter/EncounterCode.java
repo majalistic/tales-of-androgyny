@@ -29,6 +29,8 @@ public enum EncounterCode {
 	FORT (CASTLE), 
 	TOWN (AssetEnum.TOWN),
 	TOWN2 (AssetEnum.TOWN),
+	BANK,
+	BROTHEL,
 	TOWN_CRIER,
 	CRIER_QUEST (MOUNTAIN_ACTIVE), 
 	INN,
@@ -317,6 +319,9 @@ public enum EncounterCode {
 				return reqs;				
 			case SHOP:
 			case WEAPON_SHOP:
+			case BROTHEL:
+			case BANK:
+			case TOWN_CRIER:
 				return TownScreen.resourceRequirements;
 			case OGRE_WARNING_STORY:
 				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{AssetEnum.TRAINER_MUSIC.getMusic()});

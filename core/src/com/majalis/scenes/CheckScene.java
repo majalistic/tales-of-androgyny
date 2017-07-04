@@ -187,6 +187,14 @@ public class CheckScene extends AbstractTextScene {
 		ALIVE ("You're still conscious.", "You fall unconscious!") { 
 			@Override
 			protected boolean getCheck(PlayerCharacter character) { return character.getCurrentHealth() > 0; }  
+		}, 
+		HAVE_DEBT ("You owe a debt.", "You are debt free.") { 
+			@Override
+			protected boolean getCheck(PlayerCharacter character) { return character.getCurrentDebt() > 0; }  
+		}, 
+		PROSTITUTE (".", "."){ 
+			@Override
+			protected boolean getCheck(PlayerCharacter character) { return character.getQuestStatus(QuestType.BROTHEL) != 0; }  
 		},
 		;
 		
