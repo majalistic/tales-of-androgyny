@@ -123,7 +123,7 @@ public class CharacterScreen extends AbstractScreen {
 			statTable.add(statImage).size(statImage.getWidth() / (statImage.getHeight() / 35), 35).align(Align.left).padRight(20);
 			statTable.add(statLabel).align(Align.left).row();
 		}
-		statTable.setPosition(250, 700);
+		statTable.setPosition(250, 675);
 		statTable.align(Align.top);
 		this.addActor(statTable);
 		
@@ -151,6 +151,15 @@ public class CharacterScreen extends AbstractScreen {
 			this.addActor(levelUp);
 		}
 		
+		Table perkTable = new Table();
+		perkTable.align(Align.topLeft);
+		perkTable.setPosition(1100, 1040);
+		this.addActor(perkTable);
+		perkTable.add(getLabel("Perks: ", skin, Color.FOREST)).align(Align.left).row();
+		for (ObjectMap.Entry<Perk, Integer> perk : character.getPerks().entries()) {
+			perkTable.add(getLabel(perk.key.getLabel() + " (" + perk.value.toString() + ")", skin, Color.BLACK)).align(Align.left).row();
+		}
+		
 		final Table inventoryTable = new Table();
 		final Label inventoryText = new Label("", skin);
 		inventoryTable.add(inventoryText).row();
@@ -162,7 +171,7 @@ public class CharacterScreen extends AbstractScreen {
 		final Label weaponTableText = new Label("", skin);
 		weaponTable.add(weaponTableText).row();
 		weaponTable.add(getLabel("Weapons", skin, Color.BLACK)).row();
-		weaponTable.setPosition(260, 500);
+		weaponTable.setPosition(260, 475);
 		weaponTable.align(Align.top);
 		this.addActor(weaponTable);
 		
@@ -177,15 +186,6 @@ public class CharacterScreen extends AbstractScreen {
 		equipmentTable.add(getLabel("Headgear: ", skin, Color.DARK_GRAY)).align(Align.left).row();
 		equipmentTable.add(getLabel("Legwear: ", skin, Color.DARK_GRAY)).align(Align.left).row();
 		equipmentTable.add(getLabel("Armwear: ", skin, Color.DARK_GRAY)).align(Align.left).row();
-		
-		Table perkTable = new Table();
-		perkTable.align(Align.topLeft);
-		perkTable.setPosition(1100, 1040);
-		this.addActor(perkTable);
-		perkTable.add(getLabel("Perks: ", skin, Color.FOREST)).align(Align.left).row();
-		for (ObjectMap.Entry<Perk, Integer> perk : character.getPerks().entries()) {
-			perkTable.add(getLabel(perk.key.getLabel() + " (" + perk.value.toString() + ")", skin, Color.BLACK)).align(Align.left).row();
-		}
 		
 		for (final Item item : character.getInventory()) {
 			final TextButton itemButton = new TextButton(item.getName(), skin);
