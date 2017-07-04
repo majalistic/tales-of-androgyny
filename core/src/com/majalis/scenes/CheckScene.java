@@ -89,7 +89,7 @@ public class CheckScene extends AbstractTextScene {
 		else {
 			int amount = statToCheck == Stat.CHARISMA ? character.getLewdCharisma() : character.getRawStat(statToCheck);
 			int baseAmount = character.getBaseStat(statToCheck);
-			toDisplay += "Your current " + statToCheck.toString() + " score: " + amount + " (Base: " + baseAmount + ")" + "\n\n";
+			toDisplay += "Your current " + statToCheck.toString() + " score: " + amount + " (Base: " + baseAmount + ")" + "\n" + character.getStatPenaltyDisplay() + "\n\n";
 			for (Integer threshold : checkValues.keys()) {
 				if (threshold == 0) break;
 				toDisplay += statToCheck.toString() + " check (" + threshold + "): ";
@@ -103,6 +103,7 @@ public class CheckScene extends AbstractTextScene {
 				}
 			}
 			display.setText(toDisplay);
+			display.addAction(Actions.moveBy(0, 200));
 			return checkValues.get(0);
 		}
 	}
