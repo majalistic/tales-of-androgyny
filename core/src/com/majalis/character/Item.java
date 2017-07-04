@@ -25,7 +25,6 @@ public abstract class Item {
 	public static class Weapon extends Item {
 		
 		private WeaponType type;
-		private String name;
 		private int bonus;
 
 		@SuppressWarnings("unused")
@@ -37,7 +36,6 @@ public abstract class Item {
 		
 		public Weapon(WeaponType type, int bonus) {
 			this.type = type;
-			this.name = type.toString() + (bonus != 0 ? " +" + bonus : "");
 			this.bonus = bonus;
 		}
 
@@ -58,7 +56,7 @@ public abstract class Item {
 
 		@Override
 		public String getName() {
-			return name;
+			return type.toString() + (bonus != 0 ? " +" + bonus : "");
 		}
 
 		@Override

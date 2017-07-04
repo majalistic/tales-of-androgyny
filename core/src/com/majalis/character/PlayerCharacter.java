@@ -954,13 +954,14 @@ public class PlayerCharacter extends AbstractCharacter {
 		}
 	}
 	
-	public void receiveItem(Item item) {
+	public String receiveItem(Item item) {
 		if (item.instantUse()) {
 			consumeItem(item);
 		}
 		else {
 			inventory.add(item);
 		}
+		return "You have received a " + item.getName() + "!";
 	}
 	
 	public boolean buyItem(Item item, int cost) {
