@@ -153,7 +153,7 @@ public class ShopScene extends Scene {
 				}
 			});
 			
-			table.add(weaponButton).size(400, 60).row();
+			table.add(weaponButton).size(500, 60).row();
 		}
 		
 		for (final Potion potion: shop.consumables) {
@@ -215,6 +215,11 @@ public class ShopScene extends Scene {
 				for (WeaponType type: WeaponType.values()) {
 					if (type.isBuyable()) {
 						shop.weapons.add(new Weapon(type));	
+					}									
+				}
+				for (WeaponType type: WeaponType.values()) {
+					if (type.isBuyable()) {
+						shop.weapons.add(new Weapon(type, 1));	
 					}									
 				}
 				break;

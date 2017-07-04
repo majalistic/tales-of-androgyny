@@ -26,15 +26,21 @@ public abstract class Item {
 		
 		private WeaponType type;
 		private String name;
+		private int bonus;
 
 		@SuppressWarnings("unused")
 		private Weapon() {}
 		
 		public Weapon(WeaponType type) {
-			this.type = type;
-			this.name = type.toString();
+			this(type, 0);
 		}
 		
+		public Weapon(WeaponType type, int bonus) {
+			this.type = type;
+			this.name = type.toString() + (bonus != 0 ? " +" + bonus : "");
+			this.bonus = bonus;
+		}
+
 		@Override
 		public boolean isEquippable() {
 			return true;
@@ -42,7 +48,7 @@ public abstract class Item {
 		
 		@Override
 		public int getValue() {
-			return 10;
+			return bonus == 0 ? 10 : 50;
 		}
 
 		@Override
@@ -58,26 +64,26 @@ public abstract class Item {
 		@Override
 		public String getDescription() {
 			switch (type) {
-				case Dagger: return "Thrusting weapon whose efficacy is dependent on the wielder's agility. Causes bleed. [Damage: 0 + Agility / 2]";
-				case Rapier: return "Thrusting weapon whose efficacy is dependent on the wielder's agility. Causes bleed. [Damage: 1 + Agility / 3]";
-				case Gladius: return "Thrusting and slashing weapon whose efficacy is dependent on both the wielder's strength and agility. Causes bleed. [Damage: 1 + (Strength + Agility) / 5]";
-				case Cutlass: return "Slashing weapon Weapon whose efficacy is dependent on both the wielder's strength and agility. Causes bleed. [Damage: 1 + (Strength + Agility) / 5]";
-				case Broadsword: return "Thrusting and slashing weapon whose efficacy is dependent on the wielder's strength. Causes bleed. [Damage: 1 + Strength / 3]";
+				case Dagger: return "Thrusting weapon whose efficacy is dependent on the wielder's agility. Causes bleed. [Damage: " + bonus + " + Agility / 2]";
+				case Rapier: return "Thrusting weapon whose efficacy is dependent on the wielder's agility. Causes bleed. [Damage: " + (bonus + 1) + " + Agility / 3]";
+				case Gladius: return "Thrusting and slashing weapon whose efficacy is dependent on both the wielder's strength and agility. Causes bleed. [Damage: " + (bonus + 1) + " + (Strength + Agility) / 5]";
+				case Cutlass: return "Slashing weapon Weapon whose efficacy is dependent on both the wielder's strength and agility. Causes bleed. [Damage: " + (bonus + 1) + " + (Strength + Agility) / 5]";
+				case Broadsword: return "Thrusting and slashing weapon whose efficacy is dependent on the wielder's strength. Causes bleed. [Damage: " + (bonus + 1) + " + Strength / 3]";
 				default: return "Unknown Weapon!";
 			}
 		}
 		
 		public int getDamage(ObjectMap<Stat, Integer> stats) {
 			switch (type) {
-				case Dagger: return stats.get(Stat.AGILITY) / 2;
-				case Rapier: return (stats.get(Stat.AGILITY)) / 3 + 1;
+				case Dagger: return stats.get(Stat.AGILITY) / 2 + bonus;
+				case Rapier: return (stats.get(Stat.AGILITY)) / 3 + 1 + bonus;
 				case Axe: 
-				case Club: return (stats.get(Stat.STRENGTH)) / 3 + 2;
+				case Club: return (stats.get(Stat.STRENGTH)) / 3 + 2 + bonus;
 				case Gladius:
-				case Cutlass: return (stats.get(Stat.STRENGTH) + stats.get(Stat.AGILITY)) / 5 + 1;
-				case Broadsword: return (stats.get(Stat.STRENGTH)) / 3 + 1;
+				case Cutlass: return (stats.get(Stat.STRENGTH) + stats.get(Stat.AGILITY)) / 5 + 1 + bonus;
+				case Broadsword: return (stats.get(Stat.STRENGTH)) / 3 + 1 + bonus;
 				case Bow: return 1;
-				case Flail: return (stats.get(Stat.STRENGTH)) / 3 + 2;
+				case Flail: return (stats.get(Stat.STRENGTH)) / 3 + 2 + bonus;
 				case Talon: 
 				case Claw: return 0;
 				default: return 0;
