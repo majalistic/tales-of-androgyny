@@ -11,7 +11,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
@@ -989,16 +988,18 @@ public class EncounterBuilder {
 							weld(scenes, battleScenes, endScenes, next, sceneMap);
 						}
 						if (branchToken.type == EndTokenType.Choice) {
-							Table table = new Table();
+							Array<TextButton> buttons = new Array<TextButton>();
 							ChoiceSceneToken choiceBranchToken = (ChoiceSceneToken)branchToken;
-							ChoiceScene choiceScene = new ChoiceScene(sceneMap, sceneCounter, saveService, font, choiceBranchToken.getToDisplay(), table, new BackgroundBuilder(assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getTexture())).build());
+							for (OrderedMap.Entry<Object, Branch> next : branchOptions) {
+								buttons.add(new TextButton((String)next.key, skin));							
+							}
+							ChoiceScene choiceScene = new ChoiceScene(sceneMap, sceneCounter, saveService, font, choiceBranchToken.getToDisplay(), buttons, assetManager.get(AssetEnum.STANCE_ARROW.getTexture()), new BackgroundBuilder(assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getTexture())).build());
 							// need the choiceScene in order to create the buttons, so iterate through again
+							int ii = 0;
 							for (OrderedMap.Entry<Object, Branch> next : branchOptions) {
 								Scene nextScene = next.value.getScenes().first();
-								TextButton button = new TextButton((String)next.key, skin);
-								// this needs the logic for checks as well
-								button.addListener(getListener(choiceScene, nextScene, buttonSound, next.value.require, button));
-								table.add(button).size(650, 150).row();
+								buttons.get(ii).addListener(getListener(choiceScene, nextScene, buttonSound, next.value.require, buttons.get(ii)));			
+								ii++;
 							}
 							sceneMap = addScene(scenes, choiceScene, true);	
 						}
