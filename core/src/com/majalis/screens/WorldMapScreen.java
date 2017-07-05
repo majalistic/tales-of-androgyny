@@ -163,8 +163,10 @@ public class WorldMapScreen extends AbstractScreen {
 		multi = new InputMultiplexer();
 		multi.addProcessor(this);
 		multi.addProcessor(worldStage);
+		
+		tintForTimeOfDay();
 	}
-
+	
 	@Override
 	public void buildStage() {
 		for (Actor actor: world.getActors()) {
@@ -220,6 +222,7 @@ public class WorldMapScreen extends AbstractScreen {
 					saveService.saveDataValue(SaveEnum.FOOD, -4);	 
 					saveService.saveDataValue(SaveEnum.TIME, 1);	
 					time++;
+					tintForTimeOfDay();
 					saveService.saveDataValue(SaveEnum.HEALTH, 10);	
 					if (character.getFood() < 4) {
 						TextButtonStyle style = new TextButtonStyle(camp.getStyle());
@@ -302,6 +305,28 @@ public class WorldMapScreen extends AbstractScreen {
 		font.draw(batch, getTime(), camera.position.x + 370, camera.position.y + 125);
 		font.draw(batch, "X " + character.getFood(), camera.position.x + 23, camera.position.y + 25);
 		batch.end();
+	}
+	
+	private void tintForTimeOfDay() {
+		for (Actor actor : group.getChildren()) {
+			actor.setColor(getTimeColor());
+		}
+	}
+	
+	private Color getTimeColor() {
+		switch (time%6) {
+			case 0: return getColor(156, 154, 32); // 255, 239, 205
+			case 1: return getColor(255, 255, 214);
+			case 2: return getColor(251, 255, 255);
+			case 3: return getColor(246, 212, 181);
+			case 4: return getColor(75, 125, 217);
+			case 5: return getColor(35, 55, 120);  //37,33,84
+		}
+		return null;
+	}
+	
+	private Color getColor(float r, float g, float b) {
+		return new Color(r/256f, g/256f, b/256f, 1);
 	}
 	
 	private String getTime() {

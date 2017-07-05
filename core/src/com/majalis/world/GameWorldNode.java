@@ -3,6 +3,7 @@ package com.majalis.world;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
@@ -271,13 +272,24 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
     public void draw(Batch batch, float parentAlpha) {
 		batch.draw(activeImage, position.x, position.y);
 		if(active) {
+			Color cache = batch.getColor();
+			batch.setColor(Color.WHITE);
 			batch.draw(arrowImage, position.x+25, position.y+45+arrowHeight/5);
+			batch.setColor(cache);
 			arrowHeight += arrowShift;
 			if (arrowHeight > 100 || arrowHeight < 0) arrowShift = 0 - arrowShift;
 		}
 		
 		super.draw(batch, parentAlpha);
     }
+	
+	@Override
+	public void setColor(Color color) {
+		super.setColor(color);
+		for (Actor actor : getChildren()) {
+			actor.setColor(color);
+		}
+	}
 	
 	public void drawHover(Batch batch, Vector2 hoverPosition) {
 		if (hover) {

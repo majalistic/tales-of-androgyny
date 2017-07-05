@@ -18,7 +18,7 @@ public class GameWorld {
 	public boolean gameExit;
 	public boolean encounterSelected;
 	
-	public GameWorld(Array<GameWorldNode> nodes){
+	public GameWorld(Array<GameWorldNode> nodes) {
 		this.nodes = nodes;
 		displayHUD = true;
 		gameOver = false;
@@ -26,16 +26,16 @@ public class GameWorld {
 		encounterSelected = false;
 	}
 	
-	public void gameLoop(PolygonSpriteBatch batch, Vector3 position){
-		if (Gdx.input.isKeyJustPressed(Keys.TAB)){
+	public void gameLoop(PolygonSpriteBatch batch, Vector3 position) {
+		if (Gdx.input.isKeyJustPressed(Keys.TAB)) {
 			displayHUD = !displayHUD;
 		}
-		if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)){
+		if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
 			gameExit = true;
 		}
 		batch.begin();
-		for (GameWorldNode node: nodes){
-			if (node.isSelected()){
+		for (GameWorldNode node: nodes) {
+			if (node.isSelected()) {
 				encounterSelected = true;
 			}
 			// this should be refactored so that hover text is an actor the node creates that is rendered after
@@ -44,14 +44,14 @@ public class GameWorld {
 		batch.end();
 	}
 	
-	public Array<Actor> getActors(){
+	public Array<Actor> getActors() {
 		Array<Actor> actors = new Array<Actor>();
-		for (GameWorldNode node : nodes){
-			for (Actor actor : node.getPaths()){
+		for (GameWorldNode node : nodes) {
+			for (Actor actor : node.getPaths()) {
 				actors.add(actor);
 			}
 		}
-		for (Actor actor : nodes){
+		for (Actor actor : nodes) {
 			actors.add(actor);
 		}
 		return actors;
