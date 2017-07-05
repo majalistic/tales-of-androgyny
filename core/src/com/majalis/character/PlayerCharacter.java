@@ -1024,6 +1024,10 @@ public class PlayerCharacter extends AbstractCharacter {
 				result += temp + "\n";
 			}
 		}
+		if (sex.getOralCreampies() > 0) {
+			result += "You swallow enough to sate your hunger!\n";
+			food++;
+		}
 		for (int ii = 0; ii < sex.getFellatioEjaculations(); ii++) {
 			cumFromOral();
 		}
