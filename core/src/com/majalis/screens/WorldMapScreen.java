@@ -61,6 +61,7 @@ public class WorldMapScreen extends AbstractScreen {
 	private final Music music;
 	private final FrameBuffer frameBuffer;
 	private final InputMultiplexer multi;
+	private int time;
 	private boolean backgroundRendered = false;
 	
 	public static final Array<AssetDescriptor<?>> resourceRequirements = new Array<AssetDescriptor<?>>();
@@ -96,6 +97,8 @@ public class WorldMapScreen extends AbstractScreen {
 		camera = new PerspectiveCamera(70, 0, 1000);
         FitViewport viewport =  new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), camera);
 		worldStage = new Stage3D(viewport, batch);
+		
+		time = loadService.loadDataValue(SaveEnum.TIME, Integer.class);
 		
 		camera.position.set(0, 0, 500);
 		camera.near = 1f;
@@ -214,7 +217,9 @@ public class WorldMapScreen extends AbstractScreen {
 				@Override
 		        public void clicked(InputEvent event, float x, float y) {
 					buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
-					saveService.saveDataValue(SaveEnum.FOOD, -4);	   
+					saveService.saveDataValue(SaveEnum.FOOD, -4);	 
+					saveService.saveDataValue(SaveEnum.TIME, 1);	
+					time++;
 					saveService.saveDataValue(SaveEnum.HEALTH, 10);	
 					if (character.getFood() < 4) {
 						TextButtonStyle style = new TextButtonStyle(camp.getStyle());
@@ -292,9 +297,23 @@ public class WorldMapScreen extends AbstractScreen {
 		batch.begin();
 		OrthographicCamera camera = (OrthographicCamera) getCamera();
 		batch.setColor(1.0f, 1.0f, 1.0f, 1);
-		font.draw(batch, String.valueOf(character.getCurrentHealth()), camera.position.x+282*1.1f, camera.position.y+127*1.1f);
-		font.draw(batch, "X " + character.getFood(), camera.position.x+23, camera.position.y+25);
+		font.draw(batch, String.valueOf(character.getCurrentHealth()), camera.position.x + 310.2f, camera.position.y + 139.7f);
+		font.draw(batch, "Day: " + (time / 6 + 1), camera.position.x + 350, camera.position.y + 150);
+		font.draw(batch, getTime(), camera.position.x + 370, camera.position.y + 125);
+		font.draw(batch, "X " + character.getFood(), camera.position.x + 23, camera.position.y + 25);
 		batch.end();
+	}
+	
+	private String getTime() {
+		switch (time%6) {
+			case 0: return "Dawn";
+			case 1: return "Morning";
+			case 2: return "Afternoon";
+			case 3: return "Dusk";
+			case 4: return "Evening";
+			case 5: return "Night";
+		}
+		return null;
 	}
 	
 	private void translateCamera() {

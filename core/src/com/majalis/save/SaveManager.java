@@ -112,6 +112,7 @@ public class SaveManager implements SaveService, LoadService {
 	    	case SHOP:				save.shops.put(((Shop) object).getShopCode(), (Shop) object); break;
 	    	case GOBLIN_VIRGIN:		save.player.setGoblinVirginity((Boolean) object); break;
 	    	case QUEST: 			QuestFlag flag = (QuestFlag) object; save.player.setQuestStatus(flag.type, flag.value); break;
+	    	case TIME:				save.time += (Integer) object; break;
     	}	
     	if (saveToJson) {
     		saveToJson(save); //Saves current save immediately.
@@ -156,6 +157,7 @@ public class SaveManager implements SaveService, LoadService {
 	    	case GOBLIN_VIRGIN:		break;
 	    	case SHOP:				return (T) (ObjectMap<String, Shop>) save.shops;
 	    	case QUEST:				break;
+	    	case TIME :				return (T) (Integer) save.time;
     	}	
     	return null;
     }
@@ -272,6 +274,7 @@ public class SaveManager implements SaveService, LoadService {
     	private IntArray visitedList;
     	// this can probably be refactored to contain a particular battle, but may need to duplicate the player character
     	private BattleAttributes battleAttributes;
+    	private int time;
     	private PlayerCharacter player;
     	private EnemyCharacter enemy;
     	private ObjectMap<String, Shop> shops;
@@ -295,6 +298,7 @@ public class SaveManager implements SaveService, LoadService {
         		cameraPos = new Vector3(500, 500, 0);
         		visitedList = new IntArray(true, new int[]{1}, 0, 1);
         		player = new PlayerCharacter(true);
+        		time = 0;
     		}
     	}
     }

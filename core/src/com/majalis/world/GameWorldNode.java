@@ -230,8 +230,11 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 	
 	public void delayedVisit() {
 		selected = true;
+		// all of this logic should be elsewhere - likely it should be something the world map itself handles
+		
 		int foodLeft = character.getFood() - 4;
 		saveService.saveDataValue(SaveEnum.FOOD, -4);
+		saveService.saveDataValue(SaveEnum.TIME, 1);
 		if (foodLeft < 0) {
 			saveService.saveDataValue(SaveEnum.HEALTH, 5 * foodLeft);
 		}
