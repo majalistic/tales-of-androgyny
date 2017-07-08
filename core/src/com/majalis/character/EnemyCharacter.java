@@ -972,24 +972,14 @@ public class EnemyCharacter extends AbstractCharacter {
 
 	@Override
 	protected String increaseLust() {
-		switch (stance) {
-			case DOGGY:
-			case ANAL:
-			case STANDING:
-			case KNOTTED:
-			case FELLATIO:
-				return increaseLust(1);
-			case DOGGY_BOTTOM:
-			case KNOTTED_BOTTOM:
-			case ANAL_BOTTOM:
-			case STANDING_BOTTOM:
-			case COWGIRL_BOTTOM:
-				return increaseLust(2);
-			case FELLATIO_BOTTOM:
-			case SIXTY_NINE_BOTTOM:
-				return increaseLust(1);
-			default: return null;
+		
+		if (stance.isAnalReceptive()) {
+			return increaseLust(2);
 		}
+		else if (stance.isEroticPenetration() || stance.isOralReceptive()) {
+			return increaseLust(1);
+		}
+		return null;
 	}
 	
 	@Override
