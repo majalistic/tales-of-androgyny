@@ -423,12 +423,7 @@ public class EnemyCharacter extends AbstractCharacter {
 					struggle = 0;
 					return getTechniques(target, ERUPT_COWGIRL);
 				}
-				if (struggle <= 0) {
-					return getTechniques(target, PUSH_OFF);
-				}
-				else {
-					return getTechniques(target, BE_RIDDEN);
-				}
+				return getTechniques(target, BE_RIDDEN);
 			case REVERSE_COWGIRL:
 				lust++;
 				if (enemyType == EnemyEnum.WERESLUT && lust > 20) {
@@ -438,12 +433,7 @@ public class EnemyCharacter extends AbstractCharacter {
 					struggle = 0;
 					return getTechniques(target, ERUPT_COWGIRL);
 				}
-				if (struggle <= 0) {
-					return getTechniques(target, PUSH_OFF_REVERSE);
-				}
-				else {
-					return getTechniques(target, BE_RIDDEN_REVERSE);
-				}
+				return getTechniques(target, BE_RIDDEN_REVERSE);
 			case HANDY:
 				lust++;
 				if (lust > 18) {
