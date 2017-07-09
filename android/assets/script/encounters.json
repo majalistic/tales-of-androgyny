@@ -837,10 +837,30 @@
 		]
 	},
 	{
+		"key": "BANK-OVERDRAWN",
+		"scriptLines": [
+			{"text": "You enter the bank and instantly feel a sense of unease."}
+		]
+	},
+	{
+		"key": "BANK-PAY-HARD",
+		"scriptLines": [
+			{"text": "You are sold off."}
+		]
+	},
+	{
 		"key": "BANK-PAY",
 		"scriptLines": [
 			{
 			"mutations": [{"saveType":"GOLD", "value":{"class": "java.lang.Integer", "value": -10}}, {"saveType":"DEBT", "value":{"class": "java.lang.Integer", "value": -10}}],
+			"text": "You hand the coins over to the teller."}
+		]
+	},
+	{
+		"key": "BANK-PAY-50",
+		"scriptLines": [
+			{
+			"mutations": [{"saveType":"GOLD", "value":{"class": "java.lang.Integer", "value": -50}}, {"saveType":"DEBT", "value":{"class": "java.lang.Integer", "value": -50}}],
 			"text": "You hand the coins over to the teller."}
 		]
 	},
@@ -876,6 +896,46 @@
 			{"text": "."}
 		]
 	},
+	{
+		"key": "BROTHEL-ORAL",
+		"scriptLines": [
+			{
+			"mutations": [{"saveType":"GOLD", "value":{"class": "java.lang.Integer", "value": 2}}, {"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "prostitution":true, "oralSex":1, "oralCreampies":1}}],
+			"text": "."}
+		]
+	},
+	{
+		"key": "BROTHEL-ANAL",
+		"scriptLines": [
+			{
+			"mutations": [{"saveType":"GOLD", "value":{"class": "java.lang.Integer", "value": 5}}, {"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "prostitution":true, "analSex":1, "creampies":1}}],
+			"text": "."}
+		]
+	},
+	{
+		"key": "BROTHEL-GFXP",
+		"scriptLines": [
+			{
+			
+			"text": "At the end of the night, he brings you back to the town inn. You fidget nervously as he pays for the stay, avoiding eye contact with the innkeeper."},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1}}],
+			"text": "Once in the privacy of your room, you find yourself face-down or on your knees or with your legs wrapped around him all night, being his \"girlfriend\" for a few pieces of gold."},
+			{
+			"mutations": [{"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": 2}}, {"saveType":"GOLD", "value":{"class": "java.lang.Integer", "value": 5}}, {"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "prostitution":true, "analSex":3, "creampies":4}}],
+			"text": "In the morning, he counts out the gold pieces and slaps them onto your upturned, bare buttcheek, which is coated in semen, mostly dried. Your hole drools your temporary boyfriend's seed as he leaves the room, and your life, forever."}
+		]
+	},
+	{
+		"key": "BROTHEL-CLASS-CHANGE",
+		"scriptLines": [
+			{"text": "Your class changes to Prostitute!"},
+			{"text": "You no longer have any combat ability, but with a swish of your hip you can have any man eating from your fingertips... or bringing you to pound town on the cheap."},
+			{"text": "You become infamous for your low prices... not that you care. Though you'll never be known for slaying the most dragons or defeating the most evil wizards, you've cum on more sheets while getting slammed than any other."}
+		]
+	},
+	
+			
 	{
 		"key": "NO-SKILLS",
 		"scriptLines": [

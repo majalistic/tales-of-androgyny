@@ -125,9 +125,13 @@ public class EncounterBuilder {
 				).getEncounter();
 			case BANK:
 				return new Branch().textScene("BANK").checkScene(
-					CheckType.HAVE_DEBT,
-					new Branch(true).choiceScene("Pay back debt?", new Branch("Pay Debt (10 GP)").require(ChoiceCheckType.GOLD_GREATER_THAN_X, 10).textScene("BANK-PAY"), new Branch("Leave")),
-					new Branch(false).choiceScene("Do you want to borrow?", new Branch("Borrow (50 GP)").textScene("BANK-BORROW"), new Branch("Leave"))
+						CheckType.BIG_DEBT,
+						new Branch(true).textScene("BANK-OVERDRAWN").choiceScene("Do you pay your debts?", new Branch("Pay Debt (50 GP").require(ChoiceCheckType.GOLD_GREATER_THAN_X, 50).textScene("BANK-PAY-50"), new Branch("Default").textScene("BANK-PAY-HARD").gameEnd()),
+						new Branch(false).checkScene(	
+							CheckType.HAVE_DEBT,
+							new Branch(true).choiceScene("Pay back debt?", new Branch("Pay Debt (10 GP)").require(ChoiceCheckType.GOLD_GREATER_THAN_X, 10).textScene("BANK-PAY"), new Branch("Leave")),
+							new Branch(false).choiceScene("Do you want to borrow?", new Branch("Borrow (50 GP)").textScene("BANK-BORROW"), new Branch("Leave"))
+						)
 				).getEncounter();
 			case BEASTMISTRESS:
 				return new Branch().textScene("BEASTMISTRESS-INTRO").choiceScene(
@@ -193,15 +197,19 @@ public class EncounterBuilder {
 					)	
 				).getEncounter();
 			case BROTHEL:
-				Branch onceSignedUp = new Branch().textScene("BROTHEL-MEMBER").choiceScene("What service do you offer?", new Branch("Blowjobs"), new Branch("Ass"), new Branch("GFXP"));
+				Branch onceSignedUp = new Branch().textScene("BROTHEL-MEMBER").choiceScene("What service do you offer?", new Branch("Blowjobs").textScene("BROTHEL-ORAL"), new Branch("Ass").textScene("BROTHEL-ANAL"), new Branch("GFXP").textScene("BROTHEL-GFXP"));
 				return new Branch().textScene("BROTHEL").checkScene(
-					CheckType.PROSTITUTE, 	
-					new Branch(true).concat(onceSignedUp),
-					new Branch(false).choiceScene(
-						"Do you want to sign up?",
-						new Branch ("What's the worst that could happen?").require(ChoiceCheckType.LEWD).textScene("BROTHEL-SIGN-UP").concat(onceSignedUp),
-						new Branch ("Leave")
-					)
+					Perk.LADY_OF_THE_NIGHT,
+					new Branch(5).textScene("BROTHEL-CLASS-CHANGE").gameEnd(),
+					new Branch(0).checkScene(
+						CheckType.PROSTITUTE, 	
+						new Branch(true).concat(onceSignedUp),
+						new Branch(false).choiceScene(
+							"Do you want to sign up?",
+							new Branch ("What's the worst that could happen?").require(ChoiceCheckType.LEWD).textScene("BROTHEL-SIGN-UP").concat(onceSignedUp),
+							new Branch ("Leave")
+						)
+					)	
 				).getEncounter();
 			case CAMP_AND_EAT:
 				return new Branch().textScene("FORCED-CAMP").encounterEnd().getEncounter();

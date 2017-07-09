@@ -15,7 +15,8 @@ public enum Perk {
 	CREAMPIE_ADDICT ("Loves to get cream-filled like a creampuff.", 3, false),
 	SEMEN_SWALLOWER ("Loves to drink jizz.", 3, false),
 	HORSE_LOVER ("Has a thing for equine phalluses. Be careful!", 1, false),
-	GIANT_LOVER ("Likes 'em big. For a certain definition of \"'em\" Be careful!", 3, false)
+	GIANT_LOVER ("Likes 'em big. For a certain definition of \"'em\" Be careful!", 3, false), 
+	LADY_OF_THE_NIGHT ("You know how to make money with your... talents.", 5, false)
 	;
 	
 	private final int maxRank;
