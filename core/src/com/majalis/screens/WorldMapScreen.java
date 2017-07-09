@@ -163,8 +163,6 @@ public class WorldMapScreen extends AbstractScreen {
 		multi = new InputMultiplexer();
 		multi.addProcessor(this);
 		multi.addProcessor(worldStage);
-		
-		tintForTimeOfDay();
 	}
 	
 	@Override
@@ -264,6 +262,8 @@ public class WorldMapScreen extends AbstractScreen {
 		if (!backgroundRendered) {
 			generateBackground();
 		}
+		
+		tintForTimeOfDay();
 	}
 	
 	@Override
