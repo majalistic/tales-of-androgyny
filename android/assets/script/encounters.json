@@ -651,7 +651,7 @@
 		"key": "INNKEEP-02",
 		"scriptLines": [
 			{
-			"mutations": [{"saveType":"GOLD", "value":{"class": "java.lang.Integer", "value": -10}}, {"saveType":"FOOD", "value":{"class": "java.lang.Integer", "value": 15}}, {"saveType":"HEALTH", "value":{"class": "java.lang.Integer", "value": 100}}],
+			"mutations": [{"saveType":"TIME", "value":{"class": "java.lang.Integer", "value": 2}}, {"saveType":"GOLD", "value":{"class": "java.lang.Integer", "value": -10}}, {"saveType":"FOOD", "value":{"class": "java.lang.Integer", "value": 15}}, {"saveType":"HEALTH", "value":{"class": "java.lang.Integer", "value": 100}}],
 			"text": "You stack ten gold coins onto the front desk, and the innkeeper counts them by producing a second stack, then weighs the ten of them, to his satisfaction, before giving you the room key."},
 			{"text": "You stay at the inn for the night, feeling well-rested in the morning."}
 		]
@@ -699,7 +699,7 @@
 			{"text": "You emerge from under the desk and get unsteadily to your feet.  While you're wiping your mouth with your sleeve, he hands you a key, and gives you a pat on the rear.  \"Second floor.  Fourth room on the left, at the end of the hall,\" he says."},
 			{"text": "You avoid eye contact as you take the key, walking briskly away down the hallway, up the stairs, and into your room."},
 			{
-			"mutations": [{"saveType":"FOOD", "value":{"class": "java.lang.Integer", "value": 15}}, {"saveType":"HEALTH", "value":{"class": "java.lang.Integer", "value": 100}}],
+			"mutations": [{"saveType":"TIME", "value":{"class": "java.lang.Integer", "value": 2}}, {"saveType":"FOOD", "value":{"class": "java.lang.Integer", "value": 15}}, {"saveType":"HEALTH", "value":{"class": "java.lang.Integer", "value": 100}}],
 			"text": "You sleep uneasily, knowing that his cum is in your stomach..."}
 		]
 	},
@@ -713,14 +713,15 @@
 		"key": "INNKEEP-08",
 		"scriptLines": [
 			{
-			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "INNKEEP", "value":2}}],
+			"mutations": [{"saveType":"TIME", "value":{"class": "java.lang.Integer", "value": 2}}, {"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "INNKEEP", "value":2}}],
 			"text": "After a passionate night, you lie face-down against the bare mattress, listlessly."}
 		]
 	},
 	{
 		"key": "INNKEEP-09",
 		"scriptLines": [
-			{"text": "It was your first time, and, well... you didn't exactly keep your butt virginity intact.  You received your first creampie before midnight, and it wasn't the last."}
+			{
+			"text": "It was your first time, and, well... you didn't exactly keep your butt virginity intact.  You received your first creampie before midnight, and it wasn't the last."}
 		]
 	},
 	{
@@ -739,7 +740,7 @@
 			{"text": "He fucked you - several times, in fact - and creampied you raw each time.  Your stomach feels sore from all the filling it received."},
 			{
 			"foreground": "NULL",
-			"mutations": [{"saveType":"FOOD", "value":{"class": "java.lang.Integer", "value": 15}}, {"saveType":"HEALTH", "value":{"class": "java.lang.Integer", "value": 100}}],
+			"mutations": [{"saveType":"TIME", "value":{"class": "java.lang.Integer", "value": 2}}, {"saveType":"FOOD", "value":{"class": "java.lang.Integer", "value": 15}}, {"saveType":"HEALTH", "value":{"class": "java.lang.Integer", "value": 100}}],
 			"text": "As you lie there, face-down and butt-fucked, you feel completely emasculated.  The innkeeper's semen has dried between your cheeks, and still more is slowly bubbling out and down onto the mattress."},
 			{"text": "You dress for breakfast in the morning, trying your best to avoid eye contact."}
 		]
@@ -768,7 +769,7 @@
 			"text": "They don't say anything... but you do, a minced curse as the shame and sex overwhelms you and you feel yourself reaching an apex - you cum all over the wall, your knees trembling - a stain that you made, but he'll have to clean."},
 			{"text": "You collapse to the ground, and the innkeeper, pulling up his own pants nonchalantly, engages the customer who had been waiting for the two of you to finish.  The innkeeper himself hasn't filled you with his cream, but you know you won't be spared of it."},
 			{
-			"mutations": [{"saveType":"FOOD", "value":{"class": "java.lang.Integer", "value": 15}}, {"saveType":"HEALTH", "value":{"class": "java.lang.Integer", "value": 100}}],
+			"mutations": [{"saveType":"TIME", "value":{"class": "java.lang.Integer", "value": 2}}, {"saveType":"FOOD", "value":{"class": "java.lang.Integer", "value": 15}}, {"saveType":"HEALTH", "value":{"class": "java.lang.Integer", "value": 100}}],
 			"text": "He brings you back to his bedchamber, again, and you are absolutely plowed all night.  You're going to be walking like a newborn deer and your hole won't close until after sundown.  You caught several anal creampies and two cumloads all over your back."}
 		]
 	},
@@ -1281,7 +1282,7 @@
 			{"text": "You can't even stand, being that overburdened... so you sit there, for hours, with the googirl cramping your bowels."},
 			{
 			"foreground": "NULL",
-			"mutations": [{"saveType":"FOOD", "value":{"class": "java.lang.Integer", "value": -10}}, {"saveType":"HEALTH", "value":{"class": "java.lang.Integer", "value": 15}}],
+			"mutations": [{"saveType":"TIME", "value":{"class": "java.lang.Integer", "value": 1}}, {"saveType":"FOOD", "value":{"class": "java.lang.Integer", "value": -10}}, {"saveType":"HEALTH", "value":{"class": "java.lang.Integer", "value": 15}}],
 			"text": "You are stuck for a long while.  You eat 10 food. You recover 15 health."},
 			{
 			"mutations": [{"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": 2}}],
@@ -1306,7 +1307,7 @@
 			{"text": "You can't even stand, being that overburdened... so you sit there, for hours, with the googirl cramping your bowels."}
 			{
 			"foreground": "NULL",
-			"mutations": [{"saveType":"FOOD", "value":{"class": "java.lang.Integer", "value": -10}}, {"saveType":"HEALTH", "value":{"class": "java.lang.Integer", "value": 15}}],
+			"mutations": [{"saveType":"TIME", "value":{"class": "java.lang.Integer", "value": 1}}, {"saveType":"FOOD", "value":{"class": "java.lang.Integer", "value": -10}}, {"saveType":"HEALTH", "value":{"class": "java.lang.Integer", "value": 15}}],
 			"text": "You are stuck for a long while.  You eat 10 food. You recover 15 health."},
 			{
 			"mutations": [{"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": 2}}],
@@ -1615,7 +1616,7 @@
 			{"text": "Finally coming back to your senses, you cough and spit up what you can of the nasty, thick stuff at the base of a tree, wiping your mouth clean with your sleeve, though its coated in saliva and her cum and precum - a real mess.  You clean it up as best you can, and spit it up as best you can, but there's still a few load's worth bubbling in your stomach, which is very upset about your choice of meal."},
 			{"text": "With the brigand's greasy lust weighing heavily in your gut, you rest to heal your wounds, feeling particularly nauseous about the whole affair."},
 			{
-			"mutations": [{"saveType":"FOOD", "value":{"class": "java.lang.Integer", "value": -5}}, {"saveType":"HEALTH", "value":{"class": "java.lang.Integer", "value": 10}}],
+			"mutations": [{"saveType":"TIME", "value":{"class": "java.lang.Integer", "value": 1}}, {"saveType":"FOOD", "value":{"class": "java.lang.Integer", "value": -5}}, {"saveType":"HEALTH", "value":{"class": "java.lang.Integer", "value": 10}}],
 			"text": "You rest, eating 5 food. You recover 10 health."}
 		]
 	},
@@ -1732,7 +1733,7 @@
 			{"text": "You lay there for a few hours, until finally, you feel strong enough in the legs, and enough of her sauce has run out, and you manage to get to your feet, a bit unstable, looking like a newborn deer."},
 			{"text": "At the very least, it seems her kind won't bother you again - although it is somewhat bittersweet, knowing that's because you had your first sexual experience on the end of a big horse dick, and have the crater and shotgun creampie remnants to prove it."},
 			{
-			"mutations": [{"saveType":"FOOD", "value":{"class": "java.lang.Integer", "value": -5}}, {"saveType":"HEALTH", "value":{"class": "java.lang.Integer", "value": 10}}],
+			"mutations": [{"saveType":"TIME", "value":{"class": "java.lang.Integer", "value": 1}}, {"saveType":"FOOD", "value":{"class": "java.lang.Integer", "value": -5}}, {"saveType":"HEALTH", "value":{"class": "java.lang.Integer", "value": 10}}],
 			"text": "You rest, eating 5 food. You recover 10 health."}
 		]
 	},
@@ -1765,7 +1766,7 @@
 		"scriptLines": [
 			{
 			"animatedForeground": "CENTAUR",
-			"mutations": [{"saveType":"FOOD", "value":{"class": "java.lang.Integer", "value": 10}}, {"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": 2}}],
+			"mutations": [{"saveType":"TIME", "value":{"class": "java.lang.Integer", "value": 1}}, {"saveType":"FOOD", "value":{"class": "java.lang.Integer", "value": 10}}, {"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": 2}}],
 			"text": "You defeated the centaur!  You are now welcome to sleep in their camp, and receive 10 food.  You receive 2 Experience."}
 		]
 	}
@@ -2851,7 +2852,7 @@
 		"scriptLines": [
 			{
 			"foreground": "ORC_PRONE_BONE",
-			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":3, "creampies":3, "analEjaculation":2}}, {"saveType":"FOOD", "value":{"class": "java.lang.Integer", "value":15}}],
+			"mutations": [{"saveType":"TIME", "value":{"class": "java.lang.Integer", "value": 2}}, {"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":3, "creampies":3, "analEjaculation":2}}, {"saveType":"FOOD", "value":{"class": "java.lang.Integer", "value":15}}],
 			"text": "Minutes later, without any real foreplay (Urka proves impatient), you find yourself wrist-locked, on your knees, which are spread wide apart, as Urka teaches you the ins and outs of orcish love-making - mainly, slamming her cock in and out of your ass hard enough to knock the wind out of you."},
 			{"text": "You knew what you were signing up for, but still, being stretched and pounded by orc dick is as difficult as expected, and getting inseminated anally proves inevitable.  Though you're exhausted after one round, Urka isn't finished."},
 			{"text": "After spending the night getting pounded out by Urka, you feel... rather sore, but still, the meal was nice, and you can't say that Urka -wasn't- an entertaining host, even if the full length and girth of her orcish dong didn't really need to excavate your insides."}
@@ -3009,7 +3010,7 @@
 			{"text": ".."},
 			{"text": "."},
 			{
-			"mutations": [{"saveType":"FOOD", "value":{"class": "java.lang.Integer", "value": 10}}, {"saveType":"HEALTH", "value":{"class": "java.lang.Integer", "value": 5}}],
+			"mutations": [{"saveType":"TIME", "value":{"class": "java.lang.Integer", "value": 1}}, {"saveType":"FOOD", "value":{"class": "java.lang.Integer", "value": 10}}, {"saveType":"HEALTH", "value":{"class": "java.lang.Integer", "value": 5}}],
 			"text": "You share a meal around a campfire, surrounded by leagues of grass, with the dark forests hiding the sleeping sun.  Trudy smiles at your jokes and regales you with tales of their heroism, noting that their axe has taken the heads of ogres and minotaurs alike."},
 			{"text": "\"So, then...\" they say, resting their finger under your chin, \"would you like to spend the night with me?\""},
 			{"text": "You feel your chest tighten... and your underwear.  Trudy notices this sudden stirring... and then, you notice a similar protrusion down their leg.  Before you can say anything, they clear their throat, suddenly red in the face."},
@@ -3035,7 +3036,7 @@
 			{"text": "There doesn't seem to be any obvious external injuries - you wonder what did the poor guy in, but it doesn't seem it was the warg itself, despite its hulking, dangerous appearance."},
 			{"text": "After making note of the area surrounding the warg's den, the two of you make your way back to Trudy's camp, where you leave the bulk of your heaviest gear so as to be more mobile."},
 			{
-			"mutations": [{"saveType":"FOOD", "value":{"class": "java.lang.Integer", "value": 10}}, {"saveType":"HEALTH", "value":{"class": "java.lang.Integer", "value": 5}}],
+			"mutations": [{"saveType":"TIME", "value":{"class": "java.lang.Integer", "value": 1}}, {"saveType":"FOOD", "value":{"class": "java.lang.Integer", "value": 10}}, {"saveType":"HEALTH", "value":{"class": "java.lang.Integer", "value": 5}}],
 			"text": "You spend the night in Trudy's camp, sharing a meal again."},
 			{"text": "..."},
 			{"text": ".."},
