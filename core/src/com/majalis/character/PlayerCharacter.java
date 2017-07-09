@@ -1199,5 +1199,10 @@ public class PlayerCharacter extends AbstractCharacter {
 		return debt;
 	}
 
-	
+	public String debtTick(int ticks) {
+		if (debt > 0) {
+			return modDebt(10);
+		}
+		return "";
+	}
 }

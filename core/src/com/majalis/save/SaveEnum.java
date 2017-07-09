@@ -30,5 +30,5 @@ public enum SaveEnum {
 	QUEST, 
 	GOLD,
 	DEBT,
-	TIME
+	TIME, 
 }

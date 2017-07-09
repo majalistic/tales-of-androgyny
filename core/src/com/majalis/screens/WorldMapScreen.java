@@ -212,25 +212,6 @@ public class WorldMapScreen extends AbstractScreen {
 		}
 	
 		table.add(camp).size(145, 40);
-		camp.addListener(
-			new ClickListener() {
-				@Override
-		        public void clicked(InputEvent event, float x, float y) {
-					buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
-					saveService.saveDataValue(SaveEnum.FOOD, -4);	 
-					saveService.saveDataValue(SaveEnum.TIME, 1);	
-					time++;
-					tintForTimeOfDay();
-					saveService.saveDataValue(SaveEnum.HEALTH, 10);	
-					if (character.getFood() < 4) {
-						TextButtonStyle style = new TextButtonStyle(camp.getStyle());
-						style.fontColor = Color.RED;
-						camp.setStyle(style);
-						camp.setTouchable(Touchable.disabled);
-					}
-		        }
-			}
-		);
 		Image foodIcon = new Image(food);
 		foodIcon.setSize(75, 75);
 		this.addActor(foodIcon);
@@ -238,6 +219,28 @@ public class WorldMapScreen extends AbstractScreen {
 		final Label console = new Label("", skin);
 		this.addActor(console);
 		console.setPosition(820, 80);
+		
+		camp.addListener(
+				new ClickListener() {
+					@Override
+			        public void clicked(InputEvent event, float x, float y) {
+						buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
+						saveService.saveDataValue(SaveEnum.FOOD, -4);	 
+						console.setText(saveService.saveDataValue(SaveEnum.TIME, 1));
+						console.addAction(Actions.alpha(1));
+						console.addAction(Actions.fadeOut(6));
+						time++;
+						tintForTimeOfDay();
+						saveService.saveDataValue(SaveEnum.HEALTH, 10);	
+						if (character.getFood() < 4) {
+							TextButtonStyle style = new TextButtonStyle(camp.getStyle());
+							style.fontColor = Color.RED;
+							camp.setStyle(style);
+							camp.setTouchable(Touchable.disabled);
+						}
+			        }
+				}
+			);
 		
 		TextButton saveButton = new TextButton("Save", skin);
 		this.addActor(saveButton);
@@ -262,7 +265,6 @@ public class WorldMapScreen extends AbstractScreen {
 		if (!backgroundRendered) {
 			generateBackground();
 		}
-		
 		tintForTimeOfDay();
 	}
 	

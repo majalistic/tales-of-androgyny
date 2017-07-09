@@ -112,7 +112,7 @@ public class SaveManager implements SaveService, LoadService {
 	    	case SHOP:				save.shops.put(((Shop) object).getShopCode(), (Shop) object); break;
 	    	case GOBLIN_VIRGIN:		save.player.setGoblinVirginity((Boolean) object); break;
 	    	case QUEST: 			QuestFlag flag = (QuestFlag) object; save.player.setQuestStatus(flag.type, flag.value); break;
-	    	case TIME:				save.time += (Integer) object; break;
+	    	case TIME:				save.time += (Integer) object; if(save.time % 18 == 0) result = save.player.debtTick((Integer) object); break;
     	}	
     	if (saveToJson) {
     		saveToJson(save); //Saves current save immediately.
