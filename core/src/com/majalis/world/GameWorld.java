@@ -8,7 +8,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Array;
 /*
- * Contains state information about the world; may also contain state information about the player.
+ * Contains state information about the world.  Is mostly obsolete - will need to be absorbed into WorldMapScreen and then broken out again to separate concerns.
  */
 public class GameWorld {
 
@@ -16,14 +16,12 @@ public class GameWorld {
 	public boolean displayHUD;
 	public boolean gameOver;
 	public boolean gameExit;
-	public boolean encounterSelected;
 	
 	public GameWorld(Array<GameWorldNode> nodes) {
 		this.nodes = nodes;
 		displayHUD = true;
 		gameOver = false;
 		gameExit = false;
-		encounterSelected = false;
 	}
 	
 	public void gameLoop(PolygonSpriteBatch batch, Vector3 position) {
@@ -35,10 +33,7 @@ public class GameWorld {
 		}
 		batch.begin();
 		for (GameWorldNode node: nodes) {
-			if (node.isSelected()) {
-				encounterSelected = true;
-			}
-			// this should be refactored so that hover text is an actor the node creates that is rendered after
+			// this should be refactored so that hover text is something the node returns that allows it to be rendered by the world map screen
 			node.drawHover(batch, new Vector2(position.x + 1000, position.y + 30));			
 		}
 		batch.end();

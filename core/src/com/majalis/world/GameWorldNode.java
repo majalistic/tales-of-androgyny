@@ -23,9 +23,7 @@ import com.badlogic.gdx.utils.ObjectSet;
 import com.majalis.asset.AssetEnum;
 import com.majalis.character.PlayerCharacter;
 import com.majalis.encounter.EncounterCode;
-import com.majalis.save.SaveEnum;
-import com.majalis.save.SaveManager;
-import com.majalis.save.SaveService;
+import com.majalis.save.SaveManager.GameContext;
 /*
  * Represents a node on the world map.
  */
@@ -33,7 +31,6 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 	private final ObjectSet<GameWorldNode> connectedNodes;
 	private final AssetManager assetManager;
 	private final Array<Path> paths;
-	private final SaveService saveService;
 	// temporary
 	private final BitmapFont font;
 	private final int nodeCode;
@@ -56,11 +53,10 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 	private int arrowShift;
 	
 	// all the nodes need are the encounter CODES, not the actual encounter - should probably pass in some kind of object that contains the encounter generation logic, rather than an encounter and defaultEncounter code - at least, need a description of the encounter attached
-	public GameWorldNode(SaveService saveService, BitmapFont font, final int nodeCode, GameWorldNodeEncounter encounter, Vector2 position, boolean visited, Sound sound, PlayerCharacter character, AssetManager assetManager) {
+	public GameWorldNode(BitmapFont font, final int nodeCode, GameWorldNodeEncounter encounter, Vector2 position, boolean visited, Sound sound, PlayerCharacter character, AssetManager assetManager) {
 		this.connectedNodes = new ObjectSet<GameWorldNode>();
 		this.assetManager = assetManager;
 		paths = new Array<Path>();
-		this.saveService = saveService;
 		this.font = font;
 		this.encounter = encounter;
 		this.position = position;
@@ -86,7 +82,7 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 		visibility = -1;
 	}
 	
-	protected int getNodeCode() { return nodeCode; }
+	public int getNodeCode() { return nodeCode; }
 	
 	private Texture getNodeTexture(EncounterCode encounterCode) {
 		return assetManager.get(encounterCode.getTexture().getTexture());
@@ -114,7 +110,7 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 		connectedNodes.add(otherNode);
 	}
 	
-	protected void setAsCurrentNode() {
+	public void setAsCurrentNode() {
 		for (GameWorldNode connectedNode : connectedNodes) {
 			connectedNode.setActive();
 		}
@@ -214,45 +210,7 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 		selected = true;
 		// all of this logic should be elsewhere - likely it should be something the world map itself handles
 		
-		int foodLeft = character.getFood() - 4;
-		saveService.saveDataValue(SaveEnum.FOOD, -4);
-		saveService.saveDataValue(SaveEnum.TIME, 1);
-		if (foodLeft < 0) {
-			saveService.saveDataValue(SaveEnum.HEALTH, 5 * foodLeft);
-		}
-		if (character.getCurrentHealth() <= 0) {
-			if (foodLeft < 0) {
-				saveService.saveDataValue(SaveEnum.ENCOUNTER_CODE, EncounterCode.STARVATION);			
-				saveService.saveDataValue(SaveEnum.CONTEXT, SaveManager.GameContext.ENCOUNTER);
-				saveService.saveDataValue(SaveEnum.RETURN_CONTEXT, SaveManager.GameContext.WORLD_MAP);
-			}
-			else {
-				saveService.saveDataValue(SaveEnum.ENCOUNTER_CODE, EncounterCode.CAMP_AND_EAT);			
-				saveService.saveDataValue(SaveEnum.CONTEXT, SaveManager.GameContext.ENCOUNTER);
-				saveService.saveDataValue(SaveEnum.RETURN_CONTEXT, SaveManager.GameContext.WORLD_MAP);
-			}
-		}
-		else {
-			if (!visited) {
-				saveService.saveDataValue(SaveEnum.ENCOUNTER_CODE, encounter.getCode());
-				saveService.saveDataValue(SaveEnum.VISITED_LIST, nodeCode);
-				saveService.saveDataValue(SaveEnum.CONTEXT, encounter.getContext());
-				saveService.saveDataValue(SaveEnum.RETURN_CONTEXT, SaveManager.GameContext.WORLD_MAP);
-			}
-			else {
-				if (encounter.getDefaultCode() == EncounterCode.DEFAULT) {
-					selected = false;
-					setAsCurrentNode();
-				}
-				else {
-					saveService.saveDataValue(SaveEnum.ENCOUNTER_CODE, encounter.getDefaultCode());
-					saveService.saveDataValue(SaveEnum.CONTEXT, encounter.getDefaultContext());
-					saveService.saveDataValue(SaveEnum.RETURN_CONTEXT, SaveManager.GameContext.WORLD_MAP);
-				}
-			}
-			saveService.saveDataValue(SaveEnum.NODE_CODE, nodeCode);
-			saveService.saveDataValue(SaveEnum.CAMERA_POS, position);
-		}
+		
 	}
 	
 	@Override
@@ -340,5 +298,24 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 		else {
 			return -1;
 		}
+	}
+
+	public EncounterCode getEncounterCode() {
+		if (!visited) {
+			return encounter.getCode();
+		}
+		else {
+			return encounter.getDefaultCode();
+		}
+	}
+
+	public GameContext getEncounterContext() {
+		if (!visited) {
+			return encounter.getContext();
+		}
+		else {
+			return encounter.getDefaultContext();
+		}
+		
 	}
 }

@@ -18,6 +18,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -42,10 +43,13 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.majalis.asset.AnimatedImage;
 import com.majalis.asset.AssetEnum;
 import com.majalis.character.PlayerCharacter;
+import com.majalis.encounter.EncounterCode;
 import com.majalis.save.LoadService;
 import com.majalis.save.SaveEnum;
+import com.majalis.save.SaveManager;
 import com.majalis.save.SaveService;
 import com.majalis.world.GameWorld;
+import com.majalis.world.GameWorldNode;
 /*
  * The screen that displays the world map.  UI that Handles player input while on the world map - will delegate to other screens depending on the gameWorld state.
  */
@@ -293,15 +297,63 @@ public class WorldMapScreen extends AbstractScreen {
 		group.addListener(new ChangeListener() {
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
-				currentImage.addAction(moveTo(actor.getX() + 12, actor.getY() + 25, 1.5f));
-				group.addAction(sequence(delay(1.5f), new Action() {
-					@Override
-					public boolean act(float delta) {
-						time++;
-						tintForTimeOfDay();
-						return true;
+				if (event.getTarget() instanceof GameWorldNode) {
+					currentImage.addAction(moveTo(actor.getX() + 12, actor.getY() + 25, 1.5f));
+					int foodLeft = character.getFood() - 4;
+					saveService.saveDataValue(SaveEnum.FOOD, -4);
+					saveService.saveDataValue(SaveEnum.TIME, 1);
+					if (foodLeft < 0) {
+						saveService.saveDataValue(SaveEnum.HEALTH, 5 * foodLeft);
 					}
-				}));
+					boolean switchScreen = false;
+					if (character.getCurrentHealth() <= 0) {
+						if (foodLeft < 0) {
+							saveService.saveDataValue(SaveEnum.ENCOUNTER_CODE, EncounterCode.STARVATION);			
+							saveService.saveDataValue(SaveEnum.CONTEXT, SaveManager.GameContext.ENCOUNTER);
+							saveService.saveDataValue(SaveEnum.RETURN_CONTEXT, SaveManager.GameContext.WORLD_MAP);
+							switchScreen = true;
+						}
+						else {
+							saveService.saveDataValue(SaveEnum.ENCOUNTER_CODE, EncounterCode.CAMP_AND_EAT);			
+							saveService.saveDataValue(SaveEnum.CONTEXT, SaveManager.GameContext.ENCOUNTER);
+							saveService.saveDataValue(SaveEnum.RETURN_CONTEXT, SaveManager.GameContext.WORLD_MAP);
+							switchScreen = true;
+						}
+					}
+					else {
+						group.addAction(sequence(delay(1.5f), new Action() {
+							@Override
+							public boolean act(float delta) {
+								GameWorldNode node = (GameWorldNode) event.getTarget();
+								time++;
+								tintForTimeOfDay();
+								boolean switchScreen = false;
+								EncounterCode newEncounter = node.getEncounterCode();
+								if(newEncounter == EncounterCode.DEFAULT) {
+									node.setAsCurrentNode();
+								}
+								else {
+									saveService.saveDataValue(SaveEnum.ENCOUNTER_CODE, newEncounter); 
+									saveService.saveDataValue(SaveEnum.VISITED_LIST, node.getNodeCode());
+									saveService.saveDataValue(SaveEnum.CONTEXT, node.getEncounterContext());
+									saveService.saveDataValue(SaveEnum.RETURN_CONTEXT, SaveManager.GameContext.WORLD_MAP);
+									switchScreen = true;
+								}
+								saveService.saveDataValue(SaveEnum.NODE_CODE, node.getNodeCode());
+								saveService.saveDataValue(SaveEnum.CAMERA_POS, new Vector2(node.getX(), node.getY()));
+								if (switchScreen) {
+									music.stop();
+									showScreen(ScreenEnum.CONTINUE);
+								}
+								return true;
+							}
+						}));
+					}
+					if (switchScreen) {
+						music.stop();
+						showScreen(ScreenEnum.CONTINUE);
+					}
+				}
 			}			
 		});
 	}
@@ -318,10 +370,6 @@ public class WorldMapScreen extends AbstractScreen {
 		else if (world.gameExit) {
 			music.stop();
 			showScreen(ScreenEnum.MAIN_MENU);
-		}
-		else if (world.encounterSelected) {
-			music.stop();
-			showScreen(ScreenEnum.CONTINUE);
 		}
 		else {
 			clear();

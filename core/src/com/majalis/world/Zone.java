@@ -13,12 +13,10 @@ import com.majalis.character.PlayerCharacter;
 import com.majalis.encounter.EncounterCode;
 import com.majalis.save.LoadService;
 import com.majalis.save.SaveEnum;
-import com.majalis.save.SaveService;
 import com.majalis.talesofandrogyny.TalesOfAndrogyny;
 
 public class Zone {
 
-	private final SaveService saveService;
 	private final BitmapFont font;
 	private final AssetManager assetManager;
 	private final RandomXS128 random;
@@ -31,8 +29,7 @@ public class Zone {
 	private final int repeats;
 	private GameWorldNode startNode;
 	
-	protected Zone(SaveService saveService, LoadService loadService, BitmapFont font, AssetManager assetManager, RandomXS128 random, Array<GameWorldNode> nodes, IntMap<GameWorldNode> nodeMap, int repeats) {
-		this.saveService = saveService;
+	protected Zone(LoadService loadService, BitmapFont font, AssetManager assetManager, RandomXS128 random, Array<GameWorldNode> nodes, IntMap<GameWorldNode> nodeMap, int repeats) {
 		this.font = font;
 		this.assetManager = assetManager;
 		this.random = random;
@@ -132,7 +129,7 @@ public class Zone {
 	}
 	
 	private GameWorldNode getNode(int nodeCode, EncounterCode initialEncounter, EncounterCode defaultEncounter, Vector2 position, boolean visited) {
-		return new GameWorldNode(saveService, font, nodeCode, new GameWorldNodeEncounter(initialEncounter, defaultEncounter), position, visited, sound, character, assetManager);
+		return new GameWorldNode(font, nodeCode, new GameWorldNodeEncounter(initialEncounter, defaultEncounter), position, visited, sound, character, assetManager);
 	}
 	
 }
