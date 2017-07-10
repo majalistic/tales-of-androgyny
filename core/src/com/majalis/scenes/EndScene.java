@@ -19,7 +19,7 @@ public class EndScene extends Scene{
 		this.context = context;
 	}
 
-	public Type getType(){
+	public Type getType() {
 		return type;
 	}
 	
@@ -27,8 +27,9 @@ public class EndScene extends Scene{
 	public void setActive() {
 		isActive = true;
 		saveService.saveDataValue(SaveEnum.CONTEXT, context);
-		if (type == Type.ENCOUNTER_OVER || type == Type.GAME_OVER){
+		if (type == Type.ENCOUNTER_OVER || type == Type.GAME_OVER) {
 			saveService.saveDataValue(SaveEnum.RETURN_CONTEXT, null);
+			saveService.saveDataValue(SaveEnum.ENCOUNTER_END, null);
 		}
 		saveService.saveDataValue(SaveEnum.SCENE_CODE, -1);
 	}

@@ -31,4 +31,5 @@ public enum SaveEnum {
 	GOLD,
 	DEBT,
 	TIME, 
+	ENCOUNTER_END, 
 }

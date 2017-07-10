@@ -113,6 +113,7 @@ public class SaveManager implements SaveService, LoadService {
 	    	case GOBLIN_VIRGIN:		save.player.setGoblinVirginity((Boolean) object); break;
 	    	case QUEST: 			QuestFlag flag = (QuestFlag) object; save.player.setQuestStatus(flag.type, flag.value); break;
 	    	case TIME:				save.time += (Integer) object; result = "Some time passes. "; if(save.time % 6 == 0) result += save.player.debtTick((Integer) object); break;
+			case ENCOUNTER_END:		save.player.popPortraitPath(); break;
     	}	
     	if (saveToJson) {
     		saveToJson(save); //Saves current save immediately.
@@ -154,6 +155,7 @@ public class SaveManager implements SaveService, LoadService {
 	    	case ITEM:
 	    	case GOLD:
 	    	case DEBT:
+	    	case ENCOUNTER_END:
 	    	case GOBLIN_VIRGIN:		break;
 	    	case SHOP:				return (T) (ObjectMap<String, Shop>) save.shops;
 	    	case QUEST:				break;
