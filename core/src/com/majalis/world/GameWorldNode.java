@@ -10,7 +10,6 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -38,7 +37,6 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 	private final boolean visited;
 	private final Sound sound;
 	private final PlayerCharacter character;
-	private boolean selected;
 	private boolean current;
 	private boolean active;
 	private int visibility;
@@ -65,7 +63,6 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 		arrowImage = assetManager.get(AssetEnum.ARROW.getTexture());
 		this.sound = sound;
 		this.character = character;
-		selected = false;
 		current = false;
 		hover = false;
 		active = false;
@@ -107,6 +104,7 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 	}
 	
 	public void setAsCurrentNode() {
+		current = true;
 		for (GameWorldNode connectedNode : connectedNodes) {
 			connectedNode.setActive();
 		}
@@ -127,7 +125,6 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 						connectedNode.setClickedAndAdjacentClicked();						
 					}
 					sound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
-					visit();
 				}
 			}
 			@Override
@@ -140,11 +137,13 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 			}
 		});
 	}
-	
+	// this will currently only deactivate nodes that are 2 away - when it becomes possible to click on a node 5 nodes away, this will be insufficie
 	private void setClickedAndAdjacentClicked() {
 		active = false;
+		current = false;
 		for (GameWorldNode connectedNode : connectedNodes) {
 			connectedNode.active = false;
+			connectedNode.current = false;
 		}
 	}
 
@@ -192,23 +191,6 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 		return neighbors;
 	}
 	
-	
-	protected void visit() {
-		this.addAction(Actions.sequence(Actions.delay(1.5f), new Action() {
-			@Override
-			public boolean act(float delta) {
-				delayedVisit();
-				return true;
-			}}));
-	}
-	
-	private void delayedVisit() {
-		selected = true;
-		// all of this logic should be elsewhere - likely it should be something the world map itself handles
-		
-		
-	}
-	
 	@Override
     public void draw(Batch batch, float parentAlpha) {
 		if (hover && active) {
@@ -242,7 +224,7 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 	}
 
 	public String getHoverText() {
-		return encounter.getDescription(visibility, visited);
+		return current ? "" : encounter.getDescription(visibility, visited);
 	}
 	
 	private int getPerceptionLevel(int perception) {
@@ -262,10 +244,6 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 
 	public Array<Path> getPaths() {
 		return paths;
-	}
-	
-	protected boolean isSelected() {
-		return selected;
 	}
 
 	protected boolean isOverlapping(GameWorldNode otherNode) {
