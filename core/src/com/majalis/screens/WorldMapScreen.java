@@ -13,10 +13,13 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.PerspectiveCamera;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -30,9 +33,13 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.majalis.asset.AnimatedImage;
 import com.majalis.asset.AssetEnum;
 import com.majalis.character.PlayerCharacter;
 import com.majalis.save.LoadService;
@@ -61,6 +68,7 @@ public class WorldMapScreen extends AbstractScreen {
 	private final Music music;
 	private final FrameBuffer frameBuffer;
 	private final InputMultiplexer multi;
+	private final AnimatedImage currentImage;
 	private int time;
 	private boolean backgroundRendered = false;
 	
@@ -137,6 +145,19 @@ public class WorldMapScreen extends AbstractScreen {
 		if (camera.position.x < 500) camera.position.x = 500;
 		if (camera.position.y < 500) camera.position.y = 500;
 		camera.update();
+
+		Texture characterSheet = assetManager.get(AssetEnum.CHARACTER_ANIMATION.getTexture());
+		Array<TextureRegion> frames = new Array<TextureRegion>();
+		for (int ii = 0; ii < 4; ii++) {
+			frames.add(new TextureRegion(characterSheet, ii * 72, 0, 72, 128));
+		}
+		
+		Animation animation = new Animation(.14f, frames);
+		animation.setPlayMode(PlayMode.LOOP);
+		currentImage = new AnimatedImage(animation, Scaling.fit, Align.right);
+		currentImage.setScale(.7f);
+		currentImage.setState(0);
+		currentImage.setPosition(initialTranslation.x + 650, initialTranslation.y + 390);
 		
 		this.world = world;
 		
@@ -170,6 +191,9 @@ public class WorldMapScreen extends AbstractScreen {
 		for (Actor actor: world.getActors()) {
 			group.addActor(actor);
 		}   
+
+		group.addActor(currentImage);
+		
 		final Sound buttonSound = assetManager.get(AssetEnum.CLICK_SOUND.getSound()); 
 		Skin skin = assetManager.get(AssetEnum.UI_SKIN.getSkin());
 		int storedLevels = character.getStoredLevels();
@@ -221,26 +245,26 @@ public class WorldMapScreen extends AbstractScreen {
 		console.setPosition(820, 80);
 		
 		camp.addListener(
-				new ClickListener() {
-					@Override
-			        public void clicked(InputEvent event, float x, float y) {
-						buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
-						saveService.saveDataValue(SaveEnum.FOOD, -4);	 
-						console.setText(saveService.saveDataValue(SaveEnum.TIME, 1));
-						console.addAction(Actions.alpha(1));
-						console.addAction(Actions.fadeOut(6));
-						time++;
-						tintForTimeOfDay();
-						saveService.saveDataValue(SaveEnum.HEALTH, 10);	
-						if (character.getFood() < 4) {
-							TextButtonStyle style = new TextButtonStyle(camp.getStyle());
-							style.fontColor = Color.RED;
-							camp.setStyle(style);
-							camp.setTouchable(Touchable.disabled);
-						}
-			        }
-				}
-			);
+			new ClickListener() {
+				@Override
+		        public void clicked(InputEvent event, float x, float y) {
+					buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
+					saveService.saveDataValue(SaveEnum.FOOD, -4);	 
+					console.setText(saveService.saveDataValue(SaveEnum.TIME, 1));
+					console.addAction(Actions.alpha(1));
+					console.addAction(Actions.fadeOut(6));
+					time++;
+					tintForTimeOfDay();
+					saveService.saveDataValue(SaveEnum.HEALTH, 10);	
+					if (character.getFood() < 4) {
+						TextButtonStyle style = new TextButtonStyle(camp.getStyle());
+						style.fontColor = Color.RED;
+						camp.setStyle(style);
+						camp.setTouchable(Touchable.disabled);
+					}
+		        }
+			}
+		);
 		
 		TextButton saveButton = new TextButton("Save", skin);
 		this.addActor(saveButton);
@@ -252,8 +276,8 @@ public class WorldMapScreen extends AbstractScreen {
 					buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
 					saveService.manualSave("data/save01.json");
 					console.setText("Game Saved.");
-					console.addAction(Actions.alpha(1));
-					console.addAction(Actions.fadeOut(4));
+					console.addAction(alpha(1));
+					console.addAction(fadeOut(4));
 		        }
 			}
 		);	
@@ -266,6 +290,20 @@ public class WorldMapScreen extends AbstractScreen {
 			generateBackground();
 		}
 		tintForTimeOfDay();
+		group.addListener(new ChangeListener() {
+			@Override
+			public void changed(ChangeEvent event, Actor actor) {
+				currentImage.addAction(moveTo(actor.getX() + 12, actor.getY() + 25, 1.5f));
+				group.addAction(sequence(delay(1.5f), new Action() {
+					@Override
+					public boolean act(float delta) {
+						time++;
+						tintForTimeOfDay();
+						return true;
+					}
+				}));
+			}			
+		});
 	}
 	
 	@Override
