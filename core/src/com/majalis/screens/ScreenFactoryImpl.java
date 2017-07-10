@@ -168,7 +168,7 @@ public class ScreenFactoryImpl implements ScreenFactory {
 	
 	private TownScreen getTown(ScreenElements elements, PlayerCharacter character) {
 		if (getAssetCheck(TownScreen.resourceRequirements)) {
-			return new TownScreen(this, elements, assetManager, saveService);
+			return new TownScreen(this, elements, assetManager, saveService, (Integer)loadService.loadDataValue(SaveEnum.TIME, Integer.class));
 		}
 		return null;
 	}

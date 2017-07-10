@@ -1,7 +1,9 @@
 package com.majalis.encounter;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -172,6 +174,14 @@ public class Background extends Group{
 			dialogBox.addAction(Actions.show());
 			display.addAction(Actions.show());
 			dialogBoxVisible = true;
+		}
+	}
+	
+	@Override
+	public void setColor(Color color) {
+		super.setColor(color);
+		for (Actor actor : getChildren()) {
+			actor.setColor(color);
 		}
 	}
 

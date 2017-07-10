@@ -6,6 +6,7 @@ import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -53,11 +54,12 @@ public class TownScreen extends AbstractScreen {
 	private final Array<TextButton> buttons;
 	private int selection;
 	
-	protected TownScreen(ScreenFactory screenFactory, ScreenElements elements, AssetManager assetManager, SaveService saveService) {
+	protected TownScreen(ScreenFactory screenFactory, ScreenElements elements, AssetManager assetManager, SaveService saveService, int time) {
 		super(screenFactory, elements);
 		this.saveService = saveService;
 		skin = assetManager.get(AssetEnum.UI_SKIN.getSkin());
 		background = new BackgroundBuilder(assetManager.get(AssetEnum.TOWN_BG.getTexture())).build();
+		background.setColor(getTimeColor(time));
 		arrow = new Image(assetManager.get(AssetEnum.STANCE_ARROW.getTexture()));
 		music = assetManager.get(AssetEnum.SHOP_MUSIC.getMusic());
 		buttonSound = assetManager.get(AssetEnum.BUTTON_SOUND.getSound());
@@ -66,6 +68,22 @@ public class TownScreen extends AbstractScreen {
 		selection = 0;
 	}
 
+	private Color getTimeColor(int time) {
+		switch (time%6) {
+			case 0: return getColor(156, 154, 32); 
+			case 1: return getColor(255, 255, 214);
+			case 2: return getColor(251, 255, 255);
+			case 3: return getColor(246, 212, 181);
+			case 4: return getColor(75, 125, 217);
+			case 5: return getColor(35, 55, 120);  
+		}
+		return null;
+	}
+	
+	private Color getColor(float r, float g, float b) {
+		return new Color(r/256f, g/256f, b/256f, 1);
+	}
+	
 	private ClickListener getListener(final EncounterCode code) {
 		return new ClickListener() {
 	        @Override
