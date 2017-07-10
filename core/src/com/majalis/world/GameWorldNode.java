@@ -17,7 +17,6 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectSet;
 import com.majalis.asset.AssetEnum;
@@ -32,7 +31,6 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 	private final AssetManager assetManager;
 	private final Array<Path> paths;
 	// temporary
-	private final BitmapFont font;
 	private final int nodeCode;
 	private final GameWorldNodeEncounter encounter;
 	// for determining where to draw this node at
@@ -47,7 +45,6 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 	private boolean hover;
 	private Texture activeImage;
 	private Texture roadImage;
-	private Texture hoverImage;
 	private Texture arrowImage;
 	private int arrowHeight;
 	private int arrowShift;
@@ -57,14 +54,13 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 		this.connectedNodes = new ObjectSet<GameWorldNode>();
 		this.assetManager = assetManager;
 		paths = new Array<Path>();
-		this.font = font;
 		this.encounter = encounter;
 		this.position = position;
 		this.nodeCode = nodeCode;
 		this.visited = visited;
 
 		activeImage = getNodeTexture(encounter.getCode());
-		hoverImage = assetManager.get(AssetEnum.WORLD_MAP_HOVER.getTexture());
+		
 		roadImage = assetManager.get(AssetEnum.ROAD.getTexture());
 		arrowImage = assetManager.get(AssetEnum.ARROW.getTexture());
 		this.sound = sound;
@@ -244,18 +240,8 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 			actor.setColor(color);
 		}
 	}
-	// this could be an event on the world map screen that draws the hover image and gets the text from the hovered over node
-	public void drawHover(Batch batch, Vector2 hoverPosition) {
-		if (hover) {
-			// render hover box
-			batch.draw(hoverImage, hoverPosition.x, hoverPosition.y);
-			// render hover text
-			font.setColor(0f,0,0,1);
-			font.draw(batch, getHoverText(), hoverPosition.x+50, hoverPosition.y+170, 150, Align.center, true);	
-		}
-	}
 
-	private String getHoverText() {
+	public String getHoverText() {
 		return encounter.getDescription(visibility, visited);
 	}
 	
@@ -274,7 +260,7 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 		}
 	}
 
-	protected Array<Path> getPaths() {
+	public Array<Path> getPaths() {
 		return paths;
 	}
 	

@@ -48,7 +48,6 @@ import com.majalis.save.LoadService;
 import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveManager;
 import com.majalis.save.SaveService;
-import com.majalis.world.GameWorld;
 import com.majalis.world.GameWorldNode;
 /*
  * The screen that displays the world map.  UI that Handles player input while on the world map - will delegate to other screens depending on the gameWorld state.
@@ -57,7 +56,7 @@ public class WorldMapScreen extends AbstractScreen {
 
 	private final AssetManager assetManager;
 	private final SaveService saveService;
-	private final GameWorld world;
+	private final Array<GameWorldNode> world;
 	private final Texture food;
 	private final Array<Texture> grasses;
 	private final Texture cloud;
@@ -73,6 +72,8 @@ public class WorldMapScreen extends AbstractScreen {
 	private final FrameBuffer frameBuffer;
 	private final InputMultiplexer multi;
 	private final AnimatedImage currentImage;
+	private final Texture hoverImage;
+	private String hoverText;
 	private int time;
 	private boolean backgroundRendered = false;
 	
@@ -101,7 +102,7 @@ public class WorldMapScreen extends AbstractScreen {
 		resourceRequirements.add(AssetEnum.WORLD_MAP_MUSIC.getMusic());
 	}
 	
-	public WorldMapScreen(ScreenFactory factory, ScreenElements elements, AssetManager assetManager, SaveService saveService, LoadService loadService, GameWorld world) {
+	public WorldMapScreen(ScreenFactory factory, ScreenElements elements, AssetManager assetManager, SaveService saveService, LoadService loadService, Array<GameWorldNode> world) {
 		super(factory, elements);
 		this.assetManager = assetManager;
 		this.saveService = saveService;
@@ -109,7 +110,8 @@ public class WorldMapScreen extends AbstractScreen {
 		camera = new PerspectiveCamera(70, 0, 1000);
         FitViewport viewport =  new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), camera);
 		worldStage = new Stage3D(viewport, batch);
-		
+	
+		hoverText = "";
 		time = loadService.loadDataValue(SaveEnum.TIME, Integer.class);
 		
 		camera.position.set(0, 0, 500);
@@ -139,6 +141,8 @@ public class WorldMapScreen extends AbstractScreen {
 		cloud = assetManager.get(AssetEnum.CLOUD.getTexture());
 		characterUITexture = assetManager.get(AssetEnum.WORLD_MAP_UI.getTexture());
 		music = assetManager.get(AssetEnum.WORLD_MAP_MUSIC.getMusic());
+		
+		hoverImage = assetManager.get(AssetEnum.WORLD_MAP_HOVER.getTexture());
 		
 		// move camera to saved position
 		Vector3 initialTranslation = loadService.loadDataValue(SaveEnum.CAMERA_POS, Vector3.class);		
@@ -192,7 +196,26 @@ public class WorldMapScreen extends AbstractScreen {
 	
 	@Override
 	public void buildStage() {
-		for (Actor actor: world.getActors()) {
+		Array<Actor> actors = new Array<Actor>();
+		for (GameWorldNode node : world) {
+			for (Actor actor : node.getPaths()) {
+				actors.add(actor);
+			}
+		}
+		for (GameWorldNode actor : world) {
+			actors.add(actor);
+			actor.addListener(new ClickListener(){
+				@Override
+		        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
+					hoverText = actor.getHoverText();
+				}
+				@Override
+		        public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
+					hoverText = "";
+				}
+			});
+		}
+		for (Actor actor: actors) {
 			group.addActor(actor);
 		}   
 
@@ -360,14 +383,17 @@ public class WorldMapScreen extends AbstractScreen {
 	
 	@Override
 	public void render(float delta) {
-
+		if (Gdx.input.isKeyJustPressed(Keys.TAB)) {
+			//displayHUD = !displayHUD;
+		}
+		
 		translateCamera();
 		Gdx.input.setInputProcessor(multi);
 		
 		if (Gdx.input.isKeyJustPressed(Keys.ENTER)) {
 			showScreen(ScreenEnum.CHARACTER);
 		}			
-		else if (world.gameExit) {
+		else if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
 			music.stop();
 			showScreen(ScreenEnum.MAIN_MENU);
 		}
@@ -378,13 +404,13 @@ public class WorldMapScreen extends AbstractScreen {
 			cloudStage.act(delta);
 			cloudStage.draw();
 			super.render(delta);
-			drawText(delta);
-			world.gameLoop(batch, getCamera().position);
+			drawText();
+			drawHover();
 		}
 	}
 	
 	// this should be replaced with label actors
-	private void drawText(float delta) {
+	private void drawText() {
 		batch.begin();
 		OrthographicCamera camera = (OrthographicCamera) getCamera();
 		batch.setColor(1.0f, 1.0f, 1.0f, 1);
@@ -393,6 +419,21 @@ public class WorldMapScreen extends AbstractScreen {
 		font.draw(batch, getTime(), camera.position.x + 370, camera.position.y + 125);
 		font.draw(batch, "X " + character.getFood(), camera.position.x + 23, camera.position.y + 25);
 		batch.end();
+	}
+	
+	private void drawHover() {
+		if (!hoverText.isEmpty()) {
+			batch.begin();
+			OrthographicCamera camera = (OrthographicCamera) getCamera();
+			// render hover box
+			batch.draw(hoverImage, camera.position.x + 1400,  camera.position.y + 5);
+			// render hover text
+			Color cache = new Color(font.getColor());
+			font.setColor(0f, 0, 0, 1);
+			font.draw(batch, hoverText, camera.position.x + 1450, camera.position.y + 175, 150, Align.center, true);	
+			font.setColor(cache);
+			batch.end();
+		}
 	}
 	
 	private void tintForTimeOfDay() {

@@ -71,6 +71,7 @@ public enum EncounterCode {
 	
 	public String getDescription(int visibility) {
 		switch(visibility) {
+			case -1: return ""; // special case for display no info
 			case 0:
 				return "You are unsure of what awaits you!";
 			case 1:
@@ -144,7 +145,7 @@ public enum EncounterCode {
 					case WEST_PASS: return "West Pass";
 					default: return "Unknown - No Info for encounter #" + this  + " and perception level = " + visibility;
 				}
-			default: return "Perception level error.";
+			default: System.out.println(visibility);return "Perception level error.";
 		}
 	}
 	

@@ -31,7 +31,7 @@ public class GameWorldFactory {
 	private IntMap<GameWorldNode> nodeMap = new IntMap<GameWorldNode>();
 	private Array<GameWorldNode> nodes = new Array<GameWorldNode>();
 	
-	public GameWorldFactory(SaveManager saveManager, AssetManager assetManager,  FreeTypeFontGenerator fontGenerator, RandomXS128 random) {
+	public GameWorldFactory(SaveManager saveManager, AssetManager assetManager, FreeTypeFontGenerator fontGenerator, RandomXS128 random) {
 		this.loadService = saveManager;
 
 		this.assetManager = assetManager;
@@ -42,7 +42,7 @@ public class GameWorldFactory {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public GameWorld getGameWorld(int seed, GameMode gameMode) {
+	public Array<GameWorldNode> getGameWorld(int seed, GameMode gameMode) {
 		random.setSeed(seed);
 
 		nodeMap = new IntMap<GameWorldNode>();
@@ -105,7 +105,7 @@ public class GameWorldFactory {
 		
 		nodeMap.get((Integer)loadService.loadDataValue(SaveEnum.NODE_CODE, Integer.class)).setAsCurrentNode();
 		nodes.sort();
-		return new GameWorld(nodes);
+		return nodes;
 	}
 	
 	private void addNode(GameWorldNode newNode, @SuppressWarnings("unchecked") Array<GameWorldNode> ... nodes) {
