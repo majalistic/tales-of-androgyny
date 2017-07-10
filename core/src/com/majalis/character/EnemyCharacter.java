@@ -96,7 +96,7 @@ public class EnemyCharacter extends AbstractCharacter {
 		}
 		
 		// play the dive bomb animation for now
-		if (resolvedAttack.getForceStance() == Stance.FELLATIO_BOTTOM && enemyType == EnemyEnum.HARPY) {
+		if (resolvedAttack.getForceStance() == Stance.FELLATIO_BOTTOM && enemyType == EnemyEnum.HARPY && !oldStance.isOralPenetration()) {
 			attackAnimation();
 		}
 		
@@ -832,7 +832,9 @@ public class EnemyCharacter extends AbstractCharacter {
 		AnimatedActor animation = getAnimatedActor(enemyType);
 		if (animation != null) {
 			this.animations.add(animation);
-			currentAnimationsPlaying.add(animation);
+			if ((enemyType != EnemyEnum.HARPY || stance != Stance.FELLATIO) && (enemyType != EnemyEnum.BRIGAND || (stance != Stance.DOGGY && stance != Stance.STANDING))) {
+				currentAnimationsPlaying.add(animation);
+			}
 		}
 		if (enemyType == EnemyEnum.HARPY || enemyType == EnemyEnum.BRIGAND) addAdditionalAnimations();
 		
@@ -922,7 +924,7 @@ public class EnemyCharacter extends AbstractCharacter {
 					}}, Actions.delay(2), new Action(){
 					@Override
 					public boolean act(float delta) {
-						if (!fellatio) currentAnimationsPlaying.add(animations.get(0));
+						if (!stance.isOralPenetration()) currentAnimationsPlaying.add(animations.get(0));
 						currentAnimationsPlaying.remove(animations.get(1));
 						return true;
 					}
