@@ -834,19 +834,26 @@
 			"music": "SHOP_MUSIC",
 			"background": "TOWN_BG", 
 			"foreground": "TRAINER",
-			"text": "You enter the bank. <DEBT>"}
+			"text": "You enter the bank. Here you can take out a loan, or pay down one.  <DEBT>"}
 		]
 	},
 	{
 		"key": "BANK-OVERDRAWN",
 		"scriptLines": [
-			{"text": "You enter the bank and instantly feel a sense of unease."}
+			{"text": "You enter the bank and instantly feel a sense of unease.  A towering mountain of a man blocks you from leaving."},
+			{"text": "\"We're not running a charity. Pay up some interest, or we'll find a way to pay it for you.\""}
 		]
 	},
 	{
 		"key": "BANK-PAY-HARD",
 		"scriptLines": [
-			{"text": "You are sold off."}
+			{"text": "..."},
+			{"text": ".."},
+			{"text": "."},
+			{"text": "\"Sold!\""},
+			{"text": "The word fills you with dread. You're standing, wearing rather little, in front of a large crowd of men - not all of them human."},
+			{"text": "You don't even see who won the bid. You just know that, before long, you'll be intimately familiar with them. In particular, you're going to be taking it in the face and ass holes for the forseeable future."},
+			{"text": "You were sold off. You're no longer an adventurer - and you never sit comfortably again."}
 		]
 	},
 	{
@@ -862,7 +869,7 @@
 		"scriptLines": [
 			{
 			"mutations": [{"saveType":"GOLD", "value":{"class": "java.lang.Integer", "value": -50}}, {"saveType":"DEBT", "value":{"class": "java.lang.Integer", "value": -50}}],
-			"text": "You hand the coins over to the teller."}
+			"text": "You hand the coins over to the teller, feeling a little nervous."}
 		]
 	},
 	{
@@ -879,8 +886,24 @@
 			{
 			"music": "SHOP_MUSIC",
 			"background": "TOWN_BG", 
-			"foreground": "TRAINER",
-			"text": "You enter the brothel."}
+			"foreground": "MERI_SILHOUETTE",
+			"text": "You enter the brothel. It smells... sweet. A beautiful woman leans against the wall, casually."}
+		]
+	},
+	{
+		"key": "BROTHEL-OFFER",
+		"scriptLines": [
+			{
+			"sound": "SMUG_LAUGH",
+			"text": "She looks you up and down and then smiles, stifling a slight laugh."},
+			{"text": "\"One look at you tells me you're not planning to be a client,\" she says, putting her finger to her lips, \"so what is it? You want to be one of my girls?\""},
+			{"text": "You pout. \"I'm not a girl,\" you say, defiantly, and she shrugs her shoulders."},
+			{"text": "\"Not what I asked - and besides, you could fool me,\" she says, walking towards you. She grasps your shoulders, and then peers over them, down your back."},
+			{"text": "\"W-what?  What are you looking at?\" you ask, indignantly."},
+			{
+			"sound": "SMUG_LAUGH",
+			"text": "\"Heh. You've got a fat ass,\" she says, giving it a swat, chuckling to herself. \"You'll be able to spin plenty of gold with that... if you're willing to set aside your male pride, that is,\" she says, and leans into you, leering."},
+			{"text": "You sigh. You don't have to think too hard about what she means by surrendering your male pride. If she's asking you to be \"one of her girls\", that can only mean one thing."}
 		]
 	},
 	{
@@ -888,42 +911,50 @@
 		"scriptLines": [
 			{
 			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "BROTHEL", "value":1}}],
-			"text": "."}
+			"text": "You agree to her offer. You take a fake name - one that the brothel owner assures you is the Elven word for \"heart\", but you doubt her, as she kept eyeing your rear as she said it."}
 		]
 	},
 	{
 		"key": "BROTHEL-MEMBER",
 		"scriptLines": [
-			{"text": "."}
+			{
+			"foreground": "NULL",
+			"text": "Now that you're a... worker, you can... entertain... clients.  You can choose to let them use your mouth, fuck you, or, for a higher price, spend the day with them."}
 		]
 	},
 	{
 		"key": "BROTHEL-ORAL",
 		"scriptLines": [
+			{"text": "You let the brothel owner know that your mouth is open for.. business."},
+			{"text": "It doesn't take long before a gentleman arrives who's interested in... conversation. You lead him to one of the \"guest\" rooms, and then you kneel in front of him and get to work."},
 			{
 			"mutations": [{"saveType":"GOLD", "value":{"class": "java.lang.Integer", "value": 2}}, {"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "prostitution":true, "oralSex":1, "oralCreampies":1}}],
-			"text": "."}
+			"text": "He finishes off in your mouth.  Without making eye contact, he leaves two gold coins on the dresser, and then leaves.  You wipe your mouth."}
 		]
 	},
 	{
 		"key": "BROTHEL-ANAL",
 		"scriptLines": [
+			{"text": "You let the brothel owner know that you're open for business."},
+			{"text": "It doesn't take long before a gentleman arrives who's interested in laying pipe. You lead him to one of the \"guest\" rooms, where he asks you to disrobe and get on the bed."},
 			{
-			"mutations": [{"saveType":"GOLD", "value":{"class": "java.lang.Integer", "value": 5}}, {"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "prostitution":true, "analSex":1, "creampies":1}}],
-			"text": "."}
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1}}],
+			"text": "After climbing up on the bed, he swiftly mounts you, and then proceeds to pound you out."},
+			{
+			"mutations": [{"saveType":"GOLD", "value":{"class": "java.lang.Integer", "value": 5}}, {"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "prostitution":true, "creampies":1}}],
+			"text": "After he finishes off inside of you, he leaves a stack of five gold coins on the bed next to you, and sheepishly collect it, his cum still dripping from your backdoor."}
 		]
 	},
 	{
 		"key": "BROTHEL-GFXP",
 		"scriptLines": [
-			{
-			
-			"text": "At the end of the night, he brings you back to the town inn. You fidget nervously as he pays for the stay, avoiding eye contact with the innkeeper."},
+			{"text": "You let the brothel owner know that you're prepared for a long day of faux-romance."},
+			{"text": "At the end of the night, he brings you back to the town inn. You fidget nervously as he pays for the stay, avoiding eye contact with the innkeeper."},
 			{
 			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1}}],
 			"text": "Once in the privacy of your room, you find yourself face-down or on your knees or with your legs wrapped around him all night, being his \"girlfriend\" for a few pieces of gold."},
 			{
-			"mutations": [{"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": 2}}, {"saveType":"GOLD", "value":{"class": "java.lang.Integer", "value": 5}}, {"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "prostitution":true, "analSex":3, "creampies":4}}],
+			"mutations": [{"saveType":"TIME", "value":{"class": "java.lang.Integer", "value": 2}}, {"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": 2}}, {"saveType":"GOLD", "value":{"class": "java.lang.Integer", "value": 5}}, {"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "prostitution":true, "analSex":3, "creampies":4}}],
 			"text": "In the morning, he counts out the gold pieces and slaps them onto your upturned, bare buttcheek, which is coated in semen, mostly dried. Your hole drools your temporary boyfriend's seed as he leaves the room, and your life, forever."}
 		]
 	},
@@ -935,8 +966,6 @@
 			{"text": "You become infamous for your low prices... not that you care. Though you'll never be known for slaying the most dragons or defeating the most evil wizards, you've cum on more sheets while getting slammed than any other."}
 		]
 	},
-	
-			
 	{
 		"key": "NO-SKILLS",
 		"scriptLines": [
@@ -1560,7 +1589,7 @@
 		"key": "BRIGAND-BACKSTAB",
 		"scriptLines": [
 			{
-			"mutations": [{"saveType":"HEALTH", "value":{"class": "java.lang.Integer", "value": -5}}],
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1}}, {"saveType":"HEALTH", "value":{"class": "java.lang.Integer", "value": -5}}],
 			"text": "Your lack of awareness costs you.  Your pants drop - something must have pulled them down!  Your unseen foe works quickly - and, unfortunately for you, their intentions are anything but benign."},
 			{"text": "Your breath is caught in your throat as you feel something fat worm its way inside of you, taking the path of great resistance - you've been penetrated, anally.  What is no doubt an erect, spit-slick phallus is poking into your guts, putting a crushing pressure on your insides, and you hear a female, if throaty, voice speak."},
 			{"text": "\"Phew.  It's my lucky day - that's some tight ass-pussy. You really need to pay more attention, boyo.  Just a warning for the future\", she says, gripping onto your shoulders, and though you can't see her face, you know she's smug about it."},

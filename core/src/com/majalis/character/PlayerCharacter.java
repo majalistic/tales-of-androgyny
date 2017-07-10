@@ -904,9 +904,10 @@ public class PlayerCharacter extends AbstractCharacter {
 	}
 	
 	private String receiveAnal() {
+		String result = receivedAnal == 0 ? "You are no longer a virgin! " : "";
 		receivedAnal++;
 		boolean weakToAnal = perks.get(Perk.WEAK_TO_ANAL.toString(), 0) > 0;
-		return incrementPerk(receivedAnal, Perk.ANAL_LOVER, weakToAnal ? 5 : 10, weakToAnal ? 3 : 6, weakToAnal ? 1 : 3);
+		return result + incrementPerk(receivedAnal, Perk.ANAL_LOVER, weakToAnal ? 5 : 10, weakToAnal ? 3 : 6, weakToAnal ? 1 : 3);
 	}
 	
 	private String receiveOral() {
@@ -944,7 +945,7 @@ public class PlayerCharacter extends AbstractCharacter {
 			}
 			valueToApply--;
 		}
-		return null;
+		return "";
 	}
 	
 	public void setGoblinVirginity(boolean virginity) {

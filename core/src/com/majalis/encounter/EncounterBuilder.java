@@ -204,7 +204,7 @@ public class EncounterBuilder {
 					new Branch(0).checkScene(
 						CheckType.PROSTITUTE, 	
 						new Branch(true).concat(onceSignedUp),
-						new Branch(false).choiceScene(
+						new Branch(false).textScene("BROTHEL-OFFER").choiceScene(
 							"Do you want to sign up?",
 							new Branch ("What's the worst that could happen?").require(ChoiceCheckType.LEWD).textScene("BROTHEL-SIGN-UP").concat(onceSignedUp),
 							new Branch ("Leave")

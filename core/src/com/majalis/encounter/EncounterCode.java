@@ -317,9 +317,15 @@ public enum EncounterCode {
 				});
 				reqs.addAll(TownScreen.resourceRequirements);
 				return reqs;				
+			case BROTHEL:
+				Array<AssetDescriptor<?>> reqs2 = new Array<AssetDescriptor<?>>(new AssetDescriptor[]{  
+					AssetEnum.SMUG_LAUGH.getSound(),
+					AssetEnum.MERI_SILHOUETTE.getTexture()
+				});
+				reqs2.addAll(TownScreen.resourceRequirements);
+				return reqs2;
 			case SHOP:
 			case WEAPON_SHOP:
-			case BROTHEL:
 			case BANK:
 			case TOWN_CRIER:
 				return TownScreen.resourceRequirements;
