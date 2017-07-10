@@ -33,7 +33,7 @@ public class GameWorldFactory {
 	private IntMap<GameWorldNode> nodeMap = new IntMap<GameWorldNode>();
 	private Array<GameWorldNode> nodes = new Array<GameWorldNode>();
 	
-	public GameWorldFactory(SaveManager saveManager, AssetManager assetManager,  FreeTypeFontGenerator fontGenerator, RandomXS128 random){
+	public GameWorldFactory(SaveManager saveManager, AssetManager assetManager,  FreeTypeFontGenerator fontGenerator, RandomXS128 random) {
 		this.saveService = saveManager;
 		this.loadService = saveManager;
 
@@ -55,7 +55,7 @@ public class GameWorldFactory {
 		sound = assetManager.get(AssetEnum.CLICK_SOUND.getSound());
 		character = loadService.loadDataValue(SaveEnum.PLAYER, PlayerCharacter.class);
 		
-		if (gameMode == GameMode.SKIRMISH){
+		if (gameMode == GameMode.SKIRMISH) {
 			Zone zone = new Zone(saveService, loadService, font, assetManager, random, nodes, nodeMap, 3)
 					.addStartNode(1, INITIAL, DEFAULT, new Vector2(500, 500))
 					.addEndNode(1000, TOWN, TOWN, new Vector2(900, 900))
@@ -97,9 +97,9 @@ public class GameWorldFactory {
 				.addEndNode(1003, FORT, FORT, new Vector2(240, 1400))
 				.buildZone();
 			
-			for (int ii = 0; ii < nodes.size-1; ii++){
-				for (int jj = ii + 1; jj < nodes.size; jj++){
-					if (nodes.get(ii).isAdjacent(nodes.get(jj))){
+			for (int ii = 0; ii < nodes.size-1; ii++) {
+				for (int jj = ii + 1; jj < nodes.size; jj++) {
+					if (nodes.get(ii).isAdjacent(nodes.get(jj))) {
 						nodes.get(ii).connectTo(nodes.get(jj));
 					}
 				}
@@ -111,14 +111,14 @@ public class GameWorldFactory {
 		return new GameWorld(nodes);
 	}
 	
-	private void addNode(GameWorldNode newNode, @SuppressWarnings("unchecked") Array<GameWorldNode> ... nodes){
-		for (Array<GameWorldNode> nodeArray: nodes){
+	private void addNode(GameWorldNode newNode, @SuppressWarnings("unchecked") Array<GameWorldNode> ... nodes) {
+		for (Array<GameWorldNode> nodeArray: nodes) {
 			nodeArray.add(newNode);
 		}
 		nodeMap.put(newNode.getNodeCode(), newNode);
 	}
 	
-	private GameWorldNode getNode(int nodeCode, EncounterCode initialEncounter, EncounterCode defaultEncounter, Vector2 position, boolean visited){
+	private GameWorldNode getNode(int nodeCode, EncounterCode initialEncounter, EncounterCode defaultEncounter, Vector2 position, boolean visited) {
 		return new GameWorldNode(saveService, font, nodeCode, new GameWorldNodeEncounter(initialEncounter, defaultEncounter), position, visited, sound, character, assetManager);
 	}
 }

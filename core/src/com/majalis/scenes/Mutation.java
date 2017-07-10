@@ -13,7 +13,7 @@ public class Mutation {
 	private ProfileEnum pathProfile;
 	private final Object value;
 		
-	public Mutation(SaveService saveService, SaveEnum path, Object value){
+	public Mutation(SaveService saveService, SaveEnum path, Object value) {
 		this.saveService = saveService;
 		this.path = path;
 		this.value = value;
@@ -26,10 +26,10 @@ public class Mutation {
 	}
 
 	public String mutate() {
-		if (saveService == null){
+		if (saveService == null) {
 			return null;
 		}
-		if (path != null){
+		if (path != null) {
 			return saveService.saveDataValue(path, value, false);
 		}
 		else {

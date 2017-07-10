@@ -5,7 +5,7 @@ import com.majalis.technique.TechniquePrototype.TechniqueHeight;
 
 public class NonAttackTechnique extends TechniqueBuilder {
 
-	public NonAttackTechnique(Stance usableStance, Stance resultingStance, String name, int staminaCost, int stabilityCost){
+	public NonAttackTechnique(Stance usableStance, Stance resultingStance, String name, int staminaCost, int stabilityCost) {
 		this(usableStance, resultingStance, name, staminaCost, stabilityCost, null, TechniqueHeight.NONE);
 	}
 
@@ -29,11 +29,11 @@ public class NonAttackTechnique extends TechniqueBuilder {
 		this(usableStance, resultingStance, name, staminaCost, stabilityCost, null, null, TechniqueHeight.NONE, taunt);
 	}
 	
-	public NonAttackTechnique(Stance usableStance, Stance resultingStance, String name, int staminaCost, int stabilityCost, Stance forceStance, String setDamage, TechniqueHeight height){		
+	public NonAttackTechnique(Stance usableStance, Stance resultingStance, String name, int staminaCost, int stabilityCost, Stance forceStance, String setDamage, TechniqueHeight height) {		
 		this(usableStance, resultingStance, name, staminaCost, stabilityCost, forceStance, setDamage, height, false);
 	}
 
-	public NonAttackTechnique(Stance usableStance, Stance resultingStance, String name, int staminaCost, int stabilityCost, Stance forceStance, String setDamage, TechniqueHeight height, boolean taunt){
+	public NonAttackTechnique(Stance usableStance, Stance resultingStance, String name, int staminaCost, int stabilityCost, Stance forceStance, String setDamage, TechniqueHeight height, boolean taunt) {
 		super(usableStance, resultingStance, name);
 		this.staminaCost = staminaCost;
 		this.stabilityCost = stabilityCost;

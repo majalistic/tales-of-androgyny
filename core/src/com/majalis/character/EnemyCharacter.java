@@ -906,7 +906,7 @@ public class EnemyCharacter extends AbstractCharacter {
 				final String attack = fellatio ? "bj" : "attack";
 				animations.get(0).addAction(Actions.sequence(
 					Actions.delay(1), 
-					new Action(){
+					new Action() {
 						@Override
 						public boolean act(float delta) {
 							animations.get(0).setAnimation(0, preAttack, false);
@@ -914,14 +914,14 @@ public class EnemyCharacter extends AbstractCharacter {
 							return true;
 					}},	
 					Actions.delay(1), 
-					new Action(){
+					new Action() {
 						@Override
 						public boolean act(float delta) {
 							animations.get(1).setAnimation(0, attack, false);
 							currentAnimationsPlaying.add(animations.get(1));
 							currentAnimationsPlaying.remove(animations.get(0));
 							return true;
-					}}, Actions.delay(2), new Action(){
+					}}, Actions.delay(2), new Action() {
 					@Override
 					public boolean act(float delta) {
 						if (!stance.isOralPenetration()) currentAnimationsPlaying.add(animations.get(0));
@@ -939,7 +939,7 @@ public class EnemyCharacter extends AbstractCharacter {
 			animations.get(0).addAnimation(0, "Idle Erect", true, 1.0f);
 			if (enemyType == EnemyEnum.HARPY) {
 				animations.get(0).addAction(Actions.sequence(
-					new Action(){
+					new Action() {
 						@Override
 						public boolean act(float delta) {
 							currentAnimationsPlaying.add(animations.get(2));
@@ -947,7 +947,7 @@ public class EnemyCharacter extends AbstractCharacter {
 							return true;
 					}},	
 					Actions.delay(1), 
-					new Action(){
+					new Action() {
 						@Override
 						public boolean act(float delta) {
 							currentAnimationsPlaying.remove(animations.get(2));

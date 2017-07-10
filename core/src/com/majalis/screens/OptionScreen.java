@@ -60,7 +60,7 @@ public class OptionScreen extends AbstractScreen {
 	        public void changed(ChangeEvent event, Actor actor) {
 	            final boolean val = fullScreen.isChecked();
 	            preferences.putBoolean("fullScreen", val);
-	            if (!debug){
+	            if (!debug) {
 		    		if(val) Gdx.graphics.setFullscreenMode(Gdx.graphics.getDisplayMode());
 		    		else Gdx.graphics.setWindowedMode(preferences.getInteger("width", 1920), preferences.getInteger("height", 1080));
 	            }
@@ -149,10 +149,10 @@ public class OptionScreen extends AbstractScreen {
 		final TextButton done = new TextButton("Done", skin);
 		
 		done.addListener(
-			new ClickListener(){
+			new ClickListener() {
 				@Override
 		        public void clicked(InputEvent event, float x, float y) {
-					if (!debug){
+					if (!debug) {
 						sound.play(preferences.getFloat("volume") *.5f);
 						saveAndExit();	 
 					}
@@ -170,20 +170,20 @@ public class OptionScreen extends AbstractScreen {
 	@Override
 	public void render(float delta) {
 		super.render(delta);
-		if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)){
+		if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
 			saveAndExit();
 		}
-		if(Gdx.input.isKeyJustPressed(Keys.SHIFT_LEFT)){
+		if(Gdx.input.isKeyJustPressed(Keys.SHIFT_LEFT)) {
 			debug = !debug;
 		}
 	}
 	
-	private void saveAndExit(){
+	private void saveAndExit() {
 		preferences.flush();
 		showScreen(ScreenEnum.MAIN_MENU);
 	}
 	
-	private Label addLabelActor(String label, int x, int y){
+	private Label addLabelActor(String label, int x, int y) {
 		Label newLabel = new Label(label, skin);
 		newLabel.setColor(Color.BLACK);
 		addActorAndListen(newLabel, x, y);

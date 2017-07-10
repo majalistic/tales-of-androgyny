@@ -14,21 +14,21 @@ public class ScreenElements {
 	private final PolygonSpriteBatch batch;
 	private final FreeTypeFontGenerator fontGenerator;	
 	
-	public ScreenElements(FitViewport viewport, PolygonSpriteBatch batch, FreeTypeFontGenerator fontGenerator){
+	public ScreenElements(FitViewport viewport, PolygonSpriteBatch batch, FreeTypeFontGenerator fontGenerator) {
 		this.viewport = viewport;
 		this.batch = batch;
 		this.fontGenerator = fontGenerator;
 	}
 	
-	public FitViewport getViewport(){
+	public FitViewport getViewport() {
 		return viewport;
 	}
 	
-	public PolygonSpriteBatch getBatch(){
+	public PolygonSpriteBatch getBatch() {
 		return batch;
 	}
 	
-	public BitmapFont getFont(int size){
+	public BitmapFont getFont(int size) {
 		FreeTypeFontParameter param = new FreeTypeFontParameter();
 		param.size = size;
 		return fontGenerator.generateFont(param);

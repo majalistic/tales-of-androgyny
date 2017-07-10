@@ -53,7 +53,7 @@ public abstract class AbstractScreen extends Stage implements Screen {
         game.setScreen(newScreen);
     }  
     
-    public void clear(){
+    public void clear() {
         // Clear screen
         Gdx.gl.glClearColor(clearRed, clearGreen, clearBlue, clearAlpha);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -66,17 +66,17 @@ public abstract class AbstractScreen extends Stage implements Screen {
     	this.clearAlpha = clearAlpha;
     }
     
-    protected void addActorAndListen(Actor actor, int x, int y){
+    protected void addActorAndListen(Actor actor, int x, int y) {
 		this.addActor(actor);
 		actor.setPosition(x, y);
 		addDragListener(actor);
 	}
 	
-	private void addDragListener(final Actor actor){
-		actor.addListener(new DragListener(){
+	private void addDragListener(final Actor actor) {
+		actor.addListener(new DragListener() {
 			@Override
 		    public void drag(InputEvent event, float x, float y, int pointer) {
-				if (debug){
+				if (debug) {
 			        actor.moveBy(x - actor.getWidth() / 2, y - actor.getHeight() / 2);
 			        System.out.println(actor.getX() + ", " + actor.getY());
 				}

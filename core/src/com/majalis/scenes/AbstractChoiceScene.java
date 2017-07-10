@@ -32,7 +32,7 @@ public abstract class AbstractChoiceScene extends Scene {
 		saveService.saveDataValue(SaveEnum.SCENE_CODE, sceneCode);
 	}
 	
-	public void finish(){
+	public void finish() {
 		isActive = false;
     	addAction(Actions.hide());
 	}

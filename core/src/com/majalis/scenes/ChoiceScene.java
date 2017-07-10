@@ -132,7 +132,7 @@ public class ChoiceScene extends AbstractChoiceScene {
 		batch.draw(arrowImage, 525, 750 - selection * 150, 100, 150);
     }
 	
-	public int getCode(){
+	public int getCode() {
 		return sceneCode;
 	}
 }

@@ -67,27 +67,27 @@ public class TechniquePrototype {
 		this.bonuses = bonuses;
 	}
 	
-	public Stance getUsableStance(){ return usableStance; }
-	public Stance getResultingStance(){ return resultingStance; }
-	public String getName(){ return name; }
-	public boolean isDamaging(){ return doesDamage; }
-	public boolean isHealing(){ return doesHealing; }
-	public int getPowerMod(){ return powerMod; }
-	public boolean isSpell(){ return isSpell; }
-	public int getStaminaCost(){ return staminaCost; }
-	public int getStabilityCost(){ return stabilityCost; }
-	public Stance getForceStance(){ return forceStance; }
-	public double getKnockdown(){ return knockdown; }
+	public Stance getUsableStance() { return usableStance; }
+	public Stance getResultingStance() { return resultingStance; }
+	public String getName() { return name; }
+	public boolean isDamaging() { return doesDamage; }
+	public boolean isHealing() { return doesHealing; }
+	public int getPowerMod() { return powerMod; }
+	public boolean isSpell() { return isSpell; }
+	public int getStaminaCost() { return staminaCost; }
+	public int getStabilityCost() { return stabilityCost; }
+	public Stance getForceStance() { return forceStance; }
+	public double getKnockdown() { return knockdown; }
 	public int getArmorSunder() { return armorSunder; }
-	public int getGutCheck(){ return gutCheck; }
-	public int getManaCost(){ return manaCost; }
-	public TechniqueHeight getTechniqueHeight(){ return height; }
-	public int getGuardMod(){ return guardMod; }
+	public int getGutCheck() { return gutCheck; }
+	public int getManaCost() { return manaCost; }
+	public TechniqueHeight getTechniqueHeight() { return height; }
+	public int getGuardMod() { return guardMod; }
 	public int getParryMod() {	return parryMod; }
-	public boolean doesSetDamage(){ return setDamage; }
+	public boolean doesSetDamage() { return setDamage; }
 	public boolean isBlockable() { return blockable; }
 	public boolean isGrapple() { return grapple; }
-	public boolean isTaunt(){ return isTaunt; }
+	public boolean isTaunt() { return isTaunt; }
 	public ClimaxType getClimaxType() { return climaxType; }
 	public StatusType getBuff() { return buff; }
 	public String getDescription() { return description; }

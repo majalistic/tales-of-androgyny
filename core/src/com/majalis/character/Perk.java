@@ -22,22 +22,22 @@ public enum Perk {
 	private final int maxRank;
 	private final boolean positive;
 	private final String description;
-	private Perk(String description){
+	private Perk(String description) {
 		this(description, 1, true);
 	}
-	private Perk(String description, boolean positive){
+	private Perk(String description, boolean positive) {
 		this(description, 1, positive);
 	}
-	private Perk(String description, int maxRank){
+	private Perk(String description, int maxRank) {
 		this(description, maxRank, true);
 	}
-	private Perk(String description, int maxRank, boolean positive){
+	private Perk(String description, int maxRank, boolean positive) {
 		this.description = description;
 		this.maxRank = maxRank;
 		this.positive = positive;
 	}
 	
-	public String getLabel(){
+	public String getLabel() {
 		char[] chars = super.toString().replace("_", " ").toLowerCase().toCharArray();
 		boolean found = false;
 		for (int i = 0; i < chars.length; i++) {
@@ -58,6 +58,6 @@ public enum Perk {
 	
 	public boolean isPositive() { return positive; }
 	
-	public String getDescription(){ return description; }
+	public String getDescription() { return description; }
 	
 }

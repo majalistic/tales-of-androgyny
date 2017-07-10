@@ -41,12 +41,12 @@ public class Encounter {
 		}
 		
 		for (BattleScene objScene : battleScenes) {
-			if (objScene.isActive()){
+			if (objScene.isActive()) {
 				battle = true;
 			}
 		}
 		for (EndScene objScene: endScenes) {
-			if (objScene.isActive()){
+			if (objScene.isActive()) {
 				switch(objScene.getType()) {
 					case ENCOUNTER_OVER: encounterOver = true; break;
 					case GAME_OVER: gameOver = true; break;

@@ -196,7 +196,7 @@ public class CheckScene extends AbstractTextScene {
 			@Override
 			protected boolean getCheck(PlayerCharacter character) { return character.getCurrentDebt() >= 100; }  
 		}, 
-		PROSTITUTE (".", "."){ 
+		PROSTITUTE (".", ".") { 
 			@Override
 			protected boolean getCheck(PlayerCharacter character) { return character.getQuestStatus(QuestType.BROTHEL) != 0; }  
 		}, 

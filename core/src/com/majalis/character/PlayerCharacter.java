@@ -474,7 +474,7 @@ public class PlayerCharacter extends AbstractCharacter {
 			if (oldStance.isAnalReceptive()) {
 				setCurrentPortrait(perks.get(Perk.ANAL_LOVER.toString(), 0) > 1 ? AssetEnum.PORTRAIT_AHEGAO : AssetEnum.PORTRAIT_POUT);
 			}
-			else if (oldStance.isOralReceptive()){
+			else if (oldStance.isOralReceptive()) {
 				setCurrentPortrait(AssetEnum.PORTRAIT_MOUTHBOMB);
 			}
 				

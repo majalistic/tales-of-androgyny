@@ -55,10 +55,10 @@ public abstract class Scene extends Group {
 	
 	public abstract void setActive();
 	// implement the input logic that determines the next Scene for children
-	public boolean isActive(){
+	public boolean isActive() {
 		return isActive;
 	}
-	public int getCode(){
+	public int getCode() {
 		return sceneCode;
 	}
 }

@@ -15,7 +15,7 @@ public class Path extends Actor {
 	
 	@Override
     public void draw(Batch batch, float parentAlpha) {
-		for (PathChunk chunk : pathChunks){
+		for (PathChunk chunk : pathChunks) {
 			chunk.draw(batch, parentAlpha);
 		}	
 	}
