@@ -1212,4 +1212,10 @@ public class PlayerCharacter extends AbstractCharacter {
 		}
 		return "";
 	}
+
+	public String timePass(Integer timePassed) {
+		return "Some time passes.\n" + modFood(-getMetabolicRate() * timePassed);
+	}
+	
+	public int getMetabolicRate() { return 4; }
 }

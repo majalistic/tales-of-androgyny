@@ -861,7 +861,15 @@ public abstract class AbstractCharacter extends Actor {
 		return label + (secondPerson ? " are " : " is ") + "defeated!";
 	}
 	
-	public void modFood(Integer foodChange) { food += foodChange; if (food < 0) food = 0; }
+	public String modFood(Integer foodMod) {
+		int foodChange = food;
+		food += foodMod; 
+		if (food < 0) food = 0; 
+		
+		foodChange = food - foodChange;
+		
+		return foodChange > 0 ? "+" + foodChange + " fullness!" : "Hunger increases by " + -foodChange + "!";
+	}
 	
 	protected int getClimaxVolume() {
 		return 3;

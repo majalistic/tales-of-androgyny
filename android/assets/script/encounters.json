@@ -651,7 +651,7 @@
 		"key": "INNKEEP-02",
 		"scriptLines": [
 			{
-			"mutations": [{"saveType":"TIME", "value":{"class": "java.lang.Integer", "value": 2}}, {"saveType":"GOLD", "value":{"class": "java.lang.Integer", "value": -10}}, {"saveType":"FOOD", "value":{"class": "java.lang.Integer", "value": 15}}, {"saveType":"HEALTH", "value":{"class": "java.lang.Integer", "value": 100}}],
+			"mutations": [{"saveType":"TIME", "value":{"class": "java.lang.Integer", "value": 2}}, {"saveType":"GOLD", "value":{"class": "java.lang.Integer", "value": -10}}, {"saveType":"FOOD", "value":{"class": "java.lang.Integer", "value": 25}}, {"saveType":"HEALTH", "value":{"class": "java.lang.Integer", "value": 100}}],
 			"text": "You stack ten gold coins onto the front desk, and the innkeeper counts them by producing a second stack, then weighs the ten of them, to his satisfaction, before giving you the room key."},
 			{"text": "You stay at the inn for the night, feeling well-rested in the morning."}
 		]
@@ -699,7 +699,7 @@
 			{"text": "You emerge from under the desk and get unsteadily to your feet.  While you're wiping your mouth with your sleeve, he hands you a key, and gives you a pat on the rear.  \"Second floor.  Fourth room on the left, at the end of the hall,\" he says."},
 			{"text": "You avoid eye contact as you take the key, walking briskly away down the hallway, up the stairs, and into your room."},
 			{
-			"mutations": [{"saveType":"TIME", "value":{"class": "java.lang.Integer", "value": 2}}, {"saveType":"FOOD", "value":{"class": "java.lang.Integer", "value": 15}}, {"saveType":"HEALTH", "value":{"class": "java.lang.Integer", "value": 100}}],
+			"mutations": [{"saveType":"TIME", "value":{"class": "java.lang.Integer", "value": 2}}, {"saveType":"FOOD", "value":{"class": "java.lang.Integer", "value": 25}}, {"saveType":"HEALTH", "value":{"class": "java.lang.Integer", "value": 100}}],
 			"text": "You sleep uneasily, knowing that his cum is in your stomach..."}
 		]
 	},
@@ -1645,8 +1645,8 @@
 			{"text": "Finally coming back to your senses, you cough and spit up what you can of the nasty, thick stuff at the base of a tree, wiping your mouth clean with your sleeve, though its coated in saliva and her cum and precum - a real mess.  You clean it up as best you can, and spit it up as best you can, but there's still a few load's worth bubbling in your stomach, which is very upset about your choice of meal."},
 			{"text": "With the brigand's greasy lust weighing heavily in your gut, you rest to heal your wounds, feeling particularly nauseous about the whole affair."},
 			{
-			"mutations": [{"saveType":"TIME", "value":{"class": "java.lang.Integer", "value": 1}}, {"saveType":"FOOD", "value":{"class": "java.lang.Integer", "value": -5}}, {"saveType":"HEALTH", "value":{"class": "java.lang.Integer", "value": 10}}],
-			"text": "You rest, eating 5 food. You recover 10 health."}
+			"mutations": [{"saveType":"TIME", "value":{"class": "java.lang.Integer", "value": 1}}, {"saveType":"HEALTH", "value":{"class": "java.lang.Integer", "value": 10}}],
+			"text": "You rest. You recover 10 health."}
 		]
 	},
 	{
@@ -1762,8 +1762,8 @@
 			{"text": "You lay there for a few hours, until finally, you feel strong enough in the legs, and enough of her sauce has run out, and you manage to get to your feet, a bit unstable, looking like a newborn deer."},
 			{"text": "At the very least, it seems her kind won't bother you again - although it is somewhat bittersweet, knowing that's because you had your first sexual experience on the end of a big horse dick, and have the crater and shotgun creampie remnants to prove it."},
 			{
-			"mutations": [{"saveType":"TIME", "value":{"class": "java.lang.Integer", "value": 1}}, {"saveType":"FOOD", "value":{"class": "java.lang.Integer", "value": -5}}, {"saveType":"HEALTH", "value":{"class": "java.lang.Integer", "value": 10}}],
-			"text": "You rest, eating 5 food. You recover 10 health."}
+			"mutations": [{"saveType":"TIME", "value":{"class": "java.lang.Integer", "value": 1}}, {"saveType":"HEALTH", "value":{"class": "java.lang.Integer", "value": 10}}],
+			"text": "You rest. You recover 10 health."}
 		]
 	},
 	{
@@ -1795,7 +1795,7 @@
 		"scriptLines": [
 			{
 			"animatedForeground": "CENTAUR",
-			"mutations": [{"saveType":"TIME", "value":{"class": "java.lang.Integer", "value": 1}}, {"saveType":"FOOD", "value":{"class": "java.lang.Integer", "value": 10}}, {"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": 2}}],
+			"mutations": [{"saveType":"FOOD", "value":{"class": "java.lang.Integer", "value": 10}}, {"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": 2}}],
 			"text": "You defeated the centaur!  You are now welcome to sleep in their camp, and receive 10 food.  You receive 2 Experience."}
 		]
 	}

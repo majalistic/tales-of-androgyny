@@ -255,12 +255,7 @@ public class WorldMapScreen extends AbstractScreen {
 		);
 		final TextButton camp = new TextButton("Camp", skin);
 		
-		if (character.getFood() < 4) {
-			TextButtonStyle style = new TextButtonStyle(camp.getStyle());
-			style.fontColor = Color.RED;
-			camp.setStyle(style);
-			camp.setTouchable(Touchable.disabled);
-		}
+		checkCanEat(camp);
 	
 		table.add(camp).size(145, 40);
 		Image foodIcon = new Image(food);
@@ -276,19 +271,13 @@ public class WorldMapScreen extends AbstractScreen {
 				@Override
 		        public void clicked(InputEvent event, float x, float y) {
 					buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
-					saveService.saveDataValue(SaveEnum.FOOD, -4);	 
 					console.setText(saveService.saveDataValue(SaveEnum.TIME, 1));
 					console.addAction(Actions.alpha(1));
 					console.addAction(Actions.fadeOut(6));
 					time++;
 					tintForTimeOfDay();
 					saveService.saveDataValue(SaveEnum.HEALTH, 10);	
-					if (character.getFood() < 4) {
-						TextButtonStyle style = new TextButtonStyle(camp.getStyle());
-						style.fontColor = Color.RED;
-						camp.setStyle(style);
-						camp.setTouchable(Touchable.disabled);
-					}
+					checkCanEat(camp);
 		        }
 			}
 		);
@@ -322,8 +311,7 @@ public class WorldMapScreen extends AbstractScreen {
 			public void changed(ChangeEvent event, Actor actor) {
 				if (event.getTarget() instanceof GameWorldNode) {
 					currentImage.addAction(moveTo(actor.getX() + 12, actor.getY() + 25, 1.5f));
-					int foodLeft = character.getFood() - 4;
-					saveService.saveDataValue(SaveEnum.FOOD, -4);
+					int foodLeft = character.getFood() - character.getMetabolicRate();
 					saveService.saveDataValue(SaveEnum.TIME, 1);
 					if (foodLeft < 0) {
 						saveService.saveDataValue(SaveEnum.HEALTH, 5 * foodLeft);
@@ -379,6 +367,15 @@ public class WorldMapScreen extends AbstractScreen {
 				}
 			}			
 		});
+	}
+	
+	private void checkCanEat(TextButton camp) {
+		if (character.getFood() < character.getMetabolicRate()) {
+			TextButtonStyle style = new TextButtonStyle(camp.getStyle());
+			style.fontColor = Color.RED;
+			camp.setStyle(style);
+			camp.setTouchable(Touchable.disabled);
+		}
 	}
 	
 	@Override

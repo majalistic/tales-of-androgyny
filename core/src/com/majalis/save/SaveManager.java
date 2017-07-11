@@ -100,7 +100,8 @@ public class SaveManager implements SaveService, LoadService {
 	    	case HEALTH: 			result = save.player.modHealth((Integer) object); break; 
 	    	case SKILL: 			save.player.addSkill((Techniques) object, 1); result = "Gained" + ((Techniques) object).toString() + " technique!"; break; // this should get a result back from addSkill
 	    	case PERK:				save.player.addPerk((Perk) object, 1); result = "Gained" + ((Perk) object).getLabel() + " perk!"; break; // this should get a result back from addPerk
-	    	case FOOD:				save.player.modFood((Integer) object); result = (Integer) object > 0 ? "+" + ((Integer) object).toString() + " food!" : ((Integer) object).toString() + " food!"; break; // this should get a result back from modFood
+	    	case FOOD:				result = save.player.modFood((Integer) object); break; // this should get a result back from modFood
+	    	case TIME:				save.time += (Integer) object; result = save.player.timePass((Integer) object);  if(save.time % 6 == 0) result += "\n" + save.player.debtTick((Integer) object); break;
 	    	case EXPERIENCE:		save.player.modExperience((Integer) object); result = "+" + ((Integer) object).toString() + " XP!"; break; // this should get a result back from modExperience
 	    	case GOLD:				result = save.player.modMoney((Integer) object); break; 
 	    	case DEBT:				result = save.player.modDebt((Integer) object); break;
@@ -112,8 +113,7 @@ public class SaveManager implements SaveService, LoadService {
 	    	case SHOP:				save.shops.put(((Shop) object).getShopCode(), (Shop) object); break;
 	    	case GOBLIN_VIRGIN:		save.player.setGoblinVirginity((Boolean) object); break;
 	    	case QUEST: 			QuestFlag flag = (QuestFlag) object; save.player.setQuestStatus(flag.type, flag.value); break;
-	    	case TIME:				save.time += (Integer) object; result = "Some time passes. "; if(save.time % 6 == 0) result += save.player.debtTick((Integer) object); break;
-			case ENCOUNTER_END:		save.player.popPortraitPath(); break;
+	    	case ENCOUNTER_END:		save.player.popPortraitPath(); break;
     	}	
     	if (saveToJson) {
     		saveToJson(save); //Saves current save immediately.
