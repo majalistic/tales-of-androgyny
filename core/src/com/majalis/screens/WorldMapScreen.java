@@ -442,33 +442,8 @@ public class WorldMapScreen extends AbstractScreen {
 		}
 	}
 	
-	private Color getTimeColor() {
-		switch (time%6) {
-			case 0: return getColor(156, 154, 32); // 255, 239, 205
-			case 1: return getColor(255, 255, 214);
-			case 2: return getColor(251, 255, 255);
-			case 3: return getColor(246, 212, 181);
-			case 4: return getColor(75, 125, 217);
-			case 5: return getColor(35, 55, 120);  //37,33,84
-		}
-		return null;
-	}
-	
-	private Color getColor(float r, float g, float b) {
-		return new Color(r/256f, g/256f, b/256f, 1);
-	}
-	
-	private String getTime() {
-		switch (time%6) {
-			case 0: return "Dawn";
-			case 1: return "Morning";
-			case 2: return "Afternoon";
-			case 3: return "Dusk";
-			case 4: return "Evening";
-			case 5: return "Night";
-		}
-		return null;
-	}
+	private Color getTimeColor() { return TimeOfDay.getTime(time).getColor(); }
+	private String getTime() { return TimeOfDay.getTime(time).getDisplay(); }
 	
 	private void translateCamera() {
 		Vector3 translationVector = new Vector3(0,0,0);

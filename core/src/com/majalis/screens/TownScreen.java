@@ -68,21 +68,7 @@ public class TownScreen extends AbstractScreen {
 		selection = 0;
 	}
 
-	private Color getTimeColor(int time) {
-		switch (time%6) {
-			case 0: return getColor(156, 154, 32); 
-			case 1: return getColor(255, 255, 214);
-			case 2: return getColor(251, 255, 255);
-			case 3: return getColor(246, 212, 181);
-			case 4: return getColor(75, 125, 217);
-			case 5: return getColor(35, 55, 120);  
-		}
-		return null;
-	}
-	
-	private Color getColor(float r, float g, float b) {
-		return new Color(r/256f, g/256f, b/256f, 1);
-	}
+	private Color getTimeColor(int time) { return TimeOfDay.getTime(time).getColor(); }
 	
 	private ClickListener getListener(final EncounterCode code) {
 		return new ClickListener() {
