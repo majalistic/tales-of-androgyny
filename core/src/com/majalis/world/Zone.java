@@ -2,7 +2,6 @@ package com.majalis.world;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.math.RandomXS128;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
@@ -17,7 +16,6 @@ import com.majalis.talesofandrogyny.TalesOfAndrogyny;
 
 public class Zone {
 
-	private final BitmapFont font;
 	private final AssetManager assetManager;
 	private final RandomXS128 random;
 	private final Array<GameWorldNode> nodes;
@@ -29,8 +27,7 @@ public class Zone {
 	private final int repeats;
 	private GameWorldNode startNode;
 	
-	protected Zone(LoadService loadService, BitmapFont font, AssetManager assetManager, RandomXS128 random, Array<GameWorldNode> nodes, IntMap<GameWorldNode> nodeMap, int repeats) {
-		this.font = font;
+	protected Zone(LoadService loadService, AssetManager assetManager, RandomXS128 random, Array<GameWorldNode> nodes, IntMap<GameWorldNode> nodeMap, int repeats) {
 		this.assetManager = assetManager;
 		this.random = random;
 		this.repeats = repeats;
@@ -129,7 +126,7 @@ public class Zone {
 	}
 	
 	private GameWorldNode getNode(int nodeCode, EncounterCode initialEncounter, EncounterCode defaultEncounter, Vector2 position, boolean visited) {
-		return new GameWorldNode(font, nodeCode, new GameWorldNodeEncounter(initialEncounter, defaultEncounter), position, visited, sound, character, assetManager);
+		return new GameWorldNode(nodeCode, new GameWorldNodeEncounter(initialEncounter, defaultEncounter), position, visited, sound, character, assetManager);
 	}
 	
 }
