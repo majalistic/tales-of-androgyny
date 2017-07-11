@@ -314,6 +314,10 @@ public class ShopScene extends Scene {
 		public int getY() {
 			return -100;
 		}
+
+		public boolean isTinted() {
+			return this != GADGETEER_SHOP;
+		}
 	}
 	
 }

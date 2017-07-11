@@ -22,7 +22,7 @@ public enum TimeOfDay {
 	private static Color getColor(float r, float g, float b) { return new Color(r/256f, g/256f, b/256f, 1); }
 	
 	protected String getDisplay() { return display; }
-	protected Color getColor(){ return color; }
-	protected static TimeOfDay getTime(int time) { return TimeOfDay.values()[time % 6]; }	
+	public Color getColor(){ return color; }
+	public static TimeOfDay getTime(int time) { return TimeOfDay.values()[time % 6]; }	
 }
 

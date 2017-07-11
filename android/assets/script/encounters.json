@@ -812,8 +812,6 @@
 		"scriptLines": [
 			{
 			"music": "SHOP_MUSIC",
-			"background": "TOWN_BG", 
-			"foreground": "SHOPKEEP",
 			"text": "You peruse the shop."}
 		]
 	},
@@ -822,8 +820,6 @@
 		"scriptLines": [
 			{
 			"music": "SHOP_MUSIC",
-			"background": "TOWN_BG", 
-			"foreground": "TRAINER",
 			"text": "You peruse the shop."}
 		]
 	},

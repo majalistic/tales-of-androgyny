@@ -34,6 +34,6 @@ public class EncounterFactory {
 		GameContext context = loadService.loadDataValue(SaveEnum.RETURN_CONTEXT, GameContext.class);
 		return new EncounterBuilder(
 			reader, assetManager, saveService, font, sceneCode == 0 ? -1 : sceneCode, (ObjectMap<String, Shop>)loadService.loadDataValue(SaveEnum.SHOP, Shop.class), (PlayerCharacter) loadService.loadDataValue(SaveEnum.PLAYER, PlayerCharacter.class), context,
-			(GameMode) loadService.loadDataValue(SaveEnum.MODE, GameMode.class)).getEncounter(encounterCode); 
+			(GameMode) loadService.loadDataValue(SaveEnum.MODE, GameMode.class), (Integer) loadService.loadDataValue(SaveEnum.TIME, Integer.class)).getEncounter(encounterCode); 
 	}
 }

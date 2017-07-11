@@ -41,6 +41,7 @@ import com.majalis.scenes.Scene;
 import com.majalis.scenes.ShopScene;
 import com.majalis.scenes.SkillSelectionScene;
 import com.majalis.scenes.TextScene;
+import com.majalis.screens.TimeOfDay;
 import com.majalis.scenes.CheckScene.CheckType;
 import com.majalis.scenes.ShopScene.Shop;
 import com.majalis.scenes.ShopScene.ShopCode;
@@ -58,10 +59,11 @@ public class EncounterBuilder {
 	private final GameMode mode;
 	private final OrderedMap<Integer, Scene> masterSceneMap;
 	private final ObjectMap<EnemyEnum, AnimatedActor> animationCache;
+	private final int time;
 	// can probably be replaced with a call to scenes.size
 	private int sceneCounter;
 	
-	protected EncounterBuilder(EncounterReader reader, AssetManager assetManager, SaveService saveService, BitmapFont font, int sceneCode, ObjectMap<String, Shop> shops, PlayerCharacter character, GameContext returnContext, GameMode mode) {
+	protected EncounterBuilder(EncounterReader reader, AssetManager assetManager, SaveService saveService, BitmapFont font, int sceneCode, ObjectMap<String, Shop> shops, PlayerCharacter character, GameContext returnContext, GameMode mode, int time) {
 		this.reader = reader;
 		this.assetManager = assetManager;
 		this.saveService = saveService;
@@ -71,6 +73,7 @@ public class EncounterBuilder {
 		this.character = character;
 		this.returnContext = returnContext;
 		this.mode = mode;
+		this.time = time;
 		this.animationCache = new ObjectMap<EnemyEnum, AnimatedActor>();
 		sceneCounter = 1;
 		masterSceneMap = new OrderedMap<Integer, Scene>();
@@ -1130,7 +1133,11 @@ public class EncounterBuilder {
 					if (token instanceof ShopSceneToken) {
 						ShopCode shopCode = ((ShopSceneToken) token).shopCode;
 						// this needs to get the proper background, probably from shopcode attributes
-						newScene = new ShopScene(sceneMap, sceneCounter, saveService, assetManager, character, new BackgroundBuilder(assetManager.get(shopCode.getBackground())).setForeground(assetManager.get(shopCode.getForeground()), shopCode.getX(), shopCode.getY()).build(), shopCode, shops.get(shopCode.toString()));
+						Background bg = new BackgroundBuilder(assetManager.get(shopCode.getBackground())).setForeground(assetManager.get(shopCode.getForeground()), shopCode.getX(), shopCode.getY()).build();
+						if (shopCode.isTinted()) {
+							bg.setColor(TimeOfDay.getTime(time).getColor());
+						}
+						newScene = new ShopScene(sceneMap, sceneCounter, saveService, assetManager, character, bg, shopCode, shops.get(shopCode.toString()));
 					}
 					else if (token instanceof CharacterCreationToken) {
 						boolean storyMode = ((CharacterCreationToken) token).storyMode;
