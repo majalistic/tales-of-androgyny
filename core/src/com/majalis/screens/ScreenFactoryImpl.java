@@ -173,6 +173,13 @@ public class ScreenFactoryImpl implements ScreenFactory {
 		return null;
 	}
 	
+	private CampScreen getCamp(ScreenElements elements, PlayerCharacter character) {
+		if (getAssetCheck(CampScreen.resourceRequirements)) {
+			return new CampScreen(this, elements, assetManager, saveService, character, (Integer)loadService.loadDataValue(SaveEnum.TIME, Integer.class));
+		}
+		return null;
+	}
+	
 	private AbstractScreen getCurrentContextScreen(ScreenElements elements, PlayerCharacter character) {
 		SaveManager.GameContext context = loadService.loadDataValue(SaveEnum.CONTEXT, SaveManager.GameContext.class);
 		switch (context) {
@@ -189,6 +196,8 @@ public class ScreenFactoryImpl implements ScreenFactory {
 				return getLevel(elements, character);
 			case TOWN:
 				return getTown(elements, character); 
+			case CAMP:
+				return getCamp(elements, character);
 			case GAME_OVER:
 				if (getAssetCheck(GameOverScreen.resourceRequirements)) {
 					return new GameOverScreen(this, elements, assetManager);

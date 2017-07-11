@@ -414,6 +414,7 @@ public class SaveManager implements SaveService, LoadService {
 		BATTLE, 
 		LEVEL,
 		TOWN,
+		CAMP,
 		GAME_OVER
 	}
 	

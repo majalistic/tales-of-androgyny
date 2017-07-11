@@ -23,6 +23,21 @@ public enum TimeOfDay {
 	
 	protected String getDisplay() { return display; }
 	public Color getColor(){ return color; }
-	public static TimeOfDay getTime(int time) { return TimeOfDay.values()[time % 6]; }	
+	public static TimeOfDay getTime(int time) { return TimeOfDay.values()[time % 6]; }
+
+	
+	public static int timeTillNext(TimeOfDay targetTime, int time) { return targetTime.ordinal() == time % 6 ? 6 : timeTill(targetTime, time); }
+	
+	// returns 0 if targetTime is current time
+	public static int timeTill(TimeOfDay targetTime, int time) {
+		int currentTimeOrdinal = time % 6;
+		int diff = 0;
+		while (currentTimeOrdinal != targetTime.ordinal()) {
+			currentTimeOrdinal++;
+			diff++;
+			currentTimeOrdinal %= 6;
+		}
+		return diff;
+	}	
 }
 

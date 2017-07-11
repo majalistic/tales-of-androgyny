@@ -135,8 +135,7 @@ public class WorldMapScreen extends AbstractScreen {
 		worldStage.addActor(group);
 		
 		// load assets
-		int arb = loadService.loadDataValue(SaveEnum.NODE_CODE, Integer.class);
-		food = arb % 2 == 0 ? assetManager.get(AssetEnum.APPLE.getTexture()) : assetManager.get(AssetEnum.MEAT.getTexture());
+		food = assetManager.get(AssetEnum.APPLE.getTexture());
 		grasses = new Array<Texture>(true, new Texture[]{assetManager.get(AssetEnum.GRASS0.getTexture()), assetManager.get(AssetEnum.GRASS1.getTexture()), assetManager.get(AssetEnum.GRASS2.getTexture()), assetManager.get(AssetEnum.FOREST_INACTIVE.getTexture())}, 0, 4);
 		cloud = assetManager.get(AssetEnum.CLOUD.getTexture());
 		characterUITexture = assetManager.get(AssetEnum.WORLD_MAP_UI.getTexture());
@@ -165,6 +164,7 @@ public class WorldMapScreen extends AbstractScreen {
 		currentImage = new AnimatedImage(animation, Scaling.fit, Align.right);
 		currentImage.setScale(.7f);
 		currentImage.setState(0);
+		// this is currently placing the character based on the camera in a way that conveniently places them on their current node - this needs to instead be aware of the current node and be able to grab its position from there (will need to know current node for behavior of Camp/Enter button regardless)
 		currentImage.setPosition(initialTranslation.x + 650, initialTranslation.y + 390);
 		
 		this.world = world;
@@ -237,11 +237,15 @@ public class WorldMapScreen extends AbstractScreen {
 			characterButton.setStyle(style);
 		}
 		
+		Table actionTable = new Table();
+		this.addActor(actionTable);
+		actionTable.setPosition(675, 75);
+		
 		Table table = new Table();
 		table.setPosition(377, 65);
 		this.addActor(table);
 		
-		table.add(characterButton).size(185, 40);
+		actionTable.add(characterButton).size(200, 50).row();
 		
 		characterButton.setBounds(185, 45, 185, 40);
 		characterButton.addListener(
@@ -253,11 +257,11 @@ public class WorldMapScreen extends AbstractScreen {
 		        }
 			}
 		);
-		final TextButton camp = new TextButton("Camp", skin);
+		final TextButton rest = new TextButton("Rest", skin);
 		
-		checkCanEat(camp);
+		checkCanEat(rest);
 	
-		table.add(camp).size(145, 40);
+		table.add(rest).size(145, 40);
 		Image foodIcon = new Image(food);
 		foodIcon.setSize(75, 75);
 		this.addActor(foodIcon);
@@ -266,7 +270,8 @@ public class WorldMapScreen extends AbstractScreen {
 		this.addActor(console);
 		console.setPosition(820, 80);
 		
-		camp.addListener(
+		// rest will eventually just wait some time - eating food if possible to maintain hunger level
+		rest.addListener(
 			new ClickListener() {
 				@Override
 		        public void clicked(InputEvent event, float x, float y) {
@@ -277,14 +282,29 @@ public class WorldMapScreen extends AbstractScreen {
 					time++;
 					tintForTimeOfDay();
 					saveService.saveDataValue(SaveEnum.HEALTH, 10);	
-					checkCanEat(camp);
+					checkCanEat(rest);
+		        }
+			}
+		);
+		
+		final TextButton camp = new TextButton("Camp", skin);
+	
+		table.add(camp).size(145, 40);
+		
+		camp.addListener(
+			new ClickListener() {
+				@Override
+		        public void clicked(InputEvent event, float x, float y) {
+					buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
+					saveService.saveDataValue(SaveEnum.CONTEXT, SaveManager.GameContext.CAMP);
+					saveService.saveDataValue(SaveEnum.RETURN_CONTEXT, SaveManager.GameContext.WORLD_MAP);
+					showScreen(ScreenEnum.CONTINUE);
 		        }
 			}
 		);
 		
 		TextButton saveButton = new TextButton("Save", skin);
-		this.addActor(saveButton);
-		saveButton.setBounds(600, 50, 200, 50);
+		actionTable.add(saveButton).size(200, 50).row();
 		saveButton.addListener(
 			new ClickListener() {
 				@Override
@@ -341,6 +361,7 @@ public class WorldMapScreen extends AbstractScreen {
 								boolean switchScreen = false;
 								EncounterCode newEncounter = node.getEncounterCode();
 								if(newEncounter == EncounterCode.DEFAULT) {
+									// this will need to also check if the node is a town/dungeon node and appropriately swap the button from "Camp" to "Enter"
 									node.setAsCurrentNode();
 								}
 								else {
@@ -380,10 +401,6 @@ public class WorldMapScreen extends AbstractScreen {
 	
 	@Override
 	public void render(float delta) {
-		if (Gdx.input.isKeyJustPressed(Keys.TAB)) {
-			//displayHUD = !displayHUD;
-		}
-		
 		translateCamera();
 		Gdx.input.setInputProcessor(multi);
 		
