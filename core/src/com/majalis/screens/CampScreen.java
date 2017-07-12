@@ -14,6 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -55,6 +56,7 @@ public class CampScreen extends AbstractScreen {
 	private final Array<TextButton> buttons;
 	private final Texture characterUITexture;
 	private final Texture food;
+	private final Label console;
 	private int selection;
 	private int time;
 	
@@ -77,6 +79,7 @@ public class CampScreen extends AbstractScreen {
 		
 		buttons = new Array<TextButton>();
 		selection = 0;
+		console = new Label("", skin);
 	}
 
 	private Color getTimeColor(int time) { return TimeOfDay.getTime(time).getColor(); }
@@ -84,22 +87,13 @@ public class CampScreen extends AbstractScreen {
 	
 	private void passTime(int timePass) {
 		time += timePass;
-		saveService.saveDataValue(SaveEnum.TIME, timePass);
-		saveService.saveDataValue(SaveEnum.HEALTH, 5 * timePass);
+		console.setText(saveService.saveDataValue(SaveEnum.TIME, timePass) + "\n" + saveService.saveDataValue(SaveEnum.HEALTH, 5 * timePass));
 		background.setColor(getTimeColor(time));	
-	}
-	
-	private void disableEat() {
-		if (character.getFood() < 2) {
-			TextButtonStyle style = new TextButtonStyle(buttons.get(2).getStyle());
-			style.fontColor = Color.RED;
-			buttons.get(2).setStyle(style);
-			buttons.get(2).setTouchable(Touchable.disabled);
-		}
 	}
 	
 	@Override
 	public void buildStage() {
+		
 		Table table = new Table();
 		table.align(Align.bottomLeft);
         table.setPosition(1200, 595);
@@ -118,8 +112,6 @@ public class CampScreen extends AbstractScreen {
 		buttons.get(0).addListener(new ClickListener() { @Override public void clicked(InputEvent event, float x, float y) { passTime(1); } } );
 		buttons.get(1).addListener(new ClickListener() { @Override public void clicked(InputEvent event, float x, float y) { passTime(TimeOfDay.timeTillNext(TimeOfDay.DAWN, time)); } } );
 		buttons.get(2).addListener(new ClickListener() { @Override public void clicked(InputEvent event, float x, float y) { passTime(TimeOfDay.timeTillNext(TimeOfDay.DUSK, time)); } } );
-		
-		disableEat();
 		buttons.get(3).addListener(new ClickListener() {
 	        @Override
 	        public void clicked(InputEvent event, float x, float y) {
@@ -146,6 +138,10 @@ public class CampScreen extends AbstractScreen {
         arrow.setSize(45, 75);
         setArrowPosition();
         arrow.setPosition(arrow.getX(), arrow.getY() + 60 * (buttons.size-1));
+        
+		this.addActor(console);
+		console.setPosition(875, 150);
+		console.setAlignment(Align.top);
         
         music.play();
         music.setVolume(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("musicVolume", 1));

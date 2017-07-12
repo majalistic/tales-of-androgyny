@@ -97,7 +97,7 @@ public class SaveManager implements SaveService, LoadService {
 	    	case BATTLE_CODE:		save.battleAttributes = (BattleAttributes) object; break;
 	    	case CLASS:				save.player.setJobClass((JobClass) object); save.player.load(); break;
 	    	case WORLD_SEED:		save.worldSeed = (Integer) object; break;
-	    	case HEALTH: 			result = save.player.modHealth((Integer) object); break; 
+	    	case HEALTH: 			result = save.player.modHealth((Integer) object); result += save.player.cureBleed((Integer) object / 5); break; 
 	    	case SKILL: 			save.player.addSkill((Techniques) object, 1); result = "Gained" + ((Techniques) object).toString() + " technique!"; break; // this should get a result back from addSkill
 	    	case PERK:				save.player.addPerk((Perk) object, 1); result = "Gained" + ((Perk) object).getLabel() + " perk!"; break; // this should get a result back from addPerk
 	    	case FOOD:				result = save.player.modFood((Integer) object); break; // this should get a result back from modFood

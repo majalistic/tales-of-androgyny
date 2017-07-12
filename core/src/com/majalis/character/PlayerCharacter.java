@@ -1218,4 +1218,14 @@ public class PlayerCharacter extends AbstractCharacter {
 	}
 	
 	public int getMetabolicRate() { return 4; }
+
+	public String cureBleed(Integer bleedCure) {
+		int currentBleed = statuses.get(StatusType.BLEEDING.toString(), 0);
+		int temp = currentBleed;
+		currentBleed -= bleedCure;
+		if (currentBleed < 0) currentBleed = 0;
+		temp = temp - currentBleed;
+		statuses.put(StatusType.BLEEDING.toString(), currentBleed);
+		return temp > 0 ? "Cured " + temp + " bleed point" + (temp > 1 ? "s." : ".") : "";
+	}
 }
