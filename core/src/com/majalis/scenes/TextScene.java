@@ -18,6 +18,7 @@ import com.majalis.encounter.Background;
 import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveService;
 import com.majalis.screens.EncounterScreen;
+import com.majalis.screens.TimeOfDay;
 
 public class TextScene extends AbstractTextScene  {
 	
@@ -72,8 +73,9 @@ public class TextScene extends AbstractTextScene  {
 			fullnessIcon.addAction(Actions.show());
 			fullnessIcon.setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(character.getCumInflationPath()))));
 		}
+		background.setColor(TimeOfDay.getTime(character.getTime()).getColor());
 	}
-	// this type of TextScene will be one that always pipes from one scene to the next with no branch - there will be another TextScene that actually has branching logic
+	
 	@Override
 	protected void nextScene() {
 		sceneBranches.get(sceneBranches.orderedKeys().get(0)).setActive();

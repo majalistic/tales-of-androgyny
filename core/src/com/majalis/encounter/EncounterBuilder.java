@@ -1006,10 +1006,10 @@ public class EncounterBuilder {
 								checkValueMap.put(((Integer) next.key), nextScene);
 							}
 							if (checkBranchToken.getStat() != null) {
-								sceneMap = addScene(scenes, new CheckScene(sceneMap, sceneCounter, assetManager, saveService, font, new BackgroundBuilder(assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getTexture())).build(), checkBranchToken.getStat(), checkValueMap, checkValueMap.get(0), character), true);						
+								sceneMap = addScene(scenes, new CheckScene(sceneMap, sceneCounter, assetManager, saveService, font, getDefaultBackground().build(), checkBranchToken.getStat(), checkValueMap, checkValueMap.get(0), character), true);						
 							}
 							else {
-								sceneMap = addScene(scenes, new CheckScene(sceneMap, sceneCounter, assetManager, saveService, font, new BackgroundBuilder(assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getTexture())).build(), checkBranchToken.getPerk(), checkValueMap, checkValueMap.get(0), character), true);						
+								sceneMap = addScene(scenes, new CheckScene(sceneMap, sceneCounter, assetManager, saveService, font, getDefaultBackground().build(), checkBranchToken.getPerk(), checkValueMap, checkValueMap.get(0), character), true);						
 							}
 						}
 						else {
@@ -1018,7 +1018,7 @@ public class EncounterBuilder {
 								Scene nextScene = weld(scenes, battleScenes, endScenes, next, sceneMap);
 								checkValueMap.put(((Boolean) next.key), nextScene);
 							}
-							sceneMap = addScene(scenes, new CheckScene(sceneMap, sceneCounter, assetManager, saveService, font, new BackgroundBuilder(assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getTexture())).build(), checkBranchToken.getCheckType(), checkValueMap.get(true), checkValueMap.get(false), character), true);						
+							sceneMap = addScene(scenes, new CheckScene(sceneMap, sceneCounter, assetManager, saveService, font, getDefaultBackground().build(), checkBranchToken.getCheckType(), checkValueMap.get(true), checkValueMap.get(false), character), true);						
 						}
 						break;
 					case Choice:
@@ -1033,7 +1033,7 @@ public class EncounterBuilder {
 							Scene nextScene = next.value.getScenes().first();
 							choices.add(new BranchChoice(new TextButton((String)next.key, skin), nextScene, next.value.require, buttonSound));							
 						}
-						AbstractChoiceScene choiceScene = branchToken.type == EndTokenType.Choice ? new ChoiceScene(sceneMap, sceneCounter, saveService, font, ((ChoiceSceneToken)branchToken).getToDisplay(), choices, assetManager.get(AssetEnum.STANCE_ARROW.getTexture()), character, new BackgroundBuilder(assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getTexture())).build())
+						AbstractChoiceScene choiceScene = branchToken.type == EndTokenType.Choice ? new ChoiceScene(sceneMap, sceneCounter, saveService, font, ((ChoiceSceneToken)branchToken).getToDisplay(), choices, assetManager.get(AssetEnum.STANCE_ARROW.getTexture()), character, getDefaultBackground().build())
 						: new GameTypeScene(sceneMap, sceneCounter, saveService, choices, new BackgroundBuilder(assetManager.get(AssetEnum.GAME_TYPE_BACKGROUND.getTexture())).build());
 						// need the choiceScene in order to create the buttons, so iterate through again
 						sceneMap = addScene(scenes, choiceScene, true);						
@@ -1083,11 +1083,11 @@ public class EncounterBuilder {
 							backgrounds.add(backgrounds.get(backgrounds.size - 1).clone());
 						}
 						else {
-							backgrounds.add(new BackgroundBuilder(assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getTexture())).setDialogBox(dialogBoxTexture).build());
+							backgrounds.add(getDefaultBackground().setDialogBox(dialogBoxTexture).build());
 						}
 					}
-					else {
-						BackgroundBuilder backgroundBuilder = new BackgroundBuilder(assetManager.get(token.background != null ? token.background.getTexture() : background != null ? background.getTexture() : AssetEnum.DEFAULT_BACKGROUND.getTexture())).setDialogBox(dialogBoxTexture); 
+					else {						
+						BackgroundBuilder backgroundBuilder = (token.background != null ? new BackgroundBuilder(assetManager.get(token.background.getTexture())) : background != null ? new BackgroundBuilder(assetManager.get(background.getTexture())) : getDefaultBackground()).setDialogBox(dialogBoxTexture); 
 						if (token.animatedForeground != null) {
 							int x = token.animatedForeground == EnemyEnum.BUTTBANG ? 555 : 0;
 							int y = token.animatedForeground == EnemyEnum.BUTTBANG ? 520 : 0;
@@ -1169,6 +1169,10 @@ public class EncounterBuilder {
 			this.scenes.addAll(scenes);
 			this.battleScenes.addAll(battleScenes);
 			this.endScenes.addAll(endScenes);
+		}
+		
+		private BackgroundBuilder getDefaultBackground() {
+			return new BackgroundBuilder(assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getTexture()), false);
 		}
 		
 		private AnimatedActor getAnimation(EnemyEnum type) {

@@ -20,6 +20,7 @@ import com.majalis.character.PlayerCharacter;
 import com.majalis.encounter.Background;
 import com.majalis.encounter.EncounterBuilder.BranchChoice;
 import com.majalis.save.SaveService;
+import com.majalis.screens.TimeOfDay;
 /*
  * Represents a choice displayed to the user in the course of an encounter.
  */
@@ -31,6 +32,7 @@ public class ChoiceScene extends AbstractChoiceScene {
 	private final Array<BranchChoice> choices;
 	private final Texture arrowImage;
 	private final PlayerCharacter character;
+	private final Background background;
 	private int selection;
 	// this should receive a map of integers to choice buttons 
 	public ChoiceScene(OrderedMap<Integer, Scene> sceneBranches, int sceneCode, SaveService saveService, BitmapFont font, String choiceDialogue, Array<BranchChoice> choices, Texture arrowImage, PlayerCharacter character, Background background) {
@@ -54,6 +56,7 @@ public class ChoiceScene extends AbstractChoiceScene {
         // may need to add the background as an actor
         this.addActor(table);
         this.choiceDialogue = choiceDialogue;
+        this.background = background;
 		selection = 0;
 	}
 
@@ -66,6 +69,7 @@ public class ChoiceScene extends AbstractChoiceScene {
 				choice.button.setColor(Color.GRAY);
 			}
 		}
+		background.setColor(TimeOfDay.getTime(character.getTime()).getColor());
 	}
 	
 	private ClickListener getListener(final int index, final Scene nextScene, final Sound buttonSound) {

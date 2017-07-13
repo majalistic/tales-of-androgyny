@@ -11,6 +11,7 @@ import com.majalis.character.PlayerCharacter.QuestType;
 import com.majalis.character.Perk;
 import com.majalis.encounter.Background;
 import com.majalis.save.SaveService;
+import com.majalis.screens.TimeOfDay;
 
 public class CheckScene extends AbstractTextScene {
 
@@ -22,6 +23,7 @@ public class CheckScene extends AbstractTextScene {
 	private CheckType checkType;
 	private Scene clearScene;
 	private Scene nextScene;
+	private Background background;
 	
 	public CheckScene(OrderedMap<Integer, Scene> sceneBranches, int sceneCode, AssetManager assetManager, SaveService saveService, BitmapFont font, Background background, Stat stat, OrderedMap<Integer, Scene> checkValues, Scene defaultScene, PlayerCharacter character) {
 		this(sceneBranches, sceneCode, assetManager, saveService, font, background, stat, null, null, checkValues, null, defaultScene, character);
@@ -44,12 +46,14 @@ public class CheckScene extends AbstractTextScene {
 		this.statToCheck = stat;
 		this.perkToCheck = perk;
 		this.checkType = checkType;
+		this.background = background;
 	}
 	
 	@Override
 	public void setActive() {
 		super.setActive();
 		nextScene = getNextScene();	
+		background.setColor(TimeOfDay.getTime(character.getTime()).getColor());
 	}
 	
 	private Scene getNextScene() {

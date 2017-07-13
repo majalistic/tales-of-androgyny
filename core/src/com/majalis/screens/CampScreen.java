@@ -171,6 +171,10 @@ public class CampScreen extends AbstractScreen {
             event2.setType(InputEvent.Type.touchUp);
             buttons.get(selection).fire(event2);
         }
+        else if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
+			music.stop();
+			showScreen(ScreenEnum.MAIN_MENU);
+		}
         
         drawText();
 		camera.update();

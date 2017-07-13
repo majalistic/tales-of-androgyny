@@ -811,6 +811,7 @@
 		"key": "TOWN-SHOP",
 		"scriptLines": [
 			{
+			"background": "TOWN_BG",
 			"music": "SHOP_MUSIC",
 			"text": "You peruse the shop."}
 		]
@@ -819,6 +820,7 @@
 		"key": "WEAPON-SHOP",
 		"scriptLines": [
 			{
+			"background": "TOWN_BG",
 			"music": "SHOP_MUSIC",
 			"text": "You peruse the shop."}
 		]
@@ -945,6 +947,9 @@
 		"key": "BROTHEL-GFXP",
 		"scriptLines": [
 			{"text": "You let the brothel owner know that you're prepared for a long day of faux-romance."},
+			{
+			"mutations": [{"saveType":"FOOD", "value":{"class": "java.lang.Integer", "value": 8}}],
+			"text": "They take you out to dinner."},
 			{"text": "At the end of the night, he brings you back to the town inn. You fidget nervously as he pays for the stay, avoiding eye contact with the innkeeper."},
 			{
 			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1}}],

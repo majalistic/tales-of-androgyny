@@ -994,19 +994,19 @@ public class PlayerCharacter extends AbstractCharacter {
 	}
 
 	public String receiveSex(SexualExperience sex) {
-		String result = "";
+		Array<String> result = new Array<String>();
 		String temp;
 		for (int ii = 0; ii < sex.getAnalSex(); ii++) {
 			temp = receiveAnal();
 			setCurrentPortrait(perks.get(Perk.ANAL_LOVER.toString(), 0) > 1 ? AssetEnum.PORTRAIT_LUST : AssetEnum.PORTRAIT_HIT);
-			if (temp != null) {
-				result += temp + "\n";
+			if (!temp.isEmpty()) {
+				result.add(temp);
 			}
 		}
 		for (int ii = 0; ii < sex.getCreampies(); ii++) {
 			temp = fillButt(5);
-			if (temp != null) {
-				result += temp + "\n";
+			if (!temp.isEmpty()) {
+				result.add(temp);
 			}
 		}
 		for (int ii = 0; ii < sex.getAnalEjaculations(); ii++) {
@@ -1016,41 +1016,48 @@ public class PlayerCharacter extends AbstractCharacter {
 		for (int ii = 0; ii < sex.getOralSex(); ii++) {
 			temp = receiveOral();
 			setCurrentPortrait(AssetEnum.PORTRAIT_FELLATIO);
-			if (temp != null) {
-				result += temp + "\n";
+			if (!temp.isEmpty()) {
+				result.add(temp);
 			}
 		}
 		for (int ii = 0; ii < sex.getOralCreampies(); ii++) {
 			temp = fillMouth(5);
 			setCurrentPortrait(AssetEnum.PORTRAIT_MOUTHBOMB);
-			if (temp != null) {
-				result += temp + "\n";
+			if (!temp.isEmpty()) {
+				result.add(temp);
 			}
 		}
 		if (sex.getOralCreampies() > 0) {
-			result += "You swallow enough to sate your hunger!\n";
-			food++;
+			temp = modFood(1);
+			result.add("You swallow enough to sate your hunger!" + (temp.isEmpty() ? "" : " " + temp)); 
 		}
 		for (int ii = 0; ii < sex.getFellatioEjaculations(); ii++) {
 			cumFromOral();
 		}
 		
 		if (sex.isCentaurSex() && perks.get(Perk.HORSE_LOVER.toString(), 0) == 0) {
-			result += "You gained " + Perk.HORSE_LOVER.getLabel() + " (Rank " + 1 + ")!";
+			result.add("You gained " + Perk.HORSE_LOVER.getLabel() + " (Rank " + 1 + ")!");
 			perks.put(Perk.HORSE_LOVER.toString(), 1);
 		}
 		if (sex.isOgreSex() && perks.get(Perk.GIANT_LOVER.toString(), 0) != 3) {
-			result += "You gained " + Perk.GIANT_LOVER.getLabel() + " (Rank " + (perks.get(Perk.GIANT_LOVER.toString(), 0) + 1) + ")!";
+			result.add("You gained " + Perk.GIANT_LOVER.getLabel() + " (Rank " + (perks.get(Perk.GIANT_LOVER.toString(), 0) + 1) + ")!");
 			perks.put(Perk.GIANT_LOVER.toString(), ((int)perks.get(Perk.GIANT_LOVER.toString(), 0)) + 1);
 		}
 		
 		if (sex.isProstitution() && perks.get(Perk.LADY_OF_THE_NIGHT.toString(), 0) != 5) {
-			result += "You gained " + Perk.LADY_OF_THE_NIGHT.getLabel() + " (Rank " + (perks.get(Perk.LADY_OF_THE_NIGHT.toString(), 0) + 1) + ")!";
+			result.add("You gained " + Perk.LADY_OF_THE_NIGHT.getLabel() + " (Rank " + (perks.get(Perk.LADY_OF_THE_NIGHT.toString(), 0) + 1) + ")!");
 			perks.put(Perk.LADY_OF_THE_NIGHT.toString(), ((int)perks.get(Perk.LADY_OF_THE_NIGHT.toString(), 0)) + 1);
 		}
-		
-		
-		return result;
+				
+		return joinWithLines(result);
+	}
+	
+	private String joinWithLines(Array<String> toJoin) {
+		String result = "";
+		for (String s: toJoin) {
+			result += s + "\n";
+		}
+		return result.trim();
 	}
 	
 	private void cumFromAnal() {
@@ -1219,7 +1226,7 @@ public class PlayerCharacter extends AbstractCharacter {
 		int currentDay = time / 6;
 		time += timePassed;
 		String result = debtTick((time / 6) - currentDay);
-		return "Some time passes.\n" + modFood(-getMetabolicRate() * timePassed) + "\n" + result;
+		return "Some time passes.\n" + modFood(-getMetabolicRate() * timePassed) + (result.isEmpty() ? "" : "\n" + result);
 	}
 	
 	public int getMetabolicRate() { return 4; }
