@@ -40,7 +40,8 @@ public class PlayerCharacter extends AbstractCharacter {
 	// advantage, range, and combat-lock(boolean) are shared properties between two creatures
 	
 	/* out of battle only statistics */
-	protected int money;
+	private int time;
+	private int money;
 	private int debt;
 
 	protected Femininity femininity;
@@ -94,6 +95,7 @@ public class PlayerCharacter extends AbstractCharacter {
 			}
 			setCharacterName("Hiro");
 			questFlags = new ObjectMap<String, Integer>();
+			time = 0;
 		}
 		
 		skills = new ObjectMap<String, Integer>();
@@ -1195,7 +1197,7 @@ public class PlayerCharacter extends AbstractCharacter {
 			debt = 0;
 		}
 		
-		return gold > 0 ? "You have incurred " + gold + " gold worth of debt." : "You've been relieved of " + loss + " gold worth of debt!";
+		return gold > 0 ? "You have incurred " + gold + " gold worth of debt." : gold < 0 ? "You've been relieved of " + loss + " gold worth of debt!" : "";
 	}
 	
 	public int getBattlePerception() {
@@ -1208,13 +1210,16 @@ public class PlayerCharacter extends AbstractCharacter {
 
 	public String debtTick(int ticks) {
 		if (debt > 0) {
-			return modDebt(10);
+			return modDebt(10 * ticks);
 		}
 		return "";
 	}
 
 	public String timePass(Integer timePassed) {
-		return "Some time passes.\n" + modFood(-getMetabolicRate() * timePassed);
+		int currentDay = time / 6;
+		time += timePassed;
+		String result = debtTick((time / 6) - currentDay);
+		return "Some time passes.\n" + modFood(-getMetabolicRate() * timePassed) + "\n" + result;
 	}
 	
 	public int getMetabolicRate() { return 4; }
@@ -1228,4 +1233,6 @@ public class PlayerCharacter extends AbstractCharacter {
 		statuses.put(StatusType.BLEEDING.toString(), currentBleed);
 		return temp > 0 ? "Cured " + temp + " bleed point" + (temp > 1 ? "s." : ".") : "";
 	}
+
+	public Integer getTime() { return time; }
 }

@@ -138,7 +138,7 @@ public class CampScreen extends AbstractScreen {
         arrow.setPosition(arrow.getX(), arrow.getY() + 60 * (buttons.size-1));
         
 		this.addActor(console);
-		console.setPosition(875, 150);
+		console.setPosition(900, 150);
 		console.setAlignment(Align.top);
         
         music.play();

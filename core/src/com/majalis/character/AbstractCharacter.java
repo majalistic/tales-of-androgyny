@@ -161,8 +161,8 @@ public abstract class AbstractCharacter extends Actor {
 			case 3: return AssetEnum.HEALTH_ICON_3.getTexture();
 			case 4: return AssetEnum.HEALTH_ICON_3.getTexture();
 			case 5: return AssetEnum.HEALTH_ICON_3.getTexture();
+			default: return AssetEnum.HEALTH_ICON_3.getTexture();
 		}
-		return null;
 	}
 	
 	public AssetDescriptor<Texture> getStaminaDisplay() { 
@@ -172,8 +172,8 @@ public abstract class AbstractCharacter extends Actor {
 			case 2: return AssetEnum.STAMINA_ICON_2.getTexture();
 			case 3: return AssetEnum.STAMINA_ICON_3.getTexture();
 			case 4: return AssetEnum.STAMINA_ICON_3.getTexture();
+			default: return AssetEnum.STAMINA_ICON_3.getTexture();
 		}
-		return null;
 	}
 	
 	public AssetDescriptor<Texture> getBalanceDisplay() { 
@@ -187,21 +187,25 @@ public abstract class AbstractCharacter extends Actor {
 			case 2: return AssetEnum.MANA_ICON_2.getTexture();
 			case 3: return AssetEnum.MANA_ICON_3.getTexture();
 			case 4: return AssetEnum.MANA_ICON_3.getTexture();
+			default: return AssetEnum.MANA_ICON_3.getTexture();
 		}
-		return null;
 	}
 	
 	public String getStability() { return stability.toString(); }
 	
 	public int getLust() { return lust; }
 	
-	public String modHealth(int healthMod) { 
+	public String modHealth(int healthMod) { return modHealth(healthMod, ""); }
+	
+	public String modHealth(int healthMod, String cause) { 
 		int healthChange = this.currentHealth;
 		this.currentHealth += healthMod; 
-		if (currentHealth > getMaxHealth()) 
+		if (currentHealth > getMaxHealth()) {
 			currentHealth = getMaxHealth();  
+		}
+			
 		healthChange = this.currentHealth - healthChange;
-		return healthChange > 0 ? "Gained " + healthChange + " health!" : healthChange < 0 ? "You take " + -healthChange + " damage!" : ""; 
+		return healthChange > 0 ? "Gained " + healthChange + " health"  + (cause.isEmpty() ? "!" : " " + cause + "!") : healthChange < 0 ? "You take " + -healthChange + " damage" + (cause.isEmpty() ? "!" : " " + cause + "!") : ""; 
 	}
 	
 	protected int getStaminaRegen() { return Math.max(getEndurance()/2, 0); }
@@ -864,11 +868,14 @@ public abstract class AbstractCharacter extends Actor {
 	public String modFood(Integer foodMod) {
 		int foodChange = food;
 		food += foodMod; 
-		if (food < 0) food = 0; 
+		String result = "";
+		if (food < 0) {
+			result = modHealth(5 * food, "from starvation!");
+			food = 0; 
+		}
 		
 		foodChange = food - foodChange;
-		
-		return foodChange > 0 ? "+" + foodChange + " fullness!" : "Hunger increases by " + -foodChange + "!";
+		return foodChange > 0 ? "+" + foodChange + " fullness!" : foodChange < 0 ? "Hunger increases by " + -foodChange + "! " + result : result;
 	}
 	
 	protected int getClimaxVolume() {

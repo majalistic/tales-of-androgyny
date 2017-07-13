@@ -331,11 +331,9 @@ public class WorldMapScreen extends AbstractScreen {
 			public void changed(ChangeEvent event, Actor actor) {
 				if (event.getTarget() instanceof GameWorldNode) {
 					currentImage.addAction(moveTo(actor.getX() + 12, actor.getY() + 25, 1.5f));
-					int foodLeft = character.getFood() - character.getMetabolicRate();
-					saveService.saveDataValue(SaveEnum.TIME, 1);
-					if (foodLeft < 0) {
-						saveService.saveDataValue(SaveEnum.HEALTH, 5 * foodLeft);
-					}
+					int timePassed = 1;
+					int foodLeft = character.getFood() - character.getMetabolicRate() * timePassed;
+					saveService.saveDataValue(SaveEnum.TIME, timePassed);
 					boolean switchScreen = false;
 					if (character.getCurrentHealth() <= 0) {
 						if (foodLeft < 0) {

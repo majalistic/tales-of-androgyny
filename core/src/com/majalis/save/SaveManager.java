@@ -97,11 +97,11 @@ public class SaveManager implements SaveService, LoadService {
 	    	case BATTLE_CODE:		save.battleAttributes = (BattleAttributes) object; break;
 	    	case CLASS:				save.player.setJobClass((JobClass) object); save.player.load(); break;
 	    	case WORLD_SEED:		save.worldSeed = (Integer) object; break;
-	    	case HEALTH: 			result = save.player.modHealth((Integer) object); result += save.player.cureBleed((Integer) object / 5); break; 
+	    	case HEALTH: 			result = save.player.modHealth((Integer) object); result += " " + save.player.cureBleed((Integer) object / 5); break; 
 	    	case SKILL: 			save.player.addSkill((Techniques) object, 1); result = "Gained" + ((Techniques) object).toString() + " technique!"; break; // this should get a result back from addSkill
 	    	case PERK:				save.player.addPerk((Perk) object, 1); result = "Gained" + ((Perk) object).getLabel() + " perk!"; break; // this should get a result back from addPerk
 	    	case FOOD:				result = save.player.modFood((Integer) object); break; // this should get a result back from modFood
-	    	case TIME:				save.time += (Integer) object; result = save.player.timePass((Integer) object);  if(save.time % 6 == 0) result += "\n" + save.player.debtTick((Integer) object); break;
+	    	case TIME:				result = save.player.timePass((Integer) object); break;
 	    	case EXPERIENCE:		save.player.modExperience((Integer) object); result = "+" + ((Integer) object).toString() + " XP!"; break; // this should get a result back from modExperience
 	    	case GOLD:				result = save.player.modMoney((Integer) object); break; 
 	    	case DEBT:				result = save.player.modDebt((Integer) object); break;
@@ -159,7 +159,7 @@ public class SaveManager implements SaveService, LoadService {
 	    	case GOBLIN_VIRGIN:		break;
 	    	case SHOP:				return (T) (ObjectMap<String, Shop>) save.shops;
 	    	case QUEST:				break;
-	    	case TIME :				return (T) (Integer) save.time;
+	    	case TIME :				return (T) (Integer) save.player.getTime();
     	}	
     	return null;
     }
@@ -276,7 +276,6 @@ public class SaveManager implements SaveService, LoadService {
     	private IntArray visitedList;
     	// this can probably be refactored to contain a particular battle, but may need to duplicate the player character
     	private BattleAttributes battleAttributes;
-    	private int time;
     	private PlayerCharacter player;
     	private EnemyCharacter enemy;
     	private ObjectMap<String, Shop> shops;
@@ -300,7 +299,6 @@ public class SaveManager implements SaveService, LoadService {
         		cameraPos = new Vector3(500, 500, 0);
         		visitedList = new IntArray(true, new int[]{1}, 0, 1);
         		player = new PlayerCharacter(true);
-        		time = 0;
     		}
     	}
     }
