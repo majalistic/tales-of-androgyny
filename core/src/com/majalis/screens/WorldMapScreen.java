@@ -83,6 +83,7 @@ public class WorldMapScreen extends AbstractScreen {
 	private final Label timeLabel;
 	private final Label foodLabel;
 	private final Label hoverLabel;
+	private GameWorldNode hoveredNode;
 	private int time;
 	private boolean backgroundRendered = false;
 	
@@ -211,6 +212,16 @@ public class WorldMapScreen extends AbstractScreen {
 		dateLabel.setText("Day: " + (time / 6 + 1));
 		timeLabel.setText(getTime());
 		foodLabel.setText("X " + character.getFood());
+		if (hoveredNode != null) {
+			String text = hoveredNode.getHoverText();
+			hoverLabel.setText(text); 
+			if (!text.isEmpty()) {
+				hoverImage.setVisible(true);
+			}
+			else {
+				hoverImage.setVisible(false);
+			}
+		}
 	}
 	
 	private void addLabel(Group include, Actor toAdd, int x, int y, Color toSet) {
@@ -252,11 +263,13 @@ public class WorldMapScreen extends AbstractScreen {
 					if (!text.isEmpty()) {
 						hoverImage.setVisible(true);
 					}
+					hoveredNode = actor;
 				}
 				@Override
 		        public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
 					hoverLabel.setText("");
 					hoverImage.setVisible(false);
+					hoveredNode = null;
 				}
 			});
 		}
@@ -439,7 +452,7 @@ public class WorldMapScreen extends AbstractScreen {
 											return true;
 										}
 									}));
-									
+									saveService.saveDataValue(SaveEnum.VISITED_LIST, node.getNodeCode());
 									node.setAsCurrentNode();
 								}
 								else {

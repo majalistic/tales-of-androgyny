@@ -27,15 +27,15 @@ public class EncounterBounty {
 		
 	}
 
-	public void execute(int scoutingScore, SaveService saveService) {
+	public String execute(int scoutingScore, SaveService saveService) {
 		switch (type) {
-			case FOOD_CACHE: new Mutation(saveService, SaveEnum.FOOD, 10).mutate();
-			case GOLD_CACHE: new Mutation(saveService, SaveEnum.GOLD, 10).mutate();
-			case ICE_CREAM:  new Mutation(saveService, SaveEnum.ITEM, new Misc(MiscType.ICE_CREAM)).mutate();
-			case HUNGER_CHARM: new Mutation(saveService, SaveEnum.ITEM, new Misc(MiscType.HUNGER_CHARM)).mutate();
-			case DAMAGE_TRAP: new Mutation(saveService, SaveEnum.HEALTH, -10).mutate();
-			case ANAL_TRAP: new Mutation(saveService, SaveEnum.ANAL, new SexualExperienceBuilder().setAnalSex(1, 0, 0).build()).mutate();
-			default: return;
+			case FOOD_CACHE: return new Mutation(saveService, SaveEnum.FOOD, 10).mutate();
+			case GOLD_CACHE: return new Mutation(saveService, SaveEnum.GOLD, 10).mutate();
+			case ICE_CREAM:  return new Mutation(saveService, SaveEnum.ITEM, new Misc(MiscType.ICE_CREAM)).mutate();
+			case HUNGER_CHARM: return new Mutation(saveService, SaveEnum.ITEM, new Misc(MiscType.HUNGER_CHARM)).mutate();
+			case DAMAGE_TRAP: return new Mutation(saveService, SaveEnum.HEALTH, -10).mutate();
+			case ANAL_TRAP: return new Mutation(saveService, SaveEnum.ANAL, new SexualExperienceBuilder().setAnalSex(1, 0, 0).build()).mutate();
+			default: return "";
 		}
 	}
 }
