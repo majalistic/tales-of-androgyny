@@ -2,6 +2,8 @@ package com.majalis.screens;
 
 import com.badlogic.gdx.Gdx;
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.*;
+import static com.majalis.asset.AssetEnum.*;
+
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.assets.AssetDescriptor;
@@ -43,6 +45,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.majalis.asset.AnimatedImage;
 import com.majalis.asset.AssetEnum;
 import com.majalis.character.PlayerCharacter;
+import com.majalis.character.PlayerCharacter.QuestType;
 import com.majalis.encounter.EncounterCode;
 import com.majalis.save.LoadService;
 import com.majalis.save.SaveEnum;
@@ -79,27 +82,22 @@ public class WorldMapScreen extends AbstractScreen {
 	
 	public static final Array<AssetDescriptor<?>> resourceRequirements = new Array<AssetDescriptor<?>>();
 	static {
-		resourceRequirements.add(AssetEnum.UI_SKIN.getSkin());
-		resourceRequirements.add(AssetEnum.CLICK_SOUND.getSound());
-		resourceRequirements.add(AssetEnum.CHARACTER_ANIMATION.getTexture());
-		resourceRequirements.add(AssetEnum.MOUNTAIN_ACTIVE.getTexture());
-		resourceRequirements.add(AssetEnum.FOREST_ACTIVE.getTexture());
-		resourceRequirements.add(AssetEnum.FOREST_INACTIVE.getTexture());
-		resourceRequirements.add(AssetEnum.CASTLE.getTexture());
-		resourceRequirements.add(AssetEnum.TOWN.getTexture());
-		resourceRequirements.add(AssetEnum.COTTAGE.getTexture());
-		resourceRequirements.add(AssetEnum.APPLE.getTexture());
-		resourceRequirements.add(AssetEnum.MEAT.getTexture());
-		resourceRequirements.add(AssetEnum.GRASS0.getTexture());
-		resourceRequirements.add(AssetEnum.GRASS1.getTexture());
-		resourceRequirements.add(AssetEnum.GRASS2.getTexture());
-		resourceRequirements.add(AssetEnum.CLOUD.getTexture());
-		resourceRequirements.add(AssetEnum.ROAD.getTexture());
-		resourceRequirements.add(AssetEnum.WORLD_MAP_UI.getTexture());
-		resourceRequirements.add(AssetEnum.WORLD_MAP_HOVER.getTexture());
-		resourceRequirements.add(AssetEnum.ARROW.getTexture());
-		resourceRequirements.add(AssetEnum.CHARACTER_SCREEN.getTexture());
-		resourceRequirements.add(AssetEnum.WORLD_MAP_MUSIC.getMusic());
+		resourceRequirements.add(UI_SKIN.getSkin());
+		resourceRequirements.add(WORLD_MAP_MUSIC.getMusic());
+		AssetEnum[] soundAssets = new AssetEnum[]{
+			CLICK_SOUND
+		};
+		for (AssetEnum asset: soundAssets) {
+			resourceRequirements.add(asset.getSound());
+		}
+		
+		// need to refactor to get all stance textures
+		AssetEnum[] assets = new AssetEnum[]{
+			CHARACTER_ANIMATION, MOUNTAIN_ACTIVE, FOREST_ACTIVE, FOREST_INACTIVE, CASTLE, TOWN, COTTAGE, APPLE, MEAT, GRASS0, GRASS1, GRASS2, CLOUD, ROAD, WORLD_MAP_UI, WORLD_MAP_HOVER, ARROW, CHARACTER_SCREEN
+		};
+		for (AssetEnum asset: assets) {
+			resourceRequirements.add(asset.getTexture());
+		}
 	}
 	
 	public WorldMapScreen(ScreenFactory factory, ScreenElements elements, AssetManager assetManager, SaveService saveService, LoadService loadService, Array<GameWorldNode> world) {
@@ -136,11 +134,10 @@ public class WorldMapScreen extends AbstractScreen {
 		
 		// load assets
 		food = assetManager.get(AssetEnum.APPLE.getTexture());
-		grasses = new Array<Texture>(true, new Texture[]{assetManager.get(AssetEnum.GRASS0.getTexture()), assetManager.get(AssetEnum.GRASS1.getTexture()), assetManager.get(AssetEnum.GRASS2.getTexture()), assetManager.get(AssetEnum.FOREST_INACTIVE.getTexture())}, 0, 4);
+		grasses = new Array<Texture>(new Texture[]{assetManager.get(AssetEnum.GRASS0.getTexture()), assetManager.get(AssetEnum.GRASS1.getTexture()), assetManager.get(AssetEnum.GRASS2.getTexture())});
 		cloud = assetManager.get(AssetEnum.CLOUD.getTexture());
 		characterUITexture = assetManager.get(AssetEnum.WORLD_MAP_UI.getTexture());
 		music = assetManager.get(AssetEnum.WORLD_MAP_MUSIC.getMusic());
-		
 		hoverImage = assetManager.get(AssetEnum.WORLD_MAP_HOVER.getTexture());
 		
 		// move camera to saved position
@@ -153,6 +150,7 @@ public class WorldMapScreen extends AbstractScreen {
 		if (camera.position.y < 500) camera.position.y = 500;
 		camera.update();
 
+		// this should probably be a separate class
 		Texture characterSheet = assetManager.get(AssetEnum.CHARACTER_ANIMATION.getTexture());
 		Array<TextureRegion> frames = new Array<TextureRegion>();
 		for (int ii = 0; ii < 4; ii++) {
@@ -196,14 +194,13 @@ public class WorldMapScreen extends AbstractScreen {
 	
 	@Override
 	public void buildStage() {
-		Array<Actor> actors = new Array<Actor>();
 		for (GameWorldNode node : world) {
 			for (Actor actor : node.getPaths()) {
-				actors.add(actor);
+				group.addActor(actor);
 			}
 		}
 		for (GameWorldNode actor : world) {
-			actors.add(actor);
+			group.addActor(actor);
 			actor.addListener(new ClickListener(){
 				@Override
 		        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
@@ -215,9 +212,6 @@ public class WorldMapScreen extends AbstractScreen {
 				}
 			});
 		}
-		for (Actor actor: actors) {
-			group.addActor(actor);
-		}   
 
 		group.addActor(currentImage);
 		
@@ -330,7 +324,6 @@ public class WorldMapScreen extends AbstractScreen {
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
 				if (event.getTarget() instanceof GameWorldNode) {
-					currentImage.addAction(moveTo(actor.getX() + 12, actor.getY() + 25, 1.5f));
 					int timePassed = 1;
 					int foodLeft = character.getFood() - character.getMetabolicRate() * timePassed;
 					saveService.saveDataValue(SaveEnum.TIME, timePassed);
@@ -348,13 +341,34 @@ public class WorldMapScreen extends AbstractScreen {
 							saveService.saveDataValue(SaveEnum.RETURN_CONTEXT, SaveManager.GameContext.WORLD_MAP);
 							switchScreen = true;
 						}
+					} // forced Trudy encounter
+					else if (time >= 17 && character.getQuestStatus(QuestType.TRUDY) == 0) {
+						saveService.saveDataValue(SaveEnum.ENCOUNTER_CODE, EncounterCode.ADVENTURER);			
+						saveService.saveDataValue(SaveEnum.CONTEXT, SaveManager.GameContext.ENCOUNTER);
+						saveService.saveDataValue(SaveEnum.RETURN_CONTEXT, SaveManager.GameContext.WORLD_MAP);
+						Image displayNewEncounter = new Image(hoverImage);
+						displayNewEncounter.setBounds(250, 200, 500, 300);
+						group.addActor(displayNewEncounter);
+						Label newEncounterText = new Label("Encounter!", skin);
+						newEncounterText.setColor(Color.GOLD);
+						newEncounterText.setPosition(430, 335);
+						group.addActor(newEncounterText);
+						group.addAction(sequence(delay(1.5f), new Action() {
+							@Override
+							public boolean act(float delta) {
+								music.stop();
+								showScreen(ScreenEnum.CONTINUE);
+								return true;
+							}
+						}));
 					}
 					else {
+						currentImage.addAction(moveTo(actor.getX() + 12, actor.getY() + 25, 1.5f));
 						group.addAction(sequence(delay(1.5f), new Action() {
 							@Override
 							public boolean act(float delta) {
 								GameWorldNode node = (GameWorldNode) event.getTarget();
-								time++;
+								time += timePassed;
 								tintForTimeOfDay();
 								boolean switchScreen = false;
 								EncounterCode newEncounter = node.getEncounterCode();
@@ -421,7 +435,7 @@ public class WorldMapScreen extends AbstractScreen {
 		}
 	}
 	
-	// this should be replaced with label actors
+	// this should be replaced with label actors on a UI stage
 	private void drawText() {
 		batch.begin();
 		OrthographicCamera camera = (OrthographicCamera) getCamera();
