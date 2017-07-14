@@ -11,7 +11,6 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.PerspectiveCamera;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
@@ -46,6 +45,7 @@ import com.majalis.asset.AnimatedImage;
 import com.majalis.asset.AssetEnum;
 import com.majalis.character.PlayerCharacter;
 import com.majalis.character.PlayerCharacter.QuestType;
+import com.majalis.encounter.EncounterBounty;
 import com.majalis.encounter.EncounterCode;
 import com.majalis.save.LoadService;
 import com.majalis.save.SaveEnum;
@@ -75,8 +75,14 @@ public class WorldMapScreen extends AbstractScreen {
 	private final FrameBuffer frameBuffer;
 	private final InputMultiplexer multi;
 	private final AnimatedImage currentImage;
-	private final Texture hoverImage;
-	private String hoverText;
+	private final Skin skin;
+	private final Texture hoverImageTexture;
+	private final Image hoverImage;
+	private final Label healthLabel;
+	private final Label dateLabel;
+	private final Label timeLabel;
+	private final Label foodLabel;
+	private final Label hoverLabel;
 	private int time;
 	private boolean backgroundRendered = false;
 	
@@ -109,7 +115,6 @@ public class WorldMapScreen extends AbstractScreen {
         FitViewport viewport =  new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), camera);
 		worldStage = new Stage3D(viewport, batch);
 	
-		hoverText = "";
 		time = loadService.loadDataValue(SaveEnum.TIME, Integer.class);
 		
 		camera.position.set(0, 0, 500);
@@ -133,12 +138,21 @@ public class WorldMapScreen extends AbstractScreen {
 		worldStage.addActor(group);
 		
 		// load assets
+		hoverImageTexture = assetManager.get(AssetEnum.WORLD_MAP_HOVER.getTexture());		
 		food = assetManager.get(AssetEnum.APPLE.getTexture());
 		grasses = new Array<Texture>(new Texture[]{assetManager.get(AssetEnum.GRASS0.getTexture()), assetManager.get(AssetEnum.GRASS1.getTexture()), assetManager.get(AssetEnum.GRASS2.getTexture())});
 		cloud = assetManager.get(AssetEnum.CLOUD.getTexture());
 		characterUITexture = assetManager.get(AssetEnum.WORLD_MAP_UI.getTexture());
 		music = assetManager.get(AssetEnum.WORLD_MAP_MUSIC.getMusic());
-		hoverImage = assetManager.get(AssetEnum.WORLD_MAP_HOVER.getTexture());
+		hoverImage = new Image(hoverImageTexture);
+		
+		skin = assetManager.get(AssetEnum.UI_SKIN.getSkin());
+		
+		healthLabel = new Label("", skin);
+		dateLabel = new Label("", skin);
+		timeLabel = new Label("", skin);
+		foodLabel = new Label("", skin);
+		hoverLabel = new Label("", skin);
 		
 		// move camera to saved position
 		Vector3 initialTranslation = loadService.loadDataValue(SaveEnum.CAMERA_POS, Vector3.class);		
@@ -192,8 +206,37 @@ public class WorldMapScreen extends AbstractScreen {
 		multi.addProcessor(worldStage);
 	}
 	
+	private void mutateLabels() {
+		healthLabel.setText(String.valueOf(character.getCurrentHealth()));
+		dateLabel.setText("Day: " + (time / 6 + 1));
+		timeLabel.setText(getTime());
+		foodLabel.setText("X " + character.getFood());
+	}
+	
+	private void addLabel(Group include, Actor toAdd, int x, int y, Color toSet) {
+		include.addActor(toAdd);
+		toAdd.setPosition(x, y);
+		toAdd.setColor(toSet);		
+	}
 	@Override
 	public void buildStage() {
+		Group uiGroup = new Group();
+		uiGroup.addActor(hoverImage);
+		hoverImage.setVisible(false);
+		hoverImage.setBounds(1500, 5, 400, 300);
+		
+		addLabel(uiGroup, healthLabel, 310, 130, Color.WHITE);
+		addLabel(uiGroup, dateLabel, 360,  140, Color.WHITE);
+		addLabel(uiGroup, timeLabel, 380,  110, Color.WHITE);
+		addLabel(uiGroup, foodLabel, 23,  15, Color.WHITE);
+		addLabel(uiGroup, hoverLabel, 1575, 160, Color.BLACK);
+		hoverLabel.setAlignment(Align.center);
+		hoverLabel.setWrap(true);
+		hoverLabel.setWidth(250);
+		// need to add a pane for the hoverLabel
+		
+		mutateLabels();
+		
 		for (GameWorldNode node : world) {
 			for (Actor actor : node.getPaths()) {
 				group.addActor(actor);
@@ -204,11 +247,16 @@ public class WorldMapScreen extends AbstractScreen {
 			actor.addListener(new ClickListener(){
 				@Override
 		        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-					hoverText = actor.getHoverText();
+					String text = actor.getHoverText();
+					hoverLabel.setText(text);
+					if (!text.isEmpty()) {
+						hoverImage.setVisible(true);
+					}
 				}
 				@Override
 		        public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
-					hoverText = "";
+					hoverLabel.setText("");
+					hoverImage.setVisible(false);
 				}
 			});
 		}
@@ -216,7 +264,6 @@ public class WorldMapScreen extends AbstractScreen {
 		group.addActor(currentImage);
 		
 		final Sound buttonSound = assetManager.get(AssetEnum.CLICK_SOUND.getSound()); 
-		Skin skin = assetManager.get(AssetEnum.UI_SKIN.getSkin());
 		int storedLevels = character.getStoredLevels();
 		
 		Image characterUI = new Image(characterUITexture);
@@ -277,6 +324,7 @@ public class WorldMapScreen extends AbstractScreen {
 					tintForTimeOfDay();
 					saveService.saveDataValue(SaveEnum.HEALTH, 10);	
 					checkCanEat(rest);
+					mutateLabels();
 		        }
 			}
 		);
@@ -320,6 +368,8 @@ public class WorldMapScreen extends AbstractScreen {
 			generateBackground();
 		}
 		tintForTimeOfDay();
+		
+		this.addActor(uiGroup);
 		group.addListener(new ChangeListener() {
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
@@ -328,32 +378,24 @@ public class WorldMapScreen extends AbstractScreen {
 					int foodLeft = character.getFood() - character.getMetabolicRate() * timePassed;
 					saveService.saveDataValue(SaveEnum.TIME, timePassed);
 					boolean switchScreen = false;
-					if (character.getCurrentHealth() <= 0) {
-						if (foodLeft < 0) {
-							saveService.saveDataValue(SaveEnum.ENCOUNTER_CODE, EncounterCode.STARVATION);			
-							saveService.saveDataValue(SaveEnum.CONTEXT, SaveManager.GameContext.ENCOUNTER);
-							saveService.saveDataValue(SaveEnum.RETURN_CONTEXT, SaveManager.GameContext.WORLD_MAP);
-							switchScreen = true;
-						}
-						else {
-							saveService.saveDataValue(SaveEnum.ENCOUNTER_CODE, EncounterCode.CAMP_AND_EAT);			
-							saveService.saveDataValue(SaveEnum.CONTEXT, SaveManager.GameContext.ENCOUNTER);
-							saveService.saveDataValue(SaveEnum.RETURN_CONTEXT, SaveManager.GameContext.WORLD_MAP);
-							switchScreen = true;
-						}
+					if (character.getCurrentHealth() <= 0) {						
+						saveService.saveDataValue(SaveEnum.ENCOUNTER_CODE, foodLeft < 0 ? EncounterCode.STARVATION : EncounterCode.CAMP_AND_EAT);	
+						saveService.saveDataValue(SaveEnum.CONTEXT, SaveManager.GameContext.ENCOUNTER);
+						saveService.saveDataValue(SaveEnum.RETURN_CONTEXT, SaveManager.GameContext.WORLD_MAP);
+						switchScreen = true;
 					} // forced Trudy encounter
 					else if (time >= 17 && character.getQuestStatus(QuestType.TRUDY) == 0) {
 						saveService.saveDataValue(SaveEnum.ENCOUNTER_CODE, EncounterCode.ADVENTURER);			
 						saveService.saveDataValue(SaveEnum.CONTEXT, SaveManager.GameContext.ENCOUNTER);
 						saveService.saveDataValue(SaveEnum.RETURN_CONTEXT, SaveManager.GameContext.WORLD_MAP);
-						Image displayNewEncounter = new Image(hoverImage);
+						Image displayNewEncounter = new Image(hoverImageTexture);
 						displayNewEncounter.setBounds(250, 200, 500, 300);
-						group.addActor(displayNewEncounter);
+						uiGroup.addActor(displayNewEncounter);
 						Label newEncounterText = new Label("Encounter!", skin);
 						newEncounterText.setColor(Color.GOLD);
 						newEncounterText.setPosition(430, 335);
-						group.addActor(newEncounterText);
-						group.addAction(sequence(delay(1.5f), new Action() {
+						uiGroup.addActor(newEncounterText);
+						uiGroup.addAction(sequence(delay(1.5f), new Action() {
 							@Override
 							public boolean act(float delta) {
 								music.stop();
@@ -372,8 +414,32 @@ public class WorldMapScreen extends AbstractScreen {
 								tintForTimeOfDay();
 								boolean switchScreen = false;
 								EncounterCode newEncounter = node.getEncounterCode();
+								EncounterBounty miniEncounter = newEncounter.getMiniEncounter();
 								if(newEncounter == EncounterCode.DEFAULT) {
 									// this will need to also check if the node is a town/dungeon node and appropriately swap the button from "Camp" to "Enter"
+									node.setAsCurrentNode();
+								}
+								else if (miniEncounter != null) {
+									Image displayNewEncounter = new Image(hoverImageTexture);
+									displayNewEncounter.setBounds(250, 200, 500, 300);
+									uiGroup.addActor(displayNewEncounter);
+									Label newEncounterText = new Label(miniEncounter.getDescription(character.getScoutingScore()), skin);
+									miniEncounter.execute(character.getScoutingScore(), saveService);
+									newEncounterText.setColor(Color.GOLD);
+									newEncounterText.setPosition(415, 335);
+									newEncounterText.setAlignment(Align.center);
+									newEncounterText.setWrap(true);
+									newEncounterText.setWidth(200);
+									uiGroup.addActor(newEncounterText);
+									uiGroup.addAction(sequence(delay(4), new Action() {
+										@Override
+										public boolean act(float delta) {
+											uiGroup.removeActor(newEncounterText);
+											uiGroup.removeActor(displayNewEncounter);
+											return true;
+										}
+									}));
+									
 									node.setAsCurrentNode();
 								}
 								else {
@@ -389,6 +455,7 @@ public class WorldMapScreen extends AbstractScreen {
 									music.stop();
 									showScreen(ScreenEnum.CONTINUE);
 								}
+								mutateLabels();
 								return true;
 							}
 						}));
@@ -398,10 +465,11 @@ public class WorldMapScreen extends AbstractScreen {
 						showScreen(ScreenEnum.CONTINUE);
 					}
 				}
+				mutateLabels();
 			}			
 		});
 	}
-	
+
 	private void checkCanEat(TextButton camp) {
 		if (character.getFood() < character.getMetabolicRate()) {
 			TextButtonStyle style = new TextButtonStyle(camp.getStyle());
@@ -424,41 +492,16 @@ public class WorldMapScreen extends AbstractScreen {
 			showScreen(ScreenEnum.MAIN_MENU);
 		}
 		else {
+			// this call to clear and altering of the clearScreen var could be removed, possibly, if worldStage became UI stage (super.render would replace world stage - all nodes and such would be added to this, and uiStage stuff would be added to a new Stage, uiStage)
 			clear();
+			// draws the world
 			worldStage.act(delta);
 			worldStage.draw();
+			// draws the cloud layer
 			cloudStage.act(delta);
 			cloudStage.draw();
+			// this draws the UI
 			super.render(delta);
-			drawText();
-			drawHover();
-		}
-	}
-	
-	// this should be replaced with label actors on a UI stage
-	private void drawText() {
-		batch.begin();
-		OrthographicCamera camera = (OrthographicCamera) getCamera();
-		batch.setColor(1.0f, 1.0f, 1.0f, 1);
-		font.draw(batch, String.valueOf(character.getCurrentHealth()), camera.position.x + 310.2f, camera.position.y + 139.7f);
-		font.draw(batch, "Day: " + (time / 6 + 1), camera.position.x + 350, camera.position.y + 150);
-		font.draw(batch, getTime(), camera.position.x + 370, camera.position.y + 125);
-		font.draw(batch, "X " + character.getFood(), camera.position.x + 23, camera.position.y + 25);
-		batch.end();
-	}
-	
-	private void drawHover() {
-		if (!hoverText.isEmpty()) {
-			batch.begin();
-			OrthographicCamera camera = (OrthographicCamera) getCamera();
-			// render hover box
-			batch.draw(hoverImage, camera.position.x + 1400,  camera.position.y + 5);
-			// render hover text
-			Color cache = new Color(font.getColor());
-			font.setColor(0f, 0, 0, 1);
-			font.draw(batch, hoverText, camera.position.x + 1450, camera.position.y + 175, 150, Align.center, true);	
-			font.setColor(cache);
-			batch.end();
 		}
 	}
 	

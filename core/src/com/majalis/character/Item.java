@@ -22,6 +22,53 @@ public abstract class Item {
 		return false;
 	}
 	
+	public static class Misc extends Item {
+		private MiscType type;
+
+		@SuppressWarnings("unused")
+		private Misc() {}
+		
+		public Misc (MiscType type) {
+			this.type = type;
+		}
+		
+		@Override
+		public int getValue() {
+			return 0;
+		}
+
+		@Override
+		protected ItemEffect getUseEffect() {
+			return null;
+		}
+
+		@Override
+		public String getName() {
+			return type.toString();
+		}
+
+		@Override
+		public String getDescription() {
+			return type.getDescription();
+		}
+	}
+	
+	public enum MiscType {
+		ICE_CREAM,
+		HUNGER_CHARM;
+
+		public String getDescription() {
+			switch (this) {
+				case HUNGER_CHARM:
+					return "Wards off hunger.";
+				case ICE_CREAM:
+					return "Is Ice Cream.";
+				default:
+					return "";
+			}
+		}
+	}
+	
 	public static class Weapon extends Item {
 		
 		private WeaponType type;

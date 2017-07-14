@@ -728,8 +728,9 @@ public class EncounterBuilder {
 			    ).getEncounter();
 			case WEST_PASS:
 				return new Branch().textScene("WEST-PASS").encounterEnd().getEncounter();
+			default: 
 		}
-		return new Branch().textScene("TOWN").encounterEnd().getEncounter();		
+		return new Branch().textScene("TOWN").encounterEnd().getEncounter();	
 	}
 
 	enum EndTokenType {

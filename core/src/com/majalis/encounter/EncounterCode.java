@@ -40,6 +40,14 @@ public enum EncounterCode {
 	CAMP_AND_EAT, 
 	LEVEL_UP, 
 	
+	/* Mini Encounters */
+	FOOD_CACHE,
+	GOLD_CACHE,
+	ICE_CREAM,
+	HUNGER_CHARM,
+	DAMAGE_TRAP,
+	ANAL_TRAP,
+	
 	/* Story Mode */
 	
 	COTTAGE_TRAINER (AssetEnum.COTTAGE),
@@ -106,6 +114,12 @@ public enum EncounterCode {
 					case STORY_FEM: return "Unwalked Path";
 					case STORY_SIGN: return "Crossroads";
 					case WEST_PASS: return "West Pass";
+					case FOOD_CACHE: 
+					case GOLD_CACHE:
+					case ICE_CREAM:
+					case HUNGER_CHARM: 
+					case DAMAGE_TRAP: 
+					case ANAL_TRAP: return "Unknown.";
 					default: return "Unknown - No Info for encounter #" + this + " and perception level = " + visibility;
 			}
 			case 2:
@@ -143,6 +157,12 @@ public enum EncounterCode {
 					case STORY_FEM: return "Unwalked Path";
 					case STORY_SIGN: return "Crossroads";
 					case WEST_PASS: return "West Pass";
+					case FOOD_CACHE: return "Cache!";
+					case GOLD_CACHE: return "Cache!";
+					case ICE_CREAM: return "Cache!";
+					case HUNGER_CHARM: return "Cache!";
+					case DAMAGE_TRAP: return "Trap!";
+					case ANAL_TRAP: return "Trap!";
 					default: return "Unknown - No Info for encounter #" + this  + " and perception level = " + visibility;
 				}
 			default: System.out.println(visibility);return "Perception level error.";
@@ -364,16 +384,49 @@ public enum EncounterCode {
 	}
 	// for random gen
 	public static Array<EncounterCode> encounterArray;
+	private static boolean iceCreamReady;
+	private static boolean hungerCharmReady;
 	static {
 		encounterArray = new Array<EncounterCode>();
-		encounterArray.addAll(WERESLUT, HARPY, SLIME, BRIGAND, DRYAD, CENTAUR, GOBLIN, ORC, ADVENTURER, OGRE, BEASTMISTRESS);
+		encounterArray.addAll(WERESLUT, HARPY, SLIME, BRIGAND, DRYAD, CENTAUR, GOBLIN, ORC, ADVENTURER, OGRE, BEASTMISTRESS, FOOD_CACHE, GOLD_CACHE, DAMAGE_TRAP, ANAL_TRAP, ICE_CREAM, HUNGER_CHARM);
+		iceCreamReady = true;
+		hungerCharmReady = true;
 	}
 	
 	public static EncounterCode getEncounterCode(int code) {
 		if (code < encounterArray.size) {
-			return encounterArray.get(code);
+			EncounterCode newEncounter = encounterArray.get(code);
+			if (newEncounter == ICE_CREAM) {
+				if (iceCreamReady) {
+					iceCreamReady = false;
+				}
+				else {
+					newEncounter = FOOD_CACHE;
+				}
+			}
+			else if (newEncounter == HUNGER_CHARM) {
+				if (hungerCharmReady) {
+					hungerCharmReady = false;
+				}
+				else {
+					newEncounter = FOOD_CACHE;
+				}
+			}
+			return newEncounter;
 		}
 		// Troja?  Need a way to get to here; currently no file input is read for the code param
 		return ERROR;
+	}
+
+	public EncounterBounty getMiniEncounter() {
+		switch (this) {
+			case FOOD_CACHE:
+			case GOLD_CACHE:
+			case ICE_CREAM:
+			case HUNGER_CHARM: 
+			case DAMAGE_TRAP: 
+			case ANAL_TRAP: return new EncounterBounty(this);
+			default: return null;
+		}
 	}
 }

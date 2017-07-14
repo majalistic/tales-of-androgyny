@@ -144,6 +144,7 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 		ObjectSet<GameWorldNode> visibleSet = new ObjectSet<GameWorldNode>();
 		visibleSet.add(this);
 		setNeighborsVisibility(getPerceptionLevel(character.getScoutingScore()), 1, visibleSet);
+		visited = true;
 	}	
 	
 	private void setActive() {
