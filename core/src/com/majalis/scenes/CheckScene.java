@@ -206,7 +206,6 @@ public class CheckScene extends AbstractTextScene {
 		}, 
 		;
 		
-		
 		private final String success;
 		private final String failure;
 		

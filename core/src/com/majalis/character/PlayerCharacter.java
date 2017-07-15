@@ -1240,8 +1240,15 @@ public class PlayerCharacter extends AbstractCharacter {
 		return "Some time passes.\n" + modFood(-getMetabolicRate() * timePassed) + (result.isEmpty() ? "" : "\n" + result);
 	}
 	
-	public int getMetabolicRate() { return 4; }
+	public int getMetabolicRate() { return hasHungerCharm() ? 3 : 4; }
 
+	private boolean hasHungerCharm() {
+		for (Item item : inventory) {
+			if (item.getName().equals("Hunger Charm")) return true;
+		}
+		return false;
+	}
+	
 	public String cureBleed(Integer bleedCure) {
 		int currentBleed = statuses.get(StatusType.BLEEDING.toString(), 0);
 		int temp = currentBleed;
