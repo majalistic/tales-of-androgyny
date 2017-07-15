@@ -64,6 +64,8 @@ public class PlayerCharacter extends AbstractCharacter {
 	
 	private boolean loaded;
 	private ObjectMap<String, Integer> questFlags;
+
+	private int scout;
 	
 	@SuppressWarnings("unused")
 	private PlayerCharacter() {}
@@ -600,6 +602,7 @@ public class PlayerCharacter extends AbstractCharacter {
 		}
 		wrapLegs = false;
 		struggle = -1;
+		scout = 0;
 	}
 
 	public enum Femininity {
@@ -738,7 +741,7 @@ public class PlayerCharacter extends AbstractCharacter {
 	}
 	
 	public int getScoutingScore() {
-		return getPerception() + (perks.get(Perk.SURVEYOR.toString(), 0) > 0 ? perks.get(Perk.SURVEYOR.toString()) * 2 : 0);
+		return scout * 3 + getPerception() + (perks.get(Perk.SURVEYOR.toString(), 0) > 0 ? perks.get(Perk.SURVEYOR.toString()) * 2 : 0);
 	}
 	
 	public int getLewdCharisma() {
@@ -1242,4 +1245,14 @@ public class PlayerCharacter extends AbstractCharacter {
 	}
 
 	public Integer getTime() { return time; }
+
+	public String increaseScout(int increase) {
+		scout += increase;
+		return "You scouted the surrounding areas.";
+	}
+	
+	public String resetScout() {
+		scout = 0;
+		return null;
+	}
 }

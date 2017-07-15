@@ -32,4 +32,5 @@ public enum SaveEnum {
 	DEBT,
 	TIME, 
 	ENCOUNTER_END, 
+	SCOUT, 
 }

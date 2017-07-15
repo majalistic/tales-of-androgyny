@@ -102,6 +102,7 @@ public class SaveManager implements SaveService, LoadService {
 	    	case PERK:				save.player.addPerk((Perk) object, 1); result = "Gained" + ((Perk) object).getLabel() + " perk!"; break; // this should get a result back from addPerk
 	    	case FOOD:				result = save.player.modFood((Integer) object); break; // this should get a result back from modFood
 	    	case TIME:				result = save.player.timePass((Integer) object); break;
+	    	case SCOUT:				int val = (Integer)object; if (val == 0) save.player.resetScout(); result = save.player.increaseScout(val); break;
 	    	case EXPERIENCE:		save.player.modExperience((Integer) object); result = "+" + ((Integer) object).toString() + " XP!"; break; // this should get a result back from modExperience
 	    	case GOLD:				result = save.player.modMoney((Integer) object); break; 
 	    	case DEBT:				result = save.player.modDebt((Integer) object); break;
@@ -113,7 +114,7 @@ public class SaveManager implements SaveService, LoadService {
 	    	case SHOP:				save.shops.put(((Shop) object).getShopCode(), (Shop) object); break;
 	    	case GOBLIN_VIRGIN:		save.player.setGoblinVirginity((Boolean) object); break;
 	    	case QUEST: 			QuestFlag flag = (QuestFlag) object; save.player.setQuestStatus(flag.type, flag.value); break;
-	    	case ENCOUNTER_END:		save.player.popPortraitPath(); break;
+	    	case ENCOUNTER_END:		save.player.refresh(); break;
     	}	
     	if (saveToJson) {
     		saveToJson(save); //Saves current save immediately.
@@ -156,6 +157,7 @@ public class SaveManager implements SaveService, LoadService {
 	    	case GOLD:
 	    	case DEBT:
 	    	case ENCOUNTER_END:
+	    	case SCOUT:
 	    	case GOBLIN_VIRGIN:		break;
 	    	case SHOP:				return (T) (ObjectMap<String, Shop>) save.shops;
 	    	case QUEST:				break;

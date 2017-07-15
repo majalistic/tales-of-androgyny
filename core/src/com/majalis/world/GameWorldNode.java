@@ -136,6 +136,7 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 	/*
 	 * All stateful code follows - setting active/current/visibility/etc.
 	 */
+	public boolean isCurrent() { return current; }
 	public void setAsCurrentNode() {
 		current = true;
 		for (GameWorldNode connectedNode : connectedNodes) {
@@ -154,10 +155,7 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 	        public void clicked(InputEvent event, float x, float y) {
 				if (active) {
 					fire(new ChangeListener.ChangeEvent());
-					active = false;
-					for (GameWorldNode connectedNode : connectedNodes) {
-						connectedNode.setClickedAndAdjacentClicked();						
-					}
+					deactivate();
 					sound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
 				}
 			}
@@ -165,13 +163,23 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 			@Override public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) { hover = false; }
 		});
 	}
+	
+	public void deactivate() {
+		active = false;
+		for (GameWorldNode connectedNode : connectedNodes) {
+			connectedNode.setClickedAndAdjacentClicked();						
+		}
+	}
+	
 	// this will currently only deactivate nodes that are 2 away - when it becomes possible to click on a node 5 nodes away, this will be insufficie
 	private void setClickedAndAdjacentClicked() {
 		active = false;
+		visibility = -1;
 		current = false;
 		for (GameWorldNode connectedNode : connectedNodes) {
 			connectedNode.active = false;
 			connectedNode.current = false;
+			connectedNode.visibility = -1;
 		}
 	}
 

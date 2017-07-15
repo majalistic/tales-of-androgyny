@@ -121,12 +121,13 @@ public enum EncounterCode {
 					case DAMAGE_TRAP: 
 					case ANAL_TRAP: return "Unknown.";
 					default: return "Unknown - No Info for encounter #" + this + " and perception level = " + visibility;
-			}
+				}
 			case 2:
 			case 3:
 			case 4:
 			case 5:
 			case 6:
+			default:
 				switch (this) {
 					case WERESLUT: return "Wereslut - Hostile!";
 					case HARPY: return "Harpy - Hostile!";
@@ -165,7 +166,6 @@ public enum EncounterCode {
 					case ANAL_TRAP: return "Trap!";
 					default: return "Unknown - No Info for encounter #" + this  + " and perception level = " + visibility;
 				}
-			default: System.out.println(visibility);return "Perception level error.";
 		}
 	}
 	

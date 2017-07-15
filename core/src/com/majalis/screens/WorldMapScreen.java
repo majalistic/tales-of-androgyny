@@ -83,6 +83,7 @@ public class WorldMapScreen extends AbstractScreen {
 	private final Label timeLabel;
 	private final Label foodLabel;
 	private final Label hoverLabel;
+	private GameWorldNode currentNode;
 	private GameWorldNode hoveredNode;
 	private int time;
 	private boolean backgroundRendered = false;
@@ -211,6 +212,7 @@ public class WorldMapScreen extends AbstractScreen {
 		healthLabel.setText(String.valueOf(character.getCurrentHealth()));
 		dateLabel.setText("Day: " + (time / 6 + 1));
 		timeLabel.setText(getTime());
+		timeLabel.setColor(getTimeColor());
 		foodLabel.setText("X " + character.getFood());
 		if (hoveredNode != null) {
 			String text = hoveredNode.getHoverText();
@@ -238,7 +240,7 @@ public class WorldMapScreen extends AbstractScreen {
 		
 		addLabel(uiGroup, healthLabel, 310, 130, Color.WHITE);
 		addLabel(uiGroup, dateLabel, 360,  140, Color.WHITE);
-		addLabel(uiGroup, timeLabel, 380,  110, Color.WHITE);
+		addLabel(uiGroup, timeLabel, 380,  115, Color.WHITE);
 		addLabel(uiGroup, foodLabel, 23,  15, Color.WHITE);
 		addLabel(uiGroup, hoverLabel, 1575, 160, Color.BLACK);
 		hoverLabel.setAlignment(Align.center);
@@ -255,6 +257,9 @@ public class WorldMapScreen extends AbstractScreen {
 		}
 		for (GameWorldNode actor : world) {
 			group.addActor(actor);
+			if (actor.isCurrent()) {
+				currentNode = actor;
+			}
 			actor.addListener(new ClickListener(){
 				@Override
 		        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
@@ -311,11 +316,7 @@ public class WorldMapScreen extends AbstractScreen {
 		        }
 			}
 		);
-		final TextButton rest = new TextButton("Rest", skin);
 		
-		checkCanEat(rest);
-	
-		table.add(rest).size(145, 40);
 		Image foodIcon = new Image(food);
 		foodIcon.setSize(75, 75);
 		this.addActor(foodIcon);
@@ -324,18 +325,47 @@ public class WorldMapScreen extends AbstractScreen {
 		this.addActor(console);
 		console.setPosition(820, 80);
 		
+		final TextButton rest = new TextButton("Rest", skin);
+		
+		checkCanEat(rest);
+	
+		table.add(rest).size(145, 40);
+		
 		// rest will eventually just wait some time - eating food if possible to maintain hunger level
 		rest.addListener(
 			new ClickListener() {
 				@Override
 		        public void clicked(InputEvent event, float x, float y) {
 					buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
-					console.setText(saveService.saveDataValue(SaveEnum.TIME, 1));
+					console.setText(saveService.saveDataValue(SaveEnum.HEALTH, 10) + " " + saveService.saveDataValue(SaveEnum.TIME, 1));
 					console.addAction(Actions.alpha(1));
 					console.addAction(Actions.fadeOut(6));
 					time++;
 					tintForTimeOfDay();
-					saveService.saveDataValue(SaveEnum.HEALTH, 10);	
+					checkCanEat(rest);
+					mutateLabels();
+		        }
+			}
+		);
+		
+		final TextButton scout = new TextButton("Scout", skin);
+
+		table.add(scout).size(145, 40).row();;
+
+		// rest will eventually just wait some time - eating food if possible to maintain hunger level
+		scout.addListener(
+			new ClickListener() {
+				@Override
+		        public void clicked(InputEvent event, float x, float y) {
+					buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
+					console.setText(saveService.saveDataValue(SaveEnum.SCOUT, 1) + " " + saveService.saveDataValue(SaveEnum.TIME, 1));
+					console.addAction(Actions.alpha(1));
+					console.addAction(Actions.fadeOut(6));
+					currentNode.deactivate();
+					currentNode.setAsCurrentNode();
+					
+					time++;
+					tintForTimeOfDay();	
 					checkCanEat(rest);
 					mutateLabels();
 		        }
@@ -368,7 +398,7 @@ public class WorldMapScreen extends AbstractScreen {
 					saveService.manualSave("data/save01.json");
 					console.setText("Game Saved.");
 					console.addAction(alpha(1));
-					console.addAction(fadeOut(4));
+					console.addAction(fadeOut(6));
 		        }
 			}
 		);	
@@ -387,6 +417,7 @@ public class WorldMapScreen extends AbstractScreen {
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
 				if (event.getTarget() instanceof GameWorldNode) {
+					GameWorldNode node = (GameWorldNode) event.getTarget();
 					int timePassed = 1;
 					int foodLeft = character.getFood() - character.getMetabolicRate() * timePassed;
 					saveService.saveDataValue(SaveEnum.TIME, timePassed);
@@ -419,10 +450,10 @@ public class WorldMapScreen extends AbstractScreen {
 					}
 					else {
 						currentImage.addAction(moveTo(actor.getX() + 12, actor.getY() + 25, 1.5f));
+						currentNode = node;
 						group.addAction(sequence(delay(1.5f), new Action() {
 							@Override
 							public boolean act(float delta) {
-								GameWorldNode node = (GameWorldNode) event.getTarget();
 								time += timePassed;
 								tintForTimeOfDay();
 								boolean switchScreen = false;
@@ -430,6 +461,8 @@ public class WorldMapScreen extends AbstractScreen {
 								EncounterBounty miniEncounter = newEncounter.getMiniEncounter();
 								if(newEncounter == EncounterCode.DEFAULT) {
 									// this will need to also check if the node is a town/dungeon node and appropriately swap the button from "Camp" to "Enter"
+									saveService.saveDataValue(SaveEnum.SCOUT, 0);
+									node.deactivate();
 									node.setAsCurrentNode();
 								}
 								else if (miniEncounter != null) {
@@ -453,6 +486,8 @@ public class WorldMapScreen extends AbstractScreen {
 										}
 									}));
 									saveService.saveDataValue(SaveEnum.VISITED_LIST, node.getNodeCode());
+									saveService.saveDataValue(SaveEnum.SCOUT, 0);
+									node.deactivate();
 									node.setAsCurrentNode();
 								}
 								else {

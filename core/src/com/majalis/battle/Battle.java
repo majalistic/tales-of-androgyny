@@ -736,7 +736,6 @@ public class Battle extends Group{
 			battleOutcomeDecided = true;
 			outcome = battleOutcome; 
 			skillDisplay.setText(enemy.getOutcomeText(character));
-			character.refresh();
 			bonusDisplay.setText("");
 			uiGroup.removeActor(techniquePane);
 			hoverGroup.clearActions();
