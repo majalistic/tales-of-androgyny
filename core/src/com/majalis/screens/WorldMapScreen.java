@@ -46,6 +46,7 @@ import com.majalis.asset.AssetEnum;
 import com.majalis.character.PlayerCharacter;
 import com.majalis.character.PlayerCharacter.QuestType;
 import com.majalis.encounter.EncounterBounty;
+import com.majalis.encounter.EncounterBounty.EncounterBountyResult;
 import com.majalis.encounter.EncounterCode;
 import com.majalis.save.LoadService;
 import com.majalis.save.SaveEnum;
@@ -93,7 +94,7 @@ public class WorldMapScreen extends AbstractScreen {
 		resourceRequirements.add(UI_SKIN.getSkin());
 		resourceRequirements.add(WORLD_MAP_MUSIC.getMusic());
 		AssetEnum[] soundAssets = new AssetEnum[]{
-			CLICK_SOUND
+			CLICK_SOUND, EQUIP, SWORD_SLASH_SOUND, THWAPPING
 		};
 		for (AssetEnum asset: soundAssets) {
 			resourceRequirements.add(asset.getSound());
@@ -469,15 +470,20 @@ public class WorldMapScreen extends AbstractScreen {
 									Image displayNewEncounter = new Image(hoverImageTexture);
 									displayNewEncounter.setBounds(250, 200, 500, 300);
 									uiGroup.addActor(displayNewEncounter);
-									Label newEncounterText = new Label(miniEncounter.getDescription(character.getScoutingScore()), skin);
-									miniEncounter.execute(character.getScoutingScore(), saveService);
+									EncounterBountyResult result = miniEncounter.execute(character.getScoutingScore(), saveService);
+									Label newEncounterText = new Label(result.displayText(), skin);
+									
+									if (result.soundToPlay() != null) {
+										assetManager.get(result.soundToPlay()).play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f); 
+									}
+									
 									newEncounterText.setColor(Color.GOLD);
 									newEncounterText.setPosition(415, 335);
 									newEncounterText.setAlignment(Align.center);
 									newEncounterText.setWrap(true);
 									newEncounterText.setWidth(200);
 									uiGroup.addActor(newEncounterText);
-									uiGroup.addAction(sequence(delay(4), new Action() {
+									uiGroup.addAction(sequence(delay(8), new Action() {
 										@Override
 										public boolean act(float delta) {
 											uiGroup.removeActor(newEncounterText);

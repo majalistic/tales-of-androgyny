@@ -1,5 +1,8 @@
 package com.majalis.encounter;
 
+import com.badlogic.gdx.assets.AssetDescriptor;
+import com.badlogic.gdx.audio.Sound;
+import com.majalis.asset.AssetEnum;
 import com.majalis.character.Item.Misc;
 import com.majalis.character.Item.MiscType;
 import com.majalis.character.SexualExperience.SexualExperienceBuilder;
@@ -13,29 +16,29 @@ public class EncounterBounty {
 	protected EncounterBounty(EncounterCode type) {
 		this.type = type;
 	}
-	
-	public String getDescription(int scoutingScore) {
+
+	public EncounterBountyResult execute(int scoutingScore, SaveService saveService) {
 		switch (type) {
-			case FOOD_CACHE: return "Found 10 food!";
-			case GOLD_CACHE: return "Found 10 gold!";
-			case ICE_CREAM: return "Ice Cream!";
-			case HUNGER_CHARM: return "Found some kind of charm!";
-			case DAMAGE_TRAP: return "Agh! A pitfall! You take 10 damage.";
-			case ANAL_TRAP: return "Some kind of tentacle forced its way up your butt!";
-			default: return "";
+			case FOOD_CACHE: return new EncounterBountyResult("You discovered a cache with food rations in it! " + new Mutation(saveService, SaveEnum.FOOD, scoutingScore < 3 ? 10 : 15).mutate(), AssetEnum.EQUIP.getSound());
+			case GOLD_CACHE: return new EncounterBountyResult("You discovered a treasure cache! " + new Mutation(saveService, SaveEnum.GOLD, scoutingScore < 3 ? 10 : 15).mutate(), AssetEnum.EQUIP.getSound());
+			case ICE_CREAM:  return new EncounterBountyResult("Ice cream! " + new Mutation(saveService, SaveEnum.ITEM, new Misc(MiscType.ICE_CREAM)).mutate(), AssetEnum.EQUIP.getSound());
+			case HUNGER_CHARM: return scoutingScore < 3 ? new EncounterBountyResult("You find nothing of use in the cache. Are you missing something?", null) : new EncounterBountyResult(new Mutation(saveService, SaveEnum.ITEM, new Misc(MiscType.HUNGER_CHARM)).mutate(), AssetEnum.EQUIP.getSound());
+			case DAMAGE_TRAP: return new EncounterBountyResult(scoutingScore < 3 ? "Agh! A pitfall! " + new Mutation(saveService, SaveEnum.HEALTH, -10).mutate() : "You discovered a pitfall, but avoided it.",  scoutingScore < 3 ? AssetEnum.SWORD_SLASH_SOUND.getSound() : null);
+			case ANAL_TRAP: return new EncounterBountyResult(scoutingScore < 3 ?  "Some kind of tentacle forced its way up your butt! " + new Mutation(saveService, SaveEnum.ANAL, new SexualExperienceBuilder().setAnalSex(1, 0, 0).build()).mutate() : "You avoided a rogue tentacle. Naughty!", scoutingScore < 3 ? AssetEnum.THWAPPING.getSound() : null);
+			default: return null;
+		}
+	}
+	
+	public static class EncounterBountyResult {
+		private final String displayText;
+		private final AssetDescriptor<Sound> soundToPlay;
+		
+		private EncounterBountyResult(String displayText, AssetDescriptor<Sound> soundToPlay) {
+			this.displayText = displayText;
+			this.soundToPlay = soundToPlay;
 		}
 		
-	}
-
-	public String execute(int scoutingScore, SaveService saveService) {
-		switch (type) {
-			case FOOD_CACHE: return new Mutation(saveService, SaveEnum.FOOD, 10).mutate();
-			case GOLD_CACHE: return new Mutation(saveService, SaveEnum.GOLD, 10).mutate();
-			case ICE_CREAM:  return new Mutation(saveService, SaveEnum.ITEM, new Misc(MiscType.ICE_CREAM)).mutate();
-			case HUNGER_CHARM: return new Mutation(saveService, SaveEnum.ITEM, new Misc(MiscType.HUNGER_CHARM)).mutate();
-			case DAMAGE_TRAP: return new Mutation(saveService, SaveEnum.HEALTH, -10).mutate();
-			case ANAL_TRAP: return new Mutation(saveService, SaveEnum.ANAL, new SexualExperienceBuilder().setAnalSex(1, 0, 0).build()).mutate();
-			default: return "";
-		}
+		public String displayText() { return displayText; }
+		public AssetDescriptor<Sound> soundToPlay() { return soundToPlay; }
 	}
 }

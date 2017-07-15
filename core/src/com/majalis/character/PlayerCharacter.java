@@ -741,7 +741,15 @@ public class PlayerCharacter extends AbstractCharacter {
 	}
 	
 	public int getScoutingScore() {
-		return scout * 3 + getPerception() + (perks.get(Perk.SURVEYOR.toString(), 0) > 0 ? perks.get(Perk.SURVEYOR.toString()) * 2 : 0);
+		return getTrueScoutingScore(scout * 3 + getPerception() + (perks.get(Perk.SURVEYOR.toString(), 0) > 0 ? perks.get(Perk.SURVEYOR.toString()) * 2 : 0));
+	}
+	
+	private int getTrueScoutingScore(int rawScoutingScore) {
+		int level = 3;
+		for (int ii : new int[]{8, 5, 2}) {
+			if (rawScoutingScore < ii) level--;
+		}
+		return level;
 	}
 	
 	public int getLewdCharisma() {
@@ -967,7 +975,7 @@ public class PlayerCharacter extends AbstractCharacter {
 		else {
 			inventory.add(item);
 		}
-		return "You have received a " + item.getName() + "!";
+		return "You have received a(n) " + item.getName() + "!";
 	}
 	
 	public boolean buyItem(Item item, int cost) {

@@ -44,7 +44,7 @@ public abstract class Item {
 
 		@Override
 		public String getName() {
-			return type.toString();
+			return type == MiscType.HUNGER_CHARM ? "Hunger Charm" : "Ice Cream";
 		}
 
 		@Override

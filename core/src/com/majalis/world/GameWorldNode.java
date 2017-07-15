@@ -144,7 +144,7 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 		}
 		ObjectSet<GameWorldNode> visibleSet = new ObjectSet<GameWorldNode>();
 		visibleSet.add(this);
-		setNeighborsVisibility(getPerceptionLevel(character.getScoutingScore()), 1, visibleSet);
+		setNeighborsVisibility(character.getScoutingScore(), 1, visibleSet);
 		visited = true;
 	}	
 	
@@ -219,13 +219,5 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 			}
 		}
 		return neighbors;
-	}
-	
-	private int getPerceptionLevel(int perception) {
-		int level = 3;
-		for (int ii : new int[]{8, 5, 2}) {
-			if (perception < ii) level--;
-		}
-		return level;
 	}
 }
