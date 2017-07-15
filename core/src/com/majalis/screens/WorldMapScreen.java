@@ -332,6 +332,7 @@ public class WorldMapScreen extends AbstractScreen {
 	
 		table.add(rest).size(145, 40);
 		
+		
 		// rest will eventually just wait some time - eating food if possible to maintain hunger level
 		rest.addListener(
 			new ClickListener() {
@@ -348,9 +349,9 @@ public class WorldMapScreen extends AbstractScreen {
 		        }
 			}
 		);
-		
-		final TextButton scout = new TextButton("Scout", skin);
 
+		final TextButton scout = new TextButton("Scout", skin);
+		
 		table.add(scout).size(145, 40).row();;
 
 		// rest will eventually just wait some time - eating food if possible to maintain hunger level
@@ -359,16 +360,31 @@ public class WorldMapScreen extends AbstractScreen {
 				@Override
 		        public void clicked(InputEvent event, float x, float y) {
 					buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
-					console.setText(saveService.saveDataValue(SaveEnum.SCOUT, 1) + " " + saveService.saveDataValue(SaveEnum.TIME, 1));
-					console.addAction(Actions.alpha(1));
-					console.addAction(Actions.fadeOut(6));
-					currentNode.deactivate();
-					currentNode.setAsCurrentNode();
-					
-					time++;
-					tintForTimeOfDay();	
-					checkCanEat(rest);
-					mutateLabels();
+					if (character.getCurrentHealth() <= 0) {						
+						saveService.saveDataValue(SaveEnum.ENCOUNTER_CODE, character.getFood() <= 0 ? EncounterCode.STARVATION : EncounterCode.CAMP_AND_EAT);	
+						saveService.saveDataValue(SaveEnum.CONTEXT, SaveManager.GameContext.ENCOUNTER);
+						saveService.saveDataValue(SaveEnum.RETURN_CONTEXT, SaveManager.GameContext.WORLD_MAP);
+						music.stop();
+						showScreen(ScreenEnum.CONTINUE);
+					}
+					else {
+						console.setText(saveService.saveDataValue(SaveEnum.SCOUT, 1) + " " + saveService.saveDataValue(SaveEnum.TIME, 1));
+						console.addAction(Actions.alpha(1));
+						console.addAction(Actions.fadeOut(6));
+						currentNode.deactivate();
+						currentNode.setAsCurrentNode();
+						time++;
+						tintForTimeOfDay();	
+						checkCanEat(rest);
+						mutateLabels();
+						if (character.getCurrentHealth() <= 0) {						
+							saveService.saveDataValue(SaveEnum.ENCOUNTER_CODE, character.getFood() <= 0 ? EncounterCode.STARVATION : EncounterCode.CAMP_AND_EAT);	
+							saveService.saveDataValue(SaveEnum.CONTEXT, SaveManager.GameContext.ENCOUNTER);
+							saveService.saveDataValue(SaveEnum.RETURN_CONTEXT, SaveManager.GameContext.WORLD_MAP);
+							music.stop();
+							showScreen(ScreenEnum.CONTINUE);
+						}
+					}
 		        }
 			}
 		);
