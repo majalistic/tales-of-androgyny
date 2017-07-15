@@ -985,12 +985,17 @@
 		]
 	},
 	{
-		"key": "STARVATION",
+		"key": "STARVATION-INTRO",
 		"scriptLines": [
 			{
 			"music": "WEREWOLF_MUSIC",
 			"text": "Your hunger has gotten the better of you.  You're running out of strength."},
-			{"text": "As you wander, your vision starts to narrow, and you start to wobble on your legs... until you collapse to your knees, falling face-first into the dirt, and blackness takes you."},
+			{"text": "As you wander, your vision starts to narrow, and you start to wobble on your legs... until you collapse to your knees, falling face-first into the dirt, and blackness takes you."}			
+		]
+	},
+	{
+		"key": "STARVATION",
+		"scriptLines": [
 			{"text": "..."},
 			{"text": "..."},
 			{"text": ".."},
@@ -1004,6 +1009,7 @@
 			{"text": "Your... hole... is sore."},
 			{"text": "You're surrounded by the footprints of some wild animal... and the stench of both wild animal and sex is in the air."},
 			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex": 1, "creampies":2}}],
 			"animatedForeground": "BUTTBANG",
 			"text": "A frothy white liquid is cascading down your balls and thighs, pooling onto the ground."},
 			{"text": "Feeling it run down your legs, you suspect that it's the leavings of a satisfied animal, your heart sinking."},
@@ -1011,7 +1017,40 @@
 			{"text": "Life... finds a way."},
 			{"text": "To put it mildly - your rectum has been ransacked.  The lust of a beast has left your bowels awkwardly sore, and bloated in a way that makes it more comfortable to push out the burbling beast cum than to let it stew.  Judging by how gaped and sore you are, the beast must have mated with you at length, or possibly multiple times - or possibly you welcomed a whole pack of feral animals into your not-so-exit-only-now boyhole."},
 			{"text": "You may never know exactly what happened after you lost consciousness, but all evidence points to a romantic rear rendezvous randy, rutting rectum-rummaging rascal."},
-			{"text": "In other words, you've been anally inseminated by a wild animal.  Oof."}
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "beast":true}}],
+			"text": "In other words, while unconscious, you've been butt-bombed and anally inseminated by a wild animal.  Oof."}
+		]
+	},
+	{
+		"key": "STARVATION-GAME-OVER",
+		"scriptLines": [
+			{"text": "Your eyes are listless. You can't tell if you've just come to accept this sort of treatment... or if you now seek it, but you're no longer interested in glory."},
+			{"text": "You continue to scrounge in the wilds, as you have been... only now you have no intent to return to society. You live among the beasts of the wild... and, on occasion, that means being their mistress."}
+		]
+	},
+	{
+		"key": "STARVATION-WARNING",
+		"scriptLines": [
+			{"text": "You've grown familiar with the sensation. Worryingly, your erection won't go down... precum drooling to the ground, even as some strange beast's seed leaks from your backdoor."},
+			{
+			"mutations": [{"saveType":"FOOD", "value":{"class": "java.lang.Integer", "value": 20}}],
+			"text": "You manage to scrounge up food to continue your journey, but at a hefty price."},
+			{
+			"mutations": [{"saveType":"TIME", "value":{"class": "java.lang.Integer", "value": 1}}, {"saveType":"HEALTH", "value":{"class": "java.lang.Integer", "value": 10}}],
+			"text": "You rest to eat and restore your strength, then continue on, with slightly less dignity."},
+		]
+	},
+	{
+		"key": "STARVATION-FIRST-TIME",
+		"scriptLines": [
+			{"text": "You feel nasty. Experiencing that kind of indignity for the first time has left you in a state of perpetual embarrassment - you're just glad no one was around to see it."},
+			{
+			"mutations": [{"saveType":"FOOD", "value":{"class": "java.lang.Integer", "value": 20}}],
+			"text": "You manage to scrounge up food to continue your journey, but at a hefty price."},
+			{
+			"mutations": [{"saveType":"TIME", "value":{"class": "java.lang.Integer", "value": 1}}, {"saveType":"HEALTH", "value":{"class": "java.lang.Integer", "value": 10}}],
+			"text": "You rest to eat and restore your strength, then continue on, with slightly less dignity."},
 		]
 	},
 	{
@@ -1019,12 +1058,6 @@
 		"scriptLines": [
 			{"text": "Congratulations, you lost your butt virginity. Err, sorry it had to be this way. I'm sure it was a handsome animal.  A... very romantic animal."},
 			{"text": "Look, there's no sugar-coating this.  Your first time, not only did you take it up the ass, but it was with a dumb animal who couldn't tell the difference."}
-		]
-	},
-	{
-		"key": "STARVATION-CONTINUE",
-		"scriptLines": [
-			{"text": "While unconscious, you got butt-bombed by a wild animal. -5 dignity.  Gained beastmaster trait."}
 		]
 	},
 	{
@@ -3121,7 +3154,7 @@
 			"text": "As Trudy pilfers the missing traveller's things, the warg tears up your clothing with its teeth, eager to breed, apparently uncaring that you are both male and human.  An awful premonition comes to mind, and as you feel the heat and pressure of the warg's bestial staff between your cheeks, a lump forms in your throat."},
 			{"text": "Trudy escapes with the stolen goods, but not before blowing you a mocking kiss.  Almost simultaneously, you feel it - your hole yawns open, tasting the breadth of Trudy's treachery."},
 			{
-			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "TRUDY", "value":3}}, {"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1, "creampies":1, "analEjaculation":1}}],			
+			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "TRUDY", "value":3}}, {"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1, "creampies":1, "analEjaculation":1, "beast": true}}],			
 			"animatedForeground": "BUTTBANG",
 			"text": "The animal has its way with you, eventually forcing some large mass inside your rectum before filling it entirely with its animal semen, your own sticky stuff blasting out across the ground in a shameful moment of defeat."},
 			{"text": "When it finally pulls itself free, it leaves you be, luckily, and you scamper away, relieved, at least, that no one saw your shameful mating.  Your well-puckered hole drools and tenses oddly for hours afterwards, causing you to picture Trudy's smug face each time."},
@@ -3590,7 +3623,7 @@
 			{"text": "She reaches underneath her mount to spread your cheeks for the breeding."},
 			{"text": "\"As long as I spread your cheeks like this for him, he'll be able to start anally violating you.\""},
 			{
-			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1, "creampies": 2}}],
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1, "creampies": 2, "beast": true}}],
 			"text": "You can't believe this is happening - that is, until you feel a strange object force its way inside, and your vision goes white."},
 			{"text": "\"Painful, isn't it?  The barbs are meant to force a female to ovulate... in your ass, though, it's just an unfortunate mismatch.\""},
 			{"text": "The feline phallus bores into you, straightening out your rectal pipe as it does, but even when it withdraws, it isn't a relief, as the barbs scrape your smooth walls."},

@@ -213,8 +213,8 @@ public class EncounterBuilder {
 						CheckType.PROSTITUTE, 	
 						new Branch(true).concat(onceSignedUp),
 						new Branch(false).textScene("BROTHEL-OFFER").choiceScene(
-							"Do you want to sign up?",
-							new Branch ("What's the worst that could happen?").require(ChoiceCheckType.LEWD).textScene("BROTHEL-SIGN-UP").concat(onceSignedUp),
+							"Do you want to sign up? What's the worst that could happen?",
+							new Branch ("Sign Up (Requires: Catamite)").require(ChoiceCheckType.LEWD).textScene("BROTHEL-SIGN-UP").concat(onceSignedUp),
 							new Branch ("Leave")
 						)
 					)	
@@ -698,11 +698,11 @@ public class EncounterBuilder {
 			case SOUTH_PASS:
 				return new Branch().textScene("SOUTH-PASS").encounterEnd().getEncounter();
 			case STARVATION:
-				Branch starveEnding = new Branch("STARVATION-CONTINUE").gameEnd();
-				return new Branch().textScene("STARVATION").checkScene(
+				return new Branch().textScene("STARVATION-INTRO").checkScene(
 					CheckType.VIRGIN,
-					new Branch(true).textScene("STARVATION-VIRGIN").concat(starveEnding),
-					new Branch(false).concat(starveEnding)
+					// if you're a virgin, it should mention it at the appropriate time
+					new Branch(true).textScene("STARVATION").textScene("STARVATION-VIRGIN").textScene("STARVATION-FIRST-TIME"),
+					new Branch(false).textScene("STARVATION").checkScene(Perk.BEASTMASTER, new Branch(3).textScene("STARVATION-GAME-OVER").gameEnd(), new Branch(2).textScene("STARVATION-WARNING"), new Branch(1).textScene("STARVATION-FIRST-TIME"), new Branch(0)) // can't get to Branch(0)
 				).getEncounter();
 			case STORY_FEM:
 				return new Branch().textScene("STORY-FEM").encounterEnd().getEncounter();

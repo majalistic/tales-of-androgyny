@@ -1055,6 +1055,11 @@ public class PlayerCharacter extends AbstractCharacter {
 			perks.put(Perk.GIANT_LOVER.toString(), ((int)perks.get(Perk.GIANT_LOVER.toString(), 0)) + 1);
 		}
 		
+		if (sex.isBeast() && perks.get(Perk.BEASTMASTER.toString(), 0) != 3) {
+			result.add("You gained " + Perk.BEASTMASTER.getLabel() + " (Rank " + (perks.get(Perk.BEASTMASTER.toString(), 0) + 1) + ")!");
+			perks.put(Perk.BEASTMASTER.toString(), ((int)perks.get(Perk.BEASTMASTER.toString(), 0)) + 1);
+		}
+		
 		if (sex.isProstitution() && perks.get(Perk.LADY_OF_THE_NIGHT.toString(), 0) != 5) {
 			result.add("You gained " + Perk.LADY_OF_THE_NIGHT.getLabel() + " (Rank " + (perks.get(Perk.LADY_OF_THE_NIGHT.toString(), 0) + 1) + ")!");
 			perks.put(Perk.LADY_OF_THE_NIGHT.toString(), ((int)perks.get(Perk.LADY_OF_THE_NIGHT.toString(), 0)) + 1);
