@@ -205,6 +205,8 @@ public abstract class AbstractCharacter extends Actor {
 		}
 			
 		healthChange = this.currentHealth - healthChange;
+		// if need to track overkill arises, can do so here - marking an overkill var with the amount of overkill
+		if (this.currentHealth < 0) this.currentHealth = 0; 
 		return healthChange > 0 ? "Gained " + healthChange + " health"  + (cause.isEmpty() ? "!" : " " + cause + "!") : healthChange < 0 ? "You take " + -healthChange + " damage" + (cause.isEmpty() ? "!" : " " + cause + "!") : ""; 
 	}
 	
@@ -493,7 +495,7 @@ public abstract class AbstractCharacter extends Actor {
 			}
 			
 			if (damage > 0) {	
-				currentHealth -= damage;
+				modHealth(-damage);
 				result.add("The blow strikes for " + damage + " damage!");
 				int bleed = attack.getBleeding();
 				if (bleed > 0 && canBleed()) {
