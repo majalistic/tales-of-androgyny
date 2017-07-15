@@ -157,47 +157,52 @@ public class EncounterBuilder {
 				).getEncounter();
 			case BRIGAND:
 				Branch[] battleBranches2 = new Branch[]{new Branch(Outcome.VICTORY).textScene("BRIGAND-VICTORY").encounterEnd(), new Branch(Outcome.DEFEAT).textScene("BRIGAND-DEFEAT").encounterEnd(), new Branch(Outcome.SATISFIED).textScene("BRIGAND-SATISFIED").encounterEnd()};
-				return new Branch().textScene("BRIGAND-INTRO").checkScene(
-					Stat.PERCEPTION, 
-					new Branch(6).textScene("BRIGAND-SPOT").choiceScene(
-						"How do you handle the brigand?",
-						new Branch("Charge").battleScene(
-							BattleCode.BRIGAND, Stance.OFFENSIVE, Stance.BALANCED,
-							battleBranches2
-						),
-						new Branch("Ready an Arrow").battleScene(
-							BattleCode.BRIGAND, 
-							battleBranches2
-						),
-						new Branch("Speak").textScene("BRIGAND-HAIL").choiceScene(
-							"Accept her offer?",
-							new Branch("Accept").require(ChoiceCheckType.LEWD).textScene("BRIGAND-ACCEPT").choiceScene(
-								"Tell her to pull out?",
-								new Branch("Say Nothing").textScene("BRIGAND-CATCH").encounterEnd(),
-								new Branch("Ask her").textScene("BRIGAND-REQUEST").checkScene(
-									Stat.CHARISMA,
-									new Branch(4).textScene("BRIGAND-FACIAL").encounterEnd(),
-									new Branch(0).textScene("BRIGAND-BADTASTE").encounterEnd()
-								)
-							),
-							new Branch("Decline").textScene("BRIGAND-DECLINE").checkScene(
-								Stat.CHARISMA,
-								new Branch(5).textScene("BRIGAND-CONVINCE").encounterEnd(),
-								new Branch(0).textScene("BRIGAND-FAIL").battleScene(
-									BattleCode.BRIGAND, 
-									battleBranches2
-								)
-							)
-						)
+				Branch brigandSpotted = new Branch(6).textScene("BRIGAND-SPOT").choiceScene(
+					"How do you handle the brigand?",
+					new Branch("Charge").battleScene(
+						BattleCode.BRIGAND, Stance.OFFENSIVE, Stance.BALANCED,
+						battleBranches2
 					),
-					new Branch(4).textScene("BRIGAND-STAB").battleScene(
+					new Branch("Ready an Arrow").battleScene(
 						BattleCode.BRIGAND, 
 						battleBranches2
 					),
-					new Branch(0).textScene("BRIGAND-BACKSTAB").battleScene(
-						BattleCode.BRIGAND, Stance.STANDING_BOTTOM, Stance.STANDING,
-						battleBranches2	
-					)	
+					new Branch("Speak").textScene("BRIGAND-HAIL").choiceScene(
+						"Accept her offer?",
+						new Branch("Accept (Requires: Catamite)").require(ChoiceCheckType.LEWD).textScene("BRIGAND-ACCEPT").choiceScene(
+							"Tell her to pull out?",
+							new Branch("Say Nothing").textScene("BRIGAND-CATCH").encounterEnd(),
+							new Branch("Ask her").textScene("BRIGAND-REQUEST").checkScene(
+								Stat.CHARISMA,
+								new Branch(4).textScene("BRIGAND-FACIAL").encounterEnd(),
+								new Branch(0).textScene("BRIGAND-BADTASTE").encounterEnd()
+							)
+						),
+						new Branch("Decline").textScene("BRIGAND-DECLINE").checkScene(
+							Stat.CHARISMA,
+							new Branch(5).textScene("BRIGAND-CONVINCE").encounterEnd(),
+							new Branch(0).textScene("BRIGAND-FAIL").battleScene(
+								BattleCode.BRIGAND, 
+								battleBranches2
+							)
+						)
+					)
+				);
+				return new Branch().textScene("BRIGAND-INTRO").checkScene(
+					CheckType.SCOUT_LEVEL_2,
+					new Branch(true).concat(brigandSpotted),
+					new Branch(false).checkScene(
+						Stat.PERCEPTION, 
+						brigandSpotted,
+						new Branch(4).textScene("BRIGAND-STAB").battleScene(
+							BattleCode.BRIGAND, 
+							battleBranches2
+						),
+						new Branch(0).textScene("BRIGAND-BACKSTAB").battleScene(
+							BattleCode.BRIGAND, Stance.STANDING_BOTTOM, Stance.STANDING,
+							battleBranches2	
+						)
+					)
 				).getEncounter();
 			case BROTHEL:
 				Branch onceSignedUp = new Branch().textScene("BROTHEL-MEMBER").choiceScene("What service do you offer?", new Branch("Blowjobs").textScene("BROTHEL-ORAL"), new Branch("Ass").textScene("BROTHEL-ANAL"), new Branch("GFXP").textScene("BROTHEL-GFXP"));
@@ -436,20 +441,25 @@ public class EncounterBuilder {
 				).getEncounter();
 			case HARPY:
 				Branch[] battleBranches = new Branch[]{new Branch(Outcome.VICTORY).textScene("HARPY-VICTORY").encounterEnd(), new Branch(Outcome.DEFEAT).textScene("HARPY-DEFEAT").gameEnd(), new Branch(Outcome.SATISFIED).textScene("HARPY-SATISFIED").encounterEnd()};
+				Branch harpyDodge = new Branch(6).textScene("HARPY-DODGE").battleScene(
+					BattleCode.HARPY, Stance.BALANCED, Stance.PRONE,
+					battleBranches
+				);
 				return new Branch().textScene("HARPY-INTRO").checkScene(
-					Stat.AGILITY,
-					new Branch(6).textScene("HARPY-DODGE").battleScene(
-						BattleCode.HARPY, Stance.BALANCED, Stance.PRONE,
-						battleBranches
-					),
-					new Branch(4).textScene("HARPY-DUCK").battleScene(
-						BattleCode.HARPY, Stance.KNEELING, Stance.BALANCED,
-						battleBranches
-					),
-					new Branch(0).textScene("HARPY-HORK").battleScene(
-						BattleCode.HARPY, Stance.FELLATIO_BOTTOM, Stance.FELLATIO,
-						battleBranches
-					) 
+					CheckType.SCOUT_LEVEL_2, 
+					new Branch(true).concat(harpyDodge),
+					new Branch(false).checkScene(
+						Stat.AGILITY,
+						harpyDodge,
+						new Branch(4).textScene("HARPY-DUCK").battleScene(
+							BattleCode.HARPY, Stance.KNEELING, Stance.BALANCED,
+							battleBranches
+						),
+						new Branch(0).textScene("HARPY-HORK").battleScene(
+							BattleCode.HARPY, Stance.FELLATIO_BOTTOM, Stance.FELLATIO,
+							battleBranches
+						) 
+					)
 			    ).getEncounter();
 			case INITIAL:
 				return new Branch().textScene("INTRO").gameTypeScene(
