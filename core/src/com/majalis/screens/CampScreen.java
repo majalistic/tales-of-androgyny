@@ -22,8 +22,10 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.majalis.asset.AssetEnum;
 import com.majalis.character.PlayerCharacter;
+import com.majalis.character.PlayerCharacter.QuestType;
 import com.majalis.encounter.Background;
 import com.majalis.encounter.Background.BackgroundBuilder;
+import com.majalis.encounter.EncounterCode;
 import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveManager;
 import com.majalis.save.SaveService;
@@ -98,7 +100,9 @@ public class CampScreen extends AbstractScreen {
 		
 		Array<String> buttonLabels = new Array<String>();
 		buttonLabels.addAll("Rest", "Sleep (morning)", "Sleep (night)");
-		//buttonLabels.add("Chat");
+		
+		boolean elf = character.getQuestStatus(QuestType.ELF) == 5;
+		if (elf) buttonLabels.add("Chat");
 		buttonLabels.add("Depart");
 		
 		for (int ii = 0; ii < buttonLabels.size; ii++) {
@@ -110,7 +114,18 @@ public class CampScreen extends AbstractScreen {
 		buttons.get(0).addListener(new ClickListener() { @Override public void clicked(InputEvent event, float x, float y) { passTime(1); } } );
 		buttons.get(1).addListener(new ClickListener() { @Override public void clicked(InputEvent event, float x, float y) { passTime(TimeOfDay.timeTillNext(TimeOfDay.DAWN, time)); } } );
 		buttons.get(2).addListener(new ClickListener() { @Override public void clicked(InputEvent event, float x, float y) { passTime(TimeOfDay.timeTillNext(TimeOfDay.DUSK, time)); } } );
-		buttons.get(3).addListener(new ClickListener() {
+		if (elf) buttons.get(3).addListener(new ClickListener() { 
+			@Override public void clicked(InputEvent event, float x, float y) { 
+				buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
+				saveService.saveDataValue(SaveEnum.ENCOUNTER_CODE, EncounterCode.ELF_COMPANION);
+				saveService.saveDataValue(SaveEnum.CONTEXT, SaveManager.GameContext.ENCOUNTER);
+				saveService.saveDataValue(SaveEnum.RETURN_CONTEXT, SaveManager.GameContext.CAMP);
+				
+	        	music.stop();
+	        	showScreen(ScreenEnum.CONTINUE);    
+			} 
+		});
+		buttons.get(elf ? 4 : 3).addListener(new ClickListener() {
 	        @Override
 	        public void clicked(InputEvent event, float x, float y) {
 	        	buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);

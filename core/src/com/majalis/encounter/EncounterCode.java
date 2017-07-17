@@ -26,6 +26,8 @@ public enum EncounterCode {
 	OGRE, 
 	BEASTMISTRESS,
 	SPIDER (CASTLE),
+	ELF,
+	ELF_COMPANION, 
 	FORT (CASTLE), 
 	TOWN (AssetEnum.TOWN),
 	TOWN2 (AssetEnum.TOWN),
@@ -62,7 +64,7 @@ public enum EncounterCode {
 	STORY_FEM (FOREST_INACTIVE), 
 	STORY_SIGN (FOREST_INACTIVE), 
 	SOUTH_PASS (MOUNTAIN_ACTIVE), 
-	WEST_PASS (MOUNTAIN_ACTIVE), 
+	WEST_PASS (MOUNTAIN_ACTIVE),
 	;
 	
 	private final AssetEnum texture;	
@@ -95,7 +97,8 @@ public enum EncounterCode {
 					case OGRE: return "Ogre";
 					case BEASTMISTRESS: return "Drow";
 					case SPIDER: return "Ruins";
-					case ADVENTURER: return "Adventurer";
+					case ADVENTURER: 
+					case ELF: return "Adventurer";
 					case GADGETEER: return "Merchant";
 					case TOWN: return "Small Settlement";
 					case TOWN2:
@@ -138,6 +141,7 @@ public enum EncounterCode {
 					case GOBLIN: return "Goblin - Hostile!";
 					case ORC: return "Orc - Neutral";
 					case ADVENTURER: return "Adventurer - Neutral";
+					case ELF: return "Elf - Peaceful";
 					case OGRE: return "Ogre - Danger!";
 					case BEASTMISTRESS: return "Drow Beastmistress - Hostile!";
 					case SPIDER: return "Ruins - Danger!";
@@ -268,6 +272,15 @@ public enum EncounterCode {
 					AssetEnum.ADVENTURER.getTexture(),
 					AssetEnum.GADGETEER_MUSIC.getMusic()
 				});
+			case ELF:
+			case ELF_COMPANION:
+				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{  
+					AssetEnum.ELF.getTexture(),
+					AssetEnum.ELF_TURTLE.getTexture(),
+					AssetEnum.ELF_AND_TURTLE.getTexture(),
+					AssetEnum.STICK_BACKGROUND.getTexture(),
+					AssetEnum.GADGETEER_MUSIC.getMusic()
+				});
 			case OGRE:
 				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{  
 					AssetEnum.OGRE.getTexture(),
@@ -341,6 +354,7 @@ public enum EncounterCode {
 			case BROTHEL:
 				Array<AssetDescriptor<?>> reqs2 = new Array<AssetDescriptor<?>>(new AssetDescriptor[]{  
 					AssetEnum.SMUG_LAUGH.getSound(),
+					AssetEnum.ELF.getTexture(),
 					AssetEnum.MERI_SILHOUETTE.getTexture()
 				});
 				reqs2.addAll(TownScreen.resourceRequirements);
@@ -388,7 +402,7 @@ public enum EncounterCode {
 	private static boolean hungerCharmReady;
 	static {
 		encounterArray = new Array<EncounterCode>();
-		encounterArray.addAll(WERESLUT, HARPY, SLIME, BRIGAND, DRYAD, CENTAUR, GOBLIN, ORC, ADVENTURER, OGRE, BEASTMISTRESS, FOOD_CACHE, GOLD_CACHE, DAMAGE_TRAP, ANAL_TRAP, ICE_CREAM, HUNGER_CHARM);
+		encounterArray.addAll(WERESLUT, HARPY, SLIME, BRIGAND, DRYAD, CENTAUR, GOBLIN, ORC, ADVENTURER, OGRE, BEASTMISTRESS, ELF, FOOD_CACHE, GOLD_CACHE, DAMAGE_TRAP, ANAL_TRAP, ICE_CREAM, HUNGER_CHARM);
 		iceCreamReady = true;
 		hungerCharmReady = true;
 	}

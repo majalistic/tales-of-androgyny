@@ -45,6 +45,7 @@ import com.majalis.asset.AnimatedImage;
 import com.majalis.asset.AssetEnum;
 import com.majalis.character.PlayerCharacter;
 import com.majalis.character.PlayerCharacter.QuestType;
+import com.majalis.character.PlayerCharacter.QuestFlag;
 import com.majalis.encounter.EncounterBounty;
 import com.majalis.encounter.EncounterBounty.EncounterBountyResult;
 import com.majalis.encounter.EncounterCode;
@@ -445,25 +446,12 @@ public class WorldMapScreen extends AbstractScreen {
 						saveService.saveDataValue(SaveEnum.RETURN_CONTEXT, SaveManager.GameContext.WORLD_MAP);
 						switchScreen = true;
 					} // forced Trudy encounter
-					else if (time >= 17 && character.getQuestStatus(QuestType.TRUDY) == 0) {
-						saveService.saveDataValue(SaveEnum.ENCOUNTER_CODE, EncounterCode.ADVENTURER);			
-						saveService.saveDataValue(SaveEnum.CONTEXT, SaveManager.GameContext.ENCOUNTER);
-						saveService.saveDataValue(SaveEnum.RETURN_CONTEXT, SaveManager.GameContext.WORLD_MAP);
-						Image displayNewEncounter = new Image(hoverImageTexture);
-						displayNewEncounter.setBounds(250, 200, 500, 300);
-						uiGroup.addActor(displayNewEncounter);
-						Label newEncounterText = new Label("Encounter!", skin);
-						newEncounterText.setColor(Color.GOLD);
-						newEncounterText.setPosition(430, 335);
-						uiGroup.addActor(newEncounterText);
-						uiGroup.addAction(sequence(delay(1.5f), new Action() {
-							@Override
-							public boolean act(float delta) {
-								music.stop();
-								showScreen(ScreenEnum.CONTINUE);
-								return true;
-							}
-						}));
+					else if (time >= 11 && character.getQuestStatus(QuestType.ELF) == 0) {
+						saveService.saveDataValue(SaveEnum.QUEST, new QuestFlag(QuestType.ELF, 1));	
+						autoEncounter(uiGroup, EncounterCode.ELF);
+					}
+					else if (time >= 23 && character.getQuestStatus(QuestType.TRUDY) == 0) {
+						autoEncounter(uiGroup, EncounterCode.ADVENTURER);
 					}
 					else {
 						currentImage.addAction(moveTo(actor.getX() + 12, actor.getY() + 25, 1.5f));
@@ -540,6 +528,28 @@ public class WorldMapScreen extends AbstractScreen {
 		});
 	}
 
+	
+	private void autoEncounter(Group uiGroup, EncounterCode encounter) {
+		saveService.saveDataValue(SaveEnum.ENCOUNTER_CODE, encounter);	
+		saveService.saveDataValue(SaveEnum.CONTEXT, SaveManager.GameContext.ENCOUNTER);
+		saveService.saveDataValue(SaveEnum.RETURN_CONTEXT, SaveManager.GameContext.WORLD_MAP);
+		Image displayNewEncounter = new Image(hoverImageTexture);
+		displayNewEncounter.setBounds(250, 200, 500, 300);
+		uiGroup.addActor(displayNewEncounter);
+		Label newEncounterText = new Label("Encounter!", skin);
+		newEncounterText.setColor(Color.GOLD);
+		newEncounterText.setPosition(430, 335);
+		uiGroup.addActor(newEncounterText);
+		uiGroup.addAction(sequence(delay(1.5f), new Action() {
+			@Override
+			public boolean act(float delta) {
+				music.stop();
+				showScreen(ScreenEnum.CONTINUE);
+				return true;
+			}
+		}));
+	}
+	
 	private void checkCanEat(TextButton camp) {
 		if (character.getFood() < character.getMetabolicRate()) {
 			TextButtonStyle style = new TextButtonStyle(camp.getStyle());

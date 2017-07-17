@@ -143,6 +143,9 @@ public enum AssetEnum {
 	NORMAL_BOX("BattleHover.png"),
 	TEXT_BOX("battle/NameBox.png"),
 	
+	ELF("characters/Elf.png"),
+	ELF_TURTLE("characters/Turtle.png"),
+	ELF_AND_TURTLE("characters/ElfTurtle.png"),
 	SHOPKEEP("characters/AppleKeep.png"),
 	INNKEEPER("characters/Innkeeper.png"),
 	TRAINER("characters/HeavyTrainer1.png"),

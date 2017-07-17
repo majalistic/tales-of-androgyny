@@ -872,12 +872,12 @@ public abstract class AbstractCharacter extends Actor {
 		food += foodMod; 
 		String result = "";
 		if (food < 0) {
-			result = modHealth(5 * food, "from starvation!");
+			result = modHealth(5 * food, "from starvation");
 			food = 0; 
 		}
 		
 		foodChange = food - foodChange;
-		return foodChange > 0 ? "+" + foodChange + " fullness!" : foodChange < 0 ? "Hunger increases by " + -foodChange + "! " + result : result;
+		return foodChange > 0 ? "+" + foodChange + " fullness!" : foodChange < 0 ? "Hunger increases by " + -foodChange + "!" + (result.isEmpty() ? "" : "\n" + result) : result;
 	}
 	
 	protected int getClimaxVolume() {

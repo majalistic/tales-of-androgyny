@@ -207,17 +207,21 @@ public class EncounterBuilder {
 			case BROTHEL:
 				Branch onceSignedUp = new Branch().textScene("BROTHEL-MEMBER").choiceScene("What service do you offer?", new Branch("Blowjobs").textScene("BROTHEL-ORAL"), new Branch("Ass").textScene("BROTHEL-ANAL"), new Branch("GFXP").textScene("BROTHEL-GFXP"));
 				return new Branch().textScene("BROTHEL").checkScene(
-					Perk.LADY_OF_THE_NIGHT,
-					new Branch(5).textScene("BROTHEL-CLASS-CHANGE").gameEnd(),
-					new Branch(0).checkScene(
-						CheckType.PROSTITUTE, 	
-						new Branch(true).concat(onceSignedUp),
-						new Branch(false).textScene("BROTHEL-OFFER").choiceScene(
-							"Do you want to sign up? What's the worst that could happen?",
-							new Branch ("Sign Up (Requires: Catamite)").require(ChoiceCheckType.LEWD).textScene("BROTHEL-SIGN-UP").concat(onceSignedUp),
-							new Branch ("Leave")
-						)
-					)	
+					CheckType.ELF_BROTHEL,
+					new Branch(true).textScene("ELF-BROTHEL"),
+					new Branch(false).checkScene(
+						Perk.LADY_OF_THE_NIGHT,
+						new Branch(5).textScene("BROTHEL-CLASS-CHANGE").gameEnd(),
+						new Branch(0).checkScene(
+							CheckType.PROSTITUTE, 	
+							new Branch(true).concat(onceSignedUp),
+							new Branch(false).textScene("BROTHEL-OFFER").choiceScene(
+								"Do you want to sign up? What's the worst that could happen?",
+								new Branch ("Sign Up (Requires: Catamite)").require(ChoiceCheckType.LEWD).textScene("BROTHEL-SIGN-UP").concat(onceSignedUp),
+								new Branch ("Leave")
+							)
+						)	
+					)
 				).getEncounter();
 			case CAMP_AND_EAT:
 				return new Branch().textScene("FORCED-CAMP").encounterEnd().getEncounter();
@@ -274,6 +278,46 @@ public class EncounterBuilder {
 			    ).getEncounter();
 			case ECCENTRIC_MERCHANT:
 				return new Branch().textScene("STORY-MERCHANT").encounterEnd().getEncounter();
+			case ELF:
+				Branch careerOptions = new Branch().textScene("ELF-CAREER").choiceScene(
+					"What do you say?", 
+					new Branch("Try the brothel. (CHA: 7)").require(ChoiceCheckType.STAT_GREATER_THAN_X, Stat.CHARISMA, 7).textScene("ELF-BROTHEL-SUGGEST"),
+					new Branch("Join me. (CHA: 5)").require(ChoiceCheckType.STAT_GREATER_THAN_X, Stat.CHARISMA, 5).textScene("ELF-JOIN-SUGGEST"),
+					new Branch("Become a healer. (CHA: 3").require(ChoiceCheckType.STAT_GREATER_THAN_X, Stat.CHARISMA, 3).textScene("ELF-HEALER-SUGGEST"),
+					new Branch("Go home.").textScene("ELF-LEAVE-SUGGEST")
+				);
+				return new Branch().textScene("ELF-INTRO").checkScene(
+					CheckType.ELF_UNLOCKED, 
+					new Branch(true).textScene("ELF-ENTER").choiceScene(
+						"Do you accept the breakfast invitation?", 
+						new Branch("Accept").textScene("ELF-ACCEPT"), 
+						new Branch("Decline").textScene("ELF-DECLINE")
+					),
+					new Branch(false).checkScene(
+						CheckType.ELF_DECLINED, 
+						new Branch(true).textScene("ELF-RETRY").choiceScene(
+							"Do you accept the breakfast invitation?", 
+							new Branch("Accept").textScene("ELF-ACCEPT"), 
+							new Branch("Decline").textScene("ELF-DECLINE")
+						),
+						new Branch(false).checkScene(
+							CheckType.ELF_ACCEPTED, 
+							new Branch(true).textScene("ELF-REUNION").choiceScene(
+								"Kiss Kylira?",
+								new Branch("Kiss").textScene("ELF-TOP").concat(careerOptions),
+								new Branch("Be Kissed").textScene("ELF-BOTTOM").concat(careerOptions),
+								new Branch("Deny").textScene("ELF-DENY").concat(careerOptions)
+							), 
+							new Branch(false).checkScene(
+								CheckType.ELF_HEALER,
+								new Branch(true).textScene("ELF-HEALER"),
+								new Branch(false).textScene("STICK")
+							)
+						)
+					)
+				).getEncounter();
+			case ELF_COMPANION:
+				return new Branch().textScene("ELF-COMPANION").getEncounter();
 			case ERROR:
 				break;
 			case FIRST_BATTLE_STORY:
