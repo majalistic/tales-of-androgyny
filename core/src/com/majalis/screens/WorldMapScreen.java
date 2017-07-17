@@ -218,8 +218,8 @@ public class WorldMapScreen extends AbstractScreen {
 		foodLabel.setText("X " + character.getFood());
 		if (hoveredNode != null) {
 			String text = hoveredNode.getHoverText();
-			hoverLabel.setText(text); 
-			if (!text.isEmpty()) {
+			hoverLabel.setText(text);
+			if (!text.equals("")) {
 				hoverImage.setVisible(true);
 			}
 			else {
@@ -235,7 +235,7 @@ public class WorldMapScreen extends AbstractScreen {
 	}
 	@Override
 	public void buildStage() {
-		Group uiGroup = new Group();
+		final Group uiGroup = new Group();
 		uiGroup.addActor(hoverImage);
 		hoverImage.setVisible(false);
 		hoverImage.setBounds(1500, 5, 400, 300);
@@ -257,7 +257,7 @@ public class WorldMapScreen extends AbstractScreen {
 				group.addActor(actor);
 			}
 		}
-		for (GameWorldNode actor : world) {
+		for (final GameWorldNode actor : world) {
 			group.addActor(actor);
 			if (actor.isCurrent()) {
 				currentNode = actor;
@@ -267,7 +267,7 @@ public class WorldMapScreen extends AbstractScreen {
 		        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
 					String text = actor.getHoverText();
 					hoverLabel.setText(text);
-					if (!text.isEmpty()) {
+					if (!text.equals("")) {
 						hoverImage.setVisible(true);
 					}
 					hoveredNode = actor;
@@ -435,8 +435,8 @@ public class WorldMapScreen extends AbstractScreen {
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
 				if (event.getTarget() instanceof GameWorldNode) {
-					GameWorldNode node = (GameWorldNode) event.getTarget();
-					int timePassed = 1;
+					final GameWorldNode node = (GameWorldNode) event.getTarget();
+					final int timePassed = 1;
 					int foodLeft = character.getFood() - character.getMetabolicRate() * timePassed;
 					saveService.saveDataValue(SaveEnum.TIME, timePassed);
 					boolean switchScreen = false;
@@ -471,11 +471,11 @@ public class WorldMapScreen extends AbstractScreen {
 									node.setAsCurrentNode();
 								}
 								else if (miniEncounter != null) {
-									Image displayNewEncounter = new Image(hoverImageTexture);
+									final Image displayNewEncounter = new Image(hoverImageTexture);
 									displayNewEncounter.setBounds(250, 200, 500, 300);
 									uiGroup.addActor(displayNewEncounter);
 									EncounterBountyResult result = miniEncounter.execute(character.getScoutingScore(), saveService);
-									Label newEncounterText = new Label(result.displayText(), skin);
+									final Label newEncounterText = new Label(result.displayText(), skin);
 									
 									if (result.soundToPlay() != null) {
 										assetManager.get(result.soundToPlay()).play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f); 
