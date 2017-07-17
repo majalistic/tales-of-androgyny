@@ -39,8 +39,7 @@ public class BattleFactory {
 		EnemyCharacter enemy = loadService.loadDataValue(SaveEnum.ENEMY, EnemyCharacter.class);
 		// need a new Enemy
 		if (enemy == null) {
-			enemy = getEnemy(battleAttributes.getBattleCode());
-			enemy.setStance(battleAttributes.getEnemyStance());
+			enemy = getEnemy(battleAttributes.getBattleCode(), battleAttributes.getEnemyStance());
 			if (enemy.getStance().isEroticPenetration() ) {
 				enemy.setLust(10);
 			}
@@ -102,23 +101,23 @@ public class BattleFactory {
 		return textures;
 	}
 	
-	protected EnemyCharacter getEnemy(BattleCode battleCode) {
+	protected EnemyCharacter getEnemy(BattleCode battleCode, Stance stance) {
 		switch(battleCode) {
-			case WERESLUT: return new EnemyCharacter(getTexture(EnemyEnum.WERESLUT), getTextures(EnemyEnum.WERESLUT), EnemyEnum.WERESLUT);
+			case WERESLUT: return new EnemyCharacter(getTexture(EnemyEnum.WERESLUT), getTextures(EnemyEnum.WERESLUT), EnemyEnum.WERESLUT, stance);
 			case HARPY: 
-			case HARPY_STORY: return new EnemyCharacter(null, getTextures(EnemyEnum.HARPY), EnemyEnum.HARPY);
-			case SLIME: return new EnemyCharacter(getTexture(EnemyEnum.SLIME), getTextures(EnemyEnum.SLIME), EnemyEnum.SLIME);
-			case BRIGAND: return new EnemyCharacter(null, getTextures(EnemyEnum.BRIGAND), EnemyEnum.BRIGAND);
-			case CENTAUR: return new EnemyCharacter(null, getTextures(EnemyEnum.CENTAUR), EnemyEnum.CENTAUR);
-			case UNICORN: return new EnemyCharacter(null, getTextures(EnemyEnum.UNICORN), EnemyEnum.UNICORN);
+			case HARPY_STORY: return new EnemyCharacter(null, getTextures(EnemyEnum.HARPY), EnemyEnum.HARPY, stance);
+			case SLIME: return new EnemyCharacter(getTexture(EnemyEnum.SLIME), getTextures(EnemyEnum.SLIME), EnemyEnum.SLIME, stance);
+			case BRIGAND: return new EnemyCharacter(null, getTextures(EnemyEnum.BRIGAND), EnemyEnum.BRIGAND, stance);
+			case CENTAUR: return new EnemyCharacter(null, getTextures(EnemyEnum.CENTAUR), EnemyEnum.CENTAUR, stance);
+			case UNICORN: return new EnemyCharacter(null, getTextures(EnemyEnum.UNICORN), EnemyEnum.UNICORN, stance);
 			case GOBLIN: 
-			case GOBLIN_STORY: return new EnemyCharacter(getTexture(EnemyEnum.GOBLIN), getTextures(EnemyEnum.GOBLIN), EnemyEnum.GOBLIN);
-			case GOBLIN_MALE: return new EnemyCharacter(getTexture(EnemyEnum.GOBLIN_MALE), getTextures(EnemyEnum.GOBLIN_MALE), EnemyEnum.GOBLIN_MALE);
-			case ORC: return new EnemyCharacter(getTexture(EnemyEnum.ORC), getTextures(EnemyEnum.ORC), EnemyEnum.ORC);
-			case ADVENTURER: return new EnemyCharacter(getTexture(EnemyEnum.ADVENTURER), getTextures(EnemyEnum.ADVENTURER), EnemyEnum.ADVENTURER);
-			case OGRE: return new EnemyCharacter(getTexture(EnemyEnum.OGRE), getTextures(EnemyEnum.OGRE), EnemyEnum.OGRE);
-			case BEASTMISTRESS: return new EnemyCharacter(getTexture(EnemyEnum.BEASTMISTRESS), getTextures(EnemyEnum.BEASTMISTRESS), EnemyEnum.BEASTMISTRESS);
-			case SPIDER: return new EnemyCharacter(getTexture(EnemyEnum.SPIDER), getTextures(EnemyEnum.SPIDER), EnemyEnum.SPIDER);
+			case GOBLIN_STORY: return new EnemyCharacter(getTexture(EnemyEnum.GOBLIN), getTextures(EnemyEnum.GOBLIN), EnemyEnum.GOBLIN, stance);
+			case GOBLIN_MALE: return new EnemyCharacter(getTexture(EnemyEnum.GOBLIN_MALE), getTextures(EnemyEnum.GOBLIN_MALE), EnemyEnum.GOBLIN_MALE, stance);
+			case ORC: return new EnemyCharacter(getTexture(EnemyEnum.ORC), getTextures(EnemyEnum.ORC), EnemyEnum.ORC, stance);
+			case ADVENTURER: return new EnemyCharacter(getTexture(EnemyEnum.ADVENTURER), getTextures(EnemyEnum.ADVENTURER), EnemyEnum.ADVENTURER, stance);
+			case OGRE: return new EnemyCharacter(getTexture(EnemyEnum.OGRE), getTextures(EnemyEnum.OGRE), EnemyEnum.OGRE, stance);
+			case BEASTMISTRESS: return new EnemyCharacter(getTexture(EnemyEnum.BEASTMISTRESS), getTextures(EnemyEnum.BEASTMISTRESS), EnemyEnum.BEASTMISTRESS, stance);
+			case SPIDER: return new EnemyCharacter(getTexture(EnemyEnum.SPIDER), getTextures(EnemyEnum.SPIDER), EnemyEnum.SPIDER, stance);
 			default: return null;
 		}
 	}

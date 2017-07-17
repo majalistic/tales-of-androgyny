@@ -40,8 +40,13 @@ public class EnemyCharacter extends AbstractCharacter {
 	private EnemyCharacter() {}
 	
 	public EnemyCharacter(Texture texture, ObjectMap<Stance, Array<Texture>> textures, EnemyEnum enemyType) {
+		this(texture, textures, enemyType, Stance.BALANCED);
+	}
+	
+	public EnemyCharacter(Texture texture, ObjectMap<Stance, Array<Texture>> textures, EnemyEnum enemyType, Stance stance) {
 		super(true);
 		this.enemyType = enemyType;
+		this.stance = stance;
 		init(texture, textures);
 		initializedMove = false;
 		climaxCounters = new ObjectMap<String, Integer>();
@@ -68,7 +73,6 @@ public class EnemyCharacter extends AbstractCharacter {
 		setStaminaToMax();
 		setManaToMax();		
 		this.currentHealth = getMaxHealth();
-		this.stance = Stance.BALANCED;
 	}
 	
 	public String getImagePath() {
