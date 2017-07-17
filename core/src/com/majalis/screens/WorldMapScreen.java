@@ -51,7 +51,7 @@ import com.majalis.encounter.EncounterBounty.EncounterBountyResult;
 import com.majalis.encounter.EncounterCode;
 import com.majalis.save.LoadService;
 import com.majalis.save.SaveEnum;
-import com.majalis.save.SaveManager;
+import com.majalis.save.SaveManager.GameContext;
 import com.majalis.save.SaveService;
 import com.majalis.world.GameWorldNode;
 /*
@@ -89,6 +89,8 @@ public class WorldMapScreen extends AbstractScreen {
 	private GameWorldNode hoveredNode;
 	private int time;
 	private boolean backgroundRendered = false;
+	private GameContext currentContext;
+	private final TextButton campButton;
 	
 	public static final Array<AssetDescriptor<?>> resourceRequirements = new Array<AssetDescriptor<?>>();
 	static {
@@ -151,6 +153,7 @@ public class WorldMapScreen extends AbstractScreen {
 		hoverImage = new Image(hoverImageTexture);
 		
 		skin = assetManager.get(AssetEnum.UI_SKIN.getSkin());
+		campButton = new TextButton("", skin);
 		
 		healthLabel = new Label("", skin);
 		dateLabel = new Label("", skin);
@@ -260,7 +263,7 @@ public class WorldMapScreen extends AbstractScreen {
 		for (final GameWorldNode actor : world) {
 			group.addActor(actor);
 			if (actor.isCurrent()) {
-				currentNode = actor;
+				setCurrentNode(actor);
 			}
 			actor.addListener(new ClickListener(){
 				@Override
@@ -363,8 +366,8 @@ public class WorldMapScreen extends AbstractScreen {
 					buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
 					if (character.getCurrentHealth() <= 0) {						
 						saveService.saveDataValue(SaveEnum.ENCOUNTER_CODE, character.getFood() <= 0 ? EncounterCode.STARVATION : EncounterCode.CAMP_AND_EAT);	
-						saveService.saveDataValue(SaveEnum.CONTEXT, SaveManager.GameContext.ENCOUNTER);
-						saveService.saveDataValue(SaveEnum.RETURN_CONTEXT, SaveManager.GameContext.WORLD_MAP);
+						saveService.saveDataValue(SaveEnum.CONTEXT, GameContext.ENCOUNTER);
+						saveService.saveDataValue(SaveEnum.RETURN_CONTEXT, GameContext.WORLD_MAP);
 						music.stop();
 						showScreen(ScreenEnum.CONTINUE);
 					}
@@ -380,8 +383,8 @@ public class WorldMapScreen extends AbstractScreen {
 						mutateLabels();
 						if (character.getCurrentHealth() <= 0) {						
 							saveService.saveDataValue(SaveEnum.ENCOUNTER_CODE, character.getFood() <= 0 ? EncounterCode.STARVATION : EncounterCode.CAMP_AND_EAT);	
-							saveService.saveDataValue(SaveEnum.CONTEXT, SaveManager.GameContext.ENCOUNTER);
-							saveService.saveDataValue(SaveEnum.RETURN_CONTEXT, SaveManager.GameContext.WORLD_MAP);
+							saveService.saveDataValue(SaveEnum.CONTEXT, GameContext.ENCOUNTER);
+							saveService.saveDataValue(SaveEnum.RETURN_CONTEXT, GameContext.WORLD_MAP);
 							music.stop();
 							showScreen(ScreenEnum.CONTINUE);
 						}
@@ -389,18 +392,16 @@ public class WorldMapScreen extends AbstractScreen {
 		        }
 			}
 		);
-		
-		final TextButton camp = new TextButton("Camp", skin);
 	
-		table.add(camp).size(145, 40);
+		table.add(campButton).size(145, 40);
 		
-		camp.addListener(
+		campButton.addListener(
 			new ClickListener() {
 				@Override
 		        public void clicked(InputEvent event, float x, float y) {
 					buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
-					saveService.saveDataValue(SaveEnum.CONTEXT, SaveManager.GameContext.CAMP);
-					saveService.saveDataValue(SaveEnum.RETURN_CONTEXT, SaveManager.GameContext.WORLD_MAP);
+					saveService.saveDataValue(SaveEnum.CONTEXT, currentContext);
+					saveService.saveDataValue(SaveEnum.RETURN_CONTEXT, GameContext.WORLD_MAP);
 					showScreen(ScreenEnum.CONTINUE);
 		        }
 			}
@@ -442,8 +443,8 @@ public class WorldMapScreen extends AbstractScreen {
 					boolean switchScreen = false;
 					if (character.getCurrentHealth() <= 0) {						
 						saveService.saveDataValue(SaveEnum.ENCOUNTER_CODE, foodLeft < 0 ? EncounterCode.STARVATION : EncounterCode.CAMP_AND_EAT);	
-						saveService.saveDataValue(SaveEnum.CONTEXT, SaveManager.GameContext.ENCOUNTER);
-						saveService.saveDataValue(SaveEnum.RETURN_CONTEXT, SaveManager.GameContext.WORLD_MAP);
+						saveService.saveDataValue(SaveEnum.CONTEXT, GameContext.ENCOUNTER);
+						saveService.saveDataValue(SaveEnum.RETURN_CONTEXT, GameContext.WORLD_MAP);
 						switchScreen = true;
 					} // forced Trudy encounter
 					else if (time >= 11 && character.getQuestStatus(QuestType.ELF) == 0) {
@@ -455,7 +456,7 @@ public class WorldMapScreen extends AbstractScreen {
 					}
 					else {
 						currentImage.addAction(moveTo(actor.getX() + 12, actor.getY() + 25, 1.5f));
-						currentNode = node;
+						setCurrentNode(node);
 						group.addAction(sequence(delay(1.5f), new Action() {
 							@Override
 							public boolean act(float delta) {
@@ -504,7 +505,7 @@ public class WorldMapScreen extends AbstractScreen {
 									saveService.saveDataValue(SaveEnum.ENCOUNTER_CODE, newEncounter); 
 									saveService.saveDataValue(SaveEnum.VISITED_LIST, node.getNodeCode());
 									saveService.saveDataValue(SaveEnum.CONTEXT, node.getEncounterContext());
-									saveService.saveDataValue(SaveEnum.RETURN_CONTEXT, SaveManager.GameContext.WORLD_MAP);
+									saveService.saveDataValue(SaveEnum.RETURN_CONTEXT, GameContext.WORLD_MAP);
 									switchScreen = true;
 								}
 								saveService.saveDataValue(SaveEnum.NODE_CODE, node.getNodeCode());
@@ -529,10 +530,16 @@ public class WorldMapScreen extends AbstractScreen {
 	}
 
 	
+	private void setCurrentNode(GameWorldNode newCurrentNode) {
+		currentNode = newCurrentNode;
+		currentContext = currentNode.getEncounterContext() == GameContext.TOWN ? GameContext.TOWN : GameContext.CAMP;
+		campButton.setText(currentContext == GameContext.TOWN ? "Enter" : "Camp");
+	}
+
 	private void autoEncounter(Group uiGroup, EncounterCode encounter) {
 		saveService.saveDataValue(SaveEnum.ENCOUNTER_CODE, encounter);	
-		saveService.saveDataValue(SaveEnum.CONTEXT, SaveManager.GameContext.ENCOUNTER);
-		saveService.saveDataValue(SaveEnum.RETURN_CONTEXT, SaveManager.GameContext.WORLD_MAP);
+		saveService.saveDataValue(SaveEnum.CONTEXT, GameContext.ENCOUNTER);
+		saveService.saveDataValue(SaveEnum.RETURN_CONTEXT, GameContext.WORLD_MAP);
 		Image displayNewEncounter = new Image(hoverImageTexture);
 		displayNewEncounter.setBounds(250, 200, 500, 300);
 		uiGroup.addActor(displayNewEncounter);
