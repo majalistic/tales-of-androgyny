@@ -14,6 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.OrderedMap;
 import com.majalis.asset.AssetEnum;
@@ -44,7 +45,8 @@ public abstract class AbstractTextScene extends Scene {
 		Skin skin = assetManager.get(AssetEnum.UI_SKIN.getSkin());
 		display = addLabel("", skin, font, Color.BLACK, 430, 330);
 		display.setWidth(1125);
-		statusResults = addLabel("", skin, font, Color.GOLD, 1030, 950);
+		statusResults = addLabel("", skin, font, new Color(216/256f, 149/256f, 34/256f, 1), 1010, 985); 
+		statusResults.setAlignment(Align.topRight);
 		statusResults.setWidth(800);
 		Label skipText = addLabel("Press CTRL to skip", skin, font, Color.GRAY, 105, 180);
 		skipText.setWidth(240);
