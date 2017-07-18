@@ -90,7 +90,7 @@ public class CampScreen extends AbstractScreen {
 	private void passTime(int timePass) {
 		buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
 		time += timePass;
-		console.setText(saveService.saveDataValue(SaveEnum.TIME, timePass) + "\n" + saveService.saveDataValue(SaveEnum.HEALTH, 5 * timePass));
+		console.setText(saveService.saveDataValue(SaveEnum.HEALTH, 5 * timePass) + "\n" + saveService.saveDataValue(SaveEnum.TIME, timePass));
 		background.setColor(getTimeColor(time));
 	}
 	
@@ -99,7 +99,6 @@ public class CampScreen extends AbstractScreen {
 		saveService.saveDataValue(SaveEnum.ENCOUNTER_CODE, encounter);
 		saveService.saveDataValue(SaveEnum.CONTEXT, SaveManager.GameContext.ENCOUNTER);
 		saveService.saveDataValue(SaveEnum.RETURN_CONTEXT, SaveManager.GameContext.CAMP);
-		
     	music.stop();
     	showScreen(ScreenEnum.CONTINUE);    
 	}
