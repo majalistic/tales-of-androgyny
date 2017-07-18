@@ -74,6 +74,7 @@ public class TextScene extends AbstractTextScene  {
 			fullnessIcon.setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(character.getCumInflationPath()))));
 		}
 		background.setColor(TimeOfDay.getTime(character.getTime()).getColor());
+		if (display.getText().toString().equals("")) nextScene();
 	}
 	
 	@Override

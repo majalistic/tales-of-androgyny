@@ -1080,8 +1080,6 @@
 		"key": "STARVATION",
 		"scriptLines": [
 			{"text": "..."},
-			{"text": "..."},
-			{"text": ".."},
 			{"text": ".."},
 			{"text": "."},
 			{"text": "You awake, face down in the dirt."},
@@ -2737,7 +2735,7 @@
 			{
 			"music": "WEREWOLF_MUSIC",
 			"mutations": [{"profileSaveType":"KNOWLEDGE", "value":{"class": "java.lang.String", "value": "Orc"}}],			
-			"text": "..."}
+			"text": ""}
 		]
 	},
 	{
@@ -3137,7 +3135,7 @@
 			{
 			"music": "GADGETEER_MUSIC",
 			"mutations": [{"profileSaveType":"KNOWLEDGE", "value":{"class": "java.lang.String", "value": "Adventurer"}}],
-			"text": "..."}
+			"text": ""}
 		]
 	},
 	{
