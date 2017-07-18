@@ -130,7 +130,9 @@ public class CampScreen extends AbstractScreen {
 		buttonLabels.addAll("Rest", "Sleep (morning)", "Sleep (night)", "Forage");
 		
 		boolean elf = character.getQuestStatus(QuestType.ELF) == 5;
-		if (elf) buttonLabels.add("Chat");
+		boolean trudy = character.getQuestStatus(QuestType.TRUDY) == 5;
+		if (elf) buttonLabels.add("Chat (Kylira)");
+		if (trudy) buttonLabels.add("Chat (Trudy)");
 		buttonLabels.add("Depart");
 		
 		for (int ii = 0; ii < buttonLabels.size; ii++) {
@@ -144,7 +146,9 @@ public class CampScreen extends AbstractScreen {
 		buttons.get(2).addListener(new ClickListener() { @Override public void clicked(InputEvent event, float x, float y) { passTime(TimeOfDay.timeTillNext(TimeOfDay.DUSK, time)); } } );
 		buttons.get(3).addListener(new ClickListener() { @Override public void clicked(InputEvent event, float x, float y) { goToEncounter(EncounterCode.FORAGE); }	} );
 		if (elf) buttons.get(4).addListener(new ClickListener() { @Override public void clicked(InputEvent event, float x, float y) { goToEncounter(EncounterCode.ELF_COMPANION); }	} );
-		buttons.get(elf ? 5 : 4).addListener(new ClickListener() {
+		if (trudy) buttons.get(elf ? 5 : 4).addListener(new ClickListener() { @Override public void clicked(InputEvent event, float x, float y) { goToEncounter(EncounterCode.TRUDY_COMPANION); }	} );
+		
+		buttons.get(elf && trudy ? 6 : elf ? 5 : trudy ? 5 : 4).addListener(new ClickListener() {
 	        @Override
 	        public void clicked(InputEvent event, float x, float y) {
 	        	buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);

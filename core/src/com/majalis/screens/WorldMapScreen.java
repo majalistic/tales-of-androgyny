@@ -402,6 +402,7 @@ public class WorldMapScreen extends AbstractScreen {
 					buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
 					saveService.saveDataValue(SaveEnum.CONTEXT, currentContext);
 					saveService.saveDataValue(SaveEnum.RETURN_CONTEXT, GameContext.WORLD_MAP);
+					music.stop();
 					showScreen(ScreenEnum.CONTINUE);
 		        }
 			}

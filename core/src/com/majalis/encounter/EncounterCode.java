@@ -23,6 +23,7 @@ public enum EncounterCode {
 	GADGETEER (FOREST_INACTIVE), 
 	ORC (FOREST_INACTIVE),
 	ADVENTURER (FOREST_INACTIVE),
+	TRUDY_COMPANION, 
 	OGRE, 
 	BEASTMISTRESS,
 	SPIDER (CASTLE),
@@ -269,9 +270,11 @@ public enum EncounterCode {
 				});
 			case ADVENTURER:
 			case STORY_FEM:
+			case TRUDY_COMPANION:
 				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{  
 					AssetEnum.ADVENTURER.getTexture(),
-					AssetEnum.GADGETEER_MUSIC.getMusic()
+					AssetEnum.GADGETEER_MUSIC.getMusic(),
+					AssetEnum.STICK_BACKGROUND.getTexture()
 				});
 			case ELF:
 			case ELF_COMPANION:

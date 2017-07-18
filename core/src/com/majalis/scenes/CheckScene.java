@@ -170,7 +170,7 @@ public class CheckScene extends AbstractTextScene {
 			@Override
 			protected boolean getCheck(PlayerCharacter character) { return character.getQuestStatus(QuestType.TRUDY) == 0; }  
 		}, 
-		ADVENTURER_HUNT (".", "..") { 
+		ADVENTURER_HUNT (".", ".") { 
 			@Override
 			protected boolean getCheck(PlayerCharacter character) { return character.getQuestStatus(QuestType.TRUDY) == 1; }  
 		},
@@ -181,6 +181,10 @@ public class CheckScene extends AbstractTextScene {
 		PLAYER_GOT_IT (".", ".") { 
 			@Override
 			protected boolean getCheck(PlayerCharacter character) { return character.getQuestStatus(QuestType.TRUDY) == 3; }  
+		},
+		TRUDY_LAST (".", ".") { 
+			@Override
+			protected boolean getCheck(PlayerCharacter character) { return character.getQuestStatus(QuestType.TRUDY) == 4; }  
 		},
 		OGRE_DONE (".", ".") { 
 			@Override
@@ -237,7 +241,7 @@ public class CheckScene extends AbstractTextScene {
 		DAY (".", ".") { 
 			@Override
 			protected boolean getCheck(PlayerCharacter character) { return character.isDayTime(); }  
-		},
+		}, 
 		;
 		
 		private final String success;

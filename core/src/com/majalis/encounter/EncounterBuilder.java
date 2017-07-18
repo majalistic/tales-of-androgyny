@@ -121,7 +121,11 @@ public class EncounterBuilder {
 							new Branch(false).checkScene(
 								CheckType.PLAYER_GOT_IT,
 								new Branch(true).textScene("ADVENTURER-SMUG-REUNION").concat(trudyBattle),
-								new Branch(false).textScene("ADVENTURER-END").encounterEnd()
+								new Branch(false).checkScene(
+									CheckType.TRUDY_LAST, 
+									new Branch(true).textScene("ADVENTURER-END"), 
+									new Branch(false).textScene("STICK")
+								)
 							)
 						)
 					)
@@ -832,6 +836,8 @@ public class EncounterBuilder {
 					new Branch(6).textScene("STORY-006B").concat(leaveTown),
 					new Branch(0).textScene("STORY-006C").concat(leaveTown)
 				).getEncounter();
+			case TRUDY_COMPANION:
+				return new Branch().textScene("TRUDY-COMPANION").getEncounter();
 			case WEAPON_SHOP:
 				return new Branch().textScene("WEAPON-SHOP").shopScene(ShopCode.WEAPON_SHOP).encounterEnd().getEncounter();
 			case WERESLUT:

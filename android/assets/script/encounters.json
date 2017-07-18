@@ -3390,8 +3390,9 @@
 		"key": "ADVENTURER-END",
 		"scriptLines": [
 			{
+			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "TRUDY", "value":5}}],
 			"foreground": "ADVENTURER",
-			"text": "You cross paths with Trudy once again. You maintain eye contact as you pass each other, but interact little otherwise."}
+			"text": "You cross paths with Trudy once again.  They seem a little less recalcitrant than last you saw them.  After some cajoling, they agree to set aside their differences and join your quest... for now."}
 		]
 	},
 	{
@@ -4154,7 +4155,7 @@
 		"scriptLines": [
 			{
 			"music": "GADGETEER_MUSIC",
-			"text": "..."}
+			"text": "."}
 		]
 	},
 	{
@@ -4361,5 +4362,15 @@
 			"mutations": [{"saveType":"HEALTH", "value":{"class": "java.lang.Integer", "value": 100}}, {"saveType":"TIME", "value":{"class": "java.lang.Integer", "value": 3}}],
 			"text": "You sit with Kylira for a while, enjoying each other's company.  They heal your wounds over time."}
 		]
-	}
+	},
+	{
+		"key": "TRUDY-COMPANION",
+		"scriptLines": [
+			{
+			"music": "GADGETEER_MUSIC",
+			"foreground": "ADVENTURER",
+			"mutations": [{"saveType":"TIME", "value":{"class": "java.lang.Integer", "value": 1}}],
+			"text": "You sit with Trudy a while."}
+		]
+	},
 ]}
