@@ -328,32 +328,64 @@ public class EncounterBuilder {
 				).getEncounter();
 			case FORAGE: 			
 				return new Branch().textScene("FORAGE-INTRO").checkScene(
-					// can use this lucky check to divide up into a binary mask for encounter structure (battle, perception check, charisma check), then split the ends up into random text / random battles
-					CheckType.LUCKY, 
+					CheckType.DAY,
 					new Branch(true).checkScene(
+						// can use this lucky check to divide up into a binary mask for encounter structure (battle, perception check, charisma check), then split the ends up into random text / random battles
 						CheckType.LUCKY, 
 						new Branch(true).checkScene(
 							CheckType.LUCKY, 
-							new Branch(true).textScene("FORAGE-0"), // 3
-							new Branch(false).textScene("FORAGE-1") // 1
+							new Branch(true).checkScene(
+								CheckType.LUCKY, 
+								new Branch(true).textScene("FORAGE-0"), // 3
+								new Branch(false).textScene("FORAGE-1") // 1
+							),
+							new Branch(false).checkScene(
+								CheckType.LUCKY, 
+								new Branch(true).textScene("FORAGE-2"), // 1
+								new Branch(false).textScene("FORAGE-4") // -1
+							)
 						),
 						new Branch(false).checkScene(
 							CheckType.LUCKY, 
-							new Branch(true).textScene("FORAGE-2"), // 1
-							new Branch(false).textScene("FORAGE-4") // -1
+							new Branch(true).checkScene(
+								CheckType.LUCKY, 
+								new Branch(true).textScene("FORAGE-3"), // 1
+								new Branch(false).textScene("FORAGE-5") // -1
+							),
+							new Branch(false).checkScene(
+								CheckType.LUCKY, 
+								new Branch(true).textScene("FORAGE-6"), // -1
+								new Branch(false).textScene("FORAGE-7") // -3
+							)
 						)
 					),
-					new Branch(false).checkScene(
+					new Branch(false).textScene("FORAGE-NIGHT").checkScene(
 						CheckType.LUCKY, 
 						new Branch(true).checkScene(
 							CheckType.LUCKY, 
-							new Branch(true).textScene("FORAGE-3"), // 1
-							new Branch(false).textScene("FORAGE-5") // -1
+							new Branch(true).checkScene(
+								CheckType.LUCKY, 
+								new Branch(true).textScene("FORAGE-NIGHT-GOOD").textScene("FORAGE-1"), // 3
+								new Branch(false).textScene("FORAGE-4") // 1
+							),
+							new Branch(false).checkScene(
+								CheckType.LUCKY, 
+								new Branch(true).textScene("FORAGE-4"), // 1
+								new Branch(false).textScene("FORAGE-5") // -1
+							)
 						),
 						new Branch(false).checkScene(
 							CheckType.LUCKY, 
-							new Branch(true).textScene("FORAGE-6"), // -1
-							new Branch(false).textScene("FORAGE-7") // -3
+							new Branch(true).checkScene(
+								CheckType.LUCKY, 
+								new Branch(true).textScene("FORAGE-4"), // 1
+								new Branch(false).textScene("FORAGE-6") // -1
+							),
+							new Branch(false).checkScene(
+								CheckType.LUCKY, 
+								new Branch(true).textScene("FORAGE-6"), // -1
+								new Branch(false).textScene("FORAGE-7") // -3
+							)
 						)
 					)
 				).getEncounter();

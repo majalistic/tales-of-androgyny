@@ -38,6 +38,10 @@ public enum TimeOfDay {
 			currentTimeOrdinal %= 6;
 		}
 		return diff;
+	}
+
+	public boolean isDay() {
+		return this == DAWN || this == MORNING || this == AFTERNOON;
 	}	
 }
 

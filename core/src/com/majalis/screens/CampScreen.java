@@ -91,8 +91,7 @@ public class CampScreen extends AbstractScreen {
 		buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
 		time += timePass;
 		console.setText(saveService.saveDataValue(SaveEnum.TIME, timePass) + "\n" + saveService.saveDataValue(SaveEnum.HEALTH, 5 * timePass));
-		background.setColor(getTimeColor(time));	
-		checkForage();
+		background.setColor(getTimeColor(time));
 	}
 	
 	private void goToEncounter(EncounterCode encounter) {
@@ -180,8 +179,6 @@ public class CampScreen extends AbstractScreen {
         music.play();
         music.setVolume(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("musicVolume", 1));
         music.setLooping(true);
-        
-        checkForage();
 	}
 	
 	@Override
@@ -217,6 +214,7 @@ public class CampScreen extends AbstractScreen {
         drawText();
 		camera.update();
 		batch.setProjectionMatrix(camera.combined);
+        checkForage();
 	}
 	
 	// this should be replaced with label actors

@@ -981,6 +981,18 @@
 		]
 	},
 	{
+		"key": "FORAGE-NIGHT",
+		"scriptLines": [
+			{"text": "Foraging at night poses its own dangers!"}
+		]
+	},
+	{
+		"key": "FORAGE-NIGHT-GOOD",
+		"scriptLines": [
+			{"text": "Luckily, things worked out!"}
+		]
+	},
+	{
 		"key": "FORAGE-0",
 		"scriptLines": [
 			{

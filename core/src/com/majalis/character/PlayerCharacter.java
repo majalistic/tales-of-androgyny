@@ -14,6 +14,7 @@ import com.majalis.character.Item.Potion;
 import com.majalis.character.Item.Weapon;
 import com.majalis.character.Item.WeaponType;
 import com.majalis.save.SaveManager.JobClass;
+import com.majalis.screens.TimeOfDay;
 
 /*
  * Contains the current player character's statistics, including "party" statistics like food remaining
@@ -1298,5 +1299,9 @@ public class PlayerCharacter extends AbstractCharacter {
 		}
 		luckStreak.add(!gotLucky);
 		return gotLucky;		
+	}
+
+	public boolean isDayTime() {
+		return TimeOfDay.getTime(time).isDay();
 	}
 }

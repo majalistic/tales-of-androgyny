@@ -61,6 +61,7 @@ public class CheckScene extends AbstractTextScene {
 		String passValue = "PASSED!\n";
 		String failValue = "FAILURE!\n";
 		String toDisplay = "";
+		
 		if (checkType != null) {
 			if (checkType.getCheck(character)) {
 				toDisplay += checkType.getSuccess();
@@ -232,7 +233,11 @@ public class CheckScene extends AbstractTextScene {
 		LUCKY (".", ".") { 
 			@Override
 			protected boolean getCheck(PlayerCharacter character) { return character.isLucky(); }  
-		}
+		},
+		DAY (".", ".") { 
+			@Override
+			protected boolean getCheck(PlayerCharacter character) { return character.isDayTime(); }  
+		},
 		;
 		
 		private final String success;
