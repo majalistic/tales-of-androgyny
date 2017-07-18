@@ -474,7 +474,7 @@ public class WorldMapScreen extends AbstractScreen {
 								}
 								else if (miniEncounter != null) {
 									final Image displayNewEncounter = new Image(hoverImageTexture);
-									displayNewEncounter.setBounds(250, 200, 500, 300);
+									displayNewEncounter.setBounds(250, 150, 500, 400);
 									uiGroup.addActor(displayNewEncounter);
 									EncounterBountyResult result = miniEncounter.execute(character.getScoutingScore(), saveService);
 									final Label newEncounterText = new Label(result.displayText(), skin);
