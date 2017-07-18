@@ -53,6 +53,7 @@ public class CheckScene extends AbstractTextScene {
 	public void setActive() {
 		super.setActive();
 		nextScene = getNextScene();	
+		if (display.getText().toString().equals(".")) nextScene();
 		background.setColor(TimeOfDay.getTime(character.getTime()).getColor());
 	}
 	
@@ -152,15 +153,15 @@ public class CheckScene extends AbstractTextScene {
 			@Override
 			protected boolean getCheck(PlayerCharacter character) { return character.getQuestStatus(QuestType.INNKEEP) == 0; }  
 		}, 
-		INN_1 ("..", "..") { 
+		INN_1 (".", ".") { 
 			@Override
 			protected boolean getCheck(PlayerCharacter character) { return character.getQuestStatus(QuestType.INNKEEP) == 1; }  
 		}, 
-		INN_2 ("...", "...") { 
+		INN_2 (".", ".") { 
 			@Override
 			protected boolean getCheck(PlayerCharacter character) { return character.getQuestStatus(QuestType.INNKEEP) == 2; }  
 		}, 
-		INN_3 ("....", "....") { 
+		INN_3 (".", ".") { 
 			@Override
 			protected boolean getCheck(PlayerCharacter character) { return character.getQuestStatus(QuestType.INNKEEP) == 3; }  
 		}, 
@@ -168,15 +169,15 @@ public class CheckScene extends AbstractTextScene {
 			@Override
 			protected boolean getCheck(PlayerCharacter character) { return character.getQuestStatus(QuestType.TRUDY) == 0; }  
 		}, 
-		ADVENTURER_HUNT ("..", "..") { 
+		ADVENTURER_HUNT (".", "..") { 
 			@Override
 			protected boolean getCheck(PlayerCharacter character) { return character.getQuestStatus(QuestType.TRUDY) == 1; }  
 		},
-		TRUDY_GOT_IT ("...", "...") { 
+		TRUDY_GOT_IT (".", ".") { 
 			@Override
 			protected boolean getCheck(PlayerCharacter character) { return character.getQuestStatus(QuestType.TRUDY) == 2; }  
 		},
-		PLAYER_GOT_IT ("....", "....") { 
+		PLAYER_GOT_IT (".", ".") { 
 			@Override
 			protected boolean getCheck(PlayerCharacter character) { return character.getQuestStatus(QuestType.TRUDY) == 3; }  
 		},
@@ -227,8 +228,7 @@ public class CheckScene extends AbstractTextScene {
 		ELF_HEALER (".", ".") { 
 			@Override
 			protected boolean getCheck(PlayerCharacter character) { int check = character.getQuestStatus(QuestType.ELF); return check == 6; }  
-		},
-		
+		}
 		;
 		
 		private final String success;
