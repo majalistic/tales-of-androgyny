@@ -30,6 +30,7 @@ import com.majalis.character.PlayerCharacter;
 import com.majalis.encounter.Background;
 import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveService;
+import com.majalis.screens.TimeOfDay;
 
 public class ShopScene extends Scene {
 
@@ -154,6 +155,9 @@ public class ShopScene extends Scene {
 			});
 			
 			table.add(weaponButton).size(500, 60).row();
+			if (shopCode.isTinted()) {
+				background.setColor(TimeOfDay.getTime(character.getTime()).getColor());
+			}
 		}
 		
 		for (final Potion potion: shop.consumables) {
@@ -207,7 +211,12 @@ public class ShopScene extends Scene {
 	}
 
 	private Shop initShop(ShopCode shopCode, Shop shop) {
-		if (shop != null) return shop;
+		if (shop != null) {
+			if (shopCode == ShopCode.SHOP) {
+				shop.consumables.addAll(getShopRestock(shopCode));
+			}
+			return shop;
+		}
 		shop = new Shop(shopCode);
 		switch (shopCode) {
 			case FIRST_STORY:
@@ -251,9 +260,29 @@ public class ShopScene extends Scene {
 				shop.consumables.add(new Potion(3, EffectType.BONUS_ENDURANCE));
 				break;
 		}
+		if (shopCode == ShopCode.SHOP) {
+			shop.consumables.addAll(getShopRestock(shopCode));
+		}
 		return shop;
 	}
 	
+	private Array<? extends Potion> getShopRestock(ShopCode shopCode) {
+		Array<Potion> restock = new Array<Potion>();
+		for (int ii = 0; ii < character.needShopRestock(shopCode); ii++) {
+			switch(shopCode) {
+				case SHOP:
+					restock.add(new Potion(5, EffectType.MEAT));
+					restock.add(new Potion(5, EffectType.MEAT));
+					restock.add(new Potion(10, EffectType.BANDAGE));
+					restock.add(new Potion(15));
+					restock.add(new Potion(15));
+					break;
+				default: ;
+			}
+		}
+		return restock;
+	}
+
 	private boolean buyItem(Item item, ShopCode shopCode) {
 		return character.buyItem(item, item.getValue() / (shopCode == ShopCode.GADGETEER_SHOP ? 3 : 1));
 	}

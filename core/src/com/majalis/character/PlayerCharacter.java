@@ -14,6 +14,7 @@ import com.majalis.character.Item.Potion;
 import com.majalis.character.Item.Weapon;
 import com.majalis.character.Item.WeaponType;
 import com.majalis.save.SaveManager.JobClass;
+import com.majalis.scenes.ShopScene.ShopCode;
 import com.majalis.screens.TimeOfDay;
 
 /*
@@ -47,6 +48,7 @@ public class PlayerCharacter extends AbstractCharacter {
 	private int time;
 	private int money;
 	private int debt;
+	private int lastShopRestock;
 	
 	protected Femininity femininity;
 	protected LipFullness lipFullness;
@@ -1303,5 +1305,13 @@ public class PlayerCharacter extends AbstractCharacter {
 
 	public boolean isDayTime() {
 		return TimeOfDay.getTime(time).isDay();
+	}
+
+	public int needShopRestock(ShopCode shopCode) {
+		int needsRestock = 0;
+		for (; lastShopRestock + 60 <= time; lastShopRestock += 60) {
+			needsRestock++;
+		}
+		return needsRestock;
 	}
 }
