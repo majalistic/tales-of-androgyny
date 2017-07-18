@@ -12,6 +12,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -45,6 +46,7 @@ public class CampScreen extends AbstractScreen {
 		resourceRequirements.add(AssetEnum.TEXT_BOX.getTexture());
 		resourceRequirements.add(AssetEnum.SHOP_MUSIC.getMusic());
 		resourceRequirements.add(AssetEnum.BUTTON_SOUND.getSound());
+		resourceRequirements.addAll(EncounterScreen.getRequirements(EncounterCode.FORAGE));
 	}
 	private final SaveService saveService;
 	private final PlayerCharacter character;
@@ -86,9 +88,37 @@ public class CampScreen extends AbstractScreen {
 	private String getTime() { return TimeOfDay.getTime(time).getDisplay(); }
 	
 	private void passTime(int timePass) {
+		buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
 		time += timePass;
 		console.setText(saveService.saveDataValue(SaveEnum.TIME, timePass) + "\n" + saveService.saveDataValue(SaveEnum.HEALTH, 5 * timePass));
 		background.setColor(getTimeColor(time));	
+		checkForage();
+	}
+	
+	private void goToEncounter(EncounterCode encounter) {
+		buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
+		saveService.saveDataValue(SaveEnum.ENCOUNTER_CODE, encounter);
+		saveService.saveDataValue(SaveEnum.CONTEXT, SaveManager.GameContext.ENCOUNTER);
+		saveService.saveDataValue(SaveEnum.RETURN_CONTEXT, SaveManager.GameContext.CAMP);
+		
+    	music.stop();
+    	showScreen(ScreenEnum.CONTINUE);    
+	}
+	
+	private void checkForage() {
+		if (character.getCurrentHealth() > 0) {
+			buttons.get(3).setTouchable(Touchable.enabled);
+			buttons.get(3).setColor(Color.WHITE);
+		}
+		else {
+			if (character.getFood() == 0) {
+				goToEncounter(EncounterCode.STARVATION);
+			}
+			else {
+				buttons.get(3).setTouchable(Touchable.disabled);
+				buttons.get(3).setColor(Color.GRAY);
+			}
+		}
 	}
 	
 	@Override
@@ -99,7 +129,7 @@ public class CampScreen extends AbstractScreen {
         table.setPosition(1200, 595);
 		
 		Array<String> buttonLabels = new Array<String>();
-		buttonLabels.addAll("Rest", "Sleep (morning)", "Sleep (night)");
+		buttonLabels.addAll("Rest", "Sleep (morning)", "Sleep (night)", "Forage");
 		
 		boolean elf = character.getQuestStatus(QuestType.ELF) == 5;
 		if (elf) buttonLabels.add("Chat");
@@ -114,18 +144,9 @@ public class CampScreen extends AbstractScreen {
 		buttons.get(0).addListener(new ClickListener() { @Override public void clicked(InputEvent event, float x, float y) { passTime(1); } } );
 		buttons.get(1).addListener(new ClickListener() { @Override public void clicked(InputEvent event, float x, float y) { passTime(TimeOfDay.timeTillNext(TimeOfDay.DAWN, time)); } } );
 		buttons.get(2).addListener(new ClickListener() { @Override public void clicked(InputEvent event, float x, float y) { passTime(TimeOfDay.timeTillNext(TimeOfDay.DUSK, time)); } } );
-		if (elf) buttons.get(3).addListener(new ClickListener() { 
-			@Override public void clicked(InputEvent event, float x, float y) { 
-				buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
-				saveService.saveDataValue(SaveEnum.ENCOUNTER_CODE, EncounterCode.ELF_COMPANION);
-				saveService.saveDataValue(SaveEnum.CONTEXT, SaveManager.GameContext.ENCOUNTER);
-				saveService.saveDataValue(SaveEnum.RETURN_CONTEXT, SaveManager.GameContext.CAMP);
-				
-	        	music.stop();
-	        	showScreen(ScreenEnum.CONTINUE);    
-			} 
-		});
-		buttons.get(elf ? 4 : 3).addListener(new ClickListener() {
+		buttons.get(3).addListener(new ClickListener() { @Override public void clicked(InputEvent event, float x, float y) { goToEncounter(EncounterCode.FORAGE); }	} );
+		if (elf) buttons.get(4).addListener(new ClickListener() { @Override public void clicked(InputEvent event, float x, float y) { goToEncounter(EncounterCode.ELF_COMPANION); }	} );
+		buttons.get(elf ? 5 : 4).addListener(new ClickListener() {
 	        @Override
 	        public void clicked(InputEvent event, float x, float y) {
 	        	buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
@@ -159,6 +180,8 @@ public class CampScreen extends AbstractScreen {
         music.play();
         music.setVolume(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("musicVolume", 1));
         music.setLooping(true);
+        
+        checkForage();
 	}
 	
 	@Override

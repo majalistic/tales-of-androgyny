@@ -5,6 +5,7 @@ import static com.majalis.character.Techniques.*;
 import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.BooleanArray;
 import com.badlogic.gdx.utils.IntArray;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.ObjectSet;
@@ -39,11 +40,13 @@ public class PlayerCharacter extends AbstractCharacter {
 	
 	// advantage, range, and combat-lock(boolean) are shared properties between two creatures
 	
+	private BooleanArray luckStreak;
+	
 	/* out of battle only statistics */
 	private int time;
 	private int money;
 	private int debt;
-
+	
 	protected Femininity femininity;
 	protected LipFullness lipFullness;
 
@@ -109,6 +112,7 @@ public class PlayerCharacter extends AbstractCharacter {
 		justCame = false;
 		loaded = false;
 		setCurrentPortrait(AssetEnum.PORTRAIT_SMILE); // his smile and optimism, not yet gone
+		luckStreak = new BooleanArray(new boolean[]{true, true, true, false, false, false});
 	}
 	
 	private static ObjectSet<Techniques> getBaseTechniques() {
@@ -1274,5 +1278,25 @@ public class PlayerCharacter extends AbstractCharacter {
 	public String resetScout() {
 		scout = 0;
 		return null;
+	}
+
+	public boolean isLucky() {
+		boolean gotLucky = luckStreak.random();
+		if (luckStreak.size > 100) {
+			int lucky = 0;
+			for (boolean val : luckStreak.items) {
+				if (val) lucky++;
+			}
+			int unlucky = luckStreak.size - lucky;
+			luckStreak.clear();
+			for (int ii = 0; ii < lucky; ii+= 10) {
+				luckStreak.add(true);
+			}
+			for (int ii = 0; ii < unlucky; ii+= 10) {
+				luckStreak.add(false);
+			}			
+		}
+		luckStreak.add(!gotLucky);
+		return gotLucky;		
 	}
 }

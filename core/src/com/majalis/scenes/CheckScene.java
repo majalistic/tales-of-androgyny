@@ -228,6 +228,10 @@ public class CheckScene extends AbstractTextScene {
 		ELF_HEALER (".", ".") { 
 			@Override
 			protected boolean getCheck(PlayerCharacter character) { int check = character.getQuestStatus(QuestType.ELF); return check == 6; }  
+		},
+		LUCKY (".", ".") { 
+			@Override
+			protected boolean getCheck(PlayerCharacter character) { return character.isLucky(); }  
 		}
 		;
 		

@@ -41,6 +41,7 @@ public enum EncounterCode {
 	STARVATION,
 	CAMP_AND_EAT, 
 	LEVEL_UP, 
+	FORAGE,
 	
 	/* Mini Encounters */
 	FOOD_CACHE,
@@ -64,7 +65,7 @@ public enum EncounterCode {
 	STORY_FEM (FOREST_INACTIVE), 
 	STORY_SIGN (FOREST_INACTIVE), 
 	SOUTH_PASS (MOUNTAIN_ACTIVE), 
-	WEST_PASS (MOUNTAIN_ACTIVE),
+	WEST_PASS (MOUNTAIN_ACTIVE), 
 	;
 	
 	private final AssetEnum texture;	

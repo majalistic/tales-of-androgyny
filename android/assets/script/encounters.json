@@ -975,6 +975,77 @@
 		]
 	},
 	{
+		"key": "FORAGE-INTRO",
+		"scriptLines": [
+			{"text": "You forage for food."}
+		]
+	},
+	{
+		"key": "FORAGE-0",
+		"scriptLines": [
+			{
+			"mutations": [{"saveType":"FOOD", "value":{"class": "java.lang.Integer", "value": 20}}, {"saveType":"TIME", "value":{"class": "java.lang.Integer", "value": 1}}],
+			"text": "You manage to hunt down a beast and kill it!"}
+		]
+	},
+	{
+		"key": "FORAGE-1",
+		"scriptLines": [
+			{
+			"mutations": [{"saveType":"FOOD", "value":{"class": "java.lang.Integer", "value": 8}}, {"saveType":"TIME", "value":{"class": "java.lang.Integer", "value": 1}}],
+			"text": "You find some berries to eat."}
+		]
+	},
+	{
+		"key": "FORAGE-2",
+		"scriptLines": [
+			{
+			"mutations": [{"saveType":"FOOD", "value":{"class": "java.lang.Integer", "value": 6}}, {"saveType":"TIME", "value":{"class": "java.lang.Integer", "value": 1}}],
+			"text": "You find some small lizards to eat."}
+		]
+	},
+	{
+		"key": "FORAGE-3",
+		"scriptLines": [
+			{
+			"mutations": [{"saveType":"FOOD", "value":{"class": "java.lang.Integer", "value": 4}}, {"saveType":"TIME", "value":{"class": "java.lang.Integer", "value": 1}}],
+			"text": "You catch some fish to eat."}
+		]
+	},
+	{
+		"key": "FORAGE-4",
+		"scriptLines": [
+			{
+			"mutations": [{"saveType":"TIME", "value":{"class": "java.lang.Integer", "value": 1}}],
+			"text": "You wander around for a while, but don't find anything."}
+		]
+	},
+	{
+		"key": "FORAGE-5",
+		"scriptLines": [
+			{
+			"mutations": [{"saveType":"TIME", "value":{"class": "java.lang.Integer", "value": 2}}],
+			"text": "You get lost!  You find it difficult to make your way back to camp."}
+		]
+	},
+	{
+		"key": "FORAGE-6",
+		"scriptLines": [
+			{
+			"mutations": [{"saveType":"HEALTH", "value":{"class": "java.lang.Integer", "value": -10}}, {"saveType":"TIME", "value":{"class": "java.lang.Integer", "value": 2}}],
+			"text": "You fall in a hole!"}
+		]
+	},
+	{
+		"key": "FORAGE-7",
+		"scriptLines": [
+			{"text": "You get ambushed by some kind of huge bird thing!"},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex": 1, "creampies":2}}, {"saveType":"TIME", "value":{"class": "java.lang.Integer", "value": 3}}],
+			"text": "It mates with you for several hours."}
+		]
+	},
+	{
 		"key": "FORCED-CAMP",
 		"scriptLines": [
 			{"text": "You're too exhausted to continue, so instead you camp to rest."},

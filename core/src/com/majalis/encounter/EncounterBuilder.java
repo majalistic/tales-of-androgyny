@@ -326,6 +326,37 @@ public class EncounterBuilder {
 					new Branch(Outcome.VICTORY).textScene("STORY-FIGHT-GOBLIN-VICTORY").encounterEnd(),
 					new Branch(Outcome.DEFEAT).textScene("STORY-FIGHT-GOBLIN-DEFEAT").gameEnd()
 				).getEncounter();
+			case FORAGE: 			
+				return new Branch().textScene("FORAGE-INTRO").checkScene(
+					// can use this lucky check to divide up into a binary mask for encounter structure (battle, perception check, charisma check), then split the ends up into random text / random battles
+					CheckType.LUCKY, 
+					new Branch(true).checkScene(
+						CheckType.LUCKY, 
+						new Branch(true).checkScene(
+							CheckType.LUCKY, 
+							new Branch(true).textScene("FORAGE-0"), // 3
+							new Branch(false).textScene("FORAGE-1") // 1
+						),
+						new Branch(false).checkScene(
+							CheckType.LUCKY, 
+							new Branch(true).textScene("FORAGE-2"), // 1
+							new Branch(false).textScene("FORAGE-4") // -1
+						)
+					),
+					new Branch(false).checkScene(
+						CheckType.LUCKY, 
+						new Branch(true).checkScene(
+							CheckType.LUCKY, 
+							new Branch(true).textScene("FORAGE-3"), // 1
+							new Branch(false).textScene("FORAGE-5") // -1
+						),
+						new Branch(false).checkScene(
+							CheckType.LUCKY, 
+							new Branch(true).textScene("FORAGE-6"), // -1
+							new Branch(false).textScene("FORAGE-7") // -3
+						)
+					)
+				).getEncounter();
 			case FORT:
 				break;
 			case GADGETEER:
@@ -893,6 +924,11 @@ public class EncounterBuilder {
 		
 		public Branch shopScene(ShopCode shopCode) {
 			sceneTokens.add(new ShopSceneToken(shopCode));
+			return this;
+		}
+		
+		public Branch randomScene(Array<String> keys) {
+			sceneTokens.addAll(reader.loadScript(keys.random()));
 			return this;
 		}
 		
