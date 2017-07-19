@@ -112,7 +112,18 @@ public class ShopScene extends Scene {
 		
 		shop = initShop(shopCode, loadedShop);
 		
+		saveService.saveDataValue(SaveEnum.SHOP, shop);
+		saveService.saveDataValue(SaveEnum.PLAYER, character);
+		
 		final Table table = new Table();
+		table.align(Align.top);
+		
+		ScrollPane techniquePane = new ScrollPane(table);
+		techniquePane.setScrollingDisabled(true, false);
+		techniquePane.setOverscroll(false, false);
+		techniquePane.setBounds(200, 175, 675, 825);
+		
+		this.addActor(techniquePane);
 		
 		for (final Weapon weapon: shop.weapons) {
 			final TextButton weaponButton = new TextButton(weapon.getName() + " - " + weapon.getValue() + "G", skin);
@@ -204,9 +215,6 @@ public class ShopScene extends Scene {
 			table.add(potionButton).size(500, 60).row();
 		}
 		
-		table.setPosition(500, 1000);
-		table.align(Align.top);
-		this.addActor(table);	
 		if (shop.done || shopCode != ShopCode.FIRST_STORY) addActor(done);
 	}
 
