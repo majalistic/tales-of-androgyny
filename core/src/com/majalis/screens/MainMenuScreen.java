@@ -9,9 +9,12 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -44,6 +47,8 @@ public class MainMenuScreen extends AbstractScreen {
 	private final Sound buttonSound;
 	private final Array<TextButton> buttons;
 	private int selection;
+	private Image arrow;
+	private Image arrow2;
 
 	public MainMenuScreen(ScreenFactory factory, ScreenElements elements, AssetManager assetManager, SaveService saveService, LoadService loadService) {
 		super(factory, elements);
@@ -78,9 +83,28 @@ public class MainMenuScreen extends AbstractScreen {
         this.addActor(new BackgroundBuilder(backgroundImage).build());
         this.addActor(table);
         table.setPosition(495, 195);
+        
+        arrow = new Image(arrowImage);
+        arrow.setColor(Color.BROWN);
+        arrow.setHeight(60);
+        arrow.setWidth(30);
+        this.addActor(arrow);
+        TextureRegion flipped = new TextureRegion(arrowImage);
+        flipped.flip(true, false);
+        arrow2 = new Image(flipped);
+        arrow2.setColor(Color.BROWN);
+        arrow2.setHeight(60);
+        arrow2.setWidth(30);
+        this.addActor(arrow2);
+        
+        Label version = new Label("Version: 0.1.21.2" + (TalesOfAndrogyny.patron ? " Patron-Only" : ""), skin);
+        version.setPosition(1400, 0);
+        this.addActor(version);
+        
         music.play();
         music.setVolume(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("musicVolume", 1));
         music.setLooping(true);
+        activate(0);
 	}
 	
 	@Override
@@ -90,12 +114,12 @@ public class MainMenuScreen extends AbstractScreen {
         batch.setTransformMatrix(camera.view);
         
         if(Gdx.input.isKeyJustPressed(Keys.UP)) {
-        	if (selection > 0) selection--;
-        	else selection = buttons.size-1;
+        	if (selection > 0) setSelection(selection - 1);
+        	else setSelection(buttons.size - 1);
         }
         else if(Gdx.input.isKeyJustPressed(Keys.DOWN)) {
-        	if (selection < buttons.size- 1) selection++;
-        	else selection = 0;
+        	if (selection < buttons.size- 1) setSelection(selection + 1);
+        	else setSelection(0);
         }
         else if(Gdx.input.isKeyJustPressed(Keys.ENTER)) {
         	InputEvent event1 = new InputEvent();
@@ -106,27 +130,27 @@ public class MainMenuScreen extends AbstractScreen {
             event2.setType(InputEvent.Type.touchUp);
             buttons.get(selection).fire(event2);
         }
-
-		for (TextButton button : buttons) {
-			button.setColor(Color.WHITE);
-		}
-		buttons.get(selection).setColor(Color.YELLOW);
-        
-		camera.update();
-		
-		batch.setProjectionMatrix(camera.combined);
-		batch.begin(); 
-		// need to make these actors
-		Color cache = batch.getColor();
-		batch.setColor(new Color(Color.BROWN));
-		batch.draw(arrowImage, 2505, 1428 - selection * 60, 30, 50);
-		batch.draw(arrowImage, 2295, 1428 - selection * 60, 30, 50, 0, 0, arrowImage.getWidth(), arrowImage.getHeight(), true, false);
-		
-		batch.setColor(cache);
-		font.draw(batch, "Version: 0.1.21.2" + (TalesOfAndrogyny.patron ? " Patron-Only" : ""), 2450, 600);
-		batch.end();
 	}
 
+	private void setSelection(int newSelection) {
+		if (newSelection == this.selection) return;
+		deactivate(selection);
+		activate(newSelection);
+	}
+	
+	private void deactivate(int toDeactivate) {
+		TextButton button = buttons.get(toDeactivate);
+		button.setColor(Color.WHITE);
+	}
+	
+	private void activate(int activate) {
+		TextButton button = buttons.get(activate);
+		button.setColor(Color.YELLOW);
+		this.selection = activate;
+		arrow.setPosition(1545, 885 - selection * 60);
+		arrow2.setPosition(1335, 885 - selection * 60);
+	}
+	
 	@Override
 	public void dispose() {
 		for(AssetDescriptor<?> path: resourceRequirements) {
@@ -153,7 +177,7 @@ public class MainMenuScreen extends AbstractScreen {
 	        }
 	        @Override
 	        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-				selection = index;
+				setSelection(index);
 	        }
 	    };
 	}
