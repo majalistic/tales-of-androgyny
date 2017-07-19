@@ -14,8 +14,19 @@ public enum AssetEnum {
 	NULL("Null.png"),
 	SPLASH_SCREEN("Splash.png"),
 	LOADING("Loading.png"),
-	
-	MAIN_MENU_SCREEN("MainMenuScreen.jpg"),
+
+	MAIN_MENU_FG("title/foreground1.png"),
+	MAIN_MENU_DK("title/DemonKing.png"),
+	MAIN_MENU_MC("title/Mc.png"),
+	MAIN_MENU_MG1("title/middleground1.png"),
+	MAIN_MENU_MG2("title/middleground2.png"),
+	MAIN_MENU_MG3("title/middleground3.png"),
+	MAIN_MENU_MG4("title/middleground4.png"),
+	MAIN_MENU_BG1("title/background1.png"),
+	MAIN_MENU_BG2("title/background2.png"),
+	MAIN_MENU_STATIONARY("title/stationary1.png"),
+	TOA("title/ToA.png"),
+	ALPHA("title/AlphaBuild.png"),
 	
 	DEFAULT_BACKGROUND("DefaultBackground.jpg"),
 	GAME_TYPE_BACKGROUND("GameTypeSelect.jpg"),
