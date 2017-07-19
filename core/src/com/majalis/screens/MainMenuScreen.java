@@ -6,6 +6,7 @@ import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -105,12 +106,23 @@ public class MainMenuScreen extends AbstractScreen {
             event2.setType(InputEvent.Type.touchUp);
             buttons.get(selection).fire(event2);
         }
+
+		for (TextButton button : buttons) {
+			button.setColor(Color.WHITE);
+		}
+		buttons.get(selection).setColor(Color.YELLOW);
+        
 		camera.update();
 		
 		batch.setProjectionMatrix(camera.combined);
 		batch.begin(); 
 		// need to make these actors
-		batch.draw(arrowImage, 2280, 1428 - selection * 60, 30, 50);
+		Color cache = batch.getColor();
+		batch.setColor(new Color(Color.BROWN));
+		batch.draw(arrowImage, 2505, 1428 - selection * 60, 30, 50);
+		batch.draw(arrowImage, 2295, 1428 - selection * 60, 30, 50, 0, 0, arrowImage.getWidth(), arrowImage.getHeight(), true, false);
+		
+		batch.setColor(cache);
 		font.draw(batch, "Version: 0.1.21.2" + (TalesOfAndrogyny.patron ? " Patron-Only" : ""), 2450, 600);
 		batch.end();
 	}
