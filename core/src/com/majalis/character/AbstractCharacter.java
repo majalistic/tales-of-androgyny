@@ -6,6 +6,7 @@ import com.majalis.character.Item.ItemEffect;
 import com.majalis.character.Item.Weapon;
 import com.majalis.character.PlayerCharacter.Bootyliciousness;
 import com.majalis.save.MutationResult;
+import com.majalis.save.MutationResult.MutationType;
 import com.majalis.save.SaveManager.JobClass;
 import com.majalis.technique.ClimaxTechnique.ClimaxType;
 import com.majalis.technique.Bonus;
@@ -883,7 +884,7 @@ public abstract class AbstractCharacter extends Actor {
 		foodChange = food - foodChange;
 		
 		if (foodChange != 0) {
-			result.add(new MutationResult(foodChange > 0 ? "+" + foodChange + " fullness!" : "Hunger increases by " + -foodChange + "!"));
+			result.add(new MutationResult(foodChange > 0 ? "+" + foodChange + " fullness!" : "Hunger increases by " + -foodChange + "!", String.valueOf(foodChange), MutationType.FOOD));
 		}
 		result.addAll(starve);
 		return result;

@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.OrderedMap;
 import com.majalis.character.PlayerCharacter;
@@ -65,7 +66,10 @@ public class TextScene extends AbstractTextScene  {
 			Array<MutationResult> result = mutator.mutate();
 			if (result != null) results.addAll(result);
 		}
-		statusResults.setText(joinWithLines(results));
+		for (MutationResult result : results) {
+			statusResults.add(new MutationActor(result, assetManager.get(result.getTexture()), skin)).fillY().align(Align.right).row();
+		}
+		
 		if (character.isLoaded()) {
 			characterPortrait.addAction(Actions.show());
 			characterPortrait.setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(character.getPortraitPath()))));
@@ -76,14 +80,6 @@ public class TextScene extends AbstractTextScene  {
 		}
 		background.setColor(TimeOfDay.getTime(character.getTime()).getColor());
 		if (display.getText().toString().equals("")) nextScene();
-	}
-	
-	private String joinWithLines(Array<MutationResult> toJoin) {
-		String result = "";
-		for (MutationResult mr: toJoin) {
-			result += mr.getText() + "\n";
-		}
-		return result.trim();
 	}
 	
 	@Override

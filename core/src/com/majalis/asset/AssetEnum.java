@@ -58,6 +58,8 @@ public enum AssetEnum {
 	TOWN("worldmap/TownNode0.png"),
 	CHARACTER_ANIMATION("worldmap/TinySprite.png"),
 	
+	EXP("worldmap/Apple.png"),
+	
 	CHARACTER_SCREEN("CharacterScreen.png"),
 	
 	WEREBITCH("enemies/WerebitchBasic.png"),
@@ -243,7 +245,7 @@ public enum AssetEnum {
 	BATTLE_MUSIC("music/BattleMusic.mp3", Music.class),
 	GADGETEER_MUSIC("music/GadgeteerMusic.mp3", Music.class),
 	BOSS_MUSIC("music/BossMusic.mp3", Music.class),
-	WAVES("music/Waves.wav", Music.class),
+	WAVES("music/Waves.wav", Music.class)
 	;
 	
 	private final AssetDescriptor<?> assetDescriptor;

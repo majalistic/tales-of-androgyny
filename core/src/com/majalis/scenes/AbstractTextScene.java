@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.OrderedMap;
@@ -24,21 +25,23 @@ import com.majalis.save.SaveService;
 public abstract class AbstractTextScene extends Scene {
 	protected final SaveService saveService;
 	protected final Label display;
-	protected final Label statusResults;
+	protected final Table statusResults;
 	protected final Image characterPortrait;
 	protected final Image masculinityIcon;
 	protected final Image fullnessIcon;
+	protected final Skin skin;
 	
 	protected AbstractTextScene(OrderedMap<Integer, Scene> sceneBranches, int sceneCode, AssetManager assetManager, BitmapFont font, PlayerCharacter character, SaveService saveService, Background background) {
 		super(sceneBranches, sceneCode);
 		this.saveService = saveService;
 		this.addActor(background);
-		Skin skin = assetManager.get(AssetEnum.UI_SKIN.getSkin());
+		skin = assetManager.get(AssetEnum.UI_SKIN.getSkin());
 		display = addLabel("", skin, font, Color.BLACK, 430, 330);
 		display.setWidth(1125);
-		statusResults = addLabel("", skin, font, new Color(216/256f, 149/256f, 34/256f, 1), 1010, 985); 
-		statusResults.setAlignment(Align.topRight);
-		statusResults.setWidth(800);
+		statusResults = new Table();//addLabel("", skin, font, new Color(216/256f, 149/256f, 34/256f, 1), 1010, 985); 
+		statusResults.align(Align.topRight);
+		statusResults.setPosition(1700, 985);
+		this.addActor(statusResults);
 		Label skipText = addLabel("Press CTRL to skip", skin, font, Color.GRAY, 105, 180);
 		skipText.setWidth(240);
 		Texture portrait = assetManager.get(character.getPortraitPath());
