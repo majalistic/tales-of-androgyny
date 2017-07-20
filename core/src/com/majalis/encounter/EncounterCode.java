@@ -4,6 +4,7 @@ import static com.majalis.asset.AssetEnum.*;
 
 import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.IntMap;
 import com.majalis.asset.AssetEnum;
 import com.majalis.screens.TownScreen;
 /*
@@ -401,39 +402,38 @@ public enum EncounterCode {
 		}
 	}
 	// for random gen
-	public static Array<EncounterCode> encounterArray;
+	public static IntMap<Array<EncounterCode>> encounterMap;
 	private static boolean iceCreamReady;
 	private static boolean hungerCharmReady;
 	static {
-		encounterArray = new Array<EncounterCode>();
-		encounterArray.addAll(WERESLUT, HARPY, SLIME, BRIGAND, DRYAD, CENTAUR, GOBLIN, ORC, ADVENTURER, OGRE, BEASTMISTRESS, ELF, FOOD_CACHE, GOLD_CACHE, DAMAGE_TRAP, ANAL_TRAP, ICE_CREAM, HUNGER_CHARM);
+		encounterMap = new IntMap<Array<EncounterCode>>();
+		encounterMap.put(1, new Array<EncounterCode>(new EncounterCode[]{WERESLUT, HARPY, SLIME, BRIGAND, DRYAD, CENTAUR, GOBLIN, ORC, ADVENTURER, ELF, FOOD_CACHE, GOLD_CACHE, DAMAGE_TRAP, ANAL_TRAP, HUNGER_CHARM}));
+		encounterMap.put(2, new Array<EncounterCode>(new EncounterCode[]{WERESLUT, HARPY, SLIME, BRIGAND, DRYAD, CENTAUR, GOBLIN, ORC, ADVENTURER, OGRE, BEASTMISTRESS, ELF, FOOD_CACHE, GOLD_CACHE, DAMAGE_TRAP, ANAL_TRAP, ICE_CREAM, HUNGER_CHARM}));
+		
 		iceCreamReady = true;
 		hungerCharmReady = true;
 	}
 	
-	public static EncounterCode getEncounterCode(int code) {
-		if (code < encounterArray.size) {
-			EncounterCode newEncounter = encounterArray.get(code);
-			if (newEncounter == ICE_CREAM) {
-				if (iceCreamReady) {
-					iceCreamReady = false;
-				}
-				else {
-					newEncounter = FOOD_CACHE;
-				}
+	public static EncounterCode getEncounterCode(int rawCode, int difficulty) {
+		Array<EncounterCode> encounterArray = encounterMap.get(difficulty);
+		EncounterCode newEncounter = encounterArray.get(rawCode % encounterArray.size);
+		if (newEncounter == ICE_CREAM) {
+			if (iceCreamReady) {
+				iceCreamReady = false;
 			}
-			else if (newEncounter == HUNGER_CHARM) {
-				if (hungerCharmReady) {
-					hungerCharmReady = false;
-				}
-				else {
-					newEncounter = FOOD_CACHE;
-				}
+			else {
+				newEncounter = FOOD_CACHE;
 			}
-			return newEncounter;
 		}
-		// Troja?  Need a way to get to here; currently no file input is read for the code param
-		return ERROR;
+		else if (newEncounter == HUNGER_CHARM) {
+			if (hungerCharmReady) {
+				hungerCharmReady = false;
+			}
+			else {
+				newEncounter = FOOD_CACHE;
+			}
+		}
+		return newEncounter;
 	}
 
 	public EncounterBounty getMiniEncounter() {

@@ -24,12 +24,14 @@ public class Zone {
 	private final IntSet visitedCodesSet;
 	private final Sound sound;
 	private final PlayerCharacter character;
+	private final int difficulty;
 	private final int repeats;
 	private GameWorldNode startNode;
 	
-	protected Zone(LoadService loadService, AssetManager assetManager, RandomXS128 random, Array<GameWorldNode> nodes, IntMap<GameWorldNode> nodeMap, int repeats) {
+	protected Zone(LoadService loadService, AssetManager assetManager, RandomXS128 random, Array<GameWorldNode> nodes, IntMap<GameWorldNode> nodeMap, int difficulty, int repeats) {
 		this.assetManager = assetManager;
 		this.random = random;
+		this.difficulty = difficulty;
 		this.repeats = repeats;
 		visitedCodesSet = loadService.loadDataValue(SaveEnum.VISITED_LIST, IntSet.class);
 		sound = assetManager.get(AssetEnum.CLICK_SOUND.getSound());
@@ -91,7 +93,7 @@ public class Zone {
 					
 					GameWorldNode newNode = getNode(
 						nodeCode, 
-						TalesOfAndrogyny.setEncounter.size == 0 ? EncounterCode.getEncounterCode(getEncounterCodeForNode(nodeCode)) : TalesOfAndrogyny.setEncounter.get(nodeCode%TalesOfAndrogyny.setEncounter.size),
+						TalesOfAndrogyny.setEncounter.size == 0 ? EncounterCode.getEncounterCode(nodeCode - 1, difficulty) : TalesOfAndrogyny.setEncounter.get(nodeCode%TalesOfAndrogyny.setEncounter.size),
 						EncounterCode.DEFAULT, currentNodePosition, visitedCodesSet.contains(nodeCode));
 					addNode(newNode, nodeCode, nodes);
 					// if we've reached the target node, we can terminate this run-through
@@ -109,12 +111,6 @@ public class Zone {
 			}
 		}
 		return this;
-	}
-	// this method for debugging purposes
-	private int getEncounterCodeForNode(int nodeCode) {
-		//return 10; // magical number to see a particular encounter, should probably just perform this debug in the node itself
-		// this will return the appropriate array index
-		return (nodeCode-1) % EncounterCode.encounterArray.size;
 	}
 	
 	protected Array<GameWorldNode> getEndNodes() {
