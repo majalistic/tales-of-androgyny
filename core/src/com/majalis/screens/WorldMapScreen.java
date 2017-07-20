@@ -466,10 +466,10 @@ public class WorldMapScreen extends AbstractScreen {
 									}
 									
 									newEncounterText.setColor(Color.GOLD);
-									newEncounterText.setPosition(415, 335);
+									newEncounterText.setPosition(340, 335);
 									newEncounterText.setAlignment(Align.center);
 									newEncounterText.setWrap(true);
-									newEncounterText.setWidth(200);
+									newEncounterText.setWidth(325);
 									uiGroup.addActor(newEncounterText);
 									uiGroup.addAction(sequence(delay(8), new Action() {
 										@Override
