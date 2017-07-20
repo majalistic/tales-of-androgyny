@@ -3399,7 +3399,7 @@
 			{
 			"mutations": [{"profileSaveType":"KNOWLEDGE", "value":{"class": "java.lang.String", "value": "Ogre"}}],			
 			"music": "WEREWOLF_MUSIC",
-			"text": "."}
+			"text": ""}
 		]
 	},
 	{
@@ -4153,7 +4153,7 @@
 		"scriptLines": [
 			{
 			"music": "GADGETEER_MUSIC",
-			"text": "."}
+			"text": ""}
 		]
 	},
 	{
