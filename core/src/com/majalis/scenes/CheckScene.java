@@ -234,6 +234,7 @@ public class CheckScene extends AbstractTextScene {
 			@Override
 			protected boolean getCheck(PlayerCharacter character) { int check = character.getQuestStatus(QuestType.ELF); return check == 6; }  
 		},
+		// for encounters, can also make a RandomBranch variant on choice/check/battle/etc.
 		LUCKY (".", ".") { 
 			@Override
 			protected boolean getCheck(PlayerCharacter character) { return character.isLucky(); }  

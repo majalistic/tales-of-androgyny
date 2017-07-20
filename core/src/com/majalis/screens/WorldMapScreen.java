@@ -364,13 +364,7 @@ public class WorldMapScreen extends AbstractScreen {
 				@Override
 		        public void clicked(InputEvent event, float x, float y) {
 					buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
-					if (character.getCurrentHealth() <= 0) {						
-						saveService.saveDataValue(SaveEnum.ENCOUNTER_CODE, character.getFood() <= 0 ? EncounterCode.STARVATION : EncounterCode.CAMP_AND_EAT);	
-						saveService.saveDataValue(SaveEnum.CONTEXT, GameContext.ENCOUNTER);
-						saveService.saveDataValue(SaveEnum.RETURN_CONTEXT, GameContext.WORLD_MAP);
-						music.stop();
-						showScreen(ScreenEnum.CONTINUE);
-					}
+					if (checkForForcedRest());
 					else {
 						console.setText(saveService.saveDataValue(SaveEnum.SCOUT, 1) + " " + saveService.saveDataValue(SaveEnum.TIME, 1));
 						console.addAction(Actions.alpha(1));
@@ -381,13 +375,7 @@ public class WorldMapScreen extends AbstractScreen {
 						tintForTimeOfDay();	
 						checkCanEat(rest);
 						mutateLabels();
-						if (character.getCurrentHealth() <= 0) {						
-							saveService.saveDataValue(SaveEnum.ENCOUNTER_CODE, character.getFood() <= 0 ? EncounterCode.STARVATION : EncounterCode.CAMP_AND_EAT);	
-							saveService.saveDataValue(SaveEnum.CONTEXT, GameContext.ENCOUNTER);
-							saveService.saveDataValue(SaveEnum.RETURN_CONTEXT, GameContext.WORLD_MAP);
-							music.stop();
-							showScreen(ScreenEnum.CONTINUE);
-						}
+						checkForForcedRest();
 					}
 		        }
 			}
@@ -439,16 +427,10 @@ public class WorldMapScreen extends AbstractScreen {
 				if (event.getTarget() instanceof GameWorldNode) {
 					final GameWorldNode node = (GameWorldNode) event.getTarget();
 					final int timePassed = 1;
-					int foodLeft = character.getFood() - character.getMetabolicRate() * timePassed;
 					saveService.saveDataValue(SaveEnum.TIME, timePassed);
 					boolean switchScreen = false;
-					if (character.getCurrentHealth() <= 0) {						
-						saveService.saveDataValue(SaveEnum.ENCOUNTER_CODE, foodLeft < 0 ? EncounterCode.STARVATION : EncounterCode.CAMP_AND_EAT);	
-						saveService.saveDataValue(SaveEnum.CONTEXT, GameContext.ENCOUNTER);
-						saveService.saveDataValue(SaveEnum.RETURN_CONTEXT, GameContext.WORLD_MAP);
-						switchScreen = true;
-					} // forced Trudy encounter
-					else if (time >= 11 && character.getQuestStatus(QuestType.ELF) == 0) {
+					if(checkForForcedRest());
+					else if (time >= 11 && character.getQuestStatus(QuestType.ELF) == 0) { // forced Trudy encounter
 						saveService.saveDataValue(SaveEnum.QUEST, new QuestFlag(QuestType.ELF, 1));	
 						autoEncounter(uiGroup, EncounterCode.ELF);
 					}
@@ -512,8 +494,7 @@ public class WorldMapScreen extends AbstractScreen {
 								saveService.saveDataValue(SaveEnum.NODE_CODE, node.getNodeCode());
 								saveService.saveDataValue(SaveEnum.CAMERA_POS, new Vector2(node.getX(), node.getY()));
 								if (switchScreen) {
-									music.stop();
-									showScreen(ScreenEnum.CONTINUE);
+									switchContext();
 								}
 								mutateLabels();
 								return true;
@@ -521,8 +502,7 @@ public class WorldMapScreen extends AbstractScreen {
 						}));
 					}
 					if (switchScreen) {
-						music.stop();
-						showScreen(ScreenEnum.CONTINUE);
+						switchContext();
 					}
 				}
 				mutateLabels();
@@ -536,7 +516,28 @@ public class WorldMapScreen extends AbstractScreen {
 		currentContext = currentNode.getEncounterContext() == GameContext.TOWN ? GameContext.TOWN : GameContext.CAMP;
 		campButton.setText(currentContext == GameContext.TOWN ? "Enter" : "Camp");
 	}
+	
+	private boolean checkForForcedRest() {
+		if (character.getCurrentHealth() <= 0) {		
+			if (character.getFood() <= 0) {
+				saveService.saveDataValue(SaveEnum.ENCOUNTER_CODE, EncounterCode.STARVATION);	
+				saveService.saveDataValue(SaveEnum.CONTEXT, GameContext.ENCOUNTER);
+			}
+			else {
+				saveService.saveDataValue(SaveEnum.CONTEXT, GameContext.CAMP);
+			}			
+			saveService.saveDataValue(SaveEnum.RETURN_CONTEXT, GameContext.WORLD_MAP);
+			switchContext();
+			return true;
+		}
+		return false;
+	}
 
+	private void switchContext() {
+		music.stop();
+		showScreen(ScreenEnum.CONTINUE);
+	}
+	
 	private void autoEncounter(Group uiGroup, EncounterCode encounter) {
 		saveService.saveDataValue(SaveEnum.ENCOUNTER_CODE, encounter);	
 		saveService.saveDataValue(SaveEnum.CONTEXT, GameContext.ENCOUNTER);
@@ -551,8 +552,7 @@ public class WorldMapScreen extends AbstractScreen {
 		uiGroup.addAction(sequence(delay(1.5f), new Action() {
 			@Override
 			public boolean act(float delta) {
-				music.stop();
-				showScreen(ScreenEnum.CONTINUE);
+				switchContext();
 				return true;
 			}
 		}));

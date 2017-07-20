@@ -5,9 +5,9 @@ import com.majalis.save.SaveManager;
 import com.majalis.save.SaveService;
 
 /*
- * Represents a scene that concludes an encounter
+ * Represents a scene that concludes an encounter.  Currently not displayed; may eventually be displayed.  Should fire an event that the encounter has ended
  */
-public class EndScene extends Scene{
+public class EndScene extends Scene {
 
 	private final Type type;
 	private final SaveService saveService;

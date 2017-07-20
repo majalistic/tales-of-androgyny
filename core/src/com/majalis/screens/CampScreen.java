@@ -61,6 +61,8 @@ public class CampScreen extends AbstractScreen {
 	private final Label console;
 	private int selection;
 	private int time;
+	private TextButton forageButton;
+	private TextButton departButton;
 	
 	protected CampScreen(ScreenFactory screenFactory, ScreenElements elements, AssetManager assetManager, SaveService saveService, PlayerCharacter character, int time) {
 		super(screenFactory, elements);
@@ -105,16 +107,20 @@ public class CampScreen extends AbstractScreen {
 	
 	private void checkForage() {
 		if (character.getCurrentHealth() > 0) {
-			buttons.get(3).setTouchable(Touchable.enabled);
-			buttons.get(3).setColor(Color.WHITE);
+			forageButton.setTouchable(Touchable.enabled);
+			forageButton.setColor(Color.WHITE);
+			departButton.setTouchable(Touchable.enabled);
+			departButton.setColor(Color.WHITE);
 		}
 		else {
 			if (character.getFood() == 0) {
 				goToEncounter(EncounterCode.STARVATION);
 			}
 			else {
-				buttons.get(3).setTouchable(Touchable.disabled);
-				buttons.get(3).setColor(Color.GRAY);
+				forageButton.setTouchable(Touchable.disabled);
+				forageButton.setColor(Color.GRAY);
+				departButton.setTouchable(Touchable.disabled);
+				departButton.setColor(Color.GRAY);
 			}
 		}
 	}
@@ -144,11 +150,21 @@ public class CampScreen extends AbstractScreen {
 		buttons.get(0).addListener(new ClickListener() { @Override public void clicked(InputEvent event, float x, float y) { passTime(1); } } );
 		buttons.get(1).addListener(new ClickListener() { @Override public void clicked(InputEvent event, float x, float y) { passTime(TimeOfDay.timeTillNext(TimeOfDay.DAWN, time)); } } );
 		buttons.get(2).addListener(new ClickListener() { @Override public void clicked(InputEvent event, float x, float y) { passTime(TimeOfDay.timeTillNext(TimeOfDay.DUSK, time)); } } );
-		buttons.get(3).addListener(new ClickListener() { @Override public void clicked(InputEvent event, float x, float y) { goToEncounter(EncounterCode.FORAGE); }	} );
-		if (elf) buttons.get(4).addListener(new ClickListener() { @Override public void clicked(InputEvent event, float x, float y) { goToEncounter(EncounterCode.ELF_COMPANION); }	} );
-		if (trudy) buttons.get(elf ? 5 : 4).addListener(new ClickListener() { @Override public void clicked(InputEvent event, float x, float y) { goToEncounter(EncounterCode.TRUDY_COMPANION); }	} );
+		forageButton = buttons.get(3);
+		forageButton.addListener(new ClickListener() { @Override public void clicked(InputEvent event, float x, float y) { goToEncounter(EncounterCode.FORAGE); }	} );
+		int nextButtonIndex = 4;
+		if (elf) {
+			buttons.get(nextButtonIndex).addListener(new ClickListener() { @Override public void clicked(InputEvent event, float x, float y) { goToEncounter(EncounterCode.ELF_COMPANION); }	} );
+			nextButtonIndex++;
+		}
+		if (trudy) {
+			buttons.get(nextButtonIndex).addListener(new ClickListener() { @Override public void clicked(InputEvent event, float x, float y) { goToEncounter(EncounterCode.TRUDY_COMPANION); }	} );
+			nextButtonIndex++;
+		}
 		
-		buttons.get(elf && trudy ? 6 : elf ? 5 : trudy ? 5 : 4).addListener(new ClickListener() {
+		departButton = buttons.get(nextButtonIndex);		
+		
+		departButton.addListener(new ClickListener() {
 	        @Override
 	        public void clicked(InputEvent event, float x, float y) {
 	        	buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
