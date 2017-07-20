@@ -13,6 +13,7 @@ import com.majalis.asset.AssetEnum;
 import com.majalis.character.Item.Potion;
 import com.majalis.character.Item.Weapon;
 import com.majalis.character.Item.WeaponType;
+import com.majalis.save.MutationResult;
 import com.majalis.save.SaveManager.JobClass;
 import com.majalis.scenes.ShopScene.ShopCode;
 import com.majalis.screens.TimeOfDay;
@@ -510,7 +511,10 @@ public class PlayerCharacter extends AbstractCharacter {
 		}
 		
 		if (!oldStance.isAnalReceptive() && stance.isAnalReceptive()) {
-			result = receiveAnal(); 
+			Array<MutationResult> temp = receiveAnal(); 
+			
+			if (temp.size > 0) result = temp.first().getText();
+			else result = "";
 			
 			if (stance != Stance.PENETRATED) {
 				setCurrentPortrait(perks.get(Perk.ANAL_LOVER.toString(), 0) > 1 ? AssetEnum.PORTRAIT_LOVE : AssetEnum.PORTRAIT_SURPRISE);
@@ -528,8 +532,12 @@ public class PlayerCharacter extends AbstractCharacter {
 			a2m = true;
 		}
 		else if (!oldStance.isOralReceptive() && stance.isOralReceptive()) {
-			result = receiveOral();
-			if (result != null) { resolvedAttack.addMessage(result); } 
+			Array<MutationResult> temp = receiveAnal(); 
+			
+			if (temp.size > 0) result = temp.first().getText();
+			else result = "";
+			
+			if (!result.equals("")) { resolvedAttack.addMessage(result); } 
 			if(a2m) {
 				resolvedAttack.addMessage("Bleugh! That was in your ass!");
 				// gross portrait
@@ -923,23 +931,26 @@ public class PlayerCharacter extends AbstractCharacter {
 		return false;
 	}
 	
-	private String receiveAnal() {
+	private Array<MutationResult> receiveAnal() {
 		String result = receivedAnal == 0 ? "You are no longer a virgin! " : "";
 		receivedAnal++;
 		boolean weakToAnal = perks.get(Perk.WEAK_TO_ANAL.toString(), 0) > 0;
-		return result + incrementPerk(receivedAnal, Perk.ANAL_LOVER, weakToAnal ? 5 : 10, weakToAnal ? 3 : 6, weakToAnal ? 1 : 3);
+		result += incrementPerk(receivedAnal, Perk.ANAL_LOVER, weakToAnal ? 5 : 10, weakToAnal ? 3 : 6, weakToAnal ? 1 : 3);
+		return result.equals("") ? new Array<MutationResult>() : getResult(result);
 	}
 	
-	private String receiveOral() {
+	private Array<MutationResult> receiveOral() {
 		receivedOral++;
-		return incrementPerk(receivedOral, Perk.MOUTH_MANIAC, 10, 6, 3);
+		String result = incrementPerk(receivedOral, Perk.MOUTH_MANIAC, 10, 6, 3);
+		return result.equals("") ? new Array<MutationResult>() : getResult(result);
 	}
 	
 	@Override
-	protected String fillButt(int buttful) {
+	protected Array<MutationResult> fillButt(int buttful) {
 		super.fillButt(buttful);
 		analCreampie++;
-		return incrementPerk(analCreampie, Perk.CREAMPIE_ADDICT, 10, 6, 3);
+		String result = incrementPerk(analCreampie, Perk.CREAMPIE_ADDICT, 10, 6, 3);
+		return result.equals("") ? new Array<MutationResult>() : getResult(result);
 	}
 	
 	protected String receiveEggs() {
@@ -948,10 +959,11 @@ public class PlayerCharacter extends AbstractCharacter {
 	}
 	
 	@Override
-	protected String fillMouth(int mouthful) {
+	protected Array<MutationResult> fillMouth(int mouthful) {
 		super.fillMouth(mouthful);
 		oralCreampie++;
-		return incrementPerk(oralCreampie, Perk.SEMEN_SWALLOWER, 10, 6, 3);
+		String result = incrementPerk(oralCreampie, Perk.SEMEN_SWALLOWER, 10, 6, 3);
+		return result.equals("") ? new Array<MutationResult>() : getResult(result);
 	}
 	
 	private String incrementPerk(int currentValueOfStat, Perk perkToIncrement, int ... valuesToCheck) {
@@ -975,14 +987,18 @@ public class PlayerCharacter extends AbstractCharacter {
 		}
 	}
 	
-	public String receiveItem(Item item) {
+	public Array<MutationResult> receiveItem(Item item) {
 		if (item.instantUse()) {
 			consumeItem(item);
 		}
 		else {
 			inventory.add(item);
 		}
-		return "You have received a(n) " + item.getName() + "!";
+		return getResult("You have received a(n) " + item.getName() + "!");
+	}
+	
+	private Array<MutationResult> getResult(String text) {
+		return new Array<MutationResult>(new MutationResult[]{new MutationResult(text)});
 	}
 	
 	public boolean buyItem(Item item, int cost) {
@@ -1011,76 +1027,55 @@ public class PlayerCharacter extends AbstractCharacter {
 		baseDefense = defense;
 	}
 
-	public String receiveSex(SexualExperience sex) {
-		Array<String> result = new Array<String>();
-		String temp;
+	public Array<MutationResult> receiveSex(SexualExperience sex) {
+		Array<MutationResult> result = new Array<MutationResult>();
 		for (int ii = 0; ii < sex.getAnalSex(); ii++) {
-			temp = receiveAnal();
+			result.addAll(receiveAnal());
 			setCurrentPortrait(perks.get(Perk.ANAL_LOVER.toString(), 0) > 1 ? AssetEnum.PORTRAIT_LUST : AssetEnum.PORTRAIT_HIT);
-			if (!temp.isEmpty()) {
-				result.add(temp);
-			}
 		}
 		for (int ii = 0; ii < sex.getCreampies(); ii++) {
-			temp = fillButt(5);
-			if (!temp.isEmpty()) {
-				result.add(temp);
-			}
+			result.addAll(fillButt(5));
 		}
 		for (int ii = 0; ii < sex.getAnalEjaculations(); ii++) {
 			cumFromAnal();
 			setCurrentPortrait(AssetEnum.PORTRAIT_AHEGAO);
 		}
 		for (int ii = 0; ii < sex.getOralSex(); ii++) {
-			temp = receiveOral();
+			result.addAll(receiveOral());
 			setCurrentPortrait(AssetEnum.PORTRAIT_FELLATIO);
-			if (!temp.isEmpty()) {
-				result.add(temp);
-			}
 		}
 		for (int ii = 0; ii < sex.getOralCreampies(); ii++) {
-			temp = fillMouth(5);
+			result.addAll(fillMouth(5));
 			setCurrentPortrait(AssetEnum.PORTRAIT_MOUTHBOMB);
-			if (!temp.isEmpty()) {
-				result.add(temp);
-			}
 		}
 		if (sex.getOralCreampies() > 0) {
-			temp = modFood(1);
-			result.add("You swallow enough to sate your hunger!" + (temp.isEmpty() ? "" : " " + temp)); 
+			result.add(new MutationResult("You swallow enough to sate your hunger!"));
+			result.addAll(modFood(1));
 		}
 		for (int ii = 0; ii < sex.getFellatioEjaculations(); ii++) {
 			cumFromOral();
 		}
 		
 		if (sex.isCentaurSex() && perks.get(Perk.HORSE_LOVER.toString(), 0) == 0) {
-			result.add("You gained " + Perk.HORSE_LOVER.getLabel() + " (Rank " + 1 + ")!");
+			result.add(new MutationResult("You gained " + Perk.HORSE_LOVER.getLabel() + " (Rank " + 1 + ")!"));
 			perks.put(Perk.HORSE_LOVER.toString(), 1);
 		}
 		if (sex.isOgreSex() && perks.get(Perk.GIANT_LOVER.toString(), 0) != 3) {
-			result.add("You gained " + Perk.GIANT_LOVER.getLabel() + " (Rank " + (perks.get(Perk.GIANT_LOVER.toString(), 0) + 1) + ")!");
+			result.add(new MutationResult("You gained " + Perk.GIANT_LOVER.getLabel() + " (Rank " + (perks.get(Perk.GIANT_LOVER.toString(), 0) + 1) + ")!"));
 			perks.put(Perk.GIANT_LOVER.toString(), ((int)perks.get(Perk.GIANT_LOVER.toString(), 0)) + 1);
 		}
 		
 		if (sex.isBeast() && perks.get(Perk.BEASTMASTER.toString(), 0) != 3) {
-			result.add("You gained " + Perk.BEASTMASTER.getLabel() + " (Rank " + (perks.get(Perk.BEASTMASTER.toString(), 0) + 1) + ")!");
+			result.add(new MutationResult("You gained " + Perk.BEASTMASTER.getLabel() + " (Rank " + (perks.get(Perk.BEASTMASTER.toString(), 0) + 1) + ")!"));
 			perks.put(Perk.BEASTMASTER.toString(), ((int)perks.get(Perk.BEASTMASTER.toString(), 0)) + 1);
 		}
 		
 		if (sex.isProstitution() && perks.get(Perk.LADY_OF_THE_NIGHT.toString(), 0) != 5) {
-			result.add("You gained " + Perk.LADY_OF_THE_NIGHT.getLabel() + " (Rank " + (perks.get(Perk.LADY_OF_THE_NIGHT.toString(), 0) + 1) + ")!");
+			result.add(new MutationResult("You gained " + Perk.LADY_OF_THE_NIGHT.getLabel() + " (Rank " + (perks.get(Perk.LADY_OF_THE_NIGHT.toString(), 0) + 1) + ")!"));
 			perks.put(Perk.LADY_OF_THE_NIGHT.toString(), ((int)perks.get(Perk.LADY_OF_THE_NIGHT.toString(), 0)) + 1);
 		}
 				
-		return joinWithLines(result);
-	}
-	
-	private String joinWithLines(Array<String> toJoin) {
-		String result = "";
-		for (String s: toJoin) {
-			result += s + "\n";
-		}
-		return result.trim();
+		return result;
 	}
 	
 	private void cumFromAnal() {
@@ -1210,24 +1205,24 @@ public class PlayerCharacter extends AbstractCharacter {
 		}		
 	}
 
-	public String modMoney(Integer gold) {
+	public Array<MutationResult> modMoney(Integer gold) {
 		int loss = money > gold ? -gold : money; 
 		money += gold;
 		if (money < 0) {
 			money = 0;
 		}
 		
-		return gold  > 0 ? "Gained " + gold + " gold!" : "-" + loss + " gold!";
+		return getResult(gold  > 0 ? "Gained " + gold + " gold!" : "-" + loss + " gold!");
 	}
 	
-	public String modDebt(Integer gold) {
+	public Array<MutationResult> modDebt(Integer gold) {
 		int loss = debt > gold ? -gold : debt; 
 		debt += gold;
 		if (debt < 0) {
 			debt = 0;
 		}
 		
-		return gold > 0 ? "You have incurred " + gold + " gold worth of debt." : gold < 0 ? "You've been relieved of " + loss + " gold worth of debt!" : "";
+		return gold == 0 ? new Array<MutationResult>() : getResult(gold > 0 ? "You have incurred " + gold + " gold worth of debt." : "You've been relieved of " + loss + " gold worth of debt!");
 	}
 	
 	public int getBattlePerception() {
@@ -1238,18 +1233,20 @@ public class PlayerCharacter extends AbstractCharacter {
 		return debt;
 	}
 
-	public String debtTick(int ticks) {
+	public Array<MutationResult> debtTick(int ticks) {
 		if (debt > 0) {
 			return modDebt(10 * ticks);
 		}
-		return "";
+		return new Array<MutationResult>();
 	}
 
-	public String timePass(Integer timePassed) {
+	public Array<MutationResult> timePass(Integer timePassed) {
 		int currentDay = time / 6;
 		time += timePassed;
-		String result = debtTick((time / 6) - currentDay);
-		return "Some time passes.\n" + modFood(-getMetabolicRate() * timePassed) + (result.isEmpty() ? "" : "\n" + result);
+		Array<MutationResult> result = getResult("Some time passes.");
+		result.addAll(modFood(-getMetabolicRate() * timePassed));
+		result.addAll(debtTick((time / 6) - currentDay));
+		return result;
 	}
 	
 	public int getMetabolicRate() { return hasHungerCharm() ? 3 : 4; }
@@ -1261,21 +1258,21 @@ public class PlayerCharacter extends AbstractCharacter {
 		return false;
 	}
 	
-	public String cureBleed(Integer bleedCure) {
+	public Array<MutationResult> cureBleed(Integer bleedCure) {
 		int currentBleed = statuses.get(StatusType.BLEEDING.toString(), 0);
 		int temp = currentBleed;
 		currentBleed -= bleedCure;
 		if (currentBleed < 0) currentBleed = 0;
 		temp = temp - currentBleed;
 		statuses.put(StatusType.BLEEDING.toString(), currentBleed);
-		return temp > 0 ? "Cured " + temp + " bleed point" + (temp > 1 ? "s." : ".") : "";
+		return temp > 0 ? getResult("Cured " + temp + " bleed point" + (temp > 1 ? "s." : ".")) : new Array<MutationResult>();
 	}
 
 	public Integer getTime() { return time; }
 
-	public String increaseScout(int increase) {
+	public Array<MutationResult> increaseScout(int increase) {
 		scout += increase;
-		return "You scouted the surrounding areas.";
+		return getResult("You scouted the surrounding areas.");
 	}
 	
 	public String resetScout() {

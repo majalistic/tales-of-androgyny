@@ -1,5 +1,7 @@
 package com.majalis.scenes;
 
+import com.badlogic.gdx.utils.Array;
+import com.majalis.save.MutationResult;
 import com.majalis.save.ProfileEnum;
 import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveService;
@@ -25,7 +27,7 @@ public class Mutation {
 		this.value = value;
 	}
 
-	public String mutate() {
+	public  Array<MutationResult> mutate() {
 		if (saveService == null) {
 			return null;
 		}

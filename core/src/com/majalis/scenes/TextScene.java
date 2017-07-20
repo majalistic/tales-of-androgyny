@@ -15,6 +15,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.OrderedMap;
 import com.majalis.character.PlayerCharacter;
 import com.majalis.encounter.Background;
+import com.majalis.save.MutationResult;
 import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveService;
 import com.majalis.screens.EncounterScreen;
@@ -59,12 +60,12 @@ public class TextScene extends AbstractTextScene  {
 			EncounterScreen.play(sound);
 		}
 		background.initAnimation();
-		String mutationResults = "";
+		Array<MutationResult> results = new Array<MutationResult>();
 		for (Mutation mutator: mutations) {
-			String result = mutator.mutate();
-			if (result != null) mutationResults += " ["+result+"]\n";
+			Array<MutationResult> result = mutator.mutate();
+			if (result != null) results.addAll(result);
 		}
-		statusResults.setText(mutationResults);
+		statusResults.setText(joinWithLines(results));
 		if (character.isLoaded()) {
 			characterPortrait.addAction(Actions.show());
 			characterPortrait.setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(character.getPortraitPath()))));
@@ -75,6 +76,14 @@ public class TextScene extends AbstractTextScene  {
 		}
 		background.setColor(TimeOfDay.getTime(character.getTime()).getColor());
 		if (display.getText().toString().equals("")) nextScene();
+	}
+	
+	private String joinWithLines(Array<MutationResult> toJoin) {
+		String result = "";
+		for (MutationResult mr: toJoin) {
+			result += mr.getText() + "\n";
+		}
+		return result.trim();
 	}
 	
 	@Override

@@ -27,6 +27,7 @@ import com.majalis.character.PlayerCharacter.QuestType;
 import com.majalis.encounter.Background;
 import com.majalis.encounter.Background.BackgroundBuilder;
 import com.majalis.encounter.EncounterCode;
+import com.majalis.save.MutationResult;
 import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveManager;
 import com.majalis.save.SaveService;
@@ -92,8 +93,19 @@ public class CampScreen extends AbstractScreen {
 	private void passTime(int timePass) {
 		buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
 		time += timePass;
-		console.setText(saveService.saveDataValue(SaveEnum.HEALTH, 5 * timePass) + "\n" + saveService.saveDataValue(SaveEnum.TIME, timePass));
+		Array<MutationResult> temp = saveService.saveDataValue(SaveEnum.HEALTH, 5 * timePass);
+		Array<MutationResult> results = saveService.saveDataValue(SaveEnum.TIME, timePass);
+		results.addAll(temp);
+		console.setText(getResults(results));
 		background.setColor(getTimeColor(time));
+	}
+
+	private String getResults(Array<MutationResult> results) {
+		String result = "";
+		for (MutationResult mr : results) {
+			result += mr.getText() + "\n";
+		}
+		return result.trim();
 	}
 	
 	private void goToEncounter(EncounterCode encounter) {

@@ -5,6 +5,7 @@ import com.majalis.character.Attack.Status;
 import com.majalis.character.Item.ItemEffect;
 import com.majalis.character.Item.Weapon;
 import com.majalis.character.PlayerCharacter.Bootyliciousness;
+import com.majalis.save.MutationResult;
 import com.majalis.save.SaveManager.JobClass;
 import com.majalis.technique.ClimaxTechnique.ClimaxType;
 import com.majalis.technique.Bonus;
@@ -195,9 +196,9 @@ public abstract class AbstractCharacter extends Actor {
 	
 	public int getLust() { return lust; }
 	
-	public String modHealth(int healthMod) { return modHealth(healthMod, ""); }
+	public Array<MutationResult> modHealth(int healthMod) { return modHealth(healthMod, ""); }
 	
-	public String modHealth(int healthMod, String cause) { 
+	public Array<MutationResult> modHealth(int healthMod, String cause) { 
 		int healthChange = this.currentHealth;
 		this.currentHealth += healthMod; 
 		if (currentHealth > getMaxHealth()) {
@@ -207,7 +208,7 @@ public abstract class AbstractCharacter extends Actor {
 		healthChange = this.currentHealth - healthChange;
 		// if need to track overkill arises, can do so here - marking an overkill var with the amount of overkill
 		if (this.currentHealth < 0) this.currentHealth = 0; 
-		return healthChange > 0 ? "Gained " + healthChange + " health"  + (cause.isEmpty() ? "!" : " " + cause + "!") : healthChange < 0 ? "You take " + -healthChange + " damage" + (cause.isEmpty() ? "!" : " " + cause + "!") : ""; 
+		return healthChange == 0 ? new Array<MutationResult>() : new Array<MutationResult>(new MutationResult[]{new MutationResult(healthChange > 0 ? "Gained " + healthChange + " health"  + (cause.isEmpty() ? "!" : " " + cause + "!") : "You take " + -healthChange + " damage" + (cause.isEmpty() ? "!" : " " + cause + "!"))}); 
 	}
 	
 	protected int getStaminaRegen() { return Math.max(getEndurance()/2, 0); }
@@ -596,10 +597,12 @@ public abstract class AbstractCharacter extends Actor {
 			
 			String internalShotText = null;
 			if (attack.getClimaxType() == ClimaxType.ANAL) {
-				internalShotText = fillButt(attack.getClimaxVolume());
+				Array<MutationResult> temp = fillButt(attack.getClimaxVolume());
+				if (temp.size > 0) internalShotText = temp.first().getText();
 			}
 			else if (attack.getClimaxType() == ClimaxType.ORAL) {
-				internalShotText = fillMouth(1);
+				Array<MutationResult> temp = fillMouth(1);
+				if (temp.size > 0) internalShotText = temp.first().getText();
 			}
 			if (internalShotText != null) result.add(internalShotText);
 			
@@ -703,11 +706,11 @@ public abstract class AbstractCharacter extends Actor {
 		return false;
 		
 	}
-	protected String fillMouth(int mouthful) {
+	protected Array<MutationResult> fillMouth(int mouthful) {
 		this.mouthful += mouthful;
 		return null;
 	}
-	protected String fillButt(int buttful) {
+	protected Array<MutationResult> fillButt(int buttful) {
 		this.buttful += buttful;
 		return null;
 	}
@@ -867,17 +870,23 @@ public abstract class AbstractCharacter extends Actor {
 		return label + (secondPerson ? " are " : " is ") + "defeated!";
 	}
 	
-	public String modFood(Integer foodMod) {
+	public Array<MutationResult> modFood(Integer foodMod) {
 		int foodChange = food;
 		food += foodMod; 
-		String result = "";
+		Array<MutationResult> result = new Array<MutationResult>();
+		Array<MutationResult> starve = new Array<MutationResult>();
 		if (food < 0) {
-			result = modHealth(5 * food, "from starvation");
+			starve.addAll(modHealth(5 * food, "from starvation"));
 			food = 0; 
 		}
-		
+
 		foodChange = food - foodChange;
-		return foodChange > 0 ? "+" + foodChange + " fullness!" : foodChange < 0 ? "Hunger increases by " + -foodChange + "!" + (result.isEmpty() ? "" : "\n" + result) : result;
+		
+		if (foodChange != 0) {
+			result.add(new MutationResult(foodChange > 0 ? "+" + foodChange + " fullness!" : "Hunger increases by " + -foodChange + "!"));
+		}
+		result.addAll(starve);
+		return result;
 	}
 	
 	protected int getClimaxVolume() {

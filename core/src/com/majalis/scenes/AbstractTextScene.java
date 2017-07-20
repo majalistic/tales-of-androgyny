@@ -2,7 +2,6 @@ package com.majalis.scenes;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
@@ -15,7 +14,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
-import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.OrderedMap;
 import com.majalis.asset.AssetEnum;
 import com.majalis.character.PlayerCharacter;
@@ -24,13 +22,6 @@ import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveService;
 
 public abstract class AbstractTextScene extends Scene {
-
-	public static final Array<AssetDescriptor<?>> resourceRequirements = new Array<AssetDescriptor<?>>();
-	static {
-		resourceRequirements.add(AssetEnum.UI_SKIN.getSkin());
-		resourceRequirements.add(AssetEnum.BUTTON_SOUND.getSound());
-		resourceRequirements.add(AssetEnum.GAME_TYPE_BACKGROUND.getTexture());
-	}
 	protected final SaveService saveService;
 	protected final Label display;
 	protected final Label statusResults;

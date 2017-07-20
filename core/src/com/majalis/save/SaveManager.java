@@ -78,12 +78,12 @@ public class SaveManager implements SaveService, LoadService {
     	return null;
     }
     
-	public String saveDataValue(SaveEnum key, Object object) {
+	public Array<MutationResult> saveDataValue(SaveEnum key, Object object) {
 		return saveDataValue(key, object, true);
     }
     
-	public String saveDataValue(SaveEnum key, Object object, boolean saveToJson) {
-		String result = null;
+	public Array<MutationResult> saveDataValue(SaveEnum key, Object object, boolean saveToJson) {
+		Array<MutationResult> result = new Array<MutationResult>();
     	switch (key) {
 	    	case PLAYER: 			save.player = (PlayerCharacter) object; break;
 	    	case ENEMY: 			save.enemy = (EnemyCharacter) object; break;
@@ -97,20 +97,20 @@ public class SaveManager implements SaveService, LoadService {
 	    	case BATTLE_CODE:		save.battleAttributes = (BattleAttributes) object; break;
 	    	case CLASS:				save.player.setJobClass((JobClass) object); save.player.load(); break;
 	    	case WORLD_SEED:		save.worldSeed = (Integer) object; break;
-	    	case HEALTH: 			result = save.player.modHealth((Integer) object); result += " " + save.player.cureBleed((Integer) object / 5); break; 
-	    	case SKILL: 			save.player.addSkill((Techniques) object, 1); result = "Gained" + ((Techniques) object).toString() + " technique!"; break; // this should get a result back from addSkill
-	    	case PERK:				save.player.addPerk((Perk) object, 1); result = "Gained" + ((Perk) object).getLabel() + " perk!"; break; // this should get a result back from addPerk
-	    	case FOOD:				result = save.player.modFood((Integer) object); break; // this should get a result back from modFood
-	    	case TIME:				result = save.player.timePass((Integer) object); break;
-	    	case SCOUT:				int val = (Integer)object; if (val == 0) save.player.resetScout(); result = save.player.increaseScout(val); break;
-	    	case EXPERIENCE:		save.player.modExperience((Integer) object); result = "+" + ((Integer) object).toString() + " XP!"; break; // this should get a result back from modExperience
-	    	case GOLD:				result = save.player.modMoney((Integer) object); break; 
-	    	case DEBT:				result = save.player.modDebt((Integer) object); break;
+	    	case HEALTH: 			result.addAll(save.player.modHealth((Integer) object)); result.addAll(save.player.cureBleed((Integer) object / 5)); break; 
+	    	case SKILL: 			save.player.addSkill((Techniques) object, 1); result.add(new MutationResult("Gained" + ((Techniques) object).toString() + " technique!")); break; // this should get a result back from addSkill
+	    	case PERK:				save.player.addPerk((Perk) object, 1); result.add(new MutationResult("Gained" + ((Perk) object).getLabel() + " perk!")); break; // this should get a result back from addPerk
+	    	case FOOD:				result.addAll(save.player.modFood((Integer) object)); break; // this should get a result back from modFood
+	    	case TIME:				result.addAll(save.player.timePass((Integer) object)); break;
+	    	case SCOUT:				int val = (Integer)object; if (val == 0) save.player.resetScout(); result.addAll(save.player.increaseScout(val)); break;
+	    	case EXPERIENCE:		save.player.modExperience((Integer) object); result.add(new MutationResult("+" + ((Integer) object).toString() + " XP!")); break; // this should get a result back from modExperience
+	    	case GOLD:				result.addAll(save.player.modMoney((Integer) object)); break; 
+	    	case DEBT:				result.addAll(save.player.modDebt((Integer) object)); break;
 	    	case MODE:				save.mode = (GameMode) object; if ((GameMode) object == GameMode.SKIRMISH) save.player.load() ; break;
 	    	case MUSIC:				save.music = (String) object; break;
 	    	case CONSOLE:			save.console = extracted(object); break;
-	    	case ANAL:				result = save.player.receiveSex((SexualExperience) object); break;
-	    	case ITEM:				result = save.player.receiveItem((Item) object); break;
+	    	case ANAL:				result.addAll(save.player.receiveSex((SexualExperience) object)); break;
+	    	case ITEM:				result.addAll(save.player.receiveItem((Item) object)); break;
 	    	case SHOP:				save.shops.put(((Shop) object).getShopCode(), (Shop) object); break;
 	    	case GOBLIN_VIRGIN:		save.player.setGoblinVirginity((Boolean) object); break;
 	    	case QUEST: 			QuestFlag flag = (QuestFlag) object; save.player.setQuestStatus(flag.type, flag.value); break;
