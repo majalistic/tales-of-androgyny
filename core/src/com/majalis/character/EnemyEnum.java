@@ -60,6 +60,7 @@ public enum EnemyEnum {
 	}
 	public int getStartingLust() { return this == UNICORN ? 20 : 0; }
 	
+	// all of this should likely be replaced with a getEnemy method that simply returns the new enemyCharacter
 	public int getStrength() { return template.getStrength(); }
 	public int getEndurance() { return template.getEndurance(); }
 	public int getAgility() { return template.getAgility(); }
