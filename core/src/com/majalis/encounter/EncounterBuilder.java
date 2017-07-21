@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.IntArray;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.OrderedMap;
 import com.majalis.asset.AnimatedActor;
@@ -51,7 +52,7 @@ public class EncounterBuilder {
 	private final AssetManager assetManager;
 	private final SaveService saveService;
 	private final BitmapFont font;
-	private final int sceneCode;
+	private final IntArray sceneCode;
 	private final ObjectMap<String, Shop> shops;
 	private final PlayerCharacter character;
 	private final GameContext returnContext;
@@ -61,7 +62,7 @@ public class EncounterBuilder {
 	// can probably be replaced with a call to scenes.size
 	private int sceneCounter;
 	
-	protected EncounterBuilder(EncounterReader reader, AssetManager assetManager, SaveService saveService, BitmapFont font, int sceneCode, ObjectMap<String, Shop> shops, PlayerCharacter character, GameContext returnContext, GameMode mode) {
+	protected EncounterBuilder(EncounterReader reader, AssetManager assetManager, SaveService saveService, BitmapFont font, IntArray sceneCode, ObjectMap<String, Shop> shops, PlayerCharacter character, GameContext returnContext, GameMode mode) {
 		this.reader = reader;
 		this.assetManager = assetManager;
 		this.saveService = saveService;
@@ -1098,7 +1099,9 @@ public class EncounterBuilder {
 			scenes = new Array<Scene>();
 			battleScenes = new Array<BattleScene>();
 			endScenes = new Array<EndScene>();
-						
+					
+			Skin skin = assetManager.get(AssetEnum.UI_SKIN.getSkin());
+			
 			// set shadows
 		    Array<Scene> scenes = new Array<Scene>();
 		    Array<BattleScene> battleScenes = new Array<BattleScene>();
@@ -1149,7 +1152,6 @@ public class EncounterBuilder {
 						break;
 					case Choice:
 					case Gametype:
-						Skin skin = assetManager.get(AssetEnum.UI_SKIN.getSkin());
 						Sound buttonSound = assetManager.get(AssetEnum.BUTTON_SOUND.getSound());
 						for (OrderedMap.Entry<Object, Branch> next : branchOptions) {
 							weld(scenes, battleScenes, endScenes, next, sceneMap);
@@ -1275,7 +1277,7 @@ public class EncounterBuilder {
 					else {
 						String scriptLine = token.text.replace("<NAME>", characterName).replace("<BUTTSIZE>", buttsize).replace("<LIPSIZE>", lipsize).replace("<DEBT>", debt);
 						// create the scene
-						newScene = new TextScene(sceneMap, sceneCounter, assetManager, font, saveService, backgrounds.get(ii++), scriptLine, getMutations(token.mutations), character, token.music != null ? token.music.getMusic() : null, token.sound != null ? token.sound.getSound() : null);		
+						newScene = new TextScene(sceneMap, sceneCounter, assetManager, font, saveService, backgrounds.get(ii++), scriptLine, getMutations(token.mutations), character, new LogDisplay(sceneCode, masterSceneMap, skin), token.music != null ? token.music.getMusic() : null, token.sound != null ? token.sound.getSound() : null);		
 					}
 					// add it to array
 					scenes.add(newScene);
@@ -1325,11 +1327,11 @@ public class EncounterBuilder {
 		public Scene getStartScene() {
 			// returns the first scene or the current scene based on sceneCode
 			upsertScenes();
-			if (sceneCode == -1) {
+			if (sceneCode.size == 0) {
 				saveService.saveDataValue(SaveEnum.MUSIC, AssetEnum.ENCOUNTER_MUSIC.getPath());
 				return scenes.get(0);
 			}
-			return masterSceneMap.get(sceneCode, scenes.get(0));
+			return masterSceneMap.get(sceneCode.get(sceneCode.size - 1), scenes.get(0));
 		}
 		
 		public Encounter getEncounter() {

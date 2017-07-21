@@ -30,10 +30,12 @@ public abstract class AbstractTextScene extends Scene {
 	protected final Image masculinityIcon;
 	protected final Image fullnessIcon;
 	protected final Skin skin;
+	protected final Background background;
 	
 	protected AbstractTextScene(OrderedMap<Integer, Scene> sceneBranches, int sceneCode, AssetManager assetManager, BitmapFont font, PlayerCharacter character, SaveService saveService, Background background) {
 		super(sceneBranches, sceneCode);
 		this.saveService = saveService;
+		this.background = background;
 		this.addActor(background);
 		skin = assetManager.get(AssetEnum.UI_SKIN.getSkin());
 		display = addLabel("", skin, font, Color.BLACK, 430, 330);
@@ -69,8 +71,8 @@ public abstract class AbstractTextScene extends Scene {
 		this.removeAction(Actions.hide());
 		this.addAction(Actions.visible(true));
 		this.addAction(Actions.show());
-		this.setBounds(0, 0, 2000, 2000);
-		this.addListener(new ClickListener() { 
+		Image toClick = background.getDialogBox() != null ? background.getDialogBox() : background.getBackground();
+		toClick.addListener(new ClickListener() { 
 			@Override
 	        public void clicked(InputEvent event, float x, float y) {
 				nextScene();

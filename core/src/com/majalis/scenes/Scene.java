@@ -61,4 +61,6 @@ public abstract class Scene extends Group {
 	public int getCode() {
 		return sceneCode;
 	}
+	
+	public String getText() { return ""; }
 }

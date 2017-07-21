@@ -87,7 +87,7 @@ public class SaveManager implements SaveService, LoadService {
     	switch (key) {
 	    	case PLAYER: 			save.player = (PlayerCharacter) object; break;
 	    	case ENEMY: 			save.enemy = (EnemyCharacter) object; break;
-	    	case SCENE_CODE: 		save.sceneCode = (Integer) object; if ((Integer)object == 0) save.player.refresh(); break;
+	    	case SCENE_CODE: 		int sceneCode = (Integer) object; if (sceneCode == -1) { save.sceneCode.clear(); } else { if (!save.sceneCode.contains(sceneCode)) save.sceneCode.add(sceneCode); } break;
 	    	case CONTEXT: 			save.context = (GameContext) object; break;
 	    	case RETURN_CONTEXT: 	save.returnContext = (GameContext) object; break;
 	    	case NODE_CODE: 		save.nodeCode = (Integer) object; break;
@@ -132,7 +132,7 @@ public class SaveManager implements SaveService, LoadService {
     	switch (key) {
 	    	case PLAYER: 			return (T) (PlayerCharacter)save.player;
 	    	case ENEMY: 			return (T) (EnemyCharacter)save.enemy;
-	    	case SCENE_CODE: 		return (T) (Integer)save.sceneCode;
+	    	case SCENE_CODE: 		return (T) (IntArray)save.sceneCode;
 	    	case CONTEXT: 			return (T) save.context;
 	    	case RETURN_CONTEXT: 	return (T) save.returnContext;
 	    	case NODE_CODE: 		return (T) (Integer)save.nodeCode;
@@ -270,7 +270,7 @@ public class SaveManager implements SaveService, LoadService {
     	private GameMode mode;
     	private String music;
     	private int worldSeed;
-    	private int sceneCode;
+    	private IntArray sceneCode;
     	private EncounterCode encounterCode;
     	private int nodeCode;
     	private Array<String> console;
@@ -292,14 +292,14 @@ public class SaveManager implements SaveService, LoadService {
     			context = GameContext.ENCOUNTER;
     			worldSeed = (int) (Math.random()*10000);
     			// -1 sceneCode is the magic number to designate that a scene doesn't need to be loaded; just use the first (last) scene in the list
-    			sceneCode = -1;
+    			sceneCode = new IntArray();
     			encounterCode = EncounterCode.INITIAL;
     			returnContext = GameContext.WORLD_MAP;
         		nodeCode = 1;
         		console = new Array<String>();
         		shops = new ObjectMap<String, Shop>();
         		cameraPos = new Vector3(500, 500, 0);
-        		visitedList = new IntArray(true, new int[]{1}, 0, 1);
+        		visitedList = new IntArray(new int[]{1});
         		player = new PlayerCharacter(true);
     		}
     	}

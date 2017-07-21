@@ -195,4 +195,12 @@ public class Background extends Group{
 		super.setColor(color);
 		if (background != null && tintBackground) background.setColor(color);
 	}
+
+	public Image getDialogBox() {
+		return dialogBox;
+	}
+
+	public Image getBackground() {
+		return background;
+	}
 }

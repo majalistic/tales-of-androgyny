@@ -31,6 +31,7 @@ public class EndScene extends Scene {
 			saveService.saveDataValue(SaveEnum.RETURN_CONTEXT, null);
 			saveService.saveDataValue(SaveEnum.ENCOUNTER_END, null);
 		}
+		// magic number -1 to clear scene log
 		saveService.saveDataValue(SaveEnum.SCENE_CODE, -1);
 	}
 

@@ -2,6 +2,7 @@ package com.majalis.encounter;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.utils.IntArray;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.majalis.character.PlayerCharacter;
 import com.majalis.save.LoadService;
@@ -30,10 +31,10 @@ public class EncounterFactory {
 	
 	@SuppressWarnings("unchecked")
 	public Encounter getEncounter(EncounterCode encounterCode, BitmapFont font) {
-		Integer sceneCode = loadService.loadDataValue(SaveEnum.SCENE_CODE, Integer.class);
+		IntArray sceneCode = loadService.loadDataValue(SaveEnum.SCENE_CODE, IntArray.class);
 		GameContext context = loadService.loadDataValue(SaveEnum.RETURN_CONTEXT, GameContext.class);
 		return new EncounterBuilder(
-			reader, assetManager, saveService, font, sceneCode == 0 ? -1 : sceneCode, (ObjectMap<String, Shop>)loadService.loadDataValue(SaveEnum.SHOP, Shop.class), (PlayerCharacter) loadService.loadDataValue(SaveEnum.PLAYER, PlayerCharacter.class), context,
+			reader, assetManager, saveService, font, sceneCode, (ObjectMap<String, Shop>)loadService.loadDataValue(SaveEnum.SHOP, Shop.class), (PlayerCharacter) loadService.loadDataValue(SaveEnum.PLAYER, PlayerCharacter.class), context,
 			(GameMode) loadService.loadDataValue(SaveEnum.MODE, GameMode.class)).getEncounter(encounterCode); 
 	}
 }
