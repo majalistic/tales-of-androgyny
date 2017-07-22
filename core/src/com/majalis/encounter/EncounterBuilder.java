@@ -23,6 +23,7 @@ import com.majalis.character.Perk;
 import com.majalis.character.PlayerCharacter;
 import com.majalis.character.Stance;
 import com.majalis.character.AbstractCharacter.Stat;
+import com.majalis.save.MutationResult;
 import com.majalis.save.ProfileEnum;
 import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveManager;
@@ -52,26 +53,28 @@ public class EncounterBuilder {
 	private final AssetManager assetManager;
 	private final SaveService saveService;
 	private final BitmapFont font;
-	private final IntArray sceneCode;
+	private final IntArray sceneCodes;
 	private final ObjectMap<String, Shop> shops;
 	private final PlayerCharacter character;
 	private final GameContext returnContext;
 	private final GameMode mode;
 	private final OrderedMap<Integer, Scene> masterSceneMap;
 	private final ObjectMap<EnemyEnum, AnimatedActor> animationCache;
+	private final Array<MutationResult> results;
 	// can probably be replaced with a call to scenes.size
 	private int sceneCounter;
 	
-	protected EncounterBuilder(EncounterReader reader, AssetManager assetManager, SaveService saveService, BitmapFont font, IntArray sceneCode, ObjectMap<String, Shop> shops, PlayerCharacter character, GameContext returnContext, GameMode mode) {
+	protected EncounterBuilder(EncounterReader reader, AssetManager assetManager, SaveService saveService, BitmapFont font, IntArray sceneCodes, ObjectMap<String, Shop> shops, PlayerCharacter character, GameContext returnContext, GameMode mode, Array<MutationResult> results) {
 		this.reader = reader;
 		this.assetManager = assetManager;
 		this.saveService = saveService;
 		this.font = font;
-		this.sceneCode = sceneCode;
+		this.sceneCodes = sceneCodes;
 		this.shops = shops == null ? new ObjectMap<String, Shop>() : shops;
 		this.character = character;
 		this.returnContext = returnContext;
 		this.mode = mode;
+		this.results = results;
 		this.animationCache = new ObjectMap<EnemyEnum, AnimatedActor>();
 		sceneCounter = 1;
 		masterSceneMap = new OrderedMap<Integer, Scene>();
@@ -1168,9 +1171,11 @@ public class EncounterBuilder {
 						break;
 					case EndGame:
 					case EndEncounter:
-						EndScene newEndScene = branchToken.type == EndTokenType.EndEncounter ? newEndScene = new EndScene(EndScene.Type.ENCOUNTER_OVER, saveService, returnContext) : new EndScene(EndScene.Type.GAME_OVER, saveService, SaveManager.GameContext.GAME_OVER);
+						EndScene newEndScene = branchToken.type == EndTokenType.EndEncounter ? 
+							new EndScene(sceneCounter, EndScene.Type.ENCOUNTER_OVER, saveService, assetManager, returnContext, getEndBackground(), new LogDisplay(sceneCodes, masterSceneMap, skin), results) :
+							new EndScene(sceneCounter, EndScene.Type.GAME_OVER, saveService, assetManager, SaveManager.GameContext.GAME_OVER, getEndBackground(), new LogDisplay(sceneCodes, masterSceneMap, skin), results);
 						endScenes.add(newEndScene);
-						sceneMap = addScene(scenes, newEndScene, false);		
+						sceneMap = addScene(scenes, newEndScene, true);		
 						break;
 				}
 			}
@@ -1183,9 +1188,9 @@ public class EncounterBuilder {
 			// catch if there's an unplugged branch without an end scene
 			if (sceneMap.size == 0) {
 				EndScene newEndScene;
-				newEndScene = new EndScene(EndScene.Type.ENCOUNTER_OVER, saveService, returnContext);
+				newEndScene = new EndScene(sceneCounter, EndScene.Type.ENCOUNTER_OVER, saveService, assetManager, returnContext, getEndBackground(), new LogDisplay(sceneCodes, masterSceneMap, skin), results);
 				endScenes.add(newEndScene);
-				sceneMap = addScene(scenes, newEndScene, false);		
+				sceneMap = addScene(scenes, newEndScene, true);		
 			}
 			
 			String characterName = character.getCharacterName();
@@ -1277,7 +1282,7 @@ public class EncounterBuilder {
 					else {
 						String scriptLine = token.text.replace("<NAME>", characterName).replace("<BUTTSIZE>", buttsize).replace("<LIPSIZE>", lipsize).replace("<DEBT>", debt);
 						// create the scene
-						newScene = new TextScene(sceneMap, sceneCounter, assetManager, font, saveService, backgrounds.get(ii++), scriptLine, getMutations(token.mutations), character, new LogDisplay(sceneCode, masterSceneMap, skin), token.music != null ? token.music.getMusic() : null, token.sound != null ? token.sound.getSound() : null);		
+						newScene = new TextScene(sceneMap, sceneCounter, assetManager, font, saveService, backgrounds.get(ii++), scriptLine, getMutations(token.mutations), character, new LogDisplay(sceneCodes, masterSceneMap, skin), token.music != null ? token.music.getMusic() : null, token.sound != null ? token.sound.getSound() : null);		
 					}
 					// add it to array
 					scenes.add(newScene);
@@ -1298,6 +1303,10 @@ public class EncounterBuilder {
 		
 		private BackgroundBuilder getDefaultBackground() {
 			return new BackgroundBuilder(assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getTexture()), false);
+		}
+		
+		private Background getEndBackground() {
+			return getDefaultBackground().setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getTexture()), 400, 100, 1200, 800).build();
 		}
 		
 		private AnimatedActor getAnimation(EnemyEnum type) {
@@ -1327,11 +1336,11 @@ public class EncounterBuilder {
 		public Scene getStartScene() {
 			// returns the first scene or the current scene based on sceneCode
 			upsertScenes();
-			if (sceneCode.size == 0) {
+			if (sceneCodes.size == 0) {
 				saveService.saveDataValue(SaveEnum.MUSIC, AssetEnum.ENCOUNTER_MUSIC.getPath());
 				return scenes.get(0);
 			}
-			return masterSceneMap.get(sceneCode.get(sceneCode.size - 1), scenes.get(0));
+			return masterSceneMap.get(sceneCodes.get(sceneCodes.size - 1), scenes.get(0));
 		}
 		
 		public Encounter getEncounter() {

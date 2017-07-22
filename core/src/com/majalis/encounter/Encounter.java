@@ -40,11 +40,13 @@ public class Encounter {
 			gameExit = true;
 		}
 		
+		// these should be events - encounters should just be an array of scenes similar to how GameWorld became an array of GameWorldNodes
 		for (BattleScene objScene : battleScenes) {
 			if (objScene.isActive()) {
 				battle = true;
 			}
 		}
+		// this should be a captured event as well
 		for (EndScene objScene: endScenes) {
 			if (objScene.isActive()) {
 				switch(objScene.getType()) {

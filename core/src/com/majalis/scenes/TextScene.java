@@ -52,7 +52,7 @@ public class TextScene extends AbstractTextScene  {
 		pane.setOverscroll(false, false);
 		pane.setBounds(325, 350, 1300, 700);
 		this.addActor(pane);	
-		log.setColor(Color.BLACK);
+		log.setColor(Color.DARK_GRAY);
 		log.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
@@ -74,6 +74,7 @@ public class TextScene extends AbstractTextScene  {
 		}
 	}
 	
+	// careful!  This calls mutate() on all the mutations, which does not flush to the save file! Causing a flush to the save file in this method will cause mutations to replay every time this scene is loaded
 	@Override
 	public void setActive() {
 		super.setActive();
@@ -90,6 +91,10 @@ public class TextScene extends AbstractTextScene  {
 			Array<MutationResult> result = mutator.mutate();
 			if (result != null) results.addAll(result);
 		}
+		
+		// save the results to the result array in the save file
+		saveService.saveDataValue(SaveEnum.RESULT, results, false);		
+		
 		for (MutationResult result : results) {
 			statusResults.add(new MutationActor(result, assetManager.get(result.getTexture()), skin)).fillY().align(Align.right).row();
 		}

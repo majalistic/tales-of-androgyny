@@ -2,10 +2,12 @@ package com.majalis.encounter;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.IntArray;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.majalis.character.PlayerCharacter;
 import com.majalis.save.LoadService;
+import com.majalis.save.MutationResult;
 import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveManager;
 import com.majalis.save.SaveManager.GameContext;
@@ -35,6 +37,6 @@ public class EncounterFactory {
 		GameContext context = loadService.loadDataValue(SaveEnum.RETURN_CONTEXT, GameContext.class);
 		return new EncounterBuilder(
 			reader, assetManager, saveService, font, sceneCode, (ObjectMap<String, Shop>)loadService.loadDataValue(SaveEnum.SHOP, Shop.class), (PlayerCharacter) loadService.loadDataValue(SaveEnum.PLAYER, PlayerCharacter.class), context,
-			(GameMode) loadService.loadDataValue(SaveEnum.MODE, GameMode.class)).getEncounter(encounterCode); 
+			(GameMode) loadService.loadDataValue(SaveEnum.MODE, GameMode.class), (Array<MutationResult>) loadService.loadDataValue(SaveEnum.RESULT, Array.class)).getEncounter(encounterCode); 
 	}
 }

@@ -11,10 +11,14 @@ public class MutationActor extends Label {
 
 	private final Texture drawTexture;
 	public MutationActor(MutationResult result, Texture texture, Skin skin) {
-		super(result.getText(), skin);
+		this(result, texture, skin, false);
+	}
+
+	public MutationActor(MutationResult result, Texture texture, Skin skin, boolean miniDisplay) {
+		super(miniDisplay && result.getType().canBeMinified() ? String.valueOf(result.getMod() > 0 ? "+" + result.getMod() : result.getMod()) : result.getText(), skin);
 		if (result.getMod() == 0)  setColor(Color.TAN);
-		else if (result.getMod() > 0) setColor(Color.GREEN);
-		else setColor(Color.RED);
+		else if (result.getMod() > 0) setColor(Color.FOREST);
+		else setColor(Color.FIREBRICK);
 		this.drawTexture = texture;
 	}
 

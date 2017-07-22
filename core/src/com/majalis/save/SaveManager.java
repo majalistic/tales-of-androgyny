@@ -82,12 +82,13 @@ public class SaveManager implements SaveService, LoadService {
 		return saveDataValue(key, object, true);
     }
     
+	@SuppressWarnings("unchecked")
 	public Array<MutationResult> saveDataValue(SaveEnum key, Object object, boolean saveToJson) {
 		Array<MutationResult> result = new Array<MutationResult>();
     	switch (key) {
 	    	case PLAYER: 			save.player = (PlayerCharacter) object; break;
 	    	case ENEMY: 			save.enemy = (EnemyCharacter) object; break;
-	    	case SCENE_CODE: 		int sceneCode = (Integer) object; if (sceneCode == -1) { save.sceneCode.clear(); } else { if (!save.sceneCode.contains(sceneCode)) save.sceneCode.add(sceneCode); } break;
+	    	case SCENE_CODE: 		int sceneCode = (Integer) object; if (!save.sceneCode.contains(sceneCode)) save.sceneCode.add(sceneCode); break; // this could be replaced with an IntSet instead of an IntArray the way nodes are
 	    	case CONTEXT: 			save.context = (GameContext) object; break;
 	    	case RETURN_CONTEXT: 	save.returnContext = (GameContext) object; break;
 	    	case NODE_CODE: 		save.nodeCode = (Integer) object; break;
@@ -108,23 +109,19 @@ public class SaveManager implements SaveService, LoadService {
 	    	case DEBT:				result.addAll(save.player.modDebt((Integer) object)); break;
 	    	case MODE:				save.mode = (GameMode) object; if ((GameMode) object == GameMode.SKIRMISH) save.player.load() ; break;
 	    	case MUSIC:				save.music = (String) object; break;
-	    	case CONSOLE:			save.console = extracted(object); break;
+	    	case CONSOLE:			save.console = (Array<String>) object; break;
 	    	case ANAL:				result.addAll(save.player.receiveSex((SexualExperience) object)); break;
 	    	case ITEM:				result.addAll(save.player.receiveItem((Item) object)); break;
 	    	case SHOP:				save.shops.put(((Shop) object).getShopCode(), (Shop) object); break;
 	    	case GOBLIN_VIRGIN:		save.player.setGoblinVirginity((Boolean) object); break;
 	    	case QUEST: 			QuestFlag flag = (QuestFlag) object; save.player.setQuestStatus(flag.type, flag.value); break;
-	    	case ENCOUNTER_END:		save.player.refresh(); break;
+	    	case RESULT: 			save.results.addAll((Array<MutationResult>) object); break;
+	    	case ENCOUNTER_END:		save.player.refresh(); save.sceneCode.clear(); save.results.clear(); break;
     	}	
     	if (saveToJson) {
     		saveToJson(save); //Saves current save immediately.
     	}
         return result;
-	}
-
-	@SuppressWarnings("unchecked")
-	private Array<String> extracted(Object object) {
-		return (Array<String>) object;
 	}
 	
     @SuppressWarnings("unchecked")
@@ -162,6 +159,7 @@ public class SaveManager implements SaveService, LoadService {
 	    	case SHOP:				return (T) (ObjectMap<String, Shop>) save.shops;
 	    	case QUEST:				break;
 	    	case TIME :				return (T) (Integer) save.player.getTime();
+	    	case RESULT:			return (T) save.results;
     	}	
     	return null;
     }
@@ -264,7 +262,6 @@ public class SaveManager implements SaveService, LoadService {
     }
     
     public static class GameSave {
-		
 		private GameContext context;
 		private GameContext returnContext;
     	private GameMode mode;
@@ -281,6 +278,7 @@ public class SaveManager implements SaveService, LoadService {
     	private PlayerCharacter player;
     	private EnemyCharacter enemy;
     	private ObjectMap<String, Shop> shops;
+		private Array<MutationResult> results;
     	
     	// 0-arg constructor for JSON serialization: DO NOT USE
 		@SuppressWarnings("unused")
@@ -301,6 +299,7 @@ public class SaveManager implements SaveService, LoadService {
         		cameraPos = new Vector3(500, 500, 0);
         		visitedList = new IntArray(new int[]{1});
         		player = new PlayerCharacter(true);
+        		results = new Array<MutationResult>();
     		}
     	}
     }

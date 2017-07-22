@@ -33,4 +33,5 @@ public enum SaveEnum {
 	TIME, 
 	ENCOUNTER_END, 
 	SCOUT, 
+	RESULT, 
 }
