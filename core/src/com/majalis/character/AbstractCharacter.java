@@ -209,7 +209,7 @@ public abstract class AbstractCharacter extends Actor {
 		healthChange = this.currentHealth - healthChange;
 		// if need to track overkill arises, can do so here - marking an overkill var with the amount of overkill
 		if (this.currentHealth < 0) this.currentHealth = 0; 
-		return healthChange == 0 ? new Array<MutationResult>() : new Array<MutationResult>(new MutationResult[]{new MutationResult(healthChange > 0 ? "Gained " + healthChange + " health"  + (cause.isEmpty() ? "!" : " " + cause + "!") : "You take " + -healthChange + " damage" + (cause.isEmpty() ? "!" : " " + cause + "!"))}); 
+		return healthChange == 0 ? new Array<MutationResult>() : new Array<MutationResult>(new MutationResult[]{new MutationResult(healthChange > 0 ? "Gained " + healthChange + " health"  + (cause.isEmpty() ? "!" : " " + cause + "!") : "You take " + -healthChange + " damage" + (cause.isEmpty() ? "!" : " " + cause + "!"), healthChange, MutationType.HEALTH)}); 
 	}
 	
 	protected int getStaminaRegen() { return Math.max(getEndurance()/2, 0); }
@@ -884,7 +884,7 @@ public abstract class AbstractCharacter extends Actor {
 		foodChange = food - foodChange;
 		
 		if (foodChange != 0) {
-			result.add(new MutationResult(foodChange > 0 ? "+" + foodChange + " fullness!" : "Hunger increases by " + -foodChange + "!", String.valueOf(foodChange), MutationType.FOOD));
+			result.add(new MutationResult(foodChange > 0 ? "+" + foodChange + " fullness!" : "Hunger increases by " + -foodChange + "!", foodChange, MutationType.FOOD));
 		}
 		result.addAll(starve);
 		return result;

@@ -14,6 +14,7 @@ import com.majalis.character.Item.Potion;
 import com.majalis.character.Item.Weapon;
 import com.majalis.character.Item.WeaponType;
 import com.majalis.save.MutationResult;
+import com.majalis.save.MutationResult.MutationType;
 import com.majalis.save.SaveManager.JobClass;
 import com.majalis.scenes.ShopScene.ShopCode;
 import com.majalis.screens.TimeOfDay;
@@ -850,7 +851,15 @@ public class PlayerCharacter extends AbstractCharacter {
 		return spurt;
 	}
 
-	public void modExperience(Integer exp) { experience += exp; }
+	public Array<MutationResult> modExperience(Integer exp) { 
+		int levels = getStoredLevels();
+		experience += exp; 
+		levels = levels - getStoredLevels();
+		
+		Array<MutationResult> results = getResult("You gain " + exp + " experience!", exp, MutationType.EXP);
+		if (levels > 0) results.add(new MutationResult("You gain " + levels + " level" + (levels > 1 ? "s" : "") + "!"));
+		return results;
+	}
 	
 	public int getExperience() { return experience; }
 
@@ -999,6 +1008,10 @@ public class PlayerCharacter extends AbstractCharacter {
 	
 	private Array<MutationResult> getResult(String text) {
 		return new Array<MutationResult>(new MutationResult[]{new MutationResult(text)});
+	}
+	
+	private Array<MutationResult> getResult(String text, int mod, MutationType type) {
+		return new Array<MutationResult>(new MutationResult[]{new MutationResult(text, mod, type)});
 	}
 	
 	public boolean buyItem(Item item, int cost) {
@@ -1206,15 +1219,18 @@ public class PlayerCharacter extends AbstractCharacter {
 	}
 
 	public Array<MutationResult> modMoney(Integer gold) {
-		int loss = money > gold ? -gold : money; 
+		int goldChange = money;
 		money += gold;
 		if (money < 0) {
 			money = 0;
 		}
 		
-		return getResult(gold  > 0 ? "Gained " + gold + " gold!" : "-" + loss + " gold!");
+		goldChange = money - goldChange;
+		return goldChange == 0 ? new Array<MutationResult>() : getResult(goldChange > 0 ? "Gained " + gold + " gold!" : goldChange + " gold!", goldChange, MutationType.GOLD);
 	}
 	
+	
+
 	public Array<MutationResult> modDebt(Integer gold) {
 		int loss = debt > gold ? -gold : debt; 
 		debt += gold;
@@ -1243,7 +1259,7 @@ public class PlayerCharacter extends AbstractCharacter {
 	public Array<MutationResult> timePass(Integer timePassed) {
 		int currentDay = time / 6;
 		time += timePassed;
-		Array<MutationResult> result = getResult("Some time passes.");
+		Array<MutationResult> result = getResult(timePassed >= 6 ? "A day passes." : timePassed >= 3 ? "Much time passes." : timePassed == 2 ? "Some time passes." : "A short time passes.", timePassed, MutationType.TIME);
 		result.addAll(modFood(-getMetabolicRate() * timePassed));
 		result.addAll(debtTick((time / 6) - currentDay));
 		return result;

@@ -50,15 +50,18 @@ public enum AssetEnum {
 	GRASS1("worldmap/BaseGrass1.png"),
 	GRASS2("worldmap/BaseGrass2.png"),
 	CLOUD("worldmap/Cloud.png"),
-	APPLE("worldmap/Apple.png"),
-	MEAT("worldmap/Meat.png"),
 	ROAD("worldmap/Road.png"),
 	CASTLE("worldmap/Castle.png"),
 	COTTAGE("worldmap/CottageNode0.png"),
 	TOWN("worldmap/TownNode0.png"),
 	CHARACTER_ANIMATION("worldmap/TinySprite.png"),
 	
-	EXP("worldmap/Apple.png"),
+	APPLE("icons/Apple.png"),
+	MEAT("icons/Meat.png"),
+	HEART("icons/Heart.png"),
+	GOLD("icons/Gold.png"),
+	TIME("icons/Time.png"),
+	EXP("icons/Exp.png"),
 	
 	CHARACTER_SCREEN("CharacterScreen.png"),
 	

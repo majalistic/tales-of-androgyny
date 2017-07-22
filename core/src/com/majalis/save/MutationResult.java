@@ -7,22 +7,24 @@ import com.majalis.asset.AssetEnum;
 public class MutationResult {
 
 	private final String text;
-	private final String mod;
+	private final int mod;
 	private final MutationType type;
 	public MutationResult(String text) {
-		this(text, "", MutationType.NONE);
+		this(text, 0, MutationType.NONE);
 	}
 	
-	public MutationResult(String text, String mod, MutationType type) {
+	public MutationResult(String text, int mod, MutationType type) {
 		this.text = text;
 		this.mod = mod;
 		this.type = type;
 	}
 	
 	public enum MutationType {
-		HEALTH (AssetEnum.HEALTH_ICON_0),
+		HEALTH (AssetEnum.HEART),
 		FOOD (AssetEnum.APPLE),
 		EXP (AssetEnum.EXP),
+		TIME (AssetEnum.TIME),
+		GOLD (AssetEnum.GOLD),
 		NONE (AssetEnum.NULL)
 		;
 		private final AssetDescriptor<Texture> texture;
@@ -37,7 +39,7 @@ public class MutationResult {
 		return text;
 	}
 	
-	public String getMod() {
+	public int getMod() {
 		return mod;
 	}
 	

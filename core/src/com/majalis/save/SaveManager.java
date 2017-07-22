@@ -100,10 +100,10 @@ public class SaveManager implements SaveService, LoadService {
 	    	case HEALTH: 			result.addAll(save.player.modHealth((Integer) object)); result.addAll(save.player.cureBleed((Integer) object / 5)); break; 
 	    	case SKILL: 			save.player.addSkill((Techniques) object, 1); result.add(new MutationResult("Gained" + ((Techniques) object).toString() + " technique!")); break; // this should get a result back from addSkill
 	    	case PERK:				save.player.addPerk((Perk) object, 1); result.add(new MutationResult("Gained" + ((Perk) object).getLabel() + " perk!")); break; // this should get a result back from addPerk
-	    	case FOOD:				result.addAll(save.player.modFood((Integer) object)); break; // this should get a result back from modFood
+	    	case FOOD:				result.addAll(save.player.modFood((Integer) object)); break; 
 	    	case TIME:				result.addAll(save.player.timePass((Integer) object)); break;
 	    	case SCOUT:				int val = (Integer)object; if (val == 0) save.player.resetScout(); result.addAll(save.player.increaseScout(val)); break;
-	    	case EXPERIENCE:		save.player.modExperience((Integer) object); result.add(new MutationResult("+" + ((Integer) object).toString() + " XP!")); break; // this should get a result back from modExperience
+	    	case EXPERIENCE:		result.addAll(save.player.modExperience((Integer) object)); break; 
 	    	case GOLD:				result.addAll(save.player.modMoney((Integer) object)); break; 
 	    	case DEBT:				result.addAll(save.player.modDebt((Integer) object)); break;
 	    	case MODE:				save.mode = (GameMode) object; if ((GameMode) object == GameMode.SKIRMISH) save.player.load() ; break;

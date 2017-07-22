@@ -1,5 +1,6 @@
 package com.majalis.scenes;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -11,6 +12,9 @@ public class MutationActor extends Label {
 	private final Texture drawTexture;
 	public MutationActor(MutationResult result, Texture texture, Skin skin) {
 		super(result.getText(), skin);
+		if (result.getMod() == 0)  setColor(Color.TAN);
+		else if (result.getMod() > 0) setColor(Color.GREEN);
+		else setColor(Color.RED);
 		this.drawTexture = texture;
 	}
 
