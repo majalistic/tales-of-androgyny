@@ -4367,8 +4367,8 @@
 			{
 			"music": "GADGETEER_MUSIC",
 			"foreground": "ADVENTURER",
-			"mutations": [{"saveType":"TIME", "value":{"class": "java.lang.Integer", "value": 1}}],
-			"text": "You sit with Trudy a while."}
+			"mutations": [{"saveType":"HEALTH", "value":{"class": "java.lang.Integer", "value": 10}}, {"saveType":"TIME", "value":{"class": "java.lang.Integer", "value": 1}}],
+			"text": "You sit with Trudy a while.  He talks about his grand adventures.  You wonder how much of it is true."}
 		]
 	},
 ]}
