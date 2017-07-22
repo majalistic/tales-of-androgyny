@@ -3,10 +3,10 @@ package com.majalis.encounter;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.majalis.asset.AnimatedActor;
 
 public class Background extends Group{
@@ -78,11 +78,15 @@ public class Background extends Group{
 		}
 		
 		public BackgroundBuilder setDialogBox(Texture dialogBoxTexture) {
+			return setDialogBox(dialogBoxTexture, 255, -75, 1410, 450);
+		}
+		
+		public BackgroundBuilder setDialogBox(Texture dialogBoxTexture, int x, int y, int width, int height) {
 			this.dialogBoxTexture = new TextureRegion(dialogBoxTexture);
-			this.width3 = 1410;
-			this.height3 = 450;
-			this.x3 = 255;
-			this.y3 = -75;
+			this.width3 = width;
+			this.height3 = height;
+			this.x3 = x;
+			this.y3 = y;
 			return this;
 		}
 		
@@ -177,7 +181,7 @@ public class Background extends Group{
 			this.addActorAfter(background, animation);
 	}
 
-	public void toggleDialogBox(Label display) {
+	public void toggleDialogBox(Actor display) {
 		if (dialogBoxVisible) {
 			dialogBox.addAction(Actions.hide());
 			display.addAction(Actions.hide());
