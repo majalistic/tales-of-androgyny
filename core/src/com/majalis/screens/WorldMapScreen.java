@@ -474,7 +474,7 @@ public class WorldMapScreen extends AbstractScreen {
 									newEncounterText.setColor(Color.GOLD);
 
 									Table statusResults = new Table();
-									statusResults.setPosition(350, 450);
+									statusResults.setPosition(350, 425);
 									newEncounterText.setWrap(true);
 									statusResults.align(Align.topLeft);
 									statusResults.add(newEncounterText).width(325).row();
@@ -568,7 +568,7 @@ public class WorldMapScreen extends AbstractScreen {
 		saveService.saveDataValue(SaveEnum.CONTEXT, GameContext.ENCOUNTER);
 		saveService.saveDataValue(SaveEnum.RETURN_CONTEXT, GameContext.WORLD_MAP);
 		Image displayNewEncounter = new Image(hoverImageTexture);
-		displayNewEncounter.setBounds(250, 200, 500, 300);
+		displayNewEncounter.setBounds(250, 150, 500, 400);
 		uiGroup.addActor(displayNewEncounter);
 		Label newEncounterText = new Label("Encounter!", skin);
 		newEncounterText.setColor(Color.GOLD);
