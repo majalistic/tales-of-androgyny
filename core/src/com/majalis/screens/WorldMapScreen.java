@@ -50,9 +50,12 @@ import com.majalis.encounter.EncounterBounty;
 import com.majalis.encounter.EncounterBounty.EncounterBountyResult;
 import com.majalis.encounter.EncounterCode;
 import com.majalis.save.LoadService;
+import com.majalis.save.MutationResult;
 import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveManager.GameContext;
+import com.majalis.scenes.MutationActor;
 import com.majalis.save.SaveService;
+import com.majalis.save.MutationResult.MutationType;
 import com.majalis.world.GameWorldNode;
 /*
  * The screen that displays the world map.  UI that Handles player input while on the world map - will delegate to other screens depending on the gameWorld state.
@@ -105,7 +108,7 @@ public class WorldMapScreen extends AbstractScreen {
 		
 		// need to refactor to get all stance textures
 		AssetEnum[] assets = new AssetEnum[]{
-			CHARACTER_ANIMATION, MOUNTAIN_ACTIVE, FOREST_ACTIVE, FOREST_INACTIVE, CASTLE, TOWN, COTTAGE, APPLE, MEAT, GRASS0, GRASS1, GRASS2, CLOUD, ROAD, WORLD_MAP_UI, WORLD_MAP_HOVER, ARROW, CHARACTER_SCREEN
+			CHARACTER_ANIMATION, MOUNTAIN_ACTIVE, FOREST_ACTIVE, FOREST_INACTIVE, CASTLE, TOWN, COTTAGE, APPLE, MEAT, GRASS0, GRASS1, GRASS2, CLOUD, ROAD, WORLD_MAP_UI, WORLD_MAP_HOVER, ARROW, CHARACTER_SCREEN, EXP, GOLD, TIME, HEART
 		};
 		for (AssetEnum asset: assets) {
 			resourceRequirements.add(asset.getTexture());
@@ -459,6 +462,7 @@ public class WorldMapScreen extends AbstractScreen {
 									displayNewEncounter.setBounds(250, 150, 500, 400);
 									uiGroup.addActor(displayNewEncounter);
 									EncounterBountyResult result = miniEncounter.execute(character.getScoutingScore(), saveService);
+									
 									final Label newEncounterText = new Label(result.displayText(), skin);
 									
 									if (result.soundToPlay() != null) {
@@ -466,16 +470,26 @@ public class WorldMapScreen extends AbstractScreen {
 									}
 									
 									newEncounterText.setColor(Color.GOLD);
-									newEncounterText.setPosition(340, 335);
-									newEncounterText.setAlignment(Align.center);
+
+									Table statusResults = new Table();
+									statusResults.setPosition(350, 450);
 									newEncounterText.setWrap(true);
-									newEncounterText.setWidth(325);
-									uiGroup.addActor(newEncounterText);
+									statusResults.align(Align.topLeft);
+									statusResults.add(newEncounterText).width(325).row();
+									Array<MutationResult> compactedResults = MutationResult.collapse(result.getResults()); 
+									for (MutationResult miniResult : compactedResults) {
+										MutationActor actor = new MutationActor(miniResult, assetManager.get(miniResult.getTexture()), skin, true);
+										actor.setWrap(true);
+										// this width setting is going to be tricky once we implement images for perk and skill gains and such
+										statusResults.add(actor).width(miniResult.getType() == MutationType.NONE ? 325 : 50).height(50).align(Align.left).row();
+									}
+									
+									uiGroup.addActor(statusResults); 									
 									uiGroup.addAction(sequence(delay(8), new Action() {
 										@Override
 										public boolean act(float delta) {
-											uiGroup.removeActor(newEncounterText);
 											uiGroup.removeActor(displayNewEncounter);
+											uiGroup.removeActor(statusResults);
 											return true;
 										}
 									}));
