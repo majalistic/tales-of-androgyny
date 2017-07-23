@@ -130,9 +130,11 @@ public class MainMenuScreen extends AbstractScreen {
 		move(mg3, mgScroll, -500);
 		move(mg2, mgScroll, -250);
 		move(mg1, mgScroll);
-		move(mc, mgScroll, 1803, -50, false);
+		move(mc, mgScroll, 1695, -95, false);
 		move(dk, fgScroll, 4000, 00, false);
 		move(fg, fgScroll);
+		
+		mc.setScale(.345f);
 		
 		// build UI
 		uiGroup = new Group();
@@ -166,7 +168,7 @@ public class MainMenuScreen extends AbstractScreen {
         uiGroup.addActor(arrow2);
         this.addListener(new ClickListener() { @Override public void clicked(InputEvent event, float x, float y) { if (!cutScenePlayed) finishCutScene(); }});
         
-        Label version = new Label("Version: 0.1.21.2" + (TalesOfAndrogyny.patron ? " Patron-Only" : ""), skin);
+        Label version = new Label("Version: 0.1.21.3" + (TalesOfAndrogyny.patron ? " Patron-Only" : ""), skin);
         version.setPosition(1400, 0);
         uiGroup.addActor(version);
         
@@ -208,7 +210,7 @@ public class MainMenuScreen extends AbstractScreen {
 		mg3.setPosition(-mgScroll, 0);
 		mg2.setPosition(-mgScroll, 0);
 		mg1.setPosition(-mgScroll, 0);
-		mc.setPosition(1803 - mgScroll, -50);
+		mc.setPosition(1695 - mgScroll, -95);
 		dk.setPosition(4000 - fgScroll, 0);
 		fg.setPosition(-fgScroll, 0);
 		uiGroup.addAction(Actions.show());

@@ -28,16 +28,16 @@ public enum AssetEnum {
 	TOA("title/ToA.png"),
 	ALPHA("title/AlphaBuild.png"),
 	
-	DEFAULT_BACKGROUND("DefaultBackground.jpg"),
-	GAME_TYPE_BACKGROUND("GameTypeSelect.jpg"),
-	CLASS_SELECT_BACKGROUND("ClassSelect.png"),
-	SKILL_SELECTION_BACKGROUND("SkillSelect.png"),
-	CHARACTER_CUSTOM_BACKGROUND("CharCustom.png"),
+	DEFAULT_BACKGROUND("backgrounds/DefaultBackground.jpg"),
+	GAME_TYPE_BACKGROUND("backgrounds/GameTypeSelect.jpg"),
+	CLASS_SELECT_BACKGROUND("backgrounds/ClassSelect.jpg"),
+	SKILL_SELECTION_BACKGROUND("backgrounds/SkillSelect.png"),
+	CHARACTER_CUSTOM_BACKGROUND("backgrounds/CharCustom.png"),
 	DRYAD_BACKGROUND("DryadApple.jpg"),
-	STICK_BACKGROUND("StickEncounter.jpg"),
-	CABIN_BACKGROUND("WoodsCottage.jpg"),
-	BURNING_FORT_BG("BurningFort.jpg"),
-	TOWN_BG("town/TownBG.jpg"),
+	STICK_BACKGROUND("backgrounds/StickEncounter.jpg"),
+	CABIN_BACKGROUND("backgrounds/WoodsCottage.jpg"),
+	BURNING_FORT_BG("backgrounds/BurningFort.jpg"),
+	TOWN_BG("backgrounds/TownBG.jpg"),
 	
 	WORLD_MAP_UI("worldmap/CharacterInfo.png"),
 	WORLD_MAP_HOVER("worldmap/HoverBox.png"),
@@ -63,7 +63,7 @@ public enum AssetEnum {
 	TIME("icons/Time.png"),
 	EXP("icons/Exp.png"),
 	
-	CHARACTER_SCREEN("CharacterScreen.png"),
+	CHARACTER_SCREEN("backgrounds/CharacterScreen.jpg"),
 	
 	WEREBITCH("enemies/WerebitchBasic.png"),
 	HARPY_FELLATIO_0("enemies/HarpyBJ1.png"),
@@ -212,13 +212,12 @@ public enum AssetEnum {
 	
 	GAPE("GapedButtBG.jpg"),
 	GAME_OVER_GAPE("GameOverButt.jpg"),
-	GAME_OVER_TUCKERED("GameOverTuckered.jpg"),
 	KEYHOLE("Keyhole.jpg"),
 	GAME_OVER_KEYHOLE("GameOverKeyhole.jpg"),
 	GAME_OGRE("enemies/OgrePost.jpg"),
 	// sounds
-	BUTTON_SOUND("sound.wav", Sound.class),
-	CLICK_SOUND("node_sound.wav", Sound.class),
+	BUTTON_SOUND("sounds/sound.wav", Sound.class),
+	CLICK_SOUND("sounds/node_sound.wav", Sound.class),
 	INTRO_SOUND("sounds/IntroSound.wav", Sound.class),
 	EQUIP("sounds/Equip.wav", Sound.class),
 	LOUD_LAUGH("sounds/LoudLaugh.wav", Sound.class),
@@ -285,9 +284,8 @@ public enum AssetEnum {
 	public String getPath() {
 		return assetDescriptor.fileName;
 	}
-	
+
 	public boolean isTinted() {
 		return this == TOWN_BG || this == PLAINS_BG;
 	}
-	
 }

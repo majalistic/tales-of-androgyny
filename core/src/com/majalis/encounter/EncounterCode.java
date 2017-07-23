@@ -314,7 +314,6 @@ public enum EncounterCode {
 				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{
 					AssetEnum.FOREST_BG.getTexture(),
 					AssetEnum.GOBLIN.getTexture(),
-					AssetEnum.GAME_OVER_TUCKERED.getTexture(),
 					AssetEnum.LOUD_LAUGH.getSound(),
 					AssetEnum.WEREWOLF_MUSIC.getMusic()
 					
@@ -323,7 +322,6 @@ public enum EncounterCode {
 				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{  
 					AssetEnum.GOBLIN.getTexture(),
 					AssetEnum.GOBLIN_MALE.getTexture(),
-					AssetEnum.GAME_OVER_TUCKERED.getTexture(),
 					AssetEnum.LOUD_LAUGH.getSound(),
 					AssetEnum.WEREWOLF_MUSIC.getMusic(),
 					AssetEnum.CARNIVAL_MUSIC.getMusic()
@@ -394,7 +392,6 @@ public enum EncounterCode {
 				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{AssetEnum.SHOP_MUSIC.getMusic()});
 			case STARVATION:
 				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{  
-					AssetEnum.GAME_OVER_TUCKERED.getTexture(),
 					AssetEnum.WEREWOLF_MUSIC.getMusic()
 				});
 			default:

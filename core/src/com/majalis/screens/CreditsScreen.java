@@ -45,14 +45,15 @@ public class CreditsScreen extends AbstractScreen{
 		done.setPosition(1523, 120);
 		this.addActor(done);
 		
-		credits = "\"Broken Reality\", \"Perspectives\", \"Floating Cities\", \"Kings of Tara\", \"Enchanted Valley\", \"Brittle Rille\", \"For Originz\", \"Phantom from Space\",\n\"Mechanolith,\", \"Fearless First\", \"Danger Storm\", \"Killers\""
+		credits = "\"Broken Reality\", \"Perspectives\", \"Floating Cities\", \"Kings of Tara\", \"Enchanted Valley\", \"Brittle Rille\", \"For Originz\", \"Phantom from Space\",\n\"Mechanolith\", \"Fearless First\", \"Danger Storm\", \"Killers\", \"One-eyed Maestro\""
 				+ "\nKevin MacLeod (incompetech.com)"
 				+ "\nLicensed under Creative Commons: By Attribution 3.0"
 				+ "\nhttp://creativecommons.org/licenses/by/3.0/"
 				+ "\n\nSuccubus-Tier patrons that helped make this happen:"
-				+ "\nDarksideX, Ace, crufl, JennaTran, Joel Fields, Laersect"
-				+ "\nMucho kudos to official contributor Dern for programming, debugging and moral support <3"
+				+ "\nDarksideX, JennaTran, Joel Fields, Laersect, and special thanks to crufl and Ace for moral support, advice and friendship! Love you both!"
+				+ "\nMucho kudos to official contributor Dern for programming, debugging and support!"
 				+ "\n\nCopy-editing and play-testing by T3mp3st, Legion, Fattycakes, and anonymous others"
+				+ "\nAlso thanks to all of our patrons, who are making this possible!"
 				;
 	}
 
