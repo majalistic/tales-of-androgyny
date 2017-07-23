@@ -343,12 +343,13 @@ public class WorldMapScreen extends AbstractScreen {
 		// rest will eventually just wait some time - eating food if possible to maintain hunger level
 		rest.addListener(
 			new ClickListener() {
+				@SuppressWarnings("unchecked")
 				@Override
 		        public void clicked(InputEvent event, float x, float y) {
 					buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
-					console.setText(saveService.saveDataValue(SaveEnum.HEALTH, 10) + " " + saveService.saveDataValue(SaveEnum.TIME, 1));
+					setConsole(console, saveService.saveDataValue(SaveEnum.HEALTH, 10), saveService.saveDataValue(SaveEnum.TIME, 1));
 					console.addAction(Actions.alpha(1));
-					console.addAction(Actions.fadeOut(6));
+					console.addAction(Actions.fadeOut(10));
 					time++;
 					tintForTimeOfDay();
 					checkCanEat(rest);
@@ -364,14 +365,15 @@ public class WorldMapScreen extends AbstractScreen {
 		// rest will eventually just wait some time - eating food if possible to maintain hunger level
 		scout.addListener(
 			new ClickListener() {
+				@SuppressWarnings("unchecked")
 				@Override
 		        public void clicked(InputEvent event, float x, float y) {
 					buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
 					if (checkForForcedRest());
 					else {
-						console.setText(saveService.saveDataValue(SaveEnum.SCOUT, 1) + " " + saveService.saveDataValue(SaveEnum.TIME, 1));
+						setConsole(console, saveService.saveDataValue(SaveEnum.SCOUT, 1), saveService.saveDataValue(SaveEnum.TIME, 1));
 						console.addAction(Actions.alpha(1));
-						console.addAction(Actions.fadeOut(6));
+						console.addAction(Actions.fadeOut(10));
 						currentNode.deactivate();
 						currentNode.setAsCurrentNode();
 						time++;
@@ -524,6 +526,15 @@ public class WorldMapScreen extends AbstractScreen {
 		});
 	}
 
+	private void setConsole(Label console, @SuppressWarnings("unchecked") Array<MutationResult> ...allResults) {
+		String consoleText = "";
+		for (Array<MutationResult> results : allResults) {
+			for (MutationResult result : results) {
+				consoleText += result.getText() + " ";
+			}
+		}
+		console.setText(consoleText.trim());
+	}
 	
 	private void setCurrentNode(GameWorldNode newCurrentNode) {
 		currentNode = newCurrentNode;
