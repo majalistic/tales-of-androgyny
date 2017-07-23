@@ -23,7 +23,7 @@ public class Background extends Group {
 		}
 		
 		public BackgroundBuilder(Texture background, int width, int height) {
-			this(background, width, height, true);
+			this(background, width, height, false);
 		}
 		
 		public BackgroundBuilder(Texture background, boolean tintBackground) {

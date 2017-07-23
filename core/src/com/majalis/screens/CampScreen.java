@@ -70,7 +70,7 @@ public class CampScreen extends AbstractScreen {
 		this.saveService = saveService;
 		this.character = character;
 		skin = assetManager.get(AssetEnum.UI_SKIN.getSkin());
-		background = new BackgroundBuilder(assetManager.get(AssetEnum.PLAINS_BG.getTexture())).build();
+		background = new BackgroundBuilder(assetManager.get(AssetEnum.PLAINS_BG.getTexture()), true).build();
 		this.time = time;
 		
 		food = assetManager.get(AssetEnum.APPLE.getTexture());

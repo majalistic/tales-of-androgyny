@@ -43,7 +43,7 @@ public class ShopScene extends Scene {
 	private final Label console;
 	private final Label money;
 	
-	public static class Shop{
+	public static class Shop {
 		private Array<Weapon> weapons;
 		private Array<Potion> consumables;
 		private ShopCode shopCode;
@@ -166,9 +166,6 @@ public class ShopScene extends Scene {
 			});
 			
 			table.add(weaponButton).size(500, 60).row();
-			if (shopCode.isTinted()) {
-				background.setColor(TimeOfDay.getTime(character.getTime()).getColor());
-			}
 		}
 		
 		for (final Potion potion: shop.consumables) {
@@ -213,6 +210,10 @@ public class ShopScene extends Scene {
 				}
 			});
 			table.add(potionButton).size(500, 60).row();
+		}
+		
+		if (shopCode.isTinted()) {
+			background.setColor(TimeOfDay.getTime(character.getTime()).getColor());
 		}
 		
 		if (shop.done || shopCode != ShopCode.FIRST_STORY) addActor(done);

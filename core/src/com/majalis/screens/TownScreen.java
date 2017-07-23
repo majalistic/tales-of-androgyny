@@ -58,7 +58,7 @@ public class TownScreen extends AbstractScreen {
 		super(screenFactory, elements);
 		this.saveService = saveService;
 		skin = assetManager.get(AssetEnum.UI_SKIN.getSkin());
-		background = new BackgroundBuilder(assetManager.get(AssetEnum.TOWN_BG.getTexture())).build();
+		background = new BackgroundBuilder(assetManager.get(AssetEnum.TOWN_BG.getTexture()), true).build();
 		background.setColor(getTimeColor(time));
 		arrow = new Image(assetManager.get(AssetEnum.STANCE_ARROW.getTexture()));
 		music = assetManager.get(AssetEnum.SHOP_MUSIC.getMusic());

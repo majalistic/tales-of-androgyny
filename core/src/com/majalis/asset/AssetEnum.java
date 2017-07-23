@@ -253,7 +253,7 @@ public enum AssetEnum {
 	
 	private final AssetDescriptor<?> assetDescriptor;
 	
-	AssetEnum(String path) {
+	private AssetEnum(String path) {
 	    this(path, Texture.class);
 	}
 	
@@ -284,6 +284,10 @@ public enum AssetEnum {
 	
 	public String getPath() {
 		return assetDescriptor.fileName;
+	}
+	
+	public boolean isTinted() {
+		return this == TOWN_BG || this == PLAINS_BG;
 	}
 	
 }

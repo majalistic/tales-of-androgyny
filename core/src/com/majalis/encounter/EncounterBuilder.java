@@ -1220,7 +1220,7 @@ public class EncounterBuilder {
 						}
 					}
 					else {						
-						BackgroundBuilder backgroundBuilder = (token.background != null ? new BackgroundBuilder(assetManager.get(token.background.getTexture())) : background != null ? new BackgroundBuilder(assetManager.get(background.getTexture())) : getDefaultBackground()).setDialogBox(dialogBoxTexture); 
+						BackgroundBuilder backgroundBuilder = (token.background != null ? new BackgroundBuilder(assetManager.get(token.background.getTexture()), token.background.isTinted()) : background != null ? new BackgroundBuilder(assetManager.get(background.getTexture()), background.isTinted()) : getDefaultBackground()).setDialogBox(dialogBoxTexture); 
 						if (token.animatedForeground != null) {
 							int x = token.animatedForeground == EnemyEnum.BUTTBANG ? 555 : 0;
 							int y = token.animatedForeground == EnemyEnum.BUTTBANG ? 520 : 0;
@@ -1266,7 +1266,7 @@ public class EncounterBuilder {
 					if (token instanceof ShopSceneToken) {
 						ShopCode shopCode = ((ShopSceneToken) token).shopCode;
 						// this needs to get the proper background, probably from shopcode attributes
-						Background bg = new BackgroundBuilder(assetManager.get(shopCode.getBackground())).setForeground(assetManager.get(shopCode.getForeground()), shopCode.getX(), shopCode.getY()).build();
+						Background bg = new BackgroundBuilder(assetManager.get(shopCode.getBackground()), shopCode.isTinted()).setForeground(assetManager.get(shopCode.getForeground()), shopCode.getX(), shopCode.getY()).build();
 						newScene = new ShopScene(sceneMap, sceneCounter, saveService, assetManager, character, bg, shopCode, shops.get(shopCode.toString()));
 					}
 					else if (token instanceof CharacterCreationToken) {
@@ -1302,7 +1302,7 @@ public class EncounterBuilder {
 		}
 		
 		private BackgroundBuilder getDefaultBackground() {
-			return new BackgroundBuilder(assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getTexture()), false);
+			return new BackgroundBuilder(assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getTexture()), AssetEnum.DEFAULT_BACKGROUND.isTinted());
 		}
 		
 		private Background getEndBackground() {
