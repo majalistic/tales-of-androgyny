@@ -107,7 +107,7 @@ public class SaveManager implements SaveService, LoadService {
 	    	case EXPERIENCE:		result.addAll(save.player.modExperience((Integer) object)); break; 
 	    	case GOLD:				result.addAll(save.player.modMoney((Integer) object)); break; 
 	    	case DEBT:				result.addAll(save.player.modDebt((Integer) object)); break;
-	    	case MODE:				save.mode = (GameMode) object; if ((GameMode) object == GameMode.SKIRMISH) save.player.load() ; break;
+	    	case MODE:				save.mode = (GameMode) object; if ((GameMode) object == GameMode.SKIRMISH) save.player.load(); else {save.cameraPos = new Vector3(-200, 300, 0);} break;
 	    	case MUSIC:				save.music = (String) object; break;
 	    	case CONSOLE:			save.console = (Array<String>) object; break;
 	    	case ANAL:				result.addAll(save.player.receiveSex((SexualExperience) object)); break;
