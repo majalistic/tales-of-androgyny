@@ -709,11 +709,11 @@ public abstract class AbstractCharacter extends Actor {
 	}
 	protected Array<MutationResult> fillMouth(int mouthful) {
 		this.mouthful += mouthful;
-		return null;
+		return new Array<MutationResult>();
 	}
 	protected Array<MutationResult> fillButt(int buttful) {
 		this.buttful += buttful;
-		return null;
+		return new Array<MutationResult>();
 	}
 	
 	protected void drainMouth() {
