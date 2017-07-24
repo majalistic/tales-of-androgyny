@@ -168,7 +168,7 @@ public class MainMenuScreen extends AbstractScreen {
         uiGroup.addActor(arrow2);
         this.addListener(new ClickListener() { @Override public void clicked(InputEvent event, float x, float y) { if (!cutScenePlayed) finishCutScene(); }});
         
-        Label version = new Label("Version: 0.1.21.3" + (TalesOfAndrogyny.patron ? " Patron-Only" : ""), skin);
+        Label version = new Label(TalesOfAndrogyny.getVersion(), skin);
         version.setPosition(1400, 0);
         uiGroup.addActor(version);
         

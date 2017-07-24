@@ -25,6 +25,7 @@ import static com.majalis.encounter.EncounterCode.*;
 @SuppressWarnings("unused")
 public class TalesOfAndrogyny extends Game {
 	public static boolean patron = true;
+	public static String getVersion() { return "Version: 0.1.21.4" + (patron ? " Patron-Only" : ""); }
 	public static Array<EncounterCode> setEncounter = new Array<EncounterCode>(new EncounterCode[]{});
 	
 	public void create() {	
@@ -64,4 +65,5 @@ public class TalesOfAndrogyny extends Game {
 		screen.buildStage();
 		setScreen(screen);
 	}
+	
 }
