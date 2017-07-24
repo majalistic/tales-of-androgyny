@@ -62,7 +62,7 @@ import com.majalis.world.GameWorldNode;
  * The screen that displays the world map.  UI that Handles player input while on the world map - will delegate to other screens depending on the gameWorld state.
  */
 public class WorldMapScreen extends AbstractScreen {
-
+	// this class needs major refactoring - far too many dependencies, properties, statefulness
 	private final AssetManager assetManager;
 	private final SaveService saveService;
 	private final Array<GameWorldNode> world;
@@ -89,12 +89,12 @@ public class WorldMapScreen extends AbstractScreen {
 	private final Label timeLabel;
 	private final Label foodLabel;
 	private final Label hoverLabel;
+	private final TextButton campButton;
 	private GameWorldNode currentNode;
 	private GameWorldNode hoveredNode;
 	private int time;
 	private boolean backgroundRendered = false;
 	private GameContext currentContext;
-	private final TextButton campButton;
 	
 	public static final Array<AssetDescriptor<?>> resourceRequirements = new Array<AssetDescriptor<?>>();
 	static {
@@ -159,6 +159,7 @@ public class WorldMapScreen extends AbstractScreen {
 		skin = assetManager.get(AssetEnum.UI_SKIN.getSkin());
 		campButton = new TextButton("", skin);
 		
+		// these should be updated with emitters
 		healthLabel = new Label("", skin);
 		dateLabel = new Label("", skin);
 		timeLabel = new Label("", skin);
@@ -427,6 +428,7 @@ public class WorldMapScreen extends AbstractScreen {
 		tintForTimeOfDay();
 		
 		this.addActor(uiGroup);
+		// this needs refactoring - probably replace ChangeListener with a custom listener/event type, and rather than an action on a delay, have a trigger for when the character reaches a node that will perform the act() function
 		group.addListener(new ChangeListener() {
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
@@ -436,11 +438,11 @@ public class WorldMapScreen extends AbstractScreen {
 					saveService.saveDataValue(SaveEnum.TIME, timePassed);
 					boolean switchScreen = false;
 					if(checkForForcedRest());
-					else if (time >= 11 && character.getQuestStatus(QuestType.ELF) == 0) { // forced Trudy encounter
+					else if (time >= 11 && character.getQuestStatus(QuestType.ELF) == 0) { // forced elf encounter
 						saveService.saveDataValue(SaveEnum.QUEST, new QuestFlag(QuestType.ELF, 1));	
 						autoEncounter(uiGroup, EncounterCode.ELF);
 					}
-					else if (time >= 23 && character.getQuestStatus(QuestType.TRUDY) == 0) {
+					else if (time >= 23 && character.getQuestStatus(QuestType.TRUDY) == 0) { // forced Trudy encounter
 						autoEncounter(uiGroup, EncounterCode.ADVENTURER);
 					}
 					else {
