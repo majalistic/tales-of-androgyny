@@ -37,6 +37,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Scaling;
@@ -212,8 +213,8 @@ public class WorldMapScreen extends AbstractScreen {
 		clearScreen = false;
 		
 		multi = new InputMultiplexer();
-		multi.addProcessor(this);
 		multi.addProcessor(worldStage);
+		multi.addProcessor(this);
 	}
 	
 	private void mutateLabels() {
@@ -524,6 +525,12 @@ public class WorldMapScreen extends AbstractScreen {
 				mutateLabels();
 			}			
 		});
+		this.addListener(new DragListener(){
+			@Override
+			public void drag(InputEvent event, float x, float y, int pointer) {
+				translateCamera(new Vector3(getDeltaX(), getDeltaY(), 0));
+			}
+		});
 	}
 
 	private void setConsole(Label console, @SuppressWarnings("unchecked") Array<MutationResult> ...allResults) {
@@ -644,11 +651,22 @@ public class WorldMapScreen extends AbstractScreen {
 		else if (Gdx.input.isKeyPressed(Keys.UP) && camera.position.y < 4600) {
 			translationVector.y += speed;
 		}
+		translateCamera(translationVector);
+	}
+	
+	private void translateCamera(Vector3 translationVector) {
 		camera.translate(translationVector);
+		Vector3 position = camera.position;
+		
+		position.x = Math.max(Math.min(position.x, 4000), 500);
+		position.y = Math.max(Math.min(position.y, 4600), 500);		
 		Vector3 cloudTranslate = new Vector3(translationVector);
 		cloudTranslate.x *= 2;
 		cloudTranslate.y *= 2;
 		cloudCamera.translate(cloudTranslate);
+		position = cloudCamera.position;
+		position.x = Math.max(Math.min(position.x, 4000), 500);
+		position.y = Math.max(Math.min(position.y, 4600), 500);
 	}
 	
 	private void generateBackground() {
