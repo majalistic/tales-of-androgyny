@@ -35,7 +35,7 @@ public class EndScene extends Scene {
 	private final Array<MutationResult> results;
 	private final AssetManager assetManager;
 	private final Table statusResults;
-	public EndScene(int sceneCode, Type type, SaveService saveService, AssetManager assetManager, SaveManager.GameContext context, Background background, LogDisplay log, Array<MutationResult> results) {
+	public EndScene(int sceneCode, Type type, SaveService saveService, AssetManager assetManager, SaveManager.GameContext context, final Background background, LogDisplay log, Array<MutationResult> results) {
 		super(null, sceneCode);
 		this.type = type;
 		this.saveService = saveService;

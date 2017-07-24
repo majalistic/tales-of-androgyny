@@ -473,7 +473,7 @@ public class WorldMapScreen extends AbstractScreen {
 									
 									newEncounterText.setColor(Color.GOLD);
 
-									Table statusResults = new Table();
+									final Table statusResults = new Table();
 									statusResults.setPosition(350, 425);
 									newEncounterText.setWrap(true);
 									statusResults.align(Align.topLeft);

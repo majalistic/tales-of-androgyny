@@ -36,7 +36,7 @@ public class TextScene extends AbstractTextScene  {
 	private final AssetDescriptor<Music> music;
 	private final AssetDescriptor<Sound> sound;
 	
-	public TextScene(OrderedMap<Integer, Scene> sceneBranches, int sceneCode, AssetManager assetManager, BitmapFont font, SaveService saveService, Background background, String toDisplay, Array<Mutation> mutations, PlayerCharacter character, LogDisplay log, AssetDescriptor<Music> music, AssetDescriptor<Sound> sound) {
+	public TextScene(OrderedMap<Integer, Scene> sceneBranches, int sceneCode, AssetManager assetManager, BitmapFont font, SaveService saveService, final Background background, String toDisplay, Array<Mutation> mutations, PlayerCharacter character, LogDisplay log, AssetDescriptor<Music> music, AssetDescriptor<Sound> sound) {
 		super(sceneBranches, sceneCode, assetManager, font, character, saveService, background);
 		this.assetManager = assetManager;
 		this.character = character;
