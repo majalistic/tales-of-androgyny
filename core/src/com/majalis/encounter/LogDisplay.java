@@ -36,7 +36,8 @@ public class LogDisplay extends Label {
 	public void displayLog() {
 		String logResult = "";
 		for (int sceneCode : log.toArray()) {
-			logResult += sceneMap.get(sceneCode).getText() + "\n";
+			Scene temp = sceneMap.get(sceneCode);
+			if (temp != null) logResult += temp.getText() + "\n";
 		}
 		
 		setText("Hide Log\n\n" + logResult.trim());

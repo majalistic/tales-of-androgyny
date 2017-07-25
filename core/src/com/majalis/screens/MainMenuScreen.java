@@ -62,7 +62,7 @@ public class MainMenuScreen extends AbstractScreen {
 	private Image arrow;
 	private Image arrow2;
 	private boolean cutScenePlayed;
-	// background images
+	// background images for parallaxing
 	private Image bg;
 	private Image mg5;
 	private Image mg4;
