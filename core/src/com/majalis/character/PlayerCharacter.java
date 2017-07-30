@@ -533,7 +533,7 @@ public class PlayerCharacter extends AbstractCharacter {
 			a2m = true;
 		}
 		else if (!oldStance.isOralReceptive() && stance.isOralReceptive()) {
-			Array<MutationResult> temp = receiveAnal(); 
+			Array<MutationResult> temp = receiveOral(); 
 			
 			if (temp.size > 0) result = temp.first().getText();
 			else result = "";
