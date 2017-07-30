@@ -228,7 +228,10 @@ public enum EncounterCode {
 					AssetEnum.WEREBITCH.getTexture()
 				});
 			case HARPY:
-				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{ AssetEnum.HARPY_FELLATIO_1.getTexture()});
+				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{ 
+					AssetEnum.HARPY_FELLATIO_1.getTexture(),
+					AssetEnum.HARPY_ANIMATION.getAnimation()
+				});
 			case SLIME:
 				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{  
 					AssetEnum.SLIME.getTexture(),
@@ -236,12 +239,13 @@ public enum EncounterCode {
 				});
 			case BRIGAND:
 				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{
+					AssetEnum.BRIGAND_ANIMATION.getAnimation(),
 					AssetEnum.BRIGAND_ORAL.getTexture()
 				});
 			case DRYAD:
 				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{  
-				AssetEnum.SHOP_MUSIC.getMusic(),
-				AssetEnum.DRYAD_BACKGROUND.getTexture()
+					AssetEnum.SHOP_MUSIC.getMusic(),
+					AssetEnum.DRYAD_BACKGROUND.getTexture()
 				});
 			case CENTAUR:
 				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{
@@ -249,7 +253,8 @@ public enum EncounterCode {
 					AssetEnum.UNICORN_ANAL_XRAY.getTexture(),
 					AssetEnum.CENTAUR_ANAL.getTexture(),
 					AssetEnum.CENTAUR_ANAL_XRAY.getTexture(),
-					AssetEnum.SHOP_MUSIC.getMusic()
+					AssetEnum.SHOP_MUSIC.getMusic(),
+					AssetEnum.CENTAUR_ANIMATION.getAnimation()
 				});
 			case GADGETEER:
 				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{  
@@ -275,7 +280,8 @@ public enum EncounterCode {
 				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{  
 					AssetEnum.ADVENTURER.getTexture(),
 					AssetEnum.GADGETEER_MUSIC.getMusic(),
-					AssetEnum.STICK_BACKGROUND.getTexture()
+					AssetEnum.STICK_BACKGROUND.getTexture(),
+					AssetEnum.GAME_OVER_ANIMATION.getAnimation()
 				});
 			case ELF:
 			case ELF_COMPANION:
@@ -324,7 +330,8 @@ public enum EncounterCode {
 					AssetEnum.GOBLIN_MALE.getTexture(),
 					AssetEnum.LOUD_LAUGH.getSound(),
 					AssetEnum.WEREWOLF_MUSIC.getMusic(),
-					AssetEnum.CARNIVAL_MUSIC.getMusic()
+					AssetEnum.CARNIVAL_MUSIC.getMusic(),
+					AssetEnum.GAME_OVER_ANIMATION.getAnimation()
 				});
 			case COTTAGE_TRAINER:
 				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{  
@@ -392,7 +399,8 @@ public enum EncounterCode {
 				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{AssetEnum.SHOP_MUSIC.getMusic()});
 			case STARVATION:
 				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{  
-					AssetEnum.WEREWOLF_MUSIC.getMusic()
+					AssetEnum.WEREWOLF_MUSIC.getMusic(),
+					AssetEnum.GAME_OVER_ANIMATION.getAnimation()
 				});
 			default:
 				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{AssetEnum.TRAP_BONUS.getTexture()});

@@ -2,6 +2,7 @@ package com.majalis.character;
 
 import static com.majalis.character.Techniques.*;
 
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Action;
@@ -39,15 +40,15 @@ public class EnemyCharacter extends AbstractCharacter {
 	@SuppressWarnings("unused")
 	private EnemyCharacter() {}
 	
-	public EnemyCharacter(Texture texture, ObjectMap<Stance, Array<Texture>> textures, EnemyEnum enemyType) {
-		this(texture, textures, enemyType, Stance.BALANCED);
+	public EnemyCharacter(Texture texture, ObjectMap<Stance, Array<Texture>> textures, Array<AnimatedActor> animations, EnemyEnum enemyType) {
+		this(texture, textures, animations, enemyType, Stance.BALANCED);
 	}
 	
-	public EnemyCharacter(Texture texture, ObjectMap<Stance, Array<Texture>> textures, EnemyEnum enemyType, Stance stance) {
+	public EnemyCharacter(Texture texture, ObjectMap<Stance, Array<Texture>> textures, Array<AnimatedActor> animations, EnemyEnum enemyType, Stance stance) {
 		super(true);
 		this.enemyType = enemyType;
 		this.stance = stance;
-		init(texture, textures);
+		init(texture, textures, animations);
 		initializedMove = false;
 		climaxCounters = new ObjectMap<String, Integer>();
 		currentFrame = 0;
@@ -819,7 +820,6 @@ public class EnemyCharacter extends AbstractCharacter {
 			else {
 				batch.draw(texture, x + 200, y + 350, width / 3, height / 3);
 			}
-			//if (currentAnimation != null) currentAnimation.addAction(Actions.hide());
 		}
 		else {
 			for (AnimatedActor animation: currentAnimationsPlaying) {
@@ -828,70 +828,17 @@ public class EnemyCharacter extends AbstractCharacter {
 		}
     }
 	
-	public void init(Texture defaultTexture, ObjectMap<Stance, Array<Texture>> textures) {
+	public void init(Texture defaultTexture, ObjectMap<Stance, Array<Texture>> textures, Array<AnimatedActor> animations) {
 		this.defaultTexture = defaultTexture;
 		this.textures = textures;
-		this.animations = new Array<AnimatedActor>();
+		this.animations = animations;
 		this.currentAnimationsPlaying = new ObjectSet<AnimatedActor>();
-		AnimatedActor animation = getAnimatedActor(enemyType);
-		if (animation != null) {
-			this.animations.add(animation);
-			if ((enemyType != EnemyEnum.HARPY || stance != Stance.FELLATIO) && (enemyType != EnemyEnum.BRIGAND || (stance != Stance.DOGGY && stance != Stance.STANDING))) {
-				currentAnimationsPlaying.add(animation);
-			}
+		if (animations.size > 0 && (enemyType != EnemyEnum.HARPY || stance != Stance.FELLATIO) && (enemyType != EnemyEnum.BRIGAND || (stance != Stance.DOGGY && stance != Stance.STANDING))) {
+			currentAnimationsPlaying.add(animations.first());
 		}
-		if (enemyType == EnemyEnum.HARPY || enemyType == EnemyEnum.BRIGAND) addAdditionalAnimations();
 		
 		currentDisplay = enemyType == EnemyEnum.BRIGAND ? "IFOS100N" :"Idle Erect";
 		initializedMove = true;
-	}
-	
-	private void addAdditionalAnimations() {
-		if (enemyType == EnemyEnum.HARPY) {
-			animations.add(new AnimatedActor("animation/Attack Still.atlas", "animation/Attack Still.json", .75f, 1f));	
-			animations.get(1).setSkeletonPosition(800, 450);
-			animations.get(1).setAnimation(0, "attack", false);
-			animations.add(new AnimatedActor("animation/Feathers.atlas", "animation/Feathers.json", .75f, 1f));	
-			animations.get(2).setSkeletonPosition(900, 500);
-			animations.get(2).setAnimation(0, "featherpoof1", true);
-			animations.add(new AnimatedActor("animation/Feathers2.atlas", "animation/Feathers2.json", .75f, 1f));	
-			animations.get(3).setSkeletonPosition(900, 500);
-			animations.get(3).setAnimation(0, "Featherpoof2", true);	
-		}
-		else if (enemyType == EnemyEnum.BRIGAND) {
-			animations.add(new AnimatedActor("animation/skeleton.atlas", "animation/skeleton.json", .475f, 1f));	
-			animations.get(1).setSkeletonPosition(775, 505);
-			animations.get(1).setAnimation(0, "IFOS100N", true);
-		}
-	}
-	
-	public static AnimatedActor getAnimatedActor(EnemyEnum enemyType) {
-		AnimatedActor animation = null; 
-		if (enemyType == EnemyEnum.BUTTBANG) {
-			return new AnimatedActor("animation/SplurtGO.atlas", "animation/SplurtGO.json");
-		}
-		if (enemyType == EnemyEnum.HARPY || enemyType == EnemyEnum.CENTAUR || enemyType == EnemyEnum.UNICORN || enemyType == EnemyEnum.BRIGAND) {
-			animation = new AnimatedActor(enemyType.getAnimationPath() + ".atlas", enemyType.getAnimationPath() + ".json", enemyType == EnemyEnum.HARPY ? .75f : .60f, enemyType == EnemyEnum.HARPY ? 1f : enemyType == EnemyEnum.BRIGAND ? .75f : 1.8f);
-			
-			if (enemyType == EnemyEnum.HARPY) {
-				animation.setSkeletonPosition(900, 550);
-			}
-			else if (enemyType == EnemyEnum.BRIGAND) {
-				animation.setSkeletonPosition(900, 450);
-			}
-			else {
-				animation.setSkeletonPosition(1000, 550);
-			}
-			
-			if (enemyType == EnemyEnum.CENTAUR) {
-				animation.setSkeletonSkin("BrownCentaur");
-			}
-			else if (enemyType == EnemyEnum.UNICORN) {
-				animation.setSkeletonSkin("WhiteUnicorn");
-			}
-			animation.setAnimation(0, "Idle Erect", true);
-		}
-		return animation;
 	}
 
 	@Override
@@ -1093,5 +1040,9 @@ public class EnemyCharacter extends AbstractCharacter {
 		else if (enemyType == EnemyEnum.CENTAUR) {
 			currentFrame = 1 - currentFrame;
 		}
+	}
+
+	public Array<AnimatedActor> getAnimations(AssetManager assetManager) {
+		return enemyType.getAnimations(assetManager);
 	}
 } 

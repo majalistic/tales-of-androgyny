@@ -17,7 +17,6 @@ import com.majalis.asset.AnimatedActor;
 import com.majalis.asset.AssetEnum;
 import com.majalis.battle.BattleCode;
 import com.majalis.battle.Battle.Outcome;
-import com.majalis.character.EnemyCharacter; // should be animated actor
 import com.majalis.character.EnemyEnum;
 import com.majalis.character.Perk;
 import com.majalis.character.PlayerCharacter;
@@ -1312,7 +1311,7 @@ public class EncounterBuilder {
 		private AnimatedActor getAnimation(EnemyEnum type) {
 			AnimatedActor animation = animationCache.get(type);
 			if (animation == null) {
-				animation = EnemyCharacter.getAnimatedActor(type);
+				animation = type.getPrimaryAnimation(assetManager);
 				animationCache.put(type, animation);
 			}			
 			return animation;

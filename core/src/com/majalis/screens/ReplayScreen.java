@@ -1,5 +1,7 @@
 package com.majalis.screens;
 
+import static com.majalis.asset.AssetEnum.*;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.assets.AssetDescriptor;
@@ -39,6 +41,13 @@ public class ReplayScreen extends AbstractScreen {
 		
 		resourceRequirements.add(AssetEnum.MAIN_MENU_MUSIC.getMusic());
 		resourceRequirements.add(AssetEnum.DEFAULT_BACKGROUND.getTexture());
+
+		Array<AssetEnum> animationReqs = new Array<AssetEnum>(new AssetEnum[]{
+			HARPY_ANIMATION, HARPY_ATTACK_ANIMATION, FEATHERS_ANIMATION, FEATHERS2_ANIMATION, BRIGAND_ANIMATION, ANAL_ANIMATION, CENTAUR_ANIMATION			
+		});
+		for (AssetEnum asset: animationReqs) {
+			resourceRequirements.add(asset.getAnimation());
+		}
 	}
 	private final AssetManager assetManager;
 	private final ObjectMap<String, Integer> enemyKnowledge;
@@ -90,7 +99,7 @@ public class ReplayScreen extends AbstractScreen {
 				enemyTexture = assetManager.get(type.getTexture());
 			}
 			textures.put(Stance.BALANCED, new Array<Texture>(new Texture[]{enemyTexture}));
-			final EnemyCharacter enemy = new EnemyCharacter(enemyTexture, textures, type);
+			final EnemyCharacter enemy = new EnemyCharacter(enemyTexture, textures, type.getAnimations(assetManager), type);
 			this.addActor(enemy);
 			enemy.addAction(Actions.hide());
 			enemy.setPosition(700, 0);

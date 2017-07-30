@@ -1,6 +1,7 @@
 package com.majalis.asset;
 
 import com.badlogic.gdx.assets.AssetDescriptor;
+import com.badlogic.gdx.assets.AssetLoaderParameters;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
@@ -247,7 +248,16 @@ public enum AssetEnum {
 	BATTLE_MUSIC("music/BattleMusic.mp3", Music.class),
 	GADGETEER_MUSIC("music/GadgeteerMusic.mp3", Music.class),
 	BOSS_MUSIC("music/BossMusic.mp3", Music.class),
-	WAVES("music/Waves.wav", Music.class)
+	WAVES("music/Waves.wav", Music.class), 
+	
+	GAME_OVER_ANIMATION("animation/SplurtGO.atlas", AnimatedActorFactory.class),
+	HARPY_ANIMATION("animation/Harpy.atlas", AnimatedActorFactory.class, new AnimatedActorLoader.AnimatedActorParameter(.75f, 1, true)),
+	HARPY_ATTACK_ANIMATION("animation/Attack Still.atlas", AnimatedActorFactory.class, new AnimatedActorLoader.AnimatedActorParameter(.75f, 1, true)),
+	FEATHERS_ANIMATION("animation/Feathers.atlas", AnimatedActorFactory.class, new AnimatedActorLoader.AnimatedActorParameter(.75f, 1, true)),
+	FEATHERS2_ANIMATION("animation/Feathers2.atlas", AnimatedActorFactory.class, new AnimatedActorLoader.AnimatedActorParameter(.75f, 1, true)),
+	BRIGAND_ANIMATION("animation/Brigand.atlas", AnimatedActorFactory.class, new AnimatedActorLoader.AnimatedActorParameter(.60f, .75f, true)),
+	ANAL_ANIMATION("animation/skeleton.atlas", AnimatedActorFactory.class, new AnimatedActorLoader.AnimatedActorParameter(.475f, 1, true)),
+	CENTAUR_ANIMATION("animation/Centaur.atlas", AnimatedActorFactory.class, new AnimatedActorLoader.AnimatedActorParameter(.60f, 1.8f, true)),
 	;
 	
 	private final AssetDescriptor<?> assetDescriptor;
@@ -259,6 +269,11 @@ public enum AssetEnum {
 	@SuppressWarnings({ "rawtypes" })
 	AssetEnum(String path, Class<?> assetType) {
 	    this.assetDescriptor = new AssetDescriptor(path, assetType);
+	}
+	
+	@SuppressWarnings({ "rawtypes" })
+	AssetEnum(String path, Class<?> assetType, AssetLoaderParameters<?> params) {
+	    this.assetDescriptor = new AssetDescriptor(path, assetType, params);
 	}
 	
 	public AssetDescriptor<?> getAsset() {
@@ -279,6 +294,10 @@ public enum AssetEnum {
 	
 	public AssetDescriptor<Sound> getSound() {
 		return (AssetDescriptor<Sound>) assetDescriptor;
+	}
+	
+	public AssetDescriptor<AnimatedActorFactory> getAnimation() {
+		return (AssetDescriptor<AnimatedActorFactory>) assetDescriptor;
 	}
 	
 	public String getPath() {

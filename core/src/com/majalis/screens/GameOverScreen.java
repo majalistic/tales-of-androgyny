@@ -20,6 +20,7 @@ public class GameOverScreen extends AbstractScreen {
 	public static final Array<AssetDescriptor<?>> resourceRequirements = new Array<AssetDescriptor<?>>();
 	static {
 		resourceRequirements.add(AssetEnum.UI_SKIN.getSkin());
+		resourceRequirements.add(AssetEnum.GAME_OVER_ANIMATION.getAnimation());
 	}
 	private final AssetManager assetManager;
 	
@@ -31,7 +32,7 @@ public class GameOverScreen extends AbstractScreen {
 
 	@Override
 	public void buildStage() {
-		AnimatedActor background = new AnimatedActor("animation/SplurtGO.atlas", "animation/SplurtGO.json");
+		AnimatedActor background = assetManager.get(AssetEnum.GAME_OVER_ANIMATION.getAnimation()).getInstance();
 		background.setSkeletonPosition(555, 520);
 		background.setSize(2000, 2000);
 		background.addListener(new ClickListener() {

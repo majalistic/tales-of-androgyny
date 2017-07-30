@@ -3,11 +3,16 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.assets.loaders.AssetLoader;
+import com.badlogic.gdx.assets.loaders.FileHandleResolver;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.math.RandomXS128;
 import com.badlogic.gdx.utils.Array;
+import com.majalis.asset.AnimatedActor;
+import com.majalis.asset.AnimatedActorFactory;
+import com.majalis.asset.AnimatedActorLoader;
 import com.majalis.battle.BattleFactory;
 import com.majalis.encounter.EncounterCode;
 import com.majalis.encounter.EncounterFactory;
@@ -41,6 +46,8 @@ public class TalesOfAndrogyny extends Game {
 		SaveManager saveManager = new SaveManager(false, "data/save.json", "data/profile.json");
 		EncounterReader encounterReader = new EncounterReader("script/encounters.json");
 		AssetManager assetManager = new AssetManager();
+		FileHandleResolver resolver = assetManager.getFileHandleResolver();
+		assetManager.setLoader(AnimatedActorFactory.class, new AnimatedActorLoader(resolver));
         FreeTypeFontGenerator fontGenerator = new FreeTypeFontGenerator(Gdx.files.internal("solstice.ttf"));
 		RandomXS128 random = new RandomXS128();
 		PolygonSpriteBatch batch = new PolygonSpriteBatch(2500) {

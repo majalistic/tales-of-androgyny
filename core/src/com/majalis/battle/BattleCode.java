@@ -5,6 +5,7 @@ import static com.majalis.asset.AssetEnum.*;
 import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.utils.Array;
+import com.majalis.asset.AnimatedActorFactory;
 import com.majalis.asset.AssetEnum;
 
 public enum BattleCode {
@@ -39,11 +40,61 @@ public enum BattleCode {
 		}
 	}
 	
+	private Array<AssetDescriptor<AnimatedActorFactory>> getAnimationRequirements() {
+		Array<AssetDescriptor<AnimatedActorFactory>> temp = new Array<AssetDescriptor<AnimatedActorFactory>>();
+		switch (this) {
+			case ADVENTURER:
+				break;
+			case BEASTMISTRESS:
+				break;
+			case BRIGAND:
+				temp.add(AssetEnum.BRIGAND_ANIMATION.getAnimation());
+				temp.add(AssetEnum.ANAL_ANIMATION.getAnimation());
+				break;
+			case CENTAUR:
+				temp.add(AssetEnum.CENTAUR_ANIMATION.getAnimation());
+				break;
+			case GOBLIN:
+				break;
+			case GOBLIN_MALE:
+				break;
+			case GOBLIN_STORY:
+				break;
+			case HARPY:
+				temp.add(AssetEnum.HARPY_ANIMATION.getAnimation());
+				temp.add(AssetEnum.HARPY_ATTACK_ANIMATION.getAnimation());
+				temp.add(AssetEnum.FEATHERS_ANIMATION.getAnimation());
+				temp.add(AssetEnum.FEATHERS2_ANIMATION.getAnimation());
+				break;
+			case HARPY_STORY:
+				break;
+			case OGRE:
+				break;
+			case ORC:
+				break;
+			case SLIME:
+				break;
+			case SPIDER:
+				break;
+			case UNICORN:
+				temp.add(AssetEnum.CENTAUR_ANIMATION.getAnimation());
+				break;
+			case WERESLUT:
+				break;
+			default:
+				break;
+			
+		}
+		return temp;
+	}
+
 	public AssetDescriptor<Music> getMusic() {
 		return music;
 	}
 
 	public Array<AssetDescriptor<?>> getRequirements() {
-		return requirements;
+		Array<AssetDescriptor<?>> copiedRequirements = new Array<AssetDescriptor<?>>(requirements);
+		copiedRequirements.addAll(getAnimationRequirements());
+		return copiedRequirements;
 	}
 }
