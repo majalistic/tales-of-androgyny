@@ -182,16 +182,19 @@ public class Background extends Group {
 	}
 
 	public void toggleDialogBox(Actor display) {
-		if (dialogBoxVisible) {
-			dialogBox.addAction(Actions.hide());
-			display.addAction(Actions.hide());
-			dialogBoxVisible = false;
-		}
-		else {
+		toggleDialogBox(display, !dialogBoxVisible);
+	}
+	
+	public void toggleDialogBox(Actor display, boolean displayNow) {
+		if (displayNow) {
 			dialogBox.addAction(Actions.show());
 			display.addAction(Actions.show());
-			dialogBoxVisible = true;
 		}
+		else {
+			dialogBox.addAction(Actions.hide());
+			display.addAction(Actions.hide());
+		}
+		dialogBoxVisible = displayNow;
 	}
 	
 	@Override
@@ -207,4 +210,6 @@ public class Background extends Group {
 	public Image getBackground() {
 		return background;
 	}
+
+	
 }

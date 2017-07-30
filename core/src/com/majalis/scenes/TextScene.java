@@ -12,6 +12,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
@@ -35,6 +36,9 @@ public class TextScene extends AbstractTextScene  {
 	private final PlayerCharacter character;
 	private final AssetDescriptor<Music> music;
 	private final AssetDescriptor<Sound> sound;
+	private final Label showLog;
+	private final ScrollPane pane;
+	private final LogDisplay log;
 	
 	public TextScene(OrderedMap<Integer, Scene> sceneBranches, int sceneCode, AssetManager assetManager, BitmapFont font, SaveService saveService, final Background background, String toDisplay, Array<Mutation> mutations, PlayerCharacter character, LogDisplay log, AssetDescriptor<Music> music, AssetDescriptor<Sound> sound) {
 		super(sceneBranches, sceneCode, assetManager, font, character, saveService, background);
@@ -45,22 +49,48 @@ public class TextScene extends AbstractTextScene  {
 		this.background = background;
 		this.music = music;
 		this.sound = sound;
-		ScrollPane pane = new ScrollPane(log);
+		this.log = log;
+		pane = new ScrollPane(log);
 		log.setAlignment(Align.topLeft);
 		log.setWrap(true);
+		log.setColor(Color.DARK_GRAY);
 		pane.setScrollingDisabled(true, false);
 		pane.setOverscroll(false, false);
-		pane.setBounds(325, 350, 1300, 700);
-		this.addActor(pane);	
-		log.setColor(Color.DARK_GRAY);
-		log.addListener(new ClickListener() {
+		pane.setBounds(325, 350, 1300, 650);
+		showLog = new Label("Show Log", skin);
+		
+		this.addActor(showLog);
+		
+		showLog.setColor(Color.BLACK);
+		showLog.setPosition(325, 1000);
+		showLog.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				background.toggleDialogBox(display);
+				toggleLogDisplay();
+			}
+		});
+		pane.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				toggleLogDisplay();
 			}
 		});
 	}	
 
+	private void toggleLogDisplay() {
+		log.displayLog();
+		if (showLog.getText().toString().equals("Show Log")) {
+			showLog.setText("Hide Log");
+			background.toggleDialogBox(display, false);
+			this.addActor(pane);		
+		}
+		else {
+			background.toggleDialogBox(display, true);
+			showLog.setText("Show Log");
+			this.removeActor(pane);
+		}
+	}
+	
 	@Override
 	public String getText() {
 		return display.getText().toString();
@@ -69,7 +99,7 @@ public class TextScene extends AbstractTextScene  {
 	@Override
 	public void draw(Batch batch, float parentAlpha) {
 		super.draw(batch, parentAlpha);
-		if (Gdx.input.isKeyJustPressed(Keys.TAB)) {
+		if (Gdx.input.isKeyJustPressed(Keys.TAB) && showLog.getText().toString().equals("Show Log")) {
 			background.toggleDialogBox(display);
 		}
 	}

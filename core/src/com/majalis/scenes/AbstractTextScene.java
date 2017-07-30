@@ -71,8 +71,7 @@ public abstract class AbstractTextScene extends Scene {
 		this.removeAction(Actions.hide());
 		this.addAction(Actions.visible(true));
 		this.addAction(Actions.show());
-		Image toClick = background.getDialogBox() != null ? background.getDialogBox() : background.getBackground();
-		toClick.addListener(new ClickListener() { 
+		background.addListener(new ClickListener() { 
 			@Override
 	        public void clicked(InputEvent event, float x, float y) {
 				nextScene();

@@ -5,9 +5,9 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -35,6 +35,11 @@ public class EndScene extends Scene {
 	private final Array<MutationResult> results;
 	private final AssetManager assetManager;
 	private final Table statusResults;
+	private final Label showLog;
+	private final LogDisplay log;
+	private final ScrollPane pane;
+	private final Skin skin;
+	private final Group group;
 	public EndScene(int sceneCode, Type type, SaveService saveService, AssetManager assetManager, SaveManager.GameContext context, final Background background, LogDisplay log, Array<MutationResult> results) {
 		super(null, sceneCode);
 		this.type = type;
@@ -44,21 +49,51 @@ public class EndScene extends Scene {
 		this.background = background;
 		this.results = results;
 		this.addActor(background);
-		ScrollPane pane = new ScrollPane(log);
+		pane = new ScrollPane(log);
+		this.log = log;
 		log.setAlignment(Align.topLeft);
 		log.setWrap(true);
 		pane.setScrollingDisabled(true, false);
 		pane.setOverscroll(false, false);
-		pane.setBounds(325, 350, 1300, 700);
-		this.addActor(pane);	
+		pane.setBounds(325, 350, 1300, 650);
 		log.setColor(Color.BLACK);
 		statusResults = new Table();
-		log.addListener(new ClickListener() {
+		skin = assetManager.get(AssetEnum.UI_SKIN.getSkin());
+		showLog = new Label("Show Log", skin);
+		
+		this.addActor(showLog);
+		
+		showLog.setColor(Color.BLACK);
+		showLog.setPosition(325, 1000);
+		showLog.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				background.toggleDialogBox(statusResults);
+				toggleLogDisplay();
 			}
 		});
+		pane.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				toggleLogDisplay();
+			}
+		});
+		group = new Group();
+	}
+	
+	private void toggleLogDisplay() {
+		log.displayLog();
+		if (showLog.getText().toString().equals("Show Log")) {
+			showLog.setText("Hide Log");
+			this.addActor(pane);		
+			background.toggleDialogBox(background.getDialogBox(), false);
+			this.removeActor(group);
+		}
+		else {
+			showLog.setText("Show Log");
+			this.addActor(group);
+			background.toggleDialogBox(background.getDialogBox(), true);
+			this.removeActor(pane);
+		}
 	}
 	
 	@Override
@@ -84,15 +119,14 @@ public class EndScene extends Scene {
 		this.removeAction(Actions.hide());
 		this.addAction(Actions.visible(true));
 		this.addAction(Actions.show());
-		Image toClick = background.getDialogBox() != null ? background.getDialogBox() : background.getBackground();
-		toClick.addListener(new ClickListener() { 
+		
+		background.addListener(new ClickListener() { 
 			@Override
 	        public void clicked(InputEvent event, float x, float y) {
 				finish();
 			}
 		});
 		// need to display "Results" at the top of the table, move table into the appropriate box, and a "click to continue" box or something
-		Skin skin = assetManager.get(AssetEnum.UI_SKIN.getSkin());
 		statusResults.align(Align.topLeft);
 		Label newLabel = new Label("Results: ", skin);
 		newLabel.setColor(Color.BLACK);
@@ -101,20 +135,19 @@ public class EndScene extends Scene {
 		for (MutationResult result : compactedResults) {
 			statusResults.add(new MutationActor(result, assetManager.get(result.getTexture()), skin, true)).fillY().padLeft(50).align(Align.left).row();
 		}
-		this.addActor(toClick); // this moves the actor to the top
-		this.addActor(statusResults);
+		group.addActor(statusResults);
 		Label clickToContinue = new Label("Click to continue... ", skin);
 		clickToContinue.setColor(Color.BLACK);
-		this.addActor(clickToContinue);
+		group.addActor(clickToContinue);
 		clickToContinue.setPosition(1200, 175);
-		clickToContinue.addListener(new ClickListener() { 
+		statusResults.setPosition(600, 750);
+		this.addActor(group);	
+		group.addListener(new ClickListener() { 
 			@Override
 	        public void clicked(InputEvent event, float x, float y) {
 				finish();
 			}
 		});
-		statusResults.setPosition(600, 750);
-		
 	}
 	
 	private void finish() {
