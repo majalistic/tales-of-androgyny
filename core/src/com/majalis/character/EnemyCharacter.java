@@ -786,31 +786,23 @@ public class EnemyCharacter extends AbstractCharacter {
 		if (currentAnimationsPlaying.size == 0 || (enemyType == EnemyEnum.CENTAUR && stance == Stance.DOGGY)) {
 			Array<Texture> textureCandidates = textures.get(stance, new Array<Texture>(new Texture[]{defaultTexture}));
 			Texture texture = textureCandidates.get(textureCandidates.size == 1 ? 0 : currentFrame);
-			int x = (enemyType == EnemyEnum.GOBLIN && (stance == Stance.FACE_SITTING || stance == Stance.SIXTY_NINE)) ? 400 : 600;
-			int y = (enemyType == EnemyEnum.GOBLIN && (stance == Stance.FACE_SITTING || stance == Stance.SIXTY_NINE)) ? 0 : 20;
-			float width = (enemyType == EnemyEnum.GOBLIN && (stance == Stance.FACE_SITTING || stance == Stance.SIXTY_NINE)) ? (int) (texture.getWidth() / (texture.getHeight() / 1080.)) : (int) (texture.getWidth() / (texture.getHeight() / 975.));
-			float height = (enemyType == EnemyEnum.GOBLIN && (stance == Stance.FACE_SITTING || stance == Stance.SIXTY_NINE)) ? 1080 : 975;
-			if (enemyType == EnemyEnum.CENTAUR) {
-				width = texture.getWidth();
-				height = texture.getHeight();
-				x = 0;
+
+			int x = 600;
+			int y = 20;
+			float width =  (int) (texture.getWidth() / (texture.getHeight() / 975.));
+			float height = 975;
+			
+			if ((enemyType == EnemyEnum.HARPY && stance == Stance.FELLATIO) ||
+				(enemyType == EnemyEnum.ORC && stance == Stance.PRONE_BONE) ||
+				enemyType == EnemyEnum.CENTAUR || 
+				((enemyType == EnemyEnum.GOBLIN || enemyType == EnemyEnum.GOBLIN_MALE) && (stance == Stance.FACE_SITTING || stance == Stance.SIXTY_NINE || stance == Stance.DOGGY || stance == Stance.PRONE_BONE))) {
+				x = (enemyType == EnemyEnum.GOBLIN || enemyType == EnemyEnum.GOBLIN_MALE) && (stance == Stance.FACE_SITTING || stance == Stance.SIXTY_NINE) ? 400 : 0;
 				y = 0;
+				width = (int) (texture.getWidth() / (texture.getHeight() / 1080.));
+				height = 1080;
 			}
+			
 			range = 0;
-			
-			if (enemyType == EnemyEnum.HARPY && stance == Stance.FELLATIO) {
-				x = 0;
-				y = 0;
-				width = (int) (texture.getWidth() / (texture.getHeight() / 1080.));
-				height = 1080;
-			}
-			else if (enemyType == EnemyEnum.ORC && stance == Stance.PRONE_BONE) {
-				x = 0;
-				y = 0;
-				width = (int) (texture.getWidth() / (texture.getHeight() / 1080.));
-				height = 1080;
-			}
-			
 			if (range == 0) {
 				batch.draw(texture, x, y, width, height);
 			}

@@ -94,8 +94,20 @@ public class BattleFactory {
 			textures.put(Stance.DOGGY, new Array<Texture>(new Texture[]{assetManager.get(AssetEnum.CENTAUR_ANAL.getTexture()), assetManager.get(AssetEnum.CENTAUR_ANAL_XRAY.getTexture())}));
 		}
 		else if (type == EnemyEnum.GOBLIN) {
-			textures.put(Stance.FACE_SITTING, new Array<Texture>(new Texture[]{assetManager.get(AssetEnum.GOBLIN_FACE_SIT.getTexture())}));
-			textures.put(Stance.SIXTY_NINE, new Array<Texture>(new Texture[]{assetManager.get(AssetEnum.GOBLIN_FACE_SIT.getTexture())}));
+			Texture anal = assetManager.get(AssetEnum.GOBLIN_ANAL.getTexture());
+			Texture faceSit = assetManager.get(AssetEnum.GOBLIN_FACE_SIT.getTexture());
+			textures.put(Stance.PRONE_BONE, new Array<Texture>(new Texture[]{anal}));
+			textures.put(Stance.DOGGY, new Array<Texture>(new Texture[]{anal}));
+			textures.put(Stance.FACE_SITTING, new Array<Texture>(new Texture[]{faceSit}));
+			textures.put(Stance.SIXTY_NINE, new Array<Texture>(new Texture[]{faceSit}));
+		}
+		else if (type == EnemyEnum.GOBLIN_MALE) {
+			Texture anal = assetManager.get(AssetEnum.GOBLIN_ANAL_MALE.getTexture());
+			Texture faceSit = assetManager.get(AssetEnum.GOBLIN_FACE_SIT_MALE.getTexture());
+			textures.put(Stance.PRONE_BONE, new Array<Texture>(new Texture[]{anal}));
+			textures.put(Stance.DOGGY, new Array<Texture>(new Texture[]{anal}));
+			textures.put(Stance.FACE_SITTING, new Array<Texture>(new Texture[]{faceSit}));
+			textures.put(Stance.SIXTY_NINE, new Array<Texture>(new Texture[]{faceSit}));
 		}
 		
 		return textures;

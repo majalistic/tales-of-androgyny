@@ -320,6 +320,7 @@ public enum EncounterCode {
 				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{
 					AssetEnum.FOREST_BG.getTexture(),
 					AssetEnum.GOBLIN.getTexture(),
+					AssetEnum.GOBLIN_ANAL.getTexture(),
 					AssetEnum.LOUD_LAUGH.getSound(),
 					AssetEnum.WEREWOLF_MUSIC.getMusic()
 					
@@ -328,6 +329,8 @@ public enum EncounterCode {
 				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{  
 					AssetEnum.GOBLIN.getTexture(),
 					AssetEnum.GOBLIN_MALE.getTexture(),
+					AssetEnum.GOBLIN_ANAL.getTexture(),
+					AssetEnum.GOBLIN_ANAL_MALE.getTexture(),
 					AssetEnum.LOUD_LAUGH.getSound(),
 					AssetEnum.WEREWOLF_MUSIC.getMusic(),
 					AssetEnum.CARNIVAL_MUSIC.getMusic(),

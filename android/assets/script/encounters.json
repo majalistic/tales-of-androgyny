@@ -467,6 +467,7 @@
 			{"text": ".."},
 			{"text": "."},
 			{
+			"foreground": "GOBLIN_ANAL",
 			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1}}],
 			"text": "Inch by inch, it slides into your anus.  Your wrists, knees, and cheek lay against the dirt, and you disbelievingly accept it.  You lost to a level 1 goblin."},
 			{"text": "Somewhere, in a far off place, brave adventurers are fighting amazing, spectacular battles against dragons, and monsters, and gods.  But, you?"},
@@ -2337,6 +2338,7 @@
 			{"text": "\"Now it's nice and slick - and it's going right up your butt!  Nyahaha!\""},
 			{"text": "She leapfrogs over you, then spins around, thwapping it against your butt as she turns.  She grabs a cheek with each nubby thumb, spreads your hole, and presses her baton up against your starfish."},
 			{
+			"foreground": "GOBLIN_ANAL",
 			"mutations": [{"saveType":"GOBLIN_VIRGIN", "value":{"class": "java.lang.Boolean", "value": false}}],
 			"text": "Lubricated by your phlegm, she manages to go from un-penetrated to, gut stirring, rectum-basting, hip tapping in less than a second - causing your eyes to roll to the back of your head and your face to lose all color.  You can feel the painful stretching between your ears, and as she starts to thrust immediately after, you start to whine pathetically."},
 			{"text": "\"Nyahah!  Pretty tight!\" she says, ignoring your voiceless gasps.  \"Surprised ya, didn't I?!  Sorry human, gobbo boys like rough sex - though they like it less when they're getting it!\""},
@@ -2436,7 +2438,9 @@
 	{
 		"key": "GOBLIN-FIGHTOFF",
 		"scriptLines": [
-			{"text": "You manage to get your second wind and shake her off - she falls to the ground, growling, her rock-hard erection still clearly ready for another go."},
+			{
+			"foreground": "GOBLIN",
+			"text": "You manage to get your second wind and shake her off - she falls to the ground, growling, her rock-hard erection still clearly ready for another go."},
 			{"text": "Though she just blasted a wad of cum in your pooter, you still have enough use of your arms and legs to pull up your pants and make a break for it - and with her short legs, she can't catch up."}
 		]
 	},
@@ -2488,6 +2492,7 @@
 			{"text": "The warty goblin cock fills your mouth and slams into your tonsils at high speed, and you gag - not for the last time."},
 			{"text": "\"Gyahaha! Which end of a human is up?  Gobbo boys can't tell!\" he says, and you can't tell if he's being serious.  Sure enough, after a few pumps of goblin sausage into your mouth, he pops it out, clambers over your back, and swings his hips around..."},
 			{
+			"foreground": "GOBLIN_ANAL_MALE",
 			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1, "analEjaculation":1}}],
 			"text": "To nail you right up the starfish. You yelp, and he begins to quickly slam your backside, long enough to learn how his warts feel as his fat dong pierces into your rectum."
 			},

@@ -48,6 +48,14 @@ public enum EnemyEnum {
     	else if (this == GOBLIN) {
     		textureImagePaths.put(Stance.FACE_SITTING.toString(), new Array<String>(new String[]{AssetEnum.GOBLIN_FACE_SIT.getPath()}));
     		textureImagePaths.put(Stance.SIXTY_NINE.toString(), new Array<String>(new String[]{AssetEnum.GOBLIN_FACE_SIT.getPath()}));
+    		textureImagePaths.put(Stance.PRONE_BONE.toString(), new Array<String>(new String[]{AssetEnum.GOBLIN_ANAL.getPath()}));
+    		textureImagePaths.put(Stance.DOGGY.toString(), new Array<String>(new String[]{AssetEnum.GOBLIN_ANAL.getPath()}));
+    	}
+    	else if (this == GOBLIN_MALE) {
+    		textureImagePaths.put(Stance.FACE_SITTING.toString(), new Array<String>(new String[]{AssetEnum.GOBLIN_FACE_SIT_MALE.getPath()}));
+    		textureImagePaths.put(Stance.SIXTY_NINE.toString(), new Array<String>(new String[]{AssetEnum.GOBLIN_FACE_SIT_MALE.getPath()}));
+    		textureImagePaths.put(Stance.PRONE_BONE.toString(), new Array<String>(new String[]{AssetEnum.GOBLIN_ANAL_MALE.getPath()}));
+    		textureImagePaths.put(Stance.DOGGY.toString(), new Array<String>(new String[]{AssetEnum.GOBLIN_ANAL_MALE.getPath()}));
     	}
     	else if (this == CENTAUR) {
     		textureImagePaths.put(Stance.DOGGY.toString(), new Array<String>(new String[]{AssetEnum.CENTAUR_ANAL.getPath(), AssetEnum.CENTAUR_ANAL_XRAY.getPath()})); 
