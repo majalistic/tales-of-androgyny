@@ -13,6 +13,7 @@ import com.badlogic.gdx.utils.Array;
 import com.majalis.asset.AnimatedActor;
 import com.majalis.asset.AnimatedActorFactory;
 import com.majalis.asset.AnimatedActorLoader;
+import com.majalis.asset.SafeAssetManager;
 import com.majalis.battle.BattleFactory;
 import com.majalis.encounter.EncounterCode;
 import com.majalis.encounter.EncounterFactory;
@@ -45,7 +46,7 @@ public class TalesOfAndrogyny extends Game {
 		
 		SaveManager saveManager = new SaveManager(false, "data/save.json", "data/profile.json");
 		EncounterReader encounterReader = new EncounterReader("script/encounters.json");
-		AssetManager assetManager = new AssetManager();
+		AssetManager assetManager = new SafeAssetManager();
 		FileHandleResolver resolver = assetManager.getFileHandleResolver();
 		assetManager.setLoader(AnimatedActorFactory.class, new AnimatedActorLoader(resolver));
         FreeTypeFontGenerator fontGenerator = new FreeTypeFontGenerator(Gdx.files.internal("solstice.ttf"));
