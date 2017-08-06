@@ -987,7 +987,7 @@ public class EnemyCharacter extends AbstractCharacter {
 	}
 	
 	@Override
-	protected boolean canBleed() { return enemyType != EnemyEnum.SLIME; }
+	protected boolean canBleed() { return enemyType.canBleed(); }
 
 	public void setClimaxCounter(int climaxCounter) {
 		climaxCounters.put(ClimaxType.BACKWASH.toString(), climaxCounter);

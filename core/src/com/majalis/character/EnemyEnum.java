@@ -69,6 +69,8 @@ public enum EnemyEnum {
 	public boolean canProneBone() {
 		return this == BRIGAND || this == GOBLIN || this == ORC || this == ADVENTURER || this == GOBLIN_MALE;
 	}
+	public boolean canBleed() { return this != SLIME; }
+	
 	public int getStartingLust() { return this == UNICORN ? 20 : 0; }
 	
 	// all of this should likely be replaced with a getEnemy method that simply returns the new enemyCharacter
