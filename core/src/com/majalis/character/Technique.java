@@ -133,11 +133,19 @@ public class Technique {
 				;
 		// this is temporarily to prevent struggling from failing to work properly on the same term an eruption or knot happens
 		boolean failure = false;
+		if (thisPayload.getPriority() == otherPayload.getPriority()) otherPayload.lose();
 		if (isSuccessful) {
-			isSuccessful = otherTechnique.getForceStance() == null || otherTechnique.getForceStance() == Stance.KNOTTED || otherTechnique.getForceStance() == Stance.KNEELING || (thisPayload.hasPriority() && !otherPayload.hasPriority());
-			failure = !isSuccessful;
+			isSuccessful = otherTechnique.getForceStance() == null || otherTechnique.getForceStance() == Stance.KNOTTED || otherTechnique.getForceStance() == Stance.KNEELING || otherPayload.getPriority() == 0 || (thisPayload.getPriority() > otherPayload.getPriority());
+			failure = !isSuccessful; // to see if the attack was prevented by the other attack, rather than by other circumstances like a miss
 		}
 		boolean fizzle = thisPayload.getManaCost() > currentState.getMana();
+		
+		GrappleStatus grappleResult = 
+			(technique.getGrappleType() == GrappleType.NULL && (otherTechnique.getGrappleType() == GrappleType.NULL || thisPayload.getPriority() > otherPayload.getPriority())) || 
+			(otherTechnique.getGrappleType() == GrappleType.NULL && (technique.getGrappleType() == GrappleType.NULL || thisPayload.getPriority() < otherPayload.getPriority()))
+			? GrappleStatus.NULL :
+			thisPayload.getGrappleAmount() == otherPayload.getGrappleAmount() ? currentState.getGrappleStatus() :
+			thisPayload.getGrappleAmount() > otherPayload.getGrappleAmount() ? thisPayload.getResultingGrappleStatus().inverse() : otherPayload.getResultingGrappleStatus();
 		
 		Array<Attack> resultingAttacks = new Array<Attack>(new Attack[]{new Attack(
 			evaded ? Status.EVADED : parried ? Status.PARRIED : parryOther ? Status.PARRY : fizzle ? Status.FIZZLE : isSuccessful ? (blockMod < 1 ? Status.BLOCKED : Status.SUCCESS) : failure ? Status.FAILURE : Status.MISSED, 
@@ -149,7 +157,7 @@ public class Technique {
 			thisPayload.getTotalPower() * thisPayload.getGutCheck(), 
 			technique.isHealing() ? thisPayload.getTotalPower() : 0,
 			technique.isTaunt() ? thisPayload.getTotalPower() : 0,  // lust
-			technique.isGrapple() ? thisPayload.getTotalPower() : 0,
+			grappleResult,
 			otherTechnique.isBlockable() ? thisPayload.getDisarm() : 0,
 			thisPayload.getTrip(),
 			thisPayload.getBleeding(),
@@ -176,7 +184,7 @@ public class Technique {
 				0, // gut check 
 				0, // healing
 				0, // lust
-				0, // grapple
+				GrappleStatus.NULL, // grapple
 				0, // disarm
 				0, // trip
 				(thisPayload.getBasePower() + 2) / 3 + 1, // bleed
@@ -199,6 +207,10 @@ public class Technique {
 		return technique.isBlockable();
 	}
 
+	private GrappleType getGrappleType() {
+		return technique.getGrappleType();
+	}
+	
 	public Stance getStance() {
 		return technique.getResultingStance();
 	}
@@ -264,7 +276,7 @@ public class Technique {
 		private final int bleeding;
 		private final int counter;
 		private final double knockdown;
-		private final boolean hasPriority;
+		private int priority;
 		
 		//before bonuses
 		//private final int powerModBeforeBonuses;
@@ -291,7 +303,7 @@ public class Technique {
 			int evasionCalc = 0;
 			int bleedingCalc = technique.isDamaging() && !technique.isSpell() ? basePower / 4 : 0;
 			int counterCalc = 0;
-			boolean hasPriorityCalc = false;
+			int priorityCalc = 0;
 			
 			for (Bonus bonusBundle : toApply) {	
 				for (ObjectMap.Entry<BonusType, Integer> bonus : bonusBundle.getBonusMap()) {
@@ -324,7 +336,7 @@ public class Technique {
 							staminaCalc += bonus.value;
 							break;
 						case PRIORITY:
-							hasPriorityCalc = true;
+							priorityCalc += bonus.value;
 							break;
 						case DISARM:
 							disarmCalc += bonus.value;
@@ -359,7 +371,7 @@ public class Technique {
 			evasion = evasionCalc;
 			bleeding = currentState.getWeapon() != null && currentState.getWeapon().causesBleed()? bleedingCalc : 0;
 			counter = counterCalc;
-			hasPriority = hasPriorityCalc;
+			priority = priorityCalc;
 		}
 		
 		private int getStaminaCost() {
@@ -408,8 +420,8 @@ public class Technique {
 			return gutCheck;
 		}
 		
-		private boolean hasPriority() {
-			return hasPriority;
+		private int getPriority() {
+			return priority;
 		}
 		
 		private Array<Bonus> getBonuses() {
@@ -434,6 +446,18 @@ public class Technique {
 		
 		private int getCounter() {
 			return counter;
+		}
+		
+		private GrappleStatus getResultingGrappleStatus() {
+			return currentState.getGrappleStatus().modifyGrappleStatus(technique.getGrappleType());
+		}
+		
+		private int getGrappleAmount() {
+			return technique.getGrappleType() == GrappleType.NULL ? 0 : technique.getGrappleType() == GrappleType.HOLD ? 1 : technique.getGrappleType() == GrappleType.BREAK ? 100 : 2;
+		}
+		
+		private void lose() {
+			priority = 0;
 		}
 	}
 }

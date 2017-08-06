@@ -18,7 +18,7 @@ public class Attack {
 	private final int gutcheck;
 	private final int healing;
 	private final int lust;
-	private final int grapple;
+	private final GrappleStatus grapple;
 	private final int disarm;
 	private final int trip;
 	private final int bleeding;
@@ -48,7 +48,7 @@ public class Attack {
 	}
 	
 	// this should have all the info for an attack, including damage or effects that were blocked
-	protected Attack(Status status, String name, int rawDamage, double blockMod, int force, int rawArmorBreak, int gutcheck, int healing, int lust, int grapple, int disarm, int trip, int bleeding, ClimaxType climaxType, Stance forceStance, boolean isSpell, Buff buff, 
+	protected Attack(Status status, String name, int rawDamage, double blockMod, int force, int rawArmorBreak, int gutcheck, int healing, int lust, GrappleStatus grapple, int disarm, int trip, int bleeding, ClimaxType climaxType, Stance forceStance, boolean isSpell, Buff buff, 
 					boolean isAttack, boolean ignoresArmor, Array<Bonus> bonuses, Item useItem, AbstractCharacter user) {
 		this.status = status;
 		this.name = name;
@@ -113,7 +113,7 @@ public class Attack {
 		return lust;
 	}
 	
-	protected int getGrapple() {
+	protected GrappleStatus getGrapple() {
 		return grapple;
 	}
 	

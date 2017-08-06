@@ -231,12 +231,12 @@ public class PlayerCharacter extends AbstractCharacter {
 			case AIRBORNE:
 				return getTechniques(target, JUMP_ATTACK, VAULT_OVER);
 			case FULL_NELSON_BOTTOM:
-				if (struggle <= 0) {
+				if (hasGrappleAdvantage()) {
 					return getTechniques(target, SUBMIT, BREAK_FREE_FULL_NELSON);
 				}
 				return getTechniques(target, SUBMIT, STRUGGLE_FULL_NELSON);
 			case DOGGY_BOTTOM:
-				if (struggle <= 0) {
+				if (hasGrappleAdvantage()) {
 					possibles = getTechniques(target, RECEIVE_DOGGY, BREAK_FREE_ANAL);
 				}
 				else {
@@ -247,7 +247,7 @@ public class PlayerCharacter extends AbstractCharacter {
 				}
 				return possibles;
 			case PRONE_BONE_BOTTOM:
-				if (struggle <= 0) {
+				if (hasGrappleAdvantage()) {
 					possibles = getTechniques(target, RECEIVE_PRONE_BONE, BREAK_FREE_ANAL);
 				}
 				else {
@@ -258,7 +258,7 @@ public class PlayerCharacter extends AbstractCharacter {
 				if (wrapLegs) {
 					return getTechniques(target, RECEIVE_ANAL);
 				}
-				if (struggle <= 0) {
+				if (hasGrappleAdvantage()) {
 					possibles = getTechniques(target, RECEIVE_ANAL, POUT, BREAK_FREE_ANAL);
 				}
 				else {
@@ -271,7 +271,7 @@ public class PlayerCharacter extends AbstractCharacter {
 			case HANDY_BOTTOM:
 				return getTechniques(target, STROKE_IT, LET_GO, OPEN_WIDE);
 			case STANDING_BOTTOM:
-				if (struggle <= 0) {
+				if (hasGrappleAdvantage()) {
 					return getTechniques(target, RECEIVE_STANDING, BREAK_FREE_ANAL);
 				}
 				return getTechniques(target, RECEIVE_STANDING, STRUGGLE_STANDING);
@@ -284,7 +284,7 @@ public class PlayerCharacter extends AbstractCharacter {
 			case OVIPOSITION_BOTTOM:
 				return getTechniques(target, RECEIVE_EGGS);
 			case FELLATIO_BOTTOM:
-				if (struggle <= 0) {
+				if (hasGrappleAdvantage()) {
 					possibles = getTechniques(target, SUCK_IT, BREAK_FREE_ORAL);
 				}
 				else {
@@ -295,7 +295,7 @@ public class PlayerCharacter extends AbstractCharacter {
 				}
 				return possibles;
 			case FACEFUCK_BOTTOM:
-				if (struggle <= 0) {
+				if (hasGrappleAdvantage()) {
 					possibles = getTechniques(target, GET_FACEFUCKED, BREAK_FREE_ORAL);
 				}
 				else {
@@ -303,7 +303,7 @@ public class PlayerCharacter extends AbstractCharacter {
 				}
 				return possibles;
 			case OUROBOROS_BOTTOM:
-				if (struggle <= 0) {
+				if (hasGrappleAdvantage()) {
 					possibles = getTechniques(target, RECEIVE_OUROBOROS, BREAK_FREE_ORAL);
 				}
 				else {
@@ -311,12 +311,12 @@ public class PlayerCharacter extends AbstractCharacter {
 				}
 				return possibles;
 			case FACE_SITTING_BOTTOM:
-				if (struggle <= 0) {
+				if (hasGrappleAdvantage()) {
 					return getTechniques(target, GET_FACE_RIDDEN, BREAK_FREE_FACE_SIT);
 				}
 				return getTechniques(target, GET_FACE_RIDDEN, STRUGGLE_FACE_SIT);
 			case SIXTY_NINE_BOTTOM:
-				if (struggle <= 0) {
+				if (hasGrappleAdvantage()) {
 					return getTechniques(target, RECIPROCATE_FORCED, BREAK_FREE_ORAL);
 				}
 				return getTechniques(target, RECIPROCATE_FORCED, STRUGGLE_SIXTY_NINE);
@@ -376,10 +376,9 @@ public class PlayerCharacter extends AbstractCharacter {
 				}
 			case COWGIRL:
 				if (lust > 12) {
-					struggle = -1;
 					return getTechniques(target, ERUPT_COWGIRL);
 				}
-				if (struggle <= 0) {
+				if (hasGrappleAdvantage()) {
 					return getTechniques(target, BE_RIDDEN, PUSH_OFF);
 				}
 				else {
@@ -387,10 +386,9 @@ public class PlayerCharacter extends AbstractCharacter {
 				}
 			case REVERSE_COWGIRL:
 				if (lust > 12) {
-					struggle = -1;
 					return getTechniques(target, ERUPT_COWGIRL);
 				}
-				if (struggle <= 0) {
+				if (hasGrappleAdvantage()) {
 					return getTechniques(target, BE_RIDDEN_REVERSE, PUSH_OFF_REVERSE);
 				}
 				else {
@@ -444,22 +442,7 @@ public class PlayerCharacter extends AbstractCharacter {
 	}
 	
 	@Override
-	public Attack doAttack(Attack resolvedAttack) {
-		if (resolvedAttack.isSuccessful() && resolvedAttack.getName().contains("Struggle") && struggle == 0) {
-			setStruggleToMin();
-		}
-		
-		if (resolvedAttack.getGrapple() > 0) {			
-			struggle(resolvedAttack.getGrapple());
-			resolvedAttack.addMessage("You struggle to break free!");
-			if (struggle <= 3) {
-				resolvedAttack.addMessage("You feel their grasp slipping away!");
-			}
-			else if (struggle <= 0) {
-				resolvedAttack.addMessage("You are almost free!");
-			}
-		}
-		
+	public Attack doAttack(Attack resolvedAttack) {		
 		if (resolvedAttack.getLust() > 0) {
 			currentPortrait = AssetEnum.PORTRAIT_GRIN.getTexture().fileName;
 			// taunt increases self lust too
@@ -602,6 +585,7 @@ public class PlayerCharacter extends AbstractCharacter {
 		setStabilityToMax();
 		setManaToMax();
 		stance = Stance.BALANCED;
+		grappleStatus = GrappleStatus.NULL;
 		a2m = false;
 		buttful = Math.max(0, buttful - 10);
 		mouthful = 0;
@@ -617,7 +601,6 @@ public class PlayerCharacter extends AbstractCharacter {
 			statuses.put(StatusType.BLEEDING.toString(), Math.max(currentBleed - getEndurance() * 2, 0));
 		}
 		wrapLegs = false;
-		struggle = -1;
 		scout = 0;
 	}
 

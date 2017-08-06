@@ -14,6 +14,7 @@ public class CharacterState {
 	private final int currentMana;
 	private final boolean enemyLowStability;
 	private final boolean enemyOnGround;
+	private final GrappleStatus grappleStatus;
 	private final AbstractCharacter user;
 	
 	// will likely need stats with and without stepdowns, or will need to implement stepdown here as well
@@ -31,6 +32,7 @@ public class CharacterState {
 			enemyLowStability = false;
 			enemyOnGround = false;
 		}
+		this.grappleStatus = user.getGrappleStatus();
 		this.user = user;
 	}
 
@@ -72,9 +74,11 @@ public class CharacterState {
 		return enemyOnGround;
 	}
 
+	public GrappleStatus getGrappleStatus() {
+		return grappleStatus;
+	}
+	
 	public AbstractCharacter getCharacter() {
 		return user;
 	}
-	
-	
 }

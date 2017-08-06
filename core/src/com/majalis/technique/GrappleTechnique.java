@@ -1,5 +1,6 @@
 package com.majalis.technique;
 
+import com.majalis.character.GrappleType;
 import com.majalis.character.Stance;
 import com.majalis.technique.TechniquePrototype.TechniqueHeight;
 
@@ -13,6 +14,10 @@ public class GrappleTechnique extends TechniqueBuilder {
 	public GrappleTechnique(Stance usableStance, Stance resultingStance, String name, int staminaCost, Stance forceStance) {
 		this(usableStance, resultingStance, name, staminaCost, forceStance, TechniqueHeight.NONE);
 	}
+	
+	public GrappleTechnique(Stance usableStance, Stance resultingStance, String name, int staminaCost, Stance forceStance, GrappleType grapple) {
+		this(usableStance, resultingStance, name, staminaCost, forceStance, TechniqueHeight.NONE, grapple, "");
+	}
 
 	public GrappleTechnique(Stance usableStance, Stance resultingStance, String name, int staminaCost, Stance forceStance, String description) {
 		this(usableStance, resultingStance, name, staminaCost, forceStance, TechniqueHeight.NONE, description);
@@ -23,8 +28,12 @@ public class GrappleTechnique extends TechniqueBuilder {
 	}
 	
 	public GrappleTechnique(Stance usableStance, Stance resultingStance, String name, int staminaCost, Stance forceStance, TechniqueHeight height, String description) {
+		this(usableStance, resultingStance, name, staminaCost, forceStance, height, GrappleType.HOLD, description);
+	}
+	
+	public GrappleTechnique(Stance usableStance, Stance resultingStance, String name, int staminaCost, Stance forceStance, TechniqueHeight height, GrappleType grapple, String description) {
 		super(usableStance, resultingStance, name);
-		this.grapple = true;
+		this.grapple = grapple;
 		this.staminaCost = staminaCost;
 		this.forceStance = forceStance;
 		this.height = height;

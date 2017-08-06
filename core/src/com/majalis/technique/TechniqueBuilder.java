@@ -2,6 +2,7 @@ package com.majalis.technique;
 
 import com.majalis.character.StatusType;
 import com.badlogic.gdx.utils.OrderedMap;
+import com.majalis.character.GrappleType;
 import com.majalis.character.Stance;
 import com.majalis.technique.Bonus.BonusCondition;
 import com.majalis.technique.Bonus.BonusType;
@@ -30,7 +31,7 @@ public class TechniqueBuilder {
 	protected TechniqueHeight height;
 	protected boolean setDamage;
 	protected boolean blockable;
-	protected boolean grapple;
+	protected GrappleType grapple;
 	protected ClimaxType climaxType;
 	protected StatusType buff;
 	protected OrderedMap<BonusCondition, Bonus> bonuses;
@@ -56,7 +57,7 @@ public class TechniqueBuilder {
 		parryMod = 0;
 		setDamage = false;
 		blockable = false;
-		grapple = false;
+		grapple = GrappleType.NULL;
 		buff = null;
 		height = TechniqueHeight.NONE;
 		bonuses = new OrderedMap<BonusCondition, Bonus>();

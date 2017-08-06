@@ -1,6 +1,7 @@
 package com.majalis.technique;
 
 import com.badlogic.gdx.utils.ObjectMap;
+import com.majalis.character.GrappleType;
 import com.majalis.character.Stance;
 import com.majalis.character.StatusType;
 import com.majalis.technique.ClimaxTechnique.ClimaxType;
@@ -28,7 +29,7 @@ public class TechniquePrototype {
 	private final int parryMod;
 	private final boolean setDamage;
 	private final boolean blockable;
-	private final boolean grapple;
+	private final GrappleType grapple;
 	private final ClimaxType climaxType;
 	private final StatusType buff;
 	private final String description;
@@ -37,7 +38,7 @@ public class TechniquePrototype {
 	private final ObjectMap<BonusCondition, Bonus> bonuses;
 	
 	protected TechniquePrototype( Stance usableStance, Stance resultingStance, String name, boolean doesDamage, boolean doesHealing, int powerMod, int staminaCost, int stabilityCost, int manaCost, boolean isSpell, boolean isTaunt, Stance forceStance, double knockdown, int armorSunder,
-			int gutCheck, TechniqueHeight height, int guardMod, int parryMod, boolean setDamage, boolean blockable, boolean grapple, ClimaxType climaxType, StatusType buff, String description, String lightDescription, String bonusInfo, ObjectMap<BonusCondition, Bonus> bonuses) {
+			int gutCheck, TechniqueHeight height, int guardMod, int parryMod, boolean setDamage, boolean blockable, GrappleType grapple, ClimaxType climaxType, StatusType buff, String description, String lightDescription, String bonusInfo, ObjectMap<BonusCondition, Bonus> bonuses) {
 		this.usableStance = usableStance;
 		this.resultingStance = resultingStance;
 		this.name = name;
@@ -86,7 +87,7 @@ public class TechniquePrototype {
 	public int getParryMod() {	return parryMod; }
 	public boolean doesSetDamage() { return setDamage; }
 	public boolean isBlockable() { return blockable; }
-	public boolean isGrapple() { return grapple; }
+	public GrappleType getGrappleType() { return grapple; }
 	public boolean isTaunt() { return isTaunt; }
 	public ClimaxType getClimaxType() { return climaxType; }
 	public StatusType getBuff() { return buff; }

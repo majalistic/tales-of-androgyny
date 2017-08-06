@@ -100,27 +100,26 @@ public class EnemyCharacter extends AbstractCharacter {
 			currentFrame = 0;
 		}
 		
+		if (resolvedAttack.getGrapple() != GrappleStatus.NULL && (stance == Stance.COWGIRL || stance == Stance.REVERSE_COWGIRL)) {
+			// this will need to be aware of who the character receiving is - the check might need to be COWGIRL_BOTTOM instead of COWGIRL
+			if (resolvedAttack.getGrapple().isDisadvantage()) {
+				resolvedAttack.addMessage("It's still stuck up inside of you!");
+				resolvedAttack.addMessage("Well, I guess you know that.");
+				resolvedAttack.addMessage("Kind of a colon crusher.");
+			}
+			else if (resolvedAttack.getGrapple() == GrappleStatus.SCRAMBLE) {
+				resolvedAttack.addMessage("They're difficult to ride on top of!");
+			}
+			else if (resolvedAttack.getGrapple().isAdvantage()) {
+				resolvedAttack.addMessage("They're about to buck you off!");
+			}
+		}
+		
 		// play the dive bomb animation for now
 		if (resolvedAttack.getForceStance() == Stance.FELLATIO_BOTTOM && enemyType == EnemyEnum.HARPY && !oldStance.isOralPenetration()) {
 			attackAnimation();
 		}
 		
-		if (resolvedAttack.getGrapple() > 0) {
-			struggle = Math.max(0, struggle - resolvedAttack.getGrapple());
-			//resolvedAttack.addMessage("They struggle to get you off!");
-			if (struggle >= 3 && stance == Stance.COWGIRL) {
-				resolvedAttack.addMessage("It's still stuck up inside of you!");
-				resolvedAttack.addMessage("Well, I guess you know that.");
-				resolvedAttack.addMessage("Kind of a colon crusher.");
-			}
-			else if (struggle > 0 && stance == Stance.COWGIRL) {
-				resolvedAttack.addMessage("They're difficult to ride on top of!");
-			}
-			else if (struggle <= 0 && stance == Stance.COWGIRL) {
-				struggle = 0;
-				resolvedAttack.addMessage("They're about to buck you off!");
-			}
-		}
 		if (resolvedAttack.isSuccessful()) {
 			if (resolvedAttack.getForceStance() == Stance.FULL_NELSON && enemyType == EnemyEnum.BRIGAND) {
 				resolvedAttack.addDialog("\"Got ya!\" she says, as she manhandles you from behind.");
@@ -381,13 +380,11 @@ public class EnemyCharacter extends AbstractCharacter {
 				}
 				return getTechniques(target, HOLD);
 			case FACE_SITTING:
-				lust++;
 				if (isErect()) {
 					return getTechniques(target, SITTING_ORAL);
 				}
 				return getTechniques(target, RIDE_FACE);
 			case SIXTY_NINE:
-				lust++;
 				if (lust > 14) {
 					return getTechniques(target, ERUPT_SIXTY_NINE);
 				}
@@ -398,7 +395,6 @@ public class EnemyCharacter extends AbstractCharacter {
 			case ANAL:
 			case STANDING:
 			case PRONE_BONE:
-				lust++;
 				if (enemyType != EnemyEnum.WERESLUT && lust > 15) {
 					return getTechniques(target, ERUPT_ANAL);
 				}
@@ -420,27 +416,22 @@ public class EnemyCharacter extends AbstractCharacter {
 					}		
 				}
 			case COWGIRL:
-				lust++;
 				if (enemyType == EnemyEnum.WERESLUT && lust > 20) {
 					return getTechniques(target, KNOT);
 				}
-				else if (enemyType != EnemyEnum.WERESLUT && lust > 20) {
-					struggle = 0;
+				else if (enemyType != EnemyEnum.WERESLUT && lust > 20) {;
 					return getTechniques(target, ERUPT_COWGIRL);
 				}
 				return getTechniques(target, BE_RIDDEN);
 			case REVERSE_COWGIRL:
-				lust++;
 				if (enemyType == EnemyEnum.WERESLUT && lust > 20) {
 					return getTechniques(target, KNOT);
 				}
 				else if (enemyType != EnemyEnum.WERESLUT && lust > 20) {
-					struggle = 0;
 					return getTechniques(target, ERUPT_COWGIRL);
 				}
 				return getTechniques(target, BE_RIDDEN_REVERSE);
 			case HANDY:
-				lust++;
 				if (lust > 18) {
 					return getTechniques(target, ERUPT_FACIAL);
 				}
@@ -450,7 +441,6 @@ public class EnemyCharacter extends AbstractCharacter {
 			case AIRBORNE:
 				return getTechniques(target, DIVEBOMB);
 			case FELLATIO:
-				lust++;
 				if (lust > 14) {
 					return getTechniques(target, ERUPT_ORAL);
 				}
@@ -458,7 +448,6 @@ public class EnemyCharacter extends AbstractCharacter {
 					return getTechniques(target, IRRUMATIO, FORCE_DEEPTHROAT);
 				}	
 			case FACEFUCK:
-				lust++;
 				if (lust > 14) {
 					return getTechniques(target, ERUPT_ORAL);
 				}
@@ -466,7 +455,6 @@ public class EnemyCharacter extends AbstractCharacter {
 					return getTechniques(target, FACEFUCK);
 				}	
 			case OUROBOROS:
-				lust++;
 				if (lust > 14) {
 					return getTechniques(target, ERUPT_ORAL);
 				}
@@ -479,34 +467,16 @@ public class EnemyCharacter extends AbstractCharacter {
 				stance = Stance.BALANCED;
 				return getPossibleTechniques(target, stance);
 			case DOGGY_BOTTOM:
-				if (struggle <= 0) {
-					return getTechniques(target, RECEIVE_DOGGY);
-				}
 				return getTechniques(target, RECEIVE_DOGGY);
 			case ANAL_BOTTOM:
-				if (struggle <= 0) {
-					return getTechniques(target, RECEIVE_ANAL);
-				}
 				return getTechniques(target, RECEIVE_ANAL);
 			case PRONE_BONE_BOTTOM:
-				if (struggle <= 0) {
-					return getTechniques(target, RECEIVE_PRONE_BONE);
-				}
 				return getTechniques(target, RECEIVE_PRONE_BONE);
 			case FELLATIO_BOTTOM:
-				if (struggle <= 0) {
-					return getTechniques(target, SUCK_IT);
-				}
 				return getTechniques(target, SUCK_IT);
 			case FACEFUCK_BOTTOM:
-				if (struggle <= 0) {
-					return getTechniques(target, GET_FACEFUCKED);
-				}
 				return getTechniques(target, GET_FACEFUCKED);
 			case OUROBOROS_BOTTOM:
-				if (struggle <= 0) {
-					return getTechniques(target, RECEIVE_OUROBOROS);
-				}
 				return getTechniques(target, RECEIVE_OUROBOROS);
 			case COWGIRL_BOTTOM:
 				return getTechniques(target, RIDE_ON_IT, BOUNCE_ON_IT, SQUEEZE_IT);
@@ -515,7 +485,6 @@ public class EnemyCharacter extends AbstractCharacter {
 			case HOLDING:
 				return getTechniques(target, OGRE_SMASH);
 			case CRUSHING:
-				lust++;
 				if (lust > 28) {
 					return getTechniques(target, ERUPT_ANAL);
 				}

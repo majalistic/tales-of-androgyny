@@ -61,7 +61,6 @@ public abstract class AbstractCharacter extends Actor {
 	protected int fortune;
 	
 	protected int lust; 
-	protected int struggle;
 	protected int knotInflate;
 	
 	protected Weapon weapon;
@@ -85,6 +84,7 @@ public abstract class AbstractCharacter extends Actor {
 	
 	protected Stance stance;
 	protected Stance oldStance;
+	protected GrappleStatus grappleStatus;
 	public ObjectMap<String, Integer> statuses; // status effects will be represented by a map of Enum to Status object
 	
 	protected Array<Item> inventory;
@@ -113,9 +113,9 @@ public abstract class AbstractCharacter extends Actor {
 			stability = Stability.Surefooted;
 			focus = fortune = 10;
 			stance = Stance.BALANCED;
-			setStruggleToMin();
 			phallus = PhallusType.NORMAL;
 			statuses = new ObjectMap<String, Integer>();
+			grappleStatus = GrappleStatus.NULL;
 		}
 	}
 	
@@ -330,6 +330,10 @@ public abstract class AbstractCharacter extends Actor {
 		return stance.isIncapacitatingOrErotic();
 	}
 	
+	protected boolean hasGrappleAdvantage() {
+		return grappleStatus.isAdvantage();
+	}
+	
 	public Attack doAttack(Attack resolvedAttack) {
 		
 		int bleedDamage = getBloodLossDamage();
@@ -459,8 +463,9 @@ public abstract class AbstractCharacter extends Actor {
 	
 	public Array<Array<String>> receiveAttack(Attack attack) {
 		Array<String> result = attack.getMessages();
-		
 		boolean knockedDown = false;
+		grappleStatus = attack.getGrapple();
+		
 		if (attack.isSuccessful()) {
 			if (attack.getForceStance() == Stance.DOGGY_BOTTOM && bootyliciousness != null)
 				result.add("They slap their hips against your " + bootyliciousness.toString().toLowerCase() + " booty!");
@@ -469,12 +474,6 @@ public abstract class AbstractCharacter extends Actor {
 				result.add(attack.getUser() + " used " + attack.getName() +  " on " + (secondPerson ? label.toLowerCase() : label) + "!");
 			}
 			
-			int grapple = attack.getGrapple();
-			setStruggle(grapple);
-			
-			if (attack.isClimax()) {
-				setStruggleToMin();
-			}
 			if (attack.getForceStance() == Stance.BALANCED) {
 				result.add(attack.getUser() + " broke free!");
 				if (stance == Stance.FELLATIO_BOTTOM) {
@@ -490,7 +489,7 @@ public abstract class AbstractCharacter extends Actor {
 					result.add("It pops out of your ass and you get to your feet!");
 				}
 			}
-			
+	
 			int damage = attack.getDamage();
 			if (!attack.ignoresArmor()) {
 				damage -= getDefense();
@@ -901,18 +900,6 @@ public abstract class AbstractCharacter extends Actor {
 	protected String properCase(String sample) {
 		return sample.substring(0, 1).toUpperCase() + sample.substring(1);
 	}
-	
-	protected void setStruggle(int struggle) {
-		if (this.struggle == -1) this.struggle = struggle;
-	}
-	
-	protected void struggle(int amountToStruggle) {
-		if (this.struggle != -1) struggle = Math.max(0, struggle - amountToStruggle);
-	}
-	
-	protected void setStruggleToMin() {
-		struggle = -1;
-	}
 		
 	protected enum PhallusType {
 		SMALL(AssetEnum.SMALL_DONG_0, AssetEnum.SMALL_DONG_1, AssetEnum.SMALL_DONG_2),
@@ -1025,4 +1012,6 @@ public abstract class AbstractCharacter extends Actor {
 		public String getReflexive() { return reflexive; }
 		
 	}
+	// should be removed - pass this into character state
+	protected GrappleStatus getGrappleStatus() { return grappleStatus; }
 }
