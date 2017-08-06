@@ -110,6 +110,7 @@ public class Battle extends Group{
 	private final Label enemyArmorLabel;
 	private final Label bloodLabel;
 	private final Label enemyBloodLabel;
+	private final Label grappleStatus;
 	
 	private final AssetDescriptor<Music> musicPath;
 	
@@ -172,6 +173,8 @@ public class Battle extends Group{
 		characterHealth = initBar(0, 1, .05f, false, skin, 350, character.getHealthPercent(), barX , 1035);
 		healthIcon = initImage(assetManager.get(character.getHealthDisplay()), barX+3, 1042.5f);
 		healthLabel = initLabel(character.getCurrentHealth() + " / " + character.getMaxHealth(), skin, Color.BROWN, barX + 75, 1038);
+		
+		grappleStatus = initLabel(character.getGrappleStatus().getLabel(), skin, Color.GOLD, 800, 1000);
 		
 		characterStamina = initBar(0, 1, .05f, false, skin, 350, character.getStaminaPercent(), barX, 990);
 		staminaIcon = initImage(assetManager.get(character.getStaminaDisplay()), barX + 7.5f, 997.5f);
@@ -642,6 +645,7 @@ public class Battle extends Group{
 		enemyStamina.setValue(enemy.getStaminaPercent());
 		enemyBalance.setValue(enemy.getBalancePercent());
 		healthLabel.setText(character.getCurrentHealth() + " / " + character.getMaxHealth());
+		grappleStatus.setText(character.getGrappleStatus().getLabel());
 		staminaLabel.setText(character.getCurrentStamina() + " / " + character.getMaxStamina());
 		balanceLabel.setText(character.getStability());
 		enemyHealthLabel.setText(enemy.getCurrentHealth() + " / " + enemy.getMaxHealth());

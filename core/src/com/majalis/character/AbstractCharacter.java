@@ -141,6 +141,8 @@ public abstract class AbstractCharacter extends Actor {
 	
 	public void setStance(Stance stance) { this.stance = stance; }
 	
+	public GrappleStatus getGrappleStatus() { return grappleStatus; } // should be passed into character state
+	
 	public int getCurrentHealth() { return currentHealth; }
 	
 	public int getCurrentStamina() { return currentStamina; }
@@ -1012,6 +1014,4 @@ public abstract class AbstractCharacter extends Actor {
 		public String getReflexive() { return reflexive; }
 		
 	}
-	// should be removed - pass this into character state
-	protected GrappleStatus getGrappleStatus() { return grappleStatus; }
 }

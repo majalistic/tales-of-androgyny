@@ -2,15 +2,20 @@ package com.majalis.character;
 
 
 public enum GrappleStatus {
-	NULL,
-	HOLD,
-	DOMINANT,
-	ADVANTAGE,
-	SCRAMBLE,
-	DISADVANTAGE,
-	SUBMISSION,
-	HELD
+	NULL (""),
+	HOLD ("Grapple: Holding"),
+	DOMINANT("Grapple: Dominant"),
+	ADVANTAGE("Grapple: Advantage"),
+	SCRAMBLE("Grapple: Scramble"),
+	DISADVANTAGE("Grapple: Disadvantage"),
+	SUBMISSION("Grapple: Submission"),
+	HELD("Grapple: Held")
 	;
+	private final String label;
+	private GrappleStatus(String label) {
+		this.label = label;
+	}
+	public String getLabel() { return label; }
 	
 	protected GrappleStatus inverse() {
 		return this == NULL ? NULL : GrappleStatus.values()[((GrappleStatus.values().length - 1) - this.ordinal()) + 1];
