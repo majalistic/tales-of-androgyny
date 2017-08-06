@@ -335,7 +335,6 @@ public abstract class AbstractCharacter extends Actor {
 	}
 	
 	public Attack doAttack(Attack resolvedAttack) {
-		
 		int bleedDamage = getBloodLossDamage();
 		if (bleedDamage > 0) {
 			resolvedAttack.addMessage(label + (secondPerson ? " bleed" : " bleeds") + " out for " + getBloodLossDamage() + " damage!");
@@ -507,6 +506,7 @@ public abstract class AbstractCharacter extends Actor {
 			
 			int knockdown = attack.getForce();
 			knockdown -= getTraction();
+			
 			if (knockdown > 0) {
 				if (!alreadyIncapacitated()) {
 					modStability(-knockdown);
@@ -618,7 +618,7 @@ public abstract class AbstractCharacter extends Actor {
 				}
 				// you blacked out
 				else if (currentStamina <= 0) {
-					result.add(label + " runs out of breath and " + (secondPerson ? "collapse" : "collapses") + "!");
+					result.add(label + (secondPerson ? " run " : " runs ") + "out of breath and " + (secondPerson ? "collapse" : "collapses") + "!");
 					stance = Stance.KNEELING;
 					stability = Stability.Teetering;
 				}
@@ -631,8 +631,8 @@ public abstract class AbstractCharacter extends Actor {
 					setStabilityToMin();
 				}
 				// you blacked out
-				else if (currentStamina <= 0) {
-					result.add(label + " runs out of breath and " + (secondPerson ? "collapse" : "collapses") + "!");
+				else if (currentStamina <= 0 && grappleStatus == GrappleStatus.NULL) {
+					result.add(label + (secondPerson ? " run " : " runs ") + "out of breath and " + (secondPerson ? "collapse" : "collapses") + "!");
 					stance = Stance.SUPINE;
 					setStabilityToMin();
 				}

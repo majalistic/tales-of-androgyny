@@ -26,7 +26,6 @@ public class EnemyCharacter extends AbstractCharacter {
 	private String imagePath;
 	private ObjectMap<String, Array<String>> textureImagePaths;
 	private String bgPath;
-	private int holdLength;
 	private ObjectMap <String, Integer> climaxCounters;
 	
 	private transient Array<AnimatedActor> animations;
@@ -366,8 +365,7 @@ public class EnemyCharacter extends AbstractCharacter {
 			case KNEELING:
 				return getTechniques(target, STAND_UP, STAY_KNELT);
 			case FULL_NELSON:
-				if (holdLength > 2) {
-					holdLength = 0;
+				if (grappleStatus == GrappleStatus.HOLD) {
 					if (enemyType == EnemyEnum.SPIDER) {
 						return getTechniques(target, OVIPOSITION);
 					}
@@ -375,10 +373,12 @@ public class EnemyCharacter extends AbstractCharacter {
 						return getTechniques(target, PENETRATE_STANDING);
 					}
 				}
-				else {
-					holdLength++;
+				if (currentStamina > 4) {
+					return getTechniques(target, GRIP);
 				}
-				return getTechniques(target, HOLD);
+				else {
+					return getTechniques(target, HOLD);
+				}
 			case FACE_SITTING:
 				if (isErect()) {
 					return getTechniques(target, SITTING_ORAL);
@@ -534,7 +534,7 @@ public class EnemyCharacter extends AbstractCharacter {
 			else if (enemyType == EnemyEnum.HARPY) {
 				possibleTechniques.add(FLY);
 			}
-			else if (target.stance.receivesMediumAttacks() && enemyType == EnemyEnum.BRIGAND || enemyType == EnemyEnum.SPIDER) {
+			else if (stance != Stance.FULL_NELSON && target.stance.receivesMediumAttacks() && enemyType == EnemyEnum.BRIGAND || enemyType == EnemyEnum.SPIDER || (enemyType == EnemyEnum.ORC && weapon == null)) {
 				possibleTechniques.add(FULL_NELSON);
 			}
 		}

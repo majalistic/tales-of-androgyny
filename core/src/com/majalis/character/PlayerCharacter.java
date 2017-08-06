@@ -231,7 +231,10 @@ public class PlayerCharacter extends AbstractCharacter {
 			case AIRBORNE:
 				return getTechniques(target, JUMP_ATTACK, VAULT_OVER);
 			case FULL_NELSON_BOTTOM:
-				if (hasGrappleAdvantage()) {
+				if (currentStamina <= 0) {
+					return getTechniques(target, SUBMIT);
+				}
+				else if (hasGrappleAdvantage()) {
 					return getTechniques(target, SUBMIT, BREAK_FREE_FULL_NELSON);
 				}
 				return getTechniques(target, SUBMIT, STRUGGLE_FULL_NELSON);
