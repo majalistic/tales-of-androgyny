@@ -91,8 +91,7 @@ public class EnemyCharacter extends AbstractCharacter {
 	@Override
 	public Attack doAttack(Attack resolvedAttack) {
 		if (stance == Stance.FELLATIO && enemyType == EnemyEnum.HARPY) {
-			currentFrame++;
-			if (currentFrame == 4) currentFrame = 0;
+			if (currentFrame == 3) currentFrame = 0; else currentFrame++;
 		}
 		
 		if (oldStance.isOralPenetration() && !stance.isOralPenetration()) {
