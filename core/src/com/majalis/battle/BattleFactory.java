@@ -2,9 +2,6 @@ package com.majalis.battle;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.majalis.asset.AssetEnum;
@@ -25,14 +22,10 @@ public class BattleFactory {
 	private final SaveService saveService;
 	private final LoadService loadService;
 	private final AssetManager assetManager;
-	private final BitmapFont font;
-	public BattleFactory(SaveManager saveManager, AssetManager assetManager, FreeTypeFontGenerator fontGenerator) {
+	public BattleFactory(SaveManager saveManager, AssetManager assetManager) {
 		this.saveService = saveManager;
 		this.loadService = saveManager;
 		this.assetManager = assetManager;
-		FreeTypeFontParameter fontParameter = new FreeTypeFontParameter();
-	    fontParameter.size = 24;
-	    font = fontGenerator.generateFont(fontParameter);
 	}
 	
 	public Battle getBattle(BattleAttributes battleAttributes, PlayerCharacter playerCharacter) {
@@ -68,7 +61,7 @@ public class BattleFactory {
 		@SuppressWarnings("unchecked")
 		Array<String> console = (Array<String>) loadService.loadDataValue(SaveEnum.CONSOLE, Array.class);
 		return new Battle(
-			saveService, assetManager, font, playerCharacter, enemy, battleAttributes.getOutcomes(), 
+			saveService, assetManager, playerCharacter, enemy, battleAttributes.getOutcomes(), 
 			new BackgroundBuilder((Texture)assetManager.get(enemy.getBGPath())).build(), new BackgroundBuilder(assetManager.get(AssetEnum.BATTLE_UI.getTexture())).build(),
 			console.size > 0 ? console.get(0) : "", console.size > 1 ? console.get(1) : "", battleAttributes.getMusic()
 		);

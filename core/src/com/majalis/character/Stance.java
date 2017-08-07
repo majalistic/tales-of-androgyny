@@ -88,6 +88,44 @@ public enum Stance {
 		receivesLowAttacks = receivesLow;
 	}
 		
+	public String getLabel() {
+		switch (this) {
+			case ANAL: return "Missionary";
+			case ANAL_BOTTOM: return "Missionary (Receptive)";
+			case COWGIRL_BOTTOM: return "Face Sat On";
+			case DOGGY: return "Doggy Style";
+			case DOGGY_BOTTOM: return "Doggy Style (Receptive)";
+			case FACEFUCK_BOTTOM: return "Facefucked";
+			case FACE_SITTING_BOTTOM: return "Face Sat On";
+			case FELLATIO_BOTTOM: return "Fellatio (Receptive)";
+			case FULL_NELSON_BOTTOM: return "Full Nelsoned";
+			case HANDY_BOTTOM: return "Giving Handy";
+			case KNOTTED: return "Knotting";
+			case KNOTTED_BOTTOM: return "Knotted";
+			case OUROBOROS_BOTTOM: return "Upside Down";
+			case OVIPOSITION: return "Ovipositing";
+			case OVIPOSITION_BOTTOM: return "Oviposited";
+			case PRONE_BONE_BOTTOM: return "Prone Bone (Receptive)";
+			case REVERSE_COWGIRL_BOTTOM: return "Riding Cowgirl";
+			case SIXTY_NINE_BOTTOM: return "Sixty Nine (Bottom)";
+			case STANDING: return "Standing Anal";
+			case STANDING_BOTTOM: return "Standing Anal (Receptive)";
+			default: break;
+		}
+		char[] chars = super.toString().replace("_", " ").toLowerCase().toCharArray();
+		boolean found = false;
+		for (int i = 0; i < chars.length; i++) {
+			if (!found && Character.isLetter(chars[i])) {
+				chars[i] = Character.toUpperCase(chars[i]);
+				found = true;
+		    } 
+			else if (Character.isWhitespace(chars[i])) {
+				found = false;
+		    }
+		}		
+		return String.valueOf(chars);
+	}
+	
 	public AssetDescriptor<Texture> getTexture() { return asset.getTexture(); }
 	public boolean isErotic() { return isEroticReceptive() || isEroticPenetration(); }	
 	public boolean isEroticReceptive() { return type == StanceType.ANAL_BOTTOM || type == StanceType.ORAL_BOTTOM || type == StanceType.HANDJOB_BOTTOM || type == StanceType.FACESIT_BOTTOM; }

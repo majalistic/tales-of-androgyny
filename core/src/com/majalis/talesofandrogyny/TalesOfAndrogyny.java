@@ -63,7 +63,7 @@ public class TalesOfAndrogyny extends Game {
                 super.draw(texture, spriteVertices, offset, count);
             }
         };
-		init(new ScreenFactoryImpl(this, assetManager, saveManager, new GameWorldFactory(saveManager, assetManager, random), new EncounterFactory(encounterReader, assetManager, saveManager), new BattleFactory(saveManager, assetManager, fontGenerator), batch, fontGenerator));
+		init(new ScreenFactoryImpl(this, assetManager, saveManager, new GameWorldFactory(saveManager, assetManager, random), new EncounterFactory(encounterReader, assetManager, saveManager), new BattleFactory(saveManager, assetManager), batch, fontGenerator));
 	}
 	/*
 	 * Takes a factory implementation and uses it to generate a screen and switch to it

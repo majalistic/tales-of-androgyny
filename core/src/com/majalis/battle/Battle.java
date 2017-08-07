@@ -131,10 +131,9 @@ public class Battle extends Group{
 	private boolean uiHidden;
 	private boolean onload = true;
 	
-	public Battle(SaveService saveService, AssetManager assetManager, BitmapFont font, PlayerCharacter character, EnemyCharacter enemy, ObjectMap<String, Integer> outcomes, Background battleBackground, Background battleUI, String consoleText, String dialogText, AssetDescriptor<Music> musicPath) {
+	public Battle(SaveService saveService, AssetManager assetManager, PlayerCharacter character, EnemyCharacter enemy, ObjectMap<String, Integer> outcomes, Background battleBackground, Background battleUI, String consoleText, String dialogText, AssetDescriptor<Music> musicPath) {
 		this.saveService = saveService;
 		this.assetManager = assetManager;
-		this.font = font;
 		this.character = character;
 		this.enemy = enemy;
 		this.outcomes = outcomes;
@@ -162,6 +161,8 @@ public class Battle extends Group{
 		
 		skin = assetManager.get(AssetEnum.BATTLE_SKIN.getSkin());
 		
+		this.font = skin.getFont("default-font");
+				
 		float barX = 195;
 		float enemyBarX = 1500;
 		float hoverXPos = 330; 
@@ -907,11 +908,13 @@ public class Battle extends Group{
 		@Override
 	    public void draw(Batch batch, float parentAlpha) {
 			super.draw(batch, parentAlpha);
-			batch.draw(getStanceImage(character.getStance()), getX(), getY(), getWidth(), getHeight());
+			Stance stance = character.getStance();
+			String stanceName = stance.getLabel();
+			batch.draw(getStanceImage(stance), getX(), getY(), getWidth(), getHeight());
 			if (hover) {
-				batch.draw(hoverBox, getX() + 25 - (character.getStance().name().length() * 5), getY() - 75, 50 + character.getStance().name().length() * 15, 50);
+				batch.draw(hoverBox, getX() + 50 - (stanceName.length() * 9), getY() - 75, 25 + stanceName.length() * 18, 50);
 				font.setColor(Color.BLACK);
-				font.draw(batch, character.getStance().name(), getX() + getWidth()/6, getY() - 40, 100, Align.center, false);
+				font.draw(batch, stanceName, getX() + getWidth()/6, getY() - 40, 100, Align.center, false);
 			}
 	    }
 	}

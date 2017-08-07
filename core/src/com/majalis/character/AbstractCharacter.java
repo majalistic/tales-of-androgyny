@@ -577,7 +577,7 @@ public abstract class AbstractCharacter extends Actor {
 			Stance forcedStance = attack.getForceStance();
 			if (forcedStance != null) {
 				if (stance != forcedStance) { 
-					result.add(label + (secondPerson ? " are " : " is ") + "forced into " + forcedStance.toString() + " stance!");
+					result.add(label + (secondPerson ? " are " : " is ") + "forced into " + forcedStance.getLabel() + " stance!");
 					stance = forcedStance;
 					if (forcedStance == Stance.PRONE || forcedStance == Stance.SUPINE) {
 						setStabilityToMin();
@@ -824,7 +824,7 @@ public abstract class AbstractCharacter extends Actor {
 		if (newStance.isNull() || (oldStance != null && oldStance == newStance)) {
 			return "";
 		}
-		String stanceTransform = newStance.toString();
+		String stanceTransform = newStance.getLabel();
 		String vowels = "aeiou";
 		String article = vowels.indexOf(Character.toLowerCase(stanceTransform.charAt(0))) != -1 ? "an" : "a";
 		return label + " adopt" + (secondPerson ? "" : "s") + " " + article + " " + stanceTransform + " stance! ";
