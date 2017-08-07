@@ -882,7 +882,7 @@ public class Battle extends Group{
 		return outcomes.get(outcome.toString());
 	}
 	
-	private class StanceActor extends Actor{
+	private class StanceActor extends Actor {
 		
 		private final AbstractCharacter character;
 		private final Texture hoverBox;
@@ -909,9 +909,9 @@ public class Battle extends Group{
 			super.draw(batch, parentAlpha);
 			batch.draw(getStanceImage(character.getStance()), getX(), getY(), getWidth(), getHeight());
 			if (hover) {
-				batch.draw(hoverBox, getX() - 45, getY() - 60, getWidth() + 100, 40);
+				batch.draw(hoverBox, getX() + 25 - (character.getStance().name().length() * 5), getY() - 75, 50 + character.getStance().name().length() * 15, 50);
 				font.setColor(Color.BLACK);
-				font.draw(batch, character.getStance().name(), getX(), getY() - 30, 100, Align.center, false);
+				font.draw(batch, character.getStance().name(), getX() + getWidth()/6, getY() - 40, 100, Align.center, false);
 			}
 	    }
 	}
