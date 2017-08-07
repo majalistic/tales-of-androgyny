@@ -359,8 +359,11 @@ public class EnemyCharacter extends AbstractCharacter {
 				}
 				return getTechniques(target, ITEM_OR_CANCEL);
 			case PRONE:
+				return getTechniques(target, KIP_UP, STAND_UP, KNEE_UP, PUSH_UP, REST_FACE_DOWN, ROLL_OVER_UP);
 			case SUPINE:
-				return enemyType == EnemyEnum.OGRE ? getTechniques(target, STAND_UP, KNEE_UP, stance == Stance.PRONE ? REST_FACE_DOWN : REST) : getTechniques(target, KIP_UP, STAND_UP, KNEE_UP, stance == Stance.PRONE ? REST_FACE_DOWN : REST);
+				return getTechniques(target, KIP_UP, STAND_UP, KNEE_UP, REST, ROLL_OVER_DOWN);
+			case HANDS_AND_KNEES:
+				return getTechniques(target, KNEE_UP_HANDS, STAND_UP_HANDS, STAY);
 			case KNEELING:
 				return getTechniques(target, STAND_UP, STAY_KNELT);
 			case FULL_NELSON:
@@ -515,11 +518,10 @@ public class EnemyCharacter extends AbstractCharacter {
 		}
 		
 		if (willPounce() && enemyType != EnemyEnum.OGRE) {
-			if (target.stance == Stance.PRONE ) {
+			if (target.stance == Stance.PRONE && enemyType.canProneBone()) {
+			}
+			else if (target.stance == Stance.HANDS_AND_KNEES) {
 				possibleTechniques = getTechniques(target, POUNCE_DOGGY);
-				if (enemyType.canProneBone()) {
-					possibleTechniques.addAll(getTechniques(target, POUNCE_PRONE_BONE));
-				}
 			}
 			else if (target.stance == Stance.SUPINE && enemyType != EnemyEnum.CENTAUR) {
 				possibleTechniques = getTechniques(target, enemyType == EnemyEnum.GOBLIN || enemyType == EnemyEnum.GOBLIN_MALE || enemyType == EnemyEnum.HARPY ? MOUNT_FACE : POUNCE_ANAL);

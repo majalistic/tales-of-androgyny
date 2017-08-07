@@ -124,11 +124,11 @@ public class PlayerCharacter extends AbstractCharacter {
 		ObjectSet<Techniques> baseTechniques = new ObjectSet<Techniques>();
 		baseTechniques.addAll(
 			DO_NOTHING, POWER_ATTACK, TEMPO_ATTACK, RESERVED_ATTACK, DUCK, SPRING_ATTACK, NEUTRAL_ATTACK, REVERSAL_ATTACK, CAREFUL_ATTACK, BLOCK, GUARD,
-			KIP_UP, STAND_UP, STAY_KNELT, KNEE_UP, REST_FACE_DOWN, REST, JUMP_ATTACK, VAULT_OVER,
+			PUSH_UP, KNEE_UP_HANDS, STAY, STAND_UP_HANDS, KIP_UP, STAND_UP, STAY_KNELT, KNEE_UP, REST_FACE_DOWN, REST, JUMP_ATTACK, VAULT_OVER,
 			RECEIVE_ANAL, RECEIVE_DOGGY, RECEIVE_STANDING, STRUGGLE_ORAL, STRUGGLE_DOGGY, STRUGGLE_ANAL, STRUGGLE_STANDING, RECEIVE_KNOT, SUCK_IT, BREAK_FREE_ANAL, BREAK_FREE_ORAL,
 			SUBMIT, STRUGGLE_FULL_NELSON, BREAK_FREE_FULL_NELSON, STRUGGLE_PRONE_BONE, STRUGGLE_DOGGY,
 			OPEN_WIDE, GRAB_IT, STROKE_IT, LET_GO, USE_ITEM, ITEM_OR_CANCEL,
-			RECIPROCATE_FORCED, GET_FACE_RIDDEN, STRUGGLE_FACE_SIT, STRUGGLE_SIXTY_NINE, BREAK_FREE_FACE_SIT, ROLL_OVER_UP, ROLL_OVER_DOWN, RIPOSTE, EN_GARDE, POUNCE_DOGGY, POUND_DOGGY, POUNCE_ANAL, POUND_ANAL, ERUPT_ANAL, PULL_OUT, PULL_OUT_ORAL, PULL_OUT_ANAL, PULL_OUT_STANDING, RECEIVE_COCK, HURK, UH_OH,
+			RECIPROCATE_FORCED, GET_FACE_RIDDEN, STRUGGLE_FACE_SIT, STRUGGLE_SIXTY_NINE, BREAK_FREE_FACE_SIT, ROLL_OVER_UP, ROLL_OVER_DOWN, RIPOSTE, EN_GARDE, POUNCE_DOGGY, POUND_DOGGY, POUNCE_ANAL, POUND_ANAL, POUNCE_PRONE_BONE, POUND_PRONE_BONE, ERUPT_ANAL, PULL_OUT, PULL_OUT_ORAL, PULL_OUT_ANAL, PULL_OUT_STANDING, RECEIVE_COCK, HURK, UH_OH,
 			FORCE_DEEPTHROAT, CRUSH_ASS, BOUNCE_ON_IT, SQUEEZE_IT, BE_RIDDEN, PUSH_OFF, SELF_SPANK, POUT, DEEPTHROAT, WRAP_LEGS, PUSH_OFF_ATTEMPT, RIDE_ON_IT_REVERSE, BOUNCE_ON_IT_REVERSE, SQUEEZE_IT_REVERSE, RECEIVE_PRONE_BONE, BE_RIDDEN_REVERSE, PUSH_OFF_REVERSE, PUSH_OFF_ATTEMPT_REVERSE,
 			OUROBOROS, ROUND_AND_ROUND, RECEIVE_OUROBOROS, STRUGGLE_OUROBOROS, MOUNT_FACE, FACEFUCK, GET_FACEFUCKED, STRUGGLE_FACEFUCK, RECEIVE_EGGS, ERUPT_ORAL
 		);
@@ -198,8 +198,11 @@ public class PlayerCharacter extends AbstractCharacter {
 				if (target.getStance() == Stance.SUPINE && target.isErect() && target.enemyType.canBeRidden()) {
 					possibles.addAll(getTechniques(target, SIT_ON_IT, TURN_AND_SIT));
 				}
-				if (target.stance == Stance.PRONE && isErect() && target.enemyType.isPounceable()) {
+				if (target.stance == Stance.HANDS_AND_KNEES && isErect() && target.enemyType.isPounceable()) {
 					possibles.addAll(getTechniques(target, POUNCE_DOGGY));
+				}
+				else if (target.stance == Stance.PRONE && isErect() && target.enemyType.isPounceable()) {
+					possibles.addAll(getTechniques(target, POUNCE_PRONE_BONE));
 				}
 				else if (target.stance == Stance.SUPINE && isErect() && target.enemyType.isPounceable()) {
 					possibles.addAll(getTechniques(target, POUNCE_ANAL, MOUNT_FACE));
@@ -220,8 +223,11 @@ public class PlayerCharacter extends AbstractCharacter {
 			case DEFENSIVE:
 				return getTechniques(target, REVERSAL_ATTACK, CAREFUL_ATTACK, GUARD, TAUNT, SECOND_WIND, PARRY, INCANTATION, DUCK);
 			case PRONE:
+				return getTechniques(target, KIP_UP, STAND_UP, KNEE_UP, PUSH_UP, REST_FACE_DOWN, ROLL_OVER_UP);
 			case SUPINE:
-				return getTechniques(target, KIP_UP, STAND_UP, KNEE_UP, stance == Stance.PRONE ? REST_FACE_DOWN : REST, stance == Stance.PRONE ? ROLL_OVER_UP : ROLL_OVER_DOWN);
+				return getTechniques(target, KIP_UP, STAND_UP, KNEE_UP, REST, ROLL_OVER_DOWN);
+			case HANDS_AND_KNEES:
+				return getTechniques(target, KNEE_UP_HANDS, STAND_UP_HANDS, STAY);
 			case KNEELING:
 				possibles = getTechniques(target, UPPERCUT, STAND_UP, STAY_KNELT);
 				if (target.isErect() && target.enemyType != EnemyEnum.SLIME && target.enemyType.isPounceable()) {

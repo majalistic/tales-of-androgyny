@@ -13,6 +13,7 @@ public enum Stance {
 	STONEWALL (AssetEnum.BALANCED),
 	PRONE (StanceType.INCAPACITATED, AssetEnum.PRONE, false, false, true),
 	SUPINE (StanceType.INCAPACITATED, AssetEnum.SUPINE, false, false, true),
+	HANDS_AND_KNEES (StanceType.INCAPACITATED, AssetEnum.HANDS_AND_KNEES, false, false, true), // need a new asset
 	KNEELING (AssetEnum.KNEELING, false, true, true),
 	AIRBORNE (AssetEnum.AIRBORNE, true, false, false), 
 	CASTING (AssetEnum.CASTING),
