@@ -152,9 +152,9 @@ public enum Techniques {
 	
 	RECEIVE_DOGGY		(new EroticTechnique(Stance.DOGGY_BOTTOM, Stance.DOGGY_BOTTOM, "Receive", -1, 0, "Take it up the butt.").build()), 
 	RECEIVE_PRONE_BONE	(new EroticTechnique(Stance.PRONE_BONE_BOTTOM, Stance.PRONE_BONE_BOTTOM, "Receive", -1, 0, "Take it up the butt.").build()), 
-	SELF_SPANK			(new EroticTechnique(Stance.DOGGY_BOTTOM, Stance.DOGGY_BOTTOM, "Self Spank", -1, 0, "Spank your own ass as a taunt.").build()), 
+	SELF_SPANK			(new EroticTechnique(Stance.DOGGY_BOTTOM, Stance.DOGGY_BOTTOM, "Self Spank", -1, 0, "Spank your own ass as a taunt.", true).build()), 
 	RECEIVE_ANAL		(new EroticTechnique(Stance.ANAL_BOTTOM, Stance.ANAL_BOTTOM, "Receive", -1, 0, "Take it face to face.").build()), 
-	WRAP_LEGS			(new EroticTechnique(Stance.ANAL_BOTTOM, Stance.ANAL_BOTTOM, "Wrap Legs", -1, 0, "Wrap your legs around them.").build()), 
+	WRAP_LEGS			(new EroticTechnique(Stance.ANAL_BOTTOM, Stance.ANAL_BOTTOM, "Wrap Legs", -1, 0, "Wrap your legs around them.", true).build()), 
 	POUT				(new EroticTechnique(Stance.ANAL_BOTTOM, Stance.ANAL_BOTTOM, "Pout", -1, 0, "Make a pathetic face.").build()), 
 	RECEIVE_STANDING	(new EroticTechnique(Stance.STANDING_BOTTOM, Stance.STANDING_BOTTOM, "Receive", -1, 0, "Take it up the butt.").build()), 
 	RECIPROCATE_FORCED	(new EroticTechnique(Stance.SIXTY_NINE_BOTTOM, Stance.SIXTY_NINE_BOTTOM, "Reciprocate", -1, 0, "Give head and take it.").build()), 
