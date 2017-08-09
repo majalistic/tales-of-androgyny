@@ -1005,7 +1005,7 @@
 		"key": "FORAGE-1",
 		"scriptLines": [
 			{
-			"mutations": [{"saveType":"FOOD", "value":{"class": "java.lang.Integer", "value": 8}}, {"saveType":"TIME", "value":{"class": "java.lang.Integer", "value": 1}}],
+			"mutations": [{"saveType":"FOOD", "value":{"class": "java.lang.Integer", "value": 12}}, {"saveType":"TIME", "value":{"class": "java.lang.Integer", "value": 1}}],
 			"text": "You find some berries to eat."}
 		]
 	},
@@ -1013,7 +1013,7 @@
 		"key": "FORAGE-2",
 		"scriptLines": [
 			{
-			"mutations": [{"saveType":"FOOD", "value":{"class": "java.lang.Integer", "value": 6}}, {"saveType":"TIME", "value":{"class": "java.lang.Integer", "value": 1}}],
+			"mutations": [{"saveType":"FOOD", "value":{"class": "java.lang.Integer", "value": 10}}, {"saveType":"TIME", "value":{"class": "java.lang.Integer", "value": 1}}],
 			"text": "You find some small lizards to eat."}
 		]
 	},
@@ -1021,7 +1021,7 @@
 		"key": "FORAGE-3",
 		"scriptLines": [
 			{
-			"mutations": [{"saveType":"FOOD", "value":{"class": "java.lang.Integer", "value": 4}}, {"saveType":"TIME", "value":{"class": "java.lang.Integer", "value": 1}}],
+			"mutations": [{"saveType":"FOOD", "value":{"class": "java.lang.Integer", "value": 8}}, {"saveType":"TIME", "value":{"class": "java.lang.Integer", "value": 1}}],
 			"text": "You catch some fish to eat."}
 		]
 	},
