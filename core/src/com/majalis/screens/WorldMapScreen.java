@@ -410,7 +410,7 @@ public class WorldMapScreen extends AbstractScreen {
 				@Override
 		        public void clicked(InputEvent event, float x, float y) {
 					buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
-					saveService.manualSave("data/save01.json");
+					saveService.manualSave(".toa-data/save01.json");
 					console.setText("Game Saved.");
 					console.addAction(alpha(1));
 					console.addAction(fadeOut(6));

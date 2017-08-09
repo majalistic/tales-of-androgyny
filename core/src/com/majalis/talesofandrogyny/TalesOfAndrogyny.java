@@ -44,7 +44,7 @@ public class TalesOfAndrogyny extends Game {
 			Gdx.graphics.setWindowedMode(prefs.getInteger("width", 1920), prefs.getInteger("height", 1080));
 		}
 		
-		SaveManager saveManager = new SaveManager(false, "data/save.json", "data/profile.json");
+		SaveManager saveManager = new SaveManager(false, ".toa-data/save.json", ".toa-data/profile.json");
 		EncounterReader encounterReader = new EncounterReader("script/encounters.json");
 		AssetManager assetManager = new SafeAssetManager();
 		FileHandleResolver resolver = assetManager.getFileHandleResolver();
