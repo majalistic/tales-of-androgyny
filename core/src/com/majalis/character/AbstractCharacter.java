@@ -627,7 +627,7 @@ public abstract class AbstractCharacter extends Actor {
 			}
 			else {
 				// you tripped
-				if (stability.isDown()) {
+				if (stability.isDown() && grappleStatus == GrappleStatus.NULL) {
 					stance = Stance.PRONE;
 					result.add(label + (secondPerson ? " lose your" : " loses their") + " footing and " + (secondPerson ? "trip" : "trips") + "!");
 					setStabilityToMin();
