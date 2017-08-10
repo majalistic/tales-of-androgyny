@@ -92,7 +92,7 @@ public enum Stance {
 		switch (this) {
 			case ANAL: return "Missionary";
 			case ANAL_BOTTOM: return "Missionary (Receptive)";
-			case COWGIRL_BOTTOM: return "Face Sat On";
+			case COWGIRL_BOTTOM: return "Riding Cowgirl";
 			case DOGGY: return "Doggy Style";
 			case DOGGY_BOTTOM: return "Doggy Style (Receptive)";
 			case FACEFUCK_BOTTOM: return "Facefucked";
@@ -106,7 +106,7 @@ public enum Stance {
 			case OVIPOSITION: return "Ovipositing";
 			case OVIPOSITION_BOTTOM: return "Oviposited";
 			case PRONE_BONE_BOTTOM: return "Prone Bone (Receptive)";
-			case REVERSE_COWGIRL_BOTTOM: return "Riding Cowgirl";
+			case REVERSE_COWGIRL_BOTTOM: return "Riding Reverse Cowgirl";
 			case SIXTY_NINE_BOTTOM: return "Sixty Nine (Bottom)";
 			case STANDING: return "Standing Anal";
 			case STANDING_BOTTOM: return "Standing Anal (Receptive)";
