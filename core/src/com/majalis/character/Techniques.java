@@ -128,7 +128,7 @@ public enum Techniques {
 	PUSH_OFF_ATTEMPT_REVERSE	(new GrappleTechnique(Stance.COWGIRL, Stance.COWGIRL, "Push Off", 4).build()),
 	
 	SIT_ON_IT			(new GrappleTechnique(Stance.BALANCED, Stance.COWGIRL_BOTTOM, "Sit on It", 1, Stance.COWGIRL, "Sit down on it - and yes, it's going right up there.\nDon't say I didn't warn you.").build()), 
-	TURN_AND_SIT		(new GrappleTechnique(Stance.BALANCED, Stance.REVERSE_COWGIRL_BOTTOM, "Turn and Sit", 1, Stance.REVERSE_COWGIRL_BOTTOM, "Turn around and sit on it - and yes, it's going right up there.\nBut at least you'll give 'em a show.").build()), 
+	TURN_AND_SIT		(new GrappleTechnique(Stance.BALANCED, Stance.REVERSE_COWGIRL_BOTTOM, "Turn and Sit", 1, Stance.REVERSE_COWGIRL, "Turn around and sit on it - and yes, it's going right up there.\nBut at least you'll give 'em a show.").build()), 
 	
 	OPEN_WIDE 			(new GrappleTechnique(Stance.HANDY, Stance.FELLATIO_BOTTOM, "Open Wide",  1, Stance.FELLATIO, "Open wide and swallow it down.").build()), 
 	GRAB_IT				(new GrappleTechnique(Stance.KNEELING, Stance.HANDY_BOTTOM, "Grab It", 1, Stance.HANDY, "Grab it.").addBonus(BonusCondition.OUTMANEUVER, BonusType.PRIORITY).build()), 
