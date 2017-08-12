@@ -144,7 +144,7 @@ public class Technique {
 			(technique.getGrappleType() == GrappleType.NULL && (otherTechnique.getGrappleType() == GrappleType.NULL || thisPayload.getPriority() > otherPayload.getPriority())) || 
 			(otherTechnique.getGrappleType() == GrappleType.NULL && (technique.getGrappleType() == GrappleType.NULL || thisPayload.getPriority() < otherPayload.getPriority()))
 			? GrappleStatus.NULL :
-			thisPayload.getGrappleAmount() == otherPayload.getGrappleAmount() ? currentState.getGrappleStatus() :
+			thisPayload.getGrappleAmount() == otherPayload.getGrappleAmount() ? otherPayload.getCurrentGrappleStatus() :
 			thisPayload.getGrappleAmount() > otherPayload.getGrappleAmount() ? thisPayload.getResultingGrappleStatus().inverse() : otherPayload.getResultingGrappleStatus();
 			
 		Array<Attack> resultingAttacks = new Array<Attack>(new Attack[]{new Attack(
@@ -380,6 +380,10 @@ public class Technique {
 			grapple = grappleCalc;
 		}
 		
+		public GrappleStatus getCurrentGrappleStatus() {
+			return currentState.getGrappleStatus();
+		}
+
 		private int getStaminaCost() {
 			return staminaCost;
 		}
