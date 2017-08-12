@@ -183,237 +183,242 @@ public class PlayerCharacter extends AbstractCharacter {
 	
 	// this needs to consolidate logic with the getTechniques method
 	public Array<Technique> getPossibleTechniques(AbstractCharacter target) {
-		Array<Technique> possibles = getPossibleKnownTechniques(target);
-		if (possibles.size == 0) possibles.addAll(getTechniques(target, DO_NOTHING));
+		Techniques[] foo = getPossibleKnownTechniques(target).toArray(Techniques.class);
+		Array<Technique> possibles = getTechniques(target, foo);
+		if (possibles.size == 0) possibles = getTechniques(target, DO_NOTHING);
 		return possibles;
 	}
 	
-	private Array<Technique> getPossibleKnownTechniques(AbstractCharacter target) {
-		Array<Technique> possibles = new Array<Technique>();
+	private Array<Techniques> getPossibleKnownTechniques(AbstractCharacter target) {
+		Array<Techniques> possibles = new Array<Techniques>();
 		switch(stance) {
 			case BLITZ:
-				return getTechniques(target, ALL_OUT_BLITZ, HOLD_BACK);
+				return getTechniques(ALL_OUT_BLITZ, HOLD_BACK);
 			case COUNTER:
-				return getTechniques(target, RIPOSTE, EN_GARDE);
+				return getTechniques(RIPOSTE, EN_GARDE);
 			case OFFENSIVE:
-				possibles = getTechniques(target, BLITZ_ATTACK, POWER_ATTACK, ARMOR_SUNDER, RECKLESS_ATTACK, KNOCK_DOWN, VAULT, FEINT_AND_STRIKE, TEMPO_ATTACK, RESERVED_ATTACK);
+				possibles = getTechniques(BLITZ_ATTACK, POWER_ATTACK, ARMOR_SUNDER, RECKLESS_ATTACK, KNOCK_DOWN, VAULT, FEINT_AND_STRIKE, TEMPO_ATTACK, RESERVED_ATTACK);
 				if (target.getStance() == Stance.SUPINE && target.isErect() && target.enemyType.canBeRidden()) {
-					possibles.addAll(getTechniques(target, SIT_ON_IT, TURN_AND_SIT));
+					possibles.addAll(getTechniques(SIT_ON_IT, TURN_AND_SIT));
 				}
 				if (target.stance == Stance.HANDS_AND_KNEES && isErect() && target.enemyType.isPounceable()) {
-					possibles.addAll(getTechniques(target, POUNCE_DOGGY));
+					possibles.addAll(getTechniques(POUNCE_DOGGY));
 				}
-				else if (target.stance == Stance.PRONE && isErect() && target.enemyType.isPounceable()) {
-					possibles.addAll(getTechniques(target, WRESTLE_TO_GROUND));
+				else if (target.stance == Stance.PRONE && isErect() && target.enemyType.isPounceable() && target.enemyType.canWrestle()) {
+					possibles.addAll(getTechniques(WRESTLE_TO_GROUND));
 				}
 				else if (target.stance == Stance.SUPINE && isErect() && target.enemyType.isPounceable()) {
-					possibles.addAll(getTechniques(target, WRESTLE_TO_GROUND_UP, MOUNT_FACE));
+					if (target.enemyType.canWrestle()) {
+						possibles.addAll(getTechniques(WRESTLE_TO_GROUND_UP, MOUNT_FACE));
+					}
+					else {
+						possibles.addAll(getTechniques(MOUNT_FACE));
+					}
 				}
 				else if (target.stance == Stance.KNEELING && isErect() && target.enemyType.isPounceable()) {
-					possibles.addAll(getTechniques(target, IRRUMATIO));
+					possibles.addAll(getTechniques(IRRUMATIO));
 				}
 				return possibles;
 			case BALANCED:
-				possibles = getTechniques(target, SPRING_ATTACK, NEUTRAL_ATTACK, CAUTIOUS_ATTACK, BLOCK, INCANTATION, SLIDE, DUCK, HIT_THE_DECK);
+				possibles = getTechniques(SPRING_ATTACK, NEUTRAL_ATTACK, CAUTIOUS_ATTACK, BLOCK, INCANTATION, SLIDE, DUCK, HIT_THE_DECK);
 				if (hasItemsToUse()) {
-					possibles.addAll(getTechniques(target, USE_ITEM));
+					possibles.addAll(getTechniques(USE_ITEM));
 				}
 				if (target.getStance() == Stance.SUPINE && target.isErect() && target.enemyType != EnemyEnum.SLIME && target.enemyType != EnemyEnum.CENTAUR && target.enemyType != EnemyEnum.UNICORN) {
-					possibles.addAll(getTechniques(target, SIT_ON_IT, TURN_AND_SIT));
+					possibles.addAll(getTechniques(SIT_ON_IT, TURN_AND_SIT));
 				}
 				return possibles;
 			case DEFENSIVE:
-				return getTechniques(target, REVERSAL_ATTACK, CAREFUL_ATTACK, GUARD, TAUNT, SECOND_WIND, PARRY, INCANTATION, DUCK);
+				return getTechniques(REVERSAL_ATTACK, CAREFUL_ATTACK, GUARD, TAUNT, SECOND_WIND, PARRY, INCANTATION, DUCK);
 			case PRONE:
-				return getTechniques(target, KIP_UP, STAND_UP, KNEE_UP, PUSH_UP, REST_FACE_DOWN, ROLL_OVER_UP);
+				return getTechniques(KIP_UP, STAND_UP, KNEE_UP, PUSH_UP, REST_FACE_DOWN, ROLL_OVER_UP);
 			case SUPINE:
-				return getTechniques(target, KIP_UP, STAND_UP, KNEE_UP, REST, ROLL_OVER_DOWN);
+				return getTechniques(KIP_UP, STAND_UP, KNEE_UP, REST, ROLL_OVER_DOWN);
 			case HANDS_AND_KNEES:
-				return getTechniques(target, KNEE_UP_HANDS, STAND_UP_HANDS, STAY);
+				return getTechniques(KNEE_UP_HANDS, STAND_UP_HANDS, STAY);
 			case KNEELING:
-				possibles = getTechniques(target, UPPERCUT, STAND_UP, STAY_KNELT);
+				possibles = getTechniques(UPPERCUT, STAND_UP, STAY_KNELT);
 				if (target.isErect() && target.enemyType != EnemyEnum.SLIME && target.enemyType.isPounceable()) {
-					possibles.addAll(getTechniques(target, GRAB_IT));
+					possibles.addAll(getTechniques(GRAB_IT));
 				}
 				return possibles;
 			case AIRBORNE:
-				return getTechniques(target, JUMP_ATTACK, VAULT_OVER);
+				return getTechniques(JUMP_ATTACK, VAULT_OVER);
 			case FULL_NELSON_BOTTOM:
 				if (currentStamina <= 0) {
-					return getTechniques(target, SUBMIT);
+					return getTechniques(SUBMIT);
 				}
 				else if (hasGrappleAdvantage()) {
-					return getTechniques(target, SUBMIT, BREAK_FREE_FULL_NELSON);
+					return getTechniques(SUBMIT, BREAK_FREE_FULL_NELSON);
 				}
-				return getTechniques(target, SUBMIT, STRUGGLE_FULL_NELSON);
+				return getTechniques(SUBMIT, STRUGGLE_FULL_NELSON);
 			case DOGGY_BOTTOM:
 				if (hasGrappleAdvantage()) {
-					possibles = getTechniques(target, RECEIVE_DOGGY, BREAK_FREE_ANAL);
+					possibles = getTechniques(RECEIVE_DOGGY, BREAK_FREE_ANAL);
 				}
 				else {
-					possibles = getTechniques(target, RECEIVE_DOGGY, STRUGGLE_DOGGY);
+					possibles = getTechniques(RECEIVE_DOGGY, STRUGGLE_DOGGY);
 				}
 				if (perks.get(Perk.CATAMITE.toString(), 0) > 0 || perks.get(Perk.ANAL_LOVER.toString(), 0) > 1) {
-					possibles.addAll(getTechniques(target, SELF_SPANK));
+					possibles.addAll(getTechniques(SELF_SPANK));
 				}
 				return possibles;
 			case PRONE_BONE_BOTTOM:
 				if (hasGrappleAdvantage()) {
-					possibles = getTechniques(target, RECEIVE_PRONE_BONE, BREAK_FREE_ANAL);
+					possibles = getTechniques(RECEIVE_PRONE_BONE, BREAK_FREE_ANAL);
 				}
 				else {
-					possibles = getTechniques(target, RECEIVE_PRONE_BONE, STRUGGLE_PRONE_BONE);
+					possibles = getTechniques(RECEIVE_PRONE_BONE, STRUGGLE_PRONE_BONE);
 				}
 				return possibles;
 			case ANAL_BOTTOM:
 				if (wrapLegs) {
-					return getTechniques(target, RECEIVE_ANAL);
+					return getTechniques(RECEIVE_ANAL);
 				}
 				if (hasGrappleAdvantage()) {
-					possibles = getTechniques(target, RECEIVE_ANAL, POUT, BREAK_FREE_ANAL);
+					possibles = getTechniques(RECEIVE_ANAL, POUT, BREAK_FREE_ANAL);
 				}
 				else {
-					possibles = getTechniques(target, RECEIVE_ANAL, POUT, STRUGGLE_ANAL);
+					possibles = getTechniques(RECEIVE_ANAL, POUT, STRUGGLE_ANAL);
 				}
 				if (!wrapLegs && (perks.get(Perk.CATAMITE.toString(), 0) > 0 || perks.get(Perk.ANAL_LOVER.toString(), 0) > 1)) {
-					possibles.addAll(getTechniques(target, WRAP_LEGS));
+					possibles.addAll(getTechniques(WRAP_LEGS));
 				}
 				return possibles;
 			case HANDY_BOTTOM:
-				return getTechniques(target, STROKE_IT, LET_GO, OPEN_WIDE);
+				return getTechniques(STROKE_IT, LET_GO, OPEN_WIDE);
 			case STANDING_BOTTOM:
 				if (hasGrappleAdvantage()) {
-					return getTechniques(target, RECEIVE_STANDING, BREAK_FREE_ANAL);
+					return getTechniques(RECEIVE_STANDING, BREAK_FREE_ANAL);
 				}
-				return getTechniques(target, RECEIVE_STANDING, STRUGGLE_STANDING);
+				return getTechniques(RECEIVE_STANDING, STRUGGLE_STANDING);
 			case COWGIRL_BOTTOM:
-				return getTechniques(target, RIDE_ON_IT, BOUNCE_ON_IT, SQUEEZE_IT, STAND_OFF_IT);
+				return getTechniques(RIDE_ON_IT, BOUNCE_ON_IT, SQUEEZE_IT, STAND_OFF_IT);
 			case REVERSE_COWGIRL_BOTTOM:
-				return getTechniques(target, RIDE_ON_IT_REVERSE, BOUNCE_ON_IT_REVERSE, SQUEEZE_IT_REVERSE, STAND_OFF_IT);
+				return getTechniques(RIDE_ON_IT_REVERSE, BOUNCE_ON_IT_REVERSE, SQUEEZE_IT_REVERSE, STAND_OFF_IT);
 			case KNOTTED_BOTTOM:
-				return getTechniques(target, RECEIVE_KNOT);
+				return getTechniques(RECEIVE_KNOT);
 			case OVIPOSITION_BOTTOM:
-				return getTechniques(target, RECEIVE_EGGS);
+				return getTechniques(RECEIVE_EGGS);
 			case FELLATIO_BOTTOM:
 				if (hasGrappleAdvantage()) {
-					possibles = getTechniques(target, SUCK_IT, BREAK_FREE_ORAL);
+					possibles = getTechniques(SUCK_IT, BREAK_FREE_ORAL);
 				}
 				else {
-					possibles = getTechniques(target, SUCK_IT, STRUGGLE_ORAL);
+					possibles = getTechniques(SUCK_IT, STRUGGLE_ORAL);
 				}
 				if (perks.get(Perk.MOUTH_MANIAC.toString(), 0) > 1) {
-					possibles.addAll(getTechniques(target, DEEPTHROAT));
+					possibles.addAll(getTechniques(DEEPTHROAT));
 				}
 				return possibles;
 			case FACEFUCK_BOTTOM:
 				if (hasGrappleAdvantage()) {
-					possibles = getTechniques(target, GET_FACEFUCKED, BREAK_FREE_ORAL);
+					possibles = getTechniques(GET_FACEFUCKED, BREAK_FREE_ORAL);
 				}
 				else {
-					possibles = getTechniques(target, GET_FACEFUCKED, STRUGGLE_FACEFUCK);
+					possibles = getTechniques(GET_FACEFUCKED, STRUGGLE_FACEFUCK);
 				}
 				return possibles;
 			case OUROBOROS_BOTTOM:
 				if (hasGrappleAdvantage()) {
-					possibles = getTechniques(target, RECEIVE_OUROBOROS, BREAK_FREE_ORAL);
+					possibles = getTechniques(RECEIVE_OUROBOROS, BREAK_FREE_ORAL);
 				}
 				else {
-					possibles = getTechniques(target, RECEIVE_OUROBOROS, STRUGGLE_OUROBOROS);
+					possibles = getTechniques(RECEIVE_OUROBOROS, STRUGGLE_OUROBOROS);
 				}
 				return possibles;
 			case FACE_SITTING_BOTTOM:
 				if (hasGrappleAdvantage()) {
-					return getTechniques(target, GET_FACE_RIDDEN, BREAK_FREE_FACE_SIT);
+					return getTechniques(GET_FACE_RIDDEN, BREAK_FREE_FACE_SIT);
 				}
-				return getTechniques(target, GET_FACE_RIDDEN, STRUGGLE_FACE_SIT);
+				return getTechniques(GET_FACE_RIDDEN, STRUGGLE_FACE_SIT);
 			case SIXTY_NINE_BOTTOM:
 				if (hasGrappleAdvantage()) {
-					return getTechniques(target, RECIPROCATE_FORCED, BREAK_FREE_ORAL);
+					return getTechniques(RECIPROCATE_FORCED, BREAK_FREE_ORAL);
 				}
-				return getTechniques(target, RECIPROCATE_FORCED, STRUGGLE_SIXTY_NINE);
+				return getTechniques(RECIPROCATE_FORCED, STRUGGLE_SIXTY_NINE);
 			case HELD:
-				return getTechniques(target, UH_OH);
+				return getTechniques(UH_OH);
 			case SPREAD:
-				return getTechniques(target, RECEIVE_COCK);
+				return getTechniques(RECEIVE_COCK);
 			case PENETRATED:
-				return getTechniques(target, HURK);
+				return getTechniques(HURK);
 			case CASTING:
-				return getTechniques(target, COMBAT_FIRE, COMBAT_HEAL, TITAN_STRENGTH);
+				return getTechniques(COMBAT_FIRE, COMBAT_HEAL, TITAN_STRENGTH);
 			case ITEM:
-				possibles = getConsumableItems(target);
-				possibles.addAll(getTechniques(target, ITEM_OR_CANCEL));
+				possibles.addAll(getTechniques(ITEM_OR_CANCEL));
 				return possibles;
 			case FELLATIO:
 				if (lust > 12) {
-					return getTechniques(target, ERUPT_ORAL);
+					return getTechniques(ERUPT_ORAL);
 				}
 				else {
-					return getTechniques(target, IRRUMATIO, PULL_OUT_ORAL);
+					return getTechniques(IRRUMATIO, PULL_OUT_ORAL);
 				}	
 			case FACEFUCK:
 				if (lust > 12) {
-					return getTechniques(target, ERUPT_ORAL);
+					return getTechniques(ERUPT_ORAL);
 				}
 				else {
-					return getTechniques(target, FACEFUCK, PULL_OUT_ORAL);
+					return getTechniques(FACEFUCK, PULL_OUT_ORAL);
 				}	
 			case OUROBOROS:
 				if (lust > 12) {
-					return getTechniques(target, ERUPT_ORAL);
+					return getTechniques(ERUPT_ORAL);
 				}
 				else {
-					return getTechniques(target, ROUND_AND_ROUND, PULL_OUT_ORAL);
+					return getTechniques(ROUND_AND_ROUND, PULL_OUT_ORAL);
 				}	
 			case GROUND_WRESTLE:
 				if (currentStamina <= 0 || grappleStatus == GrappleStatus.HELD) {
-					return getTechniques(target, REST_WRESTLE);
+					return getTechniques(REST_WRESTLE);
 				}
-				possibles.addAll(getTechniques(target, GRAPPLE, HOLD_WRESTLE, REST_WRESTLE));
-				if (grappleStatus.isAdvantage()) {
-					possibles.addAll(getTechniques(target, PIN));
+				possibles.addAll(getTechniques(GRAPPLE, HOLD_WRESTLE, REST_WRESTLE));
+				if (hasGrappleAdvantage()) {
+					possibles.addAll(getTechniques(PIN));
 				}
 				if (target.getStance() == Stance.GROUND_WRESTLE_FACE_UP) {
 					if (grappleStatus == GrappleStatus.HOLD) {
-						return getTechniques(target, PENETRATE_MISSIONARY);
+						return getTechniques(PENETRATE_MISSIONARY);
 					}
-					else if (grappleStatus.isAdvantage()) {
-						possibles.addAll(getTechniques(target, FLIP_PRONE, RELEASE_SUPINE));
+					else if (hasGrappleAdvantage()) {
+						possibles.addAll(getTechniques(FLIP_PRONE, RELEASE_SUPINE));
 					}
 				}
 				else if (target.getStance() == Stance.GROUND_WRESTLE_FACE_DOWN) {
 					if (grappleStatus == GrappleStatus.HOLD) {
-						return getTechniques(target, PENETRATE_PRONE);
+						return getTechniques(PENETRATE_PRONE);
 					}
-					else if (grappleStatus.isAdvantage()) {
-						possibles.addAll(getTechniques(target, FLIP_SUPINE, RELEASE_PRONE));
+					else if (hasGrappleAdvantage()) {
+						possibles.addAll(getTechniques(FLIP_SUPINE, RELEASE_PRONE));
 					}
 				}
 				return possibles;
 			case GROUND_WRESTLE_FACE_DOWN:
 				if (currentStamina <= 0 || grappleStatus == GrappleStatus.HELD) {
-					return getTechniques(target, REST_GROUND_DOWN);
+					return getTechniques(REST_GROUND_DOWN);
 				}
-				possibles.addAll(getTechniques(target, REST_GROUND_DOWN, GRIND));
-				if (grappleStatus.isAdvantage()) {
-					possibles.addAll(getTechniques(target, BREAK_FREE_GROUND));
+				possibles.addAll(getTechniques(REST_GROUND_DOWN, GRIND));
+				if (hasGrappleAdvantage()) {
+					possibles.addAll(getTechniques(BREAK_FREE_GROUND));
 				}
 				else {
-					possibles.addAll(getTechniques(target, STRUGGLE_GROUND));
+					possibles.addAll(getTechniques(STRUGGLE_GROUND));
 				}
 				return possibles;
 			case GROUND_WRESTLE_FACE_UP:
 				if (currentStamina <= 0 || grappleStatus == GrappleStatus.HELD) {
-					return getTechniques(target, REST_GROUND_UP);
+					return getTechniques(REST_GROUND_UP);
 				}
-				possibles.addAll(getTechniques(target, REST_GROUND_UP));
-				if (grappleStatus.isAdvantage()) {
-					possibles.addAll(getTechniques(target, BREAK_FREE_GROUND_UP, FULL_REVERSAL));
+				possibles.addAll(getTechniques(REST_GROUND_UP));
+				if (hasGrappleAdvantage()) {
+					possibles.addAll(getTechniques(BREAK_FREE_GROUND_UP, FULL_REVERSAL));
 				}
 				else {
 					if (grappleStatus.isDisadvantage()) {
-						possibles.addAll(getTechniques(target, REVERSAL));
+						possibles.addAll(getTechniques(REVERSAL));
 					}
-					possibles.addAll(getTechniques(target, STRUGGLE_GROUND_UP));
+					possibles.addAll(getTechniques(STRUGGLE_GROUND_UP));
 				}
 				return possibles;
 			case PRONE_BONE:
@@ -421,45 +426,45 @@ public class PlayerCharacter extends AbstractCharacter {
 			case ANAL:
 			case STANDING:
 				if (lust > 12) {
-					return getTechniques(target, ERUPT_ANAL);
+					return getTechniques(ERUPT_ANAL);
 				}
 				else {
 					if (stance == Stance.ANAL) {
-						return getTechniques(target, POUND_ANAL, PULL_OUT_ANAL);
+						return getTechniques(POUND_ANAL, PULL_OUT_ANAL);
 					}
 					else if (stance == Stance.DOGGY) {
-						return getTechniques(target, POUND_DOGGY, CRUSH_ASS, PULL_OUT);
+						return getTechniques(POUND_DOGGY, CRUSH_ASS, PULL_OUT);
 					}
 					else if (stance == Stance.PRONE_BONE) {
-						return getTechniques(target, POUND_PRONE_BONE, PULL_OUT);
+						return getTechniques(POUND_PRONE_BONE, PULL_OUT);
 					}
 					else {
-						return getTechniques(target, POUND_STANDING, PULL_OUT_STANDING);
+						return getTechniques(POUND_STANDING, PULL_OUT_STANDING);
 					}		
 				}
 			case COWGIRL:
 				if (lust > 12) {
-					return getTechniques(target, ERUPT_COWGIRL);
+					return getTechniques(ERUPT_COWGIRL);
 				}
 				if (hasGrappleAdvantage()) {
-					return getTechniques(target, BE_RIDDEN, PUSH_OFF);
+					return getTechniques(BE_RIDDEN, PUSH_OFF);
 				}
 				else {
-					return getTechniques(target, BE_RIDDEN, PUSH_OFF_ATTEMPT);
+					return getTechniques(BE_RIDDEN, PUSH_OFF_ATTEMPT);
 				}
 			case REVERSE_COWGIRL:
 				if (lust > 12) {
-					return getTechniques(target, ERUPT_COWGIRL);
+					return getTechniques(ERUPT_COWGIRL);
 				}
 				if (hasGrappleAdvantage()) {
-					return getTechniques(target, BE_RIDDEN_REVERSE, PUSH_OFF_REVERSE);
+					return getTechniques(BE_RIDDEN_REVERSE, PUSH_OFF_REVERSE);
 				}
 				else {
-					return getTechniques(target, BE_RIDDEN_REVERSE, PUSH_OFF_ATTEMPT_REVERSE);
+					return getTechniques(BE_RIDDEN_REVERSE, PUSH_OFF_ATTEMPT_REVERSE);
 				}
 			case ERUPT:
 				stance = Stance.BALANCED;
-				possibles = getPossibleTechniques(target);
+				possibles = getPossibleKnownTechniques(target);
 				stance = Stance.ERUPT;
 				return possibles;
 			default: return null;
@@ -490,6 +495,10 @@ public class PlayerCharacter extends AbstractCharacter {
 		return null;
 	}
 	
+	private Array<Techniques> getTechniques(Techniques... possibilities) {
+		return new Array<Techniques>(possibilities);
+	}
+	
 	private Array<Technique> getTechniques(AbstractCharacter target, Techniques... possibilities) {
 		Array<Technique> possibleTechniques = new Array<Technique>();
 		
@@ -498,6 +507,9 @@ public class PlayerCharacter extends AbstractCharacter {
 			if (skillLevel > 0) {
 				// this should pass the players stats and other relevant info to the technique, rather than passing some generic "force" value - also passing the weapon separately so that the technique can determine if it's relevant or not - basically, this class should create a "current state" object
 				// this may need to filter out techniques which are not possible because of current state evalutations?
+				if (technique == Techniques.ITEM_OR_CANCEL) {
+					possibleTechniques.addAll(getConsumableItems(target));
+				}
 				possibleTechniques.add(new Technique(technique.getTrait(), getCurrentState(target), skillLevel));
 			}	
 		}
