@@ -555,8 +555,8 @@ public abstract class AbstractCharacter extends Actor {
 			if (gutcheck > 0) {
 				if (!alreadyIncapacitated()) {
 					currentStamina -= gutcheck;
-					result.add("It's a blow to the stomach! It reduces stamina by " + gutcheck + "!");
-					if (currentStamina <= 0) {
+					result.add("It's winds " + (secondPerson ? "you" : "them") + "! It reduces stamina by " + gutcheck + "!");
+					if (currentStamina <= 0 && grappleStatus == GrappleStatus.NULL) {
 						result.add(label + (secondPerson ? " fall " : " falls ") + "to the ground!");
 						setStabilityToMin();
 						stance = Stance.PRONE;

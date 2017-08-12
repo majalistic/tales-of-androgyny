@@ -130,7 +130,9 @@ public class PlayerCharacter extends AbstractCharacter {
 			OPEN_WIDE, GRAB_IT, STROKE_IT, LET_GO, USE_ITEM, ITEM_OR_CANCEL,
 			RECIPROCATE_FORCED, GET_FACE_RIDDEN, STRUGGLE_FACE_SIT, STRUGGLE_SIXTY_NINE, BREAK_FREE_FACE_SIT, ROLL_OVER_UP, ROLL_OVER_DOWN, RIPOSTE, EN_GARDE, POUNCE_DOGGY, POUND_DOGGY, POUNCE_ANAL, POUND_ANAL, POUNCE_PRONE_BONE, POUND_PRONE_BONE, ERUPT_ANAL, PULL_OUT, PULL_OUT_ORAL, PULL_OUT_ANAL, PULL_OUT_STANDING, RECEIVE_COCK, HURK, UH_OH,
 			FORCE_DEEPTHROAT, CRUSH_ASS, BOUNCE_ON_IT, SQUEEZE_IT, BE_RIDDEN, PUSH_OFF, SELF_SPANK, POUT, DEEPTHROAT, WRAP_LEGS, PUSH_OFF_ATTEMPT, RIDE_ON_IT_REVERSE, BOUNCE_ON_IT_REVERSE, SQUEEZE_IT_REVERSE, RECEIVE_PRONE_BONE, BE_RIDDEN_REVERSE, PUSH_OFF_REVERSE, PUSH_OFF_ATTEMPT_REVERSE,
-			OUROBOROS, ROUND_AND_ROUND, RECEIVE_OUROBOROS, STRUGGLE_OUROBOROS, MOUNT_FACE, FACEFUCK, GET_FACEFUCKED, STRUGGLE_FACEFUCK, RECEIVE_EGGS, ERUPT_ORAL
+			OUROBOROS, ROUND_AND_ROUND, RECEIVE_OUROBOROS, STRUGGLE_OUROBOROS, MOUNT_FACE, FACEFUCK, GET_FACEFUCKED, STRUGGLE_FACEFUCK, RECEIVE_EGGS, ERUPT_ORAL,
+			WRESTLE_TO_GROUND, WRESTLE_TO_GROUND_UP, PENETRATE_PRONE, PENETRATE_MISSIONARY, PIN, GRAPPLE, HOLD_WRESTLE, CHOKE, REST_WRESTLE, FLIP_PRONE, FLIP_SUPINE, RELEASE_PRONE, RELEASE_SUPINE, STRUGGLE_GROUND, BREAK_FREE_GROUND, GRIND, REST_GROUND_DOWN, STRUGGLE_GROUND_UP, BREAK_FREE_GROUND_UP, REVERSAL,
+			FULL_REVERSAL, REST_GROUND_UP
 		);
 		return baseTechniques;
 	}
@@ -187,7 +189,7 @@ public class PlayerCharacter extends AbstractCharacter {
 	}
 	
 	private Array<Technique> getPossibleKnownTechniques(AbstractCharacter target) {
-		Array<Technique> possibles;
+		Array<Technique> possibles = new Array<Technique>();
 		switch(stance) {
 			case BLITZ:
 				return getTechniques(target, ALL_OUT_BLITZ, HOLD_BACK);
@@ -202,10 +204,10 @@ public class PlayerCharacter extends AbstractCharacter {
 					possibles.addAll(getTechniques(target, POUNCE_DOGGY));
 				}
 				else if (target.stance == Stance.PRONE && isErect() && target.enemyType.isPounceable()) {
-					possibles.addAll(getTechniques(target, POUNCE_PRONE_BONE));
+					possibles.addAll(getTechniques(target, WRESTLE_TO_GROUND));
 				}
 				else if (target.stance == Stance.SUPINE && isErect() && target.enemyType.isPounceable()) {
-					possibles.addAll(getTechniques(target, POUNCE_ANAL, MOUNT_FACE));
+					possibles.addAll(getTechniques(target, WRESTLE_TO_GROUND_UP, MOUNT_FACE));
 				}
 				else if (target.stance == Stance.KNEELING && isErect() && target.enemyType.isPounceable()) {
 					possibles.addAll(getTechniques(target, IRRUMATIO));
@@ -362,6 +364,49 @@ public class PlayerCharacter extends AbstractCharacter {
 				else {
 					return getTechniques(target, ROUND_AND_ROUND, PULL_OUT_ORAL);
 				}	
+			case GROUND_WRESTLE:
+				possibles.addAll(getTechniques(target, GRAPPLE, HOLD_WRESTLE, REST_WRESTLE));
+				if (grappleStatus.isAdvantage()) {
+					possibles.addAll(getTechniques(target, PIN));
+				}
+				if (target.getStance() == Stance.GROUND_WRESTLE_FACE_UP) {
+					if (grappleStatus == GrappleStatus.HOLD) {
+						return getTechniques(target, PENETRATE_MISSIONARY);
+					}
+					else if (grappleStatus.isAdvantage()) {
+						possibles.addAll(getTechniques(target, FLIP_PRONE, RELEASE_SUPINE));
+					}
+				}
+				else if (target.getStance() == Stance.GROUND_WRESTLE_FACE_DOWN) {
+					if (grappleStatus == GrappleStatus.HOLD) {
+						return getTechniques(target, PENETRATE_PRONE);
+					}
+					else if (grappleStatus.isAdvantage()) {
+						possibles.addAll(getTechniques(target, FLIP_SUPINE, RELEASE_PRONE));
+					}
+				}
+				return possibles;
+			case GROUND_WRESTLE_FACE_DOWN:
+				possibles.addAll(getTechniques(target, REST_GROUND_DOWN, GRIND));
+				if (grappleStatus.isAdvantage()) {
+					possibles.addAll(getTechniques(target, BREAK_FREE_GROUND));
+				}
+				else {
+					possibles.addAll(getTechniques(target, STRUGGLE_GROUND));
+				}
+				return possibles;
+			case GROUND_WRESTLE_FACE_UP:
+				possibles.addAll(getTechniques(target, REST_GROUND_UP));
+				if (grappleStatus.isAdvantage()) {
+					possibles.addAll(getTechniques(target, BREAK_FREE_GROUND_UP, FULL_REVERSAL));
+				}
+				else {
+					if (grappleStatus.isDisadvantage()) {
+						possibles.addAll(getTechniques(target, REVERSAL));
+					}
+					possibles.addAll(getTechniques(target, STRUGGLE_GROUND_UP));
+				}
+				return possibles;
 			case PRONE_BONE:
 			case DOGGY:
 			case ANAL:

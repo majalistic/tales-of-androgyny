@@ -276,6 +276,7 @@ public class Technique {
 		private final int bleeding;
 		private final int counter;
 		private final double knockdown;
+		private final int grapple;
 		private int priority;
 		
 		//before bonuses
@@ -304,6 +305,7 @@ public class Technique {
 			int bleedingCalc = technique.isDamaging() && !technique.isSpell() ? basePower / 4 : 0;
 			int counterCalc = 0;
 			int priorityCalc = 0;
+			int grappleCalc = technique.getGrappleType() == GrappleType.NULL || technique.getGrappleType() == GrappleType.SUBMIT || technique.getGrappleType() == GrappleType.PIN ? 0 : technique.getGrappleType() == GrappleType.HOLD ? 1 : technique.getGrappleType() == GrappleType.BREAK ? 100 : technique.getGrappleType() == GrappleType.WIN ? 101 : 2;
 			
 			for (Bonus bonusBundle : toApply) {	
 				for (ObjectMap.Entry<BonusType, Integer> bonus : bonusBundle.getBonusMap()) {
@@ -353,6 +355,9 @@ public class Technique {
 						case COUNTER:
 							counterCalc += bonus.value;
 							break;
+						case GRAPPLE:
+							grappleCalc += bonus.value;
+							break;
 					}
 				}
 			}
@@ -372,6 +377,7 @@ public class Technique {
 			bleeding = currentState.getWeapon() != null && currentState.getWeapon().causesBleed()? bleedingCalc : 0;
 			counter = counterCalc;
 			priority = priorityCalc;
+			grapple = grappleCalc;
 		}
 		
 		private int getStaminaCost() {
@@ -453,7 +459,7 @@ public class Technique {
 		}
 		
 		private int getGrappleAmount() {
-			return technique.getGrappleType() == GrappleType.NULL ? 0 : technique.getGrappleType() == GrappleType.HOLD ? 1 : technique.getGrappleType() == GrappleType.BREAK ? 100 : 2;
+			return grapple;
 		}
 		
 		private void lose() {

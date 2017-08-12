@@ -143,6 +143,9 @@ public class Bonus {
 				case COUNTER:
 					description += "Counter +" + bonus.value + "%";
 					break;
+				case GRAPPLE:
+					description += "Grapple +" + bonus.value;
+					break;
 			}
 			description += "\n";
 		}
@@ -182,6 +185,7 @@ public class Bonus {
 		TRIP,
 		EVASION,
 		BLEEDING,
-		COUNTER;
+		COUNTER, 
+		GRAPPLE;
 	}
 }

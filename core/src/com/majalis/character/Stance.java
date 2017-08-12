@@ -19,6 +19,9 @@ public enum Stance {
 	CASTING (AssetEnum.CASTING),
 	ITEM (AssetEnum.ITEM), 
 	
+	GROUND_WRESTLE (AssetEnum.GROUND_WRESTLE),
+	GROUND_WRESTLE_FACE_DOWN (AssetEnum.PRONE),
+	GROUND_WRESTLE_FACE_UP (AssetEnum.SUPINE),
 	FULL_NELSON (AssetEnum.FULL_NELSON), 
 	DOGGY (StanceType.ANAL, AssetEnum.DOGGY), 
 	PRONE_BONE (StanceType.ANAL, AssetEnum.PRONEBONE),
@@ -110,6 +113,9 @@ public enum Stance {
 			case SIXTY_NINE_BOTTOM: return "Sixty Nine (Bottom)";
 			case STANDING: return "Standing Anal";
 			case STANDING_BOTTOM: return "Standing Anal (Receptive)";
+			case GROUND_WRESTLE_FACE_UP:
+			case GROUND_WRESTLE_FACE_DOWN:
+			case GROUND_WRESTLE: return "Wrestling";
 			default: break;
 		}
 		char[] chars = super.toString().replace("_", " ").toLowerCase().toCharArray();

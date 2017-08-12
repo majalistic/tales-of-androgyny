@@ -74,6 +74,17 @@ public class TechniqueBuilder {
 		return this;
 	}
 
+	public TechniqueBuilder setStamDam(int stamDam) {
+		gutCheck = stamDam;
+		return this;
+	}
+	
+	public TechniqueBuilder setSeduce() {
+		isTaunt = true;
+		return this;
+	}
+	
+	
 	public TechniquePrototype build() {
 		String lightDescription = getDescription();
 		return new TechniquePrototype(usableStance, resultingStance, name, doesDamage, doesHealing, powerMod, staminaCost, stabilityCost, manaCost, isSpell, isTaunt, forceStance, knockdown, armorSunder, gutCheck, height, guardMod, parryMod, setDamage, blockable, grapple, climaxType, buff, getStanceInfo() + lightDescription, lightDescription, getBonusInfo(), bonuses); 

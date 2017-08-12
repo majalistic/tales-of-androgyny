@@ -37,10 +37,10 @@ public enum GrappleStatus {
 				return HOLD;
 			case REVERSAL:
 				return this == NULL ? SCRAMBLE : GrappleStatus.values()[Math.max(1, this.ordinal() - 3)];
-			case NULL:
 			case BREAK:
 				return NULL;
 			case HOLD:
+			case SUBMIT:
 			default:
 				return this == NULL ? SCRAMBLE : this;
 		}

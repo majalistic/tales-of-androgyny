@@ -77,25 +77,25 @@ public enum Techniques {
 	SLAM				(new AttackTechnique(Stance.BALANCED, Stance.OFFENSIVE, "Slam", -2, 3, 3).build()),
 	
 	/* Enemy pouncing */
-	DIVEBOMB 			(new GrappleTechnique  (Stance.AIRBORNE, Stance.FELLATIO, "Divebomb", 2, Stance.FELLATIO_BOTTOM, TechniqueHeight.HIGH, GrappleType.PIN, "").build()),
-	SAY_AHH 			(new GrappleTechnique  (Stance.BALANCED, Stance.FELLATIO, "Say 'Ahh'", 2, Stance.FELLATIO_BOTTOM, GrappleType.PIN).addBonus(BonusCondition.OUTMANEUVER, BonusType.PRIORITY).build()),
+	DIVEBOMB 			(new GrappleTechnique  (Stance.AIRBORNE, Stance.FELLATIO, "Divebomb", 2, Stance.FELLATIO_BOTTOM, TechniqueHeight.HIGH, GrappleType.WIN, "").build()),
+	SAY_AHH 			(new GrappleTechnique  (Stance.BALANCED, Stance.FELLATIO, "Say 'Ahh'", 2, Stance.FELLATIO_BOTTOM, GrappleType.WIN).addBonus(BonusCondition.OUTMANEUVER, BonusType.PRIORITY).build()),
 	FULL_NELSON			(new GrappleTechnique  (Stance.BALANCED, Stance.FULL_NELSON, "Full Nelson", 2, Stance.FULL_NELSON_BOTTOM, GrappleType.ADVANTAGE).build()), // Used to initiate full nelson
-	POUNCE_DOGGY		(new GrappleTechnique  (Stance.BALANCED, Stance.DOGGY, "Pounce", 2, Stance.DOGGY_BOTTOM, GrappleType.PIN).build()), // Used to initiate doggy
-	POUNCE_PRONE_BONE	(new GrappleTechnique  (Stance.BALANCED, Stance.PRONE_BONE, "Pounce", 2, Stance.PRONE_BONE_BOTTOM, GrappleType.PIN).build()), // Used to initiate prone-bone
-	POUNCE_ANAL			(new GrappleTechnique  (Stance.BALANCED, Stance.ANAL, "Pounce", 2, Stance.ANAL_BOTTOM, GrappleType.PIN).build()), // Used to initiate missionary
-	PENETRATE_STANDING	(new GrappleTechnique  (Stance.FULL_NELSON, Stance.STANDING, "Penetrate", 2, Stance.STANDING_BOTTOM, GrappleType.PIN).build()), // Used to initiate standing anal
-	SEIZE				(new GrappleTechnique  (Stance.BALANCED, Stance.HOLDING, "Seize", 2, Stance.HELD, GrappleType.PIN).build()), // Used to initiate giant sex
+	POUNCE_DOGGY		(new GrappleTechnique  (Stance.BALANCED, Stance.DOGGY, "Pounce", 2, Stance.DOGGY_BOTTOM, GrappleType.WIN).build()), // Used to initiate doggy
+	POUNCE_PRONE_BONE	(new GrappleTechnique  (Stance.BALANCED, Stance.PRONE_BONE, "Pounce", 2, Stance.PRONE_BONE_BOTTOM, GrappleType.WIN).build()), // Used to initiate prone-bone
+	POUNCE_ANAL			(new GrappleTechnique  (Stance.BALANCED, Stance.ANAL, "Pounce", 2, Stance.ANAL_BOTTOM, GrappleType.WIN).build()), // Used to initiate missionary
+	PENETRATE_STANDING	(new GrappleTechnique  (Stance.FULL_NELSON, Stance.STANDING, "Penetrate", 2, Stance.STANDING_BOTTOM, GrappleType.WIN).build()), // Used to initiate standing anal
+	SEIZE				(new GrappleTechnique  (Stance.BALANCED, Stance.HOLDING, "Seize", 2, Stance.HELD, GrappleType.WIN).build()), // Used to initiate giant sex
 	FACE_SIT			(new GrappleTechnique  (Stance.BALANCED, Stance.FACE_SITTING, "Plop Down", 2, Stance.FACE_SITTING_BOTTOM, GrappleType.ADVANTAGE).build()), // Used to initiate face-sitting
-	SITTING_ORAL		(new GrappleTechnique  (Stance.FACE_SITTING, Stance.SIXTY_NINE, "Say 'Ahh'", 2, Stance.SIXTY_NINE_BOTTOM, GrappleType.PIN).build()), // Used to initiate sixty nine
-	OUROBOROS			(new GrappleTechnique  (Stance.BALANCED, Stance.OUROBOROS, "Ouroboros", 2, Stance.OUROBOROS_BOTTOM, GrappleType.PIN).build()), // Used to initiate ouroboros
-	MOUNT_FACE			(new GrappleTechnique  (Stance.BALANCED, Stance.FACEFUCK, "Mount Face", 2, Stance.FACEFUCK_BOTTOM, GrappleType.PIN).build()), // Used to initiate facefuck
+	SITTING_ORAL		(new GrappleTechnique  (Stance.FACE_SITTING, Stance.SIXTY_NINE, "Say 'Ahh'", 2, Stance.SIXTY_NINE_BOTTOM, GrappleType.WIN).build()), // Used to initiate sixty nine
+	OUROBOROS			(new GrappleTechnique  (Stance.BALANCED, Stance.OUROBOROS, "Ouroboros", 2, Stance.OUROBOROS_BOTTOM, GrappleType.WIN).build()), // Used to initiate ouroboros
+	MOUNT_FACE			(new GrappleTechnique  (Stance.BALANCED, Stance.FACEFUCK, "Mount Face", 2, Stance.FACEFUCK_BOTTOM, GrappleType.WIN).build()), // Used to initiate facefuck
 	
 	KNOT 				(new NonAttackTechnique(Stance.DOGGY, Stance.KNOTTED, "Knot", 0, 0, Stance.KNOTTED_BOTTOM, "Set Damage").build()), // Used to knot by knotty weresluts and others
 	OVIPOSITION			(new NonAttackTechnique(Stance.FULL_NELSON, Stance.OVIPOSITION, "Oviposition", 0, 0, Stance.OVIPOSITION_BOTTOM).build()), // Used to oviposition
 	
 	IRRUMATIO 			(new GrappleTechnique(Stance.FELLATIO, Stance.FELLATIO, "Irrumatio", 1).build()), 
 	FORCE_DEEPTHROAT	(new GrappleTechnique(Stance.FELLATIO, Stance.FELLATIO, "Deepthroat", 1).build()), 
-	GRIP	 			(new GrappleTechnique(Stance.FULL_NELSON, Stance.FULL_NELSON, "Grip", 3, null, GrappleType.ADVANTAGE).build()), // Used to grapple
+	GRIP	 			(new GrappleTechnique(Stance.FULL_NELSON, Stance.FULL_NELSON, "Grip", 3, GrappleType.ADVANTAGE).build()), // Used to grapple
 	HOLD	 			(new GrappleTechnique(Stance.FULL_NELSON, Stance.FULL_NELSON, "Hold", -1).build()), // Used to hold
 	POUND_DOGGY 		(new GrappleTechnique(Stance.DOGGY, Stance.DOGGY, "Pound", 2).build()), // Used to doggystyle
 	CRUSH_ASS	 		(new GrappleTechnique(Stance.DOGGY, Stance.DOGGY, "Crush Ass", 2).build()), // Used to doggystyle
@@ -170,17 +170,44 @@ public enum Techniques {
 	RECEIVE_OUROBOROS	(new EroticTechnique(Stance.OUROBOROS_BOTTOM, Stance.OUROBOROS_BOTTOM, "Round and Round", -1, 0, "Open wide and swallow it down.").build()), 
 	GET_FACEFUCKED		(new EroticTechnique(Stance.FACEFUCK_BOTTOM, Stance.FACEFUCK_BOTTOM, "Get Facefucked", -1, 0, "Open wide and swallow it down.").build()), 
 	
+	/* Ground Wrestling */
+	WRESTLE_TO_GROUND	(new GrappleTechnique(Stance.BALANCED, Stance.GROUND_WRESTLE, "Wrestle", 0, Stance.GROUND_WRESTLE_FACE_DOWN, GrappleType.ADVANTAGE).build()), // when enemy is prone
+	WRESTLE_TO_GROUND_UP(new GrappleTechnique(Stance.BALANCED, Stance.GROUND_WRESTLE, "Wrestle", 0, Stance.GROUND_WRESTLE_FACE_UP, GrappleType.ADVANTAGE).build()), // when enemy is supine
+	
+	PENETRATE_PRONE		(new GrappleTechnique(Stance.GROUND_WRESTLE, Stance.PRONE_BONE, "Penetrate", 0, Stance.PRONE_BONE_BOTTOM, GrappleType.WIN).build()),
+	PENETRATE_MISSIONARY(new GrappleTechnique(Stance.GROUND_WRESTLE, Stance.ANAL, "Penetrate", 0, Stance.ANAL_BOTTOM, GrappleType.WIN).build()),
+	PIN					(new GrappleTechnique(Stance.GROUND_WRESTLE, Stance.GROUND_WRESTLE, "Pin", 8, GrappleType.PIN).addBonus(BonusCondition.STRENGTH_OVERPOWER_STRONG, BonusType.GRAPPLE).build()),
+	GRAPPLE				(new GrappleTechnique(Stance.GROUND_WRESTLE, Stance.GROUND_WRESTLE, "Grapple", 4, GrappleType.ADVANTAGE).addBonus(BonusCondition.STRENGTH_OVERPOWER, BonusType.GRAPPLE).build()),
+	HOLD_WRESTLE		(new GrappleTechnique(Stance.GROUND_WRESTLE, Stance.GROUND_WRESTLE, "Hold", 2, GrappleType.HOLD).addBonus(BonusCondition.STRENGTH_OVERPOWER, BonusType.GRAPPLE).build()),
+	CHOKE				(new GrappleTechnique(Stance.GROUND_WRESTLE, Stance.GROUND_WRESTLE, "Choke", 2, GrappleType.SUBMIT).setStamDam(1).addBonus(BonusCondition.STRENGTH_OVERPOWER, BonusType.GRAPPLE).build()),	
+	REST_WRESTLE		(new GrappleTechnique(Stance.GROUND_WRESTLE, Stance.GROUND_WRESTLE, "Rest", -1, GrappleType.SUBMIT).build()),	
+	FLIP_PRONE 			(new GrappleTechnique(Stance.GROUND_WRESTLE, Stance.GROUND_WRESTLE, "Flip", 2, Stance.GROUND_WRESTLE_FACE_DOWN, GrappleType.HOLD).addBonus(BonusCondition.STRENGTH_OVERPOWER, BonusType.GRAPPLE).build()),
+	FLIP_SUPINE			(new GrappleTechnique(Stance.GROUND_WRESTLE, Stance.GROUND_WRESTLE, "Flip", 2, Stance.GROUND_WRESTLE_FACE_UP, GrappleType.HOLD).addBonus(BonusCondition.STRENGTH_OVERPOWER, BonusType.GRAPPLE).build()),
+	RELEASE_PRONE		(new GrappleTechnique(Stance.GROUND_WRESTLE, Stance.HANDS_AND_KNEES, "Release", -1, Stance.PRONE, GrappleType.WIN).build()),	
+	RELEASE_SUPINE		(new GrappleTechnique(Stance.GROUND_WRESTLE, Stance.HANDS_AND_KNEES, "Release", -1, Stance.SUPINE, GrappleType.WIN).build()),	
+	
+	STRUGGLE_GROUND		(new GrappleTechnique(Stance.GROUND_WRESTLE_FACE_DOWN, Stance.GROUND_WRESTLE_FACE_DOWN, "Struggle", 5, GrappleType.ADVANTAGE).build()),
+	BREAK_FREE_GROUND	(new GrappleTechnique(Stance.GROUND_WRESTLE_FACE_DOWN, Stance.PRONE, "Struggle", 0, Stance.PRONE, GrappleType.BREAK).build()), // Break hold
+	GRIND				(new GrappleTechnique(Stance.GROUND_WRESTLE_FACE_DOWN, Stance.GROUND_WRESTLE_FACE_DOWN, "Grind", 0, GrappleType.SUBMIT).setSeduce().build()),
+	REST_GROUND_DOWN	(new GrappleTechnique(Stance.GROUND_WRESTLE_FACE_DOWN, Stance.GROUND_WRESTLE_FACE_DOWN, "Rest", -1, GrappleType.SUBMIT).build()),	
+	
+	STRUGGLE_GROUND_UP	(new GrappleTechnique(Stance.GROUND_WRESTLE_FACE_UP, Stance.GROUND_WRESTLE_FACE_UP, "Grapple", 4, GrappleType.ADVANTAGE).build()),
+	BREAK_FREE_GROUND_UP(new GrappleTechnique(Stance.GROUND_WRESTLE_FACE_UP, Stance.SUPINE, "Struggle", 0, Stance.PRONE, GrappleType.BREAK).build()), // Break hold
+	REVERSAL			(new GrappleTechnique(Stance.GROUND_WRESTLE_FACE_UP, Stance.GROUND_WRESTLE_FACE_UP, "Reversal", 6, GrappleType.REVERSAL).addBonus(BonusCondition.OUTMANEUVER, BonusType.GRAPPLE).build()),
+	FULL_REVERSAL		(new GrappleTechnique(Stance.GROUND_WRESTLE_FACE_UP, Stance.GROUND_WRESTLE, "Reversal", 8, Stance.GROUND_WRESTLE_FACE_DOWN, GrappleType.WIN).build()),
+	REST_GROUND_UP		(new GrappleTechnique(Stance.GROUND_WRESTLE_FACE_UP, Stance.GROUND_WRESTLE_FACE_UP, "Rest", -1, GrappleType.SUBMIT).build()),
+	
 	/* Struggle Skills */
-	STRUGGLE_DOGGY		(new GrappleTechnique(Stance.DOGGY_BOTTOM, Stance.DOGGY_BOTTOM, "Struggle", 4, null, GrappleType.ADVANTAGE).build()),
-	STRUGGLE_PRONE_BONE	(new GrappleTechnique(Stance.PRONE_BONE_BOTTOM, Stance.PRONE_BONE_BOTTOM, "Struggle", 4, null, GrappleType.ADVANTAGE).build()),
-	STRUGGLE_ANAL		(new GrappleTechnique(Stance.ANAL_BOTTOM, Stance.ANAL_BOTTOM, "Struggle", 4, null, GrappleType.ADVANTAGE).build()),
-	STRUGGLE_STANDING	(new GrappleTechnique(Stance.STANDING_BOTTOM, Stance.STANDING_BOTTOM, "Struggle", 4, null, GrappleType.ADVANTAGE).build()),
-	STRUGGLE_ORAL		(new GrappleTechnique(Stance.FELLATIO_BOTTOM, Stance.FELLATIO_BOTTOM, "Struggle", 4, null, GrappleType.ADVANTAGE).build()), 
-	STRUGGLE_FULL_NELSON(new GrappleTechnique(Stance.FULL_NELSON_BOTTOM, Stance.FULL_NELSON_BOTTOM, "Struggle", 4, null, GrappleType.ADVANTAGE).build()), 
-	STRUGGLE_FACE_SIT   (new GrappleTechnique(Stance.FACE_SITTING_BOTTOM, Stance.FACE_SITTING_BOTTOM, "Struggle", 4, null, GrappleType.ADVANTAGE).build()), 
-	STRUGGLE_SIXTY_NINE (new GrappleTechnique(Stance.SIXTY_NINE_BOTTOM, Stance.SIXTY_NINE_BOTTOM, "Struggle", 4, null, GrappleType.ADVANTAGE).build()), 
-	STRUGGLE_OUROBOROS (new GrappleTechnique(Stance.OUROBOROS_BOTTOM, Stance.OUROBOROS_BOTTOM, "Struggle", 4, null, GrappleType.ADVANTAGE).build()), 
-	STRUGGLE_FACEFUCK  (new GrappleTechnique(Stance.FACEFUCK_BOTTOM, Stance.FACEFUCK_BOTTOM, "Struggle", 4, null, GrappleType.ADVANTAGE).build()), 
+	STRUGGLE_DOGGY		(new GrappleTechnique(Stance.DOGGY_BOTTOM, Stance.DOGGY_BOTTOM, "Struggle", 4, GrappleType.ADVANTAGE).build()),
+	STRUGGLE_PRONE_BONE	(new GrappleTechnique(Stance.PRONE_BONE_BOTTOM, Stance.PRONE_BONE_BOTTOM, "Struggle", 4, GrappleType.ADVANTAGE).build()),
+	STRUGGLE_ANAL		(new GrappleTechnique(Stance.ANAL_BOTTOM, Stance.ANAL_BOTTOM, "Struggle", 4, GrappleType.ADVANTAGE).build()),
+	STRUGGLE_STANDING	(new GrappleTechnique(Stance.STANDING_BOTTOM, Stance.STANDING_BOTTOM, "Struggle", 4, GrappleType.ADVANTAGE).build()),
+	STRUGGLE_ORAL		(new GrappleTechnique(Stance.FELLATIO_BOTTOM, Stance.FELLATIO_BOTTOM, "Struggle", 4, GrappleType.ADVANTAGE).build()), 
+	STRUGGLE_FULL_NELSON(new GrappleTechnique(Stance.FULL_NELSON_BOTTOM, Stance.FULL_NELSON_BOTTOM, "Struggle", 4, GrappleType.ADVANTAGE).build()), 
+	STRUGGLE_FACE_SIT   (new GrappleTechnique(Stance.FACE_SITTING_BOTTOM, Stance.FACE_SITTING_BOTTOM, "Struggle", 4, GrappleType.ADVANTAGE).build()), 
+	STRUGGLE_SIXTY_NINE (new GrappleTechnique(Stance.SIXTY_NINE_BOTTOM, Stance.SIXTY_NINE_BOTTOM, "Struggle", 4, GrappleType.ADVANTAGE).build()), 
+	STRUGGLE_OUROBOROS (new GrappleTechnique(Stance.OUROBOROS_BOTTOM, Stance.OUROBOROS_BOTTOM, "Struggle", 4, GrappleType.ADVANTAGE).build()), 
+	STRUGGLE_FACEFUCK  (new GrappleTechnique(Stance.FACEFUCK_BOTTOM, Stance.FACEFUCK_BOTTOM, "Struggle", 4, GrappleType.ADVANTAGE).build()), 
 	
 	/* Break Free Skills */
 	BREAK_FREE_FULL_NELSON 	(new GrappleTechnique(Stance.FULL_NELSON_BOTTOM, Stance.BALANCED, "Struggle", 0, Stance.BALANCED, GrappleType.BREAK).build()), // Break hold

@@ -381,6 +381,52 @@ public class EnemyCharacter extends AbstractCharacter {
 				else {
 					return getTechniques(target, HOLD);
 				}
+			case GROUND_WRESTLE:
+				possibles.addAll(getTechniques(target, GRAPPLE, HOLD_WRESTLE, REST_WRESTLE));
+				if (enemyType == EnemyEnum.ORC || enemyType == EnemyEnum.BRIGAND) {
+					possibles.addAll(getTechniques(target, CHOKE));
+				}
+				if (grappleStatus.isAdvantage()) {
+					possibles.addAll(getTechniques(target, PIN));
+				}
+				if (target.getStance() == Stance.GROUND_WRESTLE_FACE_UP) {
+					if (grappleStatus == GrappleStatus.HOLD) {
+						return getTechniques(target, PENETRATE_MISSIONARY);
+					}
+					else if (grappleStatus.isAdvantage()) {
+						possibles.addAll(getTechniques(target, FLIP_PRONE, RELEASE_SUPINE));
+					}
+				}
+				else if (target.getStance() == Stance.GROUND_WRESTLE_FACE_DOWN) {
+					if (grappleStatus == GrappleStatus.HOLD) {
+						return getTechniques(target, PENETRATE_PRONE);
+					}
+					else if (grappleStatus.isAdvantage()) {
+						possibles.addAll(getTechniques(target, FLIP_SUPINE, RELEASE_PRONE));
+					}
+				}
+				return possibles;
+			case GROUND_WRESTLE_FACE_DOWN:
+				possibles.addAll(getTechniques(target, REST_GROUND_DOWN, GRIND));
+				if (grappleStatus.isAdvantage()) {
+					possibles.addAll(getTechniques(target, BREAK_FREE_GROUND));
+				}
+				else {
+					possibles.addAll(getTechniques(target, STRUGGLE_GROUND));
+				}
+				return possibles;
+			case GROUND_WRESTLE_FACE_UP:
+				possibles.addAll(getTechniques(target, REST_GROUND_UP));
+				if (grappleStatus.isAdvantage()) {
+					possibles.addAll(getTechniques(target, BREAK_FREE_GROUND_UP, FULL_REVERSAL));
+				}
+				else {
+					if (grappleStatus.isDisadvantage()) {
+						possibles.addAll(getTechniques(target, REVERSAL));
+					}
+					possibles.addAll(getTechniques(target, STRUGGLE_GROUND_UP));
+				}
+				return possibles;
 			case FACE_SITTING:
 				if (isErect()) {
 					return getTechniques(target, SITTING_ORAL);
@@ -519,18 +565,19 @@ public class EnemyCharacter extends AbstractCharacter {
 		
 		if (willPounce() && enemyType != EnemyEnum.OGRE) {
 			if (target.stance == Stance.PRONE && enemyType.canProneBone()) {
+				possibleTechniques = getTechniques(target, WRESTLE_TO_GROUND);
 			}
 			else if (target.stance == Stance.HANDS_AND_KNEES) {
 				possibleTechniques = getTechniques(target, POUNCE_DOGGY);
 			}
 			else if (target.stance == Stance.SUPINE && enemyType != EnemyEnum.CENTAUR) {
-				possibleTechniques = getTechniques(target, enemyType == EnemyEnum.GOBLIN || enemyType == EnemyEnum.GOBLIN_MALE || enemyType == EnemyEnum.HARPY ? MOUNT_FACE : POUNCE_ANAL);
+				possibleTechniques = getTechniques(target, enemyType == EnemyEnum.GOBLIN || enemyType == EnemyEnum.GOBLIN_MALE || enemyType == EnemyEnum.HARPY ? MOUNT_FACE : WRESTLE_TO_GROUND_UP);
 			}
 			else if (target.stance == Stance.KNEELING) {
-				possibleTechniques =  getTechniques(target, SAY_AHH);
+				possibleTechniques = getTechniques(target, SAY_AHH);
 			}
 			else if (target.stance == Stance.AIRBORNE && enemyType == EnemyEnum.ORC) {
-				possibleTechniques =  getTechniques(target, OUROBOROS);
+				possibleTechniques = getTechniques(target, OUROBOROS);
 			}
 			else if (enemyType == EnemyEnum.HARPY) {
 				possibleTechniques.add(FLY);
