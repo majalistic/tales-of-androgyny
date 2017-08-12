@@ -87,11 +87,11 @@ public class Technique {
 			case OUTMANEUVER:
 				return currentState.getRawStat(Stat.AGILITY) - otherTechnique.getRawStat(Stat.AGILITY);
 			case OUTMANUEVER_STRONG:
-				return (currentState.getRawStat(Stat.AGILITY) - otherTechnique.getRawStat(Stat.AGILITY)) - 3;
+				return (currentState.getRawStat(Stat.AGILITY) - otherTechnique.getRawStat(Stat.AGILITY)) - 2;
 			case STRENGTH_OVERPOWER:
 				return currentState.getStat(Stat.STRENGTH) - otherTechnique.getStat(Stat.STRENGTH);
 			case STRENGTH_OVERPOWER_STRONG:
-				return (currentState.getStat(Stat.STRENGTH) - otherTechnique.getStat(Stat.STRENGTH)) - 3;
+				return (currentState.getStat(Stat.STRENGTH) - otherTechnique.getStat(Stat.STRENGTH)) - 2;
 			default: return 0;
 		}
 	}

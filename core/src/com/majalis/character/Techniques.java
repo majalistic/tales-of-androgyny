@@ -176,7 +176,7 @@ public enum Techniques {
 	
 	PENETRATE_PRONE		(new GrappleTechnique(Stance.GROUND_WRESTLE, Stance.PRONE_BONE, "Penetrate", 0, Stance.PRONE_BONE_BOTTOM, GrappleType.WIN).build()),
 	PENETRATE_MISSIONARY(new GrappleTechnique(Stance.GROUND_WRESTLE, Stance.ANAL, "Penetrate", 0, Stance.ANAL_BOTTOM, GrappleType.WIN).build()),
-	PIN					(new GrappleTechnique(Stance.GROUND_WRESTLE, Stance.GROUND_WRESTLE, "Pin", 8, GrappleType.PIN).addBonus(BonusCondition.STRENGTH_OVERPOWER_STRONG, BonusType.GRAPPLE).build()),
+	PIN					(new GrappleTechnique(Stance.GROUND_WRESTLE, Stance.GROUND_WRESTLE, "Pin", 8, GrappleType.PIN).addBonus(BonusCondition.STRENGTH_OVERPOWER_STRONG, BonusType.GRAPPLE, 2).build()),
 	GRAPPLE				(new GrappleTechnique(Stance.GROUND_WRESTLE, Stance.GROUND_WRESTLE, "Grapple", 4, GrappleType.ADVANTAGE).addBonus(BonusCondition.STRENGTH_OVERPOWER, BonusType.GRAPPLE).build()),
 	HOLD_WRESTLE		(new GrappleTechnique(Stance.GROUND_WRESTLE, Stance.GROUND_WRESTLE, "Hold", 2, GrappleType.HOLD).addBonus(BonusCondition.STRENGTH_OVERPOWER, BonusType.GRAPPLE).build()),
 	CHOKE				(new GrappleTechnique(Stance.GROUND_WRESTLE, Stance.GROUND_WRESTLE, "Choke", 2, GrappleType.SUBMIT).setStamDam(1).addBonus(BonusCondition.STRENGTH_OVERPOWER, BonusType.GRAPPLE).build()),	
