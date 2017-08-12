@@ -382,31 +382,40 @@ public class EnemyCharacter extends AbstractCharacter {
 					return getTechniques(target, HOLD);
 				}
 			case GROUND_WRESTLE:
+				if (currentStamina <= 0 || grappleStatus == GrappleStatus.HELD) {
+					return getTechniques(target, REST_WRESTLE);
+				}
 				possibles.addAll(getTechniques(target, GRAPPLE, HOLD_WRESTLE, REST_WRESTLE));
 				if (enemyType == EnemyEnum.ORC || enemyType == EnemyEnum.BRIGAND) {
 					possibles.addAll(getTechniques(target, CHOKE));
 				}
-				if (grappleStatus.isAdvantage()) {
-					possibles.addAll(getTechniques(target, PIN));
-				}
+				
 				if (target.getStance() == Stance.GROUND_WRESTLE_FACE_UP) {
 					if (grappleStatus == GrappleStatus.HOLD) {
 						return getTechniques(target, PENETRATE_MISSIONARY);
 					}
-					else if (grappleStatus.isAdvantage()) {
-						possibles.addAll(getTechniques(target, FLIP_PRONE, RELEASE_SUPINE));
+					else if (grappleStatus.isAdvantage() && enemyType.prefersProneBone()) {
+						possibles.addAll(getTechniques(target, FLIP_PRONE));
 					}
 				}
 				else if (target.getStance() == Stance.GROUND_WRESTLE_FACE_DOWN) {
 					if (grappleStatus == GrappleStatus.HOLD) {
 						return getTechniques(target, PENETRATE_PRONE);
 					}
-					else if (grappleStatus.isAdvantage()) {
-						possibles.addAll(getTechniques(target, FLIP_SUPINE, RELEASE_PRONE));
+					else if (grappleStatus.isAdvantage() && enemyType.prefersMissionary()) {
+						possibles.addAll(getTechniques(target, FLIP_SUPINE));
+					}
+				}
+				if (grappleStatus.isAdvantage()) {
+					if (target.getStrength() + 3 < getStrength()) {
+						return getTechniques(target, PIN);
 					}
 				}
 				return possibles;
 			case GROUND_WRESTLE_FACE_DOWN:
+				if (currentStamina <= 0 || grappleStatus == GrappleStatus.HELD) {
+					return getTechniques(target, REST_GROUND_DOWN);
+				}
 				possibles.addAll(getTechniques(target, REST_GROUND_DOWN, GRIND));
 				if (grappleStatus.isAdvantage()) {
 					possibles.addAll(getTechniques(target, BREAK_FREE_GROUND));
@@ -416,6 +425,9 @@ public class EnemyCharacter extends AbstractCharacter {
 				}
 				return possibles;
 			case GROUND_WRESTLE_FACE_UP:
+				if (currentStamina <= 0 || grappleStatus == GrappleStatus.HELD) {
+					return getTechniques(target, REST_GROUND_UP);
+				}
 				possibles.addAll(getTechniques(target, REST_GROUND_UP));
 				if (grappleStatus.isAdvantage()) {
 					possibles.addAll(getTechniques(target, BREAK_FREE_GROUND_UP, FULL_REVERSAL));
@@ -746,7 +758,7 @@ public class EnemyCharacter extends AbstractCharacter {
 	
 	private boolean willPounce() {
 		IntArray randomValues = new IntArray(new int[]{10, 11, 12, 13});
-		return enemyType.willPounce() &&  lust >= randomValues.random() && !stance.isIncapacitatingOrErotic();
+		return enemyType.willPounce() &&  lust >= randomValues.random() && !stance.isIncapacitatingOrErotic() && grappleStatus == GrappleStatus.NULL;
 	}
 	
 	private Technique getTechnique(AbstractCharacter target, Techniques technique) {

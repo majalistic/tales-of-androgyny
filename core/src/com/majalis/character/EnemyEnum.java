@@ -90,6 +90,8 @@ public enum EnemyEnum {
 	public boolean canBeRidden() { return this != SLIME && this != CENTAUR && this != UNICORN && this != BEASTMISTRESS; }
 	public boolean willPounce() { return this != EnemyEnum.UNICORN && this != EnemyEnum.BEASTMISTRESS; }
 	public boolean isPounceable() { return this != EnemyEnum.OGRE && this != EnemyEnum.BEASTMISTRESS && this != EnemyEnum.UNICORN; }
+	public boolean prefersProneBone() { return this == ORC || this == GOBLIN; }
+	public boolean prefersMissionary() { return this == BRIGAND || this == ADVENTURER; }
 	
 	public AnimatedActor getPrimaryAnimation(AssetManager assetManager) {
 		AnimatedActor animation = null; 
@@ -195,5 +197,5 @@ public enum EnemyEnum {
 		private EnemyTemplate setMana(int mana) { this.manaTiers = new IntArray(new int[]{mana}); return this; }
 		
 		private WeaponType getWeaponType() { return weaponType; }
-	}
+	}	
 }

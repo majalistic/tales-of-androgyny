@@ -365,6 +365,9 @@ public class PlayerCharacter extends AbstractCharacter {
 					return getTechniques(target, ROUND_AND_ROUND, PULL_OUT_ORAL);
 				}	
 			case GROUND_WRESTLE:
+				if (currentStamina <= 0 || grappleStatus == GrappleStatus.HELD) {
+					return getTechniques(target, REST_WRESTLE);
+				}
 				possibles.addAll(getTechniques(target, GRAPPLE, HOLD_WRESTLE, REST_WRESTLE));
 				if (grappleStatus.isAdvantage()) {
 					possibles.addAll(getTechniques(target, PIN));
@@ -387,6 +390,9 @@ public class PlayerCharacter extends AbstractCharacter {
 				}
 				return possibles;
 			case GROUND_WRESTLE_FACE_DOWN:
+				if (currentStamina <= 0 || grappleStatus == GrappleStatus.HELD) {
+					return getTechniques(target, REST_GROUND_DOWN);
+				}
 				possibles.addAll(getTechniques(target, REST_GROUND_DOWN, GRIND));
 				if (grappleStatus.isAdvantage()) {
 					possibles.addAll(getTechniques(target, BREAK_FREE_GROUND));
@@ -396,6 +402,9 @@ public class PlayerCharacter extends AbstractCharacter {
 				}
 				return possibles;
 			case GROUND_WRESTLE_FACE_UP:
+				if (currentStamina <= 0 || grappleStatus == GrappleStatus.HELD) {
+					return getTechniques(target, REST_GROUND_UP);
+				}
 				possibles.addAll(getTechniques(target, REST_GROUND_UP));
 				if (grappleStatus.isAdvantage()) {
 					possibles.addAll(getTechniques(target, BREAK_FREE_GROUND_UP, FULL_REVERSAL));
