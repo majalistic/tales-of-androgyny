@@ -92,8 +92,8 @@ public class TechniqueBuilder {
 	
 	protected String getStanceInfo() { 
 		StringBuilder builder = new StringBuilder();
-		builder.append("Usable in " + usableStance.toString() + " stance.\n");
-		builder.append("Results in " + resultingStance.toString() + " stance.\n");
+		builder.append("Usable in " + usableStance.getLabel() + " stance.\n");
+		builder.append("Results in " + resultingStance.getLabel() + " stance.\n");
 		return builder.toString();
 	}
 	
@@ -151,7 +151,7 @@ public class TechniqueBuilder {
 			builder.append(height.toString() + "-height attack.\n");
 		}
 		if (forceStance != null) {
-			builder.append("Forces enemy into " + forceStance.toString() + " stance.\n");
+			builder.append("Forces enemy into " + forceStance.getLabel() + " stance.\n");
 		}
 		if (knockdown > 0) {
 			builder.append("Causes " + (knockdown > 1.6 ? "heavy" : knockdown > 1.1 ? "medium" : "light") + " knockdown.\n");
