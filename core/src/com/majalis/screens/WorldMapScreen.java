@@ -670,8 +670,6 @@ public class WorldMapScreen extends AbstractScreen {
 		cloudTranslate.y *= 2;
 		cloudCamera.translate(cloudTranslate);
 		position = cloudCamera.position;
-		position.x = Math.max(Math.min(position.x, 4000), 500);
-		position.y = Math.max(Math.min(position.y, 4600), 500);
 	}
 	
 	private void generateBackground() {
