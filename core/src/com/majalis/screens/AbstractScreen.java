@@ -33,7 +33,10 @@ public abstract class AbstractScreen extends Stage implements Screen {
         this.fontFactory = elements;
         this.font = elements.getFont(32);
         clearScreen = true;
-        clearRed = clearGreen = clearBlue = clearAlpha = 1;
+        clearRed = .9f;
+        clearGreen = .8f;
+        clearBlue = .6f;
+        clearAlpha = 1;
     }
  
     // Subclasses must load actors in this method
