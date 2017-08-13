@@ -31,7 +31,31 @@ public class GameWorldFactory {
 		this.loadService = saveManager;
 		this.assetManager = assetManager;
 		this.random = random;
+		//testWorldGen();
 	}
+	
+	/* Unit Test 
+	private static long lastTime;
+	private static long total;
+	private void testWorldGen() {
+		logTime("Begin logging");
+		for (int ii = 0; ii < 10000; ii++) {
+			getGameWorld(ii, GameMode.SKIRMISH);
+			logTime("Seed: " + ii);
+		}
+	}
+	private void logTime(String display) {
+		if (lastTime == 0) {
+			lastTime = System.currentTimeMillis();
+		}
+		
+		long currentTime = System.currentTimeMillis();
+		long delta = currentTime - lastTime;
+		total += delta;
+		System.out.println(display + " - delta: " + delta + " total: " + total);
+		lastTime = currentTime;
+	}
+	/* End Unit Test */
 	
 	@SuppressWarnings("unchecked")
 	public Array<GameWorldNode> getGameWorld(int seed, GameMode gameMode) {
