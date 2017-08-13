@@ -110,7 +110,7 @@ public enum EncounterCode {
 					case FORT:
 						return "Fort";
 					case CRIER_QUEST: return "Mountain";
-					case COTTAGE_TRAINER: return "Cottage-on-the-Outskirts";
+					case COTTAGE_TRAINER: return "Cottage on the Outskirts";
 					case FIRST_BATTLE_STORY: return "Forest Clearing";
 					case MERI_COTTAGE: return "Witch's Cottage";
 					case ECCENTRIC_MERCHANT: return "Merchant Path";
