@@ -2,8 +2,6 @@ package com.majalis.save;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Base64Coder;
@@ -92,7 +90,6 @@ public class SaveManager implements SaveService, LoadService {
 	    	case CONTEXT: 			save.context = (GameContext) object; break;
 	    	case RETURN_CONTEXT: 	save.returnContext = (GameContext) object; break;
 	    	case NODE_CODE: 		save.nodeCode = (Integer) object; break;
-	    	case CAMERA_POS:		save.cameraPos = new Vector3((Vector2) object, 0); break;
 	    	case ENCOUNTER_CODE:	save.encounterCode = (EncounterCode) object; break;
 	    	case VISITED_LIST:		save.visitedList.add((Integer) object); break;
 	    	case BATTLE_CODE:		save.battleAttributes = (BattleAttributes) object; break;
@@ -107,7 +104,7 @@ public class SaveManager implements SaveService, LoadService {
 	    	case EXPERIENCE:		result.addAll(save.player.modExperience((Integer) object)); break; 
 	    	case GOLD:				result.addAll(save.player.modMoney((Integer) object)); break; 
 	    	case DEBT:				result.addAll(save.player.modDebt((Integer) object)); break;
-	    	case MODE:				save.mode = (GameMode) object; if ((GameMode) object == GameMode.SKIRMISH) save.player.load(); else {save.cameraPos = new Vector3(-200, 300, 0);} break;
+	    	case MODE:				save.mode = (GameMode) object; if ((GameMode) object == GameMode.SKIRMISH) save.player.load(); break;
 	    	case MUSIC:				save.music = (String) object; break;
 	    	case CONSOLE:			save.console = (Array<String>) object; break;
 	    	case ANAL:				result.addAll(save.player.receiveSex((SexualExperience) object)); break;
@@ -133,7 +130,6 @@ public class SaveManager implements SaveService, LoadService {
 	    	case CONTEXT: 			return (T) save.context;
 	    	case RETURN_CONTEXT: 	return (T) save.returnContext;
 	    	case NODE_CODE: 		return (T) (Integer)save.nodeCode;
-	    	case CAMERA_POS: 		return (T) (Vector3)save.cameraPos;
 	    	case ENCOUNTER_CODE:	return (T) save.encounterCode;
 	    	case VISITED_LIST:		IntSet set = new IntSet();
 	    							set.addAll(save.visitedList);
@@ -271,7 +267,6 @@ public class SaveManager implements SaveService, LoadService {
     	private EncounterCode encounterCode;
     	private int nodeCode;
     	private Array<String> console;
-    	private Vector3 cameraPos;
     	private IntArray visitedList;
     	// this can probably be refactored to contain a particular battle, but may need to duplicate the player character
     	private BattleAttributes battleAttributes;
@@ -296,7 +291,6 @@ public class SaveManager implements SaveService, LoadService {
         		nodeCode = 1;
         		console = new Array<String>();
         		shops = new ObjectMap<String, Shop>();
-        		cameraPos = new Vector3(500, 500, 0);
         		visitedList = new IntArray(new int[]{1});
         		player = new PlayerCharacter(true);
         		results = new Array<MutationResult>();

@@ -19,7 +19,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -166,8 +165,15 @@ public class WorldMapScreen extends AbstractScreen {
 		foodLabel = new Label("", skin);
 		hoverLabel = new Label("", skin);
 		
+		for (final GameWorldNode actor : world) {
+			group.addActor(actor);
+			if (actor.isCurrent()) {
+				setCurrentNode(actor);
+			}
+		}
+		
 		// move camera to saved position
-		Vector3 initialTranslation = loadService.loadDataValue(SaveEnum.CAMERA_POS, Vector3.class);		
+		Vector3 initialTranslation = new Vector3(currentNode.getX(), currentNode.getY(), 0);
 		initialTranslation = new Vector3(initialTranslation);
 		initialTranslation.x -= camera.position.x;
 		initialTranslation.y -= camera.position.y;
@@ -267,9 +273,6 @@ public class WorldMapScreen extends AbstractScreen {
 		}
 		for (final GameWorldNode actor : world) {
 			group.addActor(actor);
-			if (actor.isCurrent()) {
-				setCurrentNode(actor);
-			}
 			actor.addListener(new ClickListener(){
 				@Override
 		        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
@@ -511,7 +514,6 @@ public class WorldMapScreen extends AbstractScreen {
 									switchScreen = true;
 								}
 								saveService.saveDataValue(SaveEnum.NODE_CODE, node.getNodeCode());
-								saveService.saveDataValue(SaveEnum.CAMERA_POS, new Vector2(node.getX(), node.getY()));
 								if (switchScreen) {
 									switchContext();
 								}
