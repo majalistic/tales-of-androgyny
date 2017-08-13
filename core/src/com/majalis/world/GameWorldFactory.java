@@ -15,6 +15,8 @@ import com.majalis.save.LoadService;
 import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveManager;
 import com.majalis.save.SaveManager.GameMode;
+import com.majalis.talesofandrogyny.Logging;
+import com.majalis.talesofandrogyny.TalesOfAndrogyny;
 /*
  * Generates a world map or returns the world map.
  */
@@ -31,29 +33,16 @@ public class GameWorldFactory {
 		this.loadService = saveManager;
 		this.assetManager = assetManager;
 		this.random = random;
-		//testWorldGen();
+		if (TalesOfAndrogyny.testing) testWorldGen();
 	}
 	
-	/* Unit Test 
-	private static long lastTime;
-	private static long total;
+	/* Unit Test */
 	private void testWorldGen() {
-		logTime("Begin logging");
+		Logging.logTime("Begin logging");
 		for (int ii = 0; ii < 10000; ii++) {
 			getGameWorld(ii, GameMode.SKIRMISH);
-			logTime("Seed: " + ii);
+			Logging.logTime("Seed: " + ii);
 		}
-	}
-	private void logTime(String display) {
-		if (lastTime == 0) {
-			lastTime = System.currentTimeMillis();
-		}
-		
-		long currentTime = System.currentTimeMillis();
-		long delta = currentTime - lastTime;
-		total += delta;
-		System.out.println(display + " - delta: " + delta + " total: " + total);
-		lastTime = currentTime;
 	}
 	/* End Unit Test */
 	
