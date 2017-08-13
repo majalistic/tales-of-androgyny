@@ -71,7 +71,7 @@ public class GameWorldFactory {
 			addNode(getNode(nodeCode, COTTAGE_TRAINER, COTTAGE_TRAINER_VISIT, new Vector2(-50, 285), visitedCodesSet.contains(nodeCode++)), nodes);
 			addNode(getNode(nodeCode, TOWN_STORY, TOWN2, new Vector2(145, 350), visitedCodesSet.contains(nodeCode++)), nodes);
 			addNode(getNode(nodeCode, FIRST_BATTLE_STORY, DEFAULT, new Vector2(325, 480), visitedCodesSet.contains(nodeCode++)), nodes);
-			addNode(getNode(nodeCode, EncounterCode.MERI_COTTAGE, EncounterCode.MERI_COTTAGE_VISIT, new Vector2(350, 270), visitedCodesSet.contains(nodeCode++)), nodes);
+			addNode(getNode(nodeCode, EncounterCode.MERI_COTTAGE, EncounterCode.MERI_COTTAGE_VISIT, new Vector2(340, 260), visitedCodesSet.contains(nodeCode++)), nodes);
 			addNode(getNode(nodeCode, EncounterCode.ECCENTRIC_MERCHANT, DEFAULT, new Vector2(555, 450), visitedCodesSet.contains(nodeCode++)), nodes);	
 			addNode(getNode(nodeCode, EncounterCode.STORY_FEM, DEFAULT, new Vector2(545, 590), visitedCodesSet.contains(nodeCode++)), nodes);
 			addNode(getNode(nodeCode, EncounterCode.STORY_SIGN, DEFAULT, new Vector2(790, 530), visitedCodesSet.contains(nodeCode++)), nodes);

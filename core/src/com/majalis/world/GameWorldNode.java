@@ -6,8 +6,6 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.math.Circle;
-import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
@@ -31,9 +29,11 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 	private final GameWorldNodeEncounter encounter;
 	// for determining where to draw this node at
 	private final Vector2 position;
-	private boolean visited;
+	private final int x;
+	private final int y;
 	private final Sound sound;
 	private final PlayerCharacter character;
+	private boolean visited;
 	private boolean current;
 	private boolean active;
 	private int visibility;
@@ -45,12 +45,14 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 	private int arrowHeight;
 	private int arrowShift;
 	
-	// all the nodes need are the encounter CODES, not the actual encounter - should probably pass in some kind of object that contains the encounter generation logic, rather than an encounter and defaultEncounter code - at least, need a description of the encounter attached
 	public GameWorldNode(final int nodeCode, GameWorldNodeEncounter encounter, Vector2 position, boolean visited, Sound sound, PlayerCharacter character, AssetManager assetManager) {
 		this.connectedNodes = new ObjectSet<GameWorldNode>();
 		paths = new Array<Path>();
 		this.encounter = encounter;
-		this.position = position;
+		Vector2 calcPosition = getCalcPosition(position);
+		this.x = (int)calcPosition.x;
+		this.y = (int)calcPosition.y;
+		this.position = calculatePosition(x, y);
 		this.nodeCode = nodeCode;
 		this.visited = visited;
 
@@ -66,7 +68,7 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 		
 		this.addAction(Actions.visible(true));
 		this.addAction(Actions.show());
-		this.setBounds(position.x, position.y, activeImage.getWidth(), activeImage.getHeight());
+		this.setBounds(this.position.x, this.position.y, activeImage.getWidth(), activeImage.getHeight());
 		arrowHeight = 0;
 		arrowShift = 1;
 		visibility = -1;
@@ -87,7 +89,7 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 			batch.draw(activeImage, position.x, position.y);
 			batch.setColor(cache);
 		}
-		else {
+		else {	
 			batch.draw(activeImage, position.x, position.y);
 		}
 		
@@ -98,10 +100,20 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 			batch.setColor(cache);
 			arrowHeight += arrowShift;
 			if (arrowHeight > 100 || arrowHeight < 0) arrowShift = 0 - arrowShift;
-		}
-		
+		}		
 		super.draw(batch, parentAlpha);
     }
+	
+	private static int scaleFactor = 25;
+	
+	private Vector2 getCalcPosition(Vector2 position) {
+		int x = (int)Math.floor(position.x / scaleFactor);
+		return new Vector2(x, (int)Math.floor((position.y - (x * (scaleFactor / 2))) / scaleFactor));
+	}
+	
+	private Vector2 calculatePosition(int x, int y) {
+		return new Vector2(x * scaleFactor, y * scaleFactor + (x * (scaleFactor / 2)));
+	}
 	
 	@Override
 	public void setColor(Color color) {
@@ -119,8 +131,26 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 	 */
 	protected Vector2 getPosition() { return position; }
 	protected boolean isOverlapping(GameWorldNode otherNode) { return isOverlapping(otherNode.getPosition()); }
-	protected boolean isOverlapping(Vector2 otherNode) { return Intersector.overlaps(new Circle(position, 105), new Circle(otherNode, 25)); }
-	protected boolean isAdjacent(GameWorldNode otherNode) { return position.dst2(otherNode.getPosition()) < 67700; }
+	protected boolean isOverlapping(Vector2 otherNode) { 
+		return getDistance(getCalcPosition(otherNode)) <= 5;
+	}
+	
+	protected boolean isAdjacent(GameWorldNode otherNode) { //return position.dst2(otherNode.getPosition()) < 67700; }
+		return getDistance(otherNode) <= 11;
+	}
+	
+	protected int getDistance(Vector2 otherNodePosition) {
+		int otherX = (int)otherNodePosition.x;
+		int otherY = (int)otherNodePosition.y;
+		int otherZ = 0 - (otherX + otherY);
+		int z = 0 - (x + y);
+		return Math.max(Math.max(Math.abs(otherX - x), Math.abs(otherY - y)), Math.abs(otherZ - z)); 
+	}
+	
+	protected int getDistance(GameWorldNode otherNode) {
+		return getDistance(getCalcPosition(otherNode.position)); 		
+	}
+	
 	protected void connectTo(GameWorldNode otherNode) {
 		if (connectedNodes.contains(otherNode)) {
 			return;
