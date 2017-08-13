@@ -113,7 +113,7 @@ public class MainMenuScreen extends AbstractScreen {
 	@Override
 	public void buildStage() {		
 		Image stationary = getImage(MAIN_MENU_STATIONARY);
-		stationary.setPosition(1920, 0);
+		stationary.setPosition(-1920, 0);
 		bg = getImage(MAIN_MENU_BG2);
 		mg5 = getImage(MAIN_MENU_BG1);
 		mg4 = getImage(MAIN_MENU_MG4);
