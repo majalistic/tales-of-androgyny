@@ -476,7 +476,7 @@ public class WorldMapScreen extends AbstractScreen {
 									if (result.soundToPlay() != null) {
 										assetManager.get(result.soundToPlay()).play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f); 
 									}
-									
+																										
 									newEncounterText.setColor(Color.GOLD);
 
 									final Table statusResults = new Table();
@@ -571,6 +571,7 @@ public class WorldMapScreen extends AbstractScreen {
 
 	private void switchContext() {
 		music.stop();
+		character.popPortraitPath();
 		showScreen(ScreenEnum.CONTINUE);
 	}
 	
