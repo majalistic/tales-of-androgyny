@@ -25,7 +25,7 @@ public class LoadScreen extends AbstractScreen {
 	public LoadScreen(ScreenFactory factory, ScreenElements elements, AssetManager assetManager, ScreenEnum screenRequest) {
 		super(factory, elements);
 		this.assetManager = assetManager;
-		this.skin = assetManager.get(AssetEnum.UI_SKIN.getSkin());
+		this.skin = assetManager.get(AssetEnum.BATTLE_SKIN.getSkin());
 		this.loadingImage = new Image(assetManager.get(AssetEnum.LOADING.getTexture()));
 		this.screenRequest = screenRequest;
 		this.largeFont = fontFactory.getFont(72);

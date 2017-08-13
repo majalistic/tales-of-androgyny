@@ -37,11 +37,11 @@ public class SplashScreen extends AbstractScreen {
 	@Override
 	public void buildStage() {
 		assetManager.load(AssetEnum.INTRO_SOUND.getSound());
-		assetManager.load(AssetEnum.UI_SKIN.getSkin());
+		assetManager.load(AssetEnum.BATTLE_SKIN.getSkin());
 		assetManager.load(AssetEnum.SPLASH_SCREEN.getTexture());
 		assetManager.finishLoading();
 		sound = assetManager.get(AssetEnum.INTRO_SOUND.getSound());
-		skin = assetManager.get(AssetEnum.UI_SKIN.getSkin());
+		skin = assetManager.get(AssetEnum.BATTLE_SKIN.getSkin());
 		background = assetManager.get(AssetEnum.SPLASH_SCREEN.getTexture());
 		
 		if (fullLoad) {

@@ -133,6 +133,7 @@ public class ScreenFactoryImpl implements ScreenFactory {
 		}
 		// temporary hack to ensure skin is always loaded
 		assetManager.load(AssetEnum.UI_SKIN.getSkin());
+		assetManager.load(AssetEnum.BATTLE_SKIN.getSkin());
 		return assetsLoaded;
 	}
 	
