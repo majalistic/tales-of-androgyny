@@ -79,7 +79,7 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 	public Array<Path> getPaths() { return paths; }
 	public EncounterCode getEncounterCode() { return visited ? encounter.getDefaultCode() : encounter.getCode(); }
 	public GameContext getEncounterContext() { return visited ? encounter.getDefaultContext() : encounter.getContext(); }
-
+	public boolean isConnected() { return connectedNodes.size > 0; }
 	
 	@Override
     public void draw(Batch batch, float parentAlpha) {
@@ -249,6 +249,4 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 		}
 		return neighbors;
 	}
-
-	
 }

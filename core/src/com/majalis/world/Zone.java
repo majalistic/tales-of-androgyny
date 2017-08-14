@@ -57,20 +57,22 @@ public class Zone {
 
 	@SuppressWarnings("unchecked")
 	protected Zone addEndNode(int nodeCode, EncounterCode initialEncounter, EncounterCode defaultEncounter, int x, int y) {
-		requiredNodes.add(getNode(nodeCode, initialEncounter, defaultEncounter, x, y, visitedCodesSet.contains(nodeCode)));
-		addNode(requiredNodes.get(requiredNodes.size-1), nodeCode, nodes, requiredNodes);		
+		addNode(getNode(nodeCode, initialEncounter, defaultEncounter, x, y, visitedCodesSet.contains(nodeCode)), nodeCode, nodes, requiredNodes);		
 		return this;
 	}
 
 	@SuppressWarnings("unchecked")
 	protected Zone buildZone() {
-		Array<GameWorldNode> requiredNodesFulfilled = new Array<GameWorldNode>(requiredNodes);
+		Array<GameWorldNode> requiredNodesUnfulfilled = new Array<GameWorldNode>(requiredNodes);
 		
-		for (int ii = 0; ii < repeats * 2; ii++) {
+		for (int ii = 0; ii < repeats; ii++) {
 			for (GameWorldNode requiredNode : requiredNodes) {
 				boolean nodeNotReached = true;
 				GameWorldNode currentNode = startNode;
 				GameWorldNode closestNode = currentNode;
+				if (requiredNodesUnfulfilled.contains(requiredNode, true)) {
+					closestNode = getClosestNode(requiredNode, nodes);
+				}
 				for (int nodeCode = nodes.size; nodeNotReached; ) {
 					Vector2 newNodePosition = null; // this should never happen
 					Vector2 source = new Vector2(currentNode.getHexPosition());
@@ -140,8 +142,7 @@ public class Zone {
 					// if we've reached the target node, we can terminate this run-through
 					nodeNotReached = !requiredNode.isAdjacent(newNode);
 					if (!nodeNotReached) {
-						requiredNodesFulfilled.removeValue(requiredNode, true);
-						requiredNodesFulfilled.removeValue(requiredNode, true);
+						requiredNodesUnfulfilled.removeValue(requiredNode, true);
 					}
 					// save the node for the next iteration
 					currentNode = newNode;		
@@ -151,17 +152,6 @@ public class Zone {
 			}
 		}
 		
-		if (TalesOfAndrogyny.testing) {
-			if (requiredNodesFulfilled.size != 0) {
-				String failures = "";
-				for (GameWorldNode node : (GameWorldNode[])requiredNodesFulfilled.toArray(GameWorldNode.class)) {
-					failures += node.getEncounterCode().toString() + ", ";
-				}
-				Logging.logTime("Failed to generate following required nodes : " + failures);
-			}
-		}
-			
-		
 		// connect all nodes that consider themselves adjacent to nearby nodes - some nodes, like permanent nodes, might have a longer "reach" then others
 		for (int ii = 0; ii < nodes.size-1; ii++) {
 			for (int jj = ii + 1; jj < nodes.size; jj++) {
@@ -170,7 +160,32 @@ public class Zone {
 				}
 			}
 		}
+		
+		if (TalesOfAndrogyny.testing) {
+			String failures = "";
+			for (GameWorldNode node : requiredNodes) {
+				if (!node.isConnected()) {
+					failures += node.getEncounterCode().toString() + ", ";
+				}
+			}
+			if (!failures.equals("")) {
+				Logging.logTime("Failed to generate following required nodes : " + failures);
+			}
+		}
 		return this;
+	}
+	
+	private GameWorldNode getClosestNode(GameWorldNode targetNode, Array<GameWorldNode> nodes) {
+		int shortestDistance = nodes.get(0).getDistance(targetNode);
+		GameWorldNode closestNode = nodes.get(0);
+		for (GameWorldNode node : nodes) {
+			int distance = node.getDistance(targetNode);
+			if (distance < shortestDistance) {
+				shortestDistance = distance;
+				closestNode = node;
+			}
+		}
+		return closestNode;
 	}
 	
 	private boolean isOverlap(Vector2 newNodePosition, Array<GameWorldNode> nodes) {

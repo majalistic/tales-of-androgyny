@@ -39,7 +39,7 @@ public class GameWorldFactory {
 	private void testWorldGen() {
 		Logging.logTime("Begin logging");
 		for (int ii = 0; ii < 10000; ii++) {
-			getGameWorld(ii, GameMode.SKIRMISH);
+			getGameWorld(ii, GameMode.SKIRMISH, 1);
 			Logging.logTime("Seed: " + ii);
 		}
 		Logging.flush();
@@ -47,7 +47,7 @@ public class GameWorldFactory {
 	/* End Unit Test */
 	
 	@SuppressWarnings("unchecked")
-	public Array<GameWorldNode> getGameWorld(int seed, GameMode gameMode) {
+	public Array<GameWorldNode> getGameWorld(int seed, GameMode gameMode, int currentNode) {
 		random.setSeed(seed);
 		nodeMap = new IntMap<GameWorldNode>();
 		nodes = new Array<GameWorldNode>();
@@ -64,13 +64,13 @@ public class GameWorldFactory {
 					.addEndNode(10000, GADGETEER, DEFAULT, 20, 22)
 					.buildZone();
 			
-			Zone zone2 = new Zone(loadService, assetManager, random, nodes, nodeMap, 1,  6)
+			Zone zone2 = new Zone(loadService, assetManager, random, nodes, nodeMap, 1,  3)
 					.addStartNode(zone.getEndNodes().get(0))
 					.addEndNode(1001, SPIDER, SPIDER, 72, 37)
 					.addEndNode(1002, FORT, FORT, 48, 72)
 					.buildZone();
 			
-			new Zone(loadService, assetManager, random, nodes, nodeMap, 2, 6)
+			new Zone(loadService, assetManager, random, nodes, nodeMap, 2, 3)
 					.addStartNode(zone2.getEndNodes().get(0))
 					.addEndNode(1003, FORT, FORT, 120, 62)
 					.addEndNode(1004, FORT, FORT, 120, 10)
@@ -93,7 +93,7 @@ public class GameWorldFactory {
 			addNode(getNode(nodeCode, EncounterCode.OGRE_WARNING_STORY, DEFAULT, 7, 23, visitedCodesSet.contains(nodeCode++)), nodes);	
 			addNode(getNode(nodeCode, EncounterCode.OGRE_STORY, DEFAULT, 6, 32, visitedCodesSet.contains(nodeCode++)), nodes);
 			
-			new Zone(loadService, assetManager, random, nodes, nodeMap, 1, 2)
+			new Zone(loadService, assetManager, random, nodes, nodeMap, 1, 1)
 				.addStartNode(nodes.get(nodes.size-1))
 				.addEndNode(1003, FORT, FORT, 9, 51)
 				.buildZone();
@@ -107,7 +107,7 @@ public class GameWorldFactory {
 			}
 		}
 		
-		nodeMap.get((Integer)loadService.loadDataValue(SaveEnum.NODE_CODE, Integer.class)).setAsCurrentNode();
+		nodeMap.get(currentNode).setAsCurrentNode();
 		nodes.sort();
 		return nodes;
 	}
