@@ -139,6 +139,7 @@ public class Zone {
 						TalesOfAndrogyny.setEncounter.size == 0 ? EncounterCode.getEncounterCode(nodeCode - 1, difficulty) : TalesOfAndrogyny.setEncounter.get(nodeCode%TalesOfAndrogyny.setEncounter.size),
 						EncounterCode.DEFAULT, (int)newNodePosition.x, (int)newNodePosition.y, visitedCodesSet.contains(nodeCode));
 					addNode(newNode, nodeCode, nodes);
+					
 					// if we've reached the target node, we can terminate this run-through
 					nodeNotReached = !requiredNode.isAdjacent(newNode);
 					if (!nodeNotReached) {
@@ -176,9 +177,15 @@ public class Zone {
 	}
 	
 	private GameWorldNode getClosestNode(GameWorldNode targetNode, Array<GameWorldNode> nodes) {
-		int shortestDistance = nodes.get(0).getDistance(targetNode);
 		GameWorldNode closestNode = nodes.get(0);
+		int shortestDistance = closestNode.getDistance(targetNode);
+		if (closestNode == targetNode) {
+			closestNode = nodes.get(1);
+			shortestDistance = closestNode.getDistance(targetNode);
+		}
+		
 		for (GameWorldNode node : nodes) {
+			if (node == targetNode) continue;
 			int distance = node.getDistance(targetNode);
 			if (distance < shortestDistance) {
 				shortestDistance = distance;
