@@ -89,7 +89,6 @@ public class ReplayScreen extends AbstractScreen {
 		Table table = new Table();
 		
 		for (final EnemyEnum type : EnemyEnum.values()) {
-			if (type == EnemyEnum.BUTTBANG) continue;
 			if (!enemyKnowledge.containsKey(type.toString())) continue;
 			nothingToDisplay = "";
 			TextButton button = new TextButton(type.toString(), skin);

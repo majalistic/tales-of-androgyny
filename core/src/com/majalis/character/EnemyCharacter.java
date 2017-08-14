@@ -197,8 +197,6 @@ public class EnemyCharacter extends AbstractCharacter {
 						break;
 					case SPIDER:
 						break;
-					case BUTTBANG:
-						break;
 				}
 			}
 			
@@ -234,8 +232,6 @@ public class EnemyCharacter extends AbstractCharacter {
 					case BEASTMISTRESS:
 						break;
 					case SPIDER:
-						break;
-					case BUTTBANG:
 						break;
 				}
 					

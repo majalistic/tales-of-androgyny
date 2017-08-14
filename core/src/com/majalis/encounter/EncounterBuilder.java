@@ -14,10 +14,10 @@ import com.badlogic.gdx.utils.IntArray;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.OrderedMap;
 import com.majalis.asset.AnimatedActor;
+import com.majalis.asset.AnimationEnum;
 import com.majalis.asset.AssetEnum;
 import com.majalis.battle.BattleCode;
 import com.majalis.battle.Battle.Outcome;
-import com.majalis.character.EnemyEnum;
 import com.majalis.character.Perk;
 import com.majalis.character.PlayerCharacter;
 import com.majalis.character.Stance;
@@ -58,7 +58,7 @@ public class EncounterBuilder {
 	private final GameContext returnContext;
 	private final GameMode mode;
 	private final OrderedMap<Integer, Scene> masterSceneMap;
-	private final ObjectMap<EnemyEnum, AnimatedActor> animationCache;
+	private final ObjectMap<AnimationEnum, AnimatedActor> animationCache;
 	private final Array<MutationResult> results;
 	// can probably be replaced with a call to scenes.size
 	private int sceneCounter;
@@ -74,7 +74,7 @@ public class EncounterBuilder {
 		this.returnContext = returnContext;
 		this.mode = mode;
 		this.results = results;
-		this.animationCache = new ObjectMap<EnemyEnum, AnimatedActor>();
+		this.animationCache = new ObjectMap<AnimationEnum, AnimatedActor>();
 		sceneCounter = 1;
 		masterSceneMap = new OrderedMap<Integer, Scene>();
 	}
@@ -1061,7 +1061,7 @@ public class EncounterBuilder {
 			preprocess(null, null, null);
 		}
 	
-		private void preprocess(AssetEnum startBackground, AssetEnum startForeground, EnemyEnum startAnimatedForeground) {
+		private void preprocess(AssetEnum startBackground, AssetEnum startForeground, AnimationEnum startAnimatedForeground) {
 			if (preprocessed) return;
 			preprocessed = true;
 			for (SceneToken token : sceneTokens) {
@@ -1202,7 +1202,7 @@ public class EncounterBuilder {
 			Array<Background> backgrounds = new Array<Background>();
 			AssetEnum background = null;
 			AssetEnum foreground = null;
-			EnemyEnum animatedForeground = null;
+			AnimationEnum animatedForeground = null;
 
 			Texture dialogBoxTexture = assetManager.get(AssetEnum.BATTLE_HOVER.getTexture());
 			
@@ -1223,8 +1223,8 @@ public class EncounterBuilder {
 					else {						
 						BackgroundBuilder backgroundBuilder = (token.background != null ? new BackgroundBuilder(assetManager.get(token.background.getTexture()), token.background.isTinted()) : background != null ? new BackgroundBuilder(assetManager.get(background.getTexture()), background.isTinted()) : getDefaultBackground()).setDialogBox(dialogBoxTexture); 
 						if (token.animatedForeground != null) {
-							int x = token.animatedForeground == EnemyEnum.BUTTBANG ? 555 : 0;
-							int y = token.animatedForeground == EnemyEnum.BUTTBANG ? 520 : 0;
+							int x = token.animatedForeground == AnimationEnum.BUTTBANG ? 555 : 0;
+							int y = token.animatedForeground == AnimationEnum.BUTTBANG ? 520 : 0;
 							backgroundBuilder.setForeground(getAnimation(token.animatedForeground), x, y);
 						}
 						else if (token.foreground != null) {
@@ -1236,8 +1236,8 @@ public class EncounterBuilder {
 							}
 						}
 						else if (animatedForeground != null) {
-							int x = animatedForeground == EnemyEnum.BUTTBANG ? 555 : 0;
-							int y = animatedForeground == EnemyEnum.BUTTBANG ? 520 : 0;
+							int x = animatedForeground == AnimationEnum.BUTTBANG ? 555 : 0;
+							int y = animatedForeground == AnimationEnum.BUTTBANG ? 520 : 0;
 							backgroundBuilder.setForeground(getAnimation(animatedForeground), x, y);
 						}
 						else if (foreground != null) {
@@ -1310,10 +1310,10 @@ public class EncounterBuilder {
 			return getDefaultBackground().setDialogBox(assetManager.get(AssetEnum.BATTLE_HOVER.getTexture()), 400, 100, 1200, 800).build();
 		}
 		
-		private AnimatedActor getAnimation(EnemyEnum type) {
+		private AnimatedActor getAnimation(AnimationEnum type) {
 			AnimatedActor animation = animationCache.get(type);
 			if (animation == null) {
-				animation = type.getPrimaryAnimation(assetManager);
+				animation = type.getAnimation(assetManager);
 				animationCache.put(type, animation);
 			}			
 			return animation;
@@ -1484,11 +1484,11 @@ public class EncounterBuilder {
 		String speaker;
 		AssetEnum background;
 		AssetEnum foreground;
-		EnemyEnum animatedForeground;
+		AnimationEnum animatedForeground;
 		AssetEnum sound;
 		AssetEnum music;
 		Array<MutateToken> mutations;
-		public void preprocess(AssetEnum startBackground, AssetEnum startForeground, EnemyEnum startAnimatedForeground) {
+		public void preprocess(AssetEnum startBackground, AssetEnum startForeground, AnimationEnum startAnimatedForeground) {
 			//if foreground == null and token.foreground != null and animatedForeground != null -> foreground = token.foreground, animatedForeground = null
 					
 			if (background == null) background = startBackground;

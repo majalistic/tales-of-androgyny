@@ -7,7 +7,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.IntArray;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.majalis.asset.AnimatedActor;
-import com.majalis.asset.AnimatedActorFactory;
+import com.majalis.asset.AnimationEnum;
 import com.majalis.asset.AssetEnum;
 import com.majalis.character.AbstractCharacter.PhallusType;
 import com.majalis.character.AbstractCharacter.PronounSet;
@@ -15,11 +15,11 @@ import com.majalis.character.Item.WeaponType;
 
 public enum EnemyEnum {
 	WERESLUT (new EnemyTemplate(WeaponType.Claw).setStrength(5).setAgility(5), "Wereslut", AssetEnum.WEREBITCH.getTexture()),
-	HARPY (new EnemyTemplate(WeaponType.Talon).setStrength(4), "Harpy", null, AssetEnum.HARPY_ANIMATION.getAnimation()),
+	HARPY (new EnemyTemplate(WeaponType.Talon).setStrength(4), "Harpy", null, AnimationEnum.HARPY),
 	SLIME (new EnemyTemplate(null).setStrength(2).setEndurance(4).setAgility(4), "Slime", AssetEnum.SLIME.getTexture()),
-	BRIGAND (new EnemyTemplate(WeaponType.Gladius).setAgility(4), "Brigand", null, AssetEnum.BRIGAND_ANIMATION.getAnimation()),
-	CENTAUR (new EnemyTemplate(WeaponType.Bow).setEndurance(4).setAgility(4).setPerception(5), "Centaur", null, AssetEnum.CENTAUR_ANIMATION.getAnimation()),
-	UNICORN (new EnemyTemplate(WeaponType.Bow).setEndurance(4).setAgility(4).setPerception(5), "Unicorn", null, AssetEnum.CENTAUR_ANIMATION.getAnimation()),
+	BRIGAND (new EnemyTemplate(WeaponType.Gladius).setAgility(4), "Brigand", null, AnimationEnum.BRIGAND),
+	CENTAUR (new EnemyTemplate(WeaponType.Bow).setEndurance(4).setAgility(4).setPerception(5), "Centaur", null, AnimationEnum.CENTAUR),
+	UNICORN (new EnemyTemplate(WeaponType.Bow).setEndurance(4).setAgility(4).setPerception(5), "Unicorn", null, AnimationEnum.UNICORN),
 	GOBLIN (new EnemyTemplate(WeaponType.Dagger).setStrength(4).setEndurance(4).setAgility(5), "Goblin", AssetEnum.GOBLIN.getTexture()), 
 	GOBLIN_MALE (new EnemyTemplate(WeaponType.Dagger).setStrength(4).setEndurance(4).setAgility(5), "Goblin (Male)", AssetEnum.GOBLIN_MALE.getTexture()),
 	ORC (new EnemyTemplate(WeaponType.Flail, 7, 6, 4, 3, 3, 3).setDefense(6).addHealth(10), "Orc", AssetEnum.ORC.getTexture()), 
@@ -27,14 +27,13 @@ public enum EnemyEnum {
 	OGRE (new EnemyTemplate(WeaponType.Club, 8, 8, 4, 3, 3, 3).addHealth(20), "Ogre", AssetEnum.OGRE.getTexture()),
 	BEASTMISTRESS (new EnemyTemplate(WeaponType.Claw).setStrength(6).setAgility(8).setEndurance(5).addHealth(10), "Beast Mistress", AssetEnum.BEASTMISTRESS.getTexture()),
 	SPIDER (new EnemyTemplate(WeaponType.Claw).setStrength(6).setAgility(5).setEndurance(5).setHealth(new IntArray(new int[]{20, 20, 20, 20})), "Arachne", AssetEnum.SPIDER.getTexture()), 
-	BUTTBANG(null, null, null), 
 	;
 	private final String text;
 	private final AssetDescriptor<Texture> path;
-	private final AssetDescriptor<AnimatedActorFactory> animation;
+	private final AnimationEnum animation;
 	private final EnemyTemplate template;
 	private EnemyEnum(EnemyTemplate template, final String text, final AssetDescriptor<Texture> path) { this(template, text, path, null); }
-    private EnemyEnum(EnemyTemplate template, final String text, final AssetDescriptor<Texture> path, final AssetDescriptor<AnimatedActorFactory> animation) { this.template = template; this.text = text; this.path = path; this.animation = animation; }
+    private EnemyEnum(EnemyTemplate template, final String text, final AssetDescriptor<Texture> path, final AnimationEnum animation) { this.template = template; this.text = text; this.path = path; this.animation = animation; }
     @Override
     public String toString() { return text; }	
     public AssetDescriptor<Texture> getTexture() { return path; }
@@ -65,7 +64,7 @@ public enum EnemyEnum {
     public PhallusType getPhallusType() { return this == BRIGAND || this == BEASTMISTRESS ? PhallusType.NORMAL : this == ADVENTURER ? PhallusType.SMALL : PhallusType.MONSTER; }
     public PronounSet getPronounSet() { return this == ADVENTURER || this == OGRE || this == GOBLIN_MALE ? PronounSet.MALE : PronounSet.FEMALE; }
     
-    public AssetDescriptor<AnimatedActorFactory> getAnimation() { return animation; }
+    public AnimationEnum getAnimation() { return animation; }
 	public boolean canProneBone() {
 		return this == BRIGAND || this == GOBLIN || this == ORC || this == ADVENTURER || this == GOBLIN_MALE;
 	}
@@ -94,32 +93,10 @@ public enum EnemyEnum {
 	public boolean prefersMissionary() { return this == BRIGAND || this == ADVENTURER; }
 	public boolean canWrestle() { return this != HARPY && this != CENTAUR && this != UNICORN && this != OGRE && this != BEASTMISTRESS && this != SPIDER; }
 	
-	
 	public AnimatedActor getPrimaryAnimation(AssetManager assetManager) {
 		AnimatedActor animation = null; 
-		if (this == EnemyEnum.BUTTBANG) {
-			return assetManager.get(AssetEnum.GAME_OVER_ANIMATION.getAnimation()).getInstance();
-		}
-		if (this == EnemyEnum.HARPY || this == EnemyEnum.CENTAUR || this == EnemyEnum.UNICORN || this == EnemyEnum.BRIGAND) {
-			animation = assetManager.get(this.getAnimation()).getInstance();
-			
-			if (this == EnemyEnum.HARPY) {
-				animation.setSkeletonPosition(900, 550);
-			}
-			else if (this == EnemyEnum.BRIGAND) {
-				animation.setSkeletonPosition(900, 450);
-			}
-			else {
-				animation.setSkeletonPosition(1000, 550);
-			}
-			
-			if (this == EnemyEnum.CENTAUR) {
-				animation.setSkeletonSkin("BrownCentaur");
-			}
-			else if (this == EnemyEnum.UNICORN) {
-				animation.setSkeletonSkin("WhiteUnicorn");
-			}
-			animation.setAnimation(0, "Idle Erect", true);
+		if (this.animation != null) {
+			animation = this.animation.getAnimation(assetManager);			
 		}
 		return animation;
 	}
