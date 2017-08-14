@@ -96,6 +96,9 @@ public enum AssetEnum {
 	TINY_SPIDER_LOW("enemies/SpiderTinyLow.png"),
 	ADVENTURER("enemies/Adventurer.png"), 
 	BEASTMISTRESS("enemies/BeastMaster.png"),
+	GOLEM("enemies/Golem.png"),
+	GOLEM_FUTA("enemies/GolemFuta.png"),
+	GOLEM_CLOSEUP("enemies/GolemClose.png"),
 	TRAP_BONUS("enemies/TrapBonus.jpg"), 
 	
 	ARMOR("battle/Armor.png"),
@@ -248,6 +251,7 @@ public enum AssetEnum {
 	HOVEL_MUSIC("music/HovelMusic.mp3", Music.class),
 	WEREWOLF_MUSIC("music/WerewolfMusic.mp3", Music.class),
 	CARNIVAL_MUSIC("music/CarnivalMusic.mp3", Music.class),
+	ETHEREAL_MUSIC("music/EtherealMusic.mp3", Music.class),
 	HEAVY_MUSIC("music/Mechanolith.mp3", Music.class),
 	WORLD_MAP_MUSIC("music/WorldMapMusic.mp3", Music.class),
 	BATTLE_MUSIC("music/BattleMusic.mp3", Music.class),
@@ -262,7 +266,7 @@ public enum AssetEnum {
 	FEATHERS2_ANIMATION("animation/Feathers2.atlas", AnimatedActorFactory.class, new AnimatedActorLoader.AnimatedActorParameter(.75f, 1, true)),
 	BRIGAND_ANIMATION("animation/Brigand.atlas", AnimatedActorFactory.class, new AnimatedActorLoader.AnimatedActorParameter(.60f, .75f, true)),
 	ANAL_ANIMATION("animation/skeleton.atlas", AnimatedActorFactory.class, new AnimatedActorLoader.AnimatedActorParameter(.475f, 1, true)),
-	CENTAUR_ANIMATION("animation/Centaur.atlas", AnimatedActorFactory.class, new AnimatedActorLoader.AnimatedActorParameter(.60f, 1.8f, true)),
+	CENTAUR_ANIMATION("animation/Centaur.atlas", AnimatedActorFactory.class, new AnimatedActorLoader.AnimatedActorParameter(.60f, 1.8f, true)), 
 	;
 	
 	private final AssetDescriptor<?> assetDescriptor;

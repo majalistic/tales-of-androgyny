@@ -550,6 +550,8 @@ public class EncounterBuilder {
 						)
 					)
 				).getEncounter();
+			case GOLEM:
+				return new Branch().textScene("GOLEM-INTRO").getEncounter();
 			case HARPY:
 				Branch[] battleBranches = new Branch[]{new Branch(Outcome.VICTORY).textScene("HARPY-VICTORY").encounterEnd(), new Branch(Outcome.DEFEAT).textScene("HARPY-DEFEAT").gameEnd(), new Branch(Outcome.SATISFIED).textScene("HARPY-SATISFIED").encounterEnd()};
 				Branch harpyDodge = new Branch(6).textScene("HARPY-DODGE").battleScene(

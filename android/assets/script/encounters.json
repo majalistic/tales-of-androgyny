@@ -4380,4 +4380,19 @@
 			"text": "You sit with Trudy a while.  He talks about his grand adventures.  You wonder how much of it is true."}
 		]
 	},
+	{
+		"key": "GOLEM-INTRO",
+		"scriptLines": [
+			{
+			"music": "ETHEREAL_MUSIC",
+			"foreground": "GOLEM",
+			"text": "You see a... statue?"},
+			{
+			"foreground": "GOLEM_CLOSEUP",
+			"text": "It has... a strange appendage."},
+			{
+			"foreground": "GOLEM_FUTA",
+			"text": "Peculiar."}
+		]
+	}
 ]}

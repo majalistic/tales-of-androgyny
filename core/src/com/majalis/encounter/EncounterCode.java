@@ -30,6 +30,7 @@ public enum EncounterCode {
 	SPIDER (CASTLE),
 	ELF,
 	ELF_COMPANION, 
+	GOLEM,
 	FORT (CASTLE), 
 	TOWN (AssetEnum.TOWN),
 	TOWN2 (AssetEnum.TOWN),
@@ -102,6 +103,7 @@ public enum EncounterCode {
 					case SPIDER: return "Ruins";
 					case ADVENTURER: 
 					case ELF: return "Adventurer";
+					case GOLEM: return "Statue";
 					case GADGETEER: return "Merchant";
 					case TOWN: return "Small Settlement";
 					case TOWN2:
@@ -145,6 +147,7 @@ public enum EncounterCode {
 					case ORC: return "Orc - Neutral";
 					case ADVENTURER: return "Adventurer - Neutral";
 					case ELF: return "Elf - Peaceful";
+					case GOLEM: return "Golem";
 					case OGRE: return "Ogre - Danger!";
 					case BEASTMISTRESS: return "Drow Beastmistress - Hostile!";
 					case SPIDER: return "Ruins - Danger!";
@@ -308,7 +311,13 @@ public enum EncounterCode {
 					AssetEnum.TINY_SPIDER.getTexture(),
 					AssetEnum.TINY_SPIDER_LOW.getTexture(),
 					AssetEnum.WEREWOLF_MUSIC.getMusic()
-			});
+				});
+			case GOLEM:
+				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{  
+					AssetEnum.GOLEM.getTexture(),
+					AssetEnum.GOLEM_FUTA.getTexture(),
+					AssetEnum.ETHEREAL_MUSIC.getMusic()
+				});
 			case INN:
 				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{  
 					AssetEnum.INNKEEPER.getTexture(),
@@ -415,7 +424,7 @@ public enum EncounterCode {
 	static {
 		encounterMap = new IntMap<Array<EncounterCode>>();
 		encounterMap.put(1, new Array<EncounterCode>(new EncounterCode[]{WERESLUT, HARPY, SLIME, BRIGAND, DRYAD, CENTAUR, GOBLIN, ORC, ADVENTURER, ELF, FOOD_CACHE, GOLD_CACHE, DAMAGE_TRAP, ANAL_TRAP, HUNGER_CHARM}));
-		encounterMap.put(2, new Array<EncounterCode>(new EncounterCode[]{WERESLUT, HARPY, SLIME, BRIGAND, DRYAD, CENTAUR, GOBLIN, ORC, ADVENTURER, OGRE, BEASTMISTRESS, ELF, FOOD_CACHE, GOLD_CACHE, DAMAGE_TRAP, ANAL_TRAP, ICE_CREAM, HUNGER_CHARM}));
+		encounterMap.put(2, new Array<EncounterCode>(new EncounterCode[]{WERESLUT, HARPY, SLIME, BRIGAND, DRYAD, CENTAUR, GOBLIN, ORC, ADVENTURER, OGRE, BEASTMISTRESS, GOLEM, ELF, FOOD_CACHE, GOLD_CACHE, DAMAGE_TRAP, ANAL_TRAP, ICE_CREAM, HUNGER_CHARM}));
 		
 		iceCreamReady = true;
 		hungerCharmReady = true;
