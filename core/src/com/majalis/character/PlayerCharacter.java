@@ -1145,6 +1145,8 @@ public class PlayerCharacter extends AbstractCharacter {
 			result.add(new MutationResult("You gained " + Perk.LADY_OF_THE_NIGHT.getLabel() + " (Rank " + (perks.get(Perk.LADY_OF_THE_NIGHT.toString(), 0) + 1) + ")!"));
 			perks.put(Perk.LADY_OF_THE_NIGHT.toString(), ((int)perks.get(Perk.LADY_OF_THE_NIGHT.toString(), 0)) + 1);
 		}
+		// should be moved into its own method
+		this.buttful += sex.getBellyful();
 				
 		return result;
 	}

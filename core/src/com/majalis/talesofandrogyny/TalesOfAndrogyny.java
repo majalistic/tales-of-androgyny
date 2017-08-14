@@ -36,7 +36,6 @@ public class TalesOfAndrogyny extends Game {
 	public static boolean testing = false;
 	
 	public void create() {	
-		
 		Preferences prefs = Gdx.app.getPreferences("tales-of-androgyny-preferences");
 		if (prefs.getBoolean("fullScreen", false)) {
 			Gdx.graphics.setFullscreenMode(Gdx.graphics.getDisplayMode());

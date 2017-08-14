@@ -1423,7 +1423,9 @@
 		"scriptLines": [
 			{"text": "You open your mouth to speak... a costly mistake!"},
 			{"text": "You see the slime girl's face up close, and then, a moment later, it collides with yours - and your stomach is instantly full of slime girl goo, with pints being piped in by the second."},
-			{"text": "In a matter of minutes, your stomach is pumped full near to bursting, and little of the mischevious slime girl is to be found spread on the ground around you - most of her being is swirling and rushing through your intestines, sitting heavily in your over-inflated belly."},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "bellyful":15}}],
+			"text": "In a matter of minutes, your stomach is pumped full near to bursting, and little of the mischevious slime girl is to be found spread on the ground around you - most of her being is swirling and rushing through your intestines, sitting heavily in your over-inflated belly."},
 			{"text": "You can't even stand, being that overburdened... so you sit there, for hours, with the googirl cramping your bowels."},
 			{
 			"foreground": "NULL",
@@ -1448,7 +1450,9 @@
 			"text": "You turn to flee, but trip, your pants falling down!"},
 			{"text": "\"Don't mind if I do!\" you hear the slimegirl say from behind you... and then, you hear her glorpy form ascend into the air... and a moment later, what goes up comes down, and hard."},
 			{"text": "The sudden rush into your bowels knocks the wind out of you, and the pumping continues, as she anchors her gooey form to the ground and pumps herself, \"face\"-first into your poor, unfortunate guts."},
-			{"text": "In a matter of minutes, your stomach is pumped full near to bursting, and little of the mischevious slime girl is to be found spread on the ground around you - most of her being is swirling and rushing through your intestines, sitting heavily in your over-inflated belly."},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "bellyful":15}}],
+			"text": "In a matter of minutes, your stomach is pumped full near to bursting, and little of the mischevious slime girl is to be found spread on the ground around you - most of her being is swirling and rushing through your intestines, sitting heavily in your over-inflated belly."},
 			{"text": "You can't even stand, being that overburdened... so you sit there, for hours, with the googirl cramping your bowels."}
 			{
 			"foreground": "NULL",
@@ -1862,7 +1866,7 @@
 			{"text": "You feel her lustful stickiness dripping down your own testicles as she coats your button hole with it with each lewd kiss, until finally, you start to feel something give way - as does she, and rather than retracting for another tap, she begins to lean her weight forward."},
 			{
 			"foreground": "UNICORN_ANAL",
-			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1, "analEjaculation":1, "creampies":1, "horse":true}}],
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1, "analEjaculation":1, "bellyful":5, "horse":true}}],
 			"text": "\"Virgin... virgin...\" she chants, mesmerized, as your sphincter gives it up - it begins to open up, and you feel her leathery funstick start to sink inside - until, much to your consternation, it opens wide to accept its new gift and semi-permanent shape, and the entire plains hears your frustration as you receive your first taste of horsecock right up the butthole."},
 			{"text": "You lose your virginity in a completely unmistakable fashion, and as she moans in high-pitched excitement, you know that she got exactly what she came for."},
 			{"text": "She's crushing your guts with it, as a visible bulge moves up and down your abdomen.  Her upper body is still, and indeed, her lower body is mostly still as well, but even the slightest movement sends several inches of horsecock squelching up into or out of your stretched-wide hole."},
@@ -1900,7 +1904,7 @@
 			{"text": "She doesn't hesitate to begin prodding it against your poor hole - once, twice, three times, and you yelp, as she begins to stuff it inside, your mouth agape in awe and your backdoor opening far wider than is comfortable."},
 			{
 			"foreground": "CENTAUR_ANAL",
-			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1, "analEjaculation":1, "creampies":1, "horse":true}}],
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1, "analEjaculation":1, "bellyful":5, "horse":true}}],
 			"text": "Sweat drips down your face as she pushes it inside - even though you're holding yourself open, it's still a lot of dick to stuff into a very tight, soon to be cavernous pussy."},
 			{"text": "It lurches inside you, putting a crushing pressure in your bowels, and you fear you've bitten off more than you can chew.  You get the feeling if you let her cum, you're going to be winking for days."},
 			{"text": "\"Mmmm... we mate for life, you know,\" she says... and you realize you're going to have to fight your way out of this one."},
@@ -3499,7 +3503,7 @@
 			{"text": "You were defeated.  Duh."},
 			{"text": "The ogre lifts you up by your legs, and you squeal in surprise as you feel his thick tower threatening to impale you."},
 			{
-			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1, "creampies": 2, "ogre":true}}],				
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1, "bellyful": 10, "ogre":true}}],				
 			"text": "Aided by gravity, the ogre's fat cockhead enters your ass!"},
 			{"text": "You are completely at his mercy - each inch up or down he controls by grasping your legs and dragging you like a doll across his towering mast."},
 			{
@@ -3522,7 +3526,7 @@
 			{"text": "All at once, the ogre snaps you up in his massive fist! You are completely helpless in his grasp!"},
 			{
 			"foreground": "OGRE_BANGED",
-			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1, "creampies": 2, "ogre":true}}],				
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1, "bellyful": 2, "ogre":true}}],				
 			"text": "Aided by gravity, the ogre's fat cockhead smashes into your ass!"},
 			{"text": "You are completely at his mercy - each inch up or down he controls by grasping your legs and dragging you like a doll across his towering mast."},
 			{
@@ -3710,7 +3714,7 @@
 			{"text": "She reaches underneath her mount to spread your cheeks for the breeding."},
 			{"text": "\"As long as I spread your cheeks like this for him, he'll be able to start anally violating you.\""},
 			{
-			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1, "creampies": 2, "beast": true}}],
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1, "bellyful": 2, "beast": true}}],
 			"text": "You can't believe this is happening - that is, until you feel a strange object force its way inside, and your vision goes white."},
 			{"text": "\"Painful, isn't it?  The barbs are meant to force a female to ovulate... in your ass, though, it's just an unfortunate mismatch.\""},
 			{"text": "The feline phallus bores into you, straightening out your rectal pipe as it does, but even when it withdraws, it isn't a relief, as the barbs scrape your smooth walls."},
