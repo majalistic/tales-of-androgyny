@@ -106,6 +106,7 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 	
 	private static int scaleFactor = 25;
 	
+	// x < -8 is off the left side of the screen with a scale factor of 25; 2y + x < 10 is off the bottom side
 	private Vector2 calculatePosition(int x, int y) {
 		return new Vector2(x * scaleFactor, y * scaleFactor + (x * (scaleFactor / 2)));
 	}

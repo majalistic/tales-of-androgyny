@@ -88,8 +88,9 @@ public class Zone {
 					Array<Vector2> possibleTowardsCoordinates = new Array<Vector2>();
 					Array<Vector2> possibleAwayCoordinates = new Array<Vector2>();
 					Vector2 possible = new Vector2(0, 0);
-					for (int jj = (int)source.x - 11; jj < source.x + 11; jj++) {
+					for (int jj = Math.max((int)source.x - 11, -8); jj < source.x + 11; jj++) {
 						for (int kk = (int)source.y - 11; kk < source.y + 11; kk++) {
+							if (jj + kk * 2 < 10) continue;
 							possible.x = jj;
 							possible.y = kk;
 							int newDistance = requiredNode.getDistance(possible);
