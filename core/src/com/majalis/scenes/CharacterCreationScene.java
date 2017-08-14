@@ -93,7 +93,9 @@ public class CharacterCreationScene extends Scene {
 		final Label statMessage = new Label("", skin);
 		statMessage.setColor(Color.RED);
 		final Label statDescription = new Label("", skin);
-		statDescription.setColor(Color.BLACK);
+		statDescription.setWrap(true);
+		statDescription.setWidth(800);
+		statDescription.setColor(Color.FOREST);
 		statMessage.setPosition(525, 800);
 		statDescription.setPosition(525, 800);
 		this.addActor(classMessage);
