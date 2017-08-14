@@ -45,13 +45,12 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 	private int arrowHeight;
 	private int arrowShift;
 	
-	public GameWorldNode(final int nodeCode, GameWorldNodeEncounter encounter, Vector2 position, boolean visited, Sound sound, PlayerCharacter character, AssetManager assetManager) {
+	public GameWorldNode(final int nodeCode, GameWorldNodeEncounter encounter, int x, int y, boolean visited, Sound sound, PlayerCharacter character, AssetManager assetManager) {
 		this.connectedNodes = new ObjectSet<GameWorldNode>();
 		paths = new Array<Path>();
 		this.encounter = encounter;
-		Vector2 calcPosition = getCalcPosition(position);
-		this.x = (int)calcPosition.x;
-		this.y = (int)calcPosition.y;
+		this.x = x;
+		this.y = y;
 		this.position = calculatePosition(x, y);
 		this.nodeCode = nodeCode;
 		this.visited = visited;
@@ -74,6 +73,7 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 		visibility = -1;
 	}
 	
+	public Vector2 getHexPosition() { return new Vector2(x, y); }	
 	public int getNodeCode() { return nodeCode; }
 	public String getHoverText() { return current ? "" : encounter.getDescription(visibility, visited); }
 	public Array<Path> getPaths() { return paths; }
@@ -106,11 +106,6 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 	
 	private static int scaleFactor = 25;
 	
-	private Vector2 getCalcPosition(Vector2 position) {
-		int x = (int)Math.floor(position.x / scaleFactor);
-		return new Vector2(x, (int)Math.floor((position.y - (x * (scaleFactor / 2))) / scaleFactor));
-	}
-	
 	private Vector2 calculatePosition(int x, int y) {
 		return new Vector2(x * scaleFactor, y * scaleFactor + (x * (scaleFactor / 2)));
 	}
@@ -130,13 +125,17 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 	 * Code used for building out connections
 	 */
 	protected Vector2 getPosition() { return position; }
-	protected boolean isOverlapping(GameWorldNode otherNode) { return isOverlapping(otherNode.getPosition()); }
+	protected boolean isOverlapping(GameWorldNode otherNode) { return isOverlapping(otherNode.getHexPosition()); }
 	protected boolean isOverlapping(Vector2 otherNode) { 
-		return getDistance(getCalcPosition(otherNode)) <= 5;
+		return getDistance(otherNode) <= 5;
 	}
 	
-	protected boolean isAdjacent(GameWorldNode otherNode) { //return position.dst2(otherNode.getPosition()) < 67700; }
-		return getDistance(otherNode) <= 11;
+	protected boolean isAdjacent(GameWorldNode otherNode) {
+		return isAdjacent(otherNode.getHexPosition()); 
+	}
+	
+	public boolean isAdjacent(Vector2 possible) {
+		return getDistance(possible) <= 11;
 	}
 	
 	protected int getDistance(Vector2 otherNodePosition) {
@@ -148,7 +147,7 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 	}
 	
 	protected int getDistance(GameWorldNode otherNode) {
-		return getDistance(getCalcPosition(otherNode.position)); 		
+		return getDistance(otherNode.getHexPosition()); 		
 	}
 	
 	protected void connectTo(GameWorldNode otherNode) {
@@ -250,4 +249,6 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 		}
 		return neighbors;
 	}
+
+	
 }
