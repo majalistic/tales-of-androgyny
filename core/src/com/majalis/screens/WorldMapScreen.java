@@ -113,6 +113,7 @@ public class WorldMapScreen extends AbstractScreen {
 		for (AssetEnum asset: assets) {
 			resourceRequirements.add(asset.getTexture());
 		}
+		resourceRequirements.addAll(CharacterScreen.resourceRequirements);
 	}
 	
 	public WorldMapScreen(ScreenFactory factory, ScreenElements elements, AssetManager assetManager, SaveService saveService, LoadService loadService, Array<GameWorldNode> world) {

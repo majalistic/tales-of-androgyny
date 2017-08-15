@@ -58,6 +58,7 @@ public class CharacterScreen extends AbstractScreen {
 		resourceRequirements.add(AssetEnum.MAGIC.getTexture());
 		resourceRequirements.add(AssetEnum.CHARISMA.getTexture());
 		resourceRequirements.add(AssetEnum.WORLD_MAP_MUSIC.getMusic());
+		resourceRequirements.addAll(WorldMapScreen.resourceRequirements);
 	}
 	
 	public CharacterScreen(ScreenFactory factory, ScreenElements elements, AssetManager assetManager, final SaveService saveService, final PlayerCharacter character) {

@@ -48,6 +48,7 @@ public class ReplayScreen extends AbstractScreen {
 		for (AssetEnum asset: animationReqs) {
 			resourceRequirements.add(asset.getAnimation());
 		}
+		resourceRequirements.addAll(MainMenuScreen.resourceRequirements);
 	}
 	private final AssetManager assetManager;
 	private final ObjectMap<String, Integer> enemyKnowledge;

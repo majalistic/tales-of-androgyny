@@ -34,6 +34,7 @@ public class OptionScreen extends AbstractScreen {
 		resourceRequirements.add(AssetEnum.BUTTON_SOUND.getSound());
 		resourceRequirements.add(AssetEnum.MAIN_MENU_MUSIC.getMusic());
 		resourceRequirements.add(AssetEnum.DEFAULT_BACKGROUND.getTexture());
+		resourceRequirements.addAll(MainMenuScreen.resourceRequirements);
 	}
 	
 	private final Preferences preferences;
