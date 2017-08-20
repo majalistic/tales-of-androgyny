@@ -72,6 +72,7 @@ public enum AssetEnum {
 	HARPY_FELLATIO_2("enemies/HarpyBJ3.png"),
 	HARPY_FELLATIO_3("enemies/HarpyBJ4.png"),
 	BRIGAND_ORAL("enemies/BrigandOral.jpg"),
+	BRIGAND_MISSIONARY("enemies/BrigandMissionary.jpg"),
 	SLIME("enemies/HeartSlime.png"), 
 	SLIME_DOGGY("enemies/HeartSlimeLoveDart.png"), 
 	CENTAUR_ANAL("enemies/CentaurAnal.jpg"), 

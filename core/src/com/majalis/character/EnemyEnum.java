@@ -43,6 +43,11 @@ public enum EnemyEnum {
     	ObjectMap<String, Array<String>> textureImagePaths = new ObjectMap<String, Array<String>>();
     	if (this == HARPY) { textureImagePaths.put(Stance.FELLATIO.toString(), new Array<String>(new String[]{AssetEnum.HARPY_FELLATIO_0.getPath(), AssetEnum.HARPY_FELLATIO_1.getPath(), AssetEnum.HARPY_FELLATIO_2.getPath(), AssetEnum.HARPY_FELLATIO_3.getPath()})); }
     	else if (this == SLIME) { textureImagePaths.put(Stance.DOGGY.toString(),new Array<String>(new String[]{AssetEnum.SLIME_DOGGY.getPath()})); }
+    	else if (this == BRIGAND) { 
+    		textureImagePaths.put(Stance.FELLATIO.toString(),new Array<String>(new String[]{AssetEnum.BRIGAND_ORAL.getPath()}));
+    		textureImagePaths.put(Stance.FACEFUCK.toString(),new Array<String>(new String[]{AssetEnum.BRIGAND_ORAL.getPath()}));
+    		textureImagePaths.put(Stance.ANAL.toString(),new Array<String>(new String[]{AssetEnum.BRIGAND_MISSIONARY.getPath()}));
+    	}
     	else if (this == ORC) { textureImagePaths.put(Stance.PRONE_BONE.toString(),new Array<String>(new String[]{AssetEnum.ORC_PRONE_BONE.getPath()})); }
     	else if (this == GOBLIN) {
     		textureImagePaths.put(Stance.FACE_SITTING.toString(), new Array<String>(new String[]{AssetEnum.GOBLIN_FACE_SIT.getPath()}));

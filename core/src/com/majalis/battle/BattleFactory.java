@@ -74,17 +74,22 @@ public class BattleFactory {
 	private ObjectMap<Stance, Array<Texture>> getTextures(EnemyEnum type) {
 		ObjectMap<Stance, Array<Texture>> textures = new ObjectMap<Stance, Array<Texture>>();
 		
-		if (type == EnemyEnum.SLIME) {
+		if(type == EnemyEnum.HARPY) {
+			textures.put(Stance.FELLATIO, new Array<Texture>(new Texture[]{assetManager.get(AssetEnum.HARPY_FELLATIO_0.getTexture()), assetManager.get(AssetEnum.HARPY_FELLATIO_1.getTexture()), assetManager.get(AssetEnum.HARPY_FELLATIO_2.getTexture()), assetManager.get(AssetEnum.HARPY_FELLATIO_3.getTexture())}));
+		}
+		else if (type == EnemyEnum.SLIME) {
 			textures.put(Stance.DOGGY, new Array<Texture>(new Texture[]{assetManager.get(AssetEnum.SLIME_DOGGY.getTexture())}));
 		}
-		else if (type == EnemyEnum.ORC) {
-			textures.put(Stance.PRONE_BONE, new Array<Texture>(new Texture[]{assetManager.get(AssetEnum.ORC_PRONE_BONE.getTexture())}));
-		}
-		else if(type == EnemyEnum.HARPY) {
-			textures.put(Stance.FELLATIO, new Array<Texture>(new Texture[]{assetManager.get(AssetEnum.HARPY_FELLATIO_0.getTexture()), assetManager.get(AssetEnum.HARPY_FELLATIO_1.getTexture()), assetManager.get(AssetEnum.HARPY_FELLATIO_2.getTexture()), assetManager.get(AssetEnum.HARPY_FELLATIO_3.getTexture())}));
+		else if (type == EnemyEnum.BRIGAND) {
+			textures.put(Stance.FELLATIO, new Array<Texture>(new Texture[]{assetManager.get(AssetEnum.BRIGAND_ORAL.getTexture())}));
+			textures.put(Stance.FACEFUCK, new Array<Texture>(new Texture[]{assetManager.get(AssetEnum.BRIGAND_ORAL.getTexture())}));
+			textures.put(Stance.ANAL, new Array<Texture>(new Texture[]{assetManager.get(AssetEnum.BRIGAND_MISSIONARY.getTexture())}));
 		}
 		else if (type == EnemyEnum.CENTAUR) {
 			textures.put(Stance.DOGGY, new Array<Texture>(new Texture[]{assetManager.get(AssetEnum.CENTAUR_ANAL.getTexture()), assetManager.get(AssetEnum.CENTAUR_ANAL_XRAY.getTexture())}));
+		}
+		else if (type == EnemyEnum.ORC) {
+			textures.put(Stance.PRONE_BONE, new Array<Texture>(new Texture[]{assetManager.get(AssetEnum.ORC_PRONE_BONE.getTexture())}));
 		}
 		else if (type == EnemyEnum.GOBLIN) {
 			Texture anal = assetManager.get(AssetEnum.GOBLIN_ANAL.getTexture());

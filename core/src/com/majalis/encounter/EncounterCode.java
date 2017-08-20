@@ -242,7 +242,8 @@ public enum EncounterCode {
 			case BRIGAND:
 				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{
 					AssetEnum.BRIGAND_ANIMATION.getAnimation(),
-					AssetEnum.BRIGAND_ORAL.getTexture()
+					AssetEnum.BRIGAND_ORAL.getTexture(),
+					AssetEnum.BRIGAND_MISSIONARY.getTexture()
 				});
 			case DRYAD:
 				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{  

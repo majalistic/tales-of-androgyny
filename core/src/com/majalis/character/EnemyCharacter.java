@@ -813,7 +813,7 @@ public class EnemyCharacter extends AbstractCharacter {
 			}
 		}
 		if (currentAnimationsPlaying.size == 0 && enemyType == EnemyEnum.HARPY && !stance.isOralPenetration()) currentAnimationsPlaying.add(animations.get(0));
-		if (currentAnimationsPlaying.size == 0 || (enemyType == EnemyEnum.CENTAUR && stance == Stance.DOGGY)) {
+		if (currentAnimationsPlaying.size == 0 || (enemyType == EnemyEnum.CENTAUR && stance == Stance.DOGGY) || (enemyType == EnemyEnum.BRIGAND && (stance == Stance.FELLATIO || stance == Stance.FACEFUCK || stance == Stance.ANAL))) {
 			Array<Texture> textureCandidates = textures.get(stance, new Array<Texture>(new Texture[]{defaultTexture}));
 			Texture texture = textureCandidates.get(textureCandidates.size == 1 ? 0 : currentFrame);
 
@@ -823,10 +823,11 @@ public class EnemyCharacter extends AbstractCharacter {
 			float height = 975;
 			
 			if ((enemyType == EnemyEnum.HARPY && stance == Stance.FELLATIO) ||
+				enemyType == EnemyEnum.BRIGAND ||
 				(enemyType == EnemyEnum.ORC && stance == Stance.PRONE_BONE) ||
 				enemyType == EnemyEnum.CENTAUR || 
 				((enemyType == EnemyEnum.GOBLIN || enemyType == EnemyEnum.GOBLIN_MALE) && (stance == Stance.FACE_SITTING || stance == Stance.SIXTY_NINE || stance == Stance.DOGGY || stance == Stance.PRONE_BONE))) {
-				x = (enemyType == EnemyEnum.GOBLIN || enemyType == EnemyEnum.GOBLIN_MALE) && (stance == Stance.FACE_SITTING || stance == Stance.SIXTY_NINE) ? 400 : 0;
+				x = (enemyType == EnemyEnum.BRIGAND || (enemyType == EnemyEnum.GOBLIN || enemyType == EnemyEnum.GOBLIN_MALE) && (stance == Stance.FACE_SITTING || stance == Stance.SIXTY_NINE)) ? 400 : 0;
 				y = 0;
 				width = (int) (texture.getWidth() / (texture.getHeight() / 1080.));
 				height = 1080;

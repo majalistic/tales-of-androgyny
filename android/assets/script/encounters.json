@@ -1587,6 +1587,7 @@
 			{"text": "She spits on her fingers and rubs the moisture on your hole none too delicately. She does that again, and then a third time, and then positions the fat head of her cock right against your hole, and your heart stops beating. \"Is this for me? Don't mind if I do...\" she says, and you feel the insistent pressure starting to build."},
 			{
 			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1}}],
+			"foreground": "BRIGAND_MISSIONARY",
 			"text": "She doesn't let up - with one hand on your knee, the other on her dick as she guides it in.  Suddenly, you feel it pop inside, and your hands pulls weeds out by the roots.  She puts her hand on your other knee, a wide grin on her face, and your hole stretches too late to accommodate her."},
 			{"text": "She spreads your knees subtly as she pushes her hips forward - so that the opening of your legs corresponds with her prying open your innards. You hold your breath as she continues to push into you - there's no point in telling her to go easy on you."},
 			{"text": "The thickness of your anal membrane is stretched thin by her impressive girth - there is no question she's inside of you in a way that will render future anal activities more difficult. You can tell that the stretching is beyond normal, and then a bit beyond that - she's got a fat cock, and your hole is getting worked out by it."},
@@ -1634,7 +1635,9 @@
 		"key": "BRIGAND-REQUEST",
 		"scriptLines": [
 			{"text": "You ask for her to pull out and cum on your face - not the way you want it to go down, but you can't think of any other way to convince her not to gum in your guts."},
-			{"text": "She hears you, then slows down... and, thankfully, she tugs it out, schlorping all the way, until it pops up, casting a shadow onto yours, erect and pulsing and ready to shoot. That is, both of them are. You try to contract your recently-vacated hole enough to trigger it, somehow, but to no avail. You whine - you're likely not going to get to finish."},
+			{
+			"animatedForeground": "BRIGAND",
+			"text": "She hears you, then slows down... and, thankfully, she tugs it out, schlorping all the way, until it pops up, casting a shadow onto yours, erect and pulsing and ready to shoot. That is, both of them are. You try to contract your recently-vacated hole enough to trigger it, somehow, but to no avail. You whine - you're likely not going to get to finish."},
 			{"text": "She considers something, fixating on your face, clearly deliberating something, then climbs over you, bringing her fresh-out-the-ass cock bobbing in front of your nose."}
 		]
 	},
@@ -1668,6 +1671,7 @@
 		"key": "BRIGAND-BADTASTE",
 		"scriptLines": [
 			{
+			"foreground": "BRIGAND_ORAL",
 			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "oralSex":1, "oralCreampies":1}}],
 			"text": "All at once, an unpleasant taste fills your mouth, and a few inches of girl dick fills your throat.  There isn't much build up - she thrusts once, twice, three times, pinning your head against the ground, and then you feel a warm, sticky spray down your throat, and before you know it, you're already swallowing her cum."},
 			{
@@ -4385,6 +4389,8 @@
 		"scriptLines": [
 			{
 			"music": "ETHEREAL_MUSIC",
+			"text": "In the distance, you spotted it - a statue of some kind." },
+			{
 			"foreground": "GOLEM",
 			"text": "You see a... statue?"},
 			{
