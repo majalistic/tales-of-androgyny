@@ -817,6 +817,8 @@ public class EnemyCharacter extends AbstractCharacter {
 			Array<Texture> textureCandidates = textures.get(stance, new Array<Texture>(new Texture[]{defaultTexture}));
 			Texture texture = textureCandidates.get(textureCandidates.size == 1 ? 0 : currentFrame);
 
+			if (texture == null) return;
+			
 			int x = 600;
 			int y = 20;
 			float width =  (int) (texture.getWidth() / (texture.getHeight() / 975.));
