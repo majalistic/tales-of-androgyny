@@ -24,6 +24,7 @@ public enum BattleCode {
 	OGRE (AssetEnum.HEAVY_MUSIC.getMusic(), AssetEnum.OGRE, FOREST_UP_BG, MONSTER_DONG_0, MONSTER_DONG_1, MONSTER_DONG_2), 
 	BEASTMISTRESS (AssetEnum.BOSS_MUSIC.getMusic(), AssetEnum.BEASTMISTRESS, FOREST_BG, LARGE_DONG_0, LARGE_DONG_1, LARGE_DONG_2), 
 	SPIDER (AssetEnum.HEAVY_MUSIC.getMusic(), AssetEnum.SPIDER, FOREST_BG, MONSTER_DONG_0, MONSTER_DONG_1, MONSTER_DONG_2),
+	GOLEM (AssetEnum.ETHEREAL_MUSIC.getMusic(), AssetEnum.GOLEM, FOREST_BG, MONSTER_DONG_0, MONSTER_DONG_1, MONSTER_DONG_2)
 	;
 	private final AssetDescriptor<Music> music;
 	private final Array<AssetDescriptor<?>> requirements;

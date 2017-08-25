@@ -22,8 +22,8 @@ import com.majalis.technique.ClimaxTechnique.ClimaxType;
 public class EnemyCharacter extends AbstractCharacter {
 
 	private transient ObjectMap<Stance, Array<Texture>> textures;
-	private transient Texture defaultTexture;
-	private String imagePath;
+	private transient Array<Texture> defaultTextures;
+	private Array<String> imagePaths;
 	private ObjectMap<String, Array<String>> textureImagePaths;
 	private String bgPath;
 	private ObjectMap <String, Integer> climaxCounters;
@@ -39,15 +39,15 @@ public class EnemyCharacter extends AbstractCharacter {
 	@SuppressWarnings("unused")
 	private EnemyCharacter() {}
 	
-	public EnemyCharacter(Texture texture, ObjectMap<Stance, Array<Texture>> textures, Array<AnimatedActor> animations, EnemyEnum enemyType) {
-		this(texture, textures, animations, enemyType, Stance.BALANCED);
+	public EnemyCharacter(Array<Texture> textures, ObjectMap<Stance, Array<Texture>> textureMap, Array<AnimatedActor> animations, EnemyEnum enemyType) {
+		this(textures, textureMap, animations, enemyType, Stance.BALANCED);
 	}
 	
-	public EnemyCharacter(Texture texture, ObjectMap<Stance, Array<Texture>> textures, Array<AnimatedActor> animations, EnemyEnum enemyType, Stance stance) {
+	public EnemyCharacter(Array<Texture> textures, ObjectMap<Stance, Array<Texture>> textureMap, Array<AnimatedActor> animations, EnemyEnum enemyType, Stance stance) {
 		super(true);
 		this.enemyType = enemyType;
 		this.stance = stance;
-		init(texture, textures, animations);
+		init(textures, textureMap, animations);
 		initializedMove = false;
 		climaxCounters = new ObjectMap<String, Integer>();
 		currentFrame = 0;
@@ -61,7 +61,7 @@ public class EnemyCharacter extends AbstractCharacter {
 		baseCharisma = enemyType.getCharisma();
 		healthTiers = enemyType.getHealthTiers();
 		manaTiers = enemyType.getManaTiers();
-		imagePath = enemyType.getPath();
+		imagePaths = enemyType.getPaths();
 		textureImagePaths = enemyType.getImagePaths();
 		phallus = enemyType.getPhallusType();
 		bgPath = enemyType.getBGPath();
@@ -75,12 +75,20 @@ public class EnemyCharacter extends AbstractCharacter {
 		this.currentHealth = getMaxHealth();
 	}
 	
-	public String getImagePath() {
-		return imagePath;
+	public Array<String> getImagePaths() {
+		return imagePaths;
 	}
 	
 	public ObjectMap<String, Array<String>> getTextureImagePaths() {
 		return textureImagePaths;
+	}
+	
+	public Array<Texture> getTextures(AssetManager assetManager) {
+		Array<Texture> textures = new Array<Texture>();
+		for (String path : imagePaths) {
+			textures.add(assetManager.get(path, Texture.class));
+		}
+		return textures;
 	}
 	
 	public String getBGPath() {
@@ -90,6 +98,14 @@ public class EnemyCharacter extends AbstractCharacter {
 	// rather than override doAttack, doAttack should call an abstract processAttack method in AbstractCharacter and this functionality should be built there, instead of calling return super.doAttack
 	@Override
 	public Attack doAttack(Attack resolvedAttack) {
+		// if golem uses a certain attack, it should activate her dong
+		if (enemyType == EnemyEnum.GOLEM) {
+			if (resolvedAttack.getStatus() == null) {
+				currentFrame = 1;
+				lust = 100;
+			}
+		}
+		
 		if (stance == Stance.FELLATIO && enemyType == EnemyEnum.HARPY) {
 			if (currentFrame == 3) currentFrame = 0; else currentFrame++;
 		}
@@ -197,6 +213,9 @@ public class EnemyCharacter extends AbstractCharacter {
 						break;
 					case SPIDER:
 						break;
+					case GOLEM:
+						resolvedAttack.addDialog("\"Initializing mating routine.\"");
+						break;
 				}
 			}
 			
@@ -233,12 +252,15 @@ public class EnemyCharacter extends AbstractCharacter {
 						break;
 					case SPIDER:
 						break;
+					case GOLEM:
+						resolvedAttack.addDialog("\"Critical status! Ejecting semen collection tank overflow.\"");
+						break;
 				}
 					
 				climaxCounters.put(resolvedAttack.getClimaxType().toString(), climaxCounters.get(resolvedAttack.getClimaxType().toString(), 0) + 1);
 				
 				if ((enemyType == EnemyEnum.GOBLIN || enemyType == EnemyEnum.GOBLIN_MALE) && getClimaxCount() % 5 == 0) {
-					lust = 3;
+					setLust(3);
 				}
 			}
 		}
@@ -274,7 +296,7 @@ public class EnemyCharacter extends AbstractCharacter {
 		}
 		else if (enemyType == EnemyEnum.OGRE && stance != Stance.KNEELING && !stance.isIncapacitatingOrErotic() && stance != Stance.HOLDING) {
 			if (willPounce() && lust > 20) {
-				lust = 20;
+				setLust(20);
 				return getTechniques(SEIZE);						
 			}
 			if (weapon != null) {
@@ -326,7 +348,7 @@ public class EnemyCharacter extends AbstractCharacter {
 				else {
 					possibles.addAll(getTechniques(SPRING_ATTACK, NEUTRAL_ATTACK, CAUTIOUS_ATTACK, BLOCK));
 				}
-				if (enemyType == EnemyEnum.ADVENTURER && (((currentHealth < 30 && currentMana >= 7) || (currentMana % 7 != 0 && currentMana > 2 && statuses.get(StatusType.STRENGTH_BUFF.toString(), 0) == 0)))) {
+				if ((enemyType == EnemyEnum.GOLEM && currentHealth < 30) || (enemyType == EnemyEnum.ADVENTURER && (((currentHealth < 30 && currentMana >= 7) || (currentMana % 7 != 0 && currentMana > 2 && statuses.get(StatusType.STRENGTH_BUFF.toString(), 0) == 0))))) {
 					return getTechniques(INCANTATION);
 				}
 				return possibles;
@@ -347,6 +369,9 @@ public class EnemyCharacter extends AbstractCharacter {
 			case COUNTER:
 				return getTechniques(RIPOSTE, EN_GARDE);
 			case CASTING:
+				if (enemyType == EnemyEnum.GOLEM) {
+					return getTechniques(ACTIVATE);
+				}
 				if (currentHealth < 30 && currentMana >= 7) {
 					return getTechniques(COMBAT_HEAL);
 				}
@@ -814,7 +839,7 @@ public class EnemyCharacter extends AbstractCharacter {
 		}
 		if (currentAnimationsPlaying.size == 0 && enemyType == EnemyEnum.HARPY && !stance.isOralPenetration()) currentAnimationsPlaying.add(animations.get(0));
 		if (currentAnimationsPlaying.size == 0 || (enemyType == EnemyEnum.CENTAUR && stance == Stance.DOGGY) || (enemyType == EnemyEnum.BRIGAND && (stance == Stance.FELLATIO || stance == Stance.FACEFUCK || stance == Stance.ANAL))) {
-			Array<Texture> textureCandidates = textures.get(stance, new Array<Texture>(new Texture[]{defaultTexture}));
+			Array<Texture> textureCandidates = textures.get(stance, defaultTextures);
 			Texture texture = textureCandidates.get(textureCandidates.size == 1 ? 0 : currentFrame);
 
 			if (texture == null) return;
@@ -852,9 +877,9 @@ public class EnemyCharacter extends AbstractCharacter {
 			}
 		}
     }
-	
-	public void init(Texture defaultTexture, ObjectMap<Stance, Array<Texture>> textures, Array<AnimatedActor> animations) {
-		this.defaultTexture = defaultTexture;
+	// this should be refactored so that the enemy simply receives the assetManager and uses what it requires to reinitialize itself
+	public void init(Array<Texture> defaultTextures, ObjectMap<Stance, Array<Texture>> textures, Array<AnimatedActor> animations) {
+		this.defaultTextures = defaultTextures;
 		this.textures = textures;
 		this.animations = animations;
 		this.currentAnimationsPlaying = new ObjectSet<AnimatedActor>();
@@ -936,11 +961,14 @@ public class EnemyCharacter extends AbstractCharacter {
 	}
 	
 	// for init in battlefactory
-	public void setLust(int lust) { this.lust = lust; }
+	public void setLust(int lust) { 
+		if (enemyType != EnemyEnum.GOLEM || lust == 100) {
+			this.lust = lust; 
+		}
+	}
 
 	@Override
 	protected String increaseLust() {
-		
 		if (stance.isAnalReceptive()) {
 			return increaseLust(2);
 		}
@@ -953,10 +981,11 @@ public class EnemyCharacter extends AbstractCharacter {
 	@Override
 	protected String increaseLust(int lustIncrease) {
 		String spurt = "";
-		lust += lustIncrease;
+		setLust(lust + lustIncrease);
 		if (lust > 16 && stance.isEroticReceptive()) {
 			spurt = climax();
 		}
+		if (enemyType == EnemyEnum.GOLEM && lust > 10) currentFrame = 1;
 		return !spurt.isEmpty() ? spurt : null;
 	}
 	

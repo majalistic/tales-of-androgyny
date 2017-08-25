@@ -35,10 +35,12 @@ public class ReplayScreen extends AbstractScreen {
 		resourceRequirements.add(AssetEnum.BUTTON_SOUND.getSound());
 
 		for (final EnemyEnum type : EnemyEnum.values()) {
-			if (type.getTexture() == null) continue;
-			resourceRequirements.add(type.getTexture());
-		}
-		
+			if (type.getTextures() != null) {
+				for (AssetDescriptor<Texture> textures : type.getTextures()) {
+					resourceRequirements.add(textures);
+				}
+			}
+		}		
 		resourceRequirements.add(AssetEnum.MAIN_MENU_MUSIC.getMusic());
 		resourceRequirements.add(AssetEnum.DEFAULT_BACKGROUND.getTexture());
 
@@ -94,12 +96,13 @@ public class ReplayScreen extends AbstractScreen {
 			nothingToDisplay = "";
 			TextButton button = new TextButton(type.toString(), skin);
 			ObjectMap<Stance, Array<Texture>> textures = new ObjectMap<Stance, Array<Texture>>();			
+			Array<Texture> possibleTextures = type.getTextures(assetManager);
 			Texture enemyTexture = null;
-			if (type.getTexture() != null) {
-				enemyTexture = assetManager.get(type.getTexture());
+			if (possibleTextures.size > 0) {
+				enemyTexture = possibleTextures.get(0);		
 			}
 			textures.put(Stance.BALANCED, new Array<Texture>(new Texture[]{enemyTexture}));
-			final EnemyCharacter enemy = new EnemyCharacter(enemyTexture, textures, type.getAnimations(assetManager), type);
+			final EnemyCharacter enemy = new EnemyCharacter(possibleTextures, textures, type.getAnimations(assetManager), type);
 			this.addActor(enemy);
 			enemy.addAction(Actions.hide());
 			enemy.setPosition(700, 0);
