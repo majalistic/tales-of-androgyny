@@ -23,7 +23,7 @@ import com.majalis.screens.TimeOfDay;
  * Contains the current player character's statistics, including "party" statistics like food remaining
  */
 public class PlayerCharacter extends AbstractCharacter {
-
+	// this should be moved to the Stat enum itself
 	private final static ObjectMap<Stat, Array<String>> statNameMap = new ObjectMap<Stat, Array<String>>();
 	static {
 		statNameMap.put(Stat.STRENGTH, new Array<String>(new String[]{"Crippled", "Feeble", "Weak", "Soft", "Able", "Strong", "Mighty", "Powerful", "Hulking", "Heroic", "Godlike", "Godlike", "Godlike"}));
