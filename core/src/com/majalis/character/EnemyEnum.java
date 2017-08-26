@@ -113,7 +113,7 @@ public enum EnemyEnum {
 	public boolean isPounceable() { return this != EnemyEnum.OGRE && this != EnemyEnum.BEASTMISTRESS && this != EnemyEnum.UNICORN; }
 	public boolean prefersProneBone() { return this == ORC || this == GOBLIN; }
 	public boolean prefersMissionary() { return this == BRIGAND || this == ADVENTURER; }
-	public boolean canWrestle() { return this != HARPY && this != CENTAUR && this != UNICORN && this != OGRE && this != BEASTMISTRESS && this != SPIDER; }
+	public boolean canWrestle() { return this != SLIME && this != HARPY && this != CENTAUR && this != UNICORN && this != OGRE && this != BEASTMISTRESS && this != SPIDER; }
 	
 	public AnimatedActor getPrimaryAnimation(AssetManager assetManager) {
 		AnimatedActor animation = null; 
