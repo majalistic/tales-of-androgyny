@@ -110,6 +110,7 @@ public class LoadScreen extends AbstractScreen {
 		"Be wary when using Techniques that cause instability - the enemy can also cause you to overbalance, causing you to trip before you expected to! A technique labelled in red will cause you to fall - one in yellow puts you in dangerous territory the enemy might capitalize on.",
 		"On the Main Menu, Continue will load your last autosave, restoring you to the same position as when you last closed the game. Load will load your last Quick Save - Quick Saves can be created by hitting \"Save\" on the Main Menu.",
 		"Certain enemies can be defeated by achieving certain conditions in battle, rather than reducing their HP to 0. Similarly, certain enemies can defeat you without reducing your HP to 0!",
+		"Certain attacks can be dodged entirely by being above or below them - techniques that involve kneeling or jumping can help avoid such attacks.",
 		"To attempt to mount enemies, you must be erect.",
 		"The \"Catamite\" perk opens up various opportunities and abilities.",
 		"The Hunger Charm reduces your metabolic rate, reducing the amount of food you must consume.",
@@ -120,6 +121,7 @@ public class LoadScreen extends AbstractScreen {
 		"Taunting an enemy will increase both their lust and yours.",
 		"There are rumors of a variant of the Centaur species that is attracted exclusively to virgins...",
 		"Goblins have incredible... stamina.",
+		// Goofy
 		"There is no secret ice cream level.",
 		"In the end, it's not about the destination, it's about the friends you made along the way."
 	});
