@@ -24,6 +24,6 @@ public class PathChunk extends Actor {
 	}
 	
     public void draw(Batch batch, float parentAlpha) {
-		batch.draw(roadImage, start.x, start.y, 0, 0, 18, length, 1, 1, 270+degrees, 0, 0, (int)roadImage.getWidth(), (int)roadImage.getHeight(), false, false);	
+		batch.draw(roadImage, start.x, start.y, 0, 0, 18, length, 1, 1, 270+degrees, 0, 0, (int)roadImage.getWidth() / 2, (int)roadImage.getHeight(), false, false);	
 	}
 }

@@ -42,6 +42,7 @@ public enum AssetEnum {
 	
 	WORLD_MAP_UI("worldmap/CharacterInfo.png"),
 	WORLD_MAP_HOVER("worldmap/HoverBox.png"),
+	WORLD_MAP_BG("worldmap/MapBackground.jpg"),
 	ARROW("worldmap/Arrow.png"),
 	MOUNTAIN_ACTIVE("worldmap/MountainNode0.png"),
 	FOREST_ACTIVE("worldmap/ForestNode1.png"),

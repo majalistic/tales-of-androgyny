@@ -53,6 +53,7 @@ import com.majalis.save.LoadService;
 import com.majalis.save.MutationResult;
 import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveManager.GameContext;
+import com.majalis.save.SaveManager.GameMode;
 import com.majalis.scenes.MutationActor;
 import com.majalis.save.SaveService;
 import com.majalis.save.MutationResult.MutationType;
@@ -89,6 +90,7 @@ public class WorldMapScreen extends AbstractScreen {
 	private final Label foodLabel;
 	private final Label hoverLabel;
 	private final TextButton campButton;
+	private final boolean storyMode;
 	private GameWorldNode currentNode;
 	private GameWorldNode hoveredNode;
 	private int time;
@@ -108,7 +110,7 @@ public class WorldMapScreen extends AbstractScreen {
 		
 		// need to refactor to get all stance textures
 		AssetEnum[] assets = new AssetEnum[]{
-			CHARACTER_ANIMATION, MOUNTAIN_ACTIVE, FOREST_ACTIVE, FOREST_INACTIVE, CASTLE, TOWN, COTTAGE, APPLE, MEAT, GRASS0, GRASS1, GRASS2, CLOUD, ROAD, WORLD_MAP_UI, WORLD_MAP_HOVER, ARROW, CHARACTER_SCREEN, EXP, GOLD, TIME, HEART, NULL
+			WORLD_MAP_BG, CHARACTER_ANIMATION, MOUNTAIN_ACTIVE, FOREST_ACTIVE, FOREST_INACTIVE, CASTLE, TOWN, COTTAGE, APPLE, MEAT, GRASS0, GRASS1, GRASS2, CLOUD, ROAD, WORLD_MAP_UI, WORLD_MAP_HOVER, ARROW, CHARACTER_SCREEN, EXP, GOLD, TIME, HEART, NULL
 		};
 		for (AssetEnum asset: assets) {
 			resourceRequirements.add(asset.getTexture());
@@ -121,6 +123,7 @@ public class WorldMapScreen extends AbstractScreen {
 		this.assetManager = assetManager;
 		this.saveService = saveService;
 		
+		this.storyMode = loadService.loadDataValue(SaveEnum.MODE, GameMode.class) == GameMode.STORY;
 		camera = new PerspectiveCamera(70, 0, 1000);
         FitViewport viewport =  new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), camera);
 		worldStage = new Stage3D(viewport, batch);
@@ -641,20 +644,20 @@ public class WorldMapScreen extends AbstractScreen {
 	private String getTime() { return TimeOfDay.getTime(time).getDisplay(); }
 	
 	private void translateCamera() {
-		Vector3 translationVector = new Vector3(0,0,0);
+		Vector3 translationVector = new Vector3(0, 0, 0);
 		int speed = 8;
 		if (Gdx.input.isKeyPressed(Keys.SHIFT_LEFT)) speed = 16;
 		
 		if (Gdx.input.isKeyPressed(Keys.LEFT) && camera.position.x > 500) {
 			translationVector.x -= speed;
 		}
-		else if (Gdx.input.isKeyPressed(Keys.RIGHT) && camera.position.x < 4000) {
+		else if (Gdx.input.isKeyPressed(Keys.RIGHT) && camera.position.x < (storyMode ? 1000 : 4000)) {
 			translationVector.x += speed;
 		}
 		if (Gdx.input.isKeyPressed(Keys.DOWN) && camera.position.y > 500) {
 			translationVector.y -= speed;
 		}
-		else if (Gdx.input.isKeyPressed(Keys.UP) && camera.position.y < 4600) {
+		else if (Gdx.input.isKeyPressed(Keys.UP) && camera.position.y < (storyMode ? 1000 : 4600)) {
 			translationVector.y += speed;
 		}
 		translateCamera(translationVector);
@@ -675,27 +678,34 @@ public class WorldMapScreen extends AbstractScreen {
 	
 	private void generateBackground() {
 		backgroundRendered = true;
-		frameBuffer.begin();
-		SpriteBatch frameBufferBatch = new SpriteBatch();
-		frameBufferBatch.begin();
-		// draw the base grass texture
-		for (int ii = 101; ii >= 0; ii-=2) {
-			for (int jj = 100; jj >= 0; jj--) {
-				frameBufferBatch.draw(grasses.get((int)(Math.random()*100) % 3), ii*56, jj*56);
-				frameBufferBatch.draw(grasses.get((int)(Math.random()*100) % 3), ((ii-1)*56), (jj*56)+30);
-			}	
+		if (storyMode) {
+			Image background = new Image(assetManager.get(WORLD_MAP_BG.getTexture()));
+			background.setPosition(-400, 0);
+			group.addActorAt(0, background);
 		}
-		frameBufferBatch.end();
-		frameBuffer.end();		
-		frameBufferBatch.dispose();
-		TextureRegion scenery = new TextureRegion(frameBuffer.getColorBufferTexture());
-		scenery.setRegion(56, 56, scenery.getRegionWidth() - 56, scenery.getRegionHeight() - 56); 
-		scenery.flip(false, true);
-		for (int ii = 2; ii >= 0; ii--) {
-			for (int jj = 5; jj >= 0; jj--) {
-				Image background = new Image(scenery);
-				background.addAction(Actions.moveTo(-700+ii*scenery.getRegionWidth(), -300+jj*(scenery.getRegionHeight()-10)));
-				group.addActorAt(0, background);
+		else {
+			frameBuffer.begin();
+			SpriteBatch frameBufferBatch = new SpriteBatch();
+			frameBufferBatch.begin();
+			// draw the base grass texture
+			for (int ii = 101; ii >= 0; ii-=2) {
+				for (int jj = 100; jj >= 0; jj--) {
+					frameBufferBatch.draw(grasses.get((int)(Math.random()*100) % 3), ii*56, jj*56);
+					frameBufferBatch.draw(grasses.get((int)(Math.random()*100) % 3), ((ii-1)*56), (jj*56)+30);
+				}	
+			}
+			frameBufferBatch.end();
+			frameBuffer.end();		
+			frameBufferBatch.dispose();
+			TextureRegion scenery = new TextureRegion(frameBuffer.getColorBufferTexture());
+			scenery.setRegion(56, 56, scenery.getRegionWidth() - 56, scenery.getRegionHeight() - 56); 
+			scenery.flip(false, true);
+			for (int ii = 2; ii >= 0; ii--) {
+				for (int jj = 5; jj >= 0; jj--) {
+					Image background = new Image(scenery);
+					background.addAction(Actions.moveTo(-700+ii*scenery.getRegionWidth(), -300+jj*(scenery.getRegionHeight()-10)));
+					group.addActorAt(0, background);
+				}
 			}
 		}
 	}
