@@ -91,7 +91,7 @@ public enum EnemyEnum {
 	public boolean canProneBone() {
 		return this == BRIGAND || this == GOBLIN || this == ORC || this == ADVENTURER || this == GOBLIN_MALE;
 	}
-	public boolean canBleed() { return this != SLIME; }
+	public boolean canBleed() { return this != SLIME && this != GOLEM; }
 	
 	public int getStartingLust() { return this == UNICORN ? 20 : 0; }
 	
