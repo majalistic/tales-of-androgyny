@@ -4,7 +4,8 @@ public enum StatusType {
 	STRENGTH_BUFF,
 	AGILITY_BUFF,
 	ENDURANCE_BUFF,
-	BLEEDING (false);
+	BLEEDING (false), 
+	ACTIVATE;
 
 	private final boolean doesDegrade;
 	

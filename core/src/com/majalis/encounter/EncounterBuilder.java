@@ -551,7 +551,70 @@ public class EncounterBuilder {
 					)
 				).getEncounter();
 			case GOLEM:
-				return new Branch().textScene("GOLEM-INTRO").battleScene(BattleCode.GOLEM, new Branch(Outcome.VICTORY), new Branch(Outcome.DEFEAT)).getEncounter();
+				Branch golemHypnosis = new Branch().textScene("GOLEM-HYPNOSIS");
+				Branch golemMisunderstanding = new Branch(0).textScene("GOLEM-MISUNDERSTANDING").choiceScene(
+						"Where will she dump her semen tanks?",
+						new Branch("In your asshole").concat(golemHypnosis),
+						new Branch("Into your rectum").concat(golemHypnosis),
+						new Branch("Up your shitter").concat(golemHypnosis),
+						new Branch("Your gut (anally)").concat(golemHypnosis),
+						new Branch("Buttsex, creampie").concat(golemHypnosis),
+						new Branch("Cummies for tummies").concat(golemHypnosis)
+					);
+				Branch[] golemBattleOutcomes = new Branch[]{
+					new Branch(Outcome.VICTORY).textScene("GOLEM-VICTORY").choiceScene(
+						"What do you do?", 
+						new Branch("Ask for help (CHA 5)").require(ChoiceCheckType.STAT_GREATER_THAN_X, Stat.CHARISMA, 5).textScene("GOLEM-GIFT"),
+						new Branch("Ask for... help (Requires: Catamite)").require(ChoiceCheckType.LEWD).textScene("GOLEM-TOP"),
+						new Branch("Bid her farewell").textScene("GOLEM-FREE")
+					), 
+					new Branch(Outcome.DEFEAT).textScene("GOLEM-DEFEAT").concat(golemMisunderstanding)
+				};
+				Branch golemBattle = new Branch().battleScene(
+					BattleCode.GOLEM, 
+					golemBattleOutcomes
+				);
+				Branch[] calmOptions = new Branch[]{
+					new Branch("Ask for help (CHA 5)").require(ChoiceCheckType.STAT_GREATER_THAN_X, Stat.CHARISMA, 5).textScene("GOLEM-GIFT"),
+					new Branch("Ask about her").textScene("GOLEM-SPEAK").choiceScene(
+						"What do you ask of her?",
+						new Branch("Ask for help (CHA 5)").require(ChoiceCheckType.STAT_GREATER_THAN_X, Stat.CHARISMA, 5).textScene("GOLEM-GIFT"),
+						new Branch("Ask for... help (Requires: Catamite)").require(ChoiceCheckType.LEWD).textScene("GOLEM-TOP"),
+						new Branch("Ask to fight her").concat(golemBattle),
+						new Branch("Bid her farewell").textScene("GOLEM-FREE")
+					),
+					new Branch("Ask to fight her").concat(golemBattle),
+					new Branch("Bid her farewell").textScene("GOLEM-FREE")
+				};
+				
+				return new Branch().textScene("GOLEM-INTRO").checkScene(
+					Stat.MAGIC,
+					new Branch(1).textScene("GOLEM-AWARE").choiceScene(
+						"Touch the statue?", 
+						new Branch("Touch the statue").textScene("GOLEM-AWAKEN").choiceScene( 
+							"Her energies are in flux!", 
+							new Branch("Dominate Her (5 MAG)").require(ChoiceCheckType.STAT_GREATER_THAN_X, Stat.MAGIC, 5).textScene("GOLEM-DOMINATED").choiceScene(
+								"What do you will of her?", 
+								new Branch("Demand tribute").textScene("GOLEM-TRIBUTE"),
+								new Branch("Demand pleasure").checkScene(Perk.ANAL_LOVER, new Branch(2).textScene("GOLEM-TOP"), golemMisunderstanding),
+								new Branch("Ask to fight her").concat(golemBattle),
+								new Branch("Tell her to shut down").textScene("GOLEM-SHUTDOWN")
+							),
+							new Branch("Sooth Her (5 MAG)").require(ChoiceCheckType.STAT_GREATER_THAN_X, Stat.MAGIC, 5).textScene("GOLEM-SOOTHED").choiceScene("What do you do?", calmOptions),
+							new Branch("Calm Her (3 MAG)").require(ChoiceCheckType.STAT_GREATER_THAN_X, Stat.MAGIC, 3).textScene("GOLEM-CALMED").checkScene(
+								Stat.PERCEPTION, 
+								new Branch(4).choiceScene("What do you do?", calmOptions), 
+								golemMisunderstanding
+							),
+							new Branch("Brace Yourself").textScene("GOLEM-OVERDRIVE").battleScene(
+								BattleCode.GOLEM, Stance.BALANCED, Stance.CASTING,
+								golemBattleOutcomes
+							)
+						),
+						new Branch("Pull your hand away").textScene("GOLEM-LEAVE")
+					),
+					new Branch(0).textScene("GOLEM-UNAWARE")				
+				).getEncounter();			
 			case HARPY:
 				Branch[] battleBranches = new Branch[]{new Branch(Outcome.VICTORY).textScene("HARPY-VICTORY").encounterEnd(), new Branch(Outcome.DEFEAT).textScene("HARPY-DEFEAT").gameEnd(), new Branch(Outcome.SATISFIED).textScene("HARPY-SATISFIED").encounterEnd()};
 				Branch harpyDodge = new Branch(6).textScene("HARPY-DODGE").battleScene(
@@ -1360,6 +1423,7 @@ public class EncounterBuilder {
 		public ChoiceCheckToken(ChoiceCheckType type) {
 			this(type, 0);
 		}
+		// this needs to be refactored so that Stat or Perk based ChoiceCheckTypes have their stat or perk built in
 		public ChoiceCheckToken(ChoiceCheckType type, int target) {
 			this(type, target, null, null);
 		}

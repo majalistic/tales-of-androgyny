@@ -59,6 +59,7 @@ public class EnemyCharacter extends AbstractCharacter {
 		basePerception = enemyType.getPerception();
 		baseMagic = enemyType.getMagic();
 		baseCharisma = enemyType.getCharisma();
+		baseDefense = enemyType.getDefense();
 		healthTiers = enemyType.getHealthTiers();
 		manaTiers = enemyType.getManaTiers();
 		imagePaths = enemyType.getPaths();
@@ -100,9 +101,11 @@ public class EnemyCharacter extends AbstractCharacter {
 	public Attack doAttack(Attack resolvedAttack) {
 		// if golem uses a certain attack, it should activate her dong
 		if (enemyType == EnemyEnum.GOLEM) {
-			if (resolvedAttack.getStatus() == null) {
+			if (resolvedAttack.getBuff() != null && resolvedAttack.getBuff().type == StatusType.ACTIVATE) {
 				currentFrame = 1;
 				lust = 100;
+				baseStrength += 4;
+				baseDefense += 3;
 			}
 		}
 		
@@ -289,6 +292,10 @@ public class EnemyCharacter extends AbstractCharacter {
 		return target.getStance() == Stance.SUPINE && !isErect() && enemyType.willFaceSit();
 	}
 	
+	private boolean isEnragedGolem() {
+		return enemyType == EnemyEnum.GOLEM && currentFrame == 1;
+	}
+	
 	private Array<Techniques> getPossibleTechniques(AbstractCharacter target, Stance stance) {
 				
 		if (enemyType == EnemyEnum.SLIME && !stance.isIncapacitatingOrErotic()) {
@@ -327,7 +334,7 @@ public class EnemyCharacter extends AbstractCharacter {
 					if (enemyType.willArmorSunder()) {
 						possibles.addAll(getTechniques(ARMOR_SUNDER));
 					}
-					if (enemyType == EnemyEnum.BEASTMISTRESS) {
+					if (enemyType == EnemyEnum.BEASTMISTRESS || isEnragedGolem()) {
 						possibles.addAll(getTechniques(BLITZ_ATTACK, POWER_ATTACK,RECKLESS_ATTACK, KNOCK_DOWN, TEMPO_ATTACK, RESERVED_ATTACK));
 					}
 					else {
@@ -348,7 +355,10 @@ public class EnemyCharacter extends AbstractCharacter {
 				else {
 					possibles.addAll(getTechniques(SPRING_ATTACK, NEUTRAL_ATTACK, CAUTIOUS_ATTACK, BLOCK));
 				}
-				if ((enemyType == EnemyEnum.GOLEM && currentHealth < 30) || (enemyType == EnemyEnum.ADVENTURER && (((currentHealth < 30 && currentMana >= 7) || (currentMana % 7 != 0 && currentMana > 2 && statuses.get(StatusType.STRENGTH_BUFF.toString(), 0) == 0))))) {
+				if (isEnragedGolem() && currentMana > 3) {
+					possibles.addAll(getTechniques(INCANTATION));
+				}
+				if ((enemyType == EnemyEnum.GOLEM && currentFrame == 0 && (baseDefense <= 3 || currentHealth <= 30)) || (enemyType == EnemyEnum.ADVENTURER && (((currentHealth < 30 && currentMana >= 7) || (currentMana % 7 != 0 && currentMana > 2 && statuses.get(StatusType.STRENGTH_BUFF.toString(), 0) == 0))))) {
 					return getTechniques(INCANTATION);
 				}
 				return possibles;
@@ -370,6 +380,9 @@ public class EnemyCharacter extends AbstractCharacter {
 				return getTechniques(RIPOSTE, EN_GARDE);
 			case CASTING:
 				if (enemyType == EnemyEnum.GOLEM) {
+					if (currentFrame == 1) {
+						return getTechniques(COMBAT_FIRE);
+					}
 					return getTechniques(ACTIVATE);
 				}
 				if (currentHealth < 30 && currentMana >= 7) {

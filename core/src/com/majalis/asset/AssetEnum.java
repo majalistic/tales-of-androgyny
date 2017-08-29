@@ -99,6 +99,7 @@ public enum AssetEnum {
 	ADVENTURER("enemies/Adventurer.png"), 
 	BEASTMISTRESS("enemies/BeastMaster.png"),
 	GOLEM("enemies/Golem.png"),
+	GOLEM_DULL("enemies/GolemDull.png"),
 	GOLEM_FUTA("enemies/GolemFuta.png"),
 	GOLEM_CLOSEUP("enemies/GolemClose.png"),
 	TRAP_BONUS("enemies/TrapBonus.jpg"), 
@@ -244,6 +245,7 @@ public enum AssetEnum {
 	THWAPPING("sounds/Thwapping.wav", Sound.class),
 	SMUG_LAUGH("sounds/FemaleSmugLaugh.wav", Sound.class),
 	OGRE_GROWL("sounds/Ogre.wav", Sound.class),
+	GOLEM_SHUTDOWN("sounds/GolemShutdown.wav", Sound.class),
 	// music
 	MAIN_MENU_MUSIC("music/MainMenuMusic.mp3", Music.class),
 	ENCOUNTER_MUSIC("music/EncounterMusic.mp3", Music.class),

@@ -660,6 +660,11 @@ public abstract class AbstractCharacter extends Actor {
 				modHealth(effect.getMagnitude());
 				result = "You used " + item.getName() + " and restored " + String.valueOf(getCurrentHealth() - currentHealth) + " health!";
 				break;
+			case MANA:
+				int currentMana = getCurrentMana();
+				modMana(effect.getMagnitude());
+				result = "You used " + item.getName() + " and restored " + String.valueOf(getCurrentHealth() - currentMana) + " mana!";
+				break;
 			// this should perform buff stacking if need be - but these item buffs should be permanent until consumed
 			case BONUS_STRENGTH:
 				result = "You used " + item.getName() + " and temporarily increased Strength by " + effect.getMagnitude() + "!";

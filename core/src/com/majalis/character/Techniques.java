@@ -71,7 +71,7 @@ public enum Techniques {
 	SLIME_ATTACK 		(new AttackTechnique(Stance.BALANCED, Stance.BALANCED, "Slime Attack", 7, 0, 5).build()),
 	SLIME_QUIVER 		(new NonAttackTechnique(Stance.BALANCED, Stance.DEFENSIVE, "Slime Quiver", -1, -1).build()),
 	
-	ACTIVATE		  	(new SpellTechnique(Stance.CASTING, Stance.BALANCED, "Activate", 0, 0, false).build()),
+	ACTIVATE		  	(new SpellTechnique(Stance.CASTING, Stance.BALANCED, "Activate", 0, 0, false, StatusType.ACTIVATE).build()),
 	
 	GUT_CHECK			(new AttackTechnique(Stance.OFFENSIVE, Stance.OFFENSIVE, "Gutcheck", 3, 3, 4, 0, 1, false, TechniqueHeight.MEDIUM).build()),
 	
@@ -236,7 +236,9 @@ public enum Techniques {
 	UPPERCUT			(new AttackTechnique(Stance.KNEELING, Stance.OFFENSIVE, "Uppercut", 1, 4, 2, true, TechniqueHeight.HIGH).addBonus(BonusCondition.SKILL_LEVEL, BonusType.POWER_MOD).build(), 3),
 	COMBAT_HEAL  		(new SpellTechnique(Stance.CASTING, Stance.BALANCED, "Combat Heal", 7, 10, true).addBonus(BonusCondition.SKILL_LEVEL, BonusType.POWER_MOD, 3).build(), 3),
 	COMBAT_FIRE  		(new SpellTechnique(Stance.CASTING, Stance.BALANCED, "Combat Fire", 3, 3, false).addBonus(BonusCondition.SKILL_LEVEL, BonusType.POWER_MOD, 2).build(), 3),
-	TITAN_STRENGTH  	(new SpellTechnique(Stance.CASTING, Stance.BALANCED, "Titan Strength", 0, 2, false, StatusType.STRENGTH_BUFF).build(), 3)
+	MANA_LASER  		(new SpellTechnique(Stance.CASTING, Stance.BALANCED, "Mana Laser", 3, 10, false).addBonus(BonusCondition.SKILL_LEVEL, BonusType.POWER_MOD, 2).build(), 3),
+	TITAN_STRENGTH  	(new SpellTechnique(Stance.CASTING, Stance.BALANCED, "Titan Strength", 0, 2, false, StatusType.STRENGTH_BUFF).build(), 3),
+	FOCUS_ENERGY	  	(new SpellTechnique(Stance.CASTING, Stance.BALANCED, "Focus Energy", -5, 4, false, StatusType.ENDURANCE_BUFF).build(), 3)
 	;
 	
 	private final TechniquePrototype trait;

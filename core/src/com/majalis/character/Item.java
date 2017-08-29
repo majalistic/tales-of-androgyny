@@ -228,7 +228,7 @@ public abstract class Item {
 
 		@Override
 		public String getName() {
-			return effect == EffectType.SLIME ? magnitude == 1 ? "Worthless Slime" : "Primo Slime" : effect.getDisplay() + (effect == EffectType.SPIDER || effect == EffectType.MEAT || effect == EffectType.BANDAGE ? "" : " (" + magnitude + ")"); 
+			return effect == EffectType.SLIME ? (magnitude == 1 ? "Worthless Slime" : "Primo Slime") : effect == EffectType.MANA ? (magnitude == 20 ? "Mana Crystal" : "Mana Chunk") : effect.getDisplay() + (effect == EffectType.SPIDER || effect == EffectType.MEAT || effect == EffectType.BANDAGE ? "" : " (" + magnitude + ")"); 
 		}
 
 		@Override
@@ -242,6 +242,8 @@ public abstract class Item {
 					return "Imbibe to increase Strength for the duration by " + magnitude + ".";
 				case HEALING:
 					return "Heals the imbiber for " + magnitude + " health.";
+				case MANA:
+					return "Restores " + magnitude + " mana.";
 				case MEAT:
 					return "Eat to restore " + magnitude + " hunger.";
 				case SPIDER:
@@ -264,7 +266,8 @@ public abstract class Item {
 		BONUS_ENDURANCE ("Bear Pot."),
 		SLIME ("Slime"),
 		MEAT ("Meat"),
-		BANDAGE ("Bandage");
+		BANDAGE ("Bandage"),
+		MANA ("Mana Crystal");
 		
 		private final String display;
 		private EffectType (String display) {

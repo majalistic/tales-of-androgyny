@@ -344,7 +344,7 @@ public class PlayerCharacter extends AbstractCharacter {
 			case PENETRATED:
 				return getTechniques(HURK);
 			case CASTING:
-				return getTechniques(COMBAT_FIRE, COMBAT_HEAL, TITAN_STRENGTH);
+				return getTechniques(COMBAT_FIRE, COMBAT_HEAL, TITAN_STRENGTH, FOCUS_ENERGY);
 			case ITEM:
 				possibles.addAll(getTechniques(ITEM_OR_CANCEL));
 				return possibles;
@@ -739,6 +739,9 @@ public class PlayerCharacter extends AbstractCharacter {
 		// if it's a spell, add incantation
 		if (newTech.getTrait().isSpell()) {
 			skills.put(Techniques.INCANTATION.toString(), 1);
+			if (!hasMagic()) {
+				manaTiers = new IntArray(new int[]{baseMagic > 1 ? baseMagic * 3 + 1 : 0});
+			}
 		}
 		skills.put(newTech.toString(), rank);	
 	}
@@ -958,7 +961,7 @@ public class PlayerCharacter extends AbstractCharacter {
 	}
 
 	public boolean hasMagic() {
-		return jobClass == JobClass.ENCHANTRESS || jobClass == JobClass.MAGE || jobClass == JobClass.PALADIN;
+		return getMaxMana() > 0;
 	}
 
 	public boolean needsLevelUp() {

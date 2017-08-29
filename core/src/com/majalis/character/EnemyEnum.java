@@ -14,7 +14,6 @@ import com.majalis.character.AbstractCharacter.PronounSet;
 import com.majalis.character.Item.WeaponType;
 @SuppressWarnings("unchecked")
 public enum EnemyEnum {
-	
 	WERESLUT (new EnemyTemplate(WeaponType.Claw).setStrength(5).setAgility(5), "Wereslut", AssetEnum.WEREBITCH.getTexture()),
 	HARPY (new EnemyTemplate(WeaponType.Talon).setStrength(4), "Harpy", null, AnimationEnum.HARPY),
 	SLIME (new EnemyTemplate(null).setStrength(2).setEndurance(4).setAgility(4), "Slime", AssetEnum.SLIME.getTexture()),
@@ -28,7 +27,7 @@ public enum EnemyEnum {
 	OGRE (new EnemyTemplate(WeaponType.Club, 8, 8, 4, 3, 3, 3).addHealth(20), "Ogre", AssetEnum.OGRE.getTexture()),
 	BEASTMISTRESS (new EnemyTemplate(WeaponType.Claw).setStrength(6).setAgility(8).setEndurance(5).addHealth(10), "Beast Mistress", AssetEnum.BEASTMISTRESS.getTexture()),
 	SPIDER (new EnemyTemplate(WeaponType.Claw).setStrength(6).setAgility(5).setEndurance(5).setHealth(new IntArray(new int[]{20, 20, 20, 20})), "Arachne", AssetEnum.SPIDER.getTexture()), 
-	GOLEM (new EnemyTemplate(null, 7, 7, 4, 3, 3, 3).setHealth(new IntArray(new int[]{60})), "Golem", AssetEnum.GOLEM.getTexture(), AssetEnum.GOLEM_FUTA.getTexture())
+	GOLEM (new EnemyTemplate(null, 6, 8, 4, 3, 3, 3).setDefense(6).setHealth(new IntArray(new int[]{60})).setMana(12), "Golem", AssetEnum.GOLEM.getTexture(), AssetEnum.GOLEM_FUTA.getTexture())
 	;
 	private final String text;
 	private final Array<AssetDescriptor<Texture>> texturePaths;
@@ -50,9 +49,11 @@ public enum EnemyEnum {
     }
     public Array<Texture> getTextures(AssetManager assetManager) {
     	Array<Texture> textures = new Array<Texture>();
-		for(AssetDescriptor<Texture> desc : texturePaths) {
-			textures.add(assetManager.get(desc)); 
-		}
+    	if (texturePaths != null) {
+    		for(AssetDescriptor<Texture> desc : texturePaths) {
+    			textures.add(assetManager.get(desc)); 
+    		}
+    	}
 		return textures;
 	}
     public String getBGPath() { return this == OGRE ? AssetEnum.FOREST_UP_BG.getPath() : this == CENTAUR || this == UNICORN ? AssetEnum.PLAINS_BG.getPath() : this == GOBLIN || this == GOBLIN_MALE ? AssetEnum.ENCHANTED_FOREST_BG.getPath() : AssetEnum.FOREST_BG.getPath(); } 
@@ -198,5 +199,5 @@ public enum EnemyEnum {
 		private EnemyTemplate setMana(int mana) { this.manaTiers = new IntArray(new int[]{mana}); return this; }
 		
 		private WeaponType getWeaponType() { return weaponType; }
-	}	
+	}
 }

@@ -96,7 +96,7 @@ public class SaveManager implements SaveService, LoadService {
 	    	case CLASS:				save.player.setJobClass((JobClass) object); save.player.load(); break;
 	    	case WORLD_SEED:		save.worldSeed = (Integer) object; break;
 	    	case HEALTH: 			result.addAll(save.player.modHealth((Integer) object)); result.addAll(save.player.cureBleed((Integer) object / 5)); break; 
-	    	case SKILL: 			save.player.addSkill((Techniques) object, 1); result.add(new MutationResult("Gained" + ((Techniques) object).toString() + " technique!")); break; // this should get a result back from addSkill
+	    	case SKILL: 			save.player.addSkill((Techniques) object, 1); result.add(new MutationResult("Gained " + ((Techniques) object).getTrait().getName() + " technique!")); break; // this should get a result back from addSkill
 	    	case PERK:				save.player.addPerk((Perk) object, 1); result.add(new MutationResult("Gained" + ((Perk) object).getLabel() + " perk!")); break; // this should get a result back from addPerk
 	    	case FOOD:				result.addAll(save.player.modFood((Integer) object)); break; 
 	    	case TIME:				result.addAll(save.player.timePass((Integer) object)); break;

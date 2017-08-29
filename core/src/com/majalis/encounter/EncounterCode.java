@@ -317,7 +317,11 @@ public enum EncounterCode {
 				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{  
 					AssetEnum.GOLEM.getTexture(),
 					AssetEnum.GOLEM_FUTA.getTexture(),
-					AssetEnum.ETHEREAL_MUSIC.getMusic()
+					AssetEnum.GOLEM_DULL.getTexture(),
+					AssetEnum.INCANTATION.getSound(),
+					AssetEnum.FIREBALL_SOUND.getSound(),
+					AssetEnum.INCANTATION.getSound(),
+					AssetEnum.GOLEM_SHUTDOWN.getMusic()
 				});
 			case INN:
 				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{  
