@@ -321,7 +321,12 @@ public enum EncounterCode {
 					AssetEnum.INCANTATION.getSound(),
 					AssetEnum.FIREBALL_SOUND.getSound(),
 					AssetEnum.INCANTATION.getSound(),
-					AssetEnum.GOLEM_SHUTDOWN.getMusic()
+					AssetEnum.GOLEM_SHUTDOWN.getSound(),
+					AssetEnum.GOLEM_ONE.getSound(),
+					AssetEnum.CUM.getSound(),
+					AssetEnum.CUM_BUBBLING.getSound(),
+					AssetEnum.ETHEREAL_MUSIC.getMusic()
+					
 				});
 			case INN:
 				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{  

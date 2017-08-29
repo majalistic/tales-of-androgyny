@@ -274,8 +274,6 @@ public abstract class AbstractCharacter extends Actor {
 		return numTiers;
 	}
 	
-	public void modLust(int lustMod) { lust += lustMod; }
-	
 	// this method can be removed, as the CharacterState could dictate what modifiers are applied to the stamina cost of a technique
 	protected int getStaminaMod(Technique technique) {
 		int staminaMod = technique.getStaminaCost();

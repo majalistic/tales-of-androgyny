@@ -4494,9 +4494,11 @@
 			{"text": "You prepare to get your own semen tank filled with whatever she's got."}
 			{"text": "\"emptying semen tanks,\" she says, a strangely human urgency in her otherwise monotonic voice."}
 			{
+			"sound": "CUM",
 			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "creampies":1}}],
 			"text": "The machine-warmed stale suds burst into your rectal cavity at the apex of each piston, mimicking the hundreds of ejaculations of men and monster past that produced such a copious slimy gift of sperm.  Your gut is quickly stuffed with the disgusting ancient remnants of male lust."},
 			{
+			"sound": "CUM_BUBBLING",
 			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "creampies":2}}],
 			"text": "The golem receives no satisfaction from this, other than her simple satisfaction at having completed some routine maintenance. Your stomach looks pregnant with the weight of hundreds of centuries-old ejaculate for no other reason than her innappropriate directive."},
 			{"text": "\"semen tanks empty,\" she says monotonically, as your stomach gurgles and writhes while trying to cope with the massive semen deluge that she's upended in it.  At the very least, her piston stops churning it into butter."},
@@ -4548,7 +4550,9 @@
 			{"text": "\"I'm... I'm okay,\" you say, unsure of how to respond."},
 			{"text": "She nods in agreement. \"how are you identified?\""},
 			{"text": "I'm... you can call me... <NAME>."},
-			{"text": "\"this is unit 00001. this is an alpha prototype. please do not copy or sell. if there any faults, please let MYSTERA THE MAGNIFICENT know at error no connection to portal network. may I have ice cream?\" she asks, abruptly."},
+			{
+			"sound": "GOLEM_ONE",
+			"text": "\"this is unit 00001. this is an alpha prototype. please do not copy or sell. if there any faults, please let MYSTERA THE MAGNIFICENT know at error no connection to portal network. may I have ice cream?\" she asks, abruptly."},
 			{"text": "\"Do you... do you like ice cream?\" you ask, perplexed."},
 			{"text": "\"yes. this one likes ice cream. unlike this other one,\" she says, although you have no idea what she's referencing."},
 			{"text": "\"How do you eat ice cream?\" you ask, seeing no visible mouth."},
@@ -4556,7 +4560,7 @@
 			{"text": "Her movements are slow, but you can sense a great power from within.  You've never encountered such a marvelous automaton before - even the wonderous artifacts of foreign merchants were toys in comparison."},
 			{"text": "\"What can you... do?\" you ask, and she immediately begins to rattle off her functions."},
 			{"text": "\"this one can store, concentrate, and solidify arcana for later use. this one can also store and deliver essence for breeding experiments. this one can engage in combat for defense or sparring. this one has no other directives.\""},
-			
+			{"text": "You think about what she said, trying to decide what to do."}
 		]
 	},
 	{
