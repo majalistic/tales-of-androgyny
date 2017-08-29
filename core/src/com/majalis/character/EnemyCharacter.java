@@ -600,7 +600,7 @@ public class EnemyCharacter extends AbstractCharacter {
 		}
 		
 		if (lust < 10 || enemyType == EnemyEnum.OGRE) {
-			if (enemyType != EnemyEnum.CENTAUR && enemyType != EnemyEnum.BEASTMISTRESS) lust++;
+			if (enemyType != EnemyEnum.CENTAUR && enemyType != EnemyEnum.BEASTMISTRESS && enemyType != EnemyEnum.GOLEM) lust++;
 		}
 		
 		Array<Techniques> possibleTechniques = getPossibleTechniques(target, stance);
@@ -1002,7 +1002,6 @@ public class EnemyCharacter extends AbstractCharacter {
 		if (lust > 16 && stance.isEroticReceptive()) {
 			spurt = climax();
 		}
-		if (enemyType == EnemyEnum.GOLEM && lust > 10) currentFrame = 1;
 		return !spurt.isEmpty() ? spurt : null;
 	}
 	
