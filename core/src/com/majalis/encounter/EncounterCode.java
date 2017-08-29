@@ -228,11 +228,15 @@ public enum EncounterCode {
 			case WERESLUT:
 				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{  
 					AssetEnum.WEREWOLF_MUSIC.getMusic(),
+					AssetEnum.WEREWOLF_GROWL.getSound(),
+					AssetEnum.CUM.getSound(),
+					AssetEnum.CUM_BUBBLING.getSound(),
 					AssetEnum.WEREBITCH.getTexture()
 				});
 			case HARPY:
 				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{ 
 					AssetEnum.HARPY_FELLATIO_1.getTexture(),
+					AssetEnum.CUM.getSound(),
 					AssetEnum.HARPY_ANIMATION.getAnimation()
 				});
 			case SLIME:
@@ -243,7 +247,9 @@ public enum EncounterCode {
 				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{
 					AssetEnum.BRIGAND_ANIMATION.getAnimation(),
 					AssetEnum.BRIGAND_ORAL.getTexture(),
-					AssetEnum.BRIGAND_MISSIONARY.getTexture()
+					AssetEnum.BRIGAND_MISSIONARY.getTexture(),
+					AssetEnum.CUM.getSound(),
+					AssetEnum.CUM_BUBBLING.getSound(),
 				});
 			case DRYAD:
 				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{  
@@ -256,6 +262,7 @@ public enum EncounterCode {
 					AssetEnum.UNICORN_ANAL_XRAY.getTexture(),
 					AssetEnum.CENTAUR_ANAL.getTexture(),
 					AssetEnum.CENTAUR_ANAL_XRAY.getTexture(),
+					AssetEnum.CUM.getSound(),
 					AssetEnum.SHOP_MUSIC.getMusic(),
 					AssetEnum.CENTAUR_ANIMATION.getAnimation()
 				});
@@ -275,6 +282,7 @@ public enum EncounterCode {
 					AssetEnum.ORC_ZOOM_DOWN.getTexture(),
 					AssetEnum.ORC_PRONE_BONE.getTexture(),
 					AssetEnum.GAPE.getTexture(),
+					AssetEnum.CUM.getSound(),
 					AssetEnum.WEREWOLF_MUSIC.getMusic()
 				});
 			case ADVENTURER:
@@ -299,11 +307,13 @@ public enum EncounterCode {
 				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{  
 					AssetEnum.OGRE.getTexture(),
 					AssetEnum.OGRE_BANGED.getTexture(),
+					AssetEnum.CUM.getSound(),
 					AssetEnum.WEREWOLF_MUSIC.getMusic()
 				});
 			case BEASTMISTRESS:
 				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{  
 					AssetEnum.BEASTMISTRESS.getTexture(),
+					AssetEnum.CUM.getSound(),
 					AssetEnum.WEREWOLF_MUSIC.getMusic()
 				});
 			case SPIDER:
@@ -350,6 +360,8 @@ public enum EncounterCode {
 					AssetEnum.GOBLIN_ANAL.getTexture(),
 					AssetEnum.GOBLIN_ANAL_MALE.getTexture(),
 					AssetEnum.LOUD_LAUGH.getSound(),
+					AssetEnum.CUM.getSound(),
+					AssetEnum.CUM_BUBBLING.getSound(),
 					AssetEnum.WEREWOLF_MUSIC.getMusic(),
 					AssetEnum.CARNIVAL_MUSIC.getMusic(),
 					AssetEnum.GAME_OVER_ANIMATION.getAnimation()

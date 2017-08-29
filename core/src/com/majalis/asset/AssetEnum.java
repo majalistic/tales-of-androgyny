@@ -244,7 +244,8 @@ public enum AssetEnum {
 	OGRE_GROWL("sounds/Ogre.wav", Sound.class),
 	GOLEM_SHUTDOWN("sounds/GolemShutdown.wav", Sound.class),
 	GOLEM_ONE("sounds/GolemOne.wav", Sound.class),
-
+	WEREWOLF_GROWL("sounds/WerewolfGrowl.wav", Sound.class),
+	
 	THWAPPING("sounds/Thwapping.wav", Sound.class),
 	UNPLUGGED_POP("sounds/UnpluggedPop.wav", Sound.class),
 	MOUTH_POP("sounds/MouthPop.wav", Sound.class),

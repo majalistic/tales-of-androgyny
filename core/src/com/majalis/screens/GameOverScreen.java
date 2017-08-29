@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -21,12 +22,15 @@ public class GameOverScreen extends AbstractScreen {
 	static {
 		resourceRequirements.add(AssetEnum.UI_SKIN.getSkin());
 		resourceRequirements.add(AssetEnum.GAME_OVER_ANIMATION.getAnimation());
+		resourceRequirements.add(AssetEnum.CUM.getSound());
 	}
 	private final AssetManager assetManager;
+	private final Sound sound;
 	
-	public GameOverScreen(ScreenFactory factory, ScreenElements elements,  AssetManager assetManager) {
+	public GameOverScreen(ScreenFactory factory, ScreenElements elements, AssetManager assetManager) {
 		super(factory, elements);
 		this.assetManager = assetManager;
+		sound = assetManager.get(AssetEnum.CUM.getSound());
 		setClearColor(Color.SLATE.r, Color.SLATE.g, Color.SLATE.b, 1);
 	}
 
@@ -61,6 +65,7 @@ public class GameOverScreen extends AbstractScreen {
 	@Override
 	public void show() {
 		super.show();
+		sound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.7f);
 	}	
 	
 	@Override

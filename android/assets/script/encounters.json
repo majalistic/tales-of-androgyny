@@ -1149,7 +1149,9 @@
 				"music": "WEREWOLF_MUSIC",
 				"mutations": [{"profileSaveType":"KNOWLEDGE", "value":{"class": "java.lang.String", "value": "Wereslut"}}],
 				"text": "There are wolves in the forest - you know, because you've been hearing them howl in the distance, and as you traverse the woods, you've been hearing the occasional growling - albeit higher pitched than you would expect."}, 
-			{"text":"The growling gets louder and louder, until, finally, a wolf emerges from the bushes... and she has big, fat boobs!"},
+			{
+			"sound": "WEREWOLF_GROWL",
+			"text":"The growling gets louder and louder, until, finally, a wolf emerges from the bushes... and she has big, fat boobs!"},
 			{
 				"foreground":"WEREBITCH", 
 				"text": "\"Grrr...\" she growls, holding up her clawed paws.  \"Just kidding,\" she says, dropping them to her skirt, \"I'm not gonna eat ya!  I just want to mate!\""},
@@ -1187,9 +1189,11 @@
 			{"text": "There's no way you're going to be able to get that -thing- out of you before your colon becomes the cozy new home to some very confused sperm - your own testicles twitch as you anticipate her pure semen enema."},
 			{"text": "\"Awooooooooooooooooooooooooooo!\""},
 			{
+			"sound": "CUM",
 			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "creampies":1}}],
 			"text": "*SPLORT*"},
 			{
+			"sound": "CUM_BUBBLING",
 			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "creampies":1}}],
 			"text": "*GLORP*"},
 			{"text": "She howls, and you see white - and so would anyone taking a cursory look up your funhole.  It's hot and slimy and fills every nook and cranny as it spews out of her, and because of the knot, it's sealed inside your hot innards, bloating your intestines uncomfortably."},
@@ -1308,6 +1312,7 @@
 			{"text": "With a whimper, that thought leaves your mind, as you sprinkle her straw with your anally-induced sperm for what might be the thousandth time.  Soon, she'll screech, and dump her bird-brained excuse of a reproductive act in your bowels, likewise for the thousandth time, but all you can think about, with that thought returning, is what would have happened if you won."}
 			{"text": "*SCREEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEECH*"}, 
 			{
+			"sound": "CUM",
 			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":10, "creampies":10}}],
 			"text": "*SPLURT, SPLURT*"},
 			{"text": "Bad End."}
@@ -1614,9 +1619,11 @@
 			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analEjaculation":1}}],
 			"text": "With her cock rummaging over your prostate, you soon squirt, your stomach receiving the semen gracefully - and then, it receives a lot more semen, somewhat less gracefully."},
 			{
+			"sound": "CUM",
 			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "creampies":1}}],
 			"text": "Her eyes roll into the back of her head as she groans, and a torrent of thick cum floods your bowels, too late for you to call takebacks. Her hips twitch as she fires rope after rope inside, and you groan at the sheer volume of it."}
 			{
+			"sound": "CUM_BUBBLING",
 			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "creampies":1}}],
 			"text": "Letting her cum inside proves to be a mistake. She dumps weeks' worth inside until you feel bloated and gross."},
 			{"text": "You unwrap your legs and hold them high in the air, as if inviting her to pull out, but she doesn't take you up on the offer, slamming her hips down against your ass and firing rope after rope into your beleagured bowels. You doubt even a drop of her mucous is going to end up coming out anywhere but inside your pipes."}
@@ -1877,6 +1884,7 @@
 			{"text": "She drills it into you, scooping out your recently repurposed shitpipe with exactly the care and finesse you would expect of a horse.  By the time you've received ten lengths of her horse schlong via her erratic jerks and thrusts, you know quite well that centaur unicorns are poor lovers - and that anal sex isn't always the answer to life's problems."},
 			{"text": "At the very least, your first time (embarrassed and humiliated by a woman with a big horse cock) is mercifully short, her breath itself getting shorter and shorter and higher and higher pitched until she says the magic words, her leathery dick scraping against your bowels earnestly all the while."},
 			{
+			"sound": "CUM",
 			"foreground": "UNICORN_ANAL_XRAY",
 			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "creampies":1, "horse":true}}],
 			"text": "\"I'm... cumming!\" she groans, right before that is made incredibly obvious as your stomach balloons outwards, her stinging unicorn cum enema probably the least subtle creampie ever - especially for someone who's never experienced a creampie of any kind before."},
@@ -1946,6 +1954,7 @@
 		"key": "CENTAUR-SATISFIED",
 		"scriptLines": [
 			{
+			"sound": "CUM",
 			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "horse":true}}],
 			"text": "With the centaur cum filling your stomach, you have little energy to fight her.  Her cock is so large you thought you might pass out."},
 			{
@@ -2209,14 +2218,18 @@
 			{"text": "The orbs look ready to discharge - magical energy, perhaps? - so you round the ring again, to see what became of the invasive green object.  Its goo-filled eye is now dispelling liquid that pools on the floor obscenely."},
 			{"text": "It's running roughly through the ring over and over again, and you hear the sloshing of the orbs growing louder and louder.  You peek around the ring to see that they're contracting into themselves, looking to get tighter and tighter."},
 			{"text": "Suddenly, they stop moving entirely - pulsing with an evil energy.  You shift your view again to watch the green mass - which twitches upwards, anchored by the ring.  You feel the heat in your own cheeks rising, which only gets more intense a moment later."},
-			{"text": "All at once, a thick, sap-like liquid, a creamy white mixed with runny clear, spurts out of the eye with force.  The rope flies through the air, clearing several feet before the whole of it falls to the ground audibly, leaving a thick streak cooling over a long strip."},
+			{
+			"sound": "CUM",
+			"text": "All at once, a thick, sap-like liquid, a creamy white mixed with runny clear, spurts out of the eye with force.  The rope flies through the air, clearing several feet before the whole of it falls to the ground audibly, leaving a thick streak cooling over a long strip."},
 			{"text": "By that time, the second blast had joined the first in the air, and landed partially overlapping it, followed by a third and fourth, each one making you feel more and more heat in your cheeks and, oddly, your stomach."},
 			{"text": "By the time the eruption ended, a wide swath of the ground was covered in the sticky stuff, and the smell was overpowering.  Rounding the ring again, you see that the orbs have stopped contracting, although they still seem rather full."},
 			{"text": "All is still for a bit... and then the object begins to move in and out of the ring again, along with another peal of laughter."},
 			{"text": "Before long, the orbs begin to contract again... followed by another deluge that simply falls on top of the first, creating a messy soup."},
 			{"text": "Again, you felt a heat in your stomach, and again, a stillness came... and again, the in and out motion of the warty, green mass resumed."},
 			{"text": "A third and fourth time the orbs contracted and the goop spurted out wantonly, your stomach feeling incredibly hot and sensitive.  The orbs were noticeably sloshing less... but were still sloshing."},
-			{"text": "The fifth eruption proved to be the last.  The still-stiff object slipped slowly out of the ring, causing it to disappear from view... and the ring itself shrunk in size to a size about twice its original diameter."},
+			{
+			"sound": "CUM_BUBBLING",
+			"text": "The fifth eruption proved to be the last.  The still-stiff object slipped slowly out of the ring, causing it to disappear from view... and the ring itself shrunk in size to a size about twice its original diameter."},
 			{"text": "On one side of the ring was an endless expanse of darkness... the side the orbs had been on.  On the other, there was also darkness, but also a visible trail of slime flowing outwards under the weight of its own gravity, looking quite like an egg's white spreading outward."},
 			{"text": "Somehow, the sight brings a fierce heat to your cheeks, as if you're witnessing something truly embarrassing.  Somehow, the space you're in seems sullied by the presence of the white, viscous soup."},
 			{"text": "The far-away laughter, fading into the distance, doesn't help matters."},
@@ -2366,6 +2379,7 @@
 			"text": "She nibbles on your ear, barely able to reach, and you bite your lip. Your eye twitches.  Your prostate is receiving far too much stimulation - by the time you even recognize the sensation, it's too late - you shoot a rope of misguided cum all over the tiny mushrooms between your knees."},
 			{"text": "\"Nyaha! You lied to me, pinkskin!  You said you were a boy, but you cum like a girl!\" she cries, still riding you high, thrusting in and out of your tortured butthole, having apparently noticed your catamite-like anal ejaculation.  Of course, cumming while penetrated might be a classic girl move, but being ejaculated inside of..."},
 			{
+			"sound": "CUM",
 			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "creampies":1}}],
 			"text": "She quickly buttons up that loophole by plugging it with cum - that is, she begins to shoot thick, creamy ejaculate into your quickly-waterlogged bowels.  You learn the hard way that goblin cum has a spicy aftertaste, causing intense heat everywhere it touches in your rectum as it spurts out and splashes down."},
 			{"text": "As she cums all over your insides, you feel an intense shame - a creature no taller than your waist has overpowered, penetrated, and inseminated you, right up the butt.  Even worse - you came from the comfort of it."},
@@ -2388,6 +2402,7 @@
 			{"text": "Your lips purse, as all at once the whole of her warty goblin dick makes it inside of you again."},
 			{"text": "You collapse to the ground, and her hips follow you, until your own penis is stuck in its own mud, and her cock is pulsing against your anal walls, her chest against your lower back."},
 			{
+			"sound": "CUM",
 			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "creampies":1}}],
 			"text": "\"More cum comin' your way, hero-boy!\" she says, and she isn't lying - another rush of cum shoots up into you, and you feel the heat again.  Her volleys don't last as long as the first time, but they're still surprisingly large."},
 			{"text": "She pulls out, and again sits her big rear on your back, apparently recuperating.  Though it's no longer flat against your back, you can feel the ominous presence of her erection - still full, even after two semen injections piped into your stomach."},
@@ -2406,6 +2421,7 @@
 			{"text": "Goblin in, goblin out, goblin in, goblin out."},
 			{"text": "\"Ooooh, ooooh...\" she coos, apparently on a hair trigger. You hear her grumble a moan, and you know she's already close to firing off another volley."},
 			{
+			"sound": "CUM_BUBBLING",
 			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "creampies":1}}],
 			"text": "In no time at all, you feel the gurgling in your gut that means she's added another copious load, this one just as unwelcome as the others."},
 			{"text": "Your stomach distends, to the point that it aches as you press it against the ground.  It's clear now that you're being absolutely stuffed full of her semen."},
@@ -2424,6 +2440,7 @@
 			{"text": "She rolls you onto your side - and penetrates you without pretense.  Almost immediately, you spew again onto the dirt, but she pays that no mind."},
 			{"text": "Her tribal pounding is basically emasculating you in every direction, and it only gets worse when you realize that she's going to empty her entire nutbladder into your newly-annointed baby bag."},
 			{
+			"sound": "CUM_BUBBLING",
 			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "creampies":1}}],
 			"text": "After a sequence of blows to your pride and your prostate, she spits liquid into liquid, and you groan, your stomach bloating to an almost pregnant size."},
 			{"text": "In addition to feeling so cum-filled that you may start to cough it up, you also feel even more changed than before... your body is soaked with sweat."},
@@ -2526,8 +2543,11 @@
 			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "oralSex":1, "oralCreampies": 1}}],
 			"text": "...face... And, true to hot potato... there followed an explosion - a deluge of goblin cum down the throat and filling your cheeks.  Because of the cursed goblin virility, he was able to continue the game after that, switching back and forth between your mouthhole and butthole until, inevitably..."
 			},
-			{"text": "*SPLORT*"},
 			{
+			"sound": "CUM",
+			"text": "*SPLORT*"},
+			{
+			"sound": "CUM_BUBBLING",
 			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":2, "creampies":2, "analEjaculation":2}}],
 			"text": "...you received another frothy creampie or goblin slime soup serving to swallow down.  Once both of your holes were full to bursting, and your stomach was distended and full, he dragged you back to his village... where the games began again."},
 			{
@@ -2828,6 +2848,7 @@
 			"text": "She spreads your cheeks, firmly, with her strong hands and slams her helmet against your unprepared starfish.  Any hopes you had of her going easy on you evaporates."},
 			{"text": "With a \"hoah!\" she bucks a thrust back and fro, burying a few inches of orc meat in your ass without warning - and you see stars."},
 			{
+			"sound": "CUM",
 			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "creampies":1}}],
 			"text": "With several powerful, lunging thrusts, she buries herself up into your guts, and immediately you feel the scalding heat and the intense pressure of her desperate cumblast.  With little time to prepare your heart, you almost jump off of it, but she holds firmly on your shoulders as she empties her testicles out in your guts."},
 			{"text": "It feels like you sat on a geyser - apparently you spared that other adventurer from a pretty messy, hot creampie.  It's so pressurized that you feel it jet out of you around her stuck schlong - which would be semen wasted, were it not all going to waste inside your infertile insides."},
@@ -3008,6 +3029,7 @@
 		"key": "ORC-REUNION-ACCEPT",
 		"scriptLines": [
 			{
+			"sound": "CUM",
 			"foreground": "ORC_PRONE_BONE",
 			"mutations": [{"saveType":"TIME", "value":{"class": "java.lang.Integer", "value": 2}}, {"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":3, "creampies":3, "analEjaculation":2}}, {"saveType":"FOOD", "value":{"class": "java.lang.Integer", "value":15}}],
 			"text": "Minutes later, without any real foreplay (Urka proves impatient), you find yourself wrist-locked, on your knees, which are spread wide apart, as Urka teaches you the ins and outs of orcish love-making - mainly, slamming her cock in and out of your ass hard enough to knock the wind out of you."},
@@ -3120,6 +3142,7 @@
 			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "creampies":2}}],
 			"text": "When you feel her orc cum whale-blast into your sore, aching guts, you know this is it - your days as a man are over.  You bite into the dirt and catch her cum... and you cum yourself, again, but nothing comes out."},
 			{
+			"sound": "CUM",
 			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1, "creampies":1}}],
 			"text": "She spends her entire load inside of you, grunting non-committally.  Your hole feels like it's on fire even before she blows her wad into it, and the thickened pulsing of her shaft stretches your hole even more, her mucousy cum irritating your cock-burned intestinal walls."},
 			{"text": "You spend the rest of your days having more orc sex than dignity, as Urka anally violates you in front of other humans.  She dresses you in the stolen clothing of village girls and has you introduce yourself as \"Lala\". "},
@@ -3511,9 +3534,12 @@
 			"text": "Aided by gravity, the ogre's fat cockhead enters your ass!"},
 			{"text": "You are completely at his mercy - each inch up or down he controls by grasping your legs and dragging you like a doll across his towering mast."},
 			{
+			"sound": "CUM",
 			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analEjaculation":1, "creampies": 4}}],
 			"text": "He twitches, deep in your bowels, and it feels like a volcano erupting inside your guts - the ogre cum enema you never hoped to receive. The sound of it is enough to cause your ears to ring."},
-			{"text": "You lay there, finding it difficult to move, as the ogre's cum bubbles out of your gaped butthole."}
+			{
+			"sound": "CUM_BUBBLING",
+			"text": "You lay there, finding it difficult to move, as the ogre's cum bubbles out of your gaped butthole."}
 		]
 	},
 	{
@@ -3534,9 +3560,12 @@
 			"text": "Aided by gravity, the ogre's fat cockhead smashes into your ass!"},
 			{"text": "You are completely at his mercy - each inch up or down he controls by grasping your legs and dragging you like a doll across his towering mast."},
 			{
+			"sound": "CUM",
 			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analEjaculation":1, "creampies": 4}}],
 			"text": "He twitches, deep in your bowels, and it feels like a volcano erupting your guts - the ogre cum enema you never hoped to receive. The sound of it is enough to cause your ears to ring."}
-			{"text": "You lay there, finding it difficult to move, as the ogre's cum bubbles out of your gaped butthole."}
+			{
+			"sound": "CUM_BUBBLING",
+			"text": "You lay there, finding it difficult to move, as the ogre's cum bubbles out of your gaped butthole."}
 		]
 	},
 	{
@@ -3645,6 +3674,7 @@
 			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analEjaculation":1}}],	
 			"text": "But you do.  You cum all over her cat.  Pervert."},
 			{
+			"sound": "CUM",
 			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "creampies":1}}],
 			"text": "Ropes of cum streak through its fur, and, similarly, ropes of cum streak through your bowels, as she floods your cavern."},
 			{"text": "She pulls out, and a thick wad of elven cum drools out with it, having just been punched into your pussy without a care."},
@@ -3743,6 +3773,7 @@
 			"text": "\"I lied.  I'm going to let kitty sow his seed in your bowels like a womb. Enjoy the humiliation, human toilet.\""},
 			{"text": "Between the pumping and the scraping, the anal ordeal has proven incredibly difficult, even as you've drooled your own seed into the dirt.  You feel an intense rumbling in your stomach, and then heat, and then... humiliation."},
 			{
+			"sound": "CUM",
 			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":4, "creampies": 3, "analEjaculation": 1}}],
 			"text": "Getting kitty cock up your kitty litter hole is one thing - being the queen in heat to a powerful tom and being bred is another.  You whine as your intestines are pumped full of goo, inseminated and disgraced."},
 			{"text": "As he pulls his barbed cock free, you let out an inhuman sound, the underdweller's cum still drooling from your lips, and you collapse into the dirt thereafter."},
@@ -3779,6 +3810,7 @@
 			{"text": "With her furry friend reaming her hole and pounding her prostate, her buried elven rod in your guts is hard like slate and twitching with a foreboding urgency."},
 			{"text": "\"Ohoh... here it comes, human...\" she says, and you don't have to turn your head to understand what - a deep thunk in the pit of your stomach that fills it with a gluggy warmness makes it obvious what, exactly, is coming."},
 			{
+			"sound": "CUM",
 			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "creampies": 1, "analEjaculation": 1}}],
 			"text": "You groan as she inseminates you, even as she groans coyly as her mount breeds her.  You can feel the warmth in her abdomen as it presses against your back."},
 			{"text": "\"Don't feel too bad... kitty just gave me a kitty-cum enema,\" she confirms.  Having difficulty breathing, you lose consciousness."},
