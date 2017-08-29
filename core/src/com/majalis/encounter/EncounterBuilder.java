@@ -749,7 +749,7 @@ public class EncounterBuilder {
 				return new Branch().textScene("STORY-OGRE").choiceScene(
 					"Continue on?",
 					new Branch("Press on").textScene("STORY-OGRE-DEFEAT").gameEnd(), 
-					new Branch("Turn back").encounterEnd()
+					new Branch("Turn back").textScene("STORY-OGRE-DEFEAT").gameEnd()
 				).getEncounter();
 			case OGRE_WARNING_STORY:
 				return new Branch().textScene("OGRE-WARN").encounterEnd().getEncounter();

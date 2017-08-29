@@ -84,19 +84,23 @@ public class GameWorldFactory {
 			addNode(getNode(nodeCode, TOWN_STORY, TOWN2, 5, 11, visitedCodesSet.contains(nodeCode++)), nodes);
 			addNode(getNode(nodeCode, FIRST_BATTLE_STORY, DEFAULT, 13, 12, visitedCodesSet.contains(nodeCode++)), nodes);
 			addNode(getNode(nodeCode, EncounterCode.MERI_COTTAGE, EncounterCode.MERI_COTTAGE_VISIT, 13, 4, visitedCodesSet.contains(nodeCode++)), nodes);
-			addNode(getNode(nodeCode, EncounterCode.ECCENTRIC_MERCHANT, DEFAULT, 22, 7, visitedCodesSet.contains(nodeCode++)), nodes);	
-			addNode(getNode(nodeCode, EncounterCode.STORY_FEM, DEFAULT, 21, 13, visitedCodesSet.contains(nodeCode++)), nodes);
-			addNode(getNode(nodeCode, EncounterCode.STORY_SIGN, DEFAULT, 31, 6, visitedCodesSet.contains(nodeCode++)), nodes);
-			addNode(getNode(nodeCode, EncounterCode.WEST_PASS, DEFAULT, 32, 15, visitedCodesSet.contains(nodeCode++)), nodes);
-			addNode(getNode(nodeCode, EncounterCode.SOUTH_PASS, DEFAULT, 41, -2, visitedCodesSet.contains(nodeCode++)), nodes);
+			addNode(getNode(nodeCode, EncounterCode.ECCENTRIC_MERCHANT, DEFAULT, 22, 10, visitedCodesSet.contains(nodeCode++)), nodes);	
+			addNode(getNode(nodeCode, EncounterCode.STORY_FEM, DEFAULT, 21, 16, visitedCodesSet.contains(nodeCode++)), nodes);
+			addNode(getNode(nodeCode, EncounterCode.STORY_SIGN, DEFAULT, 29, 16, visitedCodesSet.contains(nodeCode++)), nodes);
+			addNode(getNode(nodeCode, EncounterCode.WEST_PASS, DEFAULT, 28, 25, visitedCodesSet.contains(nodeCode++)), nodes);
+			addNode(getNode(nodeCode, EncounterCode.SOUTH_PASS, DEFAULT, 38, 12, visitedCodesSet.contains(nodeCode++)), nodes);
 			
-			addNode(getNode(nodeCode, EncounterCode.OGRE_WARNING_STORY, DEFAULT, 7, 23, visitedCodesSet.contains(nodeCode++)), nodes);	
-			addNode(getNode(nodeCode, EncounterCode.OGRE_STORY, DEFAULT, 6, 32, visitedCodesSet.contains(nodeCode++)), nodes);
+			addNode(getNode(nodeCode, EncounterCode.FOOD_CACHE, DEFAULT, 7, 21, visitedCodesSet.contains(nodeCode++)), nodes);
+			addNode(getNode(nodeCode, EncounterCode.OGRE_WARNING_STORY, DEFAULT, 6, 28, visitedCodesSet.contains(nodeCode++)), nodes);	
+			addNode(getNode(nodeCode, EncounterCode.OGRE_STORY, DEFAULT, 6, 34, visitedCodesSet.contains(nodeCode++)), nodes);
 			
-			new Zone(loadService, assetManager, random, nodes, nodeMap, 1, 1)
+			addNode(getNode(nodeCode, EncounterCode.FOOD_CACHE, DEFAULT, 4, 42, visitedCodesSet.contains(nodeCode++)), nodes);
+			addNode(getNode(nodeCode, EncounterCode.FORT, FORT, 5, 48, visitedCodesSet.contains(nodeCode++)), nodes);
+			
+			/*new Zone(loadService, assetManager, random, nodes, nodeMap, 1, 1)
 				.addStartNode(nodes.get(nodes.size-1))
 				.addEndNode(1003, FORT, FORT, 9, 51)
-				.buildZone();
+				.buildZone();*/
 			
 			for (int ii = 0; ii < nodes.size-1; ii++) {
 				for (int jj = ii + 1; jj < nodes.size; jj++) {
