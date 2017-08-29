@@ -867,7 +867,7 @@ public class EnemyCharacter extends AbstractCharacter {
 				(enemyType == EnemyEnum.ORC && stance == Stance.PRONE_BONE) ||
 				enemyType == EnemyEnum.CENTAUR || 
 				((enemyType == EnemyEnum.GOBLIN || enemyType == EnemyEnum.GOBLIN_MALE) && (stance == Stance.FACE_SITTING || stance == Stance.SIXTY_NINE || stance == Stance.DOGGY || stance == Stance.PRONE_BONE))) {
-				x = (enemyType == EnemyEnum.BRIGAND || (enemyType == EnemyEnum.GOBLIN || enemyType == EnemyEnum.GOBLIN_MALE) && (stance == Stance.FACE_SITTING || stance == Stance.SIXTY_NINE)) ? 400 : 0;
+				x = ((enemyType == EnemyEnum.BRIGAND && stance != Stance.ANAL) || (enemyType == EnemyEnum.GOBLIN || enemyType == EnemyEnum.GOBLIN_MALE) && (stance == Stance.FACE_SITTING || stance == Stance.SIXTY_NINE)) ? 400 : 0;
 				y = 0;
 				width = (int) (texture.getWidth() / (texture.getHeight() / 1080.));
 				height = 1080;
