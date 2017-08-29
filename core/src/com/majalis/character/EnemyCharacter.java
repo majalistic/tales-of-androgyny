@@ -945,6 +945,10 @@ public class EnemyCharacter extends AbstractCharacter {
 				}));
 			}
 		}
+		if (enemyType == EnemyEnum.CENTAUR || enemyType == EnemyEnum.UNICORN) {
+			animations.get(0).setAnimation(0, "Attack Erect", false);
+			animations.get(0).addAnimation(0, "Idle Erect", true, 1.6f);
+		}
 	}
 	
 	public void hitAnimation() {
