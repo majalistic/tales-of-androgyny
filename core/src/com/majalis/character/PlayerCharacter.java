@@ -783,13 +783,11 @@ public class PlayerCharacter extends AbstractCharacter {
 				minStat = stat;
 			}
 		}
-		setStat(minStat, getStat(minStat) + 1);
+		setStat(minStat, getRawStat(minStat) + 1);
 	}
 	
 	public void setPerks(ObjectMap<Perk, Integer> perks) {
-		if (perks.get(Perk.WELLROUNDED, 0) > 0 && !(this.perks.get(Perk.WELLROUNDED.toString(), 0) > 0) ) {
-			increaseLowestStat();
-		}
+		
 		if (perks.get(Perk.STRONGER, 0) > this.perks.get(Perk.STRONGER.toString(), 0)) {
 			int strIncrease = perks.get(Perk.STRONGER, 0) -  this.perks.get(Perk.STRONGER.toString(), 0);
 			baseStrength += strIncrease;
@@ -801,6 +799,9 @@ public class PlayerCharacter extends AbstractCharacter {
 		if (perks.get(Perk.FASTER, 0) > this.perks.get(Perk.FASTER.toString(), 0)) {
 			int agiIncrease = perks.get(Perk.FASTER, 0) -  this.perks.get(Perk.FASTER.toString(), 0);
 			baseAgility += agiIncrease;
+		}
+		if (perks.get(Perk.WELLROUNDED, 0) > 0 && !(this.perks.get(Perk.WELLROUNDED.toString(), 0) > 0) ) {
+			increaseLowestStat();
 		}
 		
 		if (perks.get(Perk.CATAMITE, 0) > 0 && !(this.perks.get(Perk.CATAMITE.toString(), 0) > 0)) {
