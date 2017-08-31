@@ -241,7 +241,8 @@ public enum EncounterCode {
 				});
 			case SLIME:
 				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{  
-					
+						AssetEnum.SLIME.getTexture(),
+						AssetEnum.SLIME_DOGGY.getTexture(),
 				});
 			case BRIGAND:
 				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{
