@@ -23,6 +23,8 @@ import com.badlogic.gdx.utils.OrderedMap;
 import com.majalis.asset.AssetEnum;
 import com.majalis.character.Item;
 import com.majalis.character.Item.EffectType;
+import com.majalis.character.Item.Misc;
+import com.majalis.character.Item.MiscType;
 import com.majalis.character.Item.Potion;
 import com.majalis.character.Item.Weapon;
 import com.majalis.character.Item.WeaponType;
@@ -44,14 +46,14 @@ public class ShopScene extends Scene {
 	private final Label money;
 	
 	public static class Shop {
-		private Array<Weapon> weapons;
+		private Array<Item> weapons;
 		private Array<Potion> consumables;
 		private ShopCode shopCode;
 		private boolean done;
 		private Shop() {}
 		private Shop(ShopCode shopCode) {
 			this.shopCode = shopCode;
-			this.weapons = new Array<Weapon>();
+			this.weapons = new Array<Item>();
 			this.consumables = new Array<Potion>();
 			done = false;
 		}
@@ -125,7 +127,8 @@ public class ShopScene extends Scene {
 		
 		this.addActor(techniquePane);
 		
-		for (final Weapon weapon: shop.weapons) {
+		// neeed to consolidate shop inventories so it's all using the same code - can break out the actual inventory by type in the display, but inventory should be item type agnostic
+		for (final Item weapon: shop.weapons) {
 			final TextButton weaponButton = new TextButton(weapon.getName() + " - " + weapon.getValue() + "G", skin);
 			final Label description = new Label(weapon.getDescription(), skin);		
 			description.setWrap(true);
@@ -140,6 +143,7 @@ public class ShopScene extends Scene {
 					if (buyItem(weapon, shopCode)) {
 						itemSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
 						addActor(done);
+						// this should do what the character screen now does, shifting the item list down
 						weaponButton.addAction(Actions.removeActor());
 						shop.weapons.removeValue(weapon, true);
 						shop.done = true;
@@ -241,6 +245,7 @@ public class ShopScene extends Scene {
 							shop.weapons.add(new Weapon(type, 1));	
 						}									
 					}
+					shop.weapons.add(new Misc(MiscType.KEY));	
 				}
 				break;
 			case SHOP:

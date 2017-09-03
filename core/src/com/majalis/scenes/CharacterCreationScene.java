@@ -233,8 +233,7 @@ public class CharacterCreationScene extends Scene {
 						if (!story) {
 							buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
 						}
-						classMessage.setText("You are now " + getJobClass(jobClass) + ".\n"
-										+ getClassFeatures(jobClass));
+						classMessage.setText("You are now " + getJobClass(jobClass) + ".\n" + getClassFeatures(jobClass));
 						statGroup.removeAction(Actions.hide());
 						statGroup.addAction(Actions.visible(true));
 						statGroup.addAction(Actions.show());
@@ -296,7 +295,7 @@ public class CharacterCreationScene extends Scene {
 	private String getClassFeatures(SaveManager.JobClass jobClass) {
 		switch (jobClass) {
 			case WARRIOR: return "+1 Skill point.\nUnlocked \"Blitz\" Stance.\nGained perk \"Weak to Anal\".";
-			case PALADIN: return "Combat Heal learned.";
+			case PALADIN: return "Combat Heal learned.\nChastity Cage equipped.";
 			case THIEF:   return "+3 Skill points.\n+40 food.";
 			case RANGER:  return "Received bow.";
 			case MAGE:    return "+1 Magic point.\n";

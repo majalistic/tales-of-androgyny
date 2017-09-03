@@ -10,6 +10,10 @@ import com.badlogic.gdx.utils.IntArray;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.ObjectSet;
 import com.majalis.asset.AssetEnum;
+import com.majalis.character.Item.ChastityCage;
+import com.majalis.character.Item.Misc;
+import com.majalis.character.Item.MiscType;
+import com.majalis.character.Item.Plug;
 import com.majalis.character.Item.Potion;
 import com.majalis.character.Item.Weapon;
 import com.majalis.character.Item.WeaponType;
@@ -99,10 +103,7 @@ public class PlayerCharacter extends AbstractCharacter {
 			money = 40;
 			debt = 0;
 			inventory = new Array<Item>();
-			for (int ii = 10; ii <= 20; ii += 10) {
-				inventory.add(new Potion(ii));
-				inventory.add(new Potion(ii));
-			}
+			initInventory();
 			setCharacterName("Hiro");
 			questFlags = new ObjectMap<String, Integer>();
 			time = 0;
@@ -118,6 +119,14 @@ public class PlayerCharacter extends AbstractCharacter {
 		loaded = false;
 		setCurrentPortrait(AssetEnum.PORTRAIT_SMILE); // his smile and optimism, not yet gone
 		luckStreak = new BooleanArray(new boolean[]{true, true, true, false, false, false});
+	}
+	
+	private void initInventory() {
+		inventory.clear();
+		for (int ii = 10; ii <= 20; ii += 10) {
+			inventory.add(new Potion(ii));
+			inventory.add(new Potion(ii));
+		}
 	}
 	
 	private static ObjectSet<Techniques> getBaseTechniques() {
@@ -162,6 +171,7 @@ public class PlayerCharacter extends AbstractCharacter {
 		perkPoints = 2; 
 		magicPoints = 0;
 		food = 60; 
+		initInventory();
 		skills.remove(COMBAT_HEAL.toString());
 		skills.remove(INCANTATION.toString());
 		skills.remove(BLITZ_ATTACK.toString());
@@ -169,10 +179,9 @@ public class PlayerCharacter extends AbstractCharacter {
 		skills.remove(HOLD_BACK.toString());
 		perks.remove(Perk.WEAK_TO_ANAL.toString());
 		weapon = null;
-		// warrior will need to get bonus stance options, Ranger will need to start with a bow
 		switch (jobClass) { 
 			case WARRIOR: skillPoints = 3; skills.put(BLITZ_ATTACK.toString(), 1); skills.put(ALL_OUT_BLITZ.toString(), 1); skills.put(HOLD_BACK.toString(), 1); perks.put(Perk.WEAK_TO_ANAL.toString(), 1); break;
-			case PALADIN: addSkill(COMBAT_HEAL, 1); break;
+			case PALADIN: addSkill(COMBAT_HEAL, 1); setCage(new ChastityCage(), true); break;
 			case THIEF: skillPoints = 5; food += 40; break;
 			case MAGE: magicPoints = 2; break;
 			case RANGER: weapon = new Weapon(WeaponType.Bow); break;
@@ -1093,9 +1102,11 @@ public class PlayerCharacter extends AbstractCharacter {
 	}
 
 	// this should obviously only accept a Weapon parameter
-	public String setWeapon(Item item) {
-		weapon = (Weapon) item;
-		return "You equipped the " + item.getName() + ".";
+	public String setWeapon(Item item) {	
+		Weapon equipWeapon = (Weapon) item;
+		boolean alreadyEquipped = equipWeapon.equals(this.weapon);
+		this.weapon = alreadyEquipped ? null : equipWeapon;
+		return "You " + (alreadyEquipped ? "unequipped" : "equipped") + " the " + equipWeapon.getName() + ".";
 	}
 	
 	public void setBaseDefense(int defense) {
@@ -1332,10 +1343,7 @@ public class PlayerCharacter extends AbstractCharacter {
 	public int getMetabolicRate() { return hasHungerCharm() ? 3 : 4; }
 
 	private boolean hasHungerCharm() {
-		for (Item item : inventory) {
-			if (item.getName().equals("Hunger Charm")) return true;
-		}
-		return false;
+		return inventory.contains(new Misc(MiscType.HUNGER_CHARM), false);
 	}
 	
 	public Array<MutationResult> cureBleed(Integer bleedCure) {
@@ -1390,5 +1398,17 @@ public class PlayerCharacter extends AbstractCharacter {
 			needsRestock++;
 		}
 		return needsRestock;
+	}
+
+	public String equipItem(Item item) {
+		return item instanceof Weapon ? setWeapon(item) : item instanceof ChastityCage ? setCage(item, false) : setPlug(item, false);
+	}
+
+	public Plug getPlug() {
+		return plug;
+	}
+	
+	public ChastityCage getCage() {
+		return cage;
 	}
 }

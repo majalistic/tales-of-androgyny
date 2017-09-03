@@ -162,58 +162,58 @@ public class CharacterScreen extends AbstractScreen {
 		}
 		
 		final Table inventoryTable = new Table();
-		final Label inventoryText = new Label("", skin);
-		inventoryTable.add(inventoryText).row();
 		inventoryTable.add(getLabel("Inventory", skin, Color.BLACK)).row();
-		inventoryTable.setPosition(850, 800);
+		inventoryTable.setPosition(850, 725);
 		inventoryTable.align(Align.top);
 		this.addActor(inventoryTable);
 		final Table weaponTable = new Table();
-		final Label weaponTableText = new Label("", skin);
-		weaponTable.add(weaponTableText).row();
-		weaponTable.add(getLabel("Weapons", skin, Color.BLACK)).row();
-		weaponTable.setPosition(260, 475);
+		final Label consoleText = new Label("", skin);
+		consoleText.setPosition(500, 1050);
+		consoleText.setColor(Color.GOLDENROD);
+		this.addActor(consoleText);
+		weaponTable.add(getLabel("Equipment", skin, Color.BLACK)).row();
+		weaponTable.setPosition(260, 450);
 		weaponTable.align(Align.top);
 		this.addActor(weaponTable);
 		
 		Table equipmentTable = new Table();
 		equipmentTable.align(Align.topLeft);
-		final Label weaponText = getLabel(character.getWeapon() != null ? "Weapon: " + character.getWeapon().getName() : "Weapon: Unarmed", skin, Color.BLACK);
+		final Label weaponText = getLabel(character.getWeapon() != null ? character.getWeapon().getName() : "Unarmed", skin, Color.BROWN);
+		final Label plugText = getLabel(character.getPlug() != null ? character.getPlug().getName() : "None", skin, Color.BROWN);
+		final Label cageText = getLabel(character.getCage() != null ? character.getCage().getName() : "None", skin, Color.BROWN);
 		equipmentTable.setPosition(600, 1040);
 		this.addActor(equipmentTable);
+		equipmentTable.add(getLabel("Weapon:", skin, Color.DARK_GRAY)).width(150).align(Align.left);
 		equipmentTable.add(weaponText).align(Align.left).row();
-		equipmentTable.add(getLabel("Shield: ", skin, Color.DARK_GRAY)).align(Align.left).row();
-		equipmentTable.add(getLabel("Armor: ", skin, Color.DARK_GRAY)).align(Align.left).row();
-		equipmentTable.add(getLabel("Headgear: ", skin, Color.DARK_GRAY)).align(Align.left).row();
-		equipmentTable.add(getLabel("Legwear: ", skin, Color.DARK_GRAY)).align(Align.left).row();
-		equipmentTable.add(getLabel("Armwear: ", skin, Color.DARK_GRAY)).align(Align.left).row();
+		equipmentTable.add(getLabel("Shield:", skin, Color.DARK_GRAY)).align(Align.left).row();
+		equipmentTable.add(getLabel("Armor:", skin, Color.DARK_GRAY)).align(Align.left).row();
+		equipmentTable.add(getLabel("Headgear:", skin, Color.DARK_GRAY)).align(Align.left).row();
+		equipmentTable.add(getLabel("Legwear:", skin, Color.DARK_GRAY)).align(Align.left).row();
+		equipmentTable.add(getLabel("Armwear:", skin, Color.DARK_GRAY)).align(Align.left).row();
+		equipmentTable.add(getLabel("Buttwear:", skin, Color.DARK_GRAY)).width(150).align(Align.left);
+		equipmentTable.add(plugText).align(Align.left).row();
+		equipmentTable.add(getLabel("Dickwear:", skin, Color.DARK_GRAY)).width(150).align(Align.left);
+		equipmentTable.add(cageText).align(Align.left).row();
 		
 		for (final Item item : character.getInventory()) {
 			final TextButton itemButton = new TextButton(item.getName(), skin);
 			if (item.isConsumable()) {
 				itemButton.addListener(
-					new ClickListener() {
-						@Override
-				        public void clicked(InputEvent event, float x, float y) {
-							buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
-							String result = character.consumeItem(item);
-							inventoryText.setText(result);
-							saveService.saveDataValue(SaveEnum.PLAYER, character);
-							inventoryTable.removeActor(itemButton);
-				        }
-					}
+					getItemListener(buttonSound, character, item, consoleText, saveService, inventoryTable, skin)
 				);
 				inventoryTable.add(itemButton).size(450, 40).row();
 			}
-			else if (item.isEquippable()) {
+			else if (item.isEquippable()) { // this needs to properly equip the item in the correct slot
 				itemButton.addListener(
 					new ClickListener() {
 						@Override
 				        public void clicked(InputEvent event, float x, float y) {
 							buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
-							String result = character.setWeapon(item);
-							weaponTableText.setText(result);
-							weaponText.setText("Weapon: " + character.getWeapon().getName());
+							String result = character.equipItem(item);
+							consoleText.setText(result);
+							weaponText.setText(character.getWeapon() != null ? character.getWeapon().getName() : "Unarmed");
+							plugText.setText(character.getPlug() != null ? character.getPlug().getName() : "None");
+							cageText.setText(character.getCage() != null ? character.getCage().getName() : "None");
 							saveService.saveDataValue(SaveEnum.PLAYER, character);
 				        }
 					}
@@ -221,6 +221,27 @@ public class CharacterScreen extends AbstractScreen {
 				weaponTable.add(itemButton).size(500, 40).row();
 			}
 		}	
+	}
+	
+	private ClickListener getItemListener(Sound buttonSound, PlayerCharacter character, Item item, Label consoleText, SaveService saveService, Table inventoryTable, Skin skin) {
+		return new ClickListener() {
+			@Override
+	        public void clicked(InputEvent event, float x, float y) {
+				buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
+				String result = character.consumeItem(item);
+				consoleText.setText(result);
+				saveService.saveDataValue(SaveEnum.PLAYER, character);
+				inventoryTable.clear();
+				inventoryTable.add(getLabel("Inventory", skin, Color.BLACK)).row();
+				for (Item newItem : character.getInventory()) {
+					final TextButton newItemButton = new TextButton(newItem.getName(), skin);
+					if (newItem.isConsumable()) {
+						newItemButton.addListener(getItemListener(buttonSound, character, newItem, consoleText, saveService, inventoryTable, skin));
+						inventoryTable.add(newItemButton).size(450, 40).row();
+					}
+				}
+	        }
+		};
 	}
 	
 	private Label getLabel(String label, Skin skin, Color color) {

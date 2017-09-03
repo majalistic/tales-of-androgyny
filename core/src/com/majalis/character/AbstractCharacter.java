@@ -2,7 +2,11 @@ package com.majalis.character;
 
 import com.majalis.asset.AssetEnum;
 import com.majalis.character.Attack.Status;
+import com.majalis.character.Item.ChastityCage;
 import com.majalis.character.Item.ItemEffect;
+import com.majalis.character.Item.Misc;
+import com.majalis.character.Item.MiscType;
+import com.majalis.character.Item.Plug;
 import com.majalis.character.Item.Weapon;
 import com.majalis.character.PlayerCharacter.Bootyliciousness;
 import com.majalis.save.MutationResult;
@@ -70,6 +74,9 @@ public abstract class AbstractCharacter extends Actor {
 	// public Sabaton sabaton;
 	// public Accessory firstAccessory;
 	// public Accessory secondAccessory;
+	
+	protected Plug plug;
+	protected ChastityCage cage;
 	
 	protected Weapon disarmedWeapon;
 	
@@ -834,6 +841,7 @@ public abstract class AbstractCharacter extends Actor {
  	}
 	
 	public AssetDescriptor<Texture> getLustImagePath() {
+		if (isChastitied()) return phallus.getPhallusState(0);
 		int lustLevel = lust > 7 ? 2 : lust > 3 ? 1 : 0;
 		return phallus.getPhallusState(lustLevel);
 	}
@@ -868,7 +876,7 @@ public abstract class AbstractCharacter extends Actor {
 	}
 	
 	protected boolean isErect() {
-		return lust > 7;
+		return lust > 7 && !isChastitied();
 	}
 	
 	public String getDefeatMessage() {
@@ -906,6 +914,36 @@ public abstract class AbstractCharacter extends Actor {
 		return sample.substring(0, 1).toUpperCase() + sample.substring(1);
 	}
 		
+	// should return Plugged property != null
+	public boolean isPlugged() {
+		return plug != null;
+	}
+	
+	public String setPlug(Item plug, boolean newItem) {
+		if (newItem) inventory.add(plug);
+		Plug equipPlug = (Plug) plug;
+		boolean alreadyEquipped = equipPlug.equals(this.plug); 
+		this.plug = alreadyEquipped ? null : equipPlug;
+		return "You " + (alreadyEquipped ? "unequipped" : "equipped") + " the " + plug.getName() + ".";
+	}
+	
+	// should return Chastity property != null
+	public boolean isChastitied() {
+		return cage != null;
+	}
+	
+	private boolean hasKey() { return inventory.contains(new Misc(MiscType.KEY), false); }
+	
+	// possibly rethink this - maybe equipped items shouldn't be "in" inventory?
+	public String setCage(Item cage, boolean newItem) {
+		if (newItem) inventory.add(cage);
+		if (this.cage != null && !hasKey()) return "You cannot remove your chastity cage without a key!";
+		ChastityCage equipCage = (ChastityCage) cage;
+		boolean alreadyEquipped = equipCage.equals(this.cage); 
+		this.cage = alreadyEquipped ? null : equipCage;
+		return "You " + (alreadyEquipped ? "unequipped" : "equipped") + " the " + cage.getName() + ".";
+	}
+	
 	protected enum PhallusType {
 		SMALL(AssetEnum.SMALL_DONG_0, AssetEnum.SMALL_DONG_1, AssetEnum.SMALL_DONG_2),
 		NORMAL(AssetEnum.LARGE_DONG_0, AssetEnum.LARGE_DONG_1, AssetEnum.LARGE_DONG_2),

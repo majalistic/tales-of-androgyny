@@ -8,6 +8,7 @@ import com.majalis.character.AbstractCharacter.Stat;
  */
 public abstract class Item {
 
+	private Item() {}
 	public abstract int getValue();
 	protected abstract ItemEffect getUseEffect();
 	public abstract String getName();
@@ -22,6 +23,13 @@ public abstract class Item {
 		return false;
 	}
 	
+	
+	@Override 
+	public boolean equals(Object o) {
+		Item compare = (Item) o;
+		return o != null && o.getClass() == this.getClass() && compare.getValue() == this.getValue() && compare.getName().equals(this.getName()) && compare.getDescription().equals(this.getDescription());
+	}
+	
 	public static class Misc extends Item {
 		private MiscType type;
 
@@ -34,7 +42,7 @@ public abstract class Item {
 		
 		@Override
 		public int getValue() {
-			return 0;
+			return type == MiscType.KEY ? 100 : 0;
 		}
 
 		@Override
@@ -44,7 +52,7 @@ public abstract class Item {
 
 		@Override
 		public String getName() {
-			return type == MiscType.HUNGER_CHARM ? "Hunger Charm" : "Ice Cream";
+			return type == MiscType.HUNGER_CHARM ? "Hunger Charm" : type == MiscType.ICE_CREAM ? "Ice Cream" : "Key";
 		}
 
 		@Override
@@ -55,7 +63,8 @@ public abstract class Item {
 	
 	public enum MiscType {
 		ICE_CREAM,
-		HUNGER_CHARM;
+		HUNGER_CHARM,
+		KEY;
 
 		public String getDescription() {
 			switch (this) {
@@ -63,9 +72,69 @@ public abstract class Item {
 					return "Wards off hunger.";
 				case ICE_CREAM:
 					return "Is Ice Cream.";
+				case KEY:
+					return "Opens chastity cage.";
 				default:
 					return "";
 			}
+		}
+	}
+	
+	public static class Plug extends Item {
+		private Plug() {}
+
+		@Override
+		public int getValue() {
+			return 15;
+		}
+
+		@Override
+		protected ItemEffect getUseEffect() {
+			return null;
+		}
+		
+		@Override
+		public boolean isEquippable() {
+			return true;
+		}	
+
+		@Override
+		public String getName() {
+			return "Butt Plug";
+		}
+
+		@Override
+		public String getDescription() {
+			return "A thing which will fill up your rectum pretty snugly.";
+		}
+	}
+	
+	public static class ChastityCage extends Item {
+		ChastityCage() {}
+
+		@Override
+		public int getValue() {
+			return 15;
+		}
+
+		@Override
+		protected ItemEffect getUseEffect() {
+			return null;
+		}
+		
+		@Override
+		public boolean isEquippable() {
+			return true;
+		}	
+
+		@Override
+		public String getName() {
+			return "Chastity Cage";
+		}
+
+		@Override
+		public String getDescription() {
+			return "A thing which will fit around your penis and prevent erections.";
 		}
 	}
 	
@@ -84,6 +153,12 @@ public abstract class Item {
 		public Weapon(WeaponType type, int bonus) {
 			this.type = type;
 			this.bonus = bonus;
+		}
+		
+		@Override 
+		public boolean equals(Object o) {
+			Weapon compare = (Weapon) o;
+			return super.equals(o) && compare.type == this.type && compare.bonus == this.bonus;
 		}
 
 		@Override
