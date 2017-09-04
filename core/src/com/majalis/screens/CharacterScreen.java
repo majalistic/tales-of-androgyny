@@ -141,7 +141,7 @@ public class CharacterScreen extends AbstractScreen {
 					@Override
 			        public void clicked(InputEvent event, float x, float y) {
 						buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
-						if (levelup) character.levelUp();
+						while(character.getStoredLevels() > 0) character.levelUp();
 						saveService.saveDataValue(SaveEnum.PLAYER, character);
 						saveService.saveDataValue(SaveEnum.CONTEXT, GameContext.LEVEL);
 						showScreen(ScreenEnum.CONTINUE);
