@@ -25,6 +25,7 @@ import com.majalis.character.Item;
 import com.majalis.character.Item.EffectType;
 import com.majalis.character.Item.Misc;
 import com.majalis.character.Item.MiscType;
+import com.majalis.character.Item.Plug;
 import com.majalis.character.Item.Potion;
 import com.majalis.character.Item.Weapon;
 import com.majalis.character.Item.WeaponType;
@@ -46,15 +47,13 @@ public class ShopScene extends Scene {
 	private final Label money;
 	
 	public static class Shop {
-		private Array<Item> weapons;
-		private Array<Potion> consumables;
+		private Array<Item> items;
 		private ShopCode shopCode;
 		private boolean done;
 		private Shop() {}
 		private Shop(ShopCode shopCode) {
 			this.shopCode = shopCode;
-			this.weapons = new Array<Item>();
-			this.consumables = new Array<Potion>();
+			this.items = new Array<Item>();
 			done = false;
 		}
 		public String getShopCode() {
@@ -126,54 +125,8 @@ public class ShopScene extends Scene {
 		techniquePane.setBounds(200, 175, 675, 825);
 		
 		this.addActor(techniquePane);
-		
-		// neeed to consolidate shop inventories so it's all using the same code - can break out the actual inventory by type in the display, but inventory should be item type agnostic
-		for (final Item weapon: shop.weapons) {
-			final TextButton weaponButton = new TextButton(weapon.getName() + " - " + weapon.getValue() + "G", skin);
-			final Label description = new Label(weapon.getDescription(), skin);		
-			description.setWrap(true);
-			description.setColor(Color.FOREST);
-			description.setAlignment(Align.top);
-			final ScrollPane pane = new ScrollPane(description);
-			pane.setBounds(1060, 415, 675, 350);
-			pane.setScrollingDisabled(true, false);
-			weaponButton.addListener(new ClickListener() {
-				@Override
-		        public void clicked(InputEvent event, float x, float y) {
-					if (buyItem(weapon, shopCode)) {
-						itemSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
-						addActor(done);
-						// this should do what the character screen now does, shifting the item list down
-						weaponButton.addAction(Actions.removeActor());
-						shop.weapons.removeValue(weapon, true);
-						shop.done = true;
-						money.setText(String.valueOf(character.getMoney())+" Gold");
-						console.setText("You purchase the " + weapon.getName() + ".");
-						saveService.saveDataValue(SaveEnum.SHOP, shop);
-						saveService.saveDataValue(SaveEnum.PLAYER, character);
-					}
-					else {
-						console.setText("You can't afford the " + weapon.getName());
-					}
-					
-		        }
-				@Override
-		        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-					inventoryGroup.addActor(hoverBox);
-					inventoryGroup.addActor(pane);
-				}
-				@Override
-		        public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
-					inventoryGroup.removeActor(hoverBox);
-					inventoryGroup.removeActor(pane);
-				}
-			});
-			
-			table.add(weaponButton).size(500, 60).row();
-		}
-		
-		for (final Potion potion: shop.consumables) {
-			shop.done = true; // temporary measure to make the potion shop function properly
+	
+		for (final Item potion: shop.items) {
 			final TextButton potionButton = new TextButton(potion.getName() + " - " + potion.getValue() / ( shopCode == ShopCode.GADGETEER_SHOP ? 3 : 1 ) + "G", skin);
 			final Label description = new Label(potion.getDescription(), skin);
 			description.setWrap(true);
@@ -189,9 +142,11 @@ public class ShopScene extends Scene {
 					if (buyItem(potion, shopCode)) {
 						itemSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
 						addActor(done);
+						// this should do what the character screen now does, shifting the item list down
 						potionButton.addAction(Actions.removeActor());
-						shop.consumables.removeValue(potion, true);
+						shop.items.removeValue(potion, true);
 						
+						shop.done = true;
 						money.setText(String.valueOf(character.getMoney())+" Gold");
 						console.setText("You purchase the " + potion.getName() + ".");
 						saveService.saveDataValue(SaveEnum.SHOP, shop);
@@ -200,7 +155,6 @@ public class ShopScene extends Scene {
 					else {
 						console.setText("You can't afford the " + potion.getName());
 					}
-					
 		        }
 				@Override
 		        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
@@ -226,7 +180,7 @@ public class ShopScene extends Scene {
 	private Shop initShop(ShopCode shopCode, Shop shop) {
 		if (shop != null) {
 			if (shopCode == ShopCode.SHOP) {
-				shop.consumables.addAll(getShopRestock(shopCode));
+				shop.items.addAll(getShopRestock(shopCode));
 			}
 			return shop;
 		}
@@ -236,46 +190,47 @@ public class ShopScene extends Scene {
 			case WEAPON_SHOP:
 				for (WeaponType type: WeaponType.values()) {
 					if (type.isBuyable()) {
-						shop.weapons.add(new Weapon(type));	
+						shop.items.add(new Weapon(type));	
 					}									
 				}
 				if (shopCode == ShopCode.WEAPON_SHOP) {
 					for (WeaponType type: WeaponType.values()) {
 						if (type.isBuyable()) {
-							shop.weapons.add(new Weapon(type, 1));	
+							shop.items.add(new Weapon(type, 1));	
 						}									
 					}
-					shop.weapons.add(new Misc(MiscType.KEY));	
+					shop.items.add(new Misc(MiscType.KEY));	
 				}
 				break;
 			case SHOP:
 				for (int ii = 0; ii < 4; ii++) {
-					shop.consumables.add(new Potion(5, EffectType.MEAT));
+					shop.items.add(new Potion(5, EffectType.MEAT));
 				}
-				shop.consumables.add(new Potion(10, EffectType.BANDAGE));
-				shop.consumables.add(new Potion(10, EffectType.BANDAGE));
-				shop.consumables.add(new Potion(10, EffectType.BANDAGE));
+				shop.items.add(new Potion(10, EffectType.BANDAGE));
+				shop.items.add(new Potion(10, EffectType.BANDAGE));
+				shop.items.add(new Potion(10, EffectType.BANDAGE));
+				shop.items.add(new Plug());
 				for (int ii = 10; ii <= 20; ii += 10) {
-					shop.consumables.add(new Potion(ii));
-					shop.consumables.add(new Potion(ii));
+					shop.items.add(new Potion(ii));
+					shop.items.add(new Potion(ii));
 				}
-				shop.consumables.add(new Potion(3, EffectType.BONUS_STRENGTH));
-				shop.consumables.add(new Potion(3, EffectType.BONUS_AGILITY));
-				shop.consumables.add(new Potion(3, EffectType.BONUS_ENDURANCE));
+				shop.items.add(new Potion(3, EffectType.BONUS_STRENGTH));
+				shop.items.add(new Potion(3, EffectType.BONUS_AGILITY));
+				shop.items.add(new Potion(3, EffectType.BONUS_ENDURANCE));
 				break;
 			case GADGETEER_SHOP:
-				shop.consumables.add(new Potion(15));
-				shop.consumables.add(new Potion(15));
-				shop.consumables.add(new Potion(3, EffectType.BONUS_STRENGTH));
-				shop.consumables.add(new Potion(3, EffectType.BONUS_STRENGTH));
-				shop.consumables.add(new Potion(3, EffectType.BONUS_AGILITY));
-				shop.consumables.add(new Potion(3, EffectType.BONUS_AGILITY));
-				shop.consumables.add(new Potion(3, EffectType.BONUS_ENDURANCE));
-				shop.consumables.add(new Potion(3, EffectType.BONUS_ENDURANCE));
+				shop.items.add(new Potion(15));
+				shop.items.add(new Potion(15));
+				shop.items.add(new Potion(3, EffectType.BONUS_STRENGTH));
+				shop.items.add(new Potion(3, EffectType.BONUS_STRENGTH));
+				shop.items.add(new Potion(3, EffectType.BONUS_AGILITY));
+				shop.items.add(new Potion(3, EffectType.BONUS_AGILITY));
+				shop.items.add(new Potion(3, EffectType.BONUS_ENDURANCE));
+				shop.items.add(new Potion(3, EffectType.BONUS_ENDURANCE));
 				break;
 		}
 		if (shopCode == ShopCode.SHOP) {
-			shop.consumables.addAll(getShopRestock(shopCode));
+			shop.items.addAll(getShopRestock(shopCode));
 		}
 		return shop;
 	}

@@ -81,7 +81,7 @@ public abstract class Item {
 	}
 	
 	public static class Plug extends Item {
-		private Plug() {}
+		public Plug() {}
 
 		@Override
 		public int getValue() {
