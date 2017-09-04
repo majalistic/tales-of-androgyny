@@ -22,6 +22,7 @@ public class Attack {
 	private final int disarm;
 	private final int trip;
 	private final int bleeding;
+	private final int plugRemove;
 	private final ClimaxType climaxType;
 	private final Stance forceStance;
 	private final boolean isSpell;
@@ -48,7 +49,7 @@ public class Attack {
 	}
 	
 	// this should have all the info for an attack, including damage or effects that were blocked
-	protected Attack(Status status, String name, int rawDamage, double blockMod, int force, int rawArmorBreak, int gutcheck, int healing, int lust, GrappleStatus grapple, int disarm, int trip, int bleeding, ClimaxType climaxType, Stance forceStance, boolean isSpell, Buff buff, 
+	protected Attack(Status status, String name, int rawDamage, double blockMod, int force, int rawArmorBreak, int gutcheck, int healing, int lust, GrappleStatus grapple, int disarm, int trip, int bleeding, int plugRemove, ClimaxType climaxType, Stance forceStance, boolean isSpell, Buff buff, 
 					boolean isAttack, boolean ignoresArmor, Array<Bonus> bonuses, Item useItem, AbstractCharacter user) {
 		this.status = status;
 		this.name = name;
@@ -63,6 +64,7 @@ public class Attack {
 		this.disarm = disarm;
 		this.trip = trip;
 		this.bleeding = bleeding;
+		this.plugRemove = plugRemove;
 		this.climaxType = climaxType;
 		this.forceStance = forceStance;
 		this.isSpell = isSpell;
@@ -77,120 +79,34 @@ public class Attack {
 		this.dialog = new Array<String>();
 	}
 	
-	protected String getName() {
-		return name;
-	}
-	
-	public boolean isAttack() {
-		return isAttack;
-	}
-	
-	protected String getUser() {
-		return user.label;
-	}
-	
-	protected int getDamage() {
-		return (int) (rawDamage * blockMod);
-	}
-	
-	protected int getForce() {
-		return force;
-	}
-	
-	protected int getGutCheck() {
-		return gutcheck;
-	}
-	
-	protected boolean isHealing() {
-		return healing > 0;
-	}
-	
-	protected int getHealing() {
-		return healing;
-	}
-	
-	protected int getLust() {
-		return lust;
-	}
-	
-	protected GrappleStatus getGrapple() {
-		return grapple;
-	}
-	
-	protected int getDisarm() {
-		return disarm;
-	}
-	
-	protected int getTrip() {
-		return trip;
-	}
-	
-	protected Stance getForceStance() {
-		return forceStance;
-	}
-	
-	public boolean isSuccessful() {
-		return status == Status.SUCCESS || status == Status.PARRY || status == Status.BLOCKED;
-	}
-	
-	public Status getStatus() {
-		return status;
-	}
-
-	protected void addMessage(String message) {
-		results.add(message);
-	}
-	
-	protected Array<String> getMessages() {
-		return results;
-	}
-	
-	protected void addDialog(String message) {
-		dialog.add(message);
-	}
-
-	protected Array<String> getDialog() {
-		return dialog;
-	}
-	
-	protected boolean isClimax() {
-		return climaxType != null;
-	}
-	
-	protected ClimaxType getClimaxType() {
-		return climaxType;
-	}
-
-	public int getArmorSunder() {
-		return (int)(rawDamage * rawArmorBreak * blockMod) / 4;
-	}
-
-	public boolean isSpell() {
-		return isSpell;
-	}
-	
-	public Buff getBuff() {
-		return buff == null ? null : buff.type == null ? null : buff;
-	}
-	
-	public Array<Bonus> getBonuses() {
-		return bonuses != null ? bonuses : new Array<Bonus>();
-	}
-
-	public boolean ignoresArmor() {
-		return ignoresArmor;
-	}
-	
-	public Item getItem() {
-		return useItem;
-	}
-	
-	public int getClimaxVolume() {
-		return user.getClimaxVolume();
-	}
-	
-	public int getBleeding() {
-		return (int) (bleeding * blockMod);
-	}
-	
+	protected String getName() { return name; }
+	public boolean isAttack() { return isAttack; }	
+	protected String getUser() { return user.label; }
+	protected int getDamage() { return (int) (rawDamage * blockMod); }
+	protected int getForce() { return force; }
+	protected int getGutCheck() { return gutcheck; }
+	protected boolean isHealing() { return healing > 0; }
+	protected int getHealing() { return healing; }
+	protected int getLust() { return lust; }
+	protected GrappleStatus getGrapple() { return grapple; }
+	protected int getDisarm() { return disarm; }
+	protected int getTrip() { return trip; }
+	protected Stance getForceStance() { return forceStance; }
+	public boolean isSuccessful() { return status == Status.SUCCESS || status == Status.PARRY || status == Status.BLOCKED; }
+	public Status getStatus() { return status; }
+	protected void addMessage(String message) { results.add(message); }
+	protected Array<String> getMessages() { return results; }
+	protected void addDialog(String message) { dialog.add(message); }
+	protected Array<String> getDialog() { return dialog; }
+	protected boolean isClimax() { return climaxType != null; }
+	protected ClimaxType getClimaxType() { return climaxType; }
+	public int getArmorSunder() { return (int)(rawDamage * rawArmorBreak * blockMod) / 4; }
+	public boolean isSpell() { return isSpell; }
+	public Buff getBuff() { return buff == null ? null : buff.type == null ? null : buff; }
+	public Array<Bonus> getBonuses() { return bonuses != null ? bonuses : new Array<Bonus>(); }
+	public boolean ignoresArmor() { return ignoresArmor; }
+	public Item getItem() { return useItem; }
+	public int getClimaxVolume() { return user.getClimaxVolume(); }
+	public int getBleeding() { return (int) (bleeding * blockMod); }
+	public int plugRemove() { return plugRemove; }	
 }

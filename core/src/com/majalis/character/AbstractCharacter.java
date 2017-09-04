@@ -511,6 +511,12 @@ public abstract class AbstractCharacter extends Actor {
 				}
 			}
 			
+			int plugRemove = attack.plugRemove();
+			if (plugRemove > 0) {
+				result.add("They pull out your " + plug.getName() + "!");
+				setPlug(plug, false); // unequip your plug
+			}
+			
 			int knockdown = attack.getForce();
 			knockdown -= getTraction();
 			

@@ -589,9 +589,7 @@ public class EnemyCharacter extends AbstractCharacter {
 		}
 	}
 
-	private Array<Techniques> getTechniques(Techniques... possibilities) {
-		return new Array<Techniques>(possibilities);
-	}
+	private Array<Techniques> getTechniques(Techniques... possibilities) { return new Array<Techniques>(possibilities); }
 	
 	public Technique getTechnique(AbstractCharacter target) {
 		if (initializedMove && nextMove != null) {
@@ -637,6 +635,15 @@ public class EnemyCharacter extends AbstractCharacter {
 				possibleTechniques.add(FULL_NELSON);
 			}
 		}
+		
+		Array<Techniques> toRemove = new Array<Techniques>();
+		for (Techniques technique : possibleTechniques) {
+			if (technique.getTrait().getResultingStance().isAnalPenetration() && target.isPlugged()) {
+				possibleTechniques.add(technique.getPluggedAlternate());
+				toRemove.add(technique);
+			}
+		}
+		possibleTechniques.removeAll(toRemove, true);
 		
 		ObjectMap<Technique, Techniques> techniqueToToken = new ObjectMap<Technique, Techniques>();
 		Array<Technique> candidates = new Array<Technique>();

@@ -86,6 +86,7 @@ public class ShopScene extends Scene {
 		hoverBox.setBounds(950, 400, 850, 400);
 		
 		this.console = new Label("", skin);
+		this.console.setColor(Color.TAN);
 		this.money = new Label(String.valueOf(character.getMoney())+" Gold", skin);
 		this.money.setColor(Color.GOLDENROD);
 		console.setPosition(1300, 850);
@@ -209,7 +210,6 @@ public class ShopScene extends Scene {
 				shop.items.add(new Potion(10, EffectType.BANDAGE));
 				shop.items.add(new Potion(10, EffectType.BANDAGE));
 				shop.items.add(new Potion(10, EffectType.BANDAGE));
-				shop.items.add(new Plug());
 				for (int ii = 10; ii <= 20; ii += 10) {
 					shop.items.add(new Potion(ii));
 					shop.items.add(new Potion(ii));
@@ -227,6 +227,7 @@ public class ShopScene extends Scene {
 				shop.items.add(new Potion(3, EffectType.BONUS_AGILITY));
 				shop.items.add(new Potion(3, EffectType.BONUS_ENDURANCE));
 				shop.items.add(new Potion(3, EffectType.BONUS_ENDURANCE));
+				shop.items.add(new Plug());
 				break;
 		}
 		if (shopCode == ShopCode.SHOP) {

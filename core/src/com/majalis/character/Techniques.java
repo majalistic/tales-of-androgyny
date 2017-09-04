@@ -93,6 +93,8 @@ public enum Techniques {
 	OUROBOROS			(new GrappleTechnique  (Stance.BALANCED, Stance.OUROBOROS, "Ouroboros", 2, Stance.OUROBOROS_BOTTOM, GrappleType.WIN).build()), // Used to initiate ouroboros
 	MOUNT_FACE			(new GrappleTechnique  (Stance.BALANCED, Stance.FACEFUCK, "Mount Face", 2, Stance.FACEFUCK_BOTTOM, GrappleType.WIN).build()), // Used to initiate facefuck
 	
+	YOINK				(new GrappleTechnique  (Stance.NULL, Stance.NULL, "Yoink", 0, GrappleType.NULL).addBonus(BonusCondition.SKILL_LEVEL, BonusType.REMOVE_PLUG).build()), // Used to initiate doggy
+	
 	KNOT 				(new NonAttackTechnique(Stance.DOGGY, Stance.KNOTTED, "Knot", 0, 0, Stance.KNOTTED_BOTTOM, "Set Damage").build()), // Used to knot by knotty weresluts and others
 	OVIPOSITION			(new NonAttackTechnique(Stance.FULL_NELSON, Stance.OVIPOSITION, "Oviposition", 0, 0, Stance.OVIPOSITION_BOTTOM).build()), // Used to oviposition
 	
@@ -255,13 +257,8 @@ public enum Techniques {
 	
 	public int getMaxRank() { return maxRank; }
 	
-	public static Array<Techniques> getLearnableSkills() {
-		Techniques[] learnables = new Techniques[]{ARMOR_SUNDER, CAUTIOUS_ATTACK, VAULT, RECKLESS_ATTACK, KNOCK_DOWN, TAUNT, UPPERCUT, SECOND_WIND, FEINT_AND_STRIKE, HIT_THE_DECK, PARRY, SLIDE};
-		return new Array<Techniques>(true, learnables, 0, learnables.length);
-	}
-	public static Array<Techniques> getLearnableSpells() {
-		// need to change this to actually include Titan Strength once it's implemented
-		Techniques[] learnables = new Techniques[]{COMBAT_HEAL, COMBAT_FIRE, TITAN_STRENGTH};
-		return new Array<Techniques>(true, learnables, 0, learnables.length);
-	}
+	public static Array<Techniques> getLearnableSkills() { return new Array<Techniques>(new Techniques[]{ARMOR_SUNDER, CAUTIOUS_ATTACK, VAULT, RECKLESS_ATTACK, KNOCK_DOWN, TAUNT, UPPERCUT, SECOND_WIND, FEINT_AND_STRIKE, HIT_THE_DECK, PARRY, SLIDE}); }
+	public static Array<Techniques> getLearnableSpells() { return new Array<Techniques>(new Techniques[]{COMBAT_HEAL, COMBAT_FIRE, TITAN_STRENGTH}); }
+	
+	public Techniques getPluggedAlternate() { return YOINK; }
 }

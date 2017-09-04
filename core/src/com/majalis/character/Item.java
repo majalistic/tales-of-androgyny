@@ -85,7 +85,7 @@ public abstract class Item {
 
 		@Override
 		public int getValue() {
-			return 15;
+			return 45;
 		}
 
 		@Override

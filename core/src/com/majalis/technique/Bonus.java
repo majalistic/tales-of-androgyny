@@ -146,6 +146,9 @@ public class Bonus {
 				case GRAPPLE:
 					description += "Grapple +" + bonus.value;
 					break;
+				case REMOVE_PLUG:
+					description += "Remove Plug +" + bonus.value;
+					break;
 			}
 			description += "\n";
 		}
@@ -186,6 +189,7 @@ public class Bonus {
 		EVASION,
 		BLEEDING,
 		COUNTER, 
-		GRAPPLE;
+		GRAPPLE, 
+		REMOVE_PLUG;
 	}
 }

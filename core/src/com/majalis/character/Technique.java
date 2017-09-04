@@ -161,6 +161,7 @@ public class Technique {
 			otherTechnique.isBlockable() ? thisPayload.getDisarm() : 0,
 			thisPayload.getTrip(),
 			thisPayload.getBleeding(),
+			thisPayload.getRemovePlug(),
 			technique.getClimaxType(), 
 			getForceStance(),
 			technique.isSpell(),
@@ -188,6 +189,7 @@ public class Technique {
 				0, // disarm
 				0, // trip
 				(thisPayload.getBasePower() + 2) / 3 + 1, // bleed
+				0,
 				null, // climax type
 				null, // force stance
 				false, // is magic
@@ -277,6 +279,7 @@ public class Technique {
 		private final int counter;
 		private final double knockdown;
 		private final int grapple;
+		private final int removePlug;
 		private int priority;
 		
 		//before bonuses
@@ -306,6 +309,7 @@ public class Technique {
 			int counterCalc = 0;
 			int priorityCalc = 0;
 			int grappleCalc = technique.getGrappleType() == GrappleType.NULL || technique.getGrappleType() == GrappleType.SUBMIT || technique.getGrappleType() == GrappleType.PIN ? 0 : technique.getGrappleType() == GrappleType.HOLD ? 1 : technique.getGrappleType() == GrappleType.BREAK ? 100 : technique.getGrappleType() == GrappleType.WIN ? 101 : 2;
+			int removePlugCalc = 0;
 			
 			for (Bonus bonusBundle : toApply) {	
 				for (ObjectMap.Entry<BonusType, Integer> bonus : bonusBundle.getBonusMap()) {
@@ -358,6 +362,9 @@ public class Technique {
 						case GRAPPLE:
 							grappleCalc += bonus.value;
 							break;
+						case REMOVE_PLUG:
+							removePlugCalc += bonus.value;
+							break;
 					}
 				}
 			}
@@ -378,96 +385,35 @@ public class Technique {
 			counter = counterCalc;
 			priority = priorityCalc;
 			grapple = grappleCalc;
+			removePlug = removePlugCalc;
 		}
 		
-		public GrappleStatus getCurrentGrappleStatus() {
-			return currentState.getGrappleStatus();
-		}
-
-		private int getStaminaCost() {
-			return staminaCost;
-		}
-		
-		private int getStabilityCost() {
-			return stabilityCost;
-		}
-		
-		private int getManaCost() {
-			return manaCost;
-		}
-		
-		private int getBlock() {
-			return block;
-		}
-		
-		private int getParry() {
-			return parry;
-		}
-		
-		private int getBasePower() {
-			return basePower;
-		}
-		
-		private int getTotalPower() {
-			return basePower + powerMod;
-		}
-		
+		public GrappleStatus getCurrentGrappleStatus() { return currentState.getGrappleStatus(); }
+		private int getStaminaCost() { return staminaCost; }
+		private int getStabilityCost() { return stabilityCost; }
+		private int getManaCost() { return manaCost; }
 		private int getDamage() {
 			int damage = technique.doesSetDamage() ? 4 : technique.isDamaging() && technique.getGutCheck() == 0 ? getTotalPower() : 0;
 			if (damage < 0) damage = 0;
 			return damage;
 		}
-		
-		private double getKnockdown() {
-			return knockdown;
-		}
-		
-		private int getArmorSunder() {
-			return armorSunder;
-		}
-		
-		private int getGutCheck() {
-			return gutCheck;
-		}
-		
-		private int getPriority() {
-			return priority;
-		}
-		
-		private Array<Bonus> getBonuses() {
-			return bonuses;
-		}
-
-		private int getDisarm() {
-			return disarm; 
-		}
-		
-		private int getTrip() {
-			return trip; 
-		}
-		
-		private int getEvasion() {
-			return evasion;
-		}
-		
-		private int getBleeding() {
-			return bleeding;
-		}
-		
-		private int getCounter() {
-			return counter;
-		}
-		
-		private GrappleStatus getResultingGrappleStatus() {
-			return currentState.getGrappleStatus().modifyGrappleStatus(technique.getGrappleType());
-		}
-		
-		private int getGrappleAmount() {
-			return grapple;
-		}
-		
-		private void lose() {
-			priority = 0;
-		}
+		private int getBlock() { return block; }
+		private int getParry() { return parry; }
+		private int getBasePower() { return basePower; }
+		private int getTotalPower() { return basePower + powerMod; }
+		private double getKnockdown() { return knockdown; }
+		private int getArmorSunder() { return armorSunder; }
+		private int getGutCheck() { return gutCheck; }
+		private int getPriority() { return priority; }
+		private Array<Bonus> getBonuses() { return bonuses; }
+		private int getDisarm() { return disarm; }
+		private int getTrip() { return trip; }
+		private int getEvasion() { return evasion; }
+		private int getBleeding() { return bleeding; }
+		private int getCounter() { return counter; }
+		private GrappleStatus getResultingGrappleStatus() { return currentState.getGrappleStatus().modifyGrappleStatus(technique.getGrappleType()); }
+		private int getGrappleAmount() { return grapple; }
+		private int getRemovePlug() { return removePlug; }
+		private void lose() { priority = 0; }
 	}
 }
