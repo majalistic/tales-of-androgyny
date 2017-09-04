@@ -4651,4 +4651,27 @@
 			{"text": "Having defeated you, the golem appears to be plotting her next course of action."},
 		]
 	},
+	{
+		"key": "GHOST-DAY",
+		"scriptLines": [
+			{
+			"music": "SPOOKY_MUSIC",
+			"foreground": "GHOST",
+			"text": "You spot in the distance a woman dressed in a bridal gown.  Her beauty is captured in a beam of sunlight, shining from behind a dark and foreboding cloud."}
+		]
+	},
+	{
+		"key": "GHOST-NIGHT",
+		"scriptLines": [
+			{
+			"music": "HORROR_MUSIC",
+			"text": "....."},
+			{"text": "...."},
+			{
+			"foreground": "GHOST_SPOOKY"
+			"text": "..."},
+			{"text": ".."},
+			{"text": "."}
+		]
+	},
 ]}

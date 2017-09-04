@@ -69,6 +69,7 @@ public enum EncounterCode {
 	STORY_SIGN (FOREST_INACTIVE), 
 	SOUTH_PASS (MOUNTAIN_ACTIVE), 
 	WEST_PASS (MOUNTAIN_ACTIVE), 
+	GHOST, 
 	;
 	
 	private final AssetEnum texture;	
@@ -103,6 +104,7 @@ public enum EncounterCode {
 					case SPIDER: return "Ruins";
 					case ADVENTURER: 
 					case ELF: return "Adventurer";
+					case GHOST: return "Unknown";
 					case GOLEM: return "Statue";
 					case GADGETEER: return "Merchant";
 					case TOWN: return "Small Settlement";
@@ -147,6 +149,7 @@ public enum EncounterCode {
 					case ORC: return "Orc - Neutral";
 					case ADVENTURER: return "Adventurer - Neutral";
 					case ELF: return "Elf - Peaceful";
+					case GHOST: return "Strange Presence";
 					case GOLEM: return "Golem";
 					case OGRE: return "Ogre - Danger!";
 					case BEASTMISTRESS: return "Drow Beastmistress - Hostile!";
@@ -220,8 +223,7 @@ public enum EncounterCode {
 					AssetEnum.CHARACTER_CUSTOM_BACKGROUND.getTexture(),
 					AssetEnum.SMUG_LAUGH.getSound(),
 					AssetEnum.WAVES.getMusic(),
-					AssetEnum.HOVEL_MUSIC.getMusic(),
-					AssetEnum.INITIAL_MUSIC.getMusic()
+					AssetEnum.HOVEL_MUSIC.getMusic()
 				});
 			case DEFAULT:
 				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{AssetEnum.STICK_BACKGROUND.getTexture()});
@@ -274,6 +276,13 @@ public enum EncounterCode {
 					AssetEnum.TEXT_BOX.getTexture(),
 					AssetEnum.EQUIP.getSound(),
 					AssetEnum.GADGETEER_MUSIC.getMusic()
+				});
+			case GHOST:
+				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{  
+					AssetEnum.GHOST.getTexture(),
+					AssetEnum.GHOST_SPOOKY.getTexture(),
+					AssetEnum.SPOOKY_MUSIC.getMusic(),
+					AssetEnum.HORROR_MUSIC.getMusic()
 				});
 			case ORC:
 				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{  
@@ -447,7 +456,7 @@ public enum EncounterCode {
 	static {
 		encounterMap = new IntMap<Array<EncounterCode>>();
 		encounterMap.put(1, new Array<EncounterCode>(new EncounterCode[]{WERESLUT, HARPY, SLIME, BRIGAND, DRYAD, CENTAUR, GOBLIN, ORC, ADVENTURER, ELF, FOOD_CACHE, GOLD_CACHE, DAMAGE_TRAP, ANAL_TRAP, HUNGER_CHARM}));
-		encounterMap.put(2, new Array<EncounterCode>(new EncounterCode[]{WERESLUT, HARPY, SLIME, BRIGAND, DRYAD, CENTAUR, GOBLIN, ORC, ADVENTURER, OGRE, BEASTMISTRESS, GOLEM, ELF, FOOD_CACHE, GOLD_CACHE, DAMAGE_TRAP, ANAL_TRAP, ICE_CREAM, HUNGER_CHARM}));
+		encounterMap.put(2, new Array<EncounterCode>(new EncounterCode[]{HARPY, BRIGAND, DRYAD, CENTAUR, GOBLIN, ORC, ADVENTURER, ELF, OGRE, BEASTMISTRESS, GOLEM, GHOST, FOOD_CACHE, GOLD_CACHE, DAMAGE_TRAP, ANAL_TRAP, ICE_CREAM, HUNGER_CHARM}));
 		
 		iceCreamReady = true;
 		hungerCharmReady = true;

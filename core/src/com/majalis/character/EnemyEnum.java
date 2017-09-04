@@ -27,7 +27,8 @@ public enum EnemyEnum {
 	OGRE (new EnemyTemplate(WeaponType.Club, 8, 8, 4, 3, 3, 3).addHealth(20), "Ogre", AssetEnum.OGRE.getTexture()),
 	BEASTMISTRESS (new EnemyTemplate(WeaponType.Claw).setStrength(6).setAgility(8).setEndurance(5).addHealth(10), "Beast Mistress", AssetEnum.BEASTMISTRESS.getTexture()),
 	SPIDER (new EnemyTemplate(WeaponType.Claw).setStrength(6).setAgility(5).setEndurance(5).setHealth(new IntArray(new int[]{20, 20, 20, 20})), "Arachne", AssetEnum.SPIDER.getTexture()), 
-	GOLEM (new EnemyTemplate(null, 6, 8, 4, 3, 3, 3).setDefense(6).setHealth(new IntArray(new int[]{60})).setMana(12), "Golem", AssetEnum.GOLEM.getTexture(), AssetEnum.GOLEM_FUTA.getTexture())
+	GOLEM (new EnemyTemplate(null, 6, 8, 4, 3, 3, 3).setDefense(6).setHealth(new IntArray(new int[]{60})).setMana(12), "Golem", AssetEnum.GOLEM.getTexture(), AssetEnum.GOLEM_FUTA.getTexture()),
+	GHOST (new EnemyTemplate(null, 0, 0, 0, 8, 8, 8).setDefense(0).setHealth(new IntArray(new int[]{15})).setMana(30), "Ghost", AssetEnum.GHOST.getTexture(), AssetEnum.GHOST_SPOOKY.getTexture()),
 	;
 	private final String text;
 	private final Array<AssetDescriptor<Texture>> texturePaths;
@@ -106,15 +107,16 @@ public enum EnemyEnum {
 	public IntArray getHealthTiers() { return template.getHealthTiers(); }
 	public IntArray getManaTiers() { return template.getManaTiers(); }
 	public WeaponType getWeaponType() { return template.getWeaponType(); }
-	public boolean willFaceSit() { return this != CENTAUR && this != UNICORN; } 
+	public boolean willFaceSit() { return this != CENTAUR && this != UNICORN && this != GHOST; } 
 	public boolean willArmorSunder() { return this == BRIGAND || this == ORC || this == ADVENTURER; }
 	public boolean willParry() { return this == BRIGAND || this == ADVENTURER; }
-	public boolean canBeRidden() { return this != SLIME && this != CENTAUR && this != UNICORN && this != BEASTMISTRESS; }
+	public boolean canBeRidden() { return this != SLIME && this != CENTAUR && this != UNICORN && this != BEASTMISTRESS && this != GHOST; }
 	public boolean willPounce() { return this != EnemyEnum.UNICORN && this != EnemyEnum.BEASTMISTRESS; }
-	public boolean isPounceable() { return this != EnemyEnum.OGRE && this != EnemyEnum.BEASTMISTRESS && this != EnemyEnum.UNICORN; }
+	public boolean isPounceable() { return this != EnemyEnum.OGRE && this != EnemyEnum.BEASTMISTRESS && this != EnemyEnum.UNICORN && this != GHOST; }
 	public boolean prefersProneBone() { return this == ORC || this == GOBLIN; }
 	public boolean prefersMissionary() { return this == BRIGAND || this == ADVENTURER; }
-	public boolean canWrestle() { return this != SLIME && this != HARPY && this != CENTAUR && this != UNICORN && this != OGRE && this != BEASTMISTRESS && this != SPIDER; }
+	public boolean canWrestle() { return this != SLIME && this != HARPY && this != CENTAUR && this != UNICORN && this != OGRE && this != BEASTMISTRESS && this != SPIDER && this != GHOST; }
+	public boolean isCorporeal() { return this != GHOST; }
 	
 	public AnimatedActor getPrimaryAnimation(AssetManager assetManager) {
 		AnimatedActor animation = null; 

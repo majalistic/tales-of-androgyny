@@ -102,6 +102,8 @@ public enum AssetEnum {
 	GOLEM_DULL("enemies/GolemDull.png"),
 	GOLEM_FUTA("enemies/GolemFuta.png"),
 	GOLEM_CLOSEUP("enemies/GolemClose.png"),
+	GHOST("enemies/Ghost.png"),
+	GHOST_SPOOKY("enemies/GhostSpooky.png"),
 	TRAP_BONUS("enemies/TrapBonus.jpg"), 
 	
 	ARMOR("battle/Armor.png"),
@@ -254,7 +256,6 @@ public enum AssetEnum {
 	// music
 	MAIN_MENU_MUSIC("music/MainMenuMusic.mp3", Music.class),
 	ENCOUNTER_MUSIC("music/EncounterMusic.mp3", Music.class),
-	INITIAL_MUSIC("music/KingsofTara.mp3", Music.class),
 	SHOP_MUSIC("music/ShopkeepMusic.mp3", Music.class),
 	TRAINER_MUSIC("music/TrainerMusic.mp3", Music.class),
 	HOVEL_MUSIC("music/HovelMusic.mp3", Music.class),
@@ -265,6 +266,8 @@ public enum AssetEnum {
 	WORLD_MAP_MUSIC("music/WorldMapMusic.mp3", Music.class),
 	BATTLE_MUSIC("music/BattleMusic.mp3", Music.class),
 	GADGETEER_MUSIC("music/GadgeteerMusic.mp3", Music.class),
+	SPOOKY_MUSIC("music/SpookyMusic.mp3", Music.class),
+	HORROR_MUSIC("music/HorrorMusic.mp3", Music.class),
 	BOSS_MUSIC("music/BossMusic.mp3", Music.class),
 	WAVES("music/Waves.wav", Music.class), 
 	

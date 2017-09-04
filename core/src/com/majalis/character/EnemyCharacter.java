@@ -219,6 +219,8 @@ public class EnemyCharacter extends AbstractCharacter {
 					case GOLEM:
 						resolvedAttack.addDialog("\"Initializing mating routine.\"");
 						break;
+					case GHOST:
+						break;
 				}
 			}
 			
@@ -257,6 +259,8 @@ public class EnemyCharacter extends AbstractCharacter {
 						break;
 					case GOLEM:
 						resolvedAttack.addDialog("\"Critical status! Ejecting semen collection tank overflow.\"");
+						break;
+					case GHOST:
 						break;
 				}
 					
@@ -638,7 +642,7 @@ public class EnemyCharacter extends AbstractCharacter {
 		
 		Array<Techniques> toRemove = new Array<Techniques>();
 		for (Techniques technique : possibleTechniques) {
-			if (technique.getTrait().getResultingStance().isAnalPenetration() && target.isPlugged()) {
+			if (enemyType.isCorporeal() && technique.getTrait().getResultingStance().isAnalPenetration() && target.isPlugged()) {
 				possibleTechniques.add(technique.getPluggedAlternate());
 				toRemove.add(technique);
 			}

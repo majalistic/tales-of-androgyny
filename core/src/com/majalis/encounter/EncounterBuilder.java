@@ -102,7 +102,6 @@ public class EncounterBuilder {
 					Stat.AGILITY, 
 					new Branch(5).textScene("ADVENTURER-SNARE-DODGE").concat(trudyCaught),
 					new Branch(0).textScene("ADVENTURER-SNARE-FAIL").concat(playerCaught)
-					
 				);
 				return new Branch().textScene("ADVENTURER-INTRO").checkScene(
 					CheckType.ADVENTURER_ENCOUNTERED,
@@ -418,6 +417,8 @@ public class EncounterBuilder {
 					), 
 					no
 				).getEncounter();
+			case GHOST: 
+				return new Branch().checkScene(CheckType.DAY, new Branch(true).textScene("GHOST-DAY"), new Branch(false).textScene("GHOST-NIGHT")).getEncounter();				
 			case GOBLIN:
 				Branch postVirginityCheck = new Branch().choiceScene(
 					"Mouth, or ass?",
