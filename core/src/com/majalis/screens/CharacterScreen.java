@@ -198,26 +198,16 @@ public class CharacterScreen extends AbstractScreen {
 		for (final Item item : character.getInventory()) {
 			final TextButton itemButton = new TextButton(item.getName(), skin);
 			if (item.isConsumable()) {
-				itemButton.addListener(
-					getItemListener(buttonSound, character, item, consoleText, saveService, inventoryTable, skin)
-				);
+				itemButton.addListener(getItemListener(buttonSound, character, item, consoleText, saveService, inventoryTable, skin));
 				inventoryTable.add(itemButton).size(450, 40).row();
 			}
 			else if (item.isEquippable()) { // this needs to properly equip the item in the correct slot
 				itemButton.addListener(
-					new ClickListener() {
-						@Override
-				        public void clicked(InputEvent event, float x, float y) {
-							buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
-							String result = character.equipItem(item);
-							consoleText.setText(result);
-							weaponText.setText(character.getWeapon() != null ? character.getWeapon().getName() : "Unarmed");
-							plugText.setText(character.getPlug() != null ? character.getPlug().getName() : "None");
-							cageText.setText(character.getCage() != null ? character.getCage().getName() : "None");
-							saveService.saveDataValue(SaveEnum.PLAYER, character);
-				        }
-					}
+					getWeaponListener(buttonSound, character, item, consoleText, saveService, weaponTable, weaponText, plugText, cageText, skin)
 				);
+				if (character.isEquipped(item)) {
+					itemButton.setColor(Color.GOLD);
+				}
 				weaponTable.add(itemButton).size(500, 40).row();
 			}
 		}	
@@ -238,6 +228,33 @@ public class CharacterScreen extends AbstractScreen {
 					if (newItem.isConsumable()) {
 						newItemButton.addListener(getItemListener(buttonSound, character, newItem, consoleText, saveService, inventoryTable, skin));
 						inventoryTable.add(newItemButton).size(450, 40).row();
+					}
+				}
+	        }
+		};
+	}
+	
+	private ClickListener getWeaponListener(Sound buttonSound, PlayerCharacter character, Item item, Label consoleText, SaveService saveService, Table inventoryTable, Label weaponText, Label plugText, Label cageText, Skin skin) {
+		return new ClickListener() {
+			@Override
+	        public void clicked(InputEvent event, float x, float y) {
+				buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
+				String result = character.equipItem(item);
+				consoleText.setText(result);
+				weaponText.setText(character.getWeapon() != null ? character.getWeapon().getName() : "Unarmed");
+				plugText.setText(character.getPlug() != null ? character.getPlug().getName() : "None");
+				cageText.setText(character.getCage() != null ? character.getCage().getName() : "None");
+				saveService.saveDataValue(SaveEnum.PLAYER, character);
+				inventoryTable.clear();
+				inventoryTable.add(getLabel("Equipment", skin, Color.BLACK)).row();
+				for (Item newItem : character.getInventory()) {
+					final TextButton newItemButton = new TextButton(newItem.getName(), skin);
+					if (newItem.isEquippable()) {
+						newItemButton.addListener(getWeaponListener(buttonSound, character, newItem, consoleText, saveService, inventoryTable, weaponText, plugText, cageText, skin));
+						if (character.isEquipped(newItem)) {
+							newItemButton.setColor(Color.GOLD);
+						}
+						inventoryTable.add(newItemButton).size(500, 40).row();
 					}
 				}
 	        }

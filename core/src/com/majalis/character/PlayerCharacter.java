@@ -1411,4 +1411,8 @@ public class PlayerCharacter extends AbstractCharacter {
 	public ChastityCage getCage() {
 		return cage;
 	}
+
+	public boolean isEquipped(Item item) {
+		return item.equals(weapon) || item.equals(plug) || item.equals(cage);
+	}
 }

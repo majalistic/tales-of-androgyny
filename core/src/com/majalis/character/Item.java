@@ -157,6 +157,7 @@ public abstract class Item {
 		
 		@Override 
 		public boolean equals(Object o) {
+			if (o == null || o.getClass() != Weapon.class) return false;
 			Weapon compare = (Weapon) o;
 			return super.equals(o) && compare.type == this.type && compare.bonus == this.bonus;
 		}
