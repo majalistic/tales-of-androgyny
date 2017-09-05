@@ -202,7 +202,7 @@ public class CharacterCreationScene extends Scene {
 		final Array<TextButton> classButtons = new Array<TextButton>();
 		
 		for (final JobClass jobClass: JobClass.values()) {
-			TextButton button = new TextButton(jobClass.getLabel(), buttonStyle);
+			final TextButton button = new TextButton(jobClass.getLabel(), buttonStyle);
 			classButtons.add(button);
 			if (story && jobClass != JobClass.ENCHANTRESS) {
 				button.setTouchable(Touchable.disabled);

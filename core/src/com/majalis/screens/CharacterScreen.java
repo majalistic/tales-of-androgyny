@@ -213,7 +213,7 @@ public class CharacterScreen extends AbstractScreen {
 		}	
 	}
 	
-	private ClickListener getItemListener(Sound buttonSound, PlayerCharacter character, Item item, Label consoleText, SaveService saveService, Table inventoryTable, Skin skin) {
+	private ClickListener getItemListener(final Sound buttonSound, final PlayerCharacter character, final Item item, final Label consoleText, final SaveService saveService, final Table inventoryTable, final Skin skin) {
 		return new ClickListener() {
 			@Override
 	        public void clicked(InputEvent event, float x, float y) {
@@ -234,7 +234,7 @@ public class CharacterScreen extends AbstractScreen {
 		};
 	}
 	
-	private ClickListener getWeaponListener(Sound buttonSound, PlayerCharacter character, Item item, Label consoleText, SaveService saveService, Table inventoryTable, Label weaponText, Label plugText, Label cageText, Skin skin) {
+	private ClickListener getWeaponListener(final Sound buttonSound, final PlayerCharacter character, final Item item, final Label consoleText, final SaveService saveService, final Table inventoryTable, final Label weaponText, final Label plugText, final Label cageText, final Skin skin) {
 		return new ClickListener() {
 			@Override
 	        public void clicked(InputEvent event, float x, float y) {
