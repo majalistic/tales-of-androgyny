@@ -4,9 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
@@ -17,6 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.OrderedMap;
 import com.majalis.asset.AssetEnum;
@@ -28,6 +28,7 @@ import com.majalis.save.SaveManager;
 import com.majalis.save.SaveService;
 import com.majalis.save.SaveManager.JobClass;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 public class CharacterCreationScene extends Scene {
 
@@ -44,26 +45,6 @@ public class CharacterCreationScene extends Scene {
 		statPoints = story ? 1 : 3;
 		statMap = resetObjectMap();
 		
-		final Group statGroup = new Group();
-		
-		final Texture boxTexture = assetManager.get(AssetEnum.NORMAL_BOX.getTexture());
-		final Image classSelectBox = new Image(boxTexture);
-		classSelectBox.setBounds(80, 250, 300, 470);
-		final Image statSelectBox = new Image(boxTexture);
-		statSelectBox.setBounds(500, 100, 750, 570);
-		final Image classDescriptionBox = new Image(boxTexture);
-		classDescriptionBox.setBounds(-10, 700, 480, 190);
-		final Image statDescriptionBox = new Image(boxTexture);
-		statDescriptionBox.setBounds(425, 700, 990, 190);
-		final Image statPointsBox = new Image(boxTexture);
-		statPointsBox.setBounds(760, 40, 240, 50);
-		
-		this.addActor(classSelectBox);
-		this.addActor(statSelectBox);
-		this.addActor(classDescriptionBox);
-		this.addActor(statDescriptionBox);
-		this.addActor(statPointsBox);
-		
 		Skin skin = assetManager.get(AssetEnum.UI_SKIN.getSkin());
 		final Sound buttonSound = assetManager.get(AssetEnum.BUTTON_SOUND.getSound());
 		
@@ -78,47 +59,47 @@ public class CharacterCreationScene extends Scene {
 		        }
 			}
 		);
-		done.setPosition(1522, 30);
+		done.setPosition(1552, 10);
 
-		final Label statPointDisplay = new Label("Stat points: " + statPoints, skin);
-		statPointDisplay.setColor(Color.GOLD);
-		statPointDisplay.setPosition(800, 50);
-		
-		int classBase = 230;
+		final Label statPointDisplay = new Label(String.valueOf(statPoints), skin);
+		statPointDisplay.setColor(Color.FOREST);
+		statPointDisplay.setPosition(1313, 882);
 		
 		final Label classMessage = new Label("", skin);
 		classMessage.setColor(Color.BLACK);
-		classMessage.setPosition(classBase, 800);
-		classMessage.setAlignment(Align.center);
+		classMessage.setPosition(1700, 200);
+		classMessage.setAlignment(Align.top);
 		final Label statMessage = new Label("", skin);
+		statMessage.setWrap(true);
+		statMessage.setWidth(750);
 		statMessage.setColor(Color.RED);
 		final Label statDescription = new Label("", skin);
 		statDescription.setWrap(true);
-		statDescription.setWidth(800);
+		statDescription.setWidth(750);
 		statDescription.setColor(Color.FOREST);
-		statMessage.setPosition(525, 800);
-		statDescription.setPosition(525, 800);
+		statMessage.setPosition(665, 170);
+		statDescription.setPosition(665, 170);
+		final Label classSelection = new Label("", skin);
+		classSelection.setColor(Color.GOLD);
+		classSelection.setPosition(1715, 965);
+		classSelection.setAlignment(Align.center);
 		this.addActor(classMessage);
 		this.addActor(statMessage);
 		this.addActor(statDescription);
 		this.addActor(statPointDisplay);
+		this.addActor(classSelection);
 		
 		final Table statTable = new Table();
 		
 		final ObjectMap<Stat, Label> statToLabel = new ObjectMap<Stat, Label>();
-		int offset = 0;
-		int base = 700;
 		for (final Stat stat: Stat.values()) {
-			Image statImage = new Image((Texture) assetManager.get(stat.getAsset()));
+			Image statImage = new Image(assetManager.get(stat.getAsset()));
 			final Label statLabel = new Label("", skin);
 			statToLabel.put(stat, statLabel);
 			int amount = character.getBaseStat(stat);
 			setFontColor(statLabel, amount);
 			setStatText(stat, character, statLabel);
 		
-			statLabel.setPosition(base + 175, 585 - offset);			
-			statImage.setSize(statImage.getWidth() / (statImage.getHeight() / 35), 35);
-			statImage.setPosition(base + 25, 567 - offset);
 			statImage.addListener(new ClickListener() {
 				@Override
 		        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
@@ -132,9 +113,6 @@ public class CharacterCreationScene extends Scene {
 					statMessage.addAction(Actions.show());
 				}
 			});
-			statGroup.addActor(statLabel);
-			statGroup.addActor(statImage);
-			offset += 75;
 			
 			TextButton buttonUp = new TextButton("+", skin);
 			TextButton buttonDown = new TextButton("-", skin);
@@ -148,7 +126,7 @@ public class CharacterCreationScene extends Scene {
 						character.setStat(stat, character.getBaseStat(stat)+1);
 						saveService.saveDataValue(SaveEnum.PLAYER, character);
 						statPoints--;
-						statPointDisplay.setText("Stat points: " + statPoints);
+						statPointDisplay.setText(String.valueOf(statPoints));
 						statMap.put(stat, currentStatAllocation+1);
 						if (statPoints <= 0) {
 							addActor(done);
@@ -186,7 +164,7 @@ public class CharacterCreationScene extends Scene {
 							removeActor(done);
 						}
 						statPoints++;	
-						statPointDisplay.setText("Stat points: " + statPoints);
+						statPointDisplay.setText(String.valueOf(statPoints));
 						statMap.put(stat, currentStatAllocation - 1);
 						setFontColor(statLabel, character.getBaseStat(stat));
 						setStatText(stat, character, statLabel);
@@ -204,21 +182,28 @@ public class CharacterCreationScene extends Scene {
 					}
 		        }
 			});
-			statTable.add(buttonDown).size(45, 75);
-			statTable.add(buttonUp).size(45, 75).row();
+			int bottomPad = 33;
+			statTable.add(buttonDown).size(45, 50).padBottom(bottomPad).align(Align.left);
+			statTable.add(buttonUp).size(45, 50).padBottom(bottomPad).padRight(5).align(Align.left);
+			statTable.add(statImage).size(statImage.getWidth() / (statImage.getHeight() / 35), 35).padBottom(bottomPad).padRight(5).align(Align.left);
+			statTable.add(statLabel).padBottom(bottomPad).align(Align.left).row();
 		}
-		statTable.setPosition(673, 393);
-		
-		statGroup.addAction(Actions.hide());
-		this.addActor(statGroup);
+		statTable.align(Align.topLeft);
+		statTable.setPosition(790, 855);
 		
 		Table table = new Table();
 
-		table.setPosition(classBase, 488);
+		table.setPosition(412, 450);
 		this.addActor(table);	
+
+		TextButtonStyle buttonStyle = new TextButtonStyle(new TextureRegionDrawable(new TextureRegion(assetManager.get(AssetEnum.CREATION_BUTTON_UP.getTexture()))),  new TextureRegionDrawable(new TextureRegion(assetManager.get(AssetEnum.CREATION_BUTTON_DOWN.getTexture()))),  new TextureRegionDrawable(new TextureRegion(assetManager.get(AssetEnum.CREATION_BUTTON_CHECKED.getTexture()))), skin.getFont("default-font"));
+		buttonStyle.fontColor = Color.BLACK;
+		
+		final Array<TextButton> classButtons = new Array<TextButton>();
 		
 		for (final JobClass jobClass: JobClass.values()) {
-			TextButton button = new TextButton(jobClass.getLabel(), skin);
+			TextButton button = new TextButton(jobClass.getLabel(), buttonStyle);
+			classButtons.add(button);
 			if (story && jobClass != JobClass.ENCHANTRESS) {
 				button.setTouchable(Touchable.disabled);
 				TextButtonStyle style = new TextButtonStyle(button.getStyle());
@@ -230,19 +215,21 @@ public class CharacterCreationScene extends Scene {
 				button.addListener(new ClickListener() {
 					@Override
 			        public void clicked(InputEvent event, float x, float y) {
+						for (TextButton listButton : classButtons) {
+							listButton.setChecked(false);
+						}
+						button.setChecked(true);
 						if (!story) {
 							buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
 						}
-						classMessage.setText("You are now " + getJobClass(jobClass) + ".\n" + getClassFeatures(jobClass));
-						statGroup.removeAction(Actions.hide());
-						statGroup.addAction(Actions.visible(true));
-						statGroup.addAction(Actions.show());
+						classSelection.setText(jobClass.getLabel());
+						classMessage.setText(getClassFeatures(jobClass));
 						saveService.saveDataValue(SaveEnum.CLASS, jobClass);
 						if (statPoints == 0) {
 							removeActor(done);
 						}
 						statPoints = story ? 1 : 3;
-						statPointDisplay.setText("Stat points: " + statPoints);
+						statPointDisplay.setText(String.valueOf(statPoints));
 						statMap = resetObjectMap();
 						for (Stat stat: Stat.values()) {
 							Label statLabel = statToLabel.get(stat);
@@ -253,7 +240,7 @@ public class CharacterCreationScene extends Scene {
 			        }
 				});
 			}
-			table.add(button).size(220, 60).row();
+			table.add(button).size(350, 105).row();
 			if (story && jobClass == JobClass.ENCHANTRESS) {
 				enchanterButton = button;
 			}
@@ -290,8 +277,7 @@ public class CharacterCreationScene extends Scene {
 		}
 		return count;
 	}
-	
-	private String getJobClass(SaveManager.JobClass jobClass) { return jobClass == SaveManager.JobClass.ENCHANTRESS ? "an Enchantress" : "a " + jobClass.getLabel(); }
+
 	private String getClassFeatures(SaveManager.JobClass jobClass) {
 		switch (jobClass) {
 			case WARRIOR: return "+1 Skill point.\nUnlocked \"Blitz\" Stance.\nGained perk \"Weak to Anal\".";

@@ -979,8 +979,8 @@ public abstract class AbstractCharacter extends Actor {
 			this.asset = asset;
 			this.description = description;
 		}
-		public AssetDescriptor<?> getAsset() {
-			return asset.getAsset();
+		public AssetDescriptor<Texture> getAsset() {
+			return asset.getTexture();
 		}
 		public String getDescription() {
 			return description;

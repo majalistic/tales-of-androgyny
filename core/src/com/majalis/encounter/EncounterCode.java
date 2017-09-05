@@ -221,6 +221,9 @@ public enum EncounterCode {
 					AssetEnum.NORMAL_BOX.getTexture(),
 					AssetEnum.SKILL_SELECTION_BACKGROUND.getTexture(),
 					AssetEnum.CHARACTER_CUSTOM_BACKGROUND.getTexture(),
+					AssetEnum.CREATION_BUTTON_UP.getTexture(),
+					AssetEnum.CREATION_BUTTON_DOWN.getTexture(),
+					AssetEnum.CREATION_BUTTON_CHECKED.getTexture(),		
 					AssetEnum.SMUG_LAUGH.getSound(),
 					AssetEnum.WAVES.getMusic(),
 					AssetEnum.HOVEL_MUSIC.getMusic()

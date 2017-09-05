@@ -31,7 +31,7 @@ public enum AssetEnum {
 	
 	DEFAULT_BACKGROUND("backgrounds/DefaultBackground.jpg"),
 	GAME_TYPE_BACKGROUND("backgrounds/GameTypeSelect.jpg"),
-	CLASS_SELECT_BACKGROUND("backgrounds/ClassSelect.jpg"),
+	CLASS_SELECT_BACKGROUND("backgrounds/ClassSelect.png"),
 	SKILL_SELECTION_BACKGROUND("backgrounds/SkillSelect.png"),
 	CHARACTER_CUSTOM_BACKGROUND("backgrounds/CharCustom.png"),
 	DRYAD_BACKGROUND("DryadApple.jpg"),
@@ -39,6 +39,10 @@ public enum AssetEnum {
 	CABIN_BACKGROUND("backgrounds/WoodsCottage.jpg"),
 	BURNING_FORT_BG("backgrounds/BurningFort.jpg"),
 	TOWN_BG("backgrounds/TownBG.jpg"),
+	
+	CREATION_BUTTON_UP("creation/ButtonUp.png"),
+	CREATION_BUTTON_DOWN("creation/ButtonDown.png"),
+	CREATION_BUTTON_CHECKED("creation/ButtonChecked.png"),
 	
 	WORLD_MAP_UI("worldmap/CharacterInfo.png"),
 	WORLD_MAP_HOVER("worldmap/HoverBox.png"),
