@@ -864,6 +864,7 @@ public class EnemyCharacter extends AbstractCharacter {
 		if (currentAnimationsPlaying.size == 0 && enemyType == EnemyEnum.HARPY && !stance.isOralPenetration()) currentAnimationsPlaying.add(animations.get(0));
 		if (currentAnimationsPlaying.size == 0 || (enemyType == EnemyEnum.CENTAUR && stance == Stance.DOGGY) || (enemyType == EnemyEnum.BRIGAND && (stance == Stance.FELLATIO || stance == Stance.FACEFUCK || stance == Stance.ANAL))) {
 			Array<Texture> textureCandidates = textures.get(stance, defaultTextures);
+			if (textureCandidates == null) return;
 			Texture texture = textureCandidates.get(textureCandidates.size == 1 ? 0 : currentFrame);
 
 			if (texture == null) return;
@@ -903,7 +904,7 @@ public class EnemyCharacter extends AbstractCharacter {
     }
 	// this should be refactored so that the enemy simply receives the assetManager and uses what it requires to reinitialize itself
 	public void init(Array<Texture> defaultTextures, ObjectMap<Stance, Array<Texture>> textures, Array<AnimatedActor> animations) {
-		this.defaultTextures = defaultTextures;
+		this.defaultTextures = defaultTextures == null ? new Array<Texture>() : defaultTextures;
 		this.textures = textures;
 		this.animations = animations;
 		this.currentAnimationsPlaying = new ObjectSet<AnimatedActor>();
