@@ -54,7 +54,7 @@ public class OptionScreen extends AbstractScreen {
 		addLabelActor("- Video Options -", 860, 820);
 		
 		/* Full Screen toggle */
-		final CheckBox fullScreen = new CheckBox("    FullScreen", skin);
+		final CheckBox fullScreen = new CheckBox("FullScreen", skin);
 		fullScreen.setChecked(preferences.getBoolean("fullScreen", false));
 		fullScreen.addListener(new ChangeListener() {
 	        @Override
@@ -68,10 +68,23 @@ public class OptionScreen extends AbstractScreen {
 	        }
 	    });
 		fullScreen.getCells().get(0).size(50, 50);
+		fullScreen.getCells().get(0).padRight(25);
 		addActorAndListen(fullScreen, 1099, 651);
 		
+		final CheckBox blood = new CheckBox("Show Blood", skin);
+		blood.setChecked(preferences.getBoolean("blood", true));
+		blood.addListener(new ChangeListener() {
+	        @Override
+	        public void changed(ChangeEvent event, Actor actor) {
+	            final boolean val = blood.isChecked();
+	            preferences.putBoolean("blood", val);
+	        }
+	    });
+		blood.getCells().get(0).size(50, 50);
+		blood.getCells().get(0).padRight(25);
+		addActorAndListen(blood, 575, 825);
 		
-		final CheckBox preload = new CheckBox("    Preload (Restart game for effect)", skin);
+		final CheckBox preload = new CheckBox("Preload (Restart game for effect)", skin);
 		preload.setChecked(preferences.getBoolean("preload", false));
 		preload.addListener(new ChangeListener() {
 	        @Override
@@ -81,7 +94,8 @@ public class OptionScreen extends AbstractScreen {
 	        }
 	    });
 		preload.getCells().get(0).size(50, 50);
-		addActorAndListen(preload, 700, 850);
+		preload.getCells().get(0).padRight(25);
+		addActorAndListen(preload, 825, 825);
 		
 		/* Resolution selection */
 		addLabelActor("Resolution", 700, 750);

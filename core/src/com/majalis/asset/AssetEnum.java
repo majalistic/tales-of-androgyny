@@ -108,6 +108,7 @@ public enum AssetEnum {
 	GOLEM_CLOSEUP("enemies/GolemClose.png"),
 	GHOST("enemies/Ghost.png"),
 	GHOST_SPOOKY("enemies/GhostSpooky.png"),
+	GHOST_SPOOKY_BLOODLESS("enemies/GhostSpookyNoBlood.png"),
 	TRAP_BONUS("enemies/TrapBonus.jpg"), 
 	
 	ARMOR("battle/Armor.png"),

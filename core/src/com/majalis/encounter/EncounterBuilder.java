@@ -1,4 +1,5 @@
 package com.majalis.encounter;
+import com.badlogic.gdx.Gdx;
 /*
  * Class used for building an encounter from an encounter code and current state information.
  */
@@ -418,7 +419,10 @@ public class EncounterBuilder {
 					no
 				).getEncounter();
 			case GHOST: 
-				return new Branch().checkScene(CheckType.DAY, new Branch(true).textScene("GHOST-DAY"), new Branch(false).textScene("GHOST-NIGHT")).getEncounter();				
+				return new Branch().checkScene(
+					CheckType.DAY, 
+					new Branch(true).textScene("GHOST-DAY"), 
+					new Branch(false).textScene("GHOST-NIGHT").textScene(Gdx.app.getPreferences("tales-of-androgyny-preferences").getBoolean("blood", true) ? "GHOST-BLOODY" : "GHOST-BLOODLESS").textScene("GHOST-NIGHT-CONT")).getEncounter();				
 			case GOBLIN:
 				Branch postVirginityCheck = new Branch().choiceScene(
 					"Mouth, or ass?",
