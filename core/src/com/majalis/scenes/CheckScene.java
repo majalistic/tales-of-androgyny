@@ -53,7 +53,7 @@ public class CheckScene extends AbstractTextScene {
 	public void setActive() {
 		super.setActive();
 		nextScene = getNextScene();	
-		if (display.getText().toString().equals(".")) nextScene();
+		if (display.getText().toString().equals("")) nextScene();
 		background.setColor(TimeOfDay.getTime(character.getTime()).getColor());
 	}
 	
@@ -130,7 +130,7 @@ public class CheckScene extends AbstractTextScene {
 			@Override
 			protected boolean getCheck(PlayerCharacter character) { return character.isVirgin(EnemyEnum.GOBLIN); } 
 		}, 
-		GOBLIN_KNOWN (".", ".") { 
+		GOBLIN_KNOWN ("", "") { 
 			@Override
 			protected boolean getCheck(PlayerCharacter character) { return character.getQuestStatus(QuestType.GOBLIN) == 0; } 
 		}, 
@@ -142,55 +142,55 @@ public class CheckScene extends AbstractTextScene {
 			@Override
 			protected boolean getCheck(PlayerCharacter character) { return character.getQuestStatus(QuestType.ORC) == 1; } 
 		}, 
-		CRIER (".", ".") { 
+		CRIER ("", "") { 
 			@Override
 			protected boolean getCheck(PlayerCharacter character) { return character.getQuestStatus(QuestType.CRIER) == 0; }  
 		}, 
-		CRIER_QUEST (".", ".") { 
+		CRIER_QUEST ("", "") { 
 			@Override
 			protected boolean getCheck(PlayerCharacter character) { return character.getQuestStatus(QuestType.CRIER) == 1; }  
 		}, 
-		INN_0 (".", ".") { 
+		INN_0 ("", "") { 
 			@Override
 			protected boolean getCheck(PlayerCharacter character) { return character.getQuestStatus(QuestType.INNKEEP) == 0; }  
 		}, 
-		INN_1 (".", ".") { 
+		INN_1 ("", "") { 
 			@Override
 			protected boolean getCheck(PlayerCharacter character) { return character.getQuestStatus(QuestType.INNKEEP) == 1; }  
 		}, 
-		INN_2 (".", ".") { 
+		INN_2 ("", "") { 
 			@Override
 			protected boolean getCheck(PlayerCharacter character) { return character.getQuestStatus(QuestType.INNKEEP) == 2; }  
 		}, 
-		INN_3 (".", ".") { 
+		INN_3 ("", "") { 
 			@Override
 			protected boolean getCheck(PlayerCharacter character) { return character.getQuestStatus(QuestType.INNKEEP) == 3; }  
 		}, 
-		ADVENTURER_ENCOUNTERED (".", ".") { 
+		ADVENTURER_ENCOUNTERED ("", "") { 
 			@Override
 			protected boolean getCheck(PlayerCharacter character) { return character.getQuestStatus(QuestType.TRUDY) == 0; }  
 		}, 
-		ADVENTURER_HUNT (".", ".") { 
+		ADVENTURER_HUNT ("", "") { 
 			@Override
 			protected boolean getCheck(PlayerCharacter character) { return character.getQuestStatus(QuestType.TRUDY) == 1; }  
 		},
-		TRUDY_GOT_IT (".", ".") { 
+		TRUDY_GOT_IT ("", "") { 
 			@Override
 			protected boolean getCheck(PlayerCharacter character) { return character.getQuestStatus(QuestType.TRUDY) == 2; }  
 		},
-		PLAYER_GOT_IT (".", ".") { 
+		PLAYER_GOT_IT ("", "") { 
 			@Override
 			protected boolean getCheck(PlayerCharacter character) { return character.getQuestStatus(QuestType.TRUDY) == 3; }  
 		},
-		TRUDY_LAST (".", ".") { 
+		TRUDY_LAST ("", "") { 
 			@Override
 			protected boolean getCheck(PlayerCharacter character) { return character.getQuestStatus(QuestType.TRUDY) == 4; }  
 		},
-		OGRE_DONE (".", ".") { 
+		OGRE_DONE ("", "") { 
 			@Override
 			protected boolean getCheck(PlayerCharacter character) { return character.getQuestStatus(QuestType.OGRE) == 0; }  
 		},
-		SPIDER (".", ".") { 
+		SPIDER ("", "") { 
 			@Override
 			protected boolean getCheck(PlayerCharacter character) { return character.getQuestStatus(QuestType.SPIDER) == 0; }  
 		},
@@ -202,11 +202,11 @@ public class CheckScene extends AbstractTextScene {
 			@Override
 			protected boolean getCheck(PlayerCharacter character) { return character.getCurrentDebt() > 0; }  
 		}, 
-		BIG_DEBT ("You owe a tremendous debt.", ".") { 
+		BIG_DEBT ("You owe a tremendous debt.", "") { 
 			@Override
 			protected boolean getCheck(PlayerCharacter character) { return character.getCurrentDebt() >= 100; }  
 		}, 
-		PROSTITUTE (".", ".") { 
+		PROSTITUTE ("", "") { 
 			@Override
 			protected boolean getCheck(PlayerCharacter character) { return character.getQuestStatus(QuestType.BROTHEL) != 0; }  
 		}, 
@@ -214,35 +214,35 @@ public class CheckScene extends AbstractTextScene {
 			@Override
 			protected boolean getCheck(PlayerCharacter character) { return character.getScoutingScore() >= 2; }  
 		}, 
-		ELF_UNLOCKED (".", ".") { 
+		ELF_UNLOCKED ("", "") { 
 			@Override
 			protected boolean getCheck(PlayerCharacter character) { int check = character.getQuestStatus(QuestType.ELF); return check == 1; }  
 		}, 
-		ELF_DECLINED (".", ".") { 
+		ELF_DECLINED ("", "") { 
 			@Override
 			protected boolean getCheck(PlayerCharacter character) { int check = character.getQuestStatus(QuestType.ELF); return check == 2; }  
 		},
-		ELF_ACCEPTED (".", ".") { 
+		ELF_ACCEPTED ("", "") { 
 			@Override
 			protected boolean getCheck(PlayerCharacter character) { int check = character.getQuestStatus(QuestType.ELF); return check == 3; }  
 		},
-		ELF_BROTHEL (".", ".") { 
+		ELF_BROTHEL ("", "") { 
 			@Override
 			protected boolean getCheck(PlayerCharacter character) { int check = character.getQuestStatus(QuestType.ELF); return check == 4; }  
 		}, 
-		ELF_HEALER (".", ".") { 
+		ELF_HEALER ("", "") { 
 			@Override
 			protected boolean getCheck(PlayerCharacter character) { int check = character.getQuestStatus(QuestType.ELF); return check == 6; }  
 		},
 		// for encounters, can also make a RandomBranch variant on choice/check/battle/etc.
-		LUCKY (".", ".") { 
+		LUCKY ("", "") { 
 			@Override
 			protected boolean getCheck(PlayerCharacter character) { return character.isLucky(); }  
 		},
-		DAY (".", ".") { 
+		DAY ("", "") { 
 			@Override
 			protected boolean getCheck(PlayerCharacter character) { return character.isDayTime(); }  
-		}, 
+		}
 		;
 		
 		private final String success;
