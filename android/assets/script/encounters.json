@@ -1142,4 +1142,16 @@
 			{"text": "Look, there's no sugar-coating this.  Your first time, not only did you take it up the ass, but it was with a dumb animal who couldn't tell the difference."}
 		]
 	},
+	{
+		"key": "ELF-BROTHEL",
+		"scriptLines": [
+			{
+			"foreground": "ELF",
+			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "ELF", "value":7}}],
+			"text":  "You enter the brothel... but a certain familiar face catches your attention, as they're led off to a room with a male compatriot."},
+			{"text": "You follow them, keeping an eye out for the brothel mistress, to sate your curiosity.  Sure enough, as you peek inside the room they entered, you see a rather... risque sight."},
+			{"text": "Kylira is on the bed already, on their knees and elbows, face-down in the sheets... and his compatriot is behind, thrusting his hips against Kylira's ass without restraint."},
+			{"text": "Seeing the proud elf being treated like a common human whore... you feel yourself getting warmer. With Kylira's muffled moans filling the space between your ears with honey, you leave the brothel, red in the ears."}			
+		]
+	},
 ]}
