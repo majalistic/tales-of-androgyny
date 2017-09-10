@@ -88,7 +88,7 @@ public class EncounterBuilder {
 					BattleCode.ADVENTURER,
 					new Branch(Outcome.VICTORY).textScene("ADVENTURER-VICTORY").choiceScene(
 						"What's the plan?", 
-						new Branch("Mount him").textScene("ADVENTURER-TOPPED").encounterEnd(), 
+						new Branch("Mount him (Requires: Free cock)").require(ChoiceCheckType.FREE_COCK).textScene("ADVENTURER-TOPPED").encounterEnd(), 
 						new Branch("MOUNT him (Requires: Catamite)").require(ChoiceCheckType.LEWD).textScene("ADVENTURER-BOTTOMED").encounterEnd(), 
 						new Branch("Rob him").textScene("ADVENTURER-ROBBED").encounterEnd()
 					),
@@ -308,7 +308,7 @@ public class EncounterBuilder {
 							CheckType.ELF_ACCEPTED, 
 							new Branch(true).textScene("ELF-REUNION").choiceScene(
 								"Kiss Kylira?",
-								new Branch("Kiss").textScene("ELF-TOP").concat(careerOptions),
+								new Branch("Kiss(Requires: Free cock)").require(ChoiceCheckType.FREE_COCK).textScene("ELF-TOP").concat(careerOptions),
 								new Branch("Be Kissed").textScene("ELF-BOTTOM").concat(careerOptions),
 								new Branch("Deny").textScene("ELF-DENY").concat(careerOptions)
 							), 
@@ -765,7 +765,7 @@ public class EncounterBuilder {
 				Branch battleVictory = new Branch().textScene("ORC-VICTORY").choiceScene(
 					"Front, back, or decline?", 
 					new Branch("Front (Requires: Catamite)").require(ChoiceCheckType.LEWD).textScene("ORC-ANAL").encounterEnd(),
-					new Branch("Back").textScene("ORC-BOTTOM").encounterEnd(),
+					new Branch("Back (Requires: Free cock)").require(ChoiceCheckType.FREE_COCK).textScene("ORC-BOTTOM").encounterEnd(),
 					new Branch("Decline").textScene("ORC-DECLINE").encounterEnd()
 				);
 				
@@ -844,8 +844,9 @@ public class EncounterBuilder {
 					),
 					new Branch("Smooch Her").textScene("SLIME-APPROACH").choiceScene(
 						"Do you enter the slime, or...?",
-						new Branch("Go In").textScene("SLIME-ENTER").encounterEnd(),
-						new Branch("Love Dart (Requires: Catamite)").require(ChoiceCheckType.LEWD).textScene("SLIME-LOVEDART").encounterEnd()
+						new Branch("Go In (Requires: Free cock)").require(ChoiceCheckType.FREE_COCK).textScene("SLIME-ENTER").encounterEnd(),
+						new Branch("Love Dart (Requires: Catamite)").require(ChoiceCheckType.LEWD).textScene("SLIME-LOVEDART").encounterEnd(),
+						new Branch("Leave Her Be")
 					),
 					new Branch("Leave Her Be")			
 				).getEncounter();
@@ -942,7 +943,8 @@ public class EncounterBuilder {
 		STAT_GREATER_THAN_X,
 		STAT_LESS_THAN_X,
 		PERK_GREATER_THAN_X,
-		PERK_LESS_THAN_X;
+		PERK_LESS_THAN_X,
+		FREE_COCK;
 		
 		public boolean isValidChoice(PlayerCharacter character, Stat statToCheck, Perk perkToCheck, int target) {
 			switch (this) {
@@ -960,6 +962,8 @@ public class EncounterBuilder {
 					return character.getRawStat(statToCheck) >= target;
 				case STAT_LESS_THAN_X:
 					return character.getRawStat(statToCheck) < target;
+				case FREE_COCK:
+					return !character.isChastitied();
 			}
 			return false;
 		}
