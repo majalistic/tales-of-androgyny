@@ -1,0 +1,589 @@
+{"script": [
+	{
+		"key": "GOBLIN-INTRO",
+		"scriptLines": [
+			{
+			"music": "WEREWOLF_MUSIC",
+			"text": "A whoop.  A howl.  Tinkling, and a low grumble that's simultaneously far-off and immediate.  Your heart beats in your chest - the alien sounds surround you and permeate your skin and leave you feeling deeply unsettled."},
+			{"text": "The fey forest is untread by most mortals - its wonders are many, but its dangers even greater.  Strange creatures peek out from holes dug into giant mushroom stalks, their myriad eyes tracing your movements unblinking, with the largest of those eyes disappearing into obscurity whenever your gaze catches theirs."},
+			{"text": "That you are being watched isn't what concerns you.  As you hear the cracks of broken twigs underfoot, it is the notion that you are being -hunted- that causes you to tremble each time you approach a blind corner."},
+			{"text": "After passing a massive mushroom, you spot what appears to be a small trail, with an \"entrance\" of sorts between two tall stalks."},
+			{"text": "A string of... teeth, it looks, sharp and pointed, has been hung between them, and in the gap between said rows of teeth is a simple wooden sign, carved from some tree that is certainly not of this particular forest."},
+			{"text": "\"KEEP OUT\" it reads, rather forebodingly."}
+		]
+	},
+	{
+		"key": "GOBLIN-PASSBY",
+		"scriptLines": [
+			{"text": "Deciding that whoever wrote the sign probably had a good reason for doing so - either to keep passers-by out of dangerous territory or to warn them about trespassing, you continue on the main trail through the strange forest, still visibly shaken."}
+		]
+	},
+	{
+		"key": "GOBLIN-ENTRANCE",
+		"scriptLines": [
+			{
+			"music": "CARNIVAL_MUSIC",
+			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "GOBLIN", "value":1}}, {"profileSaveType":"KNOWLEDGE", "value":{"class": "java.lang.String", "value": "Goblin"}}],
+			"text": "You ignore the warning - your curiosity getting the better of you.  You pass underneath the sign and the string of teeth, and begin following the small trail."},
+			{"text": "It's small in more ways than one, not only is the path barely cleared at all, but you have to stoop under several mushroom caps to even continue on."},
+			{"text": "If not for the bioluminescence of some of the mushrooms, you'd be cloaked in darkness - the growth is denser here than on the main path."},
+			{"text": "Eyes still follow you as you go, and you start to hear more and more intimidating sounds.  You shake your head, trying to get ahold of yourself."},
+			{
+			"sound": "LOUD_LAUGH",
+			"text": "\"Nyahaha!\" A sudden peal of high-pitched, frenetic laughter that echoes through the forest.  Something small scurries past your field of vision, leaving behind a diminuitive human outline in your mind's eye that is as disturbing as it is quick."},
+			{"text": "You hear more giggling, and try to listen for the tiny footsteps, but suddenly the quiet forest sounds positively cacophonous - you try to drown out everything you can to home in on the sound of an approaching creature."}
+		]
+	},
+	{
+		"key": "GOBLIN-EAGLE-EYE",
+		"scriptLines": [
+			{
+			"foreground": "GOBLIN",
+			"text": "You home in the exact location of the noise you heard, and your eyes lock on a small, diminuitive figure.  They quickly dive into the undergrowth, trying to break your line of vision, but your keen senses are able to track them regardless of where they go."},
+			{"text": "They dart through the underbrush and position themselves nearby, unaware that you still know exactly where they are.  They try to nick you with their spear, thrusting out from the growth."}
+		]
+	},
+	{
+		"key": "GOBLIN-SPEAR-GRAB",
+		"scriptLines": [
+			{"text": "You manage to dodge the tip and grab the shaft of the spear!"}
+		]
+	},
+	{
+		"key": "GOBLIN-SPEAR-STEAL",
+		"scriptLines": [
+			{"text": "You're able to yank the spear away from them!  Disarmed, they retreat back into the growth."}
+		]
+	},
+	{
+		"key": "GOBLIN-SPEAR-DROP",
+		"scriptLines": [
+			{"text": "You struggle with the spear, but relinquish it before they can cut you with it.  They won't be trying that again, you think, as they retreat back into the growth."}
+		]
+	},
+	{
+		"key": "GOBLIN-SPEAR-DODGE",
+		"scriptLines": [
+			{"text": "You manage to dodge the spear, and they retreat back into the growth."}
+		]
+	},
+	{
+		"key": "GOBLIN-SPEAR-STABBED",
+		"scriptLines": [
+			{
+			"mutations": [{"saveType":"HEALTH", "value":{"class": "java.lang.Integer", "value": -5}}],
+			"text": "You're still too slow to dodge it; it stabs into your chest.  You take 5 damage. You watch as they retreat into the growth."}
+		]
+	},
+	{
+		"key": "GOBLIN-POST-SPEAR",
+		"scriptLines": [
+			{
+			"foreground": "GOBLIN",
+			"mutations": [{"profileSaveType":"KNOWLEDGE", "value":{"class": "java.lang.String", "value": "Goblin"}}],			
+			"text": "They try to run past you, a whip-like motion of their dagger aiming at the waist of your pants."}
+		]
+	},
+	{
+		"key": "GOBLIN-CATCH",
+		"scriptLines": [
+			{"text": "You dodge out of the way effortlessly and disarm her, the dagger clinking to the floor.  Before she can escape, you hoist her up into the air."},
+			{"text": "\"If ya keep treatin' me like a pinkskin spawn, I'm gonna bite ya! Nyaha!\" she threatens, still laughing hysterically."},
+		]
+	},
+	{
+		"key": "GOBLIN-RELEASE",
+		"scriptLines": [
+			{"text": "You put her down, and she thankfully seems to have calmed down."},
+			{"text": "\"Nyaha! Thanks, pinkskin! Glad we can see eye t' eye!\" she says, though you have to look down on her even as she does."},
+			{"text": "\"Why did you attack me?\" you ask, accusingly."},
+			{"text": "\"Can't ya read? This is my gobbo home! Can't let any pinkskin that feels like it to come in uninvited. That's how ya end up with gobbo stew!\" she claims, although you can't tell if she's being serious or not."},
+			{"text": "You nod along with this, and she looks up at you with her big, red eyes.  A silence sets on the enchanted forest."},
+			{"text": "\"So, wanna blowjob? Nyaha!\""},
+			{"text": "Well.  That simplifies things."}
+		]
+	},
+	{
+		"key": "GOBLIN-ACCEPT",
+		"scriptLines": [
+			{"text": "Although you're wary of her sharp teeth, you assent."}
+			{"text": "You lower your pants warily, and she eyes you with similar suspicion.  You can see from the growing bulge in her loincloth what you'd be dealing with if you were on the other side of the equation, especially as the bulge grows when she sees your exposed member."},
+			{"text": "Since you didn't travel down this path to learn what a goblin's dick tastes like, you're glad you managed to get her in good spirits."},
+			{"text": "She barely has to squat to get into position, looking up at your quickly-stiffening chub with a mix of mischief and amusement.  She opens her mouth, letting you get a good look inside - aside from the very obvious row of sharp teeth, it looks very inviting."},
+			{"text": "\"Don't cum in my mouth or I'll bite yer dick off,\" she says, informatively.  She picks up a thick branch and puts the breadth of it in her mouth, then bites down - and it breaks into three pieces like it was made of candy."},
+			{"text": "While you stare, white faced, at the destroyed branch, she opens wide and takes your entire penis into her mouth."},
+			{"text": "Despite her teeth, the sensation is entirely comfortable, and she goes to work sucking, her cheeks sunken in, on your precious human penis."},
+			{"text": "Her tablemanners are as to be expected, and she schlurps and gags her way up and down the shaft with little care for propriety... which has an outsized effect on your need to seed."},
+			{"text": "You feel your babymakers start to tense - and try to warn her with a simple \"I'm going to...\" but she doesn't get the hint."},
+			{"text": "As she continues to pump your pole in and out of her small mouth, her hair slapping against your abdomen, her chin against your tight balls, the need becomes even greater."},
+			{"text": "\"I'm g-going to cum!\" you warn her, but again, she pays you no mind, taking a long slurp of the base all the way to the tip."},
+			{"text": "You try to pull away, realizing that the cum rising from your balls is unlikely to end up anywhere but in her mouth - and you distinctly remember her warning.  She follows you, holding your hips to keep your cock in her mouth."},
+			{"text": "You fire off into her mouth - pulling desperately at her hair to get her off your cock, even as she stubbornly gets her throat coated in human jism."},
+			{"text": "As your orgasm dies down, you feel it - her jaw tightening, her teeth closing in on your penis.  You stare at her, wide-eyed in fright, and she slams her jaw shut - but you don't feel anything."},
+			{"text": "You nearly faint, but you hold on to your reason - there's no pain, and your penis seems to be just fine.  She opens her mouth to reveal that her teeth have retracted."},
+			{"text": "Still, you go weak in the knees, and collapse onto the ground."},
+			{"text": "\"I told you not to cum in my mouth.  Lucky for ya, I swallowed it into my extra tank,\" she says, before closing her mouth, winking one eye, and then making a strange squelching noise."},
+			{"text": "All at once, her cheeks, formerly sunken in while sucking your cock, fill to an obscene size.  She walks over to where you lay, and stands over you, cheeks still absurdly full... and a white dribble escapes the corner of her mouth, her eyes full of crazy malice."},
+			{"text": "You panic, and try to flail out of her grasp as she pins you down, sitting on your chest.  She firmly grips your nose shut, and brings her full face close to yours."},
+			{"text": "Starved of air, you open your mouth, and her fingers shoot inside, holding your mouth wide open, as she slowly opens hers."},
+			{"text": "A big blob of your nutslime and her saliva drools slowly downwards towards your open mouth.  You watch, helplessly, as it descends, still full of lively sperm and gooey protein."},
+			{"text": "It slathers over your tongue and falls towards the back of your throat, until her mouth is empty and you're gargling your own nutslime.  Again she pinches your nose, until, reluctantly, you swallow it down."},
+			{"text": "\"Yer welcome, pinkskin!  Nyaha!\" she says, slapping your cheek playfully, before jumping up off of you and running headlong into the forest, disappearing completely."}
+		]
+	},
+	{
+		"key": "GOBLIN-DECLINE",
+		"scriptLines": [
+			{"text": "You hold up your hands, the universal gesture for \"nuh-uh\".  She shrugs, and wanders off, waving you past as she does."}
+		]
+	},
+	{
+		"key": "GOBLIN-FLIP",
+		"scriptLines": [
+			{"text": "You turn her over your knee."}
+		]
+	},
+	{
+		"key": "GOBLIN-SPANK",
+		"scriptLines": [
+			{"text": "You restrain her, tossing aside her loincloth so as to expose her big, round cheeks - which, you have to admit, are rather shapely and appealing."},
+			{"text": "Your hand rises into the air, and she stutters out a plea. \"W-wait a s-sec!\""},
+			{"text": "With a whip-crack, you spank her big goblin rear, and she cackles - the cackles only grow more and more intense with each thunderclap of your palm against her fat cheek."},
+			{"text": "She growls and groans with each spank, but with her loincloth pulled aside, you can feel that her strange goblin knob is twitching with lust."},
+			{"text": "Rather than turning red, her cheek turns a dark shade of green, and her cock dribbles onto the ground."},
+			{"text": "Her voice gets tighter, more ragged, along with her breathing, and her whole body begins to tense up.  You slap her fat rear playfully a few times, then again you bring your hand down mightily, with a solid, echoing crack."},
+			{"text": "Finally, she begins to shiver, and her whole body convulses, and you hear her spray a substantial load into the dirt - food for the mushrooms."},
+			{"text": "She goes limp in your lap, and you roll her off into the dirt, where she lays, looking content, although obviously sore on the rear."},
+			{"text": "You continue on your way, unperturbed by the foolish goblin's antics."}
+		]
+	},
+	{
+		"key": "GOBLIN-GETBIT",
+		"scriptLines": [
+			{"text": "She wriggles out of your grasp and bites hard on your leg."},
+			{
+			"mutations": [{"saveType":"HEALTH", "value":{"class": "java.lang.Integer", "value": -5}}],
+			"text": "You take 5 damage"},
+			{"text": "Her feet hit the ground running, and before you know it, she's gone."}
+		]
+	},
+	{
+		"key": "GOBLIN-TRIP",
+		"scriptLines": [
+			{"text": "You dodge out of the way and trip her as she passes."}
+		]
+	},
+	{
+		"key": "GOBLIN-DISARM",
+		"scriptLines": [
+			{"text": "You disarm her dagger, and she turns to run."}
+		]
+	},
+	{
+		"key": "GOBLIN-DODGE",
+		"scriptLines": [
+			{"text": "You manage to dodge her, and she makes a break for it."}
+		]
+	},
+	{
+		"key": "GOBLIN-PANTS-DOWN",
+		"scriptLines": [
+			{"text": "She's faster than you, and she manages to cut down your pants before you can act.  They fall to the ground."},
+			{"text": "She kicks at the back of your knee, and you follow."},
+			{"text": "\"Nyahaha! Too slow!\" you hear her cackle, and then you hear the sound of... meat?"},
+			{"text": "All at once, you feel a sudden pressure in your bowels - and you don't have to turn your head to check that she's got a cock."},
+			{"text": "Red-faced and embarrassed, you realize that she's already inside... but it's not too late for you to fight back!"}
+		]
+	},
+	{
+		"key": "GOBLIN-CONTRAPTION",
+		"scriptLines": [
+			{"text": "You hear a faint rustling, and spin to face the source of the sound."},
+			{"text": "You see a contraption - some kind of swing, which is quicky dismounted by a figure that darts back into the dense undergrowth, giggling all the while."},
+			{"text": "You lose sight of the figure - you stand on guard, when suddenly, you hear rustling in the bushes near you!"}
+		]
+	},
+	{
+		"key": "GOBLIN-AMBUSH",
+		"scriptLines": [
+			{
+			"sound": "LOUD_LAUGH",
+			"text": "\"Can't ya read?!\" you hear... although the high pitched voice appears to be getting closer rapidly as it is said."}
+		]
+	},
+	{
+		"key": "GOBLIN-LOG-DODGE",
+		"scriptLines": [
+			{"text": "You manage to dodge out of the way at the last moment, landing on the ground, a heavy mass having narrowly avoided your head."},
+			{"text": "You turn to see that a small figure has rode some kind of swing that would have hit you had you not managed to get out of the way, and they dismount from it, then disappear into the undergrowth."}
+		]
+	},
+	{
+		"key": "GOBLIN-OBLIVIOUS",
+		"scriptLines": [
+			{"text": "You feel something bump against your head - but it doesn't really bother you.  You think you hear someone cursing in a high, strange voice, but by the time you turn to check, there's nothing there.  Must be the breeze."},
+			{"text": "You continue through the forest, oblivious."}
+		]
+	},
+	{
+		"key": "GOBLIN-TOTALFAIL",
+		"scriptLines": [
+			{"text": "And then... darkness."},
+			{"text": "You wake in a dark void, illuminated by a single, glowing object... although you can't quite make it out yet."},
+			{
+			"sound": "LOUD_LAUGH",
+			"text": "You hear distant laughter that sounds like... \"nyahaha\"."},
+			{"text": "The floating object resolves, and your eyes widen.  You see a golden ring floating in the air, around the size of your fist."},
+			{"text": "As you watch it floating, slowly rotating, it suddenly jerks to a stop, and begins to shake.  With another distant peal of laughter, the ring begans to expand."},
+			{
+			"mutations": [{"saveType":"GOBLIN_VIRGIN", "value":{"class": "java.lang.Boolean", "value": false}}],
+			"text": "It grows wider and wider, thinner and thinner, as you watch in awe.  As if it was a portal to another realm, something emerges from within, the ring now larger than your head."},
+			{"text": "The... thing is green, with fist-sized protrusions on it that look disturbingly like warts.  It has an eye-shaped opening on the end, although it's filled with some kind of slimy liquid."},
+			{"text": "More and more of it emerges through the thinly stretched gold ring, and you watch, dumbfounded by the strange sight before you."},
+			{"text": "In the distance, you hear more laughter, and something that sounds suspiciously like an insult."},
+			{"text": "You watch with a morbid fascination as the object pushes through the gold ring at various odd angles, stretching it this way and that, particularly as it accomodates the wart-like bumps."},
+			{"text": "Your curiosity gets the better of you, and you try to see on the other side of the ring, even though the object is plainly coming from out of thin air as it forces its way through the ring, like some kind of portal."},
+			{"text": "To your surprise, you do see something on the \"other side\", as it were.  Two large, undulating orbs, a similar shade of green as the ring-defying object.  They appear to be fluid filled, and rather full at that - they move with a hypnotic sloshing motion, to and fro."},
+			{"text": "As you approach them, your suspicions are confirmed - they audibly slosh, full of some kind of thick goop.  Cautiously, you reach out to touch one, and you sense that it's full of malice."},
+			{"text": "As soon as your fingertips make contact, you feel an overwhelming desire - an intense heat, and you hear another peal of laughter, high pitched and eager."},
+			{"text": "The orbs look ready to discharge - magical energy, perhaps? - so you round the ring again, to see what became of the invasive green object.  Its goo-filled eye is now dispelling liquid that pools on the floor obscenely."},
+			{"text": "It's running roughly through the ring over and over again, and you hear the sloshing of the orbs growing louder and louder.  You peek around the ring to see that they're contracting into themselves, looking to get tighter and tighter."},
+			{"text": "Suddenly, they stop moving entirely - pulsing with an evil energy.  You shift your view again to watch the green mass - which twitches upwards, anchored by the ring.  You feel the heat in your own cheeks rising, which only gets more intense a moment later."},
+			{
+			"sound": "CUM",
+			"text": "All at once, a thick, sap-like liquid, a creamy white mixed with runny clear, spurts out of the eye with force.  The rope flies through the air, clearing several feet before the whole of it falls to the ground audibly, leaving a thick streak cooling over a long strip."},
+			{"text": "By that time, the second blast had joined the first in the air, and landed partially overlapping it, followed by a third and fourth, each one making you feel more and more heat in your cheeks and, oddly, your stomach."},
+			{"text": "By the time the eruption ended, a wide swath of the ground was covered in the sticky stuff, and the smell was overpowering.  Rounding the ring again, you see that the orbs have stopped contracting, although they still seem rather full."},
+			{"text": "All is still for a bit... and then the object begins to move in and out of the ring again, along with another peal of laughter."},
+			{"text": "Before long, the orbs begin to contract again... followed by another deluge that simply falls on top of the first, creating a messy soup."},
+			{"text": "Again, you felt a heat in your stomach, and again, a stillness came... and again, the in and out motion of the warty, green mass resumed."},
+			{"text": "A third and fourth time the orbs contracted and the goop spurted out wantonly, your stomach feeling incredibly hot and sensitive.  The orbs were noticeably sloshing less... but were still sloshing."},
+			{
+			"sound": "CUM_BUBBLING",
+			"text": "The fifth eruption proved to be the last.  The still-stiff object slipped slowly out of the ring, causing it to disappear from view... and the ring itself shrunk in size to a size about twice its original diameter."},
+			{"text": "On one side of the ring was an endless expanse of darkness... the side the orbs had been on.  On the other, there was also darkness, but also a visible trail of slime flowing outwards under the weight of its own gravity, looking quite like an egg's white spreading outward."},
+			{"text": "Somehow, the sight brings a fierce heat to your cheeks, as if you're witnessing something truly embarrassing.  Somehow, the space you're in seems sullied by the presence of the white, viscous soup."},
+			{"text": "The far-away laughter, fading into the distance, doesn't help matters."},
+			{"text": "You glance one last time at the ring... it's not even round anymore.  You blink, and suddenly, you're in the enchanted forest again, the soft glow of bioluminescence illuminating the ground beside you."},
+			{"text": "You feel hung-over... your head feels like it's going to split open... and it's not the only thing."},
+			{
+			"animatedForeground": "BUTTBANG",
+			"text": "Your butthole feels... open to the air, and disturbingly wet.  Your stomach feels hot... and full.  You get up on your hands and knees, and your stomach grumbles."},
+			{"text": "Your face feels... wet.  You vaguely recall seeing a green thing quite like the one in your dream, and feeling it, wet and sticky, drawn across your cheek."},
+			{"text": "And now that you think about it - there's no doubting what that green thing was... or, on further reflection, why it was wet, and why your stomach feels so full."},
+			{"text": "You swallow as the significance of the dream dawns on you... and then you hear it - the inhuman laughter."},
+			{"text": "\"Nyahaha, keep the goblin goo, human!  Next time, read the sign!\""},
+			{
+			"foreground": "NULL",
+			"text": "You stand, slowly, feeling it slosh around in your gut.  You feel... different. Aside from being full of goblin semen, that is."},
+			{"text": "You turn back along the narrow trail, making a mental note to avoid \"keep out\" signs in the future."}
+		]
+	},
+	{
+		"key": "GOBLIN-VICTORY",
+		"scriptLines": [
+			{
+			"mutations": [{"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": 1}}],
+			"text": "You defeated the goblin! You receive 1 Experience."}
+		]
+	},
+	{
+		"key": "GOBLIN-DEFEAT",
+		"scriptLines": [
+			{
+			"sound": "LOUD_LAUGH",
+			"text": "\"Ehe, ehehehe!  Nyahaha!\" she laughs, as you crumple to the ground, defeated.  By someone half your size."},
+			{"text": "She stands over you, looking down with a grin."},
+			{"text": "\"So yer some kinda hero, huh?\" she says, sizing you up, and finding you wanting."}
+		]
+	},
+	{
+		"key": "GOBLIN-FLEE",
+		"scriptLines": [
+			{"text": "While she struggles to her feet, you flee."}
+		]
+	},
+	{
+		"key": "GOBLIN-VIRGIN",
+		"scriptLines": [
+			{"text": "At first, you feel shame solely because of that... but looking up at the goblin now towering over you despite her diminuitive stature, you immediately start to feel shame for any entirely different reason."},
+			{"text": "The bulge in her loincloth is... obvious.  You swallow, expectantly."},
+			{"text": "You're not sure what goblin sex is like, but you have a foreboding sense that you're about to find out."},
+			{"text": "\"Are you a boy or a girl?\" they ask, although now you're not entirely sure about them either."},
+			{"text": "\"I'm a boy!\" you say, defiantly, and she cackles."},
+			{"text": "\"Nyaha!   Uhoh!  Sucks for you!  Selkie isn't in the mood for pinkskin meat!  Boy or girl, either way it's going up. The. Asshole!\""},
+			{"text": "\"Up the... no way!\" you say, her words confirming your fears."},
+			{"text": "\"What, you wanted to put it in my butt?  Perverted human.  Is that why you fought so weak and stuff?  Maybe I should let you stir up my butt, as a reward for making this little goblin feel big and strong like you!\""},
+			{"text": "You nod, excited."},
+			{"text": "\"Nyahah!  I don't think so, human!  You better get ready for some hot, throbbing gobbo dick in your tight little fudge tunnel!  Nyahaha!  I'm gonna make your butt pussy taste my green meat!\""},
+			{"text": "She pushes you face-down, your chin resting in the dirt, and you meekly try to fend her off."},
+			{"text": "\"What's the matter, human?  Getting overpowered by a little goblin girlie?  That's so embarrassing!  Wouldn't it be even more embarrassing if she fucked you right up your hole like a girl?\" she taunts, while sliding her surprisingly stiff penis between your cheeks."},
+			{"text": "You expect her to start pushing it in, but then she climbs up on your back, riding you."},
+			{"text": "\"Which do you want to taste it with first?  Your top hole or your bottom?\" she says, her hands on your shoulders."},
+			{"text": "You think it over.  She dismounts you and gives you a swat on the rear, but is otherwise surprisingly patient."}
+		]
+	},
+	{
+		"key": "GOBLIN-EXPERT",
+		"scriptLines": [
+			{"text": "You've already tasted the flavor of a goblin, and you're in no hurry to repeat that experience, but you're too exhausted to escape.  Looking at the bulge behind her loincloth, your sphincter tightens, reflexively, as if that will do anything."},
+			{"text": "She seems to sense your trepidation.  \"Selkie's caught herself a fun little pinkskin!\" she says."},
+			{"text": "You groan.  This isn't your idea of fun."},
+			{"text": "\"Well, which one will it be?  Your top hole or your bottom?\" she asks."}
+		]
+	},
+	{
+		"key": "GOBLIN-MOUTH",
+		"scriptLines": [
+			{"text": "She nods, knowingly, and moves her loincloth out of the way to reveal a warty, inhuman looking schlong."},
+			{"text": "\"I always forget which end of a human is up.  Oh well!  Say 'ahhhh', fruit boy!\""},
+			{"text": "You have no idea what she's talking about, until you realize that she's gotten behind you.  All at once, your vision goes white."},
+			{
+			"mutations": [{"saveType":"GOBLIN_VIRGIN", "value":{"class": "java.lang.Boolean", "value": false}}],
+			"text": "\"Pow! Right up the butt!  Nyaha!\" she says, and, indeed, right up the butt it went.  The knobby warts immediately irritate your hole, and the sudden intrusion has you tearing up mushrooms."},
+			{"text": "She begins to thrust in and out and you groan, nearly collapsing into the dirt."},
+			{"text": "With your face down and your ass up in the air, she begins to pummel your upturned butt. You bite the dirt to cope, even as she wrecks your ass."},
+			{"text": "It isn't long before she shifts gears.  She pulls it out of your confused butthole, and rounds your body.  You lay, passively, your hole tensing and untensing in distress."},
+			{"text": "\"Ah!  I got carried away and put it in the wrong hole.  You wanted it up top, right!\" she says, helping you onto your hands."},
+			{"text": "When you look at what went up your ass, your eyes widen.  It's thick, and covered in warts, and stiff as a bat."},
+			{"text": "\"Oh!  It's been up your butt!  It's gonna taste real bad.  Gobbo boys hate it when I do this to them - but I love it.  Open wide!\""},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "oralSex":1}}],
+			"text": "She pinches your nose, and sure enough, you open wide - and as quickly as she blitzed your asshole, your face hole gets stuffed full.  Immediately, you know what goblin testicles feel like."},
+			{"text": "You get quite familiar with it, in fact, as they slap against your face with each thrust, the foul tasting tube tickling your tonsils with each of her hipthrusts."},
+			{"text": "\"How do you like those gobbo nuts slapping your face, human?  Ready to drink my hot, sticky gobbo butter?\""},
+			{"text": "Because of your new-found familiar with \"gobbo nuts\", you feel them sloshing about and gradually tensing.  You aren't \"ready\" to drink anything, but as you look up at her, defiantly, you know you don't have much of a choice."},
+			{"text": "Your eyes roll into the back of your head, nausea getting the better of you... when suddenly, her gobbo butter makes itself known."},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "oralCreampies":1}}],
+			"text": "It's thick... like cheese, almost.  It gunks up your throat and makes it difficult to breathe, much less swallow.  It's definitely not made for consumption - at least not by humans, but by the shark-toothed grin on her face you can tell she's well aware of that."},
+			{"text": "\"Nyaha, don't die, human!  Choking on gobbo nut butter to death would be the most humiliating game over ever!  Just swallow it all down like a good little toilet human!\""},
+			{"text": "You want nothing more than to spit or vomit it out - it's like a jelly that had to be scraped off of the insides of her testicles, because it sticks to everything and just won't drain downwards.  There's a big wad of it clogging right in your throat."},
+			{"text": "\"Here, let me help ya, nyaha!\" she says, although any help from her is help you know you can do without.  She tugs on your hair to pull your head back, your mouth open as you struggle to spit out her nasty gunkwad, and with one swift motion, she slips the butt of her spear into your mouth and, painfully, right down your throat."},
+			{"text": "The sound you make... is probably more appropriate for a goblin than a human.  Her effort isn't in vain, however, and the wad of sticky goblin semen dislodges and begins to slide, viscously, down your throat, which by itself would make you gag if you weren't also deep-throating her non-fleshy pole."},
+			{"text": "Her eyes are wild as she grips the spear firmly in place, her closed fist around the shaft also serving to plug your mouth."},
+			{"text": "\"Nyaha!  Now you've got two in holes and no out holes!  Guess you're gonna explode, human!\" she says, mischeviously, as your face turns red and you want desperately to spew out her disgusting semen slime."},
+			{"text": "You think your wish will be granted when she finally pulls the spear free of your throat, which comes as a great relief, but she covers your mouth with her hand."},
+			{"text": "\"Ohho!  Gobbo boys never swallow!  They know to start biting when my gobbo clackers start twitchin'!  Silly human - that's not food.\""},
+			{"text": "You know it's not food - it certainly doesn't taste like it.  You gulp down more of it, tears of either shame or nausea streaming down your face, as you eye her bitterly."},
+			{"text": "\"Gobbo gunk, gobbo gunk~ came out my dick and it really stunk~ spew it up now and you'll really flunk~ your pride and my gunk you've already drunk~ that's what you get when you suck my trunk~ all I build up when I made you my punk~ fucked up your ass then you swallowed my junk~ hope you like the taste of that gobbo gunk!\""},
+			{"text": "While she sings her lewd song, your stomach ties itself into knots, not knowing how to process the snot-like gift it's just received."},
+			{"text": "When, finally, the goblin spew has ended, she pulls you off of it, leaving you to cough and spew it back onto the ground."},
+			{"text": "\"Well, human, I think you've got the point.  Better go back where you came before I decide t' breed ya!\""},
+			{"text": "She leaves you to finish digesting her gross liquid dinner, and you hear her cackling fade into the distance."}
+		]
+	},
+	{
+		"key": "GOBLIN-ANAL",
+		"scriptLines": [
+			{"text": "\"A human boy who likes taking gobbo cocks up the butt!  It's my lucky day.  But we'll get to that, nyaha!  I know where your taste buds are really at!\""},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "oralSex":1}}],
+			"text": "She grabs a hold of your chin, and you taste her schlong immediately.  The hard bumps on it slide past your lips uncomfortably."},
+			{"text": "She puts her other hand around the back of your head and pulls you all the way forward, so that it slides down and tickles your uvula.  You gag, and the phlegm coats it slick."},
+			{"text": "Her goblin cock tastes strange and feels strange too - it's firmer and stiffer than a human cock, for sure."},
+			{"text": "\"How does that gobbo cock taste, human!  Nyahaha, you're perfect for this - gobbo boys have such sharp teeth!\" she says, showing off her own set of viscious chompers in a wide smile as you blow the ever-loving shit out of her without a choice otherwise."},
+			{"text": "You never expected such a small creature would be able to defeat you - much less force you down on your hands and knees to service her green goblinoid dick.  On your list of humiliations you thought you might endure at the hands of a foe, shining a goblin's pole with your mouth was not one of them, at all."},
+			{"text": "As she pistons it in and out of your lips, you get a keen understanding of every knobby wart, your lips rubbing against them roughly and unevenly."},
+			{"text": "\"Go ahead, try and bite it!  Let's see what human teeth can do to a mean goblin girl's dick!\""},
+			{"text": "You try to bite it, but to no avail - the skin is too thick.  She reacts by giggling, and then slipping it out of your face, where gravity takes hold of it and it bends downwards, covered in spit."},
+			{"text": "\"Now it's nice and slick - and it's going right up your butt!  Nyahaha!\""},
+			{"text": "She leapfrogs over you, then spins around, thwapping it against your butt as she turns.  She grabs a cheek with each nubby thumb, spreads your hole, and presses her baton up against your starfish."},
+			{
+			"foreground": "GOBLIN_ANAL",
+			"mutations": [{"saveType":"GOBLIN_VIRGIN", "value":{"class": "java.lang.Boolean", "value": false}}],
+			"text": "Lubricated by your phlegm, she manages to go from un-penetrated to, gut stirring, rectum-basting, hip tapping in less than a second - causing your eyes to roll to the back of your head and your face to lose all color.  You can feel the painful stretching between your ears, and as she starts to thrust immediately after, you start to whine pathetically."},
+			{"text": "\"Nyahah!  Pretty tight!\" she says, ignoring your voiceless gasps.  \"Surprised ya, didn't I?!  Sorry human, gobbo boys like rough sex - though they like it less when they're getting it!\""},
+			{"text": "The sudden penetration makes your insides cramp, and your voice leaves you."},
+			{"text": "\"What's the matter?  Your hole is cramping up all funny!  Come on, this is what it's for!\" she says, proving her point about the nature of your asshole with her warty goblin dick."},
+			{"text": "You try to angle your hips so that she can't thrust as rapidly or deeply, but she follows you all the same."},
+			{"text": "\"Ya won't shit right for weeks! How do you like getting buttered up in the butthole by my meatsicle?  How's your pride as a man - as a human?!\""},
+			{"text": "Your own cock flops between your legs, stiff and tense.  She reaches around to grab it, and slaps it against your thigh."},
+			{"text": "\"Some hero you turned out to be! Look at how hard you are!  You're harder dan me!  Are you going to tell everyone back in human town about how you got a comfy gobbo dick right up your butt?  How ya got seduced and fudgepacked by a goblinoid half your size?  How ya got brown-eyed by a girl who's half brownie on her mom's side, and all hard-dicked on your insides?  Nyaha!\""},
+			{"text": "You endure her vocal degradation, but that only makes you focus on her anal degradation. It bores in and out of your smooth hole with little room for interpretation - this is anal sex, with a capital A."},
+			{"text": "All at once, you feel the whole of it flush into you, and then, strangely, you feel a heavy weight on your cheeks, and you turn your head to see that, impressively, she's clambered onto your back."},
+			{"text": "She reaches forward and pulls your hair as she pounds you from behind."},
+			{"text": "\"How is it?  Huh, huh?! How do you like that gobbo meat up your shithole, human?!  You like being blasted by a goblin girl, don'cha?  Go on, say it, say it!\" she says, thrusting it up into you, pressing her hips firmly against you and stirring it around inside your rectum."},
+			{"text": "She manages to slam her entire green dick up inside of you with each overbalanced thrust while riding up on top of you, a feat that you'd find impressively acrobatic if it wasn't knocking the wind out of you with each anally-receptive go."},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analEjaculation":1}}],
+			"text": "She nibbles on your ear, barely able to reach, and you bite your lip. Your eye twitches.  Your prostate is receiving far too much stimulation - by the time you even recognize the sensation, it's too late - you shoot a rope of misguided cum all over the tiny mushrooms between your knees."},
+			{"text": "\"Nyaha! You lied to me, pinkskin!  You said you were a boy, but you cum like a girl!\" she cries, still riding you high, thrusting in and out of your tortured butthole, having apparently noticed your catamite-like anal ejaculation.  Of course, cumming while penetrated might be a classic girl move, but being ejaculated inside of..."},
+			{
+			"sound": "CUM",
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "creampies":1}}],
+			"text": "She quickly buttons up that loophole by plugging it with cum - that is, she begins to shoot thick, creamy ejaculate into your quickly-waterlogged bowels.  You learn the hard way that goblin cum has a spicy aftertaste, causing intense heat everywhere it touches in your rectum as it spurts out and splashes down."},
+			{"text": "As she cums all over your insides, you feel an intense shame - a creature no taller than your waist has overpowered, penetrated, and inseminated you, right up the butt.  Even worse - you came from the comfort of it."},
+			{"text": "\"Hope your stomach enjoys all that gobbo cocksnot!\" she says, although between the volume and the spicy flavor, your stomach is anything but enjoying her spunk enema."},
+			{"text": "You can feel your dignity getting a facial.  You hope there's at least part of your insides that aren't tainted by goblinoid cum, but you're pretty sure if you just wiggle your hips a bit, that'll no longer be the case."},
+			{"text": "\"Do you like getting all that nut up the butt, nyaha?!\" she asks, and with that, she pulls the whole of her dick out, laying flat against your back, even as you stay on your hands and knees, her fingers tangled in your hair."},
+			{"text": "You sit there for a bit, the goblin riding exhausted, piggy-back, while her cum begins to appear within your puckered hole - a ring of white giving evidence of her visceral creampie."},
+			{"text": "You assume the ordeal is over... until you realize that the hard, fleshy cylinder pressed against your back is, indeed, still hard and stiff."},
+			{"text": "She's still erect.  Despite having just filled you considerably, her green sperm-sacks still seem full and plump, and, in fact, a little sloshy. Your stomach sinks.  You worry the worst - that she's going to penetrate and inseminate you again."},
+			{"text": "\"My gobbo goonies are still full, nyaha!\" she whispers into your ear.  You realize that if you don't shake her off now, you're going to be humiliatingly assfucked again, and she's going to serve it up hot, again."},
+			{"text": "Unfortunately, the weight of her cum in your stomach and its heat has numbed your body - you'll have to fight off the effects to fight her off."}
+		]
+	},
+	{
+		"key": "GOBLIN-SECONDS",
+		"scriptLines": [
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1}}],
+			"text": "You can't shake yourself out of the haze, and she's quick to capitalize.  She jumps off of your back and grabs hold of your waist, so that her thick green machine swings through the air, aimed at your donut hole."},
+			{"text": "Your lips purse, as all at once the whole of her warty goblin dick makes it inside of you again."},
+			{"text": "You collapse to the ground, and her hips follow you, until your own penis is stuck in its own mud, and her cock is pulsing against your anal walls, her chest against your lower back."},
+			{
+			"sound": "CUM",
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "creampies":1}}],
+			"text": "\"More cum comin' your way, hero-boy!\" she says, and she isn't lying - another rush of cum shoots up into you, and you feel the heat again.  Her volleys don't last as long as the first time, but they're still surprisingly large."},
+			{"text": "She pulls out, and again sits her big rear on your back, apparently recuperating.  Though it's no longer flat against your back, you can feel the ominous presence of her erection - still full, even after two semen injections piped into your stomach."},
+			{"text": "\"You're full of gobbo sperm, Mr. Adventurer!  Nyaha!  You must feel nasty!\" she says, as you lay, face down in the dirt, feeling nasty.  Being sodomized by a tiny humanoid with an oversized dick wasn't in your game plan, and your hole feels absolutely violated and disgusting, goblin cum bubbling out of it like a cauldron."},
+			{"text": "You also get the sense that something about you is changing... perhaps permanently.  You feel... corrupted."},
+			{"text": "Receiving the same goblin's cum rectally twice is bad enough.  Knowing that she's still full-mast, you try to work up the energy to throw her off."}
+		]
+	},
+	{
+		"key": "GOBLIN-THIRDS",
+		"scriptLines": [
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1}}],
+			"text": "Unable to resist the effects of her love-making, you again unintentionally submit - and up it goes."},
+			{"text": "She kicks your legs apart so that you take it bow-legged, then rams her stiff pipe up your shithole, exactly as dignified as that sounds."},
+			{"text": "Goblin in, goblin out, goblin in, goblin out."},
+			{"text": "\"Ooooh, ooooh...\" she coos, apparently on a hair trigger. You hear her grumble a moan, and you know she's already close to firing off another volley."},
+			{
+			"sound": "CUM_BUBBLING",
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "creampies":1}}],
+			"text": "In no time at all, you feel the gurgling in your gut that means she's added another copious load, this one just as unwelcome as the others."},
+			{"text": "Your stomach distends, to the point that it aches as you press it against the ground.  It's clear now that you're being absolutely stuffed full of her semen."},
+			{"text": "\"Say thank ya for all dat sweet gobbo gunk up ya shitpipe! More than ya could ever need! And I'm almost out!\""},
+			{"text": "You're too overstimulated to say anything, much less thank you.  Again, you feel you're being changed, somehow."},
+			{"text": "She lazily sits down on you, facing towards your feet, and drums on your upturned, drooling rear.  Her goblin goonies squish on your back, and you feel her goblin screwdriver dribbling on it as well."},
+			{"text": "Three times now you've tasted the goblin's cum with your lower mouth. Given that she's \"almost\" out, you know you need to try, at least once more, to break free of the spell."}
+		]
+	},
+	{
+		"key": "GOBLIN-FOURTHS",
+		"scriptLines": [
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1}}],
+			"text": "It's no use - you can't fight her off.  You hope she's not lying about this being the last of her goblin butter, or you may very well explode.  You already qualify as a goblin sperm bank."},
+			{"text": "She rolls you onto your side - and penetrates you without pretense.  Almost immediately, you spew again onto the dirt, but she pays that no mind."},
+			{"text": "Her tribal pounding is basically emasculating you in every direction, and it only gets worse when you realize that she's going to empty her entire nutbladder into your newly-annointed baby bag."},
+			{
+			"sound": "CUM_BUBBLING",
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "creampies":1}}],
+			"text": "After a sequence of blows to your pride and your prostate, she spits liquid into liquid, and you groan, your stomach bloating to an almost pregnant size."},
+			{"text": "In addition to feeling so cum-filled that you may start to cough it up, you also feel even more changed than before... your body is soaked with sweat."},
+			{"text": "\"That's all of it!  Now you can get preggers!\" she says, and you barely have the energy to speak."},
+			{"text": "\"I... I'm a boy...\" you say, though you're having a hard time telling that."},
+			{"text": "\"Oh, silly human.  You didn't know?  Goblins don't have wombs or anything - so if you think you're not gonna be a mom just because I'm blowing bubbles up your boy butt, well, you better start picking out maternity clothes!  Nyaha!\""},
+			{"text": "You look at her, delirious and confused.  She shakes her finally wilting, wet dick, dribbling the last of her love juice into the dirt."},
+			{"text": "\"Goblin girls like me have eggs, nyaha!  And they're all up inside you now! If they get fertilized, you're going to have a big, pregnant belly.  And then... a goblin butt baby!\""},
+			{"text": "Your heart starts beating rapidly. \"But... if I... don't... with a goblin...\" you say, hopefully."},
+			{"text": "\"Nyahaha! Nope! I make all kinds of eggs! Who knows what you'll end up being a mommy to!\" she says, cackling again, before fastening her loincloth back into place."},
+			{"text": "She retrieves the rest of her things, then gives you a view of her shapely rear as she departs."},
+			{
+			"sound": "LOUD_LAUGH",
+			"text": "\"Good luck, pinkskin!  Next time, keep OUT!  Nyaha!\""},
+			{
+			"animatedForeground": "BUTTBANG",
+			"text": "You lay, full to bursting of semen, in the dirt for a while, in the gloomy bioluminescence of the forest, the goblin's cackling disappearing into the darkness."}
+		]
+	},
+	{
+		"key": "GOBLIN-FIGHTOFF",
+		"scriptLines": [
+			{
+			"foreground": "GOBLIN",
+			"text": "You manage to get your second wind and shake her off - she falls to the ground, growling, her rock-hard erection still clearly ready for another go."},
+			{"text": "Though she just blasted a wad of cum in your pooter, you still have enough use of your arms and legs to pull up your pants and make a break for it - and with her short legs, she can't catch up."}
+		]
+	},
+	{
+		"key": "GOBLIN-SECOND-QUEST",
+		"scriptLines": [
+			{"text": "You continue through the enchanted forest - wary of the goblin-folk that you know live in these areas."},
+			{"text": "You come across another sign that says \"Keep out\", only this time, it's at a clear fork in the road, and the other path is even darker and narrower than the one marked by the sign."}
+		]
+	},
+	{
+		"key": "GOBLIN-REUNION",
+		"scriptLines": [
+			{"text": "You brave the familiar warning sign, on your guard."},
+			{
+			"foreground": "GOBLIN",
+			"text": "You encounter the same goblin as before!  She grins at you, and informs you that this encounter isn't finished yet, so you'll have to come back later if you want to get bitten on the balls."}
+		]
+	},
+	{
+		"key": "GOBLIN-MALE-INTRO",
+		"scriptLines": [
+			{
+			"music": "CARNIVAL_MUSIC",
+			"mutations": [{"profileSaveType":"KNOWLEDGE", "value":{"class": "java.lang.String", "value": "Goblin (Male)"}}],			
+			"text": "You avoid the path, knowing who you might run into if you don't.  The dark, narrow path raises your hackles, but there's nothing that can be done about it."},
+			{
+			"foreground": "GOBLIN_MALE",
+			"text": "\"Gyahaha\" you hear, a high peal of laughter... although the register is different from how you remembered it.  You spot them almost immediately - a goblin, but different looking from the one you saw before."}
+			{"text": "You approach him cautiously... and you see that, like the other, he wields a frighteningly jagged dagger."}
+			{"text": "\"My turn, my turn!\" he says, revealing a rather... swinging set of genitals.  You reach for your weapon."}
+		]
+	},
+	{
+		"key": "GOBLIN-MALE-VICTORY",
+		"scriptLines": [
+			{
+			"mutations": [{"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": 1}}],
+			"text": "You defeated the Goblin (Male)! You receive 1 Experience."}
+		]
+	},
+	{
+		"key": "GOBLIN-MALE-DEFEAT",
+		"scriptLines": [
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "oralSex":1}}],
+			"text": "\"Gyahaha!\" you hear, and the jangling of bells as the goblin comes closer, and as you open your mouth to protest, you taste goblin - badly."
+			},
+			{"text": "The warty goblin cock fills your mouth and slams into your tonsils at high speed, and you gag - not for the last time."},
+			{"text": "\"Gyahaha! Which end of a human is up?  Gobbo boys can't tell!\" he says, and you can't tell if he's being serious.  Sure enough, after a few pumps of goblin sausage into your mouth, he pops it out, clambers over your back, and swings his hips around..."},
+			{
+			"foreground": "GOBLIN_ANAL_MALE",
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1, "analEjaculation":1}}],
+			"text": "To nail you right up the starfish. You yelp, and he begins to quickly slam your backside, long enough to learn how his warts feel as his fat dong pierces into your rectum."
+			},
+			{"text": "You groan as he drills it up into you, and then yelp again as he pulls it clear of your butthole, and clambers up towards your topside again..."},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "oralSex":1}}],
+			"text": "...only to fill your mouth with dick... the same dick he'd just put up your asshole.  You gag... and then almost immediately, it's out again... and you realize what hell you've found yourself in."
+			},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1, "analEjaculation":1}}],
+			"text": "Up the ass it goes, and you realize it won't be long before that awful taste is back between your lips."
+			},
+			{"text": "Over and over again the Goblin switches between your ass and face, shoving his grody goblin gourd into your ass after it had just been in your mouth..."},		
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "oralSex":1}}],
+			"text": "...and into your mouth after it had just been in your ass.  It's less sex and more of a very difficult game of goblin dick hot potato.  Face..."
+			},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1, "analEjaculation":1}}],
+			"text": "...ass, ass..."
+			},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "oralSex":1, "oralCreampies": 1}}],
+			"text": "...face... And, true to hot potato... there followed an explosion - a deluge of goblin cum down the throat and filling your cheeks.  Because of the cursed goblin virility, he was able to continue the game after that, switching back and forth between your mouthhole and butthole until, inevitably..."
+			},
+			{
+			"sound": "CUM",
+			"text": "*SPLORT*"},
+			{
+			"sound": "CUM_BUBBLING",
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":2, "creampies":2, "analEjaculation":2}}],
+			"text": "...you received another frothy creampie or goblin slime soup serving to swallow down.  Once both of your holes were full to bursting, and your stomach was distended and full, he dragged you back to his village... where the games began again."},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":5, "creampies":20, "analEjaculation":5}}],
+			"text": "Days later, you stumbled out of the goblin village, spewing goblinoid cum from every orifice, your stomach looking thrice-over pregnant.  That was the last any non-Goblin saw of you, as a passerby spotted you being dragged back into the dark forest, your stomach gurgling all the way."}
+		]
+	},
+]}

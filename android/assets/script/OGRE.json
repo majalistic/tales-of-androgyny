@@ -1,0 +1,176 @@
+{"script": [
+	
+	{
+		"key": "OGRE-INTRO",
+		"scriptLines": [
+			{
+			"mutations": [{"profileSaveType":"KNOWLEDGE", "value":{"class": "java.lang.String", "value": "Ogre"}}],			
+			"music": "WEREWOLF_MUSIC",
+			"text": ""}
+		]
+	},
+	{
+		"key": "OGRE-ENTRANCE",
+		"scriptLines": [
+			{"text": "The air around you is heavy, and you can hear a deep rumbling noise an unclear distance away."}
+		]
+	},
+	{
+		"key": "OGRE-SPOTTED",
+		"scriptLines": [
+			{"text": "The sound gets louder and louder, and you realize that it's snoring - loud snoring."},
+			{"text": "You come across... a sleeping ogre, thankfully still sleeping, cradling a pile of jewels."},
+			{"text": "Your eyes widen - the jewels look particularly enticing... but something else catches your eye as well."},
+			{"text": "Your sphincter tightens with an audible squeak - the thing is monstrous... and so is the ogre. If the ogre can't tell that it's your out hole, you're going to be walking funny for weeks, at best."},
+			{"text": "You could try to stealthfully steal from the ogre, or get the drop on him... but you best be certain that you can handle him at his worst."}
+		]
+	},
+	{
+		"key": "OGRE-STEALTH",
+		"scriptLines": [
+			{
+			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "OGRE", "value":1}}],
+			"foreground": "OGRE",
+			"text": "You approach the ogre, keeping quiet all the while, your footfalls barely louder than your heartbeat."}
+		]
+	},
+	{
+		"key": "OGRE-STEAL",
+		"scriptLines": [
+			{
+			"mutations": [{"saveType":"GOLD", "value":{"class": "java.lang.Integer", "value": 20}}],
+			"text": "As you get closer, you notice one of the jewels is substantially larger and expensive looking... and as you reach for it, feeling the ogre's breath exhaled from his nostrils nearly lifts you off your feet... you manage to pluck it from the pile without alerting him."},
+			{"text": "Satisfied that you've got the best of the situation, you hastily, but carefully, make your retreat, visions of gold flashing before your eyes."}
+		]
+	},
+	{
+		"key": "OGRE-WAKE",
+		"scriptLines": [
+			{"text": "As you get closer, you notice one of the jewels is substantially larger and expensive looking... and as you reach for it, feeling the ogre's breath exhaled from his nostrils nearly lifts you off your feet... you step back, onto a twig, snapping it."},
+			{"text": "The ogre's eyes open, and he clumsily gets to his feet... before hefting his massive club, ready to defend his hoard!"}
+		]
+	},
+	{
+		"key": "OGRE-WAKE2",
+		"scriptLines": [
+			{"text": "You fail to ambush the ogre - and he is not amused! He wakes, digs into the earth with his nails as he dregs up his club, and attacks!"}
+		]
+	},
+	{
+		"key": "OGRE-MARRY",
+		"scriptLines": [
+			{
+			"foreground": "OGRE_BANGED",
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":100, "creampies": 5, "analEjaculation": 5, "ogre":true}}],				
+			"text": "You follow the ogre back to his lair... where you spend the rest of your days."}
+		]
+	},
+	{
+		"key": "OGRE-HARDSELL",
+		"scriptLines": [
+			{"text": "You bend over to show the ogre your gaping asshole, but you're not sure why.  Before you can take it back, he inserts a massive digit, perhaps out of curiosity, and though you had been thoroughly stretched by his massive dong, feeling him root around in your distended, aching rectum makes you grit your teeth, hard."},
+			{"text": "As soon as he loses interest, you turn away, hiding your recently vacated hole from his view.  You may have an... unhealthy fixation with large creatures, but you're not stupid.  You come back to your senses."}
+		]
+	},
+	{
+		"key": "OGRE-FLIRT",
+		"scriptLines": [
+			{"text": "You mumble out a meek, \"hey, uh... call me?\" before your senses return.  The ogre doesn't seem to notice."}
+		]
+	},
+
+	{
+		"key": "OGRE-VICTORY",
+		"scriptLines": [
+			{
+			"mutations": [{"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": 5}}],
+			"text": "You won, somehow!  You gain 5 Experience."}
+		]
+	},
+	{
+		"key": "OGRE-VICTORY-GOLD",
+		"scriptLines": [
+			{
+			"mutations": [{"saveType":"GOLD", "value":{"class": "java.lang.Integer", "value": 50}}],
+			"text": "You gather the scattered gems in order to sell them."}
+		]
+	},
+	{
+		"key": "OGRE-DEFEAT",
+		"scriptLines": [
+			{"text": "You were defeated.  Duh."},
+			{"text": "The ogre lifts you up by your legs, and you squeal in surprise as you feel his thick tower threatening to impale you."},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1, "bellyful": 10, "ogre":true}}],				
+			"text": "Aided by gravity, the ogre's fat cockhead enters your ass!"},
+			{"text": "You are completely at his mercy - each inch up or down he controls by grasping your legs and dragging you like a doll across his towering mast."},
+			{
+			"sound": "CUM",
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analEjaculation":1, "creampies": 4}}],
+			"text": "He twitches, deep in your bowels, and it feels like a volcano erupting inside your guts - the ogre cum enema you never hoped to receive. The sound of it is enough to cause your ears to ring."},
+			{
+			"sound": "CUM_BUBBLING",
+			"text": "You lay there, finding it difficult to move, as the ogre's cum bubbles out of your gaped butthole."}
+		]
+	},
+	{
+		"key": "OGRE-SATISFIED",
+		"scriptLines": [
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analEjaculation":1, "ogre":true}}],
+			"text": "The ogre pulls you off of his massive cock, and his cum drools out of your utterly destroyed asshole in rivers, before he discards you on the ground."}
+		]
+	},
+	{
+		"key": "OGRE-GRABBED",
+		"scriptLines": [
+			{"text": "All at once, the ogre snaps you up in his massive fist! You are completely helpless in his grasp!"},
+			{
+			"foreground": "OGRE_BANGED",
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1, "bellyful": 2, "ogre":true}}],				
+			"text": "Aided by gravity, the ogre's fat cockhead smashes into your ass!"},
+			{"text": "You are completely at his mercy - each inch up or down he controls by grasping your legs and dragging you like a doll across his towering mast."},
+			{
+			"sound": "CUM",
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analEjaculation":1, "creampies": 4}}],
+			"text": "He twitches, deep in your bowels, and it feels like a volcano erupting your guts - the ogre cum enema you never hoped to receive. The sound of it is enough to cause your ears to ring."}
+			{
+			"sound": "CUM_BUBBLING",
+			"text": "You lay there, finding it difficult to move, as the ogre's cum bubbles out of your gaped butthole."}
+		]
+	},
+	{
+		"key": "OGRE-ENDURE",
+		"scriptLines": [
+			{
+			"foreground": "OGRE",
+			"text": "Despite the... rough encounter, you manage to get to your feet and leave before the ogre wakes from his nap."}
+		]
+	},
+	{
+		"key": "OGRE-SURPRISE",
+		"scriptLines": [
+			{"text": "You can't locate the source of the sound, even as it grows louder - while looking around, you're so distracted that you bumble into something."},
+			{"text": "Something... something large... and fleshy. You trace your gaze upwards... at an ogre."}
+		]
+	},
+	{
+		"key": "OGRE-BATTLE",
+		"scriptLines": [
+			{
+			"foreground": "OGRE",
+			"text": "You come across an ogre!  It attacks!"}
+		]
+	},
+	{
+		"key": "OGRE-PASSERBY",
+		"scriptLines": [
+			{"text": "By the time you return to the road, you collapse, exhausted."},
+			{"text": "A passing merchant stumbles upon you, and sees the ogre's handiwork."},
+			{"text": "\"Whew!  Look at that butthole.  You must shit pancakes, boy. Must've have had a pretty good time.\""},
+			{"text": "\"Actually, I was attacked. An ogre... had his way with me,\" you explain."},
+			{"text": "\"The wilds can be cruel to the unprepared, eh?\" he says, \"You can ride on my cart back to town.\""},
+			{"text": "You accept his offer, and put the ogre behind you... well, not literally."}
+		]
+	},
+]}

@@ -19,13 +19,13 @@ import com.majalis.scenes.ShopScene.Shop;
  */
 public class EncounterFactory {
 	
-	private final EncounterReader reader;
+	private final ObjectMap<String, EncounterReader> readers;
 	private final AssetManager assetManager;
 	private final SaveService saveService;
 	private final LoadService loadService;
 
-	public EncounterFactory(EncounterReader reader, AssetManager assetManager, SaveManager saveManager) {
-		this.reader = reader;
+	public EncounterFactory(ObjectMap<String, EncounterReader> readers, AssetManager assetManager, SaveManager saveManager) {
+		this.readers = readers;
 		this.assetManager = assetManager;
 		this.saveService = saveManager;
 		this.loadService = saveManager;
@@ -36,7 +36,7 @@ public class EncounterFactory {
 		IntArray sceneCode = loadService.loadDataValue(SaveEnum.SCENE_CODE, IntArray.class);
 		GameContext context = loadService.loadDataValue(SaveEnum.RETURN_CONTEXT, GameContext.class);
 		return new EncounterBuilder(
-			reader, assetManager, saveService, font, sceneCode, (ObjectMap<String, Shop>)loadService.loadDataValue(SaveEnum.SHOP, Shop.class), (PlayerCharacter) loadService.loadDataValue(SaveEnum.PLAYER, PlayerCharacter.class), context,
+			readers.get(encounterCode.getScriptPath()), assetManager, saveService, font, sceneCode, (ObjectMap<String, Shop>)loadService.loadDataValue(SaveEnum.SHOP, Shop.class), (PlayerCharacter) loadService.loadDataValue(SaveEnum.PLAYER, PlayerCharacter.class), context,
 			(GameMode) loadService.loadDataValue(SaveEnum.MODE, GameMode.class), (Array<MutationResult>) loadService.loadDataValue(SaveEnum.RESULT, Array.class)).getEncounter(encounterCode); 
 	}
 }

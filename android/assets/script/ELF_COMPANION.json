@@ -1,0 +1,12 @@
+{"script": [
+	{
+		"key": "ELF-COMPANION",
+		"scriptLines": [
+			{
+			"music": "GADGETEER_MUSIC",
+			"foreground": "ELF",
+			"mutations": [{"saveType":"HEALTH", "value":{"class": "java.lang.Integer", "value": 100}}, {"saveType":"TIME", "value":{"class": "java.lang.Integer", "value": 3}}],
+			"text": "You sit with Kylira for a while, enjoying each other's company.  They heal your wounds over time."}
+		]
+	},
+]}

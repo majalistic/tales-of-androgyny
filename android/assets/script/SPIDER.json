@@ -1,0 +1,377 @@
+{"script": [
+	
+	{
+		"key": "SPIDER-INTRO",
+		"scriptLines": [
+			{
+			"music": "WEREWOLF_MUSIC",
+			"text": "You approach ruins that look as old as the surrounding rocks - truly ancient and forgotten. The entrance is vine-covered, half-collapsed, and filled in-part by recent rainwaters. It seems as if the structure was built partially inside of natural caves, some of which have since crumbled."},  
+			{"text": "One glimpse at it tells you that you'll have to be on guard if you plan to go inside."}
+		]
+	},
+	{
+		"key": "SPIDER-ENTER",
+		"scriptLines": [
+			{
+			"mutations": [{"profileSaveType":"KNOWLEDGE", "value":{"class": "java.lang.String", "value": "Arachne"}}, {"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "SPIDER", "value":1}}],
+			"text": "Braving the entrance, you begin to carefully make your way through the ruins. It isn't long before you find yourself without a roof over your head again - although still walled in, with ancient trees growing within."},
+			{"text": "The forest has reclaimed much of the ruins, that which hadn't been initially claimed by the caves. You sense that the structure had some kind of religious significance - there doesn't appear to be many living quarters or furnishings, and instead there are daises and small shrines."},
+			{"text": "You do come across a small room behind a crumbling, rusted door."}
+		]
+	},
+	{
+		"key": "SPIDER-ROOM",
+		"scriptLines": [
+			{"text": "You enter the room which is filled with rubble, spiderwebs and little else.  A single half-destroyed statue of some long-forgotten goddess figure has taken on a sinister character, sprawling with webs, its torso askew from its base."}
+		]
+	},
+	{
+		"key": "SPIDER-FIND1",
+		"scriptLines": [
+			{"text": "Your keen eye spots a cache of something within the statue... and once you peer inside, you nearly recoil in revulsion. Inside the statue are... eggs."},
+			{
+			"mutations": [{"saveType":"GOLD", "value":{"class": "java.lang.Integer", "value": 30}}, {"saveType":"FOOD", "value":{"class": "java.lang.Integer", "value": 30}}],
+			"text": "Luckily, there are also some ancient coins, and you take them with you, along with some of the eggs, in case you get hungry and run out of fingers to eat."}
+		]
+	},
+	{
+		"key": "SPIDER-FIND1-FAIL",
+		"scriptLines": [
+			{"text": "You don't spot anything of worth, and leave the room as you found it."}
+		]
+	},
+	{
+		"key": "SPIDER-TRAP-APPROACH",
+		"scriptLines": [
+			{"text": "As you continue through the ruins, you find a narrow corridor that smells vaguely of a bath. You traverse it slowly, when suddenly, one of your footfalls lands lower than you expected."},
+			
+			{
+			"mutations": [{"saveType":"HEALTH", "value":{"class": "java.lang.Integer", "value": -5}}],
+			"text": "Your leg scrapes against the stone as the floor collapses beneath your feet!"}			
+		]
+	},
+	{
+		"key": "SPIDER-AVOID-TRAP",
+		"scriptLines": [
+			{"text": "You manage to leap free of the collapse, grabbing ahold of the edge created by the collapsing floor before hoisting yourself back up.  You shudder to wonder what would have happened had you not been so quick."}
+		]
+	},
+	{
+		"key": "SPIDER-FAIL-TRAP",
+		"scriptLines": [
+			{"text": "You slide down below the structure, and find yourself submerged in murky water, making it impossible to see.  You begin to frantically swim for the surface, unable to discern which way is up."}
+		]
+	},
+	{
+		"key": "SPIDER-ENDURE",
+		"scriptLines": [
+			{"text": "You manage to hold your breath long enough to find your way to the surface."}
+		]
+	},
+	{
+		"key": "SPIDER-PARTIAL-ENDURE",
+		"scriptLines": [
+			{
+			"mutations": [{"saveType":"HEALTH", "value":{"class": "java.lang.Integer", "value": -25}}],
+			"text": "By the time you reach the surface, your lungs feel like they're on fire.  You've taken on water, partially drowned, and you struggle to breathe even in the dry air while dragging yourself back onto solid ground."}
+		]
+	},
+	{
+		"key": "SPIDER-FAIL-ENDURE",
+		"scriptLines": [
+			{"mutations": [{"saveType":"HEALTH", "value":{"class": "java.lang.Integer", "value": -100}}],
+			"text": "Your lungs scream for air as you try to get to the surface... but you can't hold out.  You take on water, and begin to drown."}		
+		]
+	},
+	{
+		"key": "SPIDER-UNCONSCIOUS",
+		"scriptLines": [
+			{"text": "Unable to cope with the water filling your lungs, you fall unconscious."},
+			{"text": "..."},
+			{"text": ".."},
+			{"text": "."},
+			{"text": "You slowly drift back awake... and your sense of direction is still askew, as you feel like you're upside-down."},
+			{"text": "As you blink away your weariness, however, you realize that you are, in fact, upside-down, and your arms are bound at your sides. In fact, you can't move at all - you're completely encased in something, save your face."},	
+			{"text": "A figure slowly emerges from the darkness... and while at first she seems large, as the rest of her steps into the dim light, you see that her body is truly massive."},	
+			{"foreground": "SPIDER",
+			"text": "\"Caught by a spider... what a poor little insect you are,\" she says, her voice dripping with venom. She approaches you slowly, then kneels, a collosal spider-like abdomen following her.  She clasps your face in your longer, slender fingers."},
+			{"text": "Her face comes close to yours, and you smell a sweetness on her breath... and then, her lips press against yours, and you feel your manhood stirring within its silk confines. Her kiss takes your breath away."},
+			{"text": "Looking down her body as she steals your lips, you see some kind of bright red appendage between her legs, and your eyes go wide."},
+			{"text": "\"Mmm...\" she says, pulling her lips away from yours, \"where are your eyes wondering, my little fly?\""},
+			{"text": "She pulls a thread of webbing from her abdomen and traces it around your head, again and again, until you're unable to see around the makeshift blindfold, leaving only the lower half of your face uncovered by her sticky silk."},
+			{"text": "With her webbing covering your eyes, blinding you, your body breaks into a sweat."},	
+			{"text": "Again, you feel her lips against yours, and then feel her smirk grow on her face. Her slender hand traces along your face, gently, until she inserts her thumb into your mouth and wrenches it open."},	
+			{"text": "\"Open up.\" she says, as she pulls her hand away, and you can tell that she returns to her full height, now towering above your upside-down form."},	
+			{"text": "You can sense something... stirring.  Something hot and thick, curving downwards... towards your still-open mouth.  When you try to close it, you realize that her webbing is keeping it forced open."},	
+			{"text": "Though you can't see it, something presses against your face - something hard, with strange ridges, with a wetness at the tip.  There's an odd smell to it."},	
+			{"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "oralSex":1}}],
+			"text": "She flips that \"something\" between your lips - and it is indeed hard and unyielding and plated. Though you can't see it, the form is somewhat familiar - albeit covered in hard chitin and oddly shaped."},
+			{"text": "\"It's so rare that I have guests, so please, suck it. Suck it like a teat for mother's milk,\" she instructs, though with your hands bound and suspended as you are you have little choice but to swallow the strange spider appendage."},	
+			{"text": "Though her appearance was quite monstrous, her chitin-clad orbs still slap against your nose as said appendage bottoms out, curving upwards into your throat."},
+			{"text": "You gag around the strange object, but she doesn't hesitate to continue forcing it in your hapless face, even as your own saliva and her strange fluids begin to run down your forehead towards your hair and the ground below."},	
+			{"text": "Her talk of \"mother's milk\" wasn't idle chatter - mercifully, or mercilessly, depending on how you look at it, a foul fluid soon erupts from within her plated member, filling your throat."},	
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "oralCreampies":1}}],						
+			"text": "Your only comfort is that it doesn't taste like semen at all - although the flavor leaves much to be desired, and the consistency is unpalatable at best."},
+			{"text": "\"That should neutralize and fertilize. Perfect. Now, onto the main course...\""},
+			{"text": "You can tell that she's turned away from you, somewhat... but, nevertheless, she brings something to bear between your lips."},
+			{"text": "At first, you worry that the same alien appendage has returned, but this feels... different.  The tip is quite slender, and it's far longer."},
+			{"text": "It slowly sinks down your throat, all the way down, in fact, or up, depending on how you look at it.  Whatever it is, it is incredibly long, as you can tell she's not even close to you."},
+			{"text": "You can feel the tip in your stomach open up, like a blossoming flower, and your eyes roll into the back of your head as you gag."},
+			{"text": "Panic sets in.  What in heaven has she put down your throat?"},
+			{"text": "\"Mmmhmhm...\" you can hear her smugly laugh, a few paces away. \"I can sense your fear. It's... primal. Can you... sense my... desire, as well? It's what really matters, after all.\""},
+			{"text": "The thing inside your throat begins to move oddly.  Something is happening."},
+			{"text": "\"It's a reproductive desire. One far stronger than you would hope for,\" she says, and the the thing in your throat begins to sag somewhere between you and her... with weight?"},
+			{"text": "You wait a few more endless moments... and then the area between your lips begins to expand... and expand... and you realize, with horror, that something is trying to pass through the object lodged in your mouth and throat."},
+			{"text": "\"Are you hoping a hero will come to save you?  It would be the ideal moment, right now... before my dark plans for you come to fruition... unfortunately, no hero is coming. Something else is, however.\""},
+			{"text": "It passes between your lips, something larger than a fist, and quickly slides upwards towards your throat... immediately after, you can feel your throat bulging outwards as the large mass passing through her anatomy is forced through it.."},
+			{"text": "At last, it travels up to the very tip of her strange obstruction, which had opened up - and you feel something fall out of it, the very object that had just choked you as it slid down your gullet."},
+			{"text": "Your stomach is unsettled by the hard, round object."},
+			{"text": "\"The oldest and most eager to hatch. I'm so proud,\" she says, and the mention of the word hatch makes your pupils shrink to the size of pinpricks."},
+			{"text": "Something else passes between your lips, and again travels down your throat and into your stomach.  A second round object joins the first, settling in next to it, as a third once again obstructs your airway as she forces it down your gullet and up into your uncomprehending stomach."},	
+			{"text": "\"You won't be digesting these eggs. They're my precious babies, after all,\" she says, and your blood runs cold."},
+			{"text": "\"Eggs.\""},
+			{"text": "\"I suppose the question is 'how many spider eggs can an intruder swallow before they're a nursery'.  Let's find out together, shall we?\""},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "oralCreampies":2}}],						
+			"text": "Egg after egg is forced down your throat and into your stomach, where a clutch is rapidly forming.  Your fingers try desperately to catch at anything, but are constricted within her web."},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "oralCreampies":2}}],						
+			"text": "Soon, your gut is absolutely stuffed with eggs - your stomach violently gurgling around the hideous mass of well-wrapped spiderlings."},
+			{"text": "Her hands roam over your bulging, web-constricted abdomen, a dozen of her fertilized eggs shifting around inside as more of her babies join the clutch."},			
+			{"text": "\"You're a strong vessel for my babies, so I'll give you many.\""},
+			{"text": "After what feels like an eternity passes, the last of her eggs joins its many siblings - your abdomen is bloated and swollen with them."},
+			{"text": "Just as before, when she covered your eyes, she covers your mouth with her webbing, sealing it shut."},
+			{"text": "\"I won't take that webbing off until my babies begin to hatch.  And then... well, you know what they say... spiders in, spiders out.\""},
+			{"text": "You've never heard that expression before... but, with a sense of dread, you know that in the future, its significance will be unparalleled."}			
+		]
+	},
+	{
+		"key": "SPIDER-SIGIL",
+		"scriptLines": [
+			{"text": "Having avoided the danger thus far, you come upon a queer symbol etched into a wall.  Beside it are faded paintings of some sort of deific figures. The sigil hums like something naturally resonant with your presence."}
+		]
+	},
+	{
+		"key": "SPIDER-SIGIL-SUCCESS",
+		"scriptLines": [
+			{
+			"mutations": [{"saveType":"HEALTH", "value":{"class": "java.lang.Integer", "value": 60}}, {"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": 20}}],			
+			"text": "Touching the sigil, it awakens something in your spirit - or perhaps your spirit awakens it.  You feel full of vitality, and some ancient memories flood your mind."}
+		]
+	},
+	{
+		"key": "SPIDER-SIGIL-PARTIAL",
+		"scriptLines": [
+			{
+			"mutations": [{"saveType":"HEALTH", "value":{"class": "java.lang.Integer", "value": 20}}, {"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": 10}}],			
+			"text": "Touching the sigil, you feel a soft resonance.  Your body feels lighter, and your mind slightly clearer."}		
+		]
+	},
+	{
+		"key": "SPIDER-SIGIL-FAILURE",
+		"scriptLines": [
+			{"text": "You touch the sigil... and feel nothing but cold stone."}
+		]
+	},
+	{
+		"key": "SPIDER-BABY",
+		"scriptLines": [
+			{"text": "You come upon a cave connected to the ruins, and with some trepidation begin to explore it as well."},			
+			{"text": "Your exploration of the ruin has grown long, now, and you expect that soon you'll have to turn back and return another day to fully appreciate its vastness."},
+			{"text": "But then, you feel it - the worst possible feeling in the world.  A single thread of a spider's web."},
+			{"text": "You stumble about, flailing, as you try to dislodge the undoubtedly huge and venomous spider from your face, body, and hair.  You contract terminal heebie jeebies, and die."},
+			{"text": "Not really.  But as you tremble and shake, brushing off the remains of the web and searching for stowaways on your clothes, you fail to notice a much more imminent danger."},
+			{
+			"foreground": "TINY_SPIDER_LOW",
+			"text": "Wait, what's this?  Behind the text box?"},
+			{
+			"foreground": "TINY_SPIDER",
+			"text": "It's a spider!  A big fat spider."},
+			{"text": "Though the spider is the size of a melon, its round cuteness makes it impossible to take seriously as a threat."},
+			{"text": "Still, though, as it looks up at you with its many eyes, its pedipalps shifting slightly with curiosity, you feel the overwhelming urge to either pet it or crush it like a monster."}
+		]
+	},
+	{
+		"key": "SPIDER-AWARE",
+		"scriptLines": [
+			{
+			"foreground": "SPIDER",
+			"text": "You lift your foot to crush it, and sense a sudden murderous intent!  You spin to find a far larger spider...woman?!  She attacks!"}
+		]
+	},
+	{
+		"key": "SPIDER-AMBUSH",
+		"scriptLines": [
+			{
+			"mutations": [{"saveType":"HEALTH", "value":{"class": "java.lang.Integer", "value": -20}}],
+			"text": "You lift your foot to crush it... and an immense pain flashes up your back!  Something has attacked!"}
+		]
+	},
+	{
+		"key": "SPIDER-GET",
+		"scriptLines": [
+			{
+			"mutations": [{"saveType":"ITEM", "value":{"class": "com.majalis.character.Item$Potion", "effect": "SPIDER", "magnitude": "5"}}, {"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": 1}}],
+			"text": "You pick the spider up off the ground and stow it away in your pouch.  Um.  What are you doing?"},
+			{"text": "The spider is strangely content to become an inventory item.  Stranger things have happened."},
+			{"text": "While you're busy stuffing an arachnid in your pouch, someone approaches, and you notice them."},
+			{
+			"foreground": "SPIDER",
+			"text": "\"Mmm, boya, I'm afraid that's mine. If you're going to take my precious babies... you'll have to take responsibility.\""},
+			{"text": "Your blood runs cold as you notice her strange features... something about her reminds you of the spider now sitting contently in your pouch. Before you can make sense of it, she attacks!"}
+		]
+	},
+	{
+		"key": "SPIDER-IGNORE",
+		"scriptLines": [
+			{"text": "You disregard the baby spider - and notice a far larger problem emerge from the darkness."},
+			{
+			"foreground": "SPIDER",
+			"text": "\"Well, well,\" she says, revealing her many limbs and monstrous body, \"seems I won't have to go far to hunt today.\""}
+		]
+	},
+	{
+		"key": "SPIDER-FLEE-PASS",
+		"scriptLines": [
+			{
+			"foreground": "NULL",
+			"text": "You turn tail and run - and manage to outpace the horde of spiders that follow, emerging from unseen holes in the walls of the cave and ruins. Still, though, it's a long way to the entrance."}
+		]
+	},
+	{
+		"key": "SPIDER-FULL-FLEE",
+		"scriptLines": [
+			{"text": "Your wind manages to hold out, and you emerge from the crumbling entrance spider-free. You decide it's better if you don't go in there again."}
+		]
+	},
+	{
+		"key": "SPIDER-FLEE-FAIL",
+		"scriptLines": [
+			{"text": "You find yourself overtaken by spiders! There's no choice but to fight!"}
+		]
+	},
+	{
+		"key": "SPIDER-VICTORY",
+		"scriptLines": [
+			{
+			"foreground": "NULL",
+			"text": "Though you manage to bring her to her knees, she doesn't seem down for the count.  Worse, the many spiders revealing themselves could prove an insurmountable challenge.  You get out while the getting is good."},
+			{
+			"mutations": [{"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": 10}}, {"saveType":"ITEM", "value":{"class": "com.majalis.character.Item$Weapon", "type": "Gladius", "bonus": "2"}}],
+			"text": "Emerging victorious, you feel quite accomplished for the day. You managed to find a powerful weapon within the spider queen's lair."}
+		]
+	},
+	{
+		"key": "SPIDER-DEFEAT",
+		"scriptLines": [
+			{
+			"foreground": "SPIDER",
+			"text": "She stands tall; with her spider-like abdomen, she cuts a truly imposing figure."},
+			{"text": "\"Well, my little fly... it seems you've entered my realm of tragedy. How tragic.\""},
+			{"text": "You shake your head. You can sense her evil intent."},			
+			{"text": "\"I wasn't always like this... I was once a human, just like you... a priestess.  Now, I'm cursed,\" she says, and you see behind her smug expression a cold, long, simmering hatred."},
+			{"text": "You wince.  It's difficult to stand.  You're at her mercy now."},
+			{"text": "\"Fresh prey wandering into my domain... that is something I have to be thankful for.  It can be... difficult to sate myself.\""},
+			{"text": "She places a finger under your chin and forces you to look up at her face."},
+			{"text": "To reproduce, I need a mate, and a meal to devour.  I'll let you make that choice,\" she says, and you tremble in her grip."}			
+		]
+	},
+	{
+		"key": "SPIDER-LOVER",
+		"scriptLines": [
+			{"text": "Oh, poor foolish boy. I will make you my little doll... if that is your wish..."},
+			{"text": "She snaps her fingers, and spiders like the first emerge from every hole and crevice, swarming over you."},
+			{"text": "Blackness."},
+			{"text": "You awake in a damp cave... that is, quite strangely, furnished, including a bed with silk sheets, on which you now lay.  Spidersilk, that is."},
+			{"text": "Your clothing is... different. It's very light, similarly silky... and doesn't cover very much. Where it does, it drapes daintily... like a nightgown."},
+			{"text": "\"Evening, my little doll...\" You hear a voice from the darkness, and then, again, she emerges."},
+			{"text": "The bed creaks as she climbs onto it, her weight having a much greater bowing effect than yours."},
+			{"text": "Before you can even respond, she's forced you onto your hands and knees, and is quick to spin the web necessary to keep them in place."},
+			{"text": "After immobilizing your hands and feet, she flips up the girlish gown she's dressed you in, and spreads your cheeks, then peers at your pulsing hole."},
+			{"text": "\"Hmph... what an unfortunate little webhole.  It's not meant for such a large, harsh reproductive organ as mine, is it?\""},
+			{"text": "You had spotted it... a plated, big monstrosity jutting out between her thighs.  Your eyes go wide at the prospect."},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1}}],
+			"text": "She presses her chitinous appendage up to your 'webhole' and begins the difficult process of jamming it inside."},
+			{"text": "\"I'd forgotten how wonderful it could feel to emasculate a man anally with this cursed body of mine,\" she says, while emasculating you... anally. With her smooth, segmented, hard phallus."},
+			{"text": "She's really crammed in there... isn't much room for dignity."},
+			{"text": "Because of the way the chitinous plates scrape your anal mucosa and her rigid member holds open your anal rings, it's obvious that the longer you are red-faced and sweating while enduring her love-making, the more shaped for her monstrous spider dong your rectum will become."},
+			{"text": "You don't know if it's because of the curse or if she was naturally endowed with an unbustable nut, but the statuesque be-dicked lady pounding your pucker and prostate shows little sign of needing to release her sperm anytime soon."},
+			{"text": "The frequent tugging on your bowels from her plates shifting in and out of your spider-dick blasted hole makes it impossible to get bored, as does the general fact that a huge spider bitch is anally violating you with her exoskeleton-endowed extremity."},
+			{"text": "You struggle to break free of the webbing, but the bonds are too tight to break. In. Out. In. Out. Still too tight. In. Out. In. Out. The only thing loosening up is your plundered butthole."},			
+			{"text": "The unnatural mating comes with its own plosive sound as she pops her ridges out of your hole and then forces them back in."},
+			{"text": "You moan into the bed, your face partially obscured by webbing so only your one uncovered eye can be seen to roll up into your skull from the sheer pressure and pleasure of being reamed."},
+			{"text": "\"Mmm... don't be alarmed, but I have to lay down some bedding for my eggs.  It will contain my seed, so... prepare your heart.\""},	
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "creampies":2}}],
+			"text": "The plosive sound becomes wet as she deposits her thick, slimelike spermatazoa soup into your raw, aching bowels, now thoroughly moistened from her concluded anal mating."},
+			{"text": "She injects her venom into your upturned backside for long enough that you feel it pooling inside... and then all at once, she withdraws her thick, hard appendage."},	
+			{"text": "You have little time to relax, however - her plated penis is quickly replaced with a sharp stinger of some kind, one that she buries deeper in your back passage than she could previously reach."},	
+			{"text": "Moments later, the first of many spherical harbingers forces its way through her strange stinger, and therefore, through your rectal passage."},	
+			{"text": "You know, with some dread, what they are - eggs."},	
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "creampies":4}}],
+			"text": "She pumps egg after egg in your upturned butt, and your guts slowly fill with them, your intestines sagging under the weight, your bloated stomach hanging below you in an ovigerous and humiliating display."}	
+		]
+	},
+	{
+		"key": "SPIDER-BITE",
+		"scriptLines": [
+			{"text": "\"Oh?  Am I too hideous to become your mate?  Very well,\" she says, kneeling down beside you."},			
+			{"text": "Her fangs sink into your shoulder, and you feel a hot sensation spread throughout your body as her bite fills you with venom. You can feel it sinking deeper and deeper, even into your bones."},		
+			{"text": "\"Does it make your... bones hurt?\" she asks."},
+			{"text": "Oof ow ouch your bones."},
+			{"text": "(this is a reference to the popular and timeless \"bone hurting juice\" meme - please like, subscribe, reblog)"},
+			{"text": "\"It's my venom... it's quite slow to take effect, but don't worry, you'll be completely numb soon enough.  You won't feel pain as you... well, I won't spoil the surprise,\" she says, mischeviously."},
+			{"text": "She begins to wrap you up in webbing.  You feel too weak to move or speak."},
+			{"text": "\"Let's just say that... before being cursed, I was called a man-eater... quite ironic, don't you think?\" she says, licking her lips. \"What will you do to my girlish figure?\" she says, running her hands down her curvaceous body... aside from the massive spider abdomen."},
+			{"text": "Soon, your entire face is encased in webbing, and you can barely feel it as she continues to wrap the rest of your body."},			
+			{"text": "\"I'll save you for later,\" she says, before completely encasing you in webbing.  Your body quakes with mortal terror - it knows exactly what she's saving you for."},
+			{"text": "It's difficult to keep track of time... you don't feel any pain, but you feel your form... weakening.  You realize it's only a matter of time before she devours you... and you spend the rest of your time, rather than adventuring, but as her leavings in these gods-forsaken ruins."}
+		]
+	},
+	{
+		"key": "SPIDER-OVIPOSITION",
+		"scriptLines": [
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1}}],
+			"foreground": "SPIDER",
+			"text": "\"Too full of eggs, aren't you? Well, let's get you ready,\" she says, as you struggle to stand under the weight of the eggs filling your abdomen."},
+			{"text": "With your feet and hands bound by her webbing, and your stomach gurgling under the incredible strain of all those eggs filling your large intestines, you are red-faced from embarrassment and strain."},
+			{"text": "You lost track of how many she laid inside - probably quite a bit more than the grand total of monstrous spider legs laid in the rectums of the vast majority of other humans who have ever lived."},
+			{"text": "\"Once I've finished emasculating you with my eggs, brood mother, I'll seal up this hole of yours so that they'll stay in your womb until they're ready to make their grand debut,\" she says, as you feel another of her fat eggs pry open your sphincter and force its way inside."},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analEjaculation":1}}],
+			"text": "If being stuffed full of eggs weren't enough, you also ejaculate from the comfort of having the next one breach your anal defenses."},	
+
+			{"text": "Now that you've become a nursery for spider eggs, you find that it's not so bad after all.  I mean, that's not true, but you're not in a position to do anything about it, are you?"},
+			{"text": "You find this editorializing about spiders disturbing, so you close your eyes and stop reading the narration. Too bad. You are now full of spiders."},
+				
+			{"text": "\"That hole of yours really wants to release my eggs... we can't have that, can we?\""},
+			{"text": "She begins to pull thread from her spider abdomen, forming an air-tight web across your recently plundered rear entrance."},			
+			{"text": "Her webbing forms a full seal - making it impossible for you to release the many eggs she has filling your bowels."}
+		]
+	},
+	{
+		"key": "SPIDER-END",
+		"scriptLines": [
+			{"text": "\"Now that my eggs are implanted and fertilized... well, you're going to be a mommy, aren't you?\""},
+			{"text": "She's not wrong.  You spend the rest of your days birthing her spider brood and being dressed like a little girly doll - not the most triumphant of stories."}
+		]
+	},
+	{
+		"key": "SPIDER-NO-FERTILIZE",
+		"scriptLines": [
+			{"text": "\"Oh, how foolish of me.  I forgot to fertilize them,\" she says, brushing her hair out of her face. \"Well, I suppose that can be corrected,\" she demures."},
+			{"text": "You watch, slackjawed, as her chitinous phallus stirs to life, dripping a thick, green-colored liquid.  As her feet click on the stone, approaching you, her face falls into shadow."},
+			{"text": "\"Open wide, brood mother,\" she says, and soon thereafter, you taste the bitterness of defeat."}
+		]
+	},
+	{
+		"key": "SPIDER-REVISIT",
+		"scriptLines": [
+			{"text": "You return to the ruins, but it appears that the entrance has collapsed inwards.  Discouraged, you leave."}
+		]
+	},
+]}

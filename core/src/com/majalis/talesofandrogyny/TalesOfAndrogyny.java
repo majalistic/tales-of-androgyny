@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.math.RandomXS128;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.ObjectMap;
 import com.majalis.asset.AnimatedActor;
 import com.majalis.asset.AnimatedActorFactory;
 import com.majalis.asset.AnimatedActorLoader;
@@ -45,7 +46,12 @@ public class TalesOfAndrogyny extends Game {
 		}
 		
 		SaveManager saveManager = new SaveManager(false, ".toa-data/save.json", ".toa-data/profile.json");
-		EncounterReader encounterReader = new EncounterReader("script/encounters.json");
+		ObjectMap<String, EncounterReader> encounterReaders = new ObjectMap<String, EncounterReader>();
+		for (EncounterCode encounter : EncounterCode.values()) {
+			String path = encounter.getScriptPath();
+			EncounterReader reader = encounterReaders.get(path, new EncounterReader(path));
+			encounterReaders.put(path, reader);
+		}
 		AssetManager assetManager = new SafeAssetManager();
 		FileHandleResolver resolver = assetManager.getFileHandleResolver();
 		assetManager.setLoader(AnimatedActorFactory.class, new AnimatedActorLoader(resolver));
@@ -63,7 +69,7 @@ public class TalesOfAndrogyny extends Game {
                 super.draw(texture, spriteVertices, offset, count);
             }
         };
-		init(new ScreenFactoryImpl(this, assetManager, saveManager, new GameWorldFactory(saveManager, assetManager, random), new EncounterFactory(encounterReader, assetManager, saveManager), new BattleFactory(saveManager, assetManager), batch, fontGenerator));
+		init(new ScreenFactoryImpl(this, assetManager, saveManager, new GameWorldFactory(saveManager, assetManager, random), new EncounterFactory(encounterReaders, assetManager, saveManager), new BattleFactory(saveManager, assetManager), batch, fontGenerator));
 	}
 	/*
 	 * Takes a factory implementation and uses it to generate a screen and switch to it

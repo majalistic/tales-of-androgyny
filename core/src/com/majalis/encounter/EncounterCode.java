@@ -14,6 +14,7 @@ public enum EncounterCode {
 	DEFAULT, 
 	ERROR, 
 	INITIAL, 
+	
 	WERESLUT, 
 	HARPY (MOUNTAIN_ACTIVE), 
 	SLIME,
@@ -31,6 +32,8 @@ public enum EncounterCode {
 	ELF,
 	ELF_COMPANION, 
 	GOLEM,
+	GHOST, 
+	
 	FORT (CASTLE), 
 	TOWN (AssetEnum.TOWN),
 	TOWN2 (AssetEnum.TOWN),
@@ -69,7 +72,6 @@ public enum EncounterCode {
 	STORY_SIGN (FOREST_INACTIVE), 
 	SOUTH_PASS (MOUNTAIN_ACTIVE), 
 	WEST_PASS (MOUNTAIN_ACTIVE), 
-	GHOST, 
 	;
 	
 	private final AssetEnum texture;	
@@ -497,5 +499,15 @@ public enum EncounterCode {
 			case ANAL_TRAP: return new EncounterBounty(this);
 			default: return null;
 		}
+	}
+	
+	public String getScriptPath() {
+		return "script/" + (this.isStory() ? "encounters" : this.toString()) + ".json"; 
+	}
+	
+	private boolean isStory() {
+		return this == COTTAGE_TRAINER || this == COTTAGE_TRAINER_VISIT || this == TOWN_STORY || this == FIRST_BATTLE_STORY || this == MERI_COTTAGE || this == MERI_COTTAGE_VISIT || this == OGRE_WARNING_STORY || this == OGRE_STORY || this == ECCENTRIC_MERCHANT
+				|| this == STORY_FEM || this == STORY_SIGN || this == SOUTH_PASS || this == WEST_PASS || this == DEFAULT || this == ERROR || this == INITIAL || this == FORT || this == TOWN || this == TOWN2 || this == BANK || this == BROTHEL || this == TOWN_CRIER
+				|| this == CRIER_QUEST || this == INN || this == SHOP || this == WEAPON_SHOP || this == STARVATION || this == CAMP_AND_EAT || this == LEVEL_UP || this == FORAGE;
 	}
 }

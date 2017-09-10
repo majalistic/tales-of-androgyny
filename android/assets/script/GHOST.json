@@ -1,0 +1,46 @@
+{"script": [
+	{
+		"key": "GHOST-DAY",
+		"scriptLines": [
+			{
+			"music": "SPOOKY_MUSIC",
+			"foreground": "GHOST",
+			"text": "You spot in the distance a woman dressed in a bridal gown.  Her beauty is captured in a beam of sunlight, shining from behind a dark and foreboding cloud."}
+		]
+	},
+	
+	
+	{
+		"key": "GHOST-NIGHT",
+		"scriptLines": [
+			{
+			"music": "HORROR_MUSIC",
+			"text": "....."},
+			{"text": "...."}
+		]
+	},
+	{
+		"key": "GHOST-BLOODY",
+		"scriptLines": [
+			{
+			"foreground": "GHOST_SPOOKY"
+			"text": ""}
+		]
+	},
+	{
+		"key": "GHOST-BLOODLESS",
+		"scriptLines": [
+			{
+			"foreground": "GHOST_SPOOKY_BLOODLESS"
+			"text": ""}
+		]
+	},
+	{
+		"key": "GHOST-NIGHT-CONT",
+		"scriptLines": [
+			{"text": "..."},
+			{"text": ".."},
+			{"text": "."}
+		]
+	},
+]}
