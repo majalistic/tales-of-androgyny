@@ -139,6 +139,7 @@ public enum AssetEnum {
 	SMALL_DONG_0("arousal/Small0.png"),
 	SMALL_DONG_1("arousal/Small1.png"),
 	SMALL_DONG_2("arousal/Small2.png"),
+	SMALL_DONG_CHASTITY("arousal/SmallChastity.png"),
 	
 	LARGE_DONG_0("arousal/Human0.png"),
 	LARGE_DONG_1("arousal/Human1.png"),

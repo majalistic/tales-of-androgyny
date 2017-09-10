@@ -847,7 +847,7 @@ public abstract class AbstractCharacter extends Actor {
  	}
 	
 	public AssetDescriptor<Texture> getLustImagePath() {
-		if (isChastitied()) return phallus.getPhallusState(0);
+		if (isChastitied()) return phallus.getPhallusState(3);
 		int lustLevel = lust > 7 ? 2 : lust > 3 ? 1 : 0;
 		return phallus.getPhallusState(lustLevel);
 	}
@@ -951,7 +951,7 @@ public abstract class AbstractCharacter extends Actor {
 	}
 	
 	protected enum PhallusType {
-		SMALL(AssetEnum.SMALL_DONG_0, AssetEnum.SMALL_DONG_1, AssetEnum.SMALL_DONG_2),
+		SMALL(AssetEnum.SMALL_DONG_0, AssetEnum.SMALL_DONG_1, AssetEnum.SMALL_DONG_2, AssetEnum.SMALL_DONG_CHASTITY),
 		NORMAL(AssetEnum.LARGE_DONG_0, AssetEnum.LARGE_DONG_1, AssetEnum.LARGE_DONG_2),
 		MONSTER(AssetEnum.MONSTER_DONG_0, AssetEnum.MONSTER_DONG_1, AssetEnum.MONSTER_DONG_2);
 		private final Array<AssetEnum> phallusStates;
