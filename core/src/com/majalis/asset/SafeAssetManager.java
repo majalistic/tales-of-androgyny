@@ -13,6 +13,7 @@ public class SafeAssetManager extends AssetManager {
 			temp = super.get(fileName, type);
 		}
 		catch (Exception ex) {
+			System.out.println("Did not properly load asset in advance: " + fileName);
 			load(fileName, type);
 			finishLoading();
 			temp = super.get(fileName, type);
@@ -29,7 +30,8 @@ public class SafeAssetManager extends AssetManager {
 			temp = super.get(fileName, type);
 		}
 		catch (Exception ex) {
-			load(fileName, type, assetDescriptor.params);
+			System.out.println("Did not properly load asset in advance: " + fileName);
+			load(fileName, type, assetDescriptor.params); 
 			finishLoading();
 			temp = super.get(fileName, type);
 		}
