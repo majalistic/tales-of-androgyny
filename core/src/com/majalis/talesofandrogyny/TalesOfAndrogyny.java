@@ -49,7 +49,8 @@ public class TalesOfAndrogyny extends Game {
 		ObjectMap<String, EncounterReader> encounterReaders = new ObjectMap<String, EncounterReader>();
 		for (EncounterCode encounter : EncounterCode.values()) {
 			String path = encounter.getScriptPath();
-			EncounterReader reader = encounterReaders.get(path, new EncounterReader(path));
+			EncounterReader reader = encounterReaders.get(path);
+			if (reader == null) reader = new EncounterReader(path);
 			encounterReaders.put(path, reader);
 		}
 		AssetManager assetManager = new SafeAssetManager();
