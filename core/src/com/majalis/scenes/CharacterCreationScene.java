@@ -39,12 +39,12 @@ public class CharacterCreationScene extends Scene {
 	private int statPoints;
 	private final Label statPointDisplay;
 	
-	public CharacterCreationScene(OrderedMap<Integer, Scene> sceneBranches, int sceneCode, final SaveService saveService, Background background, AssetManager assetManager, final PlayerCharacter character, final boolean story) {
+	public CharacterCreationScene(OrderedMap<Integer, Scene> sceneBranches, int sceneCode, final SaveService saveService, Background background, final AssetManager assetManager, final PlayerCharacter character, final boolean story) {
 		super(sceneBranches, sceneCode);
 		this.saveService = saveService;
 		this.addActor(background);
 		
-		Skin skin = assetManager.get(AssetEnum.UI_SKIN.getSkin());
+		final Skin skin = assetManager.get(AssetEnum.UI_SKIN.getSkin());
 		final Sound buttonSound = assetManager.get(AssetEnum.BUTTON_SOUND.getSound());
 		final Texture baubleEmpty = assetManager.get(AssetEnum.CREATION_BAUBLE_EMPTY.getTexture());
 		final Texture baubleOld = assetManager.get(AssetEnum.CREATION_BAUBLE_OLD.getTexture());
