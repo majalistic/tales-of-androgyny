@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -36,166 +37,47 @@ public class CharacterCreationScene extends Scene {
 	private ObjectMap<Stat, Integer> statMap;
 	private TextButton enchanterButton;
 	private int statPoints;
+	private final Label statPointDisplay;
 	
 	public CharacterCreationScene(OrderedMap<Integer, Scene> sceneBranches, int sceneCode, final SaveService saveService, Background background, AssetManager assetManager, final PlayerCharacter character, final boolean story) {
 		super(sceneBranches, sceneCode);
 		this.saveService = saveService;
 		this.addActor(background);
-
-		statPoints = story ? 1 : 3;
-		statMap = resetObjectMap();
 		
 		Skin skin = assetManager.get(AssetEnum.UI_SKIN.getSkin());
 		final Sound buttonSound = assetManager.get(AssetEnum.BUTTON_SOUND.getSound());
+		final Texture baubleEmpty = assetManager.get(AssetEnum.CREATION_BAUBLE_EMPTY.getTexture());
+		final Texture baubleOld = assetManager.get(AssetEnum.CREATION_BAUBLE_OLD.getTexture());
+		final Texture baubleNew = assetManager.get(AssetEnum.CREATION_BAUBLE_NEW.getTexture());
+		final Texture baubleReady = assetManager.get(AssetEnum.CREATION_BAUBLE_REMOVED.getTexture());
 		
 		final TextButton done = new TextButton("Done", skin);
 		
-		done.addListener(
-			new ClickListener() {
-				@Override
-		        public void clicked(InputEvent event, float x, float y) {
-					buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
-					nextScene();		   
-		        }
-			}
-		);
+		done.addListener(new ClickListener() { @Override public void clicked(InputEvent event, float x, float y) { 
+			buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f); nextScene();		   
+		}});
 		done.setPosition(1552, 10);
 
-		final Label statPointDisplay = new Label(String.valueOf(statPoints), skin);
-		statPointDisplay.setColor(Color.FOREST);
-		statPointDisplay.setPosition(1313, 882);
+		int statX = 665;
+		int statY = 170;
+
+		statPointDisplay = initLabel(String.valueOf(statPoints), skin, Color.FOREST, 1313, 882, Align.left);		
+		final Label classMessage = initLabel("", skin, Color.BLACK, 1700, 200, Align.top);
+		final Label statMessage = initLabel("", skin, Color.RED, statX, statY, Align.left, true, 750);
+		final Label statDescription = initLabel("", skin, Color.FOREST, statX, statY, Align.left, true, 750);
+		final Label classSelection = initLabel("", skin, Color.GOLD, 1715, 965, Align.center);
 		
-		final Label classMessage = new Label("", skin);
-		classMessage.setColor(Color.BLACK);
-		classMessage.setPosition(1700, 200);
-		classMessage.setAlignment(Align.top);
-		final Label statMessage = new Label("", skin);
-		statMessage.setWrap(true);
-		statMessage.setWidth(750);
-		statMessage.setColor(Color.RED);
-		final Label statDescription = new Label("", skin);
-		statDescription.setWrap(true);
-		statDescription.setWidth(750);
-		statDescription.setColor(Color.FOREST);
-		statMessage.setPosition(665, 170);
-		statDescription.setPosition(665, 170);
-		final Label classSelection = new Label("", skin);
-		classSelection.setColor(Color.GOLD);
-		classSelection.setPosition(1715, 965);
-		classSelection.setAlignment(Align.center);
-		this.addActor(classMessage);
-		this.addActor(statMessage);
-		this.addActor(statDescription);
-		this.addActor(statPointDisplay);
-		this.addActor(classSelection);
+		resetStatPoints(story);
+		statMap = resetObjectMap();
 		
 		final Table statTable = new Table();
-		
-		final ObjectMap<Stat, Label> statToLabel = new ObjectMap<Stat, Label>();
-		for (final Stat stat: Stat.values()) {
-			Image statImage = new Image(assetManager.get(stat.getAsset()));
-			final Label statLabel = new Label("", skin);
-			statToLabel.put(stat, statLabel);
-			int amount = character.getBaseStat(stat);
-			setFontColor(statLabel, amount);
-			setStatText(stat, character, statLabel);
-		
-			statImage.addListener(new ClickListener() {
-				@Override
-		        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-					statDescription.setText(stat.getDescription());
-					statDescription.addAction(Actions.show());
-					statMessage.addAction(Actions.hide());
-				}
-				@Override
-		        public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
-					statDescription.addAction(Actions.hide());
-					statMessage.addAction(Actions.show());
-				}
-			});
-			
-			TextButton buttonUp = new TextButton("+", skin);
-			TextButton buttonDown = new TextButton("-", skin);
-			buttonUp.addListener(new ClickListener() {
-				@Override
-		        public void clicked(InputEvent event, float x, float y) {
-					buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
-					
-					int currentStatAllocation = statMap.get(stat);
-					if (statPoints > 0 && (currentStatAllocation < 1 || (currentStatAllocation < 2 && noStatsAtMax()))) {
-						character.setStat(stat, character.getBaseStat(stat)+1);
-						saveService.saveDataValue(SaveEnum.PLAYER, character);
-						statPoints--;
-						statPointDisplay.setText(String.valueOf(statPoints));
-						statMap.put(stat, currentStatAllocation+1);
-						if (statPoints <= 0) {
-							addActor(done);
-						}
-						setFontColor(statLabel, character.getBaseStat(stat));
-						setStatText(stat, character, statLabel);
-						statMessage.addAction(Actions.hide());
-						statMessage.setText("");
-					}
-					else {
-						if (statPoints <= 0) {
-							statMessage.setText("You are out of stat points to allocate!");
-							
-						}
-						else if (currentStatAllocation < 2) {
-							statMessage.setText("Only one stat may be\ntwo points above its base score!");
-						}
-						else {
-							statMessage.setText("Your " + stat.toString() + " is at maximum!\nIt cannot be raised any more.");
-							
-						}
-						statMessage.addAction(Actions.show());
-					}
-		        }
-			});
-			buttonDown.addListener(new ClickListener() {
-				@Override
-		        public void clicked(InputEvent event, float x, float y) {
-					buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
-					int currentStatAllocation = statMap.get(stat);
-					if (currentStatAllocation > 0 || (currentStatAllocation > -1 && statsAtNegative() < 2)) {
-						character.setStat(stat, character.getBaseStat(stat)-1);
-						saveService.saveDataValue(SaveEnum.PLAYER, character);
-						if (statPoints == 0) {
-							removeActor(done);
-						}
-						statPoints++;	
-						statPointDisplay.setText(String.valueOf(statPoints));
-						statMap.put(stat, currentStatAllocation - 1);
-						setFontColor(statLabel, character.getBaseStat(stat));
-						setStatText(stat, character, statLabel);
-						statMessage.addAction(Actions.hide());
-						statMessage.setText("");
-					}
-					else {
-						if (currentStatAllocation <= (story ? 0 : -1)) {
-							statMessage.setText("Your " + stat.toString() + " is at minimum!\nIt cannot be lowered.");
-						}
-						else {
-							statMessage.setText("You can only lower two stats below their base scores.");
-						}
-						statMessage.addAction(Actions.show());
-					}
-		        }
-			});
-			int bottomPad = 33;
-			statTable.add(buttonDown).size(45, 50).padBottom(bottomPad).align(Align.left);
-			statTable.add(buttonUp).size(45, 50).padBottom(bottomPad).padRight(5).align(Align.left);
-			statTable.add(statImage).size(statImage.getWidth() / (statImage.getHeight() / 35), 35).padBottom(bottomPad).padRight(5).align(Align.left);
-			statTable.add(statLabel).padBottom(bottomPad).align(Align.left).row();
-		}
 		statTable.align(Align.topLeft);
-		statTable.setPosition(790, 855);
+		statTable.setPosition(750, 865);
 		
 		Table table = new Table();
-
 		table.setPosition(412, 450);
 		this.addActor(table);	
-
+		
 		TextButtonStyle buttonStyle = new TextButtonStyle(new TextureRegionDrawable(new TextureRegion(assetManager.get(AssetEnum.CREATION_BUTTON_UP.getTexture()))),  new TextureRegionDrawable(new TextureRegion(assetManager.get(AssetEnum.CREATION_BUTTON_DOWN.getTexture()))),  new TextureRegionDrawable(new TextureRegion(assetManager.get(AssetEnum.CREATION_BUTTON_CHECKED.getTexture()))), skin.getFont("default-font"));
 		buttonStyle.fontColor = Color.BLACK;
 		
@@ -228,14 +110,9 @@ public class CharacterCreationScene extends Scene {
 						if (statPoints == 0) {
 							removeActor(done);
 						}
-						statPoints = story ? 1 : 3;
-						statPointDisplay.setText(String.valueOf(statPoints));
+						resetStatPoints(story);
 						statMap = resetObjectMap();
-						for (Stat stat: Stat.values()) {
-							Label statLabel = statToLabel.get(stat);
-							setFontColor(statLabel, character.getBaseStat(stat));
-							setStatText(stat, character, statLabel);
-						}
+						initStatTable(statTable, assetManager, skin, buttonSound, done, character, statDescription, statMessage, baubleOld, baubleNew, baubleReady, baubleEmpty);
 						addActor(statTable);
 			        }
 				});
@@ -245,10 +122,165 @@ public class CharacterCreationScene extends Scene {
 				enchanterButton = button;
 			}
 		}
-		
+		// this needs to be moved to a better place
 		if (story) {
 			character.setBaseDefense(2);
 		}
+	}
+	
+	private void initStatTable(final Table statTable, final AssetManager assetManager, final Skin skin, final Sound buttonSound, final TextButton done, final PlayerCharacter character, final Label statDescription, final Label statMessage, 
+			final Texture baubleOld, final Texture baubleNew, final Texture baubleReady, final Texture baubleEmpty) {
+		statTable.clear();
+		final ObjectMap<Stat, Label> statToLabel = new ObjectMap<Stat, Label>();
+		for (final Stat stat: Stat.values()) {
+			Image statImage = new Image(assetManager.get(stat.getAsset()));
+			statImage.addListener(getStatListener(stat, statDescription, statMessage));
+			
+			final Label statLabel = new Label("", skin);
+			statToLabel.put(stat, statLabel);
+			int amount = character.getBaseStat(stat);
+			setStatAppearance(statLabel, amount, stat, character);
+
+			int bottomPad = 20;
+			statTable.add(statImage).size(statImage.getWidth() / (statImage.getHeight() / 35), 35).padBottom(bottomPad).padRight(3).align(Align.left);
+			
+			int currentStatAllocation = statMap.get(stat);
+			
+			int size = 30;		
+			int numberOfBaubles = 0;
+			for ( ; numberOfBaubles < amount - Math.max(0, currentStatAllocation + (noStatAtNegative() ? 1 : 0)); numberOfBaubles++) {
+				final int difference = amount - numberOfBaubles;
+				statTable.add(getBauble(baubleOld, new ClickListener(){
+					@Override
+			        public void clicked(InputEvent event, float x, float y) {
+						buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
+						for (int ii = 0; ii < difference; ii++) {
+							decreaseStat(stat, character, statMessage, statLabel, done);
+						}
+						if (difference > 0) initStatTable(statTable, assetManager, skin, buttonSound, done, character, statDescription, statMessage, baubleOld, baubleNew, baubleReady, baubleEmpty);
+			        }
+				})).size(size, size).padBottom(bottomPad).align(Align.left);
+			}
+
+			for ( ; numberOfBaubles < amount; numberOfBaubles++) {
+				final int difference = amount - numberOfBaubles;
+				statTable.add(getBauble(baubleNew, new ClickListener(){
+					@Override
+			        public void clicked(InputEvent event, float x, float y) {
+						buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
+						for (int ii = 0; ii < difference; ii++) {
+							decreaseStat(stat, character, statMessage, statLabel, done);
+						}
+						if (difference > 0) initStatTable(statTable, assetManager, skin, buttonSound, done, character, statDescription, statMessage, baubleOld, baubleNew, baubleReady, baubleEmpty);
+			        }
+				})).size(size, size).padBottom(bottomPad).align(Align.left);
+			}
+			
+			for ( ; numberOfBaubles < amount + Math.min(statPoints, (noStatAtMax() ? 2 : 1) - currentStatAllocation); numberOfBaubles++) {
+				final int difference = 1 + numberOfBaubles - amount;
+				statTable.add(getBauble(baubleReady, new ClickListener(){
+					@Override
+			        public void clicked(InputEvent event, float x, float y) {
+						buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
+						for (int ii = 0; ii < difference; ii++) {
+							increaseStat(stat, character, statMessage, statLabel, done);
+						}
+						if (difference > 0) initStatTable(statTable, assetManager, skin, buttonSound, done, character, statDescription, statMessage, baubleOld, baubleNew, baubleReady, baubleEmpty);
+			        }
+				})).size(size, size).padBottom(bottomPad).align(Align.left);
+			}
+			
+			for ( ; numberOfBaubles < 10; numberOfBaubles++) {
+				final int difference = 1 + numberOfBaubles - amount;
+				statTable.add(getBauble(baubleEmpty, new ClickListener(){
+					@Override
+			        public void clicked(InputEvent event, float x, float y) {
+						buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
+						for (int ii = 0; ii < difference; ii++) {
+							increaseStat(stat, character, statMessage, statLabel, done);
+						}
+						if (difference > 0) initStatTable(statTable, assetManager, skin, buttonSound, done, character, statDescription, statMessage, baubleOld, baubleNew, baubleReady, baubleEmpty);
+			        }
+				})).size(size, size).padBottom(bottomPad).align(Align.left);
+			}
+			Table fooTable = new Table();
+			Label statAmount = new Label(String.valueOf(amount), skin);
+			setFontColor(statAmount, amount);
+			
+			fooTable.add(statAmount).padBottom(-15).row();
+			fooTable.add(statLabel);
+			
+			statTable.add(fooTable).padLeft(15).padBottom(bottomPad).minWidth(150).align(Align.right).row();
+		}
+	}
+	
+	private Image getBauble(Texture baubleTexture, ClickListener listener) {
+		Image newBauble = new Image(baubleTexture);
+		newBauble.addListener(listener);
+		return newBauble;
+	}
+	
+	private void setStatPoints(int newTotal) {
+		statPoints = newTotal;
+		statPointDisplay.setText(String.valueOf(statPoints));
+	}
+	
+	private void resetStatPoints(boolean story) {
+		setStatPoints(story ? 1 : 4);
+	}
+	
+	private void increaseStat(final Stat stat, final PlayerCharacter character, final Label statMessage, final Label statLabel, final TextButton done) {
+		int currentStatAllocation = statMap.get(stat);
+		if (statPoints > 0 && (currentStatAllocation < 1 || (currentStatAllocation < 2 && noStatAtMax()))) {
+			setStatPoints(statPoints - 1);
+			if (statPoints <= 0) {
+				this.addActor(done);
+			}
+			setStat(stat, 1, currentStatAllocation, character, statMessage, statLabel);			
+		}
+		else {
+			if (statPoints <= 0) {
+				statMessage.setText("You are out of stat points to allocate!");
+				
+			}
+			else if (currentStatAllocation < 2) {
+				statMessage.setText("Only one stat may be two points above its base score!");
+			}
+			else {
+				statMessage.setText("Your " + stat.toString() + " is at maximum! It cannot be raised any more.");
+				
+			}
+			statMessage.addAction(Actions.show());
+		}
+	}
+	
+	private void decreaseStat(final Stat stat, final PlayerCharacter character, final Label statMessage, final Label statLabel, final TextButton done) {
+		int currentStatAllocation = statMap.get(stat);
+		if (currentStatAllocation > 0 || (currentStatAllocation > -1 && noStatAtNegative())) {
+			if (statPoints == 0) {
+				removeActor(done);
+			}
+			setStatPoints(statPoints + 1);
+			setStat(stat, -1, currentStatAllocation, character, statMessage, statLabel);
+		}
+		else {
+			if (currentStatAllocation <= -1) {
+				statMessage.setText("Your " + stat.toString() + " is at minimum! It cannot be lowered.");
+			}
+			else {
+				statMessage.setText("You can only lower one stat below its base score.");
+			}
+			statMessage.addAction(Actions.show());
+		}
+	}	
+	
+	private void setStat(final Stat stat, final int modStat, final int currentStatAllocation, final PlayerCharacter character, final Label statMessage, final Label statLabel) {
+		character.setStat(stat, character.getBaseStat(stat) + modStat);
+		saveService.saveDataValue(SaveEnum.PLAYER, character);
+		statMap.put(stat, currentStatAllocation + modStat);
+		setStatAppearance(statLabel, character.getBaseStat(stat), stat, character);
+		statMessage.addAction(Actions.hide());
+		statMessage.setText("");
 	}
 
 	private ObjectMap<Stat, Integer> resetObjectMap() {
@@ -259,7 +291,7 @@ public class CharacterCreationScene extends Scene {
 		return tempMap;
 	}
 	
-	private boolean noStatsAtMax() {
+	private boolean noStatAtMax() {
 		for (Integer value: statMap.values()) {
 			if (value >= 2) {
 				return false;
@@ -268,14 +300,13 @@ public class CharacterCreationScene extends Scene {
 		return true;
 	}
 	
-	private int statsAtNegative() {
-		int count = 0;
+	private boolean noStatAtNegative() {
 		for (Integer value: statMap.values()) {
 			if (value < 0) {
-				count++;
+				return false;
 			}
 		}
-		return count;
+		return true;
 	}
 
 	private String getClassFeatures(SaveManager.JobClass jobClass) {
@@ -288,6 +319,12 @@ public class CharacterCreationScene extends Scene {
 			case ENCHANTRESS: return "+1 Perk point.\n";
 			default: return "";
 		}
+	}
+	
+	private void setStatAppearance(Label font, int amount, Stat stat, PlayerCharacter character) {
+		//setFontColor(font, amount);
+		font.setColor(Color.BLACK);
+		setStatText(stat, character, font);
 	}
 	
 	private void setFontColor(Label font, int amount) {
@@ -309,8 +346,39 @@ public class CharacterCreationScene extends Scene {
 	
 	private void setStatText(Stat stat, PlayerCharacter character, Label label) {
 		int amount = character.getBaseStat(stat);
-		label.setText(amount + " ("+String.valueOf(statMap.get(stat))+")" + " - " + PlayerCharacter.getStatMap().get(stat).get(amount));
+		label.setText(PlayerCharacter.getStatMap().get(stat).get(amount));
 	}
+	
+	//statMap.get(stat) - this tells you the difference from base
+	
+	private Label initLabel(String text, Skin skin, Color color, int x, int y, int alignment) { return initLabel(text, skin, color, x, y, alignment, false, 0); }
+	private Label initLabel(String text, Skin skin, Color color, int x, int y, int alignment, boolean wrap, int width) {
+		Label newLabel = new Label(text, skin);
+		newLabel.setColor(color);
+		newLabel.setPosition(x, y);
+		newLabel.setAlignment(alignment);
+		newLabel.setWrap(wrap);
+		if (wrap) newLabel.setWidth(width);
+		this.addActor(newLabel);
+		return newLabel;
+	}
+	
+	private ClickListener getStatListener(final Stat stat, final Label statDescription, final Label statMessage) {
+		return new ClickListener() {
+			@Override
+	        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
+				statDescription.setText(stat.getDescription());
+				statDescription.addAction(Actions.show());
+				statMessage.addAction(Actions.hide());
+			}
+			@Override
+	        public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
+				statDescription.addAction(Actions.hide());
+				statMessage.addAction(Actions.show());
+			}
+		};
+	}
+	
 	
 	@Override
 	public void setActive() {

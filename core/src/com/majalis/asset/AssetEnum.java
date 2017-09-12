@@ -43,6 +43,10 @@ public enum AssetEnum {
 	CREATION_BUTTON_UP("creation/ButtonUp.png"),
 	CREATION_BUTTON_DOWN("creation/ButtonDown.png"),
 	CREATION_BUTTON_CHECKED("creation/ButtonChecked.png"),
+	CREATION_BAUBLE_EMPTY("creation/EmptyBauble.png"),
+	CREATION_BAUBLE_NEW("creation/GoldBauble.png"),
+	CREATION_BAUBLE_OLD("creation/GreenBauble.png"),
+	CREATION_BAUBLE_REMOVED("creation/RemovedBauble.png"),
 	
 	WORLD_MAP_UI("worldmap/CharacterInfo.png"),
 	WORLD_MAP_HOVER("worldmap/HoverBox.png"),
