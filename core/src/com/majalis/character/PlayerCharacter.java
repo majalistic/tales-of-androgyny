@@ -178,6 +178,7 @@ public class PlayerCharacter extends AbstractCharacter {
 		skills.remove(ALL_OUT_BLITZ.toString());
 		skills.remove(HOLD_BACK.toString());
 		perks.remove(Perk.WEAK_TO_ANAL.toString());
+		cage = null;
 		weapon = null;
 		switch (jobClass) { 
 			case WARRIOR: skillPoints = 3; skills.put(BLITZ_ATTACK.toString(), 1); skills.put(ALL_OUT_BLITZ.toString(), 1); skills.put(HOLD_BACK.toString(), 1); perks.put(Perk.WEAK_TO_ANAL.toString(), 1); break;
