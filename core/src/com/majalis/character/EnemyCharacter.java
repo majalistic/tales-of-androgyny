@@ -865,7 +865,14 @@ public class EnemyCharacter extends AbstractCharacter {
 		if (currentAnimationsPlaying.size == 0 || (enemyType == EnemyEnum.CENTAUR && stance == Stance.DOGGY) || (enemyType == EnemyEnum.BRIGAND && (stance == Stance.FELLATIO || stance == Stance.FACEFUCK || stance == Stance.ANAL))) {
 			Array<Texture> textureCandidates = textures.get(stance, defaultTextures);
 			if (textureCandidates == null) return;
-			Texture texture = textureCandidates.get(textureCandidates.size == 1 ? 0 : currentFrame);
+			Texture texture;
+			if (currentFrame < textureCandidates.size) {
+				if (textureCandidates.size > 0) texture = textureCandidates.get(0);
+				else return;
+			}
+			else {
+				texture = textureCandidates.get(currentFrame);
+			}
 
 			if (texture == null) return;
 			
