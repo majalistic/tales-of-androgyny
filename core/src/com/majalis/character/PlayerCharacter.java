@@ -388,16 +388,16 @@ public class PlayerCharacter extends AbstractCharacter {
 					possibles.addAll(getTechniques(PIN));
 				}
 				if (target.getStance() == Stance.GROUND_WRESTLE_FACE_UP) {
-					if (grappleStatus == GrappleStatus.HOLD) {
-						return getTechniques(PENETRATE_MISSIONARY);
+					if (grappleStatus == GrappleStatus.HOLD && isErect()) {
+						possibles.addAll(getTechniques(PENETRATE_MISSIONARY));
 					}
 					else if (hasGrappleAdvantage()) {
 						possibles.addAll(getTechniques(FLIP_PRONE, RELEASE_SUPINE));
 					}
 				}
 				else if (target.getStance() == Stance.GROUND_WRESTLE_FACE_DOWN) {
-					if (grappleStatus == GrappleStatus.HOLD) {
-						return getTechniques(PENETRATE_PRONE);
+					if (grappleStatus == GrappleStatus.HOLD && isErect()) {
+						possibles.addAll(getTechniques(PENETRATE_PRONE));
 					}
 					else if (hasGrappleAdvantage()) {
 						possibles.addAll(getTechniques(FLIP_SUPINE, RELEASE_PRONE));
