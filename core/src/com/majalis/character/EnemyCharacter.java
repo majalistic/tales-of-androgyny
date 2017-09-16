@@ -866,7 +866,7 @@ public class EnemyCharacter extends AbstractCharacter {
 			Array<Texture> textureCandidates = textures.get(stance, defaultTextures);
 			if (textureCandidates == null) return;
 			Texture texture;
-			if (currentFrame < textureCandidates.size) {
+			if (currentFrame >= textureCandidates.size) {
 				if (textureCandidates.size > 0) texture = textureCandidates.get(0);
 				else return;
 			}
