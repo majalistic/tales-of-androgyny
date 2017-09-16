@@ -1287,6 +1287,7 @@
 			{"text": "You see small inlets lining a mountain face, a sheer drop down to the valley below, and you wonder if they're naturally made or somehow carved out, seeing how regular they are. In most, if not all of them, is a bundle of straw and twigs - likely brought by the harpies from miles away, much like yourself."},
 			{"text": "You are dropped in one such nest, and the harpy works quickly to dispel any notion that she intends to consume you, and, simultaneously, to consummate your marriage."},
 			{
+			"foreground": "HARPY_ANAL",
 			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1}}],
 			"text": "It isn't long before you are pantsless, red-faced, and anally penetrated - any hope that the harpy's covered dick wasn't hard for you is dashed along with the cock-emptiness of your rectum."},
 			{"text": "It sits heavily in there, throbbing and fat, as you acclimate to her avian mating ritual."},

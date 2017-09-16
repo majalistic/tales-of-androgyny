@@ -247,6 +247,7 @@ public enum EncounterCode {
 			case HARPY:
 				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{ 
 					AssetEnum.HARPY_FELLATIO_1.getTexture(),
+					AssetEnum.HARPY_ANAL.getTexture(),
 					AssetEnum.CUM.getSound(),
 					AssetEnum.HARPY_ANIMATION.getAnimation()
 				});
