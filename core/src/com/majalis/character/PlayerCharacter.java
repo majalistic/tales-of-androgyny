@@ -1014,6 +1014,8 @@ public class PlayerCharacter extends AbstractCharacter {
 	
 	private Array<MutationResult> receiveAnal() {
 		String result = receivedAnal == 0 ? "You are no longer a virgin! " : "";
+		result += isPlugged() ? plug.getName() + " removed!" : "";
+		plug = null;
 		receivedAnal++;
 		boolean weakToAnal = perks.get(Perk.WEAK_TO_ANAL.toString(), 0) > 0;
 		result += incrementPerk(receivedAnal, Perk.ANAL_LOVER, weakToAnal ? 5 : 10, weakToAnal ? 3 : 6, weakToAnal ? 1 : 3);
