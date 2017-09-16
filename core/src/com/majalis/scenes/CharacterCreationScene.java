@@ -16,6 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
+import com.badlogic.gdx.scenes.scene2d.ui.Widget;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
@@ -190,7 +191,7 @@ public class CharacterCreationScene extends Scene {
 				})).size(size, size).padBottom(bottomPad).align(Align.left);
 			}
 			
-			for ( ; numberOfBaubles < 10; numberOfBaubles++) {
+			for ( ; numberOfBaubles < 10; numberOfBaubles++) {/*
 				final int difference = 1 + numberOfBaubles - amount;
 				statTable.add(getBauble(baubleEmpty, new ClickListener(){
 					@Override
@@ -202,6 +203,8 @@ public class CharacterCreationScene extends Scene {
 						if (difference > 0) initStatTable(statTable, assetManager, skin, buttonSound, done, character, statDescription, statMessage, baubleOld, baubleNew, baubleReady, baubleEmpty);
 			        }
 				})).size(size, size).padBottom(bottomPad).align(Align.left);
+				*/
+				statTable.add(new Widget()).size(size, size).padBottom(bottomPad).align(Align.left);
 			}
 			Table fooTable = new Table();
 			Label statAmount = new Label(String.valueOf(amount), skin);
