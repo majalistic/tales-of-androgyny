@@ -26,6 +26,7 @@ import com.majalis.character.Item.EffectType;
 import com.majalis.character.Item.Misc;
 import com.majalis.character.Item.MiscType;
 import com.majalis.character.Item.Plug;
+import com.majalis.character.Item.ChastityCage;
 import com.majalis.character.Item.Potion;
 import com.majalis.character.Item.Weapon;
 import com.majalis.character.Item.WeaponType;
@@ -228,6 +229,7 @@ public class ShopScene extends Scene {
 				shop.items.add(new Potion(3, EffectType.BONUS_ENDURANCE));
 				shop.items.add(new Potion(3, EffectType.BONUS_ENDURANCE));
 				shop.items.add(new Plug());
+				shop.items.add(new ChastityCage());
 				break;
 		}
 		if (shopCode == ShopCode.SHOP) {

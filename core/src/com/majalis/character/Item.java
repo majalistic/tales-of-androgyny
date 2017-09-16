@@ -110,7 +110,7 @@ public abstract class Item {
 	}
 	
 	public static class ChastityCage extends Item {
-		ChastityCage() {}
+		public ChastityCage() {}
 
 		@Override
 		public int getValue() {
