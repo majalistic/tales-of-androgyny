@@ -191,29 +191,17 @@ public class CharacterCreationScene extends Scene {
 				})).size(size, size).padBottom(bottomPad).align(Align.left);
 			}
 			
-			for ( ; numberOfBaubles < 10; numberOfBaubles++) {/*
-				final int difference = 1 + numberOfBaubles - amount;
-				statTable.add(getBauble(baubleEmpty, new ClickListener(){
-					@Override
-			        public void clicked(InputEvent event, float x, float y) {
-						buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
-						for (int ii = 0; ii < difference; ii++) {
-							increaseStat(stat, character, statMessage, statLabel, done);
-						}
-						if (difference > 0) initStatTable(statTable, assetManager, skin, buttonSound, done, character, statDescription, statMessage, baubleOld, baubleNew, baubleReady, baubleEmpty);
-			        }
-				})).size(size, size).padBottom(bottomPad).align(Align.left);
-				*/
+			for ( ; numberOfBaubles < 10; numberOfBaubles++) {
 				statTable.add(new Widget()).size(size, size).padBottom(bottomPad).align(Align.left);
 			}
-			Table fooTable = new Table();
+			Table statReadout = new Table();
 			Label statAmount = new Label(String.valueOf(amount), skin);
 			setFontColor(statAmount, amount);
 			
-			fooTable.add(statAmount).padBottom(-15).row();
-			fooTable.add(statLabel);
+			statReadout.add(statAmount).padBottom(-15).row();
+			statReadout.add(statLabel);
 			
-			statTable.add(fooTable).padLeft(15).padBottom(bottomPad).minWidth(150).align(Align.right).row();
+			statTable.add(statReadout).padLeft(15).padBottom(bottomPad).minWidth(150).align(Align.right).row();
 		}
 	}
 	
