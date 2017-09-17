@@ -1537,6 +1537,17 @@
 			{"text": "You stare at her in awe - if her preferences in regards to hips and bust are any indication, she has no problems exaggerating the human form.  Sure enough, the slimy bulge is nearly as thick as a fist and as long as elbow to wrist, and it's still forming and hardening."},
 			{"text": "\"I assume that's where you want it. On me, that is. I know where you want it in the more... personal sense. I've had my slime in similar places before, after all,\" she says, putting the finishing touches on her slimy phallus-like protrusion. \"Now... turn around, love.\""},
 			{"text": "You turn, and are quickly shoved forward by a wall of slime - but rather than falling face first into the dirt, you fall face-first into a pile of goo that catches you quite gently. Unfortunately, Tea doesn't have much more gentleness in mind."},
+		]
+	},
+	{
+		"key": "SLIME-BUTTPLUG",
+		"scriptLines": [
+			{"text": "She spots the flared end of the plug, and you feel her slime pressing up against your backside, and then, suddenly, a strong suction - with ease, the plug is pulled out as she takes it into herself."}			
+		]
+	},
+	{
+		"key": "SLIME-LOVEDART-CONT",
+		"scriptLines": [			
 			{"text": "\"Mmm, yes... there it is. That's where you like to feel good, isn't it, you little pervert? Not that I mind. Now, I'm coming inside... so start fantasizing..."},		
 			{
 			"foreground": "SLIME_DOGGY",
@@ -1590,6 +1601,18 @@
 			{"text": "You land on the ground as she begins to uncinch her plate, then she offers you her boots, and insists that you pull them off. That being done, she bends down to pull off her trousers, revealing a lack of undergarments and a big fat schlong, then goes to work on your clothing, pulling your underwear off while you wriggle in the dirt."},
 			{"text": "\"I like fucking in the ass while face to face, so I can see all the slutty faces yer making,\" she explains, \"although, admittedly, there are usually fewer little pricks that might squirt on me in that configuration\", she says, flicking your quickly hardening penis."},
 			{"text": "The casual contact makes you start to shiver... although you're primarily fixated on her rather busty figure. You wonder how she manages to fight with a pair that large... but as your eyes track downwards, there's another pretty large pair that holds your attention."},
+		]
+	},
+	{
+		"key": "BRIGAND-BUTTPLUG",
+		"scriptLines": [
+			{"text": "She notices the plug, then fixes you with a smug, knowing look. \"See you were prepared for this,\" she says, reaching downwards to grasp it, firmly."},
+			{"text": "She twists it without tugging on it, then gently tugs on it, clearly teasing you.  You feel her tugging get more and more insistent, without her really putting any strength behind it, and then, as her own cock jerks upwards with anticipation, she yanks it out."}
+		]
+	},
+	{
+		"key": "BRIGAND-ACCEPT-CONT",
+		"scriptLines": [	
 			{"text": "She spits on her fingers and rubs the moisture on your hole none too delicately. She does that again, and then a third time, and then positions the fat head of her cock right against your hole, and your heart stops beating. \"Is this for me? Don't mind if I do...\" she says, and you feel the insistent pressure starting to build."},
 			{
 			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1}}],
@@ -1718,10 +1741,19 @@
 		]
 	},
 	{
+		"key": "BRIGAND-FOILED-BACKSTAB",
+		"scriptLines": [
+			{
+			"text": "Your lack of awareness costs you.  Your pants drop - something must have pulled them down!  Your unseen foe works quickly - and, unfortunately for you, their intentions are anything but benign."},
+			{"text": "You feel something prod the plug in your rear hole, and your body tenses up.  As you struggle, something fleshy presses up against your cheek, wet at the tip."},
+			{"text": "You're grabbed from behind, so you can't pull away.  A woman's gruff voice finds its way into your ear.  \"Parried my cock, have ya? En garde!\" she says."}
+		]
+	},	
+	{
 		"key": "BRIGAND-BACKSTAB",
 		"scriptLines": [
 			{
-			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1}}, {"saveType":"HEALTH", "value":{"class": "java.lang.Integer", "value": -5}}],
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1}}],
 			"text": "Your lack of awareness costs you.  Your pants drop - something must have pulled them down!  Your unseen foe works quickly - and, unfortunately for you, their intentions are anything but benign."},
 			{"text": "Your breath is caught in your throat as you feel something fat worm its way inside of you, taking the path of great resistance - you've been penetrated, anally.  What is no doubt an erect, spit-slick phallus is poking into your guts, putting a crushing pressure on your insides, and you hear a female, if throaty, voice speak."},
 			{"text": "\"Phew.  It's my lucky day - that's some tight ass-pussy. You really need to pay more attention, boyo.  Just a warning for the future\", she says, gripping onto your shoulders, and though you can't see her face, you know she's smug about it."},
@@ -1909,6 +1941,12 @@
 			{"text": "\"Human.  You are trespassing on centaur lands. Leave now and we will bring you no harm.  Or fight me - and earn your place at our campfire,\" she says, and it's clear those are your only two options... that is, until you spy something dangling between her legs. It's not aroused, but..."}
 		]
 	},
+	{
+		"key": "CENTAUR-BUTTPLUG",
+		"scriptLines": [
+			{"text": "You reach under your skirt and pull out the plug, knowing it'll just get in the way of what's about to go up there."}
+		]
+	},	
 	{
 		"key": "CENTAUR-CATAMITE",
 		"scriptLines": [
@@ -2358,11 +2396,23 @@
 			{"text": "\"Go ahead, try and bite it!  Let's see what human teeth can do to a mean goblin girl's dick!\""},
 			{"text": "You try to bite it, but to no avail - the skin is too thick.  She reacts by giggling, and then slipping it out of your face, where gravity takes hold of it and it bends downwards, covered in spit."},
 			{"text": "\"Now it's nice and slick - and it's going right up your butt!  Nyahaha!\""},
-			{"text": "She leapfrogs over you, then spins around, thwapping it against your butt as she turns.  She grabs a cheek with each nubby thumb, spreads your hole, and presses her baton up against your starfish."},
+			{"text": "She leapfrogs over you, then spins around, thwapping it against your butt as she turns."}
+		]
+	},
+	{
+		"key": "GOBLIN-BUTTPLUG",
+		"scriptLines": [
+			{"text": "She pulls your buttplug out without warning, and tosses it over her shoulder."}
+		]
+	},
+	{
+		"key": "GOBLIN-ANAL-CONT",
+		"scriptLines": [		
+			{"text": "She grabs a cheek with each nubby thumb, spreads your hole, and presses her baton up against your starfish."},
 			{
 			"foreground": "GOBLIN_ANAL",
 			"mutations": [{"saveType":"GOBLIN_VIRGIN", "value":{"class": "java.lang.Boolean", "value": false}}],
-			"text": "Lubricated by your phlegm, she manages to go from un-penetrated to, gut stirring, rectum-basting, hip tapping in less than a second - causing your eyes to roll to the back of your head and your face to lose all color.  You can feel the painful stretching between your ears, and as she starts to thrust immediately after, you start to whine pathetically."},
+			"text": "Lubricated by your phlegm, she manages to go from un-penetrated to gut stirring, rectum-basting, hip tapping in less than a second - causing your eyes to roll to the back of your head and your face to lose all color.  You can feel the painful stretching between your ears, and as she starts to thrust immediately after, you start to whine pathetically."},
 			{"text": "\"Nyahah!  Pretty tight!\" she says, ignoring your voiceless gasps.  \"Surprised ya, didn't I?!  Sorry human, gobbo boys like rough sex - though they like it less when they're getting it!\""},
 			{"text": "The sudden penetration makes your insides cramp, and your voice leaves you."},
 			{"text": "\"What's the matter?  Your hole is cramping up all funny!  Come on, this is what it's for!\" she says, proving her point about the nature of your asshole with her warty goblin dick."},
@@ -2509,11 +2559,17 @@
 		]
 	},
 	{
+		"key": "GOBLIN-MALE-BUTTPLUG",
+		"scriptLines": [
+			{"text": "Immediately, he pulls your buttplug out and tosses it over his shoulder."}
+		]
+	},
+	{
 		"key": "GOBLIN-MALE-DEFEAT",
 		"scriptLines": [
 			{
 			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "oralSex":1}}],
-			"text": "\"Gyahaha!\" you hear, and the jangling of bells as the goblin comes closer, and as you open your mouth to protest, you taste goblin - badly."
+			"text": "\"Gyahaha!\" you hear, and the jangling of bells as the goblin walks around you, and as you open your mouth to protest, you taste goblin - badly."
 			},
 			{"text": "The warty goblin cock fills your mouth and slams into your tonsils at high speed, and you gag - not for the last time."},
 			{"text": "\"Gyahaha! Which end of a human is up?  Gobbo boys can't tell!\" he says, and you can't tell if he's being serious.  Sure enough, after a few pumps of goblin sausage into your mouth, he pops it out, clambers over your back, and swings his hips around..."},

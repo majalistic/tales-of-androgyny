@@ -1013,8 +1013,8 @@ public class PlayerCharacter extends AbstractCharacter {
 	}
 	
 	private Array<MutationResult> receiveAnal() {
-		String result = receivedAnal == 0 ? "You are no longer a virgin! " : "";
-		result += isPlugged() ? plug.getName() + " removed!" : "";
+		String result = receivedAnal == 0 ? "You are no longer a virgin!\n" : "";
+		result += isPlugged() ? plug.getName() + " removed! " : "";
 		plug = null;
 		receivedAnal++;
 		boolean weakToAnal = perks.get(Perk.WEAK_TO_ANAL.toString(), 0) > 0;
@@ -1409,6 +1409,12 @@ public class PlayerCharacter extends AbstractCharacter {
 
 	public Plug getPlug() {
 		return plug;
+	}
+	
+	@Override
+	public String setPlug(Item plug, boolean newItem) {
+		if (receivedAnal == 0) receivedAnal++;
+		return super.setPlug(plug, newItem);
 	}
 	
 	public ChastityCage getCage() {

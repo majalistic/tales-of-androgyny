@@ -242,7 +242,11 @@ public class CheckScene extends AbstractTextScene {
 		DAY ("", "") { 
 			@Override
 			protected boolean getCheck(PlayerCharacter character) { return character.isDayTime(); }  
-		}
+		}, 
+		PLUGGED ("", "") { 
+			@Override
+			protected boolean getCheck(PlayerCharacter character) { return character.isPlugged(); }  
+		},
 		;
 		
 		private final String success;

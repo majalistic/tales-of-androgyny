@@ -161,6 +161,15 @@ public class EncounterBuilder {
 				).getEncounter();
 			case BRIGAND:
 				Branch[] battleBranches2 = new Branch[]{new Branch(Outcome.VICTORY).textScene("BRIGAND-VICTORY").encounterEnd(), new Branch(Outcome.DEFEAT).textScene("BRIGAND-DEFEAT").encounterEnd(), new Branch(Outcome.SATISFIED).textScene("BRIGAND-SATISFIED").encounterEnd()};
+				Branch acceptCont = new Branch().textScene("BRIGAND-ACCEPT-CONT").choiceScene(
+					"Tell her to pull out?",
+					new Branch("Say Nothing").textScene("BRIGAND-CATCH").encounterEnd(),
+					new Branch("Ask her").textScene("BRIGAND-REQUEST").checkScene(
+						Stat.CHARISMA,
+						new Branch(4).textScene("BRIGAND-FACIAL").encounterEnd(),
+						new Branch(0).textScene("BRIGAND-BADTASTE").encounterEnd()
+					)
+				);
 				Branch brigandSpotted = new Branch(6).textScene("BRIGAND-SPOT").choiceScene(
 					"How do you handle the brigand?",
 					new Branch("Charge").battleScene(
@@ -173,15 +182,7 @@ public class EncounterBuilder {
 					),
 					new Branch("Speak").textScene("BRIGAND-HAIL").choiceScene(
 						"Accept her offer?",
-						new Branch("Accept (Requires: Catamite)").require(ChoiceCheckType.LEWD).textScene("BRIGAND-ACCEPT").choiceScene(
-							"Tell her to pull out?",
-							new Branch("Say Nothing").textScene("BRIGAND-CATCH").encounterEnd(),
-							new Branch("Ask her").textScene("BRIGAND-REQUEST").checkScene(
-								Stat.CHARISMA,
-								new Branch(4).textScene("BRIGAND-FACIAL").encounterEnd(),
-								new Branch(0).textScene("BRIGAND-BADTASTE").encounterEnd()
-							)
-						),
+						new Branch("Accept (Requires: Catamite)").require(ChoiceCheckType.LEWD).checkScene(CheckType.PLUGGED, new Branch(true).textScene("BRIGAND-BUTTPLUG").concat(acceptCont), new Branch(false).concat(acceptCont)),
 						new Branch("Decline").textScene("BRIGAND-DECLINE").checkScene(
 							Stat.CHARISMA,
 							new Branch(5).textScene("BRIGAND-CONVINCE").encounterEnd(),
@@ -202,9 +203,15 @@ public class EncounterBuilder {
 							BattleCode.BRIGAND, 
 							battleBranches2
 						),
-						new Branch(0).textScene("BRIGAND-BACKSTAB").battleScene(
-							BattleCode.BRIGAND, Stance.STANDING_BOTTOM, Stance.STANDING,
-							battleBranches2	
+						new Branch(0).checkScene(CheckType.PLUGGED, 
+							new Branch(true).textScene("BRIGAND-BACKSTAB-FOILED").battleScene(
+								BattleCode.BRIGAND, Stance.FULL_NELSON_BOTTOM, Stance.FULL_NELSON,
+								battleBranches2	
+							), 
+							new Branch(false).textScene("BRIGAND-BACKSTAB").battleScene(
+								BattleCode.BRIGAND, Stance.STANDING_BOTTOM, Stance.STANDING,
+								battleBranches2	
+							)
 						)
 					)
 				).getEncounter();
@@ -231,7 +238,11 @@ public class EncounterBuilder {
 				return new Branch().textScene("FORCED-CAMP").encounterEnd().getEncounter();
 			case CENTAUR:
 				Branch[] centaurBattle = new Branch[]{new Branch(Outcome.VICTORY).textScene("CENTAUR-VICTORY").encounterEnd(), new Branch(Outcome.DEFEAT).textScene("CENTAUR-DEFEAT").gameEnd(), new Branch(Outcome.SATISFIED).textScene("CENTAUR-SATISFIED").encounterEnd()};
-				Branch[] unicornBattle = new Branch[]{new Branch(Outcome.VICTORY).textScene("UNICORN-VICTORY").encounterEnd(), new Branch(Outcome.DEFEAT).textScene("UNICORN-DEFEAT").encounterEnd()};
+				Branch[] unicornBattle = new Branch[]{new Branch(Outcome.VICTORY).textScene("UNICORN-VICTORY").encounterEnd(), new Branch(Outcome.DEFEAT).textScene("UNICORN-DEFEAT")};
+				Branch centaurCatamite = new Branch().textScene("CENTAUR-CATAMITE").battleScene(
+					BattleCode.CENTAUR, Stance.DOGGY_BOTTOM, Stance.DOGGY,
+					centaurBattle
+				);
 				return new Branch().textScene("CENTAUR-INTRO").checkScene(
 					CheckType.VIRGIN, 
 					new Branch(true).textScene("UNICORN-ENTRANCE").battleScene(
@@ -240,10 +251,7 @@ public class EncounterBuilder {
 					),
 					new Branch(false).textScene("CENTAUR-ENTRANCE").checkScene(
 						Perk.ANAL_LOVER,
-						new Branch(3).textScene("CENTAUR-CATAMITE").battleScene(
-							BattleCode.CENTAUR, Stance.DOGGY_BOTTOM, Stance.DOGGY,
-							centaurBattle
-						),
+						new Branch(3).checkScene(CheckType.PLUGGED, new Branch(true).textScene("CENTAUR-BUTTPLUG").concat(centaurCatamite), new Branch(false).concat(centaurCatamite)),
 						new Branch(0).choiceScene(
 							"Fight the centaur?",
 							new Branch("Fight Her").battleScene(
@@ -251,10 +259,7 @@ public class EncounterBuilder {
 								centaurBattle
 							),
 							new Branch("Decline").encounterEnd(),
-							new Branch("Ask For It").require(ChoiceCheckType.LEWD).textScene("CENTAUR-CATAMITE").battleScene(
-								BattleCode.CENTAUR, Stance.DOGGY_BOTTOM, Stance.DOGGY,
-								centaurBattle
-							)
+							new Branch("Ask For It").require(ChoiceCheckType.LEWD).checkScene(CheckType.PLUGGED, new Branch(true).textScene("CENTAUR-BUTTPLUG").concat(centaurCatamite), new Branch (false).concat(centaurCatamite))
 						)
 					)
 				).getEncounter();
@@ -424,22 +429,24 @@ public class EncounterBuilder {
 					new Branch(true).textScene("GHOST-DAY"), 
 					new Branch(false).textScene("GHOST-NIGHT").textScene(Gdx.app.getPreferences("tales-of-androgyny-preferences").getBoolean("blood", true) ? "GHOST-BLOODY" : "GHOST-BLOODLESS").textScene("GHOST-NIGHT-CONT")).getEncounter();				
 			case GOBLIN:
+				Branch analCont = new Branch().textScene("GOBLIN-ANAL-CONT").checkScene(
+					Stat.ENDURANCE, 
+					new Branch(3).textScene("GOBLIN-FIGHTOFF").encounterEnd(),
+					new Branch(0).textScene("GOBLIN-SECONDS").checkScene(
+						Stat.ENDURANCE,
+						new Branch(2).textScene("GOBLIN-FIGHTOFF").encounterEnd(),
+						new Branch(0).textScene("GOBLIN-THIRDS").checkScene(
+							Stat.ENDURANCE, 
+							new Branch(1).textScene("GOBLIN-FIGHTOFF").encounterEnd(),
+							new Branch(0).textScene("GOBLIN-FOURTHS").encounterEnd()
+						)
+					)
+				);
+				
 				Branch postVirginityCheck = new Branch().choiceScene(
 					"Mouth, or ass?",
 					new Branch("In the Mouth").textScene("GOBLIN-MOUTH").encounterEnd(),
-					new Branch("Up The Ass").textScene("GOBLIN-ANAL").checkScene(
-						Stat.ENDURANCE, 
-						new Branch(3).textScene("GOBLIN-FIGHTOFF").encounterEnd(),
-						new Branch(0).textScene("GOBLIN-SECONDS").checkScene(
-							Stat.ENDURANCE,
-							new Branch(2).textScene("GOBLIN-FIGHTOFF").encounterEnd(),
-							new Branch(0).textScene("GOBLIN-THIRDS").checkScene(
-								Stat.ENDURANCE, 
-								new Branch(1).textScene("GOBLIN-FIGHTOFF").encounterEnd(),
-								new Branch(0).textScene("GOBLIN-FOURTHS").encounterEnd()
-							)
-						)
-					)
+					new Branch("Up The Ass").textScene("GOBLIN-ANAL").checkScene(CheckType.PLUGGED, new Branch(true).textScene("GOBLIN-BUTTPLUG").concat(analCont), new Branch(false).concat(analCont))
 				);
 				Branch[] battleScenes = new Branch[]{
 					new Branch(Outcome.VICTORY).textScene("GOBLIN-VICTORY").encounterEnd(), 
@@ -500,7 +507,7 @@ public class EncounterBuilder {
 					),
 					new Branch("Nothing").concat(pantsCutDown)
 				);
-				
+				Branch maleDefeatCont = new Branch().textScene("GOBLIN-MALE-DEFEAT").gameEnd();
 				Branch[] goblinStrength = new Branch[]{new Branch(5).textScene("GOBLIN-SPEAR-STEAL").concat(cutPants),
 						new Branch(0).textScene("GOBLIN-SPEAR-DROP").concat(cutPants)};
 				Branch[] goblinSpear = new Branch[]{
@@ -551,7 +558,7 @@ public class EncounterBuilder {
 						new Branch("Other way").textScene("GOBLIN-MALE-INTRO").battleScene(
 							BattleCode.GOBLIN_MALE,
 							new Branch(Outcome.VICTORY).textScene("GOBLIN-MALE-VICTORY").encounterEnd(),
-							new Branch(Outcome.DEFEAT).textScene("GOBLIN-MALE-DEFEAT").gameEnd()
+							new Branch(Outcome.DEFEAT).checkScene(CheckType.PLUGGED, new Branch(true).textScene("GOBLIN-MALE-BUTTPLUG").concat(maleDefeatCont), new Branch(false).concat(maleDefeatCont))
 						)
 					)
 				).getEncounter();
@@ -819,6 +826,7 @@ public class EncounterBuilder {
 			case SHOP:
 				return new Branch().textScene("TOWN-SHOP").shopScene(ShopCode.SHOP).encounterEnd().getEncounter();
 			case SLIME:
+				Branch loveDartCont = new Branch().textScene("SLIME-LOVEDART-CONT");
 				return new Branch().textScene("SLIME-INTRO").choiceScene(
 					"What do you do with the slime?",
 					new Branch("Fight Her").battleScene(
@@ -844,8 +852,8 @@ public class EncounterBuilder {
 					),
 					new Branch("Smooch Her").textScene("SLIME-APPROACH").choiceScene(
 						"Do you enter the slime, or...?",
-						new Branch("Go In (Requires: Free cock)").require(ChoiceCheckType.FREE_COCK).textScene("SLIME-ENTER").encounterEnd(),
-						new Branch("Love Dart (Requires: Catamite)").require(ChoiceCheckType.LEWD).textScene("SLIME-LOVEDART").encounterEnd(),
+						new Branch("Go In (Requires: Free cock)").require(ChoiceCheckType.FREE_COCK).textScene("SLIME-ENTER"),
+						new Branch("Love Dart (Requires: Catamite)").require(ChoiceCheckType.LEWD).textScene("SLIME-LOVEDART").checkScene(CheckType.PLUGGED, new Branch(true).textScene("SLIME-BUTTPLUG").concat(loveDartCont), new Branch(false).concat(loveDartCont)),
 						new Branch("Leave Her Be")
 					),
 					new Branch("Leave Her Be")			
