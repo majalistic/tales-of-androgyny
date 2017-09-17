@@ -179,7 +179,7 @@ public class CharacterCreationScene extends Scene {
 			
 			for ( ; numberOfBaubles < amount + Math.min(statPoints, (noStatAtMax() ? 2 : 1) - currentStatAllocation); numberOfBaubles++) {
 				final int difference = 1 + numberOfBaubles - amount;
-				statTable.add(getBauble(baubleReady, new ClickListener(){
+				statTable.add(getBauble(baubleEmpty, new ClickListener(){
 					@Override
 			        public void clicked(InputEvent event, float x, float y) {
 						buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
