@@ -1234,7 +1234,7 @@
 		"scriptLines": [
 			{
 			"mutations": [{"profileSaveType":"KNOWLEDGE", "value":{"class": "java.lang.String", "value": "Harpy"}}],
-			"text": "You look around. There don't appear to be any harpies here."}, 
+			"text": "You look around.  You've been hiking for quite a while, and despite the large, man-sized nests littered about, there don't appear to be any harpies here."}, 
 			{"text": "That being said, there's a rather pungent scent in the air, and you've been hearing squawks and the flappings of tremendous wings for a while."},
 			{"text": "You look up and behind you to try to spot the source, but the sky is empty - however, when you turn back, you can plainly see a figure approaching rapidly, talons extended!"}
 		]
@@ -1289,7 +1289,7 @@
 			{
 			"foreground": "HARPY_ANAL",
 			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1}}],
-			"text": "It isn't long before you are pantsless, red-faced, and anally penetrated - any hope that the harpy's covered dick wasn't hard for you is dashed along with the cock-emptiness of your rectum."},
+			"text": "It isn't long before you are pantsless, red-faced, and anally penetrated once more."},
 			{"text": "It sits heavily in there, throbbing and fat, as you acclimate to her avian mating ritual."},
 			{"text": "\"Man, man! Caw! Eggs, eggs!\" she exclaims, in broken human tongue, as her filthy cock emasculates you with hawk-like efficiency."},
 			{"text": "It occurs to you that she hadn't said a word to you in between taking you back to her home and anally violating you - she was so swift at it, in fact, that you're still not able to understand it. You know she has a cock and you know your ass feels full, but their true connection is only slowly dawning."},  
