@@ -129,6 +129,7 @@ public class BattleFactory {
 			case BEASTMISTRESS: return new EnemyCharacter(getTextures(EnemyEnum.BEASTMISTRESS), getTextureMap(EnemyEnum.BEASTMISTRESS), EnemyEnum.BEASTMISTRESS.getAnimations(assetManager), EnemyEnum.BEASTMISTRESS, stance);
 			case SPIDER: return new EnemyCharacter(getTextures(EnemyEnum.SPIDER), getTextureMap(EnemyEnum.SPIDER), EnemyEnum.SPIDER.getAnimations(assetManager), EnemyEnum.SPIDER, stance);
 			case GOLEM: return new EnemyCharacter(getTextures(EnemyEnum.GOLEM), getTextureMap(EnemyEnum.GOLEM), EnemyEnum.GOLEM.getAnimations(assetManager), EnemyEnum.GOLEM, stance);
+			case GHOST: return new EnemyCharacter(getTextures(EnemyEnum.GHOST), getTextureMap(EnemyEnum.GHOST), EnemyEnum.GHOST.getAnimations(assetManager), EnemyEnum.GHOST, stance);
 			default: return null;
 		}
 	}

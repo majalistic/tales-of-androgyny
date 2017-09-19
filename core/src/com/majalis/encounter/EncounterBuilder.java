@@ -423,11 +423,39 @@ public class EncounterBuilder {
 					), 
 					no
 				).getEncounter();
-			case GHOST: 
+			case GHOST:
+				String spookyGhostScene = Gdx.app.getPreferences("tales-of-androgyny-preferences").getBoolean("blood", true) ? "GHOST-BLOODY" : "GHOST-BLOODLESS";				
+				Branch refuse = new Branch("Refuse").checkScene(Stat.MAGIC, new Branch(2).battleScene(BattleCode.GHOST, new Branch(Outcome.VICTORY), new Branch(Outcome.DEFEAT)), new Branch(0).textScene("GHOST-POSSESSION"));
 				return new Branch().checkScene(
 					CheckType.DAY, 
-					new Branch(true).textScene("GHOST-DAY"), 
-					new Branch(false).textScene("GHOST-NIGHT").textScene(Gdx.app.getPreferences("tales-of-androgyny-preferences").getBoolean("blood", true) ? "GHOST-BLOODY" : "GHOST-BLOODLESS").textScene("GHOST-NIGHT-CONT")).getEncounter();				
+					new Branch(true).textScene("GHOST-DAY").choiceScene(
+						"Do you follow?", 
+						new Branch("Follow her").textScene("GHOST-DAY-FOLLOW").choiceScene(
+							"Receive her \"affection\"?",
+							new Branch("Receive it").textScene("GHOST-DAY-RECEIVE").choiceScene("\"Did you enjoy it as much as I did?\"", new Branch("Yes").textScene("GHOST-DAY-HAPPY"), new Branch("No").textScene("GHOST-DAY-SAD")),
+							new Branch("Give her your love").textScene("GHOST-DAY-GIVE"),
+							new Branch("Reject her").textScene("GHOST-DAY-REJECT")
+						), 
+						new Branch("Ignore her")
+					), 
+					new Branch(false).textScene("GHOST-NIGHT").choiceScene(
+						"Do you follow?", 
+						new Branch("Follow her").textScene("GHOST-NIGHT-FOLLOW").textScene(spookyGhostScene).textScene("GHOST-NIGHT-CONT").choiceScene(
+							"What do you do?", 
+							new Branch("Apologize (CHA: 5)").require(ChoiceCheckType.STAT_GREATER_THAN_X, Stat.CHARISMA, 5).textScene("GHOST-NIGHT-APOLOGY").choiceScene(
+								"Show her love?", 
+								new Branch("Show her love").textScene("GHOST-BLOWJOB-WOO-WOO").choiceScene(
+									"Well?", 
+									new Branch("Point your ass at her").textScene("GHOST-BLASTING"),
+									refuse
+								),
+								refuse
+							),
+							refuse							
+						), 
+						new Branch("Ignore her").textScene("GHOST-NIGHT-CAMP").textScene(spookyGhostScene).textScene("GHOST-NEXT-MORNING")
+					)
+				).getEncounter();				
 			case GOBLIN:
 				Branch analCont = new Branch().textScene("GOBLIN-ANAL-CONT").checkScene(
 					Stat.ENDURANCE, 

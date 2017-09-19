@@ -2,6 +2,7 @@ package com.majalis.character;
 
 import static com.majalis.character.Techniques.*;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -50,7 +51,7 @@ public class EnemyCharacter extends AbstractCharacter {
 		init(textures, textureMap, animations);
 		initializedMove = false;
 		climaxCounters = new ObjectMap<String, Integer>();
-		currentFrame = 0;
+		currentFrame = enemyType == EnemyEnum.GHOST && !Gdx.app.getPreferences("tales-of-androgyny-preferences").getBoolean("blood", true) ? 1 : 0;
 		
 		weapon = enemyType.getWeaponType() != null ? new Weapon (enemyType.getWeaponType()): null;
 		baseStrength = enemyType.getStrength();
@@ -321,6 +322,14 @@ public class EnemyCharacter extends AbstractCharacter {
 			else {
 				return getTechniques(SLAM);
 			}	
+		}
+		else if (enemyType == EnemyEnum.GHOST) {
+			if (stance == Stance.BALANCED) {
+				return getTechniques(INCANTATION);
+			}
+			if (stance == Stance.CASTING) {
+				return currentMana > 10 ? getTechniques(COMBAT_FIRE) : getTechniques(FOCUS_ENERGY);
+			}
 		}
 		
 		Array<Techniques> possibles = new Array<Techniques>();

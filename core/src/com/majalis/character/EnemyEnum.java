@@ -28,7 +28,7 @@ public enum EnemyEnum {
 	BEASTMISTRESS (new EnemyTemplate(WeaponType.Claw).setStrength(6).setAgility(8).setEndurance(5).addHealth(10), "Beast Mistress", AssetEnum.BEASTMISTRESS.getTexture()),
 	SPIDER (new EnemyTemplate(WeaponType.Claw).setStrength(6).setAgility(5).setEndurance(5).setHealth(new IntArray(new int[]{20, 20, 20, 20})), "Arachne", AssetEnum.SPIDER.getTexture()), 
 	GOLEM (new EnemyTemplate(null, 6, 8, 4, 3, 3, 3).setDefense(6).setHealth(new IntArray(new int[]{60})).setMana(12), "Golem", AssetEnum.GOLEM.getTexture(), AssetEnum.GOLEM_FUTA.getTexture()),
-	GHOST (new EnemyTemplate(null, 0, 0, 0, 8, 8, 8).setDefense(0).setHealth(new IntArray(new int[]{15})).setMana(30), "Ghost", AssetEnum.GHOST.getTexture(), AssetEnum.GHOST_SPOOKY.getTexture()),
+	GHOST (new EnemyTemplate(null, 0, 0, 0, 8, 8, 8).setDefense(0).setHealth(new IntArray(new int[]{15})).setMana(30), "Ghost", AssetEnum.GHOST_SPOOKY.getTexture(), AssetEnum.GHOST_SPOOKY_BLOODLESS.getTexture()),
 	;
 	private final String text;
 	private final Array<AssetDescriptor<Texture>> texturePaths;
@@ -85,14 +85,14 @@ public enum EnemyEnum {
     	}
     	return textureImagePaths; 
     }
-    public PhallusType getPhallusType() { return this == BRIGAND || this == BEASTMISTRESS ? PhallusType.NORMAL : this == ADVENTURER ? PhallusType.SMALL : PhallusType.MONSTER; }
+    public PhallusType getPhallusType() { return this == BRIGAND || this == BEASTMISTRESS || this == GHOST ? PhallusType.NORMAL : this == ADVENTURER ? PhallusType.SMALL : PhallusType.MONSTER; }
     public PronounSet getPronounSet() { return this == ADVENTURER || this == OGRE || this == GOBLIN_MALE ? PronounSet.MALE : PronounSet.FEMALE; }
     
     public AnimationEnum getAnimation() { return animation; }
 	public boolean canProneBone() {
 		return this == BRIGAND || this == GOBLIN || this == ORC || this == ADVENTURER || this == GOBLIN_MALE;
 	}
-	public boolean canBleed() { return this != SLIME && this != GOLEM; }
+	public boolean canBleed() { return this != SLIME && this != GOLEM && this != GHOST; }
 	
 	public int getStartingLust() { return this == UNICORN ? 20 : 0; }
 	

@@ -330,7 +330,7 @@ public abstract class AbstractCharacter extends Actor {
 	}
 	
 	protected CharacterState getCurrentState(AbstractCharacter target) {		
-		return new CharacterState(getStats(), getRawStats(), weapon, stability.lowBalance(), currentMana, this, target);
+		return new CharacterState(getStats(), getRawStats(), weapon, stability.lowBalance(), currentMana, enemyType == null ? true : enemyType.isCorporeal(), this, target);
 	}
 	
 	protected boolean alreadyIncapacitated() {

@@ -4713,12 +4713,58 @@
 		"scriptLines": [
 			{
 			"music": "SPOOKY_MUSIC",
-			"foreground": "GHOST",
-			"text": "You spot in the distance a woman dressed in a bridal gown.  Her beauty is captured in a beam of sunlight, shining from behind a dark and foreboding cloud."}
+			"text": "The twilight has a strange quality to it - as you walk through a valley well-shadowed, they cast longer than you expect, set against a light, the hue of which seems... off."},
+			{"text": "You're broken from your reverie by the sight of a fair woman, far in the distance, whose form is so indistinct, you can't be sure that she was actually there before she disappears behind some ruined structure.  She appeared to be dressed in some kind of gown, but the lack of any nearby signs of civilization make that quite unlikely."}
 		]
 	},
-	
-	
+	{
+		"key": "GHOST-DAY-FOLLOW",
+		"scriptLines": [
+			{
+			"foreground": "GHOST",
+			"text": "."},
+		]
+	},
+	{
+		"key": "GHOST-DAY-RECEIVE",
+		"scriptLines": [
+			{
+			"foreground": "GHOST",
+			"text": "."},
+		]
+	},
+	{
+		"key": "GHOST-DAY-HAPPY",
+		"scriptLines": [
+			{
+			"foreground": "GHOST",
+			"text": "."},
+		]
+	},
+	{
+		"key": "GHOST-DAY-SAD",
+		"scriptLines": [
+			{
+			"foreground": "GHOST",
+			"text": "."},
+		]
+	},
+	{
+		"key": "GHOST-DAY-GIVE",
+		"scriptLines": [
+			{
+			"foreground": "GHOST",
+			"text": "."},
+		]
+	},
+	{
+		"key": "GHOST-DAY-REJECT",
+		"scriptLines": [
+			{
+			"foreground": "GHOST",
+			"text": "."},
+		]
+	},
 	{
 		"key": "GHOST-NIGHT",
 		"scriptLines": [
@@ -4726,6 +4772,70 @@
 			"music": "HORROR_MUSIC",
 			"text": "....."},
 			{"text": "...."}
+		]
+	},
+	{
+		"key": "GHOST-NIGHT-FOLLOW",
+		"scriptLines": [
+			{"text": "..."},
+			{"text": ".."},
+			{"text": "."}
+		]
+	},
+	{
+		"key": "GHOST-NIGHT-CONT",
+		"scriptLines": [
+			{"text": "..."},
+			{"text": ".."},
+			{"text": "."}
+		]
+	},
+	{
+		"key": "GHOST-NIGHT-APOLOGY",
+		"scriptLines": [
+			{"text": "..."},
+			{"text": ".."},
+			{"text": "."}
+		]
+	},
+	{
+		"key": "GHOST-BLOWJOB-WOO-WOO",
+		"scriptLines": [
+			{"text": "..."},
+			{"text": ".."},
+			{"text": "."}
+		]
+	},
+	{
+		"key": "GHOST-BLASTING",
+		"scriptLines": [
+			{"text": "..."},
+			{"text": ".."},
+			{"text": "."}
+		]
+	},
+	{
+		"key": "GHOST-NIGHT-CAMP",
+		"scriptLines": [
+			{"text": "..."},
+			{"text": ".."},
+			{"text": "."}
+		]
+	},
+	{
+		"key": "GHOST-NEXT-MORNING",
+		"scriptLines": [
+			{"text": "..."},
+			{"text": ".."},
+			{"text": "."}
+		]
+	},
+	{
+		"key": "GHOST-POSSESSION",
+		"scriptLines": [
+			{"text": "..."},
+			{"text": ".."},
+			{"text": "."}
 		]
 	},
 	{
@@ -4744,13 +4854,4 @@
 			"text": ""}
 		]
 	},
-	{
-		"key": "GHOST-NIGHT-CONT",
-		"scriptLines": [
-			{"text": "..."},
-			{"text": ".."},
-			{"text": "."}
-		]
-	},
-	
 ]}
