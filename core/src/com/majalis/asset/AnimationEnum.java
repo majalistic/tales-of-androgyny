@@ -8,7 +8,8 @@ public enum AnimationEnum {
 	HARPY(AssetEnum.HARPY_ANIMATION),
 	BRIGAND(AssetEnum.BRIGAND_ANIMATION),
 	CENTAUR(AssetEnum.CENTAUR_ANIMATION),
-	UNICORN(AssetEnum.CENTAUR_ANIMATION),
+	UNICORN(AssetEnum.CENTAUR_ANIMATION), 
+	ORC(AssetEnum.ORC_ANIMATION),
 	;
 	private static final ObjectMap<AssetEnum, AnimatedActorFactory> factoryMap = new ObjectMap<AssetEnum, AnimatedActorFactory>();
 	private final AssetEnum animationToken;

@@ -1,0 +1,146 @@
+
+Orc.png
+size: 2048,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Balls
+  rotate: true
+  xy: 1352, 744
+  size: 74, 88
+  orig: 74, 88
+  offset: 0, 0
+  index: -1
+Bangs
+  rotate: true
+  xy: 1003, 689
+  size: 114, 131
+  orig: 114, 131
+  offset: 0, 0
+  index: -1
+BottomStrap
+  rotate: true
+  xy: 530, 129
+  size: 131, 193
+  orig: 131, 193
+  offset: 0, 0
+  index: -1
+Dick
+  rotate: true
+  xy: 330, 44
+  size: 89, 169
+  orig: 89, 169
+  offset: 0, 0
+  index: -1
+Earing
+  rotate: false
+  xy: 675, 627
+  size: 20, 48
+  orig: 20, 48
+  offset: 0, 0
+  index: -1
+Hair
+  rotate: false
+  xy: 1136, 692
+  size: 126, 126
+  orig: 126, 126
+  offset: 0, 0
+  index: -1
+Head
+  rotate: true
+  xy: 530, 262
+  size: 189, 155
+  orig: 189, 155
+  offset: 0, 0
+  index: -1
+HeadChains
+  rotate: false
+  xy: 1264, 735
+  size: 86, 83
+  orig: 86, 83
+  offset: 0, 0
+  index: -1
+LArm
+  rotate: false
+  xy: 330, 135
+  size: 198, 316
+  orig: 198, 316
+  offset: 0, 0
+  index: -1
+LChain
+  rotate: true
+  xy: 697, 706
+  size: 97, 304
+  orig: 97, 304
+  offset: 0, 0
+  index: -1
+LLeg
+  rotate: true
+  xy: 697, 805
+  size: 209, 437
+  orig: 209, 437
+  offset: 0, 0
+  index: -1
+LStrap
+  rotate: false
+  xy: 2, 2
+  size: 116, 63
+  orig: 116, 63
+  offset: 0, 0
+  index: -1
+MiddleChain
+  rotate: false
+  xy: 347, 677
+  size: 348, 337
+  orig: 348, 337
+  offset: 0, 0
+  index: -1
+RArm
+  rotate: true
+  xy: 347, 453
+  size: 222, 326
+  orig: 222, 326
+  offset: 0, 0
+  index: -1
+RChain
+  rotate: true
+  xy: 1563, 879
+  size: 135, 442
+  orig: 135, 442
+  offset: 0, 0
+  index: -1
+RStrap
+  rotate: true
+  xy: 2007, 955
+  size: 59, 35
+  orig: 59, 35
+  offset: 0, 0
+  index: -1
+Rleg
+  rotate: true
+  xy: 1136, 820
+  size: 194, 425
+  orig: 194, 425
+  offset: 0, 0
+  index: -1
+TopStrap
+  rotate: false
+  xy: 1563, 824
+  size: 118, 53
+  orig: 118, 53
+  offset: 0, 0
+  index: -1
+Torso
+  rotate: false
+  xy: 2, 67
+  size: 326, 453
+  orig: 326, 453
+  offset: 0, 0
+  index: -1
+Tunic
+  rotate: false
+  xy: 2, 522
+  size: 343, 492
+  orig: 343, 492
+  offset: 0, 0
+  index: -1

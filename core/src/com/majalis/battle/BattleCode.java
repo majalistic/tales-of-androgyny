@@ -73,6 +73,7 @@ public enum BattleCode {
 			case OGRE:
 				break;
 			case ORC:
+				temp.add(AssetEnum.ORC_ANIMATION.getAnimation());
 				break;
 			case SLIME:
 				break;

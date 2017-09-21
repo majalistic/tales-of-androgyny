@@ -2865,7 +2865,7 @@
 			"text": "But then, the slick, recently anally-vacated appendage falls into view.  It's... truly massive, thick like a club and with bumpy ridges.  Her big, round, green gonads are also visible, clearly engorged with a need to inseminate... apparently, you interrupted towards the latter end of the engagement."},
 			{"text": "A single strand of precum connects her pulsing, twitching slab to the innards of the stretched open hole - her helmet wet and slick and clearly on the verge of spewing hot, sticky cum.  You begin to drool.  Her loincloth slides down off the adventurer's back, hiding them from view. "},
 			{
-			"foreground": "ORC",
+			"animatedForeground": "ORC",
 			"text": "\"Yes?\" she asks, with a husky voice, drawing your attention back up to her alluring gaze.  They're holding some sort of weapon attached to a chain - one that looks absolutely lethal."},
 			{"text": "\"Leave her alone!\" you say, your voice cracking.  "},
 			{"text": "She sizes you up and down.  \"Mhm.  Make me,\" she says, staying perfectly still, her iron-clad grasp on her chain tightening.  You feel a wave of fear overcome you.  It seems she won't back down without a fight."}
@@ -3047,7 +3047,7 @@
 		"key": "ORC-LEAVE",
 		"scriptLines": [
 			{
-			"foreground": "ORC",
+			"animatedForeground": "ORC",
 			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "ORC", "value":2}}],
 			"text": "The thick testicles dangling between her thighs are so obviously about to violently empty that you can almost feel it in your own gut - a powerful whitewash of their insides that you would have done nothing to prevent.  Assuming that orc cum is white, anyway, although you expect you'll soon find out."},
 			{"text": "She grips tightly onto their hips, and with her immense strength, there is little hope of them avoiding an inter-species creampie of terrifying proportions."},
