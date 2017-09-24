@@ -45,7 +45,7 @@ public class ReplayScreen extends AbstractScreen {
 		resourceRequirements.add(AssetEnum.DEFAULT_BACKGROUND.getTexture());
 
 		Array<AssetEnum> animationReqs = new Array<AssetEnum>(new AssetEnum[]{
-			HARPY_ANIMATION, HARPY_ATTACK_ANIMATION, FEATHERS_ANIMATION, FEATHERS2_ANIMATION, BRIGAND_ANIMATION, ANAL_ANIMATION, CENTAUR_ANIMATION			
+			HARPY_ANIMATION, HARPY_ATTACK_ANIMATION, FEATHERS_ANIMATION, FEATHERS2_ANIMATION, BRIGAND_ANIMATION, ANAL_ANIMATION, CENTAUR_ANIMATION, ORC_ANIMATION			
 		});
 		for (AssetEnum asset: animationReqs) {
 			resourceRequirements.add(asset.getAnimation());
