@@ -659,7 +659,12 @@ public class EncounterBuilder {
 					new Branch(0).textScene("GOLEM-UNAWARE")				
 				).getEncounter();			
 			case HARPY:
-				Branch[] battleBranches = new Branch[]{new Branch(Outcome.VICTORY).textScene("HARPY-VICTORY").encounterEnd(), new Branch(Outcome.DEFEAT).textScene("HARPY-DEFEAT").gameEnd(), new Branch(Outcome.SATISFIED).textScene("HARPY-SATISFIED").encounterEnd()};
+				Branch harpyMarriage = new Branch().textScene("HARPY-MARRIAGE").gameEnd();
+				Branch[] battleBranches = new Branch[]{
+					new Branch(Outcome.VICTORY).textScene("HARPY-VICTORY").encounterEnd(), 
+					new Branch(Outcome.DEFEAT).textScene("HARPY-DEFEAT").checkScene(Perk.BIRD_LOVER, new Branch(3).textScene("HARPY-LOVE-BIRD").concat(harpyMarriage), new Branch(0).checkScene(Perk.ANAL_LOVER, new Branch(3).textScene("HARPY-LOVE-ANAL").concat(harpyMarriage), new Branch(0).textScene("HARPY-FINISH"))), 
+					new Branch(Outcome.SATISFIED).textScene("HARPY-SATISFIED").encounterEnd()
+				};
 				Branch harpyDodge = new Branch(6).textScene("HARPY-DODGE").battleScene(
 					BattleCode.HARPY, Stance.BALANCED, Stance.PRONE,
 					battleBranches

@@ -1271,7 +1271,7 @@
 	{
 		"key": "HARPY-VICTORY",
 		"scriptLines": [
-			{"mutations": [{"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": 2}}], "text": "You defeated the harpy!"}		
+			{"mutations": [{"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": 2}}], "text": "You defeated the harpy!  She flaps away in a hail of feathers, her bird dong wilting between her legs like a big floppy noodle."}		
 		]
 	},
 	{
@@ -1286,26 +1286,82 @@
 			{"text": "Travelling between mountain peaks, you see that there are other harpies about - hundreds of them. Again, a dark thought enters your mind, as the harpies converge and attempt to steal her bounty, resulting in you plummeting to the ground amidst the struggle.  Thankfully, the other harpies are content to screech and caw at you."},
 			{"text": "You see small inlets lining a mountain face, a sheer drop down to the valley below, and you wonder if they're naturally made or somehow carved out, seeing how regular they are. In most, if not all of them, is a bundle of straw and twigs - likely brought by the harpies from miles away, much like yourself."},
 			{"text": "You are dropped in one such nest, and the harpy works quickly to dispel any notion that she intends to consume you, and, simultaneously, to consummate your marriage."},
+			{"text": "\"Rawwwk! Mating!\""},
+			{"text": "You doubt, having already gotten a good look at the harpy's third thigh, that what she means by \"mating\" is going to involve you having a pleasant time with her tail feathers.  A lump forms in your throat as you imagine her massive meat throbbing in your buttered up hole."},
+			{"text": "She mounts you, her talons grabbing hold of your rear, and her long, covered dick immediately gains purchase.  Any hope that the harpy's covered dick wasn't hard for you is dashed along with the cock-emptiness of your rectum."},
 			{
 			"foreground": "HARPY_ANAL",
-			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1}}],
-			"text": "It isn't long before you are pantsless, red-faced, and anally penetrated once more."},
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1, "bird": true}}],
+			"text": "It isn't long before you are pantsless, red-faced, and anally penetrated."},
+			{"text": "You are, in fact, getting absolutely smashed by a harpy with a foot-long bird dick."},
+			{"text": "You're forced to listen to the clop clop clop of her hips slapping against your <BUTTSIZE> butt, her feathers tickling your cheeks."},
+			{"text": "With her feathery pubes, it's like getting a smoothly polished feather duster shoved up asshole, repeatedly, only much wetter and messier than that would imply."},
+			{"text": "It's so wet and messy, in fact, that the sounds of your avian mating sounds less like love-making and more like someone churning butter."},
+			{"text": "Getting buttfucked by a birdbrained big-dicked bird dickgirl would be embarrassing enough, but her noisy screeches mixed with her hoarse moans over a chorus of wet sodomy sounds is enough to leave your dignity completely in tatters."},
+			{"text": "An image flashes into your mind of you strutting around with a feather duster lodged up your ass pretending to be a chicken - no more mortifying than having her fit her entire drumstick up your tailfather hole."},
+			{"text": "You are, after all, getting stuffed like a chicken.  There isn't an inch of your rectum that isn't scraped by frenzied bird dick, and the untainted parts are just waiting any second now for her dickhead to rub her stink on them."},
 			{"text": "It sits heavily in there, throbbing and fat, as you acclimate to her avian mating ritual."},
-			{"text": "\"Man, man! Caw! Eggs, eggs!\" she exclaims, in broken human tongue, as her filthy cock emasculates you with hawk-like efficiency."},
+			{"text": "\"Man, man! Caw! Eggs, eggs!\" she exclaims, in broken human tongue, as her beastly cock emasculates you with hawk-like efficiency."},
 			{"text": "It occurs to you that she hadn't said a word to you in between taking you back to her home and anally violating you - she was so swift at it, in fact, that you're still not able to understand it. You know she has a cock and you know your ass feels full, but their true connection is only slowly dawning."},  
 			{"text": "You're hanging quite nearly over the ledge, and you can see downwards that you can't actually see where the sky ends and the ground begins, and you aren't too keen on going down to investigate. She thrusts from behind, flat against you, and you push back to prevent from sliding forward - which means you're an active participant in this consummation."},
-			{"text": "With what looks like a thousand foot drop as your only other option, it seems you really don't have much of a choice."},
+			{"text": "With what looks like a thousand foot drop as your only other option, it seems you really don't have much of a choice."}
+		]
+	},
+	{
+		"key": "HARPY-LOVE-ANAL",
+		"scriptLines": [
+			{"text": "Though her honking bird sausage was technically an uninvited guest, your hungry hole welcomed it all the same.  Inevitably, you're feeling the need to blast from the pleasure of being anally ridden, and you bite your lip as the eventuality approaches."},
 			{
 			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analEjaculation":1}}],
-			"text": "If the harpy was quick to start, she's incredibly slow to finish - slow enough, in fact, that the heat and pressure in your bowels gives way to a pressure coming from within your testicles, which, soon enough, expresses itself outwards."},
-			{"text": "As you ejaculate from harpy-induced anal frustration, you remain mostly silent - unlike the harpy, who, at the moment of her triumph, screeches for all to hear."},
+			"text": "She bottoms out, balls deep inside of you, and you feel your prostate being scraped by her untamed schlong.  You roll your eyes, blushing profusely, and feel it jump up against your belly once, twice.  You feel bad for any sperm in that particular wad, but they should have known not to trust a catamite."},
+			{"text": "Your seed cooling on the unforgiving ground, you shudder - say what you will about harpies, they know how to scratch an itch."}
+		]
+	},
+	{
+		"key": "HARPY-LOVE-BIRD",
+		"scriptLines": [
+			{"text": "There's something about getting pummelled rectally by a bird girl's dick that just sets your heart on fire - or you've been dicked by birdies so many times that your noodle's been fried like an egg."},
+			{"text": "Either way, your stupid cocklet was hard just from hearing that squawking and flapping, and your still-mammalian balls are full to the brim from having your prostate pounded by your fair-feathered friend."}
 			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analEjaculation":1}}],
+			"text": "As you ejaculate from harpy-induced anal frustration, you remain mostly silent."}
+		]
+	},
+	{
+		"key": "HARPY-MARRIAGE",
+		"scriptLines": [
+			{"text": "Failing as a human, you let off a few ill-timed splurts, despite her not having even looked at, much less touched your cock.  Her slick bird dick sliding along your anal mucosa was enough to make you pop one off, and you feel it shoot into the dirt with force."},
+			{"text": "Having been anally satisfied by a demihuman with the intelligence of a baked potato, you tighten up around her plunging cock, which proves to be the trigger that sets her off as well, basting your insides with what you just let out needlessly."},
+			{"text": "Unlike you, the harpy is not silent as she ejaculates.  At the moment of her triumph, screeches for all to hear."},
+			{
+			"sound": "CUM",
 			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "creampies":1}}],
 			"text": "As that high wail assaults your ears, her birdy semen assaults your bowels - and by the volume she puts out, you doubt that she's about to fly you back down now that she's finished."},
-			{"text": "She pulls out, and cradles you in her wings - a sweet gesture, but you have difficulty appreciating it."},			
+			{"text": "You catch each jet of jizz - not that you have a choice - as she screeches about your \"pussy\" in the language of the feathered folk.  Not a drop of her bird goo ends up anywhere outside of your steaming hot rectum."},			
+			{"text": "She pulls out, and cradles you in her wings - a sweet gesture, but you have difficulty appreciating it.  You let out a long sigh, as well as bird goo from your rear hole."},			
 			{"text": "Your asshole is twitching uncomfortably - the harpy's unnatural mating has left it feeling rather like a mishandled pussy, with roughly the same amount of nasty, runny harpy semen drooling out of it, and a similar gaping, clearly-used appearance."},
 			{"text": "Having been wrong-holed by an unwashed harpy, your dignity as a man has taken a nosedive, but, on the bright side, at least you can only be pegged by a birdgirl with a dick for the first time once."},
-			{"text": "Indeed, it wasn't the last time that the harpy's stinky bird dick rummaged through your rectum during a frantic, feathery anal sex session - trapped in the high-up, remote nest, it became a daily occurence, as the harpy returned with food, pre-chewed, as well as baubles, and also a big need to seed to fertilize some non-existent eggs."},
+
+			{"text": "Because your response to her harsh dicking was so... gooey, she apparently now considers you her mate.  You can already see her long, feathered phallus, still slick from having vacated your shithole, filling itself up with a hankering for a second try at impregnating you from behind."},
+			{"text": "She doesn't seem to speak much Common, so though you try to exapseratedly explain to her why that won't work, she only understands what you're communicating with the other end."},
+			{"text": "Her subsequent interrogation thereof has it report the following: \"your thingy fits tight and snugly,\" \"your thingy can fit alllll the way in\", \"I can catch your whoooole spurt spurt\",  \"I stay open for more!\""},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1}}],
+			"text": "The second round of avian-induced anal sex is no less humiliating than the last. She goes about it just as energetically and ridiculously as before, with her meat now considerably lubricated by her own casually wasted semen."},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analEjaculation":1}}],
+			"text": "Again, you ejaculate pathetically from the comfort of being smashed from the rear by a big bird dick attached to a big busty bird broad.  Your sudden tightness pushes her over the edge in a sequential chain of awful."},
+			{
+			"sound": "CUM_BUBBLING",
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "creampies":1}}],
+			"text": "Her ejaculation proves just as voluminous as the last, and in fact feels considerably fuller, as your guts are already clogged with her cloudy bird seed.  You can feel her blowing bubbles in your stomach, an experience only the most unluckiest of adventurers likely share."},
+			{"text": "The second fuck leaves you completely exhausted - too exhausted, certainly, to continue arguing with the harpy's mating \"logic\".  Her ass-accommodated cock flops about, drooling her own brine, and you watch as it steadily hardens again."},
+			{"text": "You prepare yourself for a third round of gut-punching humiliation... but what's in store for you is much worse."},
+			{"text": "She takes off, leaving you stranded and unable to continue your adventure."},
+			{"text": "You drift off to sleep, knowing that when she does return, she'll likely be erect, and your sphincter will be pried open by your harpy wife's unyielding bird dick."},		
+			{"text": "Indeed, it wasn't the last time that the harpy's stinky bird dick rummaged through your rectum during a frantic, feathery anal sex session - trapped in the high-up, remote nest, it became a daily occurence, as the harpy returned with food, pre-chewed, as well as baubles, and also a big need to seed to fertilize some non-existent eggs."},			
+			{"text": "Months pass.  Whenever you hear your wife's screech, your asshole tightens, knowing intrinsically that it will soon receive a thoroughly uncompromising mating.  You long for the day when your bird wife returns unerect, but it has not yet come.  Today is no different."},
+			{"text": "She returns with a long, hard stiffy that has not yet been in your rectum today, and you know that she's going to leave with one that has something subtly different about it.  You consciously relax your sphincter."},
 			{"text": "Her romantic overtures aren't exactly unrequited - she becomes audibly irritated with you whenever you cover her nesting material in sticky, wasted semen, which itself is a daily occurence, coinciding with her daily matings, which instill in you a certain perverse desire, the tangible result of which is a spurt of semen that never fails to bring a redness to your cheeks."},
 			{"text": "Your only visitors are rival harpies, which, thankfully, she defends you from quite handily - she seems to be something of a fighter.  Still, they often gather and gawk and squawk as you attend to your \"wifely\" duties, and the fire that you feel in your at-the-time harpy-invaded hole is nothing compared to the shame of their bird-brained jeers and misaimed hoots of encouragement."},
 			{"text": "Well, not nothing - your harpy wife's chubby bird schlong rubs the stretched-thin membrane of your anus with so much determined friction that no one would ever mistake, at a glance, your puffy, irritated hole as anything but something that a harpy-with-a-dick has on lockdown, but, still.  It's embarrassing."},
@@ -1318,7 +1374,17 @@
 			"text": "*SPLURT, SPLURT*"},
 			{"text": "Bad End."}
 		]
-	},		
+	},
+	{
+		"key": "HARPY-FINISH",
+		"scriptLines": [
+			{
+			"sound": "CUM",
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "creampies":1}}],
+			"text": "Soon the harpy begins to flap wildly and screech, and you don't have to wonder long why she's acting so erratically, as you feel your stomach bloat slightly, the weight of her ejaculate in your convenient womb.  You sigh despondently, having been inseminated by a bird."},
+			{"text": "She dismounts clumsily, your hole drooling her essence. You worry what's to become of you after that, but fortunately, the harpy plucks you from her nest and deposits you in a tree, having received her fill from you."}			
+		]
+	},
 	{
 		"key": "HARPY-SATISFIED",
 		"scriptLines": [

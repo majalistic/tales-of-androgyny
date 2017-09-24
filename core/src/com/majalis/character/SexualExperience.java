@@ -13,6 +13,7 @@ public class SexualExperience {
 	private final boolean ogre;
 	private final boolean prostitution;
 	private final boolean beast;
+	private final boolean bird;
 	
 	public static class SexualExperienceBuilder {
 		
@@ -24,6 +25,7 @@ public class SexualExperience {
 		private int fellatioEjaculation;
 		private boolean horse;
 		private boolean ogre;
+		private boolean bird;
 		
 		public SexualExperienceBuilder() {
 			this (0);
@@ -66,14 +68,19 @@ public class SexualExperience {
 			return this;
 		}
 		
+		public SexualExperienceBuilder setBird() {
+			bird = true;
+			return this;
+		}
+		
 		public SexualExperience build() {
-			return new SexualExperience(analSex, creampies, analEjaculation, oralSex, oralCreampies, fellatioEjaculation, 0, horse, ogre, false, false);
+			return new SexualExperience(analSex, creampies, analEjaculation, oralSex, oralCreampies, fellatioEjaculation, 0, horse, ogre, false, false, bird);
 		}		
 	}
 	
-	private SexualExperience() { this(0, 0, 0, 0, 0, 0, 0, false, false, false, false); }
+	private SexualExperience() { this(0, 0, 0, 0, 0, 0, 0, false, false, false, false, false); }
 	
-	private SexualExperience(int analSex, int creampies, int analEjaculation, int oralSex, int oralCreampies, int fellatioEjaculation, int bellyful, boolean horse, boolean ogre, boolean prostitution, boolean beast) {
+	private SexualExperience(int analSex, int creampies, int analEjaculation, int oralSex, int oralCreampies, int fellatioEjaculation, int bellyful, boolean horse, boolean ogre, boolean prostitution, boolean beast, boolean bird) {
 		this.analSex = analSex;
 		this.creampies = creampies;
 		this.analEjaculation = analEjaculation;
@@ -85,6 +92,7 @@ public class SexualExperience {
 		this.ogre = ogre;
 		this.prostitution = prostitution;
 		this.beast = beast;
+		this.bird = bird;
 	}
 	
 	protected int getAnalSex() { return analSex; }
@@ -98,4 +106,5 @@ public class SexualExperience {
 	protected boolean isOgreSex() { return ogre; }
 	protected boolean isProstitution() { return prostitution; }
 	protected boolean isBeast() { return beast; }
+	protected boolean isBird() { return bird; }
 }

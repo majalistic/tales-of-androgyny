@@ -394,10 +394,8 @@ public abstract class AbstractCharacter extends Actor {
 			}		
 			else if(resolvedAttack.getForceStance() == Stance.FELLATIO_BOTTOM || resolvedAttack.getForceStance() == Stance.SIXTY_NINE_BOTTOM) {
 				if (enemyType == EnemyEnum.HARPY) {
-					resolvedAttack.addMessage(properCase(pronouns.getNominative()) + " tastes horrible! Harpies are highly unhygenic!");
+					resolvedAttack.addMessage(properCase(pronouns.getNominative()) + " tastes awful!");
 					resolvedAttack.addMessage("You learned Anatomy (Harpy)!");
-					resolvedAttack.addMessage("You learned Behavior (Harpy)!");
-					resolvedAttack.addMessage("There is a phallus in your mouth!");
 					resolvedAttack.addMessage("It blew past your lips!");
 					resolvedAttack.addMessage("The harpy is holding your head in place with " + pronouns.getPossessive() + " talons and balancing herself with her wings!");
 					resolvedAttack.addMessage(properCase(pronouns.getNominative()) + " flaps violently while humping your face!  Her cock tastes awful!");

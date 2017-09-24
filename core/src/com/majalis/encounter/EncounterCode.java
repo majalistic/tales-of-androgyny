@@ -249,6 +249,7 @@ public enum EncounterCode {
 					AssetEnum.HARPY_FELLATIO_1.getTexture(),
 					AssetEnum.HARPY_ANAL.getTexture(),
 					AssetEnum.CUM.getSound(),
+					AssetEnum.CUM_BUBBLING.getSound(),
 					AssetEnum.HARPY_ANIMATION.getAnimation()
 				});
 			case SLIME:
