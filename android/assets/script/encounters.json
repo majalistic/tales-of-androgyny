@@ -4790,6 +4790,7 @@
 			{
 			"sound": "FIREBALL_SOUND",
 			"foreground": "GHOST_SPOOKY_BLOODLESS",
+			"mutations": [{"profileSaveType":"KNOWLEDGE", "value":{"class": "java.lang.String", "value": "Ghost"}}],
 			"text": "Soon, the golden haired beauty before you is gone, and left behind is a wailing and malevolent spirit."},
 			{"text": "\"WHY WON'T YOU ACCEPT MY LOVE?!\" she says in a rasp."}
 		]
@@ -4838,6 +4839,7 @@
 			{
 			"sound": "FIREBALL_SOUND",
 			"foreground": "GHOST_SPOOKY_BLOODLESS",
+			"mutations": [{"profileSaveType":"KNOWLEDGE", "value":{"class": "java.lang.String", "value": "Ghost"}}],
 			"text": "Her form changes completely, and her voice becomes a shrill rasp."},
 			{"text": "\"receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it\""},
 		]
@@ -5043,6 +5045,7 @@
 		"key": "GHOST-BLOODY",
 		"scriptLines": [
 			{
+			"mutations": [{"profileSaveType":"KNOWLEDGE", "value":{"class": "java.lang.String", "value": "Ghost"}}],
 			"foreground": "GHOST_SPOOKY"
 			"text": ""}
 		]
@@ -5051,6 +5054,7 @@
 		"key": "GHOST-BLOODLESS",
 		"scriptLines": [
 			{
+			"mutations": [{"profileSaveType":"KNOWLEDGE", "value":{"class": "java.lang.String", "value": "Ghost"}}],
 			"foreground": "GHOST_SPOOKY_BLOODLESS"
 			"text": ""}
 		]
