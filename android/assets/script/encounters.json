@@ -4714,55 +4714,132 @@
 			{
 			"music": "SPOOKY_MUSIC",
 			"text": "The twilight has a strange quality to it - as you walk through a valley well-shadowed, they cast longer than you expect, set against a light, the hue of which seems... off."},
-			{"text": "You're broken from your reverie by the sight of a fair woman, far in the distance, whose form is so indistinct, you can't be sure that she was actually there before she disappears behind some ruined structure.  She appeared to be dressed in some kind of gown, but the lack of any nearby signs of civilization make that quite unlikely."}
+			{"text": "You're broken from your reverie by the sight of a fair woman, far in the distance, whose form is so indistinct, you can't be sure that she was actually there before she disappears behind some ruined structure.  She appeared to be dressed in some kind of gown, but the lack of any nearby signs of civilization make that quite unlikely."},
+			{"text": "Your curiosity is piqued, but something about the distant figure seemed... off."}
 		]
 	},
 	{
 		"key": "GHOST-DAY-FOLLOW",
 		"scriptLines": [
+			{"text": "Passing the ruins where you last saw her, you spot, at a modest distance, a woman, who is indeed dressed in a bridal gown.  Her beauty is captured in a beam of sunlight, shining from behind a dark and foreboding cloud - all else is midday shadow."},
+			{"text": "She's standing on a rocky outcropping with a gentle slope overlooking the sea, and her appearance is breathtaking."},
+			{"text": "You wonder what she could be doing out here, unarmed, clearly not dressed for travel, and why some primal part of your mind is at such unease though she appears so unthreatening."},
+			{"text": "As your thoughts drift, you barely perceive the creeping chill in the air, which seems to come without a breeze."},
+			{"text": "You approach her, and can faintly hear that she seems to be speaking to herself, facing away from you, but she's too quiet for you to make out what she's saying."},
+			{"text": "Her voice sounds far away, even as you get close enough to speak in a conversational tone."},
+			{"text": "\"My love... rejected me... he did not want me...\""},
+			{"text": "You see that her body is quite... curvaceous.  Her skin shining in the sun, you can't imagine a more idyllic beauty."},
 			{
 			"foreground": "GHOST",
-			"text": "."},
+			"text": "She turns to face you... and you see that her body simply... ends, her feet not reaching the ground.  You stand at guard.  When she meets your gaze, she smiles brilliantly."},
+			{"text": "\"My love... I have waited so long... will you... will you finally accept my love?\""}
 		]
 	},
 	{
 		"key": "GHOST-DAY-RECEIVE",
 		"scriptLines": [
+			{"text": "As soon as you say you'll receive her affection, a bulge forms in her gown and springs to... well, not to \"life\", but it suddenly bulges a lot more prominently.  That worries you."},
+			{"text": "She seems to hover in the air as she comes closer to you - the bulge becoming even more obvious as it gets nearer."},
+			{"text": "She kisses you, and you feel the life drain from your body; thankfully, the effect is only momentary, but somehow, you find yourself on your back."},
+			{"text": "Her face is closer to yours, and she smells so sweet... your head is light and airy... her body is weighing on top of you, but still feels... intangible.  She's smiling brightly."},
 			{
-			"foreground": "GHOST",
-			"text": "."},
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1}}],
+			"text": "You feel a sudden crushing pressure in your bowels, and her hands clasp your face.  You're still fully clothed, and yet, without warning, your rectum feels completely stuffed full."},
+			{"text": "\"Receive my love... all of it!\" she says, as you feel several more inches of pipe being defiled by her ethereal presence.  You feel something twitching inside."},
+			{"text": "Though her top half remains mostly still as she licks her lips, you feel her bucking her hips between your legs, providing you with a tremendous amount of her \"presence\" in your now-haunted backdoor."},
+			{"text": "\"See?  I told you!  We are made for each other!\" she says, even as her overgrown post-mortem girl-sausage devastates your back passage.  Whoever had rejected her in life was probably less concerned with \"sickness and in health\" than \"length and girth\"."},
+			{"text": "An image flashes into your mind - the same woman currently ravaging you, only alive, standing behind a slim nobleman with his trousers down... his eyes bulging, his teeth grit, his face red, his rectum... occupied."},
+			{"text": "She's wearing the same bridal gown, only it's torn at the waist, leaving her bridal package unencumbered.  Her legs reach down to the floor, and are spread about shoulder width apart, as she rocks back and forth on her heels rhythmically."},
+			{"text": "She is unreservedly plowing him from behind in an ornate bedchamber - he's bracing himself against an expensive-looking wardrobe, and her fat ass is pumping forward and backwards at about seven or eight inches a go."},
+			{"text": "She looks even more entranced in life than she does now - but it's obvious from his expression that he's enduring her... difficult passion for reasons unrelated to his needing an itch scratched in his colon."},
+			{"text": "If he had any such itch, though, it would be thoroughly scratched by her kidney puncher as she pounds it into his obviously mismatched cock holster."},
+			{"text": "She's asking him, in her feverish way, if he's enjoying it, and he's stubbornly insisting that he is, even as the sweat pours down his brow and his knuckles are bleached white."},
+			{"text": "You can feel what he's feeling.  It's overwhelming.  Her tool is so large that it's basically like sitting on an eggplant over and over."},
+			{"text": "\"Hurry it up!\" he mutters under his breath, but she doesn't hear him. Regardless, her thrusts become more erratic as she edges closer and closer towards her release."},
+			{"text": "She flattens herself against him, burying herself to the hilt.  He's pressed against the wardrobe with every inch of her throbbing inside of him."},
+			{"text": "His eyes go wide.  \"Wait...\" he says, coming to a realization, but one that is two twitches too late.  You can feel her twitching and throbbing as she spews out their consummation deep inside of his bowels."},
+			{
+			"sound": "CUM",
+			"text": "His mouth hangs open, in shock, as she floods his colon with her wedded seed.  You get the sense that he hadn't quite mentally prepared himself for a heaping helping of his newlywed wife's milkshake rectally."},
+			{
+			"sound": "CUM_BUBBLING",
+			"text": "She pulls herself free and her copious baby batter begins to run, slowly, towards the floor."},
+			{"text": "\"Did you enjoy it as much as I did?\" she asks, full of excitement.  His breathing is heavy and ragged, his eyes and mouth open wide in surprise, his gaping anus similarly wide open, her chunky ejaculate leaking out of it."},
+			{"text": "As the vision fades, you're surprised to feel not full of gunk in the gut.  Her stiff ghastly member is still vortexing in and out of your colon, but her... spirit hasn't filled you yet."},
+			{"text": "\"My love, my love!\" she says, and then you feel her cool kiss on your lips... her semen, however, is anything but."},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "creampies":1}}],
+			"sound": "CUM_BUBBLING",
+			"text": "Your stomach gurgles against hers as it's filled with her... ectoplasm?  You're lost in time, unable to tell if she's still there or long gone..."},
+			{"text": "And then, you're on your feet again.  You can feel it running down your thigh, your stomach gently bloated, your hole sore."}
 		]
 	},
 	{
 		"key": "GHOST-DAY-HAPPY",
 		"scriptLines": [
 			{
-			"foreground": "GHOST",
-			"text": "."},
+			"mutations": [{"saveType":"EXPERIENCE",  "value":{"class": "java.lang.Integer", "value": 3}}],
+			"text": "\"That was lovely, thank you,\" you say, and she smiles, the rays of sunshine falling across her face, her eyes sparkling.  She doesn't say a word, but her form flickers, and then fades, until only the smile remains - and then, she's gone."}
 		]
 	},
 	{
 		"key": "GHOST-DAY-SAD",
 		"scriptLines": [
+			{"text": "You shake your head.  She's hung like a horse, and her inexperienced and overzealous jamming has left your intestinal tract bruised and battered - it's going to be sore for days."},
+			{"text": "She seems... stunned.  And then, tears start to run down her cheeks... her makeup runs, and her skin and clothing darken..."},
 			{
-			"foreground": "GHOST",
-			"text": "."},
+			"sound": "FIREBALL_SOUND",
+			"foreground": "GHOST_SPOOKY_BLOODLESS",
+			"text": "Soon, the golden haired beauty before you is gone, and left behind is a wailing and malevolent spirit."},
+			{"text": "\"WHY WON'T YOU ACCEPT MY LOVE?!\" she says in a rasp."}
 		]
 	},
 	{
 		"key": "GHOST-DAY-GIVE",
 		"scriptLines": [
+			{"text": "\"I'll give you my love,\" you say, and she seems to blush, though her somewhat indistinct color makes it difficult to pick out."},
+			{"text": "She smiles, and approaches you, placing her hands against your chest.  You feel her lips touch yours, and then... you're staring up at the sky."},
+			{"text": "She comes into view again, hovering over you.  Looking over her shoulder, she smiles excitedly at you, again, and then lifts up her bridal gown."},
+			{"text": "You stare up at her full rear in awe... but before you can state your admiration, she drops herself down, so that it's pressed up against your face."},
+			{"text": "You're still clothed... and yet you feel her naked breasts against your abdomen... and her lips find the tip of your cock.  You're smothered by her fat ass while she begins to suck you off."},
+			{"text": "You immediately feel yourself taking to her mouth... but before you can embarass yourself, she leans up, and presses her weight down onto your face."},
+			{"text": "Despite her incorporealness there is something quite... corporeal about her.  Her tethers to the mortal realm aren't half as strong as the force of gravity is weighing her down on your face."},
+			{"text": "You can't breathe... and as worry fills your lungs, air does not, and soon you start to feel your survival instinct kick in."},
+			{"text": "Thankfully, she lifts her hips for a moment, giving you a gasp of the chill, otherworldly air... and then drops her hips back down."},
 			{
-			"foreground": "GHOST",
-			"text": "."},
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "oralSex":1}}],
+			"text": "Something... something is in your mouth.  More than that, something is down your throat.  While not much light penetrates into her gown, you can see a pair of big, full testicles in your field of vision."},
+			{"text": "Again, you feel her lips tugging on your shaft, her breasts pressed against you, but something is twitching in your gullet with excitement."},
+			{"text": "She bobs her head up and down, but also her hips thrust forward and back, so that she has you captured at both ends.  Even if you wanted to object, her thick shaft is plugging your lips and throat, makign any speech impossible."},
+			{"text": "Her suction is considerable, as if she were thirsty for your living seed, and her thrusting is in search of a nut long ago denied to her, so you don't think that either of you are going to last very long."},
+			{"text": "Sure enough, she begins to moan around your nearly-cumming dick.  The moment that you'll exchange semen with a revenant approaches."},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "oralCreampies":1}}],
+			"sound": "CUM",
+			"text": "You watch as the ghostly bride's big, full balls contract, ready to dump their payload down your waiting throat.  You feel something hot and sticky land deep in your throat, and then another, and another."},
+			{"text": "You thrust upwards, serving your own spicy sauce between her lips as she sucks the tip gingerly."},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "oralCreampies":1}}],
+			"sound": "CUM",
+			"text": "She's too refined to even say that she's gunking, even as she dumps glob after glob of white, hot, stinky ectoplasm onto your tongue, the ghostly specter of semen being blasted into your face at the speed of nut."},
+			{"text": "It takes a decent while for her globes to drain, and you feel utterly full in the stomach as she withdraws her ethereal appendage from your throat."},
+			{
+			"mutations": [{"saveType":"EXPERIENCE",  "value":{"class": "java.lang.Integer", "value": 2}}],
+			"text": "As if ashamed, she disappears entirely - and you are left lying on your back, her sweet scent still in the air, her otherworldly gunk dripping down your throat and into your stomach."}
 		]
 	},
 	{
 		"key": "GHOST-DAY-REJECT",
 		"scriptLines": [
+			{"text": "She remains perfectly silent as you explain to her that you can't receive her love."},
+			{"text": "\"...\""},
+			{"text": "\"..\""},
+			{"text": "\".\""},
 			{
-			"foreground": "GHOST",
-			"text": "."},
+			"sound": "FIREBALL_SOUND",
+			"foreground": "GHOST_SPOOKY_BLOODLESS",
+			"text": "Her form changes completely, and her voice becomes a shrill rasp."},
+			{"text": "\"receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it\""},
 		]
 	},
 	{
@@ -4770,13 +4847,24 @@
 		"scriptLines": [
 			{
 			"music": "HORROR_MUSIC",
-			"text": "....."},
-			{"text": "...."}
+			"text": "The chill of the night has you shuddering beneath your cloak.  The shadows cast by the moon are long and faint, and seem at odd angles to each other.  You feel... tired.  No, more than that - like you're already dreaming."},
+			{"text": "You're broken from your reverie by the sight of a fair woman, far in the distance, whose form is so indistinct, you can't be sure that she was actually there before she disappears behind some ruined structure.  She appeared to be dressed in some kind of gown, but the lack of any nearby signs of civilization make that quite unlikely."},
+			{"text": "Your curiosity is piqued, but something about the distant figure seemed... off.  Her skin was the color of moonlight, and her gown was... you shudder again, from the cold or elsewise."}
 		]
 	},
 	{
 		"key": "GHOST-NIGHT-FOLLOW",
 		"scriptLines": [
+			{"text": "You see her again - she's dressed in what appears to be a bridal gown, her skin a deathly pallor.  Though she bathes in moonlight, her form is still indistinct."},
+			{"text": "You approach; she's facing away, and is completely silent, even as you get close enough that your undisguised footsteps should be obvious."},
+			{"text": "You maintain your distance, sensing something... off about the situation.  She has stopped moving, even breathing, and has made no attempt to recognize your approach."},
+			{"text": "Then, she vanishes."},
+			{"text": "Instinctively, you reach for your weapon, but... she's gone.  No trace of her remains.  Just the still silence of the night, and the howling of the wind, and the pale, almost imperceptible moonlight."},
+			{"text": "It's... cold."},
+			{"text": "Your breath is visible."},
+			{"text": "You hear a sound... a rasp... growing steadily... as the chill in the air grows."},
+			{"text": "....."},
+			{"text": "...."},
 			{"text": "..."},
 			{"text": ".."},
 			{"text": "."}
@@ -4785,57 +4873,170 @@
 	{
 		"key": "GHOST-NIGHT-CONT",
 		"scriptLines": [
-			{"text": "..."},
-			{"text": ".."},
-			{"text": "."}
+			{"text": "Your body tenses, and you feel the hairs on your skin stand up - a primordial fear fills you with dread."},
+			{"text": "\"YOU!\" she wails, her voice that same rasp, devoid of life, as she points at you with a single, decrepit finger.  \"III WIIILL NEEEVEEER FOOORGIIIVE YOOOUUU.\""}
 		]
 	},
 	{
 		"key": "GHOST-NIGHT-APOLOGY",
 		"scriptLines": [
-			{"text": "..."},
-			{"text": ".."},
-			{"text": "."}
+			{"text": "You kneel, and place your fingers on the ground. \"I beg your forgiveness. What can I do to undo the harm I've done?\""},
+			{"text": "She snarls, and at first you think your plea had no effect, but then she begins to sob, a haunting, reverberating lament.  \"LOVE ME,\" she says, and it sounds like a demand, but her form is pitiable."},
+			{"text": "\"How can I show my love?\" you ask, and she quiets, sniffling through tears you can't see."},
+			{"text": "She doesn't motion towards you, but she does fix you with a gaze... and a bulge appears in her gown."}
 		]
 	},
 	{
 		"key": "GHOST-BLOWJOB-WOO-WOO",
 		"scriptLines": [
-			{"text": "..."},
-			{"text": ".."},
-			{"text": "."}
+			{"text": "Somewhat hesitantly, you approach her... the smell of the grave fills your lungs with dread, and she watches you without eyes."},
+			{"text": "Her bulge is... prominent, to say the least.  You drop to your knees before her, and it bounces slightly under her gown in anticipation."},
+			{"text": "She continues to watch you, and slowly pulls her gown up... underneath it is an impermeable blackness.  A lump in your throat, you crawl underneath it, and all that surrounds you is darkness."},
+			{"text": "Its presence is palpable.  You can hear a heartbeat, simultaneously distant and as loud as your own pulse in your head.  Even if you wanted to reach out and touch her, it feels like you're surrounded by an endless abyss."},
+			{"text": "\"OPEN.\" The command comes from that same raspy, voiceless voice.  Fingers, skeletal and long, run through your hair, as if a pair of hands were holding onto your head."},
+			{"text": "While the fear is overwhelming, you swallow the reluctance and open your mouth wide... and then, you swallow something else."},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "oralSex":1}}],
+			"text": "The force of it scraping your tonsils as it screams down your throat makes you gag, but you're pulled forward by the skeletal hands, forced deeper into the abyss, until you feel your chin against her thighs."},
+			{"text": "The spell is broken, and you feel the gown around you, a small amount of moonlight reaching your eyes, which can now see the full length of the shaft for a moment before it's gone, once again flung down your gullet.  You gag again."},
+			{"text": "Her hands pull your head to and fro as she thrusts her hips opposite - one moment, you're swallowing her cock, the next, you aren't, the next, you are again."},
+			{"text": "Your saliva drools to the floor as she sloppily fucks your face.  Her wet sack slaps against your chin with each thrust, and your eyes begin to roll into your head from the nausea and the lack of oxygen."},
+			{"text": "You won't survive, you realize.  She won't stop until she's had her fill, and you'll asphyxiate before then.  You begin to suck as hard as you can as she withdraws her pole from your mouth each time, and the stirring in her loins seems to grow stronger."},
+			{"text": "\"SWALLOW... MY LOVE...\" she rasps, and you don't get much choice in the matter - she pulls you deep into her crotch, her thighs clasped against your ears, her cock buried and twitching in your throat."},
+			{
+			"sound": "CUM",
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "oralCreampies":1}}],
+			"text": "In the next moment, you feel a huge rush of warmth into your stomach, which only grows hotter and fuller.  Each spurt of her mucous coats more of your throat, and you're close to losing consciousness when she finally withdraws it, a rope of saliva and cum connecting her tip to the very inside of your belly."},
+			{"text": "You clasp the dirt and gag, coughing up some of her glowing ectoplasm.  Her fingers grasp your hair and pull your head up, so that you're staring into the void where here eyes should be."}
+			{"text": "\"I WANT TO MAKE LOVE,\" she says, in the same angry snarl."},
+			{"text": "\"How?\" you ask, and her response is curt."},
+			{"text": "\"POINT YOUR ASS THIS WAY,\" she demands."}
 		]
 	},
 	{
 		"key": "GHOST-BLASTING",
 		"scriptLines": [
-			{"text": "..."},
-			{"text": ".."},
-			{"text": "."}
+			{"text": "You turn yourself around on your hands and knees, displaying your backside to her.  Although you're clothed, you're sure that will prove no obstacle, so you fully expect that the wayward spirit's widowmaker will soon make its way inside you."},
+			{"text": "And, indeed, she suddenly appears behind you, having not seemed to move from where she was to the space she now occupies.  And one particular part of her occupies a particular space within you."},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1}}],
+			"text": "Your eyes bulge out of your head as her frankly impressive ghost dong stretches your anal sphincter with its girth, and slides smoothly through your rings with its considerable length."},
+			{"text": "Your breath is caught in your throat at the sudden crushing pressure of what is unbelievably a once-human penis.  She wails - although you can't tell if she's enjoying the sensation or is still somehow tortured by it."},
+			{"text": "Without the friction of... well, of corporeality, she's able to piston her monster member in and out of you at a much faster pace than she ever could as a human rectal rooter.  The result is an intense sensation of being hollowed out, as her penis makes room for itself where it really shouldn't have any."},
+			{"text": "Every time she slams her ghostly form forward, seemingly overlapping with your own, a gust of wind rushes past your ears, and a shockwave passes through your body, and a ghostly girldick reshapes your bowels."},
+			{"text": "You know deeply understand that you can, in fact, be fucked in the ass by an angry spirit, your internal organs re-arranged by her terrible tumescence.  She screws you with the verve of a living person, but the power of a demon."},
+			{"text": "From the pleasure of being assfucked, you spew inconsequentially on the ground.  She doesn't notice, but you get the sense that you will notice when she turns her battering ram into a water cannon."},
+			{"text": "\"MY LOVE.  ALL OF MY LOVE.  RECEIVE IT RECEIVE IT RECEIVE IT RECEIVE IT RECEIVE IT RECEIVE IT RECEIVE IT RECEIVE IT RECEIVE IT RECEIVE IT RECEIVE IT RECEIVE IT RECEIVE IT RECEIVE IT RECEIVE IT RECEIVE IT RECEIVE IT RECEIVE IT RECEIVE IT RECEIVE IT RECEIVE IT RECEIVE IT \""},
+			{
+			"sound": "CUM",
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "creampies":1}}],
+			"text": "It blasts inside of you with the force of the damned - her sticky, pent up love is no less tangible than if she was living and breathing.  Your stomach gurgles under its weight and viscosity, and her damned shriek has nothing on the full effect of her undead load."},
+			{"text": "The presence of her weighty member suddenly vanishes, so all that remains is her suspiciously thick and semen-like ectoplasm, which clogs your pipes just fine.  You feel pretty convincingly jizzed in, even if you did just have a rendezvous with a revenant."},
+			{
+			"foreground": "GHOST",
+			"text": "When you turn to look at her, the malevolent presene is gone... and her appearance has changed dramatically.  Her hair is golden, her skin looks full of life and verve, and her eyes are soft and kind."},
+			{"text": "Her beauty is breathtaking, and you can hardly believe that moments ago she was taking your breath by punching your diaphragm with her meat.  Your bowels are still waterlogged with the proof."}
+		]
+	},
+	{
+		"key": "GHOST-NIGHT-IGNORE",
+		"scriptLines": [
+			{"text": "Nope. Nope, nope, nope, you decide.  You ignore the obvious evil throat-slitting demon or whatever and continue on your way.  Soon, though, you find yourself becoming incredibly tired."},
+			{"text": "The wind's howling, and the moon has disappeared behind a cloud, rendering visibility incredibly poor.  You don't know if it's a good idea to press on, or to set up camp and sleep till morning."}
 		]
 	},
 	{
 		"key": "GHOST-NIGHT-CAMP",
 		"scriptLines": [
-			{"text": "..."},
-			{"text": ".."},
-			{"text": "."}
+			{"text": "You set up camp and decide to sleep under the clouded sky."},
+			{"text": "As you sleep, the air grows colder... the still air's heat escaping to some forgotten place.  Your breath becomes visible... and you begin to feel a weight on your chest."},
+			{"text": "Something pinches your nostrils closed, so you begin to breathe with your mouth open."},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "oralSex":1}}],
+			"text": "Slowly, something weighty begins to slip into your mouth, weighing down your cheek, and your nose is freed, so you can once again draw breath."},
+			{"text": "You hear a faint giggling far in the distance as the bulge in your cheek begins to move to and fro.  The thing pushing it from the inside is large and tastes salty."},
+			{"text": "Your lips are spread wide and something is rubbing them raw.  You shiver from the cool air, and the only other motion is the gentle rocking of your sleeping head as the bulge shifts in your cheek."},
+			{"text": "The taste gets saltier and saltier, and the distant giggling grows louder and louder.  You feel the soft tap of cold, fleshy orbs against your chin, and you tongue is chilled by the long, smooth mass weighing and shifting against it."},
+			{"text": "You drool around the invisible presence, a wet, sloppy noise the only nearby sound."},
+			{"text": "The bulge in your cheeks begins to move at a faster pace, and you're on the verge of waking."},
+			{
+			"sound": "CUM",
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "oralCreampies":1}}],
+			"text": "Your sore lips feel something pulsing between them, and then your cheeks fill, and the white, ethereal fluid begins to seep out of the corners of your mouth."},
+			{"text": "Both cheeks end up utterly full of the strange gunk, which seems to grow in volume with each passing moment.  Eventually, the flood ceases, and the heavy object slips out of your mouth, leaving behind only white goo."},
+			{"text": "It dribbles from your open lips, but your mouth is already full of the stuff so you don't lick it back up."},
+			{"text": "Once again the presence plugs your nostrils, and this time, it pinches your lips shut as well.  You dream that you're drowning in a sea of cream... you gulp down more and more of it to try and draw air..."},
+			{"text": "Your eyes open, your body convulsing from the sudden awakening.  You pull yourself up into a sitting posture."}
 		]
 	},
 	{
-		"key": "GHOST-NEXT-MORNING",
+		"key": "GHOST-NIGHT-CAMP-CONT",
 		"scriptLines": [
-			{"text": "..."},
-			{"text": ".."},
-			{"text": "."}
+			{"text": "An image flashes into your mind - a grim specter of a woman with a bulging nether region, soaked through with seminal fluids... a contented smirk on her face.  And then, she's gone."},
+			{
+			"mutations": [{"saveType":"EXPERIENCE",  "value":{"class": "java.lang.Integer", "value": 2}}],
+			"text": "You think it might have been a nightmare... but the weight in your gut remains.  You have a strange sensation in your mouth, and you discover a few short, pale hairs caught in your teeth."}
+		]
+	},
+	{
+		"key": "GHOST-NIGHT-LOST",
+		"scriptLines": [
+			{
+			"mutations": [{"saveType":"TIME",  "value":{"class": "java.lang.Integer", "value": 3}}],
+			"text": "You wander around in the dark, your mind a haze.  It feels like... someone is speaking to you... or following you... you're not sure.  By the time morning has come, you realize that you haven't moved at all for... hours."},
+			{"text": "A chill in your blood, you hurry away - never wanting to return to this cursed place under the pale moonlight again."}
+		]
+	},
+	{
+		"key": "GHOST-VICTORY",
+		"scriptLines": [
+			{
+			"foreground": "GHOST",
+			"mutations": [{"saveType":"EXPERIENCE",  "value":{"class": "java.lang.Integer", "value": 5}}],
+			"text": "As she disappears, her appearance has changed - a fair-haired woman with a faint, somber smile fades away, leaving behind nothing but a memory."},
 		]
 	},
 	{
 		"key": "GHOST-POSSESSION",
 		"scriptLines": [
-			{"text": "..."},
-			{"text": ".."},
-			{"text": "."}
+			{
+			"foreground": "NULL",
+			"text": "You feel paralyzed, but your knees don't buckle... you stay standing, somehow.  A cacophony of sounds fills your mind and your vision loses all color."},
+			{"text": "The ghastly figure before you has gone, but you still feel its presence... you try to turn and look around you for it, but you're completely unable to move.  Even more alarmingly, you are moving, but without willing it."},
+			{"text": "Your body begins to walk of its own accord, and you're trapped, watching as if being shown a vision from some other vantage."},
+			{"text": "You wander, unable to control your own two feet, until you reach a secluded cave... which you soon discover is actually a bandit cove."},
+			{"text": "Through your own lips, you speak to the bandits, offering yourself up to them as a pleasure girl... in exchange for little more than their affection and copious semen."},
+			{"text": "They agree to your terms."},
+			{
+			"sound": "CUM",
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":3, "creampies": 2}}],
+			"text": "Some of them pound your ass from behind while pulling on your hair, and they pull the hardest when they pump your bowels full of their brigand spermslime while you howl encouragement."},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "oralSex":3, "oralCreampies": 1}}],
+			"text": "Some of them plug your loud mouth while wrapping your hair around their waist so you have no choice but to deepthroat them to the hilt while gagging."},
+			{"text": "Some of them are filthy, but you don't get to choose who gets taken in hand, who puts it in your mouth, and who pounds it into your <BUTTSIZE> butt."},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":3, "oralSex": 3, "creampies": 2, "oralCreampies": 1}}],
+			"text": "Inevitably you're spit-roasted, bent over and fucked from behind and in your face, while holding two other cocks in each hand."},
+			{
+			"sound": "CUM",
+			"text": "Sometimes the ones you're masturbating simply spew their cum on your face and hair, in your nose or eyes or cheeks, but sometimes they find their way into your mouth, where they rarely last more than a few pumps before dumping their payload onto your tongue and down your throat."},
+			{"text": "They pound your ass hard from behind, taking advantage of the fact that your occupied mouth can't tell them to tone down their anal frenzy, not that you could tell them not to ream your butthole raw even if your mouth was empty."},
+			{"text": "The ones with the biggest dicks end up either forcefully enlarging your sphincter or give your colon a good dicking, but it's the ones that insist on spanking you as hard as their hands can be brought down that cause the most extreme sensations alone."},
+			{"text": "Together, the impatient lads that stick their dick up your ass alongside another are the ones that nearly force you to escape from your otherworldly prison - only the malevolent spirit holds fast, and you receive two cocks up a one-cock hole."},
+			{
+			"sound": "CUM",
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1, "analEjaculation": 3}}],
+			"text": "The resulting stretching renders your butthole ragged and obscene, and you spew your worthless jizz out as the two competing cocks slide in and out of you.  This happens half a dozen times before you're running on empty, and the orgasms are dry."},
+			{
+			"sound": "CUM_BUBBLING",
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":5, "oralSex":5, "analEjaculation": 3, "creampies": 4, "oralCreampies": 2}}],
+			"text": "Before the day is done, you've had more men take you, in the face or in the ass or in your hands, than the average pleasure girl sees in a month.  For not a moment were you not serving three or four of them."},
+			{"text": "You're coated in semen, filled with it, and you've swallowed enough of it to have no want of supper.  The semen leaking out of your stretced-open hole is from fifteen different men."},
+			{"text": "\"More... more...\" you demand, with a hoarse voice not your own.  The men look at each other with morbid grins, and you feel no more capable of controlling your own body than you did before... and likely, you never will again."},
+			{"text": "As some of the men drop their draws once more, you hear a voice in the distance, growing louder and louder still."},
+			{"text": "\"receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it\""},
+			{"text": "You are the brigands' buttboy forevermore."}
 		]
 	},
 	{

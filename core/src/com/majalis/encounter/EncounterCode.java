@@ -291,6 +291,10 @@ public enum EncounterCode {
 				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{  
 					AssetEnum.GHOST.getTexture(),
 					AssetEnum.GHOST_SPOOKY.getTexture(),
+					AssetEnum.GHOST_SPOOKY_BLOODLESS.getTexture(),
+					AssetEnum.FIREBALL_SOUND.getSound(),
+					AssetEnum.CUM.getSound(),
+					AssetEnum.CUM_BUBBLING.getSound(),
 					AssetEnum.SPOOKY_MUSIC.getMusic(),
 					AssetEnum.HORROR_MUSIC.getMusic()
 				});

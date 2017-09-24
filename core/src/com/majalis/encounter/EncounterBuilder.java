@@ -424,17 +424,20 @@ public class EncounterBuilder {
 					no
 				).getEncounter();
 			case GHOST:
-				String spookyGhostScene = Gdx.app.getPreferences("tales-of-androgyny-preferences").getBoolean("blood", true) ? "GHOST-BLOODY" : "GHOST-BLOODLESS";				
-				Branch refuse = new Branch("Refuse").checkScene(Stat.MAGIC, new Branch(2).battleScene(BattleCode.GHOST, new Branch(Outcome.VICTORY), new Branch(Outcome.DEFEAT)), new Branch(0).textScene("GHOST-POSSESSION"));
+				String spookyGhostScene = Gdx.app.getPreferences("tales-of-androgyny-preferences").getBoolean("blood", true) ? "GHOST-BLOODY" : "GHOST-BLOODLESS";		
+				Branch ghostBattle = new Branch().battleScene(BattleCode.GHOST, new Branch(Outcome.VICTORY).textScene("GHOST-VICTORY"), new Branch(Outcome.DEFEAT).textScene("GHOST-POSSESSION").gameEnd());
+				Branch refuse = new Branch("Refuse").checkScene(Stat.MAGIC, new Branch(2).concat(ghostBattle), new Branch(0).textScene("GHOST-POSSESSION"));
+				Branch didEnjoy = new Branch().choiceScene("\"Did you enjoy it as much as I did?\", she asks.", new Branch("Yes").textScene("GHOST-DAY-HAPPY"), new Branch("No").textScene("GHOST-DAY-SAD").concat(ghostBattle));
+				
 				return new Branch().checkScene(
 					CheckType.DAY, 
 					new Branch(true).textScene("GHOST-DAY").choiceScene(
 						"Do you follow?", 
 						new Branch("Follow her").textScene("GHOST-DAY-FOLLOW").choiceScene(
 							"Receive her \"affection\"?",
-							new Branch("Receive it").textScene("GHOST-DAY-RECEIVE").choiceScene("\"Did you enjoy it as much as I did?\"", new Branch("Yes").textScene("GHOST-DAY-HAPPY"), new Branch("No").textScene("GHOST-DAY-SAD")),
+							new Branch("Receive it").textScene("GHOST-DAY-RECEIVE").concat(didEnjoy),
 							new Branch("Give her your love").textScene("GHOST-DAY-GIVE"),
-							new Branch("Reject her").textScene("GHOST-DAY-REJECT")
+							new Branch("Reject her").textScene("GHOST-DAY-REJECT").concat(ghostBattle)
 						), 
 						new Branch("Ignore her")
 					), 
@@ -446,14 +449,14 @@ public class EncounterBuilder {
 								"Show her love?", 
 								new Branch("Show her love").textScene("GHOST-BLOWJOB-WOO-WOO").choiceScene(
 									"Well?", 
-									new Branch("Point your ass at her").textScene("GHOST-BLASTING"),
+									new Branch("Point your ass at her").textScene("GHOST-BLASTING").concat(didEnjoy),
 									refuse
 								),
 								refuse
 							),
 							refuse							
 						), 
-						new Branch("Ignore her").textScene("GHOST-NIGHT-CAMP").textScene(spookyGhostScene).textScene("GHOST-NEXT-MORNING")
+						new Branch("Ignore her").textScene("GHOST-NIGHT-IGNORE").choiceScene("Camp or Leave?", new Branch("Camp").textScene("GHOST-NIGHT-CAMP").textScene(spookyGhostScene).textScene("GHOST-NIGHT-CAMP-CONT"), new Branch("Leave").textScene("GHOST-NIGHT-LOST"))
 					)
 				).getEncounter();				
 			case GOBLIN:
