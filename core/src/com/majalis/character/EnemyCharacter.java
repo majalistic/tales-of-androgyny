@@ -324,12 +324,12 @@ public class EnemyCharacter extends AbstractCharacter {
 			}	
 		}
 		else if (enemyType == EnemyEnum.GHOST) {
-			if (stance == Stance.BALANCED) {
-				return getTechniques(INCANTATION);
-			}
 			if (stance == Stance.CASTING) {
 				return currentMana > 10 ? getTechniques(COMBAT_FIRE) : getTechniques(FOCUS_ENERGY);
 			}
+			else {
+				return getTechniques(INCANTATION);
+			}			
 		}
 		
 		Array<Techniques> possibles = new Array<Techniques>();
