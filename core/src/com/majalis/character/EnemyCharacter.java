@@ -980,7 +980,7 @@ public class EnemyCharacter extends AbstractCharacter {
 	}
 	
 	public void hitAnimation() {
-		if (animations.size > 0 && currentAnimationsPlaying.contains(animations.get(0)) && enemyType != EnemyEnum.BRIGAND) {
+		if (animations.size > 0 && currentAnimationsPlaying.contains(animations.get(0)) && enemyType != EnemyEnum.BRIGAND && enemyType != EnemyEnum.ORC) {
 			animations.get(0).setAnimation(0, "Hit Erect", false);
 			animations.get(0).addAnimation(0, "Idle Erect", true, 1.0f);
 			if (enemyType == EnemyEnum.HARPY) {
