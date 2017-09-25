@@ -204,7 +204,7 @@ public class EncounterBuilder {
 							battleBranches2
 						),
 						new Branch(0).checkScene(CheckType.PLUGGED, 
-							new Branch(true).textScene("BRIGAND-BACKSTAB-FOILED").battleScene(
+							new Branch(true).textScene("BRIGAND-FOILED-BACKSTAB").battleScene(
 								BattleCode.BRIGAND, Stance.FULL_NELSON_BOTTOM, Stance.FULL_NELSON,
 								battleBranches2	
 							), 
