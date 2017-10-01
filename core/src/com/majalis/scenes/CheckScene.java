@@ -11,6 +11,7 @@ import com.majalis.character.PlayerCharacter.QuestType;
 import com.majalis.character.Perk;
 import com.majalis.encounter.Background;
 import com.majalis.save.SaveService;
+import com.majalis.save.SaveManager.JobClass;
 import com.majalis.screens.TimeOfDay;
 
 public class CheckScene extends AbstractTextScene {
@@ -246,6 +247,14 @@ public class CheckScene extends AbstractTextScene {
 		PLUGGED ("", "") { 
 			@Override
 			protected boolean getCheck(PlayerCharacter character) { return character.isPlugged(); }  
+		}, 
+		CHASTITIED ("", "") { 
+			@Override
+			protected boolean getCheck(PlayerCharacter character) { return character.isChastitied(); }  
+		}, 
+		PALADIN ("You've taken an oath of chastity.", "You've taken no oath of chastity.") { 
+			@Override
+			protected boolean getCheck(PlayerCharacter character) { return character.getJobClass() == JobClass.PALADIN; }  
 		},
 		;
 		

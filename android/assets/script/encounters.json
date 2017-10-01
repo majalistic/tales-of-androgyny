@@ -1275,6 +1275,22 @@
 		]
 	},
 	{
+		"key": "HARPY-PLUGGED",
+		"scriptLines": [
+			{
+			"animatedForeground": "HARPY",
+			"text": "You collapse to the floor, unable to withstand the harpy's attacks.  You anticipate the killing blow, face-down in the dirt, but it never comes. Instead, you can sense the harpy stalking around you, inspecting you closely."},
+			{"text": "She seems frustrated, as she can't seem locate what she's looking for.  You realize that even with your ass in the air, your hole is plugged up, and she seems to lack the problem solving skills necessary to rectify that."},
+			{"text": "She presses on the plug with her talon, forcing it up further into your ass, which makes you grit your teeth, but does little else.  As she continues to look around you, you see her foot-long skin-covered bird dick flop about, dangerously erect."},
+			{"text": "Thankfully, she doesn't manage to puzzle it out, but that doesn't mean that she's flapping away with a bird-boner, she clambers on top of you, squishing your cheeks together with her talons, her footlong hotdogged between them, and begins to gyrate."},
+			{"text": "Her schlong is wet with lust, and it easily slides between your buns as she simulates her mating in a frenzy.  You thank your lucky stars that the plug prevented her from making the same motions a few inches lower and a foot deeper."},
+			{"text": "While she rubs herself on you, rather than in you, you still feel the heat rise to your cheeks athe humiliation you're enduring - the ridiculous display of the harpy mounting you and asserting her dominance from behind."},
+			{"text": "She screeches, and a stream of hot wetness runs up your back, almost to your neck, followed by another, and another.  You drop your head in shame, feeling her sticky desire spurt out in ropes across your butt and back like a young girl trying to avoid impregnation."},
+			{"text": "You feel her shrinking cock laying against your tailbone, its tip drooling into the small of your back, before she dismounts, having gotten what she needed from your ass, before she takes off, her limp dick dangling between her legs."},
+			{"text": "You sigh, getting to your feet with some effort.  Your butt and back are coated in semen, no doubt, so even you managed to avoid having awkward interspecies anal sex, your dignity as something other than an avian sex toy is waning."}
+		]
+	},
+	{
 		"key": "HARPY-DEFEAT",
 		"scriptLines": [
 			{
@@ -2693,6 +2709,57 @@
 		]
 	},
 	{
+		"key": "GADGETEER-CHASTITIED",
+		"scriptLines": [
+			{"text": "She's all smiles as you peruse her wears, and she's staring intently at your crotch."},
+			{"text": "\"Sooooo...\" she begins, putting her finger briefly to her lips, \"...if you're stuck in that cage, how do you get off?\" she asks."},
+		]
+	},
+	{
+		"key": "GADGETEER-PALADIN",
+		"scriptLines": [
+			{"text": "\"As a Paladin, I've taken an oath of chastity,\" you explain, and her expression blanks."},
+			{"text": "\"...eh?\""},
+			{"text": "..."},
+			{"text": "Suddenly, her eyes are ablaze, and a smile creeps onto her face from ear to ear."},
+			{"text": "\"A slut! A genuine, holy buttslut! I never thought I'd meet one!\" she says in an excited, high, girly voice. \"So what you're saying is you only get off with your butt, right?\" she asks, looking for validation."},			
+		]
+	},
+	{
+		"key": "GADGETEER-SLUT-PALADIN",
+		"scriptLines": [
+			{"text": "You nod, filled with shame.  You've technically broken your vow... more than once."},
+			{"text": "Ahahaha!  A paladin boy who likes it in the dirty hole.  Oh, this is too good."},
+		]
+	},
+	{
+		"key": "GADGETEER-PURE-PALADIN",
+		"scriptLines": [
+			{"text": "You rebuke her.  \"Absolutely not.  I would never break my vow of chastity.\""},
+			{"text": "\"Awww...\" she says, disappointed.  \"Well, if you ever change your mind, I'll give that holy-hole a good stuffing, and you'll thank me for the privilege,\" she says, discordantly cheery."},
+			{"text": "You leave, confused by the strange merchant's antics."}			
+		]
+	},
+	{
+		"key": "GADGETEER-CAGE",
+		"scriptLines": [
+			{"text": "\"What do you mean?\" you reply."},
+			{"text": "\"Well, you obviously can't get off with your dick.  So... in order to empty those poor spooge-pouches of yours, you've gotta take it up the A, right?\" she explains, directly."},
+			
+			{"text": "\"You gotta get taken to poundtown in order to spurt your useless man-goo out of that cage, huh?  Seems pretty pathetic,\" she says, all smiles."}
+			
+		
+		]
+	},
+	{
+		"key": "GADGETEER-PLUGGED",
+		"scriptLines": [
+			{"text": "The merchant eyes you up and down, although more down than up.  \"Hrm... can I ask you something?\""},
+			{"text": "You nod, sensing a bit of... tension."},
+			{"text": "She rest her chin on her hands and peers at you over her glasses.  \"How's it feel to have that big fat plug up your ass?  Good?\""},
+		]
+	},
+	{
 		"key": "GADGETEER-POSTSHOP",
 		"scriptLines": [
 			{"text": "\"What do you think?  Pretty cheap, huh?\" she says, and you blink, unsure.  The vast majority of what she's carrying doesn't appear to be for sale - so why is she carrying it?"},
@@ -2962,13 +3029,25 @@
 	{
 		"key": "ORC-ANAL",
 		"scriptLines": [
-			{"text": "\"My... ass...\" you say, ashamedly... and she chuckles heartily.  "},
+			{"text": "\"My... ass...\" you say, ashamedly... and she chuckles heartily."},
 			{"text": "\"Is that all it was?  You wanted it for yourself?  Well...\" she says, pulling you forward so that you're on your knees, your ass facing her, \"...fine with me.\""},
-			{"text": "You remember how full and ready to bust her balls looked, and you swallow.  You also remember how thick and long it looked, and go a bit pale."},
+			{"text": "You remember how full and ready to bust her balls looked, and you swallow.  You also remember how thick and long it looked, and go a bit pale."}
+			
+		]
+	},
+	{
+		"key": "ORC-ANAL-PLUGGED",
+		"scriptLines": [
+			{"text": "\"Oh?  Got yourself ready for me?  Nice of you,\" she says, yanking out your buttplug. \"My turn.\""},
+		]
+	},
+	{
+		"key": "ORC-ANAL-CONTINUE",
+		"scriptLines": [
 			{
 			"foreground": "ORC_PRONE_BONE",
 			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1}}],
-			"text": "She spreads your cheeks, firmly, with her strong hands and slams her helmet against your unprepared starfish.  Any hopes you had of her going easy on you evaporates."},
+			"text": "She spreads your cheeks firmly with her strong hands and then slams her helmet against your unprepared starfish.  Any hopes you had of her going easy on you evaporates."},
 			{"text": "With a \"hoah!\" she bucks a thrust back and fro, burying a few inches of orc meat in your ass without warning - and you see stars."},
 			{
 			"sound": "CUM",

@@ -203,7 +203,8 @@ public class EncounterBuilder {
 							BattleCode.BRIGAND, 
 							battleBranches2
 						),
-						new Branch(0).checkScene(CheckType.PLUGGED, 
+						new Branch(0).checkScene(
+							CheckType.PLUGGED, 
 							new Branch(true).textScene("BRIGAND-FOILED-BACKSTAB").battleScene(
 								BattleCode.BRIGAND, Stance.FULL_NELSON_BOTTOM, Stance.FULL_NELSON,
 								battleBranches2	
@@ -406,21 +407,41 @@ public class EncounterBuilder {
 				Branch[] yesyesyes = new Branch[]{new Branch("yes").concat(yes), new Branch("yeS").concat(yes), new Branch("YES").concat(yes)};
 				return new Branch().textScene("GADGETEER-INTRO").choiceScene(
 					"Do you want to peruse her wares?", 
-					new Branch("Peruse").shopScene(ShopCode.GADGETEER_SHOP).textScene("GADGETEER-POSTSHOP").checkScene(
-						Perk.ANAL_LOVER,
-						new Branch(3).textScene("GADGETEER-PEGGED").choiceScene("Become hers?", yesyesyes),
-						new Branch(2).textScene("GADGETEER-PLUGS").encounterEnd(),
-						new Branch(1).textScene("GADGETEER-HESITANT").choiceScene(
-							"Try the toys?", 
-							new Branch("Yes").textScene("GADGETEER-BALLS").encounterEnd(), 
-							no
-						),
-						new Branch(0).textScene("GADGETEER-CONFUSED").choiceScene(
-							"Try the toys?", 
-							new Branch("Yes (Requires: Catamite)").require(ChoiceCheckType.LEWD).textScene("GADGETEER-BREAKINGIN").encounterEnd(),
-							no
+					new Branch("Peruse").shopScene(ShopCode.GADGETEER_SHOP).checkScene(
+						CheckType.CHASTITIED, 
+						new Branch(true).textScene("GADGETEER-CHASTITIED").checkScene(
+							CheckType.PALADIN, 
+							new Branch(true).textScene("GADGETEER-PALADIN").checkScene(
+								Perk.ANAL_LOVER, 
+								new Branch(3).textScene("GADGETEER-SLUT-PALADIN"),
+								new Branch(0).textScene("GADGETEER-PURE-PALADIN")
+							), 
+							new Branch(false).textScene("GADGETEER-CAGE")
+						), 
+						new Branch(false).checkScene(
+							CheckType.PLUGGED, 
+							new Branch(true).textScene("GADGETEER-PLUGGED").checkScene(
+								Perk.ANAL_LOVER,
+								new Branch(3).textScene("GADGETEER-PEGGED").choiceScene("Become hers?", yesyesyes),
+								new Branch(0).textScene("GADGETEER-PLUGS")
+							),
+							new Branch(false).textScene("GADGETEER-POSTSHOP").checkScene(
+								Perk.ANAL_LOVER,
+								new Branch(3).textScene("GADGETEER-PEGGED").choiceScene("Become hers?", yesyesyes),
+								new Branch(2).textScene("GADGETEER-PLUGS"),
+								new Branch(1).textScene("GADGETEER-HESITANT").choiceScene(
+									"Try the toys?", 
+									new Branch("Yes").textScene("GADGETEER-BALLS").encounterEnd(), 
+									no
+								),
+								new Branch(0).textScene("GADGETEER-CONFUSED").choiceScene(
+									"Try the toys?", 
+									new Branch("Yes (Requires: Catamite)").require(ChoiceCheckType.LEWD).textScene("GADGETEER-BREAKINGIN").encounterEnd(),
+									no
+								)
+							)
 						)
-					), 
+					),
 					no
 				).getEncounter();
 			case GHOST:
@@ -662,7 +683,14 @@ public class EncounterBuilder {
 				Branch harpyMarriage = new Branch().textScene("HARPY-MARRIAGE").gameEnd();
 				Branch[] battleBranches = new Branch[]{
 					new Branch(Outcome.VICTORY).textScene("HARPY-VICTORY").encounterEnd(), 
-					new Branch(Outcome.DEFEAT).textScene("HARPY-DEFEAT").checkScene(Perk.BIRD_LOVER, new Branch(3).textScene("HARPY-LOVE-BIRD").concat(harpyMarriage), new Branch(0).checkScene(Perk.ANAL_LOVER, new Branch(3).textScene("HARPY-LOVE-ANAL").concat(harpyMarriage), new Branch(0).textScene("HARPY-FINISH"))), 
+					new Branch(Outcome.DEFEAT).checkScene(
+						CheckType.PLUGGED, 
+						new Branch(true).textScene("HARPY-PLUGGED"),
+						new Branch(false).textScene("HARPY-DEFEAT").checkScene(
+							Perk.BIRD_LOVER, 
+							new Branch(3).textScene("HARPY-LOVE-BIRD").concat(harpyMarriage), 
+							new Branch(0).checkScene(Perk.ANAL_LOVER, new Branch(3).textScene("HARPY-LOVE-ANAL").concat(harpyMarriage), new Branch(0).textScene("HARPY-FINISH"))
+						)), 
 					new Branch(Outcome.SATISFIED).textScene("HARPY-SATISFIED").encounterEnd()
 				};
 				Branch harpyDodge = new Branch(6).textScene("HARPY-DODGE").battleScene(
@@ -805,9 +833,10 @@ public class EncounterBuilder {
 				Branch leaveOrc = new Branch().textScene("ORC-LEAVE").encounterEnd();
 				Branch oralScene = new Branch().textScene("ORC-ORAL").encounterEnd();
 				Branch failedCharisma = new Branch(0).textScene("ORC-OFFER-FAIL").concat(oralScene);
+				Branch orcAnal = new Branch().textScene("ORC-ANAL").checkScene(CheckType.PLUGGED, new Branch(true).textScene("ORC-ANAL-PLUGGED").textScene("ORC-ANAL-CONTINUE"), new Branch(false).textScene("ORC-ANAL-CONTINUE"));
 				Branch battleVictory = new Branch().textScene("ORC-VICTORY").choiceScene(
 					"Front, back, or decline?", 
-					new Branch("Front (Requires: Catamite)").require(ChoiceCheckType.LEWD).textScene("ORC-ANAL").encounterEnd(),
+					new Branch("Front (Requires: Catamite)").require(ChoiceCheckType.LEWD).concat(orcAnal),
 					new Branch("Back (Requires: Free cock)").require(ChoiceCheckType.FREE_COCK).textScene("ORC-BOTTOM").encounterEnd(),
 					new Branch("Decline").textScene("ORC-DECLINE").encounterEnd()
 				);
@@ -823,7 +852,7 @@ public class EncounterBuilder {
 								new Branch(Outcome.VICTORY).textScene("ORC-VICTORY1").concat(battleVictory),
 								new Branch(Outcome.DEFEAT).textScene("ORC-DEFEAT").choiceScene(
 									"What do you offer?",
-									new Branch("Anal (Requires: Catamite)").require(ChoiceCheckType.LEWD).textScene("ORC-ANAL").encounterEnd(),
+									new Branch("Anal (Requires: Catamite)").require(ChoiceCheckType.LEWD).concat(orcAnal),
 									new Branch("Oral").textScene("ORC-OFFER-ORAL").concat(oralScene), 
 									new Branch("Nasal").textScene("ORC-NASAL").encounterEnd(),
 									new Branch("Penal (6 CHA)").require(ChoiceCheckType.STAT_GREATER_THAN_X, Stat.CHARISMA, 6).textScene("ORC-PENAL").encounterEnd(),
