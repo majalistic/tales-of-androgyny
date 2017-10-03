@@ -293,7 +293,7 @@ public class EncounterBuilder {
 					"What do you say?", 
 					new Branch("Try the brothel. (CHA: 7)").require(ChoiceCheckType.STAT_GREATER_THAN_X, Stat.CHARISMA, 7).textScene("ELF-BROTHEL-SUGGEST"),
 					new Branch("Join me. (CHA: 5)").require(ChoiceCheckType.STAT_GREATER_THAN_X, Stat.CHARISMA, 5).textScene("ELF-JOIN-SUGGEST"),
-					new Branch("Become a healer. (CHA: 3").require(ChoiceCheckType.STAT_GREATER_THAN_X, Stat.CHARISMA, 3).textScene("ELF-HEALER-SUGGEST"),
+					new Branch("Become a healer. (CHA: 3)").require(ChoiceCheckType.STAT_GREATER_THAN_X, Stat.CHARISMA, 3).textScene("ELF-HEALER-SUGGEST"),
 					new Branch("Go home.").textScene("ELF-LEAVE-SUGGEST")
 				);
 				return new Branch().textScene("ELF-INTRO").checkScene(
