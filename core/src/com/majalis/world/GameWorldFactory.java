@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.RandomXS128;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.IntMap;
 import com.badlogic.gdx.utils.IntSet;
+import com.badlogic.gdx.utils.ObjectSet;
 import com.majalis.asset.AssetEnum;
 import com.majalis.character.PlayerCharacter;
 import com.majalis.encounter.EncounterCode;
@@ -40,6 +41,7 @@ public class GameWorldFactory {
 		Logging.logTime("Begin logging");
 		for (int ii = 0; ii < 10000; ii++) {
 			getGameWorld(ii, GameMode.SKIRMISH, 1);
+			EncounterCode.resetState();
 			Logging.logTime("Seed: " + ii);
 		}
 		Logging.flush();
@@ -58,23 +60,23 @@ public class GameWorldFactory {
 		
 		if (gameMode == GameMode.SKIRMISH) {
 			Zone zone = new Zone(loadService, assetManager, random, nodes, nodeMap, 1,  1)
-					.addStartNode(1, INITIAL, DEFAULT, 20, 10)
-					.addEndNode(1000, TOWN, TOWN, 36, 18)
+					.addStartNode(1, INITIAL, DEFAULT, 10, 10)
+					.addEndNode(1000, TOWN, TOWN, 26, 18)
 					//.addEndNode(5000, CRIER_QUEST, CRIER_QUEST, new Vector2(1300, 1300))
-					.addEndNode(10000, GADGETEER, DEFAULT, 20, 22)
+					.addEndNode(10000, GADGETEER, DEFAULT, 10, 22)
 					.buildZone();
 			
-			Zone zone2 = new Zone(loadService, assetManager, random, nodes, nodeMap, 1,  3)
+			Zone zone2 = new Zone(loadService, assetManager, random, nodes, nodeMap, 2,  4)
 					.addStartNode(zone.getEndNodes().get(0))
-					.addEndNode(1001, SPIDER, SPIDER, 72, 37)
-					.addEndNode(1002, FORT, FORT, 48, 72)
+					.addEndNode(1001, SPIDER, SPIDER, 62, 37)
 					.buildZone();
 			
-			new Zone(loadService, assetManager, random, nodes, nodeMap, 2, 3)
+			new Zone(loadService, assetManager, random, nodes, nodeMap, 3, 3)
 					.addStartNode(zone2.getEndNodes().get(0))
-					.addEndNode(1003, FORT, FORT, 120, 62)
-					.addEndNode(1004, FORT, FORT, 120, 10)
+					.addEndNode(1003, FORT, FORT, 130, 62)
+					.addEndNode(1004, FORT, FORT, 130, 10)
 					.buildZone();
+
 		}
 		else {
 			int nodeCode = 1;
@@ -113,6 +115,21 @@ public class GameWorldFactory {
 		
 		nodeMap.get(currentNode).setAsCurrentNode();
 		nodes.sort();
+		
+		if (TalesOfAndrogyny.testing) {
+			ObjectSet<EncounterCode> encounterCodesUnfulfilled = new ObjectSet<EncounterCode>(EncounterCode.getAllRandomEncounters());
+			for (GameWorldNode node : nodes) {
+				encounterCodesUnfulfilled.remove(node.getEncounterCode());
+			}
+			String missingCodes = "";
+			for (EncounterCode code : encounterCodesUnfulfilled) {
+				missingCodes += code.toString() + ", ";
+			}
+			if (!missingCodes.equals("")) {
+				Logging.logTime("Failed to generate following encounters : " + missingCodes);
+			}
+		}
+		
 		return nodes;
 	}
 	

@@ -5,6 +5,7 @@ import static com.majalis.asset.AssetEnum.*;
 import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.IntMap;
+import com.badlogic.gdx.utils.ObjectSet;
 import com.majalis.asset.AssetEnum;
 import com.majalis.screens.TownScreen;
 /*
@@ -479,10 +480,25 @@ public enum EncounterCode {
 	static {
 		encounterMap = new IntMap<Array<EncounterCode>>();
 		encounterMap.put(1, new Array<EncounterCode>(new EncounterCode[]{WERESLUT, HARPY, SLIME, BRIGAND, DRYAD, CENTAUR, GOBLIN, ORC, ADVENTURER, ELF, FOOD_CACHE, GOLD_CACHE, DAMAGE_TRAP, ANAL_TRAP, HUNGER_CHARM}));
-		encounterMap.put(2, new Array<EncounterCode>(new EncounterCode[]{HARPY, BRIGAND, DRYAD, CENTAUR, GOBLIN, ORC, ADVENTURER, ELF, OGRE, BEASTMISTRESS, GOLEM, GHOST, FOOD_CACHE, GOLD_CACHE, DAMAGE_TRAP, ANAL_TRAP, ICE_CREAM, HUNGER_CHARM}));
+		encounterMap.put(2, new Array<EncounterCode>(new EncounterCode[]{WERESLUT, HARPY, BRIGAND, DRYAD, CENTAUR, GOBLIN, ORC, ADVENTURER, ELF, OGRE, BEASTMISTRESS, GOLEM, GHOST, GOLD_CACHE, FOOD_CACHE, DAMAGE_TRAP, ANAL_TRAP, HUNGER_CHARM, ICE_CREAM}));
+		encounterMap.put(3, new Array<EncounterCode>(new EncounterCode[]{DRYAD, OGRE, BEASTMISTRESS, GOLEM, GHOST, FOOD_CACHE, DAMAGE_TRAP, ANAL_TRAP, HUNGER_CHARM, ICE_CREAM}));
 		
 		iceCreamReady = true;
 		hungerCharmReady = true;
+	}
+	
+	// FOR TESTING PURPOSES ONLY
+	public static void resetState() { 
+		iceCreamReady = true;
+		hungerCharmReady = true;
+	}
+	
+	public static ObjectSet<EncounterCode> getAllRandomEncounters() {
+		ObjectSet<EncounterCode> temp = new ObjectSet<EncounterCode>();
+		for (Array<EncounterCode> mapFlat : encounterMap.values()) {
+			temp.addAll(mapFlat);
+		}
+		return temp;
 	}
 	
 	public static EncounterCode getEncounterCode(int rawCode, int difficulty) {

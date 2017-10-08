@@ -65,6 +65,7 @@ public class Zone {
 	protected Zone buildZone() {
 		Array<GameWorldNode> requiredNodesUnfulfilled = new Array<GameWorldNode>(requiredNodes);
 		
+		
 		for (int ii = 0; ii < repeats; ii++) {
 			for (GameWorldNode requiredNode : requiredNodes) {
 				boolean nodeNotReached = true;
