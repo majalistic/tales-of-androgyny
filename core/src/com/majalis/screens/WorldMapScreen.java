@@ -497,13 +497,21 @@ public class WorldMapScreen extends AbstractScreen {
 									}
 									
 									uiGroup.addActor(statusResults); 									
-									uiGroup.addAction(sequence(delay(8), new Action() {
-										@Override
-										public boolean act(float delta) {
-											uiGroup.removeActor(displayNewEncounter);
-											uiGroup.removeActor(statusResults);
-											return true;
-										}
+									uiGroup.addAction(sequence(
+										delay(1), 
+										new Action(){ @Override
+											public boolean act(float delta) {
+												checkForForcedRest();
+												return true;
+										}}, 
+										delay(7), 
+										new Action() {
+											@Override
+											public boolean act(float delta) {
+												uiGroup.removeActor(displayNewEncounter);
+												uiGroup.removeActor(statusResults);
+												return true;
+											}
 									}));
 									saveService.saveDataValue(SaveEnum.VISITED_LIST, node.getNodeCode());
 									saveService.saveDataValue(SaveEnum.SCOUT, 0);
