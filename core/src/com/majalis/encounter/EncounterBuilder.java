@@ -413,7 +413,7 @@ public class EncounterBuilder {
 							CheckType.PALADIN, 
 							new Branch(true).textScene("GADGETEER-PALADIN").checkScene(
 								Perk.ANAL_LOVER, 
-								new Branch(3).textScene("GADGETEER-SLUT-PALADIN"),
+								new Branch(3).textScene("GADGETEER-SLUT-PALADIN").gameEnd(),
 								new Branch(0).textScene("GADGETEER-PURE-PALADIN")
 							), 
 							new Branch(false).textScene("GADGETEER-CAGE")
