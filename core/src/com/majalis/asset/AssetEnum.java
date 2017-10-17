@@ -114,6 +114,11 @@ public enum AssetEnum {
 	GHOST("enemies/Ghost.png"),
 	GHOST_SPOOKY("enemies/GhostSpooky.png"),
 	GHOST_SPOOKY_BLOODLESS("enemies/GhostSpookyNoBlood.png"),
+	BUNNY_CREAM("enemies/bunny/Cream.png"),
+	BUNNY_VANILLA("enemies/bunny/Vanilla.png"),
+	BUNNY_CARAMEL("enemies/bunny/Caramel.png"),
+	BUNNY_CHOCOLATE("enemies/bunny/Chocolate.png"),
+	BUNNY_DARK_CHOCOLATE("enemies/bunny/DarkChocolate.png"),
 	TRAP_BONUS("enemies/TrapBonus.jpg"), 
 	
 	ARMOR("battle/Armor.png"),

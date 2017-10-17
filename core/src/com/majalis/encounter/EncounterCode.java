@@ -34,6 +34,7 @@ public enum EncounterCode {
 	ELF_COMPANION, 
 	GOLEM,
 	GHOST, 
+	BUNNY,
 	
 	FORT (CASTLE), 
 	TOWN (AssetEnum.TOWN),
@@ -266,6 +267,17 @@ public enum EncounterCode {
 					AssetEnum.CUM.getSound(),
 					AssetEnum.CUM_BUBBLING.getSound(),
 				});
+			case BUNNY:
+				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{
+						AssetEnum.BUNNY_CREAM.getTexture(),
+						AssetEnum.BUNNY_VANILLA.getTexture(),
+						AssetEnum.BUNNY_CARAMEL.getTexture(),
+						AssetEnum.BUNNY_CHOCOLATE.getTexture(),
+						AssetEnum.BUNNY_DARK_CHOCOLATE.getTexture(),
+						AssetEnum.CUM.getSound(),
+						AssetEnum.CUM_BUBBLING.getSound(),
+						AssetEnum.SWORD_SLASH_SOUND.getSound()
+					});
 			case DRYAD:
 				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{  
 					AssetEnum.SHOP_MUSIC.getMusic(),

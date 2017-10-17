@@ -5197,7 +5197,7 @@
 		"scriptLines": [
 			{
 			"mutations": [{"profileSaveType":"KNOWLEDGE", "value":{"class": "java.lang.String", "value": "Ghost"}}],
-			"foreground": "GHOST_SPOOKY"
+			"foreground": "GHOST_SPOOKY",
 			"text": ""}
 		]
 	},
@@ -5206,7 +5206,105 @@
 		"scriptLines": [
 			{
 			"mutations": [{"profileSaveType":"KNOWLEDGE", "value":{"class": "java.lang.String", "value": "Ghost"}}],
-			"foreground": "GHOST_SPOOKY_BLOODLESS"
+			"foreground": "GHOST_SPOOKY_BLOODLESS",
+			"text": ""}
+		]
+	},
+	{
+		"key": "BUNNY-INTRO",
+		"scriptLines": [
+			{"text": ""}
+		]
+	},
+	{
+		"key": "BUNNY-FIRST",
+		"scriptLines": [
+			{"text": "You have a foreboding sense that someone is following you - if so, their ability to avoid detection is incredible."}
+		]
+	},
+	{
+		"key": "BUNNY-SHOW",
+		"scriptLines": [
+			{
+			"mutations": [{"profileSaveType":"KNOWLEDGE", "value":{"class": "java.lang.String", "value": "Bunny"}}]
+			"text": "As she appears, you start to doubt yourself that she was the presence you felt - she seems harmless."}
+		]
+	},
+	{
+		"key": "BUNNY-SHOW-REUNION",
+		"scriptLines": [
+			{"text": "As she appears, you start to doubt yourself that she was the presence you felt - she seems harmless."}
+		]
+	},
+	{
+		"key": "BUNNY-PAY-100",
+		"scriptLines": [
+			{"text": ""}
+		]
+	},
+	{
+		"key": "BUNNY-PAY-50",
+		"scriptLines": [
+			{"text": ""}
+		]
+	},
+	{
+		"key": "BUNNY-PAY-10",
+		"scriptLines": [
+			{"text": ""}
+		]
+	},
+	{
+		"key": "BUNNY-PAY-FAIL",
+		"scriptLines": [
+			{"text": ""}
+		]
+	},
+	{
+		"key": "BUNNY-PAY-WARNING",
+		"scriptLines": [
+			{
+			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "DEBT", "value":1}}],
+			"text": ""}
+		]
+	},
+	{
+		"key": "BUNNY-SHOW-CREAM",
+		"scriptLines": [
+			{
+			"foreground": "BUNNY_CREAM"
+			"text": ""}
+		]
+	},
+	{
+		"key": "BUNNY-SHOW-VANILLA",
+		"scriptLines": [
+			{
+			"foreground": "BUNNY_VANILLA"
+			"text": ""}
+		]
+	},
+	{
+		"key": "BUNNY-SHOW-CARAMEL",
+		"scriptLines": [
+			{
+			"foreground": "BUNNY_CARAMEL"
+			"text": ""}
+		]
+	},
+	{
+		"key": "BUNNY-SHOW-CHOCOLATE",
+		"scriptLines": [
+			{
+			"foreground": "BUNNY_CHOCOLATE"
+			"text": ""}
+		]
+	},
+	{
+		"key": "BUNNY-SHOW-DARK-CHOCOLATE",
+		"scriptLines": [
+			{
+			"foreground": "BUNNY_DARK_CHOCOLATE"
 			"text": ""}
 		]
 	},

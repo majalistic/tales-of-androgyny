@@ -445,6 +445,9 @@ public class WorldMapScreen extends AbstractScreen {
 					saveService.saveDataValue(SaveEnum.TIME, timePassed);
 					boolean switchScreen = false;
 					if(checkForForcedRest());
+					else if (character.getCurrentDebt() >= 150 || (character.getCurrentDebt() >= 100 && character.getQuestStatus(QuestType.DEBT) < 1)) {
+						autoEncounter(uiGroup, EncounterCode.BUNNY);
+					}
 					else if (time >= 11 && character.getQuestStatus(QuestType.ELF) == 0) { // forced elf encounter
 						saveService.saveDataValue(SaveEnum.QUEST, new QuestFlag(QuestType.ELF, 1));	
 						autoEncounter(uiGroup, EncounterCode.ELF);

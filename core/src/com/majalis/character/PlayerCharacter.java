@@ -78,7 +78,7 @@ public class PlayerCharacter extends AbstractCharacter {
 	private ObjectMap<String, Integer> questFlags;
 
 	private int scout;
-	
+		
 	@SuppressWarnings("unused")
 	private PlayerCharacter() {}
 	
@@ -1287,7 +1287,7 @@ public class PlayerCharacter extends AbstractCharacter {
 	}
 	
 	public enum QuestType {
-		ORC, CRIER, INNKEEP, TRUDY, GOBLIN, OGRE, SPIDER, BROTHEL, ELF
+		ORC, CRIER, INNKEEP, TRUDY, GOBLIN, OGRE, SPIDER, BROTHEL, ELF, DEBT
 	}
 	
 	public static class QuestFlag {
@@ -1312,8 +1312,6 @@ public class PlayerCharacter extends AbstractCharacter {
 		return goldChange == 0 ? new Array<MutationResult>() : getResult(goldChange > 0 ? "Gained " + gold + " gold!" : goldChange + " gold!", goldChange, MutationType.GOLD);
 	}
 	
-	
-
 	public Array<MutationResult> modDebt(Integer gold) {
 		int loss = debt > gold ? -gold : debt; 
 		debt += gold;

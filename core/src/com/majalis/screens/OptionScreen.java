@@ -97,10 +97,31 @@ public class OptionScreen extends AbstractScreen {
 		preload.getCells().get(0).padRight(25);
 		addActorAndListen(preload, 825, 825);
 		
+		/* Favorite flavor */
+		addLabelActor("Favorite Flavor", 1400, 900);
+		final SelectBox<String> flavors = new SelectBox<String>(skin);
+		flavors.setItems(new Array<String>(new String[]{"CREAM", "VANILLA", "CARAMEL", "CHOCOLATE", "DARK-CHOCOLATE"}));
+		String currentFavoriteFlavor = preferences.getString("bunny", "CREAM");
+		for (String flavorToCheck : flavors.getItems()) {
+			if (flavorToCheck.equals(currentFavoriteFlavor)) {
+				flavors.setSelected(flavorToCheck);
+			}
+
+		}
+		flavors.addListener(new ChangeListener() {
+	        @Override
+	        public void changed(ChangeEvent event, Actor actor) {
+	            final String val = flavors.getSelected();
+	            preferences.putString("bunny", val.toString());
+	        }
+	    });
+		flavors.setWidth(150);
+		addActorAndListen(flavors, 1400, 850);		
+		
 		/* Resolution selection */
 		addLabelActor("Resolution", 700, 750);
 		final SelectBox<Vector2> resolution = new SelectBox<Vector2>(skin);
-		resolution.setItems(new Array<Vector2>(true, new Vector2[]{new Vector2(1920, 1080), new Vector2(1600, 900), new Vector2(1280, 720), new Vector2(960, 540)}, 0, 4));
+		resolution.setItems(new Array<Vector2>(new Vector2[]{new Vector2(1920, 1080), new Vector2(1600, 900), new Vector2(1280, 720), new Vector2(960, 540)}));
 		Vector2 currentResolution = new Vector2(preferences.getInteger("width", 1920), preferences.getInteger("height", 1080));
 		for (Vector2 resolutionToCheck : resolution.getItems()) {
 			if (resolutionToCheck.epsilonEquals(currentResolution, 1)) {

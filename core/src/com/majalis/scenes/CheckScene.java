@@ -256,6 +256,14 @@ public class CheckScene extends AbstractTextScene {
 			@Override
 			protected boolean getCheck(PlayerCharacter character) { return character.getJobClass() == JobClass.PALADIN; }  
 		},
+		DEBT_FIRST_ENCOUNTER("", "") { 
+			@Override
+			protected boolean getCheck(PlayerCharacter character) { int check = character.getQuestStatus(QuestType.DEBT); return check == 0; }  
+		},
+		DEBT_WARNING("", "") { 
+			@Override
+			protected boolean getCheck(PlayerCharacter character) { int check = character.getQuestStatus(QuestType.DEBT); return check == 1; }  
+		},
 		;
 		
 		private final String success;
