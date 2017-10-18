@@ -52,6 +52,11 @@ public class CharacterCreationScene extends Scene {
 		final Texture baubleNew = assetManager.get(AssetEnum.CREATION_BAUBLE_NEW.getTexture());
 		final Texture baubleReady = assetManager.get(AssetEnum.CREATION_BAUBLE_REMOVED.getTexture());
 		
+		final Image characterImage = new Image(); 
+		characterImage.setPosition(1390, 200);
+		//characterImage.setScale(.225f);
+		this.addActor(characterImage);
+		
 		final TextButton done = new TextButton("Done", skin);
 		
 		done.addListener(new ClickListener() { @Override public void clicked(InputEvent event, float x, float y) { 
@@ -105,6 +110,10 @@ public class CharacterCreationScene extends Scene {
 						if (!story) {
 							buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
 						}
+						Texture jobTexture = assetManager.get(jobClass.getTexture());
+						characterImage.setDrawable(new TextureRegionDrawable(new TextureRegion(jobTexture)));
+						characterImage.setSize(jobTexture.getWidth(), jobTexture.getHeight());
+						characterImage.setScale(.325f);
 						classSelection.setText(jobClass.getLabel());
 						classMessage.setText(getClassFeatures(jobClass));
 						saveService.saveDataValue(SaveEnum.CLASS, jobClass);

@@ -232,6 +232,12 @@ public enum EncounterCode {
 					AssetEnum.CREATION_BAUBLE_NEW.getTexture(),
 					AssetEnum.CREATION_BAUBLE_OLD.getTexture(),
 					AssetEnum.CREATION_BAUBLE_REMOVED.getTexture(),
+					AssetEnum.WARRIOR.getTexture(),
+					AssetEnum.PALADIN.getTexture(),
+					AssetEnum.THIEF.getTexture(),
+					AssetEnum.RANGER.getTexture(),
+					AssetEnum.MAGE.getTexture(),
+					AssetEnum.ENCHANTRESS.getTexture(),
 					AssetEnum.SMUG_LAUGH.getSound(),
 					AssetEnum.WAVES.getMusic(),
 					AssetEnum.HOVEL_MUSIC.getMusic()
@@ -276,7 +282,8 @@ public enum EncounterCode {
 						AssetEnum.BUNNY_DARK_CHOCOLATE.getTexture(),
 						AssetEnum.CUM.getSound(),
 						AssetEnum.CUM_BUBBLING.getSound(),
-						AssetEnum.SWORD_SLASH_SOUND.getSound()
+						AssetEnum.SWORD_SLASH_SOUND.getSound(),
+						AssetEnum.GADGETEER_MUSIC.getMusic()
 					});
 			case DRYAD:
 				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{  

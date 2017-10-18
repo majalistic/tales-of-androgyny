@@ -1,7 +1,9 @@
 package com.majalis.save;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Base64Coder;
@@ -12,6 +14,7 @@ import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonWriter.OutputType;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.SerializationException;
+import com.majalis.asset.AssetEnum;
 import com.majalis.battle.BattleAttributes;
 import com.majalis.character.EnemyCharacter;
 import com.majalis.character.Item;
@@ -399,6 +402,17 @@ public class SaveManager implements SaveService, LoadService {
 		 }
 		public String getLabel() {return label;}
 		public abstract int getBaseStat(Stat stat);
+		public AssetDescriptor<Texture> getTexture() {
+			switch(this) {
+				case ENCHANTRESS: return AssetEnum.ENCHANTRESS.getTexture();
+				case MAGE: return AssetEnum.MAGE.getTexture();
+				case PALADIN: return AssetEnum.PALADIN.getTexture();
+				case RANGER: return AssetEnum.RANGER.getTexture();
+				case THIEF: return AssetEnum.THIEF.getTexture();
+				case WARRIOR: return AssetEnum.WARRIOR.getTexture();
+				default: return  AssetEnum.NULL.getTexture();
+			}
+		}
 	}
 	
 	public enum GameContext {

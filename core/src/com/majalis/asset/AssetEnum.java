@@ -40,6 +40,13 @@ public enum AssetEnum {
 	BURNING_FORT_BG("backgrounds/BurningFort.jpg"),
 	TOWN_BG("backgrounds/TownBG.jpg"),
 	
+	WARRIOR("characters/protagonist/Warrior.png"),
+	PALADIN("characters/protagonist/Paladin.png"),
+	THIEF("characters/protagonist/Thief.png"),
+	RANGER("characters/protagonist/Ranger.png"),
+	MAGE("characters/protagonist/Mage.png"),
+	ENCHANTRESS("characters/protagonist/Enchantress.png"),
+	
 	CREATION_BUTTON_UP("creation/ButtonUp.png"),
 	CREATION_BUTTON_DOWN("creation/ButtonDown.png"),
 	CREATION_BUTTON_CHECKED("creation/ButtonChecked.png"),
