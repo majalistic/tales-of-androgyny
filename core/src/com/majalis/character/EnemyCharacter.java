@@ -52,6 +52,14 @@ public class EnemyCharacter extends AbstractCharacter {
 		initializedMove = false;
 		climaxCounters = new ObjectMap<String, Integer>();
 		currentFrame = enemyType == EnemyEnum.GHOST && !Gdx.app.getPreferences("tales-of-androgyny-preferences").getBoolean("blood", true) ? 1 : 0;
+		if (enemyType == EnemyEnum.BUNNY) {
+			String bunnyType = Gdx.app.getPreferences("tales-of-androgyny-preferences").getString("bunny", "CREAM");
+			if (bunnyType.equals("CREAM")) currentFrame = 0;
+			if (bunnyType.equals("VANILLA")) currentFrame = 1;
+			if (bunnyType.equals("CARAMEL")) currentFrame = 2;
+			if (bunnyType.equals("CHOCOLATE")) currentFrame = 3;
+			if (bunnyType.equals("DARK-CHOCOLATE")) currentFrame = 4;
+		}
 		
 		weapon = enemyType.getWeaponType() != null ? new Weapon (enemyType.getWeaponType()): null;
 		baseStrength = enemyType.getStrength();
@@ -222,6 +230,8 @@ public class EnemyCharacter extends AbstractCharacter {
 						break;
 					case GHOST:
 						break;
+					case BUNNY:
+						break;
 				}
 			}
 			
@@ -262,6 +272,8 @@ public class EnemyCharacter extends AbstractCharacter {
 						resolvedAttack.addDialog("\"Critical status! Ejecting semen collection tank overflow.\"");
 						break;
 					case GHOST:
+						break;
+					case BUNNY:
 						break;
 				}
 					

@@ -239,10 +239,10 @@ public class EncounterBuilder {
 				String bunnyScene = "BUNNY-SHOW-" + Gdx.app.getPreferences("tales-of-androgyny-preferences").getString("bunny", "CREAM");
 				Branch debtEncounter = new Branch().choiceScene(
 					"Pay off your debt?", 
-					new Branch("Pay 100").require(ChoiceCheckType.GOLD_GREATER_THAN_X, 100).textScene("BUNNY-PAY-ALL"), 
+					new Branch("Pay 100").require(ChoiceCheckType.GOLD_GREATER_THAN_X, 100).textScene("BUNNY-PAY-100"), 
 					new Branch("Pay 50").require(ChoiceCheckType.GOLD_GREATER_THAN_X, 50).textScene("BUNNY-PAY-50"), 
 					new Branch ("Pay 10").require(ChoiceCheckType.GOLD_GREATER_THAN_X, 10).textScene("BUNNY-PAY-10"), 
-					new Branch("Can't Pay").require(ChoiceCheckType.GOLD_LESS_THAN_X, 10).checkScene(CheckType.DEBT_WARNING, new Branch(true).textScene("BUNNY-PAY-FAIL").gameEnd(), new Branch(false).textScene("BUNNY-PAY-WARNING"))
+					new Branch("Can't Pay").require(ChoiceCheckType.GOLD_LESS_THAN_X, 10).checkScene(CheckType.DEBT_WARNING, new Branch(true).textScene("BUNNY-PAY-FAIL").battleScene(BattleCode.BUNNY, new Branch(Outcome.VICTORY).textScene("BUNNY-VICTORY").gameEnd(), new Branch(Outcome.DEFEAT).textScene("BUNNY-DEFEAT").gameEnd()), new Branch(false).textScene("BUNNY-PAY-WARNING"))
 				);
 				return new Branch().textScene("BUNNY-INTRO").checkScene(CheckType.DEBT_FIRST_ENCOUNTER, new Branch(true).textScene("BUNNY-FIRST").textScene(bunnyScene).textScene("BUNNY-SHOW").concat(debtEncounter), new Branch(false).textScene(bunnyScene).textScene("BUNNY-SHOW-REUNION").concat(debtEncounter)).getEncounter();						
 			case CAMP_AND_EAT:

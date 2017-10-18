@@ -29,6 +29,7 @@ public enum EnemyEnum {
 	SPIDER (new EnemyTemplate(WeaponType.Claw).setStrength(6).setAgility(5).setEndurance(5).setHealth(new IntArray(new int[]{20, 20, 20, 20})), "Arachne", AssetEnum.SPIDER.getTexture()), 
 	GOLEM (new EnemyTemplate(null, 6, 8, 4, 3, 3, 3).setDefense(6).setHealth(new IntArray(new int[]{60})).setMana(12), "Golem", AssetEnum.GOLEM.getTexture(), AssetEnum.GOLEM_FUTA.getTexture()),
 	GHOST (new EnemyTemplate(null, 0, 0, 0, 8, 8, 8).setDefense(0).setHealth(new IntArray(new int[]{15})).setMana(30), "Ghost", AssetEnum.GHOST_SPOOKY.getTexture(), AssetEnum.GHOST_SPOOKY_BLOODLESS.getTexture()),
+	BUNNY (new EnemyTemplate(WeaponType.Sickle, 6, 6, 9, 5, 1, 8).setDefense(4).setHealth(new IntArray(new int[]{20, 20, 20, 20})).setMana(30), "Puca", AssetEnum.BUNNY_CREAM.getTexture(), AssetEnum.BUNNY_VANILLA.getTexture(), AssetEnum.BUNNY_CARAMEL.getTexture(), AssetEnum.BUNNY_CHOCOLATE.getTexture(), AssetEnum.BUNNY_DARK_CHOCOLATE.getTexture()),
 	;
 	private final String text;
 	private final Array<AssetDescriptor<Texture>> texturePaths;
@@ -85,14 +86,11 @@ public enum EnemyEnum {
     	}
     	return textureImagePaths; 
     }
-    public PhallusType getPhallusType() { return this == BRIGAND || this == BEASTMISTRESS || this == GHOST ? PhallusType.NORMAL : this == ADVENTURER ? PhallusType.SMALL : PhallusType.MONSTER; }
+    public PhallusType getPhallusType() { return this == BRIGAND || this == BEASTMISTRESS || this == GHOST || this == BUNNY ? PhallusType.NORMAL : this == ADVENTURER ? PhallusType.SMALL : PhallusType.MONSTER; }
     public PronounSet getPronounSet() { return this == ADVENTURER || this == OGRE || this == GOBLIN_MALE ? PronounSet.MALE : PronounSet.FEMALE; }
     
     public AnimationEnum getAnimation() { return animation; }
-	public boolean canProneBone() {
-		return this == BRIGAND || this == GOBLIN || this == ORC || this == ADVENTURER || this == GOBLIN_MALE;
-	}
-	public boolean canBleed() { return this != SLIME && this != GOLEM && this != GHOST; }
+	
 	
 	public int getStartingLust() { return this == UNICORN ? 20 : 0; }
 	
@@ -107,6 +105,8 @@ public enum EnemyEnum {
 	public IntArray getHealthTiers() { return template.getHealthTiers(); }
 	public IntArray getManaTiers() { return template.getManaTiers(); }
 	public WeaponType getWeaponType() { return template.getWeaponType(); }
+	public boolean canProneBone() { return this == BRIGAND || this == GOBLIN || this == ORC || this == ADVENTURER || this == GOBLIN_MALE; }
+	public boolean canBleed() { return this != SLIME && this != GOLEM && this != GHOST; }
 	public boolean willFaceSit() { return this != CENTAUR && this != UNICORN && this != GHOST; } 
 	public boolean willArmorSunder() { return this == BRIGAND || this == ORC || this == ADVENTURER; }
 	public boolean willParry() { return this == BRIGAND || this == ADVENTURER; }
