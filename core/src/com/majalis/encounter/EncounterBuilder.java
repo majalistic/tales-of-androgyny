@@ -455,9 +455,10 @@ public class EncounterBuilder {
 					no
 				).getEncounter();
 			case GHOST:
-				String spookyGhostScene = Gdx.app.getPreferences("tales-of-androgyny-preferences").getBoolean("blood", true) ? "GHOST-BLOODY" : "GHOST-BLOODLESS";		
-				Branch ghostBattle = new Branch().battleScene(BattleCode.GHOST, new Branch(Outcome.VICTORY).textScene("GHOST-VICTORY"), new Branch(Outcome.DEFEAT).textScene("GHOST-POSSESSION").gameEnd());
-				Branch refuse = new Branch("Refuse").checkScene(Stat.MAGIC, new Branch(2).concat(ghostBattle), new Branch(0).textScene("GHOST-POSSESSION"));
+				String spookyGhostScene = Gdx.app.getPreferences("tales-of-androgyny-preferences").getBoolean("blood", true) ? "GHOST-BLOODY" : "GHOST-BLOODLESS";
+				Branch ghostPossession = new Branch().textScene("GHOST-POSSESSION").gameEnd();
+				Branch ghostBattle = new Branch().battleScene(BattleCode.GHOST, new Branch(Outcome.VICTORY).textScene("GHOST-VICTORY"), new Branch(Outcome.DEFEAT).concat(ghostPossession));
+				Branch refuse = new Branch("Refuse").checkScene(Stat.MAGIC, new Branch(2).concat(ghostBattle), new Branch(0).concat(ghostPossession));
 				Branch didEnjoy = new Branch().choiceScene("\"Did you enjoy it as much as I did?\", she asks.", new Branch("Yes").textScene("GHOST-DAY-HAPPY"), new Branch("No").textScene("GHOST-DAY-SAD").concat(ghostBattle));
 				
 				return new Branch().checkScene(
