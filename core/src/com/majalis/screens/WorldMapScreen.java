@@ -552,7 +552,7 @@ public class WorldMapScreen extends AbstractScreen {
 		});
 	}
 
-	private void setConsole(Label console, @SuppressWarnings("unchecked") Array<MutationResult> ...allResults) {
+	private void setConsole(Label console, Array<MutationResult> ...allResults) {
 		String consoleText = "";
 		for (Array<MutationResult> results : allResults) {
 			for (MutationResult result : results) {
