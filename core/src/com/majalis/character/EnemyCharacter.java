@@ -122,7 +122,7 @@ public class EnemyCharacter extends AbstractCharacter {
 			if (currentFrame == 3) currentFrame = 0; else currentFrame++;
 		}
 		
-		if (oldStance.isOralPenetration() && !stance.isOralPenetration()) {
+		if (enemyType == EnemyEnum.HARPY && oldStance.isOralPenetration() && !stance.isOralPenetration()) {
 			currentFrame = 0;
 		}
 		
