@@ -557,11 +557,16 @@ public class EnemyCharacter extends AbstractCharacter {
 				return getTechniques(RECEIVE_HANDY);
 			case KNOTTED:
 				return getTechniques(KNOT_BANG);
+			case MOUTH_KNOTTED:
+				return getTechniques(MOUTH_KNOT_BANG);
 			case AIRBORNE:
 				return getTechniques(DIVEBOMB);
 			case FELLATIO:
-				if (lust > 14) {
+				if (enemyType != EnemyEnum.WERESLUT && lust > 14) {
 					return getTechniques(ERUPT_ORAL);
+				}
+				else if (enemyType == EnemyEnum.WERESLUT && lust > 18) {
+					return getTechniques(MOUTH_KNOT);
 				}
 				else {
 					return getTechniques(IRRUMATIO, FORCE_DEEPTHROAT);
@@ -1089,8 +1094,15 @@ public class EnemyCharacter extends AbstractCharacter {
 			case UNICORN:
 				break;
 			case WERESLUT:
-				if (getToppingClimaxCount() >= 2) return Outcome.SATISFIED;
-				if (knotInflate >= 5) return Outcome.KNOT;
+				if (climaxCounters.get(ClimaxType.FACIAL.toString(), 0) >= 1) return Outcome.SATISFIED;
+				if (knotInflate >= 5) {
+					if (stance == Stance.KNOTTED) {
+						return Outcome.KNOT_ANAL;
+					}
+					else {
+						return Outcome.KNOT_ORAL;
+					}
+				}
 				break;
 			case ADVENTURER:
 				if (getReceptiveClimaxCount() >= 1 ) return Outcome.SUBMISSION;
@@ -1103,7 +1115,7 @@ public class EnemyCharacter extends AbstractCharacter {
 				if (isErect()) return Outcome.SATISFIED;
 				break;
 			case SPIDER:
-				if (knotInflate >= 5) return Outcome.KNOT;
+				if (knotInflate >= 5) return Outcome.KNOT_ANAL;
 			default:
 		
 		}
@@ -1112,7 +1124,8 @@ public class EnemyCharacter extends AbstractCharacter {
 	
 	public String getOutcomeText(AbstractCharacter enemy) {
 		switch (getOutcome(enemy)) {
-			case KNOT: return enemyType == EnemyEnum.WERESLUT ? "You've been knotted!!!\nYou are at her whims, now." : "You've been stuffed full of eggs.";
+			case KNOT_ORAL: return "It's stuck behind your teeth. Your mouth is stuffed!";
+			case KNOT_ANAL: return enemyType == EnemyEnum.WERESLUT ? "You've been knotted!!!\nYou are at her whims, now." : "You've been stuffed full of eggs.";
 			case SATISFIED: return enemyType == EnemyEnum.CENTAUR ? "You've been dominated by the centaur's massive horsecock."
 				: enemyType == EnemyEnum.OGRE ? "The ogre has filled your guts with ogre cum.  You are well and truly fucked."
 				: properCase(pronouns.getNominative()) + " seems satisfied. " + properCase(pronouns.getNominative()) + "'s no longer hostile.";

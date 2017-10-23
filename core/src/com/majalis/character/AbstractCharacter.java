@@ -435,6 +435,24 @@ public abstract class AbstractCharacter extends Actor {
 				}
 				knotInflate++;
 			}
+			else if (resolvedAttack.getForceStance() == Stance.MOUTH_KNOTTED_BOTTOM) {
+				if (knotInflate == 0) {
+					resolvedAttack.addMessage(properCase(pronouns.getPossessive()) + " powerful hips try to force something big inside!");
+					resolvedAttack.addMessage("You struggle... but can't escape!");
+					resolvedAttack.addMessage(properCase(pronouns.getPossessive()) + " melon-sized knot forces your jaw open! You take 4 damage!");
+					resolvedAttack.addMessage("You learned about Anatomy(Wereslut)! You are being bred!");
+				}
+				else if (knotInflate < 3) {
+					resolvedAttack.addMessage(properCase(pronouns.getPossessive()) + " tremendous knot is still stuck behind your teeth!");
+					resolvedAttack.addMessage("You can't dislodge it; it's too large!");
+					resolvedAttack.addMessage("You're drooling!");					
+				}
+				else {
+					resolvedAttack.addMessage("The battle is over, but your ordeal has just begun!");
+					resolvedAttack.addMessage("You are about to swallow doggy cum!");
+				}
+				knotInflate++;
+			}
 			else if (resolvedAttack.getForceStance() == Stance.OVIPOSITION_BOTTOM) {
 				if (knotInflate == 0) {
 					

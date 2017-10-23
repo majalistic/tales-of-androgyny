@@ -134,7 +134,7 @@ public class PlayerCharacter extends AbstractCharacter {
 		baseTechniques.addAll(
 			DO_NOTHING, POWER_ATTACK, TEMPO_ATTACK, RESERVED_ATTACK, DUCK, SPRING_ATTACK, NEUTRAL_ATTACK, REVERSAL_ATTACK, CAREFUL_ATTACK, BLOCK, GUARD,
 			PUSH_UP, KNEE_UP_HANDS, STAY, STAND_UP_HANDS, KIP_UP, STAND_UP, STAY_KNELT, KNEE_UP, REST_FACE_DOWN, REST, JUMP_ATTACK, VAULT_OVER,
-			RECEIVE_ANAL, RECEIVE_DOGGY, RECEIVE_STANDING, STRUGGLE_ORAL, STRUGGLE_DOGGY, STRUGGLE_ANAL, STRUGGLE_STANDING, RECEIVE_KNOT, SUCK_IT, BREAK_FREE_ANAL, BREAK_FREE_ORAL,
+			RECEIVE_ANAL, RECEIVE_DOGGY, RECEIVE_STANDING, STRUGGLE_ORAL, STRUGGLE_DOGGY, STRUGGLE_ANAL, STRUGGLE_STANDING, RECEIVE_KNOT, SUCK_KNOT, SUCK_IT, BREAK_FREE_ANAL, BREAK_FREE_ORAL,
 			SUBMIT, STRUGGLE_FULL_NELSON, BREAK_FREE_FULL_NELSON, STRUGGLE_PRONE_BONE, STRUGGLE_DOGGY,
 			OPEN_WIDE, GRAB_IT, STROKE_IT, LET_GO, USE_ITEM, ITEM_OR_CANCEL,
 			RECIPROCATE_FORCED, GET_FACE_RIDDEN, STRUGGLE_FACE_SIT, STRUGGLE_SIXTY_NINE, BREAK_FREE_FACE_SIT, ROLL_OVER_UP, ROLL_OVER_DOWN, RIPOSTE, EN_GARDE, POUNCE_DOGGY, POUND_DOGGY, POUNCE_ANAL, POUND_ANAL, POUNCE_PRONE_BONE, POUND_PRONE_BONE, ERUPT_ANAL, PULL_OUT, PULL_OUT_ORAL, PULL_OUT_ANAL, PULL_OUT_STANDING, RECEIVE_COCK, HURK, UH_OH,
@@ -308,6 +308,8 @@ public class PlayerCharacter extends AbstractCharacter {
 				return getTechniques(RIDE_ON_IT_REVERSE, BOUNCE_ON_IT_REVERSE, SQUEEZE_IT_REVERSE, STAND_OFF_IT);
 			case KNOTTED_BOTTOM:
 				return getTechniques(RECEIVE_KNOT);
+			case MOUTH_KNOTTED_BOTTOM:
+				return getTechniques(SUCK_KNOT);
 			case OVIPOSITION_BOTTOM:
 				return getTechniques(RECEIVE_EGGS);
 			case FELLATIO_BOTTOM:
@@ -1167,6 +1169,11 @@ public class PlayerCharacter extends AbstractCharacter {
 		if (sex.isBird() && perks.get(Perk.BIRD_LOVER.toString(), 0) != 3) {
 			result.add(new MutationResult("You gained " + Perk.BIRD_LOVER.getLabel() + " (Rank " + (perks.get(Perk.BIRD_LOVER.toString(), 0) + 1) + ")!"));
 			perks.put(Perk.BIRD_LOVER.toString(), ((int)perks.get(Perk.BIRD_LOVER.toString(), 0)) + 1);
+		}
+		
+		if (sex.isKnot() && perks.get(Perk.BITCH.toString(), 0) != 3) {
+			result.add(new MutationResult("You gained " + Perk.BITCH.getLabel() + " (Rank " + (perks.get(Perk.BITCH.toString(), 0) + 1) + ")!"));
+			perks.put(Perk.BIRD_LOVER.toString(), ((int)perks.get(Perk.BITCH.toString(), 0)) + 1);
 		}
 		// should be moved into its own method
 		this.buttful += sex.getBellyful();

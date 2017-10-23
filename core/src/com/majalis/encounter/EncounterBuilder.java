@@ -942,7 +942,7 @@ public class EncounterBuilder {
 						new Branch("Become her lover").textScene("SPIDER-LOVER").textScene("SPIDER-OVIPOSITION").textScene("SPIDER-END").gameEnd(),
 						new Branch("Become her dinner").textScene("SPIDER-BITE").gameEnd()
 					),
-					new Branch(Outcome.KNOT).textScene("SPIDER-OVIPOSITION").textScene("SPIDER-NO-FERTILIZE").gameEnd());
+					new Branch(Outcome.KNOT_ANAL).textScene("SPIDER-OVIPOSITION").textScene("SPIDER-NO-FERTILIZE").gameEnd());
 				Branch afterSigil = new Branch().textScene("SPIDER-BABY").choiceScene(
 					"What do you do?", 
 					new Branch("Try to crush the tiny spider").checkScene(Stat.PERCEPTION, new Branch(6).textScene("SPIDER-AWARE").concat(spiderBattle), new Branch(0).textScene("SPIDER-AMBUSH").concat(spiderBattle)), 
@@ -996,13 +996,19 @@ public class EncounterBuilder {
 			case WEAPON_SHOP:
 				return new Branch().textScene("WEAPON-SHOP").shopScene(ShopCode.WEAPON_SHOP).encounterEnd().getEncounter();
 			case WERESLUT:
+				Branch knotted = new Branch().textScene("WEREWOLF-KNOT").checkScene(Perk.BITCH, new Branch(3).textScene("WEREWOLF-BITCH-END").gameEnd(), new Branch(0).textScene("WEREWOLF-POST-KNOT"));
+				Branch mated = new Branch().textScene("WEREWOLF-MATED").concat(knotted);
+				Branch bitch = new Branch(3).textScene("WEREWOLF-BITCH").concat(mated);
+				Branch uninterested = new Branch(0).textScene("WEREWOLF-UNINTERESTED");
+				
 				return new Branch().textScene("WEREWOLF-INTRO").battleScene(
 			    	BattleCode.WERESLUT,
 			    	// this has a reference to the first node in this branch, which gets welded with the current context node
-			        new Branch(Outcome.VICTORY).textScene("WEREWOLF-VICTORY").encounterEnd(),
-			        new Branch(Outcome.KNOT).textScene("WEREWOLF-KNOT").gameEnd(),
-			        new Branch(Outcome.DEFEAT).textScene("WEREWOLF-DEFEAT").encounterEnd(),
-			        new Branch(Outcome.SATISFIED).textScene("WEREWOLF-SATISFIED").encounterEnd()
+			        new Branch(Outcome.VICTORY).textScene("WEREWOLF-VICTORY").checkScene(Stat.STRENGTH, new Branch(5).textScene("WEREWOLF-STRONG").concat(mated), new Branch(0).checkScene(Perk.BITCH, bitch, uninterested)),
+			        new Branch(Outcome.KNOT_ANAL).textScene("WEREWOLF-BATTLE-KNOT").concat(knotted),
+			        new Branch(Outcome.KNOT_ORAL).textScene("WEREWOLF-BATTLE-KNOT-ORAL").gameEnd(),
+			        new Branch(Outcome.DEFEAT).textScene("WEREWOLF-DEFEAT").checkScene(Perk.BITCH, bitch, uninterested),
+			        new Branch(Outcome.SATISFIED).textScene("WEREWOLF-SATISFIED")
 			    ).getEncounter();
 			case WEST_PASS:
 				return new Branch().textScene("WEST-PASS").encounterEnd().getEncounter();

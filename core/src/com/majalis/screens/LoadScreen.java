@@ -121,6 +121,7 @@ public class LoadScreen extends AbstractScreen {
 		"Taunting an enemy will increase both their lust and yours.",
 		"There are rumors of a variant of the Centaur species that is attracted exclusively to virgins...",
 		"Goblins have incredible... stamina.",
+		"Beware werewolves - because of their anatomy, they may get... stuck inside.  Drain them before they do!",
 		// Goofy
 		"There is no secret ice cream level.",
 		"In the end, it's not about the destination, it's about the friends you made along the way."

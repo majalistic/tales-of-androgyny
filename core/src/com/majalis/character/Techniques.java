@@ -96,6 +96,8 @@ public enum Techniques {
 	YOINK				(new GrappleTechnique  (Stance.NULL, Stance.NULL, "Yoink", 0, GrappleType.NULL).addBonus(BonusCondition.SKILL_LEVEL, BonusType.REMOVE_PLUG).build()), // Used to initiate doggy
 	
 	KNOT 				(new NonAttackTechnique(Stance.DOGGY, Stance.KNOTTED, "Knot", 0, 0, Stance.KNOTTED_BOTTOM, "Set Damage").build()), // Used to knot by knotty weresluts and others
+	MOUTH_KNOT 				(new NonAttackTechnique(Stance.FELLATIO, Stance.MOUTH_KNOTTED, "Knot", 0, 0, Stance.MOUTH_KNOTTED_BOTTOM, "Set Damage").build()), // Used to knot by knotty weresluts and others
+	
 	OVIPOSITION			(new NonAttackTechnique(Stance.FULL_NELSON, Stance.OVIPOSITION, "Oviposition", 0, 0, Stance.OVIPOSITION_BOTTOM).build()), // Used to oviposition
 	
 	IRRUMATIO 			(new GrappleTechnique(Stance.FELLATIO, Stance.FELLATIO, "Irrumatio", 1).build()), 
@@ -116,6 +118,8 @@ public enum Techniques {
 	RIDE_FACE			(new GrappleTechnique(Stance.FACE_SITTING, Stance.FACE_SITTING, "Ride", 0).build()), // Used to faceride
 	RECIPROCATE			(new GrappleTechnique(Stance.SIXTY_NINE, Stance.SIXTY_NINE, "Reciprocate", 0).build()), // Used to sixty nine
 	KNOT_BANG 			(new GrappleTechnique(Stance.KNOTTED, Stance.KNOTTED, "Knot Bang", 0, Stance.KNOTTED_BOTTOM).build()), // Used to knot by knotty weresluts and others - could end the battle
+	MOUTH_KNOT_BANG 	(new GrappleTechnique(Stance.MOUTH_KNOTTED, Stance.MOUTH_KNOTTED, "Knot Bang", 0, Stance.MOUTH_KNOTTED_BOTTOM).build()), // Used to knot by knotty weresluts and others - could end the battle
+	
 	LAY_EGGS 			(new GrappleTechnique(Stance.OVIPOSITION, Stance.OVIPOSITION, "Lay Eggs", 0, Stance.OVIPOSITION_BOTTOM).build()), // Used to lay eggs - can end battle
 	
 	ERUPT_ANAL 			(new ClimaxTechnique   (Stance.DOGGY, Stance.DOGGY, "Erupt", Stance.PRONE, ClimaxType.ANAL).build()),
@@ -169,6 +173,7 @@ public enum Techniques {
 	SUBMIT				(new EroticTechnique(Stance.FULL_NELSON_BOTTOM, Stance.FULL_NELSON_BOTTOM, "Submit", -1, 0, "Don't try to struggle.\nShe's looking for an opening.\nLiterally.").build()), 
 	GET_FACE_RIDDEN		(new EroticTechnique(Stance.FACE_SITTING_BOTTOM, Stance.FACE_SITTING_BOTTOM, "Endure", -1, 0, "Let her press her ass all over your face.").build()), 
 	RECEIVE_KNOT		(new EroticTechnique(Stance.KNOTTED_BOTTOM, Stance.KNOTTED_BOTTOM, "Receive Knot", -1, 0, "Take that big knot up the butt.").build()), 
+	SUCK_KNOT			(new EroticTechnique(Stance.MOUTH_KNOTTED_BOTTOM, Stance.MOUTH_KNOTTED_BOTTOM, "Suck Knot", -1, 0, "Get your mouth around that big knot.").build()), 
 	RECEIVE_EGGS		(new EroticTechnique(Stance.OVIPOSITION_BOTTOM, Stance.OVIPOSITION_BOTTOM, "Receive Eggs", -1, 0, "Get stuffed full of eggs.").build()), 
 	SUCK_IT 			(new EroticTechnique(Stance.FELLATIO_BOTTOM, Stance.FELLATIO_BOTTOM, "Suck It", -1, 0, "Open wide and swallow it down.").build()), 
 	DEEPTHROAT			(new EroticTechnique(Stance.FELLATIO_BOTTOM, Stance.FELLATIO_BOTTOM, "Deepthroat", -1, 0, "Take it down your throat.").build()), 

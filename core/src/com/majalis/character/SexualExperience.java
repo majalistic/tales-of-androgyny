@@ -14,6 +14,7 @@ public class SexualExperience {
 	private final boolean prostitution;
 	private final boolean beast;
 	private final boolean bird;
+	private final boolean knot;
 	
 	public static class SexualExperienceBuilder {
 		
@@ -26,6 +27,7 @@ public class SexualExperience {
 		private boolean horse;
 		private boolean ogre;
 		private boolean bird;
+		private boolean knot;
 		
 		public SexualExperienceBuilder() {
 			this (0);
@@ -74,13 +76,13 @@ public class SexualExperience {
 		}
 		
 		public SexualExperience build() {
-			return new SexualExperience(analSex, creampies, analEjaculation, oralSex, oralCreampies, fellatioEjaculation, 0, horse, ogre, false, false, bird);
+			return new SexualExperience(analSex, creampies, analEjaculation, oralSex, oralCreampies, fellatioEjaculation, 0, horse, ogre, false, false, bird, knot);
 		}		
 	}
 	
-	private SexualExperience() { this(0, 0, 0, 0, 0, 0, 0, false, false, false, false, false); }
+	private SexualExperience() { this(0, 0, 0, 0, 0, 0, 0, false, false, false, false, false, false); }
 	
-	private SexualExperience(int analSex, int creampies, int analEjaculation, int oralSex, int oralCreampies, int fellatioEjaculation, int bellyful, boolean horse, boolean ogre, boolean prostitution, boolean beast, boolean bird) {
+	private SexualExperience(int analSex, int creampies, int analEjaculation, int oralSex, int oralCreampies, int fellatioEjaculation, int bellyful, boolean horse, boolean ogre, boolean prostitution, boolean beast, boolean bird, boolean knot) {
 		this.analSex = analSex;
 		this.creampies = creampies;
 		this.analEjaculation = analEjaculation;
@@ -93,6 +95,7 @@ public class SexualExperience {
 		this.prostitution = prostitution;
 		this.beast = beast;
 		this.bird = bird;
+		this.knot = knot;
 	}
 	
 	protected int getAnalSex() { return analSex; }
@@ -107,4 +110,5 @@ public class SexualExperience {
 	protected boolean isProstitution() { return prostitution; }
 	protected boolean isBeast() { return beast; }
 	protected boolean isBird() { return bird; }
+	protected boolean isKnot() { return knot; }
 }
