@@ -888,7 +888,7 @@ public class EnemyCharacter extends AbstractCharacter {
 			}
 		}
 		if (currentAnimationsPlaying.size == 0 && enemyType == EnemyEnum.HARPY && !stance.isOralPenetration()) currentAnimationsPlaying.add(animations.get(0));
-		if (currentAnimationsPlaying.size == 0 || (enemyType == EnemyEnum.ORC && stance == Stance.PRONE_BONE) || (enemyType == EnemyEnum.CENTAUR && stance == Stance.DOGGY) || (enemyType == EnemyEnum.BRIGAND && (stance == Stance.FELLATIO || stance == Stance.FACEFUCK || stance == Stance.ANAL))) {
+		if (currentAnimationsPlaying.size == 0 || (enemyType == EnemyEnum.ORC && stance == Stance.PRONE_BONE) || (enemyType == EnemyEnum.CENTAUR && (stance == Stance.DOGGY || stance == Stance.FELLATIO)) || (enemyType == EnemyEnum.BRIGAND && (stance == Stance.FELLATIO || stance == Stance.FACEFUCK || stance == Stance.ANAL))) {
 			Array<Texture> textureCandidates = textures.get(stance, defaultTextures);
 			if (textureCandidates == null) return;
 			Texture texture;

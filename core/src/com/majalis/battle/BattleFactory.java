@@ -87,6 +87,7 @@ public class BattleFactory {
 		}
 		else if (type == EnemyEnum.CENTAUR) {
 			textures.put(Stance.DOGGY, new Array<Texture>(new Texture[]{assetManager.get(AssetEnum.CENTAUR_ANAL.getTexture()), assetManager.get(AssetEnum.CENTAUR_ANAL_XRAY.getTexture())}));
+			textures.put(Stance.FELLATIO, new Array<Texture>(new Texture[]{assetManager.get(AssetEnum.CENTAUR_ORAL.getTexture())}));
 		}
 		else if (type == EnemyEnum.ORC) {
 			textures.put(Stance.PRONE_BONE, new Array<Texture>(new Texture[]{assetManager.get(AssetEnum.ORC_PRONE_BONE.getTexture())}));

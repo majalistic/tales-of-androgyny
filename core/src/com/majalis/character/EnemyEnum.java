@@ -83,6 +83,7 @@ public enum EnemyEnum {
     	}
     	else if (this == CENTAUR) {
     		textureImagePaths.put(Stance.DOGGY.toString(), new Array<String>(new String[]{AssetEnum.CENTAUR_ANAL.getPath(), AssetEnum.CENTAUR_ANAL_XRAY.getPath()})); 
+    		textureImagePaths.put(Stance.FELLATIO.toString(), new Array<String>(new String[]{AssetEnum.CENTAUR_ORAL.getPath()})); 
     	}
     	return textureImagePaths; 
     }
