@@ -1173,7 +1173,7 @@ public class PlayerCharacter extends AbstractCharacter {
 		
 		if (sex.isKnot() && perks.get(Perk.BITCH.toString(), 0) != 3) {
 			result.add(new MutationResult("You gained " + Perk.BITCH.getLabel() + " (Rank " + (perks.get(Perk.BITCH.toString(), 0) + 1) + ")!"));
-			perks.put(Perk.BIRD_LOVER.toString(), ((int)perks.get(Perk.BITCH.toString(), 0)) + 1);
+			perks.put(Perk.BITCH.toString(), ((int)perks.get(Perk.BITCH.toString(), 0)) + 1);
 		}
 		// should be moved into its own method
 		this.buttful += sex.getBellyful();
