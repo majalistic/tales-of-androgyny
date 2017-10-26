@@ -197,7 +197,6 @@ public abstract class AbstractCharacter extends Actor {
 			case 1: return AssetEnum.MANA_ICON_1.getTexture();
 			case 2: return AssetEnum.MANA_ICON_2.getTexture();
 			case 3: return AssetEnum.MANA_ICON_3.getTexture();
-			case 4: return AssetEnum.MANA_ICON_3.getTexture();
 			default: return AssetEnum.MANA_ICON_3.getTexture();
 		}
 	}
