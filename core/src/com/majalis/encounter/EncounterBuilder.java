@@ -143,12 +143,12 @@ public class EncounterBuilder {
 			case BEASTMISTRESS:
 				return new Branch().textScene("BEASTMISTRESS-INTRO").choiceScene(
 					"Snake or Pussy?", 
-					new Branch("Snake").textScene("BEASTMISTRESS-ENTRANCE").encounterEnd(),
+					new Branch("Snake").textScene("BEASTMISTRESS-ENTRANCE"),
 					new Branch("Pussy").textScene("BEASTMISTRESS-PUSSY").battleScene(
 						BattleCode.BEASTMISTRESS,
 						new Branch(Outcome.VICTORY).textScene("BEASTMISTRESS-VICTORY").choiceScene(
 							"Well?", 
-							new Branch("Go Spelunking").textScene("BEASTMISTRESS-SPELUNKING").encounterEnd(), 
+							new Branch("Go Spelunking").require(ChoiceCheckType.FREE_COCK).textScene("BEASTMISTRESS-SPELUNKING").encounterEnd(), 
 							new Branch("Go Home").textScene("BEASTMISTRESS-DECLINE").encounterEnd()
 						),
 						new Branch(Outcome.DEFEAT).textScene("BEASTMISTRESS-QUEEN").gameEnd(),
