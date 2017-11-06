@@ -1353,7 +1353,7 @@ public class PlayerCharacter extends AbstractCharacter {
 		return result;
 	}
 	
-	public int getMetabolicRate() { return hasHungerCharm() ? 3 : 4; }
+	public int getMetabolicRate() { return hasHungerCharm() ? 1 : 2; }
 
 	private boolean hasHungerCharm() {
 		return inventory.contains(new Misc(MiscType.HUNGER_CHARM), false);
