@@ -920,14 +920,14 @@ public class EnemyCharacter extends AbstractCharacter {
 			
 			range = 0;
 			if (range == 0) {
-				batch.draw(texture, x, y, width, height);
+				batch.draw(texture, x + getX(), y + getY(), width, height);
 			}
-			else if (range == 1) {
+			/*else if (range == 1) {
 				batch.draw(texture, x + 150, y + 150, width / 2, height / 2);
 			}
 			else {
 				batch.draw(texture, x + 200, y + 350, width / 3, height / 3);
-			}
+			}*/
 		}
 		else {
 			for (AnimatedActor animation: currentAnimationsPlaying) {
@@ -1167,5 +1167,13 @@ public class EnemyCharacter extends AbstractCharacter {
 
 	public Array<AnimatedActor> getAnimations(AssetManager assetManager) {
 		return enemyType.getAnimations(assetManager);
+	}
+	
+	@Override
+	public void setPosition(float x, float y) {
+		super.setPosition(x, y);
+		for (AnimatedActor animation : animations) {
+			animation.setPosition(x, y);
+		}
 	}
 } 

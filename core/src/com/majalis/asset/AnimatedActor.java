@@ -39,6 +39,7 @@ public class AnimatedActor extends Actor {
 		int blendSrc = batch.getBlendSrcFunc();
 		int blendDst = batch.getBlendDstFunc();
 		renderer.draw((PolygonSpriteBatch)batch, skeleton);
+		
 		batch.setBlendFunction(blendSrc, blendDst);
 	}
 	
@@ -49,6 +50,15 @@ public class AnimatedActor extends Actor {
 	public void addAnimation(int track, String animationName, boolean loop, float delay) {
 		state.addAnimation(track, animationName, loop, delay);
 	}
+	
+	@Override
+	public void setPosition(float x, float y) {
+		float deltaX = x - getX();
+		float deltaY = y - getY();
+		setSkeletonPosition(skeleton.getX() + deltaX, skeleton.getY() + deltaY);
+		super.setPosition(x, y);
+	}
+	
 	
 	public void setSkeletonPosition(float x, float y) {
 		skeleton.setPosition(x, y);

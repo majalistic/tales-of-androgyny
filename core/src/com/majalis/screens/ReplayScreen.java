@@ -12,10 +12,12 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.majalis.asset.AssetEnum;
@@ -91,6 +93,15 @@ public class ReplayScreen extends AbstractScreen {
 	public void buildStage() {
 		Table table = new Table();
 		
+		final Label displayText = new Label("", skin);
+		displayText.setPosition(150, 900);
+		displayText.setWidth(400);
+		displayText.setWrap(true);
+		displayText.setColor(Color.BLACK);
+		displayText.setAlignment(Align.top);
+		this.addActor(displayText);
+		
+		boolean left = true;
 		for (final EnemyEnum type : EnemyEnum.values()) {
 			if (!enemyKnowledge.containsKey(type.toString())) continue;
 			nothingToDisplay = "";
@@ -105,7 +116,7 @@ public class ReplayScreen extends AbstractScreen {
 			final EnemyCharacter enemy = new EnemyCharacter(possibleTextures, textures, type.getAnimations(assetManager), type);
 			this.addActor(enemy);
 			enemy.addAction(Actions.hide());
-			enemy.setPosition(700, 0);
+			enemy.setPosition(type == EnemyEnum.CENTAUR || type == EnemyEnum.UNICORN ? 0 : type == EnemyEnum.HARPY ? -250 : -100, type == EnemyEnum.ORC ? -50 : 0);
 			button.addListener(
 				new ClickListener() {
 					@Override
@@ -115,14 +126,18 @@ public class ReplayScreen extends AbstractScreen {
 							currentCharacter.addAction(Actions.hide());
 						currentCharacter = enemy;
 						enemy.addAction(Actions.show());
+						displayText.setText(type.getDescription());
 			        }
 				}
 			);
-			table.add(button).size(265, 60).row();
+			table.add(button).size(265, 60).padRight(20);
+			if (!left) table.row();
+			left = !left;
 		}
-        table.setFillParent(true);        
+        table.setFillParent(true);     
+        table.align(Align.top);
         this.addActor(table);
-        table.setPosition(495, 100);
+        table.setPosition(550, -100);
         
 		final TextButton done = new TextButton("Done", skin);
 		
