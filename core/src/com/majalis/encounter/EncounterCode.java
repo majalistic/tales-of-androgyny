@@ -498,9 +498,9 @@ public enum EncounterCode {
 	private static boolean hungerCharmReady;
 	static {
 		encounterMap = new IntMap<Array<EncounterCode>>();
-		encounterMap.put(1, new Array<EncounterCode>(new EncounterCode[]{WERESLUT, HARPY, SLIME, BRIGAND, DRYAD, CENTAUR, GOBLIN, ORC, ADVENTURER, ELF, FOOD_CACHE, GOLD_CACHE, DAMAGE_TRAP, ANAL_TRAP, HUNGER_CHARM}));
-		encounterMap.put(2, new Array<EncounterCode>(new EncounterCode[]{WERESLUT, HARPY, BRIGAND, DRYAD, CENTAUR, GOBLIN, ORC, ADVENTURER, ELF, OGRE, BEASTMISTRESS, GOLEM, GHOST, GOLD_CACHE, FOOD_CACHE, DAMAGE_TRAP, ANAL_TRAP, HUNGER_CHARM, ICE_CREAM}));
-		encounterMap.put(3, new Array<EncounterCode>(new EncounterCode[]{DRYAD, OGRE, BEASTMISTRESS, GOLEM, GHOST, FOOD_CACHE, DAMAGE_TRAP, ANAL_TRAP, HUNGER_CHARM, ICE_CREAM}));
+		encounterMap.put(1, new Array<EncounterCode>(new EncounterCode[]{WERESLUT, HARPY, SLIME, BRIGAND, DRYAD, CENTAUR, GOBLIN, ORC, FOOD_CACHE, GOLD_CACHE, DAMAGE_TRAP, ANAL_TRAP, HUNGER_CHARM}));
+		encounterMap.put(2, new Array<EncounterCode>(new EncounterCode[]{WERESLUT, HARPY, BRIGAND, DRYAD, CENTAUR, GOBLIN, ORC, ADVENTURER, ELF, OGRE, HUNGER_CHARM, ICE_CREAM, BEASTMISTRESS, GOLEM, GHOST, GOLD_CACHE, FOOD_CACHE, DAMAGE_TRAP, ANAL_TRAP}));
+		encounterMap.put(3, new Array<EncounterCode>(new EncounterCode[]{DRYAD, OGRE, HUNGER_CHARM, ICE_CREAM, BEASTMISTRESS, GOLEM, GHOST, FOOD_CACHE, DAMAGE_TRAP, ANAL_TRAP}));
 		
 		iceCreamReady = true;
 		hungerCharmReady = true;

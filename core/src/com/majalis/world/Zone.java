@@ -89,7 +89,7 @@ public class Zone {
 					Array<Vector2> possibleTowardsCoordinates = new Array<Vector2>();
 					Array<Vector2> possibleAwayCoordinates = new Array<Vector2>();
 					Vector2 possible = new Vector2(0, 0);
-					for (int jj = Math.max((int)source.x - 11, -8); jj < source.x + 11; jj++) {
+					for (int jj = Math.max((int)source.x - 11, -15); jj < source.x + 11; jj++) {
 						for (int kk = (int)source.y - 11; kk < source.y + 11; kk++) {
 							if (jj + kk * 2 < 10) continue;
 							possible.x = jj;
@@ -138,7 +138,7 @@ public class Zone {
 					
 					GameWorldNode newNode = getNode(
 						nodeCode, 
-						TalesOfAndrogyny.setEncounter.size == 0 ? EncounterCode.getEncounterCode(nodeCode - 1, difficulty) : TalesOfAndrogyny.setEncounter.get(nodeCode%TalesOfAndrogyny.setEncounter.size),
+						TalesOfAndrogyny.setEncounter.size == 0 ? EncounterCode.getEncounterCode(nodeCode - 1, difficulty) : TalesOfAndrogyny.setEncounter.get(nodeCode % TalesOfAndrogyny.setEncounter.size),
 						EncounterCode.DEFAULT, (int)newNodePosition.x, (int)newNodePosition.y, visitedCodesSet.contains(nodeCode));
 					addNode(newNode, nodeCode, nodes);
 					

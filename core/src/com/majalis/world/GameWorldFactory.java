@@ -59,22 +59,33 @@ public class GameWorldFactory {
 		character = loadService.loadDataValue(SaveEnum.PLAYER, PlayerCharacter.class);
 		
 		if (gameMode == GameMode.SKIRMISH) {
-			Zone zone = new Zone(loadService, assetManager, random, nodes, nodeMap, 1,  1)
-					.addStartNode(1, INITIAL, DEFAULT, 10, 10)
-					.addEndNode(1000, TOWN, TOWN, 26, 18)
+			
+			new Zone(loadService, assetManager, random, nodes, nodeMap, 1,  1)
+				.addStartNode(1, INITIAL, DEFAULT, 3, 10)
+				.addEndNode(10000, GADGETEER, DEFAULT, 3, 32)
+				.buildZone();
+			
+			Zone zone = new Zone(loadService, assetManager, random, nodes, nodeMap, 1,  2)
+					.addStartNode(nodes.get(0))
+					.addEndNode(1000, TOWN, TOWN, 27, 22)
 					//.addEndNode(5000, CRIER_QUEST, CRIER_QUEST, new Vector2(1300, 1300))
-					.addEndNode(10000, GADGETEER, DEFAULT, 10, 22)
 					.buildZone();
 			
-			Zone zone2 = new Zone(loadService, assetManager, random, nodes, nodeMap, 2,  4)
+			Zone zone2 = new Zone(loadService, assetManager, random, nodes, nodeMap, 2,  3)
 					.addStartNode(zone.getEndNodes().get(0))
-					.addEndNode(1001, SPIDER, SPIDER, 62, 37)
+					.addEndNode(1001, SPIDER, SPIDER, 66, 60)
 					.buildZone();
 			
-			new Zone(loadService, assetManager, random, nodes, nodeMap, 3, 3)
+			Zone zone3 = new Zone(loadService, assetManager, random, nodes, nodeMap, 2, 2)
 					.addStartNode(zone2.getEndNodes().get(0))
-					.addEndNode(1003, FORT, FORT, 130, 62)
-					.addEndNode(1004, FORT, FORT, 130, 10)
+					.addEndNode(1003, FORT, FORT, 120, 87)
+					.addEndNode(1004, FORT, FORT, 120, 20)
+					.buildZone();
+			
+			new Zone(loadService, assetManager, random, nodes, nodeMap, 3, 2)
+					.addStartNode(zone3.getEndNodes().get(0))
+					.addEndNode(1005, FORT, FORT, 170, 87)
+					.addEndNode(1006, FORT, FORT, 170, 20)
 					.buildZone();
 
 		}
