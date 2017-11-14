@@ -141,14 +141,14 @@ public class EncounterBuilder {
 							"What do you do?", 
 							new Branch("Confess your temptations").textScene("ANGEL-BJ").choiceScene(
 								"She raises a good point... she DOES have a nice booty...",
-								new Branch("Let her be your angel of sodomy?").checkScene(Stat.CHARISMA, new Branch(5).textScene("ANGEL-ANAL"), new Branch(0).textScene("ANGEL-ANAL-REJECTION").concat(angelOral)),
+								new Branch("Let her be your angel of sodomy?").require(ChoiceCheckType.FREE_COCK).checkScene(Stat.CHARISMA, new Branch(5).textScene("ANGEL-ANAL"), new Branch(0).textScene("ANGEL-ANAL-REJECTION").concat(angelOral)),
 								new Branch("Let her blow your trumpet").textScene("ANGEL-BJ-CONT").concat(angelOral)
 							),
 							new Branch("Attack Her").textScene("ANGEL-BATTLE"),
 							new Branch("Remain Silent").textScene("ANGEL-REJECT")
 						)
 					), 
-					new Branch("Profane the Altar").textScene("ANGEL-PROFANE"), 
+					new Branch("Profane the Altar").require(ChoiceCheckType.FREE_COCK).textScene("ANGEL-PROFANE"), 
 					new Branch("Leave")
 				).getEncounter();
 			case BANK:
