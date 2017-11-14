@@ -158,7 +158,10 @@ public class CharacterScreen extends AbstractScreen {
 		this.addActor(perkTable);
 		perkTable.add(getLabel("Perks: ", skin, Color.FOREST)).align(Align.left).row();
 		for (ObjectMap.Entry<Perk, Integer> perk : character.getPerks().entries()) {
-			perkTable.add(getLabel(perk.key.getLabel() + " (" + perk.value.toString() + ")", skin, Color.BLACK)).align(Align.left).row();
+			Integer perkValue = perk.value;
+			if (perkValue > 0) {
+				perkTable.add(getLabel(perk.key.getLabel() + " (" + perkValue.toString() + ")", skin, Color.BLACK)).align(Align.left).row();
+			}	
 		}
 		
 		final Table inventoryTable = new Table();
