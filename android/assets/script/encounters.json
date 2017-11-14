@@ -5522,4 +5522,274 @@
 			"text": ""}
 		]
 	},
+	{
+		"key": "ANGEL-INTRO",
+		"scriptLines": [
+			{
+			"music": "ANGEL_MUSIC",
+			"text": "The ruins are calm and serene - there is a single statue of a long-forgotten goddess that is surprisingly pristine, but nature has reclaimed much of the rest - her altar is broken and much of the structure is rubble, the walls having long succumbed."},
+			{"text": "You approach the altar and feel a great levity - as if all the weights of the world had evaporated, leaving behind only the soft whisper of the wind and the faint warmth of the sun.  You take a deep breath and feel at peace."},
+			{"text": "The statue of the goddess is, simultaneously, of a very shapely woman.  You have no doubt that the sculptor had a divine visage in mind as they crafted such a beautiful form.  Her hips and bosom are prominent, and her smile is pleasant... and inviting."}
+		]
+	},
+	{
+		"key": "ANGEL-PRAY",
+		"scriptLines": [
+			{"text": "You say a prayer to the goddess - you're not sure what the words should be, but you humbly ask for safe travels and a relief from... certain temptations.  "},
+			{"text": "\"Hey.  Hey!\" you hear a full, somewhat girlish voice from... above.  You guard your eyes as you look up towards the sun... and a figure seems to emerge from it."},
+			{
+			"foreground": "ANGEL",
+			"text": "She is indeed a woman - a winged woman, whose brilliant amber-colored wings nestle at her hips, and whose golden hair is tied up in long, full pigtails.  In her hand she's holding a long, thin trumpet. Most peculiar of all... she appears to be near-sighted."},
+			{"text": "She clears her throat, and clasps her hand around her wrist, shyly.  \"Are... are you a devotee of Her Radiance?\" she asks, unsure."}
+		]
+	},
+	{
+		"key": "ANGEL-LIE",
+		"scriptLines": [
+			{"text": "Though you have no clue who \"her radiance\" refers to, you confidently reply that you are, indeed, her faithful servant.  Her eyes light up."},
+			{"text": "\"Oh, that's wonderful! I thought... I thought they were all gone!  But you're here! That's... I have to alert the others at once!\""},
+			{"text": "Before you can... lower her expectations, she sounds a single long, deep note on her trumpet - one that nearly knocks you to the ground.  "},
+			{"text": "There's a cacophony of sounds - which you soon realize to be voices, coming from above, similarly to her own.  Bronze, winged figures descend and land all around you - there must be dozens of them, all somehow flawless figures of beauty, much like the statue."},
+			{"text": "You see that there are both men and women in the grouping, although one of the women immediately catches your eye, as her figure is simply breath-taking... as is the sight between her thick, bountiful thighs."},
+			{"text": "A large, bronze, throbbing schlong.  Many of the angels are similarly androgynous, having male and female features, and many have a similar appendage dangling between their legs - or sticking upright in anticipation."},
+			{"text": "\"They've been waiting for you so long to fill you with their heavenly essence!\" she explains, and your eyes are wide like saucers. "},
+			{"text": "Before you can speak, one of the winged women seals your mouth with a full-breathed kiss, and your words are sucked out from you - you can barely think with her lips pressed against you."},
+			{"text": "A hand finds its way between your legs and begins to stroke you, and it isn't long before you're lost in pleasure... or before the large-dicked angel lady finds herself between your legs, poised to give you a dicking you have no will to rebuke."},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex": 1}}],
+			"text": "It pushes inside of you and you moan into the other angel's mouth... feeling another's lips at your nipple.  Another angel's holy rod is visible near your face - and almost instantly, it erupts sticky, gooey cum over your face and the face of the woman kissing you."},
+			{"text": "The herald watches with fascination, and finally your eyes meet hers. "},
+			{"text": "\"Ah... normally, the goddesses vessel is a woman, but... I'm sure this will work too!\" she says, noticing your slight confusion and intense response to the anal penetration. \"And... I know how that feels,\" she says, smiling awkwardly while pushing some of her golden hair behind her ear."},
+			{"text": "More angels crowd around you and begin to give up their heavenly essence on your face and body."},
+			{
+			"sound": "CUM",
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "creampies": 2}}],
+			"text": "As soon as the first angelic cock shoots inside of you, it withdraws and is replace quickly thereafter by another - and your mouth is similarly preoccupied by lips, cocks, and pussies."},
+			{"text": "The herald that brought them all is a bit shy about joining in, but she does eventually make herself familiar to you - first with kisses and sighs and shy smiles, and then with her weight on your face as she smothers you with her ass."},
+			{"text": "Becoming bold at your incidental analingus, you then become very familiar with the back of her pig-tailed head, as well as the curves of her ample bottom, as she rides you while facing away, taking every inch of you into her quivering asshole."},
+			{"text": "She bounces her big bottom on your lap over and over, crashing up against your thighs with a heavenly thunderclap, and frequently receiving the inevitable results of your prostate being pounded while she milks your cock with her anus."},
+			{"text": "She isn't the only angel to ride on top of you, but she is suspiciously focused on her rear-hole and is the most common recipient of your bowel-clogging cum enemas, even as dozens of her brothers and sisters take their turn fucking you in the ass, face, sucking or fucking on your cock, or simply covering you in their sticky fluids."},
+			{
+			
+			"text": "Expecting for you to be a vessel for their goddesses' essence, their affections are never-ending - for days, the angelic creatures embrace you and fill you with the essence of their goddess."},
+			{"text": "Though their intentions are pure, as is said essence, your body cannot accept all of it, and it overflows and coats every inch of you before long."},
+			{
+			"mutations": [{"saveType":"TIME", "value":{"class": "java.lang.Integer", "value": 6}}],
+			"text": "They are unsuccessful in rejuvenating the goddess - but they are successful in bringing you to heaven."}
+		]
+	},
+	{
+		"key": "ANGEL-TRUTH",
+		"scriptLines": [
+			{"text": "\"No... I'm just a traveller who happened upon this shrine... my name is <NAME>,\" you confess, and you see her shoulders droop, but she soon picks her spirit up."},
+			{"text": "\"Well, then... I won't try to proselytize... but if you give an offering, or confess some temptations, I can offer you blessings on my goddesses' behalf,\" she says, and watches you for your response."}
+		]
+	},
+	{
+		"key": "ANGEL-BJ",
+		"scriptLines": [
+			{"text": "\"I... you're rather pretty,\" you confess, and she blinks."},
+			{"text": "\"I'm... oh. Oh! You want to...\" she says, and your gaze accidentally wanders towards her ample hips.  "},
+			{"text": "You look up at her face.  \"I'm sorry, it's just when you said temptation... I apologize.\""},
+			{"text": "She avoids your gaze as she speaks. \"N-no need to apologize... but... maybe... I can help you with that temptation?\" she says, and you respond with a look of shock."},
+			{"text": "\"You'll... help me?\" you say, suggestively, and she nods."},
+			{"text": "\"I'll... put my lips together... and blow.  Is that alright?\" she asks, occasionally sneaking a peak at your flabberghasted face."},
+			{"text": "\"Hell yes!\" you say, a bit too quickly."},
+			{"text": "\"I would... I would prefer if you said 'heavens' yes... but... if that's the case...\" she says, walking over the old, broken altar, \"please... sit here,\" she says, patting the altar."},
+			{"text": "You obey, and she kneels on the stone before the altar... apparently ready to worship your idol.  There's a lump in your throat from thinking about it."},
+			{"text": "\"Oh, first!\" she says, rising to her feet.  She pecks a kiss on your cheek.  \"Thank you for the confession!\" she says, and then resumes her position kneeling before you."},
+			{"text": "She runs her hand up your leg... until she reaches the bulge in your trousers, which is getting rapidly... bulgier. "},
+			{"text": "\"You really were tempted...\" she says, almost under her breath... and then, she pulls it out, and kisses it on the tip as well.  \"Thank you for your confession, as well,\" she says, somewhat smugly."},
+			{"text": "You feel her lips on your shaft before you see her take it into her mouth, and she looks up at you with her green eyes and a smile on her parted lips.  She pulls it out from between them and holds your trumpet firmly in her hand next to her face."},
+			{"text": "\"The other angels call me 'Winnie the Trumpeter' because I'm... always blowing on something,\" she says, before putting it back in her mouth."},
+			{"text": "You snicker, and she pauses, looking at you a bit indignantly with your penis trapped beneath her pink lips, before pulling them off again."},
+			{"text": "\"I can't help it!  It's the only way I can keep you mortals away from...\" she says, giving a tepid look over her shoulder - you trace her line of sight to the rather impressive roundness and fullness of her bottom."},
+			{"text": "\"Mortals want to... stick it in your butt?\" you ask, stifling a chuckle."},
+			{"text": "She licks the underside of your cock, and then looks back to you.  \"This is... technically still sodomy... but the first thing that comes to everyone's mind is butt stuff, and I didn't like having a reputation as the archangel of sodomy, you know?\""},
+			{"text": "She takes it back into her mouth and begins to suck lightly... you clasp the altar with a supernatural strength, your vision fading... and then, you feel her blowing - a light puff of air escaping from her lips and the corners of her mouth as she literally blows your trumpet, creating a strange low-friction environment."},
+			{"text": "She begins to bob her head back and forth in that manner, and you can truly believe that she's the best trumpet player on heaven or earth - that is, until she stops once again."},
+			{"text": "\"How do you like that?  I'm really good with a trumpet, right?\" she says, fishing for praise."},
+			{"text": "Her earnest chattiness means that she's constantly interrupting her task at hand... the frustration builds in you, as does your desire to feel yourself between her lips."},
+			{"text": "\"The best,\" you say, and she smirks meekly before returning to blowing your brains out.  You rapidly feel your orgasm approaching..."},
+			{"text": "\"I can hum a song, too,\" she says, and you consider her offer... but also consider that if she wants to chat and fuck at the same time, there are options that are better suited for that."}
+		]
+	},
+	{
+		"key": "ANGEL-BJ-CONT",
+		"scriptLines": [
+			{"text": "\"Go on and hum - I like hearing your voice,\" you say, and she blushes."},
+			{"text": "She puts her lips around you again, and begins to hum a song in her throat... you can once again feel the rapidly rising tide that's about to fill said throat with seminal fluid instead of a song..."},
+			{"text": "\"That's an old hymn of the goddess.  It's nice, isn't it?\" she asks, and you agree, it was - although your frustration is palpable.  She seems to notice.  \"Oh... you probably want to cum, don't you?\""},
+			{"text": "\"It... it would be nice,\" you confess."},
+			{"text": "She takes your hand in hers... then brings it to her pigtail. \"Here... go at your own pace,\" she says, and you grab hold of either of her pigtails with enough slack.  She goes back to work sucking you off, and you have a miniature version of her on one shoulder, and something else on the other."}
+		]
+	},
+	{
+		"key": "ANGEL-DEEPTHROAT",
+		"scriptLines": [
+			{"text": "You tug firmly on one pigtail to test her committment to her offer, and she twists her angle of attack so that it's poking out her cheek.  You tug hard on both and she's pulled forward, deeper into your crotch.  "},
+			{"text": "You pull even more firmly, her lips crawling up your shaft, until it sticks in her throat and her lips are pressed against your body, wrapped around the base.  She looks up at you with innocent eyes, awaiting further instructions."},
+			{"text": "You begin to pull and tug and thrust and buck, so that she repeatedly deepthroats you, her head bouncing in your lap and her lips, tongue, throat and gag reflex are working overtime to accept your affections."},
+			{"text": "Despite her angelic appearance, she is soon sputtering, gagging, occasionally gasping and gurgling around your cock, although she seems perfectly alright with it, even as her nose begins to run and her eyes water.  No matter how you force her to gag, she remains in good spirits."},
+			{"text": "She's able to suppress her gag reflex surprisingly well, even as you gouge out her throat, until finally you pull her pigtails behind you, effectively tying her to you, and it remains deep - a lump in her throat that twitches and throbs with its impending climax."},
+			{
+			"sound": "CUM",
+			"text": "She remains cheerful, even as it spews out of her nostrils and down her throat, and gulps it down without any complaints."},
+			{"text": "As you pull your cock from her throat with a phlegmy gasp, she reveals that she has no cum left visible in her mouth, and even while coughing and wiping her mouth of precum, cum, spit and phlegm, she's smiling pleasantly."},
+			{"text": "\"How was that? I did my best,\" she says, and you believe it."},
+			{"text": "Having drained you of your temptation, she wishes you a happy farewell, and asks that you return to the shrine sometime to visit her."}
+
+		]
+	},
+	{
+		"key": "ANGEL-CUM-TRUMPET",
+		"scriptLines": [
+			{"text": "You decide, despite the opportunity she's given you, to keep a slow, leisurely pace, and she's apt to abide."},
+			{"text": "You rock her gently to and fro, and she pulls her lips up and down the shaft, occasionally blowing as she had before, occasionally using her hand for a little extra bit of friction.  Without interruptions now, you build pretty quickly towards a finish."},
+			{"text": "Seeing that you're not really taking advantage of the pigtails, she takes on a more active role, kissing up the side of the shaft, taking it deep into her throat, licking the tip or sucking on the end while stroking it with her hand."},
+			{"text": "Unlike before, when her interruptions frustrated you, now her shifts and changes are keeping you on the cusp without any irritation - you're just enjoying her varied technique."},
+			{"text": "As she sucks on the side of the shaft, a weirldy intimate act, she pauses briefly to speak again.  \"Thanks for being so sweet... I'll give you a special herald-only service...\""},
+			{"text": "She runs her lips up and down the shaft, without taking it into her mouth... it's an odd sensation, but you're so close to the edge it may set you off... and so she gegins to stroke you from the base to the tip, while running her lips over it and kissing it, and you completely lose control."},
+			{
+			"sound": "CUM",
+			"text": "You had hoped to cum in her mouth, but instead, it spurts into the air... but with surprising deftness, she catches it, bringing the loud end of her trumpet close to your ejaculating cock, which spurts a surprisingly full load into the bell."},
+			{"text": "You make an absolute mess on the inside of it, and your heart skips a beat when you imagine that could have been what the inside of her mouth looked like.  She strokes you gently until you're nearly flaccid again, and then hoists the trumpet into the air, bell-side up."},
+			{"text": "She stands upright, turns about, and sits down into your lap, her fat ass warm and weighty. She balances the trumpet on the end of her finger and giggles, and your cock already begins to become rigid between her big, round buns."},
+			{"text": "She rests her head back on your chest, and looks up at you.  \"It takes a while to flow through the whole shaft... especially when it's as thick as yours was.  When it gets here, I'll give you a performance you won't forget,\" she says, intimately."},
+			{"text": "She softly presses her buttocks against your soon-rigid mast, which takes to the sensation like it has taken to little else.  You try to estimate how far through the trumpet your goopy spunk has made it, but are soon too distracted by her bountiful bottom to think."},
+			{"text": "\"It's almost here... I wonder what it will taste like...\" she says, and puts her lips to the mouthpiece, her eyes meeting yours... and then, after a few moments, humming her song into it while smiling smugly at you."},
+			{
+			"sound": "CUM_BUBBLING",
+			"text": "Finally, her eyes go wide, and then narrow sultrily, and her hummed song becomes a simple, satisfied hum, which leads into a gulp, and then another."},
+			{"text": "You twitch between her fat buns, and a second load shoots off into the air, before landing on her lower back and pooling there along with the additional spurts.  She pulls her lips from the mouthpiece, revealing a mouth full of the same thick stuff, and then swallows it down."},
+			{"text": "\"Thanks for your confession...\" she says, her breath smelling of your cum.  \"Urp!\""},
+			{"text": "She puts her finger to her lips and burps, apparently satisfied.  She waits until your orgasm has subsided and then stands up off of you."},
+			{"text": "\"If you have any other offerings, you know where to find me,\" she says, and then spreads her wings and ascends into the air, disappearing into the far-off sun."}
+		]
+	},
+	{
+		"key": "ANGEL-ANAL",
+		"scriptLines": [
+			{"text": "You ask her to use her gifted backside to seal the deal, and she pouts."},
+			{"text": "\"I'm... an angel, you know... do you know how sinful it is for me to wet a man's thing with my mouth just so that it will slide into my butt easier?  Oh, who am I trying to fool...\""},
+			{"text": "She turns around and displays her sizeable rear to you, pulling the loincloth aside to offer you access.  You're quick to take her up on her offering before the god of buttsex."},
+			{"text": "You aim it to stick the slick thing inside of her pert asshole, and with one thrust, sink the entire thing inside of her - with her massive ass, it doesn't get particularly far, but definitely enough to give her a good stuffing."},
+			{"text": "\"Don't worry, this is easier if it's on the small side!\" she says, allaying your fears."},
+			{"text": "You run your hands up her back, and she cooes, her toes curling... until you reach her pigtails, and she dashes any fear you have of acting on your impulses."},
+			{"text": "\"Pull them! Fuck my ass!\" she exclaims, and then lets out an orgasmic moan as you crash into her from behind while pulling on her hair."},
+			{"text": "You begin to slam into her wild wild abandon, primal and desirous.  Her hole grips around you as you with draw and is slack as you drill it deep into her, and she reaches underneath herself to get her full, undiluted pleasure craving satisfied."},
+			{"text": "Somewhere around the time that you found yourself balls-deep in an actual angel's holy asshole, slamming it up her fudge tunnel while pulling her long, braided pigtails like the handles of a wheelbarrow, you already came to understand your true nature."},
+			{"text": "You reach forward and grab onto her shoulders, crushing her ass while massaging her neck and gripping onto her for uninterrupted, repeated thrusts into her hungry hole."},
+			{"text": "The vile act of sodomy causes her to gush all over the ground, even as she curses your name and your cock for the foulness that you've wrought upon her.  Though your hands gripping her shoulders don't feel so much as a tug, the softness of her cheeks press back against you with each thrust owing to her honest hips."},
+			{"text": "\"Are you going to defile me?\" she asks, looking over her shoulder, her eyelashes low, her gaze unwavering."},
+			{
+			"sound": "CUM",
+			"text": "It's not like you hadn't planned on it, but her taunting and rhythmic tensing makes it more a word of power than a suggestion - you immediately upend your nutbladder into her full-figured backside, digging your fingers into her shoulders and blasting a quart of man-milk into her seraphic bubble butt."},
+			{"text": "You nearly collapse as you pull it out - having expended far more energy than you intended to or expected.  You offer her your hand to help stand, but she remains on her hand and knees."},
+			{"text": "\"Do you want to know a secret?\" she asks, and beckons you close, until you feel her hot, ragged breath in your ear. \"What I told you earlier? That's not why they call me 'Winnie the Trumpeter'...\" "},
+			{"text": "She reaches back and clasps her own cheek, and gestures for you to investigate.  You comply to the celestial's demand."},
+			{"text": "Her recently-evacuated hole is still open - the light from her wings casting a shadow inside her wet, freshly fucked cave.  With each breath it opens and closes slightly, but never closed enough that it looks like it wasn't recently the recipient of a hard dick."},
+			{"text": "Speaking of recent receipts, Winnie quite lives up to her namesake - after a few deep breaths with correspondingly eye-catching dilations, she tenses up her body, and a moment later your copious load is ejected from her angelic hole as a white, milky blob."},
+			{"text": "Your mouth hangs agape - just like her trumpet hole.  You can't believe that an actual angel has an apparently-true reputation for blowing recently-acquired from backdoor-adultery man-cream out of her still-hot brown third eye."},
+			{"text": "Your life essence drools out and down over her already-soaked pussy."},
+			{"text": "\"If you... mm... want to give more offerings... you know where to find me...\" she says, having recently been ass-reamed senseless."},
+			{"text": "You give her a courteous tap on the cheek and tell her you'll try to return if you can, and she drearily, but pleasantly, wishes you farewell."}
+		]
+	},
+	{
+		"key": "ANGEL-ANAL-REJECTION",
+		"scriptLines": [
+			{"text": "You ask her to use her gifted backside, but she shakes her head."},
+			{"text": "\"I can't do that... but if you want, you can pull on my pigtails?\""}
+		]
+	},
+	{
+		"key": "ANGEL-BATTLE",
+		"scriptLines": [
+			{"text": "You try to put forward a show of force, rather than an offering.  She grips her trumpet firmly in her hands."},
+			{"text": "\"I do not condone violence!  But... I will defend myself!\""},
+			{"text": "INSERT BATTLE HERE - sorry, this is under construction!  Be nice to her for now, will you?"}
+		]
+	},
+	{
+		"key": "ANGEL-REJECT",
+		"scriptLines": [
+			{"text": "You keep your lips sealed.  You feel you can trust her, but... some things are best left unsaid."},
+			{"text": "\"I... I get it. Well, if you change your mind, uhm, I'll be here,\" she says, smiling angelically - although you sense a twinge of frustration in her voice."},
+			{"text": "You turn to leave, walking away from the heavenly creature with some regret.  After you put some distance between yourself and her, you turn, out of curiosity to see her behavior once you're gone."},
+			{"text": "She seems to be... looking at her trumpet, having some internal struggle, as she runs her fingers down its shaft..."},
+		]
+	},
+	{
+		"key": "ANGEL-PROFANE",
+		"scriptLines": [
+			{"text": "The statue of the goddess is... quite shapely."},
+			{"text": "You check to see if anyone is around... thankfully, you're all alone with the... ideal visual aide."},
+			{"text": "You sit on the altar, facing the goddess statue, and reach your hand into your pants... you're already hard, and staring at her voluptuous form only makes you more certain that you want to sully her visage."},
+			{"text": "You're nearing the edge of your profane act when suddenly you hear a voice."},
+			{"text": "\"Hey!  What do you think you're doing?\" it says, in a full, if girlish tone."},
+			{
+			"foreground": "ANGEL",
+			"text": "You turn to see that a winged woman with sun-kissed skin has appeared behind you, a picture of perfection herself.  Your hand is still glued to your shaft, and you very nearly spill your seed as an introduction."},
+			{"text": "She walks around the altar and looks at you sternly. \"Hrm...  profaning Her Radiance's altar like this... I, Winnie the Herald, must punish you.\""},
+			{"text": "She pulls down her loincloth and steps over it, quickly straddling you as you sit on the altar.  Now, rather than a view of the goddess, you have a view of this angelic woman, who is intent on... what appears to be mounting you."},
+			{"text": "You look at her angelic vulva with a mix of awe and desire - though the awe is the kind of religious awe that's tinged with fear."},
+			{"text": "Your fear is soon realized as she suddenly sticks her finger in your mouth, coating it in saliva."},
+			{"text": "\"My holy vessel would not be a punishment, y'know.  No, you're going in this hole,\" she explains, taking her wet finger and rubbing it against her holy ring."},
+			{"text": "You realize this strange woman intends to cram your cock up her ass, and begin to make a fuss, but she's already squatting and aiming your meat missile for her dumper."},
+			{"text": "\"If you don't like the idea of having to put it in my shithole then you shouldn't have sinned - now hold still, this is no fun for me either!\""},
+			{"text": "She drops her weight down into your lap, and you feel a popping sensation as moist sphincter gobbles up your recently-masturbated cock.  She groans and wraps her legs around you, her weight keeping your penis locked up in her bung."},
+			{"text": "\"There.  Now, do you repent?\" she asks, clearly short of breath and tense in the abdomen as she sternly admonishes you, wrapping her arms around your neck as if you were passionate lovers and not two complete strangers."},
+			{"text": "\"Repent for what?!\" you ask, befuddled."},
+			{"text": "She doesn't like that response - she shifts her weight upwards, pulling her tight anal ring up your shaft and with it your desperate need to seed, and then crashes her hips down into your lap again, her ass clapping against your thighs as your cum-tank hits somewhere up in your brain."},
+			{"text": "\"For insulting the goddess!  You didn't even say hello before you started getting ready to spill your seed all over her visage,\" she says, and... well, you are guilty as charged.  She shudders, and you feel her wetness against your abdomen. She shifts side to side, clearly getting your dick to scrape the parts of her anal walls that will best get her off."},
+			{"text": "Indeed, she grinds her ass in your lap, and leans forward to rest her chin on your shoulder, taking a deep breath of your scent."},
+			{"text": "\"So... this is a punishment?\" you ask, still coming to grips with the situation."},
+			{"text": "\"Of course! What else would it be?\" she asks, as she runs her hand down her body... until her finger slips inside of her.  She looks sternly at your face, and down at your lips... she's clearly thinking about kissing you."},
+			{"text": "Instead, she begins to fuck herself on your cock, rocking her hips forward to get as much of it as possible rubbing against her anal ring."},
+			{"text": "This immediately proves to be too much - after all, you were nearly about to cum before a beautiful woman started to enthusiastically ride you anally.  You try to warn her, but she shushes you with her finger."},
+			{"text": "\"It wouldn't be punishment if you could cum!\" she says, squeezing it so tightly that you worry she might squeeze it off.  You feel the cum rising from your balls and then... nothing.  It can't get through the shaft."},
+			{"text": "Despite the beautiful woman bouncing in your lap clearly having the time of her life, you quickly realize that this is hell.  With each clap of her fat ass against your thighs and soft sigh of pleasure from her and each tug of her moist asshole on your cock's shaft you feel the urge to ejaculate messily - but you can't."},
+			{"text": "\"Please... let me do it!\" you cry, and she places her head onto your shoulder against and pulls it out repeatedly in a steady rhythm - clearly her desired rhythm, in fact.  You feel her hole spasming around your cock, and you wonder how much it enjoys the treatment, and how much work she puts it through for her own ends."},
+			{"text": "\"Ooh yeah, just like that... just like that... come on...\" she chants, as a mantra, but you plead again louder so that she'll hear you."},
+			{"text": "\"Please let me cum!\" you say, and she sighs.  She's panting, and looking you in the face while red-faced and dripping with sweat.  She looks like a woman possessed."},
+			{"text": "\"If you won't be quiet, I have no choice,\" she says, clasping your face in her hands, before leaning forward and capturing your mouth in a breathless kiss, her tongue aggressively finding yours, her pussy leaking in rivulets onto your abdomen."},
+			{"text": "She vocalizes into your mouth - the somewhat frustrated, pleasured tones of a woman who clearly wants to cum, but isn't there yet."},
+			{"text": "She shudders again, and a strong grip on your face becomes scratches down your back, and she twitches, and her tongue goes slack, and lets the kiss become a nuzzle... and then, she's still again, although she continues to grind against you."},
+			{"text": "\"A little one...\" she sighs, before looking back at into your eyes.  "},
+			{"text": "She gently rubs the scratches on your back and... you feel like they're healing instantaneously.  She looks... apologetic."},
+			{"text": "\"If you can... bring me closer to the gods, I might relax it some.  But only a little!\" she says, although you're certain that given how much she's already fucked you, even a little bit of slack in her sphincter would mean she was sitting on a veritable geyser of spermsauce."},
+			{"text": "You know how tormenting it will be, but still, you lean forward so that you're fully chest to chest, and reach down to grab her full rear in your hands... and then, you begin to fuck up into her."},
+			{"text": "For her part, she immediately begins to match your rhythm, and tries to find her own pace, while keeping her sphincter ironclad.  You feel like it may burst out of your head at any moment - and not the head of your penis, that is."},
+			{"text": "\"Is this what you want?\" you ask, and she nods enthusiastically."},
+			{"text": "\"Fuck my ass and make me cum!\" she cries, honestly."},
+			{"text": "She puts her hands on your chest and begins to slam her hips down onto you with the force of the heavens, her entire body weight dropped onto and over your upright member."},
+			{"text": "She brings your hands to her fat rear, then reaches under her shirt to capture her nipples between her slender fingers."},
+			{"text": "You can't take much more of it - the erotic display and the sensations only make your desire to blow a load in her fat ass that much more indomitable.  You're nearly reaching your breaking point when you start to feel her lower body tensing, her hole spasming, and her teeth gritting."},
+			{"text": "She throws her head back, her entire body shivering, her sphincter entering into spasms that are still too tight to allow for release, and she cries to the heavens."},
+			{"text": "Her voice is... well, angelic.  You hear it in your mind and your heart - a high, clear tone of joyous rapture, mixed with the low tones of her womanly register."},
+			{"text": "She leans forward again, still with a vice-like grip around your shaft.  She runs her hands playfully down your body... then meets your eyes once again."},
+			{"text": "She clasps her hand to your face, gently, her glowing smile filling your chest with its warmth.  All at once, you feel her sphincter go loose, and you almost see and hear the gurgling in her stomach before you realize what's happened."},
+			{
+			"sound": "CUM",
+			"text": "There is no inch of her celestial fudge tunnel that you do not coat in mortal nutwax - the wet noises of her anal insemination emanate out from her heavenly gate whenever she isn't tightening up her sphincter to coax more of it out of you."},
+			{
+			"sound": "CUM_BUBBLING",
+			"text": "Glob after thick glob gets spurted and sloshed inside, her rectum repurposed as a cum bag for your very mortal, but angelically induced massive load.  She licks her lips as she feels herself being filled, and purrs demurely as she watches your face."},
+			{"text": "You feel as if the life is being drained out of you, and for a moment, you can picture Winnie, her wings leathery and faded, her eyes a crimson red, and you know that were she to ever fall, she could feed a legion of demons with her ass, sucking the life essence from men"},
+			{"text": "\"I didn't say you could cum... but, to err is human,\" she says, kindly."},
+			{"text": "She pushes you down against the altar and stands up on it."},
+			{"text": "\"Unfortunately, though I do not wish to punish you...\" she begins."},
+			{"text": "She plants her oversized rear right down on top of your supine form, so that you can look up and see her wings, her upper back, and her long, braided pigtails."},
+			{"text": "\"It'd be sinful if I kept this, so I'll have to return it to you,\" she explains, although you're not sure what it is she's referring to."},
+			{"text": "You realize too late that she's planted her secret cave right over your mouth, and moments later your body tenses up in totality as she ejects your own cum from her asshole into your mouth, having recently dredged her pipes, as thick and sperm-filled as it felt when you released it."},
+			{"text": "\"You came a lot...\" she says, unnecessarily, as even more of the thick stuff exits her hole and flows into your overly-full mouth.  If you had to guess, you shot at least three loads worth into her welcoming dunghalls - and you're accepting all of it back."},
+			{"text": "She seems to have no shame as she evacuates her bowels of your fresh cum, and is thorough in purging all of it."},
+			{"text": "\"That's all of it,\" she says, as if she didn't just dump a beer stein's worth of anally-injected cum into your mouth.  You keep it there, waiting for her to stand, but she makes no motion to get off.  \"I'm not getting up until you swallow it,\" she says, and you realize you aren't going to have a choice."},
+			{"text": "With some hesitation, you let it flow into the back of your throat, and then swallow the gluggy concoction of your own tainted semen down, feeling the heat of your own balls and her sanctified rectum run down your throat and into your stomach."},
+			{"text": "\"Maybe you'll be less sinful now that you know what will happen,\" she says, leaning forward to inspect your flaccid, still-wet penis, \"I'm one of the nice ones!\" she says, standing up off of you, the taste of her ass still on your lips."},
+			{"text": "She adjusts her clothing and clears her throat, then plays her trumpet one last time.  Lowering it from her lips, she look down at your sickly-looking face."},
+			{"text": "\"It wasn't so bad, was it?  Well, think of that as a warning.  And... uhm... thank you,\" she says, bashfully.  With a beat of her wings, she takes into the air, and you watch her sun-kissed skin and wings disappear against the brightness of the actual sun."}
+		]
+	},
 ]}

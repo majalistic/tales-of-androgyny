@@ -130,6 +130,27 @@ public class EncounterBuilder {
 						)
 					)
 				).getEncounter();
+			case ANGEL:
+				Branch angelOral = new Branch().choiceScene("Fuck her face?", new Branch("Hell Yes!").textScene("ANGEL-DEEPTHROAT"), new Branch("I'm Good").textScene("ANGEL-CUM-TRUMPET"));
+				return new Branch().textScene("ANGEL-INTRO").choiceScene(
+					"What do you do?", 
+					new Branch("Pray").textScene("ANGEL-PRAY").choiceScene(
+						"Are you a devotee?", 
+						new Branch("Yes (Lie)").textScene("ANGEL-LIE"), 
+						new Branch("No").textScene("ANGEL-TRUTH").choiceScene(
+							"What do you do?", 
+							new Branch("Confess your temptations").textScene("ANGEL-BJ").choiceScene(
+								"She raises a good point... she DOES have a nice booty...",
+								new Branch("Let her be your angel of sodomy?").checkScene(Stat.CHARISMA, new Branch(5).textScene("ANGEL-ANAL"), new Branch(0).textScene("ANGEL-ANAL-REJECTION").concat(angelOral)),
+								new Branch("Let her blow your trumpet").textScene("ANGEL-BJ-CONT").concat(angelOral)
+							),
+							new Branch("Attack Her").textScene("ANGEL-BATTLE"),
+							new Branch("Remain Silent").textScene("ANGEL-REJECT")
+						)
+					), 
+					new Branch("Profane the Altar").textScene("ANGEL-PROFANE"), 
+					new Branch("Leave")
+				).getEncounter();
 			case BANK:
 				return new Branch().textScene("BANK").checkScene(
 						CheckType.BIG_DEBT,

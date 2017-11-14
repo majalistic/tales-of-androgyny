@@ -78,8 +78,8 @@ public class GameWorldFactory {
 			
 			Zone zone3 = new Zone(loadService, assetManager, random, nodes, nodeMap, 2, 2)
 					.addStartNode(zone2.getEndNodes().get(0))
-					.addEndNode(1003, FORT, FORT, 120, 87)
-					.addEndNode(1004, FORT, FORT, 120, 20)
+					.addEndNode(1003, ANGEL, ANGEL, 120, 87)
+					.addEndNode(1004, ANGEL, ANGEL, 120, 20)
 					.buildZone();
 			
 			new Zone(loadService, assetManager, random, nodes, nodeMap, 3, 2)

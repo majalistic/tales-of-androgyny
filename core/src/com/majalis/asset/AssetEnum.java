@@ -127,6 +127,7 @@ public enum AssetEnum {
 	BUNNY_CARAMEL("enemies/bunny/Caramel.png"),
 	BUNNY_CHOCOLATE("enemies/bunny/Chocolate.png"),
 	BUNNY_DARK_CHOCOLATE("enemies/bunny/DarkChocolate.png"),
+	ANGEL("enemies/Angel.png"),
 	TRAP_BONUS("enemies/TrapBonus.jpg"), 
 	
 	ARMOR("battle/Armor.png"),
@@ -286,6 +287,7 @@ public enum AssetEnum {
 	WEREWOLF_MUSIC("music/WerewolfMusic.mp3", Music.class),
 	CARNIVAL_MUSIC("music/CarnivalMusic.mp3", Music.class),
 	ETHEREAL_MUSIC("music/EtherealMusic.mp3", Music.class),
+	ANGEL_MUSIC("music/AngelMusic.mp3", Music.class),
 	HEAVY_MUSIC("music/Mechanolith.mp3", Music.class),
 	WORLD_MAP_MUSIC("music/WorldMapMusic.mp3", Music.class),
 	BATTLE_MUSIC("music/BattleMusic.mp3", Music.class),

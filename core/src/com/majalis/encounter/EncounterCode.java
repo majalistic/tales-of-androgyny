@@ -35,6 +35,7 @@ public enum EncounterCode {
 	GOLEM,
 	GHOST, 
 	BUNNY,
+	ANGEL (CASTLE),
 	
 	FORT (CASTLE), 
 	TOWN (AssetEnum.TOWN),
@@ -105,6 +106,7 @@ public enum EncounterCode {
 					case ORC: return "Orc";
 					case OGRE: return "Ogre";
 					case BEASTMISTRESS: return "Drow";
+					case ANGEL: return "Ruins";
 					case SPIDER: return "Ruins";
 					case ADVENTURER: 
 					case ELF: return "Adventurer";
@@ -157,6 +159,7 @@ public enum EncounterCode {
 					case GOLEM: return "Golem";
 					case OGRE: return "Ogre - Danger!";
 					case BEASTMISTRESS: return "Drow Beastmistress - Hostile!";
+					case ANGEL: return "Ruins - Calm";
 					case SPIDER: return "Ruins - Danger!";
 					case GADGETEER: return "Suspicious Merchant";
 					case TOWN: return "Town of Silajam";
@@ -284,6 +287,13 @@ public enum EncounterCode {
 						AssetEnum.CUM_BUBBLING.getSound(),
 						AssetEnum.SWORD_SLASH_SOUND.getSound(),
 						AssetEnum.GADGETEER_MUSIC.getMusic()
+					});
+			case ANGEL:
+				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{
+						AssetEnum.ANGEL.getTexture(),
+						AssetEnum.CUM.getSound(),
+						AssetEnum.CUM_BUBBLING.getSound(),
+						AssetEnum.ANGEL_MUSIC.getMusic()
 					});
 			case DRYAD:
 				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{  
