@@ -85,6 +85,9 @@ public enum EnemyEnum {
     		textureImagePaths.put(Stance.DOGGY.toString(), new Array<String>(new String[]{AssetEnum.CENTAUR_ANAL.getPath(), AssetEnum.CENTAUR_ANAL_XRAY.getPath()})); 
     		textureImagePaths.put(Stance.FELLATIO.toString(), new Array<String>(new String[]{AssetEnum.CENTAUR_ORAL.getPath()})); 
     	}
+    	else if (this == ADVENTURER) {
+    		textureImagePaths.put(Stance.COWGIRL_BOTTOM.toString(), new Array<String>(new String[]{AssetEnum.ADVENTURER_ANAL.getPath()})); 
+    	}
     	return textureImagePaths; 
     }
     public PhallusType getPhallusType() { return this == BRIGAND || this == BEASTMISTRESS || this == GHOST || this == BUNNY ? PhallusType.NORMAL : this == ADVENTURER ? PhallusType.SMALL : PhallusType.MONSTER; }

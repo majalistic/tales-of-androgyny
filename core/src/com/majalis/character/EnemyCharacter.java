@@ -907,7 +907,9 @@ public class EnemyCharacter extends AbstractCharacter {
 			float width =  (int) (texture.getWidth() / (texture.getHeight() / 975.));
 			float height = 975;
 			
-			if ((enemyType == EnemyEnum.HARPY && stance == Stance.FELLATIO) ||
+			if (
+				(enemyType == EnemyEnum.ADVENTURER && stance == Stance.COWGIRL_BOTTOM) ||
+				(enemyType == EnemyEnum.HARPY && stance == Stance.FELLATIO) ||
 				enemyType == EnemyEnum.BRIGAND ||
 				(enemyType == EnemyEnum.ORC && stance == Stance.PRONE_BONE) ||
 				enemyType == EnemyEnum.CENTAUR || 

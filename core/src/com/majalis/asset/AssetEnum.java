@@ -114,6 +114,7 @@ public enum AssetEnum {
 	TINY_SPIDER("enemies/SpiderTinyHigh.png"),
 	TINY_SPIDER_LOW("enemies/SpiderTinyLow.png"),
 	ADVENTURER("enemies/Adventurer.png"), 
+	ADVENTURER_ANAL("enemies/AdventurerAnal.jpg"), 
 	BEASTMISTRESS("enemies/BeastMaster.png"),
 	GOLEM("enemies/Golem.png"),
 	GOLEM_DULL("enemies/GolemDull.png"),

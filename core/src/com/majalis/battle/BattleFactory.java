@@ -108,6 +108,9 @@ public class BattleFactory {
 			textures.put(Stance.FACE_SITTING, new Array<Texture>(new Texture[]{faceSit}));
 			textures.put(Stance.SIXTY_NINE, new Array<Texture>(new Texture[]{faceSit}));
 		}
+		else if (type == EnemyEnum.ADVENTURER) {
+			textures.put(Stance.COWGIRL_BOTTOM, new Array<Texture>(new Texture[]{assetManager.get(AssetEnum.ADVENTURER_ANAL.getTexture())}));
+		}
 		
 		return textures;
 	}

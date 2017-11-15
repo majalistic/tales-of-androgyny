@@ -346,6 +346,8 @@ public enum EncounterCode {
 			case TRUDY_COMPANION:
 				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{  
 					AssetEnum.ADVENTURER.getTexture(),
+					AssetEnum.ADVENTURER_ANAL.getTexture(),
+					AssetEnum.CUM.getSound(),
 					AssetEnum.GADGETEER_MUSIC.getMusic(),
 					AssetEnum.STICK_BACKGROUND.getTexture(),
 					AssetEnum.GAME_OVER_ANIMATION.getAnimation()
