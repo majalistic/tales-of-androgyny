@@ -2,7 +2,6 @@ package com.majalis.screens;
 
 import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Array;
 import com.majalis.asset.AssetEnum;
@@ -50,18 +49,6 @@ public class LevelUpScreen extends AbstractScreen {
 		if (encounter.gameExit) {
 			showScreen(ScreenEnum.MAIN_MENU);
 		}
-		else {
-			draw();
-		}
-	}
-	
-	public void draw() {
-		batch.begin();
-		OrthographicCamera camera = (OrthographicCamera) getCamera();
-        batch.setTransformMatrix(camera.view);
-		batch.setProjectionMatrix(camera.combined);
-		camera.update();
-		batch.end();
 	}
 
 	@Override
