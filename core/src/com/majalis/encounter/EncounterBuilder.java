@@ -719,7 +719,7 @@ public class EncounterBuilder {
 						CheckType.PLUGGED, 
 						new Branch(true).textScene("HARPY-PLUGGED"),
 						new Branch(false).textScene("HARPY-DEFEAT").checkScene(
-							Perk.BIRD_LOVER, 
+							Perk.CUCKOO_FOR_CUCKOO, 
 							new Branch(3).textScene("HARPY-LOVE-BIRD").concat(harpyMarriage), 
 							new Branch(0).checkScene(Perk.ANAL_LOVER, new Branch(3).textScene("HARPY-LOVE-ANAL").concat(harpyMarriage), new Branch(0).textScene("HARPY-FINISH"))
 						)), 

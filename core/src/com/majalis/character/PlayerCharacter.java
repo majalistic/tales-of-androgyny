@@ -1166,9 +1166,9 @@ public class PlayerCharacter extends AbstractCharacter {
 			perks.put(Perk.LADY_OF_THE_NIGHT.toString(), ((int)perks.get(Perk.LADY_OF_THE_NIGHT.toString(), 0)) + 1);
 		}
 		
-		if (sex.isBird() && perks.get(Perk.BIRD_LOVER.toString(), 0) != 3) {
-			result.add(new MutationResult("You gained " + Perk.BIRD_LOVER.getLabel() + " (Rank " + (perks.get(Perk.BIRD_LOVER.toString(), 0) + 1) + ")!"));
-			perks.put(Perk.BIRD_LOVER.toString(), ((int)perks.get(Perk.BIRD_LOVER.toString(), 0)) + 1);
+		if (sex.isBird() && perks.get(Perk.CUCKOO_FOR_CUCKOO.toString(), 0) != 3) {
+			result.add(new MutationResult("You gained " + Perk.CUCKOO_FOR_CUCKOO.getLabel() + " (Rank " + (perks.get(Perk.CUCKOO_FOR_CUCKOO.toString(), 0) + 1) + ")!"));
+			perks.put(Perk.CUCKOO_FOR_CUCKOO.toString(), ((int)perks.get(Perk.CUCKOO_FOR_CUCKOO.toString(), 0)) + 1);
 		}
 		
 		if (sex.isKnot() && perks.get(Perk.BITCH.toString(), 0) != 3) {
