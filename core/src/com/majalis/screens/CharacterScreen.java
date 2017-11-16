@@ -57,6 +57,12 @@ public class CharacterScreen extends AbstractScreen {
 		resourceRequirements.add(AssetEnum.PERCEPTION.getTexture());
 		resourceRequirements.add(AssetEnum.MAGIC.getTexture());
 		resourceRequirements.add(AssetEnum.CHARISMA.getTexture());
+		resourceRequirements.add(AssetEnum.WARRIOR.getTexture());
+		resourceRequirements.add(AssetEnum.PALADIN.getTexture());
+		resourceRequirements.add(AssetEnum.THIEF.getTexture());
+		resourceRequirements.add(AssetEnum.RANGER.getTexture());
+		resourceRequirements.add(AssetEnum.MAGE.getTexture());
+		resourceRequirements.add(AssetEnum.ENCHANTRESS.getTexture());
 		resourceRequirements.add(AssetEnum.WORLD_MAP_MUSIC.getMusic());
 		resourceRequirements.addAll(WorldMapScreen.resourceRequirements);
 	}
@@ -84,6 +90,11 @@ public class CharacterScreen extends AbstractScreen {
 		final TextButton done = new TextButton("Done", skin);
 		this.saveService = saveService;
 		this.character = character;
+		
+		Image characterImage = new Image(assetManager.get(character.getJobClass().getTexture()));
+		characterImage.setPosition(1160, -100);
+		characterImage.setScale(.525f);
+		this.addActor(characterImage);
 		
 		done.setSize(180, 60);
 		done.addListener(
