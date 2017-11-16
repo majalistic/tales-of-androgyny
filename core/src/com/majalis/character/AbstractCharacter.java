@@ -69,7 +69,10 @@ public abstract class AbstractCharacter extends Actor {
 	
 	protected Weapon weapon;
 	// public Shield shield;
-	// public Armor armor;
+	protected Armor armor;
+	protected Armor legwear;
+	protected Armor underwear;
+		
 	// public Gauntlet gauntlet;
 	// public Sabaton sabaton;
 	// public Accessory firstAccessory;
@@ -262,8 +265,11 @@ public abstract class AbstractCharacter extends Actor {
 
 	protected int getCharisma() { return Math.max(baseCharisma, 0); }
 	
-	public int getDefense() { return Math.max(baseDefense, 0); }
+	protected int getBaseDefense() { return Math.max(baseDefense, 0); }
 	protected int getTraction() { return 2; }
+	
+	// temporary for battle coherence
+	public int getArmorScore() { return armor != null && armor.getDurability() > 0 ? armor.getShockAbsorption(): 0; }
 	
 	public int getHealthDegradation() { return getDegradation(healthTiers, currentHealth); }
 	public int getStaminaDegradation() { return getDegradation(staminaTiers, currentStamina); }
@@ -513,16 +519,23 @@ public abstract class AbstractCharacter extends Actor {
 	
 			int damage = attack.getDamage();
 			if (!attack.ignoresArmor()) {
-				damage -= getDefense();
+				// should be based on height of attack
+				damage -= (getBaseDefense() + (armor != null ? armor.getShockAbsorption() : 0));
 			}
 			
 			if (damage > 0) {	
 				modHealth(-damage);
 				result.add("The blow strikes for " + damage + " damage!");
-				int bleed = attack.getBleeding();
-				if (bleed > 0 && canBleed()) {
-					result.add("It opens wounds! +" + bleed + " blood loss!");
-					statuses.put(StatusType.BLEEDING.toString(), statuses.get(StatusType.BLEEDING.toString(), 0) + bleed);
+				// should be based on height of attack
+				if (attack.ignoresArmor() || ((armor == null || armor.getDurability() == 0))) {
+					int bleed = attack.getBleeding();
+					if (bleed > 0 && canBleed()) {
+						result.add("It opens wounds! +" + bleed + " blood loss!");
+						statuses.put(StatusType.BLEEDING.toString(), statuses.get(StatusType.BLEEDING.toString(), 0) + bleed);
+					}
+				}
+				else if (!attack.ignoresArmor()) {
+					result.add("The blow strikes off your armor!");
 				}
 			}
 			
@@ -568,12 +581,10 @@ public abstract class AbstractCharacter extends Actor {
 			
 			int armorSunder = attack.getArmorSunder();
 			if (armorSunder > 0) {
-				// this shouldn't lower baseDefense, instead sundering armor
-				if (baseDefense > 0) {
-					result.add("It's an armor shattering blow! It reduces armor by " + (armorSunder > baseDefense ? baseDefense : armorSunder) + "!");
-					baseDefense -= armorSunder;
-					if (baseDefense < 0) baseDefense = 0;
-					
+				// should be based on height of attack
+				if (armor != null && armor.getDurability() > 0) {
+					result.add("It's an armor shattering blow! It reduces " + armor.getName() + " durability by " + (armorSunder > armor.getDurability() ? armor.getDurability() : armorSunder) + "!");
+					armor.modDurability(-armorSunder);
 				}
 			}
 			
@@ -934,7 +945,31 @@ public abstract class AbstractCharacter extends Actor {
 	protected String properCase(String sample) {
 		return sample.substring(0, 1).toUpperCase() + sample.substring(1);
 	}
-		
+	
+	public String setArmor(Item armor, boolean newItem) {
+		if (newItem) inventory.add(armor);
+		Armor equipArmor = (Armor) armor;
+		boolean alreadyEquipped = equipArmor.equals(this.armor); 
+		this.armor = alreadyEquipped ? null : equipArmor;
+		return "You " + (alreadyEquipped ? "unequipped" : "equipped") + " the " + armor.getName() + ".";
+	}
+	
+	public String setLegwear(Item armor, boolean newItem) {
+		if (newItem) inventory.add(armor);
+		Armor equipArmor = (Armor) armor;
+		boolean alreadyEquipped = equipArmor.equals(this.legwear); 
+		this.legwear = alreadyEquipped ? null : equipArmor;
+		return "You " + (alreadyEquipped ? "unequipped" : "equipped") + " the " + armor.getName() + ".";
+	}
+	
+	public String setUnderwear(Item armor, boolean newItem) {
+		if (newItem) inventory.add(armor);
+		Armor equipArmor = (Armor) armor;
+		boolean alreadyEquipped = equipArmor.equals(this.underwear); 
+		this.underwear = alreadyEquipped ? null : equipArmor;
+		return "You " + (alreadyEquipped ? "unequipped" : "equipped") + " the " + armor.getName() + ".";
+	}
+	
 	// should return Plugged property != null
 	public boolean isPlugged() {
 		return plug != null;

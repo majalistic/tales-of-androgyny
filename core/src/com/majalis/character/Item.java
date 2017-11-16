@@ -8,7 +8,7 @@ import com.majalis.character.AbstractCharacter.Stat;
  */
 public abstract class Item {
 
-	private Item() {}
+	protected Item() {}
 	public abstract int getValue();
 	protected abstract ItemEffect getUseEffect();
 	public abstract String getName();

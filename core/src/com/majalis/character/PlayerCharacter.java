@@ -10,6 +10,7 @@ import com.badlogic.gdx.utils.IntArray;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.ObjectSet;
 import com.majalis.asset.AssetEnum;
+import com.majalis.character.Armor.ArmorType;
 import com.majalis.character.Item.ChastityCage;
 import com.majalis.character.Item.Misc;
 import com.majalis.character.Item.MiscType;
@@ -98,8 +99,7 @@ public class PlayerCharacter extends AbstractCharacter {
 			a2m = false;
 			a2mcheevo = false;
 			phallus = PhallusType.SMALL;	
-			// this needs to be refactored - need "current defense" and for refresh method to set to max
-			baseDefense = 6;
+			baseDefense = 0;
 			money = 40;
 			debt = 0;
 			inventory = new Array<Item>();
@@ -172,6 +172,10 @@ public class PlayerCharacter extends AbstractCharacter {
 		magicPoints = 0;
 		food = 60; 
 		initInventory();
+		setArmor(new Armor(ArmorType.CLOTH_TOP), true);
+		setLegwear(new Armor(ArmorType.SKIRT), true);
+		setUnderwear(new Armor(ArmorType.UNDERWEAR), true);
+		
 		skills.remove(COMBAT_HEAL.toString());
 		skills.remove(INCANTATION.toString());
 		skills.remove(BLITZ_ATTACK.toString());
@@ -676,7 +680,9 @@ public class PlayerCharacter extends AbstractCharacter {
 		a2m = false;
 		buttful = Math.max(0, buttful - 10);
 		mouthful = 0;
-		baseDefense = 6;
+		if (armor != null) armor.refresh();	
+		if (legwear != null) legwear.refresh();	
+		if (underwear != null) underwear.refresh();	
 		if (disarmedWeapon != null) {
 			weapon = disarmedWeapon;
 			disarmedWeapon = null;
@@ -1414,7 +1420,7 @@ public class PlayerCharacter extends AbstractCharacter {
 	}
 
 	public String equipItem(Item item) {
-		return item instanceof Weapon ? setWeapon(item) : item instanceof ChastityCage ? setCage(item, false) : setPlug(item, false);
+		return item instanceof Weapon ? setWeapon(item) : item instanceof Armor ? (((Armor) item).coversTop() ? setArmor(item, false) : ((Armor) item).coversBottom() ? setLegwear(item, false) : setUnderwear(item, false)) : item instanceof ChastityCage ? setCage(item, false) : setPlug(item, false);
 	}
 
 	public Plug getPlug() {
@@ -1432,6 +1438,16 @@ public class PlayerCharacter extends AbstractCharacter {
 	}
 
 	public boolean isEquipped(Item item) {
-		return item.equals(weapon) || item.equals(plug) || item.equals(cage);
+		return item.equals(weapon) || item.equals(armor) || item.equals(legwear) || item.equals(underwear) || item.equals(plug) || item.equals(cage);
+	}
+
+	public Armor getArmor() {
+		return armor;
+	}
+	public Armor getLegwear() {
+		return legwear;
+	}
+	public Armor getUnderwear() {
+		return underwear;
 	}
 }

@@ -61,13 +61,29 @@ public class CharacterScreen extends AbstractScreen {
 		resourceRequirements.addAll(WorldMapScreen.resourceRequirements);
 	}
 	
+	private final Sound buttonSound;
+	private final PlayerCharacter character;
+	private final Label consoleText;
+	private final SaveService saveService;
+	private final Table inventoryTable;
+	private final Table weaponTable;
+	private final Label weaponText;
+	private final Label armorText;
+	private final Label legwearText;
+	private final Label underwearText;
+	private final Label plugText;
+	private final Label cageText;
+	private final Skin skin;
+	
 	public CharacterScreen(ScreenFactory factory, ScreenElements elements, AssetManager assetManager, final SaveService saveService, final PlayerCharacter character) {
 		super(factory, elements);
 		this.addActor(new BackgroundBuilder(assetManager.get(AssetEnum.CHARACTER_SCREEN.getTexture())).build()); 
 		
-		Skin skin = assetManager.get(AssetEnum.UI_SKIN.getSkin());
-		final Sound buttonSound = assetManager.get(AssetEnum.CLICK_SOUND.getSound()); 
+		skin = assetManager.get(AssetEnum.UI_SKIN.getSkin());
+		buttonSound = assetManager.get(AssetEnum.CLICK_SOUND.getSound()); 
 		final TextButton done = new TextButton("Done", skin);
+		this.saveService = saveService;
+		this.character = character;
 		
 		done.setSize(180, 60);
 		done.addListener(
@@ -164,13 +180,13 @@ public class CharacterScreen extends AbstractScreen {
 			}	
 		}
 		
-		final Table inventoryTable = new Table();
+		inventoryTable = new Table();
 		inventoryTable.add(getLabel("Inventory", skin, Color.BLACK)).row();
-		inventoryTable.setPosition(850, 725);
+		inventoryTable.setPosition(850, 675);
 		inventoryTable.align(Align.top);
 		this.addActor(inventoryTable);
-		final Table weaponTable = new Table();
-		final Label consoleText = new Label("", skin);
+		weaponTable = new Table();
+		consoleText = new Label("", skin);
 		consoleText.setPosition(500, 1050);
 		consoleText.setColor(Color.GOLDENROD);
 		this.addActor(consoleText);
@@ -181,32 +197,42 @@ public class CharacterScreen extends AbstractScreen {
 		
 		Table equipmentTable = new Table();
 		equipmentTable.align(Align.topLeft);
-		final Label weaponText = getLabel(character.getWeapon() != null ? character.getWeapon().getName() : "Unarmed", skin, Color.BROWN);
-		final Label plugText = getLabel(character.getPlug() != null ? character.getPlug().getName() : "None", skin, Color.BROWN);
-		final Label cageText = getLabel(character.getCage() != null ? character.getCage().getName() : "None", skin, Color.BROWN);
+		weaponText = getLabel(character.getWeapon() != null ? character.getWeapon().getName() : "Unarmed", skin, Color.BROWN);
+		armorText = getLabel(character.getArmor() != null ? character.getArmor().getName() : "None", skin, Color.BROWN);
+		legwearText = getLabel(character.getLegwear() != null ? character.getLegwear().getName() : "None", skin, Color.BROWN);
+		underwearText = getLabel(character.getUnderwear() != null ? character.getUnderwear().getName() : "None", skin, Color.BROWN);
+		plugText = getLabel(character.getPlug() != null ? character.getPlug().getName() : "None", skin, Color.BROWN);
+		cageText = getLabel(character.getCage() != null ? character.getCage().getName() : "None", skin, Color.BROWN);
+		
+		int xBuffer = 160;
+		
 		equipmentTable.setPosition(600, 1040);
 		this.addActor(equipmentTable);
-		equipmentTable.add(getLabel("Weapon:", skin, Color.DARK_GRAY)).width(150).align(Align.left);
+		equipmentTable.add(getLabel("Weapon:", skin, Color.DARK_GRAY)).width(xBuffer).align(Align.left);
 		equipmentTable.add(weaponText).align(Align.left).row();
 		equipmentTable.add(getLabel("Shield:", skin, Color.DARK_GRAY)).align(Align.left).row();
-		equipmentTable.add(getLabel("Armor:", skin, Color.DARK_GRAY)).align(Align.left).row();
+		equipmentTable.add(getLabel("Armor:", skin, Color.DARK_GRAY)).width(xBuffer).align(Align.left);
+		equipmentTable.add(armorText).align(Align.left).row();
+		equipmentTable.add(getLabel("Legwear:", skin, Color.DARK_GRAY)).width(xBuffer).align(Align.left);
+		equipmentTable.add(legwearText).align(Align.left).row();
+		equipmentTable.add(getLabel("Underwear:", skin, Color.DARK_GRAY)).width(xBuffer).align(Align.left);
+		equipmentTable.add(underwearText).align(Align.left).row();
 		equipmentTable.add(getLabel("Headgear:", skin, Color.DARK_GRAY)).align(Align.left).row();
-		equipmentTable.add(getLabel("Legwear:", skin, Color.DARK_GRAY)).align(Align.left).row();
 		equipmentTable.add(getLabel("Armwear:", skin, Color.DARK_GRAY)).align(Align.left).row();
-		equipmentTable.add(getLabel("Buttwear:", skin, Color.DARK_GRAY)).width(150).align(Align.left);
+		equipmentTable.add(getLabel("Buttwear:", skin, Color.DARK_GRAY)).width(xBuffer).align(Align.left);
 		equipmentTable.add(plugText).align(Align.left).row();
-		equipmentTable.add(getLabel("Dickwear:", skin, Color.DARK_GRAY)).width(150).align(Align.left);
+		equipmentTable.add(getLabel("Dickwear:", skin, Color.DARK_GRAY)).width(xBuffer).align(Align.left);
 		equipmentTable.add(cageText).align(Align.left).row();
 		
 		for (final Item item : character.getInventory()) {
 			final TextButton itemButton = new TextButton(item.getName(), skin);
 			if (item.isConsumable()) {
-				itemButton.addListener(getItemListener(buttonSound, character, item, consoleText, saveService, inventoryTable, skin));
+				itemButton.addListener(getItemListener(item));
 				inventoryTable.add(itemButton).size(450, 40).row();
 			}
 			else if (item.isEquippable()) { // this needs to properly equip the item in the correct slot
 				itemButton.addListener(
-					getWeaponListener(buttonSound, character, item, consoleText, saveService, weaponTable, weaponText, plugText, cageText, skin)
+					getWeaponListener(item)
 				);
 				if (character.isEquipped(item)) {
 					itemButton.setColor(Color.GOLD);
@@ -216,7 +242,7 @@ public class CharacterScreen extends AbstractScreen {
 		}	
 	}
 	
-	private ClickListener getItemListener(final Sound buttonSound, final PlayerCharacter character, final Item item, final Label consoleText, final SaveService saveService, final Table inventoryTable, final Skin skin) {
+	private ClickListener getItemListener(final Item item) {
 		return new ClickListener() {
 			@Override
 	        public void clicked(InputEvent event, float x, float y) {
@@ -229,7 +255,7 @@ public class CharacterScreen extends AbstractScreen {
 				for (Item newItem : character.getInventory()) {
 					final TextButton newItemButton = new TextButton(newItem.getName(), skin);
 					if (newItem.isConsumable()) {
-						newItemButton.addListener(getItemListener(buttonSound, character, newItem, consoleText, saveService, inventoryTable, skin));
+						newItemButton.addListener(getItemListener(newItem));
 						inventoryTable.add(newItemButton).size(450, 40).row();
 					}
 				}
@@ -237,7 +263,7 @@ public class CharacterScreen extends AbstractScreen {
 		};
 	}
 	
-	private ClickListener getWeaponListener(final Sound buttonSound, final PlayerCharacter character, final Item item, final Label consoleText, final SaveService saveService, final Table inventoryTable, final Label weaponText, final Label plugText, final Label cageText, final Skin skin) {
+	private ClickListener getWeaponListener(final Item item) {
 		return new ClickListener() {
 			@Override
 	        public void clicked(InputEvent event, float x, float y) {
@@ -245,19 +271,22 @@ public class CharacterScreen extends AbstractScreen {
 				String result = character.equipItem(item);
 				consoleText.setText(result);
 				weaponText.setText(character.getWeapon() != null ? character.getWeapon().getName() : "Unarmed");
+				armorText.setText(character.getArmor() != null ? character.getArmor().getName() : "None");
+				legwearText.setText(character.getLegwear() != null ? character.getLegwear().getName() : "None");
+				underwearText.setText(character.getUnderwear() != null ? character.getUnderwear().getName() : "None");
 				plugText.setText(character.getPlug() != null ? character.getPlug().getName() : "None");
 				cageText.setText(character.getCage() != null ? character.getCage().getName() : "None");
 				saveService.saveDataValue(SaveEnum.PLAYER, character);
-				inventoryTable.clear();
-				inventoryTable.add(getLabel("Equipment", skin, Color.BLACK)).row();
+				weaponTable.clear();
+				weaponTable.add(getLabel("Equipment", skin, Color.BLACK)).row();
 				for (Item newItem : character.getInventory()) {
 					final TextButton newItemButton = new TextButton(newItem.getName(), skin);
 					if (newItem.isEquippable()) {
-						newItemButton.addListener(getWeaponListener(buttonSound, character, newItem, consoleText, saveService, inventoryTable, weaponText, plugText, cageText, skin));
+						newItemButton.addListener(getWeaponListener(newItem));
 						if (character.isEquipped(newItem)) {
 							newItemButton.setColor(Color.GOLD);
 						}
-						inventoryTable.add(newItemButton).size(500, 40).row();
+						weaponTable.add(newItemButton).size(500, 40).row();
 					}
 				}
 	        }

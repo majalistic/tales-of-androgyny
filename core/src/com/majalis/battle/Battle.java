@@ -225,8 +225,8 @@ public class Battle extends Group{
 		Texture armorTexture = assetManager.get(AssetEnum.ARMOR.getTexture());
 		initImage(armorTexture, barX + 320, 1032, 50);
 		initImage(armorTexture, 1820, 1032, 50);
-		armorLabel = initLabel("" + character.getDefense(), skin, Color.BROWN, barX + 332, 1037);		
-		enemyArmorLabel = initLabel("" + enemy.getDefense(), skin, Color.BROWN, 1832, 1037);
+		armorLabel = initLabel("" + character.getArmorScore(), skin, Color.BROWN, barX + 332, 1037);		
+		enemyArmorLabel = initLabel("" + enemy.getArmorScore(), skin, Color.BROWN, 1832, 1037);
 		
 		Texture bloodTexture = assetManager.get(AssetEnum.BLEED.getTexture());
 		bloodImage = initImage(bloodTexture, 470, 850, 50);
@@ -653,10 +653,10 @@ public class Battle extends Group{
 		enemyStaminaLabel.setText(enemy.getCurrentStamina() + " / " + enemy.getMaxStamina());
 		enemyBalanceLabel.setText(enemy.getStability());
 		enemyWeaponLabel.setText("Weapon: " + (enemy.getWeapon() != null ? enemy.getWeapon().getName() : "Unarmed"));
-		armorLabel.setText("" + character.getDefense());
-		enemyArmorLabel.setText("" + enemy.getDefense());	
-		bloodLabel.setText("" + character.getBleed());
-		enemyBloodLabel.setText("" + enemy.getBleed());	
+		armorLabel.setText("" + character.getArmorScore());
+		enemyArmorLabel.setText("" + enemy.getArmorScore());	
+		bloodLabel.setText("" + character.getArmorScore());
+		enemyBloodLabel.setText("" + enemy.getArmorScore());	
 		
 		if (character.getBleed() == 0) {
 			bloodImage.addAction(hide());
