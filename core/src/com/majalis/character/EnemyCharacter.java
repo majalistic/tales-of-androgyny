@@ -62,6 +62,9 @@ public class EnemyCharacter extends AbstractCharacter {
 		}
 		
 		weapon = enemyType.getWeaponType() != null ? new Weapon (enemyType.getWeaponType()): null;
+		armor = enemyType.getArmorType() != null ? new Armor (enemyType.getArmorType()): null;
+		legwear = enemyType.getLegwearType() != null ? new Armor (enemyType.getLegwearType()): null;
+		underwear = enemyType.getUnderwearType() != null ? new Armor (enemyType.getUnderwearType()): null;
 		baseStrength = enemyType.getStrength();
 		baseAgility = enemyType.getAgility();
 		baseEndurance = enemyType.getEndurance();

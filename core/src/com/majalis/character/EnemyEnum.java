@@ -23,13 +23,13 @@ public enum EnemyEnum {
 	UNICORN (new EnemyTemplate(WeaponType.Bow).setEndurance(4).setAgility(4).setPerception(5), "Unicorn", null, AnimationEnum.UNICORN),
 	GOBLIN (new EnemyTemplate(WeaponType.Dagger).setStrength(4).setEndurance(4).setAgility(5), "Goblin", AssetEnum.GOBLIN.getTexture()), 
 	GOBLIN_MALE (new EnemyTemplate(WeaponType.Dagger).setStrength(4).setEndurance(4).setAgility(5), "Goblin (Male)", AssetEnum.GOBLIN_MALE.getTexture()),
-	ORC (new EnemyTemplate(WeaponType.Flail, 7, 6, 4, 3, 3, 3).setArmor(ArmorType.MEDIUM_ENEMY_ARMOR).addHealth(10), "Orc", null, AnimationEnum.ORC), 
-	ADVENTURER (new EnemyTemplate(WeaponType.Axe, 4, 4, 4, 3, 4, 6).setArmor(ArmorType.MEDIUM_ENEMY_ARMOR).addHealth(10).setMana(20), "Adventurer", AssetEnum.ADVENTURER.getTexture()),
+	ORC (new EnemyTemplate(WeaponType.Flail, 7, 6, 4, 3, 3, 3).setArmor(ArmorType.MEDIUM_ENEMY_ARMOR).setLegwear(ArmorType.MEDIUM_ENEMY_LEGWEAR).addHealth(10), "Orc", null, AnimationEnum.ORC), 
+	ADVENTURER (new EnemyTemplate(WeaponType.Axe, 4, 4, 4, 3, 4, 6).setArmor(ArmorType.MEDIUM_ENEMY_ARMOR).setLegwear(ArmorType.MEDIUM_ENEMY_LEGWEAR).addHealth(10).setMana(20), "Adventurer", AssetEnum.ADVENTURER.getTexture()),
 	OGRE (new EnemyTemplate(WeaponType.Club, 8, 8, 4, 3, 3, 3).addHealth(20), "Ogre", AssetEnum.OGRE.getTexture()),
 	BEASTMISTRESS (new EnemyTemplate(WeaponType.Claw).setStrength(6).setAgility(8).setEndurance(5).addHealth(10), "Beast Mistress", AssetEnum.BEASTMISTRESS.getTexture()),
 	SPIDER (new EnemyTemplate(WeaponType.Claw).setStrength(6).setAgility(5).setEndurance(5).setHealth(new IntArray(new int[]{20, 20, 20, 20})), "Arachne", AssetEnum.SPIDER.getTexture()), 
-	GOLEM (new EnemyTemplate(null, 6, 8, 4, 3, 3, 3).setArmor(ArmorType.MEDIUM_ENEMY_ARMOR).setHealth(new IntArray(new int[]{60})).setMana(12), "Golem", AssetEnum.GOLEM.getTexture(), AssetEnum.GOLEM_FUTA.getTexture()),
-	GHOST (new EnemyTemplate(null, 0, 0, 0, 8, 8, 8).setArmor(null).setHealth(new IntArray(new int[]{15})).setMana(30), "Ghost", AssetEnum.GHOST_SPOOKY.getTexture(), AssetEnum.GHOST_SPOOKY_BLOODLESS.getTexture()),
+	GOLEM (new EnemyTemplate(null, 6, 8, 4, 3, 3, 3).setArmor(ArmorType.MEDIUM_ENEMY_ARMOR).setLegwear(ArmorType.MEDIUM_ENEMY_LEGWEAR).setHealth(new IntArray(new int[]{60})).setMana(12), "Golem", AssetEnum.GOLEM.getTexture(), AssetEnum.GOLEM_FUTA.getTexture()),
+	GHOST (new EnemyTemplate(null, 0, 0, 0, 8, 8, 8).setArmor(null).setLegwear(null).setUnderwear(null).setHealth(new IntArray(new int[]{15})).setMana(30), "Ghost", AssetEnum.GHOST_SPOOKY.getTexture(), AssetEnum.GHOST_SPOOKY_BLOODLESS.getTexture()),
 	BUNNY (new EnemyTemplate(WeaponType.Sickle, 6, 6, 9, 5, 1, 8).setHealth(new IntArray(new int[]{20, 20, 20, 20})).setMana(30), "Puca", AssetEnum.BUNNY_CREAM.getTexture(), AssetEnum.BUNNY_VANILLA.getTexture(), AssetEnum.BUNNY_CARAMEL.getTexture(), AssetEnum.BUNNY_CHOCOLATE.getTexture(), AssetEnum.BUNNY_DARK_CHOCOLATE.getTexture()),
 	;
 	private final String text;
@@ -111,6 +111,8 @@ public enum EnemyEnum {
 	public IntArray getManaTiers() { return template.getManaTiers(); }
 	public WeaponType getWeaponType() { return template.getWeaponType(); }
 	public ArmorType getArmorType() { return template.getArmorType(); }
+	public ArmorType getLegwearType() { return template.getLegwearType(); }
+	public ArmorType getUnderwearType() { return template.getUnderwearType(); }
 	public boolean canProneBone() { return this == BRIGAND || this == GOBLIN || this == ORC || this == ADVENTURER || this == GOBLIN_MALE; }
 	public boolean canBleed() { return this != SLIME && this != GOLEM && this != GHOST; }
 	public boolean willFaceSit() { return this != CENTAUR && this != UNICORN && this != GHOST; } 
@@ -166,6 +168,8 @@ public enum EnemyEnum {
 		private int defense;
 		private WeaponType weaponType;
 		private ArmorType armorType;
+		private ArmorType legwearType;
+		private ArmorType underwearType;
 		private IntArray healthTiers;
 		private IntArray manaTiers;
 		
@@ -176,6 +180,8 @@ public enum EnemyEnum {
 		private EnemyTemplate(WeaponType weaponType, int strength, int endurance, int agility, int perception, int magic, int charisma) {
 			this.weaponType = weaponType;
 			this.armorType = ArmorType.LIGHT_ENEMY_ARMOR;
+			this.legwearType = ArmorType.LIGHT_ENEMY_LEGWEAR;
+			this.underwearType = ArmorType.UNDERWEAR;
 			this.strength = strength;
 			this.endurance = endurance;
 			this.agility = agility;
@@ -209,9 +215,13 @@ public enum EnemyEnum {
 		private EnemyTemplate setMana(int mana) { this.manaTiers = new IntArray(new int[]{mana}); return this; }
 		
 		private EnemyTemplate setArmor(ArmorType type) { this.armorType = type; return this; }
-				
+		private EnemyTemplate setLegwear(ArmorType type) { this.legwearType = type; return this; }		
+		private EnemyTemplate setUnderwear(ArmorType type) { this.underwearType = type; return this; }	
+		
 		private WeaponType getWeaponType() { return weaponType; }
 		private ArmorType getArmorType() { return armorType; }
+		private ArmorType getLegwearType() { return legwearType; }
+		private ArmorType getUnderwearType() { return underwearType; }
 	}
 
 	public String getDescription() {

@@ -104,7 +104,9 @@ public class Armor extends Item{
 		
 		LIGHT_ENEMY_ARMOR ("Light Armor"),
 		MEDIUM_ENEMY_ARMOR ("Medium Armor"),
-		HEAVY_ENEMY_ARMOR ("Heavy Armor"),
+		HEAVY_ENEMY_ARMOR ("Heavy Armor"), 
+		LIGHT_ENEMY_LEGWEAR ("Light Legwear"),
+		MEDIUM_ENEMY_LEGWEAR ("Medium Legwear"),
 		;
 		private final String label;
 		private ArmorType(String label) { this.label = label; }
@@ -116,8 +118,8 @@ public class Armor extends Item{
 		private boolean isUnderwear() { return this == UNDERWEAR; }
 		private ChastityCage getCage() { return null; }
 		private Plug getPlug() { return null; }
-		private IntArray getDurability() { return this == UNDERWEAR ? new IntArray(new int[]{2}) : this == LIGHT_ENEMY_ARMOR ? new IntArray(new int[]{3, 3}) : new IntArray(new int[]{5, 5});  }
-		private IntArray getShockAbsorption() { return this == UNDERWEAR ? new IntArray(new int[]{1}) : this == LIGHT_ENEMY_ARMOR ? new IntArray(new int[]{4, 1}) : new IntArray(new int[]{6, 2}); }
+		private IntArray getDurability() { return this == UNDERWEAR ? new IntArray(new int[]{2}) : this == LIGHT_ENEMY_ARMOR || this == LIGHT_ENEMY_LEGWEAR ? new IntArray(new int[]{3, 3}) : new IntArray(new int[]{5, 5});  }
+		private IntArray getShockAbsorption() { return this == UNDERWEAR ? new IntArray(new int[]{1}) : this == LIGHT_ENEMY_ARMOR || this == LIGHT_ENEMY_LEGWEAR ? new IntArray(new int[]{4, 1}) : new IntArray(new int[]{6, 2}); }
 		private boolean coversNipples() { return this == CLOTH_TOP || this == BREASTPLATE; }
 		private boolean isPorous() { return this != BREASTPLATE; }
 		private boolean isHeatResistant() { return false; }
