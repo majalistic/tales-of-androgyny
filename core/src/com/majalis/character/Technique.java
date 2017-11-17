@@ -6,6 +6,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.majalis.character.Stance;
 import com.majalis.character.AbstractCharacter.Stat;
+import com.majalis.character.Attack.AttackHeight;
 import com.majalis.character.Attack.Status;
 import com.majalis.technique.TechniquePrototype;
 import com.majalis.technique.Bonus;
@@ -167,7 +168,8 @@ public class Technique {
 			getForceStance(),
 			technique.isSpell(),
 			new Buff(technique.getBuff(), thisPayload.getTotalPower()),
-			technique.isDamaging() && !technique.doesSetDamage(), // is attack
+			technique.isDamaging() && !technique.doesSetDamage(), // is attack,
+			technique.getTechniqueHeight() == TechniqueHeight.HIGH ? AttackHeight.HIGH : technique.getTechniqueHeight() == TechniqueHeight.MEDIUM ? AttackHeight.MEDIUM : technique.getTechniqueHeight() == TechniqueHeight.LOW ? AttackHeight.LOW : AttackHeight.NONE,
 			technique.isDamaging() && !technique.doesSetDamage() && technique.isSpell(), // ignores armor
 			thisPayload.getBonuses(),
 			useItem,
@@ -196,6 +198,7 @@ public class Technique {
 				false, // is magic
 				null, // buff
 				true, // is attack
+				AttackHeight.MEDIUM,
 				false, // ignores armor
 				null, // bonuses, maybe counters should do more damage based on bonuses
 				null,

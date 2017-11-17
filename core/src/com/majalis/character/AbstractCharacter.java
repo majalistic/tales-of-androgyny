@@ -1,6 +1,7 @@
 package com.majalis.character;
 
 import com.majalis.asset.AssetEnum;
+import com.majalis.character.Attack.AttackHeight;
 import com.majalis.character.Attack.Status;
 import com.majalis.character.Item.ChastityCage;
 import com.majalis.character.Item.ItemEffect;
@@ -489,6 +490,13 @@ public abstract class AbstractCharacter extends Actor {
 		
 		return resolvedAttack;
 	}
+	private Armor getArmorHit(AttackHeight height) {
+		return height != AttackHeight.LOW ? armor : legwear != null && legwear.getShockAbsorption() > 0 ? legwear : underwear;
+	}
+	
+	private int getShockAbsorption(Armor armor) {
+		return armor != null ? armor.getShockAbsorption() : 0;
+	}
 	
 	public Array<Array<String>> receiveAttack(Attack attack) {
 		Array<String> result = attack.getMessages();
@@ -519,17 +527,16 @@ public abstract class AbstractCharacter extends Actor {
 				}
 			}
 	
+			Armor hitArmor = getArmorHit(attack.getAttackHeight());
 			int damage = attack.getDamage();
 			if (!attack.ignoresArmor()) {
-				// should be based on height of attack
-				damage -= (getBaseDefense() + (armor != null ? armor.getShockAbsorption() : 0));
+				damage -= getBaseDefense() + getShockAbsorption(hitArmor);
 			}
 			
 			if (damage > 0) {	
 				modHealth(-damage);
 				result.add("The blow strikes for " + damage + " damage!");
-				// should be based on height of attack
-				if (attack.ignoresArmor() || ((armor == null || armor.getDurability() == 0))) {
+				if (attack.ignoresArmor() || ((hitArmor == null || hitArmor.getDurability() == 0))) {
 					int bleed = attack.getBleeding();
 					if (bleed > 0 && canBleed()) {
 						result.add("It opens wounds! +" + bleed + " blood loss!");
@@ -583,9 +590,8 @@ public abstract class AbstractCharacter extends Actor {
 			
 			int armorSunder = attack.getArmorSunder();
 			if (armorSunder > 0) {
-				// should be based on height of attack
-				if (armor != null && armor.getDurability() > 0) {
-					result.add("It's an armor shattering blow! It reduces " + armor.getName() + " durability by " + (armorSunder > armor.getDurability() ? armor.getDurability() : armorSunder) + "!");
+				if (hitArmor != null && hitArmor.getDurability() > 0) {
+					result.add("It's an armor shattering blow! It reduces " + hitArmor.getName() + " durability by " + (armorSunder > hitArmor.getDurability() ? hitArmor.getDurability() : armorSunder) + "!");
 					armor.modDurability(-armorSunder);
 				}
 			}

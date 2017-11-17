@@ -28,6 +28,7 @@ public class Attack {
 	private final boolean isSpell;
 	private final Buff buff;
 	private final boolean isAttack;
+	private final AttackHeight height;
 	private final boolean ignoresArmor;
 	private final Array<Bonus> bonuses;
 	private final Item useItem;
@@ -50,7 +51,7 @@ public class Attack {
 	
 	// this should have all the info for an attack, including damage or effects that were blocked
 	protected Attack(Status status, String name, int rawDamage, double blockMod, int force, int rawArmorBreak, int gutcheck, int healing, int lust, GrappleStatus grapple, int disarm, int trip, int bleeding, int plugRemove, ClimaxType climaxType, Stance forceStance, boolean isSpell, Buff buff, 
-					boolean isAttack, boolean ignoresArmor, Array<Bonus> bonuses, Item useItem, AbstractCharacter user) {
+					boolean isAttack, AttackHeight height, boolean ignoresArmor, Array<Bonus> bonuses, Item useItem, AbstractCharacter user) {
 		this.status = status;
 		this.name = name;
 		this.rawDamage = rawDamage;
@@ -70,6 +71,7 @@ public class Attack {
 		this.isSpell = isSpell;
 		this.buff = buff;
 		this.isAttack = isAttack;
+		this.height = height;
 		this.ignoresArmor = ignoresArmor;
 		this.bonuses = bonuses;
 		this.useItem = useItem;
@@ -81,6 +83,7 @@ public class Attack {
 	
 	protected String getName() { return name; }
 	public boolean isAttack() { return isAttack; }	
+	public AttackHeight getAttackHeight() { return height; }	
 	protected String getUser() { return user.label; }
 	protected int getDamage() { return (int) (rawDamage * blockMod); }
 	protected int getForce() { return force; }
@@ -109,4 +112,11 @@ public class Attack {
 	public int getClimaxVolume() { return user.getClimaxVolume(); }
 	public int getBleeding() { return (int) (bleeding * blockMod); }
 	public int plugRemove() { return plugRemove; }	
+	
+	public enum AttackHeight {
+		NONE,
+		LOW,
+		MEDIUM,
+		HIGH
+	}
 }
