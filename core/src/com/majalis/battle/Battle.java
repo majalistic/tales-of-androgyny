@@ -108,6 +108,14 @@ public class Battle extends Group{
 	private final Label enemyWeaponLabel;
 	private final Label armorLabel;
 	private final Label enemyArmorLabel;
+	private final Label legwearLabel;
+	private final Label enemyLegwearLabel;
+	private final Label underwearLabel;
+	private final Label enemyUnderwearLabel;
+	
+	private final Image legwearArmor;
+	private final Image enemyLegwearArmor;
+	
 	private final Label bloodLabel;
 	private final Label enemyBloodLabel;
 	private final Label grappleStatus;
@@ -223,18 +231,58 @@ public class Battle extends Group{
 		enemyWeaponLabel = initLabel("Weapon: " + (enemy.getWeapon() != null ? enemy.getWeapon().getName() : "Unarmed"), skin, Color.GOLDENROD, 1578, 900);	
 		
 		Texture armorTexture = assetManager.get(AssetEnum.ARMOR.getTexture());
-		initImage(armorTexture, barX + 320, 1032, 50);
-		initImage(armorTexture, 1820, 1032, 50);
-		armorLabel = initLabel("" + character.getArmorScore(), skin, Color.BROWN, barX + 332, 1037);		
-		enemyArmorLabel = initLabel("" + enemy.getArmorScore(), skin, Color.BROWN, 1832, 1037);
+		Texture armorDollTexture = assetManager.get(AssetEnum.ARMOR_DOLL.getTexture());
+		// dolls
+		initImage(armorDollTexture, barX + 150, 700, 250);
+		initImage(armorDollTexture, 1425, 700, 250);
+		// body armor
+		initImage(armorTexture, barX + 224, 823, 50);
+		initImage(armorTexture, 1497, 823, 50);
+		// underwear first
+		initImage(armorTexture, barX + 224, 750, 50);
+		initImage(armorTexture, 1497, 750, 50);
+		// then legwear
+		legwearArmor = initImage(armorTexture, barX + 224, 770, 50);
+		enemyLegwearArmor = initImage(armorTexture, 1497, 770, 50);
+		
+		armorLabel = initLabel("" + character.getArmorScore(), skin, Color.BROWN, barX + 236, 828);		
+		enemyArmorLabel = initLabel("" + enemy.getArmorScore(), skin, Color.BROWN, 1509, 828);
+		underwearLabel = initLabel("" + character.getUnderwearScore(), skin, Color.BROWN, barX + 236, 755);		
+		enemyUnderwearLabel = initLabel("" + character.getUnderwearScore(), skin, Color.BROWN, 1509, 755);	
+		legwearLabel = initLabel("" + character.getLegwearScore(), skin, Color.BROWN, barX + 236, 775);		
+		enemyLegwearLabel = initLabel("" + enemy.getLegwearScore(), skin, Color.BROWN, 1509, 775);	
+
+		if (character.getLegwearScore() > 0) {
+			underwearLabel.addAction(hide());
+			legwearArmor.addAction(show());
+			legwearLabel.addAction(show());
+		}
+		else {
+			underwearLabel.addAction(show());
+			legwearArmor.addAction(hide());
+			legwearLabel.addAction(hide());
+		}
+		
+		if (enemy.getLegwearScore() > 0) {
+			enemyUnderwearLabel.addAction(hide());
+			enemyLegwearArmor.addAction(show());
+			enemyLegwearLabel.addAction(show());
+		}
+		else {
+			enemyUnderwearLabel.addAction(show());
+			enemyLegwearArmor.addAction(hide());
+			enemyLegwearLabel.addAction(hide());
+		}
 		
 		Texture bloodTexture = assetManager.get(AssetEnum.BLEED.getTexture());
-		bloodImage = initImage(bloodTexture, 470, 850, 50);
-		enemyBloodImage = initImage(bloodTexture, 1860, 963, 50);
-		bloodLabel = initLabel("" + character.getBleed(), skin, Color.RED, 470 + 8, 850 + 1);	
+		bloodImage = initImage(bloodTexture, 470, 800, 75);
+		enemyBloodImage = initImage(bloodTexture, 1545, 800, 75);
+		bloodLabel = initLabel("" + character.getBleed(), skin, Color.RED, 470 + 19, 800 + 7);	
 		bloodLabel.setAlignment(Align.center);
-		enemyBloodLabel = initLabel("" + enemy.getBleed(), skin, Color.RED, 1860 + 8, 963 + 1);
+		bloodLabel.setWidth(10);
+		enemyBloodLabel = initLabel("" + enemy.getBleed(), skin, Color.RED, 1545 + 19, 800 + 7);
 		enemyBloodLabel.setAlignment(Align.center);
+		enemyBloodLabel.setWidth(10);
 		
 		if (character.getBleed() == 0) {
 			bloodImage.addAction(hide());
@@ -655,8 +703,34 @@ public class Battle extends Group{
 		enemyWeaponLabel.setText("Weapon: " + (enemy.getWeapon() != null ? enemy.getWeapon().getName() : "Unarmed"));
 		armorLabel.setText("" + character.getArmorScore());
 		enemyArmorLabel.setText("" + enemy.getArmorScore());	
-		bloodLabel.setText("" + character.getArmorScore());
-		enemyBloodLabel.setText("" + enemy.getArmorScore());	
+		legwearLabel.setText("" + character.getLegwearScore());
+		enemyLegwearLabel.setText("" + enemy.getLegwearScore());	
+		underwearLabel.setText("" + character.getUnderwearScore());
+		enemyUnderwearLabel.setText("" + enemy.getUnderwearScore());	
+		bloodLabel.setText("" + character.getBleed());
+		enemyBloodLabel.setText("" + enemy.getBleed());	
+		
+		if (character.getLegwearScore() > 0) {
+			underwearLabel.addAction(hide());
+			legwearArmor.addAction(show());
+			legwearLabel.addAction(show());
+		}
+		else {
+			underwearLabel.addAction(show());
+			legwearArmor.addAction(hide());
+			legwearLabel.addAction(hide());
+		}
+		
+		if (enemy.getLegwearScore() > 0) {
+			enemyUnderwearLabel.addAction(hide());
+			enemyLegwearArmor.addAction(show());
+			enemyLegwearLabel.addAction(show());
+		}
+		else {
+			enemyUnderwearLabel.addAction(show());
+			enemyLegwearArmor.addAction(hide());
+			enemyLegwearLabel.addAction(hide());
+		}
 		
 		if (character.getBleed() == 0) {
 			bloodImage.addAction(hide());
@@ -693,7 +767,7 @@ public class Battle extends Group{
 		uiGroup.removeActor(enemySkill);
 		enemySkill = new SkillText(character.getBattlePerception() < 7 ? "" : enemySelectedTechnique.getTechniqueName(), skin, assetManager.get(enemySelectedTechnique.getStance().getTexture()));		
 		uiGroup.addActor(enemySkill);
-		enemySkill.setPosition(1400, 750);
+		enemySkill.setPosition(1300, 750);
 		if (character.getBattlePerception() < 5) {
 			enemySkill.addAction(Actions.hide());
 		}

@@ -131,6 +131,7 @@ public enum AssetEnum {
 	ANGEL("enemies/Angel.png"),
 	TRAP_BONUS("enemies/TrapBonus.jpg"), 
 	
+	ARMOR_DOLL("battle/ArmorDoll.png"),
 	ARMOR("battle/Armor.png"),
 	BLEED("battle/Blood.png"),
 	HEALTH_ICON_0("battle/Heart0.png"),

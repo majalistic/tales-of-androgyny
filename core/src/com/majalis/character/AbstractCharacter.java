@@ -270,6 +270,8 @@ public abstract class AbstractCharacter extends Actor {
 	
 	// temporary for battle coherence
 	public int getArmorScore() { return armor != null && armor.getDurability() > 0 ? armor.getShockAbsorption(): 0; }
+	public int getLegwearScore() { 	return legwear != null ? legwear.getShockAbsorption() : 0; }
+	public int getUnderwearScore() { 	return underwear != null ? underwear.getShockAbsorption() : 0; }
 	
 	public int getHealthDegradation() { return getDegradation(healthTiers, currentHealth); }
 	public int getStaminaDegradation() { return getDegradation(staminaTiers, currentStamina); }
