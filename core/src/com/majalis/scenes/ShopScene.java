@@ -21,6 +21,8 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.OrderedMap;
 import com.majalis.asset.AssetEnum;
+import com.majalis.character.Armor;
+import com.majalis.character.Armor.ArmorType;
 import com.majalis.character.Item;
 import com.majalis.character.Item.EffectType;
 import com.majalis.character.Item.Misc;
@@ -201,6 +203,10 @@ public class ShopScene extends Scene {
 							shop.items.add(new Weapon(type, 1));	
 						}									
 					}
+					shop.items.add(new Armor(ArmorType.CLOTH_TOP));	
+					shop.items.add(new Armor(ArmorType.BREASTPLATE));	
+					shop.items.add(new Armor(ArmorType.SKIRT));	
+					shop.items.add(new Armor(ArmorType.BATTLE_SKIRT));	
 					shop.items.add(new Misc(MiscType.KEY));	
 				}
 				break;

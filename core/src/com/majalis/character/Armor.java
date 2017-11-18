@@ -23,10 +23,7 @@ public class Armor extends Item{
 	}
 	
 	@Override
-	public int getValue() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+	public int getValue() { return type.getValue(); }
 
 	@Override
 	protected ItemEffect getUseEffect() {
@@ -95,10 +92,10 @@ public class Armor extends Item{
 	public enum ArmorType {
 		NO_TOP ("None", new int[]{0}, new int[]{0}), // currently not used - should be used in place of 'null'
 		NO_BOTTOM ("None", new int[]{0}, new int[]{0}), // currently not used - should be used in place of 'null'
-		CLOTH_TOP ("Cloth Armor", new int[]{3, 3}, new int[]{3, 1}),
-		BREASTPLATE ("Breastplate", new int[]{8, 8}, new int[]{6, 2}),
-		SKIRT ("Skirt", new int[]{3, 3}, new int[]{3, 1}),
-		BATTLE_SKIRT ("Battle Skirt", new int[]{6, 6}, new int[]{6, 2}),
+		CLOTH_TOP ("Cloth Armor", 10, new int[]{3, 3}, new int[]{3, 1}),
+		BREASTPLATE ("Breastplate", 50, new int[]{8, 8}, new int[]{6, 2}),
+		SKIRT ("Skirt", 10, new int[]{3, 3}, new int[]{3, 1}),
+		BATTLE_SKIRT ("Battle Skirt", 50, new int[]{6, 6}, new int[]{6, 2}),
 		SHORTS ("Shorts", new int[]{3, 3}, new int[]{3, 1}),
 		UNDERWEAR ("Underwear", new int[]{2}, new int[]{1}),
 		
@@ -109,15 +106,21 @@ public class Armor extends Item{
 		MEDIUM_ENEMY_LEGWEAR ("Medium Legwear", new int[]{8, 8}, new int[]{6, 2}),
 		;
 		private final String label;
+		private final int value;
 		private final IntArray durability;
 		private final IntArray shockAbsorption;
 		private ArmorType(String label, int[] durability, int[] shockAbsorption) {
+			this(label, 0, durability, shockAbsorption);
+		}
+		private ArmorType(String label, int value, int[] durability, int[] shockAbsorption) {
 			this.label = label; 
+			this.value = value;
 			this.durability = new IntArray(durability);
 			this.shockAbsorption = new IntArray(shockAbsorption);
 		}
 		
 		public String getLabel() { return label; }
+		private int getValue() { return value; }
 		
 		private boolean coversTop() { return this == NO_TOP || this == CLOTH_TOP || this == BREASTPLATE; }
 		private boolean coversBottom() { return this == NO_BOTTOM || this == SKIRT || this == BATTLE_SKIRT || this == SHORTS; }
@@ -133,7 +136,7 @@ public class Armor extends Item{
 		private boolean isAcidResistant() { return false; }
 		private boolean isAlive() { return false; }
 		private boolean coversAnus() { return this == SHORTS; }
-		private boolean slipOff() { return false; }
+		private boolean slipOff() { return true; }
 		private boolean showsErection() { return true; }
 		private boolean showsRear() { return true; }
 		private boolean showsHips() { return true; }
