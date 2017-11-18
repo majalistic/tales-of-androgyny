@@ -17,7 +17,7 @@ import com.majalis.character.Item.WeaponType;
 public enum EnemyEnum {
 	WERESLUT (new EnemyTemplate(WeaponType.Claw).setStrength(5).setAgility(5), "Wereslut", AssetEnum.WEREBITCH.getTexture()),
 	HARPY (new EnemyTemplate(WeaponType.Talon).setStrength(4), "Harpy", null, AnimationEnum.HARPY),
-	SLIME (new EnemyTemplate(null).setStrength(2).setEndurance(4).setAgility(4), "Slime", AssetEnum.SLIME.getTexture()),
+	SLIME (new EnemyTemplate(null).setArmor(null).setLegwear(null).setUnderwear(null).setDefense(3).setStrength(2).setEndurance(4).setAgility(4), "Slime", AssetEnum.SLIME.getTexture()),
 	BRIGAND (new EnemyTemplate(WeaponType.Gladius).setAgility(4), "Brigand", null, AnimationEnum.BRIGAND),
 	CENTAUR (new EnemyTemplate(WeaponType.Bow).setEndurance(4).setAgility(4).setPerception(5), "Centaur", null, AnimationEnum.CENTAUR),
 	UNICORN (new EnemyTemplate(WeaponType.Bow).setEndurance(4).setAgility(4).setPerception(5), "Unicorn", null, AnimationEnum.UNICORN),
@@ -209,7 +209,7 @@ public enum EnemyEnum {
 		private EnemyTemplate setPerception(int perception) { this.perception = perception;  return this; }
 		@SuppressWarnings("unused") private EnemyTemplate setMagic(int magic) { this.magic = magic;  return this; }
 		@SuppressWarnings("unused") private EnemyTemplate setCharisma(int charisma) { this.charisma = charisma;  return this; }
-		//private EnemyTemplate setDefense(int defense) { this.defense = defense; return this; }
+		private EnemyTemplate setDefense(int defense) { this.defense = defense; return this; }
 		private EnemyTemplate setHealth(IntArray healthTiers) { this.healthTiers = healthTiers; return this; }
 		private EnemyTemplate addHealth(int health) { this.healthTiers.add(health); return this; }
 		private EnemyTemplate setMana(int mana) { this.manaTiers = new IntArray(new int[]{mana}); return this; }
