@@ -671,7 +671,8 @@ public class EnemyCharacter extends AbstractCharacter {
 		
 		Array<Techniques> toRemove = new Array<Techniques>();
 		for (Techniques technique : possibleTechniques) {
-			if (enemyType.isCorporeal() && technique.getTrait().getResultingStance().isAnalPenetration() && target.isPlugged()) {
+			// this should be seperate checks for plugged and bottom covered - bottom covered should pull down the outermost pants item if possible - otherwise need to think through the unremoveable cover case
+			if (enemyType.isCorporeal() && technique.getTrait().getResultingStance().isAnalPenetration() && (target.isPlugged() || (target.getLegwearScore() > 0 && target.legwear.coversAnus()) || (target.getUnderwearScore() > 0 && target.underwear.coversAnus()))) {
 				possibleTechniques.add(technique.getPluggedAlternate());
 				toRemove.add(technique);
 			}

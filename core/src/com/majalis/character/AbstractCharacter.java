@@ -550,8 +550,18 @@ public abstract class AbstractCharacter extends Actor {
 			
 			int plugRemove = attack.plugRemove();
 			if (plugRemove > 0) {
-				result.add("They pull out your " + plug.getName() + "!");
-				setPlug(plug, false); // unequip your plug
+				if (legwear != null && legwear.getShockAbsorption() > 0 && legwear.coversAnus()) {
+					result.add("They pull down your " + legwear.getName() + "!");
+					setLegwear(legwear, false);
+				}
+				else if (underwear != null && underwear.getShockAbsorption() > 0 && underwear.coversAnus()) {
+					result.add("They pull down your " + underwear.getName() + "!");
+					setUnderwear(underwear, false);
+				}
+				else {
+					result.add("They pull out your " + plug.getName() + "!");
+					setPlug(plug, false); // unequip your plug
+				}
 			}
 			
 			int knockdown = attack.getForce();
