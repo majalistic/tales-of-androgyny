@@ -93,23 +93,29 @@ public class Armor extends Item{
 	
 	// may want to refactor this into dedicated tops/bottoms/overalls
 	public enum ArmorType {
-		NO_TOP ("None"), // currently not used - should be used in place of 'null'
-		NO_BOTTOM ("None"), // currently not used - should be used in place of 'null'
-		CLOTH_TOP ("Cloth Armor"),
-		BREASTPLATE ("Breastplate"),
-		SKIRT ("Skirt"),
-		BATTLE_SKIRT ("Battle Skirt"),
-		SHORTS ("Shorts"),
-		UNDERWEAR ("Underwear"),
+		NO_TOP ("None", new int[]{0}, new int[]{0}), // currently not used - should be used in place of 'null'
+		NO_BOTTOM ("None", new int[]{0}, new int[]{0}), // currently not used - should be used in place of 'null'
+		CLOTH_TOP ("Cloth Armor", new int[]{3, 3}, new int[]{3, 1}),
+		BREASTPLATE ("Breastplate", new int[]{8, 8}, new int[]{6, 2}),
+		SKIRT ("Skirt", new int[]{3, 3}, new int[]{3, 1}),
+		BATTLE_SKIRT ("Battle Skirt", new int[]{6, 6}, new int[]{6, 2}),
+		SHORTS ("Shorts", new int[]{3, 3}, new int[]{3, 1}),
+		UNDERWEAR ("Underwear", new int[]{2}, new int[]{1}),
 		
-		LIGHT_ENEMY_ARMOR ("Light Armor"),
-		MEDIUM_ENEMY_ARMOR ("Medium Armor"),
-		HEAVY_ENEMY_ARMOR ("Heavy Armor"), 
-		LIGHT_ENEMY_LEGWEAR ("Light Legwear"),
-		MEDIUM_ENEMY_LEGWEAR ("Medium Legwear"),
+		LIGHT_ENEMY_ARMOR ("Light Armor", new int[]{3, 3}, new int[]{4, 1}),
+		MEDIUM_ENEMY_ARMOR ("Medium Armor", new int[]{8, 8}, new int[]{6, 2}),
+		HEAVY_ENEMY_ARMOR ("Heavy Armor", new int[]{12, 6, 6}, new int[]{10, 4, 2}), 
+		LIGHT_ENEMY_LEGWEAR ("Light Legwear", new int[]{3, 3}, new int[]{4, 1}),
+		MEDIUM_ENEMY_LEGWEAR ("Medium Legwear", new int[]{8, 8}, new int[]{6, 2}),
 		;
 		private final String label;
-		private ArmorType(String label) { this.label = label; }
+		private final IntArray durability;
+		private final IntArray shockAbsorption;
+		private ArmorType(String label, int[] durability, int[] shockAbsorption) {
+			this.label = label; 
+			this.durability = new IntArray(durability);
+			this.shockAbsorption = new IntArray(shockAbsorption);
+		}
 		
 		public String getLabel() { return label; }
 		
@@ -118,8 +124,8 @@ public class Armor extends Item{
 		private boolean isUnderwear() { return this == UNDERWEAR; }
 		private ChastityCage getCage() { return null; }
 		private Plug getPlug() { return null; }
-		private IntArray getDurability() { return this == UNDERWEAR ? new IntArray(new int[]{2}) : this == LIGHT_ENEMY_ARMOR || this == LIGHT_ENEMY_LEGWEAR ? new IntArray(new int[]{3, 3}) : new IntArray(new int[]{5, 5});  }
-		private IntArray getShockAbsorption() { return this == UNDERWEAR ? new IntArray(new int[]{1}) : this == LIGHT_ENEMY_ARMOR || this == LIGHT_ENEMY_LEGWEAR ? new IntArray(new int[]{4, 1}) : new IntArray(new int[]{6, 2}); }
+		private IntArray getDurability() { return durability; }
+		private IntArray getShockAbsorption() { return shockAbsorption; }
 		private boolean coversNipples() { return this == CLOTH_TOP || this == BREASTPLATE; }
 		private boolean isPorous() { return this != BREASTPLATE; }
 		private boolean isHeatResistant() { return false; }
