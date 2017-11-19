@@ -11,6 +11,7 @@ public enum ScreenEnum {
     ENCOUNTER,
     BATTLE,
     CHARACTER,
+    INVENTORY,
     GAME_OVER,
     OPTIONS,
     REPLAY,

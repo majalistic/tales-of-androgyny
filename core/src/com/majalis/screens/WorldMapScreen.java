@@ -315,7 +315,7 @@ public class WorldMapScreen extends AbstractScreen {
 		
 		Table actionTable = new Table();
 		this.addActor(actionTable);
-		actionTable.setPosition(675, 75);
+		actionTable.setPosition(675, 80);
 		
 		Table table = new Table();
 		table.setPosition(377, 65);
@@ -333,6 +333,21 @@ public class WorldMapScreen extends AbstractScreen {
 		        }
 			}
 		);
+		
+		TextButton inventoryButton = new TextButton("Inventory", skin);
+		
+		inventoryButton.setBounds(185, 45, 185, 40);
+		inventoryButton.addListener(
+			new ClickListener() {
+				@Override
+		        public void clicked(InputEvent event, float x, float y) {
+					buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
+					showScreen(ScreenEnum.INVENTORY);		   
+		        }
+			}
+		);
+		
+		actionTable.add(inventoryButton).size(200, 50).row();
 		
 		Image foodIcon = new Image(food);
 		foodIcon.setSize(75, 75);

@@ -91,6 +91,11 @@ public class ScreenFactoryImpl implements ScreenFactory {
 					return new CharacterScreen(this, elements, assetManager, saveService, character);
 				}
 				break;
+			case INVENTORY:
+				if (getAssetCheck(InventoryScreen.resourceRequirements)) {
+					return new InventoryScreen(this, elements, assetManager, saveService, character);
+				}
+				break;
 			case GAME_OVER:				
 				if (getAssetCheck(GameOverScreen.resourceRequirements)) {
 					return new GameOverScreen(this, elements, assetManager);
