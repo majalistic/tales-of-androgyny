@@ -602,7 +602,7 @@ public abstract class AbstractCharacter extends Actor {
 			if (armorSunder > 0) {
 				if (hitArmor != null && hitArmor.getDurability() > 0) {
 					result.add("It's an armor shattering blow! It reduces " + hitArmor.getName() + " durability by " + (armorSunder > hitArmor.getDurability() ? hitArmor.getDurability() : armorSunder) + "!");
-					armor.modDurability(-armorSunder);
+					hitArmor.modDurability(-armorSunder);
 				}
 			}
 			
