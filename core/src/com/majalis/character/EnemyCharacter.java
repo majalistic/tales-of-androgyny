@@ -207,6 +207,9 @@ public class EnemyCharacter extends AbstractCharacter {
 						if (stance.isAnalPenetration()) {
 							resolvedAttack.addDialog("\"Oooooryah!\"");
 						}	
+						else if (stance == Stance.OUROBOROS) {
+							resolvedAttack.addDialog("\"Nice try! Caught you!\"");
+						}
 						else if (stance.isOralPenetration()) {
 							resolvedAttack.addDialog("\"Open wide!\"");
 						}	
