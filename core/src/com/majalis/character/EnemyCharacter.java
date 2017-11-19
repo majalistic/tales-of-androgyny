@@ -168,6 +168,18 @@ public class EnemyCharacter extends AbstractCharacter {
 			if (stance == Stance.HOLDING) {
 				resolvedAttack.addDialog("The ogre grunts as he hoists you up by your legs, bringing your small hole to his throbbing mast.");
 			}
+			
+			if (oldStance != Stance.KNOTTED && stance == Stance.KNOTTED) {
+				if (enemyType == EnemyEnum.WERESLUT) {
+					resolvedAttack.addDialog("\"Woof!  We're stuck together now! Woof!\"");
+				}
+			}
+			if (oldStance != Stance.OVIPOSITION && stance == Stance.OVIPOSITION) {
+				if (enemyType == EnemyEnum.SPIDER) {
+					resolvedAttack.addDialog("\"Now hold still... while I lay my babies inside of you.\"");
+				}
+			}
+			
 			if (!oldStance.isErotic() && stance.isErotic()) {
 				switch (enemyType) {
 					case BRIGAND:
@@ -202,6 +214,9 @@ public class EnemyCharacter extends AbstractCharacter {
 					case UNICORN:
 						break;
 					case WERESLUT:
+						if (stance.isAnalPenetration()) {
+							resolvedAttack.addDialog("\"Woof, mating! Mating! Take my puppies!\"");
+						}	
 						break;
 					case ORC:
 						if (stance.isAnalPenetration()) {
@@ -247,14 +262,41 @@ public class EnemyCharacter extends AbstractCharacter {
 						resolvedAttack.addDialog("\"Here comes the slime, honey!\" she cries.");
 						break;
 					case BRIGAND:
+						if (stance.isAnalPenetration()) {
+							resolvedAttack.addDialog("\"Oof, here it comes! Right up your fat arse!\"");
+						}
+						else if (stance.isOralPenetration()) {
+							resolvedAttack.addDialog("\"Swallow that greasy nut, cake boy!\"");
+						}
+						else if (stance == Stance.HANDY) {
+							resolvedAttack.addDialog("\"Catch it on your face, boyo!\"");
+						}
 						break;
 					case CENTAUR:
+						if (stance.isAnalPenetration()) {
+							resolvedAttack.addDialog("\"Apologies!\" she cries, as your intestines get hosed.");
+						}
+						else if (stance.isOralPenetration()) {
+							resolvedAttack.addDialog("\"Oh... oh no!\" she cries, as she lets off a firehose in your stomach.");
+						}
 						break;
 					case GOBLIN:
+						if (stance.isAnalPenetration()) {
+							resolvedAttack.addDialog("\"Nyahaha! Right up the shithole!\"");
+						}
+						else if (stance.isOralPenetration()) {
+							resolvedAttack.addDialog("\"Nyahaha! Swallow my slime, pinkskin!\"");
+						}
+						break;
 					case GOBLIN_MALE:
 						break;
 					case HARPY:
-						break;
+						if (stance.isAnalPenetration()) {
+							resolvedAttack.addDialog("She screeches while dumping it in your rectum.");
+						}
+						else if (stance.isOralPenetration()) {
+							resolvedAttack.addDialog("She lets out a high-pitched screech, and your uvula gets slammed with bird goo.");
+						}
 					case UNICORN:
 						break;
 					case WERESLUT:
@@ -280,6 +322,7 @@ public class EnemyCharacter extends AbstractCharacter {
 					case GHOST:
 						break;
 					case BUNNY:
+						resolvedAttack.addDialog("\"Looks like you're the one collecting, now.\"");
 						break;
 				}
 					
