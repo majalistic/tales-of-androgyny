@@ -119,7 +119,6 @@ public class InventoryScreen extends AbstractScreen {
 		characterButton.setPosition(1450, 30);
 		this.addActor(characterButton);
 		
-		
 		inventoryTable = new Table();
 		inventoryTable.add(getLabel("Inventory", skin, Color.BLACK)).row();
 		inventoryTable.setPosition(100, 550);
@@ -137,12 +136,12 @@ public class InventoryScreen extends AbstractScreen {
 		
 		Table equipmentTable = new Table();
 		equipmentTable.align(Align.topLeft);
-		weaponText = getLabel(character.getWeapon() != null ? character.getWeapon().getName() : "Unarmed", skin, Color.BROWN);
-		armorText = getLabel(character.getArmor() != null ? character.getArmor().getName() : "None", skin, Color.BROWN);
-		legwearText = getLabel(character.getLegwear() != null ? character.getLegwear().getName() : "None", skin, Color.BROWN);
-		underwearText = getLabel(character.getUnderwear() != null ? character.getUnderwear().getName() : "None", skin, Color.BROWN);
-		plugText = getLabel(character.getPlug() != null ? character.getPlug().getName() : "None", skin, Color.BROWN);
-		cageText = getLabel(character.getCage() != null ? character.getCage().getName() : "None", skin, Color.BROWN);
+		weaponText = getLabel(character.getWeapon() != null ? character.getWeapon().getName() : "Unarmed", skin, character.getWeapon() != null ? Color.GOLD : Color.BROWN);
+		armorText = getLabel(character.getArmor() != null ? character.getArmor().getName() : "None", skin, character.getArmor() != null ? Color.GOLD : Color.BROWN);
+		legwearText = getLabel(character.getLegwear() != null ? character.getLegwear().getName() : "None", skin, character.getLegwear() != null ? Color.GOLD : Color.BROWN);
+		underwearText = getLabel(character.getUnderwear() != null ? character.getUnderwear().getName() : "None", skin, character.getUnderwear() != null ? Color.GOLD : Color.BROWN);
+		plugText = getLabel(character.getPlug() != null ? character.getPlug().getName() : "None", skin, character.getPlug() != null ? Color.GOLD : Color.BROWN);
+		cageText = getLabel(character.getCage() != null ? character.getCage().getName() : "None", skin, character.getCage() != null ? Color.GOLD : Color.BROWN);
 		
 		int xBuffer = 160;
 		
@@ -227,6 +226,14 @@ public class InventoryScreen extends AbstractScreen {
 				underwearText.setText(character.getUnderwear() != null ? character.getUnderwear().getName() : "None");
 				plugText.setText(character.getPlug() != null ? character.getPlug().getName() : "None");
 				cageText.setText(character.getCage() != null ? character.getCage().getName() : "None");
+				
+				weaponText.setColor(character.getWeapon() != null ? Color.GOLD : Color.BROWN);
+				armorText.setColor(character.getArmor() != null ? Color.GOLD : Color.BROWN);
+				legwearText.setColor(character.getLegwear() != null ? Color.GOLD : Color.BROWN);
+				underwearText.setColor(character.getUnderwear() != null ? Color.GOLD : Color.BROWN);
+				plugText.setColor(character.getPlug() != null ? Color.GOLD : Color.BROWN);
+				cageText.setColor(character.getCage() != null ? Color.GOLD : Color.BROWN);	
+				
 				saveService.saveDataValue(SaveEnum.PLAYER, character);
 				weaponTable.clear();
 				weaponTable.add(getLabel("Equipment", skin, Color.BLACK)).row();
