@@ -96,7 +96,7 @@ public abstract class AbstractCharacter extends Actor {
 	protected Stance stance;
 	protected Stance oldStance;
 	protected GrappleStatus grappleStatus;
-	public ObjectMap<String, Integer> statuses; // status effects will be represented by a map of Enum to Status object
+	protected ObjectMap<String, Integer> statuses; // status effects will be represented by a map of Enum to Status object
 	
 	protected Array<Item> inventory;
 	protected int food;
@@ -135,6 +135,8 @@ public abstract class AbstractCharacter extends Actor {
 	protected IntArray getDefaultHealthTiers() { return new IntArray(new int[]{10, 10, 10, 10}); }
 	protected IntArray getDefaultStaminaTiers() { return new IntArray(new int[]{5, 5, 5, 5}); }
 	protected IntArray getDefaultManaTiers() { return new IntArray(new int[]{0}); }
+	
+	public ObjectMap<String, Integer> getStatuses() { return statuses; }
 	
 	public int getMaxHealth() { return getMax(healthTiers); }
 	public int getMaxStamina() { return getMax(staminaTiers); }

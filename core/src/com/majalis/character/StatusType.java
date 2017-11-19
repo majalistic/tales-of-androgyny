@@ -4,20 +4,25 @@ public enum StatusType {
 	STRENGTH_BUFF,
 	AGILITY_BUFF,
 	ENDURANCE_BUFF,
-	BLEEDING (false), 
+	BLEEDING (false, false), 
 	ACTIVATE;
 
 	private final boolean doesDegrade;
+	private final boolean isPositive;
 	
 	StatusType() {
 		doesDegrade = true;
+		isPositive = true;
 	}
 	
-	StatusType(boolean doesDegrade) {
+	StatusType(boolean doesDegrade, boolean isPositive) {
 		this.doesDegrade = doesDegrade;
+		this.isPositive = isPositive;
 	}
 	
 	public boolean degrades() {
 		return doesDegrade;
 	}
+
+	public boolean isPositive() { return isPositive; }
 }

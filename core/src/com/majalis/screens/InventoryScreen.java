@@ -105,6 +105,21 @@ public class InventoryScreen extends AbstractScreen {
 		done.setPosition(1700, 30);
 		this.addActor(done);
 		
+		final TextButton characterButton = new TextButton("Character", skin);
+		characterButton.setSize(250, 60);
+		characterButton.addListener(
+			new ClickListener() {
+				@Override
+		        public void clicked(InputEvent event, float x, float y) {
+					buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
+					showScreen(ScreenEnum.CHARACTER);		   
+		        }
+			}
+		);
+		characterButton.setPosition(1450, 30);
+		this.addActor(characterButton);
+		
+		
 		inventoryTable = new Table();
 		inventoryTable.add(getLabel("Inventory", skin, Color.BLACK)).row();
 		inventoryTable.setPosition(100, 550);

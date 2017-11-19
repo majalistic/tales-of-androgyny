@@ -20,6 +20,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.majalis.asset.AssetEnum;
 import com.majalis.character.PlayerCharacter;
+import com.majalis.character.StatusType;
 import com.majalis.character.AbstractCharacter.Stat;
 import com.majalis.character.Perk;
 import com.majalis.encounter.Background.BackgroundBuilder;
@@ -75,13 +76,13 @@ public class CharacterScreen extends AbstractScreen {
 		
 		skin = assetManager.get(AssetEnum.UI_SKIN.getSkin());
 		buttonSound = assetManager.get(AssetEnum.CLICK_SOUND.getSound()); 
-		final TextButton done = new TextButton("Done", skin);
 		
 		Image characterImage = new Image(assetManager.get(character.getJobClass().getTexture()));
 		characterImage.setPosition(1160, -100);
 		characterImage.setScale(.525f);
 		this.addActor(characterImage);
 		
+		final TextButton done = new TextButton("Done", skin);
 		done.setSize(180, 60);
 		done.addListener(
 			new ClickListener() {
@@ -96,9 +97,23 @@ public class CharacterScreen extends AbstractScreen {
 		done.setPosition(1700, 30);
 		this.addActor(done);
 
+		final TextButton inventory = new TextButton("Inventory", skin);
+		inventory.setSize(250, 60);
+		inventory.addListener(
+			new ClickListener() {
+				@Override
+		        public void clicked(InputEvent event, float x, float y) {
+					buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
+					showScreen(ScreenEnum.INVENTORY);		   
+		        }
+			}
+		);
+		inventory.setPosition(1450, 30);
+		this.addActor(inventory);
+		
 		final Table overview = new Table();
-		overview.align(Align.top);
-		overview.setPosition(200, 1040);
+		overview.align(Align.topLeft);
+		overview.setPosition(100, 1040);
 		this.addActor(overview);
 		overview.add(getLabel("Name: ", skin, Color.BLACK)).align(Align.left);
 		overview.add(getLabel(character.getCharacterName() != null ? character.getCharacterName() : "Hiro", skin, Color.DARK_GRAY)).align(Align.left).row();
@@ -137,8 +152,8 @@ public class CharacterScreen extends AbstractScreen {
 			statTable.add(statImage).size(statImage.getWidth() / (statImage.getHeight() / 35), 35).align(Align.left).padRight(20);
 			statTable.add(statLabel).align(Align.left).row();
 		}
-		statTable.setPosition(250, 675);
-		statTable.align(Align.top);
+		statTable.setPosition(500, 1040);
+		statTable.align(Align.topLeft);
 		this.addActor(statTable);
 		
 		if (character.needsLevelUp()) {
@@ -165,15 +180,39 @@ public class CharacterScreen extends AbstractScreen {
 			this.addActor(levelUp);
 		}
 		
+		final Table statusTable = new Table();
+		Label headerStatus = new Label("Status Effects", skin);
+		headerStatus.setColor(Color.BLACK);
+		statusTable.add(headerStatus).row();
+		for (final ObjectMap.Entry<String, Integer> statusEffect: character.getStatuses()) {
+			if (statusEffect.value == 0) continue;
+			Label statusLabel = new Label(statusEffect.key + ": " + statusEffect.value, skin);
+			if (StatusType.valueOf(statusEffect.key).isPositive()) {
+				statusLabel.setColor(Color.FOREST);		
+			}
+			else {
+				statusLabel.setColor(Color.FIREBRICK);		
+			}
+			statusTable.add(statusLabel).row();
+				
+		}
+		statusTable.setPosition(925, 1040);
+		statusTable.align(Align.topLeft);
+		this.addActor(statusTable);
+		
 		Table perkTable = new Table();
 		perkTable.align(Align.topLeft);
-		perkTable.setPosition(1100, 1040);
+		perkTable.setPosition(100, 650);
 		this.addActor(perkTable);
 		perkTable.add(getLabel("Perks: ", skin, Color.FOREST)).align(Align.left).row();
+		int perkColumn = 0;
 		for (ObjectMap.Entry<Perk, Integer> perk : character.getPerks().entries()) {
 			Integer perkValue = perk.value;
 			if (perkValue > 0) {
-				perkTable.add(getLabel(perk.key.getLabel() + " (" + perkValue.toString() + ")", skin, Color.BLACK)).align(Align.left).row();
+				perkTable.add(getLabel(perk.key.getLabel() + " (" + perkValue.toString() + ")", skin, Color.BLACK)).align(Align.left).width(300);
+				if (perkColumn == 2) perkTable.row();
+				perkColumn++;
+				perkColumn %= 3;
 			}	
 		}
 	}
