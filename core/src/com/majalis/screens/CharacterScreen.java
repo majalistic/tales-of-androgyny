@@ -129,6 +129,8 @@ public class CharacterScreen extends AbstractScreen {
 		if (storedLevels > 0) {
 			overview.add(getLabel("Available Levels: " + storedLevels, skin, Color.GOLD)).align(Align.left).row();
 		}
+		overview.add(getLabel("Health: ", skin, Color.BLACK)).align(Align.left);
+		overview.add(getLabel(String.valueOf(character.getCurrentHealth() + "/" + character.getMaxHealth()), skin, Color.GREEN)).align(Align.left).row();
 		overview.add(getLabel("Gold: ", skin, Color.BLACK)).align(Align.left);
 		overview.add(getLabel(String.valueOf(character.getMoney()), skin, Color.GOLD)).align(Align.left).row();
 		overview.add(getLabel("Debt: ", skin, Color.BLACK)).align(Align.left);
