@@ -178,7 +178,7 @@ public class CharacterScreen extends AbstractScreen {
 			        }
 				}
 			);
-			levelUp.setPosition(1400, 30);
+			levelUp.setPosition(1180, 30);
 			this.addActor(levelUp);
 		}
 		
