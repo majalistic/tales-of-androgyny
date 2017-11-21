@@ -478,6 +478,8 @@ public enum EncounterCode {
 				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{  
 					AssetEnum.GAME_OGRE.getTexture(),
 					AssetEnum.OGRE_GROWL.getSound(),
+					AssetEnum.CUM.getSound(),
+					AssetEnum.CUM_BUBBLING.getSound(),
 					AssetEnum.WEREWOLF_MUSIC.getMusic(),
 					AssetEnum.HEAVY_MUSIC.getMusic()
 				});

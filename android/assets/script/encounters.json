@@ -535,13 +535,16 @@
 			{
 			"sound": "OGRE_GROWL",
 			"text": "He roars, apparently nearing climax."},
-			{"text": "You feel it pulsing within the massive cock inside of you even before you feel it glurg out inside, filling every last crevice and nook of your intestines with the ogre's salty load."},
+			{
+			"sound": "CUM",
+			"text": "You feel it pulsing within the massive cock inside of you even before you feel it glurg out inside, filling every last crevice and nook of your intestines with the ogre's salty load."},
 			{"text": "He pulls you up by your hair, slowly, as you feel his totemic rod pulse within you, filling you with creamy, disgusting ogre spunk."},
 			{
 			"sound": "OGRE_GROWL",
 			"text": "This is... not ideal."},
 			{
 			"foreground": "GAME_OGRE",
+			"sound": "CUM_BUBBLING",
 			"text": "As he pulls you off, a flood of ogre cum rushes out of you, and you twitch, unable to move under your own power."},
 			{"text": "..."},
 			{"text": ".."},
@@ -3864,6 +3867,11 @@
 			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1, "bellyful": 10, "ogre":true}}],				
 			"text": "Aided by gravity, the ogre's fat cockhead enters your ass!"},
 			{"text": "You are completely at his mercy - each inch up or down he controls by grasping your legs and dragging you like a doll across his towering mast."},
+			{"text": "The ogre's massive cock bores you into as he lowers you down onto it over and over again."},
+			{"text": "The length and girth of it is visible on your abdomen."},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analEjaculation":1}}],		
+			"text": "You try to resist, but to little avail - you fling your spunk into the air as you are bounced, full body, onto the ogre's massive schlong."},			
 			{
 			"sound": "CUM",
 			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analEjaculation":1, "creampies": 4}}],
