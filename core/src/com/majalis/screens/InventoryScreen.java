@@ -6,6 +6,7 @@ import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -65,6 +66,7 @@ public class InventoryScreen extends AbstractScreen {
 	private final Sound buttonSound;
 	private final PlayerCharacter character;
 	private final Label consoleText;
+	private final Label hoverText;
 	private final SaveService saveService;
 	private final Table inventoryTable;
 	private final Table weaponTable;
@@ -75,6 +77,7 @@ public class InventoryScreen extends AbstractScreen {
 	private final Label plugText;
 	private final Label cageText;
 	private final Skin skin;
+	private String result;
 	
 	public InventoryScreen(ScreenFactory factory, ScreenElements elements, AssetManager assetManager, final SaveService saveService, final PlayerCharacter character) {
 		super(factory, elements);
@@ -121,16 +124,22 @@ public class InventoryScreen extends AbstractScreen {
 		
 		inventoryTable = new Table();
 		inventoryTable.add(getLabel("Inventory", skin, Color.BLACK)).row();
-		inventoryTable.setPosition(100, 550);
+		inventoryTable.setPosition(100, 650);
 		inventoryTable.align(Align.topLeft);
 		this.addActor(inventoryTable);
 		weaponTable = new Table();
 		consoleText = new Label("", skin);
-		consoleText.setPosition(500, 1050);
-		consoleText.setColor(Color.GOLDENROD);
+		consoleText.setPosition(425, 1075);
+		consoleText.setAlignment(Align.topLeft);
+		consoleText.setColor(Color.BROWN);
 		this.addActor(consoleText);
+		hoverText = new Label("", skin);
+		hoverText.setPosition(900, 1075);
+		hoverText.setAlignment(Align.topLeft);
+		hoverText.setColor(Color.GOLDENROD);
+		this.addActor(hoverText);
 		weaponTable.add(getLabel("Equipment", skin, Color.BLACK)).row();
-		weaponTable.setPosition(950, 1040);
+		weaponTable.setPosition(950, 1000);
 		weaponTable.align(Align.top);
 		this.addActor(weaponTable);
 		
@@ -145,7 +154,7 @@ public class InventoryScreen extends AbstractScreen {
 		
 		int xBuffer = 160;
 		
-		equipmentTable.setPosition(50, 1040);
+		equipmentTable.setPosition(50, 1075);
 		this.addActor(equipmentTable);
 		equipmentTable.add(getLabel("Weapon:", skin, Color.DARK_GRAY)).width(xBuffer).align(Align.left);
 		equipmentTable.add(weaponText).align(Align.left).row();
@@ -193,7 +202,7 @@ public class InventoryScreen extends AbstractScreen {
 			@Override
 	        public void clicked(InputEvent event, float x, float y) {
 				buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
-				String result = character.consumeItem(item);
+				result = character.consumeItem(item);
 				consoleText.setText(result);
 				saveService.saveDataValue(SaveEnum.PLAYER, character);
 				inventoryTable.clear();
@@ -210,6 +219,14 @@ public class InventoryScreen extends AbstractScreen {
 					}
 				}
 	        }
+			@Override
+	        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
+				hoverText.setText(item.getDescription());
+			}
+			@Override
+	        public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
+				hoverText.setText("");
+			}
 		};
 	}
 	
@@ -218,7 +235,7 @@ public class InventoryScreen extends AbstractScreen {
 			@Override
 	        public void clicked(InputEvent event, float x, float y) {
 				buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
-				String result = character.equipItem(item);
+				result = character.equipItem(item);
 				consoleText.setText(result);
 				weaponText.setText(character.getWeapon() != null ? character.getWeapon().getName() : "Unarmed");
 				armorText.setText(character.getArmor() != null ? character.getArmor().getName() : "None");
@@ -251,6 +268,14 @@ public class InventoryScreen extends AbstractScreen {
 					}
 				}
 	        }
+			@Override
+	        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
+				hoverText.setText(item.getDescription());
+			}
+			@Override
+	        public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
+				hoverText.setText("");
+			}
 		};
 	}
 	

@@ -123,7 +123,7 @@ public class Armor extends Item{
 		private String getDescription() { 
 			return 
 			(coversTop() ? (coversBottom() ? "Protects both upper and lower body." : "Protects upper body.") : coversBottom() ? "Protects lower body." : isUnderwear() ? "Worn under clothing" : "") + "\n" +
-			(coversAnus() ? "This protects the backdoor." : "") + "\n" +
+			(coversAnus() ? "This protects the backdoor.\n" : "") +
 			getDurabilityDescription(); 
 		}
 		private int getValue() { return value; }
