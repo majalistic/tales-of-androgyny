@@ -38,7 +38,7 @@ public class Armor extends Item{
 
 	@Override
 	public String getDescription() {
-		return type.getLabel();
+		return type.getDescription();
 	}
 	
 	@Override
@@ -119,7 +119,13 @@ public class Armor extends Item{
 			this.shockAbsorption = new IntArray(shockAbsorption);
 		}
 		
-		public String getLabel() { return label; }
+		private String getLabel() { return label; }
+		private String getDescription() { 
+			return 
+			(coversTop() ? (coversBottom() ? "Protects both upper and lower body." : "Protects upper body.") : coversBottom() ? "Protects lower body." : isUnderwear() ? "Worn under clothing" : "") + "\n" +
+			(coversAnus() ? "This protects the backdoor." : "") + "\n" +
+			getDurabilityDescription(); 
+		}
 		private int getValue() { return value; }
 		
 		private boolean coversTop() { return this == NO_TOP || this == CLOTH_TOP || this == BREASTPLATE; }
@@ -135,11 +141,20 @@ public class Armor extends Item{
 		private boolean isFlameRetardant() { return this == BREASTPLATE; }
 		private boolean isAcidResistant() { return false; }
 		private boolean isAlive() { return false; }
-		private boolean coversAnus() { return this == SHORTS; }
+		private boolean coversAnus() { return this == SHORTS || this == UNDERWEAR; }
 		private boolean slipOff() { return true; }
 		private boolean showsErection() { return true; }
 		private boolean showsRear() { return true; }
 		private boolean showsHips() { return true; }
 		private int getMaxDurability() { int maxDurability = 0; for (int value : getDurability().items) maxDurability += value; return maxDurability; }
+		private String getDurabilityDescription() {
+			String durabilityDescription = "";
+			int ii = 0;
+			for (int durabilityScore : durability.items) {
+				durabilityDescription += "Blocks " + (shockAbsorption.size > ii ? shockAbsorption.get(ii) : 0) + " damage for " + durabilityScore + " durability points" + (ii < durability.size - 1 ? ", then\n" : ".\n"); 
+				ii++;
+			}
+			return durabilityDescription;
+		}
 	}
 }
