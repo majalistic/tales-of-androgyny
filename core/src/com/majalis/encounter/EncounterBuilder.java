@@ -132,6 +132,12 @@ public class EncounterBuilder {
 				).getEncounter();
 			case ANGEL:
 				Branch angelOral = new Branch().choiceScene("Fuck her face?", new Branch("Hell Yes!").textScene("ANGEL-DEEPTHROAT"), new Branch("I'm Good").textScene("ANGEL-CUM-TRUMPET"));
+				Branch angelConfess = new Branch("Confess your temptations").textScene("ANGEL-BJ").choiceScene(
+					"She raises a good point... she DOES have a nice booty...",
+					new Branch("Let her be your angel of sodomy?").require(ChoiceCheckType.FREE_COCK).checkScene(Stat.CHARISMA, new Branch(5).textScene("ANGEL-ANAL"), new Branch(0).textScene("ANGEL-ANAL-REJECTION").concat(angelOral)),
+					new Branch("Let her blow your trumpet").textScene("ANGEL-BJ-CONT").concat(angelOral)
+				);
+				
 				return new Branch().textScene("ANGEL-INTRO").choiceScene(
 					"What do you do?", 
 					new Branch("Pray").textScene("ANGEL-PRAY").choiceScene(
@@ -139,12 +145,18 @@ public class EncounterBuilder {
 						new Branch("Yes (Lie)").textScene("ANGEL-LIE"), 
 						new Branch("No").textScene("ANGEL-TRUTH").choiceScene(
 							"What do you do?", 
-							new Branch("Confess your temptations").textScene("ANGEL-BJ").choiceScene(
-								"She raises a good point... she DOES have a nice booty...",
-								new Branch("Let her be your angel of sodomy?").require(ChoiceCheckType.FREE_COCK).checkScene(Stat.CHARISMA, new Branch(5).textScene("ANGEL-ANAL"), new Branch(0).textScene("ANGEL-ANAL-REJECTION").concat(angelOral)),
-								new Branch("Let her blow your trumpet").textScene("ANGEL-BJ-CONT").concat(angelOral)
+							angelConfess,
+							new Branch("Attack Her").textScene("ANGEL-BATTLE").battleScene(BattleCode.ANGEL, 
+								new Branch(Outcome.VICTORY).textScene("ANGEL-VICTORY").choiceScene(
+									"What do you do?", 
+									new Branch("Fuck her in the pussy").require(ChoiceCheckType.FREE_COCK).textScene("ANGEL-VAGINAL"),
+									new Branch("Fuck her in the ass").require(ChoiceCheckType.FREE_COCK).textScene("ANGEL-BUTTSEX"),
+									new Branch("Leave her alone")
+								), 
+								new Branch(Outcome.DEFEAT).textScene("ANGEL-DEFEAT"),  
+								new Branch(Outcome.SUBMISSION).textScene("ANGEL-FACESIT"),
+								new Branch(Outcome.SATISFIED).textScene("ANGEL-PACIFIST").concat(angelConfess) 
 							),
-							new Branch("Attack Her").textScene("ANGEL-BATTLE").battleScene(BattleCode.ANGEL, new Branch(Outcome.VICTORY), new Branch(Outcome.DEFEAT), new Branch(Outcome.SUBMISSION), new Branch(Outcome.SATISFIED)),
 							new Branch("Remain Silent").textScene("ANGEL-REJECT")
 						)
 					), 
