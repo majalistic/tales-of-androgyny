@@ -379,8 +379,7 @@ public abstract class AbstractCharacter extends Actor {
 		
 		if (resolvedAttack.isHealing()) {
 			modHealth(resolvedAttack.getHealing());
-			
-			resolvedAttack.addMessage("You heal for " + resolvedAttack.getHealing()+"!");
+			resolvedAttack.addMessage(resolvedAttack.getUser() + " heal" + (secondPerson ? "" : "s" ) + " for " + resolvedAttack.getHealing()+"!");
 		}
 		Buff buff = resolvedAttack.getBuff();
 		if (buff != null) {
@@ -928,7 +927,7 @@ public abstract class AbstractCharacter extends Actor {
 	}
 	
 	protected boolean isErect() {
-		return lust > 7 && !isChastitied();
+		return lust > 7 && !isChastitied() && phallus != PhallusType.NONE;
 	}
 	
 	public String getDefeatMessage() {
@@ -1023,7 +1022,8 @@ public abstract class AbstractCharacter extends Actor {
 	protected enum PhallusType {
 		SMALL(AssetEnum.SMALL_DONG_0, AssetEnum.SMALL_DONG_1, AssetEnum.SMALL_DONG_2, AssetEnum.SMALL_DONG_CHASTITY),
 		NORMAL(AssetEnum.LARGE_DONG_0, AssetEnum.LARGE_DONG_1, AssetEnum.LARGE_DONG_2),
-		MONSTER(AssetEnum.MONSTER_DONG_0, AssetEnum.MONSTER_DONG_1, AssetEnum.MONSTER_DONG_2);
+		MONSTER(AssetEnum.MONSTER_DONG_0, AssetEnum.MONSTER_DONG_1, AssetEnum.MONSTER_DONG_2), 
+		NONE(AssetEnum.NULL, AssetEnum.NULL, AssetEnum.NULL);
 		private final Array<AssetEnum> phallusStates;
 
 		PhallusType(AssetEnum... phallusStates ) {

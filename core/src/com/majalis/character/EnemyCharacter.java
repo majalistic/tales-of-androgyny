@@ -36,6 +36,7 @@ public class EnemyCharacter extends AbstractCharacter {
 	private boolean initializedMove;
 	private int range;
 	private int currentFrame;
+	private int selfRessurect;
 	
 	@SuppressWarnings("unused")
 	private EnemyCharacter() {}
@@ -81,6 +82,7 @@ public class EnemyCharacter extends AbstractCharacter {
 		pronouns = enemyType.getPronounSet();
 		lust = enemyType.getStartingLust();
 		label = enemyType.toString();
+		selfRessurect = enemyType == EnemyEnum.ANGEL ? 1 : 0;
 		staminaTiers.removeIndex(staminaTiers.size - 1);
 		staminaTiers.add(10);
 		setStaminaToMax();
@@ -253,6 +255,9 @@ public class EnemyCharacter extends AbstractCharacter {
 						break;
 					case BUNNY:
 						break;
+					case ANGEL:
+						resolvedAttack.addDialog("\"Oh, why didn't you just say so?\" she says, gleefully sitting on your face, ass first.");
+						break;
 				}
 			}
 			
@@ -324,6 +329,8 @@ public class EnemyCharacter extends AbstractCharacter {
 					case BUNNY:
 						resolvedAttack.addDialog("\"Looks like you're the one collecting, now.\"");
 						break;
+					case ANGEL:
+						break;
 				}
 					
 				climaxCounters.put(resolvedAttack.getClimaxType().toString(), climaxCounters.get(resolvedAttack.getClimaxType().toString(), 0) + 1);
@@ -392,6 +399,28 @@ public class EnemyCharacter extends AbstractCharacter {
 				return getTechniques(INCANTATION);
 			}			
 		}
+		else if (enemyType == EnemyEnum.ANGEL && !alreadyIncapacitated()) {
+			if (selfRessurect == 2) selfRessurect = 3;
+			if (currentHealth == 0 && selfRessurect == 1) {
+				selfRessurect = 2;
+				return getTechniques(ANGELIC_GRACE);
+			}
+			else if (stance == Stance.CASTING) {
+				return getTechniques(HEAL);
+			}
+			else if (currentHealth < getMaxHealth() || selfRessurect > 1) {
+				if (currentHealth < 40 && currentMana > 10) {
+					return getTechniques(INCANTATION);
+				}
+				return getTechniques(TRUMPET);
+			}
+			else if (target.getStance() == Stance.SUPINE) {
+				return getTechniques(FACE_SIT);
+			}
+			else {
+				return getTechniques(DO_NOTHING);
+			}
+		}
 		
 		Array<Techniques> possibles = new Array<Techniques>();
 		switch(stance) {
@@ -432,7 +461,8 @@ public class EnemyCharacter extends AbstractCharacter {
 				if (isEnragedGolem() && currentMana > 3) {
 					possibles.addAll(getTechniques(INCANTATION));
 				}
-				if ((enemyType == EnemyEnum.GOLEM && currentFrame == 0 && (baseDefense <= 3 || currentHealth <= 30)) || (enemyType == EnemyEnum.ADVENTURER && (((currentHealth < 30 && currentMana >= 7) || (currentMana % 7 != 0 && currentMana > 2 && statuses.get(StatusType.STRENGTH_BUFF.toString(), 0) == 0))))) {
+				if ((enemyType == EnemyEnum.GOLEM && currentFrame == 0 && (baseDefense <= 3 || currentHealth <= 30)) || 
+					(enemyType == EnemyEnum.ADVENTURER && (((currentHealth < 30 && currentMana >= 10) || (currentMana % 10 != 0 && currentMana > 2 && statuses.get(StatusType.STRENGTH_BUFF.toString(), 0) == 0))))) {
 					return getTechniques(INCANTATION);
 				}
 				return possibles;
@@ -1123,7 +1153,7 @@ public class EnemyCharacter extends AbstractCharacter {
 	}
 	
 	public Outcome getOutcome(AbstractCharacter enemy) {
-		if (currentHealth <= 0) return Outcome.VICTORY;
+		if (currentHealth <= 0 && selfRessurect == 3) return Outcome.VICTORY;
 		else if (enemy.getCurrentHealth() <= 0) return Outcome.DEFEAT;
 		switch(enemyType) {
 			case BRIGAND:
@@ -1168,6 +1198,9 @@ public class EnemyCharacter extends AbstractCharacter {
 				break;
 			case SPIDER:
 				if (knotInflate >= 5) return Outcome.KNOT_ANAL;
+			case ANGEL:
+				if (stance == Stance.FACE_SITTING && oldStance == Stance.FACE_SITTING) return Outcome.SUBMISSION;
+				if (lust == 8 && currentHealth == getMaxHealth() && selfRessurect == 1) return Outcome.SATISFIED;
 			default:
 		
 		}
@@ -1180,9 +1213,10 @@ public class EnemyCharacter extends AbstractCharacter {
 			case KNOT_ANAL: return enemyType == EnemyEnum.WERESLUT ? "You've been knotted!!!\nYou are at her whims, now." : "You've been stuffed full of eggs.";
 			case SATISFIED: return enemyType == EnemyEnum.CENTAUR ? "You've been dominated by the centaur's massive horsecock."
 				: enemyType == EnemyEnum.OGRE ? "The ogre has filled your guts with ogre cum.  You are well and truly fucked."
+				: enemyType == EnemyEnum.ANGEL ? "She notes your lack of aggression, and stands down."
 				: properCase(pronouns.getNominative()) + " seems satisfied. " + properCase(pronouns.getNominative()) + "'s no longer hostile.";
 			
-			case SUBMISSION: return "They're completely fucked silly! They're no longer hostile.";
+			case SUBMISSION: return enemyType == EnemyEnum.ANGEL ? "She's sitting on your face and can't be dislodged - you can no longer fight!" : "They're completely fucked silly! They're no longer hostile.";
 			case DEFEAT: return enemy.getDefeatMessage();
 			case VICTORY: return getDefeatMessage();
 		}

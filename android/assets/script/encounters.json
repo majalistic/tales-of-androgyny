@@ -5554,6 +5554,7 @@
 			{"text": "You say a prayer to the goddess - you're not sure what the words should be, but you humbly ask for safe travels and a relief from... certain temptations.  "},
 			{"text": "\"Hey.  Hey!\" you hear a full, somewhat girlish voice from... above.  You guard your eyes as you look up towards the sun... and a figure seems to emerge from it."},
 			{
+			"mutations": [{"profileSaveType":"KNOWLEDGE", "value":{"class": "java.lang.String", "value": "Angel"}}],
 			"foreground": "ANGEL",
 			"text": "She is indeed a woman - a winged woman, whose brilliant amber-colored wings nestle at her hips, and whose golden hair is tied up in long, full pigtails.  In her hand she's holding a long, thin trumpet. Most peculiar of all... she appears to be near-sighted."},
 			{"text": "She clears her throat, and clasps her hand around her wrist, shyly.  \"Are... are you a devotee of Her Radiance?\" she asks, unsure."}
@@ -5723,8 +5724,7 @@
 		"key": "ANGEL-BATTLE",
 		"scriptLines": [
 			{"text": "You try to put forward a show of force, rather than an offering.  She grips her trumpet firmly in her hands."},
-			{"text": "\"I do not condone violence!  But... I will defend myself!\""},
-			{"text": "INSERT BATTLE HERE - sorry, this is under construction!  Be nice to her for now, will you?"}
+			{"text": "\"I do not condone violence!  But... I will defend myself!\""}
 		]
 	},
 	{
@@ -5745,6 +5745,7 @@
 			{"text": "You're nearing the edge of your profane act when suddenly you hear a voice."},
 			{"text": "\"Hey!  What do you think you're doing?\" it says, in a full, if girlish tone."},
 			{
+			"mutations": [{"profileSaveType":"KNOWLEDGE", "value":{"class": "java.lang.String", "value": "Angel"}}],
 			"foreground": "ANGEL",
 			"text": "You turn to see that a winged woman with sun-kissed skin has appeared behind you, a picture of perfection herself.  Your hand is still glued to your shaft, and you very nearly spill your seed as an introduction."},
 			{"text": "She walks around the altar and looks at you sternly. \"Hrm...  profaning Her Radiance's altar like this... I, Winnie the Herald, must punish you.\""},

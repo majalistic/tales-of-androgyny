@@ -234,6 +234,7 @@ public abstract class Item {
 		Claw (false, false, true),
 		Talon (false, false, true), 
 		Club (true, false, false), 
+		Trumpet (false, false, false), 
 		;
 		
 		private final boolean disarmable;

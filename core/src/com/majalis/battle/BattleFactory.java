@@ -114,7 +114,7 @@ public class BattleFactory {
 		
 		return textures;
 	}
-	
+	// enemies should be constructable only with their types and an assetManager
 	protected EnemyCharacter getEnemy(BattleCode battleCode, Stance stance) {
 		switch(battleCode) {
 			case WERESLUT: return new EnemyCharacter(getTextures(EnemyEnum.WERESLUT), getTextureMap(EnemyEnum.WERESLUT), EnemyEnum.WERESLUT.getAnimations(assetManager), EnemyEnum.WERESLUT, stance);
@@ -135,6 +135,7 @@ public class BattleFactory {
 			case GOLEM: return new EnemyCharacter(getTextures(EnemyEnum.GOLEM), getTextureMap(EnemyEnum.GOLEM), EnemyEnum.GOLEM.getAnimations(assetManager), EnemyEnum.GOLEM, stance);
 			case GHOST: return new EnemyCharacter(getTextures(EnemyEnum.GHOST), getTextureMap(EnemyEnum.GHOST), EnemyEnum.GHOST.getAnimations(assetManager), EnemyEnum.GHOST, stance);
 			case BUNNY: return new EnemyCharacter(getTextures(EnemyEnum.BUNNY), getTextureMap(EnemyEnum.BUNNY), EnemyEnum.BUNNY.getAnimations(assetManager), EnemyEnum.BUNNY, stance);
+			case ANGEL: return new EnemyCharacter(getTextures(EnemyEnum.ANGEL), getTextureMap(EnemyEnum.ANGEL), EnemyEnum.ANGEL.getAnimations(assetManager), EnemyEnum.ANGEL, stance);
 			default: return null;
 		}
 	}

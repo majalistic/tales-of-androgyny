@@ -72,6 +72,9 @@ public enum Techniques {
 	SLIME_QUIVER 		(new NonAttackTechnique(Stance.BALANCED, Stance.DEFENSIVE, "Slime Quiver", -1, -1).build()),
 	
 	ACTIVATE		  	(new SpellTechnique(Stance.CASTING, Stance.BALANCED, "Activate", 0, 0, false, StatusType.ACTIVATE).build()),
+	ANGELIC_GRACE  		(new SpellTechnique(Stance.CASTING, Stance.BALANCED, "Angelic Grace", 80, 0, true).build()),
+	TRUMPET		  		(new SpellTechnique(Stance.CASTING, Stance.BALANCED, "Trumpet", -1, 0, false).build()),
+	HEAL  		(new SpellTechnique(Stance.CASTING, Stance.BALANCED, "Heal", 27, 10, true).build()),
 	
 	GUT_CHECK			(new AttackTechnique(Stance.OFFENSIVE, Stance.OFFENSIVE, "Gutcheck", 3, 3, 4, 0, 1, false, TechniqueHeight.MEDIUM).build()),
 	

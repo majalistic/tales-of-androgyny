@@ -144,7 +144,7 @@ public class EncounterBuilder {
 								new Branch("Let her be your angel of sodomy?").require(ChoiceCheckType.FREE_COCK).checkScene(Stat.CHARISMA, new Branch(5).textScene("ANGEL-ANAL"), new Branch(0).textScene("ANGEL-ANAL-REJECTION").concat(angelOral)),
 								new Branch("Let her blow your trumpet").textScene("ANGEL-BJ-CONT").concat(angelOral)
 							),
-							new Branch("Attack Her").textScene("ANGEL-BATTLE"),
+							new Branch("Attack Her").textScene("ANGEL-BATTLE").battleScene(BattleCode.ANGEL, new Branch(Outcome.VICTORY), new Branch(Outcome.DEFEAT), new Branch(Outcome.SUBMISSION), new Branch(Outcome.SATISFIED)),
 							new Branch("Remain Silent").textScene("ANGEL-REJECT")
 						)
 					), 

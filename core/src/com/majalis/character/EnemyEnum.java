@@ -24,13 +24,14 @@ public enum EnemyEnum {
 	GOBLIN (new EnemyTemplate(WeaponType.Dagger).setStrength(4).setEndurance(4).setAgility(5), "Goblin", AssetEnum.GOBLIN.getTexture()), 
 	GOBLIN_MALE (new EnemyTemplate(WeaponType.Dagger).setStrength(4).setEndurance(4).setAgility(5), "Goblin (Male)", AssetEnum.GOBLIN_MALE.getTexture()),
 	ORC (new EnemyTemplate(WeaponType.Flail, 7, 6, 4, 3, 3, 3).setArmor(ArmorType.MEDIUM_ENEMY_ARMOR).setLegwear(ArmorType.MEDIUM_ENEMY_LEGWEAR).addHealth(10), "Orc", null, AnimationEnum.ORC), 
-	ADVENTURER (new EnemyTemplate(WeaponType.Axe, 4, 4, 4, 3, 4, 6).setArmor(ArmorType.MEDIUM_ENEMY_ARMOR).setLegwear(ArmorType.MEDIUM_ENEMY_LEGWEAR).addHealth(10).setMana(20), "Adventurer", AssetEnum.ADVENTURER.getTexture()),
+	ADVENTURER (new EnemyTemplate(WeaponType.Axe, 4, 4, 4, 3, 4, 6).setArmor(ArmorType.MEDIUM_ENEMY_ARMOR).setLegwear(ArmorType.MEDIUM_ENEMY_LEGWEAR).addHealth(10).setMana(26), "Adventurer", AssetEnum.ADVENTURER.getTexture()),
 	OGRE (new EnemyTemplate(WeaponType.Club, 8, 8, 4, 3, 3, 3).addHealth(20), "Ogre", AssetEnum.OGRE.getTexture()),
 	BEASTMISTRESS (new EnemyTemplate(WeaponType.Claw).setStrength(6).setAgility(8).setEndurance(5).addHealth(10), "Beast Mistress", AssetEnum.BEASTMISTRESS.getTexture()),
 	SPIDER (new EnemyTemplate(WeaponType.Claw).setStrength(6).setAgility(5).setEndurance(5).setHealth(new IntArray(new int[]{20, 20, 20, 20})), "Arachne", AssetEnum.SPIDER.getTexture()), 
 	GOLEM (new EnemyTemplate(null, 6, 8, 4, 3, 3, 3).setArmor(ArmorType.MEDIUM_ENEMY_ARMOR).setLegwear(ArmorType.MEDIUM_ENEMY_LEGWEAR).setHealth(new IntArray(new int[]{60})).setMana(12), "Golem", AssetEnum.GOLEM.getTexture(), AssetEnum.GOLEM_FUTA.getTexture()),
 	GHOST (new EnemyTemplate(null, 0, 0, 0, 8, 8, 8).setArmor(null).setLegwear(null).setUnderwear(null).setHealth(new IntArray(new int[]{15})).setMana(30), "Ghost", AssetEnum.GHOST_SPOOKY.getTexture(), AssetEnum.GHOST_SPOOKY_BLOODLESS.getTexture()),
-	BUNNY (new EnemyTemplate(WeaponType.Sickle, 6, 6, 9, 5, 1, 8).setHealth(new IntArray(new int[]{20, 20, 20, 20})).setMana(30), "Puca", AssetEnum.BUNNY_CREAM.getTexture(), AssetEnum.BUNNY_VANILLA.getTexture(), AssetEnum.BUNNY_CARAMEL.getTexture(), AssetEnum.BUNNY_CHOCOLATE.getTexture(), AssetEnum.BUNNY_DARK_CHOCOLATE.getTexture()),
+	BUNNY (new EnemyTemplate(WeaponType.Sickle, 6, 6, 9, 5, 1, 8).setHealth(new IntArray(new int[]{20, 20, 20, 20})).setMana(30), "Puca", AssetEnum.BUNNY_CREAM.getTexture(), AssetEnum.BUNNY_VANILLA.getTexture(), AssetEnum.BUNNY_CARAMEL.getTexture(), AssetEnum.BUNNY_CHOCOLATE.getTexture(), AssetEnum.BUNNY_DARK_CHOCOLATE.getTexture()), 
+	ANGEL (new EnemyTemplate(WeaponType.Trumpet).setHealth(new IntArray(new int[]{20, 20, 20, 20})).setMana(30).setEndurance(10).setAgility(10).setArmor(null).setLegwear(null).setStrength(5).setAgility(5), "Angel", AssetEnum.ANGEL.getTexture()),
 	;
 	private final String text;
 	private final Array<AssetDescriptor<Texture>> texturePaths;
@@ -59,7 +60,8 @@ public enum EnemyEnum {
     	}
 		return textures;
 	}
-    public String getBGPath() { return this == OGRE ? AssetEnum.FOREST_UP_BG.getPath() : this == CENTAUR || this == UNICORN ? AssetEnum.PLAINS_BG.getPath() : this == GOBLIN || this == GOBLIN_MALE ? AssetEnum.ENCHANTED_FOREST_BG.getPath() : AssetEnum.FOREST_BG.getPath(); } 
+    public String getBGPath() { return this == OGRE ? AssetEnum.FOREST_UP_BG.getPath() : this == CENTAUR || this == UNICORN || this == ANGEL ? AssetEnum.PLAINS_BG.getPath() : this == GOBLIN || this == GOBLIN_MALE ? AssetEnum.ENCHANTED_FOREST_BG.getPath() : AssetEnum.FOREST_BG.getPath(); } 
+    // there should be another method that accepts an assetManager and returns the actual maps
     public ObjectMap<String, Array<String>> getImagePaths() { 
     	ObjectMap<String, Array<String>> textureImagePaths = new ObjectMap<String, Array<String>>();
     	if (this == HARPY) { textureImagePaths.put(Stance.FELLATIO.toString(), new Array<String>(new String[]{AssetEnum.HARPY_FELLATIO_0.getPath(), AssetEnum.HARPY_FELLATIO_1.getPath(), AssetEnum.HARPY_FELLATIO_2.getPath(), AssetEnum.HARPY_FELLATIO_3.getPath()})); }
@@ -91,11 +93,10 @@ public enum EnemyEnum {
     	}
     	return textureImagePaths; 
     }
-    public PhallusType getPhallusType() { return this == BRIGAND || this == BEASTMISTRESS || this == GHOST || this == BUNNY ? PhallusType.NORMAL : this == ADVENTURER ? PhallusType.SMALL : PhallusType.MONSTER; }
+    public PhallusType getPhallusType() { return this == BRIGAND || this == BEASTMISTRESS || this == GHOST || this == BUNNY ? PhallusType.NORMAL : this == ANGEL ? PhallusType.NONE : this == ADVENTURER ? PhallusType.SMALL : PhallusType.MONSTER; }
     public PronounSet getPronounSet() { return this == ADVENTURER || this == OGRE || this == GOBLIN_MALE ? PronounSet.MALE : PronounSet.FEMALE; }
     
     public AnimationEnum getAnimation() { return animation; }
-	
 	
 	public int getStartingLust() { return this == UNICORN ? 20 : 0; }
 	
@@ -113,17 +114,17 @@ public enum EnemyEnum {
 	public ArmorType getArmorType() { return template.getArmorType(); }
 	public ArmorType getLegwearType() { return template.getLegwearType(); }
 	public ArmorType getUnderwearType() { return template.getUnderwearType(); }
-	public boolean canProneBone() { return this == BRIGAND || this == GOBLIN || this == ORC || this == ADVENTURER || this == GOBLIN_MALE; }
 	public boolean canBleed() { return this != SLIME && this != GOLEM && this != GHOST; }
-	public boolean willFaceSit() { return this != CENTAUR && this != UNICORN && this != GHOST; } 
+	public boolean willFaceSit() { return this != CENTAUR && this != UNICORN && this != GHOST && this != OGRE; } 
 	public boolean willArmorSunder() { return this == BRIGAND || this == ORC || this == ADVENTURER; }
 	public boolean willParry() { return this == BRIGAND || this == ADVENTURER; }
-	public boolean canBeRidden() { return this != SLIME && this != CENTAUR && this != UNICORN && this != BEASTMISTRESS && this != GHOST; }
-	public boolean willPounce() { return this != UNICORN && this != BEASTMISTRESS; }
-	public boolean isPounceable() { return this != OGRE && this != BEASTMISTRESS && this != UNICORN && this != GHOST; }
+	public boolean canBeRidden() { return this != SLIME && this != CENTAUR && this != UNICORN && this != BEASTMISTRESS && this != GHOST && this != ANGEL; }
+	public boolean willPounce() { return this != UNICORN && this != BEASTMISTRESS && this != ANGEL; }
+	public boolean isPounceable() { return this != OGRE && this != BEASTMISTRESS && this != UNICORN && this != GHOST && this != ANGEL; }
+	public boolean canProneBone() { return this == BRIGAND || this == GOBLIN || this == ORC || this == ADVENTURER || this == GOBLIN_MALE; }
 	public boolean prefersProneBone() { return this == ORC || this == GOBLIN; }
 	public boolean prefersMissionary() { return this == BRIGAND || this == ADVENTURER; }
-	public boolean canWrestle() { return this != SLIME && this != HARPY && this != CENTAUR && this != UNICORN && this != OGRE && this != BEASTMISTRESS && this != SPIDER && this != GHOST; }
+	public boolean canWrestle() { return this != ANGEL && this != SLIME && this != HARPY && this != CENTAUR && this != UNICORN && this != OGRE && this != BEASTMISTRESS && this != SPIDER && this != GHOST; }
 	public boolean isCorporeal() { return this != GHOST; }
 	
 	public AnimatedActor getPrimaryAnimation(AssetManager assetManager) {
@@ -242,6 +243,7 @@ public enum EnemyEnum {
 			case SLIME: return "Slimes are, well, made out of sentient slime. The core visible within them must remain intact for them to maintain their sentience, however.\n\nTea is a peaceful creature who tends to take the form of a busty, full-figured woman. Avoid her if you have a mean streak, unless you want to meet a most ignominious end.";
 			case SPIDER: return "Little is known about the spider woman of the ruins, other than that she is singularly dangerous and malevolent. Her thousands of young are an army their own - enter the ruins at your own peril.";
 			case WERESLUT: return "It's not certain if the werewolves are wolves who have become men, men who have become wolves, or simply a beastman-like creature that could appear to be either, but their beast-like strength and agility and sharp claws makes them extremely dangerous.\n\nAppearing like a village librarian, this werewolf has a penchant for mating with human boys... with disastrous results.";
+			case ANGEL: return "A divine creature serving an ancient, long forgotten goddess.  It's not certain what domains her goddess has or had as her charge, but it is known exactly how long her trumpet is.";
 		}
 		return "";
 	}
