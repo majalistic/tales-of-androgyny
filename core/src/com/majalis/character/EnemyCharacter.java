@@ -1153,7 +1153,7 @@ public class EnemyCharacter extends AbstractCharacter {
 	}
 	
 	public Outcome getOutcome(AbstractCharacter enemy) {
-		if (currentHealth <= 0 && selfRessurect == 3) return Outcome.VICTORY;
+		if (currentHealth <= 0 && (enemyType != EnemyEnum.ANGEL || selfRessurect == 3)) return Outcome.VICTORY;
 		else if (enemy.getCurrentHealth() <= 0) return Outcome.DEFEAT;
 		switch(enemyType) {
 			case BRIGAND:
