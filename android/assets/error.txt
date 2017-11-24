@@ -1,0 +1,14 @@
+com.badlogic.gdx.utils.SerializationException: Error parsing JSON on line 5806 near: es sliding it inside of herself.*ERROR*"},
+			{"text": "She walks with it, somehow having the strength
+	at com.badlogic.gdx.utils.JsonReader.parse(JsonReader.java:549)
+	at com.badlogic.gdx.utils.JsonReader.parse(JsonReader.java:38)
+	at com.badlogic.gdx.utils.Json.fromJson(Json.java:725)
+	at com.majalis.encounter.EncounterReader.getScriptData(EncounterReader.java:21)
+	at com.majalis.encounter.EncounterReader.<init>(EncounterReader.java:15)
+	at com.majalis.talesofandrogyny.TalesOfAndrogyny.create(TalesOfAndrogyny.java:53)
+	at com.badlogic.gdx.backends.lwjgl.LwjglApplication.mainLoop(LwjglApplication.java:147)
+	at com.badlogic.gdx.backends.lwjgl.LwjglApplication$1.run(LwjglApplication.java:124)
+Caused by: com.badlogic.gdx.utils.SerializationException: Illegal escaped character: \I
+	at com.badlogic.gdx.utils.JsonReader.unescape(JsonReader.java:752)
+	at com.badlogic.gdx.utils.JsonReader.parse(JsonReader.java:189)
+	... 7 more
