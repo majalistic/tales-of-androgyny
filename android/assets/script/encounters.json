@@ -513,7 +513,16 @@
 			"sound": "OGRE_GROWL",
 			"text": "You hear a low, deep growling... seems the old man was right after all."},
 			{"text": "Is this... a meat gate?"},
-			{"text": "You're extremely hesitant to continue... an ogre sounds like it's far outside your capabilities at the moment."}
+			{"text": "A shadow falls on you, and you look up at the towering mass of meat and muscle.  It looks down on you.  And its mouth breaks into a smile."}
+		]
+	},
+	{
+		"key": "STORY-OGRE-VICTORY",
+		"scriptLines": [
+			{
+			"mutations": [{"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": 10}}, {"saveType":"ITEM", "value":{"class": "com.majalis.character.Item$Weapon", "type": "Gladius", "bonus": "2"}}],			
+			"text": "Miraculously, you manage to fell the ogre.  As he makes landfall the earth shakes, and the wind sifts pass you, disturbed by his wake.  You drop your weapon to the ground, simultaneously exhausted and triumphant."},
+			{"text": "You continue through the pass, knowing that whatever may come beyond, you can overcome the odds."}
 		]
 	},
 	{
@@ -524,21 +533,44 @@
 			"text": "..."},
 			{"text": ".."},
 			{"text": "."},
+			{"text": "You think back to your mom - the hero.  Everyone loved and respected her."},
+			{"text": "A champion of the people, and a genuine legend."},
+			{"text": "You hoped that one day, you'd be like her - cheered by the masses, celebrated by all."},	
+			{"text": "..."},
+			{"text": ".."},
+			{"text": "."},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1}}],
+			"sound": "OGRE_GROWL",
+			"text": "Then you look back to where you ended up and... wow, that ogre is really crushing ass, isn't he?"},
+			{"text": "The ogres hand grips your head from behind, but other than that, the points of contact are mostly down below - in particular, every wart on his cock has scraped against your bright-red sphincter and against the stretching walls of your former fudge tunnel."},
+			{"text": "In all your dreams of being a famous hero, anal sex with an ogre never seemed to feature, and yet... it lurches in and out of you, its fat girth robbing you of dignity and anal integrity at the same time, as you stare straight ahead, listlessly, your arms at your side, limp."},
+			{"text": "You were no match for him with a sword, and certainly not in sexual prowess.  Once you were defeated, he was quick to reveal his wish to make you his woman, and you didn't stay an anal virgin much longer than that.  As you felt it push inside, you lost the will to fight, but he did not lose the will to anally inseminate you."},
+			{"text": "You know that's your fate, but with no strength to fight off the towering monstrous humanoid, you have no choice but to wait for his frothy, foul-smelling lust to come bubbling up through the massive eye currently inspecting your twisting guts, staining your insides white as snow."},
+			{"text": "Though you are a human man, the ogre's roar will foretell your humiliation, cum-stuffed and gummed up by an ogre who has mistaken your backdoor for a cozy, life-giving pussy."},
 			{
 			"sound": "OGRE_GROWL",
 			"text": "The ogre's massive cock bores into you as he lowers you down onto it over and over again."},
 			{"text": "The length and girth of it is visible as it slides up and down in your abdomen."},
 			{"text": "Your hole is stretched beyond recognition - it's unlikely it will ever return to its former shape or tightness"},
 			{"text": "All the while, you feel it bubbling up your cock, which bounces uselessly in the wind."},
-			{"text": "You try to resist, but to little avail - you fling your spunk into the air as you are bounced, full body, onto the ogre's massive schlong."},
-			{"text": "It seems, indeed, the ogre was a meat gate... your only miscalculation was what the 'meat' entailed."},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analEjaculation":1}}],
+			"text": "You try to resist, but to little avail - you fling your spunk into the air as you are bounced, full body, onto the ogre's massive schlong."},
 			{
 			"sound": "OGRE_GROWL",
 			"text": "He roars, apparently nearing climax."},
 			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "creampies":2}}],
 			"sound": "CUM",
 			"text": "You feel it pulsing within the massive cock inside of you even before you feel it glurg out inside, filling every last crevice and nook of your intestines with the ogre's salty load."},
 			{"text": "He pulls you up by your hair, slowly, as you feel his totemic rod pulse within you, filling you with creamy, disgusting ogre spunk."},
+			{
+			"sound": "CUM_BUBBLING",
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analEjaculation":1}}],
+			"text": "As it blasts up inside of you, your eyes roll into the back of your head, and your own small in comparison cock spews pathetically onto the ground, a testament to your total failure and submission."},
+			{"text": "Your stomach swells terribly as if grossly pregnant, and you feel the ogre's love hot in your bowels."},
+			{"text": "It seems, indeed, the ogre was a meat gate... your only miscalculation was what the 'meat' entailed."},	
 			{
 			"sound": "OGRE_GROWL",
 			"text": "This is... not ideal."},
