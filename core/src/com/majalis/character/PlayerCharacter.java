@@ -1450,4 +1450,10 @@ public class PlayerCharacter extends AbstractCharacter {
 	public Armor getUnderwear() {
 		return underwear;
 	}
+	public int getAnalReceptionCount() {
+		return receivedAnal;
+	}
+	public int getOralReceptionCount() {
+		return receivedOral;
+	}
 }

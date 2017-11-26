@@ -182,6 +182,22 @@ public class CharacterScreen extends AbstractScreen {
 			this.addActor(levelUp);
 		}
 		
+		final Table sexTable = new Table();
+		Label virgin = new Label("Anal Virgin? " + (character.isVirgin() ? "For now!" : "Nope!"), skin);
+		virgin.setColor(Color.PINK);
+		sexTable.add(virgin).row();
+		Label analSex = new Label("Assfucked: " + (character.getAnalReceptionCount() > 1 ? character.getAnalReceptionCount() + " times." : character.getAnalReceptionCount() == 1 ? character.getAnalReceptionCount() + " time." : "Never!"), skin);
+		analSex.setColor(Color.PINK);
+		sexTable.add(analSex).row();
+		
+		Label oralSex = new Label("Mouthfucked: " + (character.getOralReceptionCount() > 1 ? character.getOralReceptionCount() + " times." : character.getOralReceptionCount() == 1 ? character.getOralReceptionCount() + " time." : "Never!"), skin);
+		oralSex.setColor(Color.PINK);
+		sexTable.add(oralSex).row();
+		
+		sexTable.setPosition(950, 1040);
+		sexTable.align(Align.topLeft);
+		this.addActor(sexTable);;
+		
 		final Table statusTable = new Table();
 		Label headerStatus = new Label("Status Effects", skin);
 		headerStatus.setColor(Color.BLACK);
@@ -198,13 +214,13 @@ public class CharacterScreen extends AbstractScreen {
 			statusTable.add(statusLabel).row();
 				
 		}
-		statusTable.setPosition(925, 1040);
+		statusTable.setPosition(1025, 600);
 		statusTable.align(Align.topLeft);
 		this.addActor(statusTable);
 		
 		Table perkTable = new Table();
 		perkTable.align(Align.topLeft);
-		perkTable.setPosition(100, 650);
+		perkTable.setPosition(100, 600);
 		this.addActor(perkTable);
 		perkTable.add(getLabel("Perks: ", skin, Color.FOREST)).align(Align.left).row();
 		int perkColumn = 0;
