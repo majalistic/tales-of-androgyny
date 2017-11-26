@@ -966,7 +966,12 @@ public abstract class AbstractCharacter extends Actor {
 	}
 	
 	public String setArmor(Item armor, boolean newItem) {
+		if (armor == null) {
+			this.armor = null;
+			return "You unequipped your armor.";
+		}
 		if (newItem) inventory.add(armor);
+		
 		Armor equipArmor = (Armor) armor;
 		boolean alreadyEquipped = equipArmor.equals(this.armor); 
 		this.armor = alreadyEquipped ? null : equipArmor;
@@ -974,6 +979,10 @@ public abstract class AbstractCharacter extends Actor {
 	}
 	
 	public String setLegwear(Item armor, boolean newItem) {
+		if (armor == null) {
+			this.legwear = null;
+			return "You unequipped your armor.";
+		}
 		if (newItem) inventory.add(armor);
 		Armor equipArmor = (Armor) armor;
 		boolean alreadyEquipped = equipArmor.equals(this.legwear); 
@@ -982,6 +991,10 @@ public abstract class AbstractCharacter extends Actor {
 	}
 	
 	public String setUnderwear(Item armor, boolean newItem) {
+		if (armor == null) {
+			this.underwear = null;
+			return "You unequipped your armor.";
+		}
 		if (newItem) inventory.add(armor);
 		Armor equipArmor = (Armor) armor;
 		boolean alreadyEquipped = equipArmor.equals(this.underwear); 

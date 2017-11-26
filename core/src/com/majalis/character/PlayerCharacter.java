@@ -172,6 +172,10 @@ public class PlayerCharacter extends AbstractCharacter {
 		magicPoints = 0;
 		food = 60; 
 		initInventory();
+		setArmor(null, false);
+		setLegwear(null, false);
+		setUnderwear(null, false);
+		
 		setArmor(new Armor(ArmorType.CLOTH_TOP), true);
 		setLegwear(new Armor(ArmorType.SKIRT), true);
 		setUnderwear(new Armor(ArmorType.UNDERWEAR), true);
