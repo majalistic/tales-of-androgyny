@@ -249,6 +249,25 @@ public class EncounterBuilder {
 						)
 					)
 				).getEncounter();
+			case BRIGAND_STORY:
+				return new Branch().textScene("STORY-BRIGAND").battleScene(
+					BattleCode.BRIGAND_STORY, 
+					new Branch(Outcome.VICTORY).textScene("STORY-BRIGAND-VICTORY").choiceScene(
+						"What do you want from her?", 
+						new Branch("Her companionship").textScene("STORY-BRIGAND-VICTORY-BANG").choiceScene(
+							"Cum now?", 
+							new Branch("Now").textScene("STORY-BRIGAND-NOW").choiceScene(
+								"What do you do?", 
+								new Branch("Nothing").textScene("STORY-BRIGAND-BLUEBALLS"), 
+								new Branch("Take it").textScene("STORY-BRIGAND-BOTTOM")
+							), 
+							new Branch("Later").textScene("STORY-BRIGAND-LATER") 
+						), 
+						new Branch("Her weapon").textScene("STORY-BRIGAND-VICTORY-SWORD")
+					), 
+					new Branch(Outcome.DEFEAT).textScene("STORY-BRIGAND-DEFEAT").choiceScene("Steel or suck?", new Branch("Steel").textScene("STORY-BRIGAND-DEFEAT-DEATH").gameEnd(), new Branch("Suck").textScene("STORY-BRIGAND-DEFEAT-SUCK")),
+					new Branch(Outcome.SATISFIED).textScene("BRIGAND-SATISFIED")
+				).getEncounter();
 			case BROTHEL:
 				Branch onceSignedUp = new Branch().textScene("BROTHEL-MEMBER").choiceScene("What service do you offer?", new Branch("Blowjobs").textScene("BROTHEL-ORAL"), new Branch("Ass").textScene("BROTHEL-ANAL"), new Branch("GFXP").textScene("BROTHEL-GFXP"));
 				return new Branch().textScene("BROTHEL").checkScene(
@@ -1049,8 +1068,6 @@ public class EncounterBuilder {
 			        new Branch(Outcome.DEFEAT).textScene("WEREWOLF-DEFEAT").checkScene(Perk.BITCH, bitch, uninterested),
 			        new Branch(Outcome.SATISFIED).textScene("WEREWOLF-SATISFIED")
 			    ).getEncounter();
-			case WEST_PASS:
-				return new Branch().textScene("WEST-PASS").encounterEnd().getEncounter();
 			default: 
 		}
 		return new Branch().textScene("TOWN").encounterEnd().getEncounter();	

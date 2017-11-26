@@ -921,7 +921,7 @@ public class EnemyCharacter extends AbstractCharacter {
 	
 	private boolean willPounce() {
 		IntArray randomValues = new IntArray(new int[]{10, 11, 12, 13});
-		return enemyType.willPounce() &&  lust >= randomValues.random() && !stance.isIncapacitatingOrErotic() && grappleStatus == GrappleStatus.NULL;
+		return enemyType.willPounce() && lust >= randomValues.random() && !stance.isIncapacitatingOrErotic() && grappleStatus == GrappleStatus.NULL && (enemyType != EnemyEnum.BRIGAND || !storyMode);
 	}
 	
 	private Technique getTechnique(AbstractCharacter target, Techniques technique) {

@@ -122,6 +122,7 @@ public class BattleFactory {
 			case HARPY_STORY: return new EnemyCharacter(null, getTextureMap(EnemyEnum.HARPY), EnemyEnum.HARPY.getAnimations(assetManager), EnemyEnum.HARPY, stance, true);
 			case SLIME: return new EnemyCharacter(getTextures(EnemyEnum.SLIME), getTextureMap(EnemyEnum.SLIME), EnemyEnum.SLIME.getAnimations(assetManager), EnemyEnum.SLIME, stance);
 			case BRIGAND: return new EnemyCharacter(null, getTextureMap(EnemyEnum.BRIGAND), EnemyEnum.BRIGAND.getAnimations(assetManager), EnemyEnum.BRIGAND, stance);
+			case BRIGAND_STORY: return new EnemyCharacter(null, getTextureMap(EnemyEnum.BRIGAND), EnemyEnum.BRIGAND.getAnimations(assetManager), EnemyEnum.BRIGAND, stance, true);
 			case CENTAUR: return new EnemyCharacter(null, getTextureMap(EnemyEnum.CENTAUR), EnemyEnum.CENTAUR.getAnimations(assetManager), EnemyEnum.CENTAUR, stance);
 			case UNICORN: return new EnemyCharacter(null, getTextureMap(EnemyEnum.UNICORN), EnemyEnum.UNICORN.getAnimations(assetManager), EnemyEnum.UNICORN, stance);
 			case GOBLIN: 

@@ -71,10 +71,10 @@ public enum EncounterCode {
 	OGRE_WARNING_STORY (FOREST_INACTIVE),
 	OGRE_STORY, 
 	HARPY_STORY (MOUNTAIN_ACTIVE),
+	BRIGAND_STORY (MOUNTAIN_ACTIVE),
 	ECCENTRIC_MERCHANT,
 	STORY_FEM (FOREST_INACTIVE), 
 	STORY_SIGN (FOREST_INACTIVE), 
-	WEST_PASS (MOUNTAIN_ACTIVE), 
 	;
 	
 	private final AssetEnum texture;	
@@ -129,7 +129,7 @@ public enum EncounterCode {
 					case HARPY_STORY: return "South Pass";
 					case STORY_FEM: return "Unwalked Path";
 					case STORY_SIGN: return "Crossroads";
-					case WEST_PASS: return "West Pass";
+					case BRIGAND_STORY: return "West Pass";
 					case FOOD_CACHE: 
 					case GOLD_CACHE:
 					case ICE_CREAM:
@@ -177,7 +177,7 @@ public enum EncounterCode {
 					case HARPY_STORY: return "South Pass (Harpies)";
 					case STORY_FEM: return "Unwalked Path";
 					case STORY_SIGN: return "Crossroads";
-					case WEST_PASS: return "West Pass";
+					case BRIGAND_STORY: return "West Pass (Brigands)";
 					case FOOD_CACHE: return "Cache!";
 					case GOLD_CACHE: return "Cache!";
 					case ICE_CREAM: return "Cache!";
@@ -280,6 +280,14 @@ public enum EncounterCode {
 						AssetEnum.SLIME_DOGGY.getTexture(),
 				});
 			case BRIGAND:
+				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{
+					AssetEnum.BRIGAND_ANIMATION.getAnimation(),
+					AssetEnum.BRIGAND_ORAL.getTexture(),
+					AssetEnum.BRIGAND_MISSIONARY.getTexture(),
+					AssetEnum.CUM.getSound(),
+					AssetEnum.CUM_BUBBLING.getSound(),
+				});
+			case BRIGAND_STORY:
 				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{
 					AssetEnum.BRIGAND_ANIMATION.getAnimation(),
 					AssetEnum.BRIGAND_ORAL.getTexture(),

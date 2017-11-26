@@ -625,12 +625,6 @@
 		]
 	},
 	{
-		"key": "WEST-PASS",
-		"scriptLines": [
-			{"text": "The west pass.  It's... very westy.  THANKS FOR GETTING THIS FAR GAME IS DEVELOP STILL MANY LOVES IDDDDDDD"}
-		]
-	},
-	{
 		"key": "STORY-HARPY",
 		"scriptLines": [	
 			{"text": "The cold wind rushes through the valley, threatening to take your cloak with it.  Thankfully, the wind is at your back, and the setting sun is due straight ahead, as if you're leaving the icy mountain's frostiness behind you."},
@@ -647,7 +641,9 @@
 	{
 		"key": "STORY-HARPY-VICTORY",
 		"scriptLines": [
-			{"text": "The harpy collides with the ground, squawking weakly as she attempts to right herself.  With her face on the ground and her butt up in the air, you see that she has a rather comely rear - a round, fat butt, in other words."},
+			{
+			"mutations": [{"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": 3}}],
+			"text": "The harpy collides with the ground, squawking weakly as she attempts to right herself.  With her face on the ground and her butt up in the air, you see that she has a rather comely rear - a round, fat butt, in other words."},
 			{"text": "Though you can still see her long, eager schlong between her thighs, and her similarly full testicles, between her two cheeks is a puckered hole that looks quite inviting."}
 		]
 	},
@@ -724,6 +720,204 @@
 			"text": "Her cock regurgitates your feed directly down your throat, but with the bird-girl's sack pressed up against your face, you aren't about to confuse her with your momma bird."},
 			{"text": "You are forced to swallow the harpy's entire load, and not a drop less, before she releases her talons from your head, having gotten all that she needed from your face.  You keel over, hands on the ground, and regurgitate her awful semen, not unlike she might regurgitate food for her babies that might result of it."},
 			{"text": "While you retch and paint the ground harpy-egg white, she takes off - and you have another... victory under your belt."}	
+		]
+	},
+	{
+		"key": "STORY-BRIGAND",
+		"scriptLines": [
+			{"text": "The south pass is shielded from the easterly winds, so it would seem more hospitable to menfolk; and yet, venture far from the maintained roads and the mountain forest is dense and wild."},
+			{"text": "With no guard posts or settlements, the long stretch through the south pass is a traveller's gamble, and a merchant's fool's gamble, as the desperate brigands of the forest descend on the unexpecting to make their bread."},
+			{"text": "In the hopes of avoiding such a fate, you travel through the forest, keeping your wits about you, until you come across a small cottage.  You quickly survey the area to see if the inhabitants are nearby, but are interrupted by the rustling of foliage behind you."},
+			{
+			"animatedForeground": "BRIGAND",
+			"text": "Holding game in one hand, and a surprisingly intact sword in the other, dressed in expensive clothing, you see a woman.  She drops into a fencing stance before you can speak, and lunges immediately thereafter!"}
+
+		]
+	},
+	{
+		"key": "STORY-BRIGAND-VICTORY",
+		"scriptLines": [
+			{
+			"mutations": [{"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": 3}}],
+			"text": "You knock her sword away, and she holds up her hands, defeated."},
+			{"text": "\"I'm undone.  You've bested me, stranger.  What now?\""},
+			{"text": "You think for a moment, and then lower your blade."},
+			{"text": "\"Do someone a kindness.  Atone for your past,\" you say, dismissively, before sheathing your sword."},
+			{"text": "\"And if I don't?\" she asks, pointedly."},
+			{"text": "\"Nothing I can do.  But I hope we see each other again, and that you've got more pride in your eyes, then.\""},
+			{"text": "You turn to walk away, and she calls after you."},
+			{"text": "\"Wait.  We still have business to conclude.  Fair's fair - you've won.  I want to give you something.\""},
+		]
+	},
+	{
+		"key": "STORY-BRIGAND-VICTORY-BANG",
+		"scriptLines": [
+			{"text": "\"Come with me.  I could use a travelling companion.\""},
+			{"text": "She snickers.  \"I'm flattered, but I'm not much the adventuring type.  A fuck, though, I could do.\""},
+			{"text": "You're taken aback, and your mouth flaps open and closes before you think of a response.  \"You... I...\""},
+			{"text": "\"A fuck,\" she says, again.  \"If you don't mind that I've got a big dick, you can have me from behind.  I've had worse lookers than you clean my pipes,\" she says, leaning against a tree, her hands feeling under her breastplate for the band of her pants."}, 
+			{"text": "You're just about to find the words when she drops her drawers, revealing, as she said, a big honking dick dangling between her legs, and also a firm, athletic ass."},
+			{"text": "\"Well?  Get over here,\" she commands, and your legs move before your brain decides anything."},
+			{"text": "Standing behind her, now, you can smell her; she has scent of sweat about her, but also a floral smell - pilfered perfume, perhaps?"},
+			{"text": "\"Offer won't last.  My dinner's not getting any fresher,\" she says, and you remember the discarded carcass that had led to your untimely meeting in the first place."},
+			{"text": "You step closer to her and drop your own drawers, a bit skeptical. To your surprise, she reaches back and grabs hold of it."},
+			{"text": "\"For such a cute face, this is bigger than I expected,\" she says, stroking it until her fingers are coated in precum.  \"May have been a bit hasty.\""},
+			{"text": "She rubs the precum between her cheeks, and then starts to pull you forward... by the dick. You nearly fall over her, which is fine for her purposes, because she guides you directly to her asshole."},
+			{"text": "She pushes back at you, and the force eventually, not without resistance, causes your head to pop inside, at which point you're greeted by a crushing pressure and an overwhelming warmth."},
+			{"text": "\"I can feel your pulse - don't freak out so much.  You're already inside.  Just enjoy it,\" she says, and you can see, from the movement of her other hand, that she's taken her own advice to heart."},
+			{"text": "You wrap your arms around her waist, and give her a good shove, which she responds to by pushing her hips back at you and moaning while shuffling her fingers up and down some unseen thing which is her actual dick."},
+			{"text": "\"I haven't had a good fuck in a while... so don't be too alarmed if I paint this tree in my colors.  A girl with a bloated beanbag can be a scary thing,\" she says, and by the way she's gripping you by the base, threatening not to let go, you believe her."},
+			{"text": "You drive it into her tight ring repeatedly, and manage to hold off for longer than you expected... but for not much longer."},
+			{"text": "You get ready to fire off inside of her, and you let her know it.  \"I'm gonna c--\""},
+			{"text": "\"Not yet you aren't! I'm not ready to paint this tree right here just yet,\" she tersely interrupts."},
+			{"text": "For someone who's trying to give you something, she seems awfully demanding."}  
+		]
+	},
+	{
+		"key": "STORY-BRIGAND-NOW",
+		"scriptLines": [			
+			{
+			"sound": "CUM",
+			"text": "You drive it balls deep inside, and blast a full load deep into her gut.  Before she has a chance to finish herself off, you withdraw it."},
+			{"text": "\"W-wait! Not fair!  What are you gonna do about this?\" she says, gesturing to her very, very erect cock and very, very full balls."}
+		]
+	},
+	{
+		"key": "STORY-BRIGAND-BLUEBALLS",
+		"scriptLines": [
+			{"text": "You walk away, leaving her to stew in her own gonad soup.  Her whine at the prospect of being left unsatisfied is, itself, somewhat satisfying."}
+		]
+	},
+	{
+		"key": "STORY-BRIGAND-BOTTOM",
+		"scriptLines": [		
+			{"text": "You offer yourself up as a willing receptacle.	She doesn't wait to hear a second offer."},
+			{
+			"foreground": "BRIGAND_MISSIONARY",
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1}}],
+			"text": "She pushes you down on the ground, and her slick-with-precum cock is soon thereafter up your hole, twitching with a need to seed."},	
+			{
+			"sound": "CUM",
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "creampies":1}}],
+			"text": "She doesn't last long - in fact, she doesn't even get all the way in before she erupts inside, coating your rectum with semen."},		
+			{"text": "Despite winning the battle, you still ended up full of cum - but her kiss on your lips is intoxicating, and you can think of little else as you leave the bandit's hovel."}
+		]
+	},
+	{
+		"key": "STORY-BRIGAND-LATER",
+		"scriptLines": [
+			{"text": "You continue to fuck her at a slow enough pace that you don't accidentally set yourself off.  She seems pretty close to cumming herself."},
+			{"text": "\"Here it comes... I'm gonna... nnh...\""},
+			{"text": "You can't see her cock, but you can see her arm furiously masturbating, and the streaks of cum on the tree in front of you, and the tightening of her ring, which proves too much."},
+			{
+			"sound": "CUM",
+			"text": "You drive it balls deep inside, and blast a full load deep into her gut.  You nearly collapse on top of her, but she manages to hold both of your weights, even while she jizzes everywhere."},
+			{"text": "With both of you satisfied, you part ways - you truly hope she turns over another leaf."},			
+		]
+	},
+	{
+		"key": "STORY-BRIGAND-VICTORY-SWORD",
+		"scriptLines": [
+			{
+			"mutations": [{"saveType":"ITEM", "value":{"class": "com.majalis.character.Item$Weapon", "type": "Gladius", "bonus": "1"}}],
+			"text": "\"And what if a bandit finds me out here in the mountains?  Heh.  My sword it is.\""}
+		]
+	},
+	{
+		"key": "STORY-BRIGAND-DEFEAT",
+		"scriptLines": [
+			{"text": "She cuts your sword from your grip, and you struggle to stand."},
+			{"text": "\"Now comes the part no one likes - can't run the risk of you calling the guard on me.  Head down, make your peace.\" she says, putting her boot on the back of your neck, her own blade brandished for the kill."},		
+			{"text": "\"Wait!  I'll do anything!\" you say, not ready to meet the end just yet."},
+			{"text": "\"Anything, eh?\" she says, stroking her chin.  \"Well, if I don't want you talking, I've got to shame you.  Hrm... I haven't had a boy to suck on my cock for ages.  How d'you feel about that?\""},
+			{"text": "Your heart sinks.  She wants you to what on her what?"},
+			{"text": "\"Hoho, you just went a little green.  Guess pole-smoking isn't one of your hobbies.  A shame with lips like yours.  Well, first time for everything, right?\""},
+			{"text": "She licks her lips while tapping the crotch of her pantaloons... which looks a lot tighter than you would expect.  You doubt she's bluffing, but you can't believe your eyes."},
+			{"text": "\"I see some frustrated gaggin' in your future, but I'm not about to make you.  You offered, so I thought we could strike a deal, but I think it's safer if I save my rocks and my hiding place.\""},
+			{"text": "You clench your teeth, but then sigh.  \"Wait.  Just wait,\" you say, stalling for time to think it over.  The bulge in her pants isn't getting any smaller - on the contrary.  Despite what she's saying, she's clearly warming up to the idea."},
+			{"text": "\"Take your time.  No matter how full up I get, I'll let you make your choice,\" she says."},
+			{"text": "You look at her, a bit perplexed.  \"'Full up?'\" you ask."},
+			{"text": "She adjusts the bulge in her crotch, clearly moving something long and stiff out of the way.  \"It's not my cock that needs sucking, really.  It's these big gourds, gotta clean all the gunk out of 'em.\""},
+			{"text": "If you weren't green before, you are now.  You didn't think a part of your hero's journey was going to be cleaning the gunk out of some vagabonds stuffed gourds."},
+			{"text": "\"You look like you're gonna be sick.  Look, I'm just lettin' you know what my goonies are stuffed and you'd have to be willin' to burp bubbles to empty 'em.\""},
+			{"text": "You try to block out her... graphic depiction.  There's... no other way, you decide."},
+			{"text": "\"Just to be clear, I don't need a virgin's kiss and a little oopsie, and then you dab your lips with a handkerchief.  I need you to gorge on my cock like a whore and swallow all the spit and slime down your gullet like one too.\""},
+			{"text": "Your cheeks get red, but you nod your head, slowly, but definitively."},
+			{"text": "\"I need you to fill your cheeks with my stew and then swallow it all down with a big gulp.\""},
+			{"text": "You keep nodding, avoiding eye contact, trying to let her understand without saying the words."},
+			{"text": "\"You can suck all the old cum from my fat nuts, or you can suck the steel from my sword.  If you want my reckoning, save your dignity and take the steel.  Want of life is a sin in the wilds.\""}
+		]
+	},
+	{
+		"key": "STORY-BRIGAND-DEFEAT-DEATH",
+		"scriptLines": [
+			{"text": "\"Do it,\" you say, meeting her gaze with a will of iron."},
+			{"text": "Her blade is quick... as was your life."}
+		]
+	},
+	{
+		"key": "STORY-BRIGAND-DEFEAT-SUCK",
+		"scriptLines": [
+			{"text": "\"I'll... do it,\" you say, still a bit queasy."},
+			{"text": "\"You'll do what?\" she says, pulling the whole thing free of its confinement.  You stare at it, eye to eye, with a mix of fascination and creeping anxiety.  She steps closer to you, and holds the thing up, so that it casts a shadow on your face, before letting it plop down across your eye."},
+			{"text": "She continues to slap your face with it, giving it a tap from the side here and there, so you get a good sense of how it smells and feels.  She breaks into a grin."},
+			{"text": "\"You look so indignant.  You've got a face made for cock-slappin', whether that flatters you or not.  My meat's your snack, and you seem a messy eater.\""},
+			{"text": "She rubs the head all of your lips, then slaps it onto your forehead again."},
+			{"text": "\"I'm not gonna stop thwappin' your face with my cock just because it annoys you.  I will rub it all over if that annoys you more, however.\""},
+			{"text": "She rubs your cheeks with it, keeping your chin straight ahead with her other hand."},
+			{"text": "\"If you want my cocksnot that badly, I'll oblige you. You'll suck all the nutgrease out of my fat sack till they're empty, in exchange for a pitiable life.  Is that the deal?  Pop 'em in your mouth and give 'em a good suck before you decide.\""},
+			{"text": "She leans forward so that you can take them in your mouth, and you hesitantly do so, taking first the left, and then the right.  Your own cock stirs, though it goes ignored, at the feeling of having them weight heavily in your cheeks."},
+			{"text": "And heavily they do weigh.  She wasn't kidding.  If you go through with this, you'll likely swallow enough semen for a full meal."},
+			{"text": "\"You're gonna suck all that out until they're deflated.  We have an accord?\""},
+			{"text": "You nod while still gargling her balls, and she pulls them out, satisfied."},
+			{"text": "She puts her leg up on a tree stump, her long, hard thing curving downwards, dripping salaciously.  \"Well, get t' suckin'.  You'll know you're done when my walnuts are raisins.\""},
+			{
+			"foreground": "BRIGAND_ORAL",
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "oralSex":1}}],
+			"text": "You gingerly put your lips around it and begin to suck, knowing that she doesn't want tepid kisses and licks.  Your lips end up halfway down her shaft before you even really think about what you're doing."},
+			{"text": "You had expected her to be on a hair trigger, but you find with your inexperienced sucking that minutes pass and you make no progress - delaying the ordeal considerably.  With a heavy heart, you begin to throw yourself into it, trying to coax the wax out of her, not really knowing what you'll do when you get it."},
+			{"text": "You suck and snort and gobble down her cock of your own free will, knowing that you need to drink to the bottom of the well to earn your freedom.  She seems to be subtly enjoying herself, looking down somewhat impassively as you debase yourself while slurping down her dick."},
+			{"text": "\"If you want me to cum, you'll have to gag yerself on it or suck the color off it - half-cocked suckin' won't get you the gruel.\""},
+			{"text": "You don't particularly want to swallow her \"gruel\", but you know you aren't walking away without a heaping helping of it in your belly, so you start to suck and slurp more strongly on her pole, which seems to gratify her."},
+			{"text": "You can see indeed that her fat sack is quite full - if you were hungrier and less queasy, that would be great news."},
+			{"text": "She licks her lips, and then sneers at you, gritting her teeth, you expect something is happening, so you look back down at her pouch."},
+			{"text": "You can see her testicles pulling close to her body, and from the expression you just saw on her face, you know what's coming.  The rigid shaft in your mouth jerks, and you taste the bitter taste of success."},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "oralCreampies":1}}],
+			"sound": "CUM",
+			"text": "Her chewy, sticky goo is clearly full of old, dead sperm, which is a less interesting fact to you than the reality of it pooling on your tongue and coating your teeth with each spurt."},
+			{"text": "With your lips sealed around her cumming cock, jerking and twitching as it is, there's no room for it to escape - her doomed sperm being flung into your mouth pointlessly.  On the outside, it doesn't look like much, and you wouldn't be able to tell anything was happening if you didn't see that her nuts were tense."},
+			{"text": "On the inside, however, you're getting whitewashed, and the oily taste of her bitter jism is most of what you're thinking about."},
+			{"text": "\"All the nutsoup a whore can swallow!\" she says, although it's really more of a stew than a soup.  Your cheeks are full of it, so you should know."},
+			{"text": "At the mention of the word \"swallow\", you turn green again, but without much hesitation, you take a big gulp."},
+			{"text": "\"Yeah, good boy... swallow it all down, while I prepare seconds,\" she says, and her somewhat limp noodle begins to firm up again already."},
+			{"text": "Before long, you're sucking eagerly on her shaft again, trying to suck out more creamy semen that you'll then have to swallow."},
+			{"text": "\"You're surprisingly good at this.  Have you considered a change in occupation?\" she says, her gloved fingers running through your hair.  \"Make sure this time you watch my eyes.  That's how you get a tip,\" she adds, mockingly."},
+			{"text": "You realize you get the most response from her eggsacks when you suck all the way from the base to the tip, then lunge forward and repeat the process, as debasing as that is."},
+			{"text": "You're in the middle of one such long suck when you see her sack rise again, and, obediently, you look up at her face to see the same teeth-gritted sneer as before, knowing that in a heartbeat, her semen is going to flood your mouth."},
+			{"text": "While staring into her eyes, this time, you notice something - you're fully hard, and if you don't hold back, you might cream your pants.  You hold back with all your might, but nearly lose it into your crotch when you feel your uvula being basted with her gravy."},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "oralCreampies":1}}],
+			"sound": "CUM",
+			"text": "Her cum this time is less chewy and clearly old, but still fairly potent semen.  You try to focus on swallowing it before it pools up and fills your cheeks again, partly to avoid that embarrassing display, and partially to distract yourself from the desire to shoot jizz."},
+			{"text": "She doesn't say anything as she waits for herself to return to full mast, but she does watch you swallowing with a grim fascination."},
+			{"text": "Your neck is too tired to continue the long sucking, so you throw yourself into deep-throating her, coughing and gagging around her long, thin cock, which twitches in your throat."},
+			{"text": "This test of your gag reflex proves to be incredibly nauseating, and you know that if and when she does spew, there's a chance you might spew with her - either above, or below."},
+			{"text": "You're annoyed to see her nuts ascend again - you're so nauseated already, the taste and sensation of her scum spewing onto the back of your throat is not going to help matters."},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "oralCreampies":1}}],
+			"sound": "CUM",
+			"text": "Regardless, it comes, spurts of ejaculate from her half-emptied coinpurse that taste as bitter as the last batch.  You catch it in the back of your throat with some regret, but thankfully, it doesn't cause you to spew as well."},
+			{"text": "The warmth in your belly is indicative of how much you've already got in there, and the warmth in your crotch is, thankfully, not extremely wet.  Every time you feel her shaft piston between your lips, that threatens to change, however."},
+			{"text": "You've never sucked that hard on anything, nor taken anything so deeply into your throat, and you do both, knowing that she's nearing her final orgasm, and that makes it even more difficult."},
+			{"text": "When her gonads finally retract, pulling up close in preparation to spew a fourth load directly down your throat, it's more of a relief than anything."},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "oralCreampies":1}}],
+			"sound": "CUM",
+			"text": "Her fourth ejaculation is thinner and runnier than the others, but it's still a substantial load.  You cross your eyes from the effort of keeping your ejaculatory muscle tense, not wanting for her oral creampie to force you to creampie your own underwear."},		
+			{"text": "Her nutsack, which had looked so full, is now thoroughly deflated."},
+			{"text": "You do burp bubbles, her sticky hot mess causing havoc in your overly full stomach.  It feels like you've downed a gallon of milk or porridge, but your lips taste of jizz."},
+			{"text": "\"Our deal is done, hehe,\" she says, a little bubbly, clearly having cum her brains out.  She stumbls away from the stump, her flaccid cock still hanging out of her pants, and wishes you farewell."}				
 		]
 	},
 	{
