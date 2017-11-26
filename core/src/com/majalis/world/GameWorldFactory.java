@@ -101,7 +101,8 @@ public class GameWorldFactory {
 			addNode(getNode(nodeCode, EncounterCode.STORY_FEM, DEFAULT, 21, 16, visitedCodesSet.contains(nodeCode++)), nodes);
 			addNode(getNode(nodeCode, EncounterCode.STORY_SIGN, DEFAULT, 29, 16, visitedCodesSet.contains(nodeCode++)), nodes);
 			addNode(getNode(nodeCode, EncounterCode.WEST_PASS, DEFAULT, 28, 25, visitedCodesSet.contains(nodeCode++)), nodes);
-			addNode(getNode(nodeCode, EncounterCode.SOUTH_PASS, DEFAULT, 38, 12, visitedCodesSet.contains(nodeCode++)), nodes);
+			addNode(getNode(nodeCode, EncounterCode.HARPY_STORY, DEFAULT, 38, 12, visitedCodesSet.contains(nodeCode++)), nodes);
+			addNode(getNode(nodeCode, EncounterCode.FOOD_CACHE, DEFAULT, 38, 22, visitedCodesSet.contains(nodeCode++)), nodes);
 			
 			addNode(getNode(nodeCode, EncounterCode.FOOD_CACHE, DEFAULT, 7, 21, visitedCodesSet.contains(nodeCode++)), nodes);
 			addNode(getNode(nodeCode, EncounterCode.OGRE_WARNING_STORY, DEFAULT, 6, 28, visitedCodesSet.contains(nodeCode++)), nodes);	

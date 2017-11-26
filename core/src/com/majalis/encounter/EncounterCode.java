@@ -70,10 +70,10 @@ public enum EncounterCode {
 	MERI_COTTAGE_VISIT (AssetEnum.COTTAGE), 
 	OGRE_WARNING_STORY (FOREST_INACTIVE),
 	OGRE_STORY, 
+	HARPY_STORY (MOUNTAIN_ACTIVE),
 	ECCENTRIC_MERCHANT,
 	STORY_FEM (FOREST_INACTIVE), 
 	STORY_SIGN (FOREST_INACTIVE), 
-	SOUTH_PASS (MOUNTAIN_ACTIVE), 
 	WEST_PASS (MOUNTAIN_ACTIVE), 
 	;
 	
@@ -126,7 +126,7 @@ public enum EncounterCode {
 					case ECCENTRIC_MERCHANT: return "Merchant Path";
 					case OGRE_WARNING_STORY: return "Lean-to in the Forest";
 					case OGRE_STORY: return "Forest Pass";
-					case SOUTH_PASS: return "South Pass";
+					case HARPY_STORY: return "South Pass";
 					case STORY_FEM: return "Unwalked Path";
 					case STORY_SIGN: return "Crossroads";
 					case WEST_PASS: return "West Pass";
@@ -174,7 +174,7 @@ public enum EncounterCode {
 					case ECCENTRIC_MERCHANT: return "Merchant Path";
 					case OGRE_WARNING_STORY: return "Lean-to in the Forest";
 					case OGRE_STORY: return "Forest Pass";
-					case SOUTH_PASS: return "South Pass";
+					case HARPY_STORY: return "South Pass (Harpies)";
 					case STORY_FEM: return "Unwalked Path";
 					case STORY_SIGN: return "Crossroads";
 					case WEST_PASS: return "West Pass";
@@ -258,6 +258,17 @@ public enum EncounterCode {
 			case HARPY:
 				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{ 
 					AssetEnum.HARPY_FELLATIO_1.getTexture(),
+					AssetEnum.HARPY_ANAL.getTexture(),
+					AssetEnum.CUM.getSound(),
+					AssetEnum.CUM_BUBBLING.getSound(),
+					AssetEnum.HARPY_ANIMATION.getAnimation()
+				});
+			case HARPY_STORY:
+				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{ 
+					AssetEnum.HARPY_FELLATIO_0.getTexture(),
+					AssetEnum.HARPY_FELLATIO_1.getTexture(),
+					AssetEnum.HARPY_FELLATIO_2.getTexture(),
+					AssetEnum.HARPY_FELLATIO_3.getTexture(),
 					AssetEnum.HARPY_ANAL.getTexture(),
 					AssetEnum.CUM.getSound(),
 					AssetEnum.CUM_BUBBLING.getSound(),
@@ -433,6 +444,7 @@ public enum EncounterCode {
 					AssetEnum.PERCEPTION.getTexture(),
 					AssetEnum.MAGIC.getTexture(),
 					AssetEnum.CHARISMA.getTexture(),
+					AssetEnum.ENCHANTRESS.getTexture(),
 					AssetEnum.CREATION_BUTTON_UP.getTexture(),
 					AssetEnum.CREATION_BUTTON_DOWN.getTexture(),
 					AssetEnum.CREATION_BUTTON_CHECKED.getTexture(),	

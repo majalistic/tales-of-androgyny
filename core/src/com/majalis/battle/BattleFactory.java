@@ -118,8 +118,8 @@ public class BattleFactory {
 	protected EnemyCharacter getEnemy(BattleCode battleCode, Stance stance) {
 		switch(battleCode) {
 			case WERESLUT: return new EnemyCharacter(getTextures(EnemyEnum.WERESLUT), getTextureMap(EnemyEnum.WERESLUT), EnemyEnum.WERESLUT.getAnimations(assetManager), EnemyEnum.WERESLUT, stance);
-			case HARPY: 
-			case HARPY_STORY: return new EnemyCharacter(null, getTextureMap(EnemyEnum.HARPY), EnemyEnum.HARPY.getAnimations(assetManager), EnemyEnum.HARPY, stance);
+			case HARPY: return new EnemyCharacter(null, getTextureMap(EnemyEnum.HARPY), EnemyEnum.HARPY.getAnimations(assetManager), EnemyEnum.HARPY, stance);
+			case HARPY_STORY: return new EnemyCharacter(null, getTextureMap(EnemyEnum.HARPY), EnemyEnum.HARPY.getAnimations(assetManager), EnemyEnum.HARPY, stance, true);
 			case SLIME: return new EnemyCharacter(getTextures(EnemyEnum.SLIME), getTextureMap(EnemyEnum.SLIME), EnemyEnum.SLIME.getAnimations(assetManager), EnemyEnum.SLIME, stance);
 			case BRIGAND: return new EnemyCharacter(null, getTextureMap(EnemyEnum.BRIGAND), EnemyEnum.BRIGAND.getAnimations(assetManager), EnemyEnum.BRIGAND, stance);
 			case CENTAUR: return new EnemyCharacter(null, getTextureMap(EnemyEnum.CENTAUR), EnemyEnum.CENTAUR.getAnimations(assetManager), EnemyEnum.CENTAUR, stance);

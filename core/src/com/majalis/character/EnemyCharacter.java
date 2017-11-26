@@ -38,6 +38,8 @@ public class EnemyCharacter extends AbstractCharacter {
 	private int currentFrame;
 	private int selfRessurect;
 	
+	private boolean storyMode;
+	
 	@SuppressWarnings("unused")
 	private EnemyCharacter() {}
 	
@@ -46,9 +48,14 @@ public class EnemyCharacter extends AbstractCharacter {
 	}
 	
 	public EnemyCharacter(Array<Texture> textures, ObjectMap<Stance, Array<Texture>> textureMap, Array<AnimatedActor> animations, EnemyEnum enemyType, Stance stance) {
+		this(textures, textureMap, animations, enemyType, stance, false);
+	}
+	
+	public EnemyCharacter(Array<Texture> textures, ObjectMap<Stance, Array<Texture>> textureMap, Array<AnimatedActor> animations, EnemyEnum enemyType, Stance stance, boolean storyMode) {
 		super(true);
 		this.enemyType = enemyType;
 		this.stance = stance;
+		this.storyMode = storyMode;
 		init(textures, textureMap, animations);
 		initializedMove = false;
 		climaxCounters = new ObjectMap<String, Integer>();
@@ -731,7 +738,7 @@ public class EnemyCharacter extends AbstractCharacter {
 					possibleTechniques = getTechniques(MOUNT_FACE);
 				}
 			}
-			else if (target.stance == Stance.KNEELING) {
+			else if (target.stance == Stance.KNEELING && enemyType != EnemyEnum.HARPY) {
 				possibleTechniques = getTechniques(SAY_AHH);
 			}
 			else if (target.stance == Stance.AIRBORNE && enemyType == EnemyEnum.ORC) {
@@ -1170,6 +1177,11 @@ public class EnemyCharacter extends AbstractCharacter {
 				break;
 			case HARPY:
 				if (getToppingClimaxCount() >= 2) return Outcome.SATISFIED;
+				if (storyMode) {
+					if (stance == Stance.FELLATIO && oldStance == Stance.AIRBORNE) return Outcome.KNOT_ORAL;
+					if (stance.isAnalPenetration()) return Outcome.KNOT_ANAL;
+				}
+				
 				break;
 			case SLIME:
 				break;
@@ -1209,8 +1221,8 @@ public class EnemyCharacter extends AbstractCharacter {
 	
 	public String getOutcomeText(AbstractCharacter enemy) {
 		switch (getOutcome(enemy)) {
-			case KNOT_ORAL: return "It's stuck behind your teeth. Your mouth is stuffed!";
-			case KNOT_ANAL: return enemyType == EnemyEnum.WERESLUT ? "You've been knotted!!!\nYou are at her whims, now." : "You've been stuffed full of eggs.";
+			case KNOT_ORAL: return enemyType == EnemyEnum.WERESLUT ? "It's stuck behind your teeth. Your mouth is stuffed!" : "You've been stuffed in the face!";
+			case KNOT_ANAL: return enemyType == EnemyEnum.WERESLUT ? "You've been knotted!!!\nYou are at her whims, now." : enemyType == EnemyEnum.SPIDER ? "You've been stuffed full of eggs." : "You've been stuffed in the ass!";
 			case SATISFIED: return enemyType == EnemyEnum.CENTAUR ? "You've been dominated by the centaur's massive horsecock."
 				: enemyType == EnemyEnum.OGRE ? "The ogre has filled your guts with ogre cum.  You are well and truly fucked."
 				: enemyType == EnemyEnum.ANGEL ? "She notes your lack of aggression, and stands down."

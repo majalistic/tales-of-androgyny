@@ -757,6 +757,14 @@ public class EncounterBuilder {
 						) 
 					)
 			    ).getEncounter();
+			case HARPY_STORY:
+				return new Branch().textScene("STORY-HARPY").battleScene(
+					BattleCode.HARPY_STORY,
+					new Branch(Outcome.VICTORY).textScene("STORY-HARPY-VICTORY").choiceScene("Stuff the bird?", new Branch("Flip the bird").textScene("STORY-HARPY-VICTORY-BUTTSEX"), new Branch("Walk away")), 
+					new Branch(Outcome.DEFEAT).textScene("STORY-HARPY-DEFEAT").gameEnd(), 
+					new Branch(Outcome.KNOT_ANAL).textScene("STORY-HARPY-ANAL"), 
+					new Branch(Outcome.KNOT_ORAL).textScene("STORY-HARPY-ORAL")
+				).getEncounter();
 			case INITIAL:
 				return new Branch().textScene("INTRO").gameTypeScene(
 					new Branch("Create Character").textScene("CHARACTER-CREATE").characterCreation(false).skillSelection().characterCustomization().encounterEnd(),
@@ -994,8 +1002,6 @@ public class EncounterBuilder {
 					),
 					new Branch(false).textScene("SPIDER-REVISIT").encounterEnd()
 				).getEncounter();
-			case SOUTH_PASS:
-				return new Branch().textScene("SOUTH-PASS").encounterEnd().getEncounter();
 			case STARVATION:
 				return new Branch().textScene("STARVATION-INTRO").checkScene(
 					CheckType.VIRGIN,
