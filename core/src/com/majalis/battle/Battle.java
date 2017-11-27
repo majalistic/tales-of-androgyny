@@ -36,6 +36,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.majalis.asset.AnimatedImage;
 import com.majalis.asset.AssetEnum;
 import com.majalis.character.AbstractCharacter;
+import com.majalis.character.AbstractCharacter.Stability;
 import com.majalis.character.Stance;
 import com.majalis.character.Attack.Status;
 import com.majalis.character.Attack;
@@ -120,6 +121,21 @@ public class Battle extends Group{
 	private final Label enemyBloodLabel;
 	private final Label grappleStatus;
 	
+	private final Label characterHealthDiff;
+	private final Label characterStaminaDiff;
+	private final Label characterBalanceDiff;
+	private final Label characterArmorDiff;
+	private final Label characterLegwearDiff;
+	private final Label characterUnderwearDiff;
+	private final Label characterBleedDiff;
+	private final Label enemyHealthDiff;
+	private final Label enemyStaminaDiff;
+	private final Label enemyBalanceDiff;
+	private final Label enemyArmorDiff;
+	private final Label enemyLegwearDiff;
+	private final Label enemyUnderwearDiff;
+	private final Label enemyBleedDiff;
+	
 	private final AssetDescriptor<Music> musicPath;
 	
 	private SkillText enemySkill;
@@ -178,6 +194,23 @@ public class Battle extends Group{
 		float consoleXPos = 1200;
 		float consoleYPos = 5;
 		
+		int yAdjust = 25;
+		
+		characterHealthDiff = initLabel("", skin, Color.WHITE, barX + 350, 1035 + yAdjust);
+		characterStaminaDiff = initLabel("", skin, Color.WHITE, barX + 350, 990 + yAdjust);
+		characterBalanceDiff = initLabel("", skin, Color.WHITE, barX + 350, 945 + yAdjust);
+		characterArmorDiff = initLabel("", skin, Color.WHITE, barX + 274, 823 + yAdjust);
+		characterLegwearDiff = initLabel("", skin, Color.WHITE, barX + 274, 770 + yAdjust);
+		characterUnderwearDiff = initLabel("", skin, Color.WHITE, barX + 274, 750 + yAdjust);
+		characterBleedDiff = initLabel("", skin, Color.WHITE, 520, 800 + yAdjust);
+		enemyHealthDiff = initLabel("", skin, Color.WHITE, enemyBarX + 350, 1035 + yAdjust);
+		enemyStaminaDiff = initLabel("", skin, Color.WHITE, enemyBarX + 350, 990 + yAdjust);
+		enemyBalanceDiff = initLabel("", skin, Color.WHITE, enemyBarX + 350, 945 + yAdjust);
+		enemyArmorDiff = initLabel("", skin, Color.WHITE, 1547, 823 + yAdjust);
+		enemyLegwearDiff = initLabel("", skin, Color.WHITE, 1547, 770 + yAdjust);
+		enemyUnderwearDiff = initLabel("", skin, Color.WHITE, 1547, 750 + yAdjust);
+		enemyBleedDiff = initLabel("", skin, Color.WHITE, 1595, 800 + yAdjust);
+		
 		// these should be wrapped as components that accept a character
 		characterHealth = initBar(0, 1, .05f, false, skin, 350, character.getHealthPercent(), barX , 1035);
 		healthIcon = initImage(assetManager.get(character.getHealthDisplay()), barX+3, 1042.5f);
@@ -191,7 +224,7 @@ public class Battle extends Group{
 
 		characterBalance = initBar(0, 1, .05f, false, skin, 350, character.getBalancePercent(), barX, 945);
 		balanceIcon = initImage(assetManager.get(character.getBalanceDisplay()), barX + 3, 952.5f);
-		balanceLabel = initLabel(character.getStability(), skin, Color.BROWN, barX + 75, 948);
+		balanceLabel = initLabel(character.getStability().toString(), skin, Color.BROWN, barX + 75, 948);
 		
 		if (character.hasMagic()) {
 			characterMana = initBar(0, 1, .05f, false, skin, 350, character.getManaPercent(), barX, 900);
@@ -216,16 +249,18 @@ public class Battle extends Group{
 			enemyStamina.addAction(Actions.hide());
 			enemyStaminaIcon.addAction(Actions.hide());
 			enemyStaminaLabel.addAction(Actions.hide());
+			enemyStaminaDiff.addAction(Actions.hide());			
 		}
 		
 		enemyBalance = initBar(0, 1, .05f, false, skin, 350, enemy.getBalancePercent(), enemyBarX, 945);
 		enemyBalanceIcon = initImage(assetManager.get(enemy.getBalanceDisplay()), enemyBarX + 3, 952.5f);
-		enemyBalanceLabel = initLabel(enemy.getStability(), skin, Color.BROWN, enemyBarX + 75, 948);
+		enemyBalanceLabel = initLabel(enemy.getStability().toString(), skin, Color.BROWN, enemyBarX + 75, 948);
 		
 		if (character.getBattlePerception() < 3) {
 			enemyBalance.addAction(Actions.hide());
 			enemyBalanceIcon.addAction(Actions.hide());
 			enemyBalanceLabel.addAction(Actions.hide());
+			enemyBalanceDiff.addAction(Actions.hide());
 		}
 		
 		enemyWeaponLabel = initLabel("Weapon: " + (enemy.getWeapon() != null ? enemy.getWeapon().getName() : "Unarmed"), skin, Color.GOLDENROD, 1578, 900);	
@@ -527,6 +562,22 @@ public class Battle extends Group{
 	private void resolveTechniques(AbstractCharacter firstCharacter, Technique firstTechnique, AbstractCharacter secondCharacter, Technique secondTechnique) {
 		consoleText = "";
 		dialogText = "";
+		int oldCharacterHealth = character.getCurrentHealth();
+		int oldCharacterStamina = character.getCurrentStamina();
+		Stability oldCharacterBalance = character.getStability();
+		int oldCharacterArmor = character.getArmorScore();
+		int oldCharacterLegwear = character.getLegwearScore();
+		int oldCharacterUnderwear = character.getUnderwearScore();
+		int oldCharacterBleed = character.getBleed();
+		
+		int oldEnemyHealth = enemy.getCurrentHealth();
+		int oldEnemyStamina = enemy.getCurrentStamina();
+		Stability oldEnemyBalance = enemy.getStability();
+		int oldEnemyArmor = enemy.getArmorScore();
+		int oldEnemyLegwear = enemy.getLegwearScore();
+		int oldEnemyUnderwear = enemy.getUnderwearScore();
+		int oldEnemyBleed = enemy.getBleed();
+		
 		
 		// cache player character's stance from the previous turn; playerCharacter will cache stance at the start of this turn
 		Stance oldStance = firstCharacter.getStance();
@@ -681,6 +732,22 @@ public class Battle extends Group{
 		console.setText(consoleText);
 		dialog.setText(dialogText);
 		
+		setDiffLabel(characterHealthDiff, character.getCurrentHealth() - oldCharacterHealth);
+		setDiffLabel(characterStaminaDiff, character.getCurrentStamina() - oldCharacterStamina);
+		setDiffLabel(characterBalanceDiff, character.getStability().ordinal() - oldCharacterBalance.ordinal());
+		setDiffLabel(characterArmorDiff, character.getArmorScore() - oldCharacterArmor);
+		setDiffLabel(characterLegwearDiff, character.getLegwearScore() - oldCharacterLegwear);
+		setDiffLabel(characterUnderwearDiff, character.getUnderwearScore() - oldCharacterUnderwear);
+		setDiffLabel(characterBleedDiff, character.getBleed() - oldCharacterBleed, true);
+
+		setDiffLabel(enemyHealthDiff, enemy.getCurrentHealth() - oldEnemyHealth);
+		setDiffLabel(enemyStaminaDiff, enemy.getCurrentStamina() - oldEnemyStamina);
+		setDiffLabel(enemyBalanceDiff, enemy.getStability().ordinal() - oldEnemyBalance.ordinal());
+		setDiffLabel(enemyArmorDiff, enemy.getArmorScore() - oldEnemyArmor);
+		setDiffLabel(enemyLegwearDiff, enemy.getLegwearScore() - oldEnemyLegwear);
+		setDiffLabel(enemyUnderwearDiff, enemy.getUnderwearScore() - oldEnemyUnderwear);
+		setDiffLabel(enemyBleedDiff, enemy.getBleed() - oldEnemyBleed, true);
+		
 		characterHealth.setValue(character.getHealthPercent());
 		characterStamina.setValue(character.getStaminaPercent());
 		characterBalance.setValue(character.getBalancePercent());
@@ -693,13 +760,13 @@ public class Battle extends Group{
 		enemyHealth.setValue(enemy.getHealthPercent());
 		enemyStamina.setValue(enemy.getStaminaPercent());
 		enemyBalance.setValue(enemy.getBalancePercent());
-		healthLabel.setText(character.getCurrentHealth() + " / " + character.getMaxHealth());
 		grappleStatus.setText(character.getGrappleStatus().getLabel());
+		healthLabel.setText(character.getCurrentHealth() + " / " + character.getMaxHealth());
 		staminaLabel.setText(character.getCurrentStamina() + " / " + character.getMaxStamina());
-		balanceLabel.setText(character.getStability());
+		balanceLabel.setText(character.getStability().toString());
 		enemyHealthLabel.setText(enemy.getCurrentHealth() + " / " + enemy.getMaxHealth());
 		enemyStaminaLabel.setText(enemy.getCurrentStamina() + " / " + enemy.getMaxStamina());
-		enemyBalanceLabel.setText(enemy.getStability());
+		enemyBalanceLabel.setText(enemy.getStability().toString());
 		enemyWeaponLabel.setText("Weapon: " + (enemy.getWeapon() != null ? enemy.getWeapon().getName() : "Unarmed"));
 		armorLabel.setText("" + character.getArmorScore());
 		enemyArmorLabel.setText("" + enemy.getArmorScore());	
@@ -760,6 +827,41 @@ public class Battle extends Group{
 		enemyBalanceIcon.setDrawable(getDrawable(enemy.getBalanceDisplay()));
 				
 		masculinityIcon.setDrawable(getDrawable(character.getMasculinityPath()));	
+	}
+	
+	private void setDiffLabel(Label label, int value) {
+		setDiffLabel(label, value, false);
+	}
+	
+	private void setDiffLabel(final Label label, int value, boolean reverse) {
+		label.clearActions();
+		if (value == 0) {
+			label.setText("");
+		}
+		else if (value > 0) {
+			label.setColor(reverse ? Color.RED : Color.GREEN);
+			label.setText("+" + value);
+			label.addAction(sequence(alpha(1), fadeOut(6)));
+			label.setFontScale(1.5f);
+			label.addAction(sequence(delay(1), new Action(){
+				@Override
+				public boolean act(float delta) {
+					label.setFontScale(1);
+					return false;
+				} }));
+		}
+		else {
+			label.setColor(reverse ? Color.GREEN : Color.RED);
+			label.setText(String.valueOf(value));
+			label.addAction(sequence(alpha(1), fadeOut(6)));
+			label.setFontScale(1.5f);
+			label.addAction(sequence(delay(1), new Action(){
+				@Override
+				public boolean act(float delta) {
+					label.setFontScale(1);
+					return false;
+				} }));
+		}
 	}
 	
 	private void setEnemyTechnique() {

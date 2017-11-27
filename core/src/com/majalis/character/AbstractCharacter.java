@@ -207,7 +207,7 @@ public abstract class AbstractCharacter extends Actor {
 		}
 	}
 	
-	public String getStability() { return stability.toString(); }
+	public Stability getStability() { return stability; }
 	
 	public int getLust() { return lust; }
 	
