@@ -61,6 +61,7 @@ public class ReplayScreen extends AbstractScreen {
 	private final ObjectMap<String, Integer> enemyKnowledge;
 	private final Skin skin;
 	private final Sound sound;
+	private final Image cg;
 	private EnemyCharacter currentCharacter;
 	private String nothingToDisplay;
 	
@@ -71,6 +72,7 @@ public class ReplayScreen extends AbstractScreen {
 		this.enemyKnowledge = enemyKnowledge;
 		this.skin = assetManager.get(AssetEnum.UI_SKIN.getSkin());
 		this.sound = assetManager.get(AssetEnum.BUTTON_SOUND.getSound());
+		this.cg = new Image(assetManager.get(AssetEnum.NULL.getTexture()));
 		nothingToDisplay = "No knowledge to display yet.";
 	}
 
@@ -110,10 +112,11 @@ public class ReplayScreen extends AbstractScreen {
 		cgTable.setFillParent(true);     
 		cgTable.align(Align.top);
         this.addActor(cgTable);
-        cgTable.setPosition(550, -600);
+        cgTable.setPosition(500, -750);
 		
+        
 		for (final EnemyEnum type : EnemyEnum.values()) {
-			if (!enemyKnowledge.containsKey(type.toString())) continue;
+			//if (!enemyKnowledge.containsKey(type.toString())) continue;
 			nothingToDisplay = "";
 			TextButton button = new TextButton(type.toString(), skin);
 			ObjectMap<Stance, Array<Texture>> textures = new ObjectMap<Stance, Array<Texture>>();			
@@ -137,7 +140,7 @@ public class ReplayScreen extends AbstractScreen {
 						currentCharacter = enemy;
 						enemy.addAction(Actions.show());
 						displayText.setText(type.getDescription());
-						fillCGTable(cgTable, type);
+						fillCGTable(cgTable, type, enemy);
 			        }
 				}
 			);
@@ -163,18 +166,19 @@ public class ReplayScreen extends AbstractScreen {
 		);
 		done.setPosition(1500, 100);
 		this.addActor(done);
+		this.addActor(cg);
 	}
 	
-	private void fillCGTable(final Table table, final EnemyEnum type) {
+	private void fillCGTable(final Table table, final EnemyEnum type, final EnemyCharacter enemy) {
 		table.clear();
-		
-		final Image cg = new Image(assetManager.get(AssetEnum.NULL.getTexture()));
-		this.addActor(cg);
+		cg.clear();
+		cg.addAction(Actions.hide());
 		cg.addListener(
 			new ClickListener() {
 				@Override
 		        public void clicked(InputEvent event, float x, float y) {
 					cg.addAction(Actions.hide());
+					enemy.addAction(Actions.show());
 		        }
 			}
 		);
@@ -186,6 +190,7 @@ public class ReplayScreen extends AbstractScreen {
 		        public void clicked(InputEvent event, float x, float y) {
 					sound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
 					cg.addAction(Actions.hide());
+					enemy.addAction(Actions.show());
 		        }
 			}
 		);
@@ -193,48 +198,58 @@ public class ReplayScreen extends AbstractScreen {
 		
 		switch(type) {
 			case ADVENTURER:
+				attachListener(new TextButton("Cowgirl", skin), AssetEnum.ADVENTURER_ANAL, cg, enemy, table);
 				break;
 			case ANGEL:
 				break;
 			case BEASTMISTRESS:
 				break;
 			case BRIGAND:
+				attachListener(new TextButton("Missionary", skin), AssetEnum.BRIGAND_MISSIONARY, cg, enemy, table);
+				attachListener(new TextButton("Irrumatio", skin), AssetEnum.BRIGAND_ORAL, cg, enemy, table);
 				break;
 			case BUNNY:
 				break;
 			case CENTAUR:
+				attachListener(new TextButton("Anal", skin), AssetEnum.CENTAUR_ANAL, cg, enemy, table);
+				attachListener(new TextButton("Anal (X-ray)", skin), AssetEnum.CENTAUR_ANAL_XRAY, cg, enemy, table);
+				table.row();
+				attachListener(new TextButton("Oral", skin), AssetEnum.CENTAUR_ORAL, cg, enemy, table);
 				break;
 			case GHOST:
 				break;
 			case GOBLIN:
-				TextButton gobAnal = new TextButton("Anal", skin);
-				attachListener(gobAnal, AssetEnum.GOBLIN_ANAL, cg);
-				table.add(gobAnal);
-				TextButton gobFacesit = new TextButton("Facesit", skin);
-				attachListener(gobFacesit, AssetEnum.GOBLIN_FACE_SIT, cg);
-				table.add(gobFacesit);
+				attachListener(new TextButton("Doggy", skin), AssetEnum.GOBLIN_ANAL, cg, enemy, table);
+				attachListener(new TextButton("Facesit", skin), AssetEnum.GOBLIN_FACE_SIT, cg, enemy, table);
 				break;
 			case GOBLIN_MALE:
-				TextButton gobMAnal = new TextButton("Anal", skin);
-				attachListener(gobMAnal, AssetEnum.GOBLIN_ANAL_MALE, cg);
-				table.add(gobMAnal);
-				TextButton gobMFacesit = new TextButton("Facesit", skin);
-				attachListener(gobMFacesit, AssetEnum.GOBLIN_FACE_SIT_MALE, cg);
-				table.add(gobMFacesit);
+				attachListener(new TextButton("Anal", skin), AssetEnum.GOBLIN_ANAL_MALE, cg, enemy, table);
+				attachListener(new TextButton("Facesit", skin), AssetEnum.GOBLIN_FACE_SIT_MALE, cg, enemy, table);
 				break;
 			case GOLEM:
 				break;
 			case HARPY:
+				attachListener(new TextButton("Doggy", skin), AssetEnum.HARPY_ANAL, cg, enemy, table);
+				attachListener(new TextButton("Fellatio 1", skin), AssetEnum.HARPY_FELLATIO_0, cg, enemy, table);
+				table.row();
+				attachListener(new TextButton("Fellatio 2", skin), AssetEnum.HARPY_FELLATIO_1, cg, enemy, table);
+				attachListener(new TextButton("Fellatio 3", skin), AssetEnum.HARPY_FELLATIO_2, cg, enemy, table);
+				attachListener(new TextButton("Fellatio 4", skin), AssetEnum.HARPY_FELLATIO_3, cg, enemy, table);
 				break;
 			case OGRE:
+				attachListener(new TextButton("Game Over", skin), AssetEnum.OGRE_BANGED, cg, enemy, table);
 				break;
 			case ORC:
+				attachListener(new TextButton("Anal", skin), AssetEnum.ORC_PRONE_BONE, cg, enemy, table);
 				break;
 			case SLIME:
+				attachListener(new TextButton("Love Dart", skin), AssetEnum.SLIME_DOGGY, cg, enemy, table);
 				break;
 			case SPIDER:
 				break;
 			case UNICORN:
+				attachListener(new TextButton("Anal", skin), AssetEnum.UNICORN_ANAL, cg, enemy, table);
+				attachListener(new TextButton("Anal (X-ray)", skin), AssetEnum.UNICORN_ANAL_XRAY, cg, enemy, table);
 				break;
 			case WERESLUT:
 				break;
@@ -244,7 +259,7 @@ public class ReplayScreen extends AbstractScreen {
 		}
 	}
 	
-	private void attachListener(final TextButton button, final AssetEnum asset, final Image image) {
+	private void attachListener(final TextButton button, final AssetEnum asset, final Image image, final EnemyCharacter toHide, final Table toAdd) {
 		button.addListener(new ClickListener() {
 			@Override
 	        public void clicked(InputEvent event, float x, float y) {
@@ -255,8 +270,10 @@ public class ReplayScreen extends AbstractScreen {
 				image.setPosition(0, 0);
 				image.setWidth((int) (texture.getWidth() / (texture.getHeight() / 1080.)));
 				image.setHeight(1080);
+				toHide.addAction(Actions.hide());
 	        }
 		});
+		toAdd.add(button);
 	}
 	
 	@Override
