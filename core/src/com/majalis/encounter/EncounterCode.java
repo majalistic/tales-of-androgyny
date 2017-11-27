@@ -281,19 +281,19 @@ public enum EncounterCode {
 				});
 			case BRIGAND:
 				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{
-					AssetEnum.BRIGAND_ANIMATION.getAnimation(),
 					AssetEnum.BRIGAND_ORAL.getTexture(),
 					AssetEnum.BRIGAND_MISSIONARY.getTexture(),
 					AssetEnum.CUM.getSound(),
 					AssetEnum.CUM_BUBBLING.getSound(),
+					AssetEnum.BRIGAND_ANIMATION.getAnimation()
 				});
 			case BRIGAND_STORY:
 				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{
-					AssetEnum.BRIGAND_ANIMATION.getAnimation(),
 					AssetEnum.BRIGAND_ORAL.getTexture(),
 					AssetEnum.BRIGAND_MISSIONARY.getTexture(),
 					AssetEnum.CUM.getSound(),
 					AssetEnum.CUM_BUBBLING.getSound(),
+					AssetEnum.BRIGAND_ANIMATION.getAnimation()
 				});
 			case BUNNY:
 				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{

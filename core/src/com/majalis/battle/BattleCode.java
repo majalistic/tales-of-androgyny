@@ -54,6 +54,7 @@ public enum BattleCode {
 			case BEASTMISTRESS:
 				break;
 			case BRIGAND:
+			case BRIGAND_STORY:
 				temp.add(AssetEnum.BRIGAND_ANIMATION.getAnimation());
 				temp.add(AssetEnum.ANAL_ANIMATION.getAnimation());
 				break;
@@ -67,12 +68,11 @@ public enum BattleCode {
 			case GOBLIN_STORY:
 				break;
 			case HARPY:
+			case HARPY_STORY:
 				temp.add(AssetEnum.HARPY_ANIMATION.getAnimation());
 				temp.add(AssetEnum.HARPY_ATTACK_ANIMATION.getAnimation());
 				temp.add(AssetEnum.FEATHERS_ANIMATION.getAnimation());
 				temp.add(AssetEnum.FEATHERS2_ANIMATION.getAnimation());
-				break;
-			case HARPY_STORY:
 				break;
 			case OGRE:
 				break;
