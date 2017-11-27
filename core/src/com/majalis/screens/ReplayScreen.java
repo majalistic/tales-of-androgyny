@@ -45,10 +45,17 @@ public class ReplayScreen extends AbstractScreen {
 					resourceRequirements.add(textures);
 				}
 			}
+			for (ObjectMap.Entry<String, Array<String>> entry : type.getImagePaths()) {
+				for (String path : entry.value) {
+					resourceRequirements.add(new AssetDescriptor<Texture>(path, Texture.class));
+				}
+			}
 		}		
 		resourceRequirements.add(AssetEnum.MAIN_MENU_MUSIC.getMusic());
 		resourceRequirements.add(AssetEnum.DEFAULT_BACKGROUND.getTexture());
-
+		resourceRequirements.add(AssetEnum.NULL.getTexture());
+		resourceRequirements.add(AssetEnum.OGRE_BANGED.getTexture());
+		
 		Array<AssetEnum> animationReqs = new Array<AssetEnum>(new AssetEnum[]{
 			HARPY_ANIMATION, HARPY_ATTACK_ANIMATION, FEATHERS_ANIMATION, FEATHERS2_ANIMATION, BRIGAND_ANIMATION, ANAL_ANIMATION, CENTAUR_ANIMATION, ORC_ANIMATION			
 		});

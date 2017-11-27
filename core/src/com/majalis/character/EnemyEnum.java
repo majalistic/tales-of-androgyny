@@ -64,7 +64,10 @@ public enum EnemyEnum {
     // there should be another method that accepts an assetManager and returns the actual maps
     public ObjectMap<String, Array<String>> getImagePaths() { 
     	ObjectMap<String, Array<String>> textureImagePaths = new ObjectMap<String, Array<String>>();
-    	if (this == HARPY) { textureImagePaths.put(Stance.FELLATIO.toString(), new Array<String>(new String[]{AssetEnum.HARPY_FELLATIO_0.getPath(), AssetEnum.HARPY_FELLATIO_1.getPath(), AssetEnum.HARPY_FELLATIO_2.getPath(), AssetEnum.HARPY_FELLATIO_3.getPath()})); }
+    	if (this == HARPY) { 
+    		textureImagePaths.put(Stance.FELLATIO.toString(), new Array<String>(new String[]{AssetEnum.HARPY_FELLATIO_0.getPath(), AssetEnum.HARPY_FELLATIO_1.getPath(), AssetEnum.HARPY_FELLATIO_2.getPath(), AssetEnum.HARPY_FELLATIO_3.getPath()})); 
+    		textureImagePaths.put(Stance.DOGGY.toString(), new Array<String>(new String[]{AssetEnum.HARPY_ANAL.getPath()}));
+    	}
     	else if (this == SLIME) { textureImagePaths.put(Stance.DOGGY.toString(),new Array<String>(new String[]{AssetEnum.SLIME_DOGGY.getPath()})); }
     	else if (this == BRIGAND) { 
     		textureImagePaths.put(Stance.FELLATIO.toString(),new Array<String>(new String[]{AssetEnum.BRIGAND_ORAL.getPath()}));
@@ -87,6 +90,9 @@ public enum EnemyEnum {
     	else if (this == CENTAUR) {
     		textureImagePaths.put(Stance.DOGGY.toString(), new Array<String>(new String[]{AssetEnum.CENTAUR_ANAL.getPath(), AssetEnum.CENTAUR_ANAL_XRAY.getPath()})); 
     		textureImagePaths.put(Stance.FELLATIO.toString(), new Array<String>(new String[]{AssetEnum.CENTAUR_ORAL.getPath()})); 
+    	}
+    	else if (this == UNICORN) {
+    		textureImagePaths.put(Stance.DOGGY.toString(), new Array<String>(new String[]{AssetEnum.UNICORN_ANAL.getPath(), AssetEnum.UNICORN_ANAL_XRAY.getPath()})); 
     	}
     	else if (this == ADVENTURER) {
     		textureImagePaths.put(Stance.COWGIRL_BOTTOM.toString(), new Array<String>(new String[]{AssetEnum.ADVENTURER_ANAL.getPath()})); 
