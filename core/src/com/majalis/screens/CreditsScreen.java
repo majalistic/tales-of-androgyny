@@ -52,6 +52,7 @@ public class CreditsScreen extends AbstractScreen{
 				+ "\n\nSuccubus-Tier patrons that helped make this happen:"
 				+ "\nDarksideX, JennaTran, Joel Fields, Laersect, and special thanks to crufl and Ace for moral support, advice and friendship! Love you both!"
 				+ "\nMucho kudos to official contributor Dern for programming, debugging and support!"
+				+ "\nAlso special thanks to NobleIntentions and UpsideDownArbys for listening to Maj frustrations!"
 				+ "\n\nCopy-editing and play-testing by T3mp3st, Legion, Fattycakes, and anonymous others"
 				+ "\nAlso thanks to all of our patrons, who are making this possible!"
 				;
