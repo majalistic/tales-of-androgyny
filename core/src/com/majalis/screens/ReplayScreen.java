@@ -113,10 +113,9 @@ public class ReplayScreen extends AbstractScreen {
 		cgTable.align(Align.top);
         this.addActor(cgTable);
         cgTable.setPosition(500, -750);
-		
-        
+	
 		for (final EnemyEnum type : EnemyEnum.values()) {
-			//if (!enemyKnowledge.containsKey(type.toString())) continue;
+			if (!enemyKnowledge.containsKey(type.toString())) continue;
 			nothingToDisplay = "";
 			TextButton button = new TextButton(type.toString(), skin);
 			ObjectMap<Stance, Array<Texture>> textures = new ObjectMap<Stance, Array<Texture>>();			
@@ -195,6 +194,8 @@ public class ReplayScreen extends AbstractScreen {
 			}
 		);
 		table.add(button);
+		
+		// for replay button - need to create an encounter that autosaves to a different slot
 		
 		switch(type) {
 			case ADVENTURER:
