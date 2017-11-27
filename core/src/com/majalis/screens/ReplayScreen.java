@@ -10,13 +10,16 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
@@ -102,6 +105,13 @@ public class ReplayScreen extends AbstractScreen {
 		this.addActor(displayText);
 		
 		boolean left = true;
+		
+		final Table cgTable = new Table();
+		cgTable.setFillParent(true);     
+		cgTable.align(Align.top);
+        this.addActor(cgTable);
+        cgTable.setPosition(550, -600);
+		
 		for (final EnemyEnum type : EnemyEnum.values()) {
 			if (!enemyKnowledge.containsKey(type.toString())) continue;
 			nothingToDisplay = "";
@@ -127,6 +137,7 @@ public class ReplayScreen extends AbstractScreen {
 						currentCharacter = enemy;
 						enemy.addAction(Actions.show());
 						displayText.setText(type.getDescription());
+						fillCGTable(cgTable, type);
 			        }
 				}
 			);
@@ -152,6 +163,100 @@ public class ReplayScreen extends AbstractScreen {
 		);
 		done.setPosition(1500, 100);
 		this.addActor(done);
+	}
+	
+	private void fillCGTable(final Table table, final EnemyEnum type) {
+		table.clear();
+		
+		final Image cg = new Image(assetManager.get(AssetEnum.NULL.getTexture()));
+		this.addActor(cg);
+		cg.addListener(
+			new ClickListener() {
+				@Override
+		        public void clicked(InputEvent event, float x, float y) {
+					cg.addAction(Actions.hide());
+		        }
+			}
+		);
+	
+		TextButton button = new TextButton("Normal", skin);
+		button.addListener(
+			new ClickListener() {
+				@Override
+		        public void clicked(InputEvent event, float x, float y) {
+					sound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
+					cg.addAction(Actions.hide());
+		        }
+			}
+		);
+		table.add(button);
+		
+		switch(type) {
+			case ADVENTURER:
+				break;
+			case ANGEL:
+				break;
+			case BEASTMISTRESS:
+				break;
+			case BRIGAND:
+				break;
+			case BUNNY:
+				break;
+			case CENTAUR:
+				break;
+			case GHOST:
+				break;
+			case GOBLIN:
+				TextButton gobAnal = new TextButton("Anal", skin);
+				attachListener(gobAnal, AssetEnum.GOBLIN_ANAL, cg);
+				table.add(gobAnal);
+				TextButton gobFacesit = new TextButton("Facesit", skin);
+				attachListener(gobFacesit, AssetEnum.GOBLIN_FACE_SIT, cg);
+				table.add(gobFacesit);
+				break;
+			case GOBLIN_MALE:
+				TextButton gobMAnal = new TextButton("Anal", skin);
+				attachListener(gobMAnal, AssetEnum.GOBLIN_ANAL_MALE, cg);
+				table.add(gobMAnal);
+				TextButton gobMFacesit = new TextButton("Facesit", skin);
+				attachListener(gobMFacesit, AssetEnum.GOBLIN_FACE_SIT_MALE, cg);
+				table.add(gobMFacesit);
+				break;
+			case GOLEM:
+				break;
+			case HARPY:
+				break;
+			case OGRE:
+				break;
+			case ORC:
+				break;
+			case SLIME:
+				break;
+			case SPIDER:
+				break;
+			case UNICORN:
+				break;
+			case WERESLUT:
+				break;
+			default:
+				break;
+			
+		}
+	}
+	
+	private void attachListener(final TextButton button, final AssetEnum asset, final Image image) {
+		button.addListener(new ClickListener() {
+			@Override
+	        public void clicked(InputEvent event, float x, float y) {
+				sound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
+				Texture texture = assetManager.get(asset.getTexture());
+				image.setDrawable(new TextureRegionDrawable(new TextureRegion(texture)));
+				image.addAction(Actions.show());
+				image.setPosition(0, 0);
+				image.setWidth((int) (texture.getWidth() / (texture.getHeight() / 1080.)));
+				image.setHeight(1080);
+	        }
+		});
 	}
 	
 	@Override
