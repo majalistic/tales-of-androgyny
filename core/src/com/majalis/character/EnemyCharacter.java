@@ -1164,7 +1164,9 @@ public class EnemyCharacter extends AbstractCharacter {
 		else if (enemy.getCurrentHealth() <= 0) return Outcome.DEFEAT;
 		switch(enemyType) {
 			case BRIGAND:
-				if (getToppingClimaxCount() >= 2) return Outcome.SATISFIED;
+				if (!storyMode) {
+					if (getToppingClimaxCount() >= 2) return Outcome.SATISFIED;
+				}
 				break;
 			case CENTAUR:
 				if (getToppingClimaxCount() >= 1) return Outcome.SATISFIED;
@@ -1176,10 +1178,12 @@ public class EnemyCharacter extends AbstractCharacter {
 				if (getToppingClimaxCount() >= 5) return Outcome.SATISFIED;
 				break;
 			case HARPY:
-				if (getToppingClimaxCount() >= 2) return Outcome.SATISFIED;
 				if (storyMode) {
 					if (stance == Stance.FELLATIO && oldStance == Stance.AIRBORNE) return Outcome.KNOT_ORAL;
 					if (stance.isAnalPenetration()) return Outcome.KNOT_ANAL;
+				}
+				else {
+					if (getToppingClimaxCount() >= 2) return Outcome.SATISFIED;
 				}
 				
 				break;

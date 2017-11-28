@@ -131,6 +131,7 @@ public class BattleFactory {
 			case ORC: return new EnemyCharacter(getTextures(EnemyEnum.ORC), getTextureMap(EnemyEnum.ORC), EnemyEnum.ORC.getAnimations(assetManager), EnemyEnum.ORC, stance);
 			case ADVENTURER: return new EnemyCharacter(getTextures(EnemyEnum.ADVENTURER), getTextureMap(EnemyEnum.ADVENTURER), EnemyEnum.ADVENTURER.getAnimations(assetManager), EnemyEnum.ADVENTURER, stance);
 			case OGRE: return new EnemyCharacter(getTextures(EnemyEnum.OGRE), getTextureMap(EnemyEnum.OGRE), EnemyEnum.OGRE.getAnimations(assetManager), EnemyEnum.OGRE, stance);
+			case OGRE_STORY: return new EnemyCharacter(getTextures(EnemyEnum.OGRE), getTextureMap(EnemyEnum.OGRE), EnemyEnum.OGRE.getAnimations(assetManager), EnemyEnum.OGRE, stance, true);			
 			case BEASTMISTRESS: return new EnemyCharacter(getTextures(EnemyEnum.BEASTMISTRESS), getTextureMap(EnemyEnum.BEASTMISTRESS), EnemyEnum.BEASTMISTRESS.getAnimations(assetManager), EnemyEnum.BEASTMISTRESS, stance);
 			case SPIDER: return new EnemyCharacter(getTextures(EnemyEnum.SPIDER), getTextureMap(EnemyEnum.SPIDER), EnemyEnum.SPIDER.getAnimations(assetManager), EnemyEnum.SPIDER, stance);
 			case GOLEM: return new EnemyCharacter(getTextures(EnemyEnum.GOLEM), getTextureMap(EnemyEnum.GOLEM), EnemyEnum.GOLEM.getAnimations(assetManager), EnemyEnum.GOLEM, stance);

@@ -894,9 +894,10 @@ public class EncounterBuilder {
 			    ).getEncounter();			
 			case OGRE_STORY:
 				return new Branch().textScene("STORY-OGRE").battleScene(
-					BattleCode.OGRE,
+					BattleCode.OGRE_STORY,
 					new Branch(Outcome.VICTORY).textScene("STORY-OGRE-VICTORY"), 
-					new Branch(Outcome.DEFEAT).textScene("STORY-OGRE-DEFEAT").gameEnd()
+					new Branch(Outcome.DEFEAT).textScene("STORY-OGRE-DEFEAT").gameEnd(),
+					new Branch(Outcome.SATISFIED).textScene("STORY-OGRE-DEFEAT").gameEnd()
 				).getEncounter();
 			case OGRE_WARNING_STORY:
 				return new Branch().textScene("OGRE-WARN").encounterEnd().getEncounter();
