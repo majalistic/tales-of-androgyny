@@ -263,8 +263,11 @@ public class CheckScene extends AbstractTextScene {
 		DEBT_WARNING("", "") { 
 			@Override
 			protected boolean getCheck(PlayerCharacter character) { int check = character.getQuestStatus(QuestType.DEBT); return check == 1; }  
-		},
-		;
+		}, 
+		GADGETEER_MET("", "") { 
+			@Override
+			protected boolean getCheck(PlayerCharacter character) { int check = character.getQuestStatus(QuestType.GADGETEER); return check == 1; }  
+		},;
 		
 		private final String success;
 		private final String failure;

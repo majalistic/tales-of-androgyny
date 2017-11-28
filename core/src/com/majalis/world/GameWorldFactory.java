@@ -59,10 +59,9 @@ public class GameWorldFactory {
 		character = loadService.loadDataValue(SaveEnum.PLAYER, PlayerCharacter.class);
 		
 		if (gameMode == GameMode.SKIRMISH) {
-			
 			new Zone(loadService, assetManager, random, nodes, nodeMap, 1,  1)
 				.addStartNode(1, INITIAL, DEFAULT, 3, 10)
-				.addEndNode(10000, GADGETEER, DEFAULT, 3, 32)
+				.addEndNode(10000, GADGETEER, GADGETEER, 3, 32)
 				.buildZone();
 			
 			Zone zone = new Zone(loadService, assetManager, random, nodes, nodeMap, 1,  2)

@@ -3134,12 +3134,26 @@
 			{
 			"foreground": "GADGETEER",
 			"music": "GADGETEER_MUSIC",
+			"text": ""}
+		]
+	},
+	{
+		"key": "GADGETEER-FIRST-VISIT",
+		"scriptLines": [
+			{
+			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "GADGETEER", "value":1}}],
 			"text": "You come across a travelling merchant.  Or, at least, you think she's a merchant, as she's carrying a massive sack filled with... what look like weapons, although not any kind of weapon you've come across before."},
 			{"text": "\"Hey there!\" she says, waving you down, and you approach cautiously.  When you get within speaking distance, you see that her eyes are strange, somehow inhuman.  Otherwise, aside from her rather prominent figure, you don't notice anything odd about her - only about what she's carrying."},
 			{"text": "\"Uh... hail.  Are you, by any chance, a merchant?\""},
 			{"text": "She smirks. \"You could say that.  I'm more of a peddler.\""},
 			{"text": "\"Can I... see your wares?\" you say, eyeing some of the more... exotic looking items she's carrying.  You're not sure what they're for, but your throat tightens as you stare up their length - and so does another part of you."},
 			{"text": "\"Go for it!  Let me know if you see anything you like.\""}
+		]
+	},
+	{
+		"key": "GADGETEER-REUNION",
+		"scriptLines": [
+			{"text": "You return to the eccentric merchant.  She's eager to show you her wares."}
 		]
 	},
 	{

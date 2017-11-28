@@ -467,7 +467,8 @@ public class EncounterBuilder {
 				Branch no = new Branch("No thanks").textScene("GADGETEER-NO").encounterEnd();
 				Branch yes = new Branch().textScene("GADGETEER-SLAVE").gameEnd();
 				Branch[] yesyesyes = new Branch[]{new Branch("yes").concat(yes), new Branch("yeS").concat(yes), new Branch("YES").concat(yes)};
-				return new Branch().textScene("GADGETEER-INTRO").choiceScene(
+				
+				Branch shop = new Branch().choiceScene(
 					"Do you want to peruse her wares?", 
 					new Branch("Peruse").shopScene(ShopCode.GADGETEER_SHOP).checkScene(
 						CheckType.CHASTITIED, 
@@ -505,7 +506,8 @@ public class EncounterBuilder {
 						)
 					),
 					no
-				).getEncounter();
+				);
+				return new Branch().textScene("GADGETEER-INTRO").checkScene(CheckType.GADGETEER_MET, new Branch(true).textScene("GADGETEER-REUNION").concat(shop), new Branch(false).textScene("GADGETEER-FIRST-VISIT").concat(shop)).getEncounter();
 			case GHOST:
 				String spookyGhostScene = Gdx.app.getPreferences("tales-of-androgyny-preferences").getBoolean("blood", true) ? "GHOST-BLOODY" : "GHOST-BLOODLESS";
 				Branch ghostPossession = new Branch().textScene("GHOST-POSSESSION").gameEnd();
