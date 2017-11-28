@@ -121,7 +121,7 @@ public enum EnemyEnum {
 	public ArmorType getLegwearType() { return template.getLegwearType(); }
 	public ArmorType getUnderwearType() { return template.getUnderwearType(); }
 	public boolean canBleed() { return this != SLIME && this != GOLEM && this != GHOST; }
-	public boolean willFaceSit() { return this != CENTAUR && this != UNICORN && this != GHOST && this != OGRE; } 
+	public boolean willFaceSit() { return this != CENTAUR && this != UNICORN && this != GHOST && this != OGRE && this != SPIDER;} 
 	public boolean willArmorSunder() { return this == BRIGAND || this == ORC || this == ADVENTURER; }
 	public boolean willParry() { return this == BRIGAND || this == ADVENTURER; }
 	public boolean canBeRidden() { return this != SLIME && this != CENTAUR && this != UNICORN && this != BEASTMISTRESS && this != GHOST && this != ANGEL; }
