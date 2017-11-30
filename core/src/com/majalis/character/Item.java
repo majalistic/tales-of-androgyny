@@ -200,7 +200,7 @@ public abstract class Item {
 				case Dagger: return stats.get(Stat.AGILITY) / 2 + bonus;
 				case Rapier: return (stats.get(Stat.AGILITY)) / 3 + 1 + bonus;
 				case Axe: 
-				case Greatclub: return (stats.get(Stat.STRENGTH)) / 3 + 2 + bonus;
+				case Greatclub: return (stats.get(Stat.STRENGTH)) / 3 + 1 + bonus;
 				case Gladius:
 				case Cutlass: return (stats.get(Stat.STRENGTH) + stats.get(Stat.AGILITY)) / 5 + 1 + bonus;
 				case Club:

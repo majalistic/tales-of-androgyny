@@ -167,7 +167,8 @@ public class Technique {
 			technique.getClimaxType(), 
 			getForceStance(),
 			technique.isSpell(),
-			new Buff(technique.getBuff(), thisPayload.getTotalPower()),
+			new Buff(technique.getSelfEffect(), thisPayload.getTotalPower()),
+			new Buff(technique.getEnemyEffect(), thisPayload.getTotalPower()),
 			technique.isDamaging() && !technique.doesSetDamage(), // is attack,
 			technique.getTechniqueHeight() == TechniqueHeight.HIGH ? AttackHeight.HIGH : technique.getTechniqueHeight() == TechniqueHeight.MEDIUM ? AttackHeight.MEDIUM : technique.getTechniqueHeight() == TechniqueHeight.LOW ? AttackHeight.LOW : AttackHeight.NONE,
 			technique.isDamaging() && !technique.doesSetDamage() && technique.isSpell(), // ignores armor
@@ -196,7 +197,8 @@ public class Technique {
 				null, // climax type
 				null, // force stance
 				false, // is magic
-				null, // buff
+				null, // self effect
+				null, // enemy effect
 				true, // is attack
 				AttackHeight.MEDIUM,
 				false, // ignores armor
@@ -296,7 +298,7 @@ public class Technique {
 		private TechniquePayload(TechniquePrototype technique, CharacterState currentState, int skillLevel, Array<Bonus> toApply) {
 			this.technique = technique;
 			this.bonuses = toApply;
-			this.basePower = technique.isSpell() ? (technique.getBuff() != null ? currentState.getRawStat(Stat.MAGIC) : currentState.getStat(Stat.MAGIC)): technique.isTaunt() ? currentState.getRawStat(Stat.CHARISMA) : 
+			this.basePower = technique.isSpell() ? (technique.getSelfEffect() != null ? currentState.getRawStat(Stat.MAGIC) : currentState.getStat(Stat.MAGIC)): technique.isTaunt() ? currentState.getRawStat(Stat.CHARISMA) : 
 				// should check if technique can use weapon, and the weapon base damage should come from currentState.getWeaponDamage() rather than exposing these weapons
 				currentState.getStat(Stat.STRENGTH) + (currentState.getWeapon() != null ? currentState.getWeapon().getDamage(currentState.getStats()) : 0);	
 			int powerCalc = technique.getPowerMod();

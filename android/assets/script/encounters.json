@@ -378,7 +378,7 @@
 			{"text": ".."},
 			{"text": "."},
 			{
-			"mutations": [{"saveType":"SKILL", "value":{"class": "com.majalis.character.Techniques", "value": "COMBAT_FIRE"}}],
+			"mutations": [{"saveType":"SKILL", "value":{"class": "com.majalis.character.Techniques", "value": "COMBAT_FIRE"}}, {"saveType":"SKILL", "value":{"class": "com.majalis.character.Techniques", "value": "WEAKENING_CURSE"}}],
 			"text": "\"Rise and shine, boyo,\" she says, and you realize that at some point, your eyes closed... and, in fact, you're laying down on a long, cushioned seat in her cottage.  You feel your body - nothing appears to be missing - and you look around."},
 			{"text": "The room is as it was before, but now that you're further in, you can see some of the strange instruments laying about, as well as a ring of iron, the height and width of a person, mounted on a wall."},
 			{"text": "You also find the source of the voice, and it's her, the witch, Meri, standing in front of one of the orbs, her eyes closed, her lips curled into a smile."},

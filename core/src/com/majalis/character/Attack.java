@@ -26,7 +26,8 @@ public class Attack {
 	private final ClimaxType climaxType;
 	private final Stance forceStance;
 	private final boolean isSpell;
-	private final Buff buff;
+	private final Buff selfEffect;
+	private final Buff enemyEffect;
 	private final boolean isAttack;
 	private final AttackHeight height;
 	private final boolean ignoresArmor;
@@ -50,7 +51,7 @@ public class Attack {
 	}
 	
 	// this should have all the info for an attack, including damage or effects that were blocked
-	protected Attack(Status status, String name, int rawDamage, double blockMod, int force, int rawArmorBreak, int gutcheck, int healing, int lust, GrappleStatus grapple, int disarm, int trip, int bleeding, int plugRemove, ClimaxType climaxType, Stance forceStance, boolean isSpell, Buff buff, 
+	protected Attack(Status status, String name, int rawDamage, double blockMod, int force, int rawArmorBreak, int gutcheck, int healing, int lust, GrappleStatus grapple, int disarm, int trip, int bleeding, int plugRemove, ClimaxType climaxType, Stance forceStance, boolean isSpell, Buff selfEffect, Buff enemyEffect, 
 					boolean isAttack, AttackHeight height, boolean ignoresArmor, Array<Bonus> bonuses, Item useItem, AbstractCharacter user) {
 		this.status = status;
 		this.name = name;
@@ -69,7 +70,8 @@ public class Attack {
 		this.climaxType = climaxType;
 		this.forceStance = forceStance;
 		this.isSpell = isSpell;
-		this.buff = buff;
+		this.selfEffect = selfEffect;
+		this.enemyEffect = enemyEffect;
 		this.isAttack = isAttack;
 		this.height = height;
 		this.ignoresArmor = ignoresArmor;
@@ -105,7 +107,8 @@ public class Attack {
 	protected ClimaxType getClimaxType() { return climaxType; }
 	public int getArmorSunder() { return (int)(rawDamage * rawArmorBreak * blockMod) / 4; }
 	public boolean isSpell() { return isSpell; }
-	public Buff getBuff() { return buff == null ? null : buff.type == null ? null : buff; }
+	public Buff getSelfEffect() { return selfEffect == null ? null : selfEffect.type == null ? null : selfEffect; }
+	public Buff getEnemyEffect() { return enemyEffect == null ? null : enemyEffect.type == null ? null : enemyEffect; }
 	public Array<Bonus> getBonuses() { return bonuses != null ? bonuses : new Array<Bonus>(); }
 	public boolean ignoresArmor() { return ignoresArmor; }
 	public Item getItem() { return useItem; }

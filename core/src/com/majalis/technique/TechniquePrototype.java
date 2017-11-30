@@ -31,14 +31,15 @@ public class TechniquePrototype {
 	private final boolean blockable;
 	private final GrappleType grapple;
 	private final ClimaxType climaxType;
-	private final StatusType buff;
+	private final StatusType selfEffect;
+	private final StatusType enemyEffect;
 	private final String description;
 	private final String lightDescription;
 	private final String bonusInfo;
 	private final ObjectMap<BonusCondition, Bonus> bonuses;
 	
 	protected TechniquePrototype( Stance usableStance, Stance resultingStance, String name, boolean doesDamage, boolean doesHealing, int powerMod, int staminaCost, int stabilityCost, int manaCost, boolean isSpell, boolean isTaunt, Stance forceStance, double knockdown, int armorSunder,
-			int gutCheck, TechniqueHeight height, int guardMod, int parryMod, boolean setDamage, boolean blockable, GrappleType grapple, ClimaxType climaxType, StatusType buff, String description, String lightDescription, String bonusInfo, ObjectMap<BonusCondition, Bonus> bonuses) {
+			int gutCheck, TechniqueHeight height, int guardMod, int parryMod, boolean setDamage, boolean blockable, GrappleType grapple, ClimaxType climaxType, StatusType selfEffect, StatusType enemyEffect, String description, String lightDescription, String bonusInfo, ObjectMap<BonusCondition, Bonus> bonuses) {
 		this.usableStance = usableStance;
 		this.resultingStance = resultingStance;
 		this.name = name;
@@ -61,7 +62,8 @@ public class TechniquePrototype {
 		this.blockable = blockable;
 		this.grapple = grapple;
 		this.climaxType = climaxType;
-		this.buff = buff;
+		this.selfEffect = selfEffect;
+		this.enemyEffect = enemyEffect;
 		this.description = description;
 		this.lightDescription = lightDescription;
 		this.bonusInfo = bonusInfo;
@@ -90,7 +92,8 @@ public class TechniquePrototype {
 	public GrappleType getGrappleType() { return grapple; }
 	public boolean isTaunt() { return isTaunt; }
 	public ClimaxType getClimaxType() { return climaxType; }
-	public StatusType getBuff() { return buff; }
+	public StatusType getSelfEffect() { return selfEffect; }
+	public StatusType getEnemyEffect() { return enemyEffect; }
 	public String getDescription() { return description; }
 	public String getLightDescription() { return lightDescription; }
 	public String getBonusInfo() { return bonusInfo; }

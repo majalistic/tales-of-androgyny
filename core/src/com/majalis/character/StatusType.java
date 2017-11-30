@@ -5,7 +5,8 @@ public enum StatusType {
 	AGILITY_BUFF,
 	ENDURANCE_BUFF,
 	BLEEDING (false, false), 
-	ACTIVATE;
+	ACTIVATE, 
+	STRENGTH_DEBUFF (true, false);
 
 	private final boolean doesDegrade;
 	private final boolean isPositive;

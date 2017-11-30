@@ -122,7 +122,7 @@ public class EnemyCharacter extends AbstractCharacter {
 	public Attack doAttack(Attack resolvedAttack) {
 		// if golem uses a certain attack, it should activate her dong
 		if (enemyType == EnemyEnum.GOLEM) {
-			if (resolvedAttack.getBuff() != null && resolvedAttack.getBuff().type == StatusType.ACTIVATE) {
+			if (resolvedAttack.getSelfEffect() != null && resolvedAttack.getSelfEffect().type == StatusType.ACTIVATE) {
 				currentFrame = 1;
 				lust = 100;
 				baseStrength += 4;

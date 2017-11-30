@@ -33,7 +33,8 @@ public class TechniqueBuilder {
 	protected boolean blockable;
 	protected GrappleType grapple;
 	protected ClimaxType climaxType;
-	protected StatusType buff;
+	protected StatusType selfEffect;
+	protected StatusType enemyEffect;
 	protected OrderedMap<BonusCondition, Bonus> bonuses;
 	
 	public TechniqueBuilder(Stance usableStance, Stance resultingStance, String name) {
@@ -58,7 +59,8 @@ public class TechniqueBuilder {
 		setDamage = false;
 		blockable = false;
 		grapple = GrappleType.NULL;
-		buff = null;
+		selfEffect = null;
+		enemyEffect = null;
 		height = TechniqueHeight.NONE;
 		bonuses = new OrderedMap<BonusCondition, Bonus>();
 	}
@@ -87,7 +89,7 @@ public class TechniqueBuilder {
 	
 	public TechniquePrototype build() {
 		String lightDescription = getDescription();
-		return new TechniquePrototype(usableStance, resultingStance, name, doesDamage, doesHealing, powerMod, staminaCost, stabilityCost, manaCost, isSpell, isTaunt, forceStance, knockdown, armorSunder, gutCheck, height, guardMod, parryMod, setDamage, blockable, grapple, climaxType, buff, getStanceInfo() + lightDescription, lightDescription, getBonusInfo(), bonuses); 
+		return new TechniquePrototype(usableStance, resultingStance, name, doesDamage, doesHealing, powerMod, staminaCost, stabilityCost, manaCost, isSpell, isTaunt, forceStance, knockdown, armorSunder, gutCheck, height, guardMod, parryMod, setDamage, blockable, grapple, climaxType, selfEffect, enemyEffect, getStanceInfo() + lightDescription, lightDescription, getBonusInfo(), bonuses); 
 	}	
 	
 	protected String getStanceInfo() { 
@@ -114,8 +116,11 @@ public class TechniqueBuilder {
 		if (doesHealing) {
 			builder.append("Heals user with a power of " + powerMod + ", improved by Magic.\n");
 		}
-		if (buff != null) {
+		if (selfEffect != null) {
 			builder.append("Increases Strength dramatically, erodes - improved by Magic.\n");
+		}
+		if (enemyEffect != null) {
+			builder.append("Decreases Strength dramatically, duration improved by Magic.\n");
 		}
 		if (isTaunt) {
 			builder.append("Taunts, angering and/or arousing the\n enemy with a power of " + powerMod + ", improved by Charisma.\n");

@@ -250,11 +250,13 @@ public abstract class AbstractCharacter extends Actor {
 	
 	protected void modMana(int manaMod) { this.currentMana += manaMod; if (currentMana > getMaxMana()) currentMana = getMaxMana(); if (currentMana < 0) currentMana = 0; }
 
-	protected int getStrength() { return Math.max((baseStrength + getStrengthBuff()) - (getHealthDegradation() + getStaminaDegradation())/2, 0); }
+	protected int getStrength() { return Math.max(((baseStrength + getStrengthBuff()) - (getHealthDegradation() + getStaminaDegradation())/2)/(strengthDebuffed() ? 2 : 1), 0); }
 	
 	protected int getStrengthBuff() { return statuses.get(StatusType.STRENGTH_BUFF.toString(), 0); }
 	protected int getEnduranceBuff() { return statuses.get(StatusType.ENDURANCE_BUFF.toString(), 0); }
 	protected int getAgilityBuff() { return statuses.get(StatusType.AGILITY_BUFF.toString(), 0); }
+	
+	protected boolean strengthDebuffed() { return statuses.get(StatusType.STRENGTH_DEBUFF.toString(), 0) > 0; }
 	
 	protected int stepDown(int value) { if (value < 3) return value; else if (value < 7) return 3 + (value - 3)/2; else return 5 + (value - 7)/3; } 
 	
@@ -381,7 +383,7 @@ public abstract class AbstractCharacter extends Actor {
 			modHealth(resolvedAttack.getHealing());
 			resolvedAttack.addMessage(resolvedAttack.getUser() + " heal" + (secondPerson ? "" : "s" ) + " for " + resolvedAttack.getHealing()+"!");
 		}
-		Buff buff = resolvedAttack.getBuff();
+		Buff buff = resolvedAttack.getSelfEffect();
 		if (buff != null) {
 			statuses.put(buff.type.toString(), buff.power);
 		}
@@ -526,6 +528,11 @@ public abstract class AbstractCharacter extends Actor {
 				else if (stance.isAnalReceptive()) {
 					result.add("It pops out of your ass and you get to your feet!");
 				}
+			}
+			
+			Buff buff = attack.getEnemyEffect();
+			if (buff != null) {
+				statuses.put(buff.type.toString(), buff.power);
 			}
 	
 			Armor hitArmor = getArmorHit(attack.getAttackHeight());
