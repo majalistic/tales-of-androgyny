@@ -78,7 +78,7 @@ public enum Techniques {
 	
 	GUT_CHECK			(new AttackTechnique(Stance.OFFENSIVE, Stance.OFFENSIVE, "Gutcheck", 3, 3, 4, 0, 1, false, TechniqueHeight.MEDIUM).build()),
 	
-	SMASH				(new AttackTechnique(Stance.OFFENSIVE, Stance.BALANCED, "Smash", 4, 5, 5, 2).build()),
+	SMASH				(new AttackTechnique(Stance.OFFENSIVE, Stance.BALANCED, "Smash", 4, 5, 5, 1.5).build()),
 	LIFT_WEAPON			(new NonAttackTechnique(Stance.BALANCED, Stance.OFFENSIVE, "Raise Club", 1, 1).build()),
 	SLAM				(new AttackTechnique(Stance.BALANCED, Stance.OFFENSIVE, "Slam", -2, 3, 3).build()),
 	
