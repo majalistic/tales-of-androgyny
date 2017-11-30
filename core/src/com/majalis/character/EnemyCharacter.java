@@ -382,9 +382,14 @@ public class EnemyCharacter extends AbstractCharacter {
 			return getTechniques(SLIME_ATTACK, SLIME_QUIVER); 			
 		}
 		else if (enemyType == EnemyEnum.OGRE && stance != Stance.KNEELING && !stance.isIncapacitatingOrErotic() && stance != Stance.HOLDING) {
-			if (willPounce() && lust > 20) {
-				setLust(20);
-				return getTechniques(SEIZE);						
+			if (willPounce() && lust > 50) {
+				if (target.getLegwearScore() <= 0 && target.getUnderwearScore() <= 0) {
+					setLust(50);
+					return getTechniques(SEIZE);	
+				}
+				else {
+					return getTechniques(RIP);	
+				}
 			}
 			if (weapon != null) {
 				if (stance == Stance.OFFENSIVE) {
@@ -695,7 +700,7 @@ public class EnemyCharacter extends AbstractCharacter {
 			case HOLDING:
 				return getTechniques(OGRE_SMASH);
 			case CRUSHING:
-				if (lust > 28) {
+				if (lust > 58) {
 					return getTechniques(ERUPT_ANAL);
 				}
 				else {

@@ -77,7 +77,8 @@ public enum Techniques {
 	HEAL  		(new SpellTechnique(Stance.CASTING, Stance.BALANCED, "Heal", 27, 10, true).build()),
 	
 	GUT_CHECK			(new AttackTechnique(Stance.OFFENSIVE, Stance.OFFENSIVE, "Gutcheck", 3, 3, 4, 0, 1, false, TechniqueHeight.MEDIUM).build()),
-	
+
+	RIP					(new AttackTechnique(Stance.BALANCED, Stance.BALANCED, "Rip", -2, 3, 3, 0, 5, 0, false, TechniqueHeight.LOW).build()),
 	SMASH				(new AttackTechnique(Stance.OFFENSIVE, Stance.BALANCED, "Smash", 4, 5, 5, 1.5).build()),
 	LIFT_WEAPON			(new NonAttackTechnique(Stance.BALANCED, Stance.OFFENSIVE, "Raise Club", 1, 1).build()),
 	SLAM				(new AttackTechnique(Stance.BALANCED, Stance.OFFENSIVE, "Slam", -2, 3, 3).build()),
@@ -248,7 +249,7 @@ public enum Techniques {
 	COMBAT_FIRE  		(new SpellTechnique(Stance.CASTING, Stance.BALANCED, "Combat Fire", 3, 3, false).addBonus(BonusCondition.SKILL_LEVEL, BonusType.POWER_MOD, 2).build(), 3),
 	MANA_LASER  		(new SpellTechnique(Stance.CASTING, Stance.BALANCED, "Mana Laser", 3, 10, false).addBonus(BonusCondition.SKILL_LEVEL, BonusType.POWER_MOD, 2).build(), 3),
 	TITAN_STRENGTH  	(new SpellTechnique(Stance.CASTING, Stance.BALANCED, "Titan Strength", 0, 2, false, StatusType.STRENGTH_BUFF).build(), 3),
-	WEAKENING_CURSE  	(new SpellTechnique(Stance.CASTING, Stance.BALANCED, "Weakening Curse", 2, 7, false, null, StatusType.STRENGTH_DEBUFF).build(), 3),
+	WEAKENING_CURSE  	(new SpellTechnique(Stance.CASTING, Stance.BALANCED, "Weakening Curse", 8, 7, false, null, StatusType.STRENGTH_DEBUFF).build(), 3),
 	
 	FOCUS_ENERGY	  	(new SpellTechnique(Stance.CASTING, Stance.BALANCED, "Focus Energy", -5, 4, false, StatusType.ENDURANCE_BUFF).build(), 3)
 	;
