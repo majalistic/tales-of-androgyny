@@ -3227,6 +3227,12 @@
 		]
 	},
 	{
+		"key": "GADGETEER-TEASE",
+		"scriptLines": [
+			{"text": "\"Now... is that really why you came to see me again?  Or are you curious now about my... special inventory?\""}
+		]
+	},
+	{
 		"key": "GADGETEER-PEGGED",
 		"scriptLines": [
 			{"text": "You meekly nod your head - deep down, you know exactly what those toys are for.  She laughs coyly, and gestures her finger for you to turn around, dropping the bag to the floor."},
@@ -3275,14 +3281,16 @@
 		"key": "GADGETEER-SLAVE",
 		"scriptLines": [
 			{"text": "You agree to come with her, and that seems to satisfy her.  She continues to fuck your ass, your cock's cage clanking about, preventing you from being satisfied, until, eventually, she withdraws, having fully explored your well-travelled canyon."},
-			{"text": "You end up travelling with the eccentric merchant... on the way to Pearl's Gate, you end up forgetting why you ever wanted anything but to be her toy.  You never end up getting erect again, although that doesn't stop you from dribbling cum out of your cage while she fucks your ass with her exotic toys.  "},
+			{"text": "You end up travelling with the eccentric merchant... on the way to Pearl's Gate, you end up forgetting why you ever wanted anything but to be her toy.  You never end up getting erect again, although that doesn't stop you from dribbling cum out of your cage while she fucks your ass with her exotic toys."},
 			{"text": "Having lost sight of your goal, your mission ends in failure."}
 		]
 	},
 	{
 		"key": "GADGETEER-PLUGS",
 		"scriptLines": [
-			{"text": "\"S-sure,\" you say, unable to resist."},
+			{
+			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "GADGETEER", "value":2}}],
+			"text": "\"S-sure,\" you say, unable to resist."},
 			{"text": "\"That's what I thought!\" she says, having apparently smelled the bitch on you.  She could tell you were looking for something in her bag that would feel good in your ass."},
 			{"text": "\"W-what do you have...?\" you ask, and she smiles broadly."},
 			{"text": "\"I've got all kinds!  This one's guaranteed to cross your eyes... this one'll make you knock-kneed, and this one's modelled after a stallion, for extra comfort.\""},
@@ -3329,7 +3337,9 @@
 	{
 		"key": "GADGETEER-BALLS",
 		"scriptLines": [
-			{"text": "\"Mmmm, you are one confused little darling, aren't you?\" she says dropping her bag to the ground.  She grabs hold of one of the toys dangling from within, and slowly pulls it free - a long chain of balls strung together. "},
+			{
+			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "GADGETEER", "value":2}}],
+			"text": "\"Mmmm, you are one confused little darling, aren't you?\" she says dropping her bag to the ground.  She grabs hold of one of the toys dangling from within, and slowly pulls it free - a long chain of balls strung together. "},
 			{"text": "She directs you to a nearby tree-stump and has you lay on your back on it, while she retrieves a vial full of some strange gel from her bag of tricks."},
 			{"text": "You get halfway through pulling down your pants when she hoists up your legs, and you feel her rub the first ball of many, slick with something, against your hole."},
 			{
@@ -3368,7 +3378,9 @@
 	{
 		"key": "GADGETEER-BREAKINGIN",
 		"scriptLines": [
-			{"text": "Her face brightens up again, a knowing smirk finding its way to her full lips.  \"Willing to try anything once?\" she says, demurely, as she drops her bag to the ground.  "},
+			{
+			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "GADGETEER", "value":2}}],
+			"text": "Her face brightens up again, a knowing smirk finding its way to her full lips.  \"Willing to try anything once?\" she says, demurely, as she drops her bag to the ground.  "},
 			{"text": "\"I... guess,\" you say, unsure why you agreed with her demands - was it her cute smile?  "},
 			{"text": "\"Hands and knees, please.  Going to need to lube you up good if I'm going to get this up there,\" she says, waving the oddly shaped weapon in front of your face, before sheathing it in a small hilt on her waist."},
 			{"text": "\"Up... where?\" you ask, and she rolls her eyes."},
@@ -3401,6 +3413,78 @@
 			{"text": "She takes note of your leavings.  \"Mmmhmhm, you came a lot for someone who was getting a fake dick shoved up their boy-butt.  Especially since it was your first time, and all.  If I squatted in that, I might get pregnant,\" she says, teasingly."},
 			{"text": "You breathe heavily, having exhausted yourself from cumming anally, and she has a bit of sweat on her brow as well.  She sheathes her slime-covered fuck dagger and retrieves her bag, while you shudder and shake on your hands and knees."},
 			{"text": "\"Mmm, good boy,\" she says - and as she leaves, she casually steps into the puddle of mud you left behind - leaving her footprint in it."}
+		]
+	},
+	{
+		"key": "GADGETEER-HONEST",
+		"scriptLines": [
+			{"text": "\"With... with my ass...\" you say, the words getting caught in your throat."},
+			{"text": "She smiles dryly, watching you debase yourself."},
+			{"text": "\"Oh, what a pretty little boy-maiden you are...\""},
+			{"text": "She sees you eyeing your cage, and clicks her tongue."},
+			{"text": "\"Sorry, I'm going to ignore your penis today!  Your cute little boyhole is going to be having sooo much fun today!\""},
+			{"text": "She's quick to reach into her bag of tricks to retrieve some awful looking device - what looks like a fake penis attached to a set of undergarments."},
+			{"text": "\"It's gonna go in your ho-ole~\" she says, pulling it up her legs into position. \"I'm gonna bully your butt~\""},
+			{"text": "With it in place, she also retrieves a vial from her bag and pours it out onto the obsidian-colored thing - some kind of lubricant, no doubt."},
+			{"text": "\"You're gonna cum like a gi-irl~\" she says as she approaches you. \"On your knees, ass facing this way, please.\""},
+			{"text": "You obey, getting onto your knees, and she places a firm hand on your backside, still wet from rubbing the lubricant on her pseudo-phallus.  Her other hand is poised to guide it in."},						
+			{"text": "\"Don't cum too quickly, you little premature ejaculator...\" she says, pushing the \"head\" inside, while getting a firm squeeze of your butt. \"You're so cute~\""},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1}}],
+			"text": "She begins to insert it, slapping you gently on the rear as she does, letting you focus all your intention on the odd slippery texture of her fake dong as it cores its way into your upturned asshole."},
+			{"text": "She starts to pump it in and out slowly before bottoming out, tapping the head of it against your prostate with pretty much every thrust, so that your cage begins to leak a clear fluid almost immediately."},
+			{"text": "She works her way up towards a deeper and faster penetration, and you start to lose your breath with each thrust."},			
+			{"text": "She has a surprisingly powerful hipthrust, able to push the entire thing inside as deep as it will go all at once, before retracting it slowly, letting the head stimulate your prostate in a way that is probably intentional."},									
+			{"text": "\"I'm not going to touch your naughty little penis... but I'm going to make it spurt~  Your poor butt is never going to be the same~\""},
+			{"text": "You feel her prophecy coming true - quite literally coming, as the pressure in the pit of your nether region builds and builds with each assault of your fucked backside.  You bite your lip, but you can tell it won't be long."},	
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analEjaculation":1}}],
+			"text": "You try to hold it in, but even though your cock is semi-flaccid, trapped in the cage, the pressure on your prostate causes you to tense up and then... release.  Your cage fills with runny, anally-induced ejaculate."},							
+			{"text": "\"Oh no.  Oh no!  You already spurted!  You must love getting it in the butt, huh?  Look at all those poor spermies!  I guess you're never going to use those spermies right anyway... I wish I had a penis so I could give you what you really wanted, you little girly slut~\""},
+			{"text": "She continues thrusting, and the overwhelming sensation of having just cum, and unable to get erect or flaccid, floods your body with the strangest feeling, like you're floating in the sea."},			
+			{"text": "\"I'm not done, though!  You're going to have to spurt multiple times like a girl,\" she explains, while rattling your recently cummed in cock-cage."},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analEjaculation":1}}],
+			"text": "Your eyes stare off vaguely in the mid-distance as she continues to pound your prostate in the hopes that it will make you \"cum like a girl\", and, well, it does.  Your second orgasm is not long after the first, and though it's dry, your body still fills with lustful energy as you feel a warmth spread through it."},
+			{"text": "\"Yeah, shoot off nothing... that's fine.  Girls don't have to pew pew to have a good time.  You're cumming with your ass, after all.  That little thing's just along for the ride, right?\" she says, mockingly, and you feel it twitching in its cage."},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analEjaculation":3}}],	
+			"text": "It isn't the last time you cum from being poked in the ass, and it isn't the last time she calls you a girl for it.  Your next orgasm isn't as dry as the second one, sticky goo drooling from the hole in your cage pointlessly, but the subsequent ones are, to the point that your semen feels like an afterthought."}
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analEjaculation":1}}],
+			"text": "When next your semen comes, it does so almost as a surprise - you'd pretty much forgotten that it was there.  Your discarded sperm die pointlessly, but your ass feels so... good... your hole is eating up her pole as it gets pushed in, and you whine audibly as you non-verbally demand it."}
+			{"text": "She watches this with amused interest, having sensed the depths of your depravity already, but still keen to see you succumb.  She knows that your sperm does still serve one purpose - showing it off, drooling helplessly from your cage while you're stuffed from the rear is a powerful image, and she intends to shock audiences with it."},
+			{"text": "The hero that can only cum from being penetrated anally, their useless semen glugging out of a tiny hole... that sells tickets!"},
+			{"text": "\"I think I'm going to keep you and parade you around while I travel,\" she says, as if an idea just struck her.  \"You'll be my little girly boytoy, right? We can take this show on the road?\""},			
+			{"text": "You nod your head while whimpering and taking it, and that seems to satisfy her.  She continues to fuck your ass, your cock's cage clanking about, preventing you from being satisfied, until, eventually, she withdraws, having fully explored your well-travelled canyon."},
+			{"text": "You end up travelling with the eccentric merchant... on the way to Pearl's Gate, you end up forgetting why you ever wanted anything but to be her toy.  You never end up getting erect again, although that doesn't stop you from dribbling cum out of your cage while she fucks your ass with her exotic toys."},
+			{"text": "Having lost sight of your goal, your mission ends in failure."}
+		]
+	},
+	{
+		"key": "GADGETEER-LIE",
+		"scriptLines": [
+			{"text": "\"I don't know what you mean,\" you say, defiantly."},
+			{"text": "\"Oh, but I think you do,\" she says, coyly, \"You gotta get taken to poundtown in order to spurt your useless man-goo out of that cage, huh?  Seems pretty pathetic,\" she says, all smiles. \"Well, if you ever decide that's all you're good for... come see me.\""},
+			{"text": "You walk away from her, not wanting to hear any more."}				
+		]
+	},
+	{
+		"key": "GADGETEER-GIVECAGE",
+		"scriptLines": [
+			{"text": "\"I have something for you,\" she says, as soon as you're done perusing her wares.  \"It's a surprise.\""},
+			{"text": "You cock your head, a bit reluctant to find out what this surprise entails."},
+			{"text": "\"Close your eyes, drop your pants... I'll get on my knees, and I'll give you your present,\" she says, and you nod, slowly... entranced."},
+			{"text": "You drop your underwear, close your eyes, and she kneels in front of you, just as she said.  You feel her fingers running up your thighs and shudder."},
+			{
+			"mutations": [{"saveType":"ITEM", "value":{"class": "com.majalis.character.Item$ChastityCage"}}],
+			"text": "Something clicks into place, and you feel a tug on your... penis.  It feels like it's been put inside of something."}
+			{"text": "\"There we go.  I kinda feel bad for him. It's not his fault his owner is a perverted catamite,\" she says, sighing."},
+			{"text": "You open your eyes, and it is indeed inside of something - a cage of some kind."},		
+			{"text": "\"With this on, you won't be able to fling goo without getting some help from a big, hard cock up your ass,\" she says, smirking."},
+			{"text": "\"How do I take it off?\" you ask, and she giggles."},
+			{"text": "\"You don't.  I have the key... so if you ever want it off... hrm... well, I'll think about what you need to do.  All you need to think about is how you're going to get milked.\""},
+			{"text": "You can't believe what you're hearing... but it sounds like she'll give you the key... eventually.  You have to hope that she's being truthful about that.  She waves you off, and you leave, now in a cage."},
 		]
 	},
 	{

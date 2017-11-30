@@ -467,6 +467,21 @@ public class EncounterBuilder {
 				Branch no = new Branch("No thanks").textScene("GADGETEER-NO").encounterEnd();
 				Branch yes = new Branch().textScene("GADGETEER-SLAVE").gameEnd();
 				Branch[] yesyesyes = new Branch[]{new Branch("yes").concat(yes), new Branch("yeS").concat(yes), new Branch("YES").concat(yes)};
+				Branch analLoverCheck = new Branch().checkScene(
+					Perk.ANAL_LOVER,
+					new Branch(3).textScene("GADGETEER-PEGGED").choiceScene("Become hers?", yesyesyes),
+					new Branch(2).textScene("GADGETEER-PLUGS"),
+					new Branch(1).textScene("GADGETEER-HESITANT").choiceScene(
+						"Try the toys?", 
+						new Branch("Yes").textScene("GADGETEER-BALLS").encounterEnd(), 
+						no
+					),
+					new Branch(0).textScene("GADGETEER-CONFUSED").choiceScene(
+						"Try the toys?", 
+						new Branch("Yes (Requires: Catamite)").require(ChoiceCheckType.LEWD).textScene("GADGETEER-BREAKINGIN").encounterEnd(),
+						no
+					)
+				);
 				
 				Branch shop = new Branch().choiceScene(
 					"Do you want to peruse her wares?", 
@@ -479,7 +494,7 @@ public class EncounterBuilder {
 								new Branch(3).textScene("GADGETEER-SLUT-PALADIN").gameEnd(),
 								new Branch(0).textScene("GADGETEER-PURE-PALADIN")
 							), 
-							new Branch(false).textScene("GADGETEER-CAGE")
+							new Branch(false).checkScene(CheckType.GADGETEER_TESTED, new Branch(true).checkScene(Perk.ANAL_LOVER, new Branch(3).textScene("GADGETEER-HONEST").gameEnd(), new Branch(0).textScene("GADGETEER-LIE")), new Branch(false).textScene("GADGETEER-CAGE"))
 						), 
 						new Branch(false).checkScene(
 							CheckType.PLUGGED, 
@@ -488,20 +503,13 @@ public class EncounterBuilder {
 								new Branch(3).textScene("GADGETEER-PEGGED").choiceScene("Become hers?", yesyesyes),
 								new Branch(0).textScene("GADGETEER-PLUGS")
 							),
-							new Branch(false).textScene("GADGETEER-POSTSHOP").checkScene(
-								Perk.ANAL_LOVER,
-								new Branch(3).textScene("GADGETEER-PEGGED").choiceScene("Become hers?", yesyesyes),
-								new Branch(2).textScene("GADGETEER-PLUGS"),
-								new Branch(1).textScene("GADGETEER-HESITANT").choiceScene(
-									"Try the toys?", 
-									new Branch("Yes").textScene("GADGETEER-BALLS").encounterEnd(), 
-									no
-								),
-								new Branch(0).textScene("GADGETEER-CONFUSED").choiceScene(
-									"Try the toys?", 
-									new Branch("Yes (Requires: Catamite)").require(ChoiceCheckType.LEWD).textScene("GADGETEER-BREAKINGIN").encounterEnd(),
-									no
-								)
+							new Branch(false).checkScene(
+								CheckType.GADGETEER_MET, 
+								new Branch(true).checkScene(
+									CheckType.GADGETEER_TESTED, 
+									new Branch(true).textScene("GADGETEER-GIVECAGE"), 
+									new Branch(false).textScene("GADGETEER-TEASE").concat(analLoverCheck)),
+								new Branch(false).textScene("GADGETEER-POSTSHOP").concat(analLoverCheck)
 							)
 						)
 					),

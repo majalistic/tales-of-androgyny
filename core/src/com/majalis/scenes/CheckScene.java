@@ -266,9 +266,13 @@ public class CheckScene extends AbstractTextScene {
 		}, 
 		GADGETEER_MET("", "") { 
 			@Override
-			protected boolean getCheck(PlayerCharacter character) { int check = character.getQuestStatus(QuestType.GADGETEER); return check == 1; }  
-		},;
-		
+			protected boolean getCheck(PlayerCharacter character) { int check = character.getQuestStatus(QuestType.GADGETEER); return check > 0; }  
+		}, 
+		GADGETEER_TESTED("", "") { 
+			@Override
+			protected boolean getCheck(PlayerCharacter character) { int check = character.getQuestStatus(QuestType.GADGETEER); return check == 2; }  
+		},
+		;
 		private final String success;
 		private final String failure;
 		

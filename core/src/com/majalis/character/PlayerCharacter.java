@@ -1086,6 +1086,9 @@ public class PlayerCharacter extends AbstractCharacter {
 		if (item.instantUse()) {
 			consumeItem(item);
 		}
+		else if (item instanceof ChastityCage) {
+			setCage(item, true);
+		}
 		else {
 			inventory.add(item);
 		}
