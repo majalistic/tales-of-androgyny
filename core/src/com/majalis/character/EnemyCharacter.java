@@ -590,7 +590,7 @@ public class EnemyCharacter extends AbstractCharacter {
 				}
 				return possibles;
 			case FACE_SITTING:
-				if (isErect()) {
+				if (isErect() && !target.isChastitied()) {
 					return getTechniques(SITTING_ORAL);
 				}
 				return getTechniques(RIDE_FACE);
