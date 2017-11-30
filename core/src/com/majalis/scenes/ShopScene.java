@@ -193,7 +193,7 @@ public class ShopScene extends Scene {
 			case FIRST_STORY:
 			case WEAPON_SHOP:
 				for (WeaponType type: WeaponType.values()) {
-					if (type.isBuyable()) {
+					if (type.isBuyable() && type != WeaponType.Club) {
 						shop.items.add(new Weapon(type));	
 					}									
 				}
