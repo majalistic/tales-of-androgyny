@@ -189,6 +189,7 @@ public abstract class Item {
 				case Gladius: return "Thrusting and slashing weapon whose efficacy is dependent on both the wielder's strength and agility. Causes bleed. [Damage: Base + " + (bonus + 1) + " + (Strength + Agility) / 5]";
 				case Cutlass: return "Slashing weapon Weapon whose efficacy is dependent on both the wielder's strength and agility. Causes bleed. [Damage: Base + " + (bonus + 1) + " + (Strength + Agility) / 5]";
 				case Broadsword: return "Thrusting and slashing weapon whose efficacy is dependent on the wielder's strength. Causes bleed. [Damage: Base + " + (bonus + 1) + " + Strength / 3]";
+				case Club: return "Blunt weapon whose efficacy is dependent on the wielder's strength. [Damage: Base + " + (bonus + 1) + " + Strength / 3]";
 				case Bow: return "Ranged weapon.  Causes bleed. [Damage: Base + 1]";
 				default: return "Unknown Weapon!";
 			}
@@ -199,9 +200,10 @@ public abstract class Item {
 				case Dagger: return stats.get(Stat.AGILITY) / 2 + bonus;
 				case Rapier: return (stats.get(Stat.AGILITY)) / 3 + 1 + bonus;
 				case Axe: 
-				case Club: return (stats.get(Stat.STRENGTH)) / 3 + 2 + bonus;
+				case Greatclub: return (stats.get(Stat.STRENGTH)) / 3 + 2 + bonus;
 				case Gladius:
 				case Cutlass: return (stats.get(Stat.STRENGTH) + stats.get(Stat.AGILITY)) / 5 + 1 + bonus;
+				case Club:
 				case Broadsword: return (stats.get(Stat.STRENGTH)) / 3 + 1 + bonus;
 				case Bow: return 1;
 				case Sickle: return (stats.get(Stat.AGILITY)) / 3 + 2 + bonus;
@@ -227,13 +229,14 @@ public abstract class Item {
 		Gladius,
 		Cutlass,
 		Broadsword,
+		Club (true, true, false), 
 		Axe (true, false, true),
 		Bow (false, false, true), 
 		Flail (true, false, true),
 		Sickle (true, false, true),
 		Claw (false, false, true),
 		Talon (false, false, true), 
-		Club (true, false, false), 
+		Greatclub (true, false, false), 
 		Trumpet (false, false, false), 
 		;
 		
