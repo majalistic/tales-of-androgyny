@@ -315,8 +315,11 @@
 			"sound": "SMUG_LAUGH",
 			"text": "\"Oh my... you're rather cute, aren't you?  A shame you're going on a journey...\" she says, and you feel your heart beating in your chest... and a stirring in your loins that isn't nearly as innocent."},
 			{"text": "Her hand rests on yours, and her fingers trace up towards your wrist, when suddenly, she stops."},
-			{"text": "\"Well, I'm sure you know how to use it,\" she says, and you swallow, as she rounds the counter again, her skirt trailing behind her."},
-			{"text": "She returns to her position behind the counter and stares at you, smiling brightly, but silently.  You start to turn away, and she finally speaks."},
+			{"text": "\"Well, I'm sure you know how to use it,\" she says, and you swallow, as she rounds the counter again, her skirt trailing behind her.  \"Before you go, have this - on the house.\""},
+			{
+			"mutations": [{"saveType":"ITEM", "value":{"class": "com.majalis.character.Item$Potion", "effect": "HEALING", "magnitude": "50"}}],						
+			"text": "She reaches under the counter, procuring a large, oddly shaped bottle containing a bright red liquid, before handing it over to you.  It's a... potion.  It's bigger than any you've ever seen."},					
+			{"text": "She returns to her default position behind the counter and stares at you, smiling brightly, but silently.  You start to turn away, and she finally speaks."},
 			{"text": "\"Thanks for coming!\" she says, waving to you as you leave, having procured the necessary - you hope - supplies."},
 		]
 	},
