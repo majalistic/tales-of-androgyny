@@ -119,6 +119,7 @@ public class Battle extends Group{
 	
 	private final Label bloodLabel;
 	private final Label enemyBloodLabel;
+	private final Label enemyStatusLabel;
 	private final Label grappleStatus;
 	
 	private final Label characterHealthDiff;
@@ -318,6 +319,8 @@ public class Battle extends Group{
 		enemyBloodLabel = initLabel("" + enemy.getBleed(), skin, Color.RED, 1545 + 19, 800 + 7);
 		enemyBloodLabel.setAlignment(Align.center);
 		enemyBloodLabel.setWidth(10);
+		
+		enemyStatusLabel = initLabel(enemy.getStatusBlurb(), skin, Color.FIREBRICK, 1430, 675);
 		
 		if (character.getBleed() == 0) {
 			bloodImage.addAction(hide());
@@ -776,6 +779,7 @@ public class Battle extends Group{
 		enemyUnderwearLabel.setText("" + enemy.getUnderwearScore());	
 		bloodLabel.setText("" + character.getBleed());
 		enemyBloodLabel.setText("" + enemy.getBleed());	
+		enemyStatusLabel.setText(enemy.getStatusBlurb());
 		
 		if (character.getLegwearScore() > 0) {
 			underwearLabel.addAction(hide());

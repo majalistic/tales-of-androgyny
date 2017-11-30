@@ -282,6 +282,10 @@ public abstract class AbstractCharacter extends Actor {
 	public int getStaminaDegradation() { return getDegradation(staminaTiers, currentStamina); }
 	public int getCumInflation() { return buttful >= 20 || mouthful >= 20 ? 2 : buttful >=10 || mouthful >= 10 ? 1 : 0; } 
 	
+	public String getStatusBlurb() {
+		return strengthDebuffed() ? "Weakening Curse" : "";
+	}
+	
 	protected int getDegradation(IntArray tiers, int currentValue) {
 		int numTiers = tiers.size;
 		int value = currentValue;
