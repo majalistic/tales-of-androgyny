@@ -403,6 +403,7 @@ public enum EncounterCode {
 			case GOLEM:
 				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{  
 					AssetEnum.GOLEM.getTexture(),
+					AssetEnum.GOLEM_CLOSEUP.getTexture(),
 					AssetEnum.GOLEM_FUTA.getTexture(),
 					AssetEnum.GOLEM_DULL.getTexture(),
 					AssetEnum.INCANTATION.getSound(),
