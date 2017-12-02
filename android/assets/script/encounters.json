@@ -6347,4 +6347,13 @@
 			{"text": "\"It wasn't so bad, was it?  Well, think of that as a warning.  And... uhm... thank you,\" she says, bashfully.  With a beat of her wings, she takes into the air, and you watch her sun-kissed skin and wings disappear against the brightness of the actual sun."}
 		]
 	},
+	{
+		"key": "NAGA-INTRO",
+		"scriptLines": [
+			{
+			"music": "HEAVY_MUSIC",
+			"foreground": "NAGA",
+			"text": "..."}
+		]
+	}
 ]}

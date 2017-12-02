@@ -851,6 +851,8 @@ public class EncounterBuilder {
 				return new Branch().textScene("STORY-WITCH-COTTAGE").encounterEnd().getEncounter(); 	
 			case MERI_COTTAGE_VISIT:
 				return new Branch().textScene("STORY-WITCH-COTTAGE-VISIT").encounterEnd().getEncounter(); 
+			case NAGA:
+				return new Branch().textScene("NAGA-INTRO").getEncounter();
 			case OGRE:
 				Branch passerby = new Branch().textScene("OGRE-PASSERBY").encounterEnd();
 				Branch partingScene = new Branch().checkScene(

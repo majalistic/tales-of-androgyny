@@ -36,6 +36,7 @@ public enum EncounterCode {
 	GHOST, 
 	BUNNY,
 	ANGEL (CASTLE),
+	NAGA,
 	
 	FORT (CASTLE), 
 	TOWN (AssetEnum.TOWN),
@@ -113,6 +114,7 @@ public enum EncounterCode {
 					case GHOST: return "Unknown";
 					case GOLEM: return "Statue";
 					case GADGETEER: return "Merchant";
+					case NAGA: return "Cave";
 					case TOWN: return "Small Settlement";
 					case TOWN2:
 					case TOWN_STORY:
@@ -162,6 +164,7 @@ public enum EncounterCode {
 					case ANGEL: return "Ruins - Calm";
 					case SPIDER: return "Ruins - Danger!";
 					case GADGETEER: return "Suspicious Merchant";
+					case NAGA: return "Cave - Danger!";
 					case TOWN: return "Town of Silajam";
 					case TOWN2:
 					case TOWN_STORY: return "Town of Nadir";
@@ -313,6 +316,13 @@ public enum EncounterCode {
 						AssetEnum.CUM.getSound(),
 						AssetEnum.CUM_BUBBLING.getSound(),
 						AssetEnum.ANGEL_MUSIC.getMusic()
+					});
+			case NAGA:
+				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{
+						AssetEnum.NAGA.getTexture(),
+						AssetEnum.CUM.getSound(),
+						AssetEnum.CUM_BUBBLING.getSound(),
+						AssetEnum.HEAVY_MUSIC.getMusic()
 					});
 			case DRYAD:
 				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{  
@@ -535,7 +545,7 @@ public enum EncounterCode {
 		encounterMap = new IntMap<Array<EncounterCode>>();
 		encounterMap.put(1, new Array<EncounterCode>(new EncounterCode[]{WERESLUT, HARPY, SLIME, BRIGAND, DRYAD, CENTAUR, GOBLIN, ORC, FOOD_CACHE, GOLD_CACHE, DAMAGE_TRAP, ANAL_TRAP, HUNGER_CHARM}));
 		encounterMap.put(2, new Array<EncounterCode>(new EncounterCode[]{WERESLUT, HARPY, BRIGAND, DRYAD, CENTAUR, GOBLIN, ORC, ADVENTURER, ELF, OGRE, HUNGER_CHARM, ICE_CREAM, BEASTMISTRESS, GOLEM, GHOST, GOLD_CACHE, FOOD_CACHE, DAMAGE_TRAP, ANAL_TRAP}));
-		encounterMap.put(3, new Array<EncounterCode>(new EncounterCode[]{DRYAD, OGRE, HUNGER_CHARM, ICE_CREAM, BEASTMISTRESS, GOLEM, GHOST, FOOD_CACHE, DAMAGE_TRAP, ANAL_TRAP}));
+		encounterMap.put(3, new Array<EncounterCode>(new EncounterCode[]{DRYAD, OGRE, HUNGER_CHARM, ICE_CREAM, BEASTMISTRESS, GOLEM, GHOST, NAGA, FOOD_CACHE, DAMAGE_TRAP, ANAL_TRAP}));
 		
 		iceCreamReady = true;
 		hungerCharmReady = true;

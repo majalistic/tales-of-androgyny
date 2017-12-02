@@ -129,6 +129,7 @@ public enum AssetEnum {
 	BUNNY_CHOCOLATE("enemies/bunny/Chocolate.png"),
 	BUNNY_DARK_CHOCOLATE("enemies/bunny/DarkChocolate.png"),
 	ANGEL("enemies/Angel.png"),
+	NAGA("enemies/Naga.png"),
 	TRAP_BONUS("enemies/TrapBonus.jpg"), 
 	
 	ARMOR_DOLL("battle/ArmorDoll.png"),
@@ -307,7 +308,7 @@ public enum AssetEnum {
 	BRIGAND_ANIMATION("animation/Brigand.atlas", AnimatedActorFactory.class, new AnimatedActorLoader.AnimatedActorParameter(.60f, .75f, true)),
 	ANAL_ANIMATION("animation/skeleton.atlas", AnimatedActorFactory.class, new AnimatedActorLoader.AnimatedActorParameter(.475f, 1, true)),
 	CENTAUR_ANIMATION("animation/Centaur.atlas", AnimatedActorFactory.class, new AnimatedActorLoader.AnimatedActorParameter(.60f, 1.8f, true)), 
-	ORC_ANIMATION("animation/Orc.atlas", AnimatedActorFactory.class, new AnimatedActorLoader.AnimatedActorParameter(.60f, 1f, true)),
+	ORC_ANIMATION("animation/Orc.atlas", AnimatedActorFactory.class, new AnimatedActorLoader.AnimatedActorParameter(.60f, 1f, true)), 
 	;
 	
 	private final AssetDescriptor<?> assetDescriptor;
