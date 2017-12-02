@@ -251,7 +251,7 @@ public enum Techniques {
 	TITAN_STRENGTH  	(new SpellTechnique(Stance.CASTING, Stance.BALANCED, "Titan Strength", 0, 2, false, StatusType.STRENGTH_BUFF).build(), 3),
 	WEAKENING_CURSE  	(new SpellTechnique(Stance.CASTING, Stance.BALANCED, "Weakening Curse", 8, 7, false, null, StatusType.STRENGTH_DEBUFF).build(), 3),
 	
-	FOCUS_ENERGY	  	(new SpellTechnique(Stance.CASTING, Stance.BALANCED, "Focus Energy", -5, 4, false, StatusType.ENDURANCE_BUFF).build(), 3)
+	FOCUS_ENERGY	  	(new SpellTechnique(Stance.CASTING, Stance.BALANCED, "Focus Energy", 4, -5, false, StatusType.ENDURANCE_BUFF).build(), 3)
 	;
 	
 	private final TechniquePrototype trait;
