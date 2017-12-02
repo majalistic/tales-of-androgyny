@@ -99,11 +99,11 @@ public class Armor extends Item{
 		SHORTS ("Shorts", new int[]{3, 3}, new int[]{3, 1}),
 		UNDERWEAR ("Underwear", new int[]{2}, new int[]{1}),
 		
-		LIGHT_ENEMY_ARMOR ("Light Armor", new int[]{3, 3}, new int[]{4, 1}),
-		MEDIUM_ENEMY_ARMOR ("Medium Armor", new int[]{8, 8}, new int[]{6, 2}),
+		LIGHT_ENEMY_ARMOR ("Light Armor", new int[]{2, 2}, new int[]{2, 1}),
+		MEDIUM_ENEMY_ARMOR ("Medium Armor", new int[]{6, 6}, new int[]{6, 2}),
 		HEAVY_ENEMY_ARMOR ("Heavy Armor", new int[]{12, 6, 6}, new int[]{10, 4, 2}), 
-		LIGHT_ENEMY_LEGWEAR ("Light Legwear", new int[]{3, 3}, new int[]{4, 1}),
-		MEDIUM_ENEMY_LEGWEAR ("Medium Legwear", new int[]{8, 8}, new int[]{6, 2}),
+		LIGHT_ENEMY_LEGWEAR ("Light Legwear", new int[]{2, 2}, new int[]{2, 1}),
+		MEDIUM_ENEMY_LEGWEAR ("Medium Legwear", new int[]{6, 6}, new int[]{6, 2}),
 		;
 		private final String label;
 		private final int value;
