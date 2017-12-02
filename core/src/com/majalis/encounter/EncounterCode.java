@@ -322,7 +322,7 @@ public enum EncounterCode {
 						AssetEnum.NAGA.getTexture(),
 						AssetEnum.CUM.getSound(),
 						AssetEnum.CUM_BUBBLING.getSound(),
-						AssetEnum.HEAVY_MUSIC.getMusic()
+						AssetEnum.WEREWOLF_MUSIC.getMusic()
 					});
 			case DRYAD:
 				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{  
