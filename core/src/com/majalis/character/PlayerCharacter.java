@@ -201,8 +201,8 @@ public class PlayerCharacter extends AbstractCharacter {
 	
 	// this needs to consolidate logic with the getTechniques method
 	public Array<Technique> getPossibleTechniques(AbstractCharacter target) {
-		Techniques[] foo = getPossibleKnownTechniques(target).toArray(Techniques.class);
-		Array<Technique> possibles = getTechniques(target, foo);
+		Techniques[] temp = getPossibleKnownTechniques(target).toArray(Techniques.class);
+		Array<Technique> possibles = getTechniques(target, temp);
 		if (possibles.size == 0) possibles = getTechniques(target, DO_NOTHING);
 		return possibles;
 	}
@@ -487,7 +487,7 @@ public class PlayerCharacter extends AbstractCharacter {
 				possibles = getPossibleKnownTechniques(target);
 				stance = Stance.ERUPT;
 				return possibles;
-			default: return null;
+			default: return possibles;
 		}
 	}
 	
