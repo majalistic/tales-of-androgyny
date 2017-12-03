@@ -497,8 +497,9 @@ public enum EncounterCode {
 			case BROTHEL:
 				Array<AssetDescriptor<?>> reqs2 = new Array<AssetDescriptor<?>>(new AssetDescriptor[]{  
 					AssetEnum.SMUG_LAUGH.getSound(),
+					AssetEnum.CUM.getSound(),
 					AssetEnum.ELF.getTexture(),
-					AssetEnum.BROTHEL_MADAME.getTexture()
+					AssetEnum.BROTHEL_MADAME.getTexture(),
 				});
 				reqs2.addAll(TownScreen.resourceRequirements);
 				return reqs2;

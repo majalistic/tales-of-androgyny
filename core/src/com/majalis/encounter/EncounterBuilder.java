@@ -269,7 +269,20 @@ public class EncounterBuilder {
 					new Branch(Outcome.SATISFIED).textScene("BRIGAND-SATISFIED")
 				).getEncounter();
 			case BROTHEL:
-				Branch onceSignedUp = new Branch().textScene("BROTHEL-MEMBER").choiceScene("What service do you offer?", new Branch("Blowjobs").textScene("BROTHEL-ORAL"), new Branch("Ass").textScene("BROTHEL-ANAL"), new Branch("GFXP").textScene("BROTHEL-GFXP"));
+				Branch onceSignedUp = new Branch().textScene("BROTHEL-MEMBER").choiceScene(
+					"What service do you offer?", 
+					new Branch("Kissing (1 GP)").textScene("BROTHEL-KISSING"), 
+					new Branch("Handjobs (2 GP)").textScene("BROTHEL-HANDJOB"), 
+					new Branch("Blowjobs (3 GP)").textScene("BROTHEL-ORAL"), 
+					new Branch("Ass (5 GP)").choiceScene(
+						"With condoms?", 
+						new Branch("Yes (5GP)").textScene("BROTHEL-ANAL-CONDOM"),
+						new Branch("Bareback (7GP)").textScene("BROTHEL-ANAL-BAREBACK")
+					), 
+					new Branch("Girlfriend Experience").textScene("BROTHEL-GFXP"),
+					new Branch("Never mind")
+				);
+				
 				return new Branch().textScene("BROTHEL").checkScene(
 					CheckType.ELF_BROTHEL,
 					new Branch(true).textScene("ELF-BROTHEL"),
