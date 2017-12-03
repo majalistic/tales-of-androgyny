@@ -29,8 +29,10 @@ public class TechniqueBuilder {
 	protected int parryMod;
 	protected Stance forceStance;
 	protected TechniqueHeight height;
+	protected boolean ignoresArmor;
 	protected boolean setDamage;
 	protected boolean blockable;
+	protected int setBleed;
 	protected GrappleType grapple;
 	protected ClimaxType climaxType;
 	protected StatusType selfEffect;
@@ -56,8 +58,10 @@ public class TechniqueBuilder {
 		height = null;
 		guardMod = 0;
 		parryMod = 0;
+		ignoresArmor = false;
 		setDamage = false;
 		blockable = false;
+		setBleed = 0;
 		grapple = GrappleType.NULL;
 		selfEffect = null;
 		enemyEffect = null;
@@ -86,10 +90,24 @@ public class TechniqueBuilder {
 		return this;
 	}
 	
+	public TechniqueBuilder setIgnoreArmor() {
+		ignoresArmor = true;
+		return this;
+	}
+	
+	public TechniqueBuilder setAutoDamage() {
+		setDamage = true;
+		return this;
+	}
+	
+	public TechniqueBuilder setBleed(int setBleed) {
+		this.setBleed = setBleed;
+		return this;
+	}
 	
 	public TechniquePrototype build() {
 		String lightDescription = getDescription();
-		return new TechniquePrototype(usableStance, resultingStance, name, doesDamage, doesHealing, powerMod, staminaCost, stabilityCost, manaCost, isSpell, isTaunt, forceStance, knockdown, armorSunder, gutCheck, height, guardMod, parryMod, setDamage, blockable, grapple, climaxType, selfEffect, enemyEffect, getStanceInfo() + lightDescription, lightDescription, getBonusInfo(), bonuses); 
+		return new TechniquePrototype(usableStance, resultingStance, name, doesDamage, doesHealing, powerMod, staminaCost, stabilityCost, manaCost, isSpell, isTaunt, forceStance, knockdown, armorSunder, gutCheck, height, guardMod, parryMod, ignoresArmor, setDamage, blockable, setBleed, grapple, climaxType, selfEffect, enemyEffect, getStanceInfo() + lightDescription, lightDescription, getBonusInfo(), bonuses); 
 	}	
 	
 	protected String getStanceInfo() { 

@@ -171,7 +171,7 @@ public class Technique {
 			new Buff(technique.getEnemyEffect(), thisPayload.getTotalPower()),
 			technique.isDamaging() && !technique.doesSetDamage(), // is attack,
 			technique.getTechniqueHeight() == TechniqueHeight.HIGH ? AttackHeight.HIGH : technique.getTechniqueHeight() == TechniqueHeight.MEDIUM ? AttackHeight.MEDIUM : technique.getTechniqueHeight() == TechniqueHeight.LOW ? AttackHeight.LOW : AttackHeight.NONE,
-			technique.isDamaging() && !technique.doesSetDamage() && technique.isSpell(), // ignores armor
+			technique.ignoresArmor() || (technique.isDamaging() && technique.isSpell()) || technique.doesSetDamage(), // ignores armor
 			thisPayload.getBonuses(),
 			useItem,
 			currentState.getCharacter() 
@@ -391,7 +391,7 @@ public class Technique {
 			trip = tripCalc;
 			knockdown = knockdownCalc;
 			evasion = evasionCalc;
-			bleeding = currentState.getWeapon() != null && currentState.getWeapon().causesBleed()? bleedingCalc : 0;
+			bleeding = technique.getSetBleed() + (currentState.getWeapon() != null && currentState.getWeapon().causesBleed() ? bleedingCalc : 0);
 			counter = counterCalc;
 			priority = priorityCalc;
 			grapple = grappleCalc;
