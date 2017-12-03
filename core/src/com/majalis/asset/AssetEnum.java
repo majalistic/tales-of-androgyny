@@ -207,6 +207,7 @@ public enum AssetEnum {
 	SHOPKEEP("characters/AppleKeep.png"),
 	INNKEEPER("characters/Innkeeper.png"),
 	TRAINER("characters/HeavyTrainer1.png"),
+	BROTHEL_MADAME("characters/Madame.png"),
 	MERI_SILHOUETTE("characters/Witch.png"),
 	SILHOUETTE("characters/Silhouette.png"),
 	GADGETEER("characters/Gadgeteer.png"),

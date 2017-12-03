@@ -1206,8 +1206,7 @@
 		"scriptLines": [
 			{
 			"music": "SHOP_MUSIC",
-			"background": "TOWN_BG", 
-			"foreground": "MERI_SILHOUETTE",
+			"foreground": "BROTHEL_MADAME",
 			"text": "You enter the brothel. It smells... sweet. A beautiful woman leans against the wall, casually."}
 		]
 	},

@@ -498,7 +498,7 @@ public enum EncounterCode {
 				Array<AssetDescriptor<?>> reqs2 = new Array<AssetDescriptor<?>>(new AssetDescriptor[]{  
 					AssetEnum.SMUG_LAUGH.getSound(),
 					AssetEnum.ELF.getTexture(),
-					AssetEnum.MERI_SILHOUETTE.getTexture()
+					AssetEnum.BROTHEL_MADAME.getTexture()
 				});
 				reqs2.addAll(TownScreen.resourceRequirements);
 				return reqs2;
