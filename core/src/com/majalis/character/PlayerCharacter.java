@@ -277,7 +277,7 @@ public class PlayerCharacter extends AbstractCharacter {
 				else {
 					possibles = getTechniques(RECEIVE_DOGGY, STRUGGLE_DOGGY);
 				}
-				if (perks.get(Perk.CATAMITE.toString(), 0) > 0 || perks.get(Perk.ANAL_LOVER.toString(), 0) > 1) {
+				if (perks.get(Perk.CATAMITE.toString(), 0) > 0 || perks.get(Perk.ANAL_ADDICT.toString(), 0) > 1) {
 					possibles.addAll(getTechniques(SELF_SPANK));
 				}
 				return possibles;
@@ -299,7 +299,7 @@ public class PlayerCharacter extends AbstractCharacter {
 				else {
 					possibles = getTechniques(RECEIVE_ANAL, POUT, STRUGGLE_ANAL);
 				}
-				if (!wrapLegs && (perks.get(Perk.CATAMITE.toString(), 0) > 0 || perks.get(Perk.ANAL_LOVER.toString(), 0) > 1)) {
+				if (!wrapLegs && (perks.get(Perk.CATAMITE.toString(), 0) > 0 || perks.get(Perk.ANAL_ADDICT.toString(), 0) > 1)) {
 					possibles.addAll(getTechniques(WRAP_LEGS));
 				}
 				return possibles;
@@ -575,7 +575,7 @@ public class PlayerCharacter extends AbstractCharacter {
 		String result;
 		if (resolvedAttack.isClimax()) {
 			if (oldStance.isAnalReceptive()) {
-				setCurrentPortrait(perks.get(Perk.ANAL_LOVER.toString(), 0) > 1 ? AssetEnum.PORTRAIT_AHEGAO : AssetEnum.PORTRAIT_POUT);
+				setCurrentPortrait(perks.get(Perk.ANAL_ADDICT.toString(), 0) > 1 ? AssetEnum.PORTRAIT_AHEGAO : AssetEnum.PORTRAIT_POUT);
 			}
 			else if (oldStance.isOralReceptive()) {
 				setCurrentPortrait(AssetEnum.PORTRAIT_MOUTHBOMB);
@@ -583,14 +583,14 @@ public class PlayerCharacter extends AbstractCharacter {
 				
 		}
 		if (stance.isAnalReceptive()) {
-			setCurrentPortrait(perks.get(Perk.ANAL_LOVER.toString(), 0) > 1 ? AssetEnum.PORTRAIT_LUST : AssetEnum.PORTRAIT_HIT);
+			setCurrentPortrait(perks.get(Perk.ANAL_ADDICT.toString(), 0) > 1 ? AssetEnum.PORTRAIT_LUST : AssetEnum.PORTRAIT_HIT);
 		}
 		else if (stance.isOralReceptive()) {
 			setCurrentPortrait(resolvedAttack.isClimax() ? AssetEnum.PORTRAIT_MOUTHBOMB : AssetEnum.PORTRAIT_FELLATIO);
 		}
 		
 		if (stance == Stance.HELD) {
-			setCurrentPortrait(perks.get(Perk.GIANT_LOVER.toString(), 0) > 1 ? AssetEnum.PORTRAIT_LOVE : AssetEnum.PORTRAIT_SURPRISE);
+			setCurrentPortrait(perks.get(Perk.SIZE_QUEEN.toString(), 0) > 1 ? AssetEnum.PORTRAIT_LOVE : AssetEnum.PORTRAIT_SURPRISE);
 		}
 		
 		if (oldStance.isAnalReceptive() && !stance.isAnalReceptive()) {
@@ -608,11 +608,11 @@ public class PlayerCharacter extends AbstractCharacter {
 			else result = "";
 			
 			if (stance != Stance.PENETRATED) {
-				setCurrentPortrait(perks.get(Perk.ANAL_LOVER.toString(), 0) > 1 ? AssetEnum.PORTRAIT_LOVE : AssetEnum.PORTRAIT_SURPRISE);
+				setCurrentPortrait(perks.get(Perk.ANAL_ADDICT.toString(), 0) > 1 ? AssetEnum.PORTRAIT_LOVE : AssetEnum.PORTRAIT_SURPRISE);
 			}
 			
 			else {
-				setCurrentPortrait(perks.get(Perk.ANAL_LOVER.toString(), 0) > 1 ? AssetEnum.PORTRAIT_LOVE : AssetEnum.PORTRAIT_AHEGAO);
+				setCurrentPortrait(perks.get(Perk.ANAL_ADDICT.toString(), 0) > 1 ? AssetEnum.PORTRAIT_LOVE : AssetEnum.PORTRAIT_AHEGAO);
 			}
 			
 			
@@ -907,14 +907,14 @@ public class PlayerCharacter extends AbstractCharacter {
 					+	"You feel it with your ass, like a girl! Your face is red with shame!\n"
 					+	"Got a little too comfortable, eh?\n";
 				cumFromAnal();
-				result = incrementPerk(cameFromAnal, Perk.ANAL_LOVER, weakToAnal ? 3 : 5, weakToAnal ? 2 : 3, 1);
+				result = incrementPerk(cameFromAnal, Perk.ANAL_ADDICT, weakToAnal ? 3 : 5, weakToAnal ? 2 : 3, 1);
 				break;
 			case COWGIRL_BOTTOM:
 				spurt = "Awoo! Semen spurts out your untouched cock as your hole is violated!\n"
 						+	"You feel it with your ass, like a girl! Your face is red with shame!\n"
 						+	"It spews all over them!\n";
 				cumFromAnal();
-				result = incrementPerk(cameFromAnal, Perk.ANAL_LOVER, weakToAnal ? 3 : 5, weakToAnal ? 2 : 3, 1);
+				result = incrementPerk(cameFromAnal, Perk.ANAL_ADDICT, weakToAnal ? 3 : 5, weakToAnal ? 2 : 3, 1);
 				break;
 			case FELLATIO_BOTTOM:
 				spurt = "You spew while sucking!\n"
@@ -1042,7 +1042,7 @@ public class PlayerCharacter extends AbstractCharacter {
 		plug = null;
 		receivedAnal++;
 		boolean weakToAnal = perks.get(Perk.WEAK_TO_ANAL.toString(), 0) > 0;
-		result += incrementPerk(receivedAnal, Perk.ANAL_LOVER, weakToAnal ? 5 : 10, weakToAnal ? 3 : 6, weakToAnal ? 1 : 3);
+		result += incrementPerk(receivedAnal, Perk.ANAL_ADDICT, weakToAnal ? 5 : 10, weakToAnal ? 3 : 6, weakToAnal ? 1 : 3);
 		return result.equals("") ? new Array<MutationResult>() : getResult(result);
 	}
 	
@@ -1056,7 +1056,7 @@ public class PlayerCharacter extends AbstractCharacter {
 	protected Array<MutationResult> fillButt(int buttful) {
 		super.fillButt(buttful);
 		analCreampie++;
-		String result = incrementPerk(analCreampie, Perk.CREAMPIE_ADDICT, 10, 6, 3);
+		String result = incrementPerk(analCreampie, Perk.CREAMPIE_COLLECTOR, 10, 6, 3);
 		return result.equals("") ? new Array<MutationResult>() : getResult(result);
 	}
 	
@@ -1069,7 +1069,7 @@ public class PlayerCharacter extends AbstractCharacter {
 	protected Array<MutationResult> fillMouth(int mouthful) {
 		super.fillMouth(mouthful);
 		oralCreampie++;
-		String result = incrementPerk(oralCreampie, Perk.SEMEN_SWALLOWER, 10, 6, 3);
+		String result = incrementPerk(oralCreampie, Perk.CUM_CONNOISSEUR, 10, 6, 3);
 		return result.equals("") ? new Array<MutationResult>() : getResult(result);
 	}
 	
@@ -1147,7 +1147,7 @@ public class PlayerCharacter extends AbstractCharacter {
 		Array<MutationResult> result = new Array<MutationResult>();
 		for (int ii = 0; ii < sex.getAnalSex(); ii++) {
 			result.addAll(receiveAnal());
-			setCurrentPortrait(perks.get(Perk.ANAL_LOVER.toString(), 0) > 1 ? AssetEnum.PORTRAIT_LUST : AssetEnum.PORTRAIT_HIT);
+			setCurrentPortrait(perks.get(Perk.ANAL_ADDICT.toString(), 0) > 1 ? AssetEnum.PORTRAIT_LUST : AssetEnum.PORTRAIT_HIT);
 		}
 		for (int ii = 0; ii < sex.getCreampies(); ii++) {
 			result.addAll(fillButt(5));
@@ -1172,13 +1172,13 @@ public class PlayerCharacter extends AbstractCharacter {
 			cumFromOral();
 		}
 		
-		if (sex.isCentaurSex() && perks.get(Perk.HORSE_LOVER.toString(), 0) == 0) {
-			result.add(new MutationResult("You gained " + Perk.HORSE_LOVER.getLabel() + " (Rank " + 1 + ")!"));
-			perks.put(Perk.HORSE_LOVER.toString(), 1);
+		if (sex.isCentaurSex() && perks.get(Perk.EQUESTRIAN.toString(), 0) == 0) {
+			result.add(new MutationResult("You gained " + Perk.EQUESTRIAN.getLabel() + " (Rank " + 1 + ")!"));
+			perks.put(Perk.EQUESTRIAN.toString(), 1);
 		}
-		if (sex.isOgreSex() && perks.get(Perk.GIANT_LOVER.toString(), 0) != 3) {
-			result.add(new MutationResult("You gained " + Perk.GIANT_LOVER.getLabel() + " (Rank " + (perks.get(Perk.GIANT_LOVER.toString(), 0) + 1) + ")!"));
-			perks.put(Perk.GIANT_LOVER.toString(), ((int)perks.get(Perk.GIANT_LOVER.toString(), 0)) + 1);
+		if (sex.isOgreSex() && perks.get(Perk.SIZE_QUEEN.toString(), 0) != 3) {
+			result.add(new MutationResult("You gained " + Perk.SIZE_QUEEN.getLabel() + " (Rank " + (perks.get(Perk.SIZE_QUEEN.toString(), 0) + 1) + ")!"));
+			perks.put(Perk.SIZE_QUEEN.toString(), ((int)perks.get(Perk.SIZE_QUEEN.toString(), 0)) + 1);
 		}
 		
 		if (sex.isBeast() && perks.get(Perk.BEASTMASTER.toString(), 0) != 3) {

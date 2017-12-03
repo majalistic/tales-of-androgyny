@@ -334,7 +334,7 @@ public class EncounterBuilder {
 						unicornBattle
 					),
 					new Branch(false).textScene("CENTAUR-ENTRANCE").checkScene(
-						Perk.ANAL_LOVER,
+						Perk.ANAL_ADDICT,
 						new Branch(3).checkScene(CheckType.PLUGGED, new Branch(true).textScene("CENTAUR-BUTTPLUG").concat(centaurCatamite), new Branch(false).concat(centaurCatamite)),
 						new Branch(0).choiceScene(
 							"Fight the centaur?",
@@ -489,7 +489,7 @@ public class EncounterBuilder {
 				Branch yes = new Branch().textScene("GADGETEER-SLAVE").gameEnd();
 				Branch[] yesyesyes = new Branch[]{new Branch("yes").concat(yes), new Branch("yeS").concat(yes), new Branch("YES").concat(yes)};
 				Branch analLoverCheck = new Branch().checkScene(
-					Perk.ANAL_LOVER,
+					Perk.ANAL_ADDICT,
 					new Branch(3).textScene("GADGETEER-PEGGED").choiceScene("Become hers?", yesyesyes),
 					new Branch(2).textScene("GADGETEER-PLUGS"),
 					new Branch(1).textScene("GADGETEER-HESITANT").choiceScene(
@@ -511,16 +511,16 @@ public class EncounterBuilder {
 						new Branch(true).textScene("GADGETEER-CHASTITIED").checkScene(
 							CheckType.PALADIN, 
 							new Branch(true).textScene("GADGETEER-PALADIN").checkScene(
-								Perk.ANAL_LOVER, 
+								Perk.ANAL_ADDICT, 
 								new Branch(3).textScene("GADGETEER-SLUT-PALADIN").gameEnd(),
 								new Branch(0).textScene("GADGETEER-PURE-PALADIN")
 							), 
-							new Branch(false).checkScene(CheckType.GADGETEER_TESTED, new Branch(true).checkScene(Perk.ANAL_LOVER, new Branch(3).textScene("GADGETEER-HONEST").gameEnd(), new Branch(0).textScene("GADGETEER-LIE")), new Branch(false).textScene("GADGETEER-CAGE"))
+							new Branch(false).checkScene(CheckType.GADGETEER_TESTED, new Branch(true).checkScene(Perk.ANAL_ADDICT, new Branch(3).textScene("GADGETEER-HONEST").gameEnd(), new Branch(0).textScene("GADGETEER-LIE")), new Branch(false).textScene("GADGETEER-CAGE"))
 						), 
 						new Branch(false).checkScene(
 							CheckType.PLUGGED, 
 							new Branch(true).textScene("GADGETEER-PLUGGED").checkScene(
-								Perk.ANAL_LOVER,
+								Perk.ANAL_ADDICT,
 								new Branch(3).textScene("GADGETEER-PEGGED").choiceScene("Become hers?", yesyesyes),
 								new Branch(0).textScene("GADGETEER-PLUGS")
 							),
@@ -754,7 +754,7 @@ public class EncounterBuilder {
 							new Branch("Dominate Her (5 MAG)").require(ChoiceCheckType.STAT_GREATER_THAN_X, Stat.MAGIC, 5).textScene("GOLEM-DOMINATED").choiceScene(
 								"What do you will of her?", 
 								new Branch("Demand tribute").textScene("GOLEM-TRIBUTE"),
-								new Branch("Demand pleasure").checkScene(Perk.ANAL_LOVER, new Branch(2).textScene("GOLEM-TOP"), golemMisunderstanding),
+								new Branch("Demand pleasure").checkScene(Perk.ANAL_ADDICT, new Branch(2).textScene("GOLEM-TOP"), golemMisunderstanding),
 								new Branch("Ask to fight her").concat(golemBattle),
 								new Branch("Tell her to shut down").textScene("GOLEM-SHUTDOWN")
 							),
@@ -783,7 +783,7 @@ public class EncounterBuilder {
 						new Branch(false).textScene("HARPY-DEFEAT").checkScene(
 							Perk.CUCKOO_FOR_CUCKOO, 
 							new Branch(3).textScene("HARPY-LOVE-BIRD").concat(harpyMarriage), 
-							new Branch(0).checkScene(Perk.ANAL_LOVER, new Branch(3).textScene("HARPY-LOVE-ANAL").concat(harpyMarriage), new Branch(0).textScene("HARPY-FINISH"))
+							new Branch(0).checkScene(Perk.ANAL_ADDICT, new Branch(3).textScene("HARPY-LOVE-ANAL").concat(harpyMarriage), new Branch(0).textScene("HARPY-FINISH"))
 						)), 
 					new Branch(Outcome.SATISFIED).textScene("HARPY-SATISFIED").encounterEnd()
 				};
@@ -895,7 +895,7 @@ public class EncounterBuilder {
 			case OGRE:
 				Branch passerby = new Branch().textScene("OGRE-PASSERBY").encounterEnd();
 				Branch partingScene = new Branch().checkScene(
-					Perk.GIANT_LOVER,
+					Perk.SIZE_QUEEN,
 					new Branch(3).textScene("OGRE-MARRY").gameEnd(), 
 					new Branch(2).textScene("OGRE-HARDSELL").concat(passerby),  
 					new Branch(1).textScene("OGRE-FLIRT").concat(passerby), 
