@@ -548,15 +548,16 @@ public abstract class AbstractCharacter extends Actor {
 			if (damage > 0) {	
 				modHealth(-damage);
 				result.add("The blow strikes for " + damage + " damage!");
-				if (attack.ignoresArmor() || ((hitArmor == null || hitArmor.getDurability() == 0))) {
-					int bleed = attack.getBleeding();
-					if (bleed > 0 && canBleed()) {
-						result.add("It opens wounds! +" + bleed + " blood loss!");
-						statuses.put(StatusType.BLEEDING.toString(), statuses.get(StatusType.BLEEDING.toString(), 0) + bleed);
-					}
-				}
-				else if (!attack.ignoresArmor()) {
+				if (!(attack.ignoresArmor() || ((hitArmor == null || hitArmor.getDurability() == 0)))) {
 					result.add("The blow strikes off your armor!");
+				}
+			}
+			
+			if (attack.ignoresArmor() || ((hitArmor == null || hitArmor.getDurability() == 0))) {
+				int bleed = attack.getBleeding();
+				if (bleed > 0 && canBleed()) {
+					result.add("It opens wounds! +" + bleed + " blood loss!");
+					statuses.put(StatusType.BLEEDING.toString(), statuses.get(StatusType.BLEEDING.toString(), 0) + bleed);
 				}
 			}
 			
