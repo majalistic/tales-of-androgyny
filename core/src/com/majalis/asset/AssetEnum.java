@@ -193,6 +193,7 @@ public enum AssetEnum {
 	FOREST_UP_BG("battle/ForestUp.jpg"),
 	PLAINS_BG("battle/AbandonedField.jpg"),
 	CAVE_BG("battle/Cave.jpg"),
+	CELESTIAL_BG("battle/Celestial.jpg"),
 	ENCHANTED_FOREST_BG("battle/MushroomForest.jpg"),
 	BATTLE_UI("battle/Treeframe.png"),
 	BATTLE_HOVER("battle/SkillHover.png"),
