@@ -1025,7 +1025,7 @@ public class PlayerCharacter extends AbstractCharacter {
 	
 	public AssetDescriptor<Texture> getMasculinityPath() {
 		int masculinityLevel = getMasculinityLevel();
-		return masculinityLevel < 1 ? AssetEnum.MARS_ICON_0.getTexture() : masculinityLevel < 3 ? AssetEnum.MARS_ICON_1.getTexture() : masculinityLevel < 8 ? AssetEnum.MARS_ICON_2.getTexture() : masculinityLevel < 15 ? AssetEnum.MARS_ICON_3.getTexture() : AssetEnum.MARS_ICON_4.getTexture();
+		return masculinityLevel < 1 ? AssetEnum.MARS_ICON_0.getTexture() : masculinityLevel < 6 ? AssetEnum.MARS_ICON_1.getTexture() : masculinityLevel < 16 ? AssetEnum.MARS_ICON_2.getTexture() : masculinityLevel < 30 ? AssetEnum.MARS_ICON_3.getTexture() : AssetEnum.MARS_ICON_4.getTexture();
 	}
 	
 	public boolean isVirgin(EnemyEnum enemyEnum) {
@@ -1074,17 +1074,21 @@ public class PlayerCharacter extends AbstractCharacter {
 	}
 	
 	private String incrementPerk(int currentValueOfStat, Perk perkToIncrement, int ... valuesToCheck) {
+		String result = "";
 		int currentValueOfPerk = perks.get(perkToIncrement.toString(), 0);
 		int valueToApply = valuesToCheck.length;
 		for (int valueToCheck : valuesToCheck) {
 			if (valueToApply <= currentValueOfPerk) break;
 			if (currentValueOfStat >= valueToCheck) {
 				perks.put(perkToIncrement.toString(), valueToApply);
-				return "You gained " + perkToIncrement.getLabel() + " (Rank " + valueToApply + ")!";
+				result += "You gained " + perkToIncrement.getLabel() + " (Rank " + valueToApply + ")!\n";
 			}
 			valueToApply--;
 		}
-		return "";
+		if (perkToIncrement != Perk.COCK_LOVER) {
+			result += incrementPerk(getMasculinityLevel(), Perk.COCK_LOVER, 30, 27, 24, 21, 18, 15, 12, 9, 6, 3);
+		}
+		return result;
 	}
 	
 	public void setGoblinVirginity(boolean virginity) {

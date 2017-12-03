@@ -10,6 +10,7 @@ public enum Perk {
 	HARDER ("Increases endurance by 1 per rank.", 3),
 	FASTER ("Increases agility by 1 per rank.", 3),
 	WEAK_TO_ANAL ("Weak to butt stuff. Causes quick pew pews while penetrated.", false),
+	COCK_LOVER ("Loves cocks. What else is there to say?", 10, false),
 	ANAL_ADDICT ("Loves butt stuff. Or, more accurately, getting butt stuffed. Unlocks skills for anal.", 3, false),
 	MOUTH_MANIAC ("Loves suckin' it. Unlocks skills for fellatio.", 3, false),
 	CREAMPIE_COLLECTOR ("Loves to get cream-filled like a creampuff.", 3, false),
