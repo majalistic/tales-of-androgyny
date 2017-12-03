@@ -710,6 +710,14 @@ public class EnemyCharacter extends AbstractCharacter {
 				else {
 					return getTechniques(target.stance == Stance.SPREAD ? CRUSH : PULL_UP);
 				}
+			case WRAPPED:
+				if (currentStamina <= 0 || grappleStatus.isDisadvantage()) {
+					return getTechniques(SQUEEZE_RELEASE);
+				}
+				if (grappleStatus == GrappleStatus.HOLD) {
+					return getTechniques(SQUEEZE_CRUSH);
+				}
+				return getTechniques(SQUEEZE, BITE);					
 			default: return getTechniques(DO_NOTHING);
 		}
 	}
@@ -728,11 +736,16 @@ public class EnemyCharacter extends AbstractCharacter {
 		
 		Array<Techniques> possibleTechniques = getPossibleTechniques(target, stance);
 		
-		if (enemyType == EnemyEnum.ADVENTURER && target.stance == Stance.SUPINE && target.isErect()) {
+		if (enemyType == EnemyEnum.ADVENTURER && target.stance == Stance.SUPINE && target.isErect() && !stance.isIncapacitatingOrErotic()) {
 			possibleTechniques = getTechniques(SIT_ON_IT);
 		}
 		
+		if ((target.stance == Stance.PRONE || target.stance == Stance.SUPINE) && enemyType == EnemyEnum.NAGA && !stance.isIncapacitatingOrErotic()) {
+			possibleTechniques = getTechniques(WRAP);
+		}
+		
 		if (willPounce() && enemyType != EnemyEnum.OGRE) {
+			
 			if (target.stance == Stance.PRONE && enemyType.canProneBone() && enemyType.canWrestle()) {
 				possibleTechniques = getTechniques(WRESTLE_TO_GROUND);
 			}

@@ -83,6 +83,16 @@ public enum Techniques {
 	LIFT_WEAPON			(new NonAttackTechnique(Stance.BALANCED, Stance.OFFENSIVE, "Raise Club", 1, 1).build()),
 	SLAM				(new AttackTechnique(Stance.BALANCED, Stance.OFFENSIVE, "Slam", -2, 3, 3).build()),
 	
+	WRAP				(new GrappleTechnique(Stance.BALANCED, Stance.WRAPPED, "Wrap", 0, Stance.WRAPPED_BOTTOM, GrappleType.ADVANTAGE).build()), // when enemy is prone
+	BITE				(new GrappleTechnique(Stance.WRAPPED, Stance.WRAPPED, "Bite", 4, GrappleType.SUBMIT).setIgnoreArmor().setBleed(1).build()),	
+	SQUEEZE				(new GrappleTechnique(Stance.WRAPPED, Stance.WRAPPED, "Squeeze", 4, GrappleType.ADVANTAGE).addBonus(BonusCondition.STRENGTH_OVERPOWER, BonusType.GRAPPLE).build()),
+	SQUEEZE_CRUSH		(new GrappleTechnique(Stance.WRAPPED, Stance.WRAPPED, "Crush", 4, GrappleType.SUBMIT).setAutoDamage().build()),
+	SQUEEZE_RELEASE		(new GrappleTechnique(Stance.WRAPPED, Stance.PRONE, "Release", -1, Stance.PRONE, GrappleType.WIN).build()),		
+	
+	SQUEEZE_STRUGGLE		(new GrappleTechnique(Stance.WRAPPED_BOTTOM, Stance.WRAPPED_BOTTOM, "Struggle", 5, GrappleType.ADVANTAGE).build()),
+	BREAK_FREE_SQUEEZE	(new GrappleTechnique(Stance.WRAPPED_BOTTOM, Stance.PRONE, "Struggle", 0, Stance.PRONE, GrappleType.BREAK).build()), // Break hold
+	SQUEEZE_REST	(new GrappleTechnique(Stance.WRAPPED_BOTTOM, Stance.WRAPPED_BOTTOM, "Rest", -1, GrappleType.SUBMIT).build()),	
+	
 	/* Enemy pouncing */
 	DIVEBOMB 			(new GrappleTechnique  (Stance.AIRBORNE, Stance.FELLATIO, "Divebomb", 2, Stance.FELLATIO_BOTTOM, TechniqueHeight.HIGH, GrappleType.WIN, "").build()),
 	SAY_AHH 			(new GrappleTechnique  (Stance.BALANCED, Stance.FELLATIO, "Say 'Ahh'", 2, Stance.FELLATIO_BOTTOM, GrappleType.WIN).addBonus(BonusCondition.OUTMANEUVER, BonusType.PRIORITY).build()),
