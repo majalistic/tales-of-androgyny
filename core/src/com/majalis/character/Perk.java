@@ -16,7 +16,7 @@ public enum Perk {
 	SEMEN_SWALLOWER ("Loves to drink jizz.", 3, false),
 	HORSE_LOVER ("Has a thing for equine phalluses. Be careful!", 1, false),
 	GIANT_LOVER ("Likes 'em big. For a certain definition of \"'em\" Be careful!", 3, false), 
-	LADY_OF_THE_NIGHT ("You know how to make money with your... talents.", 5, false),
+	LADY_OF_THE_NIGHT ("You know how to make money with your... talents.", 10, false),
 	BEASTMASTER ("You've been... friendly with a few non-humanoid creatures.", 3, false),
 	CUCKOO_FOR_CUCKOO ("You enjoy the company of feathered friends.", 3, false),
 	BITCH ("You love being tied together with someone who's fucking your ass.  You like yippy dog sex, and there's no shame in that.  Well, some.", 3, false),

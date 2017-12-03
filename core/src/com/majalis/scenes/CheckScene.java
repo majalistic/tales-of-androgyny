@@ -211,6 +211,10 @@ public class CheckScene extends AbstractTextScene {
 			@Override
 			protected boolean getCheck(PlayerCharacter character) { return character.getQuestStatus(QuestType.BROTHEL) != 0; }  
 		}, 
+		PROSTITUTE_WARNING_GIVEN ("", "") { 
+			@Override
+			protected boolean getCheck(PlayerCharacter character) { return character.getQuestStatus(QuestType.BROTHEL) > 1; }  
+		}, 
 		SCOUT_LEVEL_2 ("You are keenly aware of this area. (Scouting success!)", "This area is unknown to you.") { 
 			@Override
 			protected boolean getCheck(PlayerCharacter character) { return character.getScoutingScore() >= 2; }  

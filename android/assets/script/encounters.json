@@ -1290,6 +1290,18 @@
 		]
 	},
 	{
+		"key": "BROTHEL-WARNING",
+		"scriptLines": [
+			{
+			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "BROTHEL", "value":2}}],
+			"text": "You're getting quite comfortable pleasing cocks for money... or no cost at all.  You wonder if there's really a need for you to be out in the world, slaying monsters, when you can stay here and slay full semen pouches."},
+			{"text": "You brush off the thought - sure, while you're out adventuring, you keep pausing to think about last night's big score, but it's just because you need that money to fund said adventuring."},
+			{"text": "If you didn't desperately need the coin for provisions and equipment... you lose track of that thought, as a man walks in with a broad smile, looking your petite body up and down.  He seems... hungry."},
+			{"text": "You lick your lips.  Back to work."}			
+		]
+	},
+
+	{
 		"key": "NO-SKILLS",
 		"scriptLines": [
 			{"text": "You have no skills to select!"}

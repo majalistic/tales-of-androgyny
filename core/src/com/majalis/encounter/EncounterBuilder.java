@@ -274,17 +274,25 @@ public class EncounterBuilder {
 					CheckType.ELF_BROTHEL,
 					new Branch(true).textScene("ELF-BROTHEL"),
 					new Branch(false).checkScene(
-						Perk.LADY_OF_THE_NIGHT,
-						new Branch(5).textScene("BROTHEL-CLASS-CHANGE").gameEnd(),
-						new Branch(0).checkScene(
-							CheckType.PROSTITUTE, 	
-							new Branch(true).concat(onceSignedUp),
-							new Branch(false).textScene("BROTHEL-OFFER").choiceScene(
-								"Do you want to sign up? What's the worst that could happen?",
-								new Branch ("Sign Up (Requires: Catamite)").require(ChoiceCheckType.LEWD).textScene("BROTHEL-SIGN-UP").concat(onceSignedUp),
-								new Branch ("Leave")
-							)
-						)	
+						CheckType.PROSTITUTE_WARNING_GIVEN,
+						new Branch(true).checkScene(	
+							Perk.LADY_OF_THE_NIGHT, 
+							new Branch(10).textScene("BROTHEL-CLASS-CHANGE").gameEnd(),
+							new Branch(0).concat(onceSignedUp)
+						),
+						new Branch(false).checkScene(
+							Perk.LADY_OF_THE_NIGHT,
+							new Branch(5).textScene("BROTHEL-WARNING").concat(onceSignedUp),
+							new Branch(0).checkScene(
+								CheckType.PROSTITUTE, 	
+								new Branch(true).concat(onceSignedUp),
+								new Branch(false).textScene("BROTHEL-OFFER").choiceScene(
+									"Do you want to sign up? What's the worst that could happen?",
+									new Branch ("Sign Up (Requires: Catamite)").require(ChoiceCheckType.LEWD).textScene("BROTHEL-SIGN-UP").concat(onceSignedUp),
+									new Branch ("Leave")
+								)
+							)	
+						)
 					)
 				).getEncounter();
 			case BUNNY:
