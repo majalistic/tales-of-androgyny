@@ -61,7 +61,7 @@ public enum EnemyEnum {
     	}
 		return textures;
 	}
-    public String getBGPath() { return this == OGRE ? AssetEnum.FOREST_UP_BG.getPath() : this == CENTAUR || this == UNICORN || this == ANGEL ? AssetEnum.PLAINS_BG.getPath() : this == GOBLIN || this == GOBLIN_MALE ? AssetEnum.ENCHANTED_FOREST_BG.getPath() : AssetEnum.FOREST_BG.getPath(); } 
+    public String getBGPath() { return this == OGRE ? AssetEnum.FOREST_UP_BG.getPath() : this == NAGA || this == SPIDER ? AssetEnum.CAVE_BG.getPath() : this == CENTAUR || this == UNICORN || this == ANGEL ? AssetEnum.PLAINS_BG.getPath() : this == GOBLIN || this == GOBLIN_MALE ? AssetEnum.ENCHANTED_FOREST_BG.getPath() : AssetEnum.FOREST_BG.getPath(); } 
     // there should be another method that accepts an assetManager and returns the actual maps
     public ObjectMap<String, Array<String>> getImagePaths() { 
     	ObjectMap<String, Array<String>> textureImagePaths = new ObjectMap<String, Array<String>>();
