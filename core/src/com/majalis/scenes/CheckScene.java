@@ -215,6 +215,10 @@ public class CheckScene extends AbstractTextScene {
 			@Override
 			protected boolean getCheck(PlayerCharacter character) { return character.getScoutingScore() >= 2; }  
 		}, 
+		SCOUT_LEVEL_3 ("You have scouted this area thoroughly. (Scouting success!)", "This area is relatively unknown to you.") { 
+			@Override
+			protected boolean getCheck(PlayerCharacter character) { return character.getScoutingScore() >= 3; }  
+		}, 
 		ELF_UNLOCKED ("", "") { 
 			@Override
 			protected boolean getCheck(PlayerCharacter character) { int check = character.getQuestStatus(QuestType.ELF); return check == 1; }  
@@ -271,7 +275,7 @@ public class CheckScene extends AbstractTextScene {
 		GADGETEER_TESTED("", "") { 
 			@Override
 			protected boolean getCheck(PlayerCharacter character) { int check = character.getQuestStatus(QuestType.GADGETEER); return check == 2; }  
-		},
+		}, 
 		;
 		private final String success;
 		private final String failure;

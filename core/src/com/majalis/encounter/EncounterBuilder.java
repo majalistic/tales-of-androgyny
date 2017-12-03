@@ -853,7 +853,7 @@ public class EncounterBuilder {
 				return new Branch().textScene("STORY-WITCH-COTTAGE-VISIT").encounterEnd().getEncounter(); 
 			case NAGA:
 				return new Branch().textScene("NAGA-INTRO").checkScene(
-					CheckType.SCOUT_LEVEL_2, 
+					CheckType.SCOUT_LEVEL_3, 
 					new Branch(true).battleScene(
 						BattleCode.NAGA, 
 						new Branch(Outcome.VICTORY).textScene("NAGA-VICTORY").choiceScene(
@@ -863,7 +863,7 @@ public class EncounterBuilder {
 							new Branch("Nothing")
 						), 
 						new Branch(Outcome.DEFEAT).textScene("NAGA-DEFEAT"), 
-						new Branch(Outcome.DEATH).textScene("NAGA-CRUSHED")
+						new Branch(Outcome.DEATH).textScene("NAGA-CRUSHED").gameEnd()
 					), 
 					new Branch(false).textScene("NAGA-AMBUSH").choiceScene(
 						"Front or back?", 

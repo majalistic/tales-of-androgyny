@@ -141,6 +141,10 @@ public enum EncounterCode {
 					default: return "Unknown - No Info for encounter #" + this + " and perception level = " + visibility;
 				}
 			case 2:
+				switch (this) {
+					case NAGA: return "Cave - Unknown Danger!";
+					default:
+				}
 			case 3:
 			case 4:
 			case 5:
@@ -164,7 +168,7 @@ public enum EncounterCode {
 					case ANGEL: return "Ruins - Calm";
 					case SPIDER: return "Ruins - Danger!";
 					case GADGETEER: return "Suspicious Merchant";
-					case NAGA: return "Cave - Danger!";
+					case NAGA: return "Cave - Naga Within!";
 					case TOWN: return "Town of Silajam";
 					case TOWN2:
 					case TOWN_STORY: return "Town of Nadir";
