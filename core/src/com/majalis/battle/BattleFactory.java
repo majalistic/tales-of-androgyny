@@ -138,6 +138,8 @@ public class BattleFactory {
 			case GHOST: return new EnemyCharacter(getTextures(EnemyEnum.GHOST), getTextureMap(EnemyEnum.GHOST), EnemyEnum.GHOST.getAnimations(assetManager), EnemyEnum.GHOST, stance);
 			case BUNNY: return new EnemyCharacter(getTextures(EnemyEnum.BUNNY), getTextureMap(EnemyEnum.BUNNY), EnemyEnum.BUNNY.getAnimations(assetManager), EnemyEnum.BUNNY, stance);
 			case ANGEL: return new EnemyCharacter(getTextures(EnemyEnum.ANGEL), getTextureMap(EnemyEnum.ANGEL), EnemyEnum.ANGEL.getAnimations(assetManager), EnemyEnum.ANGEL, stance);
+			case NAGA: return new EnemyCharacter(getTextures(EnemyEnum.NAGA), getTextureMap(EnemyEnum.NAGA), EnemyEnum.NAGA.getAnimations(assetManager), EnemyEnum.NAGA, stance);
+			
 			default: return null;
 		}
 	}

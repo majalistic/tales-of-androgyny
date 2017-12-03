@@ -852,7 +852,25 @@ public class EncounterBuilder {
 			case MERI_COTTAGE_VISIT:
 				return new Branch().textScene("STORY-WITCH-COTTAGE-VISIT").encounterEnd().getEncounter(); 
 			case NAGA:
-				return new Branch().textScene("NAGA-INTRO").getEncounter();
+				return new Branch().textScene("NAGA-INTRO").checkScene(
+					CheckType.SCOUT_LEVEL_2, 
+					new Branch(true).battleScene(
+						BattleCode.NAGA, 
+						new Branch(Outcome.VICTORY).textScene("NAGA-VICTORY").choiceScene(
+							"What do you do with her?", 
+							new Branch("In her... cloaca").textScene("NAGA-CLOACA"), 
+							new Branch("In her mouth").textScene("NAGA-FELLATIO").gameEnd(), 
+							new Branch("Nothing")
+						), 
+						new Branch(Outcome.DEFEAT).textScene("NAGA-DEFEAT"), 
+						new Branch(Outcome.DEATH).textScene("NAGA-CRUSHED")
+					), 
+					new Branch(false).textScene("NAGA-AMBUSH").choiceScene(
+						"Front or back?", 
+						new Branch("Front").textScene("NAGA-IRRUMATIO"), 
+						new Branch("Back").textScene("NAGA-CLOACALICK")
+					)
+				).getEncounter();
 			case OGRE:
 				Branch passerby = new Branch().textScene("OGRE-PASSERBY").encounterEnd();
 				Branch partingScene = new Branch().checkScene(

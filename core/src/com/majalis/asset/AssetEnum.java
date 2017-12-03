@@ -240,6 +240,7 @@ public enum AssetEnum {
 	PENETRATED("stances/SpreadEaglePen.png"),
 	STANDING("stances/Standing.png"),
 	SUPINE("stances/Supine.png"),
+	WRAPPED("stances/Wrapped.png"),
 	
 	STANCE_ARROW("stances/ChevronArrow.png"),
 	

@@ -265,6 +265,8 @@ public class EnemyCharacter extends AbstractCharacter {
 					case ANGEL:
 						resolvedAttack.addDialog("\"Oh, why didn't you just say so?\" she says, gleefully sitting on your face, ass first.");
 						break;
+					case NAGA:
+						break;
 				}
 			}
 			
@@ -337,6 +339,8 @@ public class EnemyCharacter extends AbstractCharacter {
 						resolvedAttack.addDialog("\"Looks like you're the one collecting, now.\"");
 						break;
 					case ANGEL:
+						break;
+					case NAGA:
 						break;
 				}
 					
@@ -1166,7 +1170,7 @@ public class EnemyCharacter extends AbstractCharacter {
 	
 	public Outcome getOutcome(AbstractCharacter enemy) {
 		if (currentHealth <= 0 && (enemyType != EnemyEnum.ANGEL || selfRessurect == 3)) return Outcome.VICTORY;
-		else if (enemy.getCurrentHealth() <= 0) return Outcome.DEFEAT;
+		else if (enemy.getCurrentHealth() <= 0 && (enemyType != EnemyEnum.NAGA || stance != Stance.WRAPPED)) return Outcome.DEFEAT;
 		switch(enemyType) {
 			case BRIGAND:
 				if (!storyMode) {
@@ -1222,6 +1226,8 @@ public class EnemyCharacter extends AbstractCharacter {
 			case ANGEL:
 				if (stance == Stance.FACE_SITTING && oldStance == Stance.FACE_SITTING) return Outcome.SUBMISSION;
 				if (lust == 8 && currentHealth == getMaxHealth() && selfRessurect == 1) return Outcome.SATISFIED;
+			case NAGA:
+				if (enemy.getCurrentHealth() <= 0 && stance == Stance.WRAPPED) return Outcome.DEATH;
 			default:
 		
 		}
@@ -1240,6 +1246,7 @@ public class EnemyCharacter extends AbstractCharacter {
 			case SUBMISSION: return enemyType == EnemyEnum.ANGEL ? "She's sitting on your face and can't be dislodged - you can no longer fight!" : "They're completely fucked silly! They're no longer hostile.";
 			case DEFEAT: return enemy.getDefeatMessage();
 			case VICTORY: return getDefeatMessage();
+			case DEATH: return enemyType == EnemyEnum.NAGA ? "You are being crushed!" : "";
 		}
 		return null;
 	}

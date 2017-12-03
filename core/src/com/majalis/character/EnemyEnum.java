@@ -23,7 +23,7 @@ public enum EnemyEnum {
 	UNICORN (new EnemyTemplate(WeaponType.Bow).setEndurance(4).setAgility(4).setPerception(5), "Unicorn", null, AnimationEnum.UNICORN),
 	GOBLIN (new EnemyTemplate(WeaponType.Dagger).setStrength(4).setEndurance(4).setAgility(5), "Goblin", AssetEnum.GOBLIN.getTexture()), 
 	GOBLIN_MALE (new EnemyTemplate(WeaponType.Dagger).setStrength(4).setEndurance(4).setAgility(5), "Goblin (Male)", AssetEnum.GOBLIN_MALE.getTexture()),
-	ORC (new EnemyTemplate(WeaponType.Flail, 7, 6, 4, 3, 3, 3).setArmor(ArmorType.MEDIUM_ENEMY_ARMOR).setLegwear(ArmorType.MEDIUM_ENEMY_LEGWEAR).addHealth(10), "Orc", null, AnimationEnum.ORC), 
+	ORC (new EnemyTemplate(WeaponType.Chain, 7, 6, 4, 3, 3, 3).setArmor(ArmorType.MEDIUM_ENEMY_ARMOR).setLegwear(ArmorType.MEDIUM_ENEMY_LEGWEAR).addHealth(10), "Orc", null, AnimationEnum.ORC), 
 	ADVENTURER (new EnemyTemplate(WeaponType.Axe, 4, 4, 4, 3, 4, 6).setArmor(ArmorType.MEDIUM_ENEMY_ARMOR).setLegwear(ArmorType.MEDIUM_ENEMY_LEGWEAR).addHealth(10).setMana(26), "Adventurer", AssetEnum.ADVENTURER.getTexture()),
 	OGRE (new EnemyTemplate(WeaponType.Greatclub, 8, 6, 4, 3, 3, 3).setArmor(null).setLegwear(null).setHealth(new IntArray(new int[]{20, 20, 20})), "Ogre", AssetEnum.OGRE.getTexture()),
 	BEASTMISTRESS (new EnemyTemplate(WeaponType.Claw).setStrength(6).setAgility(8).setEndurance(5).addHealth(10), "Beast Mistress", AssetEnum.BEASTMISTRESS.getTexture()),
@@ -31,7 +31,8 @@ public enum EnemyEnum {
 	GOLEM (new EnemyTemplate(null, 6, 8, 4, 3, 3, 3).setArmor(ArmorType.MEDIUM_ENEMY_ARMOR).setLegwear(ArmorType.MEDIUM_ENEMY_LEGWEAR).setHealth(new IntArray(new int[]{60})).setMana(12), "Golem", AssetEnum.GOLEM.getTexture(), AssetEnum.GOLEM_FUTA.getTexture()),
 	GHOST (new EnemyTemplate(null, 0, 0, 0, 8, 8, 8).setArmor(null).setLegwear(null).setUnderwear(null).setHealth(new IntArray(new int[]{15})).setMana(30), "Ghost", AssetEnum.GHOST_SPOOKY.getTexture(), AssetEnum.GHOST_SPOOKY_BLOODLESS.getTexture()),
 	BUNNY (new EnemyTemplate(WeaponType.Sickle, 6, 6, 9, 5, 1, 8).setHealth(new IntArray(new int[]{20, 20, 20, 20})).setMana(30), "Puca", AssetEnum.BUNNY_CREAM.getTexture(), AssetEnum.BUNNY_VANILLA.getTexture(), AssetEnum.BUNNY_CARAMEL.getTexture(), AssetEnum.BUNNY_CHOCOLATE.getTexture(), AssetEnum.BUNNY_DARK_CHOCOLATE.getTexture()), 
-	ANGEL (new EnemyTemplate(WeaponType.Trumpet).setHealth(new IntArray(new int[]{20, 20, 20, 20})).setMana(30).setEndurance(10).setAgility(10).setArmor(null).setLegwear(null).setStrength(5).setAgility(5), "Angel", AssetEnum.ANGEL.getTexture()),
+	ANGEL (new EnemyTemplate(WeaponType.Trumpet).setHealth(new IntArray(new int[]{20, 20, 20, 20})).setMana(30).setEndurance(10).setAgility(10).setArmor(null).setLegwear(null).setStrength(5).setAgility(5), "Angel", AssetEnum.ANGEL.getTexture()), 
+	NAGA (new EnemyTemplate(WeaponType.Flail).setHealth(new IntArray(new int[]{20, 20, 20, 20})).setArmor(null).setLegwear(null).setUnderwear(null).setStrength(6).setAgility(6).setEndurance(6), "Naga", AssetEnum.NAGA.getTexture()), 
 	;
 	private final String text;
 	private final Array<AssetDescriptor<Texture>> texturePaths;
@@ -121,11 +122,11 @@ public enum EnemyEnum {
 	public ArmorType getLegwearType() { return template.getLegwearType(); }
 	public ArmorType getUnderwearType() { return template.getUnderwearType(); }
 	public boolean canBleed() { return this != SLIME && this != GOLEM && this != GHOST; }
-	public boolean willFaceSit() { return this != CENTAUR && this != UNICORN && this != GHOST && this != OGRE && this != SPIDER;} 
+	public boolean willFaceSit() { return this != CENTAUR && this != UNICORN && this != GHOST && this != OGRE && this != SPIDER && this != NAGA;} 
 	public boolean willArmorSunder() { return this == BRIGAND || this == ORC || this == ADVENTURER; }
 	public boolean willParry() { return this == BRIGAND || this == ADVENTURER; }
 	public boolean canBeRidden() { return this != SLIME && this != CENTAUR && this != UNICORN && this != BEASTMISTRESS && this != GHOST && this != ANGEL; }
-	public boolean willPounce() { return this != UNICORN && this != BEASTMISTRESS && this != ANGEL; }
+	public boolean willPounce() { return this != UNICORN && this != BEASTMISTRESS && this != ANGEL && this != NAGA; }
 	public boolean isPounceable() { return this != OGRE && this != BEASTMISTRESS && this != UNICORN && this != GHOST && this != ANGEL; }
 	public boolean canProneBone() { return this == BRIGAND || this == GOBLIN || this == ORC || this == ADVENTURER || this == GOBLIN_MALE; }
 	public boolean prefersProneBone() { return this == ORC || this == GOBLIN; }
@@ -250,6 +251,7 @@ public enum EnemyEnum {
 			case SPIDER: return "Little is known about the spider woman of the ruins, other than that she is singularly dangerous and malevolent. Her thousands of young are an army their own - enter the ruins at your own peril.";
 			case WERESLUT: return "It's not certain if the werewolves are wolves who have become men, men who have become wolves, or simply a beastman-like creature that could appear to be either, but their beast-like strength and agility and sharp claws makes them extremely dangerous.\n\nAppearing like a village librarian, this werewolf has a penchant for mating with human boys... with disastrous results.";
 			case ANGEL: return "A divine creature serving an ancient, long forgotten goddess.  It's not certain what domains her goddess has or had as her charge, but it is known exactly how long her trumpet is.";
+			case NAGA: return "The naga is a particularly vicious creature. It will just as soon crush an opponent as it will devour them or defile them - depending on its mood.";
 		}
 		return "";
 	}

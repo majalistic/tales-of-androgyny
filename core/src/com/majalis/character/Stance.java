@@ -22,6 +22,7 @@ public enum Stance {
 	GROUND_WRESTLE (AssetEnum.GROUND_WRESTLE),
 	GROUND_WRESTLE_FACE_DOWN (AssetEnum.PRONE),
 	GROUND_WRESTLE_FACE_UP (AssetEnum.SUPINE),
+	WRAPPED(AssetEnum.WRAPPED),
 	FULL_NELSON (AssetEnum.FULL_NELSON), 
 	DOGGY (StanceType.ANAL, AssetEnum.DOGGY), 
 	PRONE_BONE (StanceType.ANAL, AssetEnum.PRONEBONE),
@@ -42,6 +43,7 @@ public enum Stance {
 	HOLDING(AssetEnum.FULL_NELSON),
 	CRUSHING(StanceType.ANAL, AssetEnum.FULL_NELSON),
 	
+	WRAPPED_BOTTOM(AssetEnum.WRAPPED),
 	FULL_NELSON_BOTTOM (AssetEnum.FULL_NELSON), 
 	DOGGY_BOTTOM (StanceType.ANAL_BOTTOM, AssetEnum.DOGGY), 
 	PRONE_BONE_BOTTOM (StanceType.ANAL_BOTTOM, AssetEnum.PRONEBONE),
@@ -64,7 +66,7 @@ public enum Stance {
 	PENETRATED(StanceType.ANAL_BOTTOM, AssetEnum.PENETRATED),
 	
 	ERUPT (AssetEnum.ERUPT), 
-	NULL (AssetEnum.NULL_STANCE)
+	NULL (AssetEnum.NULL_STANCE), 
 	;
 	// need to create: boolean anal, boolean oral, boolean method erotic, boolean incapacitated
 	private final AssetEnum asset;

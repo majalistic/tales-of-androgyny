@@ -6353,7 +6353,58 @@
 			{
 			"music": "WEREWOLF_MUSIC",
 			"foreground": "NAGA",
+			"mutations": [{"profileSaveType":"KNOWLEDGE", "value":{"class": "java.lang.String", "value": "Naga"}}],
 			"text": "..."}
 		]
-	}
+	},
+	{
+		"key": "NAGA-VICTORY",
+		"scriptLines": [
+			{
+			"mutations": [{"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": 8}}],
+			"text": "..."}
+		]
+	},
+	{
+		"key": "NAGA-CLOACA",
+		"scriptLines": [
+			{"text": "..."}
+		]
+	},
+	{
+		"key": "NAGA-FELLATIO",
+		"scriptLines": [
+			{"text": "..."}
+		]
+	},
+	{
+		"key": "NAGA-DEFEAT",
+		"scriptLines": [
+			{"text": "..."}
+		]
+	},
+	{
+		"key": "NAGA-CRUSHED",
+		"scriptLines": [
+			{"text": "..."}
+		]
+	},
+	{
+		"key": "NAGA-AMBUSH",
+		"scriptLines": [
+			{"text": "..."}
+		]
+	},
+	{
+		"key": "NAGA-IRRUMATIO",
+		"scriptLines": [
+			{"text": "..."}
+		]
+	},
+	{
+		"key": "NAGA-CLOACALICK",
+		"scriptLines": [
+			{"text": "..."}
+		]
+	},
 ]}
