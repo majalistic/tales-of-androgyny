@@ -6352,9 +6352,23 @@
 		"scriptLines": [
 			{
 			"music": "WEREWOLF_MUSIC",
-			"foreground": "NAGA",
 			"mutations": [{"profileSaveType":"KNOWLEDGE", "value":{"class": "java.lang.String", "value": "Naga"}}],
-			"text": "..."}
+			"text": "You enter the foreboding cave and the air feels heavy - there's a thick smell in the air that you can neither place nor stomach.  As you descend into ever-greater darkness, you begin to worry that something other than curiosity is driving you forward."},
+			{"text": "You hear a hissing sound and swing your torch about, trying to find the source of the sound, but are met only with echoes.  Your own footsteps begin to startle you, raising your hackles and testing your nerves."}
+		]
+	},
+	{
+		"key": "NAGA-SPOTTED",
+		"scriptLines": [
+			{"text": "You know what lives in this cave - a naga. A devourer of men.  Your steel is ready, although your feet are uneasy.  This is exactly the kind of foe you seek to vanquish - and yet, faced with the prospect of staring down such a powerful creature, your courage wavers."},
+			{"text": "You're sure to cast your torch at every crevice, rather than risk a sudden strike from within.  Finally, you face a rock wall, with no way forward."},
+			{"text": "The hissing grows louder, and you turn to face it... and there she is."},
+			{
+			"foreground": "NAGA",
+			"text": "\"This is the wrong cave. If you want the one without the man-eating fiend, that would be two caves over,\" she says, checking her nails with a look of disinterest, \"but I suppose that doesn't matter for you, anymore.\""},
+			{"text": "She's blocking the only way out, and while you've denied her the element of surprise, a malevolent power exudes from her.  Even if she isn't a greater naga of some kind, the real and present danger of a predator towards her prey is curdling your blood."},
+			{"text": "\"Who will attack first, I wonder...\" she says, rising up so that she towers over you.  You hold your sword at the ready.  \"Oh, well, fine. I'll start,\" she says, and she rushes towards you!"},
+
 		]
 	},
 	{
@@ -6362,49 +6376,232 @@
 		"scriptLines": [
 			{
 			"mutations": [{"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": 8}}],
-			"text": "..."}
+			"text": "You manage to eke out a victory - albeit a small one.  The crazed snake woman keeps her head low to the ground, cowed... or, looking for an opening."},
+			{"text": "\"Well...\" she says, \"to the victor goes the spoils, as you say.  You gonna fuck me?!\" she asks, clearly excited by the prospect."}
 		]
 	},
 	{
 		"key": "NAGA-CLOACA",
 		"scriptLines": [
-			{"text": "..."}
+			{"text": "You nod, and she sticks out her forked tongue.  You approach her with trepidation, and she slowly lifts her torso up so that she's chest to chest with you."},
+			{"text": "\"So there are people like you...\" she says, reaching down to touch the bulge in your undergarment.  She circles the tip with her finger, looking down at it, fixated."},
+			{"text": "You put your arms around her... waist?  She pulls you out, already full and rigid, and begins to stroke you eagerly. "},
+			{"text": "She takes your face in her hands, and with a strange dexterity she presses her tail against you... and you feel your penis sink into something soft and wet, with an odd internal shape.  You nearly let out a gasp, and she's amused by your reaction."},
+			{"text": "You realize too late that she's wrapping her tail around you, but she dispels your fears."},
+			{"text": "\"Don't worry.  Just bringing you in close,\" she explains, her tail moving rhythmically to pull you inside and also to pull you out."},
+			{"text": "Having already been enticed, you immediately feel the urge to cum - which is when you start to question your own knowledge of snake anatomy."},
+			{"text": "\"Why are you so worried?  What could I possibly do with your semen?\" she asks, and you suddenly worry about what she plans to do with your semen."},
+			{"text": "You can't pull out or away with her tail wrapped around you, and she's forcing you in and out of her at a faster and faster pace - meaning that your orgasm is building whether you want it to or not."},
+			{"text": "\"You're strong, so I'll have a strong brood, right?  Right?!\" she says, her eyes wild, and your heart sinks.  You've made a mistake."},
+			{"text": "She continues to hold your face in place, forcing you to gaze at her own face, as she forces you to fuck her.  Even when you manage to pull out, she immediately drives it back into her, all while staring into your eyes."},
+			{"text": "Your orgasm is imminent, and you begin to whine, trying to hold back, but your seminal vesicle is already preparing to flood her fallopians, or whatever the hell she has."},
+			{"text": "\"You're gonna cum, right?  You're gonna let it all out, right?  My snake pussy is too good, right?\""},
+			{"text": "You shake your head.  You have to resist."},
+			{"text": "\"Let me see your face,\" she says, holding your face in her hands.  \"I'll think of you whenever my brood devours a village...\""},
+			{"text": "She wraps her tail around you, and her arms around your neck, her eyes peering down at yours as she rhythmically attempts to extract your semen."},
+			{"text": "\"Fill me up, baby...\" she says, sultrily, and you feel it coming... you can't stop it..."},
+			{"text": "She watches in amusement as you bite your lip, trying to hold it in, while your cock pulses and throbs inside of her.  Any moment now you're going to flood her strange womb with fertile sperm, and you can't help it."},
+			{"text": "\"Yes!  Get me pregnant!  Let me spawn my vicious brood!\""},
+			{"text": "She doesn't stop moving, and soon you're staring at her sadistic smile, your mouth open in shock, as you ejaculate inside of the monster."},
+			{"text": "She hums.  \"That's right... give me what I need for strong babies... don't stop; I want all of it.\""},
+			{"text": "With each spurt, you know you're only giving her exactly what she wants... but you continue to pump her pussy full until it's all but certain that you just impregnated a snake creature."},
+			{"text": "\"Mmmm...\" she says, running her hands down her body towards her stomach, \"I'm soooo pregnant.  I'm gonna be a mommy... and you...\" she says, pointing her finger at your nose, \"are going to be a daddy.\""},
+			{"text": "Your body is limp in her embrace - you don't know what to do or say.  You can't take back what you've already given."},
+			{"text": "\"What should I name our first ten children?\" she asks, and your mind reels.  With that, she relaxes her grip on you, and you fall to the floor, exhausted.  "},
+			{
+			"foreground": "NULL",
+			"text": "When you wake up, she's nowhere to be found - the cave is empty.  You count your blessings, few as they are, and leave, knowing that you may have just left a legacy you never intended to leave."}
 		]
 	},
 	{
 		"key": "NAGA-FELLATIO",
 		"scriptLines": [
-			{"text": "..."}
+			{"text": "You nod, and she sticks out her forked tongue.  You wordlessly pull out your penis, carefully approaching her, her head at crotch level."},
+			{"text": "\"Ooh... I know about this.  You want me to swallow it, do you?  Then I'll open wide...\" she says, opening... quite wide.  Honestly, it makes you hesitate more than anything."},
+			{"text": "Still, you let her take you into her mouth, and even down her throat, and you shudder as she begins to earnestly deep throat you, perhaps taking \"swallow\" a bit too literally."},
+			{"text": "Regardless, she's quite earnest with it, and you feel a desire to cum down her throat building and building, until finally, she gets a heaping helping of mammalian spunk down her gullet. "},
+			{"text": "You're quite enjoying the experience until... you feel it - a sharp pain on your hip.  You look down, and she's bitten down on your hip, looking up at you with a knowing smile.  She pulls her mouth off of you, and wipes it with her forearm."},
+			{"text": "\"Just a little venom... don't worry, you'll have asphxiated in my stomach before the painful part kicks in,\" she says, and your eyes go wide."},
+			{"text": "You suddenly become rigid, unable to move your limbs - instead of falling to the ground, she catches you in the grooves of her tail, and hoists you up.  You can't even turn your neck to look down, but you feel a wetness around your feet... one that's surprisingly familiar."},
+			{"text": "You sink down, and down, feeling more of your body enveloped by something, until... darkness all around you.  You feel completely compressed, unable to move, and it's hot and wet... and so hard to breathe..."},
+			{"text": "You lose consciousness not long after."}
+			{"text": "..."},
+			{"text": ".."},
+			{"text": "."},
+			{"text": "\"I get so lazy after I eat... hm,\" she says, lounging on her own tail, her reptilian abdomen grotesquely distended, clearly full of something... or someone.  She pats her tummy, hissing contently.  It gurgles loudly."},
+			{"text": "You never finish your quest, and your bones join the others in the naga's den."}
 		]
 	},
 	{
 		"key": "NAGA-DEFEAT",
 		"scriptLines": [
-			{"text": "..."}
+			{"text": "Too exhausted to fight, you collapse.  You watch her approach you cautiously, and then she hovers over you, casting a long shadow from a sconce behind her that falls on you."},
+			{"text": "\"Entering my cave without permission?  I should just eat you and be done with it.  But... you must have a big, swinging dick to come into my cave to try and kill me,\" she says, staring down at you."},
+			{"text": "She smiles wide... well, \"smiles\" might be generous.  You notice two slits just above you on her underbelly - a curious thing."},
+			{"text": "\"You must be some kind of hero!  Lots of pride... hrm.  Hey, is it fun to go poking around in strange caves without permission?\" she asks, and the slits begin to... change."},
+			{"text": "You watch as two large, fleshy objects emerge... and emerge... and... they're over you now, and your \"cave\" doesn't like the sight of them one bit."},
+			{"text": "\"Hey, hey!  Let's play cave explorer! You try to find the way out of my cave without your torch, and I try to find my way into your cave!  If you win, you go free, and if I win, your cave is gonna get FLOODED.  Ready?  Go!\""},
+			{"text": "You struggle to your knees, then your feet, and begin to run - she'd certainly be slower than you if you were in good condition, but as wounded and winded as you are, you can barely outpace her.  The infrequent sconces don't illuminate enough of the cave for you to get your barings, and you keep getting turned around."},
+			{"text": "Eventually, you trip on the slick floor... landing next to a human skull.  Before you can get up, you feel her tail's weight weighing down your legs, and her hands holding down your back."},
+			{"text": "\"Male humans hate being violated so much... so prideful for inferior beings!  Well, both of my little snakes are going to taste this cherry hole, so I hope you're ready!\" she says, spreading your cheeks with her thumbs."},
+			{"text": "She continues to play with your ass - slapping it sticking the odd-shaped tip of her tail inside, twisting and screwing it around, making sure to stretch out your rectum in odd and uncomfortable ways."},
+			{"text": "You can't get the image of those two massive monstrosities out of your head - and soon, you fear, you won't be able to get them out of somewhere rather uncomfortable."},
+			{"text": "\"Did you think you were walking into a naga love den when you trespassed in my cave?!\" she asks, screwing her tail in again, \"is this hole made for naga dicks?!\""},
+			{"text": "It obviously isn't.  You know if she manages to penetrate you with even one of those monsters, your sphincter is going to be stretching wide and tight.  The prospect of both of them making it inside has you breaking out in a full body sweat."},
+			{"text": "\"I really shouldn't play with my food but... it's fun to play with your asshole!\" she says, and you're very worried about how she means to \"play with it.\""},
+			{"text": "She continues to playfully slap your ass, making you shake your hips while she swivels her tail end inside.  She withdraws her tail, and you feel her weight shifting onto you even more."},
+			{"text": "\"I win!\" she says, and then you feel her first big offering pressing against your barely-prepared o-ring.  You lose the cave exploration game a moment later."},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1, "bellyful": 5}}],
+			"text": "The fat thing bores into you, scraping your rectal walls, and you lose consciousness for a moment.  When you come to, it feels like your bowels are impacted, and, well, they are."},
+			{"text": "\"Your violation's not complete till I get both of my girl's in...\" she says, ominously, and you feel her shifting her hips around...  and your hole being forced open even wider."},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1, "bellyful": 5}}],
+			"text": "Your breath and voice catch in your throat as the weight in your rectum shifts - nothing else in the world matters.  Her second cock has joined the first, and her laughter is so far away she may as well be on another plane entirely."},
+			{"text": "Your hole is stretched so far lengthwise that you doubt it will ever return to a circular shape.  Her anatomy is -wrong- for a human, and even moreso wrong for a human asshole.  You feel her hands drumming playfully on your asscheeks, and you know she finds it funny, but the crushing sensation in your bowels is no joke."},
+			{"text": "\"Human buttholes really weren't made for my kind of love, were they?  Oh well!  Guess I'm going to ruin this pretty little pussy forever!\" she says, maniacally, and you suspect the \"pussy\" she's referring to is already ruined, and things will only get worse from here."},
+			{"text": "The two cocks fight over whether to be side to side or top and bottom, rotating and shifting in your intestines, your beleagured anus stretching far beyond the geometries of normal human anal sex as they do - stretching lengthwise, heightwise, and in diagonals, you can barely fathom the shape it will retain when this is over."},
+			{"text": "What you do know, with certainty, is that such a shape will not at all resemble what it once was, or even what a human's excretory organ can look like.  It is being transformed, and the architect of your new anal reality likely doesn't care how it turns out either."},
+			{"text": "She rolls and writhes about in the dirt, her dual-cocks digging into you and never pulling free, while she asks you biting questions about whether your defilement is to your liking."},
+			{"text": "\"Is it humiliating to be violated anally by a \"monster\"?  Well?!\""},
+			{"text": "The intensity of the soreness and tightness of your anal ring notwithstanding, your erect cock is repeatedly thwapping against her muscular underbelly as she twists you about."},
+			{"text": "She holds your chin in place and continues to roll you around while destroying your rectum. \"Well?  Is this what naga sex was like in your darkest fantasies?\" she asks, and while you had never considered it before, you think that naga sex might well be your worst nightmare."},
+			{"text": "Even if she weren't wrapped around you, you completely lack the strength to do anything but receive it."},
+			{"text": "\"Admit it!  You like being bunga-bunga'd in the dirt!  Two cocks isn't enough for you!\" she says, while pushing your face into the dirt, to emphasize her point, her two other points being rhythmically slipped in and out of you while twisting around each other."},
+			{"text": "Her writhing and undulating is completely different from how a human moves - the muscle running all the way through her abdomen allowing her to twist and thrust in erratic and bizarre ways, while never quite managing to pull her awful penises from your asshole."},
+			{"text": "You try to pull yourself away, digging your fingers into the dirt."},
+			{"text": "\"Yes!  Crawl on your belly!\" she says, continuing to pummel your ass even as she eggs on your ill-fated escape attempt.  She rolls you again up onto her body and coils around you, and you're lost in her embrace."},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analEjaculation":1}}],
+			"text": "Writhing on the ground, repeatedly having her cocks pushed into you, your arm outstretched, you cum - at first you think onto the ground, but then you realize that you've sent a few spews of semen across her snake body, still visible on her hide. "},
+			{"text": "She holds the section of tail that you came on up to her face, inspecting it... then brings it your face instead."},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "oralCreampies":1}}],
+			"text": "\"I believe this is yours,\" she says, shoving her tail into your mouth, forcing you to suck your own semen off of it."},
+			{"text": "She continues her two-pronged attack on your rectal sanctity with gusto, and if you were able to reach the cave floor you would leave bitemarks in it."},
+			{"text": "\"When we're finished, maybe I'll devour you...\" she says, nonchalatantly, and you feel a primal terror."},
+			{"text": "Mostly, though, you feel naga dicks. Her tempo builds, and you have an awful premonition."},
+			{"text": "\"Let me see your face, human!  I'm going to give you both love cannons at once!\" she says, forcing you to roll over on your side, her dicks still giving you a bulge in both your belly and your back."},
+			{
+			"sound": "CUM",
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "creampies":2, "analEjaculation": 1}}],
+			"text": "The next thing you feel is so, so much cum rush out of you - apparently it's highly pressurized.  Your gut stings from the impact and is sore at the volume, bulging out your lower abdomen."},
+			{"text": "At this point, all you want is for her to withdraw her alien anatomy from your insides.  She does, slithering away so that her dual phalluses pull free."},
+			{"text": "When she does, your fears are confirmed - your asshole is completely stretched open in an odd way, and no matter how you try to get it to close, it won't, even a little bit."},
+			{"text": "\"Ahaha!  What is that?!  That looks more like a busted naga cloaca than a human shithole!  Are you sure you don't have a little Naga in you?\" she asks, knowing full well that you just did have quite a lot of naga in you, and currently have a lot of little swimmy nagas stuffing your intestines."},
+			{"text": "She peers inside at the misshapen crater that was your asshole, and you breathe steadily, at least thankful that her cocks didn't kill you."},
+			{"text": "\"If it's gonna look like that... I'm gonna fuck you again!  You better get running, human, or you're getting a second helping of my snakes!\""},
+			{"text": "That's all you need to hear to summon the strength to stand... although you can only walk knock-kneed at barely a normal walking pace."},
+			{"text": "\"What's the matter?\" she says, easily keeping pace with you, \"tired from all the hot snake sex?  If you don't start moving, you're going to be fucked in the ass again, you know!\""},
+			{"text": "Though you will your legs to move faster, nothing can bring them to return from their jelly-like state.  You continue to waddle away, knowing how futile it is."},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":2}}],
+			"text": "She suddenly grasps your chest with both hands from behind, and your eyes roll up into your head as you feel her cocks sink back into place, distending your abdomen once more."},
+			{"text": "\"Got you!\" she says, her lower body beginning to writhe and swivel to gyrate and shift the cocks in your ass.  \"See?  Just because I'm a snake doesn't mean I have to do it in the dirt!\""},
+			{"text": "Now in an upright position, she jerks her cocks up into you from behind, her hands grasping your chest, and then tweaking your nipples. Your hard cock bounces up and down, levered by your body, until she grasps hold of it."},
+			{"text": "She continues to tweak your nipple and stroking your cock until you shoot a hot jet of nut across the ground, your belly packed with her cocks."},
+			{"text": "Soon thereafter she returns to fucking you in a writhing pile on the floor, only she instructs you to lick some of your cum up off the ground periodically as well."},
+			{"text": "\"I've decided!  I'm not gonna decide if I'm gonna eat you!\" she says while watching you lick up your own ejaculate."},
+			{"text": "That's... fairly good news, but you suspect that there's some nuance you're missing."},
+			{"text": "\"Every morning you'll wake up, not sure if I'm going to fuck you again or eat you!  For the rest of your life!\""},
+			{"text": "You can hardly believe what you're hearing, but you're soon distracted by the realization that her tempo is the same as it was before, right before she had given you a pressurized enema."},
+			{"text": "\"Here it comes, hero!\" she says, and her grip around your abdomen is tight and demanding."},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "creampies":2}}],
+			"sound": "CUM_BUBBLING",
+			"text": "The second ass-blast jets inside, joining the first as she shoots liquid into liquid, the excess being forced out under pressure, your gut distending to inhumane degrees."},
+			{"text": "When she pulls free, you're completely limp.  You have no more will or ability to oppose her."},
+			{"text": "Your life in the cave is simple.  You continue to receive the strange naga sex that you've come to know very well... all the while knowing that one day, rather than being fucked, she'll unhinge her jaw, and then you will be well and truly fucked."}
 		]
 	},
 	{
 		"key": "NAGA-CRUSHED",
 		"scriptLines": [
-			{"text": "..."}
+			{"text": "You struggle to break free of her grip, but to no avail.  She watches you with a fascinated, eager expression, even as her tail constricts around you with crushing pressure."},
+			{"text": "The sound of crunching bone echoes through the cave, and you fall limp - your life crushed out of you by her powerful tail muscles.  After several moments of silence, she relinquishes you to the ground."},
+			{"text": "\"I need to be more careful with my toys,\" she says, and that marks the end of your journey."}
 		]
 	},
 	{
 		"key": "NAGA-AMBUSH",
 		"scriptLines": [
-			{"text": "..."}
+			{"text": "You don't know what lives within these depths, but you know that it certainly must be a creature of the dark - and none too pleasant, you ascertain from the human bones strewn about."},
+			{"text": "You make sure to keep your footing on the slick rocks, shining your torch below at your feet as you go.  The cave is far more vast than you expected, and you begin to suspect that you're being watched."},
+			{"text": "Something emerges suddenly from a crevice, and your legs are bound together!  You fall to the ground, anticipating a blow as your body collides with the stone floor of the cave... but instead, you land on something slippery."},
+			{"text": "\"Got ya!\" you hear, and you look up to see a strange woman's face, peering down at you... but something is wrong.  Below her waist... something is off about her skin."},
+			{"text": "You're wrapped up in something, and as your torch falls to the ground, your arms pinned to your side, you glimpse what - a tremendous, snake-like tail."},
+			{
+			"foreground": "NAGA",
+			"text": "The crazed creature peers down at you, her muscled tail pinning you in place while she deliberates on your fate."},
+			{"text": "\"Now, what debasement should befall someone who sneaks into my lair uninvited... hrm...\""},
+			{"text": "She reaches down to touch your lips, clearly inspecting them for some reason."},
+			{"text": "\"Ah, I know.  Humans have such strange sexual habits.  I've been so curious about how you use your mouths!  So, which would you prefer?  Licking in front or back?\""}
 		]
 	},
 	{
 		"key": "NAGA-IRRUMATIO",
 		"scriptLines": [
-			{"text": "..."}
+			{"text": "\"Ah, just to be clear, I've only got one hole.  In the front is something different.\""},
+			{"text": "As she displays her lower... well, more than half, but the part below her navel, you notice two strange slits.  They begin to bulge outwards oddly, and you watch with stunned fascination."},
+			{"text": "Emerging from the slits are two long, thick objects... you think you might know what they are, but you refuse to believe it."},
+			{"text": "They're individually thicker than any you've seen, and you immediately regret your decision."},
+			{"text": "\"Like I said, I've been curious about this, so... open up.\""},
+			{"text": "Impatiently, she curls her tail around your neck, slowly cutting off your airway as she insists you \"open up\" for the impossible task she's putting before you."},
+			{"text": "\"Say \"ahhh~\"!\""},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "oralSex":1}}],
+			"text": "Gasping for air, you open your mouth wide, and plunges her left cock into it."},
+			{"text": "\"You can't unhinge your jaw, can you?  A shame.  You weren't made for this... but I don't mind if you break!\""},
+			{"text": "It has an odd taste and texture - spongy and pliant the way even your own isn't, and slippery.  It's impressively non-human, which disgusts you, and she seems to enjoy that disgust immensely."},
+			{"text": "\"Well?  How does naga dick taste?  Is this what you crave, human?\" she asks, knowing the answer is no.  You glare at her.  \"Ooh, what a scary face.  Keep it like that while I fuck it; it's funny!\""},
+			{"text": "You make odd sounds as she slides her alien cock down your throat, your angry expression growing more concerned and surprised."},
+			{"text": "\"Swallow it whole!\" she says, but that is thoroughly impossible.  It can't get very far into your throat at all because of its thickness, but where it does end up, if she had a whoopsie, it'd all go right into your stomach."},
+			{"text": "Though you make a valiant effort, it proves impossible, and you gag - she retracts her slimy penis, and before you can even catch your breath, she replaces it with her spare, dry one."},
+			{"text": "She forces you to deepthroat that one as well, forcing another gag to echo through the cave, making your vision blurry, and your saliva drool to the floor.  She switches again, and you sense a pattern emerging."},
+			{"text": "When you're sucking her left cock, you're anticipating her switching you to her right cock, and when you're sucking her right cock, you're anticipating her switching you to her left cock.  You have no preference."},
+			{"text": "Your jaw is so thoroughly expanded each time that you worry it will break, but she continues to force them into your face with chaotic glee.  You doubt this display is doing anything for her sexually, but each time she switches you gag on the new cock, and that seems to please her."},
+			{"text": "\"Such a bizarre ritual!  Is the point to taste another's scum?  Well, I can do that!  Hehehe... which one's cum are you going to swallow? You must be excited to find out!\""},
+			{"text": "That's the only warning you get that she's going to cum.  She switches you to her left cock, and you worry it's going to void her baby batter down your throat.  She switches you to the right, and you feel a tenseness in your chest, anxiety that it might suddenly erupt a volcano of snake jizz into your mouth."},
+			{"text": "This happens repeatedly, like a game of snake schlong hot potato, each time it seeming more and more likely that your naga torturer is about to blow a gooey wad into your face for no reasons other than curiosity and cruelty."},
+			{"text": "She switches you to the right one last time, and her mouth opens in mock surprise, and you're certain that she's going to cream your throat... but then, she switches to the left, also one last time, and sticks out her tongue at you... and her sperm spray into your gullet."},
+			{
+			"sound": "CUM",
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "oralCreampies":2}}],
+			"text": "The foul tasting naga clam chowder fills your throat and nasal cavity, exploding out with a force that matches her sadistic glare.  So much of it ends down your throat and in your stomach, but a large quantity sprays out in multiple directions from the pressure."},
+			{"text": "You see that her other cock is cumming, too, but she catches much of it in her hand without looking, keeping fixated on your blown up face.  The sheer discrepancy between her sexual organs and your face drives you into despair."},
+			{"text": "Her violent eruption is, thankfully, quick, and soon you are coughing around bubbles of snake semen while she watches you with a condescending grin."},
+			{"text": "You see her inspecting the slime coating her hand with fascination.  \"Wh-what's that for?\" you ask, dreading the answer."},
+			{"text": "\"What's this for?  Hehe... this...\" she says, before snuffing the one flame illuminating the cave, \"...is lubricant.\""},
+			{
+			"sound": "CUM",
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":2, "analEjaculation":1, "creampies": 2}}],
+			"foreground": "NULL",
+			"text": "In the darkness, it's impossible to tell what follows... although you do learn the depths of incompatibility involved.  Your sorrowful groans escape the cave - something you manage to accomplish after some rather unfortunate time."}
 		]
 	},
 	{
 		"key": "NAGA-CLOACALICK",
 		"scriptLines": [
-			{"text": "..."}
+			{"text": "Without a word, she coils herself up over you, then drives where her crotch would be into your face.  Some strange orifice is there, and before you can even think about keeping your mouth shut, she wraps her tail around your neck."},
+			{"text": "\"You made your choice, now lick it!\""},
+			{"text": "You force your tongue up into the strange crevice, hoping she doesn't have any surprises for you.  "},
+			{"text": "\"Lick all the way inside, human!\""},
+			{"text": "With the weight of her tail on you, you don't really have any choice - your tongue is forced up and inside the strange orifice, tasting its odd flavor."},
+			{"text": "Something's weighing down on top of your head - two somethings, in fact."},
+			{"text": "She grinds against your face, your neck craned back painfully as she forces you to lick within her inner reaches.  She's clearly enjoying herself, even if you aren't."},
+			{"text": "She groans, and you feel her orifice tightening around your tongue.  After a few moments of being caught in her vice, she relaxes, and you manage to pull free.  At the same time, she pulls her body away from you."},
+			{"text": "It's then you notice the two dangling oddities, drooling some foul liquid onto the ground.  Tracing the trail downward, you see that they've just spit a tremendous pool of slime onto the cave floor."},
+			{"text": "\"Now be good and lick up all of the leftovers,\" she says, bringing your face close to the mess of hot slime that hadn't been there a few moments ago."},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "oralCreampies":1}}],
+			"text": "She forces you lick it all up, and when you're done with your task and incredibly queasy, you notice that not all of the goo is gone - some remains on her hand."},
+			{"text": "You see her inspecting the slime coating her hand with fascination.  \"Wh-what's that for?\" you ask, dreading the answer."},
+			{"text": "\"What's this for?  Hehe... this...\" she says, before snuffing the one flame illuminating the cave, \"...is lubricant.\""},
+			{
+			"foreground": "NULL",
+			"sound": "CUM",
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":2, "analEjaculation":1, "creampies": 2}}],
+			"text": "In the darkness, it's impossible to tell what follows... although you do learn the depths of incompatibility involved.  Your sorrowful groans escape the cave - something you manage to accomplish after some rather unfortunate time."}
 		]
 	},
 ]}

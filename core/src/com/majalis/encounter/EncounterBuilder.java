@@ -854,7 +854,7 @@ public class EncounterBuilder {
 			case NAGA:
 				return new Branch().textScene("NAGA-INTRO").checkScene(
 					CheckType.SCOUT_LEVEL_3, 
-					new Branch(true).battleScene(
+					new Branch(true).textScene("NAGA-SPOTTED").battleScene(
 						BattleCode.NAGA, 
 						new Branch(Outcome.VICTORY).textScene("NAGA-VICTORY").choiceScene(
 							"What do you do with her?", 
