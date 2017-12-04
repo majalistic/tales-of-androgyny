@@ -7,6 +7,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -199,7 +200,7 @@ public class CharacterScreen extends AbstractScreen {
 		this.addActor(sexTable);;
 		
 		final Table statusTable = new Table();
-		Label headerStatus = new Label("Status Effects", skin);
+		Label headerStatus = new Label("Status Effects:", skin);
 		headerStatus.setColor(Color.BLACK);
 		statusTable.add(headerStatus).row();
 		for (final ObjectMap.Entry<String, Integer> statusEffect: character.getStatuses()) {
@@ -214,20 +215,36 @@ public class CharacterScreen extends AbstractScreen {
 			statusTable.add(statusLabel).row();
 				
 		}
-		statusTable.setPosition(1025, 600);
+		statusTable.setPosition(1125, 600);
 		statusTable.align(Align.topLeft);
 		this.addActor(statusTable);
+		
+		final Label perkDescription = getLabel("", skin, Color.BLACK);
+		perkDescription.setWidth(600);
+		perkDescription.setAlignment(Align.center);
+		perkDescription.setWrap(true);
+		perkDescription.setPosition(200, 75);
+		this.addActor(perkDescription);
 		
 		Table perkTable = new Table();
 		perkTable.align(Align.topLeft);
 		perkTable.setPosition(100, 600);
 		this.addActor(perkTable);
-		perkTable.add(getLabel("Perks: ", skin, Color.FOREST)).align(Align.left).row();
+		perkTable.add(getLabel("Perks: ", skin, Color.BLACK)).align(Align.left).row();
 		int perkColumn = 0;
-		for (ObjectMap.Entry<Perk, Integer> perk : character.getPerks().entries()) {
+		for (final ObjectMap.Entry<Perk, Integer> perk : character.getPerks().entries()) {
+			final Perk perkPlatonic = perk.key; 
 			Integer perkValue = perk.value;
 			if (perkValue > 0) {
-				perkTable.add(getLabel(perk.key.getLabel() + " (" + perkValue.toString() + ")", skin, Color.BLACK)).align(Align.left).width(300);
+				perkTable.add(getLabel(perk.key.getLabel() + " (" + perkValue.toString() + ")", skin, perk.key.isPositive() ? Color.FOREST : Color.FIREBRICK, new ClickListener(){
+					@Override
+			        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
+						perkDescription.setText(perkPlatonic.getDescription());
+					}
+					public void exit(InputEvent event, float x, float y, int pointer, Actor fromActor) {
+						perkDescription.setText("");
+					}
+				})).align(Align.left).width(315);
 				if (perkColumn == 2) perkTable.row();
 				perkColumn++;
 				perkColumn %= 3;
@@ -236,8 +253,24 @@ public class CharacterScreen extends AbstractScreen {
 	}
 	
 	private Label getLabel(String label, Skin skin, Color color) {
-		Label newLabel = new Label(label, skin);
+		return getLabel(label, skin, color, null);
+	}
+	
+	private Label getLabel(String label, Skin skin, final Color color, ClickListener listener) {
+		final Label newLabel = new Label(label, skin);
 		newLabel.setColor(color);
+		if (listener != null) {
+			newLabel.addListener(listener);
+			newLabel.addListener(new ClickListener(){
+				@Override
+		        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
+					newLabel.setColor(Color.GOLD);
+				}
+				public void exit(InputEvent event, float x, float y, int pointer, Actor fromActor) {
+					newLabel.setColor(color);
+				}
+			});
+		}
 		return newLabel;
 	}
 	
