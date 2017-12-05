@@ -1207,7 +1207,35 @@
 			{
 			"music": "SHOP_MUSIC",
 			"foreground": "BROTHEL_MADAME",
-			"text": "You enter the brothel. It smells... sweet. A beautiful woman leans against the wall, casually."}
+			"text": "You enter the brothel. It smells... sweet. A beautiful woman leans against the wall, casually."},
+			{"text": "\"Welcome to my brothel. How can I be of service?\" she says, with a serious expression."}
+		]
+	},
+	{
+		"key": "BROTHEL-MADAME",
+		"scriptLines": [
+			{
+			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "MADAME", "value":1}}],
+			"text": "\"You want to know about me?  Well, first of all, I'm not for sale.  Unless you have some business you wish to discuss?  Hrm... looking at you again, you might be useful to me.  Come with me,\" she says, curling her finger towards her as she turns and walks away."},
+			{"text": "The view from behind is... intense.  She's wearing high heels, so there's a bit of a pushup, but you've never seen a woman with such an... impressive backside.  Your skeleton nearly jumps out of your skin when she looks over her shoulder at you - you think she may have noticed the staring."},
+			{"text": "\"If my suspicions are correct, you're an adventurer, yes?\" she asks, either because she didn't notice or she's not going to acknowledge it."},
+			{"text": "\"I am,\" you say, \"my name is <NAME>.\""},
+			{"text": "\"Is it, now?  You may call me 'madam'."},
+			{"text": "You enter into a well-furnished room with a large desk, several chairs, and some... rather suggestive artifacts.  This must be her office."},
+			{"text": "\"Close the door behind you.  Prying eyes and ears will have to settle for peepholes and keyholes,\" she instructs, and you see no reason not to obey.  The door is... quite heavy, with a rather robust-looking padlock."},
+			{"text": "When the door is closed, she offers you a seat, which you take, and you ask her what she wanted to speak about."},
+			{"text": "\"What I want from you... is simple.  I tend to ensure that any wrongdoing in my establishment is... properly handled,\" she says, with a chill edge to her voice, \"but alas, the world is not my brothel.  Often my girls are wronged by those outside these four walls.\""},
+			{"text": "She gestures around, although there are no windows in her office, but you know what \"the rest of the world\" looks like, so a visual aide is unnecessary."},
+			{"text": "\"For that, justice can only be meted out at great expense and while exposing my girls to danger here.  My beloved helpers are... useful, but bounty hunters they are not,\" she says, running her nails over her desk repeatedly, almost like a cat.  \"You, on the other hand... well, the world is your oyster, is it not?\""}
+			{"text": "You consider her words carefully.  It sounds like she wants you to be her mercenary... or worse, her hired headsman.  Before you can give a reply, she gets up from her seat.  She walks around her table, and then leans back on it."},
+			{"text": "\"Take some time to think on it.  I won't be offended if you say no.  But know that there's more than monetary compensation on the table,\" she says... while sitting on the table.  \"I can't exactly grant wishes... but that hasn't stopped me yet.\""}, 
+			{"text": "You ask for your leave, and she grants it - you exit her office, and the brothel, while thinking about her offer... and the view of her from behind."}
+		]
+	},
+	{
+		"key": "BROTHEL-RETURN",
+		"scriptLines": [
+			{"text": "You chat with the Madame for a bit, but she is quickly pulled away for business-related reasons, so you leave the brothel."},
 		]
 	},
 	{
@@ -1216,7 +1244,7 @@
 			{
 			"sound": "SMUG_LAUGH",
 			"text": "She looks you up and down and then smiles, stifling a slight laugh."},
-			{"text": "\"One look at you tells me you're not planning to be a client,\" she says, putting her finger to her lips, \"so what is it? You want to be one of my girls?\""},
+			{"text": "\"One look at you tells me you didn't come here today to be a client,\" she says, putting her finger to her lips, \"so what is it? You want to be one of my girls?\""},
 			{"text": "You pout. \"I'm not a girl,\" you say, defiantly, and she shrugs her shoulders."},
 			{"text": "\"Not what I asked - and besides, you could fool me,\" she says, walking towards you. She grasps your shoulders, and then peers over them, down your back."},
 			{"text": "\"W-what?  What are you looking at?\" you ask, indignantly."},
@@ -1237,9 +1265,7 @@
 	{
 		"key": "BROTHEL-MEMBER",
 		"scriptLines": [
-			{
-			"foreground": "NULL",
-			"text": "Now that you're a... worker, you can... entertain... clients.  You can choose to let them use your mouth, fuck you, or, for a higher price, spend the day with them."}
+			{"text": "Now that you're a... worker, you can... entertain... clients.  You can choose to let them use your mouth, fuck you, or, for a higher price, spend the day with them.  What do you ask the Brothel Madame?"}
 		]
 	},
 	{

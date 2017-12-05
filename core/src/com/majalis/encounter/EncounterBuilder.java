@@ -269,18 +269,26 @@ public class EncounterBuilder {
 					new Branch(Outcome.SATISFIED).textScene("BRIGAND-SATISFIED")
 				).getEncounter();
 			case BROTHEL:
+				Branch talkToMadame = new Branch("Ask her about herself").checkScene(CheckType.MADAME_MET, new Branch(true).textScene("BROTHEL-RETURN"), new Branch(false).textScene("BROTHEL-MADAME"));
+				
 				Branch onceSignedUp = new Branch().textScene("BROTHEL-MEMBER").choiceScene(
-					"What service do you offer?", 
-					new Branch("Kissing (1 GP)").textScene("BROTHEL-KISSING"), 
-					new Branch("Handjobs (2 GP)").textScene("BROTHEL-HANDJOB"), 
-					new Branch("Blowjobs (3 GP)").textScene("BROTHEL-ORAL"), 
-					new Branch("Ass (5 GP)").choiceScene(
-						"With condoms?", 
-						new Branch("Yes (5GP)").textScene("BROTHEL-ANAL-CONDOM"),
-						new Branch("Bareback (7GP)").textScene("BROTHEL-ANAL-BAREBACK")
-					), 
-					new Branch("Girlfriend Experience").textScene("BROTHEL-GFXP"),
-					new Branch("Never mind")
+						"What do you ask of her?",
+						talkToMadame,
+						new Branch("Offer your services").choiceScene(
+							"What service do you offer?", 
+							new Branch("Kissing (1 GP)").textScene("BROTHEL-KISSING"), 
+							new Branch("Handjobs (2 GP)").textScene("BROTHEL-HANDJOB"), 
+							new Branch("Blowjobs (3 GP)").textScene("BROTHEL-ORAL"), 
+							new Branch("Ass (5 GP)").choiceScene(
+								"With condoms?", 
+								new Branch("Yes (5GP)").textScene("BROTHEL-ANAL-CONDOM"),
+								new Branch("Bareback (7GP)").textScene("BROTHEL-ANAL-BAREBACK")
+							), 
+							new Branch("Girlfriend Experience").textScene("BROTHEL-GFXP"),
+							new Branch("Never mind"),
+						new Branch("Leave")
+						
+					)
 				);
 				
 				return new Branch().textScene("BROTHEL").checkScene(
@@ -299,10 +307,15 @@ public class EncounterBuilder {
 							new Branch(0).checkScene(
 								CheckType.PROSTITUTE, 	
 								new Branch(true).concat(onceSignedUp),
-								new Branch(false).textScene("BROTHEL-OFFER").choiceScene(
-									"Do you want to sign up? What's the worst that could happen?",
-									new Branch ("Sign Up (Requires: Catamite)").require(ChoiceCheckType.LEWD).textScene("BROTHEL-SIGN-UP").concat(onceSignedUp),
-									new Branch ("Leave")
+								new Branch(false).choiceScene(
+									"What do you ask of her?", 
+									talkToMadame,
+									new Branch("Ask her about joining").textScene("BROTHEL-OFFER").choiceScene(
+										"Do you want to sign up? What's the worst that could happen?",
+										new Branch ("Sign Up (Requires: Catamite)").require(ChoiceCheckType.LEWD).textScene("BROTHEL-SIGN-UP").concat(onceSignedUp),
+										new Branch ("Don't Sign Up")
+									),
+									new Branch("Leave")
 								)
 							)	
 						)

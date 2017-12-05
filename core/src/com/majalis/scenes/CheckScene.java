@@ -280,6 +280,10 @@ public class CheckScene extends AbstractTextScene {
 			@Override
 			protected boolean getCheck(PlayerCharacter character) { int check = character.getQuestStatus(QuestType.GADGETEER); return check == 2; }  
 		}, 
+		MADAME_MET("", "") { 
+			@Override
+			protected boolean getCheck(PlayerCharacter character) { int check = character.getQuestStatus(QuestType.MADAME); return check > 0; }  
+		},
 		;
 		private final String success;
 		private final String failure;

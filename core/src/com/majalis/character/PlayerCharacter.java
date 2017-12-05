@@ -1323,7 +1323,7 @@ public class PlayerCharacter extends AbstractCharacter {
 	}
 	
 	public enum QuestType {
-		ORC, CRIER, INNKEEP, TRUDY, GOBLIN, OGRE, SPIDER, BROTHEL, ELF, DEBT, GADGETEER
+		ORC, CRIER, INNKEEP, TRUDY, GOBLIN, OGRE, SPIDER, BROTHEL, ELF, DEBT, GADGETEER, MADAME
 	}
 	
 	public static class QuestFlag {
