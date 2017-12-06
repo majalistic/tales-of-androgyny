@@ -1081,12 +1081,13 @@ public class PlayerCharacter extends AbstractCharacter {
 			if (valueToApply <= currentValueOfPerk) break;
 			if (currentValueOfStat >= valueToCheck) {
 				perks.put(perkToIncrement.toString(), valueToApply);
-				result += "You gained " + perkToIncrement.getLabel() + " (Rank " + valueToApply + ")!\n";
+				result += "You gained " + perkToIncrement.getLabel() + " (Rank " + valueToApply + ")!";
 			}
 			valueToApply--;
 		}
 		if (perkToIncrement != Perk.COCK_LOVER) {
-			result += incrementPerk(getMasculinityLevel(), Perk.COCK_LOVER, 30, 27, 24, 21, 18, 15, 12, 9, 6, 3);
+			String cockLoverGain = incrementPerk(getMasculinityLevel(), Perk.COCK_LOVER, 30, 27, 24, 21, 18, 15, 12, 9, 6, 3);
+			result += (!result.equals("") && !cockLoverGain.equals("") ? "\n" : "") + cockLoverGain;
 		}
 		return result;
 	}
