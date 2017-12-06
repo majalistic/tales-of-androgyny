@@ -268,8 +268,24 @@ public class EncounterBuilder {
 					new Branch(Outcome.DEFEAT).textScene("STORY-BRIGAND-DEFEAT").choiceScene("Steel or suck?", new Branch("Steel").textScene("STORY-BRIGAND-DEFEAT-DEATH").gameEnd(), new Branch("Suck").textScene("STORY-BRIGAND-DEFEAT-SUCK")),
 					new Branch(Outcome.SATISFIED).textScene("BRIGAND-SATISFIED")
 				).getEncounter();
+			
 			case BROTHEL:
-				Branch talkToMadame = new Branch("Ask her about herself").checkScene(CheckType.MADAME_MET, new Branch(true).textScene("BROTHEL-RETURN"), new Branch(false).textScene("BROTHEL-MADAME"));
+				Branch faceCrushed = new Branch().textScene("BROTHEL-MADAME-FACECRUSHED").gameEnd();
+				
+				Branch talkToMadame = new Branch("Ask her about herself").checkScene(
+					CheckType.MADAME_MET, 
+					new Branch(true).textScene("BROTHEL-RETURN"), 
+					new Branch(false).textScene("BROTHEL-MADAME").choiceScene(
+						"What was so funny?", 
+						new Branch("Nothing").textScene("BROTHEL-MERCENARY"), 
+						new Branch("Her chair creaked").textScene("BROTHEL-MADAME-UNAMUSED").choiceScene(
+							"Why is it funny?", 
+							new Branch("I'm sorry").textScene("BROTHEL-MERCENARY"), // .textScene("BROTHEL-MADAME-APOLOGIZE"), 
+							new Branch("I don't know").textScene("BROTHEL-MADAME-IGNORANCE").choiceScene("Is it because she's put on weight?", new Branch("She does have a fat ass").concat(faceCrushed), new Branch("No").textScene("BROTHEL-MADAME-HEELS")), 
+							new Branch("Your ass is fat").concat(faceCrushed)
+						)
+					)
+				);
 				
 				Branch onceSignedUp = new Branch().textScene("BROTHEL-MEMBER").choiceScene(
 						"What do you ask of her?",
