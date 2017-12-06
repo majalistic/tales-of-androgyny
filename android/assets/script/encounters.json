@@ -1256,7 +1256,61 @@
 	{
 		"key": "BROTHEL-MADAME-APOLOGIZE",
 		"scriptLines": [
-			{"text": ""}
+			{"text": "\"You're sorry?  You don't seem sorry.  Perhaps I would believe you... if you kissed my feet.\""},
+			{"text": "You sigh.  You shouldn't have laughed.  Reluctantly, you get under her table... well, not so reluctantly, as she is quite beautiful.  She keeps her knees together, so you can't see beyond them, but even her legs are stunning."},
+			{"text": "You place your hands on the ground around her feet, and bend down low to kiss the top of her foot."},  
+			{"text": "\"Kiss the toes, if you please,\" she says, and to your surprise and dismay, she slips her feet out of her shoes and holds them up for you to kiss her toes."},
+			{"text": "You kiss her toes, and then the side of her foot... when suddenly, the mood dawns on you - you, under her desk, the quiet of the room, with just the two of you..."},
+			{"text": "You feel... somewhat emboldened."}
+		]
+	},
+	{
+		"key": "BROTHEL-MADAME-COOCHIE",
+		"scriptLines": [
+			{"text": "You start to kiss up her leg... and she doesn't rebuke you, until you reach her knees, kissing each of them softly."},
+			{"text": "\"Under my desk, between my legs... are you expecting something?\" she says, coyly."},
+			{"text": "She spreads her legs, and you look between them... at her visible vulva.  Your breath is nearly close enough to hit it."},
+			{"text": "\"Allowing you to lick my pussy is hardly a punishment,\" she says, closing her legs, so that her thighs press together... before opening them up again.  \"Do you deserve a reward?\""}
+		]
+	},
+	{
+		"key": "BROTHEL-MADAME-CUNNILINGUS",
+		"scriptLines": [
+			{"text": "\"No... but you do,\" you say, and she smiles wryly."},
+			{"text": "\"I'm not so young that a line like that is going to work on me.  That being said... I wouldn't actually mind having you between my thighs for a bit.  Once you begin, you won't stop until I am finished.  Understood?\" she says, and you agree, enthusiastically."},
+			{"text": "She shifts forward in her chair, casually nestling your nose into her pubic hair, then grasping your hair and pulling your face forward without much force.  You are eager to oblige, licking between her lips without hesitation."},
+			{"text": "She wraps her thick thighs around you, so that your face is buried in her muff.  You look up at her, thankful to be able to breathe, if only through her fuzzy underbrush.  You lick, applying a strong pressure to try and twist your tongue inside."},
+			{"text": "She remains surprisingly tight, and you aren't sure if she wants your attention focused elsewhere or to fight your way in, but trapped between her thighs, you don't really have much choice but to explore and find out.  You lick at her clit with the skill and grace of a novice, and she snickers."},
+			{"text": "\"You're not very good at this,\" she says, staring down at you condescendingly, \"but I can appreciate the effort.  I'm not a delicate flower,\" she says, pulling your head even deeper into her crotch, \"so get in there.\""},
+			{"text": "You try to service her the way that she desires, and she admits that you do a passing job of it, her eyes half-lidded, her breath getting a bit terse, her nails scratching your face appreciatively, her thighs unrelenting."},
+			{"text": "Whether it's impatience or indulgence, you soon find yourself on the ground, her chair itself knocked over, her thighs still straddling you, but her body entirely on top of your face, as she rides it with abandon.  She looks down at you, and you up at her, as she grinds her wet vulva against your face - your lips, your nose, your tongue."},
+			{"text": "She leans back and grabs onto your wrists, bucking her hips as she rides your face, enjoying the paroxysms of pleasure as she does so, and paying little heed to your exhaustion.  She places your hands on her big, marshmallow cheeks, and hunches over you, looking down at you while she humps you like an animal."},
+			{"text": "Her eyes are wild and her voice is strained and raspy - you can't hear what she's saying because all you can hear is the sounds of her inner thighs, her powerful pulse, and the faint wet sounds of cunnilingus."},
+			{"text": "You don't need to hear what she's saying, though, when she opens her mouth, her lower lip quivering, her eyes losing focus even as she looks down at you, her body shaking, her honeypot overflowing into your mouth."},
+			{"text": "She grips your hair firmly, pulling it to the bare point of pain, as she presses her hips down as crushingly low as they will go - even with your nose ostensibly clear, there's little air to breathe, and you look up at her with a nervous awe."},
+			{"text": "Finally, the tension breaks, and she relaxes her thighs, her grip, and her back all at once.  You can breathe again, and your face is completely soaked.  You continue, almost absent-mindedly, to lick her."},						
+			{"text": "\"Ohhh...\" she says, holding onto your hair, \"you're like a little kitten, lapping up its milk.  I think... that's enough for now.\""},  
+			{"text": "She relinquishes you from between her thighs and stands up off of you.  With her clothing back in place, it almost looks as if she hadn't just been fucking your face - except her own face is red, and her skin is moist."},
+			{"text": "\"Your apology is accepted,\" she says, looking at you over her shoulder, \"unfortunately, I have some business to attend to, so we'll have to reconvene at a later time.\""},
+			{"text": "You get to your feet, a bit uneasily.  You can't believe you just ate her out."},
+			{"text": "\"If you have some time then, we'll get to talking about potential arrangements.  For now, you may show yourself out,\" she says, and you nod, and then take your leave."}			
+		]
+	},
+	{
+		"key": "BROTHEL-MADAME-NOCOOCHIE",
+		"scriptLines": [
+			{"text": "\"...yes?\""},
+			{"text": "\"No.  No, you do not.  Now kiss between my toes, if you please,\" she says, snapping her knees shut with finality."}
+		]
+	},
+	{
+		"key": "BROTHEL-MADAME-FEETLICK",
+		"scriptLines": [
+			{"text": "She hold ups her feet again and you begrudgingly lick between her toes, which seems to have the most sour taste.  She makes sure you get between each and every one for a sufficient amount of time before moving on, and you do clean every last seperation between her toes."},
+			{"text": "\"That's enough.  Apology accepted.  Now get out.\""},
+			{"text": "You hesitate... all this footplay without reciprocation has made you... desire something.  \"Uhm...\" you start, but she cuts you off."},
+			{"text": "\"If you want me to touch your dick with my feet, I will, but only to crush it into paste.  If you want that, say the word and I'll emasculate you without a second thought.\""},
+			{"text": "You decide it's best to leave immediately, and do so."}				
 		]
 	},
 	{
