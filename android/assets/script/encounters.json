@@ -1425,22 +1425,108 @@
 		"key": "BROTHEL-HANDJOB",
 		"scriptLines": [
 			{"text": "You let the brothel owner know that you're willing to jack off some clients.  She seems amused by your timidness."},
-			{"text": "Eventually a gentleman arrives who's apparently on a budget, and he takes you up on your offer.  You lead him to one of the \"guest\" rooms, and then you kneel in front of him and get to work."},
+			{"text": "Eventually a gentleman arrives who's apparently on a budget, and he takes you up on your offer.  You lead him to one of the \"guest\" rooms."},
+		]
+	},
+	{
+		"key": "BROTHEL-HANDJOB-MASTER",
+		"scriptLines": [
+			{"text": "Once you're in the room, you ask him if he wants you to crank his knob like a virgin or a whore, and he's surprised by your forwardness, but seems at ease to be with a professional."},
+			{"text": "He opts for \"like a whore\" and you warn him that you're about to milk him like a breeding stud as you push him onto the bed.  You sit next to him, and then pull him out of his pants and begin to stroke."},
+			{"text": "It takes literally seconds before he's about to spew... so you stop, and rub your finger over his cockslit, teasing him, until he calms down enough for you to continue."},
+			{"text": "You continue edging him until he's begging you to make him cum.  You lean down and kiss the tip, worried for a moment that he's going to fill your mouth in exactly that moment, but thankfully, he doesn't."},
+			{"text": "You ask him if he wants to cum on your face, and he responds enthusiastically that he wants to cum all over it.  You kneel in front of him, and aim his cream cannon dead center at your face, knowing that you notched enough arrows in that quiver that it's going to sting."},
+			{"text": "He blasts it directly into your face, and it does sting, each spurt making an absolute mess of your face and hair, but you keep up the professional smile for him the whole time he's painting a mask on you.  There's a bubble of cum on one of your nostrils, and you guess that means you did a good job."},
+			{"text": "He tells you that you're amazing while you wipe his spermslime off of your hand, which is completely glazed with it.  You tell him he's amazing, while quietly musing to yourself how easy it was to have him melting in the palm of your hands."},
+			{
+			"mutations": [{"saveType":"GOLD", "value":{"class": "java.lang.Integer", "value": 3}}, {"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "handy": 1, "prostitution":true}}],
+			"text": "Unfortunately, now *you* need a handjob.  Your cock's so hard you kind of wish you'd gone a little further with that kiss, and gotten your mouth what your face got instead.  But an extra gold is fine too."}
+		]
+	},
+	{
+		"key": "BROTHEL-HANDJOB-EXPERT",
+		"scriptLines": [
+			{"text": "You're still not extremely confident, but you're no longer leaving customers unsatisfied as often.  Some guys definitely have an easier time getting their stick and balls aligned about which direction the cum goes than others."},
+			{"text": "Some of them prefer it when you sit side-by-side and let them jizz all over the floor, others when you sit in front of them and make your face the target of their lust.  Your hands and face are slowly being despoiled - but there are worse fates."},
+			{"text": "But this isn't your first hog-wrangling.  As soon as you get in the room, he's taken by surprise as your hand dives into his pants, grabbing hold of a fat one, already hard and ready to go."},
+			{"text": "You expect him to drop his pants while you stroke it, but he puts his hands up as if he's been taken hostage and lets you churn his butter without complaint."},
+			{"text": "It wasn't typical for you to make a customer cream his pants, but if he was going to let you get away with it... it was his laundry bill."},
+			{"text": "You reach around with your other arm to hold onto his belt buckle, just so he doesn't change his mind, as you've taken a liking to the idea of ruining his trousers.  You jack him with a purpose now - a white, drooling stain."},
+			{"text": "The sensitivity of his cock's eye pressed against the fabric seems to drive him wild, his hips bucking as you shine his pole, but he doesn't reach for his belt buckle regardless."},
+			{"text": "When you sense that he's about to blow, you mentally add \"destroyer of pants\" to your list of titles, knowing that it's now inevitable."},
+			{"text": "His cock remains remarkably dry as he spews, probably because the cloth is absorbing all of his greasy sperm soup.  You make sure he fires as much as possible of it between the layers of fabric."},
+			{"text": "You hold tightly onto his belt buckle, knowing you might never know what his cock looks like, but that you'll soon know what his semen bubbling through his pants looks like."},
+			{"text": "And, indeed, it looks like he pissed jizz down his pant leg, which isn't exactly innaccurate.  There's a thick glob of it where his dickhole kissed the inside, and then it trails down all the way."}, 
+			{
+			"mutations": [{"saveType":"GOLD", "value":{"class": "java.lang.Integer", "value": 2}}, {"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "handy": 1, "prostitution":true}}],
+			"text": "He's a bit ashamed as he pays you what he owes you, and then leaves, visibly having jizzed his pants."}			
+		]
+	},
+	{
+		"key": "BROTHEL-HANDJOB-NOVICE",
+		"scriptLines": [
+			{"text": "This time, having gotten some advice, you kneel in front of him and begin to stroke it, pointing it at your face so he knows he has somewhere to cum when he's ready."},
+			{"text": "You know from experience that having cum on your face after a handjob session doesn't make you feel much like a hero, but if you want two gold pieces in your coin purse, you have to let his coin purse empty out onto your lips, nose, and eyelashes."},		
 			{"text": "Kneeling in front of a man, hand gripped around his cock, stroking his shaft up and down in the hopes of jacking him off to completion, you feel a tinge of heat in your ears and your cheeks."},
 			{"text": "You feel him starting to twitch in your hands and you know the literal money shot is approaching, and you continue to stroke it with some reluctance, timidly anticipating the messy results of your labor like a child awaiting a firecracker."},
 			{"text": "You jump when the moment does arrive, and then quickly close your left eye, lest you receive an eyeful.  Your eyelash, unlike most adventurers, is coated in sticky semen, and you hold his cumming cock in your grip until it softens up."},
+			{"text": "Your world smells like semen again, and this time, you did it to yourself.  There's a strange sense of pride in that, but only barely."},
 			{
-			"mutations": [{"saveType":"GOLD", "value":{"class": "java.lang.Integer", "value": 2}}, {"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "prostitution":true}}],
+			"mutations": [{"saveType":"GOLD", "value":{"class": "java.lang.Integer", "value": 2}}, {"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "handy": 1, "prostitution":true}}],
 			"text": "Having caught his cum on your face, you smile plastically and thank him for his business, and he leaves two gold coins behind, as well as a face full of drying cum."}
+		]
+	},
+	{
+		"key": "BROTHEL-HANDJOB-BEGINNER",
+		"scriptLines": [
+			{"text": "You sit next to him on the bed, and you aren't sure if you should ask him to pull down his pants or if you should get to work.  Timidly, you reach into his tented pants, which he approves of, and you grab hold of it."},
+			{"text": "You stroke it clumsily, not used to doing it to a cock that isn't your own.  Eventually, he pulls down his pants of his own volition, and you stare at it as the skin moves up and down in your grip, awed."},
+			{"text": "He seems tense, but you don't know what to do about it - you keep stroking, hoping that he'll cum eventually, but he just seems to be losing his patience."},
+			{"text": "He seems frustrated.  Finally, he makes you an offer - he'll give you half, and he'll just jack himself off onto your face.  A bit humiliated, you accept his offer."},
+			{"text": "He makes you kneel on the ground, and stands up, his cock so close to your face you can smell it, and he starts to work one out.   You know that when he manages to do what you failed, it's going all over your pretty face."},
+			{"text": "Finally, he grunts, and tenses up, and his hand keeps beating while his cockhead remains firmly in place, and it erupts, spewing his mangoo right onto your cheek, then your nose and your lips.  Though you never kissed his cock, it kinda looks like you did."},
+			{"text": "With so much cum so close to your nostrils, you can smell nothing but his semen, a smell you won't soon forget.  You twitch, still shocked by the facial, and he leaves, disgruntled."},
+			{
+			"mutations": [{"saveType":"GOLD", "value":{"class": "java.lang.Integer", "value": 1}}, {"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "handy": 1, "prostitution":true}}],
+			"text": "You got a faceful of spunk and a gold piece out of it, but maybe some useful experience as well - although you're not proud of developing that particular skill.  You wipe your face, having fulfilled your role as cheap whore."}		
 		]
 	},
 	{
 		"key": "BROTHEL-ORAL",
 		"scriptLines": [
 			{"text": "You let the brothel owner know that your mouth is open for.. business."},
-			{"text": "It doesn't take long before a gentleman arrives who's interested in... conversation. You lead him to one of the \"guest\" rooms, and then you kneel in front of him and get to work."},
+			{"text": "It doesn't take long before a gentleman arrives who's interested in... conversation. You lead him to one of the \"guest\" rooms."},			
+		]
+	},
+	{
+		"key": "BROTHEL-ORAL-MASTER",
+		"scriptLines": [
+			{
+			"mutations": [{"saveType":"GOLD", "value":{"class": "java.lang.Integer", "value": 4}}, {"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "prostitution":true, "oralSex":1, "oralCreampies":1}}],
+			"text": "He finishes off in your mouth.  Without making eye contact, he leaves three gold coins on the dresser, and then departs.  You wipe your mouth."}
+		]
+	},
+	{
+		"key": "BROTHEL-ORAL-EXPERT",
+		"scriptLines": [
 			{
 			"mutations": [{"saveType":"GOLD", "value":{"class": "java.lang.Integer", "value": 3}}, {"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "prostitution":true, "oralSex":1, "oralCreampies":1}}],
+			"text": "He finishes off in your mouth.  Without making eye contact, he leaves three gold coins on the dresser, and then departs.  You wipe your mouth."}
+		]
+	},
+	{
+		"key": "BROTHEL-ORAL-NOVICE",
+		"scriptLines": [
+			{
+			"mutations": [{"saveType":"GOLD", "value":{"class": "java.lang.Integer", "value": 3}}, {"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "prostitution":true, "oralSex":1, "oralCreampies":1}}],
+			"text": "He finishes off in your mouth.  Without making eye contact, he leaves three gold coins on the dresser, and then departs.  You wipe your mouth."}
+		]
+	},
+	{
+		"key": "BROTHEL-ORAL-BEGINNER",
+		"scriptLines": [
+			{
+			"mutations": [{"saveType":"GOLD", "value":{"class": "java.lang.Integer", "value": 2}}, {"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "prostitution":true, "oralSex":1, "oralCreampies":1}}],
 			"text": "He finishes off in your mouth.  Without making eye contact, he leaves three gold coins on the dresser, and then departs.  You wipe your mouth."}
 		]
 	},
@@ -1450,14 +1536,34 @@
 			{"text": "You let the brothel owner know that you're open for business."},
 			{"text": "It doesn't take long before a gentleman arrives who's interested in laying pipe. You lead him to one of the \"guest\" rooms, where he asks you to disrobe and get on the bed."},
 			{
-			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1}}],
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1, "prostitution":true}}],
 			"text": "After climbing up on the bed, he swiftly mounts you, and then proceeds to pound you out."},
 			{
 			"sound": "CUM",
 			"text": "You grit your teeth as he slides his raincoated cock in and out of your lubricated hole, until finally he grips hard onto your for-sale ass and fills a balloon with jizz in your rectum."},
 			{
-			"mutations": [{"saveType":"GOLD", "value":{"class": "java.lang.Integer", "value": 5}}, {"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "prostitution":true}}],
+			"mutations": [{"saveType":"GOLD", "value":{"class": "java.lang.Integer", "value": 5}}],
 			"text": "After pulling out, he leaves a stack of five gold coins on the bed next to you, and sheepishly collect it, his cum still dripping from your backdoor."}
+		]
+	},
+	{
+		"key": "BROTHEL-ANAL-CONDOM-MASTER",
+		"scriptLines": [
+		]
+	},
+	{
+		"key": "BROTHEL-ANAL-CONDOM-EXPERT",
+		"scriptLines": [
+		]
+	},
+	{
+		"key": "BROTHEL-ANAL-CONDOM-NOVICE",
+		"scriptLines": [
+		]
+	},
+	{
+		"key": "BROTHEL-ANAL-CONDOM-BEGINNER",
+		"scriptLines": [
 		]
 	},
 	{
@@ -1466,14 +1572,24 @@
 			{"text": "You let the brothel owner know that you're open for business."},
 			{"text": "It doesn't take long before a gentleman arrives who's interested in laying pipe. You lead him to one of the \"guest\" rooms, where he asks you to disrobe and get on the bed."},
 			{
-			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1}}],
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1, "prostitution":true}}],
 			"text": "After climbing up on the bed, he swiftly mounts you, and then proceeds to pound you out."},
 			{
 			"sound": "CUM",
 			"text": "You grit your teeth as he slides his raw cock in and out of your lubricated hole, your anal hairs getting tugged by his dickskin, until finally he grips hard onto your for-sale ass and fills your unguarded cove with stranger semen."},			
 			{
-			"mutations": [{"saveType":"GOLD", "value":{"class": "java.lang.Integer", "value": 7}}, {"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "prostitution":true, "creampies":1}}],
+			"mutations": [{"saveType":"GOLD", "value":{"class": "java.lang.Integer", "value": 7}}, {"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "creampies":1}}],
 			"text": "After he finishes off inside of you, he leaves a stack of seven gold coins on the bed next to you, and sheepishly collect it, his cum still dripping from your backdoor."}
+		]
+	},
+	{
+		"key": "BROTHEL-ANAL-BAREBACK-MASTER",
+		"scriptLines": [
+		]
+	},
+	{
+		"key": "BROTHEL-ANAL-BAREBACK-EXPERT",
+		"scriptLines": [
 		]
 	},
 	{
@@ -1489,7 +1605,7 @@
 			"text": "Once in the privacy of your room, you find yourself face-down or on your knees or with your legs wrapped around him all night, being his \"girlfriend\" for a few pieces of gold."},
 			{
 			"sound": "CUM",
-			"mutations": [{"saveType":"TIME", "value":{"class": "java.lang.Integer", "value": 2}}, {"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": 2}}, {"saveType":"GOLD", "value":{"class": "java.lang.Integer", "value": 10}}, {"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "prostitution":true, "analSex":3, "creampies":4}}],
+			"mutations": [{"saveType":"TIME", "value":{"class": "java.lang.Integer", "value": 2}}, {"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": 2}}, {"saveType":"GOLD", "value":{"class": "java.lang.Integer", "value": 10}}, {"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "prostitution":true, "analSex":3, "creampies":4, "oralSex": 1, "oralCreampies": 1}}],
 			"text": "In the morning, he counts out the gold pieces and slaps them onto your upturned, bare buttcheek, which is coated in semen, mostly dried. Your hole drools your temporary boyfriend's seed as he leaves the room, and your life, forever."}
 		]
 	},

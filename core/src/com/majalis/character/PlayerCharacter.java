@@ -1193,6 +1193,22 @@ public class PlayerCharacter extends AbstractCharacter {
 		if (sex.isProstitution() && perks.get(Perk.LADY_OF_THE_NIGHT.toString(), 0) != 10) {
 			result.add(new MutationResult("You gained " + Perk.LADY_OF_THE_NIGHT.getLabel() + " (Rank " + (perks.get(Perk.LADY_OF_THE_NIGHT.toString(), 0) + 1) + ")!"));
 			perks.put(Perk.LADY_OF_THE_NIGHT.toString(), ((int)perks.get(Perk.LADY_OF_THE_NIGHT.toString(), 0)) + 1);
+			
+			if (sex.getHandy() > 0 && perks.get(Perk.CRANK_MASTER.toString(), 0) != 10) {
+				result.add(new MutationResult("You gained " + Perk.CRANK_MASTER.getLabel() + " (Rank " + (perks.get(Perk.CRANK_MASTER.toString(), 0) + 1) + ")!"));
+				perks.put(Perk.CRANK_MASTER.toString(), ((int)perks.get(Perk.CRANK_MASTER.toString(), 0)) + 1);
+				
+			}
+			if (sex.getOralSex() > 0 && perks.get(Perk.BLOWJOB_EXPERT.toString(), 0) != 10) {
+				result.add(new MutationResult("You gained " + Perk.BLOWJOB_EXPERT.getLabel() + " (Rank " + (perks.get(Perk.BLOWJOB_EXPERT.toString(), 0) + 1) + ")!"));
+				perks.put(Perk.BLOWJOB_EXPERT.toString(), ((int)perks.get(Perk.BLOWJOB_EXPERT.toString(), 0)) + 1);
+				
+			}
+			if (sex.getAnalSex() > 0 && perks.get(Perk.PERFECT_BOTTOM.toString(), 0) != 10) {
+				result.add(new MutationResult("You gained " + Perk.PERFECT_BOTTOM.getLabel() + " (Rank " + (perks.get(Perk.PERFECT_BOTTOM.toString(), 0) + 1) + ")!"));
+				perks.put(Perk.PERFECT_BOTTOM.toString(), ((int)perks.get(Perk.PERFECT_BOTTOM.toString(), 0)) + 1);
+				
+			}
 		}
 		
 		if (sex.isBird() && perks.get(Perk.CUCKOO_FOR_CUCKOO.toString(), 0) != 3) {

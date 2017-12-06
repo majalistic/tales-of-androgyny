@@ -9,6 +9,7 @@ public class SexualExperience {
 	private final int oralCreampies;
 	private final int fellatioEjaculation;
 	private final int bellyful;
+	private final int handy;
 	private final boolean horse;
 	private final boolean ogre;
 	private final boolean prostitution;
@@ -76,13 +77,13 @@ public class SexualExperience {
 		}
 		
 		public SexualExperience build() {
-			return new SexualExperience(analSex, creampies, analEjaculation, oralSex, oralCreampies, fellatioEjaculation, 0, horse, ogre, false, false, bird, knot);
+			return new SexualExperience(analSex, creampies, analEjaculation, oralSex, oralCreampies, fellatioEjaculation, 0, 0, horse, ogre, false, false, bird, knot);
 		}		
 	}
 	
-	private SexualExperience() { this(0, 0, 0, 0, 0, 0, 0, false, false, false, false, false, false); }
+	private SexualExperience() { this(0, 0, 0, 0, 0, 0, 0, 0, false, false, false, false, false, false); }
 	
-	private SexualExperience(int analSex, int creampies, int analEjaculation, int oralSex, int oralCreampies, int fellatioEjaculation, int bellyful, boolean horse, boolean ogre, boolean prostitution, boolean beast, boolean bird, boolean knot) {
+	private SexualExperience(int analSex, int creampies, int analEjaculation, int oralSex, int oralCreampies, int fellatioEjaculation, int bellyful, int handy, boolean horse, boolean ogre, boolean prostitution, boolean beast, boolean bird, boolean knot) {
 		this.analSex = analSex;
 		this.creampies = creampies;
 		this.analEjaculation = analEjaculation;
@@ -90,6 +91,7 @@ public class SexualExperience {
 		this.oralCreampies = oralCreampies;
 		this.fellatioEjaculation = fellatioEjaculation;
 		this.bellyful = bellyful;
+		this.handy = handy;
 		this.horse = horse;
 		this.ogre = ogre;
 		this.prostitution = prostitution;
@@ -105,6 +107,7 @@ public class SexualExperience {
 	protected int getOralCreampies() { return oralCreampies; }
 	protected int getFellatioEjaculations() { return fellatioEjaculation; }
 	protected int getBellyful() { return bellyful; }
+	protected int getHandy() { return handy; }
 	protected boolean isCentaurSex() { return horse; }
 	protected boolean isOgreSex() { return ogre; }
 	protected boolean isProstitution() { return prostitution; }
