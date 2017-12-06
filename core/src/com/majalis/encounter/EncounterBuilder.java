@@ -313,12 +313,12 @@ public class EncounterBuilder {
 						CheckType.PROSTITUTE_WARNING_GIVEN,
 						new Branch(true).checkScene(	
 							Perk.LADY_OF_THE_NIGHT, 
-							new Branch(10).textScene("BROTHEL-CLASS-CHANGE").gameEnd(),
+							new Branch(20).textScene("BROTHEL-CLASS-CHANGE").gameEnd(),
 							new Branch(0).concat(onceSignedUp)
 						),
 						new Branch(false).checkScene(
 							Perk.LADY_OF_THE_NIGHT,
-							new Branch(5).textScene("BROTHEL-WARNING").concat(onceSignedUp),
+							new Branch(10).textScene("BROTHEL-WARNING").concat(onceSignedUp),
 							new Branch(0).checkScene(
 								CheckType.PROSTITUTE, 	
 								new Branch(true).concat(onceSignedUp),
