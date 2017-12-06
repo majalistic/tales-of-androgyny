@@ -1417,7 +1417,7 @@
 			{"text": "She has you work in the lobby, trying to entice men to use the brothel's services, while offering kisses for a single gold sovereign.  Most of the men who come in are already ready to take the plunge, but one indulges you."},  
 			{"text": "He's pretty drunk, and throws his arm around you while leaning in for the kiss, which you provide, your lips pressing against each other for a moment before you feel his tongue enter your mouth, and his hand gripping your ass."},
 			{
-			"mutations": [{"saveType":"GOLD", "value":{"class": "java.lang.Integer", "value": 1}}],
+			"mutations": [{"saveType":"TIME", "value":{"class": "java.lang.Integer", "value": 1}}, {"saveType":"GOLD", "value":{"class": "java.lang.Integer", "value": 1}}],
 			"text": "He gives you a single coin for the trouble, and suggests something else you can kiss, before he stumbles further into the brothel."}
 		]
 	},
@@ -1439,7 +1439,7 @@
 			{"text": "He blasts it directly into your face, and it does sting, each spurt making an absolute mess of your face and hair, but you keep up the professional smile for him the whole time he's painting a mask on you.  There's a bubble of cum on one of your nostrils, and you guess that means you did a good job."},
 			{"text": "He tells you that you're amazing while you wipe his spermslime off of your hand, which is completely glazed with it.  You tell him he's amazing, while quietly musing to yourself how easy it was to have him melting in the palm of your hands."},
 			{
-			"mutations": [{"saveType":"GOLD", "value":{"class": "java.lang.Integer", "value": 3}}, {"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "handy": 1, "prostitution":true}}],
+			"mutations": [{"saveType":"TIME", "value":{"class": "java.lang.Integer", "value": 1}}, {"saveType":"GOLD", "value":{"class": "java.lang.Integer", "value": 3}}, {"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "handy": 1, "prostitution":true}}],
 			"text": "Unfortunately, now *you* need a handjob.  Your cock's so hard you kind of wish you'd gone a little further with that kiss, and gotten your mouth what your face got instead.  But an extra gold is fine too."}
 		]
 	},
@@ -1458,7 +1458,7 @@
 			{"text": "You hold tightly onto his belt buckle, knowing you might never know what his cock looks like, but that you'll soon know what his semen bubbling through his pants looks like."},
 			{"text": "And, indeed, it looks like he pissed jizz down his pant leg, which isn't exactly innaccurate.  There's a thick glob of it where his dickhole kissed the inside, and then it trails down all the way."}, 
 			{
-			"mutations": [{"saveType":"GOLD", "value":{"class": "java.lang.Integer", "value": 2}}, {"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "handy": 1, "prostitution":true}}],
+			"mutations": [{"saveType":"TIME", "value":{"class": "java.lang.Integer", "value": 1}}, {"saveType":"GOLD", "value":{"class": "java.lang.Integer", "value": 2}}, {"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "handy": 1, "prostitution":true}}],
 			"text": "He's a bit ashamed as he pays you what he owes you, and then leaves, visibly having jizzed his pants."}			
 		]
 	},
@@ -1472,7 +1472,7 @@
 			{"text": "You jump when the moment does arrive, and then quickly close your left eye, lest you receive an eyeful.  Your eyelash, unlike most adventurers, is coated in sticky semen, and you hold his cumming cock in your grip until it softens up."},
 			{"text": "Your world smells like semen again, and this time, you did it to yourself.  There's a strange sense of pride in that, but only barely."},
 			{
-			"mutations": [{"saveType":"GOLD", "value":{"class": "java.lang.Integer", "value": 2}}, {"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "handy": 1, "prostitution":true}}],
+			"mutations": [{"saveType":"TIME", "value":{"class": "java.lang.Integer", "value": 1}}, {"saveType":"GOLD", "value":{"class": "java.lang.Integer", "value": 2}}, {"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "handy": 1, "prostitution":true}}],
 			"text": "Having caught his cum on your face, you smile plastically and thank him for his business, and he leaves two gold coins behind, as well as a face full of drying cum."}
 		]
 	},
@@ -1487,7 +1487,7 @@
 			{"text": "Finally, he grunts, and tenses up, and his hand keeps beating while his cockhead remains firmly in place, and it erupts, spewing his mangoo right onto your cheek, then your nose and your lips.  Though you never kissed his cock, it kinda looks like you did."},
 			{"text": "With so much cum so close to your nostrils, you can smell nothing but his semen, a smell you won't soon forget.  You twitch, still shocked by the facial, and he leaves, disgruntled."},
 			{
-			"mutations": [{"saveType":"GOLD", "value":{"class": "java.lang.Integer", "value": 1}}, {"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "handy": 1, "prostitution":true}}],
+			"mutations": [{"saveType":"TIME", "value":{"class": "java.lang.Integer", "value": 1}}, {"saveType":"GOLD", "value":{"class": "java.lang.Integer", "value": 1}}, {"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "handy": 1, "prostitution":true}}],
 			"text": "You got a faceful of spunk and a gold piece out of it, but maybe some useful experience as well - although you're not proud of developing that particular skill.  You wipe your face, having fulfilled your role as cheap whore."}		
 		]
 	},
@@ -1510,7 +1510,7 @@
 			{"text": "You look up at him as he fills your mouth and narrow your gaze, feeling your own wad shoot into fabric, his sagging your cheeks."},
 			{"text": "With your gold already well-earned, you open your mouth to show the mess he's made of the inside, then swallow it all down, unbidden.  Your ejaculate is cooling in your underwear, but that's not part of the show."},
 			{
-			"mutations": [{"saveType":"GOLD", "value":{"class": "java.lang.Integer", "value": 4}}, {"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "prostitution":true, "oralSex":1, "oralCreampies":1}}],
+			"mutations": [{"saveType":"TIME", "value":{"class": "java.lang.Integer", "value": 1}}, {"saveType":"GOLD", "value":{"class": "java.lang.Integer", "value": 4}}, {"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "prostitution":true, "oralSex":1, "oralCreampies":1}}],
 			"text": "You clean up every inch of his cock with your tongue, and he leaves you a healthy tip, aside from all the cum.  When he leaves, you burp, having perhaps stuffed yourself a little too full of chunky manmilk."}
 		]
 	},
@@ -1527,7 +1527,7 @@
 			{"text": "He calls you be your female, elven name, filling your heart with glee.  You gulp it down, lapping it up like a cat, swallowing it as part of your duty while your own cock twitches in its hammock."},
 			{"text": "You don't plan to spit a single drop of it, so even though he looks like he's sensitive enough to pull out, you keep sucking, placing your hand around his cock to ensure he doesn't withdraw it, as if to say \"I'm not finished\" as you gulp down his copious ball juice."},
 			{
-			"mutations": [{"saveType":"GOLD", "value":{"class": "java.lang.Integer", "value": 3}}, {"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "prostitution":true, "oralSex":1, "oralCreampies":1}}],
+			"mutations": [{"saveType":"TIME", "value":{"class": "java.lang.Integer", "value": 1}}, {"saveType":"GOLD", "value":{"class": "java.lang.Integer", "value": 3}}, {"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "prostitution":true, "oralSex":1, "oralCreampies":1}}],
 			"text": "You give said balls a satisfied lick when he's done, not to earn a tip, but as a thank you for a delicious meal.  It takes you a few minutes to return to your senses, but by that time you've already drunk deep of the well of spermsauce."}
 		]
 	},
@@ -1539,7 +1539,7 @@
 			{"text": "He gouges out your throat repeatedly, and you try to keep thinking about the gold pieces he's going to leave instead of the cum cocktail he's going to leave in your stomach, or the puke you're going to need to clean up on the floor if you don't manage to keep your nausea checked."},
 			{"text": "You feel his gonads getting ready to dump down your throat, but unfortunately you feel your throat getting ready to dump all over his gonads, as well."},
 			{
-			"mutations": [{"saveType":"GOLD", "value":{"class": "java.lang.Integer", "value": 3}}, {"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "prostitution":true, "oralSex":1, "oralCreampies":1}}],
+			"mutations": [{"saveType":"TIME", "value":{"class": "java.lang.Integer", "value": 1}}, {"saveType":"GOLD", "value":{"class": "java.lang.Integer", "value": 3}}, {"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "prostitution":true, "oralSex":1, "oralCreampies":1}}],
 			"text": "Thankfully, he spews before you do, and you feel three gold pieces worth of hot porrige coating your throat and stomach walls before he pulls himself out of your gullet.  You burp your thanks, and he leaves the gold on the dresser, perfunctorily satisfied."}
 		]
 	},
@@ -1556,7 +1556,7 @@
 			{"text": "Your ass, unfortunately, might have been the easier pussy to offer.  He pulls on your pigtails and fucks your face, and you learn what it feels like to have an angry man's balls slapping against your chin repeatedly.  You also learn what an angry man's sperm tastes like as he spews it all over your tongue while he pounds your mouth erratically."},
 			{"text": "The taste of the stranger's semen lets you know you've managed to earn three gold, but also turns your face green, a fact which he notes with some disdain.  He insists you swallow it or he's not paying, and you force yourself to let your full cheeks and empty stomach switch places."},
 			{
-			"mutations": [{"saveType":"GOLD", "value":{"class": "java.lang.Integer", "value": 2}}, {"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "prostitution":true, "oralSex":1, "oralCreampies":1}}],
+			"mutations": [{"saveType":"TIME", "value":{"class": "java.lang.Integer", "value": 1}}, {"saveType":"GOLD", "value":{"class": "java.lang.Integer", "value": 2}}, {"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "prostitution":true, "oralSex":1, "oralCreampies":1}}],
 			"text": "Swallowing a man's cum while he waits patiently to do so in a relatively quiet brothel room fills your chest with heat - and not just from his warm spunk.  Your face turns red instead of green, and thankfully he leaves without saying anything, responsibly paying his due."}
 		]
 	},
@@ -1572,7 +1572,7 @@
 			"sound": "CUM",
 			"text": "You grit your teeth as he slides his raincoated cock in and out of your lubricated hole, until finally he grips hard onto your for-sale ass and fills a balloon with jizz in your rectum."},
 			{
-			"mutations": [{"saveType":"GOLD", "value":{"class": "java.lang.Integer", "value": 5}}],
+			"mutations": [{"saveType":"TIME", "value":{"class": "java.lang.Integer", "value": 1}}, {"saveType":"GOLD", "value":{"class": "java.lang.Integer", "value": 5}}],
 			"text": "After pulling out, he leaves a stack of five gold coins on the bed next to you, and sheepishly collect it, his cum still dripping from your backdoor."}
 		]
 	},
@@ -1608,7 +1608,7 @@
 			"sound": "CUM",
 			"text": "You grit your teeth as he slides his raw cock in and out of your lubricated hole, your anal hairs getting tugged by his dickskin, until finally he grips hard onto your for-sale ass and fills your unguarded cove with stranger semen."},			
 			{
-			"mutations": [{"saveType":"GOLD", "value":{"class": "java.lang.Integer", "value": 7}}, {"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "creampies":1}}],
+			"mutations": [{"saveType":"TIME", "value":{"class": "java.lang.Integer", "value": 1}}, {"saveType":"GOLD", "value":{"class": "java.lang.Integer", "value": 7}}, {"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "creampies":1}}],
 			"text": "After he finishes off inside of you, he leaves a stack of seven gold coins on the bed next to you, and sheepishly collect it, his cum still dripping from your backdoor."}
 		]
 	},
@@ -1635,7 +1635,7 @@
 			"text": "Once in the privacy of your room, you find yourself face-down or on your knees or with your legs wrapped around him all night, being his \"girlfriend\" for a few pieces of gold."},
 			{
 			"sound": "CUM",
-			"mutations": [{"saveType":"TIME", "value":{"class": "java.lang.Integer", "value": 2}}, {"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": 2}}, {"saveType":"GOLD", "value":{"class": "java.lang.Integer", "value": 10}}, {"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "prostitution":true, "analSex":3, "creampies":4, "oralSex": 1, "oralCreampies": 1}}],
+			"mutations": [{"saveType":"TIME", "value":{"class": "java.lang.Integer", "value": 3}}, {"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": 2}}, {"saveType":"GOLD", "value":{"class": "java.lang.Integer", "value": 10}}, {"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "prostitution":true, "analSex":3, "creampies":4, "oralSex": 1, "oralCreampies": 1}}],
 			"text": "In the morning, he counts out the gold pieces and slaps them onto your upturned, bare buttcheek, which is coated in semen, mostly dried. Your hole drools your temporary boyfriend's seed as he leaves the room, and your life, forever."}
 		]
 	},
