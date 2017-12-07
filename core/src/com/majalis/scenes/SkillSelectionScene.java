@@ -308,7 +308,7 @@ public class SkillSelectionScene extends Scene {
 		
 		final Table perkTable = new Table();
 		for (final Perk perk: Perk.values()) {
-			if (!perk.isPositive()) { continue; }
+			if (!perk.isLearnable()) { continue; }
 			Integer level = perks.get(perk, 0);
 			final Label label = new Label(perk.getLabel(), skin);
 			label.setColor(Color.BLACK);
