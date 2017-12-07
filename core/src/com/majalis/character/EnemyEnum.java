@@ -126,7 +126,7 @@ public enum EnemyEnum {
 	public boolean willArmorSunder() { return this == BRIGAND || this == ORC || this == ADVENTURER; }
 	public boolean willParry() { return this == BRIGAND || this == ADVENTURER; }
 	public boolean canBeRidden() { return this != SLIME && this != CENTAUR && this != UNICORN && this != BEASTMISTRESS && this != GHOST && this != ANGEL; }
-	public boolean willPounce() { return this != UNICORN && this != BEASTMISTRESS && this != ANGEL && this != NAGA; }
+	public boolean willPounce() { return this != UNICORN && this != BEASTMISTRESS && this != ANGEL && this != NAGA && this != GHOST; }
 	public boolean isPounceable() { return this != OGRE && this != BEASTMISTRESS && this != UNICORN && this != GHOST && this != ANGEL; }
 	public boolean canProneBone() { return this == BRIGAND || this == GOBLIN || this == ORC || this == ADVENTURER || this == GOBLIN_MALE; }
 	public boolean prefersProneBone() { return this == ORC || this == GOBLIN; }
