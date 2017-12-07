@@ -1134,7 +1134,7 @@ public class EncounterBuilder {
 			case WEAPON_SHOP:
 				return new Branch().textScene("WEAPON-SHOP").shopScene(ShopCode.WEAPON_SHOP).encounterEnd().getEncounter();
 			case WERESLUT:
-				Branch knotted = new Branch().textScene("WEREWOLF-KNOT").checkScene(Perk.BITCH, new Branch(2).textScene("WEREWOLF-BITCH-END").gameEnd(), new Branch(0).textScene("WEREWOLF-POST-KNOT"));
+				Branch knotted = new Branch().textScene("WEREWOLF-KNOT").checkScene(Perk.BITCH, new Branch(3).textScene("WEREWOLF-BITCH-END").gameEnd(), new Branch(0).textScene("WEREWOLF-POST-KNOT"));
 				Branch mated = new Branch().textScene("WEREWOLF-MATED").concat(knotted);
 				Branch bitch = new Branch(2).textScene("WEREWOLF-BITCH").concat(mated);
 				Branch uninterested = new Branch(0).textScene("WEREWOLF-UNINTERESTED");
