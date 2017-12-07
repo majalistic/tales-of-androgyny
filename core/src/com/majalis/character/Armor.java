@@ -94,6 +94,7 @@ public class Armor extends Item{
 		NO_BOTTOM ("None", new int[]{0}, new int[]{0}), // currently not used - should be used in place of 'null'
 		CLOTH_TOP ("Cloth Armor", 10, new int[]{3, 3}, new int[]{3, 1}),
 		BREASTPLATE ("Breastplate", 50, new int[]{8, 8}, new int[]{6, 2}),
+		DIAMOND_PLATE ("Diamond Plate", 200, new int[]{5, 5}, new int[]{8, 4}),
 		SKIRT ("Skirt", 10, new int[]{3, 3}, new int[]{3, 1}),
 		BATTLE_SKIRT ("Battle Skirt", 50, new int[]{6, 6}, new int[]{6, 2}),
 		SHORTS ("Shorts", new int[]{3, 3}, new int[]{3, 1}),
@@ -128,17 +129,17 @@ public class Armor extends Item{
 		}
 		private int getValue() { return value; }
 		
-		private boolean coversTop() { return this == NO_TOP || this == CLOTH_TOP || this == BREASTPLATE; }
+		private boolean coversTop() { return this == NO_TOP || this == CLOTH_TOP || this == BREASTPLATE || this == DIAMOND_PLATE;  }
 		private boolean coversBottom() { return this == NO_BOTTOM || this == SKIRT || this == BATTLE_SKIRT || this == SHORTS; }
 		private boolean isUnderwear() { return this == UNDERWEAR; }
 		private ChastityCage getCage() { return null; }
 		private Plug getPlug() { return null; }
 		private IntArray getDurability() { return durability; }
 		private IntArray getShockAbsorption() { return shockAbsorption; }
-		private boolean coversNipples() { return this == CLOTH_TOP || this == BREASTPLATE; }
+		private boolean coversNipples() { return this == CLOTH_TOP || this == BREASTPLATE || this == DIAMOND_PLATE; }
 		private boolean isPorous() { return this != BREASTPLATE; }
 		private boolean isHeatResistant() { return false; }
-		private boolean isFlameRetardant() { return this == BREASTPLATE; }
+		private boolean isFlameRetardant() { return this == BREASTPLATE || this == DIAMOND_PLATE; }
 		private boolean isAcidResistant() { return false; }
 		private boolean isAlive() { return false; }
 		private boolean coversAnus() { return this == SHORTS || this == UNDERWEAR; }
