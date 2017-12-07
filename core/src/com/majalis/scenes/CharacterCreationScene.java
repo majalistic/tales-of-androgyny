@@ -68,7 +68,7 @@ public class CharacterCreationScene extends Scene {
 		int statY = 170;
 
 		statPointDisplay = initLabel(String.valueOf(statPoints), skin, Color.FOREST, 1313, 882, Align.left);		
-		final Label classMessage = initLabel("", skin, Color.BLACK, 1700, 200, Align.top);
+		final Label classMessage = initLabel("", skin, Color.BLACK, 1700, 230, Align.top);
 		final Label statMessage = initLabel("", skin, Color.RED, statX, statY, Align.left, true, 750);
 		final Label statDescription = initLabel("", skin, Color.FOREST, statX, statY, Align.left, true, 750);
 		final Label classSelection = initLabel("", skin, Color.GOLD, 1715, 965, Align.center);
@@ -311,11 +311,11 @@ public class CharacterCreationScene extends Scene {
 
 	private String getClassFeatures(SaveManager.JobClass jobClass) {
 		switch (jobClass) {
-			case WARRIOR: return "+1 Skill point.\nUnlocked \"Blitz\" Stance.\nGained perk \"Weak to Anal\".";
-			case PALADIN: return "Combat Heal learned.\nChastity Cage equipped.";
+			case WARRIOR: return "+1 Skill point.\nUnlocked \"Blitz\" Stance.\nGained \"Weak to Anal\".";
+			case PALADIN: return "Combat Heal learned.\nBreastplate equipped.\nBattle Skirt equipped.\nChastity Cage equipped.";
 			case THIEF:   return "+3 Skill points.\n+40 food.";
 			case RANGER:  return "Received bow.";
-			case MAGE:    return "+1 Magic point.\n";
+			case MAGE:    return "+1 Magic point.\nLimited armor.\n";
 			case ENCHANTRESS: return "+1 Perk point.\n";
 			default: return "";
 		}

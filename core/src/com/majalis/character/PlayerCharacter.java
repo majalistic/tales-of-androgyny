@@ -174,11 +174,7 @@ public class PlayerCharacter extends AbstractCharacter {
 		initInventory();
 		setArmor(null, false);
 		setLegwear(null, false);
-		setUnderwear(null, false);
-		
-		setArmor(new Armor(ArmorType.CLOTH_TOP), true);
-		setLegwear(new Armor(ArmorType.SKIRT), true);
-		setUnderwear(new Armor(ArmorType.UNDERWEAR), true);
+		setUnderwear(null, false);	
 		
 		skills.remove(COMBAT_HEAL.toString());
 		skills.remove(INCANTATION.toString());
@@ -189,13 +185,41 @@ public class PlayerCharacter extends AbstractCharacter {
 		cage = null;
 		weapon = null;
 		switch (jobClass) { 
-			case WARRIOR: skillPoints = 3; skills.put(BLITZ_ATTACK.toString(), 1); skills.put(ALL_OUT_BLITZ.toString(), 1); skills.put(HOLD_BACK.toString(), 1); perks.put(Perk.WEAK_TO_ANAL.toString(), 1); break;
-			case PALADIN: addSkill(COMBAT_HEAL, 1); setCage(new ChastityCage(), true); break;
-			case THIEF: skillPoints = 5; food += 40; break;
-			case MAGE: magicPoints = 2; break;
-			case RANGER: weapon = new Weapon(WeaponType.Bow); break;
-			case ENCHANTRESS: magicPoints = 1; perkPoints = 3; break;
+			case WARRIOR: 
+				skillPoints = 3; 
+				skills.put(BLITZ_ATTACK.toString(), 1); 
+				skills.put(ALL_OUT_BLITZ.toString(), 1); 
+				skills.put(HOLD_BACK.toString(), 1); 
+				perks.put(Perk.WEAK_TO_ANAL.toString(), 1);
+				break;
+			case PALADIN: 
+				addSkill(COMBAT_HEAL, 1); 
+				setCage(new ChastityCage(), true); 
+				setArmor(new Armor(ArmorType.BREASTPLATE), true);
+				setLegwear(new Armor(ArmorType.BATTLE_SKIRT), true);
+				setUnderwear(new Armor(ArmorType.UNDERWEAR), true);
+				break;
+			case THIEF: 
+				skillPoints = 5; 
+				food += 40;
+				break;
+			case MAGE: 
+				setUnderwear(new Armor(ArmorType.UNDERWEAR), true);
+				magicPoints = 2; 
+				break;
+			case RANGER: 
+				weapon = new Weapon(WeaponType.Bow); 
+				break;
+			case ENCHANTRESS: 
+				magicPoints = 1; 
+				perkPoints = 3; 
+				break;
 			default:
+		}
+		if (jobClass != JobClass.PALADIN && jobClass != JobClass.MAGE) {
+			setArmor(new Armor(ArmorType.CLOTH_TOP), true);
+			setLegwear(new Armor(ArmorType.SKIRT), true);
+			setUnderwear(new Armor(ArmorType.UNDERWEAR), true);
 		}
 	}
 	
