@@ -1564,62 +1564,160 @@
 		"key": "BROTHEL-ANAL-CONDOM",
 		"scriptLines": [
 			{"text": "You let the brothel owner know that you're open for business."},
-			{"text": "It doesn't take long before a gentleman arrives who's interested in laying pipe. You lead him to one of the \"guest\" rooms, where he asks you to disrobe and get on the bed."},
-			{
-			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1, "prostitution":true}}],
-			"text": "After climbing up on the bed, he swiftly mounts you, and then proceeds to pound you out."},
-			{
-			"sound": "CUM",
-			"text": "You grit your teeth as he slides his raincoated cock in and out of your lubricated hole, until finally he grips hard onto your for-sale ass and fills a balloon with jizz in your rectum."},
-			{
-			"mutations": [{"saveType":"TIME", "value":{"class": "java.lang.Integer", "value": 1}}, {"saveType":"GOLD", "value":{"class": "java.lang.Integer", "value": 5}}],
-			"text": "After pulling out, he leaves a stack of five gold coins on the bed next to you, and sheepishly collect it, his cum still dripping from your backdoor."}
+			{"text": "It doesn't take long before a gentleman arrives who's interested in laying pipe. You lead him to one of the \"guest\" rooms."}
 		]
 	},
 	{
 		"key": "BROTHEL-ANAL-CONDOM-MASTER",
 		"scriptLines": [
+			{"text": "You lead him by the hand, your hole already twitching with anticipation, and when you're alone together, you have him lie on the bed, and then you crawl onto it and towards him, ever the lioness."},
+			{"text": "You roll the condom on with your mouth, even though oral isn't technically part of the service."},
+			{"text": "Because you lube yourself in advance, you immediately straddle him, lining up his soon-to-be-enguled cock up to your rear cock-holster."},
+			{"text": "He doesn't seem to pay much attention to your obvious erection, which bulges out of your underwear, instead choosing to focus on you shifting said underwear out of the way so that you can drop your weight down on his cock."},
+			{"text": "So much of it sinks in immediately that you're worried you're going to give your customer a quick spurt, but luckily, he rides it out.  And then, you start to ride him."},
+			{"text": "You ride him with your hands on his chest, your hips doing the talking.  You slap down against his thighs, and grind your ass against him while watching his face for his reaction."},
+			{"text": "Your elven name is so feminine sounding - you love it when they say it while they fuck you, so whenever he does, you reward him with a little squeeze, until he's just saying it louder and louder, and you're squeezing tighter and tighter."},
+			{"text": "Your balls are full, and so you find a tactful way to ask him if you can cum, and when he says yes, you lick your lips.  Money or no money, that makes it worth it."},
+			{"text": "You fuck yourself silly on his pole, bouncing rhythmically until you can't hold it anymore - cumming a bit before your client, but so be it.  He's already thrown his head back when the rope lands on his chest anyway."},
+			{
+			"sound": "CUM_BUBBLING",
+			"text": "You grit your teeth as he slides his raincoated cock in and out of your lubricated hole, until finally he grips hard onto your for-sale ass and fills a balloon with jizz in your rectum."},						
+			{"text": "You sigh as you feel the warm, full condom sitting in your bend.  A job well done."},
+			{
+			"mutations": [{"saveType":"TIME", "value":{"class": "java.lang.Integer", "value": 1}}, {"saveType":"GOLD", "value":{"class": "java.lang.Integer", "value": 6}}, {"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1, "prostitution":true}}],
+			"text": "You dismount him and give him a peck on the cheek as you do, and he tips you well for services rendered."}			
 		]
 	},
 	{
 		"key": "BROTHEL-ANAL-CONDOM-EXPERT",
 		"scriptLines": [
+			{"text": "You walk to the room with his hand around your waist, slowly drifting down to your ass - you know what he's here for."},
+			{"text": "You push him down on the bed, and then you sit on his crotch, still clothed, feeling him tent up at the sight and sensation."},
+			{"text": "You pull down his pants, and sit down on his cock, already lubed for the occasion."},
+			{"text": "Sitting on his dick is no big deal, even though you know deep down that it's not exactly the picture of heroism."},
+			{"text": "You slap your ass while riding him, giving him dinner and a show.  You could probably enchant him to do anything with your ass."},
+			{"text": "You bounce, the bed squeaking on each downward thrust of your asshole, swallowing his whole pole up and demanding more, again, and again."},
+			{"text": "You can tell that he's nearing his limit, so you drop your weight down and lean forward, giving him a rather stark view of your backside.  You spread your cheeks, asking him to cum up your fat ass, and you know, from the way he's twitching, that you just satisfied another customer."},
+			{
+			"sound": "CUM_BUBBLING",
+			"mutations": [{"saveType":"TIME", "value":{"class": "java.lang.Integer", "value": 1}}, {"saveType":"GOLD", "value":{"class": "java.lang.Integer", "value": 5}}, {"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1, "prostitution":true}}],
+			"text": "You feel the cum filling the condom, and wipe your hair out of your face while rocking back and forth to milk it out of him with your asshole."}
 		]
 	},
 	{
 		"key": "BROTHEL-ANAL-CONDOM-NOVICE",
 		"scriptLines": [
+		
+			{"text": "This guy looks like he might be a mercenary or some kind of enforcer - you feel small and meek walking next to him.  When you get the room, he all but shoves you up onto the bed, and you wait for him on your hands and knees."},
+			{"text": "He lubes you up, gets you on your knees on the bed, and gets ready to enter you from behind.  He's pretty big, so you're pretty nervous."},
+			{"text": "Your hole feels the stretch as he starts to plunge in, but so do your throbbing goonies, loving the obviously non-procreative sex you've started again.  You lick your lips.  Time to get bred."},
+			{"text": "He pulls on your pigtails while railing your fat ass from behind, and he doesn't call you your elven name, but he does call you... other names."},
+			{"text": "This has the effect of making you hard, and so does getting assfucked like a female animal.  Even if you wanted to dodge his pointed mating thrusts, you couldn't, with his grip around your waist."},
+			{"text": "He knocks groans and moans out of you that you don't want anyone to hear - you're completely at this mercy.  Even if anal sex isn't normally your thing, you want him to destroy your ass, and he's doing it."},			
+			{"text": "There's no getting around it.  Getting fucked doggy-style is going to make you cum... and hard.  Your ass can't stop saying how much it loves the D, and your unloved cock wants in on the action."},
+			{"text": "You don't ask him if you can cum - you hope he doesn't even notice.  It doesn't matter.  Your eyes roll up.   You don't know how you're going to ride out the rest of the fuck with a limp noodle, but somehow, you'll manage."},
+			{"text": "You blast five ropes onto the sheets while moaning hoarsely.  He keeps spanking your ass and laying pipe, so you don't think he really notices.  You spew your oats, and your heart calms down a bit."},
+			{"text": "Now that your cock is soft and limp, you feel a bit... humbled.  You got caught up in the moment and really wanted to be his bitch... but now his rough fucking is just kind of a pain in the ass."},
+			{"text": "You whine as he fucks you, not so into being hardcore railed, but you have to finish the job, and he's definitely gonna do that with your ass."},
+			{"text": "Sweat is pouring down your face from the feverish anal plunging, and you grip onto the sheets, trying to hold in your complaints even as your toes curl and cramp."},
+			{"text": "If you had to endure another five minutes of anal reaming, you probably would have called it quits - luckily, he says he's cumming before that, and you quietly insists that he hurry up with it."},
+			{
+			"sound": "CUM_BUBBLING",
+			"text": "He digs deep into your big ass and holds it there, and you feel it twitching inside.  If he wasn't wearing a condom, you're sure you'd feel the wetness deep in the pit of your stomach."},
+			{
+			"mutations": [{"saveType":"TIME", "value":{"class": "java.lang.Integer", "value": 1}}, {"saveType":"GOLD", "value":{"class": "java.lang.Integer", "value": 5}}, {"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1, "prostitution":true}}],
+			"text": "You knead the sheets as he pulls his cock out, and your hole is agape when he does pull free.  He gives you a thank you slap on the ass, and you collapse onto the bed, covered in sweat."}			
 		]
 	},
 	{
 		"key": "BROTHEL-ANAL-CONDOM-BEGINNER",
 		"scriptLines": [
+			{"text": "You're an absolute nervous wreck.  With his hand on your shoulders, leading you to the room, you're trembling.  You try to think about anything aside from the fact that he's going to fuck you, and you draw a complete blank.  Your hole twitches with uneasy anticipation."},
+			{"text": "You enter the room, facing the bed, and you can't really tell what to do.  You blush, you stutter, you stammer.  You have no idea what to do with your hands or how to handle this situation at all."},
+			{"text": "He calls you by your female, elven name, which makes you blush scarlet, and flips a switch somewhere deep inside."},
+			{"text": "He tells you to get up on the bed, and to put your legs up - so you do, feeling a little strange and exposed."},			
+			{"text": "With your legs up by your head, feeling his weight shifting on the bed, just the two of you... you're so embarrassed you could die.  His cock and your hole aren't that far apart, but it's like they're miles apart compared to where they'll soon be."},
+			{"text": "You hold your cock up and out of the way for him, and feel the heat rising to your cheeks."},
+			{"text": "He presses the tip of his cockhead to your newbie hole and it squeaks submissively.  You try to force yourself to relax, knowing that anal penetration is just going to be harder if you don't."},
+			{"text": "Your cock twitches - it's excited by the idea."},
+			{"text": "The pressure builds and you grip onto the sheets with your free hand, knowing at any moment, he's going to be inside of you."},
+			{"text": "The moment finally comes, and he pops inside, a barely perceptible change that causes you to throw your head back and suck air through your teeth - not from pain, but from the intensity of the sensation."},
+			{"text": "You feel your sphincter pinching his cock, and you know that it has so much more of it to gobble down before he can start even thrusting.  You look at his face, and he seems quite pleased with himself, if wanting more."},
+			{"text": "You tap your balls, as if to say that now is not the time to start producing sperm, but some very frustrating wires must be crossed because you can feel them swelling with baby batter, making you wonder if they have any idea how babies are made."},
+			{"text": "Your completely broken reproductive drive aside, your balls swelling with desire to shoot nut into nothing in particular, he's sinking more of it into your hole, shifting his weight closer to the depression where you lay, so that soon he'll be not only inside of you, but on top of you."},
+			{"text": "You were always a bit curious how women felt having sex - but you never expected you would get close to finding out yourself."},
+			{"text": "You whine as about half of his schlong is pressing open your rectal walls, your anus tight around his shaft.  A not-insignificant part of you wants to just push the whole thing out, but your balls, at least, want more anal sex."},
+			{"text": "You put your hands on his chest, which is close now, as your cock is no longer in the way of anything, really.  He eases himself down onto them, and you feel his cock pushing up into your belly even moreso and sigh, turning your face away from him to avoid his breath."},
+			{"text": "Soon his head is by yours on the pillow, his body is on top of yours, your legs are up in the air, and he has definitively, unquestionably, scored.  Your rectum is warming his entire cock, and his balls are pressed against your upturned ass with no ambiguity."},
+			{"text": "If there's such a thing as \"anal prostitution virginity,\" yours is now gone - completely gone.  You take deep breaths, adjusting to the cock inside of you, and debate wrapping your legs around him, but keeping your legs spread seems to ease some of the friction."},
+			{"text": "Of course, laying on your back on a bed in a brothel with a man on top of you and your legs straight up in the air does paint a very particular picture of how well the whole \"hero\" business is going."},
+			{"text": "Deep down, you know your lady-of-the-night name is Elven for \"buttslut\"."},
+			{"text": "As the bed starts to creak and bounce, you wonder if other heroes have had this experience... but as his sausage begins to plunge your depths in earnest, you can't really think much of anything else."},
+			{"text": "You're getting fucked, now, and your cock is poking him in the stomach because it's enjoying it.  The slick condom he's wearing means you won't have to feel his cum, but you're beginning to worry the reverse isn't true."},
+			{"text": "Getting plowed anally, chest to chest, legs up, is definitely improving your sperm count.  You can't imagine the humiliation of spewing on your customer in such a situation, but you may not have a choice much longer."},
+			{"text": "The bed creaking turns into tick tocks, and you don't know if you can hold it out longer than he can."},
+			{"text": "You look into his face, trying to give him fair warning, but it's too late.   His cock slips under your pulsing balls - punching your jizz button for the last time it needs to, and you moan, your eyes rolling into the back of your head."},
+			{"text": "You tried to hold it in, but the intense anal stimulation was too much for you, and you bite your lip, embarrassed, as it spits out of you - the man watches, amused, at your hands-free ejaculation.  Spurt after spurt shoots out of your ignored cock while you revel in your shame."}, 
+			{"text": "He fires off into your guts, thankfully caught by the condom, as you coat your own face with a layer of anally-induced cum.  You shudder, having just completed your first real trick.  He lets your legs down and climbs off, and appreciatively leaves you the gold on the bed."},			
+			{
+			"mutations": [{"saveType":"TIME", "value":{"class": "java.lang.Integer", "value": 1}}, {"saveType":"GOLD", "value":{"class": "java.lang.Integer", "value": 5}}, {"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1, "prostitution":true}}],
+			"text": "His cum is visible in the condom he left behind, which you don't really know what to do with.  It's definitely... a lot.  You had worried that you'd be unsatisfying, but that seemed to have been one worry that was unfounded."}
 		]
 	},
 	{
 		"key": "BROTHEL-ANAL-BAREBACK",
 		"scriptLines": [
 			{"text": "You let the brothel owner know that you're open for business."},
-			{"text": "It doesn't take long before a gentleman arrives who's interested in laying pipe. You lead him to one of the \"guest\" rooms, where he asks you to disrobe and get on the bed."},
-			{
-			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1, "prostitution":true}}],
-			"text": "After climbing up on the bed, he swiftly mounts you, and then proceeds to pound you out."},
-			{
-			"sound": "CUM",
-			"text": "You grit your teeth as he slides his raw cock in and out of your lubricated hole, your anal hairs getting tugged by his dickskin, until finally he grips hard onto your for-sale ass and fills your unguarded cove with stranger semen."},			
-			{
-			"mutations": [{"saveType":"TIME", "value":{"class": "java.lang.Integer", "value": 1}}, {"saveType":"GOLD", "value":{"class": "java.lang.Integer", "value": 7}}, {"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "creampies":1}}],
-			"text": "After he finishes off inside of you, he leaves a stack of seven gold coins on the bed next to you, and sheepishly collect it, his cum still dripping from your backdoor."}
+			{"text": "It doesn't take long before a gentleman arrives who's interested in laying pipe. You lead him to one of the \"guest\" rooms."}	
 		]
 	},
 	{
 		"key": "BROTHEL-ANAL-BAREBACK-MASTER",
 		"scriptLines": [
+			{"text": "You wish you didn't have to charge extra just to get rawdogged, although you also can't really admit that to yourself.  The extra money is worth the disgusting creampie, you lie."},
+			{"text": "Your thirsty rectum, on the other hand, craves impregnation.  It would rather get coated in nutslime than a hundred shiny yellow coins, but you would never admit that."},
+			{"text": "You know after this you'll be blowing cum bubbles with your asshole, but you figure it's not the worst thing. In fact, the thought makes it difficult to hide your arousal."},
+			{"text": "You lead him by the hand, your hole already twitching with anticipation, and when you're alone together, you have him lie on the bed, and then you crawl onto it and towards him, ever the lioness."},
+			{"text": "You roll the condom on with your mouth, even though oral isn't technically part of the service."},
+			{"text": "Because you lube yourself in advance, you immediately straddle him, lining up his soon-to-be-enguled cock up to your rear cock-holster."},
+			{"text": "He doesn't seem to pay much attention to your obvious erection, which bulges out of your underwear, instead choosing to focus on you shifting said underwear out of the way so that you can drop your weight down on his cock."},
+			{"text": "So much of it sinks in immediately that you're worried you're going to give your customer a quick spurt, but luckily, he rides it out.  And then, you start to ride him."},
+			{"text": "You ride him with your hands on his chest, your hips doing the talking.  You slap down against his thighs, and grind your ass against him while watching his face for his reaction."},
+			{"text": "Your elven name is so feminine sounding - you love it when they say it while they fuck you, so whenever he does, you reward him with a little squeeze, until he's just saying it louder and louder, and you're squeezing tighter and tighter."},
+			{"text": "Your balls are full, and so you find a tactful way to ask him if you can cum, and when he says yes, you lick your lips.  Money or no money, that makes it worth it."},
+			{"text": "You fuck yourself silly on his pole, bouncing rhythmically until you can't hold it anymore - cumming a bit before your client, but so be it.  He's already thrown his head back when the rope lands on his chest anyway."},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "creampies":1}}],
+			"sound": "CUM",
+			"text": "You feel his cum rush up into you, a thick white goopy cum enema that you'd been waiting for.  He fires liquid into liquid as your ass holds in all of his freshly-squeezed semen.  Feeling it bloat your intestines, as far as you're concerned, he's already paid."},						
+			{"text": "Once he's finished knocking them out in your box, you feel his warm cum sitting in your belly, messing it up, like thick icing on a cake.  It sits heavy in your rectum - you know it's going to be enough to make you cum later when you savor it."},
+			{"text": "He offers you his cock that had just been in your ass and you suck it clean without hesitation, and then he pays you for a job well done, and goes on his way, having deposited his sperm into your rectal bank."},
+			{
+			"mutations": [{"saveType":"TIME", "value":{"class": "java.lang.Integer", "value": 1}}, {"saveType":"GOLD", "value":{"class": "java.lang.Integer", "value": 7}}, {"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1, "creampies":1}}],
+			"text": "With a sloshy belly, you lock the door behind him, feeling his load in your gut.  You relax your sphincter and let it ooze out slowly... while tossing yourself off like a true hero."}					
 		]
 	},
 	{
 		"key": "BROTHEL-ANAL-BAREBACK-EXPERT",
-		"scriptLines": [
+		"scriptLines": [		
+			{"text": "You walk to the room with his hand around your waist, slowly drifting down to your ass - you know what he's here for."},
+			{"text": "Cum-farting is definitely not in the hero's wheelhouse, but you resign yourself to it anyway, knowing that many of the other whores would never let a customer baste their back-oven."},
+			{"text": "You know going into the room that's your inevitable fate, that you'll be drooling a man's baby batter from your well-fucked hole like a penny whore, but the surcharge is worth it, you tell yourself."},					
+			{"text": "You push him down on the bed, and then you sit on his crotch, still clothed, feeling him tent up at the sight and sensation."},
+			{"text": "You pull down his pants, and sit down on his cock, already lubed for the occasion."},
+			{"text": "Sitting on his dick is no big deal, even though you know deep down that it's not exactly the picture of heroism."},
+			{"text": "You slap your ass while riding him, giving him dinner and a show.  You could probably enchant him to do anything with your ass."},
+			{"text": "You bounce, the bed squeaking on each downward thrust of your asshole, swallowing his whole pole up and demanding more, again, and again."},
+			{"text": "You can tell that he's nearing his limit, so you drop your weight down and lean forward, giving him a rather stark view of your backside."},
+			{"text": "You spread your cheeks, asking him to cum up your fat ass, and you know, from the way he's twitching, that you just satisfied another customer.  Your colon is ready for the spray - craving it, in fact."},
+			{"text": "You grit your teeth as he slides his raw cock in and out of your lubricated hole, your anal hairs getting tugged by his dickskin, until finally he grips hard onto your for-sale ass and fills your unguarded cove with stranger semen."},								
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "creampies":1}}],
+			"sound": "CUM",
+			"text": "His hot, thick sauce fires up into your naked rectum, painting your walls white."},
+			{
+			"mutations": [{"saveType":"TIME", "value":{"class": "java.lang.Integer", "value": 1}}, {"saveType":"GOLD", "value":{"class": "java.lang.Integer", "value": 7}}, {"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1}}],
+			"text": "After he finishes off inside of you, he leaves a stack of seven gold coins on the bed next to you, and sheepishly collect it, his cum still dripping from your backdoor."}
 		]
 	},
 	{
