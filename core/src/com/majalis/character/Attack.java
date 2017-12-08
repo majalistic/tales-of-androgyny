@@ -115,11 +115,14 @@ public class Attack {
 	public int getClimaxVolume() { return user.getClimaxVolume(); }
 	public int getBleeding() { return (int) (bleeding * blockMod); }
 	public int plugRemove() { return plugRemove; }	
-	
+	public int getShieldDamage() { return (int) (rawDamage * (1 - blockMod)); }
+	public double getBlockMod() { return blockMod; }
 	public enum AttackHeight {
 		NONE,
 		LOW,
 		MEDIUM,
 		HIGH
 	}
+
+	
 }

@@ -87,6 +87,7 @@ public class Armor extends Item{
 	public boolean showsErection() { return type.showsErection(); }
 	public boolean showsRear() { return type.showsRear(); }
 	public boolean showsHips() { return type.showsHips(); }
+	public boolean isShield() { return type.isShield(); }
 	
 	// may want to refactor this into dedicated tops/bottoms/overalls
 	public enum ArmorType {
@@ -99,6 +100,8 @@ public class Armor extends Item{
 		BATTLE_SKIRT ("Battle Skirt", 50, new int[]{6, 6}, new int[]{6, 2}),
 		SHORTS ("Shorts", new int[]{3, 3}, new int[]{3, 1}),
 		UNDERWEAR ("Underwear", new int[]{2}, new int[]{1}),
+		
+		SHIELD ("Shield", new int[]{30}, new int[]{50}),
 		
 		LIGHT_ENEMY_ARMOR ("Light Armor", new int[]{2, 2}, new int[]{2, 1}),
 		MEDIUM_ENEMY_ARMOR ("Medium Armor", new int[]{6, 6}, new int[]{6, 2}),
@@ -113,6 +116,7 @@ public class Armor extends Item{
 		private ArmorType(String label, int[] durability, int[] shockAbsorption) {
 			this(label, 0, durability, shockAbsorption);
 		}
+		
 		private ArmorType(String label, int value, int[] durability, int[] shockAbsorption) {
 			this.label = label; 
 			this.value = value;
@@ -129,6 +133,7 @@ public class Armor extends Item{
 		}
 		private int getValue() { return value; }
 		
+		private boolean isShield() { return this == SHIELD; }
 		private boolean coversTop() { return this == NO_TOP || this == CLOTH_TOP || this == BREASTPLATE || this == DIAMOND_PLATE;  }
 		private boolean coversBottom() { return this == NO_BOTTOM || this == SKIRT || this == BATTLE_SKIRT || this == SHORTS; }
 		private boolean isUnderwear() { return this == UNDERWEAR; }
@@ -137,7 +142,7 @@ public class Armor extends Item{
 		private IntArray getDurability() { return durability; }
 		private IntArray getShockAbsorption() { return shockAbsorption; }
 		private boolean coversNipples() { return this == CLOTH_TOP || this == BREASTPLATE || this == DIAMOND_PLATE; }
-		private boolean isPorous() { return this != BREASTPLATE; }
+		private boolean isPorous() { return this != BREASTPLATE && this != SHIELD; }
 		private boolean isHeatResistant() { return false; }
 		private boolean isFlameRetardant() { return this == BREASTPLATE || this == DIAMOND_PLATE; }
 		private boolean isAcidResistant() { return false; }

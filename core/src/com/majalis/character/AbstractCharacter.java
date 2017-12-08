@@ -69,7 +69,7 @@ public abstract class AbstractCharacter extends Actor {
 	protected int knotInflate;
 	
 	protected Weapon weapon;
-	// public Shield shield;
+	public Armor shield;
 	protected Armor armor;
 	protected Armor legwear;
 	protected Armor underwear;
@@ -346,7 +346,7 @@ public abstract class AbstractCharacter extends Actor {
 	}
 	
 	protected CharacterState getCurrentState(AbstractCharacter target) {		
-		return new CharacterState(getStats(), getRawStats(), weapon, stability.lowBalance(), currentMana, enemyType == null ? true : enemyType.isCorporeal(), this, target);
+		return new CharacterState(getStats(), getRawStats(), weapon, shield, stability.lowBalance(), currentMana, enemyType == null ? true : enemyType.isCorporeal(), this, target);
 	}
 	
 	protected boolean alreadyIncapacitated() {
@@ -538,9 +538,20 @@ public abstract class AbstractCharacter extends Actor {
 			if (buff != null) {
 				statuses.put(buff.type.toString(), buff.power);
 			}
-	
-			Armor hitArmor = getArmorHit(attack.getAttackHeight());
+
+			int shieldDamage = attack.getShieldDamage();
+			
+			if (attack.getStatus() == Status.BLOCKED) {
+				double blockMod = attack.getBlockMod();
+				if (shield != null && shield.getDurability() > 0) {
+					result.add((blockMod < .1 ? "The blow strikes off the shield!" : blockMod < .3 ? "The blow is mostly blocked by the shield!" : blockMod < .6 ? "The blow is half-blocked by the shield!" : "The blow is barely blocked by the shield!") + "\nIt deals " + shieldDamage + " damage to it!");
+					shield.modDurability(-shieldDamage);
+					if (shield.getDurability() == 0) result.add("The shield is broken!");
+				}
+			}
+
 			int damage = attack.getDamage();
+			Armor hitArmor = getArmorHit(attack.getAttackHeight());
 			if (!attack.ignoresArmor()) {
 				damage -= getBaseDefense() + getShockAbsorption(hitArmor);
 			}
@@ -616,6 +627,7 @@ public abstract class AbstractCharacter extends Actor {
 				if (hitArmor != null && hitArmor.getDurability() > 0) {
 					result.add("It's an armor shattering blow! It reduces " + hitArmor.getName() + " durability by " + (armorSunder > hitArmor.getDurability() ? hitArmor.getDurability() : armorSunder) + "!");
 					hitArmor.modDurability(-armorSunder);
+					if (hitArmor.getDurability() == 0) result.add("The " + hitArmor.getName() + " is broken!");
 				}
 			}
 			
@@ -993,7 +1005,7 @@ public abstract class AbstractCharacter extends Actor {
 	public String setLegwear(Item armor, boolean newItem) {
 		if (armor == null) {
 			this.legwear = null;
-			return "You unequipped your armor.";
+			return "You unequipped your legwear.";
 		}
 		if (newItem) inventory.add(armor);
 		Armor equipArmor = (Armor) armor;
@@ -1005,12 +1017,25 @@ public abstract class AbstractCharacter extends Actor {
 	public String setUnderwear(Item armor, boolean newItem) {
 		if (armor == null) {
 			this.underwear = null;
-			return "You unequipped your armor.";
+			return "You unequipped your underwear.";
 		}
 		if (newItem) inventory.add(armor);
 		Armor equipArmor = (Armor) armor;
 		boolean alreadyEquipped = equipArmor.equals(this.underwear); 
 		this.underwear = alreadyEquipped ? null : equipArmor;
+		return "You " + (alreadyEquipped ? "unequipped" : "equipped") + " the " + armor.getName() + ".";
+	}
+	
+	
+	public String setShield(Item armor, boolean newItem) {
+		if (armor == null) {
+			this.shield = null;
+			return "You unequipped your shield.";
+		}
+		if (newItem) inventory.add(armor);
+		Armor equipShield = (Armor) armor;
+		boolean alreadyEquipped = equipShield.equals(this.shield); 
+		this.shield = alreadyEquipped ? null : equipShield;
 		return "You " + (alreadyEquipped ? "unequipped" : "equipped") + " the " + armor.getName() + ".";
 	}
 	

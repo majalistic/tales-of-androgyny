@@ -153,7 +153,7 @@ public class TechniqueBuilder {
 			builder.append("Ignores armor.\n");
 		}
 		if (guardMod > 0) {
-			builder.append("Blocks against enemy attacks\nwith " + guardMod + "% effectiveness.\n");
+			builder.append("Blocks against enemy attacks with a shield\nblocking " + (guardMod == 100 ? "half damage.\n" : guardMod == 200 ? "all damage.\n" : ""));
 		}
 		if (parryMod > 0) {
 			builder.append("Parries enemy attacks\nwith " + guardMod + "% effectiveness.\n");

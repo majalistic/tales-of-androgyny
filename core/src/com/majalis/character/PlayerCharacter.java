@@ -172,6 +172,8 @@ public class PlayerCharacter extends AbstractCharacter {
 		magicPoints = 0;
 		food = 60; 
 		initInventory();
+		
+		setShield(null, false);
 		setArmor(null, false);
 		setLegwear(null, false);
 		setUnderwear(null, false);	
@@ -221,8 +223,10 @@ public class PlayerCharacter extends AbstractCharacter {
 			setLegwear(new Armor(ArmorType.SKIRT), true);
 			setUnderwear(new Armor(ArmorType.UNDERWEAR), true);
 		}
+		
+		setShield(new Armor(ArmorType.SHIELD), true);
 	}
-	
+
 	// this needs to consolidate logic with the getTechniques method
 	public Array<Technique> getPossibleTechniques(AbstractCharacter target) {
 		Techniques[] temp = getPossibleKnownTechniques(target).toArray(Techniques.class);
@@ -723,6 +727,7 @@ public class PlayerCharacter extends AbstractCharacter {
 		if (armor != null) armor.refresh();	
 		if (legwear != null) legwear.refresh();	
 		if (underwear != null) underwear.refresh();	
+		if (shield != null) shield.refresh();
 		if (disarmedWeapon != null) {
 			weapon = disarmedWeapon;
 			disarmedWeapon = null;

@@ -118,8 +118,8 @@ public class Technique {
 		TechniquePayload otherPayload = otherTechnique.getPayload(this);
 		TechniquePayload thisPayload = getPayload(otherTechnique);
 		
-		int rand = (int) Math.floor(Math.random() * 100);
-		double blockMod = isBlockable() ? (otherPayload.getBlock() > rand * 2 ? 0 : otherPayload.getBlock() > rand ? .5 : 1) : 1;
+		int blockAmount = isBlockable() ? otherPayload.getBlock() : 0;
+		double blockMod = blockAmount == 200 ? 0 : blockAmount == 100 ? .5 : 1;
 		
 		// instead of 100, this should be modified by Outmanuever
 		boolean parried = isBlockable() && otherPayload.getParry() >= 100;
@@ -380,7 +380,7 @@ public class Technique {
 			}
 			
 			powerMod = powerCalc;
-			block = blockCalc;
+			block = currentState.getShieldScore() > 0 ? blockCalc : 0;
 			parry = parryCalc;
 			staminaCost = staminaCalc;
 			stabilityCost = stabilityCalc;
