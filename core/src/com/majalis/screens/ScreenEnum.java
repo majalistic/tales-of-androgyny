@@ -8,6 +8,7 @@ public enum ScreenEnum {
     NEW_GAME,
     CONTINUE,
     LOAD_GAME,
+    SAVE,
     ENCOUNTER,
     BATTLE,
     CHARACTER,
@@ -16,5 +17,5 @@ public enum ScreenEnum {
     OPTIONS,
     REPLAY,
     CREDITS,
-    EXIT
+    EXIT, 
 }

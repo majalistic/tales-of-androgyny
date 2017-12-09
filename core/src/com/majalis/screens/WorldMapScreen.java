@@ -313,15 +313,15 @@ public class WorldMapScreen extends AbstractScreen {
 			characterButton.setStyle(style);
 		}
 		
-		Table actionTable = new Table();
-		this.addActor(actionTable);
-		actionTable.setPosition(675, 80);
-		
 		Table table = new Table();
 		table.setPosition(377, 65);
 		this.addActor(table);
 		
-		actionTable.add(characterButton).size(200, 50).row();
+		Table actionTable = new Table();
+		this.addActor(actionTable);
+		actionTable.setPosition(775, 60);
+		
+		actionTable.add(characterButton).size(200, 50);
 		
 		characterButton.setBounds(185, 45, 185, 40);
 		characterButton.addListener(
@@ -363,7 +363,6 @@ public class WorldMapScreen extends AbstractScreen {
 		checkCanEat(rest);
 	
 		table.add(rest).size(145, 40);
-		
 		
 		// rest will eventually just wait some time - eating food if possible to maintain hunger level
 		rest.addListener(
@@ -426,8 +425,8 @@ public class WorldMapScreen extends AbstractScreen {
 			}
 		);
 		
-		TextButton saveButton = new TextButton("Save", skin);
-		actionTable.add(saveButton).size(200, 50).row();
+		TextButton saveButton = new TextButton("QSave", skin);
+		actionTable.add(saveButton).size(200, 50);
 		saveButton.addListener(
 			new ClickListener() {
 				@Override
@@ -437,6 +436,18 @@ public class WorldMapScreen extends AbstractScreen {
 					console.setText("Game Saved.");
 					console.addAction(alpha(1));
 					console.addAction(fadeOut(6));
+		        }
+			}
+		);	
+		
+		TextButton hardSaveButton = new TextButton("Save", skin);
+		actionTable.add(hardSaveButton).size(200, 50).row();
+		hardSaveButton.addListener(
+			new ClickListener() {
+				@Override
+		        public void clicked(InputEvent event, float x, float y) {
+					buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
+					showScreen(ScreenEnum.SAVE);
 		        }
 			}
 		);	

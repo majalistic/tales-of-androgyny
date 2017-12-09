@@ -82,6 +82,11 @@ public class ScreenFactoryImpl implements ScreenFactory {
 				tempScreen = getCurrentContextScreen(elements, character);
 				if (tempScreen != null) return tempScreen;
 				break;
+			case SAVE:
+				if (getAssetCheck(SaveScreen.resourceRequirements)) {
+					return new SaveScreen(this, elements, assetManager, saveService);
+				}
+				break;
 			case BATTLE:
 				tempScreen = getBattle(elements, character);
 				if (tempScreen != null) return tempScreen;

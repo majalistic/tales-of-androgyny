@@ -230,7 +230,7 @@ public abstract class AbstractCharacter extends Actor {
 	
 	protected int getStabilityRegen() { return getAgility()/2; }
 	
-	protected String getLabel() { return label; }
+	public String getLabel() { return label; }
 	
 	protected Boolean getSecondPerson() { return secondPerson; }
 	
