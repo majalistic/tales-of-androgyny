@@ -51,6 +51,7 @@ public class CharacterCreationScene extends Scene {
 		final Texture baubleOld = assetManager.get(AssetEnum.CREATION_BAUBLE_OLD.getTexture());
 		final Texture baubleNew = assetManager.get(AssetEnum.CREATION_BAUBLE_NEW.getTexture());
 		final Texture baubleReady = assetManager.get(AssetEnum.CREATION_BAUBLE_REMOVED.getTexture());
+		final Label helpText = initLabel("Please Select a Class!", skin, Color.CHARTREUSE, 300, 800, Align.left);
 		
 		final Image characterImage = new Image(); 
 		characterImage.setPosition(1390, 200);
@@ -67,7 +68,7 @@ public class CharacterCreationScene extends Scene {
 		int statX = 665;
 		int statY = 170;
 
-		statPointDisplay = initLabel(String.valueOf(statPoints), skin, Color.FOREST, 1313, 882, Align.left);		
+		statPointDisplay = initLabel(String.valueOf(statPoints), skin, Color.FOREST, 1310, 882, Align.left);		
 		final Label classMessage = initLabel("", skin, Color.BLACK, 1700, 230, Align.top);
 		final Label statMessage = initLabel("", skin, Color.RED, statX, statY, Align.left, true, 750);
 		final Label statDescription = initLabel("", skin, Color.FOREST, statX, statY, Align.left, true, 750);
@@ -110,6 +111,8 @@ public class CharacterCreationScene extends Scene {
 						if (!story) {
 							buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
 						}
+						helpText.setPosition(1000, 882);
+						helpText.setText("Allocate Stat Points");
 						Texture jobTexture = assetManager.get(jobClass.getTexture());
 						characterImage.setDrawable(new TextureRegionDrawable(new TextureRegion(jobTexture)));
 						characterImage.setSize(jobTexture.getWidth(), jobTexture.getHeight());
