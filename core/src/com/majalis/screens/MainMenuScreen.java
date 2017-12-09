@@ -283,7 +283,7 @@ public class MainMenuScreen extends AbstractScreen {
         			saveService.newSave();
         		}
         		if (screenSelection == ScreenEnum.LOAD_GAME) {
-        			saveService.newSave(".toa-data/save01.json");
+        			saveService.newSave(".toa-data/quicksave.json");
         		}
         		if (!(screenSelection == ScreenEnum.OPTIONS || screenSelection == ScreenEnum.CREDITS || screenSelection == ScreenEnum.REPLAY)) {
         			music.stop();
