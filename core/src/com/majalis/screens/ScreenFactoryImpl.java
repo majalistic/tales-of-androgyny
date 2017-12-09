@@ -98,7 +98,7 @@ public class ScreenFactoryImpl implements ScreenFactory {
 				break;
 			case GAME_OVER:				
 				if (getAssetCheck(GameOverScreen.resourceRequirements)) {
-					return new GameOverScreen(this, elements, assetManager);
+					return new GameOverScreen(this, elements, assetManager, saveService);
 				}
 				break;
 			case OPTIONS: 	
@@ -206,7 +206,7 @@ public class ScreenFactoryImpl implements ScreenFactory {
 				return getCamp(elements, character);
 			case GAME_OVER:
 				if (getAssetCheck(GameOverScreen.resourceRequirements)) {
-					return new GameOverScreen(this, elements, assetManager);
+					return new GameOverScreen(this, elements, assetManager, saveService);
 				}
 				else return null;
 			default: return null;

@@ -248,6 +248,7 @@ public class SaveManager implements SaveService, LoadService {
     	save = getDefaultSave();
     }
     
+    // this will load/create a new save with the designated path, then flush 
     public void newSave(String path) {
     	save = new SaveManager(encoded, path, profileFile.path()).save;
     	saveToJson(save);

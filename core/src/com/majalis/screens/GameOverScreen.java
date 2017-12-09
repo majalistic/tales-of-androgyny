@@ -13,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
 import com.majalis.asset.AnimatedActor;
 import com.majalis.asset.AssetEnum;
+import com.majalis.save.SaveService;
 /*
  * Screen for displaying "Game Over" - can return the player to the main menu or offer them the ability to save their GO encounter.  May be loaded with different splashes / music at runtime.
  */
@@ -25,11 +26,13 @@ public class GameOverScreen extends AbstractScreen {
 		resourceRequirements.add(AssetEnum.CUM.getSound());
 	}
 	private final AssetManager assetManager;
+	private final SaveService saveService;
 	private final Sound sound;
 	
-	public GameOverScreen(ScreenFactory factory, ScreenElements elements, AssetManager assetManager) {
+	public GameOverScreen(ScreenFactory factory, ScreenElements elements, AssetManager assetManager, SaveService saveService) {
 		super(factory, elements);
 		this.assetManager = assetManager;
+		this.saveService = saveService;
 		sound = assetManager.get(AssetEnum.CUM.getSound());
 		setClearColor(Color.SLATE.r, Color.SLATE.g, Color.SLATE.b, 1);
 	}
@@ -42,7 +45,7 @@ public class GameOverScreen extends AbstractScreen {
 		background.addListener(new ClickListener() {
 			@Override
 	        public void clicked(InputEvent event, float x, float y) {
-				showScreen(ScreenEnum.MAIN_MENU);
+				leaveScreen();
 	        }
 		});
 		this.addActor(background);
@@ -58,8 +61,13 @@ public class GameOverScreen extends AbstractScreen {
 	public void render(float delta) {
 		super.render(delta);
 		if (Gdx.input.isKeyJustPressed(Keys.ENTER) || Gdx.input.isKeyJustPressed(Keys.ESCAPE) || Gdx.input.isKeyJustPressed(Keys.SPACE)) {
-			showScreen(ScreenEnum.MAIN_MENU);
+			leaveScreen();
 		}
+	}
+	
+	private void leaveScreen(){
+		saveService.newSave();
+		showScreen(ScreenEnum.MAIN_MENU);
 	}
 	
 	@Override

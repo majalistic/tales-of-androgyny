@@ -11,6 +11,6 @@ public interface SaveService {
     public void saveDataValue(ProfileEnum key, Object object);  
     public void saveDataValue(ProfileEnum key, Object object, boolean saveToJson);  
     public void newSave();
-    public void newSave(String path);
-    public void manualSave(String path);
+    public void newSave(String path); // changes what save is used, file remains the same
+    public void manualSave(String path); // saves current save to a seperate file
 }
