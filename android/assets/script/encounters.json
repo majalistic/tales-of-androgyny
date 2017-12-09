@@ -3668,7 +3668,9 @@
 	{
 		"key": "GADGETEER-CAGE",
 		"scriptLines": [
-			{"text": "\"What do you mean?\" you reply."},
+			{
+			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "GADGETEER", "value":2}}],
+			"text": "\"What do you mean?\" you reply."},
 			{"text": "\"Well, you obviously can't get off with your dick.  So... in order to empty those poor spooge-pouches of yours, you've gotta take it up the A, right?\" she explains, directly."},
 			{"text": "You fidget, unsure of how to answer."},
 			{"text": "\"You gotta get taken to poundtown in order to spurt your useless man-goo out of that cage, huh?  Seems pretty pathetic,\" she says, all smiles. \"Well, if you ever decide that's all you're good for... come see me.\""},
