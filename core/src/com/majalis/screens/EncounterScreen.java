@@ -8,6 +8,9 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
 import com.majalis.asset.AssetEnum;
 import com.majalis.encounter.Encounter;
@@ -65,6 +68,23 @@ public class EncounterScreen extends AbstractScreen {
 		for (Actor actor : encounter.getActors()) {
 			this.addActor(actor);
 		}
+		
+		final Sound buttonSound =  assetManager.get(AssetEnum.BUTTON_SOUND.getSound());
+		TextButton save = new TextButton("Save", assetManager.get(AssetEnum.UI_SKIN.getSkin()));
+		save.setPosition(1650, 100);
+		save.setWidth(150);
+		save.addListener(
+				new ClickListener() {
+					@Override
+			        public void clicked(InputEvent event, float x, float y) {
+						buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
+						showScreen(ScreenEnum.SAVE);
+			        }
+				}
+			);	
+		
+		this.addActor(save);
+		
 	}
 
 	@Override
