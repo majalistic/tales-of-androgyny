@@ -119,7 +119,7 @@ public class Technique {
 		TechniquePayload thisPayload = getPayload(otherTechnique);
 		
 		int blockAmount = isBlockable() ? otherPayload.getBlock() : 0;
-		double blockMod = blockAmount == 200 ? 0 : blockAmount == 100 ? .5 : 1;
+		double blockMod = blockAmount >= 4 ? 0 : blockAmount == 3 ? .25 : blockAmount == 2 ? .5 : blockAmount == 1 ? .75 : 1;
 		
 		// instead of 100, this should be modified by Outmanuever
 		boolean parried = isBlockable() && otherPayload.getParry() >= 100;
