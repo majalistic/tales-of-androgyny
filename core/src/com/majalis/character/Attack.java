@@ -86,9 +86,13 @@ public class Attack {
 	protected String getName() { return name; }
 	public boolean isAttack() { return isAttack; }	
 	public AttackHeight getAttackHeight() { return height; }	
-	protected String getUser() { return user.label; }
 	protected int getDamage() { return (int) (rawDamage * blockMod); }
-	protected int getForce() { return force; }
+	protected int getForce() { return (int) (force * blockMod); }
+	public int getArmorSunder() { return (int)(rawDamage * rawArmorBreak * blockMod) / 4; }
+	public int getBleeding() { return (int) (bleeding * blockMod); }
+	public int getShieldDamage() { return (int) (rawDamage * (1 - blockMod)); }
+	public double getBlockMod() { return blockMod; }
+	protected String getUser() { return user.label; }
 	protected int getGutCheck() { return gutcheck; }
 	protected boolean isHealing() { return healing > 0; }
 	protected int getHealing() { return healing; }
@@ -105,7 +109,6 @@ public class Attack {
 	protected Array<String> getDialog() { return dialog; }
 	protected boolean isClimax() { return climaxType != null; }
 	protected ClimaxType getClimaxType() { return climaxType; }
-	public int getArmorSunder() { return (int)(rawDamage * rawArmorBreak * blockMod) / 4; }
 	public boolean isSpell() { return isSpell; }
 	public Buff getSelfEffect() { return selfEffect == null ? null : selfEffect.type == null ? null : selfEffect; }
 	public Buff getEnemyEffect() { return enemyEffect == null ? null : enemyEffect.type == null ? null : enemyEffect; }
@@ -113,10 +116,7 @@ public class Attack {
 	public boolean ignoresArmor() { return ignoresArmor; }
 	public Item getItem() { return useItem; }
 	public int getClimaxVolume() { return user.getClimaxVolume(); }
-	public int getBleeding() { return (int) (bleeding * blockMod); }
 	public int plugRemove() { return plugRemove; }	
-	public int getShieldDamage() { return (int) (rawDamage * (1 - blockMod)); }
-	public double getBlockMod() { return blockMod; }
 	public enum AttackHeight {
 		NONE,
 		LOW,
