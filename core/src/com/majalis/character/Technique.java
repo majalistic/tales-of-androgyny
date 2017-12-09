@@ -152,7 +152,7 @@ public class Technique {
 			thisPayload.getGrappleAmount() > otherPayload.getGrappleAmount() ? thisPayload.getResultingGrappleStatus().inverse() : otherPayload.getResultingGrappleStatus();
 			
 		Array<Attack> resultingAttacks = new Array<Attack>(new Attack[]{new Attack(
-			evaded ? Status.EVADED : isBlockable() && otherPayload.getParry() > 0 ? Status.PARRIED : otherTechnique.isBlockable() && thisPayload.getParry() > 0 ? Status.PARRY : fizzle ? Status.FIZZLE : isSuccessful ? (blockMod < 1 ? Status.BLOCKED : Status.SUCCESS) : failure ? Status.FAILURE : Status.MISSED, 
+			evaded ? Status.EVADED : otherTechnique.isBlockable() && thisPayload.getParry() > 0 ? Status.PARRY : fizzle ? Status.FIZZLE : isSuccessful ? (blockMod < 1 ? (otherPayload.getBlock() > 0 ? Status.BLOCKED : Status.PARRIED) : Status.SUCCESS) : failure ? Status.FAILURE : Status.MISSED, 
 			technique.getName(), 
 			thisPayload.getDamage(),
 			blockMod,
