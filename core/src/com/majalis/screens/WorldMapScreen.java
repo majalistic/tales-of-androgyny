@@ -356,6 +356,7 @@ public class WorldMapScreen extends AbstractScreen {
 		final Label console = new Label("", skin);
 		this.addActor(console);
 		console.setPosition(820, 80);
+		console.setColor(Color.GOLD);
 		
 		final TextButton rest = new TextButton("Rest", skin);
 		
