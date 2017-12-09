@@ -102,10 +102,10 @@ public class Bonus {
 					description += "Armor sundering multiplier +" + bonus.value * 100 + "%";
 					break;
 				case GUARD_MOD:
-					description += "Guard +" + bonus.value + "%";
+					description += "Guard +" + bonus.value * 25 + "%";
 					break;
 				case PARRY:
-					description += "Parry +" + bonus.value + "%";
+					description += "Parry +" + bonus.value * 25 + "%";
 					break;
 				case GUT_CHECK:
 					description += "Stamina destruction +" + bonus.value;

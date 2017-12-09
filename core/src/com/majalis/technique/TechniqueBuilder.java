@@ -156,7 +156,7 @@ public class TechniqueBuilder {
 			builder.append("Blocks against enemy attacks with a shield,\nblocking " + (guardMod == 1 ? "a quarter of the damage" : guardMod == 2 ? "half damage" : guardMod == 3 ? "three-quarters of the damage" : guardMod >= 4 ? "all damage" : "") + ".\n");
 		}
 		if (parryMod > 0) {
-			builder.append("Parries enemy attacks\nwith " + guardMod + "% effectiveness.\n"); 
+			builder.append("Parries enemy attacks with a weapon,\npreventing " + (guardMod == 1 ? "a quarter of the damage" : guardMod == 2 ? "half damage" : guardMod == 3 ? "three-quarters of the damage" : guardMod >= 4 ? "all damage" : "") + ".\n");
 		}
 		if (staminaCost > 0) {
 			builder.append("Costs " + staminaCost + " stamina, reduced by Endurance.\n");

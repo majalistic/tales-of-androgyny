@@ -364,7 +364,7 @@ public abstract class AbstractCharacter extends Actor {
 		}
 		
 		if (!resolvedAttack.isSuccessful()) {
-			resolvedAttack.addMessage(resolvedAttack.getUser() + " used " + resolvedAttack.getName() + (resolvedAttack.getStatus() == Status.MISSED ? " but missed!" : (resolvedAttack.getStatus() == Status.EVADED ? " but was evaded!" : resolvedAttack.getStatus() == Status.PARRIED ? " but was parried!" : resolvedAttack.getStatus() == Status.FIZZLE ? " but the spell fizzled!" : "! FAILURE!")));
+			resolvedAttack.addMessage(resolvedAttack.getUser() + " used " + resolvedAttack.getName() + (resolvedAttack.getStatus() == Status.MISSED ? " but missed!" : (resolvedAttack.getStatus() == Status.EVADED ? " but was evaded!" : resolvedAttack.getStatus() == Status.FIZZLE ? " but the spell fizzled!" : "! FAILURE!")));
 			
 			if ((resolvedAttack.getStatus() == Status.MISSED || resolvedAttack.getStatus() == Status.EVADED) && enemyType == EnemyEnum.HARPY && stance == Stance.FELLATIO && resolvedAttack.getForceStance() == Stance.FELLATIO_BOTTOM) {
 				resolvedAttack.addMessage(properCase(pronouns.getNominative()) + " crashes to the ground!");
@@ -549,6 +549,12 @@ public abstract class AbstractCharacter extends Actor {
 					if (shield.getDurability() == 0) result.add("The shield is broken!");
 				}
 			}
+			
+			if (attack.getStatus() == Status.PARRIED) {
+				double blockMod = attack.getBlockMod();
+				result.add((blockMod < .1 ? "The blow is parried away!" : blockMod < .3 ? "The blow is mostly deflected by a parry!" : blockMod < .6 ? "The blow is half-deflected by a parry!" : "The blow is barely blocked by a parry!"));
+			}
+			
 
 			int damage = attack.getDamage();
 			Armor hitArmor = getArmorHit(attack.getAttackHeight());
@@ -560,7 +566,7 @@ public abstract class AbstractCharacter extends Actor {
 				modHealth(-damage);
 				result.add("The blow strikes for " + damage + " damage!");
 				if (!(attack.ignoresArmor() || ((hitArmor == null || hitArmor.getDurability() == 0)))) {
-					result.add("The blow strikes off your armor!");
+					result.add("The blow strikes off the armor!");
 				}
 			}
 			

@@ -621,15 +621,15 @@ public class Battle extends Group{
 			if (attackForFirstCharacter.isAttack()) {
 				slash.setState(0);
 				if (!attackForFirstCharacter.isSuccessful()) {
-					this.addAction(new SoundAction(soundMap.get(AssetEnum.ATTACK_SOUND), .5f));
-					if (attackForFirstCharacter.getStatus() == Status.PARRIED) {
-						this.addAction(sequence(delay(5/60f), new SoundAction(soundMap.get(AssetEnum.PARRY_SOUND), .5f)));
-					}
+					this.addAction(new SoundAction(soundMap.get(AssetEnum.ATTACK_SOUND), .5f));	
 				}
 				else {
 					if (!attackForFirstCharacter.isSpell()) {
 						if (attackForFirstCharacter.getStatus() == Status.BLOCKED) {
 							this.addAction(sequence(delay(5/60f), new SoundAction(soundMap.get(AssetEnum.BLOCK_SOUND), 1.5f)));
+						}
+						else if (attackForFirstCharacter.getStatus() == Status.PARRIED) {
+							this.addAction(sequence(delay(5/60f), new SoundAction(soundMap.get(AssetEnum.PARRY_SOUND), .5f)));
 						}
 						else {
 							if (enemy.getWeapon() != null && enemy.getWeapon().causesBleed()) {
@@ -671,14 +671,14 @@ public class Battle extends Group{
 			if (attackForSecondCharacter.isAttack()) {
 				if (!attackForSecondCharacter.isSuccessful()) {
 					this.addAction(sequence(delay(15/60f), new SoundAction(soundMap.get(AssetEnum.ATTACK_SOUND), .5f)));
-					if (attackForSecondCharacter.getStatus() == Status.PARRIED) {
-						this.addAction(sequence(delay(5/60f), new SoundAction(soundMap.get(AssetEnum.PARRY_SOUND), .5f)));
-					}
 				}
 				else {
 					if (!attackForSecondCharacter.isSpell()) {
 						if (attackForSecondCharacter.getStatus() == Status.BLOCKED) {
 							this.addAction(sequence(delay(5/60f), new SoundAction(soundMap.get(AssetEnum.BLOCK_SOUND), .5f)));
+						}
+						else if (attackForSecondCharacter.getStatus() == Status.PARRIED) {
+							this.addAction(sequence(delay(5/60f), new SoundAction(soundMap.get(AssetEnum.PARRY_SOUND), .5f)));
 						}
 						else if (character.getWeapon() != null) {
 							this.addAction(sequence(delay(5/60f), new SoundAction(soundMap.get(AssetEnum.SWORD_SLASH_SOUND), .5f)));

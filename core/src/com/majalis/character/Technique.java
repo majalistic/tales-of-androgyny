@@ -121,9 +121,11 @@ public class Technique {
 		int blockAmount = isBlockable() ? otherPayload.getBlock() : 0;
 		double blockMod = blockAmount >= 4 ? 0 : blockAmount == 3 ? .25 : blockAmount == 2 ? .5 : blockAmount == 1 ? .75 : 1;
 		
-		// instead of 100, this should be modified by Outmanuever
-		boolean parried = isBlockable() && otherPayload.getParry() >= 100;
-		boolean parryOther = otherTechnique.isBlockable() && thisPayload.getParry() >= 100;
+		if (blockMod == 1) {
+			blockAmount = isBlockable() ? otherPayload.getParry() : 0;
+			blockMod = blockAmount >= 4 ? 0 : blockAmount == 3 ? .25 : blockAmount == 2 ? .5 : blockAmount == 1 ? .75 : 1;
+		}
+		
 		boolean evaded = technique.getTechniqueHeight() != TechniqueHeight.NONE && otherPayload.getEvasion() >= 100;		
 		
 		boolean isSuccessful = 
@@ -150,7 +152,7 @@ public class Technique {
 			thisPayload.getGrappleAmount() > otherPayload.getGrappleAmount() ? thisPayload.getResultingGrappleStatus().inverse() : otherPayload.getResultingGrappleStatus();
 			
 		Array<Attack> resultingAttacks = new Array<Attack>(new Attack[]{new Attack(
-			evaded ? Status.EVADED : parried ? Status.PARRIED : parryOther ? Status.PARRY : fizzle ? Status.FIZZLE : isSuccessful ? (blockMod < 1 ? Status.BLOCKED : Status.SUCCESS) : failure ? Status.FAILURE : Status.MISSED, 
+			evaded ? Status.EVADED : isBlockable() && otherPayload.getParry() > 0 ? Status.PARRIED : otherTechnique.isBlockable() && thisPayload.getParry() > 0 ? Status.PARRY : fizzle ? Status.FIZZLE : isSuccessful ? (blockMod < 1 ? Status.BLOCKED : Status.SUCCESS) : failure ? Status.FAILURE : Status.MISSED, 
 			technique.getName(), 
 			thisPayload.getDamage(),
 			blockMod,
