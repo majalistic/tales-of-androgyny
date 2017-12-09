@@ -199,7 +199,12 @@ public class SaveManager implements SaveService, LoadService {
         json.setOutputType(OutputType.json);
         if(encoded) profileFile.writeString(Base64Coder.encodeString(json.prettyPrint(save)), false);
         else {   	
-        	profileFile.writeString(json.prettyPrint(save), false);
+        	try {
+        		profileFile.writeString(json.prettyPrint(save), false);
+        	}
+        	catch (GdxRuntimeException ex) {
+        		ex.printStackTrace();
+        	}
         }
     }
     
