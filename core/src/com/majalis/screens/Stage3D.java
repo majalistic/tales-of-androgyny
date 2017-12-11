@@ -10,15 +10,19 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
 public class Stage3D extends Stage {
-    public Stage3D(FitViewport viewport, PolygonSpriteBatch batch) {
+    private final Vector3 intersection;
+	private final Plane plane;
+    
+	public Stage3D(FitViewport viewport, PolygonSpriteBatch batch) {
 		super(viewport, batch);
+		intersection = new Vector3(0, 0, 1);
+		plane = new Plane(new Vector3(0, 0, 1), Vector3.Zero);
 	}
 
 	@Override
     public Vector2 screenToStageCoordinates (Vector2 screenCoords) {
         Ray pickRay = getViewport().getPickRay(screenCoords.x, screenCoords.y);
-        Vector3 intersection = new Vector3(0, 0, 1);
-        if (Intersector.intersectRayPlane(pickRay, new Plane(new Vector3(0, 0, 1), Vector3.Zero), intersection)) {
+        if (Intersector.intersectRayPlane(pickRay, plane, intersection)) {
                 screenCoords.x = intersection.x;
                 screenCoords.y = intersection.y;
         } else {
