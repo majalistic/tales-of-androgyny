@@ -72,7 +72,6 @@ public class WorldMapScreen extends AbstractScreen {
 	private final Texture characterUITexture;
 	private final PlayerCharacter character;
 	private final Stage uiStage;
-	private final Stage worldStage;
 	private final PerspectiveCamera camera;
 	private final Stage cloudStage;
 	private final PerspectiveCamera cloudCamera;
@@ -125,12 +124,11 @@ public class WorldMapScreen extends AbstractScreen {
 		this.saveService = saveService;
 		
 		this.storyMode = loadService.loadDataValue(SaveEnum.MODE, GameMode.class) == GameMode.STORY;
-		uiStage = new Stage3D((FitViewport)this.getViewport(), batch);
+		uiStage = new Stage3D(new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), getCamera()), batch);
 		
 		camera = new PerspectiveCamera(70, 0, 1000);
-        FitViewport viewport =  new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), camera);
-		worldStage = new Stage3D(viewport, batch);
-	
+		this.getViewport().setCamera(camera);
+		
 		time = loadService.loadDataValue(SaveEnum.TIME, Integer.class);
 		
 		camera.position.set(0, 0, 500);
@@ -140,7 +138,7 @@ public class WorldMapScreen extends AbstractScreen {
 		camera.translate(1280/2, 720/2, 200);
 		
 		cloudCamera = new PerspectiveCamera(70, 0, 1000);
-        FitViewport viewport2 =  new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), cloudCamera);
+        FitViewport viewport2 = new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), cloudCamera);
 		cloudStage = new Stage3D(viewport2, batch);
 		
 		cloudCamera.position.set(0, 0, 500);
@@ -151,7 +149,7 @@ public class WorldMapScreen extends AbstractScreen {
 		
 		// create base group for world stage
 		group = new Group();
-		worldStage.addActor(group);
+		this.addActor(group);
 		
 		// load assets
 		hoverImageTexture = assetManager.get(AssetEnum.WORLD_MAP_HOVER.getTexture());		
@@ -227,7 +225,7 @@ public class WorldMapScreen extends AbstractScreen {
 		clearScreen = false;
 		
 		multi = new InputMultiplexer();
-		multi.addProcessor(worldStage);
+		multi.addProcessor(this);
 		multi.addProcessor(uiStage);
 	}
 	
@@ -674,11 +672,8 @@ public class WorldMapScreen extends AbstractScreen {
 			showScreen(ScreenEnum.MAIN_MENU);
 		}
 		else {
-			// this call to clear and altering of the clearScreen var could be removed, possibly, if worldStage became UI stage (super.render would replace world stage - all nodes and such would be added to this, and uiStage stuff would be added to a new Stage, uiStage)
-			clear();
 			// draws the world
-			worldStage.act(delta);
-			worldStage.draw();
+			super.render(delta);
 			// draws the cloud layer
 			cloudStage.act(delta);
 			cloudStage.draw();
@@ -770,7 +765,7 @@ public class WorldMapScreen extends AbstractScreen {
     @Override
     public void resize(int width, int height) {
     	super.resize(width, height);
-        worldStage.getViewport().update(width, height, false);
+        this.getViewport().update(width, height, false);
         cloudStage.getViewport().update(width, height, false);
     }
 	

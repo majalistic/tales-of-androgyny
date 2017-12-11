@@ -8,12 +8,11 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
 /*
  * Abstract class which all Screens inherit from; each screen has a a single master Stage.  Allows a Screen to switch to a different screen via an enum.
  */
-public abstract class AbstractScreen extends Stage implements Screen {
+public abstract class AbstractScreen extends Stage3D implements Screen {
 
 	private final Game game;
 	private final ScreenFactory screenFactory;
