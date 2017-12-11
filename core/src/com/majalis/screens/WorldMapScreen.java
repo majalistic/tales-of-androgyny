@@ -71,6 +71,7 @@ public class WorldMapScreen extends AbstractScreen {
 	private final Texture cloud;
 	private final Texture characterUITexture;
 	private final PlayerCharacter character;
+	private final Stage uiStage;
 	private final Stage worldStage;
 	private final PerspectiveCamera camera;
 	private final Stage cloudStage;
@@ -124,6 +125,8 @@ public class WorldMapScreen extends AbstractScreen {
 		this.saveService = saveService;
 		
 		this.storyMode = loadService.loadDataValue(SaveEnum.MODE, GameMode.class) == GameMode.STORY;
+		uiStage = new Stage3D((FitViewport)this.getViewport(), batch);
+		
 		camera = new PerspectiveCamera(70, 0, 1000);
         FitViewport viewport =  new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), camera);
 		worldStage = new Stage3D(viewport, batch);
@@ -225,7 +228,7 @@ public class WorldMapScreen extends AbstractScreen {
 		
 		multi = new InputMultiplexer();
 		multi.addProcessor(worldStage);
-		multi.addProcessor(this);
+		multi.addProcessor(uiStage);
 	}
 	
 	private void mutateLabels() {
@@ -302,7 +305,7 @@ public class WorldMapScreen extends AbstractScreen {
 		int storedLevels = character.getStoredLevels();
 		
 		Image characterUI = new Image(characterUITexture);
-		this.addActor(characterUI);
+		uiStage.addActor(characterUI);
 		characterUI.setScale(1.1f);
 		
 		TextButton characterButton = new TextButton(storedLevels > 0 ? "Level Up!" : "Character", skin);
@@ -315,10 +318,10 @@ public class WorldMapScreen extends AbstractScreen {
 		
 		Table table = new Table();
 		table.setPosition(377, 65);
-		this.addActor(table);
+		uiStage.addActor(table);
 		
 		Table actionTable = new Table();
-		this.addActor(actionTable);
+		uiStage.addActor(actionTable);
 		actionTable.setPosition(860, 60);
 		
 		actionTable.add(characterButton).size(200, 50);
@@ -351,10 +354,10 @@ public class WorldMapScreen extends AbstractScreen {
 		
 		Image foodIcon = new Image(food);
 		foodIcon.setSize(75, 75);
-		this.addActor(foodIcon);
+		uiStage.addActor(foodIcon);
 		
 		final Label console = new Label("", skin);
-		this.addActor(console);
+		uiStage.addActor(console);
 		console.setPosition(820, 80);
 		console.setColor(Color.GOLD);
 		
@@ -473,7 +476,7 @@ public class WorldMapScreen extends AbstractScreen {
 		}
 		tintForTimeOfDay();
 		
-		this.addActor(uiGroup);
+		uiStage.addActor(uiGroup);
 		// this needs refactoring - probably replace ChangeListener with a custom listener/event type, and rather than an action on a delay, have a trigger for when the character reaches a node that will perform the act() function
 		group.addListener(new ChangeListener() {
 			@Override
@@ -583,7 +586,7 @@ public class WorldMapScreen extends AbstractScreen {
 				mutateLabels();
 			}			
 		});
-		this.addListener(new DragListener(){
+		uiStage.addListener(new DragListener(){
 			@Override
 			public void drag(InputEvent event, float x, float y, int pointer) {
 				translateCamera(new Vector3(getDeltaX(), getDeltaY(), 0));
@@ -680,7 +683,11 @@ public class WorldMapScreen extends AbstractScreen {
 			cloudStage.act(delta);
 			cloudStage.draw();
 			// this draws the UI
-			super.render(delta);
+			
+			uiStage.act();
+			uiStage.draw();
+			
+			//super.render(delta);
 		}
 	}
 	
