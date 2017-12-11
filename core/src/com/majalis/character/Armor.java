@@ -63,15 +63,19 @@ public class Armor extends Item{
 	public boolean isUnderwear() { return type.isUnderwear(); }
 	public ChastityCage getCage() { return type.getCage(); }
 	public Plug getPlug() { return type.getPlug(); }
-	public int getShockAbsorption() { 
+	public int getDestructionLevel() {
 		int durabilityLoss = type.getMaxDurability() - durability;
-		int shockIndex = 0;
+		int destructionLevel = 0;
 		for (int value : type.getDurability().items) {
 			if (durabilityLoss >= value) {
-				shockIndex++;
+				destructionLevel++;
 				durabilityLoss -= value;
 			}
 		}
+		return destructionLevel;		
+	}
+	public int getShockAbsorption() { 
+		int shockIndex = getDestructionLevel();
 		// if shockIndex == type.getShockAbsorption, the durability is 0 and the item is broken
 		if (shockIndex >= type.getShockAbsorption().size) return 0;
 		return type.getShockAbsorption().get(shockIndex);

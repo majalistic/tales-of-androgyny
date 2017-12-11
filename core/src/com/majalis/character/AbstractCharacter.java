@@ -286,6 +286,16 @@ public abstract class AbstractCharacter extends Actor {
 		return strengthDebuffed() ? "Weakening Curse" : "";
 	}
 	
+	public Armor getArmor() {
+		return armor;
+	}
+	public Armor getLegwear() {
+		return legwear;
+	}
+	public Armor getUnderwear() {
+		return underwear;
+	}
+	
 	protected int getDegradation(IntArray tiers, int currentValue) {
 		int numTiers = tiers.size;
 		int value = currentValue;

@@ -1510,15 +1510,6 @@ public class PlayerCharacter extends AbstractCharacter {
 		return item.equals(weapon) || item.equals(armor) || item.equals(legwear) || item.equals(underwear) || item.equals(plug) || item.equals(cage);
 	}
 
-	public Armor getArmor() {
-		return armor;
-	}
-	public Armor getLegwear() {
-		return legwear;
-	}
-	public Armor getUnderwear() {
-		return underwear;
-	}
 	public int getAnalReceptionCount() {
 		return receivedAnal;
 	}
