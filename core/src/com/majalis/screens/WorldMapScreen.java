@@ -715,12 +715,15 @@ public class WorldMapScreen extends AbstractScreen {
 	}
 	
 	private void translateCamera(Vector3 translationVector) {
+		float x = camera.position.x;
+		float y = camera.position.y;
 		camera.translate(translationVector);
 		Vector3 position = camera.position;
-		
 		position.x = Math.max(Math.min(position.x, 4000), 500);
 		position.y = Math.max(Math.min(position.y, 4600), 500);		
-		Vector3 cloudTranslate = new Vector3(translationVector);
+		x = position.x - x;
+		y = position.y - y;		
+		Vector3 cloudTranslate = new Vector3(x, y, 0);
 		cloudTranslate.x *= 2;
 		cloudTranslate.y *= 2;
 		cloudCamera.translate(cloudTranslate);
