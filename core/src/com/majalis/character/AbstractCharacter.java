@@ -295,6 +295,10 @@ public abstract class AbstractCharacter extends Actor {
 	public Armor getUnderwear() {
 		return underwear;
 	}
+	public Armor getShield() {
+		return shield;
+	}
+	
 	
 	protected int getDegradation(IntArray tiers, int currentValue) {
 		int numTiers = tiers.size;

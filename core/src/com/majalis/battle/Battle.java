@@ -114,6 +114,7 @@ public class Battle extends Group{
 	private final Label underwearLabel;
 	private final Label enemyUnderwearLabel;
 	
+	private final Texture nullTexture;
 	private final Texture armorTexture;
 	private final Texture armorBrokenTexture;
 	
@@ -123,6 +124,8 @@ public class Battle extends Group{
 	private final Image enemyUnderwearArmor;
 	private final Image legwearArmor;
 	private final Image enemyLegwearArmor;
+	private final Image shieldArmor;
+	private final Image enemyShieldArmor;
 	
 	private final Label bloodLabel;
 	private final Label enemyBloodLabel;
@@ -273,6 +276,7 @@ public class Battle extends Group{
 		
 		enemyWeaponLabel = initLabel("Weapon: " + (enemy.getWeapon() != null ? enemy.getWeapon().getName() : "Unarmed"), skin, Color.GOLDENROD, 1578, 900);	
 		
+		nullTexture = assetManager.get(AssetEnum.NULL.getTexture());
 		armorTexture = assetManager.get(AssetEnum.ARMOR_0.getTexture());
 		armorBrokenTexture = assetManager.get(AssetEnum.ARMOR_1.getTexture());
 		Texture armorDollTexture = assetManager.get(AssetEnum.ARMOR_DOLL.getTexture());
@@ -289,13 +293,16 @@ public class Battle extends Group{
 		legwearArmor = initImage(character.getLegwear() == null || character.getLegwear().getDestructionLevel() == 0 ? armorTexture : armorBrokenTexture, barX + 224, 770, 50);
 		enemyLegwearArmor = initImage(character.getLegwear() == null || character.getLegwear().getDestructionLevel() == 0 ? armorTexture : armorBrokenTexture, 1497, 770, 50);
 		
+		shieldArmor = initImage(character.getShield() == null ? nullTexture : character.getShield().getDestructionLevel() == 0 ? armorTexture : character.getShield().getDestructionLevel() == 1 ? armorBrokenTexture : nullTexture, barX + 284, 810, 50);
+		enemyShieldArmor = initImage(enemy.getShield() == null ? nullTexture : enemy.getShield().getDestructionLevel() == 0 ? armorTexture : enemy.getShield().getDestructionLevel() == 1 ? armorBrokenTexture : nullTexture, 1557, 810, 50);
+		
 		armorLabel = initLabel("" + character.getArmorScore(), skin, Color.BROWN, barX + 236, 828);		
 		enemyArmorLabel = initLabel("" + enemy.getArmorScore(), skin, Color.BROWN, 1509, 828);
 		underwearLabel = initLabel("" + character.getUnderwearScore(), skin, Color.BROWN, barX + 236, 755);		
 		enemyUnderwearLabel = initLabel("" + character.getUnderwearScore(), skin, Color.BROWN, 1509, 755);	
 		legwearLabel = initLabel("" + character.getLegwearScore(), skin, Color.BROWN, barX + 236, 775);		
-		enemyLegwearLabel = initLabel("" + enemy.getLegwearScore(), skin, Color.BROWN, 1509, 775);	
-
+		enemyLegwearLabel = initLabel("" + enemy.getLegwearScore(), skin, Color.BROWN, 1509, 775);
+		
 		if (character.getArmorScore() > 0) {
 			armorArmor.addAction(show());
 			armorLabel.addAction(show());
@@ -815,6 +822,9 @@ public class Battle extends Group{
 		
 		legwearArmor.setDrawable(getDrawable(character.getArmor() == null || character.getLegwear().getDestructionLevel() == 0 ? armorTexture : armorBrokenTexture));
 		enemyLegwearArmor.setDrawable(getDrawable(enemy.getArmor() == null || enemy.getLegwear().getDestructionLevel() == 0 ? armorTexture : armorBrokenTexture));
+		
+		shieldArmor.setDrawable(getDrawable(character.getShield() == null ? nullTexture : character.getShield().getDestructionLevel() == 0 ? armorTexture : character.getShield().getDestructionLevel() == 1 ? armorBrokenTexture : nullTexture));
+		enemyShieldArmor.setDrawable(getDrawable(enemy.getShield() == null ? nullTexture : enemy.getShield().getDestructionLevel() == 0 ? armorTexture : enemy.getShield().getDestructionLevel() == 1 ? armorBrokenTexture : nullTexture));
 		
 		if (character.getLegwearScore() > 0) {
 			underwearLabel.addAction(hide());

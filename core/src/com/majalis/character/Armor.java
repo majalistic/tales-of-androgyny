@@ -105,7 +105,7 @@ public class Armor extends Item{
 		SHORTS ("Shorts", new int[]{3, 3}, new int[]{3, 1}),
 		UNDERWEAR ("Underwear", new int[]{2}, new int[]{1}),
 		
-		SHIELD ("Shield", new int[]{30}, new int[]{50}),
+		SHIELD ("Shield", new int[]{15, 15}, new int[]{50, 50}),
 		
 		LIGHT_ENEMY_ARMOR ("Light Armor", new int[]{2, 2}, new int[]{2, 1}),
 		MEDIUM_ENEMY_ARMOR ("Medium Armor", new int[]{6, 6}, new int[]{6, 2}),
