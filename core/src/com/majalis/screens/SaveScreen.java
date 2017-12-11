@@ -19,7 +19,7 @@ import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveManager;
 import com.majalis.save.SaveService;
 /*
- * Screen for displaying "Game Over" - can return the player to the main menu or offer them the ability to save their GO encounter.  May be loaded with different splashes / music at runtime.
+ * Screen for displaying, saving, and loading save files.
  */
 public class SaveScreen extends AbstractScreen {
 

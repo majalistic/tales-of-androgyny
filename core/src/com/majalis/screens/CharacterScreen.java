@@ -29,7 +29,7 @@ import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveManager.GameContext;
 import com.majalis.save.SaveService;
 /*
- * The options/configuration screen.  UI that handles player input to save Preferences to a player's file system.
+ * Screen that displays the current save file's statistics.
  */
 public class CharacterScreen extends AbstractScreen {
 

@@ -13,7 +13,7 @@ import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveManager;
 import com.majalis.save.SaveService;
 /*
- * Abstract screen class for handling generic screen logic and screen switching.
+ * Screen for displaying battles.
  */
 public class BattleScreen extends AbstractScreen{
 

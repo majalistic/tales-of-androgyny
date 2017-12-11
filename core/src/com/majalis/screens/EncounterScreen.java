@@ -15,7 +15,6 @@ import com.badlogic.gdx.utils.Array;
 import com.majalis.asset.AssetEnum;
 import com.majalis.encounter.Encounter;
 import com.majalis.encounter.EncounterCode;
-
 /*
  *Screen for displaying Encounters.  UI that Handles player input while in an encounter.
  */

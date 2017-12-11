@@ -29,7 +29,7 @@ import com.majalis.character.EnemyCharacter;
 import com.majalis.character.Stance;
 import com.majalis.encounter.Background.BackgroundBuilder;
 /*
- * The replay encounters.  UI that handles player input to select and load and encounters to experience again.
+ * Screen the displays encountered characters and their respective CG art.
  */
 public class ReplayScreen extends AbstractScreen {
 	

@@ -16,7 +16,7 @@ import com.badlogic.gdx.utils.Array;
 import com.majalis.asset.AssetEnum;
 import com.majalis.character.AbstractCharacter.Stat;
 /*
- * The replay encounters.  UI that handles player input to select and load and encounters to experience again.
+ * Screen that displays while a new screen is loading.
  */
 public class LoadScreen extends AbstractScreen {
 	
