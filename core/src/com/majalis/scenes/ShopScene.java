@@ -108,7 +108,7 @@ public class ShopScene extends Scene {
 		        }
 			}
 		);
-		done.setPosition(1522, 100);
+		done.setPosition(1522, 250);
 		
 		// need to create methods for selling
 		// need to show description of items (should be an attribute of an item)	
