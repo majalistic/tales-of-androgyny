@@ -75,6 +75,7 @@ public class WorldMapScreen extends AbstractScreen {
 	private final PerspectiveCamera camera;
 	private final Stage cloudStage;
 	private final PerspectiveCamera cloudCamera;
+	private final Stage dragStage;
 	private final Group group;
 	private final Group cloudGroup;
 	private final Music music;
@@ -125,6 +126,8 @@ public class WorldMapScreen extends AbstractScreen {
 		
 		this.storyMode = loadService.loadDataValue(SaveEnum.MODE, GameMode.class) == GameMode.STORY;
 		uiStage = new Stage3D(new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), getCamera()), batch);
+		
+		dragStage = new Stage3D(new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), getCamera()), batch);
 		
 		camera = new PerspectiveCamera(70, 0, 1000);
 		this.getViewport().setCamera(camera);
@@ -222,11 +225,10 @@ public class WorldMapScreen extends AbstractScreen {
 		
 		frameBuffer = new FrameBuffer(Pixmap.Format.RGB888, 2016, 1008, false);
 		
-		clearScreen = false;
-		
 		multi = new InputMultiplexer();
-		multi.addProcessor(this);
 		multi.addProcessor(uiStage);
+		multi.addProcessor(this);
+		multi.addProcessor(dragStage);
 	}
 	
 	private void mutateLabels() {
@@ -586,7 +588,7 @@ public class WorldMapScreen extends AbstractScreen {
 				mutateLabels();
 			}			
 		});
-		uiStage.addListener(new DragListener(){
+		dragStage.addListener(new DragListener(){
 			@Override
 			public void drag(InputEvent event, float x, float y, int pointer) {
 				translateCamera(new Vector3(getDeltaX(), getDeltaY(), 0));
