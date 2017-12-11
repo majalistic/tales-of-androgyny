@@ -45,8 +45,16 @@ public class SaveScreen extends AbstractScreen {
 		saveTable.align(Align.topLeft);
 		this.addActor(saveTable);
 
-		// need to figure out a way to display that a save file is blank - possibly a flag on the save itself
-
+		final TextButton backButton = new TextButton ("Back", skin);
+		backButton.setPosition(1500, 50);
+		this.addActor(backButton);
+		backButton.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				showScreen(ScreenEnum.LOAD_GAME);
+			}
+		});
+		
 		// for each save slot				
 		for (int ii = 0; ii < 10; ii++) {
 			// load the data
