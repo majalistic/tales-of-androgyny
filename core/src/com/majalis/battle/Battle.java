@@ -817,11 +817,11 @@ public class Battle extends Group{
 		armorArmor.setDrawable(getDrawable(character.getArmor() == null || character.getArmor().getDestructionLevel() == 0 ? armorTexture : armorBrokenTexture));
 		enemyArmorArmor.setDrawable(getDrawable(enemy.getArmor() == null || enemy.getArmor().getDestructionLevel() == 0 ? armorTexture : armorBrokenTexture));
 		
-		underwearArmor.setDrawable(getDrawable(character.getArmor() == null || character.getUnderwear().getDestructionLevel() == 0 ? armorTexture : armorBrokenTexture));
-		enemyUnderwearArmor.setDrawable(getDrawable(enemy.getArmor() == null || enemy.getUnderwear().getDestructionLevel() == 0 ? armorTexture : armorBrokenTexture));
+		underwearArmor.setDrawable(getDrawable(character.getUnderwear() == null || character.getUnderwear().getDestructionLevel() == 0 ? armorTexture : armorBrokenTexture));
+		enemyUnderwearArmor.setDrawable(getDrawable(enemy.getUnderwear() == null || enemy.getUnderwear().getDestructionLevel() == 0 ? armorTexture : armorBrokenTexture));
 		
-		legwearArmor.setDrawable(getDrawable(character.getArmor() == null || character.getLegwear().getDestructionLevel() == 0 ? armorTexture : armorBrokenTexture));
-		enemyLegwearArmor.setDrawable(getDrawable(enemy.getArmor() == null || enemy.getLegwear().getDestructionLevel() == 0 ? armorTexture : armorBrokenTexture));
+		legwearArmor.setDrawable(getDrawable(character.getLegwear() == null || character.getLegwear().getDestructionLevel() == 0 ? armorTexture : armorBrokenTexture));
+		enemyLegwearArmor.setDrawable(getDrawable(enemy.getLegwear() == null || enemy.getLegwear().getDestructionLevel() == 0 ? armorTexture : armorBrokenTexture));
 		
 		shieldArmor.setDrawable(getDrawable(character.getShield() == null ? nullTexture : character.getShield().getDestructionLevel() == 0 ? armorTexture : character.getShield().getDestructionLevel() == 1 ? armorBrokenTexture : nullTexture));
 		enemyShieldArmor.setDrawable(getDrawable(enemy.getShield() == null ? nullTexture : enemy.getShield().getDestructionLevel() == 0 ? armorTexture : enemy.getShield().getDestructionLevel() == 1 ? armorBrokenTexture : nullTexture));
