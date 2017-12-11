@@ -128,7 +128,7 @@ public class WorldMapScreen extends AbstractScreen {
 		
 		camera = new PerspectiveCamera(70, 0, 1000);
 		this.getViewport().setCamera(camera);
-		
+
 		time = loadService.loadDataValue(SaveEnum.TIME, Integer.class);
 		
 		camera.position.set(0, 0, 500);
@@ -320,7 +320,7 @@ public class WorldMapScreen extends AbstractScreen {
 		
 		Table actionTable = new Table();
 		uiStage.addActor(actionTable);
-		actionTable.setPosition(860, 60);
+		actionTable.setPosition(900, 60);
 		
 		actionTable.add(characterButton).size(200, 50);
 		
@@ -356,8 +356,10 @@ public class WorldMapScreen extends AbstractScreen {
 		
 		final Label console = new Label("", skin);
 		uiStage.addActor(console);
-		console.setPosition(820, 80);
-		console.setColor(Color.GOLD);
+		console.setPosition(1250, 80);
+		console.setWrap(true);
+		console.setWidth(600);
+		console.setColor(Color.CHARTREUSE);
 		
 		final TextButton rest = new TextButton("Rest", skin);
 		
@@ -678,11 +680,8 @@ public class WorldMapScreen extends AbstractScreen {
 			cloudStage.act(delta);
 			cloudStage.draw();
 			// this draws the UI
-			
 			uiStage.act();
 			uiStage.draw();
-			
-			//super.render(delta);
 		}
 	}
 	
