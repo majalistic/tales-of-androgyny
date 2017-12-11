@@ -9,6 +9,7 @@ public enum ScreenEnum {
     CONTINUE,
     LOAD_GAME,
     SAVE,
+    QUEST,
     ENCOUNTER,
     BATTLE,
     CHARACTER,

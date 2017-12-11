@@ -87,6 +87,11 @@ public class ScreenFactoryImpl implements ScreenFactory {
 					return new SaveScreen(this, elements, assetManager, saveService);
 				}
 				break;
+			case QUEST:
+				if (getAssetCheck(QuestScreen.resourceRequirements)) {
+					return new QuestScreen(this, elements, assetManager, character);
+				}
+				break;
 			case BATTLE:
 				tempScreen = getBattle(elements, character);
 				if (tempScreen != null) return tempScreen;

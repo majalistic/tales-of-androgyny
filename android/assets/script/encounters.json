@@ -5605,7 +5605,7 @@
 		"scriptLines": [
 			{
 			"foreground": "ELF",
-			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "ELF", "value":7}}],
+			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "ELF", "value":8}}],
 			"text":  "You enter the brothel... but a certain familiar face catches your attention, as they're led off to a room with a male compatriot."},
 			{"text": "You follow them, keeping an eye out for the brothel mistress, to sate your curiosity.  Sure enough, as you peek inside the room they entered, you see a rather... risque sight."},
 			{"text": "Kylira is on the bed already, on their knees and elbows, face-down in the sheets... and his compatriot is behind, thrusting his hips against Kylira's ass without restraint."},

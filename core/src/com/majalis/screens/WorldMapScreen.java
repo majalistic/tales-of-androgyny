@@ -319,7 +319,7 @@ public class WorldMapScreen extends AbstractScreen {
 		
 		Table actionTable = new Table();
 		this.addActor(actionTable);
-		actionTable.setPosition(775, 60);
+		actionTable.setPosition(860, 60);
 		
 		actionTable.add(characterButton).size(200, 50);
 		
@@ -425,7 +425,19 @@ public class WorldMapScreen extends AbstractScreen {
 			}
 		);
 		
-		TextButton saveButton = new TextButton("QSave", skin);
+		TextButton questButton = new TextButton("Quest Log", skin);
+		actionTable.add(questButton).size(200, 50);
+		questButton.addListener(
+			new ClickListener() {
+				@Override
+		        public void clicked(InputEvent event, float x, float y) {
+					buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
+					showScreen(ScreenEnum.QUEST);
+		        }
+			}
+		);	
+		
+		TextButton saveButton = new TextButton("QuickSave", skin);
 		actionTable.add(saveButton).size(200, 50);
 		saveButton.addListener(
 			new ClickListener() {

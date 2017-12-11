@@ -1369,7 +1369,38 @@ public class PlayerCharacter extends AbstractCharacter {
 	}
 	
 	public enum QuestType {
-		ORC, CRIER, INNKEEP, TRUDY, GOBLIN, OGRE, SPIDER, BROTHEL, ELF, DEBT, GADGETEER, MADAME
+		ORC, CRIER, INNKEEP, TRUDY, GOBLIN, OGRE, SPIDER, BROTHEL, ELF, DEBT, GADGETEER, MADAME;
+		
+		public String getQuestDescription(int currentValue) {
+			switch (this) {
+				case BROTHEL:
+					return currentValue > 0 ? "You've agreed to be a prostitute in the brothel." : "";
+				case CRIER:
+					break;
+				case DEBT:
+					return currentValue == 2 ? "You've encountered the debt collectors." : currentValue == 1 ? "You've been warned by the debt collectors." : "";
+				case ELF:
+					return currentValue == 8 ? "You've seen Kylira the elf working as a prostitute." : currentValue == 7 ? "You've advised Kylira the elf to depart for the Elven lands." : currentValue == 6 ? "You've advised Kylira the elf to be a travelling healer." : 
+						currentValue == 5 ? "You've made Kylira the elf your travelling companion." : currentValue == 4 ? "You've advised Kylira the elf to become a prostitute." : currentValue == 3 ? "You've shared a meal with Kylira, the elf." : currentValue == 2 ? "You've encountered Kylira, the elf." : "";
+				case GADGETEER:
+					return currentValue == 2 ? "You've been teased by the eccentric merchant." : currentValue == 1 ? "You've encountered the eccentric merchant." : "";
+				case GOBLIN:
+					return currentValue == 1 ? "You've met Selkie the fem goblin." : "";
+				case INNKEEP:
+					return currentValue == 4 ? "You've married the innkeep." : currentValue == 3 ? "You've been innkeep's bitch for a day's lodging." : currentValue == 2 ? "You've caught the innkeep's fuck for a day's lodging." : currentValue == 1 ? "You've sucked the innkeep off for a day's lodging." : "";
+				case MADAME:
+					return currentValue == 1 ? "You've introduced yourself to the Brothel madame" : "";					
+				case OGRE:
+					return currentValue == 1 ? "You've seen an ogre" : "";		
+				case ORC:
+					return currentValue == 2 ? "You've encountered an orc and behaved cowardly." : currentValue == 1 ? "You've encountered Urka the orc and behaved honorably" : "";	
+				case SPIDER:
+					return currentValue == 1 ? "You've survived the spider-infested ruins." : "";	
+				case TRUDY:
+					return currentValue == 5 ? "You've made Trudy your travelling companion." : currentValue == 4 ? "You've battled with Trudy." : currentValue == 3 ? "You were tricked by Trudy and buggered by a beast." : currentValue == 2 ? "You foiled Trudy's betrayal, and he was buggered by a beast in your place." : currentValue == 1 ? "You've met Trudy, another adventurer." : "";	
+			}
+			return ""; 			
+		}
 	}
 	
 	public static class QuestFlag {
