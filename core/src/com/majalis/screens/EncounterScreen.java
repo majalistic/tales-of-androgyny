@@ -9,6 +9,7 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
@@ -37,6 +38,7 @@ public class EncounterScreen extends AbstractScreen {
 	}
 	private static AssetManager assetManager;
 	private final Encounter encounter;
+	private TextButton saveButton;
 	private static Music music;
 
 	protected EncounterScreen(ScreenFactory screenFactory, ScreenElements elements, AssetManager assetManager,
@@ -69,10 +71,10 @@ public class EncounterScreen extends AbstractScreen {
 		}
 		
 		final Sound buttonSound =  assetManager.get(AssetEnum.BUTTON_SOUND.getSound());
-		TextButton save = new TextButton("Save", assetManager.get(AssetEnum.UI_SKIN.getSkin()));
-		save.setPosition(1650, 100);
-		save.setWidth(150);
-		save.addListener(
+		saveButton = new TextButton("Save", assetManager.get(AssetEnum.UI_SKIN.getSkin()));
+		saveButton.setPosition(1650, 100);
+		saveButton.setWidth(150);
+		saveButton.addListener(
 				new ClickListener() {
 					@Override
 			        public void clicked(InputEvent event, float x, float y) {
@@ -82,7 +84,7 @@ public class EncounterScreen extends AbstractScreen {
 				}
 			);	
 		
-		this.addActor(save);
+		this.addActor(saveButton);
 		
 	}
 
@@ -90,6 +92,12 @@ public class EncounterScreen extends AbstractScreen {
 	public void render(float delta) {
 		super.render(delta);
 		encounter.gameLoop();
+		if (encounter.showSave) {
+			saveButton.addAction(Actions.show());
+		}
+		else {
+			saveButton.addAction(Actions.hide());
+		}
 		if (encounter.isSwitching()) {
 			music.stop();
 			showScreen(ScreenEnum.CONTINUE);

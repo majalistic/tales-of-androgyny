@@ -20,6 +20,7 @@ public class Encounter {
 	public boolean battle;
 	public boolean gameOver;
 	public boolean gameExit;
+	public boolean showSave;
 	
 	public Encounter(Array<Scene> scenes, Array<EndScene> endScenes, Array<BattleScene> battleScenes, Scene startScene) {
 		this.scenes = scenes;
@@ -38,6 +39,12 @@ public class Encounter {
 		}
 		if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
 			gameExit = true;
+		}
+		
+		for (Scene objScene : scenes) {
+			if (objScene.isActive()) {
+				showSave = objScene.showSave();
+			}
 		}
 		
 		// these should be events - encounters should just be an array of scenes similar to how GameWorld became an array of GameWorldNodes

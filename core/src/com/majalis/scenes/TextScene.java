@@ -142,6 +142,9 @@ public class TextScene extends AbstractTextScene  {
 	}
 	
 	@Override
+	public boolean showSave() { return true; }
+	
+	@Override
 	protected void nextScene() {
 		sceneBranches.get(sceneBranches.orderedKeys().get(0)).setActive();
 		isActive = false;
