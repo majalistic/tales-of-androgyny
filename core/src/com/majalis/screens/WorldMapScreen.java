@@ -19,6 +19,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
+import com.badlogic.gdx.math.RandomXS128;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -99,6 +100,8 @@ public class WorldMapScreen extends AbstractScreen {
 	private boolean backgroundRendered = false;
 	private GameContext currentContext;
 	
+	private final RandomXS128 random;
+	
 	public static final Array<AssetDescriptor<?>> resourceRequirements = new Array<AssetDescriptor<?>>();
 	static {
 		resourceRequirements.add(UI_SKIN.getSkin());
@@ -112,7 +115,7 @@ public class WorldMapScreen extends AbstractScreen {
 		
 		// need to refactor to get all stance textures
 		AssetEnum[] assets = new AssetEnum[]{
-			GROUND_SHEET, WORLD_MAP_BG, CHARACTER_ANIMATION, MOUNTAIN_ACTIVE, FOREST_ACTIVE, FOREST_INACTIVE, CASTLE, TOWN, COTTAGE, APPLE, MEAT, CLOUD, ROAD, WORLD_MAP_UI, WORLD_MAP_HOVER, ARROW, CHARACTER_SCREEN, EXP, GOLD, TIME, HEART, NULL
+			GROUND_SHEET, DOODADS, WORLD_MAP_BG, CHARACTER_ANIMATION, MOUNTAIN_ACTIVE, FOREST_ACTIVE, FOREST_INACTIVE, CASTLE, TOWN, COTTAGE, APPLE, MEAT, CLOUD, ROAD, WORLD_MAP_UI, WORLD_MAP_HOVER, ARROW, CHARACTER_SCREEN, EXP, GOLD, TIME, HEART, NULL
 		};
 		for (AssetEnum asset: assets) {
 			resourceRequirements.add(asset.getTexture());
@@ -120,10 +123,11 @@ public class WorldMapScreen extends AbstractScreen {
 		resourceRequirements.addAll(CharacterScreen.resourceRequirements);
 	}
 	
-	public WorldMapScreen(ScreenFactory factory, ScreenElements elements, AssetManager assetManager, SaveService saveService, LoadService loadService, Array<GameWorldNode> world) {
+	public WorldMapScreen(ScreenFactory factory, ScreenElements elements, AssetManager assetManager, SaveService saveService, LoadService loadService, Array<GameWorldNode> world, RandomXS128 random) {
 		super(factory, elements);
 		this.assetManager = assetManager;
 		this.saveService = saveService;
+		this.random = random;
 		
 		this.storyMode = loadService.loadDataValue(SaveEnum.MODE, GameMode.class) == GameMode.STORY;
 		uiStage = new Stage3D(new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), getCamera()), batch);
@@ -739,6 +743,10 @@ public class WorldMapScreen extends AbstractScreen {
 	private final static int scalingFactor = 54;
 	private final static int xFactor = -9; // to tesselate properly ÅP\_(Éc)_/ÅP
 	
+	private final int distance(int x, int y, int x2, int y2) {
+		return Math.max(Math.max(Math.abs(x - x2), Math.abs(y - y2)), Math.abs((0 - (x + y)) - (0 - (x2 + y2))));				
+	}
+	
 	private void generateBackground() {
 		backgroundRendered = true;
 		if (storyMode) {
@@ -758,6 +766,15 @@ public class WorldMapScreen extends AbstractScreen {
 			Array<Image> shadows = new Array<Image>();
 			Array<Image> rocks = new Array<Image>();			
 			
+			Texture treeTexturesSheet = assetManager.get(AssetEnum.DOODADS.getTexture());
+			Array<TextureRegion> treeTextures = new Array<TextureRegion>();
+			int treeArraySize = 26;
+			int treeWidth = 192;
+			int treeHeight = 256;
+			for (int ii = 0; ii < treeArraySize; ii++) {
+				treeTextures.add(new TextureRegion(treeTexturesSheet, ii * treeWidth, 0, treeWidth, treeHeight));
+			}
+			
 			// first figure out what all of the tiles are - dirt, greenLeaf, redLeaf, moss, or water - create a model without drawing anything	
 			for (int x = 0; x < 100; x++) {
 				Array<GroundType> layer = new Array<GroundType>();
@@ -768,11 +785,30 @@ public class WorldMapScreen extends AbstractScreen {
 					// greenLeaf might also be randomly spread throughout redLeaf
 					// bodies of water should be generated as a single central river that runs through the map for now, that randomly twists and turns and bulges at the turns
 					// moss should be in patches adjacent to water
-					//if (x % 2 == 0) layer.add(GroundType.DIRT);
-					if (x > 20 && x < 30 && ((y > 15 && y < 21) || (x > 22 && x < 26 && y > 17 && y < 25))) layer.add(GroundType.WATER);
-					else if (x > 10 && x < 15 && y > 22 && y < 25) layer.add(GroundType.DIRT);
-					else layer.add(GroundType.RED_LEAF);
+					GroundType toAdd;
 					
+					if (distance(x, y, 13, 23) < 5) toAdd = GroundType.WATER;
+					else if ((x > 10 && x < 15 && y > 22 && y < 25) || random.nextInt() % 10 == 0) toAdd = GroundType.DIRT;
+					else toAdd = GroundType.RED_LEAF;					
+					
+					layer.add(toAdd);
+					if (toAdd == GroundType.DIRT || toAdd == GroundType.RED_LEAF) {
+						if (random.nextInt() % 20 == 0) {
+							Image tree = new Image(treeTextures.get(Math.abs(random.nextInt() % treeArraySize)));
+							tree.setPosition(x * (scalingFactor + xFactor) - 700, (y - 23) * scalingFactor + (x * scalingFactor / 2) + 700);
+							boolean treeInserted = false;
+							int ii = 0;
+							for (Image treeCompare : trees) {
+								if (tree.getY() > treeCompare.getY()) {
+									treeInserted = true;
+									trees.insert(ii, tree);
+									break;
+								}
+								ii++;
+							}
+							if (!treeInserted) trees.add(tree);
+						}
+					}
 					
 				}
 			}			
@@ -790,6 +826,14 @@ public class WorldMapScreen extends AbstractScreen {
 			}*/
 			
 			/* DRAWING */
+			
+			
+			// draw (add drawings as actors) water layer first
+			
+			// draw (add reflections as actors) reflections
+			
+			// then draw (add drawings as actors) ground layer
+						
 			
 			Texture groundSheet = assetManager.get(AssetEnum.GROUND_SHEET.getTexture());
 			

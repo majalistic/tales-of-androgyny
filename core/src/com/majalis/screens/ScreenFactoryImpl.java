@@ -203,7 +203,7 @@ public class ScreenFactoryImpl implements ScreenFactory {
 			case WORLD_MAP: 
 				if (getAssetCheck(WorldMapScreen.resourceRequirements)) {
 					int worldSeed = loadService.loadDataValue(SaveEnum.WORLD_SEED, Integer.class);
-					return new WorldMapScreen(this, elements, assetManager, saveService, loadService, gameWorldFactory.getGameWorld(worldSeed, (GameMode)loadService.loadDataValue(SaveEnum.MODE, GameMode.class), (Integer)loadService.loadDataValue(SaveEnum.NODE_CODE, Integer.class)));
+					return new WorldMapScreen(this, elements, assetManager, saveService, loadService, gameWorldFactory.getGameWorld(worldSeed, (GameMode)loadService.loadDataValue(SaveEnum.MODE, GameMode.class), (Integer)loadService.loadDataValue(SaveEnum.NODE_CODE, Integer.class)), gameWorldFactory.getRandom());
 				}
 				else return null;
 			case BATTLE:

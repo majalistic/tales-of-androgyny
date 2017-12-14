@@ -56,6 +56,7 @@ public enum AssetEnum {
 	CREATION_BAUBLE_REMOVED("creation/RemovedBauble.png"),
 	
 	GROUND_SHEET("worldmap/GroundSheet.png"),
+	DOODADS("worldmap/Doodads.png"),
 	
 	WORLD_MAP_UI("worldmap/CharacterInfo.png"),
 	WORLD_MAP_HOVER("worldmap/HoverBox.png"),
