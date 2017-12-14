@@ -39,6 +39,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.majalis.asset.AnimatedImage;
@@ -58,6 +59,7 @@ import com.majalis.scenes.MutationActor;
 import com.majalis.save.SaveService;
 import com.majalis.save.MutationResult.MutationType;
 import com.majalis.world.GameWorldNode;
+import com.majalis.world.GroundType;
 /*
  * The screen that displays the world map.  UI that Handles player input while on the world map - will delegate to other screens depending on the gameWorld state.
  */
@@ -67,7 +69,6 @@ public class WorldMapScreen extends AbstractScreen {
 	private final SaveService saveService;
 	private final Array<GameWorldNode> world;
 	private final Texture food;
-	private final Array<Texture> grasses;
 	private final Texture cloud;
 	private final Texture characterUITexture;
 	private final PlayerCharacter character;
@@ -111,7 +112,7 @@ public class WorldMapScreen extends AbstractScreen {
 		
 		// need to refactor to get all stance textures
 		AssetEnum[] assets = new AssetEnum[]{
-			WORLD_MAP_BG, CHARACTER_ANIMATION, MOUNTAIN_ACTIVE, FOREST_ACTIVE, FOREST_INACTIVE, CASTLE, TOWN, COTTAGE, APPLE, MEAT, GRASS0, GRASS1, GRASS2, CLOUD, ROAD, WORLD_MAP_UI, WORLD_MAP_HOVER, ARROW, CHARACTER_SCREEN, EXP, GOLD, TIME, HEART, NULL
+			GROUND_SHEET, WORLD_MAP_BG, CHARACTER_ANIMATION, MOUNTAIN_ACTIVE, FOREST_ACTIVE, FOREST_INACTIVE, CASTLE, TOWN, COTTAGE, APPLE, MEAT, CLOUD, ROAD, WORLD_MAP_UI, WORLD_MAP_HOVER, ARROW, CHARACTER_SCREEN, EXP, GOLD, TIME, HEART, NULL
 		};
 		for (AssetEnum asset: assets) {
 			resourceRequirements.add(asset.getTexture());
@@ -157,7 +158,6 @@ public class WorldMapScreen extends AbstractScreen {
 		// load assets
 		hoverImageTexture = assetManager.get(AssetEnum.WORLD_MAP_HOVER.getTexture());		
 		food = assetManager.get(AssetEnum.APPLE.getTexture());
-		grasses = new Array<Texture>(new Texture[]{assetManager.get(AssetEnum.GRASS0.getTexture()), assetManager.get(AssetEnum.GRASS1.getTexture()), assetManager.get(AssetEnum.GRASS2.getTexture())});
 		cloud = assetManager.get(AssetEnum.CLOUD.getTexture());
 		characterUITexture = assetManager.get(AssetEnum.WORLD_MAP_UI.getTexture());
 		music = assetManager.get(AssetEnum.WORLD_MAP_MUSIC.getMusic());
@@ -732,6 +732,13 @@ public class WorldMapScreen extends AbstractScreen {
 		position = cloudCamera.position;
 	}
 	
+	private ObjectMap<String, TextureRegion> groundSlices = new ObjectMap<String, TextureRegion>();
+	private final static int tileWidth = 61;
+	private final static int tileHeight = 55;
+	
+	private final static float scalingFactor = 54;
+	private final static float xFactor = -9; // to tesselate properly P\_(ƒc)_/P
+	
 	private void generateBackground() {
 		backgroundRendered = true;
 		if (storyMode) {
@@ -743,27 +750,133 @@ public class WorldMapScreen extends AbstractScreen {
 			frameBuffer.begin();
 			SpriteBatch frameBufferBatch = new SpriteBatch();
 			frameBufferBatch.begin();
-			// draw the base grass texture
-			for (int ii = 101; ii >= 0; ii-=2) {
-				for (int jj = 100; jj >= 0; jj--) {
-					frameBufferBatch.draw(grasses.get((int)(Math.random()*100) % 3), ii*56, jj*56);
-					frameBufferBatch.draw(grasses.get((int)(Math.random()*100) % 3), ((ii-1)*56), (jj*56)+30);
-				}	
+			
+			/* MODELLING - SHOULD BE MOVED TO GAME WORLD GEN */
+			
+			Array<Array<GroundType>> ground = new Array<Array<GroundType>>();
+			Array<Image> trees = new Array<Image>();
+			Array<Image> shadows = new Array<Image>();
+			Array<Image> rocks = new Array<Image>();			
+			
+			// first figure out what all of the tiles are - dirt, greenLeaf, redLeaf, moss, or water - create a model without drawing anything	
+			for (int x = 0; x < 100; x++) {
+				Array<GroundType> layer = new Array<GroundType>();
+				ground.add(layer);
+				for (int y = 0; y < 100; y++) {
+					// redLeaf should be the default			
+					// dirt should be randomly spread throughout redLeaf  
+					// greenLeaf might also be randomly spread throughout redLeaf
+					// bodies of water should be generated as a single central river that runs through the map for now, that randomly twists and turns and bulges at the turns
+					// moss should be in patches adjacent to water
+					//if (x % 2 == 0) layer.add(GroundType.DIRT);
+					if (x > 20 && x < 30 && ((y > 15 && y < 21) || (x > 22 && x < 26 && y > 17 && y < 25))) layer.add(GroundType.DIRT);
+					else layer.add(GroundType.RED_LEAF);
+				}
+			}			
+			
+			// iterate a second pass through and determine where rocks and trees and shadows should go
+			/*for (int x = 0; x < ground.size; x++) {
+				int layerSize = ground.get(x).size;
+				for (int y = 0; y < ground.get(x).size; y++) {
+					// place random rocks on tiles adjacent to water
+					
+					// place random trees on redLeaf/greenLeaf/dirt tiles that aren't adjacent to water
+					// for each tree, create a shadow (should be mapped shadow textures placed at the same location as the tree)
+
+				}
+			}*/
+			
+			/* DRAWING */
+			
+			Texture groundSheet = assetManager.get(AssetEnum.GROUND_SHEET.getTexture());
+			
+			// draw the terrain within a given box - currently attempting to draw all terrain and being truncated
+			int[] layers = new int [GroundType.values().length];
+			for (int x = 0; x < ground.size; x++) {
+				float trueX = x * (scalingFactor + xFactor);
+				int layerSize = ground.get(x).size;
+				for (int y = 0; y < ground.get(x).size; y++) {
+					float trueY = (y - 23) * scalingFactor + (x * scalingFactor / 2);
+					for (int i = 0; i < layers.length; i++) {
+						layers[i] = 0;
+					}
+					
+					// check the six adjacent tiles and add accordingly
+					if (x + 1 < ground.size) layers[ground.get(x + 1).get(y).ordinal()] += 32;
+					if (y - 1 >= 0)	{
+						if (x + 1 < ground.size) {
+							layers[ground.get(x + 1).get(y - 1).ordinal()] += 16;
+						}
+						layers[ground.get(x).get(y - 1).ordinal()] += 8;
+					}
+					if (x - 1 >= 0)	layers[ground.get(x - 1).get(y).ordinal()] += 4;
+					if (y + 1 < layerSize)	{
+						if (x - 1 >= 0) {
+							layers[ground.get(x - 1).get(y + 1).ordinal()] += 2;
+						}
+						layers[ground.get(x).get(y + 1).ordinal()] += 1;						
+					}
+					
+					/*
+					for (int i = 0; i < layers.length; i++) {
+						if (layers[i] != 0) System.out.println(layers[i]);
+					}
+					*/
+					
+					for (GroundType groundType: GroundType.values()) {
+						if (ground.get(x).get(y) == groundType){
+							frameBufferBatch.draw(getFullTexture(groundType, groundSheet), trueX, trueY); // with appropriate type
+						}
+						//frameBufferBatch.draw(getTexture(groundType, groundSheet, layers[groundType.ordinal()]), trueX, trueY); // appropriate blend layer
+					}
+				}
 			}
+			
 			frameBufferBatch.end();
 			frameBuffer.end();		
 			frameBufferBatch.dispose();
 			TextureRegion scenery = new TextureRegion(frameBuffer.getColorBufferTexture());
-			scenery.setRegion(56, 56, scenery.getRegionWidth() - 56, scenery.getRegionHeight() - 56); 
+				
+			scenery.setRegion(20, 0, scenery.getRegionWidth() - 116, scenery.getRegionHeight()); 
 			scenery.flip(false, true);
-			for (int ii = 2; ii >= 0; ii--) {
-				for (int jj = 5; jj >= 0; jj--) {
+			for (int ii = 0; ii < 3; ii++) {
+				for (int jj = 0; jj < 6; jj++) {
 					Image background = new Image(scenery);
-					background.addAction(Actions.moveTo(-700+ii*scenery.getRegionWidth(), -300+jj*(scenery.getRegionHeight()-10)));
+					background.addAction(Actions.moveTo(-700 + ii * (scenery.getRegionWidth()-12), -300 + jj * (scenery.getRegionHeight())));
 					group.addActorAt(0, background);
 				}
 			}
+			/*
+			Image background = new Image(scenery);
+			background.addAction(Actions.moveTo(-700, -300));
+			group.addActorAt(0, background);
+			*/
+			for (Actor shadow : shadows) {
+				group.addActor(shadow);
+			}
+			
+			for (Actor tree : trees) {
+				group.addActor(tree);
+			}
+			
+			for (Actor rock : rocks) {
+				group.addActor(rock);
+			}			
 		}
+	}
+	
+	public TextureRegion getFullTexture(GroundType groundType, Texture groundSheet) {
+		String key = groundType.toString();
+		TextureRegion slice = groundSlices.get(key, new TextureRegion(groundSheet, (groundType.ordinal() + 1) * (tileWidth), 0, tileWidth, tileHeight));
+		groundSlices.put(key, slice);
+		return slice;
+	}
+
+	public TextureRegion getTexture(GroundType groundType, Texture groundSheet, int mask) {
+		String key = groundType.toString() + "-" + mask;
+		TextureRegion slice = groundSlices.get(key, new TextureRegion(groundSheet, mask * (tileWidth), (groundType.ordinal() + 1) * (tileHeight), tileWidth, tileHeight));
+		groundSlices.put(key, slice);
+		return slice;
 	}
 	
     @Override

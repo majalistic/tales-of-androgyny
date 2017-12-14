@@ -20,7 +20,6 @@ public abstract class AbstractScreen extends Stage3D implements Screen {
 	protected final PolygonSpriteBatch batch;
 	protected final BitmapFont font;
 	protected final ScreenElements fontFactory;
-	protected boolean clearScreen;
 	protected boolean debug = false;
 	private float clearRed, clearGreen, clearBlue, clearAlpha;
 	
@@ -31,7 +30,6 @@ public abstract class AbstractScreen extends Stage3D implements Screen {
         this.batch = elements.getBatch();
         this.fontFactory = elements;
         this.font = elements.getFont(32);
-        clearScreen = true;
         clearRed = .9f;
         clearGreen = .8f;
         clearBlue = .6f;
@@ -88,8 +86,7 @@ public abstract class AbstractScreen extends Stage3D implements Screen {
     
     @Override
     public void render(float delta) {
-    	if (clearScreen)
-    		clear();
+    	clear();
     	// this calls actor.act() on all actors
     	super.act(delta);
         // this draws all actors

@@ -55,6 +55,8 @@ public enum AssetEnum {
 	CREATION_BAUBLE_OLD("creation/GreenBauble.png"),
 	CREATION_BAUBLE_REMOVED("creation/RemovedBauble.png"),
 	
+	GROUND_SHEET("worldmap/GroundSheet.png"),
+	
 	WORLD_MAP_UI("worldmap/CharacterInfo.png"),
 	WORLD_MAP_HOVER("worldmap/HoverBox.png"),
 	WORLD_MAP_BG("worldmap/MapBackground.jpg"),
@@ -63,9 +65,6 @@ public enum AssetEnum {
 	FOREST_ACTIVE("worldmap/ForestNode1.png"),
 	FOREST_INACTIVE("worldmap/ForestNode0.png"),
 	ENCHANTED_FOREST("worldmap/ForestNode0.png"),
-	GRASS0("worldmap/BaseGrass0.png"),
-	GRASS1("worldmap/BaseGrass1.png"),
-	GRASS2("worldmap/BaseGrass2.png"),
 	CLOUD("worldmap/Cloud.png"),
 	ROAD("worldmap/Road.png"),
 	CASTLE("worldmap/Castle.png"),

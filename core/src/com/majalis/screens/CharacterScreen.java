@@ -43,9 +43,6 @@ public class CharacterScreen extends AbstractScreen {
 		resourceRequirements.add(AssetEnum.CASTLE.getTexture());
 		resourceRequirements.add(AssetEnum.APPLE.getTexture());
 		resourceRequirements.add(AssetEnum.MEAT.getTexture());
-		resourceRequirements.add(AssetEnum.GRASS0.getTexture());
-		resourceRequirements.add(AssetEnum.GRASS1.getTexture());
-		resourceRequirements.add(AssetEnum.GRASS2.getTexture());
 		resourceRequirements.add(AssetEnum.CLOUD.getTexture());
 		resourceRequirements.add(AssetEnum.ROAD.getTexture());
 		resourceRequirements.add(AssetEnum.WORLD_MAP_UI.getTexture());
