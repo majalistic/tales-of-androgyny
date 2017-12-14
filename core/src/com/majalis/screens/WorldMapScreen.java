@@ -78,7 +78,7 @@ public class WorldMapScreen extends AbstractScreen {
 	private final Stage cloudStage;
 	private final PerspectiveCamera cloudCamera;
 	private final Stage dragStage;
-	private final Group group;
+	private final Group worldGroup;
 	private final Group cloudGroup;
 	private final Music music;
 	private final FrameBuffer frameBuffer;
@@ -142,7 +142,7 @@ public class WorldMapScreen extends AbstractScreen {
 		camera.position.set(0, 0, 500);
 		camera.near = 1f;
 		camera.far = 10000;
-		camera.lookAt(0,0,0);
+		camera.lookAt(0, 0, 0);
 		camera.translate(1280/2, 720/2, 200);
 		
 		cloudCamera = new PerspectiveCamera(70, 0, 1000);
@@ -156,8 +156,8 @@ public class WorldMapScreen extends AbstractScreen {
 		cloudCamera.translate(1280/2, 720/2, -200);
 		
 		// create base group for world stage
-		group = new Group();
-		this.addActor(group);
+		worldGroup = new Group();
+		this.addActor(worldGroup);
 		
 		// load assets
 		hoverImageTexture = assetManager.get(AssetEnum.WORLD_MAP_HOVER.getTexture());		
@@ -178,7 +178,7 @@ public class WorldMapScreen extends AbstractScreen {
 		hoverLabel = new Label("", skin);
 		
 		for (final GameWorldNode actor : world) {
-			group.addActor(actor);
+			worldGroup.addActor(actor);
 			if (actor.isCurrent()) {
 				setCurrentNode(actor);
 			}
@@ -279,11 +279,11 @@ public class WorldMapScreen extends AbstractScreen {
 		
 		for (GameWorldNode node : world) {
 			for (Actor actor : node.getPaths()) {
-				group.addActor(actor);
+				worldGroup.addActor(actor);
 			}
 		}
 		for (final GameWorldNode actor : world) {
-			group.addActor(actor);
+			worldGroup.addActor(actor);
 			actor.addListener(new ClickListener(){
 				@Override
 		        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
@@ -303,7 +303,7 @@ public class WorldMapScreen extends AbstractScreen {
 			});
 		}
 
-		group.addActor(currentImage);
+		worldGroup.addActor(currentImage);
 		
 		final Sound buttonSound = assetManager.get(AssetEnum.CLICK_SOUND.getSound()); 
 		int storedLevels = character.getStoredLevels();
@@ -484,7 +484,7 @@ public class WorldMapScreen extends AbstractScreen {
 		
 		uiStage.addActor(uiGroup);
 		// this needs refactoring - probably replace ChangeListener with a custom listener/event type, and rather than an action on a delay, have a trigger for when the character reaches a node that will perform the act() function
-		group.addListener(new ChangeListener() {
+		worldGroup.addListener(new ChangeListener() {
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
 				if (event.getTarget() instanceof GameWorldNode) {
@@ -506,7 +506,7 @@ public class WorldMapScreen extends AbstractScreen {
 					else {
 						currentImage.addAction(moveTo(actor.getX() + 12, actor.getY() + 25, 1.5f));
 						setCurrentNode(node);
-						group.addAction(sequence(delay(1.5f), new Action() {
+						worldGroup.addAction(sequence(delay(1.5f), new Action() {
 							@Override
 							public boolean act(float delta) {
 								time += timePassed;
@@ -692,7 +692,7 @@ public class WorldMapScreen extends AbstractScreen {
 	}
 	
 	private void tintForTimeOfDay() {
-		for (Actor actor : group.getChildren()) {
+		for (Actor actor : worldGroup.getChildren()) {
 			actor.setColor(getTimeColor());
 		}
 	}
@@ -752,7 +752,7 @@ public class WorldMapScreen extends AbstractScreen {
 		if (storyMode) {
 			Image background = new Image(assetManager.get(WORLD_MAP_BG.getTexture()));
 			background.setPosition(-400, 0);
-			group.addActorAt(0, background);
+			worldGroup.addActorAt(0, background);
 		}
 		else {
 			frameBuffer.begin();
@@ -787,26 +787,38 @@ public class WorldMapScreen extends AbstractScreen {
 					// moss should be in patches adjacent to water
 					GroundType toAdd;
 					
-					if (distance(x, y, 13, 23) < 5) toAdd = GroundType.WATER;
+					if (distance(x, y, 13, 35) < 5) toAdd = GroundType.WATER;
 					else if ((x > 10 && x < 15 && y > 22 && y < 25) || random.nextInt() % 10 == 0) toAdd = GroundType.DIRT;
 					else toAdd = GroundType.RED_LEAF;					
 					
 					layer.add(toAdd);
 					if (toAdd == GroundType.DIRT || toAdd == GroundType.RED_LEAF) {
 						if (random.nextInt() % 20 == 0) {
-							Image tree = new Image(treeTextures.get(Math.abs(random.nextInt() % treeArraySize)));
-							tree.setPosition(x * (scalingFactor + xFactor) - 700, (y - 23) * scalingFactor + (x * scalingFactor / 2) + 700);
+							TextureRegion chosenTree = treeTextures.get(Math.abs(random.nextInt() % treeArraySize));
+							Image tree = new Image(chosenTree);
+							Image shadow = new Image(chosenTree);
+							int trueX = x * (scalingFactor + xFactor) - 700;
+							int trueY = (y - 30) * scalingFactor + (x * scalingFactor / 2) + 700;
+							tree.setPosition(trueX, trueY);
+							shadow.setPosition(trueX + 175, trueY - 40);
+							shadow.setColor(Color.BLACK);
+							shadow.addAction(Actions.alpha(.7f));
+							shadow.rotateBy(135);
 							boolean treeInserted = false;
 							int ii = 0;
 							for (Image treeCompare : trees) {
 								if (tree.getY() > treeCompare.getY()) {
 									treeInserted = true;
 									trees.insert(ii, tree);
+									shadows.insert(ii, shadow);
 									break;
 								}
 								ii++;
 							}
-							if (!treeInserted) trees.add(tree);
+							if (!treeInserted) {
+								trees.add(tree);
+								shadows.add(shadow);
+							}
 						}
 					}
 					
@@ -843,7 +855,7 @@ public class WorldMapScreen extends AbstractScreen {
 				int trueX = x * (scalingFactor + xFactor);
 				int layerSize = ground.get(x).size;
 				for (int y = 0; y < ground.get(x).size; y++) {
-					int trueY = (y - 23) * scalingFactor + (x * scalingFactor / 2);
+					int trueY = (y - 30) * scalingFactor + (x * scalingFactor / 2);
 					for (int i = 0; i < layers.length; i++) {
 						layers[i] = 0;
 					}
@@ -902,19 +914,23 @@ public class WorldMapScreen extends AbstractScreen {
 				for (int jj = 0; jj < 6; jj++) {
 					Image background = new Image(scenery);
 					background.addAction(Actions.moveTo(-700 + ii * (scenery.getRegionWidth()-12), -300 + jj * (scenery.getRegionHeight())));
-					group.addActorAt(0, background);
+					worldGroup.addActorAt(0, background);
 				}
 			}
+			
+			Group shadowGroup = new Group();
+			worldGroup.addActor(shadowGroup);
+			
 			for (Actor shadow : shadows) {
-				group.addActor(shadow);
+				shadowGroup.addActor(shadow);
 			}
 			
 			for (Actor tree : trees) {
-				group.addActor(tree);
+				worldGroup.addActor(tree);
 			}
 			
 			for (Actor rock : rocks) {
-				group.addActor(rock);
+				worldGroup.addActor(rock);
 			}			
 		}
 	}
