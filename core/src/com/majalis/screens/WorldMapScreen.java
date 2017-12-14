@@ -799,11 +799,13 @@ public class WorldMapScreen extends AbstractScreen {
 					GroundType toAdd;
 					
 					if (distance(x, y, 13, 35) < 5) toAdd = GroundType.WATER;
-					else if ((x > 10 && x < 15 && y > 22 && y < 25) || random.nextInt() % 10 == 0) toAdd = GroundType.DIRT;
-					else toAdd = GroundType.RED_LEAF;					
+					else if (distance(x, y, 13, 35) >= 5 && distance(x, y, 13, 35) < 7) toAdd = GroundType.DIRT;
+					else {
+						toAdd = GroundType.valueOf("RED_LEAF_" + Math.abs(random.nextInt() % 6));					
+					}
 					
 					layer.add(toAdd);
-					if (toAdd == GroundType.DIRT || toAdd == GroundType.RED_LEAF) {
+					if (toAdd == GroundType.DIRT || toAdd == GroundType.RED_LEAF_0 || toAdd == GroundType.RED_LEAF_1) {
 						if (random.nextInt() % 20 == 0) {
 							TextureRegion chosenTree = treeTextures.get(Math.abs(random.nextInt() % treeArraySize));
 							Image tree = new Image(chosenTree);
