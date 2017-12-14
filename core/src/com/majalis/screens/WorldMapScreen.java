@@ -736,8 +736,8 @@ public class WorldMapScreen extends AbstractScreen {
 	private final static int tileWidth = 61;
 	private final static int tileHeight = 55;
 	
-	private final static float scalingFactor = 54;
-	private final static float xFactor = -9; // to tesselate properly P\_(ƒc)_/P
+	private final static int scalingFactor = 54;
+	private final static int xFactor = -9; // to tesselate properly P\_(ƒc)_/P
 	
 	private void generateBackground() {
 		backgroundRendered = true;
@@ -769,8 +769,11 @@ public class WorldMapScreen extends AbstractScreen {
 					// bodies of water should be generated as a single central river that runs through the map for now, that randomly twists and turns and bulges at the turns
 					// moss should be in patches adjacent to water
 					//if (x % 2 == 0) layer.add(GroundType.DIRT);
-					if (x > 20 && x < 30 && ((y > 15 && y < 21) || (x > 22 && x < 26 && y > 17 && y < 25))) layer.add(GroundType.DIRT);
+					if (x > 20 && x < 30 && ((y > 15 && y < 21) || (x > 22 && x < 26 && y > 17 && y < 25))) layer.add(GroundType.WATER);
+					else if (x > 10 && x < 15 && y > 22 && y < 25) layer.add(GroundType.DIRT);
 					else layer.add(GroundType.RED_LEAF);
+					
+					
 				}
 			}			
 			
@@ -793,41 +796,53 @@ public class WorldMapScreen extends AbstractScreen {
 			// draw the terrain within a given box - currently attempting to draw all terrain and being truncated
 			int[] layers = new int [GroundType.values().length];
 			for (int x = 0; x < ground.size; x++) {
-				float trueX = x * (scalingFactor + xFactor);
+				int trueX = x * (scalingFactor + xFactor);
 				int layerSize = ground.get(x).size;
 				for (int y = 0; y < ground.get(x).size; y++) {
-					float trueY = (y - 23) * scalingFactor + (x * scalingFactor / 2);
+					int trueY = (y - 23) * scalingFactor + (x * scalingFactor / 2);
 					for (int i = 0; i < layers.length; i++) {
 						layers[i] = 0;
 					}
 					
+					GroundType currentHexType = ground.get(x).get(y);
+					
 					// check the six adjacent tiles and add accordingly
-					if (x + 1 < ground.size) layers[ground.get(x + 1).get(y).ordinal()] += 32;
-					if (y - 1 >= 0)	{
-						if (x + 1 < ground.size) {
-							layers[ground.get(x + 1).get(y - 1).ordinal()] += 16;
-						}
-						layers[ground.get(x).get(y - 1).ordinal()] += 8;
+					if (x + 1 < ground.size) {
+						GroundType temp = ground.get(x + 1).get(y);
+						if (temp != currentHexType) layers[temp.ordinal()] += 1;
 					}
-					if (x - 1 >= 0)	layers[ground.get(x - 1).get(y).ordinal()] += 4;
+					if (y - 1 >= 0)	{
+						if (x + 1 < ground.size) {							
+							GroundType temp = ground.get(x + 1).get(y - 1);
+							if (temp != currentHexType) layers[temp.ordinal()] += 2;
+							
+						}
+						GroundType temp = ground.get(x).get(y - 1);
+						if (temp != currentHexType) layers[temp.ordinal()] += 4;
+					}
+					if (x - 1 >= 0)	{
+						GroundType temp = ground.get(x - 1).get(y);
+						if (temp != currentHexType) layers[temp.ordinal()] += 8;
+					}
 					if (y + 1 < layerSize)	{
 						if (x - 1 >= 0) {
-							layers[ground.get(x - 1).get(y + 1).ordinal()] += 2;
-						}
-						layers[ground.get(x).get(y + 1).ordinal()] += 1;						
+							GroundType temp = ground.get(x - 1).get(y + 1);
+							if (temp != currentHexType) layers[temp.ordinal()] += 16;
+						}		
+						GroundType temp = ground.get(x).get(y + 1);
+						if (temp != currentHexType) layers[temp.ordinal()] += 32;
 					}
 					
 					/*
 					for (int i = 0; i < layers.length; i++) {
-						if (layers[i] != 0) System.out.println(layers[i]);
-					}
-					*/
+						if (layers[i] != 0 && i != GroundType.DIRT.ordinal()) System.out.println("x: " + x + " y: " + y + " type: " +  GroundType.values()[i] + ": " + layers[i]);
+					}*/
 					
 					for (GroundType groundType: GroundType.values()) {
-						if (ground.get(x).get(y) == groundType){
+						if (ground.get(x).get(y) == groundType) {
 							frameBufferBatch.draw(getFullTexture(groundType, groundSheet), trueX, trueY); // with appropriate type
 						}
-						//frameBufferBatch.draw(getTexture(groundType, groundSheet, layers[groundType.ordinal()]), trueX, trueY); // appropriate blend layer
+						frameBufferBatch.draw(getTexture(groundType, groundSheet, layers[groundType.ordinal()]), trueX, trueY); // appropriate blend layer
 					}
 				}
 			}
@@ -846,11 +861,6 @@ public class WorldMapScreen extends AbstractScreen {
 					group.addActorAt(0, background);
 				}
 			}
-			/*
-			Image background = new Image(scenery);
-			background.addAction(Actions.moveTo(-700, -300));
-			group.addActorAt(0, background);
-			*/
 			for (Actor shadow : shadows) {
 				group.addActor(shadow);
 			}
@@ -867,14 +877,14 @@ public class WorldMapScreen extends AbstractScreen {
 	
 	public TextureRegion getFullTexture(GroundType groundType, Texture groundSheet) {
 		String key = groundType.toString();
-		TextureRegion slice = groundSlices.get(key, new TextureRegion(groundSheet, (groundType.ordinal() + 1) * (tileWidth), 0, tileWidth, tileHeight));
+		TextureRegion slice = groundSlices.get(key, new TextureRegion(groundSheet,  (groundType.ordinal() + 1) * (tileWidth) + 1, 0, tileWidth, tileHeight));
 		groundSlices.put(key, slice);
 		return slice;
 	}
 
 	public TextureRegion getTexture(GroundType groundType, Texture groundSheet, int mask) {
 		String key = groundType.toString() + "-" + mask;
-		TextureRegion slice = groundSlices.get(key, new TextureRegion(groundSheet, mask * (tileWidth), (groundType.ordinal() + 1) * (tileHeight), tileWidth, tileHeight));
+		TextureRegion slice = groundSlices.get(key, new TextureRegion(groundSheet, mask * (tileWidth) + 1, (groundType.ordinal()) * (tileHeight), tileWidth, tileHeight));
 		groundSlices.put(key, slice);
 		return slice;
 	}
