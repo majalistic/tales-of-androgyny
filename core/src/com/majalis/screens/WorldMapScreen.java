@@ -139,7 +139,7 @@ public class WorldMapScreen extends AbstractScreen {
 
 		time = loadService.loadDataValue(SaveEnum.TIME, Integer.class);
 		
-		camera.position.set(0, 0, 500);
+		camera.position.set(0, 0, 750);
 		camera.near = 1f;
 		camera.far = 10000;
 		camera.lookAt(0, 0, 0);
