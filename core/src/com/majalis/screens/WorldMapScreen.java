@@ -79,6 +79,7 @@ public class WorldMapScreen extends AbstractScreen {
 	private final PerspectiveCamera cloudCamera;
 	private final Stage dragStage;
 	private final Group worldGroup;
+	private final Group shadowGroup;
 	private final Group cloudGroup;
 	private final Music music;
 	private final FrameBuffer frameBuffer;
@@ -158,6 +159,8 @@ public class WorldMapScreen extends AbstractScreen {
 		// create base group for world stage
 		worldGroup = new Group();
 		this.addActor(worldGroup);
+		
+		shadowGroup = new Group();
 		
 		// load assets
 		hoverImageTexture = assetManager.get(AssetEnum.WORLD_MAP_HOVER.getTexture());		
@@ -302,8 +305,6 @@ public class WorldMapScreen extends AbstractScreen {
 				}
 			});
 		}
-
-		worldGroup.addActor(currentImage);
 		
 		final Sound buttonSound = assetManager.get(AssetEnum.CLICK_SOUND.getSound()); 
 		int storedLevels = character.getStoredLevels();
@@ -692,8 +693,18 @@ public class WorldMapScreen extends AbstractScreen {
 	}
 	
 	private void tintForTimeOfDay() {
+		TimeOfDay timeOfDay = TimeOfDay.getTime(time);
+		
 		for (Actor actor : worldGroup.getChildren()) {
 			actor.setColor(getTimeColor());
+		}
+		for (Actor actor : shadowGroup.getChildren()) {
+			actor.setColor(timeOfDay.getShadowColor());
+			actor.addAction(Actions.alpha(timeOfDay.getShadowAlpha()));
+			actor.setRotation(timeOfDay.getShadowDirection());
+			actor.setScaleY(timeOfDay.getShadowLength());	
+			
+			//shadow.setPosition(trueX + 175, trueY - 40);
 		}
 	}
 	
@@ -800,10 +811,9 @@ public class WorldMapScreen extends AbstractScreen {
 							int trueX = x * (scalingFactor + xFactor) - 700;
 							int trueY = (y - 30) * scalingFactor + (x * scalingFactor / 2) + 700;
 							tree.setPosition(trueX, trueY);
-							shadow.setPosition(trueX + 175, trueY - 40);
-							shadow.setColor(Color.BLACK);
-							shadow.addAction(Actions.alpha(.7f));
-							shadow.rotateBy(135);
+							shadow.setPosition(trueX, trueY);
+							shadow.setOrigin(shadow.getWidth() / 2, 16);
+							
 							boolean treeInserted = false;
 							int ii = 0;
 							for (Image treeCompare : trees) {
@@ -918,7 +928,6 @@ public class WorldMapScreen extends AbstractScreen {
 				}
 			}
 			
-			Group shadowGroup = new Group();
 			worldGroup.addActor(shadowGroup);
 			
 			for (Actor shadow : shadows) {
@@ -931,7 +940,9 @@ public class WorldMapScreen extends AbstractScreen {
 			
 			for (Actor rock : rocks) {
 				worldGroup.addActor(rock);
-			}			
+			}		
+			
+			worldGroup.addActor(currentImage);
 		}
 	}
 	
