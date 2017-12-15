@@ -83,7 +83,6 @@ public class WorldMapScreen extends AbstractScreen {
 	private final Group shadowGroup;
 	private final Group cloudGroup;
 	private final Music music;
-	private final FrameBuffer frameBuffer;
 	private final InputMultiplexer multi;
 	private final AnimatedImage currentImage;
 	private final Skin skin;
@@ -96,13 +95,14 @@ public class WorldMapScreen extends AbstractScreen {
 	private final Label hoverLabel;
 	private final TextButton campButton;
 	private final boolean storyMode;
+	private final RandomXS128 random;
+	
 	private GameWorldNode currentNode;
 	private GameWorldNode hoveredNode;
 	private int time;
 	private boolean backgroundRendered = false;
 	private GameContext currentContext;
-	
-	private final RandomXS128 random;
+	private FrameBuffer frameBuffer;
 	
 	public static final Array<AssetDescriptor<?>> resourceRequirements = new Array<AssetDescriptor<?>>();
 	static {
@@ -230,8 +230,6 @@ public class WorldMapScreen extends AbstractScreen {
 		}
 		
 		cloudStage.addActor(cloudGroup);
-		
-		frameBuffer = new FrameBuffer(Pixmap.Format.RGB888, 2016, 1008, false);
 		
 		multi = new InputMultiplexer();
 		multi.addProcessor(uiStage);
@@ -861,8 +859,8 @@ public class WorldMapScreen extends AbstractScreen {
 			
 			for (int xTile = 0; xTile < 4; xTile++) {
 				for (int yTile = 0; yTile < 6; yTile++) {
-					FrameBuffer frameBuffer2 = new FrameBuffer(Pixmap.Format.RGB888, boxWidth, boxHeight, false);
-					frameBuffer2.begin();
+					frameBuffer = new FrameBuffer(Pixmap.Format.RGB888, boxWidth, boxHeight, false);
+					frameBuffer.begin();
 					SpriteBatch frameBufferBatch = new SpriteBatch();
 					frameBufferBatch.begin();
 					for (int x = 0; x < ground.size; x++) {
@@ -916,9 +914,9 @@ public class WorldMapScreen extends AbstractScreen {
 					}
 		
 					frameBufferBatch.end();
-					frameBuffer2.end();
+					frameBuffer.end();
 					frameBufferBatch.dispose();
-					Image background = new Image(new TextureRegion(frameBuffer2.getColorBufferTexture(), 0, boxHeight, boxWidth, -boxHeight));
+					Image background = new Image(new TextureRegion(frameBuffer.getColorBufferTexture(), 0, boxHeight, boxWidth, -boxHeight));
 					background.addAction(Actions.moveTo(-xScreenBuffer + xTile * boxWidth, -yScreenBuffer + yTile * (boxHeight)));
 					worldGroup.addActorAt(0, background);
 				}
