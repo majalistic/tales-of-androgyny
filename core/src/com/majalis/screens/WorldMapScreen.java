@@ -764,10 +764,6 @@ public class WorldMapScreen extends AbstractScreen {
 			worldGroup.addActorAt(0, background);
 		}
 		else {
-			frameBuffer.begin();
-			SpriteBatch frameBufferBatch = new SpriteBatch();
-			frameBufferBatch.begin();
-			
 			/* MODELLING - SHOULD BE MOVED TO GAME WORLD GEN */
 			
 			Array<Array<GroundType>> ground = new Array<Array<GroundType>>();
@@ -785,10 +781,10 @@ public class WorldMapScreen extends AbstractScreen {
 			}
 			
 			// first figure out what all of the tiles are - dirt, greenLeaf, redLeaf, moss, or water - create a model without drawing anything	
-			for (int x = 0; x < 100; x++) {
+			for (int x = 0; x < 170; x++) {
 				Array<GroundType> layer = new Array<GroundType>();
 				ground.add(layer);
-				for (int y = 0; y < 100; y++) {
+				for (int y = 0; y < 235; y++) {
 					// redLeaf should be the default			
 					// dirt should be randomly spread throughout redLeaf  
 					// greenLeaf might also be randomly spread throughout redLeaf
@@ -796,9 +792,10 @@ public class WorldMapScreen extends AbstractScreen {
 					// moss should be in patches adjacent to water
 					GroundType toAdd;
 					
-					if (distance(x, y, 13, 35) < 5) toAdd = GroundType.WATER;
-					else if (distance(x, y, 13, 35) >= 5 && distance(x, y, 13, 35) < 7) toAdd = GroundType.DIRT;
-					else if (x % 8 == 0) toAdd = GroundType.DIRT;
+					if (distance(x, y, 13, 90) < 5) toAdd = GroundType.WATER;
+					else if (distance(x, y, 13, 90) >= 5 && distance(x, y, 13, 90) < 7) toAdd = GroundType.DIRT;
+					//else if (x == 120 || x == 128 || y == 88 || y == 96) toAdd = GroundType.WATER;
+					//else if (x % 8 == 0 || y % 8 == 0) toAdd = GroundType.DIRT;
 					else {
 						toAdd = GroundType.valueOf("RED_LEAF_" + Math.abs(random.nextInt() % 6));					
 					}
@@ -858,72 +855,76 @@ public class WorldMapScreen extends AbstractScreen {
 						
 			
 			Texture groundSheet = assetManager.get(AssetEnum.GROUND_SHEET.getTexture());
-			
-			// draw the terrain within a given box - currently attempting to draw all terrain and being truncated
-			int[] layers = new int [GroundType.values().length];
-			for (int x = 0; x < ground.size; x++) {
-				int trueX = getTrueX(x);
-				int layerSize = ground.get(x).size;
-				for (int y = 0; y < ground.get(x).size; y++) {
-					int trueY = getTrueY(x, y);
-					for (int i = 0; i < layers.length; i++) {
-						layers[i] = 0;
-					}
-					
-					GroundType currentHexType = ground.get(x).get(y);
-					
-					// check the six adjacent tiles and add accordingly
-					if (x + 1 < ground.size) {
-						GroundType temp = ground.get(x + 1).get(y);
-						if (temp != currentHexType) layers[temp.ordinal()] += 1;
-					}
-					if (y - 1 >= 0)	{
-						if (x + 1 < ground.size) {							
-							GroundType temp = ground.get(x + 1).get(y - 1);
-							if (temp != currentHexType) layers[temp.ordinal()] += 2;
-							
-						}
-						GroundType temp = ground.get(x).get(y - 1);
-						if (temp != currentHexType) layers[temp.ordinal()] += 4;
-					}
-					if (x - 1 >= 0)	{
-						GroundType temp = ground.get(x - 1).get(y);
-						if (temp != currentHexType) layers[temp.ordinal()] += 8;
-					}
-					if (y + 1 < layerSize)	{
-						if (x - 1 >= 0) {
-							GroundType temp = ground.get(x - 1).get(y + 1);
-							if (temp != currentHexType) layers[temp.ordinal()] += 16;
-						}		
-						GroundType temp = ground.get(x).get(y + 1);
-						if (temp != currentHexType) layers[temp.ordinal()] += 32;
-					}
-					
-					for (GroundType groundType: GroundType.values()) {
-						if (currentHexType == groundType) {
-							frameBufferBatch.draw(getFullTexture(groundType, groundSheet), trueX, trueY); // with appropriate type
-						}
-						frameBufferBatch.draw(getTexture(groundType, groundSheet, layers[groundType.ordinal()]), trueX, trueY); // appropriate blend layer
-					}
-				}
-			}
-			
-			frameBufferBatch.end();
-			frameBuffer.end();
-			frameBufferBatch.dispose();
 			int xScreenBuffer = 683;
 			int yScreenBuffer = 165;
 
 			int boxWidth = 2016;
 			int boxHeight = 1008;
+			
+			// draw the terrain within a given box - currently attempting to draw all terrain and being truncated
+			int[] layers = new int [GroundType.values().length];
+			
 			for (int xTile = 0; xTile < 3; xTile++) {
 				for (int yTile = 0; yTile < 6; yTile++) {
-					Image background = new Image(new TextureRegion(frameBuffer.getColorBufferTexture(), 0, boxHeight, boxWidth, -boxHeight));
-					background.addAction(Actions.moveTo(-xScreenBuffer + xTile * (boxWidth), -yScreenBuffer + yTile * (boxHeight)));
+					FrameBuffer frameBuffer2 = new FrameBuffer(Pixmap.Format.RGB888, 2016, boxHeight, false);
+					frameBuffer2.begin();
+					SpriteBatch frameBufferBatch = new SpriteBatch();
+					frameBufferBatch.begin();
+					for (int x = 0; x < ground.size; x++) {
+						int trueX = getTrueX(x) - (boxWidth + 550) * xTile;
+						int layerSize = ground.get(x).size;
+						for (int y = 0; y < ground.get(x).size; y++) {
+							int trueY = getTrueY(x, y) - (boxHeight + 450) * yTile;
+							for (int i = 0; i < layers.length; i++) {
+								layers[i] = 0;
+							}
+							
+							GroundType currentHexType = ground.get(x).get(y);
+							
+							// check the six adjacent tiles and add accordingly
+							if (x + 1 < ground.size) {
+								GroundType temp = ground.get(x + 1).get(y);
+								if (temp != currentHexType) layers[temp.ordinal()] += 1;
+							}
+							if (y - 1 >= 0)	{
+								if (x + 1 < ground.size) {							
+									GroundType temp = ground.get(x + 1).get(y - 1);
+									if (temp != currentHexType) layers[temp.ordinal()] += 2;
+									
+								}
+								GroundType temp = ground.get(x).get(y - 1);
+								if (temp != currentHexType) layers[temp.ordinal()] += 4;
+							}
+							if (x - 1 >= 0)	{
+								GroundType temp = ground.get(x - 1).get(y);
+								if (temp != currentHexType) layers[temp.ordinal()] += 8;
+							}
+							if (y + 1 < layerSize)	{
+								if (x - 1 >= 0) {
+									GroundType temp = ground.get(x - 1).get(y + 1);
+									if (temp != currentHexType) layers[temp.ordinal()] += 16;
+								}		
+								GroundType temp = ground.get(x).get(y + 1);
+								if (temp != currentHexType) layers[temp.ordinal()] += 32;
+							}
+							
+							for (GroundType groundType: GroundType.values()) {
+								if (currentHexType == groundType) {
+									frameBufferBatch.draw(getFullTexture(groundType, groundSheet), trueX, trueY); // with appropriate type
+								}
+								frameBufferBatch.draw(getTexture(groundType, groundSheet, layers[groundType.ordinal()]), trueX, trueY); // appropriate blend layer
+							}
+						}
+					}
+		
+					frameBufferBatch.end();
+					frameBuffer2.end();
+					frameBufferBatch.dispose();
+					Image background = new Image(new TextureRegion(frameBuffer2.getColorBufferTexture() , 0, boxHeight, boxWidth, -boxHeight));
+					background.addAction(Actions.moveTo(-xScreenBuffer + xTile * boxWidth, -yScreenBuffer + yTile * (boxHeight)));
 					worldGroup.addActorAt(0, background);
 				}
 			}
-				
 			
 			worldGroup.addActor(shadowGroup);
 			
@@ -948,7 +949,7 @@ public class WorldMapScreen extends AbstractScreen {
 	}
 	
 	private int getTrueY(int x, int y) {
-		return (y - 30) * scalingFactor + (x) * scalingFactor / 2;
+		return (y - 85) * scalingFactor + (x) * scalingFactor / 2;
 	}
 	
 	public TextureRegion getFullTexture(GroundType groundType, Texture groundSheet) {
