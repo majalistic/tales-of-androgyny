@@ -281,32 +281,6 @@ public class WorldMapScreen extends AbstractScreen {
 		
 		mutateLabels();
 		
-		for (GameWorldNode node : world) {
-			for (Actor actor : node.getPaths()) {
-				worldGroup.addActor(actor);
-			}
-		}
-		for (final GameWorldNode actor : world) {
-			worldGroup.addActor(actor);
-			actor.addListener(new ClickListener(){
-				@Override
-		        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-					String text = actor.getHoverText();
-					hoverLabel.setText(text);
-					if (!text.equals("")) {
-						hoverImage.setVisible(true);
-					}
-					hoveredNode = actor;
-				}
-				@Override
-		        public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
-					hoverLabel.setText("");
-					hoverImage.setVisible(false);
-					hoveredNode = null;
-				}
-			});
-		}
-		
 		final Sound buttonSound = assetManager.get(AssetEnum.CLICK_SOUND.getSound()); 
 		int storedLevels = character.getStoredLevels();
 		
@@ -944,8 +918,31 @@ public class WorldMapScreen extends AbstractScreen {
 				worldGroup.addActor(rock);
 			}		
 			
+			for (GameWorldNode node : world) {
+				for (Actor actor : node.getPaths()) {
+					worldGroup.addActor(actor);
+				}
+			}
+			
 			for (final GameWorldNode actor : world) {
 				worldGroup.addActor(actor);
+				actor.addListener(new ClickListener(){
+					@Override
+			        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
+						String text = actor.getHoverText();
+						hoverLabel.setText(text);
+						if (!text.equals("")) {
+							hoverImage.setVisible(true);
+						}
+						hoveredNode = actor;
+					}
+					@Override
+			        public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
+						hoverLabel.setText("");
+						hoverImage.setVisible(false);
+						hoveredNode = null;
+					}
+				});
 			}
 			
 			worldGroup.addActor(currentImage);
