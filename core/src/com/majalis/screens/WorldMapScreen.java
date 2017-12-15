@@ -725,7 +725,7 @@ public class WorldMapScreen extends AbstractScreen {
 	private final static int tileHeight = 55;
 	
 	private final static int scalingFactor = 54;
-	private final static int xFactor = -9; // to tesselate properly ÅP\_(Éc)_/ÅP
+	private final static int xFactor = -9; // to tessellate properly ÅP\_(Éc)_/ÅP
 	
 	private final int distance(int x, int y, int x2, int y2) {
 		return Math.max(Math.max(Math.abs(x - x2), Math.abs(y - y2)), Math.abs((0 - (x + y)) - (0 - (x2 + y2))));				
@@ -954,7 +954,7 @@ public class WorldMapScreen extends AbstractScreen {
 	}
 	
 	private int getTrueY(int x, int y) {
-		return (y - 85) * scalingFactor + (x) * scalingFactor / 2;
+		return (y - 85) * scalingFactor + (x - 16) * scalingFactor / 2;
 	}
 	
 	public TextureRegion getFullTexture(GroundType groundType, Texture groundSheet) {
