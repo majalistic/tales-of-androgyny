@@ -761,11 +761,15 @@ public class WorldMapScreen extends AbstractScreen {
 			
 			Texture treeTexturesSheet = assetManager.get(AssetEnum.DOODADS.getTexture());
 			Array<TextureRegion> treeTextures = new Array<TextureRegion>();
+			Array<TextureRegion> shadowTextures = new Array<TextureRegion>();
 			int treeArraySize = 26;
 			int treeWidth = 192;
 			int treeHeight = 256;
 			for (int ii = 0; ii < treeArraySize; ii++) {
 				treeTextures.add(new TextureRegion(treeTexturesSheet, ii * treeWidth, 0, treeWidth, treeHeight));
+				TextureRegion shadowTexture = new TextureRegion(treeTexturesSheet, ii * treeWidth, 0, treeWidth, treeHeight);
+				shadowTexture.flip(true, false);
+				shadowTextures.add(shadowTexture);
 			}
 			
 			int xScreenBuffer = 683;
@@ -797,9 +801,9 @@ public class WorldMapScreen extends AbstractScreen {
 					layer.add(toAdd);
 					if (closest < 2 && toAdd == GroundType.DIRT || toAdd == GroundType.RED_LEAF_0 || toAdd == GroundType.RED_LEAF_1) {
 						if (random.nextInt() % 20 == 0) {
-							TextureRegion chosenTree = treeTextures.get(Math.abs(random.nextInt() % treeArraySize));
-							Image tree = new Image(chosenTree);
-							Image shadow = new Image(chosenTree);
+							int chosenTree = Math.abs(random.nextInt() % treeArraySize);
+							Image tree = new Image(treeTextures.get(chosenTree));
+							Image shadow = new Image(shadowTextures.get(chosenTree));
 							int trueX = getTrueX(x) - (int)tree.getWidth() / 2 + tileWidth / 2;
 							int trueY = getTrueY(x, y) + tileHeight / 2;
 							tree.setPosition(trueX , trueY);
