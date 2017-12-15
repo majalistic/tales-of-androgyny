@@ -27,8 +27,7 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 	private final Array<Path> paths;
 	private final int nodeCode;
 	private final GameWorldNodeEncounter encounter;
-	// for determining where to draw this node at
-	private final Vector2 position;
+
 	private final int x;
 	private final int y;
 	private final Sound sound;
@@ -51,7 +50,7 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 		this.encounter = encounter;
 		this.x = x;
 		this.y = y;
-		this.position = calculatePosition(x, y);
+		
 		this.nodeCode = nodeCode;
 		this.visited = visited;
 
@@ -67,7 +66,8 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 		
 		this.addAction(Actions.visible(true));
 		this.addAction(Actions.show());
-		this.setBounds(this.position.x, this.position.y, activeImage.getWidth(), activeImage.getHeight());
+		Vector2 position = calculatePosition(x, y);
+		this.setBounds(position.x, position.y, activeImage.getWidth(), activeImage.getHeight());
 		arrowHeight = 0;
 		arrowShift = 1;
 		visibility = -1;
@@ -86,17 +86,17 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 		if (hover && active) {
 			Color cache = batch.getColor();
 			batch.setColor(Color.GREEN);
-			batch.draw(activeImage, position.x, position.y);
+			batch.draw(activeImage, getX(), getY());
 			batch.setColor(cache);
 		}
 		else {	
-			batch.draw(activeImage, position.x, position.y);
+			batch.draw(activeImage, getX(), getY());
 		}
 		
 		if(active) {
 			Color cache = batch.getColor();
 			batch.setColor(Color.WHITE);
-			batch.draw(arrowImage, position.x+25, position.y+45+arrowHeight/5);
+			batch.draw(arrowImage, getX() + 25, getY() + 45 + arrowHeight / 5);
 			batch.setColor(cache);
 			arrowHeight += arrowShift;
 			if (arrowHeight > 100 || arrowHeight < 0) arrowShift = 0 - arrowShift;
@@ -105,10 +105,13 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
     }
 	
 	private static int scaleFactor = 25;
+	//private static int scalingFactor = 54;
+	//private static int xFactor = -9;
 	
 	// x < -8 is off the left side of the screen with a scale factor of 25; 2y + x < 10 is off the bottom side
 	private Vector2 calculatePosition(int x, int y) {
 		return new Vector2(x * scaleFactor, y * scaleFactor + (x * (scaleFactor / 2)));
+		//return new Vector2((x - 16) * (scalingFactor + xFactor), (y - 85) * scalingFactor + x * scalingFactor / 2);
 	}
 	
 	@Override
@@ -120,15 +123,14 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 	}
 	
 	@Override
-	public int compareTo(GameWorldNode otherNode) { return otherNode.getX() >= position.x ? 1 : -1; }	
+	public int compareTo(GameWorldNode otherNode) { return otherNode.getX() >= getX() ? 1 : -1; }	
 	
 	/*
 	 * Code used for building out connections
 	 */
-	protected Vector2 getPosition() { return position; }
 	protected boolean isOverlapping(GameWorldNode otherNode) { return isOverlapping(otherNode.getHexPosition()); }
-	protected boolean isOverlapping(Vector2 otherNode) { 
-		return getDistance(otherNode) <= 5;
+	public boolean isOverlapping(Vector2 otherNode) { 
+		return getDistance(otherNode) <= 5;//3;
 	}
 	
 	protected boolean isAdjacent(GameWorldNode otherNode) {
@@ -136,7 +138,7 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 	}
 	
 	public boolean isAdjacent(Vector2 possible) {
-		return getDistance(possible) <= 11;
+		return getDistance(possible) <= 11;//6;
 	}
 	
 	protected int getDistance(Vector2 otherNodePosition) {
@@ -157,7 +159,7 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 		}
 		connectedNodes.add(otherNode);
 		Vector2 centering = new Vector2(activeImage.getWidth()/2-10, activeImage.getHeight()/2);
-		paths.add(new Path(roadImage, new Vector2(position).add(centering), new Vector2(otherNode.getPosition()).add(centering)));
+		paths.add(new Path(roadImage, new Vector2(getX(), getY()).add(centering), new Vector2(otherNode.getX(), otherNode.getY()).add(centering)));
 		otherNode.getConnected(this);
 	}
 	
