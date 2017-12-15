@@ -546,6 +546,7 @@ public enum EncounterCode {
 	public static IntMap<Array<EncounterCode>> encounterMap;
 	private static boolean iceCreamReady;
 	private static boolean hungerCharmReady;
+	private static ObjectSet<EncounterCode> unspawnedEncounters;
 	static {
 		encounterMap = new IntMap<Array<EncounterCode>>();
 		encounterMap.put(1, new Array<EncounterCode>(new EncounterCode[]{WERESLUT, HARPY, SLIME, BRIGAND, DRYAD, CENTAUR, GOBLIN, ORC, FOOD_CACHE, GOLD_CACHE, DAMAGE_TRAP, ANAL_TRAP, HUNGER_CHARM}));
@@ -554,12 +555,14 @@ public enum EncounterCode {
 		
 		iceCreamReady = true;
 		hungerCharmReady = true;
+		unspawnedEncounters = new ObjectSet<EncounterCode>(getAllRandomEncounters());
 	}
 	
 	// FOR TESTING PURPOSES ONLY
 	public static void resetState() { 
 		iceCreamReady = true;
 		hungerCharmReady = true;
+		unspawnedEncounters = new ObjectSet<EncounterCode>(getAllRandomEncounters());
 	}
 	
 	public static ObjectSet<EncounterCode> getAllRandomEncounters() {
@@ -571,6 +574,15 @@ public enum EncounterCode {
 	}
 	
 	public static EncounterCode getEncounterCode(int rawCode, int difficulty) {
+		for (int difficultyTier = difficulty; difficultyTier >= 1; difficultyTier--) {
+			for (EncounterCode encounter : encounterMap.get(difficultyTier)) {
+				if (unspawnedEncounters.contains(encounter)) {
+					unspawnedEncounters.remove(encounter);
+					return encounter;
+				}
+			}
+		}
+		
 		Array<EncounterCode> encounterArray = encounterMap.get(difficulty);
 		EncounterCode newEncounter = encounterArray.get(rawCode % encounterArray.size);
 		if (newEncounter == ICE_CREAM) {
@@ -589,6 +601,12 @@ public enum EncounterCode {
 				newEncounter = FOOD_CACHE;
 			}
 		}
+		for (EncounterCode encounter : encounterArray) {
+			if (unspawnedEncounters.contains(encounter)) {
+				newEncounter = encounter;
+			}
+		}
+		unspawnedEncounters.remove(newEncounter);
 		return newEncounter;
 	}
 
