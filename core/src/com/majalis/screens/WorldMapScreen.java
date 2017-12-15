@@ -909,19 +909,21 @@ public class WorldMapScreen extends AbstractScreen {
 			}
 			
 			frameBufferBatch.end();
-			frameBuffer.end();		
+			frameBuffer.end();
 			frameBufferBatch.dispose();
 			TextureRegion scenery = new TextureRegion(frameBuffer.getColorBufferTexture());
+			
+			scenery.setRegion(20, scenery.getRegionHeight(), scenery.getRegionWidth() - 116, -scenery.getRegionHeight());
+			for (int xTile = 0; xTile < 3; xTile++) {
+				for (int yTile = 0; yTile < 6; yTile++) {
 				
-			scenery.setRegion(20, 0, scenery.getRegionWidth() - 116, scenery.getRegionHeight()); 
-			scenery.flip(false, true);
-			for (int ii = 0; ii < 3; ii++) {
-				for (int jj = 0; jj < 6; jj++) {
 					Image background = new Image(scenery);
-					background.addAction(Actions.moveTo(-700 + ii * (scenery.getRegionWidth()-12), -300 + jj * (scenery.getRegionHeight())));
+					background.addAction(Actions.moveTo(-700 + xTile * (scenery.getRegionWidth()-12), -300 + yTile * (scenery.getRegionHeight())));
+					
 					worldGroup.addActorAt(0, background);
 				}
 			}
+				
 			
 			worldGroup.addActor(shadowGroup);
 			
