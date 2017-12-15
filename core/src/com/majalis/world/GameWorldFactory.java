@@ -60,55 +60,55 @@ public class GameWorldFactory {
 		
 		if (gameMode == GameMode.SKIRMISH) {
 			new Zone(loadService, assetManager, random, nodes, nodeMap, 1,  1)
-				.addStartNode(1, INITIAL, DEFAULT, 3, 10)
-				.addEndNode(10000, GADGETEER, GADGETEER, 3, 32)
+				.addStartNode(1, INITIAL, DEFAULT, 18, 89) 
+				.addEndNode(10000, GADGETEER, GADGETEER,  18, 100)
 				.buildZone();
 			
 			Zone zone = new Zone(loadService, assetManager, random, nodes, nodeMap, 1,  2)
 					.addStartNode(nodes.get(0))
-					.addEndNode(1000, TOWN, TOWN, 27, 22)
+					.addEndNode(1000, TOWN, TOWN, 31, 94)
 					//.addEndNode(5000, CRIER_QUEST, CRIER_QUEST, new Vector2(1300, 1300))
 					.buildZone();
 			
 			Zone zone2 = new Zone(loadService, assetManager, random, nodes, nodeMap, 2,  3)
 					.addStartNode(zone.getEndNodes().get(0))
-					.addEndNode(1001, SPIDER, SPIDER, 66, 60)
+					.addEndNode(1001, SPIDER, SPIDER, 53, 109)
 					.buildZone();
 			
 			Zone zone3 = new Zone(loadService, assetManager, random, nodes, nodeMap, 2, 2)
 					.addStartNode(zone2.getEndNodes().get(0))
-					.addEndNode(1003, ANGEL, ANGEL, 120, 87)
-					.addEndNode(1004, ANGEL, ANGEL, 120, 20)
+					.addEndNode(1003, ANGEL, ANGEL, 83, 119)
+					.addEndNode(1004, ANGEL, ANGEL, 83, 88)
 					.buildZone();
 			
 			new Zone(loadService, assetManager, random, nodes, nodeMap, 3, 2)
 					.addStartNode(zone3.getEndNodes().get(0))
-					.addEndNode(1005, FORT, FORT, 185, 87)
-					.addEndNode(1006, FORT, FORT, 185, 20)
+					.addEndNode(1005, FORT, FORT, 119, 115)
+					.addEndNode(1006, FORT, FORT, 119, 84)
 					.buildZone();
 
 		}
 		else {
 			int nodeCode = 1;
 			IntSet visitedCodesSet = loadService.loadDataValue(SaveEnum.VISITED_LIST, IntSet.class);
-			addNode(getNode(nodeCode, DEFAULT, DEFAULT, -8, 15, visitedCodesSet.contains(nodeCode++)), nodes);
-			addNode(getNode(nodeCode, COTTAGE_TRAINER, COTTAGE_TRAINER_VISIT, -2, 12, visitedCodesSet.contains(nodeCode++)), nodes);
-			addNode(getNode(nodeCode, TOWN_STORY, TOWN2, 5, 11, visitedCodesSet.contains(nodeCode++)), nodes);
-			addNode(getNode(nodeCode, FIRST_BATTLE_STORY, DEFAULT, 13, 12, visitedCodesSet.contains(nodeCode++)), nodes);
-			addNode(getNode(nodeCode, EncounterCode.MERI_COTTAGE, EncounterCode.MERI_COTTAGE_VISIT, 13, 4, visitedCodesSet.contains(nodeCode++)), nodes);
-			addNode(getNode(nodeCode, EncounterCode.ECCENTRIC_MERCHANT, DEFAULT, 22, 10, visitedCodesSet.contains(nodeCode++)), nodes);	
-			addNode(getNode(nodeCode, EncounterCode.STORY_FEM, DEFAULT, 21, 16, visitedCodesSet.contains(nodeCode++)), nodes);
-			addNode(getNode(nodeCode, EncounterCode.STORY_SIGN, DEFAULT, 29, 16, visitedCodesSet.contains(nodeCode++)), nodes);
-			addNode(getNode(nodeCode, EncounterCode.BRIGAND_STORY, DEFAULT, 28, 25, visitedCodesSet.contains(nodeCode++)), nodes);
-			addNode(getNode(nodeCode, EncounterCode.HARPY_STORY, DEFAULT, 38, 12, visitedCodesSet.contains(nodeCode++)), nodes);
-			addNode(getNode(nodeCode, EncounterCode.FOOD_CACHE, DEFAULT, 38, 22, visitedCodesSet.contains(nodeCode++)), nodes);
+			addNode(getNode(nodeCode, DEFAULT, DEFAULT, 12, 92, visitedCodesSet.contains(nodeCode++)), nodes);
+			addNode(getNode(nodeCode, COTTAGE_TRAINER, COTTAGE_TRAINER_VISIT, 15, 91, visitedCodesSet.contains(nodeCode++)), nodes);
+			addNode(getNode(nodeCode, TOWN_STORY, TOWN2, 19, 90, visitedCodesSet.contains(nodeCode++)), nodes);
+			addNode(getNode(nodeCode, FIRST_BATTLE_STORY, DEFAULT, 23, 90, visitedCodesSet.contains(nodeCode++)), nodes);
+			addNode(getNode(nodeCode, MERI_COTTAGE, MERI_COTTAGE_VISIT, 23, 86, visitedCodesSet.contains(nodeCode++)), nodes);
+			addNode(getNode(nodeCode, ECCENTRIC_MERCHANT, DEFAULT, 28, 88, visitedCodesSet.contains(nodeCode++)), nodes);	
+			addNode(getNode(nodeCode, STORY_FEM, DEFAULT, 28, 91, visitedCodesSet.contains(nodeCode++)), nodes);
+			addNode(getNode(nodeCode, STORY_SIGN, DEFAULT, 32, 91, visitedCodesSet.contains(nodeCode++)), nodes);
+			addNode(getNode(nodeCode, BRIGAND_STORY, DEFAULT, 31, 95, visitedCodesSet.contains(nodeCode++)), nodes);
+			addNode(getNode(nodeCode, HARPY_STORY, DEFAULT, 37, 88, visitedCodesSet.contains(nodeCode++)), nodes);
+			addNode(getNode(nodeCode, FOOD_CACHE, DEFAULT, 37, 93, visitedCodesSet.contains(nodeCode++)), nodes);
 			
-			addNode(getNode(nodeCode, EncounterCode.FOOD_CACHE, DEFAULT, 7, 21, visitedCodesSet.contains(nodeCode++)), nodes);
-			addNode(getNode(nodeCode, EncounterCode.OGRE_WARNING_STORY, DEFAULT, 6, 28, visitedCodesSet.contains(nodeCode++)), nodes);	
-			addNode(getNode(nodeCode, EncounterCode.OGRE_STORY, DEFAULT, 6, 34, visitedCodesSet.contains(nodeCode++)), nodes);
+			addNode(getNode(nodeCode, FOOD_CACHE, DEFAULT, 20, 95, visitedCodesSet.contains(nodeCode++)), nodes);
+			addNode(getNode(nodeCode, OGRE_WARNING_STORY, DEFAULT, 19, 99, visitedCodesSet.contains(nodeCode++)), nodes);	
+			addNode(getNode(nodeCode, OGRE_STORY, DEFAULT, 19, 103, visitedCodesSet.contains(nodeCode++)), nodes);
 			
-			addNode(getNode(nodeCode, EncounterCode.FOOD_CACHE, DEFAULT, 4, 42, visitedCodesSet.contains(nodeCode++)), nodes);
-			addNode(getNode(nodeCode, EncounterCode.FORT, FORT, 5, 48, visitedCodesSet.contains(nodeCode++)), nodes);
+			addNode(getNode(nodeCode, FOOD_CACHE, DEFAULT, 24, 102, visitedCodesSet.contains(nodeCode++)), nodes);
+			addNode(getNode(nodeCode, FORT, FORT, 29, 102, visitedCodesSet.contains(nodeCode++)), nodes);
 			
 			/*new Zone(loadService, assetManager, random, nodes, nodeMap, 1, 1)
 				.addStartNode(nodes.get(nodes.size-1))

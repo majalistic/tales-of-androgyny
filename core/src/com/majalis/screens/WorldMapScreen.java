@@ -20,6 +20,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.badlogic.gdx.math.RandomXS128;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -731,6 +732,14 @@ public class WorldMapScreen extends AbstractScreen {
 		return Math.max(Math.max(Math.abs(x - x2), Math.abs(y - y2)), Math.abs((0 - (x + y)) - (0 - (x2 + y2))));				
 	}
 	
+	private boolean worldCollide(int x, int y) {
+		Vector2 collider = new Vector2(x, y);
+		for (GameWorldNode node : world) {
+			if (node.isOverlapping(collider)) return true;
+		}
+		return false;
+	}
+	
 	private void generateBackground() {
 		backgroundRendered = true;
 		if (storyMode) {
@@ -769,6 +778,12 @@ public class WorldMapScreen extends AbstractScreen {
 					// greenLeaf might also be randomly spread throughout redLeaf
 					// bodies of water should be generated as a single central river that runs through the map for now, that randomly twists and turns and bulges at the turns
 					// moss should be in patches adjacent to water
+					
+					if (worldCollide(x, y)) {
+						layer.add(GroundType.DIRT);
+						continue;
+					}
+					
 					GroundType toAdd;
 					
 					if (distance(x, y, 13, 90) < 5) toAdd = GroundType.WATER;

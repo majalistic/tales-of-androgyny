@@ -104,14 +104,20 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 		super.draw(batch, parentAlpha);
     }
 	
-	private static int scaleFactor = 25;
-	//private static int scalingFactor = 54;
-	//private static int xFactor = -9;
+	private static int scalingFactor = 54;
+	private static int xFactor = -9;
 	
 	// x < -8 is off the left side of the screen with a scale factor of 25; 2y + x < 10 is off the bottom side
 	private Vector2 calculatePosition(int x, int y) {
-		return new Vector2(x * scaleFactor, y * scaleFactor + (x * (scaleFactor / 2)));
-		//return new Vector2((x - 16) * (scalingFactor + xFactor), (y - 85) * scalingFactor + x * scalingFactor / 2);
+		return new Vector2(getTrueX(x), getTrueY(x, y));
+	}
+	
+	private int getTrueX(int x) {
+		return (x - 16) * (scalingFactor + xFactor);
+	}
+	
+	private int getTrueY(int x, int y) {
+		return (y - 85) * scalingFactor + (x - 16) * scalingFactor / 2;
 	}
 	
 	@Override
@@ -130,7 +136,7 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 	 */
 	protected boolean isOverlapping(GameWorldNode otherNode) { return isOverlapping(otherNode.getHexPosition()); }
 	public boolean isOverlapping(Vector2 otherNode) { 
-		return getDistance(otherNode) <= 5;//3;
+		return getDistance(otherNode) <= 3;
 	}
 	
 	protected boolean isAdjacent(GameWorldNode otherNode) {
@@ -138,7 +144,7 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 	}
 	
 	public boolean isAdjacent(Vector2 possible) {
-		return getDistance(possible) <= 11;//6;
+		return getDistance(possible) <= 6;
 	}
 	
 	protected int getDistance(Vector2 otherNodePosition) {
