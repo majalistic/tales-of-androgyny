@@ -690,16 +690,16 @@ public class WorldMapScreen extends AbstractScreen {
 		int speed = 8;
 		if (Gdx.input.isKeyPressed(Keys.SHIFT_LEFT)) speed = 16;
 		
-		if (Gdx.input.isKeyPressed(Keys.LEFT) && camera.position.x > 500) {
+		if (Gdx.input.isKeyPressed(Keys.LEFT) && !Gdx.input.isKeyPressed(Keys.RIGHT) && camera.position.x > 500) {
 			translationVector.x -= speed;
 		}
-		else if (Gdx.input.isKeyPressed(Keys.RIGHT) && camera.position.x < (storyMode ? 1000 : 4000)) {
+		if (Gdx.input.isKeyPressed(Keys.RIGHT) && !Gdx.input.isKeyPressed(Keys.LEFT) && camera.position.x < (storyMode ? 1000 : 4000)) {
 			translationVector.x += speed;
 		}
-		if (Gdx.input.isKeyPressed(Keys.DOWN) && camera.position.y > 500) {
+		if (Gdx.input.isKeyPressed(Keys.DOWN) && !Gdx.input.isKeyPressed(Keys.UP) && camera.position.y > 500) {
 			translationVector.y -= speed;
 		}
-		else if (Gdx.input.isKeyPressed(Keys.UP) && camera.position.y < (storyMode ? 1000 : 4600)) {
+		if (Gdx.input.isKeyPressed(Keys.UP) && !Gdx.input.isKeyPressed(Keys.DOWN) && camera.position.y < (storyMode ? 1000 : 4600)) {
 			translationVector.y += speed;
 		}
 		translateCamera(translationVector);
