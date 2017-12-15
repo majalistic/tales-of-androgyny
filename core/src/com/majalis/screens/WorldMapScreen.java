@@ -798,6 +798,7 @@ public class WorldMapScreen extends AbstractScreen {
 					
 					if (distance(x, y, 13, 35) < 5) toAdd = GroundType.WATER;
 					else if (distance(x, y, 13, 35) >= 5 && distance(x, y, 13, 35) < 7) toAdd = GroundType.DIRT;
+					else if (x % 8 == 0) toAdd = GroundType.DIRT;
 					else {
 						toAdd = GroundType.valueOf("RED_LEAF_" + Math.abs(random.nextInt() % 6));					
 					}
@@ -911,15 +912,15 @@ public class WorldMapScreen extends AbstractScreen {
 			frameBufferBatch.end();
 			frameBuffer.end();
 			frameBufferBatch.dispose();
-			TextureRegion scenery = new TextureRegion(frameBuffer.getColorBufferTexture());
-			
-			scenery.setRegion(20, scenery.getRegionHeight(), scenery.getRegionWidth() - 116, -scenery.getRegionHeight());
+			int xScreenBuffer = 683;
+			int yScreenBuffer = 165;
+
+			int boxWidth = 2016;
+			int boxHeight = 1008;
 			for (int xTile = 0; xTile < 3; xTile++) {
 				for (int yTile = 0; yTile < 6; yTile++) {
-				
-					Image background = new Image(scenery);
-					background.addAction(Actions.moveTo(-700 + xTile * (scenery.getRegionWidth()-12), -300 + yTile * (scenery.getRegionHeight())));
-					
+					Image background = new Image(new TextureRegion(frameBuffer.getColorBufferTexture(), 0, boxHeight, boxWidth, -boxHeight));
+					background.addAction(Actions.moveTo(-xScreenBuffer + xTile * (boxWidth), -yScreenBuffer + yTile * (boxHeight)));
 					worldGroup.addActorAt(0, background);
 				}
 			}
