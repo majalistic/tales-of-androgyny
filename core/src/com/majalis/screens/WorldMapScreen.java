@@ -781,6 +781,9 @@ public class WorldMapScreen extends AbstractScreen {
 				treeTextures.add(new TextureRegion(treeTexturesSheet, ii * treeWidth, 0, treeWidth, treeHeight));
 			}
 			
+			int xScreenBuffer = 683;
+			int yScreenBuffer = 165;
+			
 			// first figure out what all of the tiles are - dirt, greenLeaf, redLeaf, moss, or water - create a model without drawing anything	
 			for (int x = 0; x < 170; x++) {
 				Array<GroundType> layer = new Array<GroundType>();
@@ -807,9 +810,9 @@ public class WorldMapScreen extends AbstractScreen {
 							TextureRegion chosenTree = treeTextures.get(Math.abs(random.nextInt() % treeArraySize));
 							Image tree = new Image(chosenTree);
 							Image shadow = new Image(chosenTree);
-							int trueX = getTrueX(x) - 700;
-							int trueY = getTrueY(x, y) + 700;
-							tree.setPosition(trueX, trueY);
+							int trueX = getTrueX(x) - xScreenBuffer - (int)tree.getWidth() / 2 + tileWidth / 2;
+							int trueY = getTrueY(x, y) - yScreenBuffer + tileHeight / 2;
+							tree.setPosition(trueX , trueY);
 							shadow.setPosition(trueX, trueY);
 							shadow.setOrigin(shadow.getWidth() / 2, 16);
 							
@@ -855,28 +858,26 @@ public class WorldMapScreen extends AbstractScreen {
 			// then draw (add drawings as actors) ground layer
 						
 			Texture groundSheet = assetManager.get(AssetEnum.GROUND_SHEET.getTexture());
-			int xScreenBuffer = 683;
-			int yScreenBuffer = 165;
 
-			int boxWidth = 2016;
-			int boxHeight = 1008;
+			int boxWidth = 2560;
+			int boxHeight = 1440;
 			
 			// draw the terrain within a given box - currently attempting to draw all terrain and being truncated
 			int[] layers = new int [GroundType.values().length];
 			
-			for (int xTile = 0; xTile < 3; xTile++) {
+			for (int xTile = 0; xTile < 4; xTile++) {
 				for (int yTile = 0; yTile < 6; yTile++) {
-					FrameBuffer frameBuffer2 = new FrameBuffer(Pixmap.Format.RGB888, 2016, boxHeight, false);
+					FrameBuffer frameBuffer2 = new FrameBuffer(Pixmap.Format.RGB888, boxWidth, boxHeight, false);
 					frameBuffer2.begin();
 					SpriteBatch frameBufferBatch = new SpriteBatch();
 					frameBufferBatch.begin();
 					for (int x = 0; x < ground.size; x++) {
-						int trueX = getTrueX(x) - (boxWidth + 550) * xTile;
-						if (trueX < -60 || trueX > boxWidth + 600) continue;
+						int trueX = getTrueX(x) - (boxWidth) * xTile;
+						if (trueX < -60 || trueX > boxWidth + 50) continue;
 						int layerSize = ground.get(x).size;
 						for (int y = 0; y < ground.get(x).size; y++) {
-							int trueY = getTrueY(x, y) - (boxHeight + 450) * yTile;
-							if (trueY < -60 || trueY > boxHeight + 500) continue;
+							int trueY = getTrueY(x, y) - (boxHeight) * yTile;
+							if (trueY < -60 || trueY > boxHeight + 50) continue;
 							for (int i = 0; i < layers.length; i++) {
 								layers[i] = 0;
 							}
@@ -913,6 +914,7 @@ public class WorldMapScreen extends AbstractScreen {
 							for (GroundType groundType: GroundType.values()) {
 								if (currentHexType == groundType) {
 									frameBufferBatch.draw(getFullTexture(groundType, groundSheet), trueX, trueY); // with appropriate type
+									
 								}
 								frameBufferBatch.draw(getTexture(groundType, groundSheet, layers[groundType.ordinal()]), trueX, trueY); // appropriate blend layer
 							}
@@ -922,7 +924,7 @@ public class WorldMapScreen extends AbstractScreen {
 					frameBufferBatch.end();
 					frameBuffer2.end();
 					frameBufferBatch.dispose();
-					Image background = new Image(new TextureRegion(frameBuffer2.getColorBufferTexture() , 0, boxHeight, boxWidth, -boxHeight));
+					Image background = new Image(new TextureRegion(frameBuffer2.getColorBufferTexture(), 0, boxHeight, boxWidth, -boxHeight));
 					background.addAction(Actions.moveTo(-xScreenBuffer + xTile * boxWidth, -yScreenBuffer + yTile * (boxHeight)));
 					worldGroup.addActorAt(0, background);
 				}
@@ -951,7 +953,7 @@ public class WorldMapScreen extends AbstractScreen {
 	}
 	
 	private int getTrueX(int x) {
-		return (x) * (scalingFactor + xFactor);
+		return (x - 1) * (scalingFactor + xFactor);
 	}
 	
 	private int getTrueY(int x, int y) {
