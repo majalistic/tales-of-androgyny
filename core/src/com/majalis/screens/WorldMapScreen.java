@@ -810,8 +810,8 @@ public class WorldMapScreen extends AbstractScreen {
 							TextureRegion chosenTree = treeTextures.get(Math.abs(random.nextInt() % treeArraySize));
 							Image tree = new Image(chosenTree);
 							Image shadow = new Image(chosenTree);
-							int trueX = getTrueX(x) - xScreenBuffer - (int)tree.getWidth() / 2 + tileWidth / 2;
-							int trueY = getTrueY(x, y) - yScreenBuffer + tileHeight / 2;
+							int trueX = getTrueX(x) - (int)tree.getWidth() / 2 + tileWidth / 2;
+							int trueY = getTrueY(x, y) + tileHeight / 2;
 							tree.setPosition(trueX , trueY);
 							shadow.setPosition(trueX, trueY);
 							shadow.setOrigin(shadow.getWidth() / 2, 16);
@@ -872,11 +872,11 @@ public class WorldMapScreen extends AbstractScreen {
 					SpriteBatch frameBufferBatch = new SpriteBatch();
 					frameBufferBatch.begin();
 					for (int x = 0; x < ground.size; x++) {
-						int trueX = getTrueX(x) - (boxWidth) * xTile;
+						int trueX = getTrueX(x) - (boxWidth) * xTile + xScreenBuffer;
 						if (trueX < -60 || trueX > boxWidth + 50) continue;
 						int layerSize = ground.get(x).size;
 						for (int y = 0; y < ground.get(x).size; y++) {
-							int trueY = getTrueY(x, y) - (boxHeight) * yTile;
+							int trueY = getTrueY(x, y) - (boxHeight) * yTile + yScreenBuffer;
 							if (trueY < -60 || trueY > boxHeight + 50) continue;
 							for (int i = 0; i < layers.length; i++) {
 								layers[i] = 0;
@@ -953,7 +953,7 @@ public class WorldMapScreen extends AbstractScreen {
 	}
 	
 	private int getTrueX(int x) {
-		return (x - 1) * (scalingFactor + xFactor);
+		return (x - 16) * (scalingFactor + xFactor);
 	}
 	
 	private int getTrueY(int x, int y) {
