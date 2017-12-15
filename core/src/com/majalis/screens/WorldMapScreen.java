@@ -60,6 +60,7 @@ import com.majalis.save.SaveManager.GameMode;
 import com.majalis.scenes.MutationActor;
 import com.majalis.save.SaveService;
 import com.majalis.save.MutationResult.MutationType;
+import com.majalis.world.GameWorldHelper;
 import com.majalis.world.GameWorldNode;
 import com.majalis.world.GroundType;
 /*
@@ -723,9 +724,6 @@ public class WorldMapScreen extends AbstractScreen {
 	private final static int tileWidth = 61;
 	private final static int tileHeight = 55;
 	
-	private final static int scalingFactor = 54;
-	private final static int xFactor = -9; // to tessellate properly ÅP\_(Éc)_/ÅP
-	
 	private final int distance(int x, int y, int x2, int y2) {
 		return Math.max(Math.max(Math.abs(x - x2), Math.abs(y - y2)), Math.abs((0 - (x + y)) - (0 - (x2 + y2))));				
 	}
@@ -772,12 +770,14 @@ public class WorldMapScreen extends AbstractScreen {
 			
 			int xScreenBuffer = 683;
 			int yScreenBuffer = 165;
+			int maxX = 170;
+			int maxY = 235;
 			
 			// first figure out what all of the tiles are - dirt, greenLeaf, redLeaf, moss, or water - create a model without drawing anything	
-			for (int x = 0; x < 170; x++) {
+			for (int x = 0; x < maxX; x++) {
 				Array<GroundType> layer = new Array<GroundType>();
 				ground.add(layer);
-				for (int y = 0; y < 235; y++) {
+				for (int y = 0; y < maxY; y++) {
 					// redLeaf should be the default			
 					// dirt should be randomly spread throughout redLeaf  
 					// greenLeaf might also be randomly spread throughout redLeaf
@@ -969,13 +969,13 @@ public class WorldMapScreen extends AbstractScreen {
 		}
 		worldGroup.addActor(currentImage);
 	}
-	
+
 	private int getTrueX(int x) {
-		return (x - 16) * (scalingFactor + xFactor);
+		return GameWorldHelper.getTrueX(x);
 	}
 	
 	private int getTrueY(int x, int y) {
-		return (y - 85) * scalingFactor + (x - 16) * scalingFactor / 2;
+		return GameWorldHelper.getTrueY(x, y);
 	}
 	
 	public TextureRegion getFullTexture(GroundType groundType, Texture groundSheet) {
