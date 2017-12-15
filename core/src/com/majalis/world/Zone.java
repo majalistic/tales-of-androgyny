@@ -65,6 +65,8 @@ public class Zone {
 	protected Zone buildZone() {
 		Array<GameWorldNode> requiredNodesUnfulfilled = new Array<GameWorldNode>(requiredNodes);
 		
+		int minimumX = 10;
+		int minimumXY = 200;
 		
 		for (int ii = 0; ii < repeats; ii++) {
 			for (GameWorldNode requiredNode : requiredNodes) {
@@ -89,9 +91,9 @@ public class Zone {
 					Array<Vector2> possibleTowardsCoordinates = new Array<Vector2>();
 					Array<Vector2> possibleAwayCoordinates = new Array<Vector2>();
 					Vector2 possible = new Vector2(0, 0);
-					for (int jj = Math.max((int)source.x - 11, -15); jj < source.x + 11; jj++) {
+					for (int jj = Math.max((int)source.x - 11, minimumX); jj < source.x + 11; jj++) {
 						for (int kk = (int)source.y - 11; kk < source.y + 11; kk++) {
-							if (jj + kk * 2 < 10) continue;
+							if (jj + kk * 2 < minimumXY) continue;
 							possible.x = jj;
 							possible.y = kk;
 							int newDistance = requiredNode.getDistance(possible);
