@@ -808,8 +808,8 @@ public class WorldMapScreen extends AbstractScreen {
 							TextureRegion chosenTree = treeTextures.get(Math.abs(random.nextInt() % treeArraySize));
 							Image tree = new Image(chosenTree);
 							Image shadow = new Image(chosenTree);
-							int trueX = x * (scalingFactor + xFactor) - 700;
-							int trueY = (y - 30) * scalingFactor + (x * scalingFactor / 2) + 700;
+							int trueX = getTrueX(x) - 700;
+							int trueY = getTrueY(x, y) + 700;
 							tree.setPosition(trueX, trueY);
 							shadow.setPosition(trueX, trueY);
 							shadow.setOrigin(shadow.getWidth() / 2, 16);
@@ -862,10 +862,10 @@ public class WorldMapScreen extends AbstractScreen {
 			// draw the terrain within a given box - currently attempting to draw all terrain and being truncated
 			int[] layers = new int [GroundType.values().length];
 			for (int x = 0; x < ground.size; x++) {
-				int trueX = x * (scalingFactor + xFactor);
+				int trueX = getTrueX(x);
 				int layerSize = ground.get(x).size;
 				for (int y = 0; y < ground.get(x).size; y++) {
-					int trueY = (y - 30) * scalingFactor + (x * scalingFactor / 2);
+					int trueY = getTrueY(x, y);
 					for (int i = 0; i < layers.length; i++) {
 						layers[i] = 0;
 					}
@@ -939,6 +939,14 @@ public class WorldMapScreen extends AbstractScreen {
 			
 			worldGroup.addActor(currentImage);
 		}
+	}
+	
+	private int getTrueX(int x) {
+		return (x) * (scalingFactor + xFactor);
+	}
+	
+	private int getTrueY(int x, int y) {
+		return (y - 30) * scalingFactor + (x) * scalingFactor / 2;
 	}
 	
 	public TextureRegion getFullTexture(GroundType groundType, Texture groundSheet) {
