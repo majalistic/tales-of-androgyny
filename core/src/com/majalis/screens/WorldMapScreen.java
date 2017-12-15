@@ -703,8 +703,6 @@ public class WorldMapScreen extends AbstractScreen {
 			actor.addAction(Actions.alpha(timeOfDay.getShadowAlpha()));
 			actor.setRotation(timeOfDay.getShadowDirection());
 			actor.setScaleY(timeOfDay.getShadowLength());	
-			
-			//shadow.setPosition(trueX + 175, trueY - 40);
 		}
 	}
 	
@@ -900,11 +898,6 @@ public class WorldMapScreen extends AbstractScreen {
 						GroundType temp = ground.get(x).get(y + 1);
 						if (temp != currentHexType) layers[temp.ordinal()] += 32;
 					}
-					
-					/*
-					for (int i = 0; i < layers.length; i++) {
-						if (layers[i] != 0 && i != GroundType.DIRT.ordinal()) System.out.println("x: " + x + " y: " + y + " type: " +  GroundType.values()[i] + ": " + layers[i]);
-					}*/
 					
 					for (GroundType groundType: GroundType.values()) {
 						if (ground.get(x).get(y) == groundType) {
