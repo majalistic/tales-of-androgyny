@@ -137,7 +137,7 @@ public enum EncounterCode {
 					case ICE_CREAM:
 					case HUNGER_CHARM: 
 					case DAMAGE_TRAP: 
-					case ANAL_TRAP: return "Unknown.";
+					case ANAL_TRAP: return "Unknown";
 					default: return "Unknown - No Info for encounter #" + this + " and perception level = " + visibility;
 				}
 			case 2:

@@ -55,7 +55,7 @@ public class Encounter {
 		}
 		// this should be a captured event as well
 		for (EndScene objScene: endScenes) {
-			if (objScene.isActive()) {
+			if (objScene.isFinished()) {
 				switch(objScene.getType()) {
 					case ENCOUNTER_OVER: encounterOver = true; break;
 					case GAME_OVER: gameOver = true; break;

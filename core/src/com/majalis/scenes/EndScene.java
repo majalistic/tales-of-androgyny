@@ -40,6 +40,7 @@ public class EndScene extends Scene {
 	private final ScrollPane pane;
 	private final Skin skin;
 	private final Group group;
+	private boolean finished;
 	public EndScene(int sceneCode, Type type, SaveService saveService, AssetManager assetManager, SaveManager.GameContext context, final Background background, LogDisplay log, Array<MutationResult> results) {
 		super(null, sceneCode);
 		this.type = type;
@@ -78,6 +79,7 @@ public class EndScene extends Scene {
 			}
 		});
 		group = new Group();
+		finished = false;
 	}
 	
 	private void toggleLogDisplay() {
@@ -114,7 +116,7 @@ public class EndScene extends Scene {
 			finish();
 			return;
 		}
-		isActive = false; // this needs to be deferred
+		isActive = true;
 		saveService.saveDataValue(SaveEnum.SCENE_CODE, sceneCode);
 		this.removeAction(Actions.hide());
 		this.addAction(Actions.visible(true));
@@ -150,13 +152,17 @@ public class EndScene extends Scene {
 		});
 	}
 	
+	public boolean isFinished() {
+		return finished;
+	}
+	
 	private void finish() {
 		saveService.saveDataValue(SaveEnum.CONTEXT, context);
 		if (type == Type.ENCOUNTER_OVER || type == Type.GAME_OVER) {
 			saveService.saveDataValue(SaveEnum.RETURN_CONTEXT, null);
 			saveService.saveDataValue(SaveEnum.ENCOUNTER_END, null);
 		}
-		isActive = true;
+		finished = true;
 	}
 
 	@Override
