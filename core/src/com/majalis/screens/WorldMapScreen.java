@@ -851,8 +851,8 @@ public class WorldMapScreen extends AbstractScreen {
 						
 			Texture groundSheet = assetManager.get(AssetEnum.GROUND_SHEET.getTexture());
 
-			int boxWidth = 2560;
-			int boxHeight = 1440;
+			int boxWidth = Gdx.graphics.getWidth();
+			int boxHeight = Gdx.graphics.getHeight();
 			
 			// draw the terrain within a given box - currently attempting to draw all terrain and being truncated
 			int[] layers = new int [GroundType.values().length];
