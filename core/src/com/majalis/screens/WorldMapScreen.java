@@ -140,7 +140,7 @@ public class WorldMapScreen extends AbstractScreen {
 
 		time = loadService.loadDataValue(SaveEnum.TIME, Integer.class);
 		
-		camera.position.set(0, 0, 750);
+		camera.position.set(0, 0, storyMode ? 500 : 750);
 		camera.near = 1f;
 		camera.far = 10000;
 		camera.lookAt(0, 0, 0);
@@ -737,6 +737,7 @@ public class WorldMapScreen extends AbstractScreen {
 			Image background = new Image(assetManager.get(WORLD_MAP_BG.getTexture()));
 			background.setPosition(-400, 0);
 			worldGroup.addActorAt(0, background);
+			addWorldActors();
 		}
 		else {
 			/* MODELLING - SHOULD BE MOVED TO GAME WORLD GEN */
@@ -918,35 +919,38 @@ public class WorldMapScreen extends AbstractScreen {
 				worldGroup.addActor(rock);
 			}		
 			
-			for (GameWorldNode node : world) {
-				for (Actor actor : node.getPaths()) {
-					worldGroup.addActor(actor);
-				}
-			}
-			
-			for (final GameWorldNode actor : world) {
-				worldGroup.addActor(actor);
-				actor.addListener(new ClickListener(){
-					@Override
-			        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-						String text = actor.getHoverText();
-						hoverLabel.setText(text);
-						if (!text.equals("")) {
-							hoverImage.setVisible(true);
-						}
-						hoveredNode = actor;
-					}
-					@Override
-			        public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
-						hoverLabel.setText("");
-						hoverImage.setVisible(false);
-						hoveredNode = null;
-					}
-				});
-			}
-			
-			worldGroup.addActor(currentImage);
+			addWorldActors();
 		}
+	}
+	
+	private void addWorldActors() {
+		for (GameWorldNode node : world) {
+			for (Actor actor : node.getPaths()) {
+				worldGroup.addActor(actor);
+			}
+		}
+		
+		for (final GameWorldNode actor : world) {
+			worldGroup.addActor(actor);
+			actor.addListener(new ClickListener(){
+				@Override
+		        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
+					String text = actor.getHoverText();
+					hoverLabel.setText(text);
+					if (!text.equals("")) {
+						hoverImage.setVisible(true);
+					}
+					hoveredNode = actor;
+				}
+				@Override
+		        public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
+					hoverLabel.setText("");
+					hoverImage.setVisible(false);
+					hoveredNode = null;
+				}
+			});
+		}
+		worldGroup.addActor(currentImage);
 	}
 	
 	private int getTrueX(int x) {
