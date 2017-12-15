@@ -831,8 +831,7 @@ public class WorldMapScreen extends AbstractScreen {
 								shadows.add(shadow);
 							}
 						}
-					}
-					
+					}	
 				}
 			}			
 			
@@ -901,7 +900,7 @@ public class WorldMapScreen extends AbstractScreen {
 					}
 					
 					for (GroundType groundType: GroundType.values()) {
-						if (ground.get(x).get(y) == groundType) {
+						if (currentHexType == groundType) {
 							frameBufferBatch.draw(getFullTexture(groundType, groundSheet), trueX, trueY); // with appropriate type
 						}
 						frameBufferBatch.draw(getTexture(groundType, groundSheet, layers[groundType.ordinal()]), trueX, trueY); // appropriate blend layer
