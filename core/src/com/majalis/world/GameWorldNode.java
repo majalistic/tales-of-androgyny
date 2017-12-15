@@ -137,6 +137,9 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 	public boolean isOverlapping(Vector2 otherNode) { 
 		return getDistance(otherNode) <= 3;
 	}
+	public boolean isNearby(Vector2 otherNode) {
+		return getDistance(otherNode) <= 2;
+	}
 	
 	protected boolean isAdjacent(GameWorldNode otherNode) {
 		return isAdjacent(otherNode.getHexPosition()); 

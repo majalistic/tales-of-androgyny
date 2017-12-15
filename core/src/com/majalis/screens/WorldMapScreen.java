@@ -732,12 +732,15 @@ public class WorldMapScreen extends AbstractScreen {
 		return Math.max(Math.max(Math.abs(x - x2), Math.abs(y - y2)), Math.abs((0 - (x + y)) - (0 - (x2 + y2))));				
 	}
 	
-	private boolean worldCollide(int x, int y) {
+	private int worldCollide(int x, int y) {
 		Vector2 collider = new Vector2(x, y);
 		for (GameWorldNode node : world) {
-			if (node.isOverlapping(collider)) return true;
+			if (node.isNearby(collider)) return 2;
 		}
-		return false;
+		for (GameWorldNode node : world) {
+			if (node.isOverlapping(collider)) return 1;  // trees and dirt?
+		}
+		return 0;
 	}
 	
 	private void generateBackground() {
@@ -779,15 +782,12 @@ public class WorldMapScreen extends AbstractScreen {
 					// bodies of water should be generated as a single central river that runs through the map for now, that randomly twists and turns and bulges at the turns
 					// moss should be in patches adjacent to water
 					
-					if (worldCollide(x, y)) {
-						layer.add(GroundType.DIRT);
-						continue;
-					}
+					int closest = worldCollide(x, y);
 					
 					GroundType toAdd;
 					
 					if (distance(x, y, 13, 90) < 5) toAdd = GroundType.WATER;
-					else if (distance(x, y, 13, 90) >= 5 && distance(x, y, 13, 90) < 7) toAdd = GroundType.DIRT;
+					else if (closest > 0 || (distance(x, y, 13, 90) >= 5 && distance(x, y, 13, 90) < 7)) toAdd = GroundType.DIRT;
 					//else if (x == 120 || x == 128 || y == 88 || y == 96) toAdd = GroundType.WATER;
 					//else if (x % 8 == 0 || y % 8 == 0) toAdd = GroundType.DIRT;
 					else {
@@ -795,7 +795,7 @@ public class WorldMapScreen extends AbstractScreen {
 					}
 					
 					layer.add(toAdd);
-					if (toAdd == GroundType.DIRT || toAdd == GroundType.RED_LEAF_0 || toAdd == GroundType.RED_LEAF_1) {
+					if (closest < 2 && toAdd == GroundType.DIRT || toAdd == GroundType.RED_LEAF_0 || toAdd == GroundType.RED_LEAF_1) {
 						if (random.nextInt() % 20 == 0) {
 							TextureRegion chosenTree = treeTextures.get(Math.abs(random.nextInt() % treeArraySize));
 							Image tree = new Image(chosenTree);
