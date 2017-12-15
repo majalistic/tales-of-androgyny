@@ -181,7 +181,6 @@ public class WorldMapScreen extends AbstractScreen {
 		hoverLabel = new Label("", skin);
 		
 		for (final GameWorldNode actor : world) {
-			worldGroup.addActor(actor);
 			if (actor.isCurrent()) {
 				setCurrentNode(actor);
 			}
@@ -216,6 +215,7 @@ public class WorldMapScreen extends AbstractScreen {
 		
 		this.character = loadService.loadDataValue(SaveEnum.PLAYER, PlayerCharacter.class);
 		this.cloudGroup = new Group();
+		
 		for (int ii = 0; ii < 50; ii++) {
 			Actor actor = new Image(cloud);
 			actor.setPosition((float)Math.random()*5000-1000, (float)Math.random()*5000-1000);
@@ -261,6 +261,7 @@ public class WorldMapScreen extends AbstractScreen {
 		toAdd.setPosition(x, y);
 		toAdd.setColor(toSet);		
 	}
+	
 	@Override
 	public void buildStage() {
 		final Group uiGroup = new Group();
@@ -853,7 +854,6 @@ public class WorldMapScreen extends AbstractScreen {
 			
 			// then draw (add drawings as actors) ground layer
 						
-			
 			Texture groundSheet = assetManager.get(AssetEnum.GROUND_SHEET.getTexture());
 			int xScreenBuffer = 683;
 			int yScreenBuffer = 165;
@@ -872,9 +872,11 @@ public class WorldMapScreen extends AbstractScreen {
 					frameBufferBatch.begin();
 					for (int x = 0; x < ground.size; x++) {
 						int trueX = getTrueX(x) - (boxWidth + 550) * xTile;
+						if (trueX < -60 || trueX > boxWidth + 600) continue;
 						int layerSize = ground.get(x).size;
 						for (int y = 0; y < ground.get(x).size; y++) {
 							int trueY = getTrueY(x, y) - (boxHeight + 450) * yTile;
+							if (trueY < -60 || trueY > boxHeight + 500) continue;
 							for (int i = 0; i < layers.length; i++) {
 								layers[i] = 0;
 							}
@@ -939,6 +941,10 @@ public class WorldMapScreen extends AbstractScreen {
 			for (Actor rock : rocks) {
 				worldGroup.addActor(rock);
 			}		
+			
+			for (final GameWorldNode actor : world) {
+				worldGroup.addActor(actor);
+			}
 			
 			worldGroup.addActor(currentImage);
 		}
