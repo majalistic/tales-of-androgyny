@@ -11,6 +11,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.PerspectiveCamera;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
@@ -787,6 +788,7 @@ public class WorldMapScreen extends AbstractScreen {
 			Array<Array<GroundType>> ground = new Array<Array<GroundType>>();
 			Array<Doodad> doodads = new Array<Doodad>();
 			Array<Shadow> shadows = new Array<Shadow>();		
+			Array<Image> reflections = new Array<Image>();
 			
 			Texture doodadTextureSheet = assetManager.get(AssetEnum.DOODADS.getTexture());
 			Array<TextureRegion> treeTextures = new Array<TextureRegion>();
@@ -813,8 +815,6 @@ public class WorldMapScreen extends AbstractScreen {
 				rockShadowTextures.add(shadowTexture);
 			}
 			
-			int xScreenBuffer = 683;
-			int yScreenBuffer = 165;
 			int maxX = 170;
 			int maxY = 235;
 			
@@ -843,56 +843,48 @@ public class WorldMapScreen extends AbstractScreen {
 					
 					layer.add(toAdd);
 					if (closest >= 3 && toAdd == GroundType.DIRT || toAdd == GroundType.RED_LEAF_0 || toAdd == GroundType.RED_LEAF_1) {
-						if (random.nextInt() % 20 == 0) {
-							int chosenTree = Math.abs(random.nextInt() % treeArraySize);
-							Doodad tree = new Doodad(treeTextures.get(chosenTree));
-							Shadow shadow = new Shadow(treeShadowTextures.get(chosenTree));
-							int trueX = getTrueX(x) - (int)tree.getWidth() / 2 + tileWidth / 2;
+						if (random.nextInt() % (x + y > 147 && x + y < 150 ? 5 : 20) == 0) {
+							Array<TextureRegion> textures;
+							Array<TextureRegion> shadowTextures;
+							int arraySize;
+							if (!(x + y > 147 && x + y < 150 ) && random.nextInt() % 3 == 0) {
+								textures = rockTextures;
+								shadowTextures = rockShadowTextures;
+								arraySize = rockArraySize;
+							}
+							else {
+								textures = treeTextures;
+								shadowTextures = treeShadowTextures;
+								arraySize = treeArraySize;
+							}
+							int chosen = Math.abs(random.nextInt() % arraySize);
+							Doodad doodad = new Doodad(textures.get(chosen));
+							Shadow shadow = new Shadow(shadowTextures.get(chosen));
+							Image reflection = new Image(shadowTextures.get(chosen));
+							int trueX = getTrueX(x) - (int)doodad.getWidth() / 2 + tileWidth / 2;
 							int trueY = getTrueY(x, y) + tileHeight / 2;
-							tree.setPosition(trueX , trueY);
+							doodad.setPosition(trueX , trueY);
 							shadow.setPosition(trueX, trueY);
-							//shadow.setOrigin(shadow.getWidth() / 2, 16);
+							reflection.setPosition(trueX, trueY);
+							reflection.setOrigin(reflection.getWidth() / 2, 16);
+							reflection.rotateBy(180);
 							
-							boolean treeInserted = false;
+							boolean doodadInserted = false;
 							int ii = 0;
 							for (Image compare : doodads) {
-								if (tree.getY() > compare.getY()) {
-									treeInserted = true;
-									doodads.insert(ii, tree);
+								if (doodad.getY() > compare.getY()) {
+									doodadInserted = true;
+									doodads.insert(ii, doodad);
 									shadows.insert(ii, shadow);
+									reflections.insert(ii, reflection);
 									break;
 								}
 								ii++;
 							}
-							if (!treeInserted) {
-								doodads.add(tree);
+							if (!doodadInserted) {
+								doodads.add(doodad);
 								shadows.add(shadow);
-							}
-						}
-						else if (random.nextInt() % 20 == 0) {
-							int chosenRock = Math.abs(random.nextInt() % rockArraySize);
-							Doodad rock = new Doodad(rockTextures.get(chosenRock));
-							Shadow shadow = new Shadow(rockShadowTextures.get(chosenRock));
-							int trueX = getTrueX(x) - (int)rock.getWidth() / 2 + tileWidth / 2;
-							int trueY = getTrueY(x, y) + tileHeight / 2;
-							rock.setPosition(trueX , trueY);
-							shadow.setPosition(trueX, trueY);
-							shadow.setOrigin(shadow.getWidth() / 2, 16);
-							
-							boolean rockInserted = false;
-							int ii = 0;
-							for (Image compare : doodads) {
-								if (rock.getY() > compare.getY()) {
-									rockInserted = true;
-									doodads.insert(ii, rock);
-									shadows.insert(ii, shadow);
-									break;
-								}
-								ii++;
-							}
-							if (!rockInserted) {
-								doodads.add(rock);
-								shadows.add(shadow);
+								reflections.add(reflection);
 							}
 						}
 					}	
@@ -912,87 +904,18 @@ public class WorldMapScreen extends AbstractScreen {
 			}*/
 			
 			/* DRAWING */
+			Texture groundSheet = assetManager.get(AssetEnum.GROUND_SHEET.getTexture());	
 			
-			
-			// draw (add drawings as actors) water layer first
-			
-			// draw (add reflections as actors) reflections
-			
-			// then draw (add drawings as actors) ground layer
+			// draw (add drawings as actors) ground layer
+			drawLayer(ground, groundSheet, false);
 						
-			Texture groundSheet = assetManager.get(AssetEnum.GROUND_SHEET.getTexture());
-
-			int boxWidth = Gdx.graphics.getWidth();
-			int boxHeight = Gdx.graphics.getHeight();
-			
-			// draw the terrain within a given box - currently attempting to draw all terrain and being truncated
-			int[] layers = new int [GroundType.values().length];
-			
-			for (int xTile = 0; xTile < 4; xTile++) {
-				for (int yTile = 0; yTile < 6; yTile++) {
-					frameBuffer = new FrameBuffer(Pixmap.Format.RGB888, boxWidth, boxHeight, false);
-					frameBuffer.begin();
-					SpriteBatch frameBufferBatch = new SpriteBatch();
-					frameBufferBatch.begin();
-					for (int x = 0; x < ground.size; x++) {
-						int trueX = getTrueX(x) - (boxWidth) * xTile + xScreenBuffer;
-						if (trueX < -60 || trueX > boxWidth + 50) continue;
-						int layerSize = ground.get(x).size;
-						for (int y = 0; y < ground.get(x).size; y++) {
-							int trueY = getTrueY(x, y) - (boxHeight) * yTile + yScreenBuffer;
-							if (trueY < -60 || trueY > boxHeight + 50) continue;
-							for (int i = 0; i < layers.length; i++) {
-								layers[i] = 0;
-							}
-							
-							GroundType currentHexType = ground.get(x).get(y);
-							
-							// check the six adjacent tiles and add accordingly
-							if (x + 1 < ground.size) {
-								GroundType temp = ground.get(x + 1).get(y);
-								if (temp != currentHexType) layers[temp.ordinal()] += 1;
-							}
-							if (y - 1 >= 0)	{
-								if (x + 1 < ground.size) {							
-									GroundType temp = ground.get(x + 1).get(y - 1);
-									if (temp != currentHexType) layers[temp.ordinal()] += 2;
-									
-								}
-								GroundType temp = ground.get(x).get(y - 1);
-								if (temp != currentHexType) layers[temp.ordinal()] += 4;
-							}
-							if (x - 1 >= 0)	{
-								GroundType temp = ground.get(x - 1).get(y);
-								if (temp != currentHexType) layers[temp.ordinal()] += 8;
-							}
-							if (y + 1 < layerSize)	{
-								if (x - 1 >= 0) {
-									GroundType temp = ground.get(x - 1).get(y + 1);
-									if (temp != currentHexType) layers[temp.ordinal()] += 16;
-								}		
-								GroundType temp = ground.get(x).get(y + 1);
-								if (temp != currentHexType) layers[temp.ordinal()] += 32;
-							}
-							
-							for (GroundType groundType: GroundType.values()) {
-								if (currentHexType == groundType) {
-									frameBufferBatch.draw(getFullTexture(groundType, groundSheet), trueX, trueY); // with appropriate type
-									
-								}
-								frameBufferBatch.draw(getTexture(groundType, groundSheet, layers[groundType.ordinal()]), trueX, trueY); // appropriate blend layer
-							}
-						}
-					}
-		
-					frameBufferBatch.end();
-					frameBuffer.end();
-					frameBufferBatch.dispose();
-					Image background = new Image(new TextureRegion(frameBuffer.getColorBufferTexture(), 0, boxHeight, boxWidth, -boxHeight));
-					background.addAction(Actions.moveTo(-xScreenBuffer + xTile * boxWidth, -yScreenBuffer + yTile * (boxHeight)));
-					worldGroup.addActorAt(0, background);
-				}
+			// draw (add reflections as actors) reflections
+			for (Image reflection : reflections) {
+				worldGroup.addActorAt(0, reflection);
 			}
-			
+			// draw (add drawings as actors) water layer
+						drawLayer(ground, groundSheet, true);
+							
 			worldGroup.addActor(shadowGroup);	
 			
 			addWorldActors();
@@ -1004,6 +927,83 @@ public class WorldMapScreen extends AbstractScreen {
 			for (Doodad doodad : doodads) {
 				worldGroup.addActor(doodad);
 			}	
+		}
+	}
+	
+	private void drawLayer(Array<Array<GroundType>> ground, Texture groundSheet, boolean waterLayer) {
+		int[] layers = new int [GroundType.values().length];
+		int boxWidth = Gdx.graphics.getWidth();
+		int boxHeight = Gdx.graphics.getHeight();
+		int xScreenBuffer = 683;
+		int yScreenBuffer = 165;
+		for (int xTile = 0; xTile < 4; xTile++) {
+			for (int yTile = 0; yTile < 6; yTile++) {
+				frameBuffer = new FrameBuffer(Pixmap.Format.RGBA8888, boxWidth, boxHeight, false);
+				frameBuffer.begin();
+				SpriteBatch frameBufferBatch = new SpriteBatch();
+				Gdx.gl.glClearColor(.2f, .2f, .4f, 0);
+				Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+				frameBufferBatch.begin();
+				for (int x = 0; x < ground.size; x++) {
+					int trueX = getTrueX(x) - (boxWidth) * xTile + xScreenBuffer;
+					if (trueX < -60 || trueX > boxWidth + 50) continue;
+					int layerSize = ground.get(x).size;
+					for (int y = 0; y < ground.get(x).size; y++) {
+						int trueY = getTrueY(x, y) - (boxHeight) * yTile + yScreenBuffer;
+						if (trueY < -60 || trueY > boxHeight + 50) continue;
+						for (int i = 0; i < layers.length; i++) {
+							layers[i] = 0;
+						}
+						GroundType currentHexType = ground.get(x).get(y);
+						// check the six adjacent tiles and add accordingly
+						if (x + 1 < ground.size) {
+							GroundType temp = ground.get(x + 1).get(y);
+							if (temp != currentHexType) layers[temp.ordinal()] += 1;
+						}
+						if (y - 1 >= 0)	{
+							if (x + 1 < ground.size) {							
+								GroundType temp = ground.get(x + 1).get(y - 1);
+								if (temp != currentHexType) layers[temp.ordinal()] += 2;
+								
+							}
+							GroundType temp = ground.get(x).get(y - 1);
+							if (temp != currentHexType) layers[temp.ordinal()] += 4;
+						}
+						if (x - 1 >= 0)	{
+							GroundType temp = ground.get(x - 1).get(y);
+							if (temp != currentHexType) layers[temp.ordinal()] += 8;
+						}
+						if (y + 1 < layerSize)	{
+							if (x - 1 >= 0) {
+								GroundType temp = ground.get(x - 1).get(y + 1);
+								if (temp != currentHexType) layers[temp.ordinal()] += 16;
+							}		
+							GroundType temp = ground.get(x).get(y + 1);
+							if (temp != currentHexType) layers[temp.ordinal()] += 32;
+						}
+						if (waterLayer) {
+							if (currentHexType == GroundType.WATER) {
+								frameBufferBatch.draw(getFullTexture(GroundType.WATER, groundSheet), trueX, trueY); // with appropriate type
+								frameBufferBatch.draw(getTexture(GroundType.WATER, groundSheet, layers[GroundType.WATER.ordinal()]), trueX, trueY); // appropriate blend layer
+							}
+						}
+						else {
+							for (GroundType groundType: GroundType.values()) {
+								if (currentHexType == groundType && groundType != GroundType.WATER) {
+									frameBufferBatch.draw(getFullTexture(groundType, groundSheet), trueX, trueY); // with appropriate type
+								}
+								frameBufferBatch.draw(getTexture(groundType, groundSheet, layers[groundType.ordinal()]), trueX, trueY); // appropriate blend layer
+							}
+						}
+					}
+				}
+				frameBufferBatch.end();
+				frameBuffer.end();
+				frameBufferBatch.dispose();
+				Image background = new Image(new TextureRegion(frameBuffer.getColorBufferTexture(), 0, boxHeight, boxWidth, -boxHeight));
+				background.addAction(Actions.moveTo(-xScreenBuffer + xTile * boxWidth, -yScreenBuffer + yTile * (boxHeight)));
+				worldGroup.addActorAt(0, background);
+			}
 		}
 	}
 	
