@@ -842,12 +842,14 @@ public class WorldMapScreen extends AbstractScreen {
 					}
 					
 					layer.add(toAdd);
+					
+					boolean treeAmbundance = isAmbundantTrees(x, y);				
 					if (closest >= 3 && toAdd == GroundType.DIRT || toAdd == GroundType.RED_LEAF_0 || toAdd == GroundType.RED_LEAF_1) {
-						if (random.nextInt() % (x + y > 147 && x + y < 150 ? 5 : 20) == 0) {
+						if (random.nextInt() % (treeAmbundance ? 4 : 20) == 0) {
 							Array<TextureRegion> textures;
 							Array<TextureRegion> shadowTextures;
 							int arraySize;
-							if (!(x + y > 147 && x + y < 150 ) && random.nextInt() % 3 == 0) {
+							if (!(treeAmbundance) && random.nextInt() % 3 == 0) {
 								textures = rockTextures;
 								shadowTextures = rockShadowTextures;
 								arraySize = rockArraySize;
@@ -928,6 +930,10 @@ public class WorldMapScreen extends AbstractScreen {
 				worldGroup.addActor(doodad);
 			}	
 		}
+	}
+	
+	private boolean isAmbundantTrees(int x, int y) {
+		return (x + y > 147 && x + y < 150) || (x > 0 && x < 15) || (x + y * 2 > 195 && x + y * 2 < 210);
 	}
 	
 	private void drawLayer(Array<Array<GroundType>> ground, Texture groundSheet, boolean waterLayer) {
