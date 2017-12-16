@@ -84,20 +84,17 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 	@Override
     public void draw(Batch batch, float parentAlpha) {
 		if (hover && active) {
-			Color cache = batch.getColor();
 			batch.setColor(Color.GREEN);
 			batch.draw(activeImage, getX(), getY());
-			batch.setColor(cache);
 		}
 		else {	
+			batch.setColor(Color.WHITE);
 			batch.draw(activeImage, getX(), getY());
 		}
 		
 		if(active) {
-			Color cache = batch.getColor();
 			batch.setColor(Color.WHITE);
 			batch.draw(arrowImage, getX() + 25, getY() + 45 + arrowHeight / 5);
-			batch.setColor(cache);
 			arrowHeight += arrowShift;
 			if (arrowHeight > 100 || arrowHeight < 0) arrowShift = 0 - arrowShift;
 		}		

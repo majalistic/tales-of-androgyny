@@ -741,7 +741,15 @@ public class WorldMapScreen extends AbstractScreen {
 		return 0;
 	}
 	
-	
+	private class Doodad extends Image {
+		public Doodad(TextureRegion textureRegion) {
+			super(textureRegion);
+		}
+		
+		@Override
+		public Actor hit(float x, float y, boolean touchable) { return null; }		
+	}
+		
 	private class Shadow extends Actor {
 
 		private final TextureRegion texture;
@@ -782,7 +790,7 @@ public class WorldMapScreen extends AbstractScreen {
 			/* MODELLING - SHOULD BE MOVED TO GAME WORLD GEN */
 			
 			Array<Array<GroundType>> ground = new Array<Array<GroundType>>();
-			Array<Image> doodads = new Array<Image>();
+			Array<Doodad> doodads = new Array<Doodad>();
 			Array<Shadow> shadows = new Array<Shadow>();		
 			
 			Texture doodadTextureSheet = assetManager.get(AssetEnum.DOODADS.getTexture());
@@ -842,7 +850,7 @@ public class WorldMapScreen extends AbstractScreen {
 					if (closest < 2 && toAdd == GroundType.DIRT || toAdd == GroundType.RED_LEAF_0 || toAdd == GroundType.RED_LEAF_1) {
 						if (random.nextInt() % 20 == 0) {
 							int chosenTree = Math.abs(random.nextInt() % treeArraySize);
-							Image tree = new Image(treeTextures.get(chosenTree));
+							Doodad tree = new Doodad(treeTextures.get(chosenTree));
 							Shadow shadow = new Shadow(treeShadowTextures.get(chosenTree));
 							int trueX = getTrueX(x) - (int)tree.getWidth() / 2 + tileWidth / 2;
 							int trueY = getTrueY(x, y) + tileHeight / 2;
@@ -868,7 +876,7 @@ public class WorldMapScreen extends AbstractScreen {
 						}
 						else if (random.nextInt() % 20 == 0) {
 							int chosenRock = Math.abs(random.nextInt() % rockArraySize);
-							Image rock = new Image(rockTextures.get(chosenRock));
+							Doodad rock = new Doodad(rockTextures.get(chosenRock));
 							Shadow shadow = new Shadow(rockShadowTextures.get(chosenRock));
 							int trueX = getTrueX(x) - (int)rock.getWidth() / 2 + tileWidth / 2;
 							int trueY = getTrueY(x, y) + tileHeight / 2;
@@ -990,17 +998,17 @@ public class WorldMapScreen extends AbstractScreen {
 				}
 			}
 			
-			worldGroup.addActor(shadowGroup);
+			worldGroup.addActor(shadowGroup);	
 			
-			for (Actor shadow : shadows) {
+			addWorldActors();
+			
+			for (Shadow shadow : shadows) {
 				shadowGroup.addActor(shadow);
 			}
 			
-			for (Actor doodad : doodads) {
+			for (Doodad doodad : doodads) {
 				worldGroup.addActor(doodad);
-			}		
-			
-			addWorldActors();
+			}	
 		}
 	}
 	
