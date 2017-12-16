@@ -220,13 +220,13 @@ public class WorldMapScreen extends AbstractScreen {
 		this.character = loadService.loadDataValue(SaveEnum.PLAYER, PlayerCharacter.class);
 		this.cloudGroup = new Group();
 		
-		for (int ii = 0; ii < 50; ii++) {
+		for (int ii = 0; ii < 200; ii++) {
 			Actor actor = new Image(cloud);
-			actor.setPosition((float)Math.random()*5000-1000, (float)Math.random()*5000-1000);
+			actor.setPosition((float)Math.random()*10000-1000, (float)Math.random()*10000-1000);
 			actor.addAction(Actions.alpha(.3f));
 			float speed = 10f;
 			int leftWrap = -1000;
-			int rightWrap = 5000;
+			int rightWrap = 10000;
 			// move from starting position to leftWrap, then warp to rightWrap, then repeat those two actions forever
 			actor.addAction(sequence(moveTo(leftWrap, actor.getY(), (actor.getX() - leftWrap) / speed), moveTo(rightWrap, actor.getY()), repeat(RepeatAction.FOREVER, sequence(moveTo(leftWrap, actor.getY(), rightWrap - leftWrap / speed), moveTo(rightWrap, actor.getY())))));
 			cloudGroup.addActor(actor);
@@ -784,7 +784,6 @@ public class WorldMapScreen extends AbstractScreen {
 		}
 		else {
 			/* MODELLING - SHOULD BE MOVED TO GAME WORLD GEN */
-			
 			Array<Array<GroundType>> ground = new Array<Array<GroundType>>();
 			Array<Doodad> doodads = new Array<Doodad>();
 			Array<Shadow> shadows = new Array<Shadow>();		
@@ -845,11 +844,11 @@ public class WorldMapScreen extends AbstractScreen {
 					
 					boolean treeAmbundance = isAmbundantTrees(x, y);				
 					if (closest >= 3 && toAdd == GroundType.DIRT || toAdd == GroundType.RED_LEAF_0 || toAdd == GroundType.RED_LEAF_1) {
-						if (random.nextInt() % (treeAmbundance ? 4 : 20) == 0) {
+						if (random.nextInt() % (treeAmbundance ? 4 : 15) == 0) {
 							Array<TextureRegion> textures;
 							Array<TextureRegion> shadowTextures;
 							int arraySize;
-							if (!(treeAmbundance) && random.nextInt() % 3 == 0) {
+							if (!(treeAmbundance) && random.nextInt() % 6 == 0) {
 								textures = rockTextures;
 								shadowTextures = rockShadowTextures;
 								arraySize = rockArraySize;
