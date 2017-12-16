@@ -22,7 +22,6 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.badlogic.gdx.math.Affine2;
 import com.badlogic.gdx.math.RandomXS128;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -726,19 +725,15 @@ public class WorldMapScreen extends AbstractScreen {
 	private final static int tileWidth = 61;
 	private final static int tileHeight = 55;
 	
-	private final int distance(int x, int y, int x2, int y2) {
-		return Math.max(Math.max(Math.abs(x - x2), Math.abs(y - y2)), Math.abs((0 - (x + y)) - (0 - (x2 + y2))));				
-	}
+	private int distance(int x, int y, int x2, int y2) { return GameWorldHelper.distance(x, y, x2, y2); }
 	
 	private int worldCollide(int x, int y) {
-		Vector2 collider = new Vector2(x, y);
+		int minDistance = 100;
 		for (GameWorldNode node : world) {
-			if (node.isNearby(collider)) return 2;
+			int distance = distance(x, y, (int)node.getHexPosition().x, (int)node.getHexPosition().y);
+			if (distance < minDistance) minDistance = distance;
 		}
-		for (GameWorldNode node : world) {
-			if (node.isOverlapping(collider)) return 1;  // trees and dirt?
-		}
-		return 0;
+		return minDistance;
 	}
 	
 	private class Doodad extends Image {
@@ -838,8 +833,8 @@ public class WorldMapScreen extends AbstractScreen {
 					
 					GroundType toAdd;
 					
-					if (distance(x, y, 13, 90) < 5) toAdd = GroundType.WATER;
-					else if (closest > 0 || (distance(x, y, 13, 90) >= 5 && distance(x, y, 13, 90) < 7)) toAdd = GroundType.DIRT;
+					if (closest >= 2 && (distance(x, y, 13, 90) < 5 || (x + y > 140 && x + y < 148))) toAdd = GroundType.WATER;
+					else if (closest <= 3 || (distance(x, y, 13, 90) >= 5 && distance(x, y, 13, 90) < 7) || (x + y > 138 && x + y < 150)) toAdd = GroundType.DIRT;
 					//else if (x == 120 || x == 128 || y == 88 || y == 96) toAdd = GroundType.WATER;
 					//else if (x % 8 == 0 || y % 8 == 0) toAdd = GroundType.DIRT;
 					else {
@@ -847,7 +842,7 @@ public class WorldMapScreen extends AbstractScreen {
 					}
 					
 					layer.add(toAdd);
-					if (closest < 2 && toAdd == GroundType.DIRT || toAdd == GroundType.RED_LEAF_0 || toAdd == GroundType.RED_LEAF_1) {
+					if (closest >= 3 && toAdd == GroundType.DIRT || toAdd == GroundType.RED_LEAF_0 || toAdd == GroundType.RED_LEAF_1) {
 						if (random.nextInt() % 20 == 0) {
 							int chosenTree = Math.abs(random.nextInt() % treeArraySize);
 							Doodad tree = new Doodad(treeTextures.get(chosenTree));

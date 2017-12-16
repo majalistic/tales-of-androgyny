@@ -17,4 +17,8 @@ public class GameWorldHelper {
 	public static Vector2 calculatePosition(int x, int y) {
 		return new Vector2(getTrueX(x), getTrueY(x, y));
 	}
+	
+	public static int distance(int x, int y, int x2, int y2) {
+		return Math.max(Math.max(Math.abs(x - x2), Math.abs(y - y2)), Math.abs((0 - (x + y)) - (0 - (x2 + y2))));				
+	}
 }

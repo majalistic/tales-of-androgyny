@@ -123,9 +123,6 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 	public boolean isOverlapping(Vector2 otherNode) { 
 		return getDistance(otherNode) <= 3;
 	}
-	public boolean isNearby(Vector2 otherNode) {
-		return getDistance(otherNode) <= 2;
-	}
 	
 	protected boolean isAdjacent(GameWorldNode otherNode) {
 		return isAdjacent(otherNode.getHexPosition()); 
@@ -135,13 +132,7 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 		return getDistance(possible) <= 6;
 	}
 	
-	protected int getDistance(Vector2 otherNodePosition) {
-		int otherX = (int)otherNodePosition.x;
-		int otherY = (int)otherNodePosition.y;
-		int otherZ = 0 - (otherX + otherY);
-		int z = 0 - (x + y);
-		return Math.max(Math.max(Math.abs(otherX - x), Math.abs(otherY - y)), Math.abs(otherZ - z)); 
-	}
+	protected int getDistance(Vector2 otherNodePosition) { return GameWorldHelper.distance(x, y, (int)otherNodePosition.x, (int)otherNodePosition.y); }
 	
 	protected int getDistance(GameWorldNode otherNode) {
 		return getDistance(otherNode.getHexPosition()); 		
