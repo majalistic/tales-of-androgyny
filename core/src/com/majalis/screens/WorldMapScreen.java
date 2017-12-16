@@ -842,13 +842,13 @@ public class WorldMapScreen extends AbstractScreen {
 					
 					layer.add(toAdd);
 					
-					boolean treeAmbundance = isAmbundantTrees(x, y);				
+					boolean treeAbundance = isAbundantTrees(x, y);				
 					if (closest >= 3 && toAdd == GroundType.DIRT || toAdd == GroundType.RED_LEAF_0 || toAdd == GroundType.RED_LEAF_1) {
-						if (random.nextInt() % (treeAmbundance ? 4 : 15) == 0) {
+						if (random.nextInt() % (treeAbundance ? 2 : 15) == 0) {
 							Array<TextureRegion> textures;
 							Array<TextureRegion> shadowTextures;
 							int arraySize;
-							if (!(treeAmbundance) && random.nextInt() % 6 == 0) {
+							if (!(treeAbundance) && random.nextInt() % 6 == 0) {
 								textures = rockTextures;
 								shadowTextures = rockShadowTextures;
 								arraySize = rockArraySize;
@@ -931,8 +931,8 @@ public class WorldMapScreen extends AbstractScreen {
 		}
 	}
 	
-	private boolean isAmbundantTrees(int x, int y) {
-		return (x + y > 147 && x + y < 150) || (x > 0 && x < 15) || (x + y * 2 > 195 && x + y * 2 < 210);
+	private boolean isAbundantTrees(int x, int y) {
+		return (x + y > 147 && x + y < 150) || (x > 0 && x < 15) || (x + y * 2 > 180 && x + y * 2 < 195);
 	}
 	
 	private void drawLayer(Array<Array<GroundType>> ground, Texture groundSheet, boolean waterLayer) {

@@ -88,7 +88,7 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 			batch.draw(activeImage, getX(), getY());
 		}
 		else {	
-			batch.setColor(Color.WHITE);
+			batch.setColor(getColor());
 			batch.draw(activeImage, getX(), getY());
 		}
 		
