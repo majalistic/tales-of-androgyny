@@ -18,7 +18,9 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
+import com.badlogic.gdx.math.Affine2;
 import com.badlogic.gdx.math.RandomXS128;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
@@ -674,10 +676,10 @@ public class WorldMapScreen extends AbstractScreen {
 			actor.setColor(getTimeColor());
 		}
 		for (Actor actor : shadowGroup.getChildren()) {
-			actor.setColor(timeOfDay.getShadowColor());
-			actor.addAction(Actions.alpha(timeOfDay.getShadowAlpha()));
-			actor.setRotation(timeOfDay.getShadowDirection());
-			actor.setScaleY(timeOfDay.getShadowLength());	
+			Shadow shadow = (Shadow) actor;
+			shadow.setColor(timeOfDay.getShadowColor());
+			shadow.addAction(Actions.alpha(timeOfDay.getShadowAlpha()));
+			shadow.setSkew(timeOfDay.getShadowDirection(), timeOfDay.getShadowLength());
 		}
 	}
 	
@@ -739,6 +741,35 @@ public class WorldMapScreen extends AbstractScreen {
 		return 0;
 	}
 	
+	
+	private class Shadow extends Actor {
+
+		private final TextureRegion texture;
+		private Affine2 affine = new Affine2();
+		private float shadowDirection;
+		private float shadowLength;
+		
+		public Shadow(TextureRegion textureRegion) {
+			this.texture = textureRegion;
+		}
+
+		public void setSkew(float shadowDirection, float shadowLength) {
+			this.shadowDirection = shadowDirection;
+			this.shadowLength = shadowLength;			
+		}
+
+		@Override
+	    public void draw(Batch batch, float parentAlpha) {
+			Color color = getColor();
+			batch.setColor(color.r, color.g, color.b, color.a * parentAlpha);
+			//affine.setToTranslation(getX() + texture.getRegionWidth() + 10, getY() + (shadowLength));  // this needs to change as time of day changes to accommodate for the shear movem
+			//affine.rotate(180);
+			affine.setToTrnRotScl(getX() + texture.getRegionWidth() + (getOriginX()), getY() + (getOriginY()*2)+34, 180, 1, 1);
+	        affine.shear(shadowDirection, 0);  // this modifies the skew.  This kills the crab (V)O=O(V)
+			batch.draw(texture, texture.getRegionWidth(), texture.getRegionHeight() * shadowLength, affine);
+	    }
+	}
+	
 	private void generateBackground() {
 		backgroundRendered = true;
 		if (storyMode) {
@@ -751,21 +782,32 @@ public class WorldMapScreen extends AbstractScreen {
 			/* MODELLING - SHOULD BE MOVED TO GAME WORLD GEN */
 			
 			Array<Array<GroundType>> ground = new Array<Array<GroundType>>();
-			Array<Image> trees = new Array<Image>();
-			Array<Image> shadows = new Array<Image>();
-			Array<Image> rocks = new Array<Image>();			
+			Array<Image> doodads = new Array<Image>();
+			Array<Shadow> shadows = new Array<Shadow>();		
 			
-			Texture treeTexturesSheet = assetManager.get(AssetEnum.DOODADS.getTexture());
+			Texture doodadTextureSheet = assetManager.get(AssetEnum.DOODADS.getTexture());
 			Array<TextureRegion> treeTextures = new Array<TextureRegion>();
-			Array<TextureRegion> shadowTextures = new Array<TextureRegion>();
+			Array<TextureRegion> treeShadowTextures = new Array<TextureRegion>();
 			int treeArraySize = 26;
 			int treeWidth = 192;
 			int treeHeight = 256;
 			for (int ii = 0; ii < treeArraySize; ii++) {
-				treeTextures.add(new TextureRegion(treeTexturesSheet, ii * treeWidth, 0, treeWidth, treeHeight));
-				TextureRegion shadowTexture = new TextureRegion(treeTexturesSheet, ii * treeWidth, 0, treeWidth, treeHeight);
+				treeTextures.add(new TextureRegion(doodadTextureSheet, ii * treeWidth, 0, treeWidth, treeHeight));
+				TextureRegion shadowTexture = new TextureRegion(doodadTextureSheet, ii * treeWidth, 0, treeWidth, treeHeight);
 				shadowTexture.flip(true, false);
-				shadowTextures.add(shadowTexture);
+				treeShadowTextures.add(shadowTexture);
+			}
+			
+			Array<TextureRegion> rockTextures = new Array<TextureRegion>();
+			Array<TextureRegion> rockShadowTextures = new Array<TextureRegion>();
+			int rockArraySize = 19;
+			int rockWidth = 256;
+			int rockHeight = 128;
+			for (int ii = 0; ii < rockArraySize; ii++) {
+				rockTextures.add(new TextureRegion(doodadTextureSheet, ii * rockWidth, treeHeight, rockWidth, rockHeight));
+				TextureRegion shadowTexture = new TextureRegion(doodadTextureSheet, ii * rockWidth, treeHeight, rockWidth, rockHeight);
+				shadowTexture.flip(true, false);
+				rockShadowTextures.add(shadowTexture);
 			}
 			
 			int xScreenBuffer = 683;
@@ -801,26 +843,52 @@ public class WorldMapScreen extends AbstractScreen {
 						if (random.nextInt() % 20 == 0) {
 							int chosenTree = Math.abs(random.nextInt() % treeArraySize);
 							Image tree = new Image(treeTextures.get(chosenTree));
-							Image shadow = new Image(shadowTextures.get(chosenTree));
+							Shadow shadow = new Shadow(treeShadowTextures.get(chosenTree));
 							int trueX = getTrueX(x) - (int)tree.getWidth() / 2 + tileWidth / 2;
 							int trueY = getTrueY(x, y) + tileHeight / 2;
 							tree.setPosition(trueX , trueY);
 							shadow.setPosition(trueX, trueY);
-							shadow.setOrigin(shadow.getWidth() / 2, 16);
+							//shadow.setOrigin(shadow.getWidth() / 2, 16);
 							
 							boolean treeInserted = false;
 							int ii = 0;
-							for (Image treeCompare : trees) {
-								if (tree.getY() > treeCompare.getY()) {
+							for (Image compare : doodads) {
+								if (tree.getY() > compare.getY()) {
 									treeInserted = true;
-									trees.insert(ii, tree);
+									doodads.insert(ii, tree);
 									shadows.insert(ii, shadow);
 									break;
 								}
 								ii++;
 							}
 							if (!treeInserted) {
-								trees.add(tree);
+								doodads.add(tree);
+								shadows.add(shadow);
+							}
+						}
+						else if (random.nextInt() % 20 == 0) {
+							int chosenRock = Math.abs(random.nextInt() % rockArraySize);
+							Image rock = new Image(rockTextures.get(chosenRock));
+							Shadow shadow = new Shadow(rockShadowTextures.get(chosenRock));
+							int trueX = getTrueX(x) - (int)rock.getWidth() / 2 + tileWidth / 2;
+							int trueY = getTrueY(x, y) + tileHeight / 2;
+							rock.setPosition(trueX , trueY);
+							shadow.setPosition(trueX, trueY);
+							shadow.setOrigin(shadow.getWidth() / 2, 16);
+							
+							boolean rockInserted = false;
+							int ii = 0;
+							for (Image compare : doodads) {
+								if (rock.getY() > compare.getY()) {
+									rockInserted = true;
+									doodads.insert(ii, rock);
+									shadows.insert(ii, shadow);
+									break;
+								}
+								ii++;
+							}
+							if (!rockInserted) {
+								doodads.add(rock);
 								shadows.add(shadow);
 							}
 						}
@@ -928,12 +996,8 @@ public class WorldMapScreen extends AbstractScreen {
 				shadowGroup.addActor(shadow);
 			}
 			
-			for (Actor tree : trees) {
-				worldGroup.addActor(tree);
-			}
-			
-			for (Actor rock : rocks) {
-				worldGroup.addActor(rock);
+			for (Actor doodad : doodads) {
+				worldGroup.addActor(doodad);
 			}		
 			
 			addWorldActors();

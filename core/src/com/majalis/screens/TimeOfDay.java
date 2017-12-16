@@ -3,22 +3,22 @@ package com.majalis.screens;
 import com.badlogic.gdx.graphics.Color;
 
 public enum TimeOfDay {
-	DAWN ("Dawn", getColor(156, 154, 32), getColor(0, 0, 0), .5f, 110, 1.2f),
-	MORNING ("Morning", getColor(255, 255, 214), getColor(0, 0, 0), .7f, 142, .8f),
-	AFTERNOON ("Afternoon", getColor(255, 255, 255), getColor(0, 0, 0), .8f, 165, .7f),
-	DUSK ("Dusk", getColor(246, 212, 181), getColor(0, 0, 0), .7f, 206, .8f),
-	EVENING ("Evening", getColor(75, 125, 217), getColor(0, 0, 0), .5f, 238, 1.4f),
-	NIGHT ("Night", getColor(35, 55, 120), getColor(0, 0, 0), .3f, 40, .5f)
+	DAWN ("Dawn", getColor(156, 154, 32), getColor(0, 0, 0), .5f, 1, 1.2f),
+	MORNING ("Morning", getColor(255, 255, 214), getColor(0, 0, 0), .7f, .5f, .8f),
+	AFTERNOON ("Afternoon", getColor(255, 255, 255), getColor(0, 0, 0), .8f, .1f, .7f),
+	DUSK ("Dusk", getColor(246, 212, 181), getColor(0, 0, 0), .7f, -.2f, .8f),
+	EVENING ("Evening", getColor(75, 125, 217), getColor(0, 0, 0), .5f, -1f, 1.2f),
+	NIGHT ("Night", getColor(35, 55, 120), getColor(0, 0, 0), .0f, 40, .5f)
 	;
 
 	private final String display;
 	private final Color color;
 	private final Color shadowColor;
 	private final float shadowAlpha;
-	private final int shadowDirection;
+	private final float shadowDirection;
 	private final float shadowLength;
 	
-	private TimeOfDay(String display, Color color, Color shadowColor, float shadowAlpha, int shadowDirection, float shadowLength) {
+	private TimeOfDay(String display, Color color, Color shadowColor, float shadowAlpha, float shadowDirection, float shadowLength) {
 		this.display = display;
 		this.color = color;
 		this.shadowColor = shadowColor;
@@ -33,7 +33,7 @@ public enum TimeOfDay {
 	public Color getColor() { return color; }
 	public Color getShadowColor() { return shadowColor; }
 	public float getShadowAlpha() { return shadowAlpha; }
-	public int getShadowDirection() { return shadowDirection; }
+	public float getShadowDirection() { return shadowDirection; }
 	public float getShadowLength() { return shadowLength; } 
 	public static TimeOfDay getTime(int time) { return TimeOfDay.values()[time % 6]; }
 
