@@ -1,5 +1,6 @@
 package com.majalis.world;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Vector2;
@@ -21,9 +22,12 @@ public class PathChunk extends Actor {
 				finish.y - start.y,
 				finish.x - start.x
 			) * 180.0d / Math.PI);
+		setColor(Color.SLATE);
+		getColor().a = .4f;
 	}
 	
     public void draw(Batch batch, float parentAlpha) {
+    	batch.setColor(getColor());
 		batch.draw(roadImage, start.x, start.y, 0, 0, 18, length, 1, 1, 270+degrees, 0, 0, (int)roadImage.getWidth() / 2, (int)roadImage.getHeight(), false, false);	
 	}
 }
