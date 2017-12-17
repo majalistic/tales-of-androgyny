@@ -832,10 +832,8 @@ public class WorldMapScreen extends AbstractScreen {
 					
 					GroundType toAdd;
 					
-					if (closest >= 2 && (distance(x, y, 13, 90) < 5 || (x + y > 140 && x + y < 148))) toAdd = GroundType.WATER;
-					else if (closest <= 3 || (distance(x, y, 13, 90) >= 5 && distance(x, y, 13, 90) < 7) || (x + y > 138 && x + y < 150)) toAdd = GroundType.DIRT;
-					//else if (x == 120 || x == 128 || y == 88 || y == 96) toAdd = GroundType.WATER;
-					//else if (x % 8 == 0 || y % 8 == 0) toAdd = GroundType.DIRT;
+					if (closest >= 2 && (river(x, y) || lake(x, y))) toAdd = GroundType.WATER;
+					else if (closest <= 3 || shoreline(x, y)) toAdd = GroundType.DIRT;
 					else {
 						toAdd = GroundType.valueOf("RED_LEAF_" + Math.abs(random.nextInt() % 6));					
 					}
@@ -929,6 +927,24 @@ public class WorldMapScreen extends AbstractScreen {
 				worldGroup.addActor(doodad);
 			}	
 		}
+	}
+	
+	private boolean river(int x, int y) {
+		return x + y > 140 && x + y < 148;
+	}
+	
+	private boolean shoreline(int x, int y) {
+		for (int ii = x - 2; ii <= x + 2; ii++) {
+			for (int jj = y - 2; jj <= y + 2; jj++) {
+				if (river(ii, jj)) return true;
+				if (lake(ii, jj)) return true;
+			}
+		}
+		return false;
+	}
+	
+	private boolean lake(int x, int y) {
+		return distance(x, y, 13, 90) < 5;
 	}
 	
 	private boolean isAbundantTrees(int x, int y) {
