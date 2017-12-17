@@ -5,7 +5,10 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
@@ -13,8 +16,11 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectSet;
+import com.badlogic.gdx.utils.Scaling;
+import com.majalis.asset.AnimatedImage;
 import com.majalis.asset.AssetEnum;
 import com.majalis.character.PlayerCharacter;
 import com.majalis.encounter.EncounterCode;
@@ -38,6 +44,7 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 	private int visibility;
 	private boolean hover;
 	private Texture activeImage;
+	private AnimatedImage activeAnimation;
 	private Texture roadImage;
 	// these should be replaced with an image that has a recurring action to move up and down indefinitely
 	private Texture arrowImage;
@@ -56,6 +63,22 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 
 		// this should be refactored - shouldn't need asset manager
 		activeImage = assetManager.get(encounter.getCode().getTexture().getTexture());
+		if (encounter.getCode().getTexture() == AssetEnum.FOREST_ACTIVE || encounter.getCode().getTexture() == AssetEnum.MOUNTAIN_ACTIVE || encounter.getCode().getTexture() == AssetEnum.ENCHANTED_FOREST || encounter.getCode().getTexture() == AssetEnum.FOREST_INACTIVE) {
+			Array<TextureRegion> frames = new Array<TextureRegion>();
+			int size = 64;
+			for (int ii = 0; ii < 3; ii++) {
+				frames.add(new TextureRegion(activeImage, ii * size, 0, size, size));
+			}
+			frames.add(new TextureRegion(activeImage, size, 0, size, size));
+			
+			Animation animation = new Animation(.14f, frames);
+			animation.setPlayMode(PlayMode.LOOP);
+			activeAnimation = new AnimatedImage(animation, Scaling.fit, Align.right);
+			activeAnimation.setState(0);
+			activeAnimation.setPosition(50, 0);
+			this.addActor(activeAnimation);
+		}
+		
 		roadImage = assetManager.get(AssetEnum.ROAD.getTexture());
 		arrowImage = assetManager.get(AssetEnum.ARROW.getTexture());
 		this.sound = sound;
@@ -85,16 +108,26 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
     public void draw(Batch batch, float parentAlpha) {
 		if (hover && active) {
 			batch.setColor(Color.GREEN);
-			batch.draw(activeImage, getX(), getY());
+			if (activeAnimation == null) {
+				batch.draw(activeImage, getX(), getY());
+			}
+			else {
+				activeAnimation.setColor(Color.GREEN);
+			}
 		}
 		else {	
 			batch.setColor(getColor());
-			batch.draw(activeImage, getX(), getY());
+			if (activeAnimation == null) {
+				batch.draw(activeImage, getX(), getY());
+			}
+			else {
+				activeAnimation.setColor(Color.WHITE);
+			}
 		}
 		
 		if(active) {
 			batch.setColor(Color.WHITE);
-			batch.draw(arrowImage, getX() + 25, getY() + 45 + arrowHeight / 5);
+			batch.draw(arrowImage, getX() + (activeAnimation == null ? 25 : 70), getY() + 45 + arrowHeight / 5);
 			arrowHeight += arrowShift;
 			if (arrowHeight > 100 || arrowHeight < 0) arrowShift = 0 - arrowShift;
 		}		
