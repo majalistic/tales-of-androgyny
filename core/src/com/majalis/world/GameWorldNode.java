@@ -75,7 +75,6 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 			animation.setPlayMode(PlayMode.LOOP);
 			activeAnimation = new AnimatedImage(animation, Scaling.fit, Align.right);
 			activeAnimation.setState(0);
-			activeAnimation.setPosition(50, 0);
 			this.addActor(activeAnimation);
 		}
 		
@@ -127,7 +126,7 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 		
 		if(active) {
 			batch.setColor(Color.WHITE);
-			batch.draw(arrowImage, getX() + (activeAnimation == null ? 25 : 70), getY() + 45 + arrowHeight / 5);
+			batch.draw(arrowImage, getX() + 32 - arrowImage.getWidth() / 2, getY() + 50 + arrowHeight / 5);
 			arrowHeight += arrowShift;
 			if (arrowHeight > 100 || arrowHeight < 0) arrowShift = 0 - arrowShift;
 		}		
@@ -176,8 +175,7 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 			return;
 		}
 		connectedNodes.add(otherNode);
-		Vector2 centering = new Vector2(activeImage.getWidth()/2-10, activeImage.getHeight()/2);
-		paths.add(new Path(roadImage, new Vector2(getX(), getY()).add(centering), new Vector2(otherNode.getX(), otherNode.getY()).add(centering)));
+		paths.add(new Path(roadImage, new Vector2(getX(), getY()), new Vector2(otherNode.getX(), otherNode.getY())));
 		otherNode.getConnected(this);
 	}
 	
