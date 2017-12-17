@@ -1,5 +1,6 @@
 package com.majalis.world;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Vector2;
@@ -10,7 +11,56 @@ public class Path extends Actor {
 	private final Array<PathChunk> pathChunks;
 	public Path(Texture roadImage, Vector2 start, Vector2 finish) {
 		pathChunks = new Array<PathChunk>();
-		pathChunks.add(new PathChunk(roadImage, start, finish));
+		int distance = GameWorldHelper.distance((int)start.x, (int)start.y, (int)finish.x, (int)finish.y);
+		while (distance > 0) {
+			Vector2 currentStart = new Vector2(start.x, start.y);
+			if (start.x + start.y == finish.x + finish.y) { // z is constant
+				if (start.x < finish.x) { // downright
+					start.x++;
+					start.y--;
+				}
+				else { // upleft
+					start.x--;
+					start.y++;
+				}
+			}
+			else if (start.y == finish.y) { // y is constant
+				if (start.x < finish.x) start.x++; // upright
+				else start.x--; // downleft
+			}
+			else if (start.x == finish.x) { // x is constant
+				if (start.y < finish.y) start.y++; // up
+				else start.y--; // down
+			}
+			else {
+				if (start.x < finish.x) {
+					if (finish.x - start.x > start.y - finish.y) start.x++;
+					else start.y--;
+				}
+				else {
+					if (start.x - finish.x > finish.y - start.y) start.x--;
+					else start.y++;
+				}
+			}
+			pathChunks.add(new PathChunk(roadImage, currentStart, start));
+			distance = GameWorldHelper.distance((int)start.x, (int)start.y, (int)finish.x, (int)finish.y);
+		}
+	}
+	
+	@Override
+    public void setColor(Color color) {
+		super.setColor(color);
+		for (PathChunk chunk : pathChunks) {
+			chunk.setColor(color);
+		}	
+	}
+	
+	@Override
+    public void act(float delta) {
+		super.act(delta);
+		for (PathChunk chunk : pathChunks) {
+			chunk.act(delta);
+		}	
 	}
 	
 	@Override

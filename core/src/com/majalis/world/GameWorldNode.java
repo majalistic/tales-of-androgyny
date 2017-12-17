@@ -175,7 +175,7 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 			return;
 		}
 		connectedNodes.add(otherNode);
-		paths.add(new Path(roadImage, new Vector2(getX(), getY()), new Vector2(otherNode.getX(), otherNode.getY())));
+		paths.add(new Path(roadImage, getHexPosition(), otherNode.getHexPosition()));
 		otherNode.getConnected(this);
 	}
 	
