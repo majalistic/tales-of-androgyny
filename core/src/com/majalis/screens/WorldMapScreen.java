@@ -867,6 +867,7 @@ public class WorldMapScreen extends AbstractScreen {
 							reflection.setPosition(trueX, trueY);
 							reflection.setOrigin(reflection.getWidth() / 2, 16);
 							reflection.rotateBy(180);
+							reflection.addAction(Actions.alpha(.6f));
 							
 							boolean doodadInserted = false;
 							int ii = 0;
