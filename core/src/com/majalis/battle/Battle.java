@@ -344,12 +344,12 @@ public class Battle extends Group{
 		}
 		
 		Texture bloodTexture = assetManager.get(AssetEnum.BLEED.getTexture());
-		bloodImage = initImage(bloodTexture, 470, 800, 75);
-		enemyBloodImage = initImage(bloodTexture, 1545, 800, 75);
-		bloodLabel = initLabel("" + character.getBleed(), skin, Color.RED, 470 + 19, 800 + 7);	
+		bloodImage = initImage(bloodTexture, 470, 725, 75);
+		enemyBloodImage = initImage(bloodTexture, 1545, 725, 75);
+		bloodLabel = initLabel("" + character.getBleed(), skin, Color.RED, 470 + 19, 725 + 7);	
 		bloodLabel.setAlignment(Align.center);
 		bloodLabel.setWidth(10);
-		enemyBloodLabel = initLabel("" + enemy.getBleed(), skin, Color.RED, 1545 + 19, 800 + 7);
+		enemyBloodLabel = initLabel("" + enemy.getBleed(), skin, Color.RED, 1545 + 19, 725 + 7);
 		enemyBloodLabel.setAlignment(Align.center);
 		enemyBloodLabel.setWidth(10);
 		
