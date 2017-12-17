@@ -121,7 +121,7 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 				batch.draw(activeImage, getX(), getY());
 			}
 			else {
-				activeAnimation.setColor(Color.WHITE);
+				activeAnimation.setColor(current ? Color.PINK : Color.WHITE);
 			}
 		}
 		
@@ -189,6 +189,7 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 	public boolean isCurrent() { return current; }
 	public void setAsCurrentNode() {
 		current = true;
+		activeAnimation.setColor(Color.PINK);
 		for (GameWorldNode connectedNode : connectedNodes) {
 			connectedNode.setActive();
 		}
