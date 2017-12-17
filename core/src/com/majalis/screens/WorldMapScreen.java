@@ -930,7 +930,7 @@ public class WorldMapScreen extends AbstractScreen {
 	}
 	
 	private boolean river(int x, int y) {
-		return x + y > 140 && x + y < 148;
+		return (x + y > 140 && x + y < 148 && y > 50) || (y > 50 && y < 60 && x + y > 140);
 	}
 	
 	private boolean shoreline(int x, int y) {
@@ -944,7 +944,7 @@ public class WorldMapScreen extends AbstractScreen {
 	}
 	
 	private boolean lake(int x, int y) {
-		return distance(x, y, 13, 90) < 5;
+		return distance(x, y, 13, 90) < 5 || distance(x, y, 87, 55) < 7 || distance(x, y, 80, 62) < 5 || distance(x, y, 94, 55) < 5;
 	}
 	
 	private boolean isAbundantTrees(int x, int y) {
