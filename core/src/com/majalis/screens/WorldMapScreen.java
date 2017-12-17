@@ -88,6 +88,7 @@ public class WorldMapScreen extends AbstractScreen {
 	private final Music music;
 	private final InputMultiplexer multi;
 	private final AnimatedImage currentImage;
+	private final AnimatedImage currentImageGhost;
 	private final Skin skin;
 	private final Texture hoverImageTexture;
 	private final Image hoverImage;
@@ -214,6 +215,14 @@ public class WorldMapScreen extends AbstractScreen {
 		currentImage.setState(0);
 		// this is currently placing the character based on the camera in a way that conveniently places them on their current node - this needs to instead be aware of the current node and be able to grab its position from there (will need to know current node for behavior of Camp/Enter button regardless)
 		currentImage.setPosition(initialTranslation.x + 650, initialTranslation.y + 390);
+		
+		currentImageGhost = new AnimatedImage(animation, Scaling.fit, Align.right);
+		currentImageGhost.setScale(.7f);
+		currentImageGhost.setState(0);
+		currentImageGhost.getColor().a = .4f;
+		
+		// this is currently placing the character based on the camera in a way that conveniently places them on their current node - this needs to instead be aware of the current node and be able to grab its position from there (will need to know current node for behavior of Camp/Enter button regardless)
+		currentImageGhost.setPosition(initialTranslation.x + 650, initialTranslation.y + 390);
 		
 		this.world = world;
 		
@@ -483,6 +492,7 @@ public class WorldMapScreen extends AbstractScreen {
 					}
 					else {
 						currentImage.addAction(moveTo(actor.getX() + 12, actor.getY() + 25, 1.5f));
+						currentImageGhost.addAction(moveTo(actor.getX() + 12, actor.getY() + 25, 1.5f));
 						setCurrentNode(node);
 						worldGroup.addAction(sequence(delay(1.5f), new Action() {
 							@Override
@@ -927,6 +937,9 @@ public class WorldMapScreen extends AbstractScreen {
 			for (Doodad doodad : doodads) {
 				worldGroup.addActor(doodad);
 			}	
+			Group tempGroup = new Group();
+			tempGroup.addActor(currentImageGhost);
+			worldGroup.addActor(tempGroup);
 		}
 	}
 	
