@@ -63,7 +63,7 @@ public class QuestScreen extends AbstractScreen {
 			// create an actor based on the data that will display stats with a button with clicklistener (and associated enter-> click functionality) that will save the current game to that file(overwrite), load that file, a button with a clicklistener that will delete that file
 			final Label questDisplay = new Label(questType.getQuestDescription(questValue), skin);			
 			questDisplay.setColor(Color.BLACK);
-			questTable.add(questDisplay).align(Align.left).width(800);
+			questTable.add(questDisplay).align(Align.left).width(800).row();;
 		}
 		
 		if (nothingToDisplay) questTable.add(new Label("No quest records to display yet.", skin)).align(Align.left).width(800);		
