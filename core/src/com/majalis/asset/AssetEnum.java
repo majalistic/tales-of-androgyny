@@ -264,7 +264,7 @@ public enum AssetEnum {
 	GAME_OGRE("enemies/OgrePost.jpg"),
 	// sounds
 	BUTTON_SOUND("sounds/sound.wav", Sound.class),
-	CLICK_SOUND("sounds/node_sound.wav", Sound.class),
+	CLICK_SOUND("sounds/NodeSound.wav", Sound.class),
 	INTRO_SOUND("sounds/IntroSound.wav", Sound.class),
 	EQUIP("sounds/Equip.wav", Sound.class),
 	LOUD_LAUGH("sounds/LoudLaugh.wav", Sound.class),
