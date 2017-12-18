@@ -33,13 +33,17 @@ public class Path extends Actor {
 				else start.y--; // down
 			}
 			else {
-				if (start.x < finish.x) {
-					if (finish.x - start.x > start.y - finish.y) start.x++;
-					else start.y--;
+				int startZ = (int) (0 - (start.x + start.y));
+				int finishZ = (int) (0 - (finish.x + finish.y));
+				if (start.x > finish.x && startZ < finishZ) {
+					start.x--;
+				}
+				else if (finish.y > start.y && startZ > finishZ) {
+					start.y++;
 				}
 				else {
-					if (start.x - finish.x > finish.y - start.y) start.x--;
-					else start.y++;
+					start.x++;
+					start.y--;
 				}
 			}
 			pathChunks.add(new PathChunk(roadImage, currentStart, start));

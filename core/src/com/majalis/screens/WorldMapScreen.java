@@ -23,6 +23,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.badlogic.gdx.math.Affine2;
 import com.badlogic.gdx.math.RandomXS128;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -491,8 +492,55 @@ public class WorldMapScreen extends AbstractScreen {
 						autoEncounter(uiGroup, EncounterCode.ADVENTURER);
 					}
 					else {
-						currentImage.addAction(moveTo(actor.getX() + 12, actor.getY() + 25, 1.5f));
-						currentImageGhost.addAction(moveTo(actor.getX() + 12, actor.getY() + 25, 1.5f));
+						Vector2 finish = node.getHexPosition();
+						Vector2 start = new Vector2(currentNode.getHexPosition());
+						Array<Action> moveActions = new Array<Action>();
+						Array<Action> moveActionsGhost = new Array<Action>();
+						int distance = GameWorldHelper.distance((int)start.x, (int)start.y, (int)finish.x, (int)finish.y);
+						int totalDistance = distance;
+						while (distance > 0) {
+							if (start.x + start.y == finish.x + finish.y) { // z is constant
+								if (start.x < finish.x) { // downright
+									start.x++;
+									start.y--;
+								}
+								else { // upleft
+									start.x--;
+									start.y++;
+								}
+							}
+							else if (start.y == finish.y) { // y is constant
+								if (start.x < finish.x) start.x++; // upright
+								else start.x--; // downleft
+							}
+							else if (start.x == finish.x) { // x is constant
+								if (start.y < finish.y) start.y++; // up
+								else start.y--; // down
+							}
+							else {
+								int startZ = (int) (0 - (start.x + start.y));
+								int finishZ = (int) (0 - (finish.x + finish.y));
+								if (start.x > finish.x && startZ < finishZ) {
+									start.x--;
+								}
+								else if (finish.y > start.y && startZ > finishZ) {
+									start.y++;
+								}
+								else {
+									start.x++;
+									start.y--;
+								}			
+							}
+							moveActions.add(moveTo(getTrueX((int)start.x) + 12, getTrueY((int)start.x, (int)start.y) + 25, 1.5f/totalDistance));
+							moveActionsGhost.add(moveTo(getTrueX((int)start.x) + 12, getTrueY((int)start.x, (int)start.y) + 25, 1.5f/totalDistance));
+							distance = GameWorldHelper.distance((int)start.x, (int)start.y, (int)finish.x, (int)finish.y);
+						}
+						
+						Action[] allActionArray = moveActions.toArray(Action.class);
+						Action[] allActionsGhostArray = moveActionsGhost.toArray(Action.class);
+						currentImage.addAction(sequence(allActionArray));
+						currentImageGhost.addAction(sequence(allActionsGhostArray));
+						
 						setCurrentNode(node);
 						worldGroup.addAction(sequence(delay(1.5f), new Action() {
 							@Override
