@@ -103,6 +103,7 @@ public class WorldMapScreen extends AbstractScreen {
 	private final RandomXS128 random;
 	private final float travelTime;
 	private final Array<FrameBuffer> frameBuffers;
+	private final SpriteBatch frameBufferBatch;
 	
 	private GameWorldNode currentNode;
 	private GameWorldNode hoveredNode;
@@ -138,6 +139,7 @@ public class WorldMapScreen extends AbstractScreen {
 		this.random = random;
 		this.travelTime = 1;
 		this.frameBuffers = new Array<FrameBuffer>();
+		this.frameBufferBatch = new SpriteBatch();
 		
 		this.storyMode = loadService.loadDataValue(SaveEnum.MODE, GameMode.class) == GameMode.STORY;
 		uiStage = new Stage(new FitViewport(this.getViewport().getWorldWidth(), this.getViewport().getWorldHeight(), getCamera()), batch);
@@ -990,6 +992,7 @@ public class WorldMapScreen extends AbstractScreen {
 			tempGroup.addActor(currentImageGhost);
 			worldGroup.addActor(tempGroup);
 		}
+		frameBufferBatch.dispose();
 	}
 	
 	private boolean river(int x, int y) {
@@ -1020,13 +1023,12 @@ public class WorldMapScreen extends AbstractScreen {
 		int boxHeight = Gdx.graphics.getHeight();
 		int xScreenBuffer = 683;
 		int yScreenBuffer = 165;
-		
+		SpriteBatch frameBufferBatch = new SpriteBatch();
 		for (int xTile = 0; xTile < 4; xTile++) {
 			for (int yTile = 0; yTile < 6; yTile++) {
 				FrameBuffer frameBuffer = new FrameBuffer(Pixmap.Format.RGBA8888, boxWidth, boxHeight, false);
 				frameBuffers.add(frameBuffer);
 				frameBuffer.begin();
-				SpriteBatch frameBufferBatch = new SpriteBatch();
 				Gdx.gl.glClearColor(.2f, .2f, .4f, 0);
 				Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 				frameBufferBatch.begin();
@@ -1085,7 +1087,7 @@ public class WorldMapScreen extends AbstractScreen {
 				}
 				frameBufferBatch.end();
 				frameBuffer.end();
-				frameBufferBatch.dispose();
+				
 				Image background = new Image(new TextureRegion(frameBuffer.getColorBufferTexture(), 0, boxHeight, boxWidth, -boxHeight));
 				background.addAction(Actions.moveTo(-xScreenBuffer + xTile * boxWidth, -yScreenBuffer + yTile * (boxHeight)));
 				worldGroup.addActorAt(0, background);
