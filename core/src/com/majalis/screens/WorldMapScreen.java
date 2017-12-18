@@ -139,9 +139,10 @@ public class WorldMapScreen extends AbstractScreen {
 		this.travelTime = 1;
 		
 		this.storyMode = loadService.loadDataValue(SaveEnum.MODE, GameMode.class) == GameMode.STORY;
-		uiStage = new Stage3D(new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), getCamera()), batch);
+		uiStage = new Stage(new FitViewport(this.getViewport().getWorldWidth(), this.getViewport().getWorldHeight(), getCamera()), batch);
+		uiStage.getCamera().update();
 		
-		dragStage = new Stage3D(new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), getCamera()), batch);
+		dragStage = new Stage3D(new FitViewport(this.getViewport().getWorldWidth(), this.getViewport().getWorldHeight(), getCamera()), batch);
 		
 		camera = new PerspectiveCamera(70, 0, 1000);
 		this.getViewport().setCamera(camera);
@@ -1150,7 +1151,7 @@ public class WorldMapScreen extends AbstractScreen {
     @Override
     public void resize(int width, int height) {
     	super.resize(width, height);
-        this.getViewport().update(width, height, false);
+        uiStage.getViewport().update(width, height, false);
         cloudStage.getViewport().update(width, height, false);
     }
 	
