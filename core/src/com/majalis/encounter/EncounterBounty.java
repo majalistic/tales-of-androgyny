@@ -26,7 +26,7 @@ public class EncounterBounty {
 			case ICE_CREAM:  return new EncounterBountyResult("Ice cream!", new Mutation(saveService, SaveEnum.ITEM, new Misc(MiscType.ICE_CREAM)).mutate(), AssetEnum.EQUIP.getSound());
 			case HUNGER_CHARM: return scoutingScore < 3 ? new EncounterBountyResult("You find nothing of use in the cache. Are you missing something?", null, null) : new EncounterBountyResult("", new Mutation(saveService, SaveEnum.ITEM, new Misc(MiscType.HUNGER_CHARM)).mutate(), AssetEnum.EQUIP.getSound());
 			case DAMAGE_TRAP: return scoutingScore < 3 ? new EncounterBountyResult( "Agh! A pitfall! ", new Mutation(saveService, SaveEnum.HEALTH, -10).mutate(), AssetEnum.SWORD_SLASH_SOUND.getSound()) : new EncounterBountyResult("You discovered a pitfall, but avoided it.", null, null);
-			case ANAL_TRAP: return scoutingScore < 3 ? new EncounterBountyResult("Some kind of tentacle forced its way up your butt!", new Mutation(saveService, SaveEnum.ANAL, new SexualExperienceBuilder().setAnalSex(1, 0, 0).build()).mutate(), AssetEnum.THWAPPING.getSound()) : new EncounterBountyResult("You avoided a rogue tentacle. Naughty!", null, null);
+			case ANAL_TRAP: return scoutingScore < 3 ? new EncounterBountyResult("Some kind of tentacle forced its way up your butt!\n", new Mutation(saveService, SaveEnum.ANAL, new SexualExperienceBuilder().setAnalSex(1, 0, 0).build()).mutate(), AssetEnum.THWAPPING.getSound()) : new EncounterBountyResult("You avoided a rogue tentacle. Naughty!", null, null);
 			default: return null;
 		}
 	}
