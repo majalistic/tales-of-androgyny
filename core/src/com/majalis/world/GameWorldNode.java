@@ -187,7 +187,9 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 	public boolean isCurrent() { return current; }
 	public void setAsCurrentNode() {
 		current = true;
-		activeAnimation.setColor(Color.PINK);
+		if (activeAnimation != null) {
+			activeAnimation.setColor(Color.PINK);
+		}
 		for (GameWorldNode connectedNode : connectedNodes) {
 			connectedNode.setActive();
 		}
