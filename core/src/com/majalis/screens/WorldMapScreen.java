@@ -826,10 +826,8 @@ public class WorldMapScreen extends AbstractScreen {
 	    public void draw(Batch batch, float parentAlpha) {
 			Color color = getColor();
 			batch.setColor(color.r, color.g, color.b, color.a * parentAlpha);
-			//affine.setToTranslation(getX() + texture.getRegionWidth() + 10, getY() + (shadowLength));  // this needs to change as time of day changes to accommodate for the shear movem
-			//affine.rotate(180);
-			affine.setToTrnRotScl(getX() + texture.getRegionWidth() + (getOriginX()), getY() + (getOriginY()*2)+34, 180, 1, 1);
-	        affine.shear(shadowDirection, 0);  // this modifies the skew.  This kills the crab (V)O=O(V)
+			affine.setToTrnRotScl(getX() + texture.getRegionWidth() + (getOriginX()), getY() + (getOriginY()*2)+3, 180, 1, 1);
+	        affine.shear(shadowDirection, 0);  // this modifies the skew
 			batch.draw(texture, texture.getRegionWidth(), texture.getRegionHeight() * shadowLength, affine);
 	    }
 	}
