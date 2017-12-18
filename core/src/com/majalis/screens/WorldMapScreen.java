@@ -102,13 +102,13 @@ public class WorldMapScreen extends AbstractScreen {
 	private final boolean storyMode;
 	private final RandomXS128 random;
 	private final float travelTime;
+	private final Array<FrameBuffer> frameBuffers;
 	
 	private GameWorldNode currentNode;
 	private GameWorldNode hoveredNode;
 	private int time;
 	private boolean backgroundRendered = false;
 	private GameContext currentContext;
-	private FrameBuffer frameBuffer;
 	
 	public static final Array<AssetDescriptor<?>> resourceRequirements = new Array<AssetDescriptor<?>>();
 	static {
@@ -137,6 +137,7 @@ public class WorldMapScreen extends AbstractScreen {
 		this.saveService = saveService;
 		this.random = random;
 		this.travelTime = 1;
+		this.frameBuffers = new Array<FrameBuffer>();
 		
 		this.storyMode = loadService.loadDataValue(SaveEnum.MODE, GameMode.class) == GameMode.STORY;
 		uiStage = new Stage(new FitViewport(this.getViewport().getWorldWidth(), this.getViewport().getWorldHeight(), getCamera()), batch);
@@ -1019,9 +1020,11 @@ public class WorldMapScreen extends AbstractScreen {
 		int boxHeight = Gdx.graphics.getHeight();
 		int xScreenBuffer = 683;
 		int yScreenBuffer = 165;
+		
 		for (int xTile = 0; xTile < 4; xTile++) {
 			for (int yTile = 0; yTile < 6; yTile++) {
-				frameBuffer = new FrameBuffer(Pixmap.Format.RGBA8888, boxWidth, boxHeight, false);
+				FrameBuffer frameBuffer = new FrameBuffer(Pixmap.Format.RGBA8888, boxWidth, boxHeight, false);
+				frameBuffers.add(frameBuffer);
 				frameBuffer.begin();
 				SpriteBatch frameBufferBatch = new SpriteBatch();
 				Gdx.gl.glClearColor(.2f, .2f, .4f, 0);
@@ -1161,6 +1164,8 @@ public class WorldMapScreen extends AbstractScreen {
 			if (path.fileName.equals(AssetEnum.CLICK_SOUND.getSound().fileName)) continue;
 			assetManager.unload(path.fileName);
 		}
-		if (frameBuffer != null) frameBuffer.dispose();
+		for (FrameBuffer frameBuffer : frameBuffers) {
+			frameBuffer.dispose();
+		}
 	}	
 }
