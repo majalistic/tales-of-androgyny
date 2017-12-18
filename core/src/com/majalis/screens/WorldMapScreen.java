@@ -708,7 +708,6 @@ public class WorldMapScreen extends AbstractScreen {
 	@Override
 	public void render(float delta) {
 		translateCamera();
-		Gdx.input.setInputProcessor(multi);
 		
 		if (Gdx.input.isKeyJustPressed(Keys.ENTER)) {
 			showScreen(ScreenEnum.CHARACTER);
@@ -1141,6 +1140,12 @@ public class WorldMapScreen extends AbstractScreen {
 		groundSlices.put(key, slice);
 		return slice;
 	}
+	
+	@Override
+    public void show() {
+        Gdx.input.setInputProcessor(multi);
+        font.setUseIntegerPositions(false);
+    }
 	
     @Override
     public void resize(int width, int height) {
