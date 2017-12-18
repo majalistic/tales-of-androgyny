@@ -1155,7 +1155,6 @@ public class WorldMapScreen extends AbstractScreen {
 			if (path.fileName.equals(AssetEnum.CLICK_SOUND.getSound().fileName)) continue;
 			assetManager.unload(path.fileName);
 		}
-		frameBuffer.dispose();
-	}
-	
+		if (frameBuffer != null) frameBuffer.dispose();
+	}	
 }
