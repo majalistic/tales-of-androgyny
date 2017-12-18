@@ -101,6 +101,7 @@ public class WorldMapScreen extends AbstractScreen {
 	private final TextButton campButton;
 	private final boolean storyMode;
 	private final RandomXS128 random;
+	private final float travelTime;
 	
 	private GameWorldNode currentNode;
 	private GameWorldNode hoveredNode;
@@ -135,6 +136,7 @@ public class WorldMapScreen extends AbstractScreen {
 		this.assetManager = assetManager;
 		this.saveService = saveService;
 		this.random = random;
+		this.travelTime = 1;
 		
 		this.storyMode = loadService.loadDataValue(SaveEnum.MODE, GameMode.class) == GameMode.STORY;
 		uiStage = new Stage3D(new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), getCamera()), batch);
@@ -531,8 +533,8 @@ public class WorldMapScreen extends AbstractScreen {
 									start.y--;
 								}			
 							}
-							moveActions.add(moveTo(getTrueX((int)start.x) + 12, getTrueY((int)start.x, (int)start.y) + 25, 1.5f/totalDistance));
-							moveActionsGhost.add(moveTo(getTrueX((int)start.x) + 12, getTrueY((int)start.x, (int)start.y) + 25, 1.5f/totalDistance));
+							moveActions.add(moveTo(getTrueX((int)start.x) + 12, getTrueY((int)start.x, (int)start.y) + 25, travelTime/totalDistance));
+							moveActionsGhost.add(moveTo(getTrueX((int)start.x) + 12, getTrueY((int)start.x, (int)start.y) + 25, travelTime/totalDistance));
 							distance = GameWorldHelper.distance((int)start.x, (int)start.y, (int)finish.x, (int)finish.y);
 						}
 						
@@ -542,7 +544,7 @@ public class WorldMapScreen extends AbstractScreen {
 						currentImageGhost.addAction(sequence(allActionsGhostArray));
 						
 						setCurrentNode(node);
-						worldGroup.addAction(sequence(delay(1.5f), new Action() {
+						worldGroup.addAction(sequence(delay(travelTime), new Action() {
 							@Override
 							public boolean act(float delta) {
 								time += timePassed;
@@ -685,7 +687,7 @@ public class WorldMapScreen extends AbstractScreen {
 		newEncounterText.setColor(Color.GOLD);
 		newEncounterText.setPosition(430, 335);
 		uiGroup.addActor(newEncounterText);
-		uiGroup.addAction(sequence(delay(1.5f), new Action() {
+		uiGroup.addAction(sequence(delay(travelTime), new Action() {
 			@Override
 			public boolean act(float delta) {
 				switchContext();
