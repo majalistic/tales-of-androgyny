@@ -911,7 +911,7 @@ public class EncounterBuilder {
 							new Branch("In her mouth").textScene("NAGA-FELLATIO").gameEnd(), 
 							new Branch("Nothing")
 						), 
-						new Branch(Outcome.DEFEAT).textScene("NAGA-DEFEAT"), 
+						new Branch(Outcome.DEFEAT).textScene("NAGA-DEFEAT").gameEnd(), 
 						new Branch(Outcome.DEATH).textScene("NAGA-CRUSHED").gameEnd()
 					), 
 					new Branch(false).textScene("NAGA-AMBUSH").choiceScene(
