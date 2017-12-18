@@ -17,7 +17,7 @@ public class Logging {
 		long currentTime = System.currentTimeMillis();
 		long delta = currentTime - lastTime;
 		total += delta;
-		buffer.append(display + " - delta: " + delta + " total: " + total + "\n");
+		buffer.append(delta + ": delta - " + total + ": total - " + display + "\n");
 		lastTime = currentTime;
 	}
 	

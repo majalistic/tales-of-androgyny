@@ -2,6 +2,7 @@ package com.majalis.screens;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
@@ -24,6 +25,8 @@ import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveManager;
 import com.majalis.save.SaveService;
 import com.majalis.save.SaveManager.GameMode;
+import com.majalis.talesofandrogyny.Logging;
+import com.majalis.talesofandrogyny.TalesOfAndrogyny;
 import com.majalis.world.GameWorldFactory;
 /*
  * ScreenFactory implementation to generate and cache screens.
@@ -54,14 +57,50 @@ public class ScreenFactoryImpl implements ScreenFactory {
 		this.batch = batch;
 		this.fontGenerator = fontGenerator;
 		loading = true;
+		if (TalesOfAndrogyny.testing) testWorldGen();
 	}
+	
+	/* Unit Test */
+	private void testWorldGen() {
+		saveService.newSave();
+		Logging.logTime("Begin logging");
+		for (int ii = 0; ii < 100; ii++) {
+			Logging.logTime("Seed: " + ii);
+			assetManager.load(AssetEnum.UI_SKIN.getSkin());
+			for (AssetDescriptor<?> desc : WorldMapScreen.resourceRequirements) {
+				assetManager.load(desc);
+			}
+			
+			assetManager.finishLoading();
+			AbstractScreen newScreen = new WorldMapScreen(this, getElements(), assetManager, saveService, loadService, gameWorldFactory.getGameWorld(ii, GameMode.SKIRMISH, 1), gameWorldFactory.getRandom());
+			
+			Screen currentScreen = game.getScreen();
+	    	
+	        // Dispose previous screen
+	        if (currentScreen != null) {
+	            currentScreen.dispose();
+	        }
+	    	// Show new screen
+	    	newScreen.buildStage();
+	        game.setScreen(newScreen);
+			
+			EncounterCode.resetState();
+		}
+		Logging.flush();
+	}
+	/* End Unit Test */
 
-	@SuppressWarnings("unchecked")
-	@Override  
-	public AbstractScreen getScreen(ScreenEnum screenRequest) {
+	private ScreenElements getElements() {
 		OrthographicCamera camera = new OrthographicCamera();
         FitViewport viewport =  new FitViewport(winWidth, winHeight, camera);
         ScreenElements elements = new ScreenElements(viewport, batch, fontGenerator);
+        return elements;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override  
+	public AbstractScreen getScreen(ScreenEnum screenRequest) {
+		ScreenElements elements = getElements();
         PlayerCharacter character = loadService.loadDataValue(SaveEnum.PLAYER, PlayerCharacter.class);
 		AbstractScreen tempScreen;
 		switch(screenRequest) {

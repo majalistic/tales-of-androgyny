@@ -33,20 +33,7 @@ public class GameWorldFactory {
 		this.loadService = saveManager;
 		this.assetManager = assetManager;
 		this.random = random;
-		if (TalesOfAndrogyny.testing) testWorldGen();
 	}
-	
-	/* Unit Test */
-	private void testWorldGen() {
-		Logging.logTime("Begin logging");
-		for (int ii = 0; ii < 10000; ii++) {
-			getGameWorld(ii, GameMode.SKIRMISH, 1);
-			EncounterCode.resetState();
-			Logging.logTime("Seed: " + ii);
-		}
-		Logging.flush();
-	}
-	/* End Unit Test */
 	
 	@SuppressWarnings("unchecked")
 	public Array<GameWorldNode> getGameWorld(int seed, GameMode gameMode, int currentNode) {
