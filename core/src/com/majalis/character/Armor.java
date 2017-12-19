@@ -131,9 +131,10 @@ public class Armor extends Item{
 		private String getLabel() { return label; }
 		private String getDescription() { 
 			return 
-			(coversTop() ? (coversBottom() ? "Protects both upper and lower body." : "Protects upper body.") : coversBottom() ? "Protects lower body." : isUnderwear() ? "Worn under clothing" : "") + "\n" +
+			isShield() ? "A shield which will block attacks while guarding.  Can absorb 30 damage before breaking." :
+			((coversTop() ? (coversBottom() ? "Protects both upper and lower body." : "Protects upper body.") : coversBottom() ? "Protects lower body." : isUnderwear() ? "Worn under clothing" : "") + "\n" +
 			(coversAnus() ? "This protects the backdoor.\n" : "") +
-			getDurabilityDescription(); 
+			getDurabilityDescription()); 
 		}
 		private int getValue() { return value; }
 		
