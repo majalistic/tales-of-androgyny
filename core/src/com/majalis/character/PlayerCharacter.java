@@ -1538,7 +1538,7 @@ public class PlayerCharacter extends AbstractCharacter {
 	}
 
 	public boolean isEquipped(Item item) {
-		return item.equals(weapon) || item.equals(armor) || item.equals(legwear) || item.equals(underwear) || item.equals(plug) || item.equals(cage);
+		return item.equals(weapon) || item.equals(armor) || item.equals(shield) || item.equals(legwear) || item.equals(underwear) || item.equals(plug) || item.equals(cage);
 	}
 
 	public int getAnalReceptionCount() {
