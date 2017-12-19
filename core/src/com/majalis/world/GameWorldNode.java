@@ -69,10 +69,9 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 			for (int ii = 0; ii < 3; ii++) {
 				frames.add(new TextureRegion(activeImage, ii * size, 0, size, size));
 			}
-			frames.add(new TextureRegion(activeImage, size, 0, size, size));
 			
 			Animation animation = new Animation(.14f, frames);
-			animation.setPlayMode(PlayMode.LOOP);
+			animation.setPlayMode(PlayMode.LOOP_PINGPONG);
 			activeAnimation = new AnimatedImage(animation, Scaling.fit, Align.right);
 			activeAnimation.setState(0);
 			this.addActor(activeAnimation);
