@@ -849,6 +849,7 @@ public class WorldMapScreen extends AbstractScreen {
 			Array<Doodad> doodads = new Array<Doodad>();
 			Array<Shadow> shadows = new Array<Shadow>();		
 			Array<Image> reflections = new Array<Image>();
+			Array<AnimatedImage> lilies = new Array<AnimatedImage>();
 			
 			Texture doodadTextureSheet = assetManager.get(AssetEnum.DOODADS.getTexture());
 			Array<TextureRegion> treeTextures = new Array<TextureRegion>();
@@ -875,6 +876,19 @@ public class WorldMapScreen extends AbstractScreen {
 				rockShadowTextures.add(shadowTexture);
 			}
 			
+			Array<Animation> lilyAnimations = new Array<Animation>();
+			int lilyArraySize = 15;
+			int lilyWidth = 64;
+			int lilyHeight = 64;
+			for (int ii = 0; ii < lilyArraySize; ii++) {
+				Array<TextureRegion> frames = new Array<TextureRegion>();
+				frames.add(new TextureRegion(doodadTextureSheet, ii * lilyWidth, treeHeight + rockHeight, lilyWidth, lilyHeight));
+				frames.add(new TextureRegion(doodadTextureSheet, ii * lilyWidth, treeHeight + rockHeight + lilyHeight, lilyWidth, lilyHeight));
+				Animation lilyAnimation = new Animation(.28f, frames);
+				lilyAnimation.setPlayMode(PlayMode.LOOP);
+				lilyAnimations.add(lilyAnimation);
+			}		
+			
 			int maxX = 170;
 			int maxY = 235;
 			
@@ -900,6 +914,15 @@ public class WorldMapScreen extends AbstractScreen {
 					}
 					
 					layer.add(toAdd);
+					
+					if (toAdd == GroundType.WATER && random.nextInt() % 5 == 0) {
+						AnimatedImage lily = new AnimatedImage(lilyAnimations.get(Math.abs(random.nextInt() % lilyArraySize)), Scaling.fit, Align.center);
+						lily.setState(0);
+						int trueX = getTrueX(x) - (int)lily.getWidth() / 2 + tileWidth / 2;
+						int trueY = getTrueY(x, y) + tileHeight / 2;
+						lily.setPosition(trueX, trueY);
+						lilies.add(lily);
+					}
 					
 					boolean treeAbundance = isAbundantTrees(x, y);				
 					if (closest >= 3 && toAdd == GroundType.DIRT || toAdd == GroundType.RED_LEAF_0 || toAdd == GroundType.RED_LEAF_1) {
@@ -971,9 +994,14 @@ public class WorldMapScreen extends AbstractScreen {
 			drawLayer(ground, groundSheet, false);
 						
 			// draw (add reflections as actors) reflections
+			for (AnimatedImage lily :lilies) {
+				worldGroup.addActorAt(0, lily);
+			}
+			
 			for (Image reflection : reflections) {
 				worldGroup.addActorAt(0, reflection);
 			}
+		
 			// draw (add drawings as actors) water layer
 						drawLayer(ground, groundSheet, true);
 							
