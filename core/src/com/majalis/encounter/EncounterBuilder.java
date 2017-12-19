@@ -786,7 +786,7 @@ public class EncounterBuilder {
 								new Branch("Ask to fight her").concat(golemBattle),
 								new Branch("Tell her to shut down").textScene("GOLEM-SHUTDOWN")
 							),
-							new Branch("Sooth Her (5 MAG)").require(ChoiceCheckType.STAT_GREATER_THAN_X, Stat.MAGIC, 5).textScene("GOLEM-SOOTHED").choiceScene("What do you do?", calmOptions),
+							new Branch("Soothe Her (5 MAG)").require(ChoiceCheckType.STAT_GREATER_THAN_X, Stat.MAGIC, 5).textScene("GOLEM-SOOTHED").choiceScene("What do you do?", calmOptions),
 							new Branch("Calm Her (3 MAG)").require(ChoiceCheckType.STAT_GREATER_THAN_X, Stat.MAGIC, 3).textScene("GOLEM-CALMED").checkScene(
 								Stat.PERCEPTION, 
 								new Branch(4).choiceScene("What do you do?", calmOptions), 
