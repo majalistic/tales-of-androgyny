@@ -127,11 +127,7 @@ public class ReplayScreen extends AbstractScreen {
 			TextButton button = new TextButton(type.toString(), skin);
 			ObjectMap<Stance, Array<Texture>> textures = new ObjectMap<Stance, Array<Texture>>();			
 			Array<Texture> possibleTextures = type.getTextures(assetManager);
-			Texture enemyTexture = null;
-			if (possibleTextures.size > 0) {
-				enemyTexture = possibleTextures.get(0);		
-			}
-			textures.put(Stance.BALANCED, new Array<Texture>(new Texture[]{enemyTexture}));
+			textures.put(Stance.BALANCED, possibleTextures);
 			final EnemyCharacter enemy = new EnemyCharacter(possibleTextures, textures, type.getAnimations(assetManager), type);
 			this.addActor(enemy);
 			enemy.addAction(Actions.hide());

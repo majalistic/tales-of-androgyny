@@ -6463,7 +6463,7 @@
 		"key": "BUNNY-SHOW",
 		"scriptLines": [
 			{
-			"mutations": [{"profileSaveType":"KNOWLEDGE", "value":{"class": "java.lang.String", "value": "Bunny"}}],
+			"mutations": [{"profileSaveType":"KNOWLEDGE", "value":{"class": "java.lang.String", "value": "Puca"}}],
 			"text": "As she appears, you start to doubt yourself that she was the presence you felt - she seems harmless."},
 			{"text": "The first thing that stands out to you about her is what stands out from her body - that is, her barely covered breasts, clad in a mesh that you doubt offers much protection from the elements, much less the edge or flat of a blade."},
 			{"text": "Her outfit is... revealing, to say the least.  You can her body up and down before you notice what else stands out from her body - peaking out from behind, but now aroused and facing towards you, are a pair soft-looking rabbit-like ears."},
@@ -6480,7 +6480,9 @@
 	{
 		"key": "BUNNY-SHOW-REUNION",
 		"scriptLines": [
-			{"text": "The debt collector from before appears, making no attempt to hide her presence.  \"Hi there... I'm sorry about this, but it would be too much trouble if I asked for another payment?\""}
+			{
+			"mutations": [{"profileSaveType":"KNOWLEDGE", "value":{"class": "java.lang.String", "value": "Puca"}}],
+			"text": "The debt collector from before appears, making no attempt to hide her presence.  \"Hi there... I'm sorry about this, but it would be too much trouble if I asked for another payment?\""}
 		]
 	},
 	{
