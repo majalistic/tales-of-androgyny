@@ -155,7 +155,10 @@ public class CheckScene extends AbstractTextScene {
 			@Override
 			protected boolean getCheck(PlayerCharacter character) { return character.getQuestStatus(QuestType.CRIER) == 2; }  
 		}, 
-		
+		CRIER_KNOWLEDGE ("", "") { 
+			@Override
+			protected boolean getCheck(PlayerCharacter character) { return character.getQuestStatus(QuestType.CRIER) == 3; }  
+		}, 
 		INN_0 ("", "") { 
 			@Override
 			protected boolean getCheck(PlayerCharacter character) { return character.getQuestStatus(QuestType.INNKEEP) == 0; }  
@@ -292,7 +295,15 @@ public class CheckScene extends AbstractTextScene {
 		QUETZAL("", "") { 
 			@Override
 			protected boolean getCheck(PlayerCharacter character) { int check = character.getQuestStatus(QuestType.QUETZAL); return check == 1; }  
-		}, 
+		},
+		WITCH_MET("", "") { 
+			@Override
+			protected boolean getCheck(PlayerCharacter character) { int check = character.getQuestStatus(QuestType.WITCH); return check > 0; }  
+		},
+		BLESSING_PURCHASED("", "") { 
+			@Override
+			protected boolean getCheck(PlayerCharacter character) { int check = character.getQuestStatus(QuestType.WITCH); return check == 2; }  
+		}
 		;
 		private final String success;
 		private final String failure;

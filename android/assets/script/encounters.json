@@ -1048,7 +1048,7 @@
 		"key": "TOWN-SQUARE-INFORMANT-OKAY",
 		"scriptLines": [
 			{
-			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "CRIER", "value":3}}],
+			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "CRIER", "value":4}}],
 			"text": "\"There's a witch that lives out in a cottage in that hell-blasted enchanted forest, and I've heard said that she deals in artifacts beyond the ken of simple folk like meself.  In past days, she'd be the one to go to when some dreadful monster needed killing.  Might be she could help ye.\""},
 			{"text": "You nod along.  This is good stuff."},
 			{"text": "If ye mention that ye need her expertise, she's sure to open her door."}
@@ -1132,6 +1132,89 @@
 		"key": "TOWN-SQUARE-INFORMANT-RETURN",
 		"scriptLines": [
 			{"text": "\"You again?  Have you decided to consider my generous offer?\""}
+		]
+	},
+	{
+		"key": "WITCH-COTTAGE-NOQUEST",
+		"scriptLines": [
+			{
+			"music": "TRAINER_MUSIC",
+			"background": "CABIN_BACKGROUND",			
+			"text": "You approach a strange cottage.  At first, it appears to be inhabited, but once you get within a stone's throw, it suddenly appears old and dilapidated... or did it always look that way?"},
+			{"text": "You try to see inside, but the windows are caked over with dust - it doesn't appear that anyone has lived here for years.  You decide to move on, a bit puzzled."}
+		]
+	},
+	{
+		"key": "WITCH-COTTAGE",
+		"scriptLines": [
+			{
+			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "WITCH", "value":1}}],
+			"music": "TRAINER_MUSIC",
+			"background": "CABIN_BACKGROUND",			
+			"text": "You approach a strange cottage.  At first, it appears to be inhabited, but once you get within a stone's throw, it suddenly appears old and dilapidated... or did it always look that way?"},
+			{"text": "You try to see inside, but the windows are caked over with dust - it doesn't appear that anyone has lived here for years.  Still, this seems to be the witch's cottage.  You're sure of it."},
+			{"text": "You call out to her.  \"Witch of the forest!  I am in need of your talents!  I wish to slay the lord of the Xiuh mountain!\""},
+			{"text": "For a moment, there is nothing but silence.  You begin to feel your hope plummet, when the door cracks open slightly, and a woman's figure appears in it."}
+			{
+			"foreground": "MERI_SILHOUETTE",
+			"text": "\"The lord of the mountain?\" she says, incredulous, while giving you a suspicious appraisal. \"Hmm... interesting.  Come inside, young one,\" she says, and then steps away from the crack in the door, only for it to seemingly open fully of its own accord."},
+			{
+			"music": "WEREWOLF_MUSIC",
+			"text": "The inside of the cottage is bizarre, filled with curious artifacts and myriad trinkets, the greater part of which you cannot discern purpose or origin.  The witch herself, you realize, is younger-looking than you expected, although she is older than you, it seems."},
+			{"text": "\"The lord of the mountain is invincible,\" she says, plainly, and you sigh, a bit defeated, \"...that is, unless you know her weakness.\""},
+			{"text": "You perk up.  That sounds promising.  \"What is her weakness?\""},
+			{"text": "She leans in close to you... you can smell her breath. \"Boys,\" she says, smiling, \"and also the goddess' blessing.  I think the latter is probably more what you were looking for, though,\" she says, leaning back and shrugging."},
+			{"text": "\"How do I receive the goddess' blessing?  Is it a ritual?  A pilgrimage?\" you say, trying to guess at the next leg of your journey."},
+			{"text": "She waves her hand in the air. \"No - it's this old thing,\" she says, picking up a hunk of some metallic object off of a small three legged stool that looked like it was supposed to be used for lacing your boots."},
+			{"text": "You inspect the object.  It's... oddly shaped, like a horse's saddle, with protrusions and depressions... some kind of cage mesh, and some kind of bulbous offshoot.  You've never seen anything like it."},
+			{"text": "\"This is... her weakness?\" you ask, incredulously."},
+			{"text": "\"Nothing less than what you need to defeat her.  If she touches it, she'll no longer be invulnerable.  She'll still be huge and immensely powerful, but, well, that's what heroes are for, right?\" she says, tapping a long fingernail onto your nose."},
+			{"text": "\"What do you want for it?\" you ask, and her smile grows thin."},
+			{"text": "\"Oh, nothing.  Just... a bit of your soul,\" she says, running the same fingernail under your chin, stroking it possessively.  You flush."},
+			{"text": "\"My... my soul?\" you say, nervously."},
+			{"text": "\"Just a bit, yessss... or a hundred gold coins.  Witch's got to eat,\" she explains, and you're left with a choice... a strange choice, indeed."}			
+		]
+	},
+	{
+		"key": "WITCH-COTTAGE-MONEY",
+		"scriptLines": [
+			{
+			"mutations": [{"saveType":"GOLD", "value":{"class": "java.lang.Integer", "value": -100}}, {"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "WITCH", "value":2}}],
+			"text": "You painfully count out a hundred coins, placing them on the same footstool she'd left the priceless artifact on.  She watches, amused."},
+			{"text": "\"It's yours.  Once she touches it, it'll be possible to defeat her.  Whether you manage it is another question.\""},
+			{"text": "You take the goddess blessing with you and leave the witch behind, your coin purse considerably lighter."}
+		]
+	},
+	{
+		"key": "WITCH-COTTAGE-SOUL",
+		"scriptLines": [
+			{
+			"mutations": [{"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": -50}}, {"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "WITCH", "value":2}}],
+			"text": "You offer up your soul, and the witch reaches a slender finger towards your forehead... and then, everything goes dark.  When you awaken, the goddess' blessing is in your possession... and you've feel like you've forgotten so much."}
+		]
+	},
+	{
+		"key": "WITCH-COTTAGE-GEM",
+		"scriptLines": [
+			{
+			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "WITCH", "value":2}}],
+			"text": "You offer her the gem, and she smiles upon seeing it."},
+			{"text": "\"Oh, he thinks he's quite clever.  But I, unfortunately, am cleverer still... thank you for bringing me this.  I'll give the both of you exactly what you deserve...\""},
+			{"text": "She hands you the goddesses' blessing, fascinated by the gem.  She turns it over in her hand, peering into its flawless depths."},
+			{"text": "She notices you watching her.  \"It's yours.  Once she touches it, it'll be possible to defeat her.  Whether you manage it is another question,\" she says, handing you the gem, \"I'll let you keep that gem, as well.  I don't need it.  Hehe.\""},
+			{"text": "You take the gem and the goddess' blessing and leave the cottage, curious about the witch's cryptic words."}
+		]
+	},
+	{
+		"key": "WITCH-COTTAGE-RETURN-BOUGHT",
+		"scriptLines": [
+			{"text": "You return to the witch's cabin, but she won't see you again.  You leave, empty-handed."}
+		]
+	},
+	{
+		"key": "WITCH-COTTAGE-RETURN-BUY",
+		"scriptLines": [
+			{"text": "You return to the witch, and she asks you if you're ready to buy the goddess' blessing."}
 		]
 	},
 	{

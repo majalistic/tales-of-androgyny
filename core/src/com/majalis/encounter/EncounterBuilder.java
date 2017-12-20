@@ -1176,7 +1176,7 @@ public class EncounterBuilder {
 			case TRUDY_COMPANION:
 				return new Branch().textScene("TRUDY-COMPANION").getEncounter();
 			case WEAPON_SHOP:
-				return new Branch().textScene("WEAPON-SHOP").shopScene(ShopCode.WEAPON_SHOP).encounterEnd().getEncounter();
+				return new Branch().textScene("WEAPON-SHOP").shopScene(ShopCode.WEAPON_SHOP).getEncounter();
 			case WERESLUT:
 				Branch knotted = new Branch().textScene("WEREWOLF-KNOT").checkScene(Perk.BITCH, new Branch(3).textScene("WEREWOLF-BITCH-END").gameEnd(), new Branch(0).textScene("WEREWOLF-POST-KNOT"));
 				Branch mated = new Branch().textScene("WEREWOLF-MATED").concat(knotted);
@@ -1192,6 +1192,23 @@ public class EncounterBuilder {
 			        new Branch(Outcome.DEFEAT).textScene("WEREWOLF-DEFEAT").checkScene(Perk.BITCH, bitch, uninterested),
 			        new Branch(Outcome.SATISFIED).textScene("WEREWOLF-SATISFIED")
 			    ).getEncounter();
+			case WITCH_COTTAGE:
+				Branch purchase = new Branch().choiceScene(
+					"Purchase the goddess' blessing?", 
+					new Branch("Pay 100 GP").require(ChoiceCheckType.GOLD_GREATER_THAN_X, 100).textScene("WITCH-COTTAGE-MONEY"), 
+					new Branch("Pay with soulbit").textScene("WITCH-COTTAGE-SOUL"), 
+					new Branch("Give her the gem").require(ChoiceCheckType.HAS_GEM).textScene("WITCH-COTTAGE-GEM"), 
+					new Branch("Don't buy it")
+				);
+				return new Branch().checkScene(
+					CheckType.WITCH_MET, 
+					new Branch(true).checkScene(CheckType.BLESSING_PURCHASED, new Branch(true).textScene("WITCH-COTTAGE-RETURN-BOUGHT"), new Branch(false).textScene("WITCH-COTTAGE-RETURN-BUY").concat(purchase)), 
+					new Branch(false).checkScene(
+						CheckType.CRIER_KNOWLEDGE, 
+						new Branch(true).textScene("WITCH-COTTAGE").concat(purchase), 
+						new Branch(false).textScene("WITCH-COTTAGE-NOQUEST")
+					)
+				).getEncounter();
 			default: 
 		}
 		return new Branch().textScene("TOWN").encounterEnd().getEncounter();	
@@ -1214,7 +1231,8 @@ public class EncounterBuilder {
 		STAT_LESS_THAN_X,
 		PERK_GREATER_THAN_X,
 		PERK_LESS_THAN_X,
-		FREE_COCK;
+		FREE_COCK, 
+		HAS_GEM;
 		
 		public boolean isValidChoice(PlayerCharacter character, Stat statToCheck, Perk perkToCheck, int target) {
 			switch (this) {
@@ -1234,6 +1252,8 @@ public class EncounterBuilder {
 					return character.getRawStat(statToCheck) < target;
 				case FREE_COCK:
 					return !character.isChastitied();
+				case HAS_GEM:
+					return character.hasGem();
 			}
 			return false;
 		}

@@ -12,6 +12,7 @@ import com.badlogic.gdx.utils.ObjectSet;
 import com.majalis.asset.AssetEnum;
 import com.majalis.character.Armor.ArmorType;
 import com.majalis.character.Item.ChastityCage;
+import com.majalis.character.Item.EffectType;
 import com.majalis.character.Item.Misc;
 import com.majalis.character.Item.MiscType;
 import com.majalis.character.Item.Plug;
@@ -1369,14 +1370,14 @@ public class PlayerCharacter extends AbstractCharacter {
 	}
 	
 	public enum QuestType {
-		ORC, CRIER, QUETZAL, INNKEEP, TRUDY, GOBLIN, OGRE, SPIDER, BROTHEL, ELF, DEBT, GADGETEER, MADAME;
+		ORC, CRIER, QUETZAL, INNKEEP, TRUDY, GOBLIN, OGRE, SPIDER, BROTHEL, ELF, DEBT, GADGETEER, MADAME, WITCH;
 		
 		public String getQuestDescription(int currentValue) {
 			switch (this) {
 				case BROTHEL:
 					return currentValue > 0 ? "You've agreed to be a prostitute in the brothel." : "";
 				case CRIER:
-					return currentValue > 0 ? ("You've heard about the lord of Xiuh mountain." + (currentValue == 2 ? " You've met a strange man who claims to have useful information." : currentValue == 3 ? " A strange man told you about the witch that lives in the forest." : "")) : "";
+					return currentValue > 0 ? ("You've heard about the lord of Xiuh mountain." + (currentValue == 2 ? " You've met a strange man who claims to have useful information." : currentValue == 3 ? " A strange man told you about a generic brothel patron." : currentValue == 4 ? " A strange man told you about the witch that lives in the forest." : "")) : "";
 				case DEBT:
 					return currentValue == 2 ? "You've encountered the debt collectors." : currentValue == 1 ? "You've been warned by the debt collectors." : "";
 				case ELF:
@@ -1389,18 +1390,19 @@ public class PlayerCharacter extends AbstractCharacter {
 				case INNKEEP:
 					return currentValue == 4 ? "You've married the innkeep." : currentValue == 3 ? "You've been innkeep's bitch for a day's lodging." : currentValue == 2 ? "You've caught the innkeep's fuck for a day's lodging." : currentValue == 1 ? "You've sucked the innkeep off for a day's lodging." : "";
 				case MADAME:
-					return currentValue == 1 ? "You've introduced yourself to the Brothel madame" : "";					
+					return currentValue == 1 ? "You've introduced yourself to the Brothel madame." : "";					
 				case OGRE:
-					return currentValue == 1 ? "You've seen an ogre" : "";		
+					return currentValue == 1 ? "You've seen an ogre." : "";		
 				case ORC:
-					return currentValue == 2 ? "You've encountered an orc and behaved cowardly." : currentValue == 1 ? "You've encountered Urka the orc and behaved honorably" : "";	
+					return currentValue == 2 ? "You've encountered an orc and behaved cowardly." : currentValue == 1 ? "You've encountered Urka the orc and behaved honorably." : "";	
 				case QUETZAL:
 					return currentValue == 1 ? "You've seen the great lord of Mount Xiuh." : "";
 				case SPIDER:
 					return currentValue == 1 ? "You've survived the spider-infested ruins." : "";	
 				case TRUDY:
 					return currentValue == 5 ? "You've made Trudy your travelling companion." : currentValue == 4 ? "You've battled with Trudy." : currentValue == 3 ? "You were tricked by Trudy and buggered by a beast." : currentValue == 2 ? "You foiled Trudy's betrayal, and he was buggered by a beast in your place." : currentValue == 1 ? "You've met Trudy, another adventurer." : "";	
-				
+				case WITCH:
+					return currentValue == 2 ? "You've received the goddess' blessing from the witch of the forest." : currentValue == 1 ? "You've met the witch of the forest." : "";
 			}
 			return ""; 			
 		}
@@ -1466,6 +1468,10 @@ public class PlayerCharacter extends AbstractCharacter {
 
 	private boolean hasHungerCharm() {
 		return inventory.contains(new Misc(MiscType.HUNGER_CHARM), false);
+	}
+	
+	public boolean hasGem() {
+		return inventory.contains(new Potion(1, EffectType.GEM), false);
 	}
 	
 	public Array<MutationResult> cureBleed(Integer bleedCure) {

@@ -44,6 +44,7 @@ public enum EncounterCode {
 	BANK,
 	BROTHEL,
 	TOWN_CRIER,
+	WITCH_COTTAGE (AssetEnum.COTTAGE),
 	QUETZAL (MOUNTAIN_ACTIVE), 
 	INN,
 	SHOP, 
@@ -125,6 +126,7 @@ public enum EncounterCode {
 					case COTTAGE_TRAINER: return "Cottage on the Outskirts";
 					case FIRST_BATTLE_STORY: return "Forest Clearing";
 					case MERI_COTTAGE: return "Witch's Cottage";
+					case WITCH_COTTAGE: return "Cottage";
 					case ECCENTRIC_MERCHANT: return "Merchant Path";
 					case OGRE_WARNING_STORY: return "Lean-to in the Forest";
 					case OGRE_STORY: return "Forest Pass";
@@ -178,6 +180,7 @@ public enum EncounterCode {
 					case COTTAGE_TRAINER: return "Cottage-on-the-Outskirts";
 					case FIRST_BATTLE_STORY: return "Forest Clearing - signs of hostile creature";
 					case MERI_COTTAGE: return "Witch's Cottage";
+					case WITCH_COTTAGE: return "Witch's Cottage";
 					case ECCENTRIC_MERCHANT: return "Merchant Path";
 					case OGRE_WARNING_STORY: return "Lean-to in the Forest";
 					case OGRE_STORY: return "Forest Pass";
@@ -530,6 +533,13 @@ public enum EncounterCode {
 					AssetEnum.CUM.getSound(),
 					AssetEnum.CUM_BUBBLING.getSound(),
 					AssetEnum.WEREBITCH.getTexture()
+				});
+			case WITCH_COTTAGE:
+				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{  
+					AssetEnum.MERI_SILHOUETTE.getTexture(),
+					AssetEnum.CABIN_BACKGROUND.getTexture(),
+					AssetEnum.TRAINER_MUSIC.getMusic(),
+					AssetEnum.WEREWOLF_MUSIC.getMusic()
 				});
 			
 			case SHOP:
