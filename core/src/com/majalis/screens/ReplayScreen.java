@@ -41,9 +41,7 @@ public class ReplayScreen extends AbstractScreen {
 
 		for (final EnemyEnum type : EnemyEnum.values()) {
 			if (type.getTextures() != null) {
-				for (AssetDescriptor<Texture> textures : type.getTextures()) {
-					resourceRequirements.add(textures);
-				}
+				resourceRequirements.addAll(type.getTextures());
 			}
 			for (ObjectMap.Entry<String, Array<String>> entry : type.getImagePaths()) {
 				for (String path : entry.value) {
@@ -55,6 +53,11 @@ public class ReplayScreen extends AbstractScreen {
 		resourceRequirements.add(AssetEnum.DEFAULT_BACKGROUND.getTexture());
 		resourceRequirements.add(AssetEnum.NULL.getTexture());
 		resourceRequirements.add(AssetEnum.OGRE_BANGED.getTexture());
+		resourceRequirements.add(AssetEnum.BUNNY_CARAMEL_ANAL.getTexture());
+		resourceRequirements.add(AssetEnum.BUNNY_VANILLA_ANAL.getTexture());
+		resourceRequirements.add(AssetEnum.BUNNY_CHOCOLATE_ANAL.getTexture());
+		resourceRequirements.add(AssetEnum.BUNNY_DARK_CHOCOLATE_ANAL.getTexture());
+		resourceRequirements.add(AssetEnum.BUNNY_CREAM_ANAL.getTexture());
 		
 		Array<AssetEnum> animationReqs = new Array<AssetEnum>(new AssetEnum[]{
 			HARPY_ANIMATION, HARPY_ATTACK_ANIMATION, FEATHERS_ANIMATION, FEATHERS2_ANIMATION, BRIGAND_ANIMATION, ANAL_ANIMATION, CENTAUR_ANIMATION, ORC_ANIMATION			
@@ -199,7 +202,6 @@ public class ReplayScreen extends AbstractScreen {
 		table.add(button);
 		
 		// for replay button - need to create an encounter that autosaves to a different slot
-		
 		switch(type) {
 			case ADVENTURER:
 				attachListener(new TextButton("Cowgirl", skin), AssetEnum.ADVENTURER_ANAL, cg, enemy, table);
@@ -213,6 +215,14 @@ public class ReplayScreen extends AbstractScreen {
 				attachListener(new TextButton("Irrumatio", skin), AssetEnum.BRIGAND_ORAL, cg, enemy, table);
 				break;
 			case BUNNY:
+				AssetEnum bunnyAnal = null;
+				String bunnyType = Gdx.app.getPreferences("tales-of-androgyny-preferences").getString("bunny", "CREAM");
+				if (bunnyType.equals("CREAM")) bunnyAnal = AssetEnum.BUNNY_CREAM_ANAL;
+				if (bunnyType.equals("VANILLA")) bunnyAnal = AssetEnum.BUNNY_VANILLA_ANAL;
+				if (bunnyType.equals("CARAMEL")) bunnyAnal = AssetEnum.BUNNY_CARAMEL_ANAL;
+				if (bunnyType.equals("CHOCOLATE")) bunnyAnal = AssetEnum.BUNNY_CHOCOLATE_ANAL;
+				if (bunnyType.equals("DARK-CHOCOLATE")) bunnyAnal = AssetEnum.BUNNY_DARK_CHOCOLATE_ANAL;
+				attachListener(new TextButton("Anal", skin), bunnyAnal, cg, enemy, table);
 				break;
 			case CENTAUR:
 				attachListener(new TextButton("Anal", skin), AssetEnum.CENTAUR_ANAL, cg, enemy, table);
