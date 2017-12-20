@@ -282,9 +282,6 @@ public class MainMenuScreen extends AbstractScreen {
         			// ONLY CALL THIS TO DESTROY OLD DATA AND REPLACE WITH A BRAND NEW SAVE
         			saveService.newSave();
         		}
-        		if (screenSelection == ScreenEnum.LOAD_GAME) {
-        			saveService.newSave(".toa-data/quicksave.json");
-        		}
         		if (!(screenSelection == ScreenEnum.OPTIONS || screenSelection == ScreenEnum.CREDITS || screenSelection == ScreenEnum.REPLAY)) {
         			music.stop();
         		}

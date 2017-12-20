@@ -55,6 +55,17 @@ public class SaveScreen extends AbstractScreen {
 			}
 		});
 		
+		final TextButton quickLoadButton = new TextButton ("Quick Load", skin);
+		quickLoadButton.setPosition(400, 50);
+		this.addActor(quickLoadButton);
+		quickLoadButton.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+        		saveService.newSave(".toa-data/quicksave.json");
+				showScreen(ScreenEnum.LOAD_GAME);
+			}
+		});
+		
 		// for each save slot				
 		for (int ii = 0; ii < 10; ii++) {
 			// load the data
