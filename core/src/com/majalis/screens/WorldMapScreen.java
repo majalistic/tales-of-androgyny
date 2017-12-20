@@ -348,7 +348,7 @@ public class WorldMapScreen extends AbstractScreen {
 			}
 		);
 		
-		actionTable.add(inventoryButton).size(200, 50).row();
+		actionTable.add(inventoryButton).size(200, 50);
 		
 		Image foodIcon = new Image(food);
 		foodIcon.setSize(75, 75);
@@ -429,7 +429,7 @@ public class WorldMapScreen extends AbstractScreen {
 		);
 		
 		TextButton questButton = new TextButton("Quest Log", skin);
-		actionTable.add(questButton).size(200, 50);
+		actionTable.add(questButton).size(200, 50).row();;
 		questButton.addListener(
 			new ClickListener() {
 				@Override
@@ -454,6 +454,18 @@ public class WorldMapScreen extends AbstractScreen {
 		        }
 			}
 		);	
+		
+		final TextButton quickLoadButton = new TextButton ("QuickLoad", skin);
+		actionTable.add(quickLoadButton).size(200, 50);
+		quickLoadButton.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+        		saveService.newSave(".toa-data/quicksave.json");
+        		buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
+				showScreen(ScreenEnum.LOAD_GAME);
+			}
+		});
+		
 		
 		TextButton hardSaveButton = new TextButton("Save", skin);
 		actionTable.add(hardSaveButton).size(200, 50).row();
