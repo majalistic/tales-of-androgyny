@@ -767,7 +767,7 @@ public class EnemyCharacter extends AbstractCharacter {
 			else if (target.stance == Stance.AIRBORNE && enemyType == EnemyEnum.ORC) {
 				possibleTechniques = getTechniques(OUROBOROS);
 			}
-			else if (enemyType == EnemyEnum.HARPY) {
+			else if (enemyType == EnemyEnum.HARPY && stance != Stance.AIRBORNE) {
 				possibleTechniques.add(FLY);
 			}
 			else if (target.stance.receivesMediumAttacks() && enemyType == EnemyEnum.BRIGAND || enemyType == EnemyEnum.SPIDER || (enemyType == EnemyEnum.ORC && weapon == null)) {
