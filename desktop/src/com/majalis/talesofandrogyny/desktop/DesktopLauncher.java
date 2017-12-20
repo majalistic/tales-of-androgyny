@@ -36,7 +36,7 @@ public class DesktopLauncher {
 				} catch (FileNotFoundException e) {
 					e.printStackTrace();
 				}
-	            Sys.alert("Critical Failure", "Sorry, fatal error - please let Majalis know!  Error: " + ex.getLocalizedMessage());
+	            Sys.alert("Critical Failure", "Sorry, fatal error - please let Majalis know! An error.txt has been created in the game folder with the full details of the error. \n\nError: " + ex.getLocalizedMessage());
 	         }
 	      });
 		
