@@ -932,6 +932,68 @@
 		]
 	},
 	{
+		"key": "TOWN-SQUARE-INTRO",
+		"scriptLines": [
+			{
+			"background": "TOWN_BG",
+			"music": "SHOP_MUSIC",
+			"text": "You enter the town square - the hustle and bustle of the town gives you a nostalgic feeling.  The townspeople are talkative, and you may be able to glean from them more about the goings-on.  So too could the town crier, boastfully regaling a half-interested crowd."}
+		]
+	},
+	{
+		"key": "TOWN-SQUARE-NIGHT",
+		"scriptLines": [
+			{
+			"background": "TOWN_BG",
+			"music": "SHOP_MUSIC",
+			"text": "You enter the town square - it's fairly quiet, although some night owls are still going about their errands and their troubles and their tricks.  There doesn't seem to be too much going on - perhaps it'd be better if you returned during the day."}
+		]
+	},
+	{
+		"key": "TOWN-SQUARE-0",
+		"scriptLines": [
+			{"text": "You hear a couple of young men discussing the infamous brothel - apparently, the owner of the brothel is a mysterious woman who is known for her beauty... and her temper."}
+		]
+	},
+	{
+		"key": "TOWN-SQUARE-1",
+		"scriptLines": [
+			{"text": "You hear a young woman describing a centaur she happened upon; that it was noble, and majestic, but she says that something was strange about it - it had a single horn."},
+			{"text": "Her friend chastises her.  \"I've seen plenty of centaurs, and never a horned one.  Maybe if you got some dick, you wouldn't fantasize about a horseman with one on their head.\""},
+			{"text": "You leave, not sure how to feel about this development."}
+		]
+	},
+	{
+		"key": "TOWN-SQUARE-2",
+		"scriptLines": [
+			{"text": "You hear a conversation between three gruff-looking men.  \"The place is haunted.  I felt it in my bones.\""},
+			{"text": "\"You feel a lot of things in your bones.  Maybe you've caught some kind of bone demon from one o' the whores,\" says a gangly, bearded man, before cackling to himself."},
+			{"text": "\"No, I know the ruins he's gabbing about.  I've seen her... a woman that appears at dusk, wearing an old bride's gown..."},
+			{"text": "\"Oy, oy, isn't it a bit early for campfire tales? I ain't afraid, you hear?\""},
+			{"text": "Nothing else of interest comes of the conversation.  A haunted ruins?"}
+		]
+	},
+	{
+		"key": "TOWN-SQUARE-3",
+		"scriptLines": [
+			{"text": "You overhear a conversation between several townsfolk."},
+			{"text": "\"Another lass went missing.  Bookish girl, from what I knew of 'er.\""},
+			{"text": "\"Another victim of the werewolf; no doubt about it. They've all been bookish.\""},
+			{"text": "\"Now, see here.  There's no such thing as a werewolf, and even if there were, you've got no proof that...\""},
+			{"text": "\"Proof?  I've seen 'em!  They got dog parts all over, even in their nethers.\""},
+			{"text": "\"There are children present!\""},
+			{"text": "\"Well they ain't in no danger.  Only strong menfolk better stay away from them werewolves.  Once they catch a whiff of you... hoo boy.\""},
+			{"text": "Fed up with the deranged man's ranting, the group disperses... but his warnings stick with you."}
+		]
+	},
+	{
+		"key": "TOWN-SQUARE-4",
+		"scriptLines": [
+			{"text": "You hear a young man muttering to himself about harpies."},
+			{"text": "\"When they dive, you duck, when they dive, you duck... or else... yeugh,\" he says, looking disgusted.  You leave him to his strange mantra."}
+		]
+	},
+	{
 		"key": "CRIER-NEW",
 		"scriptLines": [
 			{
@@ -942,7 +1004,7 @@
 	{
 		"key": "CRIER-OLD",
 		"scriptLines": [
-			{"text": "You again?  Shoo!"}
+			{"text": "You listen to the crier speak of recent events, but nothing particularly interesting stands out to you."}
 		]
 	},
 	{

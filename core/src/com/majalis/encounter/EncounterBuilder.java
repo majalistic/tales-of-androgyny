@@ -1117,11 +1117,21 @@ public class EncounterBuilder {
 			case TOWN2:
 				break;
 			case TOWN_CRIER:
-				return new Branch().checkScene(
-					CheckType.CRIER, 
-					new Branch(true).textScene("CRIER-NEW").encounterEnd(), 
-					new Branch(false).textScene("CRIER-OLD").encounterEnd()
-				).getEncounter();
+				Array<String> squareOptions = new Array<String>();
+				for (int ii = 0; ii < 5; ii++) {
+					squareOptions.add("TOWN-SQUARE-" + ii);
+				}
+				
+				Branch townSquareOptions = new Branch().choiceScene(
+					"What do you do?",
+					new Branch("Eavesdrop").randomScene(squareOptions),
+					new Branch("Listen to the town crier").checkScene(
+						CheckType.CRIER, 
+						new Branch(true).textScene("CRIER-NEW"), 
+						new Branch(false).textScene("CRIER-OLD")
+					)
+				);
+				return new Branch().checkScene(CheckType.DAY, new Branch(true).textScene("TOWN-SQUARE-INTRO").concat(townSquareOptions), new Branch(false).textScene("TOWN-SQUARE-NIGHT")).getEncounter();
 			case TOWN_STORY:
 				Branch leaveTown = new Branch().textScene("STORY-007").encounterEnd();
 				return new Branch().textScene("STORY-005").shopScene(ShopCode.FIRST_STORY).textScene("STORY-006A").checkScene(

@@ -91,7 +91,7 @@ public class TownScreen extends AbstractScreen {
         table.setPosition(1200, 595);
 		
 		Array<String> buttonLabels = new Array<String>();
-		buttonLabels.addAll("General Store", "Blacksmith", "Inn", "Bank", "Brothel", "Town Crier", "Depart");
+		buttonLabels.addAll("General Store", "Blacksmith", "Inn", "Bank", "Brothel", "Town Square", "Depart");
 		
 		for (int ii = 0; ii < buttonLabels.size; ii++) {
 			buttons.add(new TextButton(buttonLabels.get(ii), skin));
