@@ -63,7 +63,7 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 
 		// this should be refactored - shouldn't need asset manager
 		activeImage = assetManager.get(encounter.getCode().getTexture().getTexture());
-		if (encounter.getCode().getTexture() == AssetEnum.FOREST_ACTIVE || encounter.getCode().getTexture() == AssetEnum.MOUNTAIN_ACTIVE || encounter.getCode().getTexture() == AssetEnum.ENCHANTED_FOREST || encounter.getCode().getTexture() == AssetEnum.FOREST_INACTIVE) {
+		if (encounter.getCode().getTexture() == AssetEnum.FOREST_ACTIVE || encounter.getCode().getTexture() == AssetEnum.ENCHANTED_FOREST || encounter.getCode().getTexture() == AssetEnum.FOREST_INACTIVE) {
 			Array<TextureRegion> frames = new Array<TextureRegion>();
 			int size = 64;
 			for (int ii = 0; ii < 3; ii++) {
