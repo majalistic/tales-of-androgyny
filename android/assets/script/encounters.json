@@ -6498,7 +6498,9 @@
 		"key": "BUNNY-DEFEAT",
 		"scriptLines": [
 			{"text": "\"Did you think a cute little bunny like me wasn't a threat?  Do you not know of the Puca?\" she says, as she places her sickle to your neck.  You have no choice but to obey her."},
-			{"text": "She escorts you to a nearby village.  She sends a missive by courier to her employers, and checks the both of you into an inn."},
+			{
+			"mutations": [{"saveType":"FOOD", "value":{"class": "java.lang.Integer", "value": 25}}, {"saveType":"HEALTH", "value":{"class": "java.lang.Integer", "value": 100}}, {"saveType":"TIME", "value":{"class": "java.lang.Integer", "value": 2}}],
+			"text": "She escorts you to a nearby village.  She sends a missive by courier to her employers, and checks the both of you into an inn."},
 			{"text": "\"Mmmhm... the bank won't mind if I take my payment in goods this time,\" she says, once the two of you are alone.  \"I had hoped you wouldn't make good on your debt... your human laws leave me so... frustrated.\""},
 			{"text": "The bulge in her undergarments now has a defined shape.  You swallow."},
 			{"text": "\"You'll be my plaything until I'm bored or you break, whichever comes first,\" she says, forcing you to your knees. \"Mmm... I think this conversation is over.  I'm ready to mate, which means you've got some cocksnot to swallow.\""},
@@ -6519,21 +6521,100 @@
 			"text": "Her bulging sack does all the talking - it pulses with intensity as she empties her load down your gullet.  The only thing you can smell are her fat testicles until the scent of her semen rises in your throat and into the back of your nasal cavity, at which point her sperm is all you can smell."},
 			{"text": "As she lifts her hips, the tight seal breaks, and air rushes in around strands of saliva, cum and phlegm, while more cum dribbles downwards into your open mouth."},
 			{"text": "Her turgid member hasn't even begun to calm down - and neither has she."},
-			{"text": "\"You and I know that's not the only hole I'm repossessing,\" she says, as she flips you over onto your stomach.  Her cum is still drooling out of your mouth as she prepares to move on to more intimate affairs."},
+			{"text": "\"You and I know that's not the only hole I'm repossessing,\" she says, as she pushes you onto the bed, and then flips you over onto your stomach.  Her cum is still drooling out of your mouth as she prepares to move on to more intimate affairs."},
 			{"text": "\"I noticed human men get quite upset when I insist that they be the recipient.  I've been told it's a matter or pride.  Well, there's a price to be paid for pride.\""},
+			{"text": "She thwaps her firm meat onto your buns, giving you a taste of what you'll soon be tasting with your rear mouth, her other hand firmly gripping your narrow waist."},
+			{"text": "\"One for every coin you owe... and many more,\" she says, and your heart sinks."},
+			{"text": "You feel bunny dickhole kissing your asshole and she doesn't have to say it - this is how you're paying your debt, and she has every intention of making you pay it in full."},
+			{"text": "\"Bite the pillow,\" she instructs, and you obey - apparently, she paid for an easy entry for her, not for you.  It's fat enough that you know if she just jams it in, you're gonna feel it... tomorrow."},
+			{"text": "You feel her hips locking, her knees squeezing your side, her hand holding your face into the pillow while her cock is roughly lined up with the length of your rectum... and you know you're about to pay it back, with interest."}
+		]
+	},
+	{
+		"key": "BUNNY-ANAL-CREAM",
+		"scriptLines": [	
+			{
+			"foreground": "BUNNY_CREAM_ANAL" 
+			"text": ""}
+		]
+	},
+	{
+		"key": "BUNNY-ANAL-VANILLA",
+		"scriptLines": [	
+			{
+			"foreground": "BUNNY_VANILLA_ANAL" 
+			"text": ""}
+		]
+	},
+	{
+		"key": "BUNNY-ANAL-CARAMEL",
+		"scriptLines": [	
+			{
+			"foreground": "BUNNY_CARAMEL_ANAL" 
+			"text": ""}
+		]
+	},
+	{
+		"key": "BUNNY-ANAL-CHOCOLATE",
+		"scriptLines": [	
+			{
+			"foreground": "BUNNY_CHOCOLATE_ANAL" 
+			"text": ""}
+		]
+	},
+	{
+		"key": "BUNNY-ANAL-DARK-CHOCOLATE",
+		"scriptLines": [	
+			{
+			"foreground": "BUNNY_DARK_CHOCOLATE_ANAL" 
+			"text": ""}
+		]
+	},
+	{
+		"key": "BUNNY-DEFEAT-CONT",
+		"scriptLines": [	
 			{
 			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1}}],
-			"text": "She plunges it in to the root, crushing your colon in the process, and giving your prostate a fat bunny cock to weigh down on it.  She pulls your cheek aside with one hand to ensure a full penetration, and nuzzles her somehow-still-full balls behind yours."},
+			"text": "She plunges it in to the root, and the sudden deep dicking causes your hole and rings to spasm wildly, squeezing out some pre-bunny milk.  You nearly bite a hole in the pillow as you groan about the harsh debt collection into it."},
+			{"text": "She crushes your colon in the process, and giving your prostate a fat bunny cock to weigh down on it.  She pulls your cheek aside with one hand to ensure a full penetration, and nuzzles her somehow-still-full balls behind yours."},
 			{"text": "They're... definitely bigger than yours, by that comparison, although the slightly more emasculating experience is that her entire dong is stewing in your buttchute while yours is just about buried in the sheets."},
+			{"text": "It doesn't help that she's larger and heavier than you are, as she weighs you down into the mattress.  Her pillowy breasts resting on your head are undermined somewhat my her fleshy cockskin rubbing your anal mucosa raw."},
+			{"text": "Still, knowing that her hefty goons have stored up and are building up some filthy cockspew that's destined for the last mile of your digestive tract, and your only options are \"squeeze\" and \"don't squeeze\" is a major bummer, as is she."},
+			{"text": "You feel the violation completely - a debt paid in full.  Her ballsack weighs similarly on yours, and you can tell she's getting her money's worth - anal sex, unburdened by your fuckhole's weaknesses."},
+			{"text": "She grinds and swivels it into you, making you taste every inch of her fat dick while forcing you to bite the pillow with a firm hand on the back of your bitch head.  You didn't know what a bunny girl was like in bed before - you do now."},
+			{"text": "You drool pathetically on the sheets - both from your lips and your cock, creating two wet spots that are going to be nothing in comparison to the absolutely jizzy mess that your ass is going to leave when she's done."},
 			{"text": "\"Did you know humans tighten up their holes when they can't breathe?\" she says, and you feel her gloved fingers encircle your neck."},
-			{"text": "You do certainly tighten up - as does your airway, and you begin to get red in the face.  Well, redder.  She continues to plow you into the bed, and you feel your consciousness slipping."},
+			{"text": "You do certainly tighten up - as does your airway, and you begin to get red in the face.  Well, redder.  She continues to plow you into the bed, your tight hole fucked raw and getting tighter and rawer, and you feel your consciousness slipping."},
 			{
 			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analEjaculation":1}}],
-			"text": "Unable to breathe and heavily anally violated, you ejaculate, your entire spirit seeming to pass through your urethra and into a puddle of discarded semen in the sheets."},
+			"text": "Unable to breathe and heavily anally violated, you ejaculate, your entire spirit seeming to pass through your urethra and into a puddle of discarded semen in the sheets.  She probably doesn't even notice."},
 			{
 			"sound": "CUM",
 			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "creampies":2}}],
-			"text": "You black out... feeling the heat rushing into your guts."},
+			"text": "You black out... feeling the liquid heat rushing into your guts."},
+			{
+			"foreground": "NULL",
+			"text": "....."},
+			{"text": "\"Oh... oh!\""},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "creampies":1}}],
+			"sound": "CUM",
+			"text": "....."},
+			{"text": "\"Catch it!\""},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "creampies":1}}],
+			"sound": "CUM",
+			"text": "..."},
+			{"text": "\"Mmmmmm...\""},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "creampies":1}}],
+			"sound": "CUM_BUBBLING",
+			"text": ".."},
+			{"text": "\"All mine...\""},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "creampies":1}}],
+			"sound": "CUM_BUBBLING",
+			"text": "."},
 			{
 			"mutations": [{"saveType":"TIME", "value":{"class": "java.lang.Integer", "value": 1}}],
 			"text": "In the morning, the inn's cleaning lady asks if she may enter, and your new owner confidently states that she may - however, once she enters, she sees you, sitting, or more accurately bouncing, in her lap."},
@@ -6541,7 +6622,7 @@
 			{"text": "She kicks your legs apart instantly, which releases some tension on your stringently adhering anal ring, which is clasped around her, and now visible to the maid - as is your own rigid member."},
 			{"text": "The maid stares wide-eyed at the display, apparently caught unawares."},
 			{"text": "\"Squeeze with your hole and hand, toy.\""},
-			{"text": "You tighten your sphincter around her base, and reach down to grab hold of her full balls.  You feel them tensing, and ready your gut for the warm backwash it's about to receive."},
+			{"text": "You tighten your sphincter around her base, and reach down to grab hold of her full balls.  You feel them tensing, and ready your gut for the warm backwash it's about to receive.  She grunts, and you brace for it."},
 			{
 			"sound": "CUM_BUBBLING",
 			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "creampies":2}}],
@@ -6554,7 +6635,9 @@
 			{"text": "Her breeding sessions are long and wet, and her \"trick\" to make you tighten up is religiously utilized.  Your spirit is quickly broken, as is your butthole, and you make few attempts to escape from her bondage."},
 			{"text": "Your debt is long paid off, but her gloved hand still grips your hair as she pumps you from behind by the hour, so it makes little difference."},
 			{"text": "After getting you thoroughly accommodated to the taste of her cock, balls, and asshole, she does eventually grow bored of you... and sells you at a special market for Pucas."},
-			{"text": "You're bought by the highest bidder, an even more sexually voracious aristocrat with a life full of idle time... but you spend little of your remaining days \"idle.\""}
+			{"text": "You're bought by the highest bidder, an even more sexually voracious aristocrat with a life full of idle time... but you spend little of your remaining days \"idle.\""},
+			{"text": "Your story is the story of why the Puca Duchess' bedchamber smells like sex, and why her sheets shatter when you try to fold them, and nothing more."},
+			{"text": "BAD END."}
 		]
 	},
 	{
