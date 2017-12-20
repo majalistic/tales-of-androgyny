@@ -2164,7 +2164,7 @@
 	{
 		"key": "WEREWOLF-BATTLE-KNOT-ORAL",
 		"scriptLines": [
-			{"text": "She forced it into your mouth with inhuman strength, your jaw stretching to accomodate its large size and strange shape.  It's stretched to the breaking point, and you drop your weapon, you arms going limp shock."},
+			{"text": "She forced it into your mouth with inhuman strength, your jaw stretching to accommodate its large size and strange shape.  It's stretched to the breaking point, and you drop your weapon, you arms going limp shock."},
 			{"text": "Tears stream down your cheek as your jaw is forced open into a painfully stretched position."},
 			{"text": "Even if she wanted to withdraw it now, the bulk of it is locked behind your teeth.  Her hips pull back reflexively, and your entire head is pulled forward - where her genitals go, your head now follows."},
 			{"text": "You have other concerns, even - soon thereafter, your airway is coated in hot puppy goo.  A stream of runny dog semen is pumped down your gullet, her knot ledged in your mouth."},
@@ -2189,7 +2189,9 @@
 	{
 		"key": "WEREWOLF-SATISFIED",
 		"scriptLines": [
-			{"text": "You didn't manage to avoid her runny dog cum, and the smell is rather intense, but you avoided having to get the worst of her canine tool."},
+			{
+			"mutations": [{"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": 2}}], 
+			"text": "You didn't manage to avoid her runny dog cum, and the smell is rather intense, but you avoided having to get the worst of her canine tool."},
 			{"text": "She seems content.  Her dangling genitalia are no longer aroused, which gives you a sense of ease that you otherwise don't feel; after all, you did just swallow all of her runny wolf cum."},
 			{"text": "She seems oddly cowed, keeping her tail between her legs as she bounds off, leaving a trail of juices in her wake."}
 		]
@@ -2370,6 +2372,7 @@
 		"key": "HARPY-SATISFIED",
 		"scriptLines": [
 			{
+			"mutations": [{"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": 2}}], 
 			"animatedForeground": "HARPY",
 			"text": "The harpies tongue lolls out of her mouth, and her throbbing birdcock is now considerably less throbby, as it deflates, slick with the remains of her ejaculate."},
 			{"text": "She seems to be in some sort of daze, stumbling about on her talons, with little regard for your presence.  You take the opportunity to flee, having had enough bird cum for one lifetime."}
@@ -2863,7 +2866,9 @@
 	{
 		"key": "BRIGAND-SATISFIED",
 		"scriptLines": [
-			{"text": "Having drained her load in you, the Brigand seems satisfied.  She sheathes her weapon, and also puts away her sword, and leaves you to puzzle out what to do with all of her semen."}
+			{
+			"mutations": [{"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": 1}}], 
+			"text": "Having drained her load in you, the Brigand seems satisfied.  She sheathes her weapon, and also puts away her sword, and leaves you to puzzle out what to do with all of her semen."}
 		]
 	},
 	{
@@ -4242,7 +4247,9 @@
 	{
 		"key": "ORC-SATISFIED",
 		"scriptLines": [
-			{"text": "Having gotten what she wanted to begin with, the orc has little interest in you any more.  The men jeer at you for failing so badly to fight her, and she wanders off, leaving you sorer for the experience."}
+			{
+			"mutations": [{"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": 2}}], 
+			"text": "Having gotten what she wanted to begin with, the orc has little interest in you any more.  The men jeer at you for failing so badly to fight her, and she wanders off, leaving you sorer for the experience."}
 		]
 	},
 	{
@@ -4620,7 +4627,9 @@
 			{"text": "You can't complain.  Trudy's spread-legged posture coaxes you into really drilling your slick member in and out of his boyhole as you pump gobs of jelly into his nether regions with gusto."},
 			{"text": "It's difficult to tell beneath his self-facial mask if he knows that you're giving him a creampie fit for a queen, but if he does he's in no hurry to thank you for the opportunity."},
 			{"text": "You pull out of his now-soggy rear-entrance and dismount, holding Trudy's legs over his head so that you can see it begin to drool out of him.  His cock small and flaccid from cumming while penetrated, his hole drooling semen... he doesn't wipe the mask of shame away, likely because there's another just beneath it."},
-			{"text": "You leave him to clean himself up, having... worked something out between you."}
+			{
+			"mutations": [{"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": 2}}], 
+			"text": "You leave him to clean himself up, having... worked something out between you."}
 		]
 	},
 	{
@@ -4643,7 +4652,9 @@
 			"text": "Trudy is wide-eyed with fear as his cum swells up through his shaft."},
 			{"text": "It goes off like a geyser inside, and it's obvious that Trudy is red-faced with embarrassment about -where- it's shooting off its payload.  It jets off so forcefully that some of it is forced out by the pressure, coating Trudy's balls in his own slime."},
 			{"text": "Trudy continues to volley off inside of you as you dribble yours onto his stomach.  Whereas his was an explosion, yours was a gentle lava flow of pent-up passion which is going to stain his skirt."},
-			{"text": "With little regrets, you stand up off of him, popping like a champagne cork, and Trudy lays back into the dirt, exhausted by the experience.  You leave him there, self-satisfied."}
+			{
+			"mutations": [{"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": 2}}], 
+			"text": "With little regrets, you stand up off of him, popping like a champagne cork, and Trudy lays back into the dirt, exhausted by the experience.  You leave him there, self-satisfied."}
 		]
 	},
 	{
@@ -4685,7 +4696,9 @@
 	{
 		"key": "ADVENTURER-SATISFIED",
 		"scriptLines": [
-			{"text": "\"Hmph\", Trudy chuckles.  Having gotten his fill, he seems to have little interest in continuing the battle.  Feeling a bit embarrassed, you don't see the point in continuing, and you leave him to his own devices."}
+			{
+			"mutations": [{"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": 2}}], 
+			"text": "\"Hmph\", Trudy chuckles.  Having gotten his fill, he seems to have little interest in continuing the battle.  Feeling a bit embarrassed, you don't see the point in continuing, and you leave him to his own devices."}
 		]
 	},
 	{
