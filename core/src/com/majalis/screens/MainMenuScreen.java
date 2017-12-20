@@ -143,7 +143,7 @@ public class MainMenuScreen extends AbstractScreen {
 		Array<String> buttonLabels = new Array<String>();
 		Array<ScreenEnum> optionList = new Array<ScreenEnum>();
 		buttonLabels.addAll("Begin", "Continue", "Load", "Options", "Pervert", "Credits", "Exit");
-		optionList.addAll(ScreenEnum.NEW_GAME, ScreenEnum.CONTINUE, ScreenEnum.LOAD_GAME, ScreenEnum.OPTIONS, ScreenEnum.REPLAY, ScreenEnum.CREDITS, ScreenEnum.EXIT);
+		optionList.addAll(ScreenEnum.NEW_GAME, ScreenEnum.CONTINUE, ScreenEnum.SAVE, ScreenEnum.OPTIONS, ScreenEnum.REPLAY, ScreenEnum.CREDITS, ScreenEnum.EXIT);
 		
 		for (int ii = 0; ii < buttonLabels.size; ii++) {
 			buttons.add(new TextButton(buttonLabels.get(ii), skin));
