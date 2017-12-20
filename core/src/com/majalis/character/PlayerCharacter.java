@@ -979,9 +979,9 @@ public class PlayerCharacter extends AbstractCharacter {
 	public Array<MutationResult> modExperience(Integer exp) { 
 		int levels = getStoredLevels();
 		experience += exp; 
-		levels = levels - getStoredLevels();
+		levels = getStoredLevels() - levels;
 		
-		Array<MutationResult> results = getResult("You gain " + exp + " experience!", exp, MutationType.EXP);
+		Array<MutationResult> results = getResult(exp > 0 ? "You gain " + exp + " experience!" : "You lose " + -exp + " experience!", exp, MutationType.EXP);
 		if (levels > 0) results.add(new MutationResult("You gain " + levels + " level" + (levels > 1 ? "s" : "") + "!"));
 		return results;
 	}
