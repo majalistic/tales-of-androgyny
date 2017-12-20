@@ -312,7 +312,7 @@ public abstract class Item {
 
 		@Override
 		public String getName() {
-			return effect == EffectType.SLIME ? (magnitude == 1 ? "Worthless Slime" : "Primo Slime") : effect == EffectType.MANA ? (magnitude == 20 ? "Mana Crystal" : "Mana Chunk") : effect.getDisplay() + (effect == EffectType.SPIDER || effect == EffectType.MEAT || effect == EffectType.BANDAGE ? "" : " (" + magnitude + ")"); 
+			return effect == EffectType.SLIME ? (magnitude == 1 ? "Worthless Slime" : "Primo Slime") : effect == EffectType.GEM ? "Gem" : effect == EffectType.MANA ? (magnitude == 20 ? "Mana Crystal" : "Mana Chunk") : effect.getDisplay() + (effect == EffectType.SPIDER || effect == EffectType.MEAT || effect == EffectType.BANDAGE ? "" : " (" + magnitude + ")"); 
 		}
 
 		@Override
@@ -336,6 +336,8 @@ public abstract class Item {
 					return "Eat to bolster defense by " + magnitude + ".";
 				case BANDAGE:
 					return "Use to heal blood loss by " + magnitude + ".";
+				case GEM:
+					return "Doesn't appear to do anything.";
 				default:
 					return "Unknown potion.";
 			}
@@ -351,7 +353,8 @@ public abstract class Item {
 		SLIME ("Slime"),
 		MEAT ("Meat"),
 		BANDAGE ("Bandage"),
-		MANA ("Mana Crystal");
+		MANA ("Mana Crystal"),
+		GEM("Gem");
 		
 		private final String display;
 		private EffectType (String display) {

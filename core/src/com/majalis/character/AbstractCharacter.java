@@ -4,6 +4,7 @@ import com.majalis.asset.AssetEnum;
 import com.majalis.character.Attack.AttackHeight;
 import com.majalis.character.Attack.Status;
 import com.majalis.character.Item.ChastityCage;
+import com.majalis.character.Item.EffectType;
 import com.majalis.character.Item.ItemEffect;
 import com.majalis.character.Item.Misc;
 import com.majalis.character.Item.MiscType;
@@ -797,10 +798,13 @@ public abstract class AbstractCharacter extends Actor {
 				}
 				break;
 			default:
-				break;
+				result = "Nothing happened!";
 			
 		}	
-		inventory.removeValue(item, true);
+		if (effect.getType() != EffectType.GEM) {
+			inventory.removeValue(item, true);
+		}
+		
 		return result;
 	}
 	

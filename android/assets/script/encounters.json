@@ -998,7 +998,11 @@
 		"scriptLines": [
 			{
 			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "CRIER", "value":1}}],
-			"text": "Hear ye, hear ye!"}
+			"text": "\"Hear ye, hear ye!\" cries out the town crier, being asymptotically original.  You hear him, hear him, for at least long enough to find out if there's anything that you can tackle to prove yourself."},			
+			{"text": "\"At the summit of Xiuh mountain, there's an ancient creature that has been terrorizing the land for ages.  Lord Vestal has offered the princely sum of three-hundred sovereign gold coins to any who can fell the beast, split among agreed upon parties.\""},
+			{"text": "That sounds promising.  That's exactly the sort of heroic feat that the bards will sing about for years to come."},
+			{"text": "\"It is said that only those with the blessing of the goddess can slay the god of the mountain, so I spread the word to all ye faithful, and all ye know, to find those so brave, so pious, and so mighty that the monster has no choice but to give up its lifeblood unto them.\""}
+			{"text": "You hope you fit that description.  Xiuh mountain...  you don't know much about it, or this supposed lord of it, so you think trying to find someone who does might prove fruitful."}
 		]
 	},
 	{
@@ -1008,17 +1012,152 @@
 		]
 	},
 	{
-		"key": "CRIER-NEW2",
+		"key": "TOWN-SQUARE-INFORMANT",
 		"scriptLines": [
 			{
 			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "CRIER", "value":2}}],
-			"text": "Hear ye, hear ye!"}
+			"text": "You are immediately approached by a man who looks rather... suspicious."},
+			{
+			"foreground": "TRAINER",
+			"text": "\"Ye, over there.  I saw you listening eagerly to that fool crier and his fool's errand.  Hear ye me, it can't be done.  None have returned from the mountain summit,\" he says."},
+			{"text": "Despite his haggard appearance, his voice is clear and full-toned, deep and serious.  Something about him seems at odds."},
+			{"text": "\"Nothing can't be bested.  There must be a way,\" you say, defiantly."},
+			{"text": "He scratches his stubbly chin, eyeing you up and down.  \"Might be.  I wouldn't be stoppin' ye to give ye an ominous warning if I didn't know better.  I might know of someone who can help.\""},
+			{"text": "\"Who is it?\""},
+			{"text": "\"That information's not free, y'know.  Fact of facts, it's worth about twenty coins.\""}
 		]
 	},
 	{
-		"key": "CRIER-OLD2",
+		"key": "TOWN-SQUARE-INFORMANT-PAID",
 		"scriptLines": [
-			{"text": "You again?  Shoo!"}
+			{
+			"mutations": [{"saveType":"GOLD", "value":{"class": "java.lang.Integer", "value": -20}}],
+			"text": "You count out the coins, then drop them into his coin purse.  He nods at you, thankfully."}
+		]
+	},
+	{
+		"key": "TOWN-SQUARE-INFORMANT-LIE",
+		"scriptLines": [
+			{
+			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "CRIER", "value":3}}],
+			"text": "\"One of the... frequent patrons of the brothel is always braggin' about knowin' the lord of the mountain's weakness.  Give 'em a ride and I'm sure he'll tell it to ya.  Ye'll know 'im right away - he's got brown hair, and he's about yea high.\" he says, gesturing to be about his own height."},
+			{"text": "You question how useful that information is... but you don't really have any other leads.	You leave, a bit disappointed."}			
+		]
+	},
+	{
+		"key": "TOWN-SQUARE-INFORMANT-OKAY",
+		"scriptLines": [
+			{
+			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "CRIER", "value":3}}],
+			"text": "\"There's a witch that lives out in a cottage in that hell-blasted enchanted forest, and I've heard said that she deals in artifacts beyond the ken of simple folk like meself.  In past days, she'd be the one to go to when some dreadful monster needed killing.  Might be she could help ye.\""},
+			{"text": "You nod along.  This is good stuff."},
+			{"text": "If ye mention that ye need her expertise, she's sure to open her door."}
+		]
+	},
+	{
+		"key": "TOWN-SQUARE-INFORMANT-GOOD",
+		"scriptLines": [
+			{"text": "\"She'll not offer her help without a bit of compensation... and ye'll not like 'er prices.  But if you bring'er this gem, she'll do what ye ask.  Just don't tell 'er it's from me, understood?\""},
+			{
+			"mutations": [{"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": 3}}, {"saveType":"ITEM", "value":{"class": "com.majalis.character.Item$Potion", "effect": "GEM", "magnitude": "1"}}],
+			"text": "You take the gem and pocket it, appreciative.  The man nods under his hood at you, then bids you farewell."}
+		]
+	},
+	{
+		"key": "TOWN-SQUARE-INFORMANT-REQUEST",
+		"scriptLines": [
+			{"text": "\"For an even coin of ten, I'll let you know what I know about 'er.  Deal?\""}
+		]
+	},
+	{
+		"key": "TOWN-SQUARE-INFORMANT-PAYMORE",
+		"scriptLines": [
+			{
+			"mutations": [{"saveType":"GOLD", "value":{"class": "java.lang.Integer", "value": -20}}],
+			"text": "\"You pay ten coins.\""}
+		]
+	},
+	{
+		"key": "TOWN-SQUARE-INFORMANT-ALTERNATIVE",
+		"scriptLines": [
+			{"text": "You wave for him to follow you, and then lead him to a darkened alley."},
+			{"text": "\"What's this then?  Ye gonna shine my pole?\""}
+		]
+	},
+	{
+		"key": "TOWN-SQUARE-INFORMANT-GOODANAL",
+		"scriptLines": [
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1, "creampies":1}}],
+			"text": "You bend over and let him plow you - he's impressed by your eagerness and your ability to work your hips."}
+		]
+	},
+	{
+		"key": "TOWN-SQUARE-INFORMANT-ANAL",
+		"scriptLines": [
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1, "creampies":1}}],
+			"text": "You bend over and let him plow you - he gets off inside, but he doesn't seem particularly thrilled about it."}
+		]
+	},
+	{
+		"key": "TOWN-SQUARE-INFORMANT-GOODORAL",
+		"scriptLines": [
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "oralSex":1, "oralCreampies":1}}],
+			"text": "You take him into your mouth and suck him off like a pro.  He seems eager to spill his secrets... and his seed into your mouth."}
+		]
+	},
+	{
+		"key": "TOWN-SQUARE-INFORMANT-ORAL",
+		"scriptLines": [
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "oralSex":1, "oralCreampies":1}}],
+			"text": "You take him into your mouth and suck him off, gagging inexpertly.  When he finally does cum in your mouth, it's with an air of disappointment."}
+		]
+	},
+	{
+		"key": "TOWN-SQUARE-INFORMANT-GOODHAND",
+		"scriptLines": [
+			{"text": "He seems almost immediately somewhat annoyed by the notion of simply getting a handjob, but he goes along with it, and is a bit more appreciative when he sees how good you are at it, soon thereafter plastering your face with his cum."}
+		]
+	},
+	{
+		"key": "TOWN-SQUARE-INFORMANT-HAND",
+		"scriptLines": [
+			{"text": "He seems almost immediately somewhat annoyed by the notion of simply getting a handjob, and his mood doesn't improve as you fail to even get him off.  He eventually stops you, and half-heartedly says he'll give you the info you seek."}
+		]
+	},
+	{
+		"key": "TOWN-SQUARE-INFORMANT-RETURN",
+		"scriptLines": [
+			{"text": "\"You again?  Have you decided to consider my generous offer?\""}
+		]
+	},
+	{
+		"key": "QUETZAL-CRIER",
+		"scriptLines": [
+			{"text": "..."}
+		]
+	},
+	{
+		"key": "QUETZAL-NO-CRIER",
+		"scriptLines": [
+			{"text": "..."}
+		]
+	},
+	{
+		"key": "QUETZAL-INTRO",
+		"scriptLines": [
+			{
+			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "QUETZAL", "value":1}}],
+			"text": "..."}
+		]
+	},
+	{
+		"key": "QUETZAL-RETURN",
+		"scriptLines": [
+			{"text": "...!"}
 		]
 	},
 	{

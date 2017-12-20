@@ -379,11 +379,16 @@ public class EncounterBuilder {
 				return new Branch().textScene("STORY-003").characterCreation(true).encounterEnd().getEncounter(); 		
 			case COTTAGE_TRAINER_VISIT:
 				return new Branch().textScene("STORY-004").encounterEnd().getEncounter();
-			case CRIER_QUEST:
+			case QUETZAL:
+				Branch quetzalFirst = new Branch().textScene("QUETZAL-INTRO");
 				return new Branch().checkScene(
-					CheckType.CRIER_QUEST, 
-					new Branch(true).textScene("CRIER-NEW2").encounterEnd(), 
-					new Branch(false).textScene("CRIER-OLD2").encounterEnd()
+					CheckType.QUETZAL, 
+					new Branch(true).checkScene(
+						CheckType.CRIER_QUEST, 
+						new Branch(true).textScene("QUEZTAL-CRIER").concat(quetzalFirst), 
+						new Branch(false).textScene("QUETZAL-NO-CRIER").concat(quetzalFirst)
+					),
+					new Branch(false).textScene("QUETZAL-RETURN")
 				).getEncounter();
 			case DEFAULT:
 				return new Branch().textScene("STICK").encounterEnd().getEncounter();
@@ -1122,9 +1127,37 @@ public class EncounterBuilder {
 					squareOptions.add("TOWN-SQUARE-" + ii);
 				}
 				
+				Branch goodInfo = new Branch().textScene("TOWN-SQUARE-INFORMANT-GOOD");
+				Branch payHimMore = new Branch().textScene("TOWN-SQUARE-INFORMANT-OKAY").checkScene(
+						Stat.CHARISMA, 
+						new Branch (4).concat(goodInfo), 
+						new Branch(0).textScene("TOWN-SQUARE-INFORMANT-REQUEST").choiceScene("Deal?", new Branch("Pay (10 GP)").require(ChoiceCheckType.GOLD_GREATER_THAN_X, 10).textScene("TOWN-SQUARE-INFORMANT-PAYMORE").concat(goodInfo), new Branch("Refuse"))
+					);
+				
+				
+				Branch payHim = new Branch().choiceScene(
+					"Pay him for info?", 
+					new Branch("Pay (20 GP)").require(ChoiceCheckType.GOLD_GREATER_THAN_X, 20).textScene("TOWN-SQUARE-INFORMANT-PAID").concat(payHimMore), 
+					new Branch("Offer... something else").textScene("TOWN-SQUARE-INFORMANT-ALTERNATIVE").choiceScene(
+						"What do you do?", 
+						new Branch("Bend over (Requires: Catamite)").require(ChoiceCheckType.LEWD).checkScene(Perk.PERFECT_BOTTOM, new Branch(3).textScene("TOWN-SQUARE-INFORMANT-GOODANAL").textScene("TOWN-SQUARE-INFORMANT-OKAY").concat(goodInfo), new Branch(0).textScene("TOWN-SQUARE-INFORMANT-ANAL").concat(payHimMore)), 
+						new Branch("Get on your knees").choiceScene(
+							"What do you do on your knees?", 
+							new Branch("Suck it").checkScene(Perk.BLOWJOB_EXPERT, new Branch(3).textScene("TOWN-SQUARE-INFORMANT-GOODORAL").textScene("TOWN-SQUARE-INFORMANT-OKAY").concat(goodInfo), new Branch(0).textScene("TOWN-SQUARE-INFORMANT-ORAL").concat(payHimMore)), 
+							new Branch("Stroke it").textScene("TOWN-SQUARE-INFORMANT-HAND").checkScene(Perk.CRANK_MASTER, new Branch(3).textScene("TOWN-SQUARE-INFORMANT-GOODHAND").concat(payHimMore), new Branch(0).textScene("TOWN-SQUARE-INFORMANT-HAND").textScene("TOWN-SQUARE-INFORMANT-LIE"))
+						),
+						new Branch("Leave")
+					),
+					new Branch("Refuse")
+				);
+				
 				Branch townSquareOptions = new Branch().choiceScene(
 					"What do you do?",
-					new Branch("Eavesdrop").randomScene(squareOptions),
+					new Branch("Eavesdrop").checkScene(
+						CheckType.CRIER_QUEST, 
+						new Branch(true).textScene("TOWN-SQUARE-INFORMANT").concat(payHim),
+						new Branch(false).checkScene(CheckType.CRIER_REFUSE, new Branch(true).textScene("TOWN-SQUARE-INFORMANT-RETURN").concat(payHim), new Branch(false).randomScene(squareOptions))
+					),
 					new Branch("Listen to the town crier").checkScene(
 						CheckType.CRIER, 
 						new Branch(true).textScene("CRIER-NEW"), 

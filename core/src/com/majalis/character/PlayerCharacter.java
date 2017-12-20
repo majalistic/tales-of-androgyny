@@ -1369,14 +1369,14 @@ public class PlayerCharacter extends AbstractCharacter {
 	}
 	
 	public enum QuestType {
-		ORC, CRIER, INNKEEP, TRUDY, GOBLIN, OGRE, SPIDER, BROTHEL, ELF, DEBT, GADGETEER, MADAME;
+		ORC, CRIER, QUETZAL, INNKEEP, TRUDY, GOBLIN, OGRE, SPIDER, BROTHEL, ELF, DEBT, GADGETEER, MADAME;
 		
 		public String getQuestDescription(int currentValue) {
 			switch (this) {
 				case BROTHEL:
 					return currentValue > 0 ? "You've agreed to be a prostitute in the brothel." : "";
 				case CRIER:
-					break;
+					return currentValue > 0 ? ("You've heard about the lord of Xiuh mountain." + (currentValue == 2 ? " You've met a strange man who claims to have useful information." : currentValue == 3 ? " A strange man told you about the witch that lives in the forest." : "")) : "";
 				case DEBT:
 					return currentValue == 2 ? "You've encountered the debt collectors." : currentValue == 1 ? "You've been warned by the debt collectors." : "";
 				case ELF:
@@ -1394,10 +1394,13 @@ public class PlayerCharacter extends AbstractCharacter {
 					return currentValue == 1 ? "You've seen an ogre" : "";		
 				case ORC:
 					return currentValue == 2 ? "You've encountered an orc and behaved cowardly." : currentValue == 1 ? "You've encountered Urka the orc and behaved honorably" : "";	
+				case QUETZAL:
+					return currentValue == 1 ? "You've seen the great lord of Mount Xiuh." : "";
 				case SPIDER:
 					return currentValue == 1 ? "You've survived the spider-infested ruins." : "";	
 				case TRUDY:
 					return currentValue == 5 ? "You've made Trudy your travelling companion." : currentValue == 4 ? "You've battled with Trudy." : currentValue == 3 ? "You were tricked by Trudy and buggered by a beast." : currentValue == 2 ? "You foiled Trudy's betrayal, and he was buggered by a beast in your place." : currentValue == 1 ? "You've met Trudy, another adventurer." : "";	
+				
 			}
 			return ""; 			
 		}

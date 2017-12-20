@@ -44,7 +44,7 @@ public enum EncounterCode {
 	BANK,
 	BROTHEL,
 	TOWN_CRIER,
-	CRIER_QUEST (MOUNTAIN_ACTIVE), 
+	QUETZAL (MOUNTAIN_ACTIVE), 
 	INN,
 	SHOP, 
 	WEAPON_SHOP,
@@ -121,7 +121,7 @@ public enum EncounterCode {
 						return "Town of Nadir";	
 					case FORT:
 						return "Fort";
-					case CRIER_QUEST: return "Mountain";
+					case QUETZAL: return "Mountain";
 					case COTTAGE_TRAINER: return "Cottage on the Outskirts";
 					case FIRST_BATTLE_STORY: return "Forest Clearing";
 					case MERI_COTTAGE: return "Witch's Cottage";
@@ -174,7 +174,7 @@ public enum EncounterCode {
 					case TOWN_STORY: return "Town of Nadir";
 					case FORT:
 						return "Fort";
-					case CRIER_QUEST: return "Mount Wip";
+					case QUETZAL: return "Mount Xiuh";
 					case COTTAGE_TRAINER: return "Cottage-on-the-Outskirts";
 					case FIRST_BATTLE_STORY: return "Forest Clearing - signs of hostile creature";
 					case MERI_COTTAGE: return "Witch's Cottage";
