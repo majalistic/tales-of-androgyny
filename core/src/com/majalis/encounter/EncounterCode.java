@@ -210,15 +210,201 @@ public enum EncounterCode {
 
 	public Array<AssetDescriptor<?>> getRequirements() {
 		switch (this) {
-			case LEVEL_UP:
-				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{   
+			case ADVENTURER:
+			case STORY_FEM:
+			case TRUDY_COMPANION:
+				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{  
+					AssetEnum.ADVENTURER.getTexture(),
+					AssetEnum.ADVENTURER_ANAL.getTexture(),
+					AssetEnum.CUM.getSound(),
+					AssetEnum.GADGETEER_MUSIC.getMusic(),
+					AssetEnum.STICK_BACKGROUND.getTexture(),
+					AssetEnum.GAME_OVER_ANIMATION.getAnimation()
+				});
+			case ANGEL:
+				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{
+						AssetEnum.ANGEL.getTexture(),
+						AssetEnum.CUM.getSound(),
+						AssetEnum.CUM_BUBBLING.getSound(),
+						AssetEnum.ANGEL_MUSIC.getMusic()
+					});
+			case BEASTMISTRESS:
+				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{  
+					AssetEnum.BEASTMISTRESS.getTexture(),
+					AssetEnum.CUM.getSound(),
+					AssetEnum.WEREWOLF_MUSIC.getMusic()
+				});
+			case BRIGAND:
+				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{
+					AssetEnum.BRIGAND_ORAL.getTexture(),
+					AssetEnum.BRIGAND_MISSIONARY.getTexture(),
+					AssetEnum.CUM.getSound(),
+					AssetEnum.CUM_BUBBLING.getSound(),
+					AssetEnum.BRIGAND_ANIMATION.getAnimation()
+				});
+			case BRIGAND_STORY:
+				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{
+					AssetEnum.BRIGAND_ORAL.getTexture(),
+					AssetEnum.BRIGAND_MISSIONARY.getTexture(),
+					AssetEnum.CUM.getSound(),
+					AssetEnum.CUM_BUBBLING.getSound(),
+					AssetEnum.BRIGAND_ANIMATION.getAnimation()
+				});
+			case BROTHEL:
+				Array<AssetDescriptor<?>> reqs2 = new Array<AssetDescriptor<?>>(new AssetDescriptor[]{  
+					AssetEnum.SMUG_LAUGH.getSound(),
+					AssetEnum.CUM.getSound(),
+					AssetEnum.ELF.getTexture(),
+					AssetEnum.BROTHEL_MADAME.getTexture(),
+				});
+				reqs2.addAll(TownScreen.resourceRequirements);
+				return reqs2;
+			case BUNNY:
+				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{
+						AssetEnum.BUNNY_CREAM.getTexture(),
+						AssetEnum.BUNNY_VANILLA.getTexture(),
+						AssetEnum.BUNNY_CARAMEL.getTexture(),
+						AssetEnum.BUNNY_CHOCOLATE.getTexture(),
+						AssetEnum.BUNNY_DARK_CHOCOLATE.getTexture(),
+						AssetEnum.BUNNY_CREAM_ANAL.getTexture(),
+						AssetEnum.BUNNY_VANILLA_ANAL.getTexture(),
+						AssetEnum.BUNNY_CARAMEL_ANAL.getTexture(),
+						AssetEnum.BUNNY_CHOCOLATE_ANAL.getTexture(),
+						AssetEnum.BUNNY_DARK_CHOCOLATE_ANAL.getTexture(),
+						AssetEnum.CUM.getSound(),
+						AssetEnum.CUM_BUBBLING.getSound(),
+						AssetEnum.SWORD_SLASH_SOUND.getSound(),
+						AssetEnum.GADGETEER_MUSIC.getMusic()
+					});
+			case CENTAUR:
+				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{
+					AssetEnum.UNICORN_ANAL.getTexture(), 
+					AssetEnum.UNICORN_ANAL_XRAY.getTexture(),
+					AssetEnum.CENTAUR_ANAL.getTexture(),
+					AssetEnum.CENTAUR_ANAL_XRAY.getTexture(),
+					AssetEnum.CUM.getSound(),
+					AssetEnum.SHOP_MUSIC.getMusic(),
+					AssetEnum.CENTAUR_ANIMATION.getAnimation()
+				});
+			case COTTAGE_TRAINER:
+				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{  
 					AssetEnum.CLASS_SELECT_BACKGROUND.getTexture(),
 					AssetEnum.STRENGTH.getTexture(),
 					AssetEnum.ENDURANCE.getTexture(),
 					AssetEnum.AGILITY.getTexture(),
 					AssetEnum.PERCEPTION.getTexture(),
 					AssetEnum.MAGIC.getTexture(),
-					AssetEnum.CHARISMA.getTexture()
+					AssetEnum.CHARISMA.getTexture(),
+					AssetEnum.ENCHANTRESS.getTexture(),
+					AssetEnum.CREATION_BUTTON_UP.getTexture(),
+					AssetEnum.CREATION_BUTTON_DOWN.getTexture(),
+					AssetEnum.CREATION_BUTTON_CHECKED.getTexture(),	
+					AssetEnum.CREATION_BAUBLE_EMPTY.getTexture(),
+					AssetEnum.CREATION_BAUBLE_NEW.getTexture(),
+					AssetEnum.CREATION_BAUBLE_OLD.getTexture(),
+					AssetEnum.CREATION_BAUBLE_REMOVED.getTexture(),
+					AssetEnum.NORMAL_BOX.getTexture(),
+					AssetEnum.CABIN_BACKGROUND.getTexture(),
+					AssetEnum.TRAINER.getTexture(),
+					AssetEnum.TRAINER_MUSIC.getMusic()
+				});
+			case COTTAGE_TRAINER_VISIT:
+				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{  
+					AssetEnum.CABIN_BACKGROUND.getTexture(),
+					AssetEnum.TRAINER.getTexture(),
+					AssetEnum.TRAINER_MUSIC.getMusic()
+				});
+			case DEFAULT:
+				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{AssetEnum.STICK_BACKGROUND.getTexture()});
+			case DRYAD:
+				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{  
+					AssetEnum.SHOP_MUSIC.getMusic(),
+					AssetEnum.DRYAD_BACKGROUND.getTexture()
+				});
+			case ELF:
+			case ELF_COMPANION:
+				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{  
+					AssetEnum.ELF.getTexture(),
+					AssetEnum.ELF_TURTLE.getTexture(),
+					AssetEnum.ELF_AND_TURTLE.getTexture(),
+					AssetEnum.STICK_BACKGROUND.getTexture(),
+					AssetEnum.GADGETEER_MUSIC.getMusic()
+				});
+			case FIRST_BATTLE_STORY:
+				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{
+					AssetEnum.FOREST_BG.getTexture(),
+					AssetEnum.GOBLIN.getTexture(),
+					AssetEnum.GOBLIN_ANAL.getTexture(),
+					AssetEnum.LOUD_LAUGH.getSound(),
+					AssetEnum.WEREWOLF_MUSIC.getMusic()
+					
+				});
+			case GADGETEER:
+				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{  
+					AssetEnum.GADGETEER.getTexture(),
+					AssetEnum.BATTLE_TEXTBOX.getTexture(),
+					AssetEnum.TEXT_BOX.getTexture(),
+					AssetEnum.EQUIP.getSound(),
+					AssetEnum.GADGETEER_MUSIC.getMusic()
+				});
+			case GHOST:
+				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{  
+					AssetEnum.GHOST.getTexture(),
+					AssetEnum.GHOST_SPOOKY.getTexture(),
+					AssetEnum.GHOST_SPOOKY_BLOODLESS.getTexture(),
+					AssetEnum.FIREBALL_SOUND.getSound(),
+					AssetEnum.CUM.getSound(),
+					AssetEnum.CUM_BUBBLING.getSound(),
+					AssetEnum.SPOOKY_MUSIC.getMusic(),
+					AssetEnum.HORROR_MUSIC.getMusic()
+				});
+			case GOBLIN:
+				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{  
+					AssetEnum.GOBLIN.getTexture(),
+					AssetEnum.GOBLIN_MALE.getTexture(),
+					AssetEnum.GOBLIN_ANAL.getTexture(),
+					AssetEnum.GOBLIN_ANAL_MALE.getTexture(),
+					AssetEnum.LOUD_LAUGH.getSound(),
+					AssetEnum.CUM.getSound(),
+					AssetEnum.CUM_BUBBLING.getSound(),
+					AssetEnum.WEREWOLF_MUSIC.getMusic(),
+					AssetEnum.CARNIVAL_MUSIC.getMusic(),
+					AssetEnum.GAME_OVER_ANIMATION.getAnimation()
+				});
+			case GOLEM:
+				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{  
+					AssetEnum.GOLEM.getTexture(),
+					AssetEnum.GOLEM_CLOSEUP.getTexture(),
+					AssetEnum.GOLEM_FUTA.getTexture(),
+					AssetEnum.GOLEM_DULL.getTexture(),
+					AssetEnum.INCANTATION.getSound(),
+					AssetEnum.FIREBALL_SOUND.getSound(),
+					AssetEnum.INCANTATION.getSound(),
+					AssetEnum.GOLEM_SHUTDOWN.getSound(),
+					AssetEnum.GOLEM_ONE.getSound(),
+					AssetEnum.CUM.getSound(),
+					AssetEnum.CUM_BUBBLING.getSound(),
+					AssetEnum.ETHEREAL_MUSIC.getMusic()
+					
+				});
+			case HARPY:
+				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{ 
+					AssetEnum.HARPY_FELLATIO_1.getTexture(),
+					AssetEnum.HARPY_ANAL.getTexture(),
+					AssetEnum.CUM.getSound(),
+					AssetEnum.CUM_BUBBLING.getSound(),
+					AssetEnum.HARPY_ANIMATION.getAnimation()
+				});
+			case HARPY_STORY:
+				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{ 
+					AssetEnum.HARPY_FELLATIO_0.getTexture(),
+					AssetEnum.HARPY_FELLATIO_1.getTexture(),
+					AssetEnum.HARPY_FELLATIO_2.getTexture(),
+					AssetEnum.HARPY_FELLATIO_3.getTexture(),
+					AssetEnum.HARPY_ANAL.getTexture(),
+					AssetEnum.CUM.getSound(),
+					AssetEnum.CUM_BUBBLING.getSound(),
+					AssetEnum.HARPY_ANIMATION.getAnimation()
 				});
 			case INITIAL:
 				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{  
@@ -252,277 +438,21 @@ public enum EncounterCode {
 					AssetEnum.WAVES.getMusic(),
 					AssetEnum.HOVEL_MUSIC.getMusic()
 				});
-			case DEFAULT:
-				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{AssetEnum.STICK_BACKGROUND.getTexture()});
-			case WERESLUT:
-				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{  
-					AssetEnum.WEREWOLF_MUSIC.getMusic(),
-					AssetEnum.WEREWOLF_GROWL.getSound(),
-					AssetEnum.CUM.getSound(),
-					AssetEnum.CUM_BUBBLING.getSound(),
-					AssetEnum.WEREBITCH.getTexture()
-				});
-			case HARPY:
-				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{ 
-					AssetEnum.HARPY_FELLATIO_1.getTexture(),
-					AssetEnum.HARPY_ANAL.getTexture(),
-					AssetEnum.CUM.getSound(),
-					AssetEnum.CUM_BUBBLING.getSound(),
-					AssetEnum.HARPY_ANIMATION.getAnimation()
-				});
-			case HARPY_STORY:
-				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{ 
-					AssetEnum.HARPY_FELLATIO_0.getTexture(),
-					AssetEnum.HARPY_FELLATIO_1.getTexture(),
-					AssetEnum.HARPY_FELLATIO_2.getTexture(),
-					AssetEnum.HARPY_FELLATIO_3.getTexture(),
-					AssetEnum.HARPY_ANAL.getTexture(),
-					AssetEnum.CUM.getSound(),
-					AssetEnum.CUM_BUBBLING.getSound(),
-					AssetEnum.HARPY_ANIMATION.getAnimation()
-				});
-			case SLIME:
-				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{  
-						AssetEnum.SLIME.getTexture(),
-						AssetEnum.SLIME_DOGGY.getTexture(),
-				});
-			case BRIGAND:
-				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{
-					AssetEnum.BRIGAND_ORAL.getTexture(),
-					AssetEnum.BRIGAND_MISSIONARY.getTexture(),
-					AssetEnum.CUM.getSound(),
-					AssetEnum.CUM_BUBBLING.getSound(),
-					AssetEnum.BRIGAND_ANIMATION.getAnimation()
-				});
-			case BRIGAND_STORY:
-				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{
-					AssetEnum.BRIGAND_ORAL.getTexture(),
-					AssetEnum.BRIGAND_MISSIONARY.getTexture(),
-					AssetEnum.CUM.getSound(),
-					AssetEnum.CUM_BUBBLING.getSound(),
-					AssetEnum.BRIGAND_ANIMATION.getAnimation()
-				});
-			case BUNNY:
-				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{
-						AssetEnum.BUNNY_CREAM.getTexture(),
-						AssetEnum.BUNNY_VANILLA.getTexture(),
-						AssetEnum.BUNNY_CARAMEL.getTexture(),
-						AssetEnum.BUNNY_CHOCOLATE.getTexture(),
-						AssetEnum.BUNNY_DARK_CHOCOLATE.getTexture(),
-						AssetEnum.BUNNY_CREAM_ANAL.getTexture(),
-						AssetEnum.BUNNY_VANILLA_ANAL.getTexture(),
-						AssetEnum.BUNNY_CARAMEL_ANAL.getTexture(),
-						AssetEnum.BUNNY_CHOCOLATE_ANAL.getTexture(),
-						AssetEnum.BUNNY_DARK_CHOCOLATE_ANAL.getTexture(),
-						AssetEnum.CUM.getSound(),
-						AssetEnum.CUM_BUBBLING.getSound(),
-						AssetEnum.SWORD_SLASH_SOUND.getSound(),
-						AssetEnum.GADGETEER_MUSIC.getMusic()
-					});
-			case ANGEL:
-				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{
-						AssetEnum.ANGEL.getTexture(),
-						AssetEnum.CUM.getSound(),
-						AssetEnum.CUM_BUBBLING.getSound(),
-						AssetEnum.ANGEL_MUSIC.getMusic()
-					});
-			case NAGA:
-				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{
-						AssetEnum.NAGA.getTexture(),
-						AssetEnum.CUM.getSound(),
-						AssetEnum.CUM_BUBBLING.getSound(),
-						AssetEnum.WEREWOLF_MUSIC.getMusic()
-					});
-			case DRYAD:
-				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{  
-					AssetEnum.SHOP_MUSIC.getMusic(),
-					AssetEnum.DRYAD_BACKGROUND.getTexture()
-				});
-			case CENTAUR:
-				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{
-					AssetEnum.UNICORN_ANAL.getTexture(), 
-					AssetEnum.UNICORN_ANAL_XRAY.getTexture(),
-					AssetEnum.CENTAUR_ANAL.getTexture(),
-					AssetEnum.CENTAUR_ANAL_XRAY.getTexture(),
-					AssetEnum.CUM.getSound(),
-					AssetEnum.SHOP_MUSIC.getMusic(),
-					AssetEnum.CENTAUR_ANIMATION.getAnimation()
-				});
-			case GADGETEER:
-				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{  
-					AssetEnum.GADGETEER.getTexture(),
-					AssetEnum.BATTLE_TEXTBOX.getTexture(),
-					AssetEnum.TEXT_BOX.getTexture(),
-					AssetEnum.EQUIP.getSound(),
-					AssetEnum.GADGETEER_MUSIC.getMusic()
-				});
-			case GHOST:
-				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{  
-					AssetEnum.GHOST.getTexture(),
-					AssetEnum.GHOST_SPOOKY.getTexture(),
-					AssetEnum.GHOST_SPOOKY_BLOODLESS.getTexture(),
-					AssetEnum.FIREBALL_SOUND.getSound(),
-					AssetEnum.CUM.getSound(),
-					AssetEnum.CUM_BUBBLING.getSound(),
-					AssetEnum.SPOOKY_MUSIC.getMusic(),
-					AssetEnum.HORROR_MUSIC.getMusic()
-				});
-			case ORC:
-				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{  
-					AssetEnum.ORC.getTexture(),
-					AssetEnum.ORC_ANIMATION.getAnimation(),
-					AssetEnum.ORC_ZOOM_UP.getTexture(),
-					AssetEnum.ORC_ZOOM.getTexture(),
-					AssetEnum.ORC_ZOOM_DOWN.getTexture(),
-					AssetEnum.ORC_PRONE_BONE.getTexture(),
-					AssetEnum.GAPE.getTexture(),
-					AssetEnum.CUM.getSound(),
-					AssetEnum.WEREWOLF_MUSIC.getMusic()
-				});
-			case ADVENTURER:
-			case STORY_FEM:
-			case TRUDY_COMPANION:
-				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{  
-					AssetEnum.ADVENTURER.getTexture(),
-					AssetEnum.ADVENTURER_ANAL.getTexture(),
-					AssetEnum.CUM.getSound(),
-					AssetEnum.GADGETEER_MUSIC.getMusic(),
-					AssetEnum.STICK_BACKGROUND.getTexture(),
-					AssetEnum.GAME_OVER_ANIMATION.getAnimation()
-				});
-			case ELF:
-			case ELF_COMPANION:
-				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{  
-					AssetEnum.ELF.getTexture(),
-					AssetEnum.ELF_TURTLE.getTexture(),
-					AssetEnum.ELF_AND_TURTLE.getTexture(),
-					AssetEnum.STICK_BACKGROUND.getTexture(),
-					AssetEnum.GADGETEER_MUSIC.getMusic()
-				});
-			case OGRE:
-				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{  
-					AssetEnum.OGRE.getTexture(),
-					AssetEnum.OGRE_BANGED.getTexture(),
-					AssetEnum.CUM.getSound(),
-					AssetEnum.WEREWOLF_MUSIC.getMusic()
-				});
-			case BEASTMISTRESS:
-				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{  
-					AssetEnum.BEASTMISTRESS.getTexture(),
-					AssetEnum.CUM.getSound(),
-					AssetEnum.WEREWOLF_MUSIC.getMusic()
-				});
-			case SPIDER:
-				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{  
-					AssetEnum.SPIDER.getTexture(),
-					AssetEnum.TINY_SPIDER.getTexture(),
-					AssetEnum.TINY_SPIDER_LOW.getTexture(),
-					AssetEnum.WEREWOLF_MUSIC.getMusic()
-				});
-			case GOLEM:
-				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{  
-					AssetEnum.GOLEM.getTexture(),
-					AssetEnum.GOLEM_CLOSEUP.getTexture(),
-					AssetEnum.GOLEM_FUTA.getTexture(),
-					AssetEnum.GOLEM_DULL.getTexture(),
-					AssetEnum.INCANTATION.getSound(),
-					AssetEnum.FIREBALL_SOUND.getSound(),
-					AssetEnum.INCANTATION.getSound(),
-					AssetEnum.GOLEM_SHUTDOWN.getSound(),
-					AssetEnum.GOLEM_ONE.getSound(),
-					AssetEnum.CUM.getSound(),
-					AssetEnum.CUM_BUBBLING.getSound(),
-					AssetEnum.ETHEREAL_MUSIC.getMusic()
-					
-				});
 			case INN:
 				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{  
 					AssetEnum.INNKEEPER.getTexture(),
 					AssetEnum.KEYHOLE.getTexture(),
 					AssetEnum.GAME_OVER_KEYHOLE.getTexture()
 				});
-			case FIRST_BATTLE_STORY:
-				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{
-					AssetEnum.FOREST_BG.getTexture(),
-					AssetEnum.GOBLIN.getTexture(),
-					AssetEnum.GOBLIN_ANAL.getTexture(),
-					AssetEnum.LOUD_LAUGH.getSound(),
-					AssetEnum.WEREWOLF_MUSIC.getMusic()
-					
-				});
-			case GOBLIN:
-				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{  
-					AssetEnum.GOBLIN.getTexture(),
-					AssetEnum.GOBLIN_MALE.getTexture(),
-					AssetEnum.GOBLIN_ANAL.getTexture(),
-					AssetEnum.GOBLIN_ANAL_MALE.getTexture(),
-					AssetEnum.LOUD_LAUGH.getSound(),
-					AssetEnum.CUM.getSound(),
-					AssetEnum.CUM_BUBBLING.getSound(),
-					AssetEnum.WEREWOLF_MUSIC.getMusic(),
-					AssetEnum.CARNIVAL_MUSIC.getMusic(),
-					AssetEnum.GAME_OVER_ANIMATION.getAnimation()
-				});
-			case COTTAGE_TRAINER:
-				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{  
+			case LEVEL_UP:
+				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{   
 					AssetEnum.CLASS_SELECT_BACKGROUND.getTexture(),
 					AssetEnum.STRENGTH.getTexture(),
 					AssetEnum.ENDURANCE.getTexture(),
 					AssetEnum.AGILITY.getTexture(),
 					AssetEnum.PERCEPTION.getTexture(),
 					AssetEnum.MAGIC.getTexture(),
-					AssetEnum.CHARISMA.getTexture(),
-					AssetEnum.ENCHANTRESS.getTexture(),
-					AssetEnum.CREATION_BUTTON_UP.getTexture(),
-					AssetEnum.CREATION_BUTTON_DOWN.getTexture(),
-					AssetEnum.CREATION_BUTTON_CHECKED.getTexture(),	
-					AssetEnum.CREATION_BAUBLE_EMPTY.getTexture(),
-					AssetEnum.CREATION_BAUBLE_NEW.getTexture(),
-					AssetEnum.CREATION_BAUBLE_OLD.getTexture(),
-					AssetEnum.CREATION_BAUBLE_REMOVED.getTexture(),
-					AssetEnum.NORMAL_BOX.getTexture(),
-					AssetEnum.CABIN_BACKGROUND.getTexture(),
-					AssetEnum.TRAINER.getTexture(),
-					AssetEnum.TRAINER_MUSIC.getMusic()
-				});
-			case COTTAGE_TRAINER_VISIT:
-				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{  
-					AssetEnum.CABIN_BACKGROUND.getTexture(),
-					AssetEnum.TRAINER.getTexture(),
-					AssetEnum.TRAINER_MUSIC.getMusic()
-				});
-			case TOWN_STORY:
-				Array<AssetDescriptor<?>> reqs = new Array<AssetDescriptor<?>>(new AssetDescriptor[]{  
-					AssetEnum.TOWN_BG.getTexture(),
-					AssetEnum.SMUG_LAUGH.getSound(),
-					AssetEnum.SHOP_MUSIC.getMusic()
-				});
-				reqs.addAll(TownScreen.resourceRequirements);
-				return reqs;				
-			case BROTHEL:
-				Array<AssetDescriptor<?>> reqs2 = new Array<AssetDescriptor<?>>(new AssetDescriptor[]{  
-					AssetEnum.SMUG_LAUGH.getSound(),
-					AssetEnum.CUM.getSound(),
-					AssetEnum.ELF.getTexture(),
-					AssetEnum.BROTHEL_MADAME.getTexture(),
-				});
-				reqs2.addAll(TownScreen.resourceRequirements);
-				return reqs2;
-			case SHOP:
-			case WEAPON_SHOP:
-			case BANK:
-			case TOWN_CRIER:
-				return TownScreen.resourceRequirements;
-			case OGRE_WARNING_STORY:
-				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{AssetEnum.TRAINER_MUSIC.getMusic()});
-			case OGRE_STORY:
-				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{  
-					AssetEnum.GAME_OGRE.getTexture(),
-					AssetEnum.OGRE_GROWL.getSound(),
-					AssetEnum.CUM.getSound(),
-					AssetEnum.CUM_BUBBLING.getSound(),
-					AssetEnum.WEREWOLF_MUSIC.getMusic(),
-					AssetEnum.HEAVY_MUSIC.getMusic()
+					AssetEnum.CHARISMA.getTexture()
 				});
 			case MERI_COTTAGE:
 				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{  
@@ -536,6 +466,77 @@ public enum EncounterCode {
 					AssetEnum.CABIN_BACKGROUND.getTexture(),
 					AssetEnum.TRAINER_MUSIC.getMusic()
 				});
+			case NAGA:
+				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{
+						AssetEnum.NAGA.getTexture(),
+						AssetEnum.CUM.getSound(),
+						AssetEnum.CUM_BUBBLING.getSound(),
+						AssetEnum.WEREWOLF_MUSIC.getMusic()
+					});
+			case OGRE:
+				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{  
+					AssetEnum.OGRE.getTexture(),
+					AssetEnum.OGRE_BANGED.getTexture(),
+					AssetEnum.CUM.getSound(),
+					AssetEnum.WEREWOLF_MUSIC.getMusic()
+				});
+			case OGRE_WARNING_STORY:
+				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{AssetEnum.TRAINER_MUSIC.getMusic()});
+			case OGRE_STORY:
+				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{  
+					AssetEnum.GAME_OGRE.getTexture(),
+					AssetEnum.OGRE_GROWL.getSound(),
+					AssetEnum.CUM.getSound(),
+					AssetEnum.CUM_BUBBLING.getSound(),
+					AssetEnum.WEREWOLF_MUSIC.getMusic(),
+					AssetEnum.HEAVY_MUSIC.getMusic()
+				});
+			case ORC:
+				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{  
+					AssetEnum.ORC.getTexture(),
+					AssetEnum.ORC_ANIMATION.getAnimation(),
+					AssetEnum.ORC_ZOOM_UP.getTexture(),
+					AssetEnum.ORC_ZOOM.getTexture(),
+					AssetEnum.ORC_ZOOM_DOWN.getTexture(),
+					AssetEnum.ORC_PRONE_BONE.getTexture(),
+					AssetEnum.GAPE.getTexture(),
+					AssetEnum.CUM.getSound(),
+					AssetEnum.WEREWOLF_MUSIC.getMusic()
+				});
+			case SLIME:
+				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{  
+						AssetEnum.SLIME.getTexture(),
+						AssetEnum.SLIME_DOGGY.getTexture(),
+				});
+			case SPIDER:
+				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{  
+					AssetEnum.SPIDER.getTexture(),
+					AssetEnum.TINY_SPIDER.getTexture(),
+					AssetEnum.TINY_SPIDER_LOW.getTexture(),
+					AssetEnum.WEREWOLF_MUSIC.getMusic()
+				});
+			case TOWN_STORY:
+				Array<AssetDescriptor<?>> reqs = new Array<AssetDescriptor<?>>(new AssetDescriptor[]{  
+					AssetEnum.TOWN_BG.getTexture(),
+					AssetEnum.SMUG_LAUGH.getSound(),
+					AssetEnum.SHOP_MUSIC.getMusic()
+				});
+				reqs.addAll(TownScreen.resourceRequirements);
+				return reqs;	
+			case WERESLUT:
+				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{  
+					AssetEnum.WEREWOLF_MUSIC.getMusic(),
+					AssetEnum.WEREWOLF_GROWL.getSound(),
+					AssetEnum.CUM.getSound(),
+					AssetEnum.CUM_BUBBLING.getSound(),
+					AssetEnum.WEREBITCH.getTexture()
+				});
+			
+			case SHOP:
+			case WEAPON_SHOP:
+			case BANK:
+			case TOWN_CRIER:
+				return TownScreen.resourceRequirements;
 			case CAMP_AND_EAT:
 				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{AssetEnum.SHOP_MUSIC.getMusic()});
 			case STARVATION:
