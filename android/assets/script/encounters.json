@@ -997,7 +997,7 @@
 		"key": "CRIER-NEW",
 		"scriptLines": [
 			{
-			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "CRIER", "value":1}}],
+			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "CRIER", "value":1}}, {"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "QUETZAL", "value":1}}],
 			"text": "\"Hear ye, hear ye!\" cries out the town crier, being asymptotically original.  You hear him, hear him, for at least long enough to find out if there's anything that you can tackle to prove yourself."},			
 			{"text": "\"At the summit of Xiuh mountain, there's an ancient creature that has been terrorizing the land for ages.  Lord Vestal has offered the princely sum of three-hundred sovereign gold coins to any who can fell the beast, split among agreed upon parties.\""},
 			{"text": "That sounds promising.  That's exactly the sort of heroic feat that the bards will sing about for years to come."},
@@ -1220,27 +1220,109 @@
 	{
 		"key": "QUETZAL-CRIER",
 		"scriptLines": [
-			{"text": "..."}
+			{"text": "You traverse the mountain trail... so far from civilization, where few have roamed.  The air is noticeably thinner and colder, and your steps have gotten heavier from the climb, even though the slope was fairly gentle."},
+			{"text": "Your searching has led you here... to mount Xiuh."}
+			{"text": "Near the summit, you spot two figures in the distance... one of whom at first appears much closer, but as you get close enough to resolve them, you see that one is simply gargantuan, and monstrous - half woman, half snake."}
+			{"text": "That must be... the lord of the mountain."}
 		]
 	},
 	{
 		"key": "QUETZAL-NO-CRIER",
 		"scriptLines": [
-			{"text": "..."}
+			{"text": "You traverse the mountain trail... so far from civilization, where few have roamed.  The air is noticeably thinner and colder, and your steps have gotten heavier from the climb, even though the slope was fairly gentle."},
+			{"text": "Near the summit, you spot two figures in the distance... one of whom at first appears much closer, but as you get close enough to resolve them, you see that one is simply gargantuan, and monstrous - half woman, half snake."}			
 		]
 	},
 	{
 		"key": "QUETZAL-INTRO",
 		"scriptLines": [
 			{
-			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "QUETZAL", "value":1}}],
-			"text": "..."}
+			"foreground": "QUETZAL_HERO",
+			"music": "HEAVY_MUSIC",
+			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "QUETZAL", "value":2}}],
+			"text": "The situation unfolding before you is a sight to behold.  A lone assailant against the dreaded lord of the mountain... and she's clearly not afraid of him."},
+			{"text": "\"You will face justice this day!\" he cries, although she doesn't appear to be paying much attention.  He goes on like that, explaining how powerful he is and how much justice she's going to catch."},
+			{"text": "You worry if you join him he'll be too surprised to fight... and honestly, you're not sure how much help you would be.  If he really has this, it might be better to just hang back and support as needed."},
+			{"text": "Still, though, the mood is... odd.  He keeps boasting and swearing things, and she keeps just... rubbing some kind of strang jelly over her hands, humming and nodding."},
+			{"text": "She has... no interest in anything that he's saying.  You hope he's as powerful as he claims to be, because she seems quite confident, and outward appearances suggest that she is very, very strong indeed."},
+			{"text": "She continues to rub the jelly on her hand while watching him with amusement.  When he's finished with his screed, he points his sword at her, and then charges."},
+			{"text": "He has a good form - and his thrust rings true.  He attempts to stab the sword into her underbelly... and it shatters on impact, shards of steel clinking to the ground anticlimactically."},
+			{"text": "\"My turn,\" she says, and with a wide swing, she grabs him up in her enormous hand, and he struggles to break free."},
+			{"text": "She rips off his tabard and yoinks down his underwear with swift motions, as if this isn't the first time she's unwrapped this particular kind of candy.   You know that naga of the normal variety devour men whole, and you hope you aren't about to witness such a horrific act."},
+			{"text": "She drapes him casually over her own tail, and your face gets red when you realize you're staring at another hero's butthole.  She holds him in place as he squirms, apparently not fond of the way he's being treated.  She thwacks his buttcheeks with the tip of her tail playfully."},
+			{"text": "\"Such a proud, boisterous hero...\" she says, and she grasps her tail and coats it in the strange jelly.  When she releases it, it swivels and shakes, almost as if it has a mind of its own.  She brings it down to the would-be hero's face."},
+			{"text": "\"What... what are you doing...\" he asks, and she smiles cooly."},
+			{"text": "\"Getting you ready.  You'll thank me later... if you still have your voice.\""},
+			{"text": "She brings her tail up and around his body, and thwaps it against his cheeks again.  Then, she spreads his hole with her fingers, while still holding him down with her other hand.  His squirming intensifies."},
+			{"text": "\"I'd say to sit still, but you're not strong enough to move in my grasp anyway,\" she says, as she brings the... relatively... thin tip of her tail in the direction of his pert little hole."},
+			{"text": "Before he can register what she's saying, she's already plunged it inside - right up the butt.  It's as big as a human cock, if not bigger, and widens dangerously the further in it goes, although she keeps it relatively shallow."},
+			{"text": "It dawns on you that she's lubricating him and reaming him out with her tail, taking special care to stretch his virgin asshole in unnatural and ways, likely as foreboding preparation for the awful fate that awaits him."},
+			{"text": "His face is beet red - he did not anticipate this humiliation, anally violated by a monstrous woman rubbery tail while his legs dangle towards the floor and a single strand of liquid spills towards the ground.  If he knew someone were watching him being so humiliated, it would probably be worse, so you keep still and quiet."},
+			{"text": "She hums casually to herself as she stuffs the tip of her tail up his ass.  You imagine how many times she's done this.  For him, it's a great and momentous defeat, but for her, it's a midday snack, it seems.  The large bulge under her loincloth is taking shape, and it's not... looking good."},
+			{"text": "You watch in horror as the would-be hero is violated by the literal goddess.  You know you should look away but... some part of you is absolutely fascinated."},
+			{"text": "She withdraws her tail, coated slick with lubricant, and his hole is gaped round and wide, a dark pit from which no light can escape.  You wince - given what she has to offer, he'll be likely if it's ever that tight and closed again."},
+			{"text": "\"That's as ready as you'll be, I suppose,\" she says, before rearing up and circling herself into position behind him. You can't see it, but you're sure the thing that lurks below is now lurking just behind him."},
+			{"text": "He explains that he'll defeat her - he'll have his vengeance, and so on, and so on, as his shithole approaches her desperate-for-pussy anatomy.  You wonder if he knows exactly what's going to happen and is in denial, or if he hasn't yet read the mood of the situation."},
+			{"text": "If it's the latter, he is very soon about to find himself in a scenario where he's lost not only the battle, but his innocence.  The celibate hero will no longer be either, but that probably won't be the number one thing on his mind."},
+			{"text": "His last boast is cut off by a girlish squeal of surprise - quite likely he had no idea what the goddess had planned for him.  His voice goes into such a high register as he struggles to breathe that it sounds like she's squeezing all of the air out of him to make room for her sex."},
+			{"text": "You swear that you can hear his anus stretching, and you can see, at least, his legs twitching.  She twists her body around slightly, and you get a better view of the action.  You still can't see what her implement looks like, but you can see his abdomen is already poked out by it from the inside."},
+			{"text": "As she sinks it deeper, the bulge in his stomach grows, and his voice becomes more cracked and breathy.  She grabs hold of his body and throws her hair over her shoulder... and begins to dig in."},
+			{"text": "She looks like she's playing with a toy, and he looks like he's stretching and deforming like one - all the while slack-jawed and drooling.  You hope he's lost consciousness, but he occasionally makes a sound or motion that suggests otherwise."},
+			{"text": "The monster fucks him without remorse, and in response he occasionally spurts out thick globs of jizz several yards away - high pressure hero cream, courtesy of the several feet of serpent-dick cramming into his intestines.  If he was chaste before, he is now very... not."},
+			{"text": "The face he makes as he blows wads is quite undignified, as are his half-hearted attempts to escape from her grasp.  There is obviously no escape - the power differential too great - and he's not even putting his all into it."},
+			{"text": "His abdomen is already so distended from the monstrous phallus pushing outwards from within his gut that you can't imagine it can stretch much more, and yet, it does.  The goddess bestows a boon on him - an enema of her divine semen, for him to fart out humiliatingly over the next few days and nights."},
+			{
+			"sound": "CUM",
+			"text": "She rests his mostly-limp body against her tail and spreads his cheeks with her fingers, apparently trying to give her cum some more room to enter."},
+			{
+			"sound": "CUM_BUBBLING",
+			"text": "For whatever reason, he does not crawl away from her, despite her no longer holding him in place.  Perhaps they've established a bond.  His stomach continues to fill and swell from her lusty bombs, and her facial expression suggests she is quite content with her new seminal vessel."},
+			{
+			"sound": "CUM_BUBBLING",
+			"text": "You've heard of people being used as \"semen tanks\" before, but this is a quite literal example."},
+			{"text": "A scent is carried by the wind towards you - an overpowering, feral smell.  It takes you a moment to realize that you're smelling the aroma of her baby goo.  That gives you some hope - at least some of it is managing to leak out around her stopper, lest he explode in a most unfortunate way."},
+			{
+			"sound": "CUM",
+			"text": "Finally with a few jerks, she pulls the thing free of him, which makes a loud, wet sucking noise, and the scent gets much, much stronger.  He rolls over, his rear end once again facing you, and his body twitches and jerks as he expels her seed."},
+			{"text": "You don't get to see the surely alien thing that was inside of him, but from your vantage point you can see what's become of his backside - it's not looking good."},
+			{"text": "If you don't know what shape a giant feathered naga pussy was after sex, you do now, the former hero's gaped fuckhole conforming to said shape in a somewhat unflattering imitation of it."},
+			{"text": "Just looking at it, you immediately know two things: that the poor hero's shithole and fudge tunnel have been permanently stretched and skewed, and that same thing, only louder for those in the back.  Boy's hole is absolutely wrecked."},
+			{"text": "You're pretty sure buttholes aren't supposed to be oval shaped but you're also pretty sure that rear-hole sex with a giantess monstrosity is a bad idea, so you really only know the one thing."},
+			{"text": "Having seen it pert and tight beforehand, and then now... you feel sorrow for the poor lost hero.  There's nothing you can do for him now... but now may also be the perfect time to strike."}
 		]
 	},
 	{
 		"key": "QUETZAL-RETURN",
 		"scriptLines": [
-			{"text": "...!"}
+			{"text": "...!"},
+			
+			{
+			"foreground": "QUETZAL_HERO_ANAL",
+			"text": "..."}
+		]
+	},
+	{
+		"key": "QUETZAL-ATTACK",
+		"scriptLines": [
+			{
+			"foreground": "NULL",
+			"text": "...!"}
+		]
+	},
+	{
+		"key": "QUETZAL-AUTO",
+		"scriptLines": [
+			{
+			"foreground": "NULL",
+			"text": "...!"}
+		]
+	},
+	{
+		"key": "QUETZAL-LOSS",
+		"scriptLines": [
+			{
+			"foreground": "NULL",
+			"text": "...!"}
 		]
 	},
 	{

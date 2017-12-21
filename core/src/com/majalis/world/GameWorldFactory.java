@@ -54,7 +54,6 @@ public class GameWorldFactory {
 			Zone zone = new Zone(loadService, assetManager, random, nodes, nodeMap, 1,  2)
 					.addStartNode(nodes.get(0))
 					.addEndNode(1000, TOWN, TOWN, 31, 94)
-					//.addEndNode(5000, CRIER_QUEST, CRIER_QUEST, new Vector2(1300, 1300))
 					.buildZone();
 			
 			Zone zone2 = new Zone(loadService, assetManager, random, nodes, nodeMap, 2,  3)
@@ -70,7 +69,7 @@ public class GameWorldFactory {
 			
 			new Zone(loadService, assetManager, random, nodes, nodeMap, 3, 2)
 					.addStartNode(zone3.getEndNodes().get(0))
-					.addEndNode(1005, FORT, FORT, 119, 115)
+					.addEndNode(1005, QUETZAL, QUETZAL, 119, 115)
 					.addEndNode(1006, FORT, FORT, 119, 84)
 					.buildZone();
 

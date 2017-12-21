@@ -1377,7 +1377,7 @@ public class PlayerCharacter extends AbstractCharacter {
 				case BROTHEL:
 					return currentValue > 0 ? "You've agreed to be a prostitute in the brothel." : "";
 				case CRIER:
-					return currentValue > 0 ? ("You've heard about the lord of Xiuh mountain." + (currentValue == 2 ? " You've met a strange man who claims to have useful information." : currentValue == 3 ? " A strange man told you about a generic brothel patron." : currentValue == 4 ? " A strange man told you about the witch that lives in the forest." : "")) : "";
+					return currentValue > 0 ? ("You've heard about a quest to slay the lord of Xiuh mountain." + (currentValue == 2 ? " You've met a strange man who claims to have useful information." : currentValue == 3 ? " A strange man told you about a generic brothel patron." : currentValue == 4 ? " A strange man told you about the witch that lives in the forest." : "")) : "";
 				case DEBT:
 					return currentValue == 2 ? "You've encountered the debt collectors." : currentValue == 1 ? "You've been warned by the debt collectors." : "";
 				case ELF:
@@ -1396,7 +1396,7 @@ public class PlayerCharacter extends AbstractCharacter {
 				case ORC:
 					return currentValue == 2 ? "You've encountered an orc and behaved cowardly." : currentValue == 1 ? "You've encountered Urka the orc and behaved honorably." : "";	
 				case QUETZAL:
-					return currentValue == 1 ? "You've seen the great lord of Mount Xiuh." : "";
+					return currentValue == 4 ? "You've been rewarded for defeating the Quetzal Goddess, the great lord of Mount Xiuh." : currentValue == 3 ? "You've defeated the Quetzal Goddess, the great lord of Mount Xiuh." : currentValue == 2 ? "You've seen the great lord of Mount Xiuh - she's a giant naga!" : currentValue == 1 ? "You've heard of the great lord of Mount Xiuh." : "";
 				case SPIDER:
 					return currentValue == 1 ? "You've survived the spider-infested ruins." : "";	
 				case TRUDY:

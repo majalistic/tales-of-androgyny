@@ -17,10 +17,10 @@ public enum EncounterCode {
 	INITIAL, 
 	
 	WERESLUT, 
-	HARPY (MOUNTAIN_ACTIVE), 
+	HARPY, 
 	SLIME,
 	BRIGAND,
-	DRYAD (MOUNTAIN_ACTIVE), 
+	DRYAD, 
 	CENTAUR, 
 	GOBLIN (ENCHANTED_FOREST),
 	GADGETEER (FOREST_INACTIVE), 
@@ -204,6 +204,8 @@ public enum EncounterCode {
 			case TOWN: return "Town of Silajam (visited)";
 			case TOWN2: return "Town of Nadir (visited)";
 			case COTTAGE_TRAINER_VISIT: return "Cottage-on-the-Outskirts (visited)";
+			case WITCH_COTTAGE: return "Witch's Cottage (visited)";
+			case QUETZAL: return "Xiuh Mountain (visited)";
 			case MERI_COTTAGE_VISIT: return "Witch's Cottage (visited)";
 			case GADGETEER: return "Strange Gadgeteer";
 			case FORT: return "Fort";
@@ -505,6 +507,14 @@ public enum EncounterCode {
 					AssetEnum.GAPE.getTexture(),
 					AssetEnum.CUM.getSound(),
 					AssetEnum.WEREWOLF_MUSIC.getMusic()
+				});
+			case QUETZAL:
+				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{  
+						AssetEnum.QUETZAL_HERO.getTexture(),
+						AssetEnum.QUETZAL_HERO_ANAL.getTexture(),
+						AssetEnum.CUM.getSound(),
+						AssetEnum.CUM_BUBBLING.getSound(),
+						AssetEnum.HEAVY_MUSIC.getMusic()
 				});
 			case SLIME:
 				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{  

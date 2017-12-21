@@ -292,9 +292,17 @@ public class CheckScene extends AbstractTextScene {
 			@Override
 			protected boolean getCheck(PlayerCharacter character) { int check = character.getQuestStatus(QuestType.MADAME); return check > 0; }  
 		},
-		QUETZAL("", "") { 
+		QUETZAL_HEARD("", "") { 
 			@Override
 			protected boolean getCheck(PlayerCharacter character) { int check = character.getQuestStatus(QuestType.QUETZAL); return check == 1; }  
+		},
+		QUETZAL_MET("", "") { 
+			@Override
+			protected boolean getCheck(PlayerCharacter character) { int check = character.getQuestStatus(QuestType.QUETZAL); return check == 2; }  
+		},
+		QUETZAL_DEFEATED("", "") { 
+			@Override
+			protected boolean getCheck(PlayerCharacter character) { int check = character.getQuestStatus(QuestType.QUETZAL); return check == 3; }  
 		},
 		WITCH_MET("", "") { 
 			@Override

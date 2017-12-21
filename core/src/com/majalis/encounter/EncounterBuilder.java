@@ -381,15 +381,16 @@ public class EncounterBuilder {
 			case COTTAGE_TRAINER_VISIT:
 				return new Branch().textScene("STORY-004").encounterEnd().getEncounter();
 			case QUETZAL:
-				Branch quetzalFirst = new Branch().textScene("QUETZAL-INTRO");
+				Branch quetzalAttack = new Branch().checkScene(CheckType.BLESSING_PURCHASED, new Branch(true).textScene("QUETZAL-ATTACK"), new Branch(false).textScene("QUETZAL-AUTO").textScene("QUETZAL-LOSS").gameEnd());
+				Branch quetzalFirst = new Branch().textScene("QUETZAL-INTRO").choiceScene("Attack?", new Branch("Attack").concat(quetzalAttack), new Branch("Strategic Retreat"));
 				return new Branch().checkScene(
-					CheckType.QUETZAL, 
-					new Branch(true).checkScene(
-						CheckType.CRIER_QUEST, 
-						new Branch(true).textScene("QUEZTAL-CRIER").concat(quetzalFirst), 
+					CheckType.QUETZAL_MET, 
+					new Branch(false).checkScene(
+						CheckType.QUETZAL_HEARD, 
+						new Branch(true).textScene("QUETZAL-CRIER").concat(quetzalFirst), 
 						new Branch(false).textScene("QUETZAL-NO-CRIER").concat(quetzalFirst)
 					),
-					new Branch(false).textScene("QUETZAL-RETURN")
+					new Branch(true).textScene("QUETZAL-RETURN").concat(quetzalAttack)
 				).getEncounter();
 			case DEFAULT:
 				return new Branch().textScene("STICK").encounterEnd().getEncounter();
