@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.IntMap;
 import com.badlogic.gdx.utils.IntSet;
+import com.badlogic.gdx.utils.ObjectSet;
 import com.majalis.asset.AssetEnum;
 import com.majalis.character.PlayerCharacter;
 import com.majalis.encounter.EncounterCode;
@@ -27,9 +28,10 @@ public class Zone {
 	private final PlayerCharacter character;
 	private final int difficulty;
 	private final int repeats;
+	private final ObjectSet<EncounterCode> unspawnedEncounters;
 	private GameWorldNode startNode;
 	
-	protected Zone(LoadService loadService, AssetManager assetManager, RandomXS128 random, Array<GameWorldNode> nodes, IntMap<GameWorldNode> nodeMap, int difficulty, int repeats) {
+	protected Zone(LoadService loadService, AssetManager assetManager, RandomXS128 random, Array<GameWorldNode> nodes, IntMap<GameWorldNode> nodeMap, ObjectSet<EncounterCode> unspawnedEncounters, int difficulty, int repeats) {
 		this.assetManager = assetManager;
 		this.random = random;
 		this.difficulty = difficulty;
@@ -40,6 +42,7 @@ public class Zone {
 
 		this.nodes = nodes;
 		this.nodeMap = nodeMap;
+		this.unspawnedEncounters = unspawnedEncounters;
 		requiredNodes = new Array<GameWorldNode>();
 	}
 	
@@ -141,7 +144,7 @@ public class Zone {
 					
 					GameWorldNode newNode = getNode(
 						nodeCode, 
-						TalesOfAndrogyny.setEncounter.size == 0 ? EncounterCode.getEncounterCode(nodeCode - 1, difficulty) : TalesOfAndrogyny.setEncounter.get(nodeCode % TalesOfAndrogyny.setEncounter.size),
+						TalesOfAndrogyny.setEncounter.size == 0 ? EncounterCode.getEncounterCode(nodeCode - 1, difficulty, unspawnedEncounters) : TalesOfAndrogyny.setEncounter.get(nodeCode % TalesOfAndrogyny.setEncounter.size),
 						EncounterCode.DEFAULT, (int)newNodePosition.x, (int)newNodePosition.y, visitedCodesSet.contains(nodeCode));
 					addNode(newNode, nodeCode, nodes);
 					

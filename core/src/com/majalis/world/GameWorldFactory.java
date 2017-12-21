@@ -45,29 +45,31 @@ public class GameWorldFactory {
 		sound = assetManager.get(AssetEnum.CLICK_SOUND.getSound());
 		character = loadService.loadDataValue(SaveEnum.PLAYER, PlayerCharacter.class);
 		
+		ObjectSet<EncounterCode> unspawnedEncounters = new ObjectSet<EncounterCode>(EncounterCode.getAllRandomEncounters());
+		
 		if (gameMode == GameMode.SKIRMISH) {
-			new Zone(loadService, assetManager, random, nodes, nodeMap, 1,  1)
+			new Zone(loadService, assetManager, random, nodes, nodeMap, unspawnedEncounters, 1,  1)
 				.addStartNode(1, INITIAL, DEFAULT, 18, 89) 
 				.addEndNode(10000, GADGETEER, GADGETEER,  18, 100)
 				.buildZone();
 			
-			Zone zone = new Zone(loadService, assetManager, random, nodes, nodeMap, 1,  2)
+			Zone zone = new Zone(loadService, assetManager, random, nodes, nodeMap, unspawnedEncounters, 1,  2)
 					.addStartNode(nodes.get(0))
 					.addEndNode(1000, TOWN, TOWN, 31, 94)
 					.buildZone();
 			
-			Zone zone2 = new Zone(loadService, assetManager, random, nodes, nodeMap, 2,  3)
+			Zone zone2 = new Zone(loadService, assetManager, random, nodes, nodeMap, unspawnedEncounters, 2,  3)
 					.addStartNode(zone.getEndNodes().get(0))
 					.addEndNode(1001, SPIDER, SPIDER, 53, 109)
 					.buildZone();
 			
-			Zone zone3 = new Zone(loadService, assetManager, random, nodes, nodeMap, 2, 2)
+			Zone zone3 = new Zone(loadService, assetManager, random, nodes, nodeMap, unspawnedEncounters, 2, 2)
 					.addStartNode(zone2.getEndNodes().get(0))
 					.addEndNode(1003, ANGEL, ANGEL, 83, 119)
 					.addEndNode(1004, WITCH_COTTAGE, WITCH_COTTAGE, 83, 88)
 					.buildZone();
 			
-			new Zone(loadService, assetManager, random, nodes, nodeMap, 3, 2)
+			new Zone(loadService, assetManager, random, nodes, nodeMap, unspawnedEncounters, 3, 2)
 					.addStartNode(zone3.getEndNodes().get(0))
 					.addEndNode(1005, QUETZAL, QUETZAL, 119, 115)
 					.addEndNode(1006, FORT, FORT, 119, 84)
