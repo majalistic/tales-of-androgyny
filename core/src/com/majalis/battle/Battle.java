@@ -565,7 +565,12 @@ public class Battle extends Group{
 			optionButtons.add(button);
 			boolean outOfStamina = false;
 			boolean outOfStability = false;
-			if(character.outOfStaminaOrStability(option)) {
+			if (character.getStance().isIncapacitatingOrErotic()) {
+				TextButtonStyle style = new TextButtonStyle(button.getStyle());
+				style.fontColor = Color.FOREST;
+				button.setStyle(style);
+			}
+			else if(character.outOfStaminaOrStability(option)) {
 				outOfStamina = character.outOfStamina(option);
 				outOfStability = !outOfStamina;
 				TextButtonStyle style = new TextButtonStyle(button.getStyle());

@@ -961,7 +961,6 @@ public abstract class AbstractCharacter extends Actor {
 		return checkStability(getStabilityRegen() - technique.getStabilityCost()).isDown();
 	}
 	
-	
 	public boolean outOfStaminaOrStability(Technique technique) {
 		 return outOfStamina(technique) || outOfStability(technique);
 	}
