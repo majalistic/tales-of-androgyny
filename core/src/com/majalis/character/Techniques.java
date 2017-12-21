@@ -51,13 +51,14 @@ public enum Techniques {
 	
 	/* Techniques from Prone/Supine */
 	KIP_UP				(new NonAttackTechnique(Stance.PRONE, Stance.BALANCED, "Kip Up", 5, -15).build()),
+	STAND_UP_KNEELING	(new NonAttackTechnique(Stance.PRONE, Stance.BALANCED, "Stand Up", 1, -15).build()),
 	STAND_UP			(new NonAttackTechnique(Stance.PRONE, Stance.BALANCED, "Stand Up", 3, -6).build()),
 	STAND_UP_HANDS		(new NonAttackTechnique(Stance.HANDS_AND_KNEES, Stance.BALANCED, "Stand Up", 1, -15).build()),
 	KNEE_UP				(new NonAttackTechnique(Stance.PRONE, Stance.KNEELING, "Knee Up", 1, -15).build()),
-	KNEE_UP_HANDS		(new NonAttackTechnique(Stance.HANDS_AND_KNEES, Stance.KNEELING, "Knee Up", 0, -15).build()),
-	PUSH_UP				(new NonAttackTechnique(Stance.PRONE, Stance.HANDS_AND_KNEES, "Push Up", 0, -15).build()),
-	STAY_KNELT			(new NonAttackTechnique(Stance.KNEELING, Stance.KNEELING, "Stay Knelt", -1, 0).build()),
-	STAY				(new NonAttackTechnique(Stance.HANDS_AND_KNEES, Stance.HANDS_AND_KNEES, "Stay", -1, 0).build()),
+	KNEE_UP_HANDS		(new NonAttackTechnique(Stance.HANDS_AND_KNEES, Stance.KNEELING, "Knee Up", -1, -15).build()),
+	PUSH_UP				(new NonAttackTechnique(Stance.PRONE, Stance.HANDS_AND_KNEES, "Push Up", -1, -15).build()),
+	STAY_KNELT			(new NonAttackTechnique(Stance.KNEELING, Stance.KNEELING, "Stay Knelt", -1, -1).build()),
+	STAY				(new NonAttackTechnique(Stance.HANDS_AND_KNEES, Stance.HANDS_AND_KNEES, "Stay", -1, -1).build()),
 	REST				(new NonAttackTechnique(Stance.SUPINE, Stance.SUPINE, "Rest", -1, -1).build()),
 	REST_FACE_DOWN		(new NonAttackTechnique(Stance.PRONE, Stance.PRONE, "Rest", -1, -1).build()),
 	ROLL_OVER_UP		(new NonAttackTechnique(Stance.PRONE, Stance.SUPINE, "Roll Over", -1, -1).build()),

@@ -134,7 +134,7 @@ public class PlayerCharacter extends AbstractCharacter {
 		ObjectSet<Techniques> baseTechniques = new ObjectSet<Techniques>();
 		baseTechniques.addAll(
 			DO_NOTHING, POWER_ATTACK, TEMPO_ATTACK, RESERVED_ATTACK, DUCK, SPRING_ATTACK, NEUTRAL_ATTACK, REVERSAL_ATTACK, CAREFUL_ATTACK, BLOCK, GUARD,
-			PUSH_UP, KNEE_UP_HANDS, STAY, STAND_UP_HANDS, KIP_UP, STAND_UP, STAY_KNELT, KNEE_UP, REST_FACE_DOWN, REST, JUMP_ATTACK, VAULT_OVER,
+			PUSH_UP, KNEE_UP_HANDS, STAY, STAND_UP_HANDS, STAND_UP_KNEELING, KIP_UP, STAND_UP, STAY_KNELT, KNEE_UP, REST_FACE_DOWN, REST, JUMP_ATTACK, VAULT_OVER,
 			RECEIVE_ANAL, RECEIVE_DOGGY, RECEIVE_STANDING, STRUGGLE_ORAL, STRUGGLE_DOGGY, STRUGGLE_ANAL, STRUGGLE_STANDING, RECEIVE_KNOT, SUCK_KNOT, SUCK_IT, BREAK_FREE_ANAL, BREAK_FREE_ORAL,
 			SUBMIT, STRUGGLE_FULL_NELSON, BREAK_FREE_FULL_NELSON, STRUGGLE_PRONE_BONE, STRUGGLE_DOGGY,
 			OPEN_WIDE, GRAB_IT, STROKE_IT, LET_GO, USE_ITEM, ITEM_OR_CANCEL,
@@ -278,15 +278,51 @@ public class PlayerCharacter extends AbstractCharacter {
 			case DEFENSIVE:
 				return getTechniques(REVERSAL_ATTACK, CAREFUL_ATTACK, GUARD, TAUNT, SECOND_WIND, PARRY, INCANTATION, DUCK);
 			case PRONE:
-				return getTechniques(KIP_UP, STAND_UP, KNEE_UP, PUSH_UP, REST_FACE_DOWN, ROLL_OVER_UP);
+				possibles = getTechniques(REST_FACE_DOWN, ROLL_OVER_UP);
+				if (currentStamina >= 0) {
+					possibles.addAll(getTechniques(PUSH_UP));
+				}
+				if (currentStamina >= 2) {
+					possibles.addAll(getTechniques(KNEE_UP));
+				}
+				if (currentStamina >= 4 && stability.compareTo(Stability.Dazed) >= 0) {
+					possibles.addAll(getTechniques(STAND_UP));
+				}
+				if (currentStamina >= 6) {
+					possibles.addAll(getTechniques(KIP_UP));
+				}
+				return possibles;
 			case SUPINE:
-				return getTechniques(KIP_UP, STAND_UP, KNEE_UP, REST, ROLL_OVER_DOWN);
+				possibles = getTechniques(REST, ROLL_OVER_DOWN);
+				if (currentStamina >= 0) {
+					possibles.addAll(getTechniques(PUSH_UP));
+				}
+				if (currentStamina >= 2) {
+					possibles.addAll(getTechniques(KNEE_UP));
+				}
+				if (currentStamina >= 4 && stability.compareTo(Stability.Dazed) >= 0) {
+					possibles.addAll(getTechniques(STAND_UP));
+				}
+				if (currentStamina >= 6) {
+					possibles.addAll(getTechniques(KIP_UP));
+				}
+				return possibles;
 			case HANDS_AND_KNEES:
-				return getTechniques(KNEE_UP_HANDS, STAND_UP_HANDS, STAY);
+				possibles = getTechniques(STAY);
+				if (currentStamina >= 0) {
+					possibles.addAll(getTechniques(KNEE_UP_HANDS));
+				}
+				if (currentStamina >= 2) {
+					possibles.addAll(getTechniques(STAND_UP_HANDS));
+				}
+				return possibles;
 			case KNEELING:
-				possibles = getTechniques(UPPERCUT, STAND_UP, STAY_KNELT);
+				possibles = getTechniques(UPPERCUT, STAY_KNELT);
 				if (target.isErect() && target.enemyType != EnemyEnum.SLIME && target.enemyType.isPounceable()) {
 					possibles.addAll(getTechniques(GRAB_IT));
+				}
+				if (currentStamina >= 2) {
+					possibles.addAll(getTechniques(STAND_UP_KNEELING));
 				}
 				return possibles;
 			case AIRBORNE:

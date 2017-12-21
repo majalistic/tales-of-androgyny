@@ -512,15 +512,53 @@ public class EnemyCharacter extends AbstractCharacter {
 				if (currentMana % 7 != 0 && currentMana > 2 && statuses.get(StatusType.STRENGTH_BUFF.toString(), 0) == 0) {
 					return getTechniques(TITAN_STRENGTH);
 				}
-				return getTechniques(ITEM_OR_CANCEL);
+				return getTechniques(ITEM_OR_CANCEL);	
 			case PRONE:
-				return getTechniques(KIP_UP, STAND_UP, KNEE_UP, PUSH_UP, REST_FACE_DOWN, ROLL_OVER_UP);
+				possibles = getTechniques(REST_FACE_DOWN, ROLL_OVER_UP);
+				if (currentStamina >= 0) {
+					possibles.addAll(getTechniques(PUSH_UP));
+				}
+				if (currentStamina >= 2) {
+					possibles.addAll(getTechniques(KNEE_UP));
+				}
+				if (currentStamina >= 4 && stability.compareTo(Stability.Dazed) >= 0) {
+					possibles.addAll(getTechniques(STAND_UP));
+				}
+				if (currentStamina >= 6) {
+					possibles.addAll(getTechniques(KIP_UP));
+				}
+				return possibles;
 			case SUPINE:
-				return getTechniques(KIP_UP, STAND_UP, KNEE_UP, REST, ROLL_OVER_DOWN);
+				possibles = getTechniques(REST, ROLL_OVER_DOWN);
+				if (currentStamina >= 0) {
+					possibles.addAll(getTechniques(PUSH_UP));
+				}
+				if (currentStamina >= 2) {
+					possibles.addAll(getTechniques(KNEE_UP));
+				}
+				if (currentStamina >= 4 && stability.compareTo(Stability.Dazed) >= 0) {
+					possibles.addAll(getTechniques(STAND_UP));
+				}
+				if (currentStamina >= 6) {
+					possibles.addAll(getTechniques(KIP_UP));
+				}
+				return possibles;
 			case HANDS_AND_KNEES:
-				return getTechniques(KNEE_UP_HANDS, STAND_UP_HANDS, STAY);
+				possibles = getTechniques(STAY);
+				if (currentStamina >= 0) {
+					possibles.addAll(getTechniques(KNEE_UP_HANDS));
+				}
+				if (currentStamina >= 2) {
+					possibles.addAll(getTechniques(STAND_UP_HANDS));
+				}
+				return possibles;
 			case KNEELING:
-				return getTechniques(STAND_UP, STAY_KNELT);
+				possibles = getTechniques(STAY_KNELT);
+				if (currentStamina >= 2) {
+					possibles.addAll(getTechniques(STAND_UP_KNEELING));
+				}
+				return possibles;
+				
 			case FULL_NELSON:
 				if (grappleStatus == GrappleStatus.HOLD) {
 					if (enemyType == EnemyEnum.SPIDER) {
