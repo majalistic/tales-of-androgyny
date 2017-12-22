@@ -1433,6 +1433,12 @@
 		]
 	},
 	{
+		"key": "QUETZAL-SLAIN",
+		"scriptLines": [
+			{"text": "You return to the site of your victory, but nothing remains.  You leave... to fight other battles."}
+		]
+	},
+	{
 		"key": "INNKEEP-01",
 		"scriptLines": [
 			{

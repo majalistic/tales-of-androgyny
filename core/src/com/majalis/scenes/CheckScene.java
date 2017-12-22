@@ -304,6 +304,10 @@ public class CheckScene extends AbstractTextScene {
 			@Override
 			protected boolean getCheck(PlayerCharacter character) { int check = character.getQuestStatus(QuestType.QUETZAL); return check == 3; }  
 		},
+		QUETZAL_SLAIN("", "") { 
+			@Override
+			protected boolean getCheck(PlayerCharacter character) { int check = character.getQuestStatus(QuestType.QUETZAL); return check >= 3; }  
+		},
 		WITCH_MET("", "") { 
 			@Override
 			protected boolean getCheck(PlayerCharacter character) { int check = character.getQuestStatus(QuestType.WITCH); return check > 0; }  
@@ -311,7 +315,7 @@ public class CheckScene extends AbstractTextScene {
 		BLESSING_PURCHASED("", "") { 
 			@Override
 			protected boolean getCheck(PlayerCharacter character) { int check = character.getQuestStatus(QuestType.WITCH); return check == 2; }  
-		}
+		}, 
 		;
 		private final String success;
 		private final String failure;
