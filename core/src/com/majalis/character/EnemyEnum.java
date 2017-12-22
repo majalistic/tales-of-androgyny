@@ -7,6 +7,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.IntArray;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.majalis.asset.AnimatedActor;
+import com.majalis.asset.AnimatedActorFactory;
 import com.majalis.asset.AnimationEnum;
 import com.majalis.asset.AssetEnum;
 import com.majalis.character.AbstractCharacter.PhallusType;
@@ -261,5 +262,66 @@ public enum EnemyEnum {
 			case QUETZAL: return "The naga is a particularly vicious creature. It will just as soon crush an opponent as it will devour them or defile them - depending on its mood.\n\nOne of the ancient gods, supposedly, is an antedeluvian Naga, of an extinct \"Quetzal\" variety. She is feared far and wide, despite rarely if ever descending from the summit of mount Xiuh. There are rumors that she requires virgin sacrifices - always male, with a preference for a soft face.  It is unknown what becomes of them.";
 		}
 		return "";
+	}
+	
+	public Array<AssetDescriptor<AnimatedActorFactory>> getAnimationRequirements() {
+		Array<AssetDescriptor<AnimatedActorFactory>> temp = new Array<AssetDescriptor<AnimatedActorFactory>>();
+		switch (this) {
+			case ADVENTURER:
+				break;
+			case BEASTMISTRESS:
+				break;
+			case BRIGAND:
+				temp.add(AssetEnum.BRIGAND_ANIMATION.getAnimation());
+				temp.add(AssetEnum.ANAL_ANIMATION.getAnimation());
+				break;
+			case CENTAUR:
+				temp.add(AssetEnum.CENTAUR_ANIMATION.getAnimation());
+				break;
+			case GOBLIN:
+				break;
+			case GOBLIN_MALE:
+				break;
+			case HARPY:
+				temp.add(AssetEnum.HARPY_ANIMATION.getAnimation());
+				temp.add(AssetEnum.HARPY_ATTACK_ANIMATION.getAnimation());
+				temp.add(AssetEnum.FEATHERS_ANIMATION.getAnimation());
+				temp.add(AssetEnum.FEATHERS2_ANIMATION.getAnimation());
+				break;
+			case OGRE:
+				break;
+			case ORC:
+				temp.add(AssetEnum.ORC_ANIMATION.getAnimation());
+				break;
+			case SLIME:
+				break;
+			case SPIDER:
+				break;
+			case UNICORN:
+				temp.add(AssetEnum.CENTAUR_ANIMATION.getAnimation());
+				break;
+			case WERESLUT:
+				break;
+			default:
+				break;
+			
+		}
+		return temp;
+	}
+	
+	private ObjectMap<Stance, Array<Texture>> getTextureMap(AssetManager assetManager) {
+		ObjectMap<Stance, Array<Texture>> textures = new ObjectMap<Stance, Array<Texture>>();
+		for (ObjectMap.Entry<String, Array<String>> entry : getImagePaths()) {
+			Array<Texture> stanceTextures = new Array<Texture>();
+			for (String path : entry.value) {
+				stanceTextures.add(assetManager.get(path, Texture.class));
+			}
+			textures.put(Stance.valueOf(entry.key), stanceTextures);
+		}
+		return textures;
+	}
+	
+	public EnemyCharacter getInstance(AssetManager assetManager, Stance stance, boolean storyMode) {
+		return new EnemyCharacter(getTextures(assetManager), getTextureMap(assetManager), getAnimations(assetManager), this, stance, storyMode);
 	}
 }

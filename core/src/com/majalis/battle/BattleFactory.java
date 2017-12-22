@@ -6,7 +6,6 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.majalis.asset.AssetEnum;
 import com.majalis.character.EnemyCharacter;
-import com.majalis.character.EnemyEnum;
 import com.majalis.character.PlayerCharacter;
 import com.majalis.encounter.Background.BackgroundBuilder;
 import com.majalis.character.Stance;
@@ -32,7 +31,7 @@ public class BattleFactory {
 		EnemyCharacter enemy = loadService.loadDataValue(SaveEnum.ENEMY, EnemyCharacter.class);
 		// need a new Enemy
 		if (enemy == null) {
-			enemy = getEnemy(battleAttributes.getBattleCode(), battleAttributes.getEnemyStance());
+			enemy = battleAttributes.getBattleCode().getEnemy(assetManager, battleAttributes.getEnemyStance());
 			if (enemy.getStance().isEroticPenetration() ) {
 				enemy.setLust(10);
 			}
@@ -65,84 +64,5 @@ public class BattleFactory {
 			new BackgroundBuilder((Texture)assetManager.get(enemy.getBGPath())).build(), new BackgroundBuilder(assetManager.get(AssetEnum.BATTLE_UI.getTexture())).build(),
 			console.size > 0 ? console.get(0) : "", console.size > 1 ? console.get(1) : "", battleAttributes.getMusic()
 		);
-	}
-	
-	/* everything below should be moved to BattleCode or EnemyEnum */
-	
-	private Array<Texture> getTextures(EnemyEnum type) {
-		return type.getTextures(assetManager);
-	}
-	
-	private ObjectMap<Stance, Array<Texture>> getTextureMap(EnemyEnum type) {
-		ObjectMap<Stance, Array<Texture>> textures = new ObjectMap<Stance, Array<Texture>>();
-		
-		if(type == EnemyEnum.HARPY) {
-			textures.put(Stance.FELLATIO, new Array<Texture>(new Texture[]{assetManager.get(AssetEnum.HARPY_FELLATIO_0.getTexture()), assetManager.get(AssetEnum.HARPY_FELLATIO_1.getTexture()), assetManager.get(AssetEnum.HARPY_FELLATIO_2.getTexture()), assetManager.get(AssetEnum.HARPY_FELLATIO_3.getTexture())}));
-		}
-		else if (type == EnemyEnum.SLIME) {
-			textures.put(Stance.DOGGY, new Array<Texture>(new Texture[]{assetManager.get(AssetEnum.SLIME_DOGGY.getTexture())}));
-		}
-		else if (type == EnemyEnum.BRIGAND) {
-			textures.put(Stance.FELLATIO, new Array<Texture>(new Texture[]{assetManager.get(AssetEnum.BRIGAND_ORAL.getTexture())}));
-			textures.put(Stance.FACEFUCK, new Array<Texture>(new Texture[]{assetManager.get(AssetEnum.BRIGAND_ORAL.getTexture())}));
-			textures.put(Stance.ANAL, new Array<Texture>(new Texture[]{assetManager.get(AssetEnum.BRIGAND_MISSIONARY.getTexture())}));
-		}
-		else if (type == EnemyEnum.CENTAUR) {
-			textures.put(Stance.DOGGY, new Array<Texture>(new Texture[]{assetManager.get(AssetEnum.CENTAUR_ANAL.getTexture()), assetManager.get(AssetEnum.CENTAUR_ANAL_XRAY.getTexture())}));
-			textures.put(Stance.FELLATIO, new Array<Texture>(new Texture[]{assetManager.get(AssetEnum.CENTAUR_ORAL.getTexture())}));
-		}
-		else if (type == EnemyEnum.ORC) {
-			textures.put(Stance.PRONE_BONE, new Array<Texture>(new Texture[]{assetManager.get(AssetEnum.ORC_PRONE_BONE.getTexture())}));
-		}
-		else if (type == EnemyEnum.GOBLIN) {
-			Texture anal = assetManager.get(AssetEnum.GOBLIN_ANAL.getTexture());
-			Texture faceSit = assetManager.get(AssetEnum.GOBLIN_FACE_SIT.getTexture());
-			textures.put(Stance.PRONE_BONE, new Array<Texture>(new Texture[]{anal}));
-			textures.put(Stance.DOGGY, new Array<Texture>(new Texture[]{anal}));
-			textures.put(Stance.FACE_SITTING, new Array<Texture>(new Texture[]{faceSit}));
-			textures.put(Stance.SIXTY_NINE, new Array<Texture>(new Texture[]{faceSit}));
-		}
-		else if (type == EnemyEnum.GOBLIN_MALE) {
-			Texture anal = assetManager.get(AssetEnum.GOBLIN_ANAL_MALE.getTexture());
-			Texture faceSit = assetManager.get(AssetEnum.GOBLIN_FACE_SIT_MALE.getTexture());
-			textures.put(Stance.PRONE_BONE, new Array<Texture>(new Texture[]{anal}));
-			textures.put(Stance.DOGGY, new Array<Texture>(new Texture[]{anal}));
-			textures.put(Stance.FACE_SITTING, new Array<Texture>(new Texture[]{faceSit}));
-			textures.put(Stance.SIXTY_NINE, new Array<Texture>(new Texture[]{faceSit}));
-		}
-		else if (type == EnemyEnum.ADVENTURER) {
-			textures.put(Stance.COWGIRL_BOTTOM, new Array<Texture>(new Texture[]{assetManager.get(AssetEnum.ADVENTURER_ANAL.getTexture())}));
-		}
-		
-		return textures;
-	}
-	// enemies should be constructable only with their types and an assetManager
-	protected EnemyCharacter getEnemy(BattleCode battleCode, Stance stance) {
-		switch(battleCode) {
-			case WERESLUT: return new EnemyCharacter(getTextures(EnemyEnum.WERESLUT), getTextureMap(EnemyEnum.WERESLUT), EnemyEnum.WERESLUT.getAnimations(assetManager), EnemyEnum.WERESLUT, stance);
-			case HARPY: return new EnemyCharacter(null, getTextureMap(EnemyEnum.HARPY), EnemyEnum.HARPY.getAnimations(assetManager), EnemyEnum.HARPY, stance);
-			case HARPY_STORY: return new EnemyCharacter(null, getTextureMap(EnemyEnum.HARPY), EnemyEnum.HARPY.getAnimations(assetManager), EnemyEnum.HARPY, stance, true);
-			case SLIME: return new EnemyCharacter(getTextures(EnemyEnum.SLIME), getTextureMap(EnemyEnum.SLIME), EnemyEnum.SLIME.getAnimations(assetManager), EnemyEnum.SLIME, stance);
-			case BRIGAND: return new EnemyCharacter(null, getTextureMap(EnemyEnum.BRIGAND), EnemyEnum.BRIGAND.getAnimations(assetManager), EnemyEnum.BRIGAND, stance);
-			case BRIGAND_STORY: return new EnemyCharacter(null, getTextureMap(EnemyEnum.BRIGAND), EnemyEnum.BRIGAND.getAnimations(assetManager), EnemyEnum.BRIGAND, stance, true);
-			case CENTAUR: return new EnemyCharacter(null, getTextureMap(EnemyEnum.CENTAUR), EnemyEnum.CENTAUR.getAnimations(assetManager), EnemyEnum.CENTAUR, stance);
-			case UNICORN: return new EnemyCharacter(null, getTextureMap(EnemyEnum.UNICORN), EnemyEnum.UNICORN.getAnimations(assetManager), EnemyEnum.UNICORN, stance);
-			case GOBLIN: 
-			case GOBLIN_STORY: return new EnemyCharacter(getTextures(EnemyEnum.GOBLIN), getTextureMap(EnemyEnum.GOBLIN), EnemyEnum.GOBLIN.getAnimations(assetManager), EnemyEnum.GOBLIN, stance);
-			case GOBLIN_MALE: return new EnemyCharacter(getTextures(EnemyEnum.GOBLIN_MALE), getTextureMap(EnemyEnum.GOBLIN_MALE), EnemyEnum.GOBLIN_MALE.getAnimations(assetManager), EnemyEnum.GOBLIN_MALE, stance);
-			case ORC: return new EnemyCharacter(getTextures(EnemyEnum.ORC), getTextureMap(EnemyEnum.ORC), EnemyEnum.ORC.getAnimations(assetManager), EnemyEnum.ORC, stance);
-			case ADVENTURER: return new EnemyCharacter(getTextures(EnemyEnum.ADVENTURER), getTextureMap(EnemyEnum.ADVENTURER), EnemyEnum.ADVENTURER.getAnimations(assetManager), EnemyEnum.ADVENTURER, stance);
-			case OGRE: return new EnemyCharacter(getTextures(EnemyEnum.OGRE), getTextureMap(EnemyEnum.OGRE), EnemyEnum.OGRE.getAnimations(assetManager), EnemyEnum.OGRE, stance);
-			case OGRE_STORY: return new EnemyCharacter(getTextures(EnemyEnum.OGRE), getTextureMap(EnemyEnum.OGRE), EnemyEnum.OGRE.getAnimations(assetManager), EnemyEnum.OGRE, stance, true);			
-			case BEASTMISTRESS: return new EnemyCharacter(getTextures(EnemyEnum.BEASTMISTRESS), getTextureMap(EnemyEnum.BEASTMISTRESS), EnemyEnum.BEASTMISTRESS.getAnimations(assetManager), EnemyEnum.BEASTMISTRESS, stance);
-			case SPIDER: return new EnemyCharacter(getTextures(EnemyEnum.SPIDER), getTextureMap(EnemyEnum.SPIDER), EnemyEnum.SPIDER.getAnimations(assetManager), EnemyEnum.SPIDER, stance);
-			case GOLEM: return new EnemyCharacter(getTextures(EnemyEnum.GOLEM), getTextureMap(EnemyEnum.GOLEM), EnemyEnum.GOLEM.getAnimations(assetManager), EnemyEnum.GOLEM, stance);
-			case GHOST: return new EnemyCharacter(getTextures(EnemyEnum.GHOST), getTextureMap(EnemyEnum.GHOST), EnemyEnum.GHOST.getAnimations(assetManager), EnemyEnum.GHOST, stance);
-			case BUNNY: return new EnemyCharacter(getTextures(EnemyEnum.BUNNY), getTextureMap(EnemyEnum.BUNNY), EnemyEnum.BUNNY.getAnimations(assetManager), EnemyEnum.BUNNY, stance);
-			case ANGEL: return new EnemyCharacter(getTextures(EnemyEnum.ANGEL), getTextureMap(EnemyEnum.ANGEL), EnemyEnum.ANGEL.getAnimations(assetManager), EnemyEnum.ANGEL, stance);
-			case NAGA: return new EnemyCharacter(getTextures(EnemyEnum.NAGA), getTextureMap(EnemyEnum.NAGA), EnemyEnum.NAGA.getAnimations(assetManager), EnemyEnum.NAGA, stance);
-			case QUETZAL: return new EnemyCharacter(getTextures(EnemyEnum.QUETZAL), getTextureMap(EnemyEnum.QUETZAL), EnemyEnum.QUETZAL.getAnimations(assetManager), EnemyEnum.QUETZAL, stance);
-			default: return null;
-		}
 	}
 }
