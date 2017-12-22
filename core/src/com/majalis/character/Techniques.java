@@ -149,6 +149,8 @@ public enum Techniques {
 	
 	LAY_EGGS 			(new GrappleTechnique(Stance.OVIPOSITION, Stance.OVIPOSITION, "Lay Eggs", 0, Stance.OVIPOSITION_BOTTOM).build()), // Used to lay eggs - can end battle
 	
+	BLOW_LOAD 			(new ClimaxTechnique   (Stance.DOGGY, Stance.DOGGY, "Blow Load", Stance.PRONE, ClimaxType.ANAL).build()),
+	BLOW_LOAD_ORAL		(new ClimaxTechnique   (Stance.FELLATIO, Stance.FELLATIO, "Blow Load", Stance.KNEELING, ClimaxType.ORAL).build()),
 	ERUPT_ANAL 			(new ClimaxTechnique   (Stance.DOGGY, Stance.DOGGY, "Erupt", Stance.PRONE, ClimaxType.ANAL).build()),
 	ERUPT_ORAL 			(new ClimaxTechnique   (Stance.FELLATIO, Stance.FELLATIO, "Erupt", Stance.KNEELING, ClimaxType.ORAL).build()),
 	ERUPT_FACIAL		(new ClimaxTechnique   (Stance.HANDY, Stance.HANDY, "Facial", Stance.KNEELING, ClimaxType.FACIAL).build()),

@@ -712,6 +712,9 @@ public class EnemyCharacter extends AbstractCharacter {
 			case STANDING:
 			case PRONE_BONE:
 				if (enemyType != EnemyEnum.WERESLUT && lust > 15) {
+					if (enemyType == EnemyEnum.BRIGAND || enemyType == EnemyEnum.GOBLIN || enemyType == EnemyEnum.ORC) {
+						return getTechniques(BLOW_LOAD);
+					}
 					return getTechniques(ERUPT_ANAL);
 				}
 				else if (enemyType == EnemyEnum.WERESLUT && lust > 18) {
@@ -760,6 +763,9 @@ public class EnemyCharacter extends AbstractCharacter {
 				return getTechniques(DIVEBOMB);
 			case FELLATIO:
 				if (enemyType != EnemyEnum.WERESLUT && lust > 14) {
+					if (enemyType == EnemyEnum.BRIGAND || enemyType == EnemyEnum.GOBLIN || enemyType == EnemyEnum.ORC) {
+						return getTechniques(BLOW_LOAD_ORAL);
+					}
 					return getTechniques(ERUPT_ORAL);
 				}
 				else if (enemyType == EnemyEnum.WERESLUT && lust > 18) {
