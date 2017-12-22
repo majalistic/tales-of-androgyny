@@ -33,7 +33,7 @@ public enum EnemyEnum {
 	BUNNY (new EnemyTemplate(WeaponType.Sickle, 6, 6, 9, 5, 1, 8).setHealth(new IntArray(new int[]{20, 20, 20, 20})).setMana(30).setShield(ArmorType.SHIELD), "Puca", AssetEnum.BUNNY_CREAM.getTexture(), AssetEnum.BUNNY_VANILLA.getTexture(), AssetEnum.BUNNY_CARAMEL.getTexture(), AssetEnum.BUNNY_CHOCOLATE.getTexture(), AssetEnum.BUNNY_DARK_CHOCOLATE.getTexture()), 
 	ANGEL (new EnemyTemplate(WeaponType.Trumpet).setHealth(new IntArray(new int[]{20, 20, 20, 20})).setMana(30).setEndurance(10).setAgility(10).setArmor(null).setLegwear(null).setStrength(5).setAgility(5), "Angel", AssetEnum.ANGEL.getTexture()), 
 	NAGA (new EnemyTemplate(WeaponType.Flail).setHealth(new IntArray(new int[]{20, 20, 20, 20})).setArmor(null).setLegwear(null).setUnderwear(null).setStrength(6).setAgility(6).setEndurance(6).setShield(ArmorType.SHIELD), "Naga", AssetEnum.NAGA.getTexture()), 
-	QUETZAL (new EnemyTemplate(WeaponType.Claw).setHealth(new IntArray(new int[]{30, 30, 30, 30, 30})).setArmor(null).setLegwear(null).setUnderwear(ArmorType.UNDERWEAR).setStrength(12).setAgility(10).setEndurance(10), "Quetzal Goddess", AssetEnum.QUETZAL.getTexture()), 
+	QUETZAL (new EnemyTemplate(WeaponType.Claw).setHealth(new IntArray(new int[]{30, 30, 30, 30, 30})).setArmor(null).setLegwear(null).setUnderwear(ArmorType.UNDERWEAR).setStrength(10).setAgility(10).setEndurance(10), "Quetzal Goddess", AssetEnum.QUETZAL.getTexture()), 
 	;
 	private final String text;
 	private final Array<AssetDescriptor<Texture>> texturePaths;
