@@ -194,10 +194,18 @@ public class EnemyCharacter extends AbstractCharacter {
 			}
 			
 			if (enemyType == EnemyEnum.QUETZAL) {
-				//\"Yeah... hmph.  Time to mate.\"
-				//\"Mmhm, gonna blast your ass once you're done playing...\"
-				//\"Hmm... hehehe...\"
-				//\"I'm going to pump it all into your shithole, hero...\"
+				if (stance == Stance.HOLDING && oldStance != Stance.HOLDING) {
+					resolvedAttack.addDialog("\"Yeah... hmph.  Time to mate.\"");
+				}
+				if (heartbeat == 5) {
+					resolvedAttack.addDialog("\"Hmm... hehehe...\"");
+				}
+				if (heartbeat == 9) {
+					resolvedAttack.addDialog("\"Mmhm, gonna blast your ass once you're done playing...\"");
+				}
+				if (heartbeat == 14) {
+					resolvedAttack.addDialog("\"I'm going to pump it all into your shithole, hero...\"");
+				}
 			}
 			
 			if (!oldStance.isErotic() && stance.isErotic()) {
@@ -277,6 +285,7 @@ public class EnemyCharacter extends AbstractCharacter {
 						resolvedAttack.addDialog("\"Oh, why didn't you just say so?\" she says, gleefully sitting on your face, ass first.");
 						break;
 					case NAGA:
+						resolvedAttack.addDialog("\"You were saying?\"");
 						break;
 					case QUETZAL:
 						break;
@@ -356,6 +365,7 @@ public class EnemyCharacter extends AbstractCharacter {
 					case NAGA:
 						break;
 					case QUETZAL:
+						resolvedAttack.addDialog("\"Accept your goddess' seed!\"");
 						break;
 				}
 					
