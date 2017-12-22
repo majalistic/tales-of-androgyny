@@ -67,6 +67,13 @@ public class SaveScreen extends AbstractScreen {
 			}
 		});
 		
+		final TextButton confirmButton = new TextButton ("", skin);
+		confirmButton.setPosition(1050, 250);
+		confirmButton.setWidth(450);
+		confirmButton.setColor(Color.YELLOW);
+		confirmButton.addAction(Actions.hide());
+		this.addActor(confirmButton);		
+		
 		final TextButton quickLoadButton = new TextButton ("Quick Load", skin);
 		quickLoadButton.setPosition(400, 50);
 		this.addActor(quickLoadButton);
@@ -88,13 +95,14 @@ public class SaveScreen extends AbstractScreen {
 			PlayerCharacter character = saveManager.loadDataValue(SaveEnum.PLAYER, PlayerCharacter.class);
 			GameMode mode = saveManager.loadDataValue(SaveEnum.MODE, GameMode.class);
 			// create an actor based on the data that will display stats with a button with clicklistener (and associated enter-> click functionality) that will save the current game to that file(overwrite), load that file, a button with a clicklistener that will delete that file
-			final Label saveValue = new Label(getSaveText(character, mode, ii + 1), skin);			
-			saveValue.setColor(character.getJobClass() == null ? Color.BLACK : mode == GameMode.SKIRMISH ? Color.BLUE : Color.FOREST);
+			final Label saveValue = new Label(getSaveText(character, mode, ii), skin);			
+			boolean saveExists = character.getJobClass() != null;
+			saveValue.setColor(!saveExists? Color.BLACK : mode == GameMode.SKIRMISH ? Color.BLUE : Color.FOREST);
 			// add the actor to the list
 			final TextButton saveButton = new TextButton ("Save", skin);
 			
 			final TextButton loadButton = new TextButton ("Load", skin);
-			if (character.getJobClass() != null) {
+			if (saveExists) {
 				loadButton.addListener(new ClickListener() {
 					@Override
 					public void clicked(InputEvent event, float x, float y) {
@@ -103,46 +111,46 @@ public class SaveScreen extends AbstractScreen {
 						showScreen(ScreenEnum.LOAD_GAME);
 					}
 				});
+				saveButton.addListener(new ClickListener() {
+					@Override
+					public void clicked(InputEvent event, float x, float y) {
+						sound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
+						confirmButton.clearListeners();
+						confirmButton.addAction(Actions.show());
+						confirmButton.setText("Overwrite Save File " + (num + 1) + "?");
+						confirmButton.addListener(getSaveListener(path, saveValue, loadButton, confirmButton, num, console));
+					}
+				});
 			}
 			else {
 				loadButton.setColor(Color.GRAY);
+				saveButton.addListener(getSaveListener(path, saveValue, loadButton, confirmButton, num, console));
 			}
 			
-			saveButton.addListener(new ClickListener() {
-				@Override
-				public void clicked(InputEvent event, float x, float y) {
-					sound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
-					saveService.manualSave(path);
-					SaveManager saveManager = new SaveManager(false, path, ".toa-data/profile.json");
-					PlayerCharacter characterTemp = saveManager.loadDataValue(SaveEnum.PLAYER, PlayerCharacter.class);
-					GameMode modeTemp = saveManager.loadDataValue(SaveEnum.MODE, GameMode.class);
-					saveValue.setText(getSaveText(characterTemp, modeTemp, num + 1));
-					consoleLog(console, "Save File " + (num + 1) + " was saved.");
-					saveValue.setColor(modeTemp == GameMode.SKIRMISH ? Color.BLUE : Color.FOREST);
-					loadButton.setColor(Color.WHITE);
-					loadButton.addListener(new ClickListener() {
-						@Override
-						public void clicked(InputEvent event, float x, float y) {
-							sound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
-							saveService.newSave(path);
-							showScreen(ScreenEnum.LOAD_GAME);
-						}
-					});
-					
-				}
-			});
 			
-			final TextButton deleteButton = new TextButton ("Delete", skin);
+			final TextButton deleteButton = new TextButton ("Delete", skin);			
 			deleteButton.addListener(new ClickListener() {
 				@Override
 				public void clicked(InputEvent event, float x, float y) {
 					sound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
-					SaveManager saveManager = new SaveManager(false, path, ".toa-data/profile.json");
-					saveManager.newSave();
-					saveValue.setText("Save File " + (num + 1) + " - No Save File");
-					saveValue.setColor(Color.BLACK);
-					loadButton.setColor(Color.GRAY);
-					loadButton.clearListeners();
+					confirmButton.clearListeners();
+					confirmButton.addAction(Actions.show());
+					confirmButton.setText("Delete Save File " + (num + 1) + "?");
+					confirmButton.addListener(new ClickListener() {
+						@Override
+						public void clicked(InputEvent event, float x, float y) {
+							sound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
+							SaveManager saveManager = new SaveManager(false, path, ".toa-data/profile.json");
+							saveManager.newSave();
+							saveValue.setText("Save File " + (num + 1) + " - No Save File");
+							saveValue.setColor(Color.BLACK);
+							loadButton.setColor(Color.GRAY);
+							loadButton.clearListeners();
+							confirmButton.addAction(Actions.hide());
+							saveButton.clearListeners();
+							saveButton.addListener(getSaveListener(path, saveValue, loadButton, confirmButton, num, console));
+						}
+					});
 				}
 			});
 			
@@ -151,6 +159,32 @@ public class SaveScreen extends AbstractScreen {
 			saveTable.add(loadButton);				
 			saveTable.add(deleteButton).row();	
 		}
+	}
+	
+	private ClickListener getSaveListener(final String path, final Label saveValue, final TextButton loadButton, final TextButton confirmButton, final int num, final Label console) {
+		return new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				sound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
+				saveService.manualSave(path);
+				SaveManager saveManager = new SaveManager(false, path, ".toa-data/profile.json");
+				PlayerCharacter characterTemp = saveManager.loadDataValue(SaveEnum.PLAYER, PlayerCharacter.class);
+				GameMode modeTemp = saveManager.loadDataValue(SaveEnum.MODE, GameMode.class);
+				saveValue.setText(getSaveText(characterTemp, modeTemp, num));
+				consoleLog(console, "Save File " + (num + 1) + " was saved.");
+				saveValue.setColor(modeTemp == GameMode.SKIRMISH ? Color.BLUE : Color.FOREST);
+				loadButton.setColor(Color.WHITE);
+				loadButton.addListener(new ClickListener() {
+					@Override
+					public void clicked(InputEvent event, float x, float y) {
+						sound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
+						saveService.newSave(path);
+						showScreen(ScreenEnum.LOAD_GAME);
+					}
+				});
+				confirmButton.addAction(Actions.hide());
+			}
+		};
 	}
 	
 	private String getSaveText(PlayerCharacter character, GameMode mode, int saveNumber) {
