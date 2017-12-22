@@ -19,6 +19,7 @@ import com.majalis.asset.AssetEnum;
 import com.majalis.character.PlayerCharacter;
 import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveManager;
+import com.majalis.save.SaveManager.GameMode;
 import com.majalis.save.SaveService;
 /*
  * Screen for displaying, saving, and loading save files.
@@ -85,9 +86,10 @@ public class SaveScreen extends AbstractScreen {
 			final String path = ".toa-data/save" + ii + ".json";
 			SaveManager saveManager = new SaveManager(false, ".toa-data/save" + ii + ".json", ".toa-data/profile.json");
 			PlayerCharacter character = saveManager.loadDataValue(SaveEnum.PLAYER, PlayerCharacter.class);
+			GameMode mode = saveManager.loadDataValue(SaveEnum.MODE, GameMode.class);
 			// create an actor based on the data that will display stats with a button with clicklistener (and associated enter-> click functionality) that will save the current game to that file(overwrite), load that file, a button with a clicklistener that will delete that file
-			final Label saveValue = new Label("Save File " + (ii + 1) + " - " + (character.getJobClass() == null ? "No Save File" : "\"" + character.getCharacterName() + "\" - " + character.getJobClass().getLabel() + " - Level: " + character.getLevel()), skin);			
-			saveValue.setColor(character.getJobClass() == null ? Color.BLACK : Color.BLUE);
+			final Label saveValue = new Label(getSaveText(character, mode, ii + 1), skin);			
+			saveValue.setColor(character.getJobClass() == null ? Color.BLACK : mode == GameMode.SKIRMISH ? Color.BLUE : Color.FOREST);
 			// add the actor to the list
 			final TextButton saveButton = new TextButton ("Save", skin);
 			
@@ -113,9 +115,10 @@ public class SaveScreen extends AbstractScreen {
 					saveService.manualSave(path);
 					SaveManager saveManager = new SaveManager(false, path, ".toa-data/profile.json");
 					PlayerCharacter characterTemp = saveManager.loadDataValue(SaveEnum.PLAYER, PlayerCharacter.class);
-					saveValue.setText("Save File " + (num + 1) + " - " + (characterTemp.getJobClass() == null ? "No Save File" : "\"" + characterTemp.getCharacterName() + "\" - " + characterTemp.getJobClass().getLabel() + " - Level: " + characterTemp.getLevel()));
+					GameMode modeTemp = saveManager.loadDataValue(SaveEnum.MODE, GameMode.class);
+					saveValue.setText(getSaveText(characterTemp, modeTemp, num + 1));
 					consoleLog(console, "Save File " + (num + 1) + " was saved.");
-					saveValue.setColor(Color.BLUE);
+					saveValue.setColor(modeTemp == GameMode.SKIRMISH ? Color.BLUE : Color.FOREST);
 					loadButton.setColor(Color.WHITE);
 					loadButton.addListener(new ClickListener() {
 						@Override
@@ -150,11 +153,14 @@ public class SaveScreen extends AbstractScreen {
 		}
 	}
 	
+	private String getSaveText(PlayerCharacter character, GameMode mode, int saveNumber) {
+		return "Save File " + (saveNumber + 1) + " - " + (character.getJobClass() == null ? "No Save File" : "\"" + character.getCharacterName() + "\" - " + (mode == GameMode.SKIRMISH ? character.getJobClass().getLabel() : "Story Mode") + " - Level: " + character.getLevel());
+	}
+	
 	private void consoleLog(Label console, String newDisplay) {
 		console.setText(newDisplay);
 		console.clearActions();
 		console.addAction(Actions.sequence(Actions.alpha(1), Actions.fadeOut(4)));
-		
 	}
 	
 	@Override
