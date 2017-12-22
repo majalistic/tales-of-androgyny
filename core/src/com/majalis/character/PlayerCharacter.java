@@ -777,6 +777,7 @@ public class PlayerCharacter extends AbstractCharacter {
 		}
 		wrapLegs = false;
 		scout = 0;
+		heartbeat = 0;
 	}
 
 	public enum Femininity {

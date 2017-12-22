@@ -122,6 +122,9 @@ public class EnemyCharacter extends AbstractCharacter {
 	@Override
 	public Attack doAttack(Attack resolvedAttack) {
 		// if golem uses a certain attack, it should activate her dong
+		if (resolvedAttack.getLust() > 0 && enemyType == EnemyEnum.QUETZAL) {
+			lust += 4;
+		}
 		if (enemyType == EnemyEnum.GOLEM) {
 			if (resolvedAttack.getSelfEffect() != null && resolvedAttack.getSelfEffect().type == StatusType.ACTIVATE) {
 				currentFrame = 1;
@@ -175,7 +178,7 @@ public class EnemyCharacter extends AbstractCharacter {
 					default:
 				}
 			}
-			if (stance == Stance.HOLDING) {
+			if (stance == Stance.HOLDING && enemyType == EnemyEnum.OGRE) {
 				resolvedAttack.addDialog("The ogre grunts as he hoists you up by your legs, bringing your small hole to his throbbing mast.");
 			}
 			
@@ -188,6 +191,13 @@ public class EnemyCharacter extends AbstractCharacter {
 				if (enemyType == EnemyEnum.SPIDER) {
 					resolvedAttack.addDialog("\"Now hold still... while I lay my babies inside of you.\"");
 				}
+			}
+			
+			if (enemyType == EnemyEnum.QUETZAL) {
+				//\"Yeah... hmph.  Time to mate.\"
+				//\"Mmhm, gonna blast your ass once you're done playing...\"
+				//\"Hmm... hehehe...\"
+				//\"I'm going to pump it all into your shithole, hero...\"
 			}
 			
 			if (!oldStance.isErotic() && stance.isErotic()) {
@@ -268,6 +278,8 @@ public class EnemyCharacter extends AbstractCharacter {
 						break;
 					case NAGA:
 						break;
+					case QUETZAL:
+						break;
 				}
 			}
 			
@@ -342,6 +354,8 @@ public class EnemyCharacter extends AbstractCharacter {
 					case ANGEL:
 						break;
 					case NAGA:
+						break;
+					case QUETZAL:
 						break;
 				}
 					
@@ -438,6 +452,39 @@ public class EnemyCharacter extends AbstractCharacter {
 				return getTechniques(DO_NOTHING);
 			}
 		}
+		else if (enemyType == EnemyEnum.QUETZAL) {
+			if (stance == Stance.HOLDING) {
+				lust++;
+				if (lust > 12) {
+					return getTechniques(SKEWER);
+				}
+				return getTechniques(LICK_LIPS_HOLDING);
+			}
+			if (stance.isAnalPenetration()) {
+				lust++;
+				if (lust > 20) {
+					return getTechniques(PLUG);
+				}
+				else if (lust > 16) {
+					return getTechniques(FERTILIZE);
+				}
+				return getTechniques(SCREW);
+			}
+			if (!alreadyIncapacitated()) {
+				if (heartbeat % 15 == 14) {
+					if (isErect()) {
+						if (heartbeat > 60) {
+							return getTechniques(SEIZE);
+						}
+						return getTechniques(LUBE_UP);
+					}
+					return getTechniques(HARDEN);
+				}
+				if (heartbeat < 10) {				
+					return getTechniques(DO_NOTHING, WATCH, LICK_LIPS, PREPARE_OILS);
+				}
+			}
+		}
 		
 		Array<Techniques> possibles = new Array<Techniques>();
 		switch(stance) {
@@ -470,10 +517,16 @@ public class EnemyCharacter extends AbstractCharacter {
 					possibles.addAll(getTechniques(SPRING_ATTACK, NEUTRAL_ATTACK, DO_NOTHING));
 				}
 				else if (!target.stance.receivesMediumAttacks()) {
-					possibles.addAll(getTechniques(SPRING_ATTACK, NEUTRAL_ATTACK, BLOCK));
+					possibles.addAll(getTechniques(SPRING_ATTACK, NEUTRAL_ATTACK));
+					if (enemyType.usesDefensiveTechniques()) {
+						possibles.addAll(getTechniques(BLOCK));
+					}
 				}
 				else {
-					possibles.addAll(getTechniques(SPRING_ATTACK, NEUTRAL_ATTACK, CAUTIOUS_ATTACK, BLOCK));
+					possibles.addAll(getTechniques(SPRING_ATTACK, NEUTRAL_ATTACK, CAUTIOUS_ATTACK));
+					if (enemyType.usesDefensiveTechniques()) {
+						possibles.addAll(getTechniques(BLOCK));
+					}
 				}
 				if (isEnragedGolem() && currentMana > 3) {
 					possibles.addAll(getTechniques(INCANTATION));
@@ -770,7 +823,7 @@ public class EnemyCharacter extends AbstractCharacter {
 		}
 		
 		if (lust < 10 || enemyType == EnemyEnum.OGRE) {
-			if (enemyType != EnemyEnum.CENTAUR && enemyType != EnemyEnum.BEASTMISTRESS && enemyType != EnemyEnum.GOLEM) lust++;
+			if (enemyType != EnemyEnum.CENTAUR && enemyType != EnemyEnum.BEASTMISTRESS && enemyType != EnemyEnum.GOLEM && enemyType != EnemyEnum.QUETZAL) lust++;
 		}
 		
 		Array<Techniques> possibleTechniques = getPossibleTechniques(target, stance);
@@ -913,6 +966,7 @@ public class EnemyCharacter extends AbstractCharacter {
 			case GOBLIN: 
 			case GOBLIN_MALE: 
 				lust -= 2; break;
+			case QUETZAL: break;
 			default: lust -= 14;
 		}
 		
@@ -968,7 +1022,7 @@ public class EnemyCharacter extends AbstractCharacter {
 			default:
 		}
 	
-		if (stance.isEroticPenetration()) {
+		if (stance.isEroticPenetration() && enemyType != EnemyEnum.QUETZAL) {
 			stance = Stance.ERUPT;
 		}
 		String joined = "";
@@ -1174,7 +1228,7 @@ public class EnemyCharacter extends AbstractCharacter {
 	
 	// for init in battlefactory
 	public void setLust(int lust) { 
-		if (enemyType != EnemyEnum.GOLEM || lust == 100) {
+		if ((enemyType != EnemyEnum.GOLEM || lust == 100) && enemyType != EnemyEnum.QUETZAL) {
 			this.lust = lust; 
 		}
 	}
@@ -1280,6 +1334,8 @@ public class EnemyCharacter extends AbstractCharacter {
 				if (lust == 8 && currentHealth == getMaxHealth() && selfRessurect == 1) return Outcome.SATISFIED;
 			case NAGA:
 				if (enemy.getCurrentHealth() <= 0 && stance == Stance.WRAPPED) return Outcome.DEATH;
+			case QUETZAL:
+				if (enemy.getStance() == Stance.SPREAD) return Outcome.KNOT_ANAL;
 			default:
 		
 		}

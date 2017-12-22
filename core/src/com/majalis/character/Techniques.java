@@ -75,7 +75,7 @@ public enum Techniques {
 	ACTIVATE		  	(new SpellTechnique(Stance.CASTING, Stance.BALANCED, "Activate", 0, 0, false, StatusType.ACTIVATE).build()),
 	ANGELIC_GRACE  		(new SpellTechnique(Stance.CASTING, Stance.BALANCED, "Angelic Grace", 80, 0, true).build()),
 	TRUMPET		  		(new SpellTechnique(Stance.CASTING, Stance.BALANCED, "Trumpet", -1, 0, false).build()),
-	HEAL  		(new SpellTechnique(Stance.CASTING, Stance.BALANCED, "Heal", 27, 10, true).build()),
+	HEAL  				(new SpellTechnique(Stance.CASTING, Stance.BALANCED, "Heal", 27, 10, true).build()),
 	
 	GUT_CHECK			(new AttackTechnique(Stance.OFFENSIVE, Stance.OFFENSIVE, "Gutcheck", 3, 3, 4, 0, 1, false, TechniqueHeight.MEDIUM).build()),
 
@@ -90,9 +90,21 @@ public enum Techniques {
 	SQUEEZE_CRUSH		(new GrappleTechnique(Stance.WRAPPED, Stance.WRAPPED, "Crush", 4, GrappleType.SUBMIT).setAutoDamage().build()),
 	SQUEEZE_RELEASE		(new GrappleTechnique(Stance.WRAPPED, Stance.PRONE, "Release", -1, Stance.PRONE, GrappleType.WIN).build()),		
 	
-	SQUEEZE_STRUGGLE		(new GrappleTechnique(Stance.WRAPPED_BOTTOM, Stance.WRAPPED_BOTTOM, "Struggle", 5, GrappleType.ADVANTAGE).build()),
+	SQUEEZE_STRUGGLE	(new GrappleTechnique(Stance.WRAPPED_BOTTOM, Stance.WRAPPED_BOTTOM, "Struggle", 5, GrappleType.ADVANTAGE).build()),
 	BREAK_FREE_SQUEEZE	(new GrappleTechnique(Stance.WRAPPED_BOTTOM, Stance.PRONE, "Struggle", 0, Stance.PRONE, GrappleType.BREAK).build()), // Break hold
-	SQUEEZE_REST	(new GrappleTechnique(Stance.WRAPPED_BOTTOM, Stance.WRAPPED_BOTTOM, "Rest", -1, GrappleType.SUBMIT).build()),	
+	SQUEEZE_REST		(new GrappleTechnique(Stance.WRAPPED_BOTTOM, Stance.WRAPPED_BOTTOM, "Rest", -1, GrappleType.SUBMIT).build()),	
+	
+	WATCH				(new NonAttackTechnique(Stance.NULL, Stance.NULL, "Watch", -1, -1).build()),
+	LICK_LIPS			(new NonAttackTechnique(Stance.NULL, Stance.NULL, "Lick Lips", -1, -1).build()),
+	PREPARE_OILS		(new NonAttackTechnique(Stance.NULL, Stance.NULL, "Prepare Oils", -1, -1).build()),
+	LUBE_UP				(new NonAttackTechnique(Stance.NULL, Stance.NULL, "Lube Up", -1, -1).build()),
+	HARDEN				(new NonAttackTechnique(Stance.NULL, Stance.NULL, "Harden", -5, 0, true).build()), 
+	SKEWER		 		(new GrappleTechnique(Stance.HOLDING, Stance.CRUSHING, "Skewer", 2, Stance.PENETRATED).build()), 
+	SCREW		 		(new GrappleTechnique(Stance.CRUSHING, Stance.CRUSHING, "Screw", 2, Stance.PENETRATED).build()), 
+	FERTILIZE 			(new ClimaxTechnique   (Stance.CRUSHING, Stance.CRUSHING, "Fertilize", Stance.PENETRATED, ClimaxType.ANAL).build()),
+	PLUG 				(new NonAttackTechnique(Stance.CRUSHING, Stance.CRUSHING, "Plug", 0, 0, Stance.SPREAD).build()),
+	
+	LICK_LIPS_HOLDING  	(new GrappleTechnique(Stance.HOLDING, Stance.HOLDING, "Lick Lips", -1, Stance.HELD, GrappleType.WIN).build()),
 	
 	/* Enemy pouncing */
 	DIVEBOMB 			(new GrappleTechnique  (Stance.AIRBORNE, Stance.FELLATIO, "Divebomb", 2, Stance.FELLATIO_BOTTOM, TechniqueHeight.HIGH, GrappleType.WIN, "").build()),

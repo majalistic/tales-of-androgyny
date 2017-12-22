@@ -135,11 +135,11 @@ public enum AssetEnum {
 	BUNNY_DARK_CHOCOLATE_ANAL("enemies/bunny/DarkChocolateAnal.jpg"),
 	ANGEL("enemies/Angel.png"),
 	NAGA("enemies/Naga.png"),
-	TRAP_BONUS("enemies/TrapBonus.jpg"), 
-	
+	QUETZAL("enemies/Quetzal.png"),
 	QUETZAL_HERO("enemies/QuetzalHero.jpg"),
 	QUETZAL_HERO_ANAL("enemies/QuetzalHeroAnal.jpg"),
-	
+	TRAP_BONUS("enemies/TrapBonus.jpg"), 
+
 	ARMOR_DOLL("battle/ArmorDoll.png"),
 	ARMOR_0("battle/Armor0.png"),
 	ARMOR_1("battle/Armor1.png"),

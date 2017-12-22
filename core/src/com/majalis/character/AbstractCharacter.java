@@ -52,6 +52,7 @@ public abstract class AbstractCharacter extends Actor {
 	protected int baseBlock;
 	protected int baseParry;
 	protected int baseCounter;
+	protected int heartbeat;
 	
 	protected IntArray healthTiers; // total these to receive maxHealth, maybe cache it when this changes
 	protected IntArray staminaTiers; // total these to receive maxStamina, maybe cache it when this changes
@@ -373,6 +374,7 @@ public abstract class AbstractCharacter extends Actor {
 	}
 	
 	public Attack doAttack(Attack resolvedAttack) {
+		heartbeat++;
 		int bleedDamage = getBloodLossDamage();
 		if (bleedDamage > 0) {
 			resolvedAttack.addMessage(label + (secondPerson ? " bleed" : " bleeds") + " out for " + getBloodLossDamage() + " damage!");

@@ -33,6 +33,7 @@ public enum EnemyEnum {
 	BUNNY (new EnemyTemplate(WeaponType.Sickle, 6, 6, 9, 5, 1, 8).setHealth(new IntArray(new int[]{20, 20, 20, 20})).setMana(30).setShield(ArmorType.SHIELD), "Puca", AssetEnum.BUNNY_CREAM.getTexture(), AssetEnum.BUNNY_VANILLA.getTexture(), AssetEnum.BUNNY_CARAMEL.getTexture(), AssetEnum.BUNNY_CHOCOLATE.getTexture(), AssetEnum.BUNNY_DARK_CHOCOLATE.getTexture()), 
 	ANGEL (new EnemyTemplate(WeaponType.Trumpet).setHealth(new IntArray(new int[]{20, 20, 20, 20})).setMana(30).setEndurance(10).setAgility(10).setArmor(null).setLegwear(null).setStrength(5).setAgility(5), "Angel", AssetEnum.ANGEL.getTexture()), 
 	NAGA (new EnemyTemplate(WeaponType.Flail).setHealth(new IntArray(new int[]{20, 20, 20, 20})).setArmor(null).setLegwear(null).setUnderwear(null).setStrength(6).setAgility(6).setEndurance(6).setShield(ArmorType.SHIELD), "Naga", AssetEnum.NAGA.getTexture()), 
+	QUETZAL (new EnemyTemplate(WeaponType.Claw).setHealth(new IntArray(new int[]{30, 30, 30, 30, 30})).setArmor(null).setLegwear(null).setUnderwear(ArmorType.UNDERWEAR).setStrength(12).setAgility(10).setEndurance(10), "Quetzal Goddess", AssetEnum.QUETZAL.getTexture()), 
 	;
 	private final String text;
 	private final Array<AssetDescriptor<Texture>> texturePaths;
@@ -61,7 +62,7 @@ public enum EnemyEnum {
     	}
 		return textures;
 	}
-    public String getBGPath() { return this == OGRE ? AssetEnum.FOREST_UP_BG.getPath() : this == NAGA || this == SPIDER ? AssetEnum.CAVE_BG.getPath() : this == CENTAUR || this == UNICORN ? AssetEnum.PLAINS_BG.getPath() : this == ANGEL ? AssetEnum.CELESTIAL_BG.getPath() : this == GOBLIN || this == GOBLIN_MALE ? AssetEnum.ENCHANTED_FOREST_BG.getPath() : AssetEnum.FOREST_BG.getPath(); } 
+    public String getBGPath() { return this == OGRE ? AssetEnum.FOREST_UP_BG.getPath() : this == NAGA || this == SPIDER ? AssetEnum.CAVE_BG.getPath() : this == CENTAUR || this == UNICORN ? AssetEnum.PLAINS_BG.getPath() : this == ANGEL || this == QUETZAL ? AssetEnum.CELESTIAL_BG.getPath() : this == GOBLIN || this == GOBLIN_MALE ? AssetEnum.ENCHANTED_FOREST_BG.getPath() : AssetEnum.FOREST_BG.getPath(); } 
     // there should be another method that accepts an assetManager and returns the actual maps
     public ObjectMap<String, Array<String>> getImagePaths() { 
     	ObjectMap<String, Array<String>> textureImagePaths = new ObjectMap<String, Array<String>>();
@@ -123,17 +124,18 @@ public enum EnemyEnum {
 	public ArmorType getUnderwearType() { return template.getUnderwearType(); }
 	public ArmorType getShieldType() { return template.getShieldType(); }
 	public boolean canBleed() { return this != SLIME && this != GOLEM && this != GHOST; }
-	public boolean willFaceSit() { return this != CENTAUR && this != UNICORN && this != GHOST && this != OGRE && this != SPIDER && this != NAGA;} 
+	public boolean willFaceSit() { return this != CENTAUR && this != UNICORN && this != GHOST && this != OGRE && this != SPIDER && this != NAGA && this != QUETZAL;} 
 	public boolean willArmorSunder() { return this == BRIGAND || this == ORC || this == ADVENTURER; }
 	public boolean willParry() { return this == BRIGAND || this == ADVENTURER; }
-	public boolean canBeRidden() { return this != SLIME && this != CENTAUR && this != UNICORN && this != BEASTMISTRESS && this != GHOST && this != ANGEL; }
-	public boolean willPounce() { return this != UNICORN && this != BEASTMISTRESS && this != ANGEL && this != NAGA && this != GHOST; }
-	public boolean isPounceable() { return this != OGRE && this != BEASTMISTRESS && this != UNICORN && this != GHOST && this != ANGEL; }
+	public boolean canBeRidden() { return this != SLIME && this != CENTAUR && this != UNICORN && this != BEASTMISTRESS && this != GHOST && this != ANGEL && this != NAGA && this != QUETZAL; }
+	public boolean willPounce() { return this != UNICORN && this != BEASTMISTRESS && this != ANGEL && this != NAGA && this != GHOST && this != QUETZAL; }
+	public boolean isPounceable() { return this != OGRE && this != BEASTMISTRESS && this != UNICORN && this != GHOST && this != ANGEL && this != NAGA && this != QUETZAL; }
 	public boolean canProneBone() { return this == BRIGAND || this == GOBLIN || this == ORC || this == ADVENTURER || this == GOBLIN_MALE; }
 	public boolean prefersProneBone() { return this == ORC || this == GOBLIN; }
 	public boolean prefersMissionary() { return this == BRIGAND || this == ADVENTURER; }
-	public boolean canWrestle() { return this != ANGEL && this != SLIME && this != HARPY && this != CENTAUR && this != UNICORN && this != OGRE && this != BEASTMISTRESS && this != SPIDER && this != GHOST; }
+	public boolean canWrestle() { return this != ANGEL && this != SLIME && this != HARPY && this != CENTAUR && this != UNICORN && this != OGRE && this != BEASTMISTRESS && this != SPIDER && this != GHOST && this != NAGA && this != QUETZAL; }
 	public boolean isCorporeal() { return this != GHOST; }
+	public boolean usesDefensiveTechniques() { return this != QUETZAL; }
 	
 	public AnimatedActor getPrimaryAnimation(AssetManager assetManager) {
 		AnimatedActor animation = null; 
@@ -255,7 +257,8 @@ public enum EnemyEnum {
 			case SPIDER: return "Little is known about the spider woman of the ruins, other than that she is singularly dangerous and malevolent. Her thousands of young are an army their own - enter the ruins at your own peril.";
 			case WERESLUT: return "It's not certain if the werewolves are wolves who have become men, men who have become wolves, or simply a beastman-like creature that could appear to be either, but their beast-like strength and agility and sharp claws makes them extremely dangerous.\n\nAppearing like a village librarian, this werewolf has a penchant for mating with human boys... with disastrous results.";
 			case ANGEL: return "A divine creature serving an ancient, long forgotten goddess.  It's not certain what domains her goddess has or had as her charge, but it is known exactly how long her trumpet is.";
-			case NAGA: return "The naga is a particularly vicious creature. It will just as soon crush an opponent as it will devour them or defile them - depending on its mood.";
+			case NAGA: return "The naga is a particularly vicious creature. It will just as soon crush an opponent as it will devour them or defile them - depending on its mood.\n\nEven the simple naga is an incredibly dangerous foe - powerful, cunning, silent, tenacious. Underestimate their sadism at your own peril.";
+			case QUETZAL: return "The naga is a particularly vicious creature. It will just as soon crush an opponent as it will devour them or defile them - depending on its mood.\n\nOne of the ancient gods, supposedly, is an antedeluvian Naga, of an extinct \"Quetzal\" variety. She is feared far and wide, despite rarely if ever descending from the summit of mount Xiuh. There are rumors that she requires virgin sacrifices - always male, with a preference for a soft face.  It is unknown what becomes of them.";
 		}
 		return "";
 	}

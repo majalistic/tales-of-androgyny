@@ -67,6 +67,8 @@ public class BattleFactory {
 		);
 	}
 	
+	/* everything below should be moved to BattleCode or EnemyEnum */
+	
 	private Array<Texture> getTextures(EnemyEnum type) {
 		return type.getTextures(assetManager);
 	}
@@ -139,7 +141,7 @@ public class BattleFactory {
 			case BUNNY: return new EnemyCharacter(getTextures(EnemyEnum.BUNNY), getTextureMap(EnemyEnum.BUNNY), EnemyEnum.BUNNY.getAnimations(assetManager), EnemyEnum.BUNNY, stance);
 			case ANGEL: return new EnemyCharacter(getTextures(EnemyEnum.ANGEL), getTextureMap(EnemyEnum.ANGEL), EnemyEnum.ANGEL.getAnimations(assetManager), EnemyEnum.ANGEL, stance);
 			case NAGA: return new EnemyCharacter(getTextures(EnemyEnum.NAGA), getTextureMap(EnemyEnum.NAGA), EnemyEnum.NAGA.getAnimations(assetManager), EnemyEnum.NAGA, stance);
-			
+			case QUETZAL: return new EnemyCharacter(getTextures(EnemyEnum.QUETZAL), getTextureMap(EnemyEnum.QUETZAL), EnemyEnum.QUETZAL.getAnimations(assetManager), EnemyEnum.QUETZAL, stance);
 			default: return null;
 		}
 	}

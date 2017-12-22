@@ -1391,6 +1391,22 @@
 			{"text": "She presses her finger down on your stomach, causing you to groan in pain and your body to break out in a sweat."},
 			{"text": "\"Oh, the plug.  We aren't ready for sleep, human, so I will give you mercy...\" she says, rolling you over onto your overly-full stomach.  With deadly precision, she carves out around the edge of the 'plug', then pulls it out entirely, causing a cascade of cum to come out of your fist-sized hole.  You feel it running out, and don't even bother to roll over again."},
 			{"text": "Obviously, the frills prevent escape, but aside from that, the shock travels through your body, rendering you completely immobile.  And, lastly, as you feel the heat and pressure utterly overpowering your body, you realize you're going to lose consciousness very soon, and, in fact, you do."},
+		]
+	},
+	{
+		"key": "QUETZAL-VICTORY",
+		"scriptLines": [
+			{
+			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "QUETZAL", "value":3}}, {"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": 50}}],
+			"foreground": "NULL",
+			"text": "In an absolutely stunning victory, you fell the dark goddess herself!  Weakened by the presence of the goddess' blessing, you manage to strike her down.  The fallen hero looks at you with awe."},
+			{"text": "You take her hair ornament as a trophy.  Looking at her still body, tremendous in its form, you feel a sudden solemn come over you - an ancient being, slain at your hand.  Eh, she had it coming."},
+			{"text": "You offer what comfort you can to the hero, although he does look a bit ambivalent about the situation.  You fear that he'd already grown accustomed to her treatment.  So as it goes.  You descend from the summit, exhausted and bloodied, but victorious."}
+		]
+	},
+	{
+		"key": "QUETZAL-SECONDS",
+		"scriptLines": [
 			{"text": "..."},
 			{"text": ".."},
 			{"text": "."},
@@ -1414,17 +1430,6 @@
 			{"text": "You learn to worship, and you learn to love your goddess - but you never quite master opening up your asshole for a monstrous snake lady's monstrous phallus comfortably.  But, somehow, you make do."},
 			{"text": "Bards do sing songs of your fate, but they're fairly bawdy and involve the word \"cumfart\" probably a great deal more than you had hoped.  A heroes end it is not."},
 			{"text": "But an end nonetheless."}
-		]
-	},
-	{
-		"key": "QUETZAL-VICTORY",
-		"scriptLines": [
-			{
-			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "QUETZAL", "value":3}}, {"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": 50}}],
-			"foreground": "NULL",
-			"text": "In an absolutely stunning victory, you fell the dark goddess herself!  Weakened by the presence of the goddess' blessing, you manage to strike her down.  The fallen hero looks at you with awe."},
-			{"text": "You take her hair ornament as a trophy.  Looking at her still body, tremendous in its form, you feel a sudden solemn come over you - an ancient being, slain at your hand.  Eh, she had it coming."},
-			{"text": "You offer what comfort you can to the hero, although he does look a bit ambivalent about the situation.  You fear that he'd already grown accustomed to her treatment.  So as it goes.  You descend from the summit, exhausted and bloodied, but victorious."}
 		]
 	},
 	{
