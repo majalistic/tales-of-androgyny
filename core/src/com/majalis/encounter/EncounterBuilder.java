@@ -1146,7 +1146,6 @@ public class EncounterBuilder {
 						new Branch(0).textScene("TOWN-SQUARE-INFORMANT-REQUEST").choiceScene("Deal?", new Branch("Pay (10 GP)").require(ChoiceCheckType.GOLD_GREATER_THAN_X, 10).textScene("TOWN-SQUARE-INFORMANT-PAYMORE").concat(goodInfo), new Branch("Refuse"))
 					);
 				
-				
 				Branch payHim = new Branch().choiceScene(
 					"Pay him for info?", 
 					new Branch("Pay (20 GP)").require(ChoiceCheckType.GOLD_GREATER_THAN_X, 20).textScene("TOWN-SQUARE-INFORMANT-PAID").concat(payHimMore), 
@@ -1173,7 +1172,7 @@ public class EncounterBuilder {
 					new Branch("Listen to the town crier").checkScene(
 						CheckType.CRIER, 
 						new Branch(true).textScene("CRIER-NEW"), 
-						new Branch(false).textScene("CRIER-OLD")
+						new Branch(false).checkScene(CheckType.QUETZAL_DEFEATED, new Branch(true).textScene("CRIER-QUETZAL"), new Branch(false).textScene("CRIER-OLD"))
 					)
 				);
 				return new Branch().checkScene(CheckType.DAY, new Branch(true).textScene("TOWN-SQUARE-INTRO").concat(townSquareOptions), new Branch(false).textScene("TOWN-SQUARE-NIGHT")).getEncounter();

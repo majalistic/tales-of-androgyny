@@ -1006,6 +1006,18 @@
 		]
 	},
 	{
+		"key": "CRIER-QUETZAL",
+		"scriptLines": [
+			{
+			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "QUETZAL", "value":4}}],
+			"text": "The crier is astonished when you present him the lord of Xiuh mountain's headdress.  He instructs you to bring it to the lord's manor, where your reward is sure to be found."},
+			{"text": "At the lord's manor, you are at first greeted with suspicion, and then with accolades, as the court mage confirms the authenticity of the headdress.  A feast is held in your honor, and the promised reward is delivered."},
+			{
+			"mutations": [{"saveType":"GOLD", "value":{"class": "java.lang.Integer", "value": 300}}, {"saveType":"FOOD", "value":{"class": "java.lang.Integer", "value": 50}}, {"saveType":"TIME", "value":{"class": "java.lang.Integer", "value": 6}}],
+			"text": "Having achieved such a momentous goal, you take some time to rest... but not too long, as there is always more to be done."}
+		]
+	},
+	{
 		"key": "CRIER-OLD",
 		"scriptLines": [
 			{"text": "You listen to the crier speak of recent events, but nothing particularly interesting stands out to you."}
