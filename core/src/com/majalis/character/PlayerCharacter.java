@@ -888,7 +888,6 @@ public class PlayerCharacter extends AbstractCharacter {
 	}
 	
 	public void setPerks(ObjectMap<Perk, Integer> perks) {
-		
 		if (perks.get(Perk.STRONGER, 0) > this.perks.get(Perk.STRONGER.toString(), 0)) {
 			int strIncrease = perks.get(Perk.STRONGER, 0) -  this.perks.get(Perk.STRONGER.toString(), 0);
 			baseStrength += strIncrease;
@@ -900,6 +899,18 @@ public class PlayerCharacter extends AbstractCharacter {
 		if (perks.get(Perk.FASTER, 0) > this.perks.get(Perk.FASTER.toString(), 0)) {
 			int agiIncrease = perks.get(Perk.FASTER, 0) -  this.perks.get(Perk.FASTER.toString(), 0);
 			baseAgility += agiIncrease;
+		}
+		if (perks.get(Perk.SMARTER, 0) > this.perks.get(Perk.SMARTER.toString(), 0)) {
+			int perIncrease = perks.get(Perk.SMARTER, 0) -  this.perks.get(Perk.SMARTER.toString(), 0);
+			basePerception += perIncrease;
+		}
+		if (perks.get(Perk.WITCHER, 0) > this.perks.get(Perk.WITCHER.toString(), 0)) {
+			int magIncrease = perks.get(Perk.WITCHER, 0) -  this.perks.get(Perk.WITCHER.toString(), 0);
+			baseMagic += magIncrease;
+		}
+		if (perks.get(Perk.HOTTER, 0) > this.perks.get(Perk.HOTTER.toString(), 0)) {
+			int chaIncrease = perks.get(Perk.HOTTER, 0) -  this.perks.get(Perk.HOTTER.toString(), 0);
+			baseCharisma += chaIncrease;
 		}
 		if (perks.get(Perk.WELLROUNDED, 0) > 0 && !(this.perks.get(Perk.WELLROUNDED.toString(), 0) > 0) ) {
 			increaseLowestStat();
