@@ -1196,7 +1196,7 @@ public class EncounterBuilder {
 				return new Branch().textScene("WEREWOLF-INTRO").battleScene(
 			    	BattleCode.WERESLUT,
 			    	// this has a reference to the first node in this branch, which gets welded with the current context node
-			        new Branch(Outcome.VICTORY).textScene("WEREWOLF-VICTORY").checkScene(Stat.STRENGTH, new Branch(5).textScene("WEREWOLF-STRONG").concat(mated), new Branch(0).checkScene(Perk.BITCH, bitch, uninterested)),
+			        new Branch(Outcome.VICTORY).textScene("WEREWOLF-VICTORY").checkScene(Stat.STRENGTH, new Branch(8).textScene("WEREWOLF-STRONG").concat(mated), new Branch(0).checkScene(Perk.BITCH, bitch, uninterested)),
 			        new Branch(Outcome.KNOT_ANAL).textScene("WEREWOLF-BATTLE-KNOT").concat(knotted),
 			        new Branch(Outcome.KNOT_ORAL).textScene("WEREWOLF-BATTLE-KNOT-ORAL").gameEnd(),
 			        new Branch(Outcome.DEFEAT).textScene("WEREWOLF-DEFEAT").checkScene(Perk.BITCH, bitch, uninterested),
