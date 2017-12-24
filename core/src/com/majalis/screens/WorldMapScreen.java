@@ -1064,8 +1064,8 @@ public class WorldMapScreen extends AbstractScreen {
 		int xScreenBuffer = 683;
 		int yScreenBuffer = 165;
 		SpriteBatch frameBufferBatch = new SpriteBatch();
-		for (int xTile = 0; xTile < 4; xTile++) {
-			for (int yTile = 0; yTile < 6; yTile++) {
+		for (int xTile = 0; xTile < 7; xTile++) {
+			for (int yTile = 0; yTile < 11; yTile++) {
 				FrameBuffer frameBuffer = new FrameBuffer(Pixmap.Format.RGBA8888, boxWidth, boxHeight, false);
 				frameBuffers.add(frameBuffer);
 				frameBuffer.begin();
