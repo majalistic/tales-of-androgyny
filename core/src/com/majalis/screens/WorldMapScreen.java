@@ -1099,39 +1099,37 @@ public class WorldMapScreen extends AbstractScreen {
 				for (int x = 0; x < ground.size; x++) {
 					int trueX = getTrueX(x) - (boxWidth) * xTile + xScreenBuffer;
 					if (trueX < -60 || trueX > boxWidth) continue;
-					int layerSize = ground.get(x).size;
-					for (int y = 0; y < ground.get(x).size; y++) {
+					Array<GroundType> left = x - 1 >= 0 ? ground.get(x - 1) : null;
+					Array<GroundType> middle = ground.get(x);
+					Array<GroundType> right = x + 1 < ground.size ? ground.get(x + 1) : null;
+					int layerSize = middle.size;
+					for (int y = 0; y < middle.size; y++) {
 						int trueY = getTrueY(x, y) - (boxHeight) * yTile + yScreenBuffer;
 						if (trueY < -60 || trueY > boxHeight) continue;
 						for (int i = 0; i < layers.length; i++) {
 							layers[i] = 0;
 						}
-						GroundType currentHexType = ground.get(x).get(y);
+						
+						GroundType currentHexType = middle.get(y);
 						// check the six adjacent tiles and add accordingly
-						if (x + 1 < ground.size) {
-							GroundType temp = ground.get(x + 1).get(y);
-							if (temp != currentHexType) layers[temp.ordinal()] += 1;
+						if (right != null) {
+							layers[right.get(y).ordinal()] += 1;
 						}
 						if (y - 1 >= 0)	{
-							if (x + 1 < ground.size) {							
-								GroundType temp = ground.get(x + 1).get(y - 1);
-								if (temp != currentHexType) layers[temp.ordinal()] += 2;
+							if (right != null) {		
+								layers[right.get(y - 1).ordinal()] += 2;
 								
 							}
-							GroundType temp = ground.get(x).get(y - 1);
-							if (temp != currentHexType) layers[temp.ordinal()] += 4;
+							layers[middle.get(y - 1).ordinal()] += 4;
 						}
-						if (x - 1 >= 0)	{
-							GroundType temp = ground.get(x - 1).get(y);
-							if (temp != currentHexType) layers[temp.ordinal()] += 8;
+						if (left != null)	{
+							layers[left.get(y).ordinal()] += 8;
 						}
 						if (y + 1 < layerSize)	{
-							if (x - 1 >= 0) {
-								GroundType temp = ground.get(x - 1).get(y + 1);
-								if (temp != currentHexType) layers[temp.ordinal()] += 16;
+							if (left != null) {
+								layers[left.get(y + 1).ordinal()] += 16;
 							}		
-							GroundType temp = ground.get(x).get(y + 1);
-							if (temp != currentHexType) layers[temp.ordinal()] += 32;
+							layers[middle.get(y + 1).ordinal()] += 32;
 						}
 						if (waterLayer) {
 							if (currentHexType == GroundType.WATER) {
@@ -1141,10 +1139,15 @@ public class WorldMapScreen extends AbstractScreen {
 						}
 						else {
 							for (GroundType groundType: GroundType.values()) {
-								if (currentHexType == groundType && groundType != GroundType.WATER) {
-									frameBufferBatch.draw(getFullTexture(groundType, groundSheet), trueX, trueY); // with appropriate type
+								if (currentHexType == groundType) {
+									if ( groundType != GroundType.WATER) {
+										frameBufferBatch.draw(getFullTexture(groundType, groundSheet), trueX, trueY); // with appropriate type
+									}
 								}
-								frameBufferBatch.draw(getTexture(groundType, groundSheet, layers[groundType.ordinal()]), trueX, trueY); // appropriate blend layer
+								else {
+									frameBufferBatch.draw(getTexture(groundType, groundSheet, layers[groundType.ordinal()]), trueX, trueY); // appropriate blend layer
+								}
+								
 							}
 						}
 					}
@@ -1157,6 +1160,7 @@ public class WorldMapScreen extends AbstractScreen {
 				worldGroup.addActorAt(0, background);
 			}
 		}
+		Logging.logTime("Drawing " + (waterLayer ? "water layer" : "ground layer") + " END");
 	}
 	
 	private void addWorldActors() {
