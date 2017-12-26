@@ -1016,7 +1016,7 @@ public class WorldMapScreen extends AbstractScreen {
 			}
 		
 			// draw (add drawings as actors) water layer
-						drawLayer(ground, groundSheet, true);
+			drawLayer(ground, groundSheet, true);
 							
 			worldGroup.addActor(shadowGroup);	
 			
