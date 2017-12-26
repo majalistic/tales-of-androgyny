@@ -211,7 +211,9 @@ public class PlayerCharacter extends AbstractCharacter {
 				magicPoints = 2; 
 				break;
 			case RANGER: 
-				weapon = new Weapon(WeaponType.Bow); 
+				Weapon bow = new Weapon(WeaponType.Bow); 
+				inventory.add(bow);
+				weapon = bow;
 				break;
 			case ENCHANTRESS: 
 				magicPoints = 1; 
