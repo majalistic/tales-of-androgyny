@@ -62,6 +62,7 @@ import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveManager.GameContext;
 import com.majalis.save.SaveManager.GameMode;
 import com.majalis.scenes.MutationActor;
+import com.majalis.talesofandrogyny.Logging;
 import com.majalis.save.SaveService;
 import com.majalis.save.MutationResult.MutationType;
 import com.majalis.world.GameWorldHelper;
@@ -452,6 +453,7 @@ public class WorldMapScreen extends AbstractScreen {
 					console.setText("Game Saved.");
 					console.addAction(alpha(1));
 					console.addAction(fadeOut(6));
+					Logging.flush();
 		        }
 			}
 		);	
@@ -857,6 +859,7 @@ public class WorldMapScreen extends AbstractScreen {
 			addWorldActors();
 		}
 		else {
+			Logging.logTime("Generate Background BEGIN");
 			/* MODELLING - SHOULD BE MOVED TO GAME WORLD GEN */
 			Array<Array<GroundType>> ground = new Array<Array<GroundType>>();
 			Array<Doodad> doodads = new Array<Doodad>();
@@ -1000,6 +1003,8 @@ public class WorldMapScreen extends AbstractScreen {
 				}
 			}*/
 			
+			Logging.logTime("Finished Generation");
+			Logging.logTime("Drawing BEGIN");
 			/* DRAWING */
 			Texture groundSheet = assetManager.get(AssetEnum.GROUND_SHEET.getTexture());	
 			
@@ -1032,8 +1037,10 @@ public class WorldMapScreen extends AbstractScreen {
 			Group tempGroup = new Group();
 			tempGroup.addActor(currentImageGhost);
 			worldGroup.addActor(tempGroup);
+			Logging.logTime("Finished Drawing");
 		}
 		frameBufferBatch.dispose();
+		Logging.logTime("Generate Background End");
 	}
 	
 	private boolean river(int x, int y) {
@@ -1058,24 +1065,37 @@ public class WorldMapScreen extends AbstractScreen {
 		return (x + y > 147 && x + y < 150) || (x > 0 && x < 15) || (x + y * 2 > 180 && x + y * 2 < 195);
 	}
 	
+	private static int maxTextureSize = getMaxTextureSize();
+	private static int getMaxTextureSize() {
+		int textureSize = 128;
+		while (textureSize <= GL20.GL_MAX_TEXTURE_SIZE) {
+			textureSize *= 2;
+		}
+		if (textureSize > GL20.GL_MAX_TEXTURE_SIZE) textureSize /= 2;
+		return textureSize;
+	}
+	
 	private void drawLayer(Array<Array<GroundType>> ground, Texture groundSheet, boolean waterLayer) {
 		int[] layers = new int [GroundType.values().length];
-		int boxWidth = 256;
-		int boxHeight = 256;
+		int boxWidth = maxTextureSize;
+		int boxHeight = maxTextureSize;
 		int xScreenBuffer = 683;
 		int yScreenBuffer = 165;
 		Matrix4 matrix = new Matrix4();
 		matrix.setToOrtho2D(0, 0, boxWidth, boxHeight); 
 		frameBufferBatch.setProjectionMatrix(matrix);
+		int xSize = 5888 / boxWidth + 1;
+		int ySize = 5632 / boxHeight + 1;
 		
-		for (int xTile = 0; xTile < 23; xTile++) {
-			for (int yTile = 0; yTile < 22; yTile++) {
+		for (int xTile = 0; xTile < xSize; xTile++) {
+			for (int yTile = 0; yTile < ySize; yTile++) {
 				FrameBuffer frameBuffer = new FrameBuffer(Pixmap.Format.RGBA8888, boxWidth, boxHeight, false); // this and matrix need to preserve a ratio
 				frameBuffers.add(frameBuffer);
 				frameBuffer.begin();
 				Gdx.gl.glClearColor(.2f, .2f, .4f, 0);
 				Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 				frameBufferBatch.begin();
+				
 				for (int x = 0; x < ground.size; x++) {
 					int trueX = getTrueX(x) - (boxWidth) * xTile + xScreenBuffer;
 					if (trueX < -60 || trueX > boxWidth) continue;
