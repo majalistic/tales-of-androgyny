@@ -157,7 +157,7 @@ public class CheckScene extends AbstractTextScene {
 		}, 
 		CRIER_KNOWLEDGE ("", "") { 
 			@Override
-			protected boolean getCheck(PlayerCharacter character) { return character.getQuestStatus(QuestType.CRIER) == 3; }  
+			protected boolean getCheck(PlayerCharacter character) { return character.getQuestStatus(QuestType.CRIER) >= 3; }  
 		}, 
 		INN_0 ("", "") { 
 			@Override
