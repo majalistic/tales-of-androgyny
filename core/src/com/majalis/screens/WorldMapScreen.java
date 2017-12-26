@@ -22,6 +22,7 @@ import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.badlogic.gdx.math.Affine2;
+import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.RandomXS128;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
@@ -1059,14 +1060,18 @@ public class WorldMapScreen extends AbstractScreen {
 	
 	private void drawLayer(Array<Array<GroundType>> ground, Texture groundSheet, boolean waterLayer) {
 		int[] layers = new int [GroundType.values().length];
-		int boxWidth = Gdx.graphics.getWidth();
-		int boxHeight = Gdx.graphics.getHeight();
+		int boxWidth = 256;
+		int boxHeight = 256;
 		int xScreenBuffer = 683;
 		int yScreenBuffer = 165;
 		SpriteBatch frameBufferBatch = new SpriteBatch();
+		Matrix4 matrix = new Matrix4();
+		matrix.setToOrtho2D(0, 0, boxWidth, boxHeight); 
+		frameBufferBatch.setProjectionMatrix(matrix);
+		
 		for (int xTile = 0; xTile < 7680 / boxWidth; xTile++) {
 			for (int yTile = 0; yTile < 6480 / boxHeight; yTile++) {
-				FrameBuffer frameBuffer = new FrameBuffer(Pixmap.Format.RGBA8888, boxWidth, boxHeight, false);
+				FrameBuffer frameBuffer = new FrameBuffer(Pixmap.Format.RGBA8888, boxWidth, boxHeight, false); // this and matrix need to preserve a ratio
 				frameBuffers.add(frameBuffer);
 				frameBuffer.begin();
 				Gdx.gl.glClearColor(.2f, .2f, .4f, 0);
