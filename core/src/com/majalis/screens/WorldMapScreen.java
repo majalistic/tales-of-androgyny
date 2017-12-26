@@ -1068,8 +1068,8 @@ public class WorldMapScreen extends AbstractScreen {
 		matrix.setToOrtho2D(0, 0, boxWidth, boxHeight); 
 		frameBufferBatch.setProjectionMatrix(matrix);
 		
-		for (int xTile = 0; xTile < 7680 / boxWidth; xTile++) {
-			for (int yTile = 0; yTile < 6480 / boxHeight; yTile++) {
+		for (int xTile = 0; xTile < 23; xTile++) {
+			for (int yTile = 0; yTile < 22; yTile++) {
 				FrameBuffer frameBuffer = new FrameBuffer(Pixmap.Format.RGBA8888, boxWidth, boxHeight, false); // this and matrix need to preserve a ratio
 				frameBuffers.add(frameBuffer);
 				frameBuffer.begin();
@@ -1078,11 +1078,11 @@ public class WorldMapScreen extends AbstractScreen {
 				frameBufferBatch.begin();
 				for (int x = 0; x < ground.size; x++) {
 					int trueX = getTrueX(x) - (boxWidth) * xTile + xScreenBuffer;
-					if (trueX < -60 || trueX > boxWidth + 50) continue;
+					if (trueX < -60 || trueX > boxWidth) continue;
 					int layerSize = ground.get(x).size;
 					for (int y = 0; y < ground.get(x).size; y++) {
 						int trueY = getTrueY(x, y) - (boxHeight) * yTile + yScreenBuffer;
-						if (trueY < -60 || trueY > boxHeight + 50) continue;
+						if (trueY < -60 || trueY > boxHeight) continue;
 						for (int i = 0; i < layers.length; i++) {
 							layers[i] = 0;
 						}
