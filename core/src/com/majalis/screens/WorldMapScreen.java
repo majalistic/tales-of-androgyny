@@ -1064,7 +1064,6 @@ public class WorldMapScreen extends AbstractScreen {
 		int boxHeight = 256;
 		int xScreenBuffer = 683;
 		int yScreenBuffer = 165;
-		SpriteBatch frameBufferBatch = new SpriteBatch();
 		Matrix4 matrix = new Matrix4();
 		matrix.setToOrtho2D(0, 0, boxWidth, boxHeight); 
 		frameBufferBatch.setProjectionMatrix(matrix);
