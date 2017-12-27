@@ -2,7 +2,6 @@ package com.majalis.screens;
 
 import static com.majalis.asset.AssetEnum.*;
 import com.badlogic.gdx.assets.AssetDescriptor;
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.utils.Array;
 import com.majalis.asset.AssetEnum;
@@ -42,13 +41,11 @@ public class BattleScreen extends AbstractScreen{
 	}
 	private final SaveService saveService;
 	private final Battle battle;
-	private final AssetManager assetManager;
 	
-	protected BattleScreen(ScreenFactory screenFactory, ScreenElements elements, SaveService saveService, Battle battle, AssetManager assetManager) {
+	protected BattleScreen(ScreenFactory screenFactory, ScreenElements elements, SaveService saveService, Battle battle) {
 		super(screenFactory, elements, battle.getMusicPath());
 		this.saveService = saveService;
 		this.battle = battle;
-		this.assetManager = assetManager;
 	}
 
 	@Override

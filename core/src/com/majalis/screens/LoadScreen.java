@@ -2,7 +2,6 @@ package com.majalis.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -19,8 +18,6 @@ import com.majalis.character.AbstractCharacter.Stat;
  * Screen that displays while a new screen is loading.
  */
 public class LoadScreen extends AbstractScreen {
-	
-	private final AssetManager assetManager;
 	private final ScreenEnum screenRequest;
 	private final BitmapFont largeFont;
 	private final Image loadingImage;
@@ -30,9 +27,8 @@ public class LoadScreen extends AbstractScreen {
 	private int clocktick;
 	private final Skin skin;
 	
-	public LoadScreen(ScreenFactory factory, ScreenElements elements, AssetManager assetManager, ScreenEnum screenRequest) {
+	public LoadScreen(ScreenFactory factory, ScreenElements elements, ScreenEnum screenRequest) {
 		super(factory, elements, null);
-		this.assetManager = assetManager;
 		this.skin = assetManager.get(AssetEnum.BATTLE_SKIN.getSkin());
 		this.loadingImage = new Image(assetManager.get(AssetEnum.LOADING.getTexture()));
 		this.screenRequest = screenRequest;

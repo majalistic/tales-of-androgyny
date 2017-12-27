@@ -107,7 +107,7 @@ public class ScreenFactoryImpl implements ScreenFactory {
 				return new SplashScreen(this, elements, assetManager, 25, Gdx.app.getPreferences("tales-of-androgyny-preferences").getBoolean("preload", false));
 			case MAIN_MENU: 
 				if (getAssetCheck(MainMenuScreen.resourceRequirements)) {
-					return new MainMenuScreen(this, elements, assetManager, saveService, loadService); 
+					return new MainMenuScreen(this, elements, saveService, loadService); 
 				}
 				break;
 			case NEW_GAME:	
@@ -122,12 +122,12 @@ public class ScreenFactoryImpl implements ScreenFactory {
 				break;
 			case SAVE:
 				if (getAssetCheck(SaveScreen.resourceRequirements)) {
-					return new SaveScreen(this, elements, assetManager, saveService);
+					return new SaveScreen(this, elements, saveService);
 				}
 				break;
 			case QUEST:
 				if (getAssetCheck(QuestScreen.resourceRequirements)) {
-					return new QuestScreen(this, elements, assetManager, character);
+					return new QuestScreen(this, elements, character);
 				}
 				break;
 			case BATTLE:
@@ -136,38 +136,38 @@ public class ScreenFactoryImpl implements ScreenFactory {
 				break;
 			case CHARACTER:
 				if (getAssetCheck(CharacterScreen.resourceRequirements)) {
-					return new CharacterScreen(this, elements, assetManager, saveService, character);
+					return new CharacterScreen(this, elements, saveService, character);
 				}
 				break;
 			case INVENTORY:
 				if (getAssetCheck(InventoryScreen.resourceRequirements)) {
-					return new InventoryScreen(this, elements, assetManager, saveService, character);
+					return new InventoryScreen(this, elements, saveService, character);
 				}
 				break;
 			case GAME_OVER:				
 				if (getAssetCheck(GameOverScreen.resourceRequirements)) {
-					return new GameOverScreen(this, elements, assetManager, saveService);
+					return new GameOverScreen(this, elements, saveService);
 				}
 				break;
 			case OPTIONS: 	
 				if (getAssetCheck(OptionScreen.resourceRequirements)) {
-					return new OptionScreen(this, elements, assetManager);
+					return new OptionScreen(this, elements);
 				}
 				break;
 			case REPLAY:
 				if (getAssetCheck(ReplayScreen.resourceRequirements)) {
-					return new ReplayScreen(this, elements, assetManager, (ObjectMap<String, Integer>) loadService.loadDataValue(ProfileEnum.KNOWLEDGE, ObjectMap.class));
+					return new ReplayScreen(this, elements, (ObjectMap<String, Integer>) loadService.loadDataValue(ProfileEnum.KNOWLEDGE, ObjectMap.class));
 				}
 				break;
 			case CREDITS:
 				if (getAssetCheck(CreditsScreen.resourceRequirements)) {
-					return new CreditsScreen(this, elements, assetManager);
+					return new CreditsScreen(this, elements);
 				}
 				break;
 			case EXIT: 	return new ExitScreen(this, elements);
 		}
 		loading = true;
-		return new LoadScreen(this, elements, assetManager, screenRequest);
+		return new LoadScreen(this, elements, screenRequest);
 	}
 
 	private boolean getAssetCheck(Array<AssetDescriptor<?>> assetsToLoad) {
@@ -194,7 +194,7 @@ public class ScreenFactoryImpl implements ScreenFactory {
 		if (getAssetCheck(EncounterScreen.getRequirements((EncounterCode)loadService.loadDataValue(SaveEnum.ENCOUNTER_CODE, Integer.class)))) {
 			EncounterCode encounterCode = loadService.loadDataValue(SaveEnum.ENCOUNTER_CODE, EncounterCode.class);
 			Encounter encounter = encounterFactory.getEncounter(encounterCode, elements.getFont(48));			
-			return new EncounterScreen(this, elements, assetManager, loadService, encounter);
+			return new EncounterScreen(this, elements, loadService, encounter);
 		}
 		else {
 			return null;
@@ -204,7 +204,7 @@ public class ScreenFactoryImpl implements ScreenFactory {
 	private BattleScreen getBattle(ScreenElements elements, PlayerCharacter character) {
 		if (getAssetCheck(BattleScreen.getRequirements((BattleAttributes) loadService.loadDataValue(SaveEnum.BATTLE_CODE, BattleAttributes.class)))) {
 			BattleAttributes battleCode = loadService.loadDataValue(SaveEnum.BATTLE_CODE, BattleAttributes.class);
-			return new BattleScreen(this, elements, saveService, battleFactory.getBattle(battleCode, character), assetManager);
+			return new BattleScreen(this, elements, saveService, battleFactory.getBattle(battleCode, character));
 		}
 		else {
 			return null;
@@ -214,21 +214,21 @@ public class ScreenFactoryImpl implements ScreenFactory {
 	private LevelUpScreen getLevel(ScreenElements elements, PlayerCharacter character) {
 		if (getAssetCheck(LevelUpScreen.resourceRequirements)) {
 			// -3 is the magic number for the level up screen encounter
-			return new LevelUpScreen(this, elements, assetManager, saveService, encounterFactory.getEncounter(EncounterCode.LEVEL_UP, elements.getFont(48)));
+			return new LevelUpScreen(this, elements, saveService, encounterFactory.getEncounter(EncounterCode.LEVEL_UP, elements.getFont(48)));
 		}
 		return null;
 	}
 	
 	private TownScreen getTown(ScreenElements elements, PlayerCharacter character) {
 		if (getAssetCheck(TownScreen.resourceRequirements)) {
-			return new TownScreen(this, elements, assetManager, saveService, (Integer)loadService.loadDataValue(SaveEnum.TIME, Integer.class));
+			return new TownScreen(this, elements, saveService, (Integer)loadService.loadDataValue(SaveEnum.TIME, Integer.class));
 		}
 		return null;
 	}
 	
 	private CampScreen getCamp(ScreenElements elements, PlayerCharacter character) {
 		if (getAssetCheck(CampScreen.resourceRequirements)) {
-			return new CampScreen(this, elements, assetManager, saveService, character, (Integer)loadService.loadDataValue(SaveEnum.TIME, Integer.class));
+			return new CampScreen(this, elements, saveService, character, (Integer)loadService.loadDataValue(SaveEnum.TIME, Integer.class));
 		}
 		return null;
 	}
@@ -253,7 +253,7 @@ public class ScreenFactoryImpl implements ScreenFactory {
 				return getCamp(elements, character);
 			case GAME_OVER:
 				if (getAssetCheck(GameOverScreen.resourceRequirements)) {
-					return new GameOverScreen(this, elements, assetManager, saveService);
+					return new GameOverScreen(this, elements, saveService);
 				}
 				else return null;
 			default: return null;

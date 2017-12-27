@@ -5,7 +5,6 @@ import static com.majalis.asset.AssetEnum.*;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.assets.AssetDescriptor;
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
@@ -68,7 +67,6 @@ public class ReplayScreen extends AbstractScreen {
 		}
 		resourceRequirements.addAll(MainMenuScreen.resourceRequirements);
 	}
-	private final AssetManager assetManager;
 	private final ObjectMap<String, Integer> enemyKnowledge;
 	private final Skin skin;
 	private final Sound sound;
@@ -76,10 +74,9 @@ public class ReplayScreen extends AbstractScreen {
 	private EnemyCharacter currentCharacter;
 	private String nothingToDisplay;
 	
-	public ReplayScreen(ScreenFactory factory, ScreenElements elements, AssetManager assetManager, ObjectMap<String, Integer> enemyKnowledge) {
+	public ReplayScreen(ScreenFactory factory, ScreenElements elements, ObjectMap<String, Integer> enemyKnowledge) {
 		super(factory, elements, null);
 		this.addActor(new BackgroundBuilder(assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getTexture())).build());
-		this.assetManager = assetManager;
 		this.enemyKnowledge = enemyKnowledge;
 		this.skin = assetManager.get(AssetEnum.UI_SKIN.getSkin());
 		this.sound = assetManager.get(AssetEnum.BUTTON_SOUND.getSound());

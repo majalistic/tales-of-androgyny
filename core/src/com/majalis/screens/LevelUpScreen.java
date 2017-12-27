@@ -1,7 +1,6 @@
 package com.majalis.screens;
 
 import com.badlogic.gdx.assets.AssetDescriptor;
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Array;
@@ -21,12 +20,10 @@ public class LevelUpScreen extends AbstractScreen {
 		resourceRequirements.addAll(EncounterScreen.getRequirements(EncounterCode.LEVEL_UP));
 	}
 	
-	private final AssetManager assetManager;
 	private final SaveService saveService;
 	private final Encounter encounter;
-	protected LevelUpScreen(ScreenFactory screenFactory, ScreenElements elements, AssetManager assetManager, SaveService saveService, Encounter encounter) {
+	protected LevelUpScreen(ScreenFactory screenFactory, ScreenElements elements, SaveService saveService, Encounter encounter) {
 		super(screenFactory, elements, null);
-		this.assetManager = assetManager;
 		this.saveService = saveService;
 		this.encounter = encounter;
 	}

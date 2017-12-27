@@ -3,7 +3,6 @@ package com.majalis.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.assets.AssetDescriptor;
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
@@ -27,7 +26,7 @@ public class CreditsScreen extends AbstractScreen{
 	}
 	
 	private final String credits;
-	protected CreditsScreen(ScreenFactory screenFactory, ScreenElements elements, AssetManager assetManager) {
+	protected CreditsScreen(ScreenFactory screenFactory, ScreenElements elements) {
 		super(screenFactory, elements, null);
 		this.addActor(new BackgroundBuilder(assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getTexture())).build());
 		Skin skin = assetManager.get(AssetEnum.UI_SKIN.getSkin());

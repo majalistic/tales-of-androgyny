@@ -5,7 +5,6 @@ import static com.majalis.asset.AssetEnum.*;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.assets.AssetDescriptor;
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
@@ -51,7 +50,6 @@ public class MainMenuScreen extends AbstractScreen {
 			resourceRequirements.add(asset.getTexture());
 		}
 	}
-	private final AssetManager assetManager;
 	private final SaveService saveService;
 	private final Skin skin; 
 	private final Texture arrowImage;
@@ -73,9 +71,8 @@ public class MainMenuScreen extends AbstractScreen {
 	private Image fg;
 	private Group uiGroup;
 	
-	public MainMenuScreen(ScreenFactory factory, ScreenElements elements, AssetManager assetManager, SaveService saveService, LoadService loadService) {
+	public MainMenuScreen(ScreenFactory factory, ScreenElements elements, SaveService saveService, LoadService loadService) {
 		super(factory, elements, AssetEnum.MAIN_MENU_MUSIC);
-		this.assetManager = assetManager;
 		this.saveService = saveService;
 		this.skin = assetManager.get(AssetEnum.UI_SKIN.getSkin());
 		this.arrowImage = assetManager.get(AssetEnum.STANCE_ARROW.getTexture());

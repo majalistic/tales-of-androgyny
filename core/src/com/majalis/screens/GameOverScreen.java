@@ -3,7 +3,6 @@ package com.majalis.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.assets.AssetDescriptor;
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
@@ -27,13 +26,11 @@ public class GameOverScreen extends AbstractScreen {
 		resourceRequirements.add(AssetEnum.CUM.getSound());
 		resourceRequirements.add(AssetEnum.GAME_OVER_MUSIC.getMusic());
 	}
-	private final AssetManager assetManager;
 	private final SaveService saveService;
 	private final Sound sound;
 	
-	public GameOverScreen(ScreenFactory factory, ScreenElements elements, AssetManager assetManager, SaveService saveService) {
+	public GameOverScreen(ScreenFactory factory, ScreenElements elements, SaveService saveService) {
 		super(factory, elements, AssetEnum.GAME_OVER_MUSIC);
-		this.assetManager = assetManager;
 		this.saveService = saveService;
 		sound = assetManager.get(AssetEnum.CUM.getSound());
 		setClearColor(Color.SLATE.r, Color.SLATE.g, Color.SLATE.b, 1);

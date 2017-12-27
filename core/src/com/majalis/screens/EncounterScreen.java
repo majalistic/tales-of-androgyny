@@ -3,7 +3,6 @@ package com.majalis.screens;
 import static com.majalis.asset.AssetEnum.*;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetDescriptor;
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -38,16 +37,14 @@ public class EncounterScreen extends AbstractScreen {
 
 		resourceRequirements.add(AssetEnum.ENCOUNTER_MUSIC.getMusic());
 	}
-	private final AssetManager assetManager;
 	private final LoadService loadService;
 	private final Encounter encounter;
 	private TextButton saveButton;
 	private TextButton skipButton;
 	private boolean skipHeld;
 	
-	protected EncounterScreen(ScreenFactory screenFactory, ScreenElements elements, AssetManager assetManager, LoadService loadService, Encounter encounter) {
+	protected EncounterScreen(ScreenFactory screenFactory, ScreenElements elements, LoadService loadService, Encounter encounter) {
 		super(screenFactory, elements, null);
-		this.assetManager = assetManager;
 		this.loadService = loadService;
 		this.encounter = encounter;
 	}

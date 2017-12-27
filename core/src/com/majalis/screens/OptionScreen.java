@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.assets.AssetDescriptor;
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
@@ -39,7 +38,7 @@ public class OptionScreen extends AbstractScreen {
 	private final Preferences preferences;
 	private final Skin skin;
 	
-	public OptionScreen(ScreenFactory factory, ScreenElements elements, AssetManager assetManager) {
+	public OptionScreen(ScreenFactory factory, ScreenElements elements) {
 		super(factory, elements, null);
 		this.addActor(new BackgroundBuilder(assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getTexture())).build());
 		skin = assetManager.get(AssetEnum.UI_SKIN.getSkin());

@@ -3,7 +3,6 @@ package com.majalis.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.assets.AssetDescriptor;
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
@@ -64,7 +63,7 @@ public class CampScreen extends AbstractScreen {
 	private TextButton forageButton;
 	private TextButton departButton;
 	
-	protected CampScreen(ScreenFactory screenFactory, ScreenElements elements, AssetManager assetManager, SaveService saveService, PlayerCharacter character, int time) {
+	protected CampScreen(ScreenFactory screenFactory, ScreenElements elements, SaveService saveService, PlayerCharacter character, int time) {
 		super(screenFactory, elements, AssetEnum.SHOP_MUSIC);
 		this.saveService = saveService;
 		this.character = character;
