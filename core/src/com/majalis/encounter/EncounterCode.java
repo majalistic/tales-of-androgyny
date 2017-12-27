@@ -483,6 +483,7 @@ public enum EncounterCode {
 					AssetEnum.OGRE.getTexture(),
 					AssetEnum.OGRE_BANGED.getTexture(),
 					AssetEnum.CUM.getSound(),
+					AssetEnum.CUM_BUBBLING.getSound(),
 					AssetEnum.WEREWOLF_MUSIC.getMusic()
 				});
 			case OGRE_WARNING_STORY:
