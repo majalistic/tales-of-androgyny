@@ -65,4 +65,6 @@ public abstract class Scene extends Group {
 	public String getText() { return ""; }
 
 	public boolean showSave() { return false; }
+	
+	public void poke() {}
 }

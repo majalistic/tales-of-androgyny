@@ -42,7 +42,9 @@ public class EncounterScreen extends AbstractScreen {
 	private final LoadService loadService;
 	private final Encounter encounter;
 	private TextButton saveButton;
-
+	private TextButton skipButton;
+	private boolean skipHeld;
+	
 	protected EncounterScreen(ScreenFactory screenFactory, ScreenElements elements, AssetManager assetManager, LoadService loadService, Encounter encounter) {
 		super(screenFactory, elements, null);
 		this.assetManager = assetManager;
@@ -71,6 +73,27 @@ public class EncounterScreen extends AbstractScreen {
 		);	
 		
 		this.addActor(saveButton);
+		
+		skipButton = new TextButton("Skip", assetManager.get(AssetEnum.UI_SKIN.getSkin()));
+		skipButton.setPosition(1650, 175);
+		skipButton.setWidth(150);
+		skipButton.addListener(
+			new ClickListener() {
+				@Override
+		        public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+					skipHeld = false;	
+		        }
+				
+				@Override
+		        public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+					skipHeld = true;
+					return super.touchDown(event, x, y, pointer, button);				
+		        }
+			}
+		);	
+		
+		this.addActor(skipButton);
+		
 	}
 
 	@Override
@@ -78,11 +101,18 @@ public class EncounterScreen extends AbstractScreen {
 		super.render(delta);
 		encounter.gameLoop();
 		switchMusic((AssetEnum)loadService.loadDataValue(SaveEnum.MUSIC, AssetEnum.class));
+		if (skipHeld) {
+			encounter.poke();
+		}
+		
 		if (encounter.showSave) {
 			saveButton.addAction(Actions.show());
+			skipButton.addAction(Actions.show());
 		}
 		else {
+			skipHeld = false;
 			saveButton.addAction(Actions.hide());
+			skipButton.addAction(Actions.hide());
 		}
 		if (encounter.isSwitching()) {
 			showScreen(ScreenEnum.CONTINUE);

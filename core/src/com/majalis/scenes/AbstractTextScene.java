@@ -79,5 +79,8 @@ public abstract class AbstractTextScene extends Scene {
 		});
 		saveService.saveDataValue(SaveEnum.SCENE_CODE, sceneCode);
 	}
+	@Override
+	public void poke() { nextScene(); }
+
 	protected abstract void nextScene();
 }

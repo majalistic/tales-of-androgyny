@@ -76,4 +76,12 @@ public class Encounter {
 		startScene.setActive();
 		return actors;
 	}
+
+	public void poke() {
+		for (Scene objScene : scenes) {
+			if (objScene.isActive()) {
+				objScene.poke();
+			}
+		}
+	}
 }
