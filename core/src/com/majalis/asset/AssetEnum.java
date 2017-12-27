@@ -311,6 +311,7 @@ public enum AssetEnum {
 	SPOOKY_MUSIC("music/SpookyMusic.mp3", Music.class),
 	HORROR_MUSIC("music/HorrorMusic.mp3", Music.class),
 	BOSS_MUSIC("music/BossMusic.mp3", Music.class),
+	GAME_OVER_MUSIC("music/GameOverMusic.mp3", Music.class),
 	WAVES("music/Waves.wav", Music.class), 
 	
 	GAME_OVER_ANIMATION("animation/SplurtGO.atlas", AnimatedActorFactory.class),

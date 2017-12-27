@@ -46,7 +46,7 @@ public class CreditsScreen extends AbstractScreen{
 		done.setPosition(1523, 120);
 		this.addActor(done);
 		
-		credits = "\"Broken Reality\", \"Perspectives\", \"Floating Cities\", \"Enchanted Valley\", \"Brittle Rille\", \"For Originz\", \"Phantom from Space\",\n\"Mechanolith\", \"Fearless First\", \"Danger Storm\", \"Killers\", \"One-eyed Maestro\", \"Immersed\", \"Shadowlands 3 - Machine\", \n\"Temple of the Manes\", \"Ascending the Vale\""
+		credits = "\"Broken Reality\", \"Perspectives\", \"Floating Cities\", \"Enchanted Valley\", \"Brittle Rille\", \"For Originz\", \"Phantom from Space\",\n\"Mechanolith\", \"Fearless First\", \"Danger Storm\", \"Killers\", \"One-eyed Maestro\", \"Immersed\", \"Shadowlands 3 - Machine\", \n\"Temple of the Manes\", \"Ascending the Vale\", \"Division\""
 				+ "\nKevin MacLeod (incompetech.com)"
 				+ "\nLicensed under Creative Commons: By Attribution 3.0"
 				+ "\nhttp://creativecommons.org/licenses/by/3.0/"

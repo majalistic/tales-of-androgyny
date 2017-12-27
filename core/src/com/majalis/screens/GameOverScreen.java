@@ -25,13 +25,14 @@ public class GameOverScreen extends AbstractScreen {
 		resourceRequirements.add(AssetEnum.UI_SKIN.getSkin());
 		resourceRequirements.add(AssetEnum.GAME_OVER_ANIMATION.getAnimation());
 		resourceRequirements.add(AssetEnum.CUM.getSound());
+		resourceRequirements.add(AssetEnum.GAME_OVER_MUSIC.getMusic());
 	}
 	private final AssetManager assetManager;
 	private final SaveService saveService;
 	private final Sound sound;
 	
 	public GameOverScreen(ScreenFactory factory, ScreenElements elements, AssetManager assetManager, SaveService saveService) {
-		super(factory, elements, null);
+		super(factory, elements, AssetEnum.GAME_OVER_MUSIC);
 		this.assetManager = assetManager;
 		this.saveService = saveService;
 		sound = assetManager.get(AssetEnum.CUM.getSound());
