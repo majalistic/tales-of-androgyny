@@ -11,10 +11,10 @@ import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.ObjectSet;
 import com.majalis.asset.AssetEnum;
 import com.majalis.character.Armor.ArmorType;
+import com.majalis.character.Item.Accessory;
+import com.majalis.character.Item.AccessoryType;
 import com.majalis.character.Item.ChastityCage;
 import com.majalis.character.Item.EffectType;
-import com.majalis.character.Item.Misc;
-import com.majalis.character.Item.MiscType;
 import com.majalis.character.Item.Plug;
 import com.majalis.character.Item.Potion;
 import com.majalis.character.Item.Weapon;
@@ -1517,7 +1517,7 @@ public class PlayerCharacter extends AbstractCharacter {
 	public int getMetabolicRate() { return hasHungerCharm() ? 1 : 2; }
 
 	private boolean hasHungerCharm() {
-		return inventory.contains(new Misc(MiscType.HUNGER_CHARM), false);
+		return firstAccessory != null && firstAccessory.equals(new Accessory(AccessoryType.HUNGER_CHARM));
 	}
 	
 	public boolean hasGem() {
@@ -1583,6 +1583,7 @@ public class PlayerCharacter extends AbstractCharacter {
 		return 
 			item instanceof Weapon ? setWeapon(item) : 
 			armor != null ? (armor.isArmwear() ? setArmwear(item, false) : armor.isHeadgear() ? setHeadgear(item, false) : armor.isShield() ? setShield(item, false) : armor.coversTop() ? setArmor(item, false) : armor.coversBottom() ? setLegwear(item, false) : setUnderwear(item, false)) : 
+			item instanceof Accessory ? setAccessory(item, false) :
 			item instanceof ChastityCage ? setCage(item, false) :
 			setPlug(item, false);
 	}
@@ -1602,7 +1603,7 @@ public class PlayerCharacter extends AbstractCharacter {
 	}
 
 	public boolean isEquipped(Item item) {
-		return item.equals(weapon) || item.equals(armor) || item.equals(shield) || item.equals(legwear) || item.equals(underwear) || item.equals(plug) || item.equals(cage);
+		return item.equals(weapon) || item.equals(armor) || item.equals(shield) || item.equals(legwear) || item.equals(underwear) || item.equals(plug) || item.equals(cage) || item.equals(headgear) || item.equals(armwear) || item.equals(firstAccessory);
 	}
 
 	public int getAnalReceptionCount() {

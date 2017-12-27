@@ -52,7 +52,7 @@ public abstract class Item {
 
 		@Override
 		public String getName() {
-			return type == MiscType.HUNGER_CHARM ? "Hunger Charm" : type == MiscType.ICE_CREAM ? "Ice Cream" : "Key";
+			return type == MiscType.ICE_CREAM ? "Ice Cream" : "Key";
 		}
 
 		@Override
@@ -63,13 +63,10 @@ public abstract class Item {
 	
 	public enum MiscType {
 		ICE_CREAM,
-		HUNGER_CHARM,
 		KEY;
 
 		public String getDescription() {
 			switch (this) {
-				case HUNGER_CHARM:
-					return "Wards off hunger.";
 				case ICE_CREAM:
 					return "Is Ice Cream.";
 				case KEY:
@@ -138,7 +135,6 @@ public abstract class Item {
 	}
 	
 	public static class Weapon extends Item {
-		
 		private WeaponType type;
 		private int bonus;
 
@@ -258,6 +254,37 @@ public abstract class Item {
 		public boolean isBuyable() {
 			return buyable;
 		}
+	}
+	
+	public static class Accessory extends Item {
+		private final AccessoryType type;
+		@SuppressWarnings("unused")
+		private Accessory() { type = null; }
+		
+		public Accessory(AccessoryType type) {
+			this.type = type;
+		}
+		public AccessoryType getType() { return type; }
+		@Override
+		public int getValue() { return 200; }
+		@Override
+		protected ItemEffect getUseEffect() { return null; }
+		@Override
+		public String getName() { return "Hunger Charm"; }
+		@Override
+		public String getDescription() { return "Wards off hunger."; }
+		@Override
+		public boolean isEquippable() { return true; }
+		@Override 
+		public boolean equals(Object o) {
+			if (o == null || o.getClass() != Accessory.class) return false;
+			Accessory compare = (Accessory) o;
+			return super.equals(o) && compare.type == this.type;
+		}
+	}
+	
+	public enum AccessoryType {
+		HUNGER_CHARM
 	}
 	
 	public static class Potion extends Item {

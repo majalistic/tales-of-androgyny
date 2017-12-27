@@ -3,6 +3,7 @@ package com.majalis.character;
 import com.majalis.asset.AssetEnum;
 import com.majalis.character.Attack.AttackHeight;
 import com.majalis.character.Attack.Status;
+import com.majalis.character.Item.Accessory;
 import com.majalis.character.Item.ChastityCage;
 import com.majalis.character.Item.EffectType;
 import com.majalis.character.Item.ItemEffect;
@@ -78,7 +79,7 @@ public abstract class AbstractCharacter extends Actor {
 	protected Armor headgear;
 	protected Armor armwear;
 
-	// public Accessory firstAccessory;
+	public Accessory firstAccessory;
 	// public Accessory secondAccessory;
 	
 	protected Plug plug;
@@ -287,25 +288,13 @@ public abstract class AbstractCharacter extends Actor {
 	public String getStatusBlurb() {
 		return strengthDebuffed() ? "Weakening Curse" : "";
 	}
-	
-	public Armor getArmor() {
-		return armor;
-	}
-	public Armor getLegwear() {
-		return legwear;
-	}
-	public Armor getUnderwear() {
-		return underwear;
-	}
-	public Armor getShield() {
-		return shield;
-	}
-	public Armor getHeadgear() {
-		return headgear;
-	}
-	public Armor getArmwear() {
-		return armwear;
-	}
+	public Armor getArmor() { return armor; }
+	public Armor getLegwear() { return legwear; }
+	public Armor getUnderwear() { return underwear; }
+	public Armor getShield() { return shield; }
+	public Armor getHeadgear() { return headgear; }
+	public Armor getArmwear() { return armwear; }
+	public Accessory getFirstAccessory() { return firstAccessory; }
 	
 	protected int getDegradation(IntArray tiers, int currentValue) {
 		int numTiers = tiers.size;
@@ -1090,6 +1079,14 @@ public abstract class AbstractCharacter extends Actor {
 		boolean alreadyEquipped = equipHeadgear.equals(this.headgear); 
 		this.headgear = alreadyEquipped ? null : equipHeadgear;
 		return "You " + (alreadyEquipped ? "unequipped" : "equipped") + " the " + armor.getName() + ".";
+	}
+	
+	public String setAccessory(Item accessory, boolean newItem) {
+		if (newItem) inventory.add(accessory);
+		Accessory equipAccessory = (Accessory) accessory;
+		boolean alreadyEquipped = equipAccessory.equals(this.firstAccessory); 
+		this.firstAccessory = alreadyEquipped ? null : equipAccessory;
+		return "You " + (alreadyEquipped ? "unequipped" : "equipped") + " the " + accessory.getName() + ".";
 	}
 	
 	// should return Plugged property != null
