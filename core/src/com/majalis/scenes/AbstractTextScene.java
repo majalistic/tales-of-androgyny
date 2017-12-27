@@ -73,7 +73,11 @@ public abstract class AbstractTextScene extends Scene {
 					this.clearActions();
 				}
 				else {
-					this.addAction(Actions.sequence(Actions.delay(display.getText().length / 20 + 2), new Action(){
+					int textSpeed = Gdx.app.getPreferences("tales-of-androgyny-preferences").getInteger("autoplaySpeed", 5);
+					int baseDisplayTime = display.getText().length / 20 + 2;
+					float speedFactor = 1.5f - (1 + textSpeed / 5f); 
+					
+					this.addAction(Actions.sequence(Actions.delay(baseDisplayTime * speedFactor), new Action(){
 						@Override
 						public boolean act(float delta) {
 							clearActions();

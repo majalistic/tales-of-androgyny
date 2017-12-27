@@ -45,28 +45,9 @@ public class OptionScreen extends AbstractScreen {
 		final Sound sound = assetManager.get(AssetEnum.BUTTON_SOUND.getSound());
 		
 		preferences  = Gdx.app.getPreferences("tales-of-androgyny-preferences");
-		
-		/* Video options */
-		addLabelActor("- Video Options -", 860, 820);
-		
-		/* Full Screen toggle */
-		final CheckBox fullScreen = new CheckBox("FullScreen", skin);
-		fullScreen.setChecked(preferences.getBoolean("fullScreen", false));
-		fullScreen.addListener(new ChangeListener() {
-	        @Override
-	        public void changed(ChangeEvent event, Actor actor) {
-	            final boolean val = fullScreen.isChecked();
-	            preferences.putBoolean("fullScreen", val);
-	            if (!debug) {
-		    		if(val) Gdx.graphics.setFullscreenMode(Gdx.graphics.getDisplayMode());
-		    		else Gdx.graphics.setWindowedMode(preferences.getInteger("width", 1920), preferences.getInteger("height", 1080));
-	            }
-	        }
-	    });
-		fullScreen.getCells().get(0).size(50, 50);
-		fullScreen.getCells().get(0).padRight(25);
-		addActorAndListen(fullScreen, 1099, 651);
-		
+			
+		/* Gameplay options */
+		addLabelActor("- Gameplay Options -", 860, 950);
 		final CheckBox blood = new CheckBox("Show Blood", skin);
 		blood.setChecked(preferences.getBoolean("blood", true));
 		blood.addListener(new ChangeListener() {
@@ -114,8 +95,46 @@ public class OptionScreen extends AbstractScreen {
 		flavors.setWidth(150);
 		addActorAndListen(flavors, 1400, 850);		
 		
+		/* Auto slider */
+		final Label autoSpeed = addLabelActor("Autoplay speed: " + preferences.getInteger("autoplaySpeed", 5), 745, 800);
+		final Slider autoSpeedSlider = new Slider(1, 10, 1, false, skin);
+		
+		autoSpeedSlider.setValue(preferences.getInteger("autoplaySpeed", 5));
+		autoSpeedSlider.addListener(new ChangeListener() {
+	        @Override
+	        public void changed(ChangeEvent event, Actor actor) {
+	            final int val = (int)autoSpeedSlider.getValue();
+	            preferences.putInteger("autoplaySpeed", val);
+	            autoSpeed.setText("Autoplay speed: " + val);
+	        }
+	    });
+		autoSpeedSlider.getStyle().knob.setMinHeight(40);
+		autoSpeedSlider.setSize(400, 40);
+		addActorAndListen(autoSpeedSlider, 745, 750);		
+		
+		/* Video options */
+		addLabelActor("- Video Options -", 860, 550);
+		
+		/* Full Screen toggle */
+		final CheckBox fullScreen = new CheckBox("FullScreen", skin);
+		fullScreen.setChecked(preferences.getBoolean("fullScreen", false));
+		fullScreen.addListener(new ChangeListener() {
+	        @Override
+	        public void changed(ChangeEvent event, Actor actor) {
+	            final boolean val = fullScreen.isChecked();
+	            preferences.putBoolean("fullScreen", val);
+	            if (!debug) {
+		    		if(val) Gdx.graphics.setFullscreenMode(Gdx.graphics.getDisplayMode());
+		    		else Gdx.graphics.setWindowedMode(preferences.getInteger("width", 1920), preferences.getInteger("height", 1080));
+	            }
+	        }
+	    });
+		fullScreen.getCells().get(0).size(50, 50);
+		fullScreen.getCells().get(0).padRight(25);
+		addActorAndListen(fullScreen, 1099, 420);
+		
 		/* Resolution selection */
-		addLabelActor("Resolution", 700, 750);
+		addLabelActor("Resolution", 700, 500);
 		final SelectBox<Vector2> resolution = new SelectBox<Vector2>(skin);
 		resolution.setItems(new Array<Vector2>(new Vector2[]{new Vector2(1920, 1080), new Vector2(1600, 900), new Vector2(1280, 720), new Vector2(960, 540)}));
 		Vector2 currentResolution = new Vector2(preferences.getInteger("width", 1920), preferences.getInteger("height", 1080));
@@ -137,16 +156,14 @@ public class OptionScreen extends AbstractScreen {
 	        }
 	    });
 		resolution.setWidth(150);
-		addActorAndListen(resolution, 700, 700);
+		addActorAndListen(resolution, 700, 450);
 		
 		/* Sound options */
-		addLabelActor("- Sound Options -", 860, 512);
-		addLabelActor("Sound volume:", 745, 440);
-		addLabelActor("Music volume:", 745, 280);
-		final Label soundVolumePercent = addLabelActor(String.valueOf((int)(preferences.getFloat("volume", 1) * 100)) +"%",1145, 375);
-		final Label musicVolumePercent = addLabelActor(String.valueOf((int)(preferences.getFloat("musicVolume", 1) * 100)) +"%", 1145, 190);
+		addLabelActor("- Sound Options -", 860, 400);
+		
 		
 		/* Sound slider */
+		final Label soundVolumePercent = addLabelActor("Sound volume: " + (int)(preferences.getFloat("volume", 1) * 100) +"%", 745, 350);
 		final Slider soundSlider = new Slider(0, 1, .1f, false, skin);
 		
 		soundSlider.setValue(preferences.getFloat("volume", 1));
@@ -156,13 +173,14 @@ public class OptionScreen extends AbstractScreen {
 	            final float val = soundSlider.getValue();
 	            preferences.putFloat("volume", val);
 	            sound.play(val *.5f);
-	            soundVolumePercent.setText(String.valueOf((int)(val * 100)) +"%");
+	            soundVolumePercent.setText("Sound volume: " + String.valueOf((int)(val * 100)) +"%");
 	        }
 	    });
 		soundSlider.getStyle().knob.setMinHeight(40);
 		soundSlider.setSize(400, 40);
-		addActorAndListen(soundSlider, 745, 375);
-		/* Music Slider */
+		addActorAndListen(soundSlider, 745, 300);
+		/* Music slider */
+		final Label musicVolumePercent = addLabelActor("Music volume: " + (int)(preferences.getFloat("musicVolume", 1) * 100) +"%", 745, 240);
 		final Slider musicSlider = new Slider(0, 1, .1f, false, skin);
 		
 		musicSlider.setValue(preferences.getFloat("musicVolume", 1));
@@ -172,7 +190,7 @@ public class OptionScreen extends AbstractScreen {
 	            final float val = musicSlider.getValue();
 	            preferences.putFloat("musicVolume", val);
 	            setVolume(val);
-	            musicVolumePercent.setText(String.valueOf((int)(val * 100)) +"%");
+	            musicVolumePercent.setText("Music volume: " + String.valueOf((int)(val * 100)) +"%");
 	        }
 	    });
 		musicSlider.setSize(400, 40);
