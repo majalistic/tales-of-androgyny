@@ -72,6 +72,8 @@ public class InventoryScreen extends AbstractScreen {
 	private final Label armorText;
 	private final Label legwearText;
 	private final Label underwearText;
+	private final Label headgearText;
+	private final Label armwearText;
 	private final Label plugText;
 	private final Label cageText;
 	private final Skin skin;
@@ -148,6 +150,8 @@ public class InventoryScreen extends AbstractScreen {
 		armorText = getLabel(character.getArmor() != null ? character.getArmor().getName() : "None", skin, character.getArmor() != null ? Color.GOLD : Color.BROWN);
 		legwearText = getLabel(character.getLegwear() != null ? character.getLegwear().getName() : "None", skin, character.getLegwear() != null ? Color.GOLD : Color.BROWN);
 		underwearText = getLabel(character.getUnderwear() != null ? character.getUnderwear().getName() : "None", skin, character.getUnderwear() != null ? Color.GOLD : Color.BROWN);
+		headgearText = getLabel(character.getHeadgear() != null ? character.getHeadgear().getName() : "None", skin, character.getHeadgear() != null ? Color.GOLD : Color.BROWN);
+		armwearText = getLabel(character.getArmwear() != null ? character.getArmwear().getName() : "None", skin, character.getArmwear() != null ? Color.GOLD : Color.BROWN);
 		plugText = getLabel(character.getPlug() != null ? character.getPlug().getName() : "None", skin, character.getPlug() != null ? Color.GOLD : Color.BROWN);
 		cageText = getLabel(character.getCage() != null ? character.getCage().getName() : "None", skin, character.getCage() != null ? Color.GOLD : Color.BROWN);
 		
@@ -165,8 +169,10 @@ public class InventoryScreen extends AbstractScreen {
 		equipmentTable.add(legwearText).align(Align.left).row();
 		equipmentTable.add(getLabel("Underwear:", skin, Color.DARK_GRAY)).width(xBuffer).align(Align.left);
 		equipmentTable.add(underwearText).align(Align.left).row();
-		equipmentTable.add(getLabel("Headgear:", skin, Color.DARK_GRAY)).align(Align.left).row();
-		equipmentTable.add(getLabel("Armwear:", skin, Color.DARK_GRAY)).align(Align.left).row();
+		equipmentTable.add(getLabel("Headgear:", skin, Color.DARK_GRAY)).width(xBuffer).align(Align.left);
+		equipmentTable.add(headgearText).align(Align.left).row();
+		equipmentTable.add(getLabel("Armwear:", skin, Color.DARK_GRAY)).width(xBuffer).align(Align.left);
+		equipmentTable.add(armwearText).align(Align.left).row();	
 		equipmentTable.add(getLabel("Buttwear:", skin, Color.DARK_GRAY)).width(xBuffer).align(Align.left);
 		equipmentTable.add(plugText).align(Align.left).row();
 		equipmentTable.add(getLabel("Dickwear:", skin, Color.DARK_GRAY)).width(xBuffer).align(Align.left);
@@ -242,6 +248,8 @@ public class InventoryScreen extends AbstractScreen {
 				armorText.setText(character.getArmor() != null ? character.getArmor().getName() : "None");
 				legwearText.setText(character.getLegwear() != null ? character.getLegwear().getName() : "None");
 				underwearText.setText(character.getUnderwear() != null ? character.getUnderwear().getName() : "None");
+				headgearText.setText(character.getHeadgear() != null ? character.getHeadgear().getName() : "None");
+				armwearText.setText(character.getArmwear() != null ? character.getArmwear().getName() : "None");			
 				plugText.setText(character.getPlug() != null ? character.getPlug().getName() : "None");
 				cageText.setText(character.getCage() != null ? character.getCage().getName() : "None");
 				

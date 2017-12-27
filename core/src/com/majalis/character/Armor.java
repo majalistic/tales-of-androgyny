@@ -92,6 +92,8 @@ public class Armor extends Item{
 	public boolean showsRear() { return type.showsRear(); }
 	public boolean showsHips() { return type.showsHips(); }
 	public boolean isShield() { return type.isShield(); }
+	public boolean isArmwear() { return type.isArmwear(); }
+	public boolean isHeadgear() { return type.isHeadgear(); }
 	
 	// may want to refactor this into dedicated tops/bottoms/overalls
 	public enum ArmorType {
@@ -106,6 +108,8 @@ public class Armor extends Item{
 		UNDERWEAR ("Underwear", new int[]{2}, new int[]{1}),
 		
 		SHIELD ("Shield", new int[]{15, 15}, new int[]{50, 50}),
+		GAUNTLET ("Gauntlet", new int[]{15, 15}, new int[]{50, 50}),
+		HELMET ("Helmet", new int[]{15, 15}, new int[]{50, 50}),
 		
 		LIGHT_ENEMY_ARMOR ("Light Armor", new int[]{2, 2}, new int[]{2, 1}),
 		MEDIUM_ENEMY_ARMOR ("Medium Armor", new int[]{6, 6}, new int[]{6, 2}),
@@ -138,6 +142,8 @@ public class Armor extends Item{
 		}
 		private int getValue() { return value; }
 		
+		private boolean isArmwear() { return this == GAUNTLET; }
+		private boolean isHeadgear() { return this == HELMET; }
 		private boolean isShield() { return this == SHIELD; }
 		private boolean coversTop() { return this == NO_TOP || this == CLOTH_TOP || this == BREASTPLATE || this == DIAMOND_PLATE;  }
 		private boolean coversBottom() { return this == NO_BOTTOM || this == SKIRT || this == BATTLE_SKIRT || this == SHORTS; }

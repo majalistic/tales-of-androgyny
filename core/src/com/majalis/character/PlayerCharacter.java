@@ -1579,7 +1579,12 @@ public class PlayerCharacter extends AbstractCharacter {
 	}
 
 	public String equipItem(Item item) {
-		return item instanceof Weapon ? setWeapon(item) : item instanceof Armor ? (((Armor) item).isShield() ? setShield(item, false) : ((Armor) item).coversTop() ? setArmor(item, false) : ((Armor) item).coversBottom() ? setLegwear(item, false) : setUnderwear(item, false)) : item instanceof ChastityCage ? setCage(item, false) : setPlug(item, false);
+		Armor armor = item instanceof Armor ? (Armor) item : null;
+		return 
+			item instanceof Weapon ? setWeapon(item) : 
+			armor != null ? (armor.isArmwear() ? setArmwear(item, false) : armor.isHeadgear() ? setHeadgear(item, false) : armor.isShield() ? setShield(item, false) : armor.coversTop() ? setArmor(item, false) : armor.coversBottom() ? setLegwear(item, false) : setUnderwear(item, false)) : 
+			item instanceof ChastityCage ? setCage(item, false) :
+			setPlug(item, false);
 	}
 
 	public Plug getPlug() {

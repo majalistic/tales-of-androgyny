@@ -75,9 +75,9 @@ public abstract class AbstractCharacter extends Actor {
 	protected Armor armor;
 	protected Armor legwear;
 	protected Armor underwear;
-		
-	// public Gauntlet gauntlet;
-	// public Sabaton sabaton;
+	protected Armor headgear;
+	protected Armor armwear;
+
 	// public Accessory firstAccessory;
 	// public Accessory secondAccessory;
 	
@@ -300,7 +300,12 @@ public abstract class AbstractCharacter extends Actor {
 	public Armor getShield() {
 		return shield;
 	}
-	
+	public Armor getHeadgear() {
+		return headgear;
+	}
+	public Armor getArmwear() {
+		return armwear;
+	}
 	
 	protected int getDegradation(IntArray tiers, int currentValue) {
 		int numTiers = tiers.size;
@@ -1050,8 +1055,7 @@ public abstract class AbstractCharacter extends Actor {
 		this.underwear = alreadyEquipped ? null : equipArmor;
 		return "You " + (alreadyEquipped ? "unequipped" : "equipped") + " the " + armor.getName() + ".";
 	}
-	
-	
+
 	public String setShield(Item armor, boolean newItem) {
 		if (armor == null) {
 			this.shield = null;
@@ -1061,6 +1065,30 @@ public abstract class AbstractCharacter extends Actor {
 		Armor equipShield = (Armor) armor;
 		boolean alreadyEquipped = equipShield.equals(this.shield); 
 		this.shield = alreadyEquipped ? null : equipShield;
+		return "You " + (alreadyEquipped ? "unequipped" : "equipped") + " the " + armor.getName() + ".";
+	}
+	
+	public String setArmwear(Item armor, boolean newItem) {
+		if (armor == null) {
+			this.armwear = null;
+			return "You unequipped your armwear.";
+		}
+		if (newItem) inventory.add(armor);
+		Armor equipArmwear = (Armor) armor;
+		boolean alreadyEquipped = equipArmwear.equals(this.armwear); 
+		this.armwear = alreadyEquipped ? null : equipArmwear;
+		return "You " + (alreadyEquipped ? "unequipped" : "equipped") + " the " + armor.getName() + ".";
+	}
+	
+	public String setHeadgear(Item armor, boolean newItem) {
+		if (armor == null) {
+			this.headgear = null;
+			return "You unequipped your headwear.";
+		}
+		if (newItem) inventory.add(armor);
+		Armor equipHeadgear = (Armor) armor;
+		boolean alreadyEquipped = equipHeadgear.equals(this.headgear); 
+		this.headgear = alreadyEquipped ? null : equipHeadgear;
 		return "You " + (alreadyEquipped ? "unequipped" : "equipped") + " the " + armor.getName() + ".";
 	}
 	
