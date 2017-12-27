@@ -183,7 +183,6 @@ public class ScreenFactoryImpl implements ScreenFactory {
 				assetsLoaded = false;
 			}
 			assetManager.load(path);
-			System.out.println(path);
 		}
 		// temporary hack to ensure skin is always loaded
 		assetManager.load(AssetEnum.UI_SKIN.getSkin());

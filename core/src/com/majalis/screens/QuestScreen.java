@@ -69,8 +69,7 @@ public class QuestScreen extends AbstractScreen {
 		
 		if (nothingToDisplay) questTable.add(new Label("No quest records to display yet.", skin)).align(Align.left).width(800);		
 	}
-	
-	
+
 	@Override
 	public void render(float delta) {
 		super.render(delta);
