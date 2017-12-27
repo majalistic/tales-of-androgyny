@@ -128,6 +128,7 @@ public class EndScene extends Scene {
 				finish();
 			}
 		});
+		statusResults.clear();
 		// need to display "Results" at the top of the table, move table into the appropriate box, and a "click to continue" box or something
 		statusResults.align(Align.topLeft);
 		Label newLabel = new Label("Results: ", skin);
