@@ -5,7 +5,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
@@ -195,8 +194,8 @@ public class ScreenFactoryImpl implements ScreenFactory {
 		if (getAssetCheck(EncounterScreen.getRequirements((EncounterCode)loadService.loadDataValue(SaveEnum.ENCOUNTER_CODE, Integer.class)))) {
 			EncounterCode encounterCode = loadService.loadDataValue(SaveEnum.ENCOUNTER_CODE, EncounterCode.class);
 			Encounter encounter = encounterFactory.getEncounter(encounterCode, elements.getFont(48));			
-			AssetDescriptor<Music> music = new AssetDescriptor<Music>((String)loadService.loadDataValue(SaveEnum.MUSIC, String.class), Music.class);
-			return new EncounterScreen(this, elements, assetManager, music, encounter);
+			AssetEnum music = loadService.loadDataValue(SaveEnum.MUSIC, AssetEnum.class);
+			return new EncounterScreen(this, elements, assetManager, music, loadService, encounter);
 		}
 		else {
 			return null;

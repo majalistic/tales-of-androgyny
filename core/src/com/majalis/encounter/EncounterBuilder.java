@@ -1655,7 +1655,7 @@ public class EncounterBuilder {
 					else {
 						String scriptLine = token.text.replace("<NAME>", characterName).replace("<BUTTSIZE>", buttsize).replace("<LIPSIZE>", lipsize).replace("<DEBT>", debt);
 						// create the scene
-						newScene = new TextScene(sceneMap, sceneCounter, assetManager, font, saveService, backgrounds.get(ii++), scriptLine, getMutations(token.mutations), character, new LogDisplay(sceneCodes, masterSceneMap, skin), token.music != null ? token.music.getMusic() : null, token.sound != null ? token.sound.getSound() : null);		
+						newScene = new TextScene(sceneMap, sceneCounter, assetManager, font, saveService, backgrounds.get(ii++), scriptLine, getMutations(token.mutations), character, new LogDisplay(sceneCodes, masterSceneMap, skin), token.music != null ? token.music : null, token.sound != null ? token.sound.getSound() : null);		
 					}
 					// add it to array
 					scenes.add(newScene);
@@ -1710,7 +1710,7 @@ public class EncounterBuilder {
 			// returns the first scene or the current scene based on sceneCode
 			upsertScenes();
 			if (sceneCodes.size == 0) {
-				saveService.saveDataValue(SaveEnum.MUSIC, AssetEnum.ENCOUNTER_MUSIC.getPath());
+				saveService.saveDataValue(SaveEnum.MUSIC, AssetEnum.ENCOUNTER_MUSIC);
 				return scenes.get(0);
 			}
 			return masterSceneMap.get(sceneCodes.get(sceneCodes.size - 1), scenes.get(0));

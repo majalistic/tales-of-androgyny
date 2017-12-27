@@ -16,6 +16,8 @@ import com.badlogic.gdx.utils.Array;
 import com.majalis.asset.AssetEnum;
 import com.majalis.encounter.Encounter;
 import com.majalis.encounter.EncounterCode;
+import com.majalis.save.LoadService;
+import com.majalis.save.SaveEnum;
 /*
  *Screen for displaying Encounters.  UI that Handles player input while in an encounter.
  */
@@ -36,24 +38,28 @@ public class EncounterScreen extends AbstractScreen {
 
 		resourceRequirements.add(AssetEnum.ENCOUNTER_MUSIC.getMusic());
 	}
-	private static AssetManager assetManager;
+	private final AssetManager assetManager;
+	private final LoadService loadService;
 	private final Encounter encounter;
 	private TextButton saveButton;
-	private static Music music;
+	private AssetEnum musicPath;
+	private Music music;
 
-	protected EncounterScreen(ScreenFactory screenFactory, ScreenElements elements, AssetManager assetManager,
-			AssetDescriptor<Music> musicPath, Encounter encounter) {
+	protected EncounterScreen(ScreenFactory screenFactory, ScreenElements elements, AssetManager assetManager, AssetEnum musicPath, LoadService loadService, Encounter encounter) {
 		super(screenFactory, elements);
-		EncounterScreen.assetManager = assetManager;
+		this.assetManager = assetManager;
+		this.loadService = loadService;
 		this.encounter = encounter;
 		setMusic(musicPath);
 	}
 
-	public static void setMusic(AssetDescriptor<Music> musicPath) {
-		if (EncounterScreen.music != null) {
-			EncounterScreen.music.stop();
+	public void setMusic(AssetEnum musicPath) {
+		if (music != null && this.musicPath != musicPath) {
+			music.stop();
 		}
-		EncounterScreen.music = assetManager.get(musicPath);
+		
+		this.musicPath = musicPath;
+		music = assetManager.get(this.musicPath.getMusic());
 		music.setVolume(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("musicVolume", 1) * .6f);
 		music.setLooping(true);
 		music.play();
@@ -65,7 +71,7 @@ public class EncounterScreen extends AbstractScreen {
 			this.addActor(actor);
 		}
 		
-		final Sound buttonSound =  assetManager.get(AssetEnum.BUTTON_SOUND.getSound());
+		final Sound buttonSound = assetManager.get(AssetEnum.BUTTON_SOUND.getSound());
 		saveButton = new TextButton("Save", assetManager.get(AssetEnum.UI_SKIN.getSkin()));
 		saveButton.setPosition(1650, 100);
 		saveButton.setWidth(150);
@@ -87,6 +93,10 @@ public class EncounterScreen extends AbstractScreen {
 	public void render(float delta) {
 		super.render(delta);
 		encounter.gameLoop();
+		AssetEnum newMusic = loadService.loadDataValue(SaveEnum.MUSIC, AssetEnum.class);
+		if (newMusic != null && newMusic != musicPath) {
+			setMusic(newMusic);
+		}
 		if (encounter.showSave) {
 			saveButton.addAction(Actions.show());
 		}

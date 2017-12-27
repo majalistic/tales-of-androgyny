@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -19,13 +18,13 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.OrderedMap;
+import com.majalis.asset.AssetEnum;
 import com.majalis.character.PlayerCharacter;
 import com.majalis.encounter.Background;
 import com.majalis.encounter.LogDisplay;
 import com.majalis.save.MutationResult;
 import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveService;
-import com.majalis.screens.EncounterScreen;
 import com.majalis.screens.TimeOfDay;
 
 public class TextScene extends AbstractTextScene  {
@@ -34,13 +33,13 @@ public class TextScene extends AbstractTextScene  {
 	private final Background background;
 	private final AssetManager assetManager;
 	private final PlayerCharacter character;
-	private final AssetDescriptor<Music> music;
+	private final AssetEnum music;
 	private final AssetDescriptor<Sound> sound;
 	private final Label showLog;
 	private final ScrollPane pane;
 	private final LogDisplay log;
 	
-	public TextScene(OrderedMap<Integer, Scene> sceneBranches, int sceneCode, AssetManager assetManager, BitmapFont font, SaveService saveService, final Background background, String toDisplay, Array<Mutation> mutations, PlayerCharacter character, LogDisplay log, AssetDescriptor<Music> music, AssetDescriptor<Sound> sound) {
+	public TextScene(OrderedMap<Integer, Scene> sceneBranches, int sceneCode, AssetManager assetManager, BitmapFont font, SaveService saveService, final Background background, String toDisplay, Array<Mutation> mutations, PlayerCharacter character, LogDisplay log, AssetEnum music, AssetDescriptor<Sound> sound) {
 		super(sceneBranches, sceneCode, assetManager, font, character, saveService, background);
 		this.assetManager = assetManager;
 		this.character = character;
@@ -109,8 +108,7 @@ public class TextScene extends AbstractTextScene  {
 	public void setActive() {
 		super.setActive();
 		if (music != null) {
-			EncounterScreen.setMusic(music);
-			saveService.saveDataValue(SaveEnum.MUSIC, music.fileName);
+			saveService.saveDataValue(SaveEnum.MUSIC, music);
 		};
 		if (sound != null) {
 			assetManager.get(sound).play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume", 1) * .5f);
