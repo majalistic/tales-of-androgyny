@@ -221,7 +221,7 @@ public class WorldMapScreen extends AbstractScreen {
 		currentImage.setScale(.7f);
 		currentImage.setState(0);
 		// this is currently placing the character based on the camera in a way that conveniently places them on their current node - this needs to instead be aware of the current node and be able to grab its position from there (will need to know current node for behavior of Camp/Enter button regardless)
-		currentImage.setPosition(initialTranslation.x + 650, initialTranslation.y + 390);
+		currentImage.setPosition(initialTranslation.x + 646, initialTranslation.y + 390);
 		
 		currentImageGhost = new AnimatedImage(animation, Scaling.fit, Align.right);
 		currentImageGhost.setScale(.7f);
@@ -229,7 +229,7 @@ public class WorldMapScreen extends AbstractScreen {
 		currentImageGhost.getColor().a = .4f;
 		
 		// this is currently placing the character based on the camera in a way that conveniently places them on their current node - this needs to instead be aware of the current node and be able to grab its position from there (will need to know current node for behavior of Camp/Enter button regardless)
-		currentImageGhost.setPosition(initialTranslation.x + 650, initialTranslation.y + 390);
+		currentImageGhost.setPosition(initialTranslation.x + 646, initialTranslation.y + 390);
 		
 		this.world = world;
 		
@@ -545,8 +545,8 @@ public class WorldMapScreen extends AbstractScreen {
 									start.y--;
 								}			
 							}
-							moveActions.add(moveTo(getTrueX((int)start.x) + 12, getTrueY((int)start.x, (int)start.y) + 25, travelTime/totalDistance));
-							moveActionsGhost.add(moveTo(getTrueX((int)start.x) + 12, getTrueY((int)start.x, (int)start.y) + 25, travelTime/totalDistance));
+							moveActions.add(moveTo(getTrueX((int)start.x) + 8, getTrueY((int)start.x, (int)start.y) + 27, travelTime/totalDistance));
+							moveActionsGhost.add(moveTo(getTrueX((int)start.x) + 8, getTrueY((int)start.x, (int)start.y) + 27, travelTime/totalDistance));
 							distance = GameWorldHelper.distance((int)start.x, (int)start.y, (int)finish.x, (int)finish.y);
 						}
 						
