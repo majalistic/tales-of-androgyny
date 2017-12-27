@@ -75,7 +75,7 @@ public abstract class AbstractTextScene extends Scene {
 				else {
 					int textSpeed = Gdx.app.getPreferences("tales-of-androgyny-preferences").getInteger("autoplaySpeed", 5);
 					int baseDisplayTime = display.getText().length / 20 + 2;
-					float speedFactor = 1.5f - (1 + textSpeed / 5f); 
+					float speedFactor = 1.5f - (textSpeed * .1f); 
 					
 					this.addAction(Actions.sequence(Actions.delay(baseDisplayTime * speedFactor), new Action(){
 						@Override
