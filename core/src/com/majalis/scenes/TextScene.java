@@ -113,7 +113,7 @@ public class TextScene extends AbstractTextScene  {
 			saveService.saveDataValue(SaveEnum.MUSIC, music.fileName);
 		};
 		if (sound != null) {
-			EncounterScreen.play(sound);
+			assetManager.get(sound).play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume", 1) * .5f);
 		}
 		background.initAnimation();
 		Array<MutationResult> results = new Array<MutationResult>();

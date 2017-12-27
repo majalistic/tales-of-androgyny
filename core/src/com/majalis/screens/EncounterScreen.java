@@ -49,11 +49,6 @@ public class EncounterScreen extends AbstractScreen {
 		setMusic(musicPath);
 	}
 
-	public static void play(AssetDescriptor<Sound> sound) {
-		assetManager.get(sound)
-				.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume", 1) * .6f);
-	}
-
 	public static void setMusic(AssetDescriptor<Music> musicPath) {
 		if (EncounterScreen.music != null) {
 			EncounterScreen.music.stop();
