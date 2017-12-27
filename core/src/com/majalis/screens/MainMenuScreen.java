@@ -166,6 +166,9 @@ public class MainMenuScreen extends AbstractScreen {
         uiGroup.addActor(arrow2);
         this.addListener(new ClickListener() { @Override public void clicked(InputEvent event, float x, float y) { if (!cutScenePlayed) finishCutScene(); }});
         
+        arrow.addAction(Actions.forever(Actions.sequence(Actions.moveBy(-8, 0, 2), Actions.moveBy(8, 0, 2))));
+        arrow2.addAction(Actions.forever(Actions.sequence(Actions.moveBy(8, 0, 2), Actions.moveBy(-8, 0, 2))));
+        
         Label version = new Label(TalesOfAndrogyny.getVersion(), skin);
         version.setPosition(1400, 0);
         uiGroup.addActor(version);
