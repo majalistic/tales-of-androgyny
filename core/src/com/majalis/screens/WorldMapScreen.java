@@ -88,7 +88,6 @@ public class WorldMapScreen extends AbstractScreen {
 	private final Group worldGroup;
 	private final Group shadowGroup;
 	private final Group cloudGroup;
-	private final Music music;
 	private final InputMultiplexer multi;
 	private final AnimatedImage currentImage;
 	private final AnimatedImage currentImageGhost;
@@ -135,7 +134,7 @@ public class WorldMapScreen extends AbstractScreen {
 	}
 	
 	public WorldMapScreen(ScreenFactory factory, ScreenElements elements, AssetManager assetManager, SaveService saveService, LoadService loadService, Array<GameWorldNode> world, RandomXS128 random) {
-		super(factory, elements);
+		super(factory, elements, AssetEnum.WORLD_MAP_MUSIC);
 		this.assetManager = assetManager;
 		this.saveService = saveService;
 		this.random = random;
@@ -181,7 +180,6 @@ public class WorldMapScreen extends AbstractScreen {
 		food = assetManager.get(AssetEnum.APPLE.getTexture());
 		cloud = assetManager.get(AssetEnum.CLOUD.getTexture());
 		characterUITexture = assetManager.get(AssetEnum.WORLD_MAP_UI.getTexture());
-		music = assetManager.get(AssetEnum.WORLD_MAP_MUSIC.getMusic());
 		hoverImage = new Image(hoverImageTexture);
 		
 		skin = assetManager.get(AssetEnum.UI_SKIN.getSkin());
@@ -424,7 +422,6 @@ public class WorldMapScreen extends AbstractScreen {
 					buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
 					saveService.saveDataValue(SaveEnum.CONTEXT, currentContext);
 					saveService.saveDataValue(SaveEnum.RETURN_CONTEXT, GameContext.WORLD_MAP);
-					music.stop();
 					showScreen(ScreenEnum.CONTINUE);
 		        }
 			}
@@ -481,10 +478,6 @@ public class WorldMapScreen extends AbstractScreen {
 		        }
 			}
 		);	
-		
-		music.setVolume(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("musicVolume", 1) * .6f);
-		music.setLooping(true);
-		music.play();
 		
 		if (!backgroundRendered) {
 			generateBackground();
@@ -690,7 +683,6 @@ public class WorldMapScreen extends AbstractScreen {
 	}
 
 	private void switchContext() {
-		music.stop();
 		character.popPortraitPath();
 		showScreen(ScreenEnum.CONTINUE);
 	}
@@ -732,7 +724,6 @@ public class WorldMapScreen extends AbstractScreen {
 			showScreen(ScreenEnum.CHARACTER);
 		}			
 		else if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
-			music.stop();
 			showScreen(ScreenEnum.MAIN_MENU);
 		}
 		else {
@@ -1231,7 +1222,7 @@ public class WorldMapScreen extends AbstractScreen {
 	@Override
 	public void dispose() {
 		for(AssetDescriptor<?> path: resourceRequirements) {
-			if (path.fileName.equals(AssetEnum.CLICK_SOUND.getSound().fileName)) continue;
+			if (path.fileName.equals(AssetEnum.CLICK_SOUND.getSound().fileName) || path.type == Music.class) continue;
 			assetManager.unload(path.fileName);
 		}
 		for (FrameBuffer frameBuffer : frameBuffers) {

@@ -1,5 +1,6 @@
 package com.majalis.screens;
 
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
@@ -13,24 +14,21 @@ public class ScreenElements {
 	private final FitViewport viewport;
 	private final PolygonSpriteBatch batch;
 	private final FreeTypeFontGenerator fontGenerator;	
+	private final AssetManager assetManager;
 	
-	public ScreenElements(FitViewport viewport, PolygonSpriteBatch batch, FreeTypeFontGenerator fontGenerator) {
+	protected ScreenElements(FitViewport viewport, PolygonSpriteBatch batch, FreeTypeFontGenerator fontGenerator, AssetManager assetManager) {
 		this.viewport = viewport;
 		this.batch = batch;
 		this.fontGenerator = fontGenerator;
+		this.assetManager = assetManager;
 	}
-	
-	public FitViewport getViewport() {
-		return viewport;
-	}
-	
-	public PolygonSpriteBatch getBatch() {
-		return batch;
-	}
-	
-	public BitmapFont getFont(int size) {
+	protected FitViewport getViewport() { return viewport; }
+	protected PolygonSpriteBatch getBatch() { return batch; }
+	protected AssetManager getAssetManager() { return assetManager; }
+	protected BitmapFont getFont(int size) {
 		FreeTypeFontParameter param = new FreeTypeFontParameter();
 		param.size = size;
 		return fontGenerator.generateFont(param);
 	}
+
 }

@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -36,7 +37,7 @@ public class SaveScreen extends AbstractScreen {
 	private final Sound sound;
 	
 	public SaveScreen(ScreenFactory factory, ScreenElements elements, AssetManager assetManager, SaveService saveService) {
-		super(factory, elements);
+		super(factory, elements, null);
 		this.assetManager = assetManager;
 		this.saveService = saveService;
 		this.sound = assetManager.get(AssetEnum.BUTTON_SOUND.getSound());
@@ -208,6 +209,7 @@ public class SaveScreen extends AbstractScreen {
 	@Override
 	public void dispose() {
 		for(AssetDescriptor<?> path: resourceRequirements) {
+			if (path.fileName.equals(AssetEnum.BUTTON_SOUND.getSound().fileName) || path.type == Music.class) continue;
 			assetManager.unload(path.fileName);
 		}
 	}

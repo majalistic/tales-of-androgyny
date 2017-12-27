@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -30,7 +31,7 @@ public class GameOverScreen extends AbstractScreen {
 	private final Sound sound;
 	
 	public GameOverScreen(ScreenFactory factory, ScreenElements elements, AssetManager assetManager, SaveService saveService) {
-		super(factory, elements);
+		super(factory, elements, null);
 		this.assetManager = assetManager;
 		this.saveService = saveService;
 		sound = assetManager.get(AssetEnum.CUM.getSound());
@@ -79,7 +80,9 @@ public class GameOverScreen extends AbstractScreen {
 	@Override
 	public void dispose() {
 		for(AssetDescriptor<?> path: resourceRequirements) {
+			if (path.type == Music.class) continue;
 			assetManager.unload(path.fileName);
 		}
 	}
+	
 }

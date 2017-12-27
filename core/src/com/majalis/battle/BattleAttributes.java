@@ -1,9 +1,9 @@
 package com.majalis.battle;
 
 import com.badlogic.gdx.assets.AssetDescriptor;
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
+import com.majalis.asset.AssetEnum;
 import com.majalis.character.Stance;
 
 /*
@@ -58,7 +58,7 @@ public class BattleAttributes {
 		return outcomes;
 	}
 
-	public AssetDescriptor<Music> getMusic() {
+	public AssetEnum getMusic() {
 		return battleCode.getMusic();
 	}
 }

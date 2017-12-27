@@ -5,7 +5,6 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
@@ -38,14 +37,12 @@ public class OptionScreen extends AbstractScreen {
 	}
 	
 	private final Preferences preferences;
-	private final Music music;
 	private final Skin skin;
 	
 	public OptionScreen(ScreenFactory factory, ScreenElements elements, AssetManager assetManager) {
-		super(factory, elements);
+		super(factory, elements, null);
 		this.addActor(new BackgroundBuilder(assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getTexture())).build());
 		skin = assetManager.get(AssetEnum.UI_SKIN.getSkin());
-		this.music = assetManager.get(AssetEnum.MAIN_MENU_MUSIC.getMusic());
 		final Sound sound = assetManager.get(AssetEnum.BUTTON_SOUND.getSound());
 		
 		preferences  = Gdx.app.getPreferences("tales-of-androgyny-preferences");
@@ -175,7 +172,7 @@ public class OptionScreen extends AbstractScreen {
 	        public void changed(ChangeEvent event, Actor actor) {
 	            final float val = musicSlider.getValue();
 	            preferences.putFloat("musicVolume", val);
-	            music.setVolume(val);
+	            setVolume(val);
 	            musicVolumePercent.setText(String.valueOf((int)(val * 100)) +"%");
 	        }
 	    });
@@ -199,9 +196,7 @@ public class OptionScreen extends AbstractScreen {
 	}
 	
 	@Override
-	public void buildStage() {
-		music.play();
-	}
+	public void buildStage() {}
 	
 	@Override
 	public void render(float delta) {

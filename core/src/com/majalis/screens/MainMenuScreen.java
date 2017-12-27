@@ -55,7 +55,6 @@ public class MainMenuScreen extends AbstractScreen {
 	private final SaveService saveService;
 	private final Skin skin; 
 	private final Texture arrowImage;
-	private final Music music;
 	private final Sound buttonSound;
 	private final Array<TextButton> buttons;
 	private int selection;
@@ -75,12 +74,11 @@ public class MainMenuScreen extends AbstractScreen {
 	private Group uiGroup;
 	
 	public MainMenuScreen(ScreenFactory factory, ScreenElements elements, AssetManager assetManager, SaveService saveService, LoadService loadService) {
-		super(factory, elements);
+		super(factory, elements, AssetEnum.MAIN_MENU_MUSIC);
 		this.assetManager = assetManager;
 		this.saveService = saveService;
 		this.skin = assetManager.get(AssetEnum.UI_SKIN.getSkin());
 		this.arrowImage = assetManager.get(AssetEnum.STANCE_ARROW.getTexture());
-		this.music = assetManager.get(AssetEnum.MAIN_MENU_MUSIC.getMusic());
 		this.buttonSound = assetManager.get(AssetEnum.BUTTON_SOUND.getSound());
 		buttons = new Array<TextButton>();
 		selection = 0;
@@ -179,10 +177,7 @@ public class MainMenuScreen extends AbstractScreen {
         Image alphaBuild = new Image(assetManager.get(AssetEnum.ALPHA.getTexture()));
         alphaBuild.setPosition(600, 10);
         uiGroup.addActor(alphaBuild);
-        
-        music.play();
-        music.setVolume(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("musicVolume", 1));
-        music.setLooping(true);
+       
         activate(0);
         this.addActor(uiGroup);
         uiGroup.setVisible(false);
@@ -269,6 +264,7 @@ public class MainMenuScreen extends AbstractScreen {
 	@Override
 	public void dispose() {
 		for(AssetDescriptor<?> path: resourceRequirements) {
+			if (path.fileName.equals(AssetEnum.BUTTON_SOUND.getSound().fileName) || path.type == Music.class) continue;
 			assetManager.unload(path.fileName);
 		}
 	}
@@ -281,9 +277,6 @@ public class MainMenuScreen extends AbstractScreen {
         		if (screenSelection == ScreenEnum.NEW_GAME) {
         			// ONLY CALL THIS TO DESTROY OLD DATA AND REPLACE WITH A BRAND NEW SAVE
         			saveService.newSave();
-        		}
-        		if (!(screenSelection == ScreenEnum.OPTIONS || screenSelection == ScreenEnum.CREDITS || screenSelection == ScreenEnum.REPLAY)) {
-        			music.stop();
         		}
 	        	showScreen(screenSelection);    
 	        }

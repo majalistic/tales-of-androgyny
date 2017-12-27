@@ -92,7 +92,7 @@ public class ScreenFactoryImpl implements ScreenFactory {
 	private ScreenElements getElements() {
 		OrthographicCamera camera = new OrthographicCamera();
         FitViewport viewport =  new FitViewport(winWidth, winHeight, camera);
-        ScreenElements elements = new ScreenElements(viewport, batch, fontGenerator);
+        ScreenElements elements = new ScreenElements(viewport, batch, fontGenerator, assetManager);
         return elements;
 	}
 	
@@ -183,6 +183,7 @@ public class ScreenFactoryImpl implements ScreenFactory {
 				assetsLoaded = false;
 			}
 			assetManager.load(path);
+			System.out.println(path);
 		}
 		// temporary hack to ensure skin is always loaded
 		assetManager.load(AssetEnum.UI_SKIN.getSkin());
@@ -194,11 +195,7 @@ public class ScreenFactoryImpl implements ScreenFactory {
 		if (getAssetCheck(EncounterScreen.getRequirements((EncounterCode)loadService.loadDataValue(SaveEnum.ENCOUNTER_CODE, Integer.class)))) {
 			EncounterCode encounterCode = loadService.loadDataValue(SaveEnum.ENCOUNTER_CODE, EncounterCode.class);
 			Encounter encounter = encounterFactory.getEncounter(encounterCode, elements.getFont(48));			
-			AssetEnum music = loadService.loadDataValue(SaveEnum.MUSIC, AssetEnum.class);
-			if (music == null) {
-				music = AssetEnum.ENCOUNTER_MUSIC;
-			}
-			return new EncounterScreen(this, elements, assetManager, music, loadService, encounter);
+			return new EncounterScreen(this, elements, assetManager, loadService, encounter);
 		}
 		else {
 			return null;
@@ -271,7 +268,7 @@ public class ScreenFactoryImpl implements ScreenFactory {
 	
 	private class ExitScreen extends AbstractScreen {
 		protected ExitScreen(ScreenFactory factory, ScreenElements elements) {
-			super(factory, elements);
+			super(factory, elements, null);
 		}
 		@Override
 		public void buildStage() {

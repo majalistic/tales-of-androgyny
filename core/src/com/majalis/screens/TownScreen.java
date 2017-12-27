@@ -50,18 +50,16 @@ public class TownScreen extends AbstractScreen {
 	private final Background background;
 	private final Image arrow;
 	private final Sound buttonSound;
-	private final Music music;
 	private final Array<TextButton> buttons;
 	private int selection;
 	
 	protected TownScreen(ScreenFactory screenFactory, ScreenElements elements, AssetManager assetManager, SaveService saveService, int time) {
-		super(screenFactory, elements);
+		super(screenFactory, elements, AssetEnum.SHOP_MUSIC);
 		this.saveService = saveService;
 		skin = assetManager.get(AssetEnum.UI_SKIN.getSkin());
 		background = new BackgroundBuilder(assetManager.get(AssetEnum.TOWN_BG.getTexture()), true).build();
 		background.setColor(getTimeColor(time));
 		arrow = new Image(assetManager.get(AssetEnum.STANCE_ARROW.getTexture()));
-		music = assetManager.get(AssetEnum.SHOP_MUSIC.getMusic());
 		buttonSound = assetManager.get(AssetEnum.BUTTON_SOUND.getSound());
 		
 		buttons = new Array<TextButton>();
@@ -78,7 +76,6 @@ public class TownScreen extends AbstractScreen {
 	        	saveService.saveDataValue(SaveEnum.CONTEXT, SaveManager.GameContext.ENCOUNTER);
 	        	saveService.saveDataValue(SaveEnum.RETURN_CONTEXT, SaveManager.GameContext.TOWN);
 	        	saveService.saveDataValue(SaveEnum.ENCOUNTER_CODE, code);
-	        	music.stop();
 	        	showScreen(ScreenEnum.CONTINUE);    
 	        }
 	    };
@@ -110,7 +107,6 @@ public class TownScreen extends AbstractScreen {
 	        public void clicked(InputEvent event, float x, float y) {
 	        	buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
 	        	saveService.saveDataValue(SaveEnum.CONTEXT, SaveManager.GameContext.WORLD_MAP);
-	        	music.stop();
 	        	showScreen(ScreenEnum.CONTINUE);    
 	        }
 	    });
@@ -123,10 +119,6 @@ public class TownScreen extends AbstractScreen {
         arrow.setSize(45, 75);
         setArrowPosition();
         arrow.setPosition(arrow.getX(), arrow.getY() + 60 * (buttons.size-1));
-        
-        music.play();
-        music.setVolume(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("musicVolume", 1));
-        music.setLooping(true);
 	}
 	
 	@Override
@@ -155,7 +147,6 @@ public class TownScreen extends AbstractScreen {
             buttons.get(selection).fire(event2);
         }
         else if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
-			music.stop();
 			showScreen(ScreenEnum.MAIN_MENU);
 		}
         
@@ -178,4 +169,11 @@ public class TownScreen extends AbstractScreen {
 	    };
 	}
 
+	@Override
+	public void dispose() {
+		for(AssetDescriptor<?> path: resourceRequirements) {
+			if (path.fileName.equals(AssetEnum.BUTTON_SOUND.getSound().fileName) || path.type == Music.class) continue;
+			assetManager.unload(path.fileName);
+		}
+	}
 }

@@ -3,12 +3,15 @@ package com.majalis.screens;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
+import com.majalis.asset.AssetEnum;
 /*
  * Abstract class which all Screens inherit from; each screen has a a single master Stage.  Allows a Screen to switch to a different screen via an enum.
  */
@@ -19,17 +22,26 @@ public abstract class AbstractScreen extends Stage3D implements Screen {
 
 	protected final PolygonSpriteBatch batch;
 	protected final BitmapFont font;
+	protected final AssetManager assetManager;
 	protected final ScreenElements fontFactory;
 	protected boolean debug = false;
 	private float clearRed, clearGreen, clearBlue, clearAlpha;
+	private AssetEnum musicPath;
+	private Music music;
 	
-    protected AbstractScreen(ScreenFactory screenFactory, ScreenElements elements) {
+    //protected AbstractScreen(ScreenFactory screenFactory, ScreenElements elements) {
+    //	this(screenFactory, elements, null);
+    //}
+    
+    protected AbstractScreen(ScreenFactory screenFactory, ScreenElements elements, AssetEnum musicPath) {
         super(elements.getViewport(), elements.getBatch());
         this.game = screenFactory.getGame();
         this.screenFactory = screenFactory;
         this.batch = elements.getBatch();
+        this.assetManager = elements.getAssetManager();
         this.fontFactory = elements;
         this.font = elements.getFont(32);
+        this.musicPath = musicPath;
         clearRed = .9f;
         clearGreen = .8f;
         clearBlue = .6f;
@@ -42,16 +54,50 @@ public abstract class AbstractScreen extends Stage3D implements Screen {
     public void showScreen(ScreenEnum screenRequest) {
     	AbstractScreen newScreen = screenFactory.getScreen(screenRequest);
         // Get current screen to dispose it
-        Screen currentScreen = game.getScreen();
+        AbstractScreen currentScreen = (AbstractScreen) game.getScreen();
     	
+        AssetEnum oldMusicPath = currentScreen.getMusicPath();
+        Music oldMusic = currentScreen.getMusic();
+        
         // Dispose previous screen
         if (currentScreen != null) {
             currentScreen.dispose();
         }
     	// Show new screen
     	newScreen.buildStage();
+    	switchMusic(oldMusicPath, oldMusic, newScreen.getMusicPath(), newScreen);
         game.setScreen(newScreen);
     }  
+    
+    private Music getMusic() { return music; }
+    private AssetEnum getMusicPath() { return musicPath; }
+    
+    protected void setVolume(float volume) {
+    	System.out.println(music + " " + volume);
+    	if (music != null) music.setVolume(volume);
+    }
+    
+    protected void switchMusic(AssetEnum newMusicPath) {
+    	switchMusic(musicPath, music, newMusicPath, this);
+    }
+    
+    private void switchMusic(AssetEnum oldMusicPath, Music oldMusic, AssetEnum newMusicPath, AbstractScreen screenToSet) {
+    	if (newMusicPath == null || newMusicPath == oldMusicPath) {
+    		screenToSet.musicPath = oldMusicPath;
+    		screenToSet.music = oldMusic;
+    		return;
+    	}
+    	if (oldMusic != null) {
+    		oldMusic.stop();
+    		assetManager.unload(oldMusicPath.getMusic().fileName);
+    	}
+    	
+    	screenToSet.musicPath = newMusicPath;
+    	screenToSet.music = assetManager.get(newMusicPath.getMusic());
+    	screenToSet.music.setVolume(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("musicVolume", 1) * .6f);
+    	screenToSet.music.setLooping(true);
+    	screenToSet.music.play();
+    }
     
     public void clear() {
         // Clear screen

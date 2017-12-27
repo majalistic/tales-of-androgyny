@@ -6,7 +6,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
@@ -147,7 +146,7 @@ public class Battle extends Group{
 	private final Label enemyUnderwearDiff;
 	private final Label enemyBleedDiff;
 	
-	private final AssetDescriptor<Music> musicPath;
+	private final AssetEnum musicPath;
 	
 	private SkillText enemySkill;
 	
@@ -166,7 +165,7 @@ public class Battle extends Group{
 	private boolean uiHidden;
 	private boolean onload = true;
 	
-	public Battle(SaveService saveService, AssetManager assetManager, PlayerCharacter character, EnemyCharacter enemy, ObjectMap<String, Integer> outcomes, Background battleBackground, Background battleUI, String consoleText, String dialogText, AssetDescriptor<Music> musicPath) {
+	public Battle(SaveService saveService, AssetManager assetManager, PlayerCharacter character, EnemyCharacter enemy, ObjectMap<String, Integer> outcomes, Background battleBackground, Background battleUI, String consoleText, String dialogText, AssetEnum musicPath) {
 		this.saveService = saveService;
 		this.assetManager = assetManager;
 		this.character = character;
@@ -482,7 +481,7 @@ public class Battle extends Group{
 		consoleComponents.add(dialogText);
 		saveService.saveDataValue(SaveEnum.CONSOLE, consoleComponents);
 	}
-	public AssetDescriptor<Music> getMusicPath() {
+	public AssetEnum getMusicPath() {
 		return musicPath;
 	}
 	

@@ -42,27 +42,12 @@ public class EncounterScreen extends AbstractScreen {
 	private final LoadService loadService;
 	private final Encounter encounter;
 	private TextButton saveButton;
-	private AssetEnum musicPath;
-	private Music music;
 
-	protected EncounterScreen(ScreenFactory screenFactory, ScreenElements elements, AssetManager assetManager, AssetEnum musicPath, LoadService loadService, Encounter encounter) {
-		super(screenFactory, elements);
+	protected EncounterScreen(ScreenFactory screenFactory, ScreenElements elements, AssetManager assetManager, LoadService loadService, Encounter encounter) {
+		super(screenFactory, elements, null);
 		this.assetManager = assetManager;
 		this.loadService = loadService;
 		this.encounter = encounter;
-		setMusic(musicPath);
-	}
-
-	public void setMusic(AssetEnum musicPath) {
-		if (music != null && this.musicPath != musicPath) {
-			music.stop();
-		}
-		
-		this.musicPath = musicPath;
-		music = assetManager.get(this.musicPath.getMusic());
-		music.setVolume(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("musicVolume", 1) * .6f);
-		music.setLooping(true);
-		music.play();
 	}
 
 	@Override
@@ -76,27 +61,23 @@ public class EncounterScreen extends AbstractScreen {
 		saveButton.setPosition(1650, 100);
 		saveButton.setWidth(150);
 		saveButton.addListener(
-				new ClickListener() {
-					@Override
-			        public void clicked(InputEvent event, float x, float y) {
-						buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
-						showScreen(ScreenEnum.SAVE);
-			        }
-				}
-			);	
+			new ClickListener() {
+				@Override
+		        public void clicked(InputEvent event, float x, float y) {
+					buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
+					showScreen(ScreenEnum.SAVE);
+		        }
+			}
+		);	
 		
 		this.addActor(saveButton);
-		
 	}
 
 	@Override
 	public void render(float delta) {
 		super.render(delta);
 		encounter.gameLoop();
-		AssetEnum newMusic = loadService.loadDataValue(SaveEnum.MUSIC, AssetEnum.class);
-		if (newMusic != null && newMusic != musicPath) {
-			setMusic(newMusic);
-		}
+		switchMusic((AssetEnum)loadService.loadDataValue(SaveEnum.MUSIC, AssetEnum.class));
 		if (encounter.showSave) {
 			saveButton.addAction(Actions.show());
 		}
@@ -104,10 +85,8 @@ public class EncounterScreen extends AbstractScreen {
 			saveButton.addAction(Actions.hide());
 		}
 		if (encounter.isSwitching()) {
-			music.stop();
 			showScreen(ScreenEnum.CONTINUE);
 		} else if (encounter.gameExit) {
-			music.stop();
 			showScreen(ScreenEnum.MAIN_MENU);
 		} else {
 			draw();
@@ -126,7 +105,7 @@ public class EncounterScreen extends AbstractScreen {
 	@Override
 	public void dispose() {
 		for (AssetDescriptor<?> path : requirementsToDispose) {
-			if (path.fileName.equals(AssetEnum.BUTTON_SOUND.getSound().fileName))
+			if (path.fileName.equals(AssetEnum.BUTTON_SOUND.getSound().fileName) || path.type == Music.class)
 				continue;
 			assetManager.unload(path.fileName);
 		}

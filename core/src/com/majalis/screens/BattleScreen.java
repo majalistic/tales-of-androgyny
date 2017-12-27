@@ -1,7 +1,6 @@
 package com.majalis.screens;
 
 import static com.majalis.asset.AssetEnum.*;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
@@ -44,22 +43,17 @@ public class BattleScreen extends AbstractScreen{
 	private final SaveService saveService;
 	private final Battle battle;
 	private final AssetManager assetManager;
-	private final Music music;
 	
 	protected BattleScreen(ScreenFactory screenFactory, ScreenElements elements, SaveService saveService, Battle battle, AssetManager assetManager) {
-		super(screenFactory, elements);
+		super(screenFactory, elements, battle.getMusicPath());
 		this.saveService = saveService;
 		this.battle = battle;
 		this.assetManager = assetManager;
-		this.music = assetManager.get(battle.getMusicPath());
 	}
 
 	@Override
 	public void buildStage() {
 		addActor(battle);
-		music.setVolume(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("musicVolume", 1) * .6f);
-		music.setLooping(true);
-		music.play();
 	}
 
 	@Override
@@ -68,7 +62,6 @@ public class BattleScreen extends AbstractScreen{
 		battle.battleLoop();
 		if (battle.gameExit) {
 			showScreen(ScreenEnum.MAIN_MENU);
-			music.stop();
 		}
 		// this terminates the battle
 		else if (battle.isBattleOver()) {	
@@ -76,15 +69,13 @@ public class BattleScreen extends AbstractScreen{
 			saveService.saveDataValue(SaveEnum.SCENE_CODE, battle.getOutcomeScene());
 			saveService.saveDataValue(SaveEnum.ENEMY, null); // this may need to be removed if the enemy needs to persist until the end of the encounter; endScenes would have to perform this save or the encounter screen itself
 			showScreen(ScreenEnum.ENCOUNTER);
-			// this should play victory or defeat music
-			music.stop();
 		}
 	}
 	
 	@Override
 	public void dispose() {
 		for(AssetDescriptor<?> path: requirementsToDispose) {
-			if (path.fileName.equals(BUTTON_SOUND.getSound().fileName)) continue;
+			if (path.fileName.equals(AssetEnum.BUTTON_SOUND.getSound().fileName) || path.type == Music.class) continue;
 			assetManager.unload(path.fileName);
 		}
 		requirementsToDispose = new Array<AssetDescriptor<?>>();

@@ -6,6 +6,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -76,7 +77,7 @@ public class ReplayScreen extends AbstractScreen {
 	private String nothingToDisplay;
 	
 	public ReplayScreen(ScreenFactory factory, ScreenElements elements, AssetManager assetManager, ObjectMap<String, Integer> enemyKnowledge) {
-		super(factory, elements);
+		super(factory, elements, null);
 		this.addActor(new BackgroundBuilder(assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getTexture())).build());
 		this.assetManager = assetManager;
 		this.enemyKnowledge = enemyKnowledge;
@@ -295,5 +296,13 @@ public class ReplayScreen extends AbstractScreen {
 		super.show();
 	    getRoot().getColor().a = 0;
 	    getRoot().addAction(Actions.fadeIn(0.5f));
+	}
+	
+	@Override
+	public void dispose() {
+		for(AssetDescriptor<?> path: resourceRequirements) {
+			if (path.fileName.equals(AssetEnum.BUTTON_SOUND.getSound().fileName) || path.type == Music.class) continue;
+			assetManager.unload(path.fileName);
+		}
 	}
 }

@@ -2,6 +2,7 @@ package com.majalis.screens;
 
 import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Array;
 import com.majalis.asset.AssetEnum;
@@ -24,7 +25,7 @@ public class LevelUpScreen extends AbstractScreen {
 	private final SaveService saveService;
 	private final Encounter encounter;
 	protected LevelUpScreen(ScreenFactory screenFactory, ScreenElements elements, AssetManager assetManager, SaveService saveService, Encounter encounter) {
-		super(screenFactory, elements);
+		super(screenFactory, elements, null);
 		this.assetManager = assetManager;
 		this.saveService = saveService;
 		this.encounter = encounter;
@@ -54,9 +55,8 @@ public class LevelUpScreen extends AbstractScreen {
 	@Override
 	public void dispose() {
 		for(AssetDescriptor<?> path: resourceRequirements) {
-			if (path.fileName.equals(AssetEnum.BUTTON_SOUND.getSound().fileName)) continue;
+			if (path.fileName.equals(AssetEnum.BUTTON_SOUND.getSound().fileName) || path.type == Music.class) continue;
 			assetManager.unload(path.fileName);
 		}
 	}
-	
 }

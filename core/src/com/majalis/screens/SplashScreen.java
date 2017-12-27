@@ -27,7 +27,7 @@ public class SplashScreen extends AbstractScreen {
 	private Texture background;
 	
 	public SplashScreen(ScreenFactory factory, ScreenElements elements, AssetManager assetManager, int minTime, boolean fullLoad) {
-		super(factory, elements);
+		super(factory, elements, null);
 		this.assetManager = assetManager;
 		this.minTime = minTime;
 		this.fullLoad = fullLoad;

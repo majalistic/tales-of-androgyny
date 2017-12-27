@@ -31,7 +31,7 @@ public class LoadScreen extends AbstractScreen {
 	private final Skin skin;
 	
 	public LoadScreen(ScreenFactory factory, ScreenElements elements, AssetManager assetManager, ScreenEnum screenRequest) {
-		super(factory, elements);
+		super(factory, elements, null);
 		this.assetManager = assetManager;
 		this.skin = assetManager.get(AssetEnum.BATTLE_SKIN.getSkin());
 		this.loadingImage = new Image(assetManager.get(AssetEnum.LOADING.getTexture()));

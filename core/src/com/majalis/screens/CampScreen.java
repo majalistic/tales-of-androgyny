@@ -55,7 +55,6 @@ public class CampScreen extends AbstractScreen {
 	private final Background background;
 	private final Image arrow;
 	private final Sound buttonSound;
-	private final Music music;
 	private final Array<TextButton> buttons;
 	private final Texture characterUITexture;
 	private final Texture food;
@@ -66,7 +65,7 @@ public class CampScreen extends AbstractScreen {
 	private TextButton departButton;
 	
 	protected CampScreen(ScreenFactory screenFactory, ScreenElements elements, AssetManager assetManager, SaveService saveService, PlayerCharacter character, int time) {
-		super(screenFactory, elements);
+		super(screenFactory, elements, AssetEnum.SHOP_MUSIC);
 		this.saveService = saveService;
 		this.character = character;
 		skin = assetManager.get(AssetEnum.UI_SKIN.getSkin());
@@ -79,7 +78,6 @@ public class CampScreen extends AbstractScreen {
 		
 		background.setColor(getTimeColor(time));
 		arrow = new Image(assetManager.get(AssetEnum.STANCE_ARROW.getTexture()));
-		music = assetManager.get(AssetEnum.SHOP_MUSIC.getMusic());
 		buttonSound = assetManager.get(AssetEnum.BUTTON_SOUND.getSound());
 		
 		buttons = new Array<TextButton>();
@@ -113,7 +111,6 @@ public class CampScreen extends AbstractScreen {
 		saveService.saveDataValue(SaveEnum.ENCOUNTER_CODE, encounter);
 		saveService.saveDataValue(SaveEnum.CONTEXT, SaveManager.GameContext.ENCOUNTER);
 		saveService.saveDataValue(SaveEnum.RETURN_CONTEXT, SaveManager.GameContext.CAMP);
-    	music.stop();
     	showScreen(ScreenEnum.CONTINUE);    
 	}
 	
@@ -181,7 +178,6 @@ public class CampScreen extends AbstractScreen {
 	        public void clicked(InputEvent event, float x, float y) {
 	        	buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
 	        	saveService.saveDataValue(SaveEnum.CONTEXT, SaveManager.GameContext.WORLD_MAP);
-	        	music.stop();
 	        	showScreen(ScreenEnum.CONTINUE);    
 	        }
 	    });
@@ -206,10 +202,6 @@ public class CampScreen extends AbstractScreen {
 		this.addActor(console);
 		console.setPosition(900, 150);
 		console.setAlignment(Align.top);
-        
-        music.play();
-        music.setVolume(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("musicVolume", 1));
-        music.setLooping(true);
 	}
 	
 	@Override
@@ -238,7 +230,6 @@ public class CampScreen extends AbstractScreen {
             buttons.get(selection).fire(event2);
         }
         else if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
-			music.stop();
 			showScreen(ScreenEnum.MAIN_MENU);
 		}
         
@@ -275,4 +266,11 @@ public class CampScreen extends AbstractScreen {
 	    };
 	}
 
+	@Override
+	public void dispose() {
+		for(AssetDescriptor<?> path: resourceRequirements) {
+			if (path.fileName.equals(AssetEnum.BUTTON_SOUND.getSound().fileName) || path.type == Music.class) continue;
+			assetManager.unload(path.fileName);
+		}
+	}
 }

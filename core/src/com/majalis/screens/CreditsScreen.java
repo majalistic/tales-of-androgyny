@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -27,7 +28,7 @@ public class CreditsScreen extends AbstractScreen{
 	
 	private final String credits;
 	protected CreditsScreen(ScreenFactory screenFactory, ScreenElements elements, AssetManager assetManager) {
-		super(screenFactory, elements);
+		super(screenFactory, elements, null);
 		this.addActor(new BackgroundBuilder(assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getTexture())).build());
 		Skin skin = assetManager.get(AssetEnum.UI_SKIN.getSkin());
 		final Sound sound = assetManager.get(AssetEnum.BUTTON_SOUND.getSound());
@@ -92,4 +93,11 @@ public class CreditsScreen extends AbstractScreen{
 	    getRoot().addAction(Actions.fadeIn(0.5f));
 	}
 	
+	@Override
+	public void dispose() {
+		for(AssetDescriptor<?> path: resourceRequirements) {
+			if (path.fileName.equals(AssetEnum.BUTTON_SOUND.getSound().fileName) || path.type == Music.class) continue;
+			assetManager.unload(path.fileName);
+		}
+	}
 }

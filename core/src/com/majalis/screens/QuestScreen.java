@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -29,7 +30,7 @@ public class QuestScreen extends AbstractScreen {
 	private final PlayerCharacter character;
 	
 	public QuestScreen(ScreenFactory factory, ScreenElements elements, AssetManager assetManager, PlayerCharacter character) {
-		super(factory, elements);
+		super(factory, elements, null);
 		this.assetManager = assetManager;
 		this.character = character;
 		setClearColor(Color.FOREST.r, Color.FOREST.g, Color.FOREST.b, 1);
@@ -81,6 +82,7 @@ public class QuestScreen extends AbstractScreen {
 	@Override
 	public void dispose() {
 		for(AssetDescriptor<?> path: resourceRequirements) {
+			if (path.fileName.equals(AssetEnum.BUTTON_SOUND.getSound().fileName) || path.type == Music.class) continue;
 			assetManager.unload(path.fileName);
 		}
 	}
