@@ -195,6 +195,9 @@ public class ScreenFactoryImpl implements ScreenFactory {
 			EncounterCode encounterCode = loadService.loadDataValue(SaveEnum.ENCOUNTER_CODE, EncounterCode.class);
 			Encounter encounter = encounterFactory.getEncounter(encounterCode, elements.getFont(48));			
 			AssetEnum music = loadService.loadDataValue(SaveEnum.MUSIC, AssetEnum.class);
+			if (music == null) {
+				music = AssetEnum.ENCOUNTER_MUSIC;
+			}
 			return new EncounterScreen(this, elements, assetManager, music, loadService, encounter);
 		}
 		else {

@@ -108,7 +108,7 @@ public class SaveManager implements SaveService, LoadService {
 	    	case GOLD:				result.addAll(save.player.modMoney((Integer) object)); break; 
 	    	case DEBT:				result.addAll(save.player.modDebt((Integer) object)); break;
 	    	case MODE:				save.mode = (GameMode) object; if ((GameMode) object == GameMode.SKIRMISH) save.player.load(); break;
-	    	case MUSIC:				save.music = (AssetEnum) object; break;
+	    	case MUSIC:				save.newMusic = (AssetEnum) object; break;
 	    	case CONSOLE:			save.console = (Array<String>) object; break;
 	    	case ANAL:				result.addAll(save.player.receiveSex((SexualExperience) object)); break;
 	    	case ITEM:				result.addAll(save.player.receiveItem((Item) object)); break;
@@ -146,7 +146,7 @@ public class SaveManager implements SaveService, LoadService {
 	    	case FOOD: 				return (T) (Integer) save.player.getFood();
 	    	case EXPERIENCE:		return (T) (Integer) save.player.getExperience();
 	    	case MODE:				return (T) (GameMode) save.mode;
-	    	case MUSIC:				return (T) (AssetEnum) save.music;
+	    	case MUSIC:				return (T) (AssetEnum) save.newMusic;
 	    	case CONSOLE:			return (T) (Array<String>) save.console;
 	    	case ANAL:			
 	    	case ITEM:
@@ -270,7 +270,9 @@ public class SaveManager implements SaveService, LoadService {
 		private GameContext context;
 		private GameContext returnContext;
     	private GameMode mode;
-    	private AssetEnum music;
+    	@SuppressWarnings("unused")
+		private String music;
+    	private AssetEnum newMusic;
     	private int worldSeed;
     	private IntArray sceneCode;
     	private EncounterCode encounterCode;
