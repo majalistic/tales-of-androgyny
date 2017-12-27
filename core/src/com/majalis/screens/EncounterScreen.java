@@ -5,10 +5,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
@@ -39,14 +41,20 @@ public class EncounterScreen extends AbstractScreen {
 	}
 	private final LoadService loadService;
 	private final Encounter encounter;
-	private TextButton saveButton;
-	private TextButton skipButton;
+	private final TextButton saveButton;
+	private final TextButton skipButton;
+	private final TextButton autoplayButton;
 	private boolean skipHeld;
 	
 	protected EncounterScreen(ScreenFactory screenFactory, ScreenElements elements, LoadService loadService, Encounter encounter) {
 		super(screenFactory, elements, null);
 		this.loadService = loadService;
 		this.encounter = encounter;
+		Skin skin = assetManager.get(AssetEnum.UI_SKIN.getSkin());
+		saveButton = new TextButton("Save", skin);
+		skipButton = new TextButton("Skip", skin);
+		autoplayButton = new TextButton("Auto", skin);
+		if (Gdx.app.getPreferences("tales-of-androgyny-preferences").getBoolean("autoplay", false)) autoplayButton.setColor(Color.YELLOW);
 	}
 
 	@Override
@@ -56,7 +64,7 @@ public class EncounterScreen extends AbstractScreen {
 		}
 		
 		final Sound buttonSound = assetManager.get(AssetEnum.BUTTON_SOUND.getSound());
-		saveButton = new TextButton("Save", assetManager.get(AssetEnum.UI_SKIN.getSkin()));
+		
 		saveButton.setPosition(1650, 100);
 		saveButton.setWidth(150);
 		saveButton.addListener(
@@ -71,7 +79,6 @@ public class EncounterScreen extends AbstractScreen {
 		
 		this.addActor(saveButton);
 		
-		skipButton = new TextButton("Skip", assetManager.get(AssetEnum.UI_SKIN.getSkin()));
 		skipButton.setPosition(1650, 175);
 		skipButton.setWidth(150);
 		skipButton.addListener(
@@ -91,6 +98,20 @@ public class EncounterScreen extends AbstractScreen {
 		
 		this.addActor(skipButton);
 		
+		autoplayButton.setPosition(1650, 250);
+		autoplayButton.setWidth(150);
+		autoplayButton.addListener(
+			new ClickListener() {
+				@Override
+		        public void clicked(InputEvent event, float x, float y) {
+					Gdx.app.getPreferences("tales-of-androgyny-preferences").putBoolean("autoplay", !Gdx.app.getPreferences("tales-of-androgyny-preferences").getBoolean("autoplay", false));
+					if (Gdx.app.getPreferences("tales-of-androgyny-preferences").getBoolean("autoplay", false)) autoplayButton.setColor(Color.YELLOW);
+					else autoplayButton.setColor(Color.WHITE);
+		        }
+			}
+		);	
+		
+		this.addActor(autoplayButton);
 	}
 
 	@Override
@@ -105,11 +126,13 @@ public class EncounterScreen extends AbstractScreen {
 		if (encounter.showSave) {
 			saveButton.addAction(Actions.show());
 			skipButton.addAction(Actions.show());
+			autoplayButton.addAction(Actions.show());
 		}
 		else {
 			skipHeld = false;
 			saveButton.addAction(Actions.hide());
 			skipButton.addAction(Actions.hide());
+			autoplayButton.addAction(Actions.hide());
 		}
 		if (encounter.isSwitching()) {
 			showScreen(ScreenEnum.CONTINUE);

@@ -144,6 +144,7 @@ public class TextScene extends AbstractTextScene  {
 	
 	@Override
 	protected void nextScene() {
+		clearActions();
 		sceneBranches.get(sceneBranches.orderedKeys().get(0)).setActive();
 		isActive = false;
 		addAction(Actions.hide());

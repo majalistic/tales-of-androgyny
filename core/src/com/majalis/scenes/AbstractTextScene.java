@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -31,6 +32,7 @@ public abstract class AbstractTextScene extends Scene {
 	protected final Image fullnessIcon;
 	protected final Skin skin;
 	protected final Background background;
+	private boolean isAutoplay;
 	
 	protected AbstractTextScene(OrderedMap<Integer, Scene> sceneBranches, int sceneCode, AssetManager assetManager, BitmapFont font, PlayerCharacter character, SaveService saveService, Background background) {
 		super(sceneBranches, sceneCode);
@@ -63,6 +65,24 @@ public abstract class AbstractTextScene extends Scene {
 		if (Gdx.input.isKeyJustPressed(Keys.ENTER) || Gdx.input.isKeyJustPressed(Keys.SPACE) || Gdx.input.isKeyPressed(Keys.CONTROL_LEFT) || Gdx.input.isKeyPressed(Keys.CONTROL_RIGHT)) {
 			nextScene();
 		}
+		if (isActive) {
+			boolean autoplay = Gdx.app.getPreferences("tales-of-androgyny-preferences").getBoolean("autoplay", false);
+			if (isAutoplay != autoplay) {
+				isAutoplay = autoplay;
+				if (!isAutoplay) {
+					this.clearActions();
+				}
+				else {
+					this.addAction(Actions.sequence(Actions.delay(display.getText().length / 20 + 2), new Action(){
+						@Override
+						public boolean act(float delta) {
+							clearActions();
+							nextScene();
+							return true;
+						}}));
+				}
+			}
+		}		
 	}
 	
 	@Override

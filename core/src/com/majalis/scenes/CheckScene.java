@@ -117,6 +117,7 @@ public class CheckScene extends AbstractTextScene {
 	
 	@Override
 	protected void nextScene() {
+		clearActions();
 		nextScene.setActive();
 		isActive = false;
 		addAction(Actions.hide());	
