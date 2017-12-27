@@ -73,7 +73,6 @@ public abstract class AbstractScreen extends Stage3D implements Screen {
     private AssetEnum getMusicPath() { return musicPath; }
     
     protected void setVolume(float volume) {
-    	System.out.println(music + " " + volume);
     	if (music != null) music.setVolume(volume);
     }
     
