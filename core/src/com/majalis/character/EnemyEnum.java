@@ -24,7 +24,7 @@ public enum EnemyEnum {
 	UNICORN (new EnemyTemplate(WeaponType.Bow).setEndurance(4).setAgility(4).setPerception(5).setShield(ArmorType.SHIELD), "Unicorn", null, AnimationEnum.UNICORN),
 	GOBLIN (new EnemyTemplate(WeaponType.Dagger).setStrength(4).setEndurance(4).setAgility(5), "Goblin", AssetEnum.GOBLIN.getTexture()), 
 	GOBLIN_MALE (new EnemyTemplate(WeaponType.Dagger).setStrength(4).setEndurance(4).setAgility(5), "Goblin (Male)", AssetEnum.GOBLIN_MALE.getTexture()),
-	ORC (new EnemyTemplate(WeaponType.Chain, 7, 6, 4, 3, 3, 3).setArmor(ArmorType.MEDIUM_ENEMY_ARMOR).setLegwear(ArmorType.MEDIUM_ENEMY_LEGWEAR).addHealth(10).setShield(ArmorType.SHIELD), "Orc", null, AnimationEnum.ORC), 
+	ORC (new EnemyTemplate(WeaponType.Chain, 6, 5, 4, 3, 3, 3).setArmor(ArmorType.MEDIUM_ENEMY_ARMOR).setLegwear(ArmorType.MEDIUM_ENEMY_LEGWEAR).addHealth(10).setShield(ArmorType.SHIELD), "Orc", null, AnimationEnum.ORC), 
 	ADVENTURER (new EnemyTemplate(WeaponType.Axe, 4, 4, 4, 3, 4, 6).setArmor(ArmorType.MEDIUM_ENEMY_ARMOR).setLegwear(ArmorType.MEDIUM_ENEMY_LEGWEAR).addHealth(10).setMana(26).setShield(ArmorType.SHIELD), "Adventurer", AssetEnum.ADVENTURER.getTexture()),
 	OGRE (new EnemyTemplate(WeaponType.Greatclub, 8, 6, 4, 3, 3, 3).setArmor(null).setLegwear(null).setHealth(new IntArray(new int[]{20, 20, 20})), "Ogre", AssetEnum.OGRE.getTexture()),
 	BEASTMISTRESS (new EnemyTemplate(WeaponType.Claw).setStrength(6).setAgility(8).setEndurance(5).addHealth(10), "Beast Mistress", AssetEnum.BEASTMISTRESS.getTexture()),
