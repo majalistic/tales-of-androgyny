@@ -28,11 +28,14 @@ import com.majalis.character.Item.EffectType;
 import com.majalis.character.Item.Misc;
 import com.majalis.character.Item.MiscType;
 import com.majalis.character.Item.Plug;
+import com.majalis.character.Item.Accessory;
+import com.majalis.character.Item.AccessoryType;
 import com.majalis.character.Item.ChastityCage;
 import com.majalis.character.Item.Potion;
 import com.majalis.character.Item.Weapon;
 import com.majalis.character.Item.WeaponType;
 import com.majalis.character.PlayerCharacter;
+import com.majalis.character.AbstractCharacter.Stat;
 import com.majalis.encounter.Background;
 import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveService;
@@ -208,6 +211,12 @@ public class ShopScene extends Scene {
 					shop.items.add(new Armor(ArmorType.DIAMOND_PLATE));	
 					shop.items.add(new Armor(ArmorType.SKIRT));	
 					shop.items.add(new Armor(ArmorType.BATTLE_SKIRT));	
+					shop.items.add(new Accessory(AccessoryType.STATBOOSTER, Stat.STRENGTH));	
+					shop.items.add(new Accessory(AccessoryType.STATBOOSTER, Stat.ENDURANCE));	
+					shop.items.add(new Accessory(AccessoryType.STATBOOSTER, Stat.AGILITY));	
+					shop.items.add(new Accessory(AccessoryType.STATBOOSTER, Stat.PERCEPTION));	
+					shop.items.add(new Accessory(AccessoryType.STATBOOSTER, Stat.MAGIC));	
+					shop.items.add(new Accessory(AccessoryType.STATBOOSTER, Stat.CHARISMA));	
 					shop.items.add(new Misc(MiscType.KEY));	
 				}
 				break;

@@ -4,6 +4,7 @@ import com.majalis.asset.AssetEnum;
 import com.majalis.character.Attack.AttackHeight;
 import com.majalis.character.Attack.Status;
 import com.majalis.character.Item.Accessory;
+import com.majalis.character.Item.AccessoryType;
 import com.majalis.character.Item.ChastityCage;
 import com.majalis.character.Item.EffectType;
 import com.majalis.character.Item.ItemEffect;
@@ -253,7 +254,7 @@ public abstract class AbstractCharacter extends Actor {
 	
 	protected void modMana(int manaMod) { this.currentMana += manaMod; if (currentMana > getMaxMana()) currentMana = getMaxMana(); if (currentMana < 0) currentMana = 0; }
 
-	protected int getStrength() { return Math.max(((baseStrength + getStrengthBuff()) - (getHealthDegradation() + getStaminaDegradation())/2)/(strengthDebuffed() ? 2 : 1), 0); }
+	protected int getStrength() { return Math.max(((baseStrength + itemBonus(Stat.STRENGTH) + getStrengthBuff()) - (getHealthDegradation() + getStaminaDegradation())/2)/(strengthDebuffed() ? 2 : 1), 0); }
 	
 	protected int getStrengthBuff() { return statuses.get(StatusType.STRENGTH_BUFF.toString(), 0); }
 	protected int getEnduranceBuff() { return statuses.get(StatusType.ENDURANCE_BUFF.toString(), 0); }
@@ -263,15 +264,17 @@ public abstract class AbstractCharacter extends Actor {
 	
 	protected int stepDown(int value) { if (value < 3) return value; else if (value < 7) return 3 + (value - 3)/2; else return 5 + (value - 7)/3; } 
 	
-	protected int getEndurance() { return Math.max((baseEndurance + getEnduranceBuff()) - (getHealthDegradation()), 0); }
+	protected int getEndurance() { return Math.max((baseEndurance + itemBonus(Stat.ENDURANCE) + getEnduranceBuff()) - (getHealthDegradation()), 0); }
 	
-	protected int getAgility() { return Math.max((baseAgility + getAgilityBuff()) - (getHealthDegradation() + getStaminaDegradation() + getCumInflation()), 0); }
+	protected int getAgility() { return Math.max((baseAgility + itemBonus(Stat.AGILITY) + getAgilityBuff()) - (getHealthDegradation() + getStaminaDegradation() + getCumInflation()), 0); }
 
-	protected int getPerception() { return Math.max(basePerception, 0); }
+	protected int getPerception() { return Math.max(basePerception + itemBonus(Stat.PERCEPTION), 0); }
 
-	protected int getMagic() { return Math.max(baseMagic, 0); }
+	protected int getMagic() { return Math.max(baseMagic + itemBonus(Stat.MAGIC), 0); }
 
-	protected int getCharisma() { return Math.max(baseCharisma, 0); }
+	protected int getCharisma() { return Math.max(baseCharisma + itemBonus(Stat.CHARISMA), 0); }
+	
+	protected int itemBonus(Stat stat) { return firstAccessory != null && firstAccessory.equals(new Accessory(AccessoryType.STATBOOSTER, stat)) ? 1 : 0; }
 	
 	protected int getBaseDefense() { return Math.max(baseDefense, 0); }
 	protected int getTraction() { return 2; }
@@ -1151,6 +1154,20 @@ public abstract class AbstractCharacter extends Actor {
 		}
 		public AssetDescriptor<Texture> getAsset() {
 			return asset.getTexture();
+		}
+		public String getLabel() {
+			char[] chars = super.toString().replace("_", " ").toLowerCase().toCharArray();
+			boolean found = false;
+			for (int i = 0; i < chars.length; i++) {
+				if (!found && Character.isLetter(chars[i])) {
+					chars[i] = Character.toUpperCase(chars[i]);
+					found = true;
+			    } 
+				else if (Character.isWhitespace(chars[i])) {
+					found = false;
+			    }
+			}		
+			return String.valueOf(chars);
 		}
 		public String getDescription() {
 			return description;

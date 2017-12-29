@@ -258,33 +258,40 @@ public abstract class Item {
 	
 	public static class Accessory extends Item {
 		private final AccessoryType type;
+		private final Stat stat;
 		@SuppressWarnings("unused")
-		private Accessory() { type = null; }
+		private Accessory() { type = null; stat = null; }
 		
 		public Accessory(AccessoryType type) {
-			this.type = type;
+			this(type, null);
 		}
+		
+		public Accessory(AccessoryType type, Stat stat) {
+			this.type = type;
+			this.stat = stat;
+		}
+				
 		public AccessoryType getType() { return type; }
 		@Override
 		public int getValue() { return 200; }
 		@Override
 		protected ItemEffect getUseEffect() { return null; }
 		@Override
-		public String getName() { return "Hunger Charm"; }
+		public String getName() { return type == AccessoryType.HUNGER_CHARM ? "Hunger Charm" : stat.getLabel() + " Charm"; }
 		@Override
-		public String getDescription() { return "Wards off hunger."; }
+		public String getDescription() { return type == AccessoryType.HUNGER_CHARM ? "Wards off hunger." : "Increases " + stat.getLabel() + " by 1."; }
 		@Override
 		public boolean isEquippable() { return true; }
 		@Override 
 		public boolean equals(Object o) {
 			if (o == null || o.getClass() != Accessory.class) return false;
 			Accessory compare = (Accessory) o;
-			return super.equals(o) && compare.type == this.type;
+			return super.equals(o) && compare.type == this.type && compare.stat == this.stat;
 		}
 	}
 	
 	public enum AccessoryType {
-		HUNGER_CHARM
+		HUNGER_CHARM, STATBOOSTER
 	}
 	
 	public static class Potion extends Item {
