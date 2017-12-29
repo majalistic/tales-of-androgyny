@@ -28,10 +28,6 @@ public abstract class AbstractScreen extends Stage3D implements Screen {
 	private float clearRed, clearGreen, clearBlue, clearAlpha;
 	private AssetEnum musicPath;
 	private Music music;
-	
-    //protected AbstractScreen(ScreenFactory screenFactory, ScreenElements elements) {
-    //	this(screenFactory, elements, null);
-    //}
     
     protected AbstractScreen(ScreenFactory screenFactory, ScreenElements elements, AssetEnum musicPath) {
         super(elements.getViewport(), elements.getBatch());
