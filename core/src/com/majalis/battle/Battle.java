@@ -553,6 +553,7 @@ public class Battle extends Group{
 	}
 	
 	private void displayTechniqueOptions() {
+		techniquePane.clearActions();
 		techniqueTable.clear();
 		Array<Technique> options = character.getPossibleTechniques(enemy);
 		optionButtons = new Array<TextButton>();
