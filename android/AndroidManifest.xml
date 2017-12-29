@@ -8,12 +8,12 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/ic_launcher"
+        android:icon="@mipmap/toa_launcher"
         android:label="@string/app_name"
         android:theme="@style/GdxTheme" >
         <activity
             android:name="com.majalis.talesofandrogyny.AndroidLauncher"
-            android:label="@string/app_name" 
+            android:label="Tales of Androgyny"
             android:screenOrientation="landscape"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize">
             <intent-filter>
