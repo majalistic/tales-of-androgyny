@@ -1203,16 +1203,17 @@ public class EncounterBuilder {
 			        new Branch(Outcome.SATISFIED).textScene("WEREWOLF-SATISFIED")
 			    ).getEncounter();
 			case WITCH_COTTAGE:
+				Branch magicShop = new Branch().textScene("WITCH-COTTAGE-STORE").choiceScene("Peruse her wares?", new Branch("Peruse").shopScene(ShopCode.MAGIC_SHOP), new Branch("Leave"));
 				Branch purchase = new Branch().choiceScene(
 					"Purchase the goddess' blessing?", 
-					new Branch("Pay 100 GP").require(ChoiceCheckType.GOLD_GREATER_THAN_X, 100).textScene("WITCH-COTTAGE-MONEY"), 
-					new Branch("Pay with soulbit").textScene("WITCH-COTTAGE-SOUL"), 
-					new Branch("Give her the gem").require(ChoiceCheckType.HAS_GEM).textScene("WITCH-COTTAGE-GEM"), 
+					new Branch("Pay 100 GP").require(ChoiceCheckType.GOLD_GREATER_THAN_X, 100).textScene("WITCH-COTTAGE-MONEY").concat(magicShop), 
+					new Branch("Pay with soulbit").textScene("WITCH-COTTAGE-SOUL").concat(magicShop), 
+					new Branch("Give her the gem").require(ChoiceCheckType.HAS_GEM).textScene("WITCH-COTTAGE-GEM").concat(magicShop), 
 					new Branch("Don't buy it")
 				);
 				return new Branch().checkScene(
 					CheckType.WITCH_MET, 
-					new Branch(true).checkScene(CheckType.BLESSING_PURCHASED, new Branch(true).textScene("WITCH-COTTAGE-RETURN-BOUGHT"), new Branch(false).textScene("WITCH-COTTAGE-RETURN-BUY").concat(purchase)), 
+					new Branch(true).checkScene(CheckType.BLESSING_PURCHASED, new Branch(true).textScene("WITCH-COTTAGE-RETURN-BOUGHT").concat(magicShop), new Branch(false).textScene("WITCH-COTTAGE-RETURN-BUY").concat(purchase)), 
 					new Branch(false).checkScene(
 						CheckType.CRIER_KNOWLEDGE, 
 						new Branch(true).textScene("WITCH-COTTAGE").concat(purchase), 

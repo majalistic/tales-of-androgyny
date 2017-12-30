@@ -213,14 +213,17 @@ public class ShopScene extends Scene {
 					shop.items.add(new Armor(ArmorType.BATTLE_SKIRT));	
 					shop.items.add(new Armor(ArmorType.SHIELD));	
 					shop.items.add(new Armor(ArmorType.REINFORCED_SHIELD));	
-					shop.items.add(new Accessory(AccessoryType.STATBOOSTER, Stat.STRENGTH));	
-					shop.items.add(new Accessory(AccessoryType.STATBOOSTER, Stat.ENDURANCE));	
-					shop.items.add(new Accessory(AccessoryType.STATBOOSTER, Stat.AGILITY));	
-					shop.items.add(new Accessory(AccessoryType.STATBOOSTER, Stat.PERCEPTION));	
-					shop.items.add(new Accessory(AccessoryType.STATBOOSTER, Stat.MAGIC));	
-					shop.items.add(new Accessory(AccessoryType.STATBOOSTER, Stat.CHARISMA));	
+					
 					shop.items.add(new Misc(MiscType.KEY));	
 				}
+				break;
+			case MAGIC_SHOP:
+				shop.items.add(new Accessory(AccessoryType.STATBOOSTER, Stat.STRENGTH));	
+				shop.items.add(new Accessory(AccessoryType.STATBOOSTER, Stat.ENDURANCE));	
+				shop.items.add(new Accessory(AccessoryType.STATBOOSTER, Stat.AGILITY));	
+				shop.items.add(new Accessory(AccessoryType.STATBOOSTER, Stat.PERCEPTION));	
+				shop.items.add(new Accessory(AccessoryType.STATBOOSTER, Stat.MAGIC));	
+				shop.items.add(new Accessory(AccessoryType.STATBOOSTER, Stat.CHARISMA));
 				break;
 			case SHOP:
 				for (int ii = 0; ii < 4; ii++) {
@@ -294,12 +297,14 @@ public class ShopScene extends Scene {
 	}
 	
 	public enum ShopCode {
-		FIRST_STORY, SHOP, WEAPON_SHOP, GADGETEER_SHOP;
+		FIRST_STORY, SHOP, WEAPON_SHOP, GADGETEER_SHOP, MAGIC_SHOP;
 	
 		public AssetDescriptor<Texture> getBackground() {
 			switch(this) {
 				case GADGETEER_SHOP:
 					return AssetEnum.DEFAULT_BACKGROUND.getTexture();
+				case MAGIC_SHOP:
+					return AssetEnum.CABIN_BACKGROUND.getTexture();
 				case WEAPON_SHOP:
 				case SHOP:
 				case FIRST_STORY:
@@ -320,6 +325,8 @@ public class ShopScene extends Scene {
 					return AssetEnum.GADGETEER.getTexture();
 				case WEAPON_SHOP:
 					return AssetEnum.TRAINER.getTexture();
+				case MAGIC_SHOP:
+					return AssetEnum.MERI_SILHOUETTE.getTexture();
 				default:
 					break;
 			}
@@ -338,5 +345,4 @@ public class ShopScene extends Scene {
 			return this != GADGETEER_SHOP;
 		}
 	}
-	
 }

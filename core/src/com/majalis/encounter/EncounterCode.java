@@ -549,6 +549,9 @@ public enum EncounterCode {
 				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{  
 					AssetEnum.MERI_SILHOUETTE.getTexture(),
 					AssetEnum.CABIN_BACKGROUND.getTexture(),
+					AssetEnum.TEXT_BOX.getTexture(),
+					AssetEnum.BATTLE_TEXTBOX.getTexture(),
+					AssetEnum.EQUIP.getSound(),
 					AssetEnum.TRAINER_MUSIC.getMusic(),
 					AssetEnum.WEREWOLF_MUSIC.getMusic()
 				});

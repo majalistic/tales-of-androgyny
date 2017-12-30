@@ -1194,7 +1194,7 @@
 			"mutations": [{"saveType":"GOLD", "value":{"class": "java.lang.Integer", "value": -100}}, {"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "WITCH", "value":2}}],
 			"text": "You painfully count out a hundred coins, placing them on the same footstool she'd left the priceless artifact on.  She watches, amused."},
 			{"text": "\"It's yours.  Once she touches it, it'll be possible to defeat her.  Whether you manage it is another question.\""},
-			{"text": "You take the goddess blessing with you and leave the witch behind, your coin purse considerably lighter."}
+			{"text": "You take the goddess blessing from her, and she smiles."}
 		]
 	},
 	{
@@ -1214,19 +1214,25 @@
 			{"text": "\"Oh, he thinks he's quite clever.  But I, unfortunately, am cleverer still... thank you for bringing me this.  I'll give the both of you exactly what you deserve...\""},
 			{"text": "She hands you the goddesses' blessing, fascinated by the gem.  She turns it over in her hand, peering into its flawless depths."},
 			{"text": "She notices you watching her.  \"It's yours.  Once she touches it, it'll be possible to defeat her.  Whether you manage it is another question,\" she says, handing you the gem, \"I'll let you keep that gem, as well.  I don't need it.  Hehe.\""},
-			{"text": "You take the gem and the goddess' blessing and leave the cottage, curious about the witch's cryptic words."}
+			{"text": "You take the gem and the goddess' blessing, curious about the witch's cryptic words."}
 		]
 	},
 	{
 		"key": "WITCH-COTTAGE-RETURN-BOUGHT",
 		"scriptLines": [
-			{"text": "You return to the witch's cabin, but she won't see you again.  You leave, empty-handed."}
+			{"text": "You return to the witch's cabin and she offers you her wares."}
 		]
 	},
 	{
 		"key": "WITCH-COTTAGE-RETURN-BUY",
 		"scriptLines": [
 			{"text": "You return to the witch, and she asks you if you're ready to buy the goddess' blessing."}
+		]
+	},
+	{
+		"key": "WITCH-COTTAGE-STORE",
+		"scriptLines": [
+			{"text": "The witch offers you a chance to purchase some of her other magical wares, if you're interested."}
 		]
 	},
 	{
