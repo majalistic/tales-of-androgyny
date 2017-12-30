@@ -455,7 +455,7 @@ public class EncounterBuilder {
 					)
 				).getEncounter();
 			case ELF_COMPANION:
-				return new Branch().textScene("ELF-COMPANION").getEncounter();
+				return new Branch().checkScene(CheckType.ELF_COMPANION1, new Branch(true).textScene("ELF-COMPANION-FIRST"), new Branch(false).checkScene(CheckType.ELF_COMPANION2, new Branch(true).textScene("ELF-COMPANION-SECOND"), new Branch(false).textScene("ELF-COMPANION-REPEAT"))).getEncounter();
 			case ERROR:
 				break;
 			case FIRST_BATTLE_STORY:

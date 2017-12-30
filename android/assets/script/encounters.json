@@ -6131,13 +6131,33 @@
 		]
 	},
 	{
-		"key": "ELF-COMPANION",
+		"key": "ELF-COMPANION-REPEAT",
 		"scriptLines": [
 			{
 			"music": "GADGETEER_MUSIC",
 			"foreground": "ELF",
 			"mutations": [{"saveType":"HEALTH", "value":{"class": "java.lang.Integer", "value": 100}}, {"saveType":"TIME", "value":{"class": "java.lang.Integer", "value": 3}}],
 			"text": "You sit with Kylira for a while, enjoying each other's company.  They heal your wounds over time."}
+		]
+	},
+	{
+		"key": "ELF-COMPANION-FIRST",
+		"scriptLines": [
+			{
+			"music": "GADGETEER_MUSIC",
+			"foreground": "ELF",
+			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "ELF", "value":9}}],
+			"text": "You sit with Kylira for a while."}
+		]
+	},
+	{
+		"key": "ELF-COMPANION-SECOND",
+		"scriptLines": [
+			{
+			"music": "GADGETEER_MUSIC",
+			"foreground": "ELF",
+			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "ELF", "value":10}}],
+			"text": "You sit with Kylira for a while."}
 		]
 	},
 	{
