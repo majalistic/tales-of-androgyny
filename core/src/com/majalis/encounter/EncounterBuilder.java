@@ -455,7 +455,14 @@ public class EncounterBuilder {
 					)
 				).getEncounter();
 			case ELF_COMPANION:
-				return new Branch().checkScene(CheckType.ELF_COMPANION1, new Branch(true).textScene("ELF-COMPANION-FIRST"), new Branch(false).checkScene(CheckType.ELF_COMPANION2, new Branch(true).textScene("ELF-COMPANION-SECOND"), new Branch(false).textScene("ELF-COMPANION-REPEAT"))).getEncounter();
+				return new Branch().checkScene(CheckType.ELF_COMPANION1, 
+					new Branch(true).textScene("ELF-COMPANION-FIRST").choiceScene("Spend time with Kylira?", new Branch("Spend time").textScene("ELF-COMPANION-HANGOUT"), new Branch("Not now")), 
+					new Branch(false).checkScene(
+						CheckType.ELF_COMPANION2, 
+						new Branch(true).textScene("ELF-COMPANION-SECOND").choiceScene("Learn healing magic?", new Branch("Learn").textScene("ELF-COMPANION-LEARN"), new Branch("Not now")),
+						new Branch(false).textScene("ELF-COMPANION-REPEAT")
+					)
+				).getEncounter();
 			case ERROR:
 				break;
 			case FIRST_BATTLE_STORY:

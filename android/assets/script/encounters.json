@@ -6146,6 +6146,15 @@
 			{
 			"music": "GADGETEER_MUSIC",
 			"foreground": "ELF",
+			"text": "You sit with Kylira for a while."}
+		]
+	},
+	{
+		"key": "ELF-COMPANION-HANGOUT",
+		"scriptLines": [
+			{
+			"music": "GADGETEER_MUSIC",
+			"foreground": "ELF",
 			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "ELF", "value":9}}],
 			"text": "You sit with Kylira for a while."}
 		]
@@ -6156,7 +6165,16 @@
 			{
 			"music": "GADGETEER_MUSIC",
 			"foreground": "ELF",
-			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "ELF", "value":10}}],
+			"text": "You sit with Kylira for a while."}
+		]
+	},
+	{
+		"key": "ELF-COMPANION-LEARN",
+		"scriptLines": [
+			{
+			"music": "GADGETEER_MUSIC",
+			"foreground": "ELF",
+			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "ELF", "value":10}}, {"saveType":"SKILL", "value": {"class": "com.majalis.character.Techniques", "value": "HEAL"}}],
 			"text": "You sit with Kylira for a while."}
 		]
 	},
