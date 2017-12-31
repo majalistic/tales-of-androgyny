@@ -1117,7 +1117,7 @@ public class WorldMapScreen extends AbstractScreen {
 						if (waterLayer) {
 							if (currentHexType == GroundType.WATER) {
 								frameBufferBatch.draw(getFullTexture(GroundType.WATER, groundSheet), trueX, trueY); // with appropriate type
-								frameBufferBatch.draw(getTexture(GroundType.WATER, groundSheet, layers[GroundType.WATER.ordinal()]), trueX, trueY); // appropriate blend layer
+								//frameBufferBatch.draw(getTexture(GroundType.WATER, groundSheet, layers[GroundType.WATER.ordinal()]), trueX, trueY); // appropriate blend layer
 							}
 						}
 						else {
