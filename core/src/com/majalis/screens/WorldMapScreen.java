@@ -62,7 +62,6 @@ import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveManager.GameContext;
 import com.majalis.save.SaveManager.GameMode;
 import com.majalis.scenes.MutationActor;
-import com.majalis.talesofandrogyny.Logging;
 import com.majalis.save.SaveService;
 import com.majalis.save.MutationResult.MutationType;
 import com.majalis.world.GameWorldHelper;
@@ -450,7 +449,6 @@ public class WorldMapScreen extends AbstractScreen {
 					console.setText("Game Saved.");
 					console.addAction(alpha(1));
 					console.addAction(fadeOut(6));
-					Logging.flush();
 		        }
 			}
 		);	
@@ -850,7 +848,6 @@ public class WorldMapScreen extends AbstractScreen {
 			addWorldActors();
 		}
 		else {
-			Logging.logTime("Generate Background BEGIN");
 			/* MODELLING - SHOULD BE MOVED TO GAME WORLD GEN */
 			Array<Array<GroundType>> ground = new Array<Array<GroundType>>();
 			Array<Doodad> doodads = new Array<Doodad>();
@@ -993,9 +990,6 @@ public class WorldMapScreen extends AbstractScreen {
 
 				}
 			}*/
-			
-			Logging.logTime("Finished Generation");
-			Logging.logTime("Drawing BEGIN");
 			/* DRAWING */
 			Texture groundSheet = assetManager.get(AssetEnum.GROUND_SHEET.getTexture());	
 			
@@ -1028,10 +1022,8 @@ public class WorldMapScreen extends AbstractScreen {
 			Group tempGroup = new Group();
 			tempGroup.addActor(currentImageGhost);
 			worldGroup.addActor(tempGroup);
-			Logging.logTime("Finished Drawing");
 		}
 		frameBufferBatch.dispose();
-		Logging.logTime("Generate Background End");
 	}
 	
 	private boolean river(int x, int y) {
@@ -1151,7 +1143,6 @@ public class WorldMapScreen extends AbstractScreen {
 				worldGroup.addActorAt(0, background);
 			}
 		}
-		Logging.logTime("Drawing " + (waterLayer ? "water layer" : "ground layer") + " END");
 	}
 	
 	private void addWorldActors() {
