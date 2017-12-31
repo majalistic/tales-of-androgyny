@@ -827,7 +827,7 @@ public class PlayerCharacter extends AbstractCharacter {
 			case ENDURANCE: baseEndurance = amount; break;
 			case AGILITY: baseAgility = amount; break;
 			case PERCEPTION: basePerception = amount; break;
-			case MAGIC: baseMagic = amount; manaTiers = new IntArray(new int[]{baseMagic > 1 ? baseMagic * 3 + 1 : 0}); setManaToMax(); break;
+			case MAGIC: baseMagic = amount; manaTiers = new IntArray(new int[]{baseMagic > 1 ? baseMagic * 3 + 4 : 0}); setManaToMax(); break;
 			case CHARISMA: baseCharisma = amount; break;
 			default: 
 		}
@@ -843,7 +843,7 @@ public class PlayerCharacter extends AbstractCharacter {
 		if (newTech.getTrait().isSpell()) {
 			skills.put(Techniques.INCANTATION.toString(), 1);
 			if (!hasMagic()) {
-				manaTiers = new IntArray(new int[]{baseMagic > 1 ? baseMagic * 3 + 1 : 0});
+				manaTiers = new IntArray(new int[]{baseMagic > 1 ? baseMagic * 3 + 4 : 0});
 			}
 		}
 		skills.put(newTech.toString(), rank);	
