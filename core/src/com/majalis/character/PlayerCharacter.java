@@ -1431,8 +1431,17 @@ public class PlayerCharacter extends AbstractCharacter {
 				case DEBT:
 					return currentValue == 2 ? "You've encountered the debt collectors." : currentValue == 1 ? "You've been warned by the debt collectors." : "";
 				case ELF:
-					return currentValue == 8 ? "You've seen Kylira the elf working as a prostitute." : currentValue == 7 ? "You've advised Kylira the elf to depart for the Elven lands." : currentValue == 6 ? "You've advised Kylira the elf to be a travelling healer." : 
-						currentValue == 5 ? "You've made Kylira the elf your travelling companion." : currentValue == 4 ? "You've advised Kylira the elf to become a prostitute." : currentValue == 3 ? "You've shared a meal with Kylira, the elf." : currentValue == 2 ? "You've encountered Kylira, the elf." : "";
+					switch (currentValue) {
+						case 2: return "You've encountered Kylira, the elf.";
+						case 3: return "You've shared a meal with Kylira, the elf.";
+						case 4: return "You've advised Kylira the elf to become a prostitute.";
+						case 5: return "You've made Kylira the elf your travelling companion.";
+						case 6: return "You've advised Kylira the elf to be a travelling healer.";
+						case 7: return "You've advised Kylira the elf to depart for the Elven lands.";
+						case 8: return "You've seen Kylira the elf working as a prostitute.";
+						case 9: return "You've gotten close to Kylira the elf as a companion.";
+						case 10: return "You've gotten very close to Kylira the elf, and he's taught you healing magick.";
+					}
 				case GADGETEER:
 					return currentValue == 2 ? "You've been teased by the eccentric merchant." : currentValue == 1 ? "You've encountered the eccentric merchant." : "";
 				case GOBLIN:
@@ -1450,7 +1459,13 @@ public class PlayerCharacter extends AbstractCharacter {
 				case SPIDER:
 					return currentValue == 1 ? "You've survived the spider-infested ruins." : "";	
 				case TRUDY:
-					return currentValue == 5 ? "You've made Trudy your travelling companion." : currentValue == 4 ? "You've battled with Trudy." : currentValue == 3 ? "You were tricked by Trudy and buggered by a beast." : currentValue == 2 ? "You foiled Trudy's betrayal, and he was buggered by a beast in your place." : currentValue == 1 ? "You've met Trudy, another adventurer." : "";	
+					switch (currentValue) {
+						case 1: return "You've met Trudy, another adventurer.";
+						case 2: return "You foiled Trudy's betrayal, and he was buggered by a beast in your place.";
+						case 3: return "You were tricked by Trudy and buggered by a beast.";
+						case 4: return "You've battled with Trudy.";
+						case 5: return "You've made Trudy your travelling companion.";
+					}	
 				case WITCH:
 					return currentValue == 2 ? "You've received the goddess' blessing from the witch of the forest." : currentValue == 1 ? "You've met the witch of the forest." : "";
 			}
