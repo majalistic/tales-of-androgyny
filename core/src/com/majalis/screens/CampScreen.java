@@ -144,7 +144,7 @@ public class CampScreen extends AbstractScreen {
 		buttonLabels.addAll("Rest", "Sleep (morning)", "Sleep (night)", "Forage");
 		
 		boolean elf = character.getQuestStatus(QuestType.ELF) == 5 || character.getQuestStatus(QuestType.ELF) == 9 || character.getQuestStatus(QuestType.ELF) == 10;
-		boolean trudy = character.getQuestStatus(QuestType.TRUDY) == 5;
+		boolean trudy = character.getQuestStatus(QuestType.TRUDY) == 5 || character.getQuestStatus(QuestType.TRUDY) == 6 || character.getQuestStatus(QuestType.TRUDY) == 7;
 		if (elf) buttonLabels.add("Chat (Kylira)");
 		if (trudy) buttonLabels.add("Chat (Trudy)");
 		buttonLabels.add("Depart");

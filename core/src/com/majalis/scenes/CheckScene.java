@@ -196,6 +196,14 @@ public class CheckScene extends AbstractTextScene {
 			@Override
 			protected boolean getCheck(PlayerCharacter character) { return character.getQuestStatus(QuestType.TRUDY) == 4; }  
 		},
+		TRUDY_COMPANION1("", "") { 
+			@Override
+			protected boolean getCheck(PlayerCharacter character) { return character.getQuestStatus(QuestType.TRUDY) == 5; }  
+		}, 
+		TRUDY_COMPANION2("", "") { 
+			@Override
+			protected boolean getCheck(PlayerCharacter character) { return character.getQuestStatus(QuestType.TRUDY) == 6; }  
+		}, 
 		OGRE_DONE ("", "") { 
 			@Override
 			protected boolean getCheck(PlayerCharacter character) { return character.getQuestStatus(QuestType.OGRE) == 0; }  
@@ -324,7 +332,7 @@ public class CheckScene extends AbstractTextScene {
 		BLESSING_PURCHASED("", "") { 
 			@Override
 			protected boolean getCheck(PlayerCharacter character) { int check = character.getQuestStatus(QuestType.WITCH); return check == 2; }  
-		}, 
+		},
 		;
 		private final String success;
 		private final String failure;

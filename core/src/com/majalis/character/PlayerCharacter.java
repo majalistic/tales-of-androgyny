@@ -1465,6 +1465,8 @@ public class PlayerCharacter extends AbstractCharacter {
 						case 3: return "You were tricked by Trudy and buggered by a beast.";
 						case 4: return "You've battled with Trudy.";
 						case 5: return "You've made Trudy your travelling companion.";
+						case 6: return "You've gotten close to Trudy as a travelling companion."; 
+						case 7: return "You've gotten very close to Trudy your travelling companion, and he's taught you some of his skills.";
 					}	
 				case WITCH:
 					return currentValue == 2 ? "You've received the goddess' blessing from the witch of the forest." : currentValue == 1 ? "You've met the witch of the forest." : "";

@@ -1191,7 +1191,14 @@ public class EncounterBuilder {
 					new Branch(0).textScene("STORY-006C").concat(leaveTown)
 				).getEncounter();
 			case TRUDY_COMPANION:
-				return new Branch().textScene("TRUDY-COMPANION").getEncounter();
+				return new Branch().checkScene(CheckType.TRUDY_COMPANION1, 
+						new Branch(true).textScene("TRUDY-COMPANION-FIRST").choiceScene("Spend time with Trudy?", new Branch("Spend time").textScene("TRUDY-COMPANION-HANGOUT"), new Branch("Not now")), 
+						new Branch(false).checkScene(
+							CheckType.TRUDY_COMPANION2, 
+							new Branch(true).textScene("TRUDY-COMPANION-SECOND").choiceScene("Train with Trudy?", new Branch("Train").textScene("TRUDY-COMPANION-LEARN"), new Branch("Not now")),
+							new Branch(false).textScene("TRUDY-COMPANION-REPEAT")
+						)
+					).getEncounter();
 			case WEAPON_SHOP:
 				return new Branch().textScene("WEAPON-SHOP").shopScene(ShopCode.WEAPON_SHOP).getEncounter();
 			case WERESLUT:

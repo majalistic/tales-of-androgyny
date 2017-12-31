@@ -6174,18 +6174,56 @@
 			{
 			"music": "GADGETEER_MUSIC",
 			"foreground": "ELF",
-			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "ELF", "value":10}}, {"saveType":"SKILL", "value": {"class": "com.majalis.character.Techniques", "value": "HEAL"}}],
+			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "ELF", "value":10}}, {"saveType":"TIME", "value":{"class": "java.lang.Integer", "value": 6}}, {"saveType":"SKILL", "value": {"class": "com.majalis.character.Techniques", "value": "HEAL"}}],
 			"text": "You sit with Kylira for a while."}
 		]
 	},
 	{
-		"key": "TRUDY-COMPANION",
+		"key": "TRUDY-COMPANION-REPEAT",
 		"scriptLines": [
 			{
 			"music": "GADGETEER_MUSIC",
 			"foreground": "ADVENTURER",
 			"mutations": [{"saveType":"HEALTH", "value":{"class": "java.lang.Integer", "value": 10}}, {"saveType":"TIME", "value":{"class": "java.lang.Integer", "value": 1}}],
 			"text": "You sit with Trudy a while.  He talks about his grand adventures.  You wonder how much of it is true."}
+		]
+	},
+	{
+		"key": "TRUDY-COMPANION-FIRST",
+		"scriptLines": [
+			{
+			"music": "GADGETEER_MUSIC",
+			"foreground": "ADVENTURER",
+			"text": "You sit with Trudy for a while."}
+		]
+	},
+	{
+		"key": "TRUDY-COMPANION-HANGOUT",
+		"scriptLines": [
+			{
+			"music": "GADGETEER_MUSIC",
+			"foreground": "ADVENTURER",
+			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "TRUDY", "value":6}}],
+			"text": "You sit with Trudy for a while."}
+		]
+	},
+	{
+		"key": "TRUDY-COMPANION-SECOND",
+		"scriptLines": [
+			{
+			"music": "GADGETEER_MUSIC",
+			"foreground": "ADVENTURER",
+			"text": "You sit with Trudy for a while."}
+		]
+	},
+	{
+		"key": "TRUDY-COMPANION-LEARN",
+		"scriptLines": [
+			{
+			"music": "GADGETEER_MUSIC",
+			"foreground": "ADVENTURER",
+			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "TRUDY", "value":7}}, {"saveType":"TIME", "value":{"class": "java.lang.Integer", "value": 6}}, {"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": 20}}],
+			"text": "You sit with Trudy for a long while."}
 		]
 	},
 	{
