@@ -224,6 +224,7 @@ public enum EncounterCode {
 					AssetEnum.CUM.getSound(),
 					AssetEnum.GADGETEER_MUSIC.getMusic(),
 					AssetEnum.STICK_BACKGROUND.getTexture(),
+					AssetEnum.CUM.getSound(),
 					AssetEnum.GAME_OVER_ANIMATION.getAnimation()
 				});
 			case ANGEL:

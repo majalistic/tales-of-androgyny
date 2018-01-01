@@ -6210,7 +6210,7 @@
 			{
 			"music": "GADGETEER_MUSIC",
 			"foreground": "ADVENTURER",
-			"text": "You sit with Trudy for a while."}
+			"text": "You sit with Trudy for a while.  He's haughty and high-maintenance, but you are interested in his travels as an adventurer."}
 		]
 	},
 	{
@@ -6218,7 +6218,13 @@
 		"scriptLines": [
 			{
 			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "TRUDY", "value":6}}],
-			"text": "You sit with Trudy for a while."}
+			"text": "You ask Trudy about his travels.  He tells you about his trek across the Majulian highlands, and how impressed the centaurs there were impressed with his bold outfit, or his meeting with the ogre prince, who was surprisingly polite.  You nod along, wide-eyed and entranced."},
+			{"text": "He tells you of the stonemen of the north and how he fooled them into thinking he was a god, how he took his axe from a bandit king with a hundred boywives, and about his former traveling companion... although he seems to quickly change the subject at that point."},
+			{"text": "Finally, he tells you the story of how he was once captured by a handsome pirate and... in the middle of that story, he starts avoiding your questions, and you soon find yourself putting your hand on his thigh by the campfire."},
+			{"text": "The two of you end up getting a little heated by the campfire, but ladies don't kiss and tell."},
+			{
+			"mutations": [{"saveType":"TIME", "value":{"class": "java.lang.Integer", "value": 2}}, {"saveType":"HEALTH", "value":{"class": "java.lang.Integer", "value": 20}}],
+			"text": "Afterwards, you speak with Trudy for a long while, looking up at the sky, fingers intertwined."}
 		]
 	},
 	{
@@ -6227,15 +6233,30 @@
 			{
 			"music": "GADGETEER_MUSIC",
 			"foreground": "ADVENTURER",
-			"text": "You sit with Trudy for a while."}
+			"text": "You sit with Trudy for a while.  Knowing that he's a very seasoned adventurer, you wonder if he could train you."}
 		]
 	},
 	{
 		"key": "TRUDY-COMPANION-LEARN",
 		"scriptLines": [
+			{"text": "You ask him to show you what he knows, and he's more than willing to show off his skills."},
+			{"text": "You find his centering techniques, his form, and his drills extremely helpful... and his wrestling instructions..."},
+			{"text": "Well, you kind of expected something like this would happen."},
+			{"text": "He reaches into your trousers and strokes your hardening sex. \"I assume you want some instruction about this, too?\" he says, pushing his hair out of his face, as he bends down to take you into his mouth."},
+			{"text": "He licks under the shaft and you stir to full erection in his mouth... which he pops off, apparently satisfied with that foreplay."},
+			{"text": "He pushes you down onto the ground, and you expect him to mount you... and he does, just not the way you were anticipating.  He disrobes, joining you on the ground, keeping your legs spread apart... and grabs hold of his own, aiming it against your waiting backdoor."},		
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1}}],
+			"text": "As soon as he manages to slip it inside, he leans forward and places his hands on either side of you, looking down at you, while you drape your arms around his neck."
+			},
+			{"text": "The two of hold each other in embrace, and Trudy proves himself to be a bit of a quickshot - not that the tip of his cock pushing against your prostate while he stares lovingly into your eyes has left you in a state to feel superior about that."},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "creampies":1, "analEjaculation": 1}}],
+			"sound": "CUM",
+			"text": "You feel the gentle thud in your stomach with Trudy's kiss on your lips, and your own cock twitches, leaving a stream of white hot lust across your abdomen."},
 			{
 			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "TRUDY", "value":7}}, {"saveType":"TIME", "value":{"class": "java.lang.Integer", "value": 6}}, {"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": 50}}],
-			"text": "You sit with Trudy for a long while."}
+			"text": "You did learn quite a lot... maybe a bit too much."}
 		]
 	},
 	{
