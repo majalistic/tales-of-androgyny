@@ -21,6 +21,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
 import com.majalis.asset.AssetEnum;
 import com.majalis.encounter.Background.BackgroundBuilder;
+import com.majalis.talesofandrogyny.TalesOfAndrogyny;
 /*
  * The options/configuration screen.  UI that handles player input to save Preferences to a player's file system.
  */
@@ -125,7 +126,7 @@ public class OptionScreen extends AbstractScreen {
 	            preferences.putBoolean("fullScreen", val);
 	            if (!debug) {
 		    		if(val) Gdx.graphics.setFullscreenMode(Gdx.graphics.getDisplayMode());
-		    		else Gdx.graphics.setWindowedMode(preferences.getInteger("width", 1920), preferences.getInteger("height", 1080));
+		    		else Gdx.graphics.setWindowedMode(preferences.getInteger("width", TalesOfAndrogyny.defaultScreenWidth), preferences.getInteger("height", TalesOfAndrogyny.defaultScreenWidth));
 	            }
 	        }
 	    });
@@ -137,7 +138,7 @@ public class OptionScreen extends AbstractScreen {
 		addLabelActor("Resolution", 700, 500);
 		final SelectBox<Vector2> resolution = new SelectBox<Vector2>(skin);
 		resolution.setItems(new Array<Vector2>(new Vector2[]{new Vector2(1920, 1080), new Vector2(1600, 900), new Vector2(1280, 720), new Vector2(960, 540)}));
-		Vector2 currentResolution = new Vector2(preferences.getInteger("width", 1920), preferences.getInteger("height", 1080));
+		Vector2 currentResolution = new Vector2(preferences.getInteger("width", TalesOfAndrogyny.defaultScreenWidth), preferences.getInteger("height", TalesOfAndrogyny.defaultScreenHeight));
 		for (Vector2 resolutionToCheck : resolution.getItems()) {
 			if (resolutionToCheck.epsilonEquals(currentResolution, 1)) {
 				resolution.setSelected(resolutionToCheck);

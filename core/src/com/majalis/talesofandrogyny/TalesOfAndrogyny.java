@@ -35,6 +35,8 @@ public class TalesOfAndrogyny extends Game {
 	public static String getVersion() { return "Version: 0.1.27.0" + (patron ? " Patron-Only" : ""); }
 	public static Array<EncounterCode> setEncounter = new Array<EncounterCode>(new EncounterCode[]{});
 	public static boolean testing = false;
+	public static int defaultScreenWidth = 1280;
+	public static int defaultScreenHeight = 720;
 	
 	public void create() {	
 		Preferences prefs = Gdx.app.getPreferences("tales-of-androgyny-preferences");
@@ -42,7 +44,7 @@ public class TalesOfAndrogyny extends Game {
 			Gdx.graphics.setFullscreenMode(Gdx.graphics.getDisplayMode());
 		}
 		else {
-			Gdx.graphics.setWindowedMode(prefs.getInteger("width", 1920), prefs.getInteger("height", 1080));
+			Gdx.graphics.setWindowedMode(prefs.getInteger("width", defaultScreenWidth), prefs.getInteger("height", defaultScreenHeight));
 		}
 		
 		SaveManager saveManager = new SaveManager(false, ".toa-data/save.json", ".toa-data/profile.json");
