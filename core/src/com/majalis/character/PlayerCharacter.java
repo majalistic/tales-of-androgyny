@@ -603,7 +603,7 @@ public class PlayerCharacter extends AbstractCharacter {
 		
 		for (Techniques technique : possibilities) {
 			int skillLevel = skills.get(technique.toString(), 0);
-			if (skillLevel > 0) {
+			if (skillLevel > 0 || getBaseTechniques().contains(technique)) {
 				// this should pass the players stats and other relevant info to the technique, rather than passing some generic "force" value - also passing the weapon separately so that the technique can determine if it's relevant or not - basically, this class should create a "current state" object
 				// this may need to filter out techniques which are not possible because of current state evalutations?
 				if (technique == Techniques.ITEM_OR_CANCEL) {
