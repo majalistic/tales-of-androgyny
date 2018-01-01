@@ -455,12 +455,17 @@ public class EncounterBuilder {
 					)
 				).getEncounter();
 			case ELF_COMPANION:
+				Branch learnHealing = new Branch().choiceScene("Learn healing magic?", new Branch("Learn (MAG 2)").require(ChoiceCheckType.STAT_GREATER_THAN_X, Stat.MAGIC, 2).textScene("ELF-COMPANION-LEARN"), new Branch("Not now"));
 				return new Branch().checkScene(CheckType.ELF_COMPANION1, 
-					new Branch(true).textScene("ELF-COMPANION-FIRST").choiceScene("Spend time with Kylira?", new Branch("Spend time (Req: 8 CHA)").require(ChoiceCheckType.STAT_GREATER_THAN_X, Stat.CHARISMA, 8).textScene("ELF-COMPANION-HANGOUT"), new Branch("Not now")), 
+					new Branch(true).textScene("ELF-COMPANION-FIRST").choiceScene("Spend time with Kylira?", new Branch("Spend time (8 CHA)").require(ChoiceCheckType.STAT_GREATER_THAN_X, Stat.CHARISMA, 8).textScene("ELF-COMPANION-HANGOUT"), new Branch("Not now")), 
 					new Branch(false).checkScene(
 						CheckType.ELF_COMPANION2, 
-						new Branch(true).textScene("ELF-COMPANION-SECOND").choiceScene("Learn healing magic?", new Branch("Learn").textScene("ELF-COMPANION-LEARN"), new Branch("Not now")),
-						new Branch(false).textScene("ELF-COMPANION-REPEAT")
+						new Branch(true).textScene("ELF-COMPANION-SECOND").choiceScene(
+							"Spend time with Kylira?", 
+							new Branch("Spend time").textScene("ELF-COMPANION-CAMPFIRE").concat(learnHealing), 
+							new Branch("Not now")
+						),
+						new Branch(false).checkScene(CheckType.ELF_COMPANION3, new Branch(true).textScene("ELF-COMPANION-SECOND").concat(learnHealing), new Branch(false).textScene("ELF-COMPANION-REPEAT"))
 					)
 				).getEncounter();
 			case ERROR:
@@ -1192,7 +1197,7 @@ public class EncounterBuilder {
 				).getEncounter();
 			case TRUDY_COMPANION:
 				return new Branch().checkScene(CheckType.TRUDY_COMPANION1, 
-						new Branch(true).textScene("TRUDY-COMPANION-FIRST").choiceScene("Spend time with Trudy?", new Branch("Spend time (Req: 8 CHA)").require(ChoiceCheckType.STAT_GREATER_THAN_X, Stat.CHARISMA, 8).textScene("TRUDY-COMPANION-HANGOUT"), new Branch("Not now")), 
+						new Branch(true).textScene("TRUDY-COMPANION-FIRST").choiceScene("Spend time with Trudy?", new Branch("Spend time (8 CHA)").require(ChoiceCheckType.STAT_GREATER_THAN_X, Stat.CHARISMA, 8).textScene("TRUDY-COMPANION-HANGOUT"), new Branch("Not now")), 
 						new Branch(false).checkScene(
 							CheckType.TRUDY_COMPANION2, 
 							new Branch(true).textScene("TRUDY-COMPANION-SECOND").choiceScene("Train with Trudy?", new Branch("Train").textScene("TRUDY-COMPANION-LEARN"), new Branch("Not now")),

@@ -431,7 +431,7 @@ public class PlayerCharacter extends AbstractCharacter {
 			case PENETRATED:
 				return getTechniques(HURK);
 			case CASTING:
-				return getTechniques(COMBAT_FIRE, COMBAT_HEAL, TITAN_STRENGTH, WEAKENING_CURSE, FOCUS_ENERGY);
+				return getTechniques(COMBAT_FIRE, COMBAT_HEAL, HEAL, TITAN_STRENGTH, WEAKENING_CURSE, FOCUS_ENERGY);
 			case ITEM:
 				possibles.addAll(getTechniques(ITEM_OR_CANCEL));
 				return possibles;
@@ -1440,7 +1440,8 @@ public class PlayerCharacter extends AbstractCharacter {
 						case 7: return "You've advised Kylira the elf to depart for the Elven lands.";
 						case 8: return "You've seen Kylira the elf working as a prostitute.";
 						case 9: return "You've gotten close to Kylira the elf as a companion.";
-						case 10: return "You've gotten very close to Kylira the elf, and he's taught you healing magick.";
+						case 10: return "You've gotten very close to Kylira the elf.";
+						case 11: return "You've gotten very close to Kylira the elf, and he's taught you healing magick.";
 					}
 				case GADGETEER:
 					return currentValue == 2 ? "You've been teased by the eccentric merchant." : currentValue == 1 ? "You've encountered the eccentric merchant." : "";

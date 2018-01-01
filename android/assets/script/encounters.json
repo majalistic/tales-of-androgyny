@@ -5960,7 +5960,7 @@
 			{"text": "\"Um, I'm Kylira,\" they say, helpfully."},
 			{"text": "You sigh.  \"And you are...?\" you say to the tortoise."},
 			{"text": "\"A tortoise,\" he replies, and you give up."},
-			{"text": "\"Okay. I'm <NAME>. Why are you travelling so early in the morning?\""},
+			{"text": "\"Okay. I'm <NAME>. Why are you traveling so early in the morning?\""},
 			{"text": "The tortoise opens its mouth to speak, and you shush it.  It closes its mouth, looking indignant. Or not.  It doesn't really have facial expressions."},
 			{"text": "\"Not you. Kylira.\""},
 			{"text": "Kylira plays with the hem of their dress. \"I, uh, prefer to travel at night.  So there aren't as many people on the roads.\""},
@@ -6098,7 +6098,7 @@
 		"scriptLines": [
 			{
 			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "ELF", "value":6}}],
-			"text": "Tell him to become a travelling healer - after all, how many humans have that ability? Surely, there's some worth there."}
+			"text": "Tell him to become a traveling healer - after all, how many humans have that ability? Surely, there's some worth there."}
 		]
 	},
 	{
@@ -6146,17 +6146,21 @@
 			{
 			"music": "GADGETEER_MUSIC",
 			"foreground": "ELF",
-			"text": "You sit with Kylira for a while."}
+			"text": "You sit with Kylira for a while.  He seems to enjoy being your traveling companion.  You want him to open up more to you... but he's very secretive about his past in the elven lands.  You think to linger and ask him about them."}
 		]
 	},
 	{
 		"key": "ELF-COMPANION-HANGOUT",
 		"scriptLines": [
 			{
-			"music": "GADGETEER_MUSIC",
-			"foreground": "ELF",
 			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "ELF", "value":9}}],
-			"text": "You sit with Kylira for a while."}
+			"text": "\"Why did you come to the human lands to begin with?\" you ask, and he nods slowly, as if carefully weighing his reply."},
+			{"text": "\"I... like humans.  Something about them... appeals to me,\" he says, hiding a bit of a blush and a nervous expression behind his sleeve."},
+			{"text": "\"Is that it?  Humans... interested you?\" you ask, and he avoids looking at you in the eye as he mumbles a quiet response."},
+			{"text": "\"Well... I like to be helpful... and humans often need a lot of help, it seems.  And I was hoping I would find someone who would... appreciate my help.\""},
+			{
+			"mutations": [{"saveType":"TIME", "value":{"class": "java.lang.Integer", "value": 2}}, {"saveType":"HEALTH", "value":{"class": "java.lang.Integer", "value": 20}}],
+			"text": "Kylira sounds oddly melancholy telling you this, but he's smiling.  You touch his hand, and, with his head still down, he looks at you.  You're not sure who leans into who first, but, with your lips on his, you spend the night together."}
 		]
 	},
 	{
@@ -6165,17 +6169,29 @@
 			{
 			"music": "GADGETEER_MUSIC",
 			"foreground": "ELF",
-			"text": "You sit with Kylira for a while."}
+			"text": "You sit with Kylira for a while.  You still want to know more about him."}
+		]
+	},
+	{
+		"key": "ELF-COMPANION-CAMPFIRE",
+		"scriptLines": [
+			{
+			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "ELF", "value":10}}],
+			"text": "You ask Kylira to tell you about the elven lands, and he opines on the topic at length.  When he's telling you about how elves aren't nearly as skittish about certain... activities... as humans are, he's seemingly reminded of said activities."},
+			{"text": "As a result, you conversation is cut a bit short - Kylira is unusually shy, but he apparently has a side to him that involves spreading his cheeks while inviting you to fuck his ass by the fire.  So you do."},
+			{"text": "You're more than willing to pound him from behind at his bequest, and his prostate, hard and unyielding, thanks you for it.  You realize that his repeated requests to be fucked harder coincide with his little elf button getting more and more ripened... until he spells his elven seed into the dirt."},
+			{"text": "You follow soon thereafter - one of Kylira's talents is certainly as a cum-catcher, as he takes all of it without complaint, even as his small, flaccid penis dangles below."},
+			{"text": "He is, however, nothing if apologetic afterward. \"I don't know what came over me! I'm sorry if I was... forward...\" he says, meekly."},
+			{"text": "You assure him that you were happy to... help.  He still insists on repaying you."},
+			{"text": "\"Ah!  Maybe I could teach you some healing magic?  I think I'm a very good teacher,\" he says, and you wonder what else you can learn from him."}
 		]
 	},
 	{
 		"key": "ELF-COMPANION-LEARN",
 		"scriptLines": [
 			{
-			"music": "GADGETEER_MUSIC",
-			"foreground": "ELF",
-			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "ELF", "value":10}}, {"saveType":"TIME", "value":{"class": "java.lang.Integer", "value": 6}}, {"saveType":"SKILL", "value": {"class": "com.majalis.character.Techniques", "value": "HEAL"}}],
-			"text": "You sit with Kylira for a while."}
+			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "ELF", "value":11}}, {"saveType":"TIME", "value":{"class": "java.lang.Integer", "value": 6}}, {"saveType":"SKILL", "value": {"class": "com.majalis.character.Techniques", "value": "HEAL"}}],
+			"text": "The lesson proves long and exhausting, with day and night passing as you study under Kylira's tutelage.  In the end, you manage to learn... something.  Whether you can put it to use remains to be seen."}	
 		]
 	},
 	{
@@ -6201,8 +6217,6 @@
 		"key": "TRUDY-COMPANION-HANGOUT",
 		"scriptLines": [
 			{
-			"music": "GADGETEER_MUSIC",
-			"foreground": "ADVENTURER",
 			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "TRUDY", "value":6}}],
 			"text": "You sit with Trudy for a while."}
 		]
@@ -6220,9 +6234,7 @@
 		"key": "TRUDY-COMPANION-LEARN",
 		"scriptLines": [
 			{
-			"music": "GADGETEER_MUSIC",
-			"foreground": "ADVENTURER",
-			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "TRUDY", "value":7}}, {"saveType":"TIME", "value":{"class": "java.lang.Integer", "value": 6}}, {"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": 20}}],
+			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "TRUDY", "value":7}}, {"saveType":"TIME", "value":{"class": "java.lang.Integer", "value": 6}}, {"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": 50}}],
 			"text": "You sit with Trudy for a long while."}
 		]
 	},
