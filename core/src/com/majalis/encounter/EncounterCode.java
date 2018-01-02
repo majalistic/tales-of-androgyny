@@ -500,7 +500,6 @@ public enum EncounterCode {
 				});
 			case ORC:
 				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{  
-					AssetEnum.ORC.getTexture(),
 					AssetEnum.ORC_ANIMATION.getAnimation(),
 					AssetEnum.ORC_ZOOM_UP.getTexture(),
 					AssetEnum.ORC_ZOOM.getTexture(),
