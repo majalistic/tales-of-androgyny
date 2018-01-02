@@ -2503,15 +2503,15 @@
 		"key": "WEREWOLF-INTRO",
 		"scriptLines": [
 			{
-				"music": "WEREWOLF_MUSIC",
-				"mutations": [{"profileSaveType":"KNOWLEDGE", "value":{"class": "java.lang.String", "value": "Wereslut"}}],
-				"text": "There are wolves in the forest - you know, because you've been hearing them howl in the distance, and as you traverse the woods, you've been hearing the occasional growling - albeit higher pitched than you would expect."}, 
+			"music": "WEREWOLF_MUSIC",
+			"mutations": [{"profileSaveType":"KNOWLEDGE", "value":{"class": "java.lang.String", "value": "Wereslut"}}],
+			"text": "There are wolves in the forest - you know, because you've been hearing them howl in the distance, and as you traverse the woods, you've been hearing the occasional growling - albeit higher pitched than you would expect."}, 
 			{
 			"sound": "WEREWOLF_GROWL",
 			"text":"The growling gets louder and louder, until, finally, a wolf emerges from the bushes... and she is absolutely stacked!"},
 			{
-				"foreground":"WEREBITCH", 
-				"text": "\"Grrr...\" she growls, holding up her clawed paws.  \"Just kidding,\" she says, dropping them to her skirt, \"I'm not gonna eat ya!  I just want to mate!\""},
+			"foreground":"WEREBITCH", 
+			"text": "\"Grrr...\" she growls, holding up her clawed paws.  \"Just kidding,\" she says, dropping them to her skirt, \"I'm not gonna eat ya!  I just want to mate!\""},
 			{"text": "You look her up and down.  \"Mate\"?  Her proportions are amazing - she's no slouch.  She's dressed like a nearby villager, but her clothes are in tatters.  You wonder what she is - maybe a werewolf?  It's possible her libido has been out of control since she was turned."},
 			{"text": "You start to consider taking her up on her offer, but something about the way she's standing is a little... strange.  \"Oh... I get to mate, finally!\" she says, gripping onto her tattered skirt, which draws your attention to the anomaly."},
 			{"text": "There's something... visibly growing in her skirt - it's made a rather pronounced bulge, and it's bulging more and more as she holds her skirt down with her paws and looks at you hungrily, knock-kneed.  At first you think it might be her tail, but it's obviously wagging excitedly behind her... and then the smell hits you."},
@@ -2542,14 +2542,17 @@
 	},
 	{
 		"key": "WEREWOLF-MATED",
-		"scriptLines": [
+		"scriptLines": [		
 			{"text": "She's quick to get your rear protection in her teeth and rips it away.  You're on your hands and knees with your backside exposed, and she pounces up and over to straddle you."},
 			{"text": "\"I'm not a girl!\" you try to convince her."},
 			{"text": "\"But boys have a bitch hole too!  And it's extra snug!\""},
 			{"text": "She pushes herself between your cheeks excitedly, clearly intending to get up inside with her strangely-shaped phallus."},
 			{"text": "\"My last mate accidentally swallowed his tongue and I've been so lonely!\" she confesses, and you also find yourself swallowing, having seen her mating apparatus."},
 			{"text": "When you picture his craterous, dog-cum leaking asshole, it was probably wasn't an accident.  Being roughly \"mated\" by her constantly was probably more than he bargained for. You can tell by her muscular hindquarters that her humping abilities are top notch, which is more evidence that becoming her mate is an unfortunate, and demanding, fate."},
-			{"text": "She manages to nail your balloon knot with a well-timed thrust of her tapered penis, inserting the thin end of the wedge in enough to fit her larger, more bulbous base."},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1}}],
+			"foreground":"WEREBITCH_ANAL", 			
+			"text": "She manages to nail your balloon knot with a well-timed thrust of her tapered penis, inserting the thin end of the wedge in enough to fit her larger, more bulbous base."},
 			{"text": "Her penetrating knocks the wind out of you, as her powerful thrusts send shockwaves through your body, your untended balls tightening with sudden anticipation."},
 			{"text": "\"Once I pump your bowels full of my puppy goo, you'll see!  You'll love it!\" she claims, as she starts to claim you."},			
 			{"text": "Based on her terse, frantic breathing, a high pitched rasp as she draws frenzied breaths, her dilated pupils, her wanton drooling and the goosebumps on her skin, you surmise that she anticipates loving the sensation of pumping her \"puppy goo\" inside of you considerably more."},
@@ -2577,6 +2580,7 @@
 		"key": "WEREWOLF-KNOT",
 		"scriptLines": [
 			{
+			"foreground":"WEREBITCH_KNOT", 	
 			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1,"analEjaculation":1,"knot": true}}],
 			"text": "Now that her knotty wolf-cock has ended up exactly where she wanted it, her personality is much more subdued - although she's howling with delight and panting, so she still comes off as quite exciteable.  \"Mating!  Mating!\" she cries out, while you try not to cry out that your asshole is too small for her \"mating\"."},	
 			{"text": "Of course, it's past your asshole now - stuck fast in your rectum, which feels the pressure as if you'd stuffed a melon in there. Your ass is on fire - her big, round, hard genital-adornment is far too big for your modestly-sized hole."},
@@ -2592,6 +2596,7 @@
 			{"text": "\"Awooooooooooooooooooooooooooo!\""},
 			{
 			"sound": "CUM",
+			"foreground":"WEREBITCH_KNOT_CUM", 
 			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "creampies":1}}],
 			"text": "Somewhere deep inside your intestines you feel a rush of hot fluid - her breeding juice, fresh from her stuffed puppy pouches.  It pipes in, taking no prisoners, bloating your bowels uncomfortably with its sheer volume."},
 			{
@@ -2665,7 +2670,9 @@
 	{
 		"key": "WEREWOLF-BATTLE-KNOT",
 		"scriptLines": [
-			{"text": "Your combat prowess proves... insufficient to deter the knotty werewolf, and your rectum is now considerably dilated.  During the scuffle, you unfortunately end up stuck with the wolf's big knot - quite literally.  The sensation is so intense that you can no longer fight."}
+			{
+			"foreground":"WEREBITCH_KNOT",
+			"text": "Your combat prowess proves... insufficient to deter the knotty werewolf, and your rectum is now considerably dilated.  During the scuffle, you unfortunately end up stuck with the wolf's big knot - quite literally.  The sensation is so intense that you can no longer fight."}
 		]
 	},
 	{
@@ -2675,14 +2682,10 @@
 			{"text": "Tears stream down your cheek as your jaw is forced open into a painfully stretched position."},
 			{"text": "Even if she wanted to withdraw it now, the bulk of it is locked behind your teeth.  Her hips pull back reflexively, and your entire head is pulled forward - where her genitals go, your head now follows."},
 			{"text": "You have other concerns, even - soon thereafter, your airway is coated in hot puppy goo.  A stream of runny dog semen is pumped down your gullet, her knot ledged in your mouth."},
-
 			{"text": "It is incredibly awkward that the fellatio is effectively over, but you can't pull your mouth off of her cock - the knot is preventing an end to your oral humiliation.  You're swallowing her cock and there's nothing anyone can do about it."},
-
 			{"text": "With her help, you push your hands against her thighs and pull your head way, until finally the persistence and the steady shrinking of the knot allows you dislodge her entire phallus from your face.  Unfortunately, you've long since swallowed all of her semen, though some remains staining your teeth and tongue."},
 			{"text": "You gasp and gag and suck in air through a cavity that was recently dog-cock central.  You spit out what you can of her essence, which is cloying and clings to the insides of your mouth disturbingly."},
-
-			{"text": "You've already swallowed so much of her slimy spew that it's a fruitless endeavor, but the overwhelming scent and flavor makes you instinctively reject it.  Her swollen cock-thing flops between her legs, coated in saliva, phlegm and doggy cum."},
-		
+			{"text": "You've already swallowed so much of her slimy spew that it's a fruitless endeavor, but the overwhelming scent and flavor makes you instinctively reject it.  Her swollen cock-thing flops between her legs, coated in saliva, phlegm and doggy cum."},		
 			{"text": "You become her literally slack-jawed breeding outlet, and while you do manage to avoid the shame of being anally humiliated by the big-cocked she-wolf, your daily knot-sucking, cum-gagging ordeals are far from the picture of heroism you had hoped for yourself."},
 			{"text": "Your jaw never gets quite used to canine fellatio, but you do your best."}
 		]

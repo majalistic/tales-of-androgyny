@@ -543,7 +543,10 @@ public enum EncounterCode {
 					AssetEnum.WEREWOLF_GROWL.getSound(),
 					AssetEnum.CUM.getSound(),
 					AssetEnum.CUM_BUBBLING.getSound(),
-					AssetEnum.WEREBITCH.getTexture()
+					AssetEnum.WEREBITCH.getTexture(),
+					AssetEnum.WEREBITCH_ANAL.getTexture(),
+					AssetEnum.WEREBITCH_KNOT.getTexture(),
+					AssetEnum.WEREBITCH_KNOT_CUM.getTexture()
 				});
 			case WITCH_COTTAGE:
 				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{  
