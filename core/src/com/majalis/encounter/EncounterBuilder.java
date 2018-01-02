@@ -287,9 +287,29 @@ public class EncounterBuilder {
 					)
 				);
 				
+				Branch patronBrothel = new Branch("Ask about the girls").textScene("BROTHEL-GIRL-DESCRIPTION").choiceScene(
+					"Which girl do you want to hire?", 
+					new Branch("Daisy (10 GP)").require(ChoiceCheckType.GOLD_GREATER_THAN_X, 10).textScene("BROTHEL-DAISY").choiceScene( // femboy
+						"What do you want to do?", 
+						new Branch("Get a blowjob").textScene("BROTHEL-DAISY-BJ"),
+						new Branch("Fuck her (5 GP)").require(ChoiceCheckType.GOLD_GREATER_THAN_X, 5).textScene("BROTHEL-DAISY-BOTTOM")
+					),
+					new Branch("Rose (15 GP)").require(ChoiceCheckType.GOLD_GREATER_THAN_X, 15).textScene("BROTHEL-ROSE").choiceScene( // mystery
+						"What do you want to do?", 
+						new Branch("Get a blowjob").textScene("BROTHEL-ROSE-BJ"),
+						new Branch("Fuck her (5 GP)").require(ChoiceCheckType.GOLD_GREATER_THAN_X, 5).textScene("BROTHEL-ROSE-BOTTOM")
+					),
+					new Branch("Ivy (20 GP)").require(ChoiceCheckType.GOLD_GREATER_THAN_X, 20).textScene("BROTHEL-IVY").choiceScene( // futa
+						"What do you want to do?", 
+						new Branch("Get a blowjob").textScene("BROTHEL-IVY-BJ"),
+						new Branch("Fuck her (10 GP)").require(ChoiceCheckType.GOLD_GREATER_THAN_X, 10).textScene("BROTHEL-IVY-BOTTOM")
+					)
+				);
+				
 				Branch onceSignedUp = new Branch().textScene("BROTHEL-MEMBER").choiceScene(
 						"What do you ask of her?",
 						talkToMadame,
+						patronBrothel,
 						new Branch("Offer your services").choiceScene(
 							"What service do you offer?", 
 							new Branch("Kissing (1 GP)").textScene("BROTHEL-KISSING"), 
@@ -325,6 +345,7 @@ public class EncounterBuilder {
 								new Branch(false).choiceScene(
 									"What do you ask of her?", 
 									talkToMadame,
+									patronBrothel,
 									new Branch("Ask her about joining").textScene("BROTHEL-OFFER").choiceScene(
 										"Do you want to sign up? What's the worst that could happen?",
 										new Branch ("Sign Up (Requires: Catamite)").require(ChoiceCheckType.LEWD).textScene("BROTHEL-SIGN-UP").concat(onceSignedUp),

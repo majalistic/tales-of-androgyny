@@ -1894,6 +1894,78 @@
 		]
 	},
 	{
+		"key": "BROTHEL-GIRL-DESCRIPTION",
+		"scriptLines": [
+			{"text": "..."}
+		]
+	},
+	{
+		"key": "BROTHEL-DAISY",
+		"scriptLines": [
+			{
+			"mutations": [{"saveType":"GOLD", "value":{"class": "java.lang.Integer", "value": -10}}],
+			"text": "She's rather petite."}
+		]
+	},
+	{
+		"key": "BROTHEL-DAISY-BJ",
+		"scriptLines": [
+			{"text": "..."}
+		]
+	},
+	{
+		"key": "BROTHEL-DAISY-BOTTOM",
+		"scriptLines": [
+			{
+			"mutations": [{"saveType":"GOLD", "value":{"class": "java.lang.Integer", "value": -5}}],
+			"text": "..."}
+		]
+	},
+	{
+		"key": "BROTHEL-ROSE",
+		"scriptLines": [
+			{
+			"mutations": [{"saveType":"GOLD", "value":{"class": "java.lang.Integer", "value": -15}}],
+			"text": "She seems... familiar"}
+		]
+	},
+	{
+		"key": "BROTHEL-ROSE-BJ",
+		"scriptLines": [
+			{"text": "..."}
+		]
+	},
+	{
+		"key": "BROTHEL-ROSE-BOTTOM",
+		"scriptLines": [
+			{
+			"mutations": [{"saveType":"GOLD", "value":{"class": "java.lang.Integer", "value": -5}}],
+			"text": "..."}
+		]
+	},
+	{
+		"key": "BROTHEL-IVY",
+		"scriptLines": [
+			{
+			"mutations": [{"saveType":"GOLD", "value":{"class": "java.lang.Integer", "value": -20}}],
+			"text": "It's... rather big."}
+		]
+	},
+	{
+		"key": "BROTHEL-IVY-BJ",
+		"scriptLines": [
+			{"text": "..."}
+		]
+	},
+	{
+		"key": "BROTHEL-IVY-BOTTOM",
+		"scriptLines": [
+			{
+			"mutations": [{"saveType":"GOLD", "value":{"class": "java.lang.Integer", "value": -10}}],
+			"text": "..."}
+		]
+	},
+	{
 		"key": "BROTHEL-SIGN-UP",
 		"scriptLines": [
 			{
