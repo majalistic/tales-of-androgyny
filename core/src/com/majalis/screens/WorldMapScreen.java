@@ -858,26 +858,30 @@ public class WorldMapScreen extends AbstractScreen {
 			Texture doodadTextureSheet = assetManager.get(AssetEnum.DOODADS.getTexture());
 			Array<TextureRegion> treeTextures = new Array<TextureRegion>();
 			Array<TextureRegion> treeShadowTextures = new Array<TextureRegion>();
-			int treeArraySize = 26;
+			int treeRowSize = 13;
 			int treeWidth = 192;
 			int treeHeight = 256;
-			for (int ii = 0; ii < treeArraySize; ii++) {
-				treeTextures.add(new TextureRegion(doodadTextureSheet, ii * treeWidth, 0, treeWidth, treeHeight));
-				TextureRegion shadowTexture = new TextureRegion(doodadTextureSheet, ii * treeWidth, 0, treeWidth, treeHeight);
-				shadowTexture.flip(true, false);
-				treeShadowTextures.add(shadowTexture);
+			for (int ii = 0; ii < treeRowSize; ii++) {
+				for (int jj = 0; jj < 2; jj++) {
+					treeTextures.add(new TextureRegion(doodadTextureSheet, ii * treeWidth, jj * treeHeight, treeWidth, treeHeight));
+					TextureRegion shadowTexture = new TextureRegion(doodadTextureSheet, ii * treeWidth, jj * treeHeight, treeWidth, treeHeight);
+					shadowTexture.flip(true, false);
+					treeShadowTextures.add(shadowTexture);
+				}
 			}
 			
 			Array<TextureRegion> rockTextures = new Array<TextureRegion>();
 			Array<TextureRegion> rockShadowTextures = new Array<TextureRegion>();
-			int rockArraySize = 19;
+			int rockRowSize = 10;
 			int rockWidth = 256;
 			int rockHeight = 128;
-			for (int ii = 0; ii < rockArraySize; ii++) {
-				rockTextures.add(new TextureRegion(doodadTextureSheet, ii * rockWidth, treeHeight, rockWidth, rockHeight));
-				TextureRegion shadowTexture = new TextureRegion(doodadTextureSheet, ii * rockWidth, treeHeight, rockWidth, rockHeight);
-				shadowTexture.flip(true, false);
-				rockShadowTextures.add(shadowTexture);
+			for (int ii = 0; ii < rockRowSize; ii++) {
+				for (int jj = 0; jj < 2; jj++) {
+					rockTextures.add(new TextureRegion(doodadTextureSheet, ii * rockWidth, treeHeight * 2 + jj * rockHeight, rockWidth, rockHeight));
+					TextureRegion shadowTexture = new TextureRegion(doodadTextureSheet, ii * rockWidth, treeHeight * 2 + jj * rockHeight, rockWidth, rockHeight);
+					shadowTexture.flip(true, false);
+					rockShadowTextures.add(shadowTexture);
+				}
 			}
 			
 			Array<Animation> lilyAnimations = new Array<Animation>();
@@ -886,8 +890,8 @@ public class WorldMapScreen extends AbstractScreen {
 			int lilyHeight = 64;
 			for (int ii = 0; ii < lilyArraySize; ii++) {
 				Array<TextureRegion> frames = new Array<TextureRegion>();
-				frames.add(new TextureRegion(doodadTextureSheet, ii * lilyWidth, treeHeight + rockHeight, lilyWidth, lilyHeight));
-				frames.add(new TextureRegion(doodadTextureSheet, ii * lilyWidth, treeHeight + rockHeight + lilyHeight, lilyWidth, lilyHeight));
+				frames.add(new TextureRegion(doodadTextureSheet, ii * lilyWidth, treeHeight * 2 + rockHeight * 2, lilyWidth, lilyHeight));
+				frames.add(new TextureRegion(doodadTextureSheet, ii * lilyWidth, treeHeight * 2 + rockHeight * 2 + lilyHeight, lilyWidth, lilyHeight));
 				Animation lilyAnimation = new Animation(.28f, frames);
 				lilyAnimation.setPlayMode(PlayMode.LOOP);
 				lilyAnimations.add(lilyAnimation);
@@ -937,12 +941,12 @@ public class WorldMapScreen extends AbstractScreen {
 							if (!(treeAbundance) && random.nextInt() % 6 == 0) {
 								textures = rockTextures;
 								shadowTextures = rockShadowTextures;
-								arraySize = rockArraySize;
+								arraySize = rockTextures.size;
 							}
 							else {
 								textures = treeTextures;
 								shadowTextures = treeShadowTextures;
-								arraySize = treeArraySize;
+								arraySize = treeTextures.size;
 							}
 							int chosen = Math.abs(random.nextInt() % arraySize);
 							Doodad doodad = new Doodad(textures.get(chosen));
