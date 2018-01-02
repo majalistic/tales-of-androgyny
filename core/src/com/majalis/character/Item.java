@@ -326,7 +326,7 @@ public abstract class Item {
 				case HEALING:
 					return magnitude / 2;
 				case MEAT:
-					return magnitude * 2;
+					return magnitude / 2;
 				case BANDAGE:
 					return 2;
 				default:

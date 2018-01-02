@@ -264,8 +264,8 @@ public class ShopScene extends Scene {
 		for (int ii = 0; ii < character.needShopRestock(shopCode); ii++) {
 			switch(shopCode) {
 				case SHOP:
-					restock.add(new Potion(5, EffectType.MEAT));
-					restock.add(new Potion(5, EffectType.MEAT));
+					restock.add(new Potion(20, EffectType.MEAT));
+					restock.add(new Potion(20, EffectType.MEAT));
 					restock.add(new Potion(10, EffectType.BANDAGE));
 					restock.add(new Potion(15));
 					restock.add(new Potion(15));
