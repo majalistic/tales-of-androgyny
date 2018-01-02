@@ -1934,38 +1934,42 @@
 		"key": "BROTHEL-DAISY",
 		"scriptLines": [
 			{
+			"foreground": "NULL",
 			"mutations": [{"saveType":"GOLD", "value":{"class": "java.lang.Integer", "value": -10}}],
-			"text": "You pay the madame 10 gold coins, and she calls for Daisy, who appears soon thereafter.  She's rather petite, indeed, and asks for you to follow her to the room."}
+			"text": "You pay the madame 10 gold coins, and she calls for Daisy, who appears soon thereafter.  She's rather petite, indeed, and asks for you to follow her to the room."},
+			{"text": "When you're in the room with her, she timidly asks what you want to do with her."}
 		]
 	},
 	{
 		"key": "BROTHEL-DAISY-BJ",
 		"scriptLines": [
-			{"text": "..."}
+			{"text": "She gestures for you to sit down on the bed, and then silently gets down on her knees.  She pulls out your cock and begins to gently lick it.  She doesn't seem to have much confidence in her abilities."},
 		]
 	},
 	{
 		"key": "BROTHEL-DAISY-DEEPTHROAT",
 		"scriptLines": [
-			{"text": "..."}
+			{"text": "You ask her to deepthroat you, and she looks up at you and smiles meekly.  She takes you into the back of her throat, and you recline on the bed, feeling her swallow you whole."},
+			{"text": "She repeatedly bottoms out, gagging softly, until you can't hold it in anymore, and you ejaculate into the back of her throat.  It slides out of her mouth, and she shows you that her mouth is empty."},
+			{"text": "Satisfied, you thank her for her service, and you're on your way."}
 		]
 	},
 	{
 		"key": "BROTHEL-DAISY-DEEPTHROAT-FAIL",
 		"scriptLines": [
-			{"text": "..."}
+			{"text": "She pretends not to have heard you."}
 		]
 	},
 	{
 		"key": "BROTHEL-DAISY-DEEPTHROAT-FORCE",
 		"scriptLines": [
-			{"text": "..."}
+			{"text": "You grab her head and thrust your hips forward, down into her throat.  After a few thrusts, you explode down her throat.  She spits what she can up, and thanks you for your patronage before leaving the room."}
 		]
 	},
 	{
 		"key": "BROTHEL-DAISY-BJ-FINISH",
 		"scriptLines": [
-			{"text": "..."}
+			{"text": "She continues to suck until you feel you're nearing the end of your rope, at which point she receives several ropes of her own onto her small tongue."}
 		]
 	},
 	{
@@ -1973,45 +1977,50 @@
 		"scriptLines": [
 			{
 			"mutations": [{"saveType":"GOLD", "value":{"class": "java.lang.Integer", "value": -5}}],
-			"text": "..."}
+			"text": "She nods, a bit unsure, and accepts the five gold surcharge.  She climbs onto the bed, and entices you to join her."},
+			{"text": "After some basic exploration, you find that she has a penis.  That doesn't stop you, though."},
+			{"text": "You plow her without reserve up the ass, and then some.  She squirts, which you find somewhat endearing, and when she's done, she lays on the bed, a bit exhausted, and thanks you for your patronage before you leave."},
 		]
 	},
 	{
 		"key": "BROTHEL-ROSE",
 		"scriptLines": [
 			{
+			"foreground": "NULL",
 			"mutations": [{"saveType":"GOLD", "value":{"class": "java.lang.Integer", "value": -15}}],
-			"text": "She seems... familiar"}
+			"text": "She accepts your money, and calls for Rose.  When Rose appears, you see that she's quite bottom heavy, and appears quite familiar.  She happily instructs you to follow her to the room."},
+			{"text": "When you're in the room alone, she pushes you against the door and asks what you'll be having."}
 		]
 	},
 	{
 		"key": "BROTHEL-ROSE-BJ",
 		"scriptLines": [
-			{"text": "..."}
+			{"text": "She cheerfully drops to her knees right then and there, and begins to give you a quite enthusiastic sucking off."}
 		]
 	},
 	{
 		"key": "BROTHEL-ROSE-DEEPTHROAT",
 		"scriptLines": [
-			{"text": "..."}
+			{"text": "She looks up at you with mischievous eyes, then closes them and takes your entire cock into her mouth, down the throat.  She expertly swallows your cock until you empty out your load down her throat."},
+			{"text": "She wipes her mouth, then gives you a kiss on the lips, and has you follow her back to the entrance before waving goodbye."}
 		]
 	},
 	{
 		"key": "BROTHEL-ROSE-DEEPTHROAT-FAIL",
 		"scriptLines": [
-			{"text": "..."}
+			{"text": "She shakes her head, and keeps happily slurping on your knob."}
 		]
 	},
 	{
 		"key": "BROTHEL-ROSE-DEEPTHROAT-FORCE",
 		"scriptLines": [
-			{"text": "..."}
+			{"text": "You pull her head forward until she takes it down her throat, and she looks up at you with a scornful expression.  She begins to take it deep on her own, and you relent.  She expertly swallows your cock until you empty out your load down her throat, then leaves without a word."}
 		]
 	},
 	{
 		"key": "BROTHEL-ROSE-BJ-FINISH",
 		"scriptLines": [
-			{"text": "..."}
+			{"text": "She continues to suck until her cheeks swell up with your cum, which she swallows down without needing to be asked.  She escorts you to the entrance, and kisses you on the cheek goodbye."}
 		]
 	},
 	{
@@ -2019,21 +2028,24 @@
 		"scriptLines": [
 			{
 			"mutations": [{"saveType":"GOLD", "value":{"class": "java.lang.Integer", "value": -5}}],
-			"text": "..."}
+			"text": "She seems strangely excited - she gets on her hands and knees on the floor, and you give it to her good.  When you're done, she's shivering, and she gives you a big kiss before sending you on your way."}
 		]
 	},
 	{
 		"key": "BROTHEL-IVY",
 		"scriptLines": [
 			{
+			"foreground": "NULL",
 			"mutations": [{"saveType":"GOLD", "value":{"class": "java.lang.Integer", "value": -20}}],
-			"text": "It's... rather big."}
+			"text": "She accepts your money, and calls for Ivy.  When Ivy appears, the prominent bulge in her tight shorts is immediately obvious.  You suspect that's meant to be part of the appeal."},
+			{"text": "She takes you by the hand and leads you to the room, then asks you how you'd like to be eaten."}
 		]
 	},
 	{
 		"key": "BROTHEL-IVY-BJ",
 		"scriptLines": [
-			{"text": "..."}
+			{"text": "You ask for a blowjob, and she rolls her eyes before squatting down, pulling your cock out without a second word.  Her technique is impeccable, and your knees turn to jelly."},
+			{"text": "A short while later, your head in the clouds, you fill her mouth with one, and she spits it out derisively, and sarcastically asks you to come again."}
 		]
 	},
 	{
@@ -2041,7 +2053,8 @@
 		"scriptLines": [
 			{
 			"mutations": [{"saveType":"GOLD", "value":{"class": "java.lang.Integer", "value": -10}}],
-			"text": "..."}
+			"text": "She clicks her teeth, then bends over and places her hands on the bed, flipping her hair over her shoulder and giving you a \"come get it\" look."},
+			{"text": "You do, indeed, come get it, and when you're done firing your stress up her backside, she asks if you're finished.  You... are."}
 		]
 	},
 	{

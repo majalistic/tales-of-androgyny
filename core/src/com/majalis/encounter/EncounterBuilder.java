@@ -334,7 +334,8 @@ public class EncounterBuilder {
 							"What do you want to do?", 
 							new Branch("Get a blowjob").textScene("BROTHEL-IVY-BJ"),
 							new Branch("Fuck her (10 GP)").require(ChoiceCheckType.GOLD_GREATER_THAN_X, 10).textScene("BROTHEL-IVY-BOTTOM")
-						)
+						),
+						new Branch("Leave")
 					)
 				);
 				
