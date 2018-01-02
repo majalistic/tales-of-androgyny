@@ -32,7 +32,7 @@ public enum AssetEnum {
 	DEFAULT_BACKGROUND("backgrounds/DefaultBackground.jpg"),
 	GAME_TYPE_BACKGROUND("backgrounds/GameTypeSelect.jpg"),
 	CLASS_SELECT_BACKGROUND("backgrounds/ClassSelect.png"),
-	SKILL_SELECTION_BACKGROUND("backgrounds/SkillSelect.png"),
+	SKILL_SELECTION_BACKGROUND("backgrounds/SkillSelect.jpg"),
 	CHARACTER_CUSTOM_BACKGROUND("backgrounds/CharCustom.png"),
 	DRYAD_BACKGROUND("DryadApple.jpg"),
 	STICK_BACKGROUND("backgrounds/StickEncounter.jpg"),
