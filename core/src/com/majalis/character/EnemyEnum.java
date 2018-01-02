@@ -67,7 +67,11 @@ public enum EnemyEnum {
     // there should be another method that accepts an assetManager and returns the actual maps
     public ObjectMap<String, Array<String>> getImagePaths() { 
     	ObjectMap<String, Array<String>> textureImagePaths = new ObjectMap<String, Array<String>>();
-    	if (this == HARPY) { 
+    	if (this == WERESLUT) {
+    		textureImagePaths.put(Stance.DOGGY.toString(), new Array<String>(new String[]{AssetEnum.WEREBITCH_ANAL.getPath()}));
+    		textureImagePaths.put(Stance.KNOTTED.toString(), new Array<String>(new String[]{AssetEnum.WEREBITCH_KNOT.getPath()}));
+    	}
+    	else if (this == HARPY) { 
     		textureImagePaths.put(Stance.FELLATIO.toString(), new Array<String>(new String[]{AssetEnum.HARPY_FELLATIO_0.getPath(), AssetEnum.HARPY_FELLATIO_1.getPath(), AssetEnum.HARPY_FELLATIO_2.getPath(), AssetEnum.HARPY_FELLATIO_3.getPath()})); 
     		textureImagePaths.put(Stance.DOGGY.toString(), new Array<String>(new String[]{AssetEnum.HARPY_ANAL.getPath()}));
     	}

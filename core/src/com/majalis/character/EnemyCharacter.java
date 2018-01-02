@@ -1138,6 +1138,7 @@ public class EnemyCharacter extends AbstractCharacter {
 			float height = 975;
 			
 			if (
+				(enemyType == EnemyEnum.WERESLUT && (stance == Stance.DOGGY || stance == Stance.KNOTTED)) ||
 				(enemyType == EnemyEnum.ADVENTURER && stance == Stance.COWGIRL_BOTTOM) ||
 				(enemyType == EnemyEnum.HARPY && stance == Stance.FELLATIO) ||
 				enemyType == EnemyEnum.BRIGAND ||
