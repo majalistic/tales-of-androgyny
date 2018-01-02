@@ -217,6 +217,9 @@ public class EnemyCharacter extends AbstractCharacter {
 						else if (stance.isOralPenetration()) {
 							resolvedAttack.addDialog("\"Yeah, that's right, suck it!\"");
 						} 
+						else if (stance.isAnalReceptive()) {
+							resolvedAttack.addDialog("\"Oof! That's my shithole, ya git!\"");
+						}
 						break;
 					case CENTAUR:
 						if (stance.isAnalPenetration()) {
@@ -234,8 +237,14 @@ public class EnemyCharacter extends AbstractCharacter {
 						else if (stance.isOralPenetration()) {
 							resolvedAttack.addDialog("\"That's right, pinkskin, suck on that gobbo dick!\"");
 						} 
+						else if (stance.isAnalReceptive()) {
+							resolvedAttack.addDialog("\"Hey, not up MY butt!  Nyahaha!\"");
+						}
 						break;
 					case HARPY:
+						if (stance.isAnalReceptive()) {
+							resolvedAttack.addDialog("The harpy squawks frantically!");
+						}
 						break;
 					case SLIME:
 						break;
@@ -256,6 +265,9 @@ public class EnemyCharacter extends AbstractCharacter {
 						else if (stance.isOralPenetration()) {
 							resolvedAttack.addDialog("\"Open wide!\"");
 						}	
+						else if (stance.isAnalReceptive()) {
+							resolvedAttack.addDialog("\"Whoahoho! Come on, fuck me, pinkskin!\"");
+						}
 						break;
 					case ADVENTURER:
 						if (stance.isAnalPenetration()) {
