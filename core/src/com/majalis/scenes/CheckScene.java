@@ -337,6 +337,14 @@ public class CheckScene extends AbstractTextScene {
 			@Override
 			protected boolean getCheck(PlayerCharacter character) { int check = character.getQuestStatus(QuestType.WITCH); return check == 2; }  
 		}, 
+		CRUEL_ORAL_UNWARNED("", "") { 
+			@Override
+			protected boolean getCheck(PlayerCharacter character) { int check = character.getQuestStatus(QuestType.MOUTH_FIEND); return check == 0; }  
+		},  
+		CRUEL_ORAL_BANNED("", "") { 
+			@Override
+			protected boolean getCheck(PlayerCharacter character) { int check = character.getQuestStatus(QuestType.MOUTH_FIEND); return check > 1; }  
+		}, 
 		;
 		private final String success;
 		private final String failure;

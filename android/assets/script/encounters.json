@@ -1820,7 +1820,7 @@
 		"key": "BROTHEL-MADAME-FACECRUSHED",
 		"scriptLines": [
 			{"text": "\"Hmhmhm... I can tell you're only teasing me because you're attracted to me,\" she says, rising from her chair slowly, a barely contained swirl of negative energy swirling around her."}, 
-			{"text": "She bends over her desk and faces you with a wide smile, her large breasts almost fully visible because of her low cut dress.  You swallow as you inadvertantly stare at them."}, 
+			{"text": "She bends over her desk and faces you with a wide smile, her large breasts almost fully visible because of her low cut dress.  You swallow as you inadvertently stare at them."}, 
 			{"text": "\"You like these, no?  Well...\" she says, drawing herself up, before quickly pivoting to turn herself around and hoist herself up onto her desk, \"is this what you're after?\" she asks, running her finger up the side of her round bottom."}, 
 			{"text": "You nod... there's no point in lying."},
 			{"text": "\"If you want to touch, lay on the floor.  I'll touch you.\""}, 
@@ -1896,7 +1896,38 @@
 	{
 		"key": "BROTHEL-GIRL-DESCRIPTION",
 		"scriptLines": [
-			{"text": "..."}
+			{"text": "\"First things first - if you want to be rough, you pay for that kind of play.  Don't be rough with the girls who didn't sign up for that, understood?\" she says, and you nod in agreement."},
+			{"text": "She opens up a small notebook, which she quickly scans."},
+			{"text": "\"I have three girls available at the moment.  Daisy's a petite little thing, very shy and eager to please, and somewhat inexperienced.  Rose is a full-figured woman with a free spirit, and Ivy is a cool beauty.  Hurt any of them and you'll regret it, understood?  So... which one interests you?"}
+		]
+	},
+	{
+		"key": "BROTHEL-MADAME-WARN-CRUEL-ORAL",
+		"scriptLines": [
+			{
+			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "MOUTH_FIEND", "value":1}}],
+			"text": "As you leave the brothel, you're stopped by the madame."},
+			{
+			"sound": "SMUG_LAUGH",
+			"foreground": "BROTHEL_MADAME",
+			"text": "\"Wait.  I thought I warned you... well, she'll be well compensated for your infraction, but do it again and they'll be straining you out of the carpet, and that's if you're lucky.  Understood?\" she says, with a finality, and you agree... and hasten your leave."}
+		]
+	},
+	{
+		"key": "BROTHEL-MADAME-THREATEN-CRUEL-ORAL",
+		"scriptLines": [
+			{
+			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "MOUTH_FIEND", "value":2}}],
+			"text": "As you leave the brothel, you're stopped by the madame."},
+			{
+			"foreground": "BROTHEL_MADAME",
+			"text": "\"I warned you not to be rough with the girls.  Get out of my establishment.  You're barred from patroning it ever again... although that's the least of your worries now.  You like mouth fucking, do you?  Well, we'll see,\" she says, cryptically, as you're escorted out."}
+		]
+	},
+	{
+		"key": "BROTHEL-BANNED",
+		"scriptLines": [
+			{"text": "\"Oh, I think you know about my girls.  And you're not getting anywhere near them again.  Don't think I haven't forgotten about what you've done,\" she says, waving you off."}
 		]
 	},
 	{
@@ -1904,11 +1935,35 @@
 		"scriptLines": [
 			{
 			"mutations": [{"saveType":"GOLD", "value":{"class": "java.lang.Integer", "value": -10}}],
-			"text": "She's rather petite."}
+			"text": "You pay the madame 10 gold coins, and she calls for Daisy, who appears soon thereafter.  She's rather petite, indeed, and asks for you to follow her to the room."}
 		]
 	},
 	{
 		"key": "BROTHEL-DAISY-BJ",
+		"scriptLines": [
+			{"text": "..."}
+		]
+	},
+	{
+		"key": "BROTHEL-DAISY-DEEPTHROAT",
+		"scriptLines": [
+			{"text": "..."}
+		]
+	},
+	{
+		"key": "BROTHEL-DAISY-DEEPTHROAT-FAIL",
+		"scriptLines": [
+			{"text": "..."}
+		]
+	},
+	{
+		"key": "BROTHEL-DAISY-DEEPTHROAT-FORCE",
+		"scriptLines": [
+			{"text": "..."}
+		]
+	},
+	{
+		"key": "BROTHEL-DAISY-BJ-FINISH",
 		"scriptLines": [
 			{"text": "..."}
 		]
@@ -1931,6 +1986,30 @@
 	},
 	{
 		"key": "BROTHEL-ROSE-BJ",
+		"scriptLines": [
+			{"text": "..."}
+		]
+	},
+	{
+		"key": "BROTHEL-ROSE-DEEPTHROAT",
+		"scriptLines": [
+			{"text": "..."}
+		]
+	},
+	{
+		"key": "BROTHEL-ROSE-DEEPTHROAT-FAIL",
+		"scriptLines": [
+			{"text": "..."}
+		]
+	},
+	{
+		"key": "BROTHEL-ROSE-DEEPTHROAT-FORCE",
+		"scriptLines": [
+			{"text": "..."}
+		]
+	},
+	{
+		"key": "BROTHEL-ROSE-BJ-FINISH",
 		"scriptLines": [
 			{"text": "..."}
 		]

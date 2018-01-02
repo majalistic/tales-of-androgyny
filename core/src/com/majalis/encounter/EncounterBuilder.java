@@ -287,22 +287,54 @@ public class EncounterBuilder {
 					)
 				);
 				
-				Branch patronBrothel = new Branch("Ask about the girls").textScene("BROTHEL-GIRL-DESCRIPTION").choiceScene(
-					"Which girl do you want to hire?", 
-					new Branch("Daisy (10 GP)").require(ChoiceCheckType.GOLD_GREATER_THAN_X, 10).textScene("BROTHEL-DAISY").choiceScene( // femboy
-						"What do you want to do?", 
-						new Branch("Get a blowjob").textScene("BROTHEL-DAISY-BJ"),
-						new Branch("Fuck her (5 GP)").require(ChoiceCheckType.GOLD_GREATER_THAN_X, 5).textScene("BROTHEL-DAISY-BOTTOM")
-					),
-					new Branch("Rose (15 GP)").require(ChoiceCheckType.GOLD_GREATER_THAN_X, 15).textScene("BROTHEL-ROSE").choiceScene( // mystery
-						"What do you want to do?", 
-						new Branch("Get a blowjob").textScene("BROTHEL-ROSE-BJ"),
-						new Branch("Fuck her (5 GP)").require(ChoiceCheckType.GOLD_GREATER_THAN_X, 5).textScene("BROTHEL-ROSE-BOTTOM")
-					),
-					new Branch("Ivy (20 GP)").require(ChoiceCheckType.GOLD_GREATER_THAN_X, 20).textScene("BROTHEL-IVY").choiceScene( // futa
-						"What do you want to do?", 
-						new Branch("Get a blowjob").textScene("BROTHEL-IVY-BJ"),
-						new Branch("Fuck her (10 GP)").require(ChoiceCheckType.GOLD_GREATER_THAN_X, 10).textScene("BROTHEL-IVY-BOTTOM")
+				Branch daisyBJFinish = new Branch("Let her work").textScene("BROTHEL-DAISY-BJ-FINISH");
+				Branch roseBJFinish = new Branch("Let her work").textScene("BROTHEL-ROSE-BJ-FINISH");
+				Branch brothelMadameCruelOralWarning = new Branch().checkScene(CheckType.CRUEL_ORAL_UNWARNED, new Branch(true).textScene("BROTHEL-MADAME-WARN-CRUEL-ORAL"), new Branch(false).textScene("BROTHEL-MADAME-THREATEN-CRUEL-ORAL"));
+				
+				Branch patronBrothel = new Branch("Ask about the girls").checkScene(
+					CheckType.CRUEL_ORAL_BANNED, 
+					new Branch(true).textScene("BROTHEL-BANNED"), 
+					new Branch(false).textScene("BROTHEL-GIRL-DESCRIPTION").choiceScene(
+						"Which girl do you want to hire?", 
+						new Branch("Daisy (10 GP)").require(ChoiceCheckType.GOLD_GREATER_THAN_X, 10).textScene("BROTHEL-DAISY").choiceScene( // femboy
+							"What do you want to do?", 
+							new Branch("Get a blowjob").textScene("BROTHEL-DAISY-BJ").choiceScene(
+								"Ask her to deepthroat?", 
+								new Branch("Ask").checkScene(
+									Stat.CHARISMA, 
+									new Branch(7).textScene("BROTHEL-DAISY-DEEPTHROAT"),
+									new Branch(0).textScene("BROTHEL-DAISY-DEEPTHROAT-FAIL").choiceScene(
+										"What do you do?", 
+										new Branch("Grab her").textScene("BROTHEL-DAISY-DEEPTHROAT-FORCE").concat(brothelMadameCruelOralWarning), 
+										daisyBJFinish
+									)
+								),
+								daisyBJFinish
+							),
+							new Branch("Fuck her (5 GP)").require(ChoiceCheckType.GOLD_GREATER_THAN_X, 5).textScene("BROTHEL-DAISY-BOTTOM")
+						),
+						new Branch("Rose (15 GP)").require(ChoiceCheckType.GOLD_GREATER_THAN_X, 15).textScene("BROTHEL-ROSE").choiceScene( // mystery
+							"What do you want to do?", 
+							new Branch("Get a blowjob").textScene("BROTHEL-ROSE-BJ").choiceScene(
+								"Ask her to deepthroat?", 
+								new Branch("Ask").checkScene(
+									Stat.CHARISMA, 
+									new Branch(7).textScene("BROTHEL-ROSE-DEEPTHROAT"),
+									new Branch(0).textScene("BROTHEL-ROSE-DEEPTHROAT-FAIL").choiceScene(
+										"What do you do?", 
+										new Branch("Grab her").textScene("BROTHEL-ROSE-DEEPTHROAT-FORCE").concat(brothelMadameCruelOralWarning), 
+										roseBJFinish
+									)
+								),
+								roseBJFinish
+							),
+							new Branch("Fuck her (5 GP)").require(ChoiceCheckType.GOLD_GREATER_THAN_X, 5).textScene("BROTHEL-ROSE-BOTTOM")
+						),
+						new Branch("Ivy (20 GP)").require(ChoiceCheckType.GOLD_GREATER_THAN_X, 20).textScene("BROTHEL-IVY").choiceScene( // futa
+							"What do you want to do?", 
+							new Branch("Get a blowjob").textScene("BROTHEL-IVY-BJ"),
+							new Branch("Fuck her (10 GP)").require(ChoiceCheckType.GOLD_GREATER_THAN_X, 10).textScene("BROTHEL-IVY-BOTTOM")
+						)
 					)
 				);
 				
