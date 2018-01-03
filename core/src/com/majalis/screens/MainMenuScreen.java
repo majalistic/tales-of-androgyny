@@ -108,7 +108,7 @@ public class MainMenuScreen extends AbstractScreen {
 	@Override
 	public void buildStage() {		
 		Image stationary = getImage(MAIN_MENU_STATIONARY);
-		stationary.setPosition(-1920, 0);
+		stationary.setPosition(0, 0);
 		bg = getImage(MAIN_MENU_BG2);
 		mg5 = getImage(MAIN_MENU_BG1);
 		mg4 = getImage(MAIN_MENU_MG4);
@@ -119,11 +119,11 @@ public class MainMenuScreen extends AbstractScreen {
 		dk = getImage(MAIN_MENU_DK);
 		fg = getImage(MAIN_MENU_FG);
 	
-		move(bg, mgScroll, -1720);
-		move(mg5, mgScroll, -1000);
-		move(mg4, mgScroll, -750);
-		move(mg3, mgScroll, -500);
-		move(mg2, mgScroll, -250);
+		move(bg, 200);
+		move(mg5, 0, 920);
+		move(mg4, 1170);
+		move(mg3, 1420);
+		move(mg2, 1670);
 		move(mg1, mgScroll);
 		move(mc, mgScroll, 1695, -95, false);
 		move(dk, fgScroll, 4000, 00, false);
@@ -199,11 +199,11 @@ public class MainMenuScreen extends AbstractScreen {
 		mc.clearActions();
 		dk.clearActions();
 		fg.clearActions();
-		bg.setPosition(-mgScroll, 0);
-		mg5.setPosition(-mgScroll, 0);
-		mg4.setPosition(-mgScroll, 0);
-		mg3.setPosition(-mgScroll, 0);
-		mg2.setPosition(-mgScroll, 0);
+		bg.setPosition(-200, 0);
+		mg5.setPosition(0, 0);
+		mg4.setPosition(-1170, 0);
+		mg3.setPosition(-1420, 0);
+		mg2.setPosition(-1670, 0);
 		mg1.setPosition(-mgScroll, 0);
 		mc.setPosition(1695 - mgScroll, -95);
 		dk.setPosition(4000 - fgScroll, 0);
