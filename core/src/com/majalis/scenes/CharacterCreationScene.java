@@ -54,8 +54,7 @@ public class CharacterCreationScene extends Scene {
 		final Label helpText = initLabel("Please Select a Class!", skin, Color.CHARTREUSE, 300, 800, Align.left);
 		
 		final Image characterImage = new Image(); 
-		characterImage.setPosition(1390, 200);
-		//characterImage.setScale(.225f);
+		characterImage.setPosition(1390, 230);
 		this.addActor(characterImage);
 		
 		final TextButton done = new TextButton("Done", skin);
@@ -116,7 +115,7 @@ public class CharacterCreationScene extends Scene {
 						Texture jobTexture = assetManager.get(jobClass.getTexture());
 						characterImage.setDrawable(new TextureRegionDrawable(new TextureRegion(jobTexture)));
 						characterImage.setSize(jobTexture.getWidth(), jobTexture.getHeight());
-						characterImage.setScale(.325f);
+						characterImage.setScale(730f/1080);
 						classSelection.setText(jobClass.getLabel());
 						classMessage.setText(getClassFeatures(jobClass));
 						saveService.saveDataValue(SaveEnum.CLASS, jobClass);

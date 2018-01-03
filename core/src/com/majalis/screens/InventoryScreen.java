@@ -91,8 +91,7 @@ public class InventoryScreen extends AbstractScreen {
 		this.character = character;
 		
 		Image characterImage = new Image(assetManager.get(character.getJobClass().getTexture()));
-		characterImage.setPosition(1160, -100);
-		characterImage.setScale(.525f);
+		characterImage.setPosition(1250, 0);
 		this.addActor(characterImage);
 		
 		done.setSize(180, 60);
