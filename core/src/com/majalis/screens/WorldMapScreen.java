@@ -1132,7 +1132,7 @@ public class WorldMapScreen extends AbstractScreen {
 									}
 								}
 								else {
-									frameBufferBatch.draw(getTexture(groundType, groundSheet, layers[groundType.ordinal()]), trueX, trueY); // appropriate blend layer
+									frameBufferBatch.draw(getBlendTexture(groundType, groundSheet, layers[groundType.ordinal()]), trueX, trueY); // appropriate blend layer
 								}
 								
 							}
@@ -1194,9 +1194,9 @@ public class WorldMapScreen extends AbstractScreen {
 		return slice;
 	}
 
-	public TextureRegion getTexture(GroundType groundType, Texture groundSheet, int mask) {
+	public TextureRegion getBlendTexture(GroundType groundType, Texture groundSheet, int mask) {
 		String key = groundType.toString() + "-" + mask;
-		TextureRegion slice = groundSlices.get(key, new TextureRegion(groundSheet, mask * (tileWidth) + 1, (groundType.ordinal()) * (tileHeight), tileWidth, tileHeight));
+		TextureRegion slice = groundSlices.get(key, new TextureRegion(groundSheet, (mask % 32) * (tileWidth) + 1, (((groundType.ordinal() - 1) * 2 + 1) + (mask > 31 ? 1 : 0)) * (tileHeight), tileWidth, tileHeight));
 		groundSlices.put(key, slice);
 		return slice;
 	}
