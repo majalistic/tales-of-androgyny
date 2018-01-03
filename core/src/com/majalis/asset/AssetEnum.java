@@ -34,7 +34,7 @@ public enum AssetEnum {
 	CLASS_SELECT_BACKGROUND("backgrounds/ClassSelect.png"),
 	SKILL_SELECTION_BACKGROUND("backgrounds/SkillSelect.jpg"),
 	CHARACTER_CUSTOM_BACKGROUND("backgrounds/CharCustom.png"),
-	DRYAD_BACKGROUND("DryadApple.jpg"),
+	DRYAD_BACKGROUND("characters/DryadApple.jpg"),
 	STICK_BACKGROUND("backgrounds/StickEncounter.jpg"),
 	CABIN_BACKGROUND("backgrounds/WoodsCottage.jpg"),
 	BURNING_FORT_BG("backgrounds/BurningFort.jpg"),
@@ -326,6 +326,7 @@ public enum AssetEnum {
 	ANAL_ANIMATION("animation/skeleton.atlas", AnimatedActorFactory.class, new AnimatedActorLoader.AnimatedActorParameter(.475f, 1, true)),
 	CENTAUR_ANIMATION("animation/Centaur.atlas", AnimatedActorFactory.class, new AnimatedActorLoader.AnimatedActorParameter(.60f, 1.8f, true)), 
 	ORC_ANIMATION("animation/Orc.atlas", AnimatedActorFactory.class, new AnimatedActorLoader.AnimatedActorParameter(.60f, 1f, true)), 
+	
 	;
 	
 	private final AssetDescriptor<?> assetDescriptor;

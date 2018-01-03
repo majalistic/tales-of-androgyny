@@ -1,1 +1,0 @@
-{"skeleton":{"hash":"ursXHS1XAFBoVnKaizNBHbfs/eQ","spine":"3.6.36","width":4000,"height":2500,"images":"./BG/"},"bones":[{"name":"root"}],"slots":[{"name":"Forest","bone":"root"}],"skins":{"default":{}},"animations":{"animation":{"bones":{"root":{"rotate":[{"time":0,"angle":-0.16}]}}}}}
