@@ -410,14 +410,14 @@ public class Battle extends Group{
 		Texture slashSheet = assetManager.get(AssetEnum.SLASH.getTexture());
 		Array<TextureRegion> frames = new Array<TextureRegion>();
 		for (int ii = 0; ii < 6; ii++) {
-			frames.add(new TextureRegion(slashSheet, ii * 512, 0, 512, 512));
+			frames.add(new TextureRegion(slashSheet, ii * 384, 0, 384, 384));
 		}
 		
 		Animation animation = new Animation(.07f, frames);
 		slash = new AnimatedImage(animation, Scaling.fit, Align.right);
 		slash.setState(1);
 		
-		slash.setPosition(700, 500);
+		slash.setPosition(764, 564);
 		this.addActor(slash);
 		
 		this.addActor(uiGroup);
