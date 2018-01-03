@@ -110,7 +110,14 @@ public class ChoiceScene extends AbstractChoiceScene {
             event2.setType(InputEvent.Type.touchUp);
             buttons.get(selection).fire(event2);
         }
-		while (!buttons.get(selection).isTouchable()) {
+		boolean hasTouchable = false;
+		for (TextButton button : buttons) {
+			if (button.isTouchable()) {
+				hasTouchable = true;
+				break;
+			}
+		}
+		while (!buttons.get(selection).isTouchable() && hasTouchable) {
 			if(Gdx.input.isKeyJustPressed(Keys.UP)) {
 	        	if (selection > 0) selection--;
 	        	else selection = buttons.size-1;
