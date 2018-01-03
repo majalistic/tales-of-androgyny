@@ -47,8 +47,7 @@ public class LoadScreen extends AbstractScreen {
 		this.addActor(loadingImage);
 		this.addActor(tooltip);
 		this.addActor(alt);
-		loadingImage.setPosition(900, 0);
-		loadingImage.setScale(.3f);
+		loadingImage.setPosition(1100, 0);
 		tooltip.setPosition(40, 950);
 		tooltip.setWrap(true);
 		tooltip.setWidth(1050);

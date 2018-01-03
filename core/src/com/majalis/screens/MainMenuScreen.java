@@ -125,11 +125,9 @@ public class MainMenuScreen extends AbstractScreen {
 		move(mg3, 1420);
 		move(mg2, 1670);
 		move(mg1, mgScroll);
-		move(mc, mgScroll, 1695, -95, false);
+		move(mc, mgScroll, 1775, -75, false);
 		move(dk, fgScroll, 4000, 00, false);
 		move(fg, fgScroll);
-		
-		mc.setScale(.345f);
 		
 		// build UI
 		uiGroup = new Group();
@@ -205,7 +203,7 @@ public class MainMenuScreen extends AbstractScreen {
 		mg3.setPosition(-1420, 0);
 		mg2.setPosition(-1670, 0);
 		mg1.setPosition(-mgScroll, 0);
-		mc.setPosition(1695 - mgScroll, -95);
+		mc.setPosition(1775 - mgScroll, -75);
 		dk.setPosition(4000 - fgScroll, 0);
 		fg.setPosition(-fgScroll, 0);
 		uiGroup.addAction(Actions.show());
