@@ -30,7 +30,6 @@ public class EndScene extends Scene {
 
 	private final Type type;
 	private final SaveService saveService;
-	private final SaveManager.GameContext context;
 	private final Background background;
 	private final Array<MutationResult> results;
 	private final AssetManager assetManager;
@@ -41,12 +40,11 @@ public class EndScene extends Scene {
 	private final Skin skin;
 	private final Group group;
 	private boolean finished;
-	public EndScene(int sceneCode, Type type, SaveService saveService, AssetManager assetManager, SaveManager.GameContext context, final Background background, LogDisplay log, Array<MutationResult> results) {
+	public EndScene(int sceneCode, Type type, SaveService saveService, AssetManager assetManager, final Background background, LogDisplay log, Array<MutationResult> results) {
 		super(null, sceneCode);
 		this.type = type;
 		this.saveService = saveService;
 		this.assetManager = assetManager;
-		this.context = context;
 		this.background = background;
 		this.results = results;
 		this.addActor(background);
@@ -158,7 +156,8 @@ public class EndScene extends Scene {
 	}
 	
 	private void finish() {
-		saveService.saveDataValue(SaveEnum.CONTEXT, context);
+		if (type == Type.GAME_OVER) saveService.saveDataValue(SaveEnum.CONTEXT, SaveManager.GameContext.GAME_OVER);
+		else saveService.saveDataValue(SaveEnum.CONTEXT, null); // sets context to return context
 		if (type == Type.ENCOUNTER_OVER || type == Type.GAME_OVER) {
 			saveService.saveDataValue(SaveEnum.RETURN_CONTEXT, null);
 			saveService.saveDataValue(SaveEnum.ENCOUNTER_END, null);

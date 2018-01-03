@@ -10,7 +10,6 @@ import com.majalis.save.LoadService;
 import com.majalis.save.MutationResult;
 import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveManager;
-import com.majalis.save.SaveManager.GameContext;
 import com.majalis.save.SaveManager.GameMode;
 import com.majalis.save.SaveService;
 import com.majalis.scenes.ShopScene.Shop;
@@ -34,9 +33,8 @@ public class EncounterFactory {
 	@SuppressWarnings("unchecked")
 	public Encounter getEncounter(EncounterCode encounterCode, BitmapFont font) {
 		IntArray sceneCode = loadService.loadDataValue(SaveEnum.SCENE_CODE, IntArray.class);
-		GameContext context = loadService.loadDataValue(SaveEnum.RETURN_CONTEXT, GameContext.class);
 		return new EncounterBuilder(
-			readers.get(encounterCode.getScriptPath()), assetManager, saveService, font, sceneCode, (ObjectMap<String, Shop>)loadService.loadDataValue(SaveEnum.SHOP, Shop.class), (PlayerCharacter) loadService.loadDataValue(SaveEnum.PLAYER, PlayerCharacter.class), context,
+			readers.get(encounterCode.getScriptPath()), assetManager, saveService, font, sceneCode, (ObjectMap<String, Shop>)loadService.loadDataValue(SaveEnum.SHOP, Shop.class), (PlayerCharacter) loadService.loadDataValue(SaveEnum.PLAYER, PlayerCharacter.class),
 			(GameMode) loadService.loadDataValue(SaveEnum.MODE, GameMode.class), (Array<MutationResult>) loadService.loadDataValue(SaveEnum.RESULT, Array.class)).getEncounter(encounterCode); 
 	}
 }

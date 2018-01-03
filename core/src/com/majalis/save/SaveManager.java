@@ -90,7 +90,7 @@ public class SaveManager implements SaveService, LoadService {
 	    	case PLAYER: 			save.player = (PlayerCharacter) object; break;
 	    	case ENEMY: 			save.enemy = (EnemyCharacter) object; break;
 	    	case SCENE_CODE: 		int sceneCode = (Integer) object; if (!save.sceneCode.contains(sceneCode)) save.sceneCode.add(sceneCode); break; // this could be replaced with an IntSet instead of an IntArray the way nodes are
-	    	case CONTEXT: 			save.context = (GameContext) object; break;
+	    	case CONTEXT: 			if (object == null) save.context = save.returnContext; else save.context = (GameContext) object; break;
 	    	case RETURN_CONTEXT: 	save.returnContext = (GameContext) object; break;
 	    	case NODE_CODE: 		save.nodeCode = (Integer) object; break;
 	    	case ENCOUNTER_CODE:	save.encounterCode = (EncounterCode) object; break;

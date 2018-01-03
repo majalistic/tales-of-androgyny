@@ -26,9 +26,7 @@ import com.majalis.character.AbstractCharacter.Stat;
 import com.majalis.save.MutationResult;
 import com.majalis.save.ProfileEnum;
 import com.majalis.save.SaveEnum;
-import com.majalis.save.SaveManager;
 import com.majalis.save.SaveService;
-import com.majalis.save.SaveManager.GameContext; // this should probably be moved out of SaveManager
 import com.majalis.save.SaveManager.GameMode; // this should probably be moved out of SaveManager
 import com.majalis.scenes.AbstractChoiceScene;
 import com.majalis.scenes.BattleScene; // this should be refactored so that encounterbuilder receives a scenebuilder
@@ -56,7 +54,6 @@ public class EncounterBuilder {
 	private final IntArray sceneCodes;
 	private final ObjectMap<String, Shop> shops;
 	private final PlayerCharacter character;
-	private final GameContext returnContext;
 	private final GameMode mode;
 	private final OrderedMap<Integer, Scene> masterSceneMap;
 	private final ObjectMap<AnimationEnum, AnimatedActor> animationCache;
@@ -64,7 +61,7 @@ public class EncounterBuilder {
 	// can probably be replaced with a call to scenes.size
 	private int sceneCounter;
 	
-	protected EncounterBuilder(EncounterReader reader, AssetManager assetManager, SaveService saveService, BitmapFont font, IntArray sceneCodes, ObjectMap<String, Shop> shops, PlayerCharacter character, GameContext returnContext, GameMode mode, Array<MutationResult> results) {
+	protected EncounterBuilder(EncounterReader reader, AssetManager assetManager, SaveService saveService, BitmapFont font, IntArray sceneCodes, ObjectMap<String, Shop> shops, PlayerCharacter character, GameMode mode, Array<MutationResult> results) {
 		this.reader = reader;
 		this.assetManager = assetManager;
 		this.saveService = saveService;
@@ -72,7 +69,6 @@ public class EncounterBuilder {
 		this.sceneCodes = sceneCodes;
 		this.shops = shops == null ? new ObjectMap<String, Shop>() : shops;
 		this.character = character;
-		this.returnContext = returnContext;
 		this.mode = mode;
 		this.results = results;
 		this.animationCache = new ObjectMap<AnimationEnum, AnimatedActor>();
@@ -1619,8 +1615,8 @@ public class EncounterBuilder {
 					case EndGame:
 					case EndEncounter:
 						EndScene newEndScene = branchToken.type == EndTokenType.EndEncounter ? 
-							new EndScene(sceneCounter, EndScene.Type.ENCOUNTER_OVER, saveService, assetManager, returnContext, getEndBackground(), new LogDisplay(sceneCodes, masterSceneMap, skin), results) :
-							new EndScene(sceneCounter, EndScene.Type.GAME_OVER, saveService, assetManager, SaveManager.GameContext.GAME_OVER, getEndBackground(), new LogDisplay(sceneCodes, masterSceneMap, skin), results);
+							new EndScene(sceneCounter, EndScene.Type.ENCOUNTER_OVER, saveService, assetManager, getEndBackground(), new LogDisplay(sceneCodes, masterSceneMap, skin), results) :
+							new EndScene(sceneCounter, EndScene.Type.GAME_OVER, saveService, assetManager, getEndBackground(), new LogDisplay(sceneCodes, masterSceneMap, skin), results);
 						endScenes.add(newEndScene);
 						sceneMap = addScene(scenes, newEndScene, true);		
 						break;
@@ -1635,7 +1631,7 @@ public class EncounterBuilder {
 			// catch if there's an unplugged branch without an end scene
 			if (sceneMap.size == 0) {
 				EndScene newEndScene;
-				newEndScene = new EndScene(sceneCounter, EndScene.Type.ENCOUNTER_OVER, saveService, assetManager, returnContext, getEndBackground(), new LogDisplay(sceneCodes, masterSceneMap, skin), results);
+				newEndScene = new EndScene(sceneCounter, EndScene.Type.ENCOUNTER_OVER, saveService, assetManager, getEndBackground(), new LogDisplay(sceneCodes, masterSceneMap, skin), results);
 				endScenes.add(newEndScene);
 				sceneMap = addScene(scenes, newEndScene, true);		
 			}
