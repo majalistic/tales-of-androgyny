@@ -1558,7 +1558,7 @@ public class PlayerCharacter extends AbstractCharacter {
 
 	public Array<MutationResult> increaseScout(int increase) {
 		scout += increase;
-		return getResult("You scouted the surrounding areas.");
+		return getResult("You scouted the surrounding areas.  Scout level now " + (scout > 4 ? "maximum!" : scout + "."));
 	}
 	
 	public String resetScout() {
