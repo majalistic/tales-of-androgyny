@@ -22,8 +22,8 @@ public enum EnemyEnum {
 	BRIGAND (new EnemyTemplate(WeaponType.Gladius).setAgility(4).setShield(ArmorType.SHIELD), "Brigand", null, AnimationEnum.BRIGAND),
 	CENTAUR (new EnemyTemplate(WeaponType.Bow).setEndurance(4).setAgility(4).setPerception(5).setShield(ArmorType.SHIELD), "Centaur", null, AnimationEnum.CENTAUR),
 	UNICORN (new EnemyTemplate(WeaponType.Bow).setEndurance(4).setAgility(4).setPerception(5).setShield(ArmorType.SHIELD), "Unicorn", null, AnimationEnum.UNICORN),
-	GOBLIN (new EnemyTemplate(WeaponType.Dagger).setStrength(4).setEndurance(4).setAgility(5), "Goblin", AssetEnum.GOBLIN.getTexture()), 
-	GOBLIN_MALE (new EnemyTemplate(WeaponType.Dagger).setStrength(4).setEndurance(4).setAgility(5), "Goblin (Male)", AssetEnum.GOBLIN_MALE.getTexture()),
+	GOBLIN (new EnemyTemplate(WeaponType.Dagger).setStrength(4).setEndurance(4).setAgility(5), "Goblin", null, AnimationEnum.GOBLIN), 
+	GOBLIN_MALE (new EnemyTemplate(WeaponType.Dagger).setStrength(4).setEndurance(4).setAgility(5), "Goblin (Male)", null, AnimationEnum.GOBLIN_MALE),
 	ORC (new EnemyTemplate(WeaponType.Chain, 6, 5, 4, 3, 3, 3).setArmor(ArmorType.MEDIUM_ENEMY_ARMOR).setLegwear(ArmorType.MEDIUM_ENEMY_LEGWEAR).addHealth(10).setShield(ArmorType.SHIELD), "Orc", null, AnimationEnum.ORC), 
 	ADVENTURER (new EnemyTemplate(WeaponType.Axe, 4, 4, 4, 3, 4, 6).setArmor(ArmorType.MEDIUM_ENEMY_ARMOR).setLegwear(ArmorType.MEDIUM_ENEMY_LEGWEAR).addHealth(10).setMana(26).setShield(ArmorType.SHIELD), "Adventurer", AssetEnum.ADVENTURER.getTexture()),
 	OGRE (new EnemyTemplate(WeaponType.Greatclub, 8, 6, 4, 3, 3, 3).setArmor(null).setLegwear(null).setHealth(new IntArray(new int[]{20, 20, 20})), "Ogre", AssetEnum.OGRE.getTexture()),
@@ -110,7 +110,8 @@ public enum EnemyEnum {
     public PronounSet getPronounSet() { return this == ADVENTURER || this == OGRE || this == GOBLIN_MALE ? PronounSet.MALE : PronounSet.FEMALE; }
     
     public AnimationEnum getAnimation() { return animation; }
-	
+	protected boolean hasHitAnimation() { return this == EnemyEnum.HARPY || this == EnemyEnum.CENTAUR || this == EnemyEnum.UNICORN; }
+    
 	public int getStartingLust() { return this == UNICORN ? 20 : 0; }
 	
 	// all of this should likely be replaced with a getEnemy method that simply returns the new enemyCharacter
@@ -283,8 +284,8 @@ public enum EnemyEnum {
 				temp.add(AssetEnum.CENTAUR_ANIMATION.getAnimation());
 				break;
 			case GOBLIN:
-				break;
 			case GOBLIN_MALE:
+				temp.add(AssetEnum.GOBLIN_ANIMATION.getAnimation());
 				break;
 			case HARPY:
 				temp.add(AssetEnum.HARPY_ANIMATION.getAnimation());

@@ -10,6 +10,8 @@ public enum AnimationEnum {
 	CENTAUR(AssetEnum.CENTAUR_ANIMATION),
 	UNICORN(AssetEnum.CENTAUR_ANIMATION), 
 	ORC(AssetEnum.ORC_ANIMATION),
+	GOBLIN(AssetEnum.GOBLIN_ANIMATION),
+	GOBLIN_MALE(AssetEnum.GOBLIN_ANIMATION)
 	;
 	private static final ObjectMap<AssetEnum, AnimatedActorFactory> factoryMap = new ObjectMap<AssetEnum, AnimatedActorFactory>();
 	private final AssetEnum animationToken;
@@ -30,6 +32,9 @@ public enum AnimationEnum {
 		else if (this == AnimationEnum.BRIGAND) {
 			animation.setSkeletonPosition(900, 450);
 		}
+		else if (this == AnimationEnum.GOBLIN || this == AnimationEnum.GOBLIN_MALE) {
+			animation.setSkeletonPosition(1000, 350);
+		}
 		else {
 			animation.setSkeletonPosition(1000, 550);
 		}
@@ -39,6 +44,12 @@ public enum AnimationEnum {
 		}
 		else if (this == AnimationEnum.UNICORN) {
 			animation.setSkeletonSkin("WhiteUnicorn");
+		}
+		else if (this == AnimationEnum.GOBLIN) {
+			animation.setSkeletonSkin("Femme");
+		}
+		else if (this == AnimationEnum.GOBLIN_MALE) {
+			animation.setSkeletonSkin("Homme");
 		}
 		animation.setAnimation(0, "Idle Erect", true);
 		return animation;

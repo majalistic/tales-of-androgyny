@@ -100,8 +100,6 @@ public enum AssetEnum {
 	UNICORN_ANAL("enemies/UnicornAnal.jpg"), 
 	CENTAUR_ANAL_XRAY("enemies/CentaurAnalXRay.jpg"), 
 	UNICORN_ANAL_XRAY("enemies/UnicornAnalXRay.jpg"), 
-	GOBLIN("enemies/GoblinFuta.png"),
-	GOBLIN_MALE("enemies/GoblinMale.png"),
 	GOBLIN_FACE_SIT("enemies/GoblinFaceSit.png"),
 	GOBLIN_FACE_SIT_MALE("enemies/GoblinFaceSit.png"),
 	GOBLIN_ANAL("enemies/GoblinAnal.jpg"),
@@ -326,7 +324,7 @@ public enum AssetEnum {
 	ANAL_ANIMATION("animation/skeleton.atlas", AnimatedActorFactory.class, new AnimatedActorLoader.AnimatedActorParameter(.475f, 1, true)),
 	CENTAUR_ANIMATION("animation/Centaur.atlas", AnimatedActorFactory.class, new AnimatedActorLoader.AnimatedActorParameter(.60f, 1.8f, true)), 
 	ORC_ANIMATION("animation/Orc.atlas", AnimatedActorFactory.class, new AnimatedActorLoader.AnimatedActorParameter(.60f, 1f, true)), 
-	
+	GOBLIN_ANIMATION("animation/Goblin.atlas", AnimatedActorFactory.class, new AnimatedActorLoader.AnimatedActorParameter(.40f, 1f, true)), 	
 	;
 	
 	private final AssetDescriptor<?> assetDescriptor;

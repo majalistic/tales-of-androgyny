@@ -1,0 +1,258 @@
+
+Goblin.png
+size: 2048,2048
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+backBangs
+  rotate: false
+  xy: 885, 830
+  size: 57, 105
+  orig: 57, 105
+  offset: 0, 0
+  index: -1
+backBangsM
+  rotate: false
+  xy: 1048, 1308
+  size: 57, 105
+  orig: 57, 105
+  offset: 0, 0
+  index: -1
+backBrim
+  rotate: false
+  xy: 1515, 1857
+  size: 125, 74
+  orig: 125, 74
+  offset: 0, 0
+  index: -1
+backBrimM
+  rotate: false
+  xy: 1515, 1857
+  size: 125, 74
+  orig: 125, 74
+  offset: 0, 0
+  index: -1
+braid
+  rotate: false
+  xy: 2, 19
+  size: 215, 327
+  orig: 215, 327
+  offset: 0, 0
+  index: -1
+fBangsM
+  rotate: false
+  xy: 303, 14
+  size: 49, 56
+  orig: 49, 56
+  offset: 0, 0
+  index: -1
+foreBrim
+  rotate: true
+  xy: 219, 72
+  size: 274, 143
+  orig: 274, 143
+  offset: 0, 0
+  index: -1
+foreBrimM
+  rotate: true
+  xy: 219, 72
+  size: 274, 143
+  orig: 274, 143
+  offset: 0, 0
+  index: -1
+gobHead
+  rotate: false
+  xy: 384, 606
+  size: 269, 448
+  orig: 269, 448
+  offset: 0, 0
+  index: -1
+gobHeadM
+  rotate: false
+  xy: 766, 1596
+  size: 269, 448
+  orig: 269, 448
+  offset: 0, 0
+  index: -1
+hairM
+  rotate: false
+  xy: 1486, 1801
+  size: 45, 52
+  orig: 45, 52
+  offset: 0, 0
+  index: -1
+hatTail
+  rotate: true
+  xy: 1515, 1933
+  size: 111, 485
+  orig: 111, 485
+  offset: 0, 0
+  index: -1
+hatTailM
+  rotate: true
+  xy: 1515, 1933
+  size: 111, 485
+  orig: 111, 485
+  offset: 0, 0
+  index: -1
+lForeArm
+  rotate: false
+  xy: 1037, 1625
+  size: 270, 228
+  orig: 270, 228
+  offset: 0, 0
+  index: -1
+lForeArmM
+  rotate: false
+  xy: 384, 376
+  size: 270, 228
+  orig: 270, 228
+  offset: 0, 0
+  index: -1
+lFrontBangs
+  rotate: true
+  xy: 1770, 1854
+  size: 77, 86
+  orig: 77, 86
+  offset: 0, 0
+  index: -1
+lHeel
+  rotate: true
+  xy: 794, 937
+  size: 179, 154
+  orig: 179, 154
+  offset: 0, 0
+  index: -1
+lHeelM
+  rotate: true
+  xy: 957, 1415
+  size: 179, 154
+  orig: 179, 154
+  offset: 0, 0
+  index: -1
+lToe
+  rotate: false
+  xy: 1642, 1876
+  size: 126, 55
+  orig: 126, 55
+  offset: 0, 0
+  index: -1
+lToeM
+  rotate: true
+  xy: 957, 1181
+  size: 126, 55
+  orig: 126, 55
+  offset: 0, 0
+  index: -1
+lUpperArm
+  rotate: false
+  xy: 1309, 1627
+  size: 175, 226
+  orig: 175, 226
+  offset: 0, 0
+  index: -1
+lUpperArmM
+  rotate: false
+  xy: 656, 379
+  size: 175, 226
+  orig: 175, 226
+  offset: 0, 0
+  index: -1
+lfBangs
+  rotate: true
+  xy: 1858, 1854
+  size: 77, 86
+  orig: 77, 86
+  offset: 0, 0
+  index: -1
+neck
+  rotate: true
+  xy: 219, 2
+  size: 68, 82
+  orig: 68, 82
+  offset: 0, 0
+  index: -1
+neckM
+  rotate: false
+  xy: 1946, 1849
+  size: 68, 82
+  orig: 68, 82
+  offset: 0, 0
+  index: -1
+package
+  rotate: false
+  xy: 794, 831
+  size: 89, 104
+  orig: 89, 104
+  offset: 0, 0
+  index: -1
+packageM
+  rotate: false
+  xy: 957, 1309
+  size: 89, 104
+  orig: 89, 104
+  offset: 0, 0
+  index: -1
+rArm
+  rotate: false
+  xy: 384, 1056
+  size: 189, 988
+  orig: 189, 988
+  offset: 0, 0
+  index: -1
+rArmM
+  rotate: false
+  xy: 575, 1056
+  size: 189, 988
+  orig: 189, 988
+  offset: 0, 0
+  index: -1
+rFrontBangs
+  rotate: false
+  xy: 957, 1123
+  size: 49, 56
+  orig: 49, 56
+  offset: 0, 0
+  index: -1
+rLeg
+  rotate: false
+  xy: 766, 1118
+  size: 189, 476
+  orig: 189, 476
+  offset: 0, 0
+  index: -1
+rLegM
+  rotate: true
+  xy: 1037, 1855
+  size: 189, 476
+  orig: 189, 476
+  offset: 0, 0
+  index: -1
+sideTabbard
+  rotate: false
+  xy: 655, 807
+  size: 137, 247
+  orig: 137, 247
+  offset: 0, 0
+  index: -1
+sideTabbardM
+  rotate: false
+  xy: 655, 607
+  size: 140, 198
+  orig: 140, 198
+  offset: 0, 0
+  index: -1
+torso
+  rotate: false
+  xy: 2, 1197
+  size: 380, 847
+  orig: 380, 847
+  offset: 0, 0
+  index: -1
+torsoM
+  rotate: false
+  xy: 2, 348
+  size: 380, 847
+  orig: 380, 847
+  offset: 0, 0
+  index: -1

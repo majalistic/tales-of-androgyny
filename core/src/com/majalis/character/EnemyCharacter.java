@@ -1118,7 +1118,11 @@ public class EnemyCharacter extends AbstractCharacter {
 			}
 		}
 		if (currentAnimationsPlaying.size == 0 && enemyType == EnemyEnum.HARPY && !stance.isOralPenetration()) currentAnimationsPlaying.add(animations.get(0));
-		if (currentAnimationsPlaying.size == 0 || (enemyType == EnemyEnum.ORC && stance == Stance.PRONE_BONE) || (enemyType == EnemyEnum.CENTAUR && (stance == Stance.DOGGY || stance == Stance.FELLATIO)) || (enemyType == EnemyEnum.BRIGAND && (stance == Stance.FELLATIO || stance == Stance.FACEFUCK || stance == Stance.ANAL))) {
+		if (currentAnimationsPlaying.size == 0 || 
+				((enemyType == EnemyEnum.GOBLIN || enemyType == EnemyEnum.GOBLIN_MALE) && (stance == Stance.PRONE_BONE || stance == Stance.DOGGY || stance == Stance.PRONE_BONE || stance == Stance.SIXTY_NINE)) ||
+				(enemyType == EnemyEnum.ORC && stance == Stance.PRONE_BONE) || 
+				(enemyType == EnemyEnum.CENTAUR && (stance == Stance.DOGGY || stance == Stance.FELLATIO)) ||
+				(enemyType == EnemyEnum.BRIGAND && (stance == Stance.FELLATIO || stance == Stance.FACEFUCK || stance == Stance.ANAL))) {
 			Array<Texture> textureCandidates = textures.get(stance, defaultTextures);
 			if (textureCandidates == null) return;
 			Texture texture;
@@ -1230,7 +1234,7 @@ public class EnemyCharacter extends AbstractCharacter {
 	}
 	
 	public void hitAnimation() {
-		if (animations.size > 0 && currentAnimationsPlaying.contains(animations.get(0)) && enemyType != EnemyEnum.BRIGAND && enemyType != EnemyEnum.ORC) {
+		if (animations.size > 0 && currentAnimationsPlaying.contains(animations.get(0)) && enemyType.hasHitAnimation()) {
 			animations.get(0).setAnimation(0, "Hit Erect", false);
 			animations.get(0).addAnimation(0, "Idle Erect", true, 1.0f);
 			if (enemyType == EnemyEnum.HARPY) {

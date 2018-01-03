@@ -345,11 +345,10 @@ public enum EncounterCode {
 			case FIRST_BATTLE_STORY:
 				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{
 					AssetEnum.FOREST_BG.getTexture(),
-					AssetEnum.GOBLIN.getTexture(),
+					AssetEnum.GOBLIN_ANIMATION.getAnimation(),
 					AssetEnum.GOBLIN_ANAL.getTexture(),
 					AssetEnum.LOUD_LAUGH.getSound(),
 					AssetEnum.WEREWOLF_MUSIC.getMusic()
-					
 				});
 			case GADGETEER:
 				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{  
@@ -372,8 +371,7 @@ public enum EncounterCode {
 				});
 			case GOBLIN:
 				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{  
-					AssetEnum.GOBLIN.getTexture(),
-					AssetEnum.GOBLIN_MALE.getTexture(),
+					AssetEnum.GOBLIN_ANIMATION.getAnimation(),
 					AssetEnum.GOBLIN_ANAL.getTexture(),
 					AssetEnum.GOBLIN_ANAL_MALE.getTexture(),
 					AssetEnum.LOUD_LAUGH.getSound(),

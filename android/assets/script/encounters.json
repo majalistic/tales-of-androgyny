@@ -420,7 +420,7 @@
 			{"text": "You look around, trying to track the source - your entire body tenses, the pounding of your own pulse drumming your ears, the crunch of the soil underfoot such a burdensome distraction that you keep perfectly still.  This is it.  Your first battle."},
 			{"text": "The scabbard shakes as you grip it, as if you were shaking, but that can't be.  Your mind is focused, your spirit is willing, and as soon as you see the fangs and claws, you'll know what to do - or so you think, when suddenly, a figure emerges from behind a fallen log... and you immediately recognize how it had been hiding behind it."},
 			{
-			"foreground": "GOBLIN",
+			"animatedForeground": "GOBLIN",
 			"text": "It's... a little green goblin.  From the proportions, it looks like a female.  She's stumbling around, laughing... there's no doubt about it - she's drunk."},
 			{"text": "\"Heya! Hey! You! The boy with the fat butt!\" she says, before immediately laughing herself silly, apparently finding the reddening of your ears hilarious.  \"Why don't... you don't... why don't...\" she slurs, and then falls over, her loincloth falling out of place to give you an eyeful.  You're apparently not the only one with some junk in the trunk."},
 			{"text": "You start to relax your grip on the hilt of your sword when, in a startling moment of sobriety, she kips up to her feet.  Moreover, she pulls out a small dagger and licks the blade."},
@@ -3716,7 +3716,7 @@
 		"key": "GOBLIN-EAGLE-EYE",
 		"scriptLines": [
 			{
-			"foreground": "GOBLIN",
+			"animatedForeground": "GOBLIN",
 			"text": "You home in the exact location of the noise you heard, and your eyes lock on a small, diminuitive figure.  They quickly dive into the undergrowth, trying to break your line of vision, but your keen senses are able to track them regardless of where they go."},
 			{"text": "They dart through the underbrush and position themselves nearby, unaware that you still know exactly where they are.  They try to nick you with their spear, thrusting out from the growth."}
 		]
@@ -3757,7 +3757,7 @@
 		"key": "GOBLIN-POST-SPEAR",
 		"scriptLines": [
 			{
-			"foreground": "GOBLIN",
+			"animatedForeground": "GOBLIN",
 			"mutations": [{"profileSaveType":"KNOWLEDGE", "value":{"class": "java.lang.String", "value": "Goblin"}}],			
 			"text": "They try to run past you, a whip-like motion of their dagger aiming at the waist of your pants."}
 		]
@@ -4185,7 +4185,7 @@
 		"key": "GOBLIN-FIGHTOFF",
 		"scriptLines": [
 			{
-			"foreground": "GOBLIN",
+			"animatedForeground": "GOBLIN",
 			"text": "You manage to get your second wind and shake her off - she falls to the ground, growling, her rock-hard erection still clearly ready for another go."},
 			{"text": "Though she just blasted a wad of cum in your pooter, you still have enough use of your arms and legs to pull up your pants and make a break for it - and with her short legs, she can't catch up."}
 		]
@@ -4202,7 +4202,7 @@
 		"scriptLines": [
 			{"text": "You brave the familiar warning sign, on your guard."},
 			{
-			"foreground": "GOBLIN",
+			"animatedForeground": "GOBLIN",
 			"text": "You encounter the same goblin as before!  She grins at you, and informs you that this encounter isn't finished yet, so you'll have to come back later if you want to get bitten on the balls."}
 		]
 	},
@@ -4214,7 +4214,7 @@
 			"mutations": [{"profileSaveType":"KNOWLEDGE", "value":{"class": "java.lang.String", "value": "Goblin (Male)"}}],			
 			"text": "You avoid the path, knowing who you might run into if you don't.  The dark, narrow path raises your hackles, but there's nothing that can be done about it."},
 			{
-			"foreground": "GOBLIN_MALE",
+			"animatedForeground": "GOBLIN_MALE",
 			"text": "\"Gyahaha\" you hear, a high peal of laughter... although the register is different from how you remembered it.  You spot them almost immediately - a goblin, but different looking from the one you saw before."}
 			{"text": "You approach him cautiously... and you see that, like the other, he wields a frighteningly jagged dagger."}
 			{"text": "\"My turn, my turn!\" he says, revealing a rather... swinging set of genitals.  You reach for your weapon."}

@@ -60,7 +60,7 @@ public class ReplayScreen extends AbstractScreen {
 		resourceRequirements.add(AssetEnum.BUNNY_CREAM_ANAL.getTexture());
 		
 		Array<AssetEnum> animationReqs = new Array<AssetEnum>(new AssetEnum[]{
-			HARPY_ANIMATION, HARPY_ATTACK_ANIMATION, FEATHERS_ANIMATION, FEATHERS2_ANIMATION, BRIGAND_ANIMATION, ANAL_ANIMATION, CENTAUR_ANIMATION, ORC_ANIMATION			
+			HARPY_ANIMATION, HARPY_ATTACK_ANIMATION, FEATHERS_ANIMATION, FEATHERS2_ANIMATION, BRIGAND_ANIMATION, ANAL_ANIMATION, CENTAUR_ANIMATION, ORC_ANIMATION, GOBLIN_ANIMATION			
 		});
 		for (AssetEnum asset: animationReqs) {
 			resourceRequirements.add(asset.getAnimation());
@@ -231,7 +231,7 @@ public class ReplayScreen extends AbstractScreen {
 			case GHOST:
 				break;
 			case GOBLIN:
-				attachListener(new TextButton("Doggy", skin), AssetEnum.GOBLIN_ANAL, cg, enemy, table);
+				attachListener(new TextButton("Anal", skin), AssetEnum.GOBLIN_ANAL, cg, enemy, table);
 				attachListener(new TextButton("Facesit", skin), AssetEnum.GOBLIN_FACE_SIT, cg, enemy, table);
 				break;
 			case GOBLIN_MALE:
@@ -241,7 +241,7 @@ public class ReplayScreen extends AbstractScreen {
 			case GOLEM:
 				break;
 			case HARPY:
-				attachListener(new TextButton("Doggy", skin), AssetEnum.HARPY_ANAL, cg, enemy, table);
+				attachListener(new TextButton("Anal", skin), AssetEnum.HARPY_ANAL, cg, enemy, table);
 				attachListener(new TextButton("Fellatio 1", skin), AssetEnum.HARPY_FELLATIO_0, cg, enemy, table);
 				table.row();
 				attachListener(new TextButton("Fellatio 2", skin), AssetEnum.HARPY_FELLATIO_1, cg, enemy, table);
