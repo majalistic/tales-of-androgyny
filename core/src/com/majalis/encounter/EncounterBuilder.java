@@ -979,6 +979,8 @@ public class EncounterBuilder {
 				return new Branch().textScene("STORY-WITCH-COTTAGE").encounterEnd().getEncounter(); 	
 			case MERI_COTTAGE_VISIT:
 				return new Branch().textScene("STORY-WITCH-COTTAGE-VISIT").encounterEnd().getEncounter(); 
+			case MOUTH_FIEND:
+				return new Branch().textScene("MOUTHFIEND-INTRO").getEncounter();
 			case NAGA:
 				return new Branch().textScene("NAGA-INTRO").checkScene(
 					CheckType.SCOUT_LEVEL_3, 
@@ -1223,18 +1225,22 @@ public class EncounterBuilder {
 					),
 					new Branch("Refuse")
 				);
-				
-				Branch townSquareOptions = new Branch().choiceScene(
-					"What do you do?",
-					new Branch("Eavesdrop").checkScene(
-						CheckType.CRIER_QUEST, 
-						new Branch(true).textScene("TOWN-SQUARE-INFORMANT").concat(payHim),
-						new Branch(false).checkScene(CheckType.CRIER_REFUSE, new Branch(true).textScene("TOWN-SQUARE-INFORMANT-RETURN").concat(payHim), new Branch(false).randomScene(squareOptions))
-					),
-					new Branch("Listen to the town crier").checkScene(
-						CheckType.CRIER, 
-						new Branch(true).textScene("CRIER-NEW"), 
-						new Branch(false).checkScene(CheckType.QUETZAL_DEFEATED, new Branch(true).textScene("CRIER-QUETZAL"), new Branch(false).textScene("CRIER-OLD"))
+								
+				Branch townSquareOptions = new Branch().checkScene(
+					CheckType.MOUTH_FIEND_INTRO, 
+					new Branch(true).textScene("TOWN-SQUARE-KIDNAP"), 
+					new Branch(false).choiceScene(
+						"What do you do?",
+						new Branch("Eavesdrop").checkScene(
+							CheckType.CRIER_QUEST, 
+							new Branch(true).textScene("TOWN-SQUARE-INFORMANT").concat(payHim),
+							new Branch(false).checkScene(CheckType.CRIER_REFUSE, new Branch(true).textScene("TOWN-SQUARE-INFORMANT-RETURN").concat(payHim), new Branch(false).randomScene(squareOptions))
+						),			
+						new Branch("Listen to the town crier").checkScene(
+							CheckType.CRIER, 
+							new Branch(true).textScene("CRIER-NEW"), 
+							new Branch(false).checkScene(CheckType.QUETZAL_DEFEATED, new Branch(true).textScene("CRIER-QUETZAL"), new Branch(false).textScene("CRIER-OLD"))
+						)
 					)
 				);
 				return new Branch().checkScene(CheckType.DAY, new Branch(true).textScene("TOWN-SQUARE-INTRO").concat(townSquareOptions), new Branch(false).textScene("TOWN-SQUARE-NIGHT")).getEncounter();

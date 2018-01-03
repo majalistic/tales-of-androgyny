@@ -74,7 +74,11 @@ public class GameWorldFactory {
 					.addEndNode(1005, QUETZAL, QUETZAL, 119, 115)
 					.addEndNode(1006, FORT, FORT, 119, 84)
 					.buildZone();
-
+			
+			IntSet visitedCodesSet = loadService.loadDataValue(SaveEnum.VISITED_LIST, IntSet.class);
+			addNode(getNode(50000, MOUTH_FIEND, MOUTH_FIEND, 96, 49, visitedCodesSet.contains(50000)), nodes);
+			addNode(getNode(50001, FOOD_CACHE, DEFAULT, 99, 49, visitedCodesSet.contains(50001)), nodes);
+			nodes.get(nodes.size - 1).connectTo(nodes.get(nodes.size - 2));			
 		}
 		else {
 			int nodeCode = 1;

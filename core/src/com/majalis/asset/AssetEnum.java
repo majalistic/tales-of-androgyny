@@ -140,6 +140,7 @@ public enum AssetEnum {
 	QUETZAL("enemies/Quetzal.png"),
 	QUETZAL_HERO("enemies/QuetzalHero.jpg"),
 	QUETZAL_HERO_ANAL("enemies/QuetzalHeroAnal.jpg"),
+	MOUTH_FIEND("enemies/MouthFiend.png"), 
 	TRAP_BONUS("enemies/TrapBonus.jpg"), 
 
 	ARMOR_DOLL("battle/ArmorDoll.png"),

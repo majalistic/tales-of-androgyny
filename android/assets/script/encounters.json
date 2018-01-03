@@ -994,6 +994,14 @@
 		]
 	},
 	{
+		"key": "TOWN-SQUARE-KIDNAP",
+		"scriptLines": [
+			{
+			"mutations": [{"saveType":"RETURN_CONTEXT", "value":{"class": "com.majalis.save.SaveManager$GameContext", "value": "WORLD_MAP"}}, {"saveType":"NODE_CODE", "value":{"class": "java.lang.Integer", "value": 50001}}],
+			"text": "You get kidnapped!"},
+		]
+	},
+	{
 		"key": "CRIER-NEW",
 		"scriptLines": [
 			{
@@ -2416,7 +2424,15 @@
 			{"text": "You lick your lips.  Back to work."}			
 		]
 	},
-
+	{
+		"key": "MOUTHFIEND-INTRO",
+		"scriptLines": [
+			{
+			"foreground": "MOUTH_FIEND",
+			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "MOUTH_FIEND", "value":3}}],
+			"text": "You've been kidnapped!"},
+		]
+	},
 	{
 		"key": "NO-SKILLS",
 		"scriptLines": [

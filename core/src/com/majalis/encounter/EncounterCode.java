@@ -37,6 +37,7 @@ public enum EncounterCode {
 	BUNNY,
 	ANGEL (CASTLE),
 	NAGA,
+	MOUTH_FIEND (CASTLE),
 	
 	FORT (CASTLE), 
 	TOWN (AssetEnum.TOWN),
@@ -122,6 +123,8 @@ public enum EncounterCode {
 						return "Town of Nadir";	
 					case FORT:
 						return "Fort";
+					case MOUTH_FIEND:
+						return "Strange castle";
 					case QUETZAL: return "Mountain";
 					case COTTAGE_TRAINER: return "Cottage on the Outskirts";
 					case FIRST_BATTLE_STORY: return "Forest Clearing";
@@ -176,6 +179,8 @@ public enum EncounterCode {
 					case TOWN_STORY: return "Town of Nadir";
 					case FORT:
 						return "Fort";
+					case MOUTH_FIEND:
+						return "Strange castle";
 					case QUETZAL: return "Mount Xiuh";
 					case COTTAGE_TRAINER: return "Cottage-on-the-Outskirts";
 					case FIRST_BATTLE_STORY: return "Forest Clearing - signs of hostile creature";
@@ -209,6 +214,7 @@ public enum EncounterCode {
 			case MERI_COTTAGE_VISIT: return "Witch's Cottage (visited)";
 			case GADGETEER: return "Strange Gadgeteer";
 			case FORT: return "Fort";
+			case MOUTH_FIEND: return "Strange castle";
 			default: return "Nothing here.";
 		}
 	}
@@ -472,6 +478,13 @@ public enum EncounterCode {
 					AssetEnum.CABIN_BACKGROUND.getTexture(),
 					AssetEnum.TRAINER_MUSIC.getMusic()
 				});
+			case MOUTH_FIEND:
+				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{
+						AssetEnum.MOUTH_FIEND.getTexture(),
+						AssetEnum.CUM.getSound(),
+						AssetEnum.CUM_BUBBLING.getSound(),
+						AssetEnum.WEREWOLF_MUSIC.getMusic()
+					});
 			case NAGA:
 				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{
 						AssetEnum.NAGA.getTexture(),
