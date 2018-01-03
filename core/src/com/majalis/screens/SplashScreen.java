@@ -54,16 +54,13 @@ public class SplashScreen extends AbstractScreen {
 		else {
 			// asynchronous
 			Array<AssetDescriptor<?>> pathToType = MainMenuScreen.resourceRequirements;
-			pathToType.addAll(ReplayScreen.resourceRequirements);
 			pathToType.addAll(CreditsScreen.resourceRequirements);
 			for (AssetDescriptor<?> path: pathToType) {
 				if (!assetManager.isLoaded(path.fileName)) {
 					assetManager.load(path);
 				}
 			}
-			
 			assetManager.load(AssetEnum.LOADING.getTexture());
-			
 		}
 		
 		progress = new ProgressBar(0, 1, .05f, false, skin);
