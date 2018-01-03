@@ -44,7 +44,7 @@ public class MainMenuScreen extends AbstractScreen {
 		
 		// need to refactor to get all stance textures
 		AssetEnum[] assets = new AssetEnum[]{
-			STANCE_ARROW, MAIN_MENU_FG, MAIN_MENU_DK, MAIN_MENU_MC, MAIN_MENU_MG1, MAIN_MENU_MG2, MAIN_MENU_MG3, MAIN_MENU_MG4, MAIN_MENU_BG1, MAIN_MENU_BG2, MAIN_MENU_STATIONARY, TOA, ALPHA
+			STANCE_ARROW, MAIN_MENU_FG, MAIN_MENU_DK, MAIN_MENU_MC, MAIN_MENU_MG1_LEFT, MAIN_MENU_MG2_LEFT, MAIN_MENU_MG3_LEFT, MAIN_MENU_MG4_LEFT, MAIN_MENU_BG1, MAIN_MENU_BG2_LEFT, MAIN_MENU_MG1_RIGHT, MAIN_MENU_MG2_RIGHT, MAIN_MENU_MG3_RIGHT, MAIN_MENU_MG4_RIGHT, MAIN_MENU_BG2_RIGHT, MAIN_MENU_STATIONARY, TOA, ALPHA
 		};
 		for (AssetEnum asset: assets) {
 			resourceRequirements.add(asset.getTexture());
@@ -66,6 +66,11 @@ public class MainMenuScreen extends AbstractScreen {
 	private Image mg3;
 	private Image mg2;
 	private Image mg1;
+	private Image bgright;
+	private Image mg4right;
+	private Image mg3right;
+	private Image mg2right;
+	private Image mg1right;
 	private Image mc;
 	private Image dk;
 	private Image fg;
@@ -109,24 +114,34 @@ public class MainMenuScreen extends AbstractScreen {
 	public void buildStage() {		
 		Image stationary = getImage(MAIN_MENU_STATIONARY);
 		stationary.setPosition(0, 0);
-		bg = getImage(MAIN_MENU_BG2);
+		bg = getImage(MAIN_MENU_BG2_LEFT);
+		bgright = getImage(MAIN_MENU_BG2_RIGHT);
 		mg5 = getImage(MAIN_MENU_BG1);
-		mg4 = getImage(MAIN_MENU_MG4);
-		mg3 = getImage(MAIN_MENU_MG3);
-		mg2 = getImage(MAIN_MENU_MG2);
-		mg1 = getImage(MAIN_MENU_MG1);
+		mg4 = getImage(MAIN_MENU_MG4_LEFT);
+		mg4right = getImage(MAIN_MENU_MG4_RIGHT);
+		mg3 = getImage(MAIN_MENU_MG3_LEFT);
+		mg3right = getImage(MAIN_MENU_MG3_RIGHT);
+		mg2 = getImage(MAIN_MENU_MG2_LEFT);
+		mg2right = getImage(MAIN_MENU_MG2_RIGHT);
+		mg1 = getImage(MAIN_MENU_MG1_LEFT);
+		mg1right = getImage(MAIN_MENU_MG1_RIGHT);
 		mc = getImage(MAIN_MENU_MC);
 		dk = getImage(MAIN_MENU_DK);
 		fg = getImage(MAIN_MENU_FG);
 	
 		move(bg, 200);
+		move(bgright, 200, 1920, 0, false);
 		move(mg5, 0, 920);
 		move(mg4, 1170);
+		move(mg4right, 1170, 1920, 0, false);
 		move(mg3, 1420);
+		move(mg3right, 1420, 1920, 0, false);
 		move(mg2, 1670);
+		move(mg2right, 1670, 1920, 0, false);
 		move(mg1, mgScroll);
+		move(mg1right, mgScroll, 1920, 0, false);
 		move(mc, mgScroll, 1775, -75, false);
-		move(dk, fgScroll, 4000, 00, false);
+		move(dk, fgScroll, 4000, 0, false);
 		move(fg, fgScroll);
 		
 		// build UI
@@ -189,7 +204,12 @@ public class MainMenuScreen extends AbstractScreen {
 	
 	private void finishCutScene() {
 		bg.clearActions();
+		bgright.clearActions();
 		mg5.clearActions();
+		mg4right.clearActions();
+		mg3right.clearActions();
+		mg2right.clearActions();
+		mg1right.clearActions();
 		mg4.clearActions();
 		mg3.clearActions();
 		mg2.clearActions();
@@ -197,6 +217,11 @@ public class MainMenuScreen extends AbstractScreen {
 		mc.clearActions();
 		dk.clearActions();
 		fg.clearActions();
+		bgright.setPosition(-200 + 1920, 0);
+		mg4right.setPosition(-1170 + 1920, 0);
+		mg3right.setPosition(-1420 + 1920, 0);
+		mg2right.setPosition(-1670 + 1920, 0);
+		mg1right.setPosition(-mgScroll + 1920, 0);
 		bg.setPosition(-200, 0);
 		mg5.setPosition(0, 0);
 		mg4.setPosition(-1170, 0);
