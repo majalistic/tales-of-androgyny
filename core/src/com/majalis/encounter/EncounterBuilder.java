@@ -988,8 +988,8 @@ public class EncounterBuilder {
 						BattleCode.NAGA, 
 						new Branch(Outcome.VICTORY).textScene("NAGA-VICTORY").choiceScene(
 							"What do you do with her?", 
-							new Branch("In her... cloaca").textScene("NAGA-CLOACA"), 
-							new Branch("In her mouth").textScene("NAGA-FELLATIO").gameEnd(), 
+							new Branch("In her... cloaca").require(ChoiceCheckType.FREE_COCK).textScene("NAGA-CLOACA"), 
+							new Branch("In her mouth").require(ChoiceCheckType.FREE_COCK).textScene("NAGA-FELLATIO").gameEnd(), 
 							new Branch("Nothing")
 						), 
 						new Branch(Outcome.DEFEAT).textScene("NAGA-DEFEAT").gameEnd(), 
