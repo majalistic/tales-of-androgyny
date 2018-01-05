@@ -463,7 +463,8 @@ public enum EncounterCode {
 				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{  
 					AssetEnum.INNKEEPER.getTexture(),
 					AssetEnum.KEYHOLE.getTexture(),
-					AssetEnum.GAME_OVER_KEYHOLE.getTexture()
+					AssetEnum.GAME_OVER_KEYHOLE.getTexture(),
+					AssetEnum.CUM.getSound(),
 				});
 			case LEVEL_UP:
 				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{   

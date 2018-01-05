@@ -705,7 +705,9 @@
 			{"text": "While she stuffs your ass the way you might stuff a turkey, you reach for your weapon, and finally, you manage to grip it.  You swing it inneffectually back towards her, and she dodges the blade, but pulls away from you."},		
 			{"text": "You manage to push out her noodle, or she retracts it - either way it makes a sloppy, wet sound as it exits your stirred up shithole, which fails to close properly after it."},
 			{"text": "She takes off, having been scared by your blade and also having blown a wad in your gut, and you watch her retreat into the sunset."},		
-			{"text": "Her cum drools down your thigh, proof that while you made it through the harrowing encounter with the sharp-taloned bird woman, you did not do so with your dignity intact."},
+			{
+			"mutations": [{"saveType":"PORTRAIT"}],
+			"text": "Her cum drools down your thigh, proof that while you made it through the harrowing encounter with the sharp-taloned bird woman, you did not do so with your dignity intact."},
 			{"text": "Having been sodomized by the harpy, you sigh a deep sigh, knowing that the path forward is treacherous indeed."},
 			{"text": "It bubbles out continuously over the next stretch of your journey, a shameful reminder not to be caught with your pants down... literally."}
 		]
@@ -810,7 +812,9 @@
 			"sound": "CUM",
 			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "creampies":1}}],
 			"text": "She doesn't last long - in fact, she doesn't even get all the way in before she erupts inside, coating your rectum with semen."},		
-			{"text": "Despite winning the battle, you still ended up full of cum - but her kiss on your lips is intoxicating, and you can think of little else as you leave the bandit's hovel."}
+			{
+			"mutations": [{"saveType":"PORTRAIT"}],
+			"text": "Despite winning the battle, you still ended up full of cum - but her kiss on your lips is intoxicating, and you can think of little else as you leave the bandit's hovel."}
 		]
 	},
 	{
@@ -927,6 +931,7 @@
 			"text": "Her fourth ejaculation is thinner and runnier than the others, but it's still a substantial load.  You cross your eyes from the effort of keeping your ejaculatory muscle tense, not wanting for her oral creampie to force you to creampie your own underwear."},		
 			{"text": "Her nutsack, which had looked so full, is now thoroughly deflated."},
 			{
+			"mutations": [{"saveType":"PORTRAIT"}],
 			"sound": "BURP",
 			"text": "You do burp bubbles, her sticky hot mess causing havoc in your overly full stomach.  It feels like you've downed a gallon of milk or porridge, but your lips taste of jizz."},
 			{"text": "\"Our deal is done, hehe,\" she says, a little bubbly, clearly having cum her brains out.  She stumbls away from the stump, her flaccid cock still hanging out of her pants, and wishes you farewell."}				
@@ -1625,7 +1630,9 @@
 			"foreground": "NULL",
 			"mutations": [{"saveType":"TIME", "value":{"class": "java.lang.Integer", "value": 2}}, {"saveType":"FOOD", "value":{"class": "java.lang.Integer", "value": 15}}, {"saveType":"HEALTH", "value":{"class": "java.lang.Integer", "value": 100}}],
 			"text": "As you lie there, face-down and butt-fucked, you feel completely emasculated.  The innkeeper's semen has dried between your cheeks, and still more is slowly bubbling out and down onto the mattress."},
-			{"text": "You dress for breakfast in the morning, trying your best to avoid eye contact."}
+			{
+			"mutations": [{"saveType":"PORTRAIT"}],
+			"text": "You dress for breakfast in the morning, trying your best to avoid eye contact."}
 		]
 	},
 	{
@@ -1677,7 +1684,9 @@
 			{"text": "Though you end up with a reputation as the town bicycle, this isn't unwarranted - you ARE the town bicycle, and you are ridden multiple times a day."},
 			{"text": "You eventually forget what it's like to sleep in sheets that aren't sticky with your own anally-induced ejaculate, but that's just fine with you.  Every night you spend cuddling up to the innkeeper with his load bubbling out of your well-fucked hole, you can't imagine being or doing anything else."},
 			{"text": "If anyone peeks through a keyhole at your inn, there's a decent chance they'll spot you, on your hands and knees, and a lock that can be opened by any key."},
-			{"text": "-SPURT-"}
+			{
+			"sound": "CUM",
+			"text": "-SPURT-"}
 		]
 	},
 	{
@@ -3851,7 +3860,9 @@
 			"text": "Her ejaculation proves just as voluminous as the last, and in fact feels considerably fuller, as your guts are already clogged with her cloudy bird seed.  You can feel her blowing bubbles in your stomach, an experience only the most unluckiest of adventurers likely share."},
 			{"text": "The second fuck leaves you completely exhausted - too exhausted, certainly, to continue arguing with the harpy's mating \"logic\".  Her ass-accommodated cock flops about, drooling her own brine, and you watch as it steadily hardens again."},
 			{"text": "You prepare yourself for a third round of gut-punching humiliation... but what's in store for you is much worse."},
-			{"text": "She takes off, leaving you stranded and unable to continue your adventure."},
+			{
+			"mutations": [{"saveType":"PORTRAIT"}],
+			"text": "She takes off, leaving you stranded and unable to continue your adventure."},
 			{"text": "You drift off to sleep, knowing that when she does return, she'll likely be erect, and your sphincter will be pried open by your harpy wife's unyielding bird dick."},		
 			{"text": "Indeed, it wasn't the last time that the harpy's stinky bird dick rummaged through your rectum during a frantic, feathery anal sex session - trapped in the high-up, remote nest, it became a daily occurence, as the harpy returned with food, pre-chewed, as well as baubles, and also a big need to seed to fertilize some non-existent eggs."},			
 			{"text": "Months pass.  Whenever you hear your wife's screech, your asshole tightens, knowing intrinsically that it will soon receive a thoroughly uncompromising mating.  You long for the day when your bird wife returns unerect, but it has not yet come.  Today is no different."},
@@ -4121,7 +4132,9 @@
 			{"text": "That isn't the end of it, however. Once she's done, she pulls her slime penis out of you, leaving a decent amount of it inside - but she quickly reforms it as she slides over herself to reach your mouth with it."}, 
 			{"text": "She pumps your mouth until, finally, you can see your own cum rushing up through the pillar of slime that is her slime-dong, and she shoots a slimy, but entirely human, load down your throat."},
 			{"text": "You gulp down your own bitter ball-juice. You win some, you lose some."},
-			{"text": "Tea thanks you for a good time, and you stumble away, nauseous, perhaps to find something to clean the taste out of your mouth."},
+			{
+			"mutations": [{"saveType":"PORTRAIT"}],
+			"text": "Tea thanks you for a good time, and you stumble away, nauseous, perhaps to find something to clean the taste out of your mouth."},
 			{
 			"foreground": "NULL",
 			"mutations": [{"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": 3}}],
@@ -4219,7 +4232,9 @@
 			{"text": "After her thorough insemination, she pulls free - your stretched-thin anal membrane clinging to her wet, smooth shaft as she does, until finally, it slips free, head and all."},
 			{"text": "Her creampie is remarkably subtle - despite her fat cock stretching it wide just moments before, your hole tightens up into a fairly small gape, and her sticky cum begins to ooze out slowly, a proof of conquest you're hoping no prying eyes will see."},
 			{"text": "Despite the rather humble display, which isn't actually that humble, as it's obvious there's a lot of cum stuffed up inside, the amount in your rectum alone is enough to make you feel like the village whore, and it's not just your rectum that's full. You can feel it oozing out slowly - there are definitely jellified chunks of the stuff in there."},
-			{"text": "She makes you clean it off, sucking on her half-flaccid penis until she's satisfied, then bends over to give you a peck on the cheek and goes on her merry way. You decide not to hold onto all of her cum for safe keeping, so you dump it all out in the bushes, doubting that you cleaned out all of it."},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "oralSex":1}}],
+			"text": "She makes you clean it off, sucking on her half-flaccid penis until she's satisfied, then bends over to give you a peck on the cheek and goes on her merry way. You decide not to hold onto all of her cum for safe keeping, so you dump it all out in the bushes, doubting that you cleaned out all of it."},
 			{
 			"mutations": [{"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": 3}}],
 			"text": "You are flooded with cum and Experience!"}
@@ -4368,7 +4383,9 @@
 			{"text": "It isn't much longer before that's the case, and her half soft, and definitely empty willy slides out from between your wet lips, trailing slime down to the floor."},
 			{"text": "Your mouth is agape in shock, which allows the gelatin-like goop to viscously slop out slowly.  As the stringy threads of her semen ick towards the floor, you realize that the entire inside of your mouth is coated in a thick, goopy layer of stuff that should rightfuly be coating the inside walls of a vagina - or, as the oily stuff was a minute ago, the inside of a ballsack."},
 			{"text": "If she cares that you're letting the latter half of her premeditated sperm blast drool onto the floor, she doesn't show it. In fact, she seems entirely disinterested - still lost in the daze of having blown ten loads' worth all at once down someone's throat. Without even looking at you, she wipes her nose, coughs, and checks the fullness of her balls, to her satisfaction."},
-			{"text": "After emptying her nutsack in a torrent of semen into your face, she simply hoists up her pants, glances sideways at you, doubled-over, drooling it out in thick globs onto the floor, and then saunters off into the forest, her goal complete."},
+			{
+			"mutations": [{"saveType":"PORTRAIT"}],
+			"text": "After emptying her nutsack in a torrent of semen into your face, she simply hoists up her pants, glances sideways at you, doubled-over, drooling it out in thick globs onto the floor, and then saunters off into the forest, her goal complete."},
 			{"text": "Finally coming back to your senses, you cough and spit up what you can of the nasty, thick stuff at the base of a tree, wiping your mouth clean with your sleeve, though its coated in saliva and her cum and precum - a real mess.  You clean it up as best you can, and spit it up as best you can, but there's still a few load's worth bubbling in your stomach, which is very upset about your choice of meal."},
 			{"text": "With the brigand's greasy lust weighing heavily in your gut, you rest to heal your wounds, feeling particularly nauseous about the whole affair."},
 			{
@@ -4489,7 +4506,9 @@
 			{"text": "She pumps a full load of it inside before the sudden shock finally gives you enough strength to clamber forward, her rapidly drooping horse cock slipping out of you, spilling the rest of its payload into the grass."},
 			{"text": "A geyser of white and clear liquid erupts from your devastated hole - clearing several feet behind you, dousing everything in the general region with her still-hot horse cum."},
 			{"text": "Somewhat shellshocked, she kneels again to inspect your gaping winker.  She smells your gaped-open mare pocket, which, of course, smells of her overflowing cum, and her ear twitches.  She rears up, and turns away sharply, then breaks into a run - apparently, now that you're no longer an anal virgin, she has no use for you."},
-			{"text": "You lay there for a few hours, until finally, you feel strong enough in the legs, and enough of her sauce has run out, and you manage to get to your feet, a bit unstable, looking like a newborn deer."},
+			{
+			"mutations": [{"saveType":"PORTRAIT"}],
+			"text": "You lay there for a few hours, until finally, you feel strong enough in the legs, and enough of her sauce has run out, and you manage to get to your feet, a bit unstable, looking like a newborn deer."},
 			{"text": "At the very least, it seems her kind won't bother you again - although it is somewhat bittersweet, knowing that's because you had your first sexual experience on the end of a big horse dick, and have the crater and shotgun creampie remnants to prove it."},
 			{
 			"mutations": [{"saveType":"TIME", "value":{"class": "java.lang.Integer", "value": 1}}, {"saveType":"HEALTH", "value":{"class": "java.lang.Integer", "value": 10}}],
@@ -4847,6 +4866,7 @@
 			{"text": "You swallow as the significance of the dream dawns on you... and then you hear it - the inhuman laughter."},
 			{"text": "\"Nyahaha, keep the goblin goo, human!  Next time, read the sign!\""},
 			{
+			"mutations": [{"saveType":"PORTRAIT"}],
 			"foreground": "NULL",
 			"text": "You stand, slowly, feeling it slosh around in your gut.  You feel... different. Aside from being full of goblin semen, that is."},
 			{"text": "You turn back along the narrow trail, making a mental note to avoid \"keep out\" signs in the future."}
@@ -4942,7 +4962,9 @@
 			{"text": "\"Gobbo gunk, gobbo gunk~ came out my dick and it really stunk~ spew it up now and you'll really flunk~ your pride and my gunk you've already drunk~ that's what you get when you suck my trunk~ all I build up when I made you my punk~ fucked up your ass then you swallowed my junk~ hope you like the taste of that gobbo gunk!\""},
 			{"text": "While she sings her lewd song, your stomach ties itself into knots, not knowing how to process the snot-like gift it's just received."},
 			{"text": "When, finally, the goblin spew has ended, she pulls you off of it, leaving you to cough and spew it back onto the ground."},
-			{"text": "\"Well, human, I think you've got the point.  Better go back where you came before I decide t' breed ya!\""},
+			{
+			"mutations": [{"saveType":"PORTRAIT"}],
+			"text": "\"Well, human, I think you've got the point.  Better go back where you came before I decide t' breed ya!\""},
 			{"text": "She leaves you to finish digesting her gross liquid dinner, and you hear her cackling fade into the distance."}
 		]
 	},
@@ -5712,6 +5734,7 @@
 			"sound": "BURP",
 			"text": "Once she finishes, you feel it clogging your throat and filling your sinuses - your face is full of her noxious orc cum, and you're drooling it out of your nostril pathetically.  She pulls free of your lips and you immediately burp up a thick glob of it, spitting up as much orc semen as you can onto the ground."},
 			{
+			"mutations": [{"saveType":"PORTRAIT"}],
 			"foreground": "NULL",
 			"text": "By the time you wipe your mouth and look up again, she's gone."}
 		]
