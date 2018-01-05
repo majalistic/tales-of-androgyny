@@ -292,6 +292,7 @@ public enum AssetEnum {
 	SWORD_SLASH_SOUND("sounds/SwordSlash.wav", Sound.class),
 	FIREBALL_SOUND("sounds/Fireball.wav", Sound.class),
 	INCANTATION("sounds/Incantation.wav", Sound.class),
+	
 	SMUG_LAUGH("sounds/FemaleSmugLaugh.wav", Sound.class),
 	OGRE_GROWL("sounds/Ogre.wav", Sound.class),
 	GOLEM_SHUTDOWN("sounds/GolemShutdown.wav", Sound.class),
@@ -304,11 +305,12 @@ public enum AssetEnum {
 	FIEND_AHH("sounds/FiendAhh.wav", Sound.class),
 	HORSE_CLOP("sounds/HorseClop.wav", Sound.class),
 	HORSE_NEIGH("sounds/HorseNeigh.wav", Sound.class),
-	BIRD_SCREECH("sounds/BirdScreech.wav", Sound.class),
+	BIRD_SCREECH("sounds/BirdScreech.wav", Sound.class),	
 	
 	THWAPPING("sounds/Thwapping.wav", Sound.class),
 	UNPLUGGED_POP("sounds/UnpluggedPop.wav", Sound.class),
 	MOUTH_POP("sounds/MouthPop.wav", Sound.class),
+	BURP("sounds/Burp.wav", Sound.class),
 	CUM("sounds/Cum.wav", Sound.class),
 	CUM_BUBBLING("sounds/CumBubbling.wav", Sound.class),
 	// music

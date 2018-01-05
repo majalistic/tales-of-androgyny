@@ -742,7 +742,6 @@
 			{
 			"animatedForeground": "BRIGAND",
 			"text": "Holding game in one hand, and a surprisingly intact sword in the other, dressed in expensive clothing, you see a woman.  She drops into a fencing stance before you can speak, and lunges immediately thereafter!"}
-
 		]
 	},
 	{
@@ -927,7 +926,9 @@
 			"sound": "CUM",
 			"text": "Her fourth ejaculation is thinner and runnier than the others, but it's still a substantial load.  You cross your eyes from the effort of keeping your ejaculatory muscle tense, not wanting for her oral creampie to force you to creampie your own underwear."},		
 			{"text": "Her nutsack, which had looked so full, is now thoroughly deflated."},
-			{"text": "You do burp bubbles, her sticky hot mess causing havoc in your overly full stomach.  It feels like you've downed a gallon of milk or porridge, but your lips taste of jizz."},
+			{
+			"sound": "BURP",
+			"text": "You do burp bubbles, her sticky hot mess causing havoc in your overly full stomach.  It feels like you've downed a gallon of milk or porridge, but your lips taste of jizz."},
 			{"text": "\"Our deal is done, hehe,\" she says, a little bubbly, clearly having cum her brains out.  She stumbls away from the stump, her flaccid cock still hanging out of her pants, and wishes you farewell."}				
 		]
 	},
@@ -2233,6 +2234,7 @@
 			{"text": "You look up at him as he fills your mouth and narrow your gaze, feeling your own wad shoot into fabric, his sagging your cheeks."},
 			{"text": "With your gold already well-earned, you open your mouth to show the mess he's made of the inside, then swallow it all down, unbidden.  Your ejaculate is cooling in your underwear, but that's not part of the show."},
 			{
+			"sound": "BURP",
 			"mutations": [{"saveType":"TIME", "value":{"class": "java.lang.Integer", "value": 1}}, {"saveType":"GOLD", "value":{"class": "java.lang.Integer", "value": 4}}, {"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "prostitution":true, "oralSex":1, "oralCreampies":1}}],
 			"text": "You clean up every inch of his cock with your tongue, and he leaves you a healthy tip, aside from all the cum.  When he leaves, you burp, having perhaps stuffed yourself a little too full of chunky manmilk."}
 		]
@@ -2262,6 +2264,7 @@
 			{"text": "He gouges out your throat repeatedly, and you try to keep thinking about the gold pieces he's going to leave instead of the cum cocktail he's going to leave in your stomach, or the puke you're going to need to clean up on the floor if you don't manage to keep your nausea checked."},
 			{"text": "You feel his gonads getting ready to dump down your throat, but unfortunately you feel your throat getting ready to dump all over his gonads, as well."},
 			{
+			"sound": "BURP",
 			"mutations": [{"saveType":"TIME", "value":{"class": "java.lang.Integer", "value": 1}}, {"saveType":"GOLD", "value":{"class": "java.lang.Integer", "value": 3}}, {"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "prostitution":true, "oralSex":1, "oralCreampies":1}}],
 			"text": "Thankfully, he spews before you do, and you feel three gold pieces worth of hot porrige coating your throat and stomach walls before he pulls himself out of your gullet.  You burp your thanks, and he leaves the gold on the dresser, perfunctorily satisfied."}
 		]
@@ -3226,6 +3229,7 @@
 			"sound": "FIEND_KISS",
 			"text": "You hiccup and burp repeatedly, much to her amusement, as she kisses you affectionately in post-coital bliss.  Your stomach is stuffed"},
 			{
+			"sound": "BURP",
 			"foreground": "NULL",
 			"text": "Later that night, in the dungeon, you burp up more than it takes to induce most pregnancies.  This is... going to be a difficult marriage."}
 		]
@@ -3293,6 +3297,7 @@
 			{"text": "Like a dog, you drool whenever you see it now, and your stomach rumbles when you see her nutsack is full.  When she locks a door behind her, your cock wakes up, and you know the door won't unlock again until you've had your meal."},
 			{"text": "The lock isn't for you, of course.  After all, you never want to leave."},
 			{
+			"sound": "BURP",
 			"foreground": "MOUTH_FIEND_ORAL",
 			"text": "-BURP-"}
 		]
@@ -5688,7 +5693,9 @@
 			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "oralCreampies":1}}],
 			"text": "It blurts out over and around said uvula, a torrent of hot, vile orc-nut goop-soup.  The shock makes you pull back, which proves to be... not ideal."},
 			{"text": "It spurts out of your nostrils, both of them, at once, a sneeze of orc slime that you won't soon forget.  You're pretty sure your tears are white.  What's worse is that the next volley sends even more out of your nose like very-much-not-milk."},
-			{"text": "Once she finishes, you feel it clogging your throat and filling your sinuses - your face is full of her noxious orc cum, and you're drooling it out of your nostril pathetically.  She pulls free of your lips and you immediately burp up a thick glob of it, spitting up as much orc semen as you can onto the ground."},
+			{
+			"sound": "BURP",
+			"text": "Once she finishes, you feel it clogging your throat and filling your sinuses - your face is full of her noxious orc cum, and you're drooling it out of your nostril pathetically.  She pulls free of your lips and you immediately burp up a thick glob of it, spitting up as much orc semen as you can onto the ground."},
 			{
 			"foreground": "NULL",
 			"text": "By the time you wipe your mouth and look up again, she's gone."}
@@ -8322,12 +8329,14 @@
 			{"text": "She rests her head back on your chest, and looks up at you.  \"It takes a while to flow through the whole shaft... especially when it's as thick as yours was.  When it gets here, I'll give you a performance you won't forget,\" she says, intimately."},
 			{"text": "She softly presses her buttocks against your soon-rigid mast, which takes to the sensation like it has taken to little else.  You try to estimate how far through the trumpet your goopy spunk has made it, but are soon too distracted by her bountiful bottom to think."},
 			{"text": "\"It's almost here... I wonder what it will taste like...\" she says, and puts her lips to the mouthpiece, her eyes meeting yours... and then, after a few moments, humming her song into it while smiling smugly at you."},
+			{"text": "Finally, her eyes go wide, and then narrow sultrily, and her hummed song becomes a simple, satisfied hum, which leads into a gulp, and then another."},
 			{
-			"sound": "CUM_BUBBLING",
-			"text": "Finally, her eyes go wide, and then narrow sultrily, and her hummed song becomes a simple, satisfied hum, which leads into a gulp, and then another."},
-			{"text": "You twitch between her fat buns, and a second load shoots off into the air, before landing on her lower back and pooling there along with the additional spurts.  She pulls her lips from the mouthpiece, revealing a mouth full of the same thick stuff, and then swallows it down."},
+			"sound": "CUM",
+			"text": "You twitch between her fat buns, and a second load shoots off into the air, before landing on her lower back and pooling there along with the additional spurts.  She pulls her lips from the mouthpiece, revealing a mouth full of the same thick stuff, and then swallows it down."},
 			{"text": "\"Thanks for your confession...\" she says, her breath smelling of your cum.  \"Urp!\""},
-			{"text": "She puts her finger to her lips and burps, apparently satisfied.  She waits until your orgasm has subsided and then stands up off of you."},
+			{
+			"sound": "BURP",
+			"text": "She puts her finger to her lips and burps, apparently satisfied.  She waits until your orgasm has subsided and then stands up off of you."},
 			{"text": "\"If you have any other offerings, you know where to find me,\" she says, and then spreads her wings and ascends into the air, disappearing into the far-off sun."}
 		]
 	},

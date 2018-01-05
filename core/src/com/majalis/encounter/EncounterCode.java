@@ -244,6 +244,7 @@ public enum EncounterCode {
 						AssetEnum.ANGEL.getTexture(),
 						AssetEnum.CUM.getSound(),
 						AssetEnum.CUM_BUBBLING.getSound(),
+						AssetEnum.BURP.getSound(),
 						AssetEnum.ANGEL_MUSIC.getMusic()
 					});
 			case BEASTMISTRESS:
@@ -266,12 +267,14 @@ public enum EncounterCode {
 					AssetEnum.BRIGAND_MISSIONARY.getTexture(),
 					AssetEnum.CUM.getSound(),
 					AssetEnum.CUM_BUBBLING.getSound(),
+					AssetEnum.BURP.getSound(),
 					AssetEnum.BRIGAND_ANIMATION.getAnimation()
 				});
 			case BROTHEL:
 				Array<AssetDescriptor<?>> reqs2 = new Array<AssetDescriptor<?>>(new AssetDescriptor[]{  
 					AssetEnum.SMUG_LAUGH.getSound(),
 					AssetEnum.CUM.getSound(),
+					AssetEnum.BURP.getSound(),
 					AssetEnum.ELF.getTexture(),
 					AssetEnum.BROTHEL_MADAME.getTexture(),
 				});
@@ -499,6 +502,7 @@ public enum EncounterCode {
 						AssetEnum.FIEND_AHH.getSound(),
 						AssetEnum.CUM.getSound(),
 						AssetEnum.CUM_BUBBLING.getSound(),
+						AssetEnum.BURP.getSound(),
 						AssetEnum.GAME_OVER_MUSIC.getMusic()
 					});
 			case MOUTH_FIEND_ESCAPE:
@@ -540,6 +544,7 @@ public enum EncounterCode {
 					AssetEnum.ORC_PRONE_BONE.getTexture(),
 					AssetEnum.GAPE.getTexture(),
 					AssetEnum.CUM.getSound(),
+					AssetEnum.BURP.getSound(),
 					AssetEnum.WEREWOLF_MUSIC.getMusic()
 				});
 			case QUETZAL:
