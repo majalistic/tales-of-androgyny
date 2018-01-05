@@ -1228,7 +1228,11 @@ public class EncounterBuilder {
 								
 				Branch townSquareOptions = new Branch().checkScene(
 					CheckType.MOUTH_FIEND_INTRO, 
-					new Branch(true).textScene("TOWN-SQUARE-KIDNAP"), 
+					new Branch(true).textScene("TOWN-SQUARE-KIDNAP").checkScene(
+						Stat.PERCEPTION, 
+						new Branch(8).textScene("TOWN-SQUARE-KIDNAP-THWART"), 
+						new Branch(0).textScene("TOWN-SQUARE-KIDNAP-SUCCESSFUL")
+					), 
 					new Branch(false).choiceScene(
 						"What do you do?",
 						new Branch("Eavesdrop").checkScene(

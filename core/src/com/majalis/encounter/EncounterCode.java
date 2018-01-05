@@ -479,9 +479,12 @@ public enum EncounterCode {
 			case MOUTH_FIEND:
 				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{
 						AssetEnum.MOUTH_FIEND.getTexture(),
+						AssetEnum.MOUTH_FIEND_CLOTHED.getTexture(),
+						AssetEnum.MOUTH_FIEND_CLOTHED_TRANSPARENT.getTexture(),
+						AssetEnum.MOUTH_FIEND_ORAL.getTexture(),
 						AssetEnum.CUM.getSound(),
 						AssetEnum.CUM_BUBBLING.getSound(),
-						AssetEnum.WEREWOLF_MUSIC.getMusic()
+						AssetEnum.GAME_OVER_MUSIC.getMusic()
 					});
 			case NAGA:
 				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{
@@ -574,7 +577,9 @@ public enum EncounterCode {
 			case WEAPON_SHOP:
 			case BANK:
 			case TOWN_CRIER:
-				return TownScreen.resourceRequirements;
+				Array<AssetDescriptor<?>> possible = new Array<AssetDescriptor<?>>(new AssetDescriptor[]{AssetEnum.MOUTH_FIEND_CLOTHED.getTexture()});
+				possible.addAll(TownScreen.resourceRequirements);
+				return possible;
 			case CAMP_AND_EAT:
 				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{AssetEnum.SHOP_MUSIC.getMusic()});
 			case STARVATION:

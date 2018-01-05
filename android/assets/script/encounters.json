@@ -1002,6 +1002,51 @@
 		]
 	},
 	{
+		"key": "TOWN-SQUARE-KIDNAP",
+		"scriptLines": [
+			{
+			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "MOUTH_FIEND", "value":3}}],
+			"text": "\"Oh, <NAME>, <NAME>!\" you hear someone calling out to you, and turn to see them waving daintily and holding down their dress as they make their way towards you.  You stop in front of an alleyway, waiting for her to get within range of conversation."},
+			{
+			"foreground": "MOUTH_FIEND_CLOTHED",
+			"text": "A somewhat gaudily adorned woman approaches you - a haughty smirk appears genuinely on her face, but her lips purse in a way that suggests that she's barely containing a wide, toothy smile.  She emerged from the crowd as if she was never even part of it."},
+			{"text": "She walks with a dignified gait that is moderately undercut by the sense of urgency to her step, her excited steps tottering slightly on the cobblestones as if she's momentarily forgotten how to walk - or is intoxicated."},
+			{"text": "She's not very tall, but robust of build; she's a soft woman, not a laborer.  Her hair and makeup is finely done, and despite the frenetic energy about her, she holds herself high and esteemed."},
+			{"text": "\"Oh, <NAME>, the hero!  I'm your biggest fan!\" she explains, and you're surprised to hear that she's heard of you.  You feel quite flattered, especially as she offers her hand to you, as ladies do."},
+			{"text": "You kneel to take her hand, and you notice a subtle shift in her face - a slight tenseness that you can't quite place, as if she's focused on the particular moment.  She slowly licks her lips, and then clears her throat."},
+			{"text": "\"Oh, you're so dashing and handsome... I wish you'd stay kneeling like that forever,\" she says, as you rise to your feet."},
+			{"text": "She seemingly forgets to relinquish your hand, but after an awkward moment, she releases it.  \"Always happy to meet an admirer,\" you say, as if this wasn't your first."},
+			{"text": "She blushes. \"Quite.  I've been one for some time now, but only just had the courage to speak to you.  Oh... I haven't even introduced myself!\" she says, straightening out her dress."},
+			{"text": "She takes a deep breath, curtsies, and looks down at your feet as she speaks."},
+			{"text": "\"I am the Lady Luralocu, of Buccara.  You may call me Lura, if it pleases you,\" she says, before returning to a more neutral pose, one wrist on her hip, the other upturned as if she might inspect her nails, as if she were on invisible strings."},
+			{"text": "\"It is a pleasure to meet you, my lady...\" you say, and she smirks."},
+			{"text": "\"We'll see who has the greatest share of the pleasure,\" she says, flirtatiously."},
+			{"text": "You blush at that - her style of dress is... ostentatious, and rather revealing.  When she said she was an admirer... is that what she meant?"},
+			{"text": "She looks down to your lips, and stares.  \"You have such lovely, <LIPSIZE> lips... beautiful, really,\" she says, oddly fixated, as if the rest of the world has fallen away.  The crowd is a bit quieter now, you realize."},
+			{"text": "\"Why, uh, thank you...\" you say, a bit uncertain.  She smiles, and you sense a certain feeling of... unease."}
+		]
+	},
+	{
+		"key": "TOWN-SQUARE-KIDNAP-SUCCESSFUL",
+		"scriptLines": [
+			{"text": "\"So fortunate... for me, that is.  Unfortunate for you.  And somewhat fortunate for the man I hired to put you to sleep.  Goodnight, hero.\""},
+			{
+			"mutations": [{"saveType":"RETURN_CONTEXT", "value":{"class": "com.majalis.save.SaveManager$GameContext", "value": "WORLD_MAP"}}, {"saveType":"NODE_CODE", "value":{"class": "java.lang.Integer", "value": 50001}}],
+			"text": "You briefly hear a whooshing sound... and then all is dark."},
+		]
+	},
+	{
+		"key": "TOWN-SQUARE-KIDNAP-THWART",
+		"scriptLines": [
+			{
+			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "MOUTH_FIEND", "value":10}}],
+			"foreground": "NULL",
+			"text": "You notice someone approaching from within the alleyway, and turn on your heel to face them - just in time to raise your arm and guard against a sap that had been aimed at the back of your head.  You flinch for a moment in pain, but the adrenaline takes hold."},
+			{"text": "The would-be attacker is hardly a fighter.  Even unarmed, you're able to easily defend yourself, and they quickly decide that discretion is the better part of thuggery, and beat off into the alley."},
+			{"text": "You turn to see if Lura is alright... but she's disappeared into the crowd.  No one seems that bothered by the commotion.  You hope she wasn't too frightened by the sudden violence, and that you'll cross paths with her again."},
+		]
+	},	
+	{
 		"key": "CRIER-NEW",
 		"scriptLines": [
 			{
@@ -2428,9 +2473,16 @@
 		"key": "MOUTHFIEND-INTRO",
 		"scriptLines": [
 			{
-			"foreground": "MOUTH_FIEND",
-			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "MOUTH_FIEND", "value":3}}],
-			"text": "You've been kidnapped!"},
+			"music": "GAME_OVER_MUSIC",
+			"foreground": "MOUTH_FIEND_CLOTHED_TRANSPARENT"
+			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "MOUTH_FIEND", "value":3}}]
+			"text": "..."},
+			{
+			"foreground": "MOUTH_FIEND"
+			"text": "..."},
+			{
+			"foreground": "MOUTH_FIEND_ORAL"
+			"text": "..."}
 		]
 	},
 	{
