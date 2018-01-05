@@ -77,7 +77,7 @@ public class GameWorldFactory {
 			
 			IntSet visitedCodesSet = loadService.loadDataValue(SaveEnum.VISITED_LIST, IntSet.class);
 			addNode(getNode(50000, MOUTH_FIEND, MOUTH_FIEND, 96, 49, visitedCodesSet.contains(50000)), nodes);
-			addNode(getNode(50001, FOOD_CACHE, DEFAULT, 99, 49, visitedCodesSet.contains(50001)), nodes);
+			addNode(getNode(50001, MOUTH_FIEND_ESCAPE, MOUTH_FIEND_ESCAPE, 99, 49, visitedCodesSet.contains(50001)), nodes);
 			nodes.get(nodes.size - 1).connectTo(nodes.get(nodes.size - 2));			
 		}
 		else {

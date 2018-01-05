@@ -979,8 +979,56 @@ public class EncounterBuilder {
 				return new Branch().textScene("STORY-WITCH-COTTAGE").encounterEnd().getEncounter(); 	
 			case MERI_COTTAGE_VISIT:
 				return new Branch().textScene("STORY-WITCH-COTTAGE-VISIT").encounterEnd().getEncounter(); 
+			case MOUTH_FIEND_ESCAPE:
+				return new Branch().choiceScene(
+					"Stay on the road?", 
+					new Branch("Stay on the road").textScene("MOUTHFIEND-ROAD").choiceScene("What do you do?", new Branch("Sneak past").textScene("MOUTHFIEND-SNEAK"), new Branch("Wait").textScene("MOUTHFIEND-WAIT")),
+					new Branch("Brave the forest").textScene("MOUTHFIEND-FOREST").gameEnd()
+				).getEncounter();
 			case MOUTH_FIEND:
-				return new Branch().textScene("MOUTHFIEND-INTRO").getEncounter();
+				Branch mouthfiendEnd = new Branch().textScene("MOUTHFIEND-END").gameEnd();
+				Branch tongueDay = new Branch().textScene("MOUTHFIEND-TONGUEDAY").choiceScene("How do you want it?", new Branch("Deep").textScene("MOUTHFIEND-DEEP").concat(mouthfiendEnd), new Branch("Hard").textScene("MOUTHFIEND-HARD").concat(mouthfiendEnd));
+				Branch failedEscape = new Branch().textScene("MOUTHFIEND-FAILEDESCAPE").concat(tongueDay);
+				Branch afterFourthQuestion = new Branch().textScene("MOUTHFIEND-AFTERQUESTIONS").choiceScene(
+					"What do you do?", 
+					new Branch("Pretend to reshackle yourself").textScene("MOUTHFIEND-GAMBIT"),
+					new Branch("Actually reshackle yourself").textScene("MOUTHFIEND-SUBMISSION").concat(tongueDay),
+					new Branch("Try to break the door open").textScene("MOUTHFIEND-BREAKDOOR").concat(tongueDay)
+				);
+				Branch afterThirdQuestion = new Branch().choiceScene(
+						"What do you ask her?", 
+						new Branch("How much do your balls weigh?").textScene("MOUTHFIEND-WEIGH").concat(afterFourthQuestion), 
+						new Branch("How much can you cum?").textScene("MOUTHFIEND-HOWMUCH").concat(afterFourthQuestion),  
+						new Branch("What if I need something from you?").textScene("MOUTHFIEND-HOWCALL").concat(afterFourthQuestion), 
+						new Branch("How can I get out of this?").textScene("MOUTHFIEND-HOWLEAVE").concat(afterFourthQuestion),
+						new Branch("You're so pretty").textScene("MOUTHFIEND-FLATTER").concat(afterFourthQuestion)
+					);
+				Branch afterSecondQuestion = new Branch().choiceScene(
+					"What do you ask her?", 
+					new Branch("I have to use the restroom").textScene("MOUTHFIEND-WHEREREST").concat(afterThirdQuestion), 
+					new Branch("You won't get away with this!").textScene("MOUTHFIEND-BOLD").concat(afterThirdQuestion),  
+					new Branch("Mouthfuckersayswhat").textScene("MOUTHFIEND-SAYSWHAT").concat(afterThirdQuestion), 
+					new Branch("*Open Wide*").textScene("MOUTHFIEND-OPENSEDUCTION").concat(afterThirdQuestion)
+				);
+				Branch afterFirstQuestion = new Branch().choiceScene(
+					"What do you ask her?", 
+					new Branch("I want to suck your cock").textScene("MOUTHFIEND-WANTSUCK").concat(afterSecondQuestion), 
+					new Branch("Can I have something to eat?").textScene("MOUTHFIEND-WHATEAT").concat(afterSecondQuestion),  
+					new Branch("What's in the wilderness?").textScene("MOUTHFIEND-WHATWILD").concat(afterSecondQuestion), 
+					new Branch("Release me at once!").textScene("MOUTHFIEND-DEMANDRELEASE").concat(afterSecondQuestion)
+				);
+				Branch afterMarriageQuestion = new Branch().textScene("MOUTHFIEND-INSPECTION").choiceScene(
+					"What do you ask her?", 
+					new Branch("Why... in the mouth?").textScene("MOUTHFIEND-WHYMOUTH").concat(afterFirstQuestion), 
+					new Branch("Can you NOT fuck my mouth?").textScene("MOUTHFIEND-NOTMOUTH").concat(afterFirstQuestion),  
+					new Branch("Is this a dream?").textScene("MOUTHFIEND-DREAM").concat(afterFirstQuestion), 
+					new Branch("What's the passcode?").textScene("MOUTHFIEND-PASSCODE").concat(afterFirstQuestion)
+				);
+				return new Branch().checkScene(
+					CheckType.MOUTH_FIEND_CASTLE, 
+					new Branch(true).textScene("MOUTHFIEND-INTRO").choiceScene("Marry her?", new Branch("Yes").textScene("MOUTHFIEND-MARRIAGE-YES").concat(afterMarriageQuestion), new Branch("No").textScene("MOUTHFIEND-MARRIAGE-NO").concat(afterMarriageQuestion)), 
+					new Branch(false).concat(failedEscape)
+				).getEncounter();
 			case NAGA:
 				return new Branch().textScene("NAGA-INTRO").checkScene(
 					CheckType.SCOUT_LEVEL_3, 

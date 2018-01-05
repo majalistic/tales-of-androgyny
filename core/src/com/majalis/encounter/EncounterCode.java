@@ -38,6 +38,7 @@ public enum EncounterCode {
 	ANGEL (CASTLE),
 	NAGA,
 	MOUTH_FIEND (CASTLE),
+	MOUTH_FIEND_ESCAPE,
 	
 	FORT (CASTLE), 
 	TOWN (AssetEnum.TOWN),
@@ -125,6 +126,8 @@ public enum EncounterCode {
 						return "Fort";
 					case MOUTH_FIEND:
 						return "Strange castle";
+					case MOUTH_FIEND_ESCAPE:
+						return "Forest";
 					case QUETZAL: return "Mountain";
 					case COTTAGE_TRAINER: return "Cottage on the Outskirts";
 					case FIRST_BATTLE_STORY: return "Forest Clearing";
@@ -181,6 +184,8 @@ public enum EncounterCode {
 						return "Fort";
 					case MOUTH_FIEND:
 						return "Strange castle";
+					case MOUTH_FIEND_ESCAPE:
+						return "Forest";
 					case QUETZAL: return "Mount Xiuh";
 					case COTTAGE_TRAINER: return "Cottage-on-the-Outskirts";
 					case FIRST_BATTLE_STORY: return "Forest Clearing - signs of hostile creature";
@@ -215,6 +220,7 @@ public enum EncounterCode {
 			case GADGETEER: return "Strange Gadgeteer";
 			case FORT: return "Fort";
 			case MOUTH_FIEND: return "Strange castle";
+			case MOUTH_FIEND_ESCAPE: return "Forest";
 			default: return "Nothing here.";
 		}
 	}
@@ -477,11 +483,15 @@ public enum EncounterCode {
 					AssetEnum.TRAINER_MUSIC.getMusic()
 				});
 			case MOUTH_FIEND:
+			case MOUTH_FIEND_ESCAPE:
 				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{
 						AssetEnum.MOUTH_FIEND.getTexture(),
 						AssetEnum.MOUTH_FIEND_CLOTHED.getTexture(),
 						AssetEnum.MOUTH_FIEND_CLOTHED_TRANSPARENT.getTexture(),
 						AssetEnum.MOUTH_FIEND_ORAL.getTexture(),
+						AssetEnum.HORSE_CLOP.getSound(),
+						AssetEnum.HORSE_NEIGH.getSound(),
+						AssetEnum.FIEND_LAUGH.getSound(),
 						AssetEnum.CUM.getSound(),
 						AssetEnum.CUM_BUBBLING.getSound(),
 						AssetEnum.GAME_OVER_MUSIC.getMusic()

@@ -297,6 +297,9 @@ public enum AssetEnum {
 	GOLEM_SHUTDOWN("sounds/GolemShutdown.wav", Sound.class),
 	GOLEM_ONE("sounds/GolemOne.wav", Sound.class),
 	WEREWOLF_GROWL("sounds/WerewolfGrowl.wav", Sound.class),
+	FIEND_LAUGH("sounds/FiendLaugh.wav", Sound.class),
+	HORSE_CLOP("sounds/HorseClop.wav", Sound.class),
+	HORSE_NEIGH("sounds/HorseNeigh.wav", Sound.class),
 	
 	THWAPPING("sounds/Thwapping.wav", Sound.class),
 	UNPLUGGED_POP("sounds/UnpluggedPop.wav", Sound.class),
@@ -332,7 +335,7 @@ public enum AssetEnum {
 	ANAL_ANIMATION("animation/skeleton.atlas", AnimatedActorFactory.class, new AnimatedActorLoader.AnimatedActorParameter(.475f, 1, true)),
 	CENTAUR_ANIMATION("animation/Centaur.atlas", AnimatedActorFactory.class, new AnimatedActorLoader.AnimatedActorParameter(.60f, 1.8f, true)), 
 	ORC_ANIMATION("animation/Orc.atlas", AnimatedActorFactory.class, new AnimatedActorLoader.AnimatedActorParameter(.60f, 1f, true)), 
-	GOBLIN_ANIMATION("animation/Goblin.atlas", AnimatedActorFactory.class, new AnimatedActorLoader.AnimatedActorParameter(.40f, 1f, true)), 	
+	GOBLIN_ANIMATION("animation/Goblin.atlas", AnimatedActorFactory.class, new AnimatedActorLoader.AnimatedActorParameter(.40f, 1f, true)),	
 	;
 	
 	private final AssetDescriptor<?> assetDescriptor;
