@@ -1039,6 +1039,7 @@
 		"scriptLines": [
 			{"text": "\"So fortunate... for me, that is.  Unfortunate for you.  And somewhat fortunate for the man I hired to put you to sleep.  Goodnight, hero.\""},
 			{
+			"sound": "HIT_SOUND",
 			"mutations": [{"saveType":"RETURN_CONTEXT", "value":{"class": "com.majalis.save.SaveManager$GameContext", "value": "WORLD_MAP"}}, {"saveType":"NODE_CODE", "value":{"class": "java.lang.Integer", "value": 50001}}],
 			"text": "You briefly hear a whooshing sound... and then all is dark."},
 		]

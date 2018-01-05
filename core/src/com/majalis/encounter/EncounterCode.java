@@ -596,7 +596,7 @@ public enum EncounterCode {
 			case WEAPON_SHOP:
 			case BANK:
 			case TOWN_CRIER:
-				Array<AssetDescriptor<?>> possible = new Array<AssetDescriptor<?>>(new AssetDescriptor[]{AssetEnum.MOUTH_FIEND_CLOTHED.getTexture()});
+				Array<AssetDescriptor<?>> possible = new Array<AssetDescriptor<?>>(new AssetDescriptor[]{AssetEnum.MOUTH_FIEND_CLOTHED.getTexture(), AssetEnum.HIT_SOUND.getSound()});
 				possible.addAll(TownScreen.resourceRequirements);
 				return possible;
 			case CAMP_AND_EAT:
