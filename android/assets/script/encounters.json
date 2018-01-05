@@ -2591,7 +2591,9 @@
 	{
 		"key": "MOUTHFIEND-INSPECTION",
 		"scriptLines": [
-			{"text": "\"Now... let me get a take a good look at my treasure... say \"ahhhh\"!\""},
+			{
+			"sound": "FIEND_AHH",
+			"text": "\"Now... let me get a take a good look at my treasure... say \"ahhhh\"!\""},
 			{"text": "You refuse to say anything, and she looks a bit confused."},
 			{"text": "\"I promise I won't put anything it it... yet.  No?  Well, this will become a familiar experience soon.  Let me just pinch your nose shut...\" she says, and does so."},
 			{"text": "When you open your mouth to breathe, she hooks her fingers in and holds your jaw open firmly."},
@@ -3096,7 +3098,9 @@
 			{"text": "Finally, she pulls away completely, and your mouth is once again empty... but not for long."},
 			{"text": "\"Okay, that's enough foreplay... seriously.  Full is full. I like teasing you, I do, but... it's time.  I can't hold myself back any longer.\""},
 			{"text": "She hooks her fingers in and points her cock at your mouthhole.  This is it."},
-			{"text": "\"I'm gonna have sex with your face for the first time... are you excited?  I am... say \"ahhh\"...\""},
+			{
+			"sound": "FIEND_AHH",
+			"text": "\"I'm gonna have sex with your face for the first time... are you excited?  I am... say \"ahhh\"...\""},
 			{"text": "\"Ahhhh...\""},
 			{"text": "\"A pussy that can talk!  Very nice.  Now... oooooooppeeeeeeenn wiiiiiiiiiiiiiiiiide!\""},
 			{"text": "Her fingers slide free from the inside, and she grasps the sides of your head while slowly pushing her hips forward.  Trapped in her grip, you can't pull away... and the tip of her cock soon passes through the aperture of the gag."},
