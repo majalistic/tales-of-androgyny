@@ -311,6 +311,7 @@ public enum AssetEnum {
 	THWAPPING("sounds/Thwapping.wav", Sound.class),
 	UNPLUGGED_POP("sounds/UnpluggedPop.wav", Sound.class),
 	MOUTH_POP("sounds/MouthPop.wav", Sound.class),
+	SWALLOW("sounds/Swallow.wav", Sound.class),
 	BURP("sounds/Burp.wav", Sound.class),
 	CUM("sounds/Cum.wav", Sound.class),
 	CUM_BUBBLING("sounds/CumBubbling.wav", Sound.class),

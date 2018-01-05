@@ -257,9 +257,10 @@ public enum EncounterCode {
 				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{
 					AssetEnum.BRIGAND_ORAL.getTexture(),
 					AssetEnum.BRIGAND_MISSIONARY.getTexture(),
+					AssetEnum.FEMALE_GROAN.getSound(),
 					AssetEnum.CUM.getSound(),
 					AssetEnum.CUM_BUBBLING.getSound(),
-					AssetEnum.FEMALE_GROAN.getSound(),
+					AssetEnum.SWALLOW.getSound(),
 					AssetEnum.BRIGAND_ANIMATION.getAnimation()
 				});
 			case BRIGAND_STORY:
@@ -505,6 +506,7 @@ public enum EncounterCode {
 						AssetEnum.FEMALE_GROAN.getSound(),
 						AssetEnum.CUM.getSound(),
 						AssetEnum.CUM_BUBBLING.getSound(),
+						AssetEnum.SWALLOW.getSound(),
 						AssetEnum.BURP.getSound(),
 						AssetEnum.GAME_OVER_MUSIC.getMusic()
 					});
