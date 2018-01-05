@@ -1528,7 +1528,7 @@ public class PlayerCharacter extends AbstractCharacter {
 	public Array<MutationResult> timePass(Integer timePassed) {
 		int currentDay = time / 6;
 		time += timePassed;
-		Array<MutationResult> result = getResult(timePassed >= 6 ? "A day passes." : timePassed >= 3 ? "Much time passes." : timePassed == 2 ? "Some time passes." : "A short time passes.", timePassed, MutationType.TIME);
+		Array<MutationResult> result = getResult(timePassed >= 12 ? timePassed / 6 + " days pass." : timePassed >= 6 ? "A day passes." : timePassed >= 3 ? "Much time passes." : timePassed == 2 ? "Some time passes." : "A short time passes.", timePassed, MutationType.TIME);
 		result.addAll(modFood(-getMetabolicRate() * timePassed));
 		result.addAll(debtTick((time / 6) - currentDay));
 		return result;
