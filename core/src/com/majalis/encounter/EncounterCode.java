@@ -407,6 +407,7 @@ public enum EncounterCode {
 				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{ 
 					AssetEnum.HARPY_FELLATIO_1.getTexture(),
 					AssetEnum.HARPY_ANAL.getTexture(),
+					AssetEnum.BIRD_SCREECH.getSound(),
 					AssetEnum.CUM.getSound(),
 					AssetEnum.CUM_BUBBLING.getSound(),
 					AssetEnum.HARPY_ANIMATION.getAnimation()
@@ -418,6 +419,7 @@ public enum EncounterCode {
 					AssetEnum.HARPY_FELLATIO_2.getTexture(),
 					AssetEnum.HARPY_FELLATIO_3.getTexture(),
 					AssetEnum.HARPY_ANAL.getTexture(),
+					AssetEnum.BIRD_SCREECH.getSound(),
 					AssetEnum.CUM.getSound(),
 					AssetEnum.CUM_BUBBLING.getSound(),
 					AssetEnum.HARPY_ANIMATION.getAnimation()

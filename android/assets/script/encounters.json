@@ -632,7 +632,9 @@
 		"scriptLines": [	
 			{"text": "The cold wind rushes through the valley, threatening to take your cloak with it.  Thankfully, the wind is at your back, and the setting sun is due straight ahead, as if you're leaving the icy mountain's frostiness behind you."},
 			{"text": "A fellow mountain traveller warned you of the harpies that hunt in this valley - he said they'd snatch anyone up, man or woman, and then they'd have... problems with a bodily function for a week. He didn't elaborate further."},
-			{"text": "You hear a screech on the window, and turn to face a harpy's vicious talons!  Dodging out of the way, you turn to see her taking off in the direction of the sun, before doubling back, her nude form backlit by sunlight.  Buffeted by winds, she flaps to keep herself aloft, but until the winds die down, she cannot swoop again."},		
+			{
+			"sound": "BIRD_SCREECH",
+			"text": "You hear a screech on the wind, and turn to face a harpy's vicious talons!  Dodging out of the way, you turn to see her taking off in the direction of the sun, before doubling back, her nude form backlit by sunlight.  Buffeted by winds, she flaps to keep herself aloft, but until the winds die down, she cannot swoop again."},		
 			{
 			"animatedForeground": "HARPY",
 			"text": "The harpy's nudity leaves a rather shocking fact bare - the fact of her oversized pecker, swollen with bestial desire, as long and thick as the plumpest sausage, dangling between her legs shamelessly."},
@@ -657,7 +659,9 @@
 			{"text": "For its size - the harpy obviously eats well, and you try not to think about what - her rear is surprisingly firm and muscular, explaining the power with which she takes off from the ground.  It's also surprisingly tight, sphincter wise, and it takes some effort to reach into her depths."},
 			{"text": "Birds, you recall, have only one hole - you wonder if you might be inadvertantly starting a half-avian brood."},
 			{"text": "She chirps intimately as you sink inside, wiggling her hips in an odd circular motion as you do.  She continues to do that while you thrust your way in and out of her appreciative hole, building yourself towards a satisfying ending in her avian asspussy."},
-			{"text": "Her vocalizations are... strange, for the normal course of these things, but not so strange for a bird person, you assume.  As you build to a fever pitch, slapping against her fat ass with your hips and the palm of your hand, she similarly begins to screech loudly and wildly."},
+			{
+			"sound": "BIRD_SCREECH",
+			"text": "Her vocalizations are... strange, for the normal course of these things, but not so strange for a bird person, you assume.  As you build to a fever pitch, slapping against her fat ass with your hips and the palm of your hand, she similarly begins to screech loudly and wildly."},
 			{"text": "You're not sure what her screeching is about, but her sphincter tightens by a factor of four coinciding with it, which gives you other things to worry about - mainly, your impending orgasm."},
 			{
 			"sound": "CUM",
@@ -688,7 +692,9 @@
 			{"text": "When you finally do feel her testicles slapping against you - which gives you a premonition that worryingly involves the word \"semen\", you also feel Miss Harpy's bird dick poking out as a bulge in your abdomen, distending it."},
 			{"text": "Your colon is so full of it, you're worried if she pulls it out all at once, you'll be empty.  The heat of her awkward mating around your ring can't be overstated, but the stretching she's giving your guts is impressive for such a delicate creature."},
 			{"text": "But stretching is exactly what you need - not of the bowels, but your reach.  While the surprise of the harpy forcefully poking her pecker into your pucker made you drop your weapon, it's not that far out of reach, even now as she pumps you behind and above."},
-			{"text": "You reach for your sword with all of your will... and just as you're about to reach it, the harpy lets out an ear-piercing screech, and the bulge in your stomach gets bulgier... and hotter."},
+			{
+			"sound": "BIRD_SCREECH",
+			"text": "You reach for your sword with all of your will... and just as you're about to reach it, the harpy lets out an ear-piercing screech, and the bulge in your stomach gets bulgier... and hotter."},
 			{
 			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "creampies":1}}],
 			"sound": "CUM",
@@ -715,7 +721,9 @@
 			{
 			"foreground": "HARPY_FELLATIO_2",
 			"text": "With the harpy's round nuts slapping against your chin, there's little doubt why she's engaging in such strange behavior."},
-			{"text": "You know the harpy is trying to sexually gratify herself with your lips and tongue and throat, and you know what that likely entails, but you are no less dismayed when it arrives - she screeches, and her thick, gel like semen spurts impolitely down your throat."},
+			{
+			"sound": "BIRD_SCREECH",
+			"text": "You know the harpy is trying to sexually gratify herself with your lips and tongue and throat, and you know what that likely entails, but you are no less dismayed when it arrives - she screeches, and her thick, gel like semen spurts impolitely down your throat."},
 			{
 			"foreground": "HARPY_FELLATIO_3",
 			"sound": "CUM",
@@ -3661,7 +3669,9 @@
 	{
 		"key": "HARPY-DUCK",
 		"scriptLines": [
-			{"text": "You manage to duck underneath the approaching figure, which has the unfortunate side effect of giving you a full view of her intentions."}, 
+			{
+			"sound": "BIRD_SCREECH",
+			"text": "You manage to duck underneath the approaching figure, which has the unfortunate side effect of giving you a full view of her intentions."}, 
 			{"text": "Her heavily foreskinned bird dick just narrowly misses its intended target - your mouth - and flies by as a blur."},
 			{"text": "It's time to act!"}
 		]
@@ -3670,6 +3680,7 @@
 		"key": "HARPY-HORK",
 		"scriptLines": [
 			{
+			"sound": "BIRD_SCREECH",
 			"foreground": "HARPY_FELLATIO_1",
 			"text": "You're too slow to dodge the harpy!"},
 			{"text": "Her lower body crashes into your face at high speed - you're knocked to the ground, and your mouth, open in surprise, is filled!"},
@@ -3696,7 +3707,9 @@
 			{"text": "Thankfully, she doesn't manage to puzzle it out, but that doesn't mean that she's flapping away with a bird-boner, she clambers on top of you, squishing your cheeks together with her talons, her footlong hotdogged between them, and begins to gyrate."},
 			{"text": "Her schlong is wet with lust, and it easily slides between your buns as she simulates her mating in a frenzy.  You thank your lucky stars that the plug prevented her from making the same motions a few inches lower and a foot deeper."},
 			{"text": "While she rubs herself on you, rather than in you, you still feel the heat rise to your cheeks athe humiliation you're enduring - the ridiculous display of the harpy mounting you and asserting her dominance from behind."},
-			{"text": "She screeches, and a stream of hot wetness runs up your back, almost to your neck, followed by another, and another.  You drop your head in shame, feeling her sticky desire spurt out in ropes across your butt and back like a young girl trying to avoid impregnation."},
+			{
+			"sound": "BIRD_SCREECH",
+			"text": "She screeches, and a stream of hot wetness runs up your back, almost to your neck, followed by another, and another.  You drop your head in shame, feeling her sticky desire spurt out in ropes across your butt and back like a young girl trying to avoid impregnation."},
 			{"text": "You feel her shrinking cock laying against your tailbone, its tip drooling into the small of your back, before she dismounts, having gotten what she needed from your ass, before she takes off, her limp dick dangling between her legs."},
 			{"text": "You sigh, getting to your feet with some effort.  Your butt and back are coated in semen, no doubt, so even you managed to avoid having awkward interspecies anal sex, your dignity as something other than an avian sex toy is waning."}
 		]
@@ -3713,7 +3726,9 @@
 			{"text": "Travelling between mountain peaks, you see that there are other harpies about - hundreds of them. Again, a dark thought enters your mind, as the harpies converge and attempt to steal her bounty, resulting in you plummeting to the ground amidst the struggle.  Thankfully, the other harpies are content to screech and caw at you."},
 			{"text": "You see small inlets lining a mountain face, a sheer drop down to the valley below, and you wonder if they're naturally made or somehow carved out, seeing how regular they are. In most, if not all of them, is a bundle of straw and twigs - likely brought by the harpies from miles away, much like yourself."},
 			{"text": "You are dropped in one such nest, and the harpy works quickly to dispel any notion that she intends to consume you, and, simultaneously, to consummate your marriage."},
-			{"text": "\"Rawwwk! Mating!\""},
+			{
+			"sound": "BIRD_SCREECH",
+			"text": "\"Rawwwk! Mating!\""},
 			{"text": "You doubt, having already gotten a good look at the harpy's third thigh, that what she means by \"mating\" is going to involve you having a pleasant time with her tail feathers.  A lump forms in your throat as you imagine her massive meat throbbing in your buttered up hole."},
 			{"text": "She mounts you, her talons grabbing hold of your rear, and her long, covered dick immediately gains purchase.  Any hope that the harpy's covered dick wasn't hard for you is dashed along with the cock-emptiness of your rectum."},
 			{
@@ -3759,7 +3774,9 @@
 		"scriptLines": [
 			{"text": "Failing as a human, you let off a few ill-timed splurts, despite her not having even looked at, much less touched your cock.  Her slick bird dick sliding along your anal mucosa was enough to make you pop one off, and you feel it shoot into the dirt with force."},
 			{"text": "Having been anally satisfied by a demihuman with the intelligence of a baked potato, you tighten up around her plunging cock, which proves to be the trigger that sets her off as well, basting your insides with what you just let out needlessly."},
-			{"text": "Unlike you, the harpy is not silent as she ejaculates.  At the moment of her triumph, screeches for all to hear."},
+			{
+			"sound": "BIRD_SCREECH",
+			"text": "Unlike you, the harpy is not silent as she ejaculates.  At the moment of her triumph, screeches for all to hear."},
 			{
 			"sound": "CUM",
 			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "creampies":1}}],
@@ -3794,7 +3811,9 @@
 			{"text": "Well, not nothing - your harpy wife's chubby bird schlong rubs the stretched-thin membrane of your anus with so much determined friction that no one would ever mistake, at a glance, your puffy, irritated hole as anything but something that a harpy-with-a-dick has on lockdown, but, still.  It's embarrassing."},
 			{"text": "Your time as an adventurer becomes a distant dream while you live your life high atop that nameless mountain peak, wetting her nesting material with your wasted semen while she fills your stretched and pummeled rectum with hers.  You regret losing in battle to her - if you hadn't, perhaps you wouldn't have lived the rest of your life getting butt-stuffed by her inhuman cock without rest."},
 			{"text": "With a whimper, that thought leaves your mind, as you sprinkle her straw with your anally-induced sperm for what might be the thousandth time.  Soon, she'll screech, and dump her bird-brained excuse of a reproductive act in your bowels, likewise for the thousandth time, but all you can think about, with that thought returning, is what would have happened if you won."}
-			{"text": "-SCREEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEECH-"}, 
+			{
+			"sound": "BIRD_SCREECH",
+			"text": "-SCREEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEECH-"}, 
 			{
 			"sound": "CUM",
 			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":10, "creampies":10}}],
@@ -3822,7 +3841,7 @@
 			{"text": "She seems to be in some sort of daze, stumbling about on her talons, with little regard for your presence.  You take the opportunity to flee, having had enough bird cum for one lifetime."}
 		]
 	},
-		{
+	{
 		"key": "SLIME-INTRO",
 		"scriptLines": [
 			{
