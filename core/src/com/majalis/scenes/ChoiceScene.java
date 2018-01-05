@@ -49,7 +49,7 @@ public class ChoiceScene extends AbstractChoiceScene {
 			TextButton button = choice.button;
 			buttons.add(button);
 			button.addListener(getListener(ii++, choice.scene, choice.clickSound));
-			table.add(button).size(665, 150).row();	
+			table.add(button).size(50 + button.getText().length() * 20, 150).row();	
 		}	
         table.setPosition(960, 900);
         table.align(Align.top);
@@ -140,7 +140,7 @@ public class ChoiceScene extends AbstractChoiceScene {
 	        	else selection = 0;
 	        }
 		}
-		batch.draw(arrowImage, 525, 750 - selection * 150, 100, 150);
+		batch.draw(arrowImage, 450, 750 - selection * 150, 100, 150);
     }
 	
 	public int getCode() {
