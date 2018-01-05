@@ -485,7 +485,6 @@ public enum EncounterCode {
 					AssetEnum.TRAINER_MUSIC.getMusic()
 				});
 			case MOUTH_FIEND:
-			case MOUTH_FIEND_ESCAPE:
 				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{
 						AssetEnum.MOUTH_FIEND.getTexture(),
 						AssetEnum.MOUTH_FIEND_CLOTHED.getTexture(),
@@ -500,6 +499,10 @@ public enum EncounterCode {
 						AssetEnum.CUM_BUBBLING.getSound(),
 						AssetEnum.GAME_OVER_MUSIC.getMusic()
 					});
+			case MOUTH_FIEND_ESCAPE:
+				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{
+						AssetEnum.GAME_OVER_MUSIC.getMusic()
+				});
 			case NAGA:
 				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{
 						AssetEnum.NAGA.getTexture(),

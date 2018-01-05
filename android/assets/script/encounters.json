@@ -2856,6 +2856,14 @@
 		]
 	},
 	{
+		"key": "MOUTHFIEND-ESCAPE-INTRO",
+		"scriptLines": [
+			{
+			"music": "GAME_OVER_MUSIC", 
+			"text": ""}
+		]
+	},		
+	{
 		"key": "MOUTHFIEND-ROAD",
 		"scriptLines": [
 			{"text": "You stay on the road, risking being seen - after all, the carriage isn't likely to happen by you, and wouldn't be armed either way.  You can't avoid the guard posts no matter what, so better to keep clear of the forest."},
@@ -2873,7 +2881,9 @@
 	{
 		"key": "MOUTHFIEND-FAILEDESCAPE",
 		"scriptLines": [
-			{"text": "All of your plans were for nought - after an armed carriage back to the castle, you're delivered back into the waiting arms of your wife to be."},
+			{
+			"music": "GAME_OVER_MUSIC", 
+			"text": "All of your plans were for nought - after an armed carriage back to the castle, you're delivered back into the waiting arms of your wife to be."},
 			{
 			"foreground": "MOUTH_FIEND_CLOTHED",
 			"text": "She throws her arms around your neck, and then not-so-subtly grabs your hand and places it on her crotch while speaking into your ear."},

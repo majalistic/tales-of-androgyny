@@ -980,7 +980,7 @@ public class EncounterBuilder {
 			case MERI_COTTAGE_VISIT:
 				return new Branch().textScene("STORY-WITCH-COTTAGE-VISIT").encounterEnd().getEncounter(); 
 			case MOUTH_FIEND_ESCAPE:
-				return new Branch().choiceScene(
+				return new Branch().textScene("MOUTHFIEND-ESCAPE-INTRO").choiceScene(
 					"Stay on the road?", 
 					new Branch("Stay on the road").textScene("MOUTHFIEND-ROAD").choiceScene("What do you do?", new Branch("Sneak past").textScene("MOUTHFIEND-SNEAK"), new Branch("Wait").textScene("MOUTHFIEND-WAIT")),
 					new Branch("Brave the forest").textScene("MOUTHFIEND-FOREST").gameEnd()
