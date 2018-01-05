@@ -494,6 +494,7 @@ public enum EncounterCode {
 						AssetEnum.HORSE_CLOP.getSound(),
 						AssetEnum.HORSE_NEIGH.getSound(),
 						AssetEnum.FIEND_LAUGH.getSound(),
+						AssetEnum.FIEND_SIGH.getSound(),
 						AssetEnum.CUM.getSound(),
 						AssetEnum.CUM_BUBBLING.getSound(),
 						AssetEnum.GAME_OVER_MUSIC.getMusic()

@@ -2596,6 +2596,7 @@
 			{"text": "\"I promise I won't put anything it it... yet.  No?  Well, this will become a familiar experience soon.  Let me just pinch your nose shut...\" she says, and does so."},
 			{"text": "When you open your mouth to breathe, she hooks her fingers in and holds your jaw open firmly."},
 			{
+			"sound": "FIEND_SIGH",
 			"foreground": "MOUTH_FIEND_ORAL",
 			"text": "\"Oh... oh my... there it is... it's so perfect.  The goddess made it just for me...\""},
 			{"text": "You can't see it, because your face is locked looking up at her, but you can tell, without looking, that your host has just popped an absolutely massive boner."},
@@ -2635,7 +2636,9 @@
 			{"text": "...oh, feel free to burp, I won't be offended..."},
 			{"text": "...I see the gag reflex as more of a challenge than a problem... and trust me, it won't last very long - you'll forget you ever had one..."},
 			{"text": "...and sometimes my love might cause a tummy ache... but a little discomfort is good too..."},
-			{"text": "...and the thought of you having swallowed all my cum... and me just making more of it for you to eat, my little glutton... mmmmm...\""},
+			{
+			"sound": "FIEND_SIGH",
+			"text": "...and the thought of you having swallowed all my cum... and me just making more of it for you to eat, my little glutton... mmmmm...\""},
 		]
 	},
 	{
@@ -2762,6 +2765,7 @@
 			{"text": "\"I had a dream about you... you were trying to pull a big, white, wriggly thing out of your mouth - it was totally stuffing your face.  When I woke up, I was wet... that was a close one.  Now... open up.\""},
 			{"text": "You hesitate, but open your mouth as she reaches to pinch your nose."},
 			{
+			"sound": "FIEND_SIGH",
 			"foreground": "MOUTH_FIEND_ORAL",
 			"text": "\"Oooh... what a lovely place to put my stinky cock!  I'm going to have so much fun in there!\" she says, prodding the inside, your tongue, your teeth, underneath your tongue..."},
 			{"text": "You whine a bit as she takes stock of all your mouth parts, apparently building a mental map for when she'll be navigating it blindly."},
@@ -2924,7 +2928,9 @@
 			"foreground": "MOUTH_FIEND",
 			"text": "The door opens, and she comes through whistling, although from your vantage point on the ground, you can't see anything but her shoes."},
 			{"text": "She continues to whistle as she stands besides you, but she makes no motion to drag you back to your shackles.  Instead, nothing happens for a few beats, and then... you feel something splash down onto your face."},
-			{"text": "You can't move, so you're helpless as it soaks you."},
+			{
+			"sound": "FIEND_SIGH",
+			"text": "You can't move, so you're helpless as it soaks you."},
 			{"text": "When it stops, she continues to whistle, and leaves through the open door, leaving it wide open.  Still, though, you're completely immobile."},
 			{"text": "She returns carrying something heavy, and when she overturns it, you realize what it is: a big tub of water.  You get utterly drenched, and then she discards the tub, and pulls along the ground back to your wall shackles."},
 			{"text": "She imprisons you again, all without saying a word.  She takes the key, shows it to your paralyzed face, and then drops it into her underwear, patting it twice to emphasize the gesture."},
