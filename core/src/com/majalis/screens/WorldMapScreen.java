@@ -493,7 +493,7 @@ public class WorldMapScreen extends AbstractScreen {
 					final int timePassed = 1;
 					saveService.saveDataValue(SaveEnum.TIME, timePassed);
 					boolean switchScreen = false;
-					if(checkForForcedRest());
+					if(!inSuspendedArea(node) && checkForForcedRest());
 					else if (!inSuspendedArea(node) && character.getCurrentDebt() >= 150 || (character.getCurrentDebt() >= 100 && character.getQuestStatus(QuestType.DEBT) < 1)) {
 						autoEncounter(uiGroup, EncounterCode.BUNNY);
 					}
