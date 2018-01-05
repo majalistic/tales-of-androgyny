@@ -151,7 +151,7 @@ public class PlayerCharacter extends AbstractCharacter {
 		return statNameMap;
 	}
 	
-	private void setCurrentPortrait(AssetEnum portrait) {
+	public void setCurrentPortrait(AssetEnum portrait) {
 		currentPortrait = portrait.getTexture().fileName;
 	}
 	

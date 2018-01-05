@@ -116,6 +116,7 @@ public class SaveManager implements SaveService, LoadService {
 	    	case GOBLIN_VIRGIN:		save.player.setGoblinVirginity((Boolean) object); break;
 	    	case QUEST: 			QuestFlag flag = (QuestFlag) object; save.player.setQuestStatus(flag.type, flag.value); break;
 	    	case RESULT: 			save.results.addAll((Array<MutationResult>) object); break;
+	    	case PORTRAIT:			if (object == null) save.player.popPortraitPath(); else save.player.setCurrentPortrait((AssetEnum)object); break;
 	    	case ENCOUNTER_END:		save.player.refresh(); save.sceneCode.clear(); save.results.clear(); break;
     	}	
     	if (saveToJson) {
@@ -154,6 +155,7 @@ public class SaveManager implements SaveService, LoadService {
 	    	case DEBT:
 	    	case ENCOUNTER_END:
 	    	case SCOUT:
+	    	case PORTRAIT:
 	    	case GOBLIN_VIRGIN:		break;
 	    	case SHOP:				return (T) (ObjectMap<String, Shop>) save.shops;
 	    	case QUEST:				break;

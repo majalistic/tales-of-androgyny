@@ -3014,7 +3014,9 @@
 			{
 			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "oralCreampies":2}}],
 			"text": "-Glug- -glug-"},
-			{"text": "She leans over to smell your breath. \"Your breath smells like cum now.  Seriously... the old smell is completely gone... I told you... nothing's going to taste the same ever again...\""},
+			{
+			"mutations": [{"saveType":"PORTRAIT"}],
+			"text": "She leans over to smell your breath. \"Your breath smells like cum now.  Seriously... the old smell is completely gone... I told you... nothing's going to taste the same ever again...\""},
 			{"text": "She pulls up her underwear and smirks at you.  She walks out of the dungeon, and turns to you as she closes the door behind her."},
 			{"text": "\"Savor that.  There'll be more of it... a lot more... in one week's time.\""},
 			{
@@ -3224,7 +3226,12 @@
 			{"text": "You glug it all down without being told to, and she continues to force you to taste her seminal duct for as long a her titanic orgasm lasts, and for a while after."},
 			{"text": "When she finally releases her deathgrip on your hair, you think she's done spewing her yummy cummy into your tummy, but then you realize her nads haven't descended again, and a few final spurts join the rest in the mucousy mess that is your general throat and stomach region."},
 			{"text": "You feel her gonads drooping down your chin, as if you needed a reminder or confirmation that she just finished having sex with your face, and she strokes your hair affectionately, the eye of her cock still drooling the remnants of her ejaculate directly down your throat."},
-			{"text": "\"You'll learn to love it... no matter what...\" she says, apparently lovestruck, and you hiccup around her cock, looking up at her.  You feel... deflowered, in some way that you never imagined was possible."},
+			{
+			"mutations": [{"saveType":"PORTRAIT"}],
+			"text": "\"You'll learn to love it... no matter what...\" she says, apparently lovestruck, and you hiccup around her cock, looking up at her.  You feel... deflowered, in some way that you never imagined was possible."},
+			{
+			"sound": "BURP",
+			"text": "You burp, utterly satiated."},
 			{
 			"sound": "FIEND_KISS",
 			"text": "You hiccup and burp repeatedly, much to her amusement, as she kisses you affectionately in post-coital bliss.  Your stomach is stuffed"},
@@ -3265,7 +3272,9 @@
 			{
 			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "oralCreampies":4}}],
 			"text": "When you do manage a gulp, she says \"ewww...\" just as you do.  She's a demon, and you manage to swallow a second gulp of her chunky cum.  Then a third.  Your stomach feels full in the moment, at least."},
-			{"text": "Click click click."},
+			{
+			"mutations": [{"saveType":"PORTRAIT"}],
+			"text": "Click click click."},
 			{"text": "She grabs your chin.  \"Lemme see,\" she says, holding your chin in her hand, and you open wide to show that most of her cum is in your stomach, the stuff that isn't coating your teeth and tongue.  \"Mmm, good.  Not bad for a first time,\" she says, as if this was all perfectly normal."},
 			{
 			"foreground": "MOUTH_FIEND_ORAL",
@@ -3297,8 +3306,14 @@
 			{"text": "Like a dog, you drool whenever you see it now, and your stomach rumbles when you see her nutsack is full.  When she locks a door behind her, your cock wakes up, and you know the door won't unlock again until you've had your meal."},
 			{"text": "The lock isn't for you, of course.  After all, you never want to leave."},
 			{
-			"sound": "BURP",
+			"sound": "CUM",
 			"foreground": "MOUTH_FIEND_ORAL",
+			"text": "..."},
+			{
+			"sound": "CUM",
+			"text": ".."},
+			{
+			"sound": "BURP",
 			"text": "-BURP-"}
 		]
 	},
