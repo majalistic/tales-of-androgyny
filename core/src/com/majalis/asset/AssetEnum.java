@@ -315,6 +315,7 @@ public enum AssetEnum {
 	BURP("sounds/Burp.wav", Sound.class),
 	CUM("sounds/Cum.wav", Sound.class),
 	CUM_BUBBLING("sounds/CumBubbling.wav", Sound.class),
+	CUMFART("sounds/Cumfart.wav", Sound.class),
 	// music
 	MAIN_MENU_MUSIC("music/MainMenuMusic.mp3", Music.class),
 	ENCOUNTER_MUSIC("music/EncounterMusic.mp3", Music.class),

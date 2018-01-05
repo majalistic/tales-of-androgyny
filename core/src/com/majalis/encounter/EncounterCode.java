@@ -251,6 +251,7 @@ public enum EncounterCode {
 				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{  
 					AssetEnum.BEASTMISTRESS.getTexture(),
 					AssetEnum.CUM.getSound(),
+					AssetEnum.CUMFART.getSound(),
 					AssetEnum.WEREWOLF_MUSIC.getMusic()
 				});
 			case BRIGAND:
@@ -296,6 +297,7 @@ public enum EncounterCode {
 						AssetEnum.BUNNY_DARK_CHOCOLATE_ANAL.getTexture(),
 						AssetEnum.CUM.getSound(),
 						AssetEnum.CUM_BUBBLING.getSound(),
+						AssetEnum.CUMFART.getSound(),
 						AssetEnum.SWORD_SLASH_SOUND.getSound(),
 						AssetEnum.GADGETEER_MUSIC.getMusic()
 					});
@@ -388,6 +390,7 @@ public enum EncounterCode {
 					AssetEnum.LOUD_LAUGH.getSound(),
 					AssetEnum.CUM.getSound(),
 					AssetEnum.CUM_BUBBLING.getSound(),
+					AssetEnum.CUMFART.getSound(),
 					AssetEnum.WEREWOLF_MUSIC.getMusic(),
 					AssetEnum.CARNIVAL_MUSIC.getMusic(),
 					AssetEnum.GAME_OVER_ANIMATION.getAnimation()
@@ -521,6 +524,19 @@ public enum EncounterCode {
 						AssetEnum.CUM_BUBBLING.getSound(),
 						AssetEnum.WEREWOLF_MUSIC.getMusic()
 					});
+			case ORC:
+				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{  
+					AssetEnum.ORC_ANIMATION.getAnimation(),
+					AssetEnum.ORC_ZOOM_UP.getTexture(),
+					AssetEnum.ORC_ZOOM.getTexture(),
+					AssetEnum.ORC_ZOOM_DOWN.getTexture(),
+					AssetEnum.ORC_PRONE_BONE.getTexture(),
+					AssetEnum.GAPE.getTexture(),
+					AssetEnum.CUM.getSound(),
+					AssetEnum.CUMFART.getSound(),
+					AssetEnum.BURP.getSound(),
+					AssetEnum.WEREWOLF_MUSIC.getMusic()
+				});
 			case OGRE:
 				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{  
 					AssetEnum.OGRE.getTexture(),
@@ -540,24 +556,13 @@ public enum EncounterCode {
 					AssetEnum.WEREWOLF_MUSIC.getMusic(),
 					AssetEnum.HEAVY_MUSIC.getMusic()
 				});
-			case ORC:
-				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{  
-					AssetEnum.ORC_ANIMATION.getAnimation(),
-					AssetEnum.ORC_ZOOM_UP.getTexture(),
-					AssetEnum.ORC_ZOOM.getTexture(),
-					AssetEnum.ORC_ZOOM_DOWN.getTexture(),
-					AssetEnum.ORC_PRONE_BONE.getTexture(),
-					AssetEnum.GAPE.getTexture(),
-					AssetEnum.CUM.getSound(),
-					AssetEnum.BURP.getSound(),
-					AssetEnum.WEREWOLF_MUSIC.getMusic()
-				});
 			case QUETZAL:
 				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{  
 						AssetEnum.QUETZAL_HERO.getTexture(),
 						AssetEnum.QUETZAL_HERO_ANAL.getTexture(),
 						AssetEnum.CUM.getSound(),
 						AssetEnum.CUM_BUBBLING.getSound(),
+						AssetEnum.CUMFART.getSound(),
 						AssetEnum.HEAVY_MUSIC.getMusic()
 				});
 			case SLIME:
@@ -586,6 +591,7 @@ public enum EncounterCode {
 					AssetEnum.WEREWOLF_GROWL.getSound(),
 					AssetEnum.CUM.getSound(),
 					AssetEnum.CUM_BUBBLING.getSound(),
+					AssetEnum.CUMFART.getSound(),
 					AssetEnum.WEREBITCH.getTexture(),
 					AssetEnum.WEREBITCH_ANAL.getTexture(),
 					AssetEnum.WEREBITCH_KNOT.getTexture(),
