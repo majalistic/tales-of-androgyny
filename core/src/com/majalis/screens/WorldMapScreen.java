@@ -483,6 +483,7 @@ public class WorldMapScreen extends AbstractScreen {
 		tintForTimeOfDay();
 		
 		uiStage.addActor(uiGroup);
+		
 		// this needs refactoring - probably replace ChangeListener with a custom listener/event type, and rather than an action on a delay, have a trigger for when the character reaches a node that will perform the act() function
 		worldGroup.addListener(new ChangeListener() {
 			@Override
@@ -493,14 +494,14 @@ public class WorldMapScreen extends AbstractScreen {
 					saveService.saveDataValue(SaveEnum.TIME, timePassed);
 					boolean switchScreen = false;
 					if(checkForForcedRest());
-					else if (character.getCurrentDebt() >= 150 || (character.getCurrentDebt() >= 100 && character.getQuestStatus(QuestType.DEBT) < 1)) {
+					else if (!inSuspendedArea(node) && character.getCurrentDebt() >= 150 || (character.getCurrentDebt() >= 100 && character.getQuestStatus(QuestType.DEBT) < 1)) {
 						autoEncounter(uiGroup, EncounterCode.BUNNY);
 					}
-					else if (time >= 11 && character.getQuestStatus(QuestType.ELF) == 0) { // forced elf encounter
+					else if (!inSuspendedArea(node) && time >= 11 && character.getQuestStatus(QuestType.ELF) == 0) { // forced elf encounter
 						saveService.saveDataValue(SaveEnum.QUEST, new QuestFlag(QuestType.ELF, 1));	
 						autoEncounter(uiGroup, EncounterCode.ELF);
 					}
-					else if (time >= 23 && character.getQuestStatus(QuestType.TRUDY) == 0) { // forced Trudy encounter
+					else if (!inSuspendedArea(node) && time >= 23 && character.getQuestStatus(QuestType.TRUDY) == 0) { // forced Trudy encounter
 						autoEncounter(uiGroup, EncounterCode.ADVENTURER);
 					}
 					else {
@@ -648,6 +649,10 @@ public class WorldMapScreen extends AbstractScreen {
 		});
 	}
 
+	private boolean inSuspendedArea(GameWorldNode node) {
+		return node.getEncounterCode() == EncounterCode.MOUTH_FIEND || node.getEncounterCode() == EncounterCode.MOUTH_FIEND_ESCAPE;
+	}
+	
 	private void setConsole(Label console, Array<MutationResult> ...allResults) {
 		String consoleText = "";
 		for (Array<MutationResult> results : allResults) {
