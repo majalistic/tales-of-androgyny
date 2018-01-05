@@ -2610,7 +2610,9 @@
 			{
 			"foreground": "MOUTH_FIEND_ORAL",
 			"text": "You open up almost immediately, realizing the futility of resisting.  She peers inside, studying the insides without touching, changing her angle to get a better view of the sides and top."},
-			{"text": "\"Looking in here without... being able to... it's torture.... mmm... your breath smells nice... hehe...  that smell will be gone forever soon... replaced with mine...\" she says, gently caressing your jaw closed, before leaning in to kiss your lips.  You feel her breath as she exhales softly."},
+			{
+			"sound": "FIEND_KISS",
+			"text": "\"Looking in here without... being able to... it's torture.... mmm... your breath smells nice... hehe...  that smell will be gone forever soon... replaced with mine...\" she says, gently caressing your jaw closed, before leaning in to kiss your lips.  You feel her breath as she exhales softly."},
 			{
 			"foreground": "MOUTH_FIEND_CLOTHED_TRANSPARENT",
 			"text": "She pulls her lips away, and then licks them, and then shakes with joyous energy."},
@@ -2750,7 +2752,9 @@
 			{"text": "You really, really don't like the sound of that."},
 			{"text": "\"It'll be the first thing you eat in three whole days. And it will be... quite the full meal by then.\""},
 			{"text": "It's not getting any better."},
-			{"text": "She gives you a kiss on the cheek, and then leaves the dungeon, closing the heavy iron door behind her.  Without a window or any source of light, it's black as a moonless night inside.  And you're alone."},
+			{
+			"sound": "FIEND_KISS",
+			"text": "She gives you a kiss on the cheek, and then leaves the dungeon, closing the heavy iron door behind her.  Without a window or any source of light, it's black as a moonless night inside.  And you're alone."},
 			{
 			"foreground": "NULL",
 			"text": "..."},
@@ -3217,7 +3221,9 @@
 			{"text": "When she finally releases her deathgrip on your hair, you think she's done spewing her yummy cummy into your tummy, but then you realize her nads haven't descended again, and a few final spurts join the rest in the mucousy mess that is your general throat and stomach region."},
 			{"text": "You feel her gonads drooping down your chin, as if you needed a reminder or confirmation that she just finished having sex with your face, and she strokes your hair affectionately, the eye of her cock still drooling the remnants of her ejaculate directly down your throat."},
 			{"text": "\"You'll learn to love it... no matter what...\" she says, apparently lovestruck, and you hiccup around her cock, looking up at her.  You feel... deflowered, in some way that you never imagined was possible."},
-			{"text": "You hiccup and burp repeatedly, much to her amusement, as she kisses you affectionately in post-coital bliss.  Your stomach is stuffed"},
+			{
+			"sound": "FIEND_KISS",
+			"text": "You hiccup and burp repeatedly, much to her amusement, as she kisses you affectionately in post-coital bliss.  Your stomach is stuffed"},
 			{
 			"foreground": "NULL",
 			"text": "Later that night, in the dungeon, you burp up more than it takes to induce most pregnancies.  This is... going to be a difficult marriage."}

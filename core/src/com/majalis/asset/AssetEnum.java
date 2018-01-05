@@ -300,6 +300,7 @@ public enum AssetEnum {
 	FIEND_LAUGH("sounds/FiendLaugh.wav", Sound.class),
 	FIEND_LONG_LAUGH("sounds/FiendLongLaugh.wav", Sound.class),
 	FIEND_SIGH("sounds/FiendSigh.wav", Sound.class),
+	FIEND_KISS("sounds/FiendKiss.wav", Sound.class),
 	FIEND_AHH("sounds/FiendAhh.wav", Sound.class),
 	HORSE_CLOP("sounds/HorseClop.wav", Sound.class),
 	HORSE_NEIGH("sounds/HorseNeigh.wav", Sound.class),
