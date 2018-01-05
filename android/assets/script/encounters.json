@@ -2892,6 +2892,9 @@
 			{"text": "\"Oh, he's exhausted... I'll take him to his chambers,\" she says, dismissing her guards."},
 			{"text": "She escorts you back to the dungeon, where she shackles you once again.  It's like you never even left."},
 			{
+			"sound": "FIEND_LONG_LAUGH",
+			"text": "Once she's finished shackling you, she laughs, a laugh that chills you in your bones."},
+			{
 			"foreground": "MOUTH_FIEND_ORAL",
 			"text": "\"I'll take it easy with the punishment, this one time.  This is for making me worry,\" she says, and pinches your nose.  When you open your mouth, she traps it open with a hooked finger. Then, without a warning, she spits in it."},
 			{"text": "She wipes her mouth, then lets you close yours."},
