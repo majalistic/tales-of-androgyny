@@ -2839,7 +2839,9 @@
 			"sound": "CUM",
 			"text": "Contrasting with your immaculate makeup is the obvious semen facial you've just received, seven discrete ropy globs of lust that each represent an impregnation shot."},
 			{"text": "Your stomach growls.  It might be semen, but it's got enough sugar and protein to sate you... if it wasn't caked onto your face instead of in your mouth, that is.  The seven cummy streaks slowly deform into a mask of wet slime."},
-			{"text": "\"Mmmm, all that creamy, thick protein goo, cooling on your face.  That's too bad.  That would have been really filling in your current situation.  It felt so good to let all that chewy stuff out... and it was really funny to spew it all over your face.\""},
+			{
+			"sound": "FIEND_SIGH",
+			"text": "\"Mmmm, all that creamy, thick protein goo, cooling on your face.  That's too bad.  That would have been really filling in your current situation.  It felt so good to let all that chewy stuff out... and it was really funny to spew it all over your face.\""},
 			{"text": "She giggles.  It's apparently a funny sight."},
 			{"text": "\"You look really silly, with your face covered in cum like that.  You can't eat any of it, can you.  Hrm, there's some thin, runny cum still stuck in my cock... I'll let it dribble out onto your tongue.\""},
 			{
@@ -2998,7 +3000,9 @@
 			{"text": "A voice in the back of your mind reminds you that she's not exactly mama, dispensing milk for you - she's a pervert who's about to drop a fat wad on your tongue.  Your stomach doesn't care."},
 			{"text": "You know intellectually that the musky scent in front of your face is just dick, and that the \"cream\" you're about to eagerly gulp down is just freshly masturbated baby batter, but that doesn't matter.  Food is food."},
 			{"text": "While you have your minor internal struggle, she finds the exact tempo to churn out her nutbutter, and is wearing a strained expression as she holds it back for just a bit longer."},
-			{"text": "\"I love... when a boy... keeps his mouth open for me... nn... even, as I'm about... to... nn... mmmm... nnngh... it's... it's coming... hooh... it's... coming!  Open up!  Hooo--nghh!\""},
+			{
+			"sound": "FEMALE_GROAN",
+			"text": "\"I love... when a boy... keeps his mouth open for me... nn... even, as I'm about... to... nn... mmmm... nnngh... it's... it's coming... hooh... it's... coming!  Open up!  Hooo--nghh!\""},
 			{"text": "Because it's out of view, you can't see the exact moment her cockhole has her lust rush through it, but you can look up anxiously at her face, and see the exact moment -she- feels it shoot out.  Her plump sausage jerks just of view, and it begins."},
 			{
 			"sound": "CUM",
@@ -3165,7 +3169,9 @@
 			{"text": "Your face is definitely red - partially out of humiliation, but partially for the same reason that it might end up blue."},
 			{"text": "\"Nothing's gonna stop me from feeding you my love... these walls could fall down and I'd still keep pumping my hips...\""},
 			{"text": "She's definitely right about that.  She looks absolutely possessed."},
-			{"text": "\"OOOooonnngh...\" she says, her eyes rolling up into her head.  \"I'm in heaven... I never thought you'd really... eat my whole dick...\""},
+			{
+			"sound": "FEMALE_GROAN",
+			"text": "\"OOOooonnngh...\" she says, her eyes rolling up into her head.  \"I'm in heaven... I never thought you'd really... eat my whole dick...\""},
 			{"text": "She's not concerned with her composure at all.  She's getting more and more crazed and unkempt looking as she fucks you dirty."},
 			{"text": "\"Your poor mouth is stuffed...  I love force-feeding a hungry boy... you'll have so much to eat... tonight's menu is all overripe sausage, milk and cheese.\""},
 			{"text": "You feel like she's going to force you to eat her whole.  She's giving everything to you.  And, most importantly... you feel like you're going to splat in your underwear."},
@@ -3205,7 +3211,9 @@
 			{"text": "You feel her full spermpouches tensing and ascending slowly up your chin, and you fully anticipate what it is they're in the process of doing.  Even if you blinked a second time now, nothing could stop it from happening."},
 			{"text": "\"Oh, oh... <NAME>... <NAME>... I love you!\" she says, gripping so tightly onto your hair you're worried she'll rip it out."},
 			{"text": "The eye of her cock opens wide, and you feel her ejaculatory muscle working its magic, but nothing yet escapes... but she's trying to pump SOMETHING, so you brace yourself.  You swear you can hear her balls -gurgling-."},
-			{"text": "\"Nn... nnng... ungghhhh...\""},
+			{
+			"sound": "FEMALE_GROAN",
+			"text": "\"Nn... nnng... ungghhhh...\""},
 			{
 			"sound": "CUM",
 			"text": "She grunts her relief in a resonant, drawn out vocalization, and her cockhole finally gives up its plenty - it pumps hard, and you finally taste her absolutely nasty love right after.  It tastes suspiciously like the chunky semen blob you swallowed the last time she came in your mouth."},
@@ -3315,7 +3323,7 @@
 			{"text": "Like a dog, you drool whenever you see it now, and your stomach rumbles when you see her nutsack is full.  When she locks a door behind her, your cock wakes up, and you know the door won't unlock again until you've had your meal."},
 			{"text": "The lock isn't for you, of course.  After all, you never want to leave."},
 			{
-			"sound": "CUM",
+			"sound": "FEMALE_GROAN",
 			"foreground": "MOUTH_FIEND_ORAL",
 			"text": "..."},
 			{
@@ -4361,12 +4369,15 @@
 			{
 			"foreground": "BRIGAND_ORAL",
 			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "oralSex":1}}],
-			"text": "Her full set slaps repatedly against your chin - evidence that she wasn't lying about how often she coats a tree in her own sap. A shame - if she did occasionally baste some bark, or sprinkle some suds in the dirt, it's highly unlikely that her balls would be so stuffed full and eager to drain, or that such draining would result in so much jelly-like, unpalatable spermslime."},
+			"text": "Her full set slaps repeatedly against your chin - evidence that she wasn't lying about how often she coats a tree in her own sap. A shame - if she did occasionally baste some bark, or sprinkle some suds in the dirt, it's highly unlikely that her balls would be so stuffed full and eager to drain, or that such draining would result in so much jelly-like, unpalatable spermslime."},
 			{"text": "Of course, it would be even more fortunate if that was irrelevant to you - then it wouldn't matter that she'd been saving it up for days, or weeks, to the point that it probably audibly sloshed about in her ballsack as she walked, because that disgusting semen slurry wouldn't be ending up in your mouth, throat, and stomach."},
 			{"text": "You can tell by the full, pulsing nature of her fat sack pressing wetly against your chin that her sperm overdose is about to become your problem very soon - her ejaculation mid-irrumatio is all but assured."},
 			{"text": "Her cock pulses in your mouth, unquestionable evidence of her orgasm, which means, unfortunately, that it's only a matter of heartbeats before her nasty cocksnot explodes out of her cock's eye and into your unprepared mouth."},
-			{"text": "In those last moments where you're blissfully unaware of the taste and texture of her creamy sperm cocktail, your mind tries desperately to find an out - some way to avoid being blasted in the face with her pungent genetic goo, but it's interrupted by said goo making its presence felt in such an obvious way that it renders the point moot."},
 			{
+			"sound": "FEMALE_GROAN",
+			"text": "In those last moments where you're blissfully unaware of the taste and texture of her creamy sperm cocktail, your mind tries desperately to find an out - some way to avoid being blasted in the face with her pungent genetic goo, but it's interrupted by said goo making its presence felt in such an obvious way that it renders the point moot."},
+			{
+			"sound": "CUM",
 			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "oralCreampies":1}}],
 			"text": "Blorp."},
 			{

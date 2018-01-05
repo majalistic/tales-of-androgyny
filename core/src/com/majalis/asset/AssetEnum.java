@@ -294,6 +294,7 @@ public enum AssetEnum {
 	INCANTATION("sounds/Incantation.wav", Sound.class),
 	
 	SMUG_LAUGH("sounds/FemaleSmugLaugh.wav", Sound.class),
+	FEMALE_GROAN("sounds/FemaleGroan.wav", Sound.class),
 	OGRE_GROWL("sounds/Ogre.wav", Sound.class),
 	GOLEM_SHUTDOWN("sounds/GolemShutdown.wav", Sound.class),
 	GOLEM_ONE("sounds/GolemOne.wav", Sound.class),

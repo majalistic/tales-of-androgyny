@@ -259,6 +259,7 @@ public enum EncounterCode {
 					AssetEnum.BRIGAND_MISSIONARY.getTexture(),
 					AssetEnum.CUM.getSound(),
 					AssetEnum.CUM_BUBBLING.getSound(),
+					AssetEnum.FEMALE_GROAN.getSound(),
 					AssetEnum.BRIGAND_ANIMATION.getAnimation()
 				});
 			case BRIGAND_STORY:
@@ -501,6 +502,7 @@ public enum EncounterCode {
 						AssetEnum.FIEND_KISS.getSound(),
 						AssetEnum.FIEND_SIGH.getSound(),
 						AssetEnum.FIEND_AHH.getSound(),
+						AssetEnum.FEMALE_GROAN.getSound(),
 						AssetEnum.CUM.getSound(),
 						AssetEnum.CUM_BUBBLING.getSound(),
 						AssetEnum.BURP.getSound(),
