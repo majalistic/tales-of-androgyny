@@ -2981,7 +2981,7 @@
 		"scriptLines": [
 			{"text": "She enters once again, and you brace yourself for her."},
 			{
-			"foreground": "MOUTH_FIEND_CLOTHED_TRANSPARENT",
+			"foreground": "MOUTH_FIEND_CLOTHED",
 			"text": "\"Mmm... waiting to eat the cream, I see...  unfortunately, I've decided to put off our little lovefest until I've really saved it up for you... so it'll be another week.\""},
 			{"text": "You're crestfallen.  You're so hungry...  \"I... I need to eat...\""},
 			{"text": "\"Oh?  You need food now?  Well... a week's plenty of time to fill up my soup tanks.  If you want... I could make dinner for you.\""},
