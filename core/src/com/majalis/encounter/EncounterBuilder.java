@@ -315,7 +315,7 @@ public class EncounterBuilder {
 								"Ask her to deepthroat?", 
 								new Branch("Ask").checkScene(
 									Stat.CHARISMA, 
-									new Branch(7).textScene("BROTHEL-ROSE-DEEPTHROAT"),
+									new Branch(12).textScene("BROTHEL-ROSE-DEEPTHROAT"),
 									new Branch(0).textScene("BROTHEL-ROSE-DEEPTHROAT-FAIL").choiceScene(
 										"What do you do?", 
 										new Branch("Grab her").textScene("BROTHEL-ROSE-DEEPTHROAT-FORCE").concat(brothelMadameCruelOralWarning), 
