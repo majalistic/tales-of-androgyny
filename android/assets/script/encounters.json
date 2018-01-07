@@ -1051,6 +1051,37 @@
 		]
 	},
 	{
+		"key": "TOWN-SQUARE-SECOND-KIDNAP",
+		"scriptLines": [
+			{"text": "You run into Lura again in the town square, and when she sees you, her face lights up."},
+			{
+			"foreground": "MOUTH_FIEND_CLOTHED",
+			"text": "\"Oh!  I was so very frightened when that ruffian appeared.  I'm so sorry that I disappeared...\""},
+			{"text": "\"It's alright.  That bandit picked the wrong hero to try and ambush,\" you say, she smiles."},
+			{"text": "\"Quite.  As a reward for your bravery... I'd like you to invite you to my estate.  Would you graciously accept?\""}
+		]
+	},
+	{
+		"key": "TOWN-SQUARE-SECOND-KIDNAPPED",
+		"scriptLines": [
+			{
+			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "MOUTH_FIEND", "value":3}}, {"saveType":"RETURN_CONTEXT", "value":{"class": "com.majalis.save.SaveManager$GameContext", "value": "WORLD_MAP"}}, {"saveType":"NODE_CODE", "value":{"class": "java.lang.Integer", "value": 50001}}],
+			"text": "You agree, and follow her to her carriage, and allow her to get in first, getting a fantastic view of her backside as she does.  When you climb in after her, your world suddenly goes dark."},
+			{
+			"sound": "HIT_SOUND",
+			"text": "-Thud-"}
+		]
+	},
+	{
+		"key": "TOWN-SQUARE-SECOND-AVOID",
+		"scriptLines": [
+			{
+			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "MOUTH_FIEND", "value":11}}],
+			"text": "You decline, and she seems a bit despondent."},
+			{"text": "\"Oh, well... perhaps another time.  If you'll excuse me,\" she says, and walks off, looking disappointed."}
+		]
+	},
+	{
 		"key": "TOWN-SQUARE-KIDNAP-THWART",
 		"scriptLines": [
 			{
