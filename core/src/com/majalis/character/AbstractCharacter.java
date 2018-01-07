@@ -366,6 +366,10 @@ public abstract class AbstractCharacter extends Actor {
 		return stance.isIncapacitatingOrErotic();
 	}
 	
+	protected boolean wasIncapacitated() {
+		return oldStance != null ? oldStance.isIncapacitatingOrErotic() : false;
+	}
+	
 	protected boolean hasGrappleAdvantage() {
 		return grappleStatus.isAdvantage();
 	}
@@ -612,7 +616,7 @@ public abstract class AbstractCharacter extends Actor {
 			knockdown -= getTraction();
 			
 			if (knockdown > 0) {
-				if (!alreadyIncapacitated()) {
+				if (!alreadyIncapacitated() && !wasIncapacitated()) {
 					modStability(-knockdown);
 					result.add("It's a solid blow! It reduces balance by " + knockdown + "!");
 					if (stability.isDown()) {
