@@ -118,6 +118,7 @@ public class SaveManager implements SaveService, LoadService {
 	    	case RESULT: 			save.results.addAll((Array<MutationResult>) object); break;
 	    	case PORTRAIT:			if (object == null) save.player.popPortraitPath(); else save.player.setCurrentPortrait((AssetEnum)object); break;
 	    	case ENCOUNTER_END:		save.player.refresh(); save.sceneCode.clear(); save.results.clear(); break;
+	    	case GAME_OVER: 		save.player.setGameOver((GameOver) object);
     	}	
     	if (saveToJson) {
     		saveToJson(save); //Saves current save immediately.
@@ -156,6 +157,7 @@ public class SaveManager implements SaveService, LoadService {
 	    	case ENCOUNTER_END:
 	    	case SCOUT:
 	    	case PORTRAIT:
+	    	case GAME_OVER:
 	    	case GOBLIN_VIRGIN:		break;
 	    	case SHOP:				return (T) (ObjectMap<String, Shop>) save.shops;
 	    	case QUEST:				break;
@@ -433,6 +435,11 @@ public class SaveManager implements SaveService, LoadService {
 		TOWN,
 		CAMP,
 		GAME_OVER
+	}
+	
+	public enum GameOver {
+		DEFAULT,
+		MOUTH_FIEND
 	}
 	
 	public enum GameMode {

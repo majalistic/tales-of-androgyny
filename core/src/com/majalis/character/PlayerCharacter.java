@@ -21,6 +21,7 @@ import com.majalis.character.Item.Weapon;
 import com.majalis.character.Item.WeaponType;
 import com.majalis.save.MutationResult;
 import com.majalis.save.MutationResult.MutationType;
+import com.majalis.save.SaveManager.GameOver;
 import com.majalis.save.SaveManager.JobClass;
 import com.majalis.scenes.ShopScene.ShopCode;
 import com.majalis.screens.TimeOfDay;
@@ -80,7 +81,9 @@ public class PlayerCharacter extends AbstractCharacter {
 	private ObjectMap<String, Integer> questFlags;
 
 	private int scout;
-		
+	
+	private GameOver gameOver;
+	
 	@SuppressWarnings("unused")
 	private PlayerCharacter() {}
 	
@@ -1646,4 +1649,8 @@ public class PlayerCharacter extends AbstractCharacter {
 	public int getOralReceptionCount() {
 		return receivedOral;
 	}
+
+	public void setGameOver(GameOver gameOver) { this.gameOver = gameOver; }
+
+	public GameOver getGameOver() { return gameOver; }
 }

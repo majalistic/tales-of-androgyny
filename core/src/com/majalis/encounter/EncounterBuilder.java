@@ -28,6 +28,7 @@ import com.majalis.save.ProfileEnum;
 import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveService;
 import com.majalis.save.SaveManager.GameMode; // this should probably be moved out of SaveManager
+import com.majalis.save.SaveManager.GameOver;
 import com.majalis.scenes.AbstractChoiceScene;
 import com.majalis.scenes.BattleScene; // this should be refactored so that encounterbuilder receives a scenebuilder
 import com.majalis.scenes.CharacterCreationScene;
@@ -986,7 +987,7 @@ public class EncounterBuilder {
 					new Branch("Brave the forest").textScene("MOUTHFIEND-FOREST").gameEnd()
 				).getEncounter();
 			case MOUTH_FIEND:
-				Branch mouthfiendEnd = new Branch().textScene("MOUTHFIEND-END").gameEnd();
+				Branch mouthfiendEnd = new Branch().textScene("MOUTHFIEND-END").gameEnd(GameOver.MOUTH_FIEND);
 				Branch tongueDay = new Branch().textScene("MOUTHFIEND-TONGUEDAY").choiceScene("How do you want it?", new Branch("Deep").textScene("MOUTHFIEND-DEEP").concat(mouthfiendEnd), new Branch("Hard").textScene("MOUTHFIEND-HARD").concat(mouthfiendEnd));
 				Branch failedEscape = new Branch().textScene("MOUTHFIEND-FAILEDESCAPE").concat(tongueDay);
 				Branch afterFourthQuestion = new Branch().textScene("MOUTHFIEND-AFTERQUESTIONS").choiceScene(
@@ -1558,8 +1559,10 @@ public class EncounterBuilder {
 			return this;
 		}
 		
-		public Branch gameEnd() {
-			branchToken = new EndSceneToken(EndTokenType.EndGame);	
+		public Branch gameEnd() { return gameEnd(GameOver.DEFAULT); }
+		
+		public Branch gameEnd(GameOver gameOver) {
+			branchToken = new EndSceneToken(EndTokenType.EndGame, gameOver);	
 			return this;
 		}
 		
@@ -1680,7 +1683,7 @@ public class EncounterBuilder {
 					case EndEncounter:
 						EndScene newEndScene = branchToken.type == EndTokenType.EndEncounter ? 
 							new EndScene(sceneCounter, EndScene.Type.ENCOUNTER_OVER, saveService, assetManager, getEndBackground(), new LogDisplay(sceneCodes, masterSceneMap, skin), results) :
-							new EndScene(sceneCounter, EndScene.Type.GAME_OVER, saveService, assetManager, getEndBackground(), new LogDisplay(sceneCodes, masterSceneMap, skin), results);
+							new EndScene(sceneCounter, EndScene.Type.GAME_OVER, saveService, assetManager, getEndBackground(), new LogDisplay(sceneCodes, masterSceneMap, skin), results, ((EndSceneToken)branchToken).getGameOver());
 						endScenes.add(newEndScene);
 						sceneMap = addScene(scenes, newEndScene, true);		
 						break;
@@ -1976,9 +1979,17 @@ public class EncounterBuilder {
 	}
 	
 	public class EndSceneToken extends BranchToken {
+		private final GameOver gameOver;
 		public EndSceneToken(EndTokenType endType) {
-			super(endType);
+			this(endType, GameOver.DEFAULT);
 		}
+
+		public EndSceneToken(EndTokenType endType, GameOver gameOver) {
+			super(endType);
+			this.gameOver = gameOver;
+		}
+		
+		public GameOver getGameOver() { return gameOver; }
 	}
 	
 	// as scenetokens arrays are retrieved, they're placed into a map of key to scene token array to prevent duplicates - and another map is used for the actual scenes so they aren't duplicated (scenes are individual at that point, not in an array, and that key is the new scenecode) - this is currently not implemented

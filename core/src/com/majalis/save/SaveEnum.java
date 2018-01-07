@@ -33,5 +33,6 @@ public enum SaveEnum {
 	ENCOUNTER_END, 
 	SCOUT, 
 	PORTRAIT, 
-	RESULT, 
+	RESULT,
+	GAME_OVER, 
 }

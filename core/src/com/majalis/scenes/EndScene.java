@@ -22,6 +22,7 @@ import com.majalis.save.MutationResult;
 import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveManager;
 import com.majalis.save.SaveService;
+import com.majalis.save.SaveManager.GameOver;
 
 /*
  * Represents a scene that concludes an encounter.  Currently not displayed; may eventually be displayed.  Should fire an event that the encounter has ended
@@ -39,14 +40,21 @@ public class EndScene extends Scene {
 	private final ScrollPane pane;
 	private final Skin skin;
 	private final Group group;
+	private final GameOver gameOver;
 	private boolean finished;
+	
 	public EndScene(int sceneCode, Type type, SaveService saveService, AssetManager assetManager, final Background background, LogDisplay log, Array<MutationResult> results) {
+		this(sceneCode, type, saveService, assetManager, background, log, results, GameOver.DEFAULT);
+	}
+	
+	public EndScene(int sceneCode, Type type, SaveService saveService, AssetManager assetManager, final Background background, LogDisplay log, Array<MutationResult> results, GameOver gameOver) {
 		super(null, sceneCode);
 		this.type = type;
 		this.saveService = saveService;
 		this.assetManager = assetManager;
 		this.background = background;
 		this.results = results;
+		this.gameOver = gameOver;
 		this.addActor(background);
 		pane = new ScrollPane(log);
 		this.log = log;
@@ -156,7 +164,10 @@ public class EndScene extends Scene {
 	}
 	
 	private void finish() {
-		if (type == Type.GAME_OVER) saveService.saveDataValue(SaveEnum.CONTEXT, SaveManager.GameContext.GAME_OVER);
+		if (type == Type.GAME_OVER) {
+			saveService.saveDataValue(SaveEnum.CONTEXT, SaveManager.GameContext.GAME_OVER);
+			saveService.saveDataValue(SaveEnum.GAME_OVER, gameOver);
+		}
 		else saveService.saveDataValue(SaveEnum.CONTEXT, null); // sets context to return context
 		if (type == Type.ENCOUNTER_OVER || type == Type.GAME_OVER) {
 			saveService.saveDataValue(SaveEnum.RETURN_CONTEXT, null);
