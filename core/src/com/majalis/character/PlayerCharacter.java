@@ -273,7 +273,7 @@ public class PlayerCharacter extends AbstractCharacter {
 				if (hasItemsToUse()) {
 					possibles.addAll(getTechniques(USE_ITEM));
 				}
-				if (target.getStance() == Stance.SUPINE && target.isErect() && target.enemyType != EnemyEnum.SLIME && target.enemyType != EnemyEnum.CENTAUR && target.enemyType != EnemyEnum.UNICORN) {
+				if (target.getStance() == Stance.SUPINE && target.isErect() && target.enemyType.canBeRidden()) {
 					possibles.addAll(getTechniques(SIT_ON_IT, TURN_AND_SIT));
 				}
 				return possibles;
