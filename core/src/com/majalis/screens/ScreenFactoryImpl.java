@@ -23,6 +23,7 @@ import com.majalis.save.ProfileEnum;
 import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveManager;
 import com.majalis.save.SaveService;
+import com.majalis.save.SaveManager.GameContext;
 import com.majalis.save.SaveManager.GameMode;
 import com.majalis.talesofandrogyny.Logging;
 import com.majalis.talesofandrogyny.TalesOfAndrogyny;
@@ -235,6 +236,10 @@ public class ScreenFactoryImpl implements ScreenFactory {
 	
 	private AbstractScreen getCurrentContextScreen(ScreenElements elements, PlayerCharacter character) {
 		SaveManager.GameContext context = loadService.loadDataValue(SaveEnum.CONTEXT, SaveManager.GameContext.class);
+		if (context == null) { 
+			context = GameContext.WORLD_MAP; 
+			saveService.saveDataValue(SaveEnum.CONTEXT, context, false);
+		}
 		switch (context) {
 			case ENCOUNTER: return getEncounter(elements, character);
 			case WORLD_MAP: 
