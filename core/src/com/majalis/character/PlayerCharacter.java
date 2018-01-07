@@ -276,6 +276,20 @@ public class PlayerCharacter extends AbstractCharacter {
 				if (target.getStance() == Stance.SUPINE && target.isErect() && target.enemyType.canBeRidden()) {
 					possibles.addAll(getTechniques(SIT_ON_IT, TURN_AND_SIT));
 				}
+				if (target.stance == Stance.HANDS_AND_KNEES && isErect() && target.enemyType.isPounceable()) {
+					possibles.addAll(getTechniques(POUNCE_DOGGY));
+				}
+				else if (target.stance == Stance.PRONE && isErect() && target.enemyType.isPounceable() && target.enemyType.canWrestle()) {
+					possibles.addAll(getTechniques(WRESTLE_TO_GROUND));
+				}
+				else if (target.stance == Stance.SUPINE && isErect() && target.enemyType.isPounceable()) {
+					if (target.enemyType.canWrestle()) {
+						possibles.addAll(getTechniques(WRESTLE_TO_GROUND_UP, MOUNT_FACE));
+					}
+					else {
+						possibles.addAll(getTechniques(MOUNT_FACE));
+					}
+				}
 				return possibles;
 			case DEFENSIVE:
 				return getTechniques(REVERSAL_ATTACK, CAREFUL_ATTACK, GUARD, TAUNT, SECOND_WIND, PARRY, INCANTATION, DUCK);
