@@ -124,7 +124,7 @@ public class WorldMapScreen extends AbstractScreen {
 		
 		// need to refactor to get all stance textures
 		AssetEnum[] assets = new AssetEnum[]{
-			GROUND_SHEET, DOODADS, WORLD_MAP_BG, CHARACTER_ANIMATION, MOUNTAIN_ACTIVE, FOREST_ACTIVE, FOREST_INACTIVE, CASTLE, TOWN, COTTAGE, APPLE, MEAT, CLOUD, ROAD, WORLD_MAP_UI, WORLD_MAP_HOVER, ARROW, CHARACTER_SCREEN, EXP, GOLD, TIME, HEART, NULL
+			GROUND_SHEET, DOODADS, WORLD_MAP_BG, CHARACTER_ANIMATION, MOUNTAIN_ACTIVE, FOREST_ACTIVE, FOREST_INACTIVE, CASTLE, TOWN, COTTAGE, APPLE, MEAT, CLOUD, ROAD, WORLD_MAP_UI, WORLD_MAP_HOVER, ARROW, CHARACTER_SCREEN, EXP, GOLD, TIME, HEART, SEARCHING, NULL
 		};
 		for (AssetEnum asset: assets) {
 			resourceRequirements.add(asset.getTexture());
@@ -384,6 +384,14 @@ public class WorldMapScreen extends AbstractScreen {
 			}
 		);
 
+		final Image scoutEye = new Image(assetManager.get(AssetEnum.SEARCHING.getTexture()));
+		uiStage.addActor(scoutEye);
+		scoutEye.setPosition(400, 25);
+		scoutEye.setSize(40, 40);
+		final UpdateLabel scoutLevel = new UpdateLabel(skin, character);
+		uiStage.addActor(scoutLevel);
+		scoutLevel.setPosition(450, 25);
+		
 		final TextButton scout = new TextButton("Scout", skin);
 		
 		table.add(scout).size(145, 40).row();;
@@ -647,6 +655,22 @@ public class WorldMapScreen extends AbstractScreen {
 				translateCamera(new Vector3(getDeltaX(), getDeltaY(), 0));
 			}
 		});
+	}
+	
+	private class UpdateLabel extends Label {
+		private UpdateLabel(Skin skin, PlayerCharacter character) {
+			super("X " + character.getScoutingScore(), skin);
+			if (character.getScoutingScore() > 4) this.addAction(Actions.color(Color.GOLD));
+		}
+		@Override
+		public void draw(Batch batch, float parentAlpha) {
+			if (!getText().toString().equals("X " + character.getScoutingScore())) {
+				setText("X " + character.getScoutingScore());
+				this.clearActions();
+				this.addAction(character.getScoutingScore() > 4 ? Actions.color(Color.GOLD) : Actions.sequence(Actions.color(Color.GREEN), Actions.color(Color.WHITE, 1)));
+			}
+			super.draw(batch, parentAlpha);
+		}
 	}
 
 	private boolean inSuspendedArea(GameWorldNode node) {

@@ -85,6 +85,8 @@ public enum AssetEnum {
 	TIME("icons/Time.png"),
 	EXP("icons/Exp.png"),
 	
+	SEARCHING("icons/Searching.png"),
+	
 	CHARACTER_SCREEN("backgrounds/CharacterScreen.jpg"),
 	
 	WEREBITCH("enemies/Werebitch.png"),

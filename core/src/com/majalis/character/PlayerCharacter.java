@@ -937,8 +937,8 @@ public class PlayerCharacter extends AbstractCharacter {
 	}
 	
 	private int getTrueScoutingScore(int rawScoutingScore) {
-		int level = 3;
-		for (int ii : new int[]{8, 5, 2}) {
+		int level = 5;
+		for (int ii : new int[]{14, 11, 8, 5, 2}) {
 			if (rawScoutingScore < ii) level--;
 		}
 		return level;
@@ -1558,7 +1558,7 @@ public class PlayerCharacter extends AbstractCharacter {
 
 	public Array<MutationResult> increaseScout(int increase) {
 		scout += increase;
-		return getResult("You scouted the surrounding areas.  Scout level now " + (scout > 4 ? "maximum!" : scout + "."));
+		return getResult("You scouted the surrounding areas.  Scout level now " + (getScoutingScore() > 4 ? "maximum!" : getScoutingScore() + "."));
 	}
 	
 	public String resetScout() {
