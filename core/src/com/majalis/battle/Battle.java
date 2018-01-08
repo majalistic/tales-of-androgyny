@@ -179,7 +179,7 @@ public class Battle extends Group{
 		gameExit = false;	
 		
 		soundMap = new ObjectMap<AssetEnum, Sound>();
-		AssetEnum[] battleSounds = new AssetEnum[]{AssetEnum.UNPLUGGED_POP, AssetEnum.MOUTH_POP, AssetEnum.ATTACK_SOUND, AssetEnum.HIT_SOUND, AssetEnum.SWORD_SLASH_SOUND, AssetEnum.FIREBALL_SOUND, AssetEnum.INCANTATION, AssetEnum.THWAPPING, AssetEnum.BUTTON_SOUND, AssetEnum.PARRY_SOUND, AssetEnum.BLOCK_SOUND};
+		AssetEnum[] battleSounds = new AssetEnum[]{AssetEnum.CUM, AssetEnum.UNPLUGGED_POP, AssetEnum.MOUTH_POP, AssetEnum.ATTACK_SOUND, AssetEnum.HIT_SOUND, AssetEnum.SWORD_SLASH_SOUND, AssetEnum.FIREBALL_SOUND, AssetEnum.INCANTATION, AssetEnum.THWAPPING, AssetEnum.BUTTON_SOUND, AssetEnum.PARRY_SOUND, AssetEnum.BLOCK_SOUND};
 		for (AssetEnum soundPath: battleSounds) {
 			soundMap.put(soundPath, assetManager.get(soundPath.getSound()));
 		}
@@ -650,6 +650,9 @@ public class Battle extends Group{
 		}
 		
 		for (Attack attackForFirstCharacter : attacksForFirstCharacter) {
+			if (attackForFirstCharacter.isSuccessful() && attackForFirstCharacter.isClimax()) {
+				this.addAction(new SoundAction(soundMap.get(AssetEnum.CUM), .5f));
+			}
 			if (enemy.getStance() == Stance.CASTING && attackForFirstCharacter.isSuccessful()) {
 				this.addAction(new SoundAction(soundMap.get(AssetEnum.INCANTATION), .5f));
 			}
@@ -700,6 +703,9 @@ public class Battle extends Group{
 		}
 		
 		for (Attack attackForSecondCharacter : attacksForSecondCharacter) {
+			if (attackForSecondCharacter.isSuccessful() && attackForSecondCharacter.isClimax()) {
+				this.addAction(sequence(delay(5/60f), new SoundAction(soundMap.get(AssetEnum.CUM), .5f)));
+			}
 			if (character.getStance() == Stance.CASTING && attackForSecondCharacter.isSuccessful()) {
 				this.addAction(sequence(delay(5/60f), new SoundAction(soundMap.get(AssetEnum.INCANTATION), .5f)));
 			}
@@ -736,7 +742,7 @@ public class Battle extends Group{
 		else {
 			dialogGroup.addAction(show());
 		}
-		
+
 		if ( (oldStance.isAnalReceptive() && firstCharacter.getStance().isAnalReceptive()) || (oldEnemyStance.isAnalReceptive() && secondCharacter.getStance().isAnalReceptive()) ) {
 			soundMap.get(AssetEnum.THWAPPING).play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
 		}

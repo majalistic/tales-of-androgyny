@@ -21,7 +21,7 @@ public class BattleScreen extends AbstractScreen{
 		resourceRequirements.add(BATTLE_SKIN.getSkin());
 		resourceRequirements.add(BATTLE_MUSIC.getMusic());
 		AssetEnum[] soundAssets = new AssetEnum[]{
-			BUTTON_SOUND, UNPLUGGED_POP, MOUTH_POP, ATTACK_SOUND, SWORD_SLASH_SOUND, FIREBALL_SOUND, INCANTATION, HIT_SOUND, THWAPPING, PARRY_SOUND, BLOCK_SOUND
+			CUM, BUTTON_SOUND, UNPLUGGED_POP, MOUTH_POP, ATTACK_SOUND, SWORD_SLASH_SOUND, FIREBALL_SOUND, INCANTATION, HIT_SOUND, THWAPPING, PARRY_SOUND, BLOCK_SOUND
 		};
 		for (AssetEnum asset: soundAssets) {
 			resourceRequirements.add(asset.getSound());

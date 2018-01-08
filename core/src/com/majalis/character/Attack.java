@@ -107,7 +107,7 @@ public class Attack {
 	protected Array<String> getMessages() { return results; }
 	protected void addDialog(String message) { dialog.add(message); }
 	protected Array<String> getDialog() { return dialog; }
-	protected boolean isClimax() { return climaxType != null; }
+	public boolean isClimax() { return climaxType != null; }
 	protected ClimaxType getClimaxType() { return climaxType; }
 	public boolean isSpell() { return isSpell; }
 	public Buff getSelfEffect() { return selfEffect == null ? null : selfEffect.type == null ? null : selfEffect; }
