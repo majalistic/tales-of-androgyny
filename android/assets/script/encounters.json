@@ -2163,6 +2163,20 @@
 		]
 	},
 	{
+		"key": "BROTHEL-IVY-TOP",
+		"scriptLines": [
+			{"text": "You ask for her to pound you out.  She smirks, and tells you to get on the bed, and you feel the heat in your cheeks as you realize you just paid twenty gold for a prostitute to check your temperature the hard way."},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex": 1}}],
+			"text": "She isn't hesitant at all, after some very minor foreplay, to stick her dick straight up your ass.  She doesn't even ask for confirmation a second time - it's obvious this is how she prefers to operate."},
+			{"text": "You don't know if her speciality is having a big dick, but you feel pretty well crammed once she gets her fuck on.  She spanks you and pumps your ass, and basically chases her own rectally blasted nut on your twenty G."},			
+			{
+			"sound": "CUM",
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "creampies":1, "analEjaculation": 1}}],
+			"text": "The sensation of being taken to poundtown by a hooker with a big dick doesn't leave you unsatisfied - quite the opposite.  You feel her eagerly creaming all over your anal walls, and that causes you to shoot on the sheets. You just paid good money to have a prostitute push your shit in, and you came all over the bed.  Well done!"}
+		]
+	},
+	{
 		"key": "BROTHEL-SIGN-UP",
 		"scriptLines": [
 			{

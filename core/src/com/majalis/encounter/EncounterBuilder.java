@@ -293,7 +293,7 @@ public class EncounterBuilder {
 					new Branch(true).textScene("BROTHEL-BANNED"), 
 					new Branch(false).textScene("BROTHEL-GIRL-DESCRIPTION").choiceScene(
 						"Which girl do you want to hire?", 
-						new Branch("Daisy (10 GP)").require(ChoiceCheckType.GOLD_GREATER_THAN_X, 10).textScene("BROTHEL-DAISY").choiceScene( // femboy
+						new Branch("Daisy (10 GP)").require(ChoiceCheckType.GOLD_GREATER_THAN_X, 10).require(ChoiceCheckType.FREE_COCK).textScene("BROTHEL-DAISY").choiceScene( // femboy
 							"What do you want to do?", 
 							new Branch("Get a blowjob").textScene("BROTHEL-DAISY-BJ").choiceScene(
 								"Ask her to deepthroat?", 
@@ -310,7 +310,7 @@ public class EncounterBuilder {
 							),
 							new Branch("Fuck her (5 GP)").require(ChoiceCheckType.GOLD_GREATER_THAN_X, 5).textScene("BROTHEL-DAISY-BOTTOM")
 						),
-						new Branch("Rose (15 GP)").require(ChoiceCheckType.GOLD_GREATER_THAN_X, 15).textScene("BROTHEL-ROSE").choiceScene( // mystery
+						new Branch("Rose (15 GP)").require(ChoiceCheckType.GOLD_GREATER_THAN_X, 15).require(ChoiceCheckType.FREE_COCK).textScene("BROTHEL-ROSE").choiceScene( // mystery
 							"What do you want to do?", 
 							new Branch("Get a blowjob").textScene("BROTHEL-ROSE-BJ").choiceScene(
 								"Ask her to deepthroat?", 
@@ -329,8 +329,9 @@ public class EncounterBuilder {
 						),
 						new Branch("Ivy (20 GP)").require(ChoiceCheckType.GOLD_GREATER_THAN_X, 20).textScene("BROTHEL-IVY").choiceScene( // futa
 							"What do you want to do?", 
-							new Branch("Get a blowjob").textScene("BROTHEL-IVY-BJ"),
-							new Branch("Fuck her (10 GP)").require(ChoiceCheckType.GOLD_GREATER_THAN_X, 10).textScene("BROTHEL-IVY-BOTTOM")
+							new Branch("Get a blowjob").require(ChoiceCheckType.FREE_COCK).textScene("BROTHEL-IVY-BJ"),
+							new Branch("Fuck her (10 GP)").require(ChoiceCheckType.GOLD_GREATER_THAN_X, 10).require(ChoiceCheckType.FREE_COCK).textScene("BROTHEL-IVY-BOTTOM"),
+							new Branch("Get fucked").textScene("BROTHEL-IVY-TOP")
 						),
 						new Branch("Leave")
 					)
