@@ -264,6 +264,7 @@ public enum AssetEnum {
 	STANDING("stances/Standing.png"),
 	SUPINE("stances/Supine.png"),
 	WRAPPED("stances/Wrapped.png"),
+	SEDUCTION("stances/Seduction.png"),	
 	
 	STANCE_ARROW("stances/ChevronArrow.png"),
 	
@@ -347,7 +348,7 @@ public enum AssetEnum {
 	ANAL_ANIMATION("animation/skeleton.atlas", AnimatedActorFactory.class, new AnimatedActorLoader.AnimatedActorParameter(.475f, 1, true)),
 	CENTAUR_ANIMATION("animation/Centaur.atlas", AnimatedActorFactory.class, new AnimatedActorLoader.AnimatedActorParameter(.60f, 1.8f, true)), 
 	ORC_ANIMATION("animation/Orc.atlas", AnimatedActorFactory.class, new AnimatedActorLoader.AnimatedActorParameter(.60f, 1f, true)), 
-	GOBLIN_ANIMATION("animation/Goblin.atlas", AnimatedActorFactory.class, new AnimatedActorLoader.AnimatedActorParameter(.40f, 1f, true)),	
+	GOBLIN_ANIMATION("animation/Goblin.atlas", AnimatedActorFactory.class, new AnimatedActorLoader.AnimatedActorParameter(.40f, 1f, true)), 
 	;
 	
 	private final AssetDescriptor<?> assetDescriptor;

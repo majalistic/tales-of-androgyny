@@ -18,6 +18,7 @@ public enum Stance {
 	AIRBORNE (AssetEnum.AIRBORNE, true, false, false), 
 	CASTING (AssetEnum.CASTING),
 	ITEM (AssetEnum.ITEM), 
+	SEDUCTION(AssetEnum.SEDUCTION),
 	
 	GROUND_WRESTLE (AssetEnum.GROUND_WRESTLE),
 	GROUND_WRESTLE_FACE_DOWN (AssetEnum.PRONE),

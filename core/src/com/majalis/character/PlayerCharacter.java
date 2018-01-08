@@ -296,6 +296,8 @@ public class PlayerCharacter extends AbstractCharacter {
 				return possibles;
 			case DEFENSIVE:
 				return getTechniques(REVERSAL_ATTACK, CAREFUL_ATTACK, GUARD, TAUNT, SECOND_WIND, PARRY, INCANTATION, DUCK);
+			case SEDUCTION:
+				return getTechniques(TAUNT, BLOCK);
 			case PRONE:
 				possibles = getTechniques(REST_FACE_DOWN, ROLL_OVER_UP);
 				if (currentStamina >= 0) {

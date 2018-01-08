@@ -265,7 +265,7 @@ public enum Techniques {
 	RECKLESS_ATTACK 	(new AttackTechnique(Stance.OFFENSIVE, Stance.OFFENSIVE, "Assault", 2, 3, 6, false).addBonus(BonusCondition.STRENGTH_OVERPOWER, BonusType.KNOCKDOWN, 1).build(), 3), // unguardable
 	KNOCK_DOWN 			(new AttackTechnique(Stance.OFFENSIVE, Stance.OFFENSIVE, "Overrun", -2, 3, 6, 1).addBonus(BonusCondition.SKILL_LEVEL, BonusType.KNOCKDOWN, 1).build(), 3), 
 	SLIDE				(new NonAttackTechnique(Stance.BALANCED, Stance.KNEELING, "Slide", 1, 4, TechniqueHeight.LOW).addBonus(BonusCondition.ENEMY_LOW_STABILITY, BonusType.TRIP, 80).addBonus(BonusCondition.OUTMANEUVER, BonusType.TRIP, 20).addBonus(BonusCondition.OUTMANEUVER, BonusType.EVASION, 40).build(), 1), 
-	TAUNT 				(new NonAttackTechnique(Stance.DEFENSIVE, Stance.DEFENSIVE, "Taunt", 0, 0, true).addBonus(BonusCondition.SKILL_LEVEL, BonusType.POWER_MOD, 1).build(), 2), 
+	TAUNT 				(new NonAttackTechnique(Stance.DEFENSIVE, Stance.SEDUCTION, "Seduce", 0, 0, true).addBonus(BonusCondition.SKILL_LEVEL, BonusType.POWER_MOD, 1).build(), 2), 
 	HIT_THE_DECK		(new FallDownTechnique(Stance.BALANCED, Stance.PRONE, "Hit the Deck").addBonus(BonusCondition.OUTMANEUVER, BonusType.EVASION, 50).build()), 
 	FEINT_AND_STRIKE	(new AttackTechnique(Stance.OFFENSIVE, Stance.OFFENSIVE, "Feint Strike", -1, 3, 7).addBonus(BonusCondition.OUTMANEUVER, BonusType.POWER_MOD).addBonus(BonusCondition.OUTMANEUVER, BonusType.EVASION, 25).addBonus(BonusCondition.SKILL_LEVEL, BonusType.STABILTIY_COST, 1).build(), 3), 
 	PARRY  				(new GuardTechnique(Stance.DEFENSIVE, Stance.COUNTER, "Parry", -1, 0, 0, false).addBonus(BonusCondition.SKILL_LEVEL, BonusType.PARRY, 1).addBonus(BonusCondition.OUTMANEUVER, BonusType.PARRY, 1).build(), 3),
