@@ -596,7 +596,8 @@ public enum EncounterCode {
 					AssetEnum.WEREBITCH.getTexture(),
 					AssetEnum.WEREBITCH_ANAL.getTexture(),
 					AssetEnum.WEREBITCH_KNOT.getTexture(),
-					AssetEnum.WEREBITCH_KNOT_CUM.getTexture()
+					AssetEnum.WEREBITCH_KNOT_CUM.getTexture(),
+					AssetEnum.GAME_OVER_ANIMATION.getAnimation()
 				});
 			case WITCH_COTTAGE:
 				return new Array<AssetDescriptor<?>>(new AssetDescriptor[]{  
