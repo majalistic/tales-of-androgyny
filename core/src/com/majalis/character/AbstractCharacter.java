@@ -213,8 +213,6 @@ public abstract class AbstractCharacter extends Actor {
 	
 	public Stability getStability() { return stability; }
 	
-	public int getLust() { return lust; }
-	
 	public Array<MutationResult> modHealth(int healthMod) { return modHealth(healthMod, ""); }
 	
 	public Array<MutationResult> modHealth(int healthMod, String cause) { 
