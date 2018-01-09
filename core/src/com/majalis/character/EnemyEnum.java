@@ -13,6 +13,8 @@ import com.majalis.asset.AssetEnum;
 import com.majalis.character.AbstractCharacter.PhallusType;
 import com.majalis.character.AbstractCharacter.PronounSet;
 import com.majalis.character.Armor.ArmorType;
+import com.majalis.character.Arousal.ArousalLevel;
+import com.majalis.character.Arousal.ArousalType;
 import com.majalis.character.Item.WeaponType;
 @SuppressWarnings("unchecked")
 public enum EnemyEnum {
@@ -112,7 +114,8 @@ public enum EnemyEnum {
     public AnimationEnum getAnimation() { return animation; }
 	protected boolean hasHitAnimation() { return this == EnemyEnum.HARPY || this == EnemyEnum.CENTAUR || this == EnemyEnum.UNICORN; }
     
-	public int getStartingLust() { return this == UNICORN ? 20 : 0; }
+	protected Arousal getArousal() { return new Arousal(this == QUETZAL ? ArousalType.QUETZAL : this == GOBLIN || this == GOBLIN_MALE ? ArousalType.GOBLIN : this == OGRE ? ArousalType.OGRE : this == GOLEM ? ArousalType.SEXLESS : ArousalType.DEFAULT); }
+	protected ArousalLevel getStartingArousal() { return this == UNICORN ? ArousalLevel.ERECT : ArousalLevel.FLACCID; }
 	
 	// all of this should likely be replaced with a getEnemy method that simply returns the new enemyCharacter
 	public int getStrength() { return template.getStrength(); }

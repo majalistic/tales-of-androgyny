@@ -11,6 +11,7 @@ import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.ObjectSet;
 import com.majalis.asset.AssetEnum;
 import com.majalis.character.Armor.ArmorType;
+import com.majalis.character.Arousal.ArousalType;
 import com.majalis.character.Item.Accessory;
 import com.majalis.character.Item.AccessoryType;
 import com.majalis.character.Item.ChastityCage;
@@ -25,6 +26,7 @@ import com.majalis.save.SaveManager.GameOver;
 import com.majalis.save.SaveManager.JobClass;
 import com.majalis.scenes.ShopScene.ShopCode;
 import com.majalis.screens.TimeOfDay;
+import com.majalis.technique.ClimaxTechnique.ClimaxType;
 
 /*
  * Contains the current player character's statistics, including "party" statistics like food remaining
@@ -85,7 +87,7 @@ public class PlayerCharacter extends AbstractCharacter {
 	private GameOver gameOver;
 	
 	@SuppressWarnings("unused")
-	private PlayerCharacter() {}
+	private PlayerCharacter() { if(arousal == null) arousal = new Arousal(ArousalType.PLAYER); }
 	
 	public PlayerCharacter(boolean defaultValues) {
 		super(defaultValues);
@@ -123,6 +125,7 @@ public class PlayerCharacter extends AbstractCharacter {
 		loaded = false;
 		setCurrentPortrait(AssetEnum.PORTRAIT_SMILE); // his smile and optimism, not yet gone
 		luckStreak = new BooleanArray(new boolean[]{true, true, true, false, false, false});
+		arousal = new Arousal(ArousalType.PLAYER);
 	}
 	
 	private void initInventory() {
@@ -455,21 +458,21 @@ public class PlayerCharacter extends AbstractCharacter {
 				possibles.addAll(getTechniques(ITEM_OR_CANCEL));
 				return possibles;
 			case FELLATIO:
-				if (lust > 12) {
+				if (arousal.isClimax()) {
 					return getTechniques(ERUPT_ORAL);
 				}
 				else {
 					return getTechniques(IRRUMATIO, PULL_OUT_ORAL);
 				}	
 			case FACEFUCK:
-				if (lust > 12) {
+				if (arousal.isClimax()) {
 					return getTechniques(ERUPT_ORAL);
 				}
 				else {
 					return getTechniques(FACEFUCK, PULL_OUT_ORAL);
 				}	
 			case OUROBOROS:
-				if (lust > 12) {
+				if (arousal.isClimax()) {
 					return getTechniques(ERUPT_ORAL);
 				}
 				else {
@@ -543,7 +546,7 @@ public class PlayerCharacter extends AbstractCharacter {
 			case DOGGY:
 			case ANAL:
 			case STANDING:
-				if (lust > 12) {
+				if (arousal.isClimax()) {
 					return getTechniques(ERUPT_ANAL);
 				}
 				else {
@@ -561,7 +564,7 @@ public class PlayerCharacter extends AbstractCharacter {
 					}		
 				}
 			case COWGIRL:
-				if (lust > 12) {
+				if (arousal.isClimax()) {
 					return getTechniques(ERUPT_COWGIRL);
 				}
 				if (hasGrappleAdvantage()) {
@@ -571,7 +574,7 @@ public class PlayerCharacter extends AbstractCharacter {
 					return getTechniques(BE_RIDDEN, PUSH_OFF_ATTEMPT);
 				}
 			case REVERSE_COWGIRL:
-				if (lust > 12) {
+				if (arousal.isClimax()) {
 					return getTechniques(ERUPT_COWGIRL);
 				}
 				if (hasGrappleAdvantage()) {
@@ -639,7 +642,7 @@ public class PlayerCharacter extends AbstractCharacter {
 		if (resolvedAttack.getLust() > 0) {
 			currentPortrait = AssetEnum.PORTRAIT_GRIN.getTexture().fileName;
 			// taunt increases self lust too
-			lust += 2;
+			arousal.increaseArousal(2);
 		}
 		
 		if (wrapLegs) {
@@ -985,8 +988,8 @@ public class PlayerCharacter extends AbstractCharacter {
 	@Override
 	protected String increaseLust(int lustIncrease) {
 		String spurt = "";
-		lust += lustIncrease;
-		if (lust > 10 && stance.isEroticReceptive()) {
+		arousal.increaseArousal(lustIncrease, stance.isErotic());
+		if (arousal.isClimax() && stance.isEroticReceptive()) {
 			spurt = climax();
 		}
 		return !spurt.isEmpty() ? spurt : null;
@@ -997,8 +1000,9 @@ public class PlayerCharacter extends AbstractCharacter {
 		String spurt = "";
 		String result = null;
 		boolean weakToAnal = perks.get(Perk.WEAK_TO_ANAL.toString(), 0) > 0;
-		lust = 0;
+		
 		switch (stance) {
+			case PENETRATED:
 			case KNOTTED_BOTTOM:
 			case DOGGY_BOTTOM: 
 			case ANAL_BOTTOM:
@@ -1026,6 +1030,7 @@ public class PlayerCharacter extends AbstractCharacter {
 				spurt = "You spew while she rides your face!\n"
 						+	"Your worthless cum spurts into the dirt!\n"
 						+	"They don't even notice!\n";
+				arousal.climax(ClimaxType.BACKWASH);
 				break;
 			case SIXTY_NINE_BOTTOM:
 				spurt = "You spew into her mouth!\n"
@@ -1036,10 +1041,16 @@ public class PlayerCharacter extends AbstractCharacter {
 				break;
 			case ANAL:
 			case DOGGY:
+				stance = Stance.ERUPT;
+				arousal.climax(ClimaxType.ANAL);
+				break;
 			case FELLATIO:
 				stance = Stance.ERUPT;
+				arousal.climax(ClimaxType.ORAL);
 				break;
-			default: spurt = "You spew your semen onto the ground!\n"; 
+			default: 
+				spurt = "You spew your semen onto the ground!\n"; 
+				arousal.climax(ClimaxType.BACKWASH);
 		}
 		if (result != null) spurt += result + "\n";
 		spurt += "You're now flaccid!\n";
@@ -1329,11 +1340,13 @@ public class PlayerCharacter extends AbstractCharacter {
 	private void cumFromAnal() {
 		cameFromAnal++;
 		justCame = true;
+		arousal.climax(ClimaxType.ANAL_RECEPTIVE);
 	}
 	
 	private void cumFromOral() {
 		cameFromOral++;
 		justCame = true;
+		arousal.climax(ClimaxType.ORAL_RECEPTIVE);
 	}
 
 	public String getBootyLiciousness() {

@@ -69,7 +69,9 @@ public abstract class AbstractCharacter extends Actor {
 	protected int focus;
 	protected int fortune;
 	
-	protected int lust; 
+	protected Arousal arousal;
+	protected int lust; // legacy
+	//protected int lust; 
 	protected int knotInflate;
 	
 	protected Weapon weapon;
@@ -106,7 +108,7 @@ public abstract class AbstractCharacter extends Actor {
 	protected int food;
 
 	/* Constructors */
-	protected AbstractCharacter() {}
+	protected AbstractCharacter() { }
 	protected AbstractCharacter(boolean defaultValues) {
 		if (defaultValues) {
 			secondPerson = false;
@@ -942,7 +944,7 @@ public abstract class AbstractCharacter extends Actor {
 	
 	public AssetDescriptor<Texture> getLustImagePath() {
 		if (isChastitied()) return phallus.getPhallusState(3);
-		int lustLevel = lust > 7 ? 2 : lust > 3 ? 1 : 0;
+		int lustLevel = arousal.getPhallusLevel();
 		return phallus.getPhallusState(lustLevel);
 	}
 	
@@ -975,7 +977,7 @@ public abstract class AbstractCharacter extends Actor {
 	}
 	
 	protected boolean isErect() {
-		return lust > 7 && !isChastitied() && phallus != PhallusType.NONE;
+		return arousal.isErect() && !isChastitied() && phallus != PhallusType.NONE;
 	}
 	
 	public String getDefeatMessage() {

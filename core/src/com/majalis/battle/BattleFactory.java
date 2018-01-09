@@ -9,6 +9,7 @@ import com.majalis.character.EnemyCharacter;
 import com.majalis.character.PlayerCharacter;
 import com.majalis.encounter.Background.BackgroundBuilder;
 import com.majalis.character.Stance;
+import com.majalis.character.Arousal.ArousalLevel;
 import com.majalis.save.LoadService;
 import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveManager;
@@ -33,13 +34,13 @@ public class BattleFactory {
 		if (enemy == null) {
 			enemy = battleAttributes.getBattleCode().getEnemy(assetManager, battleAttributes.getEnemyStance());
 			if (enemy.getStance().isEroticPenetration() ) {
-				enemy.setLust(10);
+				enemy.setArousal(ArousalLevel.ERECT);
 			}
 			if (battleAttributes.getDisarm()) {
 				enemy.disarm();
 			}
 			if (battleAttributes.getClimaxCounter() > 0) {
-				enemy.setLust(10);
+				enemy.setArousal(ArousalLevel.ERECT);
 				enemy.setClimaxCounter(battleAttributes.getClimaxCounter());
 			}
 			

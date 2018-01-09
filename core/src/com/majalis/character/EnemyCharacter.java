@@ -14,6 +14,7 @@ import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.ObjectSet;
 import com.majalis.asset.AnimatedActor;
 import com.majalis.battle.Battle.Outcome;
+import com.majalis.character.Arousal.ArousalLevel;
 import com.majalis.character.Item.Weapon;
 import com.majalis.technique.ClimaxTechnique.ClimaxType;
 
@@ -88,7 +89,8 @@ public class EnemyCharacter extends AbstractCharacter {
 		phallus = enemyType.getPhallusType();
 		bgPath = enemyType.getBGPath();
 		pronouns = enemyType.getPronounSet();
-		lust = enemyType.getStartingLust();
+		arousal = enemyType.getArousal();
+		arousal.setArousalLevel(enemyType.getStartingArousal());
 		label = enemyType.toString();
 		selfRessurect = enemyType == EnemyEnum.ANGEL ? 1 : 0;
 		staminaTiers.removeIndex(staminaTiers.size - 1);
@@ -123,12 +125,12 @@ public class EnemyCharacter extends AbstractCharacter {
 	public Attack doAttack(Attack resolvedAttack) {
 		// if golem uses a certain attack, it should activate her dong
 		if (resolvedAttack.getLust() > 0 && enemyType == EnemyEnum.QUETZAL) {
-			lust += 4;
+			arousal.increaseArousal(4);
 		}
 		if (enemyType == EnemyEnum.GOLEM) {
 			if (resolvedAttack.getSelfEffect() != null && resolvedAttack.getSelfEffect().type == StatusType.ACTIVATE) {
 				currentFrame = 1;
-				lust = 100;
+				arousal.setArousalLevel(ArousalLevel.EDGING);
 				baseStrength += 4;
 				baseDefense += 3;
 			}
@@ -382,9 +384,10 @@ public class EnemyCharacter extends AbstractCharacter {
 				}
 					
 				climaxCounters.put(resolvedAttack.getClimaxType().toString(), climaxCounters.get(resolvedAttack.getClimaxType().toString(), 0) + 1);
+				arousal.climax(resolvedAttack.getClimaxType());
 				
 				if ((enemyType == EnemyEnum.GOBLIN || enemyType == EnemyEnum.GOBLIN_MALE) && getClimaxCount() % 5 == 0) {
-					setLust(3);
+					arousal.setArousalLevel(ArousalLevel.SEMI_ERECT);
 				}
 			}
 		}
@@ -423,9 +426,8 @@ public class EnemyCharacter extends AbstractCharacter {
 			return getTechniques(SLIME_ATTACK, SLIME_QUIVER); 			
 		}
 		else if (enemyType == EnemyEnum.OGRE && stance != Stance.KNEELING && !stance.isIncapacitatingOrErotic() && stance != Stance.HOLDING) {
-			if (willPounce() && lust > 50) {
+			if (willPounce() && arousal.isErect()) {
 				if (target.getLegwearScore() <= 0 && target.getUnderwearScore() <= 0) {
-					setLust(50);
 					return getTechniques(SEIZE);	
 				}
 				else {
@@ -476,19 +478,19 @@ public class EnemyCharacter extends AbstractCharacter {
 		}
 		else if (enemyType == EnemyEnum.QUETZAL) {
 			if (stance == Stance.HOLDING) {
-				lust++;
-				if (lust > 12) {
+				arousal.increaseArousal(1, true);
+				if (arousal.isEdging()) {
 					return getTechniques(SKEWER);
 				}
 				return getTechniques(LICK_LIPS_HOLDING);
 			}
 			if (stance.isAnalPenetration()) {
-				lust++;
-				if (lust > 20) {
-					return getTechniques(PLUG);
-				}
-				else if (lust > 16) {
+				arousal.increaseArousal(1, true);
+				if (arousal.isSuperEdging()) {
 					return getTechniques(FERTILIZE);
+				}
+				else if (arousal.isClimax()) {
+					return getTechniques(PLUG);
 				}
 				return getTechniques(SCREW);
 			}
@@ -713,7 +715,7 @@ public class EnemyCharacter extends AbstractCharacter {
 				}
 				return getTechniques(RIDE_FACE);
 			case SIXTY_NINE:
-				if (lust > 14) {
+				if (arousal.isClimax()) {
 					return getTechniques(ERUPT_SIXTY_NINE);
 				}
 				else {
@@ -723,13 +725,13 @@ public class EnemyCharacter extends AbstractCharacter {
 			case ANAL:
 			case STANDING:
 			case PRONE_BONE:
-				if (enemyType != EnemyEnum.WERESLUT && lust > 15) {
+				if (enemyType != EnemyEnum.WERESLUT && arousal.isClimax()) {
 					if (enemyType == EnemyEnum.BRIGAND || enemyType == EnemyEnum.GOBLIN || enemyType == EnemyEnum.ORC) {
 						return getTechniques(BLOW_LOAD);
 					}
 					return getTechniques(ERUPT_ANAL);
 				}
-				else if (enemyType == EnemyEnum.WERESLUT && lust > 18) {
+				else if (enemyType == EnemyEnum.WERESLUT && arousal.isEdging()) {
 					return getTechniques(KNOT);
 				}
 				else {
@@ -747,23 +749,23 @@ public class EnemyCharacter extends AbstractCharacter {
 					}		
 				}
 			case COWGIRL:
-				if (enemyType == EnemyEnum.WERESLUT && lust > 20) {
+				if (enemyType == EnemyEnum.WERESLUT && arousal.isEdging()) {
 					return getTechniques(KNOT);
 				}
-				else if (enemyType != EnemyEnum.WERESLUT && lust > 20) {;
+				else if (enemyType != EnemyEnum.WERESLUT && arousal.isEdging()) {;
 					return getTechniques(ERUPT_COWGIRL);
 				}
 				return getTechniques(BE_RIDDEN);
 			case REVERSE_COWGIRL:
-				if (enemyType == EnemyEnum.WERESLUT && lust > 20) {
+				if (enemyType == EnemyEnum.WERESLUT && arousal.isEdging()) {
 					return getTechniques(KNOT);
 				}
-				else if (enemyType != EnemyEnum.WERESLUT && lust > 20) {
+				else if (enemyType != EnemyEnum.WERESLUT && arousal.isEdging()) {
 					return getTechniques(ERUPT_COWGIRL);
 				}
 				return getTechniques(BE_RIDDEN_REVERSE);
 			case HANDY:
-				if (lust > 18) {
+				if (arousal.isClimax()) {
 					return getTechniques(ERUPT_FACIAL);
 				}
 				return getTechniques(RECEIVE_HANDY);
@@ -774,27 +776,27 @@ public class EnemyCharacter extends AbstractCharacter {
 			case AIRBORNE:
 				return getTechniques(DIVEBOMB);
 			case FELLATIO:
-				if (enemyType != EnemyEnum.WERESLUT && lust > 14) {
+				if (enemyType != EnemyEnum.WERESLUT && arousal.isClimax()) {
 					if (enemyType == EnemyEnum.BRIGAND || enemyType == EnemyEnum.GOBLIN || enemyType == EnemyEnum.ORC) {
 						return getTechniques(BLOW_LOAD_ORAL);
 					}
 					return getTechniques(ERUPT_ORAL);
 				}
-				else if (enemyType == EnemyEnum.WERESLUT && lust > 18) {
+				else if (enemyType == EnemyEnum.WERESLUT && arousal.isEdging()) {
 					return getTechniques(MOUTH_KNOT);
 				}
 				else {
 					return getTechniques(IRRUMATIO, FORCE_DEEPTHROAT);
 				}	
 			case FACEFUCK:
-				if (lust > 14) {
+				if (arousal.isClimax()) {
 					return getTechniques(ERUPT_ORAL);
 				}
 				else {
 					return getTechniques(FACEFUCK);
 				}	
 			case OUROBOROS:
-				if (lust > 14) {
+				if (arousal.isClimax()) {
 					return getTechniques(ERUPT_ORAL);
 				}
 				else {
@@ -824,7 +826,7 @@ public class EnemyCharacter extends AbstractCharacter {
 			case HOLDING:
 				return getTechniques(OGRE_SMASH);
 			case CRUSHING:
-				if (lust > 58) {
+				if (arousal.isClimax()) {
 					return getTechniques(ERUPT_ANAL);
 				}
 				else {
@@ -850,8 +852,8 @@ public class EnemyCharacter extends AbstractCharacter {
 			return getTechnique(target, nextMove);
 		}
 		
-		if (lust < 10 || enemyType == EnemyEnum.OGRE) {
-			if (enemyType != EnemyEnum.CENTAUR && enemyType != EnemyEnum.BEASTMISTRESS && enemyType != EnemyEnum.GOLEM && enemyType != EnemyEnum.QUETZAL) lust++;
+		if (!arousal.isErect() || enemyType == EnemyEnum.OGRE) {
+			if (enemyType != EnemyEnum.CENTAUR && enemyType != EnemyEnum.BEASTMISTRESS && enemyType != EnemyEnum.GOLEM && enemyType != EnemyEnum.QUETZAL) arousal.increaseArousal(1);
 		}
 		
 		Array<Techniques> possibleTechniques = getPossibleTechniques(target, stance);
@@ -989,15 +991,8 @@ public class EnemyCharacter extends AbstractCharacter {
 	
 	@Override
 	protected String climax() {
-		Array<String> results = new Array<String>();
-		switch (enemyType) {
-			case GOBLIN: 
-			case GOBLIN_MALE: 
-				lust -= 2; break;
-			case QUETZAL: break;
-			default: lust -= 14;
-		}
-		
+		Array<String> results = new Array<String>();	
+		arousal.climax(stance.isAnalPenetration() ? ClimaxType.ANAL : stance.isAnalReceptive() ? ClimaxType.ANAL_RECEPTIVE : stance.isOralPenetration() ? ClimaxType.ORAL : stance.isOralReceptive() ? ClimaxType.ORAL_RECEPTIVE : stance == Stance.HANDY ? ClimaxType.FACIAL : ClimaxType.BACKWASH);
 		switch (oldStance) {
 			case ANAL:
 				results.add("The " + getLabel() + "'s lovemaking reaches a climax!");
@@ -1058,13 +1053,11 @@ public class EnemyCharacter extends AbstractCharacter {
 			joined += foo + "\n";
 		}
 		joined = joined.trim();
-		
 		return joined;
 	}
 	
 	private boolean willPounce() {
-		IntArray randomValues = new IntArray(new int[]{10, 11, 12, 13});
-		return enemyType.willPounce() && lust >= randomValues.random() && !stance.isIncapacitatingOrErotic() && grappleStatus == GrappleStatus.NULL && (enemyType != EnemyEnum.BRIGAND || !storyMode);
+		return enemyType.willPounce() && arousal.isErect() && !stance.isIncapacitatingOrErotic() && grappleStatus == GrappleStatus.NULL && (enemyType != EnemyEnum.BRIGAND || !storyMode);
 	}
 	
 	private Technique getTechnique(AbstractCharacter target, Techniques technique) {
@@ -1260,10 +1253,8 @@ public class EnemyCharacter extends AbstractCharacter {
 	}
 	
 	// for init in battlefactory
-	public void setLust(int lust) { 
-		if ((enemyType != EnemyEnum.GOLEM || lust == 100) && enemyType != EnemyEnum.QUETZAL) {
-			this.lust = lust; 
-		}
+	public void setArousal(ArousalLevel newArousalLevel) { 
+		arousal.setArousalLevel(newArousalLevel);
 	}
 
 	@Override
@@ -1280,8 +1271,10 @@ public class EnemyCharacter extends AbstractCharacter {
 	@Override
 	protected String increaseLust(int lustIncrease) {
 		String spurt = "";
-		setLust(lust + lustIncrease);
-		if (lust > 16 && stance.isEroticReceptive()) {
+		if ((enemyType != EnemyEnum.GOLEM || arousal.isErect()) && enemyType != EnemyEnum.QUETZAL) {
+			arousal.increaseArousal(lustIncrease, stance.isErotic());
+		}
+		if (arousal.isClimax() && stance.isEroticReceptive()) {
 			spurt = climax();
 		}
 		return !spurt.isEmpty() ? spurt : null;
@@ -1364,7 +1357,7 @@ public class EnemyCharacter extends AbstractCharacter {
 				if (knotInflate >= 5) return Outcome.KNOT_ANAL;
 			case ANGEL:
 				if (stance == Stance.FACE_SITTING && oldStance == Stance.FACE_SITTING) return Outcome.SUBMISSION;
-				if (lust == 8 && currentHealth == getMaxHealth() && selfRessurect == 1) return Outcome.SATISFIED;
+				if (arousal.isErect() && currentHealth == getMaxHealth() && selfRessurect == 1) return Outcome.SATISFIED;
 			case NAGA:
 				if (enemy.getCurrentHealth() <= 0 && stance == Stance.WRAPPED) return Outcome.DEATH;
 			case QUETZAL:
