@@ -74,5 +74,6 @@ public class Arousal {
 		arousal = 0;
 	}
 	protected void setArousalLevel(ArousalLevel newArousalLevel) { arousalLevel = newArousalLevel; }
-	
+
+	protected int getLust() { return lust; }
 }

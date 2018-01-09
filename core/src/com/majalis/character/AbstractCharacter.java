@@ -980,6 +980,8 @@ public abstract class AbstractCharacter extends Actor {
 		return arousal.isErect() && !isChastitied() && phallus != PhallusType.NONE;
 	}
 	
+	public int getCurrentLust() { return arousal.getLust(); }
+	
 	public String getDefeatMessage() {
 		return label + (secondPerson ? " are " : " is ") + "defeated!";
 	}
