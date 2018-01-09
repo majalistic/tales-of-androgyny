@@ -199,6 +199,21 @@ public class EnemyCharacter extends AbstractCharacter {
 				if (stance == Stance.HOLDING && oldStance != Stance.HOLDING) {
 					resolvedAttack.addDialog("\"Yeah... hmph.  Time to mate.\"");
 				}
+				else if (stance == Stance.HOLDING) {
+					switch (heartbeat % 5) {
+						case 0: resolvedAttack.addDialog("\"Hm... you'll do nicely,\" she says, turning you over."); break;
+						case 1: resolvedAttack.addDialog("\"Very nice... your goddess approves.\""); break;
+						case 2: resolvedAttack.addDialog("\"Not much of a hero, after all.\""); break;
+						case 3: resolvedAttack.addDialog("\"Your time is up.\""); break;
+						case 4: resolvedAttack.addDialog("\"Now... it's my turn.\""); break;
+					}
+				}
+				if (stance == Stance.CRUSHING && oldStance != Stance.CRUSHING) {
+					resolvedAttack.addDialog("\"Hooah! That's a tight fit!\"");
+				}
+				else if (stance == Stance.CRUSHING && heartbeat % 3 == 0) {
+					resolvedAttack.addDialog("\"Where'd that fighting spirit go?! Don't worry - I'll find it.\"");
+				}
 				if (heartbeat == 5) {
 					resolvedAttack.addDialog("\"Hmm... hehehe...\"");
 				}
@@ -379,7 +394,13 @@ public class EnemyCharacter extends AbstractCharacter {
 					case NAGA:
 						break;
 					case QUETZAL:
-						resolvedAttack.addDialog("\"Accept your goddess' seed!\"");
+						switch (heartbeat % 5) {
+							case 0: resolvedAttack.addDialog("\"Accept your goddess' seed!\""); break;
+							case 1: resolvedAttack.addDialog("She silently fills you with her deific semen. You worry you may explode."); break;
+							case 2: resolvedAttack.addDialog("You are filled to bursting with monster sperm."); break;
+							case 3: resolvedAttack.addDialog("Every inch of your intestines is stuffed and bloated."); break;
+							case 4: resolvedAttack.addDialog("\"Mmmm...\" she moans, patting your full stomach."); break;
+						}
 						break;
 				}
 					
@@ -1371,7 +1392,7 @@ public class EnemyCharacter extends AbstractCharacter {
 	public String getOutcomeText(AbstractCharacter enemy) {
 		switch (getOutcome(enemy)) {
 			case KNOT_ORAL: return enemyType == EnemyEnum.WERESLUT ? "It's stuck behind your teeth. Your mouth is stuffed!" : "You've been stuffed in the face!";
-			case KNOT_ANAL: return enemyType == EnemyEnum.WERESLUT ? "You've been knotted!!!\nYou are at her whims, now." : enemyType == EnemyEnum.SPIDER ? "You've been stuffed full of eggs." : "You've been stuffed in the ass!";
+			case KNOT_ANAL: return enemyType == EnemyEnum.WERESLUT ? "You've been knotted!!!\nYou are at her whims, now." : enemyType == EnemyEnum.SPIDER ? "You've been stuffed full of eggs." : enemyType == EnemyEnum.QUETZAL ? "Your stomach balloons painfully with the goddess' semen!" : "You've been stuffed in the ass!";
 			case SATISFIED: return enemyType == EnemyEnum.CENTAUR ? "You've been dominated by the centaur's massive horsecock."
 				: enemyType == EnemyEnum.OGRE ? "The ogre has filled your guts with ogre cum.  You are well and truly fucked."
 				: enemyType == EnemyEnum.ANGEL ? "She notes your lack of aggression, and stands down."
