@@ -1419,7 +1419,9 @@
 	{
 		"key": "QUETZAL-RETURN",
 		"scriptLines": [
-			{"text": "You return to the summit of the mountain, where you last saw the hero defeated, the lord of the mountain having her way with him in indescribable ways.  The sight that greets you at the summit reinforces his failure."},
+			{
+			"music": "HEAVY_MUSIC",
+			"text": "You return to the summit of the mountain, where you last saw the hero defeated, the lord of the mountain having her way with him in indescribable ways.  The sight that greets you at the summit reinforces his failure."},
 			{
 			"foreground": "QUETZAL_HERO_ANAL",
 			"text": "She looks down at him in a disconcertingly loving manner, and you know, in the pit of your stomach, that he's endured many difficult breedings already.  He's coated in sweat, his face red, and his stomach looks like it's ready to burst."},
