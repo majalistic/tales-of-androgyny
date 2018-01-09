@@ -5,6 +5,8 @@ import com.majalis.technique.ClimaxTechnique.ClimaxType;
 public class Arousal {
 	private final ArousalType type;
 	private ArousalLevel arousalLevel;
+	private int lust;
+	private int arousal;	
 	
 	@SuppressWarnings("unused")
 	private Arousal() { this(ArousalType.DEFAULT); }
@@ -34,9 +36,6 @@ public class Arousal {
 		public ArousalLevel increase() { return this.ordinal() + 1 >= ArousalLevel.values().length ? this : ArousalLevel.values()[this.ordinal() + 1]; }
 	}
 	
-	//private int lust;
-	private int arousal;	
-	
 	protected int getPhallusLevel() { return Math.min(arousalLevel.ordinal(), 2); }
 	protected boolean isErect() { return arousalLevel.ordinal() > 1; }
 	protected boolean isClimax() { return arousalLevel == ArousalLevel.CLIMAX; }
@@ -50,17 +49,25 @@ public class Arousal {
 	protected void increaseArousal(int increaseAmount, boolean causesClimax) {
 		if (type == ArousalType.SEXLESS) return;
 		if (causesClimax || !isErect()) arousal += increaseAmount; // isArousabale(typeOfArousal), which will check if the current ArousalLevel can have its arousal increased by the type of arousal
-		if (arousal > (type == ArousalType.OGRE ? (isErect() ? 4 : 25) : 3)) { // && isUpgradeReady(typeOfArousal), which will check if the current ArousalLevel can have be upgraded by the type of arousal
+		modLust(increaseAmount);
+		if (arousal > (type == ArousalType.OGRE ? (isErect() ? 4 : 25) : type == ArousalType.PLAYER ? getLustArousalMod() : 3)) { // && isUpgradeReady(typeOfArousal), which will check if the current ArousalLevel can have be upgraded by the type of arousal
 			if (type != ArousalType.QUETZAL || !isEdging() || arousal > 8)
 			increaseArousalLevel();
 		}
 	}
 	
+	private int getLustArousalMod() { return lust == 100 ? 3 : lust >= 75 ? 4 : lust >= 50 ? 5 : lust >=25 ? 6 : 7; }
+	
 	protected void climax(ClimaxType climaxType) { // should reset ArousalLevel, arousal, and some portion of lust, unless there's some functional difference like for goblins - this may be called externally for encounter climaxes
 		arousalLevel = type == ArousalType.GOBLIN ? ArousalLevel.EDGING : type == ArousalType.QUETZAL ? ArousalLevel.EDGING : ArousalLevel.FLACCID;
 		if (type != ArousalType.QUETZAL) arousal = 0;
-		//lust = 0;
+		modLust(-25);		
 	} 
+	
+	private void modLust(int mod) {
+		lust += mod;
+		lust = Math.max(Math.min(lust, 100), 0);
+	}
 	
 	private void increaseArousalLevel() {
 		arousalLevel = arousalLevel.increase(); // if it's now climax, call climax?
