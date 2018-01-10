@@ -90,6 +90,7 @@ public class EnemyCharacter extends AbstractCharacter {
 		bgPath = enemyType.getBGPath();
 		pronouns = enemyType.getPronounSet();
 		arousal = enemyType.getArousal();
+		perks.putAll(enemyType.getPerks());
 		label = enemyType.toString();
 		selfRessurect = enemyType == EnemyEnum.ANGEL ? 1 : 0;
 		staminaTiers.removeIndex(staminaTiers.size - 1);

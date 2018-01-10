@@ -27,6 +27,8 @@ public enum Perk {
 	BEASTMASTER ("You've been... friendly with a few non-humanoid creatures.", 3, false),
 	CUCKOO_FOR_CUCKOO ("You enjoy the company of feathered friends.", 3, false),
 	BITCH ("You love being tied together with someone who's fucking your ass.  You like yippy dog sex, and there's no shame in that.  Well, some.", 3, false),
+	POWER_BOTTOM ("You like to take it, but you like to be in control", 3, false),
+	TOP ("You like to give it, 3, false")
 	;
 	
 	private final int maxRank;

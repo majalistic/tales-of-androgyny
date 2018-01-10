@@ -65,7 +65,7 @@ public enum EnemyEnum {
     	}
 		return textures;
 	}
-    public String getBGPath() { return this == OGRE ? AssetEnum.FOREST_UP_BG.getPath() : this == NAGA || this == SPIDER ? AssetEnum.CAVE_BG.getPath() : this == CENTAUR || this == UNICORN ? AssetEnum.PLAINS_BG.getPath() : this == ANGEL || this == QUETZAL ? AssetEnum.CELESTIAL_BG.getPath() : this == GOBLIN || this == GOBLIN_MALE ? AssetEnum.ENCHANTED_FOREST_BG.getPath() : AssetEnum.FOREST_BG.getPath(); } 
+    protected String getBGPath() { return this == OGRE ? AssetEnum.FOREST_UP_BG.getPath() : this == NAGA || this == SPIDER ? AssetEnum.CAVE_BG.getPath() : this == CENTAUR || this == UNICORN ? AssetEnum.PLAINS_BG.getPath() : this == ANGEL || this == QUETZAL ? AssetEnum.CELESTIAL_BG.getPath() : this == GOBLIN || this == GOBLIN_MALE ? AssetEnum.ENCHANTED_FOREST_BG.getPath() : AssetEnum.FOREST_BG.getPath(); } 
     // there should be another method that accepts an assetManager and returns the actual maps
     public ObjectMap<String, Array<String>> getImagePaths() { 
     	ObjectMap<String, Array<String>> textureImagePaths = new ObjectMap<String, Array<String>>();
@@ -108,10 +108,10 @@ public enum EnemyEnum {
     	}
     	return textureImagePaths; 
     }
-    public PhallusType getPhallusType() { return this == BRIGAND || this == BEASTMISTRESS || this == GHOST || this == BUNNY ? PhallusType.NORMAL : this == ANGEL ? PhallusType.NONE : this == ADVENTURER ? PhallusType.SMALL : PhallusType.MONSTER; }
-    public PronounSet getPronounSet() { return this == ADVENTURER || this == OGRE || this == GOBLIN_MALE ? PronounSet.MALE : PronounSet.FEMALE; }
+    protected PhallusType getPhallusType() { return this == BRIGAND || this == BEASTMISTRESS || this == GHOST || this == BUNNY ? PhallusType.NORMAL : this == ANGEL ? PhallusType.NONE : this == ADVENTURER ? PhallusType.SMALL : PhallusType.MONSTER; }
+    protected PronounSet getPronounSet() { return this == ADVENTURER || this == OGRE || this == GOBLIN_MALE ? PronounSet.MALE : PronounSet.FEMALE; }
     
-    public AnimationEnum getAnimation() { return animation; }
+    protected AnimationEnum getAnimation() { return animation; }
 	protected boolean hasHitAnimation() { return this == EnemyEnum.HARPY || this == EnemyEnum.CENTAUR || this == EnemyEnum.UNICORN; }
     
 	protected Arousal getArousal() { 
@@ -121,33 +121,56 @@ public enum EnemyEnum {
 	}
 	
 	// all of this should likely be replaced with a getEnemy method that simply returns the new enemyCharacter
-	public int getStrength() { return template.getStrength(); }
-	public int getEndurance() { return template.getEndurance(); }
-	public int getAgility() { return template.getAgility(); }
-	public int getPerception() { return template.getPerception(); }
-	public int getMagic() { return template.getMagic(); }
-	public int getCharisma() { return template.getCharisma(); }
-	public int getDefense() { return template.getDefense(); }
-	public IntArray getHealthTiers() { return template.getHealthTiers(); }
-	public IntArray getManaTiers() { return template.getManaTiers(); }
-	public WeaponType getWeaponType() { return template.getWeaponType(); }
-	public ArmorType getArmorType() { return template.getArmorType(); }
-	public ArmorType getLegwearType() { return template.getLegwearType(); }
-	public ArmorType getUnderwearType() { return template.getUnderwearType(); }
-	public ArmorType getShieldType() { return template.getShieldType(); }
-	public boolean canBleed() { return this != SLIME && this != GOLEM && this != GHOST; }
-	public boolean willFaceSit() { return this != CENTAUR && this != UNICORN && this != GHOST && this != OGRE && this != SPIDER && this != NAGA && this != QUETZAL;} 
-	public boolean willArmorSunder() { return this == BRIGAND || this == ORC || this == ADVENTURER; }
-	public boolean willParry() { return this == BRIGAND || this == ADVENTURER; }
-	public boolean canBeRidden() { return this != SLIME && this != CENTAUR && this != UNICORN && this != BEASTMISTRESS && this != GHOST && this != ANGEL && this != NAGA && this != QUETZAL; }
-	public boolean willPounce() { return this != UNICORN && this != BEASTMISTRESS && this != ANGEL && this != NAGA && this != GHOST && this != QUETZAL; }
-	public boolean isPounceable() { return this != OGRE && this != BEASTMISTRESS && this != UNICORN && this != GHOST && this != ANGEL && this != NAGA && this != QUETZAL; }
-	public boolean canProneBone() { return this == BRIGAND || this == GOBLIN || this == ORC || this == ADVENTURER || this == GOBLIN_MALE; }
-	public boolean prefersProneBone() { return this == ORC || this == GOBLIN; }
-	public boolean prefersMissionary() { return this == BRIGAND || this == ADVENTURER; }
-	public boolean canWrestle() { return this != ANGEL && this != SLIME && this != HARPY && this != CENTAUR && this != UNICORN && this != OGRE && this != BEASTMISTRESS && this != SPIDER && this != GHOST && this != NAGA && this != QUETZAL; }
-	public boolean isCorporeal() { return this != GHOST; }
-	public boolean usesDefensiveTechniques() { return this != QUETZAL; }
+	protected int getStrength() { return template.getStrength(); }
+	protected int getEndurance() { return template.getEndurance(); }
+	protected int getAgility() { return template.getAgility(); }
+	protected int getPerception() { return template.getPerception(); }
+	protected int getMagic() { return template.getMagic(); }
+	protected int getCharisma() { return template.getCharisma(); }
+	protected int getDefense() { return template.getDefense(); }
+	protected IntArray getHealthTiers() { return template.getHealthTiers(); }
+	protected IntArray getManaTiers() { return template.getManaTiers(); }
+	protected WeaponType getWeaponType() { return template.getWeaponType(); }
+	protected ArmorType getArmorType() { return template.getArmorType(); }
+	protected ArmorType getLegwearType() { return template.getLegwearType(); }
+	protected ArmorType getUnderwearType() { return template.getUnderwearType(); }
+	protected ArmorType getShieldType() { return template.getShieldType(); }
+	protected boolean canBleed() { return this != SLIME && this != GOLEM && this != GHOST; }
+	protected boolean willFaceSit() { return this != CENTAUR && this != UNICORN && this != GHOST && this != OGRE && this != SPIDER && this != NAGA && this != QUETZAL;} 
+	protected boolean willArmorSunder() { return this == BRIGAND || this == ORC || this == ADVENTURER; }
+	protected boolean willParry() { return this == BRIGAND || this == ADVENTURER; }
+	protected boolean canBeRidden() { return this != SLIME && this != CENTAUR && this != UNICORN && this != BEASTMISTRESS && this != GHOST && this != ANGEL && this != NAGA && this != QUETZAL; }
+	protected boolean willPounce() { return this != UNICORN && this != BEASTMISTRESS && this != ANGEL && this != NAGA && this != GHOST && this != QUETZAL; }
+	protected boolean isPounceable() { return this != OGRE && this != BEASTMISTRESS && this != UNICORN && this != GHOST && this != ANGEL && this != NAGA && this != QUETZAL; }
+	protected boolean canProneBone() { return this == BRIGAND || this == GOBLIN || this == ORC || this == ADVENTURER || this == GOBLIN_MALE; }
+	protected boolean prefersProneBone() { return this == ORC || this == GOBLIN; }
+	protected boolean prefersMissionary() { return this == BRIGAND || this == ADVENTURER; }
+	protected boolean canWrestle() { return this != ANGEL && this != SLIME && this != HARPY && this != CENTAUR && this != UNICORN && this != OGRE && this != BEASTMISTRESS && this != SPIDER && this != GHOST && this != NAGA && this != QUETZAL; }
+	protected boolean isCorporeal() { return this != GHOST; }
+	protected boolean usesDefensiveTechniques() { return this != QUETZAL; }
+	protected ObjectMap<String, Integer> getPerks() {
+		ObjectMap<String, Integer> perks = new ObjectMap<String, Integer>();
+		switch(this) {
+			case ADVENTURER:
+				perks.put(Perk.WEAK_TO_ANAL.toString(), 1);
+				perks.put(Perk.ANAL_ADDICT.toString(), 1);
+				break;
+			case HARPY:
+				perks.put(Perk.ANAL_ADDICT.toString(), 3);
+				break;
+			case BRIGAND:
+				perks.put(Perk.MOUTH_MANIAC.toString(), 2);
+				break;
+			case BEASTMISTRESS:
+				perks.put(Perk.BEASTMASTER.toString(), 3);
+				break;
+			case CENTAUR:
+				perks.put(Perk.EQUESTRIAN.toString(), 3);
+				break;
+			default:
+		}
+		return perks;
+	}
 	
 	public AnimatedActor getPrimaryAnimation(AssetManager assetManager) {
 		AnimatedActor animation = null; 

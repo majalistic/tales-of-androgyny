@@ -54,9 +54,10 @@ public class Arousal {
 				return (base + perks.get(Perk.ANAL_ADDICT.toString(), 0) + perks.get(Perk.COCK_LOVER.toString(), 0) / 3) * (1 + perks.get(Perk.WEAK_TO_ANAL.toString(), 0));
 			case ORAL_RECEPTIVE:
 				return base + perks.get(Perk.MOUTH_MANIAC.toString(), 0) + perks.get(Perk.COCK_LOVER.toString(), 0) / 3;
-			case NULL:
 			case ORAL:
 			case ANAL:
+				return base + perks.get(Perk.TOP.toString(), 0);
+			case NULL:
 			case BACKWASH:
 			case FACIAL:
 			default:
