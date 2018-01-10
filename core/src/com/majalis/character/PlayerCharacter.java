@@ -900,15 +900,15 @@ public class PlayerCharacter extends AbstractCharacter {
 	}
 
 	private void increaseLowestStat() {
-		int min = getStat(Stat.STRENGTH);
+		int min = getBaseStat(Stat.STRENGTH);
 		Stat minStat = Stat.STRENGTH;
 		for (Stat stat : Stat.values()) {
-			if (getStat(stat) < min) {
-				min = getStat(stat);
+			if (getBaseStat(stat) < min) {
+				min = getBaseStat(stat);
 				minStat = stat;
 			}
 		}
-		setStat(minStat, getRawStat(minStat) + 1);
+		setStat(minStat, getBaseStat(minStat) + 1);
 	}
 	
 	public void setPerks(ObjectMap<Perk, Integer> perks) {
