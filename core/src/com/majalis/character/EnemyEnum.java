@@ -114,8 +114,11 @@ public enum EnemyEnum {
     public AnimationEnum getAnimation() { return animation; }
 	protected boolean hasHitAnimation() { return this == EnemyEnum.HARPY || this == EnemyEnum.CENTAUR || this == EnemyEnum.UNICORN; }
     
-	protected Arousal getArousal() { return new Arousal(this == QUETZAL ? ArousalType.QUETZAL : this == GOBLIN || this == GOBLIN_MALE ? ArousalType.GOBLIN : this == OGRE ? ArousalType.OGRE : this == GOLEM ? ArousalType.SEXLESS : ArousalType.DEFAULT); }
-	protected ArousalLevel getStartingArousal() { return this == UNICORN ? ArousalLevel.ERECT : ArousalLevel.FLACCID; }
+	protected Arousal getArousal() { 
+		Arousal newArousal = new Arousal(this == QUETZAL ? ArousalType.QUETZAL : this == GOBLIN || this == GOBLIN_MALE ? ArousalType.GOBLIN : this == OGRE ? ArousalType.OGRE : this == GOLEM ? ArousalType.SEXLESS : ArousalType.DEFAULT);
+		if (this == UNICORN) newArousal.setArousalLevel(ArousalLevel.ERECT);
+		return newArousal; 
+	}
 	
 	// all of this should likely be replaced with a getEnemy method that simply returns the new enemyCharacter
 	public int getStrength() { return template.getStrength(); }
