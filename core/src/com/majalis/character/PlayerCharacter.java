@@ -981,6 +981,7 @@ public class PlayerCharacter extends AbstractCharacter {
 		}
 		else if (stance.isAnalReceptive()) {
 			if (perks.get(Perk.WEAK_TO_ANAL.toString(), 0) > 0) return increaseLust(2);
+			else return increaseLust(1);
 		}
 		return null;
 	}
