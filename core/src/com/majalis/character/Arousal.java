@@ -51,7 +51,7 @@ public class Arousal {
 		int base = type == ArousalType.PLAYER ? 2 : 4;
 		switch (climaxType) {
 			case ANAL_RECEPTIVE:
-				return base + perks.get(Perk.ANAL_ADDICT.toString(), 0) + perks.get(Perk.COCK_LOVER.toString(), 0) / 3;
+				return (base + perks.get(Perk.ANAL_ADDICT.toString(), 0) + perks.get(Perk.COCK_LOVER.toString(), 0) / 3) * (1 + perks.get(Perk.WEAK_TO_ANAL.toString(), 0));
 			case ORAL_RECEPTIVE:
 				return base + perks.get(Perk.MOUTH_MANIAC.toString(), 0) + perks.get(Perk.COCK_LOVER.toString(), 0) / 3;
 			case NULL:
@@ -61,7 +61,6 @@ public class Arousal {
 			case FACIAL:
 			default:
 				return base;
-			
 		}
 	}
 	
