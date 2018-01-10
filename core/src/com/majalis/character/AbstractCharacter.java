@@ -60,6 +60,8 @@ public abstract class AbstractCharacter extends Actor {
 	protected IntArray staminaTiers; // total these to receive maxStamina, maybe cache it when this changes
 	protected IntArray manaTiers; // total these to receive maxMana, maybe cache it when this changes
 	
+	protected ObjectMap<String, Integer> perks;
+	
 	/* morphic stats */
 	protected int currentHealth;
 	protected int currentStamina;
@@ -131,6 +133,7 @@ public abstract class AbstractCharacter extends Actor {
 			focus = fortune = 10;
 			stance = Stance.BALANCED;
 			phallus = PhallusType.NORMAL;
+			perks = new ObjectMap<String, Integer>();
 			statuses = new ObjectMap<String, Integer>();
 			grappleStatus = GrappleStatus.NULL;
 		}

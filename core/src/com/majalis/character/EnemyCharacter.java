@@ -125,7 +125,7 @@ public class EnemyCharacter extends AbstractCharacter {
 	public Attack doAttack(Attack resolvedAttack) {
 		// if golem uses a certain attack, it should activate her dong
 		if (resolvedAttack.getLust() > 0 && enemyType == EnemyEnum.QUETZAL) {
-			arousal.increaseArousal(4);
+			arousal.increaseArousal(4, perks, ClimaxType.NULL);
 		}
 		if (enemyType == EnemyEnum.GOLEM) {
 			if (resolvedAttack.getSelfEffect() != null && resolvedAttack.getSelfEffect().type == StatusType.ACTIVATE) {
@@ -499,14 +499,14 @@ public class EnemyCharacter extends AbstractCharacter {
 		}
 		else if (enemyType == EnemyEnum.QUETZAL) {
 			if (stance == Stance.HOLDING) {
-				arousal.increaseArousal(1, true);
+				arousal.increaseArousal(1, perks, ClimaxType.NULL, true);
 				if (arousal.isEdging()) {
 					return getTechniques(SKEWER);
 				}
 				return getTechniques(LICK_LIPS_HOLDING);
 			}
 			if (stance.isAnalPenetration()) {
-				arousal.increaseArousal(1, true);
+				arousal.increaseArousal(1, perks, ClimaxType.NULL, true);
 				if (arousal.isSuperEdging()) {
 					return getTechniques(FERTILIZE);
 				}
@@ -874,7 +874,7 @@ public class EnemyCharacter extends AbstractCharacter {
 		}
 		
 		if (!arousal.isErect() || enemyType == EnemyEnum.OGRE) {
-			if (enemyType != EnemyEnum.CENTAUR && enemyType != EnemyEnum.BEASTMISTRESS && enemyType != EnemyEnum.GOLEM && enemyType != EnemyEnum.QUETZAL) arousal.increaseArousal(1);
+			if (enemyType != EnemyEnum.CENTAUR && enemyType != EnemyEnum.BEASTMISTRESS && enemyType != EnemyEnum.GOLEM && enemyType != EnemyEnum.QUETZAL) arousal.increaseArousal(1, perks, ClimaxType.NULL);
 		}
 		
 		Array<Techniques> possibleTechniques = getPossibleTechniques(target, stance);
@@ -1013,7 +1013,7 @@ public class EnemyCharacter extends AbstractCharacter {
 	@Override
 	protected String climax() {
 		Array<String> results = new Array<String>();	
-		arousal.climax(stance.isAnalPenetration() ? ClimaxType.ANAL : stance.isAnalReceptive() ? ClimaxType.ANAL_RECEPTIVE : stance.isOralPenetration() ? ClimaxType.ORAL : stance.isOralReceptive() ? ClimaxType.ORAL_RECEPTIVE : stance == Stance.HANDY ? ClimaxType.FACIAL : ClimaxType.BACKWASH);
+		arousal.climax(stance.getClimaxType());
 		switch (oldStance) {
 			case ANAL:
 				results.add("The " + getLabel() + "'s lovemaking reaches a climax!");
@@ -1293,7 +1293,7 @@ public class EnemyCharacter extends AbstractCharacter {
 	protected String increaseLust(int lustIncrease) {
 		String spurt = "";
 		if ((enemyType != EnemyEnum.GOLEM || arousal.isErect()) && enemyType != EnemyEnum.QUETZAL) {
-			arousal.increaseArousal(lustIncrease, stance.isErotic());
+			arousal.increaseArousal(lustIncrease, perks, stance.getClimaxType(), stance.isErotic());
 		}
 		if (arousal.isClimax() && stance.isEroticReceptive()) {
 			spurt = climax();

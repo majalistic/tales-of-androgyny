@@ -46,7 +46,6 @@ public class PlayerCharacter extends AbstractCharacter {
 	protected String name;
 	
 	protected ObjectMap<String, Integer> skills;
-	protected ObjectMap<String, Integer> perks;
 	protected int skillPoints;
 	protected int magicPoints;
 	protected int perkPoints;
@@ -119,8 +118,7 @@ public class PlayerCharacter extends AbstractCharacter {
 		for (Techniques basicTechnique: getBaseTechniques()) {
 			skills.put(basicTechnique.toString(), 1);
 		}
-		
-		perks = new ObjectMap<String, Integer>();
+	
 		justCame = false;
 		loaded = false;
 		setCurrentPortrait(AssetEnum.PORTRAIT_SMILE); // his smile and optimism, not yet gone
@@ -642,7 +640,7 @@ public class PlayerCharacter extends AbstractCharacter {
 		if (resolvedAttack.getLust() > 0) {
 			currentPortrait = AssetEnum.PORTRAIT_GRIN.getTexture().fileName;
 			// taunt increases self lust too
-			arousal.increaseArousal(2);
+			arousal.increaseArousal(2, perks, ClimaxType.NULL); // this will depend on the type of taunt used
 		}
 		
 		if (wrapLegs) {
@@ -989,7 +987,7 @@ public class PlayerCharacter extends AbstractCharacter {
 	@Override
 	protected String increaseLust(int lustIncrease) {
 		String spurt = "";
-		arousal.increaseArousal(lustIncrease, stance.isErotic());
+		arousal.increaseArousal(lustIncrease, perks, stance.getClimaxType(), stance.isErotic());
 		if (arousal.isClimax() && stance.isEroticReceptive()) {
 			spurt = climax();
 		}

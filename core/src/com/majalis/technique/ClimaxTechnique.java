@@ -18,6 +18,7 @@ public class ClimaxTechnique extends TechniqueBuilder {
 		FACIAL,
 		BACKWASH, // cum on back
 		ANAL_RECEPTIVE, // cum while penetrated
-		ORAL_RECEPTIVE
+		ORAL_RECEPTIVE, 
+		NULL
 	}
 }
