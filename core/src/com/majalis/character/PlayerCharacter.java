@@ -143,7 +143,7 @@ public class PlayerCharacter extends AbstractCharacter {
 			SUBMIT, STRUGGLE_FULL_NELSON, BREAK_FREE_FULL_NELSON, STRUGGLE_PRONE_BONE, STRUGGLE_DOGGY,
 			OPEN_WIDE, GRAB_IT, STROKE_IT, LET_GO, USE_ITEM, ITEM_OR_CANCEL,
 			RECIPROCATE_FORCED, GET_FACE_RIDDEN, STRUGGLE_FACE_SIT, STRUGGLE_SIXTY_NINE, BREAK_FREE_FACE_SIT, ROLL_OVER_UP, ROLL_OVER_DOWN, RIPOSTE, EN_GARDE, POUNCE_DOGGY, POUND_DOGGY, POUNCE_ANAL, POUND_ANAL, POUNCE_PRONE_BONE, POUND_PRONE_BONE, ERUPT_ANAL, PULL_OUT, PULL_OUT_ORAL, PULL_OUT_ANAL, PULL_OUT_STANDING, RECEIVE_COCK, HURK, UH_OH,
-			FORCE_DEEPTHROAT, CRUSH_ASS, BOUNCE_ON_IT, SQUEEZE_IT, BE_RIDDEN, PUSH_OFF, SELF_SPANK, POUT, DEEPTHROAT, WRAP_LEGS, PUSH_OFF_ATTEMPT, RIDE_ON_IT_REVERSE, BOUNCE_ON_IT_REVERSE, SQUEEZE_IT_REVERSE, RECEIVE_PRONE_BONE, BE_RIDDEN_REVERSE, PUSH_OFF_REVERSE, PUSH_OFF_ATTEMPT_REVERSE,
+			FORCE_DEEPTHROAT, CRUSH_ASS, BOUNCE_ON_IT, SQUEEZE_IT, BE_RIDDEN, PUSH_OFF, SELF_SPANK, POUT, DEEPTHROAT, WRAP_LEGS, PUSH_OFF_ATTEMPT, SIT_ON_IT, TURN_AND_SIT, RIDE_ON_IT, RIDE_ON_IT_REVERSE, BOUNCE_ON_IT_REVERSE, SQUEEZE_IT_REVERSE, STAND_OFF_IT, RECEIVE_PRONE_BONE, BE_RIDDEN_REVERSE, PUSH_OFF_REVERSE, PUSH_OFF_ATTEMPT_REVERSE,
 			OUROBOROS, ROUND_AND_ROUND, RECEIVE_OUROBOROS, STRUGGLE_OUROBOROS, MOUNT_FACE, FACEFUCK, GET_FACEFUCKED, STRUGGLE_FACEFUCK, RECEIVE_EGGS, ERUPT_ORAL,
 			WRESTLE_TO_GROUND, WRESTLE_TO_GROUND_UP, PENETRATE_PRONE, PENETRATE_MISSIONARY, PIN, GRAPPLE, HOLD_WRESTLE, CHOKE, REST_WRESTLE, FLIP_PRONE, FLIP_SUPINE, RELEASE_PRONE, RELEASE_SUPINE, STRUGGLE_GROUND, BREAK_FREE_GROUND, GRIND, REST_GROUND_DOWN, STRUGGLE_GROUND_UP, BREAK_FREE_GROUND_UP, REVERSAL,
 			FULL_REVERSAL, REST_GROUND_UP, SQUEEZE_STRUGGLE, BREAK_FREE_SQUEEZE, SQUEEZE_REST
@@ -242,6 +242,10 @@ public class PlayerCharacter extends AbstractCharacter {
 		return possibles;
 	}
 	
+	private boolean canSitOn(AbstractCharacter target) {
+		return isLewd() && target.getStance() == Stance.SUPINE && target.isErect() && target.enemyType.canBeRidden();
+	}
+	
 	private Array<Techniques> getPossibleKnownTechniques(AbstractCharacter target) {
 		Array<Techniques> possibles = new Array<Techniques>();
 		switch(stance) {
@@ -251,7 +255,7 @@ public class PlayerCharacter extends AbstractCharacter {
 				return getTechniques(RIPOSTE, EN_GARDE);
 			case OFFENSIVE:
 				possibles = getTechniques(BLITZ_ATTACK, POWER_ATTACK, ARMOR_SUNDER, RECKLESS_ATTACK, KNOCK_DOWN, VAULT, FEINT_AND_STRIKE, TEMPO_ATTACK, RESERVED_ATTACK);
-				if (target.getStance() == Stance.SUPINE && target.isErect() && target.enemyType.canBeRidden()) {
+				if (canSitOn(target)) {
 					possibles.addAll(getTechniques(SIT_ON_IT, TURN_AND_SIT));
 				}
 				if (target.stance == Stance.HANDS_AND_KNEES && isErect() && target.enemyType.isPounceable()) {
@@ -277,7 +281,7 @@ public class PlayerCharacter extends AbstractCharacter {
 				if (hasItemsToUse()) {
 					possibles.addAll(getTechniques(USE_ITEM));
 				}
-				if (target.getStance() == Stance.SUPINE && target.isErect() && target.enemyType.canBeRidden()) {
+				if (canSitOn(target)) {
 					possibles.addAll(getTechniques(SIT_ON_IT, TURN_AND_SIT));
 				}
 				if (target.stance == Stance.HANDS_AND_KNEES && isErect() && target.enemyType.isPounceable()) {
@@ -364,7 +368,7 @@ public class PlayerCharacter extends AbstractCharacter {
 				else {
 					possibles = getTechniques(RECEIVE_DOGGY, STRUGGLE_DOGGY);
 				}
-				if (perks.get(Perk.CATAMITE.toString(), 0) > 0 || perks.get(Perk.ANAL_ADDICT.toString(), 0) > 1) {
+				if (isLewd()) {
 					possibles.addAll(getTechniques(SELF_SPANK));
 				}
 				return possibles;
@@ -386,7 +390,7 @@ public class PlayerCharacter extends AbstractCharacter {
 				else {
 					possibles = getTechniques(RECEIVE_ANAL, POUT, STRUGGLE_ANAL);
 				}
-				if (!wrapLegs && (perks.get(Perk.CATAMITE.toString(), 0) > 0 || perks.get(Perk.ANAL_ADDICT.toString(), 0) > 1)) {
+				if (!wrapLegs && isLewd()) {
 					possibles.addAll(getTechniques(WRAP_LEGS));
 				}
 				return possibles;
@@ -938,14 +942,6 @@ public class PlayerCharacter extends AbstractCharacter {
 			increaseLowestStat();
 		}
 		
-		if (perks.get(Perk.CATAMITE, 0) > 0 && !(this.perks.get(Perk.CATAMITE.toString(), 0) > 0)) {
-			addSkill(SIT_ON_IT, 1);
-			addSkill(RIDE_ON_IT, 1);
-			addSkill(STAND_OFF_IT, 1);
-			addSkill(TURN_AND_SIT, 1);
-			addSkill(RIDE_ON_IT_REVERSE, 1);
-			addSkill(BOUNCE_ON_IT_REVERSE, 1);
-		}
 		this.perks.clear();
 		for (Perk key : perks.keys()) {
 			addPerk(key, perks.get(key));
