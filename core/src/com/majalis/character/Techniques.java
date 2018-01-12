@@ -142,7 +142,9 @@ public enum Techniques {
 	GRIP	 			(new GrappleTechnique(Stance.FULL_NELSON, Stance.FULL_NELSON, "Grip", 3, GrappleType.ADVANTAGE).build()), // Used to grapple
 	HOLD	 			(new GrappleTechnique(Stance.FULL_NELSON, Stance.FULL_NELSON, "Hold", -1).build()), // Used to hold
 	POUND_DOGGY 		(new GrappleTechnique(Stance.DOGGY, Stance.DOGGY, "Pound", 2).build()), // Used to doggystyle
-	CRUSH_ASS	 		(new GrappleTechnique(Stance.DOGGY, Stance.DOGGY, "Crush Ass", 2).build()), // Used to doggystyle
+	ASS_BLAST			(new GrappleTechnique(Stance.DOGGY, Stance.DOGGY, "Ass Blast", 4).addSex(new SexualExperienceBuilder().setAssBottomTeasing(1)).addSelfSex(new SexualExperienceBuilder().setAssTeasing(1)).build()), 
+	CRUSH_ASS	 		(new GrappleTechnique(Stance.DOGGY, Stance.DOGGY, "Crush Ass", 4).addSex(new SexualExperienceBuilder().setAssBottomTeasing(1)).build()),
+	PROSTATE_GRIND 		(new GrappleTechnique(Stance.DOGGY, Stance.DOGGY, "Prostate Grind", 2).addSex(new SexualExperienceBuilder().setAssBottomTeasing(3)).addSelfSex(new SexualExperienceBuilder().setAssTeasing(2)).build()), 
 	POUND_PRONE_BONE	(new GrappleTechnique(Stance.PRONE_BONE, Stance.PRONE_BONE, "Prone Bone", 2).build()), // Used to prone bone
 	ROUND_AND_ROUND		(new GrappleTechnique(Stance.OUROBOROS, Stance.OUROBOROS, "Round and Round", 2).build()), // Used to ouroboros
 	FACEFUCK			(new GrappleTechnique(Stance.FACEFUCK, Stance.FACEFUCK, "Facefuck", 2).build()), // Used to ouroboros

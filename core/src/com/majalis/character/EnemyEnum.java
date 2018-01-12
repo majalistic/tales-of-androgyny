@@ -151,6 +151,7 @@ public enum EnemyEnum {
 	protected boolean canBeRidden() { return this != SLIME && this != CENTAUR && this != UNICORN && this != BEASTMISTRESS && this != GHOST && this != ANGEL && this != NAGA && this != QUETZAL; }
 	protected boolean willPounce() { return this != UNICORN && this != BEASTMISTRESS && this != ANGEL && this != NAGA && this != GHOST && this != QUETZAL; }
 	protected boolean isPounceable() { return this != OGRE && this != BEASTMISTRESS && this != UNICORN && this != GHOST && this != ANGEL && this != NAGA && this != QUETZAL; }
+	protected boolean willProstatePound() { return this == BRIGAND || this == ADVENTURER || this == ORC || this == GOBLIN || this == GOBLIN_MALE || this == BUNNY; }
 	protected boolean canProneBone() { return this == BRIGAND || this == GOBLIN || this == ORC || this == ADVENTURER || this == GOBLIN_MALE; }
 	protected boolean prefersProneBone() { return this == ORC || this == GOBLIN; }
 	protected boolean prefersMissionary() { return this == BRIGAND || this == ADVENTURER; }

@@ -763,7 +763,8 @@ public class EnemyCharacter extends AbstractCharacter {
 						return getTechniques(POUND_ANAL);
 					}
 					else if (stance == Stance.DOGGY) {
-						return getTechniques(POUND_DOGGY, CRUSH_ASS);
+						if (enemyType.willProstatePound()) return getTechniques(POUND_DOGGY, CRUSH_ASS, ASS_BLAST, PROSTATE_GRIND);
+						return getTechniques(POUND_DOGGY, CRUSH_ASS, ASS_BLAST);
 					}
 					else if (stance == Stance.PRONE_BONE) {
 						return getTechniques(POUND_PRONE_BONE);
