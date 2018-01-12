@@ -46,6 +46,15 @@ public enum Techniques {
 	GUARD  				(new GuardTechnique	(Stance.DEFENSIVE, Stance.DEFENSIVE, "Guard", -2, -2, 4, true).addBonus(BonusCondition.SKILL_LEVEL, BonusType.PARRY, 2).build()),//.addBonus(BonusCondition.OUTMANEUVER, BonusType.GUARD_MOD, 25).build()),
 	SECOND_WIND			(new NonAttackTechnique(Stance.DEFENSIVE, Stance.DEFENSIVE, "Second Wind", -4, -1).build()),
 	
+	/* Seduction Techniques */
+	
+	SLAP_ASS			(new NonAttackTechnique(Stance.SEDUCTION, Stance.SEDUCTION, "Slap Ass", 0, -1).addSelfSex(new SexualExperienceBuilder().setAssBottomTeasing(1)).addSex(new SexualExperienceBuilder().setAssTeasing(1)).build()), // makes enemy want to fuck your ass, raises own lust
+	GESTURE				(new NonAttackTechnique(Stance.SEDUCTION, Stance.SEDUCTION, "Gesture", 0, -1).addSex(new SexualExperienceBuilder().setAssTeasing(1)).build()), // makes enemy want to fuck you
+	PUCKER_LIPS			(new NonAttackTechnique(Stance.SEDUCTION, Stance.SEDUCTION, "Pucker Lips", 0, -1).addSelfSex(new SexualExperienceBuilder().setMouthBottomTeasing(1)).addSex(new SexualExperienceBuilder().setMouthTeasing(1)).build()), // makes enemy want to fuck you
+	RUB					(new NonAttackTechnique(Stance.SEDUCTION, Stance.SEDUCTION, "Rub", 0, -1).addSelfSex(new SexualExperienceBuilder().setAssTeasing(1)).addSex(new SexualExperienceBuilder().setAssBottomTeasing(1)).build()), // raises own lust, makes enemy want to be fucked by you
+	PRESENT				(new NonAttackTechnique(Stance.SEDUCTION, Stance.HANDS_AND_KNEES, "Present", 0, -1).addSelfSex(new SexualExperienceBuilder().setAssBottomTeasing(1)).addSex(new SexualExperienceBuilder().setAssTeasing(1)).build()), // makes enemy want to fuck your ass, puts you in hands and knees
+	SLAP_ASS_KNEES 		(new NonAttackTechnique(Stance.HANDS_AND_KNEES, Stance.HANDS_AND_KNEES, "Slap Ass", -1, -1).addSelfSex(new SexualExperienceBuilder().setAssBottomTeasing(1)).addSex(new SexualExperienceBuilder().setAssTeasing(1)).build()), // makes enemy want to fuck your ass, raises own lust (by more if catamite/slut)
+	
 	/* Counter Techniques */ 			
 	RIPOSTE  			(new GuardTechnique(Stance.COUNTER, Stance.BALANCED, "Riposte", -1, 3, 5, false).addBonus(BonusCondition.SKILL_LEVEL, BonusType.PARRY, 2).addBonus(BonusCondition.OUTMANEUVER, BonusType.PARRY, 2).addBonus(BonusCondition.SKILL_LEVEL, BonusType.DISARM, 50).addBonus(BonusCondition.SKILL_LEVEL, BonusType.COUNTER, 50).addBonus(BonusCondition.OUTMANEUVER, BonusType.COUNTER, 50).addBonus(BonusCondition.OUTMANEUVER, BonusType.DISARM, 50).build(), 1),
 	EN_GARDE  			(new GuardTechnique(Stance.COUNTER, Stance.DEFENSIVE, "En Garde", -1, 0, 1, false).addBonus(BonusCondition.SKILL_LEVEL, BonusType.PARRY, 2).addBonus(BonusCondition.OUTMANEUVER, BonusType.PARRY, 1).build(), 1),

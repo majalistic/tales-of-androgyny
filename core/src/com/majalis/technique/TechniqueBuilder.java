@@ -176,8 +176,34 @@ public class TechniqueBuilder {
 			builder.append("Decreases Strength dramatically, duration improved by Magic.\n");
 		}
 			
-		if (sex.isTeasing()) {
-			builder.append("Taunts, angering and/or arousing the\n enemy with a power of " + powerMod + ", improved by Charisma.\n");
+		if (sex.getAssTeasing() > 0) {
+			int totalAssTeasing = sex.getAssTeasing() + powerMod;
+			builder.append("Seduces the target into wanting to fuck your ass, with a power of " + totalAssTeasing + ", improved by Charisma.\n");
+		}
+		if (sex.getMouthTeasing() > 0) {
+			int totalMouthTeasing = sex.getMouthTeasing() + powerMod;
+			builder.append("Seduces the target into wanting to fuck your mouth, with a power of " + totalMouthTeasing + ", improved by Charisma.\n");
+		}
+		if (sex.getAssBottomTeasing() > 0) {
+			int totalAssTeasing = sex.getAssTeasing() + powerMod;
+			builder.append("Seduces the target into wanting to get fucked in the ass, with a power of " + totalAssTeasing + ", improved by Charisma.\n");
+		}
+		if (sex.getMouthBottomTeasing() > 0) {
+			int totalMouthTeasing = sex.getMouthTeasing() + powerMod;
+			builder.append("Seduces the target into wanting to get fucked in the mouth, with a power of " + totalMouthTeasing + ", improved by Charisma.\n");
+		}
+		
+		if (selfSex.getAssTeasing() > 0) {
+			builder.append("Arouses you into wanting to fuck someone's ass, with a power of " + selfSex.getAssTeasing() + ".\n");
+		}
+		if (selfSex.getMouthTeasing() > 0) {
+			builder.append("Arouses you into wanting to fuck someone's mouth, with a power of " + selfSex.getMouthTeasing() + ".\n");
+		}
+		if (selfSex.getAssBottomTeasing() > 0) {
+			builder.append("Arouses you into wanting to get fucked in the ass, with a power of " + selfSex.getAssBottomTeasing() + ".\n");
+		}
+		if (selfSex.getMouthBottomTeasing() > 0) {
+			builder.append("Arouses you into wanting to get fucked in the mouth, with a power of " + selfSex.getMouthBottomTeasing() + ".\n");
 		}
 		
 		if (blockable) {

@@ -138,6 +138,10 @@ public class SexualExperience {
 		}	
 		
 		public boolean isTeasing() { return assTeasing > 0 || assBottomTeasing > 0 || mouthTeasing > 0 || assBottomTeasing > 0; }
+		public int getAssTeasing() { return assTeasing; }
+		public int getAssBottomTeasing() { return assBottomTeasing; }
+		public int getMouthTeasing() { return mouthTeasing; }
+		public int getMouthBottomTeasing() { return mouthBottomTeasing; }	
 		
 		public SexualExperienceBuilder setPhallusType(PhallusType phallusType) {
 			switch(phallusType) {
@@ -164,7 +168,7 @@ public class SexualExperience {
 			this.analSexTop += addedBuilder.analSexTop;
 			this.oralSexTop += addedBuilder.oralSexTop;
 			this.analSex += addedBuilder.analSex;
-			this.anal += addedBuilder.analSex;
+			this.anal += addedBuilder.anal;
 			this.creampies += addedBuilder.creampies;
 			this.analEjaculation += addedBuilder.analEjaculation;
 			this.oralSex += addedBuilder.oralSex;

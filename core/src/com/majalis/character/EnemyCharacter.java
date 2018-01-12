@@ -597,7 +597,7 @@ public class EnemyCharacter extends AbstractCharacter {
 				}
 				return possibles;
 			case SEDUCTION:
-				return getTechniques(TAUNT, REVERSAL_ATTACK, BLOCK, DUCK, HIT_THE_DECK);
+				return getTechniques(SLAP_ASS, GESTURE, PUCKER_LIPS, RUB, PRESENT, REVERSAL_ATTACK, BLOCK, DUCK, HIT_THE_DECK);
 			case COUNTER:
 				return getTechniques(RIPOSTE, EN_GARDE);
 			case CASTING:
