@@ -8,6 +8,7 @@ import com.majalis.character.Stance;
 import com.majalis.character.AbstractCharacter.Stat;
 import com.majalis.character.Attack.AttackHeight;
 import com.majalis.character.Attack.Status;
+import com.majalis.character.SexualExperience.SexualExperienceBuilder;
 import com.majalis.technique.TechniquePrototype;
 import com.majalis.technique.Bonus;
 import com.majalis.technique.Bonus.BonusCondition;
@@ -160,7 +161,8 @@ public class Technique {
 			thisPayload.getArmorSunder(), 
 			thisPayload.getTotalPower() * thisPayload.getGutCheck(), 
 			technique.isHealing() ? thisPayload.getTotalPower() : 0,
-			technique.isTaunt() ? thisPayload.getTotalPower() : 0,  // lust
+			thisPayload.getSex().increaseTeasing(thisPayload.getTotalPower()).build(), // the sex they'll receive
+			otherPayload.getSelfSex().build(), // their sex
 			grappleResult,
 			otherTechnique.isBlockable() ? thisPayload.getDisarm() : 0,
 			thisPayload.getTrip(),
@@ -190,7 +192,8 @@ public class Technique {
 				1, // armor sunder
 				0, // gut check 
 				0, // healing
-				0, // lust
+				new SexualExperience(), // sex
+				new SexualExperience(), // self-sex
 				GrappleStatus.NULL, // grapple
 				0, // disarm
 				0, // trip
@@ -300,7 +303,7 @@ public class Technique {
 		private TechniquePayload(TechniquePrototype technique, CharacterState currentState, int skillLevel, Array<Bonus> toApply) {
 			this.technique = technique;
 			this.bonuses = toApply;
-			this.basePower = technique.isSpell() ? (technique.getSelfEffect() != null ? currentState.getRawStat(Stat.MAGIC) : currentState.getStat(Stat.MAGIC)): technique.isTaunt() ? currentState.getRawStat(Stat.CHARISMA) : 
+			this.basePower = technique.isSpell() ? (technique.getSelfEffect() != null ? currentState.getRawStat(Stat.MAGIC) : currentState.getStat(Stat.MAGIC)) : technique.getSex().isTeasing() ? currentState.getRawStat(Stat.CHARISMA) : 
 				// should check if technique can use weapon, and the weapon base damage should come from currentState.getWeaponDamage() rather than exposing these weapons
 				currentState.getStat(Stat.STRENGTH) + (currentState.getWeapon() != null ? currentState.getWeapon().getDamage(currentState.getStats()) : 0);	
 			int powerCalc = technique.getPowerMod();
@@ -400,6 +403,10 @@ public class Technique {
 			removePlug = removePlugCalc;
 		}
 		
+		public SexualExperienceBuilder getSelfSex() { return technique.getSelfSex(); }
+
+		public SexualExperienceBuilder getSex() { return technique.getSex(); }
+
 		public GrappleStatus getCurrentGrappleStatus() { return currentState.getGrappleStatus(); }
 		private int getStaminaCost() { return staminaCost; }
 		private int getStabilityCost() { return stabilityCost; }

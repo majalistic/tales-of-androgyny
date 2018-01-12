@@ -20,7 +20,6 @@ import com.majalis.character.Item.Plug;
 import com.majalis.character.Item.Potion;
 import com.majalis.character.Item.Weapon;
 import com.majalis.character.Item.WeaponType;
-import com.majalis.character.SexualExperience.SexualExperienceBuilder;
 import com.majalis.save.MutationResult;
 import com.majalis.save.MutationResult.MutationType;
 import com.majalis.save.SaveManager.GameOver;
@@ -642,10 +641,8 @@ public class PlayerCharacter extends AbstractCharacter {
 	
 	@Override
 	public Attack doAttack(Attack resolvedAttack) {		
-		if (resolvedAttack.getLust() > 0) {
+		if (resolvedAttack.getSex().isTeasing()) {
 			currentPortrait = AssetEnum.PORTRAIT_GRIN.getTexture().fileName;
-			// taunt increases self lust too
-			arousal.increaseArousal(new SexualExperienceBuilder().setAssBottomTeasing(3).build(), perks); // this will depend on the type of taunt used
 		}
 		
 		if (wrapLegs) {

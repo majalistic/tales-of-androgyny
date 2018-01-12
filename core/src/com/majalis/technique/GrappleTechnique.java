@@ -39,7 +39,7 @@ public class GrappleTechnique extends TechniqueBuilder {
 		super(usableStance, resultingStance, name);
 		this.grapple = grapple;
 		this.staminaCost = staminaCost;
-		this.forceStance = forceStance;
+		setForceStance(forceStance);
 		this.height = height;
 		this.description = description;
 	}

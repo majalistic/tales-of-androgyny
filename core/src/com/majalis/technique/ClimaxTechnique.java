@@ -8,8 +8,18 @@ public class ClimaxTechnique extends TechniqueBuilder {
 	public ClimaxTechnique(Stance usableStance, Stance resultingStance, String name, Stance forceStance, ClimaxType type) {
 		super(usableStance, resultingStance, name);
 		this.climaxType = type;
-		this.forceStance = forceStance;
+		setForceStance(forceStance);
 		this.grapple = GrappleType.BREAK;
+		switch(type) {
+			case ANAL:
+				sex.setCreampie(1);
+				break;
+			case ORAL:
+				sex.setOralCreampie(1);
+				break;
+			default:
+				break;
+		}
 	}
 	
 	public enum ClimaxType {

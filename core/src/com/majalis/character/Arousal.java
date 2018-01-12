@@ -57,8 +57,10 @@ public class Arousal {
 		// currently does not count creampies or ejaculations
 		climaxArousalAmount += sex.getAnalSex() * analBottomMod; // this should be doubled for penetration?
 		climaxArousalAmount += sex.getAnal() * analBottomMod;
+		climaxArousalAmount += sex.getCreampies() * analBottomMod;
 		climaxArousalAmount += sex.getOralSex() * oralBottomMod;
 		climaxArousalAmount += sex.getOral() * oralBottomMod;
+		climaxArousalAmount += sex.getOralCreampies() * oralBottomMod;
 		climaxArousalAmount += sex.getAnalSexTop() * topMod;
 		climaxArousalAmount += sex.getOralSexTop() * topMod;
 		arousalAmount += sex.getAssBottomTeasing() * analBottomMod;

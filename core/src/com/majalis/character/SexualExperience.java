@@ -67,6 +67,10 @@ public class SexualExperience {
 			return this;
 		}
 		
+		public void setCreampie(int creampies) {
+			this.creampies = creampies;
+		}
+		
 		public SexualExperienceBuilder setAnalEjaculations(int num) {
 			analEjaculation = num;
 			return this;
@@ -122,12 +126,46 @@ public class SexualExperience {
 			return this;
 		}
 		
+		public SexualExperienceBuilder increaseTeasing(int totalPower) {
+			if (!isTeasing()) return this;
+			assTeasing += assTeasing == 0 ? 0 : totalPower;
+			assBottomTeasing += assBottomTeasing == 0 ? 0 : totalPower;
+			mouthTeasing += mouthTeasing == 0 ? 0 : totalPower;
+			mouthBottomTeasing += mouthBottomTeasing == 0 ? 0 : totalPower; 
+			return this;
+		}	
+		
+		public boolean isTeasing() { return assTeasing > 0 || assBottomTeasing > 0 || mouthTeasing > 0 || assBottomTeasing > 0; }
+		
+		public void combine(SexualExperienceBuilder addedBuilder) {
+			this.analSexTop += addedBuilder.analSexTop;
+			this.oralSexTop += addedBuilder.oralSexTop;
+			this.analSex += addedBuilder.analSex;
+			this.anal += addedBuilder.analSex;
+			this.creampies += addedBuilder.creampies;
+			this.analEjaculation += addedBuilder.analEjaculation;
+			this.oralSex += addedBuilder.oralSex;
+			this.oral += addedBuilder.oral;
+			this.oralCreampies += addedBuilder.oralCreampies;
+			this.fellatioEjaculation += addedBuilder.fellatioEjaculation;
+			this.assTeasing += addedBuilder.assTeasing;
+			this.assBottomTeasing += addedBuilder.assBottomTeasing;
+			this.mouthTeasing += addedBuilder.mouthTeasing;
+			this.mouthBottomTeasing += addedBuilder.mouthBottomTeasing;
+			this.horse = this.horse || addedBuilder.horse;
+			this.horse = this.ogre || addedBuilder.ogre;
+			this.horse = this.bird || addedBuilder.bird;
+			this.horse = this.knot || addedBuilder.knot;
+		}		
+		
 		public SexualExperience build() {
 			return new SexualExperience(analSexTop, oralSexTop, analSex, anal, creampies, analEjaculation, oralSex, oral, oralCreampies, fellatioEjaculation, 0, 0, assTeasing, assBottomTeasing, mouthTeasing, mouthBottomTeasing, horse, ogre, false, false, bird, knot);
-		}		
+		}
+
+			
 	}
 	
-	private SexualExperience() { this(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, false, false, false, false, false, false); }
+	protected SexualExperience() { this(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, false, false, false, false, false, false); }
 	
 	private SexualExperience(int analSexTop, int oralSexTop, int analSex, int anal, int creampies, int analEjaculation, int oralSex, int oral, int oralCreampies, int fellatioEjaculation, int bellyful, int handy, int assTeasing, int assBottomTeasing, int mouthTeasing, int mouthBottomTeasing,
 		boolean horse, boolean ogre, boolean prostitution, boolean beast, boolean bird, boolean knot) {
@@ -177,5 +215,12 @@ public class SexualExperience {
 	protected boolean isBeast() { return beast; }
 	protected boolean isBird() { return bird; }
 	protected boolean isKnot() { return knot; }
-	// this needs to be replaced with pairing each of these to whether they cause climax or not
+	protected boolean isTeasing() { return assTeasing > 0 || assBottomTeasing > 0 || mouthTeasing > 0 || assBottomTeasing > 0; }
+	protected boolean isEmpty() { return analSexTop + oralSexTop + analSex + anal + creampies + analEjaculation + oralSex + oral + oralCreampies + fellatioEjaculation + bellyful + handy + assTeasing + assBottomTeasing + mouthTeasing + mouthBottomTeasing == 0; }
+	@Override
+	public String toString() { 
+		return "Anal sex top: " + analSexTop + "\n" + "Oral sex top: " + oralSexTop + "\n" + "Anal sex: " + analSex + "\n" + "Anal: " + anal + "\n" + "Creampies: " + creampies + "\n" + "Anal ejaculation: " + analEjaculation + "\n" + "Oral sex: " + oralSex + "\n" + "Oral: " + oral + "\n" +
+				"Oral creampies: " + oralCreampies + "\n" + "Fellatio ejaculation: " + fellatioEjaculation + "\n" + "Bellyful: " + bellyful + "\n" + "Handy: " + handy + "\n" + "Ass teasing: " + assTeasing + "\n" + "Ass Bottom teasing " + assBottomTeasing + "\n" + 
+				"Mouth teasing: " + mouthTeasing + "\n" + "Mouth bottom teasing: " + mouthBottomTeasing + "\n";
+	}
 }

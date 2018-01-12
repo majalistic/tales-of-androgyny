@@ -125,8 +125,8 @@ public class EnemyCharacter extends AbstractCharacter {
 	@Override
 	public Attack doAttack(Attack resolvedAttack) {
 		// if golem uses a certain attack, it should activate her dong
-		if (resolvedAttack.getLust() > 0 && enemyType == EnemyEnum.QUETZAL) {
-			arousal.increaseArousal(new SexualExperienceBuilder().setAssTeasing(4).build(), perks);
+		if (resolvedAttack.getSex().isTeasing() && enemyType == EnemyEnum.QUETZAL) {
+			arousal.increaseArousal(resolvedAttack.getSex(), perks);
 		}
 		if (enemyType == EnemyEnum.GOLEM) {
 			if (resolvedAttack.getSelfEffect() != null && resolvedAttack.getSelfEffect().type == StatusType.ACTIVATE) {

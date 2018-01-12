@@ -2,6 +2,7 @@ package com.majalis.technique;
 
 import com.badlogic.gdx.utils.ObjectMap;
 import com.majalis.character.GrappleType;
+import com.majalis.character.SexualExperience.SexualExperienceBuilder;
 import com.majalis.character.Stance;
 import com.majalis.character.StatusType;
 import com.majalis.technique.ClimaxTechnique.ClimaxType;
@@ -19,7 +20,10 @@ public class TechniquePrototype {
 	private final int stabilityCost;
 	private final int manaCost;
 	private final boolean isSpell;
-	private final boolean isTaunt;
+		
+	private final SexualExperienceBuilder sex;
+	private final SexualExperienceBuilder selfSex;
+	
 	private final Stance forceStance;
 	private final double knockdown;
 	private final int armorSunder;
@@ -40,7 +44,7 @@ public class TechniquePrototype {
 	private final String bonusInfo;
 	private final ObjectMap<BonusCondition, Bonus> bonuses;
 	
-	protected TechniquePrototype( Stance usableStance, Stance resultingStance, String name, boolean doesDamage, boolean doesHealing, int powerMod, int staminaCost, int stabilityCost, int manaCost, boolean isSpell, boolean isTaunt, Stance forceStance, double knockdown, int armorSunder,
+	protected TechniquePrototype( Stance usableStance, Stance resultingStance, String name, boolean doesDamage, boolean doesHealing, int powerMod, int staminaCost, int stabilityCost, int manaCost, boolean isSpell, SexualExperienceBuilder sex, SexualExperienceBuilder selfSex, Stance forceStance, double knockdown, int armorSunder,
 			int gutCheck, TechniqueHeight height, int guardMod, int parryMod, boolean ignoresArmor, boolean setDamage, boolean blockable, int setBleed, GrappleType grapple, ClimaxType climaxType, StatusType selfEffect, StatusType enemyEffect, String description, String lightDescription, String bonusInfo, ObjectMap<BonusCondition, Bonus> bonuses) {
 		this.usableStance = usableStance;
 		this.resultingStance = resultingStance;
@@ -52,7 +56,8 @@ public class TechniquePrototype {
 		this.stabilityCost = stabilityCost;
 		this.manaCost = manaCost;
 		this.isSpell = isSpell;
-		this.isTaunt = isTaunt;
+		this.sex = sex;
+		this.selfSex = selfSex;
 		this.forceStance = forceStance;
 		this.knockdown = knockdown;
 		this.armorSunder = armorSunder;
@@ -96,7 +101,8 @@ public class TechniquePrototype {
 	public boolean isBlockable() { return blockable; }
 	public int getSetBleed() { return setBleed; }
 	public GrappleType getGrappleType() { return grapple; }
-	public boolean isTaunt() { return isTaunt; }
+	public SexualExperienceBuilder getSex() { return sex; }
+	public SexualExperienceBuilder getSelfSex() { return selfSex; }
 	public ClimaxType getClimaxType() { return climaxType; }
 	public StatusType getSelfEffect() { return selfEffect; }
 	public StatusType getEnemyEffect() { return enemyEffect; }

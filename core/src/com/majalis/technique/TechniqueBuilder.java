@@ -3,6 +3,7 @@ package com.majalis.technique;
 import com.majalis.character.StatusType;
 import com.badlogic.gdx.utils.OrderedMap;
 import com.majalis.character.GrappleType;
+import com.majalis.character.SexualExperience.SexualExperienceBuilder;
 import com.majalis.character.Stance;
 import com.majalis.technique.Bonus.BonusCondition;
 import com.majalis.technique.Bonus.BonusType;
@@ -17,7 +18,8 @@ public class TechniqueBuilder {
 	protected boolean doesDamage;
 	protected boolean doesHealing;
 	protected boolean isSpell;
-	protected boolean isTaunt;
+	protected SexualExperienceBuilder sex;
+	protected SexualExperienceBuilder selfSex;
 	protected int powerMod;
 	protected int staminaCost;
 	protected int stabilityCost;
@@ -27,7 +29,7 @@ public class TechniqueBuilder {
 	protected int gutCheck;
 	protected int guardMod;
 	protected int parryMod;
-	protected Stance forceStance;
+	private Stance forceStance;
 	protected TechniqueHeight height;
 	protected boolean ignoresArmor;
 	protected boolean setDamage;
@@ -50,7 +52,8 @@ public class TechniqueBuilder {
 		stabilityCost = 0;
 		manaCost = 0;
 		isSpell = false;
-		isTaunt = false;
+		sex = new SexualExperienceBuilder();
+		selfSex = new SexualExperienceBuilder();
 		forceStance = null;
 		knockdown = 0;
 		armorSunder = 0;
@@ -67,6 +70,15 @@ public class TechniqueBuilder {
 		enemyEffect = null;
 		height = TechniqueHeight.NONE;
 		bonuses = new OrderedMap<BonusCondition, Bonus>();
+		switch(resultingStance.getClimaxType()) {
+			case ANAL: selfSex.setAnalSexTop(1); break;
+			case ANAL_RECEPTIVE: if (usableStance.getClimaxType() == ClimaxType.ANAL_RECEPTIVE) selfSex.setAnal(1); else selfSex.setAnalSex(1); break;
+			case BACKWASH: selfSex.setAssBottomTeasing(1); break;
+			case FACIAL: 
+			case ORAL: selfSex.setOralSexTop(1); break;
+			case ORAL_RECEPTIVE: if (usableStance.getClimaxType() == ClimaxType.ORAL_RECEPTIVE) selfSex.setOral(1); else selfSex.setOralSex(1); break;
+			default: break;
+		}
 	}
 	
 	public TechniqueBuilder addBonus(BonusCondition condition, BonusType type) {
@@ -85,11 +97,6 @@ public class TechniqueBuilder {
 		return this;
 	}
 	
-	public TechniqueBuilder setSeduce() {
-		isTaunt = true;
-		return this;
-	}
-	
 	public TechniqueBuilder setIgnoreArmor() {
 		ignoresArmor = true;
 		return this;
@@ -105,9 +112,37 @@ public class TechniqueBuilder {
 		return this;
 	}
 	
+	public TechniqueBuilder addSelfSex(SexualExperienceBuilder addedBuilder) {
+		selfSex.combine(addedBuilder);
+		return this;
+	}
+	
+	public TechniqueBuilder addSex(SexualExperienceBuilder addedBuilder) {
+		sex.combine(addedBuilder);
+		return this;
+	}
+	
+	protected TechniqueBuilder setForceStance(Stance forceStance) {
+		if (forceStance == null) return this;
+		this.forceStance = forceStance;
+		if (forceStance.isAnalReceptive()) {
+			addSex(new SexualExperienceBuilder().setAnalSex(1));
+		}
+		else if (forceStance.isAnalPenetration()) {
+			addSex(new SexualExperienceBuilder().setAnalSexTop(1));
+		}
+		else if (forceStance.isOralReceptive()) {
+			addSex(new SexualExperienceBuilder().setOralSex(1));
+		}
+		else if (forceStance.isOralPenetration()) {
+			addSex(new SexualExperienceBuilder().setOralSexTop(1));
+		}
+		return this;
+	}
+	
 	public TechniquePrototype build() {
 		String lightDescription = getDescription();
-		return new TechniquePrototype(usableStance, resultingStance, name, doesDamage, doesHealing, powerMod, staminaCost, stabilityCost, manaCost, isSpell, isTaunt, forceStance, knockdown, armorSunder, gutCheck, height, guardMod, parryMod, ignoresArmor, setDamage, blockable, setBleed, grapple, climaxType, selfEffect, enemyEffect, getStanceInfo() + lightDescription, lightDescription, getBonusInfo(), bonuses); 
+		return new TechniquePrototype(usableStance, resultingStance, name, doesDamage, doesHealing, powerMod, staminaCost, stabilityCost, manaCost, isSpell, sex, selfSex, forceStance, knockdown, armorSunder, gutCheck, height, guardMod, parryMod, ignoresArmor, setDamage, blockable, setBleed, grapple, climaxType, selfEffect, enemyEffect, getStanceInfo() + lightDescription, lightDescription, getBonusInfo(), bonuses); 
 	}	
 	
 	protected String getStanceInfo() { 
@@ -140,9 +175,11 @@ public class TechniqueBuilder {
 		if (enemyEffect != null) {
 			builder.append("Decreases Strength dramatically, duration improved by Magic.\n");
 		}
-		if (isTaunt) {
+			
+		if (sex.isTeasing()) {
 			builder.append("Taunts, angering and/or arousing the\n enemy with a power of " + powerMod + ", improved by Charisma.\n");
 		}
+		
 		if (blockable) {
 			builder.append("Can be blocked.\n");
 		}

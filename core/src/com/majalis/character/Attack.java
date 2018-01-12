@@ -17,7 +17,8 @@ public class Attack {
 	private final int rawArmorBreak;
 	private final int gutcheck;
 	private final int healing;
-	private final int lust;
+	private final SexualExperience sex;
+	private final SexualExperience selfSex;
 	private final GrappleStatus grapple;
 	private final int disarm;
 	private final int trip;
@@ -51,7 +52,7 @@ public class Attack {
 	}
 	
 	// this should have all the info for an attack, including damage or effects that were blocked
-	protected Attack(Status status, String name, int rawDamage, double blockMod, int force, int rawArmorBreak, int gutcheck, int healing, int lust, GrappleStatus grapple, int disarm, int trip, int bleeding, int plugRemove, ClimaxType climaxType, Stance forceStance, boolean isSpell, Buff selfEffect, Buff enemyEffect, 
+	protected Attack(Status status, String name, int rawDamage, double blockMod, int force, int rawArmorBreak, int gutcheck, int healing, SexualExperience sex, SexualExperience selfSex, GrappleStatus grapple, int disarm, int trip, int bleeding, int plugRemove, ClimaxType climaxType, Stance forceStance, boolean isSpell, Buff selfEffect, Buff enemyEffect, 
 					boolean isAttack, AttackHeight height, boolean ignoresArmor, Array<Bonus> bonuses, Item useItem, AbstractCharacter user) {
 		this.status = status;
 		this.name = name;
@@ -61,7 +62,8 @@ public class Attack {
 		this.rawArmorBreak = rawArmorBreak;
 		this.gutcheck = gutcheck;
 		this.healing = healing;
-		this.lust = lust;
+		this.sex = sex;
+		this.selfSex = selfSex;
 		this.grapple = grapple;
 		this.disarm = disarm;
 		this.trip = trip;
@@ -96,7 +98,8 @@ public class Attack {
 	protected int getGutCheck() { return gutcheck; }
 	protected boolean isHealing() { return healing > 0; }
 	protected int getHealing() { return healing; }
-	protected int getLust() { return lust; }
+	protected SexualExperience getSex() { return sex; }
+	protected SexualExperience getSelfSex() { return selfSex; }
 	protected GrappleStatus getGrapple() { return grapple; }
 	protected int getDisarm() { return disarm; }
 	protected int getTrip() { return trip; }

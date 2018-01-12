@@ -1,6 +1,7 @@
 package com.majalis.character;
 
 import com.badlogic.gdx.utils.Array;
+import com.majalis.character.SexualExperience.SexualExperienceBuilder;
 import com.majalis.character.Stance;
 import com.majalis.technique.AttackTechnique;
 import com.majalis.technique.ClimaxTechnique;
@@ -98,10 +99,10 @@ public enum Techniques {
 	LICK_LIPS			(new NonAttackTechnique(Stance.NULL, Stance.NULL, "Lick Lips", -1, -1).build()),
 	PREPARE_OILS		(new NonAttackTechnique(Stance.NULL, Stance.NULL, "Prepare Oils", -1, -1).build()),
 	LUBE_UP				(new NonAttackTechnique(Stance.NULL, Stance.NULL, "Lube Up", -1, -1).build()),
-	HARDEN				(new NonAttackTechnique(Stance.NULL, Stance.NULL, "Harden", -5, 0, true).build()), 
+	HARDEN				(new NonAttackTechnique(Stance.NULL, Stance.NULL, "Harden", -5, 0).addSelfSex(new SexualExperienceBuilder().setAssTeasing(4)).build()), 
 	SKEWER		 		(new GrappleTechnique(Stance.HOLDING, Stance.CRUSHING, "Skewer", 2, Stance.PENETRATED).build()), 
 	SCREW		 		(new GrappleTechnique(Stance.CRUSHING, Stance.CRUSHING, "Screw", 2, Stance.PENETRATED).build()), 
-	FERTILIZE 			(new ClimaxTechnique   (Stance.CRUSHING, Stance.CRUSHING, "Fertilize", Stance.PENETRATED, ClimaxType.ANAL).build()),
+	FERTILIZE 			(new ClimaxTechnique(Stance.CRUSHING, Stance.CRUSHING, "Fertilize", Stance.PENETRATED, ClimaxType.ANAL).build()),
 	PLUG 				(new NonAttackTechnique(Stance.CRUSHING, Stance.CRUSHING, "Plug", 0, 0, Stance.SPREAD).build()),
 	
 	LICK_LIPS_HOLDING  	(new GrappleTechnique(Stance.HOLDING, Stance.HOLDING, "Lick Lips", -1, Stance.HELD, GrappleType.WIN).build()),
@@ -190,9 +191,9 @@ public enum Techniques {
 	
 	RECEIVE_DOGGY		(new EroticTechnique(Stance.DOGGY_BOTTOM, Stance.DOGGY_BOTTOM, "Receive", -1, 0, "Take it up the butt.").build()), 
 	RECEIVE_PRONE_BONE	(new EroticTechnique(Stance.PRONE_BONE_BOTTOM, Stance.PRONE_BONE_BOTTOM, "Receive", -1, 0, "Take it up the butt.").build()), 
-	SELF_SPANK			(new EroticTechnique(Stance.DOGGY_BOTTOM, Stance.DOGGY_BOTTOM, "Self Spank", -1, 0, "Spank your own ass as a taunt.", true).build()), 
+	SELF_SPANK			(new EroticTechnique(Stance.DOGGY_BOTTOM, Stance.DOGGY_BOTTOM, "Self Spank", -1, 0, "Spank your own ass as a taunt.").addSelfSex(new SexualExperienceBuilder().setAnal(1)).addSex(new SexualExperienceBuilder().setAnalSexTop(1)).build()), 
 	RECEIVE_ANAL		(new EroticTechnique(Stance.ANAL_BOTTOM, Stance.ANAL_BOTTOM, "Receive", -1, 0, "Take it face to face.").build()), 
-	WRAP_LEGS			(new EroticTechnique(Stance.ANAL_BOTTOM, Stance.ANAL_BOTTOM, "Wrap Legs", -1, 0, "Wrap your legs around them.", true).build()), 
+	WRAP_LEGS			(new EroticTechnique(Stance.ANAL_BOTTOM, Stance.ANAL_BOTTOM, "Wrap Legs", -1, 0, "Wrap your legs around them.").addSelfSex(new SexualExperienceBuilder().setAnal(1)).addSex(new SexualExperienceBuilder().setAnalSexTop(2)).build()), 
 	POUT				(new EroticTechnique(Stance.ANAL_BOTTOM, Stance.ANAL_BOTTOM, "Pout", -1, 0, "Make a pathetic face.").build()), 
 	RECEIVE_STANDING	(new EroticTechnique(Stance.STANDING_BOTTOM, Stance.STANDING_BOTTOM, "Receive", -1, 0, "Take it up the butt.").build()), 
 	RECIPROCATE_FORCED	(new EroticTechnique(Stance.SIXTY_NINE_BOTTOM, Stance.SIXTY_NINE_BOTTOM, "Reciprocate", -1, 0, "Give head and take it.").build()), 
@@ -227,7 +228,7 @@ public enum Techniques {
 	
 	STRUGGLE_GROUND		(new GrappleTechnique(Stance.GROUND_WRESTLE_FACE_DOWN, Stance.GROUND_WRESTLE_FACE_DOWN, "Struggle", 5, GrappleType.ADVANTAGE).build()),
 	BREAK_FREE_GROUND	(new GrappleTechnique(Stance.GROUND_WRESTLE_FACE_DOWN, Stance.PRONE, "Struggle", 0, Stance.PRONE, GrappleType.BREAK).build()), // Break hold
-	GRIND				(new GrappleTechnique(Stance.GROUND_WRESTLE_FACE_DOWN, Stance.GROUND_WRESTLE_FACE_DOWN, "Grind", 0, GrappleType.SUBMIT).setSeduce().build()),
+	GRIND				(new GrappleTechnique(Stance.GROUND_WRESTLE_FACE_DOWN, Stance.GROUND_WRESTLE_FACE_DOWN, "Grind", 0, GrappleType.SUBMIT).addSelfSex(new SexualExperienceBuilder().setAssBottomTeasing(1)).addSex(new SexualExperienceBuilder().setAssTeasing(1)).build()),
 	REST_GROUND_DOWN	(new GrappleTechnique(Stance.GROUND_WRESTLE_FACE_DOWN, Stance.GROUND_WRESTLE_FACE_DOWN, "Rest", -1, GrappleType.SUBMIT).build()),	
 	
 	STRUGGLE_GROUND_UP	(new GrappleTechnique(Stance.GROUND_WRESTLE_FACE_UP, Stance.GROUND_WRESTLE_FACE_UP, "Grapple", 4, GrappleType.ADVANTAGE).build()),
@@ -265,7 +266,7 @@ public enum Techniques {
 	RECKLESS_ATTACK 	(new AttackTechnique(Stance.OFFENSIVE, Stance.OFFENSIVE, "Assault", 2, 3, 6, false).addBonus(BonusCondition.STRENGTH_OVERPOWER, BonusType.KNOCKDOWN, 1).build(), 3), // unguardable
 	KNOCK_DOWN 			(new AttackTechnique(Stance.OFFENSIVE, Stance.OFFENSIVE, "Overrun", -2, 3, 6, 1).addBonus(BonusCondition.SKILL_LEVEL, BonusType.KNOCKDOWN, 1).build(), 3), 
 	SLIDE				(new NonAttackTechnique(Stance.BALANCED, Stance.KNEELING, "Slide", 1, 4, TechniqueHeight.LOW).addBonus(BonusCondition.ENEMY_LOW_STABILITY, BonusType.TRIP, 80).addBonus(BonusCondition.OUTMANEUVER, BonusType.TRIP, 20).addBonus(BonusCondition.OUTMANEUVER, BonusType.EVASION, 40).build(), 1), 
-	TAUNT 				(new NonAttackTechnique(Stance.DEFENSIVE, Stance.SEDUCTION, "Seduce", 0, 0, true).addBonus(BonusCondition.SKILL_LEVEL, BonusType.POWER_MOD, 1).build(), 2), 
+	TAUNT 				(new NonAttackTechnique(Stance.DEFENSIVE, Stance.SEDUCTION, "Seduce", 0, 0).addBonus(BonusCondition.SKILL_LEVEL, BonusType.POWER_MOD, 1).addSelfSex(new SexualExperienceBuilder().setAssBottomTeasing(1)).addSex(new SexualExperienceBuilder().setAssTeasing(1)).build(), 2), 
 	HIT_THE_DECK		(new FallDownTechnique(Stance.BALANCED, Stance.PRONE, "Hit the Deck").addBonus(BonusCondition.OUTMANEUVER, BonusType.EVASION, 50).build()), 
 	FEINT_AND_STRIKE	(new AttackTechnique(Stance.OFFENSIVE, Stance.OFFENSIVE, "Feint Strike", -1, 3, 7).addBonus(BonusCondition.OUTMANEUVER, BonusType.POWER_MOD).addBonus(BonusCondition.OUTMANEUVER, BonusType.EVASION, 25).addBonus(BonusCondition.SKILL_LEVEL, BonusType.STABILTIY_COST, 1).build(), 3), 
 	PARRY  				(new GuardTechnique(Stance.DEFENSIVE, Stance.COUNTER, "Parry", -1, 0, 0, false).addBonus(BonusCondition.SKILL_LEVEL, BonusType.PARRY, 1).addBonus(BonusCondition.OUTMANEUVER, BonusType.PARRY, 1).build(), 3),
