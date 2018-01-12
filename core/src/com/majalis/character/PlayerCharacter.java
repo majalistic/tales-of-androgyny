@@ -973,6 +973,7 @@ public class PlayerCharacter extends AbstractCharacter {
 		String spurt = "";
 		String result = null;
 		boolean weakToAnal = perks.get(Perk.WEAK_TO_ANAL.toString(), 0) > 0;
+		currentStamina -= 10;
 		
 		switch (stance) {
 			case PENETRATED:

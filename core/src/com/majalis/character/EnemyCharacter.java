@@ -1018,6 +1018,7 @@ public class EnemyCharacter extends AbstractCharacter {
 	protected String climax() {
 		Array<String> results = new Array<String>();	
 		arousal.climax(stance.getClimaxType());
+		currentStamina -= 10;
 		switch (oldStance) {
 			case ANAL:
 				results.add("The " + getLabel() + "'s lovemaking reaches a climax!");
