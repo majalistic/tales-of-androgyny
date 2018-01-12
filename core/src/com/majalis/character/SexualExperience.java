@@ -1,5 +1,7 @@
 package com.majalis.character;
 
+import com.majalis.character.AbstractCharacter.PhallusType;
+
 public class SexualExperience {
 
 	private final int analSexTop;
@@ -137,6 +139,27 @@ public class SexualExperience {
 		
 		public boolean isTeasing() { return assTeasing > 0 || assBottomTeasing > 0 || mouthTeasing > 0 || assBottomTeasing > 0; }
 		
+		public SexualExperienceBuilder setPhallusType(PhallusType phallusType) {
+			switch(phallusType) {
+				case BIRD:
+					bird = true;
+					break;
+				case DOG:
+					knot = true;
+					break;
+				case GIANT:
+					ogre = true;
+					break;
+				case HORSE:
+					horse = true;
+					break;
+				default:
+					break;
+			}
+			
+			return this;
+		}
+		
 		public void combine(SexualExperienceBuilder addedBuilder) {
 			this.analSexTop += addedBuilder.analSexTop;
 			this.oralSexTop += addedBuilder.oralSexTop;
@@ -161,8 +184,6 @@ public class SexualExperience {
 		public SexualExperience build() {
 			return new SexualExperience(analSexTop, oralSexTop, analSex, anal, creampies, analEjaculation, oralSex, oral, oralCreampies, fellatioEjaculation, 0, 0, assTeasing, assBottomTeasing, mouthTeasing, mouthBottomTeasing, horse, ogre, false, false, bird, knot);
 		}
-
-			
 	}
 	
 	protected SexualExperience() { this(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, false, false, false, false, false, false); }

@@ -63,11 +63,19 @@ public class Arousal {
 		climaxArousalAmount += sex.getOralCreampies() * oralBottomMod;
 		climaxArousalAmount += sex.getAnalSexTop() * topMod;
 		climaxArousalAmount += sex.getOralSexTop() * topMod;
+		climaxArousalAmount *= !sex.isCentaurSex() ? 1 : perks.get(Perk.EQUESTRIAN.toString(), 0) * .5 + 1;
+		climaxArousalAmount *= !sex.isOgreSex() ? 1 : perks.get(Perk.SIZE_QUEEN.toString(), 0) * .5 + 1;
+		climaxArousalAmount *= !sex.isBird() ? 1 : perks.get(Perk.CUCKOO_FOR_CUCKOO.toString(), 0) * .5 + 1;
+		climaxArousalAmount *= !sex.isKnot() ? 1 : perks.get(Perk.BITCH.toString(), 0) * .5 + 1;				
 		arousalAmount += sex.getAssBottomTeasing() * analBottomMod;
 		arousalAmount += sex.getMouthBottomTeasing() * oralBottomMod;
 		arousalAmount += sex.getAssTeasing() * topMod;
 		arousalAmount += sex.getMouthTeasing() * topMod;
-		
+		arousalAmount *= !sex.isCentaurSex() ? 1 : perks.get(Perk.EQUESTRIAN.toString(), 0) * .5 + 1;
+		arousalAmount *= !sex.isOgreSex() ? 1 : perks.get(Perk.SIZE_QUEEN.toString(), 0) * .5 + 1;
+		arousalAmount *= !sex.isBird() ? 1 : perks.get(Perk.CUCKOO_FOR_CUCKOO.toString(), 0) * .5 + 1;
+		arousalAmount *= !sex.isKnot() ? 1 : perks.get(Perk.BITCH.toString(), 0) * .5 + 1;				
+				
 		arousal += climaxArousalAmount;
 		if (!isErect()) arousal += arousalAmount; 
 			

@@ -108,7 +108,16 @@ public enum EnemyEnum {
     	}
     	return textureImagePaths; 
     }
-    protected PhallusType getPhallusType() { return this == BRIGAND || this == BEASTMISTRESS || this == GHOST || this == BUNNY ? PhallusType.NORMAL : this == ANGEL ? PhallusType.NONE : this == ADVENTURER ? PhallusType.SMALL : PhallusType.MONSTER; }
+    protected PhallusType getPhallusType() { 
+    	return this == BRIGAND || this == BEASTMISTRESS || this == GHOST || this == BUNNY ? PhallusType.NORMAL : 
+    		this == ANGEL ? PhallusType.NONE : 
+    		this == ADVENTURER ? PhallusType.SMALL : 
+    		this == WERESLUT ? PhallusType.DOG :
+    		this == HARPY ? PhallusType.BIRD : 
+    		this == OGRE ? PhallusType.GIANT :
+    		this == CENTAUR || this == UNICORN ? PhallusType.HORSE :
+    		PhallusType.MONSTER; 
+    }
     protected PronounSet getPronounSet() { return this == ADVENTURER || this == OGRE || this == GOBLIN_MALE ? PronounSet.MALE : PronounSet.FEMALE; }
     
     protected AnimationEnum getAnimation() { return animation; }

@@ -362,7 +362,7 @@ public abstract class AbstractCharacter extends Actor {
 	}
 	
 	protected CharacterState getCurrentState(AbstractCharacter target) {		
-		return new CharacterState(getStats(), getRawStats(), weapon, shield, stability.lowBalance(), currentMana, enemyType == null ? true : enemyType.isCorporeal(), this, target);
+		return new CharacterState(getStats(), getRawStats(), weapon, shield, stability.lowBalance(), currentMana, enemyType == null ? true : enemyType.isCorporeal(), enemyType == null ? PhallusType.SMALL : enemyType.getPhallusType(), this, target);
 	}
 	
 	protected boolean alreadyIncapacitated() {
@@ -1152,6 +1152,10 @@ public abstract class AbstractCharacter extends Actor {
 		SMALL(AssetEnum.SMALL_DONG_0, AssetEnum.SMALL_DONG_1, AssetEnum.SMALL_DONG_2, AssetEnum.SMALL_DONG_CHASTITY),
 		NORMAL(AssetEnum.LARGE_DONG_0, AssetEnum.LARGE_DONG_1, AssetEnum.LARGE_DONG_2),
 		MONSTER(AssetEnum.MONSTER_DONG_0, AssetEnum.MONSTER_DONG_1, AssetEnum.MONSTER_DONG_2), 
+		DOG(AssetEnum.MONSTER_DONG_0, AssetEnum.MONSTER_DONG_1, AssetEnum.MONSTER_DONG_2), 
+		HORSE(AssetEnum.MONSTER_DONG_0, AssetEnum.MONSTER_DONG_1, AssetEnum.MONSTER_DONG_2), 
+		BIRD(AssetEnum.MONSTER_DONG_0, AssetEnum.MONSTER_DONG_1, AssetEnum.MONSTER_DONG_2), 
+		GIANT(AssetEnum.MONSTER_DONG_0, AssetEnum.MONSTER_DONG_1, AssetEnum.MONSTER_DONG_2), 
 		NONE(AssetEnum.NULL, AssetEnum.NULL, AssetEnum.NULL);
 		private final Array<AssetEnum> phallusStates;
 

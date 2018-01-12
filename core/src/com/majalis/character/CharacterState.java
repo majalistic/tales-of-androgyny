@@ -2,6 +2,7 @@ package com.majalis.character;
 
 import com.badlogic.gdx.utils.ObjectMap;
 import com.majalis.character.Stance;
+import com.majalis.character.AbstractCharacter.PhallusType;
 import com.majalis.character.AbstractCharacter.Stat;
 import com.majalis.character.Item.Weapon;
 
@@ -16,11 +17,12 @@ public class CharacterState {
 	private final boolean enemyLowStability;
 	private final boolean enemyOnGround;
 	private final boolean isCorporeal;
+	private final PhallusType phallusType;
 	private final GrappleStatus grappleStatus;
 	private final AbstractCharacter user;
 	
 	// will likely need stats with and without stepdowns, or will need to implement stepdown here as well
-	public CharacterState(ObjectMap<Stat, Integer> stats, ObjectMap<Stat, Integer> rawStats, Weapon weapon, Armor shield, boolean lowBalance, int currentMana, boolean isCorporeal, AbstractCharacter user, AbstractCharacter target) {
+	protected CharacterState(ObjectMap<Stat, Integer> stats, ObjectMap<Stat, Integer> rawStats, Weapon weapon, Armor shield, boolean lowBalance, int currentMana, boolean isCorporeal, PhallusType phallusType, AbstractCharacter user, AbstractCharacter target) {
 		this.stats = stats;
 		this.rawStats = rawStats;
 		this.weapon = weapon;
@@ -37,60 +39,33 @@ public class CharacterState {
 		}
 		this.grappleStatus = user.getGrappleStatus();
 		this.isCorporeal = isCorporeal;
+		this.phallusType = phallusType;
 		this.user = user;
 	}
 
-	public int getStat(Stat stat) {
-		return stats.get(stat);
-	}
+	protected int getStat(Stat stat) { return stats.get(stat); }
 	
-	public int getRawStat(Stat stat) {
-		return rawStats.get(stat);
-	}
+	protected int getRawStat(Stat stat) { return rawStats.get(stat); }
 	
-	public ObjectMap<Stat, Integer> getStats() {
-		return stats;
-	}
+	protected ObjectMap<Stat, Integer> getStats() { return stats; }
 	
-	public Weapon getWeapon() {
-		return weapon;
-	}
+	protected Weapon getWeapon() { return weapon; }
 	
-	public int getShieldScore() {
-		return shield != null ? shield.getShockAbsorption() : 0;
-	}
+	protected int getShieldScore() { return shield != null ? shield.getShockAbsorption() : 0; }
 	
-	public boolean lowBalance() {
-		return lowBalance;
-	}
+	protected boolean lowBalance() { return lowBalance; }
 	
-	public int getMana() {
-		return currentMana;
-	}
-	
-	/* //for character effects that would give + guardMod
-	public int getGuardMod() {
-		// TODO Auto-generated method stub
-		return 0;
-	}*/
+	protected int getMana() { return currentMana; }
 
-	public boolean getEnemyLowStability() {
-		return enemyLowStability;
-	}
+	protected boolean getEnemyLowStability() { return enemyLowStability; }
 
-	public boolean isEnemyOnGround() {
-		return enemyOnGround;
-	}
+	protected boolean isEnemyOnGround() { return enemyOnGround; }
 
-	public GrappleStatus getGrappleStatus() {
-		return grappleStatus;
-	}
+	protected GrappleStatus getGrappleStatus() { return grappleStatus; }
 	
-	public AbstractCharacter getCharacter() {
-		return user;
-	}
+	protected PhallusType getPhallusType() { return phallusType; }
+	
+	protected AbstractCharacter getCharacter() { return user; }
 
-	public boolean isCorporeal() {
-		return isCorporeal;
-	}
+	protected boolean isCorporeal() { return isCorporeal; }
 }

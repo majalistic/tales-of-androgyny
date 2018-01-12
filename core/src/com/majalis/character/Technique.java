@@ -5,6 +5,7 @@ import java.util.Comparator;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.majalis.character.Stance;
+import com.majalis.character.AbstractCharacter.PhallusType;
 import com.majalis.character.AbstractCharacter.Stat;
 import com.majalis.character.Attack.AttackHeight;
 import com.majalis.character.Attack.Status;
@@ -161,8 +162,8 @@ public class Technique {
 			thisPayload.getArmorSunder(), 
 			thisPayload.getTotalPower() * thisPayload.getGutCheck(), 
 			technique.isHealing() ? thisPayload.getTotalPower() : 0,
-			thisPayload.getSex().increaseTeasing(thisPayload.getTotalPower()).build(), // the sex they'll receive
-			otherPayload.getSelfSex().build(), // their sex
+			thisPayload.getSex().setPhallusType(thisPayload.getPhallusType()).increaseTeasing(thisPayload.getTotalPower()).build(), // the sex they'll receive
+			otherPayload.getSelfSex().setPhallusType(thisPayload.getPhallusType()).build(), // their sex
 			grappleResult,
 			otherTechnique.isBlockable() ? thisPayload.getDisarm() : 0,
 			thisPayload.getTrip(),
@@ -404,9 +405,8 @@ public class Technique {
 		}
 		
 		public SexualExperienceBuilder getSelfSex() { return technique.getSelfSex(); }
-
 		public SexualExperienceBuilder getSex() { return technique.getSex(); }
-
+		public PhallusType getPhallusType() { return currentState.getPhallusType(); }
 		public GrappleStatus getCurrentGrappleStatus() { return currentState.getGrappleStatus(); }
 		private int getStaminaCost() { return staminaCost; }
 		private int getStabilityCost() { return stabilityCost; }
