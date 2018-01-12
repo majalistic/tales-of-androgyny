@@ -93,6 +93,7 @@ public class WorldMapScreen extends AbstractScreen {
 	private final Skin skin;
 	private final Texture hoverImageTexture;
 	private final Image hoverImage;
+	private final Label levelLabel;
 	private final Label healthLabel;
 	private final Label dateLabel;
 	private final Label timeLabel;
@@ -184,6 +185,7 @@ public class WorldMapScreen extends AbstractScreen {
 		skin = assetManager.get(AssetEnum.UI_SKIN.getSkin());
 		campButton = new TextButton("", skin);
 		
+		levelLabel = new Label("", skin);		
 		// these should be updated with emitters
 		healthLabel = new Label("", skin);
 		dateLabel = new Label("", skin);
@@ -256,6 +258,7 @@ public class WorldMapScreen extends AbstractScreen {
 	}
 	
 	private void mutateLabels() {
+		levelLabel.setText("Level: " + character.getLevel());
 		healthLabel.setText(String.valueOf(character.getCurrentHealth()));
 		dateLabel.setText("Day: " + (time / 6 + 1));
 		timeLabel.setText(getTime());
@@ -286,6 +289,7 @@ public class WorldMapScreen extends AbstractScreen {
 		hoverImage.setVisible(false);
 		hoverImage.setBounds(1500, 5, 400, 300);
 		
+		addLabel(uiGroup, levelLabel, 190, 190, Color.LIGHT_GRAY);
 		addLabel(uiGroup, healthLabel, 310, 130, Color.WHITE);
 		addLabel(uiGroup, dateLabel, 360,  140, Color.WHITE);
 		addLabel(uiGroup, timeLabel, 380,  115, Color.WHITE);
