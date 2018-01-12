@@ -1392,6 +1392,12 @@ public class PlayerCharacter extends AbstractCharacter {
 		if (staminaDegradation > 0) {
 			display += "Low stamina: -" + staminaDegradation + " STR, AGI\n";
 		}
+		
+		int lustDegradation = getLustDegradation();
+		if (lustDegradation > 0) {
+			display += "High lust: -" + lustDegradation + " STR\n";
+		}
+		
 		int cumFilled = getCumInflation();
 		if (cumFilled > 0) {
 			display += "Too full of cum: -" + cumFilled + " AGI\n";
