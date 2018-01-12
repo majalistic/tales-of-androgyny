@@ -700,20 +700,13 @@ public abstract class AbstractCharacter extends Actor {
 				SexualExperience sex = attack.getSex();
 				SexualExperience selfSex = attack.getSelfSex();
 	
-				if (!sex.isEmpty()) {
+				if (!sex.isEmpty() || !selfSex.isEmpty()) {
 					int formerLust = arousal.getLust();
-					
-					String lustIncrease = increaseLust(sex);
+					String lustIncrease = increaseLust(sex, selfSex);
 					if (lustIncrease != null) result.add(lustIncrease);
 					int lustChange = arousal.getLust() - formerLust;
 					if (sex.isTeasing()) result.add(label + (secondPerson ? " are seduced" : " is seduced") + "! " + (lustChange > 0 ? ((secondPerson ? " Your " : " Their ") + "lust raises by " + lustChange + "!") : (secondPerson ? " You " : " They ") + " cum!"));
-					
 				}	
-				if (!selfSex.isEmpty()) {
-					String lustIncrease = increaseLust(sex);
-					lustIncrease = increaseLust(selfSex);
-					if (lustIncrease != null) result.add(lustIncrease);
-				}
 			}
 			
 			String internalShotText = null;
@@ -766,9 +759,9 @@ public abstract class AbstractCharacter extends Actor {
 		return results;
 	}
 	
-	protected String increaseLust(SexualExperience sex) {
+	protected String increaseLust(SexualExperience ... sexes) {
 		String spurt = "";
-		arousal.increaseArousal(sex, perks);
+		arousal.increaseArousal(sexes, perks);
 		if (arousal.isClimax() && stance.isEroticReceptive()) {
 			spurt = climax();
 		}

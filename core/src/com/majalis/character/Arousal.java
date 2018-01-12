@@ -47,37 +47,44 @@ public class Arousal {
 	// need to also know whether you're being aroused by creampie or not
 	// this accepts a raw increase amount that's the "size" of the arousal increase, which is then modified by current lust and ArousalLevel - may also need additional information like type of Arousal (anal stimulation, oral stimulation, bottom, top, etc.)
 	protected void increaseArousal(SexualExperience sex, ObjectMap<String, Integer> perks) {
+		increaseArousal(new SexualExperience[]{sex}, perks);
+	}
+	
+	public void increaseArousal(SexualExperience[] sexes, ObjectMap<String, Integer> perks) {
 		if (type == ArousalType.SEXLESS) return;
+		int climaxArousalAmount = 0;
+		int arousalAmount = 0;
 		int base = getBase();
 		int analBottomMod = getAnalBottomMod(perks, base);
 		int oralBottomMod = getOralBottomMod(perks, base);
 		int topMod = getTopMod(perks, base);
-		int climaxArousalAmount = 0;
-		int arousalAmount = 0;
-		// currently does not count creampies or ejaculations
-		climaxArousalAmount += sex.getAnalSex() * analBottomMod; // this should be doubled for penetration?
-		climaxArousalAmount += sex.getAnal() * analBottomMod;
-		climaxArousalAmount += sex.getCreampies() * analBottomMod;
-		climaxArousalAmount += sex.getOralSex() * oralBottomMod;
-		climaxArousalAmount += sex.getOral() * oralBottomMod;
-		climaxArousalAmount += sex.getOralCreampies() * oralBottomMod;
-		climaxArousalAmount += sex.getAnalSexTop() * topMod;
-		climaxArousalAmount += sex.getOralSexTop() * topMod;
-		climaxArousalAmount *= !sex.isCentaurSex() ? 1 : perks.get(Perk.EQUESTRIAN.toString(), 0) * .5 + 1;
-		climaxArousalAmount *= !sex.isOgreSex() ? 1 : perks.get(Perk.SIZE_QUEEN.toString(), 0) * .5 + 1;
-		climaxArousalAmount *= !sex.isBird() ? 1 : perks.get(Perk.CUCKOO_FOR_CUCKOO.toString(), 0) * .5 + 1;
-		climaxArousalAmount *= !sex.isKnot() ? 1 : perks.get(Perk.BITCH.toString(), 0) * .5 + 1;				
-		arousalAmount += sex.getAssBottomTeasing() * analBottomMod;
-		arousalAmount += sex.getMouthBottomTeasing() * oralBottomMod;
-		arousalAmount += sex.getAssTeasing() * topMod;
-		arousalAmount += sex.getMouthTeasing() * topMod;
-		arousalAmount *= !sex.isCentaurSex() ? 1 : perks.get(Perk.EQUESTRIAN.toString(), 0) * .5 + 1;
-		arousalAmount *= !sex.isOgreSex() ? 1 : perks.get(Perk.SIZE_QUEEN.toString(), 0) * .5 + 1;
-		arousalAmount *= !sex.isBird() ? 1 : perks.get(Perk.CUCKOO_FOR_CUCKOO.toString(), 0) * .5 + 1;
-		arousalAmount *= !sex.isKnot() ? 1 : perks.get(Perk.BITCH.toString(), 0) * .5 + 1;				
-				
-		arousal += climaxArousalAmount;
-		if (!isErect() || sex.isSex()) arousal += arousalAmount; 
+		for (SexualExperience sex : sexes) {
+			// currently does not count creampies or ejaculations
+			climaxArousalAmount += sex.getAnalSex() * analBottomMod; // this should be doubled for penetration?
+			climaxArousalAmount += sex.getAnal() * analBottomMod;
+			climaxArousalAmount += sex.getCreampies() * analBottomMod;
+			climaxArousalAmount += sex.getOralSex() * oralBottomMod;
+			climaxArousalAmount += sex.getOral() * oralBottomMod;
+			climaxArousalAmount += sex.getOralCreampies() * oralBottomMod;
+			climaxArousalAmount += sex.getAnalSexTop() * topMod;
+			climaxArousalAmount += sex.getOralSexTop() * topMod;
+			climaxArousalAmount *= !sex.isCentaurSex() ? 1 : perks.get(Perk.EQUESTRIAN.toString(), 0) * .5 + 1;
+			climaxArousalAmount *= !sex.isOgreSex() ? 1 : perks.get(Perk.SIZE_QUEEN.toString(), 0) * .5 + 1;
+			climaxArousalAmount *= !sex.isBird() ? 1 : perks.get(Perk.CUCKOO_FOR_CUCKOO.toString(), 0) * .5 + 1;
+			climaxArousalAmount *= !sex.isKnot() ? 1 : perks.get(Perk.BITCH.toString(), 0) * .5 + 1;				
+			arousalAmount += sex.getAssBottomTeasing() * analBottomMod;
+			arousalAmount += sex.getMouthBottomTeasing() * oralBottomMod;
+			arousalAmount += sex.getAssTeasing() * topMod;
+			arousalAmount += sex.getMouthTeasing() * topMod;
+			arousalAmount *= !sex.isCentaurSex() ? 1 : perks.get(Perk.EQUESTRIAN.toString(), 0) * .5 + 1;
+			arousalAmount *= !sex.isOgreSex() ? 1 : perks.get(Perk.SIZE_QUEEN.toString(), 0) * .5 + 1;
+			arousalAmount *= !sex.isBird() ? 1 : perks.get(Perk.CUCKOO_FOR_CUCKOO.toString(), 0) * .5 + 1;
+			arousalAmount *= !sex.isKnot() ? 1 : perks.get(Perk.BITCH.toString(), 0) * .5 + 1;				
+					
+			arousal += climaxArousalAmount;
+			if (!isErect() || sex.isSex()) arousal += arousalAmount; 
+		}
+		
 			
 		modLust(arousalAmount + climaxArousalAmount);	
 		
@@ -96,7 +103,7 @@ public class Arousal {
 		int analBottomMod = getAnalBottomMod(perks, base);
 		int oralBottomMod = getOralBottomMod(perks, base);
 		int topMod = getTopMod(perks, base);
-		modLust(-25 * (climaxType == ClimaxType.ANAL_RECEPTIVE ? analBottomMod / (1 + perks.get(Perk.WEAK_TO_ANAL.toString(), 0)) : climaxType == ClimaxType.ORAL_RECEPTIVE ? oralBottomMod : topMod));		
+		modLust(-25 * (climaxType == ClimaxType.ANAL_RECEPTIVE ? analBottomMod / (1 + perks.get(Perk.WEAK_TO_ANAL.toString(), 0)) : climaxType == ClimaxType.ORAL_RECEPTIVE ? oralBottomMod : topMod));
 	} 
 	
 	private int getBase() { return type == ArousalType.PLAYER ? 2 : 4; }
@@ -117,4 +124,6 @@ public class Arousal {
 	protected void setArousalLevel(ArousalLevel newArousalLevel) { arousalLevel = newArousalLevel; }
 
 	protected int getLust() { return lust / 4; }
+
+	
 }
