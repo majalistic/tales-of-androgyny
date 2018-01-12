@@ -1235,6 +1235,7 @@ public class PlayerCharacter extends AbstractCharacter {
 	// this needs to properly increase arousal
 	public Array<MutationResult> receiveSex(SexualExperience sex) {
 		Array<MutationResult> result = new Array<MutationResult>();
+		arousal.increaseArousal(sex, perks);
 		for (int ii = 0; ii < sex.getAnalSex(); ii++) {
 			result.addAll(receiveAnal());
 			setCurrentPortrait(perks.get(Perk.ANAL_ADDICT.toString(), 0) > 1 ? AssetEnum.PORTRAIT_LUST : AssetEnum.PORTRAIT_HIT);
@@ -1250,7 +1251,7 @@ public class PlayerCharacter extends AbstractCharacter {
 		for (int ii = 0; ii < sex.getAnalSexTop(); ii++) {
 			if (perks.get(Perk.TOP.toString(), 0) != 10) {
 				result.add(new MutationResult("You gained " + Perk.TOP.getLabel() + " (Rank " + (perks.get(Perk.TOP.toString(), 0) + 1) + ")!"));
-				perks.put(Perk.TOP.toString(), ((int)perks.get(Perk.TOP.toString(), 0)) + 1);
+				perks.put(Perk.TOP.toString(), ((int)perks.get(Perk.TOP.toString(), 0)) + 1);	
 			}
 		}
 		
