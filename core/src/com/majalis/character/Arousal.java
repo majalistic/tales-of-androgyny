@@ -42,38 +42,33 @@ public class Arousal {
 	protected boolean isClimax() { return arousalLevel == ArousalLevel.CLIMAX; }
 	protected boolean isEdging() { return arousalLevel == ArousalLevel.EDGING; }
 	protected boolean isSuperEdging() { return arousalLevel == ArousalLevel.EDGING && arousal > 3; }
-	
-	protected void increaseArousal(int increaseAmount, ObjectMap<String, Integer> perks, ClimaxType climaxType) {
-		increaseArousal(increaseAmount, perks, climaxType, false);
-	}
-	
-	private int getTypeArousalMod(ObjectMap<String, Integer> perks, ClimaxType climaxType) {
-		int base = type == ArousalType.PLAYER ? 2 : 4;
-		switch (climaxType) {
-			case ANAL_RECEPTIVE:
-				return (base + perks.get(Perk.ANAL_ADDICT.toString(), 0) + perks.get(Perk.COCK_LOVER.toString(), 0) / 3) * (1 + perks.get(Perk.WEAK_TO_ANAL.toString(), 0));
-			case ORAL_RECEPTIVE:
-				return base + perks.get(Perk.MOUTH_MANIAC.toString(), 0) + perks.get(Perk.COCK_LOVER.toString(), 0) / 3;
-			case ORAL:
-			case ANAL:
-				return base + perks.get(Perk.TOP.toString(), 0);
-			case NULL:
-			case BACKWASH:
-			case FACIAL:
-			default:
-				return base;
-		}
-	}
-	
+
 	// need to also know whether you're being aroused by creampie or not
 	// this accepts a raw increase amount that's the "size" of the arousal increase, which is then modified by current lust and ArousalLevel - may also need additional information like type of Arousal (anal stimulation, oral stimulation, bottom, top, etc.)
-	protected void increaseArousal(int increaseAmount, ObjectMap<String, Integer> perks, ClimaxType climaxType, boolean causesClimax) {
+	protected void increaseArousal(SexualExperience sex, ObjectMap<String, Integer> perks) {
 		if (type == ArousalType.SEXLESS) return;
-		int modArousalAmount = increaseAmount * getTypeArousalMod(perks, climaxType);		
-		// multiple increaseAmount by some value, baseline 4, reduced or increased by perks and the type
-		if (causesClimax || !isErect()) arousal += modArousalAmount; 
+		int base = type == ArousalType.PLAYER ? 2 : 4;
+		int climaxArousalAmount = 0;
+		int arousalAmount = 0;
+		int analBottomMod = (base + perks.get(Perk.ANAL_ADDICT.toString(), 0) + perks.get(Perk.COCK_LOVER.toString(), 0) / 3) * (1 + perks.get(Perk.WEAK_TO_ANAL.toString(), 0));
+		int oralBottomMod = base + perks.get(Perk.MOUTH_MANIAC.toString(), 0) + perks.get(Perk.COCK_LOVER.toString(), 0) / 3;
+		int topMod = base + perks.get(Perk.TOP.toString(), 0);
+		// currently does not count creampies or ejaculations
+		climaxArousalAmount += sex.getAnalSex() * analBottomMod; // this should be doubled for penetration?
+		climaxArousalAmount += sex.getAnal() * analBottomMod;
+		climaxArousalAmount += sex.getOralSex() * oralBottomMod;
+		climaxArousalAmount += sex.getOral() * oralBottomMod;
+		climaxArousalAmount += sex.getAnalSexTop() * topMod;
+		climaxArousalAmount += sex.getOralSexTop() * topMod;
+		arousalAmount += sex.getAssBottomTeasing() * analBottomMod;
+		arousalAmount += sex.getMouthBottomTeasing() * oralBottomMod;
+		arousalAmount += sex.getAssTeasing() * topMod;
+		arousalAmount += sex.getMouthTeasing() * topMod;
+		
+		arousal += climaxArousalAmount;
+		if (!isErect()) arousal += arousalAmount; 
 			
-		modLust(modArousalAmount);	
+		modLust(arousalAmount + climaxArousalAmount);	
 		
 		if (arousal > (type == ArousalType.OGRE ? (isErect() ? 16 : 100) : type == ArousalType.PLAYER ? getLustArousalMod() : 12)) { // && isUpgradeReady(typeOfArousal), which will check if the current ArousalLevel can have be upgraded by the type of arousal
 			if (type != ArousalType.QUETZAL || !isEdging() || arousal > 32)

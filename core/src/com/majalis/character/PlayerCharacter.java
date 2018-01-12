@@ -20,6 +20,7 @@ import com.majalis.character.Item.Plug;
 import com.majalis.character.Item.Potion;
 import com.majalis.character.Item.Weapon;
 import com.majalis.character.Item.WeaponType;
+import com.majalis.character.SexualExperience.SexualExperienceBuilder;
 import com.majalis.save.MutationResult;
 import com.majalis.save.MutationResult.MutationType;
 import com.majalis.save.SaveManager.GameOver;
@@ -644,7 +645,7 @@ public class PlayerCharacter extends AbstractCharacter {
 		if (resolvedAttack.getLust() > 0) {
 			currentPortrait = AssetEnum.PORTRAIT_GRIN.getTexture().fileName;
 			// taunt increases self lust too
-			arousal.increaseArousal(2, perks, ClimaxType.NULL); // this will depend on the type of taunt used
+			arousal.increaseArousal(new SexualExperienceBuilder().setAssBottomTeasing(3).build(), perks); // this will depend on the type of taunt used
 		}
 		
 		if (wrapLegs) {
@@ -979,7 +980,21 @@ public class PlayerCharacter extends AbstractCharacter {
 	@Override
 	protected String increaseLust(int lustIncrease) {
 		String spurt = "";
-		arousal.increaseArousal(lustIncrease, perks, stance.getClimaxType(), stance.isErotic());
+		// this is all happening separately from the perks to receiveAnal, which is happening in receiveAttack - this should all be happening in the same place
+		SexualExperienceBuilder sexBuild = new SexualExperienceBuilder();
+		// for now, if lustIncrease > 1, it's a taunt - remove this and assume that for all of these it's 1 instance
+		if (lustIncrease > 1) sexBuild.setAssBottomTeasing(lustIncrease); // this also currently assumes the taunt is from a top - does not work for Trudy's taunt, for instance
+		switch(stance.getClimaxType()) {
+			case ANAL: sexBuild.setAnalSexTop(lustIncrease); break;
+			case ANAL_RECEPTIVE: if (oldStance.getClimaxType() == ClimaxType.ANAL) sexBuild.setAnal(lustIncrease); else sexBuild.setAnalSex(lustIncrease); break;
+			case BACKWASH: sexBuild.setAssBottomTeasing(lustIncrease); break;
+			case FACIAL: 
+			case ORAL: sexBuild.setOralSexTop(lustIncrease); break;
+			case ORAL_RECEPTIVE: if (oldStance.getClimaxType() == ClimaxType.ORAL) sexBuild.setOral(lustIncrease); else sexBuild.setOralSex(lustIncrease); break;
+			default: break;
+		}
+		
+		arousal.increaseArousal(sexBuild.build(), perks);
 		if (arousal.isClimax() && stance.isEroticReceptive()) {
 			spurt = climax();
 		}
@@ -1196,7 +1211,7 @@ public class PlayerCharacter extends AbstractCharacter {
 	public void setGoblinVirginity(boolean virginity) {
 		goblinVirgin = virginity;
 		if (!goblinVirgin) {
-			receiveSex(new SexualExperience.SexualExperienceBuilder(1).build());
+			receiveSex(new SexualExperience.SexualExperienceBuilder().setAnalSex(1).build());
 		}
 	}
 	

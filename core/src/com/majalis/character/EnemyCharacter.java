@@ -16,6 +16,7 @@ import com.majalis.asset.AnimatedActor;
 import com.majalis.battle.Battle.Outcome;
 import com.majalis.character.Arousal.ArousalLevel;
 import com.majalis.character.Item.Weapon;
+import com.majalis.character.SexualExperience.SexualExperienceBuilder;
 import com.majalis.technique.ClimaxTechnique.ClimaxType;
 
 /*
@@ -125,7 +126,7 @@ public class EnemyCharacter extends AbstractCharacter {
 	public Attack doAttack(Attack resolvedAttack) {
 		// if golem uses a certain attack, it should activate her dong
 		if (resolvedAttack.getLust() > 0 && enemyType == EnemyEnum.QUETZAL) {
-			arousal.increaseArousal(4, perks, ClimaxType.NULL);
+			arousal.increaseArousal(new SexualExperienceBuilder().setAssTeasing(4).build(), perks);
 		}
 		if (enemyType == EnemyEnum.GOLEM) {
 			if (resolvedAttack.getSelfEffect() != null && resolvedAttack.getSelfEffect().type == StatusType.ACTIVATE) {
@@ -499,14 +500,14 @@ public class EnemyCharacter extends AbstractCharacter {
 		}
 		else if (enemyType == EnemyEnum.QUETZAL) {
 			if (stance == Stance.HOLDING) {
-				arousal.increaseArousal(1, perks, ClimaxType.NULL, true);
+				arousal.increaseArousal(new SexualExperienceBuilder().setAnal(1).build(), perks);
 				if (arousal.isEdging()) {
 					return getTechniques(SKEWER);
 				}
 				return getTechniques(LICK_LIPS_HOLDING);
 			}
 			if (stance.isAnalPenetration()) {
-				arousal.increaseArousal(1, perks, ClimaxType.NULL, true);
+				arousal.increaseArousal(new SexualExperienceBuilder().setAnal(1).build(), perks);
 				if (arousal.isSuperEdging()) {
 					return getTechniques(FERTILIZE);
 				}
@@ -874,7 +875,7 @@ public class EnemyCharacter extends AbstractCharacter {
 		}
 		
 		if (!arousal.isErect() || enemyType == EnemyEnum.OGRE) {
-			if (enemyType != EnemyEnum.CENTAUR && enemyType != EnemyEnum.BEASTMISTRESS && enemyType != EnemyEnum.GOLEM && enemyType != EnemyEnum.QUETZAL) arousal.increaseArousal(1, perks, ClimaxType.NULL);
+			if (enemyType != EnemyEnum.CENTAUR && enemyType != EnemyEnum.BEASTMISTRESS && enemyType != EnemyEnum.GOLEM && enemyType != EnemyEnum.QUETZAL) arousal.increaseArousal(new SexualExperienceBuilder().setAssTeasing(1).build() ,perks);
 		}
 		
 		Array<Techniques> possibleTechniques = getPossibleTechniques(target, stance);
@@ -1280,10 +1281,7 @@ public class EnemyCharacter extends AbstractCharacter {
 
 	@Override
 	protected String increaseLust() {
-		if (stance.isAnalReceptive()) {
-			return increaseLust(2);
-		}
-		else if (stance.isEroticPenetration() || stance.isOralReceptive()) {
+		if (stance.isErotic()) {
 			return increaseLust(1);
 		}
 		return null;
@@ -1293,7 +1291,19 @@ public class EnemyCharacter extends AbstractCharacter {
 	protected String increaseLust(int lustIncrease) {
 		String spurt = "";
 		if ((enemyType != EnemyEnum.GOLEM || arousal.isErect()) && enemyType != EnemyEnum.QUETZAL) {
-			arousal.increaseArousal(lustIncrease, perks, stance.getClimaxType(), stance.isErotic());
+			SexualExperienceBuilder sexBuild = new SexualExperienceBuilder();
+			// for now, if lustIncrease > 1, it's a taunt - remove this and assume that for all of these it's 1 instance
+			if (lustIncrease > 1) sexBuild.setAssTeasing(lustIncrease); // this also currently assumes the taunt is from a bottom
+			switch(stance.getClimaxType()) {
+				case ANAL: sexBuild.setAnalSexTop(lustIncrease); break;
+				case ANAL_RECEPTIVE: if (oldStance.getClimaxType() == ClimaxType.ANAL) sexBuild.setAnal(lustIncrease); else sexBuild.setAnalSex(lustIncrease); break;
+				case BACKWASH: sexBuild.setAssBottomTeasing(lustIncrease); break;
+				case FACIAL: 
+				case ORAL: sexBuild.setOralSexTop(lustIncrease); break;
+				case ORAL_RECEPTIVE: if (oldStance.getClimaxType() == ClimaxType.ORAL) sexBuild.setOral(lustIncrease); else sexBuild.setOralSex(lustIncrease); break;
+				default: break;
+			}
+			arousal.increaseArousal(sexBuild.build(), perks);
 		}
 		if (arousal.isClimax() && stance.isEroticReceptive()) {
 			spurt = climax();
