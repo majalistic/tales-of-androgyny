@@ -202,9 +202,9 @@ public enum Techniques {
 	
 	RECEIVE_DOGGY		(new EroticTechnique(Stance.DOGGY_BOTTOM, Stance.DOGGY_BOTTOM, "Receive", -1, 0, "Take it up the butt.").build()), 
 	RECEIVE_PRONE_BONE	(new EroticTechnique(Stance.PRONE_BONE_BOTTOM, Stance.PRONE_BONE_BOTTOM, "Receive", -1, 0, "Take it up the butt.").build()), 
-	SELF_SPANK			(new EroticTechnique(Stance.DOGGY_BOTTOM, Stance.DOGGY_BOTTOM, "Self Spank", -1, 0, "Spank your own ass as a taunt.").addSelfSex(new SexualExperienceBuilder().setAnal(1)).addSex(new SexualExperienceBuilder().setAnalSexTop(1)).build()), 
+	SELF_SPANK			(new EroticTechnique(Stance.DOGGY_BOTTOM, Stance.DOGGY_BOTTOM, "Self Spank", -1, 0, "Spank your own ass as a taunt.").addSelfSex(new SexualExperienceBuilder().setAssBottomTeasing(1)).addSex(new SexualExperienceBuilder().setAssTeasing(1)).build()), 
 	RECEIVE_ANAL		(new EroticTechnique(Stance.ANAL_BOTTOM, Stance.ANAL_BOTTOM, "Receive", -1, 0, "Take it face to face.").build()), 
-	WRAP_LEGS			(new EroticTechnique(Stance.ANAL_BOTTOM, Stance.ANAL_BOTTOM, "Wrap Legs", -1, 0, "Wrap your legs around them.").addSelfSex(new SexualExperienceBuilder().setAnal(1)).addSex(new SexualExperienceBuilder().setAnalSexTop(2)).build()), 
+	WRAP_LEGS			(new EroticTechnique(Stance.ANAL_BOTTOM, Stance.ANAL_BOTTOM, "Wrap Legs", -1, 0, "Wrap your legs around them.").addSelfSex(new SexualExperienceBuilder().setAssBottomTeasing(1)).addSex(new SexualExperienceBuilder().setAssTeasing(2)).build()), 
 	POUT				(new EroticTechnique(Stance.ANAL_BOTTOM, Stance.ANAL_BOTTOM, "Pout", -1, 0, "Make a pathetic face.").build()), 
 	RECEIVE_STANDING	(new EroticTechnique(Stance.STANDING_BOTTOM, Stance.STANDING_BOTTOM, "Receive", -1, 0, "Take it up the butt.").build()), 
 	RECIPROCATE_FORCED	(new EroticTechnique(Stance.SIXTY_NINE_BOTTOM, Stance.SIXTY_NINE_BOTTOM, "Reciprocate", -1, 0, "Give head and take it.").build()), 
@@ -277,7 +277,7 @@ public enum Techniques {
 	RECKLESS_ATTACK 	(new AttackTechnique(Stance.OFFENSIVE, Stance.OFFENSIVE, "Assault", 2, 3, 6, false).addBonus(BonusCondition.STRENGTH_OVERPOWER, BonusType.KNOCKDOWN, 1).build(), 3), // unguardable
 	KNOCK_DOWN 			(new AttackTechnique(Stance.OFFENSIVE, Stance.OFFENSIVE, "Overrun", -2, 3, 6, 1).addBonus(BonusCondition.SKILL_LEVEL, BonusType.KNOCKDOWN, 1).build(), 3), 
 	SLIDE				(new NonAttackTechnique(Stance.BALANCED, Stance.KNEELING, "Slide", 1, 4, TechniqueHeight.LOW).addBonus(BonusCondition.ENEMY_LOW_STABILITY, BonusType.TRIP, 80).addBonus(BonusCondition.OUTMANEUVER, BonusType.TRIP, 20).addBonus(BonusCondition.OUTMANEUVER, BonusType.EVASION, 40).build(), 1), 
-	TAUNT 				(new NonAttackTechnique(Stance.DEFENSIVE, Stance.SEDUCTION, "Seduce", 0, 0).addBonus(BonusCondition.SKILL_LEVEL, BonusType.POWER_MOD, 1).addSelfSex(new SexualExperienceBuilder().setAssBottomTeasing(1)).addSex(new SexualExperienceBuilder().setAssTeasing(1)).build(), 2), 
+	TAUNT 				(new NonAttackTechnique(Stance.DEFENSIVE, Stance.SEDUCTION, "Seduce", 0, 0).addBonus(BonusCondition.SKILL_LEVEL, BonusType.POWER_MOD, 1).addSex(new SexualExperienceBuilder().setAssTeasing(1)).build(), 3), 
 	HIT_THE_DECK		(new FallDownTechnique(Stance.BALANCED, Stance.PRONE, "Hit the Deck").addBonus(BonusCondition.OUTMANEUVER, BonusType.EVASION, 50).build()), 
 	FEINT_AND_STRIKE	(new AttackTechnique(Stance.OFFENSIVE, Stance.OFFENSIVE, "Feint Strike", -1, 3, 7).addBonus(BonusCondition.OUTMANEUVER, BonusType.POWER_MOD).addBonus(BonusCondition.OUTMANEUVER, BonusType.EVASION, 25).addBonus(BonusCondition.SKILL_LEVEL, BonusType.STABILTIY_COST, 1).build(), 3), 
 	PARRY  				(new GuardTechnique(Stance.DEFENSIVE, Stance.COUNTER, "Parry", -1, 0, 0, false).addBonus(BonusCondition.SKILL_LEVEL, BonusType.PARRY, 1).addBonus(BonusCondition.OUTMANEUVER, BonusType.PARRY, 1).build(), 3),
