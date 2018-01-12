@@ -6,6 +6,8 @@ public class SexualExperience {
 
 	private final int analSexTop;
 	private final int oralSexTop;
+	private final int ejaculationInButt;
+	private final int ejaculationInMouth;
 	private final int analSex; // anal penetration
 	private final int anal;	// anal sex post-penetration
 	private final int creampies; // anal creampie
@@ -186,16 +188,18 @@ public class SexualExperience {
 		}		
 		
 		public SexualExperience build() {
-			return new SexualExperience(analSexTop, oralSexTop, analSex, anal, creampies, analEjaculation, oralSex, oral, oralCreampies, fellatioEjaculation, 0, 0, assTeasing, assBottomTeasing, mouthTeasing, mouthBottomTeasing, horse, ogre, false, false, bird, knot);
+			return new SexualExperience(analSexTop, oralSexTop, 0, 0, analSex, anal, creampies, analEjaculation, oralSex, oral, oralCreampies, fellatioEjaculation, 0, 0, assTeasing, assBottomTeasing, mouthTeasing, mouthBottomTeasing, horse, ogre, false, false, bird, knot);
 		}
 	}
 	
-	protected SexualExperience() { this(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, false, false, false, false, false, false); }
+	protected SexualExperience() { this(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, false, false, false, false, false, false); }
 	
-	private SexualExperience(int analSexTop, int oralSexTop, int analSex, int anal, int creampies, int analEjaculation, int oralSex, int oral, int oralCreampies, int fellatioEjaculation, int bellyful, int handy, int assTeasing, int assBottomTeasing, int mouthTeasing, int mouthBottomTeasing,
+	private SexualExperience(int analSexTop, int oralSexTop, int ejaculationInButt, int ejaculationInMouth, int analSex, int anal, int creampies, int analEjaculation, int oralSex, int oral, int oralCreampies, int fellatioEjaculation, int bellyful, int handy, int assTeasing, int assBottomTeasing, int mouthTeasing, int mouthBottomTeasing,
 		boolean horse, boolean ogre, boolean prostitution, boolean beast, boolean bird, boolean knot) {
 		this.analSexTop = analSexTop;
 		this.oralSexTop = oralSexTop;
+		this.ejaculationInButt = ejaculationInButt;
+		this.ejaculationInMouth = ejaculationInMouth;		
 		this.analSex = analSex;
 		this.anal = anal;
 		this.creampies = creampies;
@@ -220,6 +224,8 @@ public class SexualExperience {
 	
 	protected int getAnalSexTop() { return analSexTop; }
 	protected int getOralSexTop() { return oralSexTop; }
+	protected int getEjaculationInButt() { return ejaculationInButt; }
+	protected int getEjaculationInMouth() { return ejaculationInMouth; }
 	protected int getAnalSex() { return analSex; }
 	protected int getAnal() { return anal; }
 	protected int getCreampies() { return creampies; }

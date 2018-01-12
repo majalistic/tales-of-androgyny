@@ -1231,7 +1231,8 @@ public class PlayerCharacter extends AbstractCharacter {
 	public void setBaseDefense(int defense) {
 		baseDefense = defense;
 	}
-
+	
+	// this needs to properly increase arousal
 	public Array<MutationResult> receiveSex(SexualExperience sex) {
 		Array<MutationResult> result = new Array<MutationResult>();
 		for (int ii = 0; ii < sex.getAnalSex(); ii++) {
@@ -1245,6 +1246,36 @@ public class PlayerCharacter extends AbstractCharacter {
 			cumFromAnal();
 			setCurrentPortrait(AssetEnum.PORTRAIT_AHEGAO);
 		}
+		
+		for (int ii = 0; ii < sex.getAnalSexTop(); ii++) {
+			if (perks.get(Perk.TOP.toString(), 0) != 10) {
+				result.add(new MutationResult("You gained " + Perk.TOP.getLabel() + " (Rank " + (perks.get(Perk.TOP.toString(), 0) + 1) + ")!"));
+				perks.put(Perk.TOP.toString(), ((int)perks.get(Perk.TOP.toString(), 0)) + 1);
+			}
+		}
+		
+		for (int ii = 0; ii < sex.getOralSexTop(); ii++) {
+			if (perks.get(Perk.TOP.toString(), 0) != 10) {
+				result.add(new MutationResult("You gained " + Perk.TOP.getLabel() + " (Rank " + (perks.get(Perk.TOP.toString(), 0) + 1) + ")!"));
+				perks.put(Perk.TOP.toString(), ((int)perks.get(Perk.TOP.toString(), 0)) + 1);
+			}
+		}
+		
+		for (int ii = 0; ii < sex.getEjaculationInMouth(); ii++) {
+			cumInMouth();
+			setCurrentPortrait(AssetEnum.PORTRAIT_AHEGAO);
+		}
+		
+		for (int ii = 0; ii < sex.getEjaculationInButt(); ii++) {
+			cumInButt();
+			setCurrentPortrait(AssetEnum.PORTRAIT_AHEGAO);
+		}
+		
+		for (int ii = 0; ii < sex.getEjaculationInMouth(); ii++) {
+			cumInMouth();
+			setCurrentPortrait(AssetEnum.PORTRAIT_AHEGAO);
+		}
+		
 		for (int ii = 0; ii < sex.getOralSex(); ii++) {
 			result.addAll(receiveOral());
 			setCurrentPortrait(AssetEnum.PORTRAIT_FELLATIO);
@@ -1282,17 +1313,14 @@ public class PlayerCharacter extends AbstractCharacter {
 			if (sex.getHandy() > 0 && perks.get(Perk.CRANK_MASTER.toString(), 0) != 10) {
 				result.add(new MutationResult("You gained " + Perk.CRANK_MASTER.getLabel() + " (Rank " + (perks.get(Perk.CRANK_MASTER.toString(), 0) + 1) + ")!"));
 				perks.put(Perk.CRANK_MASTER.toString(), ((int)perks.get(Perk.CRANK_MASTER.toString(), 0)) + 1);
-				
 			}
 			if (sex.getOralSex() > 0 && perks.get(Perk.BLOWJOB_EXPERT.toString(), 0) != 10) {
 				result.add(new MutationResult("You gained " + Perk.BLOWJOB_EXPERT.getLabel() + " (Rank " + (perks.get(Perk.BLOWJOB_EXPERT.toString(), 0) + 1) + ")!"));
 				perks.put(Perk.BLOWJOB_EXPERT.toString(), ((int)perks.get(Perk.BLOWJOB_EXPERT.toString(), 0)) + 1);
-				
 			}
 			if (sex.getAnalSex() > 0 && perks.get(Perk.PERFECT_BOTTOM.toString(), 0) != 10) {
 				result.add(new MutationResult("You gained " + Perk.PERFECT_BOTTOM.getLabel() + " (Rank " + (perks.get(Perk.PERFECT_BOTTOM.toString(), 0) + 1) + ")!"));
 				perks.put(Perk.PERFECT_BOTTOM.toString(), ((int)perks.get(Perk.PERFECT_BOTTOM.toString(), 0)) + 1);
-				
 			}
 		}
 		
@@ -1321,6 +1349,16 @@ public class PlayerCharacter extends AbstractCharacter {
 		cameFromOral++;
 		justCame = true;
 		arousal.climax(ClimaxType.ORAL_RECEPTIVE, perks);
+	}
+	
+	private void cumInButt() {
+		justCame = true;
+		arousal.climax(ClimaxType.ANAL, perks);
+	}
+	
+	private void cumInMouth() {
+		justCame = true;
+		arousal.climax(ClimaxType.ORAL, perks);
 	}
 
 	public String getBootyLiciousness() {

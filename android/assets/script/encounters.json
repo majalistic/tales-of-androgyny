@@ -2050,14 +2050,19 @@
 	{
 		"key": "BROTHEL-DAISY-BJ",
 		"scriptLines": [
-			{"text": "She gestures for you to sit down on the bed, and then silently gets down on her knees.  She pulls out your cock and begins to gently lick it.  She doesn't seem to have much confidence in her abilities."},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "oralSexTop":1}}],	
+			"text": "She gestures for you to sit down on the bed, and then silently gets down on her knees.  She pulls out your cock and begins to gently lick it.  She doesn't seem to have much confidence in her abilities."},
 		]
 	},
 	{
 		"key": "BROTHEL-DAISY-DEEPTHROAT",
 		"scriptLines": [
 			{"text": "You ask her to deepthroat you, and she looks up at you and smiles meekly.  She takes you into the back of her throat, and you recline on the bed, feeling her swallow you whole."},
-			{"text": "She repeatedly bottoms out, gagging softly, until you can't hold it in anymore, and you ejaculate into the back of her throat.  It slides out of her mouth, and she shows you that her mouth is empty."},
+			{
+			"sound": "CUM",
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "ejaculationInMouth":1}}],
+			"text": "She repeatedly bottoms out, gagging softly, until you can't hold it in anymore, and you ejaculate into the back of her throat.  It slides out of her mouth, and she shows you that her mouth is empty."},
 			{"text": "Satisfied, you thank her for her service, and you're on your way."}
 		]
 	},
@@ -2070,13 +2075,19 @@
 	{
 		"key": "BROTHEL-DAISY-DEEPTHROAT-FORCE",
 		"scriptLines": [
-			{"text": "You grab her head and thrust your hips forward, down into her throat.  After a few thrusts, you explode down her throat.  She spits what she can up, and thanks you for your patronage before leaving the room."}
+			{	
+			"sound": "CUM",
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "ejaculationInMouth":1}}],
+			"text": "You grab her head and thrust your hips forward, down into her throat.  After a few thrusts, you explode down her throat.  She spits what she can up, and thanks you for your patronage before leaving the room."}
 		]
 	},
 	{
 		"key": "BROTHEL-DAISY-BJ-FINISH",
-		"scriptLines": [
-			{"text": "She continues to suck until you feel you're nearing the end of your rope, at which point she receives several ropes of her own onto her small tongue."}
+		"scriptLines": [	
+			{
+			"sound": "CUM",
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "ejaculationInMouth":1}}],
+			"text": "She continues to suck until you feel you're nearing the end of your rope, at which point she receives several ropes of her own onto her small tongue."}
 		]
 	},
 	{
@@ -2086,7 +2097,9 @@
 			"mutations": [{"saveType":"GOLD", "value":{"class": "java.lang.Integer", "value": -5}}],
 			"text": "She nods, a bit unsure, and accepts the five gold surcharge.  She climbs onto the bed, and entices you to join her."},
 			{"text": "After some basic exploration, you find that she has a penis.  That doesn't stop you, though."},
-			{"text": "You plow her without reserve up the ass, and then some.  She squirts, which you find somewhat endearing, and when she's done, she lays on the bed, a bit exhausted, and thanks you for your patronage before you leave."},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSexTop":1, "ejaculationInButt":1}}],	
+			"text": "You plow her without reserve up the ass, and then some.  She squirts, which you find somewhat endearing, and when she's done, she lays on the bed, a bit exhausted, and thanks you for your patronage before you leave."},
 		]
 	},
 	{
@@ -2102,13 +2115,18 @@
 	{
 		"key": "BROTHEL-ROSE-BJ",
 		"scriptLines": [
-			{"text": "She cheerfully drops to her knees right then and there, and begins to give you a quite enthusiastic sucking off."}
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "oralSexTop":1}}],	
+			"text": "She cheerfully drops to her knees right then and there, and begins to give you a quite enthusiastic sucking off."}
 		]
 	},
 	{
 		"key": "BROTHEL-ROSE-DEEPTHROAT",
 		"scriptLines": [
-			{"text": "She looks up at you with mischievous eyes, then closes them and takes your entire cock into her mouth, down the throat.  She expertly swallows your cock until you empty out your load down her throat."},
+			{
+			"sound": "CUM",
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "ejaculationInMouth":1}}],
+			"text": "She looks up at you with mischievous eyes, then closes them and takes your entire cock into her mouth, down the throat.  She expertly swallows your cock until you empty out your load down her throat."},
 			{"text": "She wipes her mouth, then gives you a kiss on the lips, and has you follow her back to the entrance before waving goodbye."}
 		]
 	},
@@ -2121,20 +2139,26 @@
 	{
 		"key": "BROTHEL-ROSE-DEEPTHROAT-FORCE",
 		"scriptLines": [
-			{"text": "You pull her head forward until she takes it down her throat, and she looks up at you with a scornful expression.  She begins to take it deep on her own, and you relent.  She expertly swallows your cock until you empty out your load down her throat, then leaves without a word."}
+			{
+			"sound": "CUM",	
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "ejaculationInMouth":1}}],
+			"text": "You pull her head forward until she takes it down her throat, and she looks up at you with a scornful expression.  She begins to take it deep on her own, and you relent.  She expertly swallows your cock until you empty out your load down her throat, then leaves without a word."}
 		]
 	},
 	{
 		"key": "BROTHEL-ROSE-BJ-FINISH",
 		"scriptLines": [
-			{"text": "She continues to suck until her cheeks swell up with your cum, which she swallows down without needing to be asked.  She escorts you to the entrance, and kisses you on the cheek goodbye."}
+			{
+			"sound": "CUM",
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "ejaculationInMouth":1}}],
+			"text": "She continues to suck until her cheeks swell up with your cum, which she swallows down without needing to be asked.  She escorts you to the entrance, and kisses you on the cheek goodbye."}
 		]
-	},
+	},	
 	{
 		"key": "BROTHEL-ROSE-BOTTOM",
 		"scriptLines": [
 			{
-			"mutations": [{"saveType":"GOLD", "value":{"class": "java.lang.Integer", "value": -5}}],
+			"mutations": [{"saveType":"GOLD", "value":{"class": "java.lang.Integer", "value": -5}}, {"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSexTop":1, "ejaculationInButt":1}}],
 			"text": "She seems strangely excited - she gets on her hands and knees on the floor, and you give it to her good.  When you're done, she's shivering, and she gives you a big kiss before sending you on your way."}
 		]
 	},
@@ -2151,8 +2175,13 @@
 	{
 		"key": "BROTHEL-IVY-BJ",
 		"scriptLines": [
-			{"text": "You ask for a blowjob, and she rolls her eyes before squatting down, pulling your cock out without a second word.  Her technique is impeccable, and your knees turn to jelly."},
-			{"text": "A short while later, your head in the clouds, you fill her mouth with one, and she spits it out derisively, and sarcastically asks you to come again."}
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "oralSexTop":1}}],	
+			"text": "You ask for a blowjob, and she rolls her eyes before squatting down, pulling your cock out without a second word.  Her technique is impeccable, and your knees turn to jelly."},
+			{
+			"sound": "CUM",
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "ejaculationInMouth":1}}],
+			"text": "A short while later, your head in the clouds, you fill her mouth with one, and she spits it out derisively, and sarcastically asks you to come again."}
 		]
 	},
 	{
@@ -2161,7 +2190,10 @@
 			{
 			"mutations": [{"saveType":"GOLD", "value":{"class": "java.lang.Integer", "value": -10}}],
 			"text": "She clicks her teeth, then bends over and places her hands on the bed, flipping her hair over her shoulder and giving you a \"come get it\" look."},
-			{"text": "You do, indeed, come get it, and when you're done firing your stress up her backside, she asks if you're finished.  You... are."}
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSexTop":1, "ejaculationInButt":1}}],	
+			"sound": "CUM",
+			"text": "You do, indeed, come get it, and when you're done firing your stress up her backside, she asks if you're finished.  You... are."}
 		]
 	},
 	{
@@ -4149,11 +4181,15 @@
 			{"text": "\"Unfortunately, I don't have an excretory hole for you to misuse,\" she says, as her large rear forms itself out of the nearly flat prism of slime, \"but I think I can do one better,\" she says, sticking out said rear at you, and slowly forming a hole where one would be appropriate... but it's a hole that is quite literal, and perfectly circular, or, to be more accurate, cylindrical."},
 			{"text": "\"Umm... do you want me to just... stick it in there?\" you ask, uncertain."},
 			{"text": "\"Of course. Jam it in my excretory hole,\" she demands, narrowing and enlarging the hole rhythmically in a seeming attempt to entice you, \"I promise, this will be very embarrassing and innappropriate for me,\" she goes on, unconvincingly."},
-			{"text": "Still, it's tempting. You wade closer, and stick your hardening member where she clearly wants you to stick it - immediately, she contracts all of the slime so that you're fully engulfed, and it's incredibly tight. You nearly lose it inside immediately."},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSexTop":1}}],	
+			"text": "Still, it's tempting. You wade closer, and stick your hardening member where she clearly wants you to stick it - immediately, she contracts all of the slime so that you're fully engulfed, and it's incredibly tight. You nearly lose it inside immediately."},
 			{"text": "\"Oh! My butt! Not my butt... now I'll never be a Queen!\" she says, and you wonder what exactly it is she's talking about. \"Mmmm... how woefully non-standard!\""},
 			{"text": "She wiggles her fat rear back at you so that it wobbles and jiggles and sloshes about, and you have to double down on your efforts to not explode inside what isn't actually her asshole."},
 			{"text": "\"Oh my. I'm going to have such difficulty expelling waste properly in the near-future,\" she says, reaching back to slap her slimy, fat rear for emphasis, \"You're really doing a number on my non-reproductive chute.\""},
-			{"text": "As you squelch in and out, and she loosens and tightens her grip on you, you quickly build to another finish - shooting a fat load into her fat ass, where, again, it pools somewhere around where her ileocecal valve would be."},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "ejaculationInButt":1}}],
+			"text": "As you squelch in and out, and she loosens and tightens her grip on you, you quickly build to another finish - shooting a fat load into her fat ass, where, again, it pools somewhere around where her ileocecal valve would be."},
 			{"text": "You collapse backwards this time, again caught by her slime. You can see the ball of cum join the other to form an even larger, greasy pool within her."},
 			{"text": "\"What are you planning to do with that?\" you ask her, curious."},
 			{"text": "She thinks for a moment. \"I play little games with it... I can preserve it for a long time, so I can use it for... rather mischevious purposes, particularly for humans and villages that annoy me.\""},
@@ -5757,7 +5793,9 @@
 			{"text": "\"Mmm... a strong man who wants to come inside of me... Urka's been good,\" she says, and you lean in closer to her, as she rests her head on your chest, pressing her hips back against you."},
 			{"text": "She grabs hold of your member and strokes it between her thighs... you inadvertantly nudge against her full sack, still clearly eager to cum, although appgrently willing to do so with your prick up her bum."},
 			{"text": "She isn't very patient about it, and she lines you up between her cheeks, even as she rests on your chest.  You push upwards and forward, trying to gain purchase in her tight rosebud... but that proves difficult. It's far tighter than you ever could have imagined, and it won't budge, even as she drops her hips down back at you."},
-			{"text": "You manage to push it inside, finally, against her tremendous resistance, but she doesn't seem to be in pain - on the contrary, she runs her finger along her tusk and moans, smiling flirtatiously at you over her shoulder."},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSexTop":1}}],	
+			"text": "You manage to push it inside, finally, against her tremendous resistance, but she doesn't seem to be in pain - on the contrary, she runs her finger along her tusk and moans, smiling flirtatiously at you over her shoulder."},
 			{"text": "She leans forward, spreads her legs, and bends at the waist.  Her abdominal strength is impressive, able to support herself like that, but you find yourself gripping her waist and thrusting forward, making her growl in ecstasy as you push it all into her."},
 			{"text": "You hold onto her waist and clap into her large ass, both soft and muscular, and she seems to purr with delight.  She's clearly stroking herself as you're ass-fucking her, but you're not about to complain.  She seems to tense up repeatedly as she does, and that's not something you're going to intervene in."},
 			{"text": "She pushes back at you more and more, until eventually she's setting the pace more than you are.  It's all that you can muster just to keep on your feet, and you grasp her by the shoulder and neck to try and take back the reins, to no avail."},
@@ -5771,7 +5809,10 @@
 			{"text": "\"If I let you release now, will you admit defeat?\" she asks, coyly."},
 			{"text": "\"Yes, yes!\""},
 			{"text": "As soon as you feel the immense crushing pressure subside, her hole going slack, you feel it rising up your shaft and absolutely exploding out into her with force."},
-			{"text": "She bites her lip as it fills her colon.  She clearly enjoys the sensation, and you feel like you might just die."},
+			{
+			"sound": "CUM",
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "ejaculationInButt":1}}],
+			"text": "She bites her lip as it fills her colon.  She clearly enjoys the sensation, and you feel like you might just die."},
 			{"text": "Your entire body goes limp.  You have nothing else to give.  Without a word, she gets up and off of you, leaving you lying on the floor... but then she kneels down besides you, her cock wet with cum and half-full next to your lips."},
 			{"text": "\"You admitted defeat.  Clean it off,\" she says, and it's obvious she's not joking.  You timidly open your mouth, and feel her leathery orc dick slip into your mouth, tasting her fresh cum and, of course, the fact that she was quite recently in someone's ass."},
 			{"text": "She doesn't spend too much time inside, just enough to get it clean, then slips it out, apparently content.  She puts her loincloth back in place, and waves to you over her shoulder."},
@@ -6230,7 +6271,9 @@
 			{"text": "\"Hmm...\" Trudy hums, somewhat inquisitively, as you pull them up his legs.  His stockings, which fail to cover anything past his thighs, prove no impediment.  You wonder if that's by design."},
 			{"text": "You lean forward to kiss his lips, and Trudy is yielding - his lips are soft and full, his breath sweet, and there's a gentle purr in his throat."},
 			{"text": "You slip between his legs, which Trudy yet still slowly spreads, never making an obvious show of it.  Your doubts are laid to rest when you find that there's already something inside of them - a plug of some kind, and as you tug it out, you find the inside wet and slippery."},
-			{"text": "As you lay face to face, chest to chest, on the ground, there are very subtle movements... until Trudy's eyelashes flutter, and you feel a tight ring around your own."},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSexTop":1}}],	
+			"text": "As you lay face to face, chest to chest, on the ground, there are very subtle movements... until Trudy's eyelashes flutter, and you feel a tight ring around your own."},
 			{"text": "As you begin to come into him, slowly, Trudy keeps his legs spread, wider and wider still, his hands creeping up your back.  As your intensity rises, you find yourself wrapped in his legs as well, and his moaning is less opaque."},
 			{"text": "His eyes are half-lidded as you drive it in and out of him, leaving gentle kisses on the side of his face, neck, and lips when he permits it.  You reach down to grasp his hips, and begin to thrust yourself fully into him, and he gasps."},
 			{"text": "After such a gentle beginning, Trudy is in eyes-wide shock as you lift up his hips, his legs wrapped around you, and begin to pound into his upturned hole, his cock flopping onto his overturned skirt."},
@@ -6240,6 +6283,7 @@
 			{"text": "It pulses lewdly, throbbing, as you violate his hole, and you don't stop rubbing his prostate with your own stick even when it's obvious he's past the point of no return.  It tenses up, and Trudy closes his eyes in anticipation."},
 			{"text": "It doesn't at all look like an anal ejaculation - thick white ropes of cum pour down onto his face until it's coated in a sheen of slime, each blob as big as the last, leaving Trudy blowing bubbles of his own cum with his breath."},
 			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "ejaculationInButt":1}}],						
 			"sound": "CUM",
 			"text": "His involuntarily-tightening hole proves too much, and you give Trudy's insides a helping of what his face just caught.  He spreads his legs as he catches it, heels out and up, probably feeling shy about wrapping his legs around you post-orgasm, but the result seems more like a full acceptance of your load into him."},
 			{"text": "You can't complain.  Trudy's spread-legged posture coaxes you into really drilling your slick member in and out of his boyhole as you pump gobs of jelly into his nether regions with gusto."},
@@ -6621,7 +6665,9 @@
 			{
 			"mutations": [{"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": 1}}],
 			"text": "You're right there behind her almost immediately.  Her shorts are tight, and peeling them off causes her thick, half-flaccid meat to flop down between her thighs, making you gulp with anticipation."},
-			{"text": "You bring yourself to bear and she reaches between her legs as you push your way inside.  You don't need to hold it steady - her sphincter grips it tightly in a ring that keeps you stuck fast."},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSexTop":1}}],	
+			"text": "You bring yourself to bear and she reaches between her legs as you push your way inside.  You don't need to hold it steady - her sphincter grips it tightly in a ring that keeps you stuck fast."},
 			{"text": "Her wide hips give you ample to hold onto as you fill her tight asshole with your cock.  The view of her grey, fat ass accepting all of it fills you with determination to fill her elvish bowels with your baby gravy."},
 			{"text": "You can't last long - you mutter an apology as you feel it rising up the shaft... when suddenly, she tightens like a vice, and you whine."},
 			{"text": "\"Not just yet,\" she says, stroking herself casually, as you knead her plump hips, trying to force it out of the tip, to no avail."},
@@ -7226,9 +7272,13 @@
 			{"text": "\"Could you tell that I was a boy?\" he asks, bashfully."},
 			{"text": "He shifts so that he's sitting in your lap, with his slender arms around your neck."},
 			{"text": "You kiss again, and you free yourself from the confines of your undergarments, which he, conveniently, doesn't seem to be wearing"},
-			{"text": "..."},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSexTop":1}}],	
+			"text": "..."},
 			{"text": ".."},
-			{"text": "."}
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "ejaculationInButt":1}}],
+			"text": "."}
 		]
 	},
 	{
@@ -8466,7 +8516,9 @@
 			{"text": "You ask her to use her gifted backside to seal the deal, and she pouts."},
 			{"text": "\"I'm... an angel, you know... do you know how sinful it is for me to wet a man's thing with my mouth just so that it will slide into my butt easier?  Oh, who am I trying to fool...\""},
 			{"text": "She turns around and displays her sizeable rear to you, pulling the loincloth aside to offer you access.  You're quick to take her up on her offering before the god of buttsex."},
-			{"text": "You aim it to stick the slick thing inside of her pert asshole, and with one thrust, sink the entire thing inside of her - with her massive ass, it doesn't get particularly far, but definitely enough to give her a good stuffing."},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSexTop":1}}],	
+			"text": "You aim it to stick the slick thing inside of her pert asshole, and with one thrust, sink the entire thing inside of her - with her massive ass, it doesn't get particularly far, but definitely enough to give her a good stuffing."},
 			{"text": "\"Don't worry, this is easier if it's on the small side!\" she says, allaying your fears."},
 			{"text": "You run your hands up her back, and she cooes, her toes curling... until you reach her pigtails, and she dashes any fear you have of acting on your impulses."},
 			{"text": "\"Pull them! Fuck my ass!\" she exclaims, and then lets out an orgasmic moan as you crash into her from behind while pulling on her hair."},
@@ -8476,6 +8528,7 @@
 			{"text": "The vile act of sodomy causes her to gush all over the ground, even as she curses your name and your cock for the foulness that you've wrought upon her.  Though your hands gripping her shoulders don't feel so much as a tug, the softness of her cheeks press back against you with each thrust owing to her honest hips."},
 			{"text": "\"Are you going to defile me?\" she asks, looking over her shoulder, her eyelashes low, her gaze unwavering."},
 			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "ejaculationInButt":1}}],	
 			"sound": "CUM",
 			"text": "It's not like you hadn't planned on it, but her taunting and rhythmic tensing makes it more a word of power than a suggestion - you immediately upend your nutbladder into her full-figured backside, digging your fingers into her shoulders and blasting a quart of man-milk into her seraphic bubble butt."},
 			{"text": "You nearly collapse as you pull it out - having expended far more energy than you intended to or expected.  You offer her your hand to help stand, but she remains on her hand and knees."},
@@ -8516,7 +8569,9 @@
 		"scriptLines": [
 			{"text": "You hadn't expected her to offer herself up like that, but you gladly take her offer to pound her perfect angel pussy doggy style in the dirt, because, well, that sounds amazing."},
 			{"text": "You approach her and free your cock, aiming it for her soft cleft.  She's... wet - and not even just a little bit.  You run the tip of your cock up and down her slit, and she shudders, but she doesn't say anything, instead only pushing her hips back at you, somewhat insistently."}
-			{"text": "As soon as you slip inside, you feel completely surrounded by her.  You nearly fall over her as you reach forward to cling to her body, and her heavenly voice speaks words of appreciation."},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSexTop":1}}],
+			"text": "As soon as you slip inside, you feel completely surrounded by her.  You nearly fall over her as you reach forward to cling to her body, and her heavenly voice speaks words of appreciation."},
 			{"text": "\"Mmmm... just like that...\" she says, and you feel yourself drawn to the idea of making her enjoy herself."},
 			{"text": "It feels like she's pulling you in all the way, until you bottom out, and the two of you are pressed together."},		
 			{"text": "\"Finally... someone who didn't opt to fuck my ass...\""},
@@ -8527,6 +8582,7 @@
 			{"text": "You oblige her, tapping your thumb against her perfect balloon knot.  Between that and your spelunking into her honey cave, she soon begins to tense and tremble."},
 			{"text": "Her voice is... well, angelic, and she lets it out high and clear as her orgasm takes hold of her."},
 			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "ejaculationInButt":1}}],		
 			"sound": "CUM",
 			"text": "Her tightening triggers your own orgasm, and you release your sperm inside, worrying only momentarily about impregnating her, while rubbing your thumb vigorously on her backdoor and your hand down her thigh.  She accepts it with grace, her chest heaving."},
 			{"text": "You try to withdraw... but your penis is stuck.  She's too tight to escape from.  At first, you think it's unintentional, but then she turns to look at you over her shoulder."},
@@ -8551,10 +8607,13 @@
 		"scriptLines": [
 			{"text": "You hadn't expected her to offer herself up like that, but with her big, round moon in full view, you can't really help yourself.  There were a lot of nice, plump asses in this world that weren't about to be fucked - her's was not one of them."},			
 			{"text": "She can sense your dirtbox-stuffing intent, somehow.  \"Mmm... sodomy is a sin, you know,\" she says, reaching back to helpfully pull her cheeks apart, \"so make sure you get out all of it.\""},
-			{"text": "You sink between her fleshy cheeks as you slip your dick up and into her welcoming ass, and you instantly feel like you're in heaven.  For her part, she seems to enjoy the experience as well, and before long, you're blasting your wad into her dumper while she plays a note on her trumpet, one that wavers and loses pitch in waves."},
 			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSexTop":1}}],
+			"text": "You sink between her fleshy cheeks as you slip your dick up and into her welcoming ass, and you instantly feel like you're in heaven.  For her part, she seems to enjoy the experience as well, and before long, you're blasting your wad into her dumper while she plays a note on her trumpet, one that wavers and loses pitch in waves."},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "ejaculationInButt":1}}],
 			"sound": "CUM",
-			"text": "Having cum together, youhaving blasted a gooey load around her bend, and her having gushed with lust as her hole tightened around your cock, you feel as if a fog is lifting from your mind."},
+			"text": "Having cum together, you having blasted a gooey load around her bend, and her having gushed with lust as her hole tightened around your cock, you feel as if a fog is lifting from your mind."},
 			{"text": "You try to withdraw... but your penis is stuck.  She's too tight to escape from.  At first, you think it's unintentional, but then she turns to look at you over her shoulder."},
 			{"text": "\"Are you... ready to go again?\" she asks, eyes filled with passion."},
 			{"text": "\"I... don't think I can,\" you say, and she smiles."},
@@ -8562,12 +8621,12 @@
 			{"text": "No sooner than the sound finishing its last echoes does another angel appear - this one a man, broad at the shoulders and chest, with thick, windswept hair and a robust, if somewhat lean, form.  At her instruction, he puts his arms around you."},
 			{"text": "\"Or... I guess, he can,\" she says, and she reaches back to touch your face... then shows you her thumb sticking out between her middle and index fingers."},
 			{
-			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1}}],
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1, "analSexTop":1}}],
 			"text": "You're soon erect again - and stuffed full from behind, your mouth slack, your eyes listless, your body attacked from in front and behind.  You feel her tight purse around you, and you feel your own tight sphincter around the intruding mancock."},
 			{"text": "You try to focus on your own impending orgasm, but the sensation of him smashing you from behind is hard to ignore, especially knowing that he's about to spew out his thick mangoo inside your ass."},
 			{
 			"sound": "CUM",
-			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "creampies":1}}],
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "creampies":1, "ejaculationInButt":1}}],
 			"text": "He blasts it into your ass for several pumps before you blast it into hers, and you feel his hot cum filling up your rectum more immediately than the results of your own ejaculation in her's."},
 			{"text": "You expect the three of you to collapse into a puddle, as you're completely out of verve... but the two angels are far from satisfied.  He stiffens against in your rectum, and you stiffen again in her, and the world turns for quite a while before you're done enjoying the spoils of your \"victory\"."}
 		]
@@ -8652,7 +8711,9 @@
 			{"text": "\"My holy vessel would not be a punishment, y'know.  No, you're going in this hole,\" she explains, taking her wet finger and rubbing it against her holy ring."},
 			{"text": "You realize this strange woman intends to cram your cock up her ass, and begin to make a fuss, but she's already squatting and aiming your meat missile for her dumper."},
 			{"text": "\"If you don't like the idea of having to put it in my shithole then you shouldn't have sinned - now hold still, this is no fun for me either!\""},
-			{"text": "She drops her weight down into your lap, and you feel a popping sensation as moist sphincter gobbles up your recently-masturbated cock.  She groans and wraps her legs around you, her weight keeping your penis locked up in her bung."},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSexTop":1}}],	
+			"text": "She drops her weight down into your lap, and you feel a popping sensation as her moist sphincter gobbles up your recently-masturbated cock.  She groans and wraps her legs around you, her weight keeping your penis locked up in her bung."},
 			{"text": "\"There.  Now, do you repent?\" she asks, clearly short of breath and tense in the abdomen as she sternly admonishes you, wrapping her arms around your neck as if you were passionate lovers and not two complete strangers."},
 			{"text": "\"Repent for what?!\" you ask, befuddled."},
 			{"text": "She doesn't like that response - she shifts her weight upwards, pulling her tight anal ring up your shaft and with it your desperate need to seed, and then crashes her hips down into your lap again, her ass clapping against your thighs as your cum-tank hits somewhere up in your brain."},
@@ -8685,6 +8746,7 @@
 			{"text": "She leans forward again, still with a vice-like grip around your shaft.  She runs her hands playfully down your body... then meets your eyes once again."},
 			{"text": "She clasps her hand to your face, gently, her glowing smile filling your chest with its warmth.  All at once, you feel her sphincter go loose, and you almost see and hear the gurgling in her stomach before you realize what's happened."},
 			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "ejaculationInButt":1}}],
 			"sound": "CUM",
 			"text": "There is no inch of her celestial fudge tunnel that you do not coat in mortal nutwax - the wet noises of her anal insemination emanate out from her heavenly gate whenever she isn't tightening up her sphincter to coax more of it out of you."},
 			{
@@ -8745,7 +8807,9 @@
 			{"text": "You nod, and she sticks out her forked tongue.  You approach her with trepidation, and she slowly lifts her torso up so that she's chest to chest with you."},
 			{"text": "\"So there are people like you...\" she says, reaching down to touch the bulge in your undergarment.  She circles the tip with her finger, looking down at it, fixated."},
 			{"text": "You put your arms around her... waist?  She pulls you out, already full and rigid, and begins to stroke you eagerly. "},
-			{"text": "She takes your face in her hands, and with a strange dexterity she presses her tail against you... and you feel your penis sink into something soft and wet, with an odd internal shape.  You nearly let out a gasp, and she's amused by your reaction."},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSexTop":1}}],	
+			"text": "She takes your face in her hands, and with a strange dexterity she presses her tail against you... and you feel your penis sink into something soft and wet, with an odd internal shape.  You nearly let out a gasp, and she's amused by your reaction."},
 			{"text": "You realize too late that she's wrapping her tail around you, but she dispels your fears."},
 			{"text": "\"Don't worry.  Just bringing you in close,\" she explains, her tail moving rhythmically to pull you inside and also to pull you out."},
 			{"text": "Having already been enticed, you immediately feel the urge to cum - which is when you start to question your own knowledge of snake anatomy."},
@@ -8761,7 +8825,10 @@
 			{"text": "\"Fill me up, baby...\" she says, sultrily, and you feel it coming... you can't stop it..."},
 			{"text": "She watches in amusement as you bite your lip, trying to hold it in, while your cock pulses and throbs inside of her.  Any moment now you're going to flood her strange womb with fertile sperm, and you can't help it."},
 			{"text": "\"Yes!  Get me pregnant!  Let me spawn my vicious brood!\""},
-			{"text": "She doesn't stop moving, and soon you're staring at her sadistic smile, your mouth open in shock, as you ejaculate inside of the monster."},
+			{
+			"sound": "CUM",
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "ejaculationInButt":1}}],
+			"text": "She doesn't stop moving, and soon you're staring at her sadistic smile, your mouth open in shock, as you ejaculate inside of the monster."},
 			{"text": "She hums.  \"That's right... give me what I need for strong babies... don't stop; I want all of it.\""},
 			{"text": "With each spurt, you know you're only giving her exactly what she wants... but you continue to pump her pussy full until it's all but certain that you just impregnated a snake creature."},
 			{"text": "\"Mmmm...\" she says, running her hands down her body towards her stomach, \"I'm soooo pregnant.  I'm gonna be a mommy... and you...\" she says, pointing her finger at your nose, \"are going to be a daddy.\""},
@@ -8777,7 +8844,9 @@
 		"scriptLines": [
 			{"text": "You nod, and she sticks out her forked tongue.  You wordlessly pull out your penis, carefully approaching her, her head at crotch level."},
 			{"text": "\"Ooh... I know about this.  You want me to swallow it, do you?  Then I'll open wide...\" she says, opening... quite wide.  Honestly, it makes you hesitate more than anything."},
-			{"text": "Still, you let her take you into her mouth, and even down her throat, and you shudder as she begins to earnestly deep throat you, perhaps taking \"swallow\" a bit too literally."},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "oralSexTop":1}}],	
+			"text": "Still, you let her take you into her mouth, and even down her throat, and you shudder as she begins to earnestly deep throat you, perhaps taking \"swallow\" a bit too literally."},
 			{"text": "Regardless, she's quite earnest with it, and you feel a desire to cum down her throat building and building, until finally, she gets a heaping helping of mammalian spunk down her gullet. "},
 			{"text": "You're quite enjoying the experience until... you feel it - a sharp pain on your hip.  You look down, and she's bitten down on your hip, looking up at you with a knowing smile.  She pulls her mouth off of you, and wipes it with her forearm."},
 			{"text": "\"Just a little venom... don't worry, you'll have asphxiated in my stomach before the painful part kicks in,\" she says, and your eyes go wide."},
