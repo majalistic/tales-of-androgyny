@@ -1385,15 +1385,15 @@ public class PlayerCharacter extends AbstractCharacter {
 		String display = "";
 		int healthDegradation = getHealthDegradation();
 		if (healthDegradation > 0) {
-			display += "Low health: -" + healthDegradation + " STR, END, AGI\n";
+			display += "Low health: -" + (healthDegradation / 2 > 0 ? healthDegradation / 2 + " STR, -" : "") + healthDegradation + " END, AGI\n";
 		}
 		
 		int staminaDegradation = getStaminaDegradation();
 		if (staminaDegradation > 0) {
-			display += "Low stamina: -" + staminaDegradation + " STR, AGI\n";
+			display += "Low stamina: -" + (staminaDegradation / 2 > 0 ? staminaDegradation / 2 + " STR, -" : "") + staminaDegradation + " AGI\n";
 		}
 		
-		int lustDegradation = getLustDegradation();
+		int lustDegradation = getLustDegradation() / 2;
 		if (lustDegradation > 0) {
 			display += "High lust: -" + lustDegradation + " STR\n";
 		}
