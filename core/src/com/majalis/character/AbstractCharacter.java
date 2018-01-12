@@ -293,7 +293,26 @@ public abstract class AbstractCharacter extends Actor {
 	public int getCumInflation() { return buttful >= 20 || mouthful >= 20 ? 2 : buttful >=10 || mouthful >= 10 ? 1 : 0; } 
 	
 	public String getStatusBlurb() {
-		return strengthDebuffed() ? "Weakening Curse" : "";
+		String blurb = strengthDebuffed() ? "Weakening Curse\n" : "";
+		switch(getHealthDegradation()) {
+			case 3: blurb += "Injured (-3)\n"; break;
+			case 2: blurb += "Wounded (-2)\n"; break;
+			case 1: blurb += "Hurt (-1)\n"; break;
+			default:
+		}
+		switch(getStaminaDegradation()) {
+			case 3: blurb += "Breathless (-3)\n"; break;
+			case 2: blurb += "Gasping (-2)\n"; break;
+			case 1: blurb += "Winded (-1)\n"; break;
+			default:
+		}
+		switch(getLustDegradation()) {
+			case 4: blurb += "Cumdrunk (-2)\n"; break;
+			case 2: blurb += "Lusty (-1)\n"; break;
+			default:
+		}
+		
+		return blurb;
 	}
 	public Armor getArmor() { return armor; }
 	public Armor getLegwear() { return legwear; }

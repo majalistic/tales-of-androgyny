@@ -128,6 +128,7 @@ public class Battle extends Group{
 	
 	private final Label bloodLabel;
 	private final Label enemyBloodLabel;
+	private final Label statusLabel;
 	private final Label enemyStatusLabel;
 	private final Label grappleStatus;
 	
@@ -352,7 +353,10 @@ public class Battle extends Group{
 		enemyBloodLabel.setAlignment(Align.center);
 		enemyBloodLabel.setWidth(10);
 		
-		enemyStatusLabel = initLabel(enemy.getStatusBlurb(), skin, Color.FIREBRICK, 1430, 675);
+		statusLabel = initLabel(character.getStatusBlurb(), skin, Color.RED, 550, 725);
+		statusLabel.setAlignment(Align.topLeft);
+		enemyStatusLabel = initLabel(enemy.getStatusBlurb(), skin, Color.RED, 1275, 725);
+		enemyStatusLabel.setAlignment(Align.topRight);
 		
 		if (character.getBleed() == 0) {
 			bloodImage.addAction(hide());
@@ -397,7 +401,6 @@ public class Battle extends Group{
 		hoverGroup.addAction(Actions.visible(false));
 		uiGroup.addActor(hoverGroup);
 			
-		
 		techniqueTable = new Table();
 		techniquePane = new ScrollPane(techniqueTable);
 		techniquePane.setScrollingDisabled(true, false);
@@ -823,6 +826,7 @@ public class Battle extends Group{
 		enemyUnderwearLabel.setText("" + enemy.getUnderwearScore());	
 		bloodLabel.setText("" + character.getBleed());
 		enemyBloodLabel.setText("" + enemy.getBleed());	
+		statusLabel.setText(character.getStatusBlurb());
 		enemyStatusLabel.setText(enemy.getStatusBlurb());
 		
 		armorArmor.setDrawable(getDrawable(character.getArmor() == null || character.getArmor().getDestructionLevel() == 0 ? armorTexture : armorBrokenTexture));
