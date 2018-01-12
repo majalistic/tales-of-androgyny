@@ -1278,38 +1278,6 @@ public class EnemyCharacter extends AbstractCharacter {
 	public void setArousal(ArousalLevel newArousalLevel) { 
 		arousal.setArousalLevel(newArousalLevel);
 	}
-
-	@Override
-	protected String increaseLust() {
-		if (stance.isErotic()) {
-			return increaseLust(1);
-		}
-		return null;
-	}
-	
-	@Override
-	protected String increaseLust(int lustIncrease) {
-		String spurt = "";
-		if ((enemyType != EnemyEnum.GOLEM || arousal.isErect()) && enemyType != EnemyEnum.QUETZAL) {
-			SexualExperienceBuilder sexBuild = new SexualExperienceBuilder();
-			// for now, if lustIncrease > 1, it's a taunt - remove this and assume that for all of these it's 1 instance
-			if (lustIncrease > 1) sexBuild.setAssTeasing(lustIncrease); // this also currently assumes the taunt is from a bottom
-			switch(stance.getClimaxType()) {
-				case ANAL: sexBuild.setAnalSexTop(lustIncrease); break;
-				case ANAL_RECEPTIVE: if (oldStance.getClimaxType() == ClimaxType.ANAL) sexBuild.setAnal(lustIncrease); else sexBuild.setAnalSex(lustIncrease); break;
-				case BACKWASH: sexBuild.setAssBottomTeasing(lustIncrease); break;
-				case FACIAL: 
-				case ORAL: sexBuild.setOralSexTop(lustIncrease); break;
-				case ORAL_RECEPTIVE: if (oldStance.getClimaxType() == ClimaxType.ORAL) sexBuild.setOral(lustIncrease); else sexBuild.setOralSex(lustIncrease); break;
-				default: break;
-			}
-			arousal.increaseArousal(sexBuild.build(), perks);
-		}
-		if (arousal.isClimax() && stance.isEroticReceptive()) {
-			spurt = climax();
-		}
-		return !spurt.isEmpty() ? spurt : null;
-	}
 	
 	@Override
 	public String getDefeatMessage() {

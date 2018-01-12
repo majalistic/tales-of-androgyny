@@ -115,7 +115,7 @@ public enum EnemyEnum {
 	protected boolean hasHitAnimation() { return this == EnemyEnum.HARPY || this == EnemyEnum.CENTAUR || this == EnemyEnum.UNICORN; }
     
 	protected Arousal getArousal() { 
-		Arousal newArousal = new Arousal(this == QUETZAL ? ArousalType.QUETZAL : this == GOBLIN || this == GOBLIN_MALE ? ArousalType.GOBLIN : this == OGRE ? ArousalType.OGRE : this == GOLEM ? ArousalType.SEXLESS : ArousalType.DEFAULT);
+		Arousal newArousal = new Arousal(this == QUETZAL ? ArousalType.QUETZAL : this == GOBLIN || this == GOBLIN_MALE ? ArousalType.GOBLIN : this == OGRE ? ArousalType.OGRE : this == GOLEM ? ArousalType.GOLEM : ArousalType.DEFAULT);
 		if (this == UNICORN) newArousal.setArousalLevel(ArousalLevel.ERECT);
 		return newArousal; 
 	}

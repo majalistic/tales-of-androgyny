@@ -13,6 +13,7 @@ import com.majalis.character.Item.MiscType;
 import com.majalis.character.Item.Plug;
 import com.majalis.character.Item.Weapon;
 import com.majalis.character.PlayerCharacter.Bootyliciousness;
+import com.majalis.character.SexualExperience.SexualExperienceBuilder;
 import com.majalis.save.MutationResult;
 import com.majalis.save.MutationResult.MutationType;
 import com.majalis.save.SaveManager.JobClass;
@@ -695,14 +696,16 @@ public abstract class AbstractCharacter extends Actor {
 				}
 			}
 			
-			String lustIncrease = increaseLust();
-			if (lustIncrease != null) result.add(lustIncrease);
-			
-			if (attack.getLust() > 0) {
-				lustIncrease = increaseLust(attack.getLust());
+			if ((enemyType != EnemyEnum.GOLEM || arousal.isErect()) && enemyType != EnemyEnum.QUETZAL) {
+				String lustIncrease = increaseLust();
 				if (lustIncrease != null) result.add(lustIncrease);
-				result.add(label + (secondPerson ? " are seduced" : " is seduced") + "! " + (secondPerson ? " Your " : " Their ") + "lust raises by " + attack.getLust() + "!");
-			}	
+				
+				if (attack.getLust() > 0) {
+					lustIncrease = increaseLust(attack.getLust());
+					if (lustIncrease != null) result.add(lustIncrease);
+					result.add(label + (secondPerson ? " are seduced" : " is seduced") + "! " + (secondPerson ? " Your " : " Their ") + "lust raises by " + attack.getLust() + "!");
+				}	
+			}
 			
 			String internalShotText = null;
 			if (attack.getClimaxType() == ClimaxType.ANAL) {
@@ -752,6 +755,36 @@ public abstract class AbstractCharacter extends Actor {
 		results.add(result);
 		results.add(new Array<String>());
 		return results;
+	}
+	
+	protected String increaseLust() {
+		if (stance.isErotic()) {
+			return increaseLust(1);
+		}
+		return null;
+	}
+	
+	protected String increaseLust(int lustIncrease) {
+		String spurt = "";
+		SexualExperienceBuilder sexBuild = new SexualExperienceBuilder();
+		if (lustIncrease > 1) {
+			if (enemyType != null) sexBuild.setAssTeasing(lustIncrease); // this currently assumes the taunt is from a bottom
+			else sexBuild.setAssBottomTeasing(lustIncrease); // this also currently assumes the taunt is from a top - does not work for Trudy's taunt, for instance
+		}
+		switch(stance.getClimaxType()) {
+			case ANAL: sexBuild.setAnalSexTop(lustIncrease); break;
+			case ANAL_RECEPTIVE: if (oldStance.getClimaxType() == ClimaxType.ANAL) sexBuild.setAnal(lustIncrease); else sexBuild.setAnalSex(lustIncrease); break;
+			case BACKWASH: sexBuild.setAssBottomTeasing(lustIncrease); break;
+			case FACIAL: 
+			case ORAL: sexBuild.setOralSexTop(lustIncrease); break;
+			case ORAL_RECEPTIVE: if (oldStance.getClimaxType() == ClimaxType.ORAL) sexBuild.setOral(lustIncrease); else sexBuild.setOralSex(lustIncrease); break;
+			default: break;
+		}
+		arousal.increaseArousal(sexBuild.build(), perks);
+		if (arousal.isClimax() && stance.isEroticReceptive()) {
+			spurt = climax();
+		}
+		return !spurt.isEmpty() ? spurt : null;
 	}
 	
 	protected abstract String climax();
@@ -857,9 +890,6 @@ public abstract class AbstractCharacter extends Actor {
 	
 	protected abstract String getLeakMessage();
 	protected abstract String getDroolMessage();
-	
-	protected abstract String increaseLust();
-	protected abstract String increaseLust(int lustIncrease);
 	
 	protected OrderedMap<Stat, Integer> getStats() {
 		OrderedMap<Stat, Integer> stats = new OrderedMap<Stat, Integer>();

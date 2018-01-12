@@ -24,7 +24,8 @@ public class Arousal {
 		OGRE,
 		WEREWOLF, // EDGING is knot
 		QUETZAL,
-		SEXLESS
+		GOLEM,
+		SEXLESS,
 	}
 	
 	public enum ArousalLevel {
