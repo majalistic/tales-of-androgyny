@@ -1024,6 +1024,7 @@ public class EnemyCharacter extends AbstractCharacter {
 			case COWGIRL:
 				results.add("The " + getLabel() + " blasts off in your intestines while you bounce\non their cumming cock! You got butt-bombed!");
 				break;
+			case FACEFUCK:
 			case FELLATIO:
 				if (enemyType == EnemyEnum.HARPY) {
 					results.add("A harpy semen bomb explodes in your mouth!  It tastes awful!");
@@ -1053,6 +1054,9 @@ public class EnemyCharacter extends AbstractCharacter {
 			case STANDING_BOTTOM:
 			case COWGIRL_BOTTOM:
 			case FELLATIO_BOTTOM:
+			case FACEFUCK_BOTTOM:
+			case PRONE_BONE_BOTTOM:
+			case REVERSE_COWGIRL_BOTTOM:
 			case SIXTY_NINE_BOTTOM:
 				results.add("The " + getLabel() + " ejaculates!");
 				ClimaxType climaxType = stance.isAnalReceptive() ? ClimaxType.ANAL_RECEPTIVE : ClimaxType.ORAL_RECEPTIVE;
@@ -1060,11 +1064,13 @@ public class EnemyCharacter extends AbstractCharacter {
 				break;
 			case STANDING:
 			case DOGGY:
+			case PRONE_BONE:
 				results.add("The " + getLabel() + " spews hot, thick semen into your bowels!");
 				results.add("You are anally inseminated!");
 				results.add("You're going to be farting cum for days!");
 				break;
 			default:
+				break;
 		}
 	
 		if (stance.isEroticPenetration() && enemyType != EnemyEnum.QUETZAL) {
