@@ -151,7 +151,7 @@ public enum Stance {
 	public boolean receivesHighAttacks() { return receivesHighAttacks; }
 	public boolean receivesMediumAttacks() { return receivesMediumAttacks; }
 	public boolean receivesLowAttacks() { return receivesLowAttacks; }
-	public ClimaxType getClimaxType() { return isAnalReceptive() ? ClimaxType.ANAL_RECEPTIVE : isOralReceptive() ? ClimaxType.ORAL_RECEPTIVE : isAnalPenetration() ? ClimaxType.ANAL : isOralPenetration() ? ClimaxType.ORAL : this == Stance.HANDY ? ClimaxType.FACIAL : ClimaxType.BACKWASH; }
+	public ClimaxType getClimaxType() { return isAnalReceptive() ? ClimaxType.ANAL_RECEPTIVE : isOralReceptive() ? ClimaxType.ORAL_RECEPTIVE : isAnalPenetration() ? ClimaxType.ANAL : isOralPenetration() ? ClimaxType.ORAL : this == Stance.HANDY ? ClimaxType.FACIAL : isErotic() ? ClimaxType.BACKWASH : ClimaxType.NULL; }
 	
 	private enum StanceType {
 		ANAL,
