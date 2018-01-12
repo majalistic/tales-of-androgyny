@@ -1004,7 +1004,7 @@ public class PlayerCharacter extends AbstractCharacter {
 				spurt = "You spew while she rides your face!\n"
 						+	"Your worthless cum spurts into the dirt!\n"
 						+	"They don't even notice!\n";
-				arousal.climax(ClimaxType.BACKWASH);
+				arousal.climax(ClimaxType.BACKWASH, perks);
 				break;
 			case SIXTY_NINE_BOTTOM:
 				spurt = "You spew into her mouth!\n"
@@ -1016,15 +1016,15 @@ public class PlayerCharacter extends AbstractCharacter {
 			case ANAL:
 			case DOGGY:
 				stance = Stance.ERUPT;
-				arousal.climax(ClimaxType.ANAL);
+				arousal.climax(ClimaxType.ANAL, perks);
 				break;
 			case FELLATIO:
 				stance = Stance.ERUPT;
-				arousal.climax(ClimaxType.ORAL);
+				arousal.climax(ClimaxType.ORAL, perks);
 				break;
 			default: 
 				spurt = "You spew your semen onto the ground!\n"; 
-				arousal.climax(ClimaxType.BACKWASH);
+				arousal.climax(ClimaxType.BACKWASH, perks);
 		}
 		if (result != null) spurt += result + "\n";
 		spurt += "You're now flaccid!\n";
@@ -1314,13 +1314,13 @@ public class PlayerCharacter extends AbstractCharacter {
 	private void cumFromAnal() {
 		cameFromAnal++;
 		justCame = true;
-		arousal.climax(ClimaxType.ANAL_RECEPTIVE);
+		arousal.climax(ClimaxType.ANAL_RECEPTIVE, perks);
 	}
 	
 	private void cumFromOral() {
 		cameFromOral++;
 		justCame = true;
-		arousal.climax(ClimaxType.ORAL_RECEPTIVE);
+		arousal.climax(ClimaxType.ORAL_RECEPTIVE, perks);
 	}
 
 	public String getBootyLiciousness() {

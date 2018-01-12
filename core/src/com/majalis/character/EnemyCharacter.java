@@ -406,7 +406,7 @@ public class EnemyCharacter extends AbstractCharacter {
 				}
 					
 				climaxCounters.put(resolvedAttack.getClimaxType().toString(), climaxCounters.get(resolvedAttack.getClimaxType().toString(), 0) + 1);
-				arousal.climax(resolvedAttack.getClimaxType());
+				arousal.climax(resolvedAttack.getClimaxType(), perks);
 				
 				if ((enemyType == EnemyEnum.GOBLIN || enemyType == EnemyEnum.GOBLIN_MALE) && getClimaxCount() % 5 == 0) {
 					arousal.setArousalLevel(ArousalLevel.SEMI_ERECT);
@@ -1017,7 +1017,7 @@ public class EnemyCharacter extends AbstractCharacter {
 	@Override
 	protected String climax() {
 		Array<String> results = new Array<String>();	
-		arousal.climax(stance.getClimaxType());
+		arousal.climax(stance.getClimaxType(), perks);
 		currentStamina -= 10;
 		switch (oldStance) {
 			case ANAL:

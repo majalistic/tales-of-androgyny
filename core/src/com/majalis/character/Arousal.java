@@ -48,12 +48,12 @@ public class Arousal {
 	// this accepts a raw increase amount that's the "size" of the arousal increase, which is then modified by current lust and ArousalLevel - may also need additional information like type of Arousal (anal stimulation, oral stimulation, bottom, top, etc.)
 	protected void increaseArousal(SexualExperience sex, ObjectMap<String, Integer> perks) {
 		if (type == ArousalType.SEXLESS) return;
-		int base = type == ArousalType.PLAYER ? 2 : 4;
+		int base = getBase();
+		int analBottomMod = getAnalBottomMod(perks, base);
+		int oralBottomMod = getOralBottomMod(perks, base);
+		int topMod = getTopMod(perks, base);
 		int climaxArousalAmount = 0;
 		int arousalAmount = 0;
-		int analBottomMod = (base + perks.get(Perk.ANAL_ADDICT.toString(), 0) + perks.get(Perk.COCK_LOVER.toString(), 0) / 3) * (1 + perks.get(Perk.WEAK_TO_ANAL.toString(), 0));
-		int oralBottomMod = base + perks.get(Perk.MOUTH_MANIAC.toString(), 0) + perks.get(Perk.COCK_LOVER.toString(), 0) / 3;
-		int topMod = base + perks.get(Perk.TOP.toString(), 0);
 		// currently does not count creampies or ejaculations
 		climaxArousalAmount += sex.getAnalSex() * analBottomMod; // this should be doubled for penetration?
 		climaxArousalAmount += sex.getAnal() * analBottomMod;
@@ -89,11 +89,21 @@ public class Arousal {
 	
 	private int getLustArousalMod() { return lust == 400 ? 12 : lust >= 300 ? 16 : lust >= 200 ? 20 : lust >= 100 ? 24 : 28; }
 	
-	protected void climax(ClimaxType climaxType) { // should reset ArousalLevel, arousal, and some portion of lust, unless there's some functional difference like for goblins - this may be called externally for encounter climaxes
+	protected void climax(ClimaxType climaxType, ObjectMap<String, Integer> perks) { // should reset ArousalLevel, arousal, and some portion of lust, unless there's some functional difference like for goblins - this may be called externally for encounter climaxes
 		arousalLevel = type == ArousalType.GOBLIN ? ArousalLevel.EDGING : type == ArousalType.QUETZAL ? ArousalLevel.EDGING : ArousalLevel.FLACCID;
 		if (type != ArousalType.QUETZAL) arousal = 0;
-		modLust(-100);		
+		int base = getBase();
+		int analBottomMod = getAnalBottomMod(perks, base);
+		int oralBottomMod = getOralBottomMod(perks, base);
+		int topMod = getTopMod(perks, base);
+		modLust(-25 * (climaxType == ClimaxType.ANAL_RECEPTIVE ? analBottomMod / (1 + perks.get(Perk.WEAK_TO_ANAL.toString(), 0)) : climaxType == ClimaxType.ORAL_RECEPTIVE ? oralBottomMod : topMod));		
 	} 
+	
+	private int getBase() { return type == ArousalType.PLAYER ? 2 : 4; }
+	private int getAnalBottomMod(ObjectMap<String, Integer> perks, int base) { return (base + perks.get(Perk.ANAL_ADDICT.toString(), 0) + perks.get(Perk.COCK_LOVER.toString(), 0) / 3) * (1 + perks.get(Perk.WEAK_TO_ANAL.toString(), 0)); }
+	private int getOralBottomMod(ObjectMap<String, Integer> perks, int base) { return base + perks.get(Perk.MOUTH_MANIAC.toString(), 0) + perks.get(Perk.COCK_LOVER.toString(), 0) / 3; }
+	private int getTopMod(ObjectMap<String, Integer> perks, int base) { return base + perks.get(Perk.TOP.toString(), 0); }
+	
 	
 	private void modLust(int mod) {
 		lust += mod;
