@@ -596,6 +596,8 @@ public class EnemyCharacter extends AbstractCharacter {
 					possibles.addAll(getTechniques(TAUNT));
 				}
 				return possibles;
+			case SEDUCTION:
+				return getTechniques(TAUNT, REVERSAL_ATTACK, BLOCK, DUCK, HIT_THE_DECK);
 			case COUNTER:
 				return getTechniques(RIPOSTE, EN_GARDE);
 			case CASTING:
