@@ -147,7 +147,7 @@ public class PlayerCharacter extends AbstractCharacter {
 			OUROBOROS, ROUND_AND_ROUND, RECEIVE_OUROBOROS, STRUGGLE_OUROBOROS, MOUNT_FACE, FACEFUCK, GET_FACEFUCKED, STRUGGLE_FACEFUCK, RECEIVE_EGGS, ERUPT_ORAL,
 			WRESTLE_TO_GROUND, WRESTLE_TO_GROUND_UP, PENETRATE_PRONE, PENETRATE_MISSIONARY, PIN, GRAPPLE, HOLD_WRESTLE, CHOKE, REST_WRESTLE, FLIP_PRONE, FLIP_SUPINE, RELEASE_PRONE, RELEASE_SUPINE, STRUGGLE_GROUND, BREAK_FREE_GROUND, GRIND, REST_GROUND_DOWN, STRUGGLE_GROUND_UP, BREAK_FREE_GROUND_UP, REVERSAL,
 			FULL_REVERSAL, REST_GROUND_UP, SQUEEZE_STRUGGLE, BREAK_FREE_SQUEEZE, SQUEEZE_REST,
-			SLAP_ASS, GESTURE, RUB, PRESENT, SLAP_ASS_KNEES
+			SLAP_ASS, GESTURE, RUB, PRESENT, SLAP_ASS_KNEES, STROKE, STROKE_DOGGY, STROKE_STANDING
 		);
 		return baseTechniques;
 	}
@@ -365,10 +365,10 @@ public class PlayerCharacter extends AbstractCharacter {
 				return getTechniques(SUBMIT, STRUGGLE_FULL_NELSON);
 			case DOGGY_BOTTOM:
 				if (hasGrappleAdvantage()) {
-					possibles = getTechniques(RECEIVE_DOGGY, BREAK_FREE_ANAL);
+					possibles = getTechniques(RECEIVE_DOGGY, STROKE_DOGGY, BREAK_FREE_ANAL);
 				}
 				else {
-					possibles = getTechniques(RECEIVE_DOGGY, STRUGGLE_DOGGY);
+					possibles = getTechniques(RECEIVE_DOGGY, STROKE_DOGGY, STRUGGLE_DOGGY);
 				}
 				if (isLewd()) {
 					possibles.addAll(getTechniques(SELF_SPANK));
@@ -387,10 +387,10 @@ public class PlayerCharacter extends AbstractCharacter {
 					return getTechniques(RECEIVE_ANAL);
 				}
 				if (hasGrappleAdvantage()) {
-					possibles = getTechniques(RECEIVE_ANAL, POUT, BREAK_FREE_ANAL);
+					possibles = getTechniques(RECEIVE_ANAL, POUT, STROKE, BREAK_FREE_ANAL);
 				}
 				else {
-					possibles = getTechniques(RECEIVE_ANAL, POUT, STRUGGLE_ANAL);
+					possibles = getTechniques(RECEIVE_ANAL, POUT, STROKE, STRUGGLE_ANAL);
 				}
 				if (!wrapLegs && isLewd()) {
 					possibles.addAll(getTechniques(WRAP_LEGS));
@@ -400,9 +400,9 @@ public class PlayerCharacter extends AbstractCharacter {
 				return getTechniques(STROKE_IT, LET_GO, OPEN_WIDE);
 			case STANDING_BOTTOM:
 				if (hasGrappleAdvantage()) {
-					return getTechniques(RECEIVE_STANDING, BREAK_FREE_ANAL);
+					return getTechniques(RECEIVE_STANDING, STROKE_STANDING, BREAK_FREE_ANAL);
 				}
-				return getTechniques(RECEIVE_STANDING, STRUGGLE_STANDING);
+				return getTechniques(RECEIVE_STANDING, STROKE_STANDING, STRUGGLE_STANDING);
 			case COWGIRL_BOTTOM:
 				return getTechniques(RIDE_ON_IT, BOUNCE_ON_IT, SQUEEZE_IT, STAND_OFF_IT);
 			case REVERSE_COWGIRL_BOTTOM:
