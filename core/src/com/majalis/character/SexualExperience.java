@@ -236,8 +236,9 @@ public class SexualExperience {
 	protected boolean isBeast() { return beast; }
 	protected boolean isBird() { return bird; }
 	protected boolean isKnot() { return knot; }
-	protected boolean isTeasing() { return assTeasing > 0 || assBottomTeasing > 0 || mouthTeasing > 0 || assBottomTeasing > 0; }
-	protected boolean isEmpty() { return analSexTop + oralSexTop + analSex + anal + creampies + analEjaculation + oralSex + oral + oralCreampies + fellatioEjaculation + bellyful + handy + assTeasing + assBottomTeasing + mouthTeasing + mouthBottomTeasing == 0; }
+	protected boolean isSex() { return analSexTop + oralSexTop + analSex + anal + creampies + analEjaculation + oralSex + oral + oralCreampies + fellatioEjaculation + bellyful + handy > 0; }
+	protected boolean isTeasing() { return assTeasing + assBottomTeasing + mouthTeasing + assBottomTeasing > 0; }
+	protected boolean isEmpty() { return !(isSex() || isTeasing()); }
 	@Override
 	public String toString() { 
 		return "Anal sex top: " + analSexTop + "\n" + "Oral sex top: " + oralSexTop + "\n" + "Anal sex: " + analSex + "\n" + "Anal: " + anal + "\n" + "Creampies: " + creampies + "\n" + "Anal ejaculation: " + analEjaculation + "\n" + "Oral sex: " + oralSex + "\n" + "Oral: " + oral + "\n" +

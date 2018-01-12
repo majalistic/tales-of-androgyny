@@ -77,7 +77,7 @@ public class Arousal {
 		arousalAmount *= !sex.isKnot() ? 1 : perks.get(Perk.BITCH.toString(), 0) * .5 + 1;				
 				
 		arousal += climaxArousalAmount;
-		if (!isErect()) arousal += arousalAmount; 
+		if (!isErect() || sex.isSex()) arousal += arousalAmount; 
 			
 		modLust(arousalAmount + climaxArousalAmount);	
 		
