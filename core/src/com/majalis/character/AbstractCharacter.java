@@ -724,7 +724,7 @@ public abstract class AbstractCharacter extends Actor {
 					String lustIncrease = increaseLust(sex, selfSex);
 					if (lustIncrease != null) result.add(lustIncrease);
 					int lustChange = arousal.getLust() - formerLust;
-					if (sex.isTeasing()) result.add(label + (secondPerson ? " are seduced" : " is seduced") + "! " + (lustChange > 0 ? ((secondPerson ? " Your " : " Their ") + "lust raises by " + lustChange + "!") : (secondPerson ? " You " : " They ") + " cum!"));
+					if (sex.isTeasing()) result.add(label + (secondPerson ? " are seduced" : " is seduced") + "! " + (lustChange > 0 ? ((secondPerson ? " Your " : " Their ") + "lust raises by " + lustChange + "!") : (secondPerson ? " You " : " They ") + "cum!"));
 				}	
 			}
 			
