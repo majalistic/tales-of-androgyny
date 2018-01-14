@@ -714,11 +714,10 @@ public abstract class AbstractCharacter extends Actor {
 					}
 				}
 			}
-			
+			SexualExperience sex = attack.getSex();
+			SexualExperience selfSex = attack.getSelfSex();
+
 			if ((enemyType != EnemyEnum.GOLEM || arousal.isErect()) && enemyType != EnemyEnum.QUETZAL) {
-				SexualExperience sex = attack.getSex();
-				SexualExperience selfSex = attack.getSelfSex();
-	
 				if (!sex.isEmpty() || !selfSex.isEmpty()) {
 					int formerLust = arousal.getLust();
 					String lustIncrease = increaseLust(sex, selfSex);
@@ -726,6 +725,9 @@ public abstract class AbstractCharacter extends Actor {
 					int lustChange = arousal.getLust() - formerLust;
 					if (sex.isTeasing()) result.add(label + (secondPerson ? " are seduced" : " is seduced") + "! " + (lustChange > 0 ? ((secondPerson ? " Your " : " Their ") + "lust raises by " + lustChange + "!") : (secondPerson ? " You " : " They ") + "cum!"));
 				}	
+			}
+			else if (enemyType == EnemyEnum.QUETZAL) {
+				arousal.increaseArousal(selfSex, perks);
 			}
 			
 			String internalShotText = null;
