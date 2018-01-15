@@ -1177,6 +1177,10 @@ public class EnemyCharacter extends AbstractCharacter {
 				height = 1080;
 			}
 			
+			if (enemyType == EnemyEnum.OGRE) {
+				y = 0;
+			}
+			
 			range = 0;
 			if (range == 0) {
 				batch.draw(texture, x + getX(), y + getY(), width, height);
