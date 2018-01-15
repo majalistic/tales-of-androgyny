@@ -589,7 +589,7 @@ public class EnemyCharacter extends AbstractCharacter {
 				if (enemyType.willParry()) {
 					possibles.addAll(getTechniques(PARRY));
 				}
-				if (enemyType == EnemyEnum.ADVENTURER || enemyType == EnemyEnum.GOBLIN || enemyType == EnemyEnum.GOBLIN_MALE) {
+				if (enemyType.willSeduce()) {
 					possibles.addAll(getTechniques(TAUNT));
 				}
 				return possibles;

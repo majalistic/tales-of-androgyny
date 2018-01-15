@@ -156,6 +156,7 @@ public enum EnemyEnum {
 	protected boolean prefersProneBone() { return this == ORC || this == GOBLIN; }
 	protected boolean prefersMissionary() { return this == BRIGAND || this == ADVENTURER; }
 	protected boolean canWrestle() { return this != ANGEL && this != SLIME && this != HARPY && this != CENTAUR && this != UNICORN && this != OGRE && this != BEASTMISTRESS && this != SPIDER && this != GHOST && this != NAGA && this != QUETZAL; }
+	protected boolean willSeduce() { return this == GOBLIN || this == GOBLIN_MALE || this == ADVENTURER; }
 	protected boolean isCorporeal() { return this != GHOST; }
 	protected boolean usesDefensiveTechniques() { return this != QUETZAL; }
 	protected ObjectMap<String, Integer> getPerks() {
