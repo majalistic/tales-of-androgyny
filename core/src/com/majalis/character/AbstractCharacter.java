@@ -235,7 +235,7 @@ public abstract class AbstractCharacter extends Actor {
 	
 	protected int getStaminaRegen() { return Math.max(getEndurance()/2, 0); }
 	
-	protected int getStabilityRegen() { return getAgility()/2; }
+	protected int getStabilityRegen() { return getAgility() / 2 + perks.get(Perk.QUICKFOOTED.toString(), 0); }
 	
 	public String getLabel() { return label; }
 	

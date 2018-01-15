@@ -6,6 +6,7 @@ public enum Perk {
 	SURVEYOR ("Increases effective perception for scouting purposes by 2 per rank.", 3),
 	EROTIC ("Increases effective charisma for arousing others by 2 per rank.", 3), 
 	CATAMITE ("Unlocks more options for being willingly receptive.", 1),
+	QUICKFOOTED ("Increases stability as if having higher agility by 2 per rank.", 3),
 	STRONGER ("Increases strength by 1 per rank.", 3),
 	HARDER ("Increases endurance by 1 per rank.", 3),
 	FASTER ("Increases agility by 1 per rank.", 3),
