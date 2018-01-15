@@ -1985,6 +1985,30 @@
 		]
 	},
 	{
+		"key": "BROTHEL-EXCITED",
+		"scriptLines": [
+			{
+			"foreground": "NULL",
+			"text": "You offer up your services free of charge - you just need to get fucked."},
+			{
+			"sound": "CUM",
+			"mutations": [{"saveType":"TIME", "value":{"class": "java.lang.Integer", "value": 1}}, {"saveType":"GOLD", "value":{"class": "java.lang.Integer", "value": -3}}, {"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1, "creampies": 1, "analEjaculation": 1, "prostitution":true}}],
+			"text": "You're quick to find a customer who's interested in the free offer - you pay the brothel for the privilege of having that customer ream out your shithole for free."}
+		]
+	},
+	{
+		"key": "BROTHEL-OPPORTUNIST",
+		"scriptLines": [
+			{
+			"foreground": "NULL",
+			"text": "You offer up your services free of charge - you just need to get fucked.  Because you don't have any money, the madame doesn't want you stealing from paying customers... but from her punished pets, she can arrange something for you."},
+			{
+			"sound": "CUM",
+			"mutations": [{"saveType":"TIME", "value":{"class": "java.lang.Integer", "value": 1}}, {"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1, "creampies": 1, "analEjaculation": 1, "prostitution":true}}],
+			"text": "He's not a looker... and he seems to have little interest in you... but you manage to climb on top of him and squeeze your male hole around him for long enough to get that much-needed nut, and despite his protestation, he leaves you a tip in the form of a butt-clogging ejaculation."}
+		]
+	},
+	{
 		"key": "BROTHEL-OFFER",
 		"scriptLines": [
 			{
@@ -8888,7 +8912,7 @@
 			"text": "Your breath and voice catch in your throat as the weight in your rectum shifts - nothing else in the world matters.  Her second cock has joined the first, and her laughter is so far away she may as well be on another plane entirely."},
 			{"text": "Your hole is stretched so far lengthwise that you doubt it will ever return to a circular shape.  Her anatomy is -wrong- for a human, and even moreso wrong for a human asshole.  You feel her hands drumming playfully on your asscheeks, and you know she finds it funny, but the crushing sensation in your bowels is no joke."},
 			{"text": "\"Human buttholes really weren't made for my kind of love, were they?  Oh well!  Guess I'm going to ruin this pretty little pussy forever!\" she says, maniacally, and you suspect the \"pussy\" she's referring to is already ruined, and things will only get worse from here."},
-			{"text": "The two cocks fight over whether to be side to side or top and bottom, rotating and shifting in your intestines, your beleagured anus stretching far beyond the geometries of normal human anal sex as they do - stretching lengthwise, heightwise, and in diagonals, you can barely fathom the shape it will retain when this is over."},
+			{"text": "The two cocks fight over whether to be side to side or top and bottom, rotating and shifting in your intestines, your beleaguered anus stretching far beyond the geometries of normal human anal sex as they do - stretching lengthwise, heightwise, and in diagonals, you can barely fathom the shape it will retain when this is over."},
 			{"text": "What you do know, with certainty, is that such a shape will not at all resemble what it once was, or even what a human's excretory organ can look like.  It is being transformed, and the architect of your new anal reality likely doesn't care how it turns out either."},
 			{"text": "She rolls and writhes about in the dirt, her dual-cocks digging into you and never pulling free, while she asks you biting questions about whether your defilement is to your liking."},
 			{"text": "\"Is it humiliating to be violated anally by a \"monster\"?  Well?!\""},

@@ -351,19 +351,23 @@ public class EncounterBuilder {
 						"What do you ask of her?",
 						talkToMadame,
 						patronBrothel,
-						new Branch("Offer your services").choiceScene(
-							"What service do you offer?", 
-							new Branch("Kissing (1 GP)").textScene("BROTHEL-KISSING"), 
-							new Branch("Handjobs (2 GP)").textScene("BROTHEL-HANDJOB").checkScene(Perk.CRANK_MASTER, new Branch(3).textScene("BROTHEL-HANDJOB-MASTER"), new Branch(2).textScene("BROTHEL-HANDJOB-EXPERT"), new Branch(1).textScene("BROTHEL-HANDJOB-NOVICE"), new Branch(0).textScene("BROTHEL-HANDJOB-BEGINNER")), 
-							new Branch("Blowjobs (3 GP)").textScene("BROTHEL-ORAL").checkScene(Perk.BLOWJOB_EXPERT, new Branch(3).textScene("BROTHEL-ORAL-MASTER"), new Branch(2).textScene("BROTHEL-ORAL-EXPERT"), new Branch(1).textScene("BROTHEL-ORAL-NOVICE"), new Branch(0).textScene("BROTHEL-ORAL-BEGINNER")), 
-							new Branch("Ass (5 GP)").choiceScene(
-								"With condoms?", 
-								new Branch("Yes (5GP)").textScene("BROTHEL-ANAL-CONDOM").checkScene(Perk.PERFECT_BOTTOM, new Branch(3).textScene("BROTHEL-ANAL-CONDOM-MASTER"), new Branch(2).textScene("BROTHEL-ANAL-CONDOM-EXPERT"), new Branch(1).textScene("BROTHEL-ANAL-CONDOM-NOVICE"), new Branch(0).textScene("BROTHEL-ANAL-CONDOM-BEGINNER")),
-								new Branch("Bareback (7GP)").require(ChoiceCheckType.PERK_GREATER_THAN_X, Perk.PERFECT_BOTTOM, 4).textScene("BROTHEL-ANAL-BAREBACK").checkScene(Perk.PERFECT_BOTTOM, new Branch(6).textScene("BROTHEL-ANAL-BAREBACK-MASTER"), new Branch(0).textScene("BROTHEL-ANAL-BAREBACK-EXPERT"))
-							), 
-							new Branch("Girlfriend Experience").textScene("BROTHEL-GFXP").require(ChoiceCheckType.PERK_GREATER_THAN_X, Perk.PERFECT_BOTTOM, 6),
-							new Branch("Never mind"),
-						new Branch("Leave")						
+						new Branch("Offer your services").checkScene(
+							CheckType.MAX_LUST, 
+							new Branch(true).choiceScene("You can't hold back!", new Branch("Pro Bono (3 GP)").require(ChoiceCheckType.GOLD_GREATER_THAN_X, 3).textScene("BROTHEL-EXCITED"), new Branch("Whatever!").textScene("BROTHEL-OPPORTUNIST")), 
+							new Branch(false).choiceScene(
+								"What service do you offer?", 
+								new Branch("Kissing (1 GP)").textScene("BROTHEL-KISSING"), 
+								new Branch("Handjobs (2 GP)").textScene("BROTHEL-HANDJOB").checkScene(Perk.CRANK_MASTER, new Branch(3).textScene("BROTHEL-HANDJOB-MASTER"), new Branch(2).textScene("BROTHEL-HANDJOB-EXPERT"), new Branch(1).textScene("BROTHEL-HANDJOB-NOVICE"), new Branch(0).textScene("BROTHEL-HANDJOB-BEGINNER")), 
+								new Branch("Blowjobs (3 GP)").textScene("BROTHEL-ORAL").checkScene(Perk.BLOWJOB_EXPERT, new Branch(3).textScene("BROTHEL-ORAL-MASTER"), new Branch(2).textScene("BROTHEL-ORAL-EXPERT"), new Branch(1).textScene("BROTHEL-ORAL-NOVICE"), new Branch(0).textScene("BROTHEL-ORAL-BEGINNER")), 
+								new Branch("Ass (5 GP)").choiceScene(
+									"With condoms?", 
+									new Branch("Yes (5GP)").textScene("BROTHEL-ANAL-CONDOM").checkScene(Perk.PERFECT_BOTTOM, new Branch(3).textScene("BROTHEL-ANAL-CONDOM-MASTER"), new Branch(2).textScene("BROTHEL-ANAL-CONDOM-EXPERT"), new Branch(1).textScene("BROTHEL-ANAL-CONDOM-NOVICE"), new Branch(0).textScene("BROTHEL-ANAL-CONDOM-BEGINNER")),
+									new Branch("Bareback (7GP)").require(ChoiceCheckType.PERK_GREATER_THAN_X, Perk.PERFECT_BOTTOM, 4).textScene("BROTHEL-ANAL-BAREBACK").checkScene(Perk.PERFECT_BOTTOM, new Branch(6).textScene("BROTHEL-ANAL-BAREBACK-MASTER"), new Branch(0).textScene("BROTHEL-ANAL-BAREBACK-EXPERT"))
+								), 
+								new Branch("Girlfriend Experience").textScene("BROTHEL-GFXP").require(ChoiceCheckType.PERK_GREATER_THAN_X, Perk.PERFECT_BOTTOM, 6),
+								new Branch("Never mind"),
+							new Branch("Leave")						
+						)
 					)
 				);
 				
