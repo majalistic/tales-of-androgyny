@@ -589,11 +589,14 @@ public class EnemyCharacter extends AbstractCharacter {
 				if (enemyType.willParry()) {
 					possibles.addAll(getTechniques(PARRY));
 				}
-				if (enemyType == EnemyEnum.ADVENTURER) {
+				if (enemyType == EnemyEnum.ADVENTURER || enemyType == EnemyEnum.GOBLIN || enemyType == EnemyEnum.GOBLIN_MALE) {
 					possibles.addAll(getTechniques(TAUNT));
 				}
 				return possibles;
 			case SEDUCTION:
+				if (arousal.isBottomReady()) {
+					return getTechniques(PRESENT);
+				}
 				return getTechniques(SLAP_ASS, GESTURE, PUCKER_LIPS, RUB, PRESENT, REVERSAL_ATTACK, BLOCK, DUCK, HIT_THE_DECK);
 			case COUNTER:
 				return getTechniques(RIPOSTE, EN_GARDE);

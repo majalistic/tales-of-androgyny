@@ -7,6 +7,7 @@ public class Arousal {
 	private final ArousalType type;
 	private ArousalLevel arousalLevel;
 	private int lust;
+	private int bottomLust;
 	private int arousal;	
 	
 	@SuppressWarnings("unused")
@@ -81,6 +82,8 @@ public class Arousal {
 			arousalAmount *= !sex.isBird() ? 1 : perks.get(Perk.CUCKOO_FOR_CUCKOO.toString(), 0) * .5 + 1;
 			arousalAmount *= !sex.isKnot() ? 1 : perks.get(Perk.BITCH.toString(), 0) * .5 + 1;				
 					
+			bottomLust += sex.getAssBottomTeasing() * analBottomMod;
+			
 			arousal += climaxArousalAmount;
 			if (!isErect() || sex.isSex()) arousal += arousalAmount; 
 		}
@@ -94,6 +97,8 @@ public class Arousal {
 		}
 	}
 	
+	public boolean isBottomReady() { return bottomLust >= 50; }
+	
 	private int getLustArousalMod() { return lust == 400 ? 12 : lust >= 300 ? 16 : lust >= 200 ? 20 : lust >= 100 ? 24 : 28; }
 	
 	protected void climax(ClimaxType climaxType, ObjectMap<String, Integer> perks) { // should reset ArousalLevel, arousal, and some portion of lust, unless there's some functional difference like for goblins - this may be called externally for encounter climaxes
@@ -103,6 +108,7 @@ public class Arousal {
 		int analBottomMod = getAnalBottomMod(perks, base);
 		int oralBottomMod = getOralBottomMod(perks, base);
 		int topMod = getTopMod(perks, base);
+		if (climaxType == ClimaxType.ANAL_RECEPTIVE) bottomLust = 0;
 		modLust(-25 * (climaxType == ClimaxType.ANAL_RECEPTIVE ? analBottomMod / (1 + perks.get(Perk.WEAK_TO_ANAL.toString(), 0)) : climaxType == ClimaxType.ORAL_RECEPTIVE ? oralBottomMod : topMod));
 	} 
 	
