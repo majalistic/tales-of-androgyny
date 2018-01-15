@@ -50,11 +50,13 @@ public class TownScreen extends AbstractScreen {
 	private final Image arrow;
 	private final Sound buttonSound;
 	private final Array<TextButton> buttons;
+	private final boolean story;
 	private int selection;
 	
-	protected TownScreen(ScreenFactory screenFactory, ScreenElements elements, SaveService saveService, int time) {
+	protected TownScreen(ScreenFactory screenFactory, ScreenElements elements, SaveService saveService, int time, boolean story) {
 		super(screenFactory, elements, AssetEnum.SHOP_MUSIC);
 		this.saveService = saveService;
+		this.story= story;
 		skin = assetManager.get(AssetEnum.UI_SKIN.getSkin());
 		background = new BackgroundBuilder(assetManager.get(AssetEnum.TOWN_BG.getTexture()), true).build();
 		background.setColor(getTimeColor(time));
@@ -90,9 +92,15 @@ public class TownScreen extends AbstractScreen {
 		buttonLabels.addAll("General Store", "Blacksmith", "Inn", "Bank", "Brothel", "Town Square", "Depart");
 		
 		for (int ii = 0; ii < buttonLabels.size; ii++) {
-			buttons.add(new TextButton(buttonLabels.get(ii), skin));
-			buttons.get(ii).addListener(getListener(ii));
-			table.add(buttons.get(ii)).size(300, 60).row();
+			if (story && buttonLabels.get(ii).equals("Town Square")) continue;
+			TextButton button = new TextButton(buttonLabels.get(ii), skin);
+			buttons.add(button);
+			
+			table.add(button).size(300, 60).row();
+		}
+		int ii = 0;
+		for (TextButton button : buttons) {
+			button.addListener(getListener(ii++));
 		}
 		
 		buttons.get(0).addListener(getListener(EncounterCode.SHOP));
@@ -100,8 +108,8 @@ public class TownScreen extends AbstractScreen {
 		buttons.get(2).addListener(getListener(EncounterCode.INN));  	
 		buttons.get(3).addListener(getListener(EncounterCode.BANK));  	
 		buttons.get(4).addListener(getListener(EncounterCode.BROTHEL));  	
-		buttons.get(5).addListener(getListener(EncounterCode.TOWN_CRIER)); 
-		buttons.get(6).addListener(new ClickListener() {
+		if (!story) buttons.get(5).addListener(getListener(EncounterCode.TOWN_CRIER)); 
+		buttons.get(story ? 5 : 6).addListener(new ClickListener() {
 	        @Override
 	        public void clicked(InputEvent event, float x, float y) {
 	        	buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);

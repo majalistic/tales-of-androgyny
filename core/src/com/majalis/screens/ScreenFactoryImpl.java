@@ -222,7 +222,7 @@ public class ScreenFactoryImpl implements ScreenFactory {
 	
 	private TownScreen getTown(ScreenElements elements, PlayerCharacter character) {
 		if (getAssetCheck(TownScreen.resourceRequirements)) {
-			return new TownScreen(this, elements, saveService, (Integer)loadService.loadDataValue(SaveEnum.TIME, Integer.class));
+			return new TownScreen(this, elements, saveService, (Integer)loadService.loadDataValue(SaveEnum.TIME, Integer.class), (GameMode)loadService.loadDataValue(SaveEnum.MODE, GameMode.class) == GameMode.STORY);
 		}
 		return null;
 	}
