@@ -571,31 +571,33 @@ public class EncounterBuilder {
 			return allSceneTokens;
 		}
 		
+		private Array<BranchToken> getAllBranchTokens() {
+			Array<BranchToken> allBranchTokens = new Array<BranchToken>();
+			allBranchTokens.add(branchToken);
+			for (Branch branch : branchOptions.values()) {
+				allBranchTokens.addAll(branch.getAllBranchTokens());
+			}
+			return allBranchTokens;
+		}
+		
 		public Array<AssetDescriptor<?>> getRequirements() {
 			Array<AssetDescriptor<?>> requirements = new Array<AssetDescriptor<?>>();
 			ObjectSet<AssetEnum> alreadySeen = new ObjectSet<AssetEnum>();
+			ObjectSet<SceneToken> alreadySeenScene = new ObjectSet<SceneToken>();
 			for (SceneToken scene : getAllSceneTokens()) {
-				if (scene.background != null && !alreadySeen.contains(scene.background)) {
-					alreadySeen.add(scene.background);
-					requirements.add(scene.background.getTexture());
+				if(!alreadySeenScene.contains(scene)) {
+					alreadySeenScene.add(scene);
+					requirements.addAll(scene.getRequirements(alreadySeen));
 				}
-				if (scene.foreground != null && !alreadySeen.contains(scene.foreground)) {
-					alreadySeen.add(scene.foreground);
-					requirements.add(scene.foreground.getTexture());
+			}		
+			ObjectSet<BranchToken> alreadySeenBranch = new ObjectSet<BranchToken>();
+			for (BranchToken branch : getAllBranchTokens()) {
+				if(branch != null && !alreadySeenBranch.contains(branch)) {
+					alreadySeenBranch.add(branch);
+					requirements.addAll(branch.getRequirements(alreadySeen));
 				}
-				if (scene.animatedForeground != null && !alreadySeen.contains(scene.animatedForeground.getAnimationToken())) {
-					alreadySeen.add(scene.animatedForeground.getAnimationToken());
-					requirements.add(scene.animatedForeground.getAnimationToken().getAnimation());
-				}
-				if (scene.sound != null && !alreadySeen.contains(scene.sound)) {
-					alreadySeen.add(scene.sound);
-					requirements.add(scene.sound.getSound());
-				}
-				if (scene.music != null && !alreadySeen.contains(scene.music)) {
-					alreadySeen.add(scene.music);
-					requirements.add(scene.music.getMusic());
-				}
-			}			
+			}	
+			
 			return requirements;
 		}
 	}
@@ -657,6 +659,7 @@ public class EncounterBuilder {
 		protected BranchToken(EndTokenType type) {
 			this.type = type;
 		}
+		protected Array<AssetDescriptor<?>> getRequirements(ObjectSet<AssetEnum> alreadySeen) { return new Array<AssetDescriptor<?>>(); }
 		EndTokenType getType() { return type; }
 	}
 	
@@ -674,6 +677,12 @@ public class EncounterBuilder {
 	public class GameTypeSceneToken extends BranchToken {
 		public GameTypeSceneToken() {
 			super(EndTokenType.Gametype);
+		}
+		@Override
+		protected Array<AssetDescriptor<?>> getRequirements(ObjectSet<AssetEnum> alreadySeen) { 
+			Array<AssetDescriptor<?>> requirements = new Array<AssetDescriptor<?>>();
+			requirements.add(AssetEnum.GAME_TYPE_BACKGROUND.getTexture());
+			return requirements; 
 		}
 	}
 	
@@ -757,6 +766,30 @@ public class EncounterBuilder {
 				startAnimatedForeground = null;
 			}
 			if (animatedForeground == null) animatedForeground = startAnimatedForeground;
+		}
+		protected Array<AssetDescriptor<?>> getRequirements(ObjectSet<AssetEnum> alreadySeen) {
+			Array<AssetDescriptor<?>> requirements = new Array<AssetDescriptor<?>>();
+			if (background != null && !alreadySeen.contains(background)) {
+				alreadySeen.add(background);
+				requirements.add(background.getTexture());
+			}
+			if (foreground != null && !alreadySeen.contains(foreground)) {
+				alreadySeen.add(foreground);
+				requirements.add(foreground.getTexture());
+			}
+			if (animatedForeground != null && !alreadySeen.contains(animatedForeground.getAnimationToken())) {
+				alreadySeen.add(animatedForeground.getAnimationToken());
+				requirements.add(animatedForeground.getAnimationToken().getAnimation());
+			}
+			if (sound != null && !alreadySeen.contains(sound)) {
+				alreadySeen.add(sound);
+				requirements.add(sound.getSound());
+			}
+			if (music != null && !alreadySeen.contains(music)) {
+				alreadySeen.add(music);
+				requirements.add(music.getMusic());
+			}
+			return requirements;
 		}		
 	}
 	
@@ -765,6 +798,18 @@ public class EncounterBuilder {
 		public ShopSceneToken (ShopCode shopCode) {
 			this.shopCode = shopCode;
 		}
+		@Override
+		protected Array<AssetDescriptor<?>> getRequirements(ObjectSet<AssetEnum> alreadySeen) {
+			Array<AssetDescriptor<?>> requirements = super.getRequirements(alreadySeen);
+			requirements.add(AssetEnum.EQUIP.getSound());
+			requirements.add(AssetEnum.BATTLE_TEXTBOX.getTexture());
+			requirements.add(AssetEnum.TEXT_BOX.getTexture());
+			requirements.add(AssetEnum.BATTLE_HOVER.getTexture());
+			requirements.add(shopCode.getForeground());
+			requirements.add(shopCode.getBackground());
+			return requirements;
+		}
+		
 	}
 	
 	public static class CharacterCreationToken extends SceneToken {
@@ -772,11 +817,55 @@ public class EncounterBuilder {
 		public CharacterCreationToken (boolean storyMode) {
 			this.storyMode = storyMode;
 		}
+		@Override
+		protected Array<AssetDescriptor<?>> getRequirements(ObjectSet<AssetEnum> alreadySeen) {
+			Array<AssetDescriptor<?>> requirements = super.getRequirements(alreadySeen);
+			requirements.add(AssetEnum.WARRIOR.getTexture());
+			requirements.add(AssetEnum.PALADIN.getTexture());
+			requirements.add(AssetEnum.THIEF.getTexture());
+			requirements.add(AssetEnum.RANGER.getTexture());
+			requirements.add(AssetEnum.MAGE.getTexture());
+			requirements.add(AssetEnum.ENCHANTRESS.getTexture());
+			requirements.add(AssetEnum.STRENGTH.getTexture());
+			requirements.add(AssetEnum.ENDURANCE.getTexture());
+			requirements.add(AssetEnum.AGILITY.getTexture());
+			requirements.add(AssetEnum.PERCEPTION.getTexture());
+			requirements.add(AssetEnum.MAGIC.getTexture());
+			requirements.add(AssetEnum.CHARISMA.getTexture());
+			requirements.add(AssetEnum.CREATION_BUTTON_DOWN.getTexture());
+			requirements.add(AssetEnum.CREATION_BUTTON_UP.getTexture());
+			requirements.add(AssetEnum.CREATION_BUTTON_CHECKED.getTexture());
+			requirements.add(AssetEnum.CREATION_BAUBLE_EMPTY.getTexture());
+			requirements.add(AssetEnum.CREATION_BAUBLE_NEW.getTexture());
+			requirements.add(AssetEnum.CREATION_BAUBLE_OLD.getTexture());
+			requirements.add(AssetEnum.CREATION_BAUBLE_REMOVED.getTexture());
+			requirements.add(AssetEnum.CLASS_SELECT_BACKGROUND.getTexture());
+			return requirements;
+		}
 	}
 	
-	public static class CharacterCustomizationToken extends SceneToken {}
+	public static class CharacterCustomizationToken extends SceneToken {
+		@Override
+		protected Array<AssetDescriptor<?>> getRequirements(ObjectSet<AssetEnum> alreadySeen) {
+			Array<AssetDescriptor<?>> requirements = super.getRequirements(alreadySeen);
+			requirements.add(AssetEnum.CHARACTER_CUSTOM_BACKGROUND.getTexture());
+			return requirements;
+		}
+		
+	}
 	
-	public static class SkillSelectionToken extends SceneToken {}
+	public static class SkillSelectionToken extends SceneToken {
+		@Override
+		protected Array<AssetDescriptor<?>> getRequirements(ObjectSet<AssetEnum> alreadySeen) {
+			Array<AssetDescriptor<?>> requirements = super.getRequirements(alreadySeen);
+			requirements.add(AssetEnum.SKILL_SELECTION_BACKGROUND.getTexture());
+			requirements.add(AssetEnum.NORMAL_BOX.getTexture());
+			requirements.add(AssetEnum.BATTLE_HOVER.getTexture());
+			requirements.add(AssetEnum.DEFAULT_BACKGROUND.getTexture());
+			return requirements;
+		}
+		
+	}
 	
 	public static class MutateToken {
 		SaveEnum saveType;
