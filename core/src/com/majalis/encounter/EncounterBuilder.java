@@ -681,7 +681,7 @@ public class EncounterBuilder {
 		@Override
 		protected Array<AssetDescriptor<?>> getRequirements(ObjectSet<AssetEnum> alreadySeen) { 
 			Array<AssetDescriptor<?>> requirements = new Array<AssetDescriptor<?>>();
-			requirements.add(AssetEnum.GAME_TYPE_BACKGROUND.getTexture());
+			requirements.add(add(alreadySeen, AssetEnum.GAME_TYPE_BACKGROUND).getTexture());
 			return requirements; 
 		}
 	}
@@ -801,10 +801,10 @@ public class EncounterBuilder {
 		@Override
 		protected Array<AssetDescriptor<?>> getRequirements(ObjectSet<AssetEnum> alreadySeen) {
 			Array<AssetDescriptor<?>> requirements = super.getRequirements(alreadySeen);
-			requirements.add(AssetEnum.EQUIP.getSound());
-			requirements.add(AssetEnum.BATTLE_TEXTBOX.getTexture());
-			requirements.add(AssetEnum.TEXT_BOX.getTexture());
-			requirements.add(AssetEnum.BATTLE_HOVER.getTexture());
+			requirements.add(add(alreadySeen, AssetEnum.EQUIP).getSound());
+			requirements.add(add(alreadySeen, AssetEnum.BATTLE_TEXTBOX).getTexture());
+			requirements.add(add(alreadySeen, AssetEnum.TEXT_BOX).getTexture());
+			requirements.add(add(alreadySeen, AssetEnum.BATTLE_HOVER).getTexture());
 			requirements.add(shopCode.getForeground());
 			requirements.add(shopCode.getBackground());
 			return requirements;
@@ -820,26 +820,26 @@ public class EncounterBuilder {
 		@Override
 		protected Array<AssetDescriptor<?>> getRequirements(ObjectSet<AssetEnum> alreadySeen) {
 			Array<AssetDescriptor<?>> requirements = super.getRequirements(alreadySeen);
-			requirements.add(AssetEnum.WARRIOR.getTexture());
-			requirements.add(AssetEnum.PALADIN.getTexture());
-			requirements.add(AssetEnum.THIEF.getTexture());
-			requirements.add(AssetEnum.RANGER.getTexture());
-			requirements.add(AssetEnum.MAGE.getTexture());
-			requirements.add(AssetEnum.ENCHANTRESS.getTexture());
-			requirements.add(AssetEnum.STRENGTH.getTexture());
-			requirements.add(AssetEnum.ENDURANCE.getTexture());
-			requirements.add(AssetEnum.AGILITY.getTexture());
-			requirements.add(AssetEnum.PERCEPTION.getTexture());
-			requirements.add(AssetEnum.MAGIC.getTexture());
-			requirements.add(AssetEnum.CHARISMA.getTexture());
-			requirements.add(AssetEnum.CREATION_BUTTON_DOWN.getTexture());
-			requirements.add(AssetEnum.CREATION_BUTTON_UP.getTexture());
-			requirements.add(AssetEnum.CREATION_BUTTON_CHECKED.getTexture());
-			requirements.add(AssetEnum.CREATION_BAUBLE_EMPTY.getTexture());
-			requirements.add(AssetEnum.CREATION_BAUBLE_NEW.getTexture());
-			requirements.add(AssetEnum.CREATION_BAUBLE_OLD.getTexture());
-			requirements.add(AssetEnum.CREATION_BAUBLE_REMOVED.getTexture());
-			requirements.add(AssetEnum.CLASS_SELECT_BACKGROUND.getTexture());
+			requirements.add(add(alreadySeen, AssetEnum.WARRIOR).getTexture());
+			requirements.add(add(alreadySeen, AssetEnum.PALADIN).getTexture());
+			requirements.add(add(alreadySeen, AssetEnum.THIEF).getTexture());
+			requirements.add(add(alreadySeen, AssetEnum.RANGER).getTexture());
+			requirements.add(add(alreadySeen, AssetEnum.MAGE).getTexture());
+			requirements.add(add(alreadySeen, AssetEnum.ENCHANTRESS).getTexture());
+			requirements.add(add(alreadySeen, AssetEnum.STRENGTH).getTexture());
+			requirements.add(add(alreadySeen, AssetEnum.ENDURANCE).getTexture());
+			requirements.add(add(alreadySeen, AssetEnum.AGILITY).getTexture());
+			requirements.add(add(alreadySeen, AssetEnum.PERCEPTION).getTexture());
+			requirements.add(add(alreadySeen, AssetEnum.MAGIC).getTexture());
+			requirements.add(add(alreadySeen, AssetEnum.CHARISMA).getTexture());
+			requirements.add(add(alreadySeen, AssetEnum.CREATION_BUTTON_DOWN).getTexture());
+			requirements.add(add(alreadySeen, AssetEnum.CREATION_BUTTON_UP).getTexture());
+			requirements.add(add(alreadySeen, AssetEnum.CREATION_BUTTON_CHECKED).getTexture());
+			requirements.add(add(alreadySeen, AssetEnum.CREATION_BAUBLE_EMPTY).getTexture());
+			requirements.add(add(alreadySeen, AssetEnum.CREATION_BAUBLE_NEW).getTexture());
+			requirements.add(add(alreadySeen, AssetEnum.CREATION_BAUBLE_OLD).getTexture());
+			requirements.add(add(alreadySeen, AssetEnum.CREATION_BAUBLE_REMOVED).getTexture());
+			requirements.add(add(alreadySeen, AssetEnum.CLASS_SELECT_BACKGROUND).getTexture());
 			return requirements;
 		}
 	}
@@ -848,23 +848,26 @@ public class EncounterBuilder {
 		@Override
 		protected Array<AssetDescriptor<?>> getRequirements(ObjectSet<AssetEnum> alreadySeen) {
 			Array<AssetDescriptor<?>> requirements = super.getRequirements(alreadySeen);
-			requirements.add(AssetEnum.CHARACTER_CUSTOM_BACKGROUND.getTexture());
+			requirements.add(add(alreadySeen, AssetEnum.CHARACTER_CUSTOM_BACKGROUND).getTexture());
 			return requirements;
 		}
-		
 	}
 	
 	public static class SkillSelectionToken extends SceneToken {
 		@Override
 		protected Array<AssetDescriptor<?>> getRequirements(ObjectSet<AssetEnum> alreadySeen) {
 			Array<AssetDescriptor<?>> requirements = super.getRequirements(alreadySeen);
-			requirements.add(AssetEnum.SKILL_SELECTION_BACKGROUND.getTexture());
-			requirements.add(AssetEnum.NORMAL_BOX.getTexture());
-			requirements.add(AssetEnum.BATTLE_HOVER.getTexture());
-			requirements.add(AssetEnum.DEFAULT_BACKGROUND.getTexture());
+			requirements.add(add(alreadySeen, AssetEnum.SKILL_SELECTION_BACKGROUND).getTexture());
+			requirements.add(add(alreadySeen, AssetEnum.NORMAL_BOX).getTexture());
+			requirements.add(add(alreadySeen, AssetEnum.BATTLE_HOVER).getTexture());
+			requirements.add(add(alreadySeen, AssetEnum.DEFAULT_BACKGROUND).getTexture());
 			return requirements;
-		}
-		
+		}	
+	}
+	
+	private static AssetEnum add(ObjectSet<AssetEnum> alreadySeen, AssetEnum asset) {
+		alreadySeen.add(asset);
+		return asset;
 	}
 	
 	public static class MutateToken {
