@@ -194,14 +194,13 @@ public class ScreenFactoryImpl implements ScreenFactory {
 	}
 	
 	private EncounterScreen getEncounter(ScreenElements elements, PlayerCharacter character) {
-		EncounterCode toLoad = (EncounterCode)loadService.loadDataValue(SaveEnum.ENCOUNTER_CODE, EncounterCode.class);
-		if (getAssetCheck(EncounterScreen.getRequirements(toLoad))) {	
-			Encounter encounter = encounterLoading == null ? encounterFactory.getEncounter(toLoad, elements.getFont(48)).getEncounter() : encounterLoading.getEncounter();
+		encounterLoading = encounterLoading != null ? encounterLoading : encounterFactory.getEncounter((EncounterCode)loadService.loadDataValue(SaveEnum.ENCOUNTER_CODE, EncounterCode.class), elements.getFont(48));
+		if (getAssetCheck(EncounterScreen.getRequirements(encounterLoading))) {	
+			Encounter encounter = encounterLoading.getEncounter();
 			encounterLoading = null;
 			return new EncounterScreen(this, elements, loadService, encounter);
 		}
 		else {
-			encounterLoading = encounterFactory.getEncounter(toLoad, elements.getFont(48)); // this can be performed in the loading screen as well
 			return null;
 		}
 	}

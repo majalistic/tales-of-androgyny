@@ -1,4 +1,5 @@
 package com.majalis.encounter;
+import com.badlogic.gdx.assets.AssetDescriptor;
 /*
  * Class used for building an encounter from an encounter code and current state information.
  */
@@ -12,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.IntArray;
 import com.badlogic.gdx.utils.ObjectMap;
+import com.badlogic.gdx.utils.ObjectSet;
 import com.badlogic.gdx.utils.OrderedMap;
 import com.majalis.asset.AnimatedActor;
 import com.majalis.asset.AnimationEnum;
@@ -560,7 +562,42 @@ public class EncounterBuilder {
 			// this should accept some kind of object that has assetmanager and whatever else to actually build the scenes			
 			return new Encounter(getScenes(), getEndScenes(), getBattleScenes(), getStartScene());
 		}
+
+		private Array<SceneToken> getAllSceneTokens() {
+			Array<SceneToken> allSceneTokens = new Array<SceneToken>(sceneTokens);
+			for (Branch branch : branchOptions.values()) {
+				allSceneTokens.addAll(branch.getAllSceneTokens());
+			}
+			return allSceneTokens;
+		}
 		
+		public Array<AssetDescriptor<?>> getRequirements() {
+			Array<AssetDescriptor<?>> requirements = new Array<AssetDescriptor<?>>();
+			ObjectSet<AssetEnum> alreadySeen = new ObjectSet<AssetEnum>();
+			for (SceneToken scene : getAllSceneTokens()) {
+				if (scene.background != null && !alreadySeen.contains(scene.background)) {
+					alreadySeen.add(scene.background);
+					requirements.add(scene.background.getTexture());
+				}
+				if (scene.foreground != null && !alreadySeen.contains(scene.foreground)) {
+					alreadySeen.add(scene.foreground);
+					requirements.add(scene.foreground.getTexture());
+				}
+				if (scene.animatedForeground != null && !alreadySeen.contains(scene.animatedForeground.getAnimationToken())) {
+					alreadySeen.add(scene.animatedForeground.getAnimationToken());
+					requirements.add(scene.animatedForeground.getAnimationToken().getAnimation());
+				}
+				if (scene.sound != null && !alreadySeen.contains(scene.sound)) {
+					alreadySeen.add(scene.sound);
+					requirements.add(scene.sound.getSound());
+				}
+				if (scene.music != null && !alreadySeen.contains(scene.music)) {
+					alreadySeen.add(scene.music);
+					requirements.add(scene.music.getMusic());
+				}
+			}			
+			return requirements;
+		}
 	}
 	
 	public static class ChoiceCheckToken {

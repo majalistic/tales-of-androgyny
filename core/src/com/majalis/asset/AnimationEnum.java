@@ -18,6 +18,9 @@ public enum AnimationEnum {
 	private AnimationEnum(AssetEnum animationToken) {
 		this.animationToken = animationToken;
 	}
+	
+	public AssetEnum getAnimationToken() { return animationToken; }
+	
 	public AnimatedActor getAnimation(AssetManager assetManager) {
 		AnimatedActorFactory factory = factoryMap.get(animationToken);
 		if (factory == null) {
