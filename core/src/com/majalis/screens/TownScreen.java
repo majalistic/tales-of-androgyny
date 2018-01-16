@@ -20,6 +20,7 @@ import com.badlogic.gdx.utils.Array;
 import com.majalis.asset.AssetEnum;
 import com.majalis.encounter.Background;
 import com.majalis.encounter.Background.BackgroundBuilder;
+import com.majalis.encounter.EncounterBuilder.Branch;
 import com.majalis.encounter.EncounterCode;
 import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveManager;
@@ -27,7 +28,8 @@ import com.majalis.save.SaveService;
 
 public class TownScreen extends AbstractScreen {
 
-	public static final Array<AssetDescriptor<?>> resourceRequirements = new Array<AssetDescriptor<?>>();
+	private static final Array<AssetDescriptor<?>> resourceRequirements = new Array<AssetDescriptor<?>>();
+	private static Array<AssetDescriptor<?>> requirementsToDispose = new Array<AssetDescriptor<?>>();
 	static {
 		resourceRequirements.add(AssetEnum.UI_SKIN.getSkin());
 		resourceRequirements.add(AssetEnum.TOWN_BG.getTexture());
@@ -42,7 +44,6 @@ public class TownScreen extends AbstractScreen {
 		resourceRequirements.add(AssetEnum.BUTTON_SOUND.getSound());
 		resourceRequirements.add(AssetEnum.EQUIP.getSound());
 		resourceRequirements.add(AssetEnum.ENCOUNTER_MUSIC.getMusic());
-		resourceRequirements.addAll(EncounterScreen.getRequirements(EncounterCode.TOWN));
 	}
 	private final SaveService saveService;
 	private final Skin skin;
@@ -178,9 +179,18 @@ public class TownScreen extends AbstractScreen {
 
 	@Override
 	public void dispose() {
-		for(AssetDescriptor<?> path: resourceRequirements) {
-			if (path.fileName.equals(AssetEnum.BUTTON_SOUND.getSound().fileName) || path.type == Music.class) continue;
+		for (AssetDescriptor<?> path : requirementsToDispose) {
+			if (path.fileName.equals(AssetEnum.BUTTON_SOUND.getSound().fileName) || path.type == Music.class)
+				continue;
 			assetManager.unload(path.fileName);
 		}
+		requirementsToDispose = new Array<AssetDescriptor<?>>();
+	}
+	
+	public static Array<AssetDescriptor<?>> getRequirements(Branch encounter) {
+		Array<AssetDescriptor<?>> requirements = new Array<AssetDescriptor<?>>(resourceRequirements);
+		requirements.addAll(encounter.getRequirements());
+		requirementsToDispose = requirements;
+		return requirements;
 	}
 }

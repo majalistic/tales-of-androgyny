@@ -17,7 +17,6 @@ import com.badlogic.gdx.utils.Array;
 import com.majalis.asset.AssetEnum;
 import com.majalis.encounter.Encounter;
 import com.majalis.encounter.EncounterBuilder.Branch;
-import com.majalis.encounter.EncounterCode;
 import com.majalis.save.LoadService;
 import com.majalis.save.SaveEnum;
 /*
@@ -25,7 +24,7 @@ import com.majalis.save.SaveEnum;
  */
 public class EncounterScreen extends AbstractScreen {
 	private static final Array<AssetDescriptor<?>> resourceRequirements = new Array<AssetDescriptor<?>>();
-	public static Array<AssetDescriptor<?>> requirementsToDispose = new Array<AssetDescriptor<?>>();
+	private static Array<AssetDescriptor<?>> requirementsToDispose = new Array<AssetDescriptor<?>>();
 	static {
 		resourceRequirements.add(AssetEnum.UI_SKIN.getSkin());
 		resourceRequirements.add(AssetEnum.BUTTON_SOUND.getSound());
@@ -162,16 +161,9 @@ public class EncounterScreen extends AbstractScreen {
 		}
 		requirementsToDispose = new Array<AssetDescriptor<?>>();
 	}
-	// for screens like Town and Camp - need to refactor this away
-	public static Array<AssetDescriptor<?>> getRequirements(EncounterCode encounter) {
-		Array<AssetDescriptor<?>> requirements = new Array<AssetDescriptor<?>>(EncounterScreen.resourceRequirements);
-		requirements.addAll(encounter.getRequirements());
-		requirementsToDispose = requirements;
-		return requirements;
-	}
 	
 	public static Array<AssetDescriptor<?>> getRequirements(Branch encounter) {
-		Array<AssetDescriptor<?>> requirements = new Array<AssetDescriptor<?>>(EncounterScreen.resourceRequirements);
+		Array<AssetDescriptor<?>> requirements = new Array<AssetDescriptor<?>>(resourceRequirements);
 		requirements.addAll(encounter.getRequirements());
 		requirementsToDispose = requirements;
 		return requirements;

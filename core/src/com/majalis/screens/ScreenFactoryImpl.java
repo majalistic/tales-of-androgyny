@@ -216,21 +216,21 @@ public class ScreenFactoryImpl implements ScreenFactory {
 	}
 	
 	private LevelUpScreen getLevel(ScreenElements elements, PlayerCharacter character) {
-		if (getAssetCheck(LevelUpScreen.resourceRequirements)) {
+		if (getAssetCheck(LevelUpScreen.getRequirements(encounterFactory.getEncounter(EncounterCode.LEVEL_UP, elements.getFont(48))))) {
 			return new LevelUpScreen(this, elements, saveService, encounterFactory.getEncounter(EncounterCode.LEVEL_UP, elements.getFont(48)).getEncounter());
 		}
 		return null;
 	}
 	
 	private TownScreen getTown(ScreenElements elements, PlayerCharacter character) {
-		if (getAssetCheck(TownScreen.resourceRequirements)) {
+		if (getAssetCheck(TownScreen.getRequirements(encounterFactory.getEncounter(EncounterCode.TOWN, elements.getFont(48))))) {
 			return new TownScreen(this, elements, saveService, (Integer)loadService.loadDataValue(SaveEnum.TIME, Integer.class), (GameMode)loadService.loadDataValue(SaveEnum.MODE, GameMode.class) == GameMode.STORY);
 		}
 		return null;
 	}
 	
 	private CampScreen getCamp(ScreenElements elements, PlayerCharacter character) {
-		if (getAssetCheck(CampScreen.resourceRequirements)) {
+		if (getAssetCheck(CampScreen.getRequirements(encounterFactory.getEncounter(EncounterCode.FORAGE, elements.getFont(48))))) {
 			return new CampScreen(this, elements, saveService, character, (Integer)loadService.loadDataValue(SaveEnum.TIME, Integer.class));
 		}
 		return null;
