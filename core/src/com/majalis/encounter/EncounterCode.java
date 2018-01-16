@@ -728,7 +728,7 @@ public enum EncounterCode {
 				|| this == CRIER_QUEST || this == INN || this == SHOP || this == WEAPON_SHOP || this == STARVATION || this == CAMP_AND_EAT || this == LEVEL_UP || this == FORAGE;
 	}*/
 	
-	protected Encounter getEncounter(EncounterBuilder b, GameMode mode) {
+	protected Branch getEncounter(EncounterBuilder b, GameMode mode) {
 		switch (this) {
 			case ADVENTURER:
 				Branch trudyBattle = b.branch().battleScene(
@@ -776,7 +776,7 @@ public enum EncounterCode {
 							)
 						)
 					)
-				).getEncounter();
+				);
 			case ANGEL:
 				Branch angelOral = b.branch().choiceScene("Fuck her face?", b.branch("Hell Yes!").textScene("ANGEL-DEEPTHROAT"), b.branch("I'm Good").textScene("ANGEL-CUM-TRUMPET"));
 				Branch angelConfess = b.branch("Confess your temptations").textScene("ANGEL-BJ").choiceScene(
@@ -809,7 +809,7 @@ public enum EncounterCode {
 					), 
 					b.branch("Profane the Altar").require(ChoiceCheckType.FREE_COCK).textScene("ANGEL-PROFANE"), 
 					b.branch("Leave")
-				).getEncounter();
+				);
 			case BANK:
 				return b.branch().textScene("BANK").checkScene(
 						CheckType.BIG_DEBT,
@@ -819,7 +819,7 @@ public enum EncounterCode {
 							b.branch(true).choiceScene("Pay back debt?", b.branch("Pay Debt (10 GP)").require(ChoiceCheckType.GOLD_GREATER_THAN_X, 10).textScene("BANK-PAY"), b.branch("Leave")),
 							b.branch(false).choiceScene("Do you want to borrow?", b.branch("Borrow (50 GP)").textScene("BANK-BORROW"), b.branch("Leave"))
 						)
-				).getEncounter();
+				);
 			case BEASTMISTRESS:
 				return b.branch().textScene("BEASTMISTRESS-INTRO").choiceScene(
 					"Snake or Pussy?", 
@@ -838,7 +838,7 @@ public enum EncounterCode {
 							b.branch(0).textScene("BEASTMISTRESS-FAIL").encounterEnd()
 						)
 					)
-				).getEncounter();
+				);
 			case BRIGAND:
 				Branch[] battleBranches2 = new Branch[]{b.branch(Outcome.VICTORY).textScene("BRIGAND-VICTORY").encounterEnd(), b.branch(Outcome.DEFEAT).textScene("BRIGAND-DEFEAT").encounterEnd(), b.branch(Outcome.SATISFIED).textScene("BRIGAND-SATISFIED").encounterEnd()};
 				Branch acceptCont = b.branch().textScene("BRIGAND-ACCEPT-CONT").choiceScene(
@@ -895,7 +895,7 @@ public enum EncounterCode {
 							)
 						)
 					)
-				).getEncounter();
+				);
 			case BRIGAND_STORY:
 				return b.branch().textScene("STORY-BRIGAND").battleScene(
 					BattleCode.BRIGAND_STORY, 
@@ -914,7 +914,7 @@ public enum EncounterCode {
 					), 
 					b.branch(Outcome.DEFEAT).textScene("STORY-BRIGAND-DEFEAT").choiceScene("Steel or suck?", b.branch("Steel").textScene("STORY-BRIGAND-DEFEAT-DEATH").gameEnd(), b.branch("Suck").textScene("STORY-BRIGAND-DEFEAT-SUCK")),
 					b.branch(Outcome.SATISFIED).textScene("BRIGAND-SATISFIED")
-				).getEncounter();
+				);
 			
 			case BROTHEL:
 				Branch faceCrushed = b.branch().textScene("BROTHEL-MADAME-FACECRUSHED").gameEnd();
@@ -1051,7 +1051,7 @@ public enum EncounterCode {
 							)	
 						)
 					)
-				).getEncounter();
+				);
 			case BUNNY:
 				String bunnyScene = "BUNNY-SHOW-" + Gdx.app.getPreferences("tales-of-androgyny-preferences").getString("bunny", "CREAM");
 				String bunnyAnalScene = "BUNNY-ANAL-" + Gdx.app.getPreferences("tales-of-androgyny-preferences").getString("bunny", "CREAM");
@@ -1062,9 +1062,9 @@ public enum EncounterCode {
 					b.branch ("Pay 10").require(ChoiceCheckType.GOLD_GREATER_THAN_X, 10).textScene("BUNNY-PAY-10"), 
 					b.branch("Can't Pay").require(ChoiceCheckType.GOLD_LESS_THAN_X, 10).checkScene(CheckType.DEBT_WARNING, b.branch(true).textScene("BUNNY-PAY-FAIL").battleScene(BattleCode.BUNNY, b.branch(Outcome.VICTORY).textScene("BUNNY-VICTORY"), b.branch(Outcome.DEFEAT).textScene("BUNNY-DEFEAT").textScene(bunnyAnalScene).textScene("BUNNY-DEFEAT-CONT").gameEnd()), b.branch(false).textScene("BUNNY-PAY-WARNING"))
 				);
-				return b.branch().textScene("BUNNY-INTRO").checkScene(CheckType.DEBT_FIRST_ENCOUNTER, b.branch(true).textScene("BUNNY-FIRST").textScene(bunnyScene).textScene("BUNNY-SHOW").concat(debtEncounter), b.branch(false).textScene(bunnyScene).textScene("BUNNY-SHOW-REUNION").concat(debtEncounter)).getEncounter();						
+				return b.branch().textScene("BUNNY-INTRO").checkScene(CheckType.DEBT_FIRST_ENCOUNTER, b.branch(true).textScene("BUNNY-FIRST").textScene(bunnyScene).textScene("BUNNY-SHOW").concat(debtEncounter), b.branch(false).textScene(bunnyScene).textScene("BUNNY-SHOW-REUNION").concat(debtEncounter));						
 			case CAMP_AND_EAT:
-				return b.branch().textScene("FORCED-CAMP").encounterEnd().getEncounter();
+				return b.branch().textScene("FORCED-CAMP").encounterEnd();
 			case CENTAUR:
 				Branch[] centaurBattle = new Branch[]{b.branch(Outcome.VICTORY).textScene("CENTAUR-VICTORY").encounterEnd(), b.branch(Outcome.DEFEAT).textScene("CENTAUR-DEFEAT").gameEnd(), b.branch(Outcome.SATISFIED).textScene("CENTAUR-SATISFIED").encounterEnd()};
 				Branch[] unicornBattle = new Branch[]{b.branch(Outcome.VICTORY).textScene("UNICORN-VICTORY").encounterEnd(), b.branch(Outcome.DEFEAT).textScene("UNICORN-DEFEAT")};
@@ -1091,11 +1091,11 @@ public enum EncounterCode {
 							b.branch("Ask For It").require(ChoiceCheckType.LEWD).checkScene(CheckType.PLUGGED, b.branch(true).textScene("CENTAUR-BUTTPLUG").concat(centaurCatamite), b.branch (false).concat(centaurCatamite))
 						)
 					)
-				).getEncounter();
+				);
 			case COTTAGE_TRAINER:
-				return b.branch().textScene("STORY-003").characterCreation(true).encounterEnd().getEncounter(); 		
+				return b.branch().textScene("STORY-003").characterCreation(true).encounterEnd(); 		
 			case COTTAGE_TRAINER_VISIT:
-				return b.branch().textScene("STORY-004").encounterEnd().getEncounter();
+				return b.branch().textScene("STORY-004").encounterEnd();
 			case QUETZAL:
 				Branch quetzalSeconds = b.branch().textScene("QUETZAL-SECONDS").gameEnd();
 				Branch quetzalLoss = b.branch().textScene("QUETZAL-LOSS").concat(quetzalSeconds);
@@ -1117,9 +1117,9 @@ public enum EncounterCode {
 							),
 							b.branch(true).textScene("QUETZAL-RETURN").concat(quetzalAttack)
 						)
-				).getEncounter();
+				);
 			case DEFAULT:
-				return b.branch().textScene("STICK").encounterEnd().getEncounter();
+				return b.branch().textScene("STICK").encounterEnd();
 			case DRYAD:
 				return b.branch().textScene("DRYAD-INTRO").choiceScene(
 					"Do you offer her YOUR apple, or try to convince her to just hand it over?",
@@ -1129,9 +1129,9 @@ public enum EncounterCode {
 						b.branch(5).textScene("DRYAD-CONVINCE").encounterEnd(),
 						b.branch(0).textScene("DRYAD-FAIL").encounterEnd()
 					)
-			    ).getEncounter();
+			    );
 			case ECCENTRIC_MERCHANT:
-				return b.branch().textScene("STORY-MERCHANT").encounterEnd().getEncounter();
+				return b.branch().textScene("STORY-MERCHANT").encounterEnd();
 			case ELF:
 				Branch careerOptions = b.branch().textScene("ELF-CAREER").choiceScene(
 					"What do you say?", 
@@ -1169,7 +1169,7 @@ public enum EncounterCode {
 							)
 						)
 					)
-				).getEncounter();
+				);
 			case ELF_COMPANION:
 				Branch learnHealing = b.branch().choiceScene("Learn healing magic?", b.branch("Learn (MAG 2)").require(ChoiceCheckType.STAT_GREATER_THAN_X, Stat.MAGIC, 2).textScene("ELF-COMPANION-LEARN"), b.branch("Not now"));
 				return b.branch().checkScene(CheckType.ELF_COMPANION1, 
@@ -1183,7 +1183,7 @@ public enum EncounterCode {
 						),
 						b.branch(false).checkScene(CheckType.ELF_COMPANION3, b.branch(true).textScene("ELF-COMPANION-SECOND").concat(learnHealing), b.branch(false).textScene("ELF-COMPANION-REPEAT"))
 					)
-				).getEncounter();
+				);
 			case ERROR:
 				break;
 			case FIRST_BATTLE_STORY:
@@ -1191,7 +1191,7 @@ public enum EncounterCode {
 					BattleCode.GOBLIN_STORY,
 					b.branch(Outcome.VICTORY).textScene("STORY-FIGHT-GOBLIN-VICTORY").encounterEnd(),
 					b.branch(Outcome.DEFEAT).textScene("STORY-FIGHT-GOBLIN-DEFEAT").gameEnd()
-				).getEncounter();
+				);
 			case FORAGE: 			
 				return b.branch().textScene("FORAGE-INTRO").checkScene(
 					CheckType.DAY,
@@ -1254,7 +1254,7 @@ public enum EncounterCode {
 							)
 						)
 					)
-				).getEncounter();
+				);
 			case FORT:
 				break;
 			case GADGETEER:
@@ -1309,7 +1309,7 @@ public enum EncounterCode {
 					),
 					no
 				);
-				return b.branch().textScene("GADGETEER-INTRO").checkScene(CheckType.GADGETEER_MET, b.branch(true).textScene("GADGETEER-REUNION").concat(shop), b.branch(false).textScene("GADGETEER-FIRST-VISIT").concat(shop)).getEncounter();
+				return b.branch().textScene("GADGETEER-INTRO").checkScene(CheckType.GADGETEER_MET, b.branch(true).textScene("GADGETEER-REUNION").concat(shop), b.branch(false).textScene("GADGETEER-FIRST-VISIT").concat(shop));
 			case GHOST:
 				String spookyGhostScene = Gdx.app.getPreferences("tales-of-androgyny-preferences").getBoolean("blood", true) ? "GHOST-BLOODY" : "GHOST-BLOODLESS";
 				Branch ghostPossession = b.branch().textScene("GHOST-POSSESSION").gameEnd();
@@ -1346,7 +1346,7 @@ public enum EncounterCode {
 						), 
 						b.branch("Ignore her").textScene("GHOST-NIGHT-IGNORE").choiceScene("Camp or Leave?", b.branch("Camp").textScene("GHOST-NIGHT-CAMP").textScene(spookyGhostScene).textScene("GHOST-NIGHT-CAMP-CONT"), b.branch("Leave").textScene("GHOST-NIGHT-LOST"))
 					)
-				).getEncounter();				
+				);				
 			case GOBLIN:
 				Branch analCont = b.branch().textScene("GOBLIN-ANAL-CONT").checkScene(
 					Stat.ENDURANCE, 
@@ -1480,7 +1480,7 @@ public enum EncounterCode {
 							b.branch(Outcome.DEFEAT).checkScene(CheckType.PLUGGED, b.branch(true).textScene("GOBLIN-MALE-BUTTPLUG").concat(maleDefeatCont), b.branch(false).concat(maleDefeatCont))
 						)
 					)
-				).getEncounter();
+				);
 			case GOLEM:
 				Branch golemHypnosis = b.branch().textScene("GOLEM-HYPNOSIS");
 				Branch golemMisunderstanding = b.branch(0).textScene("GOLEM-MISUNDERSTANDING").choiceScene(
@@ -1545,7 +1545,7 @@ public enum EncounterCode {
 						b.branch("Pull your hand away").textScene("GOLEM-LEAVE")
 					),
 					b.branch(0).textScene("GOLEM-UNAWARE")				
-				).getEncounter();			
+				);			
 			case HARPY:
 				Branch harpyMarriage = b.branch().textScene("HARPY-MARRIAGE").gameEnd();
 				Branch[] battleBranches = new Branch[]{
@@ -1579,7 +1579,7 @@ public enum EncounterCode {
 							battleBranches
 						) 
 					)
-			    ).getEncounter();
+			    );
 			case HARPY_STORY:
 				return b.branch().textScene("STORY-HARPY").battleScene(
 					BattleCode.HARPY_STORY,
@@ -1587,12 +1587,12 @@ public enum EncounterCode {
 					b.branch(Outcome.DEFEAT).textScene("STORY-HARPY-DEFEAT").gameEnd(), 
 					b.branch(Outcome.KNOT_ANAL).textScene("STORY-HARPY-ANAL"), 
 					b.branch(Outcome.KNOT_ORAL).textScene("STORY-HARPY-ORAL")
-				).getEncounter();
+				);
 			case INITIAL:
 				return b.branch().textScene("INTRO").gameTypeScene(
 					b.branch("Create Character").textScene("CHARACTER-CREATE").characterCreation(false).skillSelection().characterCustomization().encounterEnd(),
 					b.branch("Story (Patrons)").textScene("STORY-MODE").encounterEnd()
-				).getEncounter(); 	
+				); 	
 			case INN:
 				Branch afterScene = b.branch().textScene("INNKEEP-10").encounterEnd();  
 				Branch leave = b.branch("Leave").encounterEnd();
@@ -1633,24 +1633,24 @@ public enum EncounterCode {
 						)
 					),
 					leave
-			    ).getEncounter();
+			    );
 			case LEVEL_UP:
 				if (mode == GameMode.STORY) {
-					return b.branch().textScene("NO-SKILLS").encounterEnd().getEncounter(); 	
+					return b.branch().textScene("NO-SKILLS").encounterEnd(); 	
 				}
 				else {
-					return b.branch().skillSelection().encounterEnd().getEncounter(); 	
+					return b.branch().skillSelection().encounterEnd(); 	
 				}
 			case MERI_COTTAGE:
-				return b.branch().textScene("STORY-WITCH-COTTAGE").encounterEnd().getEncounter(); 	
+				return b.branch().textScene("STORY-WITCH-COTTAGE").encounterEnd(); 	
 			case MERI_COTTAGE_VISIT:
-				return b.branch().textScene("STORY-WITCH-COTTAGE-VISIT").encounterEnd().getEncounter(); 
+				return b.branch().textScene("STORY-WITCH-COTTAGE-VISIT").encounterEnd(); 
 			case MOUTH_FIEND_ESCAPE:
 				return b.branch().textScene("MOUTHFIEND-ESCAPE-INTRO").choiceScene(
 					"Stay on the road?", 
 					b.branch("Stay on the road").textScene("MOUTHFIEND-ROAD").choiceScene("What do you do?", b.branch("Sneak past").textScene("MOUTHFIEND-SNEAK"), b.branch("Wait").textScene("MOUTHFIEND-WAIT")),
 					b.branch("Brave the forest").textScene("MOUTHFIEND-FOREST").gameEnd()
-				).getEncounter();
+				);
 			case MOUTH_FIEND:
 				Branch mouthfiendEnd = b.branch().textScene("MOUTHFIEND-END").gameEnd(GameOver.MOUTH_FIEND);
 				Branch tongueDay = b.branch().textScene("MOUTHFIEND-TONGUEDAY").choiceScene("How do you want it?", b.branch("Deep").textScene("MOUTHFIEND-DEEP").concat(mouthfiendEnd), b.branch("Hard").textScene("MOUTHFIEND-HARD").concat(mouthfiendEnd));
@@ -1694,7 +1694,7 @@ public enum EncounterCode {
 					CheckType.MOUTH_FIEND_CASTLE, 
 					b.branch(true).textScene("MOUTHFIEND-INTRO").choiceScene("Marry her?", b.branch("Yes").textScene("MOUTHFIEND-MARRIAGE-YES").concat(afterMarriageQuestion), b.branch("No").textScene("MOUTHFIEND-MARRIAGE-NO").concat(afterMarriageQuestion)), 
 					b.branch(false).concat(failedEscape)
-				).getEncounter();
+				);
 			case NAGA:
 				return b.branch().textScene("NAGA-INTRO").checkScene(
 					CheckType.SCOUT_LEVEL_3, 
@@ -1714,7 +1714,7 @@ public enum EncounterCode {
 						b.branch("Front").textScene("NAGA-IRRUMATIO"), 
 						b.branch("Back").textScene("NAGA-CLOACALICK")
 					)
-				).getEncounter();
+				);
 			case OGRE:
 				Branch passerby = b.branch().textScene("OGRE-PASSERBY").encounterEnd();
 				Branch partingScene = b.branch().checkScene(
@@ -1765,16 +1765,16 @@ public enum EncounterCode {
 					),
 					b.branch(false).textScene("OGRE-BATTLE").concat(ogreSecondBattle)
 					
-			    ).getEncounter();			
+			    );			
 			case OGRE_STORY:
 				return b.branch().textScene("STORY-OGRE").battleScene(
 					BattleCode.OGRE_STORY,
 					b.branch(Outcome.VICTORY).textScene("STORY-OGRE-VICTORY"), 
 					b.branch(Outcome.DEFEAT).textScene("STORY-OGRE-DEFEAT").gameEnd(),
 					b.branch(Outcome.SATISFIED).textScene("STORY-OGRE-DEFEAT").gameEnd()
-				).getEncounter();
+				);
 			case OGRE_WARNING_STORY:
-				return b.branch().textScene("OGRE-WARN").encounterEnd().getEncounter();
+				return b.branch().textScene("OGRE-WARN").encounterEnd();
 			case ORC:
 				Branch leaveOrc = b.branch().textScene("ORC-LEAVE").encounterEnd();
 				Branch oralScene = b.branch().textScene("ORC-ORAL").encounterEnd();
@@ -1833,9 +1833,9 @@ public enum EncounterCode {
 							)
 						)
 					)
-				).getEncounter();
+				);
 			case SHOP:
-				return b.branch().textScene("TOWN-SHOP").shopScene(ShopCode.SHOP).encounterEnd().getEncounter();
+				return b.branch().textScene("TOWN-SHOP").shopScene(ShopCode.SHOP).encounterEnd();
 			case SLIME:
 				Branch loveDartCont = b.branch().textScene("SLIME-LOVEDART-CONT");
 				return b.branch().textScene("SLIME-INTRO").choiceScene(
@@ -1868,7 +1868,7 @@ public enum EncounterCode {
 						b.branch("Leave Her Be")
 					),
 					b.branch("Leave Her Be")			
-				).getEncounter();
+				);
 			case SPIDER:
 				Branch spiderBattle = b.branch().battleScene(
 					BattleCode.SPIDER, 
@@ -1895,18 +1895,18 @@ public enum EncounterCode {
 						b.branch("Turn Back").encounterEnd()
 					),
 					b.branch(false).textScene("SPIDER-REVISIT").encounterEnd()
-				).getEncounter();
+				);
 			case STARVATION:
 				return b.branch().textScene("STARVATION-INTRO").checkScene(
 					CheckType.VIRGIN,
 					// if you're a virgin, it should mention it at the appropriate time
 					b.branch(true).textScene("STARVATION").textScene("STARVATION-VIRGIN").textScene("STARVATION-FIRST-TIME"),
 					b.branch(false).textScene("STARVATION").checkScene(Perk.BEASTMASTER, b.branch(3).textScene("STARVATION-GAME-OVER").gameEnd(), b.branch(2).textScene("STARVATION-WARNING"), b.branch(1).textScene("STARVATION-FIRST-TIME"), b.branch(0)) // can't get to Branch(0)
-				).getEncounter();
+				);
 			case STORY_FEM:
-				return b.branch().textScene("STORY-FEM").encounterEnd().getEncounter();
+				return b.branch().textScene("STORY-FEM").encounterEnd();
 			case STORY_SIGN:
-				return b.branch().textScene("CROSSROADS").encounterEnd().getEncounter();
+				return b.branch().textScene("CROSSROADS").encounterEnd();
 			case TOWN:
 				break;
 			case TOWN2:
@@ -1967,14 +1967,14 @@ public enum EncounterCode {
 				);
 						
 						
-				return b.branch().checkScene(CheckType.DAY, b.branch(true).textScene("TOWN-SQUARE-INTRO").concat(townSquareOptions), b.branch(false).textScene("TOWN-SQUARE-NIGHT")).getEncounter();
+				return b.branch().checkScene(CheckType.DAY, b.branch(true).textScene("TOWN-SQUARE-INTRO").concat(townSquareOptions), b.branch(false).textScene("TOWN-SQUARE-NIGHT"));
 			case TOWN_STORY:
 				Branch leaveTown = b.branch().textScene("STORY-007").encounterEnd();
 				return b.branch().textScene("STORY-005").shopScene(ShopCode.FIRST_STORY).textScene("STORY-006A").checkScene(
 					Stat.CHARISMA,
 					b.branch(6).textScene("STORY-006B").concat(leaveTown),
 					b.branch(0).textScene("STORY-006C").concat(leaveTown)
-				).getEncounter();
+				);
 			case TRUDY_COMPANION:
 				return b.branch().checkScene(CheckType.TRUDY_COMPANION1, 
 						b.branch(true).textScene("TRUDY-COMPANION-FIRST").choiceScene("Spend time with Trudy?", b.branch("Spend time (8 CHA)").require(ChoiceCheckType.STAT_GREATER_THAN_X, Stat.CHARISMA, 8).textScene("TRUDY-COMPANION-HANGOUT"), b.branch("Not now")), 
@@ -1983,9 +1983,9 @@ public enum EncounterCode {
 							b.branch(true).textScene("TRUDY-COMPANION-SECOND").choiceScene("Train with Trudy?", b.branch("Train").textScene("TRUDY-COMPANION-LEARN"), b.branch("Not now")),
 							b.branch(false).textScene("TRUDY-COMPANION-REPEAT")
 						)
-					).getEncounter();
+					);
 			case WEAPON_SHOP:
-				return b.branch().textScene("WEAPON-SHOP").shopScene(ShopCode.WEAPON_SHOP).getEncounter();
+				return b.branch().textScene("WEAPON-SHOP").shopScene(ShopCode.WEAPON_SHOP);
 			case WERESLUT:
 				Branch knotted = b.branch().textScene("WEREWOLF-KNOT").checkScene(Perk.BITCH, b.branch(3).textScene("WEREWOLF-BITCH-END").gameEnd(), b.branch(0).textScene("WEREWOLF-POST-KNOT"));
 				Branch mated = b.branch().textScene("WEREWOLF-MATED").concat(knotted);
@@ -2000,7 +2000,7 @@ public enum EncounterCode {
 			        b.branch(Outcome.KNOT_ORAL).textScene("WEREWOLF-BATTLE-KNOT-ORAL").gameEnd(),
 			        b.branch(Outcome.DEFEAT).textScene("WEREWOLF-DEFEAT").checkScene(Perk.BITCH, bitch, uninterested),
 			        b.branch(Outcome.SATISFIED).textScene("WEREWOLF-SATISFIED")
-			    ).getEncounter();
+			    );
 			case WITCH_COTTAGE:
 				Branch magicShop = b.branch().textScene("WITCH-COTTAGE-STORE").choiceScene("Peruse her wares?", b.branch("Peruse").shopScene(ShopCode.MAGIC_SHOP), b.branch("Leave"));
 				Branch purchase = b.branch().choiceScene(
@@ -2018,11 +2018,9 @@ public enum EncounterCode {
 						b.branch(true).textScene("WITCH-COTTAGE").concat(purchase), 
 						b.branch(false).textScene("WITCH-COTTAGE-NOQUEST")
 					)
-				).getEncounter();
+				);
 			default: 
 		}
-		return b.branch().textScene("TOWN").encounterEnd().getEncounter();	
+		return b.branch().textScene("TOWN").encounterEnd();	
 	}
-	
-	
 }
