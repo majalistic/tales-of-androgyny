@@ -16,6 +16,7 @@ import com.majalis.battle.BattleAttributes;
 import com.majalis.battle.BattleFactory;
 import com.majalis.character.PlayerCharacter;
 import com.majalis.encounter.Encounter;
+import com.majalis.encounter.EncounterBuilder.Branch;
 import com.majalis.encounter.EncounterCode;
 import com.majalis.encounter.EncounterFactory;
 import com.majalis.save.LoadService;
@@ -44,6 +45,7 @@ public class ScreenFactoryImpl implements ScreenFactory {
 	private final BattleFactory battleFactory;
 	private final PolygonSpriteBatch batch;
 	private final FreeTypeFontGenerator fontGenerator;
+	private Branch encounterLoading;
 	private boolean loading;
 	
 	public ScreenFactoryImpl(Game game, AssetManager assetManager, SaveManager saveManager, GameWorldFactory gameWorldFactory, EncounterFactory encounterFactory, BattleFactory battleFactory, PolygonSpriteBatch batch, FreeTypeFontGenerator fontGenerator) {
@@ -192,12 +194,14 @@ public class ScreenFactoryImpl implements ScreenFactory {
 	}
 	
 	private EncounterScreen getEncounter(ScreenElements elements, PlayerCharacter character) {
-		if (getAssetCheck(EncounterScreen.getRequirements((EncounterCode)loadService.loadDataValue(SaveEnum.ENCOUNTER_CODE, Integer.class)))) {
-			EncounterCode encounterCode = loadService.loadDataValue(SaveEnum.ENCOUNTER_CODE, EncounterCode.class);
-			Encounter encounter = encounterFactory.getEncounter(encounterCode, elements.getFont(48));			
+		EncounterCode toLoad = (EncounterCode)loadService.loadDataValue(SaveEnum.ENCOUNTER_CODE, EncounterCode.class);
+		if (getAssetCheck(EncounterScreen.getRequirements(toLoad))) {	
+			Encounter encounter = encounterLoading == null ? encounterFactory.getEncounter(toLoad, elements.getFont(48)).getEncounter() : encounterLoading.getEncounter();
+			encounterLoading = null;
 			return new EncounterScreen(this, elements, loadService, encounter);
 		}
 		else {
+			encounterLoading = encounterFactory.getEncounter(toLoad, elements.getFont(48)); // this can be performed in the loading screen as well
 			return null;
 		}
 	}
@@ -214,8 +218,7 @@ public class ScreenFactoryImpl implements ScreenFactory {
 	
 	private LevelUpScreen getLevel(ScreenElements elements, PlayerCharacter character) {
 		if (getAssetCheck(LevelUpScreen.resourceRequirements)) {
-			// -3 is the magic number for the level up screen encounter
-			return new LevelUpScreen(this, elements, saveService, encounterFactory.getEncounter(EncounterCode.LEVEL_UP, elements.getFont(48)));
+			return new LevelUpScreen(this, elements, saveService, encounterFactory.getEncounter(EncounterCode.LEVEL_UP, elements.getFont(48)).getEncounter());
 		}
 		return null;
 	}
