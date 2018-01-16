@@ -182,9 +182,9 @@ public class SexualExperience {
 			this.mouthTeasing += addedBuilder.mouthTeasing;
 			this.mouthBottomTeasing += addedBuilder.mouthBottomTeasing;
 			this.horse = this.horse || addedBuilder.horse;
-			this.horse = this.ogre || addedBuilder.ogre;
-			this.horse = this.bird || addedBuilder.bird;
-			this.horse = this.knot || addedBuilder.knot;
+			this.ogre = this.ogre || addedBuilder.ogre;
+			this.bird = this.bird || addedBuilder.bird;
+			this.knot = this.knot || addedBuilder.knot;
 		}		
 		
 		public SexualExperience build() {
