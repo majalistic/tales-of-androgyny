@@ -5,14 +5,17 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.OrderedMap;
 import com.majalis.asset.AssetEnum;
@@ -34,6 +37,11 @@ public class SkillSelectionScene extends Scene {
 	private final Sound buttonSound;
 	private final Texture boxTexture;
 	private final PlayerCharacter character;
+	private final Texture arrowImage;
+	private Array<StanceSkillDisplay> allDisplay;
+	int selection;
+	private Image arrow;
+	private Image arrow2;
 	private Label skillDisplay;
 	private Label bonusDisplay;
 	private Table skillDisplayTable;
@@ -57,12 +65,15 @@ public class SkillSelectionScene extends Scene {
 		this.saveService = saveService;
 		this.character = character;
 		this.addActor(background);
+		this.arrowImage = assetManager.get(AssetEnum.STANCE_ARROW.getTexture());
 		boxTexture = assetManager.get(AssetEnum.NORMAL_BOX.getTexture());
 		skin = assetManager.get(AssetEnum.UI_SKIN.getSkin());
 		buttonSound = assetManager.get(AssetEnum.BUTTON_SOUND.getSound());
+		allDisplay = new Array<StanceSkillDisplay>();
 		techniquesToButtons = new ObjectMap<Techniques, Label>();
 		locked = false;
 		justUnlocked = false;
+		selection = 0;
 	}
 	
 	private void setSelectedRow(Row row) { // row your boat
@@ -168,9 +179,15 @@ public class SkillSelectionScene extends Scene {
 		done.setPosition(1523, 30);
 		addActor(done);	
 		
-		StanceSkillDisplay balancedDisplay = new StanceSkillDisplay(Stance.BALANCED);
-		balancedDisplay.setPosition(217, tableHeight);
-		this.addActor(balancedDisplay);
+		for(Stance stance : Stance.values()) {
+			StanceSkillDisplay newStanceSkillDisplay = new StanceSkillDisplay(stance);
+			newStanceSkillDisplay.setPosition(217, tableHeight);
+			newStanceSkillDisplay.addAction(Actions.hide());
+			this.addActor(newStanceSkillDisplay);
+			allDisplay.add(newStanceSkillDisplay);
+		}
+		
+		allDisplay.get(0).addAction(Actions.show());		
 		
 		final Table perkTable = new Table();
 		for (final Perk perk: Perk.values()) {
@@ -363,6 +380,39 @@ public class SkillSelectionScene extends Scene {
 			magicTable.align(Align.top);
 			this.addActor(magicTable);
 		}
+		arrow = new Image(arrowImage);
+        arrow.setHeight(60);
+        arrow.setWidth(30);
+        arrow.setPosition(440, 500);
+        arrow.addListener(new ClickListener(){
+        	@Override
+	        public void clicked(InputEvent event, float x, float y) {
+        		changeStanceDisplay(1);
+        	}
+        });
+        this.addActor(arrow);
+        
+        TextureRegion flipped = new TextureRegion(arrowImage);
+        flipped.flip(true, false);
+        arrow2 = new Image(flipped);
+        arrow2.setHeight(60);
+        arrow2.setWidth(30);
+        arrow2.setPosition(0, 500);
+        arrow2.addListener(new ClickListener(){
+        	@Override
+	        public void clicked(InputEvent event, float x, float y) {
+        		changeStanceDisplay(-1);
+        	}
+        });
+        this.addActor(arrow2);
+	}
+
+	private void changeStanceDisplay(int delta) {
+		allDisplay.get(selection).addAction(Actions.hide());
+		selection += delta;
+		if (selection < 0) selection += allDisplay.size;
+		if (selection >= allDisplay.size) selection -= allDisplay.size;
+		allDisplay.get(selection).addAction(Actions.show());
 	}
 	
 	private void handleNegativeSkillPoints() {
