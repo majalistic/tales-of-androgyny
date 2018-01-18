@@ -182,6 +182,7 @@ public class SkillSelectionScene extends Scene {
 		addActor(done);	
 		
 		for(Stance stance : Stance.values()) {
+			if (!stance.hasLearnableSkills()) continue;
 			StanceSkillDisplay newStanceSkillDisplay = new StanceSkillDisplay(stance, assetManager);
 			newStanceSkillDisplay.setPosition(217, tableHeight);
 			newStanceSkillDisplay.addAction(Actions.hide());
