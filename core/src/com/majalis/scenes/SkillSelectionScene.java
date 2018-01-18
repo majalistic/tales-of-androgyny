@@ -38,6 +38,7 @@ public class SkillSelectionScene extends Scene {
 	private final Texture boxTexture;
 	private final PlayerCharacter character;
 	private final Texture arrowImage;
+	private final AssetManager assetManager;
 	private Array<StanceSkillDisplay> allDisplay;
 	int selection;
 	private Image arrow;
@@ -65,6 +66,7 @@ public class SkillSelectionScene extends Scene {
 		this.saveService = saveService;
 		this.character = character;
 		this.addActor(background);
+		this.assetManager = assetManager;
 		this.arrowImage = assetManager.get(AssetEnum.STANCE_ARROW.getTexture());
 		boxTexture = assetManager.get(AssetEnum.NORMAL_BOX.getTexture());
 		skin = assetManager.get(AssetEnum.UI_SKIN.getSkin());
@@ -180,7 +182,7 @@ public class SkillSelectionScene extends Scene {
 		addActor(done);	
 		
 		for(Stance stance : Stance.values()) {
-			StanceSkillDisplay newStanceSkillDisplay = new StanceSkillDisplay(stance);
+			StanceSkillDisplay newStanceSkillDisplay = new StanceSkillDisplay(stance, assetManager);
 			newStanceSkillDisplay.setPosition(217, tableHeight);
 			newStanceSkillDisplay.addAction(Actions.hide());
 			this.addActor(newStanceSkillDisplay);
@@ -447,8 +449,10 @@ public class SkillSelectionScene extends Scene {
 	
 	private class StanceSkillDisplay extends Table{
 		private final Stance stance;
-		private StanceSkillDisplay(Stance stance) { 
+		private StanceSkillDisplay(Stance stance, AssetManager assetManager) { 
 			this.stance = stance;
+			this.add(new Image(assetManager.get(stance.getTexture()))).padLeft(200).size(100, 100).row();;
+			
 			init();
 		}
 		

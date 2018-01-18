@@ -861,6 +861,9 @@ public class EncounterBuilder {
 			requirements.add(add(alreadySeen, AssetEnum.NORMAL_BOX).getTexture());
 			requirements.add(add(alreadySeen, AssetEnum.BATTLE_HOVER).getTexture());
 			requirements.add(add(alreadySeen, AssetEnum.DEFAULT_BACKGROUND).getTexture());
+			for (Stance stance : Stance.values()) {
+				requirements.add(stance.getTexture());
+			}
 			return requirements;
 		}	
 	}
