@@ -312,4 +312,5 @@ public enum Techniques {
 	public static Array<Techniques> getLearnableSpells() { return new Array<Techniques>(new Techniques[]{COMBAT_HEAL, COMBAT_FIRE, TITAN_STRENGTH}); }
 	
 	public Techniques getPluggedAlternate() { return YOINK; }
+	public boolean isLearnable() { return getLearnableSkills().contains(this, false); }
 }

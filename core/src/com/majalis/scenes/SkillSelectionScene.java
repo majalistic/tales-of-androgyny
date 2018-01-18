@@ -403,7 +403,8 @@ public class SkillSelectionScene extends Scene {
 		}
 		
 		private void init() {			
-			for (final Techniques technique: Techniques.getLearnableSkills()) {
+			for (final Techniques technique: Techniques.values()) {
+				if (!technique.isLearnable() || technique.getTrait().getUsableStance() != stance) continue;
 				Integer level = skills.get(technique, 0);
 				final Label label = new Label(technique.getTrait().getName(), skin);
 				label.setAlignment(Align.right);
