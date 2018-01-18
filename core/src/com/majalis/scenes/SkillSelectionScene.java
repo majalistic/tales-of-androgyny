@@ -18,6 +18,7 @@ import com.badlogic.gdx.utils.OrderedMap;
 import com.majalis.asset.AssetEnum;
 import com.majalis.character.Perk;
 import com.majalis.character.PlayerCharacter;
+import com.majalis.character.Stance;
 import com.majalis.character.Techniques;
 import com.majalis.encounter.Background;
 import com.majalis.save.SaveEnum;
@@ -26,11 +27,17 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 public class SkillSelectionScene extends Scene {
 
+	private static int tableHeight = 840;
+	
 	private final SaveService saveService;
 	private final Skin skin;
 	private final Sound buttonSound;
 	private final Texture boxTexture;
 	private final PlayerCharacter character;
+	private Label skillDisplay;
+	private Label bonusDisplay;
+	private Table skillDisplayTable;
+	private Table consoleTable;
 	private Label console;
 	private Label skillPointsDisplay;
 	private int skillPoints;
@@ -56,55 +63,6 @@ public class SkillSelectionScene extends Scene {
 		techniquesToButtons = new ObjectMap<Techniques, Label>();
 		locked = false;
 		justUnlocked = false;
-	}
-	
-	private class Row {
-		private final Techniques technique;
-		private final Perk perk;
-		private final Label label;
-		private final Label skillDisplay;
-		private final Label bonusDisplay;
-		private final Table skillDisplayTable;
-		private final Table consoleTable;
-		
-		private Row(Techniques technique, Label label, Label skillDisplay, Label bonusDisplay, Table skillDisplayTable, Table consoleTable) {
-			this(technique, null, label, skillDisplay, bonusDisplay, skillDisplayTable, consoleTable);
-		}
-		
-		private Row(Perk perk, Label label, Label skillDisplay, Label bonusDisplay, Table skillDisplayTable, Table consoleTable) {
-			this(null, perk, label, skillDisplay, bonusDisplay, skillDisplayTable, consoleTable);
-		}
-		
-		private Row(Techniques technique, Perk perk, Label label, Label skillDisplay, Label bonusDisplay, Table skillDisplayTable, Table consoleTable) {
-			this.technique = technique;
-			this.perk = perk;
-			this.label = label;
-			this.skillDisplay = skillDisplay;
-			this.bonusDisplay = bonusDisplay;
-			this.skillDisplayTable = skillDisplayTable;
-			this.consoleTable = consoleTable;
-		}
-
-		private void setSelected() {
-			label.setColor(Color.FOREST);
-			if (technique != null) {
-				skillDisplay.setText(technique.getTrait().getDescription());
-				bonusDisplay.setText(technique.getTrait().getBonusInfo());
-			}
-			else {
-				skillDisplay.setText(perk.getDescription());
-				bonusDisplay.setText("");
-			}
-
-			skillDisplayTable.addAction(Actions.show());
-			consoleTable.addAction(Actions.hide());
-		}		
-		
-		private void setUnselected() {
-			label.setColor(Color.BLACK);
-			consoleTable.addAction(Actions.show());
-			skillDisplayTable.addAction(Actions.hide());
-		}
 	}
 	
 	private void setSelectedRow(Row row) { // row your boat
@@ -168,7 +126,7 @@ public class SkillSelectionScene extends Scene {
 		addImage(boxTexture, Color.PURPLE, 500, -10, 280, 75);
 		addImage(boxTexture, Color.GOLDENROD, 945, -10, 260, 75);
 		
-		final Table consoleTable = new Table();
+		consoleTable = new Table();
 		consoleTable.setPosition(1610,  1000);
 		console = new Label("", skin);
 		console.setWrap(true);
@@ -177,15 +135,15 @@ public class SkillSelectionScene extends Scene {
 		consoleTable.align(Align.top);
 		this.addActor(consoleTable);
 		
-		final Table skillDisplayTable = new Table();
+		skillDisplayTable = new Table();
 		skillDisplayTable.setPosition(1610,  1000);
-		Label skillDisplay = new Label("", skin);
+		skillDisplay = new Label("", skin);
 		skillDisplay.setWrap(true);
 		skillDisplay.setColor(Color.BLACK);
 		skillDisplayTable.add(skillDisplay).width(540).row();
 		skillDisplayTable.align(Align.top);
 		
-		Label bonusDisplay = new Label("", skin);
+		bonusDisplay = new Label("", skin);
 		bonusDisplay.setWrap(true);
 		bonusDisplay.setColor(Color.FOREST);
 		skillDisplayTable.add(bonusDisplay).width(540);		
@@ -210,101 +168,9 @@ public class SkillSelectionScene extends Scene {
 		done.setPosition(1523, 30);
 		addActor(done);	
 		
-		int tableHeight = 840;
-		
-		final Table table = new Table();
-		
-		for (final Techniques technique: Techniques.getLearnableSkills()) {
-			Integer level = skills.get(technique, 0);
-			final Label label = new Label(technique.getTrait().getName(), skin);
-			label.setAlignment(Align.right);
-			label.setColor(Color.BLACK);
-			
-			final Label value = new Label(level > 0 ? "(" + level + ")" : "", skin);
-			label.setAlignment(Align.right);
-			
-			techniquesToButtons.put(technique, value);
-			final TextButton plusButton = new TextButton("+", skin);
-			final TextButton minusButton = new TextButton("-", skin);
-			
-			final Row row = new Row(technique, label, skillDisplay, bonusDisplay, skillDisplayTable, consoleTable);
-			
-			label.addListener(new ClickListener() {
-				@Override
-		        public void clicked(InputEvent event, float x, float y) {
-					locked = !locked;
-					justUnlocked = !locked;
-				}
-			});
-			label.addListener(getListener(row));
-			plusButton.addListener(getListener(row));
-			minusButton.addListener(getListener(row));
-			plusButton.addListener(new ClickListener() {
-				@Override
-		        public void clicked(InputEvent event, float x, float y) {
-					buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
-					if (skillPoints > 0) {
-						Integer level = skills.get(technique);
-						if (level == null) level = 0;
-						if (level < technique.getMaxRank()) {
-							if (level + 1 <= skillPoints) {
-								skillPoints -= level + 1;
-								skillPointsDisplay.setText("Skill Points: " + skillPoints);
-								skills.put(technique, ++level);						
-								console.setText("You have learned " + technique.getTrait().getName() + " Rank " + level +".");
-								value.setText(level == 0 ? "" : "(" + level + ")");
-							}
-							else {
-								console.setText("You do not have enough skill points!");
-							}
-						}
-						else {
-							console.setText("You cannot improve on that skill any further!");
-						}	
-					}
-					else {
-						console.setText("You have no skill points!");
-					}
-		        }
-			});
-			
-			minusButton.addListener(new ClickListener() {
-				@Override
-		        public void clicked(InputEvent event, float x, float y) {
-					buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
-					
-					Integer level = skills.get(technique, 0);
-					if (level == 0) {
-						console.setText("You do not yet possess that skill!");
-					}
-					else {
-						Integer cachedLevel = cachedSkills.get(technique, 0);
-						if (--level >= cachedLevel) {
-							skillPoints += level + 1;
-							skillPointsDisplay.setText("Skill Points: " + skillPoints);
-							skills.put(technique, level);						
-							if (level > 0) {
-								console.setText("You have reduced " + technique.getTrait().getName() + " to Rank " + level +".");
-							}
-							else {
-								console.setText("You have unlearned " + technique.getTrait().getName() + ".");
-							}
-							value.setText(level == 0 ? "" : "(" + level + ")");
-						}
-						else {
-							console.setText("You cannot reduce " + technique.getTrait().getName() + " below Rank " + cachedLevel +".");
-						}
-					}
-		        }
-			});
-			table.add(label).size(260, 45).padRight(10);
-			table.add(value).size(30, 45).padRight(10);
-			table.add(plusButton).size(45, 60);
-			table.add(minusButton).size(45, 60).row();
-		}
-		table.setPosition(217, tableHeight);
-		table.align(Align.top);
-		addActor(table);
+		StanceSkillDisplay balancedDisplay = new StanceSkillDisplay(Stance.BALANCED);
+		balancedDisplay.setPosition(217, tableHeight);
+		this.addActor(balancedDisplay);
 		
 		final Table perkTable = new Table();
 		for (final Perk perk: Perk.values()) {
@@ -514,7 +380,6 @@ public class SkillSelectionScene extends Scene {
 			}
 		}
 		skillPointsDisplay.setText("Skill Points: " + skillPoints);
-		
 	}
 	
 	private void nextScene() {
@@ -528,5 +393,155 @@ public class SkillSelectionScene extends Scene {
 		sceneBranches.get(sceneBranches.orderedKeys().get(0)).setActive();
 		isActive = false;
 		addAction(Actions.hide());
+	}
+	
+	private class StanceSkillDisplay extends Table{
+		private final Stance stance;
+		private StanceSkillDisplay(Stance stance) { 
+			this.stance = stance;
+			init();
+		}
+		
+		private void init() {			
+			for (final Techniques technique: Techniques.getLearnableSkills()) {
+				Integer level = skills.get(technique, 0);
+				final Label label = new Label(technique.getTrait().getName(), skin);
+				label.setAlignment(Align.right);
+				label.setColor(Color.BLACK);
+				
+				final Label value = new Label(level > 0 ? "(" + level + ")" : "", skin);
+				label.setAlignment(Align.right);
+				
+				techniquesToButtons.put(technique, value);
+				final TextButton plusButton = new TextButton("+", skin);
+				final TextButton minusButton = new TextButton("-", skin);
+				
+				final Row row = new Row(technique, label, skillDisplay, bonusDisplay, skillDisplayTable, consoleTable);
+				
+				label.addListener(new ClickListener() {
+					@Override
+			        public void clicked(InputEvent event, float x, float y) {
+						locked = !locked;
+						justUnlocked = !locked;
+					}
+				});
+				label.addListener(getListener(row));
+				plusButton.addListener(getListener(row));
+				minusButton.addListener(getListener(row));
+				plusButton.addListener(new ClickListener() {
+					@Override
+			        public void clicked(InputEvent event, float x, float y) {
+						buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
+						if (skillPoints > 0) {
+							Integer level = skills.get(technique);
+							if (level == null) level = 0;
+							if (level < technique.getMaxRank()) {
+								if (level + 1 <= skillPoints) {
+									skillPoints -= level + 1;
+									skillPointsDisplay.setText("Skill Points: " + skillPoints);
+									skills.put(technique, ++level);						
+									console.setText("You have learned " + technique.getTrait().getName() + " Rank " + level +".");
+									value.setText(level == 0 ? "" : "(" + level + ")");
+								}
+								else {
+									console.setText("You do not have enough skill points!");
+								}
+							}
+							else {
+								console.setText("You cannot improve on that skill any further!");
+							}	
+						}
+						else {
+							console.setText("You have no skill points!");
+						}
+			        }
+				});
+				
+				minusButton.addListener(new ClickListener() {
+					@Override
+			        public void clicked(InputEvent event, float x, float y) {
+						buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
+						
+						Integer level = skills.get(technique, 0);
+						if (level == 0) {
+							console.setText("You do not yet possess that skill!");
+						}
+						else {
+							Integer cachedLevel = cachedSkills.get(technique, 0);
+							if (--level >= cachedLevel) {
+								skillPoints += level + 1;
+								skillPointsDisplay.setText("Skill Points: " + skillPoints);
+								skills.put(technique, level);						
+								if (level > 0) {
+									console.setText("You have reduced " + technique.getTrait().getName() + " to Rank " + level +".");
+								}
+								else {
+									console.setText("You have unlearned " + technique.getTrait().getName() + ".");
+								}
+								value.setText(level == 0 ? "" : "(" + level + ")");
+							}
+							else {
+								console.setText("You cannot reduce " + technique.getTrait().getName() + " below Rank " + cachedLevel +".");
+							}
+						}
+			        }
+				});
+				this.add(label).size(260, 45).padRight(10);
+				this.add(value).size(30, 45).padRight(10);
+				this.add(plusButton).size(45, 60);
+				this.add(minusButton).size(45, 60).row();
+			}
+			this.align(Align.top);
+		}
+		
+	}
+	
+	private class Row {
+		private final Techniques technique;
+		private final Perk perk;
+		private final Label label;
+		private final Label skillDisplay;
+		private final Label bonusDisplay;
+		private final Table skillDisplayTable;
+		private final Table consoleTable;
+		
+		private Row(Techniques technique, Label label, Label skillDisplay, Label bonusDisplay, Table skillDisplayTable, Table consoleTable) {
+			this(technique, null, label, skillDisplay, bonusDisplay, skillDisplayTable, consoleTable);
+		}
+		
+		private Row(Perk perk, Label label, Label skillDisplay, Label bonusDisplay, Table skillDisplayTable, Table consoleTable) {
+			this(null, perk, label, skillDisplay, bonusDisplay, skillDisplayTable, consoleTable);
+		}
+		
+		private Row(Techniques technique, Perk perk, Label label, Label skillDisplay, Label bonusDisplay, Table skillDisplayTable, Table consoleTable) {
+			this.technique = technique;
+			this.perk = perk;
+			this.label = label;
+			this.skillDisplay = skillDisplay;
+			this.bonusDisplay = bonusDisplay;
+			this.skillDisplayTable = skillDisplayTable;
+			this.consoleTable = consoleTable;
+		}
+
+		private void setSelected() {
+			label.setColor(Color.FOREST);
+			if (technique != null) {
+				skillDisplay.setText(technique.getTrait().getDescription());
+				bonusDisplay.setText(technique.getTrait().getBonusInfo());
+			}
+			else {
+				skillDisplay.setText(perk.getDescription());
+				bonusDisplay.setText("");
+			}
+
+			skillDisplayTable.addAction(Actions.show());
+			consoleTable.addAction(Actions.hide());
+		}		
+		
+		private void setUnselected() {
+			label.setColor(Color.BLACK);
+			consoleTable.addAction(Actions.show());
+			skillDisplayTable.addAction(Actions.hide());
+		}
 	}
 }
