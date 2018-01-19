@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -35,7 +36,6 @@ public class SkillSelectionScene extends Scene {
 	private final SaveService saveService;
 	private final Skin skin;
 	private final Sound buttonSound;
-	private final Texture boxTexture;
 	private final PlayerCharacter character;
 	private final Texture arrowImage;
 	private final AssetManager assetManager;
@@ -68,7 +68,6 @@ public class SkillSelectionScene extends Scene {
 		this.addActor(background);
 		this.assetManager = assetManager;
 		this.arrowImage = assetManager.get(AssetEnum.STANCE_ARROW.getTexture());
-		boxTexture = assetManager.get(AssetEnum.SKILL_BOX.getTexture());
 		skin = assetManager.get(AssetEnum.UI_SKIN.getSkin());
 		buttonSound = assetManager.get(AssetEnum.BUTTON_SOUND.getSound());
 		allDisplay = new Array<StanceSkillDisplay>();
@@ -130,11 +129,11 @@ public class SkillSelectionScene extends Scene {
 		
 		Image temp = addImage(assetManager.get(AssetEnum.SKILL_CONSOLE_BOX.getTexture()), Color.WHITE, 940 + 420, 0, 560, 1080); 
 		temp.addAction(Actions.alpha(.9f));
-		temp = addImage(boxTexture, Color.WHITE, 0, 50, 470, 910);
+		temp = addImage(assetManager.get(AssetEnum.SKILL_BOX_0.getTexture()), Color.WHITE, 0, 50, 470, 910);
 		temp.addAction(Actions.alpha(.9f));
-		temp = addImage(boxTexture, Color.VIOLET, 470, 50, 470, 910);
+		temp = addImage(assetManager.get(AssetEnum.SKILL_BOX_1.getTexture()), Color.WHITE, 470, 50, 470, 910);
 		temp.addAction(Actions.alpha(.9f));
-		temp = addImage(boxTexture, Color.LIGHT_GRAY, 940, 50, 470, 910);		
+		temp = addImage(assetManager.get(AssetEnum.SKILL_BOX_2.getTexture()), Color.WHITE, 940, 50, 470, 910);		
 		temp.addAction(Actions.alpha(.9f));
 		
 		int consoleX = 1675;
@@ -185,7 +184,7 @@ public class SkillSelectionScene extends Scene {
 		for(Stance stance : Stance.values()) {
 			if (!stance.hasLearnableSkills()) continue;
 			StanceSkillDisplay newStanceSkillDisplay = new StanceSkillDisplay(stance, assetManager);
-			newStanceSkillDisplay.setPosition(200, tableHeight);
+			newStanceSkillDisplay.setPosition(200, tableHeight - 200);
 			newStanceSkillDisplay.addAction(Actions.hide());
 			this.addActor(newStanceSkillDisplay);
 			allDisplay.add(newStanceSkillDisplay);
@@ -449,11 +448,16 @@ public class SkillSelectionScene extends Scene {
 		addAction(Actions.hide());
 	}
 	
-	private class StanceSkillDisplay extends Table{
+	private class StanceSkillDisplay extends Group {
 		private final Stance stance;
+		private final Table table;
 		private StanceSkillDisplay(Stance stance, AssetManager assetManager) { 
 			this.stance = stance;
-			this.add(new Image(assetManager.get(stance.getTexture()))).padLeft(200).padBottom(100).size(100, 100).row();
+			this.table = new Table();
+			this.addActor(table);
+			Image stanceIcon = new Image(assetManager.get(stance.getTexture()));
+			stanceIcon.setBounds(-40, 100, 150, 150);
+			this.addActor(stanceIcon);
 			init();
 		}
 		
@@ -542,12 +546,13 @@ public class SkillSelectionScene extends Scene {
 						}
 			        }
 				});
-				this.add(label).size(260, 45).padRight(10);
-				this.add(value).size(30, 45).padRight(10);
-				this.add(plusButton).size(45, 60);
-				this.add(minusButton).size(45, 60).row();
+				table.add();
+				table.add(label).size(260, 45).padRight(10);
+				table.add(value).size(30, 45).padRight(10);
+				table.add(plusButton).size(45, 60);
+				table.add(minusButton).size(45, 60).row();
 			}
-			this.align(Align.top);
+			table.align(Align.top);
 		}
 		
 	}

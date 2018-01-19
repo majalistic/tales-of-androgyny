@@ -873,7 +873,9 @@ public class EncounterBuilder {
 		@Override
 		protected Array<AssetDescriptor<?>> getRequirements(ObjectSet<AssetEnum> alreadySeen) {
 			Array<AssetDescriptor<?>> requirements = super.getRequirements(alreadySeen);
-			requirements.add(add(alreadySeen, AssetEnum.SKILL_BOX).getTexture());
+			requirements.add(add(alreadySeen, AssetEnum.SKILL_BOX_0).getTexture());
+			requirements.add(add(alreadySeen, AssetEnum.SKILL_BOX_1).getTexture());
+			requirements.add(add(alreadySeen, AssetEnum.SKILL_BOX_2).getTexture());
 			requirements.add(add(alreadySeen, AssetEnum.BATTLE_HOVER).getTexture());
 			requirements.add(add(alreadySeen, AssetEnum.DEFAULT_BACKGROUND).getTexture());
 			requirements.add(add(alreadySeen, AssetEnum.CAMP_BG0).getTexture());

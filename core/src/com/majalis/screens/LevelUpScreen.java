@@ -15,8 +15,10 @@ public class LevelUpScreen extends AbstractScreen {
 	private static final Array<AssetDescriptor<?>> resourceRequirements = new Array<AssetDescriptor<?>>();
 	private static Array<AssetDescriptor<?>> requirementsToDispose = new Array<AssetDescriptor<?>>();
 	static {
-		resourceRequirements.add(AssetEnum.SKILL_SELECTION_BACKGROUND.getTexture());
-		resourceRequirements.add(AssetEnum.SKILL_BOX.getTexture());
+		resourceRequirements.add(AssetEnum.SKILL_SELECTION_BACKGROUND.getTexture()); // these are probably unnecessary as the requirements for the skill selection scene should be sufficient
+		resourceRequirements.add(AssetEnum.SKILL_BOX_0.getTexture());
+		resourceRequirements.add(AssetEnum.SKILL_BOX_1.getTexture());
+		resourceRequirements.add(AssetEnum.SKILL_BOX_2.getTexture());
 	}
 	
 	private final SaveService saveService;
