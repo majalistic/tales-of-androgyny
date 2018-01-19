@@ -873,14 +873,13 @@ public class EncounterBuilder {
 		@Override
 		protected Array<AssetDescriptor<?>> getRequirements(ObjectSet<AssetEnum> alreadySeen) {
 			Array<AssetDescriptor<?>> requirements = super.getRequirements(alreadySeen);
-			requirements.add(add(alreadySeen, AssetEnum.SKILL_SELECTION_BACKGROUND).getTexture());
 			requirements.add(add(alreadySeen, AssetEnum.NORMAL_BOX).getTexture());
 			requirements.add(add(alreadySeen, AssetEnum.BATTLE_HOVER).getTexture());
 			requirements.add(add(alreadySeen, AssetEnum.DEFAULT_BACKGROUND).getTexture());
 			requirements.add(add(alreadySeen, AssetEnum.CAMP_BG0).getTexture());
 			requirements.add(add(alreadySeen, AssetEnum.CAMP_BG1).getTexture());
 			requirements.add(add(alreadySeen, AssetEnum.CAMP_BG2).getTexture());
-			
+			requirements.add(add(alreadySeen, AssetEnum.SKILL_TITLE).getTexture());
 			for (Stance stance : Stance.values()) {
 				requirements.add(stance.getTexture());
 			}

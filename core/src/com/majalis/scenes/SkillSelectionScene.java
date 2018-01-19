@@ -130,6 +130,8 @@ public class SkillSelectionScene extends Scene {
 		addLabel("Spells", skin, Color.PURPLE, 600, 880);
 		addLabel("Perk", skin, Color.GOLDENROD, 1040, 880);
 
+		addImage(assetManager.get(AssetEnum.SKILL_TITLE.getTexture()), Color.WHITE, 25, 1000);
+		
 		addImage(boxTexture, Color.BROWN, 0, 15, 470, 910);
 		addImage(boxTexture, Color.PURPLE, 450, 15, 430, 910);
 		addImage(boxTexture, Color.GOLDENROD, 875, 15, 400, 910);		
