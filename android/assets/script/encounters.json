@@ -2,7 +2,9 @@
 	{
 		"key": "INTRO",
 		"scriptLines": [
-			{"text": "Welcome to the world of Tales of Androgyny!"},
+			{
+			"music": "MAIN_MENU_MUSIC",
+			"text": "Welcome to the world of Tales of Androgyny!"},
 			{"text": "This is a pre-alpha build - many systems and assets are not currently in place, so please don't expect this to be the full game experience!"},
 			{"text": "If you encounter any bugs, please let us know - leave a comment on our game page at itch.io, send us an email at majalis.patreon@gmail.com, or message us on Patreon.  Thank you!"},
 			{"text": "Some tutorial tips to follow - hold CTRL to skip and to select your game mode."},
