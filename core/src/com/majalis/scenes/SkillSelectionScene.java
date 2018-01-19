@@ -43,9 +43,9 @@ public class SkillSelectionScene extends Scene {
 	private final Group magicGroup;
 	private final Group perkGroup;
 	private Array<StanceSkillDisplay> allDisplay;
-	int selection;
-	private Image arrow;
-	private Image arrow2;
+	private Array<Table> perkDisplay;
+	private int stanceSelection;
+	private int perkSelection;
 	private Label skillDisplay;
 	private Label bonusDisplay;
 	private Table skillDisplayTable;
@@ -80,10 +80,12 @@ public class SkillSelectionScene extends Scene {
 		skin = assetManager.get(AssetEnum.UI_SKIN.getSkin());
 		buttonSound = assetManager.get(AssetEnum.BUTTON_SOUND.getSound());
 		allDisplay = new Array<StanceSkillDisplay>();
+		perkDisplay  = new Array<Table>();
 		techniquesToButtons = new ObjectMap<Techniques, Label>();
 		locked = false;
 		justUnlocked = false;
-		selection = 0;
+		stanceSelection = 0;
+		perkSelection = 0;
 	}
 	
 	private void setSelectedRow(Row row) { // row your boat
@@ -138,11 +140,11 @@ public class SkillSelectionScene extends Scene {
 		
 		Image temp = addImage(assetManager.get(AssetEnum.SKILL_CONSOLE_BOX.getTexture()), Color.WHITE, 940 + 420, 0, 560, 1080); 
 		temp.addAction(Actions.alpha(.9f));
-		temp = addImage(skillGroup, assetManager.get(AssetEnum.SKILL_BOX_0.getTexture()), Color.WHITE, 470, 0, 470, 1080);
+		temp = addImage(skillGroup, assetManager.get(AssetEnum.SKILL_BOX_0.getTexture()), Color.WHITE, 200, 0);
 		temp.addAction(Actions.alpha(.9f));
-		temp = addImage(magicGroup, assetManager.get(AssetEnum.SKILL_BOX_1.getTexture()), Color.WHITE, 470, 0, 470, 1080);
+		temp = addImage(magicGroup, assetManager.get(AssetEnum.SKILL_BOX_1.getTexture()), Color.WHITE, 200, 0);
 		temp.addAction(Actions.alpha(.9f));
-		temp = addImage(perkGroup, assetManager.get(AssetEnum.SKILL_BOX_2.getTexture()), Color.WHITE, 235, 0, 940, 1080);		
+		temp = addImage(perkGroup, assetManager.get(AssetEnum.SKILL_BOX_2.getTexture()), Color.WHITE, 200, 0);		
 		temp.addAction(Actions.alpha(.9f));
 		
 		int consoleX = 1665;
@@ -181,116 +183,126 @@ public class SkillSelectionScene extends Scene {
 		for(Stance stance : Stance.values()) {
 			if (!stance.hasLearnableSkills()) continue;
 			StanceSkillDisplay newStanceSkillDisplay = new StanceSkillDisplay(stance, assetManager);
-			newStanceSkillDisplay.setPosition(670, tableHeight - 150);
+			newStanceSkillDisplay.setPosition(495, tableHeight - 210);
 			newStanceSkillDisplay.addAction(Actions.hide());
 			skillGroup.addActor(newStanceSkillDisplay);
 			allDisplay.add(newStanceSkillDisplay);
 		}
 		
-		allDisplay.get(0).addAction(Actions.show());		
-		boolean rowReady = false;
-		final Table perkTable = new Table();
+		Array<Perk> learnablePerks = new Array<Perk>();
 		for (final Perk perk: Perk.values()) {
-			if (!perk.isLearnable()) { continue; }
-			Integer level = perks.get(perk, 0);
-			final Label label = new Label(perk.getLabel(), skin);
-			label.setColor(Color.WHITE);
-			label.setAlignment(Align.right);
-			final Label value = new Label(level > 0 ? "(" + level + ")" : "", skin);
-			value.setAlignment(Align.right);
-			
-			final Row row = new Row(perk, label, skillDisplay, bonusDisplay, skillDisplayTable, consoleTable);
-			final TextButton plusButton = new TextButton("+", skin);
-			final TextButton minusButton = new TextButton("-", skin);
-			
-			label.addListener(new ClickListener() {
-				@Override
-		        public void clicked(InputEvent event, float x, float y) {
-					locked = !locked;
-					justUnlocked = !locked;
-				}
-			});
-			label.addListener(getListener(row));
-			plusButton.addListener(getListener(row));
-			minusButton.addListener(getListener(row));
-			
-			plusButton.addListener(new ClickListener() {
-				@Override
-		        public void clicked(InputEvent event, float x, float y) {
-					buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
-					if (perkPoints > 0) {
-						Integer level = perks.get(perk, 0);
-						if (level < perk.getMaxRank()) {
-							if (level + 1 <= perkPoints) {
-								perkPoints -= level + 1;
-								perkPointsDisplay.setText("Perk Points: " + perkPoints);
-								if (perk == Perk.SKILLED) {
-									skillPoints += 2;
-									skillPointsDisplay.setText("Skill Points: " + skillPoints);
+			if (perk.isLearnable()) {
+				learnablePerks.add(perk);
+			}
+		}
+		
+		allDisplay.get(0).addAction(Actions.show());
+		for (int ii = 0; ii < 2; ii++) {
+			final Table perkTable = new Table();
+			int jj = 0;
+			for (final Perk perk: learnablePerks) {
+				if (!(jj >= ii * learnablePerks.size / 2 && jj < (ii + 1) * learnablePerks.size / 2)) { jj++; continue; }
+				Integer level = perks.get(perk, 0);
+				final Label label = new Label(perk.getLabel(), skin);
+				label.setColor(Color.WHITE);
+				label.setAlignment(Align.right);
+				final Label value = new Label(level > 0 ? "(" + level + ")" : "", skin);
+				value.setAlignment(Align.right);
+				
+				final Row row = new Row(perk, label, skillDisplay, bonusDisplay, skillDisplayTable, consoleTable);
+				final TextButton plusButton = new TextButton("+", skin);
+				final TextButton minusButton = new TextButton("-", skin);
+				
+				label.addListener(new ClickListener() {
+					@Override
+			        public void clicked(InputEvent event, float x, float y) {
+						locked = !locked;
+						justUnlocked = !locked;
+					}
+				});
+				label.addListener(getListener(row));
+				plusButton.addListener(getListener(row));
+				minusButton.addListener(getListener(row));
+				
+				plusButton.addListener(new ClickListener() {
+					@Override
+			        public void clicked(InputEvent event, float x, float y) {
+						buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
+						if (perkPoints > 0) {
+							Integer level = perks.get(perk, 0);
+							if (level < perk.getMaxRank()) {
+								if (level + 1 <= perkPoints) {
+									perkPoints -= level + 1;
+									perkPointsDisplay.setText("Perk Points: " + perkPoints);
+									if (perk == Perk.SKILLED) {
+										skillPoints += 2;
+										skillPointsDisplay.setText("Skill Points: " + skillPoints);
+									}
+									perks.put(perk, ++level);						
+									console.setText("You gained the " + perk.getLabel() + " Rank " + level +".");
+									value.setText(level == 0 ? "" : "(" + level + ")");
 								}
-								perks.put(perk, ++level);						
-								console.setText("You gained the " + perk.getLabel() + " Rank " + level +".");
+								else {
+									console.setText("You do not have enough perk points!");
+								}	
+							}
+							else {
+								console.setText("You cannot improve on that perk any further!");
+							}		
+						}
+						else {
+							console.setText("You have no perk points!");
+						}
+			        }
+				});
+				minusButton.addListener(new ClickListener() {
+					@Override
+			        public void clicked(InputEvent event, float x, float y) {
+						buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
+						
+						Integer level = perks.get(perk, 0);
+						if (level == 0) {
+							console.setText("You do not yet possess that perk!");
+						}
+						else {
+							Integer cachedLevel = cachedPerks.get(perk, 0);
+							if (--level >= cachedLevel) {
+								perkPoints += level + 1;
+								perkPointsDisplay.setText("Perk Points: " + perkPoints);
+								perks.put(perk, level);
+								if (level > 0) {
+									console.setText("You have reduced " + perk.getLabel() + " to Rank " + level +".");
+								}
+								else {
+									console.setText("You have removed " + perk.getLabel() + ".");
+								}
+								if (perk == Perk.SKILLED) {
+									skillPoints -= 2;
+									skillPointsDisplay.setText("Skill Points: " + skillPoints);
+									handleNegativeSkillPoints();
+								}
+								
 								value.setText(level == 0 ? "" : "(" + level + ")");
 							}
 							else {
-								console.setText("You do not have enough perk points!");
-							}	
-						}
-						else {
-							console.setText("You cannot improve on that perk any further!");
-						}		
-					}
-					else {
-						console.setText("You have no perk points!");
-					}
-		        }
-			});
-			minusButton.addListener(new ClickListener() {
-				@Override
-		        public void clicked(InputEvent event, float x, float y) {
-					buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
-					
-					Integer level = perks.get(perk, 0);
-					if (level == 0) {
-						console.setText("You do not yet possess that perk!");
-					}
-					else {
-						Integer cachedLevel = cachedPerks.get(perk, 0);
-						if (--level >= cachedLevel) {
-							perkPoints += level + 1;
-							perkPointsDisplay.setText("Perk Points: " + perkPoints);
-							perks.put(perk, level);
-							if (level > 0) {
-								console.setText("You have reduced " + perk.getLabel() + " to Rank " + level +".");
+								console.setText("You cannot reduce " + perk.getLabel() + " below Rank " + cachedLevel +".");
 							}
-							else {
-								console.setText("You have removed " + perk.getLabel() + ".");
-							}
-							if (perk == Perk.SKILLED) {
-								skillPoints -= 2;
-								skillPointsDisplay.setText("Skill Points: " + skillPoints);
-								handleNegativeSkillPoints();
-							}
-							
-							value.setText(level == 0 ? "" : "(" + level + ")");
 						}
-						else {
-							console.setText("You cannot reduce " + perk.getLabel() + " below Rank " + cachedLevel +".");
-						}
-					}
-		        }
-			});
-			perkTable.add(label).size(200, 45).padRight(10);
-			perkTable.add(value).size(30, 45).padRight(10);
-			perkTable.add(plusButton).size(45, 60);
-			perkTable.add(minusButton).size(45, 60);
-			if (rowReady) perkTable.row();
-			else perkTable.add().width(100);
-			rowReady = !rowReady;
+			        }
+				});
+				perkTable.add(label).size(200, 45).padRight(10);
+				perkTable.add(value).size(30, 45).padRight(10);
+				perkTable.add(plusButton).size(45, 60);
+				perkTable.add(minusButton).size(45, 60).row();
+				jj++;
+			}
+			perkTable.setPosition(530, tableHeight - 215);
+			perkTable.align(Align.top);
+			perkTable.addAction(Actions.hide());
+			perkDisplay.add(perkTable);
+			perkGroup.addActor(perkTable);
 		}
-		perkTable.setPosition(680, tableHeight - 125);
-		perkTable.align(Align.top);
-		perkGroup.addActor(perkTable);
+		
 		
 		if (character.hasMagic()) {
 			final Table magicTable = new Table();
@@ -379,15 +391,15 @@ public class SkillSelectionScene extends Scene {
 				magicTable.add(plusButton).size(45, 60);
 				magicTable.add(minusButton).size(45, 60).row();
 			}
-			magicTable.setPosition(700, tableHeight - 150);
+			magicTable.setPosition(530, tableHeight - 215);
 			magicTable.align(Align.top);
 			magicGroup.addActor(magicTable);
 		}
-		arrow = new Image(arrowImage);
-        arrow.setHeight(60);
-        arrow.setWidth(30);
-        arrow.setPosition(910, 500);
-        arrow.addListener(new ClickListener(){
+		Image arrow = new Image(arrowImage);
+        arrow.setHeight(300);
+        arrow.setWidth(120);
+        arrow.setPosition(780, 320);
+        arrow.addListener(new ClickListener() {
         	@Override
 	        public void clicked(InputEvent event, float x, float y) {
         		changeStanceDisplay(1);
@@ -397,17 +409,41 @@ public class SkillSelectionScene extends Scene {
         
         TextureRegion flipped = new TextureRegion(arrowImage);
         flipped.flip(true, false);
-        arrow2 = new Image(flipped);
-        arrow2.setHeight(60);
-        arrow2.setWidth(30);
-        arrow2.setPosition(470, 500);
-        arrow2.addListener(new ClickListener(){
+        Image arrow2 = new Image(flipped);
+        arrow2.setHeight(300);
+        arrow2.setWidth(120);
+        arrow2.setPosition(140, 320);
+        arrow2.addListener(new ClickListener() {
         	@Override
 	        public void clicked(InputEvent event, float x, float y) {
         		changeStanceDisplay(-1);
         	}
         });
         skillGroup.addActor(arrow2);
+        
+        Image arrow3 = new Image(arrowImage);
+        arrow3.setHeight(300);
+        arrow3.setWidth(120);
+        arrow3.setPosition(780, 320);
+        arrow3.addListener(new ClickListener() {
+        	@Override
+	        public void clicked(InputEvent event, float x, float y) {
+        		changePerkDisplay(1);
+        	}
+        });
+        perkGroup.addActor(arrow3);
+        
+        Image arrow4 = new Image(flipped);
+        arrow4.setHeight(300);
+        arrow4.setWidth(120);
+        arrow4.setPosition(140, 320);
+        arrow4.addListener(new ClickListener() {
+        	@Override
+	        public void clicked(InputEvent event, float x, float y) {
+        		changePerkDisplay(-1);
+        	}
+        });
+        perkGroup.addActor(arrow4);
         
         final Table navigationButtons = new Table();
 		final TextButton showSkills = new TextButton("Skills", skin);
@@ -440,6 +476,7 @@ public class SkillSelectionScene extends Scene {
 				@Override
 		        public void clicked(InputEvent event, float x, float y) {
 					buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
+					perkDisplay.get(perkSelection).addAction(Actions.show());
 					skillGroup.addAction(Actions.hide());
 					magicGroup.addAction(Actions.hide());
 					perkGroup.addAction(Actions.show());
@@ -456,7 +493,7 @@ public class SkillSelectionScene extends Scene {
 		        }
 			}
 		);
-		
+	
 		navigationButtons.setPosition(1675, 75);
 		navigationButtons.add(showSkills).size(125, 75);
 		navigationButtons.add(showMagic).size(125, 75);
@@ -470,11 +507,19 @@ public class SkillSelectionScene extends Scene {
 	}
 
 	private void changeStanceDisplay(int delta) {
-		allDisplay.get(selection).addAction(Actions.hide());
-		selection += delta;
-		if (selection < 0) selection += allDisplay.size;
-		if (selection >= allDisplay.size) selection -= allDisplay.size;
-		allDisplay.get(selection).addAction(Actions.show());
+		allDisplay.get(stanceSelection).addAction(Actions.hide());
+		stanceSelection += delta;
+		if (stanceSelection < 0) stanceSelection += allDisplay.size;
+		if (stanceSelection >= allDisplay.size) stanceSelection -= allDisplay.size;
+		allDisplay.get(stanceSelection).addAction(Actions.show());
+	}
+	
+	private void changePerkDisplay(int delta) {
+		perkDisplay.get(perkSelection).addAction(Actions.hide());
+		perkSelection += delta;
+		if (perkSelection < 0) perkSelection += perkDisplay.size;
+		if (perkSelection >= perkDisplay.size) perkSelection -= perkDisplay.size;
+		perkDisplay.get(perkSelection).addAction(Actions.show());
 	}
 	
 	private void handleNegativeSkillPoints() {
@@ -515,7 +560,7 @@ public class SkillSelectionScene extends Scene {
 			this.table = new Table();
 			this.addActor(table);
 			Image stanceIcon = new Image(assetManager.get(stance.getTexture()));
-			stanceIcon.setBounds(-40, 150, 150, 150);
+			stanceIcon.setBounds(-40, 125, 150, 150);
 			this.addActor(stanceIcon);
 			init();
 		}
