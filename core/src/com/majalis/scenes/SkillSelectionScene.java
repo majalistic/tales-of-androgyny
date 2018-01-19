@@ -39,6 +39,9 @@ public class SkillSelectionScene extends Scene {
 	private final PlayerCharacter character;
 	private final Texture arrowImage;
 	private final AssetManager assetManager;
+	private final Group skillGroup;
+	private final Group magicGroup;
+	private final Group perkGroup;
 	private Array<StanceSkillDisplay> allDisplay;
 	int selection;
 	private Image arrow;
@@ -68,6 +71,12 @@ public class SkillSelectionScene extends Scene {
 		this.addActor(background);
 		this.assetManager = assetManager;
 		this.arrowImage = assetManager.get(AssetEnum.STANCE_ARROW.getTexture());
+		skillGroup = new Group();
+		magicGroup = new Group();
+		perkGroup = new Group();
+		this.addActor(skillGroup);
+		this.addActor(magicGroup);
+		this.addActor(perkGroup);
 		skin = assetManager.get(AssetEnum.UI_SKIN.getSkin());
 		buttonSound = assetManager.get(AssetEnum.BUTTON_SOUND.getSound());
 		allDisplay = new Array<StanceSkillDisplay>();
@@ -111,8 +120,6 @@ public class SkillSelectionScene extends Scene {
 	@Override
 	public void setActive() {
 		isActive = true;
-		this.removeAction(Actions.hide());
-		this.addAction(Actions.visible(true));
 		this.addAction(Actions.show());
 		this.setBounds(0, 0, 2000, 2000);
 		saveService.saveDataValue(SaveEnum.SCENE_CODE, sceneCode);
@@ -121,19 +128,19 @@ public class SkillSelectionScene extends Scene {
 		this.magicPoints = character.getMagicPoints();
 		this.perkPoints = character.getPerkPoints();
 		
-		skillPointsDisplay = addLabel("Skill Points: " + skillPoints, skin, Color.WHITE, 140, 10);
-		final Label magicPointsDisplay = addLabel("Magic Points: " + magicPoints, skin, Color.WHITE, 600, 10);
-		final Label perkPointsDisplay = addLabel("Perk Points: " + perkPoints, skin, Color.WHITE, 1060, 10);
+		skillPointsDisplay = addLabel(skillGroup, "Skill Points: " + skillPoints, skin, null, Color.WHITE, 140, 10);
+		final Label magicPointsDisplay = addLabel(magicGroup, "Magic Points: " + magicPoints, skin, null, Color.WHITE, 600, 10);
+		final Label perkPointsDisplay = addLabel(perkGroup, "Perk Points: " + perkPoints, skin, null, Color.WHITE, 1060, 10);
 
 		addImage(assetManager.get(AssetEnum.SKILL_TITLE.getTexture()), Color.WHITE, 25, 1000);
 		
 		Image temp = addImage(assetManager.get(AssetEnum.SKILL_CONSOLE_BOX.getTexture()), Color.WHITE, 940 + 420, 0, 560, 1080); 
 		temp.addAction(Actions.alpha(.9f));
-		temp = addImage(assetManager.get(AssetEnum.SKILL_BOX_0.getTexture()), Color.WHITE, 0, 50, 470, 910);
+		temp = addImage(skillGroup, assetManager.get(AssetEnum.SKILL_BOX_0.getTexture()), Color.WHITE, 0, 50, 470, 910);
 		temp.addAction(Actions.alpha(.9f));
-		temp = addImage(assetManager.get(AssetEnum.SKILL_BOX_1.getTexture()), Color.WHITE, 470, 50, 470, 910);
+		temp = addImage(magicGroup, assetManager.get(AssetEnum.SKILL_BOX_1.getTexture()), Color.WHITE, 470, 50, 470, 910);
 		temp.addAction(Actions.alpha(.9f));
-		temp = addImage(assetManager.get(AssetEnum.SKILL_BOX_2.getTexture()), Color.WHITE, 940, 50, 470, 910);		
+		temp = addImage(perkGroup, assetManager.get(AssetEnum.SKILL_BOX_2.getTexture()), Color.WHITE, 940, 50, 470, 910);		
 		temp.addAction(Actions.alpha(.9f));
 		
 		int consoleX = 1675;
@@ -168,25 +175,12 @@ public class SkillSelectionScene extends Scene {
 		skills = new ObjectMap<Techniques, Integer>(cachedSkills);
 		perks = new ObjectMap<Perk, Integer>(cachedPerks);
 		
-		final TextButton done = new TextButton("Done", skin);
-		done.addListener(
-			new ClickListener() {
-				@Override
-		        public void clicked(InputEvent event, float x, float y) {
-					buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
-					nextScene();		   
-		        }
-			}
-		);
-		done.setPosition(1530, 20);
-		addActor(done);	
-		
 		for(Stance stance : Stance.values()) {
 			if (!stance.hasLearnableSkills()) continue;
 			StanceSkillDisplay newStanceSkillDisplay = new StanceSkillDisplay(stance, assetManager);
 			newStanceSkillDisplay.setPosition(200, tableHeight - 200);
 			newStanceSkillDisplay.addAction(Actions.hide());
-			this.addActor(newStanceSkillDisplay);
+			skillGroup.addActor(newStanceSkillDisplay);
 			allDisplay.add(newStanceSkillDisplay);
 		}
 		
@@ -290,7 +284,7 @@ public class SkillSelectionScene extends Scene {
 		}
 		perkTable.setPosition(1150, tableHeight - 75);
 		perkTable.align(Align.top);
-		addActor(perkTable);
+		perkGroup.addActor(perkTable);
 		
 		if (character.hasMagic()) {
 			final Table magicTable = new Table();
@@ -381,7 +375,7 @@ public class SkillSelectionScene extends Scene {
 			}
 			magicTable.setPosition(700, tableHeight - 200);
 			magicTable.align(Align.top);
-			this.addActor(magicTable);
+			magicGroup.addActor(magicTable);
 		}
 		arrow = new Image(arrowImage);
         arrow.setHeight(60);
@@ -393,7 +387,7 @@ public class SkillSelectionScene extends Scene {
         		changeStanceDisplay(1);
         	}
         });
-        this.addActor(arrow);
+        skillGroup.addActor(arrow);
         
         TextureRegion flipped = new TextureRegion(arrowImage);
         flipped.flip(true, false);
@@ -407,7 +401,66 @@ public class SkillSelectionScene extends Scene {
         		changeStanceDisplay(-1);
         	}
         });
-        this.addActor(arrow2);
+        skillGroup.addActor(arrow2);
+        
+        final Table navigationButtons = new Table();
+		final TextButton showSkills = new TextButton("Skills", skin);
+		showSkills.addListener(
+			new ClickListener() {
+				@Override
+		        public void clicked(InputEvent event, float x, float y) {
+					buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
+					skillGroup.addAction(Actions.show());
+					magicGroup.addAction(Actions.hide());
+					perkGroup.addAction(Actions.hide());
+		        }
+			}
+		);
+		final TextButton showMagic = new TextButton("Magic", skin);
+		showMagic.addListener(
+			new ClickListener() {
+				@Override
+		        public void clicked(InputEvent event, float x, float y) {
+					buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
+					skillGroup.addAction(Actions.hide());
+					magicGroup.addAction(Actions.show());
+					perkGroup.addAction(Actions.hide());
+		        }
+			}
+		);
+		final TextButton showPerks = new TextButton("Perks", skin);
+		showPerks.addListener(
+			new ClickListener() {
+				@Override
+		        public void clicked(InputEvent event, float x, float y) {
+					buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
+					skillGroup.addAction(Actions.hide());
+					magicGroup.addAction(Actions.hide());
+					perkGroup.addAction(Actions.show());
+		        }
+			}
+		);
+		final TextButton done = new TextButton("Done", skin);
+		done.addListener(
+			new ClickListener() {
+				@Override
+		        public void clicked(InputEvent event, float x, float y) {
+					buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
+					nextScene();		   
+		        }
+			}
+		);
+		
+		navigationButtons.setPosition(1675, 75);
+		navigationButtons.add(showSkills).size(125, 75);
+		navigationButtons.add(showMagic).size(125, 75);
+		navigationButtons.add(showPerks).size(125, 75).row();
+		navigationButtons.add().size(50);
+		navigationButtons.add(done).width(200);
+		this.addActor(navigationButtons);
+		
+		magicGroup.addAction(Actions.hide());
+		perkGroup.addAction(Actions.hide());
 	}
 
 	private void changeStanceDisplay(int delta) {
