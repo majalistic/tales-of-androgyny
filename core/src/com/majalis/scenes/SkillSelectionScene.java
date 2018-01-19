@@ -30,7 +30,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 public class SkillSelectionScene extends Scene {
 
-	private static int tableHeight = 840;
+	private static int tableHeight = 900;
 	
 	private final SaveService saveService;
 	private final Skin skin;
@@ -68,7 +68,7 @@ public class SkillSelectionScene extends Scene {
 		this.addActor(background);
 		this.assetManager = assetManager;
 		this.arrowImage = assetManager.get(AssetEnum.STANCE_ARROW.getTexture());
-		boxTexture = assetManager.get(AssetEnum.NORMAL_BOX.getTexture());
+		boxTexture = assetManager.get(AssetEnum.SKILL_BOX.getTexture());
 		skin = assetManager.get(AssetEnum.UI_SKIN.getSkin());
 		buttonSound = assetManager.get(AssetEnum.BUTTON_SOUND.getSound());
 		allDisplay = new Array<StanceSkillDisplay>();
@@ -123,26 +123,20 @@ public class SkillSelectionScene extends Scene {
 		this.perkPoints = character.getPerkPoints();
 		
 		skillPointsDisplay = addLabel("Skill Points: " + skillPoints, skin, Color.WHITE, 140, 10);
-		final Label magicPointsDisplay = addLabel("Magic Points: " + magicPoints, skin, Color.WHITE, 540, 10);
-		final Label perkPointsDisplay = addLabel("Perk Points: " + perkPoints, skin, Color.WHITE, 980, 10);
-		
-		addLabel("Skills", skin, Color.BROWN, 170, 880);
-		addLabel("Spells", skin, Color.PURPLE, 600, 880);
-		addLabel("Perk", skin, Color.GOLDENROD, 1040, 880);
+		final Label magicPointsDisplay = addLabel("Magic Points: " + magicPoints, skin, Color.WHITE, 600, 10);
+		final Label perkPointsDisplay = addLabel("Perk Points: " + perkPoints, skin, Color.WHITE, 1060, 10);
 
 		addImage(assetManager.get(AssetEnum.SKILL_TITLE.getTexture()), Color.WHITE, 25, 1000);
 		
-		addImage(boxTexture, Color.BROWN, 0, 15, 470, 910);
-		addImage(boxTexture, Color.PURPLE, 450, 15, 430, 910);
-		addImage(boxTexture, Color.GOLDENROD, 875, 15, 400, 910);		
-		addImage(boxTexture, Color.GRAY, 1250, 40, 700, 1080);
-		
-		addImage(boxTexture, Color.BROWN, 100, -10, 260, 75);
-		addImage(boxTexture, Color.PURPLE, 500, -10, 280, 75);
-		addImage(boxTexture, Color.GOLDENROD, 945, -10, 260, 75);
+		Image temp = addImage(boxTexture, Color.WHITE, 0, 50, 470, 910);
+		temp.addAction(Actions.alpha(.9f));
+		temp = addImage(boxTexture, Color.VIOLET, 470, 50, 470, 910);
+		temp.addAction(Actions.alpha(.9f));
+		temp = addImage(boxTexture, Color.LIGHT_GRAY, 940, 50, 470, 910);		
+		temp.addAction(Actions.alpha(.9f));
 		
 		consoleTable = new Table();
-		consoleTable.setPosition(1610,  1000);
+		consoleTable.setPosition(1640,  1000);
 		console = new Label("", skin);
 		console.setWrap(true);
 		console.setColor(Color.WHITE);
@@ -151,7 +145,7 @@ public class SkillSelectionScene extends Scene {
 		this.addActor(consoleTable);
 		
 		skillDisplayTable = new Table();
-		skillDisplayTable.setPosition(1610,  1000);
+		skillDisplayTable.setPosition(1640,  1000);
 		skillDisplay = new Label("", skin);
 		skillDisplay.setWrap(true);
 		skillDisplay.setColor(Color.WHITE);
@@ -186,7 +180,7 @@ public class SkillSelectionScene extends Scene {
 		for(Stance stance : Stance.values()) {
 			if (!stance.hasLearnableSkills()) continue;
 			StanceSkillDisplay newStanceSkillDisplay = new StanceSkillDisplay(stance, assetManager);
-			newStanceSkillDisplay.setPosition(217, tableHeight);
+			newStanceSkillDisplay.setPosition(200, tableHeight);
 			newStanceSkillDisplay.addAction(Actions.hide());
 			this.addActor(newStanceSkillDisplay);
 			allDisplay.add(newStanceSkillDisplay);
@@ -290,7 +284,7 @@ public class SkillSelectionScene extends Scene {
 			perkTable.add(plusButton).size(45, 60);
 			perkTable.add(minusButton).size(45, 60).row();
 		}
-		perkTable.setPosition(1062, tableHeight);
+		perkTable.setPosition(1150, tableHeight - 75);
 		perkTable.align(Align.top);
 		addActor(perkTable);
 		
@@ -381,7 +375,7 @@ public class SkillSelectionScene extends Scene {
 				magicTable.add(plusButton).size(45, 60);
 				magicTable.add(minusButton).size(45, 60).row();
 			}
-			magicTable.setPosition(653, tableHeight);
+			magicTable.setPosition(700, tableHeight - 200);
 			magicTable.align(Align.top);
 			this.addActor(magicTable);
 		}
@@ -454,8 +448,7 @@ public class SkillSelectionScene extends Scene {
 		private final Stance stance;
 		private StanceSkillDisplay(Stance stance, AssetManager assetManager) { 
 			this.stance = stance;
-			this.add(new Image(assetManager.get(stance.getTexture()))).padLeft(200).size(100, 100).row();;
-			
+			this.add(new Image(assetManager.get(stance.getTexture()))).padLeft(200).padBottom(100).size(100, 100).row();
 			init();
 		}
 		

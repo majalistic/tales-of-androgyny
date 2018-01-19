@@ -41,7 +41,6 @@ public enum AssetEnum {
 	CAMP_BG0("backgrounds/CampBG0.jpg"),
 	CAMP_BG1("backgrounds/CampBG1.jpg"),
 	CAMP_BG2("backgrounds/CampBG2.jpg"),
-	SKILL_TITLE("backgrounds/SkillsTitle.png"),
 	
 	CHARACTER_CUSTOM_BACKGROUND("backgrounds/CharCustom.png"),
 	DRYAD_BACKGROUND("characters/DryadApple.jpg"),
@@ -49,6 +48,9 @@ public enum AssetEnum {
 	CABIN_BACKGROUND("backgrounds/WoodsCottage.jpg"),
 	BURNING_FORT_BG("backgrounds/BurningFort.jpg"),
 	TOWN_BG("backgrounds/TownBG.jpg"),
+
+	SKILL_TITLE("backgrounds/SkillSelect/SkillsTitle.png"),
+	SKILL_BOX("backgrounds/SkillSelect/Boxback.png"),
 	
 	WARRIOR("characters/protagonist/Warrior.png"),
 	PALADIN("characters/protagonist/Paladin.png"),
@@ -223,7 +225,6 @@ public enum AssetEnum {
 	BATTLE_UI("battle/Treeframe.png"),
 	BATTLE_HOVER("battle/SkillHover.png"),
 	BATTLE_TEXTBOX("battle/TextBox.png"),
-	NORMAL_BOX("BattleHover.png"),
 	TEXT_BOX("battle/NameBox.png"),
 	
 	ELF("characters/Elf.png"),
