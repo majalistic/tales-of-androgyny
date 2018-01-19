@@ -29,6 +29,10 @@ public abstract class Scene extends Group {
 	}
 	
 	protected Label addLabel(String text, Skin skin, BitmapFont font, Color color, float x, float y) {
+		return addLabel(this, text, skin, font, color, x, y);
+	}
+	
+	protected Label addLabel(Group group, String text, Skin skin, BitmapFont font, Color color, float x, float y) {
 		Label newLabel = new Label(text, skin);
 		newLabel.setColor(color);
 		newLabel.setPosition(x, y);
@@ -39,7 +43,7 @@ public abstract class Scene extends Group {
 			newLabel.setWrap(true);
 			newLabel.setAlignment(Align.top);
 		}
-		this.addActor(newLabel);
+		group.addActor(newLabel);
 		return newLabel;
 	}
 	
@@ -48,9 +52,13 @@ public abstract class Scene extends Group {
 	}
 	
 	protected Image addImage(Texture texture, Color color, float x, float y, float width, float height) {
+		return addImage(this, texture, color, x, y, width, height);
+	}
+	
+	protected Image addImage(Group group, Texture texture, Color color, float x, float y, float width, float height) {
 		Image newImage = new Image(texture);
 		newImage.setBounds(x, y, width, height);
-		this.addActor(newImage);
+		group.addActor(newImage);
 		if (color != null) {
 			newImage.setColor(color);
 		}
