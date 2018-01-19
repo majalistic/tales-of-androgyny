@@ -164,33 +164,33 @@ public class TechniqueBuilder {
 	protected String getDescription() {
 		StringBuilder builder = new StringBuilder();
 		if (doesDamage) {
-			builder.append("Deals" + (powerMod > 0 ? " +" + powerMod : powerMod < 0 ? " " + powerMod : "") + " damage, improved by " + (isSpell ? "Magic" : "Strength") + ".\n");
+			builder.append("Deals" + (powerMod > 0 ? " +" + powerMod : powerMod < 0 ? " " + powerMod : "") + " damage, improved by " + (isSpell ? "MAG" : "STR") + ".\n");
 		}
 		if (doesHealing) {
-			builder.append("Heals user with a power of " + powerMod + ", improved by Magic.\n");
+			builder.append("Heals user with a power of " + powerMod + ", improved by MAG.\n");
 		}
 		if (selfEffect != null) {
-			builder.append("Increases Strength dramatically, erodes - improved by Magic.\n");
+			builder.append("Increases Strength dramatically, erodes - improved by MAG.\n");
 		}
 		if (enemyEffect != null) {
-			builder.append("Decreases Strength dramatically, duration improved by Magic.\n");
+			builder.append("Decreases Strength dramatically, duration improved by MAG.\n");
 		}
 			
 		if (sex.getAssTeasing() > 0) {
 			int totalAssTeasing = sex.getAssTeasing() + powerMod;
-			builder.append("Seduces the target into wanting to fuck your ass, with a power of " + totalAssTeasing + ", improved by Charisma.\n");
+			builder.append("Seduces the target into wanting to fuck your ass, with a power of " + totalAssTeasing + ", improved by CHR.\n");
 		}
 		if (sex.getMouthTeasing() > 0) {
 			int totalMouthTeasing = sex.getMouthTeasing() + powerMod;
-			builder.append("Seduces the target into wanting to fuck your mouth, with a power of " + totalMouthTeasing + ", improved by Charisma.\n");
+			builder.append("Seduces the target into wanting to fuck your mouth, with a power of " + totalMouthTeasing + ", improved by CHR.\n");
 		}
 		if (sex.getAssBottomTeasing() > 0) {
 			int totalAssTeasing = sex.getAssTeasing() + powerMod;
-			builder.append("Seduces the target into wanting to get fucked in the ass, with a power of " + totalAssTeasing + ", improved by Charisma.\n");
+			builder.append("Seduces the target into wanting to get fucked in the ass, with a power of " + totalAssTeasing + ", improved by CHR.\n");
 		}
 		if (sex.getMouthBottomTeasing() > 0) {
 			int totalMouthTeasing = sex.getMouthTeasing() + powerMod;
-			builder.append("Seduces the target into wanting to get fucked in the mouth, with a power of " + totalMouthTeasing + ", improved by Charisma.\n");
+			builder.append("Seduces the target into wanting to get fucked in the mouth, with a power of " + totalMouthTeasing + ", improved by CHR.\n");
 		}
 		
 		if (selfSex.getAssTeasing() > 0) {
@@ -222,13 +222,13 @@ public class TechniqueBuilder {
 			builder.append("Parries enemy attacks with a weapon,\npreventing " + (guardMod == 1 ? "a quarter of the damage" : guardMod == 2 ? "half damage" : guardMod == 3 ? "three-quarters of the damage" : guardMod >= 4 ? "all damage" : "") + ".\n");
 		}
 		if (staminaCost > 0) {
-			builder.append("Costs " + staminaCost + " stamina, reduced by Endurance.\n");
+			builder.append("Costs " + staminaCost + " stamina, reduced by END.\n");
 		}
 		else if (staminaCost < 0) {
-			builder.append("Recovers " + -staminaCost + " stamina, improved by Endurance.\n");
+			builder.append("Recovers " + -staminaCost + " stamina, improved by END.\n");
 		}
 		if (stabilityCost > 0) {
-			builder.append("Causes " + stabilityCost + " instability, reduced by Agility.\n");			
+			builder.append("Causes " + stabilityCost + " instability, reduced by AGI.\n");			
 		}
 		if (manaCost > 0) {
 			builder.append("Costs " + manaCost + " mana.\n");			
