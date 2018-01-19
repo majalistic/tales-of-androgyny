@@ -128,30 +128,33 @@ public class SkillSelectionScene extends Scene {
 		this.magicPoints = character.getMagicPoints();
 		this.perkPoints = character.getPerkPoints();
 		
-		skillPointsDisplay = addLabel(skillGroup, "Skill Points: " + skillPoints, skin, null, Color.WHITE, 140, 10);
-		final Label magicPointsDisplay = addLabel(magicGroup, "Magic Points: " + magicPoints, skin, null, Color.WHITE, 600, 10);
-		final Label perkPointsDisplay = addLabel(perkGroup, "Perk Points: " + perkPoints, skin, null, Color.WHITE, 1060, 10);
+		skillPointsDisplay = addLabel("Skill Points: " + skillPoints, skin, null, Color.WHITE, 10, 90);
+		final Label magicPointsDisplay = addLabel("Magic Points: " + magicPoints, skin, null, Color.WHITE, 10, 50);
+		final Label perkPointsDisplay = addLabel("Perk Points: " + perkPoints, skin, null, Color.WHITE, 10, 10);
 
-		addImage(assetManager.get(AssetEnum.SKILL_TITLE.getTexture()), Color.WHITE, 25, 1000);
+		addImage(skillGroup, assetManager.get(AssetEnum.SKILL_TITLE.getTexture()), Color.WHITE, 25, 1000);
+		addImage(magicGroup, assetManager.get(AssetEnum.MAGIC_TITLE.getTexture()), Color.WHITE, 25, 1000);
+		addImage(perkGroup, assetManager.get(AssetEnum.PERK_TITLE.getTexture()), Color.WHITE, 25, 1000);
 		
 		Image temp = addImage(assetManager.get(AssetEnum.SKILL_CONSOLE_BOX.getTexture()), Color.WHITE, 940 + 420, 0, 560, 1080); 
 		temp.addAction(Actions.alpha(.9f));
-		temp = addImage(skillGroup, assetManager.get(AssetEnum.SKILL_BOX_0.getTexture()), Color.WHITE, 0, 50, 470, 910);
+		temp = addImage(skillGroup, assetManager.get(AssetEnum.SKILL_BOX_0.getTexture()), Color.WHITE, 470, 0, 470, 1080);
 		temp.addAction(Actions.alpha(.9f));
-		temp = addImage(magicGroup, assetManager.get(AssetEnum.SKILL_BOX_1.getTexture()), Color.WHITE, 470, 50, 470, 910);
+		temp = addImage(magicGroup, assetManager.get(AssetEnum.SKILL_BOX_1.getTexture()), Color.WHITE, 470, 0, 470, 1080);
 		temp.addAction(Actions.alpha(.9f));
-		temp = addImage(perkGroup, assetManager.get(AssetEnum.SKILL_BOX_2.getTexture()), Color.WHITE, 940, 50, 470, 910);		
+		temp = addImage(perkGroup, assetManager.get(AssetEnum.SKILL_BOX_2.getTexture()), Color.WHITE, 235, 0, 940, 1080);		
 		temp.addAction(Actions.alpha(.9f));
 		
-		int consoleX = 1675;
+		int consoleX = 1665;
 		int consoleY = 975;
+		int consoleWidth = 470;
 		
 		consoleTable = new Table();
 		consoleTable.setPosition(consoleX,  consoleY);
 		console = new Label("", skin);
 		console.setWrap(true);
 		console.setColor(Color.BLACK);
-		consoleTable.add(console).width(450);
+		consoleTable.add(console).width(consoleWidth);
 		consoleTable.align(Align.top);
 		this.addActor(consoleTable);
 		
@@ -160,13 +163,13 @@ public class SkillSelectionScene extends Scene {
 		skillDisplay = new Label("", skin);
 		skillDisplay.setWrap(true);
 		skillDisplay.setColor(Color.BLACK);
-		skillDisplayTable.add(skillDisplay).width(450).row();
+		skillDisplayTable.add(skillDisplay).width(consoleWidth).row();
 		skillDisplayTable.align(Align.top);
 		
 		bonusDisplay = new Label("", skin);
 		bonusDisplay.setWrap(true);
 		bonusDisplay.setColor(Color.FOREST);
-		skillDisplayTable.add(bonusDisplay).width(450);		
+		skillDisplayTable.add(bonusDisplay).width(consoleWidth);		
 		
 		this.addActor(skillDisplayTable);
 		
@@ -178,14 +181,14 @@ public class SkillSelectionScene extends Scene {
 		for(Stance stance : Stance.values()) {
 			if (!stance.hasLearnableSkills()) continue;
 			StanceSkillDisplay newStanceSkillDisplay = new StanceSkillDisplay(stance, assetManager);
-			newStanceSkillDisplay.setPosition(200, tableHeight - 200);
+			newStanceSkillDisplay.setPosition(670, tableHeight - 150);
 			newStanceSkillDisplay.addAction(Actions.hide());
 			skillGroup.addActor(newStanceSkillDisplay);
 			allDisplay.add(newStanceSkillDisplay);
 		}
 		
 		allDisplay.get(0).addAction(Actions.show());		
-		
+		boolean rowReady = false;
 		final Table perkTable = new Table();
 		for (final Perk perk: Perk.values()) {
 			if (!perk.isLearnable()) { continue; }
@@ -280,9 +283,12 @@ public class SkillSelectionScene extends Scene {
 			perkTable.add(label).size(200, 45).padRight(10);
 			perkTable.add(value).size(30, 45).padRight(10);
 			perkTable.add(plusButton).size(45, 60);
-			perkTable.add(minusButton).size(45, 60).row();
+			perkTable.add(minusButton).size(45, 60);
+			if (rowReady) perkTable.row();
+			else perkTable.add().width(100);
+			rowReady = !rowReady;
 		}
-		perkTable.setPosition(1150, tableHeight - 75);
+		perkTable.setPosition(680, tableHeight - 125);
 		perkTable.align(Align.top);
 		perkGroup.addActor(perkTable);
 		
@@ -373,14 +379,14 @@ public class SkillSelectionScene extends Scene {
 				magicTable.add(plusButton).size(45, 60);
 				magicTable.add(minusButton).size(45, 60).row();
 			}
-			magicTable.setPosition(700, tableHeight - 200);
+			magicTable.setPosition(700, tableHeight - 150);
 			magicTable.align(Align.top);
 			magicGroup.addActor(magicTable);
 		}
 		arrow = new Image(arrowImage);
         arrow.setHeight(60);
         arrow.setWidth(30);
-        arrow.setPosition(440, 500);
+        arrow.setPosition(910, 500);
         arrow.addListener(new ClickListener(){
         	@Override
 	        public void clicked(InputEvent event, float x, float y) {
@@ -394,7 +400,7 @@ public class SkillSelectionScene extends Scene {
         arrow2 = new Image(flipped);
         arrow2.setHeight(60);
         arrow2.setWidth(30);
-        arrow2.setPosition(0, 500);
+        arrow2.setPosition(470, 500);
         arrow2.addListener(new ClickListener(){
         	@Override
 	        public void clicked(InputEvent event, float x, float y) {
@@ -509,7 +515,7 @@ public class SkillSelectionScene extends Scene {
 			this.table = new Table();
 			this.addActor(table);
 			Image stanceIcon = new Image(assetManager.get(stance.getTexture()));
-			stanceIcon.setBounds(-40, 100, 150, 150);
+			stanceIcon.setBounds(-40, 150, 150, 150);
 			this.addActor(stanceIcon);
 			init();
 		}

@@ -50,6 +50,8 @@ public enum AssetEnum {
 	TOWN_BG("backgrounds/TownBG.jpg"),
 
 	SKILL_TITLE("backgrounds/SkillSelect/SkillsTitle.png"),
+	MAGIC_TITLE("backgrounds/SkillSelect/MagicTitle.png"),
+	PERK_TITLE("backgrounds/SkillSelect/PerkTitle.png"),
 	SKILL_BOX_0("backgrounds/SkillSelect/Boxback.png"),
 	SKILL_BOX_1("backgrounds/SkillSelect/Boxback1.png"),
 	SKILL_BOX_2("backgrounds/SkillSelect/Boxback2.png"),

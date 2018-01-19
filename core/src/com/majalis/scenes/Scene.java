@@ -51,6 +51,10 @@ public abstract class Scene extends Group {
 		return addImage(texture, color, x, y, texture.getWidth(), texture.getHeight());
 	}
 	
+	protected Image addImage(Group group, Texture texture, Color color, float x, float y) {
+		return addImage(group, texture, color, x, y, texture.getWidth(), texture.getHeight());
+	}
+	
 	protected Image addImage(Texture texture, Color color, float x, float y, float width, float height) {
 		return addImage(this, texture, color, x, y, width, height);
 	}
