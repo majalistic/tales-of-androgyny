@@ -43,6 +43,10 @@ public abstract class Scene extends Group {
 		return newLabel;
 	}
 	
+	protected Image addImage(Texture texture, Color color, int x, int y) {
+		return addImage(texture, color, x, y, texture.getWidth(), texture.getHeight());
+	}
+	
 	protected Image addImage(Texture texture, Color color, float x, float y, float width, float height) {
 		Image newImage = new Image(texture);
 		newImage.setBounds(x, y, width, height);
