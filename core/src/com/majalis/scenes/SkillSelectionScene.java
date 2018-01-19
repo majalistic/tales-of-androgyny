@@ -128,34 +128,39 @@ public class SkillSelectionScene extends Scene {
 
 		addImage(assetManager.get(AssetEnum.SKILL_TITLE.getTexture()), Color.WHITE, 25, 1000);
 		
-		Image temp = addImage(boxTexture, Color.WHITE, 0, 50, 470, 910);
+		Image temp = addImage(assetManager.get(AssetEnum.SKILL_CONSOLE_BOX.getTexture()), Color.WHITE, 940 + 420, 0, 560, 1080); 
+		temp.addAction(Actions.alpha(.9f));
+		temp = addImage(boxTexture, Color.WHITE, 0, 50, 470, 910);
 		temp.addAction(Actions.alpha(.9f));
 		temp = addImage(boxTexture, Color.VIOLET, 470, 50, 470, 910);
 		temp.addAction(Actions.alpha(.9f));
 		temp = addImage(boxTexture, Color.LIGHT_GRAY, 940, 50, 470, 910);		
 		temp.addAction(Actions.alpha(.9f));
 		
+		int consoleX = 1675;
+		int consoleY = 975;
+		
 		consoleTable = new Table();
-		consoleTable.setPosition(1640,  1000);
+		consoleTable.setPosition(consoleX,  consoleY);
 		console = new Label("", skin);
 		console.setWrap(true);
-		console.setColor(Color.WHITE);
-		consoleTable.add(console).width(550);
+		console.setColor(Color.BLACK);
+		consoleTable.add(console).width(450);
 		consoleTable.align(Align.top);
 		this.addActor(consoleTable);
 		
 		skillDisplayTable = new Table();
-		skillDisplayTable.setPosition(1640,  1000);
+		skillDisplayTable.setPosition(consoleX,  consoleY);
 		skillDisplay = new Label("", skin);
 		skillDisplay.setWrap(true);
-		skillDisplay.setColor(Color.WHITE);
-		skillDisplayTable.add(skillDisplay).width(540).row();
+		skillDisplay.setColor(Color.BLACK);
+		skillDisplayTable.add(skillDisplay).width(450).row();
 		skillDisplayTable.align(Align.top);
 		
 		bonusDisplay = new Label("", skin);
 		bonusDisplay.setWrap(true);
 		bonusDisplay.setColor(Color.FOREST);
-		skillDisplayTable.add(bonusDisplay).width(540);		
+		skillDisplayTable.add(bonusDisplay).width(450);		
 		
 		this.addActor(skillDisplayTable);
 		
@@ -174,7 +179,7 @@ public class SkillSelectionScene extends Scene {
 		        }
 			}
 		);
-		done.setPosition(1523, 30);
+		done.setPosition(1530, 20);
 		addActor(done);	
 		
 		for(Stance stance : Stance.values()) {

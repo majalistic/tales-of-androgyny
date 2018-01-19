@@ -51,6 +51,7 @@ public enum AssetEnum {
 
 	SKILL_TITLE("backgrounds/SkillSelect/SkillsTitle.png"),
 	SKILL_BOX("backgrounds/SkillSelect/Boxback.png"),
+	SKILL_CONSOLE_BOX("backgrounds/SkillSelect/OverpanelBg.png"),
 	
 	WARRIOR("characters/protagonist/Warrior.png"),
 	PALADIN("characters/protagonist/Paladin.png"),

@@ -880,6 +880,7 @@ public class EncounterBuilder {
 			requirements.add(add(alreadySeen, AssetEnum.CAMP_BG1).getTexture());
 			requirements.add(add(alreadySeen, AssetEnum.CAMP_BG2).getTexture());
 			requirements.add(add(alreadySeen, AssetEnum.SKILL_TITLE).getTexture());
+			requirements.add(add(alreadySeen, AssetEnum.SKILL_CONSOLE_BOX).getTexture());
 			for (Stance stance : Stance.values()) {
 				requirements.add(stance.getTexture());
 			}
