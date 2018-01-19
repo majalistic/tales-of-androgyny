@@ -7,15 +7,21 @@ import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.IntArray;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.ObjectSet;
 import com.badlogic.gdx.utils.OrderedMap;
+import com.badlogic.gdx.utils.Scaling;
 import com.majalis.asset.AnimatedActor;
+import com.majalis.asset.AnimatedImage;
 import com.majalis.asset.AnimationEnum;
 import com.majalis.asset.AssetEnum;
 import com.majalis.battle.BattleCode;
@@ -489,7 +495,17 @@ public class EncounterBuilder {
 						newScene = new CharacterCreationScene(sceneMap, sceneCounter, saveService, new BackgroundBuilder(assetManager.get(AssetEnum.CLASS_SELECT_BACKGROUND.getTexture())).build(), assetManager, character, storyMode);
 					}
 					else if (token instanceof SkillSelectionToken) {
-						newScene = new SkillSelectionScene(sceneMap, sceneCounter, saveService, new BackgroundBuilder(assetManager.get(AssetEnum.SKILL_SELECTION_BACKGROUND.getTexture())).build(), assetManager, character);
+						TextureRegion temp1 = new TextureRegion(assetManager.get(AssetEnum.CAMP_BG0.getTexture()));
+						TextureRegion temp2 = new TextureRegion(assetManager.get(AssetEnum.CAMP_BG1.getTexture()));
+						TextureRegion temp3 = new TextureRegion(assetManager.get(AssetEnum.CAMP_BG2.getTexture()));
+						Array<TextureRegion> frames = new Array<TextureRegion>();
+						frames.add(temp1);
+						frames.add(temp2);
+						frames.add(temp3);
+						Animation animation = new Animation(.08f, frames);
+						animation.setPlayMode(PlayMode.LOOP_PINGPONG);
+						AnimatedImage animationActor = new AnimatedImage(animation, Scaling.fit, Align.right);
+						newScene = new SkillSelectionScene(sceneMap, sceneCounter, saveService, new BackgroundBuilder(animationActor).build(), assetManager, character);
 					}
 					else if (token instanceof CharacterCustomizationToken) {
 						newScene = new CharacterCustomizationScene(sceneMap, sceneCounter, saveService, font, new BackgroundBuilder(assetManager.get(AssetEnum.CHARACTER_CUSTOM_BACKGROUND.getTexture())).build(), assetManager, character);
@@ -861,6 +877,10 @@ public class EncounterBuilder {
 			requirements.add(add(alreadySeen, AssetEnum.NORMAL_BOX).getTexture());
 			requirements.add(add(alreadySeen, AssetEnum.BATTLE_HOVER).getTexture());
 			requirements.add(add(alreadySeen, AssetEnum.DEFAULT_BACKGROUND).getTexture());
+			requirements.add(add(alreadySeen, AssetEnum.CAMP_BG0).getTexture());
+			requirements.add(add(alreadySeen, AssetEnum.CAMP_BG1).getTexture());
+			requirements.add(add(alreadySeen, AssetEnum.CAMP_BG2).getTexture());
+			
 			for (Stance stance : Stance.values()) {
 				requirements.add(stance.getTexture());
 			}

@@ -38,13 +38,16 @@ public enum AssetEnum {
 	GAME_TYPE_BACKGROUND("backgrounds/GameTypeSelect.jpg"),
 	CLASS_SELECT_BACKGROUND("backgrounds/ClassSelect.png"),
 	SKILL_SELECTION_BACKGROUND("backgrounds/SkillSelect.jpg"),
+	
 	CHARACTER_CUSTOM_BACKGROUND("backgrounds/CharCustom.png"),
 	DRYAD_BACKGROUND("characters/DryadApple.jpg"),
 	STICK_BACKGROUND("backgrounds/StickEncounter.jpg"),
 	CABIN_BACKGROUND("backgrounds/WoodsCottage.jpg"),
 	BURNING_FORT_BG("backgrounds/BurningFort.jpg"),
 	TOWN_BG("backgrounds/TownBG.jpg"),
-	
+	CAMP_BG0("backgrounds/CampBG0.jpg"),
+	CAMP_BG1("backgrounds/CampBG1.jpg"),
+	CAMP_BG2("backgrounds/CampBG2.jpg"),
 	WARRIOR("characters/protagonist/Warrior.png"),
 	PALADIN("characters/protagonist/Paladin.png"),
 	THIEF("characters/protagonist/Thief.png"),

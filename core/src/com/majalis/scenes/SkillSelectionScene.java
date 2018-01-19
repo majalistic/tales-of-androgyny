@@ -122,9 +122,9 @@ public class SkillSelectionScene extends Scene {
 		this.magicPoints = character.getMagicPoints();
 		this.perkPoints = character.getPerkPoints();
 		
-		skillPointsDisplay = addLabel("Skill Points: " + skillPoints, skin, Color.BLACK, 140, 10);
-		final Label magicPointsDisplay = addLabel("Magic Points: " + magicPoints, skin, Color.BLACK, 540, 10);
-		final Label perkPointsDisplay = addLabel("Perk Points: " + perkPoints, skin, Color.BLACK, 980, 10);
+		skillPointsDisplay = addLabel("Skill Points: " + skillPoints, skin, Color.WHITE, 140, 10);
+		final Label magicPointsDisplay = addLabel("Magic Points: " + magicPoints, skin, Color.WHITE, 540, 10);
+		final Label perkPointsDisplay = addLabel("Perk Points: " + perkPoints, skin, Color.WHITE, 980, 10);
 		
 		addLabel("Skills", skin, Color.BROWN, 170, 880);
 		addLabel("Spells", skin, Color.PURPLE, 600, 880);
@@ -143,7 +143,7 @@ public class SkillSelectionScene extends Scene {
 		consoleTable.setPosition(1610,  1000);
 		console = new Label("", skin);
 		console.setWrap(true);
-		console.setColor(Color.BLACK);
+		console.setColor(Color.WHITE);
 		consoleTable.add(console).width(550);
 		consoleTable.align(Align.top);
 		this.addActor(consoleTable);
@@ -152,7 +152,7 @@ public class SkillSelectionScene extends Scene {
 		skillDisplayTable.setPosition(1610,  1000);
 		skillDisplay = new Label("", skin);
 		skillDisplay.setWrap(true);
-		skillDisplay.setColor(Color.BLACK);
+		skillDisplay.setColor(Color.WHITE);
 		skillDisplayTable.add(skillDisplay).width(540).row();
 		skillDisplayTable.align(Align.top);
 		
@@ -197,7 +197,7 @@ public class SkillSelectionScene extends Scene {
 			if (!perk.isLearnable()) { continue; }
 			Integer level = perks.get(perk, 0);
 			final Label label = new Label(perk.getLabel(), skin);
-			label.setColor(Color.BLACK);
+			label.setColor(Color.WHITE);
 			label.setAlignment(Align.right);
 			final Label value = new Label(level > 0 ? "(" + level + ")" : "", skin);
 			value.setAlignment(Align.right);
@@ -298,7 +298,7 @@ public class SkillSelectionScene extends Scene {
 			for (final Techniques technique: Techniques.getLearnableSpells()) {
 				Integer level = skills.get(technique, 0);
 				final Label label = new Label(technique.getTrait().getName(), skin);
-				label.setColor(Color.BLACK);
+				label.setColor(Color.WHITE);
 				label.setAlignment(Align.right);
 				final Label value = new Label(level > 0 ? "(" + level + ")" : "", skin);
 				value.setAlignment(Align.right);
@@ -463,7 +463,7 @@ public class SkillSelectionScene extends Scene {
 				Integer level = skills.get(technique, 0);
 				final Label label = new Label(technique.getTrait().getName(), skin);
 				label.setAlignment(Align.right);
-				label.setColor(Color.BLACK);
+				label.setColor(Color.WHITE);
 				
 				final Label value = new Label(level > 0 ? "(" + level + ")" : "", skin);
 				label.setAlignment(Align.right);
@@ -595,7 +595,7 @@ public class SkillSelectionScene extends Scene {
 		}		
 		
 		private void setUnselected() {
-			label.setColor(Color.BLACK);
+			label.setColor(Color.WHITE);
 			consoleTable.addAction(Actions.show());
 			skillDisplayTable.addAction(Actions.hide());
 		}

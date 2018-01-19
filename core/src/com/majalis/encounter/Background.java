@@ -8,12 +8,14 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.majalis.asset.AnimatedActor;
+import com.majalis.asset.AnimatedImage;
 
 public class Background extends Group {
 
 	public static class BackgroundBuilder{
 		
 		private AnimatedActor animation;
+		private AnimatedImage backgroundAnimation;
 		private TextureRegion backgroundTexture, foregroundTexture, dialogBoxTexture;
 		private int x1, y1, width, height, x2, y2, width2, height2, x3, y3, width3, height3;
 		private boolean tintBackground;
@@ -30,6 +32,10 @@ public class Background extends Group {
 			this(background, 1920, 1080, tintBackground);
 		}
 		
+		public BackgroundBuilder(AnimatedImage background) {
+			backgroundAnimation = background;
+		}
+		
 		public BackgroundBuilder(Texture background, int width, int height, boolean tintBackground) {
 			this.backgroundTexture = new TextureRegion(background);
 			this.width = width;
@@ -39,7 +45,6 @@ public class Background extends Group {
 			this.tintBackground = tintBackground;
 		}
 		
-
 		public BackgroundBuilder setForeground(Texture foregroundTexture) {
 			return setForeground(foregroundTexture, (1920 - (int) (foregroundTexture.getWidth() / (foregroundTexture.getHeight() / 1080f))) / 2, 0);
 		}
@@ -91,7 +96,10 @@ public class Background extends Group {
 		}
 		
 		public Background build() {
-			if (animation != null) {
+			if (backgroundAnimation != null) {
+				return new Background(backgroundAnimation, animation, getImage(dialogBoxTexture, x3, y3, width3, height3), dialogBoxTexture, tintBackground);
+			}
+			if (animation != null) {	
 				return new Background(getImage(backgroundTexture, x1, y1, width, height), backgroundTexture, animation, getImage(dialogBoxTexture, x3, y3, width3, height3), dialogBoxTexture, tintBackground);
 			}
 			return new Background(getImage(backgroundTexture, x1, y1, width, height), backgroundTexture, getImage(foregroundTexture, x2, y2, width2, height2), foregroundTexture, getImage(dialogBoxTexture, x3, y3, width3, height3), dialogBoxTexture, tintBackground);
@@ -107,6 +115,7 @@ public class Background extends Group {
 	}
 	
 	private final TextureRegion backgroundTexture;
+	private final AnimatedImage backgroundAnimation;
 	private final TextureRegion foregroundTexture;
 	private final AnimatedActor animation;
 	private final TextureRegion dialogBoxTexture;
@@ -116,9 +125,32 @@ public class Background extends Group {
 	private final boolean tintBackground;
 	private boolean dialogBoxVisible;
 	
+	private Background(AnimatedImage background, AnimatedActor animation, Image dialogBox, TextureRegion dialogBoxTexture, Boolean tintBackground) {
+		this.background = null;
+		this.backgroundTexture = null;
+		this.backgroundAnimation = background;
+		this.foreground = null;
+		this.foregroundTexture = null;
+		this.animation = animation;
+		this.dialogBox = dialogBox;
+		this.dialogBoxTexture = dialogBoxTexture;
+		if (backgroundAnimation != null) {
+			this.addActor(backgroundAnimation);
+		}
+		if (animation != null) {
+			this.addActor(animation);
+		}
+		if (dialogBox != null) {
+			this.addActor(dialogBox);
+		}
+		this.tintBackground = tintBackground;
+		dialogBoxVisible = true;
+	}
+	
 	private Background(Image background, TextureRegion backgroundTexture, AnimatedActor animation, Image dialogBox, TextureRegion dialogBoxTexture, Boolean tintBackground) {
 		this.background = background;
 		this.backgroundTexture = backgroundTexture;
+		this.backgroundAnimation = null;
 		this.foreground = null;
 		this.foregroundTexture = null;
 		this.animation = animation;
@@ -140,6 +172,7 @@ public class Background extends Group {
 	private Background(Image background, TextureRegion backgroundTexture, Image foreground, TextureRegion foregroundTexture, Image dialogBox, TextureRegion dialogBoxTexture, Boolean tintBackground) {
 		this.background = background;
 		this.backgroundTexture = backgroundTexture;
+		this.backgroundAnimation = null;
 		this.foreground = foreground;
 		this.animation = null;
 		this.foregroundTexture = foregroundTexture;
@@ -210,6 +243,4 @@ public class Background extends Group {
 	public Image getBackground() {
 		return background;
 	}
-
-	
 }
