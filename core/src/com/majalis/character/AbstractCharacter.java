@@ -840,13 +840,14 @@ public abstract class AbstractCharacter extends Actor {
 				}
 				break;
 			case MAGIC:
-				result = "You used the frozen flame!";
+			case KNOCKDOWN:
+				result = combatUse ? "You used " + (effect.getType() == EffectType.MAGIC ? "the frozen flame" : "the wind scroll") + "!" : "Nothing happened!"; 
 				break;
 			default:
 				result = "Nothing happened!";
 			
 		}	
-		if (effect.getType() != EffectType.GEM && (effect.getType() != EffectType.MAGIC || combatUse)) {
+		if (effect.getType() != EffectType.GEM && (combatUse || (effect.getType() != EffectType.MAGIC && effect.getType() != EffectType.KNOCKDOWN ))) {
 			inventory.removeValue(item, true);
 		}
 		
@@ -1266,6 +1267,9 @@ public abstract class AbstractCharacter extends Actor {
 			}
 			else if (stabilityMod > 0) {
 				shift = 1;
+			}
+			else if (stabilityMod < -20) {
+				shift = -6;
 			}
 			else if (stabilityMod < -5) {
 				shift = -2;

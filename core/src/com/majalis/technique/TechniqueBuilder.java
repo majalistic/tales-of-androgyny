@@ -112,6 +112,11 @@ public class TechniqueBuilder {
 		return this;
 	}
 	
+	public TechniqueBuilder setBlockable(boolean blockable) {
+		this.blockable = blockable;
+		return this;
+	}	
+	
 	public TechniqueBuilder addSelfSex(SexualExperienceBuilder addedBuilder) {
 		selfSex.combine(addedBuilder);
 		return this;

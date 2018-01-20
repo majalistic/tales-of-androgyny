@@ -159,7 +159,7 @@ public class Technique {
 			technique.getName(), 
 			thisPayload.getDamage(),
 			blockMod,
-			((int) ((thisPayload.getTotalPower()) * thisPayload.getKnockdown()))/2, 
+			useItem != null && useItem.getUseEffect().getType() == EffectType.KNOCKDOWN ? useItem.getUseEffect().getMagnitude() : ((int) ((thisPayload.getTotalPower()) * thisPayload.getKnockdown()))/2, 
 			thisPayload.getArmorSunder(), 
 			thisPayload.getTotalPower() * thisPayload.getGutCheck(), 
 			technique.isHealing() ? thisPayload.getTotalPower() : 0,
