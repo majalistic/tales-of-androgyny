@@ -329,6 +329,8 @@ public abstract class Item {
 					return magnitude / 2;
 				case BANDAGE:
 					return 2;
+				case MAGIC:
+					return (int) (magnitude * 2.5);
 				default:
 					return 0;
 			}
@@ -346,7 +348,8 @@ public abstract class Item {
 
 		@Override
 		public String getName() {
-			return effect == EffectType.SLIME ? (magnitude == 1 ? "Worthless Slime" : "Primo Slime") : effect == EffectType.GEM ? "Gem" : effect == EffectType.MANA ? (magnitude == 20 ? "Mana Crystal" : "Mana Chunk") : effect.getDisplay() + (effect == EffectType.SPIDER || effect == EffectType.MEAT || effect == EffectType.BANDAGE ? "" : " (" + magnitude + ")"); 
+			return effect == EffectType.SLIME ? (magnitude == 1 ? "Worthless Slime" : "Primo Slime") : effect == EffectType.GEM ? "Gem" : effect == EffectType.MANA ? (magnitude == 20 ? "Mana Crystal" : "Mana Chunk") : 
+				effect.getDisplay() + (effect == EffectType.MAGIC || effect == EffectType.SPIDER || effect == EffectType.MEAT || effect == EffectType.BANDAGE ? "" : " (" + magnitude + ")"); 
 		}
 
 		@Override
@@ -370,6 +373,8 @@ public abstract class Item {
 					return "Eat to bolster defense by " + magnitude + ".";
 				case BANDAGE:
 					return "Use to heal blood loss by " + magnitude + ".";
+				case MAGIC:
+					return "Use to throw a magic flame that deals " + magnitude + " damage.";
 				case GEM:
 					return "Doesn't appear to do anything.";
 				default:
@@ -388,7 +393,8 @@ public abstract class Item {
 		MEAT ("Meat"),
 		BANDAGE ("Bandage"),
 		MANA ("Mana Crystal"),
-		GEM("Gem");
+		GEM("Gem"), 
+		MAGIC("Frozen Fire");
 		
 		private final String display;
 		private EffectType (String display) {

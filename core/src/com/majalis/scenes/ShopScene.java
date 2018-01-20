@@ -218,6 +218,8 @@ public class ShopScene extends Scene {
 				}
 				break;
 			case MAGIC_SHOP:
+				shop.items.add(new Potion(30, EffectType.MAGIC));	
+				shop.items.add(new Potion(30, EffectType.MAGIC));		
 				shop.items.add(new Accessory(AccessoryType.STATBOOSTER, Stat.STRENGTH));	
 				shop.items.add(new Accessory(AccessoryType.STATBOOSTER, Stat.ENDURANCE));	
 				shop.items.add(new Accessory(AccessoryType.STATBOOSTER, Stat.AGILITY));	

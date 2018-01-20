@@ -9,6 +9,7 @@ import com.majalis.character.AbstractCharacter.PhallusType;
 import com.majalis.character.AbstractCharacter.Stat;
 import com.majalis.character.Attack.AttackHeight;
 import com.majalis.character.Attack.Status;
+import com.majalis.character.Item.EffectType;
 import com.majalis.character.SexualExperience.SexualExperienceBuilder;
 import com.majalis.technique.TechniquePrototype;
 import com.majalis.technique.Bonus;
@@ -131,7 +132,7 @@ public class Technique {
 		boolean evaded = technique.getTechniqueHeight() != TechniqueHeight.NONE && otherPayload.getEvasion() >= 100;		
 		
 		boolean isSuccessful = 
-				(technique.isSpell() || otherTechnique.isCorporeal()) &&
+				(technique.isSpell() || (useItem != null ? useItem.getUseEffect().getType() == EffectType.MAGIC : false) || otherTechnique.isCorporeal()) &&
 				(technique.getTechniqueHeight() == TechniqueHeight.NONE ||
 				(technique.getTechniqueHeight() == TechniqueHeight.HIGH && otherTechnique.getStance().receivesHighAttacks()) || 
 				(technique.getTechniqueHeight() == TechniqueHeight.MEDIUM && otherTechnique.getStance().receivesMediumAttacks()) || 
@@ -176,7 +177,7 @@ public class Technique {
 			new Buff(technique.getEnemyEffect(), thisPayload.getTotalPower()),
 			technique.isDamaging() && !technique.doesSetDamage(), // is attack,
 			technique.getTechniqueHeight() == TechniqueHeight.HIGH ? AttackHeight.HIGH : technique.getTechniqueHeight() == TechniqueHeight.MEDIUM ? AttackHeight.MEDIUM : technique.getTechniqueHeight() == TechniqueHeight.LOW ? AttackHeight.LOW : AttackHeight.NONE,
-			technique.ignoresArmor() || (technique.isDamaging() && technique.isSpell()) || technique.doesSetDamage(), // ignores armor
+			technique.ignoresArmor() || useItem != null ? useItem.getUseEffect().getType() == EffectType.MAGIC : false || (technique.isDamaging() && technique.isSpell()) || technique.doesSetDamage(), // ignores armor
 			thisPayload.getBonuses(),
 			useItem, // only works for self item use
 			currentState.getCharacter() 
@@ -384,14 +385,13 @@ public class Technique {
 					}
 				}
 			}
-			
 			powerMod = powerCalc;
 			block = currentState.getShieldScore() > 0 ? blockCalc : 0;
 			parry = parryCalc;
 			staminaCost = staminaCalc;
 			stabilityCost = stabilityCalc;
 			manaCost = manaCalc;
-			armorSunder = armorSunderCalc;
+			armorSunder = armorSunderCalc; 
 			gutCheck = gutCheckCalc;
 			disarm = disarmCalc;
 			trip = tripCalc;
@@ -412,7 +412,7 @@ public class Technique {
 		private int getStabilityCost() { return stabilityCost; }
 		private int getManaCost() { return manaCost; }
 		private int getDamage() {
-			int damage = technique.doesSetDamage() ? 4 : technique.isDamaging() && technique.getGutCheck() == 0 ? getTotalPower() : 0;
+			int damage = technique.doesSetDamage() ? 4 : useItem != null && useItem.getUseEffect().getType() == EffectType.MAGIC ? useItem.getUseEffect().getMagnitude() : technique.isDamaging() && technique.getGutCheck() == 0 ? getTotalPower() : 0;
 			if (damage < 0) damage = 0;
 			return damage;
 		}

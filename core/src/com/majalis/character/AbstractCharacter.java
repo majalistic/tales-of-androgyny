@@ -418,7 +418,7 @@ public abstract class AbstractCharacter extends Actor {
 		}
 		
 		if (resolvedAttack.getItem() != null) {
-			resolvedAttack.addMessage(consumeItem(resolvedAttack.getItem()));
+			resolvedAttack.addMessage(consumeItem(resolvedAttack.getItem(), true));
 		}
 		else if (!resolvedAttack.isAttack() && !resolvedAttack.isClimax() && resolvedAttack.getSex().isEmpty()) {
 			resolvedAttack.addMessage(resolvedAttack.getUser() + " used " + resolvedAttack.getName() + "!");
@@ -792,7 +792,8 @@ public abstract class AbstractCharacter extends Actor {
 	protected abstract String climax();
 	protected boolean canBleed() { return true; }
 	
-	public String consumeItem(Item item) {
+	public String consumeItem(Item item) { return consumeItem(item, false); }
+	public String consumeItem(Item item, boolean combatUse) {
 		ItemEffect effect = item.getUseEffect();
 		if (effect == null) { return "Item cannot be used."; }
 		String result = "";
@@ -838,11 +839,14 @@ public abstract class AbstractCharacter extends Actor {
 					statuses.put(StatusType.BLEEDING.toString(), Math.max(currentBleed - effect.getMagnitude(), 0));
 				}
 				break;
+			case MAGIC:
+				result = "You used the frozen flame!";
+				break;
 			default:
 				result = "Nothing happened!";
 			
 		}	
-		if (effect.getType() != EffectType.GEM) {
+		if (effect.getType() != EffectType.GEM && (effect.getType() != EffectType.MAGIC || combatUse)) {
 			inventory.removeValue(item, true);
 		}
 		
