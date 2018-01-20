@@ -578,7 +578,7 @@ public class SkillSelectionScene extends Scene {
 		private void init() {			
 			for (final Techniques technique: Techniques.values()) {
 				if (!technique.isLearnable() || technique.getTrait().getUsableStance() != stance) continue;
-				Integer level = skills.get(technique, 0);
+				final Integer level = skills.get(technique, 0);
 				final Label label = new Label(technique.getTrait().getName(), skin);
 				label.setAlignment(Align.right);
 				label.setColor(Color.WHITE);
@@ -589,6 +589,10 @@ public class SkillSelectionScene extends Scene {
 				techniquesToButtons.put(technique, value);
 				final Button plusButton = getPlusButton();
 				final Button minusButton = getMinusButton();
+				final Array<Image> baubles = new Array<Image>();
+				
+				for (int ii = 0; ii < level; ii++) baubles.add(new Image(assetManager.get(AssetEnum.FILLED_BAUBLE.getTexture())));
+				for (int ii = 0; ii < technique.getMaxRank() - level; ii++) baubles.add(new Image(assetManager.get(AssetEnum.EMPTY_BAUBLE.getTexture())));
 				
 				final Row row = new Row(technique, label, skillDisplay, bonusDisplay, skillDisplayTable, consoleTable);
 				
@@ -607,15 +611,18 @@ public class SkillSelectionScene extends Scene {
 			        public void clicked(InputEvent event, float x, float y) {
 						buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
 						if (skillPoints > 0) {
-							Integer level = skills.get(technique);
-							if (level == null) level = 0;
-							if (level < technique.getMaxRank()) {
-								if (level + 1 <= skillPoints) {
-									skillPoints -= level + 1;
+							Integer newLevel = skills.get(technique);
+							if (newLevel == null) newLevel = 0;
+							if (newLevel < technique.getMaxRank()) {
+								if (newLevel + 1 <= skillPoints) {
+									skillPoints -= newLevel + 1;
 									skillPointsDisplay.setText("Skill Points: " + skillPoints);
-									skills.put(technique, ++level);						
-									console.setText("You have learned " + technique.getTrait().getName() + " Rank " + level +".");
+									skills.put(technique, ++newLevel);						
+									console.setText("You have learned " + technique.getTrait().getName() + " Rank " + newLevel +".");
 									value.setText(level == 0 ? "" : "(" + level + ")");
+									for (int ii = level; ii < newLevel; ii++) {
+										baubles.get(ii).setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(AssetEnum.ADDED_BAUBLE.getTexture()))));
+									}
 								}
 								else {
 									console.setText("You do not have enough skill points!");
@@ -636,23 +643,29 @@ public class SkillSelectionScene extends Scene {
 			        public void clicked(InputEvent event, float x, float y) {
 						buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
 						
-						Integer level = skills.get(technique, 0);
-						if (level == 0) {
+						Integer newLevel = skills.get(technique, 0);
+						if (newLevel == 0) {
 							console.setText("You do not yet possess that skill!");
 						}
 						else {
 							Integer cachedLevel = cachedSkills.get(technique, 0);
-							if (--level >= cachedLevel) {
-								skillPoints += level + 1;
+							if (--newLevel >= cachedLevel) {
+								skillPoints += newLevel + 1;
 								skillPointsDisplay.setText("Skill Points: " + skillPoints);
-								skills.put(technique, level);						
-								if (level > 0) {
-									console.setText("You have reduced " + technique.getTrait().getName() + " to Rank " + level +".");
+								skills.put(technique, newLevel);						
+								if (newLevel > 0) {
+									console.setText("You have reduced " + technique.getTrait().getName() + " to Rank " + newLevel +".");
 								}
 								else {
 									console.setText("You have unlearned " + technique.getTrait().getName() + ".");
 								}
-								value.setText(level == 0 ? "" : "(" + level + ")");
+								value.setText(newLevel == 0 ? "" : "(" + newLevel + ")");
+								for (int ii = level; ii < newLevel; ii++) {
+									baubles.get(ii).setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(AssetEnum.ADDED_BAUBLE.getTexture()))));
+								}
+								for (int ii = newLevel; ii < baubles.size; ii++) {
+									baubles.get(ii).setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(AssetEnum.EMPTY_BAUBLE.getTexture()))));
+								}
 							}
 							else {
 								console.setText("You cannot reduce " + technique.getTrait().getName() + " below Rank " + cachedLevel +".");
@@ -663,9 +676,14 @@ public class SkillSelectionScene extends Scene {
 				Image resultingStanceIcon = new Image(assetManager.get(technique.getTrait().getResultingStance().getTexture()));
 				table.add(resultingStanceIcon).size(resultingStanceIcon.getWidth() * .2f, resultingStanceIcon.getHeight() * .2f);
 				table.add(label).size(260, 45).padRight(10);
-				table.add(value).size(30, 45).padRight(10);
-				table.add(plusButton);
-				table.add(minusButton).row();
+				table.add(minusButton);
+				for (Image bauble : baubles) {
+					table.add(bauble).size(bauble.getWidth(), bauble.getHeight());
+				}
+				for (int ii = 0; ii < 5 - baubles.size; ii++) {
+					table.add().width(baubles.get(0).getWidth());
+				}
+				table.add(plusButton).row();
 			}
 			table.align(Align.top);
 		}

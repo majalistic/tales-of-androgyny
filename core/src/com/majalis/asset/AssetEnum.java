@@ -78,6 +78,9 @@ public enum AssetEnum {
 	MINUS("backgrounds/SkillSelect/Minus.png"),
 	MINUS_DOWN("backgrounds/SkillSelect/MinusDown.png"),
 	MINUS_HIGHLIGHT("backgrounds/SkillSelect/MinusHighlight.png"),
+	EMPTY_BAUBLE("backgrounds/SkillSelect/EmptyBauble.png"),
+	FILLED_BAUBLE("backgrounds/SkillSelect/FilledBauble.png"),
+	ADDED_BAUBLE("backgrounds/SkillSelect/AddedBauble.png"),
 	
 	GROUND_SHEET("worldmap/GroundSheet.png"),
 	DOODADS("worldmap/Doodads.png"),

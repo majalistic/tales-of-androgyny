@@ -26,7 +26,7 @@ public enum Techniques {
 	/* Offensive Techniques */  
 	POWER_ATTACK 		(new AttackTechnique(Stance.OFFENSIVE, Stance.OFFENSIVE, "Power Attack", 3, 3, 4, TechniqueHeight.LOW).addBonus(BonusCondition.ENEMY_ON_GROUND, BonusType.POWER_MOD, 4).build()),
 	TEMPO_ATTACK  		(new AttackTechnique(Stance.OFFENSIVE, Stance.OFFENSIVE, "Tempo Attack", 2, 2, 3, TechniqueHeight.LOW).build()),
-	SPRING_ATTACK  		(new AttackTechnique(Stance.BALANCED, Stance.OFFENSIVE, "Spring Attack", 1, 4, 3, TechniqueHeight.LOW).addBonus(BonusCondition.OUTMANEUVER, BonusType.BLEEDING, 1).build()),
+	SPRING_ATTACK  		(new AttackTechnique(Stance.BALANCED, Stance.OFFENSIVE, "Spring Attack", 1, 4, 3, TechniqueHeight.LOW).addBonus(BonusCondition.OUTMANEUVER, BonusType.BLEEDING, 1).build(), 5),
 
 	/* Blitz Techniques */
 	BLITZ_ATTACK  		(new AttackTechnique(Stance.OFFENSIVE, Stance.BLITZ, "Blitz Attack", 4, 4, 6, TechniqueHeight.LOW).addBonus(BonusCondition.OUTMANEUVER, BonusType.BLEEDING, 1).build()),
@@ -308,7 +308,7 @@ public enum Techniques {
 	
 	public int getMaxRank() { return maxRank; }
 	
-	public static Array<Techniques> getLearnableSkills() { return new Array<Techniques>(new Techniques[]{ARMOR_SUNDER, CAUTIOUS_ATTACK, VAULT, RECKLESS_ATTACK, KNOCK_DOWN, TAUNT, UPPERCUT, SECOND_WIND, FEINT_AND_STRIKE, HIT_THE_DECK, PARRY, SLIDE}); }
+	public static Array<Techniques> getLearnableSkills() { return new Array<Techniques>(new Techniques[]{SPRING_ATTACK, ARMOR_SUNDER, CAUTIOUS_ATTACK, VAULT, RECKLESS_ATTACK, KNOCK_DOWN, TAUNT, UPPERCUT, SECOND_WIND, FEINT_AND_STRIKE, HIT_THE_DECK, PARRY, SLIDE}); }
 	public static Array<Techniques> getLearnableSpells() { return new Array<Techniques>(new Techniques[]{COMBAT_HEAL, COMBAT_FIRE, TITAN_STRENGTH}); }
 	
 	public Techniques getPluggedAlternate() { return YOINK; }
