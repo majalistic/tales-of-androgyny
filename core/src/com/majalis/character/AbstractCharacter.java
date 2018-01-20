@@ -1268,10 +1268,10 @@ public abstract class AbstractCharacter extends Actor {
 				shift = 1;
 			}
 			else if (stabilityMod < -5) {
-				shift = -1;
+				shift = -2;
 			}
 			else if (stabilityMod < -1) {
-				shift = -2;
+				shift = -1;
 			}
 			int ordinal = this.ordinal() + shift;
 			Stability [] values = Stability.values();
