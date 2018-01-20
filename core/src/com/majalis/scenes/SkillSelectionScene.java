@@ -46,6 +46,7 @@ public class SkillSelectionScene extends Scene {
 	private Array<Table> perkDisplay;
 	private int stanceSelection;
 	private int perkSelection;
+	private StanceTransition stanceTransition;
 	private Label skillDisplay;
 	private Label bonusDisplay;
 	private Table skillDisplayTable;
@@ -160,8 +161,13 @@ public class SkillSelectionScene extends Scene {
 		consoleTable.align(Align.top);
 		this.addActor(consoleTable);
 		
+		stanceTransition = new StanceTransition();
+		stanceTransition.setPosition(consoleX, consoleY);
+		stanceTransition.align(Align.top);
+		this.addActor(stanceTransition);
+		
 		skillDisplayTable = new Table();
-		skillDisplayTable.setPosition(consoleX,  consoleY);
+		skillDisplayTable.setPosition(consoleX,  consoleY - 55);
 		skillDisplay = new Label("", skin);
 		skillDisplay.setWrap(true);
 		skillDisplay.setColor(Color.BLACK);
@@ -662,6 +668,18 @@ public class SkillSelectionScene extends Scene {
 		
 	}
 	
+	private class StanceTransition extends Table {
+		protected void setTransition(Stance startStance, Stance endStance) {
+			this.clearChildren();
+			Image stanceIcon = new Image(assetManager.get(startStance.getTexture()));
+			this.add(stanceIcon).size(stanceIcon.getWidth() * .3f, stanceIcon.getHeight() * .3f);
+			Image arrow = new Image(assetManager.get(AssetEnum.STANCE_ARROW.getTexture()));
+			this.add(arrow).size(50, 50).padRight(10);
+			stanceIcon = new Image(assetManager.get(endStance.getTexture()));
+			this.add(stanceIcon).size(stanceIcon.getWidth() * .3f, stanceIcon.getHeight() * .3f);
+		}
+	}
+	
 	private class Row {
 		private final Techniques technique;
 		private final Perk perk;
@@ -692,12 +710,15 @@ public class SkillSelectionScene extends Scene {
 		private void setSelected() {
 			label.setColor(Color.FOREST);
 			if (technique != null) {
-				skillDisplay.setText(technique.getTrait().getDescription());
+				stanceTransition.setTransition(technique.getTrait().getUsableStance(), technique.getTrait().getResultingStance());
+				stanceTransition.addAction(Actions.show());
+				skillDisplay.setText(technique.getTrait().getLightDescription());
 				bonusDisplay.setText(technique.getTrait().getBonusInfo());
 			}
 			else {
 				skillDisplay.setText(perk.getDescription());
 				bonusDisplay.setText("");
+				stanceTransition.addAction(Actions.hide());
 			}
 
 			skillDisplayTable.addAction(Actions.show());
@@ -707,6 +728,7 @@ public class SkillSelectionScene extends Scene {
 		private void setUnselected() {
 			label.setColor(Color.WHITE);
 			consoleTable.addAction(Actions.show());
+			stanceTransition.addAction(Actions.hide());
 			skillDisplayTable.addAction(Actions.hide());
 		}
 	}
