@@ -538,7 +538,7 @@ public class SkillSelectionScene extends Scene {
 			Label stanceLabel = new Label(stance == Stance.CASTING ? "Magic" : stance.getLabel(), skin);
 			stanceLabel.setPosition(-32, 68);
 			stanceLabel.setAlignment(Align.top);
-			stanceLabel.setColor(Color.GOLD);
+			stanceLabel.setColor(Color.FIREBRICK);
 			this.addActor(stanceLabel);
 			Image stanceIcon = new Image(assetManager.get(stance.getTexture()));
 			stanceIcon.setPosition(-40, 115);
