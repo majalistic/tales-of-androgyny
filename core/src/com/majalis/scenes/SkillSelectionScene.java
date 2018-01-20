@@ -170,7 +170,7 @@ public class SkillSelectionScene extends Scene {
 		this.addActor(consoleTable);
 		
 		consoleName = new Label("", skin);
-		consoleName.setColor(Color.GOLDENROD);
+		consoleName.setColor(Color.FIREBRICK);
 		consoleName.setPosition(1670, 1050);
 		consoleName.setAlignment(Align.top);
 		this.addActor(consoleName);
@@ -492,6 +492,11 @@ public class SkillSelectionScene extends Scene {
 			this.magic = magic;
 			this.table = new Table();
 			this.addActor(table);
+			Label stanceLabel = new Label(stance == Stance.CASTING ? "Magic" : stance.getLabel(), skin);
+			stanceLabel.setPosition(-32, 68);
+			stanceLabel.setAlignment(Align.top);
+			stanceLabel.setColor(Color.GOLD);
+			this.addActor(stanceLabel);
 			Image stanceIcon = new Image(assetManager.get(stance.getTexture()));
 			stanceIcon.setPosition(-40, 115);
 			stanceIcon.setScale(.75f);
