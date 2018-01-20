@@ -657,7 +657,8 @@ public class SkillSelectionScene extends Scene {
 						}
 			        }
 				});
-				table.add();
+				Image resultingStanceIcon = new Image(assetManager.get(technique.getTrait().getResultingStance().getTexture()));
+				table.add(resultingStanceIcon).size(resultingStanceIcon.getWidth() * .2f, resultingStanceIcon.getHeight() * .2f);
 				table.add(label).size(260, 45).padRight(10);
 				table.add(value).size(30, 45).padRight(10);
 				table.add(plusButton).size(45, 60);
