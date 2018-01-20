@@ -213,7 +213,6 @@ public class ShopScene extends Scene {
 					shop.items.add(new Armor(ArmorType.BATTLE_SKIRT));	
 					shop.items.add(new Armor(ArmorType.SHIELD));	
 					shop.items.add(new Armor(ArmorType.REINFORCED_SHIELD));	
-					
 					shop.items.add(new Misc(MiscType.KEY));	
 				}
 				break;
@@ -222,6 +221,8 @@ public class ShopScene extends Scene {
 				shop.items.add(new Potion(30, EffectType.MAGIC));	
 				shop.items.add(new Potion(30, EffectType.KNOCKDOWN));	
 				shop.items.add(new Potion(30, EffectType.KNOCKDOWN));	
+				shop.items.add(new Potion(12, EffectType.ARMOR_SUNDER));	
+				shop.items.add(new Potion(12, EffectType.ARMOR_SUNDER));	
 				shop.items.add(new Accessory(AccessoryType.STATBOOSTER, Stat.STRENGTH));	
 				shop.items.add(new Accessory(AccessoryType.STATBOOSTER, Stat.ENDURANCE));	
 				shop.items.add(new Accessory(AccessoryType.STATBOOSTER, Stat.AGILITY));	

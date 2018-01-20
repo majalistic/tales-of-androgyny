@@ -333,6 +333,8 @@ public abstract class Item {
 					return (int) (magnitude * 2.5);
 				case KNOCKDOWN:
 					return 25;
+				case ARMOR_SUNDER:
+					return 50;
 				default:
 					return 0;
 			}
@@ -351,7 +353,7 @@ public abstract class Item {
 		@Override
 		public String getName() {
 			return effect == EffectType.SLIME ? (magnitude == 1 ? "Worthless Slime" : "Primo Slime") : effect == EffectType.GEM ? "Gem" : effect == EffectType.MANA ? (magnitude == 20 ? "Mana Crystal" : "Mana Chunk") : 
-				effect.getDisplay() + (effect == EffectType.KNOCKDOWN || effect == EffectType.MAGIC || effect == EffectType.SPIDER || effect == EffectType.MEAT || effect == EffectType.BANDAGE ? "" : " (" + magnitude + ")"); 
+				effect.getDisplay() + (effect == EffectType.ARMOR_SUNDER || effect == EffectType.KNOCKDOWN || effect == EffectType.MAGIC || effect == EffectType.SPIDER || effect == EffectType.MEAT || effect == EffectType.BANDAGE ? "" : " (" + magnitude + ")"); 
 		}
 
 		@Override
@@ -379,6 +381,8 @@ public abstract class Item {
 					return "Use to throw a magic flame that deals " + magnitude + " damage.";
 				case KNOCKDOWN:
 					return "Use to summon a powerful wind to knock over your opponent.";
+				case ARMOR_SUNDER:
+					return "Use to summon a cloud of acid that will dissolve your opponent's armor.";
 				case GEM:
 					return "Doesn't appear to do anything.";
 				default:
@@ -399,7 +403,8 @@ public abstract class Item {
 		MANA ("Mana Crystal"),
 		GEM("Gem"), 
 		MAGIC("Frozen Fire"), 
-		KNOCKDOWN("Wind Scroll");
+		KNOCKDOWN("Wind Scroll"),
+		ARMOR_SUNDER ("Acid Scroll");
 		
 		private final String display;
 		private EffectType (String display) {
