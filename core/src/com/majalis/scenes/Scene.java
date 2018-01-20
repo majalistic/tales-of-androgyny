@@ -3,6 +3,7 @@ package com.majalis.scenes;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -60,6 +61,16 @@ public abstract class Scene extends Group {
 	}
 	
 	protected Image addImage(Group group, Texture texture, Color color, float x, float y, float width, float height) {
+		Image newImage = new Image(texture);
+		newImage.setBounds(x, y, width, height);
+		group.addActor(newImage);
+		if (color != null) {
+			newImage.setColor(color);
+		}
+		return newImage;
+	}
+	
+	protected Image addImage(Group group, TextureRegion texture, Color color, float x, float y, float width, float height) {
 		Image newImage = new Image(texture);
 		newImage.setBounds(x, y, width, height);
 		group.addActor(newImage);

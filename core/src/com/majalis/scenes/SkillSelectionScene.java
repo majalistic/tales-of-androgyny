@@ -320,55 +320,19 @@ public class SkillSelectionScene extends Scene {
 			newStanceSkillDisplay.setPosition(495, tableHeight - 210);
 			magicGroup.addActor(newStanceSkillDisplay);
 		}
-		Image arrow = new Image(arrowImage);
-        arrow.setHeight(300);
-        arrow.setWidth(120);
-        arrow.setPosition(780, 320);
-        arrow.addListener(new ClickListener() {
-        	@Override
-	        public void clicked(InputEvent event, float x, float y) {
-        		changeStanceDisplay(1);
-        	}
-        });
-        skillGroup.addActor(arrow);
+		TextureRegion flipped = new TextureRegion(arrowImage);
+		flipped.flip(true, false);
+		Image arrow = addImage(skillGroup, arrowImage, Color.WHITE, 780, 320, 120, 300);
+        arrow.addListener(new ClickListener() { @Override public void clicked(InputEvent event, float x, float y) { changeStanceDisplay(1); }});       
         
-        TextureRegion flipped = new TextureRegion(arrowImage);
-        flipped.flip(true, false);
-        Image arrow2 = new Image(flipped);
-        arrow2.setHeight(300);
-        arrow2.setWidth(120);
-        arrow2.setPosition(140, 320);
-        arrow2.addListener(new ClickListener() {
-        	@Override
-	        public void clicked(InputEvent event, float x, float y) {
-        		changeStanceDisplay(-1);
-        	}
-        });
-        skillGroup.addActor(arrow2);
+        Image arrow2 = addImage(skillGroup, flipped, Color.WHITE, 140, 320, 120, 300);
+        arrow2.addListener(new ClickListener() { @Override public void clicked(InputEvent event, float x, float y) { changeStanceDisplay(-1); }});    
         
-        Image arrow3 = new Image(arrowImage);
-        arrow3.setHeight(300);
-        arrow3.setWidth(120);
-        arrow3.setPosition(780, 320);
-        arrow3.addListener(new ClickListener() {
-        	@Override
-	        public void clicked(InputEvent event, float x, float y) {
-        		changePerkDisplay(1);
-        	}
-        });
-        perkGroup.addActor(arrow3);
+        Image arrow3 = addImage(perkGroup, arrowImage, Color.WHITE, 780, 320, 120, 300);
+        arrow3.addListener(new ClickListener() { @Override public void clicked(InputEvent event, float x, float y) { changePerkDisplay(1); }});    
         
-        Image arrow4 = new Image(flipped);
-        arrow4.setHeight(300);
-        arrow4.setWidth(120);
-        arrow4.setPosition(140, 320);
-        arrow4.addListener(new ClickListener() {
-        	@Override
-	        public void clicked(InputEvent event, float x, float y) {
-        		changePerkDisplay(-1);
-        	}
-        });
-        perkGroup.addActor(arrow4);
+        Image arrow4 = addImage(perkGroup, flipped, Color.WHITE, 140, 320, 120, 300);
+        arrow4.addListener(new ClickListener() { @Override public void clicked(InputEvent event, float x, float y) { changePerkDisplay(-1); }});  
         
         final Table navigationButtons = new Table();
 		final TextButton showSkills = new TextButton("Skills", skin);
