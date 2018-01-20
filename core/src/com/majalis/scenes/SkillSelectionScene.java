@@ -55,6 +55,7 @@ public class SkillSelectionScene extends Scene {
 	private Table skillDisplayTable;
 	private Table consoleTable;
 	private Label console;
+	private Label consoleName;
 	private Label skillPointsDisplay;
 	private Label magicPointsDisplay;
 	private Label perkPointsDisplay;
@@ -165,6 +166,12 @@ public class SkillSelectionScene extends Scene {
 		consoleTable.add(console).width(consoleWidth);
 		consoleTable.align(Align.top);
 		this.addActor(consoleTable);
+		
+		consoleName = new Label("", skin);
+		consoleName.setColor(Color.GOLDENROD);
+		consoleName.setPosition(1670, 1050);
+		consoleName.setAlignment(Align.top);
+		this.addActor(consoleName);
 		
 		stanceTransition = new StanceTransition();
 		stanceTransition.setPosition(consoleX, consoleY);
@@ -669,13 +676,15 @@ public class SkillSelectionScene extends Scene {
 				stanceTransition.addAction(Actions.show());
 				skillDisplay.setText(technique.getTrait().getLightDescription());
 				bonusDisplay.setText(technique.getTrait().getBonusInfo());
+				consoleName.setText(technique.getTrait().getName());
 			}
 			else {
 				skillDisplay.setText(perk.getDescription());
+				consoleName.setText(perk.getLabel());
 				bonusDisplay.setText("");
 				stanceTransition.addAction(Actions.hide());
 			}
-
+			consoleName.addAction(Actions.show());
 			skillDisplayTable.addAction(Actions.show());
 			consoleTable.addAction(Actions.hide());
 		}		
@@ -685,6 +694,7 @@ public class SkillSelectionScene extends Scene {
 			consoleTable.addAction(Actions.show());
 			stanceTransition.addAction(Actions.hide());
 			skillDisplayTable.addAction(Actions.hide());
+			consoleName.addAction(Actions.hide());
 		}
 	}
 }
