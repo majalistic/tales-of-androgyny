@@ -63,7 +63,7 @@ public class SkillSelectionScene extends Scene {
 	private ObjectMap<Perk, Integer> cachedPerks;
 	private ObjectMap<Techniques, Integer> skills;
 	private ObjectMap<Perk, Integer> perks;
-	private ObjectMap<Techniques, Label> techniquesToButtons;
+	private ObjectMap<Techniques, Array<Image>> techniquesToButtons;
 	private Row selectedRow;
 	private boolean locked;
 	private boolean justUnlocked;
@@ -85,7 +85,7 @@ public class SkillSelectionScene extends Scene {
 		buttonSound = assetManager.get(AssetEnum.BUTTON_SOUND.getSound());
 		allDisplay = new Array<StanceSkillDisplay>();
 		perkDisplay  = new Array<Table>();
-		techniquesToButtons = new ObjectMap<Techniques, Label>();
+		techniquesToButtons = new ObjectMap<Techniques, Array<Image>>();
 		locked = false;
 		justUnlocked = false;
 		stanceSelection = 0;
@@ -540,7 +540,14 @@ public class SkillSelectionScene extends Scene {
 					skillPoints += currentLevel;
 					skills.put(technique, --currentLevel);
 					console.setText(console.getText() + (currentLevel == 0 ? "\nRemoved " + technique.getTrait().getName() + "." : "\nReduced " + technique.getTrait().getName() + " to Rank " + currentLevel +"."));
-					techniquesToButtons.get(technique).setText(currentLevel == 0 ? "" : "(" + currentLevel + ")" );
+					Array<Image> baubles = techniquesToButtons.get(technique);
+										
+					for (int ii = cachedLevel; ii < currentLevel; ii++) {
+						baubles.get(ii).setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(AssetEnum.ADDED_BAUBLE.getTexture()))));
+					}
+					for (int ii = currentLevel; ii < baubles.size; ii++) {
+						baubles.get(ii).setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(AssetEnum.EMPTY_BAUBLE.getTexture()))));
+					}
 					break;
 				}
 			}
@@ -586,10 +593,11 @@ public class SkillSelectionScene extends Scene {
 				final Label value = new Label(level > 0 ? "(" + level + ")" : "", skin);
 				label.setAlignment(Align.right);
 				
-				techniquesToButtons.put(technique, value);
+				
 				final Button plusButton = getPlusButton();
 				final Button minusButton = getMinusButton();
 				final Array<Image> baubles = new Array<Image>();
+				techniquesToButtons.put(technique, baubles);
 				
 				for (int ii = 0; ii < level; ii++) baubles.add(new Image(assetManager.get(AssetEnum.FILLED_BAUBLE.getTexture())));
 				for (int ii = 0; ii < technique.getMaxRank() - level; ii++) baubles.add(new Image(assetManager.get(AssetEnum.EMPTY_BAUBLE.getTexture())));
@@ -675,7 +683,7 @@ public class SkillSelectionScene extends Scene {
 				});
 				Image resultingStanceIcon = new Image(assetManager.get(technique.getTrait().getResultingStance().getTexture()));
 				table.add(resultingStanceIcon).size(resultingStanceIcon.getWidth() * .2f, resultingStanceIcon.getHeight() * .2f);
-				table.add(label).size(260, 45).padRight(10);
+				table.add(label).size(210, 45).padRight(10);
 				table.add(minusButton);
 				for (Image bauble : baubles) {
 					table.add(bauble).size(bauble.getWidth(), bauble.getHeight());
