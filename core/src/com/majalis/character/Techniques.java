@@ -45,8 +45,11 @@ public enum Techniques {
 	GUARD  				(new GuardTechnique	(Stance.DEFENSIVE, Stance.DEFENSIVE, "Guard", -2, -2, 4, true).addBonus(BonusCondition.SKILL_LEVEL, BonusType.PARRY, 2).build()),//.addBonus(BonusCondition.OUTMANEUVER, BonusType.GUARD_MOD, 25).build()),
 	SECOND_WIND			(new NonAttackTechnique(Stance.DEFENSIVE, Stance.DEFENSIVE, "Second Wind", -4, -1).build()),
 	
-	/* Seduction Techniques */
+	/* Counter Techniques */ 			
+	RIPOSTE  			(new GuardTechnique(Stance.COUNTER, Stance.BALANCED, "Riposte", -1, 3, 5, false).addBonus(BonusCondition.SKILL_LEVEL, BonusType.PARRY, 2).addBonus(BonusCondition.OUTMANEUVER, BonusType.PARRY, 2).addBonus(BonusCondition.SKILL_LEVEL, BonusType.DISARM, 50).addBonus(BonusCondition.SKILL_LEVEL, BonusType.COUNTER, 50).addBonus(BonusCondition.OUTMANEUVER, BonusType.COUNTER, 50).addBonus(BonusCondition.OUTMANEUVER, BonusType.DISARM, 50).build(), 1),
+	EN_GARDE  			(new GuardTechnique(Stance.COUNTER, Stance.DEFENSIVE, "En Garde", -1, 0, 1, false).addBonus(BonusCondition.SKILL_LEVEL, BonusType.PARRY, 2).addBonus(BonusCondition.OUTMANEUVER, BonusType.PARRY, 1).build(), 1),
 	
+	/* Seduction Techniques */
 	SLAP_ASS			(new NonAttackTechnique(Stance.SEDUCTION, Stance.SEDUCTION, "Slap Ass", 0, -1).addSelfSex(new SexualExperienceBuilder().setAssBottomTeasing(1)).addSex(new SexualExperienceBuilder().setAssTeasing(1)).build(), 3), // makes enemy want to fuck your ass, raises own lust
 	GESTURE				(new NonAttackTechnique(Stance.SEDUCTION, Stance.SEDUCTION, "Gesture", 0, -1).addSex(new SexualExperienceBuilder().setAssTeasing(1)).build(), 3), // makes enemy want to fuck you
 	PUCKER_LIPS			(new NonAttackTechnique(Stance.SEDUCTION, Stance.SEDUCTION, "Pucker Lips", 0, -1).addSelfSex(new SexualExperienceBuilder().setMouthBottomTeasing(1)).addSex(new SexualExperienceBuilder().setMouthTeasing(1)).build(), 3), // makes enemy want to fuck you
@@ -54,9 +57,6 @@ public enum Techniques {
 	PRESENT				(new NonAttackTechnique(Stance.SEDUCTION, Stance.HANDS_AND_KNEES, "Present", 0, -1).addSelfSex(new SexualExperienceBuilder().setAssBottomTeasing(1)).addSex(new SexualExperienceBuilder().setAssTeasing(1)).build(), 3), // makes enemy want to fuck your ass, puts you in hands and knees
 	SLAP_ASS_KNEES 		(new NonAttackTechnique(Stance.HANDS_AND_KNEES, Stance.HANDS_AND_KNEES, "Spank Ass", -1, -1).addSelfSex(new SexualExperienceBuilder().setAssBottomTeasing(1)).addSex(new SexualExperienceBuilder().setAssTeasing(1)).build(), 3), // makes enemy want to fuck your ass, raises own lust (by more if catamite/slut)
 	
-	/* Counter Techniques */ 			
-	RIPOSTE  			(new GuardTechnique(Stance.COUNTER, Stance.BALANCED, "Riposte", -1, 3, 5, false).addBonus(BonusCondition.SKILL_LEVEL, BonusType.PARRY, 2).addBonus(BonusCondition.OUTMANEUVER, BonusType.PARRY, 2).addBonus(BonusCondition.SKILL_LEVEL, BonusType.DISARM, 50).addBonus(BonusCondition.SKILL_LEVEL, BonusType.COUNTER, 50).addBonus(BonusCondition.OUTMANEUVER, BonusType.COUNTER, 50).addBonus(BonusCondition.OUTMANEUVER, BonusType.DISARM, 50).build(), 1),
-	EN_GARDE  			(new GuardTechnique(Stance.COUNTER, Stance.DEFENSIVE, "En Garde", -1, 0, 1, false).addBonus(BonusCondition.SKILL_LEVEL, BonusType.PARRY, 2).addBonus(BonusCondition.OUTMANEUVER, BonusType.PARRY, 1).build(), 1),
 	
 	/* Techniques from Prone/Supine */
 	KIP_UP				(new NonAttackTechnique(Stance.PRONE, Stance.BALANCED, "Kip Up", 5, -15).build(), false),
@@ -136,7 +136,7 @@ public enum Techniques {
 	OVIPOSITION			(new NonAttackTechnique(Stance.FULL_NELSON, Stance.OVIPOSITION, "Oviposition", 0, 0, Stance.OVIPOSITION_BOTTOM).build(), false), // Used to oviposition
 	
 	IRRUMATIO 			(new GrappleTechnique(Stance.FELLATIO, Stance.FELLATIO, "Irrumatio", 1).build()), 
-	FORCE_DEEPTHROAT	(new GrappleTechnique(Stance.FELLATIO, Stance.FELLATIO, "Deepthroat", 1).build()), 
+	FORCE_DEEPTHROAT	(new GrappleTechnique(Stance.FELLATIO, Stance.FELLATIO, "Deepthroat", 1).addSex(new SexualExperienceBuilder().setMouthBottomTeasing(1)).addSelfSex(new SexualExperienceBuilder().setMouthTeasing(1)).build()),
 	GRIP	 			(new GrappleTechnique(Stance.FULL_NELSON, Stance.FULL_NELSON, "Grip", 3, GrappleType.ADVANTAGE).build()), // Used to grapple
 	HOLD	 			(new GrappleTechnique(Stance.FULL_NELSON, Stance.FULL_NELSON, "Hold", -1).build()), // Used to hold
 	POUND_DOGGY 		(new GrappleTechnique(Stance.DOGGY, Stance.DOGGY, "Pound", 2).build()), // Used to doggystyle
@@ -159,13 +159,13 @@ public enum Techniques {
 	
 	LAY_EGGS 			(new GrappleTechnique(Stance.OVIPOSITION, Stance.OVIPOSITION, "Lay Eggs", 0, Stance.OVIPOSITION_BOTTOM).build(), false), // Used to lay eggs - can end battle
 	
-	BLOW_LOAD 			(new ClimaxTechnique   (Stance.DOGGY, Stance.DOGGY, "Blow Load", Stance.PRONE, ClimaxType.ANAL).build()),
-	BLOW_LOAD_ORAL		(new ClimaxTechnique   (Stance.FELLATIO, Stance.FELLATIO, "Blow Load", Stance.KNEELING, ClimaxType.ORAL).build()),
-	ERUPT_ANAL 			(new ClimaxTechnique   (Stance.DOGGY, Stance.DOGGY, "Erupt", Stance.PRONE, ClimaxType.ANAL).build()),
-	ERUPT_ORAL 			(new ClimaxTechnique   (Stance.FELLATIO, Stance.FELLATIO, "Erupt", Stance.KNEELING, ClimaxType.ORAL).build()),
-	ERUPT_FACIAL		(new ClimaxTechnique   (Stance.HANDY, Stance.HANDY, "Facial", Stance.KNEELING, ClimaxType.FACIAL).build()),
-	ERUPT_COWGIRL		(new ClimaxTechnique   (Stance.COWGIRL, Stance.SUPINE, "Erupt", Stance.KNEELING, ClimaxType.ANAL).build()),
-	ERUPT_SIXTY_NINE	(new ClimaxTechnique   (Stance.SIXTY_NINE, Stance.KNEELING, "Erupt", Stance.SUPINE, ClimaxType.ORAL).build()),
+	BLOW_LOAD 			(new ClimaxTechnique   (Stance.DOGGY, Stance.DOGGY, "Blow Load", Stance.PRONE, ClimaxType.ANAL).build(), false),
+	BLOW_LOAD_ORAL		(new ClimaxTechnique   (Stance.FELLATIO, Stance.FELLATIO, "Blow Load", Stance.KNEELING, ClimaxType.ORAL).build(), false),
+	ERUPT_ANAL 			(new ClimaxTechnique   (Stance.DOGGY, Stance.DOGGY, "Erupt", Stance.PRONE, ClimaxType.ANAL).build(), false),
+	ERUPT_ORAL 			(new ClimaxTechnique   (Stance.FELLATIO, Stance.FELLATIO, "Erupt", Stance.KNEELING, ClimaxType.ORAL).build(), false),
+	ERUPT_FACIAL		(new ClimaxTechnique   (Stance.HANDY, Stance.HANDY, "Facial", Stance.KNEELING, ClimaxType.FACIAL).build(), false),
+	ERUPT_COWGIRL		(new ClimaxTechnique   (Stance.COWGIRL, Stance.SUPINE, "Erupt", Stance.KNEELING, ClimaxType.ANAL).build(), false),
+	ERUPT_SIXTY_NINE	(new ClimaxTechnique   (Stance.SIXTY_NINE, Stance.KNEELING, "Erupt", Stance.SUPINE, ClimaxType.ORAL).build(), false),
 	
 	RECEIVE_HANDY		(new GrappleTechnique(Stance.HANDY, Stance.HANDY, "Receive Handy", 0).build()),
 	BE_RIDDEN			(new GrappleTechnique(Stance.COWGIRL, Stance.COWGIRL, "Be Ridden", 0).build()),
@@ -190,10 +190,10 @@ public enum Techniques {
 	SQUEEZE_IT_REVERSE	(new EroticTechnique(Stance.REVERSE_COWGIRL_BOTTOM, Stance.REVERSE_COWGIRL_BOTTOM, "Squeeze It", -1, 0, "Squeeze it with your hole.").build()),
 	
 	STAND_OFF_IT		(new GrappleTechnique(Stance.COWGIRL_BOTTOM, Stance.BALANCED, "Stand up off It", 1, Stance.SUPINE, TechniqueHeight.NONE, GrappleType.BREAK, "Get up off it.").build()), 
-	PULL_OUT			(new GrappleTechnique(Stance.DOGGY, Stance.BALANCED, "Pull Out", 1, Stance.PRONE, TechniqueHeight.NONE, GrappleType.BREAK, "Pull out.").build()), 
-	PULL_OUT_ANAL		(new GrappleTechnique(Stance.ANAL, Stance.KNEELING, "Pull Out", 1, Stance.SUPINE, TechniqueHeight.NONE, GrappleType.BREAK, "Pull out.").build()), 
-	PULL_OUT_ORAL		(new GrappleTechnique(Stance.FELLATIO, Stance.BALANCED, "Pull Out", 1, Stance.KNEELING, TechniqueHeight.NONE, GrappleType.BREAK, "Pull Out.").build()), 
-	PULL_OUT_STANDING	(new GrappleTechnique(Stance.STANDING, Stance.BALANCED, "Pull Out", 1, Stance.BALANCED, TechniqueHeight.NONE, GrappleType.BREAK, "Pull Out.").build()), 
+	PULL_OUT			(new GrappleTechnique(Stance.DOGGY, Stance.BALANCED, "Pull Out", 1, Stance.PRONE, TechniqueHeight.NONE, GrappleType.BREAK, "Pull out.").build(), false), 
+	PULL_OUT_ANAL		(new GrappleTechnique(Stance.ANAL, Stance.KNEELING, "Pull Out", 1, Stance.SUPINE, TechniqueHeight.NONE, GrappleType.BREAK, "Pull out.").build(), false), 
+	PULL_OUT_ORAL		(new GrappleTechnique(Stance.FELLATIO, Stance.BALANCED, "Pull Out", 1, Stance.KNEELING, TechniqueHeight.NONE, GrappleType.BREAK, "Pull Out.").build(), false), 
+	PULL_OUT_STANDING	(new GrappleTechnique(Stance.STANDING, Stance.BALANCED, "Pull Out", 1, Stance.BALANCED, TechniqueHeight.NONE, GrappleType.BREAK, "Pull Out.").build(), false), 
 	
 	STROKE_IT			(new EroticTechnique(Stance.HANDY_BOTTOM, Stance.HANDY_BOTTOM, "Stroke It", -1, 0, "Stroke it up and down.").build()), 
 	LET_GO				(new GrappleTechnique(Stance.HANDY_BOTTOM, Stance.KNEELING, "Let It Go", 1, Stance.BALANCED, "Let go of it.").build()), 
@@ -287,7 +287,6 @@ public enum Techniques {
 	COMBAT_FIRE  		(new SpellTechnique(Stance.CASTING, Stance.BALANCED, "Combat Fire", 3, 3, false).addBonus(BonusCondition.SKILL_LEVEL, BonusType.POWER_MOD, 2).build(), 3),
 	TITAN_STRENGTH  	(new SpellTechnique(Stance.CASTING, Stance.BALANCED, "Titan Strength", 0, 2, false, StatusType.STRENGTH_BUFF).build(), 3),
 	WEAKENING_CURSE  	(new SpellTechnique(Stance.CASTING, Stance.BALANCED, "Weakening Curse", 8, 7, false, null, StatusType.STRENGTH_DEBUFF).build(), 3, false),
-	
 	FOCUS_ENERGY	  	(new SpellTechnique(Stance.CASTING, Stance.BALANCED, "Focus Energy", 4, -5, false, StatusType.ENDURANCE_BUFF).build(), 3, false)
 	;
 	
@@ -307,6 +306,58 @@ public enum Techniques {
 		this.trait = trait;
 		this.maxRank = maxRank;
 		this.learnable = learnable;
+	}
+	
+	public String getFlavorText() { 
+		switch (this) {
+			case POWER_ATTACK: return "Powerful, confident strike downwards. Cripplingly effective when used on downed enemies.";
+			case TEMPO_ATTACK: return "Follow-up strike used to continue the momentum of an attack. Keeps the opponent on the defensive."; 
+			case SPRING_ATTACK: return "An initial aggressive strike to initiate an attack. Be wary of your footing.";
+			case BLITZ_ATTACK: return "An agile strike that sets up an incredibly aggressive attack. Be extremely sure of your footing before committing.";
+			case ALL_OUT_BLITZ: return "Continues the assault, using momentum and well-placed footwork to seamlessly move from one strike to the next.";
+			case HOLD_BACK: return "Ends the blitz assault, dropping the user into a less aggressive, but still offensive, stance.";
+			case RESERVED_ATTACK: return "Ends the attack, returning to a more balanced stance that can respond to the enemy as needed.";
+			case REVERSAL_ATTACK: return "A sudden strike from a defensive position, with versatile follow-up options.";
+			case NEUTRAL_ATTACK: return "A normal downward strike, weak and obvious, but effective nonetheless.";
+			case CAREFUL_ATTACK: return "A strike that doesn't drop the user's guard. Useful for keeping defensive options open.";
+			case BLOCK: return "A balanced defensive maneuver that allows the user to transition to a more defensible position.";
+			case GUARD: return "A focused defensive maneuver, using all available tools to reject an opponent's strike.";
+			case SECOND_WIND: return "The user lowers their arms and relaxes their stance to take a breather, recovering their stamina.";
+			case RIPOSTE: return "A counter attack capable of parrying or even disarming the opponent.";
+			case EN_GARDE: return "An active parry used to deflect an opponent's strike."; 
+			case ARMOR_SUNDER: return "A strike that maximizes damage to an opponent's armor.";
+			case CAUTIOUS_ATTACK: return "A skillful strike that guards the user while it is performed, and leaves them in a good position to defend against counterattacks.";
+			case VAULT: return "A skill that launches the user into the air with good form.";
+			case JUMP_ATTACK: return "A crushing blow from the air.";
+			case VAULT_OVER: return "Using their momentum, the user vaults over their opponent's attacks.";
+			case RECKLESS_ATTACK: return "An unpredictable, powerful attack that unbalances the user, but cannot be blocked.";
+			case KNOCK_DOWN: return "A bullrush attack that intends to knock the opponent off their feet.";
+			case SLIDE: return "A low tackle that may knock an opponent over while avoiding their attacks.";
+			case TAUNT: return "An introductory seductive maneuver, teasing the erotic motions to follow.";
+			case HIT_THE_DECK: return "An active evasion that throws the user to the ground.";
+			case FEINT_AND_STRIKE: return "A feint and attack that unstables the user unless they are quite skilled.";
+			case PARRY: return "An active parry that is used to deflect an opponent's strike.";
+			case UPPERCUT: return "A strike coming from low and landing high.";
+			case COMBAT_HEAL: return "An easy self-healing spell to cast in the heat of close combat.";
+			case COMBAT_FIRE: return "An easy fire-summoning spell to cast in the heat of close combat.";
+			case TITAN_STRENGTH: return "Summons the strength of a titan into the user's body.";
+			case WEAKENING_CURSE: return "A spell that curses the opponent, rendering them feeble.";
+			case FOCUS_ENERGY: return "A spell for centering the spirit, restoring mana and improving physical endurance for a time.";
+			case SLAP_ASS: return "A playful slap of the rear to entice someone to give it a try.";
+			case GESTURE: return "An obscene, suggestive gesture of the hands.";
+			case PUCKER_LIPS: return "An invitation using the lips.";
+			case RUB: return "Some self love designed to entice someone.";
+			case PRESENT: return "A simple, but effective seduction technique: assuming the position.";
+			case POUND_ANAL:
+			case POUND_DOGGY: return "Straightforward butt-pounding thrusts.";
+			case ASS_BLAST: return "A frenetic ass-fucking technique.";
+			case CRUSH_ASS: return "A deep, bowel-excavating maneuver.";
+			case PROSTATE_GRIND: return "An advanced skill, designed to cause the receiver to cum buckets.";
+			case POUND_PRONE_BONE: return "Crushin' ass flat on the receiver's back.";
+			case IRRUMATIO: return "Straighforward mouth fucking.";
+			case FORCE_DEEPTHROAT: return "Deep mouth fucking.";
+			default: return "";
+		}
 	}
 	
 	public TechniquePrototype getTrait() { return trait; }

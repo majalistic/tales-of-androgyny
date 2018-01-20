@@ -53,6 +53,8 @@ public class SkillSelectionScene extends Scene {
 	private Label skillDisplay;
 	private Label bonusDisplay;
 	private Table skillDisplayTable;
+	private Label skillFlavor;
+	private Table skillFlavorTable;
 	private Table consoleTable;
 	private Label console;
 	private Label consoleName;
@@ -192,8 +194,16 @@ public class SkillSelectionScene extends Scene {
 		bonusDisplay.setWrap(true);
 		bonusDisplay.setColor(Color.FOREST);
 		skillDisplayTable.add(bonusDisplay).width(consoleWidth);		
-		
 		this.addActor(skillDisplayTable);
+		
+		skillFlavorTable = new Table();
+		skillFlavorTable.setPosition(consoleX + 15, consoleY - 610);
+		skillFlavor = new Label("", skin);
+		skillFlavor.setWrap(true);
+		skillFlavor.setColor(Color.BLACK);
+		skillFlavorTable.add(skillFlavor).width(consoleWidth - 60);
+		skillFlavorTable.align(Align.top);
+		this.addActor(skillFlavorTable);	
 		
 		this.cachedSkills = new ObjectMap<Techniques, Integer>(character.getSkills());
 		this.cachedPerks = new ObjectMap<Perk, Integer>(character.getPerks());
@@ -700,6 +710,7 @@ public class SkillSelectionScene extends Scene {
 				stanceTransition.setTransition(technique.getTrait().getUsableStance(), technique.getTrait().getResultingStance());
 				stanceTransition.addAction(Actions.show());
 				skillDisplay.setText(technique.getTrait().getLightDescription());
+				skillFlavor.setText(technique.getFlavorText());
 				bonusDisplay.setText(technique.getTrait().getBonusInfo());
 				consoleName.setText(technique.getTrait().getName());
 			}
@@ -707,10 +718,12 @@ public class SkillSelectionScene extends Scene {
 				skillDisplay.setText(perk.getDescription());
 				consoleName.setText(perk.getLabel());
 				bonusDisplay.setText("");
+				skillFlavor.setText("");
 				stanceTransition.addAction(Actions.hide());
 			}
 			consoleName.addAction(Actions.show());
 			skillDisplayTable.addAction(Actions.show());
+			skillFlavorTable.addAction(Actions.show());
 			consoleTable.addAction(Actions.hide());
 		}		
 		
@@ -719,6 +732,7 @@ public class SkillSelectionScene extends Scene {
 			consoleTable.addAction(Actions.show());
 			stanceTransition.addAction(Actions.hide());
 			skillDisplayTable.addAction(Actions.hide());
+			skillFlavorTable.addAction(Actions.hide());
 			consoleName.addAction(Actions.hide());
 		}
 	}
