@@ -585,7 +585,7 @@ public class SkillSelectionScene extends Scene {
 					@Override
 			        public void clicked(InputEvent event, float x, float y) {
 						buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
-						if (skillPoints > 0) {
+						if ((magic ? magicPoints : skillPoints) > 0) {
 							Integer newLevel = skills.get(technique);
 							if (newLevel == null) newLevel = 0;
 							if (newLevel < technique.getMaxRank()) {
