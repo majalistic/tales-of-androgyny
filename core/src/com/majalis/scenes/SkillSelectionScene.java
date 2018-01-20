@@ -66,7 +66,8 @@ public class SkillSelectionScene extends Scene {
 	private ObjectMap<Perk, Integer> cachedPerks;
 	private ObjectMap<Techniques, Integer> skills;
 	private ObjectMap<Perk, Integer> perks;
-	private ObjectMap<Techniques, Array<Image>> techniquesToButtons;
+	private ObjectMap<Techniques, Array<Image>> techniquesToBaubles;
+	private ObjectMap<Techniques, Array<Button>> techniquesToButtons;
 	private Row selectedRow;
 	private boolean locked;
 	private boolean justUnlocked;
@@ -88,7 +89,8 @@ public class SkillSelectionScene extends Scene {
 		buttonSound = assetManager.get(AssetEnum.BUTTON_SOUND.getSound());
 		allDisplay = new Array<StanceSkillDisplay>();
 		perkDisplay  = new Array<Table>();
-		techniquesToButtons = new ObjectMap<Techniques, Array<Image>>();
+		techniquesToBaubles = new ObjectMap<Techniques, Array<Image>>();
+		techniquesToButtons = new ObjectMap<Techniques, Array<Button>>();
 		locked = false;
 		justUnlocked = false;
 		stanceSelection = 0;
@@ -228,6 +230,8 @@ public class SkillSelectionScene extends Scene {
 				final Row row = new Row(perk, label, skillDisplay, bonusDisplay, skillDisplayTable, consoleTable);
 				final Button plusButton = getPlusButton();
 				final Button minusButton = getMinusButton();
+				minusButton.setColor(Color.GRAY);
+				if (level == perk.getMaxRank()) plusButton.setColor(Color.GRAY);
 				
 				final Array<Image> baubles = new Array<Image>();
 				for (int kk = 0; kk < level; kk++) baubles.add(new Image(assetManager.get(AssetEnum.FILLED_BAUBLE.getTexture())));
@@ -263,6 +267,8 @@ public class SkillSelectionScene extends Scene {
 									for (int ii = level; ii < newLevel; ii++) {
 										baubles.get(ii).setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(AssetEnum.ADDED_BAUBLE.getTexture()))));
 									}
+									if (newLevel == perk.getMaxRank()) plusButton.setColor(Color.GRAY);
+									minusButton.setColor(Color.WHITE);
 								}
 								else {
 									console.setText("You do not have enough perk points!");
@@ -309,6 +315,8 @@ public class SkillSelectionScene extends Scene {
 									skillPointsDisplay.setText("Skill Points: " + skillPoints);
 									handleNegativeSkillPoints();
 								}
+								if (newLevel == cachedLevel) minusButton.setColor(Color.GRAY);
+								plusButton.setColor(Color.WHITE);
 							}
 							else {
 								console.setText("You cannot reduce " + perk.getLabel() + " below Rank " + cachedLevel +".");
@@ -445,14 +453,16 @@ public class SkillSelectionScene extends Scene {
 					skillPoints += currentLevel;
 					skills.put(technique, --currentLevel);
 					console.setText(console.getText() + (currentLevel == 0 ? "\nRemoved " + technique.getTrait().getName() + "." : "\nReduced " + technique.getTrait().getName() + " to Rank " + currentLevel +"."));
-					Array<Image> baubles = techniquesToButtons.get(technique);
-										
+					Array<Image> baubles = techniquesToBaubles.get(technique);				
 					for (int ii = cachedLevel; ii < currentLevel; ii++) {
 						baubles.get(ii).setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(AssetEnum.ADDED_BAUBLE.getTexture()))));
 					}
 					for (int ii = currentLevel; ii < baubles.size; ii++) {
 						baubles.get(ii).setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(AssetEnum.EMPTY_BAUBLE.getTexture()))));
 					}
+					Array<Button> buttons = techniquesToButtons.get(technique);	
+					if (currentLevel == cachedLevel) buttons.get(1).setColor(Color.GRAY);
+					buttons.get(0).setColor(Color.WHITE); // plusButton
 					break;
 				}
 			}
@@ -500,8 +510,14 @@ public class SkillSelectionScene extends Scene {
 				
 				final Button plusButton = getPlusButton();
 				final Button minusButton = getMinusButton();
+				minusButton.setColor(Color.GRAY);
+				if (level == technique.getMaxRank()) plusButton.setColor(Color.GRAY);
+				
 				final Array<Image> baubles = new Array<Image>();
-				if (!magic) techniquesToButtons.put(technique, baubles);
+				if (!magic) {
+					techniquesToBaubles.put(technique, baubles);
+					techniquesToButtons.put(technique, new Array<Button>(new Button[]{plusButton, minusButton}));
+				}
 				for (int ii = 0; ii < level; ii++) baubles.add(new Image(assetManager.get(AssetEnum.FILLED_BAUBLE.getTexture())));
 				for (int ii = 0; ii < technique.getMaxRank() - level; ii++) baubles.add(new Image(assetManager.get(AssetEnum.EMPTY_BAUBLE.getTexture())));
 				
@@ -539,6 +555,8 @@ public class SkillSelectionScene extends Scene {
 									for (int ii = level; ii < newLevel; ii++) {
 										baubles.get(ii).setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(AssetEnum.ADDED_BAUBLE.getTexture()))));
 									}
+									if (newLevel == technique.getMaxRank()) plusButton.setColor(Color.GRAY);
+									minusButton.setColor(Color.WHITE);
 								}
 								else {
 									console.setText("You do not have enough " + (magic ? "magic" : "skill") + " points!");
@@ -587,6 +605,8 @@ public class SkillSelectionScene extends Scene {
 								for (int ii = newLevel; ii < baubles.size; ii++) {
 									baubles.get(ii).setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(AssetEnum.EMPTY_BAUBLE.getTexture()))));
 								}
+								if (newLevel == cachedLevel) minusButton.setColor(Color.GRAY);
+								plusButton.setColor(Color.WHITE);
 							}
 							else {
 								console.setText("You cannot reduce " + technique.getTrait().getName() + " below Rank " + cachedLevel +".");
