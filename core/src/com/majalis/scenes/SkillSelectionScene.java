@@ -593,12 +593,12 @@ public class SkillSelectionScene extends Scene {
 									if (!magic) {
 										skillPoints -= newLevel + 1;
 										skillPointsDisplay.setText("Skill Points: " + skillPoints);
-										skills.put(technique, ++newLevel);
 									}
 									else {
 										magicPoints -= newLevel + 1;
 										magicPointsDisplay.setText("Magic Points: " + magicPoints);
-									}																		
+									}	
+									skills.put(technique, ++newLevel);
 									console.setText("You have learned " + technique.getTrait().getName() + " Rank " + newLevel +".");
 									for (int ii = level; ii < newLevel; ii++) {
 										baubles.get(ii).setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(AssetEnum.ADDED_BAUBLE.getTexture()))));
@@ -637,7 +637,7 @@ public class SkillSelectionScene extends Scene {
 									skillPointsDisplay.setText("Skill Points: " + skillPoints);
 								}
 								else {
-									magicPoints += level + 1;
+									magicPoints += newLevel + 1;
 									magicPointsDisplay.setText("Magic Points: " + magicPoints);
 								}
 								skills.put(technique, newLevel);
