@@ -1,10 +1,12 @@
 package com.majalis.scenes;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
@@ -73,6 +75,7 @@ public class SkillSelectionScene extends Scene {
 	private Row selectedRow;
 	private boolean locked;
 	private boolean justUnlocked;
+	private String shown;
 	
 	public SkillSelectionScene(OrderedMap<Integer, Scene> sceneBranches, int sceneCode, final SaveService saveService, Background background, AssetManager assetManager, PlayerCharacter character) {
 		super(sceneBranches, sceneCode);
@@ -97,6 +100,7 @@ public class SkillSelectionScene extends Scene {
 		justUnlocked = false;
 		stanceSelection = 0;
 		perkSelection = 0;
+		shown = "Skills";
 	}
 	
 	private void setSelectedRow(Row row) { // row your boat
@@ -128,6 +132,21 @@ public class SkillSelectionScene extends Scene {
 				}	
 			}
 		};
+	}
+	
+	@Override
+	public void draw(Batch batch, float parentAlpha) {
+		super.draw(batch, parentAlpha);
+		if (isActive) {
+			if (Gdx.input.isKeyJustPressed(Keys.LEFT)) {
+				if (shown.equals("Skills"))	changeStanceDisplay(-1);
+				else if (shown.equals("Perks")) changePerkDisplay(-1);
+			}
+			else if (Gdx.input.isKeyJustPressed(Keys.RIGHT)) {
+				if (shown.equals("Skills"))	changeStanceDisplay(1);
+				else if (shown.equals("Perks")) changePerkDisplay(1);
+			}
+		}
 	}
 	
 	@Override
@@ -360,17 +379,10 @@ public class SkillSelectionScene extends Scene {
 		}
 		TextureRegion flipped = new TextureRegion(arrowImage);
 		flipped.flip(true, false);
-		Image arrow = addImage(skillGroup, arrowImage, Color.WHITE, 780, 320, 120, 300);
-        arrow.addListener(new ClickListener() { @Override public void clicked(InputEvent event, float x, float y) { changeStanceDisplay(1); }});       
-        
-        Image arrow2 = addImage(skillGroup, flipped, Color.WHITE, 140, 320, 120, 300);
-        arrow2.addListener(new ClickListener() { @Override public void clicked(InputEvent event, float x, float y) { changeStanceDisplay(-1); }});    
-        
-        Image arrow3 = addImage(perkGroup, arrowImage, Color.WHITE, 780, 320, 120, 300);
-        arrow3.addListener(new ClickListener() { @Override public void clicked(InputEvent event, float x, float y) { changePerkDisplay(1); }});    
-        
-        Image arrow4 = addImage(perkGroup, flipped, Color.WHITE, 140, 320, 120, 300);
-        arrow4.addListener(new ClickListener() { @Override public void clicked(InputEvent event, float x, float y) { changePerkDisplay(-1); }});  
+		addImage(skillGroup, arrowImage, Color.WHITE, 780, 320, 120, 300).addListener(new ClickListener() { @Override public void clicked(InputEvent event, float x, float y) { changeStanceDisplay(1); }});       
+        addImage(skillGroup, flipped, Color.WHITE, 140, 320, 120, 300).addListener(new ClickListener() { @Override public void clicked(InputEvent event, float x, float y) { changeStanceDisplay(-1); }});    
+        addImage(perkGroup, arrowImage, Color.WHITE, 780, 320, 120, 300).addListener(new ClickListener() { @Override public void clicked(InputEvent event, float x, float y) { changePerkDisplay(1); }});    
+        addImage(perkGroup, flipped, Color.WHITE, 140, 320, 120, 300).addListener(new ClickListener() { @Override public void clicked(InputEvent event, float x, float y) { changePerkDisplay(-1); }});  
         
         final Table navigationButtons = new Table();
 		final TextButton showSkills = new TextButton("Skills", skin);
@@ -382,6 +394,7 @@ public class SkillSelectionScene extends Scene {
 					skillGroup.addAction(Actions.show());
 					magicGroup.addAction(Actions.hide());
 					perkGroup.addAction(Actions.hide());
+					shown = "Skills";
 		        }
 			}
 		);
@@ -395,6 +408,7 @@ public class SkillSelectionScene extends Scene {
 						skillGroup.addAction(Actions.hide());
 						magicGroup.addAction(Actions.show());
 						perkGroup.addAction(Actions.hide());
+						shown = "Magic";
 			        }
 				}
 			);
@@ -412,6 +426,7 @@ public class SkillSelectionScene extends Scene {
 					skillGroup.addAction(Actions.hide());
 					magicGroup.addAction(Actions.hide());
 					perkGroup.addAction(Actions.show());
+					shown = "Perks";
 		        }
 			}
 		);
@@ -478,6 +493,24 @@ public class SkillSelectionScene extends Scene {
 			}
 		}
 		skillPointsDisplay.setText("Skill Points: " + skillPoints);
+	}
+	
+	private Button getPlusButton() {
+		ButtonStyle buttonStyle = new ButtonStyle();
+		buttonStyle.up = new TextureRegionDrawable(new TextureRegion(assetManager.get(AssetEnum.PLUS.getTexture())));
+		buttonStyle.down = new TextureRegionDrawable(new TextureRegion(assetManager.get(AssetEnum.PLUS_DOWN.getTexture())));
+		buttonStyle.over = new TextureRegionDrawable(new TextureRegion(assetManager.get(AssetEnum.PLUS_HIGHLIGHT.getTexture())));		
+		Button button = new Button(buttonStyle);
+		return button;
+	}
+	
+	private Button getMinusButton() {
+		ButtonStyle buttonStyle = new ButtonStyle();
+		buttonStyle.up = new TextureRegionDrawable(new TextureRegion(assetManager.get(AssetEnum.MINUS.getTexture())));
+		buttonStyle.down = new TextureRegionDrawable(new TextureRegion(assetManager.get(AssetEnum.MINUS_DOWN.getTexture())));
+		buttonStyle.over = new TextureRegionDrawable(new TextureRegion(assetManager.get(AssetEnum.MINUS_HIGHLIGHT.getTexture())));		
+		Button button = new Button(buttonStyle);
+		return button;
 	}
 	
 	private void nextScene() {
@@ -656,25 +689,6 @@ public class SkillSelectionScene extends Scene {
 			stanceIcon = new Image(assetManager.get(endStance.getTexture()));
 			this.add(stanceIcon).size(stanceIcon.getWidth() * .3f, stanceIcon.getHeight() * .3f);
 		}
-	}
-	
-	
-	private Button getPlusButton() {
-		ButtonStyle buttonStyle = new ButtonStyle();
-		buttonStyle.up = new TextureRegionDrawable(new TextureRegion(assetManager.get(AssetEnum.PLUS.getTexture())));
-		buttonStyle.down = new TextureRegionDrawable(new TextureRegion(assetManager.get(AssetEnum.PLUS_DOWN.getTexture())));
-		buttonStyle.over = new TextureRegionDrawable(new TextureRegion(assetManager.get(AssetEnum.PLUS_HIGHLIGHT.getTexture())));		
-		Button button = new Button(buttonStyle);
-		return button;
-	}
-	
-	private Button getMinusButton() {
-		ButtonStyle buttonStyle = new ButtonStyle();
-		buttonStyle.up = new TextureRegionDrawable(new TextureRegion(assetManager.get(AssetEnum.MINUS.getTexture())));
-		buttonStyle.down = new TextureRegionDrawable(new TextureRegion(assetManager.get(AssetEnum.MINUS_DOWN.getTexture())));
-		buttonStyle.over = new TextureRegionDrawable(new TextureRegion(assetManager.get(AssetEnum.MINUS_HIGHLIGHT.getTexture())));		
-		Button button = new Button(buttonStyle);
-		return button;
 	}
 	
 	private class Row {
