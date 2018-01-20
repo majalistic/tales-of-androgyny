@@ -199,7 +199,7 @@ public class SkillSelectionScene extends Scene {
 		perks = new ObjectMap<Perk, Integer>(cachedPerks);
 		
 		for(Stance stance : Stance.values()) {
-			if (!stance.hasLearnableSkills() && character.hasStance(stance)) continue;
+			if (!stance.hasLearnableSkills() || !character.hasStance(stance)) continue;
 			StanceSkillDisplay newStanceSkillDisplay = new StanceSkillDisplay(stance, false, assetManager);
 			newStanceSkillDisplay.setPosition(495, tableHeight - 210);
 			newStanceSkillDisplay.addAction(Actions.hide());
