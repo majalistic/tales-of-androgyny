@@ -1687,4 +1687,6 @@ public class PlayerCharacter extends AbstractCharacter {
 	public void setGameOver(GameOver gameOver) { this.gameOver = gameOver; }
 
 	public GameOver getGameOver() { return gameOver; }
+
+	public boolean hasStance(Stance stance) { return stance != Stance.BLITZ || jobClass == JobClass.WARRIOR; }
 }

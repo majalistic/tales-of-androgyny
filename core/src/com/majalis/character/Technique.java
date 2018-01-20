@@ -178,7 +178,7 @@ public class Technique {
 			technique.getTechniqueHeight() == TechniqueHeight.HIGH ? AttackHeight.HIGH : technique.getTechniqueHeight() == TechniqueHeight.MEDIUM ? AttackHeight.MEDIUM : technique.getTechniqueHeight() == TechniqueHeight.LOW ? AttackHeight.LOW : AttackHeight.NONE,
 			technique.ignoresArmor() || (technique.isDamaging() && technique.isSpell()) || technique.doesSetDamage(), // ignores armor
 			thisPayload.getBonuses(),
-			useItem,
+			useItem, // only works for self item use
 			currentState.getCharacter() 
 		)});
 		
