@@ -361,17 +361,22 @@ public class SkillSelectionScene extends Scene {
 			}
 		);
 		final TextButton showMagic = new TextButton("Magic", skin);
-		showMagic.addListener(
-			new ClickListener() {
-				@Override
-		        public void clicked(InputEvent event, float x, float y) {
-					buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
-					skillGroup.addAction(Actions.hide());
-					magicGroup.addAction(Actions.show());
-					perkGroup.addAction(Actions.hide());
-		        }
-			}
-		);
+		if (character.hasMagic()) {
+			showMagic.addListener(
+				new ClickListener() {
+					@Override
+			        public void clicked(InputEvent event, float x, float y) {
+						buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
+						skillGroup.addAction(Actions.hide());
+						magicGroup.addAction(Actions.show());
+						perkGroup.addAction(Actions.hide());
+			        }
+				}
+			);
+		}
+		else {
+			showMagic.setColor(Color.GRAY);
+		}
 		final TextButton showPerks = new TextButton("Perks", skin);
 		showPerks.addListener(
 			new ClickListener() {
