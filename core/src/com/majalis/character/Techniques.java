@@ -24,11 +24,11 @@ public enum Techniques {
 	
 	/* Offensive Techniques */  
 	POWER_ATTACK 		(new AttackTechnique(Stance.OFFENSIVE, Stance.OFFENSIVE, "Power Attack", 3, 3, 4, TechniqueHeight.LOW).addBonus(BonusCondition.ENEMY_ON_GROUND, BonusType.POWER_MOD, 4).build()),
-	TEMPO_ATTACK  		(new AttackTechnique(Stance.OFFENSIVE, Stance.OFFENSIVE, "Tempo Attack", 2, 2, 3, TechniqueHeight.LOW).build()),
-	SPRING_ATTACK  		(new AttackTechnique(Stance.BALANCED, Stance.OFFENSIVE, "Spring Attack", 1, 4, 3, TechniqueHeight.LOW).addBonus(BonusCondition.OUTMANEUVER, BonusType.BLEEDING, 1).build(), 5),
+	TEMPO_ATTACK  		(new AttackTechnique(Stance.OFFENSIVE, Stance.OFFENSIVE, "Tempo Attack", 2, 2, 3, TechniqueHeight.MEDIUM).build()),
+	SPRING_ATTACK  		(new AttackTechnique(Stance.BALANCED, Stance.OFFENSIVE, "Spring Attack", 1, 4, 3, TechniqueHeight.MEDIUM).addBonus(BonusCondition.OUTMANEUVER, BonusType.BLEEDING, 1).build(), 5),
 
 	/* Blitz Techniques */
-	BLITZ_ATTACK  		(new AttackTechnique(Stance.OFFENSIVE, Stance.BLITZ, "Blitz Attack", 4, 4, 6, TechniqueHeight.LOW).addBonus(BonusCondition.OUTMANEUVER, BonusType.BLEEDING, 1).build(), false),
+	BLITZ_ATTACK  		(new AttackTechnique(Stance.OFFENSIVE, Stance.BLITZ, "Blitz Attack", 4, 4, 6, TechniqueHeight.MEDIUM).addBonus(BonusCondition.OUTMANEUVER, BonusType.BLEEDING, 1).build(), false),
 	ALL_OUT_BLITZ		(new AttackTechnique(Stance.BLITZ, Stance.BLITZ, "All-Out Blitz", 6, 4, 8, 1.5).build(), 3),
 	HOLD_BACK			(new NonAttackTechnique(Stance.BLITZ, Stance.OFFENSIVE, "Hold Back", 0, 3).build()),
 	
@@ -271,7 +271,7 @@ public enum Techniques {
 	
 	/* Learnable Skills */
 	ARMOR_SUNDER		(new AttackTechnique(Stance.OFFENSIVE, Stance.OFFENSIVE, "Armor Crusher", 1, 7, 4, 0, 1, 0, true, TechniqueHeight.MEDIUM).addBonus(BonusCondition.SKILL_LEVEL, BonusType.ARMOR_SUNDER).build(), 3),
-	CAUTIOUS_ATTACK  	(new AttackTechnique(Stance.BALANCED, Stance.DEFENSIVE, "Fade-Away", -1, 0, 2).addBonus(BonusCondition.OUTMANEUVER, BonusType.GUARD_MOD, 25).addBonus(BonusCondition.SKILL_LEVEL, BonusType.GUARD_MOD, 25).build(), 3),
+	CAUTIOUS_ATTACK  	(new AttackTechnique(Stance.BALANCED, Stance.DEFENSIVE, "Fade-Away", -1, 0, 2, TechniqueHeight.LOW).addBonus(BonusCondition.OUTMANEUVER, BonusType.GUARD_MOD, 25).addBonus(BonusCondition.SKILL_LEVEL, BonusType.GUARD_MOD, 25).build(), 3),
 	VAULT 				(new NonAttackTechnique(Stance.OFFENSIVE, Stance.AIRBORNE, "Vault", 2, 4).addBonus(BonusCondition.OUTMANEUVER, BonusType.EVASION, 25).build()), // needs to be changed to evasion mod 
 	JUMP_ATTACK 		(new AttackTechnique(Stance.AIRBORNE, Stance.BALANCED, "Falling Crush", 4, 4, 2).addBonus(BonusCondition.ENEMY_ON_GROUND, BonusType.POWER_MOD, 4).addBonus(BonusCondition.ENEMY_ON_GROUND, BonusType.ARMOR_SUNDER, 4).build()),
 	VAULT_OVER			(new NonAttackTechnique(Stance.AIRBORNE, Stance.BALANCED, "Vault Over", 1, 1).build()),
