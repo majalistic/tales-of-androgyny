@@ -560,7 +560,8 @@ public class SkillSelectionScene extends Scene {
 			this.table = new Table();
 			this.addActor(table);
 			Image stanceIcon = new Image(assetManager.get(stance.getTexture()));
-			stanceIcon.setBounds(-40, 125, 150, 150);
+			stanceIcon.setPosition(-40, 115);
+			stanceIcon.setScale(.75f);
 			this.addActor(stanceIcon);
 			init();
 		}
