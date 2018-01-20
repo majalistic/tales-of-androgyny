@@ -10,6 +10,8 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.Button.ButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -28,6 +30,7 @@ import com.majalis.encounter.Background;
 import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveService;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 public class SkillSelectionScene extends Scene {
 
@@ -216,8 +219,8 @@ public class SkillSelectionScene extends Scene {
 				value.setAlignment(Align.right);
 				
 				final Row row = new Row(perk, label, skillDisplay, bonusDisplay, skillDisplayTable, consoleTable);
-				final TextButton plusButton = new TextButton("+", skin);
-				final TextButton minusButton = new TextButton("-", skin);
+				final Button plusButton = getPlusButton();
+				final Button minusButton = getMinusButton();
 				
 				label.addListener(new ClickListener() {
 					@Override
@@ -298,8 +301,8 @@ public class SkillSelectionScene extends Scene {
 				});
 				perkTable.add(label).size(200, 45).padRight(10);
 				perkTable.add(value).size(30, 45).padRight(10);
-				perkTable.add(plusButton).size(45, 60);
-				perkTable.add(minusButton).size(45, 60).row();
+				perkTable.add(plusButton);
+				perkTable.add(minusButton).row();
 				jj++;
 			}
 			perkTable.setPosition(530, tableHeight - 215);
@@ -322,8 +325,8 @@ public class SkillSelectionScene extends Scene {
 				value.setAlignment(Align.right);
 				
 				final Row row = new Row(technique, label, skillDisplay, bonusDisplay, skillDisplayTable, consoleTable);
-				final TextButton plusButton = new TextButton("+", skin);
-				final TextButton minusButton = new TextButton("-", skin);
+				final Button plusButton = getPlusButton();
+				final Button minusButton = getMinusButton();
 				
 				label.addListener(new ClickListener() {
 					@Override
@@ -394,8 +397,8 @@ public class SkillSelectionScene extends Scene {
 				});
 				magicTable.add(label).size(200, 45).padRight(10);
 				magicTable.add(value).size(30, 45).padRight(10);
-				magicTable.add(plusButton).size(45, 60);
-				magicTable.add(minusButton).size(45, 60).row();
+				magicTable.add(plusButton);
+				magicTable.add(minusButton).row();
 			}
 			magicTable.setPosition(530, tableHeight - 215);
 			magicTable.align(Align.top);
@@ -584,8 +587,8 @@ public class SkillSelectionScene extends Scene {
 				label.setAlignment(Align.right);
 				
 				techniquesToButtons.put(technique, value);
-				final TextButton plusButton = new TextButton("+", skin);
-				final TextButton minusButton = new TextButton("-", skin);
+				final Button plusButton = getPlusButton();
+				final Button minusButton = getMinusButton();
 				
 				final Row row = new Row(technique, label, skillDisplay, bonusDisplay, skillDisplayTable, consoleTable);
 				
@@ -661,8 +664,8 @@ public class SkillSelectionScene extends Scene {
 				table.add(resultingStanceIcon).size(resultingStanceIcon.getWidth() * .2f, resultingStanceIcon.getHeight() * .2f);
 				table.add(label).size(260, 45).padRight(10);
 				table.add(value).size(30, 45).padRight(10);
-				table.add(plusButton).size(45, 60);
-				table.add(minusButton).size(45, 60).row();
+				table.add(plusButton);
+				table.add(minusButton).row();
 			}
 			table.align(Align.top);
 		}
@@ -679,6 +682,25 @@ public class SkillSelectionScene extends Scene {
 			stanceIcon = new Image(assetManager.get(endStance.getTexture()));
 			this.add(stanceIcon).size(stanceIcon.getWidth() * .3f, stanceIcon.getHeight() * .3f);
 		}
+	}
+	
+	
+	private Button getPlusButton() {
+		ButtonStyle buttonStyle = new ButtonStyle();
+		buttonStyle.up = new TextureRegionDrawable(new TextureRegion(assetManager.get(AssetEnum.PLUS.getTexture())));
+		buttonStyle.down = new TextureRegionDrawable(new TextureRegion(assetManager.get(AssetEnum.PLUS_DOWN.getTexture())));
+		buttonStyle.over = new TextureRegionDrawable(new TextureRegion(assetManager.get(AssetEnum.PLUS_HIGHLIGHT.getTexture())));		
+		Button button = new Button(buttonStyle);
+		return button;
+	}
+	
+	private Button getMinusButton() {
+		ButtonStyle buttonStyle = new ButtonStyle();
+		buttonStyle.up = new TextureRegionDrawable(new TextureRegion(assetManager.get(AssetEnum.MINUS.getTexture())));
+		buttonStyle.down = new TextureRegionDrawable(new TextureRegion(assetManager.get(AssetEnum.MINUS_DOWN.getTexture())));
+		buttonStyle.over = new TextureRegionDrawable(new TextureRegion(assetManager.get(AssetEnum.MINUS_HIGHLIGHT.getTexture())));		
+		Button button = new Button(buttonStyle);
+		return button;
 	}
 	
 	private class Row {

@@ -884,6 +884,12 @@ public class EncounterBuilder {
 			requirements.add(add(alreadySeen, AssetEnum.SKILL_TITLE).getTexture());
 			requirements.add(add(alreadySeen, AssetEnum.MAGIC_TITLE).getTexture());
 			requirements.add(add(alreadySeen, AssetEnum.PERK_TITLE).getTexture());
+			requirements.add(add(alreadySeen, AssetEnum.PLUS).getTexture());
+			requirements.add(add(alreadySeen, AssetEnum.PLUS_DOWN).getTexture());
+			requirements.add(add(alreadySeen, AssetEnum.PLUS_HIGHLIGHT).getTexture());
+			requirements.add(add(alreadySeen, AssetEnum.MINUS).getTexture());
+			requirements.add(add(alreadySeen, AssetEnum.MINUS_DOWN).getTexture());
+			requirements.add(add(alreadySeen, AssetEnum.MINUS_HIGHLIGHT).getTexture());
 			requirements.add(add(alreadySeen, AssetEnum.SKILL_CONSOLE_BOX).getTexture());
 			for (Stance stance : Stance.values()) {
 				requirements.add(stance.getTexture());

@@ -72,6 +72,13 @@ public enum AssetEnum {
 	CREATION_BAUBLE_OLD("creation/GreenBauble.png"),
 	CREATION_BAUBLE_REMOVED("creation/RemovedBauble.png"),
 	
+	PLUS("backgrounds/SkillSelect/Plus.png"),
+	PLUS_DOWN("backgrounds/SkillSelect/PlusDown.png"),
+	PLUS_HIGHLIGHT("backgrounds/SkillSelect/PlusHighlight.png"),
+	MINUS("backgrounds/SkillSelect/Minus.png"),
+	MINUS_DOWN("backgrounds/SkillSelect/MinusDown.png"),
+	MINUS_HIGHLIGHT("backgrounds/SkillSelect/MinusHighlight.png"),
+	
 	GROUND_SHEET("worldmap/GroundSheet.png"),
 	DOODADS("worldmap/Doodads.png"),
 	
