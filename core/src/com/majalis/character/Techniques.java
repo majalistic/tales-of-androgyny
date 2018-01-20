@@ -308,8 +308,7 @@ public enum Techniques {
 	
 	public int getMaxRank() { return maxRank; }
 	
-	public static Array<Techniques> getLearnableSkills() { return new Array<Techniques>(new Techniques[]{SPRING_ATTACK, ARMOR_SUNDER, CAUTIOUS_ATTACK, VAULT, RECKLESS_ATTACK, KNOCK_DOWN, TAUNT, UPPERCUT, SECOND_WIND, FEINT_AND_STRIKE, HIT_THE_DECK, PARRY, SLIDE}); }
-	public static Array<Techniques> getLearnableSpells() { return new Array<Techniques>(new Techniques[]{COMBAT_HEAL, COMBAT_FIRE, TITAN_STRENGTH}); }
+	public static Array<Techniques> getLearnableSkills() { return new Array<Techniques>(new Techniques[]{COMBAT_HEAL, COMBAT_FIRE, TITAN_STRENGTH, SPRING_ATTACK, ARMOR_SUNDER, CAUTIOUS_ATTACK, VAULT, RECKLESS_ATTACK, KNOCK_DOWN, TAUNT, UPPERCUT, SECOND_WIND, FEINT_AND_STRIKE, HIT_THE_DECK, PARRY, SLIDE}); }
 	
 	public Techniques getPluggedAlternate() { return YOINK; }
 	public boolean isLearnable() { return getLearnableSkills().contains(this, false); }

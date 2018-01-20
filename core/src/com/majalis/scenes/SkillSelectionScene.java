@@ -56,6 +56,8 @@ public class SkillSelectionScene extends Scene {
 	private Table consoleTable;
 	private Label console;
 	private Label skillPointsDisplay;
+	private Label magicPointsDisplay;
+	private Label perkPointsDisplay;
 	private int skillPoints;
 	private int magicPoints;
 	private int perkPoints;
@@ -135,8 +137,8 @@ public class SkillSelectionScene extends Scene {
 		this.perkPoints = character.getPerkPoints();
 		
 		skillPointsDisplay = addLabel("Skill Points: " + skillPoints, skin, null, Color.WHITE, 10, 90);
-		final Label magicPointsDisplay = addLabel("Magic Points: " + magicPoints, skin, null, Color.WHITE, 10, 50);
-		final Label perkPointsDisplay = addLabel("Perk Points: " + perkPoints, skin, null, Color.WHITE, 10, 10);
+		magicPointsDisplay = addLabel("Magic Points: " + magicPoints, skin, null, Color.WHITE, 10, 50);
+		perkPointsDisplay = addLabel("Perk Points: " + perkPoints, skin, null, Color.WHITE, 10, 10);
 
 		addImage(skillGroup, assetManager.get(AssetEnum.SKILL_TITLE.getTexture()), Color.WHITE, 25, 1000);
 		addImage(magicGroup, assetManager.get(AssetEnum.MAGIC_TITLE.getTexture()), Color.WHITE, 25, 1000);
@@ -191,7 +193,7 @@ public class SkillSelectionScene extends Scene {
 		
 		for(Stance stance : Stance.values()) {
 			if (!stance.hasLearnableSkills()) continue;
-			StanceSkillDisplay newStanceSkillDisplay = new StanceSkillDisplay(stance, assetManager);
+			StanceSkillDisplay newStanceSkillDisplay = new StanceSkillDisplay(stance, false, assetManager);
 			newStanceSkillDisplay.setPosition(495, tableHeight - 210);
 			newStanceSkillDisplay.addAction(Actions.hide());
 			skillGroup.addActor(newStanceSkillDisplay);
@@ -314,95 +316,9 @@ public class SkillSelectionScene extends Scene {
 		
 		
 		if (character.hasMagic()) {
-			final Table magicTable = new Table();
-			
-			for (final Techniques technique: Techniques.getLearnableSpells()) {
-				Integer level = skills.get(technique, 0);
-				final Label label = new Label(technique.getTrait().getName(), skin);
-				label.setColor(Color.WHITE);
-				label.setAlignment(Align.right);
-				final Label value = new Label(level > 0 ? "(" + level + ")" : "", skin);
-				value.setAlignment(Align.right);
-				
-				final Row row = new Row(technique, label, skillDisplay, bonusDisplay, skillDisplayTable, consoleTable);
-				final Button plusButton = getPlusButton();
-				final Button minusButton = getMinusButton();
-				
-				label.addListener(new ClickListener() {
-					@Override
-			        public void clicked(InputEvent event, float x, float y) {
-						locked = !locked;
-						justUnlocked = !locked;
-					}
-				});
-				label.addListener(getListener(row));
-				plusButton.addListener(getListener(row));
-				minusButton.addListener(getListener(row));
-				
-				plusButton.addListener(new ClickListener() {
-					@Override
-			        public void clicked(InputEvent event, float x, float y) {
-						buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
-						if (magicPoints > 0) {
-							Integer level = skills.get(technique, 0);
-							if (level < technique.getMaxRank()) {
-								if (level + 1 <= magicPoints) {
-									magicPoints -= level + 1;
-									magicPointsDisplay.setText("Magic Points: " + magicPoints);
-									skills.put(technique, ++level);						
-									console.setText("You have learned " + technique.getTrait().getName() + " Rank " + level +".");
-									value.setText(level == 0 ? "" : "(" + level + ")");
-								}
-								else {
-									console.setText("You do not have enough magic points!");
-								}
-							}
-							else {
-								console.setText("You cannot improve on that spell any further!");
-							}	
-						}
-						else {
-							console.setText("You have no magic points!");
-						}
-			        }
-				});
-				minusButton.addListener(new ClickListener() {
-					@Override
-			        public void clicked(InputEvent event, float x, float y) {
-						buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
-						
-						Integer level = skills.get(technique, 0);
-						if (level == 0) {
-							console.setText("You do not yet possess that spell!");
-						}
-						else {
-							Integer cachedLevel = cachedSkills.get(technique, 0);
-							if (--level >= cachedLevel) {
-								magicPoints += level + 1;
-								magicPointsDisplay.setText("Magic Points: " + magicPoints);
-								skills.put(technique, level);	
-								if (level > 0) {
-									console.setText("You have reduced " + technique.getTrait().getName() + " to Rank " + level +".");
-								}
-								else {
-									console.setText("You have unlearned " + technique.getTrait().getName() + ".");
-								}
-								value.setText(level == 0 ? "" : "(" + level + ")");
-							}
-							else {
-								console.setText("You cannot reduce " + technique.getTrait().getName() + " below Rank " + cachedLevel +".");
-							}
-						}
-			        }
-				});
-				magicTable.add(label).size(200, 45).padRight(10);
-				magicTable.add(value).size(30, 45).padRight(10);
-				magicTable.add(plusButton);
-				magicTable.add(minusButton).row();
-			}
-			magicTable.setPosition(530, tableHeight - 215);
-			magicTable.align(Align.top);
-			magicGroup.addActor(magicTable);
+			StanceSkillDisplay newStanceSkillDisplay = new StanceSkillDisplay(Stance.CASTING, true, assetManager);
+			newStanceSkillDisplay.setPosition(495, tableHeight - 210);
+			magicGroup.addActor(newStanceSkillDisplay);
 		}
 		Image arrow = new Image(arrowImage);
         arrow.setHeight(300);
@@ -571,8 +487,10 @@ public class SkillSelectionScene extends Scene {
 	private class StanceSkillDisplay extends Group {
 		private final Stance stance;
 		private final Table table;
-		private StanceSkillDisplay(Stance stance, AssetManager assetManager) { 
+		private final boolean magic;
+		private StanceSkillDisplay(Stance stance, boolean magic, AssetManager assetManager) { 
 			this.stance = stance;
+			this.magic = magic;
 			this.table = new Table();
 			this.addActor(table);
 			Image stanceIcon = new Image(assetManager.get(stance.getTexture()));
@@ -589,15 +507,12 @@ public class SkillSelectionScene extends Scene {
 				final Label label = new Label(technique.getTrait().getName(), skin);
 				label.setAlignment(Align.right);
 				label.setColor(Color.WHITE);
-				
-				final Label value = new Label(level > 0 ? "(" + level + ")" : "", skin);
 				label.setAlignment(Align.right);
-				
 				
 				final Button plusButton = getPlusButton();
 				final Button minusButton = getMinusButton();
 				final Array<Image> baubles = new Array<Image>();
-				techniquesToButtons.put(technique, baubles);
+				if (!magic) techniquesToButtons.put(technique, baubles);
 				
 				for (int ii = 0; ii < level; ii++) baubles.add(new Image(assetManager.get(AssetEnum.FILLED_BAUBLE.getTexture())));
 				for (int ii = 0; ii < technique.getMaxRank() - level; ii++) baubles.add(new Image(assetManager.get(AssetEnum.EMPTY_BAUBLE.getTexture())));
@@ -622,26 +537,31 @@ public class SkillSelectionScene extends Scene {
 							Integer newLevel = skills.get(technique);
 							if (newLevel == null) newLevel = 0;
 							if (newLevel < technique.getMaxRank()) {
-								if (newLevel + 1 <= skillPoints) {
-									skillPoints -= newLevel + 1;
-									skillPointsDisplay.setText("Skill Points: " + skillPoints);
-									skills.put(technique, ++newLevel);						
+								if (newLevel + 1 <= (magic ? magicPoints : skillPoints)) {
+									if (!magic) {
+										skillPoints -= newLevel + 1;
+										skillPointsDisplay.setText("Skill Points: " + skillPoints);
+										skills.put(technique, ++newLevel);
+									}
+									else {
+										magicPoints -= newLevel + 1;
+										magicPointsDisplay.setText("Magic Points: " + magicPoints);
+									}																		
 									console.setText("You have learned " + technique.getTrait().getName() + " Rank " + newLevel +".");
-									value.setText(level == 0 ? "" : "(" + level + ")");
 									for (int ii = level; ii < newLevel; ii++) {
 										baubles.get(ii).setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(AssetEnum.ADDED_BAUBLE.getTexture()))));
 									}
 								}
 								else {
-									console.setText("You do not have enough skill points!");
+									console.setText("You do not have enough " + (magic ? "magic" : "skill") + " points!");
 								}
 							}
 							else {
-								console.setText("You cannot improve on that skill any further!");
+								console.setText("You cannot improve on that " + (magic ? "spell" : "skill") + " any further!");
 							}	
 						}
 						else {
-							console.setText("You have no skill points!");
+							console.setText("You have no " + (magic ? "magic" : "skill") + " points!");
 						}
 			        }
 				});
@@ -653,21 +573,27 @@ public class SkillSelectionScene extends Scene {
 						
 						Integer newLevel = skills.get(technique, 0);
 						if (newLevel == 0) {
-							console.setText("You do not yet possess that skill!");
+							console.setText("You do not yet possess that " + (magic ? "spell" : "skill") + "!");
 						}
 						else {
 							Integer cachedLevel = cachedSkills.get(technique, 0);
 							if (--newLevel >= cachedLevel) {
-								skillPoints += newLevel + 1;
-								skillPointsDisplay.setText("Skill Points: " + skillPoints);
-								skills.put(technique, newLevel);						
+								if (!magic) {
+									skillPoints += newLevel + 1;
+									skillPointsDisplay.setText("Skill Points: " + skillPoints);
+									
+								}
+								else {
+									magicPoints += level + 1;
+									magicPointsDisplay.setText("Magic Points: " + magicPoints);
+								}
+								skills.put(technique, newLevel);
 								if (newLevel > 0) {
 									console.setText("You have reduced " + technique.getTrait().getName() + " to Rank " + newLevel +".");
 								}
 								else {
 									console.setText("You have unlearned " + technique.getTrait().getName() + ".");
 								}
-								value.setText(newLevel == 0 ? "" : "(" + newLevel + ")");
 								for (int ii = level; ii < newLevel; ii++) {
 									baubles.get(ii).setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(AssetEnum.ADDED_BAUBLE.getTexture()))));
 								}
