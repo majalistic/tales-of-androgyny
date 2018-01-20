@@ -213,16 +213,18 @@ public class SkillSelectionScene extends Scene {
 			int jj = 0;
 			for (final Perk perk: learnablePerks) {
 				if (!(jj >= ii * learnablePerks.size / 2 && jj < (ii + 1) * learnablePerks.size / 2)) { jj++; continue; }
-				Integer level = perks.get(perk, 0);
+				final Integer level = perks.get(perk, 0);
 				final Label label = new Label(perk.getLabel(), skin);
 				label.setColor(Color.WHITE);
 				label.setAlignment(Align.right);
-				final Label value = new Label(level > 0 ? "(" + level + ")" : "", skin);
-				value.setAlignment(Align.right);
 				
 				final Row row = new Row(perk, label, skillDisplay, bonusDisplay, skillDisplayTable, consoleTable);
 				final Button plusButton = getPlusButton();
 				final Button minusButton = getMinusButton();
+				
+				final Array<Image> baubles = new Array<Image>();
+				for (int kk = 0; kk < level; kk++) baubles.add(new Image(assetManager.get(AssetEnum.FILLED_BAUBLE.getTexture())));
+				for (int kk = 0; kk < perk.getMaxRank() - level; kk++) baubles.add(new Image(assetManager.get(AssetEnum.EMPTY_BAUBLE.getTexture())));
 				
 				label.addListener(new ClickListener() {
 					@Override
@@ -240,18 +242,20 @@ public class SkillSelectionScene extends Scene {
 			        public void clicked(InputEvent event, float x, float y) {
 						buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
 						if (perkPoints > 0) {
-							Integer level = perks.get(perk, 0);
-							if (level < perk.getMaxRank()) {
-								if (level + 1 <= perkPoints) {
-									perkPoints -= level + 1;
+							Integer newLevel = perks.get(perk, 0);
+							if (newLevel < perk.getMaxRank()) {
+								if (newLevel + 1 <= perkPoints) {
+									perkPoints -= newLevel + 1;
 									perkPointsDisplay.setText("Perk Points: " + perkPoints);
 									if (perk == Perk.SKILLED) {
 										skillPoints += 2;
 										skillPointsDisplay.setText("Skill Points: " + skillPoints);
 									}
-									perks.put(perk, ++level);						
-									console.setText("You gained the " + perk.getLabel() + " Rank " + level +".");
-									value.setText(level == 0 ? "" : "(" + level + ")");
+									perks.put(perk, ++newLevel);						
+									console.setText("You gained the " + perk.getLabel() + " Rank " + newLevel +".");
+									for (int ii = level; ii < newLevel; ii++) {
+										baubles.get(ii).setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(AssetEnum.ADDED_BAUBLE.getTexture()))));
+									}
 								}
 								else {
 									console.setText("You do not have enough perk points!");
@@ -271,29 +275,33 @@ public class SkillSelectionScene extends Scene {
 			        public void clicked(InputEvent event, float x, float y) {
 						buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
 						
-						Integer level = perks.get(perk, 0);
-						if (level == 0) {
+						Integer newLevel = perks.get(perk, 0);
+						if (newLevel == 0) {
 							console.setText("You do not yet possess that perk!");
 						}
 						else {
 							Integer cachedLevel = cachedPerks.get(perk, 0);
-							if (--level >= cachedLevel) {
-								perkPoints += level + 1;
+							if (--newLevel >= cachedLevel) {
+								perkPoints += newLevel + 1;
 								perkPointsDisplay.setText("Perk Points: " + perkPoints);
-								perks.put(perk, level);
-								if (level > 0) {
-									console.setText("You have reduced " + perk.getLabel() + " to Rank " + level +".");
+								perks.put(perk, newLevel);
+								if (newLevel > 0) {
+									console.setText("You have reduced " + perk.getLabel() + " to Rank " + newLevel +".");
 								}
 								else {
 									console.setText("You have removed " + perk.getLabel() + ".");
+								}
+								for (int ii = level; ii < newLevel; ii++) {
+									baubles.get(ii).setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(AssetEnum.ADDED_BAUBLE.getTexture()))));
+								}
+								for (int ii = newLevel; ii < baubles.size; ii++) {
+									baubles.get(ii).setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(AssetEnum.EMPTY_BAUBLE.getTexture()))));
 								}
 								if (perk == Perk.SKILLED) {
 									skillPoints -= 2;
 									skillPointsDisplay.setText("Skill Points: " + skillPoints);
 									handleNegativeSkillPoints();
 								}
-								
-								value.setText(level == 0 ? "" : "(" + level + ")");
 							}
 							else {
 								console.setText("You cannot reduce " + perk.getLabel() + " below Rank " + cachedLevel +".");
@@ -302,9 +310,14 @@ public class SkillSelectionScene extends Scene {
 			        }
 				});
 				perkTable.add(label).size(200, 45).padRight(10);
-				perkTable.add(value).size(30, 45).padRight(10);
-				perkTable.add(plusButton);
-				perkTable.add(minusButton).row();
+				perkTable.add(minusButton);
+				for (Image bauble : baubles) {
+					perkTable.add(bauble).size(bauble.getWidth(), bauble.getHeight());
+				}
+				for (int kk = 0; kk < 5 - baubles.size; kk++) {
+					perkTable.add().width(baubles.get(0).getWidth());
+				}
+				perkTable.add(plusButton).row();
 				jj++;
 			}
 			perkTable.setPosition(530, tableHeight - 215);
@@ -477,7 +490,6 @@ public class SkillSelectionScene extends Scene {
 				final Button minusButton = getMinusButton();
 				final Array<Image> baubles = new Array<Image>();
 				if (!magic) techniquesToButtons.put(technique, baubles);
-				
 				for (int ii = 0; ii < level; ii++) baubles.add(new Image(assetManager.get(AssetEnum.FILLED_BAUBLE.getTexture())));
 				for (int ii = 0; ii < technique.getMaxRank() - level; ii++) baubles.add(new Image(assetManager.get(AssetEnum.EMPTY_BAUBLE.getTexture())));
 				
@@ -545,7 +557,6 @@ public class SkillSelectionScene extends Scene {
 								if (!magic) {
 									skillPoints += newLevel + 1;
 									skillPointsDisplay.setText("Skill Points: " + skillPoints);
-									
 								}
 								else {
 									magicPoints += level + 1;
