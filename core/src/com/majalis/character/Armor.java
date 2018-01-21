@@ -147,8 +147,8 @@ public class Armor extends Item{
 		private boolean isArmwear() { return this == GAUNTLET; }
 		private boolean isHeadgear() { return this == HELMET; }
 		private boolean isShield() { return this == SHIELD || this == REINFORCED_SHIELD; }
-		private boolean coversTop() { return this == NO_TOP || this == CLOTH_TOP || this == BREASTPLATE || this == DIAMOND_PLATE;  }
-		private boolean coversBottom() { return this == NO_BOTTOM || this == SKIRT || this == BATTLE_SKIRT || this == SHORTS; }
+		private boolean coversTop() { return this == NO_TOP || this == CLOTH_TOP || this == BREASTPLATE || this == DIAMOND_PLATE || this == LIGHT_ENEMY_ARMOR || this == MEDIUM_ENEMY_ARMOR || this == HEAVY_ENEMY_ARMOR;  }
+		private boolean coversBottom() { return this == NO_BOTTOM || this == SKIRT || this == BATTLE_SKIRT || this == SHORTS ||  this == LIGHT_ENEMY_LEGWEAR || this == MEDIUM_ENEMY_LEGWEAR; }
 		private boolean isUnderwear() { return this == UNDERWEAR; }
 		private ChastityCage getCage() { return null; }
 		private Plug getPlug() { return null; }
