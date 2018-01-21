@@ -344,19 +344,30 @@ public class Battle extends Group{
 		}
 		
 		Texture bloodTexture = assetManager.get(AssetEnum.BLEED.getTexture());
-		bloodImage = initImage(bloodTexture, 470, 725, 75);
+		bloodImage = initImage(bloodTexture, 345, 725, 75);
 		enemyBloodImage = initImage(bloodTexture, 1545, 725, 75);
-		bloodLabel = initLabel("" + character.getBleed(), skin, Color.RED, 470 + 19, 725 + 7);	
+		bloodLabel = initLabel("" + character.getBleed(), skin, Color.RED, 345 + 19, 725 + 7);	
 		bloodLabel.setAlignment(Align.center);
 		bloodLabel.setWidth(10);
 		enemyBloodLabel = initLabel("" + enemy.getBleed(), skin, Color.RED, 1545 + 19, 725 + 7);
 		enemyBloodLabel.setAlignment(Align.center);
 		enemyBloodLabel.setWidth(10);
 		
+		Table statusTable = new Table();
+		statusTable.align(Align.topLeft);
+		statusTable.setPosition(525,  850);
+		uiGroup.addActor(statusTable);
+		Table enemyStatusTable = new Table();
+		enemyStatusTable.align(Align.topLeft);
+		enemyStatusTable.setPosition(1575,  700);
+		uiGroup.addActor(enemyStatusTable);
 		statusLabel = initLabel(character.getStatusBlurb(), skin, Color.RED, 550, 725);
-		statusLabel.setAlignment(Align.topLeft);
-		enemyStatusLabel = initLabel(enemy.getStatusBlurb(), skin, Color.RED, 1275, 725);
-		enemyStatusLabel.setAlignment(Align.topRight);
+		uiGroup.removeActor(statusLabel);
+		enemyStatusLabel = initLabel(enemy.getStatusBlurb(), skin, Color.RED, 1575, 725);
+		uiGroup.removeActor(enemyStatusLabel);
+		
+		statusTable.add(statusLabel).align(Align.topLeft);
+		enemyStatusTable.add(enemyStatusLabel).align(Align.topRight);
 		
 		if (character.getBleed() == 0) {
 			bloodImage.addAction(hide());
