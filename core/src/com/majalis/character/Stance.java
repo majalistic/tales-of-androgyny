@@ -152,7 +152,7 @@ public enum Stance {
 	public boolean receivesMediumAttacks() { return receivesMediumAttacks; }
 	public boolean receivesLowAttacks() { return receivesLowAttacks; }
 	public boolean hasLearnableSkills() { 
-		return this == BALANCED || this == DEFENSIVE || this == OFFENSIVE || this == BLITZ || this == SEDUCTION || this == DOGGY || this == PRONE_BONE || this == ANAL || this == FELLATIO; }
+		return this == BALANCED || this == DEFENSIVE || this == OFFENSIVE || this == BLITZ || this == KNEELING || this == SEDUCTION || this == DOGGY || this == PRONE_BONE || this == ANAL || this == FELLATIO; }
 	
 	public boolean isNull() { return this == NULL; }	
 	public ClimaxType getClimaxType() { return isAnalReceptive() ? ClimaxType.ANAL_RECEPTIVE : isOralReceptive() ? ClimaxType.ORAL_RECEPTIVE : isAnalPenetration() ? ClimaxType.ANAL : isOralPenetration() ? ClimaxType.ORAL : this == Stance.HANDY ? ClimaxType.FACIAL : isErotic() ? ClimaxType.BACKWASH : ClimaxType.NULL; }

@@ -356,6 +356,7 @@ public enum Techniques {
 			case POUND_PRONE_BONE: return "Crushin' ass flat on the receiver's back.";
 			case IRRUMATIO: return "Straighforward mouth fucking.";
 			case FORCE_DEEPTHROAT: return "Deep mouth fucking.";
+			case GRAB_IT: return "Used to grab the enemy by the... well, y'know.";
 			default: return "";
 		}
 	}
