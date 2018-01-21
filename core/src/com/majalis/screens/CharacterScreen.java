@@ -158,29 +158,27 @@ public class CharacterScreen extends AbstractScreen {
 		statTable.align(Align.topLeft);
 		this.addActor(statTable);
 		
-		if (character.needsLevelUp()) {
-			final boolean levelup = character.getStoredLevels() > 0;
-			final TextButton levelUp = new TextButton(levelup ? "Level Up!" : "Learn Skills", skin);
-			
-			levelUp.setSize(270, 60); 
-			TextButtonStyle style = new TextButtonStyle(levelUp.getStyle());
-			style.fontColor = levelup ? Color.OLIVE : Color.GOLDENROD;
-			levelUp.setStyle(style);
-			levelUp.addListener(
-				new ClickListener() {
-					@Override
-			        public void clicked(InputEvent event, float x, float y) {
-						buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
-						while(character.getStoredLevels() > 0) character.levelUp();
-						saveService.saveDataValue(SaveEnum.PLAYER, character);
-						saveService.saveDataValue(SaveEnum.CONTEXT, GameContext.LEVEL);
-						showScreen(ScreenEnum.CONTINUE);
-			        }
-				}
-			);
-			levelUp.setPosition(1180, 30);
-			this.addActor(levelUp);
-		}
+		final boolean levelup = character.getStoredLevels() > 0;
+		final TextButton levelUp = new TextButton(levelup ? "Level Up!" : "Learn Skills", skin);
+		
+		levelUp.setSize(270, 60); 
+		TextButtonStyle style = new TextButtonStyle(levelUp.getStyle());
+		style.fontColor = levelup ? Color.OLIVE : Color.GOLDENROD;
+		levelUp.setStyle(style);
+		levelUp.addListener(
+			new ClickListener() {
+				@Override
+		        public void clicked(InputEvent event, float x, float y) {
+					buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
+					while(character.getStoredLevels() > 0) character.levelUp();
+					saveService.saveDataValue(SaveEnum.PLAYER, character);
+					saveService.saveDataValue(SaveEnum.CONTEXT, GameContext.LEVEL);
+					showScreen(ScreenEnum.CONTINUE);
+		        }
+			}
+		);
+		levelUp.setPosition(1180, 30);
+		this.addActor(levelUp);
 		
 		final Table sexTable = new Table();
 		Label virgin = new Label("Anal Virgin? " + (character.isVirgin() ? "For now!" : "Nope!"), skin);
