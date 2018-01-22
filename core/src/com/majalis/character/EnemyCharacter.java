@@ -432,7 +432,7 @@ public class EnemyCharacter extends AbstractCharacter {
 	}
 	
 	private boolean willFaceSit(AbstractCharacter target) {
-		return target.getStance() == Stance.SUPINE && !isErect() && enemyType.willFaceSit();
+		return target.getStance() == Stance.SUPINE && enemyType.willFaceSit();
 	}
 	
 	private boolean isEnragedGolem() {
