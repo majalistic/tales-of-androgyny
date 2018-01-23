@@ -84,6 +84,10 @@ public enum AssetEnum {
 	ORNATE_BUTTON_DOWN("buttons/ornated.png"),
 	ORNATE_BUTTON_HIGHLIGHT("buttons/ornateh.png"),
 	
+	ARROW_BUTTON_UP("buttons/ScrollButtonL.png"),
+	ARROW_BUTTON_DOWN("buttons/ScrollButtonLD.png"),
+	ARROW_BUTTON_HIGHLIGHT("buttons/ScrollButtonLH.png"),
+	
 	PLUS("backgrounds/SkillSelect/Plus.png"),
 	PLUS_DOWN("backgrounds/SkillSelect/PlusDown.png"),
 	PLUS_HIGHLIGHT("backgrounds/SkillSelect/PlusHighlight.png"),

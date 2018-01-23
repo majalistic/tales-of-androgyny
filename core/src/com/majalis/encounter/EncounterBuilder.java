@@ -840,26 +840,26 @@ public class EncounterBuilder {
 		@Override
 		protected Array<AssetDescriptor<?>> getRequirements(ObjectSet<AssetEnum> alreadySeen) {
 			Array<AssetDescriptor<?>> requirements = super.getRequirements(alreadySeen);
-			add(requirements, alreadySeen, AssetEnum.WARRIOR) ;
-			add(requirements, alreadySeen, AssetEnum.PALADIN) ;
-			add(requirements, alreadySeen, AssetEnum.THIEF) ;
-			add(requirements, alreadySeen, AssetEnum.RANGER) ;
-			add(requirements, alreadySeen, AssetEnum.MAGE) ;
-			add(requirements, alreadySeen, AssetEnum.ENCHANTRESS) ;
-			add(requirements, alreadySeen, AssetEnum.STRENGTH) ;
-			add(requirements, alreadySeen, AssetEnum.ENDURANCE) ;
-			add(requirements, alreadySeen, AssetEnum.AGILITY) ;
-			add(requirements, alreadySeen, AssetEnum.PERCEPTION) ;
-			add(requirements, alreadySeen, AssetEnum.MAGIC) ;
-			add(requirements, alreadySeen, AssetEnum.CHARISMA) ;
-			add(requirements, alreadySeen, AssetEnum.CREATION_BUTTON_DOWN) ;
-			add(requirements, alreadySeen, AssetEnum.CREATION_BUTTON_UP) ;
-			add(requirements, alreadySeen, AssetEnum.CREATION_BUTTON_CHECKED) ;
-			add(requirements, alreadySeen, AssetEnum.CREATION_BAUBLE_EMPTY) ;
-			add(requirements, alreadySeen, AssetEnum.CREATION_BAUBLE_NEW) ;
-			add(requirements, alreadySeen, AssetEnum.CREATION_BAUBLE_OLD) ;
-			add(requirements, alreadySeen, AssetEnum.CREATION_BAUBLE_REMOVED) ;
-			add(requirements, alreadySeen, AssetEnum.CLASS_SELECT_BACKGROUND) ;
+			add(requirements, alreadySeen, AssetEnum.WARRIOR);
+			add(requirements, alreadySeen, AssetEnum.PALADIN);
+			add(requirements, alreadySeen, AssetEnum.THIEF);
+			add(requirements, alreadySeen, AssetEnum.RANGER);
+			add(requirements, alreadySeen, AssetEnum.MAGE);
+			add(requirements, alreadySeen, AssetEnum.ENCHANTRESS);
+			add(requirements, alreadySeen, AssetEnum.STRENGTH);
+			add(requirements, alreadySeen, AssetEnum.ENDURANCE);
+			add(requirements, alreadySeen, AssetEnum.AGILITY);
+			add(requirements, alreadySeen, AssetEnum.PERCEPTION);
+			add(requirements, alreadySeen, AssetEnum.MAGIC);
+			add(requirements, alreadySeen, AssetEnum.CHARISMA);
+			add(requirements, alreadySeen, AssetEnum.CREATION_BUTTON_DOWN);
+			add(requirements, alreadySeen, AssetEnum.CREATION_BUTTON_UP);
+			add(requirements, alreadySeen, AssetEnum.CREATION_BUTTON_CHECKED);
+			add(requirements, alreadySeen, AssetEnum.CREATION_BAUBLE_EMPTY);
+			add(requirements, alreadySeen, AssetEnum.CREATION_BAUBLE_NEW);
+			add(requirements, alreadySeen, AssetEnum.CREATION_BAUBLE_OLD);
+			add(requirements, alreadySeen, AssetEnum.CREATION_BAUBLE_REMOVED);
+			add(requirements, alreadySeen, AssetEnum.CLASS_SELECT_BACKGROUND);
 			add(requirements, alreadySeen, AssetEnum.GEM_CLINK, true);
 			add(requirements, alreadySeen, AssetEnum.QUICK_PAGE_TURN, true);
 			return requirements;
@@ -870,13 +870,13 @@ public class EncounterBuilder {
 		@Override
 		protected Array<AssetDescriptor<?>> getRequirements(ObjectSet<AssetEnum> alreadySeen) {
 			Array<AssetDescriptor<?>> requirements = super.getRequirements(alreadySeen);
-			add(requirements, alreadySeen, AssetEnum.CAMP_BG0) ;
-			add(requirements, alreadySeen, AssetEnum.CAMP_BG1) ;
-			add(requirements, alreadySeen, AssetEnum.CAMP_BG2) ;
-			add(requirements, alreadySeen, AssetEnum.SKILL_CONSOLE_BOX) ;
-			add(requirements, alreadySeen, AssetEnum.EMBELLISHED_BUTTON_UP) ;
-			add(requirements, alreadySeen, AssetEnum.EMBELLISHED_BUTTON_DOWN) ;
-			add(requirements, alreadySeen, AssetEnum.EMBELLISHED_BUTTON_HIGHLIGHT) ;
+			add(requirements, alreadySeen, AssetEnum.CAMP_BG0);
+			add(requirements, alreadySeen, AssetEnum.CAMP_BG1);
+			add(requirements, alreadySeen, AssetEnum.CAMP_BG2);
+			add(requirements, alreadySeen, AssetEnum.SKILL_CONSOLE_BOX);
+			add(requirements, alreadySeen, AssetEnum.EMBELLISHED_BUTTON_UP);
+			add(requirements, alreadySeen, AssetEnum.EMBELLISHED_BUTTON_DOWN);
+			add(requirements, alreadySeen, AssetEnum.EMBELLISHED_BUTTON_HIGHLIGHT);
 			return requirements;
 		}
 	}
@@ -885,19 +885,22 @@ public class EncounterBuilder {
 		@Override
 		protected Array<AssetDescriptor<?>> getRequirements(ObjectSet<AssetEnum> alreadySeen) {
 			Array<AssetDescriptor<?>> requirements = super.getRequirements(alreadySeen);
-			add(requirements, alreadySeen, AssetEnum.SKILL_BOX_0) ;
-			add(requirements, alreadySeen, AssetEnum.SKILL_BOX_1) ;
-			add(requirements, alreadySeen, AssetEnum.SKILL_BOX_2) ;
-			add(requirements, alreadySeen, AssetEnum.BATTLE_HOVER) ;
-			add(requirements, alreadySeen, AssetEnum.CAMP_BG0) ;
-			add(requirements, alreadySeen, AssetEnum.CAMP_BG1) ;
-			add(requirements, alreadySeen, AssetEnum.CAMP_BG2) ;
-			add(requirements, alreadySeen, AssetEnum.SKILL_TITLE) ;
-			add(requirements, alreadySeen, AssetEnum.MAGIC_TITLE) ;
-			add(requirements, alreadySeen, AssetEnum.PERK_TITLE) ;
-			add(requirements, alreadySeen, AssetEnum.PLUS) ;
-			add(requirements, alreadySeen, AssetEnum.PLUS_DOWN) ;
-			add(requirements, alreadySeen, AssetEnum.PLUS_HIGHLIGHT) ;
+			add(requirements, alreadySeen, AssetEnum.SKILL_BOX_0);
+			add(requirements, alreadySeen, AssetEnum.SKILL_BOX_1);
+			add(requirements, alreadySeen, AssetEnum.SKILL_BOX_2);
+			add(requirements, alreadySeen, AssetEnum.BATTLE_HOVER);
+			add(requirements, alreadySeen, AssetEnum.CAMP_BG0);
+			add(requirements, alreadySeen, AssetEnum.CAMP_BG1);
+			add(requirements, alreadySeen, AssetEnum.CAMP_BG2);
+			add(requirements, alreadySeen, AssetEnum.SKILL_TITLE);
+			add(requirements, alreadySeen, AssetEnum.MAGIC_TITLE);
+			add(requirements, alreadySeen, AssetEnum.PERK_TITLE);
+			add(requirements, alreadySeen, AssetEnum.ARROW_BUTTON_UP);
+			add(requirements, alreadySeen, AssetEnum.ARROW_BUTTON_DOWN);
+			add(requirements, alreadySeen, AssetEnum.ARROW_BUTTON_HIGHLIGHT);
+			add(requirements, alreadySeen, AssetEnum.PLUS);
+			add(requirements, alreadySeen, AssetEnum.PLUS_DOWN);
+			add(requirements, alreadySeen, AssetEnum.PLUS_HIGHLIGHT);
 			add(requirements, alreadySeen, AssetEnum.MINUS);
 			add(requirements, alreadySeen, AssetEnum.MINUS_DOWN);
 			add(requirements, alreadySeen, AssetEnum.MINUS_HIGHLIGHT);

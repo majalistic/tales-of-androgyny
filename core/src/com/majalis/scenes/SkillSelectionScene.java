@@ -42,7 +42,6 @@ public class SkillSelectionScene extends Scene {
 	private final Skin skin;
 	private final Sound buttonSound;
 	private final PlayerCharacter character;
-	private final Texture arrowImage;
 	private final AssetManager assetManager;
 	private final Group skillGroup;
 	private final Group magicGroup;
@@ -83,7 +82,6 @@ public class SkillSelectionScene extends Scene {
 		this.character = character;
 		this.addActor(background);
 		this.assetManager = assetManager;
-		this.arrowImage = assetManager.get(AssetEnum.STANCE_ARROW.getTexture());
 		skillGroup = new Group();
 		magicGroup = new Group();
 		perkGroup = new Group();
@@ -377,13 +375,12 @@ public class SkillSelectionScene extends Scene {
 			newStanceSkillDisplay.setPosition(495, tableHeight - 210);
 			magicGroup.addActor(newStanceSkillDisplay);
 		}
-		TextureRegion flipped = new TextureRegion(arrowImage);
-		flipped.flip(true, false);
-		addImage(skillGroup, arrowImage, Color.WHITE, 780, 320, 120, 300).addListener(new ClickListener() { @Override public void clicked(InputEvent event, float x, float y) { changeStanceDisplay(1); }});       
-        addImage(skillGroup, flipped, Color.WHITE, 140, 320, 120, 300).addListener(new ClickListener() { @Override public void clicked(InputEvent event, float x, float y) { changeStanceDisplay(-1); }});    
-        addImage(perkGroup, arrowImage, Color.WHITE, 780, 320, 120, 300).addListener(new ClickListener() { @Override public void clicked(InputEvent event, float x, float y) { changePerkDisplay(1); }});    
-        addImage(perkGroup, flipped, Color.WHITE, 140, 320, 120, 300).addListener(new ClickListener() { @Override public void clicked(InputEvent event, float x, float y) { changePerkDisplay(-1); }});  
-        
+		
+		addButton(skillGroup, 830, 450, new ClickListener() { @Override public void clicked(InputEvent event, float x, float y) { changeStanceDisplay(1); }}, true);
+		addButton(skillGroup, 170, 450, new ClickListener() { @Override public void clicked(InputEvent event, float x, float y) { changeStanceDisplay(-1); }}, false);
+		addButton(perkGroup, 830, 450, new ClickListener() { @Override public void clicked(InputEvent event, float x, float y) { changePerkDisplay(1); }}, true);
+		addButton(perkGroup, 170, 450, new ClickListener() { @Override public void clicked(InputEvent event, float x, float y) { changePerkDisplay(-1); }}, false);
+		
         final Table navigationButtons = new Table();
 		final TextButton showSkills = new TextButton("Skills", skin);
 		showSkills.addListener(
@@ -453,6 +450,24 @@ public class SkillSelectionScene extends Scene {
 		perkGroup.addAction(Actions.hide());
 	}
 
+	private void addButton(Group g, float x, float y, ClickListener listener, boolean flipped) {
+		ButtonStyle buttonStyle = new ButtonStyle();
+		buttonStyle.up = new TextureRegionDrawable(getTextureRegion(assetManager.get(AssetEnum.ARROW_BUTTON_UP.getTexture()), flipped));
+		buttonStyle.down = new TextureRegionDrawable(getTextureRegion(assetManager.get(AssetEnum.ARROW_BUTTON_DOWN.getTexture()), flipped));
+		buttonStyle.over = new TextureRegionDrawable(getTextureRegion(assetManager.get(AssetEnum.ARROW_BUTTON_HIGHLIGHT.getTexture()), flipped));	
+		Button button = new Button(buttonStyle);
+		button.setPosition(x, y);
+		button.addListener(listener);
+		button.addAction(Actions.forever(Actions.sequence(Actions.moveBy(flipped ? -8 : 8, 0, .5f), Actions.moveBy(flipped ? 8 : -8, 0, .5f))));       
+		g.addActor(button);
+	}
+	
+	private TextureRegion getTextureRegion(Texture texture, boolean flipped) {
+		TextureRegion region = new TextureRegion(texture);
+		region.flip(flipped, false);
+		return region;
+	}
+	
 	private void changeStanceDisplay(int delta) {
 		allDisplay.get(stanceSelection).addAction(Actions.hide());
 		stanceSelection += delta;
