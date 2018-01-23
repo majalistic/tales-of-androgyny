@@ -5,6 +5,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
@@ -15,14 +16,18 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.OrderedMap;
 import com.majalis.asset.AssetEnum;
+import com.majalis.character.AbstractCharacter;
+import com.majalis.character.AbstractCharacter.PhallusType;
 import com.majalis.character.PlayerCharacter;
 import com.majalis.encounter.Background;
 import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveService;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 public class CharacterCustomizationScene extends Scene {
 
@@ -129,7 +134,6 @@ public class CharacterCustomizationScene extends Scene {
 		table.add().width(180);
 		table.add(buttSizeLabel).row();
 		
-		
 		table.add(addLabel("Lip Fullness:", skin, Color.GOLD, 0, 0)).row();
 		final Label lipSizeLabel = new Label("Thin", skin);
 		lipSizeLabel.setColor(Color.SALMON);		
@@ -157,7 +161,36 @@ public class CharacterCustomizationScene extends Scene {
 		}
 		table.add().row();
 		table.add().width(180);
-		table.add(lipSizeLabel);
+		table.add(lipSizeLabel).row();;
+		
+		table.add(addLabel("Penis Size:", skin, Color.GOLD, 0, 0)).row();
+		final Label penisSizeLabel = new Label("Small", skin);
+		penisSizeLabel.setColor(Color.SALMON);		
+		for (final AbstractCharacter.PhallusType penisType : new PhallusType[]{PhallusType.CUTE, PhallusType.TINY, PhallusType.SMALL}) {
+			final TextButton button = new TextButton(penisType.getLabel(), skin);
+			button.addListener(new ClickListener() {
+				@Override
+		        public void clicked(InputEvent event, float x, float y) {
+					buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
+					console.setText("You now have " + penisType.getLabel().toLowerCase() + " penis.");
+					character.setPhallusType(penisType);
+					saveService.saveDataValue(SaveEnum.PLAYER, character);
+					penisSizeLabel.setText(penisType.getLabel());
+		        }
+				@Override
+		        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
+					description.setText(penisType.getDescription());
+				}
+				@Override
+		        public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
+					description.setText("");
+				}
+			});
+			table.add(button).size(180, 40);
+		}
+		table.add().row();
+		table.add().width(180);
+		table.add(penisSizeLabel);
 		
 		final TextButton done = new TextButton("Done", skin);
 		done.addListener(

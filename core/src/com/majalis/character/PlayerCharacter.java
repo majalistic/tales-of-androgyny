@@ -1689,4 +1689,8 @@ public class PlayerCharacter extends AbstractCharacter {
 	public GameOver getGameOver() { return gameOver; }
 
 	public boolean hasStance(Stance stance) { return stance != Stance.BLITZ || jobClass == JobClass.WARRIOR; }
+
+	public void setPhallusType(PhallusType penisType) {
+		phallus = penisType;
+	}
 }

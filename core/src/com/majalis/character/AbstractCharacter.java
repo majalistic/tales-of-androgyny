@@ -1174,8 +1174,9 @@ public abstract class AbstractCharacter extends Actor {
 		this.cage = alreadyEquipped ? null : equipCage;
 		return "You " + (alreadyEquipped ? "unequipped" : "equipped") + " the " + cage.getName() + ".";
 	}
-	
-	protected enum PhallusType {
+	public enum PhallusType {
+		CUTE(AssetEnum.SMALL_DONG_0, AssetEnum.SMALL_DONG_1, AssetEnum.SMALL_DONG_2, AssetEnum.SMALL_DONG_CHASTITY),
+		TINY(AssetEnum.SMALL_DONG_0, AssetEnum.SMALL_DONG_1, AssetEnum.SMALL_DONG_2, AssetEnum.SMALL_DONG_CHASTITY),
 		SMALL(AssetEnum.SMALL_DONG_0, AssetEnum.SMALL_DONG_1, AssetEnum.SMALL_DONG_2, AssetEnum.SMALL_DONG_CHASTITY),
 		NORMAL(AssetEnum.LARGE_DONG_0, AssetEnum.LARGE_DONG_1, AssetEnum.LARGE_DONG_2),
 		MONSTER(AssetEnum.MONSTER_DONG_0, AssetEnum.MONSTER_DONG_1, AssetEnum.MONSTER_DONG_2), 
@@ -1188,6 +1189,14 @@ public abstract class AbstractCharacter extends Actor {
 
 		PhallusType(AssetEnum... phallusStates ) {
 		    this.phallusStates = new Array<AssetEnum>(phallusStates);
+		}
+		
+		public String getLabel() {
+			return this == CUTE ? "Cute" : this == TINY ? "Tiny" : this == SMALL ? "Small" : "";
+		}
+		
+		public String getDescription() {
+			return this == CUTE ? "An adorable penis." : this == TINY ? "A very small penis." : this == SMALL ? "Average." : "";
 		}
 		
 		private AssetDescriptor<Texture> getPhallusState(int stateIndex) {
