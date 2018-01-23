@@ -293,6 +293,8 @@ public class Battle extends Group{
 	        	}
 	        	else {
 					skillDisplay.setText(character.getArmorStatus());
+					bonusDisplay.setText("");
+					penaltyDisplay.setText("");
 					showHoverGroup();
 	        	}
 			}
@@ -311,6 +313,8 @@ public class Battle extends Group{
 	        	}
 	        	else {
 					skillDisplay.setText(enemy.getArmorStatus());
+					bonusDisplay.setText("");
+					penaltyDisplay.setText("");
 					showHoverGroup();
 	        	}
 			}
@@ -332,6 +336,8 @@ public class Battle extends Group{
 	        	}
 	        	else {
 					skillDisplay.setText(enemy.getLegwearStatus());
+					bonusDisplay.setText("");
+					penaltyDisplay.setText("");
 					showHoverGroup();
 	        	}
 			}
@@ -349,6 +355,8 @@ public class Battle extends Group{
 	        	}
 	        	else {
 					skillDisplay.setText(enemy.getLegwearStatus());
+					bonusDisplay.setText("");
+					penaltyDisplay.setText("");
 					showHoverGroup();
 	        	}
 			}
@@ -366,6 +374,8 @@ public class Battle extends Group{
 	        	}
 	        	else {
 					skillDisplay.setText(character.getShieldStatus());
+					bonusDisplay.setText("");
+					penaltyDisplay.setText("");
 					showHoverGroup();
 	        	}
 			}
@@ -383,6 +393,8 @@ public class Battle extends Group{
 	        	}
 	        	else {
 					skillDisplay.setText(enemy.getShieldStatus());
+					bonusDisplay.setText("");
+					penaltyDisplay.setText("");
 					showHoverGroup();
 	        	}
 			}
@@ -430,6 +442,8 @@ public class Battle extends Group{
 		        	}
 		        	else {
 						skillDisplay.setText(character.getUnderwearStatus());
+						bonusDisplay.setText("");
+						penaltyDisplay.setText("");
 						showHoverGroup();
 		        	}
 				}
@@ -457,6 +471,8 @@ public class Battle extends Group{
 		        	}
 		        	else {
 						skillDisplay.setText(enemy.getUnderwearStatus());
+						bonusDisplay.setText("");
+						penaltyDisplay.setText("");
 						showHoverGroup();
 		        	}
 				}
