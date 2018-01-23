@@ -312,7 +312,7 @@ public enum Techniques {
 		switch (this) {
 			case POWER_ATTACK: return "Powerful, confident strike downwards. Cripplingly effective when used on downed enemies.";
 			case TEMPO_ATTACK: return "Follow-up strike used to continue the momentum of an attack. Keeps the opponent on the defensive."; 
-			case SPRING_ATTACK: return "An initial aggressive strike to initiate an attack. Be wary of your footing.";
+			case SPRING_ATTACK: return "A sudden aggressive strike to initiate an attack. Be wary of your footing.";
 			case BLITZ_ATTACK: return "An agile strike that sets up an incredibly aggressive attack. Be extremely sure of your footing before committing.";
 			case ALL_OUT_BLITZ: return "Continues the assault, using momentum and well-placed footwork to seamlessly move from one strike to the next.";
 			case HOLD_BACK: return "Ends the blitz assault, dropping the user into a less aggressive, but still offensive, stance.";
