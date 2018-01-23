@@ -48,6 +48,7 @@ public class CharacterCreationScene extends Scene {
 		final Skin skin = assetManager.get(AssetEnum.UI_SKIN.getSkin());
 		final Sound buttonSound = assetManager.get(AssetEnum.BUTTON_SOUND.getSound());
 		final Sound gemSound = assetManager.get(AssetEnum.GEM_CLINK.getSound());
+		final Sound classSelectSound = assetManager.get(AssetEnum.QUICK_PAGE_TURN.getSound());
 		final Texture baubleEmpty = assetManager.get(AssetEnum.CREATION_BAUBLE_EMPTY.getTexture());
 		final Texture baubleOld = assetManager.get(AssetEnum.CREATION_BAUBLE_OLD.getTexture());
 		final Texture baubleNew = assetManager.get(AssetEnum.CREATION_BAUBLE_NEW.getTexture());
@@ -109,7 +110,7 @@ public class CharacterCreationScene extends Scene {
 						}
 						button.setChecked(true);
 						if (!story) {
-							buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
+							classSelectSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
 						}
 						helpText.setPosition(1000, 882);
 						helpText.setText("Allocate Stat Points");

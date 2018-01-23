@@ -319,6 +319,7 @@ public enum AssetEnum {
 	BUTTON_SOUND("sounds/sound.wav", Sound.class),
 	CLICK_SOUND("sounds/NodeSound.wav", Sound.class),
 	GEM_CLINK("sounds/GemClink.wav", Sound.class),
+	QUICK_PAGE_TURN("sounds/QuickPageTurn.wav", Sound.class),
 	INTRO_SOUND("sounds/IntroSound.wav", Sound.class),
 	EQUIP("sounds/Equip.wav", Sound.class),
 	LOUD_LAUGH("sounds/LoudLaugh.wav", Sound.class),
