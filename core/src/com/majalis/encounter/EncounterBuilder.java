@@ -860,6 +860,7 @@ public class EncounterBuilder {
 			requirements.add(add(alreadySeen, AssetEnum.CREATION_BAUBLE_OLD).getTexture());
 			requirements.add(add(alreadySeen, AssetEnum.CREATION_BAUBLE_REMOVED).getTexture());
 			requirements.add(add(alreadySeen, AssetEnum.CLASS_SELECT_BACKGROUND).getTexture());
+			requirements.add(add(alreadySeen, AssetEnum.GEM_CLINK).getSound());
 			return requirements;
 		}
 	}

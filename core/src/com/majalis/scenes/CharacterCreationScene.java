@@ -47,6 +47,7 @@ public class CharacterCreationScene extends Scene {
 		
 		final Skin skin = assetManager.get(AssetEnum.UI_SKIN.getSkin());
 		final Sound buttonSound = assetManager.get(AssetEnum.BUTTON_SOUND.getSound());
+		final Sound gemSound = assetManager.get(AssetEnum.GEM_CLINK.getSound());
 		final Texture baubleEmpty = assetManager.get(AssetEnum.CREATION_BAUBLE_EMPTY.getTexture());
 		final Texture baubleOld = assetManager.get(AssetEnum.CREATION_BAUBLE_OLD.getTexture());
 		final Texture baubleNew = assetManager.get(AssetEnum.CREATION_BAUBLE_NEW.getTexture());
@@ -124,7 +125,7 @@ public class CharacterCreationScene extends Scene {
 						}
 						resetStatPoints(story);
 						statMap = resetObjectMap();
-						initStatTable(statTable, assetManager, skin, buttonSound, done, character, statDescription, statMessage, baubleOld, baubleNew, baubleReady, baubleEmpty);
+						initStatTable(statTable, assetManager, skin, gemSound, done, character, statDescription, statMessage, baubleOld, baubleNew, baubleReady, baubleEmpty);
 						addActor(statTable);
 			        }
 				});
