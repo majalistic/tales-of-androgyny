@@ -142,7 +142,7 @@ public enum AssetEnum {
 	CENTAUR_ANAL_XRAY("enemies/CentaurAnalXRay.jpg"), 
 	UNICORN_ANAL_XRAY("enemies/UnicornAnalXRay.jpg"), 
 	GOBLIN_FACE_SIT("enemies/GoblinFaceSit.png"),
-	GOBLIN_FACE_SIT_MALE("enemies/GoblinFaceSit.png"),
+	GOBLIN_FACE_SIT_MALE("enemies/GoblinFaceSitMale.png"),
 	GOBLIN_ANAL("enemies/GoblinAnal.jpg"),
 	GOBLIN_ANAL_MALE("enemies/GoblinAnalMale.jpg"),
 	ORC_ZOOM_UP("enemies/OrcZoom0.png"),
