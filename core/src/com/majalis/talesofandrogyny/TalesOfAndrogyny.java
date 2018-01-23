@@ -58,7 +58,7 @@ public class TalesOfAndrogyny extends Game {
 		AssetManager assetManager = new SafeAssetManager();
 		FileHandleResolver resolver = assetManager.getFileHandleResolver();
 		assetManager.setLoader(AnimatedActorFactory.class, new AnimatedActorLoader(resolver));
-        FreeTypeFontGenerator fontGenerator = new FreeTypeFontGenerator(Gdx.files.internal("solstice.ttf"));
+        FreeTypeFontGenerator fontGenerator = new FreeTypeFontGenerator(Gdx.files.internal("ui/ArgosGeorge.ttf"));
 		RandomXS128 random = new RandomXS128();
 		PolygonSpriteBatch batch = new PolygonSpriteBatch(2500) {
             final int MAX = 2500 * 5;

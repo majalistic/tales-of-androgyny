@@ -211,7 +211,7 @@ public class CharacterCreationScene extends Scene {
 			Label statAmount = new Label(String.valueOf(amount), skin);
 			setFontColor(statAmount, amount);
 			
-			statReadout.add(statAmount).padBottom(-15).row();
+			statReadout.add(statAmount).row();
 			statReadout.add(statLabel);
 			
 			statTable.add(statReadout).padLeft(15).padBottom(bottomPad).minWidth(150).align(Align.right).row();

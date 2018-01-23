@@ -225,22 +225,22 @@ public class Battle extends Group{
 		// these should be wrapped as components that accept a character
 		characterHealth = initBar(0, 1, .05f, false, skin, 350, character.getHealthPercent(), barX , 1035);
 		healthIcon = initImage(assetManager.get(character.getHealthDisplay()), barX+3, 1042.5f);
-		healthLabel = initLabel(character.getCurrentHealth() + " / " + character.getMaxHealth(), skin, Color.BROWN, barX + 75, 1038);
+		healthLabel = initLabel(character.getCurrentHealth() + " / " + character.getMaxHealth(), skin, Color.BROWN, barX + 75, 1043);
 		
 		grappleStatus = initLabel(character.getGrappleStatus().getLabel(), skin, Color.GOLD, 800, 1000);
 		
 		characterStamina = initBar(0, 1, .05f, false, skin, 350, character.getStaminaPercent(), barX, 990);
 		staminaIcon = initImage(assetManager.get(character.getStaminaDisplay()), barX + 7.5f, 997.5f);
-		staminaLabel = initLabel(character.getCurrentStamina() + " / " + character.getMaxStamina(), skin, Color.BROWN, barX + 75, 993);
+		staminaLabel = initLabel(character.getCurrentStamina() + " / " + character.getMaxStamina(), skin, Color.BROWN, barX + 75, 998);
 
 		characterBalance = initBar(0, 1, .05f, false, skin, 350, character.getBalancePercent(), barX, 945);
 		balanceIcon = initImage(assetManager.get(character.getBalanceDisplay()), barX + 3, 952.5f);
-		balanceLabel = initLabel(character.getStability().toString(), skin, Color.BROWN, barX + 75, 948);
+		balanceLabel = initLabel(character.getStability().toString(), skin, Color.BROWN, barX + 75, 953);
 		
 		if (character.hasMagic()) {
 			characterMana = initBar(0, 1, .05f, false, skin, 350, character.getManaPercent(), barX, 900);
 			manaIcon = initImage(assetManager.get(character.getManaDisplay()), barX + 3, 912.5f);
-			manaLabel = initLabel(character.getCurrentMana() + " / " + character.getMaxMana(), skin, Color.BROWN, barX + 75, 903);
+			manaLabel = initLabel(character.getCurrentMana() + " / " + character.getMaxMana(), skin, Color.BROWN, barX + 75, 908);
 		}
 		else {
 			characterMana = null;
@@ -250,11 +250,11 @@ public class Battle extends Group{
 		
 		enemyHealth = initBar(0, 1, .05f, false, skin, 350, enemy.getHealthPercent(), enemyBarX , 1035);
 		enemyHealthIcon = initImage(assetManager.get(enemy.getHealthDisplay()), enemyBarX + 3, 1042.5f);
-		enemyHealthLabel = initLabel(enemy.getCurrentHealth() + " / " + enemy.getMaxHealth(), skin, Color.BROWN, enemyBarX + 75, 1038);
+		enemyHealthLabel = initLabel(enemy.getCurrentHealth() + " / " + enemy.getMaxHealth(), skin, Color.BROWN, enemyBarX + 75, 1043);
 		
 		enemyStamina = initBar(0, 1, .05f, false, skin, 350, enemy.getStaminaPercent(), enemyBarX, 990);
 		enemyStaminaIcon = initImage(assetManager.get(enemy.getStaminaDisplay()), enemyBarX + 7.5f, 997.5f);
-		enemyStaminaLabel = initLabel(enemy.getCurrentStamina() + " / " + enemy.getMaxStamina(), skin, Color.BROWN, enemyBarX + 75, 993);
+		enemyStaminaLabel = initLabel(enemy.getCurrentStamina() + " / " + enemy.getMaxStamina(), skin, Color.BROWN, enemyBarX + 75, 998);
 
 		if (character.getBattlePerception() < 4) {
 			enemyStamina.addAction(Actions.hide());
@@ -265,7 +265,7 @@ public class Battle extends Group{
 		
 		enemyBalance = initBar(0, 1, .05f, false, skin, 350, enemy.getBalancePercent(), enemyBarX, 945);
 		enemyBalanceIcon = initImage(assetManager.get(enemy.getBalanceDisplay()), enemyBarX + 3, 952.5f);
-		enemyBalanceLabel = initLabel(enemy.getStability().toString(), skin, Color.BROWN, enemyBarX + 75, 948);
+		enemyBalanceLabel = initLabel(enemy.getStability().toString(), skin, Color.BROWN, enemyBarX + 75, 953);
 		
 		if (character.getBattlePerception() < 3) {
 			enemyBalance.addAction(Actions.hide());
@@ -403,12 +403,12 @@ public class Battle extends Group{
 				hideHoverGroup();
 			}
 	    });		
-		armorLabel = initLabel("" + character.getArmorScore(), skin, Color.BROWN, barX + 236, 828);		
-		enemyArmorLabel = initLabel("" + enemy.getArmorScore(), skin, Color.BROWN, 1509, 828);
-		underwearLabel = initLabel("" + character.getUnderwearScore(), skin, Color.BROWN, barX + 236, 755);		
-		enemyUnderwearLabel = initLabel("" + enemy.getUnderwearScore(), skin, Color.BROWN, 1509, 755);	
-		legwearLabel = initLabel("" + character.getLegwearScore(), skin, Color.BROWN, barX + 236, 775);		
-		enemyLegwearLabel = initLabel("" + enemy.getLegwearScore(), skin, Color.BROWN, 1509, 775);
+		armorLabel = initLabel("" + character.getArmorScore(), skin, Color.BROWN, barX + 236, 833);		
+		enemyArmorLabel = initLabel("" + enemy.getArmorScore(), skin, Color.BROWN, 1509, 833);
+		underwearLabel = initLabel("" + character.getUnderwearScore(), skin, Color.BROWN, barX + 236, 760);		
+		enemyUnderwearLabel = initLabel("" + enemy.getUnderwearScore(), skin, Color.BROWN, 1509, 760);	
+		legwearLabel = initLabel("" + character.getLegwearScore(), skin, Color.BROWN, barX + 236, 780);		
+		enemyLegwearLabel = initLabel("" + enemy.getLegwearScore(), skin, Color.BROWN, 1509, 780);
 		
 		if (character.getArmorScore() > 0) {
 			armorArmor.addAction(show());

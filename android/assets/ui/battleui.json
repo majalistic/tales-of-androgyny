@@ -1,5 +1,5 @@
 {
-com.badlogic.gdx.graphics.g2d.BitmapFont: { default-font: { file: solstice.fnt } },
+com.badlogic.gdx.graphics.g2d.BitmapFont: { default-font: { file: ArgosGeorge.fnt } },
 com.badlogic.gdx.graphics.Color: {
 	white: { a: 1, b: 1, g: 1, r: 1 },
 	gray: { a: 1, b: .5, g: .5, r: .5 },

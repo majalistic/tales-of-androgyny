@@ -9,8 +9,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
 @SuppressWarnings("unchecked")
 public enum AssetEnum {
-	UI_SKIN("uiskin.json", Skin.class),
-	BATTLE_SKIN("battle/battleui.json", Skin.class),
+	UI_SKIN("ui/uiskin.json", Skin.class),
+	BATTLE_SKIN("ui/battleui.json", Skin.class),
 	
 	NULL("Null.png"),
 	SPLASH_SCREEN("Splash.png"),
