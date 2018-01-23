@@ -277,7 +277,7 @@ public abstract class AbstractCharacter extends Actor {
 
 	protected int getCharisma() { return Math.max(baseCharisma + itemBonus(Stat.CHARISMA), 0); }
 	
-	public int getLewdCharisma() { return getCharisma() + perks.get(Perk.EROTIC.toString()) * 2; }	
+	public int getLewdCharisma() { return getCharisma() + perks.get(Perk.EROTIC.toString(), 0) * 2; }	
 	
 	protected int itemBonus(Stat stat) { return firstAccessory != null && firstAccessory.equals(new Accessory(AccessoryType.STATBOOSTER, stat)) ? 1 : 0; }
 	
