@@ -892,7 +892,6 @@ public class EnemyCharacter extends AbstractCharacter {
 		}
 		
 		if (willPounce() && enemyType != EnemyEnum.OGRE) {
-			
 			if (target.stance == Stance.PRONE && enemyType.canProneBone() && enemyType.canWrestle()) {
 				possibleTechniques = getTechniques(WRESTLE_TO_GROUND);
 			}
@@ -900,12 +899,16 @@ public class EnemyCharacter extends AbstractCharacter {
 				possibleTechniques = getTechniques(POUNCE_DOGGY);
 			}
 			else if (target.stance == Stance.SUPINE) {
+				possibleTechniques = new Array<Techniques>();
 				if (enemyType.canWrestle()) {
-					possibleTechniques = getTechniques(WRESTLE_TO_GROUND_UP);
+					possibleTechniques.addAll(getTechniques(WRESTLE_TO_GROUND_UP));
 				}
-				else if (enemyType == EnemyEnum.GOBLIN || enemyType == EnemyEnum.GOBLIN_MALE || enemyType == EnemyEnum.HARPY) {
-					possibleTechniques = getTechniques(MOUNT_FACE);
+				if (enemyType == EnemyEnum.GOBLIN || enemyType == EnemyEnum.GOBLIN_MALE || enemyType == EnemyEnum.HARPY) {
+					possibleTechniques.addAll(getTechniques(MOUNT_FACE));
 				}
+				if (willFaceSit(target)) {
+					possibleTechniques.addAll(getTechniques(FACE_SIT));
+				}	
 			}
 			else if (target.stance == Stance.KNEELING && enemyType != EnemyEnum.HARPY) {
 				possibleTechniques = getTechniques(SAY_AHH);
