@@ -290,7 +290,8 @@ public class CharacterScreen extends AbstractScreen {
 	
 	private void setStatText(Stat stat, PlayerCharacter character, Label label) {
 		int amount = character.getBaseStat(stat);
-		label.setText(amount + " - " + PlayerCharacter.getStatMap().get(stat).get(amount));
+		Array<String> values = PlayerCharacter.getStatMap().get(stat);
+		label.setText(amount + " - " + (amount < values.size ? values.get(amount) : "Godlike"));
 	}
 	
 	@Override
