@@ -495,20 +495,10 @@ public class EncounterBuilder {
 						newScene = new CharacterCreationScene(sceneMap, sceneCounter, saveService, new BackgroundBuilder(assetManager.get(AssetEnum.CLASS_SELECT_BACKGROUND.getTexture())).build(), assetManager, character, storyMode);
 					}
 					else if (token instanceof SkillSelectionToken) {
-						TextureRegion temp1 = new TextureRegion(assetManager.get(AssetEnum.CAMP_BG0.getTexture()));
-						TextureRegion temp2 = new TextureRegion(assetManager.get(AssetEnum.CAMP_BG1.getTexture()));
-						TextureRegion temp3 = new TextureRegion(assetManager.get(AssetEnum.CAMP_BG2.getTexture()));
-						Array<TextureRegion> frames = new Array<TextureRegion>();
-						frames.add(temp1);
-						frames.add(temp2);
-						frames.add(temp3);
-						Animation animation = new Animation(.08f, frames);
-						animation.setPlayMode(PlayMode.LOOP_PINGPONG);
-						AnimatedImage animationActor = new AnimatedImage(animation, Scaling.fit, Align.right);
-						newScene = new SkillSelectionScene(sceneMap, sceneCounter, saveService, new BackgroundBuilder(animationActor).build(), assetManager, character);
+						newScene = new SkillSelectionScene(sceneMap, sceneCounter, saveService, getCampBackground(), assetManager, character);
 					}
 					else if (token instanceof CharacterCustomizationToken) {
-						newScene = new CharacterCustomizationScene(sceneMap, sceneCounter, saveService, font, new BackgroundBuilder(assetManager.get(AssetEnum.CHARACTER_CUSTOM_BACKGROUND.getTexture())).build(), assetManager, character);
+						newScene = new CharacterCustomizationScene(sceneMap, sceneCounter, saveService, font, getCampBackground(), assetManager, character);
 					}
 					else {
 						String scriptLine = token.text.replace("<NAME>", characterName).replace("<BUTTSIZE>", buttsize).replace("<LIPSIZE>", lipsize).replace("<DEBT>", debt);
@@ -530,6 +520,20 @@ public class EncounterBuilder {
 			this.scenes.addAll(scenes);
 			this.battleScenes.addAll(battleScenes);
 			this.endScenes.addAll(endScenes);
+		}
+		
+		private Background getCampBackground() {
+			TextureRegion temp1 = new TextureRegion(assetManager.get(AssetEnum.CAMP_BG0.getTexture()));
+			TextureRegion temp2 = new TextureRegion(assetManager.get(AssetEnum.CAMP_BG1.getTexture()));
+			TextureRegion temp3 = new TextureRegion(assetManager.get(AssetEnum.CAMP_BG2.getTexture()));
+			Array<TextureRegion> frames = new Array<TextureRegion>();
+			frames.add(temp1);
+			frames.add(temp2);
+			frames.add(temp3);
+			Animation animation = new Animation(.08f, frames);
+			animation.setPlayMode(PlayMode.LOOP_PINGPONG);
+			AnimatedImage animationActor = new AnimatedImage(animation, Scaling.fit, Align.right);
+			return new BackgroundBuilder(animationActor).build();
 		}
 		
 		private BackgroundBuilder getDefaultBackground() {
@@ -864,7 +868,10 @@ public class EncounterBuilder {
 		@Override
 		protected Array<AssetDescriptor<?>> getRequirements(ObjectSet<AssetEnum> alreadySeen) {
 			Array<AssetDescriptor<?>> requirements = super.getRequirements(alreadySeen);
-			requirements.add(add(alreadySeen, AssetEnum.CHARACTER_CUSTOM_BACKGROUND).getTexture());
+			requirements.add(add(alreadySeen, AssetEnum.CAMP_BG0).getTexture());
+			requirements.add(add(alreadySeen, AssetEnum.CAMP_BG1).getTexture());
+			requirements.add(add(alreadySeen, AssetEnum.CAMP_BG2).getTexture());
+			requirements.add(add(alreadySeen, AssetEnum.SKILL_CONSOLE_BOX).getTexture());
 			return requirements;
 		}
 	}
@@ -877,7 +884,6 @@ public class EncounterBuilder {
 			requirements.add(add(alreadySeen, AssetEnum.SKILL_BOX_1).getTexture());
 			requirements.add(add(alreadySeen, AssetEnum.SKILL_BOX_2).getTexture());
 			requirements.add(add(alreadySeen, AssetEnum.BATTLE_HOVER).getTexture());
-			requirements.add(add(alreadySeen, AssetEnum.DEFAULT_BACKGROUND).getTexture());
 			requirements.add(add(alreadySeen, AssetEnum.CAMP_BG0).getTexture());
 			requirements.add(add(alreadySeen, AssetEnum.CAMP_BG1).getTexture());
 			requirements.add(add(alreadySeen, AssetEnum.CAMP_BG2).getTexture());
@@ -894,7 +900,6 @@ public class EncounterBuilder {
 			requirements.add(add(alreadySeen, AssetEnum.FILLED_BAUBLE).getTexture());
 			requirements.add(add(alreadySeen, AssetEnum.ADDED_BAUBLE).getTexture());
 			requirements.add(add(alreadySeen, AssetEnum.STANCE_ARROW).getTexture());
-			
 			requirements.add(add(alreadySeen, AssetEnum.SKILL_CONSOLE_BOX).getTexture());
 			for (Stance stance : Stance.values()) {
 				requirements.add(stance.getTexture());
