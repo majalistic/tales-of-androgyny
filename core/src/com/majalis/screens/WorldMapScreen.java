@@ -43,6 +43,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
@@ -125,6 +126,7 @@ public class WorldMapScreen extends AbstractScreen {
 		
 		// need to refactor to get all stance textures
 		AssetEnum[] assets = new AssetEnum[]{
+			EMBELLISHED_BUTTON_UP, EMBELLISHED_BUTTON_DOWN, EMBELLISHED_BUTTON_HIGHLIGHT,
 			GROUND_SHEET, DOODADS, WORLD_MAP_BG, CHARACTER_ANIMATION, MOUNTAIN_ACTIVE, FOREST_ACTIVE, FOREST_INACTIVE, CASTLE, TOWN, COTTAGE, APPLE, MEAT, CLOUD, ROAD, WORLD_MAP_UI, WORLD_MAP_HOVER, ARROW, CHARACTER_SCREEN, EXP, GOLD, TIME, HEART, SEARCHING, NULL
 		};
 		for (AssetEnum asset: assets) {
@@ -183,7 +185,7 @@ public class WorldMapScreen extends AbstractScreen {
 		hoverImage = new Image(hoverImageTexture);
 		
 		skin = assetManager.get(AssetEnum.UI_SKIN.getSkin());
-		campButton = new TextButton("", skin);
+		campButton = getButton(""); 
 		
 		levelLabel = new Label("", skin);		
 		// these should be updated with emitters
@@ -257,6 +259,17 @@ public class WorldMapScreen extends AbstractScreen {
 		multi.addProcessor(dragStage);
 	}
 	
+	private TextButton getButton(String label) {
+		TextButtonStyle buttonStyle = new TextButtonStyle();
+		buttonStyle.up = new TextureRegionDrawable(new TextureRegion(assetManager.get(AssetEnum.EMBELLISHED_BUTTON_UP.getTexture())));
+		buttonStyle.down = new TextureRegionDrawable(new TextureRegion(assetManager.get(AssetEnum.EMBELLISHED_BUTTON_DOWN.getTexture())));
+		buttonStyle.over = new TextureRegionDrawable(new TextureRegion(assetManager.get(AssetEnum.EMBELLISHED_BUTTON_HIGHLIGHT.getTexture())));	
+		buttonStyle.font = skin.getFont("default-font");
+		buttonStyle.fontColor = Color.BLACK;
+		TextButton button = new TextButton(label, buttonStyle);
+		return button;
+	}
+	
 	private void mutateLabels() {
 		levelLabel.setText("Level: " + character.getLevel());
 		healthLabel.setText(String.valueOf(character.getCurrentHealth()));
@@ -309,7 +322,7 @@ public class WorldMapScreen extends AbstractScreen {
 		uiStage.addActor(characterUI);
 		characterUI.setScale(1.1f);
 		
-		TextButton characterButton = new TextButton(storedLevels > 0 ? "Level Up!" : "Character", skin);
+		TextButton characterButton = getButton(storedLevels > 0 ? "Level Up!" : "Character");
 		
 		if (storedLevels > 0) {
 			TextButtonStyle style = new TextButtonStyle(characterButton.getStyle());
@@ -338,7 +351,7 @@ public class WorldMapScreen extends AbstractScreen {
 			}
 		);
 		
-		TextButton inventoryButton = new TextButton("Inventory", skin);
+		TextButton inventoryButton = getButton("Inventory");
 		
 		inventoryButton.setBounds(185, 45, 185, 40);
 		inventoryButton.addListener(
@@ -364,7 +377,7 @@ public class WorldMapScreen extends AbstractScreen {
 		console.setWidth(600);
 		console.setColor(Color.CHARTREUSE);
 		
-		final TextButton rest = new TextButton("Rest", skin);
+		final TextButton rest = getButton("Rest");
 		
 		checkCanEat(rest);
 	
@@ -396,7 +409,7 @@ public class WorldMapScreen extends AbstractScreen {
 		uiStage.addActor(scoutLevel);
 		scoutLevel.setPosition(450, 25);
 		
-		final TextButton scout = new TextButton("Scout", skin);
+		final TextButton scout = getButton("Scout");
 		
 		table.add(scout).size(145, 40).row();;
 
@@ -438,7 +451,7 @@ public class WorldMapScreen extends AbstractScreen {
 			}
 		);
 		
-		TextButton questButton = new TextButton("Quest Log", skin);
+		TextButton questButton = getButton("Quest Log");
 		actionTable.add(questButton).size(200, 50).row();;
 		questButton.addListener(
 			new ClickListener() {
@@ -450,7 +463,7 @@ public class WorldMapScreen extends AbstractScreen {
 			}
 		);	
 		
-		TextButton saveButton = new TextButton("QuickSave", skin);
+		TextButton saveButton = getButton("QuickSave");
 		actionTable.add(saveButton).size(200, 50);
 		saveButton.addListener(
 			new ClickListener() {
@@ -465,7 +478,7 @@ public class WorldMapScreen extends AbstractScreen {
 			}
 		);	
 		
-		final TextButton quickLoadButton = new TextButton ("QuickLoad", skin);
+		final TextButton quickLoadButton = getButton("QuickLoad");
 		actionTable.add(quickLoadButton).size(200, 50);
 		quickLoadButton.addListener(new ClickListener() {
 			@Override
@@ -477,7 +490,7 @@ public class WorldMapScreen extends AbstractScreen {
 		});
 		
 		
-		TextButton hardSaveButton = new TextButton("Save", skin);
+		TextButton hardSaveButton = getButton("Save");
 		actionTable.add(hardSaveButton).size(200, 50).row();
 		hardSaveButton.addListener(
 			new ClickListener() {

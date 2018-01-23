@@ -72,6 +72,18 @@ public enum AssetEnum {
 	CREATION_BAUBLE_OLD("creation/GreenBauble.png"),
 	CREATION_BAUBLE_REMOVED("creation/RemovedBauble.png"),
 	
+	BUTTON_UP("buttons/basic.png"),
+	BUTTON_DOWN("buttons/basicd.png"),
+	BUTTON_HIGHLIGHT("buttons/basich.png"),
+	
+	EMBELLISHED_BUTTON_UP("buttons/embellished.png"),
+	EMBELLISHED_BUTTON_DOWN("buttons/embellishedd.png"),
+	EMBELLISHED_BUTTON_HIGHLIGHT("buttons/embellishedh.png"),
+	
+	ORNATE_BUTTON_UP("buttons/ornate.png"),
+	ORNATE_BUTTON_DOWN("buttons/ornated.png"),
+	ORNATE_BUTTON_HIGHLIGHT("buttons/ornateh.png"),
+	
 	PLUS("backgrounds/SkillSelect/Plus.png"),
 	PLUS_DOWN("backgrounds/SkillSelect/PlusDown.png"),
 	PLUS_HIGHLIGHT("backgrounds/SkillSelect/PlusHighlight.png"),
