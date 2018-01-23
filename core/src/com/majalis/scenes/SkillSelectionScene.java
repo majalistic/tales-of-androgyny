@@ -202,7 +202,7 @@ public class SkillSelectionScene extends Scene {
 		this.addActor(stanceTransition);
 		
 		skillDisplayTable = new Table();
-		skillDisplayTable.setPosition(consoleX,  consoleY - 55);
+		skillDisplayTable.setPosition(consoleX,  consoleY - 65);
 		skillDisplay = new Label("", skin);
 		skillDisplay.setWrap(true);
 		skillDisplay.setColor(Color.BLACK);
