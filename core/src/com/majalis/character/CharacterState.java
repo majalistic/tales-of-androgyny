@@ -68,4 +68,6 @@ public class CharacterState {
 	protected AbstractCharacter getCharacter() { return user; }
 
 	protected boolean isCorporeal() { return isCorporeal; }
+
+	protected int getLewdCharisma() { return user.getLewdCharisma(); }
 }

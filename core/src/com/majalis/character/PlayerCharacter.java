@@ -960,10 +960,6 @@ public class PlayerCharacter extends AbstractCharacter {
 		return level;
 	}
 	
-	public int getLewdCharisma() {
-		return getCharisma() + (perks.get(Perk.EROTIC.toString(), 0) > 0 ? perks.get(Perk.EROTIC.toString()) * 2 : 0);
-	}	
-	
 	public boolean isLewd() {
 		return perks.get(Perk.CATAMITE.toString(), 0) > 0 || perks.get(Perk.ANAL_ADDICT.toString(), 0) > 2 || perks.get(Perk.COCK_LOVER.toString(), 0) > 7 || arousal.getLust() >= 75;
 	}

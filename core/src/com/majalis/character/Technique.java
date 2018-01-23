@@ -305,7 +305,7 @@ public class Technique {
 		private TechniquePayload(TechniquePrototype technique, CharacterState currentState, int skillLevel, Array<Bonus> toApply) {
 			this.technique = technique;
 			this.bonuses = toApply;
-			this.basePower = technique.isSpell() ? (technique.getSelfEffect() != null ? currentState.getRawStat(Stat.MAGIC) : currentState.getStat(Stat.MAGIC)) : technique.getSex().isTeasing() ? currentState.getRawStat(Stat.CHARISMA) : 
+			this.basePower = technique.isSpell() ? (technique.getSelfEffect() != null ? currentState.getRawStat(Stat.MAGIC) : currentState.getStat(Stat.MAGIC)) : technique.getSex().isTeasing() ? currentState.getLewdCharisma() : 
 				// should check if technique can use weapon, and the weapon base damage should come from currentState.getWeaponDamage() rather than exposing these weapons
 				currentState.getStat(Stat.STRENGTH) + (currentState.getWeapon() != null ? currentState.getWeapon().getDamage(currentState.getStats()) : 0);	
 			int powerCalc = technique.getPowerMod();
