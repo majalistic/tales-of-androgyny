@@ -88,10 +88,11 @@ public class CharacterCustomizationScene extends Scene {
 		this.addActor(consoleTable);	
 		
 		final Table table = new Table();
-		table.setPosition(375, 800);
+		table.align(Align.topLeft);
+		table.setPosition(100, 1000);
 		addActor(table);
 		
-		table.add(addLabel("Name:", skin, Color.GOLD, 0, 0)).row();;
+		table.add(addLabel("Name:", skin, Color.GOLD, 0, 0)).row();
 		final TextField nameField = new TextField("Hiro", skin);
 		table.add(nameField).row();
 		this.addListener(new InputListener() {
@@ -109,7 +110,7 @@ public class CharacterCustomizationScene extends Scene {
 		final Label buttSizeLabel = new Label("Bubble", skin);
 		buttSizeLabel.setColor(Color.SALMON);
 		for (final PlayerCharacter.Bootyliciousness buttSize : PlayerCharacter.Bootyliciousness.values()) {
-			final TextButton button = new TextButton(buttSize.toString(), skin);
+			final TextButton button = getButton(buttSize.toString());
 			button.addListener(new ClickListener() {
 				@Override
 		        public void clicked(InputEvent event, float x, float y) {
@@ -128,7 +129,7 @@ public class CharacterCustomizationScene extends Scene {
 					description.setText("");
 				}
 			});
-			table.add(button).size(180, 40);
+			table.add(button).size(180, 60);
 		}
 		table.add().row();
 		table.add().width(180);
@@ -138,7 +139,7 @@ public class CharacterCustomizationScene extends Scene {
 		final Label lipSizeLabel = new Label("Thin", skin);
 		lipSizeLabel.setColor(Color.SALMON);		
 		for (final PlayerCharacter.LipFullness lipFullness : PlayerCharacter.LipFullness.values()) {
-			final TextButton button = new TextButton(lipFullness.toString(), skin);
+			final TextButton button = getButton(lipFullness.toString());
 			button.addListener(new ClickListener() {
 				@Override
 		        public void clicked(InputEvent event, float x, float y) {
@@ -157,7 +158,7 @@ public class CharacterCustomizationScene extends Scene {
 					description.setText("");
 				}
 			});
-			table.add(button).size(180, 40);
+			table.add(button).size(180, 60);
 		}
 		table.add().row();
 		table.add().width(180);
@@ -167,7 +168,7 @@ public class CharacterCustomizationScene extends Scene {
 		final Label penisSizeLabel = new Label("Small", skin);
 		penisSizeLabel.setColor(Color.SALMON);		
 		for (final AbstractCharacter.PhallusType penisType : new PhallusType[]{PhallusType.CUTE, PhallusType.TINY, PhallusType.SMALL}) {
-			final TextButton button = new TextButton(penisType.getLabel(), skin);
+			final TextButton button = getButton(penisType.getLabel());
 			button.addListener(new ClickListener() {
 				@Override
 		        public void clicked(InputEvent event, float x, float y) {
@@ -186,7 +187,7 @@ public class CharacterCustomizationScene extends Scene {
 					description.setText("");
 				}
 			});
-			table.add(button).size(180, 40);
+			table.add(button).size(180, 60);
 		}
 		table.add().row();
 		table.add().width(180);
@@ -211,6 +212,17 @@ public class CharacterCustomizationScene extends Scene {
 		navigationButtons.add().size(50);
 		navigationButtons.add(done).width(200);
 		this.addActor(navigationButtons);
+	}
+	
+	private TextButton getButton(String label) {
+		TextButtonStyle buttonStyle = new TextButtonStyle();
+		buttonStyle.up = new TextureRegionDrawable(new TextureRegion(assetManager.get(AssetEnum.EMBELLISHED_BUTTON_UP.getTexture())));
+		buttonStyle.down = new TextureRegionDrawable(new TextureRegion(assetManager.get(AssetEnum.EMBELLISHED_BUTTON_DOWN.getTexture())));
+		buttonStyle.over = new TextureRegionDrawable(new TextureRegion(assetManager.get(AssetEnum.EMBELLISHED_BUTTON_HIGHLIGHT.getTexture())));	
+		buttonStyle.font = skin.getFont("default-font");
+		buttonStyle.fontColor = Color.BLACK;
+		TextButton button = new TextButton(label, buttonStyle);
+		return button;
 	}
 	
 	private void nextScene() {

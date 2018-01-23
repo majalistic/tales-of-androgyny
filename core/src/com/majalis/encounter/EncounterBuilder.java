@@ -872,6 +872,9 @@ public class EncounterBuilder {
 			requirements.add(add(alreadySeen, AssetEnum.CAMP_BG1).getTexture());
 			requirements.add(add(alreadySeen, AssetEnum.CAMP_BG2).getTexture());
 			requirements.add(add(alreadySeen, AssetEnum.SKILL_CONSOLE_BOX).getTexture());
+			requirements.add(add(alreadySeen, AssetEnum.EMBELLISHED_BUTTON_UP).getTexture());
+			requirements.add(add(alreadySeen, AssetEnum.EMBELLISHED_BUTTON_DOWN).getTexture());
+			requirements.add(add(alreadySeen, AssetEnum.EMBELLISHED_BUTTON_HIGHLIGHT).getTexture());
 			return requirements;
 		}
 	}
