@@ -1176,6 +1176,12 @@ public abstract class AbstractCharacter extends Actor {
 		this.cage = alreadyEquipped ? null : equipCage;
 		return "You " + (alreadyEquipped ? "unequipped" : "equipped") + " the " + cage.getName() + ".";
 	}
+	
+	public String getPhallusLabel() {
+		return phallus.getLabel();
+	}
+	
+	
 	public enum PhallusType {
 		CUTE(AssetEnum.SMALL_DONG_0, AssetEnum.SMALL_DONG_1, AssetEnum.SMALL_DONG_2, AssetEnum.SMALL_DONG_CHASTITY),
 		TINY(AssetEnum.SMALL_DONG_0, AssetEnum.SMALL_DONG_1, AssetEnum.SMALL_DONG_2, AssetEnum.SMALL_DONG_CHASTITY),

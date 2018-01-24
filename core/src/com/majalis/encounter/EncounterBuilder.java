@@ -401,6 +401,7 @@ public class EncounterBuilder {
 			String characterName = character.getCharacterName();
 			String buttsize = character.getBootyLiciousness();
 			String lipsize = character.getLipFullness();
+			String cockSize = character.getPhallusLabel().toLowerCase();
 			String debt = character.getCurrentDebt() > 0 ? "You currently owe " + character.getCurrentDebt() + " gold." : "";
 			
 			Array<Background> backgrounds = new Array<Background>();
@@ -485,7 +486,7 @@ public class EncounterBuilder {
 						newScene = new CharacterCustomizationScene(sceneMap, sceneCounter, saveService, font, getCampBackground(), assetManager, character);
 					}
 					else {
-						String scriptLine = token.text.replace("<NAME>", characterName).replace("<BUTTSIZE>", buttsize).replace("<LIPSIZE>", lipsize).replace("<DEBT>", debt);
+						String scriptLine = token.text.replace("<NAME>", characterName).replace("<BUTTSIZE>", buttsize).replace("<LIPSIZE>", lipsize).replace("<DEBT>", debt).replace("<COCKSIZE>", cockSize);
 						// create the scene
 						newScene = new TextScene(sceneMap, sceneCounter, assetManager, font, saveService, backgrounds.get(ii++), scriptLine, getMutations(token.mutations), character, new LogDisplay(sceneCodes, masterSceneMap, skin), token.music != null ? token.music : null, token.sound != null ? token.sound.getSound() : null);		
 					}
