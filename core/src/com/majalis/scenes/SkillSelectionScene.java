@@ -36,7 +36,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 public class SkillSelectionScene extends Scene {
 
-	private static int tableHeight = 900;
+	private static int tableHeight = 690;
 	
 	private final SaveService saveService;
 	private final Skin skin;
@@ -230,7 +230,7 @@ public class SkillSelectionScene extends Scene {
 		for(Stance stance : Stance.values()) {
 			if (!stance.hasLearnableSkills() || !character.hasStance(stance)) continue;
 			StanceSkillDisplay newStanceSkillDisplay = new StanceSkillDisplay(stance, false, assetManager);
-			newStanceSkillDisplay.setPosition(495, tableHeight - 210);
+			newStanceSkillDisplay.setPosition(495, tableHeight);
 			newStanceSkillDisplay.addAction(Actions.hide());
 			skillGroup.addActor(newStanceSkillDisplay);
 			allDisplay.add(newStanceSkillDisplay);
@@ -243,12 +243,13 @@ public class SkillSelectionScene extends Scene {
 			}
 		}
 		
+		int pageSplit = 1;
 		allDisplay.get(0).addAction(Actions.show());
-		for (int ii = 0; ii < 2; ii++) {
+		for (int ii = 0; ii < pageSplit; ii++) {
 			final Table perkTable = new Table();
 			int jj = 0;
 			for (final Perk perk: learnablePerks) {
-				if (!(jj >= ii * learnablePerks.size / 2 && jj < (ii + 1) * learnablePerks.size / 2)) { jj++; continue; }
+				if (!(jj >= ii * learnablePerks.size / pageSplit && jj < (ii + 1) * learnablePerks.size / pageSplit)) { jj++; continue; }
 				final Integer level = perks.get(perk, 0);
 				final Label label = new Label(perk.getLabel(), skin);
 				label.setColor(Color.WHITE);
@@ -362,7 +363,7 @@ public class SkillSelectionScene extends Scene {
 				perkTable.add(plusButton).row();
 				jj++;
 			}
-			perkTable.setPosition(530, tableHeight - 215);
+			perkTable.setPosition(495, tableHeight);
 			perkTable.align(Align.top);
 			perkTable.addAction(Actions.hide());
 			perkDisplay.add(perkTable);
@@ -372,7 +373,7 @@ public class SkillSelectionScene extends Scene {
 		
 		if (character.hasMagic()) {
 			StanceSkillDisplay newStanceSkillDisplay = new StanceSkillDisplay(Stance.CASTING, true, assetManager);
-			newStanceSkillDisplay.setPosition(495, tableHeight - 210);
+			newStanceSkillDisplay.setPosition(495, tableHeight);
 			magicGroup.addActor(newStanceSkillDisplay);
 		}
 		
