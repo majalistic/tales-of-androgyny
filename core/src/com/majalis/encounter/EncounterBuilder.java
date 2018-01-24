@@ -133,20 +133,20 @@ public class EncounterBuilder {
 	}
 	
 	public class Branch {
-		Array<SceneToken> sceneTokens;
-		OrderedMap<Object, Branch> branchOptions;
-		Object key;
-		BranchToken branchToken;
-		BattleCode battleCode;
-		Stance playerStance;
-		Stance enemyStance;
-		boolean disarm;
-		int climaxCounter;
-		ChoiceCheckToken require;
-		int concatCounter;
+		private Array<SceneToken> sceneTokens;
+		private OrderedMap<Object, Branch> branchOptions;
+		private Object key;
+		private BranchToken branchToken;
+		private BattleCode battleCode;
+		private Stance playerStance;
+		private Stance enemyStance;
+		private boolean disarm;
+		private int climaxCounter;
+		private ChoiceCheckToken require;
+		private int concatCounter;
 		
-		boolean preprocessed;
-		Array<Scene> scenes;
+		private boolean preprocessed;
+		private Array<Scene> scenes;
 		
 		public Branch (Object key) {
 			init();
@@ -269,7 +269,6 @@ public class EncounterBuilder {
 		}
 		
 		public Branch gameEnd() { return gameEnd(GameOver.DEFAULT); }
-		
 		public Branch gameEnd(GameOver gameOver) {
 			branchToken = new EndSceneToken(EndTokenType.EndGame, gameOver);	
 			return this;
@@ -892,13 +891,12 @@ public class EncounterBuilder {
 		}	
 	}
 	
-	private static void add(Array<AssetDescriptor<?>> requirements, ObjectSet<AssetEnum> alreadySeen, AssetEnum asset) {
-		add(requirements, alreadySeen, asset, false);
-	}
-	
+	private static void add(Array<AssetDescriptor<?>> requirements, ObjectSet<AssetEnum> alreadySeen, AssetEnum asset) { add(requirements, alreadySeen, asset, false); }	
 	private static void add(Array<AssetDescriptor<?>> requirements, ObjectSet<AssetEnum> alreadySeen, AssetEnum asset, boolean sound) {
-		if (!alreadySeen.contains(asset)) requirements.add(!sound ? asset.getTexture() : asset.getSound());
-		alreadySeen.add(asset);
+		if (!alreadySeen.contains(asset)) {
+			requirements.add(!sound ? asset.getTexture() : asset.getSound());
+			alreadySeen.add(asset);
+		}		
 	}
 	
 	public static class MutateToken {
