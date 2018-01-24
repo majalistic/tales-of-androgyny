@@ -92,6 +92,8 @@ public abstract class Scene extends Group {
 	public String getText() { return ""; }
 
 	public boolean showSave() { return false; }
-	
+	public boolean isBattle() { return false; }
+	public boolean encounterOver() { return false; }
+	public boolean gameOver() { return false; }
 	public void poke() {}
 }

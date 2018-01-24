@@ -147,8 +147,6 @@ public class EncounterBuilder {
 		
 		boolean preprocessed;
 		Array<Scene> scenes;
-		Array<BattleScene> battleScenes;
-		Array<EndScene> endScenes;
 		
 		public Branch (Object key) {
 			init();
@@ -296,9 +294,7 @@ public class EncounterBuilder {
 			}
 		}
 		
-		private Scene weld(Array<Scene> scenes, Array<BattleScene> battleScenes, Array<EndScene> endScenes, OrderedMap.Entry<Object, Branch> next, OrderedMap<Integer, Scene> sceneMap) {
-			battleScenes.addAll(next.value.getBattleScenes());
-			endScenes.addAll(next.value.getEndScenes());
+		private Scene weld(Array<Scene> scenes, OrderedMap.Entry<Object, Branch> next, OrderedMap<Integer, Scene> sceneMap) {
 			Array<Scene> nextScenes = next.value.getScenes();
 			scenes.addAll(nextScenes);
 			Scene nextScene = nextScenes.first();
@@ -321,15 +317,11 @@ public class EncounterBuilder {
 			preprocess();
 			// set fields
 			scenes = new Array<Scene>();
-			battleScenes = new Array<BattleScene>();
-			endScenes = new Array<EndScene>();
 					
 			Skin skin = assetManager.get(AssetEnum.UI_SKIN.getSkin());
 			
 			// set shadows
 		    Array<Scene> scenes = new Array<Scene>();
-		    Array<BattleScene> battleScenes = new Array<BattleScene>();
-		    Array<EndScene> endScenes = new Array<EndScene>();
 			OrderedMap<Integer, Scene> sceneMap = new OrderedMap<Integer, Scene>();
 			
 			boolean reverse = false;
@@ -342,20 +334,17 @@ public class EncounterBuilder {
 						// for each branch get the scenes, the first entry in that list is what this branchToken scene should be tied to
 						ObjectMap<String, Integer> outcomeToScene = new ObjectMap<String, Integer>();
 						for (OrderedMap.Entry<Object, Branch> next : branchOptions) {
-							Scene nextScene = weld(scenes, battleScenes, endScenes, next, sceneMap);
+							Scene nextScene = weld(scenes, next, sceneMap);
 							outcomeToScene.put(((Outcome) next.key).toString(), nextScene.getCode());
 						}
-						
-						BattleScene newBattleScene = new BattleScene(sceneMap, saveService, battleCode, playerStance, enemyStance, disarm, climaxCounter, outcomeToScene);
-						battleScenes.add(newBattleScene);
-						sceneMap = addScene(scenes, newBattleScene, false);						
+						sceneMap = addScene(scenes, new BattleScene(sceneMap, saveService, battleCode, playerStance, enemyStance, disarm, climaxCounter, outcomeToScene), false);						
 						break;
 					case Check:
 						CheckSceneToken checkBranchToken = ((CheckSceneToken)branchToken);
 						if (checkBranchToken.getStat() != null || checkBranchToken.getPerk() != null) {
 							OrderedMap<Integer, Scene> checkValueMap = new OrderedMap<Integer, Scene>();
 							for (OrderedMap.Entry<Object, Branch> next : branchOptions) {
-								Scene nextScene = weld(scenes, battleScenes, endScenes, next, sceneMap);
+								Scene nextScene = weld(scenes, next, sceneMap);
 								checkValueMap.put(((Integer) next.key), nextScene);
 							}
 							if (checkBranchToken.getStat() != null) {
@@ -368,7 +357,7 @@ public class EncounterBuilder {
 						else {
 							OrderedMap<Boolean, Scene> checkValueMap = new OrderedMap<Boolean, Scene>();
 							for (OrderedMap.Entry<Object, Branch> next : branchOptions) {
-								Scene nextScene = weld(scenes, battleScenes, endScenes, next, sceneMap);
+								Scene nextScene = weld(scenes, next, sceneMap);
 								checkValueMap.put(((Boolean) next.key), nextScene);
 							}
 							sceneMap = addScene(scenes, new CheckScene(sceneMap, sceneCounter, assetManager, saveService, font, getDefaultBackground().build(), checkBranchToken.getCheckType(), checkValueMap.get(true), checkValueMap.get(false), character), true);						
@@ -378,7 +367,7 @@ public class EncounterBuilder {
 					case Gametype:
 						Sound buttonSound = assetManager.get(AssetEnum.BUTTON_SOUND.getSound());
 						for (OrderedMap.Entry<Object, Branch> next : branchOptions) {
-							weld(scenes, battleScenes, endScenes, next, sceneMap);
+							weld(scenes, next, sceneMap);
 						}
 						Array<BranchChoice> choices = new Array<BranchChoice>();
 						for (OrderedMap.Entry<Object, Branch> next : branchOptions) {
@@ -395,23 +384,19 @@ public class EncounterBuilder {
 						EndScene newEndScene = branchToken.type == EndTokenType.EndEncounter ? 
 							new EndScene(sceneCounter, EndScene.Type.ENCOUNTER_OVER, saveService, assetManager, getEndBackground(), new LogDisplay(sceneCodes, masterSceneMap, skin), results) :
 							new EndScene(sceneCounter, EndScene.Type.GAME_OVER, saveService, assetManager, getEndBackground(), new LogDisplay(sceneCodes, masterSceneMap, skin), results, ((EndSceneToken)branchToken).getGameOver());
-						endScenes.add(newEndScene);
 						sceneMap = addScene(scenes, newEndScene, true);		
 						break;
 				}
 			}
 			else {
 				for (OrderedMap.Entry<Object, Branch> next : branchOptions) {
-					weld(scenes, battleScenes, endScenes, next, sceneMap);
+					weld(scenes, next, sceneMap);
 				}
 			}
 			
 			// catch if there's an unplugged branch without an end scene
 			if (sceneMap.size == 0) {
-				EndScene newEndScene;
-				newEndScene = new EndScene(sceneCounter, EndScene.Type.ENCOUNTER_OVER, saveService, assetManager, getEndBackground(), new LogDisplay(sceneCodes, masterSceneMap, skin), results);
-				endScenes.add(newEndScene);
-				sceneMap = addScene(scenes, newEndScene, true);		
+				sceneMap = addScene(scenes, new EndScene(sceneCounter, EndScene.Type.ENCOUNTER_OVER, saveService, assetManager, getEndBackground(), new LogDisplay(sceneCodes, masterSceneMap, skin), results), true);		
 			}
 			
 			String characterName = character.getCharacterName();
@@ -518,8 +503,6 @@ public class EncounterBuilder {
 			
 			if (reverse) scenes.reverse();
 			this.scenes.addAll(scenes);
-			this.battleScenes.addAll(battleScenes);
-			this.endScenes.addAll(endScenes);
 		}
 		
 		private Background getCampBackground() {
@@ -555,16 +538,6 @@ public class EncounterBuilder {
 			return scenes;
 		}
 		
-		public Array<BattleScene> getBattleScenes() {
-			upsertScenes();
-			return battleScenes;
-		}
-		
-		public Array<EndScene> getEndScenes() {
-			upsertScenes();
-			return endScenes;
-		}
-		
 		public Scene getStartScene() {
 			// returns the first scene or the current scene based on sceneCode
 			upsertScenes();
@@ -577,7 +550,7 @@ public class EncounterBuilder {
 		
 		public Encounter getEncounter() {
 			// this should accept some kind of object that has assetmanager and whatever else to actually build the scenes			
-			return new Encounter(getScenes(), getEndScenes(), getBattleScenes(), getStartScene());
+			return new Encounter(getScenes(), getStartScene());
 		}
 
 		private Array<SceneToken> getAllSceneTokens() {

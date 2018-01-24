@@ -32,11 +32,13 @@ public class BattleScene extends Scene {
 		this.climaxCounter = climaxCounter;
 	}
 	
-	
 	@Override
 	public void setActive() {
 		isActive = true;
 		saveService.saveDataValue(SaveEnum.BATTLE_CODE, new BattleAttributes(battleCode, outcomes, playerStance, enemyStance, disarm, climaxCounter));
 		saveService.saveDataValue(SaveEnum.CONTEXT, SaveManager.GameContext.BATTLE);
 	}
+	
+	@Override
+	public boolean isBattle() { return true; }
 }

@@ -118,11 +118,11 @@ public class EndScene extends Scene {
 	
 	@Override
 	public void setActive() {
+		isActive = true;
 		if (results.size == 0 || type == Type.GAME_OVER) {
 			finish();
 			return;
 		}
-		isActive = true;
 		saveService.saveDataValue(SaveEnum.SCENE_CODE, sceneCode);
 		this.removeAction(Actions.hide());
 		this.addAction(Actions.visible(true));
@@ -159,9 +159,11 @@ public class EndScene extends Scene {
 		});
 	}
 	
-	public boolean isFinished() {
-		return finished;
-	}
+	@Override
+	public boolean gameOver() { return finished && type == Type.GAME_OVER; }
+	
+	@Override
+	public boolean encounterOver() { return finished && type == Type.ENCOUNTER_OVER; }
 	
 	private void finish() {
 		if (type == Type.GAME_OVER) {
