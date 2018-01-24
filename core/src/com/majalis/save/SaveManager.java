@@ -425,6 +425,17 @@ public class SaveManager implements SaveService, LoadService {
 				default: return  AssetEnum.NULL.getTexture();
 			}
 		}
+		public String getDescription() {
+			switch(this) {
+				case ENCHANTRESS: return "An enchantress knows the ways of magic and the blade, but their charms are unrivaled.";
+				case MAGE: return "A mage is cursed with the burden and boon of sorcery; feared and reviled, their strange powers are unparalleled by any.";
+				case PALADIN: return "A paladin is a sacred knight who takes a vow of chastity, and has an indomitable body and spirit.";
+				case RANGER: return "A ranger is a hunter and outdoorsman, with a keen sense of their situation and their surroundings, and a sharp eye for detail.";
+				case THIEF: return "A thief is a skilled individual, tending to avoid direct confrontation, even in a fight.  They specialize in trickery and feats of agility.";
+				case WARRIOR: return "A warrior is a combat specialist with a focus on gracefully overpowering their opponents.";
+				default: return "???";
+			}
+		}
 	}
 	
 	public enum GameContext {

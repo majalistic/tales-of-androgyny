@@ -134,6 +134,19 @@ public class CharacterCreationScene extends Scene {
 						initStatTable(statTable, assetManager, skin, gemSound, done, character, statDescription, statMessage, baubleOld, baubleNew, baubleReady, baubleEmpty);
 						addActor(statTable);
 			        }
+					
+					@Override
+			        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
+						statDescription.setText(jobClass.getDescription());
+						statDescription.addAction(Actions.show());
+						statMessage.addAction(Actions.hide());
+					}
+					@Override
+			        public void exit(InputEvent event, float x, float y, int pointer, Actor fromActor) {
+						statDescription.setText("");
+						statDescription.addAction(Actions.hide());
+						statMessage.addAction(Actions.show());
+					}
 				});
 			}
 			table.add(button).size(350, 105).row();
