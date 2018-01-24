@@ -153,7 +153,7 @@ public class Technique {
 			? GrappleStatus.NULL :
 			thisPayload.getGrappleAmount() == otherPayload.getGrappleAmount() ? otherPayload.getCurrentGrappleStatus() :
 			thisPayload.getGrappleAmount() > otherPayload.getGrappleAmount() ? thisPayload.getResultingGrappleStatus().inverse() : otherPayload.getResultingGrappleStatus();
-			
+
 		Array<Attack> resultingAttacks = new Array<Attack>(new Attack[]{new Attack(
 			evaded ? Status.EVADED : otherTechnique.isBlockable() && thisPayload.getParry() > 0 ? Status.PARRY : fizzle ? Status.FIZZLE : isSuccessful ? (blockMod < 1 ? (otherPayload.getBlock() > 0 ? Status.BLOCKED : Status.PARRIED) : Status.SUCCESS) : failure ? Status.FAILURE : Status.MISSED, 
 			technique.getName(), 
@@ -177,7 +177,7 @@ public class Technique {
 			new Buff(technique.getEnemyEffect(), thisPayload.getTotalPower()),
 			technique.isDamaging() && !technique.doesSetDamage(), // is attack,
 			technique.getTechniqueHeight() == TechniqueHeight.HIGH ? AttackHeight.HIGH : technique.getTechniqueHeight() == TechniqueHeight.MEDIUM ? AttackHeight.MEDIUM : technique.getTechniqueHeight() == TechniqueHeight.LOW ? AttackHeight.LOW : AttackHeight.NONE,
-			technique.ignoresArmor() || (useItem != null && useItem.getUseEffect() != null) ? (useItem.getUseEffect().getType() == EffectType.MAGIC || useItem.getUseEffect().getType() == EffectType.ARMOR_SUNDER) : false || (technique.isDamaging() && technique.isSpell()) || technique.doesSetDamage(), // ignores armor
+			technique.ignoresArmor() || ((useItem != null && useItem.getUseEffect() != null) ? (useItem.getUseEffect().getType() == EffectType.MAGIC || useItem.getUseEffect().getType() == EffectType.ARMOR_SUNDER) : false) || (technique.isDamaging() && technique.isSpell()) || technique.doesSetDamage(), // ignores armor
 			thisPayload.getBonuses(),
 			useItem, // only works for self item use
 			currentState.getCharacter() 
