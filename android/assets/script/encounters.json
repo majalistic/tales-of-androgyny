@@ -5763,7 +5763,9 @@
 	{
 		"key": "ORC-VICTORY",
 		"scriptLines": [
-			{"text": "You stand over her, ready to strike if she catches a second wind, but she seems pacified."},
+			{
+			"mutations": [{"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": 5}}],
+			"text": "You stand over her, ready to strike if she catches a second wind, but she seems pacified."},
 			{"text": "\"What's your name, strong one?\""},
 			{"text": "You hesitate. \"<NAME>.\"  She nods, then slowly leans back, subtly spreading her legs apart."},
 			{"text": "\"Hmph. You can call me... Urka.  Orcish for 'our people'. I do not have a name a human tongue can pronounce,\" she says, and you can believe it.  Something about her vocal register seems completely inhuman."},
