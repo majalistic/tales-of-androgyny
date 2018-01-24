@@ -73,7 +73,7 @@ public class CharacterCreationScene extends Scene {
 		int statX = 675;
 		int statY = 165;
 
-		statPointDisplay = initLabel(String.valueOf(statPoints), skin, Color.BLACK, 1312, 888, Align.left);		
+		statPointDisplay = initLabel(String.valueOf(statPoints), skin, Color.BLACK, 1310, 888, Align.left);		
 		final Label classMessage = initLabel("", skin, Color.BLACK, 1700, 230, Align.top);
 		final Label statMessage = initLabel("", skin, Color.RED, statX, statY, Align.left, true, 740);
 		final Label statDescription = initLabel("", skin, Color.FOREST, statX, statY, Align.left, true, 740);
@@ -166,10 +166,13 @@ public class CharacterCreationScene extends Scene {
 			Table miniTable = new Table();
 			
 			Button minus = getMinusButton();
+			if (!canDecreaseStat(stat)) minus.setColor(Color.GRAY);
 			minus.addListener(new ClickListener(){
 				@Override
 		        public void clicked(InputEvent event, float x, float y) {
-					buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
+					if (canDecreaseStat(stat)) {
+						buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
+					}
 					decreaseStat(stat, character, statMessage, statLabel, done);
 					initStatTable(statTable, assetManager, skin, buttonSound, done, character, statDescription, statMessage, baubleOld, baubleNew, baubleReady, baubleEmpty);
 		        }				
@@ -225,10 +228,13 @@ public class CharacterCreationScene extends Scene {
 				miniTable.add(new Widget()).size(size, size).padBottom(0).align(Align.left);
 			}
 			Button plus = getPlusButton();
+			if (!canIncreaseStat(stat)) plus.setColor(Color.GRAY);
 			plus.addListener(new ClickListener(){
 				@Override
 		        public void clicked(InputEvent event, float x, float y) {
-					buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
+					if (canIncreaseStat(stat)) {
+						buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
+					}
 					increaseStat(stat, character, statMessage, statLabel, done);
 					initStatTable(statTable, assetManager, skin, buttonSound, done, character, statDescription, statMessage, baubleOld, baubleNew, baubleReady, baubleEmpty);
 		        }				
@@ -261,9 +267,19 @@ public class CharacterCreationScene extends Scene {
 		setStatPoints(story ? 1 : 4);
 	}
 	
+	private boolean canIncreaseStat(final Stat stat) {
+		int currentStatAllocation = statMap.get(stat);
+		return statPoints > 0 && (currentStatAllocation < 1 || (currentStatAllocation < 2 && noStatAtMax()));
+	}
+	
+	private boolean canDecreaseStat(final Stat stat) {
+		int currentStatAllocation = statMap.get(stat);
+		return currentStatAllocation > 0 || (currentStatAllocation > -1 && noStatAtNegative());
+	}
+	
 	private void increaseStat(final Stat stat, final PlayerCharacter character, final Label statMessage, final Label statLabel, final TextButton done) {
 		int currentStatAllocation = statMap.get(stat);
-		if (statPoints > 0 && (currentStatAllocation < 1 || (currentStatAllocation < 2 && noStatAtMax()))) {
+		if (canIncreaseStat(stat)) {
 			setStatPoints(statPoints - 1);
 			if (statPoints <= 0) {
 				this.addActor(done);
@@ -288,7 +304,7 @@ public class CharacterCreationScene extends Scene {
 	
 	private void decreaseStat(final Stat stat, final PlayerCharacter character, final Label statMessage, final Label statLabel, final TextButton done) {
 		int currentStatAllocation = statMap.get(stat);
-		if (currentStatAllocation > 0 || (currentStatAllocation > -1 && noStatAtNegative())) {
+		if (canDecreaseStat(stat)) {
 			if (statPoints == 0) {
 				removeActor(done);
 			}
