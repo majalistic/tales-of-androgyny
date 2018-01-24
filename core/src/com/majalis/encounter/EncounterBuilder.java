@@ -523,13 +523,10 @@ public class EncounterBuilder {
 		}
 		
 		private Background getCampBackground() {
-			TextureRegion temp1 = new TextureRegion(assetManager.get(AssetEnum.CAMP_BG0.getTexture()));
-			TextureRegion temp2 = new TextureRegion(assetManager.get(AssetEnum.CAMP_BG1.getTexture()));
-			TextureRegion temp3 = new TextureRegion(assetManager.get(AssetEnum.CAMP_BG2.getTexture()));
 			Array<TextureRegion> frames = new Array<TextureRegion>();
-			frames.add(temp1);
-			frames.add(temp2);
-			frames.add(temp3);
+			frames.add(new TextureRegion(assetManager.get(AssetEnum.CAMP_BG0.getTexture())));
+			frames.add(new TextureRegion(assetManager.get(AssetEnum.CAMP_BG1.getTexture())));
+			frames.add( new TextureRegion(assetManager.get(AssetEnum.CAMP_BG2.getTexture())));
 			Animation animation = new Animation(.08f, frames);
 			animation.setPlayMode(PlayMode.LOOP_PINGPONG);
 			AnimatedImage animationActor = new AnimatedImage(animation, Scaling.fit, Align.right);
