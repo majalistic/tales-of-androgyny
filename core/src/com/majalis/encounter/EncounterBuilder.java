@@ -852,6 +852,12 @@ public class EncounterBuilder {
 			add(requirements, alreadySeen, AssetEnum.PERCEPTION);
 			add(requirements, alreadySeen, AssetEnum.MAGIC);
 			add(requirements, alreadySeen, AssetEnum.CHARISMA);
+			add(requirements, alreadySeen, AssetEnum.PLUS);
+			add(requirements, alreadySeen, AssetEnum.PLUS_DOWN);
+			add(requirements, alreadySeen, AssetEnum.PLUS_HIGHLIGHT);
+			add(requirements, alreadySeen, AssetEnum.MINUS);
+			add(requirements, alreadySeen, AssetEnum.MINUS_DOWN);
+			add(requirements, alreadySeen, AssetEnum.MINUS_HIGHLIGHT);
 			add(requirements, alreadySeen, AssetEnum.CREATION_BUTTON_DOWN);
 			add(requirements, alreadySeen, AssetEnum.CREATION_BUTTON_UP);
 			add(requirements, alreadySeen, AssetEnum.CREATION_BUTTON_CHECKED);

@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -17,6 +18,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Widget;
+import com.badlogic.gdx.scenes.scene2d.ui.Button.ButtonStyle;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
@@ -39,11 +41,13 @@ public class CharacterCreationScene extends Scene {
 	private TextButton enchanterButton;
 	private int statPoints;
 	private final Label statPointDisplay;
+	private final AssetManager assetManager;
 	
 	public CharacterCreationScene(OrderedMap<Integer, Scene> sceneBranches, int sceneCode, final SaveService saveService, Background background, final AssetManager assetManager, final PlayerCharacter character, final boolean story) {
 		super(sceneBranches, sceneCode);
 		this.saveService = saveService;
 		this.addActor(background);
+		this.assetManager = assetManager;
 		
 		final Skin skin = assetManager.get(AssetEnum.UI_SKIN.getSkin());
 		final Sound buttonSound = assetManager.get(AssetEnum.BUTTON_SOUND.getSound());
@@ -53,7 +57,7 @@ public class CharacterCreationScene extends Scene {
 		final Texture baubleOld = assetManager.get(AssetEnum.CREATION_BAUBLE_OLD.getTexture());
 		final Texture baubleNew = assetManager.get(AssetEnum.CREATION_BAUBLE_NEW.getTexture());
 		final Texture baubleReady = assetManager.get(AssetEnum.CREATION_BAUBLE_REMOVED.getTexture());
-		final Label helpText = initLabel("Please Select a Class!", skin, Color.CHARTREUSE, 300, 800, Align.left);
+		final Label helpText = initLabel("Please Select a Class!", skin, Color.FOREST, 300, 800, Align.left);
 		
 		final Image characterImage = new Image(); 
 		characterImage.setPosition(1390, 230);
@@ -66,21 +70,21 @@ public class CharacterCreationScene extends Scene {
 		}});
 		done.setPosition(1552, 10);
 
-		int statX = 665;
-		int statY = 170;
+		int statX = 675;
+		int statY = 165;
 
-		statPointDisplay = initLabel(String.valueOf(statPoints), skin, Color.FOREST, 1310, 882, Align.left);		
+		statPointDisplay = initLabel(String.valueOf(statPoints), skin, Color.BLACK, 1312, 888, Align.left);		
 		final Label classMessage = initLabel("", skin, Color.BLACK, 1700, 230, Align.top);
-		final Label statMessage = initLabel("", skin, Color.RED, statX, statY, Align.left, true, 750);
-		final Label statDescription = initLabel("", skin, Color.FOREST, statX, statY, Align.left, true, 750);
-		final Label classSelection = initLabel("", skin, Color.GOLD, 1715, 965, Align.center);
+		final Label statMessage = initLabel("", skin, Color.RED, statX, statY, Align.left, true, 740);
+		final Label statDescription = initLabel("", skin, Color.FOREST, statX, statY, Align.left, true, 740);
+		final Label classSelection = initLabel("", skin, Color.GOLD, 1718, 975, Align.center);
 		
 		resetStatPoints(story);
 		statMap = resetObjectMap();
 		
 		final Table statTable = new Table();
 		statTable.align(Align.topLeft);
-		statTable.setPosition(750, 865);
+		statTable.setPosition(735, 885);
 		
 		Table table = new Table();
 		table.setPosition(412, 450);
@@ -113,7 +117,7 @@ public class CharacterCreationScene extends Scene {
 							classSelectSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
 						}
 						helpText.setPosition(1000, 882);
-						helpText.setText("Allocate Stat Points");
+						helpText.setText("Allocate Stat Points!");
 						Texture jobTexture = assetManager.get(jobClass.getTexture());
 						characterImage.setDrawable(new TextureRegionDrawable(new TextureRegion(jobTexture)));
 						characterImage.setSize(jobTexture.getWidth(), jobTexture.getHeight());
@@ -154,17 +158,30 @@ public class CharacterCreationScene extends Scene {
 			statToLabel.put(stat, statLabel);
 			int amount = character.getBaseStat(stat);
 			setStatAppearance(statLabel, amount, stat, character);
-
-			int bottomPad = 20;
-			statTable.add(statImage).size(statImage.getWidth() / (statImage.getHeight() / 35), 35).padBottom(bottomPad).padRight(3).align(Align.left);
+			
+			statTable.add(statImage).size(statImage.getWidth() / (statImage.getHeight() / 35), 35).padBottom(-16).align(Align.left).row();
 			
 			int currentStatAllocation = statMap.get(stat);
+			
+			Table miniTable = new Table();
+			
+			Button minus = getMinusButton();
+			minus.addListener(new ClickListener(){
+				@Override
+		        public void clicked(InputEvent event, float x, float y) {
+					buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
+					decreaseStat(stat, character, statMessage, statLabel, done);
+					initStatTable(statTable, assetManager, skin, buttonSound, done, character, statDescription, statMessage, baubleOld, baubleNew, baubleReady, baubleEmpty);
+		        }				
+			});
+			miniTable.add().width(40);
+			miniTable.add(minus).width(minus.getWidth()).padRight(minus.getWidth());
 			
 			int size = 30;		
 			int numberOfBaubles = 0;
 			for ( ; numberOfBaubles < amount - Math.max(0, currentStatAllocation + (noStatAtNegative() ? 1 : 0)); numberOfBaubles++) {
 				final int difference = amount - numberOfBaubles;
-				statTable.add(getBauble(baubleOld, new ClickListener(){
+				miniTable.add(getBauble(baubleOld, new ClickListener(){
 					@Override
 			        public void clicked(InputEvent event, float x, float y) {
 						buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
@@ -173,12 +190,12 @@ public class CharacterCreationScene extends Scene {
 						}
 						if (difference > 0) initStatTable(statTable, assetManager, skin, buttonSound, done, character, statDescription, statMessage, baubleOld, baubleNew, baubleReady, baubleEmpty);
 			        }
-				})).size(size, size).padBottom(bottomPad).align(Align.left);
+				})).size(size, size).align(Align.left);
 			}
 
 			for ( ; numberOfBaubles < amount; numberOfBaubles++) {
 				final int difference = amount - numberOfBaubles;
-				statTable.add(getBauble(baubleNew, new ClickListener(){
+				miniTable.add(getBauble(baubleNew, new ClickListener(){
 					@Override
 			        public void clicked(InputEvent event, float x, float y) {
 						buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
@@ -187,12 +204,12 @@ public class CharacterCreationScene extends Scene {
 						}
 						if (difference > 0) initStatTable(statTable, assetManager, skin, buttonSound, done, character, statDescription, statMessage, baubleOld, baubleNew, baubleReady, baubleEmpty);
 			        }
-				})).size(size, size).padBottom(bottomPad).align(Align.left);
+				})).size(size, size).align(Align.left);
 			}
 			
 			for ( ; numberOfBaubles < amount + Math.min(statPoints, (noStatAtMax() ? 2 : 1) - currentStatAllocation); numberOfBaubles++) {
 				final int difference = 1 + numberOfBaubles - amount;
-				statTable.add(getBauble(baubleEmpty, new ClickListener(){
+				miniTable.add(getBauble(baubleEmpty, new ClickListener(){
 					@Override
 			        public void clicked(InputEvent event, float x, float y) {
 						buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
@@ -201,12 +218,22 @@ public class CharacterCreationScene extends Scene {
 						}
 						if (difference > 0) initStatTable(statTable, assetManager, skin, buttonSound, done, character, statDescription, statMessage, baubleOld, baubleNew, baubleReady, baubleEmpty);
 			        }
-				})).size(size, size).padBottom(bottomPad).align(Align.left);
+				})).size(size, size).align(Align.left);
 			}
 			
 			for ( ; numberOfBaubles < 10; numberOfBaubles++) {
-				statTable.add(new Widget()).size(size, size).padBottom(bottomPad).align(Align.left);
+				miniTable.add(new Widget()).size(size, size).padBottom(0).align(Align.left);
 			}
+			Button plus = getPlusButton();
+			plus.addListener(new ClickListener(){
+				@Override
+		        public void clicked(InputEvent event, float x, float y) {
+					buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
+					increaseStat(stat, character, statMessage, statLabel, done);
+					initStatTable(statTable, assetManager, skin, buttonSound, done, character, statDescription, statMessage, baubleOld, baubleNew, baubleReady, baubleEmpty);
+		        }				
+			});
+			miniTable.add(plus).padRight(plus.getWidth());
 			Table statReadout = new Table();
 			Label statAmount = new Label(String.valueOf(amount), skin);
 			setFontColor(statAmount, amount);
@@ -214,7 +241,8 @@ public class CharacterCreationScene extends Scene {
 			statReadout.add(statAmount).row();
 			statReadout.add(statLabel);
 			
-			statTable.add(statReadout).padLeft(15).padBottom(bottomPad).minWidth(150).align(Align.right).row();
+			miniTable.add(statReadout).minWidth(150).align(Align.right);
+			statTable.add(miniTable).row();
 		}
 	}
 	
@@ -383,6 +411,23 @@ public class CharacterCreationScene extends Scene {
 		};
 	}
 	
+	private Button getPlusButton() {
+		ButtonStyle buttonStyle = new ButtonStyle();
+		buttonStyle.up = new TextureRegionDrawable(new TextureRegion(assetManager.get(AssetEnum.PLUS.getTexture())));
+		buttonStyle.down = new TextureRegionDrawable(new TextureRegion(assetManager.get(AssetEnum.PLUS_DOWN.getTexture())));
+		buttonStyle.over = new TextureRegionDrawable(new TextureRegion(assetManager.get(AssetEnum.PLUS_HIGHLIGHT.getTexture())));		
+		Button button = new Button(buttonStyle);
+		return button;
+	}
+	
+	private Button getMinusButton() {
+		ButtonStyle buttonStyle = new ButtonStyle();
+		buttonStyle.up = new TextureRegionDrawable(new TextureRegion(assetManager.get(AssetEnum.MINUS.getTexture())));
+		buttonStyle.down = new TextureRegionDrawable(new TextureRegion(assetManager.get(AssetEnum.MINUS_DOWN.getTexture())));
+		buttonStyle.over = new TextureRegionDrawable(new TextureRegion(assetManager.get(AssetEnum.MINUS_HIGHLIGHT.getTexture())));		
+		Button button = new Button(buttonStyle);
+		return button;
+	}
 	
 	@Override
 	public void setActive() {
