@@ -47,6 +47,46 @@ public class CharacterCreationScene extends Scene {
 		super(sceneBranches, sceneCode);
 		this.saveService = saveService;
 		this.addActor(background);
+		Image classSelectPanel = new Image(assetManager.get(AssetEnum.CLASS_SELECT_PANEL.getTexture()));
+		this.addActor(classSelectPanel);
+		Image subtleBorder = new Image(assetManager.get(AssetEnum.CLASS_SELECT_SUBTLE_BORDER.getTexture()));
+		subtleBorder.setPosition(0, 938);
+		this.addActor(subtleBorder);
+		Image classSelectLabel = new Image(assetManager.get(AssetEnum.CLASS_SELECT_LABEL.getTexture()));
+		classSelectLabel.setPosition(0, 950);
+		this.addActor(classSelectLabel);
+		
+		final Image characterBox = new Image(assetManager.get(AssetEnum.CLASS_SELECT_CHARACTER_BOX.getTexture()));
+		characterBox.setPosition(1470, 46);
+		this.addActor(characterBox);
+		
+		final Image panelFoldOut = new Image(assetManager.get(AssetEnum.CLASS_SELECT_STAT_PANEL_FOLDOUT.getTexture()));
+		panelFoldOut.setPosition(392, 313);
+		this.addActor(panelFoldOut);
+		panelFoldOut.addAction(Actions.hide());
+		
+		final Image tooltipFoldout = new Image(assetManager.get(AssetEnum.CLASS_SELECT_TOOLTIP_SLIDEOUT.getTexture()));
+		tooltipFoldout.setPosition(742, 265);
+		this.addActor(tooltipFoldout);
+		tooltipFoldout.addAction(Actions.hide());
+		
+		final Image statBox = new Image(assetManager.get(AssetEnum.CLASS_SELECT_STAT_BOX.getTexture()));
+		statBox.setPosition(685, 315);
+		this.addActor(statBox);
+		statBox.addAction(Actions.hide());
+		
+		final Image tooltip = new Image(assetManager.get(AssetEnum.CLASS_SELECT_TOOLTIP_BOX.getTexture()));
+		tooltip.setPosition(600, 25);
+		this.addActor(tooltip);
+		tooltip.addAction(Actions.hide());
+		
+		/*
+		CLASS_SELECT_FOREGROUND
+		CLASS_SELECT_LEAF_BORDER
+		CLASS_SELECT_HANGING_LEAVES
+		CLASS_SELECT_TOP_BORDER
+		*/
+	
 		this.assetManager = assetManager;
 		
 		final Skin skin = assetManager.get(AssetEnum.UI_SKIN.getSkin());
@@ -74,10 +114,11 @@ public class CharacterCreationScene extends Scene {
 		int statY = 165;
 
 		statPointDisplay = initLabel(String.valueOf(statPoints), skin, Color.BLACK, 1310, 888, Align.left);		
+		statPointDisplay.addAction(Actions.hide());
 		final Label classMessage = initLabel("", skin, Color.BLACK, 1700, 230, Align.top);
 		final Label statMessage = initLabel("", skin, Color.RED, statX, statY, Align.left, true, 740);
 		final Label statDescription = initLabel("", skin, Color.FOREST, statX, statY, Align.left, true, 740);
-		final Label classSelection = initLabel("", skin, Color.GOLD, 1718, 975, Align.center);
+		final Label classSelection = initLabel("", skin, Color.GOLD, 1726, 970, Align.center);
 		
 		resetStatPoints(story);
 		statMap = resetObjectMap();
@@ -119,6 +160,11 @@ public class CharacterCreationScene extends Scene {
 						}
 						helpText.setPosition(1000, 882);
 						helpText.setText("Allocate Stat Points!");
+						statPointDisplay.addAction(Actions.show());
+						panelFoldOut.addAction(Actions.show());
+						statBox.addAction(Actions.show());
+						tooltipFoldout.addAction(Actions.show());
+						tooltip.addAction(Actions.show());
 						Texture jobTexture = assetManager.get(jobClass.getTexture());
 						characterImage.setDrawable(new TextureRegionDrawable(new TextureRegion(jobTexture)));
 						characterImage.setSize(jobTexture.getWidth(), jobTexture.getHeight());

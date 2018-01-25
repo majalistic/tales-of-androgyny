@@ -836,6 +836,18 @@ public class EncounterBuilder {
 			add(requirements, alreadySeen, AssetEnum.CREATION_BAUBLE_OLD);
 			add(requirements, alreadySeen, AssetEnum.CREATION_BAUBLE_REMOVED);
 			add(requirements, alreadySeen, AssetEnum.CLASS_SELECT_BACKGROUND);
+			add(requirements, alreadySeen, AssetEnum.CLASS_SELECT_CHARACTER_BOX);
+			add(requirements, alreadySeen, AssetEnum.CLASS_SELECT_LABEL);
+			add(requirements, alreadySeen, AssetEnum.CLASS_SELECT_PANEL);
+			add(requirements, alreadySeen, AssetEnum.CLASS_SELECT_FOREGROUND);
+			add(requirements, alreadySeen, AssetEnum.CLASS_SELECT_LEAF_BORDER);
+			add(requirements, alreadySeen, AssetEnum.CLASS_SELECT_HANGING_LEAVES);
+			add(requirements, alreadySeen, AssetEnum.CLASS_SELECT_STAT_PANEL_FOLDOUT);
+			add(requirements, alreadySeen, AssetEnum.CLASS_SELECT_STAT_BOX);
+			add(requirements, alreadySeen, AssetEnum.CLASS_SELECT_TOOLTIP_BOX);
+			add(requirements, alreadySeen, AssetEnum.CLASS_SELECT_TOOLTIP_SLIDEOUT);
+			add(requirements, alreadySeen, AssetEnum.CLASS_SELECT_SUBTLE_BORDER);
+			add(requirements, alreadySeen, AssetEnum.CLASS_SELECT_TOP_BORDER);
 			add(requirements, alreadySeen, AssetEnum.GEM_CLINK, true);
 			add(requirements, alreadySeen, AssetEnum.QUICK_PAGE_TURN, true);
 			return requirements;
