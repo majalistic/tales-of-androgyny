@@ -14,7 +14,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
 import com.majalis.asset.AssetEnum;
-import com.majalis.encounter.Background.BackgroundBuilder;;
 
 public class CreditsScreen extends AbstractScreen{
 	public static final Array<AssetDescriptor<?>> resourceRequirements = new Array<AssetDescriptor<?>>();
@@ -22,13 +21,15 @@ public class CreditsScreen extends AbstractScreen{
 		resourceRequirements.add(AssetEnum.UI_SKIN.getSkin());
 		resourceRequirements.add(AssetEnum.BUTTON_SOUND.getSound());
 		resourceRequirements.add(AssetEnum.MAIN_MENU_MUSIC.getMusic());
-		resourceRequirements.add(AssetEnum.DEFAULT_BACKGROUND.getTexture());
+		resourceRequirements.add(AssetEnum.CAMP_BG0.getTexture());
+		resourceRequirements.add(AssetEnum.CAMP_BG1.getTexture());
+		resourceRequirements.add(AssetEnum.CAMP_BG2.getTexture());
 	}
 	
 	private final String credits;
 	protected CreditsScreen(ScreenFactory screenFactory, ScreenElements elements) {
 		super(screenFactory, elements, null);
-		this.addActor(new BackgroundBuilder(assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getTexture())).build());
+		this.addActor(getCampBackground());
 		Skin skin = assetManager.get(AssetEnum.UI_SKIN.getSkin());
 		final Sound sound = assetManager.get(AssetEnum.BUTTON_SOUND.getSound());
 		final TextButton done = new TextButton("Done", skin);
@@ -71,7 +72,7 @@ public class CreditsScreen extends AbstractScreen{
 		batch.setTransformMatrix(camera.view);
 		camera.update();
 		batch.begin();
-		font.setColor(Color.BLACK);
+		font.setColor(Color.WHITE);
 		font.draw(batch, credits, 1100, 1300);
 		batch.end();
 		

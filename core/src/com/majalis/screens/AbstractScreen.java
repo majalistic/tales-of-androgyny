@@ -6,12 +6,21 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
+import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Scaling;
+import com.majalis.asset.AnimatedImage;
 import com.majalis.asset.AssetEnum;
+import com.majalis.encounter.Background;
+import com.majalis.encounter.Background.BackgroundBuilder;
 /*
  * Abstract class which all Screens inherit from; each screen has a a single master Stage.  Allows a Screen to switch to a different screen via an enum.
  */
@@ -113,6 +122,17 @@ public abstract class AbstractScreen extends Stage3D implements Screen {
 		addDragListener(actor);
 	}
 	
+    protected Background getCampBackground() {
+		Array<TextureRegion> frames = new Array<TextureRegion>();
+		frames.add(new TextureRegion(assetManager.get(AssetEnum.CAMP_BG0.getTexture())));
+		frames.add(new TextureRegion(assetManager.get(AssetEnum.CAMP_BG1.getTexture())));
+		frames.add( new TextureRegion(assetManager.get(AssetEnum.CAMP_BG2.getTexture())));
+		Animation animation = new Animation(.08f, frames);
+		animation.setPlayMode(PlayMode.LOOP_PINGPONG);
+		AnimatedImage animationActor = new AnimatedImage(animation, Scaling.fit, Align.right);
+		return new BackgroundBuilder(animationActor).build();
+	}
+    
 	private void addDragListener(final Actor actor) {
 		actor.addListener(new DragListener() {
 			@Override

@@ -27,7 +27,6 @@ import com.majalis.asset.AssetEnum;
 import com.majalis.character.EnemyEnum;
 import com.majalis.character.EnemyCharacter;
 import com.majalis.character.Stance;
-import com.majalis.encounter.Background.BackgroundBuilder;
 /*
  * Screen the displays encountered characters and their respective CG art.
  */
@@ -49,8 +48,10 @@ public class ReplayScreen extends AbstractScreen {
 				}
 			}
 		}		
-		resourceRequirements.add(AssetEnum.MAIN_MENU_MUSIC.getMusic());
-		resourceRequirements.add(AssetEnum.DEFAULT_BACKGROUND.getTexture());
+		resourceRequirements.add(AssetEnum.MAIN_MENU_MUSIC.getMusic());		
+		resourceRequirements.add(AssetEnum.CAMP_BG0.getTexture());
+		resourceRequirements.add(AssetEnum.CAMP_BG1.getTexture());
+		resourceRequirements.add(AssetEnum.CAMP_BG2.getTexture());
 		resourceRequirements.add(AssetEnum.NULL.getTexture());
 		resourceRequirements.add(AssetEnum.OGRE_BANGED.getTexture());
 		resourceRequirements.add(AssetEnum.BUNNY_CARAMEL_ANAL.getTexture());
@@ -76,7 +77,7 @@ public class ReplayScreen extends AbstractScreen {
 	
 	public ReplayScreen(ScreenFactory factory, ScreenElements elements, ObjectMap<String, Integer> enemyKnowledge) {
 		super(factory, elements, null);
-		this.addActor(new BackgroundBuilder(assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getTexture())).build());
+		this.addActor(getCampBackground());
 		this.enemyKnowledge = enemyKnowledge;
 		this.skin = assetManager.get(AssetEnum.UI_SKIN.getSkin());
 		this.sound = assetManager.get(AssetEnum.BUTTON_SOUND.getSound());
@@ -92,7 +93,7 @@ public class ReplayScreen extends AbstractScreen {
 		camera.update();
 		batch.begin();
 		if(!nothingToDisplay.equals("")) {
-			font.setColor(Color.BLACK);
+			font.setColor(Color.WHITE);
 			font.draw(batch, nothingToDisplay, 1170, 880);
 		}
 		batch.end();
@@ -110,7 +111,7 @@ public class ReplayScreen extends AbstractScreen {
 		displayText.setPosition(150, 900);
 		displayText.setWidth(400);
 		displayText.setWrap(true);
-		displayText.setColor(Color.BLACK);
+		displayText.setColor(Color.WHITE);
 		displayText.setAlignment(Align.top);
 		this.addActor(displayText);
 		

@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
+import com.badlogic.gdx.scenes.scene2d.ui.CheckBox.CheckBoxStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -20,7 +21,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
 import com.majalis.asset.AssetEnum;
-import com.majalis.encounter.Background.BackgroundBuilder;
 import com.majalis.talesofandrogyny.TalesOfAndrogyny;
 /*
  * The options/configuration screen.  UI that handles player input to save Preferences to a player's file system.
@@ -32,7 +32,9 @@ public class OptionScreen extends AbstractScreen {
 		resourceRequirements.add(AssetEnum.UI_SKIN.getSkin());
 		resourceRequirements.add(AssetEnum.BUTTON_SOUND.getSound());
 		resourceRequirements.add(AssetEnum.MAIN_MENU_MUSIC.getMusic());
-		resourceRequirements.add(AssetEnum.DEFAULT_BACKGROUND.getTexture());
+		resourceRequirements.add(AssetEnum.CAMP_BG0.getTexture());
+		resourceRequirements.add(AssetEnum.CAMP_BG1.getTexture());
+		resourceRequirements.add(AssetEnum.CAMP_BG2.getTexture());
 		resourceRequirements.addAll(MainMenuScreen.resourceRequirements);
 	}
 	
@@ -41,7 +43,7 @@ public class OptionScreen extends AbstractScreen {
 	
 	public OptionScreen(ScreenFactory factory, ScreenElements elements) {
 		super(factory, elements, null);
-		this.addActor(new BackgroundBuilder(assetManager.get(AssetEnum.DEFAULT_BACKGROUND.getTexture())).build());
+		this.addActor(getCampBackground());
 		skin = assetManager.get(AssetEnum.UI_SKIN.getSkin());
 		final Sound sound = assetManager.get(AssetEnum.BUTTON_SOUND.getSound());
 		
@@ -50,6 +52,8 @@ public class OptionScreen extends AbstractScreen {
 		/* Gameplay options */
 		addLabelActor("- Gameplay Options -", 860, 950);
 		final CheckBox blood = new CheckBox("Show Blood", skin);
+		CheckBoxStyle style = blood.getStyle();
+		style.fontColor = Color.WHITE;
 		blood.setChecked(preferences.getBoolean("blood", true));
 		blood.addListener(new ChangeListener() {
 	        @Override
@@ -234,7 +238,7 @@ public class OptionScreen extends AbstractScreen {
 	
 	private Label addLabelActor(String label, int x, int y) {
 		Label newLabel = new Label(label, skin);
-		newLabel.setColor(Color.BLACK);
+		newLabel.setColor(Color.WHITE);
 		addActorAndListen(newLabel, x, y);
 		return newLabel;
 	}
