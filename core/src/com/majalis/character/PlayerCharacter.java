@@ -156,8 +156,12 @@ public class PlayerCharacter extends AbstractCharacter {
 		return statNameMap;
 	}
 	
+	private AssetEnum portraitFeminization(AssetEnum portrait) {
+		return perks.get(Perk.COCK_LOVER.toString(), 0) > 7 ? AssetEnum.valueOf(portrait.toString().replace("_FEMME", "") + "_FEMME") : portrait;
+	}
+	
 	public void setCurrentPortrait(AssetEnum portrait) {
-		currentPortrait = portrait.getTexture().fileName;
+		currentPortrait = portraitFeminization(portrait).getTexture().fileName;
 	}
 	
 	public void addToInventory(Item item) {
@@ -644,7 +648,7 @@ public class PlayerCharacter extends AbstractCharacter {
 	@Override
 	public Attack doAttack(Attack resolvedAttack) {		
 		if (resolvedAttack.getSex().isTeasing()) {
-			currentPortrait = AssetEnum.PORTRAIT_GRIN.getTexture().fileName;
+			currentPortrait = portraitFeminization(AssetEnum.PORTRAIT_GRIN).getTexture().fileName;
 		}
 		
 		if (wrapLegs) {
@@ -1369,7 +1373,7 @@ public class PlayerCharacter extends AbstractCharacter {
 	public AssetDescriptor<Texture> popPortraitPath() {
 		if (justCame) {
 			justCame = false;
-			return AssetEnum.PORTRAIT_AHEGAO.getTexture();
+			return portraitFeminization(AssetEnum.PORTRAIT_AHEGAO).getTexture();
 		}
 		AssetDescriptor<Texture> currentDisplay = new AssetDescriptor<Texture>(currentPortrait, Texture.class);
 		currentPortrait = getNeutralFace().getTexture().fileName;
@@ -1379,16 +1383,16 @@ public class PlayerCharacter extends AbstractCharacter {
 	public AssetDescriptor<Texture> getPortraitPath() {
 		if (justCame) {
 			justCame = false;
-			return AssetEnum.PORTRAIT_AHEGAO.getTexture();
+			return portraitFeminization(AssetEnum.PORTRAIT_AHEGAO).getTexture();
 		}
 		return new AssetDescriptor<Texture>(currentPortrait, Texture.class);
 	}
 
 	private AssetEnum getNeutralFace() {
 		switch (getHealthDegradation()) {
-			case 0: return AssetEnum.PORTRAIT_SMILE;
-			case 1: return AssetEnum.PORTRAIT_HAPPY;
-			default: return AssetEnum.PORTRAIT_NEUTRAL;		
+			case 0: return portraitFeminization(AssetEnum.PORTRAIT_SMILE);
+			case 1: return portraitFeminization(AssetEnum.PORTRAIT_HAPPY);
+			default: return portraitFeminization(AssetEnum.PORTRAIT_NEUTRAL);		
 		}
 	}
 
