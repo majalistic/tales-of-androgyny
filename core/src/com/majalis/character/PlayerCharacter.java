@@ -890,14 +890,6 @@ public class PlayerCharacter extends AbstractCharacter {
 		return tempSkills;
 	}
 	
-	public ObjectMap<Perk, Integer> getPerks() {
-		ObjectMap<Perk, Integer> tempPerks = new ObjectMap<Perk, Integer>();
-		for (String key : perks.keys()) {
-			tempPerks.put(Perk.valueOf(key), perks.get(key));
-		}
-		return tempPerks;
-	}
-	
 	public void setSkills(ObjectMap<Techniques, Integer> skills) {
 		this.skills.clear();
 		for (Techniques key : skills.keys()) {

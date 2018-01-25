@@ -70,4 +70,6 @@ public class CharacterState {
 	protected boolean isCorporeal() { return isCorporeal; }
 
 	protected int getLewdCharisma() { return user.getLewdCharisma(); }
+
+	public ObjectMap<Perk, Integer> getPerks() { return user.getPerks(); }
 }

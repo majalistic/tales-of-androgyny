@@ -243,7 +243,7 @@ public class SkillSelectionScene extends Scene {
 			}
 		}
 		
-		int pageSplit = 1;
+		int pageSplit = 2;
 		allDisplay.get(0).addAction(Actions.show());
 		for (int ii = 0; ii < pageSplit; ii++) {
 			final Table perkTable = new Table();

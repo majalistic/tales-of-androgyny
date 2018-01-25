@@ -1325,4 +1325,12 @@ public abstract class AbstractCharacter extends Actor {
 		public String getReflexive() { return reflexive; }
 		
 	}
+
+	public ObjectMap<Perk, Integer> getPerks() {
+		ObjectMap<Perk, Integer> tempPerks = new ObjectMap<Perk, Integer>();
+		for (String key : perks.keys()) {
+			tempPerks.put(Perk.valueOf(key), perks.get(key));
+		}
+		return tempPerks;
+	}
 }

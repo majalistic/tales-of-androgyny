@@ -89,9 +89,9 @@ public class Technique {
 			case SKILL_LEVEL:
 				return skillLevel;
 			case OUTMANEUVER:
-				return currentState.getRawStat(Stat.AGILITY) - otherTechnique.getRawStat(Stat.AGILITY);
+				return currentState.getRawStat(Stat.AGILITY) + currentState.getPerks().get(Perk.COMBAT_FINESSE, 0) * 2 - (otherTechnique.getRawStat(Stat.AGILITY) + otherTechnique.getPerks().get(Perk.COMBAT_FINESSE, 0) * 2);
 			case OUTMANUEVER_STRONG:
-				return (currentState.getRawStat(Stat.AGILITY) - otherTechnique.getRawStat(Stat.AGILITY)) - 2;
+				return (currentState.getRawStat(Stat.AGILITY) + currentState.getPerks().get(Perk.COMBAT_FINESSE, 0) * 2 - (otherTechnique.getRawStat(Stat.AGILITY) + otherTechnique.getPerks().get(Perk.COMBAT_FINESSE, 0) * 2)) - 2;
 			case STRENGTH_OVERPOWER:
 				return currentState.getStat(Stat.STRENGTH) - otherTechnique.getStat(Stat.STRENGTH);
 			case STRENGTH_OVERPOWER_STRONG:
@@ -100,13 +100,11 @@ public class Technique {
 		}
 	}
 	
-	private int getRawStat(Stat stat) {
-		return currentState.getRawStat(stat);
-	}
+	private ObjectMap<Perk, Integer> getPerks() { return currentState.getPerks();  }
 
-	private int getStat(Stat stat) {
-		return currentState.getStat(stat);
-	}
+	private int getRawStat(Stat stat) { return currentState.getRawStat(stat); }
+
+	private int getStat(Stat stat) { return currentState.getStat(stat); }
 
 	// when a technique to interact with this one is established, this generates the final technique, which is used to extract 
 	private TechniquePayload getPayload(Technique otherTechnique) {
@@ -389,9 +387,9 @@ public class Technique {
 			block = currentState.getShieldScore() > 0 ? blockCalc : 0;
 			parry = parryCalc;
 			staminaCost = staminaCalc;
-			stabilityCost = stabilityCalc;
+			stabilityCost = stabilityCalc - (technique.getUsableStance() == Stance.BALANCED && technique.getResultingStance() != Stance.BALANCED ? currentState.getPerks().get(Perk.VERSATILE, 0) : 0);
 			manaCost = manaCalc;
-			armorSunder = armorSunderCalc; 
+			armorSunder = armorSunderCalc * (1 + currentState.getPerks().get(Perk.SUNDERER, 0)); 
 			gutCheck = gutCheckCalc;
 			disarm = disarmCalc;
 			trip = tripCalc;
