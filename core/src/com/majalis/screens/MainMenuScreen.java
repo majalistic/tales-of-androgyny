@@ -150,8 +150,8 @@ public class MainMenuScreen extends AbstractScreen {
 		
 		Array<String> buttonLabels = new Array<String>();
 		Array<ScreenEnum> optionList = new Array<ScreenEnum>();
-		buttonLabels.addAll("Begin", "Continue", "Load", "Options", "Pervert", "Credits", "Exit");
-		optionList.addAll(ScreenEnum.NEW_GAME, ScreenEnum.CONTINUE, ScreenEnum.SAVE, ScreenEnum.OPTIONS, ScreenEnum.REPLAY, ScreenEnum.CREDITS, ScreenEnum.EXIT);
+		buttonLabels.addAll("Begin", "Continue", "Load", "Options", "Pervert", "Help", "Credits", "Exit");
+		optionList.addAll(ScreenEnum.NEW_GAME, ScreenEnum.CONTINUE, ScreenEnum.SAVE, ScreenEnum.OPTIONS, ScreenEnum.REPLAY, ScreenEnum.HELP, ScreenEnum.CREDITS, ScreenEnum.EXIT);
 		
 		for (int ii = 0; ii < buttonLabels.size; ii++) {
 			buttons.add(new TextButton(buttonLabels.get(ii), skin));
@@ -280,8 +280,8 @@ public class MainMenuScreen extends AbstractScreen {
 		TextButton button = buttons.get(activate);
 		button.setColor(Color.YELLOW);
 		this.selection = activate;
-		arrow.setPosition(1545, 885 - selection * 60);
-		arrow2.setPosition(1335, 885 - selection * 60);
+		arrow.setPosition(1545, 915 - selection * 60);
+		arrow2.setPosition(1335, 915 - selection * 60);
 	}
 	
 	@Override
