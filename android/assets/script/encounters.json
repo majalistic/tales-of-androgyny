@@ -4585,6 +4585,7 @@
 		"key": "CENTAUR-INTRO",
 		"scriptLines": [
 			{
+			"background": "PLAINS_BG",
 			"music": "SHOP_MUSIC",
 			"text": "The plains are vast, and you walk along them, humbled by the visions of the distant mountains."},
 			{"text": "In the far distance, you see... horses?  Something about their profile is odd."},
@@ -4733,6 +4734,7 @@
 		"scriptLines": [
 			{
 			"music": "WEREWOLF_MUSIC",
+			"background": "ENCHANTED_FOREST_BG",
 			"text": "A whoop.  A howl.  Tinkling, and a low grumble that's simultaneously far-off and immediate.  Your heart beats in your chest - the alien sounds surround you and permeate your skin and leave you feeling deeply unsettled."},
 			{"text": "The fey forest is untread by most mortals - its wonders are many, but its dangers even greater.  Strange creatures peek out from holes dug into giant mushroom stalks, their myriad eyes tracing your movements unblinking, with the largest of those eyes disappearing into obscurity whenever your gaze catches theirs."},
 			{"text": "That you are being watched isn't what concerns you.  As you hear the cracks of broken twigs underfoot, it is the notion that you are being -hunted- that causes you to tremble each time you approach a blind corner."},
@@ -6816,6 +6818,7 @@
 		"key": "SPIDER-INTRO",
 		"scriptLines": [
 			{
+			"background": "CAVE_BG",
 			"music": "WEREWOLF_MUSIC",
 			"text": "You approach ruins that look as old as the surrounding rocks - truly ancient and forgotten. The entrance is vine-covered, half-collapsed, and filled in-part by recent rainwaters. It seems as if the structure was built partially inside of natural caves, some of which have since crumbled."},  
 			{"text": "One glimpse at it tells you that you'll have to be on guard if you plan to go inside."}
@@ -8394,6 +8397,7 @@
 		"key": "ANGEL-INTRO",
 		"scriptLines": [
 			{
+			"background": "CELESTIAL_BG",
 			"music": "ANGEL_MUSIC",
 			"text": "The ruins are calm and serene - there is a single statue of a long-forgotten goddess that is surprisingly pristine, but nature has reclaimed much of the rest - her altar is broken and much of the structure is rubble, the walls having long succumbed."},
 			{"text": "You approach the altar and feel a great levity - as if all the weights of the world had evaporated, leaving behind only the soft whisper of the wind and the faint warmth of the sun.  You take a deep breath and feel at peace."},
@@ -8800,6 +8804,7 @@
 		"key": "NAGA-INTRO",
 		"scriptLines": [
 			{
+			"background": "CAVE_BG",
 			"music": "WEREWOLF_MUSIC",
 			"mutations": [{"profileSaveType":"KNOWLEDGE", "value":{"class": "java.lang.String", "value": "Naga"}}],
 			"text": "You enter the foreboding cave and the air feels heavy - there's a thick smell in the air that you can neither place nor stomach.  As you descend into ever-greater darkness, you begin to worry that something other than curiosity is driving you forward."},
