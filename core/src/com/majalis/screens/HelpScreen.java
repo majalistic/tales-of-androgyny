@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
@@ -32,19 +33,27 @@ public class HelpScreen extends AbstractScreen{
 	protected HelpScreen(ScreenFactory screenFactory, ScreenElements elements, AssetManager assetManager) {
 		super(screenFactory, elements, null);
 		this.addActor(getCampBackground());
-		final Array<Label> slides = new Array<Label>();
+		final Array<Table> slides = new Array<Table>();
 		Skin skin = assetManager.get(AssetEnum.UI_SKIN.getSkin());
 		final Sound sound = assetManager.get(AssetEnum.BUTTON_SOUND.getSound());
 
-		slides.add(new Label("Your character and the enemy are not always at their best - various afflictions temporarily lower their attributes, making them less effective.", skin));
-		slides.add(new Label("An attack that does 0 damage is not without its use, if it inflicts damage to the opponent's armor/shield or destabilizes them, or if it changes the character's stance to a more advantageous one.", skin));
-		slides.add(new Label("Your stance is the primary determinant in what techniques you can use at a given time. Using a technique will often change your stance. Pay close attention to your stance, the enemy's stance, and what stance a given technique will leave you in if it's successful.", skin));
+		Array<Array<Label>> info = new Array<Array<Label>>();
+		info.add(new Array<Label>(new Label[]{new Label("CONTROLS:\n\nPress TAB to toggle hiding or showing the UI.\nPress CTRL to skip text in encounters. Text will be skipped until the next branching choice.\nPress SHIFT to alternate certain images and animations.\nClick and drag or use the arrow keys to navigate the world map.", skin)}));
+		info.add(new Array<Label>(new Label[]{new Label("BASIC GAMEPLAY:\n\nYour stance is the primary determinant in what techniques you can use at a given time. Using a technique will often change your stance. Pay close attention to your stance, the enemy's stance, and what stance a given technique will leave you in if it's successful.\nWhile grappling, your available techniques will be limited based on your position in the grapple - some techniques will only be available if you have the advantage, others if you're at a disadvantage, and this is true of your opponent as well!\nCertain enemies can be defeated by achieving certain conditions in battle, rather than reducing their HP to 0. Similarly, certain enemies can defeat you without reducing your HP to 0!\nBe wary when using skills that cause instability - the enemy can also cause you to overbalance, causing you to trip before you expected to! A technique labelled in red will cause you to fall - one in yellow puts you in dangerous territory the enemy might capitalize on.", skin)}));
+		info.add(new Array<Label>(new Label[]{new Label("BASIC GAMEPLAY (2):\n\nYour character and the enemy are not always at their best - various afflictions temporarily lower their attributes, making them less effective.\nWhen your health is low, you'll receive penalties to the three physical stats - Strength, Endurance, and Agility.\nWhen your stamina is low, you'll receive penalties to Strength and Agility. These penalties apply in encounter checks as well as battle.", skin)}));
+		info.add(new Array<Label>(new Label[]{new Label("COMBAT TECHNIQUES:\n\nAn attack that does 0 damage is not without its use, if it inflicts damage to the opponent's armor/shield or destabilizes them, or if it changes the character's stance to a more advantageous one.\nSome techniques get conditional bonuses - having greater or extra effects if, for example, an enemy is on the ground or on unstable footing, or if you're more agile than the enemy, or simply for being more proficient at the technique.\nSome weapons cause bleed - the amount inflicted depends on the technique. Higher Endurance will reduce damage from bleeding. Bleed can be cured by bandages and rest - Endurance also increases bleed recovery.", skin)}));
 		
-		for (Label actor : slides) {
-			actor.setPosition(100, 900);
-			actor.setWidth(850);
-			actor.setWrap(true);
-			actor.setAlignment(Align.topLeft);
+		for (int ii = 0; ii < info.size; ii++) {
+			Table newTable = new Table();
+			newTable.setPosition(100, 1000);
+			newTable.align(Align.topLeft);
+			Array<Label> currentInfo = info.get(ii);
+			for (int jj = 0; jj < currentInfo.size; jj++) {
+				newTable.add(currentInfo.get(jj)).width(850).row();
+				currentInfo.get(jj).setWrap(true);
+			}
+			
+			slides.add(newTable);
 		}
 		
 		final Group imageGroup = new Group();
