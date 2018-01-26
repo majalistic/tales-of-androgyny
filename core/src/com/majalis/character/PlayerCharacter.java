@@ -1280,6 +1280,7 @@ public class PlayerCharacter extends AbstractCharacter {
 		if (sex.getOralCreampies() > 0) {
 			result.add(new MutationResult("You swallow enough to sate your hunger!"));
 			result.addAll(modFood(1));
+			if (perks.get(Perk.CUM_DRINKER.toString(), 0) > 0) result.addAll(modHealth(perks.get(Perk.CUM_DRINKER.toString(), 0) * 5));
 		}
 		for (int ii = 0; ii < sex.getFellatioEjaculations(); ii++) {
 			cumFromOral();
