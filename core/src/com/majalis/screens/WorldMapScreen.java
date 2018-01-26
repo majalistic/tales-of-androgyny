@@ -1197,9 +1197,11 @@ public class WorldMapScreen extends AbstractScreen {
 	}
 	
 	private void addWorldActors() {
+		Group roads = new Group();
+		worldGroup.addActor(roads);
 		for (GameWorldNode node : world) {
 			for (Actor actor : node.getPaths()) {
-				worldGroup.addActor(actor);
+				roads.addActor(actor);
 			}
 		}
 		

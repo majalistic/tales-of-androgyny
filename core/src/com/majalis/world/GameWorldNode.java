@@ -18,6 +18,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.ObjectSet;
 import com.badlogic.gdx.utils.Scaling;
 import com.majalis.asset.AnimatedImage;
@@ -30,6 +31,7 @@ import com.majalis.save.SaveManager.GameContext;
  */
 public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 	private final ObjectSet<GameWorldNode> connectedNodes;
+	private final ObjectMap<GameWorldNode, Path> pathMap;
 	private final Array<Path> paths;
 	private final int nodeCode;
 	private final GameWorldNodeEncounter encounter;
@@ -54,6 +56,7 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 	public GameWorldNode(final int nodeCode, GameWorldNodeEncounter encounter, int x, int y, boolean visited, Sound sound, PlayerCharacter character, AssetManager assetManager) {
 		this.connectedNodes = new ObjectSet<GameWorldNode>();
 		paths = new Array<Path>();
+		pathMap = new ObjectMap<GameWorldNode, Path>();
 		this.encounter = encounter;
 		this.x = x;
 		this.y = y;
@@ -101,11 +104,32 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 	public EncounterCode getEncounterCode() { return visited ? encounter.getDefaultCode() : encounter.getCode(); }
 	public GameContext getEncounterContext() { return visited ? encounter.getDefaultContext() : encounter.getContext(); }
 	public boolean isConnected() { return connectedNodes.size > 0; }
+	private void setPathHighlight() { 
+		for (ObjectMap.Entry<GameWorldNode, Path> entry : pathMap.entries()) {
+			if (entry.key.isCurrent()) {
+				Path path = entry.value;
+				Group g = path.getParent();
+				g.removeActor(path);
+				g.addActor(path);
+				path.setColor(Color.GREEN);
+			}
+		}
+	}
+	
+	private void setPathUnhighlight() { 
+		for (ObjectMap.Entry<GameWorldNode, Path> entry : pathMap.entries()) {
+			if (entry.key.isCurrent()) {
+				Path path = entry.value;
+				path.setColor(Color.WHITE);
+			}
+		}
+	}
 	
 	@Override
     public void draw(Batch batch, float parentAlpha) {
 		if (hover && active) {
 			batch.setColor(Color.GREEN);
+			setPathHighlight();
 			if (activeAnimation == null) {
 				batch.draw(activeImage, getX(), getY());
 			}
@@ -115,6 +139,7 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 		}
 		else {	
 			batch.setColor(getColor());
+			setPathUnhighlight();
 			if (activeAnimation == null) {
 				batch.draw(activeImage, getX(), getY());
 			}
@@ -174,11 +199,13 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 			return;
 		}
 		connectedNodes.add(otherNode);
-		paths.add(new Path(roadImage, getHexPosition(), otherNode.getHexPosition()));
-		otherNode.getConnected(this);
+		Path newPath = new Path(roadImage, getHexPosition(), otherNode.getHexPosition());
+		pathMap.put(otherNode, newPath);
+		paths.add(newPath);
+		otherNode.getConnected(this, newPath);
 	}
 	
-	private void getConnected(GameWorldNode otherNode) { connectedNodes.add(otherNode); }
+	private void getConnected(GameWorldNode otherNode, Path path) { connectedNodes.add(otherNode); pathMap.put(otherNode, path); }
 	
 	/*
 	 * All stateful code follows - setting active/current/visibility/etc.
