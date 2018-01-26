@@ -6,7 +6,6 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.math.Vector2;
@@ -14,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
@@ -44,14 +44,10 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 	private boolean current;
 	private boolean active;
 	private int visibility;
-	private boolean hover;
 	private Texture activeImage;
 	private AnimatedImage activeAnimation;
 	private Texture roadImage;
-	// these should be replaced with an image that has a recurring action to move up and down indefinitely
-	private Texture arrowImage;
-	private int arrowHeight;
-	private int arrowShift;
+	private Image arrow;
 	
 	public GameWorldNode(final int nodeCode, GameWorldNodeEncounter encounter, int x, int y, boolean visited, Sound sound, PlayerCharacter character, AssetManager assetManager) {
 		this.connectedNodes = new ObjectSet<GameWorldNode>();
@@ -79,21 +75,26 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 			activeAnimation.setState(0);
 			this.addActor(activeAnimation);
 		}
+		else {
+			this.addActor(new Image(activeImage));
+		}
 		
 		roadImage = assetManager.get(AssetEnum.ROAD.getTexture());
-		arrowImage = assetManager.get(AssetEnum.ARROW.getTexture());
+		Texture arrowImage = assetManager.get(AssetEnum.ARROW.getTexture());
+		arrow = new Image(arrowImage);
+		this.addActor(arrow);
+		arrow.addAction(Actions.hide());
+		arrow.setPosition(32 - arrowImage.getWidth() / 2, getY() + 50);
+		arrow.addAction(Actions.forever(Actions.sequence(Actions.moveBy(0, 8, 2), Actions.moveBy(0, -8, 2))));
+			
 		this.sound = sound;
 		this.character = character;
 		current = false;
-		hover = false;
 		active = false;
 		
-		this.addAction(Actions.visible(true));
 		this.addAction(Actions.show());
 		Vector2 position = calculatePosition(x, y);
 		this.setBounds(position.x, position.y, activeImage.getWidth(), activeImage.getHeight());
-		arrowHeight = 0;
-		arrowShift = 1;
 		visibility = -1;
 	}
 	
@@ -125,38 +126,6 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 		}
 	}
 	
-	@Override
-    public void draw(Batch batch, float parentAlpha) {
-		if (hover && active) {
-			batch.setColor(Color.GREEN);
-			setPathHighlight();
-			if (activeAnimation == null) {
-				batch.draw(activeImage, getX(), getY());
-			}
-			else {
-				activeAnimation.setColor(Color.GREEN);
-			}
-		}
-		else {	
-			batch.setColor(getColor());
-			setPathUnhighlight();
-			if (activeAnimation == null) {
-				batch.draw(activeImage, getX(), getY());
-			}
-			else {
-				activeAnimation.setColor(current ? Color.PINK : Color.WHITE);
-			}
-		}
-		
-		if(active) {
-			batch.setColor(Color.WHITE);
-			batch.draw(arrowImage, getX() + 32 - arrowImage.getWidth() / 2, getY() + 50 + arrowHeight / 5);
-			arrowHeight += arrowShift;
-			if (arrowHeight > 100 || arrowHeight < 0) arrowShift = 0 - arrowShift;
-		}		
-		super.draw(batch, parentAlpha);
-    }
-	
 	private Vector2 calculatePosition(int x, int y) {
 		return GameWorldHelper.calculatePosition(x, y);
 	}
@@ -167,6 +136,8 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 		for (Actor actor : getChildren()) {
 			actor.setColor(color);
 		}
+		arrow.setColor(Color.WHITE);
+		if (activeAnimation != null) activeAnimation.setColor(current ? Color.PINK : Color.WHITE);
 	}
 	
 	@Override
@@ -227,6 +198,7 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 	
 	private void setActive() {
 		active = true;
+		arrow.addAction(Actions.show());
 		this.addListener(new ClickListener() { 
 			@Override
 	        public void clicked(InputEvent event, float x, float y) {
@@ -239,8 +211,15 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 		});
 	}
 	
-	public void deactivate() {
+	private void setInactive() {
 		active = false;
+		setPathUnhighlight();
+		arrow.addAction(Actions.hide());
+	}
+	
+	public void deactivate() {
+		setInactive();
+		arrow.addAction(Actions.hide());
 		for (GameWorldNode connectedNode : connectedNodes) {
 			connectedNode.setClickedAndAdjacentClicked();						
 		}
@@ -248,11 +227,13 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 	
 	// this will currently only deactivate nodes that are 2 away - when it becomes possible to click on a node 5 nodes away, this will be insufficient
 	private void setClickedAndAdjacentClicked() {
-		active = false;
+		setInactive();
 		visibility = -1;
 		current = false;
+		
+		arrow.addAction(Actions.hide());
 		for (GameWorldNode connectedNode : connectedNodes) {
-			connectedNode.active = false;
+			connectedNode.setInactive();
 			connectedNode.current = false;
 			connectedNode.visibility = -1;
 		}
@@ -262,8 +243,8 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 		this.visibility = visibility;
 		if (!current) {
 			this.addListener(new ClickListener() { 
-				@Override public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) { hover = true; }
-				@Override public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) { hover = false; }
+				@Override public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) { setColor(Color.GREEN); if (activeAnimation != null) activeAnimation.setColor(Color.GREEN); setPathHighlight(); }
+				@Override public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) { setColor(Color.WHITE); if (activeAnimation != null) activeAnimation.setColor(current ? Color.PINK : Color.WHITE); setPathUnhighlight(); }
 			});
 		}
 	}
@@ -283,7 +264,6 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 			nodesToSetVisible = nextBatch;
 			visibility -= diminishingFactor;	
 		}
-		
 	}
 	
 	private ObjectSet<GameWorldNode> getNeighbors(ObjectSet<GameWorldNode> visibleSet) {
