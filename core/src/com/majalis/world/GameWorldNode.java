@@ -236,8 +236,6 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 					sound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
 				}
 			}
-			@Override public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) { hover = true; }
-			@Override public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) { hover = false; }
 		});
 	}
 	
@@ -248,7 +246,7 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 		}
 	}
 	
-	// this will currently only deactivate nodes that are 2 away - when it becomes possible to click on a node 5 nodes away, this will be insufficie
+	// this will currently only deactivate nodes that are 2 away - when it becomes possible to click on a node 5 nodes away, this will be insufficient
 	private void setClickedAndAdjacentClicked() {
 		active = false;
 		visibility = -1;
@@ -262,7 +260,7 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 
 	private void setVisibility(int visibility) {
 		this.visibility = visibility;
-		if (!active && !current) {
+		if (!current) {
 			this.addListener(new ClickListener() { 
 				@Override public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) { hover = true; }
 				@Override public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) { hover = false; }
