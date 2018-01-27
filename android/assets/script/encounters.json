@@ -4540,7 +4540,7 @@
 		"key": "BRIGAND-SATISFIED",
 		"scriptLines": [
 			{
-			"mutations": [{"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": 1}}], 
+			"mutations": [{"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": 2}}], 
 			"text": "Having drained her load in you, the Brigand seems satisfied.  She sheathes her weapon, and also puts away her sword, and leaves you to puzzle out what to do with all of her semen."}
 		]
 	},
@@ -5941,7 +5941,7 @@
 		"key": "ORC-SATISFIED",
 		"scriptLines": [
 			{
-			"mutations": [{"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": 2}}], 
+			"mutations": [{"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": 3}}], 
 			"text": "Having gotten what she wanted to begin with, the orc has little interest in you any more.  The men jeer at you for failing so badly to fight her, and she wanders off, leaving you sorer for the experience."}
 		]
 	},
