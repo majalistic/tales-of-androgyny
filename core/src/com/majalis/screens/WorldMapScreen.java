@@ -425,7 +425,6 @@ public class WorldMapScreen extends AbstractScreen {
 						setConsole(console, saveService.saveDataValue(SaveEnum.SCOUT, 1), saveService.saveDataValue(SaveEnum.TIME, 1));
 						console.addAction(Actions.alpha(1));
 						console.addAction(Actions.fadeOut(10));
-						currentNode.deactivate();
 						currentNode.setAsCurrentNode();
 						time++;
 						tintForTimeOfDay();	
@@ -594,7 +593,6 @@ public class WorldMapScreen extends AbstractScreen {
 											if(newEncounter == EncounterCode.DEFAULT) {
 												// this will need to also check if the node is a town/dungeon node and appropriately swap the button from "Camp" to "Enter"
 												saveService.saveDataValue(SaveEnum.SCOUT, 0);
-												node.deactivate();
 												node.setAsCurrentNode();
 											}
 											else if (miniEncounter != null) {
@@ -643,7 +641,6 @@ public class WorldMapScreen extends AbstractScreen {
 												}));
 												saveService.saveDataValue(SaveEnum.VISITED_LIST, node.getNodeCode());
 												saveService.saveDataValue(SaveEnum.SCOUT, 0);
-												node.deactivate();
 												node.setAsCurrentNode();
 											}
 											else {

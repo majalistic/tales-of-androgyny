@@ -272,7 +272,7 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 		pathToCurrent = null;
 	}
 	
-	public void deactivate() {
+	private void deactivate() {
 		ObjectSet<GameWorldNode> checkedNodes = new ObjectSet<GameWorldNode>(); 
 		checkedNodes.add(this);
 		deactivateAll(checkedNodes);
