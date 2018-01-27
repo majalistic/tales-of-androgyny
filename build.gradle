@@ -73,6 +73,19 @@ project(":core") {
         compile "com.badlogicgames.gdx:gdx:$gdxVersion"
         compile "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
 		compile "com.esotericsoftware.spine:spine-libgdx:3.5.51.1"
+		
+		compile "junit:junit:4.12"
+		compile "com.badlogicgames.gdx:gdx-backend-headless:$gdxVersion"
+		compile "org.mockito:mockito-all:2.0.2-beta"
+
+		testCompile "junit:junit:4.12"
+		testCompile "org.mockito:mockito-all:2.0.2-beta"
+		
+		testCompile "com.badlogicgames.gdx:gdx-backend-headless:$gdxVersion"
+		testCompile "com.badlogicgames.gdx:gdx:$gdxVersion"
+		testCompile "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
+		testCompile "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
+		testCompile "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-desktop"
     }
 }
 

@@ -19,6 +19,7 @@ import com.majalis.battle.BattleFactory;
 import com.majalis.encounter.EncounterCode;
 import com.majalis.encounter.EncounterFactory;
 import com.majalis.encounter.EncounterReader;
+import com.majalis.encounter.EncounterReaderImpl;
 import com.majalis.save.SaveManager;
 import com.majalis.screens.AbstractScreen;
 import com.majalis.screens.ScreenEnum;
@@ -52,7 +53,7 @@ public class TalesOfAndrogyny extends Game {
 		for (EncounterCode encounter : EncounterCode.values()) {
 			String path = encounter.getScriptPath();
 			EncounterReader reader = encounterReaders.get(path);
-			if (reader == null) reader = new EncounterReader(path);
+			if (reader == null) reader = new EncounterReaderImpl(path);
 			encounterReaders.put(path, reader);
 		}
 		AssetManager assetManager = new SafeAssetManager();
