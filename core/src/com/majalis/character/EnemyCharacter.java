@@ -134,14 +134,15 @@ public class EnemyCharacter extends AbstractCharacter {
 			}
 		}
 		
-		if (stance == Stance.FELLATIO && enemyType == EnemyEnum.HARPY) {
-			if (currentFrame == 3) currentFrame = 0; else currentFrame++;
+		if (enemyType == EnemyEnum.HARPY) {
+			if (stance.isOralPenetration()) {
+				if (currentFrame == 3) currentFrame = 2; else currentFrame++;
+				if (oldStance.isOralPenetration() && !stance.isOralPenetration()) currentFrame = 0;
+				// play the dive bomb animation for now
+				if (resolvedAttack.getForceStance() == Stance.FELLATIO_BOTTOM && !oldStance.isOralPenetration()) attackAnimation();
+			}
 		}
-		
-		if (enemyType == EnemyEnum.HARPY && oldStance.isOralPenetration() && !stance.isOralPenetration()) {
-			currentFrame = 0;
-		}
-		
+				
 		if (resolvedAttack.getGrapple() != GrappleStatus.NULL && (stance == Stance.COWGIRL || stance == Stance.REVERSE_COWGIRL)) {
 			// this will need to be aware of who the character receiving is - the check might need to be COWGIRL_BOTTOM instead of COWGIRL
 			if (resolvedAttack.getGrapple().isDisadvantage()) {
@@ -156,12 +157,7 @@ public class EnemyCharacter extends AbstractCharacter {
 				resolvedAttack.addMessage("They're about to buck you off!");
 			}
 		}
-		
-		// play the dive bomb animation for now
-		if (resolvedAttack.getForceStance() == Stance.FELLATIO_BOTTOM && enemyType == EnemyEnum.HARPY && !oldStance.isOralPenetration()) {
-			attackAnimation();
-		}
-		
+	
 		if (resolvedAttack.isSuccessful()) {
 			if (resolvedAttack.getForceStance() == Stance.FULL_NELSON && enemyType == EnemyEnum.BRIGAND) {
 				resolvedAttack.addDialog("\"Got ya!\" she says, as she manhandles you from behind.");
@@ -1144,6 +1140,10 @@ public class EnemyCharacter extends AbstractCharacter {
 				currentAnimationsPlaying.add(animations.get(0));
 				currentAnimationsPlaying.remove(animations.get(1));
 			}
+		}
+		else if (enemyType == EnemyEnum.HARPY && currentFrame > 0) { 
+			clearActions();
+			currentAnimationsPlaying.clear();
 		}
 		if (currentAnimationsPlaying.size == 0 && enemyType == EnemyEnum.HARPY && !stance.isOralPenetration()) currentAnimationsPlaying.add(animations.get(0));
 		if (currentAnimationsPlaying.size == 0 || 
