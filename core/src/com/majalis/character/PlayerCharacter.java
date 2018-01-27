@@ -1220,6 +1220,66 @@ public class PlayerCharacter extends AbstractCharacter {
 		return "You " + (alreadyEquipped ? "unequipped" : "equipped") + " the " + equipWeapon.getName() + ".";
 	}
 	
+	public String unequipWeapon() {
+		Weapon temp = this.weapon;
+		this.weapon = null;
+		return temp != null ? "You unequipped the " + temp.getName() + "." : "";
+	}
+	
+	public String unequipShield() {
+		Armor temp = this.shield;
+		this.shield = null;
+		return temp != null ? "You unequipped the " + temp.getName() + "." : "";
+	}
+	
+	public String unequipArmor() {
+		Armor temp = this.armor;
+		this.armor = null;
+		return temp != null ? "You unequipped the " + temp.getName() + "." : "";
+	}
+	
+	public String unequipLegwear() {
+		Armor temp = this.legwear;
+		this.legwear = null;
+		return temp != null ? "You unequipped the " + temp.getName() + "." : "";
+	}
+	
+	public String unequipUnderwear() {
+		Armor temp = this.underwear;
+		this.underwear = null;
+		return temp != null ? "You unequipped the " + temp.getName() + "." : "";
+	}
+	
+	public String unequipHeadgear() {
+		Armor temp = this.headgear;
+		this.headgear = null;
+		return temp != null ? "You unequipped the " + temp.getName() + "." : "";
+	}
+	
+	public String unequipArmwear() {
+		Armor temp = this.armwear;
+		this.armwear = null;
+		return temp != null ? "You unequipped the " + temp.getName() + "." : "";
+	}
+	
+	public String unequipAccessory() {
+		Accessory temp = this.firstAccessory;
+		this.firstAccessory = null;
+		return temp != null ? "You unequipped the " + temp.getName() + "." : "";
+	}
+	
+	public String unequipPlug() {
+		Plug temp = this.plug;
+		this.plug = null;
+		return temp != null ? "You unequipped the " + temp.getName() + "." : "";
+	}
+	
+	public String unequipCage() {
+		ChastityCage temp = this.cage;
+		this.cage = null;
+		return temp != null ? "You unequipped the " + temp.getName() + "." : "";
+	}
+	
 	public void setBaseDefense(int defense) {
 		baseDefense = defense;
 	}

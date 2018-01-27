@@ -156,6 +156,19 @@ public class InventoryScreen extends AbstractScreen {
 		plugText = getLabel(character.getPlug() != null ? character.getPlug().getName() : "None", skin, character.getPlug() != null ? Color.GOLD : Color.BROWN);
 		cageText = getLabel(character.getCage() != null ? character.getCage().getName() : "None", skin, character.getCage() != null ? Color.GOLD : Color.BROWN);
 		
+		weaponText.addListener(new ClickListener() { @Override public void clicked(InputEvent e, float x, float y) { resetWeaponTable(character.unequipWeapon()); }});
+		shieldText.addListener(new ClickListener() { @Override public void clicked(InputEvent e, float x, float y) { resetWeaponTable(character.unequipShield()); }});
+		armorText.addListener(new ClickListener() { @Override public void clicked(InputEvent e, float x, float y) { resetWeaponTable(character.unequipArmor()); }});
+		legwearText.addListener(new ClickListener() { @Override public void clicked(InputEvent e, float x, float y) { resetWeaponTable(character.unequipLegwear()); }});
+		underwearText.addListener(new ClickListener() { @Override public void clicked(InputEvent e, float x, float y) { resetWeaponTable(character.unequipUnderwear()); }});
+		headgearText.addListener(new ClickListener() { @Override public void clicked(InputEvent e, float x, float y) { resetWeaponTable(character.unequipHeadgear()); }});
+		armwearText.addListener(new ClickListener() { @Override public void clicked(InputEvent e, float x, float y) { resetWeaponTable(character.unequipArmwear()); }});
+		accessoryText.addListener(new ClickListener() { @Override public void clicked(InputEvent e, float x, float y) { resetWeaponTable(character.unequipAccessory()); }});
+		plugText.addListener(new ClickListener() { @Override public void clicked(InputEvent e, float x, float y) { resetWeaponTable(character.unequipPlug()); }});
+		cageText.addListener(new ClickListener() { @Override public void clicked(InputEvent e, float x, float y) { resetWeaponTable(character.unequipCage()); }});
+		
+		
+		
 		int xBuffer = 160;
 		
 		equipmentTable.setPosition(50, 1075);
@@ -239,51 +252,54 @@ public class InventoryScreen extends AbstractScreen {
 		};
 	}
 	
+	private void resetWeaponTable(String result) {
+		buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
+		consoleText.setText(result);
+		weaponText.setText(character.getWeapon() != null ? character.getWeapon().getName() : "Unarmed");
+		shieldText.setText(character.getShield() != null ? character.getShield().getName() : "Unarmed");
+		armorText.setText(character.getArmor() != null ? character.getArmor().getName() : "None");
+		legwearText.setText(character.getLegwear() != null ? character.getLegwear().getName() : "None");
+		underwearText.setText(character.getUnderwear() != null ? character.getUnderwear().getName() : "None");
+		headgearText.setText(character.getHeadgear() != null ? character.getHeadgear().getName() : "None");
+		armwearText.setText(character.getArmwear() != null ? character.getArmwear().getName() : "None");			
+		accessoryText.setText(character.getFirstAccessory() != null ? character.getFirstAccessory().getName() : "None");
+		plugText.setText(character.getPlug() != null ? character.getPlug().getName() : "None");
+		cageText.setText(character.getCage() != null ? character.getCage().getName() : "None");
+		
+		weaponText.setColor(character.getWeapon() != null ? Color.GOLD : Color.BROWN);
+		shieldText.setColor(character.getShield() != null ? Color.GOLD : Color.BROWN);
+		armorText.setColor(character.getArmor() != null ? Color.GOLD : Color.BROWN);
+		legwearText.setColor(character.getLegwear() != null ? Color.GOLD : Color.BROWN);
+		underwearText.setColor(character.getUnderwear() != null ? Color.GOLD : Color.BROWN);
+		headgearText.setColor(character.getHeadgear() != null ? Color.GOLD : Color.BROWN);
+		armwearText.setColor(character.getArmwear() != null ? Color.GOLD : Color.BROWN);
+		accessoryText.setColor(character.getFirstAccessory() != null ? Color.GOLD : Color.BROWN);
+		plugText.setColor(character.getPlug() != null ? Color.GOLD : Color.BROWN);
+		cageText.setColor(character.getCage() != null ? Color.GOLD : Color.BROWN);	
+		
+		saveService.saveDataValue(SaveEnum.PLAYER, character);
+		weaponTable.clear();
+		weaponTable.add(getLabel("Equipment", skin, Color.BLACK)).row();
+		boolean equipmentColumn = false;
+		for (Item newItem : character.getInventory()) {
+			final TextButton newItemButton = new TextButton(newItem.getName(), skin);
+			if (newItem.isEquippable()) {
+				newItemButton.addListener(getWeaponListener(newItem));
+				if (character.isEquipped(newItem)) {
+					newItemButton.setColor(Color.GOLD);
+				}
+				weaponTable.add(newItemButton).size(500, 40);
+				if (equipmentColumn) weaponTable.row();
+				equipmentColumn = !equipmentColumn;
+			}
+		}
+	}
+	
 	private ClickListener getWeaponListener(final Item item) {
 		return new ClickListener() {
 			@Override
 	        public void clicked(InputEvent event, float x, float y) {
-				buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
-				result = character.equipItem(item);
-				consoleText.setText(result);
-				weaponText.setText(character.getWeapon() != null ? character.getWeapon().getName() : "Unarmed");
-				shieldText.setText(character.getShield() != null ? character.getShield().getName() : "Unarmed");
-				armorText.setText(character.getArmor() != null ? character.getArmor().getName() : "None");
-				legwearText.setText(character.getLegwear() != null ? character.getLegwear().getName() : "None");
-				underwearText.setText(character.getUnderwear() != null ? character.getUnderwear().getName() : "None");
-				headgearText.setText(character.getHeadgear() != null ? character.getHeadgear().getName() : "None");
-				armwearText.setText(character.getArmwear() != null ? character.getArmwear().getName() : "None");			
-				accessoryText.setText(character.getFirstAccessory() != null ? character.getFirstAccessory().getName() : "None");
-				plugText.setText(character.getPlug() != null ? character.getPlug().getName() : "None");
-				cageText.setText(character.getCage() != null ? character.getCage().getName() : "None");
-				
-				weaponText.setColor(character.getWeapon() != null ? Color.GOLD : Color.BROWN);
-				shieldText.setColor(character.getShield() != null ? Color.GOLD : Color.BROWN);
-				armorText.setColor(character.getArmor() != null ? Color.GOLD : Color.BROWN);
-				legwearText.setColor(character.getLegwear() != null ? Color.GOLD : Color.BROWN);
-				underwearText.setColor(character.getUnderwear() != null ? Color.GOLD : Color.BROWN);
-				headgearText.setColor(character.getHeadgear() != null ? Color.GOLD : Color.BROWN);
-				armwearText.setColor(character.getArmwear() != null ? Color.GOLD : Color.BROWN);
-				accessoryText.setColor(character.getFirstAccessory() != null ? Color.GOLD : Color.BROWN);
-				plugText.setColor(character.getPlug() != null ? Color.GOLD : Color.BROWN);
-				cageText.setColor(character.getCage() != null ? Color.GOLD : Color.BROWN);	
-				
-				saveService.saveDataValue(SaveEnum.PLAYER, character);
-				weaponTable.clear();
-				weaponTable.add(getLabel("Equipment", skin, Color.BLACK)).row();
-				boolean equipmentColumn = false;
-				for (Item newItem : character.getInventory()) {
-					final TextButton newItemButton = new TextButton(newItem.getName(), skin);
-					if (newItem.isEquippable()) {
-						newItemButton.addListener(getWeaponListener(newItem));
-						if (character.isEquipped(newItem)) {
-							newItemButton.setColor(Color.GOLD);
-						}
-						weaponTable.add(newItemButton).size(500, 40);
-						if (equipmentColumn) weaponTable.row();
-						equipmentColumn = !equipmentColumn;
-					}
-				}
+				resetWeaponTable(character.equipItem(item));
 	        }
 			@Override
 	        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
