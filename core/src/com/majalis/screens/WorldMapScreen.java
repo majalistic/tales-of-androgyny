@@ -630,7 +630,8 @@ public class WorldMapScreen extends AbstractScreen {
 															checkForForcedRest();
 															return true;
 													}}, 
-													delay(7), 
+													Actions.fadeOut(4),
+													delay(4), 
 													new Action() {
 														@Override
 														public boolean act(float delta) {
@@ -639,9 +640,12 @@ public class WorldMapScreen extends AbstractScreen {
 															return true;
 														}
 												}));
-												saveService.saveDataValue(SaveEnum.VISITED_LIST, node.getNodeCode());
-												saveService.saveDataValue(SaveEnum.SCOUT, 0);
-												node.setAsCurrentNode();
+												// only once the mini-encounter is complete - will need to check for incomplete mini-encounter on load
+												if (true) {
+													saveService.saveDataValue(SaveEnum.VISITED_LIST, node.getNodeCode());
+													saveService.saveDataValue(SaveEnum.SCOUT, 0);
+													node.setAsCurrentNode();
+												}
 											}
 											else {
 												saveService.saveDataValue(SaveEnum.ENCOUNTER_CODE, newEncounter); 
