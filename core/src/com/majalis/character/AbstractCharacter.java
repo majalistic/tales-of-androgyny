@@ -1295,6 +1295,9 @@ public abstract class AbstractCharacter extends Actor {
 			else if (stabilityMod < -20) {
 				shift = -6;
 			}
+			else if (stabilityMod < -10) {
+				shift = -3;
+			}
 			else if (stabilityMod < -5) {
 				shift = -2;
 			}

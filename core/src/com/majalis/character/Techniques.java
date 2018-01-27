@@ -44,6 +44,7 @@ public enum Techniques {
 	BLOCK				(new GuardTechnique	(Stance.BALANCED, Stance.DEFENSIVE, "Block", 0, 0, 3, true).addBonus(BonusCondition.SKILL_LEVEL, BonusType.PARRY, 1).build()),//.addBonus(BonusCondition.OUTMANEUVER, BonusType.GUARD_MOD, 25).build()),
 	GUARD  				(new GuardTechnique	(Stance.DEFENSIVE, Stance.DEFENSIVE, "Guard", -2, -2, 4, true).addBonus(BonusCondition.SKILL_LEVEL, BonusType.PARRY, 2).build()),//.addBonus(BonusCondition.OUTMANEUVER, BonusType.GUARD_MOD, 25).build()),
 	SECOND_WIND			(new NonAttackTechnique(Stance.DEFENSIVE, Stance.DEFENSIVE, "Second Wind", -4, -1).build()),
+	SUDDEN_ADVANCE		(new NonAttackTechnique(Stance.DEFENSIVE, Stance.OFFENSIVE, "Sudden Advance", 1, 6).addBonus(BonusCondition.SKILL_LEVEL, BonusType.PARRY, 1).addBonus(BonusCondition.OUTMANEUVER, BonusType.PARRY, 1).build(), 3),	
 	
 	/* Counter Techniques */ 			
 	RIPOSTE  			(new GuardTechnique(Stance.COUNTER, Stance.BALANCED, "Riposte", -1, 3, 5, false).addBonus(BonusCondition.SKILL_LEVEL, BonusType.PARRY, 2).addBonus(BonusCondition.OUTMANEUVER, BonusType.PARRY, 2).addBonus(BonusCondition.SKILL_LEVEL, BonusType.DISARM, 50).addBonus(BonusCondition.SKILL_LEVEL, BonusType.COUNTER, 50).addBonus(BonusCondition.OUTMANEUVER, BonusType.COUNTER, 50).addBonus(BonusCondition.OUTMANEUVER, BonusType.DISARM, 50).build(), 1),
@@ -323,6 +324,7 @@ public enum Techniques {
 			case BLOCK: return "A balanced defensive maneuver that allows the user to transition to a more defensible position.";
 			case GUARD: return "A focused defensive maneuver, using all available tools to reject an opponent's strike.";
 			case SECOND_WIND: return "The user lowers their arms and relaxes their stance to take a breather, recovering their stamina.";
+			case SUDDEN_ADVANCE: return "An unstable technique - the user quickly shifts from a defensive stance to an offensive one while actively parrying their opponent.";
 			case RIPOSTE: return "A counter attack capable of parrying or even disarming the opponent.";
 			case EN_GARDE: return "An active parry used to deflect an opponent's strike."; 
 			case ARMOR_SUNDER: return "A strike that maximizes damage to an opponent's armor.";
