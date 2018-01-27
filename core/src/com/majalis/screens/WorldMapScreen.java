@@ -509,37 +509,35 @@ public class WorldMapScreen extends AbstractScreen {
 		
 		uiStage.addActor(uiGroup);
 		
-		// this needs refactoring - probably replace ChangeListener with a custom listener/event type, and rather than an action on a delay, have a trigger for when the character reaches a node that will perform the act() function
+		// this needs refactoring - probably replace ChangeListener with a custom listener/event type
 		worldGroup.addListener(new ChangeListener() {
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
 				if (event.getTarget() instanceof GameWorldNode) {
 					final GameWorldNode clickedNode = (GameWorldNode) event.getTarget();
-					final int timePassed = 1;
-					saveService.saveDataValue(SaveEnum.TIME, timePassed);
 					boolean switchScreen = false;
-					if(!inSuspendedArea(clickedNode) && checkForForcedRest());
-					else if (!inSuspendedArea(clickedNode) && character.getCurrentDebt() >= 150 || (character.getCurrentDebt() >= 100 && character.getQuestStatus(QuestType.DEBT) < 1)) {
-						autoEncounter(uiGroup, EncounterCode.BUNNY);
-					}
-					else if (!inSuspendedArea(clickedNode) && time >= 11 && character.getQuestStatus(QuestType.ELF) == 0) { // forced elf encounter
-						saveService.saveDataValue(SaveEnum.QUEST, new QuestFlag(QuestType.ELF, 1));	
-						autoEncounter(uiGroup, EncounterCode.ELF);
-					}
-					else if (!inSuspendedArea(clickedNode) && time >= 23 && character.getQuestStatus(QuestType.TRUDY) == 0) { // forced Trudy encounter
-						autoEncounter(uiGroup, EncounterCode.ADVENTURER);
-					}
-					else { // move - need to break movement up into multiple iterations of this
-						Array<GameWorldNode> pathToCurrent = clickedNode.getPathToCurrent(); // last element of this is the current node
-						if (pathToCurrent.size == 0) return;
-						pathToCurrent.reverse();
-						pathToCurrent.removeIndex(0);
-						pathToCurrent.add(clickedNode);
-						Array<Action> sequentialActions = new Array<Action>();
-						for (final GameWorldNode node : pathToCurrent) {
-							sequentialActions.add(new Action() { 
-								@Override
-								public boolean act(float delta) {
+					Array<GameWorldNode> pathToCurrent = clickedNode.getPathToCurrent(); // last element of this is the current node
+					if (pathToCurrent.size == 0) return;
+					pathToCurrent.reverse(); // order it from current node to clicked node
+					pathToCurrent.removeIndex(0); // remove current node
+					pathToCurrent.add(clickedNode); // add clicked node
+					Array<Action> sequentialActions = new Array<Action>();
+					for (final GameWorldNode node : pathToCurrent) {
+						sequentialActions.add(new Action() { 
+							@Override
+							public boolean act(float delta) {	
+								if(!inSuspendedArea(clickedNode) && checkForForcedRest());
+								else if (!inSuspendedArea(clickedNode) && character.getCurrentDebt() >= 150 || (character.getCurrentDebt() >= 100 && character.getQuestStatus(QuestType.DEBT) < 1)) {
+									autoEncounter(uiGroup, EncounterCode.BUNNY);
+								}
+								else if (!inSuspendedArea(clickedNode) && time >= 11 && character.getQuestStatus(QuestType.ELF) == 0) { // forced elf encounter
+									saveService.saveDataValue(SaveEnum.QUEST, new QuestFlag(QuestType.ELF, 1));	
+									autoEncounter(uiGroup, EncounterCode.ELF);
+								}
+								else if (!inSuspendedArea(clickedNode) && time >= 23 && character.getQuestStatus(QuestType.TRUDY) == 0) { // forced Trudy encounter
+									autoEncounter(uiGroup, EncounterCode.ADVENTURER);
+								}
+								else {
 									Vector2 finish = node.getHexPosition();
 									Vector2 start = new Vector2(currentNode.getHexPosition());
 									Array<Action> moveActions = new Array<Action>();
@@ -583,16 +581,11 @@ public class WorldMapScreen extends AbstractScreen {
 										moveActionsGhost.add(moveTo(getTrueX((int)start.x) + 8, getTrueY((int)start.x, (int)start.y) + 27, travelTime/totalDistance));
 										distance = GameWorldHelper.distance((int)start.x, (int)start.y, (int)finish.x, (int)finish.y);
 									}
-									
-									Action[] allActionArray = moveActions.toArray(Action.class);
-									Action[] allActionsGhostArray = moveActionsGhost.toArray(Action.class);
-									currentImage.addAction(sequence(allActionArray));
-									currentImageGhost.addAction(sequence(allActionsGhostArray));
-									
-									setCurrentNode(node);
-									worldGroup.addAction(sequence(delay(travelTime), new Action() {
+									moveActions.add(new Action() { // once the character arrives
 										@Override
 										public boolean act(float delta) {
+											final int timePassed = 1;
+											saveService.saveDataValue(SaveEnum.TIME, timePassed);
 											time += timePassed;
 											tintForTimeOfDay();
 											boolean switchScreen = false;
@@ -617,7 +610,7 @@ public class WorldMapScreen extends AbstractScreen {
 												}
 																													
 												newEncounterText.setColor(Color.GOLD);
-
+	
 												final Table statusResults = new Table();
 												statusResults.setPosition(350, 425);
 												newEncounterText.setWrap(true);
@@ -667,15 +660,21 @@ public class WorldMapScreen extends AbstractScreen {
 											mutateLabels();
 											return true;
 										}
-									}));
-									return true;
+									});
+									Action[] allActionArray = moveActions.toArray(Action.class);
+									Action[] allActionsGhostArray = moveActionsGhost.toArray(Action.class);
+									currentImage.addAction(sequence(allActionArray));
+									currentImageGhost.addAction(sequence(allActionsGhostArray));
+									setCurrentNode(node);
 								}
-							});
-							sequentialActions.add(delay(travelTime));
-						}
-						Action[] globalActionSequence = sequentialActions.toArray(Action.class);
-						worldGroup.addAction(sequence(globalActionSequence));
+								return true;
+							}
+						});
+						sequentialActions.add(delay(travelTime + .025f));
 					}
+					Action[] globalActionSequence = sequentialActions.toArray(Action.class);
+					currentImage.addAction(sequence(globalActionSequence));
+					
 					if (switchScreen) {
 						switchContext();
 					}
