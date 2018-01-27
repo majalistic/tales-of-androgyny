@@ -1321,19 +1321,25 @@
 	{
 		"key": "WITCH-COTTAGE-RETURN-BOUGHT",
 		"scriptLines": [
-			{"text": "You return to the witch's cabin and she offers you her wares."}
+			{
+			"music": "TRAINER_MUSIC",
+			"text": "You return to the witch's cabin and she offers you her wares."}
 		]
 	},
 	{
 		"key": "WITCH-COTTAGE-RETURN-BUY",
 		"scriptLines": [
-			{"text": "You return to the witch, and she asks you if you're ready to buy the goddess' blessing."}
+			{
+			"music": "TRAINER_MUSIC",
+			"text": "You return to the witch, and she asks you if you're ready to buy the goddess' blessing."}
 		]
 	},
 	{
 		"key": "WITCH-COTTAGE-STORE",
 		"scriptLines": [
-			{"text": "The witch offers you a chance to purchase some of her other magical wares, if you're interested."}
+			{
+			"music": "TRAINER_MUSIC",
+			"text": "The witch offers you a chance to purchase some of her other magical wares, if you're interested."}
 		]
 	},
 	{
