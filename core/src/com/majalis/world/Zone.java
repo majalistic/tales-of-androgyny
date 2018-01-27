@@ -216,7 +216,7 @@ public class Zone {
 		return requiredNodes;
 	}
 	
-	private void addNode(GameWorldNode newNode, int nodeCode, Array<GameWorldNode> ... nodes) {
+	private void addNode(GameWorldNode newNode, int nodeCode, @SuppressWarnings("unchecked") Array<GameWorldNode> ... nodes) {
 		for (Array<GameWorldNode> nodeArray: nodes) {
 			nodeArray.add(newNode);
 		}

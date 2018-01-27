@@ -136,7 +136,7 @@ public class GameWorldFactory {
 		return nodes;
 	}
 	
-	private void addNode(GameWorldNode newNode, Array<GameWorldNode> ... nodes) {
+	private void addNode(GameWorldNode newNode, @SuppressWarnings("unchecked") Array<GameWorldNode> ... nodes) {
 		for (Array<GameWorldNode> nodeArray: nodes) {
 			nodeArray.add(newNode);
 		}
