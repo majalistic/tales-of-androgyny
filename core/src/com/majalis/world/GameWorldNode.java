@@ -41,7 +41,6 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 	private final PlayerCharacter character;
 	private boolean visited;
 	private boolean current;
-	private boolean active;
 	private int visibility;
 	private Texture activeImage;
 	private AnimatedImage activeAnimation;
@@ -90,7 +89,6 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 			
 		this.character = character;
 		current = false;
-		active = false;
 		
 		this.addAction(Actions.show());
 		Vector2 position = calculatePosition(x, y);
@@ -99,14 +97,15 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 		fireListener = new ClickListener() { 
 			@Override
 	        public void clicked(InputEvent event, float x, float y) {
-				if (active) {
+				if (!current) {
 					fire(new ChangeListener.ChangeEvent());
 					deactivate();
 					sound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
 				}
 			}
 		};
-		this.addListener(new ClickListener() { 
+		addListener(fireListener);
+		addListener(new ClickListener() { 
 			@Override public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) { setColor(Color.GREEN); if (activeAnimation != null) activeAnimation.setColor(Color.GREEN); setPathHighlight(); }
 			@Override public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) { setColor(Color.WHITE); if (activeAnimation != null) activeAnimation.setColor(current ? Color.PINK : Color.WHITE); setPathUnhighlight(); }
 		});
@@ -120,7 +119,7 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 	public GameContext getEncounterContext() { return visited ? encounter.getDefaultContext() : encounter.getContext(); }
 	public boolean isConnected() { return connectedNodes.size > 0; }
 	
-	private Array<GameWorldNode> getPathToCurrent() {
+	public Array<GameWorldNode> getPathToCurrent() {
 		if (pathToCurrent != null ) return pathToCurrent;
 		ObjectSet<GameWorldNode> checkedNodes = new ObjectSet<GameWorldNode>(); 
 		checkedNodes.add(this);
@@ -241,6 +240,7 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 	public boolean isCurrent() { return current; }
 	public void setAsCurrentNode() {
 		current = true;
+		removeListener(fireListener);
 		if (activeAnimation != null) {
 			activeAnimation.setColor(Color.PINK);
 		}
@@ -254,20 +254,20 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 	}	
 	
 	private void setActive() {
-		active = true;
 		arrow.addAction(Actions.show());
-		this.addListener(fireListener);
 	}
 	
 	private void setInactive() {
-		current = false;
+		if (current) {
+			current = false;
+			addListener(fireListener);
+		}
+		
 		visibility = -1;
 		if (activeAnimation != null) {
 			activeAnimation.setColor(Color.WHITE);
 		}
 		for (Path path : paths) { path.setColor(Color.WHITE); }
-		removeListener(fireListener);
-		active = false;
 		arrow.addAction(Actions.hide());
 		pathToCurrent = null;
 	}

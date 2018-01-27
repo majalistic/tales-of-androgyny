@@ -514,150 +514,167 @@ public class WorldMapScreen extends AbstractScreen {
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
 				if (event.getTarget() instanceof GameWorldNode) {
-					final GameWorldNode node = (GameWorldNode) event.getTarget();
+					final GameWorldNode clickedNode = (GameWorldNode) event.getTarget();
 					final int timePassed = 1;
 					saveService.saveDataValue(SaveEnum.TIME, timePassed);
 					boolean switchScreen = false;
-					if(!inSuspendedArea(node) && checkForForcedRest());
-					else if (!inSuspendedArea(node) && character.getCurrentDebt() >= 150 || (character.getCurrentDebt() >= 100 && character.getQuestStatus(QuestType.DEBT) < 1)) {
+					if(!inSuspendedArea(clickedNode) && checkForForcedRest());
+					else if (!inSuspendedArea(clickedNode) && character.getCurrentDebt() >= 150 || (character.getCurrentDebt() >= 100 && character.getQuestStatus(QuestType.DEBT) < 1)) {
 						autoEncounter(uiGroup, EncounterCode.BUNNY);
 					}
-					else if (!inSuspendedArea(node) && time >= 11 && character.getQuestStatus(QuestType.ELF) == 0) { // forced elf encounter
+					else if (!inSuspendedArea(clickedNode) && time >= 11 && character.getQuestStatus(QuestType.ELF) == 0) { // forced elf encounter
 						saveService.saveDataValue(SaveEnum.QUEST, new QuestFlag(QuestType.ELF, 1));	
 						autoEncounter(uiGroup, EncounterCode.ELF);
 					}
-					else if (!inSuspendedArea(node) && time >= 23 && character.getQuestStatus(QuestType.TRUDY) == 0) { // forced Trudy encounter
+					else if (!inSuspendedArea(clickedNode) && time >= 23 && character.getQuestStatus(QuestType.TRUDY) == 0) { // forced Trudy encounter
 						autoEncounter(uiGroup, EncounterCode.ADVENTURER);
 					}
-					else {
-						Vector2 finish = node.getHexPosition();
-						Vector2 start = new Vector2(currentNode.getHexPosition());
-						Array<Action> moveActions = new Array<Action>();
-						Array<Action> moveActionsGhost = new Array<Action>();
-						int distance = GameWorldHelper.distance((int)start.x, (int)start.y, (int)finish.x, (int)finish.y);
-						int totalDistance = distance;
-						while (distance > 0) {
-							if (start.x + start.y == finish.x + finish.y) { // z is constant
-								if (start.x < finish.x) { // downright
-									start.x++;
-									start.y--;
-								}
-								else { // upleft
-									start.x--;
-									start.y++;
-								}
-							}
-							else if (start.y == finish.y) { // y is constant
-								if (start.x < finish.x) start.x++; // upright
-								else start.x--; // downleft
-							}
-							else if (start.x == finish.x) { // x is constant
-								if (start.y < finish.y) start.y++; // up
-								else start.y--; // down
-							}
-							else {
-								int startZ = (int) (0 - (start.x + start.y));
-								int finishZ = (int) (0 - (finish.x + finish.y));
-								if (start.x > finish.x && startZ < finishZ) {
-									start.x--;
-								}
-								else if (finish.y > start.y && startZ > finishZ) {
-									start.y++;
-								}
-								else {
-									start.x++;
-									start.y--;
-								}			
-							}
-							moveActions.add(moveTo(getTrueX((int)start.x) + 8, getTrueY((int)start.x, (int)start.y) + 27, travelTime/totalDistance));
-							moveActionsGhost.add(moveTo(getTrueX((int)start.x) + 8, getTrueY((int)start.x, (int)start.y) + 27, travelTime/totalDistance));
-							distance = GameWorldHelper.distance((int)start.x, (int)start.y, (int)finish.x, (int)finish.y);
-						}
-						
-						Action[] allActionArray = moveActions.toArray(Action.class);
-						Action[] allActionsGhostArray = moveActionsGhost.toArray(Action.class);
-						currentImage.addAction(sequence(allActionArray));
-						currentImageGhost.addAction(sequence(allActionsGhostArray));
-						
-						setCurrentNode(node);
-						worldGroup.addAction(sequence(delay(travelTime), new Action() {
-							@Override
-							public boolean act(float delta) {
-								time += timePassed;
-								tintForTimeOfDay();
-								boolean switchScreen = false;
-								EncounterCode newEncounter = node.getEncounterCode();
-								EncounterBounty miniEncounter = newEncounter.getMiniEncounter();
-								if(newEncounter == EncounterCode.DEFAULT) {
-									// this will need to also check if the node is a town/dungeon node and appropriately swap the button from "Camp" to "Enter"
-									saveService.saveDataValue(SaveEnum.SCOUT, 0);
-									node.deactivate();
-									node.setAsCurrentNode();
-								}
-								else if (miniEncounter != null) {
-									final Image displayNewEncounter = new Image(hoverImageTexture);
-									displayNewEncounter.setBounds(250, 150, 500, 400);
-									uiGroup.addActor(displayNewEncounter);
-									EncounterBountyResult result = miniEncounter.execute(character.getScoutingScore(), saveService);
-									
-									final Label newEncounterText = new Label(result.displayText(), skin);
-									
-									if (result.soundToPlay() != null) {
-										assetManager.get(result.soundToPlay()).play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f); 
-									}
-																										
-									newEncounterText.setColor(Color.GOLD);
-
-									final Table statusResults = new Table();
-									statusResults.setPosition(350, 425);
-									newEncounterText.setWrap(true);
-									statusResults.align(Align.topLeft);
-									statusResults.add(newEncounterText).width(325).row();
-									Array<MutationResult> compactedResults = MutationResult.collapse(result.getResults()); 
-									for (MutationResult miniResult : compactedResults) {
-										MutationActor actor = new MutationActor(miniResult, assetManager.get(miniResult.getTexture()), skin, true);
-										actor.setWrap(true);
-										// this width setting is going to be tricky once we implement images for perk and skill gains and such
-										statusResults.add(actor).width(miniResult.getType() == MutationType.NONE ? 325 : 50).height(50).align(Align.left).row();
-									}
-									
-									uiGroup.addActor(statusResults); 									
-									uiGroup.addAction(sequence(
-										delay(1), 
-										new Action(){ @Override
-											public boolean act(float delta) {
-												checkForForcedRest();
-												return true;
-										}}, 
-										delay(7), 
-										new Action() {
-											@Override
-											public boolean act(float delta) {
-												uiGroup.removeActor(displayNewEncounter);
-												uiGroup.removeActor(statusResults);
-												return true;
+					else { // move - need to break movement up into multiple iterations of this
+						Array<GameWorldNode> pathToCurrent = clickedNode.getPathToCurrent(); // last element of this is the current node
+						if (pathToCurrent.size == 0) return;
+						pathToCurrent.reverse();
+						pathToCurrent.removeIndex(0);
+						pathToCurrent.add(clickedNode);
+						Array<Action> sequentialActions = new Array<Action>();
+						for (final GameWorldNode node : pathToCurrent) {
+							sequentialActions.add(new Action() { 
+								@Override
+								public boolean act(float delta) {
+									Vector2 finish = node.getHexPosition();
+									Vector2 start = new Vector2(currentNode.getHexPosition());
+									Array<Action> moveActions = new Array<Action>();
+									Array<Action> moveActionsGhost = new Array<Action>();
+									int distance = GameWorldHelper.distance((int)start.x, (int)start.y, (int)finish.x, (int)finish.y);
+									int totalDistance = distance;
+									while (distance > 0) {
+										if (start.x + start.y == finish.x + finish.y) { // z is constant
+											if (start.x < finish.x) { // downright
+												start.x++;
+												start.y--;
 											}
+											else { // upleft
+												start.x--;
+												start.y++;
+											}
+										}
+										else if (start.y == finish.y) { // y is constant
+											if (start.x < finish.x) start.x++; // upright
+											else start.x--; // downleft
+										}
+										else if (start.x == finish.x) { // x is constant
+											if (start.y < finish.y) start.y++; // up
+											else start.y--; // down
+										}
+										else {
+											int startZ = (int) (0 - (start.x + start.y));
+											int finishZ = (int) (0 - (finish.x + finish.y));
+											if (start.x > finish.x && startZ < finishZ) {
+												start.x--;
+											}
+											else if (finish.y > start.y && startZ > finishZ) {
+												start.y++;
+											}
+											else {
+												start.x++;
+												start.y--;
+											}			
+										}
+										moveActions.add(moveTo(getTrueX((int)start.x) + 8, getTrueY((int)start.x, (int)start.y) + 27, travelTime/totalDistance));
+										moveActionsGhost.add(moveTo(getTrueX((int)start.x) + 8, getTrueY((int)start.x, (int)start.y) + 27, travelTime/totalDistance));
+										distance = GameWorldHelper.distance((int)start.x, (int)start.y, (int)finish.x, (int)finish.y);
+									}
+									
+									Action[] allActionArray = moveActions.toArray(Action.class);
+									Action[] allActionsGhostArray = moveActionsGhost.toArray(Action.class);
+									currentImage.addAction(sequence(allActionArray));
+									currentImageGhost.addAction(sequence(allActionsGhostArray));
+									
+									setCurrentNode(node);
+									worldGroup.addAction(sequence(delay(travelTime), new Action() {
+										@Override
+										public boolean act(float delta) {
+											time += timePassed;
+											tintForTimeOfDay();
+											boolean switchScreen = false;
+											EncounterCode newEncounter = node.getEncounterCode();
+											EncounterBounty miniEncounter = newEncounter.getMiniEncounter();
+											if(newEncounter == EncounterCode.DEFAULT) {
+												// this will need to also check if the node is a town/dungeon node and appropriately swap the button from "Camp" to "Enter"
+												saveService.saveDataValue(SaveEnum.SCOUT, 0);
+												node.deactivate();
+												node.setAsCurrentNode();
+											}
+											else if (miniEncounter != null) {
+												final Image displayNewEncounter = new Image(hoverImageTexture);
+												displayNewEncounter.setBounds(250, 150, 500, 400);
+												uiGroup.addActor(displayNewEncounter);
+												EncounterBountyResult result = miniEncounter.execute(character.getScoutingScore(), saveService);
+												
+												final Label newEncounterText = new Label(result.displayText(), skin);
+												
+												if (result.soundToPlay() != null) {
+													assetManager.get(result.soundToPlay()).play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f); 
+												}
+																													
+												newEncounterText.setColor(Color.GOLD);
+
+												final Table statusResults = new Table();
+												statusResults.setPosition(350, 425);
+												newEncounterText.setWrap(true);
+												statusResults.align(Align.topLeft);
+												statusResults.add(newEncounterText).width(325).row();
+												Array<MutationResult> compactedResults = MutationResult.collapse(result.getResults()); 
+												for (MutationResult miniResult : compactedResults) {
+													MutationActor actor = new MutationActor(miniResult, assetManager.get(miniResult.getTexture()), skin, true);
+													actor.setWrap(true);
+													// this width setting is going to be tricky once we implement images for perk and skill gains and such
+													statusResults.add(actor).width(miniResult.getType() == MutationType.NONE ? 325 : 50).height(50).align(Align.left).row();
+												}
+												
+												uiGroup.addActor(statusResults); 									
+												uiGroup.addAction(sequence(
+													delay(1), 
+													new Action(){ @Override
+														public boolean act(float delta) {
+															checkForForcedRest();
+															return true;
+													}}, 
+													delay(7), 
+													new Action() {
+														@Override
+														public boolean act(float delta) {
+															uiGroup.removeActor(displayNewEncounter);
+															uiGroup.removeActor(statusResults);
+															return true;
+														}
+												}));
+												saveService.saveDataValue(SaveEnum.VISITED_LIST, node.getNodeCode());
+												saveService.saveDataValue(SaveEnum.SCOUT, 0);
+												node.deactivate();
+												node.setAsCurrentNode();
+											}
+											else {
+												saveService.saveDataValue(SaveEnum.ENCOUNTER_CODE, newEncounter); 
+												saveService.saveDataValue(SaveEnum.VISITED_LIST, node.getNodeCode());
+												saveService.saveDataValue(SaveEnum.CONTEXT, node.getEncounterContext());
+												saveService.saveDataValue(SaveEnum.RETURN_CONTEXT, GameContext.WORLD_MAP);
+												switchScreen = true;
+											}
+											saveService.saveDataValue(SaveEnum.NODE_CODE, node.getNodeCode());
+											if (switchScreen) {
+												switchContext();
+											}
+											mutateLabels();
+											return true;
+										}
 									}));
-									saveService.saveDataValue(SaveEnum.VISITED_LIST, node.getNodeCode());
-									saveService.saveDataValue(SaveEnum.SCOUT, 0);
-									node.deactivate();
-									node.setAsCurrentNode();
+									return true;
 								}
-								else {
-									saveService.saveDataValue(SaveEnum.ENCOUNTER_CODE, newEncounter); 
-									saveService.saveDataValue(SaveEnum.VISITED_LIST, node.getNodeCode());
-									saveService.saveDataValue(SaveEnum.CONTEXT, node.getEncounterContext());
-									saveService.saveDataValue(SaveEnum.RETURN_CONTEXT, GameContext.WORLD_MAP);
-									switchScreen = true;
-								}
-								saveService.saveDataValue(SaveEnum.NODE_CODE, node.getNodeCode());
-								if (switchScreen) {
-									switchContext();
-								}
-								mutateLabels();
-								return true;
-							}
-						}));
+							});
+							sequentialActions.add(delay(travelTime));
+						}
+						Action[] globalActionSequence = sequentialActions.toArray(Action.class);
+						worldGroup.addAction(sequence(globalActionSequence));
 					}
 					if (switchScreen) {
 						switchContext();
