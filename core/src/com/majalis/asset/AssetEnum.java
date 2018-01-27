@@ -406,6 +406,7 @@ public enum AssetEnum {
 	GAME_OVER_MUSIC("music/GameOverMusic.mp3", Music.class),
 	WAVES("music/Waves.wav", Music.class), 
 	
+	NULL_ANIMATION("animation/Null.atlas", AnimatedActorFactory.class),
 	GAME_OVER_ANIMATION("animation/SplurtGO.atlas", AnimatedActorFactory.class),
 	HARPY_ANIMATION("animation/Harpy.atlas", AnimatedActorFactory.class, new AnimatedActorLoader.AnimatedActorParameter(.75f, 1, true)),
 	HARPY_ATTACK_ANIMATION("animation/Attack Still.atlas", AnimatedActorFactory.class, new AnimatedActorLoader.AnimatedActorParameter(.75f, 1, true)),

@@ -25,8 +25,11 @@ public class AnimatedActor extends Actor {
 		state = new AnimationState(stateData); // Holds the animation state for a skeleton (current animation, time, etc).
 		state.setTimeScale(timeScale); 
 		if (!enemy) {
-			state.setAnimation(0, "Splurt", false);
-			state.addAnimation(0, "Idle", true, 5f);
+			try {
+				state.setAnimation(0, "Splurt", false);
+				state.addAnimation(0, "Idle", true, 5f);
+			}
+			catch(Exception ex){}
 		}
 	}
 

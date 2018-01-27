@@ -11,7 +11,8 @@ public enum AnimationEnum {
 	UNICORN(AssetEnum.CENTAUR_ANIMATION), 
 	ORC(AssetEnum.ORC_ANIMATION),
 	GOBLIN(AssetEnum.GOBLIN_ANIMATION),
-	GOBLIN_MALE(AssetEnum.GOBLIN_ANIMATION)
+	GOBLIN_MALE(AssetEnum.GOBLIN_ANIMATION),
+	NULL(AssetEnum.NULL_ANIMATION)
 	;
 	private static final ObjectMap<AssetEnum, AnimatedActorFactory> factoryMap = new ObjectMap<AssetEnum, AnimatedActorFactory>();
 	private final AssetEnum animationToken;
@@ -28,7 +29,7 @@ public enum AnimationEnum {
 			factoryMap.put(animationToken, factory);
 		}			
 		AnimatedActor animation = factory.getInstance();
-		if (this == BUTTBANG) return animation;
+		if (this == NULL || this == BUTTBANG) return animation;
 		if (this == AnimationEnum.HARPY) {
 			animation.setSkeletonPosition(900, 550);
 		}
