@@ -48,6 +48,7 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 	private AnimatedImage activeAnimation;
 	private Texture roadImage;
 	private Image arrow;
+	private Array<GameWorldNode> pathToCurrent;
 	
 	public GameWorldNode(final int nodeCode, GameWorldNodeEncounter encounter, int x, int y, boolean visited, Sound sound, PlayerCharacter character, AssetManager assetManager) {
 		this.connectedNodes = new ObjectSet<GameWorldNode>();
@@ -96,6 +97,10 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 		Vector2 position = calculatePosition(x, y);
 		this.setBounds(position.x, position.y, activeImage.getWidth(), activeImage.getHeight());
 		visibility = -1;
+		this.addListener(new ClickListener() { 
+			@Override public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) { setColor(Color.GREEN); if (activeAnimation != null) activeAnimation.setColor(Color.GREEN); setPathHighlight(); }
+			@Override public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) { setColor(Color.WHITE); if (activeAnimation != null) activeAnimation.setColor(current ? Color.PINK : Color.WHITE); setPathUnhighlight(); }
+		});
 	}
 	
 	public Vector2 getHexPosition() { return new Vector2(x, y); }	
@@ -105,10 +110,53 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 	public EncounterCode getEncounterCode() { return visited ? encounter.getDefaultCode() : encounter.getCode(); }
 	public GameContext getEncounterContext() { return visited ? encounter.getDefaultContext() : encounter.getContext(); }
 	public boolean isConnected() { return connectedNodes.size > 0; }
+	
+	private Array<GameWorldNode> getPathToCurrent() {
+		if (pathToCurrent != null ) return pathToCurrent;
+		ObjectSet<GameWorldNode> checkedNodes = new ObjectSet<GameWorldNode>(); 
+		checkedNodes.add(this);
+		ObjectSet<GameWorldNode> nodesToCheck = new ObjectSet<GameWorldNode>(connectedNodes);
+		ObjectMap<GameWorldNode, GameWorldNode> nodeToNode = new ObjectMap<GameWorldNode, GameWorldNode>();
+		while (nodesToCheck.size > 0) {
+			for (GameWorldNode connectedNode : nodesToCheck) {
+				if (connectedNode.isCurrent()) {
+					pathToCurrent = convertMapToPath(nodeToNode, connectedNode);
+					return pathToCurrent;
+				}
+				checkedNodes.add(connectedNode);
+			}
+			ObjectSet<GameWorldNode> nextBatch = new ObjectSet<GameWorldNode>();
+			for (GameWorldNode connectedNode : nodesToCheck) {
+				ObjectSet<GameWorldNode> newNeighbors = connectedNode.getNeighbors(checkedNodes); // this needs to connect current nodes to new nodes, and also check to see if any of the newNeighbors are current
+				for (GameWorldNode neighbor : newNeighbors) nodeToNode.put(neighbor, connectedNode);				
+				nextBatch.addAll(newNeighbors);
+			}
+			nodesToCheck = nextBatch;
+		}
+		
+		return new Array<GameWorldNode>(); // could not find
+	}
+	
+	private Array<GameWorldNode> convertMapToPath(ObjectMap<GameWorldNode, GameWorldNode> nodeToNode, GameWorldNode targetNode) {
+		GameWorldNode next = targetNode;
+		Array<GameWorldNode> path = new Array<GameWorldNode>();
+		path.add(targetNode);
+		while (nodeToNode.get(next) != null) {
+			next = nodeToNode.get(next);
+			path.add(next);
+		}
+		path.reverse();
+		return path;
+	}
+	
 	private void setPathHighlight() { 
-		for (ObjectMap.Entry<GameWorldNode, Path> entry : pathMap.entries()) {
-			if (entry.key.isCurrent()) {
-				Path path = entry.value;
+		if (current) return;
+		Array<GameWorldNode> pathToCurrent = getPathToCurrent();
+		if (pathToCurrent.size > 0) {
+			GameWorldNode algoNode = this;
+			for (GameWorldNode node : pathToCurrent) {
+				Path path = node.pathMap.get(algoNode);
+				algoNode = node;
 				Group g = path.getParent();
 				g.removeActor(path);
 				g.addActor(path);
@@ -118,14 +166,14 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 	}
 	
 	private void setPathUnhighlight() { 
-		for (ObjectMap.Entry<GameWorldNode, Path> entry : pathMap.entries()) {
-			if (entry.key.isCurrent()) {
-				Path path = entry.value;
-				path.setColor(Color.WHITE);
-			}
+		Array<GameWorldNode> pathToCurrent = getPathToCurrent();
+		GameWorldNode algoNode = this;
+		for (GameWorldNode node : pathToCurrent) {
+			Path path = node.pathMap.get(algoNode);
+			algoNode = node;
+			path.setColor(Color.WHITE);
 		}
 	}
-	
 	private Vector2 calculatePosition(int x, int y) {
 		return GameWorldHelper.calculatePosition(x, y);
 	}
@@ -212,41 +260,36 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 	}
 	
 	private void setInactive() {
-		active = false;
-		setPathUnhighlight();
-		arrow.addAction(Actions.hide());
+		current = false;
+		visibility = -1;
+		if (active) {
+			active = false;
+			if (pathToCurrent != null) {
+				setPathUnhighlight();
+			}
+			arrow.addAction(Actions.hide());
+		}
+		pathToCurrent = null;
 	}
 	
 	public void deactivate() {
-		setInactive();
-		arrow.addAction(Actions.hide());
-		for (GameWorldNode connectedNode : connectedNodes) {
-			connectedNode.setClickedAndAdjacentClicked();						
-		}
+		ObjectSet<GameWorldNode> checkedNodes = new ObjectSet<GameWorldNode>(); 
+		checkedNodes.add(this);
+		deactivateAll(checkedNodes);
 	}
 	
-	// this will currently only deactivate nodes that are 2 away - when it becomes possible to click on a node 5 nodes away, this will be insufficient
-	private void setClickedAndAdjacentClicked() {
+	public void deactivateAll(ObjectSet<GameWorldNode> checkedNodes) {
 		setInactive();
-		visibility = -1;
-		current = false;
-		
-		arrow.addAction(Actions.hide());
-		for (GameWorldNode connectedNode : connectedNodes) {
-			connectedNode.setInactive();
-			connectedNode.current = false;
-			connectedNode.visibility = -1;
+		for (GameWorldNode node : connectedNodes) {
+			if (!checkedNodes.contains(node)) {
+				checkedNodes.add(node);
+				node.deactivateAll(checkedNodes);
+			}
 		}
 	}
 
 	private void setVisibility(int visibility) {
 		this.visibility = visibility;
-		if (!current) {
-			this.addListener(new ClickListener() { 
-				@Override public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) { setColor(Color.GREEN); if (activeAnimation != null) activeAnimation.setColor(Color.GREEN); setPathHighlight(); }
-				@Override public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) { setColor(Color.WHITE); if (activeAnimation != null) activeAnimation.setColor(current ? Color.PINK : Color.WHITE); setPathUnhighlight(); }
-			});
-		}
 	}
 	
 	private void setNeighborsVisibility(int visibility, int diminishingFactor, ObjectSet<GameWorldNode> visibleSet) {
