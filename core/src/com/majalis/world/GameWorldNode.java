@@ -38,7 +38,6 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 
 	private final int x;
 	private final int y;
-	private final Sound sound;
 	private final PlayerCharacter character;
 	private boolean visited;
 	private boolean current;
@@ -48,9 +47,10 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 	private AnimatedImage activeAnimation;
 	private Texture roadImage;
 	private Image arrow;
+	private ClickListener fireListener;
 	private Array<GameWorldNode> pathToCurrent;
 	
-	public GameWorldNode(final int nodeCode, GameWorldNodeEncounter encounter, int x, int y, boolean visited, Sound sound, PlayerCharacter character, AssetManager assetManager) {
+	public GameWorldNode(final int nodeCode, GameWorldNodeEncounter encounter, int x, int y, boolean visited, final Sound sound, PlayerCharacter character, AssetManager assetManager) {
 		this.connectedNodes = new ObjectSet<GameWorldNode>();
 		paths = new Array<Path>();
 		pathMap = new ObjectMap<GameWorldNode, Path>();
@@ -88,7 +88,6 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 		arrow.setPosition(32 - arrowImage.getWidth() / 2, getY() + 50);
 		arrow.addAction(Actions.forever(Actions.sequence(Actions.moveBy(0, 8, 2), Actions.moveBy(0, -8, 2))));
 			
-		this.sound = sound;
 		this.character = character;
 		current = false;
 		active = false;
@@ -97,6 +96,16 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 		Vector2 position = calculatePosition(x, y);
 		this.setBounds(position.x, position.y, activeImage.getWidth(), activeImage.getHeight());
 		visibility = -1;
+		fireListener = new ClickListener() { 
+			@Override
+	        public void clicked(InputEvent event, float x, float y) {
+				if (active) {
+					fire(new ChangeListener.ChangeEvent());
+					deactivate();
+					sound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
+				}
+			}
+		};
 		this.addListener(new ClickListener() { 
 			@Override public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) { setColor(Color.GREEN); if (activeAnimation != null) activeAnimation.setColor(Color.GREEN); setPathHighlight(); }
 			@Override public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) { setColor(Color.WHITE); if (activeAnimation != null) activeAnimation.setColor(current ? Color.PINK : Color.WHITE); setPathUnhighlight(); }
@@ -247,28 +256,19 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 	private void setActive() {
 		active = true;
 		arrow.addAction(Actions.show());
-		this.addListener(new ClickListener() { 
-			@Override
-	        public void clicked(InputEvent event, float x, float y) {
-				if (active) {
-					fire(new ChangeListener.ChangeEvent());
-					deactivate();
-					sound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
-				}
-			}
-		});
+		this.addListener(fireListener);
 	}
 	
 	private void setInactive() {
 		current = false;
 		visibility = -1;
-		if (active) {
-			active = false;
-			if (pathToCurrent != null) {
-				setPathUnhighlight();
-			}
-			arrow.addAction(Actions.hide());
+		if (activeAnimation != null) {
+			activeAnimation.setColor(Color.WHITE);
 		}
+		for (Path path : paths) { path.setColor(Color.WHITE); }
+		removeListener(fireListener);
+		active = false;
+		arrow.addAction(Actions.hide());
 		pathToCurrent = null;
 	}
 	
