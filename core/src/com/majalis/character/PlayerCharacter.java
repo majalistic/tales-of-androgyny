@@ -147,7 +147,7 @@ public class PlayerCharacter extends AbstractCharacter {
 			OUROBOROS, ROUND_AND_ROUND, RECEIVE_OUROBOROS, STRUGGLE_OUROBOROS, MOUNT_FACE, FACEFUCK, GET_FACEFUCKED, STRUGGLE_FACEFUCK, RECEIVE_EGGS, ERUPT_ORAL,
 			WRESTLE_TO_GROUND, WRESTLE_TO_GROUND_UP, PENETRATE_PRONE, PENETRATE_MISSIONARY, PIN, GRAPPLE, HOLD_WRESTLE, CHOKE, REST_WRESTLE, FLIP_PRONE, FLIP_SUPINE, RELEASE_PRONE, RELEASE_SUPINE, STRUGGLE_GROUND, BREAK_FREE_GROUND, GRIND, REST_GROUND_DOWN, STRUGGLE_GROUND_UP, BREAK_FREE_GROUND_UP, REVERSAL,
 			FULL_REVERSAL, REST_GROUND_UP, SQUEEZE_STRUGGLE, BREAK_FREE_SQUEEZE, SQUEEZE_REST,
-			SLAP_ASS, GESTURE, RUB, PRESENT, SLAP_ASS_KNEES, STROKE, STROKE_DOGGY, STROKE_STANDING, IRRUMATIO
+			SLAP_ASS, GESTURE, RUB, PRESENT, SLAP_ASS_KNEES, STROKE, STROKE_DOGGY, STROKE_STANDING, SAY_AHH, IRRUMATIO
 		);
 		return baseTechniques;
 	}
@@ -278,7 +278,7 @@ public class PlayerCharacter extends AbstractCharacter {
 					}
 				}
 				else if (target.stance == Stance.KNEELING && isErect() && target.enemyType.isPounceable()) {
-					possibles.addAll(getTechniques(IRRUMATIO));
+					possibles.addAll(getTechniques(SAY_AHH));
 				}
 				return possibles;
 			case BALANCED:
@@ -302,6 +302,9 @@ public class PlayerCharacter extends AbstractCharacter {
 					else {
 						possibles.addAll(getTechniques(MOUNT_FACE));
 					}
+				}
+				else if (target.stance == Stance.KNEELING && isErect() && target.enemyType.isPounceable()) {
+					possibles.addAll(getTechniques(SAY_AHH));
 				}
 				return possibles;
 			case DEFENSIVE:
