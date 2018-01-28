@@ -34,6 +34,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.actions.RepeatAction;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -319,6 +320,8 @@ public class WorldMapScreen extends AbstractScreen {
 		
 		mutateLabels();
 		
+		Array<Button> buttons = new Array<Button>();
+		
 		final Sound buttonSound = assetManager.get(AssetEnum.CLICK_SOUND.getSound()); 
 		int storedLevels = character.getStoredLevels();
 		
@@ -327,7 +330,7 @@ public class WorldMapScreen extends AbstractScreen {
 		characterUI.setScale(1.1f);
 		
 		TextButton characterButton = getButton(storedLevels > 0 ? "Level Up!" : "Character");
-		
+		buttons.add(characterButton);
 		if (storedLevels > 0) {
 			TextButtonStyle style = new TextButtonStyle(characterButton.getStyle());
 			style.fontColor = Color.OLIVE;
@@ -356,7 +359,7 @@ public class WorldMapScreen extends AbstractScreen {
 		);
 		
 		TextButton inventoryButton = getButton("Inventory");
-		
+		buttons.add(inventoryButton);
 		inventoryButton.setBounds(185, 45, 185, 40);
 		inventoryButton.addListener(
 			new ClickListener() {
@@ -382,7 +385,7 @@ public class WorldMapScreen extends AbstractScreen {
 		console.setColor(Color.CHARTREUSE);
 		
 		final TextButton rest = getButton("Rest");
-		
+		buttons.add(rest);
 		checkCanEat(rest);
 	
 		table.add(rest).size(145, 40);
@@ -414,8 +417,8 @@ public class WorldMapScreen extends AbstractScreen {
 		scoutLevel.setPosition(450, 25);
 		
 		final TextButton scout = getButton("Scout");
-		
-		table.add(scout).size(145, 40).row();;
+		buttons.add(scout);
+		table.add(scout).size(145, 40).row();
 
 		// rest will eventually just wait some time - eating food if possible to maintain hunger level
 		scout.addListener(
@@ -455,7 +458,8 @@ public class WorldMapScreen extends AbstractScreen {
 		);
 		
 		TextButton questButton = getButton("Quest Log");
-		actionTable.add(questButton).size(200, 50).row();;
+		buttons.add(questButton);
+		actionTable.add(questButton).size(200, 50).row();
 		questButton.addListener(
 			new ClickListener() {
 				@Override
@@ -467,6 +471,7 @@ public class WorldMapScreen extends AbstractScreen {
 		);	
 		
 		TextButton saveButton = getButton("QuickSave");
+		buttons.add(saveButton);
 		actionTable.add(saveButton).size(200, 50);
 		saveButton.addListener(
 			new ClickListener() {
@@ -482,6 +487,7 @@ public class WorldMapScreen extends AbstractScreen {
 		);	
 		
 		final TextButton quickLoadButton = getButton("QuickLoad");
+		buttons.add(quickLoadButton);
 		actionTable.add(quickLoadButton).size(200, 50);
 		quickLoadButton.addListener(new ClickListener() {
 			@Override
@@ -494,16 +500,8 @@ public class WorldMapScreen extends AbstractScreen {
 		
 		
 		TextButton hardSaveButton = getButton("Save");
+		buttons.add(hardSaveButton);
 		actionTable.add(hardSaveButton).size(200, 50).row();
-		hardSaveButton.addListener(
-			new ClickListener() {
-				@Override
-		        public void clicked(InputEvent event, float x, float y) {
-					buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
-					showScreen(ScreenEnum.SAVE);
-		        }
-			}
-		);	
 		
 		if (!backgroundRendered) {
 			generateBackground();
@@ -511,6 +509,23 @@ public class WorldMapScreen extends AbstractScreen {
 		tintForTimeOfDay();
 		
 		uiStage.addActor(uiGroup);
+		buttons.add(campButton);
+		Action disableButtons = new Action() {
+			@Override
+			public boolean act(float delta) {
+				for (Button button : buttons) {
+					button.setTouchable(Touchable.disabled);
+				}
+				return false;
+		}};
+		Action enableButtons = new Action() {
+			@Override
+			public boolean act(float delta) {
+				for (Button button : buttons) {
+					button.setTouchable(Touchable.enabled);
+				}
+				return false;
+		}};
 		
 		// this needs refactoring - probably replace ChangeListener with a custom listener/event type
 		worldGroup.addListener(new ChangeListener() {
@@ -521,11 +536,12 @@ public class WorldMapScreen extends AbstractScreen {
 					boolean switchScreen = false;
 					Array<GameWorldNode> pathToCurrent = clickedNode.getPathToCurrent(); // last element of this is the current node
 					if (pathToCurrent.size == 0) return;
+					worldGroup.addAction(disableButtons);
 					buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
 					pathToCurrent.reverse(); // order it from current node to clicked node
 					pathToCurrent.removeIndex(0); // remove current node
 					pathToCurrent.add(clickedNode); // add clicked node
-					moveToNode(0, pathToCurrent, uiGroup);
+					moveToNode(0, pathToCurrent, uiGroup, enableButtons);
 					
 					if (switchScreen) {
 						switchContext();
@@ -542,7 +558,7 @@ public class WorldMapScreen extends AbstractScreen {
 		});
 	}
 	
-	private void moveToNode(int nodeToMove, Array<GameWorldNode> pathToCurrent, Group uiGroup) {
+	private void moveToNode(int nodeToMove, Array<GameWorldNode> pathToCurrent, Group uiGroup, Action enableButtons) {
 		GameWorldNode node = pathToCurrent.get(nodeToMove);
 		if(!inSuspendedArea(currentNode) && checkForForcedRest());
 		else if (!inSuspendedArea(currentNode) && character.getCurrentDebt() >= 150 || (character.getCurrentDebt() >= 100 && character.getQuestStatus(QuestType.DEBT) < 1)) {
@@ -714,6 +730,7 @@ public class WorldMapScreen extends AbstractScreen {
 					public boolean act(float delta) {
 						node.setAsCurrentNode();
 						setCurrentNode(node);
+						worldGroup.addAction(enableButtons);
 						return true;
 					}	
 				});
@@ -722,7 +739,7 @@ public class WorldMapScreen extends AbstractScreen {
 				moveActions.add(new Action() {
 					@Override
 					public boolean act(float delta) {
-						moveToNode(nodeToMove + 1, pathToCurrent, uiGroup);
+						moveToNode(nodeToMove + 1, pathToCurrent, uiGroup, enableButtons);
 						return true;
 					}	
 				});
