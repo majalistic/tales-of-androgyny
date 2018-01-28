@@ -61,6 +61,7 @@ public enum AssetEnum {
 	CABIN_BACKGROUND("backgrounds/WoodsCottage.jpg"),
 	BURNING_FORT_BG("backgrounds/BurningFort.jpg"),
 	TOWN_BG("backgrounds/TownBG.jpg"),
+	QUETZAL_BG("backgrounds/QuetzalBG.jpg"),
 
 	SKILL_TITLE("backgrounds/SkillSelect/SkillsTitle.png"),
 	MAGIC_TITLE("backgrounds/SkillSelect/MagicTitle.png"),

@@ -1364,6 +1364,7 @@
 			{
 			"foreground": "QUETZAL_HERO",
 			"music": "HEAVY_MUSIC",
+			"background": "QUETZAL_BG",
 			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "QUETZAL", "value":2}}],
 			"text": "The situation unfolding before you is a sight to behold.  A lone assailant against the dreaded lord of the mountain... and she's clearly not afraid of him."},
 			{"text": "\"You will face justice this day!\" he cries, although she doesn't appear to be paying much attention.  He goes on like that, explaining how powerful he is and how much justice she's going to catch."},
@@ -1428,6 +1429,7 @@
 		"key": "QUETZAL-RETURN",
 		"scriptLines": [
 			{
+			"background": "QUETZAL_BG",
 			"music": "HEAVY_MUSIC",
 			"text": "You return to the summit of the mountain, where you last saw the hero defeated, the lord of the mountain having her way with him in indescribable ways.  The sight that greets you at the summit reinforces his failure."},
 			{
