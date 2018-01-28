@@ -597,7 +597,7 @@ public class WorldMapScreen extends AbstractScreen {
 											}
 											else if (miniEncounter != null) {
 												final Image displayNewEncounter = new Image(hoverImageTexture);
-												displayNewEncounter.setBounds(250, 150, 500, 400);
+												displayNewEncounter.setBounds(100, 250, 500, 600);
 												uiGroup.addActor(displayNewEncounter);
 												EncounterBountyResult result = miniEncounter.execute(character.getScoutingScore(), saveService);
 												
@@ -607,13 +607,13 @@ public class WorldMapScreen extends AbstractScreen {
 													assetManager.get(result.soundToPlay()).play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f); 
 												}
 																													
-												newEncounterText.setColor(Color.GOLD);
+												newEncounterText.setColor(Color.GOLDENROD);
 	
 												final Table statusResults = new Table();
-												statusResults.setPosition(350, 425);
+												statusResults.setPosition(200, 725);
 												newEncounterText.setWrap(true);
 												statusResults.align(Align.topLeft);
-												statusResults.add(newEncounterText).width(325).row();
+												statusResults.add(newEncounterText).width(315).row();
 												Array<MutationResult> compactedResults = MutationResult.collapse(result.getResults()); 
 												for (MutationResult miniResult : compactedResults) {
 													MutationActor actor = new MutationActor(miniResult, assetManager.get(miniResult.getTexture()), skin, true);
@@ -760,11 +760,11 @@ public class WorldMapScreen extends AbstractScreen {
 		saveService.saveDataValue(SaveEnum.CONTEXT, GameContext.ENCOUNTER);
 		saveService.saveDataValue(SaveEnum.RETURN_CONTEXT, GameContext.WORLD_MAP);
 		Image displayNewEncounter = new Image(hoverImageTexture);
-		displayNewEncounter.setBounds(250, 150, 500, 400);
+		displayNewEncounter.setBounds(775, 400, 500, 400);
 		uiGroup.addActor(displayNewEncounter);
 		Label newEncounterText = new Label("Encounter!", skin);
-		newEncounterText.setColor(Color.GOLD);
-		newEncounterText.setPosition(430, 335);
+		newEncounterText.setColor(Color.GOLDENROD);
+		newEncounterText.setPosition(955, 585);
 		uiGroup.addActor(newEncounterText);
 		uiGroup.addAction(sequence(delay(travelTime), new Action() {
 			@Override
