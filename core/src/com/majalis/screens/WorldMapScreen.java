@@ -88,6 +88,7 @@ public class WorldMapScreen extends AbstractScreen {
 	private final Group worldGroup;
 	private final Group shadowGroup;
 	private final Group cloudGroup;
+	private final Group popupGroup;
 	private final InputMultiplexer multi;
 	private final AnimatedImage currentImage;
 	private final AnimatedImage currentImageGhost;
@@ -252,6 +253,8 @@ public class WorldMapScreen extends AbstractScreen {
 		}
 		
 		cloudStage.addActor(cloudGroup);
+
+		this.popupGroup = new Group();
 		
 		multi = new InputMultiplexer();
 		multi.addProcessor(uiStage);
@@ -298,6 +301,7 @@ public class WorldMapScreen extends AbstractScreen {
 	@Override
 	public void buildStage() {
 		final Group uiGroup = new Group();
+		uiGroup.addActor(popupGroup);
 		uiGroup.addActor(hoverImage);
 		hoverImage.setVisible(false);
 		hoverImage.setBounds(1500, 5, 400, 300);
@@ -612,9 +616,10 @@ public class WorldMapScreen extends AbstractScreen {
 					else if (miniEncounter != null) {
 						final Image displayNewEncounter = new Image(hoverImageTexture);
 						displayNewEncounter.setBounds(100, 250, 500, 600);
-						Group tempGroup = new Group();
-						uiGroup.addActor(tempGroup);
-						tempGroup.addActor(displayNewEncounter);
+						popupGroup.clear();
+						popupGroup.addAction(Actions.show());
+						popupGroup.addAction(Actions.alpha(1));
+						popupGroup.addActor(displayNewEncounter);
 						EncounterBountyResult result = miniEncounter.execute(character.getScoutingScore(), saveService);
 						final Label newEncounterText = new Label(result.displayText(), skin);
 						
@@ -636,7 +641,7 @@ public class WorldMapScreen extends AbstractScreen {
 							// this width setting is going to be tricky once we implement images for perk and skill gains and such
 							statusResults.add(actor).width(miniResult.getType() == MutationType.NONE ? 325 : 50).height(50).align(Align.left).row();
 						}
-						tempGroup.addActor(statusResults); 	
+						popupGroup.addActor(statusResults); 	
 						Action doneAction = sequence(
 								delay(1), 
 								new Action(){ @Override
@@ -649,7 +654,8 @@ public class WorldMapScreen extends AbstractScreen {
 								new Action() {
 									@Override
 									public boolean act(float delta) {
-										uiGroup.removeActor(tempGroup);
+										popupGroup.clearChildren();
+										popupGroup.addAction(Actions.hide());
 										return true;
 								}
 							}
@@ -662,7 +668,7 @@ public class WorldMapScreen extends AbstractScreen {
 							ClickListener buttonListener = new ClickListener() { 
 								@Override
 						        public void clicked(InputEvent event, float x, float y) {
-									tempGroup.addAction(doneAction);
+									popupGroup.addAction(doneAction);
 									tempTable.removeActor(yesButton);
 									tempTable.removeActor(noButton);
 									assetManager.get(AssetEnum.EQUIP.getSound()).play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f); // this should only play if you say yes - a simple boop for no
@@ -679,7 +685,7 @@ public class WorldMapScreen extends AbstractScreen {
 							currentImage.clearActions();
 						}
 						else {								
-							tempGroup.addAction(doneAction);
+							popupGroup.addAction(doneAction);
 							saveService.saveDataValue(SaveEnum.VISITED_LIST, node.getNodeCode());
 							saveService.saveDataValue(SaveEnum.SCOUT, 0);
 						}
