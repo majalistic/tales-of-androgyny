@@ -89,6 +89,8 @@ public enum EncounterCode {
 	ECCENTRIC_MERCHANT,
 	STORY_FEM (FOREST_INACTIVE), 
 	STORY_SIGN (FOREST_INACTIVE), 
+	
+	WOMP, 
 	;
 	
 	private final AssetEnum texture;	
@@ -124,7 +126,6 @@ public enum EncounterCode {
 					case SPIDER: return "Ruins";
 					case ADVENTURER: 
 					case ELF: return "Adventurer";
-					case GHOST: return "Unknown";
 					case GOLEM: return "Statue";
 					case GADGETEER: return "Merchant";
 					case NAGA: return "Cave";
@@ -150,8 +151,10 @@ public enum EncounterCode {
 					case STORY_FEM: return "Unwalked Path";
 					case STORY_SIGN: return "Crossroads";
 					case BRIGAND_STORY: return "West Pass";
+					case GHOST:
 					case FOOD_CACHE: 
 					case GOLD_CACHE:
+					case WOMP: 
 					case ICE_CREAM:
 					case HUNGER_CHARM: 
 					case DAMAGE_TRAP: 
@@ -208,11 +211,12 @@ public enum EncounterCode {
 					case STORY_FEM: return "Unwalked Path";
 					case STORY_SIGN: return "Crossroads";
 					case BRIGAND_STORY: return "West Pass (Brigands)";
-					case FOOD_CACHE: return "Cache!";
-					case GOLD_CACHE: return "Cache!";
-					case ICE_CREAM: return "Cache!";
+					case WOMP: return "Strange person";
+					case FOOD_CACHE:
+					case GOLD_CACHE:
+					case ICE_CREAM:
 					case HUNGER_CHARM: return "Cache!";
-					case DAMAGE_TRAP: return "Trap!";
+					case DAMAGE_TRAP: 
 					case ANAL_TRAP: return "Trap!";
 					default: return "Unknown - No Info for encounter #" + this  + " and perception level = " + visibility;
 				}
@@ -303,6 +307,7 @@ public enum EncounterCode {
 
 	public EncounterBounty getMiniEncounter() {
 		switch (this) {
+			case WOMP:
 			case FOOD_CACHE:
 			case GOLD_CACHE:
 			case ICE_CREAM:

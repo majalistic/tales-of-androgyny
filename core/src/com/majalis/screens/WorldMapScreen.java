@@ -598,9 +598,10 @@ public class WorldMapScreen extends AbstractScreen {
 											else if (miniEncounter != null) {
 												final Image displayNewEncounter = new Image(hoverImageTexture);
 												displayNewEncounter.setBounds(100, 250, 500, 600);
-												uiGroup.addActor(displayNewEncounter);
+												Group tempGroup = new Group();
+												uiGroup.addActor(tempGroup);
+												tempGroup.addActor(displayNewEncounter);
 												EncounterBountyResult result = miniEncounter.execute(character.getScoutingScore(), saveService);
-												
 												final Label newEncounterText = new Label(result.displayText(), skin);
 												
 												if (result.soundToPlay() != null) {
@@ -621,30 +622,52 @@ public class WorldMapScreen extends AbstractScreen {
 													// this width setting is going to be tricky once we implement images for perk and skill gains and such
 													statusResults.add(actor).width(miniResult.getType() == MutationType.NONE ? 325 : 50).height(50).align(Align.left).row();
 												}
-												
-												uiGroup.addActor(statusResults); 									
-												uiGroup.addAction(sequence(
-													delay(1), 
-													new Action(){ @Override
-														public boolean act(float delta) {
-															checkForForcedRest();
-															return true;
-													}}, 
-													Actions.fadeOut(4),
-													delay(4), 
-													new Action() {
-														@Override
-														public boolean act(float delta) {
-															uiGroup.removeActor(displayNewEncounter);
-															uiGroup.removeActor(statusResults);
-															return true;
+												tempGroup.addActor(statusResults); 	
+												Action doneAction = sequence(
+														delay(1), 
+														new Action(){ @Override
+															public boolean act(float delta) {
+																checkForForcedRest();
+																return true;
+														}}, 
+														Actions.fadeOut(4),
+														delay(4), 
+														new Action() {
+															@Override
+															public boolean act(float delta) {
+																uiGroup.removeActor(tempGroup);
+																return true;
 														}
-												}));
-												// only once the mini-encounter is complete - will need to check for incomplete mini-encounter on load
-												if (true) {
+													}
+												);
+											
+												if (newEncounter == EncounterCode.WOMP) {
+													Table tempTable = new Table();
+													TextButton yesButton = getButton("Yes");
+													TextButton noButton = getButton("No");
+													ClickListener buttonListener = new ClickListener() { 
+														@Override
+												        public void clicked(InputEvent event, float x, float y) {
+															tempGroup.addAction(doneAction);
+															tempTable.removeActor(yesButton);
+															tempTable.removeActor(noButton);
+															assetManager.get(AssetEnum.EQUIP.getSound()).play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f); // this should only play if you say yes - a simple boop for no
+															saveService.saveDataValue(SaveEnum.VISITED_LIST, node.getNodeCode());
+															saveService.saveDataValue(SaveEnum.SCOUT, 0);
+															node.setAsCurrentNode();
+														}
+													};
+													yesButton.addListener(buttonListener); // add a listener to yes receive 10 gold and a butt fucking, with sounds
+													noButton.addListener(buttonListener);
+													tempTable.add(yesButton).size(100, 50);
+													tempTable.add(noButton).size(100, 50);
+													statusResults.add(tempTable);
+													currentImage.clearActions();
+												}
+												else {								
+													tempGroup.addAction(doneAction);
 													saveService.saveDataValue(SaveEnum.VISITED_LIST, node.getNodeCode());
 													saveService.saveDataValue(SaveEnum.SCOUT, 0);
-													//node.setAsCurrentNode();
 												}
 											}
 											else {

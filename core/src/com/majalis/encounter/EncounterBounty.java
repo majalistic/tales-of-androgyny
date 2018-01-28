@@ -29,6 +29,7 @@ public class EncounterBounty {
 			case HUNGER_CHARM: return scoutingScore < 3 ? new EncounterBountyResult("You find nothing of use in the cache. Are you missing something?", null, null) : new EncounterBountyResult("", new Mutation(saveService, SaveEnum.ITEM, new Accessory(AccessoryType.HUNGER_CHARM)).mutate(), AssetEnum.EQUIP.getSound());
 			case DAMAGE_TRAP: return scoutingScore < 3 ? new EncounterBountyResult( "Agh! A pitfall! ", new Mutation(saveService, SaveEnum.HEALTH, -10).mutate(), AssetEnum.SWORD_SLASH_SOUND.getSound()) : new EncounterBountyResult("You discovered a pitfall, but avoided it.", null, null);
 			case ANAL_TRAP: return scoutingScore < 3 ? new EncounterBountyResult("Some kind of tentacle forced its way up your butt!\n", new Mutation(saveService, SaveEnum.ANAL, new SexualExperienceBuilder().setAnalSex(1).build()).mutate(), AssetEnum.THWAPPING.getSound()) : new EncounterBountyResult("You avoided a rogue tentacle. Naughty!", null, null);
+			case WOMP: return new EncounterBountyResult("\"Hey, down for a womp?\" says the strange man, offering you some gold.  Do you take a womp?", new Array<MutationResult>(), AssetEnum.CLICK_SOUND.getSound());
 			default: return null;
 		}
 	}
