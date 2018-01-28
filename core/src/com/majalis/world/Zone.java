@@ -1,14 +1,12 @@
 package com.majalis.world;
 
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.RandomXS128;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.IntMap;
 import com.badlogic.gdx.utils.IntSet;
 import com.badlogic.gdx.utils.ObjectSet;
-import com.majalis.asset.AssetEnum;
 import com.majalis.character.PlayerCharacter;
 import com.majalis.encounter.EncounterCode;
 import com.majalis.save.LoadService;
@@ -24,7 +22,6 @@ public class Zone {
 	private final Array<GameWorldNode> requiredNodes;
 	private final IntMap<GameWorldNode> nodeMap;
 	private final IntSet visitedCodesSet;
-	private final Sound sound;
 	private final PlayerCharacter character;
 	private final int difficulty;
 	private final int repeats;
@@ -37,7 +34,6 @@ public class Zone {
 		this.difficulty = difficulty;
 		this.repeats = repeats;
 		visitedCodesSet = loadService.loadDataValue(SaveEnum.VISITED_LIST, IntSet.class);
-		sound = assetManager.get(AssetEnum.CLICK_SOUND.getSound());
 		character = loadService.loadDataValue(SaveEnum.PLAYER, PlayerCharacter.class);
 
 		this.nodes = nodes;
@@ -224,6 +220,6 @@ public class Zone {
 	}
 	
 	private GameWorldNode getNode(int nodeCode, EncounterCode initialEncounter, EncounterCode defaultEncounter, int x, int y, boolean visited) {
-		return new GameWorldNode(nodeCode, new GameWorldNodeEncounter(initialEncounter, defaultEncounter), x, y, visited, sound, character, assetManager);
+		return new GameWorldNode(nodeCode, new GameWorldNodeEncounter(initialEncounter, defaultEncounter), x, y, visited, character, assetManager);
 	}
 }

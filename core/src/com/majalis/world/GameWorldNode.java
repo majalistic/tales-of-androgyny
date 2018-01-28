@@ -1,8 +1,6 @@
 package com.majalis.world;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -49,7 +47,7 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 	private ClickListener fireListener;
 	private Array<GameWorldNode> pathToCurrent;
 	
-	public GameWorldNode(final int nodeCode, GameWorldNodeEncounter encounter, int x, int y, boolean visited, final Sound sound, PlayerCharacter character, AssetManager assetManager) {
+	public GameWorldNode(final int nodeCode, GameWorldNodeEncounter encounter, int x, int y, boolean visited, PlayerCharacter character, AssetManager assetManager) {
 		this.connectedNodes = new ObjectSet<GameWorldNode>();
 		paths = new Array<Path>();
 		pathMap = new ObjectMap<GameWorldNode, Path>();
@@ -100,7 +98,6 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 				if (!current) {
 					fire(new ChangeListener.ChangeEvent());
 					deactivate();
-					sound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
 				}
 			}
 		};

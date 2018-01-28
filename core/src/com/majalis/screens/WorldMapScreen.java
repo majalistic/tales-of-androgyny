@@ -517,6 +517,7 @@ public class WorldMapScreen extends AbstractScreen {
 					boolean switchScreen = false;
 					Array<GameWorldNode> pathToCurrent = clickedNode.getPathToCurrent(); // last element of this is the current node
 					if (pathToCurrent.size == 0) return;
+					buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
 					pathToCurrent.reverse(); // order it from current node to clicked node
 					pathToCurrent.removeIndex(0); // remove current node
 					pathToCurrent.add(clickedNode); // add clicked node
@@ -593,7 +594,6 @@ public class WorldMapScreen extends AbstractScreen {
 											if(newEncounter == EncounterCode.DEFAULT) {
 												// this will need to also check if the node is a town/dungeon node and appropriately swap the button from "Camp" to "Enter"
 												saveService.saveDataValue(SaveEnum.SCOUT, 0);
-												node.setAsCurrentNode();
 											}
 											else if (miniEncounter != null) {
 												final Image displayNewEncounter = new Image(hoverImageTexture);
@@ -644,7 +644,7 @@ public class WorldMapScreen extends AbstractScreen {
 												if (true) {
 													saveService.saveDataValue(SaveEnum.VISITED_LIST, node.getNodeCode());
 													saveService.saveDataValue(SaveEnum.SCOUT, 0);
-													node.setAsCurrentNode();
+													//node.setAsCurrentNode();
 												}
 											}
 											else {
@@ -673,6 +673,13 @@ public class WorldMapScreen extends AbstractScreen {
 						});
 						sequentialActions.add(delay(travelTime + .025f));
 					}
+					sequentialActions.add(new Action() {
+						@Override
+						public boolean act(float delta) {
+							clickedNode.setAsCurrentNode();
+							return true;
+						}	
+					});
 					Action[] globalActionSequence = sequentialActions.toArray(Action.class);
 					currentImage.addAction(sequence(globalActionSequence));
 					

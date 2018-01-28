@@ -2,13 +2,11 @@ package com.majalis.world;
 
 import static com.majalis.encounter.EncounterCode.*;
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.RandomXS128;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.IntMap;
 import com.badlogic.gdx.utils.IntSet;
 import com.badlogic.gdx.utils.ObjectSet;
-import com.majalis.asset.AssetEnum;
 import com.majalis.character.PlayerCharacter;
 import com.majalis.encounter.EncounterCode;
 import com.majalis.save.LoadService;
@@ -24,7 +22,6 @@ public class GameWorldFactory {
 	private final LoadService loadService;
 	private final AssetManager assetManager;
 	private final RandomXS128 random;
-	private Sound sound;
 	private PlayerCharacter character;
 	private IntMap<GameWorldNode> nodeMap = new IntMap<GameWorldNode>();
 	private Array<GameWorldNode> nodes = new Array<GameWorldNode>();
@@ -41,8 +38,6 @@ public class GameWorldFactory {
 		nodeMap = new IntMap<GameWorldNode>();
 		nodes = new Array<GameWorldNode>();
 		// specifying the start and end points to a getZone method which will perform the below functions, creating an array of nodes.  Can make it a class so that it can be chained?  Piping in the end points as start points
-
-		sound = assetManager.get(AssetEnum.CLICK_SOUND.getSound());
 		character = loadService.loadDataValue(SaveEnum.PLAYER, PlayerCharacter.class);
 		
 		ObjectSet<EncounterCode> unspawnedEncounters = new ObjectSet<EncounterCode>(EncounterCode.getAllRandomEncounters());
@@ -144,7 +139,7 @@ public class GameWorldFactory {
 	}
 	
 	private GameWorldNode getNode(int nodeCode, EncounterCode initialEncounter, EncounterCode defaultEncounter, int x, int y, boolean visited) {
-		return new GameWorldNode(nodeCode, new GameWorldNodeEncounter(initialEncounter, defaultEncounter), x, y, visited, sound, character, assetManager);
+		return new GameWorldNode(nodeCode, new GameWorldNodeEncounter(initialEncounter, defaultEncounter), x, y, visited, character, assetManager);
 	}
 	// temporary until gameworld terrain gen is moved to this class
 	public RandomXS128 getRandom() {
