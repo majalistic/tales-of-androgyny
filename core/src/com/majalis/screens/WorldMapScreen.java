@@ -612,6 +612,7 @@ public class WorldMapScreen extends AbstractScreen {
 					if(newEncounter == EncounterCode.DEFAULT) {
 						// this will need to also check if the node is a town/dungeon node and appropriately swap the button from "Camp" to "Enter"
 						saveService.saveDataValue(SaveEnum.SCOUT, 0);
+						node.visit();
 					}
 					else if (miniEncounter != null) {
 						final Image displayNewEncounter = new Image(hoverImageTexture);
@@ -687,6 +688,7 @@ public class WorldMapScreen extends AbstractScreen {
 						else {								
 							popupGroup.addAction(doneAction);
 							saveService.saveDataValue(SaveEnum.VISITED_LIST, node.getNodeCode());
+							node.visit();
 							saveService.saveDataValue(SaveEnum.SCOUT, 0);
 						}
 					}

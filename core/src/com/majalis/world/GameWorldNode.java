@@ -315,4 +315,6 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 		}
 		return neighbors;
 	}
+
+	public void visit() { visited = true; }
 }
