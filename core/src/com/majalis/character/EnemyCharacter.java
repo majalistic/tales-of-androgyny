@@ -939,6 +939,12 @@ public class EnemyCharacter extends AbstractCharacter {
 			candidates.add(candidate);
 		}
 
+		if (candidates.size == 0) {
+			Technique candidate = getTechnique(target, Techniques.DO_NOTHING);
+			techniqueToToken.put(candidate, Techniques.DO_NOTHING);
+			candidates.add(candidate);
+		}
+		
 		// choose a random skill to start
 		int choice = getRandomWeighting(candidates.size); 
 		candidates.sort(new Technique.StaminaComparator());
@@ -1122,7 +1128,7 @@ public class EnemyCharacter extends AbstractCharacter {
 		if (randomResult >= size) {
 			randomResult = size - 1;
 		}
-		else if (randomResult < 0) {
+		if (randomResult < 0) {
 			randomResult = 0;
 		}
 		return randomResult;
