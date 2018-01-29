@@ -1470,7 +1470,7 @@
 		"key": "QUETZAL-LOSS",
 		"scriptLines": [
 			{
-			"foreground": "NULL",
+			"foreground": "QUETZAL",
 			"text": "You struggle in her grip to little effect.  She possesses the strength of fifty men, and from what you could tell, that also happens to be roughly the size of it, as well."},
 			{"text": "The fallen hero refuses to make eye contact as she preps you, much as she did him.  Though you do struggle as she holds you against her thick tail, you secretly welcome the introduction of the tip of her tail.  Better to prepare you for what's to come."},
 			{"text": "In the moments before she wrenches open your tight sphincter with it, you make the mistake of looking over at her loincloth.  From this distance, its immense size and curious shape is obvious, even hidden under anciently weaved fabrics."},
@@ -1538,7 +1538,9 @@
 	{
 		"key": "QUETZAL-SECONDS",
 		"scriptLines": [
-			{"text": "..."},
+			{
+			"foreground": "QUETZAL",
+			"text": "..."},
 			{"text": ".."},
 			{"text": "."},
 			{"text": "\"A great and terrible power has awoken!  I hope you're ready for seconds, hero.  Your goddess is.\""},
