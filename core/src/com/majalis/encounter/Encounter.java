@@ -11,7 +11,6 @@ import com.majalis.scenes.Scene;
 public class Encounter {
 	private final Array<Scene> scenes;
 	private final Scene startScene;
-	public boolean displayHUD;
 	public boolean encounterOver;
 	public boolean battle;
 	public boolean gameOver;
@@ -21,22 +20,19 @@ public class Encounter {
 	public Encounter(Array<Scene> scenes, Scene startScene) {
 		this.scenes = scenes;
 		this.startScene = startScene;
-		displayHUD = true;
 		encounterOver = false;
 		gameOver = false;
 		gameExit = false;
 	}
 	
 	public void gameLoop() {
-		if (Gdx.input.isKeyJustPressed(Keys.TAB)) {
-			displayHUD = !displayHUD;
-		}
 		if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
 			gameExit = true;
 		}
 		// should probably be some "active" event that sets this rather than polling
 		for (Scene objScene : scenes) {
 			if (objScene.isActive()) {
+				if (Gdx.input.isKeyJustPressed(Keys.TAB)) objScene.toggleBackground();
 				showSave = objScene.showSave();
 				battle = objScene.isBattle();
 				encounterOver = objScene.encounterOver();

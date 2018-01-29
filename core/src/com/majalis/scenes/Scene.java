@@ -96,4 +96,5 @@ public abstract class Scene extends Group {
 	public boolean encounterOver() { return false; }
 	public boolean gameOver() { return false; }
 	public void poke() {}
+	public void toggleBackground() {}
 }

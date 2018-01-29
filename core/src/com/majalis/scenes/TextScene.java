@@ -1,12 +1,10 @@
 package com.majalis.scenes;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -94,11 +92,10 @@ public class TextScene extends AbstractTextScene  {
 	public String getText() {
 		return display.getText().toString();
 	}
-	
+
 	@Override
-	public void draw(Batch batch, float parentAlpha) {
-		super.draw(batch, parentAlpha);
-		if (Gdx.input.isKeyJustPressed(Keys.TAB) && showLog.getText().toString().equals("Show Log")) {
+	public void toggleBackground() {
+		if (showLog.getText().toString().equals("Show Log")) {
 			background.toggleDialogBox(display);
 		}
 	}
