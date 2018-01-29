@@ -502,6 +502,15 @@ public class WorldMapScreen extends AbstractScreen {
 		TextButton hardSaveButton = getButton("Save");
 		buttons.add(hardSaveButton);
 		actionTable.add(hardSaveButton).size(200, 50).row();
+		hardSaveButton.addListener(		
+			new ClickListener() {		
+				@Override		
+		        public void clicked(InputEvent event, float x, float y) {		
+ 					buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);		
+ 					showScreen(ScreenEnum.SAVE);		
+ 		        }		
+ 			}		
+		);	
 		
 		if (!backgroundRendered) {
 			generateBackground();
