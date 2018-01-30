@@ -46,11 +46,7 @@ public class EnemyCharacter extends AbstractCharacter {
 	private EnemyCharacter() {}
 	
 	public EnemyCharacter(Array<Texture> textures, ObjectMap<Stance, Array<Texture>> textureMap, Array<AnimatedActor> animations, EnemyEnum enemyType) {
-		this(textures, textureMap, animations, enemyType, Stance.BALANCED);
-	}
-	
-	public EnemyCharacter(Array<Texture> textures, ObjectMap<Stance, Array<Texture>> textureMap, Array<AnimatedActor> animations, EnemyEnum enemyType, Stance stance) {
-		this(textures, textureMap, animations, enemyType, stance, false);
+		this(textures, textureMap, animations, enemyType, Stance.BALANCED, false);
 	}
 	
 	public EnemyCharacter(Array<Texture> textures, ObjectMap<Stance, Array<Texture>> textureMap, Array<AnimatedActor> animations, EnemyEnum enemyType, Stance stance, boolean storyMode) {
