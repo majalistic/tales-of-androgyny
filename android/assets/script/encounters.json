@@ -9075,4 +9075,18 @@
 			"text": "In the darkness, it's impossible to tell what follows... although you do learn the depths of incompatibility involved.  Your sorrowful groans escape the cave - something you manage to accomplish after some rather unfortunate time."}
 		]
 	},
+	{
+		"key": "MERMAID-INTRO",
+		"scriptLines": [
+			{
+			"background": "WATERFALL_BG",
+			"music": "ANGEL_MUSIC",
+			"mutations": [{"profileSaveType":"KNOWLEDGE", "value":{"class": "java.lang.String", "value": "Mermaid"}}],
+			"text": "You see a woman in the water."},
+			{
+			"foreground": "MERMAID",
+			"text": "She emerges, revealing herself to be a mermaid!"}	
+		]
+	},
+	
 ]}

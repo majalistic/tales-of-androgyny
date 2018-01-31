@@ -40,6 +40,7 @@ public enum AssetEnum {
 	CAMP_BG0("backgrounds/CampBG0.jpg"),
 	CAMP_BG1("backgrounds/CampBG1.jpg"),
 	CAMP_BG2("backgrounds/CampBG2.jpg"),
+	WATERFALL_BG("backgrounds/WaterfallTop.jpg"),
 	
 	CLASS_SELECT_BACKGROUND("backgrounds/ClassSelect/Bg.png"),
 	CLASS_SELECT_CHARACTER_BOX("backgrounds/ClassSelect/CharacterBox.png"),
@@ -201,6 +202,7 @@ public enum AssetEnum {
 	MOUTH_FIEND_CLOTHED("enemies/MouthFiendClothed.png"),
 	MOUTH_FIEND_CLOTHED_TRANSPARENT("enemies/MouthFiendClothedTransparent.png"),
 	MOUTH_FIEND_ORAL("enemies/MouthFiendOral.jpg"),
+	MERMAID("enemies/Mermaid.png"),
 	TRAP_BONUS("enemies/TrapBonus.jpg"), 
 
 	ARMOR_DOLL("battle/ArmorDoll.png"),

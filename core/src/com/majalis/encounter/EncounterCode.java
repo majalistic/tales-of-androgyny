@@ -238,6 +238,7 @@ public enum EncounterCode {
 			case FORT: return "Fort";
 			case MOUTH_FIEND: return "Strange castle";
 			case MOUTH_FIEND_ESCAPE: return "Forest";
+			case MERMAID: return "Mermaid";
 			default: return "Nothing here.";
 		}
 	}
@@ -1241,7 +1242,7 @@ public enum EncounterCode {
 			case MERI_COTTAGE_VISIT:
 				return b.branch().textScene("STORY-WITCH-COTTAGE-VISIT").encounterEnd(); 
 			case MERMAID:
-				return b.branch();
+				return b.branch().textScene("MERMAID-INTRO");
 			case MOUTH_FIEND_ESCAPE:
 				return b.branch().textScene("MOUTHFIEND-ESCAPE-INTRO").choiceScene(
 					"Stay on the road?", 
@@ -1561,9 +1562,7 @@ public enum EncounterCode {
 							)
 						)
 					)
-				);
-						
-						
+				);	
 				return b.branch().checkScene(CheckType.DAY, b.branch(true).textScene("TOWN-SQUARE-INTRO").concat(townSquareOptions), b.branch(false).textScene("TOWN-SQUARE-NIGHT"));
 			case TOWN_STORY:
 				Branch leaveTown = b.branch().textScene("STORY-007").encounterEnd();
