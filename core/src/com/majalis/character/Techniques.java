@@ -101,7 +101,7 @@ public enum Techniques {
 	SQUEEZE_RELEASE		(new GrappleTechnique(Stance.WRAPPED, Stance.PRONE, "Release", -1, Stance.PRONE, GrappleType.WIN).build(), false),		
 	
 	SQUEEZE_STRUGGLE	(new GrappleTechnique(Stance.WRAPPED_BOTTOM, Stance.WRAPPED_BOTTOM, "Struggle", 5, GrappleType.ADVANTAGE).build(), false),
-	BREAK_FREE_SQUEEZE	(new GrappleTechnique(Stance.WRAPPED_BOTTOM, Stance.PRONE, "Struggle", 0, Stance.PRONE, GrappleType.BREAK).build(), false), // Break hold
+	BREAK_FREE_SQUEEZE	(new GrappleTechnique(Stance.WRAPPED_BOTTOM, Stance.PRONE, "Break Free", 0, Stance.PRONE, GrappleType.BREAK).build(), false), // Break hold
 	SQUEEZE_REST		(new GrappleTechnique(Stance.WRAPPED_BOTTOM, Stance.WRAPPED_BOTTOM, "Rest", -1, GrappleType.SUBMIT).build(), false),	
 	
 	WATCH				(new NonAttackTechnique(Stance.NULL, Stance.NULL, "Watch", -1, -1).build(), false),
@@ -240,12 +240,12 @@ public enum Techniques {
 	RELEASE_SUPINE		(new GrappleTechnique(Stance.GROUND_WRESTLE, Stance.HANDS_AND_KNEES, "Release", -1, Stance.SUPINE, GrappleType.WIN).build()),	
 	
 	STRUGGLE_GROUND		(new GrappleTechnique(Stance.GROUND_WRESTLE_FACE_DOWN, Stance.GROUND_WRESTLE_FACE_DOWN, "Struggle", 5, GrappleType.ADVANTAGE).build()),
-	BREAK_FREE_GROUND	(new GrappleTechnique(Stance.GROUND_WRESTLE_FACE_DOWN, Stance.PRONE, "Struggle", 0, Stance.PRONE, GrappleType.BREAK).build()), // Break hold
+	BREAK_FREE_GROUND	(new GrappleTechnique(Stance.GROUND_WRESTLE_FACE_DOWN, Stance.PRONE, "Release", 0, Stance.PRONE, GrappleType.BREAK).build()), // Break hold
 	GRIND				(new GrappleTechnique(Stance.GROUND_WRESTLE_FACE_DOWN, Stance.GROUND_WRESTLE_FACE_DOWN, "Grind", 0, GrappleType.SUBMIT).addSelfSex(new SexualExperienceBuilder().setAssBottomTeasing(1)).addSex(new SexualExperienceBuilder().setAssTeasing(1)).build()),
 	REST_GROUND_DOWN	(new GrappleTechnique(Stance.GROUND_WRESTLE_FACE_DOWN, Stance.GROUND_WRESTLE_FACE_DOWN, "Rest", -1, GrappleType.SUBMIT).build()),	
 	
 	STRUGGLE_GROUND_UP	(new GrappleTechnique(Stance.GROUND_WRESTLE_FACE_UP, Stance.GROUND_WRESTLE_FACE_UP, "Grapple", 4, GrappleType.ADVANTAGE).build()),
-	BREAK_FREE_GROUND_UP(new GrappleTechnique(Stance.GROUND_WRESTLE_FACE_UP, Stance.SUPINE, "Struggle", 0, Stance.PRONE, GrappleType.BREAK).build()), // Break hold
+	BREAK_FREE_GROUND_UP(new GrappleTechnique(Stance.GROUND_WRESTLE_FACE_UP, Stance.SUPINE, "Release", 0, Stance.PRONE, GrappleType.BREAK).build()), // Break hold
 	REVERSAL			(new GrappleTechnique(Stance.GROUND_WRESTLE_FACE_UP, Stance.GROUND_WRESTLE_FACE_UP, "Reversal", 6, GrappleType.REVERSAL).addBonus(BonusCondition.OUTMANEUVER, BonusType.GRAPPLE).build()),
 	FULL_REVERSAL		(new GrappleTechnique(Stance.GROUND_WRESTLE_FACE_UP, Stance.GROUND_WRESTLE, "Reversal", 8, Stance.GROUND_WRESTLE_FACE_DOWN, GrappleType.WIN).build()),
 	REST_GROUND_UP		(new GrappleTechnique(Stance.GROUND_WRESTLE_FACE_UP, Stance.GROUND_WRESTLE_FACE_UP, "Rest", -1, GrappleType.SUBMIT).build()),
@@ -263,10 +263,10 @@ public enum Techniques {
 	STRUGGLE_FACEFUCK  (new GrappleTechnique(Stance.FACEFUCK_BOTTOM, Stance.FACEFUCK_BOTTOM, "Struggle", 4, GrappleType.ADVANTAGE).build()), 
 	
 	/* Break Free Skills */
-	BREAK_FREE_FULL_NELSON 	(new GrappleTechnique(Stance.FULL_NELSON_BOTTOM, Stance.BALANCED, "Struggle", 0, Stance.BALANCED, GrappleType.BREAK).build()), // Break hold
-	BREAK_FREE_FACE_SIT	(new GrappleTechnique(Stance.FACE_SITTING_BOTTOM, Stance.BALANCED, "Struggle", 0, Stance.BALANCED, GrappleType.BREAK).build()), // Break hold
-	BREAK_FREE_ANAL		(new GrappleTechnique(Stance.ANAL_BOTTOM, Stance.BALANCED, "Struggle", 0, Stance.BALANCED, GrappleType.BREAK).build()), // Break hold
-	BREAK_FREE_ORAL		(new GrappleTechnique(Stance.FELLATIO_BOTTOM, Stance.BALANCED, "Struggle", 0, Stance.BALANCED, GrappleType.BREAK).build()), // Break hold
+	BREAK_FREE_FULL_NELSON 	(new GrappleTechnique(Stance.FULL_NELSON_BOTTOM, Stance.BALANCED, "Break Free", 0, Stance.BALANCED, GrappleType.BREAK).build()), // Break hold
+	BREAK_FREE_FACE_SIT	(new GrappleTechnique(Stance.FACE_SITTING_BOTTOM, Stance.BALANCED, "Break Free", 0, Stance.BALANCED, GrappleType.BREAK).build()), // Break hold
+	BREAK_FREE_ANAL		(new GrappleTechnique(Stance.ANAL_BOTTOM, Stance.BALANCED, "Break Free", 0, Stance.BALANCED, GrappleType.BREAK).build()), // Break hold
+	BREAK_FREE_ORAL		(new GrappleTechnique(Stance.FELLATIO_BOTTOM, Stance.BALANCED, "Break Free", 0, Stance.BALANCED, GrappleType.BREAK).build()), // Break hold
 	
 	INCANTATION 		(new NonAttackTechnique(Stance.BALANCED, Stance.CASTING, "Incantation", 0, 1).build(), false), 
 	
