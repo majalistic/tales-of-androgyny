@@ -33,7 +33,7 @@ public class GameWorldFactory {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public Array<GameWorldNode> getGameWorld(int seed, GameMode gameMode, int currentNode) {
+	public GameWorld getGameWorld(int seed, GameMode gameMode, int currentNode) {
 		random.setSeed(seed);
 		nodeMap = new IntMap<GameWorldNode>();
 		nodes = new Array<GameWorldNode>();
@@ -128,7 +128,7 @@ public class GameWorldFactory {
 			}
 		}
 		
-		return nodes;
+		return new GameWorld(nodes);
 	}
 	
 	private void addNode(GameWorldNode newNode, @SuppressWarnings("unchecked") Array<GameWorldNode> ... nodes) {

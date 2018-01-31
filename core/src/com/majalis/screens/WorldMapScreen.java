@@ -66,6 +66,7 @@ import com.majalis.save.SaveManager.GameMode;
 import com.majalis.scenes.MutationActor;
 import com.majalis.save.SaveService;
 import com.majalis.save.MutationResult.MutationType;
+import com.majalis.world.GameWorld;
 import com.majalis.world.GameWorldHelper;
 import com.majalis.world.GameWorldNode;
 import com.majalis.world.GroundType;
@@ -76,7 +77,7 @@ public class WorldMapScreen extends AbstractScreen {
 	// this class needs major refactoring - far too many dependencies, properties, statefulness
 	private final AssetManager assetManager;
 	private final SaveService saveService;
-	private final Array<GameWorldNode> world;
+	private final GameWorld world;
 	private final Texture food;
 	private final Texture cloud;
 	private final Texture characterUITexture;
@@ -137,7 +138,7 @@ public class WorldMapScreen extends AbstractScreen {
 		resourceRequirements.addAll(CharacterScreen.resourceRequirements);
 	}
 	
-	public WorldMapScreen(ScreenFactory factory, ScreenElements elements, AssetManager assetManager, SaveService saveService, LoadService loadService, Array<GameWorldNode> world, RandomXS128 random) {
+	public WorldMapScreen(ScreenFactory factory, ScreenElements elements, AssetManager assetManager, SaveService saveService, LoadService loadService, GameWorld world, RandomXS128 random) {
 		super(factory, elements, AssetEnum.WORLD_MAP_MUSIC);
 		this.assetManager = assetManager;
 		this.saveService = saveService;
@@ -197,7 +198,7 @@ public class WorldMapScreen extends AbstractScreen {
 		foodLabel = new Label("", skin);
 		hoverLabel = new Label("", skin);
 		
-		for (final GameWorldNode actor : world) {
+		for (final GameWorldNode actor : world.getNodes()) {
 			if (actor.isCurrent()) {
 				setCurrentNode(actor);
 			}
@@ -930,7 +931,7 @@ public class WorldMapScreen extends AbstractScreen {
 	
 	private int worldCollide(int x, int y) {
 		int minDistance = 100;
-		for (GameWorldNode node : world) {
+		for (GameWorldNode node : world.getNodes()) {
 			int distance = distance(x, y, (int)node.getHexPosition().x, (int)node.getHexPosition().y);
 			if (distance < minDistance) minDistance = distance;
 		}
@@ -1286,13 +1287,13 @@ public class WorldMapScreen extends AbstractScreen {
 	private void addWorldActors() {
 		Group roads = new Group();
 		worldGroup.addActor(roads);
-		for (GameWorldNode node : world) {
+		for (GameWorldNode node : world.getNodes()) {
 			for (Actor actor : node.getPaths()) {
 				roads.addActor(actor);
 			}
 		}
 		
-		for (final GameWorldNode actor : world) {
+		for (final GameWorldNode actor : world.getNodes()) {
 			worldGroup.addActor(actor);
 			actor.addListener(new ClickListener(){
 				@Override
