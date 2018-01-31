@@ -40,7 +40,7 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 	private boolean visited;
 	private boolean current;
 	private int visibility;
-	private Texture activeImage;
+	private Image activeImage;
 	private AnimatedImage activeAnimation;
 	private Texture roadImage;
 	private Image arrow;
@@ -59,12 +59,12 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 		this.visited = visited;
 
 		// this should be refactored - shouldn't need asset manager
-		activeImage = assetManager.get(encounter.getCode().getTexture().getTexture());
+		Texture activeImageTexture = assetManager.get(encounter.getCode().getTexture().getTexture());
 		if (encounter.getCode().getTexture() == AssetEnum.FOREST_ACTIVE || encounter.getCode().getTexture() == AssetEnum.ENCHANTED_FOREST || encounter.getCode().getTexture() == AssetEnum.FOREST_INACTIVE) {
 			Array<TextureRegion> frames = new Array<TextureRegion>();
 			int size = 64;
 			for (int ii = 0; ii < 3; ii++) {
-				frames.add(new TextureRegion(activeImage, ii * size, 0, size, size));
+				frames.add(new TextureRegion(activeImageTexture, ii * size, 0, size, size));
 			}
 			
 			Animation animation = new Animation(.14f, frames);
@@ -74,7 +74,8 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 			this.addActor(activeAnimation);
 		}
 		else {
-			this.addActor(new Image(activeImage));
+			activeImage = new Image(activeImageTexture);
+			this.addActor(activeImage);
 		}
 		
 		roadImage = assetManager.get(AssetEnum.ROAD.getTexture());
@@ -90,7 +91,7 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 		
 		this.addAction(Actions.show());
 		Vector2 position = calculatePosition(x, y);
-		this.setBounds(position.x, position.y, activeImage.getWidth(), activeImage.getHeight());
+		this.setBounds(position.x, position.y, activeImageTexture.getWidth(), activeImageTexture.getHeight());
 		visibility = -1;
 		fireListener = new ClickListener() { 
 			@Override
@@ -190,6 +191,7 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 			actor.setColor(color);
 		}
 		arrow.setColor(Color.WHITE);
+		if (activeImage != null) activeImage.setColor(Color.WHITE);
 		if (activeAnimation != null) activeAnimation.setColor(current ? Color.PINK : Color.WHITE);
 	}
 	
