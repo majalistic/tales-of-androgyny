@@ -1,22 +1,26 @@
 package com.majalis.character;
 
+import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.utils.Array;
+import com.majalis.asset.AssetEnum;
 
 public enum GrappleStatus {
-	NULL (""),
-	HOLD ("Grapple: Holding"),
-	DOMINANT("Grapple: Dominant"),
-	ADVANTAGE("Grapple: Advantage"),
-	SCRAMBLE("Grapple: Scramble"),
-	DISADVANTAGE("Grapple: Disadvantage"),
-	SUBMISSION("Grapple: Submission"),
-	HELD("Grapple: Held")
+	NULL (AssetEnum.NULL, AssetEnum.NULL),
+	HOLD (AssetEnum.GRAPPLE_HOLD, AssetEnum.GRAPPLE_HOLD_INACTIVE),
+	DOMINANT(AssetEnum.GRAPPLE_DOMINANT, AssetEnum.GRAPPLE_DOMINANT_INACTIVE),
+	ADVANTAGE(AssetEnum.GRAPPLE_ADVANTAGE, AssetEnum.GRAPPLE_ADVANTAGE_INACTIVE),
+	SCRAMBLE(AssetEnum.GRAPPLE_SCRAMBLE, AssetEnum.GRAPPLE_SCRAMBLE_INACTIVE),
+	DISADVANTAGE(AssetEnum.GRAPPLE_DISADVANTAGE, AssetEnum.GRAPPLE_DISADVANTAGE_INACTIVE),
+	SUBMISSION(AssetEnum.GRAPPLE_SUBMISSION, AssetEnum.GRAPPLE_SUBMISSION_INACTIVE),
+	HELD(AssetEnum.GRAPPLE_HELD, AssetEnum.GRAPPLE_HELD_INACTIVE)
 	;
-	private final String label;
-	private GrappleStatus(String label) {
-		this.label = label;
+	private final AssetEnum activeTexture;
+	private final AssetEnum inactiveTexture;
+	private GrappleStatus(AssetEnum activeTexture, AssetEnum inactiveTexture) {
+		this.activeTexture = activeTexture;
+		this.inactiveTexture = inactiveTexture;
 	}
-	public String getLabel() { return label; }
-	
 	protected GrappleStatus inverse() {
 		return this == NULL ? NULL : GrappleStatus.values()[((GrappleStatus.values().length - 1) - this.ordinal()) + 1];
 	}
@@ -44,5 +48,12 @@ public enum GrappleStatus {
 			default:
 				return this == NULL ? SCRAMBLE : this;
 		}
+	}
+	public Texture getActiveTexture(AssetManager assetManager) { return assetManager.get(activeTexture.getTexture()); }
+	public Texture getInactiveTexture(AssetManager assetManager) { return assetManager.get(inactiveTexture.getTexture()); }
+	public static Array<GrappleStatus> reverseValues() { 
+		Array<GrappleStatus> values = new Array<GrappleStatus>(GrappleStatus.values());
+		values.reverse();
+		return values;
 	}
 }

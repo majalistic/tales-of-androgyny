@@ -332,6 +332,24 @@ public enum AssetEnum {
 	WRAPPED("stances/Wrapped.png"),
 	SEDUCTION("stances/Seduction.png"),	
 	
+	GRAPPLE_BACKGROUND("grapple/Background.png"),
+	
+	GRAPPLE_HOLD("grapple/Hold.png"),
+	GRAPPLE_DOMINANT("grapple/Dominant.png"),
+	GRAPPLE_ADVANTAGE("grapple/Advantage.png"),
+	GRAPPLE_SCRAMBLE("grapple/Scramble.png"),
+	GRAPPLE_DISADVANTAGE("grapple/Disadvantage.png"),
+	GRAPPLE_SUBMISSION("grapple/Submission.png"),
+	GRAPPLE_HELD("grapple/Held.png"),
+	
+	GRAPPLE_HOLD_INACTIVE("grapple/HoldInactive.png"),
+	GRAPPLE_DOMINANT_INACTIVE("grapple/DominantInactive.png"),
+	GRAPPLE_ADVANTAGE_INACTIVE("grapple/AdvantageInactive.png"),
+	GRAPPLE_SCRAMBLE_INACTIVE("grapple/ScrambleInactive.png"),
+	GRAPPLE_DISADVANTAGE_INACTIVE("grapple/DisadvantageInactive.png"),
+	GRAPPLE_SUBMISSION_INACTIVE("grapple/SubmissionInactive.png"),
+	GRAPPLE_HELD_INACTIVE("grapple/HeldInactive.png"),
+	
 	STANCE_ARROW("stances/ChevronArrow.png"),
 	
 	STRENGTH("stats/Strength.png"),

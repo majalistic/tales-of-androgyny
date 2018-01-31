@@ -30,6 +30,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
+import com.badlogic.gdx.utils.OrderedMap;
 import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.majalis.asset.AnimatedImage;
@@ -40,6 +41,7 @@ import com.majalis.character.Stance;
 import com.majalis.character.Attack.Status;
 import com.majalis.character.Attack;
 import com.majalis.character.EnemyCharacter;
+import com.majalis.character.GrappleStatus;
 import com.majalis.character.PlayerCharacter;
 import com.majalis.character.Technique;
 import com.majalis.encounter.Background;
@@ -130,7 +132,6 @@ public class Battle extends Group{
 	private final Label enemyBloodLabel;
 	private final Label statusLabel;
 	private final Label enemyStatusLabel;
-	private final Label grappleStatus;
 	
 	private final Label characterHealthDiff;
 	private final Label characterStaminaDiff;
@@ -165,6 +166,76 @@ public class Battle extends Group{
 	private Group uiGroup;
 	private boolean uiHidden;
 	private boolean onload = true;
+	
+	private class GrappleDisplay extends Group {
+		private final AbstractCharacter character;
+		private final OrderedMap<GrappleStatus, Image> inactiveStatuses;
+		private final OrderedMap<GrappleStatus, Image> activeStatuses;
+		private final Image background;
+		private final static float xOffset = 74.75f;
+		private final static float scaleFactor = .315f;
+		private final static float backgroundXOffset = -50;
+		private final static float backgroundYOffset = -29;
+		private GrappleDisplay(AbstractCharacter character, AssetManager assetManager) {
+			this.character = character;
+			this.inactiveStatuses = new OrderedMap<GrappleStatus, Image>();
+			this.activeStatuses = new OrderedMap<GrappleStatus, Image>();
+			background = new Image(assetManager.get(AssetEnum.GRAPPLE_BACKGROUND.getTexture()));
+			background.setScale(scaleFactor);
+			background.setPosition(getX() + backgroundXOffset, getY() + backgroundYOffset);
+			this.addActor(background);
+			int offset = 0;
+			for (GrappleStatus grappleStatus : GrappleStatus.reverseValues()) {
+				if (grappleStatus == GrappleStatus.NULL) continue;
+				Image inactiveImage = new Image(grappleStatus.getInactiveTexture(assetManager));
+				inactiveImage.addAction(hide());
+				inactiveImage.setPosition(getX() + offset, getY());
+				inactiveImage.setScale(scaleFactor);
+				inactiveImage.setColor(Color.GRAY);
+				Image activeImage = new Image(grappleStatus.getActiveTexture(assetManager));
+				activeImage.addAction(hide());
+				activeImage.setPosition(getX() + offset, getY());
+				activeImage.setScale(scaleFactor);
+				inactiveStatuses.put(grappleStatus, inactiveImage);
+				activeStatuses.put(grappleStatus, activeImage);
+				this.addActor(inactiveImage);
+				this.addActor(activeImage);
+				offset += xOffset;
+			}
+		}
+		
+		@Override
+		public void setPosition(float x, float y) {
+			super.setPosition(x, y);
+			int offset = 0;
+			for (GrappleStatus status : GrappleStatus.reverseValues()) {
+				if (status == GrappleStatus.NULL) continue;
+				inactiveStatuses.get(status).setPosition(getX() + offset, y);
+				activeStatuses.get(status).setPosition(getX() + offset, y);
+				offset += xOffset;
+			}
+			background.setPosition(getX() + backgroundXOffset, getY() + backgroundYOffset);
+		}
+		
+		@Override 
+		public void act(float delta) {
+			// set which grapple is visible first
+			if (character.getGrappleStatus() == GrappleStatus.NULL) this.addAction(hide());
+			else this.addAction(show());
+			for (GrappleStatus status : GrappleStatus.reverseValues()) {
+				if (status == GrappleStatus.NULL) continue;
+				if (status == character.getGrappleStatus()) {
+					inactiveStatuses.get(status).addAction(hide());
+					activeStatuses.get(status).addAction(show());
+				}
+				else {
+					activeStatuses.get(status).addAction(hide());
+					inactiveStatuses.get(status).addAction(show());
+				}
+			}
+			super.act(delta);
+		}		
+	}
 	
 	public Battle(SaveService saveService, AssetManager assetManager, final PlayerCharacter character, final EnemyCharacter enemy, ObjectMap<String, Integer> outcomes, Background battleBackground, Background battleUI, String consoleText, String dialogText, AssetEnum musicPath) {
 		this.saveService = saveService;
@@ -227,8 +298,10 @@ public class Battle extends Group{
 		healthIcon = initImage(assetManager.get(character.getHealthDisplay()), barX+3, 1042.5f);
 		healthLabel = initLabel(character.getCurrentHealth() + " / " + character.getMaxHealth(), skin, Color.BROWN, barX + 75, 1043);
 		
-		grappleStatus = initLabel(character.getGrappleStatus().getLabel(), skin, Color.GOLD, 800, 1000);
-		
+		GrappleDisplay grappleStatus = new GrappleDisplay(character, assetManager); 
+		grappleStatus.setPosition(385, 501);
+		uiGroup.addActor(grappleStatus);
+	
 		characterStamina = initBar(0, 1, .05f, false, skin, 350, character.getStaminaPercent(), barX, 990);
 		staminaIcon = initImage(assetManager.get(character.getStaminaDisplay()), barX + 7.5f, 997.5f);
 		staminaLabel = initLabel(character.getCurrentStamina() + " / " + character.getMaxStamina(), skin, Color.BROWN, barX + 75, 998);
@@ -964,7 +1037,6 @@ public class Battle extends Group{
 		enemyHealth.setValue(enemy.getHealthPercent());
 		enemyStamina.setValue(enemy.getStaminaPercent());
 		enemyBalance.setValue(enemy.getBalancePercent());
-		grappleStatus.setText(character.getGrappleStatus().getLabel());
 		healthLabel.setText(character.getCurrentHealth() + " / " + character.getMaxHealth());
 		staminaLabel.setText(character.getCurrentStamina() + " / " + character.getMaxStamina());
 		balanceLabel.setText(character.getStability().toString());
