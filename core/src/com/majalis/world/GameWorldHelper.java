@@ -5,6 +5,11 @@ import com.badlogic.gdx.math.Vector2;
 public class GameWorldHelper {
 	private static int scalingFactor = 54;
 	private static int xFactor = -9;
+	private final static int tileWidth = 61;
+	private final static int tileHeight = 55;
+	
+	public static int getTileWidth() { return tileWidth; }
+	public static int getTileHeight() { return tileHeight; }
 	
 	public static int getTrueX(int x) {
 		return (x - 16) * (scalingFactor + xFactor);

@@ -128,7 +128,7 @@ public class GameWorldFactory {
 			}
 		}
 		
-		return new GameWorld(nodes);
+		return new GameWorld(nodes, assetManager, random);
 	}
 	
 	private void addNode(GameWorldNode newNode, @SuppressWarnings("unchecked") Array<GameWorldNode> ... nodes) {
@@ -140,9 +140,5 @@ public class GameWorldFactory {
 	
 	private GameWorldNode getNode(int nodeCode, EncounterCode initialEncounter, EncounterCode defaultEncounter, int x, int y, boolean visited) {
 		return new GameWorldNode(nodeCode, new GameWorldNodeEncounter(initialEncounter, defaultEncounter), x, y, visited, character, assetManager);
-	}
-	// temporary until gameworld terrain gen is moved to this class
-	public RandomXS128 getRandom() {
-		return random;
 	}
 }

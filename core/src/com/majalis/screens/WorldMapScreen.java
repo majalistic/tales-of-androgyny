@@ -21,9 +21,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
-import com.badlogic.gdx.math.Affine2;
 import com.badlogic.gdx.math.Matrix4;
-import com.badlogic.gdx.math.RandomXS128;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Action;
@@ -67,6 +65,8 @@ import com.majalis.scenes.MutationActor;
 import com.majalis.save.SaveService;
 import com.majalis.save.MutationResult.MutationType;
 import com.majalis.world.GameWorld;
+import com.majalis.world.GameWorld.Doodad;
+import com.majalis.world.GameWorld.Shadow;
 import com.majalis.world.GameWorldHelper;
 import com.majalis.world.GameWorldNode;
 import com.majalis.world.GroundType;
@@ -105,7 +105,6 @@ public class WorldMapScreen extends AbstractScreen {
 	private final Label hoverLabel;
 	private final TextButton campButton;
 	private final boolean storyMode;
-	private final RandomXS128 random;
 	private final float travelTime;
 	private final Array<FrameBuffer> frameBuffers;
 	private final SpriteBatch frameBufferBatch;
@@ -138,11 +137,10 @@ public class WorldMapScreen extends AbstractScreen {
 		resourceRequirements.addAll(CharacterScreen.resourceRequirements);
 	}
 	
-	public WorldMapScreen(ScreenFactory factory, ScreenElements elements, AssetManager assetManager, SaveService saveService, LoadService loadService, GameWorld world, RandomXS128 random) {
+	public WorldMapScreen(ScreenFactory factory, ScreenElements elements, AssetManager assetManager, SaveService saveService, LoadService loadService, GameWorld world) {
 		super(factory, elements, AssetEnum.WORLD_MAP_MUSIC);
 		this.assetManager = assetManager;
 		this.saveService = saveService;
-		this.random = random;
 		this.travelTime = 1;
 		this.frameBuffers = new Array<FrameBuffer>();
 		this.frameBufferBatch = new SpriteBatch();
@@ -588,6 +586,7 @@ public class WorldMapScreen extends AbstractScreen {
 			Array<Action> moveActionsGhost = new Array<Action>();
 			int distance = GameWorldHelper.distance((int)start.x, (int)start.y, (int)finish.x, (int)finish.y);
 			int totalDistance = distance;
+			// can eventually walk along a "path" that is designated by the connections between nodes - eventually the world map screen won't need a getTrueX() function, as that would be calculated elsewhere			
 			while (distance > 0) {
 				if (start.x + start.y == finish.x + finish.y) { // z is constant
 					if (start.x < finish.x) { // downright
@@ -924,54 +923,8 @@ public class WorldMapScreen extends AbstractScreen {
 	}
 	
 	private ObjectMap<String, TextureRegion> groundSlices = new ObjectMap<String, TextureRegion>();
-	private final static int tileWidth = 61;
-	private final static int tileHeight = 55;
-	
-	private int distance(int x, int y, int x2, int y2) { return GameWorldHelper.distance(x, y, x2, y2); }
-	
-	private int worldCollide(int x, int y) {
-		int minDistance = 100;
-		for (GameWorldNode node : world.getNodes()) {
-			int distance = distance(x, y, (int)node.getHexPosition().x, (int)node.getHexPosition().y);
-			if (distance < minDistance) minDistance = distance;
-		}
-		return minDistance;
-	}
-	
-	private class Doodad extends Image {
-		public Doodad(TextureRegion textureRegion) {
-			super(textureRegion);
-		}
-		
-		@Override
-		public Actor hit(float x, float y, boolean touchable) { return null; }		
-	}
-		
-	private class Shadow extends Actor {
-
-		private final TextureRegion texture;
-		private Affine2 affine = new Affine2();
-		private float shadowDirection;
-		private float shadowLength;
-		
-		public Shadow(TextureRegion textureRegion) {
-			this.texture = textureRegion;
-		}
-
-		public void setSkew(float shadowDirection, float shadowLength) {
-			this.shadowDirection = shadowDirection;
-			this.shadowLength = shadowLength;			
-		}
-
-		@Override
-	    public void draw(Batch batch, float parentAlpha) {
-			Color color = getColor();
-			batch.setColor(color.r, color.g, color.b, color.a * parentAlpha);
-			affine.setToTrnRotScl(getX() + texture.getRegionWidth() + (getOriginX()), getY() + (getOriginY()*2)+3, 180, 1, 1);
-	        affine.shear(shadowDirection, 0);  // this modifies the skew
-			batch.draw(texture, texture.getRegionWidth(), texture.getRegionHeight() * shadowLength, affine);
-	    }
-	}
+	private final static int tileWidth = GameWorldHelper.getTileWidth();
+	private final static int tileHeight = GameWorldHelper.getTileHeight();
 	
 	private void generateBackground() {
 		backgroundRendered = true;
@@ -983,153 +936,12 @@ public class WorldMapScreen extends AbstractScreen {
 			addWorldActors();
 		}
 		else {
-			/* MODELLING - SHOULD BE MOVED TO GAME WORLD GEN */
-			Array<Array<GroundType>> ground = new Array<Array<GroundType>>();
-			Array<Doodad> doodads = new Array<Doodad>();
-			Array<Shadow> shadows = new Array<Shadow>();		
-			Array<Image> reflections = new Array<Image>();
-			Array<AnimatedImage> lilies = new Array<AnimatedImage>();
+			Array<Array<GroundType>> ground = world.getGround();
+			Array<AnimatedImage> lilies = world.getLilies();
+			Array<Image> reflections = world.getReflections();
+			Array<Shadow> shadows = world.getShadows();
+			Array<Doodad> doodads = world.getDoodads();
 			
-			Texture doodadTextureSheet = assetManager.get(AssetEnum.DOODADS.getTexture());
-			Array<TextureRegion> treeTextures = new Array<TextureRegion>();
-			Array<TextureRegion> treeShadowTextures = new Array<TextureRegion>();
-			int treeRowSize = 7;
-			int treeWidth = 192;
-			int treeHeight = 256;
-			for (int ii = 0; ii < treeRowSize; ii++) {
-				for (int jj = 0; jj < 4; jj++) {
-					treeTextures.add(new TextureRegion(doodadTextureSheet, ii * treeWidth, jj * treeHeight, treeWidth, treeHeight));
-					TextureRegion shadowTexture = new TextureRegion(doodadTextureSheet, ii * treeWidth, jj * treeHeight, treeWidth, treeHeight);
-					shadowTexture.flip(true, false);
-					treeShadowTextures.add(shadowTexture);
-				}
-			}
-			
-			Array<TextureRegion> rockTextures = new Array<TextureRegion>();
-			Array<TextureRegion> rockShadowTextures = new Array<TextureRegion>();
-			int rockRowSize = 5;
-			int rockWidth = 256;
-			int rockHeight = 128;
-			for (int ii = 0; ii < rockRowSize; ii++) {
-				for (int jj = 0; jj < 4; jj++) {
-					rockTextures.add(new TextureRegion(doodadTextureSheet, ii * rockWidth, treeHeight * 4 + jj * rockHeight, rockWidth, rockHeight));
-					TextureRegion shadowTexture = new TextureRegion(doodadTextureSheet, ii * rockWidth, treeHeight * 4 + jj * rockHeight, rockWidth, rockHeight);
-					shadowTexture.flip(true, false);
-					rockShadowTextures.add(shadowTexture);
-				}
-			}
-			
-			Array<Animation> lilyAnimations = new Array<Animation>();
-			int lilyArraySize = 15;
-			int lilyWidth = 64;
-			int lilyHeight = 64;
-			for (int ii = 0; ii < lilyArraySize; ii++) {
-				Array<TextureRegion> frames = new Array<TextureRegion>();
-				frames.add(new TextureRegion(doodadTextureSheet, ii * lilyWidth, treeHeight * 4 + rockHeight * 4, lilyWidth, lilyHeight));
-				frames.add(new TextureRegion(doodadTextureSheet, ii * lilyWidth, treeHeight * 4 + rockHeight * 4 + lilyHeight, lilyWidth, lilyHeight));
-				Animation lilyAnimation = new Animation(.28f, frames);
-				lilyAnimation.setPlayMode(PlayMode.LOOP);
-				lilyAnimations.add(lilyAnimation);
-			}		
-			
-			int maxX = 170;
-			int maxY = 235;
-			
-			// first figure out what all of the tiles are - dirt, greenLeaf, redLeaf, moss, or water - create a model without drawing anything	
-			for (int x = 0; x < maxX; x++) {
-				Array<GroundType> layer = new Array<GroundType>();
-				ground.add(layer);
-				for (int y = 0; y < maxY; y++) {
-					// redLeaf should be the default			
-					// dirt should be randomly spread throughout redLeaf  
-					// greenLeaf might also be randomly spread throughout redLeaf
-					// bodies of water should be generated as a single central river that runs through the map for now, that randomly twists and turns and bulges at the turns
-					// moss should be in patches adjacent to water
-					
-					int closest = worldCollide(x, y);
-					
-					GroundType toAdd;
-					
-					if (closest >= 2 && (river(x, y) || lake(x, y))) toAdd = GroundType.WATER;
-					else if (closest <= 3 || shoreline(x, y)) toAdd = GroundType.DIRT;
-					else {
-						toAdd = GroundType.valueOf("RED_LEAF_" + Math.abs(random.nextInt() % 6));					
-					}
-					
-					layer.add(toAdd);
-					
-					if (toAdd == GroundType.WATER && random.nextInt() % 5 == 0) {
-						AnimatedImage lily = new AnimatedImage(lilyAnimations.get(Math.abs(random.nextInt() % lilyArraySize)), Scaling.fit, Align.center);
-						lily.setState(0);
-						int trueX = getTrueX(x) - (int)lily.getWidth() / 2 + tileWidth / 2;
-						int trueY = getTrueY(x, y) + tileHeight / 2;
-						lily.setPosition(trueX, trueY);
-						lilies.add(lily);
-					}
-					
-					boolean treeAbundance = isAbundantTrees(x, y);				
-					if (closest >= 3 && toAdd == GroundType.DIRT || toAdd == GroundType.RED_LEAF_0 || toAdd == GroundType.RED_LEAF_1) {
-						if (random.nextInt() % (treeAbundance ? 2 : 15) == 0) {
-							Array<TextureRegion> textures;
-							Array<TextureRegion> shadowTextures;
-							int arraySize;
-							if (!(treeAbundance) && random.nextInt() % 6 == 0) {
-								textures = rockTextures;
-								shadowTextures = rockShadowTextures;
-								arraySize = rockTextures.size;
-							}
-							else {
-								textures = treeTextures;
-								shadowTextures = treeShadowTextures;
-								arraySize = treeTextures.size;
-							}
-							int chosen = Math.abs(random.nextInt() % arraySize);
-							Doodad doodad = new Doodad(textures.get(chosen));
-							Shadow shadow = new Shadow(shadowTextures.get(chosen));
-							Image reflection = new Image(shadowTextures.get(chosen));
-							int trueX = getTrueX(x) - (int)doodad.getWidth() / 2 + tileWidth / 2;
-							int trueY = getTrueY(x, y) + tileHeight / 2;
-							doodad.setPosition(trueX , trueY);
-							shadow.setPosition(trueX, trueY);
-							reflection.setPosition(trueX, trueY);
-							reflection.setOrigin(reflection.getWidth() / 2, 16);
-							reflection.rotateBy(180);
-							reflection.addAction(Actions.alpha(.6f));
-							
-							boolean doodadInserted = false;
-							int ii = 0;
-							for (Image compare : doodads) {
-								if (doodad.getY() > compare.getY()) {
-									doodadInserted = true;
-									doodads.insert(ii, doodad);
-									shadows.insert(ii, shadow);
-									reflections.insert(ii, reflection);
-									break;
-								}
-								ii++;
-							}
-							if (!doodadInserted) {
-								doodads.add(doodad);
-								shadows.add(shadow);
-								reflections.add(reflection);
-							}
-						}
-					}	
-				}
-			}			
-			
-			// iterate a second pass through and determine where rocks and trees and shadows should go
-			/*for (int x = 0; x < ground.size; x++) {
-				int layerSize = ground.get(x).size;
-				for (int y = 0; y < ground.get(x).size; y++) {
-					// place random rocks on tiles adjacent to water
-					
-					// place random trees on redLeaf/greenLeaf/dirt tiles that aren't adjacent to water
-					// for each tree, create a shadow (should be mapped shadow textures placed at the same location as the tree)
-
-				}
-			}*/
-			/* DRAWING */
 			Texture groundSheet = assetManager.get(AssetEnum.GROUND_SHEET.getTexture());	
 			
 			// draw (add drawings as actors) ground layer
@@ -1164,29 +976,7 @@ public class WorldMapScreen extends AbstractScreen {
 		}
 		frameBufferBatch.dispose();
 	}
-	
-	private boolean river(int x, int y) {
-		return (x + y > 140 && x + y < 148 && y > 50) || (y > 50 && y < 60 && x + y > 140);
-	}
-	
-	private boolean shoreline(int x, int y) {
-		for (int ii = x - 2; ii <= x + 2; ii++) {
-			for (int jj = y - 2; jj <= y + 2; jj++) {
-				if (river(ii, jj)) return true;
-				if (lake(ii, jj)) return true;
-			}
-		}
-		return false;
-	}
-	
-	private boolean lake(int x, int y) {
-		return distance(x, y, 13, 90) < 5 || distance(x, y, 87, 55) < 7 || distance(x, y, 80, 62) < 5 || distance(x, y, 94, 55) < 5;
-	}
-	
-	private boolean isAbundantTrees(int x, int y) {
-		return (x + y > 147 && x + y < 150) || (x > 0 && x < 15) || (x + y * 2 > 180 && x + y * 2 < 195);
-	}
-	
+		
 	private static int maxTextureSize = getMaxTextureSize();
 	private static int getMaxTextureSize() {
 		int textureSize = 128;
