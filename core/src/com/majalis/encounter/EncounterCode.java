@@ -49,6 +49,7 @@ public enum EncounterCode {
 	NAGA,
 	MOUTH_FIEND (CASTLE),
 	MOUTH_FIEND_ESCAPE,
+	MERMAID,
 	
 	FORT (CASTLE), 
 	TOWN (AssetEnum.TOWN),
@@ -129,6 +130,7 @@ public enum EncounterCode {
 					case GOLEM: return "Statue";
 					case GADGETEER: return "Merchant";
 					case NAGA: return "Cave";
+					case MERMAID: return "Island";
 					case TOWN: return "Small Settlement";
 					case TOWN2:
 					case TOWN_STORY:
@@ -190,6 +192,7 @@ public enum EncounterCode {
 					case SPIDER: return "Ruins - Danger!";
 					case GADGETEER: return "Suspicious Merchant";
 					case NAGA: return "Cave - Naga Within!";
+					case MERMAID: return "Island";
 					case TOWN: return "Town of Silajam";
 					case TOWN2:
 					case TOWN_STORY: return "Town of Nadir";
@@ -1237,6 +1240,8 @@ public enum EncounterCode {
 				return b.branch().textScene("STORY-WITCH-COTTAGE").encounterEnd(); 	
 			case MERI_COTTAGE_VISIT:
 				return b.branch().textScene("STORY-WITCH-COTTAGE-VISIT").encounterEnd(); 
+			case MERMAID:
+				return b.branch();
 			case MOUTH_FIEND_ESCAPE:
 				return b.branch().textScene("MOUTHFIEND-ESCAPE-INTRO").choiceScene(
 					"Stay on the road?", 

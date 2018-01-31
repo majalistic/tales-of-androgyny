@@ -41,7 +41,8 @@ public class GameWorldFactory {
 		character = loadService.loadDataValue(SaveEnum.PLAYER, PlayerCharacter.class);
 		
 		ObjectSet<EncounterCode> unspawnedEncounters = new ObjectSet<EncounterCode>(EncounterCode.getAllRandomEncounters());
-		
+		IntSet visitedCodesSet = loadService.loadDataValue(SaveEnum.VISITED_LIST, IntSet.class);
+		GameWorldNode mermaid = null;
 		if (gameMode == GameMode.SKIRMISH) {
 			new Zone(loadService, assetManager, random, nodes, nodeMap, unspawnedEncounters, 1,  1)
 				.addStartNode(1, INITIAL, DEFAULT, 18, 89) 
@@ -49,35 +50,36 @@ public class GameWorldFactory {
 				.buildZone();
 			
 			Zone zone = new Zone(loadService, assetManager, random, nodes, nodeMap, unspawnedEncounters, 1,  2)
-					.addStartNode(nodes.get(0))
-					.addEndNode(1000, TOWN, TOWN, 31, 94)
-					.buildZone();
+				.addStartNode(nodes.get(0))
+				.addEndNode(1000, TOWN, TOWN, 31, 94)
+				.buildZone();
 			
-			Zone zone2 = new Zone(loadService, assetManager, random, nodes, nodeMap, unspawnedEncounters, 2,  3)
-					.addStartNode(zone.getEndNodes().get(0))
-					.addEndNode(1001, SPIDER, SPIDER, 53, 109)
-					.buildZone();
+			mermaid = addNode(getNode(2000, MERMAID, MERMAID, 50, 94, visitedCodesSet.contains(2000)), nodes);
+			
+			Zone zone2 = new Zone(loadService, assetManager, random, nodes, nodeMap, unspawnedEncounters, 2, 1)
+				.addStartNode(zone.getEndNodes().get(0))
+				.addEndNode(1001, SPIDER, SPIDER, 53, 109)
+				.buildZone();
 			
 			Zone zone3 = new Zone(loadService, assetManager, random, nodes, nodeMap, unspawnedEncounters, 2, 2)
-					.addStartNode(zone2.getEndNodes().get(0))
-					.addEndNode(1003, ANGEL, DEFAULT, 83, 119)
-					.addEndNode(1004, WITCH_COTTAGE, WITCH_COTTAGE, 83, 88)
-					.buildZone();
+				.addStartNode(zone2.getEndNodes().get(0))
+				.addEndNode(1003, ANGEL, DEFAULT, 83, 119)
+				.addEndNode(1004, WITCH_COTTAGE, WITCH_COTTAGE, 83, 88)
+				.buildZone();
 			
 			new Zone(loadService, assetManager, random, nodes, nodeMap, unspawnedEncounters, 3, 2)
-					.addStartNode(zone3.getEndNodes().get(0))
-					.addEndNode(1005, QUETZAL, QUETZAL, 119, 115)
-					.addEndNode(1006, FORT, FORT, 119, 84)
-					.buildZone();
+				.addStartNode(zone3.getEndNodes().get(0))
+				.addEndNode(1005, QUETZAL, QUETZAL, 119, 115)
+				.addEndNode(1006, FORT, FORT, 119, 84)
+				.buildZone();
 			
-			IntSet visitedCodesSet = loadService.loadDataValue(SaveEnum.VISITED_LIST, IntSet.class);
 			addNode(getNode(50000, MOUTH_FIEND, MOUTH_FIEND, 96, 49, visitedCodesSet.contains(50000)), nodes);
 			addNode(getNode(50001, MOUTH_FIEND_ESCAPE, MOUTH_FIEND_ESCAPE, 99, 49, visitedCodesSet.contains(50001)), nodes);
 			nodes.get(nodes.size - 1).connectTo(nodes.get(nodes.size - 2));			
 		}
 		else {
 			int nodeCode = 1;
-			IntSet visitedCodesSet = loadService.loadDataValue(SaveEnum.VISITED_LIST, IntSet.class);
+			
 			addNode(getNode(nodeCode, DEFAULT, DEFAULT, 12, 92, visitedCodesSet.contains(nodeCode++)), nodes);
 			addNode(getNode(nodeCode, COTTAGE_TRAINER, COTTAGE_TRAINER_VISIT, 15, 91, visitedCodesSet.contains(nodeCode++)), nodes);
 			addNode(getNode(nodeCode, TOWN_STORY, TOWN2, 19, 90, visitedCodesSet.contains(nodeCode++)), nodes);
@@ -97,11 +99,6 @@ public class GameWorldFactory {
 			addNode(getNode(nodeCode, FOOD_CACHE, DEFAULT, 24, 102, visitedCodesSet.contains(nodeCode++)), nodes);
 			addNode(getNode(nodeCode, FORT, FORT, 29, 102, visitedCodesSet.contains(nodeCode++)), nodes);
 			
-			/*new Zone(loadService, assetManager, random, nodes, nodeMap, 1, 1)
-				.addStartNode(nodes.get(nodes.size-1))
-				.addEndNode(1003, FORT, FORT, 9, 51)
-				.buildZone();*/
-			
 			for (int ii = 0; ii < nodes.size-1; ii++) {
 				for (int jj = ii + 1; jj < nodes.size; jj++) {
 					if (nodes.get(ii).isAdjacent(nodes.get(jj))) {
@@ -109,6 +106,19 @@ public class GameWorldFactory {
 					}
 				}
 			}
+		}
+		
+		if (mermaid != null && !mermaid.isConnected()) {
+			GameWorldNode closestBeforeRiver = null;
+			GameWorldNode closestAfterRiver = null;
+			for (GameWorldNode node : nodes) {
+				if (node == mermaid) continue;
+				int distanceToNode = mermaid.getDistance(node);
+				if (closestBeforeRiver == null || (beforeRiver(node) && closestBeforeRiver.getDistance(mermaid) > distanceToNode)) { closestBeforeRiver = node; }
+				if (closestAfterRiver == null || (afterRiver(node) && closestAfterRiver.getDistance(mermaid) > distanceToNode)) { closestAfterRiver = node; }
+			}
+			if (closestBeforeRiver != null) mermaid.connectTo(closestBeforeRiver);	
+			if (closestAfterRiver != null) mermaid.connectTo(closestAfterRiver);	
 		}
 		
 		nodeMap.get(currentNode).setAsCurrentNode();
@@ -131,11 +141,20 @@ public class GameWorldFactory {
 		return new GameWorld(nodes, assetManager, random);
 	}
 	
-	private void addNode(GameWorldNode newNode, @SuppressWarnings("unchecked") Array<GameWorldNode> ... nodes) {
+	private boolean beforeRiver(GameWorldNode node) { 
+		float x = node.getHexPosition().x;
+		float y = node.getHexPosition().y;
+		return  x + y < 140;
+	}
+	
+	private boolean afterRiver(GameWorldNode node) { return !beforeRiver(node); }
+	
+	private GameWorldNode addNode(GameWorldNode newNode, @SuppressWarnings("unchecked") Array<GameWorldNode> ... nodes) {
 		for (Array<GameWorldNode> nodeArray: nodes) {
 			nodeArray.add(newNode);
 		}
 		nodeMap.put(newNode.getNodeCode(), newNode);
+		return newNode;
 	}
 	
 	private GameWorldNode getNode(int nodeCode, EncounterCode initialEncounter, EncounterCode defaultEncounter, int x, int y, boolean visited) {
