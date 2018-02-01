@@ -9088,5 +9088,99 @@
 			"text": "She emerges, revealing herself to be a mermaid!"}	
 		]
 	},
-	
+	{
+		"key": "MERMAID-FIRST-TIME",
+		"scriptLines": [
+			{"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "MERMAID", "value":1}}],
+			"text": ""}
+		]
+	},
+	{
+		"key": "MERMAID-MEETING",
+		"scriptLines": [
+			{"text": ""}
+		]
+	},
+	{
+		"key": "MERMAID-SWIMHERO",
+		"scriptLines": [
+			{"text": ""}
+		]
+	},
+	{
+		"key": "MERMAID-SWIM",
+		"scriptLines": [
+			{"text": ""}
+		]
+	},
+	{
+		"key": "MERMAID-SWIMFAIL",
+		"scriptLines": [
+			{"text": ""}
+		]
+	},
+	{
+		"key": "MERMAID-REVISIT",
+		"scriptLines": [
+			{"text": ""}
+		]
+	},
+	{
+		"key": "MERMAID-ATTACK",
+		"scriptLines": [
+			{"text": ""}
+		]
+	},
+	{
+		"key": "MERMAID-EGG-VISIT",
+		"scriptLines": [
+			{"text": ""}
+		]
+	},
+	{
+		"key": "MERMAID-CHARMED",
+		"scriptLines": [
+			{"text": ""}
+		]
+	},
+	{
+		"key": "MERMAID-WARNING",
+		"scriptLines": [
+			{"text": ""}
+		]
+	},
+	{
+		"key": "MERMAID-ULTIMATUM",
+		"scriptLines": [
+			{"text": ""}
+		]
+	},
+	{
+		"key": "MERMAID-REGRETFUL",
+		"scriptLines": [
+			{"text": ""}
+		]
+	},
+	{
+		"key": "MERMAID-LETPASS",
+		"scriptLines": [
+			{
+			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "MERMAID", "value":2}}],
+			"text": ""}
+		]
+	},
+	{
+		"key": "MERMAID-DENIED",
+		"scriptLines": [
+			{"text": ""}
+		]
+	},
+	{
+		"key": "MERMAID-FUCK",
+		"scriptLines": [
+			{
+			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "MERMAID", "value":3}}],
+			"text": ""}
+		]
+	},
 ]}

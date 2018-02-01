@@ -365,6 +365,18 @@ public class CheckScene extends AbstractTextScene {
 			@Override
 			protected boolean getCheck(PlayerCharacter character) { return character.getCurrentLust() >= 100; }  
 		}, 
+		MERMAID_FIRST_ENCOUNTER("", "") {
+			@Override
+			protected boolean getCheck(PlayerCharacter character) { int check = character.getQuestStatus(QuestType.MERMAID); return check == 0; }  
+		},
+		MERMAID_TRYAGAIN("", "") {
+			@Override
+			protected boolean getCheck(PlayerCharacter character) { int check = character.getQuestStatus(QuestType.MERMAID); return check == 1; }  
+		},
+		MERMAID_ATTACK_ON_SIGHT("", "") {
+			@Override
+			protected boolean getCheck(PlayerCharacter character) { int check = character.getQuestStatus(QuestType.MERMAID); return check == 2; }  
+		},
 		
 		;
 		private final String success;

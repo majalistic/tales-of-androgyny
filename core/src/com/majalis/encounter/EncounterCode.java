@@ -1242,7 +1242,41 @@ public enum EncounterCode {
 			case MERI_COTTAGE_VISIT:
 				return b.branch().textScene("STORY-WITCH-COTTAGE-VISIT").encounterEnd(); 
 			case MERMAID:
-				return b.branch().textScene("MERMAID-INTRO");
+				Branch mermaidBattle = b.branch();
+				Branch askForSex = b.branch("Ask to fuck her").require(ChoiceCheckType.FREE_COCK).textScene("MERMAID-FUCK");				
+				Branch secondQuestion = b.branch().choiceScene(
+					"Agree to fuck her?",
+					b.branch("Ask to pass").checkScene(
+						Stat.CHARISMA, 
+						b.branch(7).textScene("MERMAID-REGRETFUL"), 
+						b.branch(3).textScene("MERMAID-LETPASS"), 
+						b.branch(0).textScene("MERMAID-DENIED").concat(mermaidBattle)
+					), 
+					askForSex
+				);
+				Branch mermaidMeeting = b.branch().textScene("MERMAID-MEETING").choiceScene(
+					"What do you ask of her?", 
+					b.branch("Ask to pass").checkScene(
+						Stat.CHARISMA, 
+						b.branch(7).textScene("MERMAID-CHARMED").concat(secondQuestion), 
+						b.branch(3).textScene("MERMAID-WARNING").concat(secondQuestion), 
+						b.branch(0).textScene("MERMAID-ULTIMATUM").concat(secondQuestion)
+					), 
+					askForSex
+				);
+				return b.branch().textScene("MERMAID-INTRO").checkScene(
+					CheckType.MERMAID_FIRST_ENCOUNTER, 
+					b.branch(true).textScene("MERMAID-FIRST-TIME").checkScene(Stat.ENDURANCE, b.branch(6).textScene("MERMAID-SWIMHERO").concat(mermaidMeeting), b.branch(4).textScene("MERMAID-SWIM").concat(mermaidMeeting), b.branch(0).textScene("MERMAID-SWIMFAIL").concat(mermaidMeeting)), 
+					b.branch(false).checkScene(
+						CheckType.MERMAID_TRYAGAIN, 
+						b.branch(true).textScene("MERMAID-REVISIT").concat(secondQuestion), 
+						b.branch(false).checkScene(
+							CheckType.MERMAID_ATTACK_ON_SIGHT, 
+							b.branch(true).textScene("MERMAID-ATTACK").concat(mermaidBattle), 
+							b.branch(false).textScene("MERMAID-EGG-VISIT")
+						)
+					)
+				);
 			case MOUTH_FIEND_ESCAPE:
 				return b.branch().textScene("MOUTHFIEND-ESCAPE-INTRO").choiceScene(
 					"Stay on the road?", 

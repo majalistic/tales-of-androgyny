@@ -1527,7 +1527,7 @@ public class PlayerCharacter extends AbstractCharacter {
 	}
 	
 	public enum QuestType {
-		ORC, CRIER, QUETZAL, INNKEEP, TRUDY, GOBLIN, OGRE, SPIDER, BROTHEL, ELF, DEBT, GADGETEER, MADAME, WITCH, MOUTH_FIEND;
+		ORC, CRIER, QUETZAL, INNKEEP, TRUDY, GOBLIN, OGRE, SPIDER, BROTHEL, ELF, DEBT, GADGETEER, MADAME, WITCH, MOUTH_FIEND, MERMAID;
 		
 		public String getQuestDescription(int currentValue) {
 			switch (this) {
@@ -1558,6 +1558,8 @@ public class PlayerCharacter extends AbstractCharacter {
 					return currentValue == 4 ? "You've married the innkeep." : currentValue == 3 ? "You've been innkeep's bitch for a day's lodging." : currentValue == 2 ? "You've caught the innkeep's fuck for a day's lodging." : currentValue == 1 ? "You've sucked the innkeep off for a day's lodging." : "";
 				case MADAME:
 					return currentValue == 1 ? "You've introduced yourself to the Brothel madame." : "";	
+				case MERMAID: 
+					return currentValue == 2 ? "You've encountered the mermaid, and know that if you enter her waters again, she'll attack on sight." : currentValue == 1 ? "You've encountered a mermaid and are on friendly terms, allowing safe passage through her waters." : "";
 				case MOUTH_FIEND:
 					return currentValue == 1 ? "The Brothel Madame has warned you not to be rough with the girls." : currentValue == 2 ? "The Brothel Madame has banned and threatened you." : "";
 				case OGRE:
