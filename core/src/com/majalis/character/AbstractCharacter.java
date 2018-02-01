@@ -889,11 +889,13 @@ public abstract class AbstractCharacter extends Actor {
 		buttful--;
 	}
 
+	protected boolean fullOfEggs() { return false; }
+	
 	public AssetDescriptor<Texture> getCumInflationPath() {
 		if (buttful >= 20) {
 			return AssetEnum.STUFFED_BELLY.getTexture();
 		}
-		else if (buttful >= 10) {
+		else if (buttful >= 10 || fullOfEggs()) {
 			return AssetEnum.FULL_BELLY.getTexture();
 		}
 		else if (buttful >= 5 || mouthful >= 10) {
