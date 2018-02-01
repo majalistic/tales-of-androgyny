@@ -1242,7 +1242,7 @@ public enum EncounterCode {
 			case MERI_COTTAGE_VISIT:
 				return b.branch().textScene("STORY-WITCH-COTTAGE-VISIT").encounterEnd(); 
 			case MERMAID:
-				Branch mermaidBattle = b.branch();
+				Branch mermaidBattle = b.branch().battleScene(BattleCode.MERMAID, b.branch(Outcome.VICTORY).textScene("MERMAID-VICTORY"), b.branch(Outcome.DEFEAT).textScene("MERMAID-DEFEAT").gameEnd(), b.branch(Outcome.SUBMISSION).textScene("MERMAID-EGGFILL"));
 				Branch askForSex = b.branch("Ask to fuck her").require(ChoiceCheckType.FREE_COCK).textScene("MERMAID-FUCK");				
 				Branch secondQuestion = b.branch().choiceScene(
 					"Agree to fuck her?",

@@ -9183,4 +9183,25 @@
 			"text": ""}
 		]
 	},
+	{
+		"key": "MERMAID-VICTORY",
+		"scriptLines": [
+			{"text": ""}
+		]
+	},
+	{
+		"key": "MERMAID-DEFEAT",
+		"scriptLines": [
+			{"text": ""}
+		]
+	},
+	{
+		"key": "MERMAID-EGGFILL",
+		"scriptLines": [
+			{
+			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "MERMAID", "value":3}}],
+			"text": ""}
+		]
+	},
+	
 ]}

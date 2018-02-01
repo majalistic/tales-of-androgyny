@@ -308,6 +308,8 @@ public class EnemyCharacter extends AbstractCharacter {
 						break;
 					case QUETZAL:
 						break;
+					case MERMAID:
+						break;
 				}
 			}
 			
@@ -391,6 +393,8 @@ public class EnemyCharacter extends AbstractCharacter {
 							case 3: resolvedAttack.addDialog("Every inch of your intestines is stuffed and bloated."); break;
 							case 4: resolvedAttack.addDialog("\"Mmmm...\" she moans, patting your full stomach."); break;
 						}
+						break;
+					case MERMAID:
 						break;
 				}
 					
@@ -1373,15 +1377,21 @@ public class EnemyCharacter extends AbstractCharacter {
 				break;
 			case SPIDER:
 				if (knotInflate >= 5) return Outcome.KNOT_ANAL;
+				break;
 			case ANGEL:
 				if (stance == Stance.FACE_SITTING && oldStance == Stance.FACE_SITTING) return Outcome.SUBMISSION;
 				if (arousal.isErect() && currentHealth == getMaxHealth() && selfRessurect == 1) return Outcome.SATISFIED;
+				break;
 			case NAGA:
 				if (enemy.getCurrentHealth() <= 0 && stance == Stance.WRAPPED) return Outcome.DEATH;
+				break;
 			case QUETZAL:
 				if (enemy.getStance() == Stance.SPREAD) return Outcome.KNOT_ANAL;
+				break;
+			case MERMAID:
+				if (climaxCounters.get(ClimaxType.ANAL_RECEPTIVE.toString(), 0) >= 1 ) return Outcome.SUBMISSION;
+				break;
 			default:
-		
 		}
 		return null;
 	}
