@@ -70,6 +70,7 @@ public class PlayerCharacter extends AbstractCharacter {
 	private int cameFromAnal;
 	private int cameFromOral;
 	private boolean justCame;
+	private int eggtick;
 	
 	private String currentPortrait;
 	
@@ -1559,7 +1560,15 @@ public class PlayerCharacter extends AbstractCharacter {
 				case MADAME:
 					return currentValue == 1 ? "You've introduced yourself to the Brothel madame." : "";	
 				case MERMAID: 
-					return currentValue == 2 ? "You've encountered the mermaid, and know that if you enter her waters again, she'll attack on sight." : currentValue == 1 ? "You've encountered a mermaid and are on friendly terms, allowing safe passage through her waters." : "";
+					switch (currentValue) {
+						case 1: return "You've encountered a mermaid and are on friendly terms, allowing safe passage through her waters.";
+						case 2: return "You've encountered the mermaid, and know that if you enter her waters again, she'll attack on sight.";
+						case 3: return "The mermaid has laid her eggs inside of you. You're absolutely full of them, and the crushing pressure in your abdomen is your reminder.";
+						case 4: return "The mermaid's eggs have been gestating in your belly for days - your aching, cramping bowels feel like labor pains.  You are fully pregnant.";
+						case 5: return "The mermaid's eggs have begun hatching - if you don't get to a body of water soon to birth them, you're worried you'll explode.  You're gonna be a momma!";
+						case 6: return "You've hatced the mermaid's eggs. Yeesh.";
+					}
+					break;
 				case MOUTH_FIEND:
 					return currentValue == 1 ? "The Brothel Madame has warned you not to be rough with the girls." : currentValue == 2 ? "The Brothel Madame has banned and threatened you." : "";
 				case OGRE:
@@ -1580,6 +1589,7 @@ public class PlayerCharacter extends AbstractCharacter {
 						case 6: return "You've gotten close to Trudy as a travelling companion."; 
 						case 7: return "You've gotten very close to Trudy your travelling companion, and he's taught you some of his skills.";
 					}	
+					break;
 				case WITCH:
 					return currentValue == 2 ? "You've received the goddess' blessing from the witch of the forest." : currentValue == 1 ? "You've met the witch of the forest." : "";
 			}
@@ -1634,10 +1644,33 @@ public class PlayerCharacter extends AbstractCharacter {
 		return new Array<MutationResult>();
 	}
 
+	public Array<MutationResult> eggTick(int timePassed) {
+		int questLevel = questFlags.get(QuestType.MERMAID.toString(), 0);
+		if (questLevel >= 3) {
+			eggtick += timePassed;
+			if (questLevel == 3) {
+				if (eggtick >= 12) {
+					questFlags.put(QuestType.MERMAID.toString(), 4);
+					return getResult("Your belly womb is beginning to swell! You are fully pregnant!");
+				}
+				return getResult("Your belly is swollen with eggs!");
+			}
+			if (questLevel == 4) {
+				if (eggtick >= 24) {
+					questFlags.put(QuestType.MERMAID.toString(), 5);
+					return getResult("The fish eggs begin to hatch in your gut! You need to get to open water, momma!");
+				}
+				return getResult("Your belly is distended by a clutch of eggs!");
+			}			
+		}	
+		return new Array<MutationResult>();
+	}
+	
 	public Array<MutationResult> timePass(Integer timePassed) {
 		int currentDay = time / 6;
 		time += timePassed;
 		Array<MutationResult> result = getResult(timePassed >= 12 ? timePassed / 6 + " days pass." : timePassed >= 6 ? "A day passes." : timePassed >= 3 ? "Much time passes." : timePassed == 2 ? "Some time passes." : "A short time passes.", timePassed, MutationType.TIME);
+		result.addAll(eggTick(timePassed));
 		result.addAll(modFood(-getMetabolicRate() * timePassed));
 		result.addAll(debtTick((time / 6) - currentDay));
 		return result;

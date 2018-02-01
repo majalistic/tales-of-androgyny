@@ -1242,8 +1242,17 @@ public enum EncounterCode {
 			case MERI_COTTAGE_VISIT:
 				return b.branch().textScene("STORY-WITCH-COTTAGE-VISIT").encounterEnd(); 
 			case MERMAID:
-				Branch mermaidBattle = b.branch().battleScene(BattleCode.MERMAID, b.branch(Outcome.VICTORY).textScene("MERMAID-VICTORY"), b.branch(Outcome.DEFEAT).textScene("MERMAID-DEFEAT").gameEnd(), b.branch(Outcome.SUBMISSION).textScene("MERMAID-EGGFILL"));
-				Branch askForSex = b.branch("Ask to fuck her").require(ChoiceCheckType.FREE_COCK).textScene("MERMAID-FUCK");				
+				Branch mermaidBattle = b.branch().battleScene(
+					BattleCode.MERMAID,
+					b.branch(Outcome.VICTORY).textScene("MERMAID-VICTORY"),
+					b.branch(Outcome.DEFEAT).textScene("MERMAID-DEFEAT").choiceScene(
+						"Where does she lay her eggs?", 
+						b.branch("In my mouth").require(ChoiceCheckType.STAT_GREATER_THAN_X, Stat.CHARISMA, 5).textScene("MERMAID-FACEEGG").gameEnd(),
+						b.branch("In my ass").textScene("MERMAID-ASSEGG").gameEnd()
+					), 
+					b.branch(Outcome.SUBMISSION).textScene("MERMAID-EGGFILL")
+				);
+				Branch askForSex = b.branch("Ask to fuck her").require(ChoiceCheckType.FREE_COCK).textScene("MERMAID-FUCK").choiceScene("Well?", b.branch("Yes").textScene("MERMAID-EGGTIME"), b.branch("No").concat(mermaidBattle));				
 				Branch secondQuestion = b.branch().choiceScene(
 					"Agree to fuck her?",
 					b.branch("Ask to pass").checkScene(
@@ -1273,7 +1282,7 @@ public enum EncounterCode {
 						b.branch(false).checkScene(
 							CheckType.MERMAID_ATTACK_ON_SIGHT, 
 							b.branch(true).textScene("MERMAID-ATTACK").concat(mermaidBattle), 
-							b.branch(false).textScene("MERMAID-EGG-VISIT")
+							b.branch(false).checkScene(CheckType.MERMAID_EGG_HATCH, b.branch(true).textScene("MERMAID-EGG-HATCH"), b.branch(false).checkScene(CheckType.MERMAID_HATCHED, b.branch(true).textScene("MERMAID-HATCHED-VISIT"), b.branch(false).textScene("MERMAID-EGG-VISIT")))
 						)
 					)
 				);

@@ -9138,6 +9138,20 @@
 		]
 	},
 	{
+		"key": "MERMAID-EGG-HATCH",
+		"scriptLines": [
+			{
+			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "MERMAID", "value":6}}],
+			"text": ""}
+		]
+	},
+	{
+		"key": "MERMAID-HATCHED-VISIT",
+		"scriptLines": [
+			{"text": ""}
+		]
+	},
+	{
 		"key": "MERMAID-CHARMED",
 		"scriptLines": [
 			{"text": ""}
@@ -9184,6 +9198,12 @@
 		]
 	},
 	{
+		"key": "MERMAID-EGGTIME",
+		"scriptLines": [
+			{"text": ""}
+		]
+	},
+	{
 		"key": "MERMAID-VICTORY",
 		"scriptLines": [
 			{"text": ""}
@@ -9191,6 +9211,18 @@
 	},
 	{
 		"key": "MERMAID-DEFEAT",
+		"scriptLines": [
+			{"text": ""}
+		]
+	},
+	{
+		"key": "MERMAID-FACEEGG",
+		"scriptLines": [
+			{"text": ""}
+		]
+	},
+	{
+		"key": "MERMAID-ASSEGG",
 		"scriptLines": [
 			{"text": ""}
 		]
