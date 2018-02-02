@@ -592,8 +592,12 @@
 	{
 		"key": "STORY-MERCHANT",
 		"scriptLines": [
-			{"text": "The merchant smirks at you.  She seems to have something untoward on her mind."},
-			{"text": "She offers you a look at her wares, so you take a peek."}
+			{
+			"foreground": "GADGETEER",
+			"text": "The merchant smirks at you.  She seems to have something untoward on her mind."},
+			{"text": "She offers you a look at her wares, so you take a peek.  Everything in her sack is... strange to you.  They aren't weapons, they aren't tools... you're not really sure what they're for."},
+			{"text": "She leans in to whisper in your ear.  \"You'll know what these are for, soon enough.\""},
+			{"text": "With that, she packs up her things, and blows you a kiss before departing.  You feel somewhat shaken by the encounter, but continue on your journey nonetheless."}
 		]
 	},
 	{
