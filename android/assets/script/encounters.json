@@ -9082,97 +9082,110 @@
 			"background": "WATERFALL_BG",
 			"music": "ANGEL_MUSIC",
 			"mutations": [{"profileSaveType":"KNOWLEDGE", "value":{"class": "java.lang.String", "value": "Mermaid"}}],
-			"text": "You see a woman in the water."},
-			{
-			"foreground": "MERMAID",
-			"text": "She emerges, revealing herself to be a mermaid!"}	
+			"text": ""}
 		]
 	},
 	{
 		"key": "MERMAID-FIRST-TIME",
 		"scriptLines": [
 			{"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "MERMAID", "value":1}}],
-			"text": ""}
-		]
-	},
-	{
-		"key": "MERMAID-MEETING",
-		"scriptLines": [
-			{"text": ""}
+			"text": "Traversing the bridged riverlands is oddly calming.  The occasional boat or raft drifts underfoot or besides you, and you sometimes chat with their crew, such as it were, as they pass."},
+			{"text": "There are islands that are unreachable by bridge, and you do spot one such island in the distance... and just nearby, you see a woman swimming.  At first, it appears she is casually treading water... but then she submerges, and does so repeatedly, for longer and longer each time."},
+			{"text": "In a panic, you dive into the water - it's a long swim from you to her, but you try your best to reach her before something inevitably tragic occurs."}
 		]
 	},
 	{
 		"key": "MERMAID-SWIMHERO",
 		"scriptLines": [
-			{"text": ""}
+			{"text": "You manage to reach her in an impressively short time, full of vigor and ready to rescue the drowning damsel.  When you get close, you ask if her she's alright."},
+			{"text": "\"My hero!\" she says, as you take her in your arms, staring deeply into your eyes.  She puts her finger to your lips... then leans in for a kiss.  Taken by surprise, you feel her cold lips touch yours."},
+			{
+			"mutations": [{"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": 3}}, {"saveType":"HEALTH", "value":{"class": "java.lang.Integer", "value": 20}}],
+			"text": "Her kiss fills you with a strange sweetness.  You smile awkwardly at her, and begin to swim the both of you towards the rocky island nearby."},
+			{"text": "Your feet touch the rock underwater, and you begin to step onwards and upwards, carrying her in a bridal carry.  Her legs feel oddly... smooth.  As soon as you bring her out of the water, you realize she's much heavier than you expected, and you accidentally drop her."},
+			{"text": "She gracefully swims in the shallows, and you look down at her, now, her body fully visible beneath the clear water."}			
 		]
 	},
 	{
 		"key": "MERMAID-SWIM",
 		"scriptLines": [
-			{"text": ""}
+			{"text": "You swim to her as quickly as you can, and by the time you reach her struggling form, you're out of breath.  Through gasps, you ask her if she needs assistance."},
+			{"text": "\"I do! Please, help me!\" she says, holding her arms out for you to embrace her.  You take her in your arms, although you struggle to even tread water against your combined weight. She seems somewhat amused by your shortness of breath."},
+			{"text": "You swim towards the nearby rocky island, and when your feet touch down, you ask her if she can reach the shore on her two feet - she smiles, enigmatically, but releases her grip on you, as you make your way to landfall."},
+			{"text": "When you finally pull yourself free of the water, you're exhausted, and you offer your hand to help her get up onto land.  She smirks, and then you notice that something about her body is... odd."}
 		]
 	},
 	{
 		"key": "MERMAID-SWIMFAIL",
 		"scriptLines": [
-			{"text": ""}
+			{"text": "Unfortunately, you're not much of a natural swimmer... and soon you're just as in jeopardy as the waif you were attempting to save.  You find yourself submerged below the waves... and your consciousness fading."}
+			{
+			"mutations": [{"saveType":"HEALTH", "value":{"class": "java.lang.Integer", "value": -10}}],
+			"text": "..."},
+			{
+			"mutations": [{"saveType":"HEALTH", "value":{"class": "java.lang.Integer", "value": -10}}],
+			"text": ".."},
+			{
+			"mutations": [{"saveType":"HEALTH", "value":{"class": "java.lang.Integer", "value": -10}}, {"saveType":"TIME", "value":{"class": "java.lang.Integer", "value": 1}}],
+			"text": "."},
+			{
+			"mutations": [{"saveType":"HEALTH", "value":{"class": "java.lang.Integer", "value": 10}}],
+			"text": "You slowly wake up, and thankfully, your body feels heavy on solid ground - very solid ground, in fact, but your head is resting on something much softer and... scaly?"}
+			{"text": "You open your eyes to see a woman's face looking down at you, concerned."},
+			{"text": "\"You gave me quite the scare,\" she says, stroking your cheek.  Something large is moving just outside your field of vision, but she seems friendly."},
+			{"text": "\"Where... am I?\" you ask, trying to piece together what's happened."},
+			{"text": "\"You're on an island just off shore... I saw you dive into the water, and then swim towards me... but you started to drown, so I saved you.\""},
+			{"text": "You feel intense embarrassment at the thought of being rescued by the one you were trying to rescue... but her beauty distracts you from the shame.  You sit up, and realize that she was sitting just by the water's edge.  She slips off into the water again."},
+			{"text": "You try to find your legs again to put them under you, and unsteadily rise to your feet.  When you turn to thank her again, you see that she's not... what you expected."}
 		]
 	},
 	{
-		"key": "MERMAID-REVISIT",
-		"scriptLines": [
-			{"text": ""}
-		]
-	},
-	{
-		"key": "MERMAID-ATTACK",
-		"scriptLines": [
-			{"text": ""}
-		]
-	},
-	{
-		"key": "MERMAID-EGG-VISIT",
-		"scriptLines": [
-			{"text": ""}
-		]
-	},
-	{
-		"key": "MERMAID-EGG-HATCH",
+		"key": "MERMAID-MEETING",
 		"scriptLines": [
 			{
-			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "MERMAID", "value":6}}],
-			"text": ""}
-		]
-	},
-	{
-		"key": "MERMAID-HATCHED-VISIT",
-		"scriptLines": [
-			{"text": ""}
+			"foreground": "MERMAID",
+			"text": "She has... the lower body of a fish.  You stare in awe at the beautiful mermaid and her smooth, scaly body, glistening beneath the waves."},
+			{"text": "\"Isn't it rude to stare?\" she asks, flirtatiously, and you look up from her non-human form to her very human, very pretty face."},
+			{"text": "\"I'm sorry... I didn't expect... you're... a mermaid?\" you ask, and she giggles.\""},
+			{"text": "\"That's what menfolk call us. So, yes, in a way. You're not... a mermaid hunter, are you?\", she asks, and you shake your head."},
+			{"text": "\"There are people that hunt mermaids?\" you ask, and she looks at you sympathetically."},
+			{"text": "\"Some.  Fewer now than there were before,\" she says, a bit cryptically.  You notice that she's holding something just out of view - something long and stiff."},
+			{"text": "\"What have you got there?\" you ask her, and she raises it out of the water, giving you pause.  It's some sort of spear; and a nasty-looking one, at that."},
+			{"text": "\"It's for fishing,\" she explains, and you relax a little."},
+			{"text": "\"Wait... fishing?\" you ask, perplexed, \"you... eat fish?\""},
+			{"text": "She laughs at that.  \"What did you think?  That I sang songs with them?  What do you eat, land-dweller?\" she asked, and you realize that she has a point."},
+			{"text": "\"So you weren't drowning...\" you say, and she grins."},
+			{"text": "\"I would be a very bad mermaid if I drowned... no... I was just testing you a little.  This is my domain, after all,\", she says.  She swims over to the rocky shore again, and lifts herself out of the water, so that her fin is still wet, but the rest of her reclines on the rock."},
+			{"text": "\"This is your domain?\" you ask."},
+			{"text": "\"Did you think no one lay claim to the riverland?  You were mistaken,\" she says, reclining lazily, \"but it's an honest mistake.  If you want to pass, you need only ask... ask for what you desire...\" she adds, her finger tracing up her body, her lower body quite... visible, her smile coy."}
 		]
 	},
 	{
 		"key": "MERMAID-CHARMED",
 		"scriptLines": [
-			{"text": ""}
+			{"text": "You ask to pass, and she bites her lip."},
+			{"text": "\"I... cannot deny a request from one so lovely as you... but I do ask that you reconsider, and instead... stay with me a while. Of course, even if you choose to go... I will be here, waiting, should you change your mind.  Well?\" she asks, her eyes lidded, her body flush."}
 		]
 	},
 	{
 		"key": "MERMAID-WARNING",
 		"scriptLines": [
-			{"text": ""}
+			{"text": "You ask to pass, and she seems a little offended."},
+			{"text": "\"I would ask that you reconsider... it's not every day that you have such an opportunity,\" she says, pointedly."}
 		]
 	},
 	{
 		"key": "MERMAID-ULTIMATUM",
 		"scriptLines": [
-			{"text": ""}
+			{"text": "You ask to pass, and she clicks her teeth."},
+			{"text": "\"Listen, landwalker. I'm doing you a favor.  Either embrace me, or so help me...\" she says, threateningly."}
 		]
 	},
 	{
 		"key": "MERMAID-REGRETFUL",
 		"scriptLines": [
-			{"text": ""}
+			{"text": "\"...if it pleases you.  I cannot say that I am not disappointed.  And yet... if you return... the offer stands,\" she says, touching your hand."},
+			{"text": "You tell her that you'll be thinking of her, and you depart.  She watches you from her rocky throne, clearly trying to hide her sorrow."}
 		]
 	},
 	{
@@ -9180,13 +9193,14 @@
 		"scriptLines": [
 			{
 			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "MERMAID", "value":2}}],
-			"text": ""}
+			"text": "\"...very well.  I will allow you one such transgression.  But do not return to my domain once more, unless you intend to embrace me or my spear's tip.\""},
+			{"text": "She seems angry.  You decide to leave while the leaving is good... and make a mental note not to return unless you get hungry for a fish dinner."}
 		]
 	},
 	{
 		"key": "MERMAID-DENIED",
 		"scriptLines": [
-			{"text": ""}
+			{"text": "She looks furious that you would deny her.  Taking her spear in hand, she swims into the shallows, where she can reach you, and attacks!"}
 		]
 	},
 	{
@@ -9194,13 +9208,21 @@
 		"scriptLines": [
 			{
 			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "MERMAID", "value":3}}],
-			"text": ""}
+			"text": "She kisses you, and your mind is immediately filled with hazy, indistinct noise.  You feel her tongue on yours, and her smile is infectious."}
 		]
 	},
 	{
-		"key": "MERMAID-EGGTIME",
+		"key": "MERMAID-REVISIT",
 		"scriptLines": [
-			{"text": ""}
+			{"text": "You return to the mermaid's domain, knowing that particularly fishy girl is all about your junk.  Indeed, she beckons you to come to her island, and rather than seek a confrontation in the water, you swim out to meet her."},
+			{"text": "\"Well, then, handsome man... have you changed your mind?"}
+		]
+	},
+	{
+		"key": "MERMAID-ATTACK",
+		"scriptLines": [
+			{"text": "You return to the mermaid's domain, knowing that particularly fishy girl is all about your junk.  Indeed, she beckons you to come to her island, and rather than seek a confrontation in the water, you swim out to meet her."},
+			{"text": "\"Well?  What will it be?  Will you take me, or will you take my spear?\" she says, indignantly."}
 		]
 	},
 	{
@@ -9223,6 +9245,36 @@
 	},
 	{
 		"key": "MERMAID-ASSEGG",
+		"scriptLines": [
+			{"text": ""}
+		]
+	},
+	{
+		"key": "MERMAID-EGG-VISIT",
+		"scriptLines": [
+			{"text": "You return to the mermaid's domain, your belly visibly swollen and aching with the fullness of her reproductive payload - her eggs, each one as big as the last."},
+			{"text": "She sees you before you see her, and she swims over to you, positively glowing."},
+			{"text": "\"Well, well, if it isn't my babymama! How are my lovely little eggies? How are you finding pregnancy? Do you want a massage, love?\" she asks, offering to rub your belly."},
+			{"text": "She allows you to pass, but not before asking you how lively her spawn are, or inspecting you to ensure that you're still in good shape and will be able to carry her brood to term."},
+			{"text": "You leave, well aware that eventually, you'll see her not simply to pass through, but to finally be released from this strange fate."}
+		]
+	},
+	{
+		"key": "MERMAID-EGG-HATCH",
+		"scriptLines": [
+			{
+			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "MERMAID", "value":6}}],
+			"text": ""}
+		]
+	},
+	{
+		"key": "MERMAID-HATCHED-VISIT",
+		"scriptLines": [
+			{"text": ""}
+		]
+	},
+	{
+		"key": "MERMAID-EGGTIME",
 		"scriptLines": [
 			{"text": ""}
 		]

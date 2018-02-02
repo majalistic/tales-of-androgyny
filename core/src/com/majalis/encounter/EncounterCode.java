@@ -1281,7 +1281,7 @@ public enum EncounterCode {
 						b.branch(true).textScene("MERMAID-REVISIT").concat(secondQuestion), 
 						b.branch(false).checkScene(
 							CheckType.MERMAID_ATTACK_ON_SIGHT, 
-							b.branch(true).textScene("MERMAID-ATTACK").concat(mermaidBattle), 
+							b.branch(true).textScene("MERMAID-ATTACK").choiceScene("What do you do?", b.branch("Fight").concat(mermaidBattle), askForSex), 
 							b.branch(false).checkScene(CheckType.MERMAID_EGG_HATCH, b.branch(true).textScene("MERMAID-EGG-HATCH"), b.branch(false).checkScene(CheckType.MERMAID_HATCHED, b.branch(true).textScene("MERMAID-HATCHED-VISIT"), b.branch(false).textScene("MERMAID-EGG-VISIT")))
 						)
 					)
