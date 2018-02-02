@@ -71,8 +71,9 @@ public class SexualExperience {
 			return this;
 		}
 		
-		public void setCreampie(int creampies) {
+		public SexualExperienceBuilder setCreampie(int creampies) {
 			this.creampies = creampies;
+			return this;
 		}
 		
 		public SexualExperienceBuilder setAnalEjaculations(int num) {
