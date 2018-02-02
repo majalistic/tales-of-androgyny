@@ -1389,7 +1389,7 @@ public class EnemyCharacter extends AbstractCharacter {
 				if (enemy.getStance() == Stance.SPREAD) return Outcome.KNOT_ANAL;
 				break;
 			case MERMAID:
-				if (climaxCounters.get(ClimaxType.ANAL_RECEPTIVE.toString(), 0) >= 1 ) return Outcome.SUBMISSION;
+				if (stance == Stance.COWGIRL_BOTTOM || stance == Stance.REVERSE_COWGIRL_BOTTOM) return Outcome.SUBMISSION;
 				break;
 			default:
 		}
