@@ -9238,54 +9238,45 @@
 		"scriptLines": [
 			{"text": "You feel duty bound to see this through... or perhaps the pheromones are playing tricks with your mind.  You nod along, and she pats down on the rock beside her, for you to join her for some post-coital snuggling."},
 			{"text": "You lay beside her on your left side, and she pats you on your <BUTTSIZE> butt.  \"I'm so glad that I have someone to lay these eggs in... you've made me a very happy woman,\" she says, and then you feel her prodding at your right cheek with the strange appendage."},
-			
+			{"text": "It's drooling some sort of sticky liquid down your hip, something both cool and warm at the same time.  The appendage slides off your hip and begins to probe and search for your backdoor - and manages to find it surprisingly fast."},
 			{
 			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1}}],
-			"text": ""},
-			
+			"text": "It slips inside easily - aside from the small beads on the end, it's fairly soft and pliant.  You feel it makes its way deeper inside, but aside from the creeping sensation that it's going far deeper than you might feel comfortable with, it doesn't have too much of a presence."},
+			{"text": "\"Ready?\" she asks, \"...here they come...\""},
+			{"text": "True to her word, you feel your sphincter opening; while you can't quite see what's happening, with her gripping your shoulder and keeping you facing away from her, the gradual dilation of your anus from a swelling in her appendage feels quite like something large, round, and hard is being squeezed through it."},
+			{"text": "You feel the first one sliding against your anal walls through the thin membrane of her ovipositor, and then the second is already at your gates, popping inside with a bit more ease than the first.  By the time the first one escapes somewhere deep inside your intestines, the fourth is already pressing its way inside."},
 			{
 			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "bellyful":5}}],
 			"text": "She fills you rectally with her eggs - one by one they come inside, stretching out your anal walls in a sort of reverse peristalsis, your rectum beginning to swell and bloat under their weight."}
 			{"text": "\"Let me know if they're coming too fast...  I don't want you to be too uncomfortable,\" she says, although the sweat on your brow is from a discomfort she can't do much about, that of having your bowels stuffed full of her eggs."},
-			
-				
 			{"text": "She begins to kiss you, your face, your shoulder, your neck, over and over - small, gentle, affectionate kisses."}
-			
-			
-			
-			
 			{"text": "\"You're doing very well, my sweet...\" she says, encouraging you, even as your groan from the frustrating cramping and aching in your belly, which growls uncooperatively at being filled the wrong way."},
-
-
 			{"text": "She reaches around you to grasp onto your <COCKSIZE> cock and begins to stroke it.  It had already been leaking precum from the sensation of having your ass filled with eggs, and now it drools out in a torrent, your release imminent."},
-
 			{
 			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analEjaculation":1}}],
 			"text": "You ejaculate onto the rock, cumming from being rectally oviposited and stroked by your egg-momma."},
 			{"text": "\"Mmm... dear, that's such a waste... but I am glad my eggs feel good,\" she says, lamenting the loss of your sperm."},
-
 			{
 			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "bellyful":5}}],
-			"text": "\"I know... there are so many... squeeze my hand.  You can do it, my love.\""},
-			
-			
-			{"text": "\"You're absolutely glowing.\""},
-			
-			
+			"text": "While you were distracted by her stroke and your own squirt, the number of eggs inside got to a worrying amount, your stomach visibly distended and audibly groaning at the stretching that it's undergoing."},
+			{
+			"text": "\"I know... there are so many... squeeze my hand.  You can do it, my love,\" she says, squeezing your hand lovingly and reassuringly as she kisses your shoulder, her eggs popping into you one after the other."},
 			{"text": "She continues to kiss your body lovingly, even as your abdomen swells with her tremendous brood."},
-			
-			
-			
+			{"text": "\"You're absolutely glowing,\" she says, and you wouldn't be surprised - you are becoming supermassive and dense.  You're more egg than person, or at least that's how it feels."},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "bellyful":5}}],
+			"text": "You are now unreservedly groaning, complaining and whining because of the pressure and aching of your overstuffed belly.  She continues to reassure you, but you can't take any more eggs - even as she shows no sign of being finished depositing them."},
+			{"text": "Finally, after several minutes of becoming a egg holster, you feel that there are no more intruding into your rectum, which is now visibly swollen in your abdomen full of eggs."},
 			{
 			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "MERMAID", "value":3}}],
 			"text": "\"That's the last of them,\" she says, wiping the sweat from your brow.  You feel so full that you might burst, but you're glad there are no more eggs to add to the massive egg pile in your too-full gut."},
-			
-			
-			
-			
+			{"text": "She withdraws her ovipositor, and helps you clean the sweat off your face, which she kisses affectionately."},		
 			{"text": "\"Don't worry about eating too much... you are eating for a hundred now, after all.  And if you gain a little weight... I won't mind,\" she says, and you don't feel much like eating at all."},
-			
-			{"text": "\"Be careful traveling with our clutch... be sure to return here to birth them in open water - they won't come out otherwise,\" she advises, or perhaps warns."},			
+			{"text": "You try to stand and realize that you're completely overburdened by the eggs sitting in your belly.  You can barely stand, knock-kneed, although you think after the trembling stops you'll be able to walk normally again."},
+			{"text": "\"You look beautiful,\" she says, lovestruck.  \"I know that my love is... a little heavy to carry on land.  Please be safe, my love,\" she says, and you nod, still a little out of it.  You lower yourself into the water, not wanting to feel the full weight of it, at least temporarily."},
+			{"text": "You find that it's a lot easier to wade in the water than it is to walk on land, although the cramping in your gut is still present."},
+			{"text": "\"Take care traveling with our clutch... be sure to return here to birth them in my open waters - they won't come out otherwise,\" she advises, or perhaps warns."},
+			{"text": "\"I'll be sure to remember that,\" you say, a little frustrated, and she beams at you."},
 			{"text": "Without much recourse, you continue on your journey... now quite uncomfortably full of mermaid eggs."}			
 		]
 	},
@@ -9298,7 +9289,9 @@
 	{
 		"key": "MERMAID-REVISIT",
 		"scriptLines": [
-			{"text": "You return to the mermaid's domain, knowing that particularly fishy girl is all about your junk.  Indeed, she beckons you to come to her island, and rather than seek a confrontation in the water, you swim out to meet her."},
+			{
+			"foreground": "MERMAID",
+			"text": "You return to the mermaid's domain, knowing that particularly fishy girl is all about your junk.  Indeed, she beckons you to come to her island, and rather than seek a confrontation in the water, you swim out to meet her."},
 			{"text": "\"Well, then, handsome man... have you changed your mind?"}
 		]
 	},
@@ -9333,13 +9326,14 @@
 			{"text": "Despite the rather... powerful approach, you feel yourself getting lost in the pleasure, wanting to fill her fishy womb with your potent swimmers, consequences be damned."},
 			{"text": "\"Mmm... I can't wait to lay all of my eggs in your egg pouch...\" she says, seemingly lost in pleasure herself, and you suddenly feel a little less eager about fertilizing her eggs.  Your asshole cramps as your ejaculatory muscles constrict involuntarily."},
 			{"text": "Knowing now that any seed that ends up in her womb is just going to end up as sauce on an incoming anal egg buffet, her quest for your nut is delayed - the pew pew in her poon that you were on the verge of granting is held at bay, at least for now."},			
-			{"text": ""},
-			
+			{"text": "Unfortunately, with her massive girth on top of you, it's not like you can just stop fucking to avoid an inevitable cream donation into her spermbank.  Each time she drops herself onto you, you see white, the cream in your creamer rising up excitedly."},
+			{"text": "You find it frustratingly difficult to communicate to your sperm that the hot pussy it's about to impregnate is a trap, or the fate that will await you if you can't resist the urge to baste her tunnel in human baby goop."},
+			{"text": "She continues to drop her fish-hips on you, and each time you can tell that your twitching dick buried to her to the hilt is going to reward her eggs soon - if not this time, then the next time. You begin a countdown that you doubt you'll see past."},
+			{"text": "She picks up her pace, fucking you on the rock with all she has, and you don't know if it's on the sixth or seventh count in your countdown that you loose the first rope of full, sticky, impregnating semen in her womb, but it's one of those."},
 			{"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "ejaculationInButt":1}}],			
-			"text": "You blast your genetic material up into her waiting oviduct, where countless eggs are waiting for two things: genetic material, and a nice, cozy place to gestate.  Your asshole cramps again as your mind desperately searches for a way out of this, now that the goo is gone."}
-			
-			{"text": "\"Now they're definitely well fertilized... thank you, Leggy.  Now, roll over, if you please - it's time for you to make like a seahorse and get boy-pregnant."}
-			
+			"text": "You blast your genetic material up into her waiting oviduct, where countless eggs are waiting for two things: genetic material, and a nice, cozy place to gestate.  Your asshole cramps again as your mind desperately searches for a way out of this, now that the goo is gone."},
+			{"text": "She looks down on you, smiling a satisfied smile as your hips buck up into her, your cock firing rope after rope of egg-fertilizating butter all over her destined-for-your-poop-chute eggs."},
+			{"text": "\"Now they're definitely well fertilized... thank you, Leggy,\" she says, dismounting from you with some difficulty, \"now, roll over, if you please - it's time for you to make like a seahorse and get boy-pregnant."}		
 			{"text": "A translucent tube emerges from somewhere within her oviduct.  It looks delicate and fragile, but you doubt it really is.  It's also drooling some strange liquid... and you can already see through it that there are eggs beginning to emerge."},
 			{"text": "You know if you roll over onto your belly, she's going to make good on her threat to stuff your ass full of her oversized eggs."},
 			{"text": "\"Come on now, roll over... my eggs are coming.  Too late for regrets.  You have to take responsibility!\""}
@@ -9352,93 +9346,76 @@
 			{"text": "\"If you insist...\" she begins, running her finger up your chest, neck, and chin, to your lips... \"There are two ways to your eggpouch, after all,\" she says, tapping your lips suggestively."},
 			{"text": "Your eyes go wide at the suggestion, but she just smiles."},
 			{"text": "\"Well, they'll be coming out of the same way regardless... but I know men have their pride. You have a lot you can learn from seahorses, and yet...\""},
-			
-					
-			{"text": "She presses it to your closed lips.  \"This would be considered perverse among the merfolk.  Our egg-layers are considered unclean. Perhaps in your culture, it is different?\""},
-			
-			
+			{"text": "She takes her ovipositor in hand and begins to bring it close to your mouth, which you keep closed, instinctively."},					
+			{"text": "She presses it to your closed lips.  \"This would be considered perverse among the merfolk.  Our egg-layers are considered unclean. Perhaps in your culture, it is different?  Now... open up.\""},
 			{
 			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "oralSex":1}}],
-			"text": ""}
-			
-			
+			"text": "Seeing as the only alternative is to take that thing up your asshole... you open your mouth, and she slips it inside, and it maneuvers its way deeper inside on its own."},			
 			{"text": "You gag as the ovipositing duct slips further and further down your throat, until it blooms open into your stomach.  You watch in horror as the eggs descend towards your full mouth - it's too late to take them in the ass, it seems."},
-			
-			
-			{"text": "\"Down the hatch, hehe.\""},
-
+			{"text": "\"Down the hatch, hehe,\" she says, and the first of the eggs passes into your mouth, sliding over your tongue - a pearl of reproduction, until it reaches the back of your throat, at which point it begins to fall downwards, down into your throat."},
+			{"text": "You swallow down the first egg while convulsing, and the second passes between your lips, which can't close around the ovipositor, your eyes tearing."},			
 			{"text": "\"How do you like your eggs?  Fertilized, hopefully...\""},
-
+			{"text": "You swallow down the second egg, and the third, and the fourth, your hands cramping, your eyes watering, your stomach swelling."},
 			{"text": "\"It's a tough pill to swallow, isn't it?\""},
-
-			{"text": "\"Don't choke on my babies, now.  Come on, be a man, swallow my eggs...\""},
-			
-			
-			
-			{
-			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "fellatioEjaculation":1}}],
-			"text": ""}
-			
 			{
 			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "bellyful":5}}],
-			"text": ""}
-			
+			"text": "Your stomach visibly begins to grow and distend as you swallow down more of her eggs, and a fear settles itself in your mind."}
+			{"text": "Trying to stop yourself from swallowing another, you gag and begin to choke. \"Don't choke on my babies, now.  Come on, be a man, swallow my eggs...\""},
+			{"text": "You swallow it down, and another, and another.  You feel your stomach swelling... and your cock as well."},
+			{"text": "She notices that your cock has hardened from swallowing her eggs, and reaches down to stroke it.  You continue to gargle on her eggs as she works your cum out of you, your entire body shaking and convulsing."},
 			{
-			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "bellyful":5}}],
-			"text": ""}
-			
-			
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "fellatioEjaculation":1, "bellyful":5}}],
+			"text": "It spews out, and she releases your cock immediately, wiping her hand on your naked hip, which is now located directly next to your bloated, overstuffed belly, which jiggles and shifts as you swallow each and every egg."},
 			{
 			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "MERMAID", "value":3}}],
 			"text": "You lose track of how many eggs you've swallowed.  You've never been less hungry - your stomach is crammed and stufed full of dozens of them, and there's still several in your throat, mouth, and her un-swallowed duct on their way."},
-
-
-			{"text": "No matter how you try, you can't throw up her eggs.  They're in for keeps, it seems."},
-			
+			{"text": "Finally, there are no more eggs appearing from within her body, and you swallow the last of them down, feeling sick.  You feel even sicker as she retracts her ovipositor, which slide its way up your throat and forces you to gag as it's pulled into your mouth and then out of it."},
+			{"text": "You lie there, stunned.  Your stomach looks visibly pregnant, and it's so full... you feel so nauseous, but when you finally do manage to get up onto your knees, no matter how you try, you can't throw up her eggs.  They're in for keeps, it seems."},
+			{"text": "\"Take care traveling with our clutch... be sure to return here to birth them in my open waters - they won't come out otherwise,\" she advises, or perhaps warns."},
+			{"text": "You're silent at that.  You can't believe this is happening.  She dives back down in the water, leaving you alone... with all of her eggs."},
+			{"text": "Without much recourse, you continue on your journey... now quite uncomfortably full of mermaid eggs."}		
 		]
 	},
 	{
 		"key": "MERMAID-ASSEGG",
 		"scriptLines": [
-			{"text": ""}
-			
-			{"text": "\"So this is a human's excretion hole,\" she says, inspecting it, \"hm. Seems strange, but I'm sure it will serve its purpose.\""},
-			
-			{"text": "\"Men are such prideful creatures.  For some reason, they rather dislike receiving my clutch rectally.  What did they think was going to happen once they fertilized them?  Where else did they think I would lay my eggs?  It's not like you have a proper egg pouch.\""},
-
-			{"text": "\"The whole point of mating is to bring forth new life - men are such strange things.\""},
-			
-			
+			{"text": "Seeing no other choice, you roll over onto your stomach... and she inspects your hole, finding it suitable for her nefarious ends."},			
+			{"text": "\"A human's excretion hole,\" she says, inspecting it clinically, \"I'm sure it will serve its purpose well.\""},
+			{"text": "You whine as you feel her ovipositor running up your naked leg."},			
+			{"text": "\"Men are such prideful creatures.  For some reason, they rather dislike receiving my clutch.  What did they think was going to happen once they fertilized them?  Where else did they think I would lay my eggs?  It's not like you have a proper egg pouch.\""},
+			{"text": "It presses against your hole, and you feel that it's about to slip in."},
+			{"text": "\"The whole point of mating is to bring forth new life - men are such strange things.\""},			
 			{
 			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1}}],
-			"text": ""}
-			
-			
+			"text": "It slips inside easily - she rests her hand on the small of your back, and you feel it working its way up into your intestines."}
+			{"text": "\"Take... nngh... responsibility...\" she insists, and you feel something widening your asshole - and then popping inside, something hard and round, within her ovipositing duct."},
 			{
 			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "bellyful":5}}],
-			"text": ""}
-			
+			"text": "One by one the eggs fill your ass, popping inside at her whim, filling your gut to the brim with her round offspring."}			
 			{
 			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analEjaculation":1}}],
 			"text": "The sensation proves too great, and you spew cum from your downward-facing cock, a stream of it landing on the rock and into the river waters beyond."},			
 			{"text": "\"Why are you wasting sperm, landwalker?  That's not your role, right now.\""},
-			
-			
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "bellyful":5}}],
+			"text": "The march of eggs does not cease.  You groan - with your belly flat on the rock, you feel each and every egg nestling into place in your abdomen."},		
 			{"text": "\"That's not nearly all of my eggs, dear.  You picked the wrong mermaid if you wanted to have a small clutch.\""},
-			
-			
+			{"text": "More and more they fill your intestines, stuffing up and bloating your bowels, your rectum so full of eggs that you feel constipated.  Your eyes roll into the back of your head - you've never felt anything like this."},
+			{"text": "Finally, you feel one pop inside, and another isn't to quickly follow, only more of the liquid that had been seeping from her duct."},
 			{
 			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "MERMAID", "value":3}}],
 			"text": "\"That's the last of them,\" she says, wiping the sweat from your brow.  You feel so full that you might burst, but you're glad there are no more eggs to add to the massive egg pile in your too-full gut."},
-			
-			
-			
+			{"text": "\"Take care traveling with our clutch... be sure to return here to birth them in my open waters - they won't come out otherwise,\" she advises, or perhaps warns."},
+			{"text": "You're silent at that.  You can't believe this is happening.  She dives back down in the water, leaving you alone... with all of her eggs."},
+			{"text": "Without much recourse, you continue on your journey... now quite uncomfortably full of mermaid eggs."}		
 		]
 	},
 	{
 		"key": "MERMAID-EGG-VISIT",
 		"scriptLines": [
-			{"text": "You return to the mermaid's domain, your belly visibly swollen and aching with the fullness of her reproductive payload - her eggs, each one as big as the last."},
+			{
+			"foreground": "MERMAID",
+			"text": "You return to the mermaid's domain, your belly visibly swollen and aching with the fullness of her reproductive payload - her eggs, each one as big as the last."},
 			{"text": "She sees you before you see her, and she swims over to you, positively glowing."},
 			{"text": "\"Well, well, if it isn't my babymama! How are my lovely little eggies? How are you finding pregnancy? Do you want a massage, love?\" she asks, offering to rub your belly."},
 			{"text": "She allows you to pass, but not before asking you how lively her spawn are, or inspecting you to ensure that you're still in good shape and will be able to carry her brood to term."},
@@ -9448,60 +9425,67 @@
 	{
 		"key": "MERMAID-EGG-HATCH",
 		"scriptLines": [
-			{"text": ""}
+			{"text": "The labor pains prove too great to ignore.  You need to let out these fish babies, and soon."},			
+			{
+			"foreground": "MERMAID",
+			"text": "You return to the waters where you were first impregnated to \"give birth,\" and as if she sensed that, the mermaid who impregnated you with her eggs appears as soon as you reach the shoreline, offering to take you to her personal island."},
+			{"text": "As soon as your body is in the water, you feel something inside give way, and the baby fish, you feel, are soon to follow."},
+			{"text": "\"You kept your word - you really are a keeper,\" she says, although you're not sure you want to be \"kept.\" Still, you accept her offer, and she takes you to her spawning grounds."},
+			{"text": "Once you're in the spawning ground where you first received a healthy helping of her eggs, she has you relax against the rocks under the water, and begins to speak to you soothingly."},			
+			{"text": "\"I find for humans, this is easier if you spread like this,\" she says, embarrassingly spreading your legs wide and up, so that your toes barely break the surface of the water."},
 			
-			
-			{"text": "\"You kept your word - you really are a keeper.\""},
-			
-			
-			
+			{"text": "You begin to push and, sure enough, here come the fish.  You feel a surge of pressure in your lower intestines, all the way up to the last mile of your colon, and then in a miraculous moment, out they come."},
+			{"text": "Your fishy offspring spray off into the water, swimming away without pausing to consider the strange circumstances of their birth.  The sensation is indescribable, and though you're glad to relieve the pressure that had been building for so long, you're also mortified."}, 
+			{"text": "You're not sure how many got out initially, but they were far from the last, your stomach still comically full of wriggling fish babies, and more coming with each push."},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analEjaculation":1}}],
+			"text": "You have ten or fifteen sons or daughters before you find yourself climaxing uncontrollably, your milky cloud of sperm shooting out into the open water, not unlike how many fish do it."},
+			{"text": "Your fishwife muses about that while you continue to birth her offspring, dozens of them, while gritting your teeth and sucking air between them."},
 			{
 			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "MERMAID", "value":6}}]
 			"text": "You \"give birth\" in the water, each of her live fry wriggling out of you, not exactly one by one - more like three by three, until there are none left."},
-			
-			
-			{"text": "\"Soo... about our second clutch.\""}
-			
+			{"text": "You're completely exhausted and sit limp in the water, some of your own children swimming idly about you, little fry that seem quite merry, if a little confused."},
+			{"text": "The mermaid rubs your flabby, recently emptied belly affectionately, kissing your lips and the sides of your face affectionately."},
+			{"text": "\"Soo... about our second clutch,\" she asks, and it's obvious that she wants you to take her on another journey to human poundtown... with the resulting egg fertilization that entails."}
 		]
 	},
 	{
 		"key": "MERMAID-SECONDS",
 		"scriptLines": [
-			{"text": ""},
-			
-			{"text": "She rides on top of you, her size making that quite a difficult thing to endure."},
-			
+			{"text": "You assent, and she ascends - though you're still sweating and panting from \"giving birth,\", she mounts you in the water, holding your body close and aiming your erect cock at the slit in her tail."},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSexTop":1}}],
+			"text": "She rides on top of you, her size making that quite a difficult thing to endure out of the water, but surprisingly comfortable in the water."},
 			{"text": "\"I can't say how happy I am that you still want to mate with me... does that mean that we're a pair, now?\""},
-			
+			{"text": "You mostly enjoy the ride - you can barely move after the exertion of giving birth, and she places your hands on her body to compensate."},
 			{"text": "\"I've produced so many eggs thinking about you...\" she says, and your already-rather cramping bowels begin to cramp up even worse at the sound of that."},
-			
-			
-			{"text": "\"Quickly, before your pouch returns to its normal shape... it will be easier to catch my eggs this way.\""},
-			
-			
+			{"text": "Unfortunately, you can't really stop your ejaculation in your current state, and you feel it build to a crescendo."},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "ejaculationInButt":1}}],
+			"text": "You cum inside, and you know, somehow now instinctively, what that means."},
+			{"text": "She pulls herself off of you, and you see her oviduct emerge, your sphincter tightening reflexively.  \"Quickly, before your pouch returns to its normal shape... it will be easier to catch my eggs this way.\""},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1}}],
+			"text": "She holds your legs spread as her ovipositor slips inside, and then moves around inside rather freely."},			
 			{"text": "\"See?  Nice and loose... now it's a proper mermaid egg pouch... and after this big clutch, it'll probably stay that way!\""},
-
-			
 			{"text": "The idea of having a loose, baggy rectum for mermaid eggs is... simultaneously appealing and horrifying."},
-			
-			
-			{"text": "\"I told you, there are more than last time... you really helped my egg production...\""},
-			
-			
-			{"text": "\"When we first met, I had my doubts... but now I know you're made for my eggs.\""},
-			
-			
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "bellyful":5}}],
+			"text": "This time, her egging is swift - well, swifter.  You have a dozen eggs in your gut before you're even hard again."},
 			{
 			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "bellyful":10}}],
-			"text": ""},
-			
+			"text": "Not only are the eggs coming faster... she's already on pace to break her previous record."},
+			{"text": "\"I told you, there are more than last time... you really helped my egg production...\""},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "bellyful":10}}],
+			"text": "Your stomach, which had just accommodated a hundred live fish, struggles to accept her many, many eggs."},		
+			{"text": "\"When we first met, I had my doubts... but now I know you're made for my eggs.\""},
 			{
 			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analEjaculation":1}}],
-			"text": "You ejaculate again, an apparent feature of your egg-laying sex."},	
-			
+			"text": "You don't have a response to that.  Well, you do, but it's to ejaculate again, an apparent feature of your egg-laying sex."},				
 			{
 			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "MERMAID", "value":3}}],
-			"text": ""}
+			"text": "Finally, she pumps the last of her eggs into you, and you float in the water, completely and utterly full of them.  She kisses you farewell, and you can't believe you just signed up for another mermaid pregnancy.  Listless, you continue your journey, once again full of eggs."}
 		]
 	},
 	{
@@ -9513,11 +9497,10 @@
 	{
 		"key": "MERMAID-HATCHED-VISIT",
 		"scriptLines": [
-			{"text": ""},
-			
-			{"text": "\"My darling babymama... I can barely recognize you now that you're not so full of my eggs.\""},
-			
-			{"text": "\"Have you changed your mind?  I have plenty of eggs for you, still.\""}
+			{"text": "You traverse the lands where you once gave birth to a clutch of merpeople, feeling... a very queer feeling."},			
+			{"text": "\"My darling babymama... I can barely recognize you now that you're not so full of my eggs,\" you hear a voice from the waters below say, and you look to see the woman who had once filled you with her eggs."},
+			{"text": "You wave to her, feeling a little nervous."},
+			{"text": "\"Have you changed your mind?  I have plenty of eggs for you, still,\" she says, and you consider her... \"offer\"."}
 		]
 	},
 ]}
