@@ -292,7 +292,7 @@ public abstract class AbstractCharacter extends Actor {
 	public int getHealthDegradation() { return getDegradation(healthTiers, currentHealth); }
 	public int getStaminaDegradation() { return getDegradation(staminaTiers, currentStamina); }
 	public int getLustDegradation() { return arousal.getLust() >= 100 ? 4 : arousal.getLust() >= 75 ? 3 : arousal.getLust() >= 50 ? 2 : arousal.getLust() >= 25 ? 1 : 0; }
-	public int getCumInflation() { return buttful >= 20 || mouthful >= 20 ? 2 : buttful >=10 || mouthful >= 10 ? 1 : 0; } 
+	public int getCumInflation() { return buttful >= 20 || mouthful >= 20 ? 2 : buttful >=10 || mouthful >= 10 || fullOfEggs() ? 1 : 0; } 
 	
 	public String getStatusBlurb() {
 		String blurb = strengthDebuffed() ? "Weakening Curse\n" : "";
