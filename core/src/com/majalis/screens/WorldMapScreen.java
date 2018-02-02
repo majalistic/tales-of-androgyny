@@ -52,6 +52,7 @@ import com.majalis.asset.AnimatedImage;
 import com.majalis.asset.AssetEnum;
 import com.majalis.character.PlayerCharacter;
 import com.majalis.character.PlayerCharacter.QuestType;
+import com.majalis.character.SexualExperience.SexualExperienceBuilder;
 import com.majalis.character.PlayerCharacter.QuestFlag;
 import com.majalis.encounter.EncounterBounty;
 import com.majalis.encounter.EncounterBounty.EncounterBountyResult;
@@ -120,7 +121,7 @@ public class WorldMapScreen extends AbstractScreen {
 		resourceRequirements.add(UI_SKIN.getSkin());
 		resourceRequirements.add(WORLD_MAP_MUSIC.getMusic());
 		AssetEnum[] soundAssets = new AssetEnum[]{
-			CLICK_SOUND, EQUIP, SWORD_SLASH_SOUND, THWAPPING
+			CLICK_SOUND, EQUIP, SWORD_SLASH_SOUND, THWAPPING, CUM
 		};
 		for (AssetEnum asset: soundAssets) {
 			resourceRequirements.add(asset.getSound());
@@ -687,23 +688,46 @@ public class WorldMapScreen extends AbstractScreen {
 							}
 						);
 					
-						if (newEncounter == EncounterCode.WOMP) {
-							Table tempTable = new Table();
-							TextButton yesButton = getButton("Yes");
-							TextButton noButton = getButton("No");
-							ClickListener buttonListener = new ClickListener() { 
+						if (newEncounter == EncounterCode.SOLICITATION) {
+							final Table tempTable = new Table();
+							final TextButton yesButton = getButton("Yes");
+							final TextButton noButton = getButton("No");
+							final ClickListener buttonListener = new ClickListener() { 
 								@Override
 						        public void clicked(InputEvent event, float x, float y) {
 									popupGroup.addAction(doneAction);
 									tempTable.removeActor(yesButton);
 									tempTable.removeActor(noButton);
-									assetManager.get(AssetEnum.EQUIP.getSound()).play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f); // this should only play if you say yes - a simple boop for no
+									assetManager.get(AssetEnum.CLICK_SOUND.getSound()).play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f); // this should only play if you say yes - a simple boop for no
 									saveService.saveDataValue(SaveEnum.VISITED_LIST, node.getNodeCode());
 									saveService.saveDataValue(SaveEnum.SCOUT, 0);
 									node.setAsCurrentNode();
+									setCurrentNode(node);
+									worldGroup.addAction(enableButtons);
 								}
 							};
-							yesButton.addListener(buttonListener); // add a listener to yes receive 10 gold and a butt fucking, with sounds
+							yesButton.addListener(new ClickListener() { 
+								@Override
+						        public void clicked(InputEvent event, float x, float y) {
+									buttonListener.clicked(null, 0, 0);
+									assetManager.get(AssetEnum.EQUIP.getSound()).play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f); 
+									assetManager.get(AssetEnum.THWAPPING.getSound()).play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f); 
+									assetManager.get(AssetEnum.CUM.getSound()).play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f); 
+									statusResults.clear();
+									Label newEncounterText = new Label("You accept a whomping for 10 gold!", skin);
+									newEncounterText.setColor(Color.GOLDENROD);
+									newEncounterText.setWrap(true);
+									statusResults.add(newEncounterText).width(315).row();
+									saveService.saveDataValue(SaveEnum.GOLD, 10);
+									// this is duplicated code, extract into method
+									for (MutationResult miniResult : saveService.saveDataValue(SaveEnum.ANAL, new SexualExperienceBuilder().setAnalSex(1).setCreampie(1).build())) {
+										MutationActor actor = new MutationActor(miniResult, assetManager.get(miniResult.getTexture()), skin, true);
+										actor.setWrap(true);
+										// this width setting is going to be tricky once we implement images for perk and skill gains and such
+										statusResults.add(actor).width(miniResult.getType() == MutationType.NONE ? 325 : 50).height(50).align(Align.left).row();
+									}
+								}
+							}); 
 							noButton.addListener(buttonListener);
 							tempTable.add(yesButton).size(100, 50);
 							tempTable.add(noButton).size(100, 50);

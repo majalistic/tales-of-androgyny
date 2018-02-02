@@ -91,7 +91,7 @@ public enum EncounterCode {
 	STORY_FEM (FOREST_INACTIVE), 
 	STORY_SIGN (FOREST_INACTIVE), 
 	
-	WOMP, 
+	SOLICITATION, 
 	;
 	
 	private final AssetEnum texture;	
@@ -156,7 +156,7 @@ public enum EncounterCode {
 					case GHOST:
 					case FOOD_CACHE: 
 					case GOLD_CACHE:
-					case WOMP: 
+					case SOLICITATION: 
 					case ICE_CREAM:
 					case HUNGER_CHARM: 
 					case DAMAGE_TRAP: 
@@ -214,7 +214,7 @@ public enum EncounterCode {
 					case STORY_FEM: return "Unwalked Path";
 					case STORY_SIGN: return "Crossroads";
 					case BRIGAND_STORY: return "West Pass (Brigands)";
-					case WOMP: return "Strange person";
+					case SOLICITATION: return "Strange person";
 					case FOOD_CACHE:
 					case GOLD_CACHE:
 					case ICE_CREAM:
@@ -249,7 +249,7 @@ public enum EncounterCode {
 	private static boolean hungerCharmReady;
 	static {
 		encounterMap = new IntMap<Array<EncounterCode>>();
-		encounterMap.put(1, new Array<EncounterCode>(new EncounterCode[]{WERESLUT, HARPY, SLIME, BRIGAND, DRYAD, CENTAUR, GOBLIN, ORC, FOOD_CACHE, GOLD_CACHE, DAMAGE_TRAP, ANAL_TRAP, HUNGER_CHARM}));
+		encounterMap.put(1, new Array<EncounterCode>(new EncounterCode[]{WERESLUT, HARPY, SLIME, SOLICITATION, BRIGAND, DRYAD, CENTAUR, GOBLIN, ORC, FOOD_CACHE, GOLD_CACHE, DAMAGE_TRAP, ANAL_TRAP, HUNGER_CHARM}));
 		encounterMap.put(2, new Array<EncounterCode>(new EncounterCode[]{WERESLUT, HARPY, BRIGAND, DRYAD, CENTAUR, GOBLIN, ORC, ADVENTURER, ELF, OGRE, HUNGER_CHARM, ICE_CREAM, BEASTMISTRESS, GOLEM, GHOST, GOLD_CACHE, FOOD_CACHE, DAMAGE_TRAP, ANAL_TRAP}));
 		encounterMap.put(3, new Array<EncounterCode>(new EncounterCode[]{DRYAD, OGRE, HUNGER_CHARM, ICE_CREAM, BEASTMISTRESS, GOLEM, GHOST, NAGA, FOOD_CACHE, DAMAGE_TRAP, ANAL_TRAP}));
 		
@@ -311,7 +311,7 @@ public enum EncounterCode {
 
 	public EncounterBounty getMiniEncounter() {
 		switch (this) {
-			case WOMP:
+			case SOLICITATION:
 			case FOOD_CACHE:
 			case GOLD_CACHE:
 			case ICE_CREAM:
