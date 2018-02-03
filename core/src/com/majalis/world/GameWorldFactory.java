@@ -108,7 +108,7 @@ public class GameWorldFactory {
 			}
 		}
 		
-		if (mermaid != null && !mermaid.isConnected()) {
+		if (mermaid != null) {
 			GameWorldNode closestBeforeRiver = null;
 			GameWorldNode closestAfterRiver = null;
 			for (GameWorldNode node : nodes) {
