@@ -9,6 +9,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Base64Coder;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.badlogic.gdx.utils.IntArray;
+import com.badlogic.gdx.utils.IntMap;
 import com.badlogic.gdx.utils.IntSet;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonWriter.OutputType;
@@ -94,7 +95,20 @@ public class SaveManager implements SaveService, LoadService {
 	    	case RETURN_CONTEXT: 	save.returnContext = (GameContext) object; break;
 	    	case NODE_CODE: 		save.nodeCode = (Integer) object; break;
 	    	case ENCOUNTER_CODE:	save.encounterCode = (EncounterCode) object; break;
-	    	case VISITED_LIST:		save.visitedList.add((Integer) object); break;
+	    	case VISITED_LIST:		
+	    		int visitedNode = (Integer) object;
+	    		save.visitedList.add(visitedNode); 
+	    		VisitInfo info = save.visitedNodeList.get(visitedNode);
+	    		if (info != null) { 
+	    			if (info.lastEncounterTime + 18 + ((info.randomVal % 3) * 6) < save.player.getTime()) { // this same calculation and mutation occurs in nodes - maybe they should save themselves to the visited list at the appropriate time?
+		    			info.numberOfEncounters++;
+		    			info.lastEncounterTime = save.player.getTime();
+	    			}
+	    		}
+	    		else {
+	    			save.visitedNodeList.put(visitedNode, new VisitInfo(1, save.player.getTime(), (int) ((Math.random() * 1000) % 1000)));
+	    		}
+	    		break;
 	    	case BATTLE_CODE:		save.battleAttributes = (BattleAttributes) object; break;
 	    	case CLASS:				save.player.setJobClass((JobClass) object); save.player.load(); break;
 	    	case WORLD_SEED:		save.worldSeed = (Integer) object; break;
@@ -270,6 +284,21 @@ public class SaveManager implements SaveService, LoadService {
     	return tempSave;
     }
     
+    public static class VisitInfo { // this can eventually carry its own "visited" boolean, and describe knowledge of the area before it's visited, or split that into a seperate map
+    	public int numberOfEncounters;
+    	public int lastEncounterTime;
+    	public int randomVal;
+    	
+    	@SuppressWarnings("unused")
+		private VisitInfo() {}
+    	
+    	public VisitInfo(int numberOfEncounters, int lastEncounterTime, int randomVal) {
+    		this.numberOfEncounters = numberOfEncounters;
+    		this.lastEncounterTime = lastEncounterTime;
+    		this.randomVal = randomVal;
+    	}
+    }
+    
     public static class GameSave {
 		private GameContext context;
 		private GameContext returnContext;
@@ -283,6 +312,8 @@ public class SaveManager implements SaveService, LoadService {
     	private int nodeCode;
     	private Array<String> console;
     	private IntArray visitedList;
+    	private IntMap<VisitInfo> visitedNodeList;
+    	
     	// this can probably be refactored to contain a particular battle, but may need to duplicate the player character
     	private BattleAttributes battleAttributes;
     	private PlayerCharacter player;
@@ -292,7 +323,10 @@ public class SaveManager implements SaveService, LoadService {
     	
     	// 0-arg constructor for JSON serialization: DO NOT USE
 		@SuppressWarnings("unused")
-		private GameSave() {}
+		private GameSave() { 
+			visitedNodeList = new IntMap<VisitInfo>();
+			visitedNodeList.put(1,  new VisitInfo(1, 0, 0)); 
+		}
     	
 		// default save values-
     	public GameSave(boolean defaultValues) {
@@ -307,6 +341,8 @@ public class SaveManager implements SaveService, LoadService {
         		console = new Array<String>();
         		shops = new ObjectMap<String, Shop>();
         		visitedList = new IntArray(new int[]{1});
+        		visitedNodeList = new IntMap<VisitInfo>();
+        		visitedNodeList.put(1,  new VisitInfo(1, 0, 0));
         		player = new PlayerCharacter(true);
         		results = new Array<MutationResult>();
     		}
