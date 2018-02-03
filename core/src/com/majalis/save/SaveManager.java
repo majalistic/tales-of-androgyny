@@ -10,7 +10,6 @@ import com.badlogic.gdx.utils.Base64Coder;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.badlogic.gdx.utils.IntArray;
 import com.badlogic.gdx.utils.IntMap;
-import com.badlogic.gdx.utils.IntSet;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonWriter.OutputType;
 import com.badlogic.gdx.utils.ObjectMap;
@@ -97,7 +96,7 @@ public class SaveManager implements SaveService, LoadService {
 	    	case ENCOUNTER_CODE:	save.encounterCode = (EncounterCode) object; break;
 	    	case VISITED_LIST:		
 	    		int visitedNode = (Integer) object;
-	    		save.visitedList.add(visitedNode); 
+	    		save.visitedList.add(visitedNode);  // doesn't do anything anymore, currently for legacy save files
 	    		VisitInfo info = save.visitedNodeList.get(visitedNode);
 	    		if (info != null) { 
 	    			if (info.lastEncounterTime + 18 + ((info.randomVal % 3) * 6) < save.player.getTime()) { // this same calculation and mutation occurs in nodes - maybe they should save themselves to the visited list at the appropriate time?
@@ -150,9 +149,7 @@ public class SaveManager implements SaveService, LoadService {
 	    	case RETURN_CONTEXT: 	return (T) save.returnContext;
 	    	case NODE_CODE: 		return (T) (Integer)save.nodeCode;
 	    	case ENCOUNTER_CODE:	return (T) save.encounterCode;
-	    	case VISITED_LIST:		IntSet set = new IntSet();
-	    							set.addAll(save.visitedList);
-	    							return (T) set;
+	    	case VISITED_LIST:		return (T) save.visitedNodeList;
 	    	case BATTLE_CODE:		return (T) save.battleAttributes;
 	    	case CLASS:				return (T) save.player.getJobClass();
 	    	case WORLD_SEED:		return (T) (Integer) save.worldSeed;

@@ -5,12 +5,12 @@ import com.badlogic.gdx.math.RandomXS128;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.IntMap;
-import com.badlogic.gdx.utils.IntSet;
 import com.badlogic.gdx.utils.ObjectSet;
 import com.majalis.character.PlayerCharacter;
 import com.majalis.encounter.EncounterCode;
 import com.majalis.save.LoadService;
 import com.majalis.save.SaveEnum;
+import com.majalis.save.SaveManager.VisitInfo;
 import com.majalis.talesofandrogyny.Logging;
 import com.majalis.talesofandrogyny.TalesOfAndrogyny;
 
@@ -21,7 +21,7 @@ public class Zone {
 	private final Array<GameWorldNode> nodes;
 	private final Array<GameWorldNode> requiredNodes;
 	private final IntMap<GameWorldNode> nodeMap;
-	private final IntSet visitedCodesSet;
+	private final IntMap<VisitInfo> visitedInfo;
 	private final PlayerCharacter character;
 	private final int difficulty;
 	private final int repeats;
@@ -33,7 +33,7 @@ public class Zone {
 		this.random = random;
 		this.difficulty = difficulty;
 		this.repeats = repeats;
-		visitedCodesSet = loadService.loadDataValue(SaveEnum.VISITED_LIST, IntSet.class);
+		visitedInfo = loadService.loadDataValue(SaveEnum.VISITED_LIST, IntMap.class);
 		character = loadService.loadDataValue(SaveEnum.PLAYER, PlayerCharacter.class);
 
 		this.nodes = nodes;
@@ -44,7 +44,7 @@ public class Zone {
 	
 	@SuppressWarnings("unchecked")
 	protected Zone addStartNode(int nodeCode, EncounterCode initialEncounter, EncounterCode defaultEncounter, int x, int y) {
-		startNode = getNode(nodeCode, initialEncounter, defaultEncounter, x, y, visitedCodesSet.contains(nodeCode));
+		startNode = getNode(nodeCode, initialEncounter, defaultEncounter, x, y, visitedInfo.get(nodeCode));
 		addNode(startNode, nodeCode, nodes);		
 		return this;
 	}
@@ -56,7 +56,7 @@ public class Zone {
 
 	@SuppressWarnings("unchecked")
 	protected Zone addEndNode(int nodeCode, EncounterCode initialEncounter, EncounterCode defaultEncounter, int x, int y) {
-		addNode(getNode(nodeCode, initialEncounter, defaultEncounter, x, y, visitedCodesSet.contains(nodeCode)), nodeCode, nodes, requiredNodes);		
+		addNode(getNode(nodeCode, initialEncounter, defaultEncounter, x, y, visitedInfo.get(nodeCode)), nodeCode, nodes, requiredNodes);		
 		return this;
 	}
 
@@ -141,7 +141,7 @@ public class Zone {
 					GameWorldNode newNode = getNode(
 						nodeCode, 
 						TalesOfAndrogyny.setEncounter.size == 0 ? EncounterCode.getEncounterCode(nodeCode - 1, difficulty, unspawnedEncounters) : TalesOfAndrogyny.setEncounter.get(nodeCode % TalesOfAndrogyny.setEncounter.size),
-						EncounterCode.DEFAULT, EncounterCode.getDifficultySet(difficulty), (int)newNodePosition.x, (int)newNodePosition.y, visitedCodesSet.contains(nodeCode));
+						EncounterCode.DEFAULT, EncounterCode.getDifficultySet(difficulty), (int)newNodePosition.x, (int)newNodePosition.y, visitedInfo.get(nodeCode));
 					addNode(newNode, nodeCode, nodes);
 					
 					// if we've reached the target node, we can terminate this run-through
@@ -218,8 +218,8 @@ public class Zone {
 		}
 		nodeMap.put(nodeCode, newNode);
 	}
-	private GameWorldNode getNode(int nodeCode, EncounterCode initialEncounter, EncounterCode defaultEncounter, int x, int y, boolean visited) { return getNode(nodeCode, initialEncounter, defaultEncounter, new Array<EncounterCode>(), x, y, visited); }
-	private GameWorldNode getNode(int nodeCode, EncounterCode initialEncounter, EncounterCode defaultEncounter, Array<EncounterCode> raandomEncounters, int x, int y, boolean visited) {
-		return new GameWorldNode(nodeCode, new GameWorldNodeEncounter(initialEncounter, defaultEncounter, raandomEncounters), x, y, visited, character, assetManager);
+	private GameWorldNode getNode(int nodeCode, EncounterCode initialEncounter, EncounterCode defaultEncounter, int x, int y, VisitInfo visitInfo) { return getNode(nodeCode, initialEncounter, defaultEncounter, new Array<EncounterCode>(), x, y, visitInfo); }
+	private GameWorldNode getNode(int nodeCode, EncounterCode initialEncounter, EncounterCode defaultEncounter, Array<EncounterCode> raandomEncounters, int x, int y, VisitInfo visitInfo) {
+		return new GameWorldNode(nodeCode, new GameWorldNodeEncounter(initialEncounter, defaultEncounter, raandomEncounters), x, y, visitInfo, character, assetManager);
 	}
 }

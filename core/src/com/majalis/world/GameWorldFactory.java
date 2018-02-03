@@ -5,7 +5,6 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.math.RandomXS128;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.IntMap;
-import com.badlogic.gdx.utils.IntSet;
 import com.badlogic.gdx.utils.ObjectSet;
 import com.majalis.character.PlayerCharacter;
 import com.majalis.encounter.EncounterCode;
@@ -13,6 +12,7 @@ import com.majalis.save.LoadService;
 import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveManager;
 import com.majalis.save.SaveManager.GameMode;
+import com.majalis.save.SaveManager.VisitInfo;
 import com.majalis.talesofandrogyny.Logging;
 import com.majalis.talesofandrogyny.TalesOfAndrogyny;
 /*
@@ -41,7 +41,7 @@ public class GameWorldFactory {
 		character = loadService.loadDataValue(SaveEnum.PLAYER, PlayerCharacter.class);
 		
 		ObjectSet<EncounterCode> unspawnedEncounters = new ObjectSet<EncounterCode>(EncounterCode.getAllRandomEncounters());
-		IntSet visitedCodesSet = loadService.loadDataValue(SaveEnum.VISITED_LIST, IntSet.class);
+		IntMap<VisitInfo> visitedInfo = loadService.loadDataValue(SaveEnum.VISITED_LIST, IntMap.class);
 		GameWorldNode mermaid = null;
 		if (gameMode == GameMode.SKIRMISH) {
 			new Zone(loadService, assetManager, random, nodes, nodeMap, unspawnedEncounters, 1,  1)
@@ -54,7 +54,7 @@ public class GameWorldFactory {
 				.addEndNode(1000, TOWN, TOWN, 31, 94)
 				.buildZone();
 			
-			mermaid = addNode(getNode(2000, MERMAID, MERMAID, 50, 94, visitedCodesSet.contains(2000)), nodes);
+			mermaid = addNode(getNode(2000, MERMAID, MERMAID, 50, 94, visitedInfo.get(2000)), nodes);
 			
 			Zone zone2 = new Zone(loadService, assetManager, random, nodes, nodeMap, unspawnedEncounters, 2, 1)
 				.addStartNode(zone.getEndNodes().get(0))
@@ -73,31 +73,31 @@ public class GameWorldFactory {
 				.addEndNode(1006, FORT, FORT, 119, 84)
 				.buildZone();
 			
-			addNode(getNode(50000, MOUTH_FIEND, MOUTH_FIEND, 96, 49, visitedCodesSet.contains(50000)), nodes);
-			addNode(getNode(50001, MOUTH_FIEND_ESCAPE, MOUTH_FIEND_ESCAPE, 99, 49, visitedCodesSet.contains(50001)), nodes);
+			addNode(getNode(50000, MOUTH_FIEND, MOUTH_FIEND, 96, 49, visitedInfo.get(50000)), nodes);
+			addNode(getNode(50001, MOUTH_FIEND_ESCAPE, MOUTH_FIEND_ESCAPE, 99, 49, visitedInfo.get(50001)), nodes);
 			nodes.get(nodes.size - 1).connectTo(nodes.get(nodes.size - 2));			
 		}
 		else {
 			int nodeCode = 1;
 			
-			addNode(getNode(nodeCode, DEFAULT, DEFAULT, 12, 92, visitedCodesSet.contains(nodeCode++)), nodes);
-			addNode(getNode(nodeCode, COTTAGE_TRAINER, COTTAGE_TRAINER_VISIT, 15, 91, visitedCodesSet.contains(nodeCode++)), nodes);
-			addNode(getNode(nodeCode, TOWN_STORY, TOWN2, 19, 90, visitedCodesSet.contains(nodeCode++)), nodes);
-			addNode(getNode(nodeCode, FIRST_BATTLE_STORY, DEFAULT, 23, 90, visitedCodesSet.contains(nodeCode++)), nodes);
-			addNode(getNode(nodeCode, MERI_COTTAGE, MERI_COTTAGE_VISIT, 23, 86, visitedCodesSet.contains(nodeCode++)), nodes);
-			addNode(getNode(nodeCode, ECCENTRIC_MERCHANT, DEFAULT, 28, 88, visitedCodesSet.contains(nodeCode++)), nodes);	
-			addNode(getNode(nodeCode, STORY_FEM, DEFAULT, 28, 91, visitedCodesSet.contains(nodeCode++)), nodes);
-			addNode(getNode(nodeCode, STORY_SIGN, DEFAULT, 32, 91, visitedCodesSet.contains(nodeCode++)), nodes);
-			addNode(getNode(nodeCode, BRIGAND_STORY, DEFAULT, 31, 95, visitedCodesSet.contains(nodeCode++)), nodes);
-			addNode(getNode(nodeCode, HARPY_STORY, DEFAULT, 37, 88, visitedCodesSet.contains(nodeCode++)), nodes);
-			addNode(getNode(nodeCode, FOOD_CACHE, DEFAULT, 37, 93, visitedCodesSet.contains(nodeCode++)), nodes);
+			addNode(getNode(nodeCode, DEFAULT, DEFAULT, 12, 92, visitedInfo.get(nodeCode++)), nodes);
+			addNode(getNode(nodeCode, COTTAGE_TRAINER, COTTAGE_TRAINER_VISIT, 15, 91, visitedInfo.get(nodeCode++)), nodes);
+			addNode(getNode(nodeCode, TOWN_STORY, TOWN2, 19, 90, visitedInfo.get(nodeCode++)), nodes);
+			addNode(getNode(nodeCode, FIRST_BATTLE_STORY, DEFAULT, 23, 90, visitedInfo.get(nodeCode++)), nodes);
+			addNode(getNode(nodeCode, MERI_COTTAGE, MERI_COTTAGE_VISIT, 23, 86,  visitedInfo.get(nodeCode++)), nodes);
+			addNode(getNode(nodeCode, ECCENTRIC_MERCHANT, DEFAULT, 28, 88,  visitedInfo.get(nodeCode++)), nodes);	
+			addNode(getNode(nodeCode, STORY_FEM, DEFAULT, 28, 91,  visitedInfo.get(nodeCode++)), nodes);
+			addNode(getNode(nodeCode, STORY_SIGN, DEFAULT, 32, 91,  visitedInfo.get(nodeCode++)), nodes);
+			addNode(getNode(nodeCode, BRIGAND_STORY, DEFAULT, 31, 95,  visitedInfo.get(nodeCode++)), nodes);
+			addNode(getNode(nodeCode, HARPY_STORY, DEFAULT, 37, 88,  visitedInfo.get(nodeCode++)), nodes);
+			addNode(getNode(nodeCode, FOOD_CACHE, DEFAULT, 37, 93,  visitedInfo.get(nodeCode++)), nodes);
 			
-			addNode(getNode(nodeCode, FOOD_CACHE, DEFAULT, 20, 95, visitedCodesSet.contains(nodeCode++)), nodes);
-			addNode(getNode(nodeCode, OGRE_WARNING_STORY, DEFAULT, 19, 99, visitedCodesSet.contains(nodeCode++)), nodes);	
-			addNode(getNode(nodeCode, OGRE_STORY, DEFAULT, 19, 103, visitedCodesSet.contains(nodeCode++)), nodes);
+			addNode(getNode(nodeCode, FOOD_CACHE, DEFAULT, 20, 95,  visitedInfo.get(nodeCode++)), nodes);
+			addNode(getNode(nodeCode, OGRE_WARNING_STORY, DEFAULT, 19, 99,  visitedInfo.get(nodeCode++)), nodes);	
+			addNode(getNode(nodeCode, OGRE_STORY, DEFAULT, 19, 103,  visitedInfo.get(nodeCode++)), nodes);
 			
-			addNode(getNode(nodeCode, FOOD_CACHE, DEFAULT, 24, 102, visitedCodesSet.contains(nodeCode++)), nodes);
-			addNode(getNode(nodeCode, FORT, FORT, 29, 102, visitedCodesSet.contains(nodeCode++)), nodes);
+			addNode(getNode(nodeCode, FOOD_CACHE, DEFAULT, 24, 102,  visitedInfo.get(nodeCode++)), nodes);
+			addNode(getNode(nodeCode, FORT, FORT, 29, 102,  visitedInfo.get(nodeCode++)), nodes);
 			
 			for (int ii = 0; ii < nodes.size-1; ii++) {
 				for (int jj = ii + 1; jj < nodes.size; jj++) {
@@ -157,7 +157,7 @@ public class GameWorldFactory {
 		return newNode;
 	}
 	
-	private GameWorldNode getNode(int nodeCode, EncounterCode initialEncounter, EncounterCode defaultEncounter, int x, int y, boolean visited) {
-		return new GameWorldNode(nodeCode, new GameWorldNodeEncounter(initialEncounter, defaultEncounter), x, y, visited, character, assetManager);
+	private GameWorldNode getNode(int nodeCode, EncounterCode initialEncounter, EncounterCode defaultEncounter, int x, int y, VisitInfo visitInfo) {
+		return new GameWorldNode(nodeCode, new GameWorldNodeEncounter(initialEncounter, defaultEncounter), x, y, visitInfo, character, assetManager);
 	}
 }

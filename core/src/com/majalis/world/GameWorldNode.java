@@ -24,6 +24,7 @@ import com.majalis.asset.AssetEnum;
 import com.majalis.character.PlayerCharacter;
 import com.majalis.encounter.EncounterCode;
 import com.majalis.save.SaveManager.GameContext;
+import com.majalis.save.SaveManager.VisitInfo;
 /*
  * Represents a node on the world map.
  */
@@ -37,7 +38,7 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 	private final int x;
 	private final int y;
 	private final PlayerCharacter character;
-	private boolean visited;
+	private VisitInfo visitInfo;
 	private boolean current;
 	private int visibility;
 	private Image activeImage;
@@ -47,7 +48,7 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 	private ClickListener fireListener;
 	private Array<GameWorldNode> pathToCurrent;
 	
-	public GameWorldNode(final int nodeCode, GameWorldNodeEncounter encounter, int x, int y, boolean visited, PlayerCharacter character, AssetManager assetManager) {
+	public GameWorldNode(final int nodeCode, GameWorldNodeEncounter encounter, int x, int y, VisitInfo visitInfo, PlayerCharacter character, AssetManager assetManager) {
 		this.connectedNodes = new ObjectSet<GameWorldNode>();
 		paths = new Array<Path>();
 		pathMap = new ObjectMap<GameWorldNode, Path>();
@@ -56,7 +57,7 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 		this.y = y;
 		
 		this.nodeCode = nodeCode;
-		this.visited = visited;
+		this.visitInfo = visitInfo;
 
 		// this should be refactored - shouldn't need asset manager
 		Texture activeImageTexture = assetManager.get(encounter.getCode().getTexture().getTexture());
@@ -111,9 +112,9 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 	
 	public Vector2 getHexPosition() { return new Vector2(x, y); }	
 	public int getNodeCode() { return nodeCode; }
-	public String getHoverText() { return current ? "" : visited ? getEncounterCode().getFullDescription() : getEncounterCode().getDescription(visibility); }
 	public Array<Path> getPaths() { return paths; }
-	public EncounterCode getEncounterCode() { return visited ? encounter.getDefaultCode() : encounter.getCode(); } // need to somehow get VisitInfo, also these methods should be condensed, getting the appropriate Encounter from the GameWorldEncounter and calling getContext or getDescription on it
+	public String getHoverText() { return current ? "" : visitInfo != null ? getEncounterCode().getFullDescription() : getEncounterCode().getDescription(visibility); }
+	public EncounterCode getEncounterCode() { return visitInfo != null ? encounter.getDefaultCode() : encounter.getCode(); } // need to somehow get VisitInfo, also these methods should be condensed, getting the appropriate Encounter from the GameWorldEncounter and calling getContext or getDescription on it
 	public GameContext getEncounterContext() { return getEncounterCode().getContext(); }
 	public boolean isConnected() { return connectedNodes.size > 0; }
 	
@@ -249,7 +250,7 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 		ObjectSet<GameWorldNode> visibleSet = new ObjectSet<GameWorldNode>();
 		visibleSet.add(this);
 		setNeighborsVisibility(character.getScoutingScore(), 1, visibleSet);
-		visited = true;
+		visit();
 	}	
 	
 	private void setActive() {
@@ -318,5 +319,5 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 		return neighbors;
 	}
 
-	public void visit() { visited = true; }
+	public void visit() { visitInfo = new VisitInfo(1, 0, 0); }
 }
