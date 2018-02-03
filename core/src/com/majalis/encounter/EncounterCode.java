@@ -272,6 +272,8 @@ public enum EncounterCode {
 		return temp;
 	}
 	
+	public static Array<EncounterCode> getDifficultySet(int difficulty) { return encounterMap.get(difficulty); }
+	
 	public static EncounterCode getEncounterCode(int rawCode, int difficulty, ObjectSet<EncounterCode> unspawnedEncounters) {
 		for (int difficultyTier = difficulty; difficultyTier >= 1; difficultyTier--) {
 			for (EncounterCode encounter : encounterMap.get(difficultyTier)) {

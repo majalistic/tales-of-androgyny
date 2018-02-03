@@ -141,7 +141,7 @@ public class Zone {
 					GameWorldNode newNode = getNode(
 						nodeCode, 
 						TalesOfAndrogyny.setEncounter.size == 0 ? EncounterCode.getEncounterCode(nodeCode - 1, difficulty, unspawnedEncounters) : TalesOfAndrogyny.setEncounter.get(nodeCode % TalesOfAndrogyny.setEncounter.size),
-						EncounterCode.DEFAULT, (int)newNodePosition.x, (int)newNodePosition.y, visitedCodesSet.contains(nodeCode));
+						EncounterCode.DEFAULT, EncounterCode.getDifficultySet(difficulty), (int)newNodePosition.x, (int)newNodePosition.y, visitedCodesSet.contains(nodeCode));
 					addNode(newNode, nodeCode, nodes);
 					
 					// if we've reached the target node, we can terminate this run-through
@@ -218,8 +218,8 @@ public class Zone {
 		}
 		nodeMap.put(nodeCode, newNode);
 	}
-	
-	private GameWorldNode getNode(int nodeCode, EncounterCode initialEncounter, EncounterCode defaultEncounter, int x, int y, boolean visited) {
-		return new GameWorldNode(nodeCode, new GameWorldNodeEncounter(initialEncounter, defaultEncounter), x, y, visited, character, assetManager);
+	private GameWorldNode getNode(int nodeCode, EncounterCode initialEncounter, EncounterCode defaultEncounter, int x, int y, boolean visited) { return getNode(nodeCode, initialEncounter, defaultEncounter, new Array<EncounterCode>(), x, y, visited); }
+	private GameWorldNode getNode(int nodeCode, EncounterCode initialEncounter, EncounterCode defaultEncounter, Array<EncounterCode> raandomEncounters, int x, int y, boolean visited) {
+		return new GameWorldNode(nodeCode, new GameWorldNodeEncounter(initialEncounter, defaultEncounter, raandomEncounters), x, y, visited, character, assetManager);
 	}
 }

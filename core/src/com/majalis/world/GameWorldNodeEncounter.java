@@ -1,5 +1,6 @@
 package com.majalis.world;
 
+import com.badlogic.gdx.utils.Array;
 import com.majalis.encounter.EncounterCode;
 import com.majalis.save.SaveManager;
 
@@ -10,19 +11,18 @@ public class GameWorldNodeEncounter {
 
 	private final EncounterCode encounterCode;
 	private final EncounterCode defaultEncounterCode;
+	private final Array<EncounterCode> randomEncounterCodes;
 	
-	public GameWorldNodeEncounter(EncounterCode initialEncounter, EncounterCode defaultEncounter) {
+	public GameWorldNodeEncounter(EncounterCode initialEncounter, EncounterCode defaultEncounter) { this(initialEncounter, defaultEncounter, new Array<EncounterCode>()); }	
+	public GameWorldNodeEncounter(EncounterCode initialEncounter, EncounterCode defaultEncounter, Array<EncounterCode> randomEncounterCodes) {
 		this.encounterCode = initialEncounter;
 		this.defaultEncounterCode = defaultEncounter;
+		this.randomEncounterCodes = randomEncounterCodes;
 	}
 	
-	public EncounterCode getCode() {
-		return encounterCode;
-	}
-	
-	public EncounterCode getDefaultCode() {
-		return defaultEncounterCode;
-	}
+	public EncounterCode getCode() { return encounterCode; }	
+	public EncounterCode getDefaultCode() { return defaultEncounterCode; }
+	public EncounterCode getRandomEncounterCode(int seedValue) { return randomEncounterCodes.size == 0 ? EncounterCode.DEFAULT : randomEncounterCodes.get(seedValue % randomEncounterCodes.size); }
 	
 	public SaveManager.GameContext getContext() {
 		return encounterCode == EncounterCode.TOWN || encounterCode == EncounterCode.TOWN2 ? SaveManager.GameContext.TOWN : SaveManager.GameContext.ENCOUNTER;
