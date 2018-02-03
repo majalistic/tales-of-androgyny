@@ -433,6 +433,7 @@ public class WorldMapScreen extends AbstractScreen {
 						console.addAction(Actions.alpha(1));
 						console.addAction(Actions.fadeOut(10));
 						currentNode.setAsCurrentNode();
+						visit(currentNode);
 						time++;
 						tintForTimeOfDay();	
 						checkCanEat(rest);
@@ -638,7 +639,7 @@ public class WorldMapScreen extends AbstractScreen {
 					if(newEncounter == EncounterCode.DEFAULT) {
 						// this will need to also check if the node is a town/dungeon node and appropriately swap the button from "Camp" to "Enter"
 						saveService.saveDataValue(SaveEnum.SCOUT, 0);
-						node.visit();
+						visit(node);
 					}
 					else if (miniEncounter != null) {
 						final Image displayNewEncounter = new Image(hoverImageTexture);
@@ -699,7 +700,7 @@ public class WorldMapScreen extends AbstractScreen {
 									tempTable.removeActor(yesButton);
 									tempTable.removeActor(noButton);
 									assetManager.get(AssetEnum.CLICK_SOUND.getSound()).play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f); // this should only play if you say yes - a simple boop for no
-									saveService.saveDataValue(SaveEnum.VISITED_LIST, node.getNodeCode());
+									visit(node);
 									saveService.saveDataValue(SaveEnum.SCOUT, 0);
 									node.setAsCurrentNode();
 									setCurrentNode(node);
@@ -736,14 +737,13 @@ public class WorldMapScreen extends AbstractScreen {
 						}
 						else {								
 							popupGroup.addAction(doneAction);
-							saveService.saveDataValue(SaveEnum.VISITED_LIST, node.getNodeCode());
-							node.visit();
+							visit(node);
 							saveService.saveDataValue(SaveEnum.SCOUT, 0);
 						}
 					}
 					else {
 						saveService.saveDataValue(SaveEnum.ENCOUNTER_CODE, newEncounter); 
-						saveService.saveDataValue(SaveEnum.VISITED_LIST, node.getNodeCode());
+						visit(node);
 						saveService.saveDataValue(SaveEnum.CONTEXT, node.getEncounterContext());
 						saveService.saveDataValue(SaveEnum.RETURN_CONTEXT, GameContext.WORLD_MAP);
 						switchScreen = true;
@@ -783,6 +783,11 @@ public class WorldMapScreen extends AbstractScreen {
 			currentImageGhost.addAction(sequence(allActionsGhostArray));
 			setCurrentNode(node);
 		}
+	}
+	
+	private void visit(GameWorldNode node) {
+		node.visit();
+		saveService.saveDataValue(SaveEnum.VISITED_LIST, node.getNodeCode());
 	}
 	
 	private class UpdateLabel extends Label {
