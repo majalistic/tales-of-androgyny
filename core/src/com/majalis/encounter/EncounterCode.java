@@ -14,6 +14,7 @@ import com.majalis.character.Stance;
 import com.majalis.character.AbstractCharacter.Stat;
 import com.majalis.encounter.EncounterBuilder.Branch;
 import com.majalis.encounter.EncounterBuilder.ChoiceCheckType;
+import com.majalis.save.SaveManager.GameContext;
 import com.majalis.save.SaveManager.GameMode;
 import com.majalis.save.SaveManager.GameOver;
 import com.majalis.scenes.CheckScene.CheckType;
@@ -243,6 +244,8 @@ public enum EncounterCode {
 		}
 	}
 
+	public GameContext getContext() { return this == EncounterCode.TOWN || this == EncounterCode.TOWN2 ? GameContext.TOWN : GameContext.ENCOUNTER; } 
+	
 	// for random gen
 	public static IntMap<Array<EncounterCode>> encounterMap;
 	private static boolean iceCreamReady;

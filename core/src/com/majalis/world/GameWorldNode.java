@@ -111,10 +111,10 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 	
 	public Vector2 getHexPosition() { return new Vector2(x, y); }	
 	public int getNodeCode() { return nodeCode; }
-	public String getHoverText() { return current ? "" : encounter.getDescription(visibility, visited); }
+	public String getHoverText() { return current ? "" : visited ? getEncounterCode().getFullDescription() : getEncounterCode().getDescription(visibility); }
 	public Array<Path> getPaths() { return paths; }
 	public EncounterCode getEncounterCode() { return visited ? encounter.getDefaultCode() : encounter.getCode(); } // need to somehow get VisitInfo, also these methods should be condensed, getting the appropriate Encounter from the GameWorldEncounter and calling getContext or getDescription on it
-	public GameContext getEncounterContext() { return visited ? encounter.getDefaultContext() : encounter.getContext(); }
+	public GameContext getEncounterContext() { return getEncounterCode().getContext(); }
 	public boolean isConnected() { return connectedNodes.size > 0; }
 	
 	public Array<GameWorldNode> getPathToCurrent() {
