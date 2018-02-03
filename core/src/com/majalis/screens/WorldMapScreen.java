@@ -543,7 +543,6 @@ public class WorldMapScreen extends AbstractScreen {
 			public void changed(ChangeEvent event, Actor actor) {
 				if (event.getTarget() instanceof GameWorldNode) {
 					final GameWorldNode clickedNode = (GameWorldNode) event.getTarget();
-					boolean switchScreen = false;
 					Array<GameWorldNode> pathToCurrent = clickedNode.getPathToCurrent(); // last element of this is the current node
 					if (pathToCurrent.size == 0) return;
 					worldGroup.addAction(disableButtons);
@@ -552,10 +551,6 @@ public class WorldMapScreen extends AbstractScreen {
 					pathToCurrent.removeIndex(0); // remove current node
 					pathToCurrent.add(clickedNode); // add clicked node
 					moveToNode(0, pathToCurrent, uiGroup, enableButtons);
-					
-					if (switchScreen) {
-						switchContext();
-					}
 				}
 				mutateLabels();
 			}			
@@ -633,7 +628,6 @@ public class WorldMapScreen extends AbstractScreen {
 					saveService.saveDataValue(SaveEnum.TIME, timePassed);
 					time += timePassed;
 					tintForTimeOfDay();
-					boolean switchScreen = false;
 					EncounterCode newEncounter = node.getEncounterCode();
 					EncounterBounty miniEncounter = newEncounter.getMiniEncounter();
 					if(newEncounter == EncounterCode.DEFAULT) {
@@ -746,14 +740,11 @@ public class WorldMapScreen extends AbstractScreen {
 						visit(node);
 						saveService.saveDataValue(SaveEnum.CONTEXT, node.getEncounterContext());
 						saveService.saveDataValue(SaveEnum.RETURN_CONTEXT, GameContext.WORLD_MAP);
-						switchScreen = true;
-					}
-					saveService.saveDataValue(SaveEnum.NODE_CODE, node.getNodeCode());
-					if (switchScreen) {
+						saveService.saveDataValue(SaveEnum.NODE_CODE, node.getNodeCode());
 						switchContext();
 					}
+					saveService.saveDataValue(SaveEnum.NODE_CODE, node.getNodeCode());
 					mutateLabels();
-					
 					return true;
 				}
 			});
