@@ -34,12 +34,8 @@ public class GameWorldNodeEncounter {
 	
 	public String getDescription(int visibility, boolean visited) {
 		if (visited) {
-			return getDefaultDescription(visibility);
+			return defaultEncounterCode.getFullDescription();
 		}
 		return encounterCode.getDescription(visibility);
-	}
-	
-	private String getDefaultDescription(int visibility) {
-		return defaultEncounterCode.getFullDescription();
 	}
 }
