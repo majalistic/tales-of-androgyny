@@ -263,11 +263,6 @@ public class EncounterBuilder {
 			return key;
 		}
 		
-		public Branch encounterEnd() {
-			branchToken = new EndSceneToken(EndTokenType.EndEncounter);			
-			return this;
-		}
-		
 		public Branch gameEnd() { return gameEnd(GameOver.DEFAULT); }
 		public Branch gameEnd(GameOver gameOver) {
 			branchToken = new EndSceneToken(EndTokenType.EndGame, gameOver);	
