@@ -80,11 +80,9 @@ public enum EncounterCode {
 	
 	/* Story Mode */
 	COTTAGE_TRAINER (AssetEnum.COTTAGE),
-	COTTAGE_TRAINER_VISIT (AssetEnum.COTTAGE),
 	TOWN_STORY (AssetEnum.TOWN),
 	FIRST_BATTLE_STORY, 
 	MERI_COTTAGE (AssetEnum.COTTAGE),
-	MERI_COTTAGE_VISIT (AssetEnum.COTTAGE), 
 	OGRE_WARNING_STORY (FOREST_INACTIVE),
 	OGRE_STORY, 
 	HARPY_STORY (MOUNTAIN_ACTIVE),
@@ -241,10 +239,10 @@ public enum EncounterCode {
 			case TOWN: return "Town of Silajam (visited)";
 			case TOWN2: return "Town of Nadir (visited)";
 			case TOWN3: return "Town of Monsters (visited)";
-			case COTTAGE_TRAINER_VISIT: return "Cottage-on-the-Outskirts (visited)";
+			case COTTAGE_TRAINER: return "Cottage-on-the-Outskirts (visited)";
 			case WITCH_COTTAGE: return "Witch's Cottage (visited)";
 			case QUETZAL: return "Xiuh Mountain (visited)";
-			case MERI_COTTAGE_VISIT: return "Witch's Cottage (visited)";
+			case MERI_COTTAGE: return "Witch's Cottage (visited)";
 			case GADGETEER: return "Strange Gadgeteer";
 			case FORT: return "Fort";
 			case MOUTH_FIEND: return "Strange castle";
@@ -702,9 +700,7 @@ public enum EncounterCode {
 					)
 				);
 			case COTTAGE_TRAINER:
-				return b.branch().textScene("STORY-003").characterCreation(true); 		
-			case COTTAGE_TRAINER_VISIT:
-				return b.branch().textScene("STORY-004");
+				return b.branch().checkScene(CheckType.TRAINER_VISITED, b.branch(true).checkScene(CheckType.HAS_ICE_CREAM, b.branch(true).textScene("TRAINER-BLITZ"), b.branch(false).textScene("STORY-004")), b.branch(false).textScene("STORY-003").characterCreation(true)); 		
 			case QUETZAL:
 				Branch quetzalSeconds = b.branch().textScene("QUETZAL-SECONDS").gameEnd();
 				Branch quetzalLoss = b.branch().textScene("QUETZAL-LOSS").concat(quetzalSeconds);
@@ -1257,9 +1253,7 @@ public enum EncounterCode {
 					return b.branch().skillSelection(); 	
 				}
 			case MERI_COTTAGE:
-				return b.branch().textScene("STORY-WITCH-COTTAGE"); 	
-			case MERI_COTTAGE_VISIT:
-				return b.branch().textScene("STORY-WITCH-COTTAGE-VISIT"); 
+				return b.branch().checkScene(CheckType.MERI_VISITED, b.branch(true).textScene("STORY-WITCH-COTTAGE-VISIT"), b.branch(false).textScene("STORY-WITCH-COTTAGE")); 	
 			case MERMAID:
 				Branch mermaidLossEggfill = b.branch(Outcome.SUBMISSION).textScene("MERMAID-EGGFILL").choiceScene(
 					"Where does she lay her eggs?", 

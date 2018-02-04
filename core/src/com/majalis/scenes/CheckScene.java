@@ -384,6 +384,18 @@ public class CheckScene extends AbstractTextScene {
 		MERMAID_HATCHED("", "") {
 			@Override
 			protected boolean getCheck(PlayerCharacter character) { int check = character.getQuestStatus(QuestType.MERMAID); return check == 6; }  
+		}, 
+		TRAINER_VISITED("", "") {
+			@Override
+			protected boolean getCheck(PlayerCharacter character) { int check = character.getQuestStatus(QuestType.TRAINER); return check == 1; }  
+		},
+		MERI_VISITED("", "") {
+			@Override
+			protected boolean getCheck(PlayerCharacter character) { int check = character.getQuestStatus(QuestType.MERI); return check == 1; }  
+		},
+		HAS_ICE_CREAM("", "") {
+			@Override
+			protected boolean getCheck(PlayerCharacter character) { return character.hasIceCream(); }  
 		},
 		;
 		private final String success;

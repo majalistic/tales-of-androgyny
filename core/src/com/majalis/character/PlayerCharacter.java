@@ -16,6 +16,8 @@ import com.majalis.character.Item.Accessory;
 import com.majalis.character.Item.AccessoryType;
 import com.majalis.character.Item.ChastityCage;
 import com.majalis.character.Item.EffectType;
+import com.majalis.character.Item.Misc;
+import com.majalis.character.Item.MiscType;
 import com.majalis.character.Item.Plug;
 import com.majalis.character.Item.Potion;
 import com.majalis.character.Item.Weapon;
@@ -1532,7 +1534,7 @@ public class PlayerCharacter extends AbstractCharacter {
 	}
 	
 	public enum QuestType {
-		ORC, CRIER, QUETZAL, INNKEEP, TRUDY, GOBLIN, OGRE, SPIDER, BROTHEL, ELF, DEBT, GADGETEER, MADAME, WITCH, MOUTH_FIEND, MERMAID;
+		ORC, CRIER, QUETZAL, INNKEEP, TRUDY, GOBLIN, OGRE, SPIDER, BROTHEL, ELF, DEBT, GADGETEER, MADAME, WITCH, MOUTH_FIEND, MERMAID, TRAINER, MERI;
 		
 		public String getQuestDescription(int currentValue) {
 			switch (this) {
@@ -1682,13 +1684,9 @@ public class PlayerCharacter extends AbstractCharacter {
 	
 	public int getMetabolicRate() { return hasHungerCharm() ? 1 : 2; }
 
-	private boolean hasHungerCharm() {
-		return firstAccessory != null && firstAccessory.equals(new Accessory(AccessoryType.HUNGER_CHARM));
-	}
-	
-	public boolean hasGem() {
-		return inventory.contains(new Potion(1, EffectType.GEM), false);
-	}
+	private boolean hasHungerCharm() { return firstAccessory != null && firstAccessory.equals(new Accessory(AccessoryType.HUNGER_CHARM)); }
+	public boolean hasGem() { return inventory.contains(new Potion(1, EffectType.GEM), false); }	
+	public boolean hasIceCream() { return inventory.contains(new Misc(MiscType.ICE_CREAM), false); }
 	
 	public Array<MutationResult> cureBleed(Integer bleedCure) {
 		int currentBleed = statuses.get(StatusType.BLEEDING.toString(), 0);

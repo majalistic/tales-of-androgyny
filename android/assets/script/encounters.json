@@ -100,6 +100,7 @@
 		"key": "STORY-003",
 		"scriptLines": [
 			{
+			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "TRAINER", "value":1}}],
 			"background": "CABIN_BACKGROUND",
 			"music": "TRAINER_MUSIC",
 			"text": "After a short trek, encountering nobody along the way (thankfully), you see the cottage in the distance.  Smoke billows from the chimney slowly - a dim fire lit within.  As you approach the front door, you hear a faint, muffled voice; a man is speaking."},
@@ -244,6 +245,21 @@
 		]
 	},
 	{
+		"key": "TRAINER-BLITZ",
+		"scriptLines": [
+			{
+			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "TRAINER", "value":2}}],
+			"background": "CABIN_BACKGROUND",
+			"music": "TRAINER_MUSIC",
+			"text": "You return to the cottage, and the trainer is there, seemingly waiting for you.."},
+			{"text": "\"The legendary... ice cream.  With its secrets, I can bring out your true potential,\" he says, sensing the ice cream in your pouch.  You take it out and he holds out his hand for you to give it to him."},
+			{"text": "\"Really?\""},
+			{
+			"mutations": [{"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": 10}}, {"saveType":"SKILL", "value": {"class": "com.majalis.character.Techniques", "value": "BLITZ_ATTACK"}}, {"saveType":"SKILL", "value": {"class": "com.majalis.character.Techniques", "value": "ALL_OUT_BLITZ"}}, {"saveType":"SKILL", "value": {"class": "com.majalis.character.Techniques", "value": "HOLD_BACK"}}],
+			"text": "\"Yeah,\" he says, licking the ice cream. \"This is so good.  Anyway, now you know how to use Blitz stance.  Go nuts.\""}		
+		]
+	},
+	{
 		"key": "STORY-005",
 		"scriptLines": [
 			{
@@ -347,6 +363,7 @@
 		"key": "STORY-WITCH-COTTAGE",
 		"scriptLines": [
 			{
+			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "TRAINER", "value":1}}],
 			"music": "TRAINER_MUSIC",
 			"background": "CABIN_BACKGROUND",
 			"text": "You manage to track down Meri's cottage - it being far on the opposite side of Nadir from your own humble hovel, you've never had an overwhelmingly compelling reason to come by here, and plenty of reason to stay away."},
