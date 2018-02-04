@@ -94,11 +94,7 @@ public class SaveManager implements SaveService, LoadService {
 	    	case RETURN_CONTEXT: 	save.returnContext = (GameContext) object; break;
 	    	case NODE_CODE: 		save.nodeCode = (Integer) object; break;
 	    	case ENCOUNTER_CODE:	save.encounterCode = (EncounterCode) object; break;
-	    	case VISITED_LIST:		
-	    		VisitInfo visitedNode = (VisitInfo) object;
-	    		save.visitedList.add(visitedNode.nodeCode);  // doesn't do anything anymore, currently for legacy save files
-	    		save.visitedNodeList.put(visitedNode.nodeCode, visitedNode);
-	    		break;
+	    	case VISITED_LIST:		VisitInfo visitedNode = (VisitInfo) object; save.visitedNodeList.put(visitedNode.nodeCode, visitedNode); break;
 	    	case BATTLE_CODE:		save.battleAttributes = (BattleAttributes) object; break;
 	    	case CLASS:				save.player.setJobClass((JobClass) object); save.player.load(); break;
 	    	case WORLD_SEED:		save.worldSeed = (Integer) object; break;
@@ -292,25 +288,26 @@ public class SaveManager implements SaveService, LoadService {
     public static class GameSave {
 		private GameContext context;
 		private GameContext returnContext;
-    	private GameMode mode;
-    	@SuppressWarnings("unused")
-		private String music;
+    	private GameMode mode;	
     	private AssetEnum newMusic;
     	private int worldSeed;
     	private IntArray sceneCode;
     	private EncounterCode encounterCode;
     	private int nodeCode;
     	private Array<String> console;
-    	private IntArray visitedList;
     	private IntMap<VisitInfo> visitedNodeList;
-    	
     	// this can probably be refactored to contain a particular battle, but may need to duplicate the player character
     	private BattleAttributes battleAttributes;
     	private PlayerCharacter player;
     	private EnemyCharacter enemy;
     	private ObjectMap<String, Shop> shops;
 		private Array<MutationResult> results;
-    	
+		
+		// legacy attributes
+    	@SuppressWarnings("unused")
+		private String music;
+    	@SuppressWarnings("unused")
+    	private IntArray visitedList; 
     	// 0-arg constructor for JSON serialization: DO NOT USE
 		@SuppressWarnings("unused")
 		private GameSave() { 
@@ -330,7 +327,6 @@ public class SaveManager implements SaveService, LoadService {
         		nodeCode = 1;
         		console = new Array<String>();
         		shops = new ObjectMap<String, Shop>();
-        		visitedList = new IntArray(new int[]{1});
         		visitedNodeList = new IntMap<VisitInfo>();
         		visitedNodeList.put(1,  new VisitInfo(1, 0, 0, 1));
         		player = new PlayerCharacter(true);
