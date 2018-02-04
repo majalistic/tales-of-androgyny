@@ -1339,6 +1339,7 @@ public class EnemyCharacter extends AbstractCharacter {
 				break;
 			case ORC:
 				if (getToppingClimaxCount() >= 5) return Outcome.SATISFIED;
+				if (storyMode && getReceptiveClimaxCount() >= 1) return Outcome.SUBMISSION; 
 				break;
 			case HARPY:
 				if (storyMode) {

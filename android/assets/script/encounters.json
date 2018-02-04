@@ -944,6 +944,40 @@
 		]
 	},
 	{
+		"key": "STORY-ORC",
+		"scriptLines": [
+			{
+			"animatedForeground": "ORC",
+			"text": "Your journey thus far has been surprisingly easy-going.  That ends now."}
+		]
+	},
+	{
+		"key": "STORY-ORC-VICTORY",
+		"scriptLines": [
+			{
+			"mutations": [{"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": 10}}],
+			"text": "You manage to defeat the orc!  She skulks away, but you can tell she's impressed."}
+		]
+	},
+	{
+		"key": "STORY-ORC-DEFEAT",
+		"scriptLines": [
+			{"text": "Having been defeated by the orc, she crushes your ass something fierce.  Oof."}
+		]
+	},
+	{
+		"key": "STORY-ORC-SATISFIED",
+		"scriptLines": [
+			{"text": "Having been repeatedly fucked by the orc, the fight has left you.  You become her wife - oh well."}
+		]
+	},
+	{
+		"key": "STORY-ORC-SUBMISSION",
+		"scriptLines": [
+			{"text": "The orc is surprisingly receptive - and, having caught the nut, she sheepishly takes her hard-on and goes home."}
+		]
+	},
+	{
 		"key": "TOWN",
 		"scriptLines": [
 			{

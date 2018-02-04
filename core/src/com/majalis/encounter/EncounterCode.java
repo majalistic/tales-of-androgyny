@@ -79,7 +79,6 @@ public enum EncounterCode {
 	ANAL_TRAP,
 	
 	/* Story Mode */
-	
 	COTTAGE_TRAINER (AssetEnum.COTTAGE),
 	COTTAGE_TRAINER_VISIT (AssetEnum.COTTAGE),
 	TOWN_STORY (AssetEnum.TOWN),
@@ -90,6 +89,7 @@ public enum EncounterCode {
 	OGRE_STORY, 
 	HARPY_STORY (MOUNTAIN_ACTIVE),
 	BRIGAND_STORY (MOUNTAIN_ACTIVE),
+	ORC_STORY,
 	ECCENTRIC_MERCHANT,
 	STORY_FEM (FOREST_INACTIVE), 
 	STORY_SIGN (FOREST_INACTIVE), 
@@ -159,6 +159,7 @@ public enum EncounterCode {
 					case STORY_FEM: return "Unwalked Path";
 					case STORY_SIGN: return "Crossroads";
 					case BRIGAND_STORY: return "West Pass";
+					case ORC_STORY: return "Valley";
 					case GHOST:
 					case FOOD_CACHE: 
 					case GOLD_CACHE:
@@ -222,6 +223,7 @@ public enum EncounterCode {
 					case STORY_FEM: return "Unwalked Path";
 					case STORY_SIGN: return "Crossroads";
 					case BRIGAND_STORY: return "West Pass (Brigands)";
+					case ORC_STORY: return "Valley (Orcs)";
 					case SOLICITATION: return "Strange person";
 					case FOOD_CACHE:
 					case GOLD_CACHE:
@@ -1509,6 +1511,8 @@ public enum EncounterCode {
 						)
 					)
 				);
+			case ORC_STORY:
+				return b.branch().textScene("STORY-ORC").battleScene(BattleCode.ORC_STORY, b.branch(Outcome.VICTORY).textScene("STORY-ORC-VICTORY"),  b.branch(Outcome.DEFEAT).textScene("STORY-ORC-DEFEAT").gameEnd(),  b.branch(Outcome.SATISFIED).textScene("STORY-ORC-SATISFIED").gameEnd(),  b.branch(Outcome.SUBMISSION).textScene("STORY-ORC-SUBMISSION"));
 			case SHOP:
 				return b.branch().textScene("TOWN-SHOP").shopScene(ShopCode.SHOP);
 			case SLIME:
