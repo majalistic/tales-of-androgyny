@@ -548,9 +548,17 @@ public class EncounterBuilder {
 			return masterSceneMap.get(sceneCodes.get(sceneCodes.size - 1), scenes.get(0));
 		}
 		
+		private Array<Scene> getUniqueScenes(Array<Scene> scenes) { 
+			Array<Scene> allUniqueScenes = new Array<Scene>();
+			for (Scene scene : scenes) {
+				if (!allUniqueScenes.contains(scene, true)) allUniqueScenes.add(scene);
+			}
+			return allUniqueScenes;
+		}
+		
 		public Encounter getEncounter() {
 			// this should accept some kind of object that has assetmanager and whatever else to actually build the scenes			
-			return new Encounter(getScenes(), getStartScene());
+			return new Encounter(getUniqueScenes(getScenes()), getStartScene());
 		}
 
 		private Array<SceneToken> getAllSceneTokens() {
