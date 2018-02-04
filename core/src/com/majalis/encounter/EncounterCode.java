@@ -1459,35 +1459,38 @@ public enum EncounterCode {
 					b.branch("Decline").textScene("ORC-DECLINE")
 				);
 				
+				Branch firstBattle = b.branch("Take a fighting stance").battleScene(
+					BattleCode.ORC, 4,
+					b.branch(Outcome.VICTORY).textScene("ORC-VICTORY1").concat(battleVictory),
+					b.branch(Outcome.DEFEAT).textScene("ORC-DEFEAT").choiceScene(
+						"What do you offer?",
+						b.branch("Anal (Requires: Catamite)").require(ChoiceCheckType.LEWD).concat(orcAnal),
+						b.branch("Oral").textScene("ORC-OFFER-ORAL").concat(oralScene), 
+						b.branch("Nasal").textScene("ORC-NASAL"),
+						b.branch("Penal (6 CHA)").require(ChoiceCheckType.STAT_GREATER_THAN_X, Stat.CHARISMA, 6).textScene("ORC-PENAL"),
+						b.branch("Facial (4 CHA)").require(ChoiceCheckType.STAT_GREATER_THAN_X, Stat.CHARISMA, 4).textScene("ORC-FACIAL"),
+						b.branch("Nothing").concat(failedCharisma)
+					),
+					b.branch(Outcome.SATISFIED).textScene("ORC-SATISFIED")
+				);
+				
 				return b.branch().textScene("ORC-INTRO").checkScene(
 					CheckType.ORC_ENCOUNTERED,
 					b.branch(true).textScene("ORC-OLDMEN").choiceScene(
 						"Do you speak up?",
 						b.branch("Speak up").textScene("ORC-VIEW").choiceScene( 
 							"How do you respond?", 
-							b.branch("Attack").battleScene(
-								BattleCode.ORC, 4,
-								b.branch(Outcome.VICTORY).textScene("ORC-VICTORY1").concat(battleVictory),
-								b.branch(Outcome.DEFEAT).textScene("ORC-DEFEAT").choiceScene(
-									"What do you offer?",
-									b.branch("Anal (Requires: Catamite)").require(ChoiceCheckType.LEWD).concat(orcAnal),
-									b.branch("Oral").textScene("ORC-OFFER-ORAL").concat(oralScene), 
-									b.branch("Nasal").textScene("ORC-NASAL"),
-									b.branch("Penal (6 CHA)").require(ChoiceCheckType.STAT_GREATER_THAN_X, Stat.CHARISMA, 6).textScene("ORC-PENAL"),
-									b.branch("Facial (4 CHA)").require(ChoiceCheckType.STAT_GREATER_THAN_X, Stat.CHARISMA, 4).textScene("ORC-FACIAL"),
-									b.branch("Nothing").concat(failedCharisma)
-								),
-								b.branch(Outcome.SATISFIED).textScene("ORC-SATISFIED")
-							),
+							firstBattle,
 							b.branch("Remain still").textScene("ORC-STILL").concat(leaveOrc) 
 						), 
 						b.branch("Remain silent").textScene("ORC-SILENT").concat(leaveOrc) 
 					),
 					b.branch(false).checkScene(
-						CheckType.ORC_COWARD, 
+						CheckType.ORC_BRAVE, 
 						b.branch(true).textScene("ORC-REUNION").choiceScene(
 							"Accept her invitation?",
 							b.branch("Accept (Requires: Catamite)").require(ChoiceCheckType.LEWD).textScene("ORC-REUNION-ACCEPT"),
+							b.branch("Offer to spar").concat(firstBattle),
 							b.branch("Decline").textScene("ORC-REUNION-DECLINE")
 						),
 						b.branch(false).textScene("ORC-COWARD-CALLOUT").choiceScene(

@@ -140,7 +140,7 @@ public class CheckScene extends AbstractTextScene {
 			@Override
 			protected boolean getCheck(PlayerCharacter character) { return character.getQuestStatus(QuestType.ORC) == 0; } 
 		},
-		ORC_COWARD ("You confidently approach her.", "You recall your cowardice.") { 
+		ORC_BRAVE ("You confidently approach her.", "You recall your cowardice.") { 
 			@Override
 			protected boolean getCheck(PlayerCharacter character) { return character.getQuestStatus(QuestType.ORC) == 1; } 
 		}, 
