@@ -43,6 +43,7 @@ public class GameWorldFactory {
 		ObjectSet<EncounterCode> unspawnedEncounters = new ObjectSet<EncounterCode>(EncounterCode.getAllRandomEncounters());
 		IntMap<VisitInfo> visitedInfo = loadService.loadDataValue(SaveEnum.VISITED_LIST, IntMap.class);
 		GameWorldNode mermaid = null;
+		GameWorldNode secondTown = null;
 		if (gameMode == GameMode.SKIRMISH) {
 			new Zone(loadService, assetManager, random, nodes, nodeMap, unspawnedEncounters, 1,  1)
 				.addStartNode(1, INITIAL, DEFAULT, 18, 89) 
@@ -55,6 +56,8 @@ public class GameWorldFactory {
 				.buildZone();
 			
 			mermaid = addNode(getNode(2000, MERMAID, MERMAID, 50, 94, visitedInfo.get(2000, getFreshVisitInfo())), nodes);
+			
+			secondTown = addNode(getNode(1007, TOWN3, TOWN3, 45, 137, visitedInfo.get(1007, getFreshVisitInfo())), nodes);
 			
 			Zone zone2 = new Zone(loadService, assetManager, random, nodes, nodeMap, unspawnedEncounters, 2, 1)
 				.addStartNode(zone.getEndNodes().get(0))
@@ -119,6 +122,16 @@ public class GameWorldFactory {
 			}
 			if (closestBeforeRiver != null) mermaid.connectTo(closestBeforeRiver);	
 			if (closestAfterRiver != null) mermaid.connectTo(closestAfterRiver);	
+		}
+		
+		if (secondTown != null && !secondTown.isConnected()) {
+			GameWorldNode closest = null;
+			for (GameWorldNode node : nodes) {
+				if (node == secondTown) continue;
+				int distanceToNode = secondTown.getDistance(node);
+				if (closest == null || closest.getDistance(secondTown) > distanceToNode) { closest = node; }
+			}
+			if (closest != null) secondTown.connectTo(closest);		
 		}
 		
 		nodeMap.get(currentNode).setAsCurrentNode();

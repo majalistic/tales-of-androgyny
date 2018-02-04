@@ -56,6 +56,7 @@ public enum EncounterCode {
 	FORT (CASTLE), 
 	TOWN (AssetEnum.TOWN),
 	TOWN2 (AssetEnum.TOWN),
+	TOWN3 (AssetEnum.TOWN),
 	BANK,
 	BROTHEL,
 	TOWN_CRIER,
@@ -135,6 +136,7 @@ public enum EncounterCode {
 					case GADGETEER: return "Merchant";
 					case NAGA: return "Cave";
 					case MERMAID: return "Island";
+					case TOWN3:
 					case TOWN: return "Small Settlement";
 					case TOWN2:
 					case TOWN_STORY:
@@ -198,6 +200,7 @@ public enum EncounterCode {
 					case GADGETEER: return "Suspicious Merchant";
 					case NAGA: return "Cave - Naga Within!";
 					case MERMAID: return "Island";
+					case TOWN3: return "Town of Monsters";
 					case TOWN: return "Town of Silajam";
 					case TOWN2:
 					case TOWN_STORY: return "Town of Nadir";
@@ -235,6 +238,7 @@ public enum EncounterCode {
 		switch(this) {
 			case TOWN: return "Town of Silajam (visited)";
 			case TOWN2: return "Town of Nadir (visited)";
+			case TOWN3: return "Town of Monsters (visited)";
 			case COTTAGE_TRAINER_VISIT: return "Cottage-on-the-Outskirts (visited)";
 			case WITCH_COTTAGE: return "Witch's Cottage (visited)";
 			case QUETZAL: return "Xiuh Mountain (visited)";
@@ -248,7 +252,7 @@ public enum EncounterCode {
 		}
 	}
 
-	public GameContext getContext() { return this == EncounterCode.TOWN || this == EncounterCode.TOWN2 ? GameContext.TOWN : GameContext.ENCOUNTER; } 
+	public GameContext getContext() { return this == EncounterCode.TOWN || this == EncounterCode.TOWN2 || this == EncounterCode.TOWN3 ? GameContext.TOWN : GameContext.ENCOUNTER; } 
 	
 	// for random gen
 	public static IntMap<Array<EncounterCode>> encounterMap;
