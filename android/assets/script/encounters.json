@@ -1579,6 +1579,8 @@
 		"key": "INNKEEP-01",
 		"scriptLines": [
 			{
+			"music": "SHOP_MUSIC",
+			"background": "TOWN_BG",
 			"foreground": "INNKEEPER",
 			"text": "You visit the town's inn, looking for a place to spend the night and have a hearty meal, the better to brave the trail with."},
 			{"text": "The embers of dusk sit on the horizon as you cross over into a shadow-filled alley, at the end of which is the entrance to the inn, a sign that reads 'Vacancy' lit by a sconce."},
@@ -1827,6 +1829,7 @@
 			{
 			"music": "SHOP_MUSIC",
 			"foreground": "BROTHEL_MADAME",
+			"background": "TOWN_BG",
 			"text": "You enter the brothel. It smells... sweet. A beautiful woman leans against the wall, casually."},
 			{"text": "\"Welcome to my brothel. How can I be of service?\" she says, with a serious expression."}
 		]
