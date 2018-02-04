@@ -275,8 +275,7 @@ public class Battle extends Group{
 		float hoverYPos = 35; 
 		float consoleXPos = 1200;
 		float consoleYPos = 5;
-		
-		int yAdjust = 25;
+		float yAdjust = 25;
 		
 		characterHealthDiff = initLabel("", skin, Color.WHITE, barX + 350, 1035 + yAdjust);
 		characterStaminaDiff = initLabel("", skin, Color.WHITE, barX + 350, 990 + yAdjust);
@@ -711,9 +710,8 @@ public class Battle extends Group{
 		consoleComponents.add(dialogText);
 		saveService.saveDataValue(SaveEnum.CONSOLE, consoleComponents);
 	}
-	public AssetEnum getMusicPath() {
-		return musicPath;
-	}
+	
+	public AssetEnum getMusicPath() { return musicPath; }
 	
 	public void battleLoop() {
 		if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
@@ -1198,13 +1196,8 @@ public class Battle extends Group{
 		}
 	}
 	
-	private TextureRegionDrawable getDrawable(Texture texture) {
-		return new TextureRegionDrawable(new TextureRegion(texture));
-	}
-	
-	private TextureRegionDrawable getDrawable(AssetDescriptor<Texture> AssetInfo) {
-		return getDrawable(assetManager.get(AssetInfo));
-	}
+	private TextureRegionDrawable getDrawable(AssetDescriptor<Texture> AssetInfo) { return getDrawable(assetManager.get(AssetInfo)); }
+	private TextureRegionDrawable getDrawable(Texture texture) { return new TextureRegionDrawable(new TextureRegion(texture)); }
 	
 	private void printToConsole(Array<String> results) {
 		for (String result: results) {
@@ -1212,19 +1205,14 @@ public class Battle extends Group{
 		}
 	}
 	
-	private void printToConsole(String result) { 
-		consoleText += result + "\n";
-	}
+	private void printToConsole(String result) { consoleText += result + "\n"; }
 
 	private void printToDialog(Array<String> results) {
 		for (String result: results) {
 			printToDialog(result);
 		}
 	}
-	
-	private void printToDialog(String result) { 
-		dialogText += result + "\n";
-	}
+	private void printToDialog(String result) { dialogText += result + "\n"; }
 	
 	private void changeSelection(int newSelection) {
 		if (selection == newSelection) return;
@@ -1376,8 +1364,6 @@ public class Battle extends Group{
 	}
 	
 	/* REFACTOR AND REMOVE BEYOND THIS LINE */
-	
-
 	public boolean isBattleOver() {
 		return battleOver;
 	}
@@ -1387,7 +1373,6 @@ public class Battle extends Group{
 	}
 	
 	private class StanceActor extends Actor {
-		
 		private final AbstractCharacter character;
 		private final Texture hoverBox;
 		private boolean hover;
