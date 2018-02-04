@@ -30,7 +30,6 @@ import com.majalis.scenes.ShopScene.Shop;
  * Used for file handling, both reading and writing - both game files and encounter replay files.
  */
 public class SaveManager implements SaveService, LoadService {
-    
 	private boolean encoded;
     private final FileHandle file; 
     private final FileHandle profileFile;
@@ -58,10 +57,7 @@ public class SaveManager implements SaveService, LoadService {
     	new SaveManager(this, path);
     }
     
-    public void saveDataValue(ProfileEnum key, Object object) {
-    	saveDataValue(key, object, true);
-    }
-    
+    public void saveDataValue(ProfileEnum key, Object object) { saveDataValue(key, object, true); }
     public void saveDataValue(ProfileEnum key, Object object, boolean saveToJson) {
     	switch (key) {
 			case KNOWLEDGE:		profileSave.addKnowledge((String) object); break;
@@ -79,10 +75,7 @@ public class SaveManager implements SaveService, LoadService {
     	return null;
     }
     
-	public Array<MutationResult> saveDataValue(SaveEnum key, Object object) {
-		return saveDataValue(key, object, true);
-    }
-    
+	public Array<MutationResult> saveDataValue(SaveEnum key, Object object) { return saveDataValue(key, object, true); }
 	@SuppressWarnings("unchecked")
 	public Array<MutationResult> saveDataValue(SaveEnum key, Object object, boolean saveToJson) {
 		Array<MutationResult> result = new Array<MutationResult>();
@@ -120,9 +113,7 @@ public class SaveManager implements SaveService, LoadService {
 	    	case ENCOUNTER_END:		save.player.refresh(); save.sceneCode.clear(); save.results.clear(); break;
 	    	case GAME_OVER: 		save.player.setGameOver((GameOver) object);
     	}	
-    	if (saveToJson) {
-    		saveToJson(save); //Saves current save immediately.
-    	}
+    	if (saveToJson) { saveToJson(save); } //Saves current save immediately
         return result;
 	}
 	
@@ -156,9 +147,9 @@ public class SaveManager implements SaveService, LoadService {
 	    	case SCOUT:
 	    	case PORTRAIT:
 	    	case GAME_OVER:
+	    	case QUEST:			
 	    	case GOBLIN_VIRGIN:		break;
 	    	case SHOP:				return (T) (ObjectMap<String, Shop>) save.shops;
-	    	case QUEST:				break;
 	    	case TIME :				return (T) (Integer) save.player.getTime();
 	    	case RESULT:			return (T) save.results;
     	}	
@@ -336,7 +327,6 @@ public class SaveManager implements SaveService, LoadService {
     }
     
     public static class ProfileSave {
-    	
     	private ObjectMap<String, Integer> enemyKnowledge;
     	
     	// 0-arg constructor for JSON serialization: DO NOT USE
@@ -431,10 +421,10 @@ public class SaveManager implements SaveService, LoadService {
 			}};
 		private final String label;
 
-		JobClass(String label) {
+		JobClass(String label) { 
 		    this.label = label;
-		 }
-		public String getLabel() {return label;}
+		}
+		public String getLabel() { return label; }
 		public abstract int getBaseStat(Stat stat);
 		public AssetDescriptor<Texture> getTexture() {
 			switch(this) {
