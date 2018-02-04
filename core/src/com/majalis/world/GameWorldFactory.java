@@ -31,7 +31,7 @@ public class GameWorldFactory {
 		this.assetManager = assetManager;
 		this.random = random;
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public GameWorld getGameWorld(int seed, GameMode gameMode, int currentNode) {
 		random.setSeed(seed);
@@ -54,7 +54,7 @@ public class GameWorldFactory {
 				.addEndNode(1000, TOWN, TOWN, 31, 94)
 				.buildZone();
 			
-			mermaid = addNode(getNode(2000, MERMAID, MERMAID, 50, 94, visitedInfo.get(2000)), nodes);
+			mermaid = addNode(getNode(2000, MERMAID, MERMAID, 50, 94, visitedInfo.get(2000, getFreshVisitInfo())), nodes);
 			
 			Zone zone2 = new Zone(loadService, assetManager, random, nodes, nodeMap, unspawnedEncounters, 2, 1)
 				.addStartNode(zone.getEndNodes().get(0))
@@ -73,31 +73,31 @@ public class GameWorldFactory {
 				.addEndNode(1006, FORT, FORT, 119, 84)
 				.buildZone();
 			
-			addNode(getNode(50000, MOUTH_FIEND, MOUTH_FIEND, 96, 49, visitedInfo.get(50000)), nodes);
-			addNode(getNode(50001, MOUTH_FIEND_ESCAPE, MOUTH_FIEND_ESCAPE, 99, 49, visitedInfo.get(50001)), nodes);
+			addNode(getNode(50000, MOUTH_FIEND, MOUTH_FIEND, 96, 49, visitedInfo.get(50000, getFreshVisitInfo())), nodes);
+			addNode(getNode(50001, MOUTH_FIEND_ESCAPE, MOUTH_FIEND_ESCAPE, 99, 49, visitedInfo.get(50001, getFreshVisitInfo())), nodes);
 			nodes.get(nodes.size - 1).connectTo(nodes.get(nodes.size - 2));			
 		}
 		else {
 			int nodeCode = 1;
 			
-			addNode(getNode(nodeCode, DEFAULT, DEFAULT, 12, 92, visitedInfo.get(nodeCode++)), nodes);
-			addNode(getNode(nodeCode, COTTAGE_TRAINER, COTTAGE_TRAINER_VISIT, 15, 91, visitedInfo.get(nodeCode++)), nodes);
-			addNode(getNode(nodeCode, TOWN_STORY, TOWN2, 19, 90, visitedInfo.get(nodeCode++)), nodes);
-			addNode(getNode(nodeCode, FIRST_BATTLE_STORY, DEFAULT, 23, 90, visitedInfo.get(nodeCode++)), nodes);
-			addNode(getNode(nodeCode, MERI_COTTAGE, MERI_COTTAGE_VISIT, 23, 86,  visitedInfo.get(nodeCode++)), nodes);
-			addNode(getNode(nodeCode, ECCENTRIC_MERCHANT, DEFAULT, 28, 88,  visitedInfo.get(nodeCode++)), nodes);	
-			addNode(getNode(nodeCode, STORY_FEM, DEFAULT, 28, 91,  visitedInfo.get(nodeCode++)), nodes);
-			addNode(getNode(nodeCode, STORY_SIGN, DEFAULT, 32, 91,  visitedInfo.get(nodeCode++)), nodes);
-			addNode(getNode(nodeCode, BRIGAND_STORY, DEFAULT, 31, 95,  visitedInfo.get(nodeCode++)), nodes);
-			addNode(getNode(nodeCode, HARPY_STORY, DEFAULT, 37, 88,  visitedInfo.get(nodeCode++)), nodes);
-			addNode(getNode(nodeCode, FOOD_CACHE, DEFAULT, 37, 93,  visitedInfo.get(nodeCode++)), nodes);
+			addNode(getNode(nodeCode, DEFAULT, DEFAULT, 12, 92, visitedInfo.get(nodeCode++, getFreshVisitInfo())), nodes);
+			addNode(getNode(nodeCode, COTTAGE_TRAINER, COTTAGE_TRAINER_VISIT, 15, 91, visitedInfo.get(nodeCode++, getFreshVisitInfo())), nodes);
+			addNode(getNode(nodeCode, TOWN_STORY, TOWN2, 19, 90, visitedInfo.get(nodeCode++, getFreshVisitInfo())), nodes);
+			addNode(getNode(nodeCode, FIRST_BATTLE_STORY, DEFAULT, 23, 90, visitedInfo.get(nodeCode++, getFreshVisitInfo())), nodes);
+			addNode(getNode(nodeCode, MERI_COTTAGE, MERI_COTTAGE_VISIT, 23, 86,  visitedInfo.get(nodeCode++, getFreshVisitInfo())), nodes);
+			addNode(getNode(nodeCode, ECCENTRIC_MERCHANT, DEFAULT, 28, 88,  visitedInfo.get(nodeCode++, getFreshVisitInfo())), nodes);	
+			addNode(getNode(nodeCode, STORY_FEM, DEFAULT, 28, 91,  visitedInfo.get(nodeCode++, getFreshVisitInfo())), nodes);
+			addNode(getNode(nodeCode, STORY_SIGN, DEFAULT, 32, 91,  visitedInfo.get(nodeCode++, getFreshVisitInfo())), nodes);
+			addNode(getNode(nodeCode, BRIGAND_STORY, DEFAULT, 31, 95,  visitedInfo.get(nodeCode++, getFreshVisitInfo())), nodes);
+			addNode(getNode(nodeCode, HARPY_STORY, DEFAULT, 37, 88,  visitedInfo.get(nodeCode++, getFreshVisitInfo())), nodes);
+			addNode(getNode(nodeCode, FOOD_CACHE, DEFAULT, 37, 93,  visitedInfo.get(nodeCode++, getFreshVisitInfo())), nodes);
 			
-			addNode(getNode(nodeCode, FOOD_CACHE, DEFAULT, 20, 95,  visitedInfo.get(nodeCode++)), nodes);
-			addNode(getNode(nodeCode, OGRE_WARNING_STORY, DEFAULT, 19, 99,  visitedInfo.get(nodeCode++)), nodes);	
-			addNode(getNode(nodeCode, OGRE_STORY, DEFAULT, 19, 103,  visitedInfo.get(nodeCode++)), nodes);
+			addNode(getNode(nodeCode, FOOD_CACHE, DEFAULT, 20, 95,  visitedInfo.get(nodeCode++, getFreshVisitInfo())), nodes);
+			addNode(getNode(nodeCode, OGRE_WARNING_STORY, DEFAULT, 19, 99,  visitedInfo.get(nodeCode++, getFreshVisitInfo())), nodes);	
+			addNode(getNode(nodeCode, OGRE_STORY, DEFAULT, 19, 103,  visitedInfo.get(nodeCode++, getFreshVisitInfo())), nodes);
 			
-			addNode(getNode(nodeCode, FOOD_CACHE, DEFAULT, 24, 102,  visitedInfo.get(nodeCode++)), nodes);
-			addNode(getNode(nodeCode, FORT, FORT, 29, 102,  visitedInfo.get(nodeCode++)), nodes);
+			addNode(getNode(nodeCode, FOOD_CACHE, DEFAULT, 24, 102,  visitedInfo.get(nodeCode++,getFreshVisitInfo())), nodes);
+			addNode(getNode(nodeCode, FORT, FORT, 29, 102,  visitedInfo.get(nodeCode++, getFreshVisitInfo())), nodes);
 			
 			for (int ii = 0; ii < nodes.size-1; ii++) {
 				for (int jj = ii + 1; jj < nodes.size; jj++) {
@@ -140,6 +140,8 @@ public class GameWorldFactory {
 		
 		return new GameWorld(nodes, assetManager, random);
 	}
+	
+	private VisitInfo getFreshVisitInfo() { return new VisitInfo(0, 0, (int) ((Math.random() * 1000) % 1000), -1); }
 	
 	private boolean beforeRiver(GameWorldNode node) { 
 		float x = node.getHexPosition().x;

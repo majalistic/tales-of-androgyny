@@ -44,7 +44,7 @@ public class Zone {
 	
 	@SuppressWarnings("unchecked")
 	protected Zone addStartNode(int nodeCode, EncounterCode initialEncounter, EncounterCode defaultEncounter, int x, int y) {
-		startNode = getNode(nodeCode, initialEncounter, defaultEncounter, x, y, visitedInfo.get(nodeCode));
+		startNode = getNode(nodeCode, initialEncounter, defaultEncounter, x, y, visitedInfo.get(nodeCode, getFreshVisitInfo()));
 		addNode(startNode, nodeCode, nodes);		
 		return this;
 	}
@@ -56,7 +56,7 @@ public class Zone {
 
 	@SuppressWarnings("unchecked")
 	protected Zone addEndNode(int nodeCode, EncounterCode initialEncounter, EncounterCode defaultEncounter, int x, int y) {
-		addNode(getNode(nodeCode, initialEncounter, defaultEncounter, x, y, visitedInfo.get(nodeCode)), nodeCode, nodes, requiredNodes);		
+		addNode(getNode(nodeCode, initialEncounter, defaultEncounter, x, y, visitedInfo.get(nodeCode, getFreshVisitInfo())), nodeCode, nodes, requiredNodes);		
 		return this;
 	}
 
@@ -141,7 +141,7 @@ public class Zone {
 					GameWorldNode newNode = getNode(
 						nodeCode, 
 						TalesOfAndrogyny.setEncounter.size == 0 ? EncounterCode.getEncounterCode(nodeCode - 1, difficulty, unspawnedEncounters) : TalesOfAndrogyny.setEncounter.get(nodeCode % TalesOfAndrogyny.setEncounter.size),
-						EncounterCode.DEFAULT, EncounterCode.getDifficultySet(difficulty), (int)newNodePosition.x, (int)newNodePosition.y, visitedInfo.get(nodeCode));
+						EncounterCode.DEFAULT, EncounterCode.getDifficultySet(difficulty), (int)newNodePosition.x, (int)newNodePosition.y, visitedInfo.get(nodeCode, getFreshVisitInfo()));
 					addNode(newNode, nodeCode, nodes);
 					
 					// if we've reached the target node, we can terminate this run-through
@@ -218,6 +218,7 @@ public class Zone {
 		}
 		nodeMap.put(nodeCode, newNode);
 	}
+	private VisitInfo getFreshVisitInfo() { return new VisitInfo(0, 0, (int) ((Math.random() * 1000) % 1000), -1); }
 	private GameWorldNode getNode(int nodeCode, EncounterCode initialEncounter, EncounterCode defaultEncounter, int x, int y, VisitInfo visitInfo) { return getNode(nodeCode, initialEncounter, defaultEncounter, new Array<EncounterCode>(), x, y, visitInfo); }
 	private GameWorldNode getNode(int nodeCode, EncounterCode initialEncounter, EncounterCode defaultEncounter, Array<EncounterCode> raandomEncounters, int x, int y, VisitInfo visitInfo) {
 		return new GameWorldNode(nodeCode, new GameWorldNodeEncounter(initialEncounter, defaultEncounter, raandomEncounters), x, y, visitInfo, character, assetManager);

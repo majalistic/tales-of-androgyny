@@ -95,18 +95,9 @@ public class SaveManager implements SaveService, LoadService {
 	    	case NODE_CODE: 		save.nodeCode = (Integer) object; break;
 	    	case ENCOUNTER_CODE:	save.encounterCode = (EncounterCode) object; break;
 	    	case VISITED_LIST:		
-	    		int visitedNode = (Integer) object;
-	    		save.visitedList.add(visitedNode);  // doesn't do anything anymore, currently for legacy save files
-	    		VisitInfo info = save.visitedNodeList.get(visitedNode);
-	    		if (info != null) { 
-	    			if (info.lastEncounterTime + 18 + ((info.randomVal % 3) * 6) < save.player.getTime()) { // this same calculation and mutation occurs in nodes - maybe they should save themselves to the visited list at the appropriate time?
-		    			info.numberOfEncounters++;
-		    			info.lastEncounterTime = save.player.getTime();
-	    			}
-	    		}
-	    		else {
-	    			save.visitedNodeList.put(visitedNode, new VisitInfo(1, save.player.getTime(), (int) ((Math.random() * 1000) % 1000)));
-	    		}
+	    		VisitInfo visitedNode = (VisitInfo) object;
+	    		save.visitedList.add(visitedNode.nodeCode);  // doesn't do anything anymore, currently for legacy save files
+	    		save.visitedNodeList.put(visitedNode.nodeCode, visitedNode);
 	    		break;
 	    	case BATTLE_CODE:		save.battleAttributes = (BattleAttributes) object; break;
 	    	case CLASS:				save.player.setJobClass((JobClass) object); save.player.load(); break;
@@ -285,14 +276,16 @@ public class SaveManager implements SaveService, LoadService {
     	public int numberOfEncounters;
     	public int lastEncounterTime;
     	public int randomVal;
+    	public int nodeCode;
     	
     	@SuppressWarnings("unused")
 		private VisitInfo() {}
     	
-    	public VisitInfo(int numberOfEncounters, int lastEncounterTime, int randomVal) {
+    	public VisitInfo(int numberOfEncounters, int lastEncounterTime, int randomVal, int nodeCode) {
     		this.numberOfEncounters = numberOfEncounters;
     		this.lastEncounterTime = lastEncounterTime;
     		this.randomVal = randomVal;
+    		this.nodeCode = nodeCode;
     	}
     }
     
@@ -322,7 +315,7 @@ public class SaveManager implements SaveService, LoadService {
 		@SuppressWarnings("unused")
 		private GameSave() { 
 			visitedNodeList = new IntMap<VisitInfo>();
-			visitedNodeList.put(1,  new VisitInfo(1, 0, 0)); 
+			visitedNodeList.put(1,  new VisitInfo(1, 0, 0, 1)); 
 		}
     	
 		// default save values-
@@ -339,7 +332,7 @@ public class SaveManager implements SaveService, LoadService {
         		shops = new ObjectMap<String, Shop>();
         		visitedList = new IntArray(new int[]{1});
         		visitedNodeList = new IntMap<VisitInfo>();
-        		visitedNodeList.put(1,  new VisitInfo(1, 0, 0));
+        		visitedNodeList.put(1,  new VisitInfo(1, 0, 0, 1));
         		player = new PlayerCharacter(true);
         		results = new Array<MutationResult>();
     		}

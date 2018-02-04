@@ -778,7 +778,7 @@ public class WorldMapScreen extends AbstractScreen {
 	
 	private void visit(GameWorldNode node) {
 		node.visit();
-		saveService.saveDataValue(SaveEnum.VISITED_LIST, node.getNodeCode());
+		saveService.saveDataValue(SaveEnum.VISITED_LIST, node.getVisitInfo());
 	}
 	
 	private class UpdateLabel extends Label {

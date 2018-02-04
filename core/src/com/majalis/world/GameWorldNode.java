@@ -38,7 +38,7 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 	private final int x;
 	private final int y;
 	private final PlayerCharacter character;
-	private VisitInfo visitInfo;
+	private final VisitInfo visitInfo;
 	private boolean current;
 	private int visibility;
 	private Image activeImage;
@@ -55,9 +55,9 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 		this.encounter = encounter;
 		this.x = x;
 		this.y = y;
-		
 		this.nodeCode = nodeCode;
 		this.visitInfo = visitInfo;
+		visitInfo.nodeCode = nodeCode;
 
 		// this should be refactored - shouldn't need asset manager
 		Texture activeImageTexture = assetManager.get(encounter.getCode().getTexture().getTexture());
@@ -113,8 +113,8 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 	public Vector2 getHexPosition() { return new Vector2(x, y); }	
 	public int getNodeCode() { return nodeCode; }
 	public Array<Path> getPaths() { return paths; }
-	public String getHoverText() { return current ? "" : visitInfo != null ? getEncounterCode().getFullDescription() : getEncounterCode().getDescription(visibility); }
-	public EncounterCode getEncounterCode() { return visitInfo != null ? encounter.getDefaultCode() : encounter.getCode(); } // need to somehow get VisitInfo, also these methods should be condensed, getting the appropriate Encounter from the GameWorldEncounter and calling getContext or getDescription on it
+	public String getHoverText() { return current ? "" : visitInfo.numberOfEncounters > 0 ? getEncounterCode().getFullDescription() : getEncounterCode().getDescription(visibility); }
+	public EncounterCode getEncounterCode() { return visitInfo.numberOfEncounters > 0 ? encounter.getDefaultCode() : encounter.getCode(); }
 	public GameContext getEncounterContext() { return getEncounterCode().getContext(); }
 	public boolean isConnected() { return connectedNodes.size > 0; }
 	
@@ -278,7 +278,7 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 		deactivateAll(checkedNodes);
 	}
 	
-	public void deactivateAll(ObjectSet<GameWorldNode> checkedNodes) {
+	private void deactivateAll(ObjectSet<GameWorldNode> checkedNodes) {
 		setInactive();
 		for (GameWorldNode node : connectedNodes) {
 			if (!checkedNodes.contains(node)) {
@@ -319,5 +319,20 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 		return neighbors;
 	}
 
-	public void visit() { visitInfo = new VisitInfo(1, 0, 0); }
+	public void visit() { 
+		if (visitInfo.numberOfEncounters == 0) {
+			visitInfo.numberOfEncounters = 1;
+			visitInfo.lastEncounterTime = character.getTime();
+		}
+		else {
+			if (newEncounterReady()) {
+				visitInfo.numberOfEncounters++; // change which encounter should be returned next time, need to make sure the encounter is retrieved first before calling visit on it, but that should be inherent
+				visitInfo.lastEncounterTime = character.getTime();
+			}
+		}
+	}
+
+	private boolean newEncounterReady() { return visitInfo.lastEncounterTime + 18 + ((visitInfo.randomVal % 3) * 6) < character.getTime(); }
+	
+	public VisitInfo getVisitInfo() { return visitInfo; }
 }
