@@ -108,6 +108,7 @@ public enum EncounterCode {
 	public AssetEnum getTexture() { return texture; }
 	
 	public String getDescription(int visibility) {
+		if (this == EncounterCode.DEFAULT) { return "Nothing here."; }
 		switch(visibility) {
 			case -1: return ""; // special case for display no info
 			case 0:
