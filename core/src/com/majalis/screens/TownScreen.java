@@ -11,6 +11,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -22,6 +23,7 @@ import com.majalis.encounter.Background;
 import com.majalis.encounter.Background.BackgroundBuilder;
 import com.majalis.encounter.EncounterBuilder.Branch;
 import com.majalis.encounter.EncounterCode;
+import com.majalis.save.MutationResult;
 import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveManager;
 import com.majalis.save.SaveService;
@@ -52,20 +54,25 @@ public class TownScreen extends AbstractScreen {
 	private final Sound buttonSound;
 	private final Array<TextButton> buttons;
 	private final boolean story;
+	private final Label console;
+	private int time;
 	private int selection;
 	
 	protected TownScreen(ScreenFactory screenFactory, ScreenElements elements, SaveService saveService, int time, boolean story) {
 		super(screenFactory, elements, AssetEnum.SHOP_MUSIC);
 		this.saveService = saveService;
-		this.story= story;
+		this.story = story;
+		this.time = time;
 		skin = assetManager.get(AssetEnum.UI_SKIN.getSkin());
 		background = new BackgroundBuilder(assetManager.get(AssetEnum.TOWN_BG.getTexture()), true).build();
 		background.setColor(getTimeColor(time));
 		arrow = new Image(assetManager.get(AssetEnum.STANCE_ARROW.getTexture()));
 		buttonSound = assetManager.get(AssetEnum.BUTTON_SOUND.getSound());
 		
+		
 		buttons = new Array<TextButton>();
 		selection = 0;
+		console = new Label("", skin);
 	}
 
 	private Color getTimeColor(int time) { return TimeOfDay.getTime(time).getColor(); }
@@ -86,11 +93,11 @@ public class TownScreen extends AbstractScreen {
 	@Override
 	public void buildStage() {
 		Table table = new Table();
-		table.align(Align.bottomLeft);
-        table.setPosition(1200, 595);
+		table.align(Align.topLeft);
+        table.setPosition(1200, 860);
 		
 		Array<String> buttonLabels = new Array<String>();
-		buttonLabels.addAll("General Store", "Blacksmith", "Inn", "Bank", "Brothel", "Town Square", "Depart");
+		buttonLabels.addAll("General Store", "Blacksmith", "Inn", "Bank", "Brothel", "Town Square", "Rest", "Depart");
 		
 		for (int ii = 0; ii < buttonLabels.size; ii++) {
 			if (story && buttonLabels.get(ii).equals("Town Square")) continue;
@@ -113,6 +120,12 @@ public class TownScreen extends AbstractScreen {
 		buttons.get(story ? 5 : 6).addListener(new ClickListener() {
 	        @Override
 	        public void clicked(InputEvent event, float x, float y) {
+	        	passTime(1);
+	        }
+	    });
+		buttons.get(story ? 6 : 7).addListener(new ClickListener() {
+	        @Override
+	        public void clicked(InputEvent event, float x, float y) {
 	        	buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
 	        	saveService.saveDataValue(SaveEnum.CONTEXT, SaveManager.GameContext.WORLD_MAP);
 	        	showScreen(ScreenEnum.CONTINUE);    
@@ -120,13 +133,34 @@ public class TownScreen extends AbstractScreen {
 	    });
 		
         this.addActor(background);
-        
         this.addActor(table);
         this.addActor(arrow);
         
         arrow.setSize(45, 75);
         setArrowPosition();
         arrow.setPosition(arrow.getX(), arrow.getY() + 60 * (buttons.size-1));
+        
+        this.addActor(console);
+		console.setPosition(900, 150);
+		console.setAlignment(Align.top);
+	}
+	
+	private void passTime(int timePass) {
+		buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
+		time += timePass;
+		Array<MutationResult> temp = saveService.saveDataValue(SaveEnum.HEALTH, 10 * timePass);
+		Array<MutationResult> results = saveService.saveDataValue(SaveEnum.TIME, timePass);
+		results.addAll(temp);
+		console.setText(getResults(results));
+		background.setColor(getTimeColor(time));
+	}
+	
+	private String getResults(Array<MutationResult> results) {
+		String result = "";
+		for (MutationResult mr : results) {
+			result += mr.getText() + "\n";
+		}
+		return result.trim();
 	}
 	
 	@Override
