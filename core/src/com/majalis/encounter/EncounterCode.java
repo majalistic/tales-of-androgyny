@@ -34,6 +34,7 @@ public enum EncounterCode {
 	DRYAD, 
 	CENTAUR, 
 	GOBLIN (ENCHANTED_FOREST),
+	GOBLIN_MALE (ENCHANTED_FOREST),
 	GADGETEER (FOREST_INACTIVE), 
 	ORC (FOREST_INACTIVE),
 	ADVENTURER (FOREST_INACTIVE),
@@ -121,7 +122,8 @@ public enum EncounterCode {
 					case BRIGAND: return "Brigand";
 					case DRYAD: return "Dryad";
 					case CENTAUR: return "Centaur";
-					case GOBLIN: return "Goblin";
+					case GOBLIN: return "Enchanted Forest";
+					case GOBLIN_MALE: return "Enchanted Forest";
 					case ORC: return "Orc";
 					case OGRE: return "Ogre";
 					case BEASTMISTRESS: return "Drow";
@@ -182,7 +184,8 @@ public enum EncounterCode {
 					case BRIGAND: return "Brigand - Hostile!";
 					case DRYAD: return "Dryad - Peaceful";
 					case CENTAUR: return "Centaur - Neutral";
-					case GOBLIN: return "Goblin - Hostile!";
+					case GOBLIN: return "Goblin Female - Hostile!";
+					case GOBLIN_MALE: return "Goblin Male - Hostile!";
 					case ORC: return "Orc - Neutral";
 					case ADVENTURER: return "Adventurer - Neutral";
 					case ELF: return "Elf - Peaceful";
@@ -253,13 +256,11 @@ public enum EncounterCode {
 	private static boolean hungerCharmReady;
 	static {
 		encounterMap = new IntMap<Array<EncounterCode>>();
-		encounterMap.put(1, new Array<EncounterCode>(new EncounterCode[]{WERESLUT, HARPY, SLIME, SOLICITATION, BRIGAND, DRYAD, CENTAUR, GOBLIN, ORC, FOOD_CACHE, GOLD_CACHE, DAMAGE_TRAP, ANAL_TRAP, HUNGER_CHARM}));
-		encounterMap.put(2, new Array<EncounterCode>(new EncounterCode[]{WERESLUT, HARPY, BRIGAND, DRYAD, CENTAUR, GOBLIN, ORC, ADVENTURER, ELF, OGRE, HUNGER_CHARM, ICE_CREAM, BEASTMISTRESS, GOLEM, GHOST, GOLD_CACHE, FOOD_CACHE, DAMAGE_TRAP, ANAL_TRAP}));
+		encounterMap.put(1, new Array<EncounterCode>(new EncounterCode[]{WERESLUT, HARPY, SLIME, SOLICITATION, BRIGAND, DRYAD, CENTAUR, GOBLIN, GOBLIN_MALE, ORC, FOOD_CACHE, GOLD_CACHE, DAMAGE_TRAP, ANAL_TRAP, HUNGER_CHARM}));
+		encounterMap.put(2, new Array<EncounterCode>(new EncounterCode[]{WERESLUT, HARPY, BRIGAND, DRYAD, CENTAUR, GOBLIN, GOBLIN_MALE, ORC, ADVENTURER, ELF, OGRE, HUNGER_CHARM, ICE_CREAM, BEASTMISTRESS, GOLEM, GHOST, GOLD_CACHE, FOOD_CACHE, DAMAGE_TRAP, ANAL_TRAP}));
 		encounterMap.put(3, new Array<EncounterCode>(new EncounterCode[]{DRYAD, OGRE, HUNGER_CHARM, ICE_CREAM, BEASTMISTRESS, GOLEM, GHOST, NAGA, FOOD_CACHE, DAMAGE_TRAP, ANAL_TRAP}));
-		
 		iceCreamReady = true;
 		hungerCharmReady = true;
-		
 	}
 	
 	// FOR TESTING PURPOSES ONLY
@@ -948,7 +949,14 @@ public enum EncounterCode {
 						), 
 						b.branch("Ignore her").textScene("GHOST-NIGHT-IGNORE").choiceScene("Camp or Leave?", b.branch("Camp").textScene("GHOST-NIGHT-CAMP").textScene(spookyGhostScene).textScene("GHOST-NIGHT-CAMP-CONT"), b.branch("Leave").textScene("GHOST-NIGHT-LOST"))
 					)
-				);				
+				);		
+			case GOBLIN_MALE:
+				Branch maleDefeatCont = b.branch().textScene("GOBLIN-MALE-DEFEAT").gameEnd();
+				return b.branch().textScene("GOBLIN-MALE-INTRO").battleScene(
+					BattleCode.GOBLIN_MALE,
+					b.branch(Outcome.VICTORY).textScene("GOBLIN-MALE-VICTORY").encounterEnd(),
+					b.branch(Outcome.DEFEAT).checkScene(CheckType.PLUGGED, b.branch(true).textScene("GOBLIN-MALE-BUTTPLUG").concat(maleDefeatCont), b.branch(false).concat(maleDefeatCont))
+				);
 			case GOBLIN:
 				Branch analCont = b.branch().textScene("GOBLIN-ANAL-CONT").checkScene(
 					Stat.ENDURANCE, 
@@ -1028,7 +1036,7 @@ public enum EncounterCode {
 					),
 					b.branch("Nothing").concat(pantsCutDown)
 				);
-				Branch maleDefeatCont = b.branch().textScene("GOBLIN-MALE-DEFEAT").gameEnd();
+				
 				Branch[] goblinStrength = new Branch[]{b.branch(5).textScene("GOBLIN-SPEAR-STEAL").concat(cutPants),
 						b.branch(0).textScene("GOBLIN-SPEAR-DROP").concat(cutPants)};
 				Branch[] goblinSpear = new Branch[]{
@@ -1074,14 +1082,13 @@ public enum EncounterCode {
 						)
 					),	
 					b.branch(false).textScene("GOBLIN-SECOND-QUEST").choiceScene(
-						"Which path do you follow?", 
-						b.branch("Familiar warning sign").textScene("GOBLIN-REUNION").encounterEnd(), 
-						b.branch("Other way").textScene("GOBLIN-MALE-INTRO").battleScene(
-							BattleCode.GOBLIN_MALE,
-							b.branch(Outcome.VICTORY).textScene("GOBLIN-MALE-VICTORY").encounterEnd(),
-							b.branch(Outcome.DEFEAT).checkScene(CheckType.PLUGGED, b.branch(true).textScene("GOBLIN-MALE-BUTTPLUG").concat(maleDefeatCont), b.branch(false).concat(maleDefeatCont))
-						)
-					)
+						"Brave the sign?", 
+						b.branch("Pass the sign").textScene("GOBLIN-REUNION").battleScene(
+							BattleCode.GOBLIN,
+							battleScenes
+						), 
+						b.branch("Go another way")
+					) 	
 				);
 			case GOLEM:
 				Branch golemHypnosis = b.branch().textScene("GOLEM-HYPNOSIS");

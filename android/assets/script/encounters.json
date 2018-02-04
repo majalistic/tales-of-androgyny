@@ -5274,7 +5274,7 @@
 			{"text": "You brave the familiar warning sign, on your guard."},
 			{
 			"animatedForeground": "GOBLIN",
-			"text": "You encounter the same goblin as before!  She grins at you, and informs you that this encounter isn't finished yet, so you'll have to come back later if you want to get bitten on the balls."}
+			"text": "You encounter the same goblin as before!  She grins at you, showing off her sharp teeth, and laughs a high, crazed laugh as she attacks!"}
 		]
 	},
 	{
@@ -5283,7 +5283,7 @@
 			{
 			"music": "CARNIVAL_MUSIC",
 			"mutations": [{"profileSaveType":"KNOWLEDGE", "value":{"class": "java.lang.String", "value": "Goblin (Male)"}}],			
-			"text": "You avoid the path, knowing who you might run into if you don't.  The dark, narrow path raises your hackles, but there's nothing that can be done about it."},
+			"text": "You travel down a dark, narrow path in the enchanted forest.  You feel as if you're being watched... or, more accurately, inspected.  The feeling raises your hackles, but there's nothing that can be done about it."},
 			{
 			"animatedForeground": "GOBLIN_MALE",
 			"text": "\"Gyahaha\" you hear, a high peal of laughter... although the register is different from how you remembered it.  You spot them almost immediately - a goblin, but different looking from the one you saw before."}
