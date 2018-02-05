@@ -19,6 +19,7 @@ import com.majalis.save.SaveManager.GameMode;
 import com.majalis.save.SaveManager.GameOver;
 import com.majalis.scenes.CheckScene.CheckType;
 import com.majalis.scenes.ShopScene.ShopCode;
+import com.majalis.screens.TownScreen.TownCode;
 /*
  * Represents all the metadata for an Encounter and its representation on the world map.
  */
@@ -106,6 +107,8 @@ public enum EncounterCode {
 	}
 
 	public AssetEnum getTexture() { return texture; }
+	
+	public TownCode getTownCode() { return this == TOWN ? TownCode.TOWN : this == TOWN2 ? TownCode.TOWN_STORY : TownCode.TOWN_MONSTER; }
 	
 	public String getDescription(int visibility) {
 		if (this == EncounterCode.DEFAULT) { return "Nothing here."; }

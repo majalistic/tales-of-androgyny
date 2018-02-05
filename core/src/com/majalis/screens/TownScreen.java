@@ -53,22 +53,21 @@ public class TownScreen extends AbstractScreen {
 	private final Image arrow;
 	private final Sound buttonSound;
 	private final Array<TextButton> buttons;
-	private final boolean story;
+	private final TownCode townCode;
 	private final Label console;
 	private int time;
 	private int selection;
 	
-	protected TownScreen(ScreenFactory screenFactory, ScreenElements elements, SaveService saveService, int time, boolean story) {
+	protected TownScreen(ScreenFactory screenFactory, ScreenElements elements, SaveService saveService, int time, TownCode townCode) {
 		super(screenFactory, elements, AssetEnum.SHOP_MUSIC);
 		this.saveService = saveService;
-		this.story = story;
+		this.townCode = townCode;
 		this.time = time;
 		skin = assetManager.get(AssetEnum.UI_SKIN.getSkin());
 		background = new BackgroundBuilder(assetManager.get(AssetEnum.TOWN_BG.getTexture()), true).build();
 		background.setColor(getTimeColor(time));
 		arrow = new Image(assetManager.get(AssetEnum.STANCE_ARROW.getTexture()));
 		buttonSound = assetManager.get(AssetEnum.BUTTON_SOUND.getSound());
-		
 		
 		buttons = new Array<TextButton>();
 		selection = 0;
@@ -97,7 +96,9 @@ public class TownScreen extends AbstractScreen {
         table.setPosition(1200, 860);
 		
 		Array<String> buttonLabels = new Array<String>();
-		buttonLabels.addAll("General Store", "Blacksmith", "Inn", "Bank", "Brothel", "Town Square", "Rest", "Depart");
+		buttonLabels.addAll("General Store", "Blacksmith", townCode == TownCode.TOWN_MONSTER ? "Monster Inn" : "Inn", "Bank", "Brothel", "Town Square", "Rest", "Depart");
+		
+		boolean story = townCode == TownCode.TOWN_STORY;
 		
 		for (int ii = 0; ii < buttonLabels.size; ii++) {
 			if (story && buttonLabels.get(ii).equals("Town Square")) continue;
@@ -226,5 +227,11 @@ public class TownScreen extends AbstractScreen {
 		requirements.addAll(encounter.getRequirements());
 		requirementsToDispose = requirements;
 		return requirements;
+	}
+	
+	public enum TownCode {
+		TOWN,
+		TOWN_STORY,
+		TOWN_MONSTER
 	}
 }

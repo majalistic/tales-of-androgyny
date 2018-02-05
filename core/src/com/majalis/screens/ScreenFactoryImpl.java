@@ -24,6 +24,7 @@ import com.majalis.save.ProfileEnum;
 import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveManager;
 import com.majalis.save.SaveService;
+import com.majalis.screens.TownScreen.TownCode;
 import com.majalis.save.SaveManager.GameContext;
 import com.majalis.save.SaveManager.GameMode;
 import com.majalis.talesofandrogyny.Logging;
@@ -229,7 +230,7 @@ public class ScreenFactoryImpl implements ScreenFactory {
 	
 	private TownScreen getTown(ScreenElements elements, PlayerCharacter character) {
 		if (getAssetCheck(TownScreen.getRequirements(encounterFactory.getEncounter(EncounterCode.TOWN, elements.getFont(48))))) {
-			return new TownScreen(this, elements, saveService, (Integer)loadService.loadDataValue(SaveEnum.TIME, Integer.class), (GameMode)loadService.loadDataValue(SaveEnum.MODE, GameMode.class) == GameMode.STORY);
+			return new TownScreen(this, elements, saveService, (Integer)loadService.loadDataValue(SaveEnum.TIME, Integer.class), (TownCode)loadService.loadDataValue(SaveEnum.TOWN, TownCode.class));
 		}
 		return null;
 	}

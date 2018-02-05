@@ -739,6 +739,9 @@ public class WorldMapScreen extends AbstractScreen {
 						saveService.saveDataValue(SaveEnum.ENCOUNTER_CODE, newEncounter); 
 						visit(node);
 						saveService.saveDataValue(SaveEnum.CONTEXT, node.getEncounterContext());
+						if (node.getEncounterContext() == GameContext.TOWN) {
+							saveService.saveDataValue(SaveEnum.TOWN, node.getEncounterCode().getTownCode());
+						}
 						saveService.saveDataValue(SaveEnum.RETURN_CONTEXT, GameContext.WORLD_MAP);
 						saveService.saveDataValue(SaveEnum.NODE_CODE, node.getNodeCode());
 						switchContext();
