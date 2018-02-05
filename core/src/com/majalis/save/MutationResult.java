@@ -31,7 +31,8 @@ public class MutationResult {
 		EXP (AssetEnum.EXP),
 		TIME (AssetEnum.TIME),
 		GOLD (AssetEnum.GOLD),
-		NONE (AssetEnum.NULL)
+		CRYSTAL (AssetEnum.CRYSTAL),
+		NONE (AssetEnum.NULL), 
 		;
 		private final AssetDescriptor<Texture> texture;
 		private MutationType(AssetEnum asset) {

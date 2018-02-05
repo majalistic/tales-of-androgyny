@@ -137,6 +137,7 @@ public enum AssetEnum {
 	GOLD("icons/Gold.png"),
 	TIME("icons/Time.png"),
 	EXP("icons/Exp.png"),
+	CRYSTAL("icons/Crystal.png"), 
 	
 	SEARCHING("icons/Searching.png"),
 	
