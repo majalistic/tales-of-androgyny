@@ -95,6 +95,9 @@ public class SaveManager implements SaveService, LoadService {
 	    	case HEALTH: 			result.addAll(save.player.modHealth((Integer) object)); result.addAll(save.player.cureBleed((Integer) object / 5)); break; 
 	    	case SKILL: 			save.player.addSkill((Techniques) object, 1); result.add(new MutationResult("Gained " + ((Techniques) object).getTrait().getName() + " technique!")); break; // this should get a result back from addSkill
 	    	case PERK:				save.player.addPerk((Perk) object, 1); result.add(new MutationResult("Gained" + ((Perk) object).getLabel() + " perk!")); break; // this should get a result back from addPerk
+	    	case SKILL_POINT:		result.addAll(save.player.modSkillPoints((Integer) object)); break;
+	    	case PERK_POINT:		result.addAll(save.player.modPerkPoints((Integer) object)); break;
+	    	case MAGIC_CRYSTAL:		result.addAll(save.player.modMagicPoints((Integer) object)); break;
 	    	case FOOD:				result.addAll(save.player.modFood((Integer) object)); break; 
 	    	case TIME:				result.addAll(save.player.timePass((Integer) object)); break;
 	    	case SCOUT:				int val = (Integer)object; if (val == 0) save.player.resetScout(); result.addAll(save.player.increaseScout(val)); break;
@@ -135,6 +138,9 @@ public class SaveManager implements SaveService, LoadService {
 	    	case WORLD_SEED:		return (T) (Integer) save.worldSeed;
 	    	case HEALTH:			return (T) (Integer) save.player.getCurrentHealth();
 	    	case SKILL:				return (T) (ObjectMap<Techniques, Integer>) save.player.getSkills();	
+	    	case SKILL_POINT:		return (T) (Integer) save.player.getSkillPoints();
+	    	case PERK_POINT:		return (T) (Integer) save.player.getPerkPoints();
+	    	case MAGIC_CRYSTAL:		return (T) (Integer) save.player.getMagicPoints();
 	    	case PERK:				return (T) (ObjectMap<Perk, Integer>) save.player.getPerks();	
 	    	case FOOD: 				return (T) (Integer) save.player.getFood();
 	    	case EXPERIENCE:		return (T) (Integer) save.player.getExperience();

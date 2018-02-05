@@ -14,9 +14,12 @@ public enum SaveEnum {
 	CLASS, 
 	WORLD_SEED, 
 	HEALTH, 
-	SKILL,
 	FOOD, 
+	SKILL,
 	PERK, 
+	SKILL_POINT, 	
+	PERK_POINT,
+	MAGIC_CRYSTAL,
 	EXPERIENCE, 
 	MODE, 
 	MUSIC, 
@@ -35,5 +38,5 @@ public enum SaveEnum {
 	PORTRAIT, 
 	RESULT,
 	TOWN, 
-	GAME_OVER, 	
+	GAME_OVER
 }
