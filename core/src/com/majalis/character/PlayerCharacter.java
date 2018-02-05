@@ -1062,9 +1062,17 @@ public class PlayerCharacter extends AbstractCharacter {
 	public int getLevel() {
 		return level;
 	}
-
+	
 	public int getStoredLevels() {
-		return experience / 5;
+		int currentExperience = experience;
+		int storedLevels = 0;
+		while (currentExperience > 0) {
+			int currentLevel = level + storedLevels;
+			int experienceForLevel = (currentLevel / 10) * 5;
+			if (currentExperience > experienceForLevel) storedLevels++;
+			currentExperience -= experienceForLevel;
+		}
+		return storedLevels;
 	}
 
 	public void levelUp() {
