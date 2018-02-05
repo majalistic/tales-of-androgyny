@@ -1289,7 +1289,7 @@ public enum EncounterCode {
 				);
 				Branch moreEggs = b.branch().choiceScene(
 					"Fertilize and lay more eggs?",
-					b.branch("Get egged").textScene("MERMAID-SECONDS"),
+					b.branch("Get egged").require(ChoiceCheckType.FREE_COCK).textScene("MERMAID-SECONDS"),
 					b.branch("Uhh... no").textScene("MERMAID-SECONDS-DENIED")
 				);
 				
