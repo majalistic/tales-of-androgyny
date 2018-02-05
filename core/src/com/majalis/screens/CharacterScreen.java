@@ -202,7 +202,7 @@ public class CharacterScreen extends AbstractScreen {
 		statusTable.add(headerStatus).row();
 		for (final ObjectMap.Entry<String, Integer> statusEffect: character.getStatuses()) {
 			if (statusEffect.value == 0) continue;
-			Label statusLabel = new Label(statusEffect.key + ": " + statusEffect.value, skin);
+			Label statusLabel = new Label(StatusType.valueOf(statusEffect.key).getLabel() + ": " + statusEffect.value, skin);
 			if (StatusType.valueOf(statusEffect.key).isPositive()) {
 				statusLabel.setColor(Color.FOREST);		
 			}

@@ -1,29 +1,24 @@
 package com.majalis.character;
 
 public enum StatusType {
-	STRENGTH_BUFF,
-	AGILITY_BUFF,
-	ENDURANCE_BUFF,
-	BLEEDING (false, false), 
-	ACTIVATE, 
-	STRENGTH_DEBUFF (true, false);
+	STRENGTH_BUFF("Strength Up"),
+	AGILITY_BUFF("Agility Up"),
+	ENDURANCE_BUFF("Endurance Up"),
+	BLEEDING ("Bleeding", false, false), 
+	ACTIVATE ("Activate"), 
+	STRENGTH_DEBUFF ("Strength Down", true, false);
 
 	private final boolean doesDegrade;
 	private final boolean isPositive;
-	
-	StatusType() {
-		doesDegrade = true;
-		isPositive = true;
-	}
-	
-	StatusType(boolean doesDegrade, boolean isPositive) {
+	private final String label;	
+	private StatusType(String label) { this(label, true, true); }
+	private StatusType(String label, boolean doesDegrade, boolean isPositive) {
+		this.label = label;
 		this.doesDegrade = doesDegrade;
 		this.isPositive = isPositive;
 	}
 	
-	public boolean degrades() {
-		return doesDegrade;
-	}
-
+	public String getLabel() { return label; }
+	public boolean degrades() { return doesDegrade; }
 	public boolean isPositive() { return isPositive; }
 }
