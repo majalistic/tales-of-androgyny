@@ -1538,6 +1538,10 @@ public class PlayerCharacter extends AbstractCharacter {
 		
 		public String getQuestDescription(int currentValue) {
 			switch (this) {
+				case TRAINER:
+					return currentValue == 2 ? "You've learned the secret of the ice cream." : currentValue == 1 ? "You've been trained as an Enchantress by the legendary trainer!" : "";
+				case MERI:
+					return currentValue == 1 ? "You've learned from the witch." : "";					
 				case BROTHEL:
 					return currentValue > 0 ? "You've agreed to be a prostitute in the brothel." : "";
 				case CRIER:
