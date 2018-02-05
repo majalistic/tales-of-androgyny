@@ -964,8 +964,15 @@
 		"key": "STORY-ORC",
 		"scriptLines": [
 			{
+			"music": "BOSS_MUSIC",
+			"text": "Your journey thus far has been surprisingly easy-going.  That ends now."},
+			{
 			"animatedForeground": "ORC",
-			"text": "Your journey thus far has been surprisingly easy-going.  That ends now."}
+			"text": "The orc approaches you casually, emerging from the mist of the valley with her chain-flail and squared-back shoulders.  She positions herself between you and the conclusion of your journey, and then stops.  You stare at each other, but she makes no motion to approach."},
+			{"text": "\"Come to challenge me?\" she asks, holding her chain in a fist.  \"Turn back if you're a coward.  Or come at me.\""},
+			{"text": "You hesitate.  She seems incredibly strong."},
+			{"text": "\"Mmm... say, pinkie.  Ever have green meat in your hole?  If not... you might want to turn back.\""},
+			{"text": "You hold your ground.  You have to keep moving forward.  You advance, and she smiles.\""}
 		]
 	},
 	{
@@ -979,7 +986,59 @@
 	{
 		"key": "STORY-ORC-DEFEAT",
 		"scriptLines": [
-			{"text": "Having been defeated by the orc, she crushes your ass something fierce.  Oof."}
+			{
+			"sound": "THWAPPING",
+			"text": "..."},
+			{
+			"sound": "FEMALE_GROAN",
+			"text": ".."},
+			{"text": "."},
+			{
+			"sound": "THWAPPING",
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":5}}],
+			"foreground": "ORC_PRONE_BONE",
+			"text": "Having been defeated by the orc, she crushes your ass something fierce.  Oof.  You're barely four seconds from being a defeated hero before you're already an orc's anal meat toilet."},
+			{"text": "She bastes your asshole with her thick orc meat, asking you if that's how you like it as she goes balls-deep into your violated funbox."},
+			{"text": "The orc's obvious experience in battle is a nothing compared to her obvious experience with laying pipe in human boys - your prostate didn't know what an orc's cock felt like a minute ago, but now it knows nothing better."},
+			{"text": "You fight back against a rising tide - wanting to ejaculate from her intense anal stimulation, her dark green phallus giving you a reason to spew that you can't ignore much longer."},
+			{"text": "\"Well?\" she says impatiently into your ear.  With your leg locked above your head, and her face brushing against yours, you don't really have any other way to respond but in the manner that she clearly expects."},
+			{
+			"sound": "CUM",
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analEjaculation":1}}],
+			"text": "\"Nnngh... nnh...\" you groan, while cumming helplessly.  You feel your already-tight sphincter tightening around her orc meat, and she chuckles when she feels it."},
+			{"text": "\"Good job, pinkie.  Is it my turn?\" she asks, and you whine, your orgasm still subsiding as you drool cum into the dirt."},
+			{"text": "When she doesn't get the go-ahead to cum, she returns to grinding your prostate into mush, and you find yourself rapidly stiffening again despite having cum so recently."},
+			{"text": "\"Greedy slut,\" she admonishes, and you realize that she intends to make you cum as many times as she can until you admit you want her to blast all of her filthy orc gunk up inside of you."},
+			{"text": "You hold out, not wanting to give her the satisfaction of making you cum twice like a girl... but it's futile."},
+			{
+			"sound": "CUM",
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analEjaculation":1}}],
+			"text": "\"Ahhh... mmm...\" you coo as your second volley squishes through your underwear and begins to once again dribble onto the muddy ejaculate below."},
+			{"text": "She grunts as she enjoys the sensation of your tight anal sphincter - the one that is now her plaything - once again grip onto her as tightly as it can, but she doesn't give up the nut."},
+			{"text": "\"Is it my turn, slut?\" she asks again, pointedly, gripping your hair in her strong hand.  Before waiting for a response, she begins to dig in again, grinding against your prostate, taking your breath away."},
+			{
+			"sound": "CUM",
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analEjaculation":1}}],
+			"text": "..."},
+			{
+			"sound": "CUM",
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analEjaculation":1}}],
+			"text": ".."},
+			{
+			"sound": "CUM",
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analEjaculation":1}}],
+			"text": "."},
+			{"text": "You ejaculate over and over again, not wanting to tell her to fill you with her orcish semen, but not able to endure her anal fucking in any way but as a first-class buttboy."},
+			{"text": "Finally, the frustration proves too great.  \"Fine!  Your... nngh... turn!\" you say, and if you thought you were being fucked by an orc before, you were entirely mistaken."},
+			{"text": "She absolutely pounds into you with the ferocity and might twice that of a human, and you feel your bruised and bashed buttcheeks springing against her hips as she collides with you and sends her orcish cock screaming into your bowels with each thrust."},
+			{"text": "When your sphincter can't take another second of the intense raw-dogging, you hear the grunt of a female orc, and then the pulsing of her orcish balls against your own."},
+			{
+			"sound": "CUM",
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "creampies":3}}],
+			"text": "It jets up into your intestines with a force, and you are thoroughly inseminated by your orcish mistress."},
+			{
+			"animatedForeground": "NULL",
+			"text": "She pulls out, and leaves you to your devices.  You realize the futility of your adventure as anything but a cumdump, and return home, defeated."},
 		]
 	},
 	{
