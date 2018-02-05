@@ -397,6 +397,14 @@ public class CheckScene extends AbstractTextScene {
 			@Override
 			protected boolean getCheck(PlayerCharacter character) { return character.hasIceCream(); }  
 		},
+		BEEN_TO_HUMAN_TOWN("", "") {
+			@Override
+			protected boolean getCheck(PlayerCharacter character) { int check = character.getQuestStatus(QuestType.HUMAN_TOWN); return check == 1; }  
+		},
+		BEEN_TO_MONSTER_TOWN("", "") {
+			@Override
+			protected boolean getCheck(PlayerCharacter character) { int check = character.getQuestStatus(QuestType.MONSTER_TOWN); return check == 1; }  
+		},
 		;
 		private final String success;
 		private final String failure;

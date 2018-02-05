@@ -1542,10 +1542,14 @@ public class PlayerCharacter extends AbstractCharacter {
 	}
 	
 	public enum QuestType {
-		ORC, CRIER, QUETZAL, INNKEEP, TRUDY, GOBLIN, OGRE, SPIDER, BROTHEL, ELF, DEBT, GADGETEER, MADAME, WITCH, MOUTH_FIEND, MERMAID, TRAINER, MERI;
+		ORC, CRIER, QUETZAL, INNKEEP, TRUDY, GOBLIN, OGRE, SPIDER, BROTHEL, ELF, DEBT, GADGETEER, MADAME, WITCH, MOUTH_FIEND, MERMAID, TRAINER, MERI, HUMAN_TOWN, MONSTER_TOWN;
 		
 		public String getQuestDescription(int currentValue) {
 			switch (this) {
+				case HUMAN_TOWN:
+					return currentValue == 1 ? "You've been to the town of Silajam." : "";					
+				case MONSTER_TOWN:
+					return currentValue == 1 ? "You've been to the town of Monsters." : "";		
 				case TRAINER:
 					return currentValue == 2 ? "You've learned the secret of the ice cream." : currentValue == 1 ? "You've been trained as an Enchantress by the legendary trainer!" : "";
 				case MERI:

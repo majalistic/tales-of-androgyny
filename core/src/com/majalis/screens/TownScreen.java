@@ -19,6 +19,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.majalis.asset.AssetEnum;
+import com.majalis.character.PlayerCharacter.QuestFlag;
+import com.majalis.character.PlayerCharacter.QuestType;
 import com.majalis.encounter.Background;
 import com.majalis.encounter.Background.BackgroundBuilder;
 import com.majalis.encounter.EncounterBuilder.Branch;
@@ -79,13 +81,21 @@ public class TownScreen extends AbstractScreen {
 		Table table = new Table();
 		table.align(Align.topLeft);
         table.setPosition(1200, 860);
-		boolean story = townCode == TownCode.TOWN_STORY;
-		buttons.add(getButton("General Store", skin, table, getListener(EncounterCode.SHOP)));
-		buttons.add(getButton("Blacksmith", skin, table, getListener(EncounterCode.WEAPON_SHOP)));
-		buttons.add(getButton("Inn", skin, table, getListener(EncounterCode.INN)));
-		buttons.add(getButton("Bank", skin, table, getListener(EncounterCode.BANK)));
-		buttons.add(getButton("Brothel", skin, table, getListener(EncounterCode.BROTHEL)));
-		if (!story) buttons.add(getButton("Town Square", skin, table, getListener(EncounterCode.TOWN_CRIER)));
+		if (townCode != TownCode.TOWN_MONSTER) {
+			buttons.add(getButton("General Store", skin, table, getListener(EncounterCode.SHOP)));
+			buttons.add(getButton("Blacksmith", skin, table, getListener(EncounterCode.WEAPON_SHOP)));
+			buttons.add(getButton("Inn", skin, table, getListener(EncounterCode.INN)));
+			buttons.add(getButton("Bank", skin, table, getListener(EncounterCode.BANK)));
+			buttons.add(getButton("Brothel", skin, table, getListener(EncounterCode.BROTHEL)));
+			if (townCode != TownCode.TOWN_STORY) {
+				buttons.add(getButton("Carriages", skin, table, getListener(EncounterCode.CARRIAGE)));
+				buttons.add(getButton("Town Square", skin, table, getListener(EncounterCode.TOWN_CRIER)));
+			}
+		}
+		else {
+			buttons.add(getButton("Inn", skin, table, getListener(EncounterCode.INN_MONSTER)));
+			buttons.add(getButton("Carriages", skin, table, getListener(EncounterCode.CARRIAGE_MONSTER)));
+		}
 		buttons.add(getButton("Rest", skin, table, new ClickListener() {
 	        @Override
 	        public void clicked(InputEvent event, float x, float y) {
@@ -112,11 +122,12 @@ public class TownScreen extends AbstractScreen {
         
         arrow.setSize(45, 75);
         setArrowPosition();
-        arrow.setPosition(arrow.getX(), arrow.getY() + 60 * (buttons.size-1));
+        arrow.setPosition(arrow.getX(), arrow.getY() + 60 * (buttons.size-1)); // need to move down one button height for some reason
         
         this.addActor(console);
 		console.setPosition(900, 150);
 		console.setAlignment(Align.top);
+		saveService.saveDataValue(SaveEnum.QUEST, new QuestFlag(townCode == TownCode.TOWN_MONSTER ? QuestType.MONSTER_TOWN : QuestType.HUMAN_TOWN, 1));
 	}
 	
 	private void passTime(int timePass) {

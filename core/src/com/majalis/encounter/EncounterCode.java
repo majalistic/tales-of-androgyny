@@ -64,6 +64,9 @@ public enum EncounterCode {
 	WITCH_COTTAGE (AssetEnum.COTTAGE),
 	QUETZAL (MOUNTAIN_ACTIVE), 
 	INN,
+	INN_MONSTER,
+	CARRIAGE,
+	CARRIAGE_MONSTER,
 	SHOP, 
 	WEAPON_SHOP,
 	STARVATION,
@@ -675,6 +678,26 @@ public enum EncounterCode {
 				return b.branch().textScene("BUNNY-INTRO").checkScene(CheckType.DEBT_FIRST_ENCOUNTER, b.branch(true).textScene("BUNNY-FIRST").textScene(bunnyScene).textScene("BUNNY-SHOW").concat(debtEncounter), b.branch(false).textScene(bunnyScene).textScene("BUNNY-SHOW-REUNION").concat(debtEncounter));						
 			case CAMP_AND_EAT:
 				return b.branch().textScene("FORCED-CAMP");
+			case CARRIAGE:
+				return b.branch().textScene("CARRIAGE-INTRO").checkScene(
+					CheckType.BEEN_TO_MONSTER_TOWN, 
+					b.branch(true).choiceScene(
+						"Take a carriage to the monster town?", 
+						b.branch("Yes (10 GP)").require(ChoiceCheckType.GOLD_GREATER_THAN_X, 10).textScene("CARRIAGE-TO-MONSTER-TOWN"),
+						b.branch("No")
+					), 
+					b.branch(false).textScene("CARRIAGE-DENIED")
+				);
+			case CARRIAGE_MONSTER:
+				return b.branch().textScene("CARRIAGE-MONSTER-INTRO").checkScene(
+						CheckType.BEEN_TO_HUMAN_TOWN, 
+						b.branch(true).choiceScene(
+							"Take a carriage to the human town?", 
+							b.branch("Yes (10 GP)").require(ChoiceCheckType.GOLD_GREATER_THAN_X, 10).textScene("CARRIAGE-TO-HUMAN-TOWN"),
+							b.branch("No")
+						), 
+						b.branch(false).textScene("CARRIAGE-DENIED")
+					);
 			case CENTAUR:
 				Branch[] centaurBattle = new Branch[]{b.branch(Outcome.VICTORY).textScene("CENTAUR-VICTORY"), b.branch(Outcome.DEFEAT).textScene("CENTAUR-DEFEAT").gameEnd(), b.branch(Outcome.SATISFIED).textScene("CENTAUR-SATISFIED")};
 				Branch[] unicornBattle = new Branch[]{b.branch(Outcome.VICTORY).textScene("UNICORN-VICTORY"), b.branch(Outcome.DEFEAT).textScene("UNICORN-DEFEAT")};
@@ -1207,6 +1230,12 @@ public enum EncounterCode {
 					b.branch("Create Character").textScene("CHARACTER-CREATE").characterCreation(false).skillSelection().characterCustomization(),
 					b.branch("Story (Patrons)").textScene("STORY-MODE")
 				); 	
+			case INN_MONSTER:
+				return b.branch().textScene("INN-MONSTER").choiceScene(
+					"Stay the night?",
+					b.branch("Rest at Inn (10 Gold)").require(ChoiceCheckType.GOLD_GREATER_THAN_X, 10).textScene("INN-MONSTER-STAY"),
+					b.branch("Leave")
+				);
 			case INN:
 				Branch afterScene = b.branch().textScene("INNKEEP-10");  
 				Branch leave = b.branch("Leave");
