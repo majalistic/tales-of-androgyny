@@ -73,65 +73,38 @@ public class TownScreen extends AbstractScreen {
 		selection = 0;
 		console = new Label("", skin);
 	}
-
-	private Color getTimeColor(int time) { return TimeOfDay.getTime(time).getColor(); }
-	
-	private ClickListener getListener(final EncounterCode code) {
-		return new ClickListener() {
-	        @Override
-	        public void clicked(InputEvent event, float x, float y) {
-	        	buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
-	        	saveService.saveDataValue(SaveEnum.CONTEXT, SaveManager.GameContext.ENCOUNTER);
-	        	saveService.saveDataValue(SaveEnum.RETURN_CONTEXT, SaveManager.GameContext.TOWN);
-	        	saveService.saveDataValue(SaveEnum.ENCOUNTER_CODE, code);
-	        	showScreen(ScreenEnum.CONTINUE);    
-	        }
-	    };
-	}
 	
 	@Override
 	public void buildStage() {
 		Table table = new Table();
 		table.align(Align.topLeft);
         table.setPosition(1200, 860);
-		
-		Array<String> buttonLabels = new Array<String>();
-		buttonLabels.addAll("General Store", "Blacksmith", townCode == TownCode.TOWN_MONSTER ? "Monster Inn" : "Inn", "Bank", "Brothel", "Town Square", "Rest", "Depart");
-		
 		boolean story = townCode == TownCode.TOWN_STORY;
-		
-		for (int ii = 0; ii < buttonLabels.size; ii++) {
-			if (story && buttonLabels.get(ii).equals("Town Square")) continue;
-			TextButton button = new TextButton(buttonLabels.get(ii), skin);
-			buttons.add(button);
-			
-			table.add(button).size(300, 60).row();
-		}
-		int ii = 0;
-		for (TextButton button : buttons) {
-			button.addListener(getListener(ii++));
-		}
-		
-		buttons.get(0).addListener(getListener(EncounterCode.SHOP));
-		buttons.get(1).addListener(getListener(EncounterCode.WEAPON_SHOP));
-		buttons.get(2).addListener(getListener(EncounterCode.INN));  	
-		buttons.get(3).addListener(getListener(EncounterCode.BANK));  	
-		buttons.get(4).addListener(getListener(EncounterCode.BROTHEL));  	
-		if (!story) buttons.get(5).addListener(getListener(EncounterCode.TOWN_CRIER)); 
-		buttons.get(story ? 5 : 6).addListener(new ClickListener() {
+		buttons.add(getButton("General Store", skin, table, getListener(EncounterCode.SHOP)));
+		buttons.add(getButton("Blacksmith", skin, table, getListener(EncounterCode.WEAPON_SHOP)));
+		buttons.add(getButton("Inn", skin, table, getListener(EncounterCode.INN)));
+		buttons.add(getButton("Bank", skin, table, getListener(EncounterCode.BANK)));
+		buttons.add(getButton("Brothel", skin, table, getListener(EncounterCode.BROTHEL)));
+		if (!story) buttons.add(getButton("Town Square", skin, table, getListener(EncounterCode.TOWN_CRIER)));
+		buttons.add(getButton("Rest", skin, table, new ClickListener() {
 	        @Override
 	        public void clicked(InputEvent event, float x, float y) {
 	        	passTime(1);
 	        }
-	    });
-		buttons.get(story ? 6 : 7).addListener(new ClickListener() {
+	    }));
+		buttons.add(getButton("Depart", skin, table,new ClickListener() {
 	        @Override
 	        public void clicked(InputEvent event, float x, float y) {
 	        	buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
 	        	saveService.saveDataValue(SaveEnum.CONTEXT, SaveManager.GameContext.WORLD_MAP);
 	        	showScreen(ScreenEnum.CONTINUE);    
 	        }
-	    });
+	    }));
+		
+		int ii = 0;
+		for (TextButton button : buttons) {
+			button.addListener(getListener(ii++));
+		}
 		
         this.addActor(background);
         this.addActor(table);
@@ -200,6 +173,28 @@ public class TownScreen extends AbstractScreen {
 	private void setArrowPosition() {
 		Vector2 buttonPosition = buttons.get(selection).localToStageCoordinates(new Vector2(0,0));
 		arrow.setPosition(buttonPosition.x-43, buttonPosition.y-8);
+	}
+	
+	private Color getTimeColor(int time) { return TimeOfDay.getTime(time).getColor(); }
+	
+	private TextButton getButton(String label, Skin skin, Table table, ClickListener listener) {
+		TextButton newButton = new TextButton(label, skin);
+		newButton.addListener(listener);
+		table.add(newButton).size(300, 60).row();
+		return newButton;
+	}
+	
+	private ClickListener getListener(final EncounterCode code) {
+		return new ClickListener() {
+	        @Override
+	        public void clicked(InputEvent event, float x, float y) {
+	        	buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
+	        	saveService.saveDataValue(SaveEnum.CONTEXT, SaveManager.GameContext.ENCOUNTER);
+	        	saveService.saveDataValue(SaveEnum.RETURN_CONTEXT, SaveManager.GameContext.TOWN);
+	        	saveService.saveDataValue(SaveEnum.ENCOUNTER_CODE, code);
+	        	showScreen(ScreenEnum.CONTINUE);    
+	        }
+	    };
 	}
 	
 	private ClickListener getListener(final int index) {
