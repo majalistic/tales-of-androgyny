@@ -93,6 +93,7 @@ public class Armor extends Item{
 	public boolean showsHips() { return type.showsHips(); }
 	public boolean isShield() { return type.isShield(); }
 	public boolean isArmwear() { return type.isArmwear(); }
+	public boolean isFootwear() { return type.isFootwear(); }
 	public boolean isHeadgear() { return type.isHeadgear(); }
 	
 	// may want to refactor this into dedicated tops/bottoms/overalls
@@ -112,6 +113,8 @@ public class Armor extends Item{
 		
 		GAUNTLET ("Gauntlet", new int[]{15, 15}, new int[]{50, 50}),
 		HELMET ("Helmet", new int[]{15, 15}, new int[]{50, 50}),
+		SHOES ("Shoes", new int[]{15, 15}, new int[]{50, 50}),
+		SABATONS ("Sabatons", new int[]{15, 15}, new int[]{50, 50}),
 		
 		LIGHT_ENEMY_ARMOR ("Light Armor", new int[]{2, 2}, new int[]{2, 1}),
 		MEDIUM_ENEMY_ARMOR ("Medium Armor", new int[]{6, 6}, new int[]{6, 2}),
@@ -145,6 +148,7 @@ public class Armor extends Item{
 		private int getValue() { return value; }
 		
 		private boolean isArmwear() { return this == GAUNTLET; }
+		private boolean isFootwear() { return this == SHOES || this == SABATONS; }
 		private boolean isHeadgear() { return this == HELMET; }
 		private boolean isShield() { return this == SHIELD || this == REINFORCED_SHIELD; }
 		private boolean coversTop() { return this == NO_TOP || this == CLOTH_TOP || this == BREASTPLATE || this == DIAMOND_PLATE || this == LIGHT_ENEMY_ARMOR || this == MEDIUM_ENEMY_ARMOR || this == HEAVY_ENEMY_ARMOR;  }
@@ -176,4 +180,6 @@ public class Armor extends Item{
 			return durabilityDescription;
 		}
 	}
+
+	
 }

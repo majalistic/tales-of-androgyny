@@ -83,6 +83,7 @@ public abstract class AbstractCharacter extends Actor {
 	protected Armor underwear;
 	protected Armor headgear;
 	protected Armor armwear;
+	protected Armor footwear;
 
 	public Accessory firstAccessory;
 	// public Accessory secondAccessory;
@@ -322,6 +323,7 @@ public abstract class AbstractCharacter extends Actor {
 	public Armor getShield() { return shield; }
 	public Armor getHeadgear() { return headgear; }
 	public Armor getArmwear() { return armwear; }
+	public Armor getFootwear() { return footwear; }
 	public Accessory getFirstAccessory() { return firstAccessory; }
 	
 	public String getArmorStatus() { return getAnyArmorStatus(armor); }
@@ -1126,6 +1128,18 @@ public abstract class AbstractCharacter extends Actor {
 		Armor equipArmwear = (Armor) armor;
 		boolean alreadyEquipped = equipArmwear.equals(this.armwear); 
 		this.armwear = alreadyEquipped ? null : equipArmwear;
+		return "You " + (alreadyEquipped ? "unequipped" : "equipped") + " the " + armor.getName() + ".";
+	}
+	
+	public String setFootwear(Item armor, boolean newItem) {
+		if (armor == null) {
+			this.footwear = null;
+			return "You unequipped your armwear.";
+		}
+		if (newItem) inventory.add(armor);
+		Armor equipFootwear = (Armor) armor;
+		boolean alreadyEquipped = equipFootwear.equals(this.footwear); 
+		this.footwear = alreadyEquipped ? null : equipFootwear;
 		return "You " + (alreadyEquipped ? "unequipped" : "equipped") + " the " + armor.getName() + ".";
 	}
 	

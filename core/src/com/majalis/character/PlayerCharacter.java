@@ -1283,6 +1283,12 @@ public class PlayerCharacter extends AbstractCharacter {
 		return temp != null ? "You unequipped the " + temp.getName() + "." : "";
 	}
 	
+	public String unequipFootwear() {
+		Armor temp = this.footwear;
+		this.footwear = null;
+		return temp != null ? "You unequipped the " + temp.getName() + "." : "";
+	}
+	
 	public String unequipAccessory() {
 		Accessory temp = this.firstAccessory;
 		this.firstAccessory = null;
@@ -1766,15 +1772,14 @@ public class PlayerCharacter extends AbstractCharacter {
 		Armor armor = item instanceof Armor ? (Armor) item : null;
 		return 
 			item instanceof Weapon ? setWeapon(item) : 
-			armor != null ? (armor.isArmwear() ? setArmwear(item, false) : armor.isHeadgear() ? setHeadgear(item, false) : armor.isShield() ? setShield(item, false) : armor.coversTop() ? setArmor(item, false) : armor.coversBottom() ? setLegwear(item, false) : setUnderwear(item, false)) : 
+			armor != null ? 
+				(armor.isFootwear() ? setFootwear(item, false) : armor.isArmwear() ? setArmwear(item, false) : armor.isHeadgear() ? setHeadgear(item, false) : armor.isShield() ? setShield(item, false) : armor.coversTop() ? setArmor(item, false) : armor.coversBottom() ? setLegwear(item, false) : setUnderwear(item, false)) : 
 			item instanceof Accessory ? setAccessory(item, false) :
 			item instanceof ChastityCage ? setCage(item, false) :
 			setPlug(item, false);
 	}
 
-	public Plug getPlug() {
-		return plug;
-	}
+	public Plug getPlug() { return plug; }
 	
 	@Override
 	public String setPlug(Item plug, boolean newItem) {
@@ -1782,20 +1787,14 @@ public class PlayerCharacter extends AbstractCharacter {
 		return super.setPlug(plug, newItem);
 	}
 	
-	public ChastityCage getCage() {
-		return cage;
-	}
+	public ChastityCage getCage() { return cage; }
 
 	public boolean isEquipped(Item item) {
-		return item.equals(weapon) || item.equals(armor) || item.equals(shield) || item.equals(legwear) || item.equals(underwear) || item.equals(plug) || item.equals(cage) || item.equals(headgear) || item.equals(armwear) || item.equals(firstAccessory);
+		return item.equals(weapon) || item.equals(armor) || item.equals(shield) || item.equals(legwear) || item.equals(underwear) || item.equals(plug) || item.equals(cage) || item.equals(headgear) || item.equals(armwear) || item.equals(footwear) || item.equals(firstAccessory);
 	}
 
-	public int getAnalReceptionCount() {
-		return receivedAnal;
-	}
-	public int getOralReceptionCount() {
-		return receivedOral;
-	}
+	public int getAnalReceptionCount() { return receivedAnal; }
+	public int getOralReceptionCount() { return receivedOral; }
 
 	public void setGameOver(GameOver gameOver) { this.gameOver = gameOver; }
 
@@ -1803,7 +1802,5 @@ public class PlayerCharacter extends AbstractCharacter {
 
 	public boolean hasStance(Stance stance) { return stance != Stance.BLITZ || jobClass == JobClass.WARRIOR; }
 
-	public void setPhallusType(PhallusType penisType) {
-		phallus = penisType;
-	}
+	public void setPhallusType(PhallusType penisType) { phallus = penisType; }
 }

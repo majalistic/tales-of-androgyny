@@ -74,6 +74,7 @@ public class InventoryScreen extends AbstractScreen {
 	private final Label underwearText;
 	private final Label headgearText;
 	private final Label armwearText;
+	private final Label footwearText;
 	private final Label accessoryText;
 	private final Label plugText;
 	private final Label cageText;
@@ -152,6 +153,7 @@ public class InventoryScreen extends AbstractScreen {
 		underwearText = getLabel(character.getUnderwear() != null ? character.getUnderwear().getName() : "None", skin, character.getUnderwear() != null ? Color.GOLD : Color.BROWN);
 		headgearText = getLabel(character.getHeadgear() != null ? character.getHeadgear().getName() : "None", skin, character.getHeadgear() != null ? Color.GOLD : Color.BROWN);
 		armwearText = getLabel(character.getArmwear() != null ? character.getArmwear().getName() : "None", skin, character.getArmwear() != null ? Color.GOLD : Color.BROWN);
+		footwearText = getLabel(character.getFootwear() != null ? character.getFootwear().getName() : "None", skin, character.getFootwear() != null ? Color.GOLD : Color.BROWN);
 		accessoryText = getLabel(character.getFirstAccessory() != null ? character.getFirstAccessory().getName() : "None", skin, character.getFirstAccessory() != null ? Color.GOLD : Color.BROWN);
 		plugText = getLabel(character.getPlug() != null ? character.getPlug().getName() : "None", skin, character.getPlug() != null ? Color.GOLD : Color.BROWN);
 		cageText = getLabel(character.getCage() != null ? character.getCage().getName() : "None", skin, character.getCage() != null ? Color.GOLD : Color.BROWN);
@@ -163,11 +165,10 @@ public class InventoryScreen extends AbstractScreen {
 		underwearText.addListener(new ClickListener() { @Override public void clicked(InputEvent e, float x, float y) { resetWeaponTable(character.unequipUnderwear()); }});
 		headgearText.addListener(new ClickListener() { @Override public void clicked(InputEvent e, float x, float y) { resetWeaponTable(character.unequipHeadgear()); }});
 		armwearText.addListener(new ClickListener() { @Override public void clicked(InputEvent e, float x, float y) { resetWeaponTable(character.unequipArmwear()); }});
+		footwearText.addListener(new ClickListener() { @Override public void clicked(InputEvent e, float x, float y) { resetWeaponTable(character.unequipFootwear()); }});
 		accessoryText.addListener(new ClickListener() { @Override public void clicked(InputEvent e, float x, float y) { resetWeaponTable(character.unequipAccessory()); }});
 		plugText.addListener(new ClickListener() { @Override public void clicked(InputEvent e, float x, float y) { resetWeaponTable(character.unequipPlug()); }});
 		cageText.addListener(new ClickListener() { @Override public void clicked(InputEvent e, float x, float y) { resetWeaponTable(character.unequipCage()); }});
-		
-		
 		
 		int xBuffer = 160;
 		
@@ -186,7 +187,9 @@ public class InventoryScreen extends AbstractScreen {
 		equipmentTable.add(getLabel("Headgear:", skin, Color.DARK_GRAY)).width(xBuffer).align(Align.left);
 		equipmentTable.add(headgearText).align(Align.left).row();
 		equipmentTable.add(getLabel("Armwear:", skin, Color.DARK_GRAY)).width(xBuffer).align(Align.left);
-		equipmentTable.add(armwearText).align(Align.left).row();	
+		equipmentTable.add(armwearText).align(Align.left).row();
+		equipmentTable.add(getLabel("Footwear:", skin, Color.DARK_GRAY)).width(xBuffer).align(Align.left);
+		equipmentTable.add(footwearText).align(Align.left).row();	
 		equipmentTable.add(getLabel("Accessory:", skin, Color.DARK_GRAY)).width(xBuffer).align(Align.left);
 		equipmentTable.add(accessoryText).align(Align.left).row();
 		equipmentTable.add(getLabel("Buttwear:", skin, Color.DARK_GRAY)).width(xBuffer).align(Align.left);
@@ -262,6 +265,7 @@ public class InventoryScreen extends AbstractScreen {
 		underwearText.setText(character.getUnderwear() != null ? character.getUnderwear().getName() : "None");
 		headgearText.setText(character.getHeadgear() != null ? character.getHeadgear().getName() : "None");
 		armwearText.setText(character.getArmwear() != null ? character.getArmwear().getName() : "None");			
+		footwearText.setText(character.getFootwear() != null ? character.getFootwear().getName() : "None");			
 		accessoryText.setText(character.getFirstAccessory() != null ? character.getFirstAccessory().getName() : "None");
 		plugText.setText(character.getPlug() != null ? character.getPlug().getName() : "None");
 		cageText.setText(character.getCage() != null ? character.getCage().getName() : "None");
@@ -273,6 +277,7 @@ public class InventoryScreen extends AbstractScreen {
 		underwearText.setColor(character.getUnderwear() != null ? Color.GOLD : Color.BROWN);
 		headgearText.setColor(character.getHeadgear() != null ? Color.GOLD : Color.BROWN);
 		armwearText.setColor(character.getArmwear() != null ? Color.GOLD : Color.BROWN);
+		footwearText.setColor(character.getFootwear() != null ? Color.GOLD : Color.BROWN);
 		accessoryText.setColor(character.getFirstAccessory() != null ? Color.GOLD : Color.BROWN);
 		plugText.setColor(character.getPlug() != null ? Color.GOLD : Color.BROWN);
 		cageText.setColor(character.getCage() != null ? Color.GOLD : Color.BROWN);	
