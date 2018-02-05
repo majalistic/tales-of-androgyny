@@ -158,9 +158,9 @@ public class SkillSelectionScene extends Scene {
 		this.magicPoints = character.getMagicPoints();
 		this.perkPoints = character.getPerkPoints();
 		
-		skillPointsDisplay = addLabel("Skill Points: " + skillPoints, skin, null, Color.WHITE, 10, 90);
-		magicPointsDisplay = addLabel("Magic Points: " + magicPoints, skin, null, Color.WHITE, 10, 50);
-		perkPointsDisplay = addLabel("Perk Points: " + perkPoints, skin, null, Color.WHITE, 10, 10);
+		skillPointsDisplay = addLabel("Skills: " + skillPoints, skin, null, Color.GOLD, 10, 90);
+		magicPointsDisplay = addLabel("Soul Crystals: " + magicPoints, skin, null, Color.WHITE, 10, 50);
+		perkPointsDisplay = addLabel("Perks: " + perkPoints, skin, null, Color.WHITE, 10, 10);
 
 		addImage(skillGroup, assetManager.get(AssetEnum.SKILL_TITLE.getTexture()), Color.WHITE, 25, 1000);
 		addImage(magicGroup, assetManager.get(AssetEnum.MAGIC_TITLE.getTexture()), Color.WHITE, 25, 1000);
@@ -392,6 +392,9 @@ public class SkillSelectionScene extends Scene {
 					skillGroup.addAction(Actions.show());
 					magicGroup.addAction(Actions.hide());
 					perkGroup.addAction(Actions.hide());
+					skillPointsDisplay.setColor(Color.GOLD);
+					magicPointsDisplay.setColor(Color.WHITE);
+					perkPointsDisplay.setColor(Color.WHITE);
 					shown = "Skills";
 		        }
 			}
@@ -406,6 +409,9 @@ public class SkillSelectionScene extends Scene {
 						skillGroup.addAction(Actions.hide());
 						magicGroup.addAction(Actions.show());
 						perkGroup.addAction(Actions.hide());
+						skillPointsDisplay.setColor(Color.WHITE);
+						magicPointsDisplay.setColor(Color.GOLD);
+						perkPointsDisplay.setColor(Color.WHITE);
 						shown = "Magic";
 			        }
 				}
@@ -424,6 +430,9 @@ public class SkillSelectionScene extends Scene {
 					skillGroup.addAction(Actions.hide());
 					magicGroup.addAction(Actions.hide());
 					perkGroup.addAction(Actions.show());
+					skillPointsDisplay.setColor(Color.WHITE);
+					magicPointsDisplay.setColor(Color.WHITE);
+					perkPointsDisplay.setColor(Color.GOLD);
 					shown = "Perks";
 		        }
 			}
