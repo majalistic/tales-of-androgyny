@@ -7708,7 +7708,7 @@
 			"sound": "CUM",
 			"text": "You feel the gentle thud in your stomach with Trudy's kiss on your lips, and your own cock twitches, leaving a stream of white hot lust across your abdomen."},
 			{
-			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "TRUDY", "value":7}}, {"saveType":"TIME", "value":{"class": "java.lang.Integer", "value": 6}}, {"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": 50}}],
+			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "TRUDY", "value":7}}, {"saveType":"TIME", "value":{"class": "java.lang.Integer", "value": 6}}, {"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": 20}}, {"saveType":"SKILL_POINT", "value":{"class": "java.lang.Integer", "value": 6}}],
 			"text": "You did learn quite a lot... maybe a bit too much."}
 		]
 	},
@@ -7746,7 +7746,7 @@
 		"key": "GOLEM-AWAKEN",
 		"scriptLines": [
 			{
-			"mutations": [{"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": 10}}, {"saveType":"SKILL", "value": {"class": "com.majalis.character.Techniques", "value": "FOCUS_ENERGY"}}],
+			"mutations": [{"saveType":"MAGIC_CRYSTAL",  "value":{"class": "java.lang.Integer", "value": 1}}, {"saveType":"SKILL", "value": {"class": "com.majalis.character.Techniques", "value": "FOCUS_ENERGY"}}],
 			"sound": "INCANTATION",
 			"text": "Your flesh touches the stone, and at that moment, you see a kaleidoscope of colors, and your mind fills with a knowledge otherworldly in origin.  The world falls out from beneath you, and you see for miles... and then, your eyes snap open."},
 			{
@@ -7761,7 +7761,7 @@
 		"key": "GOLEM-DOMINATED",
 		"scriptLines": [
 			{
-			"mutations": [{"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": 3}}],
+			"mutations": [{"saveType":"MAGIC_CRYSTAL", "value":{"class": "java.lang.Integer", "value": 1}}],
 			"text": "You assert your aura until it entirely engulfs the object's, a totality that renders it motionless, its crystals humming so silently as to be inaudible.  With the knowledge you gained upon touching the stone, you can discern the thing's capabilities."},
 			{"text": "\"MODE: xFNjsczpsIAD error.  awaiting commands,\" it says."}
 		]
@@ -7770,7 +7770,7 @@
 		"key": "GOLEM-SOOTHED",
 		"scriptLines": [
 			{
-			"mutations": [{"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": 3}}],
+			"mutations": [{"saveType":"MAGIC_CRYSTAL", "value":{"class": "java.lang.Integer", "value": 1}}],
 			"text": "As if wading into still water, you surround your aura with hers, until the boundaries of either slip within and without.  Your power calmly soothes her errant mana, and she once again returns to a simple animated statue, peering at you with innocent eyes."},
 			{"text": "\"MODE: PASSIVE.  awaiting queries,\" she says."}
 		]
@@ -8017,7 +8017,7 @@
 		"key": "GHOST-DAY-HAPPY",
 		"scriptLines": [
 			{
-			"mutations": [{"saveType":"EXPERIENCE",  "value":{"class": "java.lang.Integer", "value": 3}}],
+			"mutations": [{"saveType":"PERK_POINT", "value":{"class": "java.lang.Integer", "value": 1}}, {"saveType":"EXPERIENCE",  "value":{"class": "java.lang.Integer", "value": 3}}],
 			"text": "\"That was lovely, thank you,\" you say, and she smiles, the rays of sunshine falling across her face, her eyes sparkling.  She doesn't say a word, but her form flickers, and then fades, until only the smile remains - and then, she's gone."}
 		]
 	},
