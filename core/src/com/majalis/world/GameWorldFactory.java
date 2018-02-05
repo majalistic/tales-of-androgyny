@@ -57,7 +57,7 @@ public class GameWorldFactory {
 			
 			mermaid = addNode(getNode(2000, MERMAID, MERMAID, 50, 94, visitedInfo.get(2000, getFreshVisitInfo())), nodes);
 			
-			secondTown = addNode(getNode(1007, TOWN3, TOWN3, 45, 137, visitedInfo.get(1007, getFreshVisitInfo())), nodes);
+			secondTown = addNode(getNode(1007, TOWN3, TOWN3, 45, 127, visitedInfo.get(1007, getFreshVisitInfo())), nodes);
 			
 			Zone zone2 = new Zone(loadService, assetManager, random, nodes, nodeMap, unspawnedEncounters, 2, 1)
 				.addStartNode(zone.getEndNodes().get(0))
@@ -66,7 +66,7 @@ public class GameWorldFactory {
 			
 			Zone zone3 = new Zone(loadService, assetManager, random, nodes, nodeMap, unspawnedEncounters, 2, 2)
 				.addStartNode(zone2.getEndNodes().get(0))
-				.addEndNode(1003, ANGEL, DEFAULT, 83, 119)
+				.addEndNode(1003, ANGEL, ALTAR, 83, 119)
 				.addEndNode(1004, WITCH_COTTAGE, WITCH_COTTAGE, 83, 88)
 				.buildZone();
 			

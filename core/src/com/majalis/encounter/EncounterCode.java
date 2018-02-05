@@ -49,6 +49,7 @@ public enum EncounterCode {
 	GHOST, 
 	BUNNY,
 	ANGEL (CASTLE),
+	ALTAR (CASTLE),
 	NAGA,
 	MOUTH_FIEND (CASTLE),
 	MOUTH_FIEND_ESCAPE,
@@ -133,6 +134,7 @@ public enum EncounterCode {
 					case OGRE: return "Ogre";
 					case BEASTMISTRESS: return "Drow";
 					case ANGEL: return "Ruins";
+					case ALTAR: return "Altar";
 					case SPIDER: return "Ruins";
 					case ADVENTURER: 
 					case ELF: return "Adventurer";
@@ -201,6 +203,7 @@ public enum EncounterCode {
 					case OGRE: return "Ogre - Danger!";
 					case BEASTMISTRESS: return "Drow Beastmistress - Hostile!";
 					case ANGEL: return "Ruins - Calm";
+					case ALTAR: return "Altar";
 					case SPIDER: return "Ruins - Danger!";
 					case GADGETEER: return "Suspicious Merchant";
 					case NAGA: return "Cave - Naga Within!";
@@ -254,6 +257,7 @@ public enum EncounterCode {
 			case MOUTH_FIEND: return "Strange castle";
 			case MOUTH_FIEND_ESCAPE: return "Forest";
 			case MERMAID: return "Mermaid";
+			case ALTAR: return "Altar";
 			default: return "Nothing here.";
 		}
 	}
@@ -390,7 +394,9 @@ public enum EncounterCode {
 						)
 					)
 				);
-			case ANGEL:
+			case ALTAR:
+				return b.branch().textScene("ALTAR").choiceScene("Do you return to town?", b.branch("Return to town").textScene("ALTAR-WARP"), b.branch("Leave"));
+			case ANGEL:				
 				Branch angelOral = b.branch().choiceScene("Fuck her face?", b.branch("Hell Yes!").textScene("ANGEL-DEEPTHROAT"), b.branch("I'm Good").textScene("ANGEL-CUM-TRUMPET"));
 				Branch angelConfess = b.branch("Confess your temptations").textScene("ANGEL-BJ").choiceScene(
 					"She raises a good point... she DOES have a nice booty...",
@@ -406,7 +412,8 @@ public enum EncounterCode {
 						b.branch("No").textScene("ANGEL-TRUTH").choiceScene(
 							"What do you do?", 
 							angelConfess,
-							b.branch("Attack Her").textScene("ANGEL-BATTLE").battleScene(BattleCode.ANGEL, 
+							b.branch("Attack Her").textScene("ANGEL-BATTLE").battleScene(
+								BattleCode.ANGEL, 
 								b.branch(Outcome.VICTORY).textScene("ANGEL-VICTORY").choiceScene(
 									"What do you do?", 
 									b.branch("Fuck her in the pussy").require(ChoiceCheckType.FREE_COCK).textScene("ANGEL-VAGINAL"),

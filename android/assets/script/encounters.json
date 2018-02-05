@@ -8522,6 +8522,24 @@
 		]
 	},
 	{
+		"key": "ALTAR",
+		"scriptLines": [
+			{
+			"background": "CELESTIAL_BG",
+			"music": "ANGEL_MUSIC",
+			"text": "You return to the ruins - there are no angels to be seen.  A voice from above asks if you'd like to return to the safety of the town of Silajam."}
+		]
+	},
+	{
+		"key": "ALTAR-WARP",
+		"scriptLines": [
+			{
+			"mutations": [{"saveType":"TOWN", "value":{"class": "com.majalis.screens.TownScreen$TownCode", "value": "TOWN"}}, {"saveType":"RETURN_CONTEXT", "value":{"class": "com.majalis.save.SaveManager$GameContext", "value": "TOWN"}}, {"saveType":"NODE_CODE", "value":{"class": "java.lang.Integer", "value": 1000}}],
+			"sound": "FIREBALL_SOUND",
+			"text": "There's a flash of light... and then, you're back in town."}
+		]
+	},
+	{
 		"key": "ANGEL-INTRO",
 		"scriptLines": [
 			{
