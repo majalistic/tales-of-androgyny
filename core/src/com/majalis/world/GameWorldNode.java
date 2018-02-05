@@ -113,7 +113,7 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 	public Vector2 getHexPosition() { return new Vector2(x, y); }	
 	public int getNodeCode() { return nodeCode; }
 	public Array<Path> getPaths() { return paths; }
-	public String getHoverText() { return current ? "" : visitInfo.numberOfEncounters == 0 || (newEncounterReady() && encounter.getDefaultCode() != encounter.getRandomEncounterCode(0)) ? getEncounterCode().getDescription(visibility) : getEncounterCode().getFullDescription();  }
+	public String getHoverText() { return current ? "" : visitInfo.numberOfEncounters == 0 || (newEncounterReady() && encounter.hasRespawns()) ? getEncounterCode().getDescription(visibility) : getEncounterCode().getFullDescription();  }
 	public EncounterCode getEncounterCode() { return visitInfo.numberOfEncounters == 0 ? encounter.getCode() : newEncounterReady() ? getRandomEncounter() : encounter.getDefaultCode(); }
 	private EncounterCode getRandomEncounter() { return encounter.getRandomEncounterCode(visitInfo.randomVal % 5 + (visitInfo.randomVal * visitInfo.numberOfEncounters) % 13); }
 	public GameContext getEncounterContext() { return getEncounterCode().getContext(); }

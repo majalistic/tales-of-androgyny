@@ -21,5 +21,6 @@ public class GameWorldNodeEncounter {
 	
 	public EncounterCode getCode() { return encounterCode; }	
 	public EncounterCode getDefaultCode() { return defaultEncounterCode; }
-	public EncounterCode getRandomEncounterCode(int seedValue) { return randomEncounterCodes.size == 0 ? defaultEncounterCode : randomEncounterCodes.get(seedValue % randomEncounterCodes.size); }
+	public EncounterCode getRandomEncounterCode(int seedValue) { return !hasRespawns() ? defaultEncounterCode : randomEncounterCodes.get(seedValue % randomEncounterCodes.size); }
+	public boolean hasRespawns() { return randomEncounterCodes.size != 0; }
 }
