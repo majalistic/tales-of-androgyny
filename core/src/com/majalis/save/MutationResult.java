@@ -32,6 +32,8 @@ public class MutationResult {
 		TIME (AssetEnum.TIME),
 		GOLD (AssetEnum.GOLD),
 		CRYSTAL (AssetEnum.CRYSTAL),
+		SKILL_POINTS (AssetEnum.SKILL_POINTS),
+		PERK_POINTS (AssetEnum.PERK_POINTS),
 		NONE (AssetEnum.NULL), 
 		;
 		private final AssetDescriptor<Texture> texture;

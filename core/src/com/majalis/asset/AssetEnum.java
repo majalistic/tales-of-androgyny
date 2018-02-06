@@ -138,6 +138,8 @@ public enum AssetEnum {
 	TIME("icons/Time.png"),
 	EXP("icons/Exp.png"),
 	CRYSTAL("icons/Crystal.png"), 
+	SKILL_POINTS("icons/Skills.png"), 
+	PERK_POINTS("icons/Perks.png"), 
 	
 	SEARCHING("icons/Searching.png"),
 	

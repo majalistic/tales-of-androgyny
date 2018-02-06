@@ -1059,9 +1059,9 @@ public class PlayerCharacter extends AbstractCharacter {
 
 	public void setPerkPoints(int perkPoints) { this.perkPoints = perkPoints; }
 
-	public Array<MutationResult> modSkillPoints(int skillPoints) { this.skillPoints += skillPoints; return getResult("You gain " + skillPoints + " skill!", skillPoints, MutationType.NONE); }
+	public Array<MutationResult> modSkillPoints(int skillPoints) { this.skillPoints += skillPoints; return getResult("You gain " + skillPoints + " skill!", skillPoints, MutationType.SKILL_POINTS); }
 	public Array<MutationResult> modMagicPoints(int magicPoints) { this.magicPoints += magicPoints; return getResult("You gain " + magicPoints + " soul crystal" + (magicPoints > 1 ? "s" : "") + "!", magicPoints, MutationType.CRYSTAL); }
-	public Array<MutationResult> modPerkPoints(int perkPoints) { this.perkPoints += perkPoints; return getResult("You gain " + perkPoints + " perk point" + (perkPoints > 1 ? "s" : "") + "!", perkPoints, MutationType.NONE); }
+	public Array<MutationResult> modPerkPoints(int perkPoints) { this.perkPoints += perkPoints; return getResult("You gain " + perkPoints + " perk point" + (perkPoints > 1 ? "s" : "") + "!", perkPoints, MutationType.PERK_POINTS); }
 	
 	public int getLevel() {
 		return level;
