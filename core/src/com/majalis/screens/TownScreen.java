@@ -8,8 +8,10 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -121,8 +123,12 @@ public class TownScreen extends AbstractScreen {
         this.addActor(arrow);
         
         arrow.setSize(45, 75);
-        setArrowPosition();
-        arrow.setPosition(arrow.getX(), arrow.getY() + 60 * (buttons.size-1)); // need to move down one button height for some reason
+        arrow.addAction(Actions.sequence(Actions.delay(.01f), new Action(){
+			@Override
+			public boolean act(float delta) {
+				setArrowPosition();
+				return true;
+			} }));
         
         this.addActor(console);
 		console.setPosition(900, 150);
