@@ -2752,6 +2752,50 @@
 		]
 	},
 	{
+		"key": "BROTHEL-TOP-WARNING",
+		"scriptLines": [		
+			{
+			"mutations": [{"saveType":"TIME", "value":{"class": "java.lang.Integer", "value": 1}}],
+			"text": "The brothel madame warns you - if you're on the giving end, do not be rough with the customers unless they ask for it... and you're not getting paid.  You wait for some time for the appropriate clientelle, but they show up eventually."}
+		]
+	}
+	{
+		"key": "BROTHEL-TOP-MASTER",
+		"scriptLines": [		
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "ejaculationInButt":1}}],
+			"sound": "CUM",
+			"text": ""},
+			{
+			"mutations": [{"saveType":"TIME", "value":{"class": "java.lang.Integer", "value": 1}}, {"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSexTop":1}}],
+			"text": "."}
+		]
+	},
+	{
+		"key": "BROTHEL-TOP-EXPERT",
+		"scriptLines": [		
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "ejaculationInButt":1}}],
+			"sound": "CUM",
+			"text": ""},
+			{
+			"mutations": [{"saveType":"TIME", "value":{"class": "java.lang.Integer", "value": 1}}, {"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSexTop":1}}],
+			"text": "."}
+		]
+	},
+	{
+		"key": "BROTHEL-TOP-NOVICE",
+		"scriptLines": [		
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "ejaculationInButt":1}}],
+			"sound": "CUM",
+			"text": ""},
+			{
+			"mutations": [{"saveType":"TIME", "value":{"class": "java.lang.Integer", "value": 1}}, {"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSexTop":1}}],
+			"text": "."}
+		]
+	},
+	{
 		"key": "BROTHEL-GFXP",
 		"scriptLines": [
 			{"text": "You let the brothel owner know that you're prepared for a long day of faux-romance."},
