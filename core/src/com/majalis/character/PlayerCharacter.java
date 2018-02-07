@@ -60,6 +60,7 @@ public class PlayerCharacter extends AbstractCharacter {
 	private int time;
 	private int money;
 	private int debt;
+	private int debtCooldown;
 	private int lastShopRestock;
 	
 	protected Femininity femininity;
@@ -1666,11 +1667,20 @@ public class PlayerCharacter extends AbstractCharacter {
 		return goldChange == 0 ? new Array<MutationResult>() : getResult(goldChange > 0 ? "Gained " + gold + " gold!" : goldChange + " gold!", goldChange, MutationType.GOLD);
 	}
 	
+	public void modDebtCooldown(int cooldown) {
+		debtCooldown += cooldown;
+		if (debtCooldown < 0) debtCooldown = 0;
+	}
+	
 	public Array<MutationResult> modDebt(Integer gold) {
 		int loss = debt > gold ? -gold : debt; 
 		debt += gold;
 		if (debt < 0) {
 			debt = 0;
+		}
+		
+		if (gold < 0) {
+			modDebtCooldown(18);
 		}
 		
 		return gold == 0 ? new Array<MutationResult>() : getResult(gold > 0 ? "You have incurred " + gold + " gold worth of debt." : "You've been relieved of " + loss + " gold worth of debt!");
@@ -1718,6 +1728,7 @@ public class PlayerCharacter extends AbstractCharacter {
 		time += timePassed;
 		Array<MutationResult> result = getResult(timePassed >= 12 ? timePassed / 6 + " days pass." : timePassed >= 6 ? "A day passes." : timePassed >= 3 ? "Much time passes." : timePassed == 2 ? "Some time passes." : "A short time passes.", timePassed, MutationType.TIME);
 		result.addAll(eggTick(timePassed));
+		modDebtCooldown(-timePassed);
 		result.addAll(modFood(-getMetabolicRate() * timePassed));
 		result.addAll(debtTick((time / 6) - currentDay));
 		return result;
@@ -1818,4 +1829,8 @@ public class PlayerCharacter extends AbstractCharacter {
 	public boolean hasStance(Stance stance) { return stance != Stance.BLITZ || jobClass == JobClass.WARRIOR; }
 
 	public void setPhallusType(PhallusType penisType) { phallus = penisType; }
+
+	public boolean debtDue() {
+		return debtCooldown <= 0 && (getCurrentDebt() >= 150 || (getCurrentDebt() >= 100 && getQuestStatus(QuestType.DEBT) < 1));
+	}
 }

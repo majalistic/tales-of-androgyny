@@ -567,7 +567,7 @@ public class WorldMapScreen extends AbstractScreen {
 	private void moveToNode(int nodeToMove, Array<GameWorldNode> pathToCurrent, Group uiGroup, Action enableButtons) {
 		GameWorldNode node = pathToCurrent.get(nodeToMove);
 		if(!inSuspendedArea(currentNode) && checkForForcedRest());
-		else if (!inSuspendedArea(currentNode) && character.getCurrentDebt() >= 150 || (character.getCurrentDebt() >= 100 && character.getQuestStatus(QuestType.DEBT) < 1)) {
+		else if (!inSuspendedArea(currentNode) && character.debtDue()) {
 			autoEncounter(uiGroup, EncounterCode.BUNNY);
 		}
 		else if (!inSuspendedArea(currentNode) && time >= 11 && character.getQuestStatus(QuestType.ELF) == 0) { // forced elf encounter
