@@ -11,6 +11,21 @@ public enum TimeOfDay {
 	NIGHT ("Night", getColor(35, 55, 120), getColor(0, 0, 0), .0f, 40, .5f)
 	;
 
+	private static Color getColor(float r, float g, float b) { return new Color(r/256f, g/256f, b/256f, 1); }
+	public static TimeOfDay getTime(int time) { return TimeOfDay.values()[time % 6]; }
+	public static int timeTillNext(TimeOfDay targetTime, int time) { return targetTime.ordinal() == time % 6 ? 6 : timeTill(targetTime, time); }
+	// returns 0 if targetTime is current time
+	public static int timeTill(TimeOfDay targetTime, int time) {
+		int currentTimeOrdinal = time % 6;
+		int diff = 0;
+		while (currentTimeOrdinal != targetTime.ordinal()) {
+			currentTimeOrdinal++;
+			diff++;
+			currentTimeOrdinal %= 6;
+		}
+		return diff;
+	}
+	
 	private final String display;
 	private final Color color;
 	private final Color shadowColor;
@@ -27,33 +42,13 @@ public enum TimeOfDay {
 		this.shadowLength = shadowLength;		
 	}
 	
-	private static Color getColor(float r, float g, float b) { return new Color(r/256f, g/256f, b/256f, 1); }
-	
 	protected String getDisplay() { return display; }
 	public Color getColor() { return color; }
 	public Color getShadowColor() { return shadowColor; }
 	public float getShadowAlpha() { return shadowAlpha; }
 	public float getShadowDirection() { return shadowDirection; }
 	public float getShadowLength() { return shadowLength; } 
-	public static TimeOfDay getTime(int time) { return TimeOfDay.values()[time % 6]; }
-
-	
-	public static int timeTillNext(TimeOfDay targetTime, int time) { return targetTime.ordinal() == time % 6 ? 6 : timeTill(targetTime, time); }
-	
-	// returns 0 if targetTime is current time
-	public static int timeTill(TimeOfDay targetTime, int time) {
-		int currentTimeOrdinal = time % 6;
-		int diff = 0;
-		while (currentTimeOrdinal != targetTime.ordinal()) {
-			currentTimeOrdinal++;
-			diff++;
-			currentTimeOrdinal %= 6;
-		}
-		return diff;
-	}
-
-	public boolean isDay() {
-		return this == DAWN || this == MORNING || this == AFTERNOON;
-	}	
+	public boolean isDay() { return this == DAWN || this == MORNING || this == AFTERNOON; }
+	public boolean hasShadows() { return this != NIGHT; }
 }
 

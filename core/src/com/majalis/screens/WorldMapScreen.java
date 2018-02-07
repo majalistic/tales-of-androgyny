@@ -401,7 +401,7 @@ public class WorldMapScreen extends AbstractScreen {
 					console.addAction(Actions.alpha(1));
 					console.addAction(Actions.fadeOut(10));
 					time++;
-					tintForTimeOfDay();
+					tintForTimeOfDay(time, .5f);
 					checkCanEat(rest);
 					mutateLabels();
 		        }
@@ -435,7 +435,7 @@ public class WorldMapScreen extends AbstractScreen {
 						currentNode.setAsCurrentNode();
 						visit(currentNode);
 						time++;
-						tintForTimeOfDay();	
+						tintForTimeOfDay(time, .5f);	
 						checkCanEat(rest);
 						mutateLabels();
 						checkForForcedRest();
@@ -516,7 +516,7 @@ public class WorldMapScreen extends AbstractScreen {
 		if (!backgroundRendered) {
 			generateBackground();
 		}
-		tintForTimeOfDay();
+		tintForTimeOfDay(time, 0);
 		
 		uiStage.addActor(uiGroup);
 		buttons.add(campButton);
@@ -577,6 +577,7 @@ public class WorldMapScreen extends AbstractScreen {
 			autoEncounter(uiGroup, EncounterCode.ADVENTURER);
 		}
 		else {
+			tintForTimeOfDay(time + 1, travelTime);
 			Vector2 finish = node.getHexPosition();
 			Vector2 start = new Vector2(currentNode.getHexPosition());
 			Array<Action> moveActions = new Array<Action>();
@@ -627,7 +628,6 @@ public class WorldMapScreen extends AbstractScreen {
 					final int timePassed = 1;
 					saveService.saveDataValue(SaveEnum.TIME, timePassed);
 					time += timePassed;
-					tintForTimeOfDay();
 					EncounterCode newEncounter = node.getEncounterCode();
 					EncounterBounty miniEncounter = newEncounter.getMiniEncounter();
 					if(newEncounter == EncounterCode.DEFAULT) {
@@ -892,17 +892,23 @@ public class WorldMapScreen extends AbstractScreen {
 		}
 	}
 	
-	private void tintForTimeOfDay() {
-		TimeOfDay timeOfDay = TimeOfDay.getTime(time);
+	private void tintForTimeOfDay(int targetTime, float duration) {
+		TimeOfDay timeOfDay = TimeOfDay.getTime(targetTime);
 		
 		for (Actor actor : worldGroup.getChildren()) {
-			actor.setColor(getTimeColor());
+			actor.addAction(Actions.color(getTimeColor(), duration));
 		}
 		for (Actor actor : shadowGroup.getChildren()) {
 			Shadow shadow = (Shadow) actor;
-			shadow.setColor(timeOfDay.getShadowColor());
-			shadow.addAction(Actions.alpha(timeOfDay.getShadowAlpha()));
-			shadow.setSkew(timeOfDay.getShadowDirection(), timeOfDay.getShadowLength());
+			shadow.addAction(Actions.color(timeOfDay.getShadowColor(), duration));
+			shadow.addAction(Actions.alpha(timeOfDay.getShadowAlpha(), duration));
+			if (timeOfDay.hasShadows()) {
+				shadow.addAction(Actions.show());
+				shadow.setSkew(timeOfDay.getShadowDirection(), timeOfDay.getShadowLength());
+			}
+			else {
+				shadow.addAction(Actions.hide());
+			}
 		}
 	}
 	
