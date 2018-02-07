@@ -9,8 +9,10 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.math.Affine2;
 import com.badlogic.gdx.math.RandomXS128;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.actions.TemporalAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
@@ -234,28 +236,59 @@ public class GameWorld {
 		public Actor hit(float x, float y, boolean touchable) { return null; }		
 	}
 		
+	public static class SkewAction extends TemporalAction {
+		private Vector2 start, end;
+		
+		public SkewAction(Vector2 end, float duration) {
+			super(duration);
+			this.end = end;
+		}
+		
+		@Override
+		protected void begin () {
+			start = new Vector2(((Shadow)target).getSkew());
+		}
+		
+		@Override
+		protected void update (float percent) {
+			((Shadow)target).setSkew(start.x + ((end.x - start.x) * percent), start.y + ((end.y - start.y) * percent));
+		}
+
+		@Override
+		public void reset () {
+			super.reset();
+			start = end = null;
+		}
+		
+		public void setSkew (Vector2 skew) {
+			this.end = skew;
+		}
+	}
+	
 	public class Shadow extends Actor {
 		private final TextureRegion texture;
 		private Affine2 affine = new Affine2();
-		private float shadowDirection;
-		private float shadowLength;
+		private Vector2 skew;
 		
 		private Shadow(TextureRegion textureRegion) {
 			this.texture = textureRegion;
+			skew = new Vector2();
 		}
 
 		public void setSkew(float shadowDirection, float shadowLength) {
-			this.shadowDirection = shadowDirection;
-			this.shadowLength = shadowLength;			
+			skew.x = shadowDirection;
+			skew.y = shadowLength;			
 		}
+		
+		public Vector2 getSkew() { return skew; } 
 
 		@Override
 	    public void draw(Batch batch, float parentAlpha) {
 			Color color = getColor();
 			batch.setColor(color.r, color.g, color.b, color.a * parentAlpha);
 			affine.setToTrnRotScl(getX() + texture.getRegionWidth() + (getOriginX()), getY() + (getOriginY()*2)+3, 180, 1, 1);
-	        affine.shear(shadowDirection, 0);  // this modifies the skew
-			batch.draw(texture, texture.getRegionWidth(), texture.getRegionHeight() * shadowLength, affine);
+	        affine.shear(skew.x, 0);  // this modifies the skew
+			batch.draw(texture, texture.getRegionWidth(), texture.getRegionHeight() * skew.y, affine);
 	    }
 	}
 	

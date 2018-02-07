@@ -68,6 +68,7 @@ import com.majalis.save.MutationResult.MutationType;
 import com.majalis.world.GameWorld;
 import com.majalis.world.GameWorld.Doodad;
 import com.majalis.world.GameWorld.Shadow;
+import com.majalis.world.GameWorld.SkewAction;
 import com.majalis.world.GameWorldHelper;
 import com.majalis.world.GameWorldNode;
 import com.majalis.world.GroundType;
@@ -891,7 +892,7 @@ public class WorldMapScreen extends AbstractScreen {
 			uiStage.draw();
 		}
 	}
-	
+	// this could also check the diff between current time and target time, and make this a sequence of actions divided by the duration to cycle through, rather than transition, for instance, from evening to morning without first traversing night
 	private void tintForTimeOfDay(int targetTime, float duration) {
 		TimeOfDay timeOfDay = TimeOfDay.getTime(targetTime);
 		
@@ -901,14 +902,7 @@ public class WorldMapScreen extends AbstractScreen {
 		for (Actor actor : shadowGroup.getChildren()) {
 			Shadow shadow = (Shadow) actor;
 			shadow.addAction(Actions.color(timeOfDay.getShadowColor(), duration));
-			shadow.addAction(Actions.alpha(timeOfDay.getShadowAlpha(), duration));
-			if (timeOfDay.hasShadows()) {
-				shadow.addAction(Actions.show());
-				shadow.setSkew(timeOfDay.getShadowDirection(), timeOfDay.getShadowLength());
-			}
-			else {
-				shadow.addAction(Actions.hide());
-			}
+			shadow.addAction(new SkewAction(new Vector2(timeOfDay.getShadowDirection(), timeOfDay.getShadowLength()), duration));
 		}
 	}
 	
