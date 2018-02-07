@@ -664,7 +664,10 @@ public class EnemyCharacter extends AbstractCharacter {
 						return getTechniques(PENETRATE_STANDING);
 					}
 				}
-				if (currentStamina > 4) {
+				if (currentStamina > 6 && grappleStatus.isAdvantage()) {
+					possibles.addAll(getTechniques(TAKEDOWN));
+				}
+				else if (currentStamina > 4) {
 					possibles.addAll(getTechniques(GRIP));
 				}
 				else {

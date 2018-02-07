@@ -140,6 +140,7 @@ public enum Techniques {
 	FORCE_DEEPTHROAT	(new GrappleTechnique(Stance.FELLATIO, Stance.FELLATIO, "Deepthroat", 1).addSex(new SexualExperienceBuilder().setMouthBottomTeasing(1)).addSelfSex(new SexualExperienceBuilder().setMouthTeasing(1)).build()),
 	GRIP	 			(new GrappleTechnique(Stance.FULL_NELSON, Stance.FULL_NELSON, "Grip", 3, GrappleType.ADVANTAGE).build()), // Used to grapple
 	HOLD	 			(new GrappleTechnique(Stance.FULL_NELSON, Stance.FULL_NELSON, "Hold", -1).build()), // Used to hold
+	TAKEDOWN			(new GrappleTechnique(Stance.FULL_NELSON, Stance.GROUND_WRESTLE, "Takedown", 6, Stance.GROUND_WRESTLE_FACE_DOWN, GrappleType.HOLD).build()),
 	POUND_DOGGY 		(new GrappleTechnique(Stance.DOGGY, Stance.DOGGY, "Pound", 2).build()), // Used to doggystyle
 	ASS_BLAST			(new GrappleTechnique(Stance.DOGGY, Stance.DOGGY, "Ass Blast", 4).addSex(new SexualExperienceBuilder().setAssBottomTeasing(1)).addSelfSex(new SexualExperienceBuilder().setAssTeasing(1)).build()), 
 	CRUSH_ASS	 		(new GrappleTechnique(Stance.DOGGY, Stance.DOGGY, "Crush Ass", 4).addSex(new SexualExperienceBuilder().setAssBottomTeasing(1)).build()),
