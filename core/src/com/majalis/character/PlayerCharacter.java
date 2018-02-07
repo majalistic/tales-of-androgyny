@@ -374,7 +374,7 @@ public class PlayerCharacter extends AbstractCharacter {
 				if (currentStamina > 6 && grappleStatus.isAdvantage()) {
 					possibles.addAll(getTechniques(TAKEDOWN));
 				}
-				if (grappleStatus == GrappleStatus.HOLD) {
+				if (grappleStatus == GrappleStatus.HOLD && isErect()) {
 					possibles.addAll(getTechniques(PENETRATE_STANDING));
 				}
 				return possibles;
