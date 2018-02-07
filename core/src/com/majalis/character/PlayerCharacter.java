@@ -150,7 +150,7 @@ public class PlayerCharacter extends AbstractCharacter {
 			OUROBOROS, ROUND_AND_ROUND, RECEIVE_OUROBOROS, STRUGGLE_OUROBOROS, MOUNT_FACE, FACEFUCK, GET_FACEFUCKED, STRUGGLE_FACEFUCK, RECEIVE_EGGS, ERUPT_ORAL,
 			WRESTLE_TO_GROUND, WRESTLE_TO_GROUND_UP, PENETRATE_PRONE, PENETRATE_MISSIONARY, PIN, GRAPPLE, HOLD_WRESTLE, CHOKE, REST_WRESTLE, FLIP_PRONE, FLIP_SUPINE, RELEASE_PRONE, RELEASE_SUPINE, STRUGGLE_GROUND, BREAK_FREE_GROUND, GRIND, REST_GROUND_DOWN, STRUGGLE_GROUND_UP, BREAK_FREE_GROUND_UP, REVERSAL,
 			FULL_REVERSAL, REST_GROUND_UP, SQUEEZE_STRUGGLE, BREAK_FREE_SQUEEZE, SQUEEZE_REST,
-			SLAP_ASS, GESTURE, RUB, PRESENT, SLAP_ASS_KNEES, STROKE, STROKE_DOGGY, STROKE_STANDING, SAY_AHH, IRRUMATIO
+			SLAP_ASS, GESTURE, RUB, PRESENT, SLAP_ASS_KNEES, STROKE, STROKE_DOGGY, STROKE_STANDING, SAY_AHH, IRRUMATIO, FULL_NELSON, HOLD, GRIP, PENETRATE_STANDING, POUND_STANDING, PULL_OUT_STANDING
 		);
 		return baseTechniques;
 	}
@@ -283,6 +283,9 @@ public class PlayerCharacter extends AbstractCharacter {
 				else if (target.stance == Stance.KNEELING && isErect() && target.enemyType.isPounceable()) {
 					possibles.addAll(getTechniques(SAY_AHH));
 				}
+				else if (target.stance.receivesMediumAttacks() && target.enemyType.isPounceable() && target.enemyType.canWrestle()) {
+					possibles.add(FULL_NELSON);
+				}
 				return possibles;
 			case BALANCED:
 				possibles = getTechniques(SPRING_ATTACK, NEUTRAL_ATTACK, CAUTIOUS_ATTACK, BLOCK, INCANTATION, SLIDE, DUCK, HIT_THE_DECK);
@@ -361,6 +364,15 @@ public class PlayerCharacter extends AbstractCharacter {
 				}
 				if (currentStamina >= 2) {
 					possibles.addAll(getTechniques(STAND_UP_KNEELING));
+				}
+				return possibles;
+			case FULL_NELSON:
+				possibles = getTechniques(HOLD);
+				if (currentStamina > 4) {
+					possibles.addAll(getTechniques(GRIP));
+				}
+				if (grappleStatus == GrappleStatus.HOLD) {
+					possibles.addAll(getTechniques(PENETRATE_STANDING));
 				}
 				return possibles;
 			case AIRBORNE:

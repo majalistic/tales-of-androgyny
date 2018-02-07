@@ -655,7 +655,6 @@ public class EnemyCharacter extends AbstractCharacter {
 					possibles.addAll(getTechniques(STAND_UP_KNEELING));
 				}
 				return possibles;
-				
 			case FULL_NELSON:
 				if (grappleStatus == GrappleStatus.HOLD) {
 					if (enemyType == EnemyEnum.SPIDER) {
@@ -666,11 +665,12 @@ public class EnemyCharacter extends AbstractCharacter {
 					}
 				}
 				if (currentStamina > 4) {
-					return getTechniques(GRIP);
+					possibles.addAll(getTechniques(GRIP));
 				}
 				else {
 					return getTechniques(HOLD);
 				}
+				return possibles;
 			case GROUND_WRESTLE:
 				if (currentStamina <= 0 || grappleStatus == GrappleStatus.HELD) {
 					return getTechniques(REST_WRESTLE);
@@ -830,6 +830,11 @@ public class EnemyCharacter extends AbstractCharacter {
 				return getPossibleTechniques(target, stance);
 			case DOGGY_BOTTOM:
 				return getTechniques(RECEIVE_DOGGY);
+			case STANDING_BOTTOM:
+				if (hasGrappleAdvantage()) {
+					return getTechniques(RECEIVE_STANDING, STROKE_STANDING, BREAK_FREE_ANAL);
+				}
+				return getTechniques(RECEIVE_STANDING, STROKE_STANDING, STRUGGLE_STANDING);
 			case ANAL_BOTTOM:
 				return getTechniques(RECEIVE_ANAL);
 			case PRONE_BONE_BOTTOM:
