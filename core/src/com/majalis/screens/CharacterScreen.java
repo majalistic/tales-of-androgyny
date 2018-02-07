@@ -136,6 +136,9 @@ public class CharacterScreen extends AbstractScreen {
 		overview.add(getLabel("Debt: ", skin, Color.BLACK)).align(Align.left);
 		overview.add(getLabel(String.valueOf(character.getCurrentDebt()), skin, Color.FIREBRICK)).align(Align.left).row();
 		
+		overview.add(getLabel("Soul Crystals: ", skin, Color.BLACK)).align(Align.left);
+		overview.add(getLabel(String.valueOf(character.getMagicPoints()), skin, Color.PURPLE)).align(Align.left).row();
+		
 		
 		overview.add(getLabel("Booty: ", skin, Color.BLACK)).align(Align.left);
 		overview.add(getLabel(character.getBootyLiciousness(), skin, Color.PINK)).align(Align.left).row();
