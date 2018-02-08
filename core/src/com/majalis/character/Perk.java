@@ -11,6 +11,7 @@ public enum Perk {
 	SUNDERER ("Increases armor destruction on armor sundering attacks.", 3),
 	VERSATILE ("Decreases stability cost of techniques that change stance from Balanced stance.", 3),
 	CUM_DRINKER ("Restores a small amount of health when swallowing cum.", 3),
+	EASY_TO_PLEASE ("When ejaculating, lust is decreased by a greater amount.", 3),
 	STRONGER ("Increases strength by 1 per rank.", 3),
 	HARDER ("Increases endurance by 1 per rank.", 3),
 	FASTER ("Increases agility by 1 per rank.", 3),

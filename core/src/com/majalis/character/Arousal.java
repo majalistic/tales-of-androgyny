@@ -109,7 +109,7 @@ public class Arousal {
 		int oralBottomMod = getOralBottomMod(perks, base);
 		int topMod = getTopMod(perks, base);
 		if (climaxType == ClimaxType.ANAL_RECEPTIVE) bottomLust = 0;
-		modLust(-25 * (climaxType == ClimaxType.ANAL_RECEPTIVE ? analBottomMod / (1 + perks.get(Perk.WEAK_TO_ANAL.toString(), 0)) : climaxType == ClimaxType.ORAL_RECEPTIVE ? oralBottomMod : topMod));
+		modLust((-25 + perks.get(Perk.EASY_TO_PLEASE.toString(), 0) * -5) * (climaxType == ClimaxType.ANAL_RECEPTIVE ? analBottomMod / (1 + perks.get(Perk.WEAK_TO_ANAL.toString(), 0)) : climaxType == ClimaxType.ORAL_RECEPTIVE ? oralBottomMod : topMod));
 	} 
 	
 	private int getBase() { return type == ArousalType.PLAYER ? 2 : 4; }
