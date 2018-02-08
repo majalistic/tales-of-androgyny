@@ -1181,9 +1181,17 @@ public class PlayerCharacter extends AbstractCharacter {
 	@Override
 	protected Array<MutationResult> fillMouth(int mouthful) {
 		super.fillMouth(mouthful);
+		Array<MutationResult> results = new Array<MutationResult>();
 		oralCreampie++;
 		String result = incrementPerk(oralCreampie, Perk.CUM_CONNOISSEUR, 10, 6, 3);
-		return result.equals("") ? new Array<MutationResult>() : getResult(result);
+		if (mouthful >= 5) {
+			results.add(new MutationResult("You swallow enough to sate your hunger!"));
+			results.addAll(modFood(mouthful / 5));
+			if (perks.get(Perk.CUM_DRINKER.toString(), 0) > 0) results.addAll(modHealth(perks.get(Perk.CUM_DRINKER.toString(), 0) * 5));
+		}
+		if (!result.equals("")) results.addAll(getResult(result));
+
+		return results;
 	}
 	
 	private String incrementPerk(int currentValueOfStat, Perk perkToIncrement, int ... valuesToCheck) {
@@ -1367,23 +1375,14 @@ public class PlayerCharacter extends AbstractCharacter {
 			setCurrentPortrait(AssetEnum.PORTRAIT_AHEGAO);
 		}
 		
-		for (int ii = 0; ii < sex.getEjaculationInMouth(); ii++) {
-			cumInMouth();
-			setCurrentPortrait(AssetEnum.PORTRAIT_AHEGAO);
-		}
-		
 		for (int ii = 0; ii < sex.getOralSex(); ii++) {
 			result.addAll(receiveOral());
 			setCurrentPortrait(AssetEnum.PORTRAIT_FELLATIO);
 		}
-		for (int ii = 0; ii < sex.getOralCreampies(); ii++) {
-			result.addAll(fillMouth(5));
-			setCurrentPortrait(AssetEnum.PORTRAIT_MOUTHBOMB);
-		}
+
 		if (sex.getOralCreampies() > 0) {
-			result.add(new MutationResult("You swallow enough to sate your hunger!"));
-			result.addAll(modFood(1));
-			if (perks.get(Perk.CUM_DRINKER.toString(), 0) > 0) result.addAll(modHealth(perks.get(Perk.CUM_DRINKER.toString(), 0) * 5));
+			setCurrentPortrait(AssetEnum.PORTRAIT_MOUTHBOMB);
+			result.addAll(fillMouth(5 * sex.getOralCreampies()));
 		}
 		for (int ii = 0; ii < sex.getFellatioEjaculations(); ii++) {
 			cumFromOral();
