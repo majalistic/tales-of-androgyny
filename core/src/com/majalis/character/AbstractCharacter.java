@@ -165,6 +165,7 @@ public abstract class AbstractCharacter extends Actor {
 	public void setStance(Stance stance) { this.stance = stance; }
 	
 	public GrappleStatus getGrappleStatus() { return grappleStatus; } // should be passed into character state
+	public void setGrappleStatus(GrappleStatus status) { grappleStatus = status; } // for battle factory
 	
 	public int getCurrentHealth() { return currentHealth; }
 	

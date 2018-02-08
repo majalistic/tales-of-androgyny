@@ -6,6 +6,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.majalis.asset.AssetEnum;
 import com.majalis.character.EnemyCharacter;
+import com.majalis.character.GrappleStatus;
 import com.majalis.character.PlayerCharacter;
 import com.majalis.encounter.Background.BackgroundBuilder;
 import com.majalis.character.Stance;
@@ -35,6 +36,8 @@ public class BattleFactory {
 			enemy = battleAttributes.getBattleCode().getEnemy(assetManager, battleAttributes.getEnemyStance());
 			if (enemy.getStance().isEroticPenetration() ) {
 				enemy.setArousal(ArousalLevel.ERECT);
+				enemy.setGrappleStatus(GrappleStatus.ADVANTAGE);
+				playerCharacter.setGrappleStatus(GrappleStatus.DISADVANTAGE);
 			}
 			if (battleAttributes.getDisarm()) {
 				enemy.disarm();
@@ -43,8 +46,6 @@ public class BattleFactory {
 				enemy.setArousal(ArousalLevel.ERECT);
 				enemy.setClimaxCounter(battleAttributes.getClimaxCounter());
 			}
-			
-			playerCharacter.setStance(battleAttributes.getPlayerStance());			
 		}
 		// loading old enemy
 		else {
