@@ -33,6 +33,7 @@ public class Arousal {
 		FLACCID,
 		SEMI_ERECT,
 		ERECT,
+		FULLY_AROUSED,
 		EDGING,
 		CLIMAX; // handjobs take longer to get to climax
 		
@@ -41,8 +42,9 @@ public class Arousal {
 	
 	protected int getPhallusLevel() { return Math.min(arousalLevel.ordinal(), 2); }
 	protected boolean isErect() { return arousalLevel.ordinal() > 1; }
-	protected boolean isClimax() { return arousalLevel == ArousalLevel.CLIMAX; }
+	protected boolean isFullyAroused() { return arousalLevel.ordinal() > 2; }
 	protected boolean isEdging() { return arousalLevel == ArousalLevel.EDGING; }
+	protected boolean isClimax() { return arousalLevel == ArousalLevel.CLIMAX; }
 	protected boolean isSuperEdging() { return arousalLevel == ArousalLevel.EDGING && arousal > 3; }
 
 	// need to also know whether you're being aroused by creampie or not
@@ -85,7 +87,7 @@ public class Arousal {
 			bottomLust += sex.getAssBottomTeasing() * analBottomMod;
 			
 			arousal += climaxArousalAmount;
-			if (!isErect() || sex.isSex()) arousal += arousalAmount; 
+			if (!isFullyAroused() || sex.isSex()) arousal += arousalAmount; 
 		}
 		
 			
