@@ -46,6 +46,7 @@ public class BattleFactory {
 				enemy.setArousal(ArousalLevel.ERECT);
 				enemy.setClimaxCounter(battleAttributes.getClimaxCounter());
 			}
+			playerCharacter.setStance(battleAttributes.getPlayerStance());	
 		}
 		// loading old enemy
 		else {
