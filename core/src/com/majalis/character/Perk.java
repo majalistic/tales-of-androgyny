@@ -3,6 +3,7 @@ package com.majalis.character;
 public enum Perk {
 	SKILLED ("Increases number of skill points to allocate by 2 per perk rank. (5 Ranks)", 5), 
 	WELLROUNDED ("Increases current lowest stat by 1.", 1),
+	SPECIALIST("Increases current greatest stat by 1.  Requires: Level 10", 1),
 	SURVEYOR ("Increases effective perception for scouting purposes by 2 per rank.", 3),
 	EROTIC ("Increases effective charisma for arousing others by 2 per rank.", 3), 
 	CATAMITE ("Unlocks more options for being willingly receptive.", 1),
@@ -80,5 +81,6 @@ public enum Perk {
 	public boolean isLearnable() {
 		return isPositive() && this != BLOWJOB_EXPERT && this != PERFECT_BOTTOM && this != CRANK_MASTER && this != TOP;
 	}
+	public int getRequiredLevel() { return this == SPECIALIST ? 10 : 0; }
 	
 }

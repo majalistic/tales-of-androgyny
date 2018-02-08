@@ -919,6 +919,17 @@ public class PlayerCharacter extends AbstractCharacter {
 		}
 	}
 
+	private void increaseHighestStat() {
+		int max = getBaseStat(Stat.STRENGTH);
+		Stat maxStat = Stat.STRENGTH;
+		for (Stat stat : Stat.values()) {
+			if (getBaseStat(stat) > max) {
+				max = getBaseStat(stat);
+				maxStat = stat;
+			}
+		}
+		setStat(maxStat, getBaseStat(maxStat) + 1);
+	}
 	private void increaseLowestStat() {
 		int min = getBaseStat(Stat.STRENGTH);
 		Stat minStat = Stat.STRENGTH;
@@ -958,6 +969,9 @@ public class PlayerCharacter extends AbstractCharacter {
 		}
 		if (perks.get(Perk.WELLROUNDED, 0) > 0 && !(this.perks.get(Perk.WELLROUNDED.toString(), 0) > 0) ) {
 			increaseLowestStat();
+		}
+		if (perks.get(Perk.SPECIALIST, 0) > 0 && !(this.perks.get(Perk.SPECIALIST.toString(), 0) > 0) ) {
+			increaseHighestStat();
 		}
 		
 		this.perks.clear();

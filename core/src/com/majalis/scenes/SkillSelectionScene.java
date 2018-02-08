@@ -252,10 +252,12 @@ public class SkillSelectionScene extends Scene {
 				if (!(jj >= ii * learnablePerks.size / pageSplit && jj < (ii + 1) * learnablePerks.size / pageSplit)) { jj++; continue; }
 				final Integer level = perks.get(perk, 0);
 				final Label label = new Label(perk.getLabel(), skin);
-				label.setColor(Color.WHITE);
+				boolean levelRequired = perk.getRequiredLevel() <= character.getLevel();
+				Color defaultColor = levelRequired ? Color.WHITE : Color.GRAY;
+				label.setColor(defaultColor);
 				label.setAlignment(Align.right);
 				
-				final Row row = new Row(perk, label, skillDisplay, bonusDisplay, skillDisplayTable, consoleTable);
+				final Row row = new Row(perk, label, defaultColor, skillDisplay, bonusDisplay, skillDisplayTable, consoleTable);
 				final Button plusButton = getPlusButton();
 				final Button minusButton = getMinusButton();
 				minusButton.setColor(Color.GRAY);
@@ -275,42 +277,47 @@ public class SkillSelectionScene extends Scene {
 				label.addListener(getListener(row));
 				plusButton.addListener(getListener(row));
 				minusButton.addListener(getListener(row));
-				
-				plusButton.addListener(new ClickListener() {
-					@Override
-			        public void clicked(InputEvent event, float x, float y) {
-						buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
-						if (perkPoints > 0) {
-							Integer newLevel = perks.get(perk, 0);
-							if (newLevel < perk.getMaxRank()) {
-								if (newLevel + 1 <= perkPoints) {
-									perkPoints -= newLevel + 1;
-									perkPointsDisplay.setText("Perk Points: " + perkPoints);
-									if (perk == Perk.SKILLED) {
-										skillPoints += 2;
-										skillPointsDisplay.setText("Skill Points: " + skillPoints);
+				if (levelRequired) {
+					plusButton.addListener(new ClickListener() {
+						@Override
+				        public void clicked(InputEvent event, float x, float y) {
+							buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
+							if (perkPoints > 0) {
+								Integer newLevel = perks.get(perk, 0);
+								if (newLevel < perk.getMaxRank()) {
+									if (newLevel + 1 <= perkPoints) {
+										perkPoints -= newLevel + 1;
+										perkPointsDisplay.setText("Perk Points: " + perkPoints);
+										if (perk == Perk.SKILLED) {
+											skillPoints += 2;
+											skillPointsDisplay.setText("Skill Points: " + skillPoints);
+										}
+										perks.put(perk, ++newLevel);						
+										console.setText("You gained the " + perk.getLabel() + " Rank " + newLevel +".");
+										for (int ii = level; ii < newLevel; ii++) {
+											baubles.get(ii).setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(AssetEnum.ADDED_BAUBLE.getTexture()))));
+										}
+										if (newLevel == perk.getMaxRank()) plusButton.setColor(Color.GRAY);
+										minusButton.setColor(Color.WHITE);
 									}
-									perks.put(perk, ++newLevel);						
-									console.setText("You gained the " + perk.getLabel() + " Rank " + newLevel +".");
-									for (int ii = level; ii < newLevel; ii++) {
-										baubles.get(ii).setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(AssetEnum.ADDED_BAUBLE.getTexture()))));
-									}
-									if (newLevel == perk.getMaxRank()) plusButton.setColor(Color.GRAY);
-									minusButton.setColor(Color.WHITE);
+									else {
+										console.setText("You do not have enough perk points!");
+									}	
 								}
 								else {
-									console.setText("You do not have enough perk points!");
-								}	
+									console.setText("You cannot improve on that perk any further!");
+								}		
 							}
 							else {
-								console.setText("You cannot improve on that perk any further!");
-							}		
-						}
-						else {
-							console.setText("You have no perk points!");
-						}
-			        }
-				});
+								console.setText("You have no perk points!");
+							}
+				        }
+					});
+				}
+				else {
+					plusButton.setColor(Color.GRAY);
+				}
+				
 				minusButton.addListener(new ClickListener() {
 					@Override
 			        public void clicked(InputEvent event, float x, float y) {
@@ -594,7 +601,7 @@ public class SkillSelectionScene extends Scene {
 				for (int ii = 0; ii < level; ii++) baubles.add(new Image(assetManager.get(AssetEnum.FILLED_BAUBLE.getTexture())));
 				for (int ii = 0; ii < technique.getMaxRank() - level; ii++) baubles.add(new Image(assetManager.get(AssetEnum.EMPTY_BAUBLE.getTexture())));
 				
-				final Row row = new Row(technique, label, skillDisplay, bonusDisplay, skillDisplayTable, consoleTable);
+				final Row row = new Row(technique, label, Color.WHITE, skillDisplay, bonusDisplay, skillDisplayTable, consoleTable);
 				
 				label.addListener(new ClickListener() {
 					@Override
@@ -720,23 +727,25 @@ public class SkillSelectionScene extends Scene {
 		private final Techniques technique;
 		private final Perk perk;
 		private final Label label;
+		private final Color defaultLabelColor;
 		private final Label skillDisplay;
 		private final Label bonusDisplay;
 		private final Table skillDisplayTable;
 		private final Table consoleTable;
 		
-		private Row(Techniques technique, Label label, Label skillDisplay, Label bonusDisplay, Table skillDisplayTable, Table consoleTable) {
-			this(technique, null, label, skillDisplay, bonusDisplay, skillDisplayTable, consoleTable);
+		private Row(Techniques technique, Label label, Color defaultLabelColor, Label skillDisplay, Label bonusDisplay, Table skillDisplayTable, Table consoleTable) {
+			this(technique, null, label, defaultLabelColor, skillDisplay, bonusDisplay, skillDisplayTable, consoleTable);
 		}
 		
-		private Row(Perk perk, Label label, Label skillDisplay, Label bonusDisplay, Table skillDisplayTable, Table consoleTable) {
-			this(null, perk, label, skillDisplay, bonusDisplay, skillDisplayTable, consoleTable);
+		private Row(Perk perk, Label label, Color defaultLabelColor, Label skillDisplay, Label bonusDisplay, Table skillDisplayTable, Table consoleTable) {
+			this(null, perk, label, defaultLabelColor, skillDisplay, bonusDisplay, skillDisplayTable, consoleTable);
 		}
 		
-		private Row(Techniques technique, Perk perk, Label label, Label skillDisplay, Label bonusDisplay, Table skillDisplayTable, Table consoleTable) {
+		private Row(Techniques technique, Perk perk, Label label, Color defaultLabelColor, Label skillDisplay, Label bonusDisplay, Table skillDisplayTable, Table consoleTable) {
 			this.technique = technique;
 			this.perk = perk;
 			this.label = label;
+			this.defaultLabelColor = defaultLabelColor;
 			this.skillDisplay = skillDisplay;
 			this.bonusDisplay = bonusDisplay;
 			this.skillDisplayTable = skillDisplayTable;
@@ -767,7 +776,7 @@ public class SkillSelectionScene extends Scene {
 		}		
 		
 		private void setUnselected() {
-			label.setColor(Color.WHITE);
+			label.setColor(defaultLabelColor);
 			consoleTable.addAction(Actions.show());
 			stanceTransition.addAction(Actions.hide());
 			skillDisplayTable.addAction(Actions.hide());
