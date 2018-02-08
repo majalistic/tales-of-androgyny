@@ -78,7 +78,7 @@ public enum Perk {
 	
 	public String getDescription() { return description; }
 	public boolean isLearnable() {
-		return isPositive() && this != BLOWJOB_EXPERT && this != PERFECT_BOTTOM && this != CRANK_MASTER;
+		return isPositive() && this != BLOWJOB_EXPERT && this != PERFECT_BOTTOM && this != CRANK_MASTER && this != TOP;
 	}
 	
 }
