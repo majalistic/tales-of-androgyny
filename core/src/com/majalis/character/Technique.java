@@ -395,7 +395,7 @@ public class Technique {
 			trip = tripCalc;
 			knockdown = knockdownCalc;
 			evasion = evasionCalc;
-			bleeding = technique.getSetBleed() + (currentState.getWeapon() != null && currentState.getWeapon().causesBleed() ? bleedingCalc : 0);
+			bleeding = technique.causesBleed() ? (technique.getSetBleed() + (currentState.getWeapon() != null && currentState.getWeapon().causesBleed() ? bleedingCalc : 0)) : 0;
 			counter = counterCalc;
 			priority = priorityCalc;
 			grapple = grappleCalc;

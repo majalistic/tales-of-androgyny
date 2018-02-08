@@ -34,6 +34,7 @@ public class TechniqueBuilder {
 	protected boolean ignoresArmor;
 	protected boolean setDamage;
 	protected boolean blockable;
+	protected boolean causesBleed;
 	protected int setBleed;
 	protected GrappleType grapple;
 	protected ClimaxType climaxType;
@@ -64,6 +65,7 @@ public class TechniqueBuilder {
 		ignoresArmor = false;
 		setDamage = false;
 		blockable = false;
+		causesBleed = true;
 		setBleed = 0;
 		grapple = GrappleType.NULL;
 		selfEffect = null;
@@ -107,6 +109,11 @@ public class TechniqueBuilder {
 		return this;
 	}
 	
+	public TechniqueBuilder setCausesBleed(boolean casuesBleed) {
+		this.causesBleed = casuesBleed;
+		return this;
+	}
+	
 	public TechniqueBuilder setBleed(int setBleed) {
 		this.setBleed = setBleed;
 		return this;
@@ -147,7 +154,7 @@ public class TechniqueBuilder {
 	
 	public TechniquePrototype build() {
 		String lightDescription = getDescription();
-		return new TechniquePrototype(usableStance, resultingStance, name, doesDamage, doesHealing, powerMod, staminaCost, stabilityCost, manaCost, isSpell, sex, selfSex, forceStance, knockdown, armorSunder, gutCheck, height, guardMod, parryMod, ignoresArmor, setDamage, blockable, setBleed, grapple, climaxType, selfEffect, enemyEffect, getStanceInfo() + lightDescription, lightDescription, getBonusInfo(), bonuses); 
+		return new TechniquePrototype(usableStance, resultingStance, name, doesDamage, doesHealing, powerMod, staminaCost, stabilityCost, manaCost, isSpell, sex, selfSex, forceStance, knockdown, armorSunder, gutCheck, height, guardMod, parryMod, ignoresArmor, setDamage, blockable, causesBleed, setBleed, grapple, climaxType, selfEffect, enemyEffect, getStanceInfo() + lightDescription, lightDescription, getBonusInfo(), bonuses); 
 	}	
 	
 	protected String getStanceInfo() { 
@@ -181,6 +188,10 @@ public class TechniqueBuilder {
 			builder.append("Decreases Strength dramatically, duration improved by MAG.\n");
 		}
 			
+		if (!causesBleed) {
+			builder.append("Will not cause bleed even with a sharp weapon.\n");
+		}
+		
 		if (sex.getAssTeasing() > 0) {
 			int totalAssTeasing = sex.getAssTeasing() + powerMod;
 			builder.append("Seduces the target into wanting to fuck your ass, with a power of " + totalAssTeasing + ", improved by CHR.\n");

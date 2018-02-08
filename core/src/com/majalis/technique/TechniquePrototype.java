@@ -34,6 +34,7 @@ public class TechniquePrototype {
 	private final boolean ignoresArmor;
 	private final boolean setDamage;
 	private final boolean blockable;
+	private final boolean causesBleed;
 	private final int setBleed;
 	private final GrappleType grapple;
 	private final ClimaxType climaxType;
@@ -45,7 +46,7 @@ public class TechniquePrototype {
 	private final ObjectMap<BonusCondition, Bonus> bonuses;
 	
 	protected TechniquePrototype( Stance usableStance, Stance resultingStance, String name, boolean doesDamage, boolean doesHealing, int powerMod, int staminaCost, int stabilityCost, int manaCost, boolean isSpell, SexualExperienceBuilder sex, SexualExperienceBuilder selfSex, Stance forceStance, double knockdown, int armorSunder,
-			int gutCheck, TechniqueHeight height, int guardMod, int parryMod, boolean ignoresArmor, boolean setDamage, boolean blockable, int setBleed, GrappleType grapple, ClimaxType climaxType, StatusType selfEffect, StatusType enemyEffect, String description, String lightDescription, String bonusInfo, ObjectMap<BonusCondition, Bonus> bonuses) {
+			int gutCheck, TechniqueHeight height, int guardMod, int parryMod, boolean ignoresArmor, boolean setDamage, boolean blockable, boolean causesBleed, int setBleed, GrappleType grapple, ClimaxType climaxType, StatusType selfEffect, StatusType enemyEffect, String description, String lightDescription, String bonusInfo, ObjectMap<BonusCondition, Bonus> bonuses) {
 		this.usableStance = usableStance;
 		this.resultingStance = resultingStance;
 		this.name = name;
@@ -68,6 +69,7 @@ public class TechniquePrototype {
 		this.ignoresArmor = ignoresArmor;
 		this.setDamage = setDamage;
 		this.blockable = blockable;
+		this.causesBleed = causesBleed;
 		this.setBleed = setBleed;
 		this.grapple = grapple;
 		this.climaxType = climaxType;
@@ -99,6 +101,7 @@ public class TechniquePrototype {
 	public boolean ignoresArmor() { return ignoresArmor; }
 	public boolean doesSetDamage() { return setDamage; }
 	public boolean isBlockable() { return blockable; }
+	public boolean causesBleed() { return causesBleed;}
 	public int getSetBleed() { return setBleed; }
 	public GrappleType getGrappleType() { return grapple; }
 	public SexualExperienceBuilder getSex() { return sex; }
@@ -117,4 +120,5 @@ public class TechniquePrototype {
 		LOW,
 		NONE
 	}
+
 }
