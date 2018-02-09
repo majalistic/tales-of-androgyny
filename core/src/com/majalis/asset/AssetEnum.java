@@ -34,6 +34,8 @@ public enum AssetEnum {
 	TOA("title/ToA.png"),
 	ALPHA("title/AlphaBuild.png"),
 	
+	BASIC_BOX("ui/Basic Box.png"),
+	
 	DEFAULT_BACKGROUND("battle/ForestBG.jpg"),
 	GAME_TYPE_BACKGROUND("backgrounds/GameTypeSelect.jpg"),
 	SKILL_SELECTION_BACKGROUND("backgrounds/SkillSelect.jpg"),

@@ -46,7 +46,7 @@ public abstract class AbstractTextScene extends Scene {
 		statusResults.align(Align.topRight);
 		statusResults.setPosition(1700, 985);
 		this.addActor(statusResults);
-		Label skipText = addLabel("Press CTRL to skip", skin, font, Color.BLACK, 105, 180);
+		Label skipText = addLabel("Press CTRL to skip", skin, font, Color.BLACK, 95, 180);
 		skipText.setWidth(240);
 		Texture portrait = assetManager.get(character.getPortraitPath());
 		characterPortrait = addImage(portrait, null, 105, 800, portrait.getWidth() / (portrait.getHeight() / 200f), 200);

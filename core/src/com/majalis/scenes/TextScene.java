@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
+import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane.ScrollPaneStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
@@ -47,13 +48,16 @@ public class TextScene extends AbstractTextScene  {
 		this.music = music;
 		this.sound = sound;
 		this.log = log;
-		pane = new ScrollPane(log);
+		ScrollPaneStyle paneStyle = new ScrollPaneStyle();
+		paneStyle.background = new TextureRegionDrawable(new TextureRegion(assetManager.get(AssetEnum.BASIC_BOX.getTexture())));
+		pane = new ScrollPane(log, paneStyle);
 		log.setAlignment(Align.topLeft);
 		log.setWrap(true);
 		log.setColor(Color.DARK_GRAY);
 		pane.setScrollingDisabled(true, false);
 		pane.setOverscroll(false, false);
-		pane.setBounds(325, 350, 1300, 650);
+		pane.setSize(1300, 950);
+		pane.setPosition(325, 1000, Align.topLeft);
 		showLog = new Label("Show Log", skin);
 		
 		this.addActor(showLog);
