@@ -49,6 +49,7 @@ import com.majalis.encounter.Background;
 import com.majalis.save.MutationResult;
 import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveService;
+import com.majalis.scenes.MutationActor;
 /*
  * Represents the logic for the flow of a battle.  Currently only supports 1 on 1.
  */
@@ -67,6 +68,7 @@ public class Battle extends Group{
 	private final ScrollPane techniquePane;
 	private final Table techniqueTable;
 	private final Skin skin;
+	private final Array<MutationResult> battleResults;
 	
 	private final AnimatedImage slash;
 
@@ -239,7 +241,7 @@ public class Battle extends Group{
 		}		
 	}
 	
-	public Battle(SaveService saveService, AssetManager assetManager, final PlayerCharacter character, final EnemyCharacter enemy, ObjectMap<String, Integer> outcomes, Background battleBackground, Background battleUI, String consoleText, String dialogText, AssetEnum musicPath) {
+	public Battle(SaveService saveService, AssetManager assetManager, final PlayerCharacter character, final EnemyCharacter enemy, ObjectMap<String, Integer> outcomes, Background battleBackground, Background battleUI, String consoleText, String dialogText, Array<MutationResult> battleResults, AssetEnum musicPath) {
 		this.saveService = saveService;
 		this.assetManager = assetManager;
 		this.character = character;
@@ -247,6 +249,7 @@ public class Battle extends Group{
 		this.outcomes = outcomes;
 		this.consoleText = consoleText;
 		this.dialogText = dialogText;
+		this.battleResults = battleResults;
 		this.musicPath = musicPath;
 		battleOver = false;
 		battleOutcomeDecided = false;
@@ -1241,6 +1244,21 @@ public class Battle extends Group{
 			outcome = battleOutcome; 
 			skillDisplay.setText(enemy.getOutcomeText(character));
 			bonusDisplay.setText("");
+			
+			Table statusResults = new Table();
+			statusResults.align(Align.topLeft);
+			Label newLabel = new Label("Results: ", skin);
+			newLabel.setColor(Color.BLACK);
+			statusResults.add(newLabel).fillY().align(Align.left).row();
+			Array<MutationResult> compactedResults = MutationResult.collapse(battleResults); 
+			for (MutationResult result : compactedResults) {
+				statusResults.add(new MutationActor(result, assetManager.get(result.getTexture()), skin, true)).fillY().padLeft(50).align(Align.left).row();
+			}
+			
+			statusResults.setPosition(460, 400);
+			
+			hoverGroup.addActor(statusResults);			
+			
 			uiGroup.removeActor(techniquePane);
 			hoverGroup.clearActions();
 			hoverGroup.addAction(visible(true));

@@ -12,6 +12,7 @@ import com.majalis.encounter.Background.BackgroundBuilder;
 import com.majalis.character.Stance;
 import com.majalis.character.Arousal.ArousalLevel;
 import com.majalis.save.LoadService;
+import com.majalis.save.MutationResult;
 import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveManager;
 import com.majalis.save.SaveService;
@@ -29,6 +30,7 @@ public class BattleFactory {
 		this.assetManager = assetManager;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public Battle getBattle(BattleAttributes battleAttributes, PlayerCharacter playerCharacter) {
 		EnemyCharacter enemy = loadService.loadDataValue(SaveEnum.ENEMY, EnemyCharacter.class);
 		// need a new Enemy
@@ -60,12 +62,11 @@ public class BattleFactory {
 			}
 			enemy.init(enemy.getTextures(assetManager), textures, enemy.getAnimations(assetManager));
 		}
-		@SuppressWarnings("unchecked")
 		Array<String> console = (Array<String>) loadService.loadDataValue(SaveEnum.CONSOLE, Array.class);
 		return new Battle(
 			saveService, assetManager, playerCharacter, enemy, battleAttributes.getOutcomes(), 
 			new BackgroundBuilder((Texture)assetManager.get(enemy.getBGPath())).build(), new BackgroundBuilder(assetManager.get(AssetEnum.BATTLE_UI.getTexture())).build(),
-			console.size > 0 ? console.get(0) : "", console.size > 1 ? console.get(1) : "", battleAttributes.getMusic()
+			console.size > 0 ? console.get(0) : "", console.size > 1 ? console.get(1) : "", (Array<MutationResult>) loadService.loadDataValue(SaveEnum.BATTLE_RESULT, Array.class), battleAttributes.getMusic()
 		);
 	}
 }
