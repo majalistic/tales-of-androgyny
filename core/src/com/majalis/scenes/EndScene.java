@@ -112,10 +112,6 @@ public class EndScene extends Scene {
 		}
 	}
 
-	public Type getType() {
-		return type;
-	}
-	
 	@Override
 	public void setActive() {
 		isActive = true;
