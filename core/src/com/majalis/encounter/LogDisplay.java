@@ -22,7 +22,7 @@ public class LogDisplay extends Label {
 			String logResult = "";
 			for (int sceneCode : log.toArray()) {
 				Scene temp = sceneMap.get(sceneCode);
-				if (temp != null) logResult += temp.getText() + "\n";
+				if (temp != null && !temp.getText().equals("")) logResult += temp.getText() + "\n";
 			}
 			displayText = logResult.equals("") ? "" : logResult.trim();
 			setText(displayText);

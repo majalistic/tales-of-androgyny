@@ -142,4 +142,15 @@ public class ChoiceScene extends AbstractChoiceScene {
 		}
 		batch.draw(arrowImage, 840 - (buttons.get(selection).getText().length() * 10), 750 - selection * 150, 100, 150);
     }
+	@Override
+	public String getText() {
+		return "Choice: " + choiceDialogue + "\n" + getChoicesLabel();
+	}
+	private String getChoicesLabel() {
+		String temp = "";
+		for (BranchChoice choice : choices) {
+			temp += "> " + choice.button.getText() + "\n";
+		}
+		return temp.trim();
+	}
 }

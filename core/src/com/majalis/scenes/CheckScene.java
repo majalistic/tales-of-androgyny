@@ -123,6 +123,11 @@ public class CheckScene extends AbstractTextScene {
 		addAction(Actions.hide());	
 	}
 	
+	@Override
+	public String getText() {
+		return statToCheck != null ? statToCheck.getLabel() + " check!" : perkToCheck != null ? perkToCheck.getLabel() + " check!" : "";
+	}
+	
 	public enum CheckType {
 		VIRGIN ("Are you an anal virgin? PASSED!", "Are you an anal virgin? FAILURE!") { 
 			@Override
