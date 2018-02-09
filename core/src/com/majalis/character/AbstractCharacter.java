@@ -410,7 +410,7 @@ public abstract class AbstractCharacter extends Actor {
 		heartbeat++;
 		int bleedDamage = getBloodLossDamage();
 		if (bleedDamage > 0) {
-			resolvedAttack.addResults(modHealth(-getBloodLossDamage()));
+			resolvedAttack.addAttackerResults(modHealth(-getBloodLossDamage()));
 			resolvedAttack.addMessage(label + (secondPerson ? " bleed" : " bleeds") + " out for " + getBloodLossDamage() + " damage!");
 		}
 		
@@ -428,15 +428,17 @@ public abstract class AbstractCharacter extends Actor {
 		}
 		
 		if (resolvedAttack.getItem() != null) {
-			resolvedAttack.addResults(new Array<MutationResult>(new MutationResult[]{new MutationResult("You used a " + resolvedAttack.getItem().getName() + ".")}));
-			resolvedAttack.addMessage(consumeItem(resolvedAttack.getItem(), true));
+			UseItemEffect effect = consumeItem(resolvedAttack.getItem(), true);
+			resolvedAttack.addMessage(effect.resultDisplay);
+			resolvedAttack.addAttackerResults(effect.results);
+			resolvedAttack.addAttackerResults(new Array<MutationResult>(new MutationResult[]{new MutationResult("You used a " + resolvedAttack.getItem().getName() + ".")}));
 		}
 		else if (!resolvedAttack.isAttack() && !resolvedAttack.isClimax() && resolvedAttack.getSex().isEmpty()) {
 			resolvedAttack.addMessage(resolvedAttack.getUser() + " used " + resolvedAttack.getName() + "!");
 		}
 		
 		if (resolvedAttack.isHealing()) {
-			resolvedAttack.addResults(modHealth(resolvedAttack.getHealing()));
+			resolvedAttack.addAttackerResults(modHealth(resolvedAttack.getHealing()));
 			resolvedAttack.addMessage(resolvedAttack.getUser() + " heal" + (secondPerson ? "" : "s" ) + " for " + resolvedAttack.getHealing()+"!");
 		}
 		Buff buff = resolvedAttack.getSelfEffect();
@@ -560,17 +562,20 @@ public abstract class AbstractCharacter extends Actor {
 	public static class AttackResult {
 		private final Array<String> messages;
 		private final Array<String> dialog;
-		private final Array<MutationResult> results;
+		private final Array<MutationResult> attackerResults;
+		private final Array<MutationResult> defenderResults;
 		
-		protected AttackResult(Array<String> messages, Array<String> dialog, Array<MutationResult> results) {
+		protected AttackResult(Array<String> messages, Array<String> dialog, Array<MutationResult> attackerResults, Array<MutationResult> defenderResults) {
 			this.messages = messages;
 			this.dialog = dialog;
-			this.results = results;
+			this.attackerResults = attackerResults;
+			this.defenderResults = defenderResults;
 		}
 		
 		public Array<String> getMessages() { return messages; }
 		public Array<String> getDialog() { return dialog; }
-		public Array<MutationResult> getResults() { return results; }
+		public Array<MutationResult> getAttackerResults() { return attackerResults; }
+		public Array<MutationResult> getDefenderResults() { return defenderResults; }
 	}
 	
 	// return an array of array of strings and mutation results packaged together, save the mutation results into the battle results but that doesn't work either because doAttack can also cause mutations
@@ -632,7 +637,7 @@ public abstract class AbstractCharacter extends Actor {
 			}
 			
 			if (damage > 0) {	
-				attack.addResults(modHealth(-damage));				
+				attack.addDefenderResults(modHealth(-damage));				
 				result.add("The blow strikes for " + damage + " damage!");
 				if (!(attack.ignoresArmor() || ((hitArmor == null || hitArmor.getDurability() == 0)))) {
 					result.add("The blow strikes off the armor!");
@@ -761,12 +766,12 @@ public abstract class AbstractCharacter extends Actor {
 			String internalShotText = null;
 			if (attack.getClimaxType() == ClimaxType.ANAL) {
 				Array<MutationResult> temp = fillButt(attack.getClimaxVolume());
-				attack.addResults(temp);		
+				attack.addDefenderResults(temp);		
 				if (temp.size > 0) internalShotText = temp.first().getText();
 			}
 			else if (attack.getClimaxType() == ClimaxType.ORAL) {
 				Array<MutationResult> temp = fillMouth(1);
-				attack.addResults(temp);	
+				attack.addDefenderResults(temp);	
 				if (temp.size > 0) internalShotText = temp.first().getText();
 			}
 			if (internalShotText != null) result.add(internalShotText);
@@ -804,7 +809,7 @@ public abstract class AbstractCharacter extends Actor {
 			}
 		}
 		
-		return new AttackResult(result, new Array<String>(), attack.getResults());
+		return new AttackResult(result, new Array<String>(), attack.getAttackerResults(), attack.getDefenderResults());
 	}
 	
 	protected String increaseLust(SexualExperience ... sexes) {
@@ -819,15 +824,31 @@ public abstract class AbstractCharacter extends Actor {
 	protected abstract String climax();
 	protected boolean canBleed() { return true; }
 	
-	public String consumeItem(Item item) { return consumeItem(item, false); }
-	public String consumeItem(Item item, boolean combatUse) {
+	protected Array<MutationResult> getResult(String text) { return new Array<MutationResult>(new MutationResult[]{new MutationResult(text)}); }
+	protected Array<MutationResult> getResult(String text, int mod, MutationType type) { return new Array<MutationResult>(new MutationResult[]{new MutationResult(text, mod, type)}); }
+	
+	public class UseItemEffect {
+		private final String resultDisplay;
+		private final Array<MutationResult> results;
+		private UseItemEffect(String resultDisplay, Array<MutationResult> results) {
+			this.resultDisplay = resultDisplay;
+			this.results = results;
+		}
+		
+		public String getResult() { return resultDisplay; }
+		
+	}
+	
+	public UseItemEffect consumeItem(Item item) { return consumeItem(item, false); }
+	public UseItemEffect consumeItem(Item item, boolean combatUse) {
 		ItemEffect effect = item.getUseEffect();
-		if (effect == null) { return "Item cannot be used."; }
+		Array<MutationResult> results = new Array<MutationResult>();
+		if (effect == null) { return new UseItemEffect("Item cannot be used.", results); }
 		String result = "";
 		switch (effect.getType()) {
 			case HEALING:
 				int currentHealth = getCurrentHealth();
-				modHealth(effect.getMagnitude());
+				results.addAll(modHealth(effect.getMagnitude()));
 				result = "You used " + item.getName() + " and restored " + String.valueOf(getCurrentHealth() - currentHealth) + " health!";
 				break;
 			case MANA:
@@ -850,11 +871,11 @@ public abstract class AbstractCharacter extends Actor {
 				break;
 			case MEAT:
 				result = "You ate the " + item.getName() + "! Hunger decreased by 5.";
-				modFood(effect.getMagnitude());
+				results.addAll(modFood(effect.getMagnitude()));
 				break;
 			case SPIDER:
 				result = "You ate the " + item.getName() + "?! WHY?! Hunger decreased by 5, uhhhhhhh?";
-				modFood(effect.getMagnitude());
+				results.addAll(modFood(effect.getMagnitude()));
 				break;
 			case SLIME:
 				result = "You ate the " + item.getName() + ", temporarily increasing defense by " + effect.getMagnitude() + ".";
@@ -879,7 +900,7 @@ public abstract class AbstractCharacter extends Actor {
 			inventory.removeValue(item, true);
 		}
 		
-		return result;
+		return new UseItemEffect(result, results);
 	}
 	
 	public boolean disarm() {

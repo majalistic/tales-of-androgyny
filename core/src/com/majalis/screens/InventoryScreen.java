@@ -227,7 +227,7 @@ public class InventoryScreen extends AbstractScreen {
 			@Override
 	        public void clicked(InputEvent event, float x, float y) {
 				buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
-				result = character.consumeItem(item);
+				result = character.consumeItem(item).getResult();
 				consoleText.setText(result);
 				saveService.saveDataValue(SaveEnum.PLAYER, character);
 				inventoryTable.clear();

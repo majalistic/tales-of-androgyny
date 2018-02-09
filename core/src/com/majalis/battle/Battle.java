@@ -873,13 +873,14 @@ public class Battle extends Group{
 			AttackResult results = firstCharacter.receiveAttack(attackForFirstCharacter);
 			printToConsole(results.getMessages());
 			printToDialog(results.getDialog());
-			playerResults.addAll(results.getResults());
+			playerResults.addAll(results.getDefenderResults());
 		}
 		
 		for (Attack attackForSecondCharacter : attacksForSecondCharacter) {
 			AttackResult results = secondCharacter.receiveAttack(attackForSecondCharacter);
 			printToConsole(results.getMessages());
 			printToDialog(results.getDialog());
+			playerResults.addAll(results.getAttackerResults());
 		}
 		
 		for (Attack attackForFirstCharacter : attacksForFirstCharacter) {

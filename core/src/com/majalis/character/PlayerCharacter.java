@@ -765,7 +765,7 @@ public class PlayerCharacter extends AbstractCharacter {
 		else if (stance == Stance.SIXTY_NINE) {
 			resolvedAttack.addMessage("She shoves her cock down your throat while swallowing yours!");
 		}
-		return new AttackResult(resolvedAttack.getMessages(), resolvedAttack.getDialog(), resolvedAttack.getResults());	
+		return new AttackResult(resolvedAttack.getMessages(), resolvedAttack.getDialog(), resolvedAttack.getAttackerResults(), resolvedAttack.getDefenderResults());	
 	}
 	
 	@Override
@@ -1248,14 +1248,6 @@ public class PlayerCharacter extends AbstractCharacter {
 			inventory.add(item);
 		}
 		return getResult("You have received a(n) " + item.getName() + "!");
-	}
-	
-	private Array<MutationResult> getResult(String text) {
-		return new Array<MutationResult>(new MutationResult[]{new MutationResult(text)});
-	}
-	
-	private Array<MutationResult> getResult(String text, int mod, MutationType type) {
-		return new Array<MutationResult>(new MutationResult[]{new MutationResult(text, mod, type)});
 	}
 	
 	public boolean buyItem(Item item, int cost) {

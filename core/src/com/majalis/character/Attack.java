@@ -39,8 +39,9 @@ public class Attack {
 	private final AbstractCharacter user;
 	
 	private final Array<String> results;
-	private final Array<MutationResult> mutationResults;
 	private final Array<String> dialog;
+	private final Array<MutationResult> attackerResults;
+	private final Array<MutationResult> defenderResults;
 	
 	public enum Status {
 		SUCCESS,
@@ -84,7 +85,8 @@ public class Attack {
 		this.user = user;
 
 		this.results = new Array<String>();
-		this.mutationResults = new Array<MutationResult>();
+		this.attackerResults = new Array<MutationResult>();
+		this.defenderResults = new Array<MutationResult>();
 		this.dialog = new Array<String>();
 	}
 	
@@ -113,8 +115,10 @@ public class Attack {
 	protected Array<String> getMessages() { return results; }
 	protected void addDialog(String message) { dialog.add(message); }
 	protected Array<String> getDialog() { return dialog; }
-	protected void addResults(Array<MutationResult> results) { mutationResults.addAll(results); }
-	protected Array<MutationResult> getResults() { return mutationResults; }
+	protected void addAttackerResults(Array<MutationResult> results) { attackerResults.addAll(results); }
+	protected Array<MutationResult> getAttackerResults() { return attackerResults; }
+	protected void addDefenderResults(Array<MutationResult> results) { defenderResults.addAll(results); }
+	protected Array<MutationResult> getDefenderResults() { return defenderResults; }
 	public boolean isClimax() { return climaxType != null; }
 	protected ClimaxType getClimaxType() { return climaxType; }
 	public boolean isSpell() { return isSpell; }
