@@ -100,12 +100,12 @@ public class TextScene extends AbstractTextScene  {
 		}
 	}
 	
-	// careful!  This calls mutate() on all the mutations, which does not flush to the save file! Causing a flush to the save file in this method will cause mutations to replay every time this scene is loaded
+	// careful!  This calls mutate() on all the mutations, which does not flush to the save file! Causing a flush to the save file in this method will cause mutations to replay every time this scene is loaded - super.setActive() flushes the save when it saves the scenecode and must be called first
 	@Override
 	public void setActive() {
 		super.setActive();
 		if (music != null) {
-			saveService.saveDataValue(SaveEnum.MUSIC, music);
+			saveService.saveDataValue(SaveEnum.MUSIC, music, false);
 		};
 		if (sound != null) {
 			assetManager.get(sound).play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume", 1) * .5f);
