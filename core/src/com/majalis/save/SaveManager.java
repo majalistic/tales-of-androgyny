@@ -114,8 +114,9 @@ public class SaveManager implements SaveService, LoadService {
 	    	case GOBLIN_VIRGIN:		save.player.setGoblinVirginity((Boolean) object); break;
 	    	case QUEST: 			QuestFlag flag = (QuestFlag) object; save.player.setQuestStatus(flag.type, flag.value); break;
 	    	case RESULT: 			save.results.addAll((Array<MutationResult>) object); break;
+	    	case BATTLE_RESULT: 	save.battleResults.addAll((Array<MutationResult>) object); break;
 	    	case PORTRAIT:			if (object == null) save.player.popPortraitPath(); else save.player.setCurrentPortrait((AssetEnum)object); break;
-	    	case ENCOUNTER_END:		save.player.refresh(); save.sceneCode.clear(); save.results.clear(); break;
+	    	case ENCOUNTER_END:		save.player.refresh(); save.sceneCode.clear(); save.results.clear(); save.battleResults.clear(); break;
 	    	case GAME_OVER: 		save.player.setGameOver((GameOver) object);
     	}	
     	if (saveToJson) { saveToJson(save); } //Saves current save immediately
@@ -161,6 +162,7 @@ public class SaveManager implements SaveService, LoadService {
 	    	case SHOP:				return (T) (ObjectMap<String, Shop>) save.shops;
 	    	case TIME :				return (T) (Integer) save.player.getTime();
 	    	case RESULT:			return (T) save.results;
+	    	case BATTLE_RESULT: 	return (T) save.battleResults;
     	}	
     	return null;
     }
@@ -303,6 +305,7 @@ public class SaveManager implements SaveService, LoadService {
     	private EnemyCharacter enemy;
     	private ObjectMap<String, Shop> shops;
 		private Array<MutationResult> results;
+		private Array<MutationResult> battleResults;
 		
 		// legacy attributes
     	@SuppressWarnings("unused")
@@ -315,6 +318,7 @@ public class SaveManager implements SaveService, LoadService {
 			visitedNodeList = new IntMap<VisitInfo>();
 			visitedNodeList.put(1,  new VisitInfo(1, 0, 0, 1)); 
 			town = TownCode.TOWN_STORY;
+			battleResults = new Array<MutationResult>();
 		}
     	
 		// default save values-
@@ -333,6 +337,7 @@ public class SaveManager implements SaveService, LoadService {
         		visitedNodeList.put(1,  new VisitInfo(1, 0, 0, 1));
         		player = new PlayerCharacter(true);
         		results = new Array<MutationResult>();
+        		battleResults = new Array<MutationResult>();
     		}
     	}
     }

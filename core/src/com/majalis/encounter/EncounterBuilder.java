@@ -64,10 +64,11 @@ public class EncounterBuilder {
 	private final OrderedMap<Integer, Scene> masterSceneMap;
 	private final ObjectMap<AnimationEnum, AnimatedActor> animationCache;
 	private final Array<MutationResult> results;
+	private final Array<MutationResult> battleResults;
 	// can probably be replaced with a call to scenes.size
 	private int sceneCounter;
 	
-	protected EncounterBuilder(EncounterReader reader, AssetManager assetManager, SaveService saveService, BitmapFont font, IntArray sceneCodes, ObjectMap<String, Shop> shops, PlayerCharacter character, Array<MutationResult> results) {
+	protected EncounterBuilder(EncounterReader reader, AssetManager assetManager, SaveService saveService, BitmapFont font, IntArray sceneCodes, ObjectMap<String, Shop> shops, PlayerCharacter character, Array<MutationResult> results, Array<MutationResult> battleResults) {
 		this.reader = reader;
 		this.assetManager = assetManager;
 		this.saveService = saveService;
@@ -76,6 +77,7 @@ public class EncounterBuilder {
 		this.shops = shops == null ? new ObjectMap<String, Shop>() : shops;
 		this.character = character;
 		this.results = results;
+		this.battleResults = battleResults;
 		this.animationCache = new ObjectMap<AnimationEnum, AnimatedActor>();
 		sceneCounter = 1;
 		masterSceneMap = new OrderedMap<Integer, Scene>();
@@ -376,8 +378,8 @@ public class EncounterBuilder {
 					case EndGame:
 					case EndEncounter:
 						EndScene newEndScene = branchToken.type == EndTokenType.EndEncounter ? 
-							new EndScene(sceneCounter, EndScene.Type.ENCOUNTER_OVER, saveService, assetManager, getEndBackground(), new LogDisplay(sceneCodes, masterSceneMap, skin), results) :
-							new EndScene(sceneCounter, EndScene.Type.GAME_OVER, saveService, assetManager, getEndBackground(), new LogDisplay(sceneCodes, masterSceneMap, skin), results, ((EndSceneToken)branchToken).getGameOver());
+							new EndScene(sceneCounter, EndScene.Type.ENCOUNTER_OVER, saveService, assetManager, getEndBackground(), new LogDisplay(sceneCodes, masterSceneMap, skin), results, battleResults) :
+							new EndScene(sceneCounter, EndScene.Type.GAME_OVER, saveService, assetManager, getEndBackground(), new LogDisplay(sceneCodes, masterSceneMap, skin), results, battleResults, ((EndSceneToken)branchToken).getGameOver());
 						sceneMap = addScene(scenes, newEndScene, true);		
 						break;
 				}
@@ -390,7 +392,7 @@ public class EncounterBuilder {
 			
 			// catch if there's an unplugged branch without an end scene
 			if (sceneMap.size == 0) {
-				sceneMap = addScene(scenes, new EndScene(sceneCounter, EndScene.Type.ENCOUNTER_OVER, saveService, assetManager, getEndBackground(), new LogDisplay(sceneCodes, masterSceneMap, skin), results), true);		
+				sceneMap = addScene(scenes, new EndScene(sceneCounter, EndScene.Type.ENCOUNTER_OVER, saveService, assetManager, getEndBackground(), new LogDisplay(sceneCodes, masterSceneMap, skin), results, battleResults), true);		
 			}
 			
 			String characterName = character.getCharacterName();

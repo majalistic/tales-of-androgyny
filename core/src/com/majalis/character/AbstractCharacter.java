@@ -359,7 +359,6 @@ public abstract class AbstractCharacter extends Actor {
 	
 	// right now this and "doAttack" handle once-per-turn character activities
 	public void extractCosts(Technique technique) {
-		
 		oldStance = stance;
 		stance = !technique.getStance().isNull() ? technique.getStance() : stance;
 		if (oldStance != Stance.PRONE && oldStance != Stance.SUPINE && (stance == Stance.PRONE || stance == Stance.SUPINE)) {
@@ -370,7 +369,6 @@ public abstract class AbstractCharacter extends Actor {
 		modStamina(-staminaMod);
 		modStability(getStabilityRegen() - technique.getStabilityCost());
 		modMana(-technique.getManaCost());
-		modHealth(-getBloodLossDamage());
 		
 		Array<String> toRemove = new Array<String>();
 		// statuses degrade with time in a general way currently
@@ -412,6 +410,7 @@ public abstract class AbstractCharacter extends Actor {
 		heartbeat++;
 		int bleedDamage = getBloodLossDamage();
 		if (bleedDamage > 0) {
+			resolvedAttack.addResults(modHealth(-getBloodLossDamage()));
 			resolvedAttack.addMessage(label + (secondPerson ? " bleed" : " bleeds") + " out for " + getBloodLossDamage() + " damage!");
 		}
 		
@@ -429,6 +428,7 @@ public abstract class AbstractCharacter extends Actor {
 		}
 		
 		if (resolvedAttack.getItem() != null) {
+			resolvedAttack.addResults(new Array<MutationResult>(new MutationResult[]{new MutationResult("You used a " + resolvedAttack.getItem().getName() + ".")}));
 			resolvedAttack.addMessage(consumeItem(resolvedAttack.getItem(), true));
 		}
 		else if (!resolvedAttack.isAttack() && !resolvedAttack.isClimax() && resolvedAttack.getSex().isEmpty()) {
@@ -436,7 +436,7 @@ public abstract class AbstractCharacter extends Actor {
 		}
 		
 		if (resolvedAttack.isHealing()) {
-			modHealth(resolvedAttack.getHealing());
+			resolvedAttack.addResults(modHealth(resolvedAttack.getHealing()));
 			resolvedAttack.addMessage(resolvedAttack.getUser() + " heal" + (secondPerson ? "" : "s" ) + " for " + resolvedAttack.getHealing()+"!");
 		}
 		Buff buff = resolvedAttack.getSelfEffect();
@@ -557,7 +557,24 @@ public abstract class AbstractCharacter extends Actor {
 		return armor != null ? armor.getShockAbsorption() : 0;
 	}
 	
-	public Array<Array<String>> receiveAttack(Attack attack) {
+	public static class AttackResult {
+		private final Array<String> messages;
+		private final Array<String> dialog;
+		private final Array<MutationResult> results;
+		
+		protected AttackResult(Array<String> messages, Array<String> dialog, Array<MutationResult> results) {
+			this.messages = messages;
+			this.dialog = dialog;
+			this.results = results;
+		}
+		
+		public Array<String> getMessages() { return messages; }
+		public Array<String> getDialog() { return dialog; }
+		public Array<MutationResult> getResults() { return results; }
+	}
+	
+	// return an array of array of strings and mutation results packaged together, save the mutation results into the battle results but that doesn't work either because doAttack can also cause mutations
+	public AttackResult receiveAttack(Attack attack) {
 		Array<String> result = attack.getMessages();
 		boolean knockedDown = false;
 		grappleStatus = attack.getGrapple();
@@ -615,7 +632,7 @@ public abstract class AbstractCharacter extends Actor {
 			}
 			
 			if (damage > 0) {	
-				modHealth(-damage);
+				attack.addResults(modHealth(-damage));				
 				result.add("The blow strikes for " + damage + " damage!");
 				if (!(attack.ignoresArmor() || ((hitArmor == null || hitArmor.getDurability() == 0)))) {
 					result.add("The blow strikes off the armor!");
@@ -744,10 +761,12 @@ public abstract class AbstractCharacter extends Actor {
 			String internalShotText = null;
 			if (attack.getClimaxType() == ClimaxType.ANAL) {
 				Array<MutationResult> temp = fillButt(attack.getClimaxVolume());
+				attack.addResults(temp);		
 				if (temp.size > 0) internalShotText = temp.first().getText();
 			}
 			else if (attack.getClimaxType() == ClimaxType.ORAL) {
 				Array<MutationResult> temp = fillMouth(1);
+				attack.addResults(temp);	
 				if (temp.size > 0) internalShotText = temp.first().getText();
 			}
 			if (internalShotText != null) result.add(internalShotText);
@@ -785,10 +804,7 @@ public abstract class AbstractCharacter extends Actor {
 			}
 		}
 		
-		Array<Array<String>> results =  new Array<Array<String>>();
-		results.add(result);
-		results.add(new Array<String>());
-		return results;
+		return new AttackResult(result, new Array<String>(), attack.getResults());
 	}
 	
 	protected String increaseLust(SexualExperience ... sexes) {

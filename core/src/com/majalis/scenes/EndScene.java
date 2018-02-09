@@ -33,6 +33,7 @@ public class EndScene extends Scene {
 	private final SaveService saveService;
 	private final Background background;
 	private final Array<MutationResult> results;
+	private final Array<MutationResult> battleResults;
 	private final AssetManager assetManager;
 	private final Table statusResults;
 	private final Label showLog;
@@ -43,14 +44,16 @@ public class EndScene extends Scene {
 	private final GameOver gameOver;
 	private boolean finished;
 	
-	public EndScene(int sceneCode, Type type, SaveService saveService, AssetManager assetManager, final Background background, LogDisplay log, Array<MutationResult> results) { this(sceneCode, type, saveService, assetManager, background, log, results, GameOver.DEFAULT); }
-	public EndScene(int sceneCode, Type type, SaveService saveService, AssetManager assetManager, final Background background, LogDisplay log, Array<MutationResult> results, GameOver gameOver) {
+	public EndScene(int sceneCode, Type type, SaveService saveService, AssetManager assetManager, final Background background, LogDisplay log, Array<MutationResult> results, Array<MutationResult> battleResults) 
+		{ this(sceneCode, type, saveService, assetManager, background, log, results, battleResults, GameOver.DEFAULT); }
+	public EndScene(int sceneCode, Type type, SaveService saveService, AssetManager assetManager, final Background background, LogDisplay log, Array<MutationResult> results, Array<MutationResult> battleResults, GameOver gameOver) {
 		super(null, sceneCode);
 		this.type = type;
 		this.saveService = saveService;
 		this.assetManager = assetManager;
 		this.background = background;
 		this.results = results;
+		this.battleResults = battleResults;
 		this.gameOver = gameOver;
 		this.addActor(background);
 		pane = new ScrollPane(log);
@@ -137,6 +140,16 @@ public class EndScene extends Scene {
 		for (MutationResult result : compactedResults) {
 			statusResults.add(new MutationActor(result, assetManager.get(result.getTexture()), skin, true)).fillY().padLeft(50).align(Align.left).row();
 		}
+		if (battleResults != null && battleResults.size != 0) {
+			Label battleText = new Label("Battle: ", skin);
+			battleText.setColor(Color.BLACK);
+			statusResults.add(battleText).fillY().align(Align.left).row();
+			Array<MutationResult> compactedBattleResults = MutationResult.collapse(battleResults); 
+			for (MutationResult result : compactedBattleResults) {
+				statusResults.add(new MutationActor(result, assetManager.get(result.getTexture()), skin, true)).fillY().padLeft(50).align(Align.left).row();
+			}
+		}
+		
 		group.addActor(statusResults);
 		Label clickToContinue = new Label("Click to continue... ", skin);
 		clickToContinue.setColor(Color.BLACK);

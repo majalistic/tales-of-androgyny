@@ -36,6 +36,6 @@ public class EncounterFactory {
 		IntArray sceneCode = loadService.loadDataValue(SaveEnum.SCENE_CODE, IntArray.class);
 		return encounterCode.getEncounter(new EncounterBuilder(
 			readers.get(encounterCode.getScriptPath()), assetManager, saveService, font, sceneCode, (ObjectMap<String, Shop>)loadService.loadDataValue(SaveEnum.SHOP, Shop.class), (PlayerCharacter) loadService.loadDataValue(SaveEnum.PLAYER, PlayerCharacter.class),
-			 (Array<MutationResult>) loadService.loadDataValue(SaveEnum.RESULT, Array.class)), (GameMode) loadService.loadDataValue(SaveEnum.MODE, GameMode.class)); 
+			 (Array<MutationResult>) loadService.loadDataValue(SaveEnum.RESULT, Array.class), (Array<MutationResult>) loadService.loadDataValue(SaveEnum.BATTLE_RESULT, Array.class)), (GameMode) loadService.loadDataValue(SaveEnum.MODE, GameMode.class)); 
 	}
 }

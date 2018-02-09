@@ -37,6 +37,7 @@ public enum SaveEnum {
 	SCOUT, 
 	PORTRAIT, 
 	RESULT,
+	BATTLE_RESULT,
 	TOWN, 
 	GAME_OVER
 }

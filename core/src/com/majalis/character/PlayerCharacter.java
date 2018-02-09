@@ -692,7 +692,7 @@ public class PlayerCharacter extends AbstractCharacter {
 	}
 	
 	@Override
-	public Array<Array<String>> receiveAttack(Attack resolvedAttack) {
+	public AttackResult receiveAttack(Attack resolvedAttack) {
 		super.receiveAttack(resolvedAttack);
 		
 		String result;
@@ -765,10 +765,7 @@ public class PlayerCharacter extends AbstractCharacter {
 		else if (stance == Stance.SIXTY_NINE) {
 			resolvedAttack.addMessage("She shoves her cock down your throat while swallowing yours!");
 		}
-		Array<Array<String>> results =  new Array<Array<String>>();
-		results.add(resolvedAttack.getMessages());
-		results.add(resolvedAttack.getDialog());
-		return results;	
+		return new AttackResult(resolvedAttack.getMessages(), resolvedAttack.getDialog(), resolvedAttack.getResults());	
 	}
 	
 	@Override

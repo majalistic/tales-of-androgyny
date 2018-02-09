@@ -36,6 +36,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.majalis.asset.AnimatedImage;
 import com.majalis.asset.AssetEnum;
 import com.majalis.character.AbstractCharacter;
+import com.majalis.character.AbstractCharacter.AttackResult;
 import com.majalis.character.AbstractCharacter.Stability;
 import com.majalis.character.Stance;
 import com.majalis.character.Attack.Status;
@@ -45,6 +46,7 @@ import com.majalis.character.GrappleStatus;
 import com.majalis.character.PlayerCharacter;
 import com.majalis.character.Technique;
 import com.majalis.encounter.Background;
+import com.majalis.save.MutationResult;
 import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveService;
 /*
@@ -760,7 +762,7 @@ public class Battle extends Group{
 			if (selectedTechnique != null) {		
 				soundMap.get(AssetEnum.BUTTON_SOUND).play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
 				// possibly construct a separate class for this
-				resolveTechniques(character, selectedTechnique, enemy, enemySelectedTechnique);
+				Array<MutationResult> results = resolveTechniques(character, selectedTechnique, enemy, enemySelectedTechnique);
 				selectedTechnique = null;
 				displayTechniqueOptions();
 				saveService.saveDataValue(SaveEnum.PLAYER, character);
@@ -769,6 +771,7 @@ public class Battle extends Group{
 				consoleComponents.add(consoleText);
 				consoleComponents.add(dialogText);
 				saveService.saveDataValue(SaveEnum.CONSOLE, consoleComponents);
+				saveService.saveDataValue(SaveEnum.BATTLE_RESULT, results);
 			}
 
 			checkEndBattle();
@@ -828,7 +831,7 @@ public class Battle extends Group{
 	}
 	
 	//  may need to be broken up into its own class or have much of it refactored into AbstractCharacter for loose coupling
-	private void resolveTechniques(AbstractCharacter firstCharacter, Technique firstTechnique, AbstractCharacter secondCharacter, Technique secondTechnique) {
+	private Array<MutationResult> resolveTechniques(AbstractCharacter firstCharacter, Technique firstTechnique, AbstractCharacter secondCharacter, Technique secondTechnique) {
 		consoleText = "";
 		dialogText = "";
 		int oldCharacterHealth = character.getCurrentHealth();
@@ -863,18 +866,20 @@ public class Battle extends Group{
 		// receive the final state information from each character to apply to their attacks
 		Array<Attack> attacksForFirstCharacter = doAttacks(secondCharacter, secondTechnique.resolve(firstTechnique));
 		Array<Attack> attacksForSecondCharacter = doAttacks(firstCharacter, firstTechnique.resolve(secondTechnique));
+		Array<MutationResult> playerResults = new Array<MutationResult>();
 		
 		// final mutations - attacks are applied to each character, their cached state within the techniques makes the ordering her irrelevant
 		for (Attack attackForFirstCharacter : attacksForFirstCharacter) {
-			Array<Array<String>> results = firstCharacter.receiveAttack(attackForFirstCharacter);
-			printToConsole(results.get(0));
-			printToDialog(results.get(1));
+			AttackResult results = firstCharacter.receiveAttack(attackForFirstCharacter);
+			printToConsole(results.getMessages());
+			printToDialog(results.getDialog());
+			playerResults.addAll(results.getResults());
 		}
 		
 		for (Attack attackForSecondCharacter : attacksForSecondCharacter) {
-			Array<Array<String>> results = secondCharacter.receiveAttack(attackForSecondCharacter);
-			printToConsole(results.get(0));
-			printToDialog(results.get(1));
+			AttackResult results = secondCharacter.receiveAttack(attackForSecondCharacter);
+			printToConsole(results.getMessages());
+			printToDialog(results.getDialog());
 		}
 		
 		for (Attack attackForFirstCharacter : attacksForFirstCharacter) {
@@ -1007,7 +1012,7 @@ public class Battle extends Group{
 		
 		console.setText(consoleText);
 		dialog.setText(dialogText);
-		
+	
 		setDiffLabel(characterHealthDiff, character.getCurrentHealth() - oldCharacterHealth);
 		setDiffLabel(characterStaminaDiff, character.getCurrentStamina() - oldCharacterStamina);
 		setDiffLabel(characterBalanceDiff, character.getStability().ordinal() - oldCharacterBalance.ordinal());
@@ -1148,6 +1153,8 @@ public class Battle extends Group{
 		enemyBalanceIcon.setDrawable(getDrawable(enemy.getBalanceDisplay()));
 				
 		masculinityIcon.setDrawable(getDrawable(character.getMasculinityPath()));	
+		
+		return playerResults;
 	}
 	
 	private void setDiffLabel(Label label, int value) {
