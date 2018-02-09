@@ -43,10 +43,7 @@ public class EndScene extends Scene {
 	private final GameOver gameOver;
 	private boolean finished;
 	
-	public EndScene(int sceneCode, Type type, SaveService saveService, AssetManager assetManager, final Background background, LogDisplay log, Array<MutationResult> results) {
-		this(sceneCode, type, saveService, assetManager, background, log, results, GameOver.DEFAULT);
-	}
-	
+	public EndScene(int sceneCode, Type type, SaveService saveService, AssetManager assetManager, final Background background, LogDisplay log, Array<MutationResult> results) { this(sceneCode, type, saveService, assetManager, background, log, results, GameOver.DEFAULT); }
 	public EndScene(int sceneCode, Type type, SaveService saveService, AssetManager assetManager, final Background background, LogDisplay log, Array<MutationResult> results, GameOver gameOver) {
 		super(null, sceneCode);
 		this.type = type;
@@ -172,11 +169,6 @@ public class EndScene extends Scene {
 			saveService.saveDataValue(SaveEnum.ENCOUNTER_END, null);
 		}
 		finished = true;
-	}
-
-	@Override
-	public boolean isActive() {
-		return isActive;
 	}
 	
 	public enum Type {
