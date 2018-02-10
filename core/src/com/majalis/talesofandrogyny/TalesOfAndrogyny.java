@@ -34,13 +34,20 @@ import static com.majalis.encounter.EncounterCode.*;
 public class TalesOfAndrogyny extends Game {
 	public static boolean patron = true;
 	public static String getVersion() { return "Version: 0.1.28.2" + (patron ? " Patron-Only" : ""); }
-	public static Array<EncounterCode> setEncounter = new Array<EncounterCode>(new EncounterCode[]{});
+	public static Array<EncounterCode> setEncounter = new Array<EncounterCode>();
+	public static boolean randomEncounters;
 	public static boolean testing = false;
 	public static int defaultScreenWidth = 1280;
 	public static int defaultScreenHeight = 720;
 	
 	public void create() {	
 		Preferences prefs = Gdx.app.getPreferences("tales-of-androgyny-preferences");
+		if (!prefs.getString("setEncounters", "").equals("")) {
+			for (String encounterCode : prefs.getString("setEncounters", "").split(",")) {
+				setEncounter.add(EncounterCode.valueOf(encounterCode));
+			}
+		}
+		randomEncounters = prefs.getBoolean("randomEncounters", true);
 		if (prefs.getBoolean("fullScreen", false)) {
 			Gdx.graphics.setFullscreenMode(Gdx.graphics.getDisplayMode());
 		}

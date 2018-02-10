@@ -141,7 +141,7 @@ public class Zone {
 					GameWorldNode newNode = getNode(
 						nodeCode, 
 						TalesOfAndrogyny.setEncounter.size == 0 ? EncounterCode.getEncounterCode(nodeCode - 1, difficulty, unspawnedEncounters) : TalesOfAndrogyny.setEncounter.get(nodeCode % TalesOfAndrogyny.setEncounter.size),
-						EncounterCode.DEFAULT, EncounterCode.getDifficultySet(difficulty), (int)newNodePosition.x, (int)newNodePosition.y, visitedInfo.get(nodeCode, getFreshVisitInfo()));
+						EncounterCode.DEFAULT, TalesOfAndrogyny.randomEncounters ? EncounterCode.getDifficultySet(difficulty) : new Array<EncounterCode>(), (int)newNodePosition.x, (int)newNodePosition.y, visitedInfo.get(nodeCode, getFreshVisitInfo()));
 					addNode(newNode, nodeCode, nodes);
 					
 					// if we've reached the target node, we can terminate this run-through
