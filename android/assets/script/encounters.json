@@ -9599,6 +9599,14 @@
 		]
 	},
 	{
+		"key": "MERMAID-EGGSLUT",
+		"scriptLines": [
+			{"text": "You signal that you want to approach her, but she notices something."},
+			{"text": "\"Oh... what an eggslut you turned out to be,\" she says, disappointed.  \"You're already full of someone else's offspring.  Well... I'm too proud to share,\" she says, and with a flip of her tail, she leaves."},
+			{"text": "Stunned, you assume you have the mermaid's blessing to continue on.  What did she mean by \"already full\"?"}
+		]
+	},
+	{
 		"key": "MERMAID-FUCK",
 		"scriptLines": [
 			{"text": "You signal to her that you want to approach, and she curls a finger towards herself.  \"Then... come to me.  Let's have babies.\""},		
@@ -9897,10 +9905,24 @@
 		]
 	},
 	{
+		"key": "MERMAID-OTHEREGG-VISIT",
+		"scriptLines": [
+			{"text": "You traverse the lands where you once gave birth to a clutch of merpeople, feeling... a very queer feeling."},			
+			{
+			"foreground": "MERMAID",
+			"text": "\"My darling babymama... I can barely recognize you now that you're not so full of my eggs,\" you hear a voice from the waters below say, and you look to see the woman who had once filled you with her eggs."},
+			{"text": "You wave to her, feeling a little nervous."},
+			{"text": "\"Oh... but I see you... have been filled with someone else's eggs...\" she says, forlornly.  You can see the disappointment on her face, and she begins to sink into the water.  \"Perhaps... another time... then.\""},
+			{"text": "She disappears beneath the surface, and you continue on your way, feeling oddly guilty."}
+		]
+	},
+	{
 		"key": "MERMAID-HATCHED-VISIT",
 		"scriptLines": [
 			{"text": "You traverse the lands where you once gave birth to a clutch of merpeople, feeling... a very queer feeling."},			
-			{"text": "\"My darling babymama... I can barely recognize you now that you're not so full of my eggs,\" you hear a voice from the waters below say, and you look to see the woman who had once filled you with her eggs."},
+			{
+			"foreground": "MERMAID",
+			"text": "\"My darling babymama... I can barely recognize you now that you're not so full of my eggs,\" you hear a voice from the waters below say, and you look to see the woman who had once filled you with her eggs."},
 			{"text": "You wave to her, feeling a little nervous."},
 			{"text": "\"Have you changed your mind?  I have plenty of eggs for you, still,\" she says, and you consider her... \"offer\"."}
 		]

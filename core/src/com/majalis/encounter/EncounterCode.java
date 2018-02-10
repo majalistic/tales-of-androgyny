@@ -1306,7 +1306,7 @@ public enum EncounterCode {
 					b.branch(Outcome.DEFEAT).textScene("MERMAID-DEFEAT").concat(mermaidLossEggfill), 
 					mermaidLossEggfill
 				);
-				Branch askForSex = b.branch("Ask to fuck her").require(ChoiceCheckType.FREE_COCK).textScene("MERMAID-FUCK").choiceScene("Well?", b.branch("Yes").textScene("MERMAID-EGGTIME"), b.branch("No").textScene("MERMAID-SCORNED").concat(mermaidBattle));				
+				Branch askForSex = b.branch("Ask to fuck her").require(ChoiceCheckType.FREE_COCK).checkScene(CheckType.IS_EGGED, b.branch(true).textScene("MERMAID-EGGSLUT"), b.branch(false).textScene("MERMAID-FUCK").choiceScene("Well?", b.branch("Yes").textScene("MERMAID-EGGTIME"), b.branch("No").textScene("MERMAID-SCORNED").concat(mermaidBattle)));				
 				Branch secondQuestion = b.branch().choiceScene(
 					"Agree to fuck her?",
 					b.branch("Ask to pass").checkScene(
@@ -1346,7 +1346,7 @@ public enum EncounterCode {
 								b.branch(true).textScene("MERMAID-EGG-HATCH").concat(moreEggs), 
 								b.branch(false).checkScene(
 									CheckType.MERMAID_HATCHED, 
-									b.branch(true).textScene("MERMAID-HATCHED-VISIT").concat(moreEggs), 
+									b.branch(true).checkScene(CheckType.IS_EGGED, b.branch(true).textScene("MERMAID-OTHEREGG-VISIT"), b.branch(false).textScene("MERMAID-HATCHED-VISIT").concat(moreEggs)), 
 									b.branch(false).textScene("MERMAID-EGG-VISIT")
 								)
 							)

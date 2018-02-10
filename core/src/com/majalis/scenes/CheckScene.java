@@ -410,6 +410,10 @@ public class CheckScene extends AbstractTextScene {
 			@Override
 			protected boolean getCheck(PlayerCharacter character) { int check = character.getQuestStatus(QuestType.MONSTER_TOWN); return check == 1; }  
 		},
+		IS_EGGED("", "") {
+			@Override
+			protected boolean getCheck(PlayerCharacter character) { return character.fullOfEggs(); }  
+		}
 		;
 		private final String success;
 		private final String failure;

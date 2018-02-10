@@ -1180,7 +1180,7 @@ public class PlayerCharacter extends AbstractCharacter {
 	}
 	
 	@Override
-	protected boolean fullOfEggs() { return questFlags.get(QuestType.MERMAID.toString(), 0) >= 3 &&  questFlags.get(QuestType.MERMAID.toString(), 0) < 6; }
+	public boolean fullOfEggs() { return questFlags.get(QuestType.MERMAID.toString(), 0) >= 3 &&  questFlags.get(QuestType.MERMAID.toString(), 0) < 6; }
 	
 	@Override
 	protected Array<MutationResult> fillButt(int buttful) {
