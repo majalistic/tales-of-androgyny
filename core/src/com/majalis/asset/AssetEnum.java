@@ -420,7 +420,10 @@ public enum AssetEnum {
 	HORSE_NEIGH("sounds/HorseNeigh.wav", Sound.class),
 	BIRD_SCREECH("sounds/BirdScreech.wav", Sound.class),	
 	
+	ANAL_INSERTION("sounds/AnalInsertion.wav", Sound.class),
 	THWAPPING("sounds/Thwapping.wav", Sound.class),
+	FELLATION_INSERTION("sounds/FellationInsertion.wav", Sound.class),
+	FELLATIO_SOUND("sounds/Fellatio.wav", Sound.class),
 	UNPLUGGED_POP("sounds/UnpluggedPop.wav", Sound.class),
 	MOUTH_POP("sounds/MouthPop.wav", Sound.class),
 	SWALLOW("sounds/Swallow.wav", Sound.class),
