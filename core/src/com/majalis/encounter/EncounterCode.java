@@ -1610,14 +1610,14 @@ public enum EncounterCode {
 				Branch afterTrap1 = b.branch().textScene("SPIDER-SIGIL").choiceScene("Touch the sigil?", b.branch("Touch it").checkScene(Stat.MAGIC, b.branch(4).textScene("SPIDER-SIGIL-SUCCESS").concat(afterSigil), b.branch(2).textScene("SPIDER-SIGIL-PARTIAL").concat(afterSigil), b.branch(0).textScene("SPIDER-SIGIL-FAILURE").concat(afterSigil)), b.branch("Don't touch it").concat(afterSigil));
 				Branch receiveTrap = b.branch().checkScene(CheckType.ALIVE, b.branch(true).concat(afterTrap1), b.branch(false).textScene("SPIDER-UNCONSCIOUS").checkScene(CheckType.IS_EGGED, b.branch(true).textScene("SPIDER-UNCONSCIOUS-EGG-FEAST").gameEnd(), b.branch(false).textScene("SPIDER-UNCONSCIOUS-EGG-VIRGIN").gameEnd()));
 				Branch afterRoom1 = b.branch().textScene("SPIDER-TRAP-APPROACH").checkScene(Stat.AGILITY, b.branch(7).textScene("SPIDER-AVOID-TRAP").concat(afterTrap1), b.branch(0).textScene("SPIDER-FAIL-TRAP").checkScene(Stat.ENDURANCE, b.branch(7).textScene("SPIDER-ENDURE").concat(receiveTrap), b.branch(4).textScene("SPIDER-PARTIAL-ENDURE").concat(receiveTrap), b.branch(0).textScene("SPIDER-FAIL-ENDURE").concat(receiveTrap)));
-				return b.branch().checkScene(
+				return b.branch().checkScene(CheckType.SPIDER_HATCH, b.branch(true).textScene("SPIDER-HATCH"), b.branch(false).checkScene(
 					CheckType.SPIDER, 
 					b.branch(true).textScene("SPIDER-INTRO").choiceScene(
 						"What do you do?",
 						b.branch("Traverse the Ruins").textScene("SPIDER-ENTER").choiceScene("Enter the room?", b.branch("Enter").textScene("SPIDER-ROOM").checkScene(Stat.PERCEPTION, b.branch(5).textScene("SPIDER-FIND1").concat(afterRoom1), b.branch(0).textScene("SPIDER-FIND1-FAIL").concat(afterRoom1)), b.branch("Pass by").concat(afterRoom1)),
 						b.branch("Turn Back")
 					),
-					b.branch(false).textScene("SPIDER-REVISIT")
+					b.branch(false).textScene("SPIDER-REVISIT"))
 				);
 			case STARVATION:
 				return b.branch().textScene("STARVATION-INTRO").checkScene(

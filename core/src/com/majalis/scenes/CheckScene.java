@@ -413,7 +413,11 @@ public class CheckScene extends AbstractTextScene {
 		IS_EGGED("", "") {
 			@Override
 			protected boolean getCheck(PlayerCharacter character) { return character.fullOfEggs(); }  
-		}
+		}, 
+		SPIDER_HATCH("", "") {
+			@Override
+			protected boolean getCheck(PlayerCharacter character) { int check = character.getQuestStatus(QuestType.SPIDER); return check == 5; }  
+		}, 
 		;
 		private final String success;
 		private final String failure;

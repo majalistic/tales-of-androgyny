@@ -577,6 +577,9 @@ public class WorldMapScreen extends AbstractScreen {
 		else if (!inSuspendedArea(currentNode) && time >= 23 && character.getQuestStatus(QuestType.TRUDY) == 0) { // forced Trudy encounter
 			autoEncounter(uiGroup, EncounterCode.ADVENTURER);
 		}
+		else if (!inSuspendedArea(currentNode) && character.getQuestStatus(QuestType.SPIDER) == 5) { // forced Spider hatching
+			autoEncounter(uiGroup, EncounterCode.SPIDER);
+		}
 		else {
 			tintForTimeOfDay(time + 1, travelTime);
 			Vector2 finish = node.getHexPosition();

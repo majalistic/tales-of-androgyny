@@ -1576,6 +1576,7 @@ public class PlayerCharacter extends AbstractCharacter {
 	
 	public void setQuestStatus(QuestType type, int status) {
 		if (type == QuestType.MERMAID && status == 6) { eggtick = 0; }
+		if (type == QuestType.SPIDER && status == 6) { eggtick = 0; }
 		questFlags.put(type.toString(), status);
 	}
 	

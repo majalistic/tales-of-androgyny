@@ -7611,11 +7611,23 @@
 		]
 	},
 	{
+		"key": "SPIDER-HATCH",
+		"scriptLines": [
+			{"text": "The spider's eggs prove to be quite the vexation.  If they had been simple to remove, that would haven't been so bad..."},
+			{"text": "But the eggs are... already fertilized.  And you can't seem to find any way to dislodge them.  A gurgling in your stomach is... ominous."},			
+			{"text": "You've been trying for days to rid yourself of these eggs... but as you travel down the road, you fall to your knees... and realize they may me ridding themselves."},
+			{"text": "The eggs hatch inside your bowels, and you spend the next several minutes not particularly pleased with the outcome of your exploration of the ruins."},
+			{
+			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "SPIDER", "value":6}}],
+			"text": "When the horror has passed, you feel... empty.  And there are far fewer spiders inside of you, so that's good."}			
+		]
+	},
+	{
 		"key": "SPIDER-END",
 		"scriptLines": [
 			{"text": "Unable to escape, you spend the rest of your days birthing her spider brood and being dressed like a little girly doll - not the most triumphant of stories."}
 		]
-	},
+	},	
 	{
 		"key": "SPIDER-NO-FERTILIZE",
 		"scriptLines": [
