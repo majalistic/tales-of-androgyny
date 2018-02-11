@@ -580,6 +580,9 @@ public class WorldMapScreen extends AbstractScreen {
 		else if (!inSuspendedArea(currentNode) && character.getQuestStatus(QuestType.SPIDER) == 5) { // forced Spider hatching
 			autoEncounter(uiGroup, EncounterCode.SPIDER);
 		}
+		else if (!inSuspendedArea(currentNode) && character.getQuestStatus(QuestType.MERMAID) == 6) { // forced Mermaid hatching
+			autoEncounter(uiGroup, EncounterCode.MERMAID);
+		}
 		else {
 			tintForTimeOfDay(time + 1, travelTime);
 			Vector2 finish = node.getHexPosition();

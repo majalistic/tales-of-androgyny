@@ -9909,6 +9909,15 @@
 		]
 	},
 	{
+		"key": "MERMAID-HATCH-ACCIDENT",
+		"scriptLines": [
+			{"text": "The fish eggs have all hatched, and your stomach is far too swollen to make it back to the mermaid's river.  You end up squatting over a brook and relieving yourself of them."},
+			{
+			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "MERMAID", "value":7}}],
+			"text": "Fully relieved of fish, you are now a momma.  Congratulations!"}
+		]
+	},
+	{
 		"key": "MERMAID-EGG-HATCH",
 		"scriptLines": [
 			{"text": "The labor pains prove too great to ignore.  You need to let out these fish babies, and soon."},			
@@ -9928,7 +9937,7 @@
 			"text": "You have ten or fifteen sons or daughters before you find yourself climaxing uncontrollably, your milky cloud of sperm shooting out into the open water, not unlike how many fish do it."},
 			{"text": "Your fishwife muses about that while you continue to birth her offspring, dozens of them, while gritting your teeth and sucking air between them."},
 			{
-			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "MERMAID", "value":6}}]
+			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "MERMAID", "value":7}}]
 			"text": "You \"give birth\" in the water, each of her live fry wriggling out of you, not exactly one by one - more like three by three, until there are none left."},
 			{"text": "You're completely exhausted and sit limp in the water, some of your own children swimming idly about you, little fry that seem quite merry, if a little confused."},
 			{"text": "The mermaid rubs your flabby, recently emptied belly affectionately, kissing your lips and the sides of your face affectionately."},

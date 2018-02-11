@@ -1347,7 +1347,7 @@ public enum EncounterCode {
 								b.branch(false).checkScene(
 									CheckType.MERMAID_HATCHED, 
 									b.branch(true).checkScene(CheckType.IS_EGGED, b.branch(true).textScene("MERMAID-OTHEREGG-VISIT"), b.branch(false).textScene("MERMAID-HATCHED-VISIT").concat(moreEggs)), 
-									b.branch(false).textScene("MERMAID-EGG-VISIT")
+									b.branch(false).checkScene(CheckType.MERMAID_EGG_ACCIDENTAL_HATCH, b.branch(true).textScene("MERMAID-HATCH-ACCIDENT"), b.branch(false).textScene("MERMAID-EGG-VISIT"))
 								)
 							)
 						)

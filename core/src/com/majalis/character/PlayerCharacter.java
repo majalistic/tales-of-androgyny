@@ -1183,7 +1183,7 @@ public class PlayerCharacter extends AbstractCharacter {
 	public boolean fullOfEggs() { 
 		return 
 			(questFlags.get(QuestType.SPIDER.toString(), 0) >= 2 && questFlags.get(QuestType.MERMAID.toString(), 0) < 6) ||	
-			(questFlags.get(QuestType.MERMAID.toString(), 0) >= 3 && questFlags.get(QuestType.MERMAID.toString(), 0) < 6); 
+			(questFlags.get(QuestType.MERMAID.toString(), 0) >= 3 && questFlags.get(QuestType.MERMAID.toString(), 0) < 7); 
 	}
 	
 	@Override
@@ -1575,7 +1575,7 @@ public class PlayerCharacter extends AbstractCharacter {
 	}	
 	
 	public void setQuestStatus(QuestType type, int status) {
-		if (type == QuestType.MERMAID && status == 6) { eggtick = 0; }
+		if (type == QuestType.MERMAID && status == 7) { eggtick = 0; }
 		if (type == QuestType.SPIDER && status == 6) { eggtick = 0; }
 		questFlags.put(type.toString(), status);
 	}
@@ -1627,7 +1627,8 @@ public class PlayerCharacter extends AbstractCharacter {
 						case 3: return "The mermaid has laid her eggs inside of you. You're absolutely full of them, and the crushing pressure in your abdomen is your reminder.";
 						case 4: return "The mermaid's eggs have been gestating in your belly for days - your aching, cramping bowels feel like labor pains.  You are fully pregnant.";
 						case 5: return "The mermaid's eggs have begun hatching - if you don't get to a body of water soon to birth them, you're worried you'll explode.  You're gonna be a momma!";
-						case 6: return "You've hatced the mermaid's eggs. Yeesh.";
+						case 6: return "The mermaid's eggs are hatching!";
+						case 7: return "You've hatced the mermaid's eggs. Yeesh.";
 					}
 					break;
 				case MOUTH_FIEND:
@@ -1723,7 +1724,7 @@ public class PlayerCharacter extends AbstractCharacter {
 
 	public Array<MutationResult> eggTick(int timePassed) {
 		int questLevel = questFlags.get(QuestType.MERMAID.toString(), 0);
-		if (questLevel >= 3) {
+		if (questLevel >= 3 && questLevel < 7) {
 			eggtick += timePassed;
 			if (questLevel == 3) {
 				if (eggtick >= 12) {
@@ -1738,10 +1739,17 @@ public class PlayerCharacter extends AbstractCharacter {
 					return getResult("The fish eggs begin to hatch in your gut! You need to get to open water, momma!");
 				}
 				return getResult("Your belly is distended by a clutch of eggs!");
-			}			
+			}	
+			if (questLevel == 5) {
+				if (eggtick >= 48) {
+					questFlags.put(QuestType.MERMAID.toString(), 6);
+					return getResult("The fish are about to come out!");
+				}
+				return getResult("Your belly is sloshing with fish and fish eggs!");
+			}	
 		}	
 		questLevel = questFlags.get(QuestType.SPIDER.toString(), 0);
-		if (questLevel >= 2) {
+		if (questLevel >= 2 && questLevel < 6) {
 			eggtick += timePassed;
 			if (questLevel == 2) {
 				if (eggtick >= 12) {
