@@ -1767,6 +1767,7 @@ public class PlayerCharacter extends AbstractCharacter {
 			}		
 			if (eggtick >= 36) {
 				questFlags.put(QuestType.SPIDER.toString(), 5);
+				return getResult("The spider eggs are hatching!");
 			}
 		}	
 		return new Array<MutationResult>();
