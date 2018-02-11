@@ -304,7 +304,6 @@ public class WorldMapScreen extends AbstractScreen {
 	public void buildStage() {
 		final Group uiGroup = new Group();
 		uiGroup.addActor(popupGroup);
-		uiGroup.addActor(hoverImage);
 		hoverImage.setVisible(false);
 		hoverImage.setBounds(1500, 5, 400, 300);
 		
@@ -313,6 +312,7 @@ public class WorldMapScreen extends AbstractScreen {
 		addLabel(uiGroup, dateLabel, 360,  140, Color.WHITE);
 		addLabel(uiGroup, timeLabel, 380,  115, Color.WHITE);
 		addLabel(uiGroup, foodLabel, 23,  15, Color.WHITE);
+		uiGroup.addActor(hoverImage);
 		addLabel(uiGroup, hoverLabel, 1575, 160, Color.BLACK);
 		hoverLabel.setAlignment(Align.center);
 		hoverLabel.setWrap(true);
@@ -1117,12 +1117,9 @@ public class WorldMapScreen extends AbstractScreen {
 			actor.addListener(new ClickListener(){
 				@Override
 		        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-					String text = actor.getHoverText();
-					hoverLabel.setText(text);
-					if (!text.equals("")) {
-						hoverImage.setVisible(true);
-					}
+					setHoverDisplay(actor.getHoverText(), camera.project(new Vector3(getTrueX((int)actor.getHexPosition().x), getTrueY((int)actor.getHexPosition().x, (int)actor.getHexPosition().y), 0)));
 					hoveredNode = actor;
+					
 				}
 				@Override
 		        public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
@@ -1133,6 +1130,18 @@ public class WorldMapScreen extends AbstractScreen {
 			});
 		}
 		worldGroup.addActor(currentImage);
+	}
+	
+	private void setHoverDisplay(String text, Vector3 coords) {
+		// can put logic here to ensure that the resulting position falls somewhere properly on the screen, including flipping it to the other side of the cursor if the image would appear too high/low or left/right
+		float x = coords.x + 50;
+		float y = coords.y - 125;
+		hoverLabel.setText(text);
+		hoverLabel.setPosition(x + 75, y + 155);
+		if (!text.equals("")) {
+			hoverImage.setVisible(true);
+			hoverImage.setPosition(x, y);
+		}
 	}
 
 	private int getTrueX(int x) {
