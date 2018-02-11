@@ -5578,7 +5578,7 @@
 			{"text": "Her tribal pounding is basically emasculating you in every direction, and it only gets worse when you realize that she's going to empty her entire nutbladder into your newly-annointed baby bag."},
 			{
 			"sound": "CUM_BUBBLING",
-			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "creampies":1}}],
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "creampies":1}}, {"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "GOBLIN", "value":2}}],
 			"text": "After a sequence of blows to your pride and your prostate, she spits liquid into liquid, and you groan, your stomach bloating to an almost pregnant size."},
 			{"text": "In addition to feeling so cum-filled that you may start to cough it up, you also feel even more changed than before... your body is soaked with sweat."},
 			{"text": "\"That's all of it!  Now you can get preggers!\" she says, and you barely have the energy to speak."},

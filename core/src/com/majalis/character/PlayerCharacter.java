@@ -1575,6 +1575,8 @@ public class PlayerCharacter extends AbstractCharacter {
 	}	
 	
 	public void setQuestStatus(QuestType type, int status) {
+		if (type == QuestType.MERMAID && status == 3) { eggtick = 0; if (questFlags.get(QuestType.GOBLIN.toString(), 0) == 2) questFlags.put(QuestType.GOBLIN.toString(), 1); }
+		if (type == QuestType.SPIDER && status == 2) { eggtick = 0; if (questFlags.get(QuestType.GOBLIN.toString(), 0) == 2) questFlags.put(QuestType.GOBLIN.toString(), 1); }
 		if (type == QuestType.MERMAID && status == 7) { eggtick = 0; }
 		if (type == QuestType.SPIDER && status == 6) { eggtick = 0; }
 		questFlags.put(type.toString(), status);
@@ -1615,7 +1617,13 @@ public class PlayerCharacter extends AbstractCharacter {
 				case GADGETEER:
 					return currentValue == 2 ? "You've been teased by the eccentric merchant." : currentValue == 1 ? "You've encountered the eccentric merchant." : "";
 				case GOBLIN:
-					return currentValue == 1 ? "You've met Selkie the fem goblin." : "";
+					switch (currentValue) {
+						case 1: return "You've met Selkie the fem goblin.";
+						case 2: return "You've been pseudo-impregnated by Selkie the fem goblin.";
+						case 3: return "Selkie's goblin eggs have been impregnated by a werewolf!";
+						case 4: return "Selkie's goblin eggs have been impregnated by a centaur!";
+						case 5: return "Selkie's goblin eggs have been impregnated by a harpy!";
+					}
 				case INNKEEP:
 					return currentValue == 4 ? "You've married the innkeep." : currentValue == 3 ? "You've been innkeep's bitch for a day's lodging." : currentValue == 2 ? "You've caught the innkeep's fuck for a day's lodging." : currentValue == 1 ? "You've sucked the innkeep off for a day's lodging." : "";
 				case MADAME:
@@ -1768,6 +1776,17 @@ public class PlayerCharacter extends AbstractCharacter {
 			if (eggtick >= 36) {
 				questFlags.put(QuestType.SPIDER.toString(), 5);
 				return getResult("The spider eggs are hatching!");
+			}
+		}	
+		questLevel = questFlags.get(QuestType.GOBLIN.toString(), 0);
+		if (questLevel >= 2 && questLevel < 6) {
+			eggtick += timePassed;
+			if (questLevel == 2) {
+				if (eggtick >= 18) {
+					questFlags.put(QuestType.GOBLIN.toString(), 1);
+					return getResult("The goblin eggs have flushed out!");
+				}
+				return getResult("You've got goblin eggs stuck in your bowels!");
 			}
 		}	
 		return new Array<MutationResult>();
