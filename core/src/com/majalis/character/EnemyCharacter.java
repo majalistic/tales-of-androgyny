@@ -923,7 +923,7 @@ public class EnemyCharacter extends AbstractCharacter {
 			else if (enemyType == EnemyEnum.HARPY && stance != Stance.AIRBORNE) {
 				possibleTechniques.add(FLY);
 			}
-			else if (target.stance.receivesMediumAttacks() && enemyType == EnemyEnum.BRIGAND || enemyType == EnemyEnum.SPIDER || (enemyType == EnemyEnum.ORC && weapon == null) && currentStamina > 10) {
+			else if (target.stance.receivesMediumAttacks() && enemyType == EnemyEnum.BRIGAND || (enemyType == EnemyEnum.SPIDER && !target.fullOfEggs()) || (enemyType == EnemyEnum.ORC && weapon == null) && currentStamina > 10) {
 				possibleTechniques.add(FULL_NELSON);
 			}
 		}

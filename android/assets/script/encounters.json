@@ -7321,6 +7321,30 @@
 			{"text": "\"You won't be digesting these eggs. They're my precious babies, after all,\" she says, and your blood runs cold."},
 			{"text": "\"Eggs.\""},
 			{"text": "\"I suppose the question is 'how many spider eggs can an intruder swallow before they're a nursery'.  Let's find out together, shall we?\""},
+		]
+	},
+	{
+		"key": "SPIDER-UNCONSCIOUS-EGG-FEAST",
+		"scriptLines": [
+			{"text": "It's then she seems to notice your already swollen belly."},
+			{"text": "\"Oh?  Seems you're already a nursery... but now you're a spider nursery.  When they hatch, my babies will devour these but... until then... I'm afraid you're going to be rather painfully full.\""},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "bellyful": 10}}],						
+			"text": "Egg after egg is forced down your throat and into your stomach, where a clutch is rapidly forming.  Your fingers try desperately to catch at anything, but are constricted within her web."},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "bellyful": 20}}],						
+			"text": "Soon, your gut is absolutely stuffed with eggs - your stomach violently gurgling around the hideous mass of well-wrapped spiderlings and other eggs."},
+			{"text": "Her hands roam over your bulging, web-constricted abdomen, a dozen of her fertilized eggs shifting around inside as more of her babies join the clutch."},			
+			{"text": "\"You're a strong vessel for my babies, so I'll give you many.\""},
+			{"text": "After what feels like an eternity passes, the last of her eggs joins its many siblings - your abdomen is bloated and swollen with them."},
+			{"text": "Just as before, when she covered your eyes, she covers your mouth with her webbing, sealing it shut."},
+			{"text": "\"I won't take that webbing off until my babies begin to hatch.  And then... well, you know what they say... spiders in, spiders out.\""},
+			{"text": "You've never heard that expression before... but, with a sense of dread, you know that in the future, its significance will be unparalleled."}	
+		]
+	},
+	{
+		"key": "SPIDER-UNCONSCIOUS-EGG-VIRGIN",
+		"scriptLines": [
 			{
 			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "bellyful": 5}}],						
 			"text": "Egg after egg is forced down your throat and into your stomach, where a clutch is rapidly forming.  Your fingers try desperately to catch at anything, but are constricted within her web."},
@@ -7469,7 +7493,7 @@
 	{
 		"key": "SPIDER-LOVER",
 		"scriptLines": [
-			{"text": "Oh, poor foolish boy. I will make you my little doll... if that is your wish..."},
+			{"text": "\"Oh, poor foolish boy. I will make you my little doll... if that is your wish...\""},
 			{"text": "She snaps her fingers, and spiders like the first emerge from every hole and crevice, swarming over you."},
 			{"text": "Blackness."},
 			{"text": "You awake in a damp cave... that is, quite strangely, furnished, including a bed with silk sheets, on which you now lay.  Spidersilk, that is."},
@@ -7519,6 +7543,14 @@
 			{"text": "Soon, your entire face is encased in webbing, and you can barely feel it as she continues to wrap the rest of your body."},			
 			{"text": "\"I'll save you for later,\" she says, before completely encasing you in webbing.  Your body quakes with mortal terror - it knows exactly what she's saving you for."},
 			{"text": "It's difficult to keep track of time... you don't feel any pain, but you feel your form... weakening.  You realize it's only a matter of time before she devours you... and you spend the rest of your time, rather than adventuring, but as her leavings in these gods-forsaken ruins."}
+		]
+	},
+	{
+		"key": "SPIDER-NAH",
+		"scriptLines": [
+			{"text": "She approaches, ready to make you into her lover... but then notices she's not the first one to stick her eggs in you."},
+			{"text": "\"Ah, that's not very fun, is it.  Well... I suppose a big snack will do, after all.\""},
+			{"text": "She decides, capriciously, to devour you instead.  At her mercy, you have no choice but to accept your fate."}
 		]
 	},
 	{
