@@ -41,7 +41,7 @@ public enum TimeOfDay {
 		this.shadowLength = shadowLength;		
 	}
 	
-	protected String getDisplay() { return display; }
+	public String getDisplay() { return display; }
 	public Color getColor() { return color; }
 	public Color getShadowColor() { return shadowColor; }
 	public float getShadowDirection() { return shadowDirection; }

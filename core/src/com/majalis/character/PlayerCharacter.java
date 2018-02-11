@@ -84,13 +84,14 @@ public class PlayerCharacter extends AbstractCharacter {
 	
 	private boolean loaded;
 	private ObjectMap<String, Integer> questFlags;
-
+	private Array<String> eventLog;
+	
 	private int scout;
 	
 	private GameOver gameOver;
 	
 	@SuppressWarnings("unused")
-	private PlayerCharacter() { if(arousal == null) arousal = new Arousal(ArousalType.PLAYER); }
+	private PlayerCharacter() { if(arousal == null) arousal = new Arousal(ArousalType.PLAYER); eventLog = new Array<String>(); }
 	
 	public PlayerCharacter(boolean defaultValues) {
 		super(defaultValues);
@@ -115,6 +116,7 @@ public class PlayerCharacter extends AbstractCharacter {
 			initInventory();
 			setCharacterName("Hiro");
 			questFlags = new ObjectMap<String, Integer>();
+			eventLog = new Array<String>();
 			time = 0;
 		}
 		
@@ -725,7 +727,7 @@ public class PlayerCharacter extends AbstractCharacter {
 		}
 		
 		if (!oldStance.isAnalReceptive() && stance.isAnalReceptive()) {
-			Array<MutationResult> temp = receiveAnal(); 
+			Array<MutationResult> temp = receiveAnal(getPhallusType(resolvedAttack.getSex())); 
 			
 			if (temp.size > 0) result = temp.first().getText();
 			else result = "";
@@ -1163,8 +1165,24 @@ public class PlayerCharacter extends AbstractCharacter {
 		return false;
 	}
 	
-	private Array<MutationResult> receiveAnal() {
-		String result = receivedAnal == 0 ? "You are no longer a virgin!\n" : "";
+	private String getPioneer(PhallusType phallusType) {
+		switch (phallusType) {
+			case BIRD: return "Harpy";
+			case DOG: return "Werewolf";
+			case GIANT: return "Ogre";
+			case HORSE: return "Centaur";
+			default: return "";
+		}
+	}
+	
+	private String getTimeDescription() { return TimeOfDay.getTime(time).getDisplay() + " of day " + (time / 6 + 1); }
+	private Array<MutationResult> receiveAnal(PhallusType phallusType) {
+		boolean virgin = receivedAnal == 0;
+		String result = virgin ? "You are no longer an anal virgin!\n" : "";
+		if (virgin) {
+			String pioneer = getPioneer(phallusType);
+			eventLog.add("You lost your anal virginity" + (pioneer.equals("") ? "" : " to a " + pioneer) + " on the " + getTimeDescription() + "!");
+		}
 		result += isPlugged() ? plug.getName() + " removed! " : "";
 		plug = null;
 		receivedAnal++;
@@ -1348,12 +1366,15 @@ public class PlayerCharacter extends AbstractCharacter {
 		baseDefense = defense;
 	}
 	
+	private PhallusType getPhallusType(SexualExperience sex) { return sex.isBird() ? PhallusType.BIRD : sex.isCentaurSex() ? PhallusType.HORSE : sex.isKnot() ? PhallusType.DOG : sex.isOgreSex() ? PhallusType.GIANT : PhallusType.MONSTER;  }
+	
 	// this needs to properly increase arousal
 	public Array<MutationResult> receiveSex(SexualExperience sex) {
 		Array<MutationResult> result = new Array<MutationResult>();
 		arousal.increaseArousal(sex, perks);
+		
 		for (int ii = 0; ii < sex.getAnalSex(); ii++) {
-			result.addAll(receiveAnal());
+			result.addAll(receiveAnal(getPhallusType(sex)));
 			setCurrentPortrait(perks.get(Perk.ANAL_ADDICT.toString(), 0) > 1 ? AssetEnum.PORTRAIT_LUST : AssetEnum.PORTRAIT_HIT);
 		}
 		for (int ii = 0; ii < sex.getCreampies(); ii++) {
@@ -1575,10 +1596,24 @@ public class PlayerCharacter extends AbstractCharacter {
 	}	
 	
 	public void setQuestStatus(QuestType type, int status) {
-		if (type == QuestType.MERMAID && status == 3) { eggtick = 0; if (questFlags.get(QuestType.GOBLIN.toString(), 0) == 2) questFlags.put(QuestType.GOBLIN.toString(), 1); }
-		if (type == QuestType.SPIDER && status == 2) { eggtick = 0; if (questFlags.get(QuestType.GOBLIN.toString(), 0) == 2) questFlags.put(QuestType.GOBLIN.toString(), 1); }
-		if (type == QuestType.MERMAID && status == 7) { eggtick = 0; }
-		if (type == QuestType.SPIDER && status == 6) { eggtick = 0; }
+		if (type == QuestType.MERMAID && status == 3) { 
+			eggtick = 0; 
+			if (questFlags.get(QuestType.GOBLIN.toString(), 0) == 2) questFlags.put(QuestType.GOBLIN.toString(), 1);
+			eventLog.add("You were impregnated by a mermaid on the " + getTimeDescription() + "!");
+		}
+		if (type == QuestType.SPIDER && status == 2) { 
+			eggtick = 0; 
+			if (questFlags.get(QuestType.GOBLIN.toString(), 0) == 2) questFlags.put(QuestType.GOBLIN.toString(), 1); 
+			eventLog.add("You were impregnated by a spider on the " + getTimeDescription() + "!");
+		}
+		if (type == QuestType.MERMAID && status == 7) { 
+			eggtick = 0; 
+			eventLog.add("You gave birth to mermaid offspring on the " + getTimeDescription() + "!");
+		}
+		if (type == QuestType.SPIDER && status == 6) { 
+			eggtick = 0; 
+			eventLog.add("You gave birth to spider offspring on the " + getTimeDescription() + "!");
+		}
 		questFlags.put(type.toString(), status);
 	}
 	
@@ -1902,4 +1937,6 @@ public class PlayerCharacter extends AbstractCharacter {
 	public boolean debtDue() {
 		return debtCooldown <= 0 && (getCurrentDebt() >= 150 || (getCurrentDebt() >= 100 && getQuestStatus(QuestType.DEBT) < 1));
 	}
+
+	public Array<String> getEventLog() { return eventLog; }
 }
