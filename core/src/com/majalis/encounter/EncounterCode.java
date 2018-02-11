@@ -1583,11 +1583,20 @@ public enum EncounterCode {
 					b.branch("Leave Her Be")			
 				);
 			case SPIDER:
+				Branch spiderEscape = b.branch().textScene("SPIDER-ESCAPE");
 				Branch spiderBattle = b.branch().battleScene(
 					BattleCode.SPIDER, 
 					b.branch(Outcome.VICTORY).textScene("SPIDER-VICTORY"),
 					b.branch(Outcome.DEFEAT).textScene("SPIDER-DEFEAT").choiceScene("Pick your poison.",
-						b.branch("Become her lover").checkScene(CheckType.IS_EGGED, b.branch(true).textScene("SPIDER-NAH").gameEnd(), b.branch(false).textScene("SPIDER-LOVER").textScene("SPIDER-OVIPOSITION").textScene("SPIDER-END").gameEnd()),
+						b.branch("Become her lover").checkScene(
+							CheckType.IS_EGGED, 
+							b.branch(true).textScene("SPIDER-NAH").gameEnd(), 
+							b.branch(false).textScene("SPIDER-LOVER").textScene("SPIDER-OVIPOSITION").textScene("SPIDER-WIFE").checkScene(
+								Stat.STRENGTH, 
+								b.branch(6).textScene("SPIDER-STRENGTH-ESCAPE").concat(spiderEscape), 
+								b.branch(0).checkScene(Stat.ENDURANCE, b.branch(5).textScene("SPIDER-ENDURANCE-ESCAPE"), b.branch(0).checkScene(Stat.MAGIC, b.branch(3).textScene("SPIDER-MAGIC-ESCAPE").concat(spiderEscape), b.branch(0).textScene("SPIDER-END").gameEnd()))
+							)
+						),
 						b.branch("Become her dinner").textScene("SPIDER-BITE").gameEnd()
 					),
 					b.branch(Outcome.KNOT_ANAL).textScene("SPIDER-OVIPOSITION").textScene("SPIDER-NO-FERTILIZE").gameEnd()

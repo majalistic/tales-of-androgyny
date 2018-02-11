@@ -1180,7 +1180,11 @@ public class PlayerCharacter extends AbstractCharacter {
 	}
 	
 	@Override
-	public boolean fullOfEggs() { return questFlags.get(QuestType.MERMAID.toString(), 0) >= 3 &&  questFlags.get(QuestType.MERMAID.toString(), 0) < 6; }
+	public boolean fullOfEggs() { 
+		return 
+			(questFlags.get(QuestType.SPIDER.toString(), 0) >= 2 && questFlags.get(QuestType.MERMAID.toString(), 0) < 6) ||	
+			(questFlags.get(QuestType.MERMAID.toString(), 0) >= 3 && questFlags.get(QuestType.MERMAID.toString(), 0) < 6); 
+	}
 	
 	@Override
 	protected Array<MutationResult> fillButt(int buttful) {
@@ -1634,7 +1638,14 @@ public class PlayerCharacter extends AbstractCharacter {
 				case QUETZAL:
 					return currentValue == 4 ? "You've been rewarded for defeating the Quetzal Goddess, the great lord of Mount Xiuh." : currentValue == 3 ? "You've defeated the Quetzal Goddess, the great lord of Mount Xiuh." : currentValue == 2 ? "You've seen the great lord of Mount Xiuh - she's a giant naga!" : currentValue == 1 ? "You've heard of the great lord of Mount Xiuh." : "";
 				case SPIDER:
-					return currentValue == 1 ? "You've survived the spider-infested ruins." : "";	
+					switch (currentValue) {
+						case 1: return "You've survived the spider-infested ruins.";
+						case 2: return "The spider laid eggs in you!";
+						case 3: return "The spiders eggs inside of you are beginning to stir!";
+						case 4: return "The spider eggs inside of you are nearly ready to hatch!";
+						case 5: return "The spider's eggs are hatching!";
+						case 6: return "You've birthed the spider's brood!";
+					}	
 				case TRUDY:
 					switch (currentValue) {
 						case 1: return "You've met Trudy, another adventurer.";
@@ -1727,6 +1738,27 @@ public class PlayerCharacter extends AbstractCharacter {
 				}
 				return getResult("Your belly is distended by a clutch of eggs!");
 			}			
+		}	
+		questLevel = questFlags.get(QuestType.SPIDER.toString(), 0);
+		if (questLevel >= 2) {
+			eggtick += timePassed;
+			if (questLevel == 2) {
+				if (eggtick >= 12) {
+					questFlags.put(QuestType.SPIDER.toString(), 3);
+					return getResult("Your spider nursery belly is starting to stir!");
+				}
+				return getResult("Your belly is swollen with eggs!");
+			}
+			if (questLevel == 3) {
+				if (eggtick >= 24) {
+					questFlags.put(QuestType.SPIDER.toString(), 4);
+					return getResult("The spider eggs are nearly ready to hatch!");
+				}
+				return getResult("Your belly is distended by a clutch of eggs!");
+			}		
+			if (eggtick >= 36) {
+				questFlags.put(QuestType.SPIDER.toString(), 5);
+			}
 		}	
 		return new Array<MutationResult>();
 	}

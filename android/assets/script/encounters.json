@@ -7557,7 +7557,7 @@
 		"key": "SPIDER-OVIPOSITION",
 		"scriptLines": [
 			{
-			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1}}],
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1}}, {"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "SPIDER", "value":2}}],
 			"foreground": "SPIDER",
 			"text": "\"Too full of eggs, aren't you? Well, let's get you ready,\" she says, as you struggle to stand under the weight of the eggs filling your abdomen."},
 			{"text": "With your feet and hands bound by her webbing, and your stomach gurgling under the incredible strain of all those eggs filling your large intestines, you are red-faced from embarrassment and strain."},
@@ -7567,7 +7567,9 @@
 			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analEjaculation":1}}],
 			"text": "If being stuffed full of eggs weren't enough, you also ejaculate from the comfort of having the next one breach your anal defenses."},	
 
-			{"text": "Now that you've become a nursery for spider eggs, you find that it's not so bad after all.  I mean, that's not true, but you're not in a position to do anything about it, are you?"},
+			{
+			"mutations": [{"saveType":"PORTRAIT"}],
+			"text": "Now that you've become a nursery for spider eggs, you find that it's not so bad after all.  I mean, that's not true, but you're not in a position to do anything about it, are you?"},
 			{"text": "You find this editorializing about spiders disturbing, so you close your eyes and stop reading the narration. Too bad. You are now full of spiders."},
 				
 			{"text": "\"That hole of yours really wants to release my eggs... we can't have that, can we?\""},
@@ -7576,10 +7578,42 @@
 		]
 	},
 	{
-		"key": "SPIDER-END",
+		"key": "SPIDER-WIFE",
 		"scriptLines": [
 			{"text": "\"Now that my eggs are implanted and fertilized... well, you're going to be a mommy, aren't you?\""},
-			{"text": "She's not wrong.  You spend the rest of your days birthing her spider brood and being dressed like a little girly doll - not the most triumphant of stories."}
+			{
+			"foreground": "NULL",
+			"text": "You're trapped in the spider's web... and you hear her slink away.  Now may be your only chance to escape."}
+		]
+	},
+	{
+		"key": "SPIDER-STRENGTH-ESCAPE",
+		"scriptLines": [
+			{"text": "Though you're completely encased in webbing, you can still manage to rip it by struggling, and you manage to tear yourself free."},
+		]
+	},
+	{
+		"key": "SPIDER-ENDURANCE-ESCAPE",
+		"scriptLines": [
+			{"text": "You're not strong enough to break out of the webbing outright, but by slowly struggling against your bonds, you slowly loosen them, until finally the webs holding your arms to your body are loose enough to tear free from."},
+		]
+	},
+	{
+		"key": "SPIDER-MAGIC-ESCAPE",
+		"scriptLines": [
+			{"text": "Though you're unable to move, you manage to summon a small flame, which weakens the webbing enough for you to break free from it."},
+		]
+	},
+	{
+		"key": "SPIDER-ESCAPE",
+		"scriptLines": [
+			{"text": "As fast as your legs can take you, you escape the ruins... your stomach distended with the spider's eggs."}
+		]
+	},
+	{
+		"key": "SPIDER-END",
+		"scriptLines": [
+			{"text": "Unable to escape, you spend the rest of your days birthing her spider brood and being dressed like a little girly doll - not the most triumphant of stories."}
 		]
 	},
 	{
