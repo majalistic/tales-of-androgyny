@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Button.ButtonStyle;
@@ -168,10 +169,6 @@ public class SkillSelectionScene extends Scene {
 
 		Image temp = addImage(assetManager.get(AssetEnum.SKILL_CONSOLE_BOX.getTexture()), Color.WHITE, 940 + 420, 0, 560, 1080); 
 		temp.addAction(Actions.alpha(.9f));
-		temp = addImage(skillGroup, assetManager.get(AssetEnum.SKILL_BOX_1.getTexture()), Color.WHITE, 75, 75);
-		temp.addAction(Actions.alpha(.75f));
-		temp = addImage(skillGroup, assetManager.get(AssetEnum.SKILL_BOX_2.getTexture()), Color.WHITE, 725, 75);
-		temp.addAction(Actions.alpha(.75f));
 		temp = addImage(perkGroup, assetManager.get(AssetEnum.SKILL_BOX_2.getTexture()), Color.WHITE, 400, 0);		
 		
 		int consoleX = 1665;
@@ -226,12 +223,15 @@ public class SkillSelectionScene extends Scene {
 		skills = new ObjectMap<Techniques, Integer>(cachedSkills);
 		perks = new ObjectMap<Perk, Integer>(cachedPerks);
 		
+		Group stanceDisplayGroup = new Group();
+		skillGroup.addActor(stanceDisplayGroup);
+		
 		for(Stance stance : Stance.values()) {
 			if (!stance.hasLearnableSkills() || !character.hasStance(stance)) continue;
 			StanceSkillDisplay newStanceSkillDisplay = new StanceSkillDisplay(stance, false, assetManager);
 			newStanceSkillDisplay.setPosition(695, tableHeight);
 			newStanceSkillDisplay.addAction(Actions.hide());
-			skillGroup.addActor(newStanceSkillDisplay);
+			stanceDisplayGroup.addActor(newStanceSkillDisplay);
 			allDisplay.add(newStanceSkillDisplay);
 		}
 		
@@ -467,6 +467,7 @@ public class SkillSelectionScene extends Scene {
 		
 		magicGroup.addAction(Actions.hide());
 		perkGroup.addAction(Actions.hide());
+		changeStanceDisplay(0);
 	}
 
 	private void addButton(Group g, float x, float y, ClickListener listener, boolean flipped) {
@@ -487,15 +488,31 @@ public class SkillSelectionScene extends Scene {
 		return region;
 	}
 	
-	private void changeStanceDisplay(int delta) { // rather than delta, this should be changed to display the selection provided
-		pageTurnSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
-		allDisplay.get(stanceSelection).addAction(Actions.hide());
-		stanceSelection += delta;
-		if (stanceSelection < 0) stanceSelection += allDisplay.size;
-		if (stanceSelection >= allDisplay.size) stanceSelection -= allDisplay.size;
-		allDisplay.get(stanceSelection).addAction(Actions.show());
+	private int getStanceSelectionValue(int selection) {
+		if (selection < 0) return selection + allDisplay.size;
+		if (selection >= allDisplay.size)  return selection - allDisplay.size;
+		return selection;
 	}
 	
+	private void changeStanceDisplay(int delta) { // rather than delta, this should be changed to display the selection provided
+		pageTurnSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
+		for (StanceSkillDisplay display : allDisplay) {
+			display.addAction(Actions.hide());
+		}
+		// need to get the new selection and the selection to its left and right
+		stanceSelection = getStanceSelectionValue(stanceSelection + delta);
+		
+		allDisplay.get(getStanceSelectionValue(stanceSelection - 1)).clearActions();
+		allDisplay.get(getStanceSelectionValue(stanceSelection - 1)).addAction(Actions.parallel(Actions.show(), Actions.alpha(.75f), Actions.touchable(Touchable.disabled), Actions.moveTo(695 - 325, tableHeight + 75)));
+		
+		allDisplay.get(getStanceSelectionValue(stanceSelection + 1)).clearActions();
+		allDisplay.get(getStanceSelectionValue(stanceSelection + 1)).addAction(Actions.parallel(Actions.show(), Actions.alpha(.75f), Actions.touchable(Touchable.disabled), Actions.moveTo(695 + 325, tableHeight + 75)));
+		
+		allDisplay.get(stanceSelection).clearActions();
+		allDisplay.get(stanceSelection).getParent().addActor(allDisplay.get(stanceSelection));
+		allDisplay.get(stanceSelection).addAction(Actions.parallel(Actions.show(), Actions.alpha(1), Actions.touchable(Touchable.enabled), Actions.moveTo(695, tableHeight)));	
+	}	
+
 	private void changePerkDisplay(int delta) {
 		pageTurnSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
 		perkDisplay.get(perkSelection).addAction(Actions.hide());
