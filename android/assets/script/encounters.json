@@ -4052,7 +4052,7 @@
 		"scriptLines": [
 			{
 			"foreground":"WEREBITCH_KNOT", 	
-			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1,"analEjaculation":1,"knot": true}}],
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1, "analEjaculation":1, "knot":true}}],
 			"text": "Now that her knotty wolf-cock has ended up exactly where she wanted it, her personality is much more subdued - although she's howling with delight and panting, so she still comes off as quite exciteable.  \"Mating!  Mating!\" she cries out, while you try not to cry out that your asshole is too small for her \"mating\"."},	
 			{"text": "Of course, it's past your asshole now - stuck fast in your rectum, which feels the pressure as if you'd stuffed a melon in there. Your ass is on fire - her big, round, hard genital-adornment is far too big for your modestly-sized hole."},
 			{"text": "Your fingers dig into the dirt, but you have no hope of dislodging the embedded sphere in your rectum."},
@@ -4068,7 +4068,7 @@
 			{
 			"sound": "CUM",
 			"foreground":"WEREBITCH_KNOT_CUM", 
-			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "creampies":1}}],
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "creampies":1, "knot":true}}],
 			"text": "Somewhere deep inside your intestines you feel a rush of hot fluid - her breeding juice, fresh from her stuffed puppy pouches.  It pipes in, taking no prisoners, bloating your bowels uncomfortably with its sheer volume."},
 			{
 			"sound": "CUM_BUBBLING",
@@ -4313,7 +4313,7 @@
 			"text": "Unlike you, the harpy is not silent as she ejaculates.  At the moment of her triumph, screeches for all to hear."},
 			{
 			"sound": "CUM",
-			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "creampies":1}}],
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "creampies":1, "bird": true}}],
 			"text": "As that high wail assaults your ears, her birdy semen assaults your bowels - and by the volume she puts out, you doubt that she's about to fly you back down now that she's finished."},
 			{"text": "You catch each jet of jizz - not that you have a choice - as she screeches about your \"pussy\" in the language of the feathered folk.  Not a drop of her bird goo ends up anywhere outside of your steaming hot rectum."},			
 			{"text": "She pulls out, and cradles you in her wings - a sweet gesture, but you have difficulty appreciating it.  You let out a long sigh, as well as bird goo from your rear hole."},			
@@ -4362,7 +4362,7 @@
 		"scriptLines": [
 			{
 			"sound": "CUM",
-			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "creampies":1}}],
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "creampies":1, "bird": true}}],
 			"text": "Soon the harpy begins to flap wildly and screech, and you don't have to wonder long why she's acting so erratically, as you feel your stomach bloat slightly, the weight of her ejaculate in your convenient womb.  You sigh despondently, having been inseminated by a bird."},
 			{"text": "She dismounts clumsily, your hole drooling her essence. You worry what's to become of you after that, but fortunately, the harpy plucks you from her nest and deposits you in a tree, having received her fill from you."}			
 		]
@@ -5072,7 +5072,7 @@
 		"scriptLines": [
 			{
 			"sound": "CUM",
-			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "horse":true}}],
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "creampies":1, "horse":true}}],
 			"text": "With the centaur cum filling your stomach, you have little energy to fight her.  Her cock is so large you thought you might pass out."},
 			{
 			"animatedForeground": "CENTAUR",
@@ -5083,6 +5083,33 @@
 			{
 			"mutations": [{"saveType":"ITEM", "value":{"class": "com.majalis.character.Item$Weapon", "type": "Bow"}}, {"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": 2}}],
 			"text": "You lay motionless as she trots up to you, kneels, and lays her bow on the ground.  Without another word, she trots off, having already gotten her satisfaction with your too-small body."}
+		]
+	},
+	{
+		"key": "GOBLIN-BIRTH-HARPY",
+		"scriptLines": [
+			{
+			"music": "WEREWOLF_MUSIC",
+			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "GOBLIN", "value":9}}],
+			"text": "You give birth to the goblin's harpy-inseminated baby."}
+		]
+	},
+	{
+		"key": "GOBLIN-BIRTH-WEREWOLF",
+		"scriptLines": [
+			{
+			"music": "WEREWOLF_MUSIC",
+			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "GOBLIN", "value":10}}],
+			"text": "You give birth to the goblin's werewolf-inseminated baby."}
+		]
+	},
+	{
+		"key": "GOBLIN-BIRTH-CENTAUR",
+		"scriptLines": [
+			{
+			"music": "WEREWOLF_MUSIC",
+			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "GOBLIN", "value":11}}],
+			"text": "You give birth to the goblin's centaur-inseminated baby."}
 		]
 	},
 	{

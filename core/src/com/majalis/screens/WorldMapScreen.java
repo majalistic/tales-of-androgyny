@@ -583,6 +583,9 @@ public class WorldMapScreen extends AbstractScreen {
 		else if (!inSuspendedArea(currentNode) && character.getQuestStatus(QuestType.MERMAID) == 6) { // forced Mermaid hatching
 			autoEncounter(uiGroup, EncounterCode.MERMAID);
 		}
+		else if (!inSuspendedArea(currentNode) && character.getQuestStatus(QuestType.GOBLIN) >= 6 && character.getQuestStatus(QuestType.GOBLIN) < 9) { // forced Goblin hatching
+			autoEncounter(uiGroup, EncounterCode.GOBLIN);
+		}
 		else {
 			tintForTimeOfDay(time + 1, travelTime);
 			Vector2 finish = node.getHexPosition();

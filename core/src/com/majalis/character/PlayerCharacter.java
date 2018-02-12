@@ -1201,7 +1201,9 @@ public class PlayerCharacter extends AbstractCharacter {
 	public boolean fullOfEggs() { 
 		return 
 			(questFlags.get(QuestType.SPIDER.toString(), 0) >= 2 && questFlags.get(QuestType.SPIDER.toString(), 0) < 6) ||	
-			(questFlags.get(QuestType.MERMAID.toString(), 0) >= 3 && questFlags.get(QuestType.MERMAID.toString(), 0) < 7); 
+			(questFlags.get(QuestType.MERMAID.toString(), 0) >= 3 && questFlags.get(QuestType.MERMAID.toString(), 0) < 7) ||
+			(questFlags.get(QuestType.GOBLIN.toString(), 0) >= 3 && questFlags.get(QuestType.GOBLIN.toString(), 0) < 9)
+			; 
 	}
 	
 	@Override
@@ -1366,7 +1368,26 @@ public class PlayerCharacter extends AbstractCharacter {
 		baseDefense = defense;
 	}
 	
-	private PhallusType getPhallusType(SexualExperience sex) { return sex.isBird() ? PhallusType.BIRD : sex.isCentaurSex() ? PhallusType.HORSE : sex.isKnot() ? PhallusType.DOG : sex.isOgreSex() ? PhallusType.GIANT : PhallusType.MONSTER;  }
+	private PhallusType getPhallusType(SexualExperience sex) { return sex.isBird() ? PhallusType.BIRD : sex.isCentaurSex() ? PhallusType.HORSE : sex.isKnot() ? PhallusType.DOG : sex.isOgreSex() ? PhallusType.GIANT : PhallusType.MONSTER; }
+	
+	private void getPregnant(PhallusType phallusType) {
+		switch(phallusType) {
+			case BIRD:
+				questFlags.put(QuestType.GOBLIN.toString(), 3);
+				eggtick = 0;
+				break;
+			case DOG:
+				questFlags.put(QuestType.GOBLIN.toString(), 4);
+				eggtick = 0;
+				break;
+			case HORSE:
+				questFlags.put(QuestType.GOBLIN.toString(), 5);
+				eggtick = 0;
+				break;
+			default:
+				break;	
+		}
+	}
 	
 	// this needs to properly increase arousal
 	public Array<MutationResult> receiveSex(SexualExperience sex) {
@@ -1380,6 +1401,11 @@ public class PlayerCharacter extends AbstractCharacter {
 		for (int ii = 0; ii < sex.getCreampies(); ii++) {
 			result.addAll(fillButt(5));
 		}
+		
+		if (sex.getCreampies() > 0 && questFlags.get(QuestType.GOBLIN.toString(), 0) == 2 && !fullOfEggs()) {
+			getPregnant(getPhallusType(sex));
+		}
+		
 		for (int ii = 0; ii < sex.getAnalEjaculations(); ii++) {
 			cumFromAnal();
 			setCurrentPortrait(AssetEnum.PORTRAIT_AHEGAO);
@@ -1422,11 +1448,11 @@ public class PlayerCharacter extends AbstractCharacter {
 			cumFromOral();
 		}
 		
-		if (sex.isCentaurSex() && perks.get(Perk.EQUESTRIAN.toString(), 0) == 0) {
+		if (sex.isCentaurSex() && sex.getAnalSex() > 0 && perks.get(Perk.EQUESTRIAN.toString(), 0) == 0) {
 			result.add(new MutationResult("You gained " + Perk.EQUESTRIAN.getLabel() + " (Rank " + 1 + ")!"));
 			perks.put(Perk.EQUESTRIAN.toString(), 1);
 		}
-		if (sex.isOgreSex() && perks.get(Perk.SIZE_QUEEN.toString(), 0) != 3) {
+		if (sex.isOgreSex() && sex.getAnalSex() > 0 && perks.get(Perk.SIZE_QUEEN.toString(), 0) != 3) {
 			result.add(new MutationResult("You gained " + Perk.SIZE_QUEEN.getLabel() + " (Rank " + (perks.get(Perk.SIZE_QUEEN.toString(), 0) + 1) + ")!"));
 			perks.put(Perk.SIZE_QUEEN.toString(), ((int)perks.get(Perk.SIZE_QUEEN.toString(), 0)) + 1);
 		}
@@ -1454,12 +1480,12 @@ public class PlayerCharacter extends AbstractCharacter {
 			}
 		}
 		
-		if (sex.isBird() && perks.get(Perk.CUCKOO_FOR_CUCKOO.toString(), 0) != 3) {
+		if (sex.isBird() && sex.getAnalSex() > 0 && perks.get(Perk.CUCKOO_FOR_CUCKOO.toString(), 0) != 3) {
 			result.add(new MutationResult("You gained " + Perk.CUCKOO_FOR_CUCKOO.getLabel() + " (Rank " + (perks.get(Perk.CUCKOO_FOR_CUCKOO.toString(), 0) + 1) + ")!"));
 			perks.put(Perk.CUCKOO_FOR_CUCKOO.toString(), ((int)perks.get(Perk.CUCKOO_FOR_CUCKOO.toString(), 0)) + 1);
 		}
 		
-		if (sex.isKnot() && perks.get(Perk.BITCH.toString(), 0) != 3) {
+		if (sex.isKnot() && sex.getAnalSex() > 0 && perks.get(Perk.BITCH.toString(), 0) != 3) {
 			result.add(new MutationResult("You gained " + Perk.BITCH.getLabel() + " (Rank " + (perks.get(Perk.BITCH.toString(), 0) + 1) + ")!"));
 			perks.put(Perk.BITCH.toString(), ((int)perks.get(Perk.BITCH.toString(), 0)) + 1);
 		}
@@ -1614,6 +1640,10 @@ public class PlayerCharacter extends AbstractCharacter {
 			eggtick = 0; 
 			eventLog.add("You gave birth to spider offspring on the " + getTimeDescription() + "!");
 		}
+		if (type == QuestType.GOBLIN && (status == 9 || status == 10 || status == 11)) { 
+			eggtick = 0; 
+			eventLog.add("You gave birth to goblin's offspring on the " + getTimeDescription() + "!");
+		}
 		questFlags.put(type.toString(), status);
 	}
 	
@@ -1655,9 +1685,15 @@ public class PlayerCharacter extends AbstractCharacter {
 					switch (currentValue) {
 						case 1: return "You've met Selkie the fem goblin.";
 						case 2: return "You've been pseudo-impregnated by Selkie the fem goblin.";
-						case 3: return "Selkie's goblin eggs have been impregnated by a werewolf!";
-						case 4: return "Selkie's goblin eggs have been impregnated by a centaur!";
-						case 5: return "Selkie's goblin eggs have been impregnated by a harpy!";
+						case 3: return "Selkie's goblin eggs have been impregnated by a harpy!";
+						case 4: return "Selkie's goblin eggs have been impregnated by a werewolf!";
+						case 5: return "Selkie's goblin eggs have been impregnated by a centaur!";
+						case 6: return "Selkie's harpy-fertilized baby is ready to be born!";
+						case 7: return "Selkie's werewolf-fertilized baby is ready to be born!";
+						case 8: return "Selkie's centaur-fertilized baby is ready to be born!";
+						case 9: return "You gave birth to Selkie's harpy-fertilized baby!";
+						case 10: return "You gave birth to Selkie's werewolf-fertilized baby!";
+						case 11: return "You gave birth to Selkie's centaur-fertilized baby!";
 					}
 				case INNKEEP:
 					return currentValue == 4 ? "You've married the innkeep." : currentValue == 3 ? "You've been innkeep's bitch for a day's lodging." : currentValue == 2 ? "You've caught the innkeep's fuck for a day's lodging." : currentValue == 1 ? "You've sucked the innkeep off for a day's lodging." : "";
@@ -1822,6 +1858,13 @@ public class PlayerCharacter extends AbstractCharacter {
 					return getResult("The goblin eggs have flushed out!");
 				}
 				return getResult("You've got goblin eggs stuck in your bowels!");
+			}
+			if (questLevel > 2 && questLevel < 6) {
+				if (eggtick >= 18) {
+					questFlags.put(QuestType.GOBLIN.toString(), questLevel + 3);
+					return getResult("You go into labor with the goblin's baby!");
+				}
+				return getResult("You're pregnant with the goblin's baby!");
 			}
 		}	
 		return new Array<MutationResult>();

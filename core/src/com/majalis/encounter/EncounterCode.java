@@ -1085,46 +1085,50 @@ public enum EncounterCode {
 				};
 				
 				return b.branch().checkScene(
-					CheckType.GOBLIN_KNOWN,
-					b.branch(true).textScene("GOBLIN-INTRO").choiceScene(
-						"What path do you follow?",
-						b.branch("Pass By").textScene("GOBLIN-PASSBY"),
-						b.branch("Enter the Small Path").textScene("GOBLIN-ENTRANCE").checkScene(
-							Stat.PERCEPTION, 
-							b.branch(7).textScene("GOBLIN-EAGLE-EYE").checkScene(
-								Stat.AGILITY,
-								b.branch(5).textScene("GOBLIN-SPEAR-GRAB").checkScene(
-									Stat.STRENGTH,
-									goblinStrength
+					CheckType.GOBLIN_BIRTH, 
+					b.branch(true).checkScene(CheckType.GOBLIN_BIRTH_HARPY, b.branch(true).textScene("GOBLIN-BIRTH-HARPY"), b.branch(false).checkScene(CheckType.GOBLIN_BIRTH_WEREWOLF, b.branch(true).textScene("GOBLIN-BIRTH-WEREWOLF"), b.branch(false).textScene("GOBLIN-BIRTH-CENTAUR"))), 
+					b.branch(false).checkScene(
+						CheckType.GOBLIN_KNOWN,
+						b.branch(true).textScene("GOBLIN-INTRO").choiceScene(
+							"What path do you follow?",
+							b.branch("Pass By").textScene("GOBLIN-PASSBY"),
+							b.branch("Enter the Small Path").textScene("GOBLIN-ENTRANCE").checkScene(
+								Stat.PERCEPTION, 
+								b.branch(7).textScene("GOBLIN-EAGLE-EYE").checkScene(
+									Stat.AGILITY,
+									b.branch(5).textScene("GOBLIN-SPEAR-GRAB").checkScene(
+										Stat.STRENGTH,
+										goblinStrength
+									),
+									b.branch(3).textScene("GOBLIN-SPEAR-DODGE").concat(cutPants),
+									b.branch(0).textScene("GOBLIN-SPEAR-STABBED").concat(cutPants)
 								),
-								b.branch(3).textScene("GOBLIN-SPEAR-DODGE").concat(cutPants),
-								b.branch(0).textScene("GOBLIN-SPEAR-STABBED").concat(cutPants)
-							),
-							b.branch(4).textScene("GOBLIN-CONTRAPTION").checkScene(
-								Stat.AGILITY,
-								goblinSpear
-							),
-							b.branch(0).textScene("GOBLIN-AMBUSH").checkScene(
-								Stat.AGILITY, 
-								b.branch(5).textScene("GOBLIN-LOG-DODGE").checkScene(
-									Stat.AGILITY, goblinSpear
+								b.branch(4).textScene("GOBLIN-CONTRAPTION").checkScene(
+									Stat.AGILITY,
+									goblinSpear
 								),
-								b.branch(0).checkScene(
-									Stat.ENDURANCE,
-									b.branch(7).textScene("GOBLIN-OBLIVIOUS"),
-									b.branch(0).textScene("GOBLIN-TOTALFAIL")
+								b.branch(0).textScene("GOBLIN-AMBUSH").checkScene(
+									Stat.AGILITY, 
+									b.branch(5).textScene("GOBLIN-LOG-DODGE").checkScene(
+										Stat.AGILITY, goblinSpear
+									),
+									b.branch(0).checkScene(
+										Stat.ENDURANCE,
+										b.branch(7).textScene("GOBLIN-OBLIVIOUS"),
+										b.branch(0).textScene("GOBLIN-TOTALFAIL")
+									)
 								)
 							)
-						)
-					),	
-					b.branch(false).textScene("GOBLIN-SECOND-QUEST").choiceScene(
-						"Brave the sign?", 
-						b.branch("Pass the sign").textScene("GOBLIN-REUNION").battleScene(
-							BattleCode.GOBLIN,
-							battleScenes
-						), 
-						b.branch("Go another way")
-					) 	
+						),	
+						b.branch(false).textScene("GOBLIN-SECOND-QUEST").choiceScene(
+							"Brave the sign?", 
+							b.branch("Pass the sign").textScene("GOBLIN-REUNION").battleScene(
+								BattleCode.GOBLIN,
+								battleScenes
+							), 
+							b.branch("Go another way")
+						) 	
+					)
 				);
 			case GOLEM:
 				Branch golemHypnosis = b.branch().textScene("GOLEM-HYPNOSIS");

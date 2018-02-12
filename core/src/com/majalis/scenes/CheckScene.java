@@ -422,6 +422,18 @@ public class CheckScene extends AbstractTextScene {
 			@Override
 			protected boolean getCheck(PlayerCharacter character) { int check = character.getQuestStatus(QuestType.SPIDER); return check == 5; }  
 		}, 
+		GOBLIN_BIRTH("", "") {
+			@Override
+			protected boolean getCheck(PlayerCharacter character) { int check = character.getQuestStatus(QuestType.GOBLIN); return check >= 6 && check < 9; }  
+		},
+		GOBLIN_BIRTH_HARPY("", "") {
+			@Override
+			protected boolean getCheck(PlayerCharacter character) { int check = character.getQuestStatus(QuestType.GOBLIN); return check == 6; }  
+		}, 
+		GOBLIN_BIRTH_WEREWOLF("", "") {
+			@Override
+			protected boolean getCheck(PlayerCharacter character) { int check = character.getQuestStatus(QuestType.GOBLIN); return check == 7; }  
+		}, 
 		;
 		private final String success;
 		private final String failure;
