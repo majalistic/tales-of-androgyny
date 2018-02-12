@@ -43,8 +43,24 @@ public class CreditsScreen extends AbstractScreen{
 		        }
 			}
 		);
-		done.setPosition(1523, 120);
+		done.setWidth(150);
+		done.setPosition(1623, 50);
 		this.addActor(done);
+		
+		final TextButton patrons = new TextButton("Patrons", skin);
+		
+		patrons.addListener(
+			new ClickListener() {
+				@Override
+		        public void clicked(InputEvent event, float x, float y) {
+					sound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
+					showScreen(ScreenEnum.PATRON);	   
+		        }
+			}
+		);
+		patrons.setWidth(150);
+		patrons.setPosition(1423, 50);
+		this.addActor(patrons);
 		
 		credits = "\"Broken Reality\", \"Perspectives\", \"Floating Cities\", \"Enchanted Valley\", \"Brittle Rille\", \"For Originz\", \"Phantom from Space\",\n\"Mechanolith\", \"Fearless First\", \"Danger Storm\", \"Killers\", \"One-eyed Maestro\", \"Immersed\", \"Shadowlands 3 - Machine\", \n\"Temple of the Manes\", \"Ascending the Vale\", \"Division\""
 				+ "\nKevin MacLeod (incompetech.com)"

@@ -19,5 +19,6 @@ public enum ScreenEnum {
     REPLAY,
     HELP,
     CREDITS,
+    PATRON,
     EXIT, 
 }

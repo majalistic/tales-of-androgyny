@@ -173,6 +173,11 @@ public class ScreenFactoryImpl implements ScreenFactory {
 					return new CreditsScreen(this, elements);
 				}
 				break;
+			case PATRON:
+				if (getAssetCheck(PatronScreen.resourceRequirements)) {
+					return new PatronScreen(this, elements);
+				}
+				break;
 			case EXIT: 	return new ExitScreen(this, elements);
 		}
 		loading = true;
