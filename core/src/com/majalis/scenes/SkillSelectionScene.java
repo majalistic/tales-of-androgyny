@@ -162,22 +162,23 @@ public class SkillSelectionScene extends Scene {
 		this.magicPoints = character.getMagicPoints();
 		this.perkPoints = character.getPerkPoints();
 		
-		skillPointsDisplay = addLabel("Skills: " + skillPoints, skin, null, Color.GOLD, 10, 90);
-		magicPointsDisplay = addLabel("Soul Crystals: " + magicPoints, skin, null, Color.WHITE, 10, 50);
+		skillPointsDisplay = addLabel("Skills: " + skillPoints, skin, null, Color.GOLD, 10, 80);
+		magicPointsDisplay = addLabel("Soul Crystals: " + magicPoints, skin, null, Color.WHITE, 10, 45);
 		perkPointsDisplay = addLabel("Perks: " + perkPoints, skin, null, Color.WHITE, 10, 10);
 
+		Image temp = addImage(assetManager.get(AssetEnum.SKILL_CONSOLE_BOX.getTexture()), Color.WHITE, 940 + 420, 0, 560, 1080); 
+		temp.addAction(Actions.alpha(.9f));
+		temp = addImage(skillGroup, assetManager.get(AssetEnum.SKILL_BOX_1.getTexture()), Color.WHITE, 75, 75);
+		temp.addAction(Actions.alpha(.75f));
+		temp = addImage(skillGroup, assetManager.get(AssetEnum.SKILL_BOX_2.getTexture()), Color.WHITE, 725, 75);
+		temp.addAction(Actions.alpha(.75f));
+		temp = addImage(skillGroup, assetManager.get(AssetEnum.SKILL_BOX_0.getTexture()), Color.WHITE, 400, 0);
+		temp = addImage(magicGroup, assetManager.get(AssetEnum.SKILL_BOX_1.getTexture()), Color.WHITE, 400, 0);
+		temp = addImage(perkGroup, assetManager.get(AssetEnum.SKILL_BOX_2.getTexture()), Color.WHITE, 400, 0);		
+		
 		addImage(skillGroup, assetManager.get(AssetEnum.SKILL_TITLE.getTexture()), Color.WHITE, 25, 1000);
 		addImage(magicGroup, assetManager.get(AssetEnum.MAGIC_TITLE.getTexture()), Color.WHITE, 25, 1000);
 		addImage(perkGroup, assetManager.get(AssetEnum.PERK_TITLE.getTexture()), Color.WHITE, 25, 1000);
-		
-		Image temp = addImage(assetManager.get(AssetEnum.SKILL_CONSOLE_BOX.getTexture()), Color.WHITE, 940 + 420, 0, 560, 1080); 
-		temp.addAction(Actions.alpha(.9f));
-		temp = addImage(skillGroup, assetManager.get(AssetEnum.SKILL_BOX_0.getTexture()), Color.WHITE, 200, 0);
-		temp.addAction(Actions.alpha(.9f));
-		temp = addImage(magicGroup, assetManager.get(AssetEnum.SKILL_BOX_1.getTexture()), Color.WHITE, 200, 0);
-		temp.addAction(Actions.alpha(.9f));
-		temp = addImage(perkGroup, assetManager.get(AssetEnum.SKILL_BOX_2.getTexture()), Color.WHITE, 200, 0);		
-		temp.addAction(Actions.alpha(.9f));
 		
 		int consoleX = 1665;
 		int consoleY = 975;
@@ -234,7 +235,7 @@ public class SkillSelectionScene extends Scene {
 		for(Stance stance : Stance.values()) {
 			if (!stance.hasLearnableSkills() || !character.hasStance(stance)) continue;
 			StanceSkillDisplay newStanceSkillDisplay = new StanceSkillDisplay(stance, false, assetManager);
-			newStanceSkillDisplay.setPosition(495, tableHeight);
+			newStanceSkillDisplay.setPosition(695, tableHeight);
 			newStanceSkillDisplay.addAction(Actions.hide());
 			skillGroup.addActor(newStanceSkillDisplay);
 			allDisplay.add(newStanceSkillDisplay);
@@ -374,7 +375,7 @@ public class SkillSelectionScene extends Scene {
 				perkTable.add(plusButton).row();
 				jj++;
 			}
-			perkTable.setPosition(495, tableHeight);
+			perkTable.setPosition(695, tableHeight);
 			perkTable.align(Align.top);
 			perkTable.addAction(Actions.hide());
 			perkDisplay.add(perkTable);
@@ -388,10 +389,10 @@ public class SkillSelectionScene extends Scene {
 			magicGroup.addActor(newStanceSkillDisplay);
 		}
 		
-		addButton(skillGroup, 830, 450, new ClickListener() { @Override public void clicked(InputEvent event, float x, float y) { changeStanceDisplay(1); }}, true);
-		addButton(skillGroup, 170, 450, new ClickListener() { @Override public void clicked(InputEvent event, float x, float y) { changeStanceDisplay(-1); }}, false);
-		addButton(perkGroup, 830, 450, new ClickListener() { @Override public void clicked(InputEvent event, float x, float y) { changePerkDisplay(1); }}, true);
-		addButton(perkGroup, 170, 450, new ClickListener() { @Override public void clicked(InputEvent event, float x, float y) { changePerkDisplay(-1); }}, false);
+		addButton(skillGroup, 1030, 450, new ClickListener() { @Override public void clicked(InputEvent event, float x, float y) { changeStanceDisplay(1); }}, true);
+		addButton(skillGroup, 370, 450, new ClickListener() { @Override public void clicked(InputEvent event, float x, float y) { changeStanceDisplay(-1); }}, false);
+		addButton(perkGroup, 1030, 450, new ClickListener() { @Override public void clicked(InputEvent event, float x, float y) { changePerkDisplay(1); }}, true);
+		addButton(perkGroup, 370, 450, new ClickListener() { @Override public void clicked(InputEvent event, float x, float y) { changePerkDisplay(-1); }}, false);
 		
         final Table navigationButtons = new Table();
 		final TextButton showSkills = new TextButton("Skills", skin);
