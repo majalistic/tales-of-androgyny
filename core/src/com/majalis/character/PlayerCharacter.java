@@ -1200,7 +1200,7 @@ public class PlayerCharacter extends AbstractCharacter {
 	@Override
 	public boolean fullOfEggs() { 
 		return 
-			(questFlags.get(QuestType.SPIDER.toString(), 0) >= 2 && questFlags.get(QuestType.MERMAID.toString(), 0) < 6) ||	
+			(questFlags.get(QuestType.SPIDER.toString(), 0) >= 2 && questFlags.get(QuestType.SPIDER.toString(), 0) < 6) ||	
 			(questFlags.get(QuestType.MERMAID.toString(), 0) >= 3 && questFlags.get(QuestType.MERMAID.toString(), 0) < 7); 
 	}
 	
