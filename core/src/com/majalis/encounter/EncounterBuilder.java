@@ -900,6 +900,8 @@ public class EncounterBuilder {
 			add(requirements, alreadySeen, AssetEnum.ADDED_BAUBLE);
 			add(requirements, alreadySeen, AssetEnum.STANCE_ARROW);
 			add(requirements, alreadySeen, AssetEnum.SKILL_CONSOLE_BOX);
+			add(requirements, alreadySeen, AssetEnum.GEM_CLINK, true);
+			add(requirements, alreadySeen, AssetEnum.QUICK_PAGE_TURN, true);
 			for (Stance stance : Stance.values()) {
 				requirements.add(stance.getTexture());
 			}

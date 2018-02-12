@@ -41,6 +41,8 @@ public class SkillSelectionScene extends Scene {
 	private final SaveService saveService;
 	private final Skin skin;
 	private final Sound buttonSound;
+	private final Sound gemSound;
+	private final Sound pageTurnSound;
 	private final PlayerCharacter character;
 	private final AssetManager assetManager;
 	private final Group skillGroup;
@@ -90,6 +92,8 @@ public class SkillSelectionScene extends Scene {
 		this.addActor(perkGroup);
 		skin = assetManager.get(AssetEnum.UI_SKIN.getSkin());
 		buttonSound = assetManager.get(AssetEnum.BUTTON_SOUND.getSound());
+		gemSound = assetManager.get(AssetEnum.GEM_CLINK.getSound());
+		pageTurnSound = assetManager.get(AssetEnum.QUICK_PAGE_TURN.getSound());
 		allDisplay = new Array<StanceSkillDisplay>();
 		perkDisplay  = new Array<Table>();
 		techniquesToBaubles = new ObjectMap<Techniques, Array<Image>>();
@@ -281,7 +285,7 @@ public class SkillSelectionScene extends Scene {
 					plusButton.addListener(new ClickListener() {
 						@Override
 				        public void clicked(InputEvent event, float x, float y) {
-							buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
+							gemSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
 							if (perkPoints > 0) {
 								Integer newLevel = perks.get(perk, 0);
 								if (newLevel < perk.getMaxRank()) {
@@ -321,7 +325,7 @@ public class SkillSelectionScene extends Scene {
 				minusButton.addListener(new ClickListener() {
 					@Override
 			        public void clicked(InputEvent event, float x, float y) {
-						buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
+						gemSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
 						
 						Integer newLevel = perks.get(perk, 0);
 						if (newLevel == 0) {
@@ -395,7 +399,7 @@ public class SkillSelectionScene extends Scene {
 			new ClickListener() {
 				@Override
 		        public void clicked(InputEvent event, float x, float y) {
-					buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
+					pageTurnSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
 					skillGroup.addAction(Actions.show());
 					magicGroup.addAction(Actions.hide());
 					perkGroup.addAction(Actions.hide());
@@ -412,7 +416,7 @@ public class SkillSelectionScene extends Scene {
 				new ClickListener() {
 					@Override
 			        public void clicked(InputEvent event, float x, float y) {
-						buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
+						pageTurnSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
 						skillGroup.addAction(Actions.hide());
 						magicGroup.addAction(Actions.show());
 						perkGroup.addAction(Actions.hide());
@@ -432,7 +436,7 @@ public class SkillSelectionScene extends Scene {
 			new ClickListener() {
 				@Override
 		        public void clicked(InputEvent event, float x, float y) {
-					buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
+					pageTurnSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
 					perkDisplay.get(perkSelection).addAction(Actions.show());
 					skillGroup.addAction(Actions.hide());
 					magicGroup.addAction(Actions.hide());
@@ -486,6 +490,7 @@ public class SkillSelectionScene extends Scene {
 	}
 	
 	private void changeStanceDisplay(int delta) {
+		pageTurnSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
 		allDisplay.get(stanceSelection).addAction(Actions.hide());
 		stanceSelection += delta;
 		if (stanceSelection < 0) stanceSelection += allDisplay.size;
@@ -494,6 +499,7 @@ public class SkillSelectionScene extends Scene {
 	}
 	
 	private void changePerkDisplay(int delta) {
+		pageTurnSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
 		perkDisplay.get(perkSelection).addAction(Actions.hide());
 		perkSelection += delta;
 		if (perkSelection < 0) perkSelection += perkDisplay.size;
@@ -616,7 +622,7 @@ public class SkillSelectionScene extends Scene {
 				plusButton.addListener(new ClickListener() {
 					@Override
 			        public void clicked(InputEvent event, float x, float y) {
-						buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
+						gemSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
 						if ((magic ? magicPoints : skillPoints) > 0) {
 							Integer newLevel = skills.get(technique);
 							if (newLevel == null) newLevel = 0;
@@ -655,7 +661,7 @@ public class SkillSelectionScene extends Scene {
 				minusButton.addListener(new ClickListener() {
 					@Override
 			        public void clicked(InputEvent event, float x, float y) {
-						buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
+						gemSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
 						
 						Integer newLevel = skills.get(technique, 0);
 						if (newLevel == 0) {
