@@ -497,20 +497,30 @@ public class SkillSelectionScene extends Scene {
 	private void changeStanceDisplay(int delta) { // rather than delta, this should be changed to display the selection provided
 		pageTurnSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
 		for (StanceSkillDisplay display : allDisplay) {
+			display.clearActions();
 			display.addAction(Actions.hide());
 		}
 		// need to get the new selection and the selection to its left and right
 		stanceSelection = getStanceSelectionValue(stanceSelection + delta);
 		
 		allDisplay.get(getStanceSelectionValue(stanceSelection - 1)).clearActions();
-		allDisplay.get(getStanceSelectionValue(stanceSelection - 1)).addAction(Actions.parallel(Actions.show(), Actions.alpha(.75f), Actions.touchable(Touchable.disabled), Actions.moveTo(695 - 325, tableHeight + 75)));
+		allDisplay.get(getStanceSelectionValue(stanceSelection - 1)).addAction(Actions.parallel(Actions.show(), Actions.alpha(.75f, .25f), Actions.touchable(Touchable.disabled), delta == 1 ? Actions.moveTo(695 - 325, tableHeight + 75, .25f) : Actions.sequence(Actions.moveTo(-300, tableHeight + 75), Actions.moveTo(695 - 325, tableHeight + 75, .25f))));
 		
-		allDisplay.get(getStanceSelectionValue(stanceSelection + 1)).clearActions();
-		allDisplay.get(getStanceSelectionValue(stanceSelection + 1)).addAction(Actions.parallel(Actions.show(), Actions.alpha(.75f), Actions.touchable(Touchable.disabled), Actions.moveTo(695 + 325, tableHeight + 75)));
+		allDisplay.get(getStanceSelectionValue(stanceSelection + 1)).clearActions();																								
+		allDisplay.get(getStanceSelectionValue(stanceSelection + 1)).addAction(Actions.parallel(Actions.show(), Actions.alpha(.75f, .25f), Actions.touchable(Touchable.disabled), delta == -1 ? Actions.moveTo(695 + 325, tableHeight + 75, .25f) : Actions.sequence(Actions.moveTo(695 + 325 + 670, tableHeight + 75), Actions.moveTo(695 + 325, tableHeight + 75, .25f))));
+
+		if (delta == 1) {
+			allDisplay.get(getStanceSelectionValue(stanceSelection - 2)).clearActions();
+			allDisplay.get(getStanceSelectionValue(stanceSelection - 2)).addAction(Actions.sequence(Actions.moveTo(-300, tableHeight + 75, .25f), Actions.hide()));
+		}
+		else {
+			allDisplay.get(getStanceSelectionValue(stanceSelection + 2)).clearActions();
+			allDisplay.get(getStanceSelectionValue(stanceSelection + 2)).addAction(Actions.sequence(Actions.moveTo(695 + 325 + 670, tableHeight + 75, .25f), Actions.hide()));
+		}
 		
 		allDisplay.get(stanceSelection).clearActions();
 		allDisplay.get(stanceSelection).getParent().addActor(allDisplay.get(stanceSelection));
-		allDisplay.get(stanceSelection).addAction(Actions.parallel(Actions.show(), Actions.alpha(1), Actions.touchable(Touchable.enabled), Actions.moveTo(695, tableHeight)));	
+		allDisplay.get(stanceSelection).addAction(Actions.parallel(Actions.show(), Actions.alpha(1, .25f), Actions.touchable(Touchable.enabled), Actions.moveTo(695, tableHeight, .25f)));	
 	}	
 
 	private void changePerkDisplay(int delta) {
