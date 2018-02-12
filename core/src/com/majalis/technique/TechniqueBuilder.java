@@ -185,7 +185,12 @@ public class TechniqueBuilder {
 			builder.append("Increases Strength dramatically, erodes - improved by MAG.\n");
 		}
 		if (enemyEffect != null) {
-			builder.append("Decreases Strength dramatically, duration improved by MAG.\n");
+			if (enemyEffect == StatusType.STRENGTH_DEBUFF) {
+				builder.append("Decreases Strength dramatically, duration improved by MAG.\n");
+			}
+			else {
+				builder.append("Increases stamina costs and reduces stamina regen, duration improved by MAG.\n");
+			}
 		}
 			
 		if (!causesBleed) {

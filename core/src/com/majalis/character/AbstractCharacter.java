@@ -235,7 +235,7 @@ public abstract class AbstractCharacter extends Actor {
 		return healthChange == 0 ? new Array<MutationResult>() : new Array<MutationResult>(new MutationResult[]{new MutationResult(healthChange > 0 ? "Gained " + healthChange + " health"  + (cause.isEmpty() ? "!" : " " + cause + "!") : "You take " + -healthChange + " damage" + (cause.isEmpty() ? "!" : " " + cause + "!"), healthChange, MutationType.HEALTH)}); 
 	}
 	
-	protected int getStaminaRegen() { return Math.max(getEndurance()/2, 0); }
+	protected int getStaminaRegen() { return Math.max(getEndurance() / (isGravitied() ? 4 : 2), 0); }
 	
 	protected int getStabilityRegen() { return getAgility() / 2 + perks.get(Perk.QUICKFOOTED.toString(), 0); }
 	
@@ -266,6 +266,7 @@ public abstract class AbstractCharacter extends Actor {
 	protected int getAgilityBuff() { return statuses.get(StatusType.AGILITY_BUFF.toString(), 0); }
 	
 	protected boolean strengthDebuffed() { return statuses.get(StatusType.STRENGTH_DEBUFF.toString(), 0) > 0; }
+	protected boolean isGravitied() { return statuses.get(StatusType.STRENGTH_DEBUFF.toString(), 0) > 0; }
 	
 	protected int stepDown(int value) { if (value < 3) return value; else if (value < 7) return 3 + (value - 3)/2; else return 5 + (value - 7)/3; } 
 	
@@ -346,7 +347,7 @@ public abstract class AbstractCharacter extends Actor {
 	
 	// this method can be removed, as the CharacterState could dictate what modifiers are applied to the stamina cost of a technique
 	protected int getStaminaMod(Technique technique) {
-		int staminaMod = technique.getStaminaCost();
+		int staminaMod = technique.getStaminaCost() * (isGravitied() ? 2 : 1);
 		if (staminaMod >= 0) {
 			staminaMod -= getStaminaRegen();
 			if (staminaMod < 0) staminaMod = 0;

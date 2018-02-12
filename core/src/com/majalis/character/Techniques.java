@@ -41,7 +41,6 @@ public enum Techniques {
 	KICK_OVER_FACE_UP	(new NonAttackTechnique(Stance.BALANCED, Stance.BALANCED, "Kick Over", 0, 5, Stance.SUPINE).build(), false),
 	KICK_OVER_FACE_DOWN (new NonAttackTechnique(Stance.BALANCED, Stance.BALANCED, "Kick Over", 0, 5, Stance.PRONE).build(), false),
 	
-	
 	/* Defensive Techniques */
 	CAREFUL_ATTACK  	(new AttackTechnique(Stance.DEFENSIVE, Stance.DEFENSIVE, "Careful Attack", -2, 0, 1).build()),
 	BLOCK				(new GuardTechnique	(Stance.BALANCED, Stance.DEFENSIVE, "Block", 0, 0, 3, true).addBonus(BonusCondition.SKILL_LEVEL, BonusType.PARRY, 1).build()),//.addBonus(BonusCondition.OUTMANEUVER, BonusType.GUARD_MOD, 25).build()),
@@ -292,6 +291,7 @@ public enum Techniques {
 	COMBAT_FIRE  		(new SpellTechnique(Stance.CASTING, Stance.BALANCED, "Combat Fire", 3, 3, false).addBonus(BonusCondition.SKILL_LEVEL, BonusType.POWER_MOD, 2).build(), 3),
 	TITAN_STRENGTH  	(new SpellTechnique(Stance.CASTING, Stance.BALANCED, "Titan Strength", 0, 2, false, StatusType.STRENGTH_BUFF).build(), 3),
 	WEAKENING_CURSE  	(new SpellTechnique(Stance.CASTING, Stance.BALANCED, "Weakening Curse", 8, 7, false, null, StatusType.STRENGTH_DEBUFF).build(), 3),
+	GRAVITY			  	(new SpellTechnique(Stance.CASTING, Stance.BALANCED, "Gravity", 8, 3, false, null, StatusType.GRAVITY).build(), 3),
 	FOCUS_ENERGY	  	(new SpellTechnique(Stance.CASTING, Stance.BALANCED, "Focus Energy", 4, -5, false, StatusType.ENDURANCE_BUFF).build(), 3, false)
 	;
 	
@@ -348,6 +348,7 @@ public enum Techniques {
 			case COMBAT_FIRE: return "An easy fire-summoning spell to cast in the heat of close combat.";
 			case TITAN_STRENGTH: return "Summons the strength of a titan into the user's body.";
 			case WEAKENING_CURSE: return "A spell that curses the opponent, rendering them feeble.";
+			case GRAVITY: return "A spell that curses the opponent, making them substantially heavier.";
 			case FOCUS_ENERGY: return "A spell for centering the spirit, restoring mana and improving physical endurance for a time.";
 			case SLAP_ASS: return "A playful slap of the rear to entice someone to give it a try.";
 			case GESTURE: return "An obscene, suggestive gesture of the hands.";

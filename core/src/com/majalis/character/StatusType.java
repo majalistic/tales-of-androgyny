@@ -6,7 +6,8 @@ public enum StatusType {
 	ENDURANCE_BUFF("Endurance Up"),
 	BLEEDING ("Bleeding", false, false), 
 	ACTIVATE ("Activate"), 
-	STRENGTH_DEBUFF ("Strength Down", true, false);
+	STRENGTH_DEBUFF ("Strength Down", true, false), 
+	GRAVITY ("Gravity", true, false), ;
 
 	private final boolean doesDegrade;
 	private final boolean isPositive;
