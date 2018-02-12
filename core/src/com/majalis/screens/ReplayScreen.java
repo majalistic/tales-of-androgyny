@@ -59,6 +59,7 @@ public class ReplayScreen extends AbstractScreen {
 		resourceRequirements.add(AssetEnum.BUNNY_CHOCOLATE_ANAL.getTexture());
 		resourceRequirements.add(AssetEnum.BUNNY_DARK_CHOCOLATE_ANAL.getTexture());
 		resourceRequirements.add(AssetEnum.BUNNY_CREAM_ANAL.getTexture());
+		resourceRequirements.add(AssetEnum.WEREBITCH_KNOT_CUM.getTexture());
 		
 		Array<AssetEnum> animationReqs = new Array<AssetEnum>(new AssetEnum[]{
 			HARPY_ANIMATION, HARPY_ATTACK_ANIMATION, FEATHERS_ANIMATION, FEATHERS2_ANIMATION, BRIGAND_ANIMATION, ANAL_ANIMATION, CENTAUR_ANIMATION, ORC_ANIMATION, GOBLIN_ANIMATION			
@@ -265,6 +266,10 @@ public class ReplayScreen extends AbstractScreen {
 				attachListener(new TextButton("Anal (X-ray)", skin), AssetEnum.UNICORN_ANAL_XRAY, cg, enemy, table);
 				break;
 			case WERESLUT:
+				attachListener(new TextButton("Anal", skin), AssetEnum.WEREBITCH_ANAL, cg, enemy, table);
+				attachListener(new TextButton("Knot (X-ray)", skin), AssetEnum.WEREBITCH_KNOT, cg, enemy, table);
+				table.row();
+				attachListener(new TextButton("Cum (X-ray)", skin), AssetEnum.WEREBITCH_KNOT_CUM, cg, enemy, table);
 				break;
 			default:
 				break;
