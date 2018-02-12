@@ -172,13 +172,7 @@ public class SkillSelectionScene extends Scene {
 		temp.addAction(Actions.alpha(.75f));
 		temp = addImage(skillGroup, assetManager.get(AssetEnum.SKILL_BOX_2.getTexture()), Color.WHITE, 725, 75);
 		temp.addAction(Actions.alpha(.75f));
-		temp = addImage(skillGroup, assetManager.get(AssetEnum.SKILL_BOX_0.getTexture()), Color.WHITE, 400, 0);
-		temp = addImage(magicGroup, assetManager.get(AssetEnum.SKILL_BOX_1.getTexture()), Color.WHITE, 400, 0);
 		temp = addImage(perkGroup, assetManager.get(AssetEnum.SKILL_BOX_2.getTexture()), Color.WHITE, 400, 0);		
-		
-		addImage(skillGroup, assetManager.get(AssetEnum.SKILL_TITLE.getTexture()), Color.WHITE, 25, 1000);
-		addImage(magicGroup, assetManager.get(AssetEnum.MAGIC_TITLE.getTexture()), Color.WHITE, 25, 1000);
-		addImage(perkGroup, assetManager.get(AssetEnum.PERK_TITLE.getTexture()), Color.WHITE, 25, 1000);
 		
 		int consoleX = 1665;
 		int consoleY = 975;
@@ -382,10 +376,9 @@ public class SkillSelectionScene extends Scene {
 			perkGroup.addActor(perkTable);
 		}
 		
-		
 		if (character.hasMagic()) {
 			StanceSkillDisplay newStanceSkillDisplay = new StanceSkillDisplay(Stance.CASTING, true, assetManager);
-			newStanceSkillDisplay.setPosition(495, tableHeight);
+			newStanceSkillDisplay.setPosition(695, tableHeight);
 			magicGroup.addActor(newStanceSkillDisplay);
 		}
 		
@@ -468,6 +461,10 @@ public class SkillSelectionScene extends Scene {
 		navigationButtons.add(done).width(200);
 		this.addActor(navigationButtons);
 		
+		addImage(skillGroup, assetManager.get(AssetEnum.SKILL_TITLE.getTexture()), Color.WHITE, 25, 1000);
+		addImage(magicGroup, assetManager.get(AssetEnum.MAGIC_TITLE.getTexture()), Color.WHITE, 25, 1000);
+		addImage(perkGroup, assetManager.get(AssetEnum.PERK_TITLE.getTexture()), Color.WHITE, 25, 1000);
+		
 		magicGroup.addAction(Actions.hide());
 		perkGroup.addAction(Actions.hide());
 	}
@@ -490,7 +487,7 @@ public class SkillSelectionScene extends Scene {
 		return region;
 	}
 	
-	private void changeStanceDisplay(int delta) {
+	private void changeStanceDisplay(int delta) { // rather than delta, this should be changed to display the selection provided
 		pageTurnSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
 		allDisplay.get(stanceSelection).addAction(Actions.hide());
 		stanceSelection += delta;
@@ -572,6 +569,9 @@ public class SkillSelectionScene extends Scene {
 		private StanceSkillDisplay(Stance stance, boolean magic, AssetManager assetManager) { 
 			this.stance = stance;
 			this.magic = magic;
+			Image background = new Image(assetManager.get((stance == Stance.CASTING ? AssetEnum.SKILL_BOX_1 : AssetEnum.SKILL_BOX_0).getTexture()));
+			this.addActor(background);
+			background.setPosition(-295, -690);
 			this.table = new Table();
 			this.addActor(table);
 			Label stanceLabel = new Label(stance == Stance.CASTING ? "Magic" : stance.getLabel(), skin);
