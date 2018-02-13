@@ -50,7 +50,7 @@ public class SkillSelectionScene extends Scene {
 	private final Group magicGroup;
 	private final Group perkGroup;
 	private Array<StanceSkillDisplay> allDisplay;
-	private Array<Table> perkDisplay;
+	private Array<Group> perkDisplay;
 	private int stanceSelection;
 	private int perkSelection;
 	private StanceTransition stanceTransition;
@@ -96,7 +96,7 @@ public class SkillSelectionScene extends Scene {
 		gemSound = assetManager.get(AssetEnum.GEM_CLINK.getSound());
 		pageTurnSound = assetManager.get(AssetEnum.QUICK_PAGE_TURN.getSound());
 		allDisplay = new Array<StanceSkillDisplay>();
-		perkDisplay  = new Array<Table>();
+		perkDisplay  = new Array<Group>();
 		techniquesToBaubles = new ObjectMap<Techniques, Array<Image>>();
 		techniquesToButtons = new ObjectMap<Techniques, Array<Button>>();
 		locked = false;
@@ -168,8 +168,7 @@ public class SkillSelectionScene extends Scene {
 		perkPointsDisplay = addLabel("Perks: " + perkPoints, skin, null, Color.WHITE, 10, 10);
 
 		Image temp = addImage(assetManager.get(AssetEnum.SKILL_CONSOLE_BOX.getTexture()), Color.WHITE, 940 + 420, 0, 560, 1080); 
-		temp.addAction(Actions.alpha(.9f));
-		temp = addImage(perkGroup, assetManager.get(AssetEnum.SKILL_BOX_2.getTexture()), Color.WHITE, 400, 0);		
+		temp.addAction(Actions.alpha(.9f));	
 		
 		int consoleX = 1665;
 		int consoleY = 975;
@@ -234,6 +233,8 @@ public class SkillSelectionScene extends Scene {
 			stanceDisplayGroup.addActor(newStanceSkillDisplay);
 			allDisplay.add(newStanceSkillDisplay);
 		}
+
+		allDisplay.get(0).addAction(Actions.show());
 		
 		Array<Perk> learnablePerks = new Array<Perk>();
 		for (final Perk perk: Perk.values()) {
@@ -242,9 +243,12 @@ public class SkillSelectionScene extends Scene {
 			}
 		}
 		
+		Group perkGroupTotal = new Group();
+		perkGroup.addActor(perkGroupTotal);
 		int pageSplit = 2;
-		allDisplay.get(0).addAction(Actions.show());
 		for (int ii = 0; ii < pageSplit; ii++) {
+			Group perkGroupTemp = new Group();
+			addImage(perkGroupTemp, assetManager.get(AssetEnum.SKILL_BOX_2.getTexture()), Color.WHITE, 400, 0);	
 			final Table perkTable = new Table();
 			int jj = 0;
 			for (final Perk perk: learnablePerks) {
@@ -371,10 +375,13 @@ public class SkillSelectionScene extends Scene {
 			}
 			perkTable.setPosition(695, tableHeight);
 			perkTable.align(Align.top);
-			perkTable.addAction(Actions.hide());
-			perkDisplay.add(perkTable);
-			perkGroup.addActor(perkTable);
+			perkDisplay.add(perkGroupTemp);
+			perkGroupTemp.setPosition(ii == 0 ? 0 : 325, ii == 0 ? 0 : 75);
+			perkGroupTemp.addActor(perkTable);
+			perkGroupTotal.addActor(perkGroupTemp);
 		}
+		
+		changePerkDisplay(0);
 		
 		if (character.hasMagic()) {
 			StanceSkillDisplay newStanceSkillDisplay = new StanceSkillDisplay(Stance.CASTING, true, assetManager);
@@ -525,11 +532,17 @@ public class SkillSelectionScene extends Scene {
 
 	private void changePerkDisplay(int delta) {
 		pageTurnSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
-		perkDisplay.get(perkSelection).addAction(Actions.hide());
 		perkSelection += delta;
 		if (perkSelection < 0) perkSelection += perkDisplay.size;
 		if (perkSelection >= perkDisplay.size) perkSelection -= perkDisplay.size;
-		perkDisplay.get(perkSelection).addAction(Actions.show());
+		
+		perkDisplay.get(1 - perkSelection).clearActions();
+		perkDisplay.get(1 - perkSelection).addAction(Actions.parallel(Actions.show(), Actions.alpha(.75f, .25f), Actions.touchable(Touchable.disabled), Actions.moveTo(325, 75, .25f)));
+		
+		perkDisplay.get(perkSelection).clearActions();
+		perkDisplay.get(perkSelection).getParent().addActor(perkDisplay.get(perkSelection));
+		perkDisplay.get(perkSelection).addAction(Actions.parallel(Actions.show(), Actions.alpha(1, .25f), Actions.touchable(Touchable.enabled), Actions.moveTo(0, 0, .25f)));	
+		
 	}
 	
 	private void handleNegativeSkillPoints() {
