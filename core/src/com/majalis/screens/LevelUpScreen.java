@@ -2,7 +2,6 @@ package com.majalis.screens;
 
 import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Array;
 import com.majalis.asset.AssetEnum;
 import com.majalis.encounter.Encounter;
@@ -28,9 +27,7 @@ public class LevelUpScreen extends AbstractScreen {
 
 	@Override
 	public void buildStage() {
-		for (Actor actor: encounter.getActors()) {
-			this.addActor(actor);
-		}  
+		this.addActor(encounter.getSceneGroup());
 	}
 	
 	@Override

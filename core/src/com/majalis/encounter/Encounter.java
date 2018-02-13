@@ -3,7 +3,7 @@ package com.majalis.encounter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.utils.ObjectSet;
 import com.majalis.scenes.Scene;
 /*
@@ -46,10 +46,10 @@ public class Encounter {
 		return battle || encounterOver || gameOver;
 	}
 	
-	public Array<Actor> getActors() {
-		Array<Actor> actors = new Array<Actor>();
+	public Group getSceneGroup() {
+		Group actors = new Group();
 		for (Actor actor: scenes) {
-			actors.add(actor);
+			actors.addActor(actor);
 		}
 		startScene.setActive();
 		return actors;
