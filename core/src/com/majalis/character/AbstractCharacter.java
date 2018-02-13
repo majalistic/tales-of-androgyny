@@ -17,6 +17,7 @@ import com.majalis.save.MutationResult;
 import com.majalis.save.MutationResult.MutationType;
 import com.majalis.save.SaveManager.JobClass;
 import com.majalis.technique.ClimaxTechnique.ClimaxType;
+import com.majalis.technique.SpellEffect;
 import com.majalis.technique.Bonus;
 import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.graphics.Texture;
@@ -407,6 +408,21 @@ public abstract class AbstractCharacter extends Actor {
 		return grappleStatus.isAdvantage();
 	}
 	
+	private String repairArmor(int power) {
+		String result = "";
+
+		if (armor != null) {
+			armor.modDurability(power);
+			result += armor.getName() + " durability improved by " + power + "!";
+		}
+		if (legwear != null) {
+			legwear.modDurability(power);
+			result += legwear.getName() + " durability improved by " + power + "!";
+		}
+		
+		return result;
+	}
+	
 	public Attack doAttack(Attack resolvedAttack) {
 		heartbeat++;
 		int bleedDamage = getBloodLossDamage();
@@ -436,6 +452,10 @@ public abstract class AbstractCharacter extends Actor {
 		}
 		else if (!resolvedAttack.isAttack() && !resolvedAttack.isClimax() && resolvedAttack.getSex().isEmpty()) {
 			resolvedAttack.addMessage(resolvedAttack.getUser() + " used " + resolvedAttack.getName() + "!");
+		}
+		
+		if (resolvedAttack.isSpell() && resolvedAttack.getSpellEffect() == SpellEffect.ARMOR_REPAIR) {
+			resolvedAttack.addMessage(repairArmor(getMagic()));
 		}
 		
 		if (resolvedAttack.isHealing()) {

@@ -3,6 +3,7 @@ import com.badlogic.gdx.utils.Array;
 import com.majalis.character.Stance;
 import com.majalis.save.MutationResult;
 import com.majalis.technique.ClimaxTechnique.ClimaxType;
+import com.majalis.technique.SpellEffect;
 import com.majalis.technique.Bonus;
 
 /*
@@ -27,7 +28,7 @@ public class Attack {
 	private final int plugRemove;
 	private final ClimaxType climaxType;
 	private final Stance forceStance;
-	private final boolean isSpell;
+	private final SpellEffect spellEffect;
 	private final Buff selfEffect;
 	private final Buff enemyEffect;
 	private final boolean isAttack;
@@ -55,7 +56,7 @@ public class Attack {
 	}
 	
 	// this should have all the info for an attack, including damage or effects that were blocked
-	protected Attack(Status status, String name, int rawDamage, double blockMod, int force, int rawArmorBreak, int gutcheck, int healing, SexualExperience sex, SexualExperience selfSex, GrappleStatus grapple, int disarm, int trip, int bleeding, int plugRemove, ClimaxType climaxType, Stance forceStance, boolean isSpell, Buff selfEffect, Buff enemyEffect, 
+	protected Attack(Status status, String name, int rawDamage, double blockMod, int force, int rawArmorBreak, int gutcheck, int healing, SexualExperience sex, SexualExperience selfSex, GrappleStatus grapple, int disarm, int trip, int bleeding, int plugRemove, ClimaxType climaxType, Stance forceStance, SpellEffect spellEffect, Buff selfEffect, Buff enemyEffect, 
 					boolean isAttack, AttackHeight height, boolean ignoresArmor, Array<Bonus> bonuses, Item useItem, AbstractCharacter user) {
 		this.status = status;
 		this.name = name;
@@ -74,7 +75,7 @@ public class Attack {
 		this.plugRemove = plugRemove;
 		this.climaxType = climaxType;
 		this.forceStance = forceStance;
-		this.isSpell = isSpell;
+		this.spellEffect = spellEffect;
 		this.selfEffect = selfEffect;
 		this.enemyEffect = enemyEffect;
 		this.isAttack = isAttack;
@@ -121,7 +122,8 @@ public class Attack {
 	protected Array<MutationResult> getDefenderResults() { return defenderResults; }
 	public boolean isClimax() { return climaxType != null; }
 	protected ClimaxType getClimaxType() { return climaxType; }
-	public boolean isSpell() { return isSpell; }
+	public boolean isSpell() { return spellEffect != null; }
+	public SpellEffect getSpellEffect() { return spellEffect; }
 	public Buff getSelfEffect() { return selfEffect == null ? null : selfEffect.type == null ? null : selfEffect; }
 	public Buff getEnemyEffect() { return enemyEffect == null ? null : enemyEffect.type == null ? null : enemyEffect; }
 	public Array<Bonus> getBonuses() { return bonuses != null ? bonuses : new Array<Bonus>(); }

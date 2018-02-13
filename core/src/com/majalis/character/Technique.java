@@ -170,7 +170,7 @@ public class Technique {
 			thisPayload.getRemovePlug(),
 			technique.getClimaxType(), 
 			getForceStance(),
-			technique.isSpell(),
+			technique.getSpellEffect(),
 			new Buff(technique.getSelfEffect(), thisPayload.getTotalPower()),
 			new Buff(technique.getEnemyEffect(), thisPayload.getTotalPower()),
 			technique.isDamaging() && !technique.doesSetDamage(), // is attack,
@@ -201,7 +201,7 @@ public class Technique {
 				0,
 				null, // climax type
 				null, // force stance
-				false, // is magic
+				null, // spell effect
 				null, // self effect
 				null, // enemy effect
 				true, // is attack
