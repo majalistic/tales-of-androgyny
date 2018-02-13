@@ -7,7 +7,8 @@ public enum StatusType {
 	BLEEDING ("Bleeding", false, false), 
 	ACTIVATE ("Activate"), 
 	STRENGTH_DEBUFF ("Strength Down", true, false), 
-	GRAVITY ("Gravity", true, false), ;
+	GRAVITY ("Gravity", true, false),
+	OIL("Oily", true, false), ;
 
 	private final boolean doesDegrade;
 	private final boolean isPositive;

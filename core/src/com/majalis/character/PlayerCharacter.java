@@ -491,7 +491,7 @@ public class PlayerCharacter extends AbstractCharacter {
 			case PENETRATED:
 				return getTechniques(HURK);
 			case CASTING:
-				return getTechniques(COMBAT_FIRE, COMBAT_HEAL, HEAL, TITAN_STRENGTH, WEAKENING_CURSE, GRAVITY, REFORGE, FOCUS_ENERGY);
+				return getTechniques(COMBAT_FIRE, COMBAT_HEAL, HEAL, TITAN_STRENGTH, WEAKENING_CURSE, GRAVITY, OIL, REFORGE, FOCUS_ENERGY);
 			case ITEM:
 				possibles.addAll(getTechniques(ITEM_OR_CANCEL));
 				return possibles;

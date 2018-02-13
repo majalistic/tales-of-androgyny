@@ -238,7 +238,7 @@ public abstract class AbstractCharacter extends Actor {
 	
 	protected int getStaminaRegen() { return Math.max(getEndurance() / (isGravitied() ? 4 : 2), 0); }
 	
-	protected int getStabilityRegen() { return getAgility() / 2 + perks.get(Perk.QUICKFOOTED.toString(), 0); }
+	protected int getStabilityRegen() { return getAgility() / (isOily() ? 4 : 2) + perks.get(Perk.QUICKFOOTED.toString(), 0); }
 	
 	public String getLabel() { return label; }
 	
@@ -268,6 +268,7 @@ public abstract class AbstractCharacter extends Actor {
 	
 	protected boolean strengthDebuffed() { return statuses.get(StatusType.STRENGTH_DEBUFF.toString(), 0) > 0; }
 	protected boolean isGravitied() { return statuses.get(StatusType.STRENGTH_DEBUFF.toString(), 0) > 0; }
+	protected boolean isOily() { return statuses.get(StatusType.OIL.toString(), 0) > 0; }
 	
 	protected int stepDown(int value) { if (value < 3) return value; else if (value < 7) return 3 + (value - 3)/2; else return 5 + (value - 7)/3; } 
 	

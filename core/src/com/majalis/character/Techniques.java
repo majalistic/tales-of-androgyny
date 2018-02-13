@@ -294,6 +294,7 @@ public enum Techniques {
 	WEAKENING_CURSE  	(new SpellTechnique(Stance.CASTING, Stance.BALANCED, "Weakening Curse", 8, 7, SpellEffect.NONE, null, StatusType.STRENGTH_DEBUFF).build(), 3),
 	GRAVITY			  	(new SpellTechnique(Stance.CASTING, Stance.BALANCED, "Gravity", 8, 3, SpellEffect.NONE, StatusType.GRAVITY).build(), 3),
 	REFORGE			  	(new SpellTechnique(Stance.CASTING, Stance.BALANCED, "Reforge", 4, 3, SpellEffect.ARMOR_REPAIR).build(), 3),
+	OIL					(new SpellTechnique(Stance.CASTING, Stance.BALANCED, "Oil", 8, 3, SpellEffect.NONE, null, StatusType.OIL).build(), 3),
 	FOCUS_ENERGY	  	(new SpellTechnique(Stance.CASTING, Stance.BALANCED, "Focus Energy", 4, -5, SpellEffect.NONE, StatusType.ENDURANCE_BUFF).build(), 3, false)
 	;
 	
