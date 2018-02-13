@@ -6,7 +6,6 @@ import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -31,7 +30,8 @@ public class EncounterScreen extends AbstractScreen {
 	static {
 		resourceRequirements.add(AssetEnum.UI_SKIN.getSkin());
 		resourceRequirements.add(AssetEnum.BUTTON_SOUND.getSound());
-		AssetEnum[] assets = new AssetEnum[] { NULL, DEFAULT_BACKGROUND, BASIC_BOX, BATTLE_HOVER, STANCE_ARROW, PORTRAIT_NEUTRAL, PORTRAIT_AHEGAO,
+		AssetEnum[] assets = new AssetEnum[] { 
+				NULL, DEFAULT_BACKGROUND, BASIC_BOX, BATTLE_HOVER, STANCE_ARROW, PORTRAIT_NEUTRAL, PORTRAIT_AHEGAO,
 				PORTRAIT_FELLATIO, PORTRAIT_MOUTHBOMB, PORTRAIT_GRIN, PORTRAIT_HIT, PORTRAIT_LOVE, PORTRAIT_LUST,
 				PORTRAIT_SMILE, PORTRAIT_SURPRISE, PORTRAIT_GRIMACE, PORTRAIT_POUT, PORTRAIT_HAPPY, 
 				PORTRAIT_NEUTRAL_FEMME, PORTRAIT_AHEGAO_FEMME, PORTRAIT_FELLATIO_FEMME, PORTRAIT_MOUTHBOMB_FEMME, PORTRAIT_GRIN_FEMME, PORTRAIT_HIT_FEMME, PORTRAIT_LOVE_FEMME, PORTRAIT_LUST_FEMME, PORTRAIT_SMILE_FEMME, PORTRAIT_SURPRISE_FEMME, PORTRAIT_GRIMACE_FEMME, PORTRAIT_POUT_FEMME, PORTRAIT_HAPPY_FEMME, 
@@ -154,15 +154,6 @@ public class EncounterScreen extends AbstractScreen {
 		} else {
 			draw();
 		}
-	}
-
-	public void draw() {
-		batch.begin();
-		OrthographicCamera camera = (OrthographicCamera) getCamera();
-		batch.setTransformMatrix(camera.view);
-		batch.setProjectionMatrix(camera.combined);
-		camera.update();
-		batch.end();
 	}
 
 	@Override
