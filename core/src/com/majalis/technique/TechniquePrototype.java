@@ -19,7 +19,7 @@ public class TechniquePrototype {
 	private final int staminaCost;
 	private final int stabilityCost;
 	private final int manaCost;
-	private final boolean isSpell;
+	private final SpellEffect spellEffect;
 		
 	private final SexualExperienceBuilder sex;
 	private final SexualExperienceBuilder selfSex;
@@ -45,7 +45,7 @@ public class TechniquePrototype {
 	private final String bonusInfo;
 	private final ObjectMap<BonusCondition, Bonus> bonuses;
 	
-	protected TechniquePrototype( Stance usableStance, Stance resultingStance, String name, boolean doesDamage, boolean doesHealing, int powerMod, int staminaCost, int stabilityCost, int manaCost, boolean isSpell, SexualExperienceBuilder sex, SexualExperienceBuilder selfSex, Stance forceStance, double knockdown, int armorSunder,
+	protected TechniquePrototype( Stance usableStance, Stance resultingStance, String name, boolean doesDamage, boolean doesHealing, int powerMod, int staminaCost, int stabilityCost, int manaCost, SpellEffect spellEffect, SexualExperienceBuilder sex, SexualExperienceBuilder selfSex, Stance forceStance, double knockdown, int armorSunder,
 			int gutCheck, TechniqueHeight height, int guardMod, int parryMod, boolean ignoresArmor, boolean setDamage, boolean blockable, boolean causesBleed, int setBleed, GrappleType grapple, ClimaxType climaxType, StatusType selfEffect, StatusType enemyEffect, String description, String lightDescription, String bonusInfo, ObjectMap<BonusCondition, Bonus> bonuses) {
 		this.usableStance = usableStance;
 		this.resultingStance = resultingStance;
@@ -56,7 +56,7 @@ public class TechniquePrototype {
 		this.staminaCost = staminaCost;
 		this.stabilityCost = stabilityCost;
 		this.manaCost = manaCost;
-		this.isSpell = isSpell;
+		this.spellEffect = spellEffect;
 		this.sex = sex;
 		this.selfSex = selfSex;
 		this.forceStance = forceStance;
@@ -87,7 +87,8 @@ public class TechniquePrototype {
 	public boolean isDamaging() { return doesDamage; }
 	public boolean isHealing() { return doesHealing; }
 	public int getPowerMod() { return powerMod; }
-	public boolean isSpell() { return isSpell; }
+	public boolean isSpell() { return spellEffect != null; }
+	public SpellEffect getSpellEffect() { return spellEffect; }
 	public int getStaminaCost() { return staminaCost; }
 	public int getStabilityCost() { return stabilityCost; }
 	public Stance getForceStance() { return forceStance; }

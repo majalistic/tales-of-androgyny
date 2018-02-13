@@ -17,7 +17,7 @@ public class TechniqueBuilder {
 	protected String name;
 	protected boolean doesDamage;
 	protected boolean doesHealing;
-	protected boolean isSpell;
+	protected SpellEffect spellEffect;
 	protected SexualExperienceBuilder sex;
 	protected SexualExperienceBuilder selfSex;
 	protected int powerMod;
@@ -46,13 +46,13 @@ public class TechniqueBuilder {
 		this.usableStance = usableStance;
 		this.resultingStance = resultingStance;
 		this.name = name;
+		spellEffect = null;
 		doesDamage = false;
 		doesHealing = false;
 		powerMod = 0;
 		staminaCost = 0;
 		stabilityCost = 0;
 		manaCost = 0;
-		isSpell = false;
 		sex = new SexualExperienceBuilder();
 		selfSex = new SexualExperienceBuilder();
 		forceStance = null;
@@ -154,7 +154,7 @@ public class TechniqueBuilder {
 	
 	public TechniquePrototype build() {
 		String lightDescription = getDescription();
-		return new TechniquePrototype(usableStance, resultingStance, name, doesDamage, doesHealing, powerMod, staminaCost, stabilityCost, manaCost, isSpell, sex, selfSex, forceStance, knockdown, armorSunder, gutCheck, height, guardMod, parryMod, ignoresArmor, setDamage, blockable, causesBleed, setBleed, grapple, climaxType, selfEffect, enemyEffect, getStanceInfo() + lightDescription, lightDescription, getBonusInfo(), bonuses); 
+		return new TechniquePrototype(usableStance, resultingStance, name, doesDamage, doesHealing, powerMod, staminaCost, stabilityCost, manaCost, spellEffect, sex, selfSex, forceStance, knockdown, armorSunder, gutCheck, height, guardMod, parryMod, ignoresArmor, setDamage, blockable, causesBleed, setBleed, grapple, climaxType, selfEffect, enemyEffect, getStanceInfo() + lightDescription, lightDescription, getBonusInfo(), bonuses); 
 	}	
 	
 	protected String getStanceInfo() { 
@@ -176,7 +176,7 @@ public class TechniqueBuilder {
 	protected String getDescription() {
 		StringBuilder builder = new StringBuilder();
 		if (doesDamage) {
-			builder.append("Deals" + (powerMod > 0 ? " +" + powerMod : powerMod < 0 ? " " + powerMod : "") + " damage, improved by " + (isSpell ? "MAG" : "STR") + ".\n");
+			builder.append("Deals" + (powerMod > 0 ? " +" + powerMod : powerMod < 0 ? " " + powerMod : "") + " damage, improved by " + (spellEffect != null ? "MAG" : "STR") + ".\n");
 		}
 		if (doesHealing) {
 			builder.append("Heals user with a power of " + powerMod + ", improved by MAG.\n");
@@ -233,7 +233,7 @@ public class TechniqueBuilder {
 		else if (doesDamage) {
 			builder.append("CANNOT be blocked.\n");
 		}
-		if (doesDamage && (isSpell || setDamage)) {
+		if (doesDamage && (spellEffect != null || setDamage)) {
 			builder.append("Ignores armor.\n");
 		}
 		if (guardMod > 0) {

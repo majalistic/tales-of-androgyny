@@ -12,6 +12,7 @@ import com.majalis.technique.FallDownTechnique;
 import com.majalis.technique.GrappleTechnique;
 import com.majalis.technique.GuardTechnique;
 import com.majalis.technique.NonAttackTechnique;
+import com.majalis.technique.SpellEffect;
 import com.majalis.technique.SpellTechnique;
 import com.majalis.technique.TechniquePrototype;
 import com.majalis.technique.TechniquePrototype.TechniqueHeight;
@@ -84,10 +85,10 @@ public enum Techniques {
 	SLIME_ATTACK 		(new AttackTechnique(Stance.BALANCED, Stance.BALANCED, "Slime Attack", 7, 0, 5).build(), false),
 	SLIME_QUIVER 		(new NonAttackTechnique(Stance.BALANCED, Stance.DEFENSIVE, "Slime Quiver", -1, -1).build(), false),
 	
-	ACTIVATE		  	(new SpellTechnique(Stance.CASTING, Stance.BALANCED, "Activate", 0, 0, false, StatusType.ACTIVATE).build(), false),
-	ANGELIC_GRACE  		(new SpellTechnique(Stance.CASTING, Stance.BALANCED, "Angelic Grace", 80, 0, true).build(), false),
-	TRUMPET		  		(new SpellTechnique(Stance.CASTING, Stance.BALANCED, "Trumpet", -1, 0, false).build(), false),
-	HEAL  				(new SpellTechnique(Stance.CASTING, Stance.BALANCED, "Heal", 27, 10, true).build(), false),
+	ACTIVATE		  	(new SpellTechnique(Stance.CASTING, Stance.BALANCED, "Activate", 0, 0, SpellEffect.NONE, StatusType.ACTIVATE).build(), false),
+	ANGELIC_GRACE  		(new SpellTechnique(Stance.CASTING, Stance.BALANCED, "Angelic Grace", 80, 0, SpellEffect.HEALING).build(), false),
+	TRUMPET		  		(new SpellTechnique(Stance.CASTING, Stance.BALANCED, "Trumpet", -1, 0, SpellEffect.DAMAGE).build(), false),
+	HEAL  				(new SpellTechnique(Stance.CASTING, Stance.BALANCED, "Heal", 27, 10, SpellEffect.HEALING).build(), false),
 	
 	GUT_CHECK			(new AttackTechnique(Stance.OFFENSIVE, Stance.OFFENSIVE, "Gutcheck", 3, 3, 4, 0, 1, false, TechniqueHeight.MEDIUM).build(), false),
 
@@ -287,12 +288,12 @@ public enum Techniques {
 	FEINT_AND_STRIKE	(new AttackTechnique(Stance.OFFENSIVE, Stance.OFFENSIVE, "Feint Strike", -1, 3, 7).addBonus(BonusCondition.OUTMANEUVER, BonusType.POWER_MOD).addBonus(BonusCondition.OUTMANEUVER, BonusType.EVASION, 25).addBonus(BonusCondition.SKILL_LEVEL, BonusType.STABILTIY_COST, 1).build(), 3), 
 	PARRY  				(new GuardTechnique(Stance.DEFENSIVE, Stance.COUNTER, "Parry", -1, 0, 0, false).addBonus(BonusCondition.SKILL_LEVEL, BonusType.PARRY, 1).addBonus(BonusCondition.OUTMANEUVER, BonusType.PARRY, 1).build(), 3),
 	UPPERCUT			(new AttackTechnique(Stance.KNEELING, Stance.OFFENSIVE, "Uppercut", 1, 4, 2, true, TechniqueHeight.HIGH).addBonus(BonusCondition.SKILL_LEVEL, BonusType.POWER_MOD).build(), 3),
-	COMBAT_HEAL  		(new SpellTechnique(Stance.CASTING, Stance.BALANCED, "Combat Heal", 7, 10, true).addBonus(BonusCondition.SKILL_LEVEL, BonusType.POWER_MOD, 3).build(), 3),
-	COMBAT_FIRE  		(new SpellTechnique(Stance.CASTING, Stance.BALANCED, "Combat Fire", 3, 3, false).addBonus(BonusCondition.SKILL_LEVEL, BonusType.POWER_MOD, 2).build(), 3),
-	TITAN_STRENGTH  	(new SpellTechnique(Stance.CASTING, Stance.BALANCED, "Titan Strength", 0, 2, false, StatusType.STRENGTH_BUFF).build(), 3),
-	WEAKENING_CURSE  	(new SpellTechnique(Stance.CASTING, Stance.BALANCED, "Weakening Curse", 8, 7, false, null, StatusType.STRENGTH_DEBUFF).build(), 3),
-	GRAVITY			  	(new SpellTechnique(Stance.CASTING, Stance.BALANCED, "Gravity", 8, 3, false, null, StatusType.GRAVITY).build(), 3),
-	FOCUS_ENERGY	  	(new SpellTechnique(Stance.CASTING, Stance.BALANCED, "Focus Energy", 4, -5, false, StatusType.ENDURANCE_BUFF).build(), 3, false)
+	COMBAT_HEAL  		(new SpellTechnique(Stance.CASTING, Stance.BALANCED, "Combat Heal", 7, 10, SpellEffect.HEALING).addBonus(BonusCondition.SKILL_LEVEL, BonusType.POWER_MOD, 3).build(), 3),
+	COMBAT_FIRE  		(new SpellTechnique(Stance.CASTING, Stance.BALANCED, "Combat Fire", 3, 3, SpellEffect.DAMAGE).addBonus(BonusCondition.SKILL_LEVEL, BonusType.POWER_MOD, 2).build(), 3),
+	TITAN_STRENGTH  	(new SpellTechnique(Stance.CASTING, Stance.BALANCED, "Titan Strength", 0, 2, SpellEffect.NONE, StatusType.STRENGTH_BUFF).build(), 3),
+	WEAKENING_CURSE  	(new SpellTechnique(Stance.CASTING, Stance.BALANCED, "Weakening Curse", 8, 7, SpellEffect.NONE, null, StatusType.STRENGTH_DEBUFF).build(), 3),
+	GRAVITY			  	(new SpellTechnique(Stance.CASTING, Stance.BALANCED, "Gravity", 8, 3, SpellEffect.NONE, StatusType.GRAVITY).build(), 3),
+	FOCUS_ENERGY	  	(new SpellTechnique(Stance.CASTING, Stance.BALANCED, "Focus Energy", 4, -5, SpellEffect.NONE, StatusType.ENDURANCE_BUFF).build(), 3, false)
 	;
 	
 	private final TechniquePrototype trait;
