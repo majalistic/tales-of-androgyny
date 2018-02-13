@@ -651,16 +651,26 @@ public abstract class AbstractCharacter extends Actor {
 				result.add((blockMod < .1 ? "The blow is parried away!" : blockMod < .3 ? "The blow is mostly deflected by a parry!" : blockMod < .6 ? "The blow is half-deflected by a parry!" : "The blow is barely blocked by a parry!"));
 			}
 			
-
-			int damage = attack.getDamage();
+			boolean oilyFire = attack.isSpell() && attack.getSpellEffect() == SpellEffect.FIRE_DAMAGE && isOily();
+			if (oilyFire) statuses.put(StatusType.OIL.toString(), 0); 
+			int damage = attack.getDamage() * (oilyFire ? 2 : 1);
 			Armor hitArmor = getArmorHit(attack.getAttackHeight());
 			if (!attack.ignoresArmor()) {
 				damage -= getBaseDefense() + getShockAbsorption(hitArmor);
 			}
 			
 			if (damage > 0) {	
-				attack.addDefenderResults(modHealth(-damage));				
-				result.add("The blow strikes for " + damage + " damage!");
+				attack.addDefenderResults(modHealth(-damage));
+				if (attack.isSpell()) {
+					if (oilyFire) {
+						result.add("The fire ignites the oil!");
+					}
+					result.add("The magic strikes for " + damage + " damage!");
+				}
+				else {
+					result.add("The blow strikes for " + damage + " damage!");
+				}
+				
 				if (!(attack.ignoresArmor() || ((hitArmor == null || hitArmor.getDurability() == 0)))) {
 					result.add("The blow strikes off the armor!");
 				}

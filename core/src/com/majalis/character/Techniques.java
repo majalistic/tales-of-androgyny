@@ -289,7 +289,7 @@ public enum Techniques {
 	PARRY  				(new GuardTechnique(Stance.DEFENSIVE, Stance.COUNTER, "Parry", -1, 0, 0, false).addBonus(BonusCondition.SKILL_LEVEL, BonusType.PARRY, 1).addBonus(BonusCondition.OUTMANEUVER, BonusType.PARRY, 1).build(), 3),
 	UPPERCUT			(new AttackTechnique(Stance.KNEELING, Stance.OFFENSIVE, "Uppercut", 1, 4, 2, true, TechniqueHeight.HIGH).addBonus(BonusCondition.SKILL_LEVEL, BonusType.POWER_MOD).build(), 3),
 	COMBAT_HEAL  		(new SpellTechnique(Stance.CASTING, Stance.BALANCED, "Combat Heal", 7, 10, SpellEffect.HEALING).addBonus(BonusCondition.SKILL_LEVEL, BonusType.POWER_MOD, 3).build(), 3),
-	COMBAT_FIRE  		(new SpellTechnique(Stance.CASTING, Stance.BALANCED, "Combat Fire", 3, 3, SpellEffect.DAMAGE).addBonus(BonusCondition.SKILL_LEVEL, BonusType.POWER_MOD, 2).build(), 3),
+	COMBAT_FIRE  		(new SpellTechnique(Stance.CASTING, Stance.BALANCED, "Combat Fire", 3, 3, SpellEffect.FIRE_DAMAGE).addBonus(BonusCondition.SKILL_LEVEL, BonusType.POWER_MOD, 2).build(), 3),
 	TITAN_STRENGTH  	(new SpellTechnique(Stance.CASTING, Stance.BALANCED, "Titan Strength", 0, 2, SpellEffect.NONE, StatusType.STRENGTH_BUFF).build(), 3),
 	WEAKENING_CURSE  	(new SpellTechnique(Stance.CASTING, Stance.BALANCED, "Weakening Curse", 8, 7, SpellEffect.NONE, null, StatusType.STRENGTH_DEBUFF).build(), 3),
 	GRAVITY			  	(new SpellTechnique(Stance.CASTING, Stance.BALANCED, "Gravity", 8, 3, SpellEffect.NONE, StatusType.GRAVITY).build(), 3),

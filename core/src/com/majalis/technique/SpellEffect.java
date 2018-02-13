@@ -1,5 +1,5 @@
 package com.majalis.technique;
 
 public enum SpellEffect {
-	DAMAGE, HEALING, NONE, ARMOR_REPAIR
+	DAMAGE, FIRE_DAMAGE, HEALING, NONE, ARMOR_REPAIR
 }

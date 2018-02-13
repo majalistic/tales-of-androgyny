@@ -18,7 +18,7 @@ public class SpellTechnique extends TechniqueBuilder {
 		this.powerMod = powerMod;
 		this.manaCost = manaCost;
 		this.spellEffect = effect;
-		doesDamage = effect == SpellEffect.DAMAGE;
+		doesDamage = effect == SpellEffect.DAMAGE || effect == SpellEffect.FIRE_DAMAGE;
 		doesHealing = effect == SpellEffect.HEALING;
 		this.selfEffect = selfEffect;
 		this.enemyEffect = enemyEffect;
