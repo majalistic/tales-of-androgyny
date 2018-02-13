@@ -412,7 +412,7 @@ public class Battle extends Group{
 	        		onload = false;
 	        	}
 	        	else {
-					skillDisplay.setText(enemy.getLegwearStatus());
+					skillDisplay.setText(character.getLegwearStatus());
 					bonusDisplay.setText("");
 					penaltyDisplay.setText("");
 					showHoverGroup();
