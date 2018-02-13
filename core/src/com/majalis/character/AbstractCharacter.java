@@ -300,7 +300,10 @@ public abstract class AbstractCharacter extends Actor {
 	public int getCumInflation() { return buttful >= 20 || mouthful >= 20 ? 2 : buttful >=10 || mouthful >= 10 || fullOfEggs() ? 1 : 0; } 
 	
 	public String getStatusBlurb() {
-		String blurb = strengthDebuffed() ? "Weakening Curse\n" : "";
+		String blurb = "";
+		blurb += strengthDebuffed() ? "Weakening Curse\n" : "";
+		blurb += isGravitied() ? "Gravity\n" : "";
+		blurb += isOily() ? "Oil\n" : "";
 		switch(getHealthDegradation()) {
 			case 3: blurb += "Injured (-3)\n"; break;
 			case 2: blurb += "Wounded (-2)\n"; break;
