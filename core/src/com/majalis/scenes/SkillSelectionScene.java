@@ -589,6 +589,24 @@ public class SkillSelectionScene extends Scene {
 		addAction(Actions.hide());
 	}
 	
+	private ClickListener getStanceListener(Stance stance) {
+		return new ClickListener() {
+			public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
+				skillDisplay.setText(stance.getDescription());
+				consoleName.setText(stance.getLabel());
+				consoleName.addAction(Actions.show());
+				skillDisplayTable.addAction(Actions.show());
+				consoleTable.addAction(Actions.hide());
+			}
+			@Override
+	        public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
+				consoleTable.addAction(Actions.show());
+				skillDisplayTable.addAction(Actions.hide());
+				consoleName.addAction(Actions.hide());
+			}
+		};
+	}
+	
 	private class StanceSkillDisplay extends Group {
 		private final Stance stance;
 		private final Table table;
@@ -602,6 +620,7 @@ public class SkillSelectionScene extends Scene {
 			this.table = new Table();
 			this.addActor(table);
 			Label stanceLabel = new Label(stance == Stance.CASTING ? "Magic" : stance.getLabel(), skin);
+			stanceLabel.addListener(getStanceListener(stance));
 			stanceLabel.setColor(Color.FIREBRICK);
 			Table newTable = new Table();
 			newTable.setPosition(30, 103);
@@ -609,6 +628,7 @@ public class SkillSelectionScene extends Scene {
 			newTable.add(stanceLabel).align(Align.top);
 			this.addActor(newTable);
 			Image stanceIcon = new Image(assetManager.get(stance.getTexture()));
+			stanceIcon.addListener(getStanceListener(stance));
 			stanceIcon.setPosition(-40, 115);
 			stanceIcon.setScale(.75f);
 			this.addActor(stanceIcon);
@@ -813,6 +833,8 @@ public class SkillSelectionScene extends Scene {
 		
 		private void setUnselected() {
 			label.setColor(defaultLabelColor);
+			bonusDisplay.setText("");
+			skillFlavor.setText("");
 			consoleTable.addAction(Actions.show());
 			stanceTransition.addAction(Actions.hide());
 			skillDisplayTable.addAction(Actions.hide());

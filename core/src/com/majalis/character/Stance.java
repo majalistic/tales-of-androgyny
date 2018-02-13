@@ -169,4 +169,20 @@ public enum Stance {
 		INCAPACITATED,
 		NORMAL
 	}
+
+	public String getDescription() {
+		switch (this) {
+			case BALANCED: return "A basic stance with a mixture of offensive and defensive skills, used as a staging ground for more advanced stances.";
+			case DEFENSIVE: return "A basic stance with mostly defensive skills, used to reaffirm footing, block an opponent's attack, or feel the opponent out before reacting.";
+			case OFFENSIVE: return "A basic stance with mostly offensive skills, used to subdue, attack, or unbalance the opponent.";
+			case BLITZ: return "An advanced stance with unstable skills designed to overwhelm the opponent with a frenzy of attacks.";
+			case KNEELING: return "A positional stance - kneeling on the ground, to recuperate, in preparation of an upward strike, or to duck below a high attack.";
+			case SEDUCTION: return "An advanced stance with skills designed to seduce the opponent.";
+			case DOGGY: return "A sexual stance, approaching the opponent from behind.";
+			case PRONE_BONE: return "A sexual stance, on top of the opponent.";
+			case ANAL: return "A sexual stance, face to face and chest to chest with the opponent.";
+			case FELLATIO: return "A sexual stance involving the opponent's mouth.";
+			default: return "";
+		}
+	}
 }
