@@ -5,6 +5,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -34,6 +35,7 @@ public class EncounterHUD extends Group {
 	private final LogDisplay logDisplay;
 	private final Label showLog;
 	private final ScrollPane pane;
+	private final Label skipText;
 	private final TextButton hideButton;
 	private final TextButton saveButton;
 	private final TextButton skipButton;
@@ -46,7 +48,7 @@ public class EncounterHUD extends Group {
 	private boolean skipHeld;
 	private boolean buttonsHidden;
 	
-	protected EncounterHUD(AssetManager assetManager, PlayerCharacter character, OrderedMap<Integer, Scene> masterSceneMap, IntArray sceneCodes) {
+	protected EncounterHUD(AssetManager assetManager, PlayerCharacter character, OrderedMap<Integer, Scene> masterSceneMap, IntArray sceneCodes, BitmapFont font) {
 		this.character = character;
 		this.assetManager = assetManager;
 		skin = assetManager.get(AssetEnum.UI_SKIN.getSkin());
@@ -74,6 +76,8 @@ public class EncounterHUD extends Group {
 		this.addActor(logGroup);
 		logGroup.addActor(pane);
 		logGroup.addActor(showLog);
+		skipText = addLabel("Press CTRL to skip", skin, font, Color.BLACK, 95, 180);
+		skipText.setWidth(240);		
 		hideButton = new TextButton("Hide", skin);
 		saveButton = new TextButton("Save", skin);
 		skipButton = new TextButton("Skip", skin);
@@ -140,6 +144,21 @@ public class EncounterHUD extends Group {
 		fullnessIcon.addAction(Actions.hide());
 	}	
 	
+	protected Label addLabel(String text, Skin skin, BitmapFont font, Color color, float x, float y) {
+		Label newLabel = new Label(text, skin);
+		newLabel.setColor(color);
+		newLabel.setPosition(x, y);
+		if (font != null) {
+			Label.LabelStyle style = new Label.LabelStyle(newLabel.getStyle());
+			style.font = font;
+			newLabel.setStyle(style);
+			newLabel.setWrap(true);
+			newLabel.setAlignment(Align.top);
+		}
+		this.addActor(newLabel);
+		return newLabel;
+	}
+	
 	private Image addImage(Group group, Texture texture, float x, float y, float width, float height) {
 		Image newImage = new Image(texture);
 		newImage.setBounds(x, y, width, height);
@@ -159,7 +178,8 @@ public class EncounterHUD extends Group {
 			fullnessIcon.addAction(Actions.show());
 			fullnessIcon.setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(character.getCumInflationPath()))));
 		}
-		
+
+		skipText.addAction(Actions.show());
 		saveButton.addAction(Actions.show());
 		skipButton.addAction(Actions.show());
 		autoplayButton.addAction(Actions.show());
@@ -171,6 +191,7 @@ public class EncounterHUD extends Group {
 	
 	public void hideButtons() {
 		characterGroup.addAction(Actions.hide());
+		skipText.addAction(Actions.hide());
 		saveButton.addAction(Actions.hide());
 		skipButton.addAction(Actions.hide());
 		autoplayButton.addAction(Actions.hide());

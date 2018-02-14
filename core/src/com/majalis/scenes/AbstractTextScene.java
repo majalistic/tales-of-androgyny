@@ -16,7 +16,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.OrderedMap;
 import com.majalis.asset.AssetEnum;
-import com.majalis.character.PlayerCharacter;
 import com.majalis.encounter.Background;
 import com.majalis.encounter.EncounterHUD;
 import com.majalis.save.SaveEnum;
@@ -28,10 +27,9 @@ public abstract class AbstractTextScene extends Scene {
 	protected final Table statusResults;
 	protected final Skin skin;
 	protected final Background background;
-	private final Label skipText;
 	private boolean isAutoplay;
 	
-	protected AbstractTextScene(OrderedMap<Integer, Scene> sceneBranches, int sceneCode, AssetManager assetManager, BitmapFont font, PlayerCharacter character, SaveService saveService, Background background, EncounterHUD hud) {
+	protected AbstractTextScene(OrderedMap<Integer, Scene> sceneBranches, int sceneCode, AssetManager assetManager, BitmapFont font, SaveService saveService, Background background, EncounterHUD hud) {
 		super(sceneBranches, sceneCode, hud);
 		this.saveService = saveService;
 		this.background = background;
@@ -43,13 +41,7 @@ public abstract class AbstractTextScene extends Scene {
 		statusResults.align(Align.topRight);
 		statusResults.setPosition(1700, 985);
 		this.addActor(statusResults);
-		skipText = addLabel("Press CTRL to skip", skin, font, Color.BLACK, 95, 180);
-		skipText.setWidth(240);
 	}
-
-	protected void showSkipText() { skipText.addAction(Actions.show()); }
-	protected void hideSkipText() { skipText.addAction(Actions.hide()); }
-	protected void toggleSkipText() { if(skipText.isVisible()) hideSkipText(); else showSkipText(); }
 	
 	@Override
 	public void draw(Batch batch, float parentAlpha) {

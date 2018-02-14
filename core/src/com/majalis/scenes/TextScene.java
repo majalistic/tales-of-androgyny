@@ -5,7 +5,6 @@ import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -29,10 +28,9 @@ public class TextScene extends AbstractTextScene  {
 	private final PlayerCharacter character;
 	private final AssetEnum music;
 	private final AssetDescriptor<Sound> sound;
-	private final Group log;
 	
 	public TextScene(OrderedMap<Integer, Scene> sceneBranches, int sceneCode, AssetManager assetManager, BitmapFont font, SaveService saveService, final Background background, String toDisplay, Array<Mutation> mutations, PlayerCharacter character, AssetEnum music, AssetDescriptor<Sound> sound, EncounterHUD hud) {
-		super(sceneBranches, sceneCode, assetManager, font, character, saveService, background, hud);
+		super(sceneBranches, sceneCode, assetManager, font, saveService, background, hud);
 		this.assetManager = assetManager;
 		this.character = character;
 		display.setText(toDisplay);
@@ -40,9 +38,7 @@ public class TextScene extends AbstractTextScene  {
 		this.background = background;
 		this.music = music;
 		this.sound = sound;
-		this.log = hud.getLog();
-		
-		log.addListener(new ClickListener() {
+		hud.getLog().addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				if (isActive()) toggleLogDisplay();
@@ -53,13 +49,11 @@ public class TextScene extends AbstractTextScene  {
 	private void toggleLogDisplay() {
 		hud.toggleLog();
 		if (!hud.displayingLog()) {
-			background.toggleDialogBox(display, false);
-			hideSkipText();
+			background.toggleDialogBox(display, false); // once toggleDialogBox is killed, all of this exists on the hud, and it can handle toggling the log as well gracefully
 			hud.hideButtons();
 		}
 		else {
 			background.toggleDialogBox(display, true);
-			showSkipText();
 			hud.showButtons();		
 		}
 	}
@@ -74,7 +68,6 @@ public class TextScene extends AbstractTextScene  {
 		if (!hud.displayingLog()) {
 			background.toggleDialogBox(display);
 			hud.toggleButtons();
-			toggleSkipText();
 			if (hud.buttonsVisible()) {
 				hud.getHideButton().clearActions();
 				hud.getHideButton().setText("Show");

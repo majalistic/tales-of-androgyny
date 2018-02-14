@@ -90,7 +90,7 @@ public class EncounterBuilder {
 	protected Branch branch(String key) { return branch((Object)key); }
 	protected Branch branch(Object key) { return new Branch(key); }
 	private EncounterHUD getEncounterHUD() {
-		if (hud == null) hud = new EncounterHUD(assetManager, character, masterSceneMap, sceneCodes);
+		if (hud == null) hud = new EncounterHUD(assetManager, character, masterSceneMap, sceneCodes, font);
 		return hud;
 	}
 	

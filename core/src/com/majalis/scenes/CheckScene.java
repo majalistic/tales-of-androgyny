@@ -40,7 +40,7 @@ public class CheckScene extends AbstractTextScene {
 	}
 	
 	public CheckScene(OrderedMap<Integer, Scene> sceneBranches, int sceneCode, AssetManager assetManager, SaveService saveService, BitmapFont font, Background background, Stat stat, Perk perk, CheckType checkType, OrderedMap<Integer, Scene> checkValues, Scene clearScene, Scene defaultScene, PlayerCharacter character, EncounterHUD hud) {
-		super(sceneBranches, sceneCode, assetManager, font, character, saveService, background, hud);
+		super(sceneBranches, sceneCode, assetManager, font, saveService, background, hud);
 		this.checkValues = checkValues;
 		this.clearScene = clearScene;
 		this.defaultScene = defaultScene;
