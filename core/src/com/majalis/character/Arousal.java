@@ -89,11 +89,10 @@ public class Arousal {
 			arousal += climaxArousalAmount;
 			if (!isFullyAroused() || sex.isSex()) arousal += arousalAmount; 
 		}
-		
 			
 		modLust(arousalAmount + climaxArousalAmount);	
 		
-		if (arousal > (type == ArousalType.OGRE ? (isErect() ? 16 : 100) : type == ArousalType.PLAYER ? getLustArousalMod() : 12)) { // && isUpgradeReady(typeOfArousal), which will check if the current ArousalLevel can have be upgraded by the type of arousal
+		if (arousal > (type == ArousalType.OGRE ? (isErect() ? 16 : 100) : type == ArousalType.PLAYER ? getLustArousalMod() : 16)) { 
 			if (type != ArousalType.QUETZAL || !isEdging() || arousal > 32)
 			increaseArousalLevel();
 		}

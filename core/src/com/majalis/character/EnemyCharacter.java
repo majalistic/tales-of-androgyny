@@ -882,7 +882,7 @@ public class EnemyCharacter extends AbstractCharacter {
 		}
 		
 		if (!arousal.isErect() || enemyType == EnemyEnum.OGRE) {
-			if (enemyType != EnemyEnum.CENTAUR && enemyType != EnemyEnum.BEASTMISTRESS && enemyType != EnemyEnum.GOLEM && enemyType != EnemyEnum.QUETZAL) arousal.increaseArousal(new SexualExperienceBuilder().setAssTeasing(1).build() ,perks);
+			if (enemyType != EnemyEnum.CENTAUR && enemyType != EnemyEnum.BEASTMISTRESS && enemyType != EnemyEnum.GOLEM && enemyType != EnemyEnum.QUETZAL) arousal.increaseArousal(new SexualExperienceBuilder().setAssTeasing(1).build(), perks);
 		}
 		
 		Array<Techniques> possibleTechniques = getPossibleTechniques(target, stance);
