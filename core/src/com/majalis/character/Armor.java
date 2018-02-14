@@ -111,10 +111,10 @@ public class Armor extends Item{
 		SHIELD ("Shield", 10, new int[]{15, 15}, new int[]{50, 50}),
 		REINFORCED_SHIELD ("Reinforced Shield", 50, new int[]{30, 30}, new int[]{50, 50}),
 		
-		GAUNTLET ("Gauntlet", new int[]{15, 15}, new int[]{50, 50}),
-		HELMET ("Helmet", new int[]{15, 15}, new int[]{50, 50}),
-		SHOES ("Shoes", new int[]{15, 15}, new int[]{50, 50}),
-		SABATONS ("Sabatons", new int[]{15, 15}, new int[]{50, 50}),
+		GAUNTLET ("Gauntlet", 5, new int[]{0}, new int[]{0}),
+		HELMET ("Helmet", 5, new int[]{0}, new int[]{0}),
+		SHOES ("Shoes", 1, new int[]{0}, new int[]{0}),
+		SABATONS ("Sabatons", 5, new int[]{15, 15}, new int[]{50, 50}),
 		
 		LIGHT_ENEMY_ARMOR ("Light Armor", new int[]{2, 2}, new int[]{2, 1}),
 		MEDIUM_ENEMY_ARMOR ("Medium Armor", new int[]{6, 6}, new int[]{6, 2}),
@@ -140,6 +140,9 @@ public class Armor extends Item{
 		private String getLabel() { return label; }
 		private String getDescription() { 
 			return 
+			isArmwear() ? "Covers the arms." :
+			isFootwear() ? "Covers the feet and shins." :
+			isHeadgear() ? "Covers the head." :
 			isShield() ? "A shield which will block attacks while guarding.\nCan absorb " + getMaxDurability() + " damage before breaking." :
 			((coversTop() ? (coversBottom() ? "Protects both upper and lower body." : "Protects upper body.") : coversBottom() ? "Protects lower body." : isUnderwear() ? "Worn under clothing" : "") + "\n" +
 			(coversAnus() ? "This protects the backdoor.\n" : "") +

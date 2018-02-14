@@ -214,6 +214,9 @@ public class ShopScene extends Scene {
 					shop.items.add(new Armor(ArmorType.BATTLE_SKIRT));	
 					shop.items.add(new Armor(ArmorType.SHIELD));	
 					shop.items.add(new Armor(ArmorType.REINFORCED_SHIELD));	
+					shop.items.add(new Armor(ArmorType.HELMET));
+					shop.items.add(new Armor(ArmorType.GAUNTLET));
+					shop.items.add(new Armor(ArmorType.SABATONS));
 					shop.items.add(new Misc(MiscType.KEY));	
 				}
 				break;
