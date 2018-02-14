@@ -4,13 +4,11 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -28,9 +26,6 @@ public abstract class AbstractTextScene extends Scene {
 	protected final SaveService saveService;
 	protected final Label display;
 	protected final Table statusResults;
-	protected final Image characterPortrait;
-	protected final Image masculinityIcon;
-	protected final Image fullnessIcon;
 	protected final Skin skin;
 	protected final Background background;
 	private final Label skipText;
@@ -50,15 +45,6 @@ public abstract class AbstractTextScene extends Scene {
 		this.addActor(statusResults);
 		skipText = addLabel("Press CTRL to skip", skin, font, Color.BLACK, 95, 180);
 		skipText.setWidth(240);
-		Texture portrait = assetManager.get(character.getPortraitPath());
-		characterPortrait = addImage(portrait, null, 105, 800, portrait.getWidth() / (portrait.getHeight() / 200f), 200);
-		characterPortrait.addAction(Actions.hide());
-		Texture icon = assetManager.get(character.getMasculinityPath());
-		masculinityIcon = addImage(icon, null, 105, 705, icon.getWidth() / (icon.getHeight() / 100f), 100);
-		masculinityIcon.addAction(Actions.hide());
-		Texture fullness = assetManager.get(character.getCumInflationPath());
-		fullnessIcon = addImage(icon, null, 42, 755, fullness.getWidth() / (fullness.getHeight() / 100f), 100);
-		fullnessIcon.addAction(Actions.hide());
 	}
 
 	protected void showSkipText() { skipText.addAction(Actions.show()); }

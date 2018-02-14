@@ -5,12 +5,10 @@ import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.OrderedMap;
@@ -91,7 +89,6 @@ public class TextScene extends AbstractTextScene  {
 	@Override
 	public void activate() {
 		super.activate();
-		showSave();
 		if (music != null) {
 			saveService.saveDataValue(SaveEnum.MUSIC, music, false);
 		};
@@ -112,14 +109,8 @@ public class TextScene extends AbstractTextScene  {
 			statusResults.add(new MutationActor(result, assetManager.get(result.getTexture()), skin)).fillY().align(Align.right).row();
 		}
 		
-		if (character.isLoaded()) {
-			characterPortrait.addAction(Actions.show());
-			characterPortrait.setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(character.getPortraitPath()))));
-			masculinityIcon.addAction(Actions.show());
-			masculinityIcon.setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(character.getMasculinityPath()))));
-			fullnessIcon.addAction(Actions.show());
-			fullnessIcon.setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(character.getCumInflationPath()))));
-		}
+		showSave();
+		
 		hud.getHideButton().clearListeners();
 		hud.getHideButton().addListener(
 			new ClickListener() {

@@ -125,6 +125,7 @@ public class EndScene extends Scene {
 			}
 		}
 		
+		hud.showLog();
 		group.addActor(statusResults);
 		Label clickToContinue = new Label("Click to continue... ", skin);
 		clickToContinue.setColor(Color.BLACK);
