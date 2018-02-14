@@ -7269,10 +7269,7 @@
 		"key": "SPIDER-TRAP-APPROACH",
 		"scriptLines": [
 			{"text": "As you continue through the ruins, you find a narrow corridor that smells vaguely of a bath. You traverse it slowly, when suddenly, one of your footfalls lands lower than you expected."},
-			
-			{
-			"mutations": [{"saveType":"HEALTH", "value":{"class": "java.lang.Integer", "value": -5}}],
-			"text": "Your leg scrapes against the stone as the floor collapses beneath your feet!"}			
+			{"text": "The floor below you collapses!"}
 		]
 	},
 	{
@@ -7282,8 +7279,31 @@
 		]
 	},
 	{
+		"key": "SPIDER-GRAB-TRAP",
+		"scriptLines": [
+			{"text": "You manage to leap free of the collapse, grabbing ahold of the edge created by the collapsing floor."}
+		]
+	},
+	{
+		"key": "SPIDER-GRAB-TRAP-SUCCESS",
+		"scriptLines": [
+			{"text": "You hoist yourself up."}
+		]
+	},
+	{
+		"key": "SPIDER-GRAB-TRAP-FAIL",
+		"scriptLines": [
+			{
+			"mutations": [{"saveType":"HEALTH", "value":{"class": "java.lang.Integer", "value": -5}}],	
+			"text": "You cut your hand on the broken floor, and you slide down below the structure, and find yourself submerged in murky water, making it impossible to see.  You begin to frantically swim for the surface, unable to discern which way is up."}
+		]
+	},
+	{
 		"key": "SPIDER-FAIL-TRAP",
 		"scriptLines": [
+			{
+			"mutations": [{"saveType":"HEALTH", "value":{"class": "java.lang.Integer", "value": -10}}],
+			"text": "Your leg scrapes against the stone as the floor collapses beneath your feet!"},			
 			{"text": "You slide down below the structure, and find yourself submerged in murky water, making it impossible to see.  You begin to frantically swim for the surface, unable to discern which way is up."}
 		]
 	},

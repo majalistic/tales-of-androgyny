@@ -439,6 +439,10 @@ public class CheckScene extends AbstractTextScene {
 			@Override
 			protected boolean getCheck(PlayerCharacter character) { return character.getHeadgear() != null; }  
 		},
+		WEARING_GAUNTLETS("SUCCESS! You're wearing gauntlets!", "FAILURE! You're not wearing gauntlets.") {
+			@Override
+			protected boolean getCheck(PlayerCharacter character) { return character.getArmwear() != null; }  
+		}, 
 		;
 		private final String success;
 		private final String failure;
