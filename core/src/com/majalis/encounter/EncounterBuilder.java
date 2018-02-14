@@ -90,7 +90,7 @@ public class EncounterBuilder {
 	protected Branch branch(String key) { return branch((Object)key); }
 	protected Branch branch(Object key) { return new Branch(key); }
 	private EncounterHUD getEncounterHUD() {
-		if (hud == null) hud = new EncounterHUD(assetManager, character);
+		if (hud == null) hud = new EncounterHUD(assetManager, character, masterSceneMap, sceneCodes);
 		return hud;
 	}
 	
@@ -383,8 +383,8 @@ public class EncounterBuilder {
 					case EndGame:
 					case EndEncounter:
 						EndScene newEndScene = branchToken.type == EndTokenType.EndEncounter ? 
-							new EndScene(sceneCounter, EndScene.Type.ENCOUNTER_OVER, saveService, assetManager, getEndBackground(), new LogDisplay(sceneCodes, masterSceneMap, skin), results, battleResults, getEncounterHUD()) :
-							new EndScene(sceneCounter, EndScene.Type.GAME_OVER, saveService, assetManager, getEndBackground(), new LogDisplay(sceneCodes, masterSceneMap, skin), results, battleResults, ((EndSceneToken)branchToken).getGameOver(), getEncounterHUD());
+							new EndScene(sceneCounter, EndScene.Type.ENCOUNTER_OVER, saveService, assetManager, getEndBackground(), results, battleResults, getEncounterHUD()) :
+							new EndScene(sceneCounter, EndScene.Type.GAME_OVER, saveService, assetManager, getEndBackground(), results, battleResults, ((EndSceneToken)branchToken).getGameOver(), getEncounterHUD());
 						sceneMap = addScene(scenes, newEndScene, true);		
 						break;
 				}
@@ -397,7 +397,7 @@ public class EncounterBuilder {
 			
 			// catch if there's an unplugged branch without an end scene
 			if (sceneMap.size == 0) {
-				sceneMap = addScene(scenes, new EndScene(sceneCounter, EndScene.Type.ENCOUNTER_OVER, saveService, assetManager, getEndBackground(), new LogDisplay(sceneCodes, masterSceneMap, skin), results, battleResults, getEncounterHUD()), true);		
+				sceneMap = addScene(scenes, new EndScene(sceneCounter, EndScene.Type.ENCOUNTER_OVER, saveService, assetManager, getEndBackground(), results, battleResults, getEncounterHUD()), true);		
 			}
 			
 			String characterName = character.getCharacterName();
@@ -490,7 +490,7 @@ public class EncounterBuilder {
 					else {
 						String scriptLine = token.text.replace("<NAME>", characterName).replace("<BUTTSIZE>", buttsize).replace("<LIPSIZE>", lipsize).replace("<DEBT>", debt).replace("<COCKSIZE>", cockSize);
 						// create the scene
-						newScene = new TextScene(sceneMap, sceneCounter, assetManager, font, saveService, backgrounds.get(ii++), scriptLine, getMutations(token.mutations), character, new LogDisplay(sceneCodes, masterSceneMap, skin), token.music != null ? token.music : null, token.sound != null ? token.sound.getSound() : null, getEncounterHUD());		
+						newScene = new TextScene(sceneMap, sceneCounter, assetManager, font, saveService, backgrounds.get(ii++), scriptLine, getMutations(token.mutations), character, token.music != null ? token.music : null, token.sound != null ? token.sound.getSound() : null, getEncounterHUD());		
 					}
 					// add it to array
 					scenes.add(newScene);

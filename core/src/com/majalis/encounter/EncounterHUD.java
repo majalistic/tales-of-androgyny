@@ -4,19 +4,31 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane.ScrollPaneStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.utils.IntArray;
+import com.badlogic.gdx.utils.OrderedMap;
 import com.majalis.asset.AssetEnum;
 import com.majalis.character.PlayerCharacter;
+import com.majalis.scenes.Scene;
 import com.majalis.screens.TimeOfDay;
 
 public class EncounterHUD extends Group {
 
+	private final Group logGroup;
+	private final LogDisplay logDisplay;
+	private final Label showLog;
+	private final ScrollPane pane;
 	private final TextButton saveButton;
 	private final TextButton skipButton;
 	private final TextButton autoplayButton;
@@ -25,8 +37,33 @@ public class EncounterHUD extends Group {
 	private boolean skipHeld;
 	private boolean buttonsHidden;
 	
-	protected EncounterHUD(AssetManager assetManager, PlayerCharacter character) {
+	protected EncounterHUD(AssetManager assetManager, PlayerCharacter character, OrderedMap<Integer, Scene> masterSceneMap, IntArray sceneCodes) {
 		skin = assetManager.get(AssetEnum.UI_SKIN.getSkin());
+	
+		logGroup = new Group();
+		logDisplay = new LogDisplay(sceneCodes, masterSceneMap, skin);
+		ScrollPaneStyle paneStyle = new ScrollPaneStyle();
+		paneStyle.background = new TextureRegionDrawable(new TextureRegion(assetManager.get(AssetEnum.BASIC_BOX.getTexture())));
+		pane = new ScrollPane(logDisplay, paneStyle);
+		logDisplay.setAlignment(Align.topLeft);
+		logDisplay.setWrap(true);
+		logDisplay.setColor(Color.DARK_GRAY);
+		pane.setScrollingDisabled(true, false);
+		pane.setOverscroll(false, false);
+		pane.setSize(1300, 950);
+		pane.setPosition(325, 1000, Align.topLeft);
+		showLog = new Label("Show Log", skin);
+		pane.addAction(Actions.hide());
+		
+		this.addActor(showLog);
+		
+		showLog.setColor(Color.BLACK);
+		showLog.setPosition(325, 1000);
+		
+		this.addActor(logGroup);
+		logGroup.addActor(pane);
+		logGroup.addActor(showLog);
+		
 		saveButton = new TextButton("Save", skin);
 		skipButton = new TextButton("Skip", skin);
 		autoplayButton = new TextButton("Auto", skin);
@@ -109,4 +146,21 @@ public class EncounterHUD extends Group {
 		}
 	}
 	public void addSaveListener(ClickListener clickListener) { saveButton.addListener(clickListener); }
+	public Group getLog() { return logGroup; }
+
+	public boolean displayingLog() {
+		return pane.isVisible();
+	}
+	
+	public void toggleLog() { 
+		logDisplay.displayLog(); 
+		if (displayingLog()) {
+			pane.addAction(Actions.hide());
+			showLog.setText("Show Log");
+		}
+		else {
+			pane.addAction(Actions.show());
+			showLog.setText("Hide Log");	
+		}
+	}
 }

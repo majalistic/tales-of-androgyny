@@ -4,14 +4,11 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
-import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane.ScrollPaneStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
@@ -21,7 +18,6 @@ import com.majalis.asset.AssetEnum;
 import com.majalis.character.PlayerCharacter;
 import com.majalis.encounter.Background;
 import com.majalis.encounter.EncounterHUD;
-import com.majalis.encounter.LogDisplay;
 import com.majalis.save.MutationResult;
 import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveService;
@@ -35,11 +31,9 @@ public class TextScene extends AbstractTextScene  {
 	private final PlayerCharacter character;
 	private final AssetEnum music;
 	private final AssetDescriptor<Sound> sound;
-	private final Label showLog;
-	private final ScrollPane pane;
-	private final LogDisplay log;
+	private final Group log;
 	
-	public TextScene(OrderedMap<Integer, Scene> sceneBranches, int sceneCode, AssetManager assetManager, BitmapFont font, SaveService saveService, final Background background, String toDisplay, Array<Mutation> mutations, PlayerCharacter character, LogDisplay log, AssetEnum music, AssetDescriptor<Sound> sound, EncounterHUD hud) {
+	public TextScene(OrderedMap<Integer, Scene> sceneBranches, int sceneCode, AssetManager assetManager, BitmapFont font, SaveService saveService, final Background background, String toDisplay, Array<Mutation> mutations, PlayerCharacter character, AssetEnum music, AssetDescriptor<Sound> sound, EncounterHUD hud) {
 		super(sceneBranches, sceneCode, assetManager, font, character, saveService, background, hud);
 		this.assetManager = assetManager;
 		this.character = character;
@@ -48,52 +42,27 @@ public class TextScene extends AbstractTextScene  {
 		this.background = background;
 		this.music = music;
 		this.sound = sound;
-		this.log = log;
-		ScrollPaneStyle paneStyle = new ScrollPaneStyle();
-		paneStyle.background = new TextureRegionDrawable(new TextureRegion(assetManager.get(AssetEnum.BASIC_BOX.getTexture())));
-		pane = new ScrollPane(log, paneStyle);
-		log.setAlignment(Align.topLeft);
-		log.setWrap(true);
-		log.setColor(Color.DARK_GRAY);
-		pane.setScrollingDisabled(true, false);
-		pane.setOverscroll(false, false);
-		pane.setSize(1300, 950);
-		pane.setPosition(325, 1000, Align.topLeft);
-		showLog = new Label("Show Log", skin);
+		this.log = hud.getLog();
 		
-		this.addActor(showLog);
-		
-		showLog.setColor(Color.BLACK);
-		showLog.setPosition(325, 1000);
-		showLog.addListener(new ClickListener() {
+		log.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				toggleLogDisplay();
-			}
-		});
-		pane.addListener(new ClickListener() {
-			@Override
-			public void clicked(InputEvent event, float x, float y) {
-				toggleLogDisplay();
+				if (isActive()) toggleLogDisplay();
 			}
 		});
 	}	
 
 	private void toggleLogDisplay() {
-		log.displayLog();
-		if (showLog.getText().toString().equals("Show Log")) {
-			showLog.setText("Hide Log");
+		hud.toggleLog();
+		if (!hud.displayingLog()) {
 			background.toggleDialogBox(display, false);
-			this.addActor(pane);	
-			hud.hideButtons();
 			hideSkipText();
+			hud.hideButtons();
 		}
 		else {
 			background.toggleDialogBox(display, true);
-			showLog.setText("Show Log");
-			this.removeActor(pane);
-			hud.showButtons();
 			showSkipText();
+			hud.showButtons();		
 		}
 	}
 	
@@ -104,7 +73,7 @@ public class TextScene extends AbstractTextScene  {
 
 	@Override
 	public void toggleBackground() {
-		if (showLog.getText().toString().equals("Show Log")) {
+		if (!hud.displayingLog()) {
 			background.toggleDialogBox(display);
 			hud.toggleButtons();
 			toggleSkipText();
@@ -149,7 +118,10 @@ public class TextScene extends AbstractTextScene  {
 	}
 	
 	@Override
-	public void showSave() { hud.showButtons(); }
+	public void showSave() { 
+		hud.showButtons(); 
+		if (hud.displayingLog()) hud.toggleLog();
+	}
 	
 	@Override
 	protected void nextScene() {

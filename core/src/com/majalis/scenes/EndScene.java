@@ -5,11 +5,11 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -18,7 +18,6 @@ import com.badlogic.gdx.utils.Array;
 import com.majalis.asset.AssetEnum;
 import com.majalis.encounter.Background;
 import com.majalis.encounter.EncounterHUD;
-import com.majalis.encounter.LogDisplay;
 import com.majalis.save.MutationResult;
 import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveManager;
@@ -37,17 +36,15 @@ public class EndScene extends Scene {
 	private final Array<MutationResult> battleResults;
 	private final AssetManager assetManager;
 	private final Table statusResults;
-	private final Label showLog;
-	private final LogDisplay log;
-	private final ScrollPane pane;
+	private final Group log;
 	private final Skin skin;
 	private final Group group;
 	private final GameOver gameOver;
 	private boolean finished;
 	
-	public EndScene(int sceneCode, Type type, SaveService saveService, AssetManager assetManager, final Background background, LogDisplay log, Array<MutationResult> results, Array<MutationResult> battleResults, EncounterHUD hud) 
-		{ this(sceneCode, type, saveService, assetManager, background, log, results, battleResults, GameOver.DEFAULT, hud); }
-	public EndScene(int sceneCode, Type type, SaveService saveService, AssetManager assetManager, final Background background, LogDisplay log, Array<MutationResult> results, Array<MutationResult> battleResults, GameOver gameOver, EncounterHUD hud) {
+	public EndScene(int sceneCode, Type type, SaveService saveService, AssetManager assetManager, final Background background, Array<MutationResult> results, Array<MutationResult> battleResults, EncounterHUD hud) 
+		{ this(sceneCode, type, saveService, assetManager, background, results, battleResults, GameOver.DEFAULT, hud); }
+	public EndScene(int sceneCode, Type type, SaveService saveService, AssetManager assetManager, final Background background, Array<MutationResult> results, Array<MutationResult> battleResults, GameOver gameOver, EncounterHUD hud) {
 		super(null, sceneCode, hud);
 		this.type = type;
 		this.saveService = saveService;
@@ -57,52 +54,29 @@ public class EndScene extends Scene {
 		this.battleResults = battleResults;
 		this.gameOver = gameOver;
 		this.addActor(background);
-		pane = new ScrollPane(log);
-		this.log = log;
-		log.setAlignment(Align.topLeft);
-		log.setWrap(true);
-		pane.setScrollingDisabled(true, false);
-		pane.setOverscroll(false, false);
-		pane.setBounds(325, 350, 1300, 650);
-		log.setColor(Color.BLACK);
 		statusResults = new Table();
 		skin = assetManager.get(AssetEnum.UI_SKIN.getSkin());
-		showLog = new Label("Show Log", skin);
-		
-		this.addActor(showLog);
-		
-		showLog.setColor(Color.BLACK);
-		showLog.setPosition(325, 1000);
-		showLog.addListener(new ClickListener() {
-			@Override
-			public void clicked(InputEvent event, float x, float y) {
-				toggleLogDisplay();
-			}
-		});
-		pane.addListener(new ClickListener() {
-			@Override
-			public void clicked(InputEvent event, float x, float y) {
-				toggleLogDisplay();
-			}
-		});
+		this.log = hud.getLog();
 		group = new Group();
 		finished = false;
-	}
-	
-	private void toggleLogDisplay() {
-		log.displayLog();
-		if (showLog.getText().toString().equals("Show Log")) {
-			showLog.setText("Hide Log");
-			this.addActor(pane);		
-			background.toggleDialogBox(background.getDialogBox(), false);
-			this.removeActor(group);
-		}
-		else {
-			showLog.setText("Show Log");
-			this.addActor(group);
-			background.toggleDialogBox(background.getDialogBox(), true);
-			this.removeActor(pane);
-		}
+		final Actor actor = new Actor();
+		log.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				if (isActive()) {
+					hud.toggleLog();
+					if (!hud.displayingLog()) {
+						group.addAction(Actions.hide()); 
+						background.toggleDialogBox(actor);
+					}
+					else {
+						group.addAction(Actions.show());
+						background.toggleDialogBox(actor);
+					}
+				}
+			}
+		});
+		
 	}
 	
 	@Override
