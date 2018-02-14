@@ -77,6 +77,13 @@ public class TextScene extends AbstractTextScene  {
 			background.toggleDialogBox(display);
 			hud.toggleButtons();
 			toggleSkipText();
+			if (hud.buttonsVisible()) {
+				hud.getHideButton().clearActions();
+				hud.getHideButton().setText("Show");
+			}
+			else {
+				hud.getHideButton().setText("Hide");
+			}
 		}
 	}
 
@@ -113,6 +120,16 @@ public class TextScene extends AbstractTextScene  {
 			fullnessIcon.addAction(Actions.show());
 			fullnessIcon.setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(character.getCumInflationPath()))));
 		}
+		hud.getHideButton().clearListeners();
+		hud.getHideButton().addListener(
+			new ClickListener() {
+				@Override
+		        public void clicked(InputEvent event, float x, float y) {
+					toggleBackground();
+				}
+			}
+		);	
+		
 		background.setColor(TimeOfDay.getTime(character.getTime()).getColor());
 		if (display.getText().toString().equals("")) nextScene();
 	}

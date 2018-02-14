@@ -29,6 +29,7 @@ public class EncounterHUD extends Group {
 	private final LogDisplay logDisplay;
 	private final Label showLog;
 	private final ScrollPane pane;
+	private final TextButton hideButton;
 	private final TextButton saveButton;
 	private final TextButton skipButton;
 	private final TextButton autoplayButton;
@@ -63,7 +64,7 @@ public class EncounterHUD extends Group {
 		this.addActor(logGroup);
 		logGroup.addActor(pane);
 		logGroup.addActor(showLog);
-		
+		hideButton = new TextButton("Hide", skin);
 		saveButton = new TextButton("Save", skin);
 		skipButton = new TextButton("Skip", skin);
 		autoplayButton = new TextButton("Auto", skin);
@@ -72,6 +73,10 @@ public class EncounterHUD extends Group {
 
 		dateLabel.setPosition(1650, 325);
 		this.addActor(dateLabel);
+		
+		hideButton.setPosition(1650, 25);
+		hideButton.setWidth(150);	
+		this.addActor(hideButton);
 		
 		saveButton.setPosition(1650, 100);
 		saveButton.setWidth(150);	
@@ -118,6 +123,7 @@ public class EncounterHUD extends Group {
 		saveButton.addAction(Actions.show());
 		skipButton.addAction(Actions.show());
 		autoplayButton.addAction(Actions.show());
+		hideButton.addAction(Actions.show());
 		dateLabel.addAction(Actions.show());
 		buttonsHidden = false;
 	}
@@ -126,6 +132,7 @@ public class EncounterHUD extends Group {
 		saveButton.addAction(Actions.hide());
 		skipButton.addAction(Actions.hide());
 		autoplayButton.addAction(Actions.hide());
+		hideButton.addAction(Actions.hide());
 		dateLabel.addAction(Actions.hide());
 		buttonsHidden = true;
 	}
@@ -163,4 +170,7 @@ public class EncounterHUD extends Group {
 			showLog.setText("Hide Log");	
 		}
 	}
+
+	public TextButton getHideButton() { return hideButton; }
+	public boolean buttonsVisible() { return saveButton.isVisible(); }
 }

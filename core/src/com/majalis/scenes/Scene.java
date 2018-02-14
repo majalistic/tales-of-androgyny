@@ -28,14 +28,8 @@ public abstract class Scene extends Group {
 		this.addAction(Actions.hide());
 	}
 	
-	protected Label addLabel(String text, Skin skin, Color color, float x, float y) {
-		return addLabel(text, skin, null, color, x, y);
-	}
-	
-	protected Label addLabel(String text, Skin skin, BitmapFont font, Color color, float x, float y) {
-		return addLabel(this, text, skin, font, color, x, y);
-	}
-	
+	protected Label addLabel(String text, Skin skin, Color color, float x, float y) { return addLabel(text, skin, null, color, x, y); }
+	protected Label addLabel(String text, Skin skin, BitmapFont font, Color color, float x, float y) { return addLabel(this, text, skin, font, color, x, y); }	
 	protected Label addLabel(Group group, String text, Skin skin, BitmapFont font, Color color, float x, float y) {
 		Label newLabel = new Label(text, skin);
 		newLabel.setColor(color);
@@ -51,28 +45,10 @@ public abstract class Scene extends Group {
 		return newLabel;
 	}
 	
-	protected Image addImage(Texture texture, Color color, int x, int y) {
-		return addImage(texture, color, x, y, texture.getWidth(), texture.getHeight());
-	}
-	
-	protected Image addImage(Group group, Texture texture, Color color, float x, float y) {
-		return addImage(group, texture, color, x, y, texture.getWidth(), texture.getHeight());
-	}
-	
-	protected Image addImage(Texture texture, Color color, float x, float y, float width, float height) {
-		return addImage(this, texture, color, x, y, width, height);
-	}
-	
-	protected Image addImage(Group group, Texture texture, Color color, float x, float y, float width, float height) {
-		Image newImage = new Image(texture);
-		newImage.setBounds(x, y, width, height);
-		group.addActor(newImage);
-		if (color != null) {
-			newImage.setColor(color);
-		}
-		return newImage;
-	}
-	
+	protected Image addImage(Texture texture, Color color, int x, int y) { return addImage(texture, color, x, y, texture.getWidth(), texture.getHeight()); }
+	protected Image addImage(Group group, Texture texture, Color color, float x, float y) { return addImage(group, texture, color, x, y, texture.getWidth(), texture.getHeight()); }
+	protected Image addImage(Texture texture, Color color, float x, float y, float width, float height) { return addImage(this, texture, color, x, y, width, height); }	
+	protected Image addImage(Group group, Texture texture, Color color, float x, float y, float width, float height) { return addImage(group, new TextureRegion(texture), color, x, y, width, height); }
 	protected Image addImage(Group group, TextureRegion texture, Color color, float x, float y, float width, float height) {
 		Image newImage = new Image(texture);
 		newImage.setBounds(x, y, width, height);
