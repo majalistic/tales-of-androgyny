@@ -34,13 +34,10 @@ public class LevelUpScreen extends AbstractScreen {
 	public void render(float delta) {
 		super.render(delta);
 		encounter.gameLoop();
-		if (encounter.encounterOver) {
+		if (encounter.encounterOver || encounter.gameExit) {
 			saveService.saveDataValue(SaveEnum.CONTEXT, SaveManager.GameContext.WORLD_MAP);
 			saveService.saveDataValue(SaveEnum.SCENE_CODE, 0);
 			showScreen(ScreenEnum.CHARACTER);
-		}
-		if (encounter.gameExit) {
-			showScreen(ScreenEnum.MAIN_MENU);
 		}
 	}
 
