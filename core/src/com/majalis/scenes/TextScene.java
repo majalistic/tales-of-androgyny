@@ -84,12 +84,16 @@ public class TextScene extends AbstractTextScene  {
 		if (showLog.getText().toString().equals("Show Log")) {
 			showLog.setText("Hide Log");
 			background.toggleDialogBox(display, false);
-			this.addActor(pane);		
+			this.addActor(pane);	
+			hud.hideButtons();
+			hideSkipText();
 		}
 		else {
 			background.toggleDialogBox(display, true);
 			showLog.setText("Show Log");
 			this.removeActor(pane);
+			hud.showButtons();
+			showSkipText();
 		}
 	}
 	
@@ -102,9 +106,11 @@ public class TextScene extends AbstractTextScene  {
 	public void toggleBackground() {
 		if (showLog.getText().toString().equals("Show Log")) {
 			background.toggleDialogBox(display);
+			hud.toggleButtons();
+			toggleSkipText();
 		}
 	}
-	
+
 	// careful!  This calls mutate() on all the mutations, which does not flush to the save file! Causing a flush to the save file in this method will cause mutations to replay every time this scene is loaded - super.setActive() flushes the save when it saves the scenecode and must be called first
 	@Override
 	public void activate() {

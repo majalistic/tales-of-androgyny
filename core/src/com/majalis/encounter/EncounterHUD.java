@@ -23,6 +23,7 @@ public class EncounterHUD extends Group {
 	private final Label dateLabel;
 	private final Skin skin;
 	private boolean skipHeld;
+	private boolean buttonsHidden;
 	
 	protected EncounterHUD(AssetManager assetManager, PlayerCharacter character) {
 		skin = assetManager.get(AssetEnum.UI_SKIN.getSkin());
@@ -81,6 +82,7 @@ public class EncounterHUD extends Group {
 		skipButton.addAction(Actions.show());
 		autoplayButton.addAction(Actions.show());
 		dateLabel.addAction(Actions.show());
+		buttonsHidden = false;
 	}
 	
 	public void hideButtons() {
@@ -88,7 +90,10 @@ public class EncounterHUD extends Group {
 		skipButton.addAction(Actions.hide());
 		autoplayButton.addAction(Actions.hide());
 		dateLabel.addAction(Actions.hide());
+		buttonsHidden = true;
 	}
+	
+	public void toggleButtons() { if (buttonsHidden) showButtons(); else hideButtons(); }
 	
 	private class DateLabel extends Label {
 		private final PlayerCharacter character;
@@ -103,6 +108,5 @@ public class EncounterHUD extends Group {
 			super.draw(batch, parentAlpha);
 		}
 	}
-
 	public void addSaveListener(ClickListener clickListener) { saveButton.addListener(clickListener); }
 }
