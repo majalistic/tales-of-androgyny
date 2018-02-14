@@ -7329,9 +7329,14 @@
 		]
 	},
 	{
+		"key": "SPIDER-DROWN",
+		"scriptLines": [
+			{"text": "Unable to cope with the water filling your lungs, you fall unconscious."}
+		]
+	},
+	{
 		"key": "SPIDER-UNCONSCIOUS",
 		"scriptLines": [
-			{"text": "Unable to cope with the water filling your lungs, you fall unconscious."},
 			{"text": "..."},
 			{"text": ".."},
 			{"text": "."},
@@ -7444,13 +7449,32 @@
 		]
 	},
 	{
-		"key": "SPIDER-BABY",
+		"key": "SPIDER-WEBCAVE",
 		"scriptLines": [
 			{"text": "You come upon a cave connected to the ruins, and with some trepidation begin to explore it as well."},			
 			{"text": "Your exploration of the ruin has grown long, now, and you expect that soon you'll have to turn back and return another day to fully appreciate its vastness."},
 			{"text": "But then, you feel it - the worst possible feeling in the world.  A single thread of a spider's web."},
 			{"text": "You stumble about, flailing, as you try to dislodge the undoubtedly huge and venomous spider from your face, body, and hair.  You contract terminal heebie jeebies, and die."},
-			{"text": "Not really.  But as you tremble and shake, brushing off the remains of the web and searching for stowaways on your clothes, you fail to notice a much more imminent danger."},
+			{"text": "Not really.  But as you tremble and shake, brushing off the remains of the web and searching for stowaways on your clothes, you fail to notice a much more imminent danger."}
+		]
+	},
+	{
+		"key": "SPIDER-STEPWEB-SUCCESS",
+		"scriptLines": [
+			{"text": "You step in something... sticky.  Very sticky.  You can't actually get out of it without removing your shoes, so you do.  You're glad you weren't walking around the strange cave without shoes."}
+		]
+	},
+	{
+		"key": "SPIDER-STEPWEB-FAIL",
+		"scriptLines": [
+			{"text": "You step in something... sticky.  Very sticky.  You can't actually get out of it... and you're completely stuck."},
+			{"text": "Though you struggle, you can't escape the predicament you're in... eventually, you drift off to sleep."}
+		]
+	},
+	{
+		"key": "SPIDER-BABY",
+		"scriptLines": [
+		
 			{
 			"foreground": "TINY_SPIDER_LOW",
 			"text": "Wait, what's this?  Behind the text box?"},

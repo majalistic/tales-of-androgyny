@@ -1609,14 +1609,18 @@ public enum EncounterCode {
 					),
 					b.branch(Outcome.KNOT_ANAL).textScene("SPIDER-OVIPOSITION").textScene("SPIDER-NO-FERTILIZE").gameEnd()
 				);
-				Branch afterSigil = b.branch().textScene("SPIDER-BABY").choiceScene(
+				
+				Branch spiderBaby = b.branch().textScene("SPIDER-BABY").choiceScene(
 					"What do you do?", 
 					b.branch("Try to crush the tiny spider").checkScene(Stat.PERCEPTION, b.branch(6).textScene("SPIDER-AWARE").concat(spiderBattle), b.branch(0).textScene("SPIDER-AMBUSH").concat(spiderBattle)), 
 					b.branch("Try to pet the tiny spider").textScene("SPIDER-GET").concat(spiderBattle), 
 					b.branch("Leave the tiny spider alone").textScene("SPIDER-IGNORE").choiceScene("Do you fight or flee?", b.branch("Fight").concat(spiderBattle), b.branch("Flee").checkScene(Stat.AGILITY, b.branch(4).textScene("SPIDER-FLEE-PASS").checkScene(Stat.ENDURANCE, b.branch(4).textScene("SPIDER-FULL-FLEE"), b.branch(0).textScene("SPIDER-FLEE-FAIL").concat(spiderBattle)), b.branch(0).textScene("SPIDER-FLEE-FAIL").concat(spiderBattle)))
 				);
+				
+				Branch webbedAndEgged = b.branch().textScene("SPIDER-UNCONSCIOUS").checkScene(CheckType.IS_EGGED, b.branch(true).textScene("SPIDER-UNCONSCIOUS-EGG-FEAST").gameEnd(), b.branch(false).textScene("SPIDER-UNCONSCIOUS-EGG-VIRGIN").gameEnd());
+				Branch afterSigil = b.branch().textScene("SPIDER-WEBCAVE").checkScene(CheckType.WEARING_SHOES, b.branch(true).textScene("SPIDER-STEPWEB-SUCCESS").concat(spiderBaby), b.branch(false).textScene("SPIDER-STEPWEB-FAIL").concat(webbedAndEgged));
 				Branch afterTrap1 = b.branch().textScene("SPIDER-SIGIL").choiceScene("Touch the sigil?", b.branch("Touch it").checkScene(Stat.MAGIC, b.branch(4).textScene("SPIDER-SIGIL-SUCCESS").concat(afterSigil), b.branch(2).textScene("SPIDER-SIGIL-PARTIAL").concat(afterSigil), b.branch(0).textScene("SPIDER-SIGIL-FAILURE").concat(afterSigil)), b.branch("Don't touch it").concat(afterSigil));
-				Branch receiveTrap = b.branch().checkScene(CheckType.ALIVE, b.branch(true).concat(afterTrap1), b.branch(false).textScene("SPIDER-UNCONSCIOUS").checkScene(CheckType.IS_EGGED, b.branch(true).textScene("SPIDER-UNCONSCIOUS-EGG-FEAST").gameEnd(), b.branch(false).textScene("SPIDER-UNCONSCIOUS-EGG-VIRGIN").gameEnd()));
+				Branch receiveTrap = b.branch().checkScene(CheckType.ALIVE, b.branch(true).concat(afterTrap1), b.branch(false).textScene("SPIDER-DROWN").concat(webbedAndEgged));
 				Branch failTrap = b.branch().checkScene(Stat.ENDURANCE, b.branch(7).textScene("SPIDER-ENDURE").concat(receiveTrap), b.branch(4).textScene("SPIDER-PARTIAL-ENDURE").concat(receiveTrap), b.branch(0).textScene("SPIDER-FAIL-ENDURE").concat(receiveTrap));
 				Branch afterRoom1 = b.branch().textScene("SPIDER-TRAP-APPROACH").checkScene(Stat.AGILITY, b.branch(7).textScene("SPIDER-AVOID-TRAP").concat(afterTrap1), b.branch(4).textScene("SPIDER-GRAB-TRAP").checkScene(CheckType.WEARING_GAUNTLETS, b.branch(true).textScene("SPIDER-GRAB-TRAP-SUCCESS").concat(afterTrap1), b.branch(false).textScene("SPIDER-GRAB-TRAP-FAIL").concat(failTrap)), b.branch(0).textScene("SPIDER-FAIL-TRAP").concat(failTrap));
 				return b.branch().checkScene(CheckType.SPIDER_HATCH, b.branch(true).textScene("SPIDER-HATCH"), b.branch(false).checkScene(
