@@ -33,7 +33,7 @@ public class EncounterHUD extends Group {
 	private final Group characterGroup;
 	private final Group logGroup;
 	private final LogDisplay logDisplay;
-	private final Label showLog;
+	private final TextButton showLog;
 	private final ScrollPane pane;
 	private final Label skipText;
 	private final TextButton hideButton;
@@ -65,13 +65,11 @@ public class EncounterHUD extends Group {
 		pane.setOverscroll(false, false);
 		pane.setSize(1300, 950);
 		pane.setPosition(325, 1000, Align.topLeft);
-		showLog = new Label("Show Log", skin);
+		showLog = new TextButton("Show Log", skin);
 		pane.addAction(Actions.hide());
 		
 		this.addActor(showLog);
-		
-		showLog.setColor(Color.BLACK);
-		showLog.setPosition(325, 1000);
+		showLog.setBounds(325, 1000, 165, 50);
 		
 		this.addActor(logGroup);
 		logGroup.addActor(pane);
