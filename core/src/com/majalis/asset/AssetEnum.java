@@ -200,6 +200,8 @@ public enum AssetEnum {
 	BUNNY_DARK_CHOCOLATE_ANAL("enemies/bunny/DarkChocolateAnal.jpg"),
 	ANGEL("enemies/Angel.png"),
 	NAGA("enemies/Naga.png"),
+	NAGA_ANAL("enemies/NagaAnal.jpg"),
+	NAGA_ANAL_CUM("enemies/NagaAnalCum.jpg"),
 	QUETZAL("enemies/Quetzal.png"),
 	QUETZAL_HERO("enemies/QuetzalHero.jpg"),
 	QUETZAL_HERO_ANAL("enemies/QuetzalHeroAnal.jpg"),

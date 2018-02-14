@@ -107,6 +107,9 @@ public enum EnemyEnum {
     	else if (this == ADVENTURER) {
     		textureImagePaths.put(Stance.COWGIRL_BOTTOM.toString(), new Array<String>(new String[]{AssetEnum.ADVENTURER_ANAL.getPath()})); 
     	}
+    	else if (this == NAGA) { // currently does not lewd the player in combat
+    		textureImagePaths.put(Stance.DOGGY.toString(), new Array<String>(new String[]{AssetEnum.NAGA_ANAL.getPath(), AssetEnum.NAGA_ANAL_CUM.getPath()})); 
+    	}
     	return textureImagePaths; 
     }
     protected PhallusType getPhallusType() { 

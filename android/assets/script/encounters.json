@@ -9424,6 +9424,7 @@
 			"text": "The fat thing bores into you, scraping your rectal walls, and you lose consciousness for a moment.  When you come to, it feels like your bowels are impacted, and, well, they are."},
 			{"text": "\"Your violation's not complete till I get both of my girl's in...\" she says, ominously, and you feel her shifting her hips around...  and your hole being forced open even wider."},
 			{
+			"foreground": "NAGA_ANAL",
 			"sound": "ANAL_INSERTION",
 			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1, "bellyful": 5}}],
 			"text": "Your breath and voice catch in your throat as the weight in your rectum shifts - nothing else in the world matters.  Her second cock has joined the first, and her laughter is so far away she may as well be on another plane entirely."},
@@ -9452,11 +9453,15 @@
 			{"text": "Mostly, though, you feel naga dicks. Her tempo builds, and you have an awful premonition."},
 			{"text": "\"Let me see your face, human!  I'm going to give you both love cannons at once!\" she says, forcing you to roll over on your side, her dicks still giving you a bulge in both your belly and your back."},
 			{
+			"foreground": "NAGA_ANAL_CUM",
 			"sound": "CUM",
 			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "creampies":2, "analEjaculation": 1}}],
 			"text": "The next thing you feel is so, so much cum rush out of you - apparently it's highly pressurized.  Your gut stings from the impact and is sore at the volume, bulging out your lower abdomen."},
 			{"text": "At this point, all you want is for her to withdraw her alien anatomy from your insides.  She does, slithering away so that her dual phalluses pull free."},
-			{"text": "When she does, your fears are confirmed - your asshole is completely stretched open in an odd way, and no matter how you try to get it to close, it won't, even a little bit."},
+			{
+			"sound": "CUM",
+			"animatedForeground": "BUTTBANG",
+			"text": "When she does, your fears are confirmed - your asshole is completely stretched open in an odd way, and no matter how you try to get it to close, it won't, even a little bit."},
 			{"text": "\"Ahaha!  What is that?!  That looks more like a busted naga cloaca than a human shithole!  Are you sure you don't have a little Naga in you?\" she asks, knowing full well that you just did have quite a lot of naga in you, and currently have a lot of little swimmy nagas stuffing your intestines."},
 			{"text": "She peers inside at the misshapen crater that was your asshole, and you breathe steadily, at least thankful that her cocks didn't kill you."},
 			{"text": "\"If it's gonna look like that... I'm gonna fuck you again!  You better get running, human, or you're getting a second helping of my snakes!\""},
@@ -9464,6 +9469,7 @@
 			{"text": "\"What's the matter?\" she says, easily keeping pace with you, \"tired from all the hot snake sex?  If you don't start moving, you're going to be fucked in the ass again, you know!\""},
 			{"text": "Though you will your legs to move faster, nothing can bring them to return from their jelly-like state.  You continue to waddle away, knowing how futile it is."},
 			{
+			"foreground": "NAGA_ANAL",
 			"sound": "ANAL_INSERTION",
 			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":2}}],
 			"text": "She suddenly grasps your chest with both hands from behind, and your eyes roll up into your head as you feel her cocks sink back into place, distending your abdomen once more."},
@@ -9477,11 +9483,16 @@
 			{"text": "You can hardly believe what you're hearing, but you're soon distracted by the realization that her tempo is the same as it was before, right before she had given you a pressurized enema."},
 			{"text": "\"Here it comes, hero!\" she says, and her grip around your abdomen is tight and demanding."},
 			{
+			"foreground": "NAGA_ANAL_CUM",
 			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "creampies":2}}],
 			"sound": "CUM_BUBBLING",
 			"text": "The second ass-blast jets inside, joining the first as she shoots liquid into liquid, the excess being forced out under pressure, your gut distending to inhumane degrees."},
-			{"text": "When she pulls free, you're completely limp.  You have no more will or ability to oppose her."},
-			{"text": "Your life in the cave is simple.  You continue to receive the strange naga sex that you've come to know very well... all the while knowing that one day, rather than being fucked, she'll unhinge her jaw, and then you will be well and truly fucked."}
+			{
+			"animatedForeground": "BUTTBANG",
+			"text": "When she pulls free, you're completely limp.  You have no more will or ability to oppose her."},
+			{
+			"animatedForeground": "NULL",
+			"text": "Your life in the cave is simple.  You continue to receive the strange naga sex that you've come to know very well... all the while knowing that one day, rather than being fucked, she'll unhinge her jaw, and then you will be well and truly fucked."}
 		]
 	},
 	{

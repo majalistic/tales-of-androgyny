@@ -250,6 +250,10 @@ public class ReplayScreen extends AbstractScreen {
 				attachListener(new TextButton("Fellatio 3", skin), AssetEnum.HARPY_FELLATIO_2, cg, enemy, table);
 				attachListener(new TextButton("Fellatio 4", skin), AssetEnum.HARPY_FELLATIO_3, cg, enemy, table);
 				break;
+			case NAGA: 
+				attachListener(new TextButton("Anal", skin), AssetEnum.NAGA_ANAL, cg, enemy, table);
+				attachListener(new TextButton("Anal Cum", skin), AssetEnum.NAGA_ANAL_CUM, cg, enemy, table);
+				break;
 			case OGRE:
 				attachListener(new TextButton("Game Over", skin), AssetEnum.OGRE_BANGED, cg, enemy, table);
 				break;
