@@ -6,6 +6,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
@@ -47,15 +48,17 @@ public class TextScene extends AbstractTextScene  {
 	}	
 
 	private void toggleLogDisplay() {
-		hud.toggleLog();
 		if (!hud.displayingLog()) {
 			background.toggleDialogBox(display, false); // once toggleDialogBox is killed, all of this exists on the hud, and it can handle toggling the log as well gracefully
 			hud.hideButtons();
+			this.addAction(Actions.touchable(Touchable.disabled));
 		}
 		else {
 			background.toggleDialogBox(display, true);
 			hud.showButtons();		
+			this.addAction(Actions.touchable(Touchable.enabled));
 		}
+		hud.toggleLog();
 	}
 	
 	@Override

@@ -225,6 +225,8 @@ public class EncounterHUD extends Group {
 	
 	public void toggleLog() { 
 		logDisplay.displayLog(); 
+		showLog.clearActions();
+		showLog.addAction(Actions.show());
 		if (displayingLog()) {
 			pane.addAction(Actions.hide());
 			showLog.setText("Show Log");
