@@ -5,6 +5,7 @@ import com.badlogic.gdx.utils.OrderedMap;
 import com.majalis.battle.BattleAttributes;
 import com.majalis.battle.BattleCode;
 import com.majalis.character.Stance;
+import com.majalis.encounter.EncounterHUD;
 import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveManager;
 import com.majalis.save.SaveService;
@@ -21,8 +22,8 @@ public class BattleScene extends Scene {
 	private final boolean disarm;
 	private final int climaxCounter;
 	
-	public BattleScene(OrderedMap<Integer, Scene> sceneBranches, SaveService saveService, BattleCode battleCode, Stance playerStance, Stance enemyStance, boolean disarm, int climaxCounter, ObjectMap<String, Integer> outcomes) {
-		super(sceneBranches, -1);
+	public BattleScene(OrderedMap<Integer, Scene> sceneBranches, SaveService saveService, BattleCode battleCode, Stance playerStance, Stance enemyStance, boolean disarm, int climaxCounter, ObjectMap<String, Integer> outcomes, EncounterHUD hud) {
+		super(sceneBranches, -1, hud);
 		this.saveService = saveService;
 		this.battleCode = battleCode;
 		this.playerStance = playerStance;
@@ -33,7 +34,7 @@ public class BattleScene extends Scene {
 	}
 	
 	@Override
-	public void setActive() {
+	public void activate() {
 		isActive = true;
 		saveService.saveDataValue(SaveEnum.BATTLE_CODE, new BattleAttributes(battleCode, outcomes, playerStance, enemyStance, disarm, climaxCounter));
 		saveService.saveDataValue(SaveEnum.CONTEXT, SaveManager.GameContext.BATTLE);

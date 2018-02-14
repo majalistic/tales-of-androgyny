@@ -10,6 +10,7 @@ import com.majalis.character.AbstractCharacter.Stat;
 import com.majalis.character.PlayerCharacter.QuestType;
 import com.majalis.character.Perk;
 import com.majalis.encounter.Background;
+import com.majalis.encounter.EncounterHUD;
 import com.majalis.save.SaveService;
 import com.majalis.save.SaveManager.JobClass;
 import com.majalis.screens.TimeOfDay;
@@ -26,20 +27,20 @@ public class CheckScene extends AbstractTextScene {
 	private Scene nextScene;
 	private Background background;
 	
-	public CheckScene(OrderedMap<Integer, Scene> sceneBranches, int sceneCode, AssetManager assetManager, SaveService saveService, BitmapFont font, Background background, Stat stat, OrderedMap<Integer, Scene> checkValues, Scene defaultScene, PlayerCharacter character) {
-		this(sceneBranches, sceneCode, assetManager, saveService, font, background, stat, null, null, checkValues, null, defaultScene, character);
+	public CheckScene(OrderedMap<Integer, Scene> sceneBranches, int sceneCode, AssetManager assetManager, SaveService saveService, BitmapFont font, Background background, Stat stat, OrderedMap<Integer, Scene> checkValues, Scene defaultScene, PlayerCharacter character, EncounterHUD hud) {
+		this(sceneBranches, sceneCode, assetManager, saveService, font, background, stat, null, null, checkValues, null, defaultScene, character, hud);
 	}
 	
-	public CheckScene(OrderedMap<Integer, Scene> sceneBranches, int sceneCode, AssetManager assetManager, SaveService saveService, BitmapFont font, Background background, Perk perk, OrderedMap<Integer, Scene> checkValues, Scene defaultScene, PlayerCharacter character) {
-		this(sceneBranches, sceneCode, assetManager, saveService, font, background, null, perk, null, checkValues, null, defaultScene, character);
+	public CheckScene(OrderedMap<Integer, Scene> sceneBranches, int sceneCode, AssetManager assetManager, SaveService saveService, BitmapFont font, Background background, Perk perk, OrderedMap<Integer, Scene> checkValues, Scene defaultScene, PlayerCharacter character, EncounterHUD hud) {
+		this(sceneBranches, sceneCode, assetManager, saveService, font, background, null, perk, null, checkValues, null, defaultScene, character, hud);
 	}
 	
-	public CheckScene(OrderedMap<Integer, Scene> sceneBranches, int sceneCode, AssetManager assetManager, SaveService saveService, BitmapFont font, Background background, CheckType checkType, Scene clearScene, Scene defaultScene, PlayerCharacter character) {
-		this(sceneBranches, sceneCode, assetManager, saveService, font, background, null, null, checkType, null, clearScene, defaultScene, character);
+	public CheckScene(OrderedMap<Integer, Scene> sceneBranches, int sceneCode, AssetManager assetManager, SaveService saveService, BitmapFont font, Background background, CheckType checkType, Scene clearScene, Scene defaultScene, PlayerCharacter character, EncounterHUD hud) {
+		this(sceneBranches, sceneCode, assetManager, saveService, font, background, null, null, checkType, null, clearScene, defaultScene, character, hud);
 	}
 	
-	public CheckScene(OrderedMap<Integer, Scene> sceneBranches, int sceneCode, AssetManager assetManager, SaveService saveService, BitmapFont font, Background background, Stat stat, Perk perk, CheckType checkType, OrderedMap<Integer, Scene> checkValues, Scene clearScene, Scene defaultScene, PlayerCharacter character) {
-		super(sceneBranches, sceneCode, assetManager, font, character, saveService, background);
+	public CheckScene(OrderedMap<Integer, Scene> sceneBranches, int sceneCode, AssetManager assetManager, SaveService saveService, BitmapFont font, Background background, Stat stat, Perk perk, CheckType checkType, OrderedMap<Integer, Scene> checkValues, Scene clearScene, Scene defaultScene, PlayerCharacter character, EncounterHUD hud) {
+		super(sceneBranches, sceneCode, assetManager, font, character, saveService, background, hud);
 		this.checkValues = checkValues;
 		this.clearScene = clearScene;
 		this.defaultScene = defaultScene;
@@ -51,8 +52,8 @@ public class CheckScene extends AbstractTextScene {
 	}
 	
 	@Override
-	public void setActive() {
-		super.setActive();
+	public void activate() {
+		super.activate();
 		nextScene = getNextScene();	
 		if (display.getText().toString().equals("")) nextScene();
 		background.setColor(TimeOfDay.getTime(character.getTime()).getColor());

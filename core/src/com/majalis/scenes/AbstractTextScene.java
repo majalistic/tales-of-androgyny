@@ -20,6 +20,7 @@ import com.badlogic.gdx.utils.OrderedMap;
 import com.majalis.asset.AssetEnum;
 import com.majalis.character.PlayerCharacter;
 import com.majalis.encounter.Background;
+import com.majalis.encounter.EncounterHUD;
 import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveService;
 
@@ -34,8 +35,8 @@ public abstract class AbstractTextScene extends Scene {
 	protected final Background background;
 	private boolean isAutoplay;
 	
-	protected AbstractTextScene(OrderedMap<Integer, Scene> sceneBranches, int sceneCode, AssetManager assetManager, BitmapFont font, PlayerCharacter character, SaveService saveService, Background background) {
-		super(sceneBranches, sceneCode);
+	protected AbstractTextScene(OrderedMap<Integer, Scene> sceneBranches, int sceneCode, AssetManager assetManager, BitmapFont font, PlayerCharacter character, SaveService saveService, Background background, EncounterHUD hud) {
+		super(sceneBranches, sceneCode, hud);
 		this.saveService = saveService;
 		this.background = background;
 		this.addActor(background);
@@ -66,31 +67,34 @@ public abstract class AbstractTextScene extends Scene {
 			nextScene();
 		}
 		if (isActive) {
-			boolean autoplay = Gdx.app.getPreferences("tales-of-androgyny-preferences").getBoolean("autoplay", false);
-			if (isAutoplay != autoplay) {
-				isAutoplay = autoplay;
-				if (!isAutoplay) {
-					this.clearActions();
-				}
-				else {
-					int textSpeed = Gdx.app.getPreferences("tales-of-androgyny-preferences").getInteger("autoplaySpeed", 5);
-					int baseDisplayTime = display.getText().length / 20 + 2;
-					float speedFactor = 1.5f - (textSpeed * .1f); 
-					
-					this.addAction(Actions.sequence(Actions.delay(baseDisplayTime * speedFactor), new Action(){
-						@Override
-						public boolean act(float delta) {
-							clearActions();
-							nextScene();
-							return true;
-						}}));
+			if (hud.isSkipHeld()) nextScene();
+			else {
+				boolean autoplay = Gdx.app.getPreferences("tales-of-androgyny-preferences").getBoolean("autoplay", false);
+				if (isAutoplay != autoplay) {
+					isAutoplay = autoplay;
+					if (!isAutoplay) {
+						this.clearActions();
+					}
+					else {
+						int textSpeed = Gdx.app.getPreferences("tales-of-androgyny-preferences").getInteger("autoplaySpeed", 5);
+						int baseDisplayTime = display.getText().length / 20 + 2;
+						float speedFactor = 1.5f - (textSpeed * .1f); 
+						
+						this.addAction(Actions.sequence(Actions.delay(baseDisplayTime * speedFactor), new Action(){
+							@Override
+							public boolean act(float delta) {
+								clearActions();
+								nextScene();
+								return true;
+							}}));
+					}
 				}
 			}
 		}		
 	}
 	
 	@Override
-	public void setActive() {
+	public void activate() {
 		isActive = true;	
 		this.removeAction(Actions.hide());
 		this.addAction(Actions.visible(true));
@@ -103,8 +107,6 @@ public abstract class AbstractTextScene extends Scene {
 		});
 		saveService.saveDataValue(SaveEnum.SCENE_CODE, sceneCode);
 	}
-	@Override
-	public void poke() { nextScene(); }
 
 	protected abstract void nextScene();
 }

@@ -27,6 +27,7 @@ import com.majalis.asset.AssetEnum;
 import com.majalis.character.PlayerCharacter;
 import com.majalis.character.AbstractCharacter.Stat;
 import com.majalis.encounter.Background;
+import com.majalis.encounter.EncounterHUD;
 import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveManager;
 import com.majalis.save.SaveService;
@@ -43,8 +44,8 @@ public class CharacterCreationScene extends Scene {
 	private final Label statPointDisplay;
 	private final AssetManager assetManager;
 	
-	public CharacterCreationScene(OrderedMap<Integer, Scene> sceneBranches, int sceneCode, final SaveService saveService, Background background, final AssetManager assetManager, final PlayerCharacter character, final boolean story) {
-		super(sceneBranches, sceneCode);
+	public CharacterCreationScene(OrderedMap<Integer, Scene> sceneBranches, int sceneCode, final SaveService saveService, Background background, final AssetManager assetManager, final PlayerCharacter character, final boolean story, EncounterHUD hud) {
+		super(sceneBranches, sceneCode, hud);
 		this.saveService = saveService;
 		this.addActor(background);
 		Image classSelectPanel = new Image(assetManager.get(AssetEnum.CLASS_SELECT_PANEL.getTexture()));
@@ -506,7 +507,7 @@ public class CharacterCreationScene extends Scene {
 	}
 	
 	@Override
-	public void setActive() {
+	public void activate() {
 		isActive = true;
 		this.removeAction(Actions.hide());
 		this.addAction(Actions.visible(true));

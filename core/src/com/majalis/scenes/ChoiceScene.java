@@ -18,6 +18,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.OrderedMap;
 import com.majalis.character.PlayerCharacter;
 import com.majalis.encounter.Background;
+import com.majalis.encounter.EncounterHUD;
 import com.majalis.encounter.EncounterBuilder.BranchChoice;
 import com.majalis.save.SaveService;
 import com.majalis.screens.TimeOfDay;
@@ -35,8 +36,8 @@ public class ChoiceScene extends AbstractChoiceScene {
 	private final Background background;
 	private int selection;
 	// this should receive a map of integers to choice buttons 
-	public ChoiceScene(OrderedMap<Integer, Scene> sceneBranches, int sceneCode, SaveService saveService, BitmapFont font, String choiceDialogue, Array<BranchChoice> choices, Texture arrowImage, PlayerCharacter character, Background background) {
-		super(sceneBranches, sceneCode, saveService);
+	public ChoiceScene(OrderedMap<Integer, Scene> sceneBranches, int sceneCode, SaveService saveService, BitmapFont font, String choiceDialogue, Array<BranchChoice> choices, Texture arrowImage, PlayerCharacter character, Background background, EncounterHUD hud) {
+		super(sceneBranches, sceneCode, saveService, hud);
 		this.font = font;
 		this.choices = choices;
 		this.buttons = new Array<TextButton>();
@@ -61,8 +62,8 @@ public class ChoiceScene extends AbstractChoiceScene {
 	}
 
 	@Override
-	public void setActive() {
-		super.setActive();
+	public void activate() {
+		super.activate();
 		for (BranchChoice choice : choices) {
 			if (choice.require != null && !choice.require.isValidChoice(character)) {
 				choice.button.setTouchable(Touchable.disabled);

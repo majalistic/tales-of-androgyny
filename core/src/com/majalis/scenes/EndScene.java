@@ -17,6 +17,7 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.majalis.asset.AssetEnum;
 import com.majalis.encounter.Background;
+import com.majalis.encounter.EncounterHUD;
 import com.majalis.encounter.LogDisplay;
 import com.majalis.save.MutationResult;
 import com.majalis.save.SaveEnum;
@@ -44,10 +45,10 @@ public class EndScene extends Scene {
 	private final GameOver gameOver;
 	private boolean finished;
 	
-	public EndScene(int sceneCode, Type type, SaveService saveService, AssetManager assetManager, final Background background, LogDisplay log, Array<MutationResult> results, Array<MutationResult> battleResults) 
-		{ this(sceneCode, type, saveService, assetManager, background, log, results, battleResults, GameOver.DEFAULT); }
-	public EndScene(int sceneCode, Type type, SaveService saveService, AssetManager assetManager, final Background background, LogDisplay log, Array<MutationResult> results, Array<MutationResult> battleResults, GameOver gameOver) {
-		super(null, sceneCode);
+	public EndScene(int sceneCode, Type type, SaveService saveService, AssetManager assetManager, final Background background, LogDisplay log, Array<MutationResult> results, Array<MutationResult> battleResults, EncounterHUD hud) 
+		{ this(sceneCode, type, saveService, assetManager, background, log, results, battleResults, GameOver.DEFAULT, hud); }
+	public EndScene(int sceneCode, Type type, SaveService saveService, AssetManager assetManager, final Background background, LogDisplay log, Array<MutationResult> results, Array<MutationResult> battleResults, GameOver gameOver, EncounterHUD hud) {
+		super(null, sceneCode, hud);
 		this.type = type;
 		this.saveService = saveService;
 		this.assetManager = assetManager;
@@ -113,7 +114,7 @@ public class EndScene extends Scene {
 	}
 
 	@Override
-	public void setActive() {
+	public void activate() {
 		isActive = true;
 		if (results.size == 0 || type == Type.GAME_OVER) {
 			finish();

@@ -11,17 +11,20 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.OrderedMap;
+import com.majalis.encounter.EncounterHUD;
 /*
  * Controls the logic for a single "scene", whether it be a text and image splash, a battle entry-point, or a selection dialog
  */
 public abstract class Scene extends Group {
 	protected final OrderedMap<Integer, Scene> sceneBranches;
 	protected final int sceneCode;
+	protected final EncounterHUD hud;
 	protected boolean isActive;
 	
-	protected Scene(OrderedMap<Integer, Scene> sceneBranches, int sceneCode) {
+	protected Scene(OrderedMap<Integer, Scene> sceneBranches, int sceneCode, EncounterHUD hud) {
 		this.sceneBranches = sceneBranches;
 		this.sceneCode = sceneCode;
+		this.hud = hud;
 		this.addAction(Actions.hide());
 	}
 	
@@ -80,15 +83,19 @@ public abstract class Scene extends Group {
 		return newImage;
 	}
 	
-	public abstract void setActive();
+	public void setActive() {
+		showSave();
+		activate();
+	}
+	
+	protected abstract void activate();
+	protected void showSave() { hud.hideButtons(); }
 	// implement the input logic that determines the next Scene for children
 	public boolean isActive() { return isActive; }
 	public int getCode() { return sceneCode; }
 	public String getText() { return ""; }
-	public boolean showSave() { return false; }
 	public boolean isBattle() { return false; }
 	public boolean encounterOver() { return false; }
 	public boolean gameOver() { return false; }
-	public void poke() {}
 	public void toggleBackground() {}
 }

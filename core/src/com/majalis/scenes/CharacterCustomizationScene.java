@@ -24,6 +24,7 @@ import com.majalis.character.AbstractCharacter;
 import com.majalis.character.AbstractCharacter.PhallusType;
 import com.majalis.character.PlayerCharacter;
 import com.majalis.encounter.Background;
+import com.majalis.encounter.EncounterHUD;
 import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveService;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -37,8 +38,8 @@ public class CharacterCustomizationScene extends Scene {
 	private final PlayerCharacter character;
 	private final AssetManager assetManager;
 	// customize name, face, body, skin, hair, length, facial markings
-	public CharacterCustomizationScene(OrderedMap<Integer, Scene> sceneBranches, int sceneCode, final SaveService saveService, BitmapFont font, Background background, AssetManager assetManager, PlayerCharacter character) {
-		super(sceneBranches, sceneCode);
+	public CharacterCustomizationScene(OrderedMap<Integer, Scene> sceneBranches, int sceneCode, final SaveService saveService, BitmapFont font, Background background, AssetManager assetManager, PlayerCharacter character, EncounterHUD hud) {
+		super(sceneBranches, sceneCode, hud);
 		this.saveService = saveService;
 		this.addActor(background);
 		this.character = character;
@@ -48,7 +49,7 @@ public class CharacterCustomizationScene extends Scene {
 	}
 	
 	@Override
-	public void setActive() {
+	public void activate() {
 		isActive = true;
 		this.removeAction(Actions.hide());
 		this.addAction(Actions.visible(true));

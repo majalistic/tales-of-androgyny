@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.ObjectSet;
 import com.majalis.scenes.Scene;
 /*
@@ -12,15 +13,16 @@ import com.majalis.scenes.Scene;
 public class Encounter {
 	private final ObjectSet<Scene> scenes;
 	private final Scene startScene;
+	private final EncounterHUD hud;
 	public boolean encounterOver;
 	public boolean battle;
 	public boolean gameOver;
 	public boolean gameExit;
-	public boolean showSave;
 	
-	public Encounter(ObjectSet<Scene> scenes, Scene startScene) {
+	public Encounter(ObjectSet<Scene> scenes, Scene startScene, EncounterHUD hud) {
 		this.scenes = scenes;
 		this.startScene = startScene;
+		this.hud = hud;
 		encounterOver = false;
 		gameOver = false;
 		gameExit = false;
@@ -34,7 +36,6 @@ public class Encounter {
 		for (Scene objScene : scenes) {
 			if (objScene.isActive()) {
 				if (Gdx.input.isKeyJustPressed(Keys.TAB)) objScene.toggleBackground();
-				showSave = objScene.showSave();
 				battle = objScene.isBattle();
 				encounterOver = objScene.encounterOver();
 				gameOver = objScene.gameOver();
@@ -51,15 +52,9 @@ public class Encounter {
 		for (Actor actor: scenes) {
 			actors.addActor(actor);
 		}
+		actors.addActor(hud);
 		startScene.setActive();
 		return actors;
 	}
-
-	public void poke() {
-		for (Scene objScene : scenes) {
-			if (objScene.isActive()) {
-				objScene.poke();
-			}
-		}
-	}
+	public void addSaveListener(ClickListener clickListener) { hud.addSaveListener(clickListener); }
 }

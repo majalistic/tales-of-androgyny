@@ -20,6 +20,7 @@ import com.badlogic.gdx.utils.OrderedMap;
 import com.majalis.asset.AssetEnum;
 import com.majalis.character.PlayerCharacter;
 import com.majalis.encounter.Background;
+import com.majalis.encounter.EncounterHUD;
 import com.majalis.encounter.LogDisplay;
 import com.majalis.save.MutationResult;
 import com.majalis.save.SaveEnum;
@@ -38,8 +39,8 @@ public class TextScene extends AbstractTextScene  {
 	private final ScrollPane pane;
 	private final LogDisplay log;
 	
-	public TextScene(OrderedMap<Integer, Scene> sceneBranches, int sceneCode, AssetManager assetManager, BitmapFont font, SaveService saveService, final Background background, String toDisplay, Array<Mutation> mutations, PlayerCharacter character, LogDisplay log, AssetEnum music, AssetDescriptor<Sound> sound) {
-		super(sceneBranches, sceneCode, assetManager, font, character, saveService, background);
+	public TextScene(OrderedMap<Integer, Scene> sceneBranches, int sceneCode, AssetManager assetManager, BitmapFont font, SaveService saveService, final Background background, String toDisplay, Array<Mutation> mutations, PlayerCharacter character, LogDisplay log, AssetEnum music, AssetDescriptor<Sound> sound, EncounterHUD hud) {
+		super(sceneBranches, sceneCode, assetManager, font, character, saveService, background, hud);
 		this.assetManager = assetManager;
 		this.character = character;
 		display.setText(toDisplay);
@@ -106,8 +107,9 @@ public class TextScene extends AbstractTextScene  {
 	
 	// careful!  This calls mutate() on all the mutations, which does not flush to the save file! Causing a flush to the save file in this method will cause mutations to replay every time this scene is loaded - super.setActive() flushes the save when it saves the scenecode and must be called first
 	@Override
-	public void setActive() {
-		super.setActive();
+	public void activate() {
+		super.activate();
+		showSave();
 		if (music != null) {
 			saveService.saveDataValue(SaveEnum.MUSIC, music, false);
 		};
@@ -141,7 +143,7 @@ public class TextScene extends AbstractTextScene  {
 	}
 	
 	@Override
-	public boolean showSave() { return true; }
+	public void showSave() { hud.showButtons(); }
 	
 	@Override
 	protected void nextScene() {

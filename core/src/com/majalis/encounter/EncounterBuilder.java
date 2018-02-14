@@ -65,6 +65,7 @@ public class EncounterBuilder {
 	private final ObjectMap<AnimationEnum, AnimatedActor> animationCache;
 	private final Array<MutationResult> results;
 	private final Array<MutationResult> battleResults;
+	private EncounterHUD hud;
 	// can probably be replaced with a call to scenes.size
 	private int sceneCounter;
 	
@@ -88,7 +89,11 @@ public class EncounterBuilder {
 	protected Branch branch(Outcome type) { return branch((Object)type); }
 	protected Branch branch(String key) { return branch((Object)key); }
 	protected Branch branch(Object key) { return new Branch(key); }
-
+	private EncounterHUD getEncounterHUD() {
+		if (hud == null) hud = new EncounterHUD(assetManager, character);
+		return hud;
+	}
+	
 	enum EndTokenType {
 		Choice,
 		Check,
@@ -333,7 +338,7 @@ public class EncounterBuilder {
 							Scene nextScene = weld(scenes, next, sceneMap);
 							outcomeToScene.put(((Outcome) next.key).toString(), nextScene.getCode());
 						}
-						sceneMap = addScene(scenes, new BattleScene(sceneMap, saveService, battleCode, playerStance, enemyStance, disarm, climaxCounter, outcomeToScene), false);						
+						sceneMap = addScene(scenes, new BattleScene(sceneMap, saveService, battleCode, playerStance, enemyStance, disarm, climaxCounter, outcomeToScene, getEncounterHUD()), false);						
 						break;
 					case Check:
 						CheckSceneToken checkBranchToken = ((CheckSceneToken)branchToken);
@@ -344,10 +349,10 @@ public class EncounterBuilder {
 								checkValueMap.put(((Integer) next.key), nextScene);
 							}
 							if (checkBranchToken.getStat() != null) {
-								sceneMap = addScene(scenes, new CheckScene(sceneMap, sceneCounter, assetManager, saveService, font, getDefaultBackground().build(), checkBranchToken.getStat(), checkValueMap, checkValueMap.get(0), character), true);						
+								sceneMap = addScene(scenes, new CheckScene(sceneMap, sceneCounter, assetManager, saveService, font, getDefaultBackground().build(), checkBranchToken.getStat(), checkValueMap, checkValueMap.get(0), character, getEncounterHUD()), true);						
 							}
 							else {
-								sceneMap = addScene(scenes, new CheckScene(sceneMap, sceneCounter, assetManager, saveService, font, getDefaultBackground().build(), checkBranchToken.getPerk(), checkValueMap, checkValueMap.get(0), character), true);						
+								sceneMap = addScene(scenes, new CheckScene(sceneMap, sceneCounter, assetManager, saveService, font, getDefaultBackground().build(), checkBranchToken.getPerk(), checkValueMap, checkValueMap.get(0), character, getEncounterHUD()), true);						
 							}
 						}
 						else {
@@ -356,7 +361,7 @@ public class EncounterBuilder {
 								Scene nextScene = weld(scenes, next, sceneMap);
 								checkValueMap.put(((Boolean) next.key), nextScene);
 							}
-							sceneMap = addScene(scenes, new CheckScene(sceneMap, sceneCounter, assetManager, saveService, font, getDefaultBackground().build(), checkBranchToken.getCheckType(), checkValueMap.get(true), checkValueMap.get(false), character), true);						
+							sceneMap = addScene(scenes, new CheckScene(sceneMap, sceneCounter, assetManager, saveService, font, getDefaultBackground().build(), checkBranchToken.getCheckType(), checkValueMap.get(true), checkValueMap.get(false), character, getEncounterHUD()), true);						
 						}
 						break;
 					case Choice:
@@ -370,16 +375,16 @@ public class EncounterBuilder {
 							Scene nextScene = next.value.getScenes().first();
 							choices.add(new BranchChoice(new TextButton((String)next.key, skin), nextScene, next.value.require, buttonSound));							
 						}
-						AbstractChoiceScene choiceScene = branchToken.type == EndTokenType.Choice ? new ChoiceScene(sceneMap, sceneCounter, saveService, font, ((ChoiceSceneToken)branchToken).getToDisplay(), choices, assetManager.get(AssetEnum.STANCE_ARROW.getTexture()), character, getDefaultBackground().build())
-						: new GameTypeScene(sceneMap, sceneCounter, saveService, choices, new BackgroundBuilder(assetManager.get(AssetEnum.GAME_TYPE_BACKGROUND.getTexture())).build());
+						AbstractChoiceScene choiceScene = branchToken.type == EndTokenType.Choice ? new ChoiceScene(sceneMap, sceneCounter, saveService, font, ((ChoiceSceneToken)branchToken).getToDisplay(), choices, assetManager.get(AssetEnum.STANCE_ARROW.getTexture()), character, getDefaultBackground().build(), getEncounterHUD())
+						: new GameTypeScene(sceneMap, sceneCounter, saveService, choices, new BackgroundBuilder(assetManager.get(AssetEnum.GAME_TYPE_BACKGROUND.getTexture())).build(), getEncounterHUD());
 						// need the choiceScene in order to create the buttons, so iterate through again
 						sceneMap = addScene(scenes, choiceScene, true);						
 						break;
 					case EndGame:
 					case EndEncounter:
 						EndScene newEndScene = branchToken.type == EndTokenType.EndEncounter ? 
-							new EndScene(sceneCounter, EndScene.Type.ENCOUNTER_OVER, saveService, assetManager, getEndBackground(), new LogDisplay(sceneCodes, masterSceneMap, skin), results, battleResults) :
-							new EndScene(sceneCounter, EndScene.Type.GAME_OVER, saveService, assetManager, getEndBackground(), new LogDisplay(sceneCodes, masterSceneMap, skin), results, battleResults, ((EndSceneToken)branchToken).getGameOver());
+							new EndScene(sceneCounter, EndScene.Type.ENCOUNTER_OVER, saveService, assetManager, getEndBackground(), new LogDisplay(sceneCodes, masterSceneMap, skin), results, battleResults, getEncounterHUD()) :
+							new EndScene(sceneCounter, EndScene.Type.GAME_OVER, saveService, assetManager, getEndBackground(), new LogDisplay(sceneCodes, masterSceneMap, skin), results, battleResults, ((EndSceneToken)branchToken).getGameOver(), getEncounterHUD());
 						sceneMap = addScene(scenes, newEndScene, true);		
 						break;
 				}
@@ -392,7 +397,7 @@ public class EncounterBuilder {
 			
 			// catch if there's an unplugged branch without an end scene
 			if (sceneMap.size == 0) {
-				sceneMap = addScene(scenes, new EndScene(sceneCounter, EndScene.Type.ENCOUNTER_OVER, saveService, assetManager, getEndBackground(), new LogDisplay(sceneCodes, masterSceneMap, skin), results, battleResults), true);		
+				sceneMap = addScene(scenes, new EndScene(sceneCounter, EndScene.Type.ENCOUNTER_OVER, saveService, assetManager, getEndBackground(), new LogDisplay(sceneCodes, masterSceneMap, skin), results, battleResults, getEncounterHUD()), true);		
 			}
 			
 			String characterName = character.getCharacterName();
@@ -470,22 +475,22 @@ public class EncounterBuilder {
 						ShopCode shopCode = ((ShopSceneToken) token).shopCode;
 						// this needs to get the proper background, probably from shopcode attributes
 						Background bg = new BackgroundBuilder(assetManager.get(shopCode.getBackground()), shopCode.isTinted()).setForeground(assetManager.get(shopCode.getForeground()), shopCode.getX(), shopCode.getY()).build();
-						newScene = new ShopScene(sceneMap, sceneCounter, saveService, assetManager, character, bg, shopCode, shops.get(shopCode.toString()));
+						newScene = new ShopScene(sceneMap, sceneCounter, saveService, assetManager, character, bg, shopCode, shops.get(shopCode.toString()), getEncounterHUD());
 					}
 					else if (token instanceof CharacterCreationToken) {
 						boolean storyMode = ((CharacterCreationToken) token).storyMode;
-						newScene = new CharacterCreationScene(sceneMap, sceneCounter, saveService, new BackgroundBuilder(assetManager.get(AssetEnum.CLASS_SELECT_BACKGROUND.getTexture())).build(), assetManager, character, storyMode);
+						newScene = new CharacterCreationScene(sceneMap, sceneCounter, saveService, new BackgroundBuilder(assetManager.get(AssetEnum.CLASS_SELECT_BACKGROUND.getTexture())).build(), assetManager, character, storyMode, getEncounterHUD());
 					}
 					else if (token instanceof SkillSelectionToken) {
-						newScene = new SkillSelectionScene(sceneMap, sceneCounter, saveService, getCampBackground(), assetManager, character);
+						newScene = new SkillSelectionScene(sceneMap, sceneCounter, saveService, getCampBackground(), assetManager, character, getEncounterHUD());
 					}
 					else if (token instanceof CharacterCustomizationToken) {
-						newScene = new CharacterCustomizationScene(sceneMap, sceneCounter, saveService, font, getCampBackground(), assetManager, character);
+						newScene = new CharacterCustomizationScene(sceneMap, sceneCounter, saveService, font, getCampBackground(), assetManager, character, getEncounterHUD());
 					}
 					else {
 						String scriptLine = token.text.replace("<NAME>", characterName).replace("<BUTTSIZE>", buttsize).replace("<LIPSIZE>", lipsize).replace("<DEBT>", debt).replace("<COCKSIZE>", cockSize);
 						// create the scene
-						newScene = new TextScene(sceneMap, sceneCounter, assetManager, font, saveService, backgrounds.get(ii++), scriptLine, getMutations(token.mutations), character, new LogDisplay(sceneCodes, masterSceneMap, skin), token.music != null ? token.music : null, token.sound != null ? token.sound.getSound() : null);		
+						newScene = new TextScene(sceneMap, sceneCounter, assetManager, font, saveService, backgrounds.get(ii++), scriptLine, getMutations(token.mutations), character, new LogDisplay(sceneCodes, masterSceneMap, skin), token.music != null ? token.music : null, token.sound != null ? token.sound.getSound() : null, getEncounterHUD());		
 					}
 					// add it to array
 					scenes.add(newScene);
@@ -553,7 +558,7 @@ public class EncounterBuilder {
 		
 		public Encounter getEncounter() {
 			// this should accept some kind of object that has assetmanager and whatever else to actually build the scenes			
-			return new Encounter(getUniqueScenes(getScenes()), getStartScene());
+			return new Encounter(getUniqueScenes(getScenes()), getStartScene(), getEncounterHUD());
 		}
 
 		private Array<SceneToken> getAllSceneTokens() {

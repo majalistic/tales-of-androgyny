@@ -30,6 +30,7 @@ import com.majalis.character.PlayerCharacter;
 import com.majalis.character.Stance;
 import com.majalis.character.Techniques;
 import com.majalis.encounter.Background;
+import com.majalis.encounter.EncounterHUD;
 import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveService;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -79,8 +80,8 @@ public class SkillSelectionScene extends Scene {
 	private boolean justUnlocked;
 	private String shown;
 	
-	public SkillSelectionScene(OrderedMap<Integer, Scene> sceneBranches, int sceneCode, final SaveService saveService, Background background, AssetManager assetManager, PlayerCharacter character) {
-		super(sceneBranches, sceneCode);
+	public SkillSelectionScene(OrderedMap<Integer, Scene> sceneBranches, int sceneCode, final SaveService saveService, Background background, AssetManager assetManager, PlayerCharacter character, EncounterHUD hud) {
+		super(sceneBranches, sceneCode, hud);
 		this.saveService = saveService;
 		this.character = character;
 		this.addActor(background);
@@ -153,7 +154,7 @@ public class SkillSelectionScene extends Scene {
 	}
 	
 	@Override
-	public void setActive() {
+	public void activate() {
 		isActive = true;
 		this.addAction(Actions.show());
 		this.setBounds(0, 0, 2000, 2000);

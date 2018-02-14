@@ -14,6 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.OrderedMap;
 import com.majalis.encounter.Background;
+import com.majalis.encounter.EncounterHUD;
 import com.majalis.encounter.EncounterBuilder.BranchChoice;
 import com.majalis.save.SaveService;
 import com.majalis.talesofandrogyny.TalesOfAndrogyny;
@@ -23,8 +24,8 @@ import com.majalis.talesofandrogyny.TalesOfAndrogyny;
 public class GameTypeScene extends AbstractChoiceScene {
 	private final Array<TextButton> buttons;
 	private int selection;
-	public GameTypeScene(OrderedMap<Integer, Scene> sceneBranches, int sceneCode, SaveService saveService, Array<BranchChoice> choices, Background background) {
-		super(sceneBranches, sceneCode, saveService);
+	public GameTypeScene(OrderedMap<Integer, Scene> sceneBranches, int sceneCode, SaveService saveService, Array<BranchChoice> choices, Background background, EncounterHUD hud) {
+		super(sceneBranches, sceneCode, saveService, hud);
 		this.buttons = new Array<TextButton>();
 		this.addActor(background);
         // may need to add the background as an actor

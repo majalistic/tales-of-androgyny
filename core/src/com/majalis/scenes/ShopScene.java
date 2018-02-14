@@ -37,6 +37,7 @@ import com.majalis.character.Item.WeaponType;
 import com.majalis.character.PlayerCharacter;
 import com.majalis.character.AbstractCharacter.Stat;
 import com.majalis.encounter.Background;
+import com.majalis.encounter.EncounterHUD;
 import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveService;
 import com.majalis.screens.TimeOfDay;
@@ -67,8 +68,8 @@ public class ShopScene extends Scene {
 		}
 	}
 	
-	public ShopScene(OrderedMap<Integer, Scene> sceneBranches, int sceneCode, final SaveService saveService, AssetManager assetManager, final PlayerCharacter character, Background background, final ShopCode shopCode, Shop loadedShop) {
-		super(sceneBranches, sceneCode);
+	public ShopScene(OrderedMap<Integer, Scene> sceneBranches, int sceneCode, final SaveService saveService, AssetManager assetManager, final PlayerCharacter character, Background background, final ShopCode shopCode, Shop loadedShop, EncounterHUD hud) {
+		super(sceneBranches, sceneCode, hud);
 		this.saveService = saveService;
 		this.addActor(background);
 		this.character = character;
@@ -286,7 +287,7 @@ public class ShopScene extends Scene {
 	}
 
 	@Override
-	public void setActive() {
+	public void activate() {
 		isActive = true;
 		this.removeAction(Actions.hide());
 		this.addAction(Actions.visible(true));
