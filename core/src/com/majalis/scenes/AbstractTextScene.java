@@ -79,8 +79,6 @@ public abstract class AbstractTextScene extends Scene {
 	@Override
 	public void activate() {
 		isActive = true;	
-		this.removeAction(Actions.hide());
-		this.addAction(Actions.visible(true));
 		this.addAction(Actions.show());
 		background.addListener(new ClickListener() { 
 			@Override

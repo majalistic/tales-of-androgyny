@@ -509,8 +509,6 @@ public class CharacterCreationScene extends Scene {
 	@Override
 	public void activate() {
 		isActive = true;
-		this.removeAction(Actions.hide());
-		this.addAction(Actions.visible(true));
 		this.addAction(Actions.show());
 		this.setBounds(0, 0, 2000, 2000);
 		

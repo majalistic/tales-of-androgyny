@@ -17,8 +17,6 @@ public abstract class AbstractChoiceScene extends Scene {
 	@Override
 	public void activate() {
 		isActive = true;	
-		this.removeAction(Actions.hide());
-		this.addAction(Actions.visible(true));
 		this.addAction(Actions.show());
 		saveService.saveDataValue(SaveEnum.SCENE_CODE, sceneCode);
 	}

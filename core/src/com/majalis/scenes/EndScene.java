@@ -95,8 +95,6 @@ public class EndScene extends Scene {
 			return;
 		}
 		saveService.saveDataValue(SaveEnum.SCENE_CODE, sceneCode);
-		this.removeAction(Actions.hide());
-		this.addAction(Actions.visible(true));
 		this.addAction(Actions.show());
 		
 		background.addListener(new ClickListener() { 
