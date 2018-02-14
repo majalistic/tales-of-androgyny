@@ -435,6 +435,10 @@ public class CheckScene extends AbstractTextScene {
 			@Override
 			protected boolean getCheck(PlayerCharacter character) { int check = character.getQuestStatus(QuestType.GOBLIN); return check == 7; }  
 		}, 
+		WEARING_HELMET("SUCCESS! You're wearing a helmet!", "FAILURE! You're not wearing a helmet.") {
+			@Override
+			protected boolean getCheck(PlayerCharacter character) { return character.getHeadgear() != null; }  
+		},
 		;
 		private final String success;
 		private final String failure;

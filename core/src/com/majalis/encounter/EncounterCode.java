@@ -1113,9 +1113,13 @@ public enum EncounterCode {
 										Stat.AGILITY, goblinSpear
 									),
 									b.branch(0).checkScene(
-										Stat.ENDURANCE,
-										b.branch(7).textScene("GOBLIN-OBLIVIOUS"),
-										b.branch(0).textScene("GOBLIN-TOTALFAIL")
+										CheckType.WEARING_HELMET, 
+										b.branch(true).textScene("GOBLIN-HELMET").checkScene(Stat.AGILITY,goblinSpear), 
+										b.branch(false).checkScene(
+											Stat.ENDURANCE,
+											b.branch(7).textScene("GOBLIN-OBLIVIOUS"),
+											b.branch(0).textScene("GOBLIN-TOTALFAIL")
+										)
 									)
 								)
 							)

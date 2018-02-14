@@ -5158,6 +5158,15 @@
 		]
 	},
 	{
+		"key": "GOBLIN-HELMET",
+		"scriptLines": [
+			{
+			"mutations": [{"saveType":"HEALTH", "value":{"class": "java.lang.Integer", "value": -15}}],
+			"text": "You get walloped in the head with something, and fall to the ground - if you hadn't been wearing a helmet, that could have gone badly.  Your ears are ringing and your head hurts, but you're okay otherwise."},
+			{"text": "You turn to see that a small figure has rode some kind of swing that would have hit you had you not managed to get out of the way, and they dismount from it, then disappear into the undergrowth."}
+		]
+	},
+	{
 		"key": "GOBLIN-SPEAR-GRAB",
 		"scriptLines": [
 			{"text": "You manage to dodge the tip and grab the shaft of the spear!"}
