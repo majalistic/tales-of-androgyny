@@ -129,13 +129,12 @@ public class EncounterHUD extends Group {
 			}
 		);	
 		this.addActor(autoplayButton);
-		
-		healthBar = new HealthBar(character, assetManager.get(AssetEnum.BATTLE_SKIN.getSkin()));
-		healthBar.setPosition(25, 1000);
-		this.addActor(healthBar);
-		
+	
 		characterGroup = new Group();
 		this.addActor(characterGroup);
+		healthBar = new HealthBar(character, assetManager.get(AssetEnum.BATTLE_SKIN.getSkin()));
+		healthBar.setPosition(25, 1000);
+		characterGroup.addActor(healthBar);
 		Texture portrait = assetManager.get(character.getPortraitPath());
 		characterPortrait = addImage(characterGroup, portrait, 105, 800, portrait.getWidth() / (portrait.getHeight() / 200f), 200);
 		Texture icon = assetManager.get(character.getMasculinityPath());
@@ -175,7 +174,9 @@ public class EncounterHUD extends Group {
 			masculinityIcon.setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(character.getMasculinityPath()))));
 			fullnessIcon.setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(character.getCumInflationPath()))));
 		}
-
+		else {
+			characterGroup.addAction(Actions.hide());
+		}
 		skipText.addAction(Actions.show());
 		saveButton.addAction(Actions.show());
 		skipButton.addAction(Actions.show());
@@ -183,7 +184,6 @@ public class EncounterHUD extends Group {
 		hideButton.addAction(Actions.show());
 		dateLabel.addAction(Actions.show());
 		showLog.addAction(Actions.show());
-		healthBar.addAction(Actions.show());
 		buttonsHidden = false;
 	}
 	
@@ -196,7 +196,6 @@ public class EncounterHUD extends Group {
 		hideButton.addAction(Actions.hide());
 		dateLabel.addAction(Actions.hide());
 		showLog.addAction(Actions.hide());
-		healthBar.addAction(Actions.hide());
 		buttonsHidden = true;
 	}
 	
