@@ -91,9 +91,12 @@ public class CharacterCustomizationScene extends Scene {
 		table.setPosition(100, 1000);
 		addActor(table);
 		
-		table.add(addLabel("Name:", skin, Color.GOLD, 0, 0)).row();
+		Table tempTable = new Table();
+		tempTable.add(addLabel("Name:", skin, Color.GOLD, 0, 0)).row();
 		final TextField nameField = new TextField("Hiro", skin);
-		table.add(nameField).row();
+		nameField.setMaxLength(15);
+		tempTable.add(nameField).width(300);
+		table.add(tempTable).align(Align.left).row();
 		this.addListener(new InputListener() {
 	        @Override
 	        public boolean keyUp(InputEvent event, int keycode) {
@@ -105,7 +108,8 @@ public class CharacterCustomizationScene extends Scene {
 	        }
 	    });
 		
-		table.add(addLabel("Butt Size:", skin, Color.GOLD, 0, 0)).row();
+		Table tempTable2 = new Table();
+		tempTable2.add(addLabel("Butt Size:", skin, Color.GOLD, 0, 0)).row();
 		final Label buttSizeLabel = new Label("Bubble", skin);
 		buttSizeLabel.setColor(Color.SALMON);
 		for (final PlayerCharacter.Bootyliciousness buttSize : PlayerCharacter.Bootyliciousness.values()) {
@@ -128,13 +132,13 @@ public class CharacterCustomizationScene extends Scene {
 					description.setText("");
 				}
 			});
-			table.add(button).size(180, 60);
+			tempTable2.add(button).size(180, 60);
 		}
-		table.add().row();
-		table.add().width(180);
-		table.add(buttSizeLabel).row();
+		tempTable2.add().row();
+		tempTable2.add().width(180);
+		tempTable2.add(buttSizeLabel).row();
 		
-		table.add(addLabel("Lip Fullness:", skin, Color.GOLD, 0, 0)).row();
+		tempTable2.add(addLabel("Lip Fullness:", skin, Color.GOLD, 0, 0)).row();
 		final Label lipSizeLabel = new Label("Thin", skin);
 		lipSizeLabel.setColor(Color.SALMON);		
 		for (final PlayerCharacter.LipFullness lipFullness : PlayerCharacter.LipFullness.values()) {
@@ -157,13 +161,13 @@ public class CharacterCustomizationScene extends Scene {
 					description.setText("");
 				}
 			});
-			table.add(button).size(180, 60);
+			tempTable2.add(button).size(180, 60);
 		}
-		table.add().row();
-		table.add().width(180);
-		table.add(lipSizeLabel).row();;
+		tempTable2.add().row();
+		tempTable2.add().width(180);
+		tempTable2.add(lipSizeLabel).row();
 		
-		table.add(addLabel("Penis Size:", skin, Color.GOLD, 0, 0)).row();
+		tempTable2.add(addLabel("Penis Size:", skin, Color.GOLD, 0, 0)).row();
 		final Label penisSizeLabel = new Label("Small", skin);
 		penisSizeLabel.setColor(Color.SALMON);		
 		for (final AbstractCharacter.PhallusType penisType : new PhallusType[]{PhallusType.CUTE, PhallusType.TINY, PhallusType.SMALL}) {
@@ -186,11 +190,13 @@ public class CharacterCustomizationScene extends Scene {
 					description.setText("");
 				}
 			});
-			table.add(button).size(180, 60);
+			tempTable2.add(button).size(180, 60);
 		}
-		table.add().row();
-		table.add().width(180);
-		table.add(penisSizeLabel);
+		tempTable2.add().row();
+		tempTable2.add().width(180);
+		tempTable2.add(penisSizeLabel);
+		
+		table.add(tempTable2);
 		
 		final TextButton done = new TextButton("Done", skin);
 		done.addListener(
