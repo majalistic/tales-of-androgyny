@@ -64,10 +64,9 @@ public class EncounterScreen extends AbstractScreen {
 		switchMusic((AssetEnum)loadService.loadDataValue(SaveEnum.MUSIC, AssetEnum.class));
 		if (encounter.isSwitching()) {
 			showScreen(ScreenEnum.CONTINUE);
-		} else if (encounter.gameExit) {
+		} 
+		else if (encounter.gameExit) {
 			showScreen(ScreenEnum.MAIN_MENU);
-		} else {
-			draw();
 		}
 	}
 
