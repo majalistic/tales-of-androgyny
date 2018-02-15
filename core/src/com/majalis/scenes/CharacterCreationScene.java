@@ -455,7 +455,7 @@ public class CharacterCreationScene extends Scene {
 	
 	private void setStatText(Stat stat, PlayerCharacter character, Label label) {
 		int amount = character.getBaseStat(stat);
-		label.setText(PlayerCharacter.getStatMap().get(stat).get(amount));
+		label.setText(stat.getRankDescription(amount));
 	}
 	
 	//statMap.get(stat) - this tells you the difference from base

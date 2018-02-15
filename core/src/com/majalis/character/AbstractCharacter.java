@@ -1302,22 +1302,24 @@ public abstract class AbstractCharacter extends Actor {
 	}
 	
 	public enum Stat { // these descriptions should have the \n removed and replaced with setWrap/setWidth on the display
-		STRENGTH(AssetEnum.STRENGTH, "Strength determines raw attack power, which affects damage, how much attacks unbalance an enemies, and contests of strength, such as wrestling, struggling, or weapon locks."),
-		ENDURANCE(AssetEnum.ENDURANCE, "Endurance determines stamina and resilience, which affects your ability to keep up an assault without getting tired, your ability to shrug off low damage attacks, and wear heavier armor without becoming exhausted."),
-		AGILITY(AssetEnum.AGILITY, "Agility determines balance and skill, affecting your ability to keep a sure footing even while doing acrobatic maneuvers, getting unblockable attacks against enemies, and evading enemy attacks."),
-		PERCEPTION(AssetEnum.PERCEPTION, "Perception determines your ability to see what attacks an enemy may use next and prepare accordingly, as well as your base scouting ability, which determines what information you can see about upcoming areas."),
-		MAGIC(AssetEnum.MAGIC, "Magic determines your magical capabilities, such as how powerful magic spells are, and how many of them you can cast before becoming magically exhausted."),
-		CHARISMA(AssetEnum.CHARISMA, "Charisma determines your ability to influence an enemy, getting them to calm down and listen to reason, enraging them, or seducing them.");
-
+		STRENGTH(AssetEnum.STRENGTH, "Strength determines raw attack power, which affects damage, how much attacks unbalance an enemies, and contests of strength, such as wrestling, struggling, or weapon locks.", new String[]{"Crippled", "Feeble", "Weak", "Soft", "Able", "Strong", "Mighty", "Powerful", "Hulking", "Heroic", "Godlike", "Godlike", "Godlike"}),
+		ENDURANCE(AssetEnum.ENDURANCE, "Endurance determines stamina and resilience, which affects your ability to keep up an assault without getting tired, your ability to shrug off low damage attacks, and wear heavier armor without becoming exhausted.", new String[]{"Feeble", "Infirm", "Fragile", "Frail", "Sturdy", "Durable", "Tough", "Stalwart", "Titanic", "Unstoppable", "Juggernaut", "Juggernaut", "Juggernaut"}),
+		AGILITY(AssetEnum.AGILITY, "Agility determines balance and skill, affecting your ability to keep a sure footing even while doing acrobatic maneuvers, getting unblockable attacks against enemies, and evading enemy attacks.", new String[]{"Sluggish", "Clumsy", "Inept", "Slow", "Swift", "Quick", "Skillful", "Nimble", "Adept", "Preternatural", "Supernatural", "Supernatural", "Supernatural"}),
+		PERCEPTION(AssetEnum.PERCEPTION, "Perception determines your ability to see what attacks an enemy may use next and prepare accordingly, as well as your base scouting ability, which determines what information you can see about upcoming areas.", new String[]{"Senseless", "Oblivious", "Dim-witted", "Slow-minded", "Alert", "Perceptive", "Observant", "Sharp", "Astute", "Eagle-eyed", "Omniscient", "Omniscient", "Omniscient"}),
+		MAGIC(AssetEnum.MAGIC, "Magic determines your magical capabilities, such as how powerful magic spells are, and how many of them you can cast before becoming magically exhausted.", new String[]{"Unaware", "Mundane", "Aware", "Aligned", "Enchanted", "Mystical", "Otherwordly", "Arcane", "Mythical", "Omnipotent", "Demiurge", "Demiurge", "Demiurge"}),
+		CHARISMA(AssetEnum.CHARISMA, "Charisma determines your ability to influence an enemy, getting them to calm down and listen to reason, enraging them, or seducing them.", new String[]{"Inhuman", "Horrible", "Uncouth", "Unpleasant", "Plain", "Likeable", "Charismatic", "Charming", "Magnetic", "Lovable", "Worshipable", "Worshipable", "Worshipable"});
+		
 		private final AssetEnum asset;
 		private final String description;
-		private Stat(AssetEnum asset, String description) {
+		private final Array<String> ranks;
+		private Stat(AssetEnum asset, String description, String[] ranks) {
 			this.asset = asset;
 			this.description = description;
+			this.ranks = new Array<String>(ranks);
 		}
-		public AssetDescriptor<Texture> getAsset() {
-			return asset.getTexture();
-		}
+		public AssetDescriptor<Texture> getAsset() { return asset.getTexture(); }
+		public String getDescription() { return description; }
+		public String getRankDescription(int rank) { return rank < ranks.size ? ranks.get(rank) : "Impossible"; }
 		public String getLabel() {
 			char[] chars = super.toString().replace("_", " ").toLowerCase().toCharArray();
 			boolean found = false;
@@ -1331,9 +1333,6 @@ public abstract class AbstractCharacter extends Actor {
 			    }
 			}		
 			return String.valueOf(chars);
-		}
-		public String getDescription() {
-			return description;
 		}
 	}
 

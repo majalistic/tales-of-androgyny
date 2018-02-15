@@ -34,17 +34,6 @@ import com.majalis.technique.ClimaxTechnique.ClimaxType;
  * Contains the current player character's statistics, including "party" statistics like food remaining
  */
 public class PlayerCharacter extends AbstractCharacter {
-	// this should be moved to the Stat enum itself
-	private final static ObjectMap<Stat, Array<String>> statNameMap = new ObjectMap<Stat, Array<String>>();
-	static {
-		statNameMap.put(Stat.STRENGTH, new Array<String>(new String[]{"Crippled", "Feeble", "Weak", "Soft", "Able", "Strong", "Mighty", "Powerful", "Hulking", "Heroic", "Godlike", "Godlike", "Godlike"}));
-		statNameMap.put(Stat.ENDURANCE, new Array<String>(new String[]{"Feeble", "Infirm", "Fragile", "Frail", "Sturdy", "Durable", "Tough", "Stalwart", "Titanic", "Unstoppable", "Juggernaut", "Juggernaut", "Juggernaut"}));
-		statNameMap.put(Stat.AGILITY, new Array<String>(new String[]{"Sluggish", "Clumsy", "Inept", "Slow", "Swift", "Quick", "Skillful", "Nimble", "Adept", "Preternatural", "Supernatural", "Supernatural", "Supernatural"}));
-		statNameMap.put(Stat.PERCEPTION, new Array<String>( new String[]{"Senseless", "Oblivious", "Dim-witted", "Slow-minded", "Alert", "Perceptive", "Observant", "Sharp", "Astute", "Eagle-eyed", "Omniscient", "Omniscient", "Omniscient"}));
-		statNameMap.put(Stat.MAGIC, new Array<String>(new String[]{"Unaware", "Mundane", "Aware", "Aligned", "Enchanted", "Mystical", "Otherwordly", "Arcane", "Mythical", "Omnipotent", "Demiurge", "Demiurge", "Demiurge"}));
-		statNameMap.put(Stat.CHARISMA, new Array<String>(new String[]{"Inhuman", "Horrible", "Uncouth", "Unpleasant", "Plain", "Likeable", "Charismatic", "Charming", "Magnetic", "Lovable", "Worshipable", "Worshipable", "Worshipable"}));
-	}
-	
 	protected String name;
 	
 	protected ObjectMap<String, Integer> skills;
@@ -158,10 +147,6 @@ public class PlayerCharacter extends AbstractCharacter {
 			SLAP_ASS, GESTURE, RUB, PRESENT, SLAP_ASS_KNEES, STROKE, STROKE_DOGGY, STROKE_STANDING, SAY_AHH, IRRUMATIO, FULL_NELSON, HOLD, TAKEDOWN, GRIP, PENETRATE_STANDING, POUND_STANDING, PULL_OUT_STANDING
 		);
 		return baseTechniques;
-	}
-	
-	public static ObjectMap<Stat, Array<String>> getStatMap() {
-		return statNameMap;
 	}
 	
 	private AssetEnum portraitFeminization(AssetEnum portrait) {
@@ -1987,7 +1972,7 @@ public class PlayerCharacter extends AbstractCharacter {
 	
 	public DignityTier getDignity() { return dignity.tier; }
 	
-	public class Dignity {
+	public static class Dignity {
 		private DignityTier tier;
 		private int dignity;
 		
