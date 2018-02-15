@@ -261,6 +261,9 @@ public class EnemyCharacter extends AbstractCharacter {
 						if (stance.isAnalPenetration()) {
 							resolvedAttack.addDialog("\"Woof, mating! Mating! Take my puppies!\"");
 						}	
+						if (stance.isAnalReceptive()) {
+							resolvedAttack.addDialog("\"Nnngh...!\"");
+						}
 						break;
 					case ORC:
 						if (stance.isAnalPenetration()) {
