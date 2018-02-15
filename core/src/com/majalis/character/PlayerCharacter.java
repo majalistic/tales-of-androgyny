@@ -62,6 +62,7 @@ public class PlayerCharacter extends AbstractCharacter {
 	private int debt;
 	private int debtCooldown;
 	private int lastShopRestock;
+	private Dignity dignity;
 	
 	protected Femininity femininity;
 	protected LipFullness lipFullness;
@@ -91,7 +92,7 @@ public class PlayerCharacter extends AbstractCharacter {
 	private GameOver gameOver;
 	
 	@SuppressWarnings("unused")
-	private PlayerCharacter() { if(arousal == null) arousal = new Arousal(ArousalType.PLAYER); eventLog = new Array<String>(); }
+	private PlayerCharacter() { if(arousal == null) arousal = new Arousal(ArousalType.PLAYER); eventLog = new Array<String>(); dignity = new Dignity(); }
 	
 	public PlayerCharacter(boolean defaultValues) {
 		super(defaultValues);
@@ -118,6 +119,7 @@ public class PlayerCharacter extends AbstractCharacter {
 			questFlags = new ObjectMap<String, Integer>();
 			eventLog = new Array<String>();
 			time = 0;
+			dignity = new Dignity();
 		}
 		
 		skills = new ObjectMap<String, Integer>();
@@ -1982,4 +1984,40 @@ public class PlayerCharacter extends AbstractCharacter {
 	}
 
 	public Array<String> getEventLog() { return eventLog; }
+	
+	public DignityTier getDignity() { return dignity.tier; }
+	
+	public class Dignity {
+		private DignityTier tier;
+		private int dignity;
+		
+		private Dignity() {
+			tier = DignityTier.FULL;
+			dignity = 0;
+		}
+		
+		public void modDignity(int delta) {
+			dignity += delta;
+			if (dignity >= 100) {
+				tier = tier.increase();
+				dignity -= 100;
+			}
+			else if (dignity < 0) {
+				tier = tier.decrease();
+				dignity += 100;
+			}
+		}
+	}
+	
+	protected enum DignityTier {
+		FULL,
+		SHAMED,
+		HUMILIATED,
+		DISGRACED,
+		NONE;
+		
+		public DignityTier increase() { return this.ordinal() < values().length - 1 ? values()[this.ordinal() + 1] : this; }
+		
+		public DignityTier decrease() { return this.ordinal() > 0 ? values()[this.ordinal() - 1] : this; }
+	}
 }
