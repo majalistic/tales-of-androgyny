@@ -149,22 +149,12 @@ public class PlayerCharacter extends AbstractCharacter {
 		return baseTechniques;
 	}
 	
-	private AssetEnum portraitFeminization(AssetEnum portrait) {
-		return perks.get(Perk.COCK_LOVER.toString(), 0) > 7 ? AssetEnum.valueOf(portrait.toString().replace("_FEMME", "") + "_FEMME") : portrait;
-	}
-	
-	public void setCurrentPortrait(AssetEnum portrait) {
-		currentPortrait = portraitFeminization(portrait).getTexture().fileName;
-	}
-	
-	public void addToInventory(Item item) {
-		inventory.add(item);
-	}
-	
-	public Array<Item> getInventory() { return inventory; }
-	
+	private AssetEnum portraitFeminization(AssetEnum portrait) { return perks.get(Perk.COCK_LOVER.toString(), 0) > 7 ? AssetEnum.valueOf(portrait.toString().replace("_FEMME", "") + "_FEMME") : portrait; }
+	public void setCurrentPortrait(AssetEnum portrait) { currentPortrait = portraitFeminization(portrait).getTexture().fileName; }
+	public void addToInventory(Item item) { inventory.add(item); }
+	public Array<Item> getInventory() { return inventory; }	
+
 	public JobClass getJobClass() { return jobClass; }
-	
 	public void setJobClass(JobClass jobClass) {
 		for (Stat stat: Stat.values()) {
 			setStat(stat, jobClass.getBaseStat(stat));
@@ -240,9 +230,7 @@ public class PlayerCharacter extends AbstractCharacter {
 		return possibles;
 	}
 	
-	private boolean canSitOn(AbstractCharacter target) {
-		return isLewd() && target.getStance() == Stance.SUPINE && target.isErect() && target.enemyType.canBeRidden();
-	}
+	private boolean canSitOn(AbstractCharacter target) { return isLewd() && target.getStance() == Stance.SUPINE && target.isErect() && target.enemyType.canBeRidden(); }
 	
 	private Array<Techniques> getPossibleKnownTechniques(AbstractCharacter target) {
 		Array<Techniques> possibles = new Array<Techniques>();
@@ -641,9 +629,7 @@ public class PlayerCharacter extends AbstractCharacter {
 		return null;
 	}
 	
-	private Array<Techniques> getTechniques(Techniques... possibilities) {
-		return new Array<Techniques>(possibilities);
-	}
+	private Array<Techniques> getTechniques(Techniques... possibilities) { return new Array<Techniques>(possibilities); }
 	
 	private Array<Technique> getTechniques(AbstractCharacter target, Techniques... possibilities) {
 		Array<Technique> possibleTechniques = new Array<Technique>();
@@ -664,19 +650,9 @@ public class PlayerCharacter extends AbstractCharacter {
 	
 	@Override
 	public Attack doAttack(Attack resolvedAttack) {		
-		if (resolvedAttack.getSex().isTeasing()) {
-			currentPortrait = portraitFeminization(AssetEnum.PORTRAIT_GRIN).getTexture().fileName;
-		}
-		
-		if (wrapLegs) {
-			resolvedAttack.addMessage("Your legs are wrapped around them!");
-		}
-		
-		if (resolvedAttack.isSuccessful() && resolvedAttack.getName().equals("Wrap Legs")) {
-			wrapLegs = true;
-		}
-		
-		
+		if (resolvedAttack.getSex().isTeasing()) { currentPortrait = portraitFeminization(AssetEnum.PORTRAIT_GRIN).getTexture().fileName; }
+		if (wrapLegs) {	resolvedAttack.addMessage("Your legs are wrapped around them!"); }
+		if (resolvedAttack.isSuccessful() && resolvedAttack.getName().equals("Wrap Legs")) { wrapLegs = true; }		
 		return super.doAttack(resolvedAttack);
 	}
 	
@@ -875,10 +851,6 @@ public class PlayerCharacter extends AbstractCharacter {
 		}
 	}
  
-	public void setCurrentHealth(Integer newHealth) {
-		currentHealth = newHealth;	
-	}
-
 	// need to add the list of default skills, the actual variable, and some way to access it for skill selection purposes (filter)
 	public void addSkill(Techniques newTech, int rank) {
 		// if it's a spell, add incantation
@@ -891,10 +863,7 @@ public class PlayerCharacter extends AbstractCharacter {
 		skills.put(newTech.toString(), rank);	
 	}
 	
-	// need to add the list of default skills, the actual variable, and some way to access it for skill selection purposes (filter)
-	public void addPerk(Perk newPerk, int rank) {
-		perks.put(newPerk.toString(), rank);	
-	}
+	public void addPerk(Perk newPerk, int rank) { perks.put(newPerk.toString(), rank); }
 
 	public ObjectMap<Techniques, Integer> getSkills() {
 		ObjectMap<Techniques, Integer> tempSkills = new ObjectMap<Techniques, Integer>();
@@ -972,9 +941,7 @@ public class PlayerCharacter extends AbstractCharacter {
 		}
 	}
 	
-	public int getScoutingScore() {
-		return getTrueScoutingScore(scout * 3 + getPerception() + (perks.get(Perk.SURVEYOR.toString(), 0) > 0 ? perks.get(Perk.SURVEYOR.toString()) * 2 : 0));
-	}
+	public int getScoutingScore() { return getTrueScoutingScore(scout * 3 + getPerception() + (perks.get(Perk.SURVEYOR.toString(), 0) > 0 ? perks.get(Perk.SURVEYOR.toString()) * 2 : 0)); }
 	
 	private int getTrueScoutingScore(int rawScoutingScore) {
 		int level = 5;
@@ -984,9 +951,7 @@ public class PlayerCharacter extends AbstractCharacter {
 		return level;
 	}
 	
-	public boolean isLewd() {
-		return perks.get(Perk.CATAMITE.toString(), 0) > 0 || perks.get(Perk.ANAL_ADDICT.toString(), 0) > 2 || perks.get(Perk.COCK_LOVER.toString(), 0) > 7 || arousal.getLust() >= 75;
-	}
+	public boolean isLewd() { return perks.get(Perk.CATAMITE.toString(), 0) > 0 || perks.get(Perk.ANAL_ADDICT.toString(), 0) > 2 || perks.get(Perk.COCK_LOVER.toString(), 0) > 7 || arousal.getLust() >= 75; }
 	
 	@Override
 	protected String climax() {
@@ -1062,33 +1027,20 @@ public class PlayerCharacter extends AbstractCharacter {
 	}
 	
 	public int getExperience() { return experience; }
-
+	public int getLevel() { return level; }
 	public Integer getFood() { return food; }
-
 	public void setBootyliciousness(Bootyliciousness buttSize) { bootyliciousness = buttSize; }
-
 	public void setLipFullness(LipFullness lipFullness) { this.lipFullness = lipFullness;	}
-	
 	public int getSkillPoints() { return skillPoints; }
-
 	public int getMagicPoints() { return magicPoints; }
-
 	public int getPerkPoints() { return perkPoints; }
-
 	public void setSkillPoints(int skillPoints) { this.skillPoints = skillPoints; }
-
 	public void setMagicPoints(int magicPoints) { this.magicPoints = magicPoints; }
-
 	public void setPerkPoints(int perkPoints) { this.perkPoints = perkPoints; }
-
 	public Array<MutationResult> modSkillPoints(int skillPoints) { this.skillPoints += skillPoints; return getResult("You gain " + skillPoints + " skill!", skillPoints, MutationType.SKILL_POINTS); }
 	public Array<MutationResult> modMagicPoints(int magicPoints) { this.magicPoints += magicPoints; return getResult("You gain " + magicPoints + " soul crystal" + (magicPoints > 1 ? "s" : "") + "!", magicPoints, MutationType.CRYSTAL); }
 	public Array<MutationResult> modPerkPoints(int perkPoints) { this.perkPoints += perkPoints; return getResult("You gain " + perkPoints + " perk point" + (perkPoints > 1 ? "s" : "") + "!", perkPoints, MutationType.PERK_POINTS); }
-	
-	public int getLevel() {
-		return level;
-	}
-	
+
 	public int getStoredLevels() {
 		int currentExperience = experience;
 		int storedLevels = 0;
@@ -1111,33 +1063,19 @@ public class PlayerCharacter extends AbstractCharacter {
 		}
 	}
 
-	public boolean hasMagic() {
-		return getMaxMana() > 0;
-	}
+	public boolean hasMagic() { return getMaxMana() > 0; }
 
-	public boolean needsLevelUp() {
-		return skillPoints > 0 || magicPoints > 0 || perkPoints > 0 || getStoredLevels() > 0;
-	}
+	public boolean needsLevelUp() { return skillPoints > 0 || magicPoints > 0 || perkPoints > 0 || getStoredLevels() > 0; }
 	
-	public boolean isVirgin() {
-		return receivedAnal == 0;
-	}
+	public boolean isVirgin() { return receivedAnal == 0; }
 	
-	public boolean isOralVirgin() {
-		return receivedOral == 0;
-	}
+	public boolean isOralVirgin() { return receivedOral == 0; }
 	
-	public boolean tastedCumAnally() {
-		return analCreampie != 0;
-	}
+	public boolean tastedCumAnally() { return analCreampie != 0; }
 	
-	public boolean tastedCumOrally() {
-		return oralCreampie != 0;
-	}
+	public boolean tastedCumOrally() { return oralCreampie != 0; }
 	
-	private int getMasculinityLevel() {
-		return (int) Math.round(receivedOral / 5. + receivedAnal / 3. + oralCreampie / 3. + analCreampie + cameFromOral + cameFromAnal);		
-	}
+	private int getMasculinityLevel() { return (int) Math.round(receivedOral / 5. + receivedAnal / 3. + oralCreampie / 3. + analCreampie + cameFromOral + cameFromAnal); }
 	
 	public AssetDescriptor<Texture> getMasculinityPath() {
 		int masculinityLevel = getMasculinityLevel();
@@ -1273,9 +1211,7 @@ public class PlayerCharacter extends AbstractCharacter {
 		return true;
 	}
 
-	public Integer getMoney() {
-		return money;
-	}
+	public Integer getMoney() { return money; }
 
 	// this should obviously only accept a Weapon parameter
 	public String setWeapon(Item item) {	
@@ -1351,9 +1287,7 @@ public class PlayerCharacter extends AbstractCharacter {
 		return temp != null ? "You unequipped the " + temp.getName() + "." : "";
 	}
 	
-	public void setBaseDefense(int defense) {
-		baseDefense = defense;
-	}
+	public void setBaseDefense(int defense) { baseDefense = defense; }
 	
 	private PhallusType getPhallusType(SexualExperience sex) { return sex.isBird() ? PhallusType.BIRD : sex.isCentaurSex() ? PhallusType.HORSE : sex.isKnot() ? PhallusType.DOG : sex.isOgreSex() ? PhallusType.GIANT : PhallusType.MONSTER; }
 	
@@ -1538,13 +1472,9 @@ public class PlayerCharacter extends AbstractCharacter {
 		}
 	}
 
-	public boolean isLoaded() {
-		return loaded;
-	}
+	public boolean isLoaded() { return loaded; }
 
-	public void load() {
-		loaded = true;
-	}
+	public void load() { loaded = true; }
 
 	public String getStatBonusDisplay() {
 		String display = "";
@@ -1596,17 +1526,11 @@ public class PlayerCharacter extends AbstractCharacter {
 		return display;		
 	}
 
-	public void setCharacterName(String s) {
-		name = s;
-	}
+	public void setCharacterName(String s) { name = s; }
 	
-	public String getCharacterName() {
-		return name;
-	}
+	public String getCharacterName() { return name; }
 	
-	public int getQuestStatus(QuestType type) {
-		return questFlags.get(type.toString(), 0);
-	}	
+	public int getQuestStatus(QuestType type) { return questFlags.get(type.toString(), 0); }	
 	
 	public void setQuestStatus(QuestType type, int status) {
 		if (type == QuestType.MERMAID && status == 3) { 
@@ -1632,115 +1556,6 @@ public class PlayerCharacter extends AbstractCharacter {
 			eventLog.add("You gave birth to goblin's offspring on the " + getTimeDescription() + "!");
 		}
 		questFlags.put(type.toString(), status);
-	}
-	
-	public enum QuestType {
-		ORC, CRIER, QUETZAL, INNKEEP, TRUDY, GOBLIN, OGRE, SPIDER, BROTHEL, ELF, DEBT, GADGETEER, MADAME, WITCH, MOUTH_FIEND, MERMAID, TRAINER, MERI, HUMAN_TOWN, MONSTER_TOWN;
-		
-		public String getQuestDescription(int currentValue) {
-			switch (this) {
-				case HUMAN_TOWN:
-					return currentValue == 1 ? "You've been to the town of Silajam." : "";					
-				case MONSTER_TOWN:
-					return currentValue == 1 ? "You've been to the town of Monsters." : "";		
-				case TRAINER:
-					return currentValue == 2 ? "You've learned the secret of the ice cream." : currentValue == 1 ? "You've been trained as an Enchantress by the legendary trainer!" : "";
-				case MERI:
-					return currentValue == 1 ? "You've learned from the witch." : "";					
-				case BROTHEL:
-					return currentValue > 0 ? "You've agreed to be a prostitute in the brothel." : "";
-				case CRIER:
-					return currentValue > 0 ? ("You've heard about a quest to slay the lord of Xiuh mountain." + (currentValue == 2 ? " You've met a strange man who claims to have useful information." : currentValue == 3 ? " A strange man told you about a generic brothel patron." : currentValue == 4 ? " A strange man told you about the witch that lives in the forest." : "")) : "";
-				case DEBT:
-					return currentValue == 2 ? "You've encountered the debt collectors." : currentValue == 1 ? "You've been warned by the debt collectors." : "";
-				case ELF:
-					switch (currentValue) {
-						case 2: return "You've encountered Kylira, the elf.";
-						case 3: return "You've shared a meal with Kylira, the elf.";
-						case 4: return "You've advised Kylira the elf to become a prostitute.";
-						case 5: return "You've made Kylira the elf your travelling companion.";
-						case 6: return "You've advised Kylira the elf to be a travelling healer.";
-						case 7: return "You've advised Kylira the elf to depart for the Elven lands.";
-						case 8: return "You've seen Kylira the elf working as a prostitute.";
-						case 9: return "You've gotten close to Kylira the elf as a companion.";
-						case 10: return "You've gotten very close to Kylira the elf.";
-						case 11: return "You've gotten very close to Kylira the elf, and he's taught you healing magick.";
-					}
-				case GADGETEER:
-					return currentValue == 2 ? "You've been teased by the eccentric merchant." : currentValue == 1 ? "You've encountered the eccentric merchant." : "";
-				case GOBLIN:
-					switch (currentValue) {
-						case 1: return "You've met Selkie the fem goblin.";
-						case 2: return "You've been pseudo-impregnated by Selkie the fem goblin.";
-						case 3: return "Selkie's goblin eggs have been impregnated by a harpy!";
-						case 4: return "Selkie's goblin eggs have been impregnated by a werewolf!";
-						case 5: return "Selkie's goblin eggs have been impregnated by a centaur!";
-						case 6: return "Selkie's harpy-fertilized baby is ready to be born!";
-						case 7: return "Selkie's werewolf-fertilized baby is ready to be born!";
-						case 8: return "Selkie's centaur-fertilized baby is ready to be born!";
-						case 9: return "You gave birth to Selkie's harpy-fertilized baby!";
-						case 10: return "You gave birth to Selkie's werewolf-fertilized baby!";
-						case 11: return "You gave birth to Selkie's centaur-fertilized baby!";
-					}
-				case INNKEEP:
-					return currentValue == 4 ? "You've married the innkeep." : currentValue == 3 ? "You've been innkeep's bitch for a day's lodging." : currentValue == 2 ? "You've caught the innkeep's fuck for a day's lodging." : currentValue == 1 ? "You've sucked the innkeep off for a day's lodging." : "";
-				case MADAME:
-					return currentValue == 1 ? "You've introduced yourself to the Brothel madame." : "";	
-				case MERMAID: 
-					switch (currentValue) {
-						case 1: return "You've encountered a mermaid and are on friendly terms, allowing safe passage through her waters.";
-						case 2: return "You've encountered the mermaid, and know that if you enter her waters again, she'll attack on sight.";
-						case 3: return "The mermaid has laid her eggs inside of you. You're absolutely full of them, and the crushing pressure in your abdomen is your reminder.";
-						case 4: return "The mermaid's eggs have been gestating in your belly for days - your aching, cramping bowels feel like labor pains.  You are fully pregnant.";
-						case 5: return "The mermaid's eggs have begun hatching - if you don't get to a body of water soon to birth them, you're worried you'll explode.  You're gonna be a momma!";
-						case 6: return "The mermaid's eggs are hatching!";
-						case 7: return "You've hatced the mermaid's eggs. Yeesh.";
-					}
-					break;
-				case MOUTH_FIEND:
-					return currentValue == 1 ? "The Brothel Madame has warned you not to be rough with the girls." : currentValue == 2 ? "The Brothel Madame has banned and threatened you." : "";
-				case OGRE:
-					return currentValue == 1 ? "You've seen an ogre." : "";		
-				case ORC:
-					return currentValue == 2 ? "You've encountered an orc and behaved cowardly." : currentValue == 1 ? "You've encountered Urka the orc and behaved honorably." : "";	
-				case QUETZAL:
-					return currentValue == 4 ? "You've been rewarded for defeating the Quetzal Goddess, the great lord of Mount Xiuh." : currentValue == 3 ? "You've defeated the Quetzal Goddess, the great lord of Mount Xiuh." : currentValue == 2 ? "You've seen the great lord of Mount Xiuh - she's a giant naga!" : currentValue == 1 ? "You've heard of the great lord of Mount Xiuh." : "";
-				case SPIDER:
-					switch (currentValue) {
-						case 1: return "You've survived the spider-infested ruins.";
-						case 2: return "The spider laid eggs in you!";
-						case 3: return "The spiders eggs inside of you are beginning to stir!";
-						case 4: return "The spider eggs inside of you are nearly ready to hatch!";
-						case 5: return "The spider's eggs are hatching!";
-						case 6: return "You've birthed the spider's brood!";
-					}	
-				case TRUDY:
-					switch (currentValue) {
-						case 1: return "You've met Trudy, another adventurer.";
-						case 2: return "You foiled Trudy's betrayal, and he was buggered by a beast in your place.";
-						case 3: return "You were tricked by Trudy and buggered by a beast.";
-						case 4: return "You've battled with Trudy.";
-						case 5: return "You've made Trudy your travelling companion.";
-						case 6: return "You've gotten close to Trudy as a travelling companion."; 
-						case 7: return "You've gotten very close to Trudy your travelling companion, and he's taught you some of his skills.";
-					}	
-					break;
-				case WITCH:
-					return currentValue == 2 ? "You've received the goddess' blessing from the witch of the forest." : currentValue == 1 ? "You've met the witch of the forest." : "";
-			}
-			return ""; 			
-		}
-	}
-	
-	public static class QuestFlag {
-		public final QuestType type;
-		public final int value;
-		public QuestFlag() { type = null; value = 0; }
-		
-		public QuestFlag(QuestType type, int value) {
-			this.type = type;
-			this.value = value;
-		}		
 	}
 
 	public Array<MutationResult> modMoney(Integer gold) {
@@ -2004,5 +1819,114 @@ public class PlayerCharacter extends AbstractCharacter {
 		public DignityTier increase() { return this.ordinal() < values().length - 1 ? values()[this.ordinal() + 1] : this; }
 		
 		public DignityTier decrease() { return this.ordinal() > 0 ? values()[this.ordinal() - 1] : this; }
+	}
+	
+	public enum QuestType {
+		ORC, CRIER, QUETZAL, INNKEEP, TRUDY, GOBLIN, OGRE, SPIDER, BROTHEL, ELF, DEBT, GADGETEER, MADAME, WITCH, MOUTH_FIEND, MERMAID, TRAINER, MERI, HUMAN_TOWN, MONSTER_TOWN;
+		
+		public String getQuestDescription(int currentValue) {
+			switch (this) {
+				case HUMAN_TOWN:
+					return currentValue == 1 ? "You've been to the town of Silajam." : "";					
+				case MONSTER_TOWN:
+					return currentValue == 1 ? "You've been to the town of Monsters." : "";		
+				case TRAINER:
+					return currentValue == 2 ? "You've learned the secret of the ice cream." : currentValue == 1 ? "You've been trained as an Enchantress by the legendary trainer!" : "";
+				case MERI:
+					return currentValue == 1 ? "You've learned from the witch." : "";					
+				case BROTHEL:
+					return currentValue > 0 ? "You've agreed to be a prostitute in the brothel." : "";
+				case CRIER:
+					return currentValue > 0 ? ("You've heard about a quest to slay the lord of Xiuh mountain." + (currentValue == 2 ? " You've met a strange man who claims to have useful information." : currentValue == 3 ? " A strange man told you about a generic brothel patron." : currentValue == 4 ? " A strange man told you about the witch that lives in the forest." : "")) : "";
+				case DEBT:
+					return currentValue == 2 ? "You've encountered the debt collectors." : currentValue == 1 ? "You've been warned by the debt collectors." : "";
+				case ELF:
+					switch (currentValue) {
+						case 2: return "You've encountered Kylira, the elf.";
+						case 3: return "You've shared a meal with Kylira, the elf.";
+						case 4: return "You've advised Kylira the elf to become a prostitute.";
+						case 5: return "You've made Kylira the elf your travelling companion.";
+						case 6: return "You've advised Kylira the elf to be a travelling healer.";
+						case 7: return "You've advised Kylira the elf to depart for the Elven lands.";
+						case 8: return "You've seen Kylira the elf working as a prostitute.";
+						case 9: return "You've gotten close to Kylira the elf as a companion.";
+						case 10: return "You've gotten very close to Kylira the elf.";
+						case 11: return "You've gotten very close to Kylira the elf, and he's taught you healing magick.";
+					}
+				case GADGETEER:
+					return currentValue == 2 ? "You've been teased by the eccentric merchant." : currentValue == 1 ? "You've encountered the eccentric merchant." : "";
+				case GOBLIN:
+					switch (currentValue) {
+						case 1: return "You've met Selkie the fem goblin.";
+						case 2: return "You've been pseudo-impregnated by Selkie the fem goblin.";
+						case 3: return "Selkie's goblin eggs have been impregnated by a harpy!";
+						case 4: return "Selkie's goblin eggs have been impregnated by a werewolf!";
+						case 5: return "Selkie's goblin eggs have been impregnated by a centaur!";
+						case 6: return "Selkie's harpy-fertilized baby is ready to be born!";
+						case 7: return "Selkie's werewolf-fertilized baby is ready to be born!";
+						case 8: return "Selkie's centaur-fertilized baby is ready to be born!";
+						case 9: return "You gave birth to Selkie's harpy-fertilized baby!";
+						case 10: return "You gave birth to Selkie's werewolf-fertilized baby!";
+						case 11: return "You gave birth to Selkie's centaur-fertilized baby!";
+					}
+				case INNKEEP:
+					return currentValue == 4 ? "You've married the innkeep." : currentValue == 3 ? "You've been innkeep's bitch for a day's lodging." : currentValue == 2 ? "You've caught the innkeep's fuck for a day's lodging." : currentValue == 1 ? "You've sucked the innkeep off for a day's lodging." : "";
+				case MADAME:
+					return currentValue == 1 ? "You've introduced yourself to the Brothel madame." : "";	
+				case MERMAID: 
+					switch (currentValue) {
+						case 1: return "You've encountered a mermaid and are on friendly terms, allowing safe passage through her waters.";
+						case 2: return "You've encountered the mermaid, and know that if you enter her waters again, she'll attack on sight.";
+						case 3: return "The mermaid has laid her eggs inside of you. You're absolutely full of them, and the crushing pressure in your abdomen is your reminder.";
+						case 4: return "The mermaid's eggs have been gestating in your belly for days - your aching, cramping bowels feel like labor pains.  You are fully pregnant.";
+						case 5: return "The mermaid's eggs have begun hatching - if you don't get to a body of water soon to birth them, you're worried you'll explode.  You're gonna be a momma!";
+						case 6: return "The mermaid's eggs are hatching!";
+						case 7: return "You've hatced the mermaid's eggs. Yeesh.";
+					}
+					break;
+				case MOUTH_FIEND:
+					return currentValue == 1 ? "The Brothel Madame has warned you not to be rough with the girls." : currentValue == 2 ? "The Brothel Madame has banned and threatened you." : "";
+				case OGRE:
+					return currentValue == 1 ? "You've seen an ogre." : "";		
+				case ORC:
+					return currentValue == 2 ? "You've encountered an orc and behaved cowardly." : currentValue == 1 ? "You've encountered Urka the orc and behaved honorably." : "";	
+				case QUETZAL:
+					return currentValue == 4 ? "You've been rewarded for defeating the Quetzal Goddess, the great lord of Mount Xiuh." : currentValue == 3 ? "You've defeated the Quetzal Goddess, the great lord of Mount Xiuh." : currentValue == 2 ? "You've seen the great lord of Mount Xiuh - she's a giant naga!" : currentValue == 1 ? "You've heard of the great lord of Mount Xiuh." : "";
+				case SPIDER:
+					switch (currentValue) {
+						case 1: return "You've survived the spider-infested ruins.";
+						case 2: return "The spider laid eggs in you!";
+						case 3: return "The spiders eggs inside of you are beginning to stir!";
+						case 4: return "The spider eggs inside of you are nearly ready to hatch!";
+						case 5: return "The spider's eggs are hatching!";
+						case 6: return "You've birthed the spider's brood!";
+					}	
+				case TRUDY:
+					switch (currentValue) {
+						case 1: return "You've met Trudy, another adventurer.";
+						case 2: return "You foiled Trudy's betrayal, and he was buggered by a beast in your place.";
+						case 3: return "You were tricked by Trudy and buggered by a beast.";
+						case 4: return "You've battled with Trudy.";
+						case 5: return "You've made Trudy your travelling companion.";
+						case 6: return "You've gotten close to Trudy as a travelling companion."; 
+						case 7: return "You've gotten very close to Trudy your travelling companion, and he's taught you some of his skills.";
+					}	
+					break;
+				case WITCH:
+					return currentValue == 2 ? "You've received the goddess' blessing from the witch of the forest." : currentValue == 1 ? "You've met the witch of the forest." : "";
+			}
+			return ""; 			
+		}
+	}
+	
+	public static class QuestFlag {
+		public final QuestType type;
+		public final int value;
+		public QuestFlag() { type = null; value = 0; }
+		
+		public QuestFlag(QuestType type, int value) {
+			this.type = type;
+			this.value = value;
+		}		
 	}
 }
