@@ -94,7 +94,8 @@ public class CharacterCustomizationScene extends Scene {
 		Table tempTable = new Table();
 		tempTable.add(addLabel("Name:", skin, Color.GOLD, 0, 0)).row();
 		final TextField nameField = new TextField("Hiro", skin);
-		nameField.setMaxLength(15);
+		nameField.setMaxLength(14);
+		nameField.setAlignment(Align.center);
 		tempTable.add(nameField).width(300);
 		table.add(tempTable).align(Align.left).row();
 		this.addListener(new InputListener() {
