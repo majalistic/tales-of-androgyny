@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -22,6 +23,7 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.IntArray;
 import com.badlogic.gdx.utils.OrderedMap;
 import com.majalis.asset.AssetEnum;
+import com.majalis.character.AbstractCharacter;
 import com.majalis.character.PlayerCharacter;
 import com.majalis.scenes.Scene;
 import com.majalis.screens.TimeOfDay;
@@ -40,6 +42,7 @@ public class EncounterHUD extends Group {
 	private final TextButton saveButton;
 	private final TextButton skipButton;
 	private final TextButton autoplayButton;
+	private final HealthBar healthBar;
 	private final Label dateLabel;
 	private final Image characterPortrait;
 	private final Image masculinityIcon;
@@ -69,7 +72,7 @@ public class EncounterHUD extends Group {
 		pane.addAction(Actions.hide());
 		
 		this.addActor(showLog);
-		showLog.setBounds(325, 1000, 165, 50);
+		showLog.setBounds(425, 1000, 165, 50);
 		
 		this.addActor(logGroup);
 		logGroup.addActor(pane);
@@ -125,21 +128,20 @@ public class EncounterHUD extends Group {
 		        }
 			}
 		);	
-		
 		this.addActor(autoplayButton);
+		
+		healthBar = new HealthBar(character, assetManager.get(AssetEnum.BATTLE_SKIN.getSkin()));
+		healthBar.setPosition(25, 1000);
+		this.addActor(healthBar);
 		
 		characterGroup = new Group();
 		this.addActor(characterGroup);
-		
 		Texture portrait = assetManager.get(character.getPortraitPath());
 		characterPortrait = addImage(characterGroup, portrait, 105, 800, portrait.getWidth() / (portrait.getHeight() / 200f), 200);
-		characterPortrait.addAction(Actions.hide());
 		Texture icon = assetManager.get(character.getMasculinityPath());
 		masculinityIcon = addImage(characterGroup, icon, 105, 705, icon.getWidth() / (icon.getHeight() / 100f), 100);
-		masculinityIcon.addAction(Actions.hide());
 		Texture fullness = assetManager.get(character.getCumInflationPath());
 		fullnessIcon = addImage(characterGroup, icon, 42, 755, fullness.getWidth() / (fullness.getHeight() / 100f), 100);
-		fullnessIcon.addAction(Actions.hide());
 	}	
 	
 	protected Label addLabel(String text, Skin skin, BitmapFont font, Color color, float x, float y) {
@@ -169,11 +171,8 @@ public class EncounterHUD extends Group {
 	public void showButtons() { 
 		if (character.isLoaded()) {
 			characterGroup.addAction(Actions.show());
-			characterPortrait.addAction(Actions.show());
 			characterPortrait.setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(character.getPortraitPath()))));
-			masculinityIcon.addAction(Actions.show());
 			masculinityIcon.setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(character.getMasculinityPath()))));
-			fullnessIcon.addAction(Actions.show());
 			fullnessIcon.setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(character.getCumInflationPath()))));
 		}
 
@@ -184,6 +183,7 @@ public class EncounterHUD extends Group {
 		hideButton.addAction(Actions.show());
 		dateLabel.addAction(Actions.show());
 		showLog.addAction(Actions.show());
+		healthBar.addAction(Actions.show());
 		buttonsHidden = false;
 	}
 	
@@ -196,31 +196,17 @@ public class EncounterHUD extends Group {
 		hideButton.addAction(Actions.hide());
 		dateLabel.addAction(Actions.hide());
 		showLog.addAction(Actions.hide());
+		healthBar.addAction(Actions.hide());
 		buttonsHidden = true;
 	}
 	
+	public TextButton getHideButton() { return hideButton; }
+	public boolean buttonsVisible() { return saveButton.isVisible(); }
 	public void toggleButtons() { if (buttonsHidden) showButtons(); else hideButtons(); }
-	
-	private class DateLabel extends Label {
-		private final PlayerCharacter character;
-		private DateLabel(PlayerCharacter character) {
-			super("Day: " + (character.getTime() / 6 + 1) + "\n" + TimeOfDay.getTime(character.getTime()).getDisplay(), skin);
-			this.character = character;
-		}
-		@Override
-		public void draw(Batch batch, float parentAlpha) {
-			setText("Day: " + (character.getTime() / 6 + 1) + "\n" + TimeOfDay.getTime(character.getTime()).getDisplay());
-			setColor(TimeOfDay.getTime(character.getTime()).getColor());
-			super.draw(batch, parentAlpha);
-		}
-	}
 	public void addSaveListener(ClickListener clickListener) { saveButton.addListener(clickListener); }
+	public void showLog() { showLog.addAction(Actions.show()); }
 	public Group getLog() { return logGroup; }
-
-	public boolean displayingLog() {
-		return pane.isVisible();
-	}
-	
+	public boolean displayingLog() { return pane.isVisible(); }
 	public void toggleLog() { 
 		logDisplay.displayLog(); 
 		showLog.clearActions();
@@ -235,8 +221,47 @@ public class EncounterHUD extends Group {
 		}
 	}
 
-	public TextButton getHideButton() { return hideButton; }
-	public boolean buttonsVisible() { return saveButton.isVisible(); }
-
-	public void showLog() { showLog.addAction(Actions.show()); }
+	private class HealthBar extends Group {
+		private final AbstractCharacter character;
+		private final ProgressBar bar;
+		private final Image icon;
+		private final Label label;
+		private HealthBar(AbstractCharacter character, Skin skin) {
+			this.character = character;
+			bar = new ProgressBar(0, 1, .05f, false, skin);
+			bar.setWidth(350);
+			bar.setValue(character.getHealthPercent());
+			this.addActor(bar);
+			
+			icon = new Image(assetManager.get(character.getHealthDisplay()));
+			icon.setPosition(3, 7.5f);
+			this.addActor(icon);
+			
+			label = new Label(character.getCurrentHealth() + " / " + character.getMaxHealth(), skin);
+			label.setColor(Color.BROWN);
+			label.setPosition(75, 8);
+			this.addActor(label);
+		}
+		@Override
+		public void draw(Batch batch, float parentAlpha) {
+			bar.setValue(character.getHealthPercent());
+			icon.setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(character.getHealthDisplay()))));
+			label.setText(character.getCurrentHealth() + " / " + character.getMaxHealth());
+			super.draw(batch, parentAlpha);
+		}
+	}
+	
+	private class DateLabel extends Label {
+		private final PlayerCharacter character;
+		private DateLabel(PlayerCharacter character) {
+			super("Day: " + (character.getTime() / 6 + 1) + "\n" + TimeOfDay.getTime(character.getTime()).getDisplay(), skin);
+			this.character = character;
+		}
+		@Override
+		public void draw(Batch batch, float parentAlpha) {
+			setText("Day: " + (character.getTime() / 6 + 1) + "\n" + TimeOfDay.getTime(character.getTime()).getDisplay());
+			setColor(TimeOfDay.getTime(character.getTime()).getColor());
+			super.draw(batch, parentAlpha);
+		}
+	}
 }
