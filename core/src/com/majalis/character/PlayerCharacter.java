@@ -1827,16 +1827,29 @@ public class PlayerCharacter extends AbstractCharacter {
 		}
 	}
 	
-	protected enum DignityTier {
+	public enum DignityTier {
 		FULL,
 		SHAMED,
 		HUMILIATED,
 		DISGRACED,
 		NONE;
 		
-		public DignityTier increase() { return this.ordinal() < values().length - 1 ? values()[this.ordinal() + 1] : this; }
-		
-		public DignityTier decrease() { return this.ordinal() > 0 ? values()[this.ordinal() - 1] : this; }
+		public DignityTier decrease() { return this.ordinal() < values().length - 1 ? values()[this.ordinal() + 1] : this; }
+		public DignityTier increase() { return this.ordinal() > 0 ? values()[this.ordinal() - 1] : this; }
+		public String getLabel() {
+			char[] chars = super.toString().replace("_", " ").toLowerCase().toCharArray();
+			boolean found = false;
+			for (int i = 0; i < chars.length; i++) {
+				if (!found && Character.isLetter(chars[i])) {
+					chars[i] = Character.toUpperCase(chars[i]);
+					found = true;
+			    } 
+				else if (Character.isWhitespace(chars[i])) {
+					found = false;
+			    }
+			}		
+			return String.valueOf(chars);
+		}
 	}
 	
 	public enum QuestType {

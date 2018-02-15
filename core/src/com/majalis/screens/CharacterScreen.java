@@ -128,6 +128,8 @@ public class CharacterScreen extends AbstractScreen {
 		}
 		overview.add(getLabel("Health: ", skin, Color.BLACK)).align(Align.left);
 		overview.add(getLabel(String.valueOf(character.getCurrentHealth() + "/" + character.getMaxHealth()), skin, Color.GREEN)).align(Align.left).row();
+		overview.add(getLabel("Dignity: ", skin, Color.BLACK)).align(Align.left);
+		overview.add(getLabel(character.getDignity().getLabel(), skin, Color.TEAL)).align(Align.left).row();
 		overview.add(getLabel("Lust: ", skin, Color.BLACK)).align(Align.left);
 		overview.add(getLabel(String.valueOf(character.getCurrentLust() + "%"), skin, Color.SALMON)).align(Align.left).row();
 		

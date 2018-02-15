@@ -1266,10 +1266,7 @@ public abstract class AbstractCharacter extends Actor {
 		return "You " + (alreadyEquipped ? "unequipped" : "equipped") + " the " + cage.getName() + ".";
 	}
 	
-	public String getPhallusLabel() {
-		return phallus.getLabel();
-	}
-	
+	public String getPhallusLabel() { return phallus.getLabel(); }	
 	
 	public enum PhallusType {
 		CUTE(AssetEnum.SMALL_DONG_0, AssetEnum.SMALL_DONG_1, AssetEnum.SMALL_DONG_2, AssetEnum.SMALL_DONG_CHASTITY),
@@ -1288,17 +1285,9 @@ public abstract class AbstractCharacter extends Actor {
 		    this.phallusStates = new Array<AssetEnum>(phallusStates);
 		}
 		
-		public String getLabel() {
-			return this == CUTE ? "Cute" : this == TINY ? "Tiny" : this == SMALL ? "Small" : "";
-		}
-		
-		public String getDescription() {
-			return this == CUTE ? "An adorable penis." : this == TINY ? "A very small penis." : this == SMALL ? "Average." : "";
-		}
-		
-		private AssetDescriptor<Texture> getPhallusState(int stateIndex) {
-			return phallusStates.get(stateIndex).getTexture();
-		}
+		public String getLabel() { return this == CUTE ? "Cute" : this == TINY ? "Tiny" : this == SMALL ? "Small" : ""; }
+		public String getDescription() { return this == CUTE ? "An adorable penis." : this == TINY ? "A very small penis." : this == SMALL ? "Average." : ""; }
+		private AssetDescriptor<Texture> getPhallusState(int stateIndex) { return phallusStates.get(stateIndex).getTexture(); }
 	}
 	
 	public enum Stat { // these descriptions should have the \n removed and replaced with setWrap/setWidth on the display
