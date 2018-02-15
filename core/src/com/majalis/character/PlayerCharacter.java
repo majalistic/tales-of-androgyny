@@ -1135,12 +1135,14 @@ public class PlayerCharacter extends AbstractCharacter {
 	protected Array<MutationResult> fillButt(int buttful) {
 		super.fillButt(buttful);
 		analCreampie++;
+		modDignity(-5);
 		String result = incrementPerk(analCreampie, Perk.CREAMPIE_COLLECTOR, 10, 6, 3);
 		return result.equals("") ? new Array<MutationResult>() : getResult(result);
 	}
 	
 	protected String receiveEggs() {
 		this.buttful += 5;
+		modDignity(-10);
 		return null;
 	}
 	
@@ -1149,6 +1151,7 @@ public class PlayerCharacter extends AbstractCharacter {
 		super.fillMouth(mouthful);
 		Array<MutationResult> results = new Array<MutationResult>();
 		oralCreampie++;
+		modDignity(-3);
 		String result = incrementPerk(oralCreampie, Perk.CUM_CONNOISSEUR, 10, 6, 3);
 		if (mouthful >= 5) {
 			results.add(new MutationResult("You swallow enough to sate your hunger!"));
@@ -1182,6 +1185,7 @@ public class PlayerCharacter extends AbstractCharacter {
 	public void setGoblinVirginity(boolean virginity) {
 		goblinVirgin = virginity;
 		if (!goblinVirgin) {
+			modDignity(-50);
 			receiveSex(new SexualExperience.SexualExperienceBuilder().setAnalSex(1).build());
 		}
 	}
@@ -1296,14 +1300,17 @@ public class PlayerCharacter extends AbstractCharacter {
 			case BIRD:
 				questFlags.put(QuestType.GOBLIN.toString(), 3);
 				eggtick = 0;
+				modDignity(-50);
 				break;
 			case DOG:
 				questFlags.put(QuestType.GOBLIN.toString(), 4);
 				eggtick = 0;
+				modDignity(-50);
 				break;
 			case HORSE:
 				questFlags.put(QuestType.GOBLIN.toString(), 5);
 				eggtick = 0;
+				modDignity(-50);
 				break;
 			default:
 				break;	
@@ -1329,6 +1336,7 @@ public class PlayerCharacter extends AbstractCharacter {
 		
 		for (int ii = 0; ii < sex.getAnalEjaculations(); ii++) {
 			cumFromAnal();
+			modDignity(-20);
 			setCurrentPortrait(AssetEnum.PORTRAIT_AHEGAO);
 		}
 		
@@ -1367,25 +1375,31 @@ public class PlayerCharacter extends AbstractCharacter {
 		}
 		for (int ii = 0; ii < sex.getFellatioEjaculations(); ii++) {
 			cumFromOral();
+			modDignity(-10);
 		}
 		
 		if (sex.isCentaurSex() && sex.getAnalSex() > 0 && perks.get(Perk.EQUESTRIAN.toString(), 0) == 0) {
 			result.add(new MutationResult("You gained " + Perk.EQUESTRIAN.getLabel() + " (Rank " + 1 + ")!"));
 			perks.put(Perk.EQUESTRIAN.toString(), 1);
+			modDignity(-10);
 		}
 		if (sex.isOgreSex() && sex.getAnalSex() > 0 && perks.get(Perk.SIZE_QUEEN.toString(), 0) != 3) {
 			result.add(new MutationResult("You gained " + Perk.SIZE_QUEEN.getLabel() + " (Rank " + (perks.get(Perk.SIZE_QUEEN.toString(), 0) + 1) + ")!"));
 			perks.put(Perk.SIZE_QUEEN.toString(), ((int)perks.get(Perk.SIZE_QUEEN.toString(), 0)) + 1);
+			modDignity(-10);
 		}
 		
 		if (sex.isBeast() && perks.get(Perk.BEASTMASTER.toString(), 0) != 3) {
 			result.add(new MutationResult("You gained " + Perk.BEASTMASTER.getLabel() + " (Rank " + (perks.get(Perk.BEASTMASTER.toString(), 0) + 1) + ")!"));
 			perks.put(Perk.BEASTMASTER.toString(), ((int)perks.get(Perk.BEASTMASTER.toString(), 0)) + 1);
+			modDignity(-20);
 		}
 		
 		if (sex.isProstitution() && perks.get(Perk.LADY_OF_THE_NIGHT.toString(), 0) != 20) {
 			result.add(new MutationResult("You gained " + Perk.LADY_OF_THE_NIGHT.getLabel() + " (Rank " + (perks.get(Perk.LADY_OF_THE_NIGHT.toString(), 0) + 1) + ")!"));
 			perks.put(Perk.LADY_OF_THE_NIGHT.toString(), ((int)perks.get(Perk.LADY_OF_THE_NIGHT.toString(), 0)) + 1);
+			
+			modDignity(-10);
 			
 			if (sex.getHandy() > 0 && perks.get(Perk.CRANK_MASTER.toString(), 0) != 10) {
 				result.add(new MutationResult("You gained " + Perk.CRANK_MASTER.getLabel() + " (Rank " + (perks.get(Perk.CRANK_MASTER.toString(), 0) + 1) + ")!"));
@@ -1404,11 +1418,13 @@ public class PlayerCharacter extends AbstractCharacter {
 		if (sex.isBird() && sex.getAnalSex() > 0 && perks.get(Perk.CUCKOO_FOR_CUCKOO.toString(), 0) != 3) {
 			result.add(new MutationResult("You gained " + Perk.CUCKOO_FOR_CUCKOO.getLabel() + " (Rank " + (perks.get(Perk.CUCKOO_FOR_CUCKOO.toString(), 0) + 1) + ")!"));
 			perks.put(Perk.CUCKOO_FOR_CUCKOO.toString(), ((int)perks.get(Perk.CUCKOO_FOR_CUCKOO.toString(), 0)) + 1);
+			modDignity(-5);
 		}
 		
 		if (sex.isKnot() && sex.getAnalSex() > 0 && perks.get(Perk.BITCH.toString(), 0) != 3) {
 			result.add(new MutationResult("You gained " + Perk.BITCH.getLabel() + " (Rank " + (perks.get(Perk.BITCH.toString(), 0) + 1) + ")!"));
 			perks.put(Perk.BITCH.toString(), ((int)perks.get(Perk.BITCH.toString(), 0)) + 1);
+			modDignity(-10);
 		}
 		// should be moved into its own method
 		this.buttful += sex.getBellyful();
@@ -1787,13 +1803,15 @@ public class PlayerCharacter extends AbstractCharacter {
 	
 	public DignityTier getDignity() { return dignity.tier; }
 	
+	public void modDignity(int delta) { dignity.modDignity(delta); }
+	
 	public static class Dignity {
 		private DignityTier tier;
 		private int dignity;
 		
 		private Dignity() {
 			tier = DignityTier.FULL;
-			dignity = 0;
+			dignity = 100;
 		}
 		
 		public void modDignity(int delta) {
