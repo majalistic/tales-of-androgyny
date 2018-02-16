@@ -52,6 +52,7 @@ public class PlayerCharacter extends AbstractCharacter {
 	private int debtCooldown;
 	private int lastShopRestock;
 	private Dignity dignity;
+	private int willpower;
 	
 	protected Femininity femininity;
 	protected LipFullness lipFullness;
@@ -109,6 +110,7 @@ public class PlayerCharacter extends AbstractCharacter {
 			eventLog = new Array<String>();
 			time = 0;
 			dignity = new Dignity();
+			willpower = 5;
 		}
 		
 		skills = new ObjectMap<String, Integer>();
@@ -1802,6 +1804,8 @@ public class PlayerCharacter extends AbstractCharacter {
 	public Array<String> getEventLog() { return eventLog; }
 	
 	public DignityTier getDignity() { return dignity.tier; }
+	public void modWillpower(int mod) { willpower += mod; if (willpower <0) willpower = 0; }
+	public int getWillpower() { return willpower; }
 	
 	public void modDignity(int delta) { dignity.modDignity(delta); }
 	

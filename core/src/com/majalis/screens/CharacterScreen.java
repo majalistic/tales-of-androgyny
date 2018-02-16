@@ -130,6 +130,8 @@ public class CharacterScreen extends AbstractScreen {
 		overview.add(getLabel(String.valueOf(character.getCurrentHealth() + "/" + character.getMaxHealth()), skin, Color.GREEN)).align(Align.left).row();
 		overview.add(getLabel("Dignity: ", skin, Color.BLACK)).align(Align.left);
 		overview.add(getLabel(character.getDignity().getLabel(), skin, Color.TEAL)).align(Align.left).row();
+		overview.add(getLabel("Willpower: ", skin, Color.BLACK)).align(Align.left);
+		overview.add(getLabel("" + character.getWillpower(), skin, Color.OLIVE)).align(Align.left).row();
 		overview.add(getLabel("Lust: ", skin, Color.BLACK)).align(Align.left);
 		overview.add(getLabel(String.valueOf(character.getCurrentLust() + "%"), skin, Color.SALMON)).align(Align.left).row();
 		
@@ -217,7 +219,7 @@ public class CharacterScreen extends AbstractScreen {
 			statusTable.add(statusLabel).row();
 				
 		}
-		statusTable.setPosition(1125, 600);
+		statusTable.setPosition(1125, 700);
 		statusTable.align(Align.topLeft);
 		this.addActor(statusTable);
 		
@@ -230,7 +232,7 @@ public class CharacterScreen extends AbstractScreen {
 		
 		Table perkTable = new Table();
 		perkTable.align(Align.topLeft);
-		perkTable.setPosition(100, 600);
+		perkTable.setPosition(100, 550);
 		this.addActor(perkTable);
 		perkTable.add(getLabel("Perks: ", skin, Color.BLACK)).align(Align.left).row();
 		int perkColumn = 0;
