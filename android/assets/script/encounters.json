@@ -2946,7 +2946,134 @@
 	{
 		"key": "MOUTHFIEND-MARRIAGE-YES",
 		"scriptLines": [
-			{"text": "\"Oh.  Well, that was easy.  Let me light some candles to set the mood so we can get to consummating.  ...just kidding.  I know you don't mean it, not yet.  You will, though!  I believe it.\""},
+			{"text": "\"Oh.  Well, that was easy.  Let me light some candles to set the mood so we can get to consummating.  ...just kidding.  I know you don't mean it, not yet.  You will, though!  I believe it.  Although... I'd be more tempted to believe it if you proved it.\""},
+		]
+	},
+	{
+		"key": "MOUTHFIEND-HIGH-DIGNITY",
+		"scriptLines": [
+			{"text": "You can't bring yourself to debase yourself in front of her, even as some kind of gambit."},
+		]
+	},
+	{
+		"key": "MOUTHFIEND-LOW-DIGNITY",
+		"scriptLines": [
+			{"text": "You open your mouth wide... as \"proof\"."},
+			{
+			"foreground": "MOUTH_FIEND_ORAL",
+			"text": "\"Mmmm... that's a bold start,\" she says, her fingers caressing your hair as she stares longingly into your mouth.  \"Now... prove to me that you really understand what it means to be my husband.\""}
+		]
+	},
+	{
+		"key": "MOUTHFIEND-SECOND-THOUGHTS",
+		"scriptLines": [
+			{"text": "You close your mouth. \"Hmph, thought so,\" she says, clicking her teeth."},
+			{"text": "Having taunted her, and then had second thoughts, you watch her.  She seems a bit frustrated for a moment, then snaps back to her bubbly demeanor."}
+		]
+	},
+	{
+		"key": "MOUTHFIEND-TONGUE-OUT",
+		"scriptLines": [
+			{
+			"foreground": "MOUTH_FIEND_ORAL_OOH",
+			"text": "You stick your tongue out with a rather forward \"ahhh\"... and you see her face tense up."},			
+			{"text": "\"Well, if you're a cock-gobbling slut with no dignity... I, of all people, am not going to pretend otherwise.  Give momma a little more of a show and we can get this mouth-fucking party started, you fucking slut,\" she says, running her finger over your tongue."}
+		]
+	},
+	{
+		"key": "MOUTHFIEND-NO-DIGNITY",
+		"scriptLines": [
+			{"text": "You lick her finger, then suck on it, then open your mouth wide and let it glide down your throat."},
+			{
+			"foreground": "MOUTH_FIEND_ORAL_SPERM_EYES",
+			"text": "\"Oh, well aren't you a little spermcount-spiker.  With little tricks like that, I bet you've never met a pair of swollen testicles you couldn't make ache, huh?  You just made my panties a little wetter, for sure.\""},
+			{
+			"foreground": "MOUTH_FIEND_ORAL",
+			"text": "She clears her throat.  Did that really just happen?"},			
+			{"text": "\"Well, you're the love of my life, so I'd want to take my time and... ease you into it... but after that little display, it'd be pointless.  If you're not ashamed... then I won't be either,\" she says, tapping your tongue."},
+			{"text": "She moans as she fingers your mouth... while rubbing her own burgeoning bulge."},
+			{"text": "\"It fills me with so much... love.  I just want to have my way with you... my husband...  doesn't that sound nice?\""},
+			{"text": "She licks her lips, and her expression suddenly changes."},
+			{
+			"foreground": "MOUTH_FIEND_ORAL_SPERM_EYES",
+			"text": "\"Honestly though, I just want to drop a fat nut right in here.  Nngh.\""}, 		
+			{"text": "She said it rather suddenly, a casual full-throated vulgarity that takes you by surprise, and she's back to her normal demeanor so quickly you feel as if you might have been hearing things."},
+			{
+			"foreground": "MOUTH_FIEND_ORAL",
+			"text": "\"Um... well, anyway... I do hope you'll enjoy it as much as I will.\""},
+			{"text": "She touches her bulge again, and grips it while staring into your open, waiting mouth."},
+			{
+			"foreground": "MOUTH_FIEND_ORAL_SPERM_EYES"
+			"text": "\"And I've got two spoonfuls of hot nut soup just for you, so I'm DEFINITELY going to enjoy it\" she says."},
+			{"text": "She gathers up her spit, and then spits directly down your throat."},
+			{"text": "\"Like that, but from my balls,\" she explains, helpfully."},
+			{"text": "You swallow.  You get the feeling you'll be doing that a lot."},
+			{"text": "\"What's the matter?  You don't like hearing about my cocksnot?  You should probably get used to it.  Both hearing about it and the stuff itself.  Those tastebuds' days are numbered.\""},
+			{
+			"foreground": "MOUTH_FIEND_ORAL_BALLS",
+			"text": "\"There's going to be nothing left in these after I'm done with you... not a drop.  From now on, this isn't where I keep my sperm.  You are.\""},
+			{
+			"foreground": "MOUTH_FIEND_ORAL_SPERM_EYES"
+			"text": "She leans over again to peer into your mouth, and licks her lips."},			
+			{"text": "\"Mmmmmmm... gonna hock a fat one into the back of your throat.  Bet you can't wait to feel that, huh?  Not that it matters.  That's where I wanna cum, so that's where you're gonna get slimed.\""},
+			{"text": "She rubs the bulge in her crotch eagerly.  She looks like she's about to spill out of it."},
+			{"text": "\"Alright, that's enough of that.  I'm in the mood to fuck.  Ready or not, here I come.\""},
+			{
+			"foreground": "MOUTH_FIEND_ORAL_COCK",
+			"text": "Before you know it, she's taken out her cock.  Without missing a beat, she shoves the entire thing into your mouth."},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "oralSex":1}}],
+			"foreground": "MOUTH_FIEND_ORAL_COCK_INSIDE_THROAT",
+			"text": "Without giving you time to even adjust, she begins to fuck into your mouth with gusto."},			
+			{"text": "\"If you were just putting on an act to get on my good side... well, I fell for it.  Unfortunately for you, my \"good side\" is really, really horny, so now I'm gonna fuck your mouth.\""},
+			{"text": "It's pretty obvious that she's far more concerned with how to best lather, stroke, and scrape her dick with your soft parts than she is with what will happen if she puts several inches of dick here or there in your mouth."},
+			{"text": "You repeatedly choke, gag, sputter, spit, and struggle to breathe, but most of the time she's keeping herself balls-deep, such that they tap against your chin, while her twitching cock goes wild in your mouth and throat."},
+			{"text": "Her globes are fat and full, and slap against your chin as if to say \"hey, I'm full and sloshy!\""},			
+			{
+			"foreground": "MOUTH_FIEND_ORAL_COCK_INSIDE_THROAT_ALMOST",
+			"text": "\"Hope that throat is ready to get creampied... nngh... because it's about to be!\""},
+			{
+			"foreground": "MOUTH_FIEND_ORAL_COCK_INSIDE_THROAT_BLOB",
+			"text": "She scrunches up your face - her load is obviously imminent.  She sneers at you, tenses up, and groans."},			
+			{
+			"sound": "CUM",
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "oralCreampies":2}}],
+			"foreground": "MOUTH_FIEND_ORAL_COCK_INSIDE_THROAT_CUMMING",
+			"text": "You gag loudly, around her sudden influx of spermrope into your throat.  It splats down on the back wall of your throat, making you gag even more, but there's nowhere for it to go but down.  She continues to fling rope onto the most inconvenient place while holding your hair firmly in her grip."},
+			{
+			"foreground": "MOUTH_FIEND_ORAL_COCK_INSIDE_THROAT_BLOB",
+			"text": "Her cocksnot drools down the back of your throat, a sludge of genetic material and slime that coats everything it sloughs over.  You make weird faces as you gag it down uncomfortably."},
+			{
+			"foreground": "MOUTH_FIEND_ORAL_SPERM_EYES"
+			"text": "She pulls out and puts her fingers in your mouth to inspect the damage she's done to the back of your throat, which is still drenched in her cockslime."},			
+			{"text": "\"You're an easy lay, you know that?\" she says with a sneer, her still half-erect wet noodle laying across your cheek.  She blows air between her pursed lips, apparently still coming down off the fuck."},
+			{
+			"foreground": "MOUTH_FIEND_ORAL_OOH"
+			"text": "She smirks, looking at your rather fucked mouth, and then clicks her teeth."},			
+			{"text": "\"I have to admit, I thought I was going to have more fun training you... but at least I don't have to hunt down a cum-tank when I need one, now.\""},
+			{"text": "She closes your mouth, and then pats your cheek."},			
+			{"text": "\"I'll be back in a few minutes.  Keep that throat lubricated for me,\" she says - apparently, once wasn't enough for her."},
+			{
+			"foreground": "NULL",
+			"text": "Indeed, when she returns, you receive your second helping... and your third."},
+			{"text": "The marriage ceremony is fairly simple... and familiar, by that point.  The consummation thereafter is more of a formality, although it is the first time your wife empties her load down your gullet while you lay on a bed."},
+			{"text": "The rest of your domestic life is... fairly routine."},						
+			{
+			"foreground": "MOUTH_FIEND_ORAL_OOH"
+			"text": "\"Hey, open your mouth,\" she says, and you know what's to follow.  Sometimes, she'll realize that she's not in the mood... but usually, the simple act of looking in your mouth will be enough to unlock your wife's desire."},
+			{
+			"foreground": "MOUTH_FIEND_ORAL_SPERM_EYES"
+			"text": "\"Nnngh... yeah.  Skip dinner.  You'll have plenty to eating plenty in the bedroom tonight.\""},
+			{"text": "You can already taste your wife's salty brew... but even if you could forget it, you'll be reminded once the sun goes down."},
+			{"text": "Behind closed doors, you repeatedly gag as the bedsprings squeak, your wife grunts, slaps her own ass, and your dinner splats repeatedly onto the back of your throat.  You don't go hungry."},
+			{
+			"sound": "CUM",
+			"foreground": "MOUTH_FIEND_ORAL_COCK_INSIDE_THROAT_CUMMING",
+			"text": "When you most need air, that usually means you're about to receive cum instead.  Getting your wife's cum in your lung isn't uncommon."},			
+			{"text": "She treats you like you have absolutely no dignity - because, well, you don't.  You can tell whenever her balls are full because she's emptying them down your gullet - always."},
+			{"text": "You often fall asleep with her own sleeping noodle between your lips, drooling out the last of her love goo."},
+			{"text": "There isn't a night that you sleep next to her that you aren't awoken by her ballsack on your chin and her cum cannon tickling your tonsils - and whether it's breakfast-in-bed or a midnight snack, that cannon inevitably fires.  Once, if you're lucky."},
+			{"text": "And on that note... your adventure ends."}
 		]
 	},
 	{
@@ -2956,10 +3083,27 @@
 		]
 	},
 	{
+		"key": "MOUTHFIEND-INSULT",
+		"scriptLines": [
+			{"text": "\"Maybe if you lost some weight,\" you say, dismissively."},
+			{"text": "\"I know this is a difficult adjustment to make, but...\" she says, leaning forward."},
+			{
+			"foreground": "MOUTH_FIEND_ORAL_OOH",
+			"text": "She wrenches your mouth open with her fingers, and peers inside as if your mouth didn't even belong to you."},		
+			{
+			"foreground": "MOUTH_FIEND_ORAL_SPERM_EYES",
+			"text": "\"...you're a cum tank now.  MY cum tank.  The sooner you realize that, the sooner you'll understand why your only purpose seems to be gulping down all my spooge.  Get it, cum tank?\""}
+			{
+			"foreground": "MOUTH_FIEND_CLOTHED_TRANSPARENT",
+			"text": "Just like that, she lets your mouth snap shut, and stands upright, as if nothing happened."}
+		]
+	},
+	{
 		"key": "MOUTHFIEND-INSPECTION",
 		"scriptLines": [
 			{
 			"sound": "FIEND_AHH",
+			"foreground": "MOUTH_FIEND_CLOTHED_TRANSPARENT",
 			"text": "\"Now... let me get a take a good look at my treasure... say \"ahhhh\"!\""},
 			{"text": "You refuse to say anything, and she looks a bit confused."},
 			{"text": "\"I promise I won't put anything it it... yet.  No?  Well, this will become a familiar experience soon.  Let me just pinch your nose shut...\" she says, and does so."},

@@ -7,6 +7,7 @@ import com.badlogic.gdx.utils.OrderedMap;
 import com.majalis.character.PlayerCharacter;
 import com.majalis.character.EnemyEnum;
 import com.majalis.character.AbstractCharacter.Stat;
+import com.majalis.character.PlayerCharacter.DignityTier;
 import com.majalis.character.PlayerCharacter.QuestType;
 import com.majalis.character.Perk;
 import com.majalis.encounter.Background;
@@ -446,6 +447,14 @@ public class CheckScene extends AbstractTextScene {
 		WEARING_GAUNTLETS("SUCCESS! You're wearing gauntlets!", "FAILURE! You're not wearing gauntlets.") {
 			@Override
 			protected boolean getCheck(PlayerCharacter character) { return character.getArmwear() != null; }  
+		}, 
+		HIGH_DIGNITY("You're too dignified for this.", "This isn't below your dignity.") {
+			@Override
+			protected boolean getCheck(PlayerCharacter character) { return character.getDignity().ordinal() < DignityTier.HUMILIATED.ordinal(); }  
+		}, 
+		ANY_DIGNITY("You still have your dignity.", "You have no dignity left.") {
+			@Override
+			protected boolean getCheck(PlayerCharacter character) { return character.getDignity().ordinal() < DignityTier.NONE.ordinal(); }  
 		}, 
 		;
 		private final String success;

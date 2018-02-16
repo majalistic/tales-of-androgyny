@@ -1406,9 +1406,21 @@ public enum EncounterCode {
 					b.branch("Is this a dream?").textScene("MOUTHFIEND-DREAM").concat(afterFirstQuestion), 
 					b.branch("What's the passcode?").textScene("MOUTHFIEND-PASSCODE").concat(afterFirstQuestion)
 				);
+				
+				
+				Branch secondThoughts = b.branch().textScene("MOUTHFIEND-SECOND-THOUGHTS").concat(afterMarriageQuestion);
 				return b.branch().checkScene(
 					CheckType.MOUTH_FIEND_CASTLE, 
-					b.branch(true).textScene("MOUTHFIEND-INTRO").choiceScene("Marry her?", b.branch("Yes").textScene("MOUTHFIEND-MARRIAGE-YES").concat(afterMarriageQuestion), b.branch("No").textScene("MOUTHFIEND-MARRIAGE-NO").concat(afterMarriageQuestion)), 
+					b.branch(true).textScene("MOUTHFIEND-INTRO").choiceScene(
+						"Marry her?", 
+						b.branch("Yes").textScene("MOUTHFIEND-MARRIAGE-YES").checkScene(
+							CheckType.HIGH_DIGNITY, 
+							b.branch(true).textScene("MOUTHFIEND-HIGH-DIGNITY").concat(afterMarriageQuestion),
+							b.branch(false).textScene("MOUTHFIEND-LOW-DIGNITY").choiceScene("Seduce her?", b.branch("Stick out your tongue").textScene("MOUTHFIEND-TONGUE-OUT").checkScene(CheckType.ANY_DIGNITY, b.branch(true).concat(secondThoughts), b.branch(false).textScene("MOUTHFIEND-NO-DIGNITY").gameEnd(GameOver.MOUTH_FIEND)), b.branch("Close your mouth").concat(secondThoughts))
+						), 
+						b.branch("No").textScene("MOUTHFIEND-MARRIAGE-NO").concat(afterMarriageQuestion),
+						b.branch("Insult her").textScene("MOUTHFIEND-INSULT").concat(afterMarriageQuestion)
+					), 
 					b.branch(false).concat(failedEscape)
 				);
 			case NAGA:
