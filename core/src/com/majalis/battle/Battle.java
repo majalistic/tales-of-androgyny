@@ -442,44 +442,52 @@ public class Battle extends Group{
 				hideHoverGroup();
 			}
 	    });	
-		shieldArmor = initImage(character.getShield() == null ? nullTexture : character.getShield().getDestructionLevel() == 0 ? armorTexture : character.getShield().getDestructionLevel() == 1 ? armorBrokenTexture : nullTexture, barX + 284, 810, 50);
-		shieldArmor.addListener(new ClickListener() {
-	        @Override
-	        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-	        	if (onload) {
-	        		onload = false;
-	        	}
-	        	else {
-					skillDisplay.setText(character.getShieldStatus());
-					bonusDisplay.setText("");
-					penaltyDisplay.setText("");
-					showHoverGroup();
-	        	}
-			}
-			@Override
-	        public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
-				hideHoverGroup();
-			}
-	    });		
-		enemyShieldArmor = initImage(enemy.getShield() == null ? nullTexture : enemy.getShield().getDestructionLevel() == 0 ? armorTexture : enemy.getShield().getDestructionLevel() == 1 ? armorBrokenTexture : nullTexture, 1557, 810, 50);
-		enemyShieldArmor.addListener(new ClickListener() {
-	        @Override
-	        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-	        	if (onload) {
-	        		onload = false;
-	        	}
-	        	else {
-					skillDisplay.setText(enemy.getShieldStatus());
-					bonusDisplay.setText("");
-					penaltyDisplay.setText("");
-					showHoverGroup();
-	        	}
-			}
-			@Override
-	        public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
-				hideHoverGroup();
-			}
-	    });		
+		boolean hasNoShield = character.getShield() == null || character.getShield().getDestructionLevel() == 2;
+		shieldArmor = initImage(hasNoShield ? nullTexture : character.getShield().getDestructionLevel() == 0 ? armorTexture : armorBrokenTexture, barX + 284, 810, 50);
+		if (!hasNoShield) {
+			shieldArmor.addListener(new ClickListener() {
+		        @Override
+		        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
+		        	if (onload) {
+		        		onload = false;
+		        	}
+		        	else {
+						skillDisplay.setText(character.getShieldStatus());
+						bonusDisplay.setText("");
+						penaltyDisplay.setText("");
+						showHoverGroup();
+		        	}
+				}
+				@Override
+		        public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
+					hideHoverGroup();
+				}
+		    });		
+		}
+		
+		boolean enemyHasNoShield = enemy.getShield() == null || enemy.getShield().getDestructionLevel() == 2;
+		enemyShieldArmor = initImage(enemyHasNoShield ? nullTexture : enemy.getShield().getDestructionLevel() == 0 ? armorTexture : armorBrokenTexture, 1557, 810, 50);
+		if (!enemyHasNoShield) {
+			enemyShieldArmor.addListener(new ClickListener() {
+		        @Override
+		        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
+		        	if (onload) {
+		        		onload = false;
+		        	}
+		        	else {
+						skillDisplay.setText(enemy.getShieldStatus());
+						bonusDisplay.setText("");
+						penaltyDisplay.setText("");
+						showHoverGroup();
+		        	}
+				}
+				@Override
+		        public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
+					hideHoverGroup();
+				}
+		    });		
+		}
+		
 		armorLabel = initLabel("" + character.getArmorScore(), skin, Color.BROWN, barX + 236, 833);		
 		enemyArmorLabel = initLabel("" + enemy.getArmorScore(), skin, Color.BROWN, 1509, 833);
 		underwearLabel = initLabel("" + character.getUnderwearScore(), skin, Color.BROWN, barX + 236, 760);		
