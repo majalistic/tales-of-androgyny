@@ -1850,6 +1850,8 @@ public class PlayerCharacter extends AbstractCharacter {
 			}		
 			return String.valueOf(chars);
 		}
+		public boolean isHigh() { return this.ordinal() < HUMILIATED.ordinal(); }
+		public boolean isAny() { return this.ordinal() < NONE.ordinal(); }
 	}
 	
 	public enum QuestType {
