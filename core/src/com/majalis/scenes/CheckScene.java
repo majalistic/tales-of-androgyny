@@ -2,7 +2,12 @@ package com.majalis.scenes;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.OrderedMap;
 import com.majalis.character.PlayerCharacter;
 import com.majalis.character.EnemyEnum;
@@ -20,13 +25,15 @@ public class CheckScene extends AbstractTextScene {
 
 	private final PlayerCharacter character;
 	private final Scene defaultScene;
-	private Stat statToCheck;
-	private Perk perkToCheck;
-	private OrderedMap<Integer, Scene> checkValues;
-	private CheckType checkType;
-	private Scene clearScene;
+	private final Stat statToCheck;
+	private final Perk perkToCheck;
+	private final OrderedMap<Integer, Scene> checkValues;
+	private final CheckType checkType;
+	private final Scene clearScene;
+	private final Background background;
 	private Scene nextScene;
-	private Background background;
+	private int ignores;
+	private boolean success;
 	
 	public CheckScene(OrderedMap<Integer, Scene> sceneBranches, int sceneCode, AssetManager assetManager, SaveService saveService, BitmapFont font, Background background, Stat stat, OrderedMap<Integer, Scene> checkValues, Scene defaultScene, PlayerCharacter character, EncounterHUD hud) {
 		this(sceneBranches, sceneCode, assetManager, saveService, font, background, stat, null, null, checkValues, null, defaultScene, character, hud);
@@ -50,12 +57,52 @@ public class CheckScene extends AbstractTextScene {
 		this.perkToCheck = perk;
 		this.checkType = checkType;
 		this.background = background;
+		ignores = 0;
+		success = false;
 	}
 	
 	@Override
 	public void activate() {
 		super.activate();
+		Table table = new Table();
+		table.setPosition(1000, 500);
+		table.align(Align.top);
+		table.add(display);
+		this.addActor(table);
+		TextButton fail = new TextButton("Fail", skin);
+		fail.setBounds(950, 500, 100, 75);
+		this.addActor(fail);
+		TextButton resume = new TextButton("Continue", skin);
+		resume.setBounds(925, 575, 150, 75);
+		resume.addListener(new ClickListener() { 
+			@Override
+	        public void clicked(InputEvent event, float x, float y) {
+				nextScene();
+	        }
+		});
+		this.addActor(resume);
+		checkForSuccess(fail, resume);		
+	}
+
+	// if there was a success, add a button that will fail the next check, recalculate nextScene and if success there, do this again
+	private void checkForSuccess(TextButton fail, TextButton resume) {
 		nextScene = getNextScene();	
+		if (success) {
+			fail.clearListeners();
+			fail.addAction(Actions.show());
+			resume.addAction(Actions.show());
+			fail.addListener(new ClickListener() { 
+				@Override
+		        public void clicked(InputEvent event, float x, float y) {
+					ignores++;
+					checkForSuccess(fail, resume);
+		        }
+			});
+		}
+		else {
+			fail.addAction(Actions.hide());
+			resume.addAction(Actions.hide());
+		}
 		if (display.getText().toString().equals("")) nextScene();
 		background.setColor(TimeOfDay.getTime(character.getTime()).getColor());
 	}
@@ -65,15 +112,19 @@ public class CheckScene extends AbstractTextScene {
 		String failValue = "FAILURE!\n";
 		String toDisplay = "";
 		
+		int tempIgnores = ignores;
+		
 		if (checkType != null) {
-			if (checkType.getCheck(character)) {
+			if (checkType.getCheck(character) && tempIgnores == 0) {
 				toDisplay += checkType.getSuccess();
 				display.setText(toDisplay);
+				success = true;
 				return clearScene;
 			}
 			else {
 				toDisplay += checkType.getFailure();
 				display.setText(toDisplay);
+				success = false;
 				return defaultScene;
 			}			
 		}
@@ -83,8 +134,9 @@ public class CheckScene extends AbstractTextScene {
 			for (Integer threshold : checkValues.keys()) {
 				if (threshold == 0) break;
 				toDisplay += perkToCheck.getLabel() + " check (" + threshold + "): ";
-				if (amount >= threshold) {
+				if (amount >= threshold && tempIgnores-- == 0) {
 					toDisplay += perkToCheck.isPositive() ? passValue : failValue;
+					success = perkToCheck.isPositive() ? true : false;
 					display.setText(toDisplay);
 					return checkValues.get(threshold);
 				}
@@ -92,6 +144,7 @@ public class CheckScene extends AbstractTextScene {
 					toDisplay += perkToCheck.isPositive() ? failValue : passValue;
 				}
 			}
+			success = false;
 			display.setText(toDisplay);
 			return checkValues.get(0);
 		}
@@ -102,9 +155,10 @@ public class CheckScene extends AbstractTextScene {
 			for (Integer threshold : checkValues.keys()) {
 				if (threshold == 0) break;
 				toDisplay += statToCheck.toString() + " check (" + threshold + "): ";
-				if (amount >= threshold) {
+				if (amount >= threshold  && tempIgnores-- == 0) {
 					toDisplay += passValue;
 					display.setText(toDisplay);
+					success = true;
 					return checkValues.get(threshold);
 				}
 				else {
@@ -113,6 +167,7 @@ public class CheckScene extends AbstractTextScene {
 			}
 			display.setText(toDisplay);
 			display.addAction(Actions.moveBy(0, 200));
+			success = false;
 			return checkValues.get(0);
 		}
 	}
