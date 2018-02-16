@@ -1250,7 +1250,7 @@ public class Battle extends Group{
 		if (battleOutcome != null) {
 			battleOutcomeDecided = true;
 			outcome = battleOutcome; 
-			skillDisplay.setText(enemy.getOutcomeText(character));
+			skillDisplay.setText(enemy.getOutcomeText(character)); // should just replace this with something else and hide this entirely
 			bonusDisplay.setText("");
 			
 			Table statusResults = new Table();
