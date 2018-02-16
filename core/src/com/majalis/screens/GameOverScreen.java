@@ -45,27 +45,23 @@ public class GameOverScreen extends AbstractScreen {
 	@Override
 	public void buildStage() {
 		Skin skin = assetManager.get(AssetEnum.UI_SKIN.getSkin());
+		ClickListener backgroundListener = new ClickListener() {
+			@Override
+	        public void clicked(InputEvent event, float x, float y) {
+				leaveScreen();
+	        }
+		};
 		if (gameOver == GameOver.DEFAULT) {
 			AnimatedActor background = assetManager.get(AssetEnum.GAME_OVER_ANIMATION.getAnimation()).getInstance();
 			background.setSkeletonPosition(555, 520);
 			background.setSize(2000, 2000);
-			background.addListener(new ClickListener() {
-				@Override
-		        public void clicked(InputEvent event, float x, float y) {
-					leaveScreen();
-		        }
-			});
+			background.addListener(backgroundListener);
 			this.addActor(background);	
 		}	
 		else if (gameOver == GameOver.MOUTH_FIEND) {
 			Background background = new BackgroundBuilder(assetManager.get(AssetEnum.MOUTH_FIEND_ORAL.getTexture())).build();
 			this.addActor(background);
-			background.addListener(new ClickListener() {
-				@Override
-		        public void clicked(InputEvent event, float x, float y) {
-					leaveScreen();
-		        }
-			});
+			background.addListener(backgroundListener);
 		}
 		
 		Label gameOver = new Label("GAME OVER - Press Enter", skin);
@@ -82,7 +78,7 @@ public class GameOverScreen extends AbstractScreen {
 		}
 	}
 	
-	private void leaveScreen(){
+	private void leaveScreen() {
 		saveService.newSave();
 		showScreen(ScreenEnum.MAIN_MENU);
 	}
