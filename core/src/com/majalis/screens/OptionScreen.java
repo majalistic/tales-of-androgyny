@@ -51,6 +51,21 @@ public class OptionScreen extends AbstractScreen {
 			
 		/* Gameplay options */
 		addLabelActor("- Gameplay Options -", 860, 950);
+		final CheckBox makeup = new CheckBox("Show Makeup", skin);
+		CheckBoxStyle styleMakeup = makeup.getStyle();
+		styleMakeup.fontColor = Color.WHITE;
+		makeup.setChecked(preferences.getBoolean("makeup", true));
+		makeup.addListener(new ChangeListener() {
+	        @Override
+	        public void changed(ChangeEvent event, Actor actor) {
+	            final boolean val = makeup.isChecked();
+	            preferences.putBoolean("makeup", val);
+	        }
+	    });
+		makeup.getCells().get(0).size(50, 50);
+		makeup.getCells().get(0).padRight(25);
+		addActorAndListen(makeup, 325, 825);
+		
 		final CheckBox blood = new CheckBox("Show Blood", skin);
 		CheckBoxStyle style = blood.getStyle();
 		style.fontColor = Color.WHITE;

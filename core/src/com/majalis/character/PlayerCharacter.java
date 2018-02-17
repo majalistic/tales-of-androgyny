@@ -2,6 +2,7 @@ package com.majalis.character;
 
 import static com.majalis.character.Techniques.*;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.Array;
@@ -151,7 +152,7 @@ public class PlayerCharacter extends AbstractCharacter {
 		return baseTechniques;
 	}
 	
-	private AssetEnum portraitFeminization(AssetEnum portrait) { return perks.get(Perk.COCK_LOVER.toString(), 0) > 7 ? AssetEnum.valueOf(portrait.toString().replace("_FEMME", "") + "_FEMME") : portrait; }
+	private AssetEnum portraitFeminization(AssetEnum portrait) { return perks.get(Perk.COCK_LOVER.toString(), 0) > 7 && Gdx.app.getPreferences("tales-of-androgyny-preferences").getBoolean("makeup", true) ? AssetEnum.valueOf(portrait.toString().replace("_FEMME", "") + "_FEMME") : portrait; }
 	public void setCurrentPortrait(AssetEnum portrait) { currentPortrait = portraitFeminization(portrait).getTexture().fileName; }
 	public void addToInventory(Item item) { inventory.add(item); }
 	public Array<Item> getInventory() { return inventory; }	
