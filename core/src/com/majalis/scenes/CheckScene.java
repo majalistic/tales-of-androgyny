@@ -510,6 +510,10 @@ public class CheckScene extends AbstractTextScene {
 			@Override
 			protected boolean getCheck(PlayerCharacter character) { return character.getDignity().isAny(); }  
 		}, 
+		ANY_WILLPOWER("You resist the temptation!", "You have no willpower left.") {
+			@Override
+			protected boolean getCheck(PlayerCharacter character) { return character.getWillpower() > 0; }  
+		}, 
 		;
 		private final String success;
 		private final String failure;

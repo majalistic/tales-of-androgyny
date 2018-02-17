@@ -5169,6 +5169,14 @@
 		]
 	},	
 	{
+		"key": "CENTAUR-WILLPOWER",
+		"scriptLines": [
+			{
+			"mutations": [{"saveType":"WILLPOWER", "value":{"class": "java.lang.Integer", "value": -1}}],
+			"text": "You manage to resist the urge to jump the Centaur's huge horse boner."}
+		]
+	},	
+	{
 		"key": "CENTAUR-CATAMITE",
 		"scriptLines": [
 			{"text": "You get down on your hands and knees - you can't believe you're doing this, but you also can't believe how much of a horse cock she has."},
