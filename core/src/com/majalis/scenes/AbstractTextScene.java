@@ -46,11 +46,10 @@ public abstract class AbstractTextScene extends Scene {
 	@Override
 	public void draw(Batch batch, float parentAlpha) {
 		super.draw(batch, parentAlpha);
-		if (Gdx.input.isKeyJustPressed(Keys.ENTER) || Gdx.input.isKeyJustPressed(Keys.SPACE) || Gdx.input.isKeyPressed(Keys.CONTROL_LEFT) || Gdx.input.isKeyPressed(Keys.CONTROL_RIGHT)) {
-			nextScene();
-		}
 		if (isActive) {
-			if (hud.isSkipHeld()) nextScene();
+			if (Gdx.input.isKeyJustPressed(Keys.ENTER) || Gdx.input.isKeyJustPressed(Keys.SPACE) || Gdx.input.isKeyPressed(Keys.CONTROL_LEFT) || Gdx.input.isKeyPressed(Keys.CONTROL_RIGHT) || hud.isSkipHeld()) {
+				nextScene();
+			}
 			else {
 				boolean autoplay = Gdx.app.getPreferences("tales-of-androgyny-preferences").getBoolean("autoplay", false);
 				if (isAutoplay != autoplay) {
@@ -72,8 +71,9 @@ public abstract class AbstractTextScene extends Scene {
 							}}));
 					}
 				}
-			}
-		}		
+			}	
+		}
+			
 	}
 	
 	@Override

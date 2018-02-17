@@ -104,6 +104,7 @@ public class EncounterHUD extends Group {
 				@Override
 		        public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
 					skipHeld = false;	
+					super.touchUp(event, x, y, pointer, button);
 		        }
 				
 				@Override
