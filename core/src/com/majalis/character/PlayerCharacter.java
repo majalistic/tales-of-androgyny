@@ -1804,7 +1804,7 @@ public class PlayerCharacter extends AbstractCharacter {
 	public Array<String> getEventLog() { return eventLog; }
 	
 	public DignityTier getDignity() { return dignity.tier; }
-	public void modWillpower(int mod) { willpower += mod; if (willpower <0) willpower = 0; }
+	public Array<MutationResult> modWillpower(int mod) { willpower += mod; if (willpower <0) willpower = 0; return getResult("Used " + mod + " willpower!"); }
 	public int getWillpower() { return willpower; }
 	
 	public void modDignity(int delta) { dignity.modDignity(delta); }
