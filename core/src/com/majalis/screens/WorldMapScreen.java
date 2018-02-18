@@ -588,50 +588,9 @@ public class WorldMapScreen extends AbstractScreen {
 		}
 		else {
 			tintForTimeOfDay(time + 1, travelTime);
-			Vector2 finish = node.getHexPosition();
-			Vector2 start = new Vector2(currentNode.getHexPosition());
 			Array<Action> moveActions = new Array<Action>();
 			Array<Action> moveActionsGhost = new Array<Action>();
-			int distance = GameWorldHelper.distance((int)start.x, (int)start.y, (int)finish.x, (int)finish.y);
-			int totalDistance = distance;
-			// can eventually walk along a "path" that is designated by the connections between nodes - eventually the world map screen won't need a getTrueX() function, as that would be calculated elsewhere			
-			while (distance > 0) {
-				if (start.x + start.y == finish.x + finish.y) { // z is constant
-					if (start.x < finish.x) { // downright
-						start.x++;
-						start.y--;
-					}
-					else { // upleft
-						start.x--;
-						start.y++;
-					}
-				}
-				else if (start.y == finish.y) { // y is constant
-					if (start.x < finish.x) start.x++; // upright
-					else start.x--; // downleft
-				}
-				else if (start.x == finish.x) { // x is constant
-					if (start.y < finish.y) start.y++; // up
-					else start.y--; // down
-				}
-				else {
-					int startZ = (int) (0 - (start.x + start.y));
-					int finishZ = (int) (0 - (finish.x + finish.y));
-					if (start.x > finish.x && startZ < finishZ) {
-						start.x--;
-					}
-					else if (finish.y > start.y && startZ > finishZ) {
-						start.y++;
-					}
-					else {
-						start.x++;
-						start.y--;
-					}			
-				}
-				moveActions.add(moveTo(getTrueX((int)start.x) + 8, getTrueY((int)start.x, (int)start.y) + 27, travelTime/totalDistance));
-				moveActionsGhost.add(moveTo(getTrueX((int)start.x) + 8, getTrueY((int)start.x, (int)start.y) + 27, travelTime/totalDistance));
-				distance = GameWorldHelper.distance((int)start.x, (int)start.y, (int)finish.x, (int)finish.y);
-			}
+			queueMoveActions(node, moveActions, moveActionsGhost);
 			moveActions.add(new Action() { // once the character arrives
 				@Override
 				public boolean act(float delta) {
@@ -640,119 +599,14 @@ public class WorldMapScreen extends AbstractScreen {
 					time += timePassed;
 					EncounterCode newEncounter = node.getEncounterCode();
 					EncounterBounty miniEncounter = newEncounter.getMiniEncounter();
-					if(newEncounter == EncounterCode.DEFAULT) {
-						// this will need to also check if the node is a town/dungeon node and appropriately swap the button from "Camp" to "Enter"
-						saveService.saveDataValue(SaveEnum.SCOUT, 0);
-						visit(node);
-					}
-					else if (miniEncounter != null) {
-						final Image displayNewEncounter = new Image(hoverImageTexture);
-						displayNewEncounter.setBounds(100, 250, 500, 600);
-						popupGroup.clear();
-						popupGroup.addAction(Actions.show());
-						popupGroup.addAction(Actions.alpha(1));
-						popupGroup.addActor(displayNewEncounter);
-						EncounterBountyResult result = miniEncounter.execute(character.getScoutingScore(), saveService);
-						final Label newEncounterText = new Label(result.displayText(), skin);
-						
-						if (result.soundToPlay() != null) {
-							assetManager.get(result.soundToPlay()).play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f); 
-						}
-																							
-						newEncounterText.setColor(Color.GOLDENROD);
-
-						final Table statusResults = new Table();
-						statusResults.setPosition(200, 725);
-						newEncounterText.setWrap(true);
-						statusResults.align(Align.topLeft);
-						statusResults.add(newEncounterText).width(315).row();
-						Array<MutationResult> compactedResults = MutationResult.collapse(result.getResults()); 
-						for (MutationResult miniResult : compactedResults) {
-							MutationActor actor = new MutationActor(miniResult, assetManager.get(miniResult.getTexture()), skin, true);
-							actor.setWrap(true);
-							// this width setting is going to be tricky once we implement images for perk and skill gains and such
-							statusResults.add(actor).width(miniResult.getType() == MutationType.NONE ? 325 : 50).height(50).align(Align.left).row();
-						}
-						popupGroup.addActor(statusResults); 	
-						Action doneAction = sequence(
-								delay(1), 
-								new Action(){ @Override
-									public boolean act(float delta) {
-										checkForForcedRest();
-										return true;
-								}}, 
-								Actions.fadeOut(4),
-								delay(4), 
-								new Action() {
-									@Override
-									public boolean act(float delta) {
-										popupGroup.clearChildren();
-										popupGroup.addAction(Actions.hide());
-										return true;
-								}
-							}
-						);
-					
-						if (newEncounter == EncounterCode.SOLICITATION) {
-							final Table tempTable = new Table();
-							final TextButton yesButton = getButton("Yes");
-							final TextButton noButton = getButton("No");
-							final ClickListener buttonListener = new ClickListener() { 
-								@Override
-						        public void clicked(InputEvent event, float x, float y) {
-									popupGroup.addAction(doneAction);
-									tempTable.removeActor(yesButton);
-									tempTable.removeActor(noButton);
-									assetManager.get(AssetEnum.CLICK_SOUND.getSound()).play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f); // this should only play if you say yes - a simple boop for no
-									visit(node);
-									saveService.saveDataValue(SaveEnum.SCOUT, 0);
-									node.setAsCurrentNode();
-									setCurrentNode(node);
-									worldGroup.addAction(enableButtons);
-								}
-							};
-							yesButton.addListener(new ClickListener() { 
-								@Override
-						        public void clicked(InputEvent event, float x, float y) {
-									buttonListener.clicked(null, 0, 0);
-									assetManager.get(AssetEnum.EQUIP.getSound()).play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f); 
-									assetManager.get(AssetEnum.THWAPPING.getSound()).play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f); 
-									assetManager.get(AssetEnum.CUM.getSound()).play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f); 
-									statusResults.clear();
-									Label newEncounterText = new Label("You accept a whomping for 10 gold!", skin);
-									newEncounterText.setColor(Color.GOLDENROD);
-									newEncounterText.setWrap(true);
-									statusResults.add(newEncounterText).width(315).row();
-									saveService.saveDataValue(SaveEnum.GOLD, 10);
-									// this is duplicated code, extract into method
-									for (MutationResult miniResult : saveService.saveDataValue(SaveEnum.ANAL, new SexualExperienceBuilder().setAnalSex(1).setCreampie(1).build())) {
-										MutationActor actor = new MutationActor(miniResult, assetManager.get(miniResult.getTexture()), skin, true);
-										actor.setWrap(true);
-										// this width setting is going to be tricky once we implement images for perk and skill gains and such
-										statusResults.add(actor).width(miniResult.getType() == MutationType.NONE ? 325 : 50).height(50).align(Align.left).row();
-									}
-								}
-							}); 
-							noButton.addListener(buttonListener);
-							tempTable.add(yesButton).size(100, 50);
-							tempTable.add(noButton).size(100, 50);
-							statusResults.add(tempTable);
-							currentImage.clearActions();
-						}
-						else {								
-							popupGroup.addAction(doneAction);
-							visit(node);
-							saveService.saveDataValue(SaveEnum.SCOUT, 0);
-						}
-					}
+					if(newEncounter == EncounterCode.DEFAULT) { nothingHappens(node); }
+					else if (miniEncounter != null) { handleMiniEncounter(node, newEncounter, miniEncounter, enableButtons); }
 					else {
-						saveService.saveDataValue(SaveEnum.ENCOUNTER_CODE, newEncounter); 
 						visit(node);
-						saveService.saveDataValue(SaveEnum.CONTEXT, node.getEncounterContext());
-						if (node.getEncounterContext() == GameContext.TOWN) {
-							saveService.saveDataValue(SaveEnum.TOWN, node.getEncounterCode().getTownCode());
-						}
-						saveService.saveDataValue(SaveEnum.RETURN_CONTEXT, GameContext.WORLD_MAP);
+						saveService.saveDataValue(SaveEnum.ENCOUNTER_CODE, newEncounter, false); 
+						saveService.saveDataValue(SaveEnum.CONTEXT, node.getEncounterContext(), false);
+						if (node.getEncounterContext() == GameContext.TOWN) { saveService.saveDataValue(SaveEnum.TOWN, node.getEncounterCode().getTownCode(), false); }
+						saveService.saveDataValue(SaveEnum.RETURN_CONTEXT, GameContext.WORLD_MAP, false);
 						saveService.saveDataValue(SaveEnum.NODE_CODE, node.getNodeCode());
 						switchContext();
 					}
@@ -789,10 +643,154 @@ public class WorldMapScreen extends AbstractScreen {
 		}
 	}
 	
-	private void visit(GameWorldNode node) {
-		node.visit();
-		saveService.saveDataValue(SaveEnum.VISITED_LIST, node.getVisitInfo());
+	private void queueMoveActions(GameWorldNode node, Array<Action> moveActions, Array<Action> moveActionsGhost) {
+		Vector2 finish = node.getHexPosition();
+		Vector2 start = new Vector2(currentNode.getHexPosition());
+		int distance = GameWorldHelper.distance((int)start.x, (int)start.y, (int)finish.x, (int)finish.y);
+		int totalDistance = distance;
+		// can eventually walk along a "path" that is designated by the connections between nodes - eventually the world map screen won't need a getTrueX() function, as that would be calculated elsewhere			
+		while (distance > 0) {
+			if (start.x + start.y == finish.x + finish.y) { // z is constant
+				if (start.x < finish.x) { // downright
+					start.x++;
+					start.y--;
+				}
+				else { // upleft
+					start.x--;
+					start.y++;
+				}
+			}
+			else if (start.y == finish.y) { // y is constant
+				if (start.x < finish.x) start.x++; // upright
+				else start.x--; // downleft
+			}
+			else if (start.x == finish.x) { // x is constant
+				if (start.y < finish.y) start.y++; // up
+				else start.y--; // down
+			}
+			else {
+				int startZ = (int) (0 - (start.x + start.y));
+				int finishZ = (int) (0 - (finish.x + finish.y));
+				if (start.x > finish.x && startZ < finishZ) {
+					start.x--;
+				}
+				else if (finish.y > start.y && startZ > finishZ) {
+					start.y++;
+				}
+				else {
+					start.x++;
+					start.y--;
+				}			
+			}
+			moveActions.add(moveTo(getTrueX((int)start.x) + 8, getTrueY((int)start.x, (int)start.y) + 27, travelTime/totalDistance));
+			moveActionsGhost.add(moveTo(getTrueX((int)start.x) + 8, getTrueY((int)start.x, (int)start.y) + 27, travelTime/totalDistance));
+			distance = GameWorldHelper.distance((int)start.x, (int)start.y, (int)finish.x, (int)finish.y);
+		}
 	}
+	
+	private void nothingHappens(GameWorldNode node) { saveService.saveDataValue(SaveEnum.SCOUT, 0); visit(node);  }
+	private void handleMiniEncounter(GameWorldNode node, EncounterCode newEncounter, EncounterBounty miniEncounter, Action enableButtons) { 
+		final Image displayNewEncounter = new Image(hoverImageTexture);
+		displayNewEncounter.setBounds(100, 250, 500, 600);
+		popupGroup.clear();
+		popupGroup.addAction(Actions.show());
+		popupGroup.addAction(Actions.alpha(1));
+		popupGroup.addActor(displayNewEncounter);
+		EncounterBountyResult result = miniEncounter.execute(character.getScoutingScore(), saveService);
+		final Label newEncounterText = new Label(result.displayText(), skin);
+		
+		if (result.soundToPlay() != null) {
+			assetManager.get(result.soundToPlay()).play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f); 
+		}
+																			
+		newEncounterText.setColor(Color.GOLDENROD);
+
+		final Table statusResults = new Table();
+		statusResults.setPosition(200, 725);
+		newEncounterText.setWrap(true);
+		statusResults.align(Align.topLeft);
+		statusResults.add(newEncounterText).width(315).row();
+		Array<MutationResult> compactedResults = MutationResult.collapse(result.getResults()); 
+		for (MutationResult miniResult : compactedResults) {
+			MutationActor actor = new MutationActor(miniResult, assetManager.get(miniResult.getTexture()), skin, true);
+			actor.setWrap(true);
+			// this width setting is going to be tricky once we implement images for perk and skill gains and such
+			statusResults.add(actor).width(miniResult.getType() == MutationType.NONE ? 325 : 50).height(50).align(Align.left).row();
+		}
+		popupGroup.addActor(statusResults); 	
+		Action doneAction = sequence(
+				delay(1), 
+				new Action(){ @Override
+					public boolean act(float delta) {
+						checkForForcedRest();
+						return true;
+				}}, 
+				Actions.fadeOut(4),
+				delay(4), 
+				new Action() {
+					@Override
+					public boolean act(float delta) {
+						popupGroup.clearChildren();
+						popupGroup.addAction(Actions.hide());
+						return true;
+				}
+			}
+		);
+	
+		if (newEncounter == EncounterCode.SOLICITATION) {
+			final Table tempTable = new Table();
+			final TextButton yesButton = getButton("Yes");
+			final TextButton noButton = getButton("No");
+			final ClickListener buttonListener = new ClickListener() { 
+				@Override
+		        public void clicked(InputEvent event, float x, float y) {
+					popupGroup.addAction(doneAction);
+					tempTable.removeActor(yesButton);
+					tempTable.removeActor(noButton);
+					assetManager.get(AssetEnum.CLICK_SOUND.getSound()).play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f); // this should only play if you say yes - a simple boop for no
+					visit(node);
+					node.setAsCurrentNode();
+					setCurrentNode(node);
+					worldGroup.addAction(enableButtons);
+					saveService.saveDataValue(SaveEnum.SCOUT, 0, true);
+				}
+			};
+			yesButton.addListener(new ClickListener() { 
+				@Override
+		        public void clicked(InputEvent event, float x, float y) {
+					buttonListener.clicked(null, 0, 0);
+					assetManager.get(AssetEnum.EQUIP.getSound()).play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f); 
+					assetManager.get(AssetEnum.THWAPPING.getSound()).play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f); 
+					assetManager.get(AssetEnum.CUM.getSound()).play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f); 
+					statusResults.clear();
+					Label newEncounterText = new Label("You accept a whomping for 10 gold!", skin);
+					newEncounterText.setColor(Color.GOLDENROD);
+					newEncounterText.setWrap(true);
+					statusResults.add(newEncounterText).width(315).row();
+					saveService.saveDataValue(SaveEnum.GOLD, 10);
+					// this is duplicated code, extract into method
+					for (MutationResult miniResult : saveService.saveDataValue(SaveEnum.ANAL, new SexualExperienceBuilder().setAnalSex(1).setCreampie(1).build())) {
+						MutationActor actor = new MutationActor(miniResult, assetManager.get(miniResult.getTexture()), skin, true);
+						actor.setWrap(true);
+						// this width setting is going to be tricky once we implement images for perk and skill gains and such
+						statusResults.add(actor).width(miniResult.getType() == MutationType.NONE ? 325 : 50).height(50).align(Align.left).row();
+					}
+				}
+			}); 
+			noButton.addListener(buttonListener);
+			tempTable.add(yesButton).size(100, 50);
+			tempTable.add(noButton).size(100, 50);
+			statusResults.add(tempTable);
+			currentImage.clearActions();
+		}
+		else {								
+			popupGroup.addAction(doneAction);
+			visit(node);
+			saveService.saveDataValue(SaveEnum.SCOUT, 0, false);
+		}
+	}
+	
+	private void visit(GameWorldNode node) { node.visit(); saveService.saveDataValue(SaveEnum.VISITED_LIST, node.getVisitInfo(), false); }
 	
 	private class UpdateLabel extends Label {
 		private UpdateLabel(Skin skin, PlayerCharacter character) {
