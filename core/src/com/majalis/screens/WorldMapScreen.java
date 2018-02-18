@@ -1135,10 +1135,13 @@ public class WorldMapScreen extends AbstractScreen {
 		worldGroup.addActor(currentImage);
 	}
 	
+	
+	
 	private void setHoverDisplay(String text, Vector3 coords) {
 		// can put logic here to ensure that the resulting position falls somewhere properly on the screen, including flipping it to the other side of the cursor if the image would appear too high/low or left/right
-		float x = coords.x + 50;
-		float y = coords.y - 125;
+		float scaleFactor = 1920 / (Gdx.graphics.getWidth() * 1.0f);
+		float x = coords.x * scaleFactor + 50;
+		float y = coords.y * scaleFactor - 125;
 		hoverLabel.setText(text);
 		hoverLabel.setPosition(x + 75, y + 155);
 		if (!text.equals("")) {
