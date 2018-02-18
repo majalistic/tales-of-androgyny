@@ -155,7 +155,7 @@ public class GameWorldFactory {
 		return new GameWorld(nodes, assetManager, random);
 	}
 	
-	private VisitInfo getFreshVisitInfo() { return new VisitInfo(0, 0, (int) ((Math.random() * 1000) % 1000), -1); }
+	private VisitInfo getFreshVisitInfo() { return new VisitInfo(0, 0, (int) ((Math.random() * 1000) % 1000), 0, -1); }
 	
 	private boolean beforeRiver(GameWorldNode node) { 
 		float x = node.getHexPosition().x;

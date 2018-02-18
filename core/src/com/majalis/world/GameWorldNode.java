@@ -42,7 +42,6 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 	private final PlayerCharacter character;
 	private final VisitInfo visitInfo;
 	private boolean current;
-	private int visibility;
 	private Image activeImage;
 	private AnimatedImage activeAnimation;
 	private Texture roadImage;
@@ -95,7 +94,6 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 		this.addAction(Actions.show());
 		Vector2 position = calculatePosition(x, y);
 		this.setBounds(position.x, position.y, activeImageTexture.getWidth(), activeImageTexture.getHeight());
-		visibility = -1;
 		fireListener = new ClickListener() { 
 			@Override
 	        public void clicked(InputEvent event, float x, float y) {
@@ -115,7 +113,7 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 	public Vector2 getHexPosition() { return new Vector2(x, y); }	
 	public int getNodeCode() { return nodeCode; }
 	public Array<Path> getPaths() { return paths; }
-	public String getHoverText() { return current ? "" : visitInfo.numberOfEncounters == 0 || (newEncounterReady() && encounter.hasRespawns()) ? getEncounterCode().getDescription(visibility) : getEncounterCode().getFullDescription();  }
+	public String getHoverText() { return current ? "" : visitInfo.numberOfEncounters == 0 || (newEncounterReady() && encounter.hasRespawns()) ? getEncounterCode().getDescription(visitInfo.visibility) : getEncounterCode().getFullDescription();  }
 	public EncounterCode getEncounterCode() { return visitInfo.numberOfEncounters == 0 ? encounter.getCode() : newEncounterReady() ? getRandomEncounter() : encounter.getDefaultCode(); }
 	private EncounterCode getRandomEncounter() { return encounter.getRandomEncounterCode(visitInfo.randomVal % 5 + (visitInfo.randomVal * visitInfo.numberOfEncounters) % 13); }
 	public GameContext getEncounterContext() { return getEncounterCode().getContext(); }
@@ -259,7 +257,6 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 			addListener(fireListener);
 		}
 		
-		visibility = -1; // this needs to be removed
 		if (activeAnimation != null) {
 			activeAnimation.setColor(Color.WHITE);
 		}
@@ -284,15 +281,13 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 		}
 	}
 
-	private void setVisibility(int visibility) {
-		this.visibility = visibility;
-	}
+	private void setVisibility(SaveService saveService, int visibility) { visitInfo.setVisibility(visibility); saveService.saveDataValue(SaveEnum.VISITED_LIST, visitInfo, false); }
 	
-	private void setNeighborsVisibility(int visibility, int diminishingFactor, ObjectSet<GameWorldNode> visibleSet) {
+	private void setNeighborsVisibility(SaveService saveService, int visibility, int diminishingFactor, ObjectSet<GameWorldNode> visibleSet) {
 		ObjectSet<GameWorldNode> nodesToSetVisible = new ObjectSet<GameWorldNode>(connectedNodes);
 		while (visibility >= 0) {
 			for (GameWorldNode connectedNode : nodesToSetVisible) {
-				connectedNode.setVisibility(visibility);
+				connectedNode.setVisibility(saveService, visibility);
 				visibleSet.add(connectedNode);
 			}
 			ObjectSet<GameWorldNode> nextBatch = new ObjectSet<GameWorldNode>();
@@ -326,10 +321,11 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 				visitInfo.lastEncounterTime = character.getTime();
 			}
 		}
+		visitInfo.setVisibility(5);
 		saveService.saveDataValue(SaveEnum.VISITED_LIST, visitInfo, false); // update the visited info in the gamestate for this node
 		ObjectSet<GameWorldNode> visibleSet = new ObjectSet<GameWorldNode>();
 		visibleSet.add(this);
-		setNeighborsVisibility(character.getScoutingScore(), 1, visibleSet); // update the visibility info in each node 
+		setNeighborsVisibility(saveService, character.getScoutingScore(), 1, visibleSet); // update the visibility info in each node 
 	}
 
 	private boolean newEncounterReady() { return visitInfo.lastEncounterTime + 18 + ((visitInfo.randomVal % 3) * 6) < character.getTime(); }

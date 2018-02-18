@@ -275,21 +275,25 @@ public class SaveManager implements SaveService, LoadService {
     	return tempSave;
     }
     
-    public static class VisitInfo { // this can eventually carry its own "visited" boolean, and describe knowledge of the area before it's visited, or split that into a seperate map
+    public static class VisitInfo { 
     	public int numberOfEncounters;
     	public int lastEncounterTime;
     	public int randomVal;
+    	public int visibility;
     	public int nodeCode;
     	
     	@SuppressWarnings("unused")
 		private VisitInfo() {}
     	
-    	public VisitInfo(int numberOfEncounters, int lastEncounterTime, int randomVal, int nodeCode) {
+    	public VisitInfo(int numberOfEncounters, int lastEncounterTime, int randomVal, int visibility, int nodeCode) {
     		this.numberOfEncounters = numberOfEncounters;
     		this.lastEncounterTime = lastEncounterTime;
     		this.randomVal = randomVal;
+    		this.visibility = visibility;
     		this.nodeCode = nodeCode;
     	}
+    	
+    	public void setVisibility(int newVisibility) { if (visibility < newVisibility) visibility = newVisibility; } 
     }
     
     public static class GameSave {
@@ -321,7 +325,7 @@ public class SaveManager implements SaveService, LoadService {
 		@SuppressWarnings("unused")
 		private GameSave() { 
 			visitedNodeList = new IntMap<VisitInfo>();
-			visitedNodeList.put(1,  new VisitInfo(1, 0, 0, 1)); 
+			visitedNodeList.put(1,  new VisitInfo(1, 0, 0, 0, 1)); 
 			town = TownCode.TOWN_STORY;
 			battleResults = new Array<MutationResult>();
 		}
@@ -339,7 +343,7 @@ public class SaveManager implements SaveService, LoadService {
         		console = new Array<String>();
         		shops = new ObjectMap<String, Shop>();
         		visitedNodeList = new IntMap<VisitInfo>();
-        		visitedNodeList.put(1,  new VisitInfo(1, 0, 0, 1));
+        		visitedNodeList.put(1,  new VisitInfo(1, 0, 0, 0, 1));
         		player = new PlayerCharacter(true);
         		results = new Array<MutationResult>();
         		battleResults = new Array<MutationResult>();
