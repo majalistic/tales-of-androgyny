@@ -608,7 +608,6 @@ public class WorldMapScreen extends AbstractScreen {
 						saveService.saveDataValue(SaveEnum.CONTEXT, node.getEncounterContext(), false);
 						if (node.getEncounterContext() == GameContext.TOWN) { saveService.saveDataValue(SaveEnum.TOWN, node.getEncounterCode().getTownCode(), false); }
 						saveService.saveDataValue(SaveEnum.RETURN_CONTEXT, GameContext.WORLD_MAP, false);
-						saveService.saveDataValue(SaveEnum.NODE_CODE, node.getNodeCode());
 						switchContext();
 					}
 					saveService.saveDataValue(SaveEnum.NODE_CODE, node.getNodeCode());
@@ -739,55 +738,59 @@ public class WorldMapScreen extends AbstractScreen {
 		);
 	
 		if (newEncounter == EncounterCode.SOLICITATION) {
-			final Table tempTable = new Table();
-			final TextButton yesButton = getButton("Yes");
-			final TextButton noButton = getButton("No");
-			final ClickListener buttonListener = new ClickListener() { 
-				@Override
-		        public void clicked(InputEvent event, float x, float y) {
-					popupGroup.addAction(doneAction);
-					tempTable.removeActor(yesButton);
-					tempTable.removeActor(noButton);
-					assetManager.get(AssetEnum.CLICK_SOUND.getSound()).play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f); // this should only play if you say yes - a simple boop for no
-					visit(node);
-					setCurrentNode(node);
-					worldGroup.addAction(enableButtons);
-					saveService.saveDataValue(SaveEnum.SCOUT, 0, true);
-				}
-			};
-			yesButton.addListener(new ClickListener() { 
-				@Override
-		        public void clicked(InputEvent event, float x, float y) {
-					buttonListener.clicked(null, 0, 0);
-					assetManager.get(AssetEnum.EQUIP.getSound()).play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f); 
-					assetManager.get(AssetEnum.THWAPPING.getSound()).play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f); 
-					assetManager.get(AssetEnum.CUM.getSound()).play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f); 
-					statusResults.clear();
-					Label newEncounterText = new Label("You accept a whomping for 10 gold!", skin);
-					newEncounterText.setColor(Color.GOLDENROD);
-					newEncounterText.setWrap(true);
-					statusResults.add(newEncounterText).width(315).row();
-					saveService.saveDataValue(SaveEnum.GOLD, 10);
-					// this is duplicated code, extract into method
-					for (MutationResult miniResult : saveService.saveDataValue(SaveEnum.ANAL, new SexualExperienceBuilder().setAnalSex(1).setCreampie(1).build())) {
-						MutationActor actor = new MutationActor(miniResult, assetManager.get(miniResult.getTexture()), skin, true);
-						actor.setWrap(true);
-						// this width setting is going to be tricky once we implement images for perk and skill gains and such
-						statusResults.add(actor).width(miniResult.getType() == MutationType.NONE ? 325 : 50).height(50).align(Align.left).row();
-					}
-				}
-			}); 
-			noButton.addListener(buttonListener);
-			tempTable.add(yesButton).size(100, 50);
-			tempTable.add(noButton).size(100, 50);
-			statusResults.add(tempTable);
-			currentImage.clearActions();
+			handleMiniEncounterWithChoice(node, doneAction, enableButtons, statusResults);
 		}
 		else {								
 			popupGroup.addAction(doneAction);
 			visit(node);
 			saveService.saveDataValue(SaveEnum.SCOUT, 0, false);
 		}
+	}
+	
+	private void handleMiniEncounterWithChoice(GameWorldNode node, Action doneAction, Action enableButtons, Table statusResults) {
+		final Table tempTable = new Table();
+		final TextButton yesButton = getButton("Yes");
+		final TextButton noButton = getButton("No");
+		final ClickListener buttonListener = new ClickListener() { 
+			@Override
+	        public void clicked(InputEvent event, float x, float y) {
+				popupGroup.addAction(doneAction);
+				tempTable.removeActor(yesButton);
+				tempTable.removeActor(noButton);
+				assetManager.get(AssetEnum.CLICK_SOUND.getSound()).play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f); // this should only play if you say yes - a simple boop for no
+				visit(node);
+				setCurrentNode(node);
+				worldGroup.addAction(enableButtons);
+				saveService.saveDataValue(SaveEnum.SCOUT, 0, true);
+			}
+		};
+		yesButton.addListener(new ClickListener() { 
+			@Override
+	        public void clicked(InputEvent event, float x, float y) {
+				buttonListener.clicked(null, 0, 0);
+				assetManager.get(AssetEnum.EQUIP.getSound()).play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f); 
+				assetManager.get(AssetEnum.THWAPPING.getSound()).play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f); 
+				assetManager.get(AssetEnum.CUM.getSound()).play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f); 
+				statusResults.clear();
+				Label newEncounterText = new Label("You accept a whomping for 10 gold!", skin);
+				newEncounterText.setColor(Color.GOLDENROD);
+				newEncounterText.setWrap(true);
+				statusResults.add(newEncounterText).width(315).row();
+				saveService.saveDataValue(SaveEnum.GOLD, 10);
+				// this is duplicated code, extract into method
+				for (MutationResult miniResult : saveService.saveDataValue(SaveEnum.ANAL, new SexualExperienceBuilder().setAnalSex(1).setCreampie(1).build())) {
+					MutationActor actor = new MutationActor(miniResult, assetManager.get(miniResult.getTexture()), skin, true);
+					actor.setWrap(true);
+					// this width setting is going to be tricky once we implement images for perk and skill gains and such
+					statusResults.add(actor).width(miniResult.getType() == MutationType.NONE ? 325 : 50).height(50).align(Align.left).row();
+				}
+			}
+		}); 
+		noButton.addListener(buttonListener);
+		tempTable.add(yesButton).size(100, 50);
+		tempTable.add(noButton).size(100, 50);
+		statusResults.add(tempTable);
+		currentImage.clearActions();
 	}
 	
 	private void visit(GameWorldNode node) { node.visit(saveService); }
