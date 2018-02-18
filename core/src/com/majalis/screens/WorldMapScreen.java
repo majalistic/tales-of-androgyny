@@ -201,7 +201,6 @@ public class WorldMapScreen extends AbstractScreen {
 		for (final GameWorldNode actor : world.getNodes()) {
 			if (actor.isCurrent()) {
 				setCurrentNode(actor);
-				actor.setAsCurrentNode(saveService);
 			}
 		}
 		
@@ -621,7 +620,6 @@ public class WorldMapScreen extends AbstractScreen {
 				moveActions.add(new Action() {
 					@Override
 					public boolean act(float delta) {
-						node.setAsCurrentNode(saveService);
 						setCurrentNode(node);
 						worldGroup.addAction(enableButtons);
 						saveService.flush();
@@ -642,7 +640,7 @@ public class WorldMapScreen extends AbstractScreen {
 			Action[] allActionsGhostArray = moveActionsGhost.toArray(Action.class);
 			currentImage.addAction(sequence(allActionArray));
 			currentImageGhost.addAction(sequence(allActionsGhostArray));
-			setCurrentNode(node);
+			setCurrentNode(node, false);
 		}
 	}
 	
@@ -752,7 +750,6 @@ public class WorldMapScreen extends AbstractScreen {
 					tempTable.removeActor(noButton);
 					assetManager.get(AssetEnum.CLICK_SOUND.getSound()).play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f); // this should only play if you say yes - a simple boop for no
 					visit(node);
-					node.setAsCurrentNode(saveService);
 					setCurrentNode(node);
 					worldGroup.addAction(enableButtons);
 					saveService.saveDataValue(SaveEnum.SCOUT, 0, true);
@@ -825,10 +822,15 @@ public class WorldMapScreen extends AbstractScreen {
 		console.setText(consoleText.trim());
 	}
 	
-	private void setCurrentNode(GameWorldNode newCurrentNode) {
+	private void setCurrentNode(GameWorldNode newCurrentNode) { setCurrentNode(newCurrentNode, true); }
+	private void setCurrentNode(GameWorldNode newCurrentNode, boolean activateNode) {
 		currentNode = newCurrentNode;
 		currentContext = currentNode.getEncounterContext() == GameContext.TOWN ? GameContext.TOWN : GameContext.CAMP;
 		campButton.setText(currentContext == GameContext.TOWN ? "Enter" : "Camp");
+		if (activateNode) {
+			newCurrentNode.setAsCurrentNode(saveService);
+			saveService.flush();
+		}
 	}
 	
 	private boolean checkForForcedRest() {
