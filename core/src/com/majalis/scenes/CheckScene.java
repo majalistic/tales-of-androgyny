@@ -304,9 +304,9 @@ public class CheckScene extends AbstractTextScene {
 			@Override
 			protected boolean getCheck(PlayerCharacter character) { return character.getScoutingScore() >= 3; }  
 		}, 
-		ELF_UNLOCKED ("", "") { 
+		ELF_UNSEEN ("", "") { 
 			@Override
-			protected boolean getCheck(PlayerCharacter character) { int check = character.getQuestStatus(QuestType.ELF); return check == 1; }  
+			protected boolean getCheck(PlayerCharacter character) { int check = character.getQuestStatus(QuestType.ELF); return check == 0; }  
 		}, 
 		ELF_DECLINED ("", "") { 
 			@Override

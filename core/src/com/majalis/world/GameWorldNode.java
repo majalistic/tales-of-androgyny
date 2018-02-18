@@ -22,6 +22,7 @@ import com.badlogic.gdx.utils.Scaling;
 import com.majalis.asset.AnimatedImage;
 import com.majalis.asset.AssetEnum;
 import com.majalis.character.PlayerCharacter;
+import com.majalis.character.PlayerCharacter.QuestType;
 import com.majalis.encounter.EncounterCode;
 import com.majalis.save.SaveManager.GameContext;
 import com.majalis.save.SaveManager.VisitInfo;
@@ -113,8 +114,12 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 	public Vector2 getHexPosition() { return new Vector2(x, y); }	
 	public int getNodeCode() { return nodeCode; }
 	public Array<Path> getPaths() { return paths; }
-	public String getHoverText() { return current ? "" : visitInfo.numberOfEncounters == 0 || (newEncounterReady() && encounter.hasRespawns()) ? getEncounterCode().getDescription(visitInfo.visibility) : getEncounterCode().getFullDescription();  }
-	public EncounterCode getEncounterCode() { return visitInfo.numberOfEncounters == 0 ? encounter.getCode() : newEncounterReady() ? getRandomEncounter() : encounter.getDefaultCode(); }
+	public String getHoverText() { return current ? "" : visitInfo.numberOfEncounters == 0 || (newEncounterReady() && encounter.hasRespawns()) ? getEncounterCode().getDescription(visitInfo.visibility) : getEncounterCode().getFullDescription(); }
+	public EncounterCode getEncounterCode() { 
+		EncounterCode temp = getEncounterCodeFromVisitInfo();
+		return (temp == EncounterCode.ADVENTURER && character.getQuestStatus(QuestType.TRUDY) > 4) || (temp == EncounterCode.ELF && character.getQuestStatus(QuestType.ELF) > 3) ? EncounterCode.DEFAULT : temp; 
+	}
+	private EncounterCode getEncounterCodeFromVisitInfo() { return visitInfo.numberOfEncounters == 0 ? encounter.getCode() : newEncounterReady() ? getRandomEncounter() : encounter.getDefaultCode(); }
 	private EncounterCode getRandomEncounter() { return encounter.getRandomEncounterCode(visitInfo.randomVal % 5 + (visitInfo.randomVal * visitInfo.numberOfEncounters) % 13); }
 	public GameContext getEncounterContext() { return getEncounterCode().getContext(); }
 	public boolean isConnected() { return connectedNodes.size > 0; }

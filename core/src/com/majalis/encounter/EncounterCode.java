@@ -781,7 +781,7 @@ public enum EncounterCode {
 					b.branch("Go home.").textScene("ELF-LEAVE-SUGGEST")
 				);
 				return b.branch().textScene("ELF-INTRO").checkScene(
-					CheckType.ELF_UNLOCKED, 
+					CheckType.ELF_UNSEEN, 
 					b.branch(true).textScene("ELF-ENTER").choiceScene(
 						"Do you accept the breakfast invitation?", 
 						b.branch("Accept").textScene("ELF-ACCEPT"), 

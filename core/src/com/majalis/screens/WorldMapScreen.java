@@ -53,7 +53,6 @@ import com.majalis.asset.AssetEnum;
 import com.majalis.character.PlayerCharacter;
 import com.majalis.character.PlayerCharacter.QuestType;
 import com.majalis.character.SexualExperience.SexualExperienceBuilder;
-import com.majalis.character.PlayerCharacter.QuestFlag;
 import com.majalis.encounter.EncounterBounty;
 import com.majalis.encounter.EncounterBounty.EncounterBountyResult;
 import com.majalis.encounter.EncounterCode;
@@ -571,11 +570,10 @@ public class WorldMapScreen extends AbstractScreen {
 		else if (!inSuspendedArea(currentNode) && character.debtDue()) {
 			autoEncounter(uiGroup, EncounterCode.BUNNY);
 		}
-		else if (!inSuspendedArea(currentNode) && time >= 11 && character.getQuestStatus(QuestType.ELF) == 0) { // forced elf encounter
-			saveService.saveDataValue(SaveEnum.QUEST, new QuestFlag(QuestType.ELF, 1));	
+		else if (!inSuspendedArea(currentNode) && time >= 23 && character.getQuestStatus(QuestType.ELF) == 0) { // forced elf encounter
 			autoEncounter(uiGroup, EncounterCode.ELF);
 		}
-		else if (!inSuspendedArea(currentNode) && time >= 23 && character.getQuestStatus(QuestType.TRUDY) == 0) { // forced Trudy encounter
+		else if (!inSuspendedArea(currentNode) && time >= 47 && character.getQuestStatus(QuestType.TRUDY) == 0) { // forced Trudy encounter
 			autoEncounter(uiGroup, EncounterCode.ADVENTURER);
 		}
 		else if (!inSuspendedArea(currentNode) && character.getQuestStatus(QuestType.SPIDER) == 5) { // forced Spider hatching
@@ -1128,7 +1126,6 @@ public class WorldMapScreen extends AbstractScreen {
 		        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
 					setHoverDisplay(actor.getHoverText(), camera.project(new Vector3(getTrueX((int)actor.getHexPosition().x), getTrueY((int)actor.getHexPosition().x, (int)actor.getHexPosition().y), 0)));
 					hoveredNode = actor;
-					
 				}
 				@Override
 		        public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
@@ -1140,8 +1137,6 @@ public class WorldMapScreen extends AbstractScreen {
 		}
 		worldGroup.addActor(currentImage);
 	}
-	
-	
 	
 	private void setHoverDisplay(String text, Vector3 coords) {
 		// can put logic here to ensure that the resulting position falls somewhere properly on the screen, including flipping it to the other side of the cursor if the image would appear too high/low or left/right
