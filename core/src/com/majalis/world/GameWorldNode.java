@@ -250,9 +250,6 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 		for (GameWorldNode connectedNode : connectedNodes) {
 			connectedNode.setActive();
 		}
-		ObjectSet<GameWorldNode> visibleSet = new ObjectSet<GameWorldNode>();
-		visibleSet.add(this);
-		setNeighborsVisibility(character.getScoutingScore(), 1, visibleSet);
 	}	
 	
 	private void setActive() { arrow.addAction(Actions.show()); }
@@ -329,7 +326,10 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 				visitInfo.lastEncounterTime = character.getTime();
 			}
 		}
-		saveService.saveDataValue(SaveEnum.VISITED_LIST, visitInfo, false);
+		saveService.saveDataValue(SaveEnum.VISITED_LIST, visitInfo, false); // update the visited info in the gamestate for this node
+		ObjectSet<GameWorldNode> visibleSet = new ObjectSet<GameWorldNode>();
+		visibleSet.add(this);
+		setNeighborsVisibility(character.getScoutingScore(), 1, visibleSet); // update the visibility info in each node 
 	}
 
 	private boolean newEncounterReady() { return visitInfo.lastEncounterTime + 18 + ((visitInfo.randomVal % 3) * 6) < character.getTime(); }

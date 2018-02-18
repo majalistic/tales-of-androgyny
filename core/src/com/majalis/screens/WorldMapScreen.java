@@ -201,6 +201,7 @@ public class WorldMapScreen extends AbstractScreen {
 		for (final GameWorldNode actor : world.getNodes()) {
 			if (actor.isCurrent()) {
 				setCurrentNode(actor);
+				visit(actor);
 			}
 		}
 		
@@ -433,7 +434,6 @@ public class WorldMapScreen extends AbstractScreen {
 						setConsole(console, saveService.saveDataValue(SaveEnum.SCOUT, 1), saveService.saveDataValue(SaveEnum.TIME, 1));
 						console.addAction(Actions.alpha(1));
 						console.addAction(Actions.fadeOut(10));
-						currentNode.setAsCurrentNode();
 						visit(currentNode);
 						time++;
 						tintForTimeOfDay(time, .5f);	
