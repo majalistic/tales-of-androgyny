@@ -201,6 +201,7 @@ public class WorldMapScreen extends AbstractScreen {
 		for (final GameWorldNode actor : world.getNodes()) {
 			if (actor.isCurrent()) {
 				setCurrentNode(actor);
+				actor.setAsCurrentNode(saveService);
 			}
 		}
 		
@@ -433,7 +434,7 @@ public class WorldMapScreen extends AbstractScreen {
 						setConsole(console, saveService.saveDataValue(SaveEnum.SCOUT, 1), saveService.saveDataValue(SaveEnum.TIME, 1));
 						console.addAction(Actions.alpha(1));
 						console.addAction(Actions.fadeOut(10));
-						currentNode.setAsCurrentNode();
+						currentNode.setAsCurrentNode(saveService);
 						visit(currentNode);
 						time++;
 						tintForTimeOfDay(time, .5f);	
@@ -620,7 +621,7 @@ public class WorldMapScreen extends AbstractScreen {
 				moveActions.add(new Action() {
 					@Override
 					public boolean act(float delta) {
-						node.setAsCurrentNode();
+						node.setAsCurrentNode(saveService);
 						setCurrentNode(node);
 						worldGroup.addAction(enableButtons);
 						saveService.flush();
@@ -751,7 +752,7 @@ public class WorldMapScreen extends AbstractScreen {
 					tempTable.removeActor(noButton);
 					assetManager.get(AssetEnum.CLICK_SOUND.getSound()).play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f); // this should only play if you say yes - a simple boop for no
 					visit(node);
-					node.setAsCurrentNode();
+					node.setAsCurrentNode(saveService);
 					setCurrentNode(node);
 					worldGroup.addAction(enableButtons);
 					saveService.saveDataValue(SaveEnum.SCOUT, 0, true);
@@ -792,7 +793,7 @@ public class WorldMapScreen extends AbstractScreen {
 		}
 	}
 	
-	private void visit(GameWorldNode node) { node.visit(); saveService.saveDataValue(SaveEnum.VISITED_LIST, node.getVisitInfo(), false); }
+	private void visit(GameWorldNode node) { node.visit(saveService); }
 	
 	private class UpdateLabel extends Label {
 		private UpdateLabel(Skin skin, PlayerCharacter character) {

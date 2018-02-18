@@ -25,6 +25,8 @@ import com.majalis.character.PlayerCharacter;
 import com.majalis.encounter.EncounterCode;
 import com.majalis.save.SaveManager.GameContext;
 import com.majalis.save.SaveManager.VisitInfo;
+import com.majalis.save.SaveEnum;
+import com.majalis.save.SaveService;
 /*
  * Represents a node on the world map.
  */
@@ -239,7 +241,7 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 	 * All stateful code follows - setting active/current/visibility/etc.
 	 */
 	public boolean isCurrent() { return current; }
-	public void setAsCurrentNode() {
+	public void setAsCurrentNode(SaveService saveService) {
 		current = true;
 		removeListener(fireListener);
 		if (activeAnimation != null) {
@@ -251,7 +253,7 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 		ObjectSet<GameWorldNode> visibleSet = new ObjectSet<GameWorldNode>();
 		visibleSet.add(this);
 		setNeighborsVisibility(character.getScoutingScore(), 1, visibleSet);
-		visit();
+		visit(saveService);
 	}	
 	
 	private void setActive() {
@@ -320,7 +322,7 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 		return neighbors;
 	}
 
-	public void visit() { 
+	public void visit(SaveService saveService) { 
 		if (visitInfo.numberOfEncounters == 0) {
 			visitInfo.numberOfEncounters = 1;
 			visitInfo.lastEncounterTime = character.getTime();
@@ -331,9 +333,12 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 				visitInfo.lastEncounterTime = character.getTime();
 			}
 		}
+		saveService.saveDataValue(SaveEnum.VISITED_LIST, visitInfo, false);
 	}
 
 	private boolean newEncounterReady() { return visitInfo.lastEncounterTime + 18 + ((visitInfo.randomVal % 3) * 6) < character.getTime(); }
 	
 	public VisitInfo getVisitInfo() { return visitInfo; }
+
+	public void setCurrent() { current = true; }
 }

@@ -135,7 +135,7 @@ public class GameWorldFactory {
 			if (closest != null) secondTown.connectTo(closest);		
 		}
 		
-		nodeMap.get(currentNode).setAsCurrentNode();
+		nodeMap.get(currentNode).setCurrent();
 		nodes.sort();
 		
 		if (TalesOfAndrogyny.testing) {
