@@ -241,7 +241,7 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 	 * All stateful code follows - setting active/current/visibility/etc.
 	 */
 	public boolean isCurrent() { return current; }
-	public void setAsCurrentNode(SaveService saveService) {
+	public void setAsCurrentNode() {
 		current = true;
 		removeListener(fireListener);
 		if (activeAnimation != null) {
@@ -253,20 +253,16 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 		ObjectSet<GameWorldNode> visibleSet = new ObjectSet<GameWorldNode>();
 		visibleSet.add(this);
 		setNeighborsVisibility(character.getScoutingScore(), 1, visibleSet);
-		visit(saveService);
 	}	
 	
-	private void setActive() {
-		arrow.addAction(Actions.show());
-	}
-	
+	private void setActive() { arrow.addAction(Actions.show()); }
 	private void setInactive() {
 		if (current) {
 			current = false;
 			addListener(fireListener);
 		}
 		
-		visibility = -1;
+		visibility = -1; // this needs to be removed
 		if (activeAnimation != null) {
 			activeAnimation.setColor(Color.WHITE);
 		}

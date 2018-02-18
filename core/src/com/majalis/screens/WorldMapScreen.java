@@ -433,7 +433,7 @@ public class WorldMapScreen extends AbstractScreen {
 						setConsole(console, saveService.saveDataValue(SaveEnum.SCOUT, 1), saveService.saveDataValue(SaveEnum.TIME, 1));
 						console.addAction(Actions.alpha(1));
 						console.addAction(Actions.fadeOut(10));
-						currentNode.setAsCurrentNode(saveService);
+						currentNode.setAsCurrentNode();
 						visit(currentNode);
 						time++;
 						tintForTimeOfDay(time, .5f);	
@@ -831,7 +831,7 @@ public class WorldMapScreen extends AbstractScreen {
 		currentContext = currentNode.getEncounterContext() == GameContext.TOWN ? GameContext.TOWN : GameContext.CAMP;
 		campButton.setText(currentContext == GameContext.TOWN ? "Enter" : "Camp");
 		if (activateNode) {
-			newCurrentNode.setAsCurrentNode(saveService);
+			newCurrentNode.setAsCurrentNode();
 			saveService.flush();
 		}
 	}
