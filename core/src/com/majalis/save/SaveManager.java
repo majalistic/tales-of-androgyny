@@ -124,6 +124,8 @@ public class SaveManager implements SaveService, LoadService {
         return result;
 	}
 	
+	public void flush() { saveToJson(save); }
+	
     @SuppressWarnings("unchecked")
     public <T> T loadDataValue(SaveEnum key, Class<?> type) {
     	switch (key) {

@@ -13,4 +13,5 @@ public interface SaveService {
     public void newSave();
     public void newSave(String path); // changes what save is used, file remains the same
     public void manualSave(String path); // saves current save to a seperate file
+	public void flush();
 }

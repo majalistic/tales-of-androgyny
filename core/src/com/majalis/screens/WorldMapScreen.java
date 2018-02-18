@@ -440,6 +440,7 @@ public class WorldMapScreen extends AbstractScreen {
 						checkCanEat(rest);
 						mutateLabels();
 						checkForForcedRest();
+						saveService.flush();
 					}
 		        }
 			}
@@ -622,6 +623,7 @@ public class WorldMapScreen extends AbstractScreen {
 						node.setAsCurrentNode();
 						setCurrentNode(node);
 						worldGroup.addAction(enableButtons);
+						saveService.flush();
 						return true;
 					}	
 				});
