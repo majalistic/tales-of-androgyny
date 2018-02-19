@@ -74,7 +74,6 @@ public abstract class AbstractCharacter extends Actor {
 	
 	protected Arousal arousal;
 	protected int lust; // legacy
-	//protected int lust; 
 	protected int knotInflate;
 	
 	protected Weapon weapon;
@@ -93,6 +92,10 @@ public abstract class AbstractCharacter extends Actor {
 	protected ChastityCage cage;
 	
 	protected Weapon disarmedWeapon;
+	
+	protected Sphincter sphincter;
+	protected Rectum rectum;
+	protected Colon colon;
 	
 	// public Hole hole;  // bowels contents, tightness, number of copulations, number of creampies, etc. 
 	// public Mouth mouth; 
