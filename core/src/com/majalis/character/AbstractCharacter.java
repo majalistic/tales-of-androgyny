@@ -145,6 +145,10 @@ public abstract class AbstractCharacter extends Actor {
 		}
 	}
 	
+	public Sphincter getSphincter() { return sphincter; }
+	public Rectum getRectum() { return rectum; }
+	public Colon getColon() { return colon; }
+	
 	protected abstract Technique getTechnique(AbstractCharacter target);
 	
 	protected IntArray getDefaultHealthTiers() { return new IntArray(new int[]{10, 10, 10, 10}); }

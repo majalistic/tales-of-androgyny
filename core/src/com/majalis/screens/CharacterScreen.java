@@ -151,6 +151,20 @@ public class CharacterScreen extends AbstractScreen {
 		overview.add(getLabel("Lips: ", skin, Color.BLACK)).align(Align.left);
 		overview.add(getLabel(character.getLipFullness(), skin, Color.PINK)).align(Align.left).row();
 		
+		final Table buttTable = new Table();
+		buttTable.align(Align.topLeft);
+		buttTable.setPosition(500, 800);
+		this.addActor(buttTable);
+		
+		buttTable.add(getLabel("Sphincter tightness: ", skin, Color.BLACK)).align(Align.left);
+		buttTable.add(getLabel(character.getSphincter().getTightness(), skin, Color.BLACK)).align(Align.left).row();
+		buttTable.add(getLabel("Sphincter status: ", skin, Color.BLACK)).align(Align.left);
+		buttTable.add(getLabel(character.getSphincter().getFriction(), skin, Color.BLACK)).align(Align.left).row();
+		buttTable.add(getLabel("Rectum contents: ", skin, Color.BLACK)).align(Align.left);
+		buttTable.add(getLabel(character.getRectum().getContents(), skin, Color.BLACK)).align(Align.left).row();
+		buttTable.add(getLabel("Rectum fullness: ", skin, Color.BLACK)).align(Align.left);
+		buttTable.add(getLabel(character.getRectum().getFullness(), skin, Color.BLACK)).align(Align.left).row();
+			
 		final Table statTable = new Table();
 
 		for (final Stat stat: Stat.values()) {
