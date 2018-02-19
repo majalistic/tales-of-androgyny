@@ -83,6 +83,9 @@ public class PlayerCharacter extends AbstractCharacter {
 	private GameOver gameOver;
 	
 	private boolean degradationTutorial;
+	private boolean grappleTutorial;
+	private boolean knockdownTutorial;
+	private boolean stanceTutorial;
 	
 	@SuppressWarnings("unused")
 	private PlayerCharacter() { if(arousal == null) arousal = new Arousal(ArousalType.PLAYER); eventLog = new Array<String>(); dignity = new Dignity(); }
@@ -1971,4 +1974,7 @@ public class PlayerCharacter extends AbstractCharacter {
 	}
 
 	public boolean hasSeenDegradationTutorial() { boolean temp = degradationTutorial; degradationTutorial = true; return temp; }
+	public boolean hasSeenGrappleTutorial() { boolean temp = grappleTutorial; grappleTutorial = true; return temp; }
+	public boolean hasSeenKnockdownTutorial() { boolean temp = knockdownTutorial; knockdownTutorial = true; return temp; }
+	public boolean hasSeenStanceTutorial() { boolean temp = stanceTutorial; stanceTutorial = true; return temp; }
 }

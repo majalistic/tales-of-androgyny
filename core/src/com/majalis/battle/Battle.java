@@ -1166,10 +1166,20 @@ public class Battle extends Group{
 				
 		masculinityIcon.setDrawable(getDrawable(character.getMasculinityPath()));	
 		
-		if (!character.hasSeenDegradationTutorial() && (firstCharacter.getHealthDegradation() > 0 || firstCharacter.getStaminaDegradation() > 0)) {
+		// these methods use short circuit evaluation, because the hasSeenXTutorial methods also set that respective flag to prevent repeats - should probably make this less fragile eventually
+		if (firstCharacter.getStance() != oldStance && !character.hasSeenStanceTutorial()) {
+			popDialog("When you use a skill you will end up in that skills resulting stance, visible as an icon next to the skill's name.  When in a new stance, you will have access to new skills.  You can use a skill that will return you to the original stance, or even another, previously unavailable stance.");
+		}
+		else if ((firstCharacter.getHealthDegradation() > 0 || firstCharacter.getStaminaDegradation() > 0) && !character.hasSeenDegradationTutorial()) {
 			popDialog("When your health or stamina is reduced, you will accrue penalties to your statistics.  To see these penalties, highlight your character portrait.  The icons next to your health and stamina bars will also indicate that this has occurred.  Recover health or stamina to remove these penalties.");
 		}
-		
+		else if (firstCharacter.getGrappleStatus() != GrappleStatus.NULL && !character.hasSeenGrappleTutorial()) {
+			popDialog("When you enter a grapple with an opponent, your available skills are limited by stamina and your current grapple status, indicated above.  Struggling or grappling with the enemy can improve your grapple status - but they will use skills that will have the opposite effect!");
+		}
+		else if (firstCharacter.getStance().isIncapacitating() && !character.hasSeenKnockdownTutorial()) {
+			popDialog("When you run out of stamina or stability, you will fall to the ground!  While attempting to get to your feet, you can transition through multiple stances, including Hands-and-Knees and Kneeling stance, and your available skills are limited by your current stamina and stability.");
+		}
+				
 		return playerResults;
 	}
 	
@@ -1271,7 +1281,7 @@ public class Battle extends Group{
 			outcomeDisplay.setWrap(true);
 			outcomeDisplay.setColor(battleOutcome == Outcome.VICTORY || battleOutcome == Outcome.SATISFIED ? Color.FOREST : Color.FIREBRICK);
 			outcomeDisplay.setAlignment(Align.top);
-			statusResults.add(outcomeDisplay).width(600).align(Align.top).row();
+			statusResults.add(outcomeDisplay).width(580).align(Align.top).row();
 			statusResults.row();			
 			Label newLabel = new Label("Results: ", skin);
 			newLabel.setColor(Color.BLACK);
@@ -1317,7 +1327,7 @@ public class Battle extends Group{
 		outcomeDisplay.setWrap(true);
 		outcomeDisplay.setAlignment(Align.top);
 		outcomeDisplay.setColor(Color.BLACK);
-		statusResults.add(outcomeDisplay).width(600).align(Align.top).row();		
+		statusResults.add(outcomeDisplay).width(580).align(Align.top).row();		
 		statusResults.setPosition(712, 825);
 		
 		popupGroup.addActor(statusResults);	
