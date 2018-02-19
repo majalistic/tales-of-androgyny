@@ -1265,7 +1265,7 @@ public class Battle extends Group{
 			
 			Label outcomeDisplay = new Label(enemy.getOutcomeText(character), skin);
 			outcomeDisplay.setWrap(true);
-			outcomeDisplay.setColor(battleOutcome == Outcome.VICTORY ? Color.FOREST : Color.FIREBRICK);
+			outcomeDisplay.setColor(battleOutcome == Outcome.VICTORY || battleOutcome == Outcome.SATISFIED ? Color.FOREST : Color.FIREBRICK);
 			outcomeDisplay.setAlignment(Align.top);
 			statusResults.add(outcomeDisplay).width(600).align(Align.top).row();
 			statusResults.row();			
