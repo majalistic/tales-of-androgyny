@@ -309,6 +309,14 @@ public class WorldMapScreen extends AbstractScreen {
 		hoverImage.setVisible(false);
 		hoverImage.setBounds(1500, 5, 400, 300);
 		
+		Image characterUI = new Image(characterUITexture);
+		uiGroup.addActor(characterUI);
+		characterUI.setScale(1.1f);
+		
+		Image foodIcon = new Image(food);
+		foodIcon.setSize(75, 75);
+		uiGroup.addActor(foodIcon);
+		
 		addLabel(uiGroup, levelLabel, 190, 190, Color.LIGHT_GRAY);
 		addLabel(uiGroup, healthLabel, 310, 130, Color.WHITE);
 		addLabel(uiGroup, dateLabel, 360,  140, Color.WHITE);
@@ -326,9 +334,7 @@ public class WorldMapScreen extends AbstractScreen {
 		final Sound buttonSound = assetManager.get(AssetEnum.CLICK_SOUND.getSound()); 
 		int storedLevels = character.getStoredLevels();
 		
-		Image characterUI = new Image(characterUITexture);
-		uiGroup.addActor(characterUI);
-		characterUI.setScale(1.1f);
+		
 		
 		TextButton characterButton = getButton(storedLevels > 0 ? "Level Up!" : "Character");
 		buttons.add(characterButton);
@@ -373,10 +379,6 @@ public class WorldMapScreen extends AbstractScreen {
 		);
 		
 		actionTable.add(inventoryButton).size(200, 50);
-		
-		Image foodIcon = new Image(food);
-		foodIcon.setSize(75, 75);
-		uiGroup.addActor(foodIcon);
 		
 		final Label console = new Label("", skin);
 		uiGroup.addActor(console);
