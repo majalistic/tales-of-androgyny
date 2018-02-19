@@ -82,6 +82,8 @@ public class PlayerCharacter extends AbstractCharacter {
 	
 	private GameOver gameOver;
 	
+	private boolean degradationTutorial;
+	
 	@SuppressWarnings("unused")
 	private PlayerCharacter() { if(arousal == null) arousal = new Arousal(ArousalType.PLAYER); eventLog = new Array<String>(); dignity = new Dignity(); }
 	
@@ -1967,4 +1969,6 @@ public class PlayerCharacter extends AbstractCharacter {
 			this.value = value;
 		}		
 	}
+
+	public boolean hasSeenDegradationTutorial() { boolean temp = degradationTutorial; degradationTutorial = true; return temp; }
 }

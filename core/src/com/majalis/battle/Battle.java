@@ -1166,6 +1166,10 @@ public class Battle extends Group{
 				
 		masculinityIcon.setDrawable(getDrawable(character.getMasculinityPath()));	
 		
+		if (!character.hasSeenDegradationTutorial() && firstCharacter.getHealthDegradation() > 0) {
+			popDialog("When your health or stamina is reduced, you will accrue penalties to your statistics.  To see these penalties, highlight your character portrait.  The icons next to your health and stamina bars will also indicate that this has occurred.  Recover health or stamina to remove these penalties.");
+		}
+		
 		return playerResults;
 	}
 	
@@ -1295,6 +1299,35 @@ public class Battle extends Group{
 				}
 			);
 		}
+	}
+	
+	private void popDialog(String dialog) {
+		Group popupGroup = new Group();
+		this.addActor(popupGroup);
+		
+		Image popupImage = new Image(assetManager.get(AssetEnum.BATTLE_HOVER.getTexture()));
+		popupImage.setBounds(625, 375, popupImage.getWidth() + 100, popupImage.getHeight() + 100);
+		popupGroup.addActor(popupImage);			
+		popupGroup.addAction(fadeIn(.1f));
+		
+		Table statusResults = new Table();
+		statusResults.align(Align.topLeft);
+		
+		Label outcomeDisplay = new Label(dialog, skin);
+		outcomeDisplay.setWrap(true);
+		outcomeDisplay.setAlignment(Align.top);
+		outcomeDisplay.setColor(Color.BLACK);
+		statusResults.add(outcomeDisplay).width(600).align(Align.top).row();		
+		statusResults.setPosition(712, 825);
+		
+		popupGroup.addActor(statusResults);	
+		popupGroup.addAction(sequence(delay(25), hide()));
+		popupGroup.addListener(new ClickListener() {
+			@Override
+	        public void clicked(InputEvent event, float x, float y) {
+	        	popupGroup.addAction(hide());
+	        }
+		});
 	}
 	
 	/* Helper methods */
