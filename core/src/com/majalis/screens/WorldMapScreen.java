@@ -332,9 +332,7 @@ public class WorldMapScreen extends AbstractScreen {
 		Array<Button> buttons = new Array<Button>();
 		
 		final Sound buttonSound = assetManager.get(AssetEnum.CLICK_SOUND.getSound()); 
-		int storedLevels = character.getStoredLevels();
-		
-		
+		int storedLevels = character.getStoredLevels();	
 		
 		TextButton characterButton = getButton(storedLevels > 0 ? "Level Up!" : "Character");
 		buttons.add(characterButton);
