@@ -55,8 +55,8 @@ public class PlayerCharacter extends AbstractCharacter {
 	private Dignity dignity;
 	private int willpower;
 	
-	protected Femininity femininity;
-	protected LipFullness lipFullness;
+	private Femininity femininity;
+	private LipFullness lipFullness;
 
 	private int receivedAnal;
 	private int receivedOral;	
@@ -88,7 +88,7 @@ public class PlayerCharacter extends AbstractCharacter {
 	private boolean stanceTutorial;
 	
 	@SuppressWarnings("unused")
-	private PlayerCharacter() { if(arousal == null) arousal = new Arousal(ArousalType.PLAYER); eventLog = new Array<String>(); dignity = new Dignity(); }
+	private PlayerCharacter() { if(arousal == null) arousal = new Arousal(ArousalType.PLAYER); eventLog = new Array<String>(); dignity = new Dignity(); femininity = Femininity.MALE; }
 	
 	public PlayerCharacter(boolean defaultValues) {
 		super(defaultValues);
@@ -117,6 +117,7 @@ public class PlayerCharacter extends AbstractCharacter {
 			time = 0;
 			dignity = new Dignity();
 			willpower = 5;
+			femininity = Femininity.MALE;
 		}
 		
 		skills = new ObjectMap<String, Integer>();
@@ -157,7 +158,7 @@ public class PlayerCharacter extends AbstractCharacter {
 		return baseTechniques;
 	}
 	
-	private AssetEnum portraitFeminization(AssetEnum portrait) { return perks.get(Perk.COCK_LOVER.toString(), 0) > 7 && Gdx.app.getPreferences("tales-of-androgyny-preferences").getBoolean("makeup", true) ? AssetEnum.valueOf(portrait.toString().replace("_FEMME", "") + "_FEMME") : portrait; }
+	private AssetEnum portraitFeminization(AssetEnum portrait) { return femininity.isFeminine() && Gdx.app.getPreferences("tales-of-androgyny-preferences").getBoolean("makeup", true) ? AssetEnum.valueOf(portrait.toString().replace("_FEMME", "") + "_FEMME") : portrait; }
 	public void setCurrentPortrait(AssetEnum portrait) { currentPortrait = portraitFeminization(portrait).getTexture().fileName; }
 	public void addToInventory(Item item) { inventory.add(item); }
 	public Array<Item> getInventory() { return inventory; }	
@@ -811,9 +812,21 @@ public class PlayerCharacter extends AbstractCharacter {
 	public enum Femininity {
 		MALE,
 		UNMASCULINE,
-		EFFIMINATE,
+		EFFEMINATE,
 		FEMALE,
-		BITCH
+		BITCH;
+
+		public boolean isFeminine() { return this == FEMALE || this == BITCH; }
+		public String getLabel() {
+			switch(this) {
+				case BITCH: return "Bitch";
+				case EFFEMINATE: return "Effeminate";
+				case FEMALE: return "Female";
+				case MALE: return "Male";
+				case UNMASCULINE: return "Unmasculine";
+				default: return "";
+			}
+		}
 	}
 	
 	public enum Bootyliciousness {
@@ -1087,7 +1100,7 @@ public class PlayerCharacter extends AbstractCharacter {
 	
 	public AssetDescriptor<Texture> getMasculinityPath() {
 		int masculinityLevel = getMasculinityLevel();
-		return masculinityLevel < 1 ? AssetEnum.MARS_ICON_0.getTexture() : masculinityLevel < 6 ? AssetEnum.MARS_ICON_1.getTexture() : masculinityLevel < 16 ? AssetEnum.MARS_ICON_2.getTexture() : masculinityLevel < 30 ? AssetEnum.MARS_ICON_3.getTexture() : AssetEnum.MARS_ICON_4.getTexture();
+		return masculinityLevel < 1 ? AssetEnum.MARS_ICON_0.getTexture() : masculinityLevel < 6 ? AssetEnum.MARS_ICON_1.getTexture() : masculinityLevel < 32 ? AssetEnum.MARS_ICON_2.getTexture() : masculinityLevel < 60 ? AssetEnum.MARS_ICON_3.getTexture() : AssetEnum.MARS_ICON_4.getTexture();
 	}
 	
 	public boolean isVirgin(EnemyEnum enemyEnum) {
@@ -1184,8 +1197,12 @@ public class PlayerCharacter extends AbstractCharacter {
 			valueToApply--;
 		}
 		if (perkToIncrement != Perk.COCK_LOVER) {
-			String cockLoverGain = incrementPerk(getMasculinityLevel(), Perk.COCK_LOVER, 30, 27, 24, 21, 18, 15, 12, 9, 6, 3);
+			String cockLoverGain = incrementPerk(getMasculinityLevel(), Perk.COCK_LOVER, 60, 54, 48, 42, 36, 30, 24, 18, 12, 6);
 			result += (!result.equals("") && !cockLoverGain.equals("") ? "\n" : "") + cockLoverGain;
+		}
+		else {
+			int cockLoverRank = perks.get(Perk.COCK_LOVER.toString(), 0);
+			femininity = cockLoverRank >= 10 ? Femininity.BITCH : cockLoverRank >= 8 ? Femininity.FEMALE : cockLoverRank >= 6 ? Femininity.EFFEMINATE : cockLoverRank >= 3 ? Femininity.UNMASCULINE : Femininity.MALE;
 		}
 		return result;
 	}
@@ -1977,4 +1994,5 @@ public class PlayerCharacter extends AbstractCharacter {
 	public boolean hasSeenGrappleTutorial() { boolean temp = grappleTutorial; grappleTutorial = true; return temp; }
 	public boolean hasSeenKnockdownTutorial() { boolean temp = knockdownTutorial; knockdownTutorial = true; return temp; }
 	public boolean hasSeenStanceTutorial() { boolean temp = stanceTutorial; stanceTutorial = true; return temp; }
+	public Femininity getFemininity() { return femininity; }
 }
