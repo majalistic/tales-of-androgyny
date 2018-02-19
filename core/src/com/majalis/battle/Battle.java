@@ -1250,11 +1250,25 @@ public class Battle extends Group{
 		if (battleOutcome != null) {
 			battleOutcomeDecided = true;
 			outcome = battleOutcome; 
-			skillDisplay.setText(enemy.getOutcomeText(character)); // should just replace this with something else and hide this entirely
 			bonusDisplay.setText("");
+			
+			Group popupGroup = new Group();
+			this.addActor(popupGroup);
+			
+			Image popupImage = new Image(assetManager.get(AssetEnum.BATTLE_HOVER.getTexture()));
+			popupImage.setBounds(325, 75, popupImage.getWidth() + 100, popupImage.getHeight() + 100);
+			popupGroup.addActor(popupImage);			
+			popupGroup.addAction(fadeIn(.1f));
 			
 			Table statusResults = new Table();
 			statusResults.align(Align.topLeft);
+			
+			Label outcomeDisplay = new Label(enemy.getOutcomeText(character), skin);
+			outcomeDisplay.setWrap(true);
+			outcomeDisplay.setColor(battleOutcome == Outcome.VICTORY ? Color.FOREST : Color.FIREBRICK);
+			outcomeDisplay.setAlignment(Align.top);
+			statusResults.add(outcomeDisplay).width(600).align(Align.top).row();
+			statusResults.row();			
 			Label newLabel = new Label("Results: ", skin);
 			newLabel.setColor(Color.BLACK);
 			statusResults.add(newLabel).fillY().align(Align.left).row();
@@ -1263,15 +1277,14 @@ public class Battle extends Group{
 				statusResults.add(new MutationActor(result, assetManager.get(result.getTexture()), skin, true)).fillY().padLeft(50).align(Align.left).row();
 			}
 			
-			statusResults.setPosition(460, 400);
+			statusResults.setPosition(412, 525);
 			
-			hoverGroup.addActor(statusResults);			
+			popupGroup.addActor(statusResults);		
 			
 			uiGroup.removeActor(techniquePane);
 			hoverGroup.clearActions();
-			hoverGroup.addAction(visible(true));
-			hoverGroup.addAction(moveTo(300, 380));
-			hoverGroup.addAction(fadeIn(.1f));
+			hoverGroup.addAction(hide());
+			
 			this.addListener(
 				new ClickListener() {
 			        @Override
