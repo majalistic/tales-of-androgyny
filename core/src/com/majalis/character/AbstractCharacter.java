@@ -97,11 +97,9 @@ public abstract class AbstractCharacter extends Actor {
 	protected Rectum rectum;
 	protected Colon colon;
 	
-	// public Hole hole;  // bowels contents, tightness, number of copulations, number of creampies, etc. 
 	// public Mouth mouth; 
 	protected PhallusType phallus;	
 	
-	protected int buttful;
 	protected int mouthful;
 	
 	protected Bootyliciousness bootyliciousness;
@@ -115,7 +113,7 @@ public abstract class AbstractCharacter extends Actor {
 	protected int food;
 
 	/* Constructors */
-	protected AbstractCharacter() { }
+	protected AbstractCharacter() { sphincter = new Sphincter(); rectum = new Rectum(); colon = new Colon(); }
 	protected AbstractCharacter(boolean defaultValues) {
 		if (defaultValues) {
 			secondPerson = false;
@@ -141,6 +139,9 @@ public abstract class AbstractCharacter extends Actor {
 			perks = new ObjectMap<String, Integer>();
 			statuses = new ObjectMap<String, Integer>();
 			grappleStatus = GrappleStatus.NULL;
+			sphincter = new Sphincter();
+			rectum = new Rectum();
+			colon = new Colon();
 		}
 	}
 	
@@ -300,7 +301,7 @@ public abstract class AbstractCharacter extends Actor {
 	public int getHealthDegradation() { return getDegradation(healthTiers, currentHealth); }
 	public int getStaminaDegradation() { return getDegradation(staminaTiers, currentStamina); }
 	public int getLustDegradation() { return arousal.getLust() >= 100 ? 4 : arousal.getLust() >= 75 ? 3 : arousal.getLust() >= 50 ? 2 : arousal.getLust() >= 25 ? 1 : 0; }
-	public int getCumInflation() { return buttful >= 20 || mouthful >= 20 ? 2 : buttful >=10 || mouthful >= 10 || fullOfEggs() ? 1 : 0; } 
+	public int getCumInflation() { return rectum.getFullnessAmount() >= 20 || mouthful >= 20 ? 2 : rectum.getFullnessAmount() >=10 || mouthful >= 10 || fullOfEggs() ? 1 : 0; } 
 	
 	public String getStatusBlurb() {
 		String blurb = "";
@@ -814,7 +815,7 @@ public abstract class AbstractCharacter extends Actor {
 			}
 			if (internalShotText != null) result.add(internalShotText);
 			
-			if (buttful > 0 && !stance.isAnalReceptive()) result.add(getLeakMessage());
+			if (rectum.getFullnessAmount() > 0 && !stance.isAnalReceptive()) result.add(getLeakMessage());
 			if (mouthful > 0 && !stance.isOralReceptive()) result.add(getDroolMessage());
 		}
 		if (!alreadyIncapacitated() && !knockedDown) {
@@ -955,28 +956,24 @@ public abstract class AbstractCharacter extends Actor {
 		return new Array<MutationResult>();
 	}
 	protected Array<MutationResult> fillButt(int buttful) {
-		this.buttful += buttful;
+		rectum.fillButtWithCum(buttful);
 		return new Array<MutationResult>();
 	}
 	
-	protected void drainMouth() {
-		mouthful = 0;
-	}
+	protected void drainMouth() { mouthful = 0; }
 	
-	protected void drainButt() {
-		buttful--;
-	}
+	protected void drainButt() { rectum.fillButtWithCum(-1); }
 
 	protected boolean fullOfEggs() { return false; }
 	
 	public AssetDescriptor<Texture> getCumInflationPath() {
-		if (buttful >= 20) {
+		if (rectum.getFullnessAmount() >= 20) {
 			return AssetEnum.STUFFED_BELLY.getTexture();
 		}
-		else if (buttful >= 10 || fullOfEggs()) {
+		else if (rectum.getFullnessAmount() >= 10 || fullOfEggs()) {
 			return AssetEnum.FULL_BELLY.getTexture();
 		}
-		else if (buttful >= 5 || mouthful >= 10) {
+		else if (rectum.getFullnessAmount() >= 5 || mouthful >= 10) {
 			return AssetEnum.BIG_BELLY.getTexture();
 		}
 		else {

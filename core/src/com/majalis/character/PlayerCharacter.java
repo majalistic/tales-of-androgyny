@@ -746,19 +746,19 @@ public class PlayerCharacter extends AbstractCharacter {
 	protected String getLeakMessage() {
 		String message = "";
 		
-		if (buttful >= 20) {
+		if (rectum.getFullnessAmount() >= 20) {
 			message = "Your belly looks pregnant, full of baby batter! It drools out of your well-used hole! Your movements are sluggish! -2 Agility.";
 		}
-		else if (buttful >= 10) {
+		else if (rectum.getFullnessAmount() >= 10) {
 			message = "Your gut is stuffed with semen!  It drools out!  You're too queasy to move quickly! -1 Agility.";
 		}
-		else if (buttful >= 5) {
+		else if (rectum.getFullnessAmount() >= 5) {
 			message = "Cum runs out of your full ass!";
 		}
-		else if (buttful > 1) {
+		else if (rectum.getFullnessAmount() > 1) {
 			message = "You drool cum from your hole!";
 		}
-		else if (buttful == 1) {
+		else if (rectum.getFullnessAmount() == 1) {
 			message = " The last of the cum runs out of your hole!";
 		}
 		drainButt();
@@ -788,7 +788,7 @@ public class PlayerCharacter extends AbstractCharacter {
 		stance = Stance.BALANCED;
 		grappleStatus = GrappleStatus.NULL;
 		a2m = false;
-		buttful = Math.max(0, buttful - 10);
+		rectum.fillButtWithCum(-10);
 		mouthful = 0;
 		if (armor != null) armor.refresh();	
 		if (legwear != null) legwear.refresh();	
@@ -1162,7 +1162,7 @@ public class PlayerCharacter extends AbstractCharacter {
 	}
 	
 	protected String receiveEggs() {
-		this.buttful += 5;
+		rectum.fillButtWithEggs(5);
 		modDignity(-10);
 		return null;
 	}
@@ -1452,7 +1452,7 @@ public class PlayerCharacter extends AbstractCharacter {
 			modDignity(-10);
 		}
 		// should be moved into its own method
-		this.buttful += sex.getBellyful();
+		rectum.fillButtWithCum(sex.getBellyful());
 				
 		return result;
 	}
