@@ -303,6 +303,8 @@ public class WorldMapScreen extends AbstractScreen {
 	@Override
 	public void buildStage() {
 		final Group uiGroup = new Group();
+		uiGroup.addActor(hoverImage);
+		addLabel(uiGroup, hoverLabel, 1575, 160, Color.BLACK);
 		uiGroup.addActor(popupGroup);
 		hoverImage.setVisible(false);
 		hoverImage.setBounds(1500, 5, 400, 300);
@@ -312,13 +314,11 @@ public class WorldMapScreen extends AbstractScreen {
 		addLabel(uiGroup, dateLabel, 360,  140, Color.WHITE);
 		addLabel(uiGroup, timeLabel, 380,  115, Color.WHITE);
 		addLabel(uiGroup, foodLabel, 23,  15, Color.WHITE);
-		uiGroup.addActor(hoverImage);
-		addLabel(uiGroup, hoverLabel, 1575, 160, Color.BLACK);
+		
 		hoverLabel.setAlignment(Align.center);
 		hoverLabel.setWrap(true);
 		hoverLabel.setWidth(250);
-		// need to add a pane for the hoverLabel
-		
+		// need to add a pane for the hoverLabel		
 		mutateLabels();
 		
 		Array<Button> buttons = new Array<Button>();
@@ -327,7 +327,7 @@ public class WorldMapScreen extends AbstractScreen {
 		int storedLevels = character.getStoredLevels();
 		
 		Image characterUI = new Image(characterUITexture);
-		uiStage.addActor(characterUI);
+		uiGroup.addActor(characterUI);
 		characterUI.setScale(1.1f);
 		
 		TextButton characterButton = getButton(storedLevels > 0 ? "Level Up!" : "Character");
@@ -340,10 +340,10 @@ public class WorldMapScreen extends AbstractScreen {
 		
 		Table table = new Table();
 		table.setPosition(377, 65);
-		uiStage.addActor(table);
+		uiGroup.addActor(table);
 		
 		Table actionTable = new Table();
-		uiStage.addActor(actionTable);
+		uiGroup.addActor(actionTable);
 		actionTable.setPosition(900, 60);
 		
 		actionTable.add(characterButton).size(200, 50);
@@ -376,10 +376,10 @@ public class WorldMapScreen extends AbstractScreen {
 		
 		Image foodIcon = new Image(food);
 		foodIcon.setSize(75, 75);
-		uiStage.addActor(foodIcon);
+		uiGroup.addActor(foodIcon);
 		
 		final Label console = new Label("", skin);
-		uiStage.addActor(console);
+		uiGroup.addActor(console);
 		console.setPosition(1250, 80);
 		console.setWrap(true);
 		console.setWidth(600);
@@ -410,11 +410,11 @@ public class WorldMapScreen extends AbstractScreen {
 		);
 
 		final Image scoutEye = new Image(assetManager.get(AssetEnum.SEARCHING.getTexture()));
-		uiStage.addActor(scoutEye);
+		uiGroup.addActor(scoutEye);
 		scoutEye.setPosition(400, 25);
 		scoutEye.setSize(40, 40);
 		final UpdateLabel scoutLevel = new UpdateLabel(skin, character);
-		uiStage.addActor(scoutLevel);
+		uiGroup.addActor(scoutLevel);
 		scoutLevel.setPosition(450, 25);
 		
 		final TextButton scout = getButton("Scout");
@@ -1143,6 +1143,8 @@ public class WorldMapScreen extends AbstractScreen {
 		float scaleFactor = 1920 / (Gdx.graphics.getWidth() * 1.0f);
 		float x = coords.x * scaleFactor + 50;
 		float y = coords.y * scaleFactor - 125;
+		x = Math.min(Math.max(x, 0), 1920 - hoverImage.getWidth());
+		y = Math.min(Math.max(y, 200), 1080 - hoverImage.getHeight());
 		hoverLabel.setText(text);
 		hoverLabel.setPosition(x + 75, y + 155);
 		if (!text.equals("")) {
