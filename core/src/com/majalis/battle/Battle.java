@@ -1166,7 +1166,7 @@ public class Battle extends Group{
 				
 		masculinityIcon.setDrawable(getDrawable(character.getMasculinityPath()));	
 		
-		if (!character.hasSeenDegradationTutorial() && firstCharacter.getHealthDegradation() > 0) {
+		if (!character.hasSeenDegradationTutorial() && (firstCharacter.getHealthDegradation() > 0 || firstCharacter.getStaminaDegradation() > 0)) {
 			popDialog("When your health or stamina is reduced, you will accrue penalties to your statistics.  To see these penalties, highlight your character portrait.  The icons next to your health and stamina bars will also indicate that this has occurred.  Recover health or stamina to remove these penalties.");
 		}
 		
