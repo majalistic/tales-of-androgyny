@@ -62,6 +62,7 @@ import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveManager.GameContext;
 import com.majalis.save.SaveManager.GameMode;
 import com.majalis.scenes.MutationActor;
+import com.majalis.talesofandrogyny.TalesOfAndrogyny;
 import com.majalis.save.SaveService;
 import com.majalis.save.MutationResult.MutationType;
 import com.majalis.world.GameWorld;
@@ -322,6 +323,7 @@ public class WorldMapScreen extends AbstractScreen {
 		addLabel(uiGroup, dateLabel, 360,  140, Color.WHITE);
 		addLabel(uiGroup, timeLabel, 380,  115, Color.WHITE);
 		addLabel(uiGroup, foodLabel, 23,  15, Color.WHITE);
+		addLabel(uiGroup, new Label(TalesOfAndrogyny.getVersion(), skin), 1550, 1050, new Color(255, 255, 255, .4f));
 		
 		hoverLabel.setAlignment(Align.center);
 		hoverLabel.setWrap(true);
