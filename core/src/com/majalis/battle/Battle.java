@@ -1296,8 +1296,7 @@ public class Battle extends Group{
 			popupGroup.addActor(statusResults);		
 			
 			uiGroup.removeActor(techniquePane);
-			hoverGroup.clearActions();
-			hoverGroup.addAction(hide());
+			uiGroup.removeActor(hoverGroup);
 			
 			this.addListener(
 				new ClickListener() {
