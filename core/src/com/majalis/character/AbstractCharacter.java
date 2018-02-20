@@ -93,9 +93,7 @@ public abstract class AbstractCharacter extends Actor {
 	
 	protected Weapon disarmedWeapon;
 	
-	protected Sphincter sphincter;
-	protected Rectum rectum;
-	protected Colon colon;
+	protected Ass ass;
 	
 	// public Mouth mouth; 
 	protected PhallusType phallus;	
@@ -113,7 +111,7 @@ public abstract class AbstractCharacter extends Actor {
 	protected int food;
 
 	/* Constructors */
-	protected AbstractCharacter() { sphincter = new Sphincter(); rectum = new Rectum(); colon = new Colon(); }
+	protected AbstractCharacter() { ass = new Ass(new Sphincter(), new Rectum(), new Colon()); }
 	protected AbstractCharacter(boolean defaultValues) {
 		if (defaultValues) {
 			secondPerson = false;
@@ -139,15 +137,13 @@ public abstract class AbstractCharacter extends Actor {
 			perks = new ObjectMap<String, Integer>();
 			statuses = new ObjectMap<String, Integer>();
 			grappleStatus = GrappleStatus.NULL;
-			sphincter = new Sphincter();
-			rectum = new Rectum();
-			colon = new Colon();
+			ass = new Ass(new Sphincter(), new Rectum(), new Colon());
 		}
 	}
 	
-	public Sphincter getSphincter() { return sphincter; }
-	public Rectum getRectum() { return rectum; }
-	public Colon getColon() { return colon; }
+	public Sphincter getSphincter() { return ass.getSphincter(); }
+	public Rectum getRectum() { return ass.getRectum(); }
+	public Colon getColon() { return ass.getColon(); }
 	
 	protected abstract Technique getTechnique(AbstractCharacter target);
 	
@@ -305,7 +301,7 @@ public abstract class AbstractCharacter extends Actor {
 	public int getHealthDegradation() { return getDegradation(healthTiers, currentHealth); }
 	public int getStaminaDegradation() { return getDegradation(staminaTiers, currentStamina); }
 	public int getLustDegradation() { return arousal.getLust() >= 100 ? 4 : arousal.getLust() >= 75 ? 3 : arousal.getLust() >= 50 ? 2 : arousal.getLust() >= 25 ? 1 : 0; }
-	public int getCumInflation() { return rectum.getFullnessAmount() >= 20 || mouthful >= 20 ? 2 : rectum.getFullnessAmount() >=10 || mouthful >= 10 || fullOfEggs() ? 1 : 0; } 
+	public int getCumInflation() { return ass.getFullnessAmount() >= 20 || mouthful >= 20 ? 2 : ass.getFullnessAmount() >=10 || mouthful >= 10 || fullOfEggs() ? 1 : 0; } 
 	
 	public String getStatusBlurb() {
 		String blurb = "";
@@ -819,7 +815,7 @@ public abstract class AbstractCharacter extends Actor {
 			}
 			if (internalShotText != null) result.add(internalShotText);
 			
-			if (rectum.getFullnessAmount() > 0 && !stance.isAnalReceptive()) result.add(getLeakMessage());
+			if (ass.getFullnessAmount() > 0 && !stance.isAnalReceptive()) result.add(getLeakMessage());
 			if (mouthful > 0 && !stance.isOralReceptive()) result.add(getDroolMessage());
 		}
 		if (!alreadyIncapacitated() && !knockedDown) {
@@ -960,24 +956,24 @@ public abstract class AbstractCharacter extends Actor {
 		return new Array<MutationResult>();
 	}
 	protected Array<MutationResult> fillButt(int buttful) {
-		rectum.fillButtWithCum(buttful);
+		ass.fillButtWithCum(buttful);
 		return new Array<MutationResult>();
 	}
 	
 	protected void drainMouth() { mouthful = 0; }
 	
-	protected void drainButt() { rectum.fillButtWithCum(-1); }
+	protected void drainButt() { ass.fillButtWithCum(-1); }
 
 	protected boolean fullOfEggs() { return false; }
 	
 	public AssetDescriptor<Texture> getCumInflationPath() {
-		if (rectum.getFullnessAmount() >= 20) {
+		if (ass.getFullnessAmount() >= 20) {
 			return AssetEnum.STUFFED_BELLY.getTexture();
 		}
-		else if (rectum.getFullnessAmount() >= 10 || fullOfEggs()) {
+		else if (ass.getFullnessAmount() >= 10 || fullOfEggs()) {
 			return AssetEnum.FULL_BELLY.getTexture();
 		}
-		else if (rectum.getFullnessAmount() >= 5 || mouthful >= 10) {
+		else if (ass.getFullnessAmount() >= 5 || mouthful >= 10) {
 			return AssetEnum.BIG_BELLY.getTexture();
 		}
 		else {
@@ -1250,7 +1246,7 @@ public abstract class AbstractCharacter extends Actor {
 		Plug equipPlug = (Plug) plug;
 		boolean alreadyEquipped = equipPlug.equals(this.plug); 
 		this.plug = alreadyEquipped ? null : equipPlug;
-		rectum.togglePlug();
+		ass.togglePlug();
 		return "You " + (alreadyEquipped ? "unequipped" : "equipped") + " the " + plug.getName() + ".";
 	}
 	

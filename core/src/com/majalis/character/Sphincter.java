@@ -25,6 +25,12 @@ public class Sphincter {
 	public String getDilation() { return toLabel(dilation.toString()); }
 	public String getTightness() { return toLabel(tightness.toString()); }
 	
+	private void modReceivedSexRecently(int mod) {
+		receivedSexRecently += mod;
+		if (receivedSexRecently <= 0) receivedSexRecently = 0;
+		friction = receivedSexRecently >= 10 ? SphincterFriction.RED_RING_OF_FIRE : receivedSexRecently >= 5 ? SphincterFriction.SWOLLEN : receivedSexRecently >= 1 ? SphincterFriction.IRRITATED :SphincterFriction.NORMAL;
+	}
+	
 	protected void receiveSex(SexualExperience sex) {
 		int amount = sex.getAnalSex() + sex.getAnal();
 		receivedSexTotal += amount;
@@ -33,7 +39,6 @@ public class Sphincter {
 		modWetness(sex.getCreampies());
 	}
 	
-	// needs to be affected by cum leakage
 	protected void modWetness(int mod) {
 		wetnessAmount += mod;
 		if (wetnessAmount <= 0) wetnessAmount = 0;
@@ -45,12 +50,6 @@ public class Sphincter {
 		this.time += time;
 		modReceivedSexRecently(-1 * (this.time / 5 - oldVal));		
 		modWetness(-1);
-	}
-	
-	private void modReceivedSexRecently(int mod) {
-		receivedSexRecently += mod;
-		if (receivedSexRecently <= 0) receivedSexRecently = 0;
-		friction = receivedSexRecently >= 10 ? SphincterFriction.RED_RING_OF_FIRE : receivedSexRecently >= 5 ? SphincterFriction.SWOLLEN : receivedSexRecently >= 1 ? SphincterFriction.IRRITATED :SphincterFriction.NORMAL;
 	}
 	
 	private String toLabel(String identifier) {

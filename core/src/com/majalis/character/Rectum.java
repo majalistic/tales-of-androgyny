@@ -15,8 +15,6 @@ public class Rectum {
 		cum = 0;
 	}
 	
-	protected int getFullnessAmount() { return cum + eggs; }
-	
 	protected void fillButtWithCum(int cumMod) { 
 		this.cum += cumMod; 
 		if (cum <= 0) {
@@ -28,10 +26,6 @@ public class Rectum {
 		}
 	} 
 	
-	protected void togglePlug() {
-		contents = contents == RectumContents.PLUGGED ? RectumContents.EMPTY : RectumContents.PLUGGED;
-	}
-	
 	protected void fillButtWithEggs(int eggs) {
 		this.eggs += eggs; 
 		if (eggs <= 0) {
@@ -42,7 +36,12 @@ public class Rectum {
 			contents = RectumContents.EGGED;
 		}
 	}
-		
+	
+	protected void togglePlug() { contents = contents == RectumContents.PLUGGED ? RectumContents.EMPTY : RectumContents.PLUGGED; }
+	
+	protected int getFullnessAmount() { return cum + eggs; }
+	protected boolean notPlugged() { return contents != RectumContents.PLUGGED && contents != RectumContents.DICK_ACCOMMODATING && contents != RectumContents.CUMMING_DICK; }	
+	
 	public String getContents() { return toLabel(contents.toString()); }
 	public String getFullness() { return toLabel(fullness.toString()); }
 	public String getTightness() { return toLabel(tightness.toString()); }
@@ -73,5 +72,4 @@ public class Rectum {
 	private enum RectumTightness {
 		NORMAL, LOOSE, BAGGY
 	}
-	
 }

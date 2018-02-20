@@ -155,7 +155,7 @@ public class CharacterScreen extends AbstractScreen {
 		buttTable.align(Align.topLeft);
 		buttTable.setPosition(500, 800);
 		this.addActor(buttTable);
-		
+				
 		buttTable.add(getLabel("Sphincter status: ", skin, Color.BLACK)).align(Align.left);
 		buttTable.add(getLabel(character.getSphincter().getFriction(), skin, Color.BLACK)).align(Align.left).row();
 		buttTable.add(getLabel("Sphincter tightness: ", skin, Color.BLACK)).align(Align.left);

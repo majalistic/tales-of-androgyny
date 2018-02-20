@@ -746,33 +746,23 @@ public class PlayerCharacter extends AbstractCharacter {
 	protected String getLeakMessage() {
 		String message = "";
 		
-		if (rectum.getFullnessAmount() >= 20) {
+		if (ass.getFullnessAmount() >= 20) {
 			message = "Your belly looks pregnant, full of baby batter! It drools out of your well-used hole! Your movements are sluggish! -2 Agility.";
 		}
-		else if (rectum.getFullnessAmount() >= 10) {
+		else if (ass.getFullnessAmount() >= 10) {
 			message = "Your gut is stuffed with semen!  It drools out!  You're too queasy to move quickly! -1 Agility.";
 		}
-		else if (rectum.getFullnessAmount() >= 5) {
+		else if (ass.getFullnessAmount() >= 5) {
 			message = "Cum runs out of your full ass!";
 		}
-		else if (rectum.getFullnessAmount() > 1) {
+		else if (ass.getFullnessAmount() > 1) {
 			message = "You drool cum from your hole!";
 		}
-		else if (rectum.getFullnessAmount() == 1) {
+		else if (ass.getFullnessAmount() == 1) {
 			message = " The last of the cum runs out of your hole!";
 		}
 		drainButt();
 		return message;
-	}
-	
-	@Override
-	protected void drainButt() {
-		if (rectum.getFullnessAmount() > 0) {
-			sphincter.modWetness(1);
-		}
-			
-		super.drainButt();
-		
 	}
 	
 	@Override
@@ -798,7 +788,7 @@ public class PlayerCharacter extends AbstractCharacter {
 		stance = Stance.BALANCED;
 		grappleStatus = GrappleStatus.NULL;
 		a2m = false;
-		rectum.fillButtWithCum(-10);
+		ass.fillButtWithCum(-10);
 		mouthful = 0;
 		if (armor != null) armor.refresh();	
 		if (legwear != null) legwear.refresh();	
@@ -1172,7 +1162,7 @@ public class PlayerCharacter extends AbstractCharacter {
 	}
 	
 	protected String receiveEggs() {
-		rectum.fillButtWithEggs(5);
+		ass.fillButtWithEggs(5);
 		modDignity(-10);
 		return null;
 	}
@@ -1357,7 +1347,7 @@ public class PlayerCharacter extends AbstractCharacter {
 		Array<MutationResult> result = new Array<MutationResult>();
 		arousal.increaseArousal(sex, perks);
 		
-		sphincter.receiveSex(sex);
+		ass.receiveSex(sex);
 		
 		for (int ii = 0; ii < sex.getAnalSex(); ii++) {
 			result.addAll(receiveAnal(getPhallusType(sex)));
@@ -1464,7 +1454,7 @@ public class PlayerCharacter extends AbstractCharacter {
 			modDignity(-10);
 		}
 		// should be moved into its own method
-		rectum.fillButtWithCum(sex.getBellyful());
+		ass.fillButtWithCum(sex.getBellyful());
 				
 		return result;
 	}
@@ -1730,7 +1720,7 @@ public class PlayerCharacter extends AbstractCharacter {
 		time += timePassed;
 		Array<MutationResult> result = getResult(timePassed >= 12 ? timePassed / 6 + " days pass." : timePassed >= 6 ? "A day passes." : timePassed >= 3 ? "Much time passes." : timePassed == 2 ? "Some time passes." : "A short time passes.", timePassed, MutationType.TIME);
 		result.addAll(eggTick(timePassed));
-		sphincter.tick(timePassed);
+		ass.tick(timePassed);
 		modDebtCooldown(-timePassed);
 		result.addAll(modFood(-getMetabolicRate() * timePassed));
 		result.addAll(debtTick((time / 6) - currentDay));

@@ -995,19 +995,19 @@ public class EnemyCharacter extends AbstractCharacter {
 	protected String getLeakMessage() {
 		String message = "";
 		
-		if (rectum.getFullnessAmount() >= 20) {
+		if (ass.getFullnessAmount() >= 20) {
 			message = "Their belly looks pregnant, full of baby batter! It drools out of their well-used hole! Their movements are sluggish! -2 Agility.";
 		}
-		else if (rectum.getFullnessAmount() >= 10) {
+		else if (ass.getFullnessAmount() >= 10) {
 			message = "Their gut is stuffed with semen!  It drools out!  They're too queasy to move quickly! -1 Agility.";
 		}
-		else if (rectum.getFullnessAmount() >= 5) {
+		else if (ass.getFullnessAmount() >= 5) {
 			message = "Cum runs out of their full ass!";
 		}
-		else if (rectum.getFullnessAmount() > 1) {
+		else if (ass.getFullnessAmount() > 1) {
 			message = "They drool cum from their hole!";
 		}
-		else if (rectum.getFullnessAmount() == 1) {
+		else if (ass.getFullnessAmount() == 1) {
 			message = " The last of the cum runs out of their hole!";
 		}
 		drainButt();
