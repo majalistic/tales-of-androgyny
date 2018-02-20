@@ -621,7 +621,7 @@ public enum EncounterCode {
 						"What do you ask of her?",
 						talkToMadame,
 						patronBrothel,
-						b.branch("Offer your services as a top").require(ChoiceCheckType.PERK_GREATER_THAN_X, Perk.TOP, 3).textScene("BROTHEL-TOP-WARNING").checkScene(Perk.TOP, b.branch(10).textScene("BROTHEL-TOP-MASTER"), b.branch(7).textScene("BROTHEL-TOP-EXPERT"), b.branch(0).textScene("BROTHEL-TOP-NOVICE")),
+						b.branch("Offer your services as a top").require(ChoiceCheckType.PERK_GREATER_THAN_X, Perk.TOP, 3).textScene("BROTHEL-TOP-WARNING").checkScene(Perk.TOP, b.branch(10).textScene("BROTHEL-TOP-MASTER"), b.branch(7).textScene("BROTHEL-TOP-EXPERT"), b.branch(0).textScene("BROTHEL-TOP-NOVICE").checkScene(Stat.ENDURANCE, b.branch(6).textScene("BROTHEL-TOP-NOVICE-SUCCESS"), b.branch(0).textScene("BROTHEL-TOP-NOVICE-FAIL"))),
 						b.branch("Offer your services as a bottom").checkScene(
 							CheckType.MAX_LUST, 
 							b.branch(true).choiceScene("You can't hold back!", b.branch("Pro Bono (3 GP)").require(ChoiceCheckType.GOLD_GREATER_THAN_X, 3).textScene("BROTHEL-EXCITED"), b.branch("Whatever!").textScene("BROTHEL-OPPORTUNIST")), 

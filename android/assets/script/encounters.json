@@ -2767,11 +2767,11 @@
 		"scriptLines": [	
 			{"text": "You waste little time getting the client in the mood."},
 			{"text": "You could make them cum with your finger, but you wouldn't be very satisfied with that."},
-			{"text": "You fuck them like a hurricane - afterwards they are devestated and wet, and mildly alarmed."},
+			{"text": "You fuck them like a hurricane - afterwards they are devastated and wet, and mildly alarmed."},
 			{
 			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "ejaculationInButt":1}}],
 			"sound": "CUM",
-			"text": "As soon as you feel their ring tightening around you, you slap their ass and give them a quick deep double-pump, followed by a load they won't soon forget."},
+			"text": "As soon as you feel their ring tightening around you, you slap their ass and give them a quick deep double-pump, followed by a load they won't soon forget, chest press against their back, dick digging them out deep."},
 			{
 			"mutations": [{"saveType":"TIME", "value":{"class": "java.lang.Integer", "value": 1}}, {"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSexTop":1}}],
 			"text": "They leave, quite satisfied, and you recline on the bed, relaxed, though your breath still comes quickly."}
@@ -2781,14 +2781,15 @@
 		"key": "BROTHEL-TOP-EXPERT",
 		"scriptLines": [	
 			{"text": "The client looks at you expectantly.  They clearly want you to make the first move."},
-			{"text": "You fuck them from behind, giving them exactly what they were asking for."},
+			{"text": "You bend them over the bed, slap their fat ass, and then dig in, your fingers leaving impressions on their hip, and your cockhead leaving an impression in their anal lining."},
+			{"text": "You fuck them from behind, giving them exactly what they were asking for, and then a hard dicking on top of it."},
 			{
 			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "ejaculationInButt":1}}],
 			"sound": "CUM",
-			"text": "Both of you reach your satisfaction simultaneously, and you let fly inside of them."},
+			"text": "Building to a white-knuckled conclusion with an unrelenting pace, both of you reach your climax simultaneously, and you let fly inside of them, your main thrusting muscles nearly exhausted."},
 			{
 			"mutations": [{"saveType":"TIME", "value":{"class": "java.lang.Integer", "value": 1}}, {"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSexTop":1}}],
-			"text": "They thank you for your services, and sheepishly leave."}
+			"text": "After your drained noodle flops out of them, they thank you for your services, and sheepishly leave."}
 		]
 	},
 	{
@@ -2796,7 +2797,23 @@
 		"scriptLines": [	
 			{"text": "The client is a young man who looks more than a little sheepish about asking for what he's asking for."},
 			{"text": "You lead him to the room, and he takes off his clothing, unsure.  You push him down on the bed, and he nervously hikes his legs up."},
-			{"text": "You lube yourself up, then gingerly push inside, watching as his toes curl.  When you bottom out, he lays his head back on the pillow, and you begin to give it to him to the best of your ability."},
+			{"text": "You lube yourself up, then gingerly push inside, watching as his toes curl.  When you bottom out, he lays his head back on the pillow, and you begin to give it to him to the best of your ability."}
+		]
+	},
+	{
+		"key": "BROTHEL-TOP-NOVICE-SUCCESS",
+		"scriptLines": [	
+			{"text": "You manage to hold out, just barely, until you feel his prostate - tight like a snare drum, the cock aimed up at his own face twitching with a desperate need to release."},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "ejaculationInButt":1}}],
+			"sound": "CUM",
+			"text": "You hold out just in time, and cum once you feel his anal ring tighten around you, his spurts flying up and into his own face, which seems to cause him some consternation."},
+			{"text": "That went as good as could be expected."}
+		]
+	},		
+	{
+		"key": "BROTHEL-TOP-NOVICE-FAIL",
+		"scriptLines": [	
 			{
 			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "ejaculationInButt":1}}],
 			"sound": "CUM",
