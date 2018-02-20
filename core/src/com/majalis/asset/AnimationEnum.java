@@ -10,6 +10,7 @@ public enum AnimationEnum {
 	CENTAUR(AssetEnum.CENTAUR_ANIMATION),
 	UNICORN(AssetEnum.CENTAUR_ANIMATION), 
 	ORC(AssetEnum.ORC_ANIMATION),
+	ORC_PRONE_BONE(AssetEnum.ORC_PRONE_BONE_ANIMATION),
 	GOBLIN(AssetEnum.GOBLIN_ANIMATION),
 	GOBLIN_MALE(AssetEnum.GOBLIN_ANIMATION),
 	NULL(AssetEnum.NULL_ANIMATION)
@@ -30,32 +31,40 @@ public enum AnimationEnum {
 		}			
 		AnimatedActor animation = factory.getInstance();
 		if (this == NULL || this == BUTTBANG) return animation;
-		if (this == AnimationEnum.HARPY) {
+		if (this == HARPY) {
 			animation.setSkeletonPosition(900, 550);
 		}
-		else if (this == AnimationEnum.BRIGAND) {
+		else if (this == BRIGAND) {
 			animation.setSkeletonPosition(900, 450);
 		}
-		else if (this == AnimationEnum.GOBLIN || this == AnimationEnum.GOBLIN_MALE) {
+		else if (this == GOBLIN || this == GOBLIN_MALE) {
 			animation.setSkeletonPosition(1000, 350);
+		}
+		else if (this == ORC_PRONE_BONE) {
+			animation.setSkeletonPosition(985, 310);
 		}
 		else {
 			animation.setSkeletonPosition(1000, 550);
 		}
 		
-		if (this == AnimationEnum.CENTAUR) {
+		if (this == CENTAUR) {
 			animation.setSkeletonSkin("BrownCentaur");
 		}
-		else if (this == AnimationEnum.UNICORN) {
+		else if (this == UNICORN) {
 			animation.setSkeletonSkin("WhiteUnicorn");
 		}
-		else if (this == AnimationEnum.GOBLIN) {
+		else if (this == GOBLIN) {
 			animation.setSkeletonSkin("Femme");
 		}
-		else if (this == AnimationEnum.GOBLIN_MALE) {
+		else if (this == GOBLIN_MALE) {
 			animation.setSkeletonSkin("Homme");
 		}
-		animation.setAnimation(0, "Idle Erect", true);
+		if (this == ORC_PRONE_BONE) {
+			animation.setAnimation(0, "SlowMed", true);
+		}
+		else {
+			animation.setAnimation(0, "Idle Erect", true);
+		}
 		return animation;
 	}
 }

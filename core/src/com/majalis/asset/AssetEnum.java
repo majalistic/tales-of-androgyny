@@ -172,7 +172,6 @@ public enum AssetEnum {
 	ORC_ZOOM_UP("enemies/OrcZoom0.png"),
 	ORC_ZOOM("enemies/OrcZoom1.png"),
 	ORC_ZOOM_DOWN("enemies/OrcZoom2.png"),
-	ORC_PRONE_BONE("enemies/OrcFutaMount.jpg"),
 	OGRE("enemies/Ogre.png"),
 	OGRE_BANGED("enemies/OgrePost.jpg"),
 	SPIDER("enemies/Spider.png"),
@@ -464,6 +463,7 @@ public enum AssetEnum {
 	CENTAUR_ANIMATION("animation/Centaur.atlas", AnimatedActorFactory.class, new AnimatedActorLoader.AnimatedActorParameter(.60f, 1.8f, true)), 
 	ORC_ANIMATION("animation/Orc.atlas", AnimatedActorFactory.class, new AnimatedActorLoader.AnimatedActorParameter(.60f, 1f, true)), 
 	GOBLIN_ANIMATION("animation/Goblin.atlas", AnimatedActorFactory.class, new AnimatedActorLoader.AnimatedActorParameter(.40f, 1f, true)), 
+	ORC_PRONE_BONE_ANIMATION("animation/OrcProneBone.atlas", AnimatedActorFactory.class, new AnimatedActorLoader.AnimatedActorParameter(1, 1f, true)), 
 	;
 	
 	private final AssetDescriptor<?> assetDescriptor;

@@ -1,0 +1,243 @@
+
+OrcProneBone.png
+size: 2048,2048
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+bg
+  rotate: false
+  xy: 2, 42
+  size: 1920, 911
+  orig: 1920, 911
+  offset: 0, 0
+  index: -1
+forest
+  rotate: false
+  xy: 2, 955
+  size: 1920, 1080
+  orig: 1920, 1080
+  offset: 0, 0
+  index: -1
+oeyesclosed
+  rotate: false
+  xy: 1924, 1255
+  size: 81, 121
+  orig: 81, 121
+  offset: 0, 0
+  index: -1
+oeyeshooded
+  rotate: false
+  xy: 1924, 886
+  size: 73, 121
+  orig: 73, 121
+  offset: 0, 0
+  index: -1
+oeyeslidded
+  rotate: false
+  xy: 1924, 1132
+  size: 75, 121
+  orig: 75, 121
+  offset: 0, 0
+  index: -1
+oeyesneutral
+  rotate: false
+  xy: 1924, 1009
+  size: 75, 121
+  orig: 75, 121
+  offset: 0, 0
+  index: -1
+omouthgrimace
+  rotate: true
+  xy: 1924, 450
+  size: 64, 58
+  orig: 64, 58
+  offset: 0, 0
+  index: -1
+omouthneutral
+  rotate: true
+  xy: 1984, 521
+  size: 63, 62
+  orig: 63, 62
+  offset: 0, 0
+  index: -1
+omouthtaught
+  rotate: true
+  xy: 1924, 516
+  size: 68, 58
+  orig: 68, 58
+  offset: 0, 0
+  index: -1
+oprecum
+  rotate: false
+  xy: 1924, 1378
+  size: 102, 125
+  orig: 102, 125
+  offset: 0, 0
+  index: -1
+pciris
+  rotate: true
+  xy: 107, 10
+  size: 30, 75
+  orig: 30, 75
+  offset: 0, 0
+  index: -1
+peyeshooded
+  rotate: true
+  xy: 1924, 1904
+  size: 131, 117
+  orig: 131, 117
+  offset: 0, 0
+  index: -1
+peyesneutralopen
+  rotate: true
+  xy: 1924, 1771
+  size: 131, 117
+  orig: 131, 117
+  offset: 0, 0
+  index: -1
+peyesrolled
+  rotate: true
+  xy: 1924, 1638
+  size: 131, 117
+  orig: 131, 117
+  offset: 0, 0
+  index: -1
+peyesrolledcringe
+  rotate: true
+  xy: 1924, 1505
+  size: 131, 117
+  orig: 131, 117
+  offset: 0, 0
+  index: -1
+pmouthag
+  rotate: false
+  xy: 1924, 811
+  size: 67, 73
+  orig: 67, 73
+  offset: 0, 0
+  index: -1
+pmouthngape
+  rotate: false
+  xy: 1924, 736
+  size: 66, 73
+  orig: 66, 73
+  offset: 0, 0
+  index: -1
+pmouthngrit
+  rotate: false
+  xy: 1924, 586
+  size: 63, 73
+  orig: 63, 73
+  offset: 0, 0
+  index: -1
+pmouthngritharder
+  rotate: false
+  xy: 1989, 586
+  size: 50, 73
+  orig: 50, 73
+  offset: 0, 0
+  index: -1
+pmouthnopen
+  rotate: false
+  xy: 1924, 661
+  size: 66, 73
+  orig: 66, 73
+  offset: 0, 0
+  index: -1
+pprecum
+  rotate: true
+  xy: 2, 2
+  size: 38, 103
+  orig: 38, 103
+  offset: 0, 0
+  index: -1
+
+OrcProneBone2.png
+size: 2048,2048
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+facechain
+  rotate: false
+  xy: 1389, 164
+  size: 132, 144
+  orig: 132, 144
+  offset: 0, 0
+  index: -1
+orcshclong
+  rotate: false
+  xy: 949, 52
+  size: 295, 282
+  orig: 295, 282
+  offset: 0, 0
+  index: -1
+orkbutt
+  rotate: false
+  xy: 2, 1244
+  size: 1345, 795
+  orig: 1345, 795
+  offset: 0, 0
+  index: -1
+orkbuttstrap
+  rotate: true
+  xy: 648, 336
+  size: 243, 630
+  orig: 243, 630
+  offset: 0, 0
+  index: -1
+orkthigh
+  rotate: false
+  xy: 1349, 1591
+  size: 635, 448
+  orig: 635, 448
+  offset: 0, 0
+  index: -1
+orktop
+  rotate: false
+  xy: 1349, 1347
+  size: 423, 242
+  orig: 423, 242
+  offset: 0, 0
+  index: -1
+pcbutt
+  rotate: false
+  xy: 1774, 1336
+  size: 241, 253
+  orig: 241, 253
+  offset: 0, 0
+  index: -1
+pcfoot
+  rotate: false
+  xy: 648, 75
+  size: 299, 259
+  orig: 299, 259
+  offset: 0, 0
+  index: -1
+pchand
+  rotate: true
+  xy: 1280, 310
+  size: 269, 211
+  orig: 269, 211
+  offset: 0, 0
+  index: -1
+pchips
+  rotate: false
+  xy: 2, 581
+  size: 1420, 661
+  orig: 1420, 661
+  offset: 0, 0
+  index: -1
+pctorso
+  rotate: false
+  xy: 2, 123
+  size: 644, 456
+  orig: 644, 456
+  offset: 0, 0
+  index: -1
+peyesclosed
+  rotate: false
+  xy: 1246, 2
+  size: 141, 306
+  orig: 141, 306
+  offset: 0, 0
+  index: -1

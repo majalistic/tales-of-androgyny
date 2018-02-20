@@ -80,11 +80,10 @@ public enum EnemyEnum {
     	}
     	else if (this == SLIME) { textureImagePaths.put(Stance.DOGGY.toString(),new Array<String>(new String[]{AssetEnum.SLIME_DOGGY.getPath()})); }
     	else if (this == BRIGAND) { 
-    		textureImagePaths.put(Stance.FELLATIO.toString(),new Array<String>(new String[]{AssetEnum.BRIGAND_ORAL.getPath()}));
-    		textureImagePaths.put(Stance.FACEFUCK.toString(),new Array<String>(new String[]{AssetEnum.BRIGAND_ORAL.getPath()}));
-    		textureImagePaths.put(Stance.ANAL.toString(),new Array<String>(new String[]{AssetEnum.BRIGAND_MISSIONARY.getPath()}));
+    		textureImagePaths.put(Stance.FELLATIO.toString(), new Array<String>(new String[]{AssetEnum.BRIGAND_ORAL.getPath()}));
+    		textureImagePaths.put(Stance.FACEFUCK.toString(), new Array<String>(new String[]{AssetEnum.BRIGAND_ORAL.getPath()}));
+    		textureImagePaths.put(Stance.ANAL.toString(), new Array<String>(new String[]{AssetEnum.BRIGAND_MISSIONARY.getPath()}));
     	}
-    	else if (this == ORC) { textureImagePaths.put(Stance.PRONE_BONE.toString(),new Array<String>(new String[]{AssetEnum.ORC_PRONE_BONE.getPath()})); }
     	else if (this == GOBLIN) {
     		textureImagePaths.put(Stance.FACE_SITTING.toString(), new Array<String>(new String[]{AssetEnum.GOBLIN_FACE_SIT.getPath()}));
     		textureImagePaths.put(Stance.SIXTY_NINE.toString(), new Array<String>(new String[]{AssetEnum.GOBLIN_FACE_SIT.getPath()}));
@@ -216,6 +215,11 @@ public enum EnemyEnum {
 			animations.get(1).setSkeletonPosition(775, 505);
 			animations.get(1).setAnimation(0, "IFOS100N", true);
 		}
+		else if (this == EnemyEnum.ORC) {
+			animations.add(assetManager.get(AssetEnum.ORC_PRONE_BONE_ANIMATION.getAnimation()).getInstance());	
+			animations.get(1).setSkeletonPosition(985, 310);
+			animations.get(1).setAnimation(0, "SlowMed", true);
+		}
 		return animations;
 	}
 	
@@ -342,6 +346,7 @@ public enum EnemyEnum {
 				break;
 			case ORC:
 				temp.add(AssetEnum.ORC_ANIMATION.getAnimation());
+				temp.add(AssetEnum.ORC_PRONE_BONE_ANIMATION.getAnimation());
 				break;
 			case SLIME:
 				break;

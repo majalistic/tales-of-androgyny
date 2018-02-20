@@ -62,7 +62,7 @@ public class ReplayScreen extends AbstractScreen {
 		resourceRequirements.add(AssetEnum.WEREBITCH_KNOT_CUM.getTexture());
 		
 		Array<AssetEnum> animationReqs = new Array<AssetEnum>(new AssetEnum[]{
-			HARPY_ANIMATION, HARPY_ATTACK_ANIMATION, FEATHERS_ANIMATION, FEATHERS2_ANIMATION, BRIGAND_ANIMATION, ANAL_ANIMATION, CENTAUR_ANIMATION, ORC_ANIMATION, GOBLIN_ANIMATION			
+			HARPY_ANIMATION, HARPY_ATTACK_ANIMATION, FEATHERS_ANIMATION, FEATHERS2_ANIMATION, BRIGAND_ANIMATION, ANAL_ANIMATION, CENTAUR_ANIMATION, ORC_ANIMATION, GOBLIN_ANIMATION, ORC_PRONE_BONE_ANIMATION		
 		});
 		for (AssetEnum asset: animationReqs) {
 			resourceRequirements.add(asset.getAnimation());
@@ -258,7 +258,6 @@ public class ReplayScreen extends AbstractScreen {
 				attachListener(new TextButton("Game Over", skin), AssetEnum.OGRE_BANGED, cg, enemy, table);
 				break;
 			case ORC:
-				attachListener(new TextButton("Anal", skin), AssetEnum.ORC_PRONE_BONE, cg, enemy, table);
 				break;
 			case SLIME:
 				attachListener(new TextButton("Love Dart", skin), AssetEnum.SLIME_DOGGY, cg, enemy, table);

@@ -1158,6 +1158,16 @@ public class EnemyCharacter extends AbstractCharacter {
 				currentAnimationsPlaying.remove(animations.get(1));
 			}
 		}
+		else if (enemyType == EnemyEnum.ORC) {
+			if (stance == Stance.DOGGY || stance == Stance.PRONE_BONE) {
+				currentAnimationsPlaying.add(animations.get(1));
+				currentAnimationsPlaying.remove(animations.get(0));
+			}
+			else {
+				currentAnimationsPlaying.add(animations.get(0));
+				currentAnimationsPlaying.remove(animations.get(1));
+			}
+		}
 		else if (enemyType == EnemyEnum.HARPY && currentFrame > 0) { 
 			clearActions();
 			currentAnimationsPlaying.clear();
@@ -1165,7 +1175,6 @@ public class EnemyCharacter extends AbstractCharacter {
 		if (currentAnimationsPlaying.size == 0 && enemyType == EnemyEnum.HARPY && !stance.isOralPenetration()) currentAnimationsPlaying.add(animations.get(0));
 		if (currentAnimationsPlaying.size == 0 || 
 				((enemyType == EnemyEnum.GOBLIN || enemyType == EnemyEnum.GOBLIN_MALE) && (stance == Stance.PRONE_BONE || stance == Stance.DOGGY || stance == Stance.PRONE_BONE || stance == Stance.SIXTY_NINE)) ||
-				(enemyType == EnemyEnum.ORC && stance == Stance.PRONE_BONE) || 
 				(enemyType == EnemyEnum.CENTAUR && (stance == Stance.DOGGY || stance == Stance.FELLATIO)) ||
 				(enemyType == EnemyEnum.BRIGAND && (stance == Stance.FELLATIO || stance == Stance.FACEFUCK || stance == Stance.ANAL))) {
 			Array<Texture> textureCandidates = textures.get(stance, defaultTextures);
@@ -1191,7 +1200,6 @@ public class EnemyCharacter extends AbstractCharacter {
 				(enemyType == EnemyEnum.ADVENTURER && stance == Stance.COWGIRL_BOTTOM) ||
 				(enemyType == EnemyEnum.HARPY && stance == Stance.FELLATIO) ||
 				enemyType == EnemyEnum.BRIGAND ||
-				(enemyType == EnemyEnum.ORC && stance == Stance.PRONE_BONE) ||
 				enemyType == EnemyEnum.CENTAUR || 
 				((enemyType == EnemyEnum.GOBLIN || enemyType == EnemyEnum.GOBLIN_MALE) && (stance == Stance.FACE_SITTING || stance == Stance.SIXTY_NINE || stance == Stance.DOGGY || stance == Stance.PRONE_BONE))) {
 				x = ((enemyType == EnemyEnum.BRIGAND && stance != Stance.ANAL) || (enemyType == EnemyEnum.GOBLIN || enemyType == EnemyEnum.GOBLIN_MALE) && (stance == Stance.FACE_SITTING || stance == Stance.SIXTY_NINE)) ? 400 : 0;
