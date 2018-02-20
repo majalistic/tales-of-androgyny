@@ -117,16 +117,13 @@ public class CheckScene extends AbstractTextScene {
 			if (checkType.getCheck(character) && tempIgnores == 0) {
 				toDisplay += checkType.getSuccess();
 				display.setText(toDisplay);
-				success = true;
+				success = checkType.canBeFlubbed();
 				return clearScene;
 			}
 			else {
 				toDisplay += checkType.getFailure();
 				display.setText(toDisplay);
-				if (checkType.canBeFlubbed()) {
-					success = false;
-				}
-				
+				success = false;
 				return defaultScene;
 			}			
 		}
