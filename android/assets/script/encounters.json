@@ -5238,30 +5238,50 @@
 		]
 	},
 	{
-		"key": "GOBLIN-BIRTH-HARPY",
+		"key": "GOBLIN-BIRTH",
 		"scriptLines": [
 			{
 			"music": "WEREWOLF_MUSIC",
+			"text": "The strange pregnancy has grown stranger and stranger - the creature inside of you has grown faster than you could have possibly imagined, and you have the distended belly and awkward waddle to prove it."},
+			{"text": "When the baby first kicked, it was humbling... now it's just frustrating.  And it seems to have the same hyper-manic temperament as its mother."},
+			{"text": "Its kicking has become incessant, but now it's something else entirely.  You deal with the aches and big belly as gracefully as you can, but you can't help but think back to the fateful encounter with the goblin... or the baby's, for lack of a better term, \"daddy\"."},
+			{"text": "You can sense that it will be soon... but you worry that it will be a rather unpleasant affair."},
+			{"text": "Suddenly, while walking, you double over... the baby's coming."},			
+			{"text": "You lay down on the ground, legs spread... teeth grit, and hands balled into fists.  It's definitely coming.  When you feel the creature's head dilating your anus, your stomach cramping, you groan.  This is going to be... difficult."},
+			{"text": "Somehow, you manage to begin to squeeze it out... you worry your o-ring will never return to its proper shape."}
+		]
+	},
+	{
+		"key": "GOBLIN-BIRTH-HARPY",
+		"scriptLines": [
+			{
 			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "GOBLIN", "value":9}}],
-			"text": "You give birth to the goblin's harpy-inseminated baby."}
+			"text": "You give birth to the goblin's harpy-inseminated baby."},
+			{"text": "It seems like... some kind of hybrid.  A feathered goblin.  It's kind of... cute.  But also wet and weird."},
+			{"text": "It scurries off before you even have a chance to... well, you don't really know what you'd do with a harpy goblin that just came out of your butt."},
+			{"text": "Unencumbered, you continue your journey, thoroughly heeby in the jeebies."},
 		]
 	},
 	{
 		"key": "GOBLIN-BIRTH-WEREWOLF",
 		"scriptLines": [
 			{
-			"music": "WEREWOLF_MUSIC",
 			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "GOBLIN", "value":10}}],
-			"text": "You give birth to the goblin's werewolf-inseminated baby."}
+			"text": "You give birth to the goblin's werewolf-inseminated baby."},
+			{"text": "It seems like... some kind of hybrid.  A fuzzy, wolf-like goblin.  It's adorable, but terrifying."},
+			{"text": "It scurries off before you even have a chance to... well, you don't really know what you'd do with a werewolf goblin that just came out of your butt."},
+			{"text": "Unencumbered, you continue your journey, thoroughly heeby in the jeebies."},
 		]
 	},
 	{
 		"key": "GOBLIN-BIRTH-CENTAUR",
 		"scriptLines": [
 			{
-			"music": "WEREWOLF_MUSIC",
 			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "GOBLIN", "value":11}}],
-			"text": "You give birth to the goblin's centaur-inseminated baby."}
+			"text": "You give birth to the goblin's centaur-inseminated baby."},
+			{"text": "It seems like... some kind of hybrid.  A goblin with a four-legged body.  You're pretty sure you just broke some unspoken rule, but there's nothing you can do about it now.  Once that centaur's cock pushed you in and creamed you, this was bound to be the result."},
+			{"text": "It clops off before you even have a chance to... well, you don't really know what you'd do with a centaur goblin that just came out of your butt."},
+			{"text": "Unencumbered, you continue your journey, thoroughly heeby in the jeebies."},
 		]
 	},
 	{

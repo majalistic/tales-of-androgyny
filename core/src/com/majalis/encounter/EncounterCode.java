@@ -1087,7 +1087,7 @@ public enum EncounterCode {
 				
 				return b.branch().checkScene(
 					CheckType.GOBLIN_BIRTH, 
-					b.branch(true).checkScene(CheckType.GOBLIN_BIRTH_HARPY, b.branch(true).textScene("GOBLIN-BIRTH-HARPY"), b.branch(false).checkScene(CheckType.GOBLIN_BIRTH_WEREWOLF, b.branch(true).textScene("GOBLIN-BIRTH-WEREWOLF"), b.branch(false).textScene("GOBLIN-BIRTH-CENTAUR"))), 
+					b.branch(true).textScene("GOBLIN-BIRTH").checkScene(CheckType.GOBLIN_BIRTH_HARPY, b.branch(true).textScene("GOBLIN-BIRTH-HARPY"), b.branch(false).checkScene(CheckType.GOBLIN_BIRTH_WEREWOLF, b.branch(true).textScene("GOBLIN-BIRTH-WEREWOLF"), b.branch(false).textScene("GOBLIN-BIRTH-CENTAUR"))), 
 					b.branch(false).checkScene(
 						CheckType.GOBLIN_KNOWN,
 						b.branch(true).textScene("GOBLIN-INTRO").choiceScene(
