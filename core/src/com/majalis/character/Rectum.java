@@ -9,34 +9,34 @@ public class Rectum {
 	private int eggs = 0;
 	
 	protected Rectum() {
-		contents = RectumContents.DRY;
+		contents = RectumContents.EMPTY;
 		fullness = RectumFullness.EMPTY;
 		tightness = RectumTightness.NORMAL;
 		cum = 0;
 	}
 	
-	public int getFullnessAmount() { return cum + eggs; }
+	protected int getFullnessAmount() { return cum + eggs; }
 	
-	public void fillButtWithCum(int cum) { 
-		this.cum += cum; 
+	protected void fillButtWithCum(int cumMod) { 
+		this.cum += cumMod; 
 		if (cum <= 0) {
 			cum = 0;
-			contents = RectumContents.DRY;
+			contents = RectumContents.EMPTY;
 		}	
 		else if (contents != RectumContents.EGGED) {
 			contents = cum >= 20 ? RectumContents.CUM_STUFFED : cum >= 10 ? RectumContents.SLOPPY_CUM_MESS : RectumContents.CUM_HOLSTER;
 		}
 	} 
 	
-	public void togglePlug() {
-		contents = contents == RectumContents.PLUGGED ? RectumContents.DRY : RectumContents.PLUGGED;
+	protected void togglePlug() {
+		contents = contents == RectumContents.PLUGGED ? RectumContents.EMPTY : RectumContents.PLUGGED;
 	}
 	
-	public void fillButtWithEggs(int eggs) {
+	protected void fillButtWithEggs(int eggs) {
 		this.eggs += eggs; 
 		if (eggs <= 0) {
 			eggs = 0;
-			contents = RectumContents.DRY;
+			contents = RectumContents.EMPTY;
 		}	
 		else {
 			contents = RectumContents.EGGED;
@@ -63,7 +63,7 @@ public class Rectum {
 	}
 	
 	private enum RectumContents {
-		DRY, CUM_HOLSTER, SLOPPY_CUM_MESS, CUM_STUFFED, EGGED, DICK_ACCOMMODATING, CUMMING_DICK, PLUGGED
+		EMPTY, CUM_HOLSTER, SLOPPY_CUM_MESS, CUM_STUFFED, EGGED, DICK_ACCOMMODATING, CUMMING_DICK, PLUGGED
 	}
 	
 	private enum RectumFullness {

@@ -766,6 +766,16 @@ public class PlayerCharacter extends AbstractCharacter {
 	}
 	
 	@Override
+	protected void drainButt() {
+		if (rectum.getFullnessAmount() > 0) {
+			sphincter.modWetness(1);
+		}
+			
+		super.drainButt();
+		
+	}
+	
+	@Override
 	protected String getDroolMessage() {
 		String message = "";
 		if (mouthful > 10) {
@@ -1347,6 +1357,8 @@ public class PlayerCharacter extends AbstractCharacter {
 		Array<MutationResult> result = new Array<MutationResult>();
 		arousal.increaseArousal(sex, perks);
 		
+		sphincter.receiveSex(sex);
+		
 		for (int ii = 0; ii < sex.getAnalSex(); ii++) {
 			result.addAll(receiveAnal(getPhallusType(sex)));
 			setCurrentPortrait(perks.get(Perk.ANAL_ADDICT.toString(), 0) > 1 ? AssetEnum.PORTRAIT_LUST : AssetEnum.PORTRAIT_HIT);
@@ -1718,6 +1730,7 @@ public class PlayerCharacter extends AbstractCharacter {
 		time += timePassed;
 		Array<MutationResult> result = getResult(timePassed >= 12 ? timePassed / 6 + " days pass." : timePassed >= 6 ? "A day passes." : timePassed >= 3 ? "Much time passes." : timePassed == 2 ? "Some time passes." : "A short time passes.", timePassed, MutationType.TIME);
 		result.addAll(eggTick(timePassed));
+		sphincter.tick(timePassed);
 		modDebtCooldown(-timePassed);
 		result.addAll(modFood(-getMetabolicRate() * timePassed));
 		result.addAll(debtTick((time / 6) - currentDay));

@@ -1250,6 +1250,7 @@ public abstract class AbstractCharacter extends Actor {
 		Plug equipPlug = (Plug) plug;
 		boolean alreadyEquipped = equipPlug.equals(this.plug); 
 		this.plug = alreadyEquipped ? null : equipPlug;
+		rectum.togglePlug();
 		return "You " + (alreadyEquipped ? "unequipped" : "equipped") + " the " + plug.getName() + ".";
 	}
 	
