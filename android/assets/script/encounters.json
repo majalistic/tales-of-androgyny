@@ -5157,10 +5157,12 @@
 		"scriptLines": [
 			{
 			"animatedForeground": "UNICORN",
-			"mutations": [{"profileSaveType":"KNOWLEDGE", "value":{"class": "java.lang.String", "value": "Unicorn"}}],
+			"mutations": [{"profileSaveType":"KNOWLEDGE", "value":{"class": "java.lang.String", "value": "Unicorn"}}, {"saveType":"PORTRAIT", "value":{"class": "com.majalis.asset.AssetEnum", "value": "PORTRAIT_SURPRISE"}}],
 			"text": "You hear a frenzied whinny, and spin around just in time to avoid being trampled by a brightly colored creature much like the one before.  When they turn to look at you, you see that it's female... a rather well-endowed female... and that her colors are quite vibrant."},
 			{"text": "Even more strange, she has a horn on her head... and... between her legs..."},
-			{"text": "It's... rather erect... and the look on her face is quite mad - she wipes her saliva on her wrist, even as the thing pointed directly at you drools a clear strand down into the dirt, which quickly pools into mud."},
+			{
+			"mutations": [{"saveType":"PORTRAIT", "value":{"class": "com.majalis.asset.AssetEnum", "value": "PORTRAIT_GRIMACE"}}], 
+			"text": "It's... rather erect... and the look on her face is quite mad - she wipes her saliva on her wrist, even as the thing pointed directly at you drools a clear strand down into the dirt, which quickly pools into mud."},
 			{"text": "You tense up, but in one place in particular.  It seems you'll have to fight off her amorous advances."}
 		]
 	},
@@ -5175,8 +5177,12 @@
 	{
 		"key": "UNICORN-DEFEAT",
 		"scriptLines": [
-			{"text": "You collapse to the ground.  You will your legs to move - you know that if she gets the chance to, she's going to blow your ass away."},
-			{"text": "You spot it as she trots past you to reach your upturned behind - it must be nearly two feet long, and it is clearly raring to go.  You consider telling her that you're male, but you get the sense that anatomical incompatibilities are not at the top of her concerns."},
+			{
+			"mutations": [{"saveType":"PORTRAIT", "value":{"class": "com.majalis.asset.AssetEnum", "value": "PORTRAIT_HIT"}}], 
+			"text": "You collapse to the ground.  You will your legs to move - you know that if she gets the chance to, she's going to blow your ass away."},
+			{
+			"mutations": [{"saveType":"PORTRAIT", "value":{"class": "com.majalis.asset.AssetEnum", "value": "PORTRAIT_SURPRISE"}}], 
+			"text": "You spot it as she trots past you to reach your upturned behind - it must be nearly two feet long, and it is clearly raring to go.  You consider telling her that you're male, but you get the sense that anatomical incompatibilities are not at the top of her concerns."},
 			{"text": "She's completely in a lustful frenzy - there's no mistaking what she plans to do with her two feet of grade-A horse meat, her swollen equine testicles desperate to be drained, and she is going to absolutely destroy your ass if she manages to get it in."},
 			{"text": "\"A virgin...\" she says, wistfully, like a schoolgirl in love - even as her rigid pooper-pusher bobs considerably under its own weight with each of her excited steps."},
 			{"text": "You don't know why the colorful girl has a very male centaur's equipment, but you're not much in the mood for trivia, any more than she's in the mood for conversation."},
@@ -5240,7 +5246,9 @@
 	{
 		"key": "CENTAUR-CATAMITE",
 		"scriptLines": [
-			{"text": "You get down on your hands and knees - you can't believe you're doing this, but you also can't believe how much of a horse cock she has."},
+			{
+			"mutations": [{"saveType":"PORTRAIT", "value":{"class": "com.majalis.asset.AssetEnum", "value": "PORTRAIT_LOVE"}}], 
+			"text": "You get down on your hands and knees - you can't believe you're doing this, but you also can't believe how much of a horse cock she has."},
 			{"text": "You pull your pants down and spread your cheeks, and she wastes little time in acquiescing to your subtle demands, trotting over, her cock freeing itself of its sheathe in search of another."},
 			{"text": "She doesn't hesitate to begin prodding it against your poor hole - once, twice, three times, and you yelp, as she begins to stuff it inside, your mouth agape in awe and your backdoor opening far wider than is comfortable."},
 			{
@@ -5265,14 +5273,19 @@
 		"key": "CENTAUR-DEFEAT",
 		"scriptLines": [
 			{
+			"mutations": [{"saveType":"PORTRAIT", "value":{"class": "com.majalis.asset.AssetEnum", "value": "PORTRAIT_HIT"}}], 
 			"animatedForeground": "CENTAUR",
 			"text": "The centaur hoists you up, limp and spiritless."},
 			{"text": "\"So weak. You trespass on our land, and then you offend me with such a trivial challenge?  Hmph,\" she snorts, and slings you onto her back.  She kicks off into a trot, with you still haplessly strung across her back."},
 			{"text": "When the wind returns to your lungs, you ask her where she's taking you."},
-			{"text": "\"Our menfolk haven't had any surrogate mares as of late.  I'm sure they'll find a use for a cute, girlish human like you,\" she says, snickering."},
+			{
+			"mutations": [{"saveType":"PORTRAIT", "value":{"class": "com.majalis.asset.AssetEnum", "value": "PORTRAIT_SURPRISE"}}], 
+			"text": "\"Our menfolk haven't had any surrogate mares as of late.  I'm sure they'll find a use for a cute, girlish human like you,\" she says, snickering."},
 			{"text": "Your mind reels.  She couldn't mean... your mind pictures the anatomy of a male horse, and your sphincter tightens with an audible squeak."},
 			{"text": "You try to convince her that she's wrong - that you're male, and that you're not suitable as a mare... to which she sternly replies that you shouldn't be so hard on yourself."},
-			{"text": "The gathering of centaurs, perhaps a herd, is large indeed - thirty or forty of them.  You are disheartened to learn, quite quickly, that around half of them are men."},
+			{
+			"mutations": [{"saveType":"PORTRAIT", "value":{"class": "com.majalis.asset.AssetEnum", "value": "PORTRAIT_GRIMACE"}}], 
+			"text": "The gathering of centaurs, perhaps a herd, is large indeed - thirty or forty of them.  You are disheartened to learn, quite quickly, that around half of them are men."},
 			{"text": "She wasn't wrong about the menfolk finding a use for you."},
 			{"text": "By the day's end, you find yourself grasping the forelegs of a male centaur while he thoroughly makes you his mare, an anal ordeal that is the first of many.  You grit your teeth as sweat pours down your face and your ass is ruined by a horse's dick - that it happens to be gay sex is the least of your worries."},
 			{"text": "As the male centaur erupts, his runny semen filling and overflowing your bowels, a quick-shot by any measure, you hear the clopping of another centaur, ready to drain their foot-and-a-half-long cock in your already greased up innards, and you know that your adventure is over."},
@@ -5307,9 +5320,13 @@
 			{"text": "When the baby first kicked, it was humbling... now it's just frustrating.  And it seems to have the same hyper-manic temperament as its mother."},
 			{"text": "Its kicking has become incessant, but now it's something else entirely.  You deal with the aches and big belly as gracefully as you can, but you can't help but think back to the fateful encounter with the goblin... or the baby's, for lack of a better term, \"daddy\"."},
 			{"text": "You can sense that it will be soon... but you worry that it will be a rather unpleasant affair."},
-			{"text": "Suddenly, while walking, you double over... the baby's coming."},			
+			{
+			"mutations": [{"saveType":"PORTRAIT", "value":{"class": "com.majalis.asset.AssetEnum", "value": "PORTRAIT_SURPRISE"}}], 
+			"text": "Suddenly, while walking, you double over... the baby's coming."},			
 			{"text": "You lay down on the ground, legs spread... teeth grit, and hands balled into fists.  It's definitely coming.  When you feel the creature's head dilating your anus, your stomach cramping, you groan.  This is going to be... difficult."},
-			{"text": "Somehow, you manage to begin to squeeze it out... you worry your o-ring will never return to its proper shape."}
+			{
+			"mutations": [{"saveType":"PORTRAIT", "value":{"class": "com.majalis.asset.AssetEnum", "value": "PORTRAIT_GRIMACE"}}], 
+			"text": "Somehow, you manage to begin to squeeze it out... you worry your o-ring will never return to its proper shape."}
 		]
 	},
 	{
@@ -5376,9 +5393,12 @@
 			{"text": "If not for the bioluminescence of some of the mushrooms, you'd be cloaked in darkness - the growth is denser here than on the main path."},
 			{"text": "Eyes still follow you as you go, and you start to hear more and more intimidating sounds.  You shake your head, trying to get ahold of yourself."},
 			{
+			"mutations": [{"saveType":"PORTRAIT", "value":{"class": "com.majalis.asset.AssetEnum", "value": "PORTRAIT_SURPRISE"}}], 
 			"sound": "LOUD_LAUGH",
 			"text": "\"Nyahaha!\" A sudden peal of high-pitched, frenetic laughter that echoes through the forest.  Something small scurries past your field of vision, leaving behind a diminuitive human outline in your mind's eye that is as disturbing as it is quick."},
-			{"text": "You hear more giggling, and try to listen for the tiny footsteps, but suddenly the quiet forest sounds positively cacophonous - you try to drown out everything you can to home in on the sound of an approaching creature."}
+			{
+			"mutations": [{"saveType":"PORTRAIT"}], 
+			"text": "You hear more giggling, and try to listen for the tiny footsteps, but suddenly the quiet forest sounds positively cacophonous - you try to drown out everything you can to home in on the sound of an approaching creature."}
 		]
 	},
 	{
@@ -5667,7 +5687,9 @@
 			{"text": "The bulge in her loincloth is... obvious.  You swallow, expectantly."},
 			{"text": "You're not sure what goblin sex is like, but you have a foreboding sense that you're about to find out."},
 			{"text": "\"Are you a boy or a girl?\" they ask, although now you're not entirely sure about them either."},
-			{"text": "\"I'm a boy!\" you say, defiantly, and she cackles."},
+			{
+			"mutations": [{"saveType":"PORTRAIT", "value":{"class": "com.majalis.asset.AssetEnum", "value": "PORTRAIT_HIT"}}], 
+			"text": "\"I'm a boy!\" you say, defiantly, and she cackles."},
 			{"text": "\"Nyaha!   Uhoh!  Sucks for you!  Selkie isn't in the mood for pinkskin meat!  Boy or girl, either way it's going up. The. Asshole!\""},
 			{"text": "\"Up the... no way!\" you say, her words confirming your fears."},
 			{"text": "\"What, you wanted to put it in my butt?  Perverted human.  Is that why you fought so weak and stuff?  Maybe I should let you stir up my butt, as a reward for making this little goblin feel big and strong like you!\""},
@@ -5675,7 +5697,9 @@
 			{"text": "\"Nyahah!  I don't think so, human!  You better get ready for some hot, throbbing gobbo dick in your tight little fudge tunnel!  Nyahaha!  I'm gonna make your butt pussy taste my green meat!\""},
 			{"text": "She pushes you face-down, your chin resting in the dirt, and you meekly try to fend her off."},
 			{"text": "\"What's the matter, human?  Getting overpowered by a little goblin girlie?  That's so embarrassing!  Wouldn't it be even more embarrassing if she fucked you right up your hole like a girl?\" she taunts, while sliding her surprisingly stiff penis between your cheeks."},
-			{"text": "You expect her to start pushing it in, but then she climbs up on your back, riding you."},
+			{
+			"mutations": [{"saveType":"PORTRAIT"}], 
+			"text": "You expect her to start pushing it in, but then she climbs up on your back, riding you."},
 			{"text": "\"Which do you want to taste it with first?  Your top hole or your bottom?\" she says, her hands on your shoulders."},
 			{"text": "You think it over.  She dismounts you and gives you a swat on the rear, but is otherwise surprisingly patient."}
 		]
@@ -5901,6 +5925,7 @@
 			"text": "You travel down a dark, narrow path in the enchanted forest.  You feel as if you're being watched... or, more accurately, inspected.  The feeling raises your hackles, but there's nothing that can be done about it."},
 			{
 			"animatedForeground": "GOBLIN_MALE",
+			"mutations": [{"saveType":"PORTRAIT", "value":{"class": "com.majalis.asset.AssetEnum", "value": "PORTRAIT_SURPRISE"}}], 
 			"text": "\"Gyahaha\" you hear, a high peal of laughter... although the register is different from how you remembered it.  You spot them almost immediately - a goblin, but different looking from the one you saw before."}
 			{"text": "You approach him cautiously... and you see that, like the other, he wields a frighteningly jagged dagger."}
 			{"text": "\"My turn, my turn!\" he says, revealing a rather... swinging set of genitals.  You reach for your weapon."}
