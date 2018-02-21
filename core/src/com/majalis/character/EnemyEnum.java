@@ -18,7 +18,7 @@ import com.majalis.character.Arousal.ArousalType;
 import com.majalis.character.Item.WeaponType;
 @SuppressWarnings("unchecked")
 public enum EnemyEnum {
-	WERESLUT (new EnemyTemplate(WeaponType.Claw).setStrength(5).setAgility(5), "Wereslut", AssetEnum.WEREBITCH.getTexture()),
+	WERESLUT (new EnemyTemplate(WeaponType.Claw).setStrength(5).setAgility(5), "Wereslut", null, AnimationEnum.WEREWOLF),
 	HARPY (new EnemyTemplate(WeaponType.Talon).setStrength(4), "Harpy", null, AnimationEnum.HARPY),
 	SLIME (new EnemyTemplate(null).setArmor(null).setLegwear(null).setUnderwear(null).setDefense(3).setStrength(2).setEndurance(4).setAgility(4), "Slime", AssetEnum.SLIME.getTexture()),
 	BRIGAND (new EnemyTemplate(WeaponType.Gladius).setAgility(4).setShield(ArmorType.SHIELD), "Brigand", null, AnimationEnum.BRIGAND),
@@ -356,6 +356,7 @@ public enum EnemyEnum {
 				temp.add(AssetEnum.CENTAUR_ANIMATION.getAnimation());
 				break;
 			case WERESLUT:
+				temp.add(AssetEnum.WEREWOLF_ANIMATION.getAnimation());
 				break;
 			default:
 				break;

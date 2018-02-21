@@ -4142,7 +4142,7 @@
 			"sound": "WEREWOLF_GROWL",
 			"text":"The growling gets louder and louder, until, finally, a wolf emerges from the bushes... and she is absolutely stacked!"},
 			{
-			"foreground":"WEREBITCH", 
+			"animatedForeground": "WEREWOLF", 
 			"text": "\"Grrr...\" she growls, holding up her clawed paws.  \"Just kidding,\" she says, dropping them to her skirt, \"I'm not gonna eat ya!  I just want to mate!\""},
 			{"text": "You look her up and down.  \"Mate\"?  Her proportions are amazing - she's no slouch.  She's dressed like a nearby villager, but her clothes are in tatters.  You wonder what she is - maybe a werewolf?  It's possible her libido has been out of control since she was turned."},
 			{"text": "You start to consider taking her up on her offer, but something about the way she's standing is a little... strange.  \"Oh... I get to mate, finally!\" she says, gripping onto her tattered skirt, which draws your attention to the anomaly."},

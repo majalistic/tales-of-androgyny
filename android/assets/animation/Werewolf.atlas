@@ -1,0 +1,139 @@
+
+Werewolf.png
+size: 2048,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+BackBangs
+  rotate: true
+  xy: 1170, 583
+  size: 57, 86
+  orig: 57, 86
+  offset: 0, 0
+  index: -1
+Balls
+  rotate: false
+  xy: 2, 2
+  size: 39, 50
+  orig: 39, 50
+  offset: 0, 0
+  index: -1
+Cloth
+  rotate: false
+  xy: 361, 421
+  size: 298, 598
+  orig: 298, 598
+  offset: 0, 0
+  index: -1
+Cock
+  rotate: false
+  xy: 361, 328
+  size: 167, 91
+  orig: 167, 91
+  offset: 0, 0
+  index: -1
+FrontBangs
+  rotate: false
+  xy: 248, 186
+  size: 96, 123
+  orig: 96, 123
+  offset: 0, 0
+  index: -1
+Head
+  rotate: false
+  xy: 2, 54
+  size: 244, 255
+  orig: 244, 255
+  offset: 0, 0
+  index: -1
+LEar
+  rotate: false
+  xy: 530, 344
+  size: 79, 75
+  orig: 79, 75
+  offset: 0, 0
+  index: -1
+LForearm
+  rotate: false
+  xy: 1748, 905
+  size: 131, 114
+  orig: 131, 114
+  offset: 0, 0
+  index: -1
+LPaw
+  rotate: false
+  xy: 1325, 704
+  size: 97, 103
+  orig: 97, 103
+  offset: 0, 0
+  index: -1
+LShin
+  rotate: true
+  xy: 661, 463
+  size: 109, 339
+  orig: 109, 339
+  offset: 0, 0
+  index: -1
+LToes
+  rotate: false
+  xy: 1881, 955
+  size: 82, 64
+  orig: 82, 64
+  offset: 0, 0
+  index: -1
+LUpperArm
+  rotate: false
+  xy: 1170, 642
+  size: 153, 165
+  orig: 153, 165
+  offset: 0, 0
+  index: -1
+REar
+  rotate: false
+  xy: 1325, 645
+  size: 60, 57
+  orig: 60, 57
+  offset: 0, 0
+  index: -1
+RForearm
+  rotate: false
+  xy: 1560, 858
+  size: 186, 161
+  orig: 186, 161
+  offset: 0, 0
+  index: -1
+RLeg
+  rotate: true
+  xy: 1029, 809
+  size: 210, 529
+  orig: 210, 529
+  offset: 0, 0
+  index: -1
+RPonytail
+  rotate: false
+  xy: 248, 115
+  size: 67, 69
+  orig: 67, 69
+  offset: 0, 0
+  index: -1
+RUpperArm
+  rotate: false
+  xy: 1029, 578
+  size: 139, 229
+  orig: 139, 229
+  offset: 0, 0
+  index: -1
+Tail
+  rotate: false
+  xy: 661, 574
+  size: 366, 445
+  orig: 366, 445
+  offset: 0, 0
+  index: -1
+Torso
+  rotate: false
+  xy: 2, 311
+  size: 357, 708
+  orig: 357, 708
+  offset: 0, 0
+  index: -1
