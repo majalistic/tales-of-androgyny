@@ -4349,13 +4349,17 @@
 			"mutations": [{"profileSaveType":"KNOWLEDGE", "value":{"class": "java.lang.String", "value": "Harpy"}}],
 			"text": "You look around.  You've been hiking for quite a while, and despite the large, man-sized nests littered about, there don't appear to be any harpies here."}, 
 			{"text": "That being said, there's a rather pungent scent in the air, and you've been hearing squawks and the flappings of tremendous wings for a while."},
-			{"text": "You look up and behind you to try to spot the source, but the sky is empty - however, when you turn back, you can plainly see a figure approaching rapidly, talons extended!"}
+			{
+			"mutations": [{"saveType":"PORTRAIT", "value":{"class": "com.majalis.asset.AssetEnum", "value": "PORTRAIT_SURPRISE"}}],
+			"text": "You look up and behind you to try to spot the source, but the sky is empty - however, when you turn back, you can plainly see a figure approaching rapidly, talons extended!"}
 		]
 	},
 	{
 		"key": "HARPY-DODGE",
 		"scriptLines": [
-			{"text": "You deftly sidestep the harpy's dive, extending your arm to clothesline her in the process."},
+			{
+			"mutations": [{"saveType":"PORTRAIT"}],
+			"text": "You deftly sidestep the harpy's dive, extending your arm to clothesline her in the process."},
 			{"text": "The impact nearly drags you both to the ground, but the robust harpy seems relatively unharmed, though she crashes to the floor with her face in the dirt."},
 			{"text": "It's time to act!"}
 		]
@@ -4364,6 +4368,7 @@
 		"key": "HARPY-DUCK",
 		"scriptLines": [
 			{
+			"mutations": [{"saveType":"PORTRAIT", "value":{"class": "com.majalis.asset.AssetEnum", "value": "PORTRAIT_HIT"}}],
 			"sound": "BIRD_SCREECH",
 			"text": "You manage to duck underneath the approaching figure, which has the unfortunate side effect of giving you a full view of her intentions."}, 
 			{"text": "Her heavily foreskinned bird dick just narrowly misses its intended target - your mouth - and flies by as a blur."},
@@ -4374,10 +4379,13 @@
 		"key": "HARPY-HORK",
 		"scriptLines": [
 			{
+			"mutations": [{"saveType":"PORTRAIT", "value":{"class": "com.majalis.asset.AssetEnum", "value": "PORTRAIT_GRIMACE"}}],
 			"sound": "BIRD_SCREECH",
-			"foreground": "HARPY_FELLATIO_1",
 			"text": "You're too slow to dodge the harpy!"},
-			{"text": "Her lower body crashes into your face at high speed - you're knocked to the ground, and your mouth, open in surprise, is filled!"},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "oralSex":1, "bird":true}}],
+			"foreground": "HARPY_FELLATIO_1",
+			"text": "Her lower body crashes into your face at high speed - you're knocked to the ground, and your mouth, open in surprise, is filled!"},
 			{"text": "The harpy lets out a moaning screech, and her tongue lolls out in satisfaction!"},
 			{"text": "Before you even know what happened, you're tasting the worst the harpy has to offer - her slimy penis!"},
 			{"text": "It tastes like it's never been washed, and the harpy looks down at you with frenzy in her wild eyes; she obviously has taken a liking to your lips in an unfortunate way!"},
