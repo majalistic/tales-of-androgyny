@@ -166,7 +166,9 @@ public class CharacterScreen extends AbstractScreen {
 		buttTable.add(getLabel(character.getRectum().getContents(), skin, Color.BLACK)).align(Align.left).row();
 		buttTable.add(getLabel("Rectum fullness: ", skin, Color.BLACK)).align(Align.left);
 		buttTable.add(getLabel(character.getRectum().getFullness(), skin, Color.BLACK)).align(Align.left).row();
-			
+		buttTable.add(getLabel("Colon contents: ", skin, Color.BLACK)).align(Align.left);
+		buttTable.add(getLabel(character.getColon().getContents(), skin, Color.BLACK)).align(Align.left).row();
+		
 		final Table statTable = new Table();
 
 		for (final Stat stat: Stat.values()) {
