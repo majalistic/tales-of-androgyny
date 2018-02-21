@@ -4577,10 +4577,14 @@
 			{"text": "\"She\" has a rather sizable rear - one that you could get lost in, quite literally, as she appears to be made of... slime. Though you suppose she can take any shape, which makes her current one quite suspect."},
 			{"text": "Before you can inspect further, she turns to face you, and, seeing you, jiggles excitedly. Her \"breasts\" are massive, far larger than any human woman would have, and they move quite... fluidly."},
 			{"text": "\"Ooooooo... a human!  What brings you to my haunt?\" she asks, although as soon as she starts to approach... slithering across the ground, you reach for your weapon."},
-			{"text": "\"What... are you?\" you ask, confused."},
+			{
+			"mutations": [{"saveType":"PORTRAIT", "value":{"class": "com.majalis.asset.AssetEnum", "value": "PORTRAIT_SURPRISE"}}],
+			"text": "\"What... are you?\" you ask, confused."},
 			{"text": "\"That's a rather rude question, isn't it?\", she says, \"I'm a slime, obviously.  A sentient slime.\""},
 			{"text": "Obviously."},
-			{"text": "\"How are you... speaking?\" you ask."},
+			{
+			"mutations": [{"saveType":"PORTRAIT", "value":{"class": "com.majalis.asset.AssetEnum", "value": "PORTRAIT_NEUTRAL"}}],
+			"text": "\"How are you... speaking?\" you ask."},
 			{"text": "\"Oh... well, that's a rather embarrassing question...\" she says, looking flustered, although she's still a translucent blue.  \"As a non-sentient slime... consumes... sentient creatures, it starts to develop a mind of its own... that's me!\""},
 			{"text": "You pick up your guard.  \"And am I next, then?\" you say, accusingly."},
 			{"text": "\"No! I haven't digested many humans since I became, well, me.  Always in self-defense, of course,\" she adds, looking somewhat sullen. \"Sentient slime goo is an expensive commodity, or so I've come to learn. So I do have to fend off the occasional poacher\", she explains."},
@@ -4604,9 +4608,13 @@
 	{
 		"key": "SLIME-VICTORY",
 		"scriptLines": [
-			{"text": "You defeat the slime, and she becomes visibly agitated - like she can't hold onto her form any longer."}
+			{
+			"mutations": [{"saveType":"PORTRAIT", "value":{"class": "com.majalis.asset.AssetEnum", "value": "PORTRAIT_GRIN"}}],
+			"text": "You defeat the slime, and she becomes visibly agitated - like she can't hold onto her form any longer."}
 			{"text": "\"I suppose you want to claim a trophy, don't you?  Well then, stab my core,\" she says, defeated."},
-			{"text": "\"Your core?\""},
+			{
+			"mutations": [{"saveType":"PORTRAIT", "value":{"class": "com.majalis.asset.AssetEnum", "value": "PORTRAIT_NEUTRAL"}}],
+			"text": "\"Your core?\""},
 			{"text": "\"It's the only way to kill a slime.  Chopping us up to pieces does nothing; we'll just reform. If you destroy this, we're gone for good,\" she says, pointing to a jewel floating within her gelatinous form."},
 			{"text": "\"Why are you telling me this?\""},
 			{"text": "\"You'd find out anyway,\" she explains, sloshing a bit as she struggles to keep her voluptuous form, \"and I would rather have it done quickly than... the alternative.\""},
@@ -4631,12 +4639,14 @@
 	{
 		"key": "SLIME-FAIL",
 		"scriptLines": [
-			{"text": "You fail to shatter the slime's core - her slime hardens in such a way to deflect the blow, and then she lurches towards you, so that your wrist gets sucked inside of her. In the next few terrifying moments, she pulls the whole of you into herself."},
+			{
+			"mutations": [{"saveType":"PORTRAIT", "value":{"class": "com.majalis.asset.AssetEnum", "value": "PORTRAIT_SURPRISE"}}],
+			"text": "You fail to shatter the slime's core - her slime hardens in such a way to deflect the blow, and then she lurches towards you, so that your wrist gets sucked inside of her. In the next few terrifying moments, she pulls the whole of you into herself."},
 			{"text": "\"You're quite violent, aren't you?  Well, I won't turn down such a generously offered meal.  Hopefully you go to my chest or hips and not my belly,\" she says, ominously."},
 			{"text": "You feel a wave of pressure within her, as if her slime was somehow changing in texture... and then your entire body becomes numb."},
 			{"text": "\"I'm sorry, but I can't just let you kill me. I've done nothing wrong. You, on the contrary... you are dangerous,\" she says, but you can't say anything in response, her goo filling your mouth as you open it to scream."},
 			{"text": "With a sudden existential terror, you realize what's happening.  She's digesting you. You struggle to move, even a little bit, but... nothing.  You're immobile within the slime."},
-			{"text": "\"Don't worry, you'll just dissolve away.  I don't poop.  Oh, that's so embarassing to say.  Pretend you didn't hear it. Or, you know, disappear forever...\" she says, and in a matter of a few seconds, you'll obey - and end your journey as an extra inch on the slime's impressive hips."},
+			{"text": "\"Don't worry, you'll just dissolve away.  I don't poop.  Oh, that's so embarrassing to say.  Pretend you didn't hear it. Or, you know, disappear forever...\" she says, and in a matter of a few seconds, you'll obey - and end your journey as an extra inch on the slime's impressive hips."},
 			{"text": "Her round, full \"belly\" jiggles with its contents, as she sloshes away to continue whatever it is she was doing before you attacked her and tried to destroy her. She seems to rather enjoy it - you, on the other hand, can slowly feel your consciousness slipping away, knowing that once it goes dark, she's definitely going to make you her meal."},
 			{"text": "And, indeed, you slip into unconsciousness, and she goes about her day, her ballooned slime-belly gurgling, until nothing remains."},
 			{"text": "Bad End."}
@@ -4665,7 +4675,9 @@
 	{
 		"key": "SLIME-MOUTH",
 		"scriptLines": [
-			{"text": "You open your mouth to speak... a costly mistake!"},
+			{
+			"mutations": [{"saveType":"PORTRAIT", "value":{"class": "com.majalis.asset.AssetEnum", "value": "PORTRAIT_GRIMACE"}}],
+			"text": "You open your mouth to speak... a costly mistake!"},
 			{"text": "You see the slime girl's face up close, and then, a moment later, it collides with yours - and your stomach is instantly full of slime girl goo, with pints being piped in by the second."},
 			{
 			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "bellyful":15}}],
@@ -4710,7 +4722,9 @@
 	{
 		"key": "SLIME-APPROACH",
 		"scriptLines": [
-			{"text": "You approach the slime tentatively, wary of her amorphous goop.  She smirks at you."}, 
+			{
+			"mutations": [{"saveType":"PORTRAIT", "value":{"class": "com.majalis.asset.AssetEnum", "value": "PORTRAIT_NEUTRAL"}}],
+			"text": "You approach the slime tentatively, wary of her amorphous goop.  She smirks at you."}, 
 			{"text": "\"My name is Protea, if you're curious,\" she says, her hands tracing along her hips and down to her thighs, \"but you can call me Tea.\""},
 			{"text": "\"Hi... Tea,\" you say, feeling weird about addressing a sentient slime in such a casual way. \"I'm <NAME>. Are you sure you're not going to eat me?\""},
 			{"text": "She jiggles again. \"No way. I like cute humans like you.  And it seems like... we're not going to have any problems getting along, are we?\" she asks, sloshing towards you until you can hear... well, not her breathing, but something."},
@@ -4984,7 +4998,7 @@
 		"key": "BRIGAND-STAB",
 		"scriptLines": [
 			{
-			"mutations": [{"saveType":"HEALTH", "value":{"class": "java.lang.Integer", "value": -5}}],
+			"mutations": [{"saveType":"HEALTH", "value":{"class": "java.lang.Integer", "value": -5}}, {"saveType":"PORTRAIT", "value":{"class": "com.majalis.asset.AssetEnum", "value": "PORTRAIT_HIT"}}],
 			"text": "You feel a sharp pain in your back - you failed to spot the hidden danger, and it made itself known violently.  You spin to face the source of the pain - a woman, rough and worn, holding a red-tipped blade.  You adopt a fighting stance."}
 		]
 	},
@@ -4992,6 +5006,7 @@
 		"key": "BRIGAND-FOILED-BACKSTAB",
 		"scriptLines": [
 			{
+			"mutations": [{"saveType":"PORTRAIT", "value":{"class": "com.majalis.asset.AssetEnum", "value": "PORTRAIT_SURPRISE"}}],
 			"text": "Your lack of awareness costs you.  Your pants drop - something must have pulled them down!  Your unseen foe works quickly - and, unfortunately for you, their intentions are anything but benign."},
 			{"text": "You feel something prod the plug in your rear hole, and your body tenses up.  As you struggle, something fleshy presses up against your cheek, wet at the tip."},
 			{"text": "You're grabbed from behind, so you can't pull away.  A woman's gruff voice finds its way into your ear.  \"Parried my cock, have ya? En garde!\" she says."}
@@ -5013,7 +5028,7 @@
 		"key": "BRIGAND-VICTORY",
 		"scriptLines": [
 			{
-			"mutations": [{"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": 1}}],
+			"mutations": [{"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": 1}}, {"saveType":"PORTRAIT", "value":{"class": "com.majalis.asset.AssetEnum", "value": "PORTRAIT_GRIN"}}],
 			"text": "You defeated the brigand!"}
 		]
 	},
@@ -5021,6 +5036,7 @@
 		"key": "BRIGAND-DEFEAT",
 		"scriptLines": [
 			{
+			"mutations": [{"saveType":"PORTRAIT", "value":{"class": "com.majalis.asset.AssetEnum", "value": "PORTRAIT_HIT"}}],
 			"animatedForeground": "BRIGAND",
 			"text": "Your weapon falls to the ground as the brigand bats it away with her targe. \"Well, well. We coulda done this the easy way. But now we're gonna do it... hard,\" she says, grinning, and the bulge in her pants is indicative of exactly what she means."},
 			{"text": "\"Mmm... look at those pouty lips. Almost as full as my bloated nutsack. Y'know, it can get awfully lonely, living alone in the woods. But I never touch myself. Y'now why?\" she asks, raising her eyebrow suggestively."},
@@ -5076,7 +5092,7 @@
 		"key": "BRIGAND-SATISFIED",
 		"scriptLines": [
 			{
-			"mutations": [{"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": 2}}], 
+			"mutations": [{"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": 2}}, {"saveType":"PORTRAIT", "value":{"class": "com.majalis.asset.AssetEnum", "value": "PORTRAIT_AHEGAO"}}], 
 			"text": "Having drained her load in you, the Brigand seems satisfied.  She sheathes her weapon, and also puts away her sword, and leaves you to puzzle out what to do with all of her semen."}
 		]
 	},
