@@ -875,8 +875,6 @@ public class EnemyCharacter extends AbstractCharacter {
 			default: return getTechniques(DO_NOTHING);
 		}
 	}
-
-	private Array<Techniques> getTechniques(Techniques... possibilities) { return new Array<Techniques>(possibilities); }
 	
 	public Technique getTechnique(AbstractCharacter target) {
 		if (initializedMove && nextMove != null) {
