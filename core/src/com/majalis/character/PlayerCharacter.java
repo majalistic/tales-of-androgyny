@@ -253,11 +253,6 @@ public class PlayerCharacter extends AbstractCharacter {
 		return consumableItems;
 	}
 	
-	public Technique getTechnique(AbstractCharacter target) {
-		// this should be re-architected - player characters likely won't use this method
-		return null;
-	}
-	
 	private Array<Technique> getTechniques(AbstractCharacter target, Techniques... possibilities) {
 		Array<Technique> possibleTechniques = new Array<Technique>();
 		

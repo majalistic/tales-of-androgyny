@@ -150,8 +150,6 @@ public abstract class AbstractCharacter extends Actor {
 	public Rectum getRectum() { return ass.getRectum(); }
 	public Colon getColon() { return ass.getColon(); }
 	
-	protected abstract Technique getTechnique(AbstractCharacter target);
-	
 	protected IntArray getDefaultHealthTiers() { return new IntArray(new int[]{10, 10, 10, 10}); }
 	protected IntArray getDefaultStaminaTiers() { return new IntArray(new int[]{5, 5, 5, 5}); }
 	protected IntArray getDefaultManaTiers() { return new IntArray(new int[]{0}); }
