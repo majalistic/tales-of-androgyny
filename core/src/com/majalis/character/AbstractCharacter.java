@@ -1272,9 +1272,11 @@ public abstract class AbstractCharacter extends Actor {
 	public String getPhallusLabel() { return phallus.getLabel(); }	
 	
 	private boolean hasItemsToUse() {
-		for (Item item : inventory) {
-			if (item.isConsumable()) {
-				return true;
+		if (inventory != null) {
+			for (Item item : inventory) {
+				if (item.isConsumable()) {
+					return true;
+				}
 			}
 		}
 		return false;
@@ -1283,6 +1285,9 @@ public abstract class AbstractCharacter extends Actor {
 	private boolean canSitOn(AbstractCharacter target) { return isLewd() && target.getStance() == Stance.SUPINE && target.isErect() && target.enemyType.canBeRidden(); }
 	
 	public boolean isLewd() { return perks.get(Perk.CATAMITE.toString(), 0) > 0 || perks.get(Perk.ANAL_ADDICT.toString(), 0) > 2 || perks.get(Perk.COCK_LOVER.toString(), 0) > 7 || arousal.getLust() >= 75; }
+	
+	private boolean targetPouncable(AbstractCharacter target) { return target.enemyType == null || target.enemyType.isPounceable(); }
+	private boolean targetWrestlable(AbstractCharacter target) { return target.enemyType == null || target.enemyType.canWrestle(); }
 	
 	protected Array<Techniques> getDefaultTechniqueOptions(AbstractCharacter target) {
 		Array<Techniques> possibles = new Array<Techniques>();
@@ -1296,24 +1301,24 @@ public abstract class AbstractCharacter extends Actor {
 				if (canSitOn(target)) {
 					possibles.addAll(getTechniques(SIT_ON_IT, TURN_AND_SIT));
 				}
-				if (target.stance == Stance.HANDS_AND_KNEES && isErect() && target.enemyType.isPounceable()) {
+				if (target.stance == Stance.HANDS_AND_KNEES && isErect() && targetPouncable(target)) {
 					possibles.addAll(getTechniques(POUNCE_DOGGY));
 				}
-				else if (target.stance == Stance.PRONE && isErect() && target.enemyType.isPounceable() && target.enemyType.canWrestle()) {
+				else if (target.stance == Stance.PRONE && isErect() && targetPouncable(target) && targetWrestlable(target)) {
 					possibles.addAll(getTechniques(WRESTLE_TO_GROUND));
 				}
-				else if (target.stance == Stance.SUPINE && isErect() && target.enemyType.isPounceable()) {
-					if (target.enemyType.canWrestle()) {
+				else if (target.stance == Stance.SUPINE && isErect() && targetPouncable(target)) {
+					if (targetWrestlable(target)) {
 						possibles.addAll(getTechniques(WRESTLE_TO_GROUND_UP, MOUNT_FACE));
 					}
 					else {
 						possibles.addAll(getTechniques(MOUNT_FACE));
 					}
 				}
-				else if (target.stance == Stance.KNEELING && isErect() && target.enemyType.isPounceable()) {
+				else if (target.stance == Stance.KNEELING && isErect() && targetPouncable(target)) {
 					possibles.addAll(getTechniques(SAY_AHH));
 				}
-				else if (target.stance.receivesMediumAttacks() && target.enemyType.isPounceable() && target.enemyType.canWrestle()) {
+				else if (target.stance.receivesMediumAttacks() && targetPouncable(target) && targetWrestlable(target)) {
 					possibles.add(FULL_NELSON);
 				}
 				return possibles;
@@ -1331,21 +1336,21 @@ public abstract class AbstractCharacter extends Actor {
 				if (canSitOn(target)) {
 					possibles.addAll(getTechniques(SIT_ON_IT, TURN_AND_SIT));
 				}
-				if (target.stance == Stance.HANDS_AND_KNEES && isErect() && target.enemyType.isPounceable()) {
+				if (target.stance == Stance.HANDS_AND_KNEES && isErect() && targetPouncable(target)) {
 					possibles.addAll(getTechniques(POUNCE_DOGGY));
 				}
-				else if (target.stance == Stance.PRONE && isErect() && target.enemyType.isPounceable() && target.enemyType.canWrestle()) {
+				else if (target.stance == Stance.PRONE && isErect() && targetPouncable(target) && targetWrestlable(target)) {
 					possibles.addAll(getTechniques(WRESTLE_TO_GROUND));
 				}
-				else if (target.stance == Stance.SUPINE && isErect() && target.enemyType.isPounceable()) {
-					if (target.enemyType.canWrestle()) {
+				else if (target.stance == Stance.SUPINE && isErect() && targetPouncable(target)) {
+					if (targetWrestlable(target)) {
 						possibles.addAll(getTechniques(WRESTLE_TO_GROUND_UP, MOUNT_FACE));
 					}
 					else {
 						possibles.addAll(getTechniques(MOUNT_FACE));
 					}
 				}
-				else if (target.stance == Stance.KNEELING && isErect() && target.enemyType.isPounceable()) {
+				else if (target.stance == Stance.KNEELING && isErect() && targetPouncable(target)) {
 					possibles.addAll(getTechniques(SAY_AHH));
 				}
 				return possibles;
@@ -1395,7 +1400,7 @@ public abstract class AbstractCharacter extends Actor {
 				return possibles;
 			case KNEELING:
 				possibles = getTechniques(UPPERCUT, STAY_KNELT);
-				if (target.isErect() && target.enemyType != EnemyEnum.SLIME && target.enemyType.isPounceable()) {
+				if (target.isErect() && target.enemyType != EnemyEnum.SLIME && targetPouncable(target)) {
 					possibles.addAll(getTechniques(GRAB_IT));
 				}
 				if (currentStamina >= 2) {
