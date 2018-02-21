@@ -6704,7 +6704,9 @@
 			"text": "Seconds later, you find yourself wrist-locked, on your knees, which are spread wide apart, as she slams her cock in and out of your ass hard enough to knock the wind out of you."},
 			{"text": "You knew what you were signing up for, but still, being stretched and pounded by orc dick is as difficult as expected, and getting inseminated anally proves inevitable."}
 			{"text": "\"I thought you were a coward... seems you were just a catamite.  If we cross paths again...\" she says, gesturing to the bulge in her loin cloth."},
-			{"text": "With that, she leaves you in peace... although it's a rather sore peace."}
+			{
+			"mutations": [{"saveType":"PORTRAIT", "value":{"class": "com.majalis.asset.AssetEnum", "value": "PORTRAIT_POUT"}}],
+			"text": "With that, she leaves you in peace... although it's a rather sore peace."}
 		]
 	},
 	{
@@ -6914,6 +6916,7 @@
 		"key": "ADVENTURER-SNARE-CAUGHT",
 		"scriptLines": [
 			{
+			"mutations": [{"saveType":"PORTRAIT", "value":{"class": "com.majalis.asset.AssetEnum", "value": "PORTRAIT_SURPRISE"}}],
 			"foreground": "NULL",
 			"text": "You feel something wrap around your leg."},
 			{"text": "As the snare is triggered, the heavy stone anchored to it falls, clanging bells that were hidden and affixed to it making a raucous noise as it does.  Almost immediately, you can hear the growling of the warg."},
@@ -6943,8 +6946,12 @@
 			"foreground": "NULL",
 			"text": "You pilfer his jewelry, not wanting to spend more time than necessary.  When next you see Trudy, he's on his hands and knees, with the warg towering over him."},
 			{"text": "You feel a bit of remorse knowing what's coming... but knowing that he had fully intended for you to be in his place, your sympathy is short-lived.  The warg bites through Trudy's underskirt, revealing their naked rear."},
-			{"text": "His upturned butt looks intensely feminine, something the beast seems to note with a certain swelling of its nether region.  Though he lacks certain familiar parts, you swallow hoarsely, knowing that the simple creature will still likely find a place to put it.  Your sphincter tightens."},
-			{"text": "You turn away and depart, knowing that the squeals, groans and grunts you hear behind you are the evidence for a very tight hole unfortunately being forced open by a feral phallus, a perverse mating that the recipient is probably not too enthusiastic about."},
+			{
+			"mutations": [{"saveType":"PORTRAIT", "value":{"class": "com.majalis.asset.AssetEnum", "value": "PORTRAIT_GRIMACE"}}],
+			"text": "His upturned butt looks intensely feminine, something the beast seems to note with a certain swelling of its nether region.  Though he lacks certain familiar parts, you swallow hoarsely, knowing that the simple creature will still likely find a place to put it.  Your sphincter tightens."},
+			{
+			"mutations": [{"saveType":"PORTRAIT"}],
+			"text": "You turn away and depart, knowing that the squeals, groans and grunts you hear behind you are the evidence for a very tight hole unfortunately being forced open by a feral phallus, a perverse mating that the recipient is probably not too enthusiastic about."},
 			{"text": "Though you can hear the rough beginnings of anal sex, you keep your vision straight ahead on the horizon, knowing that sometimes, it's better not to see."}
 		]
 	},
@@ -6970,8 +6977,12 @@
 	{
 		"key": "ADVENTURER-VICTORY",
 		"scriptLines": [
-			{"text": "Trudy fights hard to stay upright, but his fight is obviously gone - his axe-blade dug into the ground, he leans on the handle for support, his knees buckling."},
-			{"text": "You approach slowly.  Trudy watches you with trepidation... but you notice that his skirt is bulging outwards.  Though his gaze remains stalwart, his hands are trembling."},
+			{
+			"mutations": [{"saveType":"PORTRAIT", "value":{"class": "com.majalis.asset.AssetEnum", "value": "PORTRAIT_GRIN"}}],
+			"text": "Trudy fights hard to stay upright, but his fight is obviously gone - his axe-blade dug into the ground, he leans on the handle for support, his knees buckling."},
+			{
+			"mutations": [{"saveType":"PORTRAIT"}],
+			"text": "You approach slowly.  Trudy watches you with trepidation... but you notice that his skirt is bulging outwards.  Though his gaze remains stalwart, his hands are trembling."},
 			{"text": "When you get within arm's reach, he steels his gaze on your face, and, in a moment of impulse, you push him over.  Before he knows what's even happened, you're on top of him."}
 		]
 	},
@@ -7036,14 +7047,16 @@
 		"key": "ADVENTURER-ROBBED",
 		"scriptLines": [
 			{
-			"mutations": [{"saveType":"GOLD", "value":{"class": "java.lang.Integer", "value": 10}}],
+			"mutations": [{"saveType":"GOLD", "value":{"class": "java.lang.Integer", "value": 10}}, {"saveType":"PORTRAIT", "value":{"class": "com.majalis.asset.AssetEnum", "value": "PORTRAIT_GRIN"}}],
 			"text": "You rifle through Trudy's skirts, eventually discovering what you were looking for - a coin purse.  He watches, defeated, as you drain it, stuffing the spoils into your own pocket, and then you leave him, drained and empty."}
 		]
 	},
 	{
 		"key": "ADVENTURER-DEFEAT",
 		"scriptLines": [
-			{"text": "Unable to continue fighting, you fall to the ground.  Trudy looks down at you, smugly."},
+			{
+			"mutations": [{"saveType":"PORTRAIT", "value":{"class": "com.majalis.asset.AssetEnum", "value": "PORTRAIT_HIT"}}],
+			"text": "Unable to continue fighting, you fall to the ground.  Trudy looks down at you, smugly."},
 			{"text": "\"Well, well.  Guess I came up on top after all,\" he says, and you notice the bulge in his skirts with a solid gulp."},
 			{"text": "\"What... what are you planning to do?\" you say, and he smirks."},
 			{"text": "Without a word, he reaches under his skirts, and pulls something out from underneath... but it's not what you were expecting.  It's a jelly-purple object, slick with fluid.  And it came from... the back side.  Trudy tosses it aside, and then drops down to straddle you."},
@@ -7079,9 +7092,13 @@
 	{
 		"key": "ADVENTURER-SUBMISSION",
 		"scriptLines": [
-			{"text": "Trudy is loopy.  He seems a little... different.  You've definitely swipped some kind of switch.  He gets down on his knees, spreads his legs, and reaches back to clasp his own cheeks under his skirt."},
+			{
+			"mutations": [{"saveType":"PORTRAIT", "value":{"class": "com.majalis.asset.AssetEnum", "value": "PORTRAIT_SURPRISE"}}],
+			"text": "Trudy is loopy.  He seems a little... different.  You've definitely swipped some kind of switch.  He gets down on his knees, spreads his legs, and reaches back to clasp his own cheeks under his skirt."},
 			{"text": "\"Fuck me.\" he demands, in a throaty voice, full of need.  You're... willing to oblige him.  In for a penny..."},
-			{"text": "You force it up into his needy shitpit all in one go, and he mewls in appreciation.  For a boy, his ass is quite plump and soft, so you find it very easy to slam into it, using the natural recoil to give him more fuck than he could even ask for."},
+			{
+			"mutations": [{"saveType":"PORTRAIT"}],
+			"text": "You force it up into his needy shitpit all in one go, and he mewls in appreciation.  For a boy, his ass is quite plump and soft, so you find it very easy to slam into it, using the natural recoil to give him more fuck than he could even ask for."},
 			{"text": "Trudy proves to be insatiable - that first doggy style engagement ends with him spewing his jizz on the ground between his legs, and you similarly irrigating his bowels while slapping your balls against his."},
 			{"text": "You end up taking him from behind several more times, raining down full-force spanks onto his plump cheeks without reserve.  Trudy offers little resistance as you begin to switch off between his ass and face holes, blasting him from behind once before putting his full lips on similar duty the next."},
 			{"text": "When all is said and done, mostly done, no one could argue that you didn't follow his instructions - with him creating a man-made lake of jizz and mud between his legs as you fuck him ceaselessly, but by the end of it you feel a little... overdrawn."},
@@ -7118,9 +7135,15 @@
 		"scriptLines": [
 			{"text": "The sound gets louder and louder, and you realize that it's snoring - loud snoring."},
 			{"text": "You come across... a sleeping ogre, thankfully still sleeping, cradling a pile of jewels."},
-			{"text": "Your eyes widen - the jewels look particularly enticing... but something else catches your eye as well."},
-			{"text": "Your sphincter tightens with an audible squeak - the thing is monstrous... and so is the ogre. If the ogre can't tell that it's your out hole, you're going to be walking funny for weeks, at best."},
-			{"text": "You could try to stealthfully steal from the ogre, or get the drop on him... but you best be certain that you can handle him at his worst."}
+			{
+			"mutations": [{"saveType":"PORTRAIT", "value":{"class": "com.majalis.asset.AssetEnum", "value": "PORTRAIT_SURPRISE"}}],
+			"text": "Your eyes widen - the jewels look particularly enticing... but something else catches your eye as well."},
+			{
+			"mutations": [{"saveType":"PORTRAIT", "value":{"class": "com.majalis.asset.AssetEnum", "value": "PORTRAIT_GRIMACE"}}],
+			"text": "Your sphincter tightens with an audible squeak - the thing is monstrous... and so is the ogre. If the ogre can't tell that it's your out hole, you're going to be walking funny for weeks, at best."},
+			{
+			"mutations": [{"saveType":"PORTRAIT"}],
+			"text": "You could try to stealthfully steal from the ogre, or get the drop on him... but you best be certain that you can handle him at his worst."}
 		]
 	},
 	{
@@ -7176,12 +7199,11 @@
 			{"text": "You mumble out a meek, \"hey, uh... call me?\" before your senses return.  The ogre doesn't seem to notice."}
 		]
 	},
-
 	{
 		"key": "OGRE-VICTORY",
 		"scriptLines": [
 			{
-			"mutations": [{"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": 5}}],
+			"mutations": [{"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": 5}}, {"saveType":"PORTRAIT", "value":{"class": "com.majalis.asset.AssetEnum", "value": "PORTRAIT_SURPRISE"}}],
 			"text": "You won, somehow!  You gain 5 Experience."}
 		]
 	},
@@ -7196,7 +7218,9 @@
 	{
 		"key": "OGRE-DEFEAT",
 		"scriptLines": [
-			{"text": "You were defeated.  Duh."},
+			{
+			"mutations": [{"saveType":"PORTRAIT", "value":{"class": "com.majalis.asset.AssetEnum", "value": "PORTRAIT_HIT"}}],
+			"text": "You were defeated.  Duh."},
 			{"text": "The ogre lifts you up by your legs, and you squeal in surprise as you feel his thick tower threatening to impale you."},
 			{
 			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1, "bellyful": 10, "ogre":true}}],				
@@ -7227,7 +7251,9 @@
 	{
 		"key": "OGRE-GRABBED",
 		"scriptLines": [
-			{"text": "All at once, the ogre snaps you up in his massive fist! You are completely helpless in his grasp!"},
+			{
+			"mutations": [{"saveType":"PORTRAIT", "value":{"class": "com.majalis.asset.AssetEnum", "value": "PORTRAIT_SURPRISE"}}],
+			"text": "All at once, the ogre snaps you up in his massive fist! You are completely helpless in his grasp!"},
 			{
 			"foreground": "OGRE_BANGED",
 			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1, "bellyful": 2, "ogre":true}}],				
@@ -7247,6 +7273,7 @@
 		"scriptLines": [
 			{
 			"foreground": "OGRE",
+			"mutations": [{"saveType":"PORTRAIT", "value":{"class": "com.majalis.asset.AssetEnum", "value": "PORTRAIT_POUT"}}],
 			"text": "Despite the... rough encounter, you manage to get to your feet and leave before the ogre wakes from his nap."}
 		]
 	},
@@ -7254,7 +7281,9 @@
 		"key": "OGRE-SURPRISE",
 		"scriptLines": [
 			{"text": "You can't locate the source of the sound, even as it grows louder - while looking around, you're so distracted that you bumble into something."},
-			{"text": "Something... something large... and fleshy. You trace your gaze upwards... at an ogre."}
+			{
+			"mutations": [{"saveType":"PORTRAIT", "value":{"class": "com.majalis.asset.AssetEnum", "value": "PORTRAIT_SURPRISE"}}],
+			"text": "Something... something large... and fleshy. You trace your gaze upwards... at an ogre."}
 		]
 	},
 	{
