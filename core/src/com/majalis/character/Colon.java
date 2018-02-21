@@ -2,6 +2,7 @@ package com.majalis.character;
 
 public class Colon {
 	private ColonContents contents;
+	private int cum;
 	
 	protected Colon() {
 		contents = ColonContents.EMPTY;
@@ -22,6 +23,26 @@ public class Colon {
 		    }
 		}		
 		return String.valueOf(chars);
+	}
+	
+	protected void fillWithCum(int cumOverflow) {
+		this.cum += cumOverflow;
+		setContents();
+	}
+
+	protected int drain(int cumUnderflow) {
+		cum -= cumUnderflow;
+		setContents();
+		if (cum < 0) {
+			int temp = cum + cumUnderflow;
+			cum = 0;
+			return temp;
+		}
+		return cumUnderflow;
+	}
+	
+	private void setContents() {
+		contents = contents == ColonContents.EMPTY && cum > 0 ? ColonContents.FILLED_WITH_CUM : contents == ColonContents.FILLED_WITH_CUM && cum == 0 ? ColonContents.EMPTY : contents; 
 	}
 	
 	private enum ColonContents { // Your colon is currently full of cum.  Had a good time?, Your colon is currently full of giant dick.  Did you really need to check?

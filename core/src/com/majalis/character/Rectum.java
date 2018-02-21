@@ -15,7 +15,7 @@ public class Rectum {
 		cum = 0;
 	}
 	
-	protected void fillButtWithCum(int cumMod) { 
+	protected void fillWithCum(int cumMod) { 
 		this.cum += cumMod; 
 		if (cum <= 0) {
 			cum = 0;
@@ -71,5 +71,18 @@ public class Rectum {
 	
 	private enum RectumTightness {
 		NORMAL, LOOSE, BAGGY
+	}
+
+	public int getCumOverflow() {
+		int overflow = cum - 20;
+		if (overflow > 0) {
+			cum = 20;
+			return overflow;
+		}
+		return 0;
+	}
+
+	public int getCumUnderflow() {
+		return 20 - cum;
 	}
 }

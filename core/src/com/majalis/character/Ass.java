@@ -12,7 +12,11 @@ public class Ass {
 		this.colon = colon;
 	}
 	
-	protected void fillButtWithCum(int cumMod) { rectum.fillButtWithCum(cumMod); } 
+	protected void fillButtWithCum(int cumMod) { 
+		rectum.fillWithCum(cumMod); 
+		colon.fillWithCum(rectum.getCumOverflow());
+		rectum.fillWithCum(colon.drain(rectum.getCumUnderflow()));
+	} 
 	protected void fillButtWithEggs(int eggs) { rectum.fillButtWithEggs(eggs); }	
 	protected void receiveSex(SexualExperience sex) { sphincter.receiveSex(sex); }
 	protected void tick(int time) {
