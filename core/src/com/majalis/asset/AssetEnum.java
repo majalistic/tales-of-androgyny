@@ -468,49 +468,17 @@ public enum AssetEnum {
 	
 	private final AssetDescriptor<?> assetDescriptor;
 	
-	private AssetEnum(String path) {
-	    this(path, Texture.class);
-	}
-	
+	private AssetEnum(String path) { this(path, Texture.class); }
 	@SuppressWarnings({ "rawtypes" })
-	AssetEnum(String path, Class<?> assetType) {
-	    this.assetDescriptor = new AssetDescriptor(path, assetType);
-	}
-	
+	AssetEnum(String path, Class<?> assetType) { this.assetDescriptor = new AssetDescriptor(path, assetType); }
 	@SuppressWarnings({ "rawtypes" })
-	AssetEnum(String path, Class<?> assetType, AssetLoaderParameters<?> params) {
-	    this.assetDescriptor = new AssetDescriptor(path, assetType, params);
-	}
-	
-	public AssetDescriptor<?> getAsset() {
-		return assetDescriptor;
-	}
-		
-	public AssetDescriptor<Skin> getSkin() {
-		return (AssetDescriptor<Skin>) assetDescriptor;
-	}
-	
-	public AssetDescriptor<Texture> getTexture() {
-		return (AssetDescriptor<Texture>) assetDescriptor;
-	}
-	
-	public AssetDescriptor<Music> getMusic() {
-		return (AssetDescriptor<Music>) assetDescriptor;
-	}
-	
-	public AssetDescriptor<Sound> getSound() {
-		return (AssetDescriptor<Sound>) assetDescriptor;
-	}
-	
-	public AssetDescriptor<AnimatedActorFactory> getAnimation() {
-		return (AssetDescriptor<AnimatedActorFactory>) assetDescriptor;
-	}
-	
-	public String getPath() {
-		return assetDescriptor.fileName;
-	}
-
-	public boolean isTinted() {
-		return this == TOWN_BG || this == PLAINS_BG;
-	}
+	AssetEnum(String path, Class<?> assetType, AssetLoaderParameters<?> params) { this.assetDescriptor = new AssetDescriptor(path, assetType, params); }
+	public AssetDescriptor<?> getAsset() { return assetDescriptor; }
+	public AssetDescriptor<Skin> getSkin() { return (AssetDescriptor<Skin>) assetDescriptor; }
+	public AssetDescriptor<Texture> getTexture() { return (AssetDescriptor<Texture>) assetDescriptor; }
+	public AssetDescriptor<Music> getMusic() { return (AssetDescriptor<Music>) assetDescriptor; }
+	public AssetDescriptor<Sound> getSound() { return (AssetDescriptor<Sound>) assetDescriptor; }
+	public AssetDescriptor<AnimatedActorFactory> getAnimation() { return (AssetDescriptor<AnimatedActorFactory>) assetDescriptor; }
+	public String getPath() { return assetDescriptor.fileName; }
+	public boolean isTinted() { return this == TOWN_BG || this == PLAINS_BG; }
 }
