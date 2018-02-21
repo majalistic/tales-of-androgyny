@@ -7320,10 +7320,12 @@
 			{"text": "At wit's end, you start to give chase - picking up your footfalls at first, and then breaking into a run as the creature retreats further into the brush."},
 			{"text": "You're nearly out of breath when you break away into a clearing, and, for the first time, get a full view of the beast in its majesty."},
 			{
-			"mutations": [{"profileSaveType":"KNOWLEDGE", "value":{"class": "java.lang.String", "value": "Beast Mistress"}}],
+			"mutations": [{"profileSaveType":"KNOWLEDGE", "value":{"class": "java.lang.String", "value": "Beast Mistress"}}, {"saveType":"PORTRAIT", "value":{"class": "com.majalis.asset.AssetEnum", "value": "PORTRAIT_SURPRISE"}}],
 			"foreground": "BEASTMISTRESS",
 			"text": "Rather than a single creature, you see that it's a beast and its rider - or, more aptly, a woman and her mount, with a cat-like grin on either of them."},
-			{"text": "The feline beast turns towards you at the rider's command, and is... kind of cute looking, actually, but its body is thick and muscular; you could be excused for confusing it for a bear."},
+			{
+			"mutations": [{"saveType":"PORTRAIT"}],
+			"text": "The feline beast turns towards you at the rider's command, and is... kind of cute looking, actually, but its body is thick and muscular; you could be excused for confusing it for a bear."},
 			{"text": "The rider is a... boisterously dressed woman, with light gray skin, short white hair, blood-red eyes, purple lips, a heaving bosom that is barely concealed, and a curvy, if powerful-looking figure."},
 			{"text": "Perched atop her shoulder is a third creature - a brightly colored bird who, you assume, is named \"Steve.\"  Steve's a good bird.  Around her waist coils a dark snake menacingly."},
 			{"text": "Your first assumption is that she is some kind of feral woman, but the tips of her ears peeking through her boyish haircut reveal that she is likely some kind of goblin or elf."},
@@ -7434,12 +7436,16 @@
 	{
 		"key": "BEASTMISTRESS-QUEEN",
 		"scriptLines": [
-			{"text": "You fall under the intensity of the cat's assault.  She dismounts it with an air of smug condescension.  You watch the beast stirring in her loins... but she doesn't approach."},
+			{
+			"mutations": [{"saveType":"PORTRAIT", "value":{"class": "com.majalis.asset.AssetEnum", "value": "PORTRAIT_HIT"}}], 
+			"text": "You fall under the intensity of the cat's assault.  She dismounts it with an air of smug condescension.  You watch the beast stirring in her loins... but she doesn't approach."},
 			{"text": "\"Hmmm, seems my kitty's got a new toy...\" she says, her voice full of vinegar."},
 			{"text": "Her cat approaches you, and you shake your head.  No - this can't be."},
 			{"text": "\"Hm... a human male, are you?\" she says, a sinister smile slowly creeping across her face. \"I see that now,\" she says, licking her finger as her mount closes in on you."},
 			{"text": "You scramble on the ground, but the beast is soon upon you."},
-			{"text": "\"This my pet kitty.  Every underdweller huntress has one.  I'm... very proud of mine.  You should be honored,\" she says, barely containing a mocking snicker."},
+			{
+			"mutations": [{"saveType":"PORTRAIT", "value":{"class": "com.majalis.asset.AssetEnum", "value": "PORTRAIT_GRIMACE"}}], 
+			"text": "\"This my pet kitty.  Every underdweller huntress has one.  I'm... very proud of mine.  You should be honored,\" she says, barely containing a mocking snicker."},
 			{"text": "Fangs tear into the seat of your pants, leaving you exposed."},
 			{"text": "\"Mmmm, this is going to be... salacious.  You should be glad that nobody is around to witness - I know this kind of thing is frowned upon among surface dwellers.\""},
 			{"text": "You can feel the heat of the thing approaching... the beast drops its weight on you, and you lose your chance to escape."},
@@ -7573,19 +7579,25 @@
 		"key": "SPIDER-TRAP-APPROACH",
 		"scriptLines": [
 			{"text": "As you continue through the ruins, you find a narrow corridor that smells vaguely of a bath. You traverse it slowly, when suddenly, one of your footfalls lands lower than you expected."},
-			{"text": "The floor below you collapses!"}
+			{
+			"mutations": [{"saveType":"PORTRAIT", "value":{"class": "com.majalis.asset.AssetEnum", "value": "PORTRAIT_SURPRISE"}}], 
+			"text": "The floor below you collapses!"}
 		]
 	},
 	{
 		"key": "SPIDER-AVOID-TRAP",
 		"scriptLines": [
-			{"text": "You manage to leap free of the collapse, grabbing ahold of the edge created by the collapsing floor before hoisting yourself back up.  You shudder to wonder what would have happened had you not been so quick."}
+			{
+			"mutations": [{"saveType":"PORTRAIT"}], 
+			"text": "You manage to leap free of the collapse, grabbing ahold of the edge created by the collapsing floor before hoisting yourself back up.  You shudder to wonder what would have happened had you not been so quick."}
 		]
 	},
 	{
 		"key": "SPIDER-GRAB-TRAP",
 		"scriptLines": [
-			{"text": "You manage to leap free of the collapse, grabbing ahold of the edge created by the collapsing floor."}
+			{
+			"mutations": [{"saveType":"PORTRAIT"}], 
+			"text": "You manage to leap free of the collapse, grabbing ahold of the edge created by the collapsing floor."}
 		]
 	},
 	{
@@ -7598,7 +7610,7 @@
 		"key": "SPIDER-GRAB-TRAP-FAIL",
 		"scriptLines": [
 			{
-			"mutations": [{"saveType":"HEALTH", "value":{"class": "java.lang.Integer", "value": -5}}],	
+			"mutations": [{"saveType":"HEALTH", "value":{"class": "java.lang.Integer", "value": -5}}, {"saveType":"PORTRAIT", "value":{"class": "com.majalis.asset.AssetEnum", "value": "PORTRAIT_HIT"}}],	
 			"text": "You cut your hand on the broken floor, and you slide down below the structure, and find yourself submerged in murky water, making it impossible to see.  You begin to frantically swim for the surface, unable to discern which way is up."}
 		]
 	},
@@ -7606,7 +7618,7 @@
 		"key": "SPIDER-FAIL-TRAP",
 		"scriptLines": [
 			{
-			"mutations": [{"saveType":"HEALTH", "value":{"class": "java.lang.Integer", "value": -10}}],
+			"mutations": [{"saveType":"HEALTH", "value":{"class": "java.lang.Integer", "value": -10}}, {"saveType":"PORTRAIT", "value":{"class": "com.majalis.asset.AssetEnum", "value": "PORTRAIT_HIT"}}],
 			"text": "Your leg scrapes against the stone as the floor collapses beneath your feet!"},			
 			{"text": "You slide down below the structure, and find yourself submerged in murky water, making it impossible to see.  You begin to frantically swim for the surface, unable to discern which way is up."}
 		]
@@ -7614,21 +7626,23 @@
 	{
 		"key": "SPIDER-ENDURE",
 		"scriptLines": [
-			{"text": "You manage to hold your breath long enough to find your way to the surface."}
+			{
+			"mutations": [{"saveType":"PORTRAIT"}], 
+			"text": "You manage to hold your breath long enough to find your way to the surface."}
 		]
 	},
 	{
 		"key": "SPIDER-PARTIAL-ENDURE",
 		"scriptLines": [
 			{
-			"mutations": [{"saveType":"HEALTH", "value":{"class": "java.lang.Integer", "value": -25}}],
+			"mutations": [{"saveType":"HEALTH", "value":{"class": "java.lang.Integer", "value": -25}}, {"saveType":"PORTRAIT"}],
 			"text": "By the time you reach the surface, your lungs feel like they're on fire.  You've taken on water, partially drowned, and you struggle to breathe even in the dry air while dragging yourself back onto solid ground."}
 		]
 	},
 	{
 		"key": "SPIDER-FAIL-ENDURE",
 		"scriptLines": [
-			{"mutations": [{"saveType":"HEALTH", "value":{"class": "java.lang.Integer", "value": -100}}],
+			{"mutations": [{"saveType":"HEALTH", "value":{"class": "java.lang.Integer", "value": -100}},  {"saveType":"PORTRAIT"}],
 			"text": "Your lungs scream for air as you try to get to the surface... but you can't hold out.  You take on water, and begin to drown."}		
 		]
 	},
@@ -7811,7 +7825,9 @@
 			{
 			"mutations": [{"saveType":"ITEM", "value":{"class": "com.majalis.character.Item$Potion", "effect": "SPIDER", "magnitude": "5"}}, {"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": 1}}],
 			"text": "You pick the spider up off the ground and stow it away in your pouch.  Um.  What are you doing?"},
-			{"text": "The spider is strangely content to become an inventory item.  Stranger things have happened."},
+			{
+			"mutations": [{"saveType":"PORTRAIT", "value":{"class": "com.majalis.asset.AssetEnum", "value": "PORTRAIT_SMILE"}}], 
+			"text": "The spider is strangely content to become an inventory item.  Stranger things have happened."},
 			{"text": "While you're busy stuffing an arachnid in your pouch, someone approaches, and you notice them."},
 			{
 			"foreground": "SPIDER",
