@@ -6080,7 +6080,9 @@
 		"scriptLines": [
 			{"text": "The merchant eyes you up and down, although more down than up.  \"Hrm... can I ask you something?\""},
 			{"text": "You nod, sensing a bit of... tension."},
-			{"text": "She rest her chin on her hands and peers at you over her glasses.  \"How's it feel to have that big fat plug up your ass?  Good?\""},
+			{
+			"mutations": [{"saveType":"PORTRAIT", "value":{"class": "com.majalis.asset.AssetEnum", "value": "PORTRAIT_SURPRISE"}}], 
+			"text": "She rest her chin on her hands and peers at you over her glasses.  \"How's it feel to have that big fat plug up your ass?  Good?\""},
 		]
 	},
 	{
@@ -6405,10 +6407,12 @@
 			"foreground": "ORC_ZOOM",
 			"text": "Looking more closely at the shape of their body, that much is clear..."},
 			{
+			"mutations": [{"saveType":"PORTRAIT", "value":{"class": "com.majalis.asset.AssetEnum", "value": "PORTRAIT_GRIMACE"}}], 
 			"foreground": "ORC_ZOOM_DOWN",
 			"text": "But then, the slick, recently anally-vacated appendage falls into view.  It's... truly massive, thick like a club and with bumpy ridges.  Her big, round, green gonads are also visible, clearly engorged with a need to inseminate... apparently, you interrupted towards the latter end of the engagement."},
 			{"text": "A single strand of precum connects her pulsing, twitching slab to the innards of the stretched open hole - her helmet wet and slick and clearly on the verge of spewing hot, sticky cum.  You begin to drool.  Her loincloth slides down off the adventurer's back, hiding them from view. "},
 			{
+			"mutations": [{"saveType":"PORTRAIT"}], 
 			"animatedForeground": "ORC",
 			"text": "\"Yes?\" she asks, with a husky voice, drawing your attention back up to her alluring gaze.  They're holding some sort of weapon attached to a chain - one that looks absolutely lethal."},
 			{"text": "\"Leave her alone!\" you say, your voice cracking.  "},
@@ -6418,7 +6422,9 @@
 	{
 		"key": "ORC-VICTORY1",
 		"scriptLines": [
-			{"text": "She falls on her butt, and seems out of fight.  Her loincloth tents upwards - she's still quite tumescent.  You look over to see that the adventurer she had been plowing is nowhere in sight."},
+			{
+			"mutations": [{"saveType":"PORTRAIT", "value":{"class": "com.majalis.asset.AssetEnum", "value": "PORTRAIT_GRIN"}}], 
+			"text": "She falls on her butt, and seems out of fight.  Her loincloth tents upwards - she's still quite tumescent.  You look over to see that the adventurer she had been plowing is nowhere in sight."},
 			{"text": "\"Well... you're stronger than you look... mmm...\" she says, her voice a bit deep and throaty.  She looks you up and down."},
 		]
 	},
@@ -6426,7 +6432,7 @@
 		"key": "ORC-VICTORY",
 		"scriptLines": [
 			{
-			"mutations": [{"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": 5}}],
+			"mutations": [{"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": 5}}, {"saveType":"PORTRAIT", "value":{"class": "com.majalis.asset.AssetEnum", "value": "PORTRAIT_GRIN"}}],
 			"text": "You stand over her, ready to strike if she catches a second wind, but she seems pacified."},
 			{"text": "\"What's your name, strong one?\""},
 			{"text": "You hesitate. \"<NAME>.\"  She nods, then slowly leans back, subtly spreading her legs apart."},
@@ -6558,9 +6564,13 @@
 			{"text": "She grabs your hand and forces you to grab hold of her, and non-verbally instructs you to stroke, so you begin to stroke it up and down, feeling her surprisingly powerful ejaculatory muscles tense and ready themselves."},
 			{"text": "You start to snort up her precum - not your proudest moment - and prepare your own mind for what's about to go through it, possibly.  She has a wry smile on her face, almost disbelieving.  You swear you can smell her cum in her balls, but that might just be illusory."},
 			{"text": "She holds your head firmly in place with both hands.  Apparently, now that you've suggested it, she's quite keen on the idea.  You watch her face contort into lustful climax, and you feel the immense twitch of her cock."},
-			{"text": "The jet of orc cum blasts through your nostril and into your sinus with such intensity that you have to close your eyes - the fact that she's using your nose like a pussy causes her to burst into laughter, even as she fires a second volley of orc spermjuice up into your nasal cavity."},
+			{
+			"mutations": [{"saveType":"PORTRAIT", "value":{"class": "com.majalis.asset.AssetEnum", "value": "PORTRAIT_AHEGAO"}}], 
+			"text": "The jet of orc cum blasts through your nostril and into your sinus with such intensity that you have to close your eyes - the fact that she's using your nose like a pussy causes her to burst into laughter, even as she fires a second volley of orc spermjuice up into your nasal cavity."},
 			{"text": "It feels like she just came in your brain.  You feel it run like slime down the back of your throat, though, so you're glad you won't have to shake it out of your ears."},
-			{"text": "A massive bubble of cum forms on your nostril as she pulls her cock away, a rope of cum connecting the tip of her nasally ejaculating cock to your open, recently deflowered nosehole.  You let it run out as best you can, not wanting to store any excess orc cum in your head box."},
+			{
+			"mutations": [{"saveType":"PORTRAIT", "value":{"class": "com.majalis.asset.AssetEnum", "value": "PORTRAIT_GRIMACE"}}], 
+			"text": "A massive bubble of cum forms on your nostril as she pulls her cock away, a rope of cum connecting the tip of her nasally ejaculating cock to your open, recently deflowered nosehole.  You let it run out as best you can, not wanting to store any excess orc cum in your head box."},
 			{"text": "She laughs the whole time as she makes her exit - apparently, she found it quite amusing."}
 		]
 	},
@@ -6640,6 +6650,7 @@
 			{
 			"sound": "CUMFART",
 			"background": "GAPE",
+			"mutations": [{"saveType":"PORTRAIT", "value":{"class": "com.majalis.asset.AssetEnum", "value": "PORTRAIT_GRIMACE"}}], 
 			"text": "You can see that now.  That explains the... method of entry. He's face down in the dirt, and his hole has been fucked into a crater - it's wide and gaping, drooling a slurry of strangely tinted cum - apparently the leavings of an orc."},
 			{"text": "You ask if they need any help, and they sheepishly explain that they're fine.  You decide not to gawk, turning away to inspect the scene."},
 			{"text": "On closer inspection, the armor and weaponry strewn across the ground are unmarred, looking almost pristine, with a few scuff marks and scratches.  Their clothes, tellingly, are similarly intact.  "},
@@ -6706,7 +6717,7 @@
 		"key": "ORC-VICTORY2",
 		"scriptLines": [
 			{
-			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "ORC", "value":1}}],
+			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "ORC", "value":1}}, {"saveType":"PORTRAIT", "value":{"class": "com.majalis.asset.AssetEnum", "value": "PORTRAIT_GRIN"}}],
 			"text": "She falls on her butt.  Dark-green bruises appear on her skin, mixing with the dark blue of her open cuts.  She fixes her gaze on you."},
 			{"text": "\"Hmph.  Stronger than you look,\" she says, and the loincloth between her legs slowly starts to stretch and deform."}
 		]
@@ -6714,7 +6725,9 @@
 	{
 		"key": "ORC-DENIGRATION",
 		"scriptLines": [
-			{"text": "You collapse, utterly thrashed.  She pulls you by the hair to your knees."},
+			{
+			"mutations": [{"saveType":"PORTRAIT", "value":{"class": "com.majalis.asset.AssetEnum", "value": "PORTRAIT_HIT"}}], 
+			"text": "You collapse, utterly thrashed.  She pulls you by the hair to your knees."},
 			{"text": "\"Do you die a man... or live as my woman?\" she asks, dead serious."}
 		]
 	},
@@ -6735,7 +6748,9 @@
 			{"text": "You try to squirm out of her grasp, but she overpowers you."},
 			{"text": "\"Boys like you tend to forget most of the sex you have... but I'm sure you won't forget this kind of sex!\" she says, rubbing it firmly between your cheeks.  \"Probably aren't too many guys that forget the time they get fucked by orc meat.\""},
 			{"text": "She grabs hold of your shoulders, pinning you in place.  "},
-			{"text": "\"Wait! Have mercy!\" you say, and she laughs bitterly."},
+			{
+			"mutations": [{"saveType":"PORTRAIT", "value":{"class": "com.majalis.asset.AssetEnum", "value": "PORTRAIT_SURPRISE"}}],
+			"text": "\"Wait! Have mercy!\" you say, and she laughs bitterly."},
 			{"text": "\"What kind of warrior are you?  Hmph.  A coward deserves no mercy.  Yes, shake it for me!\""},
 			{"text": "You try to bite her hand, but she doesn't seem to feel it."},
 			{"text": "\"Now, suddenly, with a throbbing orc pole about to impale you, you found some courage? And how are you going to mewl when I butter your hole with this nice meat?  Or when I baste your insides with my gunk?\""},
@@ -6790,7 +6805,9 @@
 	{
 		"key": "ORC-VIOLATED",
 		"scriptLines": [
-			{"text": "Tired from fighting and being fucked, the orc continues to fuck you senseless - you are taken anally and orally for hours on end, until, finally, she grows bored of you, and sets up camp."},
+			{
+			"mutations": [{"saveType":"PORTRAIT"}],
+			"text": "Tired from fighting and being fucked, the orc continues to fuck you senseless - you are taken anally and orally for hours on end, until, finally, she grows bored of you, and sets up camp."},
 			{"text": "You spend the rest of your days having more orc sex than dignity, as Urka anally violates you in front of other humans.  She dresses you in the stolen clothing of village girls and has you introduce yourself as \"Lala\". "},
 			{"text": "None of the onlookers you come across have no idea that within the skirts of the she-orc's toy is a cock, filling the skirt with unused jism - a cock that no one ever touches or sees again.  "},
 			{"text": "Filling dresses with semen becomes a part of your daily routine, so that no matter how many she steals, you're always stuck wearing crusty, cum-stained clothing, and you never take off a dress without having at least one embarrassing anally-induced ejaculation inside of it."},
