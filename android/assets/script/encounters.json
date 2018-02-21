@@ -4138,6 +4138,7 @@
 			"mutations": [{"profileSaveType":"KNOWLEDGE", "value":{"class": "java.lang.String", "value": "Wereslut"}}],
 			"text": "There are wolves in the forest - you know, because you've been hearing them howl in the distance, and as you traverse the woods, you've been hearing the occasional growling - albeit higher pitched than you would expect."}, 
 			{
+			"mutations": [{"saveType":"PORTRAIT", "value":{"class": "com.majalis.asset.AssetEnum", "value": "PORTRAIT_SURPRISE"}}],
 			"sound": "WEREWOLF_GROWL",
 			"text":"The growling gets louder and louder, until, finally, a wolf emerges from the bushes... and she is absolutely stacked!"},
 			{
@@ -4149,13 +4150,16 @@
 			{"text": "You cough.  It's such a strong scent it makes your eyes water.  Her eyes, on the other hand, are focused on you, unwavering, and her skirt is visibly wet - as she sways from side to side, you see that she's not wearing any underwear, so her rear is plainly visible as her skirt shifts over it."},
 			{"text": "That detail soon solves the mystery, as the source of the mystery bulge spills out from under her skirt.  While you don't immediately recognize it, not being too familiar with canine anatomy, a part of you tightens up in fear instinctually."},
 			{"text": "Up top, it seems the werewolf transformation gifted her a great, heaving set of knockers that wouldn't be out of place on any busty tavern wench, but down below, the transformation was a bit more... bestial.  And throbbing."},
-			{"text": "It's dripping with liquid lust, and it's obvious that if she intends to \"mate\", that will be her weapon of choice.  You hurry to tell her that you're a male, and any \"mating\" would be rather unfruitful, but she drops to all fours, and lunges at you - too late for negotation!"}
+			{
+			"mutations": [{"saveType":"PORTRAIT", "value":{"class": "com.majalis.asset.AssetEnum", "value": "PORTRAIT_GRIMACE"}}],
+			"text": "It's dripping with liquid lust, and it's obvious that if she intends to \"mate\", that will be her weapon of choice.  You hurry to tell her that you're a male, and any \"mating\" would be rather unfruitful, but she drops to all fours, and lunges at you - too late for negotation!"}
 		]
 	},
 	{
 		"key": "WEREWOLF-VICTORY",
 		"scriptLines": [
-			{"mutations": [{"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": 2}}], 
+			{
+			"mutations": [{"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": 2}}, {"saveType":"PORTRAIT", "value":{"class": "com.majalis.asset.AssetEnum", "value": "PORTRAIT_GRIN"}}], 
 			"text": "You manage to fight her to a standstill.  She still seems... vigorous, but her offense ceases as she stops to size you up."},
 			{"text": "Down on your knees, catching your breath, you're eye to eye with it - her canine phallus.  It's ominously shaped - clearly not intended for \"use\" on humans, much less human assholes."},
 			{"text": "As she wipes drool from her mouth, she fails to wipe the drool coming from its tip.  Beyond it, between her thighs, you see two globes pulsing with need."},	
@@ -4174,7 +4178,9 @@
 	{
 		"key": "WEREWOLF-MATED",
 		"scriptLines": [		
-			{"text": "She's quick to get your rear protection in her teeth and rips it away.  You're on your hands and knees with your backside exposed, and she pounces up and over to straddle you."},
+			{
+			"mutations": [{"saveType":"PORTRAIT", "value":{"class": "com.majalis.asset.AssetEnum", "value": "PORTRAIT_SURPRISE"}}],
+			"text": "She's quick to get your rear protection in her teeth and rips it away.  You're on your hands and knees with your backside exposed, and she pounces up and over to straddle you."},
 			{"text": "\"I'm not a girl!\" you try to convince her."},
 			{"text": "\"But boys have a bitch hole too!  And it's extra snug!\""},
 			{"text": "She pushes herself between your cheeks excitedly, clearly intending to get up inside with her strangely-shaped phallus."},
@@ -4314,7 +4320,9 @@
 	{
 		"key": "WEREWOLF-BATTLE-KNOT-ORAL",
 		"scriptLines": [
-			{"text": "She forced it into your mouth with inhuman strength, your jaw stretching to accommodate its large size and strange shape.  It's stretched to the breaking point, and you drop your weapon, you arms going limp shock."},
+			{
+			"mutations": [{"saveType":"PORTRAIT", "value":{"class": "com.majalis.asset.AssetEnum", "value": "PORTRAIT_FELLATIO"}}],
+			"text": "She forced it into your mouth with inhuman strength, your jaw stretching to accommodate its large size and strange shape.  It's stretched to the breaking point, and you drop your weapon, you arms going limp shock."},
 			{"text": "Tears stream down your cheek as your jaw is forced open into a painfully stretched position."},
 			{"text": "Even if she wanted to withdraw it now, the bulk of it is locked behind your teeth.  Her hips pull back reflexively, and your entire head is pulled forward - where her genitals go, your head now follows."},
 			{"text": "You have other concerns, even - soon thereafter, your airway is coated in hot puppy goo.  A stream of runny dog semen is pumped down your gullet, her knot ledged in your mouth."},
@@ -4329,7 +4337,9 @@
 	{
 		"key": "WEREWOLF-DEFEAT",
 		"scriptLines": [
-			{"text": "You collapse to the ground.  She approaches you on all fours, and sniffs at you."}
+			{
+			"mutations": [{"saveType":"PORTRAIT", "value":{"class": "com.majalis.asset.AssetEnum", "value": "PORTRAIT_HIT"}}],
+			"text": "You collapse to the ground.  She approaches you on all fours, and sniffs at you."}
 		]
 	},
 	{
@@ -4395,13 +4405,16 @@
 	{
 		"key": "HARPY-VICTORY",
 		"scriptLines": [
-			{"mutations": [{"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": 2}}], "text": "You defeated the harpy!  She flaps away in a hail of feathers, her bird dong wilting between her legs like a big floppy noodle."}		
+			{
+			"mutations": [{"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": 2}}, {"saveType":"PORTRAIT", "value":{"class": "com.majalis.asset.AssetEnum", "value": "PORTRAIT_GRIN"}}], 
+			"text": "You defeated the harpy!  She flaps away in a hail of feathers, her bird dong wilting between her legs like a big floppy noodle."}		
 		]
 	},
 	{
 		"key": "HARPY-PLUGGED",
 		"scriptLines": [
 			{
+			"mutations": [{"saveType":"PORTRAIT", "value":{"class": "com.majalis.asset.AssetEnum", "value": "PORTRAIT_HIT"}}],
 			"animatedForeground": "HARPY",
 			"text": "You collapse to the floor, unable to withstand the harpy's attacks.  You anticipate the killing blow, face-down in the dirt, but it never comes. Instead, you can sense the harpy stalking around you, inspecting you closely."},
 			{"text": "She seems frustrated, as she can't seem locate what she's looking for.  You realize that even with your ass in the air, your hole is plugged up, and she seems to lack the problem solving skills necessary to rectify that."},
@@ -4410,6 +4423,7 @@
 			{"text": "Her schlong is wet with lust, and it easily slides between your buns as she simulates her mating in a frenzy.  You thank your lucky stars that the plug prevented her from making the same motions a few inches lower and a foot deeper."},
 			{"text": "While she rubs herself on you, rather than in you, you still feel the heat rise to your cheeks athe humiliation you're enduring - the ridiculous display of the harpy mounting you and asserting her dominance from behind."},
 			{
+			"mutations": [{"saveType":"PORTRAIT", "value":{"class": "com.majalis.asset.AssetEnum", "value": "PORTRAIT_SURPRISE"}}],
 			"sound": "BIRD_SCREECH",
 			"text": "She screeches, and a stream of hot wetness runs up your back, almost to your neck, followed by another, and another.  You drop your head in shame, feeling her sticky desire spurt out in ropes across your butt and back like a young girl trying to avoid impregnation."},
 			{"text": "You feel her shrinking cock laying against your tailbone, its tip drooling into the small of your back, before she dismounts, having gotten what she needed from your ass, before she takes off, her limp dick dangling between her legs."},
@@ -4420,6 +4434,7 @@
 		"key": "HARPY-DEFEAT",
 		"scriptLines": [
 			{
+			"mutations": [{"saveType":"PORTRAIT", "value":{"class": "com.majalis.asset.AssetEnum", "value": "PORTRAIT_HIT"}}],
 			"animatedForeground": "HARPY",
 			"text": "You collapse to the floor, unable to withstand the harpy's attacks.  You anticipate the killing blow, face-down in the dirt, but it never comes.  Instead, you can sense the harpy stalking around you, inspecting you closely.  Finally, with a squawk, she rears up, takes off into the air, and grabs your clothes with her talons, hoisting you into the air."},
 			{"text": "You're terrified that her talons will finish ripping your shirt and send you plummeting to the ground as she carries you, mostly immobile, high into the air, over the countryside.  The view is startling, but breathtaking - as the sun visibly sets below far off mountains, a shadow is cast across the land, and the sky dyes itself in vivid orange and purples."},
@@ -4429,10 +4444,13 @@
 			{"text": "You see small inlets lining a mountain face, a sheer drop down to the valley below, and you wonder if they're naturally made or somehow carved out, seeing how regular they are. In most, if not all of them, is a bundle of straw and twigs - likely brought by the harpies from miles away, much like yourself."},
 			{"text": "You are dropped in one such nest, and the harpy works quickly to dispel any notion that she intends to consume you, and, simultaneously, to consummate your marriage."},
 			{
+			"mutations": [{"saveType":"PORTRAIT", "value":{"class": "com.majalis.asset.AssetEnum", "value": "PORTRAIT_SURPRISE"}}],
 			"sound": "BIRD_SCREECH",
 			"text": "\"Rawwwk! Mating!\""},
 			{"text": "You doubt, having already gotten a good look at the harpy's third thigh, that what she means by \"mating\" is going to involve you having a pleasant time with her tail feathers.  A lump forms in your throat as you imagine her massive meat throbbing in your buttered up hole."},
-			{"text": "She mounts you, her talons grabbing hold of your rear, and her long, covered dick immediately gains purchase.  Any hope that the harpy's covered dick wasn't hard for you is dashed along with the cock-emptiness of your rectum."},
+			{
+			"mutations": [{"saveType":"PORTRAIT", "value":{"class": "com.majalis.asset.AssetEnum", "value": "PORTRAIT_GRIMACE"}}],
+			"text": "She mounts you, her talons grabbing hold of your rear, and her long, covered dick immediately gains purchase.  Any hope that the harpy's covered dick wasn't hard for you is dashed along with the cock-emptiness of your rectum."},
 			{
 			"foreground": "HARPY_ANAL",
 			"sound": "ANAL_INSERTION",
@@ -4533,7 +4551,9 @@
 			"sound": "CUM",
 			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "creampies":1, "bird": true}}],
 			"text": "Soon the harpy begins to flap wildly and screech, and you don't have to wonder long why she's acting so erratically, as you feel your stomach bloat slightly, the weight of her ejaculate in your convenient womb.  You sigh despondently, having been inseminated by a bird."},
-			{"text": "She dismounts clumsily, your hole drooling her essence. You worry what's to become of you after that, but fortunately, the harpy plucks you from her nest and deposits you in a tree, having received her fill from you."}			
+			{
+			"mutations": [{"saveType":"PORTRAIT", "value":{"class": "com.majalis.asset.AssetEnum", "value": "PORTRAIT_POUT"}}],
+			"text": "She dismounts clumsily, your hole drooling her essence. You worry what's to become of you after that, but fortunately, the harpy plucks you from her nest and deposits you in a tree, having received her fill from you."}			
 		]
 	},
 	{
