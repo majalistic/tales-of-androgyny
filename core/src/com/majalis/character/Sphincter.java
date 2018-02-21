@@ -28,7 +28,7 @@ public class Sphincter {
 	private void modReceivedSexRecently(int mod) {
 		receivedSexRecently += mod;
 		if (receivedSexRecently <= 0) receivedSexRecently = 0;
-		friction = receivedSexRecently >= 10 ? SphincterFriction.RED_RING_OF_FIRE : receivedSexRecently >= 5 ? SphincterFriction.SWOLLEN : receivedSexRecently >= 1 ? SphincterFriction.IRRITATED :SphincterFriction.NORMAL;
+		friction = receivedSexRecently >= 5 ? SphincterFriction.RED_RING_OF_FIRE : receivedSexRecently >= 3 ? SphincterFriction.SWOLLEN : receivedSexRecently >= 1 ? SphincterFriction.IRRITATED :SphincterFriction.NORMAL;
 	}
 	
 	protected void receiveSex(SexualExperience sex) {
