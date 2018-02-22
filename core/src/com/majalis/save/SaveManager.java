@@ -281,16 +281,19 @@ public class SaveManager implements SaveService, LoadService {
     	public int randomVal;
     	public int visibility;
     	public int nodeCode;
+		public boolean isHidden;
     	
     	@SuppressWarnings("unused")
 		private VisitInfo() {}
     	
-    	public VisitInfo(int numberOfEncounters, int lastEncounterTime, int randomVal, int visibility, int nodeCode) {
+    	public VisitInfo(int numberOfEncounters, int lastEncounterTime, int randomVal, int visibility, int nodeCode) { this(numberOfEncounters, lastEncounterTime, randomVal, visibility, nodeCode, false); }   	
+    	public VisitInfo(int numberOfEncounters, int lastEncounterTime, int randomVal, int visibility, int nodeCode, boolean isHidden) {
     		this.numberOfEncounters = numberOfEncounters;
     		this.lastEncounterTime = lastEncounterTime;
     		this.randomVal = randomVal;
     		this.visibility = visibility;
     		this.nodeCode = nodeCode;
+    		this.isHidden = isHidden;
     	}
     	
     	public void setVisibility(int newVisibility) { if (visibility < newVisibility) visibility = newVisibility; } 

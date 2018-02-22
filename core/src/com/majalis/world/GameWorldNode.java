@@ -203,7 +203,7 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 		return GameWorldHelper.calculatePosition(x, y);
 	}
 	
-	private Color getAlpha(Color color) { return new Color(color.r, color.g, color.b, Math.max(visitInfo.visibility * .2f, .1f)); }
+	private Color getAlpha(Color color) { return new Color(color.r, color.g, color.b, isHidden() && visitInfo.visibility < 3 ? 0 : Math.max(visitInfo.visibility * .2f, .1f)); }
 	
 	@Override
 	public void setColor(Color color) {
@@ -331,6 +331,8 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 		return neighbors;
 	}
 
+	private boolean isHidden() { return visitInfo.isHidden; }
+	
 	public void visit(SaveService saveService) { 
 		if (visitInfo.numberOfEncounters == 0) {
 			visitInfo.numberOfEncounters = 1;
