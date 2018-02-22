@@ -131,6 +131,10 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 		checkedNodes.add(this);
 		ObjectSet<GameWorldNode> nodesToCheck = new ObjectSet<GameWorldNode>(connectedNodes);
 		ObjectMap<GameWorldNode, GameWorldNode> nodeToNode = new ObjectMap<GameWorldNode, GameWorldNode>();
+		ObjectMap<GameWorldNode, Integer> nodeToPathLength = new ObjectMap<GameWorldNode, Integer>();
+		for (GameWorldNode connectedNode : connectedNodes) {
+			nodeToPathLength.put(connectedNode, getDistance(connectedNode));
+		}
 		while (nodesToCheck.size > 0) {
 			for (GameWorldNode connectedNode : nodesToCheck) {
 				if (connectedNode.isCurrent()) {
@@ -142,7 +146,14 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 			ObjectSet<GameWorldNode> nextBatch = new ObjectSet<GameWorldNode>();
 			for (GameWorldNode connectedNode : nodesToCheck) {
 				ObjectSet<GameWorldNode> newNeighbors = connectedNode.getNeighbors(checkedNodes); // this needs to connect current nodes to new nodes, and also check to see if any of the newNeighbors are current
-				for (GameWorldNode neighbor : newNeighbors) nodeToNode.put(neighbor, connectedNode);				
+				for (GameWorldNode neighbor : newNeighbors) { // check if the node has already been used to construct a path, and see if this new path is shorter
+					// determine the path length to the new node via the current one
+					int pathLength = nodeToPathLength.get(connectedNode) + connectedNode.getDistance(neighbor);
+					if (nodeToPathLength.get(neighbor, 1000) > pathLength) {
+						nodeToPathLength.put(neighbor, pathLength);
+						nodeToNode.put(neighbor, connectedNode);
+					}
+				}
 				nextBatch.addAll(newNeighbors);
 			}
 			nodesToCheck = nextBatch;
