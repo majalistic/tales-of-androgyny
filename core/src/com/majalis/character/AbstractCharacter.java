@@ -1354,46 +1354,47 @@ public abstract class AbstractCharacter extends Actor {
 	protected Array<Techniques> getTechniques(AbstractCharacter target, Techniques ... candidates) { 
 		Array<Techniques> techniques = new Array<Techniques>(candidates);
 		for (Techniques candidate : candidates) {
-			if ((candidate == SIT_ON_IT || candidate == TURN_AND_SIT) && !canSitOn(target)) { techniques.removeValue(candidate, true); }
+			if (inTechniques(candidate, SIT_ON_IT, TURN_AND_SIT) && !canSitOn(target)) { techniques.removeValue(candidate, true); }
 			else if (candidate == POUNCE_DOGGY && !(target.stance == Stance.HANDS_AND_KNEES && isErect() && targetPouncable(target))) { techniques.removeValue(candidate, true); }
 			else if (candidate == WRESTLE_TO_GROUND && !(target.stance == Stance.PRONE && isErect() && targetPouncable(target) && targetWrestlable(target))) { techniques.removeValue(candidate, true); }
 			else if (candidate == WRESTLE_TO_GROUND_UP && !targetWrestlable(target)) { techniques.removeValue(candidate, true); }
-			else if ((candidate == WRESTLE_TO_GROUND_UP || candidate == MOUNT_FACE) && !(target.stance == Stance.SUPINE && isErect() && targetPouncable(target))) { techniques.removeValue(candidate, true); }
+			else if (inTechniques(candidate, WRESTLE_TO_GROUND_UP, MOUNT_FACE) && !(target.stance == Stance.SUPINE && isErect() && targetPouncable(target))) { techniques.removeValue(candidate, true); }
 			else if (candidate == SAY_AHH && !(target.stance == Stance.KNEELING && isErect() && targetPouncable(target))) { techniques.removeValue(candidate, true); }
 			else if (candidate == FULL_NELSON && !(target.stance.receivesMediumAttacks() && targetPouncable(target) && targetWrestlable(target))) { techniques.removeValue(candidate, true); }
 			else if (candidate == USE_ITEM && !hasItemsToUse())  { techniques.removeValue(candidate, true); }
 			else if (candidate == KICK_OVER_FACE_UP && target.getStance() != Stance.PRONE)  { techniques.removeValue(candidate, true); }
 			else if (candidate == KICK_OVER_FACE_DOWN && target.getStance() != Stance.SUPINE)  { techniques.removeValue(candidate, true); }	
-			else if ((candidate == PUSH_UP || candidate == KNEE_UP_HANDS || candidate == BREAK_FREE_FULL_NELSON || candidate == STRUGGLE_FULL_NELSON || candidate == GRAPPLE || candidate == HOLD_WRESTLE || candidate == REST_WRESTLE || candidate == PIN || candidate == PENETRATE_MISSIONARY ||
-					candidate == FLIP_PRONE || candidate == RELEASE_SUPINE || candidate == PENETRATE_PRONE || candidate == FLIP_SUPINE || candidate == RELEASE_PRONE || candidate == GRIND || candidate == BREAK_FREE_GROUND || candidate == STRUGGLE_GROUND || 
-					candidate == BREAK_FREE_GROUND_UP || candidate == FULL_REVERSAL || candidate == REVERSAL || candidate == STRUGGLE_GROUND_UP || candidate == BREAK_FREE_SQUEEZE || candidate == SQUEEZE_STRUGGLE) && currentStamina <= 0) { techniques.removeValue(candidate, true); }	
-			else if ((candidate == GRAPPLE || candidate == HOLD_WRESTLE || candidate == REST_WRESTLE || candidate == PIN || candidate == PENETRATE_MISSIONARY || candidate == FLIP_PRONE || candidate == RELEASE_SUPINE || candidate == PENETRATE_PRONE || candidate == FLIP_SUPINE ||
-					candidate == RELEASE_PRONE  || candidate == GRIND || candidate == BREAK_FREE_GROUND || candidate == STRUGGLE_GROUND || candidate == BREAK_FREE_GROUND_UP || candidate == FULL_REVERSAL || candidate == REVERSAL || candidate == STRUGGLE_GROUND_UP) && grappleStatus == GrappleStatus.HELD) { techniques.removeValue(candidate, true); }	
-			else if ((candidate == KNEE_UP || candidate == STAND_UP_HANDS || candidate == STAND_UP_KNEELING) && currentStamina <= 2) { techniques.removeValue(candidate, true); }	
-			else if ((candidate == STAND_UP || candidate == GRIP) && currentStamina <= 4 || stability.compareTo(Stability.Dazed) < 0) { techniques.removeValue(candidate, true); }	
-			else if ((candidate == KIP_UP || candidate == TAKEDOWN) && currentStamina <= 6) { techniques.removeValue(candidate, true); }
-			else if ((candidate == SLAP_ASS_KNEES || candidate == SELF_SPANK || candidate == WRAP_LEGS) && !isLewd()) { techniques.removeValue(candidate, true); }		
+			else if (inTechniques(candidate, PUSH_UP, KNEE_UP_HANDS, BREAK_FREE_FULL_NELSON, STRUGGLE_FULL_NELSON, GRAPPLE, HOLD_WRESTLE, REST_WRESTLE, PIN, PENETRATE_MISSIONARY, FLIP_PRONE, RELEASE_SUPINE, PENETRATE_PRONE, FLIP_SUPINE, RELEASE_PRONE, GRIND, BREAK_FREE_GROUND, STRUGGLE_GROUND,
+					BREAK_FREE_GROUND_UP, FULL_REVERSAL, REVERSAL, STRUGGLE_GROUND_UP, BREAK_FREE_SQUEEZE, SQUEEZE_STRUGGLE) && currentStamina <= 0) { techniques.removeValue(candidate, true); }	
+			else if (inTechniques(candidate, HOLD_WRESTLE, REST_WRESTLE, PIN, PENETRATE_MISSIONARY, FLIP_PRONE, RELEASE_SUPINE, PENETRATE_PRONE, FLIP_SUPINE, RELEASE_PRONE , GRIND, BREAK_FREE_GROUND, STRUGGLE_GROUND, BREAK_FREE_GROUND_UP, FULL_REVERSAL, REVERSAL, STRUGGLE_GROUND_UP) && grappleStatus == GrappleStatus.HELD) { techniques.removeValue(candidate, true); }	
+			else if (inTechniques(candidate, KNEE_UP, STAND_UP_HANDS, STAND_UP_KNEELING) && currentStamina <= 2) { techniques.removeValue(candidate, true); }	
+			else if (inTechniques(candidate, STAND_UP, GRIP) && currentStamina <= 4 || stability.compareTo(Stability.Dazed) < 0) { techniques.removeValue(candidate, true); }	
+			else if (inTechniques(candidate, KIP_UP, TAKEDOWN) && currentStamina <= 6) { techniques.removeValue(candidate, true); }
+			else if (inTechniques(candidate, SLAP_ASS_KNEES, SELF_SPANK, WRAP_LEGS) && !isLewd()) { techniques.removeValue(candidate, true); }		
 			else if (candidate == GRAB_IT && !(target.isErect() && target.enemyType != EnemyEnum.SLIME && targetPouncable(target))) { techniques.removeValue(candidate, true); }	
 			else if (candidate == PENETRATE_STANDING && (grappleStatus != GrappleStatus.HOLD || !isErect())) { techniques.removeValue(candidate, true); }				
-			else if ((candidate == TAKEDOWN || candidate == PIN || candidate == FULL_REVERSAL || candidate == BREAK_FREE_FULL_NELSON || candidate == BREAK_FREE_ANAL || candidate == BREAK_FREE_ORAL || candidate == BREAK_FREE_FACE_SIT || candidate == BREAK_FREE_GROUND || 
-					candidate == BREAK_FREE_GROUND_UP || candidate == BREAK_FREE_SQUEEZE || candidate == PUSH_OFF || candidate == PUSH_OFF_REVERSE) && !hasGrappleAdvantage()) { techniques.removeValue(candidate, true); }	
-			else if ((candidate == STRUGGLE_FULL_NELSON || candidate == STRUGGLE_DOGGY || candidate == STRUGGLE_PRONE_BONE || candidate == STRUGGLE_ANAL || candidate == STRUGGLE_STANDING || candidate == STRUGGLE_ORAL || candidate == STRUGGLE_FACEFUCK || candidate == STRUGGLE_OUROBOROS ||
-					candidate == STRUGGLE_FACE_SIT || candidate == STRUGGLE_SIXTY_NINE || candidate == STRUGGLE_GROUND || candidate == STRUGGLE_GROUND_UP || candidate == SQUEEZE_STRUGGLE || candidate == PUSH_OFF_ATTEMPT || candidate == PUSH_OFF_ATTEMPT_REVERSE) && hasGrappleAdvantage()) { techniques.removeValue(candidate, true); }	
+			else if (inTechniques(candidate, TAKEDOWN, PIN, FULL_REVERSAL, BREAK_FREE_FULL_NELSON, BREAK_FREE_ANAL, BREAK_FREE_ORAL, BREAK_FREE_FACE_SIT, BREAK_FREE_GROUND, BREAK_FREE_GROUND_UP, BREAK_FREE_SQUEEZE, PUSH_OFF, PUSH_OFF_REVERSE) && !hasGrappleAdvantage()) { techniques.removeValue(candidate, true); }	
+			else if (inTechniques(candidate, STRUGGLE_FULL_NELSON, STRUGGLE_DOGGY, STRUGGLE_PRONE_BONE, STRUGGLE_ANAL, STRUGGLE_STANDING, STRUGGLE_ORAL, STRUGGLE_FACEFUCK, STRUGGLE_OUROBOROS, STRUGGLE_FACE_SIT, STRUGGLE_SIXTY_NINE, STRUGGLE_GROUND, STRUGGLE_GROUND_UP, SQUEEZE_STRUGGLE, PUSH_OFF_ATTEMPT, PUSH_OFF_ATTEMPT_REVERSE) && hasGrappleAdvantage()) { techniques.removeValue(candidate, true); }	
 			else if (candidate == REVERSAL && !grappleStatus.isDisadvantage()) { techniques.removeValue(candidate, true); }	
-			else if ((candidate == RECEIVE_ANAL || candidate == POUT || candidate == STROKE || candidate == BREAK_FREE_ANAL || candidate == STRUGGLE_ANAL || candidate == WRAP_LEGS) && wrapLegs) { techniques.removeValue(candidate, true); }	
+			else if (inTechniques(candidate, RECEIVE_ANAL, POUT, STROKE, BREAK_FREE_ANAL, STRUGGLE_ANAL, WRAP_LEGS) && wrapLegs) { techniques.removeValue(candidate, true); }	
 			else if (candidate == DEEPTHROAT && perks.get(Perk.MOUTH_MANIAC.toString(), 0) < 1) { techniques.removeValue(candidate, true); }	
-			else if ((candidate == IRRUMATIO || candidate == FACEFUCK || candidate == ROUND_AND_ROUND || candidate == PULL_OUT_ORAL || candidate == POUND_ANAL || candidate == PULL_OUT_ANAL || candidate == POUND_DOGGY || candidate == CRUSH_ASS || candidate == ASS_BLAST || candidate == PROSTATE_GRIND ||
-					candidate == POUND_PRONE_BONE || candidate == POUND_STANDING || candidate == PULL_OUT_STANDING || candidate == PULL_OUT || candidate == BE_RIDDEN || candidate == BE_RIDDEN_REVERSE || candidate == PUSH_OFF || candidate == PUSH_OFF_REVERSE || candidate == PUSH_OFF_ATTEMPT || 
-					candidate == PUSH_OFF_ATTEMPT_REVERSE || candidate == RECEIVE_HANDY || candidate == CRUSH || candidate == PULL_UP) && arousal.isClimax()) { techniques.removeValue(candidate, true); }	
-			else if ((candidate == ERUPT_ORAL || candidate == ERUPT_ANAL || candidate == ERUPT_COWGIRL || candidate == ERUPT_FACIAL) && !arousal.isClimax()) { techniques.removeValue(candidate, true); }	
-			else if ((candidate == PENETRATE_MISSIONARY || candidate == FLIP_PRONE || candidate == RELEASE_SUPINE) && target.getStance() != Stance.GROUND_WRESTLE_FACE_UP ) { techniques.removeValue(candidate, true); }			
-			else if ((candidate == PENETRATE_PRONE || candidate == FLIP_SUPINE || candidate == RELEASE_PRONE) && target.getStance() != Stance.GROUND_WRESTLE_FACE_DOWN ) { techniques.removeValue(candidate, true); }			
-			else if ((candidate == FLIP_PRONE || candidate == RELEASE_SUPINE || candidate == FLIP_SUPINE || candidate == RELEASE_PRONE ) && (grappleStatus == GrappleStatus.HOLD && isErect())) { techniques.removeValue(candidate, true); }			
-			else if ((candidate == PENETRATE_MISSIONARY || candidate == PENETRATE_PRONE) && (grappleStatus != GrappleStatus.HOLD || !isErect())) { techniques.removeValue(candidate, true); }
+			else if (inTechniques(candidate, IRRUMATIO, FACEFUCK, ROUND_AND_ROUND, PULL_OUT_ORAL, POUND_ANAL, PULL_OUT_ANAL, POUND_DOGGY, CRUSH_ASS, ASS_BLAST, PROSTATE_GRIND, POUND_PRONE_BONE, POUND_STANDING, PULL_OUT_STANDING, PULL_OUT, BE_RIDDEN, BE_RIDDEN_REVERSE, PUSH_OFF, PUSH_OFF_REVERSE, PUSH_OFF_ATTEMPT, PUSH_OFF_ATTEMPT_REVERSE, RECEIVE_HANDY, CRUSH, PULL_UP) && arousal.isClimax()) { techniques.removeValue(candidate, true); }	
+			else if (inTechniques(candidate, ERUPT_ORAL, ERUPT_ANAL, ERUPT_COWGIRL, ERUPT_FACIAL) && !arousal.isClimax()) { techniques.removeValue(candidate, true); }	
+			else if (inTechniques(candidate, PENETRATE_MISSIONARY, FLIP_PRONE, RELEASE_SUPINE) && target.getStance() != Stance.GROUND_WRESTLE_FACE_UP ) { techniques.removeValue(candidate, true); }			
+			else if (inTechniques(candidate, PENETRATE_PRONE, FLIP_SUPINE, RELEASE_PRONE) && target.getStance() != Stance.GROUND_WRESTLE_FACE_DOWN ) { techniques.removeValue(candidate, true); }			
+			else if (inTechniques(candidate, FLIP_PRONE, RELEASE_SUPINE, FLIP_SUPINE, RELEASE_PRONE) && (grappleStatus == GrappleStatus.HOLD && isErect())) { techniques.removeValue(candidate, true); }			
+			else if (inTechniques(candidate, PENETRATE_MISSIONARY, PENETRATE_PRONE) && (grappleStatus != GrappleStatus.HOLD || !isErect())) { techniques.removeValue(candidate, true); }
 			else if (candidate == CRUSH && target.stance != Stance.SPREAD) { techniques.removeValue(candidate, true); }
 			else if (candidate == PULL_UP && target.stance == Stance.SPREAD) { techniques.removeValue(candidate, true); }
 		}		
 		return techniques; 
+	}
+	
+	protected boolean inTechniques(Techniques candidate, Techniques ... techniques) {
+		for (Techniques technique : techniques) {
+			if (candidate == technique) return true;
+		}
+		return false;
 	}
 	
 	public enum PhallusType {

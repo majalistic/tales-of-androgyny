@@ -571,14 +571,14 @@ public class EnemyCharacter extends AbstractCharacter {
 			(candidate.getTrait().getTechniqueHeight() == TechniqueHeight.LOW && !target.getStance().receivesLowAttacks())) { techniques.removeValue(candidate, true); }
 			else if (candidate == ARMOR_SUNDER && !enemyType.willArmorSunder()) { techniques.removeValue(candidate, true); }
 			else if (candidate == BLITZ_ATTACK && (enemyType != EnemyEnum.BEASTMISTRESS && !isEnragedGolem())) { techniques.removeValue(candidate, true); }			
-			else if ((candidate == CAUTIOUS_ATTACK || candidate == GUT_CHECK) && enemyType == EnemyEnum.BEASTMISTRESS) { techniques.removeValue(candidate, true); }
+			else if (inTechniques(candidate, CAUTIOUS_ATTACK, GUT_CHECK) && enemyType == EnemyEnum.BEASTMISTRESS) { techniques.removeValue(candidate, true); }
 			else if (candidate == BLOCK && !enemyType.usesDefensiveTechniques()) { techniques.removeValue(candidate, true); }
 			else if (candidate == INCANTATION && ((enemyType != EnemyEnum.GOLEM && enemyType != EnemyEnum.ADVENTURER) || (enemyType == EnemyEnum.GOLEM && currentMana <= 3 && !(currentFrame == 0 && (baseDefense <= 3 || currentHealth <= 30))))) { techniques.removeValue(candidate, true); }
 			else if (candidate != INCANTATION && (enemyType == EnemyEnum.GOLEM && stance != Stance.CASTING && currentFrame == 0 && (baseDefense <= 3 || currentHealth <= 30)) || 
 					(enemyType == EnemyEnum.ADVENTURER && (((currentHealth < 30 && currentMana >= 10) || (currentMana % 10 != 0 && currentMana > 2 && statuses.get(StatusType.STRENGTH_BUFF.toString(), 0) == 0))))) { techniques.removeValue(candidate, true); }
 			else if (candidate == PARRY && !enemyType.willParry()) { techniques.removeValue(candidate, true); }
 			else if (candidate == TAUNT && !enemyType.willSeduce()) { techniques.removeValue(candidate, true); }
-			else if ((candidate == SLAP_ASS || candidate == GESTURE || candidate == PUCKER_LIPS || candidate == RUB || candidate == REVERSAL_ATTACK || candidate == BLOCK) && (arousal.isBottomReady() && stance == Stance.SEDUCTION)) { techniques.removeValue(candidate, true); }			
+			else if (inTechniques(candidate, SLAP_ASS, GESTURE, PUCKER_LIPS, RUB, REVERSAL_ATTACK, BLOCK) && (arousal.isBottomReady() && stance == Stance.SEDUCTION)) { techniques.removeValue(candidate, true); }			
 			else if (candidate != OVIPOSITION && (enemyType == EnemyEnum.SPIDER && grappleStatus == GrappleStatus.HOLD && stance == Stance.FULL_NELSON)) { techniques.removeValue(candidate, true); }
 			else if (candidate != RECEIVE_DOGGY && stance == Stance.DOGGY_BOTTOM)  { techniques.removeValue(candidate, true); }
 			else if (candidate != RECEIVE_PRONE_BONE && stance == Stance.PRONE_BONE_BOTTOM)  { techniques.removeValue(candidate, true); }
@@ -598,9 +598,7 @@ public class EnemyCharacter extends AbstractCharacter {
 			else if (candidate == ERUPT_ANAL && (enemyType == EnemyEnum.BRIGAND || enemyType == EnemyEnum.GOBLIN || enemyType == EnemyEnum.ORC)) { techniques.removeValue(candidate, true); }		
 			else if (candidate == BLOW_LOAD && !(enemyType == EnemyEnum.BRIGAND || enemyType == EnemyEnum.GOBLIN || enemyType == EnemyEnum.ORC)) { techniques.removeValue(candidate, true); }		
 			else if (candidate == PROSTATE_GRIND && !enemyType.willProstatePound()) { techniques.removeValue(candidate, true); }		
-			else if (candidate == VAULT || candidate == FEINT_AND_STRIKE || candidate == SLIDE || candidate == DUCK || candidate == HIT_THE_DECK || candidate == KICK_OVER_FACE_UP || candidate == KICK_OVER_FACE_DOWN || candidate == SIT_ON_IT || candidate == TURN_AND_SIT ||
-					candidate == SUDDEN_ADVANCE || candidate == DUCK || candidate == UPPERCUT || candidate == GRAB_IT || candidate == JUMP_ATTACK || candidate == VAULT_OVER || candidate == STAND_OFF_IT || candidate == FULL_NELSON) { techniques.removeValue(candidate, true); }			
-	
+			else if (inTechniques(candidate, VAULT, FEINT_AND_STRIKE, SLIDE, DUCK, HIT_THE_DECK, KICK_OVER_FACE_UP, KICK_OVER_FACE_DOWN, SIT_ON_IT, TURN_AND_SIT, SUDDEN_ADVANCE, DUCK, UPPERCUT, GRAB_IT, JUMP_ATTACK, VAULT_OVER, STAND_OFF_IT, FULL_NELSON)) { techniques.removeValue(candidate, true); }	
 		}
 				
 		return techniques;
