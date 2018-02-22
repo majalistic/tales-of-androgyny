@@ -195,8 +195,8 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 		GameWorldNode algoNode = this;
 		for (GameWorldNode node : pathToCurrent) {
 			Path path = node.pathMap.get(algoNode);
+			node.setPathAlpha(path, algoNode);
 			algoNode = node;
-			path.setColor(getAlpha(Color.WHITE));
 		}
 	}
 	private Vector2 calculatePosition(int x, int y) {
@@ -209,6 +209,9 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 	public void setColor(Color color) {
 		super.setColor(color);
 		color = getAlpha(color);
+		for(ObjectMap.Entry<GameWorldNode, Path> path : pathMap.entries()) {
+			setPathAlpha(path.value, path.key);
+		}
 		for (Actor actor : getChildren()) {
 			actor.setColor(color);
 		}
@@ -252,11 +255,13 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 		}
 		connectedNodes.add(otherNode);
 		Path newPath = new Path(roadImage, getHexPosition(), otherNode.getHexPosition());
-		newPath.setColor(getAlpha(Color.WHITE));
+		setPathAlpha(newPath, otherNode);
 		pathMap.put(otherNode, newPath);
 		paths.add(newPath);
 		otherNode.getConnected(this, newPath);
 	}
+	
+	private void setPathAlpha(Path path, GameWorldNode otherNode) {	path.setColor(this.visitInfo.visibility >= otherNode.visitInfo.visibility ? getAlpha(Color.WHITE) : otherNode.getAlpha(Color.WHITE)); }
 	
 	private void getConnected(GameWorldNode otherNode, Path path) { connectedNodes.add(otherNode); pathMap.put(otherNode, path); }
 	
@@ -286,7 +291,9 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 		if (activeAnimation != null) {
 			activeAnimation.setColor(getAlpha(Color.WHITE));
 		}
-		for (Path path : paths) { path.setColor(getAlpha(Color.WHITE)); }
+		for(ObjectMap.Entry<GameWorldNode, Path> path : pathMap.entries()) {
+			setPathAlpha(path.value, path.key);
+		}
 		arrow.addAction(Actions.hide());
 		pathToCurrent = null;
 	}
