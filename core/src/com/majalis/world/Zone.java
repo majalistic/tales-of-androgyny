@@ -221,7 +221,7 @@ public class Zone {
 		nodeMap.put(nodeCode, newNode);
 	}
 	private VisitInfo getFreshVisitInfo() { return getFreshVisitInfo(false); }
-	private VisitInfo getFreshVisitInfo(boolean canBeHidden) { return new VisitInfo(0, 0, (int) ((Math.random() * 1000) % 1000), 0, -1, canBeHidden && Math.random() * 1000 % 100 < 10); }
+	private VisitInfo getFreshVisitInfo(boolean canBeHidden) { return new VisitInfo(0, 0, (int) ((Math.random() * 1000) % 1000), 0, -1, canBeHidden && random.nextInt(10) == 0); }
 	private GameWorldNode getNode(int nodeCode, EncounterCode initialEncounter, EncounterCode defaultEncounter, int x, int y, VisitInfo visitInfo) { return getNode(nodeCode, initialEncounter, defaultEncounter, new Array<EncounterCode>(), x, y, visitInfo); }
 	private GameWorldNode getNode(int nodeCode, EncounterCode initialEncounter, EncounterCode defaultEncounter, Array<EncounterCode> raandomEncounters, int x, int y, VisitInfo visitInfo) {
 		return new GameWorldNode(nodeCode, new GameWorldNodeEncounter(initialEncounter, defaultEncounter, raandomEncounters), x, y, visitInfo, character, assetManager);
