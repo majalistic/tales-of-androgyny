@@ -230,6 +230,9 @@ public class InventoryScreen extends AbstractScreen {
 				result = character.consumeItem(item).getResult();
 				consoleText.setText(result);
 				saveService.saveDataValue(SaveEnum.PLAYER, character);
+				if (item.isTownPortalScroll()) {
+					saveService.saveDataValue(SaveEnum.NODE_CODE, 1000);										
+				}
 				inventoryTable.clear();
 				inventoryTable.add(getLabel("Inventory", skin, Color.BLACK)).row();
 				int inventoryColumn = 0;

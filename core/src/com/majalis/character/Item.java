@@ -13,16 +13,10 @@ public abstract class Item {
 	protected abstract ItemEffect getUseEffect();
 	public abstract String getName();
 	public abstract String getDescription();
-	public boolean isConsumable() {
-		return false;
-	}	
-	public boolean instantUse() {
-		return false;
-	}
-	public boolean isEquippable() {
-		return false;
-	}
-	
+	public boolean isConsumable() { return false; }	
+	public boolean instantUse() { return false; }
+	public boolean isEquippable() { return false; }
+	public boolean isTownPortalScroll() { return false; }
 	
 	@Override 
 	public boolean equals(Object o) {
@@ -314,9 +308,10 @@ public abstract class Item {
 		}
 		
 		@Override
-		public boolean isConsumable() {
-			return true;
-		}	
+		public boolean isConsumable() { return true; }	
+		
+		@Override
+		public boolean isTownPortalScroll () { return effect == EffectType.TOWN_PORTAL; }	
 		
 		@Override
 		public int getValue() {
@@ -337,25 +332,23 @@ public abstract class Item {
 					return 25;
 				case ARMOR_SUNDER:
 					return 50;
+				case TOWN_PORTAL:
+					return 25;
 				default:
 					return 0;
 			}
 		}
 		
 		@Override
-		public boolean instantUse() {
-			return effect == EffectType.MEAT;
-		}
+		public boolean instantUse() { return effect == EffectType.MEAT; }
 
 		@Override
-		protected ItemEffect getUseEffect() {
-			return new ItemEffect(effect, magnitude);
-		}
+		protected ItemEffect getUseEffect() { return new ItemEffect(effect, magnitude); }
 
 		@Override
 		public String getName() {
 			return effect == EffectType.SLIME ? (magnitude == 1 ? "Worthless Slime" : "Primo Slime") : effect == EffectType.GEM ? "Gem" : effect == EffectType.MANA ? (magnitude == 20 ? "Mana Crystal" : "Mana Chunk") : 
-				effect.getDisplay() + (effect == EffectType.ARMOR_SUNDER || effect == EffectType.KNOCKDOWN || effect == EffectType.MAGIC || effect == EffectType.SPIDER || effect == EffectType.MEAT || effect == EffectType.BANDAGE ? "" : " (" + magnitude + ")"); 
+				effect.getDisplay() + (effect == EffectType.TOWN_PORTAL || effect == EffectType.ARMOR_SUNDER || effect == EffectType.KNOCKDOWN || effect == EffectType.MAGIC || effect == EffectType.SPIDER || effect == EffectType.MEAT || effect == EffectType.BANDAGE ? "" : " (" + magnitude + ")"); 
 		}
 
 		@Override
@@ -387,6 +380,8 @@ public abstract class Item {
 					return "Use to summon a cloud of acid that will dissolve your opponent's armor.";
 				case GEM:
 					return "Doesn't appear to do anything.";
+				case TOWN_PORTAL:
+					return "Warps the party back to the town of Silajam.";
 				default:
 					return "Unknown potion.";
 			}
@@ -406,7 +401,8 @@ public abstract class Item {
 		GEM("Gem"), 
 		MAGIC("Frozen Fire"), 
 		KNOCKDOWN("Wind Scroll"),
-		ARMOR_SUNDER ("Acid Scroll");
+		ARMOR_SUNDER ("Acid Scroll"),
+		TOWN_PORTAL ("Town Portal Scroll");
 		
 		private final String display;
 		private EffectType (String display) {

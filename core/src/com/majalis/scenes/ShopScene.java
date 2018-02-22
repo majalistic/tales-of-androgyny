@@ -227,6 +227,7 @@ public class ShopScene extends Scene {
 				shop.items.add(new Potion(30, EffectType.KNOCKDOWN));	
 				shop.items.add(new Potion(12, EffectType.ARMOR_SUNDER));	
 				shop.items.add(new Potion(12, EffectType.ARMOR_SUNDER));	
+				shop.items.add(new Potion(1, EffectType.TOWN_PORTAL));	
 				shop.items.add(new Accessory(AccessoryType.STATBOOSTER, Stat.STRENGTH));	
 				shop.items.add(new Accessory(AccessoryType.STATBOOSTER, Stat.ENDURANCE));	
 				shop.items.add(new Accessory(AccessoryType.STATBOOSTER, Stat.AGILITY));	

@@ -934,11 +934,13 @@ public abstract class AbstractCharacter extends Actor {
 			case ARMOR_SUNDER:
 				result = combatUse ? "You used " + (effect.getType() == EffectType.MAGIC ? "the frozen flame" : effect.getType() == EffectType.KNOCKDOWN ? "the wind scroll" : "the acid scroll") + "!" : "Nothing happened!"; 
 				break;
+			case TOWN_PORTAL:
+				result = !combatUse ? "You used the Town Portal Scroll!" : "Nothing happened!"; 
+				break;
 			default:
 				result = "Nothing happened!";
-			
 		}	
-		if (effect.getType() != EffectType.GEM && (combatUse || (effect.getType() != EffectType.MAGIC && effect.getType() != EffectType.KNOCKDOWN && effect.getType() != EffectType.ARMOR_SUNDER))) {
+		if ((!combatUse && effect.getType() == EffectType.TOWN_PORTAL) || (effect.getType() != EffectType.GEM && (combatUse || (effect.getType() != EffectType.MAGIC && effect.getType() != EffectType.KNOCKDOWN && effect.getType() != EffectType.ARMOR_SUNDER)))) {
 			inventory.removeValue(item, true);
 		}
 		
