@@ -123,6 +123,7 @@ public enum Techniques {
 	SAY_AHH 			(new GrappleTechnique  (Stance.BALANCED, Stance.FELLATIO, "Say 'Ahh'", 2, Stance.FELLATIO_BOTTOM, GrappleType.WIN).addBonus(BonusCondition.OUTMANEUVER, BonusType.PRIORITY).build(), false),
 	FULL_NELSON			(new GrappleTechnique  (Stance.BALANCED, Stance.FULL_NELSON, "Full Nelson", 2, Stance.FULL_NELSON_BOTTOM, GrappleType.ADVANTAGE).build(), false), // Used to initiate full nelson
 	POUNCE_DOGGY		(new GrappleTechnique  (Stance.BALANCED, Stance.DOGGY, "Pounce", 2, Stance.DOGGY_BOTTOM, GrappleType.WIN).build(), false), // Used to initiate doggy
+	MATING				(new GrappleTechnique  (Stance.BALANCED, Stance.DOGGY, "Mating", 2, Stance.DOGGY_BOTTOM, GrappleType.WIN).build(), false), // Used to initiate doggy
 	POUNCE_PRONE_BONE	(new GrappleTechnique  (Stance.BALANCED, Stance.PRONE_BONE, "Pounce", 2, Stance.PRONE_BONE_BOTTOM, GrappleType.WIN).build(), false), // Used to initiate prone-bone
 	POUNCE_ANAL			(new GrappleTechnique  (Stance.BALANCED, Stance.ANAL, "Pounce", 2, Stance.ANAL_BOTTOM, GrappleType.WIN).build(), false), // Used to initiate missionary
 	PENETRATE_STANDING	(new GrappleTechnique  (Stance.FULL_NELSON, Stance.STANDING, "Penetrate", 2, Stance.STANDING_BOTTOM, GrappleType.WIN).build(), false), // Used to initiate standing anal

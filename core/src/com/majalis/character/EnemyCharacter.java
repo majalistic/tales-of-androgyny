@@ -613,7 +613,12 @@ public class EnemyCharacter extends AbstractCharacter {
 				possibleTechniques = getTechniques(WRESTLE_TO_GROUND);
 			}
 			else if (target.stance == Stance.HANDS_AND_KNEES) {
-				possibleTechniques = getTechniques(POUNCE_DOGGY);
+				if (enemyType == EnemyEnum.WERESLUT) {
+					possibleTechniques = getTechniques(MATING);
+				}
+				else {
+					possibleTechniques = getTechniques(POUNCE_DOGGY);
+				}
 			}
 			else if (target.stance == Stance.SUPINE) {
 				possibleTechniques = new Array<Techniques>();
