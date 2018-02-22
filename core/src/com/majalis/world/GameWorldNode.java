@@ -49,7 +49,7 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 	private Image arrow;
 	private ClickListener fireListener;
 	private Array<GameWorldNode> pathToCurrent;
-	
+	private boolean active;	
 	public GameWorldNode(final int nodeCode, GameWorldNodeEncounter encounter, int x, int y, VisitInfo visitInfo, PlayerCharacter character, AssetManager assetManager) {
 		this.connectedNodes = new ObjectSet<GameWorldNode>();
 		paths = new Array<Path>();
@@ -185,7 +185,7 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 				Group g = path.getParent();
 				g.removeActor(path);
 				g.addActor(path);
-				path.setColor(getAlpha(Color.GREEN));
+				path.setColor(Color.GREEN);
 			}
 		}
 	}
@@ -203,19 +203,19 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 		return GameWorldHelper.calculatePosition(x, y);
 	}
 	
-	private Color getAlpha(Color color) { return new Color(color.r, color.g, color.b, isHidden() ? 0 : Math.max(visitInfo.visibility * .2f, .1f)); }
+	private Color getAlpha(Color color) { return new Color(color.r, color.g, color.b, isHidden() ? 0 : Math.max(visitInfo.visibility * .2f, .2f)); }
 	
 	@Override
 	public void setColor(Color color) {
-		color = getAlpha(color);
 		super.setColor(color);
+		color = getAlpha(color);
 		for (Actor actor : getChildren()) {
 			actor.setColor(color);
 		}
 		if (isHidden()) arrow.addAction(Actions.hide());
 		else {
 			arrow.setColor(Color.WHITE);
-			arrow.addAction(Actions.show());
+			if (active) arrow.addAction(Actions.show());
 		}
 		if (activeImage != null) activeImage.setColor(getAlpha(Color.WHITE));
 		if (activeAnimation != null) activeAnimation.setColor(current ? getAlpha(Color.PINK) : getAlpha(Color.WHITE));
@@ -275,8 +275,9 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 		}
 	}	
 	
-	private void setActive() { arrow.addAction(Actions.show()); }
+	private void setActive() { active = true; arrow.addAction(Actions.show()); }
 	private void setInactive() {
+		active = false;
 		if (current) {
 			current = false;
 			addListener(fireListener);
@@ -315,6 +316,7 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 		else {
 			addListener(fireListener);
 		}
+		setColor(Color.WHITE); 
 	}
 	
 	private void setNeighborsVisibility(SaveService saveService, int visibility, int diminishingFactor, ObjectSet<GameWorldNode> visibleSet) {
@@ -362,6 +364,7 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 		ObjectSet<GameWorldNode> visibleSet = new ObjectSet<GameWorldNode>();
 		visibleSet.add(this);
 		setNeighborsVisibility(saveService, character.getScoutingScore(), 1, visibleSet); // update the visibility info in each node 
+		setColor(Color.WHITE);
 	}
 
 	private boolean newEncounterReady() { return visitInfo.lastEncounterTime + 18 + ((visitInfo.randomVal % 3) * 6) < character.getTime(); }
