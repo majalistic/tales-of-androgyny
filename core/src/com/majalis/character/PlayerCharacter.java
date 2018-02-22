@@ -1235,8 +1235,8 @@ public class PlayerCharacter extends AbstractCharacter {
 			debt = 0;
 		}
 		
-		if (gold < 0) {
-			modDebtCooldown(18);
+		if (gold < 0 && debtCooldown < 18) {
+			modDebtCooldown(18 - debtCooldown);
 		}
 		
 		return gold == 0 ? new Array<MutationResult>() : getResult(gold > 0 ? "You have incurred " + gold + " gold worth of debt." : "You've been relieved of " + loss + " gold worth of debt!");
@@ -1252,7 +1252,11 @@ public class PlayerCharacter extends AbstractCharacter {
 
 	public Array<MutationResult> debtTick(int ticks) {
 		if (debt > 0) {
-			return modDebt(10 * ticks);
+			float newDebt = debt;
+			for (int ii = 0; ii < ticks; ii++) {
+				newDebt *= 1.1f;
+			}			
+			return modDebt((int)Math.ceil(newDebt) - debt);
 		}
 		return new Array<MutationResult>();
 	}

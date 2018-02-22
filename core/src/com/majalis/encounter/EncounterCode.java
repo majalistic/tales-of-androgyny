@@ -431,14 +431,17 @@ public enum EncounterCode {
 					b.branch("Leave")
 				);
 			case BANK:
+				Branch borrow = b.branch("Borrow (50 GP)").textScene("BANK-BORROW");
+				Branch payBig = b.branch("Pay Debt (50 GP").require(ChoiceCheckType.GOLD_GREATER_THAN_X, 50).textScene("BANK-PAY-50"); 
 				return b.branch().textScene("BANK").checkScene(
-						CheckType.BIG_DEBT,
-						b.branch(true).textScene("BANK-OVERDRAWN").choiceScene("Do you pay your debts?", b.branch("Pay Debt (50 GP").require(ChoiceCheckType.GOLD_GREATER_THAN_X, 50).textScene("BANK-PAY-50"), b.branch("Default").textScene("BANK-PAY-HARD").gameEnd()),
-						b.branch(false).checkScene(	
-							CheckType.HAVE_DEBT,
-							b.branch(true).choiceScene("Pay back debt?", b.branch("Pay Debt (10 GP)").require(ChoiceCheckType.GOLD_GREATER_THAN_X, 10).textScene("BANK-PAY"), b.branch("Leave")),
-							b.branch(false).choiceScene("Do you want to borrow?", b.branch("Borrow (50 GP)").textScene("BANK-BORROW"), b.branch("Leave"))
-						)
+					CheckType.NO_BIG_DEBT,
+					b.branch(true).checkScene(	
+						CheckType.HAVE_NO_DEBT,
+						b.branch(true).choiceScene("Do you want to borrow?", borrow, b.branch("Leave")),
+						b.branch(false).choiceScene("Pay or receive loan?", payBig, b.branch("Pay Debt (10 GP)").require(ChoiceCheckType.GOLD_GREATER_THAN_X, 10).textScene("BANK-PAY"), borrow, b.branch("Leave"))
+					),
+					b.branch(false).textScene("BANK-OVERDRAWN").choiceScene("Do you pay your debts?", payBig, b.branch("Default").textScene("BANK-PAY-HARD").gameEnd())
+					
 				);
 			case BEASTMISTRESS:
 				return b.branch().textScene("BEASTMISTRESS-INTRO").choiceScene(

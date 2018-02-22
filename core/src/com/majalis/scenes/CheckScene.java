@@ -277,13 +277,13 @@ public class CheckScene extends AbstractTextScene {
 			@Override
 			protected boolean getCheck(PlayerCharacter character) { return character.getCurrentHealth() > 0; }  
 		}, 
-		HAVE_DEBT ("You are debt free.", "You owe a debt.") { 
+		HAVE_NO_DEBT ("You are debt free.", "You owe a debt.") { 
 			@Override
 			protected boolean getCheck(PlayerCharacter character) { return character.getCurrentDebt() <= 0; }  
 		}, 
-		BIG_DEBT ("", "You owe a tremendous debt.") { 
+		NO_BIG_DEBT ("", "You owe a tremendous debt.") { 
 			@Override
-			protected boolean getCheck(PlayerCharacter character) { return character.getCurrentDebt() < 100; }  
+			protected boolean getCheck(PlayerCharacter character) { return character.getCurrentDebt() < 200; }  
 		}, 
 		PROSTITUTE ("", "") { 
 			@Override
@@ -520,7 +520,7 @@ public class CheckScene extends AbstractTextScene {
 		
 		private CheckType(String success, String failure) { this.success = success; this.failure = failure; }
 		
-		public boolean canBeFlubbed() { return this != VIRGIN && this != GOBLIN_VIRGIN && this != PALADIN && this != ORC_ENCOUNTERED && this != ORC_BRAVE; }
+		public boolean canBeFlubbed() { return this != VIRGIN && this != GOBLIN_VIRGIN && this != PALADIN && this != ORC_ENCOUNTERED && this != ORC_BRAVE && this != HAVE_NO_DEBT; }
 
 		protected abstract boolean getCheck(PlayerCharacter character);
 		protected String getSuccess() {

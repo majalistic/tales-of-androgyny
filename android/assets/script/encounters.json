@@ -9209,8 +9209,8 @@
 		"key": "BUNNY-PAY-WARNING",
 		"scriptLines": [
 			{
-			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "DEBT", "value":1}}],
-			"text": "\"Oh no!  Well, that's okay... but if anyone asks, let them know that I issued you a warning. If you can't pay any interest the next time we meet, I'll have no choice but to sanction you.\""},
+			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "DEBT", "value":1}}, {"saveType":"DEBT", "value":{"class": "java.lang.Integer", "value": -1}}],
+			"text": "\"Oh no!  Well, that's okay... but if anyone asks, let them know that I issued you a warning.  For now, I'll debit one gold on your behalf... if you can't pay any interest the next time we meet, I'll have no choice but to sanction you.\""},
 			{"text": "You're not sure what she means by \"sanction\", but you make sure to keep it in mind."}
 		]
 	},
