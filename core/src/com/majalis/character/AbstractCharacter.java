@@ -1342,6 +1342,10 @@ public abstract class AbstractCharacter extends Actor {
 			case OVIPOSITION: return getTechniques(target, LAY_EGGS);
 			case HOLDING: return getTechniques(target, OGRE_SMASH);
 			case CRUSHING: return getTechniques(target, ERUPT_ANAL, CRUSH, PULL_UP);
+			case FACE_SITTING: return getTechniques(target, SITTING_ORAL, RIDE_FACE);
+			case SIXTY_NINE: return getTechniques(target, ERUPT_SIXTY_NINE, RECIPROCATE);
+			case WRAPPED: return getTechniques(target, SQUEEZE_RELEASE, SQUEEZE_CRUSH, SQUEEZE, BITE);
+
 			case ERUPT:
 				stance = Stance.BALANCED;
 				possibles = getDefaultTechniqueOptions(target);
@@ -1378,14 +1382,19 @@ public abstract class AbstractCharacter extends Actor {
 			else if (candidate == REVERSAL && !grappleStatus.isDisadvantage()) { techniques.removeValue(candidate, true); }	
 			else if (inTechniques(candidate, RECEIVE_ANAL, POUT, STROKE, BREAK_FREE_ANAL, STRUGGLE_ANAL, WRAP_LEGS) && wrapLegs) { techniques.removeValue(candidate, true); }	
 			else if (candidate == DEEPTHROAT && perks.get(Perk.MOUTH_MANIAC.toString(), 0) < 1) { techniques.removeValue(candidate, true); }	
-			else if (inTechniques(candidate, IRRUMATIO, FACEFUCK, ROUND_AND_ROUND, PULL_OUT_ORAL, POUND_ANAL, PULL_OUT_ANAL, POUND_DOGGY, CRUSH_ASS, ASS_BLAST, PROSTATE_GRIND, POUND_PRONE_BONE, POUND_STANDING, PULL_OUT_STANDING, PULL_OUT, BE_RIDDEN, BE_RIDDEN_REVERSE, PUSH_OFF, PUSH_OFF_REVERSE, PUSH_OFF_ATTEMPT, PUSH_OFF_ATTEMPT_REVERSE, RECEIVE_HANDY, CRUSH, PULL_UP) && arousal.isClimax()) { techniques.removeValue(candidate, true); }	
-			else if (inTechniques(candidate, ERUPT_ORAL, ERUPT_ANAL, ERUPT_COWGIRL, ERUPT_FACIAL) && !arousal.isClimax()) { techniques.removeValue(candidate, true); }	
+			else if (inTechniques(candidate, IRRUMATIO, FACEFUCK, ROUND_AND_ROUND, PULL_OUT_ORAL, POUND_ANAL, PULL_OUT_ANAL, POUND_DOGGY, CRUSH_ASS, ASS_BLAST, PROSTATE_GRIND, POUND_PRONE_BONE, POUND_STANDING, PULL_OUT_STANDING, PULL_OUT, BE_RIDDEN, BE_RIDDEN_REVERSE, PUSH_OFF, PUSH_OFF_REVERSE, PUSH_OFF_ATTEMPT, PUSH_OFF_ATTEMPT_REVERSE, RECEIVE_HANDY, CRUSH, PULL_UP, RECIPROCATE) && arousal.isClimax()) { techniques.removeValue(candidate, true); }	
+			else if (inTechniques(candidate, ERUPT_ORAL, ERUPT_ANAL, ERUPT_COWGIRL, ERUPT_FACIAL, ERUPT_SIXTY_NINE) && !arousal.isClimax()) { techniques.removeValue(candidate, true); }	
 			else if (inTechniques(candidate, PENETRATE_MISSIONARY, FLIP_PRONE, RELEASE_SUPINE) && target.getStance() != Stance.GROUND_WRESTLE_FACE_UP ) { techniques.removeValue(candidate, true); }			
 			else if (inTechniques(candidate, PENETRATE_PRONE, FLIP_SUPINE, RELEASE_PRONE) && target.getStance() != Stance.GROUND_WRESTLE_FACE_DOWN ) { techniques.removeValue(candidate, true); }			
 			else if (inTechniques(candidate, FLIP_PRONE, RELEASE_SUPINE, FLIP_SUPINE, RELEASE_PRONE) && (grappleStatus == GrappleStatus.HOLD && isErect())) { techniques.removeValue(candidate, true); }			
 			else if (inTechniques(candidate, PENETRATE_MISSIONARY, PENETRATE_PRONE) && (grappleStatus != GrappleStatus.HOLD || !isErect())) { techniques.removeValue(candidate, true); }
 			else if (candidate == CRUSH && target.stance != Stance.SPREAD) { techniques.removeValue(candidate, true); }
 			else if (candidate == PULL_UP && target.stance == Stance.SPREAD) { techniques.removeValue(candidate, true); }
+			else if (candidate == SITTING_ORAL && !(isErect() && !target.isChastitied())) { techniques.removeValue(candidate, true); }		
+			else if (candidate == RIDE_FACE && (isErect() && !target.isChastitied())) { techniques.removeValue(candidate, true); }	
+			else if (inTechniques(candidate, SQUEEZE, BITE, SQUEEZE_CRUSH) && (currentStamina <= 0 || grappleStatus.isDisadvantage() || grappleStatus == GrappleStatus.HOLD)) { techniques.removeValue(candidate, true); }
+			else if (candidate == SQUEEZE_RELEASE && (currentStamina > 0 && !grappleStatus.isDisadvantage())) { techniques.removeValue(candidate, true); }
+			else if (candidate == SQUEEZE_CRUSH && grappleStatus != GrappleStatus.HOLD) { techniques.removeValue(candidate, true); }
 		}		
 		return techniques; 
 	}

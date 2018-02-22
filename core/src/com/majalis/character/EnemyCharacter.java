@@ -529,34 +529,16 @@ public class EnemyCharacter extends AbstractCharacter {
 		}
 		
 		Array<Techniques> possibles = getDefaultTechniqueOptions(target);
-		switch(stance) {		
-			case CASTING:
-				if (possibles.contains(Techniques.DO_NOTHING, true) || possibles.size == 0) return getTechniques(ITEM_OR_CANCEL); // fail-safe in case a spellcaster has no spells to cast
-				return possibles;	
-			case FACE_SITTING:
-				if (isErect() && !target.isChastitied()) {
-					return getTechniques(SITTING_ORAL);
-				}
-				return getTechniques(RIDE_FACE);
-			case SIXTY_NINE:
-				if (arousal.isClimax()) {
-					return getTechniques(ERUPT_SIXTY_NINE);
-				}
-				else {
-					return getTechniques(RECIPROCATE);
-				}				
-			case WRAPPED:
-				if (currentStamina <= 0 || grappleStatus.isDisadvantage()) {
-					return getTechniques(SQUEEZE_RELEASE);
-				}
-				if (grappleStatus == GrappleStatus.HOLD) {
-					return getTechniques(SQUEEZE_CRUSH);
-				}
-				return getTechniques(SQUEEZE, BITE);				
-			case ERUPT:
-				stance = Stance.BALANCED;
-				return getPossibleTechniques(target, stance);
-			default: return possibles.size == 0 ? getTechniques(DO_NOTHING) : possibles;
+		if (stance == Stance.CASTING) {
+			if (possibles.contains(Techniques.DO_NOTHING, true) || possibles.size == 0) return getTechniques(ITEM_OR_CANCEL); // fail-safe in case a spellcaster has no spells to cast
+			return possibles;	
+		}
+		else if (stance == Stance.ERUPT) {
+			stance = Stance.BALANCED;
+			return getPossibleTechniques(target, stance);
+		}
+		else {
+			return possibles.size == 0 ? getTechniques(DO_NOTHING) : possibles;
 		}
 	}
 	
