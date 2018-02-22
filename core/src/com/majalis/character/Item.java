@@ -174,13 +174,13 @@ public abstract class Item {
 		@Override
 		public String getDescription() {
 			switch (type) {
-				case Dagger: return "Thrusting weapon whose efficacy is dependent on the wielder's agility. Causes bleed. [Damage: Base + " + bonus + " + Agility / 2]";
-				case Rapier: return "Thrusting weapon whose efficacy is dependent on the wielder's agility. Causes bleed. [Damage: Base + " + (bonus + 1) + " + Agility / 3]";
-				case Gladius: return "Thrusting and slashing weapon whose efficacy is dependent on both the wielder's strength and agility. Causes bleed. [Damage: Base + " + (bonus + 1) + " + (Strength + Agility) / 5]";
-				case Cutlass: return "Slashing weapon Weapon whose efficacy is dependent on both the wielder's strength and agility. Causes bleed. [Damage: Base + " + (bonus + 1) + " + (Strength + Agility) / 5]";
-				case Broadsword: return "Thrusting and slashing weapon whose efficacy is dependent on the wielder's strength. Causes bleed. [Damage: Base + " + (bonus + 1) + " + Strength / 3]";
-				case Club: return "Blunt weapon whose efficacy is dependent on the wielder's strength. [Damage: Base + " + (bonus + 1) + " + Strength / 3]";
-				case Bow: return "Ranged weapon.  Causes bleed. [Damage: Base + 1]";
+				case Dagger: return "Thrusting weapon whose efficacy is dependent on the wielder's agility.\nCauses bleed. [Damage: Base + " + bonus + " + Agility / 2]";
+				case Rapier: return "Thrusting weapon whose efficacy is dependent on the wielder's agility.\nCauses bleed. [Damage: Base + " + (bonus + 1) + " + Agility / 3]";
+				case Gladius: return "Thrusting and slashing weapon whose efficacy is dependent on both the wielder's strength and agility.\nCauses bleed. [Damage: Base + " + (bonus + 1) + " + (Strength + Agility) / 5]";
+				case Cutlass: return "Slashing weapon Weapon whose efficacy is dependent on both the wielder's strength and agility.\nCauses bleed. [Damage: Base + " + (bonus + 1) + " + (Strength + Agility) / 5]";
+				case Broadsword: return "Thrusting and slashing weapon whose efficacy is dependent on the wielder's strength.\nCauses bleed. [Damage: Base + " + (bonus + 1) + " + Strength / 3]";
+				case Club: return "Blunt weapon whose efficacy is dependent on the wielder's strength.\n[Damage: Base + " + (bonus + 1) + " + Strength / 3]";
+				case Bow: return "Ranged weapon.\nCauses bleed. [Damage: Base + 1]";
 				default: return "Unknown Weapon!";
 			}
 		}
