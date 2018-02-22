@@ -532,83 +532,7 @@ public class EnemyCharacter extends AbstractCharacter {
 		switch(stance) {		
 			case CASTING:
 				if (possibles.contains(Techniques.DO_NOTHING, true) || possibles.size == 0) return getTechniques(ITEM_OR_CANCEL); // fail-safe in case a spellcaster has no spells to cast
-				return possibles;
-			case GROUND_WRESTLE:
-				possibles.clear();
-				if (currentStamina <= 0 || grappleStatus == GrappleStatus.HELD) {
-					return getTechniques(REST_WRESTLE);
-				}
-				possibles.addAll(getTechniques(GRAPPLE, HOLD_WRESTLE, REST_WRESTLE));
-				if (enemyType == EnemyEnum.ORC || enemyType == EnemyEnum.BRIGAND) {
-					possibles.addAll(getTechniques(CHOKE));
-				}
-				
-				if (target.getStance() == Stance.GROUND_WRESTLE_FACE_UP) {
-					if (grappleStatus == GrappleStatus.HOLD) {
-						return getTechniques(PENETRATE_MISSIONARY);
-					}
-					else if (hasGrappleAdvantage() && enemyType.prefersProneBone()) {
-						possibles.addAll(getTechniques(FLIP_PRONE));
-					}
-				}
-				else if (target.getStance() == Stance.GROUND_WRESTLE_FACE_DOWN) {
-					if (grappleStatus == GrappleStatus.HOLD) {
-						return getTechniques(PENETRATE_PRONE);
-					}
-					else if (hasGrappleAdvantage() && enemyType.prefersMissionary()) {
-						possibles.addAll(getTechniques(FLIP_SUPINE));
-					}
-				}
-				if (hasGrappleAdvantage()) {
-					if (target.getStrength() + 3 < getStrength()) {
-						return getTechniques(PIN);
-					}
-				}
-				return possibles;
-			case DOGGY:
-			case ANAL:
-			case STANDING:
-			case PRONE_BONE:
-				if (enemyType != EnemyEnum.WERESLUT && arousal.isClimax()) {
-					if (enemyType == EnemyEnum.BRIGAND || enemyType == EnemyEnum.GOBLIN || enemyType == EnemyEnum.ORC) {
-						return getTechniques(BLOW_LOAD);
-					}
-					return getTechniques(ERUPT_ANAL);
-				}
-				else if (enemyType == EnemyEnum.WERESLUT && arousal.isEdging()) {
-					return getTechniques(KNOT);
-				}
-				else {
-					if (stance == Stance.ANAL) {
-						return getTechniques(POUND_ANAL);
-					}
-					else if (stance == Stance.DOGGY) {
-						if (enemyType.willProstatePound()) return getTechniques(POUND_DOGGY, CRUSH_ASS, ASS_BLAST, PROSTATE_GRIND);
-						return getTechniques(POUND_DOGGY, CRUSH_ASS, ASS_BLAST);
-					}
-					else if (stance == Stance.PRONE_BONE) {
-						return getTechniques(POUND_PRONE_BONE);
-					}
-					else {
-						return getTechniques(POUND_STANDING);
-					}		
-				}
-			case COWGIRL:
-				if (enemyType == EnemyEnum.WERESLUT && arousal.isEdging()) {
-					return getTechniques(KNOT);
-				}
-				else if (enemyType != EnemyEnum.WERESLUT && arousal.isEdging()) {;
-					return getTechniques(ERUPT_COWGIRL);
-				}
-				return getTechniques(BE_RIDDEN);	
-			case REVERSE_COWGIRL:
-				if (enemyType == EnemyEnum.WERESLUT && arousal.isEdging()) {
-					return getTechniques(KNOT);
-				}
-				else if (enemyType != EnemyEnum.WERESLUT && arousal.isEdging()) {
-					return getTechniques(ERUPT_COWGIRL);
-				}
-				return getTechniques(BE_RIDDEN_REVERSE);
+				return possibles;	
 			case FACE_SITTING:
 				if (isErect() && !target.isChastitied()) {
 					return getTechniques(SITTING_ORAL);
@@ -620,27 +544,7 @@ public class EnemyCharacter extends AbstractCharacter {
 				}
 				else {
 					return getTechniques(RECIPROCATE);
-				}	
-			case HANDY:
-				if (arousal.isClimax()) {
-					return getTechniques(ERUPT_FACIAL);
-				}
-				return getTechniques(RECEIVE_HANDY);
-			case KNOTTED:
-				return getTechniques(KNOT_BANG);
-			case MOUTH_KNOTTED:
-				return getTechniques(MOUTH_KNOT_BANG);	
-			case OVIPOSITION:
-				return getTechniques(LAY_EGGS);
-			case HOLDING:
-				return getTechniques(OGRE_SMASH);
-			case CRUSHING:
-				if (arousal.isClimax()) {
-					return getTechniques(ERUPT_ANAL);
-				}
-				else {
-					return getTechniques(target.stance == Stance.SPREAD ? CRUSH : PULL_UP);
-				}
+				}				
 			case WRAPPED:
 				if (currentStamina <= 0 || grappleStatus.isDisadvantage()) {
 					return getTechniques(SQUEEZE_RELEASE);
@@ -686,12 +590,23 @@ public class EnemyCharacter extends AbstractCharacter {
 			else if (candidate != COMBAT_FIRE && (enemyType == EnemyEnum.GOLEM && currentFrame == 1 && stance == Stance.CASTING))  { techniques.removeValue(candidate, true); }
 			else if (candidate != COMBAT_HEAL && (enemyType != EnemyEnum.GOLEM && stance == Stance.CASTING && currentHealth < 30 && currentMana >= 7))  { techniques.removeValue(candidate, true); }
 			else if (candidate != TITAN_STRENGTH && (enemyType != EnemyEnum.GOLEM && stance == Stance.CASTING && currentMana % 7 != 0 && currentMana > 2 && statuses.get(StatusType.STRENGTH_BUFF.toString(), 0) == 0))  { techniques.removeValue(candidate, true); }
+			else if (candidate == CHOKE && (enemyType != EnemyEnum.ORC && enemyType != EnemyEnum.BRIGAND)) { techniques.removeValue(candidate, true); }		
+			else if (candidate == FLIP_PRONE && !enemyType.prefersProneBone()) { techniques.removeValue(candidate, true); }		
+			else if (candidate == FLIP_SUPINE && !enemyType.prefersMissionary()) { techniques.removeValue(candidate, true); }		
+			else if (candidate == PIN && target.getStrength() + 3 >= getStrength()) { techniques.removeValue(candidate, true); }		
+			else if (candidate != KNOT && enemyType == EnemyEnum.WERESLUT && arousal.isEdging() && stance.isAnalPenetration()) { techniques.removeValue(candidate, true); }		
+			else if (candidate == ERUPT_ANAL && (enemyType == EnemyEnum.BRIGAND || enemyType == EnemyEnum.GOBLIN || enemyType == EnemyEnum.ORC)) { techniques.removeValue(candidate, true); }		
+			else if (candidate == BLOW_LOAD && !(enemyType == EnemyEnum.BRIGAND || enemyType == EnemyEnum.GOBLIN || enemyType == EnemyEnum.ORC)) { techniques.removeValue(candidate, true); }		
+			else if (candidate == PROSTATE_GRIND && !enemyType.willProstatePound()) { techniques.removeValue(candidate, true); }		
 			else if (candidate == VAULT || candidate == FEINT_AND_STRIKE || candidate == SLIDE || candidate == DUCK || candidate == HIT_THE_DECK || candidate == KICK_OVER_FACE_UP || candidate == KICK_OVER_FACE_DOWN || candidate == SIT_ON_IT || candidate == TURN_AND_SIT ||
 					candidate == SUDDEN_ADVANCE || candidate == DUCK || candidate == UPPERCUT || candidate == GRAB_IT || candidate == JUMP_ATTACK || candidate == VAULT_OVER || candidate == STAND_OFF_IT || candidate == FULL_NELSON) { techniques.removeValue(candidate, true); }			
+	
 		}
 				
 		return techniques;
 	}
+	
+	private Array<Techniques> getTechniques(Techniques ... techniques) { return new Array<Techniques>(techniques); }
 	
 	public Technique getTechnique(AbstractCharacter target) {
 		if (initializedMove && nextMove != null) {

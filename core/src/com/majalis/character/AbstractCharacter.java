@@ -1330,12 +1330,18 @@ public abstract class AbstractCharacter extends Actor {
 			case GROUND_WRESTLE_FACE_DOWN: return getTechniques(target, REST_GROUND_DOWN, GRIND, BREAK_FREE_GROUND, STRUGGLE_GROUND);
 			case GROUND_WRESTLE_FACE_UP:  return getTechniques(target, REST_GROUND_UP, BREAK_FREE_GROUND_UP, FULL_REVERSAL, REVERSAL, STRUGGLE_GROUND_UP);
 			case WRAPPED_BOTTOM: return getTechniques(target, SQUEEZE_REST, BREAK_FREE_SQUEEZE, SQUEEZE_STRUGGLE);
-			case PRONE_BONE: return getTechniques(target, ERUPT_ANAL, POUND_PRONE_BONE, PULL_OUT, BLOW_LOAD, KNOT);
-			case DOGGY: return getTechniques(target, ERUPT_ANAL, POUND_DOGGY, CRUSH_ASS, ASS_BLAST, PROSTATE_GRIND, PULL_OUT);
-			case ANAL: return getTechniques(target, ERUPT_ANAL, POUND_ANAL, PULL_OUT_ANAL);
-			case STANDING: return getTechniques(target, ERUPT_ANAL, POUND_STANDING, PULL_OUT_STANDING);
+			case PRONE_BONE: return getTechniques(target, ERUPT_ANAL, BLOW_LOAD, POUND_PRONE_BONE, PULL_OUT, KNOT);
+			case DOGGY: return getTechniques(target, ERUPT_ANAL, BLOW_LOAD, POUND_DOGGY, CRUSH_ASS, ASS_BLAST, PROSTATE_GRIND, PULL_OUT);
+			case ANAL: return getTechniques(target, ERUPT_ANAL, BLOW_LOAD, POUND_ANAL, PULL_OUT_ANAL);
+			case STANDING: return getTechniques(target, ERUPT_ANAL, BLOW_LOAD, POUND_STANDING, PULL_OUT_STANDING);
 			case COWGIRL: return getTechniques(target, ERUPT_COWGIRL, BE_RIDDEN, PUSH_OFF, PUSH_OFF_ATTEMPT, KNOT);
 			case REVERSE_COWGIRL: return getTechniques(target, ERUPT_COWGIRL, BE_RIDDEN_REVERSE, PUSH_OFF_REVERSE, PUSH_OFF_ATTEMPT_REVERSE, KNOT);
+			case HANDY:  return getTechniques(target, ERUPT_FACIAL, RECEIVE_HANDY);
+			case KNOTTED: return getTechniques(target, KNOT_BANG);
+			case MOUTH_KNOTTED: return getTechniques(target, MOUTH_KNOT_BANG);	
+			case OVIPOSITION: return getTechniques(target, LAY_EGGS);
+			case HOLDING: return getTechniques(target, OGRE_SMASH);
+			case CRUSHING: return getTechniques(target, ERUPT_ANAL, CRUSH, PULL_UP);
 			case ERUPT:
 				stance = Stance.BALANCED;
 				possibles = getDefaultTechniqueOptions(target);
@@ -1378,17 +1384,17 @@ public abstract class AbstractCharacter extends Actor {
 			else if (candidate == DEEPTHROAT && perks.get(Perk.MOUTH_MANIAC.toString(), 0) < 1) { techniques.removeValue(candidate, true); }	
 			else if ((candidate == IRRUMATIO || candidate == FACEFUCK || candidate == ROUND_AND_ROUND || candidate == PULL_OUT_ORAL || candidate == POUND_ANAL || candidate == PULL_OUT_ANAL || candidate == POUND_DOGGY || candidate == CRUSH_ASS || candidate == ASS_BLAST || candidate == PROSTATE_GRIND ||
 					candidate == POUND_PRONE_BONE || candidate == POUND_STANDING || candidate == PULL_OUT_STANDING || candidate == PULL_OUT || candidate == BE_RIDDEN || candidate == BE_RIDDEN_REVERSE || candidate == PUSH_OFF || candidate == PUSH_OFF_REVERSE || candidate == PUSH_OFF_ATTEMPT || 
-					candidate == PUSH_OFF_ATTEMPT_REVERSE) && arousal.isClimax()) { techniques.removeValue(candidate, true); }	
-			else if ((candidate == ERUPT_ORAL || candidate == ERUPT_ANAL || candidate == ERUPT_COWGIRL) && !arousal.isClimax()) { techniques.removeValue(candidate, true); }	
+					candidate == PUSH_OFF_ATTEMPT_REVERSE || candidate == RECEIVE_HANDY || candidate == CRUSH || candidate == PULL_UP) && arousal.isClimax()) { techniques.removeValue(candidate, true); }	
+			else if ((candidate == ERUPT_ORAL || candidate == ERUPT_ANAL || candidate == ERUPT_COWGIRL || candidate == ERUPT_FACIAL) && !arousal.isClimax()) { techniques.removeValue(candidate, true); }	
 			else if ((candidate == PENETRATE_MISSIONARY || candidate == FLIP_PRONE || candidate == RELEASE_SUPINE) && target.getStance() != Stance.GROUND_WRESTLE_FACE_UP ) { techniques.removeValue(candidate, true); }			
 			else if ((candidate == PENETRATE_PRONE || candidate == FLIP_SUPINE || candidate == RELEASE_PRONE) && target.getStance() != Stance.GROUND_WRESTLE_FACE_DOWN ) { techniques.removeValue(candidate, true); }			
 			else if ((candidate == FLIP_PRONE || candidate == RELEASE_SUPINE || candidate == FLIP_SUPINE || candidate == RELEASE_PRONE ) && (grappleStatus == GrappleStatus.HOLD && isErect())) { techniques.removeValue(candidate, true); }			
 			else if ((candidate == PENETRATE_MISSIONARY || candidate == PENETRATE_PRONE) && (grappleStatus != GrappleStatus.HOLD || !isErect())) { techniques.removeValue(candidate, true); }
+			else if (candidate == CRUSH && target.stance != Stance.SPREAD) { techniques.removeValue(candidate, true); }
+			else if (candidate == PULL_UP && target.stance == Stance.SPREAD) { techniques.removeValue(candidate, true); }
 		}		
 		return techniques; 
 	}
-	
-	protected Array<Techniques> getTechniques(Techniques ... techniques) { return new Array<Techniques>(techniques); }
 	
 	public enum PhallusType {
 		CUTE(AssetEnum.SMALL_DONG_0, AssetEnum.SMALL_DONG_1, AssetEnum.SMALL_DONG_2, AssetEnum.SMALL_DONG_CHASTITY),
