@@ -233,8 +233,8 @@ public class PlayerCharacter extends AbstractCharacter {
 	// this needs to consolidate logic with the getTechniques method
 	public Array<Technique> getPossibleTechniques(AbstractCharacter target) {
 		Techniques[] temp = getPossibleKnownTechniques(target).toArray(Techniques.class);
-		Array<Technique> possibles = getTechniques(target, temp);
-		if (possibles.size == 0) possibles = getTechniques(target, DO_NOTHING);
+		Array<Technique> possibles = getLoadedTechniques(target, temp);
+		if (possibles.size == 0) possibles = getLoadedTechniques(target, DO_NOTHING);
 		return possibles;
 	}
 	
@@ -253,7 +253,7 @@ public class PlayerCharacter extends AbstractCharacter {
 		return consumableItems;
 	}
 	
-	private Array<Technique> getTechniques(AbstractCharacter target, Techniques... possibilities) {
+	private Array<Technique> getLoadedTechniques(AbstractCharacter target, Techniques... possibilities) {
 		Array<Technique> possibleTechniques = new Array<Technique>();
 		
 		for (Techniques technique : possibilities) {
