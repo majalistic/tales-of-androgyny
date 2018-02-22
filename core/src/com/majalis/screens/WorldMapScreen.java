@@ -572,12 +572,6 @@ public class WorldMapScreen extends AbstractScreen {
 		else if (!inSuspendedArea(currentNode) && character.debtDue()) {
 			autoEncounter(uiGroup, EncounterCode.BUNNY);
 		}
-		else if (!inSuspendedArea(currentNode) && time >= 23 && character.getQuestStatus(QuestType.ELF) == 0) { // forced elf encounter
-			autoEncounter(uiGroup, EncounterCode.ELF);
-		}
-		else if (!inSuspendedArea(currentNode) && time >= 47 && character.getQuestStatus(QuestType.TRUDY) == 0) { // forced Trudy encounter
-			autoEncounter(uiGroup, EncounterCode.ADVENTURER);
-		}
 		else if (!inSuspendedArea(currentNode) && character.getQuestStatus(QuestType.SPIDER) == 5) { // forced Spider hatching
 			autoEncounter(uiGroup, EncounterCode.SPIDER);
 		}
