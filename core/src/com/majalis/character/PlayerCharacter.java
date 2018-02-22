@@ -1375,7 +1375,7 @@ public class PlayerCharacter extends AbstractCharacter {
 			}
 			int unlucky = luckStreak.size - lucky;
 			luckStreak.clear();
-			for (int ii = 0; ii < lucky; ii+= 10) {
+			for (int ii = 0; ii < lucky; ii+= 10 + perks.get(Perk.FORAGER.toString(), 0) * 5) {
 				luckStreak.add(true);
 			}
 			for (int ii = 0; ii < unlucky; ii+= 10) {
@@ -1383,6 +1383,11 @@ public class PlayerCharacter extends AbstractCharacter {
 			}			
 		}
 		luckStreak.add(!gotLucky);
+		if (!gotLucky) {
+			for (int ii = 0; ii < perks.get(Perk.FORAGER.toString(), 0); ii++) {
+				luckStreak.add(true);
+			}
+		}
 		return gotLucky;		
 	}
 
