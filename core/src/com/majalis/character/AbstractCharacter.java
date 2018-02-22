@@ -1284,7 +1284,7 @@ public abstract class AbstractCharacter extends Actor {
 	
 	public boolean isLewd() { return perks.get(Perk.CATAMITE.toString(), 0) > 0 || perks.get(Perk.ANAL_ADDICT.toString(), 0) > 2 || perks.get(Perk.COCK_LOVER.toString(), 0) > 7 || arousal.getLust() >= 75; }
 	
-	private boolean targetPouncable(AbstractCharacter target) { return target.enemyType == null || target.enemyType.isPounceable(); }
+	private boolean targetPouncable(AbstractCharacter target) { return (this.enemyType == null || this.enemyType.willPounce()) && (target.enemyType == null || target.enemyType.isPounceable()); }
 	private boolean targetWrestlable(AbstractCharacter target) { return target.enemyType == null || target.enemyType.canWrestle(); }
 	
 	protected Array<Techniques> getDefaultTechniqueOptions(AbstractCharacter target) {

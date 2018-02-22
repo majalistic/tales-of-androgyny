@@ -18,6 +18,7 @@ import com.majalis.character.Arousal.ArousalLevel;
 import com.majalis.character.Item.Weapon;
 import com.majalis.character.SexualExperience.SexualExperienceBuilder;
 import com.majalis.technique.ClimaxTechnique.ClimaxType;
+import com.majalis.technique.TechniquePrototype.TechniqueHeight;
 
 /*
  * Abstract class that all enemies extend - currently concrete to represent a generic "enemy".
@@ -439,7 +440,6 @@ public class EnemyCharacter extends AbstractCharacter {
 	}
 	
 	private Array<Techniques> getPossibleTechniques(AbstractCharacter target, Stance stance) {
-				
 		if (enemyType == EnemyEnum.SLIME && !stance.isIncapacitatingOrErotic()) {
 			return getTechniques(SLIME_ATTACK, SLIME_QUIVER); 			
 		}
@@ -529,160 +529,10 @@ public class EnemyCharacter extends AbstractCharacter {
 		}
 		
 		Array<Techniques> possibles = getDefaultTechniqueOptions(target);
-		switch(stance) {
-			case OFFENSIVE:
-				possibles.clear();
-				if (willFaceSit(target)) {
-					possibles.addAll(getTechniques(FACE_SIT));
-				}				
-				if (!target.stance.receivesMediumAttacks()) {
-					possibles.addAll(getTechniques(POWER_ATTACK, TEMPO_ATTACK, RESERVED_ATTACK));
-				}
-				else {
-					if (enemyType.willArmorSunder()) {
-						possibles.addAll(getTechniques(ARMOR_SUNDER));
-					}
-					if (enemyType == EnemyEnum.BEASTMISTRESS || isEnragedGolem()) {
-						possibles.addAll(getTechniques(BLITZ_ATTACK, POWER_ATTACK, RECKLESS_ATTACK, KNOCK_DOWN, TEMPO_ATTACK, RESERVED_ATTACK));
-					}
-					else {
-						possibles.addAll(getTechniques(POWER_ATTACK, GUT_CHECK, RECKLESS_ATTACK, KNOCK_DOWN, TEMPO_ATTACK, RESERVED_ATTACK));
-					}
-				}
-				return possibles;				
-			case BALANCED:
-				possibles.clear();
-				if (willFaceSit(target)) {
-					possibles.addAll(getTechniques(FACE_SIT));
-				}				
-				if (enemyType == EnemyEnum.BEASTMISTRESS) {
-					possibles.addAll(getTechniques(SPRING_ATTACK, NEUTRAL_ATTACK, DO_NOTHING));
-				}
-				else if (!target.stance.receivesMediumAttacks()) {
-					possibles.addAll(getTechniques(SPRING_ATTACK, NEUTRAL_ATTACK));
-					if (enemyType.usesDefensiveTechniques()) {
-						possibles.addAll(getTechniques(BLOCK));
-					}
-				}
-				else {
-					possibles.addAll(getTechniques(SPRING_ATTACK, NEUTRAL_ATTACK, CAUTIOUS_ATTACK));
-					if (enemyType.usesDefensiveTechniques()) {
-						possibles.addAll(getTechniques(BLOCK));
-					}
-				}
-				if (isEnragedGolem() && currentMana > 3) {
-					possibles.addAll(getTechniques(INCANTATION));
-				}
-				if ((enemyType == EnemyEnum.GOLEM && currentFrame == 0 && (baseDefense <= 3 || currentHealth <= 30)) || 
-					(enemyType == EnemyEnum.ADVENTURER && (((currentHealth < 30 && currentMana >= 10) || (currentMana % 10 != 0 && currentMana > 2 && statuses.get(StatusType.STRENGTH_BUFF.toString(), 0) == 0))))) {
-					return getTechniques(INCANTATION);
-				}
-				return possibles;
-			case DEFENSIVE:
-				possibles.clear();
-				if (!target.stance.receivesMediumAttacks()) {
-					possibles.addAll(getTechniques(REVERSAL_ATTACK, GUARD, SECOND_WIND));
-				}
-				else {
-					possibles.addAll(getTechniques(REVERSAL_ATTACK, CAREFUL_ATTACK, GUARD, SECOND_WIND));
-				}
-				if (enemyType.willParry()) {
-					possibles.addAll(getTechniques(PARRY));
-				}
-				if (enemyType.willSeduce()) {
-					possibles.addAll(getTechniques(TAUNT));
-				}
-				return possibles;			
-			case SEDUCTION:
-				if (arousal.isBottomReady()) {
-					return getTechniques(PRESENT);
-				}
-				return getTechniques(SLAP_ASS, GESTURE, PUCKER_LIPS, RUB, PRESENT, REVERSAL_ATTACK, BLOCK, DUCK, HIT_THE_DECK);
-			case KNEELING:
-				possibles = getTechniques(STAY_KNELT);
-				if (currentStamina >= 2) {
-					possibles.addAll(getTechniques(STAND_UP_KNEELING));
-				}
-				return possibles;	
-			case FULL_NELSON:
-				possibles.clear();
-				if (grappleStatus == GrappleStatus.HOLD) {
-					if (enemyType == EnemyEnum.SPIDER) {
-						return getTechniques(OVIPOSITION);
-					}
-					else {
-						return getTechniques(PENETRATE_STANDING);
-					}
-				}
-				if (currentStamina > 6 && grappleStatus.isAdvantage()) {
-					possibles.addAll(getTechniques(TAKEDOWN));
-				}
-				else if (currentStamina > 4) {
-					possibles.addAll(getTechniques(GRIP));
-				}
-				else {
-					return getTechniques(HOLD);
-				}
-				return possibles;	
-			case AIRBORNE:
-				return getTechniques(DIVEBOMB);	
-			case DOGGY_BOTTOM:
-				return getTechniques(RECEIVE_DOGGY);
-			case PRONE_BONE_BOTTOM:
-				return getTechniques(RECEIVE_PRONE_BONE);
-			case ANAL_BOTTOM:
-				return getTechniques(RECEIVE_ANAL);
-			case COWGIRL_BOTTOM:
-				return getTechniques(RIDE_ON_IT, BOUNCE_ON_IT, SQUEEZE_IT, STAND_OFF_IT);
-			case REVERSE_COWGIRL_BOTTOM:
-				return getTechniques(RIDE_ON_IT_REVERSE, BOUNCE_ON_IT_REVERSE, SQUEEZE_IT_REVERSE);		
-			case FELLATIO_BOTTOM:
-				return getTechniques(SUCK_IT);
-			case FACEFUCK_BOTTOM:
-				return getTechniques(GET_FACEFUCKED);	
-			case OUROBOROS_BOTTOM:
-				return getTechniques(RECEIVE_OUROBOROS);	
+		switch(stance) {		
 			case CASTING:
-				if (enemyType == EnemyEnum.GOLEM) {
-					if (currentFrame == 1) {
-						return getTechniques(COMBAT_FIRE);
-					}
-					return getTechniques(ACTIVATE);
-				}
-				if (currentHealth < 30 && currentMana >= 7) {
-					return getTechniques(COMBAT_HEAL);
-				}
-				if (currentMana % 7 != 0 && currentMana > 2 && statuses.get(StatusType.STRENGTH_BUFF.toString(), 0) == 0) {
-					return getTechniques(TITAN_STRENGTH);
-				}
-				return getTechniques(ITEM_OR_CANCEL);		
-			case FELLATIO:
-				if (enemyType != EnemyEnum.WERESLUT && arousal.isClimax()) {
-					if (enemyType == EnemyEnum.BRIGAND || enemyType == EnemyEnum.GOBLIN || enemyType == EnemyEnum.ORC) {
-						return getTechniques(BLOW_LOAD_ORAL);
-					}
-					return getTechniques(ERUPT_ORAL);
-				}
-				else if (enemyType == EnemyEnum.WERESLUT && arousal.isEdging()) {
-					return getTechniques(MOUTH_KNOT);
-				}
-				else {
-					return getTechniques(IRRUMATIO, FORCE_DEEPTHROAT);
-				}	
-			case FACEFUCK:
-				if (arousal.isClimax()) {
-					return getTechniques(ERUPT_ORAL);
-				}
-				else {
-					return getTechniques(FACEFUCK);
-				}	
-			case OUROBOROS:
-				if (arousal.isClimax()) {
-					return getTechniques(ERUPT_ORAL);
-				}
-				else {
-					return getTechniques(ROUND_AND_ROUND);
-				}						
+				if (possibles.contains(Techniques.DO_NOTHING, true) || possibles.size == 0) return getTechniques(ITEM_OR_CANCEL); // fail-safe in case a spellcaster has no spells to cast
+				return possibles;
 			case GROUND_WRESTLE:
 				possibles.clear();
 				if (currentStamina <= 0 || grappleStatus == GrappleStatus.HELD) {
@@ -804,6 +654,43 @@ public class EnemyCharacter extends AbstractCharacter {
 				return getPossibleTechniques(target, stance);
 			default: return possibles.size == 0 ? getTechniques(DO_NOTHING) : possibles;
 		}
+	}
+	
+	@Override
+	protected Array<Techniques> getTechniques(AbstractCharacter target, Techniques ... candidates) { 
+		Array<Techniques> trueCandidates = super.getTechniques(target, candidates);
+		Array<Techniques> techniques = new Array<Techniques>(trueCandidates);
+		for (Techniques candidate : trueCandidates) {
+			if (candidate == FACE_SIT && !willFaceSit(target)) { techniques.removeValue(candidate, true); }
+			else if ((candidate.getTrait().getTechniqueHeight() == TechniqueHeight.HIGH && !target.getStance().receivesHighAttacks()) || 
+			(candidate.getTrait().getTechniqueHeight() == TechniqueHeight.MEDIUM && !target.getStance().receivesMediumAttacks()) || 
+			(candidate.getTrait().getTechniqueHeight() == TechniqueHeight.LOW && !target.getStance().receivesLowAttacks())) { techniques.removeValue(candidate, true); }
+			else if (candidate == ARMOR_SUNDER && !enemyType.willArmorSunder()) { techniques.removeValue(candidate, true); }
+			else if (candidate == BLITZ_ATTACK && (enemyType != EnemyEnum.BEASTMISTRESS && !isEnragedGolem())) { techniques.removeValue(candidate, true); }			
+			else if ((candidate == CAUTIOUS_ATTACK || candidate == GUT_CHECK) && enemyType == EnemyEnum.BEASTMISTRESS) { techniques.removeValue(candidate, true); }
+			else if (candidate == BLOCK && !enemyType.usesDefensiveTechniques()) { techniques.removeValue(candidate, true); }
+			else if (candidate == INCANTATION && ((enemyType != EnemyEnum.GOLEM && enemyType != EnemyEnum.ADVENTURER) || (enemyType == EnemyEnum.GOLEM && currentMana <= 3 && !(currentFrame == 0 && (baseDefense <= 3 || currentHealth <= 30))))) { techniques.removeValue(candidate, true); }
+			else if (candidate != INCANTATION && (enemyType == EnemyEnum.GOLEM && stance != Stance.CASTING && currentFrame == 0 && (baseDefense <= 3 || currentHealth <= 30)) || 
+					(enemyType == EnemyEnum.ADVENTURER && (((currentHealth < 30 && currentMana >= 10) || (currentMana % 10 != 0 && currentMana > 2 && statuses.get(StatusType.STRENGTH_BUFF.toString(), 0) == 0))))) { techniques.removeValue(candidate, true); }
+			else if (candidate == PARRY && !enemyType.willParry()) { techniques.removeValue(candidate, true); }
+			else if (candidate == TAUNT && !enemyType.willSeduce()) { techniques.removeValue(candidate, true); }
+			else if ((candidate == SLAP_ASS || candidate == GESTURE || candidate == PUCKER_LIPS || candidate == RUB || candidate == REVERSAL_ATTACK || candidate == BLOCK) && (arousal.isBottomReady() && stance == Stance.SEDUCTION)) { techniques.removeValue(candidate, true); }			
+			else if (candidate != OVIPOSITION && (enemyType == EnemyEnum.SPIDER && grappleStatus == GrappleStatus.HOLD && stance == Stance.FULL_NELSON)) { techniques.removeValue(candidate, true); }
+			else if (candidate != RECEIVE_DOGGY && stance == Stance.DOGGY_BOTTOM)  { techniques.removeValue(candidate, true); }
+			else if (candidate != RECEIVE_PRONE_BONE && stance == Stance.PRONE_BONE_BOTTOM)  { techniques.removeValue(candidate, true); }
+			else if (candidate != RECEIVE_ANAL && stance == Stance.ANAL_BOTTOM)  { techniques.removeValue(candidate, true); }
+			else if (candidate != SUCK_IT && stance == Stance.FELLATIO_BOTTOM)  { techniques.removeValue(candidate, true); }
+			else if (candidate != GET_FACEFUCKED && stance == Stance.FACEFUCK_BOTTOM)  { techniques.removeValue(candidate, true); }
+			else if (candidate != RECEIVE_OUROBOROS && stance == Stance.OUROBOROS_BOTTOM)  { techniques.removeValue(candidate, true); }
+			else if (candidate != ACTIVATE && (enemyType == EnemyEnum.GOLEM && currentFrame != 1 && stance == Stance.CASTING))  { techniques.removeValue(candidate, true); }
+			else if (candidate != COMBAT_FIRE && (enemyType == EnemyEnum.GOLEM && currentFrame == 1 && stance == Stance.CASTING))  { techniques.removeValue(candidate, true); }
+			else if (candidate != COMBAT_HEAL && (enemyType != EnemyEnum.GOLEM && stance == Stance.CASTING && currentHealth < 30 && currentMana >= 7))  { techniques.removeValue(candidate, true); }
+			else if (candidate != TITAN_STRENGTH && (enemyType != EnemyEnum.GOLEM && stance == Stance.CASTING && currentMana % 7 != 0 && currentMana > 2 && statuses.get(StatusType.STRENGTH_BUFF.toString(), 0) == 0))  { techniques.removeValue(candidate, true); }
+			else if (candidate == VAULT || candidate == FEINT_AND_STRIKE || candidate == SLIDE || candidate == DUCK || candidate == HIT_THE_DECK || candidate == KICK_OVER_FACE_UP || candidate == KICK_OVER_FACE_DOWN || candidate == SIT_ON_IT || candidate == TURN_AND_SIT ||
+					candidate == SUDDEN_ADVANCE || candidate == DUCK || candidate == UPPERCUT || candidate == GRAB_IT || candidate == JUMP_ATTACK || candidate == VAULT_OVER || candidate == STAND_OFF_IT || candidate == FULL_NELSON) { techniques.removeValue(candidate, true); }			
+		}
+				
+		return techniques;
 	}
 	
 	public Technique getTechnique(AbstractCharacter target) {
