@@ -106,9 +106,10 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 		};
 		addListener(fireListener);
 		addListener(new ClickListener() { 
-			@Override public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) { setColor(Color.GREEN); if (activeAnimation != null) activeAnimation.setColor(Color.GREEN); setPathHighlight(); }
-			@Override public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) { setColor(Color.WHITE); if (activeAnimation != null) activeAnimation.setColor(current ? Color.PINK : Color.WHITE); setPathUnhighlight(); }
+			@Override public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) { setColor(Color.GREEN); if (activeAnimation != null) activeAnimation.setColor(getAlpha(Color.GREEN)); setPathHighlight(); }
+			@Override public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) { setColor(Color.WHITE); if (activeAnimation != null) activeAnimation.setColor(current ? getAlpha(Color.PINK) : getAlpha(Color.WHITE)); setPathUnhighlight(); }
 		});
+		setColor(Color.WHITE);
 	}
 	
 	public Vector2 getHexPosition() { return new Vector2(x, y); }	
@@ -173,7 +174,7 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 				Group g = path.getParent();
 				g.removeActor(path);
 				g.addActor(path);
-				path.setColor(Color.GREEN);
+				path.setColor(getAlpha(Color.GREEN));
 			}
 		}
 	}
@@ -184,22 +185,25 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 		for (GameWorldNode node : pathToCurrent) {
 			Path path = node.pathMap.get(algoNode);
 			algoNode = node;
-			path.setColor(Color.WHITE);
+			path.setColor(getAlpha(Color.WHITE));
 		}
 	}
 	private Vector2 calculatePosition(int x, int y) {
 		return GameWorldHelper.calculatePosition(x, y);
 	}
 	
+	private Color getAlpha(Color color) { return new Color(color.r, color.g, color.b, Math.max(visitInfo.visibility * .2f, .1f)); }
+	
 	@Override
 	public void setColor(Color color) {
+		color = getAlpha(color);
 		super.setColor(color);
 		for (Actor actor : getChildren()) {
 			actor.setColor(color);
 		}
 		arrow.setColor(Color.WHITE);
-		if (activeImage != null) activeImage.setColor(Color.WHITE);
-		if (activeAnimation != null) activeAnimation.setColor(current ? Color.PINK : Color.WHITE);
+		if (activeImage != null) activeImage.setColor(getAlpha(Color.WHITE));
+		if (activeAnimation != null) activeAnimation.setColor(current ? getAlpha(Color.PINK) : getAlpha(Color.WHITE));
 	}
 	
 	@Override
@@ -233,6 +237,7 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 		}
 		connectedNodes.add(otherNode);
 		Path newPath = new Path(roadImage, getHexPosition(), otherNode.getHexPosition());
+		newPath.setColor(getAlpha(Color.WHITE));
 		pathMap.put(otherNode, newPath);
 		paths.add(newPath);
 		otherNode.getConnected(this, newPath);
@@ -248,7 +253,7 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 		current = true;
 		removeListener(fireListener);
 		if (activeAnimation != null) {
-			activeAnimation.setColor(Color.PINK);
+			activeAnimation.setColor(getAlpha(Color.PINK));
 		}
 		for (GameWorldNode connectedNode : connectedNodes) {
 			connectedNode.setActive();
@@ -263,9 +268,9 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 		}
 		
 		if (activeAnimation != null) {
-			activeAnimation.setColor(Color.WHITE);
+			activeAnimation.setColor(getAlpha(Color.WHITE));
 		}
-		for (Path path : paths) { path.setColor(Color.WHITE); }
+		for (Path path : paths) { path.setColor(getAlpha(Color.WHITE)); }
 		arrow.addAction(Actions.hide());
 		pathToCurrent = null;
 	}
