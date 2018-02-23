@@ -132,6 +132,8 @@ public enum AssetEnum {
 	COTTAGE("worldmap/CottageNode0.png"),
 	TOWN("worldmap/TownNode0.png"),
 	CHARACTER_ANIMATION("worldmap/TinySprite.png"),
+	TRUDY_ANIMATION("worldmap/TrudySprite.png"),
+	KYLIRA_ANIMATION("worldmap/KyliraSprite.png"),
 	
 	APPLE("icons/Apple.png"),
 	MEAT("icons/Meat.png"),

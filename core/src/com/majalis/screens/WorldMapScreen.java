@@ -94,6 +94,8 @@ public class WorldMapScreen extends AbstractScreen {
 	private final Group cloudGroup;
 	private final Group popupGroup;
 	private final InputMultiplexer multi;
+	private final AnimatedImage kyliraImage;
+	private final AnimatedImage trudyImage;
 	private final AnimatedImage currentImage;
 	private final AnimatedImage currentImageGhost;
 	private final Skin skin;
@@ -133,7 +135,7 @@ public class WorldMapScreen extends AbstractScreen {
 		
 		// need to refactor to get all stance textures
 		AssetEnum[] assets = new AssetEnum[]{
-			EMBELLISHED_BUTTON_UP, EMBELLISHED_BUTTON_DOWN, EMBELLISHED_BUTTON_HIGHLIGHT,
+			EMBELLISHED_BUTTON_UP, EMBELLISHED_BUTTON_DOWN, EMBELLISHED_BUTTON_HIGHLIGHT, TRUDY_ANIMATION, KYLIRA_ANIMATION,
 			GROUND_SHEET, DOODADS, WORLD_MAP_BG, CHARACTER_ANIMATION, MOUNTAIN_ACTIVE, FOREST_ACTIVE, FOREST_INACTIVE, CASTLE, TOWN, COTTAGE, APPLE, MEAT, CLOUD, ROAD, WORLD_MAP_UI, WORLD_MAP_HOVER, ARROW, CHARACTER_SCREEN, EXP, GOLD, TIME, HEART, SEARCHING, NULL
 		};
 		for (AssetEnum asset: assets) {
@@ -218,7 +220,52 @@ public class WorldMapScreen extends AbstractScreen {
 		if (camera.position.y < 500) camera.position.y = 500;
 		camera.update();
 
+		this.trudyLocation = loadService.loadDataValue(SaveEnum.TRUDY, Integer.class);
+		this.kyliraLocation = loadService.loadDataValue(SaveEnum.KYLIRA, Integer.class);
+		
 		// this should probably be a separate class
+		Texture trudySheet = assetManager.get(AssetEnum.TRUDY_ANIMATION.getTexture());
+		Array<TextureRegion> trudyFrames = new Array<TextureRegion>();
+		for (int ii = 0; ii < 4; ii++) {
+			trudyFrames.add(new TextureRegion(trudySheet, ii * 72, 0, 72, 128));
+		}
+		
+		Vector2 trudyPosition = new Vector2(-1000, -1000);
+		for (GameWorldNode node : world.getNodes()) {
+			if (node.getNodeCode() == trudyLocation) {
+				trudyPosition = new Vector2(getTrueX((int)node.getHexPosition().x) + 8, getTrueY((int)node.getHexPosition().x, (int)node.getHexPosition().y) + 27);
+				break;
+			}
+		}
+		
+		Animation trudyAnimation = new Animation(.14f, trudyFrames);
+		trudyAnimation.setPlayMode(PlayMode.LOOP);
+		trudyImage = new AnimatedImage(trudyAnimation, Scaling.fit, Align.right);
+		trudyImage.setScale(.7f);
+		trudyImage.setState(0);
+		trudyImage.setPosition(trudyPosition.x, trudyPosition.y);
+		
+		Texture kyliraSheet = assetManager.get(AssetEnum.KYLIRA_ANIMATION.getTexture());
+		Array<TextureRegion> kyliraFrames = new Array<TextureRegion>();
+		for (int ii = 0; ii < 4; ii++) {
+			kyliraFrames.add(new TextureRegion(kyliraSheet, ii * 72, 0, 72, 128));
+		}
+		
+		Vector2 kyliraPosition = new Vector2(-1000, -1000);
+		for (GameWorldNode node : world.getNodes()) {
+			if (node.getNodeCode() == kyliraLocation) {
+				kyliraPosition = new Vector2(getTrueX((int)node.getHexPosition().x) + 8, getTrueY((int)node.getHexPosition().x, (int)node.getHexPosition().y) + 27);
+				break;
+			}
+		}
+		
+		Animation kyliraAnimation = new Animation(.14f, kyliraFrames);
+		kyliraAnimation.setPlayMode(PlayMode.LOOP);
+		kyliraImage = new AnimatedImage(kyliraAnimation, Scaling.fit, Align.right);
+		kyliraImage.setScale(.7f);
+		kyliraImage.setState(0);
+		kyliraImage.setPosition(kyliraPosition.x, kyliraPosition.y);
+		
 		Texture characterSheet = assetManager.get(AssetEnum.CHARACTER_ANIMATION.getTexture());
 		Array<TextureRegion> frames = new Array<TextureRegion>();
 		for (int ii = 0; ii < 4; ii++) {
@@ -244,9 +291,6 @@ public class WorldMapScreen extends AbstractScreen {
 		this.world = world;
 		
 		this.character = loadService.loadDataValue(SaveEnum.PLAYER, PlayerCharacter.class);
-		this.trudyLocation = loadService.loadDataValue(SaveEnum.TRUDY, Integer.class);
-		this.kyliraLocation = loadService.loadDataValue(SaveEnum.KYLIRA, Integer.class);
-		
 		this.cloudGroup = new Group();
 		
 		int leftWrap = -3000;
@@ -604,7 +648,7 @@ public class WorldMapScreen extends AbstractScreen {
 						Array<GameWorldNode> pathTo = node.getPathTo(otherNode);
 						int distance = pathTo.size;
 						if (distance > 7) {
-							newLocation = pathTo.get(7).getNodeCode();
+							newLocation = pathTo.get(5).getNodeCode();
 							break;
 						}
 						else if (distance >= 4) {
@@ -640,7 +684,7 @@ public class WorldMapScreen extends AbstractScreen {
 						Array<GameWorldNode> pathTo = node.getPathTo(otherNode);
 						int distance = pathTo.size;
 						if (distance > 7) {
-							newLocation = pathTo.get(7).getNodeCode();
+							newLocation = pathTo.get(5).getNodeCode();
 							break;
 						}
 						else if (distance >= 4) {
@@ -1210,6 +1254,8 @@ public class WorldMapScreen extends AbstractScreen {
 			});
 		}
 		worldGroup.addActor(currentImage);
+		worldGroup.addActor(kyliraImage);
+		worldGroup.addActor(trudyImage);
 	}
 	
 	private void setHoverDisplay(String text, Vector3 coords) {
