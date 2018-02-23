@@ -1397,6 +1397,7 @@ public abstract class AbstractCharacter extends Actor {
 			else if (inTechniques(candidate, SQUEEZE, BITE, SQUEEZE_CRUSH) && (currentStamina <= 0 || grappleStatus.isDisadvantage() || grappleStatus == GrappleStatus.HOLD)) { techniques.removeValue(candidate, true); }
 			else if (candidate == SQUEEZE_RELEASE && (currentStamina > 0 && !grappleStatus.isDisadvantage())) { techniques.removeValue(candidate, true); }
 			else if (candidate == SQUEEZE_CRUSH && grappleStatus != GrappleStatus.HOLD) { techniques.removeValue(candidate, true); }
+			else if (candidate == MOUTH_KNOT && enemyType != EnemyEnum.WERESLUT) { techniques.removeValue(candidate, true); }
 		}		
 		return techniques; 
 	}
