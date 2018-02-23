@@ -21,6 +21,7 @@ import com.majalis.character.Item;
 import com.majalis.character.Perk;
 import com.majalis.character.PlayerCharacter;
 import com.majalis.character.PlayerCharacter.QuestFlag;
+import com.majalis.character.PlayerCharacter.QuestType;
 import com.majalis.character.SexualExperience;
 import com.majalis.character.AbstractCharacter.Stat;
 import com.majalis.character.Techniques;
@@ -115,7 +116,7 @@ public class SaveManager implements SaveService, LoadService {
 	    	case TRUDY:				save.trudy = (Integer) object; break;
 	    	case KYLIRA:			save.kylira = (Integer) object; break;
 	    	case GOBLIN_VIRGIN:		save.player.setGoblinVirginity((Boolean) object); break;
-	    	case QUEST: 			QuestFlag flag = (QuestFlag) object; save.player.setQuestStatus(flag.type, flag.value); break;
+	    	case QUEST: 			QuestFlag flag = (QuestFlag) object; save.player.setQuestStatus(flag.type, flag.value); if(save.player.getQuestStatus(QuestType.TRUDY) > 4) save.trudy = -1; if (save.player.getQuestStatus(QuestType.ELF) > 3) save.kylira = -1; break;
 	    	case RESULT: 			save.results.addAll((Array<MutationResult>) object); break;
 	    	case BATTLE_RESULT: 	save.battleResults.addAll((Array<MutationResult>) object); break;
 	    	case PORTRAIT:			if (object == null) save.player.popPortraitPath(); else save.player.setCurrentPortrait((AssetEnum)object); break;
