@@ -645,19 +645,7 @@ public class WorldMapScreen extends AbstractScreen {
 			moveActions.add(new Action() {
 				@Override
 				public boolean act(float delta) {
-					int newLocation = -1;
-					for (GameWorldNode otherNode : world.getNodes()) {
-						Array<GameWorldNode> pathTo = otherNode.getPathTo(node);
-						int distance = pathTo.size;
-						if (distance > 7) {
-							newLocation = pathTo.get(6).getNodeCode();
-							break;
-						}
-						else if (distance >= 4) {
-							newLocation = otherNode.getNodeCode();
-							break;
-						}	
-					}
+					int newLocation = getRandomLocationNearNode(node);
 					saveService.saveDataValue(SaveEnum.KYLIRA, newLocation);
 					autoEncounter(uiGroup, EncounterCode.ELF);
 					return true;
@@ -685,19 +673,7 @@ public class WorldMapScreen extends AbstractScreen {
 			moveActions.add(new Action() {
 				@Override
 				public boolean act(float delta) {
-					int newLocation = -1;
-					for (GameWorldNode otherNode : world.getNodes()) {
-						Array<GameWorldNode> pathTo = otherNode.getPathTo(node);
-						int distance = pathTo.size;
-						if (distance > 7) {
-							newLocation = pathTo.get(6).getNodeCode();
-							break;
-						}
-						else if (distance >= 4) {
-							newLocation = otherNode.getNodeCode();
-							break;
-						}	
-					}
+					int newLocation = getRandomLocationNearNode(node);
 					saveService.saveDataValue(SaveEnum.TRUDY, newLocation);
 					autoEncounter(uiGroup, EncounterCode.ADVENTURER);
 					return true;
@@ -765,6 +741,38 @@ public class WorldMapScreen extends AbstractScreen {
 			currentImageGhost.addAction(sequence(allActionsGhostArray));
 			setCurrentNode(node, false);
 		}
+	}
+	
+	private int getRandomLocationNearNode(GameWorldNode node) {
+		int newLocation = -1;
+		for (int ii = 0; ii < 10; ii++) {
+			GameWorldNode otherNode = world.getNodes().random();
+			Array<GameWorldNode> pathTo = otherNode.getPathTo(node);
+			int distance = pathTo.size;
+			if (distance > 7) {
+				newLocation = pathTo.get(6).getNodeCode();
+				break;
+			}
+			else if (distance >= 4) {
+				newLocation = otherNode.getNodeCode();
+				break;
+			}	
+		}
+		if (newLocation == -1) {
+			for (GameWorldNode otherNode : world.getNodes()) {
+				Array<GameWorldNode> pathTo = otherNode.getPathTo(node);
+				int distance = pathTo.size;
+				if (distance > 7) {
+					newLocation = pathTo.get(6).getNodeCode();
+					break;
+				}
+				else if (distance >= 4) {
+					newLocation = otherNode.getNodeCode();
+					break;
+				}	
+			}
+		}
+		return newLocation;
 	}
 	
 	private void queueMoveActions(GameWorldNode node, Array<Action> moveActions, Array<Action> moveActionsGhost) {
