@@ -366,7 +366,7 @@ public class WorldMapScreen extends AbstractScreen {
 		foodIcon.setSize(75, 75);
 		uiGroup.addActor(foodIcon);
 		
-		uiGroup.addActor(new LevelBar(character));
+		uiGroup.addActor(new LevelBar(character, assetManager, skin));
 		addLabel(uiGroup, healthLabel, 310, 130, Color.WHITE);
 		addLabel(uiGroup, dateLabel, 360,  140, Color.WHITE);
 		addLabel(uiGroup, timeLabel, 380,  115, Color.WHITE);
@@ -925,8 +925,8 @@ public class WorldMapScreen extends AbstractScreen {
 	
 	private void visit(GameWorldNode node) { node.visit(saveService); }
 	
-	public class LevelBar extends Group {
-		public LevelBar(PlayerCharacter character) {
+	public static class LevelBar extends Group {
+		public LevelBar(PlayerCharacter character, AssetManager assetManager, Skin skin) {
 			ProgressBar levelBar = new ProgressBar(0, 1, .05f, false, assetManager.get(AssetEnum.LEVEL_UP_SKIN.getSkin()));			
 			levelBar.setValue(character.getPercentToLevel());
 			levelBar.setBounds(200, 165, 352, 65);
@@ -943,7 +943,7 @@ public class WorldMapScreen extends AbstractScreen {
 		}
 	}
 	
-	private Action[] getColorSequence(Color ... colors) {
+	private static Action[] getColorSequence(Color ... colors) {
 		Array<Action> colorActions = new Array<Action>();
 		for (Color color : colors) {
 			colorActions.add(color(color, .25f));

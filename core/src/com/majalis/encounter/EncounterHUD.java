@@ -27,6 +27,7 @@ import com.majalis.character.AbstractCharacter;
 import com.majalis.character.PlayerCharacter;
 import com.majalis.scenes.Scene;
 import com.majalis.screens.TimeOfDay;
+import com.majalis.screens.WorldMapScreen.LevelBar;
 
 public class EncounterHUD extends Group {
 
@@ -42,7 +43,6 @@ public class EncounterHUD extends Group {
 	private final TextButton saveButton;
 	private final TextButton skipButton;
 	private final TextButton autoplayButton;
-	private final HealthBar healthBar;
 	private final Label dateLabel;
 	private final Image characterPortrait;
 	private final Image masculinityIcon;
@@ -133,15 +133,20 @@ public class EncounterHUD extends Group {
 	
 		characterGroup = new Group();
 		this.addActor(characterGroup);
-		healthBar = new HealthBar(character, assetManager.get(AssetEnum.BATTLE_SKIN.getSkin()));
-		healthBar.setPosition(25, 1000);
+		HealthBar healthBar = new HealthBar(character, assetManager.get(AssetEnum.BATTLE_SKIN.getSkin()));
+		healthBar.setPosition(25, 950);		
 		characterGroup.addActor(healthBar);
+		
+		LevelBar levelBar = new LevelBar(character, assetManager, skin);
+		levelBar.setPosition(-175, 825);
+		characterGroup.addActor(levelBar);
+		
 		Texture portrait = assetManager.get(character.getPortraitPath());
-		characterPortrait = addImage(characterGroup, portrait, 105, 800, portrait.getWidth() / (portrait.getHeight() / 200f), 200);
+		characterPortrait = addImage(characterGroup, portrait, 105, 750, portrait.getWidth() / (portrait.getHeight() / 200f), 200);
 		Texture icon = assetManager.get(character.getMasculinityPath());
-		masculinityIcon = addImage(characterGroup, icon, 105, 705, icon.getWidth() / (icon.getHeight() / 100f), 100);
+		masculinityIcon = addImage(characterGroup, icon, 105, 655, icon.getWidth() / (icon.getHeight() / 100f), 100);
 		Texture fullness = assetManager.get(character.getCumInflationPath());
-		fullnessIcon = addImage(characterGroup, icon, 42, 755, fullness.getWidth() / (fullness.getHeight() / 100f), 100);
+		fullnessIcon = addImage(characterGroup, icon, 42, 705, fullness.getWidth() / (fullness.getHeight() / 100f), 100);
 	}	
 	
 	protected Label addLabel(String text, Skin skin, BitmapFont font, Color color, float x, float y) {
