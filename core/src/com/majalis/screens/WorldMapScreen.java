@@ -635,14 +635,16 @@ public class WorldMapScreen extends AbstractScreen {
 			tintForTimeOfDay(time + 1, travelTime);
 			Array<Action> moveActions = new Array<Action>();
 			Array<Action> moveActionsGhost = new Array<Action>();
+			Array<Action> kyliraMoveActions = new Array<Action>();
 			queueMoveActions(node, moveActions, moveActionsGhost);
+			kyliraMoveActions.addAll(moveActions);
+			kyliraMoveActions.reverse();	
+			kyliraMoveActions.removeRange(kyliraMoveActions.size / 2, kyliraMoveActions.size -1);
 			moveActions.removeRange(moveActions.size / 2, moveActions.size -1);
 			moveActionsGhost.removeRange(moveActionsGhost.size / 2, moveActionsGhost.size -1);
 			moveActions.add(new Action() {
 				@Override
 				public boolean act(float delta) {
-					// will also need to move their location (both in terms of their animation and also setting their location elsewhere afterwards) - will also need for quest flags to determine if Kylira can still be encountered in the wild at all
-					// will also need to remove random encounters with Kylira/Trudy
 					int newLocation = -1;
 					for (GameWorldNode otherNode : world.getNodes()) {
 						Array<GameWorldNode> pathTo = otherNode.getPathTo(node);
@@ -661,8 +663,10 @@ public class WorldMapScreen extends AbstractScreen {
 					return true;
 				}
 			});
+			Action[] kyliraActionArray = kyliraMoveActions.toArray(Action.class);
 			Action[] allActionArray = moveActions.toArray(Action.class);
 			Action[] allActionsGhostArray = moveActionsGhost.toArray(Action.class);
+			kyliraImage.addAction(sequence(kyliraActionArray));
 			currentImage.addAction(sequence(allActionArray));
 			currentImageGhost.addAction(sequence(allActionsGhostArray));
 			setCurrentNode(node, false);
@@ -671,14 +675,16 @@ public class WorldMapScreen extends AbstractScreen {
 			tintForTimeOfDay(time + 1, travelTime);
 			Array<Action> moveActions = new Array<Action>();
 			Array<Action> moveActionsGhost = new Array<Action>();
+			Array<Action> trudyMoveActions = new Array<Action>();
 			queueMoveActions(node, moveActions, moveActionsGhost);
+			trudyMoveActions.addAll(moveActions);
+			trudyMoveActions.reverse();	
+			trudyMoveActions.removeRange(trudyMoveActions.size / 2, trudyMoveActions.size -1);
 			moveActions.removeRange(moveActions.size / 2, moveActions.size -1);
 			moveActionsGhost.removeRange(moveActionsGhost.size / 2, moveActionsGhost.size -1);
 			moveActions.add(new Action() {
 				@Override
 				public boolean act(float delta) {
-					// will also need to move their location (both in terms of their animation and also setting their location elsewhere afterwards) - will also need for quest flags to determine if Trudy can still be encountered in the wild at all
-					// will also need to remove random encounters with Kylira/Trudy
 					int newLocation = -1;
 					for (GameWorldNode otherNode : world.getNodes()) {
 						Array<GameWorldNode> pathTo = otherNode.getPathTo(node);
@@ -697,8 +703,10 @@ public class WorldMapScreen extends AbstractScreen {
 					return true;
 				}
 			});
+			Action[] trudyActionArray = trudyMoveActions.toArray(Action.class);
 			Action[] allActionArray = moveActions.toArray(Action.class);
 			Action[] allActionsGhostArray = moveActionsGhost.toArray(Action.class);
+			trudyImage.addAction(sequence(trudyActionArray));
 			currentImage.addAction(sequence(allActionArray));
 			currentImageGhost.addAction(sequence(allActionsGhostArray));
 			setCurrentNode(node, false);
