@@ -35,6 +35,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.RepeatAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -101,6 +102,7 @@ public class WorldMapScreen extends AbstractScreen {
 	private final Skin skin;
 	private final Texture hoverImageTexture;
 	private final Image hoverImage;
+	private final ProgressBar levelBar;
 	private final Label levelLabel;
 	private final Label healthLabel;
 	private final Label dateLabel;
@@ -135,7 +137,7 @@ public class WorldMapScreen extends AbstractScreen {
 		
 		// need to refactor to get all stance textures
 		AssetEnum[] assets = new AssetEnum[]{
-			EMBELLISHED_BUTTON_UP, EMBELLISHED_BUTTON_DOWN, EMBELLISHED_BUTTON_HIGHLIGHT, TRUDY_ANIMATION, KYLIRA_ANIMATION,
+			EMBELLISHED_BUTTON_UP, EMBELLISHED_BUTTON_DOWN, EMBELLISHED_BUTTON_HIGHLIGHT, TRUDY_ANIMATION, KYLIRA_ANIMATION, LEVEL_UP_SKIN,
 			GROUND_SHEET, DOODADS, WORLD_MAP_BG, CHARACTER_ANIMATION, MOUNTAIN_ACTIVE, FOREST_ACTIVE, FOREST_INACTIVE, CASTLE, TOWN, COTTAGE, APPLE, MEAT, CLOUD, ROAD, WORLD_MAP_UI, WORLD_MAP_HOVER, ARROW, CHARACTER_SCREEN, EXP, GOLD, TIME, HEART, SEARCHING, NULL
 		};
 		for (AssetEnum asset: assets) {
@@ -196,6 +198,9 @@ public class WorldMapScreen extends AbstractScreen {
 		campButton = getButton(""); 
 		
 		levelLabel = new Label("", skin);		
+
+		levelBar = new ProgressBar(0, 1, .05f, false, assetManager.get(AssetEnum.LEVEL_UP_SKIN.getSkin()));
+		
 		// these should be updated with emitters
 		healthLabel = new Label("", skin);
 		dateLabel = new Label("", skin);
@@ -327,7 +332,7 @@ public class WorldMapScreen extends AbstractScreen {
 	}
 	
 	private void mutateLabels() {
-		levelLabel.setText("Level: " + character.getLevel());
+		levelLabel.setText("" + character.getLevel());
 		healthLabel.setText(String.valueOf(character.getCurrentHealth()));
 		dateLabel.setText("Day: " + (time / 6 + 1));
 		timeLabel.setText(getTime());
@@ -368,7 +373,10 @@ public class WorldMapScreen extends AbstractScreen {
 		foodIcon.setSize(75, 75);
 		uiGroup.addActor(foodIcon);
 		
-		addLabel(uiGroup, levelLabel, 190, 190, Color.LIGHT_GRAY);
+		levelBar.setValue(character.getPercentToLevel());
+		uiGroup.addActor(levelBar);
+		levelBar.setBounds(200, 165, 352, 65);
+		addLabel(uiGroup, levelLabel, 291, 225, Color.LIGHT_GRAY);
 		addLabel(uiGroup, healthLabel, 310, 130, Color.WHITE);
 		addLabel(uiGroup, dateLabel, 360,  140, Color.WHITE);
 		addLabel(uiGroup, timeLabel, 380,  115, Color.WHITE);

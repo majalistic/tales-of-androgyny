@@ -673,6 +673,20 @@ public class PlayerCharacter extends AbstractCharacter {
 	public Array<MutationResult> modMagicPoints(int magicPoints) { this.magicPoints += magicPoints; return getResult("You gain " + magicPoints + " soul crystal" + (magicPoints > 1 ? "s" : "") + "!", magicPoints, MutationType.CRYSTAL); }
 	public Array<MutationResult> modPerkPoints(int perkPoints) { this.perkPoints += perkPoints; return getResult("You gain " + perkPoints + " perk point" + (perkPoints > 1 ? "s" : "") + "!", perkPoints, MutationType.PERK_POINTS); }
 
+	public float getPercentToLevel() {
+		int currentExperience = experience;
+		int storedLevels = 0;
+		int nextLevel = 0;
+		while (currentExperience > 0) {
+			int currentLevel = level + storedLevels;
+			int experienceForLevel = (1 + (currentLevel / 10)) * 5;
+			nextLevel = experienceForLevel;
+			if (currentExperience > experienceForLevel) storedLevels++;
+			currentExperience -= experienceForLevel;
+		}
+		return (nextLevel + currentExperience) * 1.0f / nextLevel;
+	}
+	
 	public int getStoredLevels() {
 		int currentExperience = experience;
 		int storedLevels = 0;

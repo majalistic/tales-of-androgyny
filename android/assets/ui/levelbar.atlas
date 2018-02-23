@@ -1,0 +1,21 @@
+levelbar.png
+size: 398, 95
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Bar
+  rotate: false
+  xy: 0, 0
+  size: 352, 95
+  split: 125, 45, 35, 35
+  pad: 126, 45, 36, 36
+  orig: 352, 95
+  offset: 0, 0
+  index: -1
+Fill
+  rotate: false
+  xy: 352, 0
+  size: 46, 21
+  orig: 46, 21
+  offset: 0, 0
+  index: -1

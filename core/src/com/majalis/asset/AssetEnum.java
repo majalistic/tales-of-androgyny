@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 public enum AssetEnum {
 	UI_SKIN("ui/uiskin.json", Skin.class),
 	BATTLE_SKIN("ui/battleui.json", Skin.class),
+	LEVEL_UP_SKIN("ui/levelbar.json", Skin.class),
 	
 	NULL("Null.png"),
 	SPLASH_SCREEN("Splash.png"),
