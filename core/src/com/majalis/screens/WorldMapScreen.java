@@ -102,8 +102,6 @@ public class WorldMapScreen extends AbstractScreen {
 	private final Skin skin;
 	private final Texture hoverImageTexture;
 	private final Image hoverImage;
-	private final ProgressBar levelBar;
-	private final Label levelLabel;
 	private final Label healthLabel;
 	private final Label dateLabel;
 	private final Label timeLabel;
@@ -196,11 +194,7 @@ public class WorldMapScreen extends AbstractScreen {
 		
 		skin = assetManager.get(AssetEnum.UI_SKIN.getSkin());
 		campButton = getButton(""); 
-		
-		levelLabel = new Label("", skin);		
-
-		levelBar = new ProgressBar(0, 1, .05f, false, assetManager.get(AssetEnum.LEVEL_UP_SKIN.getSkin()));
-		
+				
 		// these should be updated with emitters
 		healthLabel = new Label("", skin);
 		dateLabel = new Label("", skin);
@@ -332,7 +326,6 @@ public class WorldMapScreen extends AbstractScreen {
 	}
 	
 	private void mutateLabels() {
-		levelLabel.setText("" + character.getLevel());
 		healthLabel.setText(String.valueOf(character.getCurrentHealth()));
 		dateLabel.setText("Day: " + (time / 6 + 1));
 		timeLabel.setText(getTime());
@@ -373,10 +366,7 @@ public class WorldMapScreen extends AbstractScreen {
 		foodIcon.setSize(75, 75);
 		uiGroup.addActor(foodIcon);
 		
-		levelBar.setValue(character.getPercentToLevel());
-		uiGroup.addActor(levelBar);
-		levelBar.setBounds(200, 165, 352, 65);
-		addLabel(uiGroup, levelLabel, 291, 225, Color.LIGHT_GRAY);
+		uiGroup.addActor(new LevelBar(character));
 		addLabel(uiGroup, healthLabel, 310, 130, Color.WHITE);
 		addLabel(uiGroup, dateLabel, 360,  140, Color.WHITE);
 		addLabel(uiGroup, timeLabel, 380,  115, Color.WHITE);
@@ -934,6 +924,19 @@ public class WorldMapScreen extends AbstractScreen {
 	}
 	
 	private void visit(GameWorldNode node) { node.visit(saveService); }
+	
+	public class LevelBar extends Group {
+		public LevelBar(PlayerCharacter character) {
+			Label levelLabel = new Label("" + character.getLevel(), skin);		
+			levelLabel.setPosition(291, 208);
+			levelLabel.setColor(Color.LIGHT_GRAY);
+			ProgressBar levelBar = new ProgressBar(0, 1, .05f, false, assetManager.get(AssetEnum.LEVEL_UP_SKIN.getSkin()));			
+			levelBar.setValue(character.getPercentToLevel());
+			levelBar.setBounds(200, 165, 352, 65);
+			this.addActor(levelBar);
+			this.addActor(levelLabel);
+		}
+	}
 	
 	private class UpdateLabel extends Label {
 		private UpdateLabel(Skin skin, PlayerCharacter character) {
