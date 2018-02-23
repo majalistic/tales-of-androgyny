@@ -927,15 +927,28 @@ public class WorldMapScreen extends AbstractScreen {
 	
 	public class LevelBar extends Group {
 		public LevelBar(PlayerCharacter character) {
-			Label levelLabel = new Label("" + character.getLevel(), skin);		
-			levelLabel.setPosition(291, 208);
-			levelLabel.setColor(Color.LIGHT_GRAY);
 			ProgressBar levelBar = new ProgressBar(0, 1, .05f, false, assetManager.get(AssetEnum.LEVEL_UP_SKIN.getSkin()));			
 			levelBar.setValue(character.getPercentToLevel());
 			levelBar.setBounds(200, 165, 352, 65);
 			this.addActor(levelBar);
+			Label levelLabel = new Label("" + character.getLevel(), skin);		
+			levelLabel.setPosition(291, 208);
+			levelLabel.setColor(Color.LIGHT_GRAY);
 			this.addActor(levelLabel);
+			Label storedLevelLabel = new Label(character.getStoredLevels() > 0 ? "LEVEL UP" + (character.getStoredLevels() > 1 ? " X " + character.getStoredLevels() : "") + "!" : "", skin);		
+			storedLevelLabel.setPosition(345, 215);
+			storedLevelLabel.setColor(Color.GOLD);
+			storedLevelLabel.addAction(forever(sequence(getColorSequence(Color.PINK, Color.BLUE, Color.GREEN, Color.TAN, Color.GOLD))));
+			this.addActor(storedLevelLabel);
 		}
+	}
+	
+	private Action[] getColorSequence(Color ... colors) {
+		Array<Action> colorActions = new Array<Action>();
+		for (Color color : colors) {
+			colorActions.add(color(color, .25f));
+		}
+		return colorActions.toArray(Action.class);
 	}
 	
 	private class UpdateLabel extends Label {
