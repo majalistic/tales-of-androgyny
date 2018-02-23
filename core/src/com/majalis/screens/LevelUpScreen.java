@@ -15,6 +15,7 @@ public class LevelUpScreen extends AbstractScreen {
 	private static Array<AssetDescriptor<?>> requirementsToDispose = new Array<AssetDescriptor<?>>();
 	static {
 		resourceRequirements.add(AssetEnum.DEFAULT_BACKGROUND.getTexture());
+		resourceRequirements.add(AssetEnum.LEVEL_UP_SKIN.getSkin());
 	}
 	
 	private final SaveService saveService;
