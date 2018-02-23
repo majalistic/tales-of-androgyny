@@ -645,10 +645,10 @@ public class WorldMapScreen extends AbstractScreen {
 					// will also need to remove random encounters with Kylira/Trudy
 					int newLocation = -1;
 					for (GameWorldNode otherNode : world.getNodes()) {
-						Array<GameWorldNode> pathTo = node.getPathTo(otherNode);
+						Array<GameWorldNode> pathTo = otherNode.getPathTo(node);
 						int distance = pathTo.size;
 						if (distance > 7) {
-							newLocation = pathTo.get(5).getNodeCode();
+							newLocation = pathTo.get(6).getNodeCode();
 							break;
 						}
 						else if (distance >= 4) {
@@ -681,10 +681,10 @@ public class WorldMapScreen extends AbstractScreen {
 					// will also need to remove random encounters with Kylira/Trudy
 					int newLocation = -1;
 					for (GameWorldNode otherNode : world.getNodes()) {
-						Array<GameWorldNode> pathTo = node.getPathTo(otherNode);
+						Array<GameWorldNode> pathTo = otherNode.getPathTo(node);
 						int distance = pathTo.size;
 						if (distance > 7) {
-							newLocation = pathTo.get(5).getNodeCode();
+							newLocation = pathTo.get(6).getNodeCode();
 							break;
 						}
 						else if (distance >= 4) {
