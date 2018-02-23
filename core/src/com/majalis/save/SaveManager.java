@@ -112,6 +112,8 @@ public class SaveManager implements SaveService, LoadService {
 	    	case ITEM:				result.addAll(save.player.receiveItem((Item) object)); break;
 	    	case SHOP:				save.shops.put(((Shop) object).getShopCode(), (Shop) object); break;
 	    	case TOWN: 				save.town = (TownCode) object; break;
+	    	case TRUDY:				save.trudy = (Integer) object; break;
+	    	case KYLIRA:			save.kylira = (Integer) object; break;
 	    	case GOBLIN_VIRGIN:		save.player.setGoblinVirginity((Boolean) object); break;
 	    	case QUEST: 			QuestFlag flag = (QuestFlag) object; save.player.setQuestStatus(flag.type, flag.value); break;
 	    	case RESULT: 			save.results.addAll((Array<MutationResult>) object); break;
@@ -152,6 +154,8 @@ public class SaveManager implements SaveService, LoadService {
 	    	case MUSIC:				return (T) (AssetEnum) save.newMusic;
 	    	case CONSOLE:			return (T) (Array<String>) save.console;
 	    	case TOWN: 				return (T) (TownCode) save.town;
+	    	case TRUDY:				return (T) (Integer) save.trudy;
+	    	case KYLIRA:			return (T) (Integer) save.kylira;
 	    	case ANAL:			
 	    	case ITEM:
 	    	case GOLD:
@@ -311,6 +315,8 @@ public class SaveManager implements SaveService, LoadService {
     	private Array<String> console;
     	private IntMap<VisitInfo> visitedNodeList;
     	private TownCode town;
+    	private int trudy;
+    	private int kylira;
     	// this can probably be refactored to contain a particular battle, but may need to duplicate the player character
     	private BattleAttributes battleAttributes;
     	private PlayerCharacter player;
@@ -347,6 +353,8 @@ public class SaveManager implements SaveService, LoadService {
         		shops = new ObjectMap<String, Shop>();
         		visitedNodeList = new IntMap<VisitInfo>();
         		visitedNodeList.put(1,  new VisitInfo(1, 0, 0, 0, 1));
+        		kylira = 5;
+        		trudy = 14;
         		player = new PlayerCharacter(true);
         		results = new Array<MutationResult>();
         		battleResults = new Array<MutationResult>();

@@ -125,6 +125,31 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 	public GameContext getEncounterContext() { return getEncounterCode().getContext(); }
 	public boolean isConnected() { return connectedNodes.size > 0; }
 	
+	public Array<GameWorldNode> getPathTo(GameWorldNode node) {
+		Array<GameWorldNode> foundPath = new Array<GameWorldNode>();
+		ObjectSet<GameWorldNode> checkedNodes = new ObjectSet<GameWorldNode>(); 
+		checkedNodes.add(this);
+		ObjectSet<GameWorldNode> nodesToCheck = new ObjectSet<GameWorldNode>(connectedNodes);
+		ObjectMap<GameWorldNode, GameWorldNode> nodeToNode = new ObjectMap<GameWorldNode, GameWorldNode>();
+		while (nodesToCheck.size > 0) {
+			for (GameWorldNode connectedNode : nodesToCheck) {
+				if (connectedNode == node) {
+					foundPath = convertMapToPath(nodeToNode, connectedNode);
+					return foundPath;
+				}
+				checkedNodes.add(connectedNode);
+			}
+			ObjectSet<GameWorldNode> nextBatch = new ObjectSet<GameWorldNode>();
+			for (GameWorldNode connectedNode : nodesToCheck) {
+				ObjectSet<GameWorldNode> newNeighbors = connectedNode.getNeighbors(checkedNodes); // this needs to connect current nodes to new nodes, and also check to see if any of the newNeighbors are current
+				for (GameWorldNode neighbor : newNeighbors) nodeToNode.put(neighbor, connectedNode);
+				nextBatch.addAll(newNeighbors);
+			}
+			nodesToCheck = nextBatch;
+		}
+		return foundPath; // could not find
+	}
+	
 	public Array<GameWorldNode> getPathToCurrent() {
 		if (pathToCurrent != null ) return pathToCurrent;
 		ObjectSet<GameWorldNode> checkedNodes = new ObjectSet<GameWorldNode>(); 

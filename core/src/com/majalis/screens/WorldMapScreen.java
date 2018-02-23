@@ -117,6 +117,9 @@ public class WorldMapScreen extends AbstractScreen {
 	private boolean backgroundRendered = false;
 	private GameContext currentContext;
 	
+	private int kyliraLocation;
+	private int trudyLocation;
+	
 	public static final Array<AssetDescriptor<?>> resourceRequirements = new Array<AssetDescriptor<?>>();
 	static {
 		resourceRequirements.add(UI_SKIN.getSkin());
@@ -241,6 +244,9 @@ public class WorldMapScreen extends AbstractScreen {
 		this.world = world;
 		
 		this.character = loadService.loadDataValue(SaveEnum.PLAYER, PlayerCharacter.class);
+		this.trudyLocation = loadService.loadDataValue(SaveEnum.TRUDY, Integer.class);
+		this.kyliraLocation = loadService.loadDataValue(SaveEnum.KYLIRA, Integer.class);
+		
 		this.cloudGroup = new Group();
 		
 		int leftWrap = -3000;
@@ -580,6 +586,78 @@ public class WorldMapScreen extends AbstractScreen {
 		}
 		else if (!inSuspendedArea(currentNode) && character.getQuestStatus(QuestType.GOBLIN) >= 6 && character.getQuestStatus(QuestType.GOBLIN) < 9) { // forced Goblin hatching
 			autoEncounter(uiGroup, EncounterCode.GOBLIN);
+		}
+		else if (node.getNodeCode() == kyliraLocation) {
+			tintForTimeOfDay(time + 1, travelTime);
+			Array<Action> moveActions = new Array<Action>();
+			Array<Action> moveActionsGhost = new Array<Action>();
+			queueMoveActions(node, moveActions, moveActionsGhost);
+			moveActions.removeRange(moveActions.size / 2, moveActions.size -1);
+			moveActionsGhost.removeRange(moveActionsGhost.size / 2, moveActionsGhost.size -1);
+			moveActions.add(new Action() {
+				@Override
+				public boolean act(float delta) {
+					// will also need to move their location (both in terms of their animation and also setting their location elsewhere afterwards) - will also need for quest flags to determine if Kylira can still be encountered in the wild at all
+					// will also need to remove random encounters with Kylira/Trudy
+					int newLocation = -1;
+					for (GameWorldNode otherNode : world.getNodes()) {
+						Array<GameWorldNode> pathTo = node.getPathTo(otherNode);
+						int distance = pathTo.size;
+						if (distance > 7) {
+							newLocation = pathTo.get(7).getNodeCode();
+							break;
+						}
+						else if (distance >= 4) {
+							newLocation = otherNode.getNodeCode();
+							break;
+						}	
+					}
+					saveService.saveDataValue(SaveEnum.KYLIRA, newLocation);
+					autoEncounter(uiGroup, EncounterCode.ELF);
+					return true;
+				}
+			});
+			Action[] allActionArray = moveActions.toArray(Action.class);
+			Action[] allActionsGhostArray = moveActionsGhost.toArray(Action.class);
+			currentImage.addAction(sequence(allActionArray));
+			currentImageGhost.addAction(sequence(allActionsGhostArray));
+			setCurrentNode(node, false);
+		}
+		else if (node.getNodeCode() == trudyLocation) {
+			tintForTimeOfDay(time + 1, travelTime);
+			Array<Action> moveActions = new Array<Action>();
+			Array<Action> moveActionsGhost = new Array<Action>();
+			queueMoveActions(node, moveActions, moveActionsGhost);
+			moveActions.removeRange(moveActions.size / 2, moveActions.size -1);
+			moveActionsGhost.removeRange(moveActionsGhost.size / 2, moveActionsGhost.size -1);
+			moveActions.add(new Action() {
+				@Override
+				public boolean act(float delta) {
+					// will also need to move their location (both in terms of their animation and also setting their location elsewhere afterwards) - will also need for quest flags to determine if Trudy can still be encountered in the wild at all
+					// will also need to remove random encounters with Kylira/Trudy
+					int newLocation = -1;
+					for (GameWorldNode otherNode : world.getNodes()) {
+						Array<GameWorldNode> pathTo = node.getPathTo(otherNode);
+						int distance = pathTo.size;
+						if (distance > 7) {
+							newLocation = pathTo.get(7).getNodeCode();
+							break;
+						}
+						else if (distance >= 4) {
+							newLocation = otherNode.getNodeCode();
+							break;
+						}	
+					}
+					saveService.saveDataValue(SaveEnum.TRUDY, newLocation);
+					autoEncounter(uiGroup, EncounterCode.ADVENTURER);
+					return true;
+				}
+			});
+			Action[] allActionArray = moveActions.toArray(Action.class);
+			Action[] allActionsGhostArray = moveActionsGhost.toArray(Action.class);
+			currentImage.addAction(sequence(allActionArray));
+			currentImageGhost.addAction(sequence(allActionsGhostArray));
+			setCurrentNode(node, false);
 		}
 		else {
 			tintForTimeOfDay(time + 1, travelTime);
