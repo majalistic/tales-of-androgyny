@@ -932,7 +932,7 @@ public class WorldMapScreen extends AbstractScreen {
 		private final PlayerCharacter character;
 		public LevelBar(PlayerCharacter character, AssetManager assetManager, Skin skin) {
 			this.character = character;
-			levelBar = new ProgressBar(0, 1, .05f, false, assetManager.get(AssetEnum.LEVEL_UP_SKIN.getSkin()));			
+			levelBar = new ProgressBar(0, 1, .01f, false, assetManager.get(AssetEnum.LEVEL_UP_SKIN.getSkin()));			
 			levelBar.setValue(character.getPercentToLevel());
 			levelBar.setBounds(200, 165, 352, 65);
 			this.addActor(levelBar);
@@ -948,12 +948,15 @@ public class WorldMapScreen extends AbstractScreen {
 		}
 		@Override
 		public void draw(Batch batch, float parentAlpha) {
-			levelBar.setValue(character.getPercentToLevel());
+			if(Math.abs(levelBar.getValue() - character.getPercentToLevel()) > .01) {
+				levelBar.setValue(levelBar.getValue() + .01f);
+				if (Math.abs(levelBar.getValue() - levelBar.getMaxValue()) < .01) levelBar.setValue(levelBar.getMinValue());
+			}
+			
 			levelLabel.setText("" + character.getLevel());
 			storedLevelLabel.setText(character.getStoredLevels() > 0 ? "LEVEL UP" + (character.getStoredLevels() > 1 ? " X " + character.getStoredLevels() : "") + "!" : "");
 			super.draw(batch, parentAlpha);
-		}
-		
+		}	
 	}
 	
 	private static Action[] getColorSequence(Color ... colors) {
