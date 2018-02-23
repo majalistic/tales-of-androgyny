@@ -926,21 +926,34 @@ public class WorldMapScreen extends AbstractScreen {
 	private void visit(GameWorldNode node) { node.visit(saveService); }
 	
 	public static class LevelBar extends Group {
+		private final ProgressBar levelBar;
+		private final Label levelLabel;
+		private final Label storedLevelLabel;
+		private final PlayerCharacter character;
 		public LevelBar(PlayerCharacter character, AssetManager assetManager, Skin skin) {
-			ProgressBar levelBar = new ProgressBar(0, 1, .05f, false, assetManager.get(AssetEnum.LEVEL_UP_SKIN.getSkin()));			
+			this.character = character;
+			levelBar = new ProgressBar(0, 1, .05f, false, assetManager.get(AssetEnum.LEVEL_UP_SKIN.getSkin()));			
 			levelBar.setValue(character.getPercentToLevel());
 			levelBar.setBounds(200, 165, 352, 65);
 			this.addActor(levelBar);
-			Label levelLabel = new Label("" + character.getLevel(), skin);		
+			levelLabel = new Label("" + character.getLevel(), skin);		
 			levelLabel.setPosition(291, 208);
 			levelLabel.setColor(Color.LIGHT_GRAY);
 			this.addActor(levelLabel);
-			Label storedLevelLabel = new Label(character.getStoredLevels() > 0 ? "LEVEL UP" + (character.getStoredLevels() > 1 ? " X " + character.getStoredLevels() : "") + "!" : "", skin);		
+			storedLevelLabel = new Label(character.getStoredLevels() > 0 ? "LEVEL UP" + (character.getStoredLevels() > 1 ? " X " + character.getStoredLevels() : "") + "!" : "", skin);		
 			storedLevelLabel.setPosition(345, 215);
 			storedLevelLabel.setColor(Color.GOLD);
 			storedLevelLabel.addAction(forever(sequence(getColorSequence(Color.PINK, Color.BLUE, Color.GREEN, Color.TAN, Color.GOLD))));
 			this.addActor(storedLevelLabel);
 		}
+		@Override
+		public void draw(Batch batch, float parentAlpha) {
+			levelBar.setValue(character.getPercentToLevel());
+			levelLabel.setText("" + character.getLevel());
+			storedLevelLabel.setText(character.getStoredLevels() > 0 ? "LEVEL UP" + (character.getStoredLevels() > 1 ? " X " + character.getStoredLevels() : "") + "!" : "");
+			super.draw(batch, parentAlpha);
+		}
+		
 	}
 	
 	private static Action[] getColorSequence(Color ... colors) {
