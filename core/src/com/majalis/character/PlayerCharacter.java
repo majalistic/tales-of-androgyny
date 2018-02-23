@@ -802,8 +802,9 @@ public class PlayerCharacter extends AbstractCharacter {
 		if (mouthful >= 5) {
 			results.add(new MutationResult("You swallow enough to sate your hunger!"));
 			results.addAll(modFood(mouthful / 5));
-			if (perks.get(Perk.CUM_DRINKER.toString(), 0) > 0) results.addAll(modHealth(perks.get(Perk.CUM_DRINKER.toString(), 0) * 5));
 		}
+		if (perks.get(Perk.CUM_DRINKER.toString(), 0) > 0) results.addAll(modHealth(perks.get(Perk.CUM_DRINKER.toString(), 0) * 5));
+		
 		if (!result.equals("")) results.addAll(getResult(result));
 
 		return results;
