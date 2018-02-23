@@ -107,6 +107,7 @@ public class WorldMapScreen extends AbstractScreen {
 	private final Label timeLabel;
 	private final Label foodLabel;
 	private final Label hoverLabel;
+	private final Image characterPortrait;
 	private final TextButton campButton;
 	private final boolean storyMode;
 	private final float travelTime;
@@ -136,6 +137,10 @@ public class WorldMapScreen extends AbstractScreen {
 		// need to refactor to get all stance textures
 		AssetEnum[] assets = new AssetEnum[]{
 			EMBELLISHED_BUTTON_UP, EMBELLISHED_BUTTON_DOWN, EMBELLISHED_BUTTON_HIGHLIGHT, TRUDY_ANIMATION, KYLIRA_ANIMATION, LEVEL_UP_SKIN,
+			PORTRAIT_NEUTRAL, PORTRAIT_AHEGAO, 
+			PORTRAIT_FELLATIO, PORTRAIT_MOUTHBOMB, PORTRAIT_GRIN, PORTRAIT_HIT, PORTRAIT_LOVE, PORTRAIT_LUST,
+			PORTRAIT_SMILE, PORTRAIT_SURPRISE, PORTRAIT_GRIMACE, PORTRAIT_POUT, PORTRAIT_HAPPY, 
+			PORTRAIT_NEUTRAL_FEMME, PORTRAIT_AHEGAO_FEMME, PORTRAIT_FELLATIO_FEMME, PORTRAIT_MOUTHBOMB_FEMME, PORTRAIT_GRIN_FEMME, PORTRAIT_HIT_FEMME, PORTRAIT_LOVE_FEMME, PORTRAIT_LUST_FEMME, PORTRAIT_SMILE_FEMME, PORTRAIT_SURPRISE_FEMME, PORTRAIT_GRIMACE_FEMME, PORTRAIT_POUT_FEMME, PORTRAIT_HAPPY_FEMME,
 			GROUND_SHEET, DOODADS, WORLD_MAP_BG, CHARACTER_ANIMATION, MOUNTAIN_ACTIVE, FOREST_ACTIVE, FOREST_INACTIVE, CASTLE, TOWN, COTTAGE, APPLE, MEAT, CLOUD, ROAD, WORLD_MAP_UI, WORLD_MAP_HOVER, ARROW, CHARACTER_SCREEN, EXP, GOLD, TIME, HEART, SEARCHING, NULL
 		};
 		for (AssetEnum asset: assets) {
@@ -151,6 +156,11 @@ public class WorldMapScreen extends AbstractScreen {
 		this.travelTime = 1;
 		this.frameBuffers = new Array<FrameBuffer>();
 		this.frameBufferBatch = new SpriteBatch();
+		
+		this.world = world;
+		
+		this.character = loadService.loadDataValue(SaveEnum.PLAYER, PlayerCharacter.class);
+		this.cloudGroup = new Group();
 		
 		this.storyMode = loadService.loadDataValue(SaveEnum.MODE, GameMode.class) == GameMode.STORY;
 		uiStage = new Stage(new FitViewport(this.getViewport().getWorldWidth(), this.getViewport().getWorldHeight(), getCamera()), batch);
@@ -201,6 +211,10 @@ public class WorldMapScreen extends AbstractScreen {
 		timeLabel = new Label("", skin);
 		foodLabel = new Label("", skin);
 		hoverLabel = new Label("", skin);
+		
+		Texture portrait = assetManager.get(character.getPortraitPath());
+		characterPortrait = new Image(portrait);
+		characterPortrait.setBounds(-1, 27, portrait.getWidth() / (portrait.getHeight() / 200f), 200);
 		
 		for (final GameWorldNode actor : world.getNodes()) {
 			if (actor.isCurrent()) {
@@ -287,11 +301,6 @@ public class WorldMapScreen extends AbstractScreen {
 		// this is currently placing the character based on the camera in a way that conveniently places them on their current node - this needs to instead be aware of the current node and be able to grab its position from there (will need to know current node for behavior of Camp/Enter button regardless)
 		currentImageGhost.setPosition(initialTranslation.x + 646, initialTranslation.y + 390);
 		
-		this.world = world;
-		
-		this.character = loadService.loadDataValue(SaveEnum.PLAYER, PlayerCharacter.class);
-		this.cloudGroup = new Group();
-		
 		int leftWrap = -3000;
 		int rightWrap = 10000;
 		for (int ii = 0; ii < 200; ii++) {
@@ -361,6 +370,8 @@ public class WorldMapScreen extends AbstractScreen {
 		Image characterUI = new Image(characterUITexture);
 		uiGroup.addActor(characterUI);
 		characterUI.setScale(1.1f);
+	
+		uiGroup.addActor(characterPortrait);
 		
 		Image foodIcon = new Image(food);
 		foodIcon.setSize(75, 75);
@@ -738,7 +749,12 @@ public class WorldMapScreen extends AbstractScreen {
 			currentImage.addAction(sequence(allActionArray));
 			currentImageGhost.addAction(sequence(allActionsGhostArray));
 			setCurrentNode(node, false);
+			updatePortrait();
 		}
+	}
+	
+	private void updatePortrait() {
+		characterPortrait.setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(character.getPortraitPath()))));
 	}
 	
 	private int getRandomLocationNearNode(GameWorldNode node) {
