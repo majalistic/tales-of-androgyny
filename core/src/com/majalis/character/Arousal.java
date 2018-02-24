@@ -9,6 +9,7 @@ public class Arousal {
 	private int lust;
 	private int bottomLust;
 	private int arousal;	
+	private int numberOfClimaxes;
 	
 	@SuppressWarnings("unused")
 	private Arousal() { this(ArousalType.DEFAULT); }
@@ -103,7 +104,8 @@ public class Arousal {
 	private int getLustArousalMod() { return lust == 400 ? 12 : lust >= 300 ? 16 : lust >= 200 ? 20 : lust >= 100 ? 24 : 28; }
 	
 	protected void climax(ClimaxType climaxType, ObjectMap<String, Integer> perks) { // should reset ArousalLevel, arousal, and some portion of lust, unless there's some functional difference like for goblins - this may be called externally for encounter climaxes
-		arousalLevel = type == ArousalType.GOBLIN ? ArousalLevel.EDGING : type == ArousalType.QUETZAL ? ArousalLevel.EDGING : ArousalLevel.FLACCID;
+		numberOfClimaxes++;
+		arousalLevel = type == ArousalType.GOBLIN && numberOfClimaxes % 5 != 0 ? ArousalLevel.EDGING : type == ArousalType.QUETZAL ? ArousalLevel.EDGING : ArousalLevel.FLACCID;
 		if (type != ArousalType.QUETZAL) arousal = 0;
 		int base = getBase();
 		int analBottomMod = getAnalBottomMod(perks, base);
