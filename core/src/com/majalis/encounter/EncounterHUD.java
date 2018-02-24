@@ -27,6 +27,7 @@ import com.majalis.character.AbstractCharacter;
 import com.majalis.character.PlayerCharacter;
 import com.majalis.scenes.Scene;
 import com.majalis.screens.TimeOfDay;
+import com.majalis.screens.WorldMapScreen.FoodDisplay;
 import com.majalis.screens.WorldMapScreen.LevelBar;
 
 public class EncounterHUD extends Group {
@@ -140,6 +141,10 @@ public class EncounterHUD extends Group {
 		LevelBar levelBar = new LevelBar(character, assetManager, skin);
 		levelBar.setPosition(-175, 825);
 		characterGroup.addActor(levelBar);
+		
+		FoodDisplay foodDisplay = new FoodDisplay(character, assetManager, skin);
+		foodDisplay.setPosition(15, 850);
+		characterGroup.addActor(foodDisplay);
 		
 		Texture portrait = assetManager.get(character.getPortraitPath());
 		characterPortrait = addImage(characterGroup, portrait, 105, 750, portrait.getWidth() / (portrait.getHeight() / 200f), 200);
