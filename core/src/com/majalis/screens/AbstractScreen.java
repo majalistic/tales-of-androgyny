@@ -47,9 +47,9 @@ public abstract class AbstractScreen extends Stage3D implements Screen {
         this.fontFactory = elements;
         this.font = elements.getFont(32);
         this.musicPath = musicPath;
-        clearRed = .9f;
-        clearGreen = .8f;
-        clearBlue = .6f;
+        clearRed = .8f;
+        clearGreen = .9f;
+        clearBlue = .9f;
         clearAlpha = 1;
     }
  
