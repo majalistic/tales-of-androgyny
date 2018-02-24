@@ -1282,12 +1282,13 @@ public abstract class AbstractCharacter extends Actor {
 		return false;
 	}
 	
-	private boolean canSitOn(AbstractCharacter target) { return isLewd() && target.getStance() == Stance.SUPINE && target.isErect() && target.enemyType.canBeRidden(); }
+	private boolean canSitOn(AbstractCharacter target) { return isLewd() && target.getStance() == Stance.SUPINE && target.isErect() && targetRideable(target); }
 	
 	public boolean isLewd() { return perks.get(Perk.CATAMITE.toString(), 0) > 0 || perks.get(Perk.ANAL_ADDICT.toString(), 0) > 2 || perks.get(Perk.COCK_LOVER.toString(), 0) > 7 || arousal.getLust() >= 75; }
-	
+
 	private boolean targetPouncable(AbstractCharacter target) { return (this.enemyType == null || this.enemyType.willPounce()) && (target.enemyType == null || target.enemyType.isPounceable()); }
 	private boolean targetWrestlable(AbstractCharacter target) { return target.enemyType == null || target.enemyType.canWrestle(); }
+	private boolean targetRideable(AbstractCharacter target) { return target.enemyType == null || target.enemyType.canBeRidden(); }
 	
 	protected Array<Techniques> getDefaultTechniqueOptions(AbstractCharacter target) {
 		Array<Techniques> possibles = new Array<Techniques>();
