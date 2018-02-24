@@ -81,7 +81,6 @@ public class WorldMapScreen extends AbstractScreen {
 	private final AssetManager assetManager;
 	private final SaveService saveService;
 	private final GameWorld world;
-	private final Texture food;
 	private final Texture cloud;
 	private final Texture characterUITexture;
 	private final PlayerCharacter character;
@@ -105,7 +104,6 @@ public class WorldMapScreen extends AbstractScreen {
 	private final Label healthLabel;
 	private final Label dateLabel;
 	private final Label timeLabel;
-	private final Label foodLabel;
 	private final Label hoverLabel;
 	private final Image characterPortrait;
 	private final TextButton campButton;
@@ -197,7 +195,6 @@ public class WorldMapScreen extends AbstractScreen {
 		
 		// load assets
 		hoverImageTexture = assetManager.get(AssetEnum.WORLD_MAP_HOVER.getTexture());		
-		food = assetManager.get(AssetEnum.APPLE.getTexture());
 		cloud = assetManager.get(AssetEnum.CLOUD.getTexture());
 		characterUITexture = assetManager.get(AssetEnum.WORLD_MAP_UI.getTexture());
 		hoverImage = new Image(hoverImageTexture);
@@ -209,7 +206,6 @@ public class WorldMapScreen extends AbstractScreen {
 		healthLabel = new Label("", skin);
 		dateLabel = new Label("", skin);
 		timeLabel = new Label("", skin);
-		foodLabel = new Label("", skin);
 		hoverLabel = new Label("", skin);
 		
 		Texture portrait = assetManager.get(character.getPortraitPath());
@@ -339,7 +335,6 @@ public class WorldMapScreen extends AbstractScreen {
 		dateLabel.setText("Day: " + (time / 6 + 1));
 		timeLabel.setText(getTime());
 		timeLabel.setColor(getTimeColor());
-		foodLabel.setText("X " + character.getFood());
 		if (hoveredNode != null) {
 			String text = hoveredNode.getHoverText();
 			hoverLabel.setText(text);
@@ -372,16 +367,13 @@ public class WorldMapScreen extends AbstractScreen {
 		characterUI.setScale(1.1f);
 	
 		uiGroup.addActor(characterPortrait);
-		
-		Image foodIcon = new Image(food);
-		foodIcon.setSize(75, 75);
-		uiGroup.addActor(foodIcon);
+		uiGroup.addActor(new FoodDisplay(character, assetManager, skin));
 		
 		uiGroup.addActor(new LevelBar(character, assetManager, skin));
 		addLabel(uiGroup, healthLabel, 310, 130, Color.WHITE);
 		addLabel(uiGroup, dateLabel, 360,  140, Color.WHITE);
 		addLabel(uiGroup, timeLabel, 380,  115, Color.WHITE);
-		addLabel(uiGroup, foodLabel, 23,  15, Color.WHITE);
+		
 		addLabel(uiGroup, new Label(TalesOfAndrogyny.getVersion(), skin), 1550, 1050, new Color(255, 255, 255, .4f));
 		
 		hoverLabel.setAlignment(Align.center);
@@ -940,6 +932,26 @@ public class WorldMapScreen extends AbstractScreen {
 	}
 	
 	private void visit(GameWorldNode node) { node.visit(saveService); }
+	
+	public static class FoodDisplay extends Group {
+		private final PlayerCharacter character;
+		private final Label foodLabel;
+		public FoodDisplay(PlayerCharacter character, AssetManager assetManager, Skin skin) {
+			this.character = character;
+			Image foodIcon = new Image(assetManager.get(AssetEnum.APPLE.getTexture()));
+			foodIcon.setSize(75, 75);
+			this.addActor(foodIcon);
+			foodLabel = new Label("", skin);	
+			foodLabel.setPosition(23, 15);
+			this.addActor(foodLabel);
+		}		
+		
+		@Override
+		public void draw(Batch batch, float parentAlpha) {
+			foodLabel.setText("X " + character.getFood());
+			super.draw(batch, parentAlpha);
+		}	
+	}
 	
 	public static class LevelBar extends Group {
 		private final ProgressBar levelBar;
