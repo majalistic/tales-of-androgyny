@@ -553,8 +553,8 @@ public class EnemyCharacter extends AbstractCharacter {
 			(candidate.getTrait().getTechniqueHeight() == TechniqueHeight.LOW && !target.getStance().receivesLowAttacks())) { techniques.removeValue(candidate, true); }
 			else if (candidate == ARMOR_SUNDER && !enemyType.willArmorSunder()) { techniques.removeValue(candidate, true); }
 			else if (candidate == BLITZ_ATTACK && (enemyType != EnemyEnum.BEASTMISTRESS && !isEnragedGolem())) { techniques.removeValue(candidate, true); }			
-			else if (inTechniques(candidate, CAUTIOUS_ATTACK, GUT_CHECK) && enemyType == EnemyEnum.BEASTMISTRESS) { techniques.removeValue(candidate, true); }
-			else if (candidate == BLOCK && !enemyType.usesDefensiveTechniques()) { techniques.removeValue(candidate, true); }
+			else if (inTechniques(candidate, BLOCK, CAUTIOUS_ATTACK, GUT_CHECK) && enemyType == EnemyEnum.BEASTMISTRESS) { techniques.removeValue(candidate, true); }
+			else if (inTechniques(candidate, BLOCK, CAUTIOUS_ATTACK) && !enemyType.usesDefensiveTechniques()) { techniques.removeValue(candidate, true); }
 			else if (candidate == INCANTATION && ((enemyType != EnemyEnum.GOLEM && enemyType != EnemyEnum.ADVENTURER) || (enemyType == EnemyEnum.GOLEM && currentMana <= 3 && !(currentFrame == 0 && (baseDefense <= 3 || currentHealth <= 30))))) { techniques.removeValue(candidate, true); }
 			else if (candidate != INCANTATION && (enemyType == EnemyEnum.GOLEM && stance != Stance.CASTING && currentFrame == 0 && (baseDefense <= 3 || currentHealth <= 30)) || 
 					(enemyType == EnemyEnum.ADVENTURER && (((currentHealth < 30 && currentMana >= 10) || (currentMana % 10 != 0 && currentMana > 2 && statuses.get(StatusType.STRENGTH_BUFF.toString(), 0) == 0))))) { techniques.removeValue(candidate, true); }
@@ -582,7 +582,7 @@ public class EnemyCharacter extends AbstractCharacter {
 			else if (candidate == ERUPT_ANAL && (enemyType == EnemyEnum.BRIGAND || enemyType == EnemyEnum.GOBLIN || enemyType == EnemyEnum.ORC)) { techniques.removeValue(candidate, true); }		
 			else if (candidate == BLOW_LOAD && !(enemyType == EnemyEnum.BRIGAND || enemyType == EnemyEnum.GOBLIN || enemyType == EnemyEnum.ORC)) { techniques.removeValue(candidate, true); }		
 			else if (candidate == PROSTATE_GRIND && !enemyType.willProstatePound()) { techniques.removeValue(candidate, true); }		
-			else if (inTechniques(candidate, VAULT, FEINT_AND_STRIKE, SLIDE, DUCK, HIT_THE_DECK, KICK_OVER_FACE_UP, KICK_OVER_FACE_DOWN, SIT_ON_IT, TURN_AND_SIT, SUDDEN_ADVANCE, DUCK, UPPERCUT, GRAB_IT, JUMP_ATTACK, VAULT_OVER, STAND_OFF_IT, FULL_NELSON, PULL_OUT, RELEASE_PRONE, RELEASE_SUPINE)) { techniques.removeValue(candidate, true); }	
+			else if (inTechniques(candidate, VAULT, FEINT_AND_STRIKE, SLIDE, DUCK, HIT_THE_DECK, KICK_OVER_FACE_UP, KICK_OVER_FACE_DOWN, SIT_ON_IT, TURN_AND_SIT, SUDDEN_ADVANCE, DUCK, UPPERCUT, GRAB_IT, JUMP_ATTACK, VAULT_OVER, STAND_OFF_IT, FULL_NELSON, PULL_OUT, RELEASE_PRONE, RELEASE_SUPINE, SAY_AHH)) { techniques.removeValue(candidate, true); }	
 		}
 				
 		return techniques;
