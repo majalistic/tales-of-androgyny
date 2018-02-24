@@ -879,7 +879,10 @@ public class Battle extends Group{
 		Array<Attack> attacksForSecondCharacter = doAttacks(firstCharacter, firstTechnique.resolve(secondTechnique));
 		Array<MutationResult> playerResults = new Array<MutationResult>();
 		
-		// final mutations - attacks are applied to each character, their cached state within the techniques makes the ordering her irrelevant
+		
+		// the following stuff needs to happen on an asynchronous basis	- the attacks must be received immediately, but all screen printing and sound playing should not be immediate	
+		
+		// final mutations - attacks are applied to each character, their cached state within the techniques makes the ordering here irrelevant
 		for (Attack attackForFirstCharacter : attacksForFirstCharacter) {
 			AttackResult results = firstCharacter.receiveAttack(attackForFirstCharacter);
 			printToConsole(results.getMessages());

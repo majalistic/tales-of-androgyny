@@ -568,7 +568,7 @@ public class EnemyCharacter extends AbstractCharacter {
 			else if (candidate == TAUNT && !enemyType.willSeduce()) { techniques.removeValue(candidate, true); }
 			else if (inTechniques(candidate, SLAP_ASS, GESTURE, PUCKER_LIPS, RUB, REVERSAL_ATTACK, BLOCK) && (arousal.isBottomReady() && stance == Stance.SEDUCTION)) { techniques.removeValue(candidate, true); }			
 			else if (candidate != OVIPOSITION && techniques.contains(OVIPOSITION, true) && enemyType == EnemyEnum.SPIDER && grappleStatus == GrappleStatus.HOLD) { techniques.removeValue(candidate, true); }
-			else if (candidate == OVIPOSITION && enemyType != EnemyEnum.SPIDER && grappleStatus != GrappleStatus.HOLD) { techniques.removeValue(candidate, true); }
+			else if (candidate == OVIPOSITION && (enemyType != EnemyEnum.SPIDER || grappleStatus != GrappleStatus.HOLD)) { techniques.removeValue(candidate, true); }
 			else if (candidate != RECEIVE_DOGGY && techniques.contains(RECEIVE_DOGGY, true))  { techniques.removeValue(candidate, true); }
 			else if (candidate != RECEIVE_PRONE_BONE && techniques.contains(RECEIVE_PRONE_BONE, true))  { techniques.removeValue(candidate, true); }
 			else if (candidate != RECEIVE_ANAL && techniques.contains(RECEIVE_ANAL, true))  { techniques.removeValue(candidate, true); }
