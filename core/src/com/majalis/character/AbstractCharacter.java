@@ -757,6 +757,7 @@ public abstract class AbstractCharacter extends Actor {
 			if (gutcheck > 0) {
 				if (!alreadyIncapacitated()) {
 					currentStamina -= gutcheck;
+					if (currentStamina < -5) currentStamina = -5;
 					result.add("It's winds " + (secondPerson ? "you" : "them") + "! It reduces stamina by " + gutcheck + "!");
 					if (currentStamina <= 0 && grappleStatus == GrappleStatus.NULL) {
 						result.add(label + (secondPerson ? " fall " : " falls ") + "to the ground!");
