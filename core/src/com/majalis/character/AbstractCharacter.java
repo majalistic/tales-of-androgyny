@@ -1394,7 +1394,8 @@ public abstract class AbstractCharacter extends Actor {
 			else if (candidate == PULL_UP && target.stance == Stance.SPREAD) { techniques.removeValue(candidate, true); }
 			else if (candidate == SITTING_ORAL && !(isErect() && !target.isChastitied())) { techniques.removeValue(candidate, true); }		
 			else if (candidate == RIDE_FACE && (isErect() && !target.isChastitied())) { techniques.removeValue(candidate, true); }	
-			else if (inTechniques(candidate, SQUEEZE, BITE, SQUEEZE_CRUSH) && (currentStamina <= 0 || grappleStatus.isDisadvantage() || grappleStatus == GrappleStatus.HOLD)) { techniques.removeValue(candidate, true); }
+			else if (inTechniques(candidate, SQUEEZE, BITE, SQUEEZE_CRUSH) && (currentStamina <= 0 || grappleStatus.isDisadvantage())) { techniques.removeValue(candidate, true); }
+			else if (inTechniques(candidate, SQUEEZE, BITE) && grappleStatus == GrappleStatus.HOLD) { techniques.removeValue(candidate, true); }
 			else if (candidate == SQUEEZE_RELEASE && (currentStamina > 0 && !grappleStatus.isDisadvantage())) { techniques.removeValue(candidate, true); }
 			else if (candidate == SQUEEZE_CRUSH && grappleStatus != GrappleStatus.HOLD) { techniques.removeValue(candidate, true); }
 			else if (candidate == MOUTH_KNOT && enemyType != EnemyEnum.WERESLUT) { techniques.removeValue(candidate, true); }
