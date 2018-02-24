@@ -4135,6 +4135,13 @@
 		"scriptLines": [
 			{
 			"music": "WEREWOLF_MUSIC",
+			"text": ""}
+		]
+	},
+	{
+		"key": "WEREWOLF-ENTRY",
+		"scriptLines": [
+			{
 			"mutations": [{"profileSaveType":"KNOWLEDGE", "value":{"class": "java.lang.String", "value": "Wereslut"}}],
 			"text": "There are wolves in the forest - you know, because you've been hearing them howl in the distance, and as you traverse the woods, you've been hearing the occasional growling - albeit higher pitched than you would expect."}, 
 			{
@@ -4153,6 +4160,24 @@
 			{
 			"mutations": [{"saveType":"PORTRAIT", "value":{"class": "com.majalis.asset.AssetEnum", "value": "PORTRAIT_GRIMACE"}}],
 			"text": "It's dripping with liquid lust, and it's obvious that if she intends to \"mate\", that will be her weapon of choice.  You hurry to tell her that you're a male, and any \"mating\" would be rather unfruitful, but she drops to all fours, and lunges at you - too late for negotation!"}
+		]
+	},
+	{
+		"key": "WEREWOLF-SCOUTED",
+		"scriptLines": [
+			{
+			"music": "WEREWOLF_MUSIC",
+			"text": ""}, 
+			{"text": "You can attempt to put a stop to the werewolf menace, if you're brave enough - but many strong, proud, and dimwitted adventurers have likely regretted their decision to do so.  What will you do?"}
+		]
+	},
+	{
+		"key": "WEREWOLF-FIGHT",
+		"scriptLines": [
+			{
+			"animatedForeground": "WEREWOLF", 
+			"mutations": [{"profileSaveType":"KNOWLEDGE", "value":{"class": "java.lang.String", "value": "Wereslut"}}],
+			"text": "You go against your better judgment and decide to attack the unbelievably strong werewolf, ignoring all of the obvious warning signs!"}		
 		]
 	},
 	{
