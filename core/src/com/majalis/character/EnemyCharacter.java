@@ -582,7 +582,7 @@ public class EnemyCharacter extends AbstractCharacter {
 			else if (candidate == ERUPT_ANAL && (enemyType == EnemyEnum.BRIGAND || enemyType == EnemyEnum.GOBLIN || enemyType == EnemyEnum.ORC)) { techniques.removeValue(candidate, true); }		
 			else if (candidate == BLOW_LOAD && !(enemyType == EnemyEnum.BRIGAND || enemyType == EnemyEnum.GOBLIN || enemyType == EnemyEnum.ORC)) { techniques.removeValue(candidate, true); }		
 			else if (candidate == PROSTATE_GRIND && !enemyType.willProstatePound()) { techniques.removeValue(candidate, true); }		
-			else if (inTechniques(candidate, VAULT, FEINT_AND_STRIKE, SLIDE, DUCK, HIT_THE_DECK, KICK_OVER_FACE_UP, KICK_OVER_FACE_DOWN, SIT_ON_IT, TURN_AND_SIT, SUDDEN_ADVANCE, DUCK, UPPERCUT, GRAB_IT, JUMP_ATTACK, VAULT_OVER, STAND_OFF_IT, FULL_NELSON, PULL_OUT, PULL_OUT_ORAL, RELEASE_PRONE, RELEASE_SUPINE, SAY_AHH)) { techniques.removeValue(candidate, true); }	
+			else if (inTechniques(candidate, VAULT, FEINT_AND_STRIKE, SLIDE, DUCK, HIT_THE_DECK, KICK_OVER_FACE_UP, KICK_OVER_FACE_DOWN, SIT_ON_IT, TURN_AND_SIT, SUDDEN_ADVANCE, DUCK, UPPERCUT, GRAB_IT, JUMP_ATTACK, VAULT_OVER, STAND_OFF_IT, FULL_NELSON, PULL_OUT, PULL_OUT_ORAL, PULL_OUT_STANDING, RELEASE_PRONE, RELEASE_SUPINE, SAY_AHH)) { techniques.removeValue(candidate, true); }	
 		}
 				
 		return techniques;
