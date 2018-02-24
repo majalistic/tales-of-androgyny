@@ -1333,7 +1333,7 @@ public abstract class AbstractCharacter extends Actor {
 			case GROUND_WRESTLE_FACE_UP:  return getTechniques(target, REST_GROUND_UP, BREAK_FREE_GROUND_UP, FULL_REVERSAL, REVERSAL, STRUGGLE_GROUND_UP);
 			case WRAPPED_BOTTOM: return getTechniques(target, SQUEEZE_REST, BREAK_FREE_SQUEEZE, SQUEEZE_STRUGGLE);
 			case PRONE_BONE: return getTechniques(target, ERUPT_ANAL, BLOW_LOAD, POUND_PRONE_BONE, PULL_OUT, KNOT);
-			case DOGGY: return getTechniques(target, ERUPT_ANAL, BLOW_LOAD, POUND_DOGGY, CRUSH_ASS, ASS_BLAST, PROSTATE_GRIND, PULL_OUT);
+			case DOGGY: return getTechniques(target, ERUPT_ANAL, BLOW_LOAD, POUND_DOGGY, CRUSH_ASS, ASS_BLAST, PROSTATE_GRIND, PULL_OUT, KNOT);
 			case ANAL: return getTechniques(target, ERUPT_ANAL, BLOW_LOAD, POUND_ANAL, PULL_OUT_ANAL);
 			case STANDING: return getTechniques(target, ERUPT_ANAL, BLOW_LOAD, POUND_STANDING, PULL_OUT_STANDING);
 			case COWGIRL: return getTechniques(target, ERUPT_COWGIRL, BE_RIDDEN, PUSH_OFF, PUSH_OFF_ATTEMPT, KNOT);

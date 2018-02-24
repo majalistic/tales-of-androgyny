@@ -545,7 +545,7 @@ public class EnemyCharacter extends AbstractCharacter {
 	@Override
 	protected Array<Techniques> getTechniques(AbstractCharacter target, Techniques ... candidates) { 
 		Array<Techniques> trueCandidates = super.getTechniques(target, candidates);
-		Array<Techniques> techniques = new Array<Techniques>(trueCandidates);
+		Array<Techniques> techniques = new Array<Techniques>(trueCandidates);		
 		for (Techniques candidate : trueCandidates) {
 			if (candidate == FACE_SIT && !willFaceSit(target)) { techniques.removeValue(candidate, true); }
 			else if ((candidate.getTrait().getTechniqueHeight() == TechniqueHeight.HIGH && !target.getStance().receivesHighAttacks()) || 
@@ -577,11 +577,12 @@ public class EnemyCharacter extends AbstractCharacter {
 			else if (candidate == FLIP_PRONE && !enemyType.prefersProneBone()) { techniques.removeValue(candidate, true); }		
 			else if (candidate == FLIP_SUPINE && !enemyType.prefersMissionary()) { techniques.removeValue(candidate, true); }		
 			else if (candidate == PIN && target.getStrength() + 3 >= getStrength()) { techniques.removeValue(candidate, true); }		
-			else if (candidate != KNOT && enemyType == EnemyEnum.WERESLUT && arousal.isEdging() && stance.isAnalPenetration()) { techniques.removeValue(candidate, true); }		
+			else if (candidate != KNOT && enemyType == EnemyEnum.WERESLUT && arousal.isEdging() && stance.isAnalPenetration() && stance != Stance.KNOTTED) { techniques.removeValue(candidate, true); }		
+			else if (candidate == KNOT && enemyType != EnemyEnum.WERESLUT) { techniques.removeValue(candidate, true); }	
 			else if (candidate == ERUPT_ANAL && (enemyType == EnemyEnum.BRIGAND || enemyType == EnemyEnum.GOBLIN || enemyType == EnemyEnum.ORC)) { techniques.removeValue(candidate, true); }		
 			else if (candidate == BLOW_LOAD && !(enemyType == EnemyEnum.BRIGAND || enemyType == EnemyEnum.GOBLIN || enemyType == EnemyEnum.ORC)) { techniques.removeValue(candidate, true); }		
 			else if (candidate == PROSTATE_GRIND && !enemyType.willProstatePound()) { techniques.removeValue(candidate, true); }		
-			else if (inTechniques(candidate, VAULT, FEINT_AND_STRIKE, SLIDE, DUCK, HIT_THE_DECK, KICK_OVER_FACE_UP, KICK_OVER_FACE_DOWN, SIT_ON_IT, TURN_AND_SIT, SUDDEN_ADVANCE, DUCK, UPPERCUT, GRAB_IT, JUMP_ATTACK, VAULT_OVER, STAND_OFF_IT, FULL_NELSON)) { techniques.removeValue(candidate, true); }	
+			else if (inTechniques(candidate, VAULT, FEINT_AND_STRIKE, SLIDE, DUCK, HIT_THE_DECK, KICK_OVER_FACE_UP, KICK_OVER_FACE_DOWN, SIT_ON_IT, TURN_AND_SIT, SUDDEN_ADVANCE, DUCK, UPPERCUT, GRAB_IT, JUMP_ATTACK, VAULT_OVER, STAND_OFF_IT, FULL_NELSON, PULL_OUT, RELEASE_PRONE, RELEASE_SUPINE)) { techniques.removeValue(candidate, true); }	
 		}
 				
 		return techniques;
