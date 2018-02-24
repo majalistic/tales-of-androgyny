@@ -542,6 +542,15 @@ public class EnemyCharacter extends AbstractCharacter {
 		}
 	}
 	
+	private boolean isSpellCaster() { return enemyType == EnemyEnum.GOLEM || enemyType == EnemyEnum.ADVENTURER; } // currently Ghost and Angel have custom move pools, so do not count in this
+	private boolean canIncant() { return (isEnragedGolem() && currentMana > 3) || mustIncant(); }
+	private boolean mustIncant() { 
+		return (enemyType == EnemyEnum.GOLEM && !isEnragedGolem() && currentHealth <= 30) || // activate
+			(enemyType == EnemyEnum.ADVENTURER && (((mustCastHealing()) || mustCastTitanStrength()))); // cast heal or titan strength
+	}
+	private boolean mustCastHealing() { return enemyType != EnemyEnum.GOLEM && currentHealth < 30 && currentMana >= 10; }
+	private boolean mustCastTitanStrength() { return enemyType != EnemyEnum.GOLEM && currentMana % 10 != 0 && currentMana > 2 && statuses.get(StatusType.STRENGTH_BUFF.toString(), 0) == 0; }
+	
 	@Override
 	protected Array<Techniques> getTechniques(AbstractCharacter target, Techniques ... candidates) { 
 		Array<Techniques> trueCandidates = super.getTechniques(target, candidates);
@@ -555,33 +564,33 @@ public class EnemyCharacter extends AbstractCharacter {
 			else if (candidate == BLITZ_ATTACK && (enemyType != EnemyEnum.BEASTMISTRESS && !isEnragedGolem())) { techniques.removeValue(candidate, true); }			
 			else if (inTechniques(candidate, BLOCK, CAUTIOUS_ATTACK, GUT_CHECK) && enemyType == EnemyEnum.BEASTMISTRESS) { techniques.removeValue(candidate, true); }
 			else if (inTechniques(candidate, BLOCK, CAUTIOUS_ATTACK) && !enemyType.usesDefensiveTechniques()) { techniques.removeValue(candidate, true); }
-			else if (candidate == INCANTATION && ((enemyType != EnemyEnum.GOLEM && enemyType != EnemyEnum.ADVENTURER) || (enemyType == EnemyEnum.GOLEM && currentMana <= 3 && !(currentFrame == 0 && (baseDefense <= 3 || currentHealth <= 30))))) { techniques.removeValue(candidate, true); }
-			else if (candidate != INCANTATION && (enemyType == EnemyEnum.GOLEM && stance != Stance.CASTING && currentFrame == 0 && (baseDefense <= 3 || currentHealth <= 30)) || 
-					(enemyType == EnemyEnum.ADVENTURER && (((currentHealth < 30 && currentMana >= 10) || (currentMana % 10 != 0 && currentMana > 2 && statuses.get(StatusType.STRENGTH_BUFF.toString(), 0) == 0))))) { techniques.removeValue(candidate, true); }
 			else if (candidate == PARRY && !enemyType.willParry()) { techniques.removeValue(candidate, true); }
 			else if (candidate == TAUNT && !enemyType.willSeduce()) { techniques.removeValue(candidate, true); }
 			else if (inTechniques(candidate, SLAP_ASS, GESTURE, PUCKER_LIPS, RUB, REVERSAL_ATTACK, BLOCK) && (arousal.isBottomReady() && stance == Stance.SEDUCTION)) { techniques.removeValue(candidate, true); }			
-			else if (candidate != OVIPOSITION && (enemyType == EnemyEnum.SPIDER && grappleStatus == GrappleStatus.HOLD && stance == Stance.FULL_NELSON)) { techniques.removeValue(candidate, true); }
-			else if (candidate == OVIPOSITION && (enemyType != EnemyEnum.SPIDER)) { techniques.removeValue(candidate, true); }
-			else if (candidate != RECEIVE_DOGGY && stance == Stance.DOGGY_BOTTOM)  { techniques.removeValue(candidate, true); }
-			else if (candidate != RECEIVE_PRONE_BONE && stance == Stance.PRONE_BONE_BOTTOM)  { techniques.removeValue(candidate, true); }
-			else if (candidate != RECEIVE_ANAL && stance == Stance.ANAL_BOTTOM)  { techniques.removeValue(candidate, true); }
-			else if (candidate != SUCK_IT && stance == Stance.FELLATIO_BOTTOM)  { techniques.removeValue(candidate, true); }
-			else if (candidate != GET_FACEFUCKED && stance == Stance.FACEFUCK_BOTTOM)  { techniques.removeValue(candidate, true); }
-			else if (candidate != RECEIVE_OUROBOROS && stance == Stance.OUROBOROS_BOTTOM)  { techniques.removeValue(candidate, true); }
-			else if (candidate != ACTIVATE && (enemyType == EnemyEnum.GOLEM && currentFrame != 1 && stance == Stance.CASTING))  { techniques.removeValue(candidate, true); }
-			else if (candidate != COMBAT_FIRE && (enemyType == EnemyEnum.GOLEM && currentFrame == 1 && stance == Stance.CASTING))  { techniques.removeValue(candidate, true); }
-			else if (candidate != COMBAT_HEAL && (enemyType != EnemyEnum.GOLEM && stance == Stance.CASTING && currentHealth < 30 && currentMana >= 7))  { techniques.removeValue(candidate, true); }
-			else if (candidate != TITAN_STRENGTH && (enemyType != EnemyEnum.GOLEM && stance == Stance.CASTING && currentMana % 7 != 0 && currentMana > 2 && statuses.get(StatusType.STRENGTH_BUFF.toString(), 0) == 0))  { techniques.removeValue(candidate, true); }
+			else if (candidate != OVIPOSITION && techniques.contains(OVIPOSITION, true) && enemyType == EnemyEnum.SPIDER && grappleStatus == GrappleStatus.HOLD) { techniques.removeValue(candidate, true); }
+			else if (candidate == OVIPOSITION && enemyType != EnemyEnum.SPIDER && grappleStatus != GrappleStatus.HOLD) { techniques.removeValue(candidate, true); }
+			else if (candidate != RECEIVE_DOGGY && techniques.contains(RECEIVE_DOGGY, true))  { techniques.removeValue(candidate, true); }
+			else if (candidate != RECEIVE_PRONE_BONE && techniques.contains(RECEIVE_PRONE_BONE, true))  { techniques.removeValue(candidate, true); }
+			else if (candidate != RECEIVE_ANAL && techniques.contains(RECEIVE_ANAL, true))  { techniques.removeValue(candidate, true); }
+			else if (candidate != SUCK_IT && techniques.contains(SUCK_IT, true))  { techniques.removeValue(candidate, true); }
+			else if (candidate != GET_FACEFUCKED && techniques.contains(GET_FACEFUCKED, true))  { techniques.removeValue(candidate, true); }
+			else if (candidate != RECEIVE_OUROBOROS && techniques.contains(RECEIVE_OUROBOROS, true))  { techniques.removeValue(candidate, true); }
 			else if (candidate == CHOKE && (enemyType != EnemyEnum.ORC && enemyType != EnemyEnum.BRIGAND)) { techniques.removeValue(candidate, true); }		
 			else if (candidate == FLIP_PRONE && !enemyType.prefersProneBone()) { techniques.removeValue(candidate, true); }		
 			else if (candidate == FLIP_SUPINE && !enemyType.prefersMissionary()) { techniques.removeValue(candidate, true); }		
 			else if (candidate == PIN && target.getStrength() + 3 >= getStrength()) { techniques.removeValue(candidate, true); }		
-			else if (candidate != KNOT && enemyType == EnemyEnum.WERESLUT && arousal.isEdging() && stance.isAnalPenetration() && stance != Stance.KNOTTED) { techniques.removeValue(candidate, true); }		
+			else if (candidate != KNOT && techniques.contains(KNOT, true) && enemyType == EnemyEnum.WERESLUT && arousal.isEdging()) { techniques.removeValue(candidate, true); }		
 			else if (candidate == KNOT && enemyType != EnemyEnum.WERESLUT) { techniques.removeValue(candidate, true); }	
 			else if (candidate == ERUPT_ANAL && (enemyType == EnemyEnum.BRIGAND || enemyType == EnemyEnum.GOBLIN || enemyType == EnemyEnum.ORC)) { techniques.removeValue(candidate, true); }		
 			else if (candidate == BLOW_LOAD && !(enemyType == EnemyEnum.BRIGAND || enemyType == EnemyEnum.GOBLIN || enemyType == EnemyEnum.ORC)) { techniques.removeValue(candidate, true); }		
 			else if (candidate == PROSTATE_GRIND && !enemyType.willProstatePound()) { techniques.removeValue(candidate, true); }		
+			else if (candidate == INCANTATION && (!isSpellCaster() || (!canIncant()))) { techniques.removeValue(candidate, true); } // remove incantation if not a spellcaster or can't currently incant
+			else if (candidate != INCANTATION && techniques.contains(INCANTATION, true) && mustIncant()) { techniques.removeValue(candidate, true); } // remove all other options if must incant
+			else if (candidate != ACTIVATE && techniques.contains(ACTIVATE, true) && (enemyType == EnemyEnum.GOLEM && !isEnragedGolem()))  { techniques.removeValue(candidate, true); }
+			else if (candidate == ACTIVATE && enemyType != EnemyEnum.GOLEM) { techniques.removeValue(candidate, true); }
+			else if (candidate != COMBAT_FIRE && techniques.contains(COMBAT_FIRE, true) && isEnragedGolem())  { techniques.removeValue(candidate, true); }
+			else if (candidate != COMBAT_HEAL && techniques.contains(COMBAT_HEAL, true) && mustCastHealing())  { techniques.removeValue(candidate, true); }
+			else if (candidate != TITAN_STRENGTH && techniques.contains(TITAN_STRENGTH, true) && mustCastTitanStrength() && !mustCastHealing())  { techniques.removeValue(candidate, true); }				
 			else if (inTechniques(candidate, VAULT, FEINT_AND_STRIKE, SLIDE, DUCK, HIT_THE_DECK, KICK_OVER_FACE_UP, KICK_OVER_FACE_DOWN, SIT_ON_IT, TURN_AND_SIT, SUDDEN_ADVANCE, DUCK, UPPERCUT, GRAB_IT, JUMP_ATTACK, VAULT_OVER, STAND_OFF_IT, FULL_NELSON, TAKEDOWN, PULL_OUT, PULL_OUT_ORAL, PULL_OUT_STANDING, RELEASE_PRONE, RELEASE_SUPINE, SAY_AHH)) { techniques.removeValue(candidate, true); }	
 		}
 				
