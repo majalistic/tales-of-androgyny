@@ -1372,10 +1372,10 @@ public abstract class AbstractCharacter extends Actor {
 			else if (candidate == USE_ITEM && !hasItemsToUse())  { techniques.removeValue(candidate, true); }
 			else if (candidate == KICK_OVER_FACE_UP && target.getStance() != Stance.PRONE)  { techniques.removeValue(candidate, true); }
 			else if (candidate == KICK_OVER_FACE_DOWN && target.getStance() != Stance.SUPINE)  { techniques.removeValue(candidate, true); }	
-			else if (inTechniques(candidate, PUSH_UP, KNEE_UP_HANDS, BREAK_FREE_FULL_NELSON, STRUGGLE_FULL_NELSON, GRAPPLE, HOLD_WRESTLE, REST_WRESTLE, PIN, PENETRATE_MISSIONARY, FLIP_PRONE, RELEASE_SUPINE, PENETRATE_PRONE, FLIP_SUPINE, RELEASE_PRONE, GRIND, BREAK_FREE_GROUND, STRUGGLE_GROUND,
+			else if (inTechniques(candidate, PUSH_UP, KNEE_UP_HANDS, BREAK_FREE_FULL_NELSON, STRUGGLE_FULL_NELSON, GRAPPLE, HOLD_WRESTLE, PIN, PENETRATE_MISSIONARY, FLIP_PRONE, RELEASE_SUPINE, PENETRATE_PRONE, FLIP_SUPINE, RELEASE_PRONE, GRIND, BREAK_FREE_GROUND, STRUGGLE_GROUND,
 					BREAK_FREE_GROUND_UP, FULL_REVERSAL, REVERSAL, STRUGGLE_GROUND_UP, BREAK_FREE_SQUEEZE, SQUEEZE_STRUGGLE) && currentStamina <= 0) { techniques.removeValue(candidate, true); }	
 			else if (inTechniques(candidate, HOLD_WRESTLE, REST_WRESTLE, PIN, PENETRATE_MISSIONARY, FLIP_PRONE, RELEASE_SUPINE, PENETRATE_PRONE, FLIP_SUPINE, RELEASE_PRONE , GRIND, BREAK_FREE_GROUND, STRUGGLE_GROUND, BREAK_FREE_GROUND_UP, FULL_REVERSAL, REVERSAL, STRUGGLE_GROUND_UP) && grappleStatus == GrappleStatus.HELD) { techniques.removeValue(candidate, true); }	
-			else if (inTechniques(candidate, KNEE_UP, STAND_UP_HANDS, STAND_UP_KNEELING) && currentStamina <= 2) { techniques.removeValue(candidate, true); }	
+			else if (inTechniques(candidate, KNEE_UP, STAND_UP_HANDS, STAND_UP_KNEELING, CHOKE) && currentStamina <= 2) { techniques.removeValue(candidate, true); }	
 			else if (inTechniques(candidate, STAND_UP, GRIP) && currentStamina <= 4 || stability.compareTo(Stability.Dazed) < 0) { techniques.removeValue(candidate, true); }	
 			else if (inTechniques(candidate, KIP_UP, TAKEDOWN) && currentStamina <= 6) { techniques.removeValue(candidate, true); }
 			else if (inTechniques(candidate, SLAP_ASS_KNEES, SELF_SPANK, WRAP_LEGS) && !isLewd()) { techniques.removeValue(candidate, true); }		
