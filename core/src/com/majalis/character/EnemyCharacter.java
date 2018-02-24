@@ -548,9 +548,9 @@ public class EnemyCharacter extends AbstractCharacter {
 		Array<Techniques> techniques = new Array<Techniques>(trueCandidates);		
 		for (Techniques candidate : trueCandidates) {
 			if (candidate == FACE_SIT && !willFaceSit(target)) { techniques.removeValue(candidate, true); }
-			else if ((candidate.getTrait().getTechniqueHeight() == TechniqueHeight.HIGH && !target.getStance().receivesHighAttacks()) || 
-			(candidate.getTrait().getTechniqueHeight() == TechniqueHeight.MEDIUM && !target.getStance().receivesMediumAttacks()) || 
-			(candidate.getTrait().getTechniqueHeight() == TechniqueHeight.LOW && !target.getStance().receivesLowAttacks())) { techniques.removeValue(candidate, true); }
+			else if (candidate != DIVEBOMB && ((candidate.getTrait().getTechniqueHeight() == TechniqueHeight.HIGH && !target.getStance().receivesHighAttacks()) || // this should not exclude divebomb - the harpy should just land or do something else if the player is on the ground already, possibly face-sitting or a steeper divebomb
+					(candidate.getTrait().getTechniqueHeight() == TechniqueHeight.MEDIUM && !target.getStance().receivesMediumAttacks()) || 
+					(candidate.getTrait().getTechniqueHeight() == TechniqueHeight.LOW && !target.getStance().receivesLowAttacks()))) { techniques.removeValue(candidate, true); }
 			else if (candidate == ARMOR_SUNDER && !enemyType.willArmorSunder()) { techniques.removeValue(candidate, true); }
 			else if (candidate == BLITZ_ATTACK && (enemyType != EnemyEnum.BEASTMISTRESS && !isEnragedGolem())) { techniques.removeValue(candidate, true); }			
 			else if (inTechniques(candidate, BLOCK, CAUTIOUS_ATTACK, GUT_CHECK) && enemyType == EnemyEnum.BEASTMISTRESS) { techniques.removeValue(candidate, true); }
