@@ -9,7 +9,6 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -33,6 +32,7 @@ import com.badlogic.gdx.utils.OrderedMap;
 import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.majalis.asset.AnimatedImage;
+import com.majalis.asset.AnimationBuilder;
 import com.majalis.asset.AssetEnum;
 import com.majalis.character.AbstractCharacter;
 import com.majalis.character.AbstractCharacter.AttackResult;
@@ -79,7 +79,6 @@ public class Battle extends Group{
 	
 	// basically all of this should go away
 	
-	private final Image hoverImage;
 	private final Image characterPortrait;
 	private final Group hoverGroup;
 	private final Group dialogGroup;
@@ -224,14 +223,10 @@ public class Battle extends Group{
 		initActor(new BleedDisplay(character), uiGroup, 325, 725);
 		initActor(new BleedDisplay(enemy), uiGroup, 1545, 725);
 			
-		Table statusTable = new Table();
+		Table statusTable = (Table) initActor(new Table(), uiGroup, 525,  850);
 		statusTable.align(Align.topLeft);
-		statusTable.setPosition(525,  850);
-		uiGroup.addActor(statusTable);
-		Table enemyStatusTable = new Table();
+		Table enemyStatusTable = (Table) initActor(new Table(), uiGroup, 1575,  700);
 		enemyStatusTable.align(Align.topLeft);
-		enemyStatusTable.setPosition(1575,  700);
-		uiGroup.addActor(enemyStatusTable);
 		statusLabel = initLabel(character.getStatusBlurb(), skin, Color.RED, 550, 725);
 		uiGroup.removeActor(statusLabel);
 		enemyStatusLabel = initLabel(enemy.getStatusBlurb(), skin, Color.RED, 1575, 725);
@@ -240,20 +235,13 @@ public class Battle extends Group{
 		statusTable.add(statusLabel).align(Align.topLeft);
 		enemyStatusTable.add(enemyStatusLabel).align(Align.topRight);
 		
-		Image consoleBox = new Image(assetManager.get(AssetEnum.BATTLE_TEXTBOX.getTexture()));
-		uiGroup.addActor(consoleBox);
-		consoleBox.setPosition(consoleXPos, consoleYPos);
+		initActor(new Image(assetManager.get(AssetEnum.BATTLE_TEXTBOX.getTexture())), uiGroup, consoleXPos, consoleYPos);
+		dialogGroup = new Group();		
+		initActor(new Image(assetManager.get(AssetEnum.BATTLE_TEXTBOX.getTexture())), dialogGroup, consoleXPos + 140, consoleYPos + 425, 415, 150);
 		
-		dialogGroup = new Group();
-		
-		Image dialogBox = new Image(assetManager.get(AssetEnum.BATTLE_TEXTBOX.getTexture()));
-		dialogGroup.addActor(dialogBox);
-		dialogBox.setBounds(consoleXPos + 140, consoleYPos + 425, 415, 150);
-		
-		hoverImage = new Image(assetManager.get(AssetEnum.BATTLE_HOVER.getTexture()));
-		hoverImage.setBounds(hoverXPos, hoverYPos, hoverImage.getWidth() + 100, hoverImage.getHeight() + 100);
 		hoverGroup = new Group();
-		hoverGroup.addActor(hoverImage);
+		Texture battleHover = assetManager.get(AssetEnum.BATTLE_HOVER.getTexture());
+		initActor(new Image(battleHover), hoverGroup, hoverXPos, hoverYPos, battleHover.getWidth() + 100, battleHover.getHeight() + 100);
 		
 		characterPortrait = initImage(assetManager.get(character.popPortraitPath()), -7.5f, 922);
 		characterPortrait.setScale(.9f);
@@ -271,53 +259,35 @@ public class Battle extends Group{
 		initActor(new StanceActor(character), uiGroup, 600.5f, 880, 150, 172.5f);
 		initActor(new StanceActor(enemy), uiGroup, 1305, 880, 150, 172.5f);
 		
-		hoverGroup.addAction(Actions.visible(false));
+		hoverGroup.addAction(hide());
 		uiGroup.addActor(hoverGroup);
 			
 		techniqueTable = new Table();
-		techniquePane = new ScrollPane(techniqueTable);
+		techniquePane = (ScrollPane) initActor(new ScrollPane(techniqueTable), uiGroup, -150, 0, 600, 700);
 		techniquePane.setScrollingDisabled(true, false);
 		techniquePane.setOverscroll(false, false);
-		techniquePane.setBounds(-150, 0, 600, 700);
-		uiGroup.addActor(techniquePane);
 		
 		displayTechniqueOptions();
-		
-		Texture slashSheet = assetManager.get(AssetEnum.SLASH.getTexture());
-		Array<TextureRegion> frames = new Array<TextureRegion>();
-		for (int ii = 0; ii < 6; ii++) {
-			frames.add(new TextureRegion(slashSheet, ii * 384, 0, 384, 384));
-		}
-		
-		Animation animation = new Animation(.07f, frames);
-		slash = new AnimatedImage(animation, Scaling.fit, Align.right);
-		slash.setState(1);
-		
-		slash.setPosition(764, 564);
-		this.addActor(slash);
+	
+		slash = (AnimatedImage) initActor(new AnimatedImage(new AnimationBuilder(assetManager.get(AssetEnum.SLASH.getTexture()), 6, 384, 384).build(), Scaling.fit, Align.right), null, 764, 564);
+		slash.setState(1);	
 		
 		this.addActor(uiGroup);
 		console = new Label(consoleText, skin);
 		console.setWrap(true);
 		console.setColor(Color.BLACK);
 		console.setAlignment(Align.top);
-		ScrollPane pane = new ScrollPane(console);
-		pane.setBounds(consoleXPos+50, 50, 625, 350);
+		ScrollPane pane = (ScrollPane) initActor(new ScrollPane(console), uiGroup, consoleXPos + 50, 50, 625, 350);
 		pane.setScrollingDisabled(true, false);
 		pane.setOverscroll(false, false);
-		
-		uiGroup.addActor(pane);
 		
 		dialog = new Label(dialogText, skin);
 		dialog.setWrap(true);
 		dialog.setColor(Color.PURPLE);
 		dialog.setAlignment(Align.top);
-		ScrollPane paneDialog = new ScrollPane(dialog);
-		paneDialog.setBounds(consoleXPos + 150, 350, 400, 220);
+		ScrollPane paneDialog = (ScrollPane) initActor(new ScrollPane(dialog), dialogGroup, consoleXPos + 150, 350, 400, 220);
 		paneDialog.setScrollingDisabled(true, false);
-	
-		dialogGroup.addActor(paneDialog);
-		
+
 		uiGroup.addActor(dialogGroup);
 		if (dialogText.isEmpty()) {
 			dialogGroup.addAction(hide());
@@ -327,7 +297,7 @@ public class Battle extends Group{
 		skillDisplay.setWrap(true);
 		skillDisplay.setColor(Color.BLACK);
 		skillDisplay.setAlignment(Align.top);
-		Table pane2 = new Table();
+		Table pane2 = (Table) initActor(new Table(), hoverGroup, hoverXPos + 80, hoverYPos - 155, 600, 700);
 		pane2.align(Align.top);
 		pane2.add(skillDisplay).width(600).row();
 		
@@ -342,9 +312,6 @@ public class Battle extends Group{
 		penaltyDisplay.setColor(Color.RED);
 		penaltyDisplay.setAlignment(Align.top);
 		pane2.add(penaltyDisplay).width(600);
-		
-		pane2.setBounds(hoverXPos + 80, hoverYPos - 155, 600, 700);
-		hoverGroup.addActor(pane2);
 		hideHoverGroup();
 		checkEndBattle();
 		
@@ -930,7 +897,8 @@ public class Battle extends Group{
 	
 	private Actor initActor(Actor actor, Group group, float x, float y) { return initActor(actor, group, x, y, actor.getWidth(), actor.getHeight()); }	
 	private Actor initActor(Actor actor, Group group, float x, float y, float width, float height) {
-		group.addActor(actor);
+		if (group != null) group.addActor(actor);
+		else this.addActor(actor);
 		actor.setBounds(x, y, width, height);
 		return actor;
 	}
