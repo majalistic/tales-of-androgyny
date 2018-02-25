@@ -292,7 +292,7 @@ public class Battle extends Group{
 			enemyStamina.addAction(Actions.hide());
 			enemyStaminaDiff.addAction(Actions.hide());	
 		}
-		Actor enemyBalance = initActor(new BalanceBar(enemy, assetManager, skin), uiGroup, barX, 945);
+		Actor enemyBalance = initActor(new BalanceBar(enemy, assetManager, skin), uiGroup, enemyBarX, 945);
 		if (character.getBattlePerception() < 3) {
 			enemyBalance.addAction(Actions.hide());
 			enemyBalanceDiff.addAction(Actions.hide());	
