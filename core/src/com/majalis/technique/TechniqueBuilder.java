@@ -154,26 +154,10 @@ public class TechniqueBuilder {
 	
 	public TechniquePrototype build() {
 		String lightDescription = getDescription();
-		return new TechniquePrototype(usableStance, resultingStance, name, doesDamage, doesHealing, powerMod, staminaCost, stabilityCost, manaCost, spellEffect, sex, selfSex, forceStance, knockdown, armorSunder, gutCheck, height, guardMod, parryMod, ignoresArmor, setDamage, blockable, causesBleed, setBleed, grapple, climaxType, selfEffect, enemyEffect, getStanceInfo() + lightDescription, lightDescription, getBonusInfo(), bonuses); 
+		return new TechniquePrototype(usableStance, resultingStance, name, doesDamage, doesHealing, powerMod, staminaCost, stabilityCost, manaCost, spellEffect, sex, selfSex, forceStance, knockdown, armorSunder, gutCheck, height, guardMod, parryMod, ignoresArmor, setDamage, blockable, causesBleed, setBleed, grapple, climaxType, selfEffect, enemyEffect, getExpandedInfo() + lightDescription, lightDescription, getBonusInfo(), bonuses); 
 	}	
 	
-	protected String getStanceInfo() { 
-		StringBuilder builder = new StringBuilder();
-		builder.append("Usable in " + usableStance.getLabel() + " stance.\n");
-		builder.append("Results in " + resultingStance.getLabel() + " stance.\n");
-		return builder.toString();
-	}
-	
-	protected String getBonusInfo() {
-		StringBuilder builder = new StringBuilder();
-		for (OrderedMap.Entry<BonusCondition, Bonus> bonus : bonuses.entries()) {
-			builder.append(bonus.key.getDescription() + "\n");
-			builder.append(bonus.value.getDescription());
-		}
-		return builder.toString();
-	}
-	
-	protected String getDescription() {
+	protected String getExpandedInfo() { 
 		StringBuilder builder = new StringBuilder();
 		if (doesDamage) {
 			builder.append("Deals" + (powerMod > 0 ? " +" + powerMod : powerMod < 0 ? " " + powerMod : "") + " damage, improved by " + (spellEffect != null ? "MAG" : "STR") + ".\n");
@@ -191,12 +175,33 @@ public class TechniqueBuilder {
 			else {
 				builder.append("Increases stamina costs and reduces stamina regen, duration improved by MAG.\n");
 			}
-		}
-			
+		}	
 		if (!causesBleed) {
 			builder.append("Will not cause bleed even with a sharp weapon.\n");
 		}
-		
+		if (knockdown > 0) {
+			builder.append("Causes " + (knockdown > 1.6 ? "heavy" : knockdown > 1.1 ? "medium" : "light") + " knockdown.\n");
+		}
+		if (armorSunder > 0) {
+			builder.append("Causes " + (armorSunder > 1.6 ? "heavy" : armorSunder > 1.1 ? "medium" : "light") + " armor sundering.\n");
+		}
+		if (gutCheck > 0) {
+			builder.append("Causes " + (armorSunder > 1.6 ? "heavy" : armorSunder > 1.1 ? "medium" : "light") + " enemy stamina destruction.\n");
+		}
+		return builder.toString();
+	}
+	
+	protected String getBonusInfo() {
+		StringBuilder builder = new StringBuilder();
+		for (OrderedMap.Entry<BonusCondition, Bonus> bonus : bonuses.entries()) {
+			builder.append(bonus.key.getDescription() + "\n");
+			builder.append(bonus.value.getDescription());
+		}
+		return builder.toString();
+	}
+	
+	protected String getDescription() {
+		StringBuilder builder = new StringBuilder();
 		if (sex.getAssTeasing() > 0) {
 			int totalAssTeasing = sex.getAssTeasing() + powerMod;
 			builder.append("Seduces the target into wanting to fuck your ass, with a power of " + totalAssTeasing + ", improved by CHR.\n");
@@ -213,7 +218,6 @@ public class TechniqueBuilder {
 			int totalMouthTeasing = sex.getMouthTeasing() + powerMod;
 			builder.append("Seduces the target into wanting to get fucked in the mouth, with a power of " + totalMouthTeasing + ", improved by CHR.\n");
 		}
-		
 		if (selfSex.getAssTeasing() > 0) {
 			builder.append("Arouses you into wanting to fuck someone's ass, with a power of " + selfSex.getAssTeasing() + ".\n");
 		}
@@ -226,7 +230,6 @@ public class TechniqueBuilder {
 		if (selfSex.getMouthBottomTeasing() > 0) {
 			builder.append("Arouses you into wanting to get fucked in the mouth, with a power of " + selfSex.getMouthBottomTeasing() + ".\n");
 		}
-		
 		if (blockable) {
 			builder.append("Can be blocked.\n");
 		}
@@ -260,16 +263,6 @@ public class TechniqueBuilder {
 		if (forceStance != null) {
 			builder.append("Forces enemy into " + forceStance.getLabel() + " stance.\n");
 		}
-		if (knockdown > 0) {
-			builder.append("Causes " + (knockdown > 1.6 ? "heavy" : knockdown > 1.1 ? "medium" : "light") + " knockdown.\n");
-		}
-		if (armorSunder > 0) {
-			builder.append("Causes " + (armorSunder > 1.6 ? "heavy" : armorSunder > 1.1 ? "medium" : "light") + " armor sundering.\n");
-		}
-		if (gutCheck > 0) {
-			builder.append("Causes " + (armorSunder > 1.6 ? "heavy" : armorSunder > 1.1 ? "medium" : "light") + " enemy stamina destruction.\n");
-		}
-		
 		return builder.toString();
 	}
 }

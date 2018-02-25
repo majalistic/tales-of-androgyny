@@ -827,7 +827,7 @@ public class SkillSelectionScene extends Scene {
 			if (technique != null) {
 				stanceTransition.setTransition(technique.getTrait().getUsableStance(), technique.getTrait().getResultingStance());
 				stanceTransition.addAction(Actions.show());
-				skillDisplay.setText(technique.getTrait().getLightDescription());
+				skillDisplay.setText(technique.getTrait().getDescription());
 				skillFlavor.setText(technique.getFlavorText());
 				bonusDisplay.setText(technique.getTrait().getBonusInfo());
 				consoleName.setText(technique.getTrait().getName());
