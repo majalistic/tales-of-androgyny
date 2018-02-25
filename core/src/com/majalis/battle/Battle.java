@@ -273,18 +273,12 @@ public class Battle extends Group{
 		slash.setState(1);	
 		
 		this.addActor(uiGroup);
-		console = new Label(consoleText, skin);
-		console.setWrap(true);
-		console.setColor(Color.BLACK);
-		console.setAlignment(Align.top);
+		console = initLabel(consoleText, skin, true, Align.top, Color.BLACK);
 		ScrollPane pane = (ScrollPane) initActor(new ScrollPane(console), uiGroup, consoleXPos + 50, 50, 625, 350);
 		pane.setScrollingDisabled(true, false);
 		pane.setOverscroll(false, false);
 		
-		dialog = new Label(dialogText, skin);
-		dialog.setWrap(true);
-		dialog.setColor(Color.PURPLE);
-		dialog.setAlignment(Align.top);
+		dialog = initLabel(dialogText, skin, true, Align.top, Color.PURPLE);
 		ScrollPane paneDialog = (ScrollPane) initActor(new ScrollPane(dialog), dialogGroup, consoleXPos + 150, 350, 400, 220);
 		paneDialog.setScrollingDisabled(true, false);
 
@@ -293,24 +287,15 @@ public class Battle extends Group{
 			dialogGroup.addAction(hide());
 		}
 		
-		skillDisplay = new Label("", skin);
-		skillDisplay.setWrap(true);
-		skillDisplay.setColor(Color.BLACK);
-		skillDisplay.setAlignment(Align.top);
+		skillDisplay = initLabel("", skin, true, Align.top, Color.BLACK);
 		Table pane2 = (Table) initActor(new Table(), hoverGroup, hoverXPos + 80, hoverYPos - 155, 600, 700);
 		pane2.align(Align.top);
 		pane2.add(skillDisplay).width(600).row();
 		
-		bonusDisplay = new Label("", skin);
-		bonusDisplay.setWrap(true);
-		bonusDisplay.setColor(Color.FOREST);
-		bonusDisplay.setAlignment(Align.top);
+		bonusDisplay = initLabel("", skin, true, Align.top, Color.FOREST);
 		pane2.add(bonusDisplay).width(600).row();
 		
-		penaltyDisplay = new Label("", skin);
-		penaltyDisplay.setWrap(true);
-		penaltyDisplay.setColor(Color.RED);
-		penaltyDisplay.setAlignment(Align.top);
+		penaltyDisplay = initLabel("", skin, true, Align.top, Color.RED);
 		pane2.add(penaltyDisplay).width(600);
 		hideHoverGroup();
 		checkEndBattle();
@@ -910,6 +895,14 @@ public class Battle extends Group{
 		newImage.setBounds(x, y, width, height);
 		uiGroup.addActor(newImage);
 		return newImage;
+	}
+	
+	private Label initLabel(String value, Skin skin, boolean wrap, int alignment, Color color) {
+		Label label = new Label(value, skin);
+		label.setWrap(wrap);
+		label.setAlignment(alignment);
+		label.setColor(color);
+		return label;
 	}
 	
 	private Label initLabel(String value, Skin skin, Color color, float x, float y) {
