@@ -131,12 +131,22 @@ public class Attack {
 	public Item getItem() { return useItem; }
 	public int getClimaxVolume() { return user.getClimaxVolume(); }
 	public int plugRemove() { return plugRemove; }	
+
+	public String getDescription() {
+		String description = "";
+		if (!isSuccessful()) { description += "This skill is predicted to be ineffective."; }
+		if (getDamage() > 0) { description += "Predicted damage: " + getDamage() + "\n"; }
+		if (getForce() > 0) { description += "Predicted force: " + getForce() + "\n"; }
+		if (getArmorSunder() > 0) { description += "Predicted armor damage: " + getArmorSunder() + "\n"; }
+		if (getBleeding() > 0) { description += "Predicted bleed: " + getBleeding() + "\n"; }
+		if (isHealing()) { description += "Predicted self-healing: " + getHealing() + "\n"; }
+		return description;
+	}
+
 	public enum AttackHeight {
 		NONE,
 		LOW,
 		MEDIUM,
 		HIGH
 	}
-
-	
 }

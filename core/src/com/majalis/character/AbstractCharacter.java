@@ -1305,6 +1305,8 @@ public abstract class AbstractCharacter extends Actor {
 	private boolean targetWrestlable(AbstractCharacter target) { return target.enemyType == null || target.enemyType.canWrestle(); }
 	private boolean targetRideable(AbstractCharacter target) { return target.enemyType == null || target.enemyType.canBeRidden(); }
 	
+	public Technique getEmptyTechnique(AbstractCharacter target) { return new Technique(Techniques.DO_NOTHING.getTrait(), getCurrentState(target), 1); }
+	
 	protected Array<Techniques> getDefaultTechniqueOptions(AbstractCharacter target) {
 		Array<Techniques> possibles = new Array<Techniques>();
 		switch(stance) {

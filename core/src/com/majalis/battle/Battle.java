@@ -749,6 +749,8 @@ public class Battle extends Group{
 		button.setStyle(style);
 	}
 	
+	private String getAttackInfo(Array<Attack> attacks) { return attacks.size == 0 ? "" : attacks.get(0).getDescription(); }
+	
 	private void displayTechniqueOptions() {
 		techniquePane.clearActions();
 		techniqueTable.clear();
@@ -757,6 +759,7 @@ public class Battle extends Group{
 		
 		for (int ii = 0; ii < options.size; ii++) {
 			Technique option = options.get(ii);
+			Array<Attack> optionAttacks = option.resolve(enemy.getEmptyTechnique(character));
 			SkillButton button = new SkillButton(option.getTechniqueName() + (ii >= POSSIBLE_KEYS_CHAR.length ? "" : " ("+POSSIBLE_KEYS_CHAR[ii]+")"), skin, assetManager.get(option.getStance().getTexture()));
 			techniqueTable.add(button).size(440, 76).row();
 			optionButtons.add(button);
@@ -769,7 +772,7 @@ public class Battle extends Group{
 				changeButtonColor(button, Color.RED);
 			}
 			else if (character.lowStaminaOrStability(option)) { changeButtonColor(button, Color.ORANGE); }
-			button.addListener(getListener(option, (outOfStamina && !character.getStance().isIncapacitatingOrErotic() ? "THIS WILL CAUSE YOU TO COLLAPSE!\n" : outOfStability && !character.getStance().isIncapacitatingOrErotic() ? "THIS WILL CAUSE YOU TO LOSE YOUR FOOTING!\n" : "") + option.getTechniqueDescription(), option.getBonusDescription(), ii));
+			button.addListener(getListener(option, (outOfStamina && !character.getStance().isIncapacitatingOrErotic() ? "THIS WILL CAUSE YOU TO COLLAPSE!\n" : outOfStability && !character.getStance().isIncapacitatingOrErotic() ? "THIS WILL CAUSE YOU TO LOSE YOUR FOOTING!\n" : "") + getAttackInfo(optionAttacks) + option.getTechniqueDescription(), option.getBonusDescription(), ii));
 		}
 		techniqueTable.setFillParent(false);
 		techniqueTable.align(Align.top);
@@ -822,7 +825,6 @@ public class Battle extends Group{
 		Array<Attack> attacksForFirstCharacter = doAttacks(secondCharacter, secondTechnique.resolve(firstTechnique));
 		Array<Attack> attacksForSecondCharacter = doAttacks(firstCharacter, firstTechnique.resolve(secondTechnique));
 		Array<MutationResult> playerResults = new Array<MutationResult>();
-		
 		
 		// the following stuff needs to happen on an asynchronous basis	- the attacks must be received immediately, but all screen printing and sound playing should not be immediate	
 		
