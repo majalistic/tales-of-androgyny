@@ -792,6 +792,8 @@ public class PlayerCharacter extends AbstractCharacter {
 		return null;
 	}
 	
+	protected void flushEggs() { ass.emptyEggs(); }
+	
 	@Override
 	protected Array<MutationResult> fillMouth(int mouthful) {
 		super.fillMouth(mouthful);
@@ -1204,24 +1206,32 @@ public class PlayerCharacter extends AbstractCharacter {
 	public void setQuestStatus(QuestType type, int status) {
 		if (type == QuestType.MERMAID && status == 3) { 
 			eggtick = 0; 
+			receiveEggs();
 			if (questFlags.get(QuestType.GOBLIN.toString(), 0) == 2) questFlags.put(QuestType.GOBLIN.toString(), 1);
 			eventLog.add("You were impregnated by a mermaid on the " + getTimeDescription() + "!");
 		}
 		if (type == QuestType.SPIDER && status == 2) { 
 			eggtick = 0; 
+			receiveEggs();
 			if (questFlags.get(QuestType.GOBLIN.toString(), 0) == 2) questFlags.put(QuestType.GOBLIN.toString(), 1); 
 			eventLog.add("You were impregnated by a spider on the " + getTimeDescription() + "!");
 		}
+		if (type == QuestType.GOBLIN && status == 2) {
+			receiveEggs();
+		}
 		if (type == QuestType.MERMAID && status == 7) { 
 			eggtick = 0; 
+			flushEggs();
 			eventLog.add("You gave birth to mermaid offspring on the " + getTimeDescription() + "!");
 		}
 		if (type == QuestType.SPIDER && status == 6) { 
 			eggtick = 0; 
+			flushEggs();
 			eventLog.add("You gave birth to spider offspring on the " + getTimeDescription() + "!");
 		}
 		if (type == QuestType.GOBLIN && (status == 9 || status == 10 || status == 11)) { 
 			eggtick = 0; 
+			flushEggs();
 			eventLog.add("You gave birth to goblin's offspring on the " + getTimeDescription() + "!");
 		}
 		questFlags.put(type.toString(), status);

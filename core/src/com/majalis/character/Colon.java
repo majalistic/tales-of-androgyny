@@ -3,6 +3,7 @@ package com.majalis.character;
 public class Colon {
 	private ColonContents contents;
 	private int cum;
+	private int eggs;
 	
 	protected Colon() {
 		contents = ColonContents.EMPTY;
@@ -29,6 +30,11 @@ public class Colon {
 		this.cum += cumOverflow;
 		setContents();
 	}
+	
+	protected void fillWithEggs(int eggOverflow) {
+		this.eggs += eggOverflow;
+		setContents();
+	}
 
 	protected int drain(int cumUnderflow) {
 		cum -= cumUnderflow;
@@ -42,10 +48,15 @@ public class Colon {
 	}
 	
 	private void setContents() {
-		contents = contents == ColonContents.EMPTY && cum > 0 ? ColonContents.FILLED_WITH_CUM : contents == ColonContents.FILLED_WITH_CUM && cum == 0 ? ColonContents.EMPTY : contents; 
+		contents = eggs > 0 ? ColonContents.FILLED_WITH_EGGS : contents == ColonContents.EMPTY && cum > 0 ? ColonContents.FILLED_WITH_CUM : cum == 0 && eggs == 0 ? ColonContents.EMPTY : contents; 
 	}
 	
 	private enum ColonContents { // Your colon is currently full of cum.  Had a good time?, Your colon is currently full of giant dick.  Did you really need to check?
 		EMPTY, FILLED_WITH_EGGS, FILLED_WITH_CUM, FILL_WITH_COCK // only for very long cocks
+	}
+
+	public void flushEggs() {
+		// TODO Auto-generated method stub
+		
 	}
 }

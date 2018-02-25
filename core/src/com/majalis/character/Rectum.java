@@ -26,7 +26,7 @@ public class Rectum {
 		}
 	} 
 	
-	protected void fillButtWithEggs(int eggs) {
+	protected void fillWithEggs(int eggs) {
 		this.eggs += eggs; 
 		if (eggs <= 0) {
 			eggs = 0;
@@ -36,6 +36,28 @@ public class Rectum {
 			contents = RectumContents.EGGED;
 		}
 	}
+	
+	protected int getCumOverflow() {
+		int overflow = cum - 20;
+		if (overflow > 0) {
+			cum = 20;
+			return overflow;
+		}
+		return 0;
+	}
+
+	protected int getEggOverflow() {
+		int overflow = eggs - 20;
+		if (overflow > 0) {
+			eggs = 20;
+			return overflow;
+		}
+		return 0;
+	}
+	
+	protected int getCumUnderflow() { return 20 - cum; }
+	
+	protected void flushEggs() { fillWithEggs(-eggs); }
 	
 	protected void togglePlug() { contents = contents == RectumContents.PLUGGED ? RectumContents.EMPTY : RectumContents.PLUGGED; }
 	
@@ -71,18 +93,5 @@ public class Rectum {
 	
 	private enum RectumTightness {
 		NORMAL, LOOSE, BAGGY
-	}
-
-	public int getCumOverflow() {
-		int overflow = cum - 20;
-		if (overflow > 0) {
-			cum = 20;
-			return overflow;
-		}
-		return 0;
-	}
-
-	public int getCumUnderflow() {
-		return 20 - cum;
 	}
 }

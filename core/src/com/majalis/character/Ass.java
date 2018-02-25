@@ -17,7 +17,10 @@ public class Ass {
 		colon.fillWithCum(rectum.getCumOverflow());
 		rectum.fillWithCum(colon.drain(rectum.getCumUnderflow()));
 	} 
-	protected void fillButtWithEggs(int eggs) { rectum.fillButtWithEggs(eggs); }	
+	protected void fillButtWithEggs(int eggs) { 
+		rectum.fillWithEggs(eggs);
+		colon.fillWithEggs(rectum.getEggOverflow());
+	}	
 	protected void receiveSex(SexualExperience sex) { sphincter.receiveSex(sex); }
 	protected void tick(int time) {
 		sphincter.tick(time); 
@@ -33,4 +36,5 @@ public class Ass {
 	public Sphincter getSphincter() { return sphincter; }
 	public Rectum getRectum() { return rectum; }
 	public Colon getColon() { return colon; }
+	public void emptyEggs() { rectum.flushEggs(); colon.flushEggs(); }
 }
