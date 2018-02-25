@@ -74,6 +74,8 @@ public class Battle extends Group{
 
 	private final ObjectMap<AssetEnum, Sound> soundMap;
 	
+	// basically all of this should go away
+	
 	private final Image hoverImage;
 	private final Image characterPortrait;
 	private final Group hoverGroup;

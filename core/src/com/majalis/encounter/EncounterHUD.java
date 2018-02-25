@@ -12,7 +12,6 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -23,7 +22,7 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.IntArray;
 import com.badlogic.gdx.utils.OrderedMap;
 import com.majalis.asset.AssetEnum;
-import com.majalis.character.AbstractCharacter;
+import com.majalis.character.HealthBar;
 import com.majalis.character.PlayerCharacter;
 import com.majalis.scenes.Scene;
 import com.majalis.screens.TimeOfDay;
@@ -84,7 +83,7 @@ public class EncounterHUD extends Group {
 		saveButton = new TextButton("Save", skin);
 		skipButton = new TextButton("Skip", skin);
 		autoplayButton = new TextButton("Auto", skin);
-		dateLabel = new DateLabel(character);
+		dateLabel = new DateLabel(character, skin);
 		if (Gdx.app.getPreferences("tales-of-androgyny-preferences").getBoolean("autoplay", false)) autoplayButton.setColor(Color.YELLOW);
 
 		dateLabel.setPosition(1650, 325);
@@ -134,7 +133,7 @@ public class EncounterHUD extends Group {
 	
 		characterGroup = new Group();
 		this.addActor(characterGroup);
-		HealthBar healthBar = new HealthBar(character, assetManager.get(AssetEnum.BATTLE_SKIN.getSkin()));
+		HealthBar healthBar = new HealthBar(character, assetManager, assetManager.get(AssetEnum.BATTLE_SKIN.getSkin()));
 		healthBar.setPosition(25, 950);		
 		characterGroup.addActor(healthBar);
 		
@@ -231,39 +230,9 @@ public class EncounterHUD extends Group {
 		}
 	}
 
-	private class HealthBar extends Group {
-		private final AbstractCharacter character;
-		private final ProgressBar bar;
-		private final Image icon;
-		private final Label label;
-		private HealthBar(AbstractCharacter character, Skin skin) {
-			this.character = character;
-			bar = new ProgressBar(0, 1, .05f, false, skin);
-			bar.setWidth(350);
-			bar.setValue(character.getHealthPercent());
-			this.addActor(bar);
-			
-			icon = new Image(assetManager.get(character.getHealthDisplay()));
-			icon.setPosition(3, 7.5f);
-			this.addActor(icon);
-			
-			label = new Label(character.getCurrentHealth() + " / " + character.getMaxHealth(), skin);
-			label.setColor(Color.BROWN);
-			label.setPosition(75, 8);
-			this.addActor(label);
-		}
-		@Override
-		public void draw(Batch batch, float parentAlpha) {
-			bar.setValue(character.getHealthPercent());
-			icon.setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(character.getHealthDisplay()))));
-			label.setText(character.getCurrentHealth() + " / " + character.getMaxHealth());
-			super.draw(batch, parentAlpha);
-		}
-	}
-	
-	private class DateLabel extends Label {
+	private static class DateLabel extends Label {
 		private final PlayerCharacter character;
-		private DateLabel(PlayerCharacter character) {
+		private DateLabel(PlayerCharacter character, Skin skin) {
 			super("Day: " + (character.getTime() / 6 + 1) + "\n" + TimeOfDay.getTime(character.getTime()).getDisplay(), skin);
 			this.character = character;
 		}
