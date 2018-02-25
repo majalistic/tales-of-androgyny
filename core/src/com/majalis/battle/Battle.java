@@ -20,7 +20,6 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -40,11 +39,14 @@ import com.majalis.character.AbstractCharacter.AttackResult;
 import com.majalis.character.AbstractCharacter.Stability;
 import com.majalis.character.Stance;
 import com.majalis.character.Attack.Status;
+import com.majalis.character.BalanceBar;
 import com.majalis.character.Attack;
 import com.majalis.character.EnemyCharacter;
 import com.majalis.character.GrappleStatus;
 import com.majalis.character.HealthBar;
+import com.majalis.character.ManaBar;
 import com.majalis.character.PlayerCharacter;
+import com.majalis.character.StaminaBar;
 import com.majalis.character.Technique;
 import com.majalis.encounter.Background;
 import com.majalis.save.MutationResult;
@@ -86,28 +88,13 @@ public class Battle extends Group{
 	private final Label skillDisplay;
 	private final Label bonusDisplay;
 	private final Label penaltyDisplay;
-	private final ProgressBar characterStamina;
-	private final ProgressBar characterBalance;
-	private final ProgressBar characterMana;
-	private final ProgressBar enemyStamina;
-	private final ProgressBar enemyBalance;
 	private final Image characterArousal;
 	private final Image enemyArousal;
 	private final Image characterBelly;
-	private final Image staminaIcon;
-	private final Image balanceIcon;
-	private final Image manaIcon;
 	private final Image masculinityIcon;
-	private final Image enemyStaminaIcon;
-	private final Image enemyBalanceIcon;
 	private final Image bloodImage;
 	private final Image enemyBloodImage;
 	
-	private final Label staminaLabel;
-	private final Label balanceLabel;
-	private final Label manaLabel;
-	private final Label enemyStaminaLabel;
-	private final Label enemyBalanceLabel;
 	private final Label enemyWeaponLabel;
 	private final Label armorLabel;
 	private final Label enemyArmorLabel;
@@ -293,52 +280,25 @@ public class Battle extends Group{
 		enemyLegwearDiff = initLabel("", skin, Color.WHITE, 1547, 770 + yAdjust);
 		enemyUnderwearDiff = initLabel("", skin, Color.WHITE, 1547, 750 + yAdjust);
 		enemyBleedDiff = initLabel("", skin, Color.WHITE, 1595, 800 + yAdjust);
-		
-		initActor(new HealthBar(character, assetManager, skin), uiGroup, barX, 1035);
-		initActor(new GrappleDisplay(character, assetManager), uiGroup, 385, 501); 
 	
-		characterStamina = initBar(0, 1, .05f, false, skin, 350, character.getStaminaPercent(), barX, 990);
-		staminaIcon = initImage(assetManager.get(character.getStaminaDisplay()), barX + 7.5f, 997.5f);
-		staminaLabel = initLabel(character.getCurrentStamina() + " / " + character.getMaxStamina(), skin, Color.BROWN, barX + 75, 998);
-
-		characterBalance = initBar(0, 1, .05f, false, skin, 350, character.getBalancePercent(), barX, 945);
-		balanceIcon = initImage(assetManager.get(character.getBalanceDisplay()), barX + 3, 952.5f);
-		balanceLabel = initLabel(character.getStability().toString(), skin, Color.BROWN, barX + 75, 953);
-		
-		if (character.hasMagic()) {
-			characterMana = initBar(0, 1, .05f, false, skin, 350, character.getManaPercent(), barX, 900);
-			manaIcon = initImage(assetManager.get(character.getManaDisplay()), barX + 3, 912.5f);
-			manaLabel = initLabel(character.getCurrentMana() + " / " + character.getMaxMana(), skin, Color.BROWN, barX + 75, 908);
-		}
-		else {
-			characterMana = null;
-			manaIcon = null;
-			manaLabel = null;
-		}
+		initActor(new HealthBar(character, assetManager, skin), uiGroup, barX, 1035);
+		initActor(new StaminaBar(character, assetManager, skin), uiGroup, barX, 990);
+		initActor(new BalanceBar(character, assetManager, skin), uiGroup, barX, 945);
+		if (character.hasMagic()) initActor(new ManaBar(character, assetManager, skin), uiGroup, barX, 900);
 		
 		initActor(new HealthBar(enemy, assetManager, skin), uiGroup, enemyBarX, 1035);
-				
-		enemyStamina = initBar(0, 1, .05f, false, skin, 350, enemy.getStaminaPercent(), enemyBarX, 990);
-		enemyStaminaIcon = initImage(assetManager.get(enemy.getStaminaDisplay()), enemyBarX + 7.5f, 997.5f);
-		enemyStaminaLabel = initLabel(enemy.getCurrentStamina() + " / " + enemy.getMaxStamina(), skin, Color.BROWN, enemyBarX + 75, 998);
-
+		Actor enemyStamina = initActor(new StaminaBar(enemy, assetManager, skin), uiGroup, enemyBarX, 990);
 		if (character.getBattlePerception() < 4) {
 			enemyStamina.addAction(Actions.hide());
-			enemyStaminaIcon.addAction(Actions.hide());
-			enemyStaminaLabel.addAction(Actions.hide());
-			enemyStaminaDiff.addAction(Actions.hide());			
+			enemyStaminaDiff.addAction(Actions.hide());	
 		}
-		
-		enemyBalance = initBar(0, 1, .05f, false, skin, 350, enemy.getBalancePercent(), enemyBarX, 945);
-		enemyBalanceIcon = initImage(assetManager.get(enemy.getBalanceDisplay()), enemyBarX + 3, 952.5f);
-		enemyBalanceLabel = initLabel(enemy.getStability().toString(), skin, Color.BROWN, enemyBarX + 75, 953);
-		
+		Actor enemyBalance = initActor(new BalanceBar(enemy, assetManager, skin), uiGroup, barX, 945);
 		if (character.getBattlePerception() < 3) {
 			enemyBalance.addAction(Actions.hide());
-			enemyBalanceIcon.addAction(Actions.hide());
-			enemyBalanceLabel.addAction(Actions.hide());
-			enemyBalanceDiff.addAction(Actions.hide());
+			enemyBalanceDiff.addAction(Actions.hide());	
 		}
+		
+		initActor(new GrappleDisplay(character, assetManager), uiGroup, 765, 1005); 
 		
 		enemyWeaponLabel = initLabel("Weapon: " + (enemy.getWeapon() != null ? enemy.getWeapon().getName() : "Unarmed"), skin, Color.GOLDENROD, 1578, 900);	
 		
@@ -623,8 +583,8 @@ public class Battle extends Group{
 		
 		characterBelly = initImage(assetManager.get(character.getCumInflationPath()), 0, 850, 100, 100); 
 		
-		initStanceActor(new StanceActor(character), 600.5f, 880, 150, 172.5f);
-		initStanceActor(new StanceActor(enemy), 1305, 880, 150, 172.5f);
+		initActor(new StanceActor(character), uiGroup, 600.5f, 880, 150, 172.5f);
+		initActor(new StanceActor(enemy), uiGroup, 1305, 880, 150, 172.5f);
 		
 		hoverGroup.addAction(Actions.visible(false));
 		uiGroup.addActor(hoverGroup);
@@ -1032,20 +992,6 @@ public class Battle extends Group{
 		setDiffLabel(enemyUnderwearDiff, enemy.getUnderwearScore() - oldEnemyUnderwear);
 		setDiffLabel(enemyBleedDiff, enemy.getBleed() - oldEnemyBleed, true);
 		
-		characterStamina.setValue(character.getStaminaPercent());
-		characterBalance.setValue(character.getBalancePercent());
-		if (character.hasMagic()) {
-			characterMana.setValue(character.getManaPercent());
-			manaLabel.setText(character.getCurrentMana() + " / " + character.getMaxMana());
-			manaIcon.setDrawable(getDrawable(character.getManaDisplay()));
-		}
-		
-		enemyStamina.setValue(enemy.getStaminaPercent());
-		enemyBalance.setValue(enemy.getBalancePercent());
-		staminaLabel.setText(character.getCurrentStamina() + " / " + character.getMaxStamina());
-		balanceLabel.setText(character.getStability().toString());
-		enemyStaminaLabel.setText(enemy.getCurrentStamina() + " / " + enemy.getMaxStamina());
-		enemyBalanceLabel.setText(enemy.getStability().toString());
 		enemyWeaponLabel.setText("Weapon: " + (enemy.getWeapon() != null ? enemy.getWeapon().getName() : "Unarmed"));
 		armorLabel.setText("" + character.getArmorScore());
 		enemyArmorLabel.setText("" + enemy.getArmorScore());	
@@ -1143,12 +1089,7 @@ public class Battle extends Group{
 		
 		characterBelly.setDrawable(getDrawable(character.getCumInflationPath()));
 		characterArousal.setDrawable(getDrawable(character.getLustImagePath()));
-		enemyArousal.setDrawable(getDrawable(enemy.getLustImagePath()));
-		staminaIcon.setDrawable(getDrawable(character.getStaminaDisplay()));
-		balanceIcon.setDrawable(getDrawable(character.getBalanceDisplay()));
-		enemyStaminaIcon.setDrawable(getDrawable(enemy.getStaminaDisplay()));
-		enemyBalanceIcon.setDrawable(getDrawable(enemy.getBalanceDisplay()));
-				
+		enemyArousal.setDrawable(getDrawable(enemy.getLustImagePath()));		
 		masculinityIcon.setDrawable(getDrawable(character.getMasculinityPath()));	
 		
 		// these methods use short circuit evaluation, because the hasSeenXTutorial methods also set that respective flag to prevent repeats - should probably make this less fragile eventually
@@ -1401,19 +1342,11 @@ public class Battle extends Group{
         return selectedTechnique;
 	}
 	
-	private Actor initActor(Actor actor, Group group, float x, float y) { 
+	private Actor initActor(Actor actor, Group group, float x, float y) { return initActor(actor, group, x, y, actor.getWidth(), actor.getHeight()); }	
+	private Actor initActor(Actor actor, Group group, float x, float y, float width, float height) {
 		group.addActor(actor);
-		actor.setPosition(x, y);
+		actor.setBounds(x, y, width, height);
 		return actor;
-	}
-	
-	private ProgressBar initBar(float min, float max, float stepSize, boolean vertical, Skin skin, int width, float value, float x, float y) {
-		ProgressBar newBar = new ProgressBar(min, max, stepSize, vertical, skin);
-		newBar.setWidth(width);
-		newBar.setPosition(x, y);
-		newBar.setValue(value);
-		uiGroup.addActor(newBar);
-		return newBar;
 	}
 	
 	private Image initImage(Texture texture, float x, float y) { return initImage(texture, x, y, texture.getWidth(), texture.getHeight()); }
@@ -1431,12 +1364,6 @@ public class Battle extends Group{
 		newLabel.setPosition(x, y);
 		uiGroup.addActor(newLabel);
 		return newLabel;
-	}
-	
-	private StanceActor initStanceActor(StanceActor actor, float x, float y, float width, float height) {
-		uiGroup.addActor(actor);
-		actor.setBounds(x, y, width, height);
-		return actor;
 	}
 	
 	public enum Outcome {
