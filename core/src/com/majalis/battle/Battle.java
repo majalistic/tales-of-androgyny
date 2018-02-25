@@ -37,6 +37,7 @@ import com.majalis.asset.AssetEnum;
 import com.majalis.character.AbstractCharacter;
 import com.majalis.character.AbstractCharacter.AttackResult;
 import com.majalis.character.AbstractCharacter.Stability;
+import com.majalis.character.Armor;
 import com.majalis.character.Stance;
 import com.majalis.character.Attack.Status;
 import com.majalis.character.BalanceBar;
@@ -72,10 +73,9 @@ public class Battle extends Group{
 	private final Table techniqueTable;
 	private final Skin skin;
 	private final Array<MutationResult> battleResults;
-	
 	private final AnimatedImage slash;
-
 	private final ObjectMap<AssetEnum, Sound> soundMap;
+	private final Group uiGroup;
 	
 	// basically all of this should go away
 	
@@ -96,25 +96,9 @@ public class Battle extends Group{
 	private final Image enemyBloodImage;
 	
 	private final Label enemyWeaponLabel;
-	private final Label armorLabel;
-	private final Label enemyArmorLabel;
-	private final Label legwearLabel;
-	private final Label enemyLegwearLabel;
-	private final Label underwearLabel;
-	private final Label enemyUnderwearLabel;
-	
-	private final Texture nullTexture;
+
 	private final Texture armorTexture;
 	private final Texture armorBrokenTexture;
-	
-	private final Image armorArmor;
-	private final Image enemyArmorArmor;
-	private final Image underwearArmor;
-	private final Image enemyUnderwearArmor;
-	private final Image legwearArmor;
-	private final Image enemyLegwearArmor;
-	private final Image shieldArmor;
-	private final Image enemyShieldArmor;
 	
 	private final Label bloodLabel;
 	private final Label enemyBloodLabel;
@@ -135,13 +119,12 @@ public class Battle extends Group{
 	private final Label enemyLegwearDiff;
 	private final Label enemyUnderwearDiff;
 	private final Label enemyBleedDiff;
-	
 	private final AssetEnum musicPath;
 	
 	private SkillText enemySkill;
 	
-	private String consoleText;
-	private String dialogText;
+	private String consoleText; // this can just be stored in the label
+	private String dialogText; // this can just be stored in the label
 	private Array<TextButton> optionButtons;
 	private Technique selectedTechnique;
 	private Technique enemySelectedTechnique;
@@ -151,8 +134,50 @@ public class Battle extends Group{
 	private boolean battleOutcomeDecided;
 	private boolean battleOver;
 
-	private Group uiGroup;
 	private boolean uiHidden;
+	
+	private class ArmorDisplay extends Group {
+		private final Armor armor;
+		private final Image display;
+		private final Label value;
+		public ArmorDisplay (AbstractCharacter character, Armor armor) {
+			this.armor = armor;
+			if (armor == null) {
+				addAction(hide());
+				display = new Image();
+				value = new Label("", skin);
+			}
+			else {
+				display = new Image(armor.getDestructionLevel() > 0 ? armorBrokenTexture : armorTexture);
+				display.setSize((armorBrokenTexture.getWidth() / (armorBrokenTexture.getHeight() / (1.0f * 50))), 50);
+				value = new Label("" + (armor.isShield() ? "" : armor.getShockAbsorption()), skin);
+				value.setPosition(getX() + 12, getY() + 10);
+				value.setColor(Color.BROWN);
+				this.addListener(new ClickListener() {
+			        @Override
+			        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
+						skillDisplay.setText(character.getArmorStatus(armor));
+						bonusDisplay.setText("");
+						penaltyDisplay.setText("");
+						showHoverGroup();
+					}
+					@Override
+			        public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
+						hideHoverGroup();
+					}
+			    });
+			}
+			this.addActor(display);
+			this.addActor(value);
+		}
+		
+		public void draw(Batch batch, float parentAlpha) {
+			display.setDrawable(new TextureRegionDrawable(new TextureRegion(armor.getDestructionLevel() > 0 ? armorBrokenTexture : armorTexture)));
+			value.setText("" + (armor.isShield() ? "" : armor.getShockAbsorption()));
+			if (armor.getShockAbsorption() == 0) addAction(hide());
+			super.draw(batch, parentAlpha);
+		}
+	}
 	
 	public Battle(SaveService saveService, AssetManager assetManager, final PlayerCharacter character, final EnemyCharacter enemy, ObjectMap<String, Integer> outcomes, Background battleBackground, Background battleUI, String consoleText, String dialogText, Array<MutationResult> battleResults, AssetEnum musicPath) {
 		this.saveService = saveService;
@@ -231,183 +256,21 @@ public class Battle extends Group{
 		
 		enemyWeaponLabel = initLabel("Weapon: " + (enemy.getWeapon() != null ? enemy.getWeapon().getName() : "Unarmed"), skin, Color.GOLDENROD, 1578, 900);	
 		
-		nullTexture = assetManager.get(AssetEnum.NULL.getTexture());
 		armorTexture = assetManager.get(AssetEnum.ARMOR_0.getTexture());
 		armorBrokenTexture = assetManager.get(AssetEnum.ARMOR_1.getTexture());
 		Texture armorDollTexture = assetManager.get(AssetEnum.ARMOR_DOLL.getTexture());
 		// dolls
 		initImage(armorDollTexture, barX + 150, 700, 250);
 		initImage(armorDollTexture, 1425, 700, 250);
-		// body armor
-		armorArmor = initImage(character.getArmor() == null || character.getArmor().getDestructionLevel() == 0 ? armorTexture : armorBrokenTexture, barX + 224, 823, 50);
-		armorArmor.addListener(new ClickListener() {
-	        @Override
-	        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-				skillDisplay.setText(character.getArmorStatus());
-				bonusDisplay.setText("");
-				penaltyDisplay.setText("");
-				showHoverGroup();
-			}
-			@Override
-	        public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
-				hideHoverGroup();
-			}
-	    });	
-		
-		enemyArmorArmor = initImage(enemy.getArmor() == null || enemy.getArmor().getDestructionLevel() == 0 ? armorTexture : armorBrokenTexture, 1497, 823, 50);
-		enemyArmorArmor.addListener(new ClickListener() {
-	        @Override
-	        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-				skillDisplay.setText(enemy.getArmorStatus());
-				bonusDisplay.setText("");
-				penaltyDisplay.setText("");
-				showHoverGroup();
-			}
-			@Override
-	        public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
-				hideHoverGroup();
-			}
-	    });	
-		// underwear first
-		underwearArmor = initImage(character.getUnderwear() == null || character.getUnderwear().getDestructionLevel() == 0 ? armorTexture : armorBrokenTexture, barX + 224, 750, 50);
-		enemyUnderwearArmor = initImage(enemy.getUnderwear() == null || enemy.getUnderwear().getDestructionLevel() == 0 ? armorTexture : armorBrokenTexture, 1497, 750, 50);
-		// then legwear
-		legwearArmor = initImage(character.getLegwear() == null || character.getLegwear().getDestructionLevel() == 0 ? armorTexture : armorBrokenTexture, barX + 224, 770, 50);
-		legwearArmor.addListener(new ClickListener() {
-	        @Override
-	        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-				skillDisplay.setText(character.getLegwearStatus());
-				bonusDisplay.setText("");
-				penaltyDisplay.setText("");
-				showHoverGroup();
-			}
-			@Override
-	        public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
-				hideHoverGroup();
-			}
-	    });	
-		enemyLegwearArmor = initImage(enemy.getLegwear() == null || enemy.getLegwear().getDestructionLevel() == 0 ? armorTexture : armorBrokenTexture, 1497, 770, 50);
-		enemyLegwearArmor.addListener(new ClickListener() {
-	        @Override
-	        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-				skillDisplay.setText(enemy.getLegwearStatus());
-				bonusDisplay.setText("");
-				penaltyDisplay.setText("");
-				showHoverGroup();
-			}
-			@Override
-	        public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
-				hideHoverGroup();
-			}
-	    });	
-		boolean hasNoShield = character.getShield() == null || character.getShield().getDestructionLevel() == 2;
-		shieldArmor = initImage(hasNoShield ? nullTexture : character.getShield().getDestructionLevel() == 0 ? armorTexture : armorBrokenTexture, barX + 284, 810, 50);
-		if (!hasNoShield) {
-			shieldArmor.addListener(new ClickListener() {
-		        @Override
-		        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-					skillDisplay.setText(character.getShieldStatus());
-					bonusDisplay.setText("");
-					penaltyDisplay.setText("");
-					showHoverGroup();
-				}
-				@Override
-		        public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
-					hideHoverGroup();
-				}
-		    });		
-		}
-		
-		boolean enemyHasNoShield = enemy.getShield() == null || enemy.getShield().getDestructionLevel() == 2;
-		enemyShieldArmor = initImage(enemyHasNoShield ? nullTexture : enemy.getShield().getDestructionLevel() == 0 ? armorTexture : armorBrokenTexture, 1557, 810, 50);
-		if (!enemyHasNoShield) {
-			enemyShieldArmor.addListener(new ClickListener() {
-		        @Override
-		        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-					skillDisplay.setText(enemy.getShieldStatus());
-					bonusDisplay.setText("");
-					penaltyDisplay.setText("");
-					showHoverGroup();
-				}
-				@Override
-		        public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
-					hideHoverGroup();
-				}
-		    });		
-		}
-		
-		armorLabel = initLabel("" + character.getArmorScore(), skin, Color.BROWN, barX + 236, 833);		
-		enemyArmorLabel = initLabel("" + enemy.getArmorScore(), skin, Color.BROWN, 1509, 833);
-		underwearLabel = initLabel("" + character.getUnderwearScore(), skin, Color.BROWN, barX + 236, 760);		
-		enemyUnderwearLabel = initLabel("" + enemy.getUnderwearScore(), skin, Color.BROWN, 1509, 760);	
-		legwearLabel = initLabel("" + character.getLegwearScore(), skin, Color.BROWN, barX + 236, 780);		
-		enemyLegwearLabel = initLabel("" + enemy.getLegwearScore(), skin, Color.BROWN, 1509, 780);
-		
-		if (character.getArmorScore() > 0) {
-			armorArmor.addAction(show());
-			armorLabel.addAction(show());
-		}
-		else {
-			armorArmor.addAction(hide());
-			armorLabel.addAction(hide());
-		}
-		
-		if (enemy.getArmorScore() > 0) {
-			enemyArmorArmor.addAction(show());
-			enemyArmorLabel.addAction(show());
-		}
-		else {
-			enemyArmorArmor.addAction(hide());
-			enemyArmorLabel.addAction(hide());
-		}
- 		
-		if (character.getLegwearScore() > 0) {
-			underwearLabel.addAction(hide());
-			legwearArmor.addAction(show());
-			legwearLabel.addAction(show());
-		}
-		else {
-			underwearArmor.addListener(new ClickListener() {
-		        @Override
-		        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-					skillDisplay.setText(character.getUnderwearStatus());
-					bonusDisplay.setText("");
-					penaltyDisplay.setText("");
-					showHoverGroup();
-				}
-				@Override
-		        public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
-					hideHoverGroup();
-				}
-		    });				
-			underwearLabel.addAction(show());
-			legwearArmor.addAction(hide());
-			legwearLabel.addAction(hide());
-		}
-		
-		if (enemy.getLegwearScore() > 0) {
-			enemyUnderwearLabel.addAction(hide());
-			enemyLegwearArmor.addAction(show());
-			enemyLegwearLabel.addAction(show());
-		}
-		else {
-			enemyUnderwearArmor.addListener(new ClickListener() {
-		        @Override
-		        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-					skillDisplay.setText(enemy.getUnderwearStatus());
-					bonusDisplay.setText("");
-					penaltyDisplay.setText("");
-					showHoverGroup();
-				}
-				@Override
-		        public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
-					hideHoverGroup();
-				}
-		    });	
-			enemyUnderwearLabel.addAction(show());
-			enemyLegwearArmor.addAction(hide());
-			enemyLegwearLabel.addAction(hide());
-		}
+
+		initActor(new ArmorDisplay(character, character.getArmor()), uiGroup, barX + 224, 823);
+		initActor(new ArmorDisplay(enemy, enemy.getArmor()), uiGroup, 1497, 823);
+		initActor(new ArmorDisplay(character, character.getUnderwear()), uiGroup, barX + 224, 750);
+		initActor(new ArmorDisplay(enemy, enemy.getUnderwear()), uiGroup, 1497, 750);
+		initActor(new ArmorDisplay(character, character.getLegwear()), uiGroup, barX + 224, 770);
+		initActor(new ArmorDisplay(enemy, enemy.getLegwear()), uiGroup, 1497, 770);
+		initActor(new ArmorDisplay(character, character.getShield()), uiGroup, barX + 284, 810);
+		initActor(new ArmorDisplay(enemy, enemy.getShield()), uiGroup, 1557, 810);
 		
 		Texture bloodTexture = assetManager.get(AssetEnum.BLEED.getTexture());
 		bloodImage = initImage(bloodTexture, 345, 725, 75);
@@ -880,72 +743,10 @@ public class Battle extends Group{
 		setDiffLabel(enemyBleedDiff, enemy.getBleed() - oldEnemyBleed, true);
 		
 		enemyWeaponLabel.setText("Weapon: " + (enemy.getWeapon() != null ? enemy.getWeapon().getName() : "Unarmed"));
-		armorLabel.setText("" + character.getArmorScore());
-		enemyArmorLabel.setText("" + enemy.getArmorScore());	
-		legwearLabel.setText("" + character.getLegwearScore());
-		enemyLegwearLabel.setText("" + enemy.getLegwearScore());	
-		underwearLabel.setText("" + character.getUnderwearScore());
-		enemyUnderwearLabel.setText("" + enemy.getUnderwearScore());	
 		bloodLabel.setText("" + character.getBleed());
 		enemyBloodLabel.setText("" + enemy.getBleed());	
 		statusLabel.setText(character.getStatusBlurb());
 		enemyStatusLabel.setText(enemy.getStatusBlurb());
-		
-		armorArmor.setDrawable(getDrawable(character.getArmor() == null || character.getArmor().getDestructionLevel() == 0 ? armorTexture : armorBrokenTexture));
-		enemyArmorArmor.setDrawable(getDrawable(enemy.getArmor() == null || enemy.getArmor().getDestructionLevel() == 0 ? armorTexture : armorBrokenTexture));
-		
-		underwearArmor.setDrawable(getDrawable(character.getUnderwear() == null || character.getUnderwear().getDestructionLevel() == 0 ? armorTexture : armorBrokenTexture));
-		enemyUnderwearArmor.setDrawable(getDrawable(enemy.getUnderwear() == null || enemy.getUnderwear().getDestructionLevel() == 0 ? armorTexture : armorBrokenTexture));
-		
-		legwearArmor.setDrawable(getDrawable(character.getLegwear() == null || character.getLegwear().getDestructionLevel() == 0 ? armorTexture : armorBrokenTexture));
-		enemyLegwearArmor.setDrawable(getDrawable(enemy.getLegwear() == null || enemy.getLegwear().getDestructionLevel() == 0 ? armorTexture : armorBrokenTexture));
-		
-		shieldArmor.setDrawable(getDrawable(character.getShield() == null ? nullTexture : character.getShield().getDestructionLevel() == 0 ? armorTexture : character.getShield().getDestructionLevel() == 1 ? armorBrokenTexture : nullTexture));
-		enemyShieldArmor.setDrawable(getDrawable(enemy.getShield() == null ? nullTexture : enemy.getShield().getDestructionLevel() == 0 ? armorTexture : enemy.getShield().getDestructionLevel() == 1 ? armorBrokenTexture : nullTexture));
-	
-		if (character.getLegwearScore() > 0) {
-			underwearLabel.addAction(hide());
-			legwearArmor.addAction(show());
-			legwearLabel.addAction(show());
-		}
-		else {
-			underwearArmor.addListener(new ClickListener() {
-		        @Override
-		        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-					skillDisplay.setText(character.getUnderwearStatus());
-					showHoverGroup();
-				}
-				@Override
-		        public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
-					hideHoverGroup();
-				}
-		    });				
-			underwearLabel.addAction(show());
-			legwearArmor.addAction(hide());
-			legwearLabel.addAction(hide());
-		}
-		
-		if (enemy.getLegwearScore() > 0) {
-			enemyUnderwearLabel.addAction(hide());
-			enemyLegwearArmor.addAction(show());
-			enemyLegwearLabel.addAction(show());
-		}
-		else {
-			enemyUnderwearArmor.addListener(new ClickListener() {
-		        @Override
-		        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-					skillDisplay.setText(enemy.getUnderwearStatus());
-					showHoverGroup();
-				}
-				@Override
-		        public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
-					hideHoverGroup();
-				}
-		    });	
-			enemyUnderwearLabel.addAction(show());
-			enemyLegwearArmor.addAction(hide());
-			enemyLegwearLabel.addAction(hide());
-		}
 		
 		if (character.getBleed() == 0) {
 			bloodImage.addAction(hide());

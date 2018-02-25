@@ -354,11 +354,7 @@ public abstract class AbstractCharacter extends Actor {
 	public Armor getFootwear() { return footwear; }
 	public Accessory getFirstAccessory() { return firstAccessory; }
 	
-	public String getArmorStatus() { return getAnyArmorStatus(armor); }
-	public String getLegwearStatus() { return getAnyArmorStatus(legwear); }
-	public String getUnderwearStatus() { return getAnyArmorStatus(underwear); }
-	public String getShieldStatus() { return getAnyArmorStatus(shield); }
-	private String getAnyArmorStatus(Armor armor) { return armor == null ? "" : armor.getName() + "\nCurrent damage absorption provided: " + armor.getShockAbsorption() + "\nCurrent durability: " + armor.getDurability() + "\n\n" + armor.getDescription(); }
+	public String getArmorStatus(Armor armor) { return armor == null ? "" : armor.getName() + "\nCurrent damage absorption provided: " + armor.getShockAbsorption() + "\nCurrent durability: " + armor.getDurability() + "\n\n" + armor.getDescription(); }
 	
 	protected int getDegradation(IntArray tiers, int currentValue) {
 		int numTiers = tiers.size;
