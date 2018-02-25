@@ -74,7 +74,7 @@ public class HelpScreen extends AbstractScreen{
 			"    Weapon Damage (increased by stats)\n" +
 			"    Skill modifier\n\n" +
 			"Damage is DECREASED by\n" +
-			"    Target Base Defense\n" + 
+			"    Target Damage Reduction\n" + 
 			"    Target Armor (if armor isn't ignored) - Damage is reduced by armor, which is broken over the course of a battle. Sundering an enemy's armor early in the fight can be a useful investment.\n" + 
 			"    Target Guarding/Parrying (if opponent attack has them)\n" + 
 			"    Skill modifier\n",

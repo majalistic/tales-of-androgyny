@@ -101,6 +101,7 @@ public class LoadScreen extends AbstractScreen {
 		"Some weapons cause bleed - the amount inflicted depends on the technique. Higher Endurance will reduce damage from bleeding. Bleed can be cured by bandages and rest - Endurance also increases bleed recovery.",
 		"Scouting improves the outcomes from certain encounters and reveals hidden paths. High perception boosts your effective scouting score, making it valuable for getting the most out of the areas you traverse, as well as avoiding pitfalls.",
 		"Foraging outcomes are better in the day than at night. Foraging at night carries its own unique risks!",
+		"Damage done by attacks is never random! Damage may be higher or lower than predicted damage because the enemy guards, or is armored, or has damage reduction.",
 		"Damage is reduced by armor, which is broken over the course of a battle. Sundering an enemy's armor early in the fight can be a useful investment.",
 		"Be wary when using Techniques that cause instability - the enemy can also cause you to overbalance, causing you to trip before you expected to! A technique labelled in red will cause you to fall - one in yellow puts you in dangerous territory the enemy might capitalize on.",
 		"On the Main Menu, Continue will load your last autosave, restoring you to the same position as when you last closed the game. Load will load your last Quick Save - Quick Saves can be created by hitting \"Save\" on the Main Menu.",
