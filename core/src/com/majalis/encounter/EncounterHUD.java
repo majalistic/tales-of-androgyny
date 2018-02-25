@@ -23,11 +23,11 @@ import com.badlogic.gdx.utils.IntArray;
 import com.badlogic.gdx.utils.OrderedMap;
 import com.majalis.asset.AssetEnum;
 import com.majalis.character.HealthBar;
+import com.majalis.character.LevelBar;
 import com.majalis.character.PlayerCharacter;
 import com.majalis.scenes.Scene;
 import com.majalis.screens.TimeOfDay;
 import com.majalis.screens.WorldMapScreen.FoodDisplay;
-import com.majalis.screens.WorldMapScreen.LevelBar;
 
 public class EncounterHUD extends Group {
 
