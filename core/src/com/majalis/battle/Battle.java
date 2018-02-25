@@ -118,8 +118,6 @@ public class Battle extends Group{
 	
 	private SkillText enemySkill;
 	
-	private String consoleText; // this can just be stored in the label
-	private String dialogText; // this can just be stored in the label
 	private Array<TextButton> optionButtons;
 	private Technique selectedTechnique;
 	private Technique enemySelectedTechnique;
@@ -135,8 +133,6 @@ public class Battle extends Group{
 		this.character = character;
 		this.enemy = enemy;
 		this.outcomes = outcomes;
-		this.consoleText = consoleText;
-		this.dialogText = dialogText;
 		this.battleResults = battleResults;
 		this.musicPath = musicPath;
 		battleOver = false;
@@ -364,8 +360,8 @@ public class Battle extends Group{
 				saveService.saveDataValue(SaveEnum.PLAYER, character);
 				saveService.saveDataValue(SaveEnum.ENEMY, enemy);
 				Array<String> consoleComponents = new Array<String>();
-				consoleComponents.add(consoleText);
-				consoleComponents.add(dialogText);
+				consoleComponents.add(console.getText().toString());
+				consoleComponents.add(dialog.getText().toString());
 				saveService.saveDataValue(SaveEnum.CONSOLE, consoleComponents);
 				saveService.saveDataValue(SaveEnum.BATTLE_RESULT, results);
 			}
@@ -427,8 +423,8 @@ public class Battle extends Group{
 	
 	//  may need to be broken up into its own class or have much of it refactored into AbstractCharacter for loose coupling
 	private Array<MutationResult> resolveTechniques(AbstractCharacter firstCharacter, Technique firstTechnique, AbstractCharacter secondCharacter, Technique secondTechnique) {
-		consoleText = "";
-		dialogText = "";
+		console.setText("");
+		dialog.setText("");
 		int oldCharacterHealth = character.getCurrentHealth();
 		int oldCharacterStamina = character.getCurrentStamina();
 		Stability oldCharacterBalance = character.getStability();
@@ -566,7 +562,7 @@ public class Battle extends Group{
 			}
 		}
 		
-		if (dialogText.isEmpty()) {
+		if (dialog.getText().length == 0) {
 			dialogGroup.addAction(hide());
 		}
 		else {
@@ -607,9 +603,6 @@ public class Battle extends Group{
 		
 		setEnemyTechnique();
 		
-		console.setText(consoleText);
-		dialog.setText(dialogText);
-	
 		setDiffLabel(characterHealthDiff, character.getCurrentHealth() - oldCharacterHealth);
 		setDiffLabel(characterStaminaDiff, character.getCurrentStamina() - oldCharacterStamina);
 		setDiffLabel(characterBalanceDiff, character.getStability().ordinal() - oldCharacterBalance.ordinal());
@@ -707,14 +700,14 @@ public class Battle extends Group{
 		}
 	}
 	
-	private void printToConsole(String result) { consoleText += result + "\n"; }
+	private void printToConsole(String result) { console.setText(console.getText() + result + "\n"); }
 
 	private void printToDialog(Array<String> results) {
 		for (String result: results) {
 			printToDialog(result);
 		}
 	}
-	private void printToDialog(String result) { dialogText += result + "\n"; }
+	private void printToDialog(String result) { dialog.setText(dialog.getText() + result + "\n"); }
 	
 	private void changeSelection(int newSelection) {
 		if (selection == newSelection) return;
