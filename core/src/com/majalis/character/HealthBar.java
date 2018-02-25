@@ -33,12 +33,15 @@ public class HealthBar extends Group {
 		label.setColor(Color.BROWN);
 		label.setPosition(75, 8);
 		this.addActor(label);
+		bar.setColor(character.getHealthColor());
 	}
+	
 	@Override
 	public void draw(Batch batch, float parentAlpha) {
 		bar.setValue(character.getHealthPercent());
 		icon.setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(character.getHealthDisplay()))));
 		label.setText(character.getCurrentHealth() + " / " + character.getMaxHealth());
+		bar.setColor(character.getHealthColor());
 		super.draw(batch, parentAlpha);
 	}
 }

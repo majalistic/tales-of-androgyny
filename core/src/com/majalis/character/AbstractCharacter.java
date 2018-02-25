@@ -23,6 +23,7 @@ import com.majalis.technique.Bonus;
 import static com.majalis.character.Techniques.*;
 
 import com.badlogic.gdx.assets.AssetDescriptor;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Array;
@@ -305,6 +306,19 @@ public abstract class AbstractCharacter extends Actor {
 	public int getStaminaDegradation() { return getDegradation(staminaTiers, currentStamina); }
 	public int getLustDegradation() { return arousal.getLust() >= 100 ? 4 : arousal.getLust() >= 75 ? 3 : arousal.getLust() >= 50 ? 2 : arousal.getLust() >= 25 ? 1 : 0; }
 	public int getCumInflation() { return ass.getFullnessAmount() >= 20 || mouthful >= 20 ? 2 : ass.getFullnessAmount() >=10 || mouthful >= 10 || fullOfEggs() ? 1 : 0; } 
+	
+	private Color getValueColor(int value) {
+		switch (getHealthDegradation()) {
+			case 0: return Color.WHITE;
+			case 1: return Color.ORANGE;
+			case 2: return Color.CORAL;
+			default: return Color.RED;
+		}
+	}
+	
+	public Color getHealthColor() { return getValueColor(getHealthDegradation()); } 
+	public Color getStaminaColor() { return getValueColor(getStaminaDegradation()); }
+	public Color getStabilityColor() { return getValueColor(stability == Stability.Surefooted ? 0 : stability.isGood() ? 1 : stability.lowBalance() ? 2 : 3); }
 	
 	public String getStatusBlurb() {
 		String blurb = "";
