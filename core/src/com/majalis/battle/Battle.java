@@ -43,6 +43,7 @@ import com.majalis.character.Attack.Status;
 import com.majalis.character.Attack;
 import com.majalis.character.EnemyCharacter;
 import com.majalis.character.GrappleStatus;
+import com.majalis.character.HealthBar;
 import com.majalis.character.PlayerCharacter;
 import com.majalis.character.Technique;
 import com.majalis.encounter.Background;
@@ -85,32 +86,26 @@ public class Battle extends Group{
 	private final Label skillDisplay;
 	private final Label bonusDisplay;
 	private final Label penaltyDisplay;
-	private final ProgressBar characterHealth;
 	private final ProgressBar characterStamina;
 	private final ProgressBar characterBalance;
 	private final ProgressBar characterMana;
-	private final ProgressBar enemyHealth;
 	private final ProgressBar enemyStamina;
 	private final ProgressBar enemyBalance;
 	private final Image characterArousal;
 	private final Image enemyArousal;
 	private final Image characterBelly;
-	private final Image healthIcon;
 	private final Image staminaIcon;
 	private final Image balanceIcon;
 	private final Image manaIcon;
 	private final Image masculinityIcon;
-	private final Image enemyHealthIcon;
 	private final Image enemyStaminaIcon;
 	private final Image enemyBalanceIcon;
 	private final Image bloodImage;
 	private final Image enemyBloodImage;
 	
-	private final Label healthLabel;
 	private final Label staminaLabel;
 	private final Label balanceLabel;
 	private final Label manaLabel;
-	private final Label enemyHealthLabel;
 	private final Label enemyStaminaLabel;
 	private final Label enemyBalanceLabel;
 	private final Label enemyWeaponLabel;
@@ -299,14 +294,8 @@ public class Battle extends Group{
 		enemyUnderwearDiff = initLabel("", skin, Color.WHITE, 1547, 750 + yAdjust);
 		enemyBleedDiff = initLabel("", skin, Color.WHITE, 1595, 800 + yAdjust);
 		
-		// these should be wrapped as components that accept a character
-		characterHealth = initBar(0, 1, .05f, false, skin, 350, character.getHealthPercent(), barX , 1035);
-		healthIcon = initImage(assetManager.get(character.getHealthDisplay()), barX+3, 1042.5f);
-		healthLabel = initLabel(character.getCurrentHealth() + " / " + character.getMaxHealth(), skin, Color.BROWN, barX + 75, 1043);
-		
-		GrappleDisplay grappleStatus = new GrappleDisplay(character, assetManager); 
-		grappleStatus.setPosition(385, 501);
-		uiGroup.addActor(grappleStatus);
+		initActor(new HealthBar(character, assetManager, skin), uiGroup, barX, 1035);
+		initActor(new GrappleDisplay(character, assetManager), uiGroup, 385, 501); 
 	
 		characterStamina = initBar(0, 1, .05f, false, skin, 350, character.getStaminaPercent(), barX, 990);
 		staminaIcon = initImage(assetManager.get(character.getStaminaDisplay()), barX + 7.5f, 997.5f);
@@ -327,10 +316,8 @@ public class Battle extends Group{
 			manaLabel = null;
 		}
 		
-		enemyHealth = initBar(0, 1, .05f, false, skin, 350, enemy.getHealthPercent(), enemyBarX , 1035);
-		enemyHealthIcon = initImage(assetManager.get(enemy.getHealthDisplay()), enemyBarX + 3, 1042.5f);
-		enemyHealthLabel = initLabel(enemy.getCurrentHealth() + " / " + enemy.getMaxHealth(), skin, Color.BROWN, enemyBarX + 75, 1043);
-		
+		initActor(new HealthBar(enemy, assetManager, skin), uiGroup, enemyBarX, 1035);
+				
 		enemyStamina = initBar(0, 1, .05f, false, skin, 350, enemy.getStaminaPercent(), enemyBarX, 990);
 		enemyStaminaIcon = initImage(assetManager.get(enemy.getStaminaDisplay()), enemyBarX + 7.5f, 997.5f);
 		enemyStaminaLabel = initLabel(enemy.getCurrentStamina() + " / " + enemy.getMaxStamina(), skin, Color.BROWN, enemyBarX + 75, 998);
@@ -863,7 +850,6 @@ public class Battle extends Group{
 		int oldEnemyUnderwear = enemy.getUnderwearScore();
 		int oldEnemyBleed = enemy.getBleed();
 		
-		
 		// cache player character's stance from the previous turn; playerCharacter will cache stance at the start of this turn
 		Stance oldStance = firstCharacter.getStance();
 		Stance oldEnemyStance = secondCharacter.getStance();
@@ -1046,7 +1032,6 @@ public class Battle extends Group{
 		setDiffLabel(enemyUnderwearDiff, enemy.getUnderwearScore() - oldEnemyUnderwear);
 		setDiffLabel(enemyBleedDiff, enemy.getBleed() - oldEnemyBleed, true);
 		
-		characterHealth.setValue(character.getHealthPercent());
 		characterStamina.setValue(character.getStaminaPercent());
 		characterBalance.setValue(character.getBalancePercent());
 		if (character.hasMagic()) {
@@ -1055,13 +1040,10 @@ public class Battle extends Group{
 			manaIcon.setDrawable(getDrawable(character.getManaDisplay()));
 		}
 		
-		enemyHealth.setValue(enemy.getHealthPercent());
 		enemyStamina.setValue(enemy.getStaminaPercent());
 		enemyBalance.setValue(enemy.getBalancePercent());
-		healthLabel.setText(character.getCurrentHealth() + " / " + character.getMaxHealth());
 		staminaLabel.setText(character.getCurrentStamina() + " / " + character.getMaxStamina());
 		balanceLabel.setText(character.getStability().toString());
-		enemyHealthLabel.setText(enemy.getCurrentHealth() + " / " + enemy.getMaxHealth());
 		enemyStaminaLabel.setText(enemy.getCurrentStamina() + " / " + enemy.getMaxStamina());
 		enemyBalanceLabel.setText(enemy.getStability().toString());
 		enemyWeaponLabel.setText("Weapon: " + (enemy.getWeapon() != null ? enemy.getWeapon().getName() : "Unarmed"));
@@ -1162,10 +1144,8 @@ public class Battle extends Group{
 		characterBelly.setDrawable(getDrawable(character.getCumInflationPath()));
 		characterArousal.setDrawable(getDrawable(character.getLustImagePath()));
 		enemyArousal.setDrawable(getDrawable(enemy.getLustImagePath()));
-		healthIcon.setDrawable(getDrawable(character.getHealthDisplay()));
 		staminaIcon.setDrawable(getDrawable(character.getStaminaDisplay()));
 		balanceIcon.setDrawable(getDrawable(character.getBalanceDisplay()));
-		enemyHealthIcon.setDrawable(getDrawable(enemy.getHealthDisplay()));
 		enemyStaminaIcon.setDrawable(getDrawable(enemy.getStaminaDisplay()));
 		enemyBalanceIcon.setDrawable(getDrawable(enemy.getBalanceDisplay()));
 				
@@ -1419,6 +1399,12 @@ public class Battle extends Group{
         event2.setType(InputEvent.Type.touchUp);
         button.fire(event2);
         return selectedTechnique;
+	}
+	
+	private Actor initActor(Actor actor, Group group, float x, float y) { 
+		group.addActor(actor);
+		actor.setPosition(x, y);
+		return actor;
 	}
 	
 	private ProgressBar initBar(float min, float max, float stepSize, boolean vertical, Skin skin, int width, float value, float x, float y) {
