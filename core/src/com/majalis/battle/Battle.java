@@ -41,6 +41,7 @@ import com.majalis.character.Armor;
 import com.majalis.character.Stance;
 import com.majalis.character.Attack.Status;
 import com.majalis.character.BalanceBar;
+import com.majalis.character.DisplayWidget;
 import com.majalis.character.Attack;
 import com.majalis.character.EnemyCharacter;
 import com.majalis.character.GrappleStatus;
@@ -103,16 +104,10 @@ public class Battle extends Group{
 	private final Label characterHealthDiff;
 	private final Label characterStaminaDiff;
 	private final Label characterBalanceDiff;
-	private final Label characterArmorDiff;
-	private final Label characterLegwearDiff;
-	private final Label characterUnderwearDiff;
 	private final Label characterBleedDiff;
 	private final Label enemyHealthDiff;
 	private final Label enemyStaminaDiff;
 	private final Label enemyBalanceDiff;
-	private final Label enemyArmorDiff;
-	private final Label enemyLegwearDiff;
-	private final Label enemyUnderwearDiff;
 	private final Label enemyBleedDiff;
 	private final AssetEnum musicPath;
 	
@@ -167,16 +162,10 @@ public class Battle extends Group{
 		characterHealthDiff = initLabel("", skin, Color.WHITE, barX + 350, 1035 + yAdjust);
 		characterStaminaDiff = initLabel("", skin, Color.WHITE, barX + 350, 990 + yAdjust);
 		characterBalanceDiff = initLabel("", skin, Color.WHITE, barX + 350, 945 + yAdjust);
-		characterArmorDiff = initLabel("", skin, Color.WHITE, barX + 274, 823 + yAdjust);
-		characterLegwearDiff = initLabel("", skin, Color.WHITE, barX + 274, 770 + yAdjust);
-		characterUnderwearDiff = initLabel("", skin, Color.WHITE, barX + 274, 750 + yAdjust);
 		characterBleedDiff = initLabel("", skin, Color.WHITE, 370, 725 + yAdjust);
 		enemyHealthDiff = initLabel("", skin, Color.WHITE, enemyBarX + 350, 1035 + yAdjust);
 		enemyStaminaDiff = initLabel("", skin, Color.WHITE, enemyBarX + 350, 990 + yAdjust);
 		enemyBalanceDiff = initLabel("", skin, Color.WHITE, enemyBarX + 350, 945 + yAdjust);
-		enemyArmorDiff = initLabel("", skin, Color.WHITE, 1547, 823 + yAdjust);
-		enemyLegwearDiff = initLabel("", skin, Color.WHITE, 1547, 770 + yAdjust);
-		enemyUnderwearDiff = initLabel("", skin, Color.WHITE, 1547, 750 + yAdjust);
 		enemyBleedDiff = initLabel("", skin, Color.WHITE, 1590, 725 + yAdjust);
 	
 		initActor(new HealthBar(character, assetManager, skin), uiGroup, barX, 1035);
@@ -207,7 +196,7 @@ public class Battle extends Group{
 		// dolls
 		initImage(armorDollTexture, barX + 150, 700, 250);
 		initImage(armorDollTexture, 1425, 700, 250);
-
+		
 		initActor(new ArmorDisplay(character, character.getArmor()), uiGroup, barX + 224, 823);
 		initActor(new ArmorDisplay(enemy, enemy.getArmor()), uiGroup, 1497, 823);
 		initActor(new ArmorDisplay(character, character.getUnderwear()), uiGroup, barX + 224, 750);
@@ -428,17 +417,11 @@ public class Battle extends Group{
 		int oldCharacterHealth = character.getCurrentHealth();
 		int oldCharacterStamina = character.getCurrentStamina();
 		Stability oldCharacterBalance = character.getStability();
-		int oldCharacterArmor = character.getArmorScore();
-		int oldCharacterLegwear = character.getLegwearScore();
-		int oldCharacterUnderwear = character.getUnderwearScore();
 		int oldCharacterBleed = character.getBleed();
 		
 		int oldEnemyHealth = enemy.getCurrentHealth();
 		int oldEnemyStamina = enemy.getCurrentStamina();
 		Stability oldEnemyBalance = enemy.getStability();
-		int oldEnemyArmor = enemy.getArmorScore();
-		int oldEnemyLegwear = enemy.getLegwearScore();
-		int oldEnemyUnderwear = enemy.getUnderwearScore();
 		int oldEnemyBleed = enemy.getBleed();
 		
 		// cache player character's stance from the previous turn; playerCharacter will cache stance at the start of this turn
@@ -606,17 +589,11 @@ public class Battle extends Group{
 		setDiffLabel(characterHealthDiff, character.getCurrentHealth() - oldCharacterHealth);
 		setDiffLabel(characterStaminaDiff, character.getCurrentStamina() - oldCharacterStamina);
 		setDiffLabel(characterBalanceDiff, character.getStability().ordinal() - oldCharacterBalance.ordinal());
-		setDiffLabel(characterArmorDiff, character.getArmorScore() - oldCharacterArmor);
-		setDiffLabel(characterLegwearDiff, character.getLegwearScore() - oldCharacterLegwear);
-		setDiffLabel(characterUnderwearDiff, character.getUnderwearScore() - oldCharacterUnderwear);
 		setDiffLabel(characterBleedDiff, character.getBleed() - oldCharacterBleed, true);
 
 		setDiffLabel(enemyHealthDiff, enemy.getCurrentHealth() - oldEnemyHealth);
 		setDiffLabel(enemyStaminaDiff, enemy.getCurrentStamina() - oldEnemyStamina);
 		setDiffLabel(enemyBalanceDiff, enemy.getStability().ordinal() - oldEnemyBalance.ordinal());
-		setDiffLabel(enemyArmorDiff, enemy.getArmorScore() - oldEnemyArmor);
-		setDiffLabel(enemyLegwearDiff, enemy.getLegwearScore() - oldEnemyLegwear);
-		setDiffLabel(enemyUnderwearDiff, enemy.getUnderwearScore() - oldEnemyUnderwear);
 		setDiffLabel(enemyBleedDiff, enemy.getBleed() - oldEnemyBleed, true);
 		
 		enemyWeaponLabel.setText("Weapon: " + (enemy.getWeapon() != null ? enemy.getWeapon().getName() : "Unarmed"));
@@ -644,42 +621,7 @@ public class Battle extends Group{
 				
 		return playerResults;
 	}
-	
-	private void setDiffLabel(Label label, int value) {
-		setDiffLabel(label, value, false);
-	}
-	
-	private void setDiffLabel(final Label label, int value, boolean reverse) {
-		label.clearActions();
-		if (value == 0) {
-			label.setText("");
-		}
-		else if (value > 0) {
-			label.setColor(reverse ? Color.RED : Color.GREEN);
-			label.setText("+" + value);
-			label.addAction(sequence(alpha(1), fadeOut(6)));
-			label.setFontScale(1.5f);
-			label.addAction(sequence(delay(1), new Action(){
-				@Override
-				public boolean act(float delta) {
-					label.setFontScale(1);
-					return false;
-				} }));
-		}
-		else {
-			label.setColor(reverse ? Color.GREEN : Color.RED);
-			label.setText(String.valueOf(value));
-			label.addAction(sequence(alpha(1), fadeOut(6)));
-			label.setFontScale(1.5f);
-			label.addAction(sequence(delay(1), new Action(){
-				@Override
-				public boolean act(float delta) {
-					label.setFontScale(1);
-					return false;
-				} }));
-		}
-	}
-	
+
 	private void setEnemyTechnique() {
 		enemySelectedTechnique = enemy.getTechnique(character);
 		uiGroup.removeActor(enemySkill);
@@ -1023,23 +965,26 @@ public class Battle extends Group{
 		}
 	}
 		
-	private class ArmorDisplay extends Group {
+	private class ArmorDisplay extends DisplayWidget {
 		private final Armor armor;
 		private final Image display;
-		private final Label value;
+		private final Label displayValue;
+		private final Label diffValueDisplay;
+		private int value;
 		public ArmorDisplay (AbstractCharacter character, Armor armor) {
 			this.armor = armor;
 			if (armor == null) {
 				addAction(hide());
 				display = new Image();
-				value = new Label("", skin);
+				displayValue = new Label("", skin);
 			}
 			else {
 				display = new Image(armor.getDestructionLevel() > 0 ? armorBrokenTexture : armorTexture);
 				display.setSize((armorBrokenTexture.getWidth() / (armorBrokenTexture.getHeight() / (1.0f * 50))), 50);
-				value = new Label("" + (armor.isShield() ? "" : armor.getShockAbsorption()), skin);
-				value.setPosition(getX() + 12, getY() + 10);
-				value.setColor(Color.BROWN);
+				value = armor.getDurability();
+				displayValue = new Label("" + (armor.isShield() ? "" : armor.getShockAbsorption()), skin);				
+				displayValue.setPosition(getX() + 12, getY() + 10);
+				displayValue.setColor(Color.BROWN);
 				this.addListener(new ClickListener() {
 			        @Override
 			        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
@@ -1055,16 +1000,58 @@ public class Battle extends Group{
 			    });
 			}
 			this.addActor(display);
-			this.addActor(value);
+			this.addActor(displayValue);
+			diffValueDisplay = new Label("", skin);
+			diffValueDisplay.setPosition(getX() + 50, getY() + 25);
+			this.addActor(diffValueDisplay);
 		}
 		@Override
 		public void act(float delta) {
 			if (armor != null) {
 				display.setDrawable(new TextureRegionDrawable(new TextureRegion(armor.getDestructionLevel() > 0 ? armorBrokenTexture : armorTexture)));
-				value.setText("" + (armor.isShield() ? "" : armor.getShockAbsorption()));
-				if (armor.getShockAbsorption() == 0) addAction(hide());
+				displayValue.setText("" + (armor.isShield() ? "" : armor.getShockAbsorption()));
+				if (armor.getShockAbsorption() == 0) {
+					display.addAction(hide());
+					displayValue.addAction(hide());
+				}
+				if (value != armor.getDurability()) {
+					setDiffLabel(diffValueDisplay, armor.getDurability() - value);
+					value = armor.getDurability();
+				}
 			}
 			super.act(delta);
+		}
+	}
+	
+	protected void setDiffLabel(Label label, int value) { setDiffLabel(label, value, false); }
+	protected void setDiffLabel(final Label label, int value, boolean reverse) {
+		label.clearActions();
+		if (value == 0) {
+			label.setText("");
+		}
+		else if (value > 0) {
+			label.setColor(reverse ? Color.RED : Color.GREEN);
+			label.setText("+" + value);
+			label.addAction(sequence(alpha(1), fadeOut(6)));
+			label.setFontScale(1.5f);
+			label.addAction(sequence(delay(1), new Action(){
+				@Override
+				public boolean act(float delta) {
+					label.setFontScale(1);
+					return false;
+				} }));
+		}
+		else {
+			label.setColor(reverse ? Color.GREEN : Color.RED);
+			label.setText(String.valueOf(value));
+			label.addAction(sequence(alpha(1), fadeOut(6)));
+			label.setFontScale(1.5f);
+			label.addAction(sequence(delay(1), new Action(){
+				@Override
+				public boolean act(float delta) {
+					label.setFontScale(1);
+					return false;
+				} }));
 		}
 	}
 	
