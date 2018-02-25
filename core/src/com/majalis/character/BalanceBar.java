@@ -49,7 +49,7 @@ public class BalanceBar extends Group {
 		}
 		icon.setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(character.getBalanceDisplay()))));
 		label.setText(character.getStability().toString());
-		bar.setColor(character.getStaminaColor());
+		bar.setColor(character.getStabilityColor());
 		super.draw(batch, parentAlpha);
 	}
 }

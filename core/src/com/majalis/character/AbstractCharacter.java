@@ -308,7 +308,7 @@ public abstract class AbstractCharacter extends Actor {
 	public int getCumInflation() { return ass.getFullnessAmount() >= 20 || mouthful >= 20 ? 2 : ass.getFullnessAmount() >=10 || mouthful >= 10 || fullOfEggs() ? 1 : 0; } 
 	
 	private Color getValueColor(int value) {
-		switch (getHealthDegradation()) {
+		switch (value) {
 			case 0: return Color.WHITE;
 			case 1: return Color.ORANGE;
 			case 2: return Color.CORAL;
