@@ -92,16 +92,12 @@ public class Battle extends Group{
 	private final Image enemyArousal;
 	private final Image characterBelly;
 	private final Image masculinityIcon;
-	private final Image bloodImage;
-	private final Image enemyBloodImage;
-	
 	private final Label enemyWeaponLabel;
 
 	private final Texture armorTexture;
 	private final Texture armorBrokenTexture;
+	private final Texture bloodTexture;
 	
-	private final Label bloodLabel;
-	private final Label enemyBloodLabel;
 	private final Label statusLabel;
 	private final Label enemyStatusLabel;
 	
@@ -133,48 +129,6 @@ public class Battle extends Group{
 	public boolean gameExit;
 	private boolean battleOutcomeDecided;
 	private boolean battleOver;
-	private class ArmorDisplay extends Group {
-		private final Armor armor;
-		private final Image display;
-		private final Label value;
-		public ArmorDisplay (AbstractCharacter character, Armor armor) {
-			this.armor = armor;
-			if (armor == null) {
-				addAction(hide());
-				display = new Image();
-				value = new Label("", skin);
-			}
-			else {
-				display = new Image(armor.getDestructionLevel() > 0 ? armorBrokenTexture : armorTexture);
-				display.setSize((armorBrokenTexture.getWidth() / (armorBrokenTexture.getHeight() / (1.0f * 50))), 50);
-				value = new Label("" + (armor.isShield() ? "" : armor.getShockAbsorption()), skin);
-				value.setPosition(getX() + 12, getY() + 10);
-				value.setColor(Color.BROWN);
-				this.addListener(new ClickListener() {
-			        @Override
-			        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-						skillDisplay.setText(character.getArmorStatus(armor));
-						bonusDisplay.setText("");
-						penaltyDisplay.setText("");
-						showHoverGroup();
-					}
-					@Override
-			        public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
-						hideHoverGroup();
-					}
-			    });
-			}
-			this.addActor(display);
-			this.addActor(value);
-		}
-		
-		public void draw(Batch batch, float parentAlpha) {
-			display.setDrawable(new TextureRegionDrawable(new TextureRegion(armor.getDestructionLevel() > 0 ? armorBrokenTexture : armorTexture)));
-			value.setText("" + (armor.isShield() ? "" : armor.getShockAbsorption()));
-			if (armor.getShockAbsorption() == 0) addAction(hide());
-			super.draw(batch, parentAlpha);
-		}
-	}
 	
 	public Battle(SaveService saveService, AssetManager assetManager, final PlayerCharacter character, final EnemyCharacter enemy, ObjectMap<String, Integer> outcomes, Background battleBackground, Background battleUI, String consoleText, String dialogText, Array<MutationResult> battleResults, AssetEnum musicPath) {
 		this.saveService = saveService;
@@ -221,14 +175,14 @@ public class Battle extends Group{
 		characterArmorDiff = initLabel("", skin, Color.WHITE, barX + 274, 823 + yAdjust);
 		characterLegwearDiff = initLabel("", skin, Color.WHITE, barX + 274, 770 + yAdjust);
 		characterUnderwearDiff = initLabel("", skin, Color.WHITE, barX + 274, 750 + yAdjust);
-		characterBleedDiff = initLabel("", skin, Color.WHITE, 520, 800 + yAdjust);
+		characterBleedDiff = initLabel("", skin, Color.WHITE, 370, 725 + yAdjust);
 		enemyHealthDiff = initLabel("", skin, Color.WHITE, enemyBarX + 350, 1035 + yAdjust);
 		enemyStaminaDiff = initLabel("", skin, Color.WHITE, enemyBarX + 350, 990 + yAdjust);
 		enemyBalanceDiff = initLabel("", skin, Color.WHITE, enemyBarX + 350, 945 + yAdjust);
 		enemyArmorDiff = initLabel("", skin, Color.WHITE, 1547, 823 + yAdjust);
 		enemyLegwearDiff = initLabel("", skin, Color.WHITE, 1547, 770 + yAdjust);
 		enemyUnderwearDiff = initLabel("", skin, Color.WHITE, 1547, 750 + yAdjust);
-		enemyBleedDiff = initLabel("", skin, Color.WHITE, 1595, 800 + yAdjust);
+		enemyBleedDiff = initLabel("", skin, Color.WHITE, 1590, 725 + yAdjust);
 	
 		initActor(new HealthBar(character, assetManager, skin), uiGroup, barX, 1035);
 		initActor(new StaminaBar(character, assetManager, skin), uiGroup, barX, 990);
@@ -253,6 +207,7 @@ public class Battle extends Group{
 		
 		armorTexture = assetManager.get(AssetEnum.ARMOR_0.getTexture());
 		armorBrokenTexture = assetManager.get(AssetEnum.ARMOR_1.getTexture());
+		bloodTexture = assetManager.get(AssetEnum.BLEED.getTexture());	
 		Texture armorDollTexture = assetManager.get(AssetEnum.ARMOR_DOLL.getTexture());
 		// dolls
 		initImage(armorDollTexture, barX + 150, 700, 250);
@@ -265,18 +220,10 @@ public class Battle extends Group{
 		initActor(new ArmorDisplay(character, character.getLegwear()), uiGroup, barX + 224, 770);
 		initActor(new ArmorDisplay(enemy, enemy.getLegwear()), uiGroup, 1497, 770);
 		initActor(new ArmorDisplay(character, character.getShield()), uiGroup, barX + 284, 810);
-		initActor(new ArmorDisplay(enemy, enemy.getShield()), uiGroup, 1557, 810);
-		
-		Texture bloodTexture = assetManager.get(AssetEnum.BLEED.getTexture());
-		bloodImage = initImage(bloodTexture, 345, 725, 75);
-		enemyBloodImage = initImage(bloodTexture, 1545, 725, 75);
-		bloodLabel = initLabel("" + character.getBleed(), skin, Color.RED, 345 + 19, 725 + 7);	
-		bloodLabel.setAlignment(Align.center);
-		bloodLabel.setWidth(10);
-		enemyBloodLabel = initLabel("" + enemy.getBleed(), skin, Color.RED, 1545 + 19, 725 + 7);
-		enemyBloodLabel.setAlignment(Align.center);
-		enemyBloodLabel.setWidth(10);
-		
+		initActor(new ArmorDisplay(enemy, enemy.getShield()), uiGroup, 1557, 810);		
+		initActor(new BleedDisplay(character), uiGroup, 325, 725);
+		initActor(new BleedDisplay(enemy), uiGroup, 1545, 725);
+			
 		Table statusTable = new Table();
 		statusTable.align(Align.topLeft);
 		statusTable.setPosition(525,  850);
@@ -292,15 +239,6 @@ public class Battle extends Group{
 		
 		statusTable.add(statusLabel).align(Align.topLeft);
 		enemyStatusTable.add(enemyStatusLabel).align(Align.topRight);
-		
-		if (character.getBleed() == 0) {
-			bloodImage.addAction(hide());
-			bloodLabel.addAction(hide());
-		}
-		if (enemy.getBleed() == 0) {
-			enemyBloodImage.addAction(hide());
-			enemyBloodLabel.addAction(hide());
-		}
 		
 		Image consoleBox = new Image(assetManager.get(AssetEnum.BATTLE_TEXTBOX.getTexture()));
 		uiGroup.addActor(consoleBox);
@@ -737,27 +675,8 @@ public class Battle extends Group{
 		setDiffLabel(enemyBleedDiff, enemy.getBleed() - oldEnemyBleed, true);
 		
 		enemyWeaponLabel.setText("Weapon: " + (enemy.getWeapon() != null ? enemy.getWeapon().getName() : "Unarmed"));
-		bloodLabel.setText("" + character.getBleed());
-		enemyBloodLabel.setText("" + enemy.getBleed());	
 		statusLabel.setText(character.getStatusBlurb());
 		enemyStatusLabel.setText(enemy.getStatusBlurb());
-		
-		if (character.getBleed() == 0) {
-			bloodImage.addAction(hide());
-			bloodLabel.addAction(hide());
-		}
-		else {
-			bloodImage.addAction(show());
-			bloodLabel.addAction(show());
-		}
-		if (enemy.getBleed() == 0) {
-			enemyBloodImage.addAction(hide());
-			enemyBloodLabel.addAction(hide());
-		}
-		else {
-			enemyBloodImage.addAction(show());
-			enemyBloodLabel.addAction(show());
-		}
 		
 		characterBelly.setDrawable(getDrawable(character.getCumInflationPath()));
 		characterArousal.setDrawable(getDrawable(character.getLustImagePath()));
@@ -1105,7 +1024,7 @@ public class Battle extends Group{
 		@Override
 	    public void draw(Batch batch, float parentAlpha) {
 			super.draw(batch, parentAlpha);
-			batch.draw(stanceIcon, getX() + 372, getY()+3, 63, 76);
+			batch.draw(stanceIcon, getX() + 372, getY() + 3, 63, 76);
 		}		
 	}
 	
@@ -1122,6 +1041,76 @@ public class Battle extends Group{
 		public boolean act(float delta) {
 			sound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") * volume);
 			return true;
+		}
+	}
+	
+	private class BleedDisplay extends Group {
+		private final AbstractCharacter character;
+		private final Label bleedValue;
+		public BleedDisplay (AbstractCharacter character) {
+			this.character = character;
+			Image display = new Image(assetManager.get(AssetEnum.BLEED.getTexture()));	
+		    display.setSize((bloodTexture.getWidth() / (bloodTexture.getHeight() / (1.0f * 75))), 75);
+		    this.addActor(display);
+			bleedValue = new Label("" + character.getBleed(), skin);
+			bleedValue.setPosition(getX() + 19, getY() + 7);
+			bleedValue.setColor(Color.RED);
+			bleedValue.setAlignment(Align.center);
+			bleedValue.setWidth(10);
+			if (character.getBleed() <= 0) addAction(hide());
+			this.addActor(bleedValue);
+		}
+		@Override
+		public void act(float delta) {
+			bleedValue.setText("" + character.getBleed());
+			if (this.isVisible() && character.getBleed() <= 0) addAction(hide());
+			else if (!this.isVisible() && character.getBleed() > 0) addAction(show());
+			super.act(delta);
+		}
+	}
+		
+	private class ArmorDisplay extends Group {
+		private final Armor armor;
+		private final Image display;
+		private final Label value;
+		public ArmorDisplay (AbstractCharacter character, Armor armor) {
+			this.armor = armor;
+			if (armor == null) {
+				addAction(hide());
+				display = new Image();
+				value = new Label("", skin);
+			}
+			else {
+				display = new Image(armor.getDestructionLevel() > 0 ? armorBrokenTexture : armorTexture);
+				display.setSize((armorBrokenTexture.getWidth() / (armorBrokenTexture.getHeight() / (1.0f * 50))), 50);
+				value = new Label("" + (armor.isShield() ? "" : armor.getShockAbsorption()), skin);
+				value.setPosition(getX() + 12, getY() + 10);
+				value.setColor(Color.BROWN);
+				this.addListener(new ClickListener() {
+			        @Override
+			        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
+						skillDisplay.setText(character.getArmorStatus(armor));
+						bonusDisplay.setText("");
+						penaltyDisplay.setText("");
+						showHoverGroup();
+					}
+					@Override
+			        public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
+						hideHoverGroup();
+					}
+			    });
+			}
+			this.addActor(display);
+			this.addActor(value);
+		}
+		@Override
+		public void act(float delta) {
+			if (armor != null) {
+				display.setDrawable(new TextureRegionDrawable(new TextureRegion(armor.getDestructionLevel() > 0 ? armorBrokenTexture : armorTexture)));
+				value.setText("" + (armor.isShield() ? "" : armor.getShockAbsorption()));
+				if (armor.getShockAbsorption() == 0) addAction(hide());
+			}
+			super.act(delta);
 		}
 	}
 	

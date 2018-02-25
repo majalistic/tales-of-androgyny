@@ -37,6 +37,7 @@ public class HealthBar extends Group {
 		bar.getStyle().knobBefore.setMinWidth(0); // this affects ALL progress bars with this skin, so shouldn't be done like this - REMOVE
 	}
 	
+	// this should be changed to act
 	@Override
 	public void draw(Batch batch, float parentAlpha) {
 		float characterHealthPercent = character.getHealthPercent();
