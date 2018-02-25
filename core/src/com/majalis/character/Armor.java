@@ -10,42 +10,23 @@ public class Armor extends Item{
 	private final ArmorType type;
 	private int durability;
 	
-	public Armor() { type = null; }
-	
+	@SuppressWarnings("unused") 
+	private Armor() { type = null; }
 	public Armor(ArmorType type) {
 		this.type = type;
 		this.durability = type.getMaxDurability();
 	}
 	
-	public void modDurability(int mod) {
-		durability += mod;
-		if (durability < 0 ) durability = 0;
-	}
-	
 	@Override
 	public int getValue() { return type.getValue(); }
-
 	@Override
-	protected ItemEffect getUseEffect() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+	protected ItemEffect getUseEffect() { return null; }
 	@Override
-	public String getName() {
-		return type.getLabel();
-	}
-
+	public String getName() { return type.getLabel(); }
 	@Override
-	public String getDescription() {
-		return type.getDescription();
-	}
-	
+	public String getDescription() { return type.getDescription(); }
 	@Override
-	public boolean isEquippable() {
-		return true;
-	}
-	
+	public boolean isEquippable() { return true; }
 	@Override 
 	public boolean equals(Object o) {
 		if (o == null || o.getClass() != Armor.class) return false;
@@ -53,11 +34,13 @@ public class Armor extends Item{
 		return super.equals(o) && compare.type == this.type;
 	}
 	
-	public void refresh() { durability = type.getMaxDurability(); }
-	
-	public int getDurability() {
-		return durability;
+	public void modDurability(int mod) {
+		durability += mod;
+		if (durability < 0 ) durability = 0;
 	}
+	
+	public void refresh() { durability = type.getMaxDurability(); }
+	public int getDurability() { return durability; }
 	public boolean coversTop() { return type.coversTop(); }
 	public boolean coversBottom() { return type.coversBottom(); }
 	public boolean isUnderwear() { return type.isUnderwear(); }
@@ -149,7 +132,6 @@ public class Armor extends Item{
 			getDurabilityDescription()); 
 		}
 		private int getValue() { return value; }
-		
 		private boolean isArmwear() { return this == GAUNTLET; }
 		private boolean isFootwear() { return this == SHOES || this == SABATONS; }
 		private boolean isHeadgear() { return this == HELMET; }
@@ -183,6 +165,4 @@ public class Armor extends Item{
 			return durabilityDescription;
 		}
 	}
-
-	
 }
