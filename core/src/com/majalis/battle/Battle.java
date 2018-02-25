@@ -154,63 +154,6 @@ public class Battle extends Group{
 	private Group uiGroup;
 	private boolean uiHidden;
 	
-	private class GrappleDisplay extends Group {
-		private final AbstractCharacter character;
-		private final OrderedMap<GrappleStatus, Image> inactiveStatuses;
-		private final OrderedMap<GrappleStatus, Image> activeStatuses;
-		private final Image background;
-		private final static float xOffset = 74.75f;
-		private final static float scaleFactor = .315f;
-		private final static float backgroundXOffset = -50;
-		private final static float backgroundYOffset = -29;
-		private GrappleDisplay(AbstractCharacter character, AssetManager assetManager) {
-			this.character = character;
-			this.inactiveStatuses = new OrderedMap<GrappleStatus, Image>();
-			this.activeStatuses = new OrderedMap<GrappleStatus, Image>();
-			background = new Image(assetManager.get(AssetEnum.GRAPPLE_BACKGROUND.getTexture()));
-			background.setScale(scaleFactor);
-			background.setPosition(getX() + backgroundXOffset, getY() + backgroundYOffset);
-			this.addActor(background);
-			int offset = 0;
-			for (GrappleStatus grappleStatus : GrappleStatus.reverseValues()) {
-				if (grappleStatus == GrappleStatus.NULL) continue;
-				Image inactiveImage = new Image(grappleStatus.getInactiveTexture(assetManager));
-				inactiveImage.addAction(hide());
-				inactiveImage.setPosition(getX() + offset, getY());
-				inactiveImage.setScale(scaleFactor);
-				inactiveImage.setColor(Color.GRAY);
-				Image activeImage = new Image(grappleStatus.getActiveTexture(assetManager));
-				activeImage.addAction(hide());
-				activeImage.setPosition(getX() + offset, getY());
-				activeImage.setScale(scaleFactor);
-				inactiveStatuses.put(grappleStatus, inactiveImage);
-				activeStatuses.put(grappleStatus, activeImage);
-				this.addActor(inactiveImage);
-				this.addActor(activeImage);
-				offset += xOffset;
-			}
-		}
-	
-		@Override 
-		public void act(float delta) {
-			// set which grapple is visible first
-			if (character.getGrappleStatus() == GrappleStatus.NULL) this.addAction(hide());
-			else this.addAction(show());
-			for (GrappleStatus status : GrappleStatus.reverseValues()) {
-				if (status == GrappleStatus.NULL) continue;
-				if (status == character.getGrappleStatus()) {
-					inactiveStatuses.get(status).addAction(hide());
-					activeStatuses.get(status).addAction(show());
-				}
-				else {
-					activeStatuses.get(status).addAction(hide());
-					inactiveStatuses.get(status).addAction(show());
-				}
-			}
-			super.act(delta);
-		}		
-	}
-	
 	public Battle(SaveService saveService, AssetManager assetManager, final PlayerCharacter character, final EnemyCharacter enemy, ObjectMap<String, Integer> outcomes, Background battleBackground, Background battleUI, String consoleText, String dialogText, Array<MutationResult> battleResults, AssetEnum musicPath) {
 		this.saveService = saveService;
 		this.assetManager = assetManager;
@@ -1385,5 +1328,59 @@ public class Battle extends Group{
 			sound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") * volume);
 			return true;
 		}
+	}
+	
+	private class GrappleDisplay extends Group {
+		private final AbstractCharacter character;
+		private final OrderedMap<GrappleStatus, Image> inactiveStatuses;
+		private final OrderedMap<GrappleStatus, Image> activeStatuses;
+		private final Image background;
+		private final static float scaleFactor = .315f;
+		private GrappleDisplay(AbstractCharacter character, AssetManager assetManager) {
+			this.character = character;
+			this.inactiveStatuses = new OrderedMap<GrappleStatus, Image>();
+			this.activeStatuses = new OrderedMap<GrappleStatus, Image>();
+			background = new Image(assetManager.get(AssetEnum.GRAPPLE_BACKGROUND.getTexture()));
+			background.setScale(scaleFactor);
+			background.setPosition(getX() - 50, getY() - 29);
+			this.addActor(background);
+			int offset = 0;
+			for (GrappleStatus grappleStatus : GrappleStatus.reverseValues()) {
+				if (grappleStatus == GrappleStatus.NULL) continue;
+				initImage(grappleStatus, grappleStatus.getInactiveTexture(assetManager), getX() + offset, getY(), scaleFactor, Color.GRAY, false);
+				initImage(grappleStatus, grappleStatus.getActiveTexture(assetManager), getX() + offset, getY(), scaleFactor, Color.WHITE, true);
+				offset += 74.75f;
+			}
+		}
+		
+		private void initImage(GrappleStatus grappleStatus, Texture texture, float x, float y, float scaleFactor, Color color, boolean active) {
+			Image newImage = new Image(texture);
+			newImage.setPosition(x, y);
+			newImage.setScale(scaleFactor);
+			newImage.setColor(color);
+			newImage.addAction(hide());
+			this.addActor(newImage);
+			if (active) activeStatuses.put(grappleStatus, newImage);
+			else inactiveStatuses.put(grappleStatus, newImage);
+		}
+	
+		@Override 
+		public void act(float delta) {
+			// set which grapple is visible first
+			if (this.isVisible()) { if(character.getGrappleStatus() == GrappleStatus.NULL) this.addAction(hide()); }
+			else if (character.getGrappleStatus() != GrappleStatus.NULL) this.addAction(show());
+			for (GrappleStatus status : GrappleStatus.reverseValues()) {
+				if (status == GrappleStatus.NULL) continue;
+				if (status == character.getGrappleStatus()) {
+					inactiveStatuses.get(status).addAction(hide());
+					activeStatuses.get(status).addAction(show());
+				}
+				else {
+					activeStatuses.get(status).addAction(hide());
+					inactiveStatuses.get(status).addAction(show());
+				}
+			}
+			super.act(delta);
+		}		
 	}
 }
