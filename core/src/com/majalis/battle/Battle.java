@@ -133,9 +133,6 @@ public class Battle extends Group{
 	public boolean gameExit;
 	private boolean battleOutcomeDecided;
 	private boolean battleOver;
-
-	private boolean uiHidden;
-	
 	private class ArmorDisplay extends Group {
 		private final Armor armor;
 		private final Image display;
@@ -203,9 +200,7 @@ public class Battle extends Group{
 		this.addCharacter(character);
 		this.addCharacter(enemy);
 
-		uiGroup = new Group();
-		uiHidden = false;
-		
+		uiGroup = new Group();		
 		uiGroup.addActor(battleUI);	
 		
 		skin = assetManager.get(AssetEnum.BATTLE_SKIN.getSkin());
@@ -445,13 +440,12 @@ public class Battle extends Group{
 	        }
 			
 			if (Gdx.input.isKeyJustPressed(Keys.TAB)) {
-				if (uiHidden) {
+				if (!uiGroup.isVisible()) {
 					uiGroup.addAction(show());
 				}
 				else {
 					uiGroup.addAction(hide());
 				}
-				uiHidden = !uiHidden;
 			}
 			
 			if (Gdx.input.isKeyJustPressed(Keys.SHIFT_LEFT)) {
