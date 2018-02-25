@@ -34,6 +34,7 @@ public class HealthBar extends Group {
 		label.setPosition(75, 8);
 		this.addActor(label);
 		bar.setColor(character.getHealthColor());
+		bar.getStyle().knobBefore.setMinWidth(0); // this affects ALL progress bars with this skin, so shouldn't be done like this - REMOVE
 	}
 	
 	@Override
