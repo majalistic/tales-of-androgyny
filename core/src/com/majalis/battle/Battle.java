@@ -743,6 +743,12 @@ public class Battle extends Group{
 		}
 	}
 	
+	private void changeButtonColor(TextButton button, Color color) {
+		TextButtonStyle style = new TextButtonStyle(button.getStyle());
+		style.fontColor = color;
+		button.setStyle(style);
+	}
+	
 	private void displayTechniqueOptions() {
 		techniquePane.clearActions();
 		techniqueTable.clear();
@@ -756,23 +762,13 @@ public class Battle extends Group{
 			optionButtons.add(button);
 			boolean outOfStamina = false;
 			boolean outOfStability = false;
-			if (character.getStance().isIncapacitatingOrErotic()) {
-				TextButtonStyle style = new TextButtonStyle(button.getStyle());
-				style.fontColor = Color.FOREST;
-				button.setStyle(style);
-			}
+			if (character.getStance().isIncapacitatingOrErotic()) { changeButtonColor(button, Color.FOREST); }
 			else if(character.outOfStaminaOrStability(option)) {
 				outOfStamina = character.outOfStamina(option);
 				outOfStability = !outOfStamina;
-				TextButtonStyle style = new TextButtonStyle(button.getStyle());
-				style.fontColor = Color.RED;
-				button.setStyle(style);
+				changeButtonColor(button, Color.RED);
 			}
-			else if (character.lowStaminaOrStability(option)) {
-				TextButtonStyle style = new TextButtonStyle(button.getStyle());
-				style.fontColor = Color.ORANGE;
-				button.setStyle(style);
-			}
+			else if (character.lowStaminaOrStability(option)) { changeButtonColor(button, Color.ORANGE); }
 			button.addListener(getListener(option, (outOfStamina && !character.getStance().isIncapacitatingOrErotic() ? "THIS WILL CAUSE YOU TO COLLAPSE!\n" : outOfStability && !character.getStance().isIncapacitatingOrErotic() ? "THIS WILL CAUSE YOU TO LOSE YOUR FOOTING!\n" : "") + option.getTechniqueDescription(), option.getBonusDescription(), ii));
 		}
 		techniqueTable.setFillParent(false);
