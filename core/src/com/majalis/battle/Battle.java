@@ -190,20 +190,7 @@ public class Battle extends Group{
 				offset += xOffset;
 			}
 		}
-		
-		@Override
-		public void setPosition(float x, float y) {
-			super.setPosition(x, y);
-			int offset = 0;
-			for (GrappleStatus status : GrappleStatus.reverseValues()) {
-				if (status == GrappleStatus.NULL) continue;
-				inactiveStatuses.get(status).setPosition(getX() + offset, y);
-				activeStatuses.get(status).setPosition(getX() + offset, y);
-				offset += xOffset;
-			}
-			background.setPosition(getX() + backgroundXOffset, getY() + backgroundYOffset);
-		}
-		
+	
 		@Override 
 		public void act(float delta) {
 			// set which grapple is visible first
