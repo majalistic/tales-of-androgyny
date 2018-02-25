@@ -153,7 +153,6 @@ public class Battle extends Group{
 
 	private Group uiGroup;
 	private boolean uiHidden;
-	private boolean onload = true;
 	
 	private class GrappleDisplay extends Group {
 		private final AbstractCharacter character;
@@ -314,15 +313,10 @@ public class Battle extends Group{
 		armorArmor.addListener(new ClickListener() {
 	        @Override
 	        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-	        	if (onload) {
-	        		onload = false;
-	        	}
-	        	else {
-					skillDisplay.setText(character.getArmorStatus());
-					bonusDisplay.setText("");
-					penaltyDisplay.setText("");
-					showHoverGroup();
-	        	}
+				skillDisplay.setText(character.getArmorStatus());
+				bonusDisplay.setText("");
+				penaltyDisplay.setText("");
+				showHoverGroup();
 			}
 			@Override
 	        public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
@@ -334,15 +328,10 @@ public class Battle extends Group{
 		enemyArmorArmor.addListener(new ClickListener() {
 	        @Override
 	        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-	        	if (onload) {
-	        		onload = false;
-	        	}
-	        	else {
-					skillDisplay.setText(enemy.getArmorStatus());
-					bonusDisplay.setText("");
-					penaltyDisplay.setText("");
-					showHoverGroup();
-	        	}
+				skillDisplay.setText(enemy.getArmorStatus());
+				bonusDisplay.setText("");
+				penaltyDisplay.setText("");
+				showHoverGroup();
 			}
 			@Override
 	        public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
@@ -357,15 +346,10 @@ public class Battle extends Group{
 		legwearArmor.addListener(new ClickListener() {
 	        @Override
 	        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-	        	if (onload) {
-	        		onload = false;
-	        	}
-	        	else {
-					skillDisplay.setText(character.getLegwearStatus());
-					bonusDisplay.setText("");
-					penaltyDisplay.setText("");
-					showHoverGroup();
-	        	}
+				skillDisplay.setText(character.getLegwearStatus());
+				bonusDisplay.setText("");
+				penaltyDisplay.setText("");
+				showHoverGroup();
 			}
 			@Override
 	        public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
@@ -376,15 +360,10 @@ public class Battle extends Group{
 		enemyLegwearArmor.addListener(new ClickListener() {
 	        @Override
 	        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-	        	if (onload) {
-	        		onload = false;
-	        	}
-	        	else {
-					skillDisplay.setText(enemy.getLegwearStatus());
-					bonusDisplay.setText("");
-					penaltyDisplay.setText("");
-					showHoverGroup();
-	        	}
+				skillDisplay.setText(enemy.getLegwearStatus());
+				bonusDisplay.setText("");
+				penaltyDisplay.setText("");
+				showHoverGroup();
 			}
 			@Override
 	        public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
@@ -397,15 +376,10 @@ public class Battle extends Group{
 			shieldArmor.addListener(new ClickListener() {
 		        @Override
 		        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-		        	if (onload) {
-		        		onload = false;
-		        	}
-		        	else {
-						skillDisplay.setText(character.getShieldStatus());
-						bonusDisplay.setText("");
-						penaltyDisplay.setText("");
-						showHoverGroup();
-		        	}
+					skillDisplay.setText(character.getShieldStatus());
+					bonusDisplay.setText("");
+					penaltyDisplay.setText("");
+					showHoverGroup();
 				}
 				@Override
 		        public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
@@ -420,15 +394,10 @@ public class Battle extends Group{
 			enemyShieldArmor.addListener(new ClickListener() {
 		        @Override
 		        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-		        	if (onload) {
-		        		onload = false;
-		        	}
-		        	else {
-						skillDisplay.setText(enemy.getShieldStatus());
-						bonusDisplay.setText("");
-						penaltyDisplay.setText("");
-						showHoverGroup();
-		        	}
+					skillDisplay.setText(enemy.getShieldStatus());
+					bonusDisplay.setText("");
+					penaltyDisplay.setText("");
+					showHoverGroup();
 				}
 				@Override
 		        public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
@@ -471,15 +440,10 @@ public class Battle extends Group{
 			underwearArmor.addListener(new ClickListener() {
 		        @Override
 		        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-		        	if (onload) {
-		        		onload = false;
-		        	}
-		        	else {
-						skillDisplay.setText(character.getUnderwearStatus());
-						bonusDisplay.setText("");
-						penaltyDisplay.setText("");
-						showHoverGroup();
-		        	}
+					skillDisplay.setText(character.getUnderwearStatus());
+					bonusDisplay.setText("");
+					penaltyDisplay.setText("");
+					showHoverGroup();
 				}
 				@Override
 		        public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
@@ -500,15 +464,10 @@ public class Battle extends Group{
 			enemyUnderwearArmor.addListener(new ClickListener() {
 		        @Override
 		        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-		        	if (onload) {
-		        		onload = false;
-		        	}
-		        	else {
-						skillDisplay.setText(enemy.getUnderwearStatus());
-						bonusDisplay.setText("");
-						penaltyDisplay.setText("");
-						showHoverGroup();
-		        	}
+					skillDisplay.setText(enemy.getUnderwearStatus());
+					bonusDisplay.setText("");
+					penaltyDisplay.setText("");
+					showHoverGroup();
 				}
 				@Override
 		        public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
@@ -573,7 +532,7 @@ public class Battle extends Group{
 		characterPortrait = initImage(assetManager.get(character.popPortraitPath()), -7.5f, 922);
 		characterPortrait.setScale(.9f);
 
-		characterPortrait.addListener(getListener(character));
+		characterPortrait.addAction(Actions.sequence(Actions.delay(.5f), new Action() {@Override public boolean act(float delta) { characterPortrait.addListener(getListener(character)); return true; }}));
 		
 		masculinityIcon = initImage(assetManager.get(character.getMasculinityPath()), barX - 175, 790);
 		masculinityIcon.setScale(.15f);
@@ -1023,13 +982,8 @@ public class Battle extends Group{
 			underwearArmor.addListener(new ClickListener() {
 		        @Override
 		        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-		        	if (onload) {
-		        		onload = false;
-		        	}
-		        	else {
-						skillDisplay.setText(character.getUnderwearStatus());
-						showHoverGroup();
-		        	}
+					skillDisplay.setText(character.getUnderwearStatus());
+					showHoverGroup();
 				}
 				@Override
 		        public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
@@ -1050,13 +1004,8 @@ public class Battle extends Group{
 			enemyUnderwearArmor.addListener(new ClickListener() {
 		        @Override
 		        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-		        	if (onload) {
-		        		onload = false;
-		        	}
-		        	else {
-						skillDisplay.setText(enemy.getUnderwearStatus());
-						showHoverGroup();
-		        	}
+					skillDisplay.setText(enemy.getUnderwearStatus());
+					showHoverGroup();
 				}
 				@Override
 		        public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
@@ -1272,15 +1221,10 @@ public class Battle extends Group{
 		return new ClickListener() {
 	        @Override
 	        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-	        	if (onload) {
-	        		onload = false;
-	        	}
-	        	else {
-					skillDisplay.setText(character.getStatTextDisplay());
-					bonusDisplay.setText(character.getStatBonusDisplay());
-					penaltyDisplay.setText(character.getStatPenaltyDisplay());
-					showHoverGroup();
-	        	}
+				skillDisplay.setText(character.getStatTextDisplay());
+				bonusDisplay.setText(character.getStatBonusDisplay());
+				penaltyDisplay.setText(character.getStatPenaltyDisplay());
+				showHoverGroup();
 			}
 			@Override
 	        public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
