@@ -20,7 +20,7 @@ public class ManaBar extends Group {
 	public ManaBar(AbstractCharacter character, AssetManager assetManager, Skin skin) {
 		this.character = character;
 		this.assetManager = assetManager;
-		bar = new ProgressBar(0, 1, .05f, false, skin);
+		bar = new ProgressBar(0, 1, .01f, false, skin);
 		bar.setWidth(350);
 		bar.setValue(character.getManaPercent());
 		this.addActor(bar);
@@ -37,7 +37,15 @@ public class ManaBar extends Group {
 	
 	@Override
 	public void draw(Batch batch, float parentAlpha) {
-		bar.setValue(character.getManaPercent());
+		float characterManaPercent = character.getManaPercent();
+		if(Math.abs(bar.getValue() - characterManaPercent) > .01) {
+			if (bar.getValue() < characterManaPercent) {
+				bar.setValue(bar.getValue() + .01f);
+			}
+			else {
+				bar.setValue(bar.getValue() - .01f);
+			}
+		}
 		icon.setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(character.getManaDisplay()))));
 		label.setText(character.getCurrentMana() + " / " + character.getMaxMana());
 		super.draw(batch, parentAlpha);

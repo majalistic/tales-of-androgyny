@@ -20,7 +20,7 @@ public class BalanceBar extends Group {
 	public BalanceBar(AbstractCharacter character, AssetManager assetManager, Skin skin) {
 		this.character = character;
 		this.assetManager = assetManager;
-		bar = new ProgressBar(0, 1, .05f, false, skin);
+		bar = new ProgressBar(0, 1, .01f, false, skin);
 		bar.setWidth(350);
 		bar.setValue(character.getBalancePercent());
 		this.addActor(bar);
@@ -38,7 +38,15 @@ public class BalanceBar extends Group {
 	
 	@Override
 	public void draw(Batch batch, float parentAlpha) {
-		bar.setValue(character.getBalancePercent());
+		float characterBalancePercent = character.getBalancePercent();
+		if(Math.abs(bar.getValue() - characterBalancePercent) > .01) {
+			if (bar.getValue() < characterBalancePercent) {
+				bar.setValue(bar.getValue() + .01f);
+			}
+			else {
+				bar.setValue(bar.getValue() - .01f);
+			}
+		}
 		icon.setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(character.getBalanceDisplay()))));
 		label.setText(character.getStability().toString());
 		bar.setColor(character.getStaminaColor());

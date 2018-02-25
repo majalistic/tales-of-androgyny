@@ -20,7 +20,7 @@ public class HealthBar extends Group {
 	public HealthBar(AbstractCharacter character, AssetManager assetManager, Skin skin) {
 		this.character = character;
 		this.assetManager = assetManager;
-		bar = new ProgressBar(0, 1, .05f, false, skin);
+		bar = new ProgressBar(0, 1, .01f, false, skin);
 		bar.setWidth(350);
 		bar.setValue(character.getHealthPercent());
 		this.addActor(bar);
@@ -38,7 +38,15 @@ public class HealthBar extends Group {
 	
 	@Override
 	public void draw(Batch batch, float parentAlpha) {
-		bar.setValue(character.getHealthPercent());
+		float characterHealthPercent = character.getHealthPercent();
+		if(Math.abs(bar.getValue() - characterHealthPercent) > .01) {
+			if (bar.getValue() < characterHealthPercent) {
+				bar.setValue(bar.getValue() + .01f);
+			}
+			else {
+				bar.setValue(bar.getValue() - .01f);
+			}
+		}
 		icon.setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(character.getHealthDisplay()))));
 		label.setText(character.getCurrentHealth() + " / " + character.getMaxHealth());
 		bar.setColor(character.getHealthColor());
