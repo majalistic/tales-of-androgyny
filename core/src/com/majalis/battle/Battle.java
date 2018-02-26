@@ -91,7 +91,6 @@ public class Battle extends Group{
 	private final Image enemyArousal;
 	private final Image characterBelly;
 	private final Image masculinityIcon;
-	private final Label enemyWeaponLabel;
 
 	private final Texture armorTexture;
 	private final Texture armorBrokenTexture;
@@ -153,20 +152,12 @@ public class Battle extends Group{
 		initActor(new StaminaBar(character, assetManager, skin), uiGroup, barX, 990);
 		initActor(new BalanceBar(character, assetManager, skin), uiGroup, barX, 945);
 		if (character.hasMagic()) initActor(new ManaBar(character, assetManager, skin), uiGroup, barX, 900);
-		
 		initActor(new HealthBar(enemy, assetManager, skin), uiGroup, enemyBarX, 1035);
-		Actor enemyStamina = initActor(new StaminaBar(enemy, assetManager, skin), uiGroup, enemyBarX, 990);
-		if (character.getBattlePerception() < 4) {
-			enemyStamina.addAction(Actions.hide());
-		}
-		Actor enemyBalance = initActor(new BalanceBar(enemy, assetManager, skin), uiGroup, enemyBarX, 945);
-		if (character.getBattlePerception() < 3) {
-			enemyBalance.addAction(Actions.hide());
-		}
-		
+		if (character.getBattlePerception() >= 4) initActor(new StaminaBar(enemy, assetManager, skin), uiGroup, enemyBarX, 990);
+		if (character.getBattlePerception() >= 3) initActor(new BalanceBar(enemy, assetManager, skin), uiGroup, enemyBarX, 945);
 		initActor(new GrappleDisplay(character, assetManager), uiGroup, 765, 1005); 
 		
-		enemyWeaponLabel = initLabel("Weapon: " + (enemy.getWeapon() != null ? enemy.getWeapon().getName() : "Unarmed"), skin, Color.GOLDENROD, 1578, 900);	
+		initActor(new WeaponDisplay(enemy), uiGroup, 1578, 900);
 		
 		armorTexture = assetManager.get(AssetEnum.ARMOR_0.getTexture());
 		armorBrokenTexture = assetManager.get(AssetEnum.ARMOR_1.getTexture());
@@ -556,7 +547,6 @@ public class Battle extends Group{
 		
 		setEnemyTechnique();
 		
-		enemyWeaponLabel.setText("Weapon: " + (enemy.getWeapon() != null ? enemy.getWeapon().getName() : "Unarmed"));
 		statusLabel.setText(character.getStatusBlurb());
 		enemyStatusLabel.setText(enemy.getStatusBlurb());
 		
@@ -753,9 +743,7 @@ public class Battle extends Group{
 	}
 	
 	private void hideHoverGroup() {
-		if (!battleOutcomeDecided) {
-			hoverGroup.addAction(fadeOut(2f));
-		}
+		hoverGroup.addAction(fadeOut(2f));
 	}
 
 	// creates a wrapper group for a character to be added to so that they can be removed and re-inserted during serialization
@@ -939,6 +927,22 @@ public class Battle extends Group{
 		}
 	}
 		
+	private class WeaponDisplay extends DisplayWidget {
+		private final Label display;
+		private final AbstractCharacter character;
+		private WeaponDisplay(AbstractCharacter character) {
+			this.character = character;
+			this.display = new Label("Weapon: " + (character.getWeapon() != null ? character.getWeapon().getName() : "Unarmed"), skin);
+			display.setColor(Color.GOLDENROD);
+			this.addActor(display);
+		}
+		@Override
+		public void act(float delta) {
+			display.setText("Weapon: " + (character.getWeapon() != null ? character.getWeapon().getName() : "Unarmed"));
+			super.act(delta);
+		}
+	}
+	
 	private class ArmorDisplay extends DisplayWidget {
 		private final Armor armor;
 		private final Image display;
