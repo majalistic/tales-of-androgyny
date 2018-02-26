@@ -575,37 +575,21 @@ public class Battle extends Group{
 		Outcome battleOutcome = enemy.getOutcome(character);
 		if (battleOutcome != null) {
 			battleOutcomeDecided = true;
-			outcome = battleOutcome; 
-			bonusDisplay.setText("");
-			
+			outcome = battleOutcome; 			
 			Group popupGroup = new Group();
 			this.addActor(popupGroup);
-			
-			Image popupImage = new Image(assetManager.get(AssetEnum.BATTLE_HOVER.getTexture()));
-			popupImage.setBounds(325, 75, popupImage.getWidth() + 100, popupImage.getHeight() + 100);
-			popupGroup.addActor(popupImage);			
 			popupGroup.addAction(fadeIn(.1f));
 			
-			Table statusResults = new Table();
+			Texture boxTexture = assetManager.get(AssetEnum.BATTLE_HOVER.getTexture());
+			initActor(new Image(boxTexture), popupGroup, 325, 75, boxTexture.getWidth() + 100, boxTexture.getHeight() + 100);
+			Table statusResults = (Table) initActor(new Table(), popupGroup, 412, 525);
 			statusResults.align(Align.topLeft);
-			
-			Label outcomeDisplay = new Label(enemy.getOutcomeText(character), skin);
-			outcomeDisplay.setWrap(true);
-			outcomeDisplay.setColor(battleOutcome == Outcome.VICTORY || battleOutcome == Outcome.SATISFIED ? Color.FOREST : Color.FIREBRICK);
-			outcomeDisplay.setAlignment(Align.top);
-			statusResults.add(outcomeDisplay).width(580).align(Align.top).row();
+			statusResults.add(initLabel(enemy.getOutcomeText(character), skin, true, Align.top, battleOutcome == Outcome.VICTORY || battleOutcome == Outcome.SATISFIED ? Color.FOREST : Color.FIREBRICK)).width(580).align(Align.top).row();
 			statusResults.row();			
-			Label newLabel = new Label("Results: ", skin);
-			newLabel.setColor(Color.BLACK);
-			statusResults.add(newLabel).fillY().align(Align.left).row();
-			Array<MutationResult> compactedResults = MutationResult.collapse(battleResults); 
-			for (MutationResult result : compactedResults) {
+			statusResults.add(initLabel("Results: ", skin, true, Align.top, Color.BLACK)).fillY().align(Align.left).row();
+			for (MutationResult result : MutationResult.collapse(battleResults)) {
 				statusResults.add(new MutationActor(result, assetManager.get(result.getTexture()), skin, true)).fillY().padLeft(50).align(Align.left).row();
-			}
-			
-			statusResults.setPosition(412, 525);
-			
-			popupGroup.addActor(statusResults);		
+			}	
 			
 			uiGroup.removeActor(techniquePane);
 			uiGroup.removeActor(hoverGroup);
@@ -626,22 +610,14 @@ public class Battle extends Group{
 		Group popupGroup = new Group();
 		this.addActor(popupGroup);
 		
-		Image popupImage = new Image(assetManager.get(AssetEnum.BATTLE_HOVER.getTexture()));
-		popupImage.setBounds(625, 375, popupImage.getWidth() + 100, popupImage.getHeight() + 100);
-		popupGroup.addActor(popupImage);			
+		Texture boxTexture = assetManager.get(AssetEnum.BATTLE_HOVER.getTexture());
+		initActor(new Image(boxTexture), popupGroup, 625, 375, boxTexture.getWidth() + 100, boxTexture.getHeight() + 100);		
 		popupGroup.addAction(fadeIn(.1f));
 		
-		Table statusResults = new Table();
+		Table statusResults = (Table) initActor(new Table(), popupGroup, 712, 825);
 		statusResults.align(Align.topLeft);
+		statusResults.add(initLabel(dialog, skin, true, Align.top, Color.BLACK)).width(580).align(Align.top).row();		
 		
-		Label outcomeDisplay = new Label(dialog, skin);
-		outcomeDisplay.setWrap(true);
-		outcomeDisplay.setAlignment(Align.top);
-		outcomeDisplay.setColor(Color.BLACK);
-		statusResults.add(outcomeDisplay).width(580).align(Align.top).row();		
-		statusResults.setPosition(712, 825);
-		
-		popupGroup.addActor(statusResults);	
 		popupGroup.addAction(sequence(delay(25), hide()));
 		popupGroup.addListener(new ClickListener() {
 			@Override
@@ -650,12 +626,6 @@ public class Battle extends Group{
 	        }
 		});
 	}
-	
-	/* Helper methods */
-	private Texture getStanceImage(Stance stance) {
-		return assetManager.get(stance.getTexture());
-	}
-	
 	private ClickListener getListener(final PlayerCharacter character) {
 		return new ClickListener() {
 	        @Override
@@ -694,14 +664,11 @@ public class Battle extends Group{
 	    };
 	}
 	
+	private void hideHoverGroup() { hoverGroup.addAction(fadeOut(2f)); }
 	private void showHoverGroup() {
 		hoverGroup.clearActions();
 		hoverGroup.addAction(visible(true));
 		hoverGroup.addAction(alpha(1));
-	}
-	
-	private void hideHoverGroup() {
-		hoverGroup.addAction(fadeOut(2f));
 	}
 
 	// creates a wrapper group for a character to be added to so that they can be removed and re-inserted during serialization
@@ -746,13 +713,8 @@ public class Battle extends Group{
 		return label;
 	}
 	
-	public boolean isBattleOver() {
-		return battleOver;
-	}
-	
-	public int getOutcomeScene() {
-		return outcomes.get(outcome.toString());
-	}
+	public boolean isBattleOver() { return battleOver; }
+	public int getOutcomeScene() { return outcomes.get(outcome.toString()); }
 	
 	private class StanceActor extends Actor {
 		private final AbstractCharacter character;
@@ -780,7 +742,7 @@ public class Battle extends Group{
 			super.draw(batch, parentAlpha);
 			Stance stance = character.getStance();
 			String stanceName = stance.getLabel();
-			batch.draw(getStanceImage(stance), getX(), getY(), getWidth(), getHeight());
+			batch.draw(assetManager.get(stance.getTexture()), getX(), getY(), getWidth(), getHeight());
 			if (hover) {
 				batch.draw(hoverBox, getX() + 50 - (stanceName.length() * 9), getY() - 75, 25 + stanceName.length() * 18, 50);
 				font.setColor(Color.BLACK);
