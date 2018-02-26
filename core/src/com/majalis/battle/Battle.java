@@ -152,7 +152,7 @@ public class Battle extends Group{
 		Texture armorBrokenTexture = assetManager.get(AssetEnum.ARMOR_1.getTexture());
 		Texture bloodTexture = assetManager.get(AssetEnum.BLEED.getTexture());	
 		Texture armorDollTexture = assetManager.get(AssetEnum.ARMOR_DOLL.getTexture());
-		// dolls
+		// dolls - should create a class for this, including the bleed icon, status display, and armor
 		initImage(armorDollTexture, barX + 150, 700, 250);
 		initImage(armorDollTexture, 1425, 700, 250);
 		
@@ -515,14 +515,6 @@ public class Battle extends Group{
 			}
 		}
 		
-		// this needs to be secondCharacter.getOutcome() or something similar
-		Outcome battleOutcome = ((EnemyCharacter) secondCharacter).getOutcome(firstCharacter);
-		if (battleOutcome != null) {
-			battleOutcomeDecided = true;
-			outcome = battleOutcome; 
-			skillDisplay.setText(((EnemyCharacter) secondCharacter).getOutcomeText(firstCharacter));
-		}
-		
 		setEnemyTechnique();	
 		masculinityIcon.setDrawable(getDrawable(character.getMasculinityPath()));	
 		
@@ -759,7 +751,6 @@ public class Battle extends Group{
 		return label;
 	}
 	
-	/* REFACTOR AND REMOVE BEYOND THIS LINE */
 	public boolean isBattleOver() {
 		return battleOver;
 	}
