@@ -89,7 +89,6 @@ public class Battle extends Group{
 	private final Label penaltyDisplay;
 	private final Image characterArousal;
 	private final Image enemyArousal;
-	private final Image characterBelly;
 	private final Image masculinityIcon;
 
 	private final Texture armorTexture;
@@ -209,8 +208,7 @@ public class Battle extends Group{
 		characterArousal = initImage(assetManager.get(character.getLustImagePath()), 150, 735, 150, 150);
 		enemyArousal = initImage(assetManager.get(enemy.getLustImagePath()), 1078 * 1.5f, 735, 150, 150);
 		
-		characterBelly = initImage(assetManager.get(character.getCumInflationPath()), 0, 850, 100, 100); 
-		
+		initActor(new BellyDisplay(character), uiGroup, 0, 850);
 		initActor(new StanceActor(character), uiGroup, 600.5f, 880, 150, 172.5f);
 		initActor(new StanceActor(enemy), uiGroup, 1305, 880, 150, 172.5f);
 		
@@ -546,7 +544,6 @@ public class Battle extends Group{
 		statusLabel.setText(character.getStatusBlurb());
 		enemyStatusLabel.setText(enemy.getStatusBlurb());
 		
-		characterBelly.setDrawable(getDrawable(character.getCumInflationPath()));
 		characterArousal.setDrawable(getDrawable(character.getLustImagePath()));
 		enemyArousal.setDrawable(getDrawable(enemy.getLustImagePath()));		
 		masculinityIcon.setDrawable(getDrawable(character.getMasculinityPath()));	
@@ -879,6 +876,21 @@ public class Battle extends Group{
 			return true;
 		}
 	}
+	
+	private class BellyDisplay extends Group {
+		private final Image display;
+		public BellyDisplay (AbstractCharacter character) {
+			display = new Image(assetManager.get(character.getCumInflationPath()));
+			display.setSize(100, 100);
+			this.addActor(display);
+		}
+		@Override
+		public void act(float delta) {
+			display.setDrawable(getDrawable(assetManager.get(character.getCumInflationPath())));
+			super.act(delta);
+		}
+	}
+	
 	
 	private class BleedDisplay extends DisplayWidget {
 		private final AbstractCharacter character;
