@@ -94,7 +94,7 @@ public class Attack {
 	protected String getName() { return name; }
 	public boolean isAttack() { return isAttack; }	
 	public AttackHeight getAttackHeight() { return height; }	
-	protected int getDamage() { return (int) (rawDamage * blockMod); }
+	public int getDamage() { return (int) (rawDamage * blockMod); }
 	protected int getForce() { return (int) (force * blockMod); }
 	public int getArmorSunder() { return (int)(rawDamage * rawArmorBreak * blockMod) / 4; }
 	public int getBleeding() { return (int) (bleeding * blockMod); }
