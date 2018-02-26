@@ -87,8 +87,6 @@ public class Battle extends Group{
 	private final Label skillDisplay;
 	private final Label bonusDisplay;
 	private final Label penaltyDisplay;
-	private final Image characterArousal;
-	private final Image enemyArousal;
 	private final Image masculinityIcon;
 
 	private final Texture armorTexture;
@@ -205,9 +203,8 @@ public class Battle extends Group{
 		masculinityIcon = initImage(assetManager.get(character.getMasculinityPath()), barX - 175, 790);
 		masculinityIcon.setScale(.15f);
 		
-		characterArousal = initImage(assetManager.get(character.getLustImagePath()), 150, 735, 150, 150);
-		enemyArousal = initImage(assetManager.get(enemy.getLustImagePath()), 1078 * 1.5f, 735, 150, 150);
-		
+		initActor(new ArousalDisplay(character), uiGroup, 150, 735);
+		initActor(new ArousalDisplay(enemy), uiGroup, 1617, 735);
 		initActor(new BellyDisplay(character), uiGroup, 0, 850);
 		initActor(new StanceActor(character), uiGroup, 600.5f, 880, 150, 172.5f);
 		initActor(new StanceActor(enemy), uiGroup, 1305, 880, 150, 172.5f);
@@ -542,10 +539,7 @@ public class Battle extends Group{
 		setEnemyTechnique();
 		
 		statusLabel.setText(character.getStatusBlurb());
-		enemyStatusLabel.setText(enemy.getStatusBlurb());
-		
-		characterArousal.setDrawable(getDrawable(character.getLustImagePath()));
-		enemyArousal.setDrawable(getDrawable(enemy.getLustImagePath()));		
+		enemyStatusLabel.setText(enemy.getStatusBlurb());		
 		masculinityIcon.setDrawable(getDrawable(character.getMasculinityPath()));	
 		
 		// these methods use short circuit evaluation, because the hasSeenXTutorial methods also set that respective flag to prevent repeats - should probably make this less fragile eventually
@@ -874,6 +868,22 @@ public class Battle extends Group{
 		public boolean act(float delta) {
 			sound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") * volume);
 			return true;
+		}
+	}
+	
+	private class ArousalDisplay extends Group {
+		private final Image display;
+		private final AbstractCharacter character;
+		public ArousalDisplay (AbstractCharacter character) {
+			this.character = character;
+			display = new Image(assetManager.get(character.getLustImagePath()));
+			display.setSize(150, 150);
+			this.addActor(display);
+		}
+		@Override
+		public void act(float delta) {
+			display.setDrawable(getDrawable(assetManager.get(character.getLustImagePath())));
+			super.act(delta);
 		}
 	}
 	
