@@ -36,7 +36,6 @@ import com.majalis.asset.AnimationBuilder;
 import com.majalis.asset.AssetEnum;
 import com.majalis.character.AbstractCharacter;
 import com.majalis.character.AbstractCharacter.AttackResult;
-import com.majalis.character.AbstractCharacter.Stability;
 import com.majalis.character.Armor;
 import com.majalis.character.Stance;
 import com.majalis.character.Attack.Status;
@@ -101,14 +100,6 @@ public class Battle extends Group{
 	private final Label statusLabel;
 	private final Label enemyStatusLabel;
 	
-	private final Label characterHealthDiff;
-	private final Label characterStaminaDiff;
-	private final Label characterBalanceDiff;
-	private final Label characterBleedDiff;
-	private final Label enemyHealthDiff;
-	private final Label enemyStaminaDiff;
-	private final Label enemyBalanceDiff;
-	private final Label enemyBleedDiff;
 	private final AssetEnum musicPath;
 	
 	private SkillText enemySkill;
@@ -157,16 +148,6 @@ public class Battle extends Group{
 		float hoverYPos = 35; 
 		float consoleXPos = 1200;
 		float consoleYPos = 5;
-		float yAdjust = 25;
-		
-		characterHealthDiff = initLabel("", skin, Color.WHITE, barX + 350, 1035 + yAdjust);
-		characterStaminaDiff = initLabel("", skin, Color.WHITE, barX + 350, 990 + yAdjust);
-		characterBalanceDiff = initLabel("", skin, Color.WHITE, barX + 350, 945 + yAdjust);
-		characterBleedDiff = initLabel("", skin, Color.WHITE, 370, 725 + yAdjust);
-		enemyHealthDiff = initLabel("", skin, Color.WHITE, enemyBarX + 350, 1035 + yAdjust);
-		enemyStaminaDiff = initLabel("", skin, Color.WHITE, enemyBarX + 350, 990 + yAdjust);
-		enemyBalanceDiff = initLabel("", skin, Color.WHITE, enemyBarX + 350, 945 + yAdjust);
-		enemyBleedDiff = initLabel("", skin, Color.WHITE, 1590, 725 + yAdjust);
 	
 		initActor(new HealthBar(character, assetManager, skin), uiGroup, barX, 1035);
 		initActor(new StaminaBar(character, assetManager, skin), uiGroup, barX, 990);
@@ -177,12 +158,10 @@ public class Battle extends Group{
 		Actor enemyStamina = initActor(new StaminaBar(enemy, assetManager, skin), uiGroup, enemyBarX, 990);
 		if (character.getBattlePerception() < 4) {
 			enemyStamina.addAction(Actions.hide());
-			enemyStaminaDiff.addAction(Actions.hide());	
 		}
 		Actor enemyBalance = initActor(new BalanceBar(enemy, assetManager, skin), uiGroup, enemyBarX, 945);
 		if (character.getBattlePerception() < 3) {
 			enemyBalance.addAction(Actions.hide());
-			enemyBalanceDiff.addAction(Actions.hide());	
 		}
 		
 		initActor(new GrappleDisplay(character, assetManager), uiGroup, 765, 1005); 
@@ -414,15 +393,6 @@ public class Battle extends Group{
 	private Array<MutationResult> resolveTechniques(AbstractCharacter firstCharacter, Technique firstTechnique, AbstractCharacter secondCharacter, Technique secondTechnique) {
 		console.setText("");
 		dialog.setText("");
-		int oldCharacterHealth = character.getCurrentHealth();
-		int oldCharacterStamina = character.getCurrentStamina();
-		Stability oldCharacterBalance = character.getStability();
-		int oldCharacterBleed = character.getBleed();
-		
-		int oldEnemyHealth = enemy.getCurrentHealth();
-		int oldEnemyStamina = enemy.getCurrentStamina();
-		Stability oldEnemyBalance = enemy.getStability();
-		int oldEnemyBleed = enemy.getBleed();
 		
 		// cache player character's stance from the previous turn; playerCharacter will cache stance at the start of this turn
 		Stance oldStance = firstCharacter.getStance();
@@ -585,16 +555,6 @@ public class Battle extends Group{
 		}
 		
 		setEnemyTechnique();
-		
-		setDiffLabel(characterHealthDiff, character.getCurrentHealth() - oldCharacterHealth);
-		setDiffLabel(characterStaminaDiff, character.getCurrentStamina() - oldCharacterStamina);
-		setDiffLabel(characterBalanceDiff, character.getStability().ordinal() - oldCharacterBalance.ordinal());
-		setDiffLabel(characterBleedDiff, character.getBleed() - oldCharacterBleed, true);
-
-		setDiffLabel(enemyHealthDiff, enemy.getCurrentHealth() - oldEnemyHealth);
-		setDiffLabel(enemyStaminaDiff, enemy.getCurrentStamina() - oldEnemyStamina);
-		setDiffLabel(enemyBalanceDiff, enemy.getStability().ordinal() - oldEnemyBalance.ordinal());
-		setDiffLabel(enemyBleedDiff, enemy.getBleed() - oldEnemyBleed, true);
 		
 		enemyWeaponLabel.setText("Weapon: " + (enemy.getWeapon() != null ? enemy.getWeapon().getName() : "Unarmed"));
 		statusLabel.setText(character.getStatusBlurb());
@@ -848,10 +808,6 @@ public class Battle extends Group{
 		return newLabel;
 	}
 	
-	public enum Outcome {
-		VICTORY, DEFEAT, KNOT_ANAL, KNOT_ORAL, SATISFIED, SUBMISSION, DEATH
-	}
-	
 	/* REFACTOR AND REMOVE BEYOND THIS LINE */
 	public boolean isBattleOver() {
 		return battleOver;
@@ -940,12 +896,15 @@ public class Battle extends Group{
 		}
 	}
 	
-	private class BleedDisplay extends Group {
+	private class BleedDisplay extends DisplayWidget {
 		private final AbstractCharacter character;
 		private final Label bleedValue;
+		private final Image display;
+		private final Label diffValueDisplay;
+		private int value;
 		public BleedDisplay (AbstractCharacter character) {
 			this.character = character;
-			Image display = new Image(assetManager.get(AssetEnum.BLEED.getTexture()));	
+			display = new Image(assetManager.get(AssetEnum.BLEED.getTexture()));	
 		    display.setSize((bloodTexture.getWidth() / (bloodTexture.getHeight() / (1.0f * 75))), 75);
 		    this.addActor(display);
 			bleedValue = new Label("" + character.getBleed(), skin);
@@ -955,12 +914,27 @@ public class Battle extends Group{
 			bleedValue.setWidth(10);
 			if (character.getBleed() <= 0) addAction(hide());
 			this.addActor(bleedValue);
+			diffValueDisplay = new Label("", skin);
+			diffValueDisplay.setPosition(getX() + 50, getY() + 25);
+			this.addActor(diffValueDisplay);
+			value = character.getBleed();
 		}
 		@Override
 		public void act(float delta) {
 			bleedValue.setText("" + character.getBleed());
-			if (this.isVisible() && character.getBleed() <= 0) addAction(hide());
-			else if (!this.isVisible() && character.getBleed() > 0) addAction(show());
+			if (this.isVisible() && character.getBleed() <= 0) {
+				display.addAction(hide());
+				bleedValue.addAction(hide());
+			}
+			else if (!this.isVisible() && character.getBleed() > 0) {
+				display.addAction(show());
+				bleedValue.addAction(show());
+			}
+			if (value != character.getBleed()) {
+				setDiffLabel(diffValueDisplay, character.getBleed() - value, true);
+				value = character.getBleed();
+			}
+			
 			super.act(delta);
 		}
 	}
@@ -1022,39 +996,7 @@ public class Battle extends Group{
 			super.act(delta);
 		}
 	}
-	
-	protected void setDiffLabel(Label label, int value) { setDiffLabel(label, value, false); }
-	protected void setDiffLabel(final Label label, int value, boolean reverse) {
-		label.clearActions();
-		if (value == 0) {
-			label.setText("");
-		}
-		else if (value > 0) {
-			label.setColor(reverse ? Color.RED : Color.GREEN);
-			label.setText("+" + value);
-			label.addAction(sequence(alpha(1), fadeOut(6)));
-			label.setFontScale(1.5f);
-			label.addAction(sequence(delay(1), new Action(){
-				@Override
-				public boolean act(float delta) {
-					label.setFontScale(1);
-					return false;
-				} }));
-		}
-		else {
-			label.setColor(reverse ? Color.GREEN : Color.RED);
-			label.setText(String.valueOf(value));
-			label.addAction(sequence(alpha(1), fadeOut(6)));
-			label.setFontScale(1.5f);
-			label.addAction(sequence(delay(1), new Action(){
-				@Override
-				public boolean act(float delta) {
-					label.setFontScale(1);
-					return false;
-				} }));
-		}
-	}
-	
+
 	private class GrappleDisplay extends Group {
 		private final AbstractCharacter character;
 		private final OrderedMap<GrappleStatus, Image> inactiveStatuses;
@@ -1107,5 +1049,9 @@ public class Battle extends Group{
 			}
 			super.act(delta);
 		}		
+	}
+	
+	public enum Outcome {
+		VICTORY, DEFEAT, KNOT_ANAL, KNOT_ORAL, SATISFIED, SUBMISSION, DEATH
 	}
 }

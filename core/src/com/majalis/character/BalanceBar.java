@@ -2,21 +2,21 @@ package com.majalis.character;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
-public class BalanceBar extends Group {
+public class BalanceBar extends DisplayWidget {
 	private final AssetManager assetManager;
 	private final AbstractCharacter character;
 	private final ProgressBar bar;
 	private final Image icon;
 	private final Label label;
+	private final Label diffValueDisplay;
+	private int value;
 	public BalanceBar(AbstractCharacter character, AssetManager assetManager, Skin skin) {
 		this.character = character;
 		this.assetManager = assetManager;
@@ -34,10 +34,15 @@ public class BalanceBar extends Group {
 		label.setPosition(75, 8);
 		this.addActor(label);
 		bar.setColor(character.getStabilityColor());
+		
+		diffValueDisplay = new Label("", skin);
+		diffValueDisplay.setPosition(getX() + 350, getY() + 25);
+		this.addActor(diffValueDisplay);
+		value = character.getStability().ordinal();
 	}
 	
 	@Override
-	public void draw(Batch batch, float parentAlpha) {
+	public void act(float delta) {
 		float characterBalancePercent = character.getBalancePercent();
 		if(Math.abs(bar.getValue() - characterBalancePercent) > .01) {
 			if (bar.getValue() < characterBalancePercent) {
@@ -50,6 +55,10 @@ public class BalanceBar extends Group {
 		icon.setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(character.getBalanceDisplay()))));
 		label.setText(character.getStability().toString());
 		bar.setColor(character.getStabilityColor());
-		super.draw(batch, parentAlpha);
+		if (value != character.getStability().ordinal()) {
+			setDiffLabel(diffValueDisplay, character.getStability().ordinal() - value);
+			value = character.getStability().ordinal();
+		}
+		super.act(delta);
 	}
 }

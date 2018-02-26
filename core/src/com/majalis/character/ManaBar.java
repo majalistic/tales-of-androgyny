@@ -2,21 +2,21 @@ package com.majalis.character;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
-public class ManaBar extends Group {
+public class ManaBar extends DisplayWidget {
 	private final AssetManager assetManager;
 	private final AbstractCharacter character;
 	private final ProgressBar bar;
 	private final Image icon;
 	private final Label label;
+	private final Label diffValueDisplay;
+	private int value;
 	public ManaBar(AbstractCharacter character, AssetManager assetManager, Skin skin) {
 		this.character = character;
 		this.assetManager = assetManager;
@@ -33,10 +33,15 @@ public class ManaBar extends Group {
 		label.setColor(Color.BROWN);
 		label.setPosition(75, 8);
 		this.addActor(label);
+		
+		diffValueDisplay = new Label("", skin);
+		diffValueDisplay.setPosition(getX() + 350, getY() + 25);
+		this.addActor(diffValueDisplay);
+		value = character.getCurrentMana();
 	}
 	
 	@Override
-	public void draw(Batch batch, float parentAlpha) {
+	public void act(float delta) {
 		float characterManaPercent = character.getManaPercent();
 		if(Math.abs(bar.getValue() - characterManaPercent) > .01) {
 			if (bar.getValue() < characterManaPercent) {
@@ -48,6 +53,10 @@ public class ManaBar extends Group {
 		}
 		icon.setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(character.getManaDisplay()))));
 		label.setText(character.getCurrentMana() + " / " + character.getMaxMana());
-		super.draw(batch, parentAlpha);
+		if (value != character.getCurrentMana()) {
+			setDiffLabel(diffValueDisplay, character.getCurrentMana() - value);
+			value = character.getCurrentMana();
+		}
+		super.act(delta);
 	}
 }
