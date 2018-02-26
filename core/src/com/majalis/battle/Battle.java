@@ -78,7 +78,6 @@ public class Battle extends Group{
 	private final Group uiGroup;
 	
 	// basically all of this should go away
-	
 	private final Image characterPortrait;
 	private final Group hoverGroup;
 	private final Group dialogGroup;
@@ -89,9 +88,6 @@ public class Battle extends Group{
 	private final Label penaltyDisplay;
 	private final Image masculinityIcon;
 
-	private final Label statusLabel;
-	private final Label enemyStatusLabel;
-	
 	private final AssetEnum musicPath;
 	
 	private SkillText enemySkill;
@@ -161,27 +157,22 @@ public class Battle extends Group{
 		initImage(armorDollTexture, 1425, 700, 250);
 		
 		initActor(new ArmorDisplay(character, character.getArmor(), armorTexture, armorBrokenTexture), uiGroup, barX + 224, 823);
-		initActor(new ArmorDisplay(enemy, enemy.getArmor(), armorTexture, armorBrokenTexture), uiGroup, 1497, 823);
+		initActor(new ArmorDisplay(enemy, enemy.getArmor(), armorTexture, armorBrokenTexture), uiGroup, enemyBarX - 3, 823);
 		initActor(new ArmorDisplay(character, character.getUnderwear(), armorTexture, armorBrokenTexture), uiGroup, barX + 224, 750);
-		initActor(new ArmorDisplay(enemy, enemy.getUnderwear(), armorTexture, armorBrokenTexture), uiGroup, 1497, 750);
+		initActor(new ArmorDisplay(enemy, enemy.getUnderwear(), armorTexture, armorBrokenTexture), uiGroup, enemyBarX - 3, 750);
 		initActor(new ArmorDisplay(character, character.getLegwear(), armorTexture, armorBrokenTexture), uiGroup, barX + 224, 770);
-		initActor(new ArmorDisplay(enemy, enemy.getLegwear(), armorTexture, armorBrokenTexture), uiGroup, 1497, 770);
+		initActor(new ArmorDisplay(enemy, enemy.getLegwear(), armorTexture, armorBrokenTexture), uiGroup, enemyBarX - 3, 770);
 		initActor(new ArmorDisplay(character, character.getShield(), armorTexture, armorBrokenTexture), uiGroup, barX + 284, 810);
-		initActor(new ArmorDisplay(enemy, enemy.getShield(), armorTexture, armorBrokenTexture), uiGroup, 1557, 810);		
+		initActor(new ArmorDisplay(enemy, enemy.getShield(), armorTexture, armorBrokenTexture), uiGroup, enemyBarX + 57, 810);		
 		initActor(new BleedDisplay(character, bloodTexture), uiGroup, 325, 725);
 		initActor(new BleedDisplay(enemy, bloodTexture), uiGroup, 1545, 725);
 			
 		Table statusTable = (Table) initActor(new Table(), uiGroup, 525,  850);
 		statusTable.align(Align.topLeft);
 		Table enemyStatusTable = (Table) initActor(new Table(), uiGroup, 1575,  700);
-		enemyStatusTable.align(Align.topLeft);
-		statusLabel = initLabel(character.getStatusBlurb(), skin, Color.RED, 550, 725);
-		uiGroup.removeActor(statusLabel);
-		enemyStatusLabel = initLabel(enemy.getStatusBlurb(), skin, Color.RED, 1575, 725);
-		uiGroup.removeActor(enemyStatusLabel);
-		
-		statusTable.add(statusLabel).align(Align.topLeft);
-		enemyStatusTable.add(enemyStatusLabel).align(Align.topRight);
+		enemyStatusTable.align(Align.topLeft);		
+		statusTable.add(initActor(new StatusDisplay(character, skin), null, 550, 725)).align(Align.topLeft);
+		enemyStatusTable.add(initActor(new StatusDisplay(enemy, skin), null, enemyBarX + 75, 725)).align(Align.topRight);
 		
 		initActor(new Image(assetManager.get(AssetEnum.BATTLE_TEXTBOX.getTexture())), uiGroup, consoleXPos, consoleYPos);
 		dialogGroup = new Group();		
@@ -532,10 +523,7 @@ public class Battle extends Group{
 			skillDisplay.setText(((EnemyCharacter) secondCharacter).getOutcomeText(firstCharacter));
 		}
 		
-		setEnemyTechnique();
-		
-		statusLabel.setText(character.getStatusBlurb());
-		enemyStatusLabel.setText(enemy.getStatusBlurb());		
+		setEnemyTechnique();	
 		masculinityIcon.setDrawable(getDrawable(character.getMasculinityPath()));	
 		
 		// these methods use short circuit evaluation, because the hasSeenXTutorial methods also set that respective flag to prevent repeats - should probably make this less fragile eventually
@@ -771,14 +759,6 @@ public class Battle extends Group{
 		return label;
 	}
 	
-	private Label initLabel(String value, Skin skin, Color color, float x, float y) {
-		Label newLabel = new Label(value, skin);
-		newLabel.setColor(color);
-		newLabel.setPosition(x, y);
-		uiGroup.addActor(newLabel);
-		return newLabel;
-	}
-	
 	/* REFACTOR AND REMOVE BEYOND THIS LINE */
 	public boolean isBattleOver() {
 		return battleOver;
@@ -883,6 +863,20 @@ public class Battle extends Group{
 		}
 	}
 	
+	private class StatusDisplay extends Label {
+		private final AbstractCharacter character;
+		public StatusDisplay(AbstractCharacter character, Skin skin) {
+			super(character.getStatusBlurb(), skin);			
+			this.character = character;
+			this.setColor(Color.RED);
+		}
+		@Override
+		public void act(float delta) {
+			setText(character.getStatusBlurb());
+			super.act(delta);
+		}
+	}
+	
 	private class BellyDisplay extends Group {
 		private final Image display;
 		public BellyDisplay (AbstractCharacter character) {
@@ -896,8 +890,7 @@ public class Battle extends Group{
 			super.act(delta);
 		}
 	}
-	
-	
+		
 	private class BleedDisplay extends DisplayWidget {
 		private final AbstractCharacter character;
 		private final Label bleedValue;
