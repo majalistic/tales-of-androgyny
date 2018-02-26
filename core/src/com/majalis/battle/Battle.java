@@ -246,34 +246,13 @@ public class Battle extends Group{
 	public AssetEnum getMusicPath() { return musicPath; }
 	
 	public void battleLoop() {
-		if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
-			gameExit = true;
-		}
-		else if (!battleOutcomeDecided) {
-			if(Gdx.input.isKeyJustPressed(Keys.UP)) {
-	        	if (selection > 0) changeSelection(selection - 1);
-	        	else changeSelection(optionButtons.size-1);
-			}
-	        else if(Gdx.input.isKeyJustPressed(Keys.DOWN)) {
-	        	if (selection < optionButtons.size- 1) changeSelection(selection + 1);
-	        	else changeSelection(0);
-	        }
-	        else if(Gdx.input.isKeyJustPressed(Keys.ENTER)) {
-	        	clickButton(optionButtons.get(selection));
-	        }
-			
-			if (Gdx.input.isKeyJustPressed(Keys.TAB)) {
-				if (!uiGroup.isVisible()) {
-					uiGroup.addAction(show());
-				}
-				else {
-					uiGroup.addAction(hide());
-				}
-			}
-			
-			if (Gdx.input.isKeyJustPressed(Keys.SHIFT_LEFT)) {
-				enemy.toggle();
-			}
+		if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) { gameExit = true;	}
+		else if (!battleOutcomeDecided) { 
+			if(Gdx.input.isKeyJustPressed(Keys.UP)) { changeSelection(selection - 1 < 0 ? optionButtons.size - 1 : selection - 1); }
+	        else if(Gdx.input.isKeyJustPressed(Keys.DOWN)) { changeSelection((selection + 1) % optionButtons.size); }
+	        else if(Gdx.input.isKeyJustPressed(Keys.ENTER)) { clickButton(optionButtons.get(selection)); }			
+			if (Gdx.input.isKeyJustPressed(Keys.TAB)) { uiGroup.addAction(visible(!uiGroup.isVisible())); }
+			if (Gdx.input.isKeyJustPressed(Keys.SHIFT_LEFT)) { enemy.toggle(); }
 			
 			if (selectedTechnique == null) {
 				int ii = 0;
@@ -294,22 +273,18 @@ public class Battle extends Group{
 				Array<MutationResult> results = resolveTechniques(character, selectedTechnique, enemy, enemySelectedTechnique);
 				selectedTechnique = null;
 				displayTechniqueOptions();
-				saveService.saveDataValue(SaveEnum.PLAYER, character);
-				saveService.saveDataValue(SaveEnum.ENEMY, enemy);
+				saveService.saveDataValue(SaveEnum.PLAYER, character, false);
+				saveService.saveDataValue(SaveEnum.ENEMY, enemy, false);
 				Array<String> consoleComponents = new Array<String>();
 				consoleComponents.add(console.getText().toString());
 				consoleComponents.add(dialog.getText().toString());
-				saveService.saveDataValue(SaveEnum.CONSOLE, consoleComponents);
+				saveService.saveDataValue(SaveEnum.CONSOLE, consoleComponents, false);
 				saveService.saveDataValue(SaveEnum.BATTLE_RESULT, results);
 			}
 
 			checkEndBattle();
 		}
-		else {
-			if(Gdx.input.isKeyJustPressed(Keys.ENTER) || Gdx.input.isKeyJustPressed(Keys.SPACE)) {
-	        	battleOver = true;
-	        }
-		}
+		else if(Gdx.input.isKeyJustPressed(Keys.ENTER) || Gdx.input.isKeyJustPressed(Keys.SPACE)) { battleOver = true; }
 	}
 	
 	private void changeButtonColor(TextButton button, Color color) {
@@ -394,35 +369,19 @@ public class Battle extends Group{
 		}
 		
 		for (Attack attackForFirstCharacter : attacksForFirstCharacter) {
-			if (attackForFirstCharacter.isSuccessful() && attackForFirstCharacter.isClimax()) {
-				this.addAction(new SoundAction(soundMap.get(AssetEnum.CUM), .5f));
-			}
-			if (enemy.getStance() == Stance.CASTING && attackForFirstCharacter.isSuccessful()) {
-				this.addAction(new SoundAction(soundMap.get(AssetEnum.INCANTATION), .5f));
-			}
-			if (attackForFirstCharacter.isSpell()) {
-				this.addAction(new SoundAction(soundMap.get(AssetEnum.FIREBALL_SOUND), .5f));
-			}
+			if (attackForFirstCharacter.isSuccessful() && attackForFirstCharacter.isClimax()) { this.addAction(new SoundAction(soundMap.get(AssetEnum.CUM), .5f)); }
+			if (enemy.getStance() == Stance.CASTING && attackForFirstCharacter.isSuccessful()) { this.addAction(new SoundAction(soundMap.get(AssetEnum.INCANTATION), .5f)); }
+			if (attackForFirstCharacter.isSpell()) { this.addAction(new SoundAction(soundMap.get(AssetEnum.FIREBALL_SOUND), .5f)); }
 			if (attackForFirstCharacter.isAttack()) {
 				slash.setState(0);
-				if (!attackForFirstCharacter.isSuccessful()) {
-					this.addAction(new SoundAction(soundMap.get(AssetEnum.ATTACK_SOUND), .5f));	
-				}
+				if (!attackForFirstCharacter.isSuccessful()) {this.addAction(new SoundAction(soundMap.get(AssetEnum.ATTACK_SOUND), .5f)); }
 				else {
 					if (!attackForFirstCharacter.isSpell()) {
-						if (attackForFirstCharacter.getStatus() == Status.BLOCKED) {
-							this.addAction(sequence(delay(5/60f), new SoundAction(soundMap.get(AssetEnum.BLOCK_SOUND), 1.5f)));
-						}
-						else if (attackForFirstCharacter.getStatus() == Status.PARRIED) {
-							this.addAction(sequence(delay(5/60f), new SoundAction(soundMap.get(AssetEnum.PARRY_SOUND), .5f)));
-						}
+						if (attackForFirstCharacter.getStatus() == Status.BLOCKED) { this.addAction(sequence(delay(5/60f), new SoundAction(soundMap.get(AssetEnum.BLOCK_SOUND), 1.5f))); }
+						else if (attackForFirstCharacter.getStatus() == Status.PARRIED) { this.addAction(sequence(delay(5/60f), new SoundAction(soundMap.get(AssetEnum.PARRY_SOUND), .5f))); }
 						else {
-							if (enemy.getWeapon() != null && enemy.getWeapon().causesBleed()) {
-								this.addAction(sequence(delay(5/60f), new SoundAction(soundMap.get(AssetEnum.SWORD_SLASH_SOUND), 1.5f)));
-							}
-							else {
-								this.addAction(sequence(delay(20/60f), new SoundAction(soundMap.get(AssetEnum.HIT_SOUND), .3f)));
-							}
+							if (enemy.getWeapon() != null && enemy.getWeapon().causesBleed()) { this.addAction(sequence(delay(5/60f), new SoundAction(soundMap.get(AssetEnum.SWORD_SLASH_SOUND), 1.5f))); }
+							else { this.addAction(sequence(delay(20/60f), new SoundAction(soundMap.get(AssetEnum.HIT_SOUND), .3f)));}
 						}
 					}
 					enemy.attackAnimation();
@@ -432,14 +391,8 @@ public class Battle extends Group{
 			if (attackForFirstCharacter.isAttack() && attackForFirstCharacter.isSuccessful() && attackForFirstCharacter.getStatus() != Status.BLOCKED) {
 				characterPortrait.setDrawable(getDrawable(AssetEnum.PORTRAIT_HIT.getTexture()));
 				characterPortrait.addAction(Actions.sequence(Actions.moveBy(-10, -10), Actions.delay(.1f), Actions.moveBy(0, 20), Actions.delay(.1f), Actions.moveBy(20, -20), Actions.delay(.1f), Actions.moveBy(0, 20), Actions.delay(.1f), Actions.moveTo(-5 * 1.5f, 615 * 1.5f),  
-					new Action() {
-						@Override
-						public boolean act(float delta) {
-							characterPortrait.setDrawable(getDrawable(character.popPortraitPath()));	
-							return true;
-						}
-					})
-				);
+					new Action() { @Override public boolean act(float delta) { characterPortrait.setDrawable(getDrawable(character.popPortraitPath()));	return true; }}
+				));
 			}
 			else {
 				characterPortrait.setDrawable(getDrawable(character.popPortraitPath()));	
@@ -447,45 +400,25 @@ public class Battle extends Group{
 		}
 		
 		for (Attack attackForSecondCharacter : attacksForSecondCharacter) {
-			if (attackForSecondCharacter.isSuccessful() && attackForSecondCharacter.isClimax()) {
-				this.addAction(sequence(delay(5/60f), new SoundAction(soundMap.get(AssetEnum.CUM), .5f)));
-			}
-			if (character.getStance() == Stance.CASTING && attackForSecondCharacter.isSuccessful()) {
-				this.addAction(sequence(delay(5/60f), new SoundAction(soundMap.get(AssetEnum.INCANTATION), .5f)));
-			}
-			if (attackForSecondCharacter.isSpell()) {
-				this.addAction(sequence(delay(5/60f), new SoundAction(soundMap.get(AssetEnum.FIREBALL_SOUND), .5f)));
-			}
-			if (attackForSecondCharacter.isAttack()) {
-				if (!attackForSecondCharacter.isSuccessful()) {
-					this.addAction(sequence(delay(15/60f), new SoundAction(soundMap.get(AssetEnum.ATTACK_SOUND), .5f)));
-				}
+			if (attackForSecondCharacter.isSuccessful() && attackForSecondCharacter.isClimax()) { this.addAction(sequence(delay(5/60f), new SoundAction(soundMap.get(AssetEnum.CUM), .5f))); }
+			if (character.getStance() == Stance.CASTING && attackForSecondCharacter.isSuccessful()) { this.addAction(sequence(delay(5/60f), new SoundAction(soundMap.get(AssetEnum.INCANTATION), .5f))); }
+			if (attackForSecondCharacter.isSpell()) { this.addAction(sequence(delay(5/60f), new SoundAction(soundMap.get(AssetEnum.FIREBALL_SOUND), .5f))); }
+			if (attackForSecondCharacter.isAttack()) { 
+				if (!attackForSecondCharacter.isSuccessful()) { this.addAction(sequence(delay(15/60f), new SoundAction(soundMap.get(AssetEnum.ATTACK_SOUND), .5f))); }
 				else {
 					if (!attackForSecondCharacter.isSpell()) {
-						if (attackForSecondCharacter.getStatus() == Status.BLOCKED) {
-							this.addAction(sequence(delay(5/60f), new SoundAction(soundMap.get(AssetEnum.BLOCK_SOUND), .5f)));
-						}
-						else if (attackForSecondCharacter.getStatus() == Status.PARRIED) {
-							this.addAction(sequence(delay(5/60f), new SoundAction(soundMap.get(AssetEnum.PARRY_SOUND), .5f)));
-						}
-						else if (character.getWeapon() != null) {
-							this.addAction(sequence(delay(5/60f), new SoundAction(soundMap.get(AssetEnum.SWORD_SLASH_SOUND), .5f)));
-						}
-						else {
-							this.addAction(sequence(delay(5/60f), new SoundAction(soundMap.get(AssetEnum.HIT_SOUND), .3f)));
-						}
+						if (attackForSecondCharacter.getStatus() == Status.BLOCKED) { this.addAction(sequence(delay(5/60f), new SoundAction(soundMap.get(AssetEnum.BLOCK_SOUND), .5f))); }
+						else if (attackForSecondCharacter.getStatus() == Status.PARRIED) { this.addAction(sequence(delay(5/60f), new SoundAction(soundMap.get(AssetEnum.PARRY_SOUND), .5f))); }
+						else if (character.getWeapon() != null) { this.addAction(sequence(delay(5/60f), new SoundAction(soundMap.get(AssetEnum.SWORD_SLASH_SOUND), .5f))); }
+						else { this.addAction(sequence(delay(5/60f), new SoundAction(soundMap.get(AssetEnum.HIT_SOUND), .3f))); }
 					}
 					enemy.hitAnimation();
 				}
 			}
 		}
 		
-		if (dialog.getText().length == 0) {
-			dialogGroup.addAction(hide());
-		}
-		else {
-			dialogGroup.addAction(show());
-		}
+		if (dialog.getText().length == 0) { dialogGroup.addAction(hide()); }
+		else { dialogGroup.addAction(show()); }
 
 		if ( (oldStance.isAnalReceptive() && firstCharacter.getStance().isAnalReceptive()) || (oldEnemyStance.isAnalReceptive() && secondCharacter.getStance().isAnalReceptive()) ) {
 			soundMap.get(AssetEnum.THWAPPING).play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
@@ -503,12 +436,8 @@ public class Battle extends Group{
 		// temporary measure to ensure erotic stances are never one-sided
 		if (firstCharacter.getStance().isErotic() != secondCharacter.getStance().isErotic()) {
 			System.out.println("Player is in " + firstCharacter.getStance() + " stance and enemy is in " + secondCharacter.getStance() + " stance.");
-			if (firstCharacter.getStance().isErotic()) {				
-				firstCharacter.setStance(Stance.BALANCED);	
-			}
-			else {
-				secondCharacter.setStance(Stance.BALANCED);
-			}
+			if (firstCharacter.getStance().isErotic()) { firstCharacter.setStance(Stance.BALANCED);	}
+			else { secondCharacter.setStance(Stance.BALANCED); }
 		}
 		
 		setEnemyTechnique();	
