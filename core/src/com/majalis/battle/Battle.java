@@ -89,10 +89,6 @@ public class Battle extends Group{
 	private final Label penaltyDisplay;
 	private final Image masculinityIcon;
 
-	private final Texture armorTexture;
-	private final Texture armorBrokenTexture;
-	private final Texture bloodTexture;
-	
 	private final Label statusLabel;
 	private final Label enemyStatusLabel;
 	
@@ -156,24 +152,24 @@ public class Battle extends Group{
 		
 		initActor(new WeaponDisplay(enemy), uiGroup, 1578, 900);
 		
-		armorTexture = assetManager.get(AssetEnum.ARMOR_0.getTexture());
-		armorBrokenTexture = assetManager.get(AssetEnum.ARMOR_1.getTexture());
-		bloodTexture = assetManager.get(AssetEnum.BLEED.getTexture());	
+		Texture armorTexture = assetManager.get(AssetEnum.ARMOR_0.getTexture());
+		Texture armorBrokenTexture = assetManager.get(AssetEnum.ARMOR_1.getTexture());
+		Texture bloodTexture = assetManager.get(AssetEnum.BLEED.getTexture());	
 		Texture armorDollTexture = assetManager.get(AssetEnum.ARMOR_DOLL.getTexture());
 		// dolls
 		initImage(armorDollTexture, barX + 150, 700, 250);
 		initImage(armorDollTexture, 1425, 700, 250);
 		
-		initActor(new ArmorDisplay(character, character.getArmor()), uiGroup, barX + 224, 823);
-		initActor(new ArmorDisplay(enemy, enemy.getArmor()), uiGroup, 1497, 823);
-		initActor(new ArmorDisplay(character, character.getUnderwear()), uiGroup, barX + 224, 750);
-		initActor(new ArmorDisplay(enemy, enemy.getUnderwear()), uiGroup, 1497, 750);
-		initActor(new ArmorDisplay(character, character.getLegwear()), uiGroup, barX + 224, 770);
-		initActor(new ArmorDisplay(enemy, enemy.getLegwear()), uiGroup, 1497, 770);
-		initActor(new ArmorDisplay(character, character.getShield()), uiGroup, barX + 284, 810);
-		initActor(new ArmorDisplay(enemy, enemy.getShield()), uiGroup, 1557, 810);		
-		initActor(new BleedDisplay(character), uiGroup, 325, 725);
-		initActor(new BleedDisplay(enemy), uiGroup, 1545, 725);
+		initActor(new ArmorDisplay(character, character.getArmor(), armorTexture, armorBrokenTexture), uiGroup, barX + 224, 823);
+		initActor(new ArmorDisplay(enemy, enemy.getArmor(), armorTexture, armorBrokenTexture), uiGroup, 1497, 823);
+		initActor(new ArmorDisplay(character, character.getUnderwear(), armorTexture, armorBrokenTexture), uiGroup, barX + 224, 750);
+		initActor(new ArmorDisplay(enemy, enemy.getUnderwear(), armorTexture, armorBrokenTexture), uiGroup, 1497, 750);
+		initActor(new ArmorDisplay(character, character.getLegwear(), armorTexture, armorBrokenTexture), uiGroup, barX + 224, 770);
+		initActor(new ArmorDisplay(enemy, enemy.getLegwear(), armorTexture, armorBrokenTexture), uiGroup, 1497, 770);
+		initActor(new ArmorDisplay(character, character.getShield(), armorTexture, armorBrokenTexture), uiGroup, barX + 284, 810);
+		initActor(new ArmorDisplay(enemy, enemy.getShield(), armorTexture, armorBrokenTexture), uiGroup, 1557, 810);		
+		initActor(new BleedDisplay(character, bloodTexture), uiGroup, 325, 725);
+		initActor(new BleedDisplay(enemy, bloodTexture), uiGroup, 1545, 725);
 			
 		Table statusTable = (Table) initActor(new Table(), uiGroup, 525,  850);
 		statusTable.align(Align.topLeft);
@@ -908,7 +904,7 @@ public class Battle extends Group{
 		private final Image display;
 		private final Label diffValueDisplay;
 		private int value;
-		public BleedDisplay (AbstractCharacter character) {
+		public BleedDisplay (AbstractCharacter character, Texture bloodTexture) {
 			this.character = character;
 			display = new Image(assetManager.get(AssetEnum.BLEED.getTexture()));	
 		    display.setSize((bloodTexture.getWidth() / (bloodTexture.getHeight() / (1.0f * 75))), 75);
@@ -966,9 +962,13 @@ public class Battle extends Group{
 		private final Image display;
 		private final Label displayValue;
 		private final Label diffValueDisplay;
+		private final Texture armorTexture;
+		private final Texture armorBrokenTexture;
 		private int value;
-		public ArmorDisplay (AbstractCharacter character, Armor armor) {
+		public ArmorDisplay (AbstractCharacter character, Armor armor,Texture armorTexture, Texture armorBrokenTexture) {
 			this.armor = armor;
+			this.armorBrokenTexture = armorBrokenTexture;
+			this.armorTexture = armorTexture;
 			if (armor == null) {
 				addAction(hide());
 				display = new Image();
