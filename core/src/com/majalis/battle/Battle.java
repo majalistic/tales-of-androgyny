@@ -354,16 +354,12 @@ public class Battle extends Group{
 			SkillButton button = new SkillButton(option.getTechniqueName() + (ii >= POSSIBLE_KEYS_CHAR.length ? "" : " ("+POSSIBLE_KEYS_CHAR[ii]+")"), skin, assetManager.get(option.getStance().getTexture()));
 			techniqueTable.add(button).size(440, 76).row();
 			optionButtons.add(button);
-			boolean outOfStamina = false;
-			boolean outOfStability = false;
 			if (character.getStance().isIncapacitatingOrErotic()) { changeButtonColor(button, Color.FOREST); }
 			else if(character.outOfStaminaOrStability(option)) {
-				outOfStamina = character.outOfStamina(option);
-				outOfStability = !outOfStamina;
 				changeButtonColor(button, Color.RED);
 			}
 			else if (character.lowStaminaOrStability(option)) { changeButtonColor(button, Color.ORANGE); }
-			button.addListener(getListener(option, (outOfStamina && !character.getStance().isIncapacitatingOrErotic() ? "THIS WILL CAUSE YOU TO COLLAPSE!\n" : outOfStability && !character.getStance().isIncapacitatingOrErotic() ? "THIS WILL CAUSE YOU TO LOSE YOUR FOOTING!\n" : "") + getAttackInfo(optionAttacks) + option.getTechniqueDescription(), option.getBonusDescription(), ii));
+			button.addListener(getListener(option, (character.outOfStamina(option) && !character.getStance().isIncapacitatingOrErotic() ? "THIS WILL CAUSE YOU TO COLLAPSE!\n" : character.outOfStability(option) && !character.getStance().isIncapacitatingOrErotic() ? "THIS WILL CAUSE YOU TO LOSE YOUR FOOTING!\n" : "") + getAttackInfo(optionAttacks) + option.getTechniqueDescription(), option.getBonusDescription(), ii));
 		}
 		techniqueTable.setFillParent(false);
 		techniqueTable.align(Align.top);

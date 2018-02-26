@@ -1102,7 +1102,7 @@ public abstract class AbstractCharacter extends Actor {
 		return resultingStability;
 	}
 	
-	protected boolean outOfStability(Technique technique) {
+	public boolean outOfStability(Technique technique) {
 		return checkStability(getStabilityRegen() - technique.getStabilityCost()).isDown();
 	}
 	
