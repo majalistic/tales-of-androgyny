@@ -86,7 +86,6 @@ public class Battle extends Group{
 	private final Label skillDisplay;
 	private final Label bonusDisplay;
 	private final Label penaltyDisplay;
-	private final Image masculinityIcon;
 
 	private final AssetEnum musicPath;
 	
@@ -184,12 +183,9 @@ public class Battle extends Group{
 		
 		characterPortrait = initImage(assetManager.get(character.popPortraitPath()), -7.5f, 922);
 		characterPortrait.setScale(.9f);
-
 		characterPortrait.addAction(Actions.sequence(Actions.delay(.5f), new Action() {@Override public boolean act(float delta) { characterPortrait.addListener(getListener(character)); return true; }}));
 		
-		masculinityIcon = initImage(assetManager.get(character.getMasculinityPath()), barX - 175, 790);
-		masculinityIcon.setScale(.15f);
-		
+		initActor(new MasculinityDisplay(character), uiGroup, barX - 175, 790);
 		initActor(new ArousalDisplay(character), uiGroup, 150, 735);
 		initActor(new ArousalDisplay(enemy), uiGroup, 1617, 735);
 		initActor(new BellyDisplay(character), uiGroup, 0, 850);
@@ -516,7 +512,6 @@ public class Battle extends Group{
 		}
 		
 		setEnemyTechnique();	
-		masculinityIcon.setDrawable(getDrawable(character.getMasculinityPath()));	
 		
 		// these methods use short circuit evaluation, because the hasSeenXTutorial methods also set that respective flag to prevent repeats - should probably make this less fragile eventually
 		if (firstCharacter.getStance() != oldStance && !character.hasSeenStanceTutorial()) {
@@ -835,6 +830,23 @@ public class Battle extends Group{
 		public boolean act(float delta) {
 			sound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") * volume);
 			return true;
+		}
+	}
+	
+	// many of these classes have shared functionality and should be refactored	
+	private class MasculinityDisplay extends Group {
+		private final Image display;
+		private final PlayerCharacter character;
+		public MasculinityDisplay (PlayerCharacter character) {
+			this.character = character;
+			display = new Image(assetManager.get(character.getMasculinityPath()));
+			display.setScale(.15f);
+			this.addActor(display);
+		}
+		@Override
+		public void act(float delta) {
+			display.setDrawable(getDrawable(assetManager.get(character.getMasculinityPath())));
+			super.act(delta);
 		}
 	}
 	
