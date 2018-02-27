@@ -54,6 +54,6 @@ public class Ass {
 	public void emptyEggs() { rectum.flushEggs(); colon.flushEggs(); belly.setAnimation(0, "eggto" + getFullnessLevel(), false); }
 	public void setBelly(AnimatedActor belly) { 
 		this.belly = belly; 
-		belly.setAnimation(0, "" + getFullnessLevel(), false);
+		belly.setAnimation(0, rectum.getEggs() > 0 ? "egg" : "" + getFullnessLevel(), false);
 	}
 }
