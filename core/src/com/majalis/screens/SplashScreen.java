@@ -77,7 +77,8 @@ public class SplashScreen extends AbstractScreen {
 		batch.setProjectionMatrix(camera.combined);
 		camera.update();
 		batch.begin();
-		if (!assetManager.update() || clocktick++ < minTime) {
+		
+		if (!assetManager.update(75) || clocktick++ < minTime) {
 			batch.draw(background, 1500, 600, background.getWidth() / (background.getHeight() / 900f), 900);
 			progress.setValue(assetManager.getProgress());
 			font.setColor(Color.BLACK);

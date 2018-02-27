@@ -3,8 +3,8 @@ package com.majalis.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -24,7 +24,6 @@ public class LoadScreen extends AbstractScreen {
 	private final Label tooltip;
 	private final Label alt;
 	private ProgressBar progress;
-	private int clocktick;
 	private final Skin skin;
 	
 	public LoadScreen(ScreenFactory factory, ScreenElements elements, ScreenEnum screenRequest) {
@@ -35,7 +34,6 @@ public class LoadScreen extends AbstractScreen {
 		this.largeFont = fontFactory.getFont(72);
 		this.tooltip = new Label(getRandomTooltip(), skin);
 		this.alt = new Label("Hold ALT to read tooltip, CTRL to display a new one.", skin);
-		clocktick = 0;
 	}
 
 	@Override
@@ -68,22 +66,16 @@ public class LoadScreen extends AbstractScreen {
 	@Override
 	public void render(float delta) {
 		super.render(delta);
-		OrthographicCamera camera = (OrthographicCamera) getCamera();
-        batch.setTransformMatrix(camera.view);
-		batch.setProjectionMatrix(camera.combined);
-		camera.update();
 		batch.begin();
 		largeFont.setColor(Color.BLACK);
 		if (Gdx.input.isKeyJustPressed(Keys.CONTROL_LEFT) || Gdx.input.isKeyJustPressed(Keys.SPACE)) {
 			tooltip.setText(getRandomTooltip());
 		}
-		if (!assetManager.update() || clocktick++ < 25 || Gdx.input.isKeyPressed(Keys.ALT_LEFT) || Gdx.input.isKeyPressed(Keys.ALT_RIGHT)) {
-			progress.setValue(assetManager.getProgress());
-			largeFont.draw(batch, "Loading: " + (int)(assetManager.getProgress() * 100) + "%", 1688, 1125);
-		}	
-		else {
-			showScreen(screenRequest);
-		}
+		
+		boolean done = assetManager.update(75);
+		progress.setValue(assetManager.getProgress());
+		largeFont.draw(batch, "Loading: " +  (int)(assetManager.getProgress() * 100) + "%", 1688, 1125);
+		if (done && !(Gdx.input.isKeyPressed(Keys.ALT_LEFT) || Gdx.input.isKeyPressed(Keys.ALT_RIGHT))) { this.addAction(Actions.sequence(Actions.delay(.1f), new Action(){ @Override public boolean act(float delta) { showScreen(screenRequest); return true; }})); }
 		batch.end();
 	}
 	

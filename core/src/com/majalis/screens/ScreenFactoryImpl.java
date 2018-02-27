@@ -108,7 +108,7 @@ public class ScreenFactoryImpl implements ScreenFactory {
 		AbstractScreen tempScreen;
 		switch(screenRequest) {
 			case SPLASH: 
-				return new SplashScreen(this, elements, assetManager, 25, Gdx.app.getPreferences("tales-of-androgyny-preferences").getBoolean("preload", false));
+				return new SplashScreen(this, elements, assetManager, 15, Gdx.app.getPreferences("tales-of-androgyny-preferences").getBoolean("preload", false));
 			case MAIN_MENU: 
 				if (getAssetCheck(MainMenuScreen.resourceRequirements)) {
 					return new MainMenuScreen(this, elements, saveService, loadService); 
