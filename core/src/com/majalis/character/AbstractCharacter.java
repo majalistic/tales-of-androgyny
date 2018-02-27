@@ -989,7 +989,6 @@ public abstract class AbstractCharacter extends Actor {
 	public AnimatedActor getBelly(AssetManager assetManager) {
 		if (this.belly == null) {
 			this.belly = assetManager.get(AssetEnum.BELLY_ANIMATION.getAnimation()).getInstance();
-			belly.setAnimation(0, "2to1", false);
 			ass.setBelly(belly);
 		}
 		return this.belly;

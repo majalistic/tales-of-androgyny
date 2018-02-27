@@ -50,5 +50,8 @@ public class Ass {
 	public Rectum getRectum() { return rectum; }
 	public Colon getColon() { return colon; }
 	public void emptyEggs() { rectum.flushEggs(); colon.flushEggs(); }
-	public void setBelly(AnimatedActor belly) { this.belly = belly; }
+	public void setBelly(AnimatedActor belly) { 
+		this.belly = belly; 
+		belly.setAnimation(0, "" + getFullnessLevel(), false);
+	}
 }
