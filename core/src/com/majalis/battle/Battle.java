@@ -31,6 +31,7 @@ import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.OrderedMap;
 import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
+import com.majalis.asset.AnimatedActor;
 import com.majalis.asset.AnimatedImage;
 import com.majalis.asset.AnimationBuilder;
 import com.majalis.asset.AssetEnum;
@@ -185,10 +186,10 @@ public class Battle extends Group{
 		characterPortrait.setScale(.9f);
 		characterPortrait.addAction(Actions.sequence(Actions.delay(.5f), new Action() {@Override public boolean act(float delta) { characterPortrait.addListener(getListener(character)); return true; }}));
 		
-		initActor(new MasculinityDisplay(character), uiGroup, barX - 175, 790);
+		initActor(new MasculinityDisplay(character), uiGroup, barX - 175, 700);
 		initActor(new ArousalDisplay(character), uiGroup, 150, 735);
 		initActor(new ArousalDisplay(enemy), uiGroup, 1617, 735);
-		initActor(new BellyDisplay(character), uiGroup, 0, 850);
+		((AnimatedActor) initActor(character.getBelly(assetManager), uiGroup, 0, 0)).setSkeletonPosition(75, 825);
 		initActor(new StanceActor(character), uiGroup, 600.5f, 880, 150, 172.5f);
 		initActor(new StanceActor(enemy), uiGroup, 1305, 880, 150, 172.5f);
 		
@@ -755,20 +756,6 @@ public class Battle extends Group{
 		@Override
 		public void act(float delta) {
 			setText(character.getStatusBlurb());
-			super.act(delta);
-		}
-	}
-	
-	private class BellyDisplay extends Group {
-		private final Image display;
-		public BellyDisplay (AbstractCharacter character) {
-			display = new Image(assetManager.get(character.getCumInflationPath()));
-			display.setSize(100, 100);
-			this.addActor(display);
-		}
-		@Override
-		public void act(float delta) {
-			display.setDrawable(getDrawable(assetManager.get(character.getCumInflationPath())));
 			super.act(delta);
 		}
 	}

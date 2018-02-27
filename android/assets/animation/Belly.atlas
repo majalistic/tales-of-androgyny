@@ -1,0 +1,76 @@
+
+Belly.png
+size: 1024,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+BG
+  rotate: false
+  xy: 704, 202
+  size: 307, 308
+  orig: 307, 308
+  offset: 0, 0
+  index: -1
+Belly
+  rotate: false
+  xy: 2, 180
+  size: 370, 330
+  orig: 370, 330
+  offset: 0, 0
+  index: -1
+Bellymask
+  rotate: false
+  xy: 2, 18
+  size: 187, 160
+  orig: 187, 160
+  offset: 0, 0
+  index: -1
+Egg1
+  rotate: false
+  xy: 191, 74
+  size: 68, 104
+  orig: 68, 104
+  offset: 0, 0
+  index: -1
+Egg4
+  rotate: false
+  xy: 191, 74
+  size: 68, 104
+  orig: 68, 104
+  offset: 0, 0
+  index: -1
+Egg2
+  rotate: true
+  xy: 191, 2
+  size: 70, 83
+  orig: 70, 83
+  offset: 0, 0
+  index: -1
+Egg5
+  rotate: true
+  xy: 191, 2
+  size: 70, 83
+  orig: 70, 83
+  offset: 0, 0
+  index: -1
+Egg3
+  rotate: false
+  xy: 261, 106
+  size: 46, 72
+  orig: 46, 72
+  offset: 0, 0
+  index: -1
+Egg6
+  rotate: false
+  xy: 261, 106
+  size: 46, 72
+  orig: 46, 72
+  offset: 0, 0
+  index: -1
+Ellipse
+  rotate: false
+  xy: 374, 182
+  size: 328, 328
+  orig: 328, 328
+  offset: 0, 0
+  index: -1

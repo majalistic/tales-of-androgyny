@@ -269,11 +269,6 @@ public enum AssetEnum {
 	MONSTER_DONG_1("arousal/Monster1.png"),
 	MONSTER_DONG_2("arousal/Monster2.png"),
 	
-	STUFFED_BELLY("bellies/Stuffed.png"), 
-	FULL_BELLY("bellies/Full.png"), 
-	BIG_BELLY("bellies/Half.png"), 
-	FLAT_BELLY("bellies/Empty.png"), 
-	
 	PORTRAIT_NEUTRAL("portraits/Neutral.png"),
 	PORTRAIT_AHEGAO("portraits/Ahegao.png"),
 	PORTRAIT_FELLATIO("portraits/BJ.png"),
@@ -455,6 +450,7 @@ public enum AssetEnum {
 	WAVES("music/Waves.wav", Music.class), 
 	
 	NULL_ANIMATION("animation/Null.atlas", AnimatedActorFactory.class),
+	BELLY_ANIMATION("animation/Belly.atlas", AnimatedActorFactory.class, new AnimatedActorLoader.AnimatedActorParameter(.4f, 1, true)),
 	GAME_OVER_ANIMATION("animation/SplurtGO.atlas", AnimatedActorFactory.class),
 	HARPY_ANIMATION("animation/Harpy.atlas", AnimatedActorFactory.class, new AnimatedActorLoader.AnimatedActorParameter(.75f, 1, true)),
 	HARPY_ATTACK_ANIMATION("animation/Attack Still.atlas", AnimatedActorFactory.class, new AnimatedActorLoader.AnimatedActorParameter(.75f, 1, true)),

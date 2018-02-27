@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
@@ -21,6 +22,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.IntArray;
 import com.badlogic.gdx.utils.OrderedMap;
+import com.majalis.asset.AnimatedActor;
 import com.majalis.asset.AssetEnum;
 import com.majalis.character.HealthBar;
 import com.majalis.character.LevelBar;
@@ -46,7 +48,6 @@ public class EncounterHUD extends Group {
 	private final Label dateLabel;
 	private final Image characterPortrait;
 	private final Image masculinityIcon;
-	private final Image fullnessIcon;
 	private final Skin skin;
 	private boolean skipHeld;
 	private boolean buttonsHidden;
@@ -149,8 +150,7 @@ public class EncounterHUD extends Group {
 		characterPortrait = addImage(characterGroup, portrait, 105, 750, portrait.getWidth() / (portrait.getHeight() / 200f), 200);
 		Texture icon = assetManager.get(character.getMasculinityPath());
 		masculinityIcon = addImage(characterGroup, icon, 105, 655, icon.getWidth() / (icon.getHeight() / 100f), 100);
-		Texture fullness = assetManager.get(character.getCumInflationPath());
-		fullnessIcon = addImage(characterGroup, icon, 42, 705, fullness.getWidth() / (fullness.getHeight() / 100f), 100);
+		((AnimatedActor) addActor(characterGroup, character.getBelly(assetManager))).setSkeletonPosition(68, 753);
 	}	
 	
 	protected Label addLabel(String text, Skin skin, BitmapFont font, Color color, float x, float y) {
@@ -175,6 +175,8 @@ public class EncounterHUD extends Group {
 		return newImage;
 	}
 	
+	private Actor addActor(Group group, Actor actor) { group.addActor(actor); return actor; }
+	
 	public boolean isSkipHeld() { return skipHeld; }
 	
 	public void showButtons() { 
@@ -182,7 +184,6 @@ public class EncounterHUD extends Group {
 			characterGroup.addAction(Actions.show());
 			characterPortrait.setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(character.getPortraitPath()))));
 			masculinityIcon.setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(character.getMasculinityPath()))));
-			fullnessIcon.setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(character.getCumInflationPath()))));
 		}
 		else {
 			characterGroup.addAction(Actions.hide());

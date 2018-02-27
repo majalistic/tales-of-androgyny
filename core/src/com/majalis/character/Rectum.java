@@ -94,4 +94,5 @@ public class Rectum {
 	private enum RectumTightness {
 		NORMAL, LOOSE, BAGGY
 	}
+
 }

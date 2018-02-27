@@ -1,5 +1,6 @@
 package com.majalis.character;
 
+import com.majalis.asset.AnimatedActor;
 import com.majalis.asset.AssetEnum;
 import com.majalis.character.Attack.AttackHeight;
 import com.majalis.character.Attack.Status;
@@ -23,6 +24,7 @@ import com.majalis.technique.Bonus;
 import static com.majalis.character.Techniques.*;
 
 import com.badlogic.gdx.assets.AssetDescriptor;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -115,6 +117,8 @@ public abstract class AbstractCharacter extends Actor {
 	protected int food;
 
 	protected boolean wrapLegs;
+	
+	private transient AnimatedActor belly;
 	
 	/* Constructors */
 	protected AbstractCharacter() { ass = new Ass(new Sphincter(), new Rectum(), new Colon()); }
@@ -982,19 +986,13 @@ public abstract class AbstractCharacter extends Actor {
 
 	protected boolean fullOfEggs() { return false; }
 	
-	public AssetDescriptor<Texture> getCumInflationPath() {
-		if (ass.getFullnessAmount() >= 20) {
-			return AssetEnum.STUFFED_BELLY.getTexture();
+	public AnimatedActor getBelly(AssetManager assetManager) {
+		if (this.belly == null) {
+			this.belly = assetManager.get(AssetEnum.BELLY_ANIMATION.getAnimation()).getInstance();
+			belly.setAnimation(0, "2to1", false);
+			ass.setBelly(belly);
 		}
-		else if (ass.getFullnessAmount() >= 10 || fullOfEggs()) {
-			return AssetEnum.FULL_BELLY.getTexture();
-		}
-		else if (ass.getFullnessAmount() >= 5 || mouthful >= 10) {
-			return AssetEnum.BIG_BELLY.getTexture();
-		}
-		else {
-			return AssetEnum.FLAT_BELLY.getTexture(); 
-		}
+		return this.belly;
 	}
 	
 	protected abstract String getLeakMessage();

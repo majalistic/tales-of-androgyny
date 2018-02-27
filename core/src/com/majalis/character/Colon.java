@@ -35,7 +35,8 @@ public class Colon {
 		this.eggs += eggOverflow;
 		setContents();
 	}
-
+	
+	protected int getFullnessAmount() { return cum + eggs; }
 	protected int drain(int cumUnderflow) {
 		cum -= cumUnderflow;
 		setContents();
@@ -47,6 +48,8 @@ public class Colon {
 		return cumUnderflow;
 	}
 	
+	public void flushEggs() { eggs = 0; setContents(); }
+	
 	private void setContents() {
 		contents = eggs > 0 ? ColonContents.FILLED_WITH_EGGS : contents == ColonContents.EMPTY && cum > 0 ? ColonContents.FILLED_WITH_CUM : cum == 0 && eggs == 0 ? ColonContents.EMPTY : contents; 
 	}
@@ -55,8 +58,4 @@ public class Colon {
 		EMPTY, FILLED_WITH_EGGS, FILLED_WITH_CUM, FILL_WITH_COCK // only for very long cocks
 	}
 
-	public void flushEggs() {
-		// TODO Auto-generated method stub
-		
-	}
 }
