@@ -5951,7 +5951,7 @@
 			{
 			"animatedForeground": "GOBLIN_MALE",
 			"mutations": [{"saveType":"PORTRAIT", "value":{"class": "com.majalis.asset.AssetEnum", "value": "PORTRAIT_SURPRISE"}}], 
-			"text": "\"Gyahaha\" you hear, a high peal of laughter... although the register is different from how you remembered it.  You spot them almost immediately - a goblin, but different looking from the one you saw before."}
+			"text": "\"Gyahaha\" you hear, a high peal of laughter... although the register is different from how you remembered it.  You spot them almost immediately - a goblin."}
 			{"text": "You approach him cautiously... and you see that, like the other, he wields a frighteningly jagged dagger."}
 			{"text": "\"My turn, my turn!\" he says, revealing a rather... swinging set of genitals.  You reach for your weapon."}
 		]
