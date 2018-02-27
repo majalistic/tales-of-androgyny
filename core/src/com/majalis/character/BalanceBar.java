@@ -29,7 +29,7 @@ public class BalanceBar extends DisplayWidget {
 		icon.setPosition(3, 7.5f);
 		this.addActor(icon);
 		
-		label = new Label(character.getStability().toString(), skin);
+		label = new Label(character.getStability().getLabel(), skin);
 		label.setColor(Color.BROWN);
 		label.setPosition(75, 8);
 		this.addActor(label);
@@ -53,7 +53,7 @@ public class BalanceBar extends DisplayWidget {
 			}
 		}
 		icon.setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(character.getBalanceDisplay()))));
-		label.setText(character.getStability().toString());
+		label.setText(character.getStability().getLabel());
 		bar.setColor(character.getStabilityColor());
 		if (value != character.getStability().ordinal()) {
 			setDiffLabel(diffValueDisplay, character.getStability().ordinal() - value);

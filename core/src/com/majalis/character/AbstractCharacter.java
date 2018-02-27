@@ -1482,61 +1482,40 @@ public abstract class AbstractCharacter extends Actor {
 	}
 
 	public enum Stability {
-		Disoriented (AssetEnum.BALANCE_ICON_2, 0),
-		Dazed (AssetEnum.BALANCE_ICON_2, 0),
-		Down (AssetEnum.BALANCE_ICON_2, 0),
-		Teetering (AssetEnum.BALANCE_ICON_2, .1f),
-		Weakfooted (AssetEnum.BALANCE_ICON_1, .25f),
-		Unstable (AssetEnum.BALANCE_ICON_1, .50f),
-		Stable (AssetEnum.BALANCE_ICON_0, .75f),
-		Surefooted (AssetEnum.BALANCE_ICON_0, 1);
+		Disoriented ("DOWN X 3", AssetEnum.BALANCE_ICON_2, 0),
+		Dazed ("DOWN X 2", AssetEnum.BALANCE_ICON_2, 0),
+		Down ("DOWN X 1", AssetEnum.BALANCE_ICON_2, 0),
+		Teetering ("Teetering", AssetEnum.BALANCE_ICON_2, .1f),
+		Weakfooted ("Weakfooted", AssetEnum.BALANCE_ICON_1, .25f),
+		Unstable ("Unstable", AssetEnum.BALANCE_ICON_1, .50f),
+		Stable ("Stable", AssetEnum.BALANCE_ICON_0, .75f),
+		Surefooted ("Surefooted", AssetEnum.BALANCE_ICON_0, 1);
 
+		private final String label;
 		private final AssetEnum texture;
 		private final float percent;
-		private Stability(AssetEnum texture, float percent) {
+		private Stability(String label, AssetEnum texture, float percent) {
+			this.label = label;
 			this.texture = texture;
 			this.percent = percent;
 		}
 		
-		public AssetDescriptor<Texture> getDisplay() {
-			return texture.getTexture();
-		}
-		public float getPercent() {
-			return percent;
-		}
-		public boolean isDown() {
-			return this.ordinal() < 3;
-		}
-		public boolean lowBalance() {
-			return this.ordinal() < 4;
-		}
-		public boolean isGood() {
-			return this.ordinal() > 5;
-		}
-		
+		public String getLabel() { return label; }
+		public AssetDescriptor<Texture> getDisplay() { 	return texture.getTexture(); }
+		public float getPercent() { return percent; }
+		public boolean isDown() { return this.ordinal() < 3; }
+		public boolean lowBalance() { return this.ordinal() < 4; }
+		public boolean isGood() { return this.ordinal() > 5; }
+	
 		public Stability shift(int stabilityMod) {
 			int shift = 0;
-			if (stabilityMod > 10) {
-				shift = 4;
-			}
-			if (stabilityMod > 5) {
-				shift = 2;
-			}
-			else if (stabilityMod > 0) {
-				shift = 1;
-			}
-			else if (stabilityMod < -20) {
-				shift = -6;
-			}
-			else if (stabilityMod < -10) {
-				shift = -3;
-			}
-			else if (stabilityMod < -5) {
-				shift = -2;
-			}
-			else if (stabilityMod < -1) {
-				shift = -1;
-			}
+			if (stabilityMod > 10) { shift = 4; }
+			else if (stabilityMod > 5) { shift = 2; }
+			else if (stabilityMod > 0) { shift = 1; }
+			else if (stabilityMod < -20) { shift = -6; }
+			else if (stabilityMod < -10) { shift = -3; }
+			else if (stabilityMod < -5) { shift = -2; }
+			else if (stabilityMod < -1) { shift = -1; }
 			int ordinal = this.ordinal() + shift;
 			Stability [] values = Stability.values();
 			return values.length < ordinal + 1 ? values[values.length - 1] : ordinal < 0 ? values[0] : values[ordinal];			
