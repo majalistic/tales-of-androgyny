@@ -162,6 +162,8 @@ public enum EnemyEnum {
 	protected boolean willSeduce() { return this == GOBLIN || this == GOBLIN_MALE || this == ADVENTURER || this == MERMAID; }
 	protected boolean isCorporeal() { return this != GHOST; }
 	protected boolean usesDefensiveTechniques() { return this != QUETZAL; }
+	protected boolean isOffensive() { return this == WERESLUT || this == GOBLIN || this == ORC || this == ADVENTURER || this == SPIDER; }
+	protected boolean isDefensive() { return this == BRIGAND; }
 	protected ObjectMap<String, Integer> getPerks() {
 		ObjectMap<String, Integer> perks = new ObjectMap<String, Integer>();
 		switch(this) {
@@ -377,7 +379,5 @@ public enum EnemyEnum {
 		return textures;
 	}
 	
-	public EnemyCharacter getInstance(AssetManager assetManager, Stance stance, boolean storyMode) {
-		return new EnemyCharacter(getTextures(assetManager), getTextureMap(assetManager), getAnimations(assetManager), this, stance, storyMode);
-	}
+	public EnemyCharacter getInstance(AssetManager assetManager, Stance stance, boolean storyMode) { return new EnemyCharacter(getTextures(assetManager), getTextureMap(assetManager), getAnimations(assetManager), this, stance, storyMode); }
 }

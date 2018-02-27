@@ -869,10 +869,11 @@ public class EnemyCharacter extends AbstractCharacter {
 			else if (candidate != INCANTATION && techniques.contains(INCANTATION, true) && mustIncant()) { techniques.removeValue(candidate, true); } // remove all other options if must incant
 			else if (candidate != ACTIVATE && techniques.contains(ACTIVATE, true) && (enemyType == EnemyEnum.GOLEM && !isEnragedGolem()))  { techniques.removeValue(candidate, true); }
 			else if (candidate == ACTIVATE && enemyType != EnemyEnum.GOLEM) { techniques.removeValue(candidate, true); }
-			else if (candidate != COMBAT_FIRE && techniques.contains(COMBAT_FIRE, true) && isEnragedGolem())  { techniques.removeValue(candidate, true); }
-			else if (candidate != COMBAT_HEAL && techniques.contains(COMBAT_HEAL, true) && mustCastHealing())  { techniques.removeValue(candidate, true); }
-			else if (candidate != TITAN_STRENGTH && techniques.contains(TITAN_STRENGTH, true) && mustCastTitanStrength() && !mustCastHealing())  { techniques.removeValue(candidate, true); }				
-			else if (inTechniques(candidate, VAULT, FEINT_AND_STRIKE, SLIDE, DUCK, HIT_THE_DECK, KICK_OVER_FACE_UP, KICK_OVER_FACE_DOWN, SIT_ON_IT, TURN_AND_SIT, SUDDEN_ADVANCE, DUCK, UPPERCUT, GRAB_IT, JUMP_ATTACK, VAULT_OVER, STAND_OFF_IT, FULL_NELSON, TAKEDOWN, PULL_OUT, PULL_OUT_ORAL, PULL_OUT_STANDING, RELEASE_PRONE, RELEASE_SUPINE, SAY_AHH)) { techniques.removeValue(candidate, true); }	
+			else if (candidate != COMBAT_FIRE && techniques.contains(COMBAT_FIRE, true) && isEnragedGolem()) { techniques.removeValue(candidate, true); }
+			else if (candidate != COMBAT_HEAL && techniques.contains(COMBAT_HEAL, true) && mustCastHealing()) { techniques.removeValue(candidate, true); }
+			else if (candidate != TITAN_STRENGTH && techniques.contains(TITAN_STRENGTH, true) && mustCastTitanStrength() && !mustCastHealing()) { techniques.removeValue(candidate, true); }				
+			else if (candidate == SUDDEN_ADVANCE && !enemyType.isOffensive()) { techniques.removeValue(candidate, true); }	
+			else if (inTechniques(candidate, VAULT, FEINT_AND_STRIKE, SLIDE, DUCK, HIT_THE_DECK, KICK_OVER_FACE_UP, KICK_OVER_FACE_DOWN, SIT_ON_IT, TURN_AND_SIT, DUCK, UPPERCUT, GRAB_IT, JUMP_ATTACK, VAULT_OVER, STAND_OFF_IT, FULL_NELSON, TAKEDOWN, PULL_OUT, PULL_OUT_ORAL, PULL_OUT_STANDING, RELEASE_PRONE, RELEASE_SUPINE, SAY_AHH)) { techniques.removeValue(candidate, true); }	
 		}
 				
 		return techniques;
@@ -1135,15 +1136,11 @@ public class EnemyCharacter extends AbstractCharacter {
 		for (int ii = -1; ii < 2; ii++) {
 			randomWeighting.add(ii);
 		}
-		switch (enemyType) {
-			case WERESLUT:
-			case GOBLIN:
-			case ORC:
-			case ADVENTURER:
-			case SPIDER:
-				randomWeighting.add(-1); break;
-			case BRIGAND: randomWeighting.add(0); randomWeighting.add(1); break;
-			default: break;
+		if (enemyType.isOffensive()) {
+			randomWeighting.add(-1);
+		}
+		else if (enemyType.isDefensive()) {
+			randomWeighting.add(0); randomWeighting.add(1);
 		}
 		
 		randomResult += randomWeighting.random();
