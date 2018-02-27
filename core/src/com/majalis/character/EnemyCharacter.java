@@ -3,6 +3,7 @@ package com.majalis.character;
 import static com.majalis.character.Techniques.*;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -27,7 +28,6 @@ public class EnemyCharacter extends AbstractCharacter {
 
 	private transient ObjectMap<Stance, Array<Texture>> textures;
 	private transient Array<Texture> defaultTextures;
-	private String bgPath;
 	private ObjectMap <String, Integer> climaxCounters;
 	
 	private transient Array<AnimatedActor> animations;
@@ -38,8 +38,8 @@ public class EnemyCharacter extends AbstractCharacter {
 	private int range;
 	private int currentFrame;
 	private int selfRessurect;
-	
 	private boolean storyMode;
+	@SuppressWarnings("unused") private String bgPath; // legacy
 	
 	@SuppressWarnings("unused")
 	private EnemyCharacter() {}
@@ -73,7 +73,6 @@ public class EnemyCharacter extends AbstractCharacter {
 		healthTiers = enemyType.getHealthTiers();
 		manaTiers = enemyType.getManaTiers();
 		phallus = enemyType.getPhallusType();
-		bgPath = enemyType.getBGPath();
 		pronouns = enemyType.getPronounSet();
 		arousal = enemyType.getArousal();
 		perks.putAll(enemyType.getPerks());
@@ -95,7 +94,7 @@ public class EnemyCharacter extends AbstractCharacter {
 		}
 		return textures;
 	}
-	public String getBGPath() { return bgPath; }
+	public AssetDescriptor<Texture> getBGPath() { return enemyType.getBGPath(); }
 	
 	@Override
     public void draw(Batch batch, float parentAlpha) {
