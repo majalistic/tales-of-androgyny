@@ -1048,7 +1048,7 @@ public class WorldMapScreen extends AbstractScreen {
 	
 	@Override
 	public void render(float delta) {
-		translateCamera();
+		translateCamera(delta);
 		
 		if (Gdx.input.isKeyJustPressed(Keys.ENTER)) {
 			showScreen(ScreenEnum.CHARACTER);
@@ -1084,10 +1084,10 @@ public class WorldMapScreen extends AbstractScreen {
 	private Color getTimeColor() { return TimeOfDay.getTime(time).getColor(); }
 	private String getTime() { return TimeOfDay.getTime(time).getDisplay(); }
 	
-	private void translateCamera() {
+	private void translateCamera(float delta) {
 		Vector3 translationVector = new Vector3(0, 0, 0);
-		int speed = 8;
-		if (Gdx.input.isKeyPressed(Keys.SHIFT_LEFT)) speed = 16;
+		float speed = 500 * delta;
+		if (Gdx.input.isKeyPressed(Keys.SHIFT_LEFT)) speed *= 2;
 		
 		if (Gdx.input.isKeyPressed(Keys.LEFT) && !Gdx.input.isKeyPressed(Keys.RIGHT) && camera.position.x > 500) {
 			translationVector.x -= speed;
