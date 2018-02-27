@@ -353,6 +353,18 @@ public class WorldMapScreen extends AbstractScreen {
 		toAdd.setColor(toSet);		
 	}
 	
+	@SuppressWarnings("unused")
+	private class FrameRate extends Label {
+		private FrameRate(Skin skin) {
+			super("", skin);
+		}
+		
+		public void act(float delta) {
+			super.act(delta);
+			setText("FPS: " + Gdx.graphics.getFramesPerSecond());
+		}
+	}
+	
 	@Override
 	public void buildStage() {
 		final Group uiGroup = new Group();
@@ -375,6 +387,7 @@ public class WorldMapScreen extends AbstractScreen {
 		addLabel(uiGroup, timeLabel, 380,  115, Color.WHITE);
 		
 		addLabel(uiGroup, new Label(TalesOfAndrogyny.getVersion(), skin), 1550, 1050, new Color(255, 255, 255, .4f));
+		//addLabel(uiGroup, new FrameRate(skin), 1750, 1000, Color.WHITE);
 		
 		hoverLabel.setAlignment(Align.center);
 		hoverLabel.setWrap(true);
