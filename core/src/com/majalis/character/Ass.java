@@ -28,11 +28,13 @@ public class Ass {
 		rectum.fillWithCum(cumMod); 
 		colon.fillWithCum(rectum.getCumOverflow());
 		rectum.fillWithCum(colon.drain(rectum.getCumUnderflow()));
-		if (fullness != getFullnessLevel()) belly.setAnimation(0, fullness + "to" + getFullnessLevel(), false);
+		if (fullness != getFullnessLevel() && rectum.getEggs() <= 0) belly.setAnimation(0, fullness + "to" + getFullnessLevel(), false);
 	} 
 	protected void fillButtWithEggs(int eggs) { 
+		int fullness = getFullnessLevel();
 		rectum.fillWithEggs(eggs);
 		colon.fillWithEggs(rectum.getEggOverflow());
+		if (eggs > 0) belly.setAnimation(0, fullness + "toegg", false);
 	}	
 	protected void receiveSex(SexualExperience sex) { sphincter.receiveSex(sex); }
 	protected void tick(int time) {
@@ -49,7 +51,7 @@ public class Ass {
 	public Sphincter getSphincter() { return sphincter; }
 	public Rectum getRectum() { return rectum; }
 	public Colon getColon() { return colon; }
-	public void emptyEggs() { rectum.flushEggs(); colon.flushEggs(); }
+	public void emptyEggs() { rectum.flushEggs(); colon.flushEggs(); belly.setAnimation(0, "eggto" + getFullnessLevel(), false); }
 	public void setBelly(AnimatedActor belly) { 
 		this.belly = belly; 
 		belly.setAnimation(0, "" + getFullnessLevel(), false);

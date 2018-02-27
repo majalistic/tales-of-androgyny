@@ -55,6 +55,7 @@ public class Rectum {
 		return 0;
 	}
 	
+	protected int getEggs() { return eggs; }
 	protected int getCumUnderflow() { return 20 - cum; }
 	
 	protected void flushEggs() { fillWithEggs(-eggs); }
@@ -94,5 +95,4 @@ public class Rectum {
 	private enum RectumTightness {
 		NORMAL, LOOSE, BAGGY
 	}
-
 }
