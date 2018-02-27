@@ -504,7 +504,7 @@ public class Battle extends Group{
 			statusResults.align(Align.topLeft);
 			statusResults.add(initLabel(enemy.getOutcomeText(character), skin, true, Align.top, battleOutcome == Outcome.VICTORY || battleOutcome == Outcome.SATISFIED ? Color.FOREST : Color.FIREBRICK)).width(580).align(Align.top).row();
 			statusResults.row();			
-			statusResults.add(initLabel("Results: ", skin, true, Align.top, Color.BLACK)).fillY().align(Align.left).row();
+			statusResults.add(initLabel("Results: ", skin, true, Align.left, Color.BLACK)).fillY().align(Align.left).row();
 			for (MutationResult result : MutationResult.collapse(battleResults)) {
 				statusResults.add(new MutationActor(result, assetManager.get(result.getTexture()), skin, true)).fillY().padLeft(50).align(Align.left).row();
 			}	
