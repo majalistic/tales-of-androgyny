@@ -27,8 +27,6 @@ public class EnemyCharacter extends AbstractCharacter {
 
 	private transient ObjectMap<Stance, Array<Texture>> textures;
 	private transient Array<Texture> defaultTextures;
-	private Array<String> imagePaths;
-	private ObjectMap<String, Array<String>> textureImagePaths;
 	private String bgPath;
 	private ObjectMap <String, Integer> climaxCounters;
 	
@@ -45,11 +43,7 @@ public class EnemyCharacter extends AbstractCharacter {
 	
 	@SuppressWarnings("unused")
 	private EnemyCharacter() {}
-	
-	public EnemyCharacter(Array<Texture> textures, ObjectMap<Stance, Array<Texture>> textureMap, Array<AnimatedActor> animations, EnemyEnum enemyType) {
-		this(textures, textureMap, animations, enemyType, Stance.BALANCED, false);
-	}
-	
+	public EnemyCharacter(Array<Texture> textures, ObjectMap<Stance, Array<Texture>> textureMap, Array<AnimatedActor> animations, EnemyEnum enemyType) { this(textures, textureMap, animations, enemyType, Stance.BALANCED, false); }
 	public EnemyCharacter(Array<Texture> textures, ObjectMap<Stance, Array<Texture>> textureMap, Array<AnimatedActor> animations, EnemyEnum enemyType, Stance stance, boolean storyMode) {
 		super(true);
 		this.enemyType = enemyType;
@@ -61,18 +55,14 @@ public class EnemyCharacter extends AbstractCharacter {
 		currentFrame = enemyType == EnemyEnum.GHOST && !Gdx.app.getPreferences("tales-of-androgyny-preferences").getBoolean("blood", true) ? 1 : 0;
 		if (enemyType == EnemyEnum.BUNNY) {
 			String bunnyType = Gdx.app.getPreferences("tales-of-androgyny-preferences").getString("bunny", "CREAM");
-			if (bunnyType.equals("CREAM")) currentFrame = 0;
-			if (bunnyType.equals("VANILLA")) currentFrame = 1;
-			if (bunnyType.equals("CARAMEL")) currentFrame = 2;
-			if (bunnyType.equals("CHOCOLATE")) currentFrame = 3;
-			if (bunnyType.equals("DARK-CHOCOLATE")) currentFrame = 4;
+			currentFrame = bunnyType.equals("CREAM") ? 0 : bunnyType.equals("VANILLA") ? 1 : bunnyType.equals("CARAMEL") ? 2 : bunnyType.equals("CHOCOLATE") ? 3 : 4;
 		}
 		
-		weapon = enemyType.getWeaponType() != null ? new Weapon (enemyType.getWeaponType()): null;
-		armor = enemyType.getArmorType() != null ? new Armor (enemyType.getArmorType()): null;
-		legwear = enemyType.getLegwearType() != null ? new Armor (enemyType.getLegwearType()): null;
-		underwear = enemyType.getUnderwearType() != null ? new Armor (enemyType.getUnderwearType()): null;
-		shield = enemyType.getShieldType() != null ? new Armor (enemyType.getShieldType()): null;		
+		weapon = enemyType.getWeaponType() != null ? new Weapon(enemyType.getWeaponType()): null;
+		armor = enemyType.getArmorType() != null ? new Armor(enemyType.getArmorType()): null;
+		legwear = enemyType.getLegwearType() != null ? new Armor(enemyType.getLegwearType()): null;
+		underwear = enemyType.getUnderwearType() != null ? new Armor(enemyType.getUnderwearType()): null;
+		shield = enemyType.getShieldType() != null ? new Armor(enemyType.getShieldType()): null;		
 		baseStrength = enemyType.getStrength();
 		baseAgility = enemyType.getAgility();
 		baseEndurance = enemyType.getEndurance();
@@ -82,8 +72,6 @@ public class EnemyCharacter extends AbstractCharacter {
 		baseDefense = enemyType.getDefense();
 		healthTiers = enemyType.getHealthTiers();
 		manaTiers = enemyType.getManaTiers();
-		imagePaths = enemyType.getPaths();
-		textureImagePaths = enemyType.getImagePaths();
 		phallus = enemyType.getPhallusType();
 		bgPath = enemyType.getBGPath();
 		pronouns = enemyType.getPronounSet();
@@ -98,26 +86,303 @@ public class EnemyCharacter extends AbstractCharacter {
 		this.currentHealth = getMaxHealth();
 	}
 	
-	public Array<String> getImagePaths() {
-		return imagePaths;
-	}
-	
-	public ObjectMap<String, Array<String>> getTextureImagePaths() {
-		return textureImagePaths;
-	}
-	
+	public Array<String> getImagePaths() { return enemyType.getPaths(); }
+	public ObjectMap<String, Array<String>> getTextureImagePaths() { return enemyType.getImagePaths(); }	
 	public Array<Texture> getTextures(AssetManager assetManager) {
 		Array<Texture> textures = new Array<Texture>();
-		for (String path : imagePaths) {
+		for (String path : enemyType.getPaths()) {
 			textures.add(assetManager.get(path, Texture.class));
 		}
 		return textures;
 	}
+	public String getBGPath() { return bgPath; }
 	
-	public String getBGPath() {
-		return bgPath;
+	@Override
+    public void draw(Batch batch, float parentAlpha) {
+		super.draw(batch, parentAlpha);
+		if (enemyType == EnemyEnum.BRIGAND) {
+			if (stance == Stance.DOGGY || stance == Stance.STANDING) {
+				currentAnimationsPlaying.add(animations.get(1));
+				currentAnimationsPlaying.remove(animations.get(0));
+			}
+			else {
+				currentAnimationsPlaying.add(animations.get(0));
+				currentAnimationsPlaying.remove(animations.get(1));
+			}
+		}
+		else if (enemyType == EnemyEnum.ORC) {
+			if (stance == Stance.DOGGY || stance == Stance.PRONE_BONE) {
+				currentAnimationsPlaying.add(animations.get(1));
+				currentAnimationsPlaying.remove(animations.get(0));
+			}
+			else {
+				currentAnimationsPlaying.add(animations.get(0));
+				currentAnimationsPlaying.remove(animations.get(1));
+			}
+		}
+		else if (enemyType == EnemyEnum.HARPY && currentFrame > 0) { 
+			clearActions();
+			currentAnimationsPlaying.clear();
+		}
+		if (currentAnimationsPlaying.size == 0 && enemyType == EnemyEnum.HARPY && !stance.isOralPenetration()) currentAnimationsPlaying.add(animations.get(0));
+		if (currentAnimationsPlaying.size == 0 || 
+				((enemyType == EnemyEnum.GOBLIN || enemyType == EnemyEnum.GOBLIN_MALE) && (stance == Stance.FACE_SITTING || stance == Stance.SIXTY_NINE || stance == Stance.PRONE_BONE || stance == Stance.DOGGY || stance == Stance.PRONE_BONE || stance == Stance.SIXTY_NINE)) ||
+				(enemyType == EnemyEnum.CENTAUR && (stance == Stance.DOGGY || stance == Stance.FELLATIO)) ||
+				(enemyType == EnemyEnum.BRIGAND && (stance == Stance.FELLATIO || stance == Stance.FACEFUCK || stance == Stance.ANAL))) {
+			Array<Texture> textureCandidates = textures.get(stance, defaultTextures);
+			if (textureCandidates == null) return;
+			Texture texture;
+			if (currentFrame >= textureCandidates.size) {
+				if (textureCandidates.size > 0) texture = textureCandidates.get(0);
+				else return;
+			}
+			else {
+				texture = textureCandidates.get(currentFrame);
+			}
+
+			if (texture == null) return;
+			
+			int x = 600;
+			int y = 20;
+			float width =  (int) (texture.getWidth() / (texture.getHeight() / 975.));
+			float height = 975;
+			
+			if (
+				(enemyType == EnemyEnum.WERESLUT && (stance == Stance.DOGGY || stance == Stance.KNOTTED)) ||
+				(enemyType == EnemyEnum.ADVENTURER && stance == Stance.COWGIRL_BOTTOM) ||
+				(enemyType == EnemyEnum.HARPY && stance == Stance.FELLATIO) ||
+				enemyType == EnemyEnum.BRIGAND ||
+				enemyType == EnemyEnum.CENTAUR || 
+				((enemyType == EnemyEnum.GOBLIN || enemyType == EnemyEnum.GOBLIN_MALE) && (stance == Stance.FACE_SITTING || stance == Stance.SIXTY_NINE || stance == Stance.DOGGY || stance == Stance.PRONE_BONE))) {
+				x = ((enemyType == EnemyEnum.BRIGAND && stance != Stance.ANAL) || (enemyType == EnemyEnum.GOBLIN || enemyType == EnemyEnum.GOBLIN_MALE) && (stance == Stance.FACE_SITTING || stance == Stance.SIXTY_NINE)) ? 400 : 0;
+				y = 0;
+				width = (int) (texture.getWidth() / (texture.getHeight() / 1080.));
+				height = 1080;
+			}
+			
+			if (enemyType == EnemyEnum.OGRE) {
+				y = 0;
+			}
+			
+			range = 0;
+			if (range == 0) {
+				batch.draw(texture, x + getX(), y + getY(), width, height);
+			}
+			/*else if (range == 1) {
+				batch.draw(texture, x + 150, y + 150, width / 2, height / 2);
+			}
+			else {
+				batch.draw(texture, x + 200, y + 350, width / 3, height / 3);
+			}*/
+		}
+		else {
+			for (AnimatedActor animation: currentAnimationsPlaying) {
+				animation.draw(batch,  parentAlpha);
+			}
+		}
+    }
+	// this should be refactored so that the enemy simply receives the assetManager and uses what it requires to reinitialize itself
+	public void init(Array<Texture> defaultTextures, ObjectMap<Stance, Array<Texture>> textures, Array<AnimatedActor> animations) {
+		this.defaultTextures = defaultTextures == null ? new Array<Texture>() : defaultTextures;
+		this.textures = textures;
+		this.animations = animations;
+		this.currentAnimationsPlaying = new ObjectSet<AnimatedActor>();
+		if (animations.size > 0 && (enemyType != EnemyEnum.HARPY || stance != Stance.FELLATIO) && (enemyType != EnemyEnum.BRIGAND || (stance != Stance.DOGGY && stance != Stance.STANDING))) {
+			currentAnimationsPlaying.add(animations.first());
+		}
+		
+		currentDisplay = enemyType == EnemyEnum.BRIGAND ? "IFOS100N" :"Idle Erect";
+		initializedMove = true;
+	}
+
+	@Override
+	public void act(float delta) {
+		super.act(delta);
+		if (animations.size > 0) {
+			animations.get(0).act(delta);
+		}
 	}
 	
+	public void attackAnimation() {
+		final Boolean fellatio = stance.isOralPenetration();
+		if (animations.size > 1) {
+			if (enemyType == EnemyEnum.HARPY) {
+				final String preAttack = fellatio ? "Air BJ" : "Attack Erect";
+				final String attack = fellatio ? "bj" : "attack";
+				animations.get(0).addAction(Actions.sequence(
+					Actions.delay(1), 
+					new Action() {
+						@Override
+						public boolean act(float delta) {
+							animations.get(0).setAnimation(0, preAttack, false);
+							animations.get(0).addAnimation(0, "Idle Erect", true, 1.6f);
+							return true;
+					}},	
+					Actions.delay(1), 
+					new Action() {
+						@Override
+						public boolean act(float delta) {
+							animations.get(1).setAnimation(0, attack, false);
+							currentAnimationsPlaying.add(animations.get(1));
+							currentAnimationsPlaying.remove(animations.get(0));
+							return true;
+					}}, Actions.delay(2), new Action() {
+					@Override
+					public boolean act(float delta) {
+						if (!stance.isOralPenetration()) currentAnimationsPlaying.add(animations.get(0));
+						currentAnimationsPlaying.remove(animations.get(1));
+						return true;
+					}
+				}));
+			}
+		}
+		if (enemyType == EnemyEnum.CENTAUR || enemyType == EnemyEnum.UNICORN) {
+			animations.get(0).setAnimation(0, "Attack Erect", false);
+			animations.get(0).addAnimation(0, "Idle Erect", true, 1.6f);
+		}
+	}
+	
+	public void hitAnimation() {
+		if (animations.size > 0 && currentAnimationsPlaying.contains(animations.get(0)) && enemyType.hasHitAnimation()) {
+			animations.get(0).setAnimation(0, "Hit Erect", false);
+			animations.get(0).addAnimation(0, "Idle Erect", true, 1.0f);
+			if (enemyType == EnemyEnum.HARPY) {
+				animations.get(0).addAction(Actions.sequence(
+					new Action() {
+						@Override
+						public boolean act(float delta) {
+							currentAnimationsPlaying.add(animations.get(2));
+							currentAnimationsPlaying.add(animations.get(3));
+							return true;
+					}},	
+					Actions.delay(1), 
+					new Action() {
+						@Override
+						public boolean act(float delta) {
+							currentAnimationsPlaying.remove(animations.get(2));
+							currentAnimationsPlaying.remove(animations.get(3));
+							return true;
+					}}
+				));
+			}
+		}
+	}
+	
+	// for init in battlefactory
+	public void setArousal(ArousalLevel newArousalLevel) { arousal.setArousalLevel(newArousalLevel); }
+	
+	@Override
+	public String getDefeatMessage() {
+		switch (enemyType) {
+			case BRIGAND:
+				return "You defeated the Brigand!\nShe kneels to the ground, unable to lift her weapon.";
+			case CENTAUR:
+				return "You defeated the Centaur!\nShe smiles, haggardly, acknowledging your strength, and bows slightly.";
+			case GOBLIN:
+				return "The Goblin is knocked to the ground, defeated!";
+			case HARPY:
+				return "The Harpy falls out of the sky, crashing to the ground!\nShe is defeated!";
+			case SLIME:
+				return "The Slime becomes unable to hold her form!\nShe is defeated!";
+			case UNICORN:
+			case WERESLUT:
+			default:
+				return super.getDefeatMessage();		
+		}
+	}
+	
+	public Outcome getOutcome(AbstractCharacter enemy) {
+		if (currentHealth <= 0 && (enemyType != EnemyEnum.ANGEL || selfRessurect == 3)) return Outcome.VICTORY;
+		else if (enemy.getCurrentHealth() <= 0 && (enemyType != EnemyEnum.NAGA || stance != Stance.WRAPPED)) return Outcome.DEFEAT;
+		switch(enemyType) {
+			case BRIGAND:
+				if (!storyMode) {
+					if (getToppingClimaxCount() >= 2) return Outcome.SATISFIED;
+				}
+				break;
+			case CENTAUR:
+				if (getToppingClimaxCount() >= 1) return Outcome.SATISFIED;
+				break;
+			case GOBLIN:
+			case GOBLIN_MALE:
+				break;
+			case ORC:
+				if (getToppingClimaxCount() >= 5) return Outcome.SATISFIED;
+				if (storyMode && getReceptiveClimaxCount() >= 1) return Outcome.SUBMISSION; 
+				break;
+			case HARPY:
+				if (storyMode) {
+					if (stance == Stance.FELLATIO && oldStance == Stance.AIRBORNE) return Outcome.KNOT_ORAL;
+					if (stance.isAnalPenetration()) return Outcome.KNOT_ANAL;
+				}
+				else {
+					if (getToppingClimaxCount() >= 2) return Outcome.SATISFIED;
+				}
+				
+				break;
+			case SLIME:
+				break;
+			case UNICORN:
+				break;
+			case WERESLUT:
+				if (climaxCounters.get(ClimaxType.FACIAL.toString(), 0) >= 1) return Outcome.SATISFIED;
+				if (knotInflate >= 5) {
+					if (stance == Stance.KNOTTED) {
+						return Outcome.KNOT_ANAL;
+					}
+					else {
+						return Outcome.KNOT_ORAL;
+					}
+				}
+				break;
+			case ADVENTURER:
+				if (getReceptiveClimaxCount() >= 1 ) return Outcome.SUBMISSION;
+				if (getToppingClimaxCount() >= 1) return Outcome.SATISFIED;
+				break;
+			case OGRE:
+				if (climaxCounters.get(ClimaxType.ANAL.toString(), 0) >= 1) return Outcome.SATISFIED;
+				break;
+			case BEASTMISTRESS:
+				if (isErect()) return Outcome.SATISFIED;
+				break;
+			case SPIDER:
+				if (knotInflate >= 5) return Outcome.KNOT_ANAL;
+				break;
+			case ANGEL:
+				if (stance == Stance.FACE_SITTING && oldStance == Stance.FACE_SITTING) return Outcome.SUBMISSION;
+				if (arousal.isErect() && currentHealth == getMaxHealth() && selfRessurect == 1) return Outcome.SATISFIED;
+				break;
+			case NAGA:
+				if (enemy.getCurrentHealth() <= 0 && stance == Stance.WRAPPED) return Outcome.DEATH;
+				break;
+			case QUETZAL:
+				if (enemy.getStance() == Stance.SPREAD) return Outcome.KNOT_ANAL;
+				break;
+			case MERMAID:
+				if (stance == Stance.COWGIRL_BOTTOM || stance == Stance.REVERSE_COWGIRL_BOTTOM) return Outcome.SUBMISSION;
+				break;
+			default:
+		}
+		return null;
+	}
+	
+	public String getOutcomeText(AbstractCharacter enemy) {
+		switch (getOutcome(enemy)) {
+			case KNOT_ORAL: return enemyType == EnemyEnum.WERESLUT ? "It's stuck behind your teeth. Your mouth is stuffed!" : "You've been stuffed in the face!";
+			case KNOT_ANAL: return enemyType == EnemyEnum.WERESLUT ? "You've been knotted!!!\nYou are at her whims, now." : enemyType == EnemyEnum.SPIDER ? "You've been stuffed full of eggs." : enemyType == EnemyEnum.QUETZAL ? "Your stomach balloons painfully with the goddess' semen!" : "You've been stuffed in the ass!";
+			case SATISFIED: return enemyType == EnemyEnum.CENTAUR ? "You've been dominated by the centaur's massive horsecock."
+				: enemyType == EnemyEnum.OGRE ? "The ogre has filled your guts with ogre cum.  You are well and truly fucked."
+				: enemyType == EnemyEnum.ANGEL ? "She notes your lack of aggression, and stands down."
+				: properCase(pronouns.getNominative()) + " seems satisfied. " + properCase(pronouns.getNominative()) + "'s no longer hostile.";
+			
+			case SUBMISSION: return enemyType == EnemyEnum.ANGEL ? "She's sitting on your face and can't be dislodged - you can no longer fight!" : "They're completely fucked silly! They're no longer hostile.";
+			case DEFEAT: return enemy.getDefeatMessage();
+			case VICTORY: return getDefeatMessage();
+			case DEATH: return enemyType == EnemyEnum.NAGA ? "You are being crushed!" : "";
+		}
+		return null;
+	}
+
 	// rather than override doAttack, doAttack should call an abstract processAttack method in AbstractCharacter and this functionality should be built there, instead of calling return super.doAttack
 	@Override
 	public Attack doAttack(Attack resolvedAttack) {
@@ -413,191 +678,27 @@ public class EnemyCharacter extends AbstractCharacter {
 		return super.doAttack(resolvedAttack);
 	}
 	
-	private int getClimaxCount() {
-		int climaxCount = 0;
-		for (ObjectMap.Entry<String, Integer> entry : climaxCounters.entries()) {
-			climaxCount += entry.value;
+	public void setClimaxCounter(int climaxCounter) { climaxCounters.put(ClimaxType.BACKWASH.toString(), climaxCounter); }
+
+	public void toggle() {
+		if (enemyType == EnemyEnum.BRIGAND) {
+			currentDisplay = currentDisplay.equals("IFOS100") ? "IFOS100N" : "IFOS100";
+			animations.get(1).setAnimation(0, currentDisplay, true);
 		}
-		return climaxCount;
-	}
-	
-	private int getToppingClimaxCount() {
-		return getClimaxCount() - getReceptiveClimaxCount();
-	}
-	private int getReceptiveClimaxCount() {
-		int climaxCount = 0;
-		climaxCount += climaxCounters.get(ClimaxType.ANAL_RECEPTIVE.toString(), 0);
-		climaxCount += climaxCounters.get(ClimaxType.ORAL_RECEPTIVE.toString(), 0);
-		return climaxCount;
-	}
-	
-	private boolean willFaceSit(AbstractCharacter target) {
-		return target.getStance() == Stance.SUPINE && enemyType.willFaceSit();
-	}
-	
-	private boolean isEnragedGolem() {
-		return enemyType == EnemyEnum.GOLEM && currentFrame == 1;
-	}
-	
-	private Array<Techniques> getPossibleTechniques(AbstractCharacter target, Stance stance) {
-		if (enemyType == EnemyEnum.SLIME && !stance.isIncapacitatingOrErotic()) {
-			return getTechniques(SLIME_ATTACK, SLIME_QUIVER); 			
-		}
-		else if (enemyType == EnemyEnum.OGRE && stance != Stance.KNEELING && !stance.isIncapacitatingOrErotic() && stance != Stance.HOLDING) {
-			if (willPounce() && arousal.isErect()) {
-				if (target.getLegwearScore() <= 0 && target.getUnderwearScore() <= 0) {
-					return getTechniques(SEIZE);	
-				}
-				else {
-					return getTechniques(RIP);	
-				}
-			}
-			if (weapon != null) {
-				if (stance == Stance.OFFENSIVE) {
-					return getTechniques(SMASH);
-				}
-				if (stance == Stance.BALANCED) {
-					return getTechniques(LIFT_WEAPON);
-				}
-			}
-			else {
-				return getTechniques(SLAM);
-			}	
-		}
-		else if (enemyType == EnemyEnum.GHOST) {
-			if (stance == Stance.CASTING) {
-				return currentMana > 10 ? getTechniques(COMBAT_FIRE) : getTechniques(FOCUS_ENERGY);
-			}
-			else {
-				return getTechniques(INCANTATION);
-			}			
-		}
-		else if (enemyType == EnemyEnum.ANGEL && !alreadyIncapacitated()) {
-			if (selfRessurect == 2) selfRessurect = 3;
-			if (currentHealth == 0 && selfRessurect == 1) {
-				selfRessurect = 2;
-				return getTechniques(ANGELIC_GRACE);
-			}
-			else if (stance == Stance.CASTING) {
-				return getTechniques(HEAL);
-			}
-			else if (currentHealth < getMaxHealth() || selfRessurect > 1) {
-				if (currentHealth < 40 && currentMana > 10) {
-					return getTechniques(INCANTATION);
-				}
-				return getTechniques(TRUMPET);
-			}
-			else if (target.getStance() == Stance.SUPINE) {
-				return getTechniques(FACE_SIT);
-			}
-			else {
-				return getTechniques(DO_NOTHING);
-			}
-		}
-		else if (enemyType == EnemyEnum.QUETZAL) {
-			if (stance == Stance.HOLDING) {
-				arousal.increaseArousal(new SexualExperienceBuilder().setAnal(1).build(), perks);
-				if (arousal.isEdging()) {
-					return getTechniques(SKEWER);
-				}
-				return getTechniques(LICK_LIPS_HOLDING);
-			}
-			if (stance.isAnalPenetration()) {
-				arousal.increaseArousal(new SexualExperienceBuilder().setAnal(1).build(), perks);
-				if (arousal.isSuperEdging()) {
-					return getTechniques(FERTILIZE);
-				}
-				else if (arousal.isClimax()) {
-					return getTechniques(PLUG);
-				}
-				return getTechniques(SCREW);
-			}
-			if (!alreadyIncapacitated()) {
-				if (heartbeat % 15 == 14) {
-					if (isErect()) {
-						if (heartbeat > 60) {
-							return getTechniques(SEIZE);
-						}
-						return getTechniques(LUBE_UP);
-					}
-					return getTechniques(HARDEN);
-				}
-				if (heartbeat < 10) {				
-					return getTechniques(DO_NOTHING, WATCH, LICK_LIPS, PREPARE_OILS);
-				}
-			}
-		}
-		
-		Array<Techniques> possibles = getDefaultTechniqueOptions(target);
-		if (stance == Stance.CASTING) {
-			if (possibles.contains(Techniques.DO_NOTHING, true) || possibles.size == 0) return getTechniques(ITEM_OR_CANCEL); // fail-safe in case a spellcaster has no spells to cast
-			return possibles;	
-		}
-		else if (stance == Stance.ERUPT) {
-			stance = Stance.BALANCED;
-			return getPossibleTechniques(target, stance);
-		}
-		else {
-			return possibles.size == 0 ? getTechniques(DO_NOTHING) : possibles;
+		else if (enemyType == EnemyEnum.CENTAUR) {
+			currentFrame = 1 - currentFrame;
 		}
 	}
-	
-	private boolean isSpellCaster() { return enemyType == EnemyEnum.GOLEM || enemyType == EnemyEnum.ADVENTURER; } // currently Ghost and Angel have custom move pools, so do not count in this
-	private boolean canIncant() { return (isEnragedGolem() && currentMana > 3) || mustIncant(); }
-	private boolean mustIncant() { 
-		return (enemyType == EnemyEnum.GOLEM && !isEnragedGolem() && currentHealth <= 30) || // activate
-			(enemyType == EnemyEnum.ADVENTURER && (((mustCastHealing()) || mustCastTitanStrength()))); // cast heal or titan strength
-	}
-	private boolean mustCastHealing() { return enemyType != EnemyEnum.GOLEM && currentHealth < 30 && currentMana >= 10; }
-	private boolean mustCastTitanStrength() { return enemyType != EnemyEnum.GOLEM && currentMana % 10 != 0 && currentMana > 2 && statuses.get(StatusType.STRENGTH_BUFF.toString(), 0) == 0; }
+
+	public Array<AnimatedActor> getAnimations(AssetManager assetManager) { return enemyType.getAnimations(assetManager); }
 	
 	@Override
-	protected Array<Techniques> getTechniques(AbstractCharacter target, Techniques ... candidates) { 
-		Array<Techniques> trueCandidates = super.getTechniques(target, candidates);
-		Array<Techniques> techniques = new Array<Techniques>(trueCandidates);		
-		for (Techniques candidate : trueCandidates) {
-			if (candidate == FACE_SIT && !willFaceSit(target)) { techniques.removeValue(candidate, true); }
-			else if (candidate != DIVEBOMB && ((candidate.getTrait().getTechniqueHeight() == TechniqueHeight.HIGH && !target.getStance().receivesHighAttacks()) || // this should not exclude divebomb - the harpy should just land or do something else if the player is on the ground already, possibly face-sitting or a steeper divebomb
-					(candidate.getTrait().getTechniqueHeight() == TechniqueHeight.MEDIUM && !target.getStance().receivesMediumAttacks()) || 
-					(candidate.getTrait().getTechniqueHeight() == TechniqueHeight.LOW && !target.getStance().receivesLowAttacks()))) { techniques.removeValue(candidate, true); }
-			else if (candidate == ARMOR_SUNDER && !enemyType.willArmorSunder()) { techniques.removeValue(candidate, true); }
-			else if (candidate == BLITZ_ATTACK && (enemyType != EnemyEnum.BEASTMISTRESS && !isEnragedGolem())) { techniques.removeValue(candidate, true); }			
-			else if (inTechniques(candidate, BLOCK, CAUTIOUS_ATTACK, GUT_CHECK) && enemyType == EnemyEnum.BEASTMISTRESS) { techniques.removeValue(candidate, true); }
-			else if (inTechniques(candidate, BLOCK, CAUTIOUS_ATTACK) && !enemyType.usesDefensiveTechniques()) { techniques.removeValue(candidate, true); }
-			else if (candidate == PARRY && !enemyType.willParry()) { techniques.removeValue(candidate, true); }
-			else if (candidate == TAUNT && !enemyType.willSeduce()) { techniques.removeValue(candidate, true); }
-			else if (inTechniques(candidate, SLAP_ASS, GESTURE, PUCKER_LIPS, RUB, REVERSAL_ATTACK, BLOCK) && (arousal.isBottomReady() && stance == Stance.SEDUCTION)) { techniques.removeValue(candidate, true); }			
-			else if (candidate != OVIPOSITION && techniques.contains(OVIPOSITION, true) && enemyType == EnemyEnum.SPIDER && grappleStatus == GrappleStatus.HOLD) { techniques.removeValue(candidate, true); }
-			else if (candidate == OVIPOSITION && (enemyType != EnemyEnum.SPIDER || grappleStatus != GrappleStatus.HOLD)) { techniques.removeValue(candidate, true); }
-			else if (candidate != RECEIVE_DOGGY && techniques.contains(RECEIVE_DOGGY, true))  { techniques.removeValue(candidate, true); }
-			else if (candidate != RECEIVE_PRONE_BONE && techniques.contains(RECEIVE_PRONE_BONE, true))  { techniques.removeValue(candidate, true); }
-			else if (candidate != RECEIVE_ANAL && techniques.contains(RECEIVE_ANAL, true))  { techniques.removeValue(candidate, true); }
-			else if (candidate != SUCK_IT && techniques.contains(SUCK_IT, true))  { techniques.removeValue(candidate, true); }
-			else if (candidate != GET_FACEFUCKED && techniques.contains(GET_FACEFUCKED, true))  { techniques.removeValue(candidate, true); }
-			else if (candidate != RECEIVE_OUROBOROS && techniques.contains(RECEIVE_OUROBOROS, true))  { techniques.removeValue(candidate, true); }
-			else if (candidate == CHOKE && (enemyType != EnemyEnum.ORC && enemyType != EnemyEnum.BRIGAND)) { techniques.removeValue(candidate, true); }		
-			else if (candidate == FLIP_PRONE && !enemyType.prefersProneBone()) { techniques.removeValue(candidate, true); }		
-			else if (candidate == FLIP_SUPINE && !enemyType.prefersMissionary()) { techniques.removeValue(candidate, true); }		
-			else if (candidate == PIN && target.getStrength() + 3 >= getStrength()) { techniques.removeValue(candidate, true); }		
-			else if (candidate != KNOT && techniques.contains(KNOT, true) && enemyType == EnemyEnum.WERESLUT && arousal.isEdging()) { techniques.removeValue(candidate, true); }		
-			else if (candidate == KNOT && enemyType != EnemyEnum.WERESLUT) { techniques.removeValue(candidate, true); }	
-			else if (candidate == ERUPT_ANAL && (enemyType == EnemyEnum.BRIGAND || enemyType == EnemyEnum.GOBLIN || enemyType == EnemyEnum.ORC)) { techniques.removeValue(candidate, true); }		
-			else if (candidate == BLOW_LOAD && !(enemyType == EnemyEnum.BRIGAND || enemyType == EnemyEnum.GOBLIN || enemyType == EnemyEnum.ORC)) { techniques.removeValue(candidate, true); }		
-			else if (candidate == PROSTATE_GRIND && !enemyType.willProstatePound()) { techniques.removeValue(candidate, true); }		
-			else if (candidate == INCANTATION && (!isSpellCaster() || (!canIncant()))) { techniques.removeValue(candidate, true); } // remove incantation if not a spellcaster or can't currently incant
-			else if (candidate != INCANTATION && techniques.contains(INCANTATION, true) && mustIncant()) { techniques.removeValue(candidate, true); } // remove all other options if must incant
-			else if (candidate != ACTIVATE && techniques.contains(ACTIVATE, true) && (enemyType == EnemyEnum.GOLEM && !isEnragedGolem()))  { techniques.removeValue(candidate, true); }
-			else if (candidate == ACTIVATE && enemyType != EnemyEnum.GOLEM) { techniques.removeValue(candidate, true); }
-			else if (candidate != COMBAT_FIRE && techniques.contains(COMBAT_FIRE, true) && isEnragedGolem())  { techniques.removeValue(candidate, true); }
-			else if (candidate != COMBAT_HEAL && techniques.contains(COMBAT_HEAL, true) && mustCastHealing())  { techniques.removeValue(candidate, true); }
-			else if (candidate != TITAN_STRENGTH && techniques.contains(TITAN_STRENGTH, true) && mustCastTitanStrength() && !mustCastHealing())  { techniques.removeValue(candidate, true); }				
-			else if (inTechniques(candidate, VAULT, FEINT_AND_STRIKE, SLIDE, DUCK, HIT_THE_DECK, KICK_OVER_FACE_UP, KICK_OVER_FACE_DOWN, SIT_ON_IT, TURN_AND_SIT, SUDDEN_ADVANCE, DUCK, UPPERCUT, GRAB_IT, JUMP_ATTACK, VAULT_OVER, STAND_OFF_IT, FULL_NELSON, TAKEDOWN, PULL_OUT, PULL_OUT_ORAL, PULL_OUT_STANDING, RELEASE_PRONE, RELEASE_SUPINE, SAY_AHH)) { techniques.removeValue(candidate, true); }	
+	public void setPosition(float x, float y) {
+		super.setPosition(x, y);
+		for (AnimatedActor animation : animations) {
+			animation.setPosition(x, y);
 		}
-				
-		return techniques;
 	}
-	
-	private Array<Techniques> getTechniques(Techniques ... techniques) { return new Array<Techniques>(techniques); }
 	
 	public Technique getTechnique(AbstractCharacter target) {
 		if (initializedMove && nextMove != null) {
@@ -718,6 +819,67 @@ public class EnemyCharacter extends AbstractCharacter {
 	}
 	
 	@Override
+	protected int getClimaxVolume() {
+		super.getClimaxVolume();
+		switch(enemyType) {
+			case OGRE:
+			case CENTAUR: 
+			case UNICORN: return 21;
+			case GOBLIN: return 10;
+			default: return 5;
+		}
+	}
+	
+	@Override
+	protected boolean canBleed() { return enemyType.canBleed(); }
+	
+	@Override
+	protected Array<Techniques> getTechniques(AbstractCharacter target, Techniques ... candidates) { 
+		Array<Techniques> trueCandidates = super.getTechniques(target, candidates);
+		Array<Techniques> techniques = new Array<Techniques>(trueCandidates);		
+		for (Techniques candidate : trueCandidates) {
+			if (candidate == FACE_SIT && !willFaceSit(target)) { techniques.removeValue(candidate, true); }
+			else if (candidate != DIVEBOMB && ((candidate.getTrait().getTechniqueHeight() == TechniqueHeight.HIGH && !target.getStance().receivesHighAttacks()) || // this should not exclude divebomb - the harpy should just land or do something else if the player is on the ground already, possibly face-sitting or a steeper divebomb
+					(candidate.getTrait().getTechniqueHeight() == TechniqueHeight.MEDIUM && !target.getStance().receivesMediumAttacks()) || 
+					(candidate.getTrait().getTechniqueHeight() == TechniqueHeight.LOW && !target.getStance().receivesLowAttacks()))) { techniques.removeValue(candidate, true); }
+			else if (candidate == ARMOR_SUNDER && !enemyType.willArmorSunder()) { techniques.removeValue(candidate, true); }
+			else if (candidate == BLITZ_ATTACK && (enemyType != EnemyEnum.BEASTMISTRESS && !isEnragedGolem())) { techniques.removeValue(candidate, true); }			
+			else if (inTechniques(candidate, BLOCK, CAUTIOUS_ATTACK, GUT_CHECK) && enemyType == EnemyEnum.BEASTMISTRESS) { techniques.removeValue(candidate, true); }
+			else if (inTechniques(candidate, BLOCK, CAUTIOUS_ATTACK) && !enemyType.usesDefensiveTechniques()) { techniques.removeValue(candidate, true); }
+			else if (candidate == PARRY && !enemyType.willParry()) { techniques.removeValue(candidate, true); }
+			else if (candidate == TAUNT && !enemyType.willSeduce()) { techniques.removeValue(candidate, true); }
+			else if (inTechniques(candidate, SLAP_ASS, GESTURE, PUCKER_LIPS, RUB, REVERSAL_ATTACK, BLOCK) && (arousal.isBottomReady() && stance == Stance.SEDUCTION)) { techniques.removeValue(candidate, true); }			
+			else if (candidate != OVIPOSITION && techniques.contains(OVIPOSITION, true) && enemyType == EnemyEnum.SPIDER && grappleStatus == GrappleStatus.HOLD) { techniques.removeValue(candidate, true); }
+			else if (candidate == OVIPOSITION && (enemyType != EnemyEnum.SPIDER || grappleStatus != GrappleStatus.HOLD)) { techniques.removeValue(candidate, true); }
+			else if (candidate != RECEIVE_DOGGY && techniques.contains(RECEIVE_DOGGY, true))  { techniques.removeValue(candidate, true); }
+			else if (candidate != RECEIVE_PRONE_BONE && techniques.contains(RECEIVE_PRONE_BONE, true))  { techniques.removeValue(candidate, true); }
+			else if (candidate != RECEIVE_ANAL && techniques.contains(RECEIVE_ANAL, true))  { techniques.removeValue(candidate, true); }
+			else if (candidate != SUCK_IT && techniques.contains(SUCK_IT, true))  { techniques.removeValue(candidate, true); }
+			else if (candidate != GET_FACEFUCKED && techniques.contains(GET_FACEFUCKED, true))  { techniques.removeValue(candidate, true); }
+			else if (candidate != RECEIVE_OUROBOROS && techniques.contains(RECEIVE_OUROBOROS, true))  { techniques.removeValue(candidate, true); }
+			else if (candidate == CHOKE && (enemyType != EnemyEnum.ORC && enemyType != EnemyEnum.BRIGAND)) { techniques.removeValue(candidate, true); }		
+			else if (candidate == FLIP_PRONE && !enemyType.prefersProneBone()) { techniques.removeValue(candidate, true); }		
+			else if (candidate == FLIP_SUPINE && !enemyType.prefersMissionary()) { techniques.removeValue(candidate, true); }		
+			else if (candidate == PIN && target.getStrength() + 3 >= getStrength()) { techniques.removeValue(candidate, true); }		
+			else if (candidate != KNOT && techniques.contains(KNOT, true) && enemyType == EnemyEnum.WERESLUT && arousal.isEdging()) { techniques.removeValue(candidate, true); }		
+			else if (candidate == KNOT && enemyType != EnemyEnum.WERESLUT) { techniques.removeValue(candidate, true); }	
+			else if (candidate == ERUPT_ANAL && (enemyType == EnemyEnum.BRIGAND || enemyType == EnemyEnum.GOBLIN || enemyType == EnemyEnum.ORC)) { techniques.removeValue(candidate, true); }		
+			else if (candidate == BLOW_LOAD && !(enemyType == EnemyEnum.BRIGAND || enemyType == EnemyEnum.GOBLIN || enemyType == EnemyEnum.ORC)) { techniques.removeValue(candidate, true); }		
+			else if (candidate == PROSTATE_GRIND && !enemyType.willProstatePound()) { techniques.removeValue(candidate, true); }		
+			else if (candidate == INCANTATION && (!isSpellCaster() || (!canIncant()))) { techniques.removeValue(candidate, true); } // remove incantation if not a spellcaster or can't currently incant
+			else if (candidate != INCANTATION && techniques.contains(INCANTATION, true) && mustIncant()) { techniques.removeValue(candidate, true); } // remove all other options if must incant
+			else if (candidate != ACTIVATE && techniques.contains(ACTIVATE, true) && (enemyType == EnemyEnum.GOLEM && !isEnragedGolem()))  { techniques.removeValue(candidate, true); }
+			else if (candidate == ACTIVATE && enemyType != EnemyEnum.GOLEM) { techniques.removeValue(candidate, true); }
+			else if (candidate != COMBAT_FIRE && techniques.contains(COMBAT_FIRE, true) && isEnragedGolem())  { techniques.removeValue(candidate, true); }
+			else if (candidate != COMBAT_HEAL && techniques.contains(COMBAT_HEAL, true) && mustCastHealing())  { techniques.removeValue(candidate, true); }
+			else if (candidate != TITAN_STRENGTH && techniques.contains(TITAN_STRENGTH, true) && mustCastTitanStrength() && !mustCastHealing())  { techniques.removeValue(candidate, true); }				
+			else if (inTechniques(candidate, VAULT, FEINT_AND_STRIKE, SLIDE, DUCK, HIT_THE_DECK, KICK_OVER_FACE_UP, KICK_OVER_FACE_DOWN, SIT_ON_IT, TURN_AND_SIT, SUDDEN_ADVANCE, DUCK, UPPERCUT, GRAB_IT, JUMP_ATTACK, VAULT_OVER, STAND_OFF_IT, FULL_NELSON, TAKEDOWN, PULL_OUT, PULL_OUT_ORAL, PULL_OUT_STANDING, RELEASE_PRONE, RELEASE_SUPINE, SAY_AHH)) { techniques.removeValue(candidate, true); }	
+		}
+				
+		return techniques;
+	}
+	
+	@Override
 	protected String getLeakMessage() {
 		String message = "";
 		
@@ -830,14 +992,138 @@ public class EnemyCharacter extends AbstractCharacter {
 		return joined;
 	}
 	
-	private boolean willPounce() {
-		return enemyType.willPounce() && arousal.isErect() && !stance.isIncapacitatingOrErotic() && grappleStatus == GrappleStatus.NULL && (enemyType != EnemyEnum.BRIGAND || !storyMode);
+	private int getClimaxCount() {
+		int climaxCount = 0;
+		for (ObjectMap.Entry<String, Integer> entry : climaxCounters.entries()) {
+			climaxCount += entry.value;
+		}
+		return climaxCount;
 	}
 	
-	private Technique getTechnique(AbstractCharacter target, Techniques technique) {
-		return new Technique(technique.getTrait(), getCurrentState(target), enemyType == EnemyEnum.BRIGAND && technique == Techniques.PARRY ? 3 : 1);
+	private int getToppingClimaxCount() { return getClimaxCount() - getReceptiveClimaxCount(); }
+
+	private int getReceptiveClimaxCount() {
+		int climaxCount = 0;
+		climaxCount += climaxCounters.get(ClimaxType.ANAL_RECEPTIVE.toString(), 0);
+		climaxCount += climaxCounters.get(ClimaxType.ORAL_RECEPTIVE.toString(), 0);
+		return climaxCount;
 	}
 	
+	private boolean willFaceSit(AbstractCharacter target) { return target.getStance() == Stance.SUPINE && enemyType.willFaceSit(); }
+	
+	private boolean isEnragedGolem() { return enemyType == EnemyEnum.GOLEM && currentFrame == 1; }
+	
+	private Array<Techniques> getPossibleTechniques(AbstractCharacter target, Stance stance) {
+		if (enemyType == EnemyEnum.SLIME && !stance.isIncapacitatingOrErotic()) { return getTechniques(SLIME_ATTACK, SLIME_QUIVER); }
+		else if (enemyType == EnemyEnum.OGRE && stance != Stance.KNEELING && !stance.isIncapacitatingOrErotic() && stance != Stance.HOLDING) {
+			if (willPounce() && arousal.isErect()) {
+				if (target.getLegwearScore() <= 0 && target.getUnderwearScore() <= 0) {
+					return getTechniques(SEIZE);	
+				}
+				else {
+					return getTechniques(RIP);	
+				}
+			}
+			if (weapon != null) {
+				if (stance == Stance.OFFENSIVE) {
+					return getTechniques(SMASH);
+				}
+				if (stance == Stance.BALANCED) {
+					return getTechniques(LIFT_WEAPON);
+				}
+			}
+			else {
+				return getTechniques(SLAM);
+			}	
+		}
+		else if (enemyType == EnemyEnum.GHOST) {
+			if (stance == Stance.CASTING) {
+				return currentMana > 10 ? getTechniques(COMBAT_FIRE) : getTechniques(FOCUS_ENERGY);
+			}
+			else {
+				return getTechniques(INCANTATION);
+			}			
+		}
+		else if (enemyType == EnemyEnum.ANGEL && !alreadyIncapacitated()) {
+			if (selfRessurect == 2) selfRessurect = 3;
+			if (currentHealth == 0 && selfRessurect == 1) {
+				selfRessurect = 2;
+				return getTechniques(ANGELIC_GRACE);
+			}
+			else if (stance == Stance.CASTING) {
+				return getTechniques(HEAL);
+			}
+			else if (currentHealth < getMaxHealth() || selfRessurect > 1) {
+				if (currentHealth < 40 && currentMana > 10) {
+					return getTechniques(INCANTATION);
+				}
+				return getTechniques(TRUMPET);
+			}
+			else if (target.getStance() == Stance.SUPINE) {
+				return getTechniques(FACE_SIT);
+			}
+			else {
+				return getTechniques(DO_NOTHING);
+			}
+		}
+		else if (enemyType == EnemyEnum.QUETZAL) {
+			if (stance == Stance.HOLDING) {
+				arousal.increaseArousal(new SexualExperienceBuilder().setAnal(1).build(), perks);
+				if (arousal.isEdging()) {
+					return getTechniques(SKEWER);
+				}
+				return getTechniques(LICK_LIPS_HOLDING);
+			}
+			if (stance.isAnalPenetration()) {
+				arousal.increaseArousal(new SexualExperienceBuilder().setAnal(1).build(), perks);
+				if (arousal.isSuperEdging()) {
+					return getTechniques(FERTILIZE);
+				}
+				else if (arousal.isClimax()) {
+					return getTechniques(PLUG);
+				}
+				return getTechniques(SCREW);
+			}
+			if (!alreadyIncapacitated()) {
+				if (heartbeat % 15 == 14) {
+					if (isErect()) {
+						if (heartbeat > 60) {
+							return getTechniques(SEIZE);
+						}
+						return getTechniques(LUBE_UP);
+					}
+					return getTechniques(HARDEN);
+				}
+				if (heartbeat < 10) {				
+					return getTechniques(DO_NOTHING, WATCH, LICK_LIPS, PREPARE_OILS);
+				}
+			}
+		}
+		
+		Array<Techniques> possibles = getDefaultTechniqueOptions(target);
+		if (stance == Stance.CASTING) {
+			if (possibles.contains(Techniques.DO_NOTHING, true) || possibles.size == 0) return getTechniques(ITEM_OR_CANCEL); // fail-safe in case a spellcaster has no spells to cast
+			return possibles;	
+		}
+		else if (stance == Stance.ERUPT) {
+			stance = Stance.BALANCED;
+			return getPossibleTechniques(target, stance);
+		}
+		return possibles.size == 0 ? getTechniques(DO_NOTHING) : possibles;
+	}
+	
+	private Array<Techniques> getTechniques(Techniques ... techniques) { return new Array<Techniques>(techniques); }
+	
+	private boolean isSpellCaster() { return enemyType == EnemyEnum.GOLEM || enemyType == EnemyEnum.ADVENTURER; } // currently Ghost and Angel have custom move pools, so do not count in this
+	private boolean canIncant() { return (isEnragedGolem() && currentMana > 3) || mustIncant(); }
+	private boolean mustIncant() { 
+		return (enemyType == EnemyEnum.GOLEM && !isEnragedGolem() && currentHealth <= 30) || // activate
+			(enemyType == EnemyEnum.ADVENTURER && (((mustCastHealing()) || mustCastTitanStrength()))); // cast heal or titan strength
+	}
+	private boolean mustCastHealing() { return enemyType != EnemyEnum.GOLEM && currentHealth < 30 && currentMana >= 10; }
+	private boolean mustCastTitanStrength() { return enemyType != EnemyEnum.GOLEM && currentMana % 10 != 0 && currentMana > 2 && statuses.get(StatusType.STRENGTH_BUFF.toString(), 0) == 0; }
+	private boolean willPounce() { return enemyType.willPounce() && arousal.isErect() && !stance.isIncapacitatingOrErotic() && grappleStatus == GrappleStatus.NULL && (enemyType != EnemyEnum.BRIGAND || !storyMode); }	
+	private Technique getTechnique(AbstractCharacter target, Techniques technique) { return new Technique(technique.getTrait(), getCurrentState(target), enemyType == EnemyEnum.BRIGAND && technique == Techniques.PARRY ? 3 : 1); }
 	private int getRandomWeighting(int size) {
 		IntArray randomOptions = new IntArray();
 		for (int ii = 0; ii < size; ii++) {
@@ -869,333 +1155,5 @@ public class EnemyCharacter extends AbstractCharacter {
 			randomResult = 0;
 		}
 		return randomResult;
-	}
-	
-	@Override
-    public void draw(Batch batch, float parentAlpha) {
-		super.draw(batch, parentAlpha);
-		if (enemyType == EnemyEnum.BRIGAND) {
-			if (stance == Stance.DOGGY || stance == Stance.STANDING) {
-				currentAnimationsPlaying.add(animations.get(1));
-				currentAnimationsPlaying.remove(animations.get(0));
-			}
-			else {
-				currentAnimationsPlaying.add(animations.get(0));
-				currentAnimationsPlaying.remove(animations.get(1));
-			}
-		}
-		else if (enemyType == EnemyEnum.ORC) {
-			if (stance == Stance.DOGGY || stance == Stance.PRONE_BONE) {
-				currentAnimationsPlaying.add(animations.get(1));
-				currentAnimationsPlaying.remove(animations.get(0));
-			}
-			else {
-				currentAnimationsPlaying.add(animations.get(0));
-				currentAnimationsPlaying.remove(animations.get(1));
-			}
-		}
-		else if (enemyType == EnemyEnum.HARPY && currentFrame > 0) { 
-			clearActions();
-			currentAnimationsPlaying.clear();
-		}
-		if (currentAnimationsPlaying.size == 0 && enemyType == EnemyEnum.HARPY && !stance.isOralPenetration()) currentAnimationsPlaying.add(animations.get(0));
-		if (currentAnimationsPlaying.size == 0 || 
-				((enemyType == EnemyEnum.GOBLIN || enemyType == EnemyEnum.GOBLIN_MALE) && (stance == Stance.FACE_SITTING || stance == Stance.SIXTY_NINE || stance == Stance.PRONE_BONE || stance == Stance.DOGGY || stance == Stance.PRONE_BONE || stance == Stance.SIXTY_NINE)) ||
-				(enemyType == EnemyEnum.CENTAUR && (stance == Stance.DOGGY || stance == Stance.FELLATIO)) ||
-				(enemyType == EnemyEnum.BRIGAND && (stance == Stance.FELLATIO || stance == Stance.FACEFUCK || stance == Stance.ANAL))) {
-			Array<Texture> textureCandidates = textures.get(stance, defaultTextures);
-			if (textureCandidates == null) return;
-			Texture texture;
-			if (currentFrame >= textureCandidates.size) {
-				if (textureCandidates.size > 0) texture = textureCandidates.get(0);
-				else return;
-			}
-			else {
-				texture = textureCandidates.get(currentFrame);
-			}
-
-			if (texture == null) return;
-			
-			int x = 600;
-			int y = 20;
-			float width =  (int) (texture.getWidth() / (texture.getHeight() / 975.));
-			float height = 975;
-			
-			if (
-				(enemyType == EnemyEnum.WERESLUT && (stance == Stance.DOGGY || stance == Stance.KNOTTED)) ||
-				(enemyType == EnemyEnum.ADVENTURER && stance == Stance.COWGIRL_BOTTOM) ||
-				(enemyType == EnemyEnum.HARPY && stance == Stance.FELLATIO) ||
-				enemyType == EnemyEnum.BRIGAND ||
-				enemyType == EnemyEnum.CENTAUR || 
-				((enemyType == EnemyEnum.GOBLIN || enemyType == EnemyEnum.GOBLIN_MALE) && (stance == Stance.FACE_SITTING || stance == Stance.SIXTY_NINE || stance == Stance.DOGGY || stance == Stance.PRONE_BONE))) {
-				x = ((enemyType == EnemyEnum.BRIGAND && stance != Stance.ANAL) || (enemyType == EnemyEnum.GOBLIN || enemyType == EnemyEnum.GOBLIN_MALE) && (stance == Stance.FACE_SITTING || stance == Stance.SIXTY_NINE)) ? 400 : 0;
-				y = 0;
-				width = (int) (texture.getWidth() / (texture.getHeight() / 1080.));
-				height = 1080;
-			}
-			
-			if (enemyType == EnemyEnum.OGRE) {
-				y = 0;
-			}
-			
-			range = 0;
-			if (range == 0) {
-				batch.draw(texture, x + getX(), y + getY(), width, height);
-			}
-			/*else if (range == 1) {
-				batch.draw(texture, x + 150, y + 150, width / 2, height / 2);
-			}
-			else {
-				batch.draw(texture, x + 200, y + 350, width / 3, height / 3);
-			}*/
-		}
-		else {
-			for (AnimatedActor animation: currentAnimationsPlaying) {
-				animation.draw(batch,  parentAlpha);
-			}
-		}
-    }
-	// this should be refactored so that the enemy simply receives the assetManager and uses what it requires to reinitialize itself
-	public void init(Array<Texture> defaultTextures, ObjectMap<Stance, Array<Texture>> textures, Array<AnimatedActor> animations) {
-		this.defaultTextures = defaultTextures == null ? new Array<Texture>() : defaultTextures;
-		this.textures = textures;
-		this.animations = animations;
-		this.currentAnimationsPlaying = new ObjectSet<AnimatedActor>();
-		if (animations.size > 0 && (enemyType != EnemyEnum.HARPY || stance != Stance.FELLATIO) && (enemyType != EnemyEnum.BRIGAND || (stance != Stance.DOGGY && stance != Stance.STANDING))) {
-			currentAnimationsPlaying.add(animations.first());
-		}
-		
-		currentDisplay = enemyType == EnemyEnum.BRIGAND ? "IFOS100N" :"Idle Erect";
-		initializedMove = true;
-	}
-
-	@Override
-	public void act(float delta) {
-		super.act(delta);
-		if (animations.size > 0) {
-			animations.get(0).act(delta);
-		}
-	}
-	
-	public void attackAnimation() {
-		final Boolean fellatio = stance.isOralPenetration();
-		if (animations.size > 1) {
-			if (enemyType == EnemyEnum.HARPY) {
-				final String preAttack = fellatio ? "Air BJ" : "Attack Erect";
-				final String attack = fellatio ? "bj" : "attack";
-				animations.get(0).addAction(Actions.sequence(
-					Actions.delay(1), 
-					new Action() {
-						@Override
-						public boolean act(float delta) {
-							animations.get(0).setAnimation(0, preAttack, false);
-							animations.get(0).addAnimation(0, "Idle Erect", true, 1.6f);
-							return true;
-					}},	
-					Actions.delay(1), 
-					new Action() {
-						@Override
-						public boolean act(float delta) {
-							animations.get(1).setAnimation(0, attack, false);
-							currentAnimationsPlaying.add(animations.get(1));
-							currentAnimationsPlaying.remove(animations.get(0));
-							return true;
-					}}, Actions.delay(2), new Action() {
-					@Override
-					public boolean act(float delta) {
-						if (!stance.isOralPenetration()) currentAnimationsPlaying.add(animations.get(0));
-						currentAnimationsPlaying.remove(animations.get(1));
-						return true;
-					}
-				}));
-			}
-		}
-		if (enemyType == EnemyEnum.CENTAUR || enemyType == EnemyEnum.UNICORN) {
-			animations.get(0).setAnimation(0, "Attack Erect", false);
-			animations.get(0).addAnimation(0, "Idle Erect", true, 1.6f);
-		}
-	}
-	
-	public void hitAnimation() {
-		if (animations.size > 0 && currentAnimationsPlaying.contains(animations.get(0)) && enemyType.hasHitAnimation()) {
-			animations.get(0).setAnimation(0, "Hit Erect", false);
-			animations.get(0).addAnimation(0, "Idle Erect", true, 1.0f);
-			if (enemyType == EnemyEnum.HARPY) {
-				animations.get(0).addAction(Actions.sequence(
-					new Action() {
-						@Override
-						public boolean act(float delta) {
-							currentAnimationsPlaying.add(animations.get(2));
-							currentAnimationsPlaying.add(animations.get(3));
-							return true;
-					}},	
-					Actions.delay(1), 
-					new Action() {
-						@Override
-						public boolean act(float delta) {
-							currentAnimationsPlaying.remove(animations.get(2));
-							currentAnimationsPlaying.remove(animations.get(3));
-							return true;
-					}}
-				));
-			}
-		}
-	}
-	
-	// for init in battlefactory
-	public void setArousal(ArousalLevel newArousalLevel) { 
-		arousal.setArousalLevel(newArousalLevel);
-	}
-	
-	@Override
-	public String getDefeatMessage() {
-		switch (enemyType) {
-			case BRIGAND:
-				return "You defeated the Brigand!\nShe kneels to the ground, unable to lift her weapon.";
-			case CENTAUR:
-				return "You defeated the Centaur!\nShe smiles, haggardly, acknowledging your strength, and bows slightly.";
-			case GOBLIN:
-				return "The Goblin is knocked to the ground, defeated!";
-			case HARPY:
-				return "The Harpy falls out of the sky, crashing to the ground!\nShe is defeated!";
-			case SLIME:
-				return "The Slime becomes unable to hold her form!\nShe is defeated!";
-			case UNICORN:
-			case WERESLUT:
-			default:
-				return super.getDefeatMessage();		
-		}
-	}
-	
-	public Outcome getOutcome(AbstractCharacter enemy) {
-		if (currentHealth <= 0 && (enemyType != EnemyEnum.ANGEL || selfRessurect == 3)) return Outcome.VICTORY;
-		else if (enemy.getCurrentHealth() <= 0 && (enemyType != EnemyEnum.NAGA || stance != Stance.WRAPPED)) return Outcome.DEFEAT;
-		switch(enemyType) {
-			case BRIGAND:
-				if (!storyMode) {
-					if (getToppingClimaxCount() >= 2) return Outcome.SATISFIED;
-				}
-				break;
-			case CENTAUR:
-				if (getToppingClimaxCount() >= 1) return Outcome.SATISFIED;
-				break;
-			case GOBLIN:
-			case GOBLIN_MALE:
-				break;
-			case ORC:
-				if (getToppingClimaxCount() >= 5) return Outcome.SATISFIED;
-				if (storyMode && getReceptiveClimaxCount() >= 1) return Outcome.SUBMISSION; 
-				break;
-			case HARPY:
-				if (storyMode) {
-					if (stance == Stance.FELLATIO && oldStance == Stance.AIRBORNE) return Outcome.KNOT_ORAL;
-					if (stance.isAnalPenetration()) return Outcome.KNOT_ANAL;
-				}
-				else {
-					if (getToppingClimaxCount() >= 2) return Outcome.SATISFIED;
-				}
-				
-				break;
-			case SLIME:
-				break;
-			case UNICORN:
-				break;
-			case WERESLUT:
-				if (climaxCounters.get(ClimaxType.FACIAL.toString(), 0) >= 1) return Outcome.SATISFIED;
-				if (knotInflate >= 5) {
-					if (stance == Stance.KNOTTED) {
-						return Outcome.KNOT_ANAL;
-					}
-					else {
-						return Outcome.KNOT_ORAL;
-					}
-				}
-				break;
-			case ADVENTURER:
-				if (getReceptiveClimaxCount() >= 1 ) return Outcome.SUBMISSION;
-				if (getToppingClimaxCount() >= 1) return Outcome.SATISFIED;
-				break;
-			case OGRE:
-				if (climaxCounters.get(ClimaxType.ANAL.toString(), 0) >= 1) return Outcome.SATISFIED;
-				break;
-			case BEASTMISTRESS:
-				if (isErect()) return Outcome.SATISFIED;
-				break;
-			case SPIDER:
-				if (knotInflate >= 5) return Outcome.KNOT_ANAL;
-				break;
-			case ANGEL:
-				if (stance == Stance.FACE_SITTING && oldStance == Stance.FACE_SITTING) return Outcome.SUBMISSION;
-				if (arousal.isErect() && currentHealth == getMaxHealth() && selfRessurect == 1) return Outcome.SATISFIED;
-				break;
-			case NAGA:
-				if (enemy.getCurrentHealth() <= 0 && stance == Stance.WRAPPED) return Outcome.DEATH;
-				break;
-			case QUETZAL:
-				if (enemy.getStance() == Stance.SPREAD) return Outcome.KNOT_ANAL;
-				break;
-			case MERMAID:
-				if (stance == Stance.COWGIRL_BOTTOM || stance == Stance.REVERSE_COWGIRL_BOTTOM) return Outcome.SUBMISSION;
-				break;
-			default:
-		}
-		return null;
-	}
-	
-	public String getOutcomeText(AbstractCharacter enemy) {
-		switch (getOutcome(enemy)) {
-			case KNOT_ORAL: return enemyType == EnemyEnum.WERESLUT ? "It's stuck behind your teeth. Your mouth is stuffed!" : "You've been stuffed in the face!";
-			case KNOT_ANAL: return enemyType == EnemyEnum.WERESLUT ? "You've been knotted!!!\nYou are at her whims, now." : enemyType == EnemyEnum.SPIDER ? "You've been stuffed full of eggs." : enemyType == EnemyEnum.QUETZAL ? "Your stomach balloons painfully with the goddess' semen!" : "You've been stuffed in the ass!";
-			case SATISFIED: return enemyType == EnemyEnum.CENTAUR ? "You've been dominated by the centaur's massive horsecock."
-				: enemyType == EnemyEnum.OGRE ? "The ogre has filled your guts with ogre cum.  You are well and truly fucked."
-				: enemyType == EnemyEnum.ANGEL ? "She notes your lack of aggression, and stands down."
-				: properCase(pronouns.getNominative()) + " seems satisfied. " + properCase(pronouns.getNominative()) + "'s no longer hostile.";
-			
-			case SUBMISSION: return enemyType == EnemyEnum.ANGEL ? "She's sitting on your face and can't be dislodged - you can no longer fight!" : "They're completely fucked silly! They're no longer hostile.";
-			case DEFEAT: return enemy.getDefeatMessage();
-			case VICTORY: return getDefeatMessage();
-			case DEATH: return enemyType == EnemyEnum.NAGA ? "You are being crushed!" : "";
-		}
-		return null;
-	}
-	@Override
-	protected int getClimaxVolume() {
-		super.getClimaxVolume();
-		switch(enemyType) {
-			case OGRE:
-			case CENTAUR: 
-			case UNICORN: return 21;
-			case GOBLIN: return 10;
-			default: return 5;
-		}
-	}
-	
-	@Override
-	protected boolean canBleed() { return enemyType.canBleed(); }
-
-	public void setClimaxCounter(int climaxCounter) {
-		climaxCounters.put(ClimaxType.BACKWASH.toString(), climaxCounter);
-	}
-
-	public void toggle() {
-		if (enemyType == EnemyEnum.BRIGAND) {
-			currentDisplay = currentDisplay.equals("IFOS100") ? "IFOS100N" : "IFOS100";
-			animations.get(1).setAnimation(0, currentDisplay, true);
-		}
-		else if (enemyType == EnemyEnum.CENTAUR) {
-			currentFrame = 1 - currentFrame;
-		}
-	}
-
-	public Array<AnimatedActor> getAnimations(AssetManager assetManager) {
-		return enemyType.getAnimations(assetManager);
-	}
-	
-	@Override
-	public void setPosition(float x, float y) {
-		super.setPosition(x, y);
-		for (AnimatedActor animation : animations) {
-			animation.setPosition(x, y);
-		}
 	}
 } 

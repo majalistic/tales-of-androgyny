@@ -1144,13 +1144,9 @@ public abstract class AbstractCharacter extends Actor {
 		return result;
 	}
 	
-	protected int getClimaxVolume() {
-		return 3;
-	}
-	
-	public int getBleed() {
-		return statuses.get(StatusType.BLEEDING.toString(), 0);
-	}
+	protected int getClimaxVolume() { return 3; }
+
+	public int getBleed() { return statuses.get(StatusType.BLEEDING.toString(), 0); }
 	
 	protected String properCase(String sample) {
 		return sample.substring(0, 1).toUpperCase() + sample.substring(1);
