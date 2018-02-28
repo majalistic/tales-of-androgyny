@@ -717,11 +717,11 @@ public class WorldMapScreen extends AbstractScreen {
 					if(newEncounter == EncounterCode.DEFAULT) { nothingHappens(node); }
 					else if (miniEncounter != null) { handleMiniEncounter(node, newEncounter, miniEncounter, enableButtons); }
 					else {
-						visit(node);
 						saveService.saveDataValue(SaveEnum.ENCOUNTER_CODE, newEncounter, false); 
 						saveService.saveDataValue(SaveEnum.CONTEXT, node.getEncounterContext(), false);
 						if (node.getEncounterContext() == GameContext.TOWN) { saveService.saveDataValue(SaveEnum.TOWN, node.getEncounterCode().getTownCode(), false); }
 						saveService.saveDataValue(SaveEnum.RETURN_CONTEXT, GameContext.WORLD_MAP, false);
+						visit(node);
 						switchContext();
 					}
 					saveService.saveDataValue(SaveEnum.NODE_CODE, node.getNodeCode());
