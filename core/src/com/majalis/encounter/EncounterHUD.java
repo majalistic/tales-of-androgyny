@@ -39,6 +39,7 @@ public class EncounterHUD extends Group {
 	private final Group logGroup;
 	private final LogDisplay logDisplay;
 	private final TextButton showLog;
+	private final TextButton copyLog;
 	private final ScrollPane pane;
 	private final Label skipText;
 	private final TextButton hideButton;
@@ -70,10 +71,19 @@ public class EncounterHUD extends Group {
 		pane.setSize(1300, 950);
 		pane.setPosition(325, 1000, Align.topLeft);
 		showLog = new TextButton("Show Log", skin);
+		copyLog = new TextButton("Copy Log", skin);
+		this.addActor(copyLog);
 		pane.addAction(Actions.hide());
 		
+		copyLog.addListener(new ClickListener() { 
+			@Override
+	        public void clicked(InputEvent event, float x, float y) {
+				Gdx.app.getClipboard().setContents(logDisplay.getText().toString());
+			}
+		});
 		this.addActor(showLog);
 		showLog.setBounds(425, 1000, 165, 50);
+		copyLog.setBounds(590, 1000, 165, 50);
 		
 		this.addActor(logGroup);
 		logGroup.addActor(pane);
@@ -195,6 +205,7 @@ public class EncounterHUD extends Group {
 		hideButton.addAction(Actions.show());
 		dateLabel.addAction(Actions.show());
 		showLog.addAction(Actions.show());
+		copyLog.addAction(Actions.show());
 		buttonsHidden = false;
 	}
 	
@@ -207,6 +218,7 @@ public class EncounterHUD extends Group {
 		hideButton.addAction(Actions.hide());
 		dateLabel.addAction(Actions.hide());
 		showLog.addAction(Actions.hide());
+		copyLog.addAction(Actions.hide());
 		buttonsHidden = true;
 	}
 	
