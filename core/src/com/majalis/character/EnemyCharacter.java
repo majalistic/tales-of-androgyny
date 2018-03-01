@@ -578,6 +578,8 @@ public class EnemyCharacter extends AbstractCharacter {
 						break;
 					case MERMAID:
 						break;
+					case WARLOCK:
+						break;
 				}
 			}
 			
@@ -663,6 +665,8 @@ public class EnemyCharacter extends AbstractCharacter {
 						}
 						break;
 					case MERMAID:
+						break;
+					case WARLOCK:
 						break;
 				}
 					

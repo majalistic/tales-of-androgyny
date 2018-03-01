@@ -10457,7 +10457,22 @@
 			"music": "WEREWOLF_MUSIC",
 			"background": "WARLOCK_BG",
 			"foreground": "WARLOCK",
+			"mutations": [{"profileSaveType":"KNOWLEDGE", "value":{"class": "java.lang.String", "value": "Warlock"}}],
 			"text": "..."}
+		]
+	},
+	{
+		"key": "WARLOCK-VICTORY",
+		"scriptLines": [
+			{
+			"mutations": [{"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": 5}}],
+			"text": "..."}
+		]
+	},
+	{
+		"key": "WARLOCK-DEFEAT",
+		"scriptLines": [
+			{"text": "..."}
 		]
 	},
 ]}

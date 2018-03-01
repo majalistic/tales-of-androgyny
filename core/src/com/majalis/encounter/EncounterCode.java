@@ -1736,7 +1736,7 @@ public enum EncounterCode {
 						)
 					);
 			case WARLOCK: 
-				return b.branch().textScene("WARLOCK-INTRO");
+				return b.branch().textScene("WARLOCK-INTRO").battleScene(BattleCode.WARLOCK, b.branch(Outcome.VICTORY).textScene("WARLOCK-VICTORY"), b.branch(Outcome.DEFEAT).textScene("WARLOCK-DEFEAT"));
 			case WEAPON_SHOP:
 				return b.branch().textScene("WEAPON-SHOP").shopScene(ShopCode.WEAPON_SHOP);
 			case WERESLUT:
