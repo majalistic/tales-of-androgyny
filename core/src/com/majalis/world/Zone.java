@@ -19,6 +19,7 @@ public class Zone {
 	private final AssetManager assetManager;
 	private final RandomXS128 random;
 	private final Array<GameWorldNode> nodes;
+	private final Array<GameWorldNode> zoneNodes;
 	private final Array<GameWorldNode> requiredNodes;
 	private final IntMap<GameWorldNode> nodeMap;
 	private final IntMap<VisitInfo> visitedInfo;
@@ -40,12 +41,13 @@ public class Zone {
 		this.nodeMap = nodeMap;
 		this.unspawnedEncounters = unspawnedEncounters;
 		requiredNodes = new Array<GameWorldNode>();
+		zoneNodes = new Array<GameWorldNode>();
 	}
 	
 	@SuppressWarnings("unchecked")
 	protected Zone addStartNode(int nodeCode, EncounterCode initialEncounter, EncounterCode defaultEncounter, int x, int y) {
 		startNode = getNode(nodeCode, initialEncounter, defaultEncounter, x, y, visitedInfo.get(nodeCode, getFreshVisitInfo()));
-		addNode(startNode, nodeCode, nodes);		
+		addNode(startNode, nodeCode, nodes, zoneNodes);		
 		return this;
 	}
 	
@@ -56,7 +58,7 @@ public class Zone {
 
 	@SuppressWarnings("unchecked")
 	protected Zone addEndNode(int nodeCode, EncounterCode initialEncounter, EncounterCode defaultEncounter, int x, int y) {
-		addNode(getNode(nodeCode, initialEncounter, defaultEncounter, x, y, visitedInfo.get(nodeCode, getFreshVisitInfo())), nodeCode, nodes, requiredNodes);		
+		addNode(getNode(nodeCode, initialEncounter, defaultEncounter, x, y, visitedInfo.get(nodeCode, getFreshVisitInfo())), nodeCode, nodes, requiredNodes, zoneNodes);		
 		return this;
 	}
 
@@ -64,19 +66,19 @@ public class Zone {
 		Array<GameWorldNode> requiredNodesUnfulfilled = new Array<GameWorldNode>(requiredNodes);
 		for (int ii = 0; ii < repeats; ii++) {
 			for (GameWorldNode requiredNode : requiredNodes) {
-				startToEndNodePath(startNode, requiredNode, requiredNodesUnfulfilled);
+				GameWorldNode closestNode = findClosestNode(requiredNode, zoneNodes);
+				startToEndNodePath(requiredNodesUnfulfilled.contains(requiredNode, true) && closestNode != null ? closestNode : startNode, requiredNode, requiredNodesUnfulfilled);
 			}
 		}
 		
-		for (GameWorldNode unfulfilledNode : requiredNodesUnfulfilled) {
-			GameWorldNode closest = null;
-			for (GameWorldNode node : nodes) {
-				if (node == unfulfilledNode) continue;
-				int distanceToNode = unfulfilledNode.getDistance(node);
-				if (closest == null || closest.getDistance(unfulfilledNode) > distanceToNode) { closest = node; }
-			}
-			if (closest != null) {
-				startToEndNodePath(closest, unfulfilledNode, new Array<GameWorldNode>());
+		boolean failure = false;
+		while(requiredNodesUnfulfilled.size > 0 && ! failure) {
+			for (GameWorldNode unfulfilledNode : requiredNodesUnfulfilled) {
+				GameWorldNode closest = findClosestNode(unfulfilledNode, zoneNodes);
+				if (closest != null) {
+					startToEndNodePath(closest, unfulfilledNode, requiredNodesUnfulfilled);
+				}
+				else { failure = true; }
 			}
 		}
 		
@@ -101,6 +103,16 @@ public class Zone {
 			}
 		}
 		return this;
+	}
+	
+	private GameWorldNode findClosestNode(GameWorldNode nodeToFindFriend, Array<GameWorldNode> nodesToSearch) {
+		GameWorldNode closest = null;
+		for (GameWorldNode node : nodesToSearch) {
+			if (node == nodeToFindFriend || requiredNodes.contains(node, true)) continue;
+			int distanceToNode = nodeToFindFriend.getDistance(node);
+			if (closest == null || closest.getDistance(nodeToFindFriend) > distanceToNode) { closest = node; }
+		}
+		return closest;
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -179,7 +191,7 @@ public class Zone {
 				nodeCode, 
 				TalesOfAndrogyny.setEncounter.size == 0 ? EncounterCode.getEncounterCode(nodeCode - 1, difficulty, unspawnedEncounters) : TalesOfAndrogyny.setEncounter.get(nodeCode % TalesOfAndrogyny.setEncounter.size),
 				EncounterCode.DEFAULT, TalesOfAndrogyny.randomEncounters ? EncounterCode.getDifficultySet(difficulty) : new Array<EncounterCode>(), (int)newNodePosition.x, (int)newNodePosition.y, visitedInfo.get(nodeCode, getFreshVisitInfo(true)));
-			addNode(newNode, nodeCode, nodes);
+			addNode(newNode, nodeCode, nodes, zoneNodes);
 			
 			// if we've reached the target node, we can terminate this run-through
 			nodeNotReached = !requiredNode.isAdjacent(newNode);
@@ -202,9 +214,7 @@ public class Zone {
 		return false;
 	}
 	
-	protected Array<GameWorldNode> getEndNodes() {
-		return requiredNodes;
-	}
+	protected Array<GameWorldNode> getEndNodes() { return requiredNodes; }
 	
 	private void addNode(GameWorldNode newNode, int nodeCode, @SuppressWarnings("unchecked") Array<GameWorldNode> ... nodes) {
 		for (Array<GameWorldNode> nodeArray: nodes) {
