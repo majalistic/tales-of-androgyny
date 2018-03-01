@@ -57,13 +57,6 @@ public class LoadScreen extends AbstractScreen {
 	}
 	
 	@Override
-	public void show() {
-		super.show();
-	    getRoot().getColor().a = 0;
-	    getRoot().addAction(Actions.fadeIn(0.5f));
-	}	
-	
-	@Override
 	public void render(float delta) {
 		super.render(delta);
 		batch.begin();
