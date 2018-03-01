@@ -51,7 +51,7 @@ public class Ass {
 	public Sphincter getSphincter() { return sphincter; }
 	public Rectum getRectum() { return rectum; }
 	public Colon getColon() { return colon; }
-	public void emptyEggs() { rectum.flushEggs(); colon.flushEggs(); belly.setAnimation(0, "eggto" + getFullnessLevel(), false); }
+	public void emptyEggs() { rectum.flushEggs(); colon.flushEggs(); belly.setAnimation(0, "eggto1", false); }
 	public void setBelly(AnimatedActor belly) { 
 		this.belly = belly; 
 		belly.setAnimation(0, rectum.getEggs() > 0 ? "egg" : "" + getFullnessLevel(), false);
