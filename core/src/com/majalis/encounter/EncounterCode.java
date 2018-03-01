@@ -54,6 +54,7 @@ public enum EncounterCode {
 	MOUTH_FIEND (CASTLE),
 	MOUTH_FIEND_ESCAPE,
 	MERMAID,
+	WARLOCK,
 	
 	FORT (CASTLE), 
 	TOWN (AssetEnum.TOWN),
@@ -1734,6 +1735,8 @@ public enum EncounterCode {
 							b.branch(false).textScene("TRUDY-COMPANION-REPEAT")
 						)
 					);
+			case WARLOCK: 
+				return b.branch().textScene("WARLOCK-INTRO");
 			case WEAPON_SHOP:
 				return b.branch().textScene("WEAPON-SHOP").shopScene(ShopCode.WEAPON_SHOP);
 			case WERESLUT:

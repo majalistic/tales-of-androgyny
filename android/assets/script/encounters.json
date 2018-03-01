@@ -10450,4 +10450,14 @@
 			{"text": "\"Have you changed your mind?  I have plenty of eggs for you, still,\" she says, and you consider her... \"offer\"."}
 		]
 	},
+	{
+		"key": "WARLOCK-INTRO",
+		"scriptLines": [
+			{
+			"music": "WEREWOLF_MUSIC",
+			"background": "WARLOCK_BG",
+			"foreground": "WARLOCK",
+			"text": "..."}
+		]
+	},
 ]}

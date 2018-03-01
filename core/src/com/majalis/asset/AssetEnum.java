@@ -225,8 +225,8 @@ public enum AssetEnum {
 	MOUTH_FIEND_ORAL_COCK_INSIDE_THROAT_BLOB("enemies/Mouth Fiend/MouthFiendOralCockInsideThroatBlob.png"),
 	MOUTH_FIEND_ORAL_COCK_INSIDE_THROAT_CUMMING("enemies/Mouth Fiend/MouthFiendOralCockInsideThroatCumming.png"),
 	MOUTH_FIEND_ORAL_COCK_INSIDE_THROAT_WHITEOUT("enemies/Mouth Fiend/MouthFiendOralCockInsideThroatWhiteout.png"),
-	
 	MERMAID("enemies/Mermaid.png"),
+	WARLOCK("enemies/Warlock.png"),
 	TRAP_BONUS("enemies/TrapBonus.jpg"), 
 
 	ARMOR_DOLL("battle/ArmorDoll.png"),
@@ -302,6 +302,7 @@ public enum AssetEnum {
 	PLAINS_BG("battle/AbandonedField.jpg"),
 	CAVE_BG("battle/Cave.jpg"),
 	CELESTIAL_BG("battle/Celestial.jpg"),
+	WARLOCK_BG("battle/WarlockBG.jpg"),
 	ENCHANTED_FOREST_BG("battle/MushroomForest.jpg"),
 	BATTLE_UI("battle/Treeframe.png"),
 	BATTLE_HOVER("battle/SkillHover.png"),
