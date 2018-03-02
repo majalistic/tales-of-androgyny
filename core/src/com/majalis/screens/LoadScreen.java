@@ -5,10 +5,8 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.Action;
-import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
@@ -18,19 +16,17 @@ import com.majalis.character.AbstractCharacter.Stat;
  * Screen that displays while a new screen is loading.
  */
 public class LoadScreen extends AbstractScreen {
-	private final ScreenEnum screenRequest;
 	private final BitmapFont largeFont;
 	private final Image loadingImage;
 	private final Label tooltip;
 	private final Label alt;
-	private ProgressBar progress;
 	private final Skin skin;
+	private Action doneAction;
 	
 	public LoadScreen(ScreenFactory factory, ScreenElements elements, ScreenEnum screenRequest) {
 		super(factory, elements, null);
 		this.skin = assetManager.get(AssetEnum.BATTLE_SKIN.getSkin());
 		this.loadingImage = new Image(assetManager.get(AssetEnum.LOADING.getTexture()));
-		this.screenRequest = screenRequest;
 		this.largeFont = fontFactory.getFont(72);
 		this.tooltip = new Label(getRandomTooltip(), skin);
 		this.alt = new Label("Hold ALT to read tooltip, CTRL to display a new one.", skin);
@@ -38,10 +34,6 @@ public class LoadScreen extends AbstractScreen {
 
 	@Override
 	public void buildStage() {
-		progress = new ProgressBar(0, 1, .05f, false, skin);
-		progress.setWidth(350);
-		progress.setPosition(720, 600);
-		this.addActor(progress);
 		this.addActor(loadingImage);
 		this.addActor(tooltip);
 		this.addActor(alt);
@@ -56,20 +48,24 @@ public class LoadScreen extends AbstractScreen {
 		alt.setAlignment(Align.topLeft);
 	}
 	
+	protected void giveAction(Action action) { doneAction = action; }
+	
 	@Override
 	public void render(float delta) {
-		super.render(delta);
-		batch.begin();
-		largeFont.setColor(Color.BLACK);
-		if (Gdx.input.isKeyJustPressed(Keys.CONTROL_LEFT) || Gdx.input.isKeyJustPressed(Keys.SPACE)) {
-			tooltip.setText(getRandomTooltip());
+		if (assetManager.update(75) && !(Gdx.input.isKeyPressed(Keys.ALT_LEFT) || Gdx.input.isKeyPressed(Keys.ALT_RIGHT))) {
+			this.addAction(doneAction);
+			super.act(delta);
 		}
-		
-		boolean done = assetManager.update(75);
-		progress.setValue(assetManager.getProgress());
-		largeFont.draw(batch, "Loading: " +  (int)(assetManager.getProgress() * 100) + "%", 1688, 1125);
-		if (done && !(Gdx.input.isKeyPressed(Keys.ALT_LEFT) || Gdx.input.isKeyPressed(Keys.ALT_RIGHT))) { this.addAction(Actions.sequence(Actions.delay(.1f), new Action(){ @Override public boolean act(float delta) { showScreen(screenRequest); return true; }})); }
-		batch.end();
+		else 
+		{
+			super.render(delta);
+			batch.begin();
+			largeFont.setColor(Color.BLACK);
+			if (Gdx.input.isKeyJustPressed(Keys.CONTROL_LEFT) || Gdx.input.isKeyJustPressed(Keys.SPACE)) {
+				tooltip.setText(getRandomTooltip());
+			}
+			batch.end();
+		}
 	}
 	
 	private final static Array<String> randomTooltip = new Array<String>(new String[]{

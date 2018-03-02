@@ -11,8 +11,10 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
+import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
@@ -34,7 +36,7 @@ public abstract class AbstractScreen extends Stage3D implements Screen {
 	protected final AssetManager assetManager;
 	protected final ScreenElements fontFactory;
 	protected boolean debug = false;
-	private float clearRed, clearGreen, clearBlue, clearAlpha;
+	protected float clearRed, clearGreen, clearBlue, clearAlpha;
 	private AssetEnum musicPath;
 	private Music music;
     
@@ -47,34 +49,47 @@ public abstract class AbstractScreen extends Stage3D implements Screen {
         this.fontFactory = elements;
         this.font = elements.getFont(32);
         this.musicPath = musicPath;
-        clearRed = .8f;
-        clearGreen = .9f;
-        clearBlue = .9f;
         clearAlpha = 1;
     }
  
     // Subclasses must load actors in this method
     public abstract void buildStage();
+    protected boolean doesFade() { return true; }
     
     public void showScreen(ScreenEnum screenRequest) {
-    	AbstractScreen newScreen = screenFactory.getScreen(screenRequest);
+    	
         // Get current screen to dispose it
         AbstractScreen currentScreen = (AbstractScreen) game.getScreen();
     	
         AssetEnum oldMusicPath = currentScreen.getMusicPath();
         Music oldMusic = currentScreen.getMusic();
         
-    	// Show new screen
-    	newScreen.buildStage();
-    	switchMusic(oldMusicPath, oldMusic, newScreen.getMusicPath(), newScreen);
-        game.setScreen(newScreen);
-        // Dispose previous screen
-        if (currentScreen != null) {
-            currentScreen.dispose();
-        }
+    	this.addAction(Actions.sequence(doesFade() ? Actions.fadeOut(.2f) : Actions.hide(), Actions.hide(), new Action() {
+			@Override
+			public boolean act(float delta) {
+				LoadScreen loadScreen = (LoadScreen) screenFactory.getScreen(ScreenEnum.LOAD_SCREEN);
+				loadScreen.buildStage();
+				loadScreen.giveAction(new Action() {				
+					@Override
+					public boolean act(float delta) {
+						AbstractScreen newScreen = screenFactory.getScreen(screenRequest);
+						// Show new screen
+				    	newScreen.buildStage();
+				    	switchMusic(oldMusicPath, oldMusic, newScreen.getMusicPath(), newScreen);
+						game.setScreen(newScreen);
+				        // Dispose previous screen
+				        if (currentScreen != null) {
+				            currentScreen.dispose();
+				        }
+						return true;
+				} });
+				game.setScreen(loadScreen);	
+				return true;
+			}
+    	}));
     }  
-    
-    private Music getMusic() { return music; }
+
+	private Music getMusic() { return music; }
     private AssetEnum getMusicPath() { return musicPath; }
     
     protected void setVolume(float volume) {
@@ -93,7 +108,7 @@ public abstract class AbstractScreen extends Stage3D implements Screen {
     	}
     	if (oldMusic != null) {
     		oldMusic.stop();
-    		assetManager.unload(oldMusicPath.getMusic().fileName);
+    		//assetManager.unload(oldMusicPath.getMusic().fileName);
     	}
     	
     	screenToSet.musicPath = newMusicPath;

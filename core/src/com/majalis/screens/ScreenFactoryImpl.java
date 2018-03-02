@@ -95,7 +95,7 @@ public class ScreenFactoryImpl implements ScreenFactory {
 
 	private ScreenElements getElements() {
 		OrthographicCamera camera = new OrthographicCamera();
-        FitViewport viewport =  new FitViewport(winWidth, winHeight, camera);
+		FitViewport viewport =  new FitViewport(winWidth, winHeight, camera);
         ScreenElements elements = new ScreenElements(viewport, batch, fontGenerator, assetManager);
         return elements;
 	}
@@ -107,6 +107,8 @@ public class ScreenFactoryImpl implements ScreenFactory {
         PlayerCharacter character = loadService.loadDataValue(SaveEnum.PLAYER, PlayerCharacter.class);
 		AbstractScreen tempScreen;
 		switch(screenRequest) {
+			case LOAD_SCREEN:
+				return new LoadScreen(this, elements, screenRequest);
 			case SPLASH: 
 				return new SplashScreen(this, elements, assetManager, 15, Gdx.app.getPreferences("tales-of-androgyny-preferences").getBoolean("preload", false));
 			case MAIN_MENU: 
@@ -191,17 +193,15 @@ public class ScreenFactoryImpl implements ScreenFactory {
 			return true;
 		}
 		// if screens are being switched but no assets need to be loaded, don't call the loading screen
-		boolean assetsLoaded = true;
+		
 		for (AssetDescriptor<?> path: assetsToLoad) {
-			if (!assetManager.isLoaded(path.fileName)) {
-				assetsLoaded = false;
-			}
 			assetManager.load(path);
 		}
 		// temporary hack to ensure skin is always loaded
 		assetManager.load(AssetEnum.UI_SKIN.getSkin());
 		assetManager.load(AssetEnum.BATTLE_SKIN.getSkin());
-		return assetsLoaded;
+		assetManager.finishLoading();
+		return true;
 	}
 	
 	private EncounterScreen getEncounter(ScreenElements elements, PlayerCharacter character) {

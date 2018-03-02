@@ -8,8 +8,6 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Array;
 import com.majalis.asset.AssetEnum;
 /*
@@ -22,8 +20,6 @@ public class SplashScreen extends AbstractScreen {
 	private final boolean fullLoad;
 	private int clocktick;
 	private Sound sound;
-	private Skin skin;
-	private ProgressBar progress;
 	private Texture background;
 	
 	public SplashScreen(ScreenFactory factory, ScreenElements elements, AssetManager assetManager, int minTime, boolean fullLoad) {
@@ -33,15 +29,20 @@ public class SplashScreen extends AbstractScreen {
 		this.fullLoad = fullLoad;
 		clocktick = 0;
 	}
-
+	@Override
+	protected boolean doesFade() { return false; }
+	
 	@Override
 	public void buildStage() {
+		clearRed = .8f;
+        clearGreen = .9f;
+        clearBlue = .9f;
+        clearAlpha = 1;
 		assetManager.load(AssetEnum.INTRO_SOUND.getSound());
 		assetManager.load(AssetEnum.BATTLE_SKIN.getSkin());
 		assetManager.load(AssetEnum.SPLASH_SCREEN.getTexture());
 		assetManager.finishLoading();
 		sound = assetManager.get(AssetEnum.INTRO_SOUND.getSound());
-		skin = assetManager.get(AssetEnum.BATTLE_SKIN.getSkin());
 		background = assetManager.get(AssetEnum.SPLASH_SCREEN.getTexture());
 		
 		if (fullLoad) {
@@ -62,11 +63,6 @@ public class SplashScreen extends AbstractScreen {
 			}
 			assetManager.load(AssetEnum.LOADING.getTexture());
 		}
-		
-		progress = new ProgressBar(0, 1, .05f, false, skin);
-		progress.setSize(280, 30);
-		progress.setPosition(1600, 105);
-		this.addActor(progress);
 	}
 	
 	@Override
@@ -77,14 +73,9 @@ public class SplashScreen extends AbstractScreen {
 		batch.setProjectionMatrix(camera.combined);
 		camera.update();
 		batch.begin();
-		
-		if (!assetManager.update(75) || clocktick++ < minTime) {
-			batch.draw(background, 1500, 600, background.getWidth() / (background.getHeight() / 900f), 900);
-			progress.setValue(assetManager.getProgress());
-			font.setColor(Color.BLACK);
-			font.draw(batch, "Loading: " + (int)(assetManager.getProgress() * 100) + "%", 2650, 600);
-		}	
-		else {
+		batch.draw(background, 1500, 600, background.getWidth() / (background.getHeight() / 900f), 900);
+		font.setColor(Color.BLACK);
+		if (assetManager.update(75) && clocktick++ > minTime) {
 			showScreen(ScreenEnum.MAIN_MENU);
 		}
 		batch.end();
