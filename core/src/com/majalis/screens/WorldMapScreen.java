@@ -77,6 +77,8 @@ import com.majalis.world.GroundType;
  * The screen that displays the world map.  UI that Handles player input while on the world map - will delegate to other screens depending on the gameWorld state.
  */
 public class WorldMapScreen extends AbstractScreen {
+	private static float maxX = 4000;
+	private static float maxY = 4600;
 	// this class needs major refactoring - far too many dependencies, properties, statefulness
 	private final AssetManager assetManager;
 	private final SaveService saveService;
@@ -758,9 +760,7 @@ public class WorldMapScreen extends AbstractScreen {
 		}
 	}
 	
-	private void updatePortrait() {
-		characterPortrait.setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(character.getPortraitPath()))));
-	}
+	private void updatePortrait() { characterPortrait.setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(character.getPortraitPath())))); }
 	
 	private int getRandomLocationNearNode(GameWorldNode node) {
 		int newLocation = -1;
@@ -966,8 +966,6 @@ public class WorldMapScreen extends AbstractScreen {
 		}	
 	}
 	
-	
-	
 	private class UpdateLabel extends Label {
 		private UpdateLabel(Skin skin, PlayerCharacter character) {
 			super("X " + character.getScoutingScore(), skin);
@@ -1105,13 +1103,13 @@ public class WorldMapScreen extends AbstractScreen {
 		if (Gdx.input.isKeyPressed(Keys.LEFT) && !Gdx.input.isKeyPressed(Keys.RIGHT) && camera.position.x > 500) {
 			translationVector.x -= speed;
 		}
-		if (Gdx.input.isKeyPressed(Keys.RIGHT) && !Gdx.input.isKeyPressed(Keys.LEFT) && camera.position.x < (storyMode ? 1000 : 4000)) {
+		if (Gdx.input.isKeyPressed(Keys.RIGHT) && !Gdx.input.isKeyPressed(Keys.LEFT) && camera.position.x < (storyMode ? 1000 : maxX)) {
 			translationVector.x += speed;
 		}
 		if (Gdx.input.isKeyPressed(Keys.DOWN) && !Gdx.input.isKeyPressed(Keys.UP) && camera.position.y > 500) {
 			translationVector.y -= speed;
 		}
-		if (Gdx.input.isKeyPressed(Keys.UP) && !Gdx.input.isKeyPressed(Keys.DOWN) && camera.position.y < (storyMode ? 1000 : 4600)) {
+		if (Gdx.input.isKeyPressed(Keys.UP) && !Gdx.input.isKeyPressed(Keys.DOWN) && camera.position.y < (storyMode ? 1000 : maxY)) {
 			translationVector.y += speed;
 		}
 		translateCamera(translationVector);
@@ -1122,8 +1120,8 @@ public class WorldMapScreen extends AbstractScreen {
 		float y = camera.position.y;
 		camera.translate(translationVector);
 		Vector3 position = camera.position;
-		position.x = Math.max(Math.min(position.x, 4000), 500);
-		position.y = Math.max(Math.min(position.y, 4600), 500);		
+		position.x = Math.max(Math.min(position.x, maxX), 500);
+		position.y = Math.max(Math.min(position.y, maxY), 500);		
 		x = position.x - x;
 		y = position.y - y;		
 		Vector3 cloudTranslate = new Vector3(x, y, 0);
@@ -1159,13 +1157,9 @@ public class WorldMapScreen extends AbstractScreen {
 			drawLayer(ground, groundSheet, false);
 						
 			// draw (add reflections as actors) reflections
-			for (AnimatedImage lily :lilies) {
-				worldGroup.addActorAt(0, lily);
-			}
+			for (AnimatedImage lily :lilies) { worldGroup.addActorAt(0, lily); }
 			
-			for (Image reflection : reflections) {
-				worldGroup.addActorAt(0, reflection);
-			}
+			for (Image reflection : reflections) { worldGroup.addActorAt(0, reflection); }
 		
 			// draw (add drawings as actors) water layer
 			drawLayer(ground, groundSheet, true);
@@ -1174,13 +1168,9 @@ public class WorldMapScreen extends AbstractScreen {
 			
 			addWorldActors();
 			
-			for (Shadow shadow : shadows) {
-				shadowGroup.addActor(shadow);
-			}
+			for (Shadow shadow : shadows) { shadowGroup.addActor(shadow); }
 			
-			for (Doodad doodad : doodads) {
-				worldGroup.addActor(doodad);
-			}	
+			for (Doodad doodad : doodads) { worldGroup.addActor(doodad); }	
 			Group tempGroup = new Group();
 			tempGroup.addActor(currentImageGhost);
 			worldGroup.addActor(tempGroup);
@@ -1235,23 +1225,14 @@ public class WorldMapScreen extends AbstractScreen {
 						
 						GroundType currentHexType = middle.get(y);
 						// check the six adjacent tiles and add accordingly
-						if (right != null) {
-							layers[right.get(y).ordinal()] += 1;
-						}
+						if (right != null) { layers[right.get(y).ordinal()] += 1; }
 						if (y - 1 >= 0)	{
-							if (right != null) {		
-								layers[right.get(y - 1).ordinal()] += 2;
-								
-							}
+							if (right != null) { layers[right.get(y - 1).ordinal()] += 2; }
 							layers[middle.get(y - 1).ordinal()] += 4;
 						}
-						if (left != null)	{
-							layers[left.get(y).ordinal()] += 8;
-						}
+						if (left != null)	{ layers[left.get(y).ordinal()] += 8; }
 						if (y + 1 < layerSize)	{
-							if (left != null) {
-								layers[left.get(y + 1).ordinal()] += 16;
-							}		
+							if (left != null) { layers[left.get(y + 1).ordinal()] += 16; }		
 							layers[middle.get(y + 1).ordinal()] += 32;
 						}
 						if (waterLayer) {
@@ -1263,14 +1244,9 @@ public class WorldMapScreen extends AbstractScreen {
 						else {
 							for (GroundType groundType: GroundType.values()) {
 								if (currentHexType == groundType) {
-									if ( groundType != GroundType.WATER) {
-										frameBufferBatch.draw(getFullTexture(groundType, groundSheet), trueX, trueY); // with appropriate type
-									}
+									if ( groundType != GroundType.WATER) { frameBufferBatch.draw(getFullTexture(groundType, groundSheet), trueX, trueY); } // with appropriate type
 								}
-								else {
-									frameBufferBatch.draw(getBlendTexture(groundType, groundSheet, layers[groundType.ordinal()]), trueX, trueY); // appropriate blend layer
-								}
-								
+								else { frameBufferBatch.draw(getBlendTexture(groundType, groundSheet, layers[groundType.ordinal()]), trueX, trueY); } // appropriate blend layer
 							}
 						}
 					}
@@ -1330,13 +1306,8 @@ public class WorldMapScreen extends AbstractScreen {
 		}
 	}
 
-	private int getTrueX(int x) {
-		return GameWorldHelper.getTrueX(x);
-	}
-	
-	private int getTrueY(int x, int y) {
-		return GameWorldHelper.getTrueY(x, y);
-	}
+	private int getTrueX(int x) { return GameWorldHelper.getTrueX(x); }
+	private int getTrueY(int x, int y) { return GameWorldHelper.getTrueY(x, y); }
 	
 	public TextureRegion getFullTexture(GroundType groundType, Texture groundSheet) {
 		String key = groundType.toString();
