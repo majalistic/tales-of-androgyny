@@ -118,9 +118,9 @@ public class Zone {
 	@SuppressWarnings("unchecked")
 	private void startToEndNodePath(GameWorldNode startNode, GameWorldNode requiredNode, Array<GameWorldNode> requiredNodesUnfulfilled) {
 		int minimumX = 10;
-		int minimumXY = 200;
-		int maxX = 130;
-		int maximumXY = 380;
+		int minimumXY = GameWorldHelper.yFactor + 140;
+		int maxX = 250;
+		int maximumXY = GameWorldHelper.yFactor + 500;
 		boolean nodeNotReached = true;
 		GameWorldNode currentNode = startNode;
 		GameWorldNode closestNode = currentNode;
