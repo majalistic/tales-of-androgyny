@@ -88,6 +88,42 @@ public class HelpScreen extends AbstractScreen{
 			skin
 		)}));
 		
+		String lastPages = "MISC PAGE 1:\n\n";
+		for (int ii = 0; ii < LoadScreen.randomTooltip.size / 4; ii++) {
+			lastPages += LoadScreen.randomTooltip.get(ii) + "\n";
+		}
+		info.add(new Array<Label>(new Label[]{new Label(
+			lastPages,
+			skin
+		)}));
+		
+		lastPages = "MISC PAGE 2:\n\n";
+		for (int ii = LoadScreen.randomTooltip.size / 4; ii < 2 * LoadScreen.randomTooltip.size / 4; ii++) {
+			lastPages += LoadScreen.randomTooltip.get(ii) + "\n";
+		}
+		info.add(new Array<Label>(new Label[]{new Label(
+			lastPages,
+			skin
+		)}));
+		
+		lastPages = "MISC PAGE 3:\n\n";
+		for (int ii = 2 * LoadScreen.randomTooltip.size / 4;  ii < 3 * LoadScreen.randomTooltip.size / 4; ii++) {
+			lastPages += LoadScreen.randomTooltip.get(ii) + "\n";
+		}
+		info.add(new Array<Label>(new Label[]{new Label(
+			lastPages,
+			skin
+		)}));
+		
+		lastPages = "MISC PAGE 4:\n\n";
+		for (int ii = 3 * LoadScreen.randomTooltip.size / 4; ii < LoadScreen.randomTooltip.size; ii++) {
+			lastPages += LoadScreen.randomTooltip.get(ii) + "\n";
+		}
+		info.add(new Array<Label>(new Label[]{new Label(
+			lastPages,
+			skin
+		)}));
+		
 		for (int ii = 0; ii < info.size; ii++) {
 			Table newTable = new Table();
 			newTable.setPosition(100, 1000);

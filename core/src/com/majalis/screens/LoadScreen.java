@@ -68,7 +68,7 @@ public class LoadScreen extends AbstractScreen {
 		}
 	}
 	
-	private final static Array<String> randomTooltip = new Array<String>(new String[]{
+	public final static Array<String> randomTooltip = new Array<String>(new String[]{
 		// UI tooltips
 		"Press TAB to toggle hiding or showing the UI.", 
 		"Press CTRL to skip text in encounters. Text will be skipped until the next branching choice.", 
