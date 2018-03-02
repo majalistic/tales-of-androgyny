@@ -64,14 +64,14 @@ public abstract class AbstractScreen extends Stage3D implements Screen {
         AssetEnum oldMusicPath = currentScreen.getMusicPath();
         Music oldMusic = currentScreen.getMusic();
         
-        // Dispose previous screen
-        if (currentScreen != null) {
-            currentScreen.dispose();
-        }
     	// Show new screen
     	newScreen.buildStage();
     	switchMusic(oldMusicPath, oldMusic, newScreen.getMusicPath(), newScreen);
         game.setScreen(newScreen);
+        // Dispose previous screen
+        if (currentScreen != null) {
+            currentScreen.dispose();
+        }
     }  
     
     private Music getMusic() { return music; }
