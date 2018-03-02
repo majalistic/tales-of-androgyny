@@ -79,7 +79,7 @@ public class GameWorld {
 			lilyAnimations.add(lilyAnimation);
 		}		
 		
-		int maxX = 170;
+		int maxX = 230;
 		int maxY = 235;
 		int tileWidth = GameWorldHelper.getTileWidth();
 		int tileHeight = GameWorldHelper.getTileHeight();
@@ -197,18 +197,9 @@ public class GameWorld {
 		return false;
 	}
 	
-	private boolean river(int x, int y) {
-		return (x + y > 140 && x + y < 148 && y > 50) || (y > 50 && y < 60 && x + y > 140);
-	}
-	
-	
-	private boolean lake(int x, int y) {
-		return distance(x, y, 13, 90) < 5 || distance(x, y, 87, 55) < 7 || distance(x, y, 80, 62) < 5 || distance(x, y, 94, 55) < 5;
-	}
-	
-	private boolean isAbundantTrees(int x, int y) {
-		return (x + y > 147 && x + y < 150) || (x > 0 && x < 15) || (x + y * 2 > 180 && x + y * 2 < 195);
-	}
+	private boolean river(int x, int y) { return (x + y > 140 && x + y < 148 && y > 50) || (y > 50 && y < 60 && x + y > 140); }
+	private boolean lake(int x, int y) { return distance(x, y, 13, 90) < 5 || distance(x, y, 87, 55) < 7 || distance(x, y, 80, 62) < 5 || distance(x, y, 94, 55) < 5; }	
+	private boolean isAbundantTrees(int x, int y) { return (x + y > 147 && x + y < 150) || (x > 0 && x < 15) || (x + y * 2 > 180 && x + y * 2 < 195); }
 	
 	private int worldCollide(int x, int y) {
 		int minDistance = 100;
@@ -219,13 +210,8 @@ public class GameWorld {
 		return minDistance;
 	}
 	
-	private int getTrueX(int x) {
-		return GameWorldHelper.getTrueX(x);
-	}
-	
-	private int getTrueY(int x, int y) {
-		return GameWorldHelper.getTrueY(x, y);
-	}
+	private int getTrueX(int x) { return GameWorldHelper.getTrueX(x); }
+	private int getTrueY(int x, int y) { return GameWorldHelper.getTrueY(x, y); }
 	
 	public class Doodad extends Image {
 		private Doodad(TextureRegion textureRegion) {
