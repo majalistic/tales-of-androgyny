@@ -1118,8 +1118,8 @@ public class EnemyCharacter extends AbstractCharacter {
 	
 	private Array<Techniques> getTechniques(Techniques ... techniques) { return new Array<Techniques>(techniques); }
 	
-	private boolean isSpellCaster() { return enemyType == EnemyEnum.GOLEM || enemyType == EnemyEnum.ADVENTURER; } // currently Ghost and Angel have custom move pools, so do not count in this
-	private boolean canIncant() { return (isEnragedGolem() && currentMana > 3) || mustIncant(); }
+	private boolean isSpellCaster() { return enemyType == EnemyEnum.GOLEM || enemyType == EnemyEnum.ADVENTURER || enemyType == EnemyEnum.WARLOCK; } // currently Ghost and Angel have custom move pools, so do not count in this
+	private boolean canIncant() { return (isEnragedGolem() && currentMana > 3) || (enemyType == EnemyEnum.WARLOCK && currentMana >= 3) || mustIncant(); }
 	private boolean mustIncant() { 
 		return (enemyType == EnemyEnum.GOLEM && !isEnragedGolem() && currentHealth <= 30) || // activate
 			(enemyType == EnemyEnum.ADVENTURER && (((mustCastHealing()) || mustCastTitanStrength()))); // cast heal or titan strength

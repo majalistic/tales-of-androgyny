@@ -38,7 +38,7 @@ public enum EnemyEnum {
 	NAGA (new EnemyTemplate(WeaponType.Flail).setHealth(new IntArray(new int[]{20, 20, 20, 20})).setArmor(null).setLegwear(null).setUnderwear(null).setStrength(6).setAgility(6).setEndurance(6).setShield(ArmorType.SHIELD), "Naga", AssetEnum.NAGA.getTexture()), 
 	QUETZAL (new EnemyTemplate(WeaponType.Claw).setHealth(new IntArray(new int[]{30, 30, 30, 30, 30})).setArmor(null).setLegwear(null).setUnderwear(ArmorType.UNDERWEAR).setStrength(10).setAgility(10).setEndurance(10), "Quetzal Goddess", AssetEnum.QUETZAL.getTexture()), 
 	MERMAID (new EnemyTemplate(WeaponType.Glaive).setHealth(new IntArray(new int[]{15, 15, 15, 15})).setArmor(ArmorType.MEDIUM_ENEMY_ARMOR).setLegwear(null).setUnderwear(ArmorType.UNDERWEAR).setStrength(5).setAgility(6).setEndurance(5), "Mermaid", AssetEnum.MERMAID.getTexture()), 
-	WARLOCK (new EnemyTemplate(WeaponType.Dagger).setStrength(4).setEndurance(4).setAgility(5).setMagic(9), "Warlock", AssetEnum.WARLOCK.getTexture()) 
+	WARLOCK (new EnemyTemplate(WeaponType.Dagger).setStrength(4).setEndurance(4).setAgility(5).setMagic(9).setMana(40), "Warlock", AssetEnum.WARLOCK.getTexture()) 
 	;
 	private final String text;
 	private final Array<AssetDescriptor<Texture>> texturePaths;
