@@ -10488,10 +10488,15 @@
 			"text": "The inside is as dark as you expected, drafty and dank, wood creaking underfoot as you step inside, the old door's hinges screaming bitter echoes into the darkness.  Strangely, there appears to be no clear path forward, several nondescript doors leading to nondescript hallways."},
 			{"text": "You pick one to begin your search, ad you quickly discover the manor is riddled with long, winding hallways, all as drafty and dark as the last.  You hear footsteps, ghosts of your own, and sighs and whispers, remnants of the wind as it coils through the labyrinth of doors, halls and windows."},
 			{"text": "Sometimes, though, you hear a distant giggle, or the faint sound of nails rapping on wood, and you suspect that either your sanity is slipping, or that you're not alone in this seemingly derelict manor."},
+			{"text": "Eventually, you open a door, and find what may possibly have been the source of the sounds: a woman, writing in a tome with a quill, who smirks to herself without looking up as you enter."},
 			{
 			"foreground": "WARLOCK",
 			"mutations": [{"profileSaveType":"KNOWLEDGE", "value":{"class": "java.lang.String", "value": "Warlock"}}],
-			"text": "You encounter a warlock!"}
+			"text": "\"You got here so quickly.  I thought my illusions would confuse you... well, it makes no difference,\" she says, finally flashing a gaze at you while setting down her quill."},
+			{"text": "She rises from her seat, slowly, and you see that she's dressed quite strangely - she looks like some kind of priestess."},
+			{"text": "\"Sneaking around in a warlock's haunt... whatever you came here for... it wasn't worth it,\" she explains, rounding the table... at which point you see that she's clutching a golden dagger in her hand."},
+			{"text": "Something about her aura is disturbing... it feels like the walls are closing in on you."},
+			{"text": "\"Unless... you came here to get fucked.  Then... you're exactly where you should be,\" she says, flashing a smile.  You ready your guard!"}
 		]
 	},
 	{
@@ -10501,13 +10506,140 @@
 			"mutations": [{"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": 5}}],
 			"text": "She drops her dagger, and seems to be ready for you to go in for the kill."},
 			{"text": "You destroy her spellbook while she stares coldly at you, and then you tell her to leave, and that you never want to see her again."},
-			{"text": "She smirks.  \"You won't,\" she says... and then, she disappears, leaving behind smoke and shadows.  You leave the manor, still trembling from the fight."}
+			{
+			"mutations": [{"saveType":"GOLD", "value":{"class": "java.lang.Integer", "value": 50}}, {"saveType":"MAGIC_CRYSTAL", "value":{"class": "java.lang.Integer", "value": 2}}],
+			"text": "She smirks.  \"You won't,\" she says... and then, she disappears, leaving behind smoke and shadows.  After looting what you can find, you leave the manor, still trembling from the fight."}
 		]
 	},
 	{
 		"key": "WARLOCK-DEFEAT",
 		"scriptLines": [
-			{"text": "Unable to cope with her powerful magic, you can barely stand, much less continue to fight."}
+			{"text": "Unable to cope with her powerful magic, you can barely stand, much less continue to fight."},
+			{"text": "\"Taking up arms against me... unforgiveable.  You'll need to be punished... but I'll have mercy.  So... I'll let you choose... you can be made to love ass-sex, to love dicks, or turn into a girl.  Your choice.\""},
+			{"text": "\"...what?\" you ask, utterly bewildered."},
+			{"text": "She smiles. \"I'm going to leave my mark on you.  Permanently.  So... what will it be?\""},
+		]
+	},
+	{
+		"key": "WARLOCK-ANAL-ADDICT",
+		"scriptLines": [
+			{"text": "\"You don't mind if I make you addicted to butt stuff?  Well, it's too late if you do.  A single touch... and it's too late to turn back.\""},
+			
+			{"text": "\"I'm going to make your pussy ache for me.\""},
+			{"text": "You had no doubt she was going to make your \"pussy\" ache."},
+
+			{"text": "Bent over the table, legs together, she stands behind you, her legs spread, her plump sausage pressed against your balloon knot."},
+
+
+
+			{"text": "\"Your body enjoys the taste...  you love being ass-fucked, don't you?  You love that I'm not even touching your little thing... you love that I'm fucking you like a girl.\""},
+			
+			
+			
+			{"text": "Her short, fat penis scoops out your anal mucosa in a way that is altogether oppressive.  It feels like she's deliberately trying to dig you out, pressing against your thin walls to stretch you out awkwardly in ways that couldn't be the result of anything else."},
+
+	
+			
+			
+			{"text": "\"You crave it, don't you?  You want more, don't you?\" she says, continuing to buck her hips against your fattened rear, plunging her plump todger between your cheeks and up your chute."},
+
+			
+			
+			
+			{"text": "\"Are you going to cum from being poked in the ass?\" she teases, knowing full well you will soon.  \"What a pervert you are...\""},
+
+			
+			
+			{"text": "\"I can give you even more pleasure... if you beg for it...\" she taunts."},
+			
+	
+			{"text": "With one hand on your ass, and one hand on shoulder, she grinds you from behind."},
+
+
+			
+			{"text": "\"There we go... nice and slow... slow... creeping... corruption...\""},
+			
+			
+			{"text": "\"I may be going overboard... your mind will probably break... if you had any sense, you'd beg for me to cum before then, but you're too far gone, aren't you?\""},
+			
+
+			{"text": "\"I'm going to cum... right in your pussy... okay, slut?\""},
+			
+			{"text": "\"Hmmm... seems you didn't break.  You're going to be quite the buttslut, though... so I hope you like ass-sex, because you're going to need it.\""},
+			
+			{"text": "\"Whoops.  Calm down, slave.  I'll give you the pussy pounding you desire... if I get bored.\""},
+			
+			
+			{"text": "It blasts into your bowels, and your eyes roll into the back of your head, your tongue lolling out.  You finally understand.  You need this.  Nothing else will do.  You hear her laughing, somewhere in the distance."},
+	
+	
+			{"text": "\"That's what you wanted, right?  A nice fat wad of infernal spooge up your big, fat ass?\""},
+			
+			
+			{"text": "\"Before this asshole was trained, it was so hard to push it in and out smoothly.  Now that your little hole is shaped for my penis, it goes in and out smoothly.\""},
+
+			
+			{"text": "\"Has anybody told you your ass was your best feature?\" she says, extracting her penis from your gaping hole.  \"Phew, what a load.  Not bad.\""},  	
+		
+			
+				
+			
+		]
+	},
+	{
+		"key": "WARLOCK-COCK-LOVER",
+		"scriptLines": [
+		
+			{"text": "\"Do you love cocks?  No?  Hmmm... how about, now...\" she says, gently touching her finger to your forehead."},
+			{"text": "A warmth spreads through you, and you feel a sudden... hunger."},
+	
+	
+
+
+			{"text": "\"Open wide for me, sweetie.\""},
+
+			
+			{"text": "\"Open up, slut.\""},
+			
+			
+			{"text": "\"Don't talk with your mouth full.\""},
+	
+		
+		]
+	},
+	{
+		"key": "WARLOCK-FEMINIZATION",
+		"scriptLines": [
+		
+		
+			{"text": "\"A single touch... and it's too late to turn back.\""},
+			
+			
+			
+			{"text": "She taps your forehead. \"Ah, ah, more like a girl.  Forever,\" she says, casually using her magic to permanently alter you."},
+	
+	
+			{"text": "\"What do you think?  Should I make it so you can never get that little thing hard again?  Or so that the mere thought of being fucked like a girl makes your little prick bloat up like a confused little balloon?\""},
+			
+			
+			{"text": "\"It will never be hard again - but don't worry, it won't need to be.\""},
+			
+			
+			{"text": "\"How slutty should I make you?  If it's too much, you won't even feel the shame... although that can be kind of nice, too.\""},
+			
+			
+			
+			
+			
+			{"text": "\"I'm gonna screw it into your tight little hole and make you spew spew all over the sheets.\""},
+			
+			{"text": "\"I'm gonna make you jizz without touching your cock - just your prostate.  With mine.\""},
+
+			
+			
+			{"text": "\"Eh, did you... cum?  Did you let out some girl goo?  Do you even understand that you're not a girl?  Hrm.  Maybe I'm wrong.\""},
+			
+			
 		]
 	},
 	{

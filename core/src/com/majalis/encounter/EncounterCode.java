@@ -1744,9 +1744,9 @@ public enum EncounterCode {
 						b.branch(true).textScene("WARLOCK-ENTER").battleScene(
 							BattleCode.WARLOCK, 
 							b.branch(Outcome.VICTORY).textScene("WARLOCK-VICTORY"), 
-							b.branch(Outcome.DEFEAT).textScene("WARLOCK-DEFEAT")
+							b.branch(Outcome.DEFEAT).textScene("WARLOCK-DEFEAT").choiceScene("What do you choose?", b.branch("To love ass-sex").textScene("WARLOCK-ANAL-ADDICT"), b.branch("To love dicks").textScene("WARLOCK-COCK-LOVER"), b.branch("To be a girl").textScene("WARLOCK-FEMINIZATION"))
 						), 
-						b.branch(false).textScene("WARLOCK-REVISIST")
+						b.branch(false).textScene("WARLOCK-REVISIT")
 					)
 				);
 			case WEAPON_SHOP:
