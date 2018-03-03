@@ -1736,7 +1736,19 @@ public enum EncounterCode {
 						)
 					);
 			case WARLOCK: 
-				return b.branch().textScene("WARLOCK-INTRO").checkScene(CheckType.MANOR_UNSEEN, b.branch(true).textScene("WARLOCK-WARNING"), b.branch(false).textScene("WARLOCK-ENTER").battleScene(BattleCode.WARLOCK, b.branch(Outcome.VICTORY).textScene("WARLOCK-VICTORY"), b.branch(Outcome.DEFEAT).textScene("WARLOCK-DEFEAT")));
+				return b.branch().textScene("WARLOCK-INTRO").checkScene(
+					CheckType.MANOR_UNSEEN, 
+					b.branch(true).textScene("WARLOCK-WARNING"),
+					b.branch(false).checkScene(
+						CheckType.MANOR_UNVISITED, 
+						b.branch(true).textScene("WARLOCK-ENTER").battleScene(
+							BattleCode.WARLOCK, 
+							b.branch(Outcome.VICTORY).textScene("WARLOCK-VICTORY"), 
+							b.branch(Outcome.DEFEAT).textScene("WARLOCK-DEFEAT")
+						), 
+						b.branch(false).textScene("WARLOCK-REVISIST")
+					)
+				);
 			case WEAPON_SHOP:
 				return b.branch().textScene("WEAPON-SHOP").shopScene(ShopCode.WEAPON_SHOP);
 			case WERESLUT:

@@ -518,6 +518,10 @@ public class CheckScene extends AbstractTextScene {
 			@Override
 			protected boolean getCheck(PlayerCharacter character) { int check = character.getQuestStatus(QuestType.WARLOCK); return check == 0;}  
 		}, 
+		MANOR_UNVISITED("", "") {
+			@Override
+			protected boolean getCheck(PlayerCharacter character) { int check = character.getQuestStatus(QuestType.WARLOCK); return check == 1;}  
+		}, 
 		;
 		private final String success;
 		private final String failure;

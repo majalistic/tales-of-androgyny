@@ -10480,6 +10480,7 @@
 		"key": "WARLOCK-ENTER",
 		"scriptLines": [
 			{
+			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "WARLOCK", "value":2}}],
 			"background": "TOWN_BG",
 			"text": "You stand before the manor, and gather your wits and your courage before approaching the large, ancient doorway.  With some difficulty, you push it open, making your way inside."},
 			{
@@ -10498,13 +10499,21 @@
 		"scriptLines": [
 			{
 			"mutations": [{"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": 5}}],
-			"text": "..."}
+			"text": "She drops her dagger, and seems to be ready for you to go in for the kill."},
+			{"text": "You destroy her spellbook while she stares coldly at you, and then you tell her to leave, and that you never want to see her again."},
+			{"text": "She smirks.  \"You won't,\" she says... and then, she disappears, leaving behind smoke and shadows.  You leave the manor, still trembling from the fight."}
 		]
 	},
 	{
 		"key": "WARLOCK-DEFEAT",
 		"scriptLines": [
-			{"text": "..."}
+			{"text": "Unable to cope with her powerful magic, you can barely stand, much less continue to fight."}
+		]
+	},
+	{
+		"key": "WARLOCK-REVISIT",
+		"scriptLines": [
+			{"text": "The manor is abandoned - nothing inside remains of value.  You turn away from it, solemnly."}
 		]
 	},
 ]}
