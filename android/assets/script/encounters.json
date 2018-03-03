@@ -10587,32 +10587,31 @@
 	{
 		"key": "WARLOCK-COCK-LOVER",
 		"scriptLines": [
-		
+			{"text": "\"A single touch... and it's too late to turn back,\" she says, as she approaches you, hand outstretched."},
+			{"text": "She gets close, and you feel... heavy."},
 			{"text": "\"Do you love cocks?  No?  Hmmm... how about, now...\" she says, gently touching her finger to your forehead."},
 			{"text": "A warmth spreads through you, and you feel a sudden... hunger."},
-	
-
-			{"text": "\"Open wide for me, sweetie.\""},
-
-			
-			{"text": "\"Open up, slut.\""},
-			
-			
-			{"text": "\"Don't talk with your mouth full.\""},
-	
-			
-			{"text": "\"You love cock now, don't you?  Good... keep sucking on mine,\" she says, and then sighs, biting her knuckle."},
-			
-			
+			{"text": "\"Open wide for me, sweetie,\" she says, dropping you to your knees.  You don't open up at first."},
+			{
+			"sound": "INCANTATION",
+			"text": "She touches a finger to your forehead again."},
+			{
+			"sound": "FIREBALL_SOUND",
+			"text": "\"Open up, slut.\""},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "oralSex":1}}],
+			"text": "You open your mouth, and she extracts her fat, surprisingly dark penis from its pouch.  Without any further instruction, she sticks her cock inside your mouth and places her hands on your head."},			
+			{"text": "\"Mmmnnn... mmmmnnoh!\" you try to object."},			
+			{"text": "\"Don't talk with your mouth full,\" she replies, while continuing to pump her hips against your face."},
+			{"text": "She presses a finger to your forehead again, and you begin to savor her taste, your hands going limp at your sides."},
+			{"text": "\"You love cock now, don't you?  Good... keep sucking on mine,\" she says, and then sighs, biting her knuckle."},			
 			{"text": "Your lips slide over her smooth shaft, which twitches and throbs eagerly as she approaches her climax."},
-			
-			
 			{"text": "\"Now I'm going to cast Cum Missile... and you're going to swallow it all down.\""},
-			
-			
-			{"text": "Each volley tastes saltier and sweeter and more delicious than the last - by the time the fifth rope creams across your tongue, and her ejaculation is complete, you're absolutely craving it."},
-			
-			
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "oralCreampies":1}}],
+			"sound": "CUM",
+			"text": "Without warning, her first rope shoots out over your tongue... and a sensation far greater than her finger provided fills you with warmth and fuzziness."},
+			{"text": "Each volley tastes saltier and sweeter and more delicious than the last - by the time the fifth rope creams across your tongue, and her ejaculation is complete, you're absolutely craving it."},			
 			{"text": "\"Swallow it down, slut,\" she instructs, smirking."},
 			{"text": "You gulp down her delicious nectar, thick and creamy.  She continues to grin as she helps you to your feet... and tells you to enjoy your new life as a cock-loving fanatic."},
 			{"text": "You sheepishly leave the manor, swearing never to return... but feeling forever changed."}		
