@@ -10455,10 +10455,42 @@
 		"scriptLines": [
 			{
 			"music": "WEREWOLF_MUSIC",
+			"text": ""}
+		]
+	},
+	{
+		"key": "WARLOCK-WARNING",
+		"scriptLines": [
+			{
+			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "WARLOCK", "value":1}}],
+			"background": "TOWN_BG",
+			"text": "The eerie ghost town lies in the shadow of a large manor, likely abandoned for longer than it was ever occupied, the cobwebs in its rafters aged and venerable."},
+			{"text": "As you approach the manor with curiosity, you hear a voice from behind, and turn to face a cloaked, decrepit looking figure."},
+			{"text": "\"Stay away from there.  You'll not like what you find.\""},
+			{"text": "Your hand is on your weapon, but you relax your grip, as the figure appears non-threatening, if ominous.  Their voice is old and weak, and their posture hunched."},
+			{"text": "\"Does someone still live in there?\" you ask, and the figure shrugs."},
+			{"text": "\"Someone or something, maybe, maybe not.  Place is cursed.  What profit is there in ramsacking an old, abandoned manor house?\" they ask."},
+			{"text": "The more they say, the more you want to investigate inside.  The figure's face is hidden in shadow, but you can feel its disapproving glare."},
+			{"text": "\"Well... if you're goin' to be muckin' around in there, best be well-prepared.  Don't want to be steppin' on rusty nails or havin' the roof collapse in on your uncovered head.\""},
+			{"text": "It points a long, skeletal finger at the partially caved-in roof, and you follow the line of sight to see another figure, wreathed in shadow, peering down at you, before it disappears.  You turn back to cloaked creature, but it's gone."},
+			{"text": "Perturbed, you look up at the manor... and decide whether to brave its secrets."}		
+		]
+	},
+	{
+		"key": "WARLOCK-ENTER",
+		"scriptLines": [
+			{
+			"background": "TOWN_BG",
+			"text": "You stand before the manor, and gather your wits and your courage before approaching the large, ancient doorway.  With some difficulty, you push it open, making your way inside."},
+			{
 			"background": "WARLOCK_BG",
+			"text": "The inside is as dark as you expected, drafty and dank, wood creaking underfoot as you step inside, the old door's hinges screaming bitter echoes into the darkness.  Strangely, there appears to be no clear path forward, several nondescript doors leading to nondescript hallways."},
+			{"text": "You pick one to begin your search, ad you quickly discover the manor is riddled with long, winding hallways, all as drafty and dark as the last.  You hear footsteps, ghosts of your own, and sighs and whispers, remnants of the wind as it coils through the labyrinth of doors, halls and windows."},
+			{"text": "Sometimes, though, you hear a distant giggle, or the faint sound of nails rapping on wood, and you suspect that either your sanity is slipping, or that you're not alone in this seemingly derelict manor."},
+			{
 			"foreground": "WARLOCK",
 			"mutations": [{"profileSaveType":"KNOWLEDGE", "value":{"class": "java.lang.String", "value": "Warlock"}}],
-			"text": "..."}
+			"text": "You encounter a warlock!"}
 		]
 	},
 	{

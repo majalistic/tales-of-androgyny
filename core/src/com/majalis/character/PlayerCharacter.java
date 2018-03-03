@@ -1530,7 +1530,7 @@ public class PlayerCharacter extends AbstractCharacter {
 	}
 	
 	public enum QuestType {
-		ORC, CRIER, QUETZAL, INNKEEP, TRUDY, GOBLIN, OGRE, SPIDER, BROTHEL, ELF, DEBT, GADGETEER, MADAME, WITCH, MOUTH_FIEND, MERMAID, TRAINER, MERI, HUMAN_TOWN, MONSTER_TOWN;
+		ORC, CRIER, QUETZAL, INNKEEP, TRUDY, GOBLIN, OGRE, SPIDER, BROTHEL, ELF, DEBT, GADGETEER, MADAME, WITCH, MOUTH_FIEND, MERMAID, TRAINER, MERI, HUMAN_TOWN, MONSTER_TOWN, WARLOCK;
 		
 		public String getQuestDescription(int currentValue) {
 			switch (this) {
@@ -1618,6 +1618,12 @@ public class PlayerCharacter extends AbstractCharacter {
 						case 5: return "You've made Trudy your travelling companion.";
 						case 6: return "You've gotten close to Trudy as a travelling companion."; 
 						case 7: return "You've gotten very close to Trudy your travelling companion, and he's taught you some of his skills.";
+					}	
+					break;
+				case WARLOCK:
+					switch (currentValue) {
+						case 1: return "You've seen the strange manor in the ghost town.";
+						case 2: return "You've visited the strange manor in the ghost town.";
 					}	
 					break;
 				case WITCH:
