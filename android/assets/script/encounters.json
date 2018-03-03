@@ -10621,33 +10621,41 @@
 		"key": "WARLOCK-FEMINIZATION",
 		"scriptLines": [
 			{"text": "\"A single touch... and it's too late to turn back,\" she says, as she approaches you, hand outstretched."},
-			
-			
-			
-			{"text": "She taps your forehead. \"Ah, ah, more like a girl.  Forever,\" she says, casually using her magic to permanently alter you."},
-	
-	
+			{
+			"sound": "FIREBALL_SOUND",
+			"text": "She taps your forehead.  You feel something happening to your body... or, you think it is, as looking down reveals no visible changes."},
+			{"text": "\"Ah, ah, more like a girl.  Forever,\" she says, casually using her magic to permanently alter you."},
+			{"text": "She reaches down and taps a finger to your cock under your clothing."},	
 			{"text": "\"What do you think?  Should I make it so you can never get that little thing hard again?  Or so that the mere thought of being fucked like a girl makes your little prick bloat up like a confused little balloon?\""},
-			
-			
+			{"text": "You can't help but nod... something about what she's saying sounds... so right..."},
 			{"text": "\"It will never be hard again - but don't worry, it won't need to be.\""},
-			
-			
+			{"text": "She taps it again, and you feel it softening... even as your excitement builds."},
 			{"text": "\"How slutty should I make you?  If it's too much, you won't even feel the shame... although that can be kind of nice, too.\""},
-			
-			
-			
-			
-			
-			{"text": "\"I'm gonna screw it into your tight little hole and make you spew spew all over the sheets.\""},
-			
-			{"text": "\"I'm gonna make you jizz without touching your cock - just your prostate.  With mine.\""},
-
-			
-			
+			{"text": "You fall to your knees.   You feel... completely different..."},
+			{"text": "..."},
+			{"text": ".."},
+			{"text": "."},
+			{"text": "You drift off... and when you awake, you're in a soft bed... and someone is in it with you."},
+			{"text": "\"I'm gonna screw it into your tight little hole and make you spew spew all over the sheets,\" she says, and you see, in her nakedness, that she is... happy that you've awoken."},
+			{"text": "She crawls over you... and you instictively turn over, offering her your back.  You press up and back against her, and she hooks her arms underneath you, between your thighs, spreading them.  You feel it slipping between your cheeks... and then, it's inside."},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex": 1}}],
+			"text": "\"I'm gonna make you jizz without touching your cock - just your prostate.  With mine,\" she says, and you believe it... you're already craving a release.  From everything."},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analEjaculation":1}}],
+			"text": "In fact, almost immediately, you spurt all over the sheets... unable to contain it any longer."},
 			{"text": "\"Eh, did you... cum?  Did you let out some girl goo?  Do you even understand that you're not a girl?  Hrm.  Maybe I'm wrong.\""},
-			
-			
+			{"text": "She takes her time as she roots you, the bed creaking under the weight of your fucking, and you cum again, and again... but your cock doesn't get hard."},
+			{"text": "Finally, she grips onto your shoulders, and drives it in all the way, and you lose your breath."},
+			{
+			"sound": "CUM",
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "creampies":1}}],
+			"text": "It blasts into your bowels, and your eyes roll into the back of your head, your tongue lolling out.  Yes.  Yes... You finally understand.  You need this.  Nothing else will do.  You hear her laughing, somewhere in the distance."},
+			{"text": "\"That's what you wanted, right?  A nice fat wad of infernal spooge up your big, fat ass?\" she says, but you can't even begin to formulate a response."},
+			{"text": "She begins to pull it out, and you're blubbering incoherently."},
+			{"text": "\"Has anybody told you your ass was your best feature?\" she says, extracting her penis from your gaping hole.  \"Phew, what a load.  Not bad.\""},  	
+			{"text": "You're completely speechless.  Your eyes blink once, twice.  Nobody's home."}
+			{"text": "She leaves you laying on her bed, telling you to get dressed and leave whenever you're ready.  She calls you a cutey, and your heart fills with warmth... what did she do?"}
 		]
 	},
 	{
