@@ -82,7 +82,7 @@ public class GameWorldFactory {
 			
 			new Zone(loadService, assetManager, random, nodes, nodeMap, unspawnedEncounters, 2, 2)
 			.addStartNode(zone4.getEndNodes().get(0))
-			.addEndNode(1007, FORT, FORT, 204, yFactor + 80)
+			.addEndNode(1008, FORT, FORT, 204, yFactor + 80)
 			.buildZone();
 			
 			mouthfiend = addNode(getNode(50000, MOUTH_FIEND, MOUTH_FIEND, 96, yFactor - 36, visitedInfo.get(50000, getFreshVisitInfo())), nodes);
