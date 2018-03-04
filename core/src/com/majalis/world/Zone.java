@@ -72,7 +72,8 @@ public class Zone {
 		}
 		
 		boolean failure = false;
-		while(requiredNodesUnfulfilled.size > 0 && ! failure) {
+		int attempts = 0;
+		while(requiredNodesUnfulfilled.size > 0 && !failure && attempts < 10) {
 			for (GameWorldNode unfulfilledNode : requiredNodesUnfulfilled) {
 				GameWorldNode closest = findClosestNode(unfulfilledNode, zoneNodes);
 				if (closest != null) {
@@ -80,6 +81,7 @@ public class Zone {
 				}
 				else { failure = true; }
 			}
+			attempts++;
 		}
 		
 		// connect all nodes that consider themselves adjacent to nearby nodes - some nodes, like permanent nodes, might have a longer "reach" then others
