@@ -9,7 +9,9 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.RandomXS128;
 import com.badlogic.gdx.scenes.scene2d.Action;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.IntArray;
 import com.badlogic.gdx.utils.ObjectMap;
@@ -27,8 +29,8 @@ import com.majalis.technique.TechniquePrototype.TechniqueHeight;
  */
 public class EnemyCharacter extends AbstractCharacter {
 
-	private transient ObjectMap<Stance, Array<Texture>> textures;
-	private transient Array<Texture> defaultTextures;
+	private transient ObjectMap<Stance, Array<Image>> textures;
+	private transient Array<Image> defaultTextures;
 	private ObjectMap <String, Integer> climaxCounters;
 	
 	private transient Array<AnimatedActor> animations;
@@ -39,7 +41,7 @@ public class EnemyCharacter extends AbstractCharacter {
 	private int selfRessurect;
 	private boolean storyMode;
 	private RandomXS128 random;
-	@SuppressWarnings("unused") private String bgPath; // legacy
+	@SuppressWarnings("unused") private String bgPath; // deprecated
 	
 	@SuppressWarnings("unused")
 	private EnemyCharacter() {}
@@ -100,6 +102,56 @@ public class EnemyCharacter extends AbstractCharacter {
 	@Override
     public void draw(Batch batch, float parentAlpha) {
 		super.draw(batch, parentAlpha);
+		if (!(currentAnimationsPlaying.size == 0 || 
+				((enemyType == EnemyEnum.GOBLIN || enemyType == EnemyEnum.GOBLIN_MALE) && (stance == Stance.FACE_SITTING || stance == Stance.SIXTY_NINE || stance == Stance.PRONE_BONE || stance == Stance.DOGGY || stance == Stance.PRONE_BONE || stance == Stance.SIXTY_NINE)) ||
+				(enemyType == EnemyEnum.CENTAUR && (stance == Stance.DOGGY || stance == Stance.FELLATIO)) ||
+				(enemyType == EnemyEnum.WERESLUT && (stance == Stance.DOGGY || stance == Stance.KNOTTED)) ||
+				(enemyType == EnemyEnum.BRIGAND && (stance == Stance.FELLATIO || stance == Stance.FACEFUCK || stance == Stance.ANAL)))) {
+			for (AnimatedActor animation: currentAnimationsPlaying) {
+				animation.draw(batch,  parentAlpha);
+			}
+		}
+    }
+	// this should be refactored so that the enemy simply receives the assetManager and uses what it requires to reinitialize itself
+	public void init(Array<Texture> defaultTextures, ObjectMap<Stance, Array<Texture>> textures, Array<AnimatedActor> animations) {
+		this.defaultTextures = defaultTextures == null ? new Array<Image>() : initImages(defaultTextures);
+		this.textures = initImagesBystance(textures);
+		this.animations = animations;
+		this.currentAnimationsPlaying = new ObjectSet<AnimatedActor>();
+		if (animations.size > 0 && (enemyType != EnemyEnum.HARPY || stance != Stance.FELLATIO) && (enemyType != EnemyEnum.BRIGAND || (stance != Stance.DOGGY && stance != Stance.STANDING))) {
+			currentAnimationsPlaying.add(animations.first());
+		}
+		
+		currentDisplay = enemyType == EnemyEnum.BRIGAND ? "IFOS100N" :"Idle Erect";
+	}
+	
+	private ObjectMap<Stance, Array<Image>> initImagesBystance(ObjectMap<Stance, Array<Texture>> textures) {
+		ObjectMap<Stance, Array<Image>> imagesByStance = new ObjectMap<Stance, Array<Image>>();
+		for (ObjectMap.Entry<Stance, Array<Texture>> entry : textures) {
+			imagesByStance.put(entry.key, initImages(entry.value));
+		}
+		return imagesByStance;
+	}
+	
+	private Array<Image> initImages(Array<Texture> textures) {
+		Array<Image> images = new Array<Image>();
+		for (Texture texture : textures) {
+			Image newImage = new Image(texture);
+			this.addActor(newImage);
+			images.add(newImage);
+		}
+		return images;
+	}
+	
+	@Override
+	public void act(float delta) {
+		if (animations.size > 0) {
+			animations.get(0).act(delta);
+		}
+		for (Actor actor: getChildren()) {
+			this.removeActor(actor);
+		}
+		
 		if (enemyType == EnemyEnum.BRIGAND) {
 			if (stance == Stance.DOGGY || stance == Stance.STANDING) {
 				currentAnimationsPlaying.add(animations.get(1));
@@ -130,9 +182,10 @@ public class EnemyCharacter extends AbstractCharacter {
 				(enemyType == EnemyEnum.CENTAUR && (stance == Stance.DOGGY || stance == Stance.FELLATIO)) ||
 				(enemyType == EnemyEnum.WERESLUT && (stance == Stance.DOGGY || stance == Stance.KNOTTED)) ||
 				(enemyType == EnemyEnum.BRIGAND && (stance == Stance.FELLATIO || stance == Stance.FACEFUCK || stance == Stance.ANAL))) {
-			Array<Texture> textureCandidates = textures.get(stance, defaultTextures);
+			Array<Image> textureCandidates = textures.get(stance, defaultTextures);
 			if (textureCandidates == null) return;
-			Texture texture;
+			Image texture;
+
 			if (currentFrame >= textureCandidates.size) {
 				if (textureCandidates.size > 0) texture = textureCandidates.get(0);
 				else return;
@@ -167,7 +220,8 @@ public class EnemyCharacter extends AbstractCharacter {
 			
 			range = 0;
 			if (range == 0) {
-				batch.draw(texture, x + getX(), y + getY(), width, height);
+				texture.setBounds(x + getX(),  y + getY(), width, height);
+				this.addActor(texture);
 			}
 			/*else if (range == 1) {
 				batch.draw(texture, x + 150, y + 150, width / 2, height / 2);
@@ -176,31 +230,7 @@ public class EnemyCharacter extends AbstractCharacter {
 				batch.draw(texture, x + 200, y + 350, width / 3, height / 3);
 			}*/
 		}
-		else {
-			for (AnimatedActor animation: currentAnimationsPlaying) {
-				animation.draw(batch,  parentAlpha);
-			}
-		}
-    }
-	// this should be refactored so that the enemy simply receives the assetManager and uses what it requires to reinitialize itself
-	public void init(Array<Texture> defaultTextures, ObjectMap<Stance, Array<Texture>> textures, Array<AnimatedActor> animations) {
-		this.defaultTextures = defaultTextures == null ? new Array<Texture>() : defaultTextures;
-		this.textures = textures;
-		this.animations = animations;
-		this.currentAnimationsPlaying = new ObjectSet<AnimatedActor>();
-		if (animations.size > 0 && (enemyType != EnemyEnum.HARPY || stance != Stance.FELLATIO) && (enemyType != EnemyEnum.BRIGAND || (stance != Stance.DOGGY && stance != Stance.STANDING))) {
-			currentAnimationsPlaying.add(animations.first());
-		}
-		
-		currentDisplay = enemyType == EnemyEnum.BRIGAND ? "IFOS100N" :"Idle Erect";
-	}
-
-	@Override
-	public void act(float delta) {
 		super.act(delta);
-		if (animations.size > 0) {
-			animations.get(0).act(delta);
-		}
 	}
 	
 	public void attackAnimation() {

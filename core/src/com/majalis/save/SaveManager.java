@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Base64Coder;
@@ -186,11 +187,14 @@ public class SaveManager implements SaveService, LoadService {
        
         	if (playerParent != null) playerParent.removeActor(save.player, false);
         	Group enemyParent = new Group();
+        	Group enemyChildren = new Group();
         	if (save.enemy != null) {
             	enemyParent = save.enemy.getParent();
             	if (enemyParent != null) {
             		enemyParent.removeActor(save.enemy, false);
             	}	
+            	for (Actor actor : save.enemy.getChildren()) { enemyChildren.addActor(actor); }
+            	save.enemy.clearChildren();
         	}
         	try {
         		file.writeString(json.prettyPrint(save), false);
@@ -204,6 +208,7 @@ public class SaveManager implements SaveService, LoadService {
         		if (enemyParent != null) {
         			enemyParent.addActor(save.enemy);
         		}	
+        		for (Actor actor : enemyChildren.getChildren()) { save.enemy.addActor(actor); }
         	}
         }
     }

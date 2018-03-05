@@ -27,7 +27,7 @@ import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.IntArray;
 import com.badlogic.gdx.utils.ObjectMap;
@@ -35,7 +35,7 @@ import com.badlogic.gdx.utils.OrderedMap;
 /*
  * Abstract character class, both enemies and player characters extend this class
  */
-public abstract class AbstractCharacter extends Actor {
+public abstract class AbstractCharacter extends Group {
 	
 	// some of these ints will be enumerators or objects in time
 	/* permanent stats */
