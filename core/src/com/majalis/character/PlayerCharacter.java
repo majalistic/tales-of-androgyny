@@ -415,7 +415,7 @@ public class PlayerCharacter extends AbstractCharacter {
 		setCurrentPortrait(getNeutralFace());
 		int currentBleed = statuses.get(StatusType.BLEEDING.toString(), 0);
 		if (currentBleed != 0) {
-			statuses.put(StatusType.BLEEDING.toString(), Math.max(currentBleed - getEndurance() * 2, 0));
+			statuses.put(StatusType.BLEEDING.toString(), Math.max(currentBleed - getEndurance(), 0));
 		}
 		wrapLegs = false;
 		scout = 0;
