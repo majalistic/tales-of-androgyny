@@ -77,8 +77,8 @@ import com.majalis.world.GroundType;
  * The screen that displays the world map.  UI that Handles player input while on the world map - will delegate to other screens depending on the gameWorld state.
  */
 public class WorldMapScreen extends AbstractScreen {
-	private static float maxX = 8000;
-	private static float maxY = 9200;
+	private static float maxX = 4000;
+	private static float maxY = 4600;
 	// this class needs major refactoring - far too many dependencies, properties, statefulness
 	private final AssetManager assetManager;
 	private final SaveService saveService;
@@ -1200,8 +1200,8 @@ public class WorldMapScreen extends AbstractScreen {
 		int xSize = 5888 / boxWidth + 1;
 		int ySize = 5632 / boxHeight + 1;
 		
-		for (int xTile = 0; xTile < xSize * 2; xTile++) {
-			for (int yTile = 0; yTile < ySize * 2; yTile++) {
+		for (int xTile = 0; xTile < xSize; xTile++) {
+			for (int yTile = 0; yTile < ySize; yTile++) {
 				FrameBuffer frameBuffer = new FrameBuffer(Pixmap.Format.RGBA8888, boxWidth, boxHeight, false); // this and matrix need to preserve a ratio
 				frameBuffers.add(frameBuffer);
 				frameBuffer.begin();

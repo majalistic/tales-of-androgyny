@@ -21,7 +21,7 @@ import com.majalis.asset.AnimatedImage;
 import com.majalis.asset.AssetEnum;
 
 public class GameWorld {
-	private static final int yFactor = GameWorldHelper.yFactor;
+
 	private final Array<GameWorldNode> nodes;
 	private final Array<Array<GroundType>> ground;
 	private final Array<Doodad> doodads;
@@ -80,7 +80,7 @@ public class GameWorld {
 		}		
 		
 		int maxX = 230;
-		int maxY = 302;
+		int maxY = 235;
 		int tileWidth = GameWorldHelper.getTileWidth();
 		int tileHeight = GameWorldHelper.getTileHeight();
 		
@@ -197,9 +197,9 @@ public class GameWorld {
 		return false;
 	}
 	
-	private boolean river(int x, int y) { return (x + y > yFactor + 55 && x + y < yFactor + 63 && y > yFactor - 35) || (y > yFactor - 35 && y < yFactor - 25 && x + y > yFactor + 55); }
-	private boolean lake(int x, int y) { return distance(x, y, 13, yFactor + 5) < 5 || distance(x, y, 87, yFactor - 30) < 7 || distance(x, y, 80, yFactor - 23) < 5 || distance(x, y, 94, yFactor - 30) < 5; }	
-	private boolean isAbundantTrees(int x, int y) { return (x + y > yFactor + 62 && x + y < yFactor + 65) || (x > 0 && x < 15) || (x + y * 2 > yFactor * 2 + 10 && x + y * 2 < yFactor * 2 + 25); }
+	private boolean river(int x, int y) { return (x + y > 140 && x + y < 148 && y > 50) || (y > 50 && y < 60 && x + y > 140); }
+	private boolean lake(int x, int y) { return distance(x, y, 13, 90) < 5 || distance(x, y, 87, 55) < 7 || distance(x, y, 80, 62) < 5 || distance(x, y, 94, 55) < 5; }	
+	private boolean isAbundantTrees(int x, int y) { return (x + y > 147 && x + y < 150) || (x > 0 && x < 15) || (x + y * 2 > 180 && x + y * 2 < 195); }
 	
 	private int worldCollide(int x, int y) {
 		int minDistance = 100;
