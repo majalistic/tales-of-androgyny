@@ -770,7 +770,7 @@ public abstract class AbstractCharacter extends Actor {
 			int gutcheck = attack.getGutCheck();
 			if (gutcheck > 0) {
 				if (!alreadyIncapacitated()) {
-					currentStamina -= gutcheck;
+					currentStamina -= gutcheck; // this should be reduced by armor defense
 					if (currentStamina < -5) currentStamina = -5;
 					result.add("It's winds " + (secondPerson ? "you" : "them") + "! It reduces stamina by " + gutcheck + "!");
 					if (currentStamina <= 0 && grappleStatus == GrappleStatus.NULL) {

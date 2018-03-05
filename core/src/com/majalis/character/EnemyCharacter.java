@@ -33,8 +33,6 @@ public class EnemyCharacter extends AbstractCharacter {
 	private transient Array<AnimatedActor> animations;
 	private transient ObjectSet<AnimatedActor> currentAnimationsPlaying;
 	private String currentDisplay;
-	private Techniques nextMove;
-	private boolean initializedMove;
 	private int range;
 	private int currentFrame;
 	private int selfRessurect;
@@ -50,7 +48,6 @@ public class EnemyCharacter extends AbstractCharacter {
 		this.stance = stance;
 		this.storyMode = storyMode;
 		init(textures, textureMap, animations);
-		initializedMove = false;
 		climaxCounters = new ObjectMap<String, Integer>();
 		currentFrame = enemyType == EnemyEnum.GHOST && !Gdx.app.getPreferences("tales-of-androgyny-preferences").getBoolean("blood", true) ? 1 : 0;
 		if (enemyType == EnemyEnum.BUNNY) {
@@ -191,7 +188,6 @@ public class EnemyCharacter extends AbstractCharacter {
 		}
 		
 		currentDisplay = enemyType == EnemyEnum.BRIGAND ? "IFOS100N" :"Idle Erect";
-		initializedMove = true;
 	}
 
 	@Override
@@ -703,12 +699,7 @@ public class EnemyCharacter extends AbstractCharacter {
 		}
 	}
 	
-	public Technique getTechnique(AbstractCharacter target) {
-		if (initializedMove && nextMove != null) {
-			initializedMove = false;
-			return getTechnique(target, nextMove);
-		}
-		
+	public Technique getTechnique(AbstractCharacter target) {		
 		if (!arousal.isErect() || enemyType == EnemyEnum.OGRE) {
 			if (enemyType != EnemyEnum.CENTAUR && enemyType != EnemyEnum.BEASTMISTRESS && enemyType != EnemyEnum.GOLEM && enemyType != EnemyEnum.QUETZAL) arousal.increaseArousal(new SexualExperienceBuilder().setAssTeasing(1).build(), perks);
 		}
@@ -816,8 +807,6 @@ public class EnemyCharacter extends AbstractCharacter {
 				technique = candidates.get(0);
 			}
 		}
-
-		nextMove = techniqueToToken.get(technique);
 		return technique;	
 	}
 	
