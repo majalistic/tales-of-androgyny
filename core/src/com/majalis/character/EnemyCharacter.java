@@ -7,6 +7,7 @@ import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.math.RandomXS128;
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.utils.Array;
@@ -37,6 +38,7 @@ public class EnemyCharacter extends AbstractCharacter {
 	private int currentFrame;
 	private int selfRessurect;
 	private boolean storyMode;
+	private RandomXS128 random;
 	@SuppressWarnings("unused") private String bgPath; // legacy
 	
 	@SuppressWarnings("unused")
@@ -54,6 +56,8 @@ public class EnemyCharacter extends AbstractCharacter {
 			String bunnyType = Gdx.app.getPreferences("tales-of-androgyny-preferences").getString("bunny", "CREAM");
 			currentFrame = bunnyType.equals("CREAM") ? 0 : bunnyType.equals("VANILLA") ? 1 : bunnyType.equals("CARAMEL") ? 2 : bunnyType.equals("CHOCOLATE") ? 3 : 4;
 		}
+		
+		random = new RandomXS128((int)(Math.random() * 10000) % 10000);
 		
 		weapon = enemyType.getWeaponType() != null ? new Weapon(enemyType.getWeaponType()): null;
 		armor = enemyType.getArmorType() != null ? new Armor(enemyType.getArmorType()): null;
@@ -1118,31 +1122,12 @@ public class EnemyCharacter extends AbstractCharacter {
 	private boolean willPounce() { return enemyType.willPounce() && arousal.isErect() && !stance.isIncapacitatingOrErotic() && grappleStatus == GrappleStatus.NULL && (enemyType != EnemyEnum.BRIGAND || !storyMode); }	
 	private Technique getTechnique(AbstractCharacter target, Techniques technique) { return new Technique(technique.getTrait(), getCurrentState(target), enemyType == EnemyEnum.BRIGAND && technique == Techniques.PARRY ? 3 : 1); }
 	private int getRandomWeighting(int size) {
-		IntArray randomOptions = new IntArray();
-		for (int ii = 0; ii < size; ii++) {
-			randomOptions.add(ii);
-		}
-		
-		int randomResult = randomOptions.random();
-		
+		int randomResult = random.nextInt(size);
 		IntArray randomWeighting = new IntArray();
-		for (int ii = -1; ii < 2; ii++) {
-			randomWeighting.add(ii);
-		}
-		if (enemyType.isOffensive()) {
-			randomWeighting.add(-1);
-		}
-		else if (enemyType.isDefensive()) {
-			randomWeighting.add(0); randomWeighting.add(1);
-		}
-		
-		randomResult += randomWeighting.random();
-		if (randomResult >= size) {
-			randomResult = size - 1;
-		}
-		if (randomResult < 0) {
-			randomResult = 0;
-		}
+		for (int ii = -1; ii < 2; ii++) { randomWeighting.add(ii); }
+		if (enemyType.isOffensive()) { randomWeighting.add(-1); }
+		else if (enemyType.isDefensive()) { randomWeighting.add(0); randomWeighting.add(1); }		
+		randomResult = Math.max(Math.min(randomResult + randomWeighting.get(random.nextInt(randomWeighting.size)), size - 1), 0);
 		return randomResult;
 	}
 } 
