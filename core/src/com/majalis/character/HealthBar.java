@@ -42,7 +42,6 @@ public class HealthBar extends DisplayWidget {
 		value = character.getCurrentHealth();
 	}
 	
-	// this should be changed to act
 	@Override
 	public void act(float delta) {
 		float characterHealthPercent = character.getHealthPercent();

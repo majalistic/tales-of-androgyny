@@ -39,7 +39,8 @@ public abstract class AbstractScreen extends Stage3D implements Screen {
 	protected float clearRed, clearGreen, clearBlue, clearAlpha;
 	private AssetEnum musicPath;
 	private Music music;
-    
+    private boolean switchingScreen;
+	
     protected AbstractScreen(ScreenFactory screenFactory, ScreenElements elements, AssetEnum musicPath) {
         super(elements.getViewport(), elements.getBatch());
         this.game = screenFactory.getGame();
@@ -57,37 +58,38 @@ public abstract class AbstractScreen extends Stage3D implements Screen {
     protected boolean doesFade() { return true; }
     
     public void showScreen(ScreenEnum screenRequest) {
-    	
+    	if (switchingScreen) return;
+    	switchingScreen = true;
         // Get current screen to dispose it
         AbstractScreen currentScreen = (AbstractScreen) game.getScreen();
     	
         AssetEnum oldMusicPath = currentScreen.getMusicPath();
         Music oldMusic = currentScreen.getMusic();
         
-    	this.addAction(Actions.sequence(doesFade() ? Actions.fadeOut(.2f) : Actions.hide(), Actions.hide(), new Action() {
+        Action doneAction = new Action() {
 			@Override
 			public boolean act(float delta) {
-				LoadScreen loadScreen = (LoadScreen) screenFactory.getScreen(ScreenEnum.LOAD_SCREEN);
-				loadScreen.buildStage();
-				loadScreen.giveAction(new Action() {				
-					@Override
-					public boolean act(float delta) {
-						AbstractScreen newScreen = screenFactory.getScreen(screenRequest);
-						// Show new screen
-				    	newScreen.buildStage();
-				    	switchMusic(oldMusicPath, oldMusic, newScreen.getMusicPath(), newScreen);
-						game.setScreen(newScreen);
-				        // Dispose previous screen
-				        if (currentScreen != null) {
-				            currentScreen.dispose();
-				        }
-						return true;
-				} });
-				game.setScreen(loadScreen);	
+				switchScreen(screenRequest, currentScreen, oldMusicPath, oldMusic);
 				return true;
 			}
-    	}));
+    	};
+        if (doesFade()) this.addAction(Actions.sequence(Actions.fadeOut(.2f), Actions.hide(), doneAction));
+        else switchScreen(screenRequest, currentScreen, oldMusicPath, oldMusic);
+    	
     }  
+    
+    private void switchScreen(ScreenEnum screenRequest, AbstractScreen currentScreen, AssetEnum oldMusicPath, Music oldMusic) {
+		AbstractScreen newScreen = screenFactory.getScreen(screenRequest);
+		// Show new screen
+    	newScreen.buildStage();
+    	switchMusic(oldMusicPath, oldMusic, newScreen.getMusicPath(), newScreen);
+		game.setScreen(newScreen);	
+		for (Actor actor : getActors()) { actor.clear(); }
+    	// Dispose previous screen
+    	if (currentScreen != null) {
+            currentScreen.dispose();
+        }
+    }
 
 	private Music getMusic() { return music; }
     private AssetEnum getMusicPath() { return musicPath; }

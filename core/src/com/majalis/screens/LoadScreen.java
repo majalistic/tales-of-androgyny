@@ -1,14 +1,11 @@
 package com.majalis.screens;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.scenes.scene2d.Action;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.utils.Array;
 import com.majalis.asset.AssetEnum;
 import com.majalis.character.AbstractCharacter.Stat;
@@ -18,54 +15,36 @@ import com.majalis.character.AbstractCharacter.Stat;
 public class LoadScreen extends AbstractScreen {
 	private final BitmapFont largeFont;
 	private final Image loadingImage;
-	private final Label tooltip;
-	private final Label alt;
-	private final Skin skin;
-	private Action doneAction;
+	private final ScreenEnum screenRequest;
 	
 	public LoadScreen(ScreenFactory factory, ScreenElements elements, ScreenEnum screenRequest) {
 		super(factory, elements, null);
-		this.skin = assetManager.get(AssetEnum.BATTLE_SKIN.getSkin());
 		this.loadingImage = new Image(assetManager.get(AssetEnum.LOADING.getTexture()));
 		this.largeFont = fontFactory.getFont(72);
-		this.tooltip = new Label(getRandomTooltip(), skin);
-		this.alt = new Label("Hold ALT to read tooltip, CTRL to display a new one.", skin);
+		this.screenRequest = screenRequest;
 	}
 
 	@Override
 	public void buildStage() {
+		LabelStyle style = new LabelStyle();
+		style.font = largeFont;
+		Label loading = new Label("Loading...", style);
+		loading.setPosition(1500, 50);
+		loading.addAction(Actions.forever(Actions.sequence(Actions.color(Color.GRAY, 1), Actions.color(Color.WHITE, 1))));
+		this.addActor(loading);
 		this.addActor(loadingImage);
-		this.addActor(tooltip);
-		this.addActor(alt);
-		loadingImage.setPosition(1100, 0);
-		tooltip.setPosition(40, 950);
-		tooltip.setWrap(true);
-		tooltip.setWidth(1050);
-		tooltip.setAlignment(Align.topLeft);
-		tooltip.setColor(Color.FIREBRICK);
-		alt.setPosition(25, 1000);
-		alt.setColor(Color.OLIVE);
-		alt.setAlignment(Align.topLeft);
+		loadingImage.setPosition(1350, 50);
+		loadingImage.setScale(.25f);
 	}
-	
-	protected void giveAction(Action action) { doneAction = action; }
+	@Override
+	protected boolean doesFade() { return false; }
 	
 	@Override
 	public void render(float delta) {
-		if (assetManager.update(75) && !(Gdx.input.isKeyPressed(Keys.ALT_LEFT) || Gdx.input.isKeyPressed(Keys.ALT_RIGHT))) {
-			this.addAction(doneAction);
-			super.act(delta);
-		}
-		else 
-		{
-			super.render(delta);
-			batch.begin();
-			largeFont.setColor(Color.BLACK);
-			if (Gdx.input.isKeyJustPressed(Keys.CONTROL_LEFT) || Gdx.input.isKeyJustPressed(Keys.SPACE)) {
-				tooltip.setText(getRandomTooltip());
-			}
-			batch.end();
-		}
+		super.render(delta);
+		if (assetManager.update(100)) {
+			showScreen(screenRequest);
+		}		
 	}
 	
 	public final static Array<String> randomTooltip = new Array<String>(new String[]{
@@ -108,8 +87,5 @@ public class LoadScreen extends AbstractScreen {
 		for (Stat stat : Stat.values()) {
 			randomTooltip.add(stat.getDescription());
 		}
-	}
-	private String getRandomTooltip() {
-		return randomTooltip.random();
 	}
 }

@@ -20,6 +20,5 @@ public enum ScreenEnum {
     HELP,
     CREDITS,
     PATRON,
-    LOAD_SCREEN,
     EXIT,  
 }
