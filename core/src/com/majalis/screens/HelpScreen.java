@@ -16,6 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.majalis.asset.AssetEnum;
+import com.majalis.character.AbstractCharacter.Stat;
 
 public class HelpScreen extends AbstractScreen{
 	public static final Array<AssetDescriptor<?>> resourceRequirements = new Array<AssetDescriptor<?>>();
@@ -88,9 +89,47 @@ public class HelpScreen extends AbstractScreen{
 			skin
 		)}));
 		
+		Array<String> miscTooltips = new Array<String>(new String[]{
+				// UI tooltips
+				"Press TAB to toggle hiding or showing the UI.", 
+				"Press CTRL to skip text in encounters. Text will be skipped until the next branching choice.", 
+				"Press SHIFT to alternate certain images and animations.", 
+				"Click and drag or use the arrow keys to navigate the world map.",
+				// Gameplay tooltips
+				"Your stance is the primary determinant in what techniques you can use at a given time. Using a technique will often change your stance. Pay close attention to your stance, the enemy's stance, and what stance a given technique will leave you in if it's successful.",
+				"Some techniques get conditional bonuses - having greater or extra effects if, for example, an enemy is on the ground or on unstable footing, or if you're more agile than the enemy, or simply for being more proficient at the technique.",
+				"While grappling, your available techniques will be limited based on your position in the grapple - some techniques will only be available if you have the advantage, others if you're at a disadvantage, and this is true of your opponent as well!",
+				"When your health is low, you'll receive penalties to the three physical stats - Strength, Endurance, and Agility. When your stamina is low, you'll receive penalties to Strength and Agility. These penalties apply in encounter checks as well as battle.",
+				"Some weapons cause bleed - the amount inflicted depends on the technique. Higher Endurance will reduce damage from bleeding. Bleed can be cured by bandages and rest - Endurance also increases bleed recovery.",
+				"Scouting improves the outcomes from certain encounters and reveals hidden paths. High perception boosts your effective scouting score, making it valuable for getting the most out of the areas you traverse, as well as avoiding pitfalls.",
+				"Foraging outcomes are better in the day than at night. Foraging at night carries its own unique risks!",
+				"Damage done by attacks is never random! Damage may be higher or lower than predicted damage because the enemy guards, or is armored, or has damage reduction.",
+				"Damage is reduced by armor, which is broken over the course of a battle. Sundering an enemy's armor early in the fight can be a useful investment.",
+				"Be wary when using Techniques that cause instability - the enemy can also cause you to overbalance, causing you to trip before you expected to! A technique labelled in red will cause you to fall - one in yellow puts you in dangerous territory the enemy might capitalize on.",
+				"On the Main Menu, Continue will load your last autosave, restoring you to the same position as when you last closed the game. Load will load your last Quick Save - Quick Saves can be created by hitting \"Save\" on the Main Menu.",
+				"Certain enemies can be defeated by achieving certain conditions in battle, rather than reducing their HP to 0. Similarly, certain enemies can defeat you without reducing your HP to 0!",
+				"Certain attacks can be dodged entirely by being above or below them - techniques that involve kneeling or jumping can help avoid such attacks.",
+				"To attempt to mount enemies, you must be erect.",
+				"The \"Catamite\" perk opens up various opportunities and abilities.",
+				"The Hunger Charm reduces your metabolic rate, reducing the amount of food you must consume.",
+				"Make sure to buy a weapon! Armed combat is more effective than unarmed. For this same reason, try to disarm enemies - although be warned that might change their behavior.",
+				"If you run out of gold, you can still stay at the inn...",
+				"Some shops will refill portions of their stock over time.",
+				"The enemy can force you into a different stance - and vice-versa! Make sure to take notice of when that happens.",
+				"Taunting an enemy will increase both their lust and yours.",
+				"There are rumors of a variant of the Centaur species that is attracted exclusively to virgins...",
+				"Goblins have incredible... stamina.",
+				"Beware werewolves - because of their anatomy, they may get... stuck inside.  Drain them before they do! And avoid showing off how strong you are!",
+				"Reducing an enemy to zero health isn't the only way to win - and may not always lead to the best outcome.",
+				// Goofy
+				"There is no secret ice cream level.",
+				"In the end, it's not about the destination, it's about the friends you made along the way."
+			});
+			for (Stat stat : Stat.values()) { miscTooltips.add(stat.getDescription()); }
+		
 		String lastPages = "MISC PAGE 1:\n\n";
-		for (int ii = 0; ii < LoadScreen.randomTooltip.size / 4; ii++) {
-			lastPages += LoadScreen.randomTooltip.get(ii) + "\n";
+		for (int ii = 0; ii < miscTooltips.size / 4; ii++) {
+			lastPages += miscTooltips.get(ii) + "\n";
 		}
 		info.add(new Array<Label>(new Label[]{new Label(
 			lastPages,
@@ -98,8 +137,8 @@ public class HelpScreen extends AbstractScreen{
 		)}));
 		
 		lastPages = "MISC PAGE 2:\n\n";
-		for (int ii = LoadScreen.randomTooltip.size / 4; ii < 2 * LoadScreen.randomTooltip.size / 4; ii++) {
-			lastPages += LoadScreen.randomTooltip.get(ii) + "\n";
+		for (int ii = miscTooltips.size / 4; ii < 2 * miscTooltips.size / 4; ii++) {
+			lastPages += miscTooltips.get(ii) + "\n";
 		}
 		info.add(new Array<Label>(new Label[]{new Label(
 			lastPages,
@@ -107,8 +146,8 @@ public class HelpScreen extends AbstractScreen{
 		)}));
 		
 		lastPages = "MISC PAGE 3:\n\n";
-		for (int ii = 2 * LoadScreen.randomTooltip.size / 4;  ii < 3 * LoadScreen.randomTooltip.size / 4; ii++) {
-			lastPages += LoadScreen.randomTooltip.get(ii) + "\n";
+		for (int ii = 2 * miscTooltips.size / 4;  ii < 3 * miscTooltips.size / 4; ii++) {
+			lastPages += miscTooltips.get(ii) + "\n";
 		}
 		info.add(new Array<Label>(new Label[]{new Label(
 			lastPages,
@@ -116,8 +155,8 @@ public class HelpScreen extends AbstractScreen{
 		)}));
 		
 		lastPages = "MISC PAGE 4:\n\n";
-		for (int ii = 3 * LoadScreen.randomTooltip.size / 4; ii < LoadScreen.randomTooltip.size; ii++) {
-			lastPages += LoadScreen.randomTooltip.get(ii) + "\n";
+		for (int ii = 3 * miscTooltips.size / 4; ii < miscTooltips.size; ii++) {
+			lastPages += miscTooltips.get(ii) + "\n";
 		}
 		info.add(new Array<Label>(new Label[]{new Label(
 			lastPages,
