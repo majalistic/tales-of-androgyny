@@ -1335,6 +1335,13 @@ public class WorldMapScreen extends AbstractScreen {
         uiStage.getViewport().update(width, height, false);
         cloudStage.getViewport().update(width, height, false);
     }
+    
+    @Override
+	protected void switchFade(ScreenEnum screenRequest, AbstractScreen currentScreen, AssetEnum oldMusicPath, Music oldMusic) { 
+    	super.switchFade(screenRequest, currentScreen, oldMusicPath, oldMusic);
+    	uiStage.addAction(fadeOut(.2f));
+    	cloudStage.addAction(fadeOut(.2f));
+    }
 	
 	@Override
 	public void dispose() {

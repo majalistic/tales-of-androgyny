@@ -55,7 +55,15 @@ public abstract class AbstractScreen extends Stage3D implements Screen {
  
     // Subclasses must load actors in this method
     public abstract void buildStage();
-    protected boolean doesFade() { return true; }
+    protected void switchFade(ScreenEnum screenRequest, AbstractScreen currentScreen, AssetEnum oldMusicPath, Music oldMusic) { 
+    	this.addAction(Actions.sequence(Actions.fadeOut(.2f), Actions.hide(), new Action() {
+			@Override
+			public boolean act(float delta) {
+				switchScreen(screenRequest, currentScreen, oldMusicPath, oldMusic);
+				return true;
+			}
+		}));     	
+    }
     
     public void showScreen(ScreenEnum screenRequest) {
     	if (switchingScreen) return;
@@ -65,20 +73,10 @@ public abstract class AbstractScreen extends Stage3D implements Screen {
     	
         AssetEnum oldMusicPath = currentScreen.getMusicPath();
         Music oldMusic = currentScreen.getMusic();
-        
-        Action doneAction = new Action() {
-			@Override
-			public boolean act(float delta) {
-				switchScreen(screenRequest, currentScreen, oldMusicPath, oldMusic);
-				return true;
-			}
-    	};
-        if (doesFade()) this.addAction(Actions.sequence(Actions.fadeOut(.2f), Actions.hide(), doneAction));
-        else switchScreen(screenRequest, currentScreen, oldMusicPath, oldMusic);
-    	
+        switchFade(screenRequest, currentScreen, oldMusicPath, oldMusic);
     }  
     
-    private void switchScreen(ScreenEnum screenRequest, AbstractScreen currentScreen, AssetEnum oldMusicPath, Music oldMusic) {
+    protected void switchScreen(ScreenEnum screenRequest, AbstractScreen currentScreen, AssetEnum oldMusicPath, Music oldMusic) {
 		AbstractScreen newScreen = screenFactory.getScreen(screenRequest);
 		// Show new screen
     	newScreen.buildStage();

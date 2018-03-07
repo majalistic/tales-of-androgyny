@@ -1,5 +1,6 @@
 package com.majalis.screens;
 
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
@@ -35,7 +36,7 @@ public class LoadScreen extends AbstractScreen {
 		loadingImage.setScale(.25f);
 	}
 	@Override
-	protected boolean doesFade() { return false; }
+	protected void switchFade(ScreenEnum screenRequest, AbstractScreen currentScreen, AssetEnum oldMusicPath, Music oldMusic) { switchScreen(screenRequest, currentScreen, oldMusicPath, oldMusic); }
 	
 	@Override
 	public void render(float delta) {
