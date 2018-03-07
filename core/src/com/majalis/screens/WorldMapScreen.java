@@ -1352,5 +1352,9 @@ public class WorldMapScreen extends AbstractScreen {
 		for (FrameBuffer frameBuffer : frameBuffers) {
 			frameBuffer.dispose();
 		}
+		uiStage.dispose();
+		cloudStage.dispose();
+		dragStage.dispose();
+		super.dispose();
 	}	
 }
