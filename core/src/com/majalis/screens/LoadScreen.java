@@ -45,4 +45,7 @@ public class LoadScreen extends AbstractScreen {
 			showScreen(screenRequest);
 		}		
 	}
+	
+	@Override
+	public void dispose() { super.dispose(); largeFont.dispose(); }
 }
