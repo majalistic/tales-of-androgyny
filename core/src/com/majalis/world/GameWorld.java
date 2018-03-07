@@ -118,7 +118,7 @@ public class GameWorld {
 				
 				boolean treeAbundance = isAbundantTrees(x, y);				
 				if (closest >= 3 && toAdd == GroundType.DIRT || toAdd == GroundType.RED_LEAF_0 || toAdd == GroundType.RED_LEAF_1) {
-					if (random.nextInt() % (treeAbundance ? 2 : 15) == 0) {
+					if (random.nextInt() % (treeAbundance ? 2 : 5) == 0) {
 						Array<TextureRegion> textures;
 						Array<TextureRegion> shadowTextures;
 						int arraySize;
