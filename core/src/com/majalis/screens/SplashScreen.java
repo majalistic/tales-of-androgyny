@@ -50,7 +50,9 @@ public class SplashScreen extends AbstractScreen {
 			// need a better way to ensure all assets are loaded
 			for (AssetEnum value : AssetEnum.values()) {
 				assetManager.load(value.getAsset());
-				assetManager.load(value.getAsset());
+			}
+			for (AssetDescriptor<?> requirement : MainMenuScreen.resourceRequirements) {
+				assetManager.load(requirement);
 			}
 		}
 		else {
