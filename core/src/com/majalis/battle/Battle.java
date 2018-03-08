@@ -87,7 +87,8 @@ public class Battle extends Group{
 	private final Label skillDisplay;
 	private final Label bonusDisplay;
 	private final Label penaltyDisplay;
-
+	private final Image uiVisible;
+	
 	private final AssetEnum musicPath;
 	
 	private SkillText enemySkill;
@@ -231,6 +232,15 @@ public class Battle extends Group{
 		
 		penaltyDisplay = initLabel("", skin, true, Align.top, Color.RED);
 		pane2.add(penaltyDisplay).width(600);
+		
+		uiVisible = initImage(assetManager.get(AssetEnum.SEARCHING.getTexture()), 1850, 5);
+		uiGroup.removeActor(uiVisible);
+		this.addActor(uiVisible);
+		uiVisible.setScale(.5f);
+		uiVisible.addListener(new ClickListener() {public void clicked(InputEvent event, float x, float y) {
+        	toggleUI();
+        }});
+		
 		hideHoverGroup();
 		checkEndBattle();
 		
@@ -246,13 +256,18 @@ public class Battle extends Group{
 	
 	public AssetEnum getMusicPath() { return musicPath; }
 	
+	private void toggleUI() { 
+		uiGroup.addAction(visible(!uiGroup.isVisible()));
+		uiVisible.addAction(alpha(uiGroup.isVisible() ? .5f : 1f));
+	}
+	
 	public void battleLoop() {
 		if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) { gameExit = true;	}
 		else if (!battleOutcomeDecided) { 
 			if(Gdx.input.isKeyJustPressed(Keys.UP)) { changeSelection(selection - 1 < 0 ? optionButtons.size - 1 : selection - 1); }
 	        else if(Gdx.input.isKeyJustPressed(Keys.DOWN)) { changeSelection((selection + 1) % optionButtons.size); }
 	        else if(Gdx.input.isKeyJustPressed(Keys.ENTER)) { clickButton(optionButtons.get(selection)); }			
-			if (Gdx.input.isKeyJustPressed(Keys.TAB)) { uiGroup.addAction(visible(!uiGroup.isVisible())); }
+			if (Gdx.input.isKeyJustPressed(Keys.TAB)) { toggleUI(); }
 			if (Gdx.input.isKeyJustPressed(Keys.SHIFT_LEFT)) { enemy.toggle(); }
 			
 			if (selectedTechnique == null) {

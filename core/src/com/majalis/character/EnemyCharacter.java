@@ -708,6 +708,8 @@ public class EnemyCharacter extends AbstractCharacter {
 			currentFrame = 1 - currentFrame;
 		}
 	}
+	
+	public boolean canToggle() { return (enemyType == EnemyEnum.BRIGAND && currentAnimations.getChildren().contains(animations.get(1), true)) || (enemyType == EnemyEnum.CENTAUR && stance == Stance.DOGGY);  }
 
 	public Array<AnimatedActor> getAnimations(AssetManager assetManager) { return enemyType.getAnimations(assetManager); }
 	
