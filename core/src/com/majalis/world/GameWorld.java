@@ -189,7 +189,6 @@ public class GameWorld {
 	private int distance(int x, int y, int x2, int y2) { return GameWorldHelper.distance(x, y, x2, y2); }	
 	private boolean shoreline(int x, int y) {
 		int shoreLineDistance = 2;
-		
 		for (int ii = -shoreLineDistance; ii < shoreLineDistance; ii++) {
 			//for (int jj = -shoreLineDistance + Math.abs(ii); jj <= shoreLineDistance - Math.abs(ii); jj++) {
 			for (int jj = Math.max(-shoreLineDistance, -ii - shoreLineDistance); jj < Math.min(shoreLineDistance, -ii + shoreLineDistance); jj++) {
@@ -200,7 +199,7 @@ public class GameWorld {
 		
 		return false;
 	}
-	private boolean isRiver(int x, int y) { return downRightRiver(x, y, 140, 7, 50) || upRightRiverWiggle(x, y, 50, 4, 140, 200); }//upRightRiver(x, y, 50, 9, 140, 10000) || upRightRiver(x, y, 48, 13, 160, 163); }
+	private boolean isRiver(int x, int y) { return downRightRiverWiggle(x, y, 140, 7, 50, 200) || upRightRiverWiggle(x, y, 50, 4, 140, 200); }//downRightRiver(x, y, 140, 7, 50, 10000) upRightRiver(x, y, 50, 9, 140, 10000) || upRightRiver(x, y, 48, 13, 160, 163); }
 	
 	private boolean upRightRiverWiggle(int x, int y, int start, int width, int lowerBound, int upperBound) { // should also have wiggle amount, maybe width variance
 		// start at lower bound, and add or subtract a wiggle factor using modulus(?) to determine position
@@ -218,7 +217,23 @@ public class GameWorld {
 		return false;
 	}
 	
-	private boolean downRightRiver(int x, int y, int start, int width, int terminationHeight) { return x + y > start && x + y <= start + width && y > terminationHeight; }
+	private boolean downRightRiverWiggle(int x, int y, int start, int width, int lowerBound, int upperBound) { // should also have wiggle amount, maybe width variance
+		// start at lower bound, and add or subtract a wiggle factor using modulus(?) to determine position
+		for (; lowerBound <= upperBound; lowerBound++) {
+			int offset = 0;
+			switch (lowerBound % 14) {
+				case 0: case 7: offset = 0; break;
+				case 1: case 6: offset = 1; break;
+				case 2: case 3: case 4: case 5: offset = 2; break;
+				case 8: case 13: offset = -1;
+				case 9: case 10: case 11: case 12: offset = -2;
+			}
+			if (downRightRiver(x, y, start + offset, width, lowerBound, lowerBound + 1)) { return true; }
+		}
+		return false;
+	}
+	
+	private boolean downRightRiver(int x, int y, int start, int width, int lowerBound, int upperBound) { return x + y > start && x + y <= start + width && y > lowerBound && y <= upperBound; }
 	private boolean upRightRiver(int x, int y, int start, int width, int lowerBound, int upperBound) { return y > start && y <= start + width && x + y > lowerBound && x + y <= upperBound; }
 	private boolean isLake(int x, int y) { return lake(x, y, 13, 90, 5) || lake(x, y, 87, 55, 7) || lake(x, y, 80, 62, 5) || lake(x, y, 94, 55, 3); }		
 	private boolean lake(int x, int y, int lakeX, int lakeY, int size) { return distance(x, y, lakeX, lakeY) < size; }
