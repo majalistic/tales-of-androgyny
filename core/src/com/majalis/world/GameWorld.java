@@ -99,7 +99,7 @@ public class GameWorld {
 				
 				GroundType toAdd;
 				
-				if (closest >= 2 && (river(x, y) || lake(x, y))) toAdd = GroundType.WATER;
+				if (closest >= 2 && (isRiver(x, y) || isLake(x, y))) toAdd = GroundType.WATER;
 				else if (closest <= 3 || shoreline(x, y)) toAdd = GroundType.DIRT;
 				else {
 					toAdd = GroundType.valueOf("RED_LEAF_" + Math.abs(random.nextInt() % 6));					
@@ -190,15 +190,35 @@ public class GameWorld {
 	private boolean shoreline(int x, int y) {
 		for (int ii = x - 2; ii <= x + 2; ii++) {
 			for (int jj = y - 2; jj <= y + 2; jj++) {
-				if (river(ii, jj)) return true;
-				if (lake(ii, jj)) return true;
+				if (isRiver(ii, jj)) return true;
+				if (isLake(ii, jj)) return true;
 			}
 		}
 		return false;
 	}
 	
-	private boolean river(int x, int y) { return (x + y > 140 && x + y < 148 && y > 50) || (y > 50 && y < 60 && x + y > 140); }
-	private boolean lake(int x, int y) { return distance(x, y, 13, 90) < 5 || distance(x, y, 87, 55) < 7 || distance(x, y, 80, 62) < 5 || distance(x, y, 94, 55) < 5; }	
+	private boolean isRiver(int x, int y) { return downRightRiver(x, y, 140, 7, 50) || upRightRiverWiggle(x, y, 50, 9, 140, 200); }//upRightRiver(x, y, 50, 9, 140, 10000) || upRightRiver(x, y, 48, 13, 160, 163); }
+	
+	// using uprightriver, periodically change the starting y coordinate while 
+	private boolean upRightRiverWiggle(int x, int y, int start, int width, int lowerBound, int upperBound) { // should also have wiggle amount, maybe width variance
+		// start at lower bound, and add or subtract a wiggle factor using modulus(?) to determine position
+		for (; lowerBound <= upperBound; lowerBound++) {
+			int offset = 0;
+			switch (lowerBound % 5) {
+				case 0: case 2: case 4: offset = 0; break;
+				case 1: offset = 1; break;
+				case 3: offset = -1; break;
+			}
+			if (upRightRiver(x, y, start + offset, width, lowerBound, lowerBound + 1)) { return true; }
+		}
+		return false;
+	}
+	
+	private boolean downRightRiver(int x, int y, int start, int width, int terminationHeight) { return x + y > start && x + y <= start + width && y > terminationHeight; }
+	private boolean upRightRiver(int x, int y, int start, int width, int lowerBound, int upperBound) { return y > start && y <= start + width && x + y > lowerBound && x + y <= upperBound; }
+	private boolean isLake(int x, int y) { return lake(x, y, 13, 90, 5) || lake(x, y, 87, 55, 7) || lake(x, y, 80, 62, 5) || lake(x, y, 94, 55, 5); }		
+	private boolean lake(int x, int y, int lakeX, int lakeY, int size) { return distance(x, y, lakeX, lakeY) < size; }
+	
 	private boolean isAbundantTrees(int x, int y) { return (x + y > 147 && x + y < 150) || (x > 0 && x < 15) || (x + y * 2 > 180 && x + y * 2 < 195); }
 	
 	private int worldCollide(int x, int y) {
