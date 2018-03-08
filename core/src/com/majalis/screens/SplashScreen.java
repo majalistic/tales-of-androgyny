@@ -8,7 +8,6 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.utils.Array;
 import com.majalis.asset.AssetEnum;
 /*
@@ -87,7 +86,5 @@ public class SplashScreen extends AbstractScreen {
 	public void show() {
 		super.show();
 		sound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.7f);
-	    getRoot().getColor().a = 0;
-	    getRoot().addAction(Actions.fadeIn(0.5f));
 	}
 }
