@@ -85,9 +85,10 @@ public class PlayerCharacter extends AbstractCharacter {
 	private boolean grappleTutorial;
 	private boolean knockdownTutorial;
 	private boolean stanceTutorial;
+	private boolean kyliraHeal;
 	
 	@SuppressWarnings("unused")
-	private PlayerCharacter() { if(arousal == null) arousal = new Arousal(ArousalType.PLAYER); eventLog = new Array<String>(); dignity = new Dignity(); femininity = Femininity.MALE; }
+	private PlayerCharacter() { if(arousal == null) arousal = new Arousal(ArousalType.PLAYER); eventLog = new Array<String>(); dignity = new Dignity(); femininity = Femininity.MALE; kyliraHeal = true; }
 	
 	public PlayerCharacter(boolean defaultValues) {
 		super(defaultValues);
@@ -117,6 +118,7 @@ public class PlayerCharacter extends AbstractCharacter {
 			dignity = new Dignity();
 			willpower = 5;
 			femininity = Femininity.MALE;
+			kyliraHeal = true;
 		}
 		
 		skills = new ObjectMap<String, Integer>();
@@ -1650,4 +1652,6 @@ public class PlayerCharacter extends AbstractCharacter {
 	public boolean hasSeenKnockdownTutorial() { boolean temp = knockdownTutorial; knockdownTutorial = true; return temp; }
 	public boolean hasSeenStanceTutorial() { boolean temp = stanceTutorial; stanceTutorial = true; return temp; }
 	public Femininity getFemininity() { return femininity; }
+	public boolean hasKylira() { return questFlags.get(QuestType.ELF.toString(), 0) > 8;  }
+	public boolean hasKyliraHeal() { boolean temp = kyliraHeal; if (hasKylira()) kyliraHeal = false; return temp && hasKylira(); }
 }

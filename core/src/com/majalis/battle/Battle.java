@@ -427,7 +427,21 @@ public class Battle extends Group{
 		else if (firstCharacter.getStance().isIncapacitating() && !character.hasSeenKnockdownTutorial()) {
 			popDialog("When you run out of stamina or stability, you will fall to the ground!  While attempting to get to your feet, you can transition through multiple stances, including Hands-and-Knees and Kneeling stance, and your available skills are limited by your current stamina and stability.");
 		}
-				
+		
+		
+		if (character.getHealthPercent() < .11f && character.hasKyliraHeal()) {
+			// have Kylira heal
+			playerResults.addAll(character.modHealth(20));
+			printToConsole("Kylira heals you for 20!  \"Good luck!\"");
+			Group popupGroup = new Group();
+			this.addActor(popupGroup);
+			
+			Texture elfTexture = assetManager.get(AssetEnum.ELF.getTexture());
+			initActor(new Image(elfTexture), popupGroup, 350, 0, elfTexture.getWidth(), elfTexture.getHeight());		
+			popupGroup.addAction(sequence(alpha(0), fadeIn(1), fadeOut(1)));
+			soundMap.get(AssetEnum.FIREBALL_SOUND).play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume"));
+		}
+		
 		return playerResults;
 	}
 	

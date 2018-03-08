@@ -680,8 +680,8 @@ public abstract class AbstractCharacter extends Group {
 			if (oilyFire) statuses.put(StatusType.OIL.toString(), 0); 
 			int damage = attack.getDamage() * (oilyFire ? 2 : 1);
 			Armor hitArmor = getArmorHit(attack.getAttackHeight());
-			if (!attack.ignoresArmor()) {
-				if (getBaseDefense() > 0) result.add("Damage reduced by " + getBaseDefense() + "!");
+			if (!attack.ignoresArmor() && damage > 0) {
+				if (getBaseDefense() > 0) result.add("Damage reduced by " + Math.max(damage, getBaseDefense()) + "!");
 				damage -= getBaseDefense() + getShockAbsorption(hitArmor);
 			}
 			
