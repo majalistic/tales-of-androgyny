@@ -48,6 +48,7 @@ public class CharacterCreationScene extends Scene {
 		super(sceneBranches, sceneCode, hud);
 		this.saveService = saveService;
 		this.addActor(background);
+		// this should be refactored to remove boilerplate
 		Image classSelectPanel = new Image(assetManager.get(AssetEnum.CLASS_SELECT_PANEL.getTexture()));
 		this.addActor(classSelectPanel);
 		Image subtleBorder = new Image(assetManager.get(AssetEnum.CLASS_SELECT_SUBTLE_BORDER.getTexture()));

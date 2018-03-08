@@ -354,19 +354,14 @@ public class WorldMapScreen extends AbstractScreen {
 		toAdd.setPosition(x, y);
 		toAdd.setColor(toSet);		
 	}
-	
-	@SuppressWarnings("unused")
-	private class FrameRate extends Label {
-		private FrameRate(Skin skin) {
-			super("", skin);
-		}
-		
-		public void act(float delta) {
-			super.act(delta);
-			setText("FPS: " + Gdx.graphics.getFramesPerSecond());
-		}
+	@Override
+	protected void buildMenu() {
+		super.buildMenu();
+		Actor menuGroup = getActors().get(getActors().size - 1);
+		menuGroup.remove();
+		uiStage.addActor(menuGroup);
 	}
-	
+		
 	@Override
 	public void buildStage() {
 		final Group uiGroup = new Group();
@@ -1357,4 +1352,16 @@ public class WorldMapScreen extends AbstractScreen {
 		dragStage.dispose();
 		super.dispose();
 	}	
+	
+	@SuppressWarnings("unused")
+	private class FrameRate extends Label {
+		private FrameRate(Skin skin) {
+			super("", skin);
+		}
+		
+		public void act(float delta) {
+			super.act(delta);
+			setText("FPS: " + Gdx.graphics.getFramesPerSecond());
+		}
+	}
 }

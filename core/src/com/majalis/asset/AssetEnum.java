@@ -94,6 +94,10 @@ public enum AssetEnum {
 	BUTTON_DOWN("buttons/basicd.png"),
 	BUTTON_HIGHLIGHT("buttons/basich.png"),
 	
+	MENU_BUTTON_UP("buttons/menu.png"),
+	MENU_BUTTON_DOWN("buttons/menud.png"),
+	MENU_BUTTON_HIGHLIGHT("buttons/menuh.png"),
+	
 	EMBELLISHED_BUTTON_UP("buttons/embellished.png"),
 	EMBELLISHED_BUTTON_DOWN("buttons/embellishedd.png"),
 	EMBELLISHED_BUTTON_HIGHLIGHT("buttons/embellishedh.png"),

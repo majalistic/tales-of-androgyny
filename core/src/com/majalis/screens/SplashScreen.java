@@ -34,6 +34,9 @@ public class SplashScreen extends AbstractScreen {
 	protected void switchFade(ScreenEnum screenRequest, AbstractScreen currentScreen, AssetEnum oldMusicPath, Music oldMusic) { switchScreen(screenRequest, currentScreen, oldMusicPath, oldMusic); }
 	
 	@Override
+	public void buildMenu() {}		
+	
+	@Override
 	public void buildStage() {
 		clearRed = .8f;
         clearGreen = .9f;
@@ -42,6 +45,11 @@ public class SplashScreen extends AbstractScreen {
 		assetManager.load(AssetEnum.INTRO_SOUND.getSound());
 		assetManager.load(AssetEnum.BATTLE_SKIN.getSkin());
 		assetManager.load(AssetEnum.SPLASH_SCREEN.getTexture());
+		assetManager.load(AssetEnum.NULL.getTexture());
+		assetManager.load(AssetEnum.MENU_BUTTON_UP.getTexture());
+		assetManager.load(AssetEnum.MENU_BUTTON_DOWN.getTexture());
+		assetManager.load(AssetEnum.MENU_BUTTON_HIGHLIGHT.getTexture());
+		assetManager.load(AssetEnum.NULL.getTexture());
 		assetManager.finishLoading();
 		sound = assetManager.get(AssetEnum.INTRO_SOUND.getSound());
 		background = assetManager.get(AssetEnum.SPLASH_SCREEN.getTexture());

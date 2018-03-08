@@ -13,9 +13,15 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.Button.ButtonStyle;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Scaling;
@@ -76,10 +82,56 @@ public abstract class AbstractScreen extends Stage3D implements Screen {
         switchFade(screenRequest, currentScreen, oldMusicPath, oldMusic);
     }  
     
+    protected void buildMenu() {
+    	Group menuGroup = new Group();
+    	addActor(menuGroup);
+    	Image mainMenuHighlight = new Image(assetManager.get(AssetEnum.NULL.getTexture()));
+        mainMenuHighlight.setBounds(0, 1050, 2000, 100);
+        menuGroup.addActor(mainMenuHighlight);   
+        
+        ButtonStyle buttonStyle = new ButtonStyle(new TextureRegionDrawable(new TextureRegion(assetManager.get(AssetEnum.MENU_BUTTON_UP.getTexture()))),  new TextureRegionDrawable(new TextureRegion(assetManager.get(AssetEnum.MENU_BUTTON_DOWN.getTexture()))),  new TextureRegionDrawable(new TextureRegion(assetManager.get(AssetEnum.MENU_BUTTON_HIGHLIGHT.getTexture()))));
+        buttonStyle.over = new TextureRegionDrawable(new TextureRegion(assetManager.get(AssetEnum.MENU_BUTTON_HIGHLIGHT.getTexture())));		
+        
+        Button mainMenuButton = new Button(buttonStyle);
+        mainMenuButton.setPosition(800, 1100);
+        menuGroup.addActor(mainMenuButton);
+        ClickListener currentListener = mainMenuButton.getClickListener();
+        mainMenuButton.addListener(new ClickListener() { 
+        	@Override
+        	public void clicked(InputEvent event, float x, float y) {
+            	showScreen(ScreenEnum.MAIN_MENU);
+            	currentListener.clicked(event, x, y);
+            }
+        	@Override
+ 	        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
+        		mainMenuButton.addAction(Actions.moveTo(800, 915, .5f));
+        		currentListener.enter(event, x, y, pointer, fromActor);
+ 			}
+ 			@Override
+ 	        public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
+ 				mainMenuButton.addAction(Actions.moveTo(800, 1100, .5f));
+ 				currentListener.exit(event, x, y, pointer, toActor);
+ 			}
+        });
+        
+        mainMenuHighlight.addAction(Actions.sequence(Actions.delay(.5f), new Action() {@Override public boolean act(float delta) { 
+        	mainMenuHighlight.addListener(new ClickListener() { 
+        	@Override
+ 	        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
+        		mainMenuButton.addAction(Actions.moveTo(800, 915, .5f));
+ 			}
+ 			@Override
+ 	        public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
+ 				mainMenuButton.addAction(Actions.moveTo(800, 1100, .5f));
+ 			}
+        }); return true; }}));   
+    }
+    
     protected void switchScreen(ScreenEnum screenRequest, AbstractScreen currentScreen, AssetEnum oldMusicPath, Music oldMusic) {
 		AbstractScreen newScreen = screenFactory.getScreen(screenRequest);
 		// Show new screen
     	newScreen.buildStage();
+    	newScreen.buildMenu();    	          
     	switchMusic(oldMusicPath, oldMusic, newScreen.getMusicPath(), newScreen);
 		game.setScreen(newScreen);	
 		for (Actor actor : getActors()) { actor.clear(); }
