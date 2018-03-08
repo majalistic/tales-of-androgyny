@@ -6,16 +6,15 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.RandomXS128;
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.IntArray;
 import com.badlogic.gdx.utils.ObjectMap;
-import com.badlogic.gdx.utils.ObjectSet;
 import com.majalis.asset.AnimatedActor;
 import com.majalis.battle.Battle.Outcome;
 import com.majalis.character.Arousal.ArousalLevel;
@@ -32,9 +31,8 @@ public class EnemyCharacter extends AbstractCharacter {
 	private transient ObjectMap<Stance, Array<Image>> textures;
 	private transient Array<Image> defaultTextures;
 	private ObjectMap <String, Integer> climaxCounters;
-	
+	private transient Group currentAnimations;
 	private transient Array<AnimatedActor> animations;
-	private transient ObjectSet<AnimatedActor> currentAnimationsPlaying;
 	private String currentDisplay;
 	private int range;
 	private int currentFrame;
@@ -99,27 +97,15 @@ public class EnemyCharacter extends AbstractCharacter {
 	}
 	public AssetDescriptor<Texture> getBGPath() { return enemyType.getBGPath(); }
 	
-	@Override
-    public void draw(Batch batch, float parentAlpha) {
-		super.draw(batch, parentAlpha);
-		if (!(currentAnimationsPlaying.size == 0 || 
-				((enemyType == EnemyEnum.GOBLIN || enemyType == EnemyEnum.GOBLIN_MALE) && (stance == Stance.FACE_SITTING || stance == Stance.SIXTY_NINE || stance == Stance.PRONE_BONE || stance == Stance.DOGGY || stance == Stance.PRONE_BONE || stance == Stance.SIXTY_NINE)) ||
-				(enemyType == EnemyEnum.CENTAUR && (stance == Stance.DOGGY || stance == Stance.FELLATIO)) ||
-				(enemyType == EnemyEnum.WERESLUT && (stance == Stance.DOGGY || stance == Stance.KNOTTED)) ||
-				(enemyType == EnemyEnum.BRIGAND && (stance == Stance.FELLATIO || stance == Stance.FACEFUCK || stance == Stance.ANAL)))) {
-			for (AnimatedActor animation: currentAnimationsPlaying) {
-				animation.draw(batch,  parentAlpha);
-			}
-		}
-    }
 	// this should be refactored so that the enemy simply receives the assetManager and uses what it requires to reinitialize itself
 	public void init(Array<Texture> defaultTextures, ObjectMap<Stance, Array<Texture>> textures, Array<AnimatedActor> animations) {
 		this.defaultTextures = defaultTextures == null ? new Array<Image>() : initImages(defaultTextures);
 		this.textures = initImagesBystance(textures);
 		this.animations = animations;
-		this.currentAnimationsPlaying = new ObjectSet<AnimatedActor>();
+		currentAnimations = new Group();
+		this.addActor(currentAnimations);
 		if (animations.size > 0 && (enemyType != EnemyEnum.HARPY || stance != Stance.FELLATIO) && (enemyType != EnemyEnum.BRIGAND || (stance != Stance.DOGGY && stance != Stance.STANDING))) {
-			currentAnimationsPlaying.add(animations.first());
+			currentAnimations.addActor(animations.first());
 		}
 		
 		currentDisplay = enemyType == EnemyEnum.BRIGAND ? "IFOS100N" :"Idle Erect";
@@ -145,39 +131,38 @@ public class EnemyCharacter extends AbstractCharacter {
 	
 	@Override
 	public void act(float delta) {
-		if (animations.size > 0) {
-			animations.get(0).act(delta);
-		}
 		for (Actor actor: getChildren()) {
 			this.removeActor(actor);
 		}
 		
+		this.addActor(currentAnimations);
+		
 		if (enemyType == EnemyEnum.BRIGAND) {
 			if (stance == Stance.DOGGY || stance == Stance.STANDING) {
-				currentAnimationsPlaying.add(animations.get(1));
-				currentAnimationsPlaying.remove(animations.get(0));
+				currentAnimations.addActor(animations.get(1));
+				currentAnimations.removeActor(animations.get(0));
 			}
 			else {
-				currentAnimationsPlaying.add(animations.get(0));
-				currentAnimationsPlaying.remove(animations.get(1));
+				currentAnimations.addActor(animations.get(0));
+				currentAnimations.removeActor(animations.get(1));
 			}
 		}
 		else if (enemyType == EnemyEnum.ORC) {
 			if (stance == Stance.DOGGY || stance == Stance.PRONE_BONE) {
-				currentAnimationsPlaying.add(animations.get(1));
-				currentAnimationsPlaying.remove(animations.get(0));
+				currentAnimations.addActor(animations.get(1));
+				currentAnimations.removeActor(animations.get(0));
 			}
 			else {
-				currentAnimationsPlaying.add(animations.get(0));
-				currentAnimationsPlaying.remove(animations.get(1));
+				currentAnimations.addActor(animations.get(0));
+				currentAnimations.removeActor(animations.get(1));
 			}
 		}
-		else if (enemyType == EnemyEnum.HARPY && currentFrame > 0) { 
+		/*else if (enemyType == EnemyEnum.HARPY && currentFrame > 0) { 
 			clearActions();
 			currentAnimationsPlaying.clear();
-		}
-		if (currentAnimationsPlaying.size == 0 && enemyType == EnemyEnum.HARPY && !stance.isOralPenetration()) currentAnimationsPlaying.add(animations.get(0));
-		if (currentAnimationsPlaying.size == 0 || 
+		}*/
+		if (enemyType == EnemyEnum.HARPY && !stance.isOralPenetration()) currentAnimations.addActor(animations.get(0));
+		if (currentAnimations.getChildren().size == 0 || 
 				((enemyType == EnemyEnum.GOBLIN || enemyType == EnemyEnum.GOBLIN_MALE) && (stance == Stance.FACE_SITTING || stance == Stance.SIXTY_NINE || stance == Stance.PRONE_BONE || stance == Stance.DOGGY || stance == Stance.PRONE_BONE || stance == Stance.SIXTY_NINE)) ||
 				(enemyType == EnemyEnum.CENTAUR && (stance == Stance.DOGGY || stance == Stance.FELLATIO)) ||
 				(enemyType == EnemyEnum.WERESLUT && (stance == Stance.DOGGY || stance == Stance.KNOTTED)) ||
@@ -253,14 +238,14 @@ public class EnemyCharacter extends AbstractCharacter {
 						@Override
 						public boolean act(float delta) {
 							animations.get(1).setAnimation(0, attack, false);
-							currentAnimationsPlaying.add(animations.get(1));
-							currentAnimationsPlaying.remove(animations.get(0));
+							currentAnimations.addActor(animations.get(1));
+							currentAnimations.removeActor(animations.get(0));
 							return true;
 					}}, Actions.delay(2), new Action() {
 					@Override
 					public boolean act(float delta) {
-						if (!stance.isOralPenetration()) currentAnimationsPlaying.add(animations.get(0));
-						currentAnimationsPlaying.remove(animations.get(1));
+						if (!stance.isOralPenetration()) currentAnimations.addActor(animations.get(0));
+						currentAnimations.removeActor(animations.get(1));
 						return true;
 					}
 				}));
@@ -273,7 +258,7 @@ public class EnemyCharacter extends AbstractCharacter {
 	}
 	
 	public void hitAnimation() {
-		if (animations.size > 0 && currentAnimationsPlaying.contains(animations.get(0)) && enemyType.hasHitAnimation()) {
+		if (animations.size > 0 && currentAnimations.getChildren().contains(animations.get(0), true) && enemyType.hasHitAnimation()) {
 			animations.get(0).setAnimation(0, "Hit Erect", false);
 			animations.get(0).addAnimation(0, "Idle Erect", true, 1.0f);
 			if (enemyType == EnemyEnum.HARPY) {
@@ -281,16 +266,16 @@ public class EnemyCharacter extends AbstractCharacter {
 					new Action() {
 						@Override
 						public boolean act(float delta) {
-							currentAnimationsPlaying.add(animations.get(2));
-							currentAnimationsPlaying.add(animations.get(3));
+							currentAnimations.addActor(animations.get(2));
+							currentAnimations.addActor(animations.get(3));
 							return true;
 					}},	
 					Actions.delay(1), 
 					new Action() {
 						@Override
 						public boolean act(float delta) {
-							currentAnimationsPlaying.remove(animations.get(2));
-							currentAnimationsPlaying.remove(animations.get(3));
+							currentAnimations.removeActor(animations.get(2));
+							currentAnimations.removeActor(animations.get(3));
 							return true;
 					}}
 				));
