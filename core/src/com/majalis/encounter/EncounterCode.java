@@ -273,7 +273,7 @@ public enum EncounterCode {
 		encounterMap = new IntMap<Array<EncounterCode>>();
 		encounterMap.put(1, new Array<EncounterCode>(new EncounterCode[]{WERESLUT, HARPY, SLIME, SOLICITATION, BRIGAND, CENTAUR, GOBLIN, GOBLIN_MALE, ORC, FOOD_CACHE, GOLD_CACHE, DAMAGE_TRAP, ANAL_TRAP, HUNGER_CHARM}));
 		encounterMap.put(2, new Array<EncounterCode>(new EncounterCode[]{WERESLUT, HARPY, BRIGAND, DRYAD, CENTAUR, GOBLIN, GOBLIN_MALE, ORC, OGRE, HUNGER_CHARM, ICE_CREAM, BEASTMISTRESS, GOLEM, GHOST, GOLD_CACHE, FOOD_CACHE, DAMAGE_TRAP, ANAL_TRAP}));
-		encounterMap.put(3, new Array<EncounterCode>(new EncounterCode[]{OGRE, HUNGER_CHARM, ICE_CREAM, BEASTMISTRESS, GOLEM, GHOST, NAGA, FOOD_CACHE, DAMAGE_TRAP, ANAL_TRAP}));
+		encounterMap.put(3, new Array<EncounterCode>(new EncounterCode[]{OGRE, BEASTMISTRESS, GOLEM, GHOST, NAGA, FOOD_CACHE, DAMAGE_TRAP, ANAL_TRAP}));
 		iceCreamReady = true;
 		hungerCharmReady = true;
 	}
