@@ -1364,6 +1364,7 @@ public class PlayerCharacter extends AbstractCharacter {
 		modDebtCooldown(-timePassed);
 		result.addAll(modFood(-getMetabolicRate() * timePassed));
 		result.addAll(debtTick((time / 6) - currentDay));
+		result.addAll(modHealth(getHealthRegen())); 
 		return result;
 	}
 	
