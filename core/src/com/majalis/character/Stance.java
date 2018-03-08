@@ -6,21 +6,28 @@ import com.majalis.asset.AssetEnum;
 import com.majalis.technique.ClimaxTechnique.ClimaxType;
 
 public enum Stance {
+	// Basic Stances
 	BALANCED (AssetEnum.BALANCED),
 	DEFENSIVE (AssetEnum.DEFENSIVE),
 	OFFENSIVE (AssetEnum.OFFENSIVE),
+	// Advanced Stances
 	BLITZ (AssetEnum.BLITZ),
-	COUNTER (AssetEnum.COUNTER),
+	BERSERK (AssetEnum.BALANCED),
+	HAYMAKER (AssetEnum.BALANCED),
+	FOCUS (AssetEnum.BALANCED),
 	STONEWALL (AssetEnum.BALANCED),
+	COUNTER (AssetEnum.COUNTER),
+	// Positional Stances
 	PRONE (StanceType.INCAPACITATED, AssetEnum.PRONE, false, false, true),
 	SUPINE (StanceType.INCAPACITATED, AssetEnum.SUPINE, false, false, true),
 	HANDS_AND_KNEES (StanceType.INCAPACITATED, AssetEnum.HANDS_AND_KNEES, false, false, true), // need a new asset
 	KNEELING (AssetEnum.KNEELING, false, true, true),
 	AIRBORNE (AssetEnum.AIRBORNE, true, false, false), 
+	// Special Stances
 	CASTING (AssetEnum.CASTING),
 	ITEM (AssetEnum.ITEM), 
 	SEDUCTION(AssetEnum.SEDUCTION),
-	
+	// Erotic Stances
 	GROUND_WRESTLE (AssetEnum.GROUND_WRESTLE),
 	GROUND_WRESTLE_FACE_DOWN (AssetEnum.PRONE),
 	GROUND_WRESTLE_FACE_UP (AssetEnum.SUPINE),
@@ -152,7 +159,8 @@ public enum Stance {
 	public boolean receivesMediumAttacks() { return receivesMediumAttacks; }
 	public boolean receivesLowAttacks() { return receivesLowAttacks; }
 	public boolean hasLearnableSkills() { 
-		return this == BALANCED || this == DEFENSIVE || this == OFFENSIVE || this == BLITZ || this == KNEELING || this == SEDUCTION || this == DOGGY || this == PRONE_BONE || this == ANAL || this == FELLATIO; }
+		return this == BALANCED || this == DEFENSIVE || this == OFFENSIVE || this == BLITZ || this == KNEELING || this == SEDUCTION || this == DOGGY || this == PRONE_BONE || this == ANAL || this == FELLATIO; 
+	}
 	
 	public boolean isNull() { return this == NULL; }	
 	public ClimaxType getClimaxType() { return isAnalReceptive() ? ClimaxType.ANAL_RECEPTIVE : isOralReceptive() ? ClimaxType.ORAL_RECEPTIVE : isAnalPenetration() ? ClimaxType.ANAL : isOralPenetration() ? ClimaxType.ORAL : this == Stance.HANDY ? ClimaxType.FACIAL : isErotic() ? ClimaxType.BACKWASH : ClimaxType.NULL; }
