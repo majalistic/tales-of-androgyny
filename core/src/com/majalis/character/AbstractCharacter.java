@@ -681,6 +681,7 @@ public abstract class AbstractCharacter extends Group {
 			int damage = attack.getDamage() * (oilyFire ? 2 : 1);
 			Armor hitArmor = getArmorHit(attack.getAttackHeight());
 			if (!attack.ignoresArmor()) {
+				if (getBaseDefense() > 0) result.add("Damage reduced by " + getBaseDefense() + "!");
 				damage -= getBaseDefense() + getShockAbsorption(hitArmor);
 			}
 			
@@ -1500,7 +1501,8 @@ public abstract class AbstractCharacter extends Group {
 		public boolean isDown() { return this.ordinal() < 3; }
 		public boolean lowBalance() { return this.ordinal() < 4; }
 		public boolean isGood() { return this.ordinal() > 5; }
-	
+
+		// this should just be a simple conversion of value to ordinal - change stability cost to be "tier cost" in skills, convert knockdown somehow, and then make it so that agility can downgrade the stability level costs - increase the number of stability levels as well
 		public Stability shift(int stabilityMod) {
 			int shift = 0;
 			if (stabilityMod > 10) { shift = 4; }
