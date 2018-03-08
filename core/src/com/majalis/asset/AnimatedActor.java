@@ -32,7 +32,12 @@ public class AnimatedActor extends Actor {
 			catch(Exception ex){}
 		}
 	}
-
+	
+	public void setAnimation(int track, String animationName, boolean loop) { state.setAnimation(track, animationName, loop); }
+	public void addAnimation(int track, String animationName, boolean loop, float delay) { state.addAnimation(track, animationName, loop, delay); }
+	public void setSkeletonPosition(float x, float y) { skeleton.setPosition(x, y); }
+	public void setSkeletonSkin(String skin) { skeleton.setSkin(skin); }
+	
 	@Override
     public void draw(Batch batch, float parentAlpha) {
 		super.draw(batch, parentAlpha);
@@ -46,28 +51,11 @@ public class AnimatedActor extends Actor {
 		batch.setBlendFunction(blendSrc, blendDst);
 	}
 	
-	public void setAnimation(int track, String animationName, boolean loop) {
-		state.setAnimation(track, animationName, loop);
-	}
-	
-	public void addAnimation(int track, String animationName, boolean loop, float delay) {
-		state.addAnimation(track, animationName, loop, delay);
-	}
-	
 	@Override
 	public void setPosition(float x, float y) {
 		float deltaX = x - getX();
 		float deltaY = y - getY();
 		setSkeletonPosition(skeleton.getX() + deltaX, skeleton.getY() + deltaY);
 		super.setPosition(x, y);
-	}
-	
-	
-	public void setSkeletonPosition(float x, float y) {
-		skeleton.setPosition(x, y);
-	}
-
-	public void setSkeletonSkin(String skin) {
-		skeleton.setSkin(skin);
-	}
+	}	
 }
