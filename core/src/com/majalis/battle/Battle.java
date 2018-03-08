@@ -88,6 +88,7 @@ public class Battle extends Group{
 	private final Label bonusDisplay;
 	private final Label penaltyDisplay;
 	private final Image uiVisible;
+	private final Image enemyToggle;
 	
 	private final AssetEnum musicPath;
 	
@@ -237,8 +238,16 @@ public class Battle extends Group{
 		uiGroup.removeActor(uiVisible);
 		this.addActor(uiVisible);
 		uiVisible.setScale(.5f);
-		uiVisible.addListener(new ClickListener() {public void clicked(InputEvent event, float x, float y) {
+		uiVisible.addListener(new ClickListener() { public void clicked(InputEvent event, float x, float y) {
         	toggleUI();
+        }});
+		
+		enemyToggle = initImage(assetManager.get(AssetEnum.XRAY.getTexture()), 1850, 55);
+		uiGroup.removeActor(enemyToggle);
+		this.addActor(enemyToggle);
+		enemyToggle.setScale(.5f);
+		enemyToggle.addListener(new ClickListener() { public void clicked(InputEvent event, float x, float y) {
+        	toggleXray();
         }});
 		
 		hideHoverGroup();
@@ -259,16 +268,20 @@ public class Battle extends Group{
 	private void toggleUI() { 
 		uiGroup.addAction(visible(!uiGroup.isVisible()));
 		uiVisible.addAction(alpha(uiGroup.isVisible() ? .5f : 1f));
+		enemyToggle.addAction(!enemyToggle.isVisible() ? hide() : alpha(uiGroup.isVisible() ? .5f : 1f));
 	}
 	
+	private void toggleXray() { enemy.toggle(); }
+	
 	public void battleLoop() {
+		enemyToggle.addAction(enemy.canToggle() ? show() : hide()); 
 		if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) { gameExit = true;	}
 		else if (!battleOutcomeDecided) { 
 			if(Gdx.input.isKeyJustPressed(Keys.UP)) { changeSelection(selection - 1 < 0 ? optionButtons.size - 1 : selection - 1); }
 	        else if(Gdx.input.isKeyJustPressed(Keys.DOWN)) { changeSelection((selection + 1) % optionButtons.size); }
 	        else if(Gdx.input.isKeyJustPressed(Keys.ENTER)) { clickButton(optionButtons.get(selection)); }			
 			if (Gdx.input.isKeyJustPressed(Keys.TAB)) { toggleUI(); }
-			if (Gdx.input.isKeyJustPressed(Keys.SHIFT_LEFT)) { enemy.toggle(); }
+			if (Gdx.input.isKeyJustPressed(Keys.SHIFT_LEFT)) { toggleXray(); }
 			
 			if (selectedTechnique == null) {
 				int ii = 0;
@@ -442,7 +455,6 @@ public class Battle extends Group{
 		else if (firstCharacter.getStance().isIncapacitating() && !character.hasSeenKnockdownTutorial()) {
 			popDialog("When you run out of stamina or stability, you will fall to the ground!  While attempting to get to your feet, you can transition through multiple stances, including Hands-and-Knees and Kneeling stance, and your available skills are limited by your current stamina and stability.");
 		}
-		
 		
 		if (character.getHealthPercent() < .11f && character.hasKyliraHeal()) {
 			// have Kylira heal

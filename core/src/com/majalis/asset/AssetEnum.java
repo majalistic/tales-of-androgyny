@@ -147,6 +147,7 @@ public enum AssetEnum {
 	PERK_POINTS("icons/Perks.png"), 
 	
 	SEARCHING("icons/Searching.png"),
+	XRAY("icons/XRay.png"),
 	
 	CHARACTER_SCREEN("backgrounds/CharacterScreen.jpg"),
 	
