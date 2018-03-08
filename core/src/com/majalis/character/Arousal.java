@@ -120,7 +120,6 @@ public class Arousal {
 	private int getOralBottomMod(ObjectMap<String, Integer> perks, int base) { return base + perks.get(Perk.MOUTH_MANIAC.toString(), 0) + perks.get(Perk.COCK_LOVER.toString(), 0) / 3; }
 	private int getTopMod(ObjectMap<String, Integer> perks, int base) { return base + perks.get(Perk.TOP.toString(), 0); }
 	
-	
 	private void modLust(int mod) {
 		lust += mod;
 		lust = Math.max(Math.min(lust, 400), 0);
@@ -134,5 +133,16 @@ public class Arousal {
 
 	protected int getLust() { return lust / 4; }
 
-	
+	// need a way to tell 
+	public String getCurrentState() {
+		switch(arousalLevel) {
+			case CLIMAX: return "Edging";
+			case EDGING:  return "Edging";
+			case ERECT: return "Erect";
+			case FLACCID: return "Flaccid";
+			case FULLY_AROUSED: return "FullyAroused";
+			case SEMI_ERECT: return "SemiErect";
+			default: return "";			
+		}
+	}	
 }

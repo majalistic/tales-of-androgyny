@@ -1,0 +1,83 @@
+
+Dong.png
+size: 2048,256
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Bg
+  rotate: false
+  xy: 240, 45
+  size: 208, 208
+  orig: 208, 208
+  offset: 0, 0
+  index: -1
+Cage
+  rotate: true
+  xy: 1390, 178
+  size: 75, 149
+  orig: 75, 149
+  offset: 0, 0
+  index: -1
+CumBlob
+  rotate: false
+  xy: 1390, 152
+  size: 26, 24
+  orig: 26, 24
+  offset: 0, 0
+  index: -1
+DogLike
+  rotate: false
+  xy: 642, 70
+  size: 190, 183
+  orig: 190, 183
+  offset: 0, 0
+  index: -1
+Dogknot
+  rotate: true
+  xy: 1541, 182
+  size: 71, 88
+  orig: 71, 88
+  offset: 0, 0
+  index: -1
+Harpy
+  rotate: false
+  xy: 450, 64
+  size: 190, 189
+  orig: 190, 189
+  offset: 0, 0
+  index: -1
+HorseLike
+  rotate: false
+  xy: 2, 48
+  size: 236, 205
+  orig: 236, 205
+  offset: 0, 0
+  index: -1
+HumanCock
+  rotate: false
+  xy: 1026, 91
+  size: 184, 162
+  orig: 184, 162
+  offset: 0, 0
+  index: -1
+MCCock
+  rotate: false
+  xy: 1212, 116
+  size: 176, 137
+  orig: 176, 137
+  offset: 0, 0
+  index: -1
+MCForeskin
+  rotate: false
+  xy: 2, 2
+  size: 58, 44
+  orig: 58, 44
+  offset: 0, 0
+  index: -1
+Monster
+  rotate: false
+  xy: 834, 87
+  size: 190, 166
+  orig: 190, 166
+  offset: 0, 0
+  index: -1

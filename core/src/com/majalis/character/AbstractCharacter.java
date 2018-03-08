@@ -119,6 +119,7 @@ public abstract class AbstractCharacter extends Group {
 	protected boolean wrapLegs;
 	
 	private transient AnimatedActor belly;
+	private transient AnimatedActor cock;
 	
 	/* Constructors */
 	protected AbstractCharacter() { ass = new Ass(new Sphincter(), new Rectum(), new Colon()); }
@@ -587,6 +588,10 @@ public abstract class AbstractCharacter extends Group {
 		// all climax logic should go here
 		if (resolvedAttack.isClimax()) {
 			resolvedAttack.addMessage(climax());
+			if (this.cock != null) {
+				this.cock.setAnimation(0, "EdgingToClimax", false);
+				this.cock.addAnimation(0, "ClimaxToFlaccid", false, 4);
+			}
 		}
 		
 		for (Bonus bonus : resolvedAttack.getBonuses()) {
@@ -819,7 +824,7 @@ public abstract class AbstractCharacter extends Group {
 				}	
 			}
 			else if (enemyType == EnemyEnum.QUETZAL) {
-				arousal.increaseArousal(selfSex, perks);
+				increaseLust(selfSex);
 			}
 			
 			String internalShotText = null;
@@ -873,9 +878,20 @@ public abstract class AbstractCharacter extends Group {
 	
 	protected String increaseLust(SexualExperience ... sexes) {
 		String spurt = "";
+		String oldArousal = arousal.getCurrentState();
 		arousal.increaseArousal(sexes, perks);
+		if (this.cock != null) {
+			if (!oldArousal.equals(arousal.getCurrentState())) {
+				this.cock.setAnimation(0, oldArousal + "To" + arousal.getCurrentState(), false);
+			}			
+		}
+		
 		if (arousal.isClimax() && stance.isEroticReceptive()) {
 			spurt = climax();
+			if (this.cock != null && !arousal.isClimax()) {
+				this.cock.setAnimation(0, "EdgingToClimax", false);
+				this.cock.addAnimation(0, "ClimaxToFlaccid", false, 4);
+			}
 		}
 		return !spurt.isEmpty() ? spurt : null;
 	}
@@ -996,6 +1012,15 @@ public abstract class AbstractCharacter extends Group {
 		return this.belly;
 	}
 	
+	public AnimatedActor getCock(AssetManager assetManager) {
+		if (this.cock == null) {
+			this.cock = assetManager.get(AssetEnum.DONG_ANIMATION.getAnimation()).getInstance();
+			this.cock.setSkeletonSkin(isChastitied() ? "Cage" : phallus.getSkin());
+			this.cock.setAnimation(0, arousal.getCurrentState(), false);
+		}
+		return this.cock;
+	}
+	
 	protected abstract String getLeakMessage();
 	protected abstract String getDroolMessage();
 	
@@ -1043,34 +1068,15 @@ public abstract class AbstractCharacter extends Group {
 			default: return -1;
 		}
 	}
-	
-	private int getBaseCharisma() {
-		return baseCharisma;
-	}
 
-	private int getBaseMagic() {
-		return baseMagic;
-	}
+	private int getBaseStrength() { return baseStrength; }
+	private int getBaseEndurance() { return baseEndurance; }
+	private int getBaseAgility() { return baseAgility; }
+	private int getBasePerception() { return basePerception; }
+	private int getBaseMagic() { return baseMagic; }
+	private int getBaseCharisma() { return baseCharisma; }
 
-	private int getBasePerception() {
-		return basePerception;
-	}
-
-	private int getBaseAgility() {
-		return baseAgility;
-	}
-
-	private int getBaseEndurance() {
-		return baseEndurance;
-	}
-	
-	private int getBaseStrength() {
-		return baseStrength;
-	}
-	
-	public Weapon getWeapon() {
-		return weapon;
-	}
+	public Weapon getWeapon() { return weapon; }
 	
 	public String getStanceTransform(Technique firstTechnique) {
 		Stance newStance = firstTechnique.getStance();
@@ -1082,12 +1088,6 @@ public abstract class AbstractCharacter extends Group {
 		String article = vowels.indexOf(Character.toLowerCase(stanceTransform.charAt(0))) != -1 ? "an" : "a";
 		return label + " adopt" + (secondPerson ? "" : "s") + " " + article + " " + stanceTransform + " stance! ";
  	}
-	
-	public AssetDescriptor<Texture> getLustImagePath() {
-		if (isChastitied()) return phallus.getPhallusState(3);
-		int lustLevel = arousal.getPhallusLevel();
-		return phallus.getPhallusState(lustLevel);
-	}
 	
 	public boolean outOfStamina(Technique technique) {
 		return getStaminaMod(technique) >= currentStamina;
@@ -1259,9 +1259,7 @@ public abstract class AbstractCharacter extends Group {
 	}
 	
 	// should return Chastity property != null
-	public boolean isChastitied() {
-		return cage != null;
-	}
+	public boolean isChastitied() { return cage != null; }
 	
 	private boolean hasKey() { return inventory.contains(new Misc(MiscType.KEY), false); }
 	
@@ -1272,6 +1270,9 @@ public abstract class AbstractCharacter extends Group {
 		ChastityCage equipCage = (ChastityCage) cage;
 		boolean alreadyEquipped = equipCage.equals(this.cage); 
 		this.cage = alreadyEquipped ? null : equipCage;
+		if (this.cock != null) {
+			this.cock.setSkeletonSkin(isChastitied() ? "Cage" : phallus.getSkin());
+		}
 		return "You " + (alreadyEquipped ? "unequipped" : "equipped") + " the " + cage.getName() + ".";
 	}
 	
@@ -1420,25 +1421,24 @@ public abstract class AbstractCharacter extends Group {
 	}
 	
 	public enum PhallusType {
-		CUTE(AssetEnum.SMALL_DONG_0, AssetEnum.SMALL_DONG_1, AssetEnum.SMALL_DONG_2, AssetEnum.SMALL_DONG_CHASTITY),
-		TINY(AssetEnum.SMALL_DONG_0, AssetEnum.SMALL_DONG_1, AssetEnum.SMALL_DONG_2, AssetEnum.SMALL_DONG_CHASTITY),
-		SMALL(AssetEnum.SMALL_DONG_0, AssetEnum.SMALL_DONG_1, AssetEnum.SMALL_DONG_2, AssetEnum.SMALL_DONG_CHASTITY),
-		NORMAL(AssetEnum.LARGE_DONG_0, AssetEnum.LARGE_DONG_1, AssetEnum.LARGE_DONG_2),
-		MONSTER(AssetEnum.MONSTER_DONG_0, AssetEnum.MONSTER_DONG_1, AssetEnum.MONSTER_DONG_2), 
-		DOG(AssetEnum.MONSTER_DONG_0, AssetEnum.MONSTER_DONG_1, AssetEnum.MONSTER_DONG_2), 
-		HORSE(AssetEnum.MONSTER_DONG_0, AssetEnum.MONSTER_DONG_1, AssetEnum.MONSTER_DONG_2), 
-		BIRD(AssetEnum.MONSTER_DONG_0, AssetEnum.MONSTER_DONG_1, AssetEnum.MONSTER_DONG_2), 
-		GIANT(AssetEnum.MONSTER_DONG_0, AssetEnum.MONSTER_DONG_1, AssetEnum.MONSTER_DONG_2), 
-		NONE(AssetEnum.NULL, AssetEnum.NULL, AssetEnum.NULL);
-		private final Array<AssetEnum> phallusStates;
+		CUTE("MCCock"),
+		TINY("MCCock"),
+		SMALL("MCCock"),
+		NORMAL("HumanCock"),
+		MONSTER("Monster"), 
+		DOG("DogLike"), 
+		HORSE("HorseLike"), 
+		BIRD("Harpy"), 
+		GIANT("Monster"), 
+		NONE("NoCock");
+		private final String skin;
 
-		PhallusType(AssetEnum... phallusStates ) {
-		    this.phallusStates = new Array<AssetEnum>(phallusStates);
-		}
+		PhallusType(String skin) { this.skin = skin; }
 		
+		public String getSkin() { return skin; }
 		public String getLabel() { return this == CUTE ? "Cute" : this == TINY ? "Tiny" : this == SMALL ? "Small" : ""; }
 		public String getDescription() { return this == CUTE ? "An adorable penis." : this == TINY ? "A very small penis." : this == SMALL ? "Average." : ""; }
-		private AssetDescriptor<Texture> getPhallusState(int stateIndex) { return phallusStates.get(stateIndex).getTexture(); }
+		//private AssetDescriptor<Texture> getPhallusState(int stateIndex) { return phallusStates.get(stateIndex).getTexture(); }
 	}
 	
 	public enum Stat { // these descriptions should have the \n removed and replaced with setWrap/setWidth on the display

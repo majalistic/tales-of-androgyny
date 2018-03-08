@@ -975,7 +975,7 @@ public class PlayerCharacter extends AbstractCharacter {
 	// this needs to properly increase arousal
 	public Array<MutationResult> receiveSex(SexualExperience sex) {
 		Array<MutationResult> result = new Array<MutationResult>();
-		arousal.increaseArousal(sex, perks);
+		increaseLust(sex);
 		
 		ass.receiveSex(sex);
 		

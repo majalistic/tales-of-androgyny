@@ -189,9 +189,10 @@ public class Battle extends Group{
 		characterPortrait.addAction(Actions.sequence(Actions.delay(.5f), new Action() {@Override public boolean act(float delta) { characterPortrait.addListener(getListener(character)); return true; }}));
 		
 		initActor(new MasculinityDisplay(character), uiGroup, barX - 175, 700);
-		initActor(new ArousalDisplay(character), uiGroup, 150, 735);
-		initActor(new ArousalDisplay(enemy), uiGroup, 1617, 735);
+		((AnimatedActor) initActor(character.getCock(assetManager), uiGroup, 0, 0)).setSkeletonPosition(225, 800);
+		((AnimatedActor) initActor(enemy.getCock(assetManager), uiGroup, 0, 0)).setSkeletonPosition(1700, 800);
 		((AnimatedActor) initActor(character.getBelly(assetManager), uiGroup, 0, 0)).setSkeletonPosition(75, 825);
+		
 		initActor(new StanceActor(character), uiGroup, 600.5f, 880, 150, 172.5f);
 		initActor(new StanceActor(enemy), uiGroup, 1305, 880, 150, 172.5f);
 		
@@ -767,22 +768,6 @@ public class Battle extends Group{
 		@Override
 		public void act(float delta) {
 			display.setDrawable(getDrawable(assetManager.get(character.getMasculinityPath())));
-			super.act(delta);
-		}
-	}
-	
-	private class ArousalDisplay extends Group {
-		private final Image display;
-		private final AbstractCharacter character;
-		public ArousalDisplay (AbstractCharacter character) {
-			this.character = character;
-			display = new Image(assetManager.get(character.getLustImagePath()));
-			display.setSize(150, 150);
-			this.addActor(display);
-		}
-		@Override
-		public void act(float delta) {
-			display.setDrawable(getDrawable(assetManager.get(character.getLustImagePath())));
 			super.act(delta);
 		}
 	}

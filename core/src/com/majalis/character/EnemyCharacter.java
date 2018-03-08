@@ -723,7 +723,7 @@ public class EnemyCharacter extends AbstractCharacter {
 	
 	public Technique getTechnique(AbstractCharacter target) {		
 		if (!arousal.isErect() || enemyType == EnemyEnum.OGRE) {
-			if (enemyType != EnemyEnum.CENTAUR && enemyType != EnemyEnum.BEASTMISTRESS && enemyType != EnemyEnum.GOLEM && enemyType != EnemyEnum.QUETZAL) arousal.increaseArousal(new SexualExperienceBuilder().setAssTeasing(1).build(), perks);
+			if (enemyType != EnemyEnum.CENTAUR && enemyType != EnemyEnum.BEASTMISTRESS && enemyType != EnemyEnum.GOLEM && enemyType != EnemyEnum.QUETZAL) increaseLust(new SexualExperienceBuilder().setAssTeasing(1).build());
 		}
 		
 		Array<Techniques> possibleTechniques = getPossibleTechniques(target, stance);
@@ -1083,14 +1083,14 @@ public class EnemyCharacter extends AbstractCharacter {
 		}
 		else if (enemyType == EnemyEnum.QUETZAL) {
 			if (stance == Stance.HOLDING) {
-				arousal.increaseArousal(new SexualExperienceBuilder().setAnal(1).build(), perks);
+				increaseLust(new SexualExperienceBuilder().setAnal(1).build());
 				if (arousal.isEdging()) {
 					return getTechniques(SKEWER);
 				}
 				return getTechniques(LICK_LIPS_HOLDING);
 			}
 			if (stance.isAnalPenetration()) {
-				arousal.increaseArousal(new SexualExperienceBuilder().setAnal(1).build(), perks);
+				increaseLust(new SexualExperienceBuilder().setAnal(1).build());
 				if (arousal.isSuperEdging()) {
 					return getTechniques(FERTILIZE);
 				}

@@ -261,19 +261,6 @@ public enum AssetEnum {
 	MARS_ICON_3("battle/MaleSymbol03.png"),
 	MARS_ICON_4("battle/MaleSymbol04.png"),
 	
-	SMALL_DONG_0("arousal/Small0.png"),
-	SMALL_DONG_1("arousal/Small1.png"),
-	SMALL_DONG_2("arousal/Small2.png"),
-	SMALL_DONG_CHASTITY("arousal/SmallChastity.png"),
-	
-	LARGE_DONG_0("arousal/Human0.png"),
-	LARGE_DONG_1("arousal/Human1.png"),
-	LARGE_DONG_2("arousal/Human2.png"),
-	
-	MONSTER_DONG_0("arousal/Monster0.png"),
-	MONSTER_DONG_1("arousal/Monster1.png"),
-	MONSTER_DONG_2("arousal/Monster2.png"),
-	
 	PORTRAIT_NEUTRAL("portraits/Neutral.png"),
 	PORTRAIT_AHEGAO("portraits/Ahegao.png"),
 	PORTRAIT_FELLATIO("portraits/BJ.png"),
@@ -456,6 +443,7 @@ public enum AssetEnum {
 	WAVES("music/Waves.wav", Music.class), 
 	
 	NULL_ANIMATION("animation/Null.atlas", AnimatedActorFactory.class),
+	DONG_ANIMATION("animation/Dong.atlas", AnimatedActorFactory.class, new AnimatedActorLoader.AnimatedActorParameter(.9f, 1, true)),
 	BELLY_ANIMATION("animation/Belly.atlas", AnimatedActorFactory.class, new AnimatedActorLoader.AnimatedActorParameter(.4f, 1, true)),
 	GAME_OVER_ANIMATION("animation/SplurtGO.atlas", AnimatedActorFactory.class),
 	HARPY_ANIMATION("animation/Harpy.atlas", AnimatedActorFactory.class, new AnimatedActorLoader.AnimatedActorParameter(.75f, 1, true)),
