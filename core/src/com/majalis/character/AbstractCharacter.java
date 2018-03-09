@@ -143,7 +143,7 @@ public abstract class AbstractCharacter extends Group {
 			currentMana = getMaxMana();
 			stability = Stability.Surefooted;
 			focus = fortune = 10;
-			stance = Stance.BALANCED;
+			setStance(Stance.BALANCED);
 			phallus = PhallusType.NORMAL;
 			perks = new ObjectMap<String, Integer>();
 			statuses = new ObjectMap<String, Integer>();
@@ -389,7 +389,7 @@ public abstract class AbstractCharacter extends Group {
 	// right now this and "doAttack" handle once-per-turn character activities
 	public void extractCosts(Technique technique) {
 		oldStance = stance;
-		stance = !technique.getStance().isNull() ? technique.getStance() : stance;
+		setStance(!technique.getStance().isNull() ? technique.getStance() : stance);
 		if (oldStance != Stance.PRONE && oldStance != Stance.SUPINE && (stance == Stance.PRONE || stance == Stance.SUPINE)) {
 			setStabilityToMin();
 		}
@@ -463,10 +463,10 @@ public abstract class AbstractCharacter extends Group {
 			
 			if ((resolvedAttack.getStatus() == Status.MISSED || resolvedAttack.getStatus() == Status.EVADED) && enemyType == EnemyEnum.HARPY && stance == Stance.FELLATIO && resolvedAttack.getForceStance() == Stance.FELLATIO_BOTTOM) {
 				resolvedAttack.addMessage(properCase(pronouns.getNominative()) + " crashes to the ground!");
-				stance = Stance.PRONE;
+				setStance(Stance.PRONE);
 			}
 			else if(resolvedAttack.getForceStance() != null) {
-				stance = oldStance;
+				setStance(oldStance);
 			}	
 			return resolvedAttack;
 		}
@@ -742,13 +742,12 @@ public abstract class AbstractCharacter extends Group {
 						if (enemyType == EnemyEnum.OGRE) {
 							result.add(label + (secondPerson ? " are " : " is ") + "knocked to their knees!");
 							stability = Stability.Teetering;
-							stance = Stance.KNEELING;
+							setStance(Stance.KNEELING);
 						}
 						else {
 							result.add(label + (secondPerson ? " are " : " is ") + "knocked to the ground!");
 							setStabilityToMin();
-							stance = Stance.SUPINE;
-							
+							setStance(Stance.SUPINE);							
 						}
 						knockedDown = true;
 					}
@@ -759,7 +758,7 @@ public abstract class AbstractCharacter extends Group {
 			if (trip >= 100) {
 				if (!alreadyIncapacitated()) {
 					setStabilityToMin();
-					stance = Stance.PRONE;
+					setStance(Stance.PRONE);
 					result.add(label + (secondPerson ? " are " : " is ") + "tripped and "+ (secondPerson ? "fall" : "falls") +" prone!");
 					knockedDown = true;
 				}
@@ -783,7 +782,7 @@ public abstract class AbstractCharacter extends Group {
 					if (currentStamina <= 0 && grappleStatus == GrappleStatus.NULL) {
 						result.add(label + (secondPerson ? " fall " : " falls ") + "to the ground!");
 						setStabilityToMin();
-						stance = Stance.PRONE;
+						setStance(Stance.PRONE);
 						knockedDown = true;
 					}
 				}
@@ -802,7 +801,7 @@ public abstract class AbstractCharacter extends Group {
 			if (forcedStance != null) {
 				if (stance != forcedStance) { 
 					result.add(label + (secondPerson ? " are " : " is ") + "forced into " + forcedStance.getLabel() + " stance!");
-					stance = forcedStance;
+					setStance(forcedStance);
 					if (forcedStance == Stance.PRONE || forcedStance == Stance.SUPINE) {
 						setStabilityToMin();
 					}
@@ -846,28 +845,28 @@ public abstract class AbstractCharacter extends Group {
 		if (!alreadyIncapacitated() && !knockedDown) {
 			if (enemyType == EnemyEnum.OGRE) {
 				if (stability.isDown()) {
-					stance = Stance.KNEELING;
+					setStance(Stance.KNEELING);
 					result.add(label + (secondPerson ? " lose your" : " loses their") + " footing and " + (secondPerson ? "trip" : "trips") + "!");
 					stability = Stability.Teetering;
 				}
 				// you blacked out
 				else if (currentStamina <= 0) {
 					result.add(label + (secondPerson ? " run " : " runs ") + "out of breath and " + (secondPerson ? "collapse" : "collapses") + "!");
-					stance = Stance.KNEELING;
+					setStance(Stance.KNEELING);
 					stability = Stability.Teetering;
 				}
 			}
 			else {
 				// you tripped
 				if (stability.isDown() && grappleStatus == GrappleStatus.NULL) {
-					stance = Stance.PRONE;
+					setStance(Stance.PRONE);
 					result.add(label + (secondPerson ? " lose your" : " loses their") + " footing and " + (secondPerson ? "trip" : "trips") + "!");
 					setStabilityToMin();
 				}
 				// you blacked out
 				else if (currentStamina <= 0 && grappleStatus == GrappleStatus.NULL) {
 					result.add(label + (secondPerson ? " run " : " runs ") + "out of breath and " + (secondPerson ? "collapse" : "collapses") + "!");
-					stance = Stance.SUPINE;
+					setStance(Stance.SUPINE);
 					setStabilityToMin();
 				}
 			}
@@ -1359,9 +1358,9 @@ public abstract class AbstractCharacter extends Group {
 			case WRAPPED: return getTechniques(target, SQUEEZE_RELEASE, SQUEEZE_CRUSH, SQUEEZE, BITE);
 
 			case ERUPT:
-				stance = Stance.BALANCED;
+				setStance(Stance.BALANCED);
 				possibles = getDefaultTechniqueOptions(target);
-				stance = Stance.ERUPT;
+				setStance(Stance.ERUPT);
 				return possibles;
 			default: return possibles;
 		}

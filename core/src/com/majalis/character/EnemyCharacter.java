@@ -46,9 +46,9 @@ public class EnemyCharacter extends AbstractCharacter {
 	public EnemyCharacter(Array<Texture> textures, ObjectMap<Stance, Array<Texture>> textureMap, Array<AnimatedActor> animations, EnemyEnum enemyType, Stance stance, boolean storyMode) {
 		super(true);
 		this.enemyType = enemyType;
-		this.stance = stance;
 		this.storyMode = storyMode;
 		init(textures, textureMap, animations);
+		setStance(stance);
 		climaxCounters = new ObjectMap<String, Integer>();
 		currentFrame = enemyType == EnemyEnum.GHOST && !Gdx.app.getPreferences("tales-of-androgyny-preferences").getBoolean("blood", true) ? 1 : 0;
 		if (enemyType == EnemyEnum.BUNNY) {
@@ -975,7 +975,7 @@ public class EnemyCharacter extends AbstractCharacter {
 		}
 	
 		if (stance.isEroticPenetration() && enemyType != EnemyEnum.QUETZAL) {
-			stance = Stance.ERUPT;
+			setStance(Stance.ERUPT);
 		}
 		String joined = "";
 		for (String foo : (String[]) results.toArray(String.class)) {
@@ -1099,7 +1099,7 @@ public class EnemyCharacter extends AbstractCharacter {
 			return possibles;	
 		}
 		else if (stance == Stance.ERUPT) {
-			stance = Stance.BALANCED;
+			setStance(Stance.BALANCED);
 			return getPossibleTechniques(target, stance);
 		}
 		return possibles.size == 0 ? getTechniques(DO_NOTHING) : possibles;

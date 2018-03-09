@@ -400,7 +400,7 @@ public class PlayerCharacter extends AbstractCharacter {
 		setStaminaToMax();
 		setStabilityToMax();
 		setManaToMax();
-		stance = Stance.BALANCED;
+		setStance(Stance.BALANCED);
 		grappleStatus = GrappleStatus.NULL;
 		a2m = false;
 		ass.fillButtWithCum(-10);
@@ -634,11 +634,11 @@ public class PlayerCharacter extends AbstractCharacter {
 				break;
 			case ANAL:
 			case DOGGY:
-				stance = Stance.ERUPT;
+				setStance(Stance.ERUPT);
 				arousal.climax(ClimaxType.ANAL, perks);
 				break;
 			case FELLATIO:
-				stance = Stance.ERUPT;
+				setStance(Stance.ERUPT);
 				arousal.climax(ClimaxType.ORAL, perks);
 				break;
 			default: 
