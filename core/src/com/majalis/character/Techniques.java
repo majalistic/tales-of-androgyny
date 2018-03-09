@@ -49,6 +49,11 @@ public enum Techniques {
 	SECOND_WIND			(new NonAttackTechnique(Stance.DEFENSIVE, Stance.DEFENSIVE, "Second Wind", -4, -1).build()),
 	SUDDEN_ADVANCE		(new NonAttackTechnique(Stance.DEFENSIVE, Stance.OFFENSIVE, "Sudden Advance", 1, 6).addBonus(BonusCondition.SKILL_LEVEL, BonusType.PARRY, 1).addBonus(BonusCondition.OUTMANEUVER, BonusType.PARRY, 1).build(), 3),	
 	
+	/* Stonewall Techniques */
+	ABSOLUTE_GUARD		(new GuardTechnique	(Stance.STONEWALL, Stance.STONEWALL, "Absolute Guard", 4, -1, 4, true).addBonus(BonusCondition.SKILL_LEVEL, BonusType.PARRY, 4).build()),
+	STONEWALL			(new GuardTechnique	(Stance.DEFENSIVE, Stance.STONEWALL, "Stonewall", -2, -2, 4, true).addBonus(BonusCondition.SKILL_LEVEL, BonusType.PARRY, 2).build()),
+	LOWER_GUARD			(new GuardTechnique	(Stance.STONEWALL, Stance.DEFENSIVE, "Lower Guard", -2, -2, 4, true).addBonus(BonusCondition.SKILL_LEVEL, BonusType.PARRY, 2).build()),
+	
 	/* Counter Techniques */ 			
 	RIPOSTE  			(new GuardTechnique(Stance.COUNTER, Stance.BALANCED, "Riposte", -1, 3, 5, false).addBonus(BonusCondition.SKILL_LEVEL, BonusType.PARRY, 2).addBonus(BonusCondition.OUTMANEUVER, BonusType.PARRY, 2).addBonus(BonusCondition.SKILL_LEVEL, BonusType.DISARM, 50).addBonus(BonusCondition.SKILL_LEVEL, BonusType.COUNTER, 50).addBonus(BonusCondition.OUTMANEUVER, BonusType.COUNTER, 50).addBonus(BonusCondition.OUTMANEUVER, BonusType.DISARM, 50).build(), 1),
 	EN_GARDE  			(new GuardTechnique(Stance.COUNTER, Stance.DEFENSIVE, "En Garde", -1, 0, 1, false).addBonus(BonusCondition.SKILL_LEVEL, BonusType.PARRY, 2).addBonus(BonusCondition.OUTMANEUVER, BonusType.PARRY, 1).build(), 1),

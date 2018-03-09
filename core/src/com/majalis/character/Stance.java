@@ -15,7 +15,7 @@ public enum Stance {
 	BERSERK (AssetEnum.BALANCED),
 	HAYMAKER (AssetEnum.BALANCED),
 	FOCUS (AssetEnum.BALANCED),
-	STONEWALL (AssetEnum.BALANCED),
+	STONEWALL (AssetEnum.STONEWALL),
 	COUNTER (AssetEnum.COUNTER),
 	// Positional Stances
 	PRONE (StanceType.INCAPACITATED, AssetEnum.PRONE, false, false, true),

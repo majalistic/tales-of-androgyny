@@ -865,7 +865,7 @@ public class EnemyCharacter extends AbstractCharacter {
 			else if (candidate != COMBAT_HEAL && techniques.contains(COMBAT_HEAL, true) && mustCastHealing()) { techniques.removeValue(candidate, true); }
 			else if (candidate != TITAN_STRENGTH && techniques.contains(TITAN_STRENGTH, true) && mustCastTitanStrength() && !mustCastHealing()) { techniques.removeValue(candidate, true); }				
 			else if (candidate == SUDDEN_ADVANCE && !enemyType.isOffensive()) { techniques.removeValue(candidate, true); }	
-			else if (inTechniques(candidate, VAULT, FEINT_AND_STRIKE, SLIDE, DUCK, HIT_THE_DECK, KICK_OVER_FACE_UP, KICK_OVER_FACE_DOWN, SIT_ON_IT, TURN_AND_SIT, DUCK, UPPERCUT, GRAB_IT, JUMP_ATTACK, VAULT_OVER, STAND_OFF_IT, FULL_NELSON, TAKEDOWN, PULL_OUT, PULL_OUT_ORAL, PULL_OUT_ANAL, PULL_OUT_STANDING, RELEASE_PRONE, RELEASE_SUPINE, SAY_AHH)) { techniques.removeValue(candidate, true); }	
+			else if (inTechniques(candidate, STONEWALL, VAULT, FEINT_AND_STRIKE, SLIDE, DUCK, HIT_THE_DECK, KICK_OVER_FACE_UP, KICK_OVER_FACE_DOWN, SIT_ON_IT, TURN_AND_SIT, DUCK, UPPERCUT, GRAB_IT, JUMP_ATTACK, VAULT_OVER, STAND_OFF_IT, FULL_NELSON, TAKEDOWN, PULL_OUT, PULL_OUT_ORAL, PULL_OUT_ANAL, PULL_OUT_STANDING, RELEASE_PRONE, RELEASE_SUPINE, SAY_AHH)) { techniques.removeValue(candidate, true); }	
 		}
 				
 		return techniques;

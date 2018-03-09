@@ -344,6 +344,7 @@ public enum AssetEnum {
 	REVERSE_COWGIRL("stances/ReverseCowgirl.png"),
 	SIXTY_NINE("stances/SixyNine.png"),
 	SPREAD("stances/SpreadEagle.png"),
+	STONEWALL("stances/Stonewall.png"),
 	PENETRATED("stances/SpreadEaglePen.png"),
 	STANDING("stances/Standing.png"),
 	SUPINE("stances/Supine.png"),
