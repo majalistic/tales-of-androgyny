@@ -853,7 +853,7 @@ public class EnemyCharacter extends AbstractCharacter {
 			else if (candidate == FLIP_SUPINE && !enemyType.prefersMissionary()) { techniques.removeValue(candidate, true); }		
 			else if (candidate == PIN && target.getStrength() + 3 >= getStrength()) { techniques.removeValue(candidate, true); }		
 			else if (candidate != KNOT && techniques.contains(KNOT, true) && enemyType == EnemyEnum.WERESLUT && arousal.isEdging()) { techniques.removeValue(candidate, true); }		
-			else if (candidate == KNOT && enemyType != EnemyEnum.WERESLUT) { techniques.removeValue(candidate, true); }	
+			else if (candidate == KNOT && (enemyType != EnemyEnum.WERESLUT || !arousal.isEdging())) { techniques.removeValue(candidate, true); }	
 			else if (candidate == ERUPT_ANAL && (enemyType == EnemyEnum.BRIGAND || enemyType == EnemyEnum.GOBLIN || enemyType == EnemyEnum.ORC)) { techniques.removeValue(candidate, true); }		
 			else if (candidate == BLOW_LOAD && !(enemyType == EnemyEnum.BRIGAND || enemyType == EnemyEnum.GOBLIN || enemyType == EnemyEnum.ORC)) { techniques.removeValue(candidate, true); }		
 			else if (candidate == PROSTATE_GRIND && !enemyType.willProstatePound()) { techniques.removeValue(candidate, true); }		
