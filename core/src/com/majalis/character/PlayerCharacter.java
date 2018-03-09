@@ -1654,4 +1654,30 @@ public class PlayerCharacter extends AbstractCharacter {
 	public Femininity getFemininity() { return femininity; }
 	public boolean hasKylira() { return questFlags.get(QuestType.ELF.toString(), 0) > 8;  }
 	public boolean hasKyliraHeal() { boolean temp = kyliraHeal; if (hasKylira()) kyliraHeal = false; return temp && hasKylira(); }
+
+	private String unequipItem(Item item) {
+		if (item.equals(weapon)) return unequipWeapon();
+		if (item.equals(shield)) return unequipShield();
+		if (item.equals(armor)) return unequipArmor();
+		if (item.equals(legwear)) return unequipLegwear();
+		if (item.equals(underwear)) return unequipUnderwear();
+		if (item.equals(headgear)) return unequipHeadgear();
+		if (item.equals(armwear)) return unequipArmwear();
+		if (item.equals(footwear)) return unequipFootwear();
+		if (item.equals(firstAccessory)) return unequipAccessory();
+		if (item.equals(plug)) return unequipPlug();
+		if (item.equals(cage)) return unequipCage();
+		return "";
+	}
+	
+	public String discardItem(Item item) {
+		String result = "";
+		if (isEquipped(item)) {
+			if (item.equals(cage) && !hasKey()) { return "Cannot drop chastity cage without key."; }
+			result += unequipItem(item);
+		}
+		inventory.removeValue(item, true);
+		result += " " + "You throw away the " + item.getName() + "."; 
+		return result;
+	}
 }

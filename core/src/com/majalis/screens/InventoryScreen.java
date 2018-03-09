@@ -1,19 +1,25 @@
 package com.majalis.screens;
 
+import static com.majalis.asset.AssetEnum.*;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Button.ButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.majalis.asset.AssetEnum;
@@ -32,31 +38,14 @@ public class InventoryScreen extends AbstractScreen {
 	static {
 		resourceRequirements.add(AssetEnum.UI_SKIN.getSkin());
 		resourceRequirements.add(AssetEnum.CLICK_SOUND.getSound());
-		resourceRequirements.add(AssetEnum.MOUNTAIN_ACTIVE.getTexture()); 
-		resourceRequirements.add(AssetEnum.FOREST_ACTIVE.getTexture());
-		resourceRequirements.add(AssetEnum.FOREST_INACTIVE.getTexture());
-		resourceRequirements.add(AssetEnum.CASTLE.getTexture());
-		resourceRequirements.add(AssetEnum.APPLE.getTexture());
-		resourceRequirements.add(AssetEnum.MEAT.getTexture());
-		resourceRequirements.add(AssetEnum.CLOUD.getTexture());
-		resourceRequirements.add(AssetEnum.ROAD.getTexture());
-		resourceRequirements.add(AssetEnum.WORLD_MAP_UI.getTexture());
-		resourceRequirements.add(AssetEnum.WORLD_MAP_HOVER.getTexture());
-		resourceRequirements.add(AssetEnum.ARROW.getTexture());
-		resourceRequirements.add(AssetEnum.CHARACTER_SCREEN.getTexture());
-		resourceRequirements.add(AssetEnum.STRENGTH.getTexture());
-		resourceRequirements.add(AssetEnum.ENDURANCE.getTexture());
-		resourceRequirements.add(AssetEnum.AGILITY.getTexture());
-		resourceRequirements.add(AssetEnum.PERCEPTION.getTexture());
-		resourceRequirements.add(AssetEnum.MAGIC.getTexture());
-		resourceRequirements.add(AssetEnum.CHARISMA.getTexture());
-		resourceRequirements.add(AssetEnum.WARRIOR.getTexture());
-		resourceRequirements.add(AssetEnum.PALADIN.getTexture());
-		resourceRequirements.add(AssetEnum.THIEF.getTexture());
-		resourceRequirements.add(AssetEnum.RANGER.getTexture());
-		resourceRequirements.add(AssetEnum.MAGE.getTexture());
-		resourceRequirements.add(AssetEnum.ENCHANTRESS.getTexture());
 		resourceRequirements.add(AssetEnum.WORLD_MAP_MUSIC.getMusic());
+	
+		AssetEnum[] assets = new AssetEnum[]{
+			DESTROY_UP, DESTROY_DOWN, DESTROY_HIGHLIGHT, ARROW, CHARACTER_SCREEN, WARRIOR, PALADIN, THIEF, RANGER, MAGE, ENCHANTRESS
+		};
+		for (AssetEnum asset: assets) {
+			resourceRequirements.add(asset.getTexture());
+		}
 		resourceRequirements.addAll(WorldMapScreen.resourceRequirements);
 	}
 	
@@ -79,7 +68,6 @@ public class InventoryScreen extends AbstractScreen {
 	private final Label plugText;
 	private final Label cageText;
 	private final Skin skin;
-	private String result;
 	
 	public InventoryScreen(ScreenFactory factory, ScreenElements elements, final SaveService saveService, final PlayerCharacter character) {
 		super(factory, elements, null);
@@ -201,61 +189,53 @@ public class InventoryScreen extends AbstractScreen {
 		boolean equipmentColumn = false;
 		for (final Item item : character.getInventory()) {
 			final TextButton itemButton = new TextButton(item.getName(), skin);
+			final Button toss = getTossButton();
 			if (item.isConsumable()) {
 				itemButton.addListener(getItemListener(item));
-				inventoryTable.add(itemButton).size(450, 40);
+				toss.addListener(getItemTossListener(item));
+				inventoryTable.add(itemButton).size(400, 40);
+				inventoryTable.add(toss).size(40, 40);
 				if (inventoryColumn == 2) inventoryTable.row();
 				inventoryColumn++;
 				inventoryColumn %= 3;
 			}
 			else if (item.isEquippable()) { // this needs to properly equip the item in the correct slot
-				itemButton.addListener(
-					getWeaponListener(item)
-				);
-				if (character.isEquipped(item)) {
-					itemButton.setColor(Color.GOLD);
-				}
-				weaponTable.add(itemButton).size(500, 40);
+				itemButton.addListener(getWeaponListener(item));
+				toss.addListener(getWeaponTossListener(item));
+				if (character.isEquipped(item)) {itemButton.setColor(Color.GOLD); }
+				weaponTable.add(itemButton).size(400, 40);
+				weaponTable.add(toss).size(40, 40);
 				if (equipmentColumn) weaponTable.row();
 				equipmentColumn = !equipmentColumn;
 			}
 		}	
 	}
 	
-	private ClickListener getItemListener(final Item item) {
-		return new ClickListener() {
-			@Override
-	        public void clicked(InputEvent event, float x, float y) {
-				buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
-				result = character.consumeItem(item).getResult();
-				consoleText.setText(result);
-				saveService.saveDataValue(SaveEnum.PLAYER, character);
-				if (item.isTownPortalScroll()) {
-					saveService.saveDataValue(SaveEnum.NODE_CODE, 1000);										
-				}
-				inventoryTable.clear();
-				inventoryTable.add(getLabel("Inventory", skin, Color.BLACK)).row();
-				int inventoryColumn = 0;
-				for (Item newItem : character.getInventory()) {
-					final TextButton newItemButton = new TextButton(newItem.getName(), skin);
-					if (newItem.isConsumable()) {
-						newItemButton.addListener(getItemListener(newItem));
-						inventoryTable.add(newItemButton).size(450, 40);
-						if (inventoryColumn == 2) inventoryTable.row();
-						inventoryColumn++;
-						inventoryColumn %= 3;
-					}
-				}
-	        }
-			@Override
-	        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-				hoverText.setText(item.getDescription());
+	private void resetItemTable(String result) {
+		buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
+		consoleText.setText(result);
+		saveService.saveDataValue(SaveEnum.PLAYER, character);
+		inventoryTable.clear();
+		inventoryTable.add(getLabel("Inventory", skin, Color.BLACK)).row();
+		ButtonStyle buttonStyle = new ButtonStyle();
+		buttonStyle.up = new TextureRegionDrawable(new TextureRegion(assetManager.get(AssetEnum.MINUS.getTexture())));
+		buttonStyle.down = new TextureRegionDrawable(new TextureRegion(assetManager.get(AssetEnum.MINUS_DOWN.getTexture())));
+		buttonStyle.over = new TextureRegionDrawable(new TextureRegion(assetManager.get(AssetEnum.MINUS_HIGHLIGHT.getTexture())));		
+		
+		int inventoryColumn = 0;
+		for (Item newItem : character.getInventory()) {
+			final TextButton newItemButton = new TextButton(newItem.getName(), skin);
+			if (newItem.isConsumable()) {
+				newItemButton.addListener(getItemListener(newItem));
+				final Button toss = getTossButton();
+				toss.addListener(getItemTossListener(newItem));
+				inventoryTable.add(newItemButton).size(400, 40);
+				inventoryTable.add(toss).size(40, 40);
+				if (inventoryColumn == 2) inventoryTable.row();
+				inventoryColumn++;
+				inventoryColumn %= 3;
 			}
-			@Override
-	        public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
-				hoverText.setText("");
-			}
-		};
+		}
 	}
 	
 	private void resetWeaponTable(String result) {
@@ -288,6 +268,8 @@ public class InventoryScreen extends AbstractScreen {
 		saveService.saveDataValue(SaveEnum.PLAYER, character);
 		weaponTable.clear();
 		weaponTable.add(getLabel("Equipment", skin, Color.BLACK)).row();
+		
+		
 		boolean equipmentColumn = false;
 		for (Item newItem : character.getInventory()) {
 			final TextButton newItemButton = new TextButton(newItem.getName(), skin);
@@ -296,11 +278,59 @@ public class InventoryScreen extends AbstractScreen {
 				if (character.isEquipped(newItem)) {
 					newItemButton.setColor(Color.GOLD);
 				}
-				weaponTable.add(newItemButton).size(500, 40);
+				weaponTable.add(newItemButton).size(400, 40);
+				final Button toss = getTossButton();
+				toss.addListener(getWeaponTossListener(newItem));
+				weaponTable.add(toss).size(40, 40);				
 				if (equipmentColumn) weaponTable.row();
 				equipmentColumn = !equipmentColumn;
 			}
 		}
+	}
+	
+	private Button getTossButton() {
+		ButtonStyle buttonStyle = new ButtonStyle();
+		buttonStyle.up = new TextureRegionDrawable(new TextureRegion(assetManager.get(AssetEnum.DESTROY_UP.getTexture())));
+		buttonStyle.down = new TextureRegionDrawable(new TextureRegion(assetManager.get(AssetEnum.DESTROY_DOWN.getTexture())));
+		buttonStyle.over = new TextureRegionDrawable(new TextureRegion(assetManager.get(AssetEnum.DESTROY_HIGHLIGHT.getTexture())));		
+		return new Button(buttonStyle);
+	}
+	
+	private ClickListener getItemListener(final Item item) {
+		return new ClickListener() {
+			@Override
+	        public void clicked(InputEvent event, float x, float y) {
+				resetItemTable(character.consumeItem(item).getResult());
+				if (item.isTownPortalScroll()) {
+					saveService.saveDataValue(SaveEnum.NODE_CODE, 1000);										
+				}
+	        }
+			@Override
+	        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
+				hoverText.setText(item.getDescription());
+			}
+			@Override
+	        public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
+				hoverText.setText("");
+			}
+		};
+	}
+	
+	private ClickListener getItemTossListener(final Item item) {
+		return new ClickListener() {
+			@Override
+	        public void clicked(InputEvent event, float x, float y) {
+				resetItemTable(character.discardItem(item));
+	        }
+			@Override
+	        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
+				hoverText.setText("This will discard the " + item.getName() + ".");
+			}
+			@Override
+	        public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
+				hoverText.setText("");
+			}
+		};
 	}
 	
 	private ClickListener getWeaponListener(final Item item) {
@@ -312,6 +342,24 @@ public class InventoryScreen extends AbstractScreen {
 			@Override
 	        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
 				hoverText.setText(item.getDescription());
+				
+			}
+			@Override
+	        public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
+				hoverText.setText("");
+			}
+		};
+	}
+	
+	private ClickListener getWeaponTossListener(final Item item) {
+		return new ClickListener() {
+			@Override
+	        public void clicked(InputEvent event, float x, float y) {
+				resetWeaponTable(character.discardItem(item));
+	        }
+			@Override
+	        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
+				hoverText.setText("This will discard the " + item.getName() + ".");
 			}
 			@Override
 	        public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {

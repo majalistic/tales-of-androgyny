@@ -1260,7 +1260,7 @@ public abstract class AbstractCharacter extends Group {
 	// should return Chastity property != null
 	public boolean isChastitied() { return cage != null; }
 	
-	private boolean hasKey() { return inventory.contains(new Misc(MiscType.KEY), false); }
+	protected boolean hasKey() { return inventory.contains(new Misc(MiscType.KEY), false); }
 	
 	// possibly rethink this - maybe equipped items shouldn't be "in" inventory?
 	public String setCage(Item cage, boolean newItem) {

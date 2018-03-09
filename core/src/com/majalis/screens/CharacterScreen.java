@@ -1,5 +1,7 @@
 package com.majalis.screens;
 
+import static com.majalis.asset.AssetEnum.*;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.assets.AssetDescriptor;
@@ -39,31 +41,15 @@ public class CharacterScreen extends AbstractScreen {
 	static {
 		resourceRequirements.add(AssetEnum.UI_SKIN.getSkin());
 		resourceRequirements.add(AssetEnum.CLICK_SOUND.getSound());
-		resourceRequirements.add(AssetEnum.MOUNTAIN_ACTIVE.getTexture()); 
-		resourceRequirements.add(AssetEnum.FOREST_ACTIVE.getTexture());
-		resourceRequirements.add(AssetEnum.FOREST_INACTIVE.getTexture());
-		resourceRequirements.add(AssetEnum.CASTLE.getTexture());
-		resourceRequirements.add(AssetEnum.APPLE.getTexture());
-		resourceRequirements.add(AssetEnum.MEAT.getTexture());
-		resourceRequirements.add(AssetEnum.CLOUD.getTexture());
-		resourceRequirements.add(AssetEnum.ROAD.getTexture());
-		resourceRequirements.add(AssetEnum.WORLD_MAP_UI.getTexture());
-		resourceRequirements.add(AssetEnum.WORLD_MAP_HOVER.getTexture());
-		resourceRequirements.add(AssetEnum.ARROW.getTexture());
-		resourceRequirements.add(AssetEnum.CHARACTER_SCREEN.getTexture());
-		resourceRequirements.add(AssetEnum.STRENGTH.getTexture());
-		resourceRequirements.add(AssetEnum.ENDURANCE.getTexture());
-		resourceRequirements.add(AssetEnum.AGILITY.getTexture());
-		resourceRequirements.add(AssetEnum.PERCEPTION.getTexture());
-		resourceRequirements.add(AssetEnum.MAGIC.getTexture());
-		resourceRequirements.add(AssetEnum.CHARISMA.getTexture());
-		resourceRequirements.add(AssetEnum.WARRIOR.getTexture());
-		resourceRequirements.add(AssetEnum.PALADIN.getTexture());
-		resourceRequirements.add(AssetEnum.THIEF.getTexture());
-		resourceRequirements.add(AssetEnum.RANGER.getTexture());
-		resourceRequirements.add(AssetEnum.MAGE.getTexture());
-		resourceRequirements.add(AssetEnum.ENCHANTRESS.getTexture());
 		resourceRequirements.add(AssetEnum.WORLD_MAP_MUSIC.getMusic());
+		
+		AssetEnum[] assets = new AssetEnum[]{
+			ARROW, CHARACTER_SCREEN, STRENGTH, ENDURANCE, AGILITY, PERCEPTION, MAGIC, CHARISMA, WARRIOR, PALADIN, THIEF, RANGER, MAGE, ENCHANTRESS
+		};
+		for (AssetEnum asset: assets) {
+			resourceRequirements.add(asset.getTexture());
+		}
+		
 		resourceRequirements.addAll(WorldMapScreen.resourceRequirements);
 	}
 	
@@ -285,10 +271,7 @@ public class CharacterScreen extends AbstractScreen {
 		slideGroup.addAction(Actions.moveTo(0, 0, .5f));
 	}
 	
-	private Label getLabel(String label, Skin skin, Color color) {
-		return getLabel(label, skin, color, null);
-	}
-	
+	private Label getLabel(String label, Skin skin, Color color) { return getLabel(label, skin, color, null); }
 	private Label getLabel(String label, Skin skin, final Color color, ClickListener listener) {
 		final Label newLabel = new Label(label, skin);
 		newLabel.setColor(color);
