@@ -97,7 +97,7 @@ public class EnemyCharacter extends AbstractCharacter {
 	
 	// this should be refactored so that the enemy simply receives the assetManager and uses what it requires to reinitialize itself
 	public void init(Array<Texture> defaultTextures, ObjectMap<Stance, Array<Texture>> textures, Array<AnimatedActor> animations) {
-		this.defaultTextures = defaultTextures == null ? new Array<Image>() : initImages(defaultTextures);
+		this.defaultTextures = defaultTextures == null ? new Array<Image>() : initImages(defaultTextures, Stance.BALANCED);
 		this.textures = initImagesBystance(textures);
 		this.animations = animations;
 		currentAnimations = new Group();
@@ -112,19 +112,42 @@ public class EnemyCharacter extends AbstractCharacter {
 	private ObjectMap<Stance, Array<Image>> initImagesBystance(ObjectMap<Stance, Array<Texture>> textures) {
 		ObjectMap<Stance, Array<Image>> imagesByStance = new ObjectMap<Stance, Array<Image>>();
 		for (ObjectMap.Entry<Stance, Array<Texture>> entry : textures) {
-			imagesByStance.put(entry.key, initImages(entry.value));
+			imagesByStance.put(entry.key, initImages(entry.value, entry.key));
 		}
 		return imagesByStance;
 	}
 	
-	private Array<Image> initImages(Array<Texture> textures) {
+	private Array<Image> initImages(Array<Texture> textures, Stance stance) {
 		Array<Image> images = new Array<Image>();
-		for (Texture texture : textures) {
-			Image newImage = new Image(texture);
-			this.addActor(newImage);
-			images.add(newImage);
-		}
+		for (Texture texture : textures) { initImage(texture, images, stance); }
 		return images;
+	}
+	
+	private void initImage(Texture texture, Array<Image> images, Stance stance) {
+		Image newImage = new Image(texture);
+		
+		int x = 600;
+		int y = 20;
+		float width =  (int) (texture.getWidth() / (texture.getHeight() / 975.));
+		float height = 975;
+		
+		if (
+			(enemyType == EnemyEnum.WERESLUT && (stance == Stance.DOGGY || stance == Stance.KNOTTED)) ||
+			(enemyType == EnemyEnum.ADVENTURER && stance == Stance.COWGIRL_BOTTOM) ||
+			(enemyType == EnemyEnum.HARPY && stance == Stance.FELLATIO) ||
+			enemyType == EnemyEnum.BRIGAND ||
+			enemyType == EnemyEnum.CENTAUR || 
+			((enemyType == EnemyEnum.GOBLIN || enemyType == EnemyEnum.GOBLIN_MALE) && (stance == Stance.FACE_SITTING || stance == Stance.SIXTY_NINE || stance == Stance.DOGGY || stance == Stance.PRONE_BONE))) {
+			x = ((enemyType == EnemyEnum.BRIGAND && stance != Stance.ANAL) || (enemyType == EnemyEnum.GOBLIN || enemyType == EnemyEnum.GOBLIN_MALE) && (stance == Stance.FACE_SITTING || stance == Stance.SIXTY_NINE)) ? 400 : 0;
+			y = 0;
+			width = (int) (texture.getWidth() / (texture.getHeight() / 1080.));
+			height = 1080;
+		}
+		
+		if (enemyType == EnemyEnum.OGRE) { y = 0; }
+		
+		newImage.setBounds(x + getX(),  y + getY(), width, height);
+		images.add(newImage);
 	}
 	
 	@Override
@@ -173,27 +196,6 @@ public class EnemyCharacter extends AbstractCharacter {
 
 			if (texture == null) return;
 			
-			int x = 600;
-			int y = 20;
-			float width =  (int) (texture.getWidth() / (texture.getHeight() / 975.));
-			float height = 975;
-			
-			if (
-				(enemyType == EnemyEnum.WERESLUT && (stance == Stance.DOGGY || stance == Stance.KNOTTED)) ||
-				(enemyType == EnemyEnum.ADVENTURER && stance == Stance.COWGIRL_BOTTOM) ||
-				(enemyType == EnemyEnum.HARPY && stance == Stance.FELLATIO) ||
-				enemyType == EnemyEnum.BRIGAND ||
-				enemyType == EnemyEnum.CENTAUR || 
-				((enemyType == EnemyEnum.GOBLIN || enemyType == EnemyEnum.GOBLIN_MALE) && (stance == Stance.FACE_SITTING || stance == Stance.SIXTY_NINE || stance == Stance.DOGGY || stance == Stance.PRONE_BONE))) {
-				x = ((enemyType == EnemyEnum.BRIGAND && stance != Stance.ANAL) || (enemyType == EnemyEnum.GOBLIN || enemyType == EnemyEnum.GOBLIN_MALE) && (stance == Stance.FACE_SITTING || stance == Stance.SIXTY_NINE)) ? 400 : 0;
-				y = 0;
-				width = (int) (texture.getWidth() / (texture.getHeight() / 1080.));
-				height = 1080;
-			}
-			
-			if (enemyType == EnemyEnum.OGRE) { y = 0; }
-			
-			texture.setBounds(x + getX(),  y + getY(), width, height);
 			this.addActor(texture);
 		}
 		super.act(delta);
