@@ -764,7 +764,7 @@ public class WorldMapScreen extends AbstractScreen {
 			Array<GameWorldNode> pathTo = otherNode.getPathTo(node);
 			int distance = pathTo.size;
 			if (distance > 7) {
-				newLocation = pathTo.get(6).getNodeCode();
+				newLocation = pathTo.get(pathTo.size - 5).getNodeCode();
 				break;
 			}
 			else if (distance >= 4) {
@@ -777,7 +777,7 @@ public class WorldMapScreen extends AbstractScreen {
 				Array<GameWorldNode> pathTo = otherNode.getPathTo(node);
 				int distance = pathTo.size;
 				if (distance > 7) {
-					newLocation = pathTo.get(6).getNodeCode();
+					newLocation = pathTo.get(pathTo.size - 5).getNodeCode();
 					break;
 				}
 				else if (distance >= 4) {
