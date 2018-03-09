@@ -8,7 +8,9 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -76,7 +78,8 @@ public class CharacterScreen extends AbstractScreen {
 		buttonSound = assetManager.get(AssetEnum.CLICK_SOUND.getSound()); 
 		
 		Image characterImage = new Image(assetManager.get(character.getJobClass().getTexture()));
-		characterImage.setPosition(1250, 0);
+		characterImage.setPosition(1900, 0);
+		characterImage.addAction(Actions.moveTo(1250, 0, .5f));
 		this.addActor(characterImage);
 		
 		final TextButton done = new TextButton("Done", skin);
@@ -94,6 +97,9 @@ public class CharacterScreen extends AbstractScreen {
 		done.setPosition(1700, 30);
 		this.addActor(done);
 
+		Group slideGroup = new Group();
+		this.addActor(slideGroup);
+		
 		final TextButton inventory = new TextButton("Inventory", skin);
 		inventory.setSize(250, 60);
 		inventory.addListener(
@@ -111,7 +117,7 @@ public class CharacterScreen extends AbstractScreen {
 		final Table overview = new Table();
 		overview.align(Align.topLeft);
 		overview.setPosition(100, 1040);
-		this.addActor(overview);
+		slideGroup.addActor(overview);
 		overview.add(getLabel("Name: ", skin, Color.BLACK)).align(Align.left);
 		overview.add(getLabel(character.getCharacterName() != null ? character.getCharacterName() : "Hiro", skin, Color.DARK_GRAY)).align(Align.left).row();
 		overview.add(getLabel("Class: ", skin, Color.BLACK)).align(Align.left);
@@ -154,7 +160,7 @@ public class CharacterScreen extends AbstractScreen {
 		final Table buttTable = new Table();
 		buttTable.align(Align.topLeft);
 		buttTable.setPosition(500, 800);
-		this.addActor(buttTable);
+		slideGroup.addActor(buttTable);
 				
 		buttTable.add(getLabel("Sphincter status: ", skin, Color.BLACK)).align(Align.left);
 		buttTable.add(getLabel(character.getSphincter().getFriction(), skin, Color.BLACK)).align(Align.left).row();
@@ -183,7 +189,7 @@ public class CharacterScreen extends AbstractScreen {
 		}
 		statTable.setPosition(500, 1040);
 		statTable.align(Align.topLeft);
-		this.addActor(statTable);
+		slideGroup.addActor(statTable);
 		
 		final boolean levelup = character.getStoredLevels() > 0;
 		final TextButton levelUp = new TextButton(levelup ? "Level Up!" : "Learn Skills", skin);
@@ -221,7 +227,7 @@ public class CharacterScreen extends AbstractScreen {
 		
 		sexTable.setPosition(950, 1040);
 		sexTable.align(Align.topLeft);
-		this.addActor(sexTable);;
+		slideGroup.addActor(sexTable);
 		
 		final Table statusTable = new Table();
 		Label headerStatus = new Label("Status Effects:", skin);
@@ -241,19 +247,19 @@ public class CharacterScreen extends AbstractScreen {
 		}
 		statusTable.setPosition(1125, 700);
 		statusTable.align(Align.topLeft);
-		this.addActor(statusTable);
+		slideGroup.addActor(statusTable);
 		
 		final Label perkDescription = getLabel("", skin, Color.BLACK);
 		perkDescription.setWidth(600);
 		perkDescription.setAlignment(Align.center);
 		perkDescription.setWrap(true);
 		perkDescription.setPosition(200, 75);
-		this.addActor(perkDescription);
+		slideGroup.addActor(perkDescription);
 		
 		Table perkTable = new Table();
 		perkTable.align(Align.topLeft);
 		perkTable.setPosition(100, 525);
-		this.addActor(perkTable);
+		slideGroup.addActor(perkTable);
 		perkTable.add(getLabel("Perks: ", skin, Color.BLACK)).align(Align.left).row();
 		int perkColumn = 0;
 		for (final ObjectMap.Entry<Perk, Integer> perk : character.getPerks().entries()) {
@@ -274,6 +280,9 @@ public class CharacterScreen extends AbstractScreen {
 				perkColumn %= 3;
 			}	
 		}
+		
+		slideGroup.setPosition(-1000, 0);
+		slideGroup.addAction(Actions.moveTo(0, 0, .5f));
 	}
 	
 	private Label getLabel(String label, Skin skin, Color color) {
