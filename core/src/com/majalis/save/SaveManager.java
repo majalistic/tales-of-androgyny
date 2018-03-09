@@ -187,13 +187,13 @@ public class SaveManager implements SaveService, LoadService {
        
         	if (playerParent != null) playerParent.removeActor(save.player, false);
         	Group enemyParent = new Group();
-        	Group enemyChildren = new Group();
+        	Array<Actor> enemyChildren = new Array<Actor>();
         	if (save.enemy != null) {
             	enemyParent = save.enemy.getParent();
             	if (enemyParent != null) {
             		enemyParent.removeActor(save.enemy, false);
             	}	
-            	for (Actor actor : save.enemy.getChildren()) { enemyChildren.addActor(actor); }
+            	for (Actor actor : save.enemy.getChildren()) { enemyChildren.add(actor); }
             	save.enemy.clearChildren();
         	}
         	try {
@@ -208,7 +208,7 @@ public class SaveManager implements SaveService, LoadService {
         		if (enemyParent != null) {
         			enemyParent.addActor(save.enemy);
         		}	
-        		for (Actor actor : enemyChildren.getChildren()) { save.enemy.addActor(actor); }
+        		for (Actor actor : enemyChildren) { save.enemy.addActor(actor); }
         	}
         }
     }

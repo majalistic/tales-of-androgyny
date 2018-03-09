@@ -143,7 +143,7 @@ public abstract class AbstractCharacter extends Group {
 			currentMana = getMaxMana();
 			stability = Stability.Surefooted;
 			focus = fortune = 10;
-			setStance(Stance.BALANCED);
+			stance = Stance.BALANCED;
 			phallus = PhallusType.NORMAL;
 			perks = new ObjectMap<String, Integer>();
 			statuses = new ObjectMap<String, Integer>();

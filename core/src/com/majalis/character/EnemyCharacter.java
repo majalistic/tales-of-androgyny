@@ -8,7 +8,6 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.RandomXS128;
 import com.badlogic.gdx.scenes.scene2d.Action;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -107,6 +106,7 @@ public class EnemyCharacter extends AbstractCharacter {
 		}
 		
 		currentDisplay = enemyType == EnemyEnum.BRIGAND ? "IFOS100N" :"Idle Erect";
+		setStance(stance);
 	}
 	
 	private ObjectMap<Stance, Array<Image>> initImagesBystance(ObjectMap<Stance, Array<Texture>> textures) {
@@ -151,11 +151,9 @@ public class EnemyCharacter extends AbstractCharacter {
 	}
 	
 	@Override
-	public void act(float delta) {
-		for (Actor actor: getChildren()) {
-			this.removeActor(actor);
-		}
-		
+	public void setStance(Stance stance) { 
+		super.setStance(stance);		
+		this.clearChildren();
 		this.addActor(currentAnimations);
 		
 		if (enemyType == EnemyEnum.BRIGAND) {
@@ -198,7 +196,6 @@ public class EnemyCharacter extends AbstractCharacter {
 			
 			this.addActor(texture);
 		}
-		super.act(delta);
 	}
 	
 	public void attackAnimation() {
@@ -207,7 +204,7 @@ public class EnemyCharacter extends AbstractCharacter {
 			if (enemyType == EnemyEnum.HARPY) {
 				final String preAttack = fellatio ? "Air BJ" : "Attack Erect";
 				final String attack = fellatio ? "bj" : "attack";
-				animations.get(0).addAction(Actions.sequence(
+				currentAnimations.addAction(Actions.sequence(
 					Actions.delay(1), 
 					new Action() {
 						@Override
@@ -227,8 +224,9 @@ public class EnemyCharacter extends AbstractCharacter {
 					}}, Actions.delay(2), new Action() {
 					@Override
 					public boolean act(float delta) {
-						if (!stance.isOralPenetration()) currentAnimations.addActor(animations.get(0));
 						currentAnimations.removeActor(animations.get(1));
+						if (!stance.isOralPenetration()) currentAnimations.addActor(animations.get(0));
+						else { setStance(stance); }
 						return true;
 					}
 				}));
@@ -1099,7 +1097,7 @@ public class EnemyCharacter extends AbstractCharacter {
 			return possibles;	
 		}
 		else if (stance == Stance.ERUPT) {
-			setStance(Stance.BALANCED);
+			stance = Stance.BALANCED;
 			return getPossibleTechniques(target, stance);
 		}
 		return possibles.size == 0 ? getTechniques(DO_NOTHING) : possibles;
