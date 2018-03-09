@@ -47,7 +47,7 @@ public enum Techniques {
 	BLOCK				(new GuardTechnique	(Stance.BALANCED, Stance.DEFENSIVE, "Block", 0, -1, 3, true).addBonus(BonusCondition.SKILL_LEVEL, BonusType.PARRY, 1).build()),//.addBonus(BonusCondition.OUTMANEUVER, BonusType.GUARD_MOD, 25).build()),
 	GUARD  				(new GuardTechnique	(Stance.DEFENSIVE, Stance.DEFENSIVE, "Guard", -2, -2, 4, true).addBonus(BonusCondition.SKILL_LEVEL, BonusType.PARRY, 2).build()),//.addBonus(BonusCondition.OUTMANEUVER, BonusType.GUARD_MOD, 25).build()),
 	SECOND_WIND			(new NonAttackTechnique(Stance.DEFENSIVE, Stance.DEFENSIVE, "Second Wind", -4, -1).build()),
-	SUDDEN_ADVANCE		(new NonAttackTechnique(Stance.DEFENSIVE, Stance.OFFENSIVE, "Sudden Advance", 1, 6).addBonus(BonusCondition.SKILL_LEVEL, BonusType.PARRY, 1).addBonus(BonusCondition.OUTMANEUVER, BonusType.PARRY, 1).build(), 3),	
+	SUDDEN_ADVANCE		(new NonAttackTechnique(Stance.DEFENSIVE, Stance.OFFENSIVE, "Sudden Advance", 1, 5).addBonus(BonusCondition.SKILL_LEVEL, BonusType.PARRY, 1).addBonus(BonusCondition.OUTMANEUVER, BonusType.PARRY, 1).build(), 3),	
 	
 	/* Stonewall Techniques */
 	ABSOLUTE_GUARD		(new GuardTechnique	(Stance.STONEWALL, Stance.STONEWALL, "Absolute Guard", 4, -1, 4, true).addBonus(BonusCondition.SKILL_LEVEL, BonusType.PARRY, 4).build()),
