@@ -1,5 +1,7 @@
 package com.majalis.screens;
 
+import static com.majalis.asset.AssetEnum.*;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.assets.AssetDescriptor;
@@ -35,18 +37,20 @@ import com.majalis.save.SaveService;
 public class CampScreen extends AbstractScreen {
 	private static final Array<AssetDescriptor<?>> resourceRequirements = new Array<AssetDescriptor<?>>();
 	private static Array<AssetDescriptor<?>> requirementsToDispose = new Array<AssetDescriptor<?>>();
+
 	static {
 		resourceRequirements.add(AssetEnum.UI_SKIN.getSkin());
-		resourceRequirements.add(AssetEnum.PLAINS_BG.getTexture());
-		resourceRequirements.add(AssetEnum.APPLE.getTexture());
-		resourceRequirements.add(AssetEnum.WORLD_MAP_UI.getTexture());
-		resourceRequirements.add(AssetEnum.STANCE_ARROW.getTexture());
-		resourceRequirements.add(AssetEnum.DEFAULT_BACKGROUND.getTexture());
-		resourceRequirements.add(AssetEnum.BATTLE_HOVER.getTexture());
-		resourceRequirements.add(AssetEnum.BATTLE_TEXTBOX.getTexture());
-		resourceRequirements.add(AssetEnum.TEXT_BOX.getTexture());
 		resourceRequirements.add(AssetEnum.SHOP_MUSIC.getMusic());
 		resourceRequirements.add(AssetEnum.BUTTON_SOUND.getSound());
+		
+		AssetEnum[] assets = new AssetEnum[]{
+			PORTRAIT_NEUTRAL, PORTRAIT_AHEGAO, PORTRAIT_FELLATIO, PORTRAIT_MOUTHBOMB, PORTRAIT_GRIN, PORTRAIT_HIT, PORTRAIT_LOVE, PORTRAIT_LUST, PORTRAIT_SMILE, PORTRAIT_SURPRISE, PORTRAIT_GRIMACE, PORTRAIT_POUT, PORTRAIT_HAPPY, 
+			PORTRAIT_NEUTRAL_FEMME, PORTRAIT_AHEGAO_FEMME, PORTRAIT_FELLATIO_FEMME, PORTRAIT_MOUTHBOMB_FEMME, PORTRAIT_GRIN_FEMME, PORTRAIT_HIT_FEMME, PORTRAIT_LOVE_FEMME, PORTRAIT_LUST_FEMME, PORTRAIT_SMILE_FEMME, PORTRAIT_SURPRISE_FEMME, PORTRAIT_GRIMACE_FEMME, PORTRAIT_POUT_FEMME, PORTRAIT_HAPPY_FEMME,
+			PLAINS_BG, APPLE, WORLD_MAP_UI, STANCE_ARROW
+		};
+		for (AssetEnum asset: assets) {
+			resourceRequirements.add(asset.getTexture());
+		}
 	}
 	private final SaveService saveService;
 	private final PlayerCharacter character;
@@ -187,12 +191,18 @@ public class CampScreen extends AbstractScreen {
 		this.addActor(characterUI);
 		characterUI.setScale(1.1f);
         
+		Texture portrait = assetManager.get(character.getPortraitPath());
+        Image characterPortrait = new Image(portrait);
+		characterPortrait.setBounds(-1, 27, portrait.getWidth() / (portrait.getHeight() / 200f), 200);
+        this.addActor(characterPortrait);
+		
         Image foodIcon = new Image(food);
 		foodIcon.setSize(75, 75);
 		this.addActor(foodIcon);
         
         this.addActor(table);
         this.addActor(arrow);
+        
         
         arrow.setSize(45, 75);
         setArrowPosition();
