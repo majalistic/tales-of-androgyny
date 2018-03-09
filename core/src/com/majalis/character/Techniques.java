@@ -29,22 +29,22 @@ public enum Techniques {
 	SPRING_ATTACK  		(new AttackTechnique(Stance.BALANCED, Stance.OFFENSIVE, "Spring Attack", 1, 4, 3, TechniqueHeight.MEDIUM).addBonus(BonusCondition.OUTMANEUVER, BonusType.BLEEDING, 1).build(), 5),
 	
 	/* Blitz Techniques */
-	BLITZ_ATTACK  		(new AttackTechnique(Stance.OFFENSIVE, Stance.BLITZ, "Blitz Attack", 4, 4, 6, TechniqueHeight.MEDIUM).addBonus(BonusCondition.OUTMANEUVER, BonusType.BLEEDING, 1).build(), false),
-	ALL_OUT_BLITZ		(new AttackTechnique(Stance.BLITZ, Stance.BLITZ, "All-Out Blitz", 6, 4, 8, 1.5).build(), 3),
-	HOLD_BACK			(new NonAttackTechnique(Stance.BLITZ, Stance.OFFENSIVE, "Hold Back", 0, 3).build()),
+	BLITZ_ATTACK  		(new AttackTechnique(Stance.OFFENSIVE, Stance.BLITZ, "Blitz Attack", 4, 4, 5, TechniqueHeight.MEDIUM).addBonus(BonusCondition.OUTMANEUVER, BonusType.BLEEDING, 1).build(), false),
+	ALL_OUT_BLITZ		(new AttackTechnique(Stance.BLITZ, Stance.BLITZ, "All-Out Blitz", 6, 4, 7, 1.5).build(), 3),
+	HOLD_BACK			(new NonAttackTechnique(Stance.BLITZ, Stance.OFFENSIVE, "Hold Back", 0, 1).build()),
 	
 	/* Balanced Techniques */
-	RESERVED_ATTACK  	(new AttackTechnique(Stance.OFFENSIVE, Stance.BALANCED, "Reserved Attack", -2, 4, 1, TechniqueHeight.LOW).build()),
-	REVERSAL_ATTACK  	(new AttackTechnique(Stance.DEFENSIVE, Stance.BALANCED, "Reversal Attack", -3, 2, 2, TechniqueHeight.LOW).build()),
-	NEUTRAL_ATTACK  	(new AttackTechnique(Stance.BALANCED, Stance.BALANCED, "Low Attack", -3, 1, 1, TechniqueHeight.LOW).addBonus(BonusCondition.ENEMY_LOW_STABILITY, BonusType.TRIP, 60).addBonus(BonusCondition.OUTMANEUVER, BonusType.TRIP, 10).build()),
+	RESERVED_ATTACK		(new GuardTechnique	(Stance.OFFENSIVE, Stance.BALANCED, "Combat Guard", 0, 0, 2, true).addBonus(BonusCondition.SKILL_LEVEL, BonusType.PARRY, 1).build()),	
+	REVERSAL_ATTACK  	(new AttackTechnique(Stance.DEFENSIVE, Stance.BALANCED, "Reversal Attack", -2, 2, 2, TechniqueHeight.LOW).build()),
+	NEUTRAL_ATTACK  	(new AttackTechnique(Stance.BALANCED, Stance.BALANCED, "Low Attack", -1, 1, 1, TechniqueHeight.LOW).addBonus(BonusCondition.ENEMY_LOW_STABILITY, BonusType.TRIP, 60).addBonus(BonusCondition.OUTMANEUVER, BonusType.TRIP, 10).build()),
 	USE_ITEM		  	(new NonAttackTechnique(Stance.BALANCED, Stance.ITEM, "Use Item", 0, 0).build(), false),
 	ITEM_OR_CANCEL		(new NonAttackTechnique(Stance.ITEM, Stance.BALANCED, "Cancel", 0, 0).setBlockable(false).build(), false),
-	KICK_OVER_FACE_UP	(new NonAttackTechnique(Stance.BALANCED, Stance.BALANCED, "Kick Over", 0, 5, Stance.SUPINE).build(), false),
-	KICK_OVER_FACE_DOWN (new NonAttackTechnique(Stance.BALANCED, Stance.BALANCED, "Kick Over", 0, 5, Stance.PRONE).build(), false),
+	KICK_OVER_FACE_UP	(new NonAttackTechnique(Stance.BALANCED, Stance.BALANCED, "Kick Over", 0, 3, Stance.SUPINE).build(), false),
+	KICK_OVER_FACE_DOWN (new NonAttackTechnique(Stance.BALANCED, Stance.BALANCED, "Kick Over", 0, 3, Stance.PRONE).build(), false),
 	
 	/* Defensive Techniques */
 	CAREFUL_ATTACK  	(new AttackTechnique(Stance.DEFENSIVE, Stance.DEFENSIVE, "Careful Attack", -2, 0, 1).build()),
-	BLOCK				(new GuardTechnique	(Stance.BALANCED, Stance.DEFENSIVE, "Block", 0, 0, 3, true).addBonus(BonusCondition.SKILL_LEVEL, BonusType.PARRY, 1).build()),//.addBonus(BonusCondition.OUTMANEUVER, BonusType.GUARD_MOD, 25).build()),
+	BLOCK				(new GuardTechnique	(Stance.BALANCED, Stance.DEFENSIVE, "Block", 0, -1, 3, true).addBonus(BonusCondition.SKILL_LEVEL, BonusType.PARRY, 1).build()),//.addBonus(BonusCondition.OUTMANEUVER, BonusType.GUARD_MOD, 25).build()),
 	GUARD  				(new GuardTechnique	(Stance.DEFENSIVE, Stance.DEFENSIVE, "Guard", -2, -2, 4, true).addBonus(BonusCondition.SKILL_LEVEL, BonusType.PARRY, 2).build()),//.addBonus(BonusCondition.OUTMANEUVER, BonusType.GUARD_MOD, 25).build()),
 	SECOND_WIND			(new NonAttackTechnique(Stance.DEFENSIVE, Stance.DEFENSIVE, "Second Wind", -4, -1).build()),
 	SUDDEN_ADVANCE		(new NonAttackTechnique(Stance.DEFENSIVE, Stance.OFFENSIVE, "Sudden Advance", 1, 6).addBonus(BonusCondition.SKILL_LEVEL, BonusType.PARRY, 1).addBonus(BonusCondition.OUTMANEUVER, BonusType.PARRY, 1).build(), 3),	
@@ -60,7 +60,6 @@ public enum Techniques {
 	RUB					(new NonAttackTechnique(Stance.SEDUCTION, Stance.SEDUCTION, "Rub", 0, -1).addSelfSex(new SexualExperienceBuilder().setAssTeasing(1)).addSex(new SexualExperienceBuilder().setAssBottomTeasing(1)).build(), 3), // raises own lust, makes enemy want to be fucked by you
 	PRESENT				(new NonAttackTechnique(Stance.SEDUCTION, Stance.HANDS_AND_KNEES, "Present", 0, -1).addSelfSex(new SexualExperienceBuilder().setAssBottomTeasing(1)).addSex(new SexualExperienceBuilder().setAssTeasing(1)).build(), 3), // makes enemy want to fuck your ass, puts you in hands and knees
 	SLAP_ASS_KNEES 		(new NonAttackTechnique(Stance.HANDS_AND_KNEES, Stance.HANDS_AND_KNEES, "Spank Ass", -1, -1).addSelfSex(new SexualExperienceBuilder().setAssBottomTeasing(1)).addSex(new SexualExperienceBuilder().setAssTeasing(1)).build(), 3), // makes enemy want to fuck your ass, raises own lust (by more if catamite/slut)
-	
 	
 	/* Techniques from Prone/Supine */
 	KIP_UP				(new NonAttackTechnique(Stance.PRONE, Stance.BALANCED, "Kip Up", 5, -15).build(), false),
@@ -82,7 +81,7 @@ public enum Techniques {
 	FLY					(new NonAttackTechnique(Stance.BALANCED, Stance.AIRBORNE, "Fly", 0, 0).build(), false),	 
 	
 	/* Enemy attacks */
-	SLIME_ATTACK 		(new AttackTechnique(Stance.BALANCED, Stance.BALANCED, "Slime Attack", 7, 0, 5).build(), false),
+	SLIME_ATTACK 		(new AttackTechnique(Stance.BALANCED, Stance.BALANCED, "Slime Attack", 7, 5, 0).build(), false),
 	SLIME_QUIVER 		(new NonAttackTechnique(Stance.BALANCED, Stance.DEFENSIVE, "Slime Quiver", -1, -1).build(), false),
 	
 	ACTIVATE		  	(new SpellTechnique(Stance.CASTING, Stance.BALANCED, "Activate", 0, 0, SpellEffect.NONE, StatusType.ACTIVATE).build(), false),
@@ -281,12 +280,12 @@ public enum Techniques {
 	VAULT 				(new NonAttackTechnique(Stance.OFFENSIVE, Stance.AIRBORNE, "Vault", 2, 4).addBonus(BonusCondition.OUTMANEUVER, BonusType.EVASION, 25).build()), // needs to be changed to evasion mod 
 	JUMP_ATTACK 		(new AttackTechnique(Stance.AIRBORNE, Stance.BALANCED, "Falling Crush", 4, 4, 2).addBonus(BonusCondition.ENEMY_ON_GROUND, BonusType.POWER_MOD, 4).addBonus(BonusCondition.ENEMY_ON_GROUND, BonusType.ARMOR_SUNDER, 4).build()),
 	VAULT_OVER			(new NonAttackTechnique(Stance.AIRBORNE, Stance.BALANCED, "Vault Over", 1, 1).build()),
-	RECKLESS_ATTACK 	(new AttackTechnique(Stance.OFFENSIVE, Stance.OFFENSIVE, "Assault", 2, 3, 6, false).addBonus(BonusCondition.STRENGTH_OVERPOWER, BonusType.KNOCKDOWN, 1).build(), 3), // unguardable
-	KNOCK_DOWN 			(new AttackTechnique(Stance.OFFENSIVE, Stance.OFFENSIVE, "Overrun", -2, 3, 6, 1).addBonus(BonusCondition.SKILL_LEVEL, BonusType.KNOCKDOWN, 1).setCausesBleed(false).build(), 3), 
+	RECKLESS_ATTACK 	(new AttackTechnique(Stance.OFFENSIVE, Stance.OFFENSIVE, "Assault", 2, 3, 5, false).addBonus(BonusCondition.STRENGTH_OVERPOWER, BonusType.KNOCKDOWN, 1).build(), 3), // unguardable
+	KNOCK_DOWN 			(new AttackTechnique(Stance.OFFENSIVE, Stance.OFFENSIVE, "Overrun", -2, 3, 5, 1).addBonus(BonusCondition.SKILL_LEVEL, BonusType.KNOCKDOWN, 1).setCausesBleed(false).build(), 3), 
 	SLIDE				(new NonAttackTechnique(Stance.BALANCED, Stance.KNEELING, "Slide", 1, 4, TechniqueHeight.LOW).addBonus(BonusCondition.ENEMY_LOW_STABILITY, BonusType.TRIP, 80).addBonus(BonusCondition.OUTMANEUVER, BonusType.TRIP, 20).addBonus(BonusCondition.OUTMANEUVER, BonusType.EVASION, 40).build(), 1), 
 	TAUNT 				(new NonAttackTechnique(Stance.DEFENSIVE, Stance.SEDUCTION, "Seduce", 0, 0).addBonus(BonusCondition.SKILL_LEVEL, BonusType.POWER_MOD, 1).addSex(new SexualExperienceBuilder().setAssTeasing(1)).build(), 3), 
 	HIT_THE_DECK		(new FallDownTechnique(Stance.BALANCED, Stance.PRONE, "Hit the Deck").addBonus(BonusCondition.OUTMANEUVER, BonusType.EVASION, 50).build()), 
-	FEINT_AND_STRIKE	(new AttackTechnique(Stance.OFFENSIVE, Stance.OFFENSIVE, "Feint Strike", -1, 3, 7).addBonus(BonusCondition.OUTMANEUVER, BonusType.POWER_MOD).addBonus(BonusCondition.OUTMANEUVER, BonusType.EVASION, 25).addBonus(BonusCondition.SKILL_LEVEL, BonusType.STABILTIY_COST, 1).build(), 3), 
+	FEINT_AND_STRIKE	(new AttackTechnique(Stance.OFFENSIVE, Stance.OFFENSIVE, "Feint Strike", -1, 3, 6).addBonus(BonusCondition.OUTMANEUVER, BonusType.POWER_MOD).addBonus(BonusCondition.OUTMANEUVER, BonusType.EVASION, 25).addBonus(BonusCondition.SKILL_LEVEL, BonusType.STABILTIY_COST, 1).build(), 3), 
 	PARRY  				(new GuardTechnique(Stance.DEFENSIVE, Stance.COUNTER, "Parry", -1, 0, 0, false).addBonus(BonusCondition.SKILL_LEVEL, BonusType.PARRY, 1).addBonus(BonusCondition.OUTMANEUVER, BonusType.PARRY, 1).build(), 3),
 	UPPERCUT			(new AttackTechnique(Stance.KNEELING, Stance.OFFENSIVE, "Uppercut", 1, 4, 2, true, TechniqueHeight.HIGH).addBonus(BonusCondition.SKILL_LEVEL, BonusType.POWER_MOD).build(), 3),
 	COMBAT_HEAL  		(new SpellTechnique(Stance.CASTING, Stance.BALANCED, "Combat Heal", 7, 10, SpellEffect.HEALING).addBonus(BonusCondition.SKILL_LEVEL, BonusType.POWER_MOD, 3).build(), 3),

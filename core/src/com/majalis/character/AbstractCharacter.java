@@ -324,7 +324,7 @@ public abstract class AbstractCharacter extends Group {
 	
 	public Color getHealthColor() { return getValueColor(getHealthDegradation()); } 
 	public Color getStaminaColor() { return getValueColor(getStaminaDegradation()); }
-	public Color getStabilityColor() { return getValueColor(stability == Stability.Surefooted ? 0 : stability.isGood() ? 1 : stability.lowBalance() ? 2 : 3); }
+	public Color getStabilityColor() { return getValueColor(stability == Stability.Perfect ? 0 : stability.isGood() ? 1 : stability.lowBalance() ? 2 : 3); }
 	
 	public String getStatusBlurb() {
 		String blurb = "";
@@ -396,7 +396,7 @@ public abstract class AbstractCharacter extends Group {
 		
 		int staminaMod = getStaminaMod(technique); 
 		modStamina(-staminaMod);
-		modStability(getStabilityRegen() - technique.getStabilityCost());
+		modStability(getStabilityChange(technique));
 		modMana(-technique.getManaCost());
 		
 		Array<String> toRemove = new Array<String>();
@@ -733,10 +733,9 @@ public abstract class AbstractCharacter extends Group {
 			
 			int knockdown = attack.getForce();
 			knockdown -= getTraction();
-			
+			knockdown = Stability.getKnockdownConversion(knockdown);
 			if (knockdown > 0) {
 				if (!alreadyIncapacitated() && !wasIncapacitated()) {
-					modStability(-knockdown);
 					result.add("It's a solid blow! It reduces balance by " + knockdown + "!");
 					if (stability.isDown()) {
 						if (enemyType == EnemyEnum.OGRE) {
@@ -1042,7 +1041,6 @@ public abstract class AbstractCharacter extends Group {
 	protected int getStat(Stat stat) {
 		return stepDown(getRawStat(stat));
 	}
-	
 
 	public int getRawStat(Stat stat) {
 		switch(stat) {
@@ -1088,9 +1086,7 @@ public abstract class AbstractCharacter extends Group {
 		return label + " adopt" + (secondPerson ? "" : "s") + " " + article + " " + stanceTransform + " stance! ";
  	}
 	
-	public boolean outOfStamina(Technique technique) {
-		return getStaminaMod(technique) >= currentStamina;
-	}
+	public boolean outOfStamina(Technique technique) { return getStaminaMod(technique) >= currentStamina; }
 	
 	private Stability checkStability(int stabilityModifier) {
 		Stability currentStability = stability;
@@ -1100,31 +1096,27 @@ public abstract class AbstractCharacter extends Group {
 		return resultingStability;
 	}
 	
-	public boolean outOfStability(Technique technique) {
-		return checkStability(getStabilityRegen() - technique.getStabilityCost()).isDown();
+	private int getStabilityChange(Technique technique) { 
+		int possibleCost = getStabilityRegen() - technique.getStabilityCost();
+		if (technique.getStabilityCost() > 0) possibleCost = Math.min(possibleCost, -1);
+		else if (technique.getStabilityCost() < 0) possibleCost = Math.max(possibleCost, 1);
+		else possibleCost = 0;
+		return possibleCost;
 	}
 	
-	public boolean outOfStaminaOrStability(Technique technique) {
-		 return outOfStamina(technique) || outOfStability(technique);
-	}
+	public boolean outOfStability(Technique technique) { return checkStability(getStabilityChange(technique)).isDown(); }
+	
+	public boolean outOfStaminaOrStability(Technique technique) { return outOfStamina(technique) || outOfStability(technique); }
 
-	public boolean lowStaminaOrStability(Technique technique) {
-		return getStaminaMod(technique) >= currentStamina - 5 || checkStability(getStabilityRegen() - technique.getStabilityCost()).lowBalance();	
-	}
+	public boolean lowStaminaOrStability(Technique technique) {	return getStaminaMod(technique) >= currentStamina - 5 || checkStability(getStabilityChange(technique)).lowBalance(); }
 	
-	protected boolean lowStability() {
-		return stability.lowBalance();
-	}
+	protected boolean lowStability() { return stability.lowBalance(); }
 	
-	protected boolean isErect() {
-		return arousal.isErect() && !isChastitied() && phallus != PhallusType.NONE;
-	}
+	protected boolean isErect() { return arousal.isErect() && !isChastitied() && phallus != PhallusType.NONE; }
 	
 	public int getCurrentLust() { return arousal.getLust(); }
 	
-	public String getDefeatMessage() {
-		return label + (secondPerson ? " are " : " is ") + "defeated!";
-	}
+	public String getDefeatMessage() { return label + (secondPerson ? " are " : " is ") + "defeated!"; }
 	
 	public Array<MutationResult> modFood(Integer foodMod) {
 		int foodChange = food;
@@ -1149,9 +1141,7 @@ public abstract class AbstractCharacter extends Group {
 
 	public int getBleed() { return statuses.get(StatusType.BLEEDING.toString(), 0); }
 	
-	protected String properCase(String sample) {
-		return sample.substring(0, 1).toUpperCase() + sample.substring(1);
-	}
+	protected String properCase(String sample) { return sample.substring(0, 1).toUpperCase() + sample.substring(1); }
 	
 	public String setArmor(Item armor, boolean newItem) {
 		if (armor == null) {
@@ -1479,11 +1469,16 @@ public abstract class AbstractCharacter extends Group {
 		Disoriented ("DOWN X 3", AssetEnum.BALANCE_ICON_2, 0),
 		Dazed ("DOWN X 2", AssetEnum.BALANCE_ICON_2, 0),
 		Down ("DOWN X 1", AssetEnum.BALANCE_ICON_2, 0),
-		Teetering ("Teetering", AssetEnum.BALANCE_ICON_2, .1f),
-		Weakfooted ("Weakfooted", AssetEnum.BALANCE_ICON_1, .25f),
-		Unstable ("Unstable", AssetEnum.BALANCE_ICON_1, .50f),
-		Stable ("Stable", AssetEnum.BALANCE_ICON_0, .75f),
-		Surefooted ("Surefooted", AssetEnum.BALANCE_ICON_0, 1);
+		Tripping ("Tripping", AssetEnum.BALANCE_ICON_2, .1f),
+		Teetering ("Teetering", AssetEnum.BALANCE_ICON_2, .2f),		
+		Faltering ("Faltering", AssetEnum.BALANCE_ICON_1, .3f),		
+		Weakfooted ("Weakfooted", AssetEnum.BALANCE_ICON_1, .4f),
+		Unstable ("Unstable", AssetEnum.BALANCE_ICON_1, .5f),	
+		Wobbly ("Wobbly", AssetEnum.BALANCE_ICON_1, .6f),
+		Unsteady ("Unsteady", AssetEnum.BALANCE_ICON_0, .7f),	
+		Stable ("Stable", AssetEnum.BALANCE_ICON_0, .8f),
+		Surefooted ("Surefooted", AssetEnum.BALANCE_ICON_0, .9f),	
+		Perfect ("Perfect", AssetEnum.BALANCE_ICON_0, 1);
 
 		private final String label;
 		private final AssetEnum texture;
@@ -1497,25 +1492,33 @@ public abstract class AbstractCharacter extends Group {
 		public String getLabel() { return label; }
 		public AssetDescriptor<Texture> getDisplay() { 	return texture.getTexture(); }
 		public float getPercent() { return percent; }
-		public boolean isDown() { return this.ordinal() < 3; }
-		public boolean lowBalance() { return this.ordinal() < 4; }
-		public boolean isGood() { return this.ordinal() > 5; }
+		public boolean isDown() { return this.ordinal() < Tripping.ordinal(); }
+		public boolean lowBalance() { return this.ordinal() < Weakfooted.ordinal(); }
+		public boolean isGood() { return this.ordinal() > Unstable.ordinal(); }
 
 		// this should just be a simple conversion of value to ordinal - change stability cost to be "tier cost" in skills, convert knockdown somehow, and then make it so that agility can downgrade the stability level costs - increase the number of stability levels as well
 		public Stability shift(int stabilityMod) {
-			int shift = 0;
-			if (stabilityMod > 10) { shift = 4; }
-			else if (stabilityMod > 5) { shift = 2; }
-			else if (stabilityMod > 0) { shift = 1; }
-			else if (stabilityMod < -20) { shift = -6; }
-			else if (stabilityMod < -10) { shift = -3; }
-			else if (stabilityMod < -5) { shift = -2; }
-			else if (stabilityMod < -1) { shift = -1; }
-			int ordinal = this.ordinal() + shift;
+			int ordinal = this.ordinal() + stabilityMod;
 			Stability [] values = Stability.values();
 			return values.length < ordinal + 1 ? values[values.length - 1] : ordinal < 0 ? values[0] : values[ordinal];			
 		}
+		
+		public static int getKnockdownConversion(int knockdownAmount) {
+			if (knockdownAmount >= 20) return -10;
+			if (knockdownAmount >= 10) return -3;
+			if (knockdownAmount >= 5) return -2;
+			if (knockdownAmount > 1) return -1;
+			return 0;
+		}
 	}
+	
+	/*if (stabilityMod > 10) { shift = 4; }
+	else if (stabilityMod > 5) { shift = 2; }
+	else if (stabilityMod > 0) { shift = 1; }
+	else if (stabilityMod < -20) { shift = -6; }
+	else if (stabilityMod < -10) { shift = -3; }
+	else if (stabilityMod < -5) { shift = -2; }
+	else if (stabilityMod < -1) { shift = -1; }*/
 	
 	protected enum PronounSet {
 		MALE ("he", "him", "his", "himself"),
