@@ -34,7 +34,6 @@ public class EnemyCharacter extends AbstractCharacter {
 	private transient Group currentAnimations;
 	private transient Array<AnimatedActor> animations;
 	private String currentDisplay;
-	private int range;
 	private int currentFrame;
 	private int selfRessurect;
 	private boolean storyMode;
@@ -58,7 +57,6 @@ public class EnemyCharacter extends AbstractCharacter {
 		}
 		
 		random = new RandomXS128((int)(Math.random() * 10000) % 10000);
-		
 		weapon = enemyType.getWeaponType() != null ? new Weapon(enemyType.getWeaponType()): null;
 		armor = enemyType.getArmorType() != null ? new Armor(enemyType.getArmorType()): null;
 		legwear = enemyType.getLegwearType() != null ? new Armor(enemyType.getLegwearType()): null;
@@ -157,10 +155,6 @@ public class EnemyCharacter extends AbstractCharacter {
 				currentAnimations.removeActor(animations.get(1));
 			}
 		}
-		/*else if (enemyType == EnemyEnum.HARPY && currentFrame > 0) { 
-			clearActions();
-			currentAnimationsPlaying.clear();
-		}*/
 		if (enemyType == EnemyEnum.HARPY && !stance.isOralPenetration()) currentAnimations.addActor(animations.get(0));
 		if (currentAnimations.getChildren().size == 0 || 
 				((enemyType == EnemyEnum.GOBLIN || enemyType == EnemyEnum.GOBLIN_MALE) && (stance == Stance.FACE_SITTING || stance == Stance.SIXTY_NINE || stance == Stance.PRONE_BONE || stance == Stance.DOGGY || stance == Stance.PRONE_BONE || stance == Stance.SIXTY_NINE)) ||
@@ -175,9 +169,7 @@ public class EnemyCharacter extends AbstractCharacter {
 				if (textureCandidates.size > 0) texture = textureCandidates.get(0);
 				else return;
 			}
-			else {
-				texture = textureCandidates.get(currentFrame);
-			}
+			else { texture = textureCandidates.get(currentFrame); }
 
 			if (texture == null) return;
 			
@@ -199,21 +191,10 @@ public class EnemyCharacter extends AbstractCharacter {
 				height = 1080;
 			}
 			
-			if (enemyType == EnemyEnum.OGRE) {
-				y = 0;
-			}
+			if (enemyType == EnemyEnum.OGRE) { y = 0; }
 			
-			range = 0;
-			if (range == 0) {
-				texture.setBounds(x + getX(),  y + getY(), width, height);
-				this.addActor(texture);
-			}
-			/*else if (range == 1) {
-				batch.draw(texture, x + 150, y + 150, width / 2, height / 2);
-			}
-			else {
-				batch.draw(texture, x + 200, y + 350, width / 3, height / 3);
-			}*/
+			texture.setBounds(x + getX(),  y + getY(), width, height);
+			this.addActor(texture);
 		}
 		super.act(delta);
 	}
@@ -289,16 +270,11 @@ public class EnemyCharacter extends AbstractCharacter {
 	@Override
 	public String getDefeatMessage() {
 		switch (enemyType) {
-			case BRIGAND:
-				return "You defeated the Brigand!\nShe kneels to the ground, unable to lift her weapon.";
-			case CENTAUR:
-				return "You defeated the Centaur!\nShe smiles, haggardly, acknowledging your strength, and bows slightly.";
-			case GOBLIN:
-				return "The Goblin is knocked to the ground, defeated!";
-			case HARPY:
-				return "The Harpy falls out of the sky, crashing to the ground!\nShe is defeated!";
-			case SLIME:
-				return "The Slime becomes unable to hold her form!\nShe is defeated!";
+			case BRIGAND: return "You defeated the Brigand!\nShe kneels to the ground, unable to lift her weapon.";
+			case CENTAUR: return "You defeated the Centaur!\nShe smiles, haggardly, acknowledging your strength, and bows slightly.";
+			case GOBLIN: return "The Goblin is knocked to the ground, defeated!";
+			case HARPY: return "The Harpy falls out of the sky, crashing to the ground!\nShe is defeated!";
+			case SLIME: return "The Slime becomes unable to hold her form!\nShe is defeated!";
 			case UNICORN:
 			case WERESLUT:
 			default:
@@ -1128,7 +1104,6 @@ public class EnemyCharacter extends AbstractCharacter {
 	}
 	
 	private Array<Techniques> getTechniques(Techniques ... techniques) { return new Array<Techniques>(techniques); }
-	
 	private boolean isSpellCaster() { return enemyType == EnemyEnum.GOLEM || enemyType == EnemyEnum.ADVENTURER || enemyType == EnemyEnum.WARLOCK; } // currently Ghost and Angel have custom move pools, so do not count in this
 	private boolean canIncant() { return (isEnragedGolem() && currentMana > 3) || (enemyType == EnemyEnum.WARLOCK && currentMana >= 3) || mustIncant(); }
 	private boolean mustIncant() { 
