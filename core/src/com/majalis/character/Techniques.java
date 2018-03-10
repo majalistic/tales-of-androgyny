@@ -69,6 +69,7 @@ public enum Techniques {
 	/* Counter Techniques */ 			
 	RIPOSTE  			(new GuardTechnique(Stance.COUNTER, Stance.BALANCED, "Riposte", -1, 3, 5, false).addBonus(BonusCondition.SKILL_LEVEL, BonusType.PARRY, 2).addBonus(BonusCondition.OUTMANEUVER, BonusType.PARRY, 2).addBonus(BonusCondition.SKILL_LEVEL, BonusType.DISARM, 50).addBonus(BonusCondition.SKILL_LEVEL, BonusType.COUNTER, 50).addBonus(BonusCondition.OUTMANEUVER, BonusType.COUNTER, 50).addBonus(BonusCondition.OUTMANEUVER, BonusType.DISARM, 50).build(), 1),
 	EN_GARDE  			(new GuardTechnique(Stance.COUNTER, Stance.DEFENSIVE, "En Garde", -1, 0, 1, false).addBonus(BonusCondition.SKILL_LEVEL, BonusType.PARRY, 2).addBonus(BonusCondition.OUTMANEUVER, BonusType.PARRY, 1).build(), 1),
+	PARRY  				(new GuardTechnique(Stance.DEFENSIVE, Stance.COUNTER, "Parry", -1, 0, 0, false).addBonus(BonusCondition.SKILL_LEVEL, BonusType.PARRY, 1).addBonus(BonusCondition.OUTMANEUVER, BonusType.PARRY, 1).build(), 3),	
 	
 	/* Seduction Techniques */
 	SLAP_ASS			(new NonAttackTechnique(Stance.SEDUCTION, Stance.SEDUCTION, "Slap Ass", 0, -1).addSelfSex(new SexualExperienceBuilder().setAssBottomTeasing(1)).addSex(new SexualExperienceBuilder().setAssTeasing(1)).build(), 3), // makes enemy want to fuck your ass, raises own lust
@@ -181,20 +182,20 @@ public enum Techniques {
 	
 	LAY_EGGS 			(new GrappleTechnique(Stance.OVIPOSITION, Stance.OVIPOSITION, "Lay Eggs", 0, Stance.OVIPOSITION_BOTTOM).build(), false), // Used to lay eggs - can end battle
 	
-	BLOW_LOAD 			(new ClimaxTechnique   (Stance.DOGGY, Stance.DOGGY, "Blow Load", Stance.PRONE, ClimaxType.ANAL).build(), false),
-	BLOW_LOAD_ORAL		(new ClimaxTechnique   (Stance.FELLATIO, Stance.FELLATIO, "Blow Load", Stance.KNEELING, ClimaxType.ORAL).build(), false),
-	ERUPT_ANAL 			(new ClimaxTechnique   (Stance.DOGGY, Stance.DOGGY, "Erupt", Stance.PRONE, ClimaxType.ANAL).build(), false),
-	ERUPT_ORAL 			(new ClimaxTechnique   (Stance.FELLATIO, Stance.FELLATIO, "Erupt", Stance.KNEELING, ClimaxType.ORAL).build(), false),
-	ERUPT_FACIAL		(new ClimaxTechnique   (Stance.HANDY, Stance.HANDY, "Facial", Stance.KNEELING, ClimaxType.FACIAL).build(), false),
-	ERUPT_COWGIRL		(new ClimaxTechnique   (Stance.COWGIRL, Stance.SUPINE, "Erupt", Stance.KNEELING, ClimaxType.ANAL).build(), false),
-	ERUPT_SIXTY_NINE	(new ClimaxTechnique   (Stance.SIXTY_NINE, Stance.KNEELING, "Erupt", Stance.SUPINE, ClimaxType.ORAL).build(), false),
+	BLOW_LOAD 			(new ClimaxTechnique(Stance.DOGGY, Stance.DOGGY, "Blow Load", Stance.PRONE, ClimaxType.ANAL).build(), false),
+	BLOW_LOAD_ORAL		(new ClimaxTechnique(Stance.FELLATIO, Stance.FELLATIO, "Blow Load", Stance.KNEELING, ClimaxType.ORAL).build(), false),
+	ERUPT_ANAL 			(new ClimaxTechnique(Stance.DOGGY, Stance.DOGGY, "Erupt", Stance.PRONE, ClimaxType.ANAL).build(), false),
+	ERUPT_ORAL 			(new ClimaxTechnique(Stance.FELLATIO, Stance.FELLATIO, "Erupt", Stance.KNEELING, ClimaxType.ORAL).build(), false),
+	ERUPT_FACIAL		(new ClimaxTechnique(Stance.HANDY, Stance.HANDY, "Facial", Stance.KNEELING, ClimaxType.FACIAL).build(), false),
+	ERUPT_COWGIRL		(new ClimaxTechnique(Stance.COWGIRL, Stance.SUPINE, "Erupt", Stance.KNEELING, ClimaxType.ANAL).build(), false),
+	ERUPT_SIXTY_NINE	(new ClimaxTechnique(Stance.SIXTY_NINE, Stance.KNEELING, "Erupt", Stance.SUPINE, ClimaxType.ORAL).build(), false),
 	
 	RECEIVE_HANDY		(new GrappleTechnique(Stance.HANDY, Stance.HANDY, "Receive Handy", 0).build()),
 	BE_RIDDEN			(new GrappleTechnique(Stance.COWGIRL, Stance.COWGIRL, "Be Ridden", 0).build()),
 	BE_RIDDEN_REVERSE	(new GrappleTechnique(Stance.REVERSE_COWGIRL, Stance.REVERSE_COWGIRL, "Be Ridden", 0).build()),
 	PUSH_OFF			(new GrappleTechnique(Stance.COWGIRL, Stance.BALANCED, "Push Off", 0, Stance.BALANCED).build()), // Break hold
 	PUSH_OFF_ATTEMPT	(new GrappleTechnique(Stance.COWGIRL, Stance.COWGIRL, "Push Off", 4).build()),
-	PUSH_OFF_REVERSE			(new GrappleTechnique(Stance.COWGIRL, Stance.BALANCED, "Push Off", 0, Stance.BALANCED).build()), // Break hold
+	PUSH_OFF_REVERSE	(new GrappleTechnique(Stance.COWGIRL, Stance.BALANCED, "Push Off", 0, Stance.BALANCED).build()), // Break hold
 	PUSH_OFF_ATTEMPT_REVERSE	(new GrappleTechnique(Stance.COWGIRL, Stance.COWGIRL, "Push Off", 4).build()),
 	
 	SIT_ON_IT			(new GrappleTechnique(Stance.BALANCED, Stance.COWGIRL_BOTTOM, "Sit on It", 1, Stance.COWGIRL, "Sit down on it - and yes, it's going right up there.\nDon't say I didn't warn you.").build(), false), 
@@ -303,7 +304,6 @@ public enum Techniques {
 	TAUNT 				(new NonAttackTechnique(Stance.DEFENSIVE, Stance.SEDUCTION, "Seduce", 0, 0).addBonus(BonusCondition.SKILL_LEVEL, BonusType.POWER_MOD, 1).addSex(new SexualExperienceBuilder().setAssTeasing(1)).build(), 3), 
 	HIT_THE_DECK		(new FallDownTechnique(Stance.BALANCED, Stance.PRONE, "Hit the Deck").addBonus(BonusCondition.OUTMANEUVER, BonusType.EVASION, 50).build()), 
 	FEINT_AND_STRIKE	(new AttackTechnique(Stance.OFFENSIVE, Stance.OFFENSIVE, "Feint Strike", -1, 3, 6).addBonus(BonusCondition.OUTMANEUVER, BonusType.POWER_MOD).addBonus(BonusCondition.OUTMANEUVER, BonusType.EVASION, 25).addBonus(BonusCondition.SKILL_LEVEL, BonusType.STABILTIY_COST, 1).build(), 3), 
-	PARRY  				(new GuardTechnique(Stance.DEFENSIVE, Stance.COUNTER, "Parry", -1, 0, 0, false).addBonus(BonusCondition.SKILL_LEVEL, BonusType.PARRY, 1).addBonus(BonusCondition.OUTMANEUVER, BonusType.PARRY, 1).build(), 3),
 	UPPERCUT			(new AttackTechnique(Stance.KNEELING, Stance.OFFENSIVE, "Uppercut", 1, 4, 2, true, TechniqueHeight.HIGH).addBonus(BonusCondition.SKILL_LEVEL, BonusType.POWER_MOD).build(), 3),
 	COMBAT_HEAL  		(new SpellTechnique(Stance.CASTING, Stance.BALANCED, "Combat Heal", 7, 10, SpellEffect.HEALING).addBonus(BonusCondition.SKILL_LEVEL, BonusType.POWER_MOD, 3).build(), 3),
 	COMBAT_FIRE  		(new SpellTechnique(Stance.CASTING, Stance.BALANCED, "Combat Fire", 3, 3, SpellEffect.FIRE_DAMAGE).addBonus(BonusCondition.SKILL_LEVEL, BonusType.POWER_MOD, 2).build(), 3),
@@ -318,16 +318,10 @@ public enum Techniques {
 	private final TechniquePrototype trait;
 	private final int maxRank;
 	private final boolean learnable;
-	private Techniques(TechniquePrototype trait) {
-		this(trait, true);
-	}
-	private Techniques(TechniquePrototype trait, boolean learnable) {
-		this(trait, 1, learnable);
-	}
-	private Techniques(TechniquePrototype trait, int maxRank) {
-		this(trait, maxRank, true);
-	}
-	private Techniques(TechniquePrototype trait, int maxRank, boolean learnable) {
+	private Techniques(TechniquePrototype trait) { this(trait, true); }
+	private Techniques(TechniquePrototype trait, boolean learnable) { this(trait, 1, learnable); }
+	private Techniques(TechniquePrototype trait, int maxRank) { this(trait, maxRank, true); }
+	private Techniques(TechniquePrototype trait, int maxRank, boolean learnable) { 
 		this.trait = trait;
 		this.maxRank = maxRank;
 		this.learnable = learnable;
@@ -384,6 +378,10 @@ public enum Techniques {
 			case IRRUMATIO: return "Straighforward mouth fucking.";
 			case FORCE_DEEPTHROAT: return "Deep mouth fucking.";
 			case GRAB_IT: return "Used to grab the enemy by the... well, y'know.";
+			case CENTER: return "Focus yourself, preparing to advance and strike.";
+			case STONEWALL: return "Enter into a fully defensive stance, unable to strike, but difficult to harm.";
+			case BERSERK: return "Enter a blind, thunderous rage, fury tempered, a blade with two edges.";
+			case REEL_BACK: return "Prepare to throw a haymaker strike with frightening momentum.";
 			default: return "";
 		}
 	}
