@@ -286,52 +286,26 @@ public class PlayerCharacter extends AbstractCharacter {
 		
 		String result;
 		if (resolvedAttack.isClimax()) {
-			if (oldStance.isAnalReceptive()) {
-				setCurrentPortrait(perks.get(Perk.ANAL_ADDICT.toString(), 0) > 1 ? AssetEnum.PORTRAIT_AHEGAO : AssetEnum.PORTRAIT_POUT);
-			}
-			else if (oldStance.isOralReceptive()) {
-				setCurrentPortrait(AssetEnum.PORTRAIT_MOUTHBOMB);
-			}
-				
+			if (oldStance.isAnalReceptive()) { setCurrentPortrait(perks.get(Perk.ANAL_ADDICT.toString(), 0) > 1 ? AssetEnum.PORTRAIT_AHEGAO : AssetEnum.PORTRAIT_POUT); }
+			else if (oldStance.isOralReceptive()) { setCurrentPortrait(AssetEnum.PORTRAIT_MOUTHBOMB); }				
 		}
-		if (stance.isAnalReceptive()) {
-			setCurrentPortrait(perks.get(Perk.ANAL_ADDICT.toString(), 0) > 1 ? AssetEnum.PORTRAIT_LUST : AssetEnum.PORTRAIT_HIT);
-		}
-		else if (stance.isOralReceptive()) {
-			setCurrentPortrait(resolvedAttack.isClimax() ? AssetEnum.PORTRAIT_MOUTHBOMB : AssetEnum.PORTRAIT_FELLATIO);
-		}
+		if (stance.isAnalReceptive()) { setCurrentPortrait(perks.get(Perk.ANAL_ADDICT.toString(), 0) > 1 ? AssetEnum.PORTRAIT_LUST : AssetEnum.PORTRAIT_HIT); }
+		else if (stance.isOralReceptive()) { setCurrentPortrait(resolvedAttack.isClimax() ? AssetEnum.PORTRAIT_MOUTHBOMB : AssetEnum.PORTRAIT_FELLATIO); }
 		
-		if (stance == Stance.HELD) {
-			setCurrentPortrait(perks.get(Perk.SIZE_QUEEN.toString(), 0) > 1 ? AssetEnum.PORTRAIT_LOVE : AssetEnum.PORTRAIT_SURPRISE);
-		}
-		
-		if (oldStance.isAnalReceptive() && !stance.isAnalReceptive()) {
-			wrapLegs = false;
-		}
-		
-		if (stance == Stance.OVIPOSITION_BOTTOM) {
-			receiveEggs();
-		}
-		
+		if (stance == Stance.HELD) { setCurrentPortrait(perks.get(Perk.SIZE_QUEEN.toString(), 0) > 1 ? AssetEnum.PORTRAIT_LOVE : AssetEnum.PORTRAIT_SURPRISE); }
+		if (oldStance.isAnalReceptive() && !stance.isAnalReceptive()) { wrapLegs = false; }
+		if (stance == Stance.OVIPOSITION_BOTTOM) { receiveEggs(); }
 		if (!oldStance.isAnalReceptive() && stance.isAnalReceptive()) {
 			Array<MutationResult> temp = receiveAnal(getPhallusType(resolvedAttack.getSex())); 
 			
 			if (temp.size > 0) result = temp.first().getText();
 			else result = "";
 			
-			if (stance != Stance.PENETRATED) {
-				setCurrentPortrait(perks.get(Perk.ANAL_ADDICT.toString(), 0) > 1 ? AssetEnum.PORTRAIT_LOVE : AssetEnum.PORTRAIT_SURPRISE);
-			}
-			
-			else {
-				setCurrentPortrait(perks.get(Perk.ANAL_ADDICT.toString(), 0) > 1 ? AssetEnum.PORTRAIT_LOVE : AssetEnum.PORTRAIT_AHEGAO);
-			}
-			
+			if (stance != Stance.PENETRATED) { setCurrentPortrait(perks.get(Perk.ANAL_ADDICT.toString(), 0) > 1 ? AssetEnum.PORTRAIT_LOVE : AssetEnum.PORTRAIT_SURPRISE); }
+			else { setCurrentPortrait(perks.get(Perk.ANAL_ADDICT.toString(), 0) > 1 ? AssetEnum.PORTRAIT_LOVE : AssetEnum.PORTRAIT_AHEGAO); }
 			
 			if (result != null) { resolvedAttack.addMessage(result); } 
-			if (resolvedAttack.getUser().equals("Goblin")) {
-				setGoblinVirginity(false);
-			}
+			if (resolvedAttack.getUser().equals("Goblin")) { setGoblinVirginity(false); }
 			a2m = true;
 		}
 		else if (!oldStance.isOralReceptive() && stance.isOralReceptive()) {
@@ -351,9 +325,7 @@ public class PlayerCharacter extends AbstractCharacter {
 				a2m = false;
 			}
 		}
-		else if (stance == Stance.SIXTY_NINE) {
-			resolvedAttack.addMessage("She shoves her cock down your throat while swallowing yours!");
-		}
+		else if (stance == Stance.SIXTY_NINE) { resolvedAttack.addMessage("She shoves her cock down your throat while swallowing yours!"); }
 		return new AttackResult(resolvedAttack.getMessages(), resolvedAttack.getDialog(), resolvedAttack.getAttackerResults(), resolvedAttack.getDefenderResults());	
 	}
 	
@@ -361,21 +333,11 @@ public class PlayerCharacter extends AbstractCharacter {
 	protected String getLeakMessage() {
 		String message = "";
 		
-		if (ass.getFullnessAmount() >= 20) {
-			message = "Your belly looks pregnant, full of baby batter! It drools out of your well-used hole! Your movements are sluggish! -2 Agility.";
-		}
-		else if (ass.getFullnessAmount() >= 10) {
-			message = "Your gut is stuffed with semen!  It drools out!  You're too queasy to move quickly! -1 Agility.";
-		}
-		else if (ass.getFullnessAmount() >= 5) {
-			message = "Cum runs out of your full ass!";
-		}
-		else if (ass.getFullnessAmount() > 1) {
-			message = "You drool cum from your hole!";
-		}
-		else if (ass.getFullnessAmount() == 1) {
-			message = " The last of the cum runs out of your hole!";
-		}
+		if (ass.getFullnessAmount() >= 20) { message = "Your belly looks pregnant, full of baby batter! It drools out of your well-used hole! Your movements are sluggish! -2 Agility."; }
+		else if (ass.getFullnessAmount() >= 10) { message = "Your gut is stuffed with semen!  It drools out!  You're too queasy to move quickly! -1 Agility."; }
+		else if (ass.getFullnessAmount() >= 5) { message = "Cum runs out of your full ass!"; }
+		else if (ass.getFullnessAmount() > 1) { message = "You drool cum from your hole!"; }
+		else if (ass.getFullnessAmount() == 1) { message = " The last of the cum runs out of your hole!"; }
 		drainButt();
 		return message;
 	}
@@ -383,15 +345,9 @@ public class PlayerCharacter extends AbstractCharacter {
 	@Override
 	protected String getDroolMessage() {
 		String message = "";
-		if (mouthful > 10) {
-			message = "You vomit their tremendous load onto the ground!";
-		}
-		else if (mouthful > 5) {
-			message = "You spew their massive load onto the ground!";
-		}
-		else {
-			message = "You spit all of their cum out onto the ground!";
-		}
+		if (mouthful > 10) { message = "You vomit their tremendous load onto the ground!"; }
+		else if (mouthful > 5) { message = "You spew their massive load onto the ground!"; }
+		else { message = "You spit all of their cum out onto the ground!"; }
 		drainMouth();
 		return message;
 	}
@@ -492,9 +448,7 @@ public class PlayerCharacter extends AbstractCharacter {
 		// if it's a spell, add incantation
 		if (newTech.getTrait().isSpell()) {
 			skills.put(Techniques.INCANTATION.toString(), 1);
-			if (!hasMagic()) {
-				manaTiers = new IntArray(new int[]{baseMagic > 1 ? baseMagic * 3 + 4 : 0});
-			}
+			if (!hasMagic()) { manaTiers = new IntArray(new int[]{baseMagic > 1 ? baseMagic * 3 + 4 : 0}); }
 		}
 		skills.put(newTech.toString(), rank);	
 	}
@@ -564,17 +518,11 @@ public class PlayerCharacter extends AbstractCharacter {
 			int chaIncrease = perks.get(Perk.HOTTER, 0) -  this.perks.get(Perk.HOTTER.toString(), 0);
 			baseCharisma += chaIncrease;
 		}
-		if (perks.get(Perk.WELLROUNDED, 0) > 0 && !(this.perks.get(Perk.WELLROUNDED.toString(), 0) > 0) ) {
-			increaseLowestStat();
-		}
-		if (perks.get(Perk.SPECIALIST, 0) > 0 && !(this.perks.get(Perk.SPECIALIST.toString(), 0) > 0) ) {
-			increaseHighestStat();
-		}
+		if (perks.get(Perk.WELLROUNDED, 0) > 0 && !(this.perks.get(Perk.WELLROUNDED.toString(), 0) > 0) ) { increaseLowestStat(); }
+		if (perks.get(Perk.SPECIALIST, 0) > 0 && !(this.perks.get(Perk.SPECIALIST.toString(), 0) > 0) ) { increaseHighestStat(); }
 		
 		this.perks.clear();
-		for (Perk key : perks.keys()) {
-			addPerk(key, perks.get(key));
-		}
+		for (Perk key : perks.keys()) { addPerk(key, perks.get(key)); }
 	}
 	
 	public int getScoutingScore() { return getTrueScoutingScore(scout * 3 + getPerception() + (perks.get(Perk.SURVEYOR.toString(), 0) > 0 ? perks.get(Perk.SURVEYOR.toString()) * 2 : 0)); }
@@ -846,27 +794,17 @@ public class PlayerCharacter extends AbstractCharacter {
 	}
 	
 	public Array<MutationResult> receiveItem(Item item) {
-		if (item.instantUse()) {
-			consumeItem(item);
-		}
-		else if (item instanceof ChastityCage) {
-			setCage(item, true);
-		}
-		else {
-			inventory.add(item);
-		}
+		if (item.instantUse()) { consumeItem(item); }
+		else if (item instanceof ChastityCage) { setCage(item, true); }
+		else { inventory.add(item); }
 		return getResult("You have received a(n) " + item.getName() + "!");
 	}
 	
 	public boolean buyItem(Item item, int cost) {
-		if (cost > money) {
-			return false;
-		}
+		if (cost > money) { return false; }
 		money -= cost;
 		receiveItem(item);
-		if (item instanceof Weapon) {
-			weapon = (Weapon) item;
-		}
+		if (item instanceof Weapon) { weapon = (Weapon) item; }
 		return true;
 	}
 
@@ -983,13 +921,9 @@ public class PlayerCharacter extends AbstractCharacter {
 			result.addAll(receiveAnal(getPhallusType(sex)));
 			setCurrentPortrait(perks.get(Perk.ANAL_ADDICT.toString(), 0) > 1 ? AssetEnum.PORTRAIT_LUST : AssetEnum.PORTRAIT_HIT);
 		}
-		for (int ii = 0; ii < sex.getCreampies(); ii++) {
-			result.addAll(fillButt(5));
-		}
+		for (int ii = 0; ii < sex.getCreampies(); ii++) { result.addAll(fillButt(5)); }
 		
-		if (sex.getCreampies() > 0 && questFlags.get(QuestType.GOBLIN.toString(), 0) == 2 && !fullOfEggs()) {
-			getPregnant(getPhallusType(sex));
-		}
+		if (sex.getCreampies() > 0 && questFlags.get(QuestType.GOBLIN.toString(), 0) == 2 && !fullOfEggs()) { getPregnant(getPhallusType(sex)); }
 		
 		for (int ii = 0; ii < sex.getAnalEjaculations(); ii++) {
 			cumFromAnal();
@@ -1111,13 +1045,8 @@ public class PlayerCharacter extends AbstractCharacter {
 		arousal.climax(ClimaxType.ORAL, perks);
 	}
 
-	public String getBootyLiciousness() {
-		return bootyliciousness != null ? bootyliciousness.toString() : Bootyliciousness.Bubble.toString();
-	}
-	
-	public String getLipFullness() {
-		return lipFullness != null ? lipFullness.toString() : LipFullness.Thin.toString(); 
-	}
+	public String getBootyLiciousness() { return bootyliciousness != null ? bootyliciousness.toString() : Bootyliciousness.Bubble.toString(); }
+	public String getLipFullness() { return lipFullness != null ? lipFullness.toString() : LipFullness.Thin.toString();  }
 
 	public AssetDescriptor<Texture> popPortraitPath() {
 		if (justCame) {
@@ -1152,41 +1081,27 @@ public class PlayerCharacter extends AbstractCharacter {
 	public String getStatBonusDisplay() {
 		String display = "";
 		int strBuff = getStrengthBuff();
-		if (strBuff > 0) {
-			display += "Strength buff: +" + strBuff + "\n";
-		}
+		if (strBuff > 0) { display += "Strength buff: +" + strBuff + "\n"; }
 		int agiBuff = getAgilityBuff();
-		if (agiBuff > 0) {
-			display += "Agility buff: +" + agiBuff + "\n";
-		}
+		if (agiBuff > 0) { display += "Agility buff: +" + agiBuff + "\n"; }
 		int endBuff = getEnduranceBuff();
-		if (endBuff > 0) {
-			display += "Endurance buff: +" + endBuff + "\n";
-		}
+		if (endBuff > 0) { display += "Endurance buff: +" + endBuff + "\n"; }
 		return display;
 	}
 		
 	public String getStatPenaltyDisplay() {
 		String display = "";
 		int healthDegradation = getHealthDegradation();
-		if (healthDegradation > 0) {
-			display += "Low health: -" + (healthDegradation / 2 > 0 ? healthDegradation / 2 + " STR, -" : "") + healthDegradation + " END, AGI\n";
-		}
+		if (healthDegradation > 0) { display += "Low health: -" + (healthDegradation / 2 > 0 ? healthDegradation / 2 + " STR, -" : "") + healthDegradation + " END, AGI\n"; }
 		
 		int staminaDegradation = getStaminaDegradation();
-		if (staminaDegradation > 0) {
-			display += "Low stamina: -" + (staminaDegradation / 2 > 0 ? staminaDegradation / 2 + " STR, -" : "") + staminaDegradation + " AGI\n";
-		}
+		if (staminaDegradation > 0) { display += "Low stamina: -" + (staminaDegradation / 2 > 0 ? staminaDegradation / 2 + " STR, -" : "") + staminaDegradation + " AGI\n"; }
 		
 		int lustDegradation = getLustDegradation() / 2;
-		if (lustDegradation > 0) {
-			display += "High lust: -" + lustDegradation + " STR\n";
-		}
+		if (lustDegradation > 0) { display += "High lust: -" + lustDegradation + " STR\n"; }
 		
 		int cumFilled = getCumInflation();
-		if (cumFilled > 0) {
-			display += "Too full of cum: -" + cumFilled + " AGI\n";
-		}
+		if (cumFilled > 0) { display += "Too full of cum: -" + cumFilled + " AGI\n"; }
 		
 		return display;
 	}
@@ -1242,40 +1157,29 @@ public class PlayerCharacter extends AbstractCharacter {
 	public Array<MutationResult> modMoney(Integer gold) {
 		int goldChange = money;
 		money += gold;
-		if (money < 0) {
-			money = 0;
-		}
-		
+		if (money < 0) { money = 0; }		
 		goldChange = money - goldChange;
 		return goldChange == 0 ? new Array<MutationResult>() : getResult(goldChange > 0 ? "Gained " + gold + " gold!" : goldChange + " gold!", goldChange, MutationType.GOLD);
 	}
 	
 	public void modDebtCooldown(int cooldown) {
 		debtCooldown += cooldown;
-		if (debtCooldown < 0) debtCooldown = 0;
+		if (debtCooldown < 0) { debtCooldown = 0; }
 	}
 	
 	public Array<MutationResult> modDebt(Integer gold) {
 		int loss = debt > gold ? -gold : debt; 
 		debt += gold;
-		if (debt < 0) {
-			debt = 0;
-		}
+		if (debt < 0) { debt = 0; }
 		
-		if (gold < 0 && debtCooldown < 18) {
-			modDebtCooldown(18 - debtCooldown);
-		}
+		if (gold < 0 && debtCooldown < 18) { modDebtCooldown(18 - debtCooldown); }
 		
 		return gold == 0 ? new Array<MutationResult>() : getResult(gold > 0 ? "You have incurred " + gold + " gold worth of debt." : "You've been relieved of " + loss + " gold worth of debt!");
 	}
 	
-	public int getBattlePerception() {
-		return getPerception();
-	}
+	public int getBattlePerception() { return getPerception(); }
 
-	public int getCurrentDebt() {
-		return debt;
-	}
+	public int getCurrentDebt() { return debt; }
 
 	public Array<MutationResult> debtTick(int ticks) {
 		if (debt > 0) {
@@ -1423,9 +1327,7 @@ public class PlayerCharacter extends AbstractCharacter {
 		return gotLucky;		
 	}
 
-	public boolean isDayTime() {
-		return TimeOfDay.getTime(time).isDay();
-	}
+	public boolean isDayTime() { return TimeOfDay.getTime(time).isDay(); }
 
 	public int needShopRestock(ShopCode shopCode) {
 		int needsRestock = 0;
