@@ -693,18 +693,12 @@ public abstract class AbstractCharacter extends Group {
 			if (damage > 0) {	
 				attack.addDefenderResults(modHealth(-damage));
 				if (attack.isSpell()) {
-					if (oilyFire) {
-						result.add("The fire ignites the oil!");
-					}
+					if (oilyFire) { result.add("The fire ignites the oil!"); }
 					result.add("The magic strikes for " + damage + " damage!");
 				}
-				else {
-					result.add("The blow strikes for " + damage + " damage!");
-				}
+				else { result.add("The blow strikes for " + damage + " damage!"); }
 				
-				if (!(attack.ignoresArmor() || ((hitArmor == null || hitArmor.getDurability() == 0)))) {
-					result.add("The blow strikes off the armor!");
-				}
+				if (!(attack.ignoresArmor() || ((hitArmor == null || hitArmor.getDurability() == 0)))) { result.add("The blow strikes off the armor!"); }
 			}
 			
 			if (attack.ignoresArmor() || ((hitArmor == null || hitArmor.getDurability() == 0))) {
@@ -1294,7 +1288,7 @@ public abstract class AbstractCharacter extends Group {
 			case BLITZ: return getTechniques(target, ALL_OUT_BLITZ, HOLD_BACK);
 			case BERSERK: return getTechniques(target, RAGE);
 			case COUNTER: return getTechniques(target, RIPOSTE, EN_GARDE);
-			case OFFENSIVE: return getTechniques(target, BLITZ_ATTACK, BERSERK, POWER_ATTACK, GUT_CHECK, ARMOR_SUNDER, RECKLESS_ATTACK, KNOCK_DOWN, VAULT, FEINT_AND_STRIKE, TEMPO_ATTACK, RESERVED_ATTACK, FACE_SIT, SIT_ON_IT, TURN_AND_SIT, POUNCE_DOGGY, WRESTLE_TO_GROUND, WRESTLE_TO_GROUND_UP, MOUNT_FACE, SAY_AHH, FULL_NELSON);
+			case OFFENSIVE: return getTechniques(target, BLITZ_ATTACK, BERSERK, REEL_BACK, POWER_ATTACK, GUT_CHECK, ARMOR_SUNDER, RECKLESS_ATTACK, KNOCK_DOWN, VAULT, FEINT_AND_STRIKE, TEMPO_ATTACK, RESERVED_ATTACK, FACE_SIT, SIT_ON_IT, TURN_AND_SIT, POUNCE_DOGGY, WRESTLE_TO_GROUND, WRESTLE_TO_GROUND_UP, MOUNT_FACE, SAY_AHH, FULL_NELSON);
 			case BALANCED: return getTechniques(target, SPRING_ATTACK, NEUTRAL_ATTACK, CAUTIOUS_ATTACK, BLOCK, INCANTATION, SLIDE, DUCK, HIT_THE_DECK, USE_ITEM, KICK_OVER_FACE_UP, KICK_OVER_FACE_DOWN, SIT_ON_IT, TURN_AND_SIT, POUNCE_DOGGY, WRESTLE_TO_GROUND, WRESTLE_TO_GROUND_UP, MOUNT_FACE, SAY_AHH, FULL_NELSON);
 			case DEFENSIVE: return getTechniques(target, REVERSAL_ATTACK, CAREFUL_ATTACK, GUARD, STONEWALL, TAUNT, SECOND_WIND, PARRY, SUDDEN_ADVANCE, INCANTATION, DUCK);
 			case STONEWALL: return getTechniques(target, ABSOLUTE_GUARD, LOWER_GUARD);
@@ -1302,6 +1296,7 @@ public abstract class AbstractCharacter extends Group {
 			case PRONE: return getTechniques(target, REST_FACE_DOWN, ROLL_OVER_UP, PUSH_UP, KNEE_UP, STAND_UP, KIP_UP);
 			case SUPINE: return getTechniques(target, REST, ROLL_OVER_DOWN, PUSH_UP, KNEE_UP, STAND_UP, KIP_UP);
 			case HANDS_AND_KNEES: return getTechniques(target, STAY, SLAP_ASS_KNEES, KNEE_UP_HANDS, STAND_UP_HANDS);
+			case HAYMAKER: return getTechniques(target, HAYMAKER);
 			case KNEELING: return getTechniques(target, UPPERCUT, STAY_KNELT, GRAB_IT, STAND_UP_KNEELING);
 			case FULL_NELSON: return getTechniques(target, OVIPOSITION, HOLD, GRIP, TAKEDOWN, PENETRATE_STANDING);
 			case AIRBORNE: return getTechniques(target, DIVEBOMB, JUMP_ATTACK, VAULT_OVER);

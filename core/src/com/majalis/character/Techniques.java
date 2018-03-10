@@ -58,6 +58,10 @@ public enum Techniques {
 	RAGE				(new AttackTechnique(Stance.BERSERK, Stance.BERSERK, "Rage", 7, 10, 1, TechniqueHeight.MEDIUM).build(), false),
 	BERSERK				(new NonAttackTechnique(Stance.OFFENSIVE, Stance.BERSERK, "Berserk", 0, 0).build()),
 	
+	/* Haymaker Techniques */
+	HAYMAKER			(new AttackTechnique(Stance.HAYMAKER, Stance.BALANCED, "Haymaker", 10, 5, 2, TechniqueHeight.MEDIUM).build(), false),
+	REEL_BACK			(new NonAttackTechnique(Stance.OFFENSIVE, Stance.HAYMAKER, "Reel Back", 0, 2).build()),
+	
 	/* Counter Techniques */ 			
 	RIPOSTE  			(new GuardTechnique(Stance.COUNTER, Stance.BALANCED, "Riposte", -1, 3, 5, false).addBonus(BonusCondition.SKILL_LEVEL, BonusType.PARRY, 2).addBonus(BonusCondition.OUTMANEUVER, BonusType.PARRY, 2).addBonus(BonusCondition.SKILL_LEVEL, BonusType.DISARM, 50).addBonus(BonusCondition.SKILL_LEVEL, BonusType.COUNTER, 50).addBonus(BonusCondition.OUTMANEUVER, BonusType.COUNTER, 50).addBonus(BonusCondition.OUTMANEUVER, BonusType.DISARM, 50).build(), 1),
 	EN_GARDE  			(new GuardTechnique(Stance.COUNTER, Stance.DEFENSIVE, "En Garde", -1, 0, 1, false).addBonus(BonusCondition.SKILL_LEVEL, BonusType.PARRY, 2).addBonus(BonusCondition.OUTMANEUVER, BonusType.PARRY, 1).build(), 1),
