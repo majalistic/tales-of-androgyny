@@ -14,7 +14,7 @@ public enum Stance {
 	BLITZ (AssetEnum.BLITZ),
 	BERSERK (AssetEnum.BERSERK),
 	HAYMAKER (AssetEnum.HAYMAKER),
-	FOCUS (AssetEnum.BALANCED),
+	FOCUS (AssetEnum.FOCUS),
 	STONEWALL (AssetEnum.STONEWALL),
 	COUNTER (AssetEnum.COUNTER),
 	// Positional Stances

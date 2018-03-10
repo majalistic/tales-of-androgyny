@@ -33,6 +33,14 @@ public enum Techniques {
 	ALL_OUT_BLITZ		(new AttackTechnique(Stance.BLITZ, Stance.BLITZ, "All-Out Blitz", 5, 4, 7, 1.5).build(), 3),
 	HOLD_BACK			(new NonAttackTechnique(Stance.BLITZ, Stance.OFFENSIVE, "Hold Back", 0, 1).build()),
 	
+	/* Berserk Techniques */
+	RAGE				(new AttackTechnique(Stance.BERSERK, Stance.BERSERK, "Rage", 7, 10, 1, TechniqueHeight.MEDIUM).build(), false),
+	BERSERK				(new NonAttackTechnique(Stance.OFFENSIVE, Stance.BERSERK, "Berserk", 0, 0).build()),
+	
+	/* Haymaker Techniques */
+	HAYMAKER			(new AttackTechnique(Stance.HAYMAKER, Stance.BALANCED, "Haymaker", 10, 5, 2, TechniqueHeight.MEDIUM).build(), false),
+	REEL_BACK			(new NonAttackTechnique(Stance.OFFENSIVE, Stance.HAYMAKER, "Reel Back", 0, 2).build()),
+	
 	/* Balanced Techniques */
 	RESERVED_ATTACK		(new GuardTechnique	(Stance.OFFENSIVE, Stance.BALANCED, "Combat Guard", 0, 0, 2, true).addBonus(BonusCondition.SKILL_LEVEL, BonusType.PARRY, 1).build()),	
 	REVERSAL_ATTACK  	(new AttackTechnique(Stance.DEFENSIVE, Stance.BALANCED, "Reversal Attack", -2, 2, 2, TechniqueHeight.LOW).build()),
@@ -49,18 +57,14 @@ public enum Techniques {
 	SECOND_WIND			(new NonAttackTechnique(Stance.DEFENSIVE, Stance.DEFENSIVE, "Second Wind", -4, -1).build()),
 	SUDDEN_ADVANCE		(new NonAttackTechnique(Stance.DEFENSIVE, Stance.OFFENSIVE, "Sudden Advance", 1, 5).addBonus(BonusCondition.SKILL_LEVEL, BonusType.PARRY, 1).addBonus(BonusCondition.OUTMANEUVER, BonusType.PARRY, 1).build(), 3),	
 	
+	/* Focus Techniques */
+	CENTER				(new NonAttackTechnique(Stance.DEFENSIVE, Stance.FOCUS, "Center", -6, -4).build()),	
+	ASHI				(new NonAttackTechnique(Stance.FOCUS, Stance.OFFENSIVE, "Ashi", 0, 1).build()),
+	
 	/* Stonewall Techniques */
 	ABSOLUTE_GUARD		(new GuardTechnique	(Stance.STONEWALL, Stance.STONEWALL, "Absolute Guard", 4, -1, 4, true).addBonus(BonusCondition.SKILL_LEVEL, BonusType.PARRY, 4).build()),
 	STONEWALL			(new GuardTechnique	(Stance.DEFENSIVE, Stance.STONEWALL, "Stonewall", -2, -2, 4, true).addBonus(BonusCondition.SKILL_LEVEL, BonusType.PARRY, 2).build()),
 	LOWER_GUARD			(new GuardTechnique	(Stance.STONEWALL, Stance.DEFENSIVE, "Lower Guard", -2, -2, 4, true).addBonus(BonusCondition.SKILL_LEVEL, BonusType.PARRY, 2).build()),
-	
-	/* Berserk Techniques */
-	RAGE				(new AttackTechnique(Stance.BERSERK, Stance.BERSERK, "Rage", 7, 10, 1, TechniqueHeight.MEDIUM).build(), false),
-	BERSERK				(new NonAttackTechnique(Stance.OFFENSIVE, Stance.BERSERK, "Berserk", 0, 0).build()),
-	
-	/* Haymaker Techniques */
-	HAYMAKER			(new AttackTechnique(Stance.HAYMAKER, Stance.BALANCED, "Haymaker", 10, 5, 2, TechniqueHeight.MEDIUM).build(), false),
-	REEL_BACK			(new NonAttackTechnique(Stance.OFFENSIVE, Stance.HAYMAKER, "Reel Back", 0, 2).build()),
 	
 	/* Counter Techniques */ 			
 	RIPOSTE  			(new GuardTechnique(Stance.COUNTER, Stance.BALANCED, "Riposte", -1, 3, 5, false).addBonus(BonusCondition.SKILL_LEVEL, BonusType.PARRY, 2).addBonus(BonusCondition.OUTMANEUVER, BonusType.PARRY, 2).addBonus(BonusCondition.SKILL_LEVEL, BonusType.DISARM, 50).addBonus(BonusCondition.SKILL_LEVEL, BonusType.COUNTER, 50).addBonus(BonusCondition.OUTMANEUVER, BonusType.COUNTER, 50).addBonus(BonusCondition.OUTMANEUVER, BonusType.DISARM, 50).build(), 1),

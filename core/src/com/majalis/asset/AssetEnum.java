@@ -330,6 +330,7 @@ public enum AssetEnum {
 	FACE_SITTING("stances/Facesitting.png"),
 	FELLATIO("stances/Fellatio.png"),
 	FACEFUCK("stances/Facefuck.png"),
+	FOCUS("stances/Focus.png"),
 	GROUND_WRESTLE("stances/GroundWrestle.png"),
 	HANDS_AND_KNEES("stances/HandsAndKnees.png"),
 	HAYMAKER("stances/Haymaker.png"),
