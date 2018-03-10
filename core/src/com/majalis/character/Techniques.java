@@ -30,7 +30,7 @@ public enum Techniques {
 	
 	/* Blitz Techniques */
 	BLITZ_ATTACK  		(new AttackTechnique(Stance.OFFENSIVE, Stance.BLITZ, "Blitz Attack", 4, 4, 5, TechniqueHeight.MEDIUM).addBonus(BonusCondition.OUTMANEUVER, BonusType.BLEEDING, 1).build(), false),
-	ALL_OUT_BLITZ		(new AttackTechnique(Stance.BLITZ, Stance.BLITZ, "All-Out Blitz", 6, 4, 7, 1.5).build(), 3),
+	ALL_OUT_BLITZ		(new AttackTechnique(Stance.BLITZ, Stance.BLITZ, "All-Out Blitz", 5, 4, 7, 1.5).build(), 3),
 	HOLD_BACK			(new NonAttackTechnique(Stance.BLITZ, Stance.OFFENSIVE, "Hold Back", 0, 1).build()),
 	
 	/* Balanced Techniques */
@@ -53,6 +53,10 @@ public enum Techniques {
 	ABSOLUTE_GUARD		(new GuardTechnique	(Stance.STONEWALL, Stance.STONEWALL, "Absolute Guard", 4, -1, 4, true).addBonus(BonusCondition.SKILL_LEVEL, BonusType.PARRY, 4).build()),
 	STONEWALL			(new GuardTechnique	(Stance.DEFENSIVE, Stance.STONEWALL, "Stonewall", -2, -2, 4, true).addBonus(BonusCondition.SKILL_LEVEL, BonusType.PARRY, 2).build()),
 	LOWER_GUARD			(new GuardTechnique	(Stance.STONEWALL, Stance.DEFENSIVE, "Lower Guard", -2, -2, 4, true).addBonus(BonusCondition.SKILL_LEVEL, BonusType.PARRY, 2).build()),
+	
+	/* Berserk Techniques */
+	RAGE				(new AttackTechnique(Stance.BERSERK, Stance.BERSERK, "Rage", 7, 10, 1, TechniqueHeight.MEDIUM).build(), false),
+	BERSERK				(new NonAttackTechnique(Stance.OFFENSIVE, Stance.BERSERK, "Berserk", 0, 0).build()),
 	
 	/* Counter Techniques */ 			
 	RIPOSTE  			(new GuardTechnique(Stance.COUNTER, Stance.BALANCED, "Riposte", -1, 3, 5, false).addBonus(BonusCondition.SKILL_LEVEL, BonusType.PARRY, 2).addBonus(BonusCondition.OUTMANEUVER, BonusType.PARRY, 2).addBonus(BonusCondition.SKILL_LEVEL, BonusType.DISARM, 50).addBonus(BonusCondition.SKILL_LEVEL, BonusType.COUNTER, 50).addBonus(BonusCondition.OUTMANEUVER, BonusType.COUNTER, 50).addBonus(BonusCondition.OUTMANEUVER, BonusType.DISARM, 50).build(), 1),

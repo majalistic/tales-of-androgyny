@@ -1292,8 +1292,9 @@ public abstract class AbstractCharacter extends Group {
 		Array<Techniques> possibles = new Array<Techniques>();
 		switch(stance) {
 			case BLITZ: return getTechniques(target, ALL_OUT_BLITZ, HOLD_BACK);
+			case BERSERK: return getTechniques(target, RAGE);
 			case COUNTER: return getTechniques(target, RIPOSTE, EN_GARDE);
-			case OFFENSIVE: return getTechniques(target, BLITZ_ATTACK, POWER_ATTACK, GUT_CHECK, ARMOR_SUNDER, RECKLESS_ATTACK, KNOCK_DOWN, VAULT, FEINT_AND_STRIKE, TEMPO_ATTACK, RESERVED_ATTACK, FACE_SIT, SIT_ON_IT, TURN_AND_SIT, POUNCE_DOGGY, WRESTLE_TO_GROUND, WRESTLE_TO_GROUND_UP, MOUNT_FACE, SAY_AHH, FULL_NELSON);
+			case OFFENSIVE: return getTechniques(target, BLITZ_ATTACK, BERSERK, POWER_ATTACK, GUT_CHECK, ARMOR_SUNDER, RECKLESS_ATTACK, KNOCK_DOWN, VAULT, FEINT_AND_STRIKE, TEMPO_ATTACK, RESERVED_ATTACK, FACE_SIT, SIT_ON_IT, TURN_AND_SIT, POUNCE_DOGGY, WRESTLE_TO_GROUND, WRESTLE_TO_GROUND_UP, MOUNT_FACE, SAY_AHH, FULL_NELSON);
 			case BALANCED: return getTechniques(target, SPRING_ATTACK, NEUTRAL_ATTACK, CAUTIOUS_ATTACK, BLOCK, INCANTATION, SLIDE, DUCK, HIT_THE_DECK, USE_ITEM, KICK_OVER_FACE_UP, KICK_OVER_FACE_DOWN, SIT_ON_IT, TURN_AND_SIT, POUNCE_DOGGY, WRESTLE_TO_GROUND, WRESTLE_TO_GROUND_UP, MOUNT_FACE, SAY_AHH, FULL_NELSON);
 			case DEFENSIVE: return getTechniques(target, REVERSAL_ATTACK, CAREFUL_ATTACK, GUARD, STONEWALL, TAUNT, SECOND_WIND, PARRY, SUDDEN_ADVANCE, INCANTATION, DUCK);
 			case STONEWALL: return getTechniques(target, ABSOLUTE_GUARD, LOWER_GUARD);
@@ -1347,7 +1348,6 @@ public abstract class AbstractCharacter extends Group {
 			case FACE_SITTING: return getTechniques(target, SITTING_ORAL, RIDE_FACE);
 			case SIXTY_NINE: return getTechniques(target, ERUPT_SIXTY_NINE, RECIPROCATE);
 			case WRAPPED: return getTechniques(target, SQUEEZE_RELEASE, SQUEEZE_CRUSH, SQUEEZE, BITE);
-
 			case ERUPT:
 				setStance(Stance.BALANCED);
 				possibles = getDefaultTechniqueOptions(target);

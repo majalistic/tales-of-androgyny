@@ -319,6 +319,7 @@ public enum AssetEnum {
 	AIRBORNE("stances/Airborne.png"),
 	ANAL("stances/Anal.png"),
 	BALANCED("stances/Balanced.png"),
+	BERSERK("stances/Berserk.png"),
 	BLITZ("stances/Blitz.png"),
 	CASTING("stances/Casting.png"),
 	COUNTER("stances/Counter.png"),
