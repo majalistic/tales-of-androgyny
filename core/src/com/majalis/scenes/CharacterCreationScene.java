@@ -519,7 +519,7 @@ public class CharacterCreationScene extends Scene {
 	@Override
 	public void act(float delta) {
 		super.act(delta);
-		if (enchanterButton != null) {
+		if (enchanterButton != null && isActive) {
 			InputEvent event1 = new InputEvent();
 	        event1.setType(InputEvent.Type.touchDown);
 	        enchanterButton.fire(event1);
