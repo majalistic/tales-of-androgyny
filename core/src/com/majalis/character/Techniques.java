@@ -38,7 +38,7 @@ public enum Techniques {
 	BERSERK				(new NonAttackTechnique(Stance.OFFENSIVE, Stance.BERSERK, "Berserk", 0, 0).build()),
 	
 	/* Haymaker Techniques */
-	HAYMAKER			(new AttackTechnique(Stance.HAYMAKER, Stance.BALANCED, "Haymaker", 10, 5, 2, TechniqueHeight.MEDIUM).build(), false),
+	HAYMAKER			(new AttackTechnique(Stance.HAYMAKER, Stance.BALANCED, "Haymaker", 10, 5, 2, TechniqueHeight.HIGH).build(), false),
 	REEL_BACK			(new NonAttackTechnique(Stance.OFFENSIVE, Stance.HAYMAKER, "Reel Back", 0, 2).build()),
 	
 	/* Balanced Techniques */
