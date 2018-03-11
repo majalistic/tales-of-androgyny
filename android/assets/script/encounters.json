@@ -10655,11 +10655,23 @@
 		"key": "WARLOCK-HYPNOSIS-BACKFIRE"
 		"scriptLines": [
 			{"text": ""},
-			
-			
-			
 		]
 	},	
+	{
+		"key": "WARLOCK-BOTTOM"
+		"scriptLines": [
+			{"text": ""},
+			
+		]
+	},
+	{
+		"key": "WARLOCK-BEATEN"
+		"scriptLines": [
+			{
+			"mutations": [{"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": 5}}, {"saveType":"GOLD", "value":{"class": "java.lang.Integer", "value": 50}}, {"saveType":"MAGIC_CRYSTAL", "value":{"class": "java.lang.Integer", "value": 2}}],
+			"text": "You tell her to leave, and give up her witching ways. You destroy her spellbook, and she obediently leaves the manor.  You doubt she'll return."},
+		]
+	},
 	{
 		"key": "WARLOCK-DAGGER",
 		"scriptLines": [
@@ -10672,21 +10684,62 @@
 	{
 		"key": "WARLOCK-RESIST"
 		"scriptLines": [
-			{"text": ""},
-			
-			
-			
-			
+			{"text": "You feel as if something is trying to enter your mind, and you fight it off.  You feel as if... as if you could, if you could only reach back out at the presence, you could turn its attack against it."},			
 		]
 	},	
 	{
 		"key": "WARLOCK-HYPNOSIS"
 		"scriptLines": [
-			{"text": ""},
-			
-			
-			
-			
+			{"text": "You feel... strange.  You can't look away from her gaze, even as a sense of dread overtakes you."},
+			{"text": "\"So, you're the would-be hero who's been snooping around in my manor... hey, you're actually pretty cute.  What do you say... you and I do the deed?\""},
+			{"text": "You feel yourself drawn to her... you approach where she's sitting, never aware that you've taken a step until it's already fallen."}
+			{"text": "\"Mmmm... stare into my eyes... that's right... good...\" she says, and you don't know why she bothers - you can't look away."},
+			{"text": "\"What do you think... is going to happen?\" she asks, and you think you know."},
+			{"text": "\"We're going.. to... do the deed...\" you say, your voice barely raising above a mumble."},			
+			{"text": "\"We're going to fuck... that much is true.  Bad luck, though...\""},
+			{"text": "She stands, and you see what the tentpole she has in her robes.  She rounds the table, and embraces you from the front."},
+			{"text": "\"Now... turn around,\" she says, and you obey. \"Put your hands on your ass.\""},
+			{"text": "You do, and she places her hands on yours."},
+			{"text": "\"Bend over.\" It's not an invitation - it's a command.  You bend over, hands on your ass, and she gets right behind you."},
+			{"text": "There's some shuffling, and then she pulls down your underwear.  She puts her hands on yours again, and has you spread your own cheeks."},
+			{"text": "\"Now... grit your teeth and say 'right here, momma.\""},
+			{"text": "You feel a hesitation... but after a moment, you open your mouth, and you begin to speak."},
+			{"text": "..."},
+			{"text": ".."},
+			{"text": "."},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1}}],
+			"sound": "THWAPPING"
+			"text": "Though the shadows dancing on the walls flickered with the candlelight, their rhythmic movements and unique posture made it clear what kind of act the shadows were engaged in."},
+			{"text": "\"I don't know if I'll be able to pull out your inner girl... but I know what you'll be able to pull out of me.  Nnh.... soon.\""},
+			{"text": "The shadow in front nods appreciatively, having been instructed to do so.  The puppet show is nearing its crescendo."},			
+			{"text": "\"Mmmm... think I'm... just about there.  Any objections?\" she asks, her thumbs spreading your cheeks as she continues to lay pipe."},
+			{"text": "Her voice is still in your head... and you see no reason to object.  She drives it up into your pit a few more times awaiting a response, then snickers."},
+			{"text": "\"Didn't think so,\" she says, lightly slapping your <BUTTSIZE> butt, letting it jiggle a bit.  \"Enjoy the creampie, slut.  Be sure to catch it all.\""},
+			{"text": "With one hand on your shoulder and the other on your butt, she squeezes you earnestly, and you can tell she's about to pop off inside."},
+			{"text": "\"Almost there, almost there... you want it deep, right slut?\" she asks, swatting your fat rear before pressing her hips against it, grinding her cock deep inside, swiveling it about in your rectum as she nears her creamy finish."},
+			{"text": "Having felt the tip of her cock poke its way repeatedly inside as you stared forward, as if staring at the place where you first made eyes with her, you are hyper aware of the tip's location.  It scrapes along the back wall of your rectum as she packs you from behind... and you begin to feel it tap repeatedly against that wall as it nears the finish."},
+			{
+			"sound": "CUM",
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "creampies":1}}],
+			"text": "You feel the tip stick fast to the roof your anal canal, and then you feel the intense intestinal whitewashing as if it were happening to someone else - perhaps the shadow on the wall.  Your ass feels full, but your head feels empty."},				
+			{"text": "\"The hero getting a cum enema from the evil sorceress.  Sounds like a failure to me,\" she says, swatting your ass once again.  \"How many heroes do you think look like a creampuff after getting buttplugged, do you think?  Huh, creampuff?\""},
+			{"text": "She's taunting you about the fat nut she just dropped up your gut, but you just nod appreciatively."},			
+			{"text": "\"That was a weak suggestion spell... if you really didn't want this, you would have shrugged it off easily.  It won't wear off before my refractory period ends, though, so... I'll be having seconds.\""},
+			{"text": "You certainly don't feel any less like waiting for her to go again... and she rubs your ass as she prepares to do so."},
+			{"text": "\"Now that I've broken in this pussy once, I have all kinds of fun options, courtesy of the stuff sloshing around inside of and bubbling out of you.  Buuut... I think I'm just going to bang your ass and have you call me 'mistress'.\""},
+			{"text": "After a few minutes, she asks you where you want her to stick her cock, and you spread your cheeks once again.  Again, she pounds you from behind, and again, she nears her white nirvana."},			
+			{"text": "\"Second shot, right up the cock socket... say 'thank you'!\""},
+			{"text": "\"Th-thank you!\" you stammer out."},
+			{
+			"sound": "CUM",
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "creampies":1}}],
+			"text": "\"Nnngh... you're welcome,\" she says, and you feel her warmth filling your abdomen, suddenly.  You feel it twitch inside of you a few times, and your face flushes red."},
+			{"text": "She pulls out, and inspects her dirty work."},
+			{"text": "\"The hero is quite the cum catcher, it seems.  Two loads and not a word of protest.  Just gurgling up all the semen...\""},
+			{"text": "She looks at your creamy gaper, and snickers."},
+			{"text": "\"Well... that was fun.  Now forget everything you saw here, and never come here again.  Okay?\""},
+			{"text": "You nod appreciatively... the next you know, you're in the center of a deserted street in town, and your ass feels strangely... wet."}			
 		]
 	},	
 	{
@@ -10851,7 +10904,9 @@
 	{
 		"key": "WARLOCK-REVISIT",
 		"scriptLines": [
-			{"text": "The manor is abandoned - nothing inside remains of value.  You turn away from it, solemnly."}
+			{
+			"background": "TOWN_BG",
+			"text": "The manor is abandoned - nothing inside remains of value.  You turn away from it, solemnly."}
 		]
 	},
 ]}
