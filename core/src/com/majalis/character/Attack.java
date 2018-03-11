@@ -47,7 +47,6 @@ public class Attack {
 	public enum Status {
 		SUCCESS,
 		PARRIED, // this attack was parried
-		PARRY,   // this attack parried another attack
 		BLOCKED,
 		MISSED,
 		FAILURE, 
@@ -110,7 +109,7 @@ public class Attack {
 	protected int getDisarm() { return disarm; }
 	protected int getTrip() { return trip; }
 	protected Stance getForceStance() { return forceStance; }
-	public boolean isSuccessful() { return status == Status.SUCCESS || status == Status.PARRY || status == Status.BLOCKED || status == Status.PARRIED; }
+	public boolean isSuccessful() { return status == Status.SUCCESS || status == Status.BLOCKED || status == Status.PARRIED; }
 	public Status getStatus() { return status; }
 	protected void addMessage(String message) { results.add(message); }
 	protected Array<String> getMessages() { return results; }
