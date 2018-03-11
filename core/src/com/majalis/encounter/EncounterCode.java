@@ -1736,21 +1736,58 @@ public enum EncounterCode {
 						)
 					);
 			case WARLOCK: 
+				Branch warlockBattle = b.branch().battleScene(
+					BattleCode.WARLOCK, 
+					b.branch(Outcome.VICTORY).textScene("WARLOCK-VICTORY"), 
+					b.branch(Outcome.DEFEAT).textScene("WARLOCK-DEFEAT").choiceScene(
+						"What do you choose?", 
+						b.branch("To love ass-sex").checkScene(Perk.ANAL_ADDICT, b.branch(3).textScene("WARLOCK-ANAL-ADDICT").textScene("WARLOCK-ANAL-BROKEN").gameEnd(), b.branch(0).textScene("WARLOCK-ANAL-ADDICT").textScene("WARLOCK-ANAL-UNBROKEN")), 
+						b.branch("To love dicks").textScene("WARLOCK-COCK-LOVER"), 
+						b.branch("To be a girl").textScene("WARLOCK-FEMINIZATION")
+					)
+				);
+
+				
+				Branch afterDrawer = b.branch().checkScene(
+					Stat.PERCEPTION, 
+					b.branch(5).textScene("WARLOCK-AVOID-AMBUSH").concat(warlockBattle), 
+					b.branch(0).textScene("WARLOCK-PARALYSIS")
+				);
+				
+				Branch afterDiary = b.branch().textScene("WARLOCK-SEE-DRAWER").choiceScene("Check in drawer?", b.branch("Yes").checkScene(CheckType.WEARING_GAUNTLETS, b.branch(true).textScene("WARLOCK-FIND-CRYSTAL").concat(afterDrawer), b.branch(false).textScene("WARLOCK-FIND-PAIN").concat(afterDrawer)), b.branch("No").concat(afterDrawer));
+				
+				Branch afterAcidCheck = b.branch().textScene("WARLOCK-SEE-DIARY").choiceScene("Read the diary?", b.branch("Yes").textScene("WARLOCK-READ-DIARY").concat(afterDiary), b.branch("No").concat(afterDiary));
+				
+				Branch afterRoom = b.branch().textScene("WARLOCK-AFTER-ROOM").choiceScene(
+					"Enter the inner sanctum or wait?", 
+					b.branch("Enter now").textScene("WARLOCK-SANCTUM").checkScene(
+						CheckType.ANY_WILLPOWER, 
+						b.branch(true).textScene("WARLOCK-RESIST").choiceScene(
+							"Overpower her?", 
+							b.branch("Yes (MAG: 6").require(ChoiceCheckType.STAT_GREATER_THAN_X, Stat.MAGIC, 6).textScene("WARLOCK-HYPNOSIS-BACKFIRE"), 
+							b.branch("No").textScene("WARLOCK-DAGGER").concat(warlockBattle) 
+						), 
+						b.branch(false).textScene("WARLOCK-HYPNOSIS") // hypnosis
+					),
+					b.branch("Wait and see").textScene("WARLOCK-SANCTUM-WAIT").checkScene(
+						Stat.PERCEPTION, 
+						b.branch(6).textScene("WARLOCK-AVOID-ACID").concat(afterAcidCheck),
+						b.branch(0).checkScene(CheckType.WEARING_SHOES, b.branch(true).textScene("WARLOCK-ACID-PROTECTION").concat(afterAcidCheck), b.branch(false).textScene("WARLOCK-ACID").concat(afterAcidCheck))
+					)
+				);
+				Branch searchRoom = b.branch().textScene("WARLOCK-SEARCH-ROOM").choiceScene("Read the tome?", b.branch("Yes").textScene("WARLOCK-READ-TOME").concat(afterRoom), b.branch("No").concat(afterRoom));
+				
 				return b.branch().textScene("WARLOCK-INTRO").checkScene(
 					CheckType.MANOR_UNSEEN, 
 					b.branch(true).textScene("WARLOCK-WARNING"),
 					b.branch(false).checkScene(
 						CheckType.MANOR_UNVISITED, 
-						b.branch(true).textScene("WARLOCK-ENTER").battleScene(
-							BattleCode.WARLOCK, 
-							b.branch(Outcome.VICTORY).textScene("WARLOCK-VICTORY"), 
-							b.branch(Outcome.DEFEAT).textScene("WARLOCK-DEFEAT").choiceScene(
-								"What do you choose?", 
-								b.branch("To love ass-sex").checkScene(Perk.ANAL_ADDICT, b.branch(3).textScene("WARLOCK-ANAL-ADDICT").textScene("WARLOCK-ANAL-BROKEN").gameEnd(), b.branch(0).textScene("WARLOCK-ANAL-ADDICT").textScene("WARLOCK-ANAL-UNBROKEN")), 
-								b.branch("To love dicks").textScene("WARLOCK-COCK-LOVER"), 
-								b.branch("To be a girl").textScene("WARLOCK-FEMINIZATION")
-							)
-						), 
+						b.branch(true).textScene("WARLOCK-ENTER").choiceScene(
+							"Enter the room?", 
+							b.branch("Break the door down (STR: 6)").require(ChoiceCheckType.STAT_GREATER_THAN_X, Stat.STRENGTH, 6).textScene("WARLOCK-BREAK-DOOR").concat(searchRoom), 
+							b.branch("Open it with magic (MAG: 4)").require(ChoiceCheckType.STAT_GREATER_THAN_X, Stat.MAGIC, 4).textScene("WARLOCK-BLAST-DOOR").concat(searchRoom), 
+							b.branch("Leave it alone").concat(afterRoom)
+						),				
 						b.branch(false).textScene("WARLOCK-REVISIT")
 					)
 				);
