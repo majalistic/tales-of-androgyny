@@ -130,7 +130,7 @@ public class Attack {
 	public AttackHeight getAttackHeight() { return height; }	
 	public int getDamage() { return getNegatedAmount(rawDamage); } 
 	protected int getForce() { return getNegatedAmount(force); }
-	public int getArmorSunder() { return getNegatedAmount(rawDamage * rawArmorBreak) / 4; } 
+	public int getArmorSunder() { return getNegatedAmount(rawDamage * rawArmorBreak); } 
 	public int getBleeding() { return getNegatedAmount (bleeding); } // 
 	public int getShieldDamage() { return getBlockReduction(rawDamage); } // figure out how much damage the shield blocked
 	public int getBlockAmount() { return blockAmount; }

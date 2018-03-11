@@ -83,13 +83,13 @@ public class Armor extends Item{
 	public enum ArmorType {
 		NO_TOP ("None", new int[]{0}, new int[]{0}), // currently not used - should be used in place of 'null'
 		NO_BOTTOM ("None", new int[]{0}, new int[]{0}), // currently not used - should be used in place of 'null'
-		CLOTH_TOP ("Cloth Armor", 10, new int[]{3, 3}, new int[]{3, 1}),
-		BREASTPLATE ("Breastplate", 50, new int[]{8, 8}, new int[]{6, 2}),
-		DIAMOND_PLATE ("Diamond Plate", 200, new int[]{5, 5}, new int[]{8, 4}),
-		SKIRT ("Skirt", 10, new int[]{3, 3}, new int[]{3, 1}),
-		BATTLE_SKIRT ("Battle Skirt", 50, new int[]{6, 6}, new int[]{6, 2}),
-		SHORTS ("Shorts", new int[]{3, 3}, new int[]{3, 1}),
-		UNDERWEAR ("Underwear", new int[]{2}, new int[]{1}),
+		CLOTH_TOP ("Cloth Armor", 10, new int[]{12, 12}, new int[]{3, 1}),
+		BREASTPLATE ("Breastplate", 50, new int[]{32, 32}, new int[]{6, 2}),
+		DIAMOND_PLATE ("Diamond Plate", 200, new int[]{20, 20}, new int[]{8, 4}),
+		SKIRT ("Skirt", 10, new int[]{12, 12}, new int[]{3, 1}),
+		BATTLE_SKIRT ("Battle Skirt", 50, new int[]{24, 24}, new int[]{6, 2}),
+		SHORTS ("Shorts", new int[]{12, 12}, new int[]{3, 1}),
+		UNDERWEAR ("Underwear", new int[]{8}, new int[]{1}),
 		
 		SHIELD ("Shield", 10, new int[]{15, 15}, new int[]{50, 50}),
 		REINFORCED_SHIELD ("Reinforced Shield", 50, new int[]{30, 30}, new int[]{50, 50}),
@@ -99,11 +99,11 @@ public class Armor extends Item{
 		SHOES ("Shoes", 1, new int[]{0}, new int[]{0}),
 		SABATONS ("Sabatons", 5, new int[]{15, 15}, new int[]{50, 50}),
 		
-		LIGHT_ENEMY_ARMOR ("Light Armor", new int[]{2, 2}, new int[]{2, 1}),
-		MEDIUM_ENEMY_ARMOR ("Medium Armor", new int[]{6, 6}, new int[]{6, 2}),
-		HEAVY_ENEMY_ARMOR ("Heavy Armor", new int[]{12, 6, 6}, new int[]{10, 4, 2}), 
-		LIGHT_ENEMY_LEGWEAR ("Light Legwear", new int[]{2, 2}, new int[]{2, 1}),
-		MEDIUM_ENEMY_LEGWEAR ("Medium Legwear", new int[]{6, 6}, new int[]{6, 2}),
+		LIGHT_ENEMY_ARMOR ("Light Armor", new int[]{8, 8}, new int[]{2, 1}),
+		MEDIUM_ENEMY_ARMOR ("Medium Armor", new int[]{24, 24}, new int[]{6, 2}),
+		HEAVY_ENEMY_ARMOR ("Heavy Armor", new int[]{48, 24, 24}, new int[]{10, 4, 2}), 
+		LIGHT_ENEMY_LEGWEAR ("Light Legwear", new int[]{8, 8}, new int[]{2, 1}),
+		MEDIUM_ENEMY_LEGWEAR ("Medium Legwear", new int[]{24, 24}, new int[]{6, 2}),
 		;
 		private final String label;
 		private final int value;
