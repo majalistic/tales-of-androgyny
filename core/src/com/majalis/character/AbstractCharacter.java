@@ -152,6 +152,7 @@ public abstract class AbstractCharacter extends Group {
 		}
 	}
 	
+	public String getLabel() { return label; }
 	public Sphincter getSphincter() { return ass.getSphincter(); }
 	public Rectum getRectum() { return ass.getRectum(); }
 	public Colon getColon() { return ass.getColon(); }
@@ -166,7 +167,7 @@ public abstract class AbstractCharacter extends Group {
 	public int getMaxStamina() { return getMax(staminaTiers); }
 	public int getMaxMana() { return getMax(manaTiers); }
 	public int getMaxStability() { return getAgility() * 3 + 9; }
-	protected int getMax(IntArray tiers) {
+	private int getMax(IntArray tiers) {
 		int max = 0;
 		for (int ii = 0; ii < tiers.size; ii++) {
 			max += tiers.get(ii);
@@ -175,25 +176,17 @@ public abstract class AbstractCharacter extends Group {
 	}
 	
 	public Stance getStance() { return stance; }
-	
 	public void setStance(Stance stance) { this.stance = stance; }
-	
 	public GrappleStatus getGrappleStatus() { return grappleStatus; } // should be passed into character state
-	public void setGrappleStatus(GrappleStatus status) { grappleStatus = status; } // for battle factory
-	
+	public void setGrappleStatus(GrappleStatus status) { grappleStatus = status; } // for battle factory	
 	public int getCurrentHealth() { return currentHealth; }
-	
 	public int getCurrentStamina() { return currentStamina; }
-	
 	public int getCurrentMana() { return currentMana; }
-		
 	public float getHealthPercent() { return currentHealth / (getMaxHealth() * 1.0f); }
-	
 	public float getStaminaPercent() { return currentStamina / (getMaxStamina() * 1.0f); }
-	
 	public float getBalancePercent() { return stability.getPercent(); }
-	
 	public float getManaPercent() { return currentMana / (getMaxMana() * 1.0f); }
+	public Stability getStability() { return stability; }
 	
 	public AssetDescriptor<Texture> getHealthDisplay() { 
 		switch (getHealthDegradation()) {
@@ -218,9 +211,7 @@ public abstract class AbstractCharacter extends Group {
 		}
 	}
 	
-	public AssetDescriptor<Texture> getBalanceDisplay() { 
-		return stability.getDisplay();
-	}
+	public AssetDescriptor<Texture> getBalanceDisplay() { return stability.getDisplay(); }
 	
 	public AssetDescriptor<Texture> getManaDisplay() {  
 		switch (4 - (int)(getManaPercent() * 100)/ 25) {
@@ -231,8 +222,6 @@ public abstract class AbstractCharacter extends Group {
 			default: return AssetEnum.MANA_ICON_3.getTexture();
 		}
 	}
-	
-	public Stability getStability() { return stability; }
 	
 	public Array<MutationResult> modHealth(int healthMod) { return modHealth(healthMod, ""); }
 	
@@ -253,8 +242,6 @@ public abstract class AbstractCharacter extends Group {
 	protected int getStaminaRegen() { return Math.max(getEndurance() / (isGravitied() ? 4 : 2), 0); }
 	
 	protected int getStabilityRegen() { return getAgility() / (isOily() ? 4 : 2) + perks.get(Perk.QUICKFOOTED.toString(), 0); }
-	
-	public String getLabel() { return label; }
 	
 	protected Boolean getSecondPerson() { return secondPerson; }
 	
@@ -637,33 +624,18 @@ public abstract class AbstractCharacter extends Group {
 		grappleStatus = attack.getGrapple();
 		
 		if (attack.isSuccessful()) {
-			if (attack.getForceStance() == Stance.DOGGY_BOTTOM && bootyliciousness != null)
-				result.add("They slap their hips against your " + bootyliciousness.toString().toLowerCase() + " booty!");
-			
-			if (attack.isAttack() || attack.isClimax() || !attack.getSex().isEmpty()) {
-				result.add(attack.getUser() + " used " + attack.getName() +  " on " + (secondPerson ? label.toLowerCase() : label) + "!");
-			}
-			
-			if (attack.getForceStance() == Stance.BALANCED) {
+			if (attack.getForceStance() == Stance.DOGGY_BOTTOM && bootyliciousness != null) { result.add("They slap their hips against your " + bootyliciousness.toString().toLowerCase() + " booty!"); }
+			if (attack.isAttack() || attack.isClimax() || !attack.getSex().isEmpty()) { result.add(attack.getUser() + " used " + attack.getName() +  " on " + (secondPerson ? label.toLowerCase() : label) + "!"); }
+			if (attack.getForceStance() == Stance.BALANCED) { 
 				result.add(attack.getUser() + " broke free!");
-				if (stance == Stance.FELLATIO_BOTTOM) {
-					result.add("It slips out of your mouth and you get to your feet!");
-				}
-				else if (stance == Stance.SIXTY_NINE_BOTTOM) {
-					result.add("You spit out their cock and push them off!");
-				}
-				else if (stance == Stance.HANDY_BOTTOM) {
-					
-				}
-				else if (stance.isAnalReceptive()) {
-					result.add("It pops out of your ass and you get to your feet!");
-				}
+				if (stance == Stance.FELLATIO_BOTTOM) { result.add("It slips out of your mouth and you get to your feet!"); }
+				else if (stance == Stance.SIXTY_NINE_BOTTOM) { result.add("You spit out their cock and push them off!"); }
+				else if (stance == Stance.HANDY_BOTTOM) {}
+				else if (stance.isAnalReceptive()) { result.add("It pops out of your ass and you get to your feet!"); }
 			}
 			
 			Buff buff = attack.getEnemyEffect();
-			if (buff != null) {
-				statuses.put(buff.type.toString(), buff.power);
-			}
+			if (buff != null) { statuses.put(buff.type.toString(), buff.power); }
 
 			int shieldDamage = attack.getShieldDamage();
 			
@@ -782,13 +754,7 @@ public abstract class AbstractCharacter extends Group {
 			}
 			
 			int disarm = attack.getDisarm();
-			if (disarm > 0) {
-				if (disarm >= 100) {
-					if (disarm()) {
-						result.add((secondPerson ? "You are " : label + " is ") + "disarmed!");
-					}
-				}
-			}
+			if (disarm >= 100 && disarm()) { result.add((secondPerson ? "You are " : label + " is ") + "disarmed!"); }
 			
 			Stance forcedStance = attack.getForceStance();
 			if (forcedStance != null) {
@@ -815,9 +781,7 @@ public abstract class AbstractCharacter extends Group {
 					if (sex.isTeasing()) result.add(label + (secondPerson ? " are seduced" : " is seduced") + "! " + (lustChange > 0 ? ((secondPerson ? " Your " : " Their ") + "lust raises by " + lustChange + "!") : (secondPerson ? " You " : " They ") + "cum!"));
 				}	
 			}
-			else if (enemyType == EnemyEnum.QUETZAL) {
-				increaseLust(selfSex);
-			}
+			else if (enemyType == EnemyEnum.QUETZAL) { increaseLust(selfSex); }
 			
 			String internalShotText = null;
 			if (attack.getClimaxType() == ClimaxType.ANAL) {
@@ -1131,12 +1095,11 @@ public abstract class AbstractCharacter extends Group {
 		return result;
 	}
 	
+	public int getBleed() { return statuses.get(StatusType.BLEEDING.toString(), 0); }
 	protected int getClimaxVolume() { return 3; }
 
-	public int getBleed() { return statuses.get(StatusType.BLEEDING.toString(), 0); }
-	
 	protected String properCase(String sample) { return sample.substring(0, 1).toUpperCase() + sample.substring(1); }
-	
+	// need to refactor these generically
 	public String setArmor(Item armor, boolean newItem) {
 		if (armor == null) {
 			this.armor = null;
@@ -1231,6 +1194,8 @@ public abstract class AbstractCharacter extends Group {
 	}
 	
 	public boolean isPlugged() { return plug != null; }
+	public boolean isChastitied() { return cage != null; }
+	protected boolean hasKey() { return inventory.contains(new Misc(MiscType.KEY), false); }
 	
 	public String setPlug(Item plug, boolean newItem) {
 		if (newItem) inventory.add(plug);
@@ -1240,12 +1205,7 @@ public abstract class AbstractCharacter extends Group {
 		ass.togglePlug();
 		return "You " + (alreadyEquipped ? "unequipped" : "equipped") + " the " + plug.getName() + ".";
 	}
-	
-	// should return Chastity property != null
-	public boolean isChastitied() { return cage != null; }
-	
-	protected boolean hasKey() { return inventory.contains(new Misc(MiscType.KEY), false); }
-	
+		
 	// possibly rethink this - maybe equipped items shouldn't be "in" inventory?
 	public String setCage(Item cage, boolean newItem) {
 		if (newItem) inventory.add(cage);
@@ -1259,8 +1219,14 @@ public abstract class AbstractCharacter extends Group {
 		return "You " + (alreadyEquipped ? "unequipped" : "equipped") + " the " + cage.getName() + ".";
 	}
 	
+	public Technique getEmptyTechnique(AbstractCharacter target) { return new Technique(Techniques.DO_NOTHING.getTrait(), getCurrentState(target), 1); }
 	public String getPhallusLabel() { return phallus.getLabel(); }	
-	
+
+	public boolean isLewd() { return perks.get(Perk.CATAMITE.toString(), 0) > 0 || perks.get(Perk.ANAL_ADDICT.toString(), 0) > 2 || perks.get(Perk.COCK_LOVER.toString(), 0) > 7 || arousal.getLust() >= 75; }
+	private boolean canSitOn(AbstractCharacter target) { return isLewd() && target.getStance() == Stance.SUPINE && target.isErect() && targetRideable(target); }
+	private boolean targetPouncable(AbstractCharacter target) { return (this.enemyType == null || this.enemyType.willPounce()) && (target.enemyType == null || target.enemyType.isPounceable()); }
+	private boolean targetWrestlable(AbstractCharacter target) { return target.enemyType == null || target.enemyType.canWrestle(); }
+	private boolean targetRideable(AbstractCharacter target) { return target.enemyType == null || target.enemyType.canBeRidden(); }
 	private boolean hasItemsToUse() {
 		if (inventory != null) {
 			for (Item item : inventory) {
@@ -1271,16 +1237,6 @@ public abstract class AbstractCharacter extends Group {
 		}
 		return false;
 	}
-	
-	private boolean canSitOn(AbstractCharacter target) { return isLewd() && target.getStance() == Stance.SUPINE && target.isErect() && targetRideable(target); }
-	
-	public boolean isLewd() { return perks.get(Perk.CATAMITE.toString(), 0) > 0 || perks.get(Perk.ANAL_ADDICT.toString(), 0) > 2 || perks.get(Perk.COCK_LOVER.toString(), 0) > 7 || arousal.getLust() >= 75; }
-
-	private boolean targetPouncable(AbstractCharacter target) { return (this.enemyType == null || this.enemyType.willPounce()) && (target.enemyType == null || target.enemyType.isPounceable()); }
-	private boolean targetWrestlable(AbstractCharacter target) { return target.enemyType == null || target.enemyType.canWrestle(); }
-	private boolean targetRideable(AbstractCharacter target) { return target.enemyType == null || target.enemyType.canBeRidden(); }
-	
-	public Technique getEmptyTechnique(AbstractCharacter target) { return new Technique(Techniques.DO_NOTHING.getTrait(), getCurrentState(target), 1); }
 	
 	protected Array<Techniques> getDefaultTechniqueOptions(AbstractCharacter target) {
 		Array<Techniques> possibles = new Array<Techniques>();
@@ -1419,15 +1375,14 @@ public abstract class AbstractCharacter extends Group {
 		NONE("NoCock");
 		private final String skin;
 
-		PhallusType(String skin) { this.skin = skin; }
+		private PhallusType(String skin) { this.skin = skin; }
 		
 		public String getSkin() { return skin; }
 		public String getLabel() { return this == CUTE ? "Cute" : this == TINY ? "Tiny" : this == SMALL ? "Small" : ""; }
 		public String getDescription() { return this == CUTE ? "An adorable penis." : this == TINY ? "A very small penis." : this == SMALL ? "Average." : ""; }
-		//private AssetDescriptor<Texture> getPhallusState(int stateIndex) { return phallusStates.get(stateIndex).getTexture(); }
 	}
 	
-	public enum Stat { // these descriptions should have the \n removed and replaced with setWrap/setWidth on the display
+	public enum Stat {
 		STRENGTH(AssetEnum.STRENGTH, "Strength determines raw attack power, which affects damage, how much attacks unbalance an enemies, and contests of strength, such as wrestling, struggling, or weapon locks.", new String[]{"Crippled", "Feeble", "Weak", "Soft", "Able", "Strong", "Mighty", "Powerful", "Hulking", "Heroic", "Godlike", "Godlike", "Godlike"}),
 		ENDURANCE(AssetEnum.ENDURANCE, "Endurance determines stamina and resilience, which affects your ability to keep up an assault without getting tired, your ability to shrug off low damage attacks, and wear heavier armor without becoming exhausted.", new String[]{"Feeble", "Infirm", "Fragile", "Frail", "Sturdy", "Durable", "Tough", "Stalwart", "Titanic", "Unstoppable", "Juggernaut", "Juggernaut", "Juggernaut"}),
 		AGILITY(AssetEnum.AGILITY, "Agility determines balance and skill, affecting your ability to keep a sure footing even while doing acrobatic maneuvers, getting unblockable attacks against enemies, and evading enemy attacks.", new String[]{"Sluggish", "Clumsy", "Inept", "Slow", "Swift", "Quick", "Skillful", "Nimble", "Adept", "Preternatural", "Supernatural", "Supernatural", "Supernatural"}),
@@ -1508,14 +1463,6 @@ public abstract class AbstractCharacter extends Group {
 			return 0;
 		}
 	}
-	
-	/*if (stabilityMod > 10) { shift = 4; }
-	else if (stabilityMod > 5) { shift = 2; }
-	else if (stabilityMod > 0) { shift = 1; }
-	else if (stabilityMod < -20) { shift = -6; }
-	else if (stabilityMod < -10) { shift = -3; }
-	else if (stabilityMod < -5) { shift = -2; }
-	else if (stabilityMod < -1) { shift = -1; }*/
 	
 	protected enum PronounSet {
 		MALE ("he", "him", "his", "himself"),
