@@ -534,8 +534,8 @@ public class SkillSelectionScene extends Scene {
 	private void changePerkDisplay(int delta) {
 		pageTurnSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
 		perkSelection += delta;
-		if (perkSelection < 0) perkSelection += perkDisplay.size;
-		if (perkSelection >= perkDisplay.size) perkSelection -= perkDisplay.size;
+		while (perkSelection < 0) perkSelection += perkDisplay.size;
+		while (perkSelection >= perkDisplay.size) perkSelection -= perkDisplay.size;
 		
 		perkDisplay.get(1 - perkSelection).clearActions();
 		perkDisplay.get(1 - perkSelection).addAction(Actions.parallel(Actions.show(), Actions.alpha(.75f, .25f), Actions.touchable(Touchable.disabled), Actions.moveTo(325, 75, .25f)));
@@ -543,7 +543,6 @@ public class SkillSelectionScene extends Scene {
 		perkDisplay.get(perkSelection).clearActions();
 		perkDisplay.get(perkSelection).getParent().addActor(perkDisplay.get(perkSelection));
 		perkDisplay.get(perkSelection).addAction(Actions.parallel(Actions.show(), Actions.alpha(1, .25f), Actions.touchable(Touchable.enabled), Actions.moveTo(0, 0, .25f)));	
-		
 	}
 	
 	private void handleNegativeSkillPoints() {
