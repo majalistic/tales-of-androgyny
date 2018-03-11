@@ -49,7 +49,7 @@ public class Technique {
 			blockMod = blockAmount >= 4 ? 0 : blockAmount == 3 ? .25 : blockAmount == 2 ? .5 : blockAmount == 1 ? .75 : 1;
 		}
 		
-		boolean evaded = technique.getTechniqueHeight() != TechniqueHeight.NONE && otherPayload.getEvasion() >= 100;		
+		boolean evaded = technique.getTechniqueHeight() != TechniqueHeight.NONE && otherPayload.getEvasion() >= 4;		
 		
 		boolean isSuccessful = 
 				(technique.isSpell() || (useItem != null ? (useItem.getUseEffect().getType() == EffectType.MAGIC || useItem.getUseEffect().getType() == EffectType.ARMOR_SUNDER) : false) || otherTechnique.isCorporeal()) &&

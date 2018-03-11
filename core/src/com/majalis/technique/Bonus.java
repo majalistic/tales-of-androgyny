@@ -26,9 +26,7 @@ public class Bonus {
 
 	public Bonus combine(int bonusLevel) {
 		OrderedMap<BonusType, Integer> newBonusMap = new OrderedMap<BonusType, Integer>();
-		for (OrderedMap.Entry<BonusType, Integer> bonus : typeWithMagnitude.entries()) {
-			newBonusMap.put(bonus.key, bonus.value * bonusLevel);
-		}
+		for (OrderedMap.Entry<BonusType, Integer> bonus : typeWithMagnitude.entries()) { newBonusMap.put(bonus.key, bonus.value * bonusLevel); }
 		return new Bonus(condition, newBonusMap, bonusLevel);
 	}
 	
@@ -39,54 +37,30 @@ public class Bonus {
 	public String getDescription(String user) {
 		String description = "";
 		switch (condition) {
-			case ENEMY_BLOODY:
-				break;
-			case ENEMY_LOW_STABILITY:
-				break;
-			case ENEMY_ON_GROUND:
-				description += "Enemy is on the ground!\n";
-				break;
-			case OUTMANEUVER:
-				description += user + " outmaneuvered the opponent by " + bonusLevel + "!\n";
-				break;
-			case OUTMANUEVER_STRONG:
-				break;
-			case SKILL_LEVEL:
-				break;
-			case STRENGTH_OVERPOWER:
-				break;
-			case STRENGTH_OVERPOWER_STRONG:
-				break;
-			default:
-				break;
-			}
+			case ENEMY_BLOODY: break;
+			case ENEMY_LOW_STABILITY: break;
+			case ENEMY_ON_GROUND: description += "Enemy is on the ground!\n"; break;
+			case OUTMANEUVER: description += user + " outmaneuvered the opponent by " + bonusLevel + "!\n"; break;
+			case OUTMANUEVER_STRONG: break;
+			case SKILL_LEVEL: break;
+			case STRENGTH_OVERPOWER: break;
+			case STRENGTH_OVERPOWER_STRONG: break;
+			default: break;
+		}
 		for (OrderedMap.Entry<BonusType, Integer> bonus : typeWithMagnitude.entries()) {
 			if (condition != BonusCondition.SKILL_LEVEL) {
-				switch (bonus.key) {
-					case ARMOR_SUNDER:
-						break;
-					case GUARD_MOD:
-						break;
-					case GUT_CHECK:
-						break;
-					case KNOCKDOWN:
-						break;
-					case MANA_COST:
-						break;
-					case POWER_MOD:
-						description += "CRITICAL HIT! Power increased by " + bonus.value + "!";
-						break;
-					case PRIORITY:
-						description += user + " gained the initiative!";
-						break;
-					case STABILTIY_COST:
-						break;
-					case STAMINA_COST:
-						break;
-					case DISARM:
-						break;
-					default:
-						break;
+				switch (bonus.key) { 
+					case ARMOR_SUNDER: break;
+					case GUARD_MOD: break;
+					case GUT_CHECK: break;
+					case KNOCKDOWN: break;
+					case MANA_COST: break;
+					case POWER_MOD: description += "CRITICAL HIT! Power increased by " + bonus.value + "!"; break;
+					case PRIORITY: description += user + " gained the initiative!"; break;
+					case STABILTIY_COST: break;
+					case STAMINA_COST: break;
+					case DISARM: break;
+					default: break;
 				}
 			}
 		}
@@ -98,57 +72,23 @@ public class Bonus {
 		for (OrderedMap.Entry<BonusType, Integer> bonus : typeWithMagnitude.entries()) {
 			description += "  ";
 			switch (bonus.key) {
-				case ARMOR_SUNDER:
-					description += "Armor sundering multiplier +" + bonus.value * 100 + "%";
-					break;
-				case GUARD_MOD:
-					description += "Guard +" + bonus.value * 25 + "%";
-					break;
-				case PARRY:
-					description += "Parry +" + bonus.value * 25 + "%";
-					break;
-				case GUT_CHECK:
-					description += "Stamina destruction +" + bonus.value;
-					break;
-				case KNOCKDOWN:
-					description += "Destabilize +" + bonus.value;
-					break;
-				case MANA_COST:
-					description += "Mana cost -" + Math.abs(bonus.value);
-					break;
-				case POWER_MOD:
-					description += "Power +" + bonus.value;
-					break;
-				case PRIORITY:
-					description += "Technique has priority";
-					break;
-				case STABILTIY_COST:
-					description += "Stability cost -" + Math.abs(bonus.value);
-					break;
-				case STAMINA_COST:
-					description += "Stamina cost -" + Math.abs(bonus.value);
-					break;
-				case DISARM:
-					description += "Disarm +" + bonus.value + "%";
-					break;
-				case TRIP:
-					description += "Trip +" + bonus.value + "%";
-					break;
-				case EVASION:
-					description += "Evasion +" + bonus.value + "%";
-					break;
-				case BLEEDING:
-					description += "Bleeding +" + bonus.value;
-					break;
-				case COUNTER:
-					description += "Counter +" + bonus.value + "%";
-					break;
-				case GRAPPLE:
-					description += "Grapple +" + bonus.value;
-					break;
-				case REMOVE_PLUG:
-					description += "Remove Plug +" + bonus.value;
-					break;
+				case ARMOR_SUNDER: description += "Armor sundering multiplier +" + bonus.value * 100 + "%"; break;
+				case GUARD_MOD: description += "Guard Level + " + bonus.value + "(" + bonus.value * 25 + "%)"; break;
+				case PARRY: description += "Parry Level + " + bonus.value + "(" + bonus.value * 25 + "%)"; break;
+				case GUT_CHECK: description += "Stamina destruction +" + bonus.value; break;
+				case KNOCKDOWN: description += "Destabilize +" + bonus.value; break;
+				case MANA_COST: description += "Mana cost -" + Math.abs(bonus.value); break;
+				case POWER_MOD: description += "Power +" + bonus.value; break;
+				case PRIORITY: description += "Technique has priority"; break;
+				case STABILTIY_COST: description += "Stability cost -" + Math.abs(bonus.value); break;
+				case STAMINA_COST: description += "Stamina cost -" + Math.abs(bonus.value); break;
+				case DISARM: description += "Disarm +" + bonus.value + "%"; break;
+				case TRIP: description += "Trip +" + bonus.value + "%"; break;
+				case EVASION: description += "Evasion Level + " + bonus.value + "(" + bonus.value * 25 + "%)"; break;
+				case BLEEDING: description += "Bleeding +" + bonus.value; break;
+				case COUNTER: description += "Counter +" + bonus.value + "%"; break;
+				case GRAPPLE: description += "Grapple +" + bonus.value; break;
+				case REMOVE_PLUG: description += "Remove Plug +" + bonus.value; break;
 			}
 			description += "\n";
 		}
