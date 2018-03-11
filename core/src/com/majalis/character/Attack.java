@@ -1,5 +1,6 @@
 package com.majalis.character;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.IntArray;
 import com.majalis.character.Stance;
 import com.majalis.save.MutationResult;
 import com.majalis.technique.ClimaxTechnique.ClimaxType;
@@ -14,7 +15,9 @@ public class Attack {
 	private final Status status;
 	private final String name;
 	private final int rawDamage;
-	private final double blockMod;
+	private final int blockAmount;
+	private final int parryAmount;
+	private final int evadeAmount;
 	private final int force;
 	private final int rawArmorBreak;
 	private final int gutcheck;
@@ -55,12 +58,14 @@ public class Attack {
 	}
 	
 	// this should have all the info for an attack, including damage or effects that were blocked
-	protected Attack(Status status, String name, int rawDamage, double blockMod, int force, int rawArmorBreak, int gutcheck, int healing, SexualExperience sex, SexualExperience selfSex, GrappleStatus grapple, int disarm, int trip, int bleeding, int plugRemove, ClimaxType climaxType, Stance forceStance, SpellEffect spellEffect, Buff selfEffect, Buff enemyEffect, 
+	protected Attack(Status status, String name, int rawDamage, int blockAmount, int parryAmount, int evadeAmount, int force, int rawArmorBreak, int gutcheck, int healing, SexualExperience sex, SexualExperience selfSex, GrappleStatus grapple, int disarm, int trip, int bleeding, int plugRemove, ClimaxType climaxType, Stance forceStance, SpellEffect spellEffect, Buff selfEffect, Buff enemyEffect, 
 					boolean isAttack, AttackHeight height, boolean ignoresArmor, Array<Bonus> bonuses, Item useItem, AbstractCharacter user) {
 		this.status = status;
 		this.name = name;
 		this.rawDamage = rawDamage;
-		this.blockMod = blockMod;
+		this.blockAmount = blockAmount;
+		this.parryAmount = parryAmount;
+		this.evadeAmount = evadeAmount;
 		this.force = force;
 		this.rawArmorBreak = rawArmorBreak;
 		this.gutcheck = gutcheck;
@@ -90,15 +95,47 @@ public class Attack {
 		this.dialog = new Array<String>();
 	}
 	
+	private int getNegatedAmount(int amount) { return amount - (getBlockReduction(amount) + getParryReduction(amount) + getDodgeReduction(amount)); }
+	private IntArray getAmountQuartiles(int amount) {
+		IntArray quartiles = new IntArray(new int[]{0, 0, 0, 0});
+		int ii = 0;
+		while (amount > 0) {
+			quartiles.incr(ii, 1);
+			ii = (ii + 1) % 4;
+			amount--;
+		}
+		return quartiles;
+	}
+	private int getBlockReduction(int amount) {
+		IntArray quartiles = getAmountQuartiles(amount);
+		int negated = 0;
+		for (int ii = evadeAmount + parryAmount; ii < evadeAmount + parryAmount + blockAmount && ii < 4; ii++) { negated += quartiles.get(ii); }
+		return negated; 
+	}
+	private int getParryReduction(int amount) {
+		IntArray quartiles = getAmountQuartiles(amount);
+		int negated = 0;
+		for (int ii = evadeAmount; ii < evadeAmount + parryAmount && ii < 4; ii++) { negated += quartiles.get(ii); }
+		return negated; 
+	}
+	private int getDodgeReduction(int amount) {
+		IntArray quartiles = getAmountQuartiles(amount);
+		int negated = 0;
+		for (int ii = 0; ii < evadeAmount && ii < 4; ii++) { negated += quartiles.get(ii); }
+		return negated; 
+	}
+	
 	protected String getName() { return name; }
 	public boolean isAttack() { return isAttack; }	
 	public AttackHeight getAttackHeight() { return height; }	
-	public int getDamage() { return (int) (rawDamage * blockMod); }
-	protected int getForce() { return (int) (force * blockMod); }
-	public int getArmorSunder() { return (int)(rawDamage * rawArmorBreak * blockMod) / 4; }
-	public int getBleeding() { return (int) (bleeding * blockMod); }
-	public int getShieldDamage() { return (int) (rawDamage * (1 - blockMod)); }
-	public double getBlockMod() { return blockMod; }
+	public int getDamage() { return getNegatedAmount(rawDamage); } 
+	protected int getForce() { return getNegatedAmount(force); }
+	public int getArmorSunder() { return getNegatedAmount(rawDamage * rawArmorBreak) / 4; } 
+	public int getBleeding() { return getNegatedAmount (bleeding); } // 
+	public int getShieldDamage() { return getBlockReduction(rawDamage); } // figure out how much damage the shield blocked
+	public int getBlockAmount() { return blockAmount; }
+	public int getParryAmount() { return parryAmount; }
+	public int getEvadeAmount() { return evadeAmount; }
 	protected String getUser() { return user.label; }
 	protected int getGutCheck() { return gutcheck; }
 	protected boolean isHealing() { return healing > 0; }

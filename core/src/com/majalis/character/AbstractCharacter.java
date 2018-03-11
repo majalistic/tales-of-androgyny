@@ -639,19 +639,17 @@ public abstract class AbstractCharacter extends Group {
 
 			int shieldDamage = attack.getShieldDamage();
 			
-			if (attack.getStatus() == Status.BLOCKED) {
-				double blockMod = attack.getBlockMod();
+			int blockMod = attack.getBlockAmount();
+			if (blockMod > 0) {				
 				if (shield != null && shield.getDurability() > 0) {
-					result.add((blockMod < .1 ? "The blow strikes off the shield!" : blockMod < .3 ? "The blow is mostly blocked by the shield!" : blockMod < .6 ? "The blow is half-blocked by the shield!" : "The blow is barely blocked by the shield!") + "\nIt deals " + shieldDamage + " damage to it!");
+					result.add((blockMod >= 4 ? "The blow strikes off the shield!" : blockMod >= 3 ? "The blow is mostly blocked by the shield!" : blockMod >= 2 ? "The blow is half-blocked by the shield!" : "The blow is barely blocked by the shield!") + "\nIt deals " + shieldDamage + " damage to it!");
 					shield.modDurability(-shieldDamage);
 					if (shield.getDurability() == 0) result.add("The shield is broken!");
 				}
 			}
 			
-			if (attack.getStatus() == Status.PARRIED) {
-				double blockMod = attack.getBlockMod();
-				result.add((blockMod < .1 ? "The blow is parried away!" : blockMod < .3 ? "The blow is mostly deflected by a parry!" : blockMod < .6 ? "The blow is half-deflected by a parry!" : "The blow is barely blocked by a parry!"));
-			}
+			int parryMod = attack.getParryAmount();
+			if (parryMod > 0) { result.add((parryMod >= 4 ? "The blow is parried away!" : parryMod >= 3 ? "The blow is mostly deflected by a parry!" : parryMod >= 2 ? "The blow is half-deflected by a parry!" : "The blow is barely blocked by a parry!")); }
 			
 			boolean oilyFire = attack.isSpell() && attack.getSpellEffect() == SpellEffect.FIRE_DAMAGE && isOily();
 			if (oilyFire) statuses.put(StatusType.OIL.toString(), 0); 
