@@ -150,9 +150,7 @@ public class EnemyCharacter extends AbstractCharacter {
 		images.add(newImage);
 	}
 	
-	@Override
-	public void setStance(Stance stance) { 
-		super.setStance(stance);		
+	private void updateDisplay() {
 		this.clearChildren();
 		this.addActor(currentAnimations);
 		
@@ -197,6 +195,12 @@ public class EnemyCharacter extends AbstractCharacter {
 			
 			this.addActor(texture);
 		}
+	}
+	
+	@Override
+	public void setStance(Stance stance) { 
+		super.setStance(stance);	
+		updateDisplay();		
 	}
 	
 	public void attackAnimation() {
@@ -684,6 +688,7 @@ public class EnemyCharacter extends AbstractCharacter {
 		else if (enemyType == EnemyEnum.CENTAUR) {
 			currentFrame = 1 - currentFrame;
 		}
+		updateDisplay();	
 	}
 	
 	public boolean canToggle() { return (enemyType == EnemyEnum.BRIGAND && currentAnimations.getChildren().contains(animations.get(1), true)) || (enemyType == EnemyEnum.CENTAUR && stance == Stance.DOGGY);  }
