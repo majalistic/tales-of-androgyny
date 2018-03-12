@@ -8,6 +8,7 @@ import com.majalis.character.Item.Accessory;
 import com.majalis.character.Item.AccessoryType;
 import com.majalis.character.Item.ChastityCage;
 import com.majalis.character.Item.EffectType;
+import com.majalis.character.Item.EquipEffect;
 import com.majalis.character.Item.ItemEffect;
 import com.majalis.character.Item.Misc;
 import com.majalis.character.Item.MiscType;
@@ -265,7 +266,7 @@ public abstract class AbstractCharacter extends Group {
 	
 	protected int getStrengthBuff() { return statuses.get(StatusType.STRENGTH_BUFF.toString(), 0); }
 	protected int getEnduranceBuff() { return statuses.get(StatusType.ENDURANCE_BUFF.toString(), 0); }
-	protected int getAgilityBuff() { return statuses.get(StatusType.AGILITY_BUFF.toString(), 0); }
+	protected int getAgilityBuff() { return (footwear != null && footwear.getEquipEffect() == EquipEffect.AGI_BONUS ? 1 : 0) + statuses.get(StatusType.AGILITY_BUFF.toString(), 0); }
 	
 	protected boolean strengthDebuffed() { return statuses.get(StatusType.STRENGTH_DEBUFF.toString(), 0) > 0; }
 	protected boolean isGravitied() { return statuses.get(StatusType.STRENGTH_DEBUFF.toString(), 0) > 0; }
