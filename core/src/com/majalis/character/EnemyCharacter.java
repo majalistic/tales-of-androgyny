@@ -388,7 +388,6 @@ public class EnemyCharacter extends AbstractCharacter {
 				currentFrame = 1;
 				arousal.setArousalLevel(ArousalLevel.EDGING);
 				baseStrength += 4;
-				baseDefense += 3;
 			}
 		}
 		
