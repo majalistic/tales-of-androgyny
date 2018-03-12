@@ -590,9 +590,9 @@ public class Battle extends Group{
 		return new ClickListener() {
 	        @Override
 	        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-				skillDisplay.setText(character.getStatTextDisplay());
-				bonusDisplay.setText(character.getStatBonusDisplay());
-				penaltyDisplay.setText(character.getStatPenaltyDisplay());
+				skillDisplay.setText(character.getStatTextDisplay().trim());
+				bonusDisplay.setText(character.getStatBonusDisplay().trim());
+				penaltyDisplay.setText(character.getStatPenaltyDisplay().trim());
 				showHoverGroup();
 			}
 			@Override
@@ -610,8 +610,8 @@ public class Battle extends Group{
 	        }
 	        @Override
 	        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-				skillDisplay.setText(description);
-				bonusDisplay.setText(bonusDescription);
+				skillDisplay.setText(description.trim());
+				bonusDisplay.setText(bonusDescription.trim());
 				bonusDisplay.setColor(Color.FOREST);
 				penaltyDisplay.setText("");
 				changeSelection(index);		
@@ -872,7 +872,7 @@ public class Battle extends Group{
 				this.addListener(new ClickListener() {
 			        @Override
 			        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-						skillDisplay.setText(character.getArmorStatus(armor));
+						skillDisplay.setText(character.getArmorStatus(armor).trim());
 						bonusDisplay.setText("");
 						penaltyDisplay.setText("");
 						showHoverGroup();
