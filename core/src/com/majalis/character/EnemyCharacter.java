@@ -379,6 +379,9 @@ public class EnemyCharacter extends AbstractCharacter {
 		return null;
 	}
 
+	@Override
+	public int getMagicResistance() { return enemyType == EnemyEnum.ANGEL || enemyType == EnemyEnum.NAGA || enemyType == EnemyEnum.QUETZAL ? 1 : 0; }
+	
 	// rather than override doAttack, doAttack should call an abstract processAttack method in AbstractCharacter and this functionality should be built there, instead of calling return super.doAttack
 	@Override
 	public Attack doAttack(Attack resolvedAttack) {

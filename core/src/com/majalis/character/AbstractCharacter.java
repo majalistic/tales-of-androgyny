@@ -288,6 +288,7 @@ public abstract class AbstractCharacter extends Group {
 	protected int itemBonus(Stat stat) { return firstAccessory != null && firstAccessory.equals(new Accessory(AccessoryType.STATBOOSTER, stat)) ? 1 : 0; }
 	
 	protected int getBaseDefense() { return Math.max(baseDefense, 0); }
+	protected int getMagicResistance() { return 0; }
 	protected int getTraction() { return 2; }
 	
 	// temporary for battle coherence
@@ -659,6 +660,7 @@ public abstract class AbstractCharacter extends Group {
 				if (getBaseDefense() > 0) result.add("Damage reduced by " + Math.min(damage, getBaseDefense()) + "!");
 				damage -= getBaseDefense() + getShockAbsorption(hitArmor);
 			}
+			if (attack.getMagicDamageReduction() > 0) { result.add("Magic resistance reduced damage by " + attack.getMagicDamageReduction() + "!"); }
 			
 			if (damage > 0) {	
 				attack.addDefenderResults(modHealth(-damage));

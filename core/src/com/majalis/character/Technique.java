@@ -79,6 +79,7 @@ public class Technique {
 			blockAmount,
 			parryAmount,
 			evadeAmount,
+			(technique.getSpellEffect() != null && technique.getSpellEffect().isDamaging()) || (useItem != null && useItem.getUseEffect().getType() == EffectType.MAGIC) ? otherPayload.getMagicResistance() : 0,
 			useItem != null && useItem.getUseEffect().getType() == EffectType.KNOCKDOWN ? useItem.getUseEffect().getMagnitude() : ((int) ((thisPayload.getTotalPower()) * thisPayload.getKnockdown()))/2, 
 			useItem != null && useItem.getUseEffect().getType() == EffectType.ARMOR_SUNDER ? useItem.getUseEffect().getMagnitude() : thisPayload.getArmorSunder(), 
 			thisPayload.getTotalPower() * thisPayload.getGutCheck(), 
@@ -112,6 +113,7 @@ public class Technique {
 				0, // block
 				0, // parry
 				0, // evade
+				0, // magic resistance
 				(thisPayload.getBasePower() + 2) / 2, // knockdown 
 				1, // armor sunder
 				0, // gut check 
@@ -232,11 +234,12 @@ public class Technique {
 		private final int manaCost;
 		private final int block;
 		private final int parry;
+		private final int evasion;
+		private final int magicResistance;
 		private final int armorSunder;
 		private final int gutCheck;
 		private final int disarm;
 		private final int trip;
-		private final int evasion;
 		private final int bleeding;
 		private final int counter;
 		private final double knockdown;
@@ -299,6 +302,8 @@ public class Technique {
 			powerMod = powerCalc;
 			block = currentState.getShieldScore() > 0 ? blockCalc : 0;
 			parry = parryCalc;
+			evasion = evasionCalc;
+			magicResistance = currentState.getCharacter().getMagicResistance(); // needs to use current state
 			staminaCost = staminaCalc;
 			stabilityCost = stabilityCalc - (technique.getUsableStance() == Stance.BALANCED && technique.getResultingStance() != Stance.BALANCED ? currentState.getPerks().get(Perk.VERSATILE, 0) : 0);
 			manaCost = manaCalc;
@@ -307,7 +312,6 @@ public class Technique {
 			disarm = disarmCalc;
 			trip = tripCalc;
 			knockdown = knockdownCalc;
-			evasion = evasionCalc;
 			bleeding = technique.causesBleed() ? (technique.getSetBleed() + (currentState.getWeapon() != null && currentState.getWeapon().causesBleed() ? bleedingCalc : 0)) : 0;
 			counter = counterCalc;
 			priority = priorityCalc;
@@ -315,6 +319,8 @@ public class Technique {
 			removePlug = removePlugCalc;
 		}
 		
+		
+
 		private int getDamage() {
 			int damage = technique.doesSetDamage() || (useItem != null && useItem.getUseEffect().getType() == EffectType.ARMOR_SUNDER) ? 4 : 
 				useItem != null && useItem.getUseEffect().getType() == EffectType.MAGIC ? useItem.getUseEffect().getMagnitude() :
@@ -331,6 +337,8 @@ public class Technique {
 		private int getManaCost() { return manaCost; }
 		private int getBlock() { return block; }
 		private int getParry() { return parry; }
+		private int getEvasion() { return evasion; }
+		public int getMagicResistance() { return magicResistance; }
 		private int getBasePower() { return basePower; }
 		private int getTotalPower() { return basePower + powerMod; }
 		private double getKnockdown() { return knockdown; }
@@ -340,7 +348,7 @@ public class Technique {
 		private Array<Bonus> getBonuses() { return bonuses; }
 		private int getDisarm() { return disarm; }
 		private int getTrip() { return trip; }
-		private int getEvasion() { return evasion; }
+		
 		private int getBleeding() { return bleeding; }
 		private int getCounter() { return counter; }
 		private GrappleStatus getResultingGrappleStatus() { return currentState.getGrappleStatus().modifyGrappleStatus(technique.getGrappleType()); }

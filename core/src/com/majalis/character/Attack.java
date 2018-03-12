@@ -18,6 +18,7 @@ public class Attack {
 	private final int blockAmount;
 	private final int parryAmount;
 	private final int evadeAmount;
+	private final int magicResistance;
 	private final int force;
 	private final int rawArmorBreak;
 	private final int gutcheck;
@@ -58,7 +59,7 @@ public class Attack {
 	}
 	
 	// this should have all the info for an attack, including damage or effects that were blocked
-	protected Attack(Status status, String name, int rawDamage, int blockAmount, int parryAmount, int evadeAmount, int force, int rawArmorBreak, int gutcheck, int healing, SexualExperience sex, SexualExperience selfSex, GrappleStatus grapple, int disarm, int trip, int bleeding, int plugRemove, ClimaxType climaxType, Stance forceStance, SpellEffect spellEffect, Buff selfEffect, Buff enemyEffect, 
+	protected Attack(Status status, String name, int rawDamage, int blockAmount, int parryAmount, int evadeAmount, int magicResistance, int force, int rawArmorBreak, int gutcheck, int healing, SexualExperience sex, SexualExperience selfSex, GrappleStatus grapple, int disarm, int trip, int bleeding, int plugRemove, ClimaxType climaxType, Stance forceStance, SpellEffect spellEffect, Buff selfEffect, Buff enemyEffect, 
 					boolean isAttack, AttackHeight height, boolean ignoresArmor, Array<Bonus> bonuses, Item useItem, AbstractCharacter user) {
 		this.status = status;
 		this.name = name;
@@ -66,6 +67,7 @@ public class Attack {
 		this.blockAmount = blockAmount;
 		this.parryAmount = parryAmount;
 		this.evadeAmount = evadeAmount;
+		this.magicResistance = magicResistance;
 		this.force = force;
 		this.rawArmorBreak = rawArmorBreak;
 		this.gutcheck = gutcheck;
@@ -95,7 +97,7 @@ public class Attack {
 		this.dialog = new Array<String>();
 	}
 	
-	private int getNegatedAmount(int amount) { return amount - (getBlockReduction(amount) + getParryReduction(amount) + getDodgeReduction(amount)); }
+	private int getNegatedAmount(int amount) { return amount - ( magicResistance > 0 ? getMagicResistanceReduction(amount) : (getBlockReduction(amount) + getParryReduction(amount) + getDodgeReduction(amount))); }
 	private IntArray getAmountQuartiles(int amount) {
 		IntArray quartiles = new IntArray(new int[]{0, 0, 0, 0});
 		int ii = 0;
@@ -124,6 +126,12 @@ public class Attack {
 		for (int ii = 0; ii < evadeAmount && ii < 4; ii++) { negated += quartiles.get(ii); }
 		return negated; 
 	}
+	private int getMagicResistanceReduction(int amount) {
+		IntArray quartiles = getAmountQuartiles(amount);
+		int negated = 0;
+		for (int ii = 0; ii < magicResistance && ii < 4; ii++) { negated += quartiles.get(ii); }
+		return negated; 
+	}
 	
 	protected String getName() { return name; }
 	public boolean isAttack() { return isAttack; }	
@@ -133,6 +141,7 @@ public class Attack {
 	public int getArmorSunder() { return getNegatedAmount(rawDamage * rawArmorBreak); } 
 	public int getBleeding() { return getNegatedAmount (bleeding); } // 
 	public int getShieldDamage() { return getBlockReduction(rawDamage); } // figure out how much damage the shield blocked
+	public int getMagicDamageReduction() { return magicResistance > 0 ? getMagicResistanceReduction(rawDamage) : 0; }
 	public int getBlockAmount() { return blockAmount; }
 	public int getParryAmount() { return parryAmount; }
 	public int getEvadeAmount() { return evadeAmount; }
