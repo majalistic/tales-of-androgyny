@@ -43,6 +43,8 @@ public class AttackTechnique extends TechniqueBuilder {
 		this.gutCheck = gutCheck;
 		this.blockable = isBlockable;
 		this.height = height;
-		bonuses.put(BonusCondition.SKILL_LEVEL, new Bonus(BonusCondition.SKILL_LEVEL, BonusType.POWER_MOD, 1));
+		this.evadeMod = 1;
+		this.parryMod = 1;
+		addBonus(BonusCondition.SKILL_LEVEL, BonusType.POWER_MOD, 1);		
 	}
 }

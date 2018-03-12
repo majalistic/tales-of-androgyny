@@ -31,6 +31,7 @@ public class TechniquePrototype {
 	private final TechniqueHeight height;
 	private final int guardMod;
 	private final int parryMod;
+	private final int evadeMod;
 	private final boolean ignoresArmor;
 	private final boolean setDamage;
 	private final boolean blockable;
@@ -46,7 +47,7 @@ public class TechniquePrototype {
 	private final ObjectMap<BonusCondition, Bonus> bonuses;
 	
 	protected TechniquePrototype( Stance usableStance, Stance resultingStance, String name, boolean doesDamage, boolean doesHealing, int powerMod, int staminaCost, int stabilityCost, int manaCost, SpellEffect spellEffect, SexualExperienceBuilder sex, SexualExperienceBuilder selfSex, Stance forceStance, double knockdown, int armorSunder,
-			int gutCheck, TechniqueHeight height, int guardMod, int parryMod, boolean ignoresArmor, boolean setDamage, boolean blockable, boolean causesBleed, int setBleed, GrappleType grapple, ClimaxType climaxType, StatusType selfEffect, StatusType enemyEffect, String description, String lightDescription, String bonusInfo, ObjectMap<BonusCondition, Bonus> bonuses) {
+			int gutCheck, TechniqueHeight height, int guardMod, int parryMod, int evadeMod, boolean ignoresArmor, boolean setDamage, boolean blockable, boolean causesBleed, int setBleed, GrappleType grapple, ClimaxType climaxType, StatusType selfEffect, StatusType enemyEffect, String description, String lightDescription, String bonusInfo, ObjectMap<BonusCondition, Bonus> bonuses) {
 		this.usableStance = usableStance;
 		this.resultingStance = resultingStance;
 		this.name = name;
@@ -66,6 +67,7 @@ public class TechniquePrototype {
 		this.height = height;
 		this.guardMod = guardMod;
 		this.parryMod = parryMod;
+		this.evadeMod = evadeMod;
 		this.ignoresArmor = ignoresArmor;
 		this.setDamage = setDamage;
 		this.blockable = blockable;
@@ -98,7 +100,8 @@ public class TechniquePrototype {
 	public int getManaCost() { return manaCost; }
 	public TechniqueHeight getTechniqueHeight() { return height; }
 	public int getGuardMod() { return guardMod; }
-	public int getParryMod() {return parryMod; }
+	public int getParryMod() { return parryMod; }
+	public int getEvadeMod() { return evadeMod; }
 	public boolean ignoresArmor() { return ignoresArmor; }
 	public boolean doesSetDamage() { return setDamage; }
 	public boolean isBlockable() { return blockable; }
@@ -121,5 +124,4 @@ public class TechniquePrototype {
 		LOW,
 		NONE
 	}
-
 }

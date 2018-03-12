@@ -29,6 +29,7 @@ public class TechniqueBuilder {
 	protected int gutCheck;
 	protected int guardMod;
 	protected int parryMod;
+	protected int evadeMod;
 	private Stance forceStance;
 	protected TechniqueHeight height;
 	protected boolean ignoresArmor;
@@ -62,6 +63,7 @@ public class TechniqueBuilder {
 		height = null;
 		guardMod = 0;
 		parryMod = 0;
+		evadeMod = 0;
 		ignoresArmor = false;
 		setDamage = false;
 		blockable = false;
@@ -154,7 +156,7 @@ public class TechniqueBuilder {
 	
 	public TechniquePrototype build() {
 		String lightDescription = getDescription();
-		return new TechniquePrototype(usableStance, resultingStance, name, doesDamage, doesHealing, powerMod, staminaCost, stabilityCost, manaCost, spellEffect, sex, selfSex, forceStance, knockdown, armorSunder, gutCheck, height, guardMod, parryMod, ignoresArmor, setDamage, blockable, causesBleed, setBleed, grapple, climaxType, selfEffect, enemyEffect, getExpandedInfo() + lightDescription, lightDescription, getBonusInfo(), bonuses); 
+		return new TechniquePrototype(usableStance, resultingStance, name, doesDamage, doesHealing, powerMod, staminaCost, stabilityCost, manaCost, spellEffect, sex, selfSex, forceStance, knockdown, armorSunder, gutCheck, height, guardMod, parryMod, evadeMod, ignoresArmor, setDamage, blockable, causesBleed, setBleed, grapple, climaxType, selfEffect, enemyEffect, getExpandedInfo() + lightDescription, lightDescription, getBonusInfo(), bonuses); 
 	}	
 	
 	protected String getExpandedInfo() { 
@@ -240,10 +242,13 @@ public class TechniqueBuilder {
 			builder.append("Ignores armor.\n");
 		}
 		if (guardMod > 0) {
-			builder.append("Blocks against enemy attacks with a shield,\nblocking " + (guardMod == 1 ? "a quarter of the damage" : guardMod == 2 ? "half damage" : guardMod == 3 ? "three-quarters of the damage" : guardMod >= 4 ? "all damage" : "") + ".\n");
+			builder.append("Blocks with shield (" + (guardMod == 1 ? "1/4" : guardMod == 2 ? "1/2" : guardMod == 3 ? "3/4" : guardMod >= 4 ? "All" : "") + ")\n");
 		}
 		if (parryMod > 0) {
-			builder.append("Parries enemy attacks with a weapon,\npreventing " + (guardMod == 1 ? "a quarter of the damage" : guardMod == 2 ? "half damage" : guardMod == 3 ? "three-quarters of the damage" : guardMod >= 4 ? "all damage" : "") + ".\n");
+			builder.append("Parries with weapon (" + (parryMod == 1 ? "1/4" : parryMod == 2 ? "1/2" : parryMod == 3 ? "3/4" : parryMod >= 4 ? "All" : "") + ")\n");
+		}
+		if (evadeMod > 0) {
+			builder.append("Dodges enemy attacks (" + (evadeMod == 1 ? "1/4" : evadeMod == 2 ? "1/2" : evadeMod == 3 ? "3/4" : evadeMod >= 4 ? "All" : "") + ")\n");
 		}
 		if (staminaCost > 0) {
 			builder.append("Costs " + staminaCost + " stamina, reduced by END.\n");

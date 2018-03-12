@@ -266,7 +266,7 @@ public class Technique {
 			int disarmCalc = 0;
 			double knockdownCalc = technique.getKnockdown();
 			int tripCalc = 0;
-			int evasionCalc = 0;
+			int evasionCalc = technique.getEvadeMod();
 			int bleedingCalc = technique.isDamaging() && !technique.isSpell() ? basePower / 4 : 0;
 			int counterCalc = 0;
 			int priorityCalc = 0;
