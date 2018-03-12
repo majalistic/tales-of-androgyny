@@ -10,7 +10,7 @@ public abstract class Item {
 
 	protected Item() {}
 	public abstract int getValue();
-	protected abstract ItemEffect getUseEffect();
+	protected ItemEffect getUseEffect() { return null; }
 	public abstract String getName();
 	public abstract String getDescription();
 	public boolean isConsumable() { return false; }	
@@ -29,30 +29,16 @@ public abstract class Item {
 
 		@SuppressWarnings("unused")
 		private Misc() {}
-		
-		public Misc (MiscType type) {
-			this.type = type;
-		}
+		public Misc (MiscType type) { this.type = type; }
 		
 		@Override
-		public int getValue() {
-			return type == MiscType.KEY ? 100 : 0;
-		}
+		public int getValue() { return type == MiscType.KEY ? 100 : 0; }
 
 		@Override
-		protected ItemEffect getUseEffect() {
-			return null;
-		}
+		public String getName() { return type == MiscType.ICE_CREAM ? "Ice Cream" : "Key"; }
 
 		@Override
-		public String getName() {
-			return type == MiscType.ICE_CREAM ? "Ice Cream" : "Key";
-		}
-
-		@Override
-		public String getDescription() {
-			return type.getDescription();
-		}
+		public String getDescription() { return type.getDescription(); 		}
 	}
 	
 	public enum MiscType {
@@ -70,79 +56,60 @@ public abstract class Item {
 		}
 	}
 	
-	public static class Plug extends Item {
+	public static class Plug extends Equipment {
 		public Plug() {}
 
-		@Override
-		public int getValue() {
-			return 45;
-		}
-
-		@Override
-		protected ItemEffect getUseEffect() {
-			return null;
-		}
+		public EquipEffect getEquipEffect() { return EquipEffect.NULL; }
 		
 		@Override
-		public boolean isEquippable() {
-			return true;
-		}	
+		public int getValue() { return 45; }
 
 		@Override
-		public String getName() {
-			return "Butt Plug";
-		}
+		public String getName() { return "Butt Plug"; }
 
 		@Override
-		public String getDescription() {
-			return "A thing which will fill up your rectum pretty snugly.";
-		}
+		public String getDescription() { return "A thing which will fill up your rectum pretty snugly."; }
 	}
 	
-	public static class ChastityCage extends Item {
+	public static class ChastityCage extends Equipment {
 		public ChastityCage() {}
 
-		@Override
-		public int getValue() {
-			return 15;
-		}
+		public EquipEffect getEquipEffect() { return EquipEffect.NULL; }
 
 		@Override
-		protected ItemEffect getUseEffect() {
-			return null;
-		}
+		public int getValue() { return 15; }
 		
 		@Override
-		public boolean isEquippable() {
-			return true;
-		}	
+		public String getName() { return "Chastity Cage"; }
 
 		@Override
-		public String getName() {
-			return "Chastity Cage";
-		}
-
-		@Override
-		public String getDescription() {
-			return "A thing which will fit around your penis and prevent erections.";
-		}
+		public String getDescription() { return "A thing which will fit around your penis and prevent erections."; }
 	}
 	
-	public static class Weapon extends Item {
+	public static abstract class Equipment extends Item {
+		@Override
+		public boolean isEquippable() { return true; }
+		public abstract EquipEffect getEquipEffect();
+	}
+	
+	public enum EquipEffect {
+		NULL
+	}
+	
+	public static class Weapon extends Equipment {
 		private WeaponType type;
 		private int bonus;
 
 		@SuppressWarnings("unused")
 		private Weapon() {}
-		
-		public Weapon(WeaponType type) {
-			this(type, 0);
-		}
+		public Weapon(WeaponType type) { this(type, 0); }
 		
 		public Weapon(WeaponType type, int bonus) {
 			this.type = type;
 			this.bonus = bonus;
 		}
+		
+		public EquipEffect getEquipEffect() { return EquipEffect.NULL; }
 		
 		@Override 
 		public boolean equals(Object o) {
@@ -152,19 +119,10 @@ public abstract class Item {
 		}
 
 		@Override
-		public boolean isEquippable() {
-			return true;
-		}			
-		
-		@Override
-		public int getValue() {
-			return bonus == 0 ? 10 : 50;
-		}
+		public int getValue() { return bonus == 0 ? 10 : 50; }
 
 		@Override
-		protected ItemEffect getUseEffect() {
-			return null;
-		}
+		protected ItemEffect getUseEffect() { return null; }
 
 		@Override
 		public String getName() {
@@ -252,7 +210,7 @@ public abstract class Item {
 		}
 	}
 	
-	public static class Accessory extends Item {
+	public static class Accessory extends Equipment {
 		private final AccessoryType type;
 		private final Stat stat;
 		@SuppressWarnings("unused")
@@ -266,18 +224,15 @@ public abstract class Item {
 			this.type = type;
 			this.stat = stat;
 		}
-				
+		
+		public EquipEffect getEquipEffect() { return EquipEffect.NULL; }
 		public AccessoryType getType() { return type; }
 		@Override
 		public int getValue() { return 200; }
 		@Override
-		protected ItemEffect getUseEffect() { return null; }
-		@Override
 		public String getName() { return type == AccessoryType.HUNGER_CHARM ? "Hunger Charm" : stat.getLabel() + " Charm"; }
 		@Override
 		public String getDescription() { return type == AccessoryType.HUNGER_CHARM ? "Wards off hunger." : "Increases " + stat.getLabel() + " by 1."; }
-		@Override
-		public boolean isEquippable() { return true; }
 		@Override 
 		public boolean equals(Object o) {
 			if (o == null || o.getClass() != Accessory.class) return false;

@@ -1,12 +1,12 @@
 package com.majalis.character;
 
 import com.badlogic.gdx.utils.IntArray;
+import com.majalis.character.Item.Equipment;
 
 /*
  * Contains all the information about a character's armor.
  */
-public class Armor extends Item{
-	/* Armor */
+public class Armor extends Equipment {
 	private final ArmorType type;
 	private int durability;
 	
@@ -20,13 +20,10 @@ public class Armor extends Item{
 	@Override
 	public int getValue() { return type.getValue(); }
 	@Override
-	protected ItemEffect getUseEffect() { return null; }
-	@Override
 	public String getName() { return type.getLabel(); }
 	@Override
 	public String getDescription() { return type.getDescription(); }
-	@Override
-	public boolean isEquippable() { return true; }
+	public EquipEffect getEquipEffect() { return EquipEffect.NULL; }
 	@Override 
 	public boolean equals(Object o) {
 		if (o == null || o.getClass() != Armor.class) return false;
