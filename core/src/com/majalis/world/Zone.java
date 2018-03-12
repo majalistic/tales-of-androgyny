@@ -50,17 +50,10 @@ public class Zone {
 		addNode(startNode, nodeCode, nodes, zoneNodes);		
 		return this;
 	}
-	
-	protected Zone addStartNode(GameWorldNode node) {
-		startNode = node;
-		return this;
-	}
+	protected Zone addStartNode(GameWorldNode node) { startNode = node; return this; }
 
 	@SuppressWarnings("unchecked")
-	protected Zone addEndNode(int nodeCode, EncounterCode initialEncounter, EncounterCode defaultEncounter, int x, int y) {
-		addNode(getNode(nodeCode, initialEncounter, defaultEncounter, x, y, visitedInfo.get(nodeCode, getFreshVisitInfo())), nodeCode, nodes, requiredNodes, zoneNodes);		
-		return this;
-	}
+	protected Zone addEndNode(int nodeCode, EncounterCode initialEncounter, EncounterCode defaultEncounter, int x, int y) { addNode(getNode(nodeCode, initialEncounter, defaultEncounter, x, y, visitedInfo.get(nodeCode, getFreshVisitInfo())), nodeCode, nodes, requiredNodes, zoneNodes); return this; }
 
 	protected Zone buildZone() {
 		Array<GameWorldNode> requiredNodesUnfulfilled = new Array<GameWorldNode>(requiredNodes);
@@ -85,7 +78,7 @@ public class Zone {
 		}
 		
 		// connect all nodes that consider themselves adjacent to nearby nodes - some nodes, like permanent nodes, might have a longer "reach" then others
-		for (int ii = 0; ii < nodes.size-1; ii++) {
+		for (int ii = 0; ii < nodes.size - 1; ii++) {
 			for (int jj = ii + 1; jj < nodes.size; jj++) {
 				if (nodes.get(ii).isAdjacent(nodes.get(jj))) {
 					nodes.get(ii).connectTo(nodes.get(jj));
@@ -95,14 +88,8 @@ public class Zone {
 		
 		if (TalesOfAndrogyny.testing) {
 			String failures = "";
-			for (GameWorldNode node : requiredNodes) {
-				if (!node.isConnected()) {
-					failures += node.getEncounterCode().toString() + ", ";
-				}
-			}
-			if (!failures.equals("")) {
-				Logging.logTime("Failed to generate following required nodes : " + failures);
-			}
+			for (GameWorldNode node : requiredNodes) { if (!node.isConnected()) { failures += node.getEncounterCode().toString() + ", "; } }
+			if (!failures.equals("")) { Logging.logTime("Failed to generate following required nodes : " + failures); }
 		}
 		return this;
 	}
@@ -128,14 +115,7 @@ public class Zone {
 		GameWorldNode closestNode = currentNode;
 		for (int nodeCode = nodes.size; nodeNotReached; ) {
 			Vector2 newNodePosition = null; // this should never happen
-			Vector2 source = new Vector2(currentNode.getHexPosition());
-			// valid walk positions:
-			// 1. position must be > 5 hexes away from source node - therefore, EITHER x, y, or z deltas must be > 5
-			// 2. position must be > 5 hexes away from target node
-			// 3. position must be <= 11 hexes away from source node
-			// 4. position should not be a greater distance from the target node - if all nodes that take us closer are taken, take us further
-			// 5. source and target are greater than 5 distance away, so the only two possible cases are "source and target are between 6 and 11 tiles away from each other" and source and target are 12+ tiles away from each other
-			
+			Vector2 source = new Vector2(currentNode.getHexPosition());			
 			int currentDistance = currentNode.getDistance(requiredNode);
 			// create a set of possible coordinates
 			Array<Vector2> possibleTowardsCoordinates = new Array<Vector2>();
@@ -147,14 +127,9 @@ public class Zone {
 					if (xy < minimumXY || xy >= maximumXY) continue;
 					possible.x = jj;
 					possible.y = kk;
-					int newDistance = requiredNode.getDistance(possible);
-					if (!currentNode.isOverlapping(possible) && currentNode.isAdjacent(possible) && newDistance >= 6) { 
-						if (newDistance <= currentDistance) { // only accepts a candidate position if it doesn't take us further away from the target - need to create a list of those that do and use them as backup
-							possibleTowardsCoordinates.add(new Vector2(possible));
-						}
-						else {
-							possibleAwayCoordinates.add(new Vector2(possible));
-						}
+					if (!currentNode.isOverlapping(possible) && !requiredNode.isOverlapping(possible) && currentNode.isAdjacent(possible)) {
+						if (requiredNode.getDistance(possible) <= currentDistance) { possibleTowardsCoordinates.add(new Vector2(possible)); }
+						else { possibleAwayCoordinates.add(new Vector2(possible)); }
 					}
 				}
 			}
