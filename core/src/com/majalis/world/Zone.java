@@ -74,9 +74,30 @@ public class Zone {
 				}
 				else { failure = true; }
 			}
+			for (GameWorldNode unfulfilledNode : requiredNodesUnfulfilled) {
+				GameWorldNode closest = findClosestNode(unfulfilledNode, nodes);
+				if (closest != null) {
+					startToEndNodePath(closest, unfulfilledNode, requiredNodesUnfulfilled);
+				}
+				else { failure = true; }
+			}
+			for (GameWorldNode unfulfilledNode : requiredNodesUnfulfilled) { 
+				GameWorldNode closestNode = null;
+				for (GameWorldNode node : nodes) {
+					if (!zoneNodes.contains(node, true) && node.getPathTo(unfulfilledNode).size != 0) {
+						GameWorldNode closestInZone = findClosestNode(node, zoneNodes);
+						if (closestNode == null || node.getDistance(closestInZone) < node.getDistance(closestNode)) {
+							closestNode = closestInZone;
+						}
+					}
+				}
+				if (closestNode != null) {
+					startToEndNodePath(closestNode, unfulfilledNode, requiredNodesUnfulfilled);
+				}
+			}
 			attempts++;
 		}
-		
+	
 		// connect all nodes that consider themselves adjacent to nearby nodes - some nodes, like permanent nodes, might have a longer "reach" then others
 		for (int ii = 0; ii < nodes.size - 1; ii++) {
 			for (int jj = ii + 1; jj < nodes.size; jj++) {
@@ -88,7 +109,7 @@ public class Zone {
 		
 		if (TalesOfAndrogyny.testing) {
 			String failures = "";
-			for (GameWorldNode node : requiredNodes) { if (!node.isConnected()) { failures += node.getEncounterCode().toString() + ", "; } }
+			for (GameWorldNode node : requiredNodesUnfulfilled) { failures += node.getEncounterCode().toString() + ", "; }
 			if (!failures.equals("")) { Logging.logTime("Failed to generate following required nodes : " + failures); }
 		}
 		return this;
