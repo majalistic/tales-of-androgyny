@@ -46,6 +46,7 @@ public class GameWorldFactory {
 		GameWorldNode secondTown = null;
 		GameWorldNode mouthfiend = null;
 		GameWorldNode mouthfiend2 = null;
+		Zone zone4 = null;
 		if (gameMode == GameMode.SKIRMISH) {
 			new Zone(loadService, assetManager, random, nodes, nodeMap, unspawnedEncounters, 1,  1)
 				.addStartNode(1, INITIAL, DEFAULT, 18, 89) 
@@ -72,7 +73,7 @@ public class GameWorldFactory {
 				.addEndNode(1004, WITCH_COTTAGE, WITCH_COTTAGE, 83, 88)
 				.buildZone();
 			
-			new Zone(loadService, assetManager, random, nodes, nodeMap, unspawnedEncounters, 3, 2)
+			zone4 = new Zone(loadService, assetManager, random, nodes, nodeMap, unspawnedEncounters, 3, 2)
 				.addStartNode(zone3.getEndNodes().get(0))
 				.addEndNode(1005, QUETZAL, QUETZAL, 119, 115)
 				.addEndNode(1006, FORT, FORT, 119, 84)
@@ -143,10 +144,14 @@ public class GameWorldFactory {
 		else {
 			nodes.get(0).setCurrent();
 		}
+		
+		GameWorldNode first = nodes.get(0);
+		
 		nodes.sort();
 		
 		if (TalesOfAndrogyny.testing) {
 			ObjectSet<EncounterCode> encounterCodesUnfulfilled = new ObjectSet<EncounterCode>(EncounterCode.getAllRandomEncounters());
+
 			for (GameWorldNode node : nodes) {
 				encounterCodesUnfulfilled.remove(node.getEncounterCode());
 			}
@@ -156,6 +161,9 @@ public class GameWorldFactory {
 			}
 			if (!missingCodes.equals("")) {
 				Logging.logTime("Failed to generate following encounters : " + missingCodes);
+			}
+			if (first.getPathTo(zone4.getEndNodes().get(0)).size == 0) {
+				Logging.logTime("Failed to create a path from start to finish");
 			}
 		}
 		
