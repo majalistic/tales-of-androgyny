@@ -884,7 +884,6 @@ public class PlayerCharacter extends AbstractCharacter {
 		return temp != null ? "You unequipped the " + temp.getName() + "." : "";
 	}
 	
-	public void setBaseDefense(int defense) { baseDefense = defense; }
 	
 	private PhallusType getPhallusType(SexualExperience sex) { return sex.isBird() ? PhallusType.BIRD : sex.isCentaurSex() ? PhallusType.HORSE : sex.isKnot() ? PhallusType.DOG : sex.isOgreSex() ? PhallusType.GIANT : PhallusType.MONSTER; }
 	

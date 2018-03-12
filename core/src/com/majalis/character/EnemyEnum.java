@@ -257,7 +257,7 @@ public enum EnemyEnum {
 			this.perception = perception;
 			this.magic = magic;
 			this.charisma = charisma;
-			defense = 2;
+			defense = 0;
 			healthTiers = new IntArray(new int[]{10, 10, 10, 10});
 			manaTiers = new IntArray(new int[]{0});
 		}

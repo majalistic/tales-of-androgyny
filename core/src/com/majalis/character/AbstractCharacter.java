@@ -129,7 +129,7 @@ public abstract class AbstractCharacter extends Group {
 			level = 1;
 			experience = 0;
 			baseStrength = baseEndurance = baseAgility = basePerception = baseMagic = baseCharisma = 3;
-			baseDefense = 4;
+			baseDefense = 0;
 			baseLuck = 0;
 			baseEvade = 0;
 			baseBlock = 0;

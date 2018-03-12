@@ -202,10 +202,6 @@ public class CharacterCreationScene extends Scene {
 				enchanterButton = button;
 			}
 		}
-		// this needs to be moved to a better place
-		if (story) {
-			character.setBaseDefense(2);
-		}
 	}
 	
 	private void initStatTable(final Table statTable, final AssetManager assetManager, final Skin skin, final Sound buttonSound, final TextButton done, final PlayerCharacter character, final Label statDescription, final Label statMessage, 
