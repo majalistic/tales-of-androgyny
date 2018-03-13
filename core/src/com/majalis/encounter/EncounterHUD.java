@@ -78,6 +78,7 @@ public class EncounterHUD extends Group {
 		copyLog.addListener(new ClickListener() { 
 			@Override
 	        public void clicked(InputEvent event, float x, float y) {
+				logDisplay.displayLog();
 				Gdx.app.getClipboard().setContents(logDisplay.getText().toString());
 			}
 		});
