@@ -370,9 +370,17 @@ public class CheckScene extends AbstractTextScene {
 			@Override
 			protected boolean getCheck(PlayerCharacter character) { int check = character.getQuestStatus(QuestType.GADGETEER); return check == 2; }  
 		}, 
-		MADAME_MET("", "") { 
+		MADAME_UNMET("", "") { 
 			@Override
-			protected boolean getCheck(PlayerCharacter character) { int check = character.getQuestStatus(QuestType.MADAME); return check > 0; }  
+			protected boolean getCheck(PlayerCharacter character) { int check = character.getQuestStatus(QuestType.MADAME); return check == 0; }  
+		},
+		MADAME_OFFER_UNGIVEN("", "") { 
+			@Override
+			protected boolean getCheck(PlayerCharacter character) { int check = character.getQuestStatus(QuestType.MADAME); return check == 1; }  
+		},	
+		MADAME_OFFER_NOT_ACCEPTED("", "") { 
+			@Override
+			protected boolean getCheck(PlayerCharacter character) { int check = character.getQuestStatus(QuestType.MADAME); return check == 2; }  
 		},
 		QUETZAL_HEARD("", "") { 
 			@Override
@@ -521,7 +529,7 @@ public class CheckScene extends AbstractTextScene {
 		MANOR_UNVISITED("", "") {
 			@Override
 			protected boolean getCheck(PlayerCharacter character) { int check = character.getQuestStatus(QuestType.WARLOCK); return check == 1;}  
-		}, 
+		},  
 		;
 		private final String success;
 		private final String failure;

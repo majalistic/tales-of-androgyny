@@ -2074,7 +2074,9 @@
 		"scriptLines": [
 			{"text": "\"No... but you do,\" you say, and she smiles wryly."},
 			{"text": "\"I'm not so young that a line like that is going to work on me.  That being said... I wouldn't actually mind having you between my thighs for a bit.  Once you begin, you won't stop until I am finished.  Understood?\" she says, and you agree, enthusiastically."},
-			{"text": "She shifts forward in her chair, casually nestling your nose into her pubic hair, then grasping your hair and pulling your face forward without much force.  You are eager to oblige, licking between her lips without hesitation."},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "assTeasing":5}}],
+			"text": "She shifts forward in her chair, casually nestling your nose into her pubic hair, then grasping your hair and pulling your face forward without much force.  You are eager to oblige, licking between her lips without hesitation."},
 			{"text": "She wraps her thick thighs around you, so that your face is buried in her muff.  You look up at her, thankful to be able to breathe, if only through her fuzzy underbrush.  You lick, applying a strong pressure to try and twist your tongue inside."},
 			{"text": "She remains surprisingly tight, and you aren't sure if she wants your attention focused elsewhere or to fight your way in, but trapped between her thighs, you don't really have much choice but to explore and find out.  You lick at her clit with the skill and grace of a novice, and she snickers."},
 			{"text": "\"You're not very good at this,\" she says, staring down at you condescendingly, \"but I can appreciate the effort.  I'm not a delicate flower,\" she says, pulling your head even deeper into her crotch, \"so get in there.\""},
@@ -2127,7 +2129,9 @@
 			{"text": "She stands over you, and you look up at her fantastic globes, eclipsing much of your view.  She peers down at you, a smug smile on her face."}, 
 			{"text": "\"I know you'd prefer I sit on your cock more than your face, but... you want this, don't you?\""}, 
 			{"text": "You nod again, eagerly anticipating the feeling of her pillowy fat ass on your face.  She notes you assent and then her hips come crashing down, your face slammed by the weight of her ass."}, 
-			{"text": "You can't breathe until she leans forward enough for you to breathe through your nose, and then she sits back again, back and forth."}, 
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "assTeasing":5}}],
+			"text": "You can't breathe until she leans forward enough for you to breathe through your nose, and then she sits back again, back and forth."}, 
 			{"text": "\"Now...\" she says, reaching back to pull her cheeks apart, \"put your tongue up my ass.\""}, 
 			{"text": "She sits back on you, and you disobey, so she leans back again, pressing the whole of her ass over your face."}, 			
 			{"text": "\"Whether you want to put your tongue up my ass isn't really the question, is it?  If you want to breathe, you will shove your tongue up the hole I shit from.  That is all.\""}, 
@@ -2170,6 +2174,162 @@
 			{"text": "You lick her heels and the soles of her shoes clean, swallowing who-knows-what in the process.  When you're done, she dismisses you."}				
 		]
 	},
+	{
+		"key": "BROTHEL-MADAME-RETURN",
+		"scriptLines": [
+			{"text": "You chat with the Madame for a bit, but she is quickly pulled away for business-related reasons, so you leave the brothel."},
+		]
+	},
+	{
+		"key": "BROTHEL-MADAME-OFFER",
+		"scriptLines": [
+			{
+			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "MADAME", "value":2}}],
+			"text": "You inquire about the previous offer, and she smirks. \"I'm busy right now, but I'll be in my office taking business matters in an hour or so,\" she says, and you decide to wait for it."},
+			{"text": "..."},
+			{"text": ".."},
+			{"text": "."},
+			{"text": "The door to her office is open, so you walk inside, and then freeze in place.  She's bent over her desk, her large rear on full display, writing something down, paying you little mind."},
+			{"text": "You're not sure whether she's noticed you, so you just... stare.  She continues to work, as she shifts her weight side to side, from one leg to the other, rolling her hips alluringly.  Your jaw drops."},
+			{"text": "\"Yes, I'm aware you're there.  Take a seat and enjoy the view while I finish up with more important matters... and don't touch if you enjoy having a solid form.\""},
+			{"text": "You sit down, eager to conduct business, but also getting closer to her brazen display.  If you lean forward, you'll be close enough to touch... but she said not to."},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "assTeasing":3}}],
+			"text": "Several minutes pass as she works in silence, her incredible rear facing you.  You feel the room heat up slowly, your body responding predictably to the sultry display.  You want to bury your face between her cheeks and motorboat them without restraint."}
+		]
+	},
+	{
+		"key": "BROTHEL-MADAME-TOUCHBUTT",
+		"scriptLines": [
+		{"text": "You can't hold yourself back.  You decide to ask her if you can touch.  She wouldn't be doing this if she didn't want you to at least ask, right?"},
+		{"text": "\"If you touch, you die.  But... only if you touch,\" she says, tauntingly.  You break out into a full-body sweat, your hand creeping closer, and closer... you can't touch, but you can... almost..."},
+		{"text": "Her smooth globe is maybe an inch away, her beauty mark like a button that you're compelled to press.  She shifts her weight again, and you're so close to her that the creaking of her desk is as loud as the alarm bells in your head."},
+		{"text": "You can't tell if you grazed her smooth skin, or if your mind is just imagining it, but you recoil anyway, as she lets out a small \"hm\".  You want nothing more than to place your entire palm on her lustrous cheek, when, suddenly... you do."},
+		{
+		"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "assTeasing":5}}],
+		"text": "Your palm lays flat on her callipygean perfection for but a moment before you withdraw it in shock, electrified.  You realize what happened, like an animal that heard a sound and looked up, only to see the encroaching visage of a large, descending rock."},
+		{"text": "She pressed her hips back at you, slightly, but enough to force you to touch her ass, and now, she's wheeled around and is staring death at you."},
+		{"text": "\"What did I say?\" she asks, tersely, and you shake your head, apologetically, at a loss for words.  \"Hm.  Hhmhm.  I'm kidding.  Scared you, didn't I?  Was it worth it?\" she asks, peering at you over her glasses.  You feel... emotional."},
+		{"text": "She sits back onto her desk, letting one of her heeled shoes hang loose off her foot, as she casually addresses you."},
+		{"text": "\"Now... have you decided to work for me?  In a... personal capacity?\" she asks, and you swallow.  You're still reeling from her... seduction?  Threat?  You're not sure."}
+		]
+	},
+	{
+		"key": "BROTHEL-MADAME-HIGHLUST",
+		"scriptLines": [
+			{"text": "You can't resist the urge to reach out and touch... you've got to do it."}
+		]
+	},
+	{
+		"key": "BROTHEL-MADAME-HIGHLUST-BRIDGE",
+		"scriptLines": [
+			{"text": "You can't resist the urge to be her chair..."}
+		]
+	},
+	{
+		"key": "BROTHEL-MADAME-BRIDGE-OFFER",
+		"scriptLines": [
+			{
+			"mutations": [{"saveType":"WILLPOWER", "value":{"class": "java.lang.Integer", "value": -1}}],	
+			"text": "\"You're quite patient.  Good, because I still have quite a lot of work to do.\""},
+			{"text": "Your heart sinks."},
+			{"text": "\"Hrm.  My legs are getting tired.  If you form a bridge, I'll use you as a chair,\" she says, casually."},
+			{"text": "...what?"},
+			{"text": "\"You heard me.\""}			
+		]
+	},
+	{
+		"key": "BROTHEL-MADAME-REFUSE-FORMBRIDGE",
+		"scriptLines": [
+			{
+			"mutations": [{"saveType":"WILLPOWER", "value":{"class": "java.lang.Integer", "value": -1}}],	
+			"text": "\"Hmph, fine.  So, then, you wanted to talk business.  Have you decided to work for me?\""}			
+		]
+	},	
+	{
+		"key": "BROTHEL-MADAME-FORMBRIDGE",
+		"scriptLines": [
+			{"text": "\"Make yourself a sturdy chair or none at all.  If my chair collapses under me, you're going to be very sorry.\""},
+		
+		
+			{"text": "Her hand slips into your underwear, and grabs hold of your tent's tentpole."},
+		
+			
+			
+			
+		
+		]
+	},
+	{
+		"key": "BROTHEL-MADAME-HOLDBRIDGE",
+		"scriptLines": [
+		
+		
+			{"text": "\"And... that's enough of that.  Let's move on to negotiations,\" she says, popping her hand off of your cock just as you're about to cum."},
+
+			
+		]
+	},
+	{
+		"key": "BROTHEL-MADAME-FAILBRIDGE",
+		"scriptLines": [
+			{"text": "You can't hold her up any longer - her big fat ass is, alas, too big.  You collapse to the ground, and she thuds on top of you, and clicks her teeth."},
+			{"text": "\"Hmm...\" she hums, inspecting her sticky hand, \"I think that will be enough of that for now.\""},
+			{"text": "She gets to her feet and dusts herself off, wiping her hand on a cloth from her desk, which she then sits on, looking down at you, crumpled on the floor."},
+			{"text": "\"Have you considered my offer?\" she asks, as if she hadn't just crushed your pelvis."}
+		]
+	},	
+	{
+		"key": "BROTHEL-MADAME-OFFER-TAKEN",
+		"scriptLines": [
+			{
+			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "MADAME", "value": 3}}],
+			"text": "She smiles at your assent, and begins to detail your first job."},
+			{"text": "\"I need you to find a man who's left town.  I believe he's in Monsters.\""},
+			{"text": "\"He's... he got eaten?\""},
+			{"text": "\"No, the town of Monsters.  He's likely boozing it up there, bragging about the girls he fucked in Silajam.  I need him to stop bragging, and to start regretting.\""},
+			
+			
+			{"text": "\"Just bring him back here to me.  I'll determine his fate.\""},
+			
+			
+			{"text": "\"What do you want, aside from gold?\""}
+			
+		]
+	},
+	{
+		"key": "BROTHEL-MADAME-ASK-ASS",
+		"scriptLines": [
+		]
+	},
+	{
+		"key": "BROTHEL-MADAME-ASK-BEAUTY",
+		"scriptLines": [
+		]
+	},
+	{
+		"key": "BROTHEL-MADAME-ASK-GOLD",
+		"scriptLines": [
+		]
+	},
+	{
+		"key": "BROTHEL-MADAME-ASK-CHAIR",
+		"scriptLines": [
+		]
+	},
+	{
+		"key": "BROTHEL-MADAME-OFFER-CONCLUSION",
+		"scriptLines": [
+		]
+	},
+	{
+		"key": "BROTHEL-MADAME-OFFER-REFUSE",
+		"scriptLines": [
+			{
+			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "MADAME", "value": 2}}],
+			"text": "\"Hrm, well, if you change your mind...\" she says, circling her finger on her hip, before flicking it towards you... or actually, towards the door.  You leave, needing more time to mull it over."}
+		]
+	},	
 	{
 		"key": "BROTHEL-RETURN",
 		"scriptLines": [

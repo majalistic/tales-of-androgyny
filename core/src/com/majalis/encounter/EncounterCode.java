@@ -539,14 +539,28 @@ public enum EncounterCode {
 					b.branch(Outcome.DEFEAT).textScene("STORY-BRIGAND-DEFEAT").choiceScene("Steel or suck?", b.branch("Steel").textScene("STORY-BRIGAND-DEFEAT-DEATH").gameEnd(), b.branch("Suck").textScene("STORY-BRIGAND-DEFEAT-SUCK")),
 					b.branch(Outcome.SATISFIED).textScene("BRIGAND-SATISFIED")
 				);
-			
+		
 			case BROTHEL:
 				Branch faceCrushed = b.branch().textScene("BROTHEL-MADAME-FACECRUSHED").gameEnd();
 				Branch feetLick = b.branch().textScene("BROTHEL-MADAME-FEETLICK");
-				Branch talkToMadame = b.branch("Ask her about herself").checkScene(
-					CheckType.MADAME_MET, 
-					b.branch(true).textScene("BROTHEL-RETURN"), 
-					b.branch(false).textScene("BROTHEL-MADAME").choiceScene(
+				Branch offerConclusion = b.branch().textScene("BROTHEL-MADAME-OFFER-CONCLUSION");
+				Branch offer = b.branch().choiceScene(
+					"Do you take her offer?", b.branch("Yes").textScene("BROTHEL-MADAME-OFFER-TAKEN").choiceScene(
+						"What else do you want?", 
+						b.branch("Your ass").textScene("BROTHEL-MADAME-ASK-ASS").concat(offerConclusion), 
+						b.branch("Your golden beauty").textScene("BROTHEL-MADAME-ASK-BEAUTY").concat(offerConclusion), 
+						b.branch("More gold").textScene("BROTHEL-MADAME-ASK-GOLD").concat(offerConclusion), 
+						b.branch("To be your chair").textScene("BROTHEL-MADAME-ASK-CHAIR").concat(offerConclusion)
+					), 
+					b.branch("No").textScene("BROTHEL-MADAME-OFFER-REFUSE")
+				);
+				Branch touchButt = b.branch().textScene("BROTHEL-MADAME-TOUCHBUTT").concat(offer);
+				Branch highLust = b.branch().textScene("BROTHEL-MADAME-HIGHLUST").concat(touchButt);
+				Branch formBridge = b.branch().textScene("BROTHEL-MADAME-FORMBRIDGE").checkScene(Stat.ENDURANCE, b.branch(5).textScene("BROTHEL-MADAME-HOLDBRIDGE").concat(offer), b.branch(0).textScene("BROTHEL-MADAME-FAILBRIDGE").concat(offer));
+				Branch bridgeHighLust = b.branch().textScene("BROTHEL-MADAME-HIGHLUST-BRIDGE").concat(formBridge);
+				Branch talkToMadame = b.branch("Ask her about business").checkScene(
+					CheckType.MADAME_UNMET, 
+					b.branch(true).textScene("BROTHEL-MADAME").choiceScene(
 						"What was so funny?", 
 						b.branch("Nothing").textScene("BROTHEL-MERCENARY"), 
 						b.branch("Her chair creaked").textScene("BROTHEL-MADAME-UNAMUSED").choiceScene(
@@ -554,6 +568,39 @@ public enum EncounterCode {
 							b.branch("I'm sorry").textScene("BROTHEL-MADAME-APOLOGIZE").choiceScene("Offer to kiss her pussy?", b.branch("Yes").textScene("BROTHEL-MADAME-COOCHIE").checkScene(Stat.CHARISMA, b.branch(5).textScene("BROTHEL-MADAME-CUNNILINGUS"), b.branch(0).textScene("BROTHEL-MADAME-NOCOOCHIE").concat(feetLick)), b.branch("No").concat(feetLick)), 
 							b.branch("I don't know").textScene("BROTHEL-MADAME-IGNORANCE").choiceScene("Is it because she's put on weight?", b.branch("She does have a fat ass").concat(faceCrushed), b.branch("No").textScene("BROTHEL-MADAME-HEELS")), 
 							b.branch("Your ass is fat").concat(faceCrushed)
+						)
+					),
+					b.branch(false).checkScene(
+						CheckType.MADAME_OFFER_UNGIVEN,
+						b.branch(true).textScene("BROTHEL-MADAME-OFFER").checkScene(
+							CheckType.HIGH_LUST, 
+							b.branch(true).concat(highLust), 
+							b.branch(false).checkScene(
+								CheckType.ANY_WILLPOWER, 
+								b.branch(true).choiceScene(
+									"Touch?", 
+									b.branch("Touch").concat(touchButt), 
+									b.branch("Hold Back (1 WP)").textScene("BROTHEL-MADAME-BRIDGE-OFFER").checkScene(
+										CheckType.HIGH_LUST, 
+										b.branch(true).concat(bridgeHighLust), 
+										b.branch(false).checkScene(
+											CheckType.ANY_WILLPOWER, 
+											b.branch(true).choiceScene(
+												"Be her chair?", 
+												b.branch("Form chair").concat(formBridge), 
+												b.branch("What? (1 WP)").textScene("BROTHEL-MADAME-REFUSE-FORMBRIDGE").concat(offer)
+											),
+											b.branch(false).concat(bridgeHighLust)
+										)
+									)
+								), 
+								b.branch(false).concat(highLust)
+							)
+						), 
+						b.branch(false).checkScene(
+							CheckType.MADAME_OFFER_NOT_ACCEPTED, 
+							b.branch(true).concat(offer), 
+							b.branch(false).textScene("BROTHEL-MADAME-RETURN")
 						)
 					)
 				);
