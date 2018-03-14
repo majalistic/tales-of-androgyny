@@ -601,7 +601,11 @@ public enum EncounterCode {
 						b.branch(false).checkScene(
 							CheckType.MADAME_OFFER_NOT_ACCEPTED, 
 							b.branch(true).concat(offer), 
-							b.branch(false).textScene("BROTHEL-MADAME-RETURN")
+							b.branch(false).checkScene(
+								CheckType.BROTHEL_QUEST_COMPLETE, 
+								b.branch(true).textScene("BROTHEL-QUEST-COMPLETE"), 
+								b.branch(false).textScene("BROTHEL-MADAME-RETURN")
+							)
 						)
 					)
 				);

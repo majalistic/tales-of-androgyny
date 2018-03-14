@@ -2197,6 +2197,39 @@
 		]
 	},
 	{
+		"key": "BROTHEL-QUEST-COMPLETE",
+		"scriptLines": [
+			{"text" : "You ask her to speak about the bounty, and she has you follow her to her office.  There, you half-expect to see the man that you returned to her, instead of her chair."},
+			{"text": "\"You'll see his punishment in good time,\" she says, sitting down in her chair."},
+			{"text": "She notes something down, double-checking some note she'd written to herself, and then she pushes a stack of coins across her desk at you."},			
+			{
+			"mutations": [{"saveType":"GOLD", "value":{"class": "java.lang.Integer", "value": 50}}],
+			"text": "\"As promised.  As for my ass...\" she says, getting up again, and rounding her desk."},
+			{"text": "She pulls her dress aside, and then she sits in your lap, and lightly grinds on it... then she reaches back to take out your already-twitching cock, and places it between her cheeks."},
+			{"text": "She bounces once, twice... and you already feel like you might let loose between her cheeks.  It's then that you realize her trickery."},
+			{"text": "\"I said you could have my ass.  I never said you could fuck it.\""},
+			{"text": "You bite your lip.  Even this is... heavenly.  Still, you thought it would be something more..."},		
+			{"text": "\"Don't look so glum.  If you want to fuck me... that day may come.  But today, you're sliding between these cheeks, or you're going home horny.  Your choice.\""},
+			{"text": "She bounces in your lap, running her two smooth, warm globes around your shaft, their inviting give and gentle squeezing more than your ejaculatory muscles can handle."},		
+			{"text": "\"You can cum all over my back, or my ass if you'd like.  You've earned that much.\""},
+			{"text": "You may have to take her up on that offer."},			
+			{"text": "\"And you've earned one more thing, too,\" she says, leaning back, your cock trapped helplessly between her buns.  She grabs your collar, pulls you forward, and kisses you on the lips."},
+			{"text": "Her tongue enters your mouth at around the same time you enter the phase that's past the phase where you're cumming uncontrollably, though her back and ass are still, for the moment, dry.  She breathlessly kisses you while maintaining eye contact, and you throb between her soft pillows."},
+			{
+			"sound": "CUM",
+			"text": "She closes her eyes lustfully for a moment, humming her appreciation, as she feels the hot streak land between her shoulderblades, trailing down all the way to the small of her back.  The next shot lands near it, but the follow-up fires off almost straight into the air, splatting down on her wide cheek with force."},
+			{"text": "You coat her back and right butt cheek with an unmistakable amount of white, well-wrung jizz, an image of buttjob bukkake that is burned into your memory.  She relaxes her cheeks, which drift apart slightly to reveal a white-and-clear mess almost adhering the two sticky buns together."},			
+			{"text": "She reaches back to run her finger along her cummy cheek, coating it in your nutgoo, before bringing it to her lips."},			
+			{"text": "\"Don't feel cheated now, do you?\" she asks, smugly, and then licks her cum-frosted finger."},
+			{"text": "Your limp cock rests against her big bottom, looking quite tuckered out.  She makes no motion to get off of you, even as her heavy breathing slows and returns to normal, her composure maintained."},
+			{"text": "Of course, with her back and ass painted with semen, the refined image is at least a little cracked."},
+			{"text": "You run your hand over the doubly-unmarked cheek, and she mewls.  \"Don't get yourself worked up... if you want more, you'll have to do more,\" she cautions, although she seems to be enjoying the sensation."}
+			{"text": "Eventually, she picks herself up out of the chair, and begins to clean herself off."},
+			{"text": "\"See you again, hopefully soon?\" she asks, and you swallow."},
+			{"text": "Having collected your rewards, you leave the brothel, wondering what other jobs the madame will have for you."}
+		]
+	},
+	{
 		"key": "BROTHEL-MADAME-RETURN",
 		"scriptLines": [
 			{"text": "You chat with the Madame for a bit, but she is quickly pulled away for business-related reasons, so you leave the brothel."},
@@ -2309,7 +2342,9 @@
 			{"text": "\"And... you want me to deliver that to him?\" you ask, feeling a bit uneasy about the prospect."},			
 			{"text": "\"Just bring him back here to me.  I'll determine his fate.  All you have to do is get him on a carriage bound here, and I'll take care of the rest.\""},
 			{"text": "You think on it... it's bounty hunting, as you expected.  You ask her how much she's willing to offer."},
-			{"text": "\"A hundred gold.  Half now, half when you return.  Sound good?\""},
+			{
+			"mutations": [{"saveType":"GOLD", "value":{"class": "java.lang.Integer", "value": 50}}],
+			"text": "\"A hundred gold.  Half now, half when you return.  Sound good?\""},
 			{"text": "You don't react immediately.  After a moment, you remember your throbbing erection, and ask if that's all she's willing to give up."},			
 			{"text": "\"What do you want, aside from gold?\""}
 		]
@@ -2329,7 +2364,9 @@
 	{
 		"key": "BROTHEL-MADAME-ASK-GOLD",
 		"scriptLines": [
-			{"text": "\"Hm.  I can respect that.  I'm a little insulted, honestly, but... I'll get over it.  How does an extra fifty coins sound?\""}
+			{
+			"mutations": [{"saveType":"GOLD", "value":{"class": "java.lang.Integer", "value": 50}}],
+			"text": "\"Hm.  I can respect that.  I'm a little insulted, honestly, but... I'll get over it.  How does an extra fifty coins sound?\""}
 		]
 	},
 	{
