@@ -116,6 +116,7 @@ public abstract class AbstractCharacter extends Group {
 	
 	protected Array<Item> inventory;
 	protected int food;
+	protected int range;
 
 	protected boolean wrapLegs;
 	
