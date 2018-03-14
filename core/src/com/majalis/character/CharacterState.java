@@ -72,4 +72,6 @@ public class CharacterState {
 	protected int getLewdCharisma() { return user.getLewdCharisma(); }
 
 	public ObjectMap<Perk, Integer> getPerks() { return user.getPerks(); }
+
+	public int getRange() { return user.getRange();	}
 }

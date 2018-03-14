@@ -1504,4 +1504,5 @@ public abstract class AbstractCharacter extends Group {
 		}
 		return tempPerks;
 	}
+	public int getRange() { return range; }
 }
