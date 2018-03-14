@@ -92,9 +92,11 @@ public class Armor extends Equipment {
 		REINFORCED_SHIELD ("Reinforced Shield", 50, new int[]{30, 30}, new int[]{50, 50}),
 		
 		GAUNTLET ("Gauntlet", 5, new int[]{0}, new int[]{0}),
+		GAUNTLETS_OF_STRENGTH  ("Gauntlet of Strength", 50, new int[]{0}, new int[]{0}),
 		HELMET ("Helmet", 5, new int[]{0}, new int[]{0}),
+		HELM_OF_WISDOM ("Helm of Wisdom", 25, new int[]{0}, new int[]{0}),
 		SHOES ("Shoes", 1, new int[]{0}, new int[]{0}),
-		SHOES_OF_RUNNING ("Shoes", 1, new int[]{0}, new int[]{0}),
+		SHOES_OF_RUNNING ("Shoes", 25, new int[]{0}, new int[]{0}),
 		SABATONS ("Sabatons", 5, new int[]{15, 15}, new int[]{50, 50}),
 		
 		LIGHT_ENEMY_ARMOR ("Light Armor", new int[]{8, 8}, new int[]{2, 1}),
@@ -132,7 +134,7 @@ public class Armor extends Equipment {
 		private int getValue() { return value; }
 		private boolean isArmwear() { return this == GAUNTLET; }
 		private boolean isFootwear() { return this == SHOES || this == SHOES_OF_RUNNING || this == SABATONS; }
-		private boolean isHeadgear() { return this == HELMET; }
+		private boolean isHeadgear() { return this == HELMET || this == HELM_OF_WISDOM; }
 		private boolean isShield() { return this == SHIELD || this == REINFORCED_SHIELD; }
 		private boolean coversTop() { return this == NO_TOP || this == CLOTH_TOP || this == BREASTPLATE || this == DIAMOND_PLATE || this == LIGHT_ENEMY_ARMOR || this == MEDIUM_ENEMY_ARMOR || this == HEAVY_ENEMY_ARMOR;  }
 		private boolean coversBottom() { return this == NO_BOTTOM || this == SKIRT || this == BATTLE_SKIRT || this == SHORTS ||  this == LIGHT_ENEMY_LEGWEAR || this == MEDIUM_ENEMY_LEGWEAR; }
@@ -153,7 +155,7 @@ public class Armor extends Equipment {
 		private boolean showsRear() { return true; }
 		private boolean showsHips() { return true; }
 		private int getMaxDurability() { int maxDurability = 0; for (int value : getDurability().items) maxDurability += value; return maxDurability; }
-		private EquipEffect getEquipEffect() { return this == SHOES_OF_RUNNING ? EquipEffect.AGI_BONUS : EquipEffect.NULL; }
+		private EquipEffect getEquipEffect() { return this == SHOES_OF_RUNNING ? EquipEffect.AGI_BONUS : this == HELM_OF_WISDOM ? EquipEffect.PER_BONUS : this == GAUNTLETS_OF_STRENGTH ? EquipEffect.STR_BONUS : EquipEffect.NULL; }
 		private String getDurabilityDescription() {
 			String durabilityDescription = "";
 			int ii = 0;

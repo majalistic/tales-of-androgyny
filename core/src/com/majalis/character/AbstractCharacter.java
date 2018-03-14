@@ -264,9 +264,11 @@ public abstract class AbstractCharacter extends Group {
 
 	protected int getStrength() { return Math.max(((baseStrength + itemBonus(Stat.STRENGTH) + getStrengthBuff()) - (getHealthDegradation() / 2 + getStaminaDegradation() / 2 + getLustDegradation() / 2))/(strengthDebuffed() ? 2 : 1), 0); }
 	
-	protected int getStrengthBuff() { return statuses.get(StatusType.STRENGTH_BUFF.toString(), 0); }
+	// all the item-related buffs need to move into item bonus
+	protected int getStrengthBuff() { return (armwear != null && armwear.getEquipEffect() == EquipEffect.STR_BONUS ? 1 : 0) + statuses.get(StatusType.STRENGTH_BUFF.toString(), 0); }
 	protected int getEnduranceBuff() { return statuses.get(StatusType.ENDURANCE_BUFF.toString(), 0); }
 	protected int getAgilityBuff() { return (footwear != null && footwear.getEquipEffect() == EquipEffect.AGI_BONUS ? 1 : 0) + statuses.get(StatusType.AGILITY_BUFF.toString(), 0); }
+	protected int getPerceptionBuff() { return (headgear != null && headgear.getEquipEffect() == EquipEffect.PER_BONUS ? 1 : 0); }
 	
 	protected boolean strengthDebuffed() { return statuses.get(StatusType.STRENGTH_DEBUFF.toString(), 0) > 0; }
 	protected boolean isGravitied() { return statuses.get(StatusType.STRENGTH_DEBUFF.toString(), 0) > 0; }
@@ -278,7 +280,7 @@ public abstract class AbstractCharacter extends Group {
 	
 	protected int getAgility() { return Math.max((baseAgility + itemBonus(Stat.AGILITY) + getAgilityBuff()) - (getHealthDegradation() + getStaminaDegradation() + getCumInflation()), 0); }
 
-	protected int getPerception() { return Math.max(basePerception + itemBonus(Stat.PERCEPTION), 0); }
+	protected int getPerception() { return Math.max(basePerception + itemBonus(Stat.PERCEPTION), 0) + getPerceptionBuff(); }
 
 	protected int getMagic() { return Math.max(baseMagic + itemBonus(Stat.MAGIC), 0); }
 
