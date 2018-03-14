@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.utils.Array;
@@ -188,6 +189,7 @@ public class SaveManager implements SaveService, LoadService {
         	if (playerParent != null) playerParent.removeActor(save.player, false);
         	Group enemyParent = new Group();
         	Array<Actor> enemyChildren = new Array<Actor>();
+        	Array<Action> enemyActions = new Array<Action>();
         	if (save.enemy != null) {
             	enemyParent = save.enemy.getParent();
             	if (enemyParent != null) {
@@ -195,6 +197,8 @@ public class SaveManager implements SaveService, LoadService {
             	}	
             	for (Actor actor : save.enemy.getChildren()) { enemyChildren.add(actor); }
             	save.enemy.clearChildren();
+            	for (Action action : save.enemy.getActions()) { enemyActions.add(action); }
+            	save.enemy.getActions().clear();
         	}
         	try {
         		file.writeString(json.prettyPrint(save), false);
@@ -209,6 +213,7 @@ public class SaveManager implements SaveService, LoadService {
         			enemyParent.addActor(save.enemy);
         		}	
         		for (Actor actor : enemyChildren) { save.enemy.addActor(actor); }
+        		for (Action action : enemyActions) { save.enemy.addAction(action); }
         	}
         }
     }
