@@ -440,7 +440,7 @@ public class CheckScene extends AbstractTextScene {
 		}, 
 		MAX_LUST("", "") { 
 			@Override
-			protected boolean getCheck(PlayerCharacter character) { return character.getCurrentLust() >= 100; }  
+			protected boolean getCheck(PlayerCharacter character) { return character.getCurrentLust() >= 100 || character.getPerks().get(Perk.LADY_OF_THE_NIGHT, 0) >= 20; }  
 		}, 
 		MERMAID_FIRST_ENCOUNTER("", "") {
 			@Override
