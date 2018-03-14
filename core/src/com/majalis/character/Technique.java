@@ -92,6 +92,7 @@ public class Technique {
 			thisPayload.getBleeding(),
 			thisPayload.getRemovePlug(),
 			technique.getClimaxType(), 
+			getAdvance() + otherTechnique.getAdvance(),
 			getForceStance(),
 			technique.getSpellEffect(),
 			new Buff(technique.getSelfEffect(), thisPayload.getTotalPower()),
@@ -126,6 +127,7 @@ public class Technique {
 				(thisPayload.getBasePower() + 2) / 3 + 1, // bleed
 				0,
 				null, // climax type
+				0, // advance
 				null, // force stance
 				null, // spell effect
 				null, // self effect
@@ -145,7 +147,7 @@ public class Technique {
 	public String getTechniqueName() { return useItem != null ? useItem.getName() : technique.getName(); }
 	public String getTechniqueDescription() { return useItem == null ? technique.getLightDescription() : useItem.getDescription(); }
 	public String getBonusDescription() { return technique.getBonusInfo(); }
-	
+	public int getAdvance() { return technique.getAdvance(); }
 	
 	private TechniquePayload applyBonuses(TechniquePrototype technique, CharacterState currentState, int skillLevel) {
 		Array<Bonus> bonusesToApply = new Array<Bonus>();

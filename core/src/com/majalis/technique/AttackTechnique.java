@@ -45,6 +45,7 @@ public class AttackTechnique extends TechniqueBuilder {
 		this.height = height;
 		this.evadeMod = 1;
 		this.parryMod = 1;
+		this.advance = 1;
 		addBonus(BonusCondition.SKILL_LEVEL, BonusType.POWER_MOD, 1);		
 	}
 }

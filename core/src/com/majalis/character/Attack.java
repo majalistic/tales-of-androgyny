@@ -31,6 +31,7 @@ public class Attack {
 	private final int bleeding;
 	private final int plugRemove;
 	private final ClimaxType climaxType;
+	private final int advance;
 	private final Stance forceStance;
 	private final SpellEffect spellEffect;
 	private final Buff selfEffect;
@@ -59,7 +60,7 @@ public class Attack {
 	}
 	
 	// this should have all the info for an attack, including damage or effects that were blocked
-	protected Attack(Status status, String name, int rawDamage, int blockAmount, int parryAmount, int evadeAmount, int magicResistance, int force, int rawArmorBreak, int gutcheck, int healing, SexualExperience sex, SexualExperience selfSex, GrappleStatus grapple, int disarm, int trip, int bleeding, int plugRemove, ClimaxType climaxType, Stance forceStance, SpellEffect spellEffect, Buff selfEffect, Buff enemyEffect, 
+	protected Attack(Status status, String name, int rawDamage, int blockAmount, int parryAmount, int evadeAmount, int magicResistance, int force, int rawArmorBreak, int gutcheck, int healing, SexualExperience sex, SexualExperience selfSex, GrappleStatus grapple, int disarm, int trip, int bleeding, int plugRemove, ClimaxType climaxType, int advance, Stance forceStance, SpellEffect spellEffect, Buff selfEffect, Buff enemyEffect, 
 					boolean isAttack, AttackHeight height, boolean ignoresArmor, Array<Bonus> bonuses, Item useItem, AbstractCharacter user) {
 		this.status = status;
 		this.name = name;
@@ -80,6 +81,7 @@ public class Attack {
 		this.bleeding = bleeding;
 		this.plugRemove = plugRemove;
 		this.climaxType = climaxType;
+		this.advance = advance;
 		this.forceStance = forceStance;
 		this.spellEffect = spellEffect;
 		this.selfEffect = selfEffect;
@@ -154,6 +156,7 @@ public class Attack {
 	protected GrappleStatus getGrapple() { return grapple; }
 	protected int getDisarm() { return disarm; }
 	protected int getTrip() { return trip; }
+	protected int getAdvance() { return advance; }
 	protected Stance getForceStance() { return forceStance; }
 	public boolean isSuccessful() { return status == Status.SUCCESS || status == Status.BLOCKED || status == Status.PARRIED; }
 	public Status getStatus() { return status; }

@@ -803,6 +803,9 @@ public abstract class AbstractCharacter extends Group {
 			if (ass.getFullnessAmount() > 0 && !stance.isAnalReceptive()) result.add(getLeakMessage());
 			if (mouthful > 0 && !stance.isOralReceptive()) result.add(getDroolMessage());
 		}
+		
+		modRange(-attack.getAdvance());
+
 		if (!alreadyIncapacitated() && !knockedDown) {
 			if (enemyType == EnemyEnum.OGRE) {
 				if (stability.isDown()) {
@@ -834,6 +837,11 @@ public abstract class AbstractCharacter extends Group {
 		}
 		
 		return new AttackResult(result, new Array<String>(), attack.getAttackerResults(), attack.getDefenderResults());
+	}
+	
+	private void modRange(int rangeMod) {
+		range += rangeMod;
+		if (range < 0) range = 0;
 	}
 	
 	protected String increaseLust(SexualExperience ... sexes) {

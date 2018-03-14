@@ -41,6 +41,7 @@ public class TechniqueBuilder {
 	protected ClimaxType climaxType;
 	protected StatusType selfEffect;
 	protected StatusType enemyEffect;
+	protected int advance;
 	protected OrderedMap<BonusCondition, Bonus> bonuses;
 	
 	public TechniqueBuilder(Stance usableStance, Stance resultingStance, String name) {
@@ -73,6 +74,7 @@ public class TechniqueBuilder {
 		selfEffect = null;
 		enemyEffect = null;
 		height = TechniqueHeight.NONE;
+		advance = 0;
 		bonuses = new OrderedMap<BonusCondition, Bonus>();
 		switch(resultingStance.getClimaxType()) {
 			case ANAL: selfSex.setAnalSexTop(1); break;
@@ -156,7 +158,7 @@ public class TechniqueBuilder {
 	
 	public TechniquePrototype build() {
 		String lightDescription = getDescription();
-		return new TechniquePrototype(usableStance, resultingStance, name, doesDamage, doesHealing, powerMod, staminaCost, stabilityCost, manaCost, spellEffect, sex, selfSex, forceStance, knockdown, armorSunder, gutCheck, height, guardMod, parryMod, evadeMod, ignoresArmor, setDamage, blockable, causesBleed, setBleed, grapple, climaxType, selfEffect, enemyEffect, getExpandedInfo() + lightDescription, lightDescription, getBonusInfo(), bonuses); 
+		return new TechniquePrototype(usableStance, resultingStance, name, doesDamage, doesHealing, powerMod, staminaCost, stabilityCost, manaCost, spellEffect, sex, selfSex, forceStance, knockdown, armorSunder, gutCheck, height, guardMod, parryMod, evadeMod, ignoresArmor, setDamage, blockable, causesBleed, setBleed, grapple, climaxType, selfEffect, enemyEffect, advance, getExpandedInfo() + lightDescription, lightDescription, getBonusInfo(), bonuses); 
 	}	
 	
 	protected String getExpandedInfo() { 

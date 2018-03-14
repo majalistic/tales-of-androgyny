@@ -41,13 +41,14 @@ public class TechniquePrototype {
 	private final ClimaxType climaxType;
 	private final StatusType selfEffect;
 	private final StatusType enemyEffect;
+	private final int advance;
 	private final String description;
 	private final String lightDescription;
 	private final String bonusInfo;
 	private final ObjectMap<BonusCondition, Bonus> bonuses;
 	
 	protected TechniquePrototype( Stance usableStance, Stance resultingStance, String name, boolean doesDamage, boolean doesHealing, int powerMod, int staminaCost, int stabilityCost, int manaCost, SpellEffect spellEffect, SexualExperienceBuilder sex, SexualExperienceBuilder selfSex, Stance forceStance, double knockdown, int armorSunder,
-			int gutCheck, TechniqueHeight height, int guardMod, int parryMod, int evadeMod, boolean ignoresArmor, boolean setDamage, boolean blockable, boolean causesBleed, int setBleed, GrappleType grapple, ClimaxType climaxType, StatusType selfEffect, StatusType enemyEffect, String description, String lightDescription, String bonusInfo, ObjectMap<BonusCondition, Bonus> bonuses) {
+			int gutCheck, TechniqueHeight height, int guardMod, int parryMod, int evadeMod, boolean ignoresArmor, boolean setDamage, boolean blockable, boolean causesBleed, int setBleed, GrappleType grapple, ClimaxType climaxType, StatusType selfEffect, StatusType enemyEffect, int advance, String description, String lightDescription, String bonusInfo, ObjectMap<BonusCondition, Bonus> bonuses) {
 		this.usableStance = usableStance;
 		this.resultingStance = resultingStance;
 		this.name = name;
@@ -77,6 +78,7 @@ public class TechniquePrototype {
 		this.climaxType = climaxType;
 		this.selfEffect = selfEffect;
 		this.enemyEffect = enemyEffect;
+		this.advance = advance;
 		this.description = description;
 		this.lightDescription = lightDescription;
 		this.bonusInfo = bonusInfo;
@@ -113,6 +115,7 @@ public class TechniquePrototype {
 	public ClimaxType getClimaxType() { return climaxType; }
 	public StatusType getSelfEffect() { return selfEffect; }
 	public StatusType getEnemyEffect() { return enemyEffect; }
+	public int getAdvance() { return advance; }
 	public String getDescription() { return description; }
 	public String getLightDescription() { return lightDescription; }
 	public String getBonusInfo() { return bonusInfo; }
