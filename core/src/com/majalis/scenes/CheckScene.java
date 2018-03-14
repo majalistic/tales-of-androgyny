@@ -386,6 +386,10 @@ public class CheckScene extends AbstractTextScene {
 			@Override
 			protected boolean getCheck(PlayerCharacter character) { int check = character.getQuestStatus(QuestType.MADAME); return check == 2; }  
 		},
+		BROTHEL_QUEST_ACTIVE("", "") { 
+			@Override
+			protected boolean getCheck(PlayerCharacter character) { int check = character.getQuestStatus(QuestType.MADAME); return check == 3; }  
+		},
 		QUETZAL_HEARD("", "") { 
 			@Override
 			protected boolean getCheck(PlayerCharacter character) { int check = character.getQuestStatus(QuestType.QUETZAL); return check == 1; }  
@@ -533,7 +537,7 @@ public class CheckScene extends AbstractTextScene {
 		MANOR_UNVISITED("", "") {
 			@Override
 			protected boolean getCheck(PlayerCharacter character) { int check = character.getQuestStatus(QuestType.WARLOCK); return check == 1;}  
-		},  
+		}, 
 		;
 		private final String success;
 		private final String failure;

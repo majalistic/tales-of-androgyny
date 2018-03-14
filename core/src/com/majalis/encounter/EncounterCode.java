@@ -1713,7 +1713,15 @@ public enum EncounterCode {
 			case STORY_SIGN:
 				return b.branch().textScene("CROSSROADS");
 			case TAVERN:
-				return b.branch().textScene("TAVERN");
+				return b.branch().checkScene(
+					CheckType.BROTHEL_QUEST_ACTIVE, 
+						b.branch(true).textScene("TAVERN-MARK").choiceScene(
+							"Take a carriage to the human town?", 
+							b.branch("Yes (10 GP)").require(ChoiceCheckType.GOLD_GREATER_THAN_X, 10).textScene("CARRIAGE-TO-HUMAN-TOWN"),
+							b.branch("No")
+						), 
+						b.branch(false).textScene("TAVERN")
+					);
 			case TOWN:
 				break;
 			case TOWN2:

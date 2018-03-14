@@ -2007,6 +2007,18 @@
 		]
 	},
 	{
+		"key": "TAVERN-MARK",
+		"scriptLines": [
+			{
+			"music": "WEREWOLF_MUSIC",
+			"background": "TOWN_BG",
+			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "MADAME", "value":4}}],
+			"text": "You enter the tavern.  It's mostly empty, save a few particularly down-and-out-looking individuals who are in no mood to chat... with a singular exception, who's regaling one of the non-exceptions with a drunken, bawdy tale."},
+			{"text": "As she described him, he's got tattooed olive skin, white hair, and is boozing and bullshitting.  You approach him, and explain the situation.  The brothel owner back in Silajam wants to speak with him.  He doesn't want any trouble, and so you escort him to the carriage station."},
+			{"text": "To collect your bounty, you'll need to return as well.  Pay the carriage fee and return to Silajam?"}
+		]
+	},
+	{
 		"key": "BROTHEL",
 		"scriptLines": [
 			{
@@ -2291,11 +2303,11 @@
 			{
 			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "MADAME", "value": 3}}],
 			"text": "She smiles at your assent, and begins to detail your first job."},
-			{"text": "\"I need you to find a man who's left town.  I believe he's in Monsters.\""},
+			{"text": "\"I need you to find a man with tattooed olive skin and ivory hair who's left town.  I believe he's in Monsters.\""},
 			{"text": "\"He's... he got eaten?\""},
 			{"text": "\"No, the town of Monsters.  He's likely boozing it up there, bragging about the girls he fucked in Silajam.  I need him to stop bragging, and to start regretting.\""},
 			{"text": "\"And... you want me to deliver that to him?\" you ask, feeling a bit uneasy about the prospect."},			
-			{"text": "\"Just bring him back here to me.  I'll determine his fate.\""},
+			{"text": "\"Just bring him back here to me.  I'll determine his fate.  All you have to do is get him on a carriage bound here, and I'll take care of the rest.\""},
 			{"text": "You think on it... it's bounty hunting, as you expected.  You ask her how much she's willing to offer."},
 			{"text": "\"A hundred gold.  Half now, half when you return.  Sound good?\""},
 			{"text": "You don't react immediately.  After a moment, you remember your throbbing erection, and ask if that's all she's willing to give up."},			
