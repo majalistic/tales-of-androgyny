@@ -143,6 +143,8 @@ public abstract class Item {
 			}
 		}
 		
+		public boolean isMelee() { return type.isMelee(); }
+		
 		public int getDamage(ObjectMap<Stat, Integer> stats) {
 			switch (type) {
 				case Dagger: return stats.get(Stat.AGILITY) / 2 + bonus;
@@ -208,6 +210,8 @@ public abstract class Item {
 		public boolean isBuyable() {
 			return buyable;
 		}
+
+		public boolean isMelee() { return this != Bow; }
 	}
 	
 	public static class Accessory extends Equipment {

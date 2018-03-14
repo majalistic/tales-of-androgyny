@@ -84,6 +84,7 @@ public abstract class AbstractCharacter extends Group {
 	protected int knotInflate;
 	
 	protected Weapon weapon;
+	protected Weapon rangedWeapon;
 	public Armor shield;
 	protected Armor armor;
 	protected Armor legwear;
@@ -412,7 +413,7 @@ public abstract class AbstractCharacter extends Group {
 	}
 	
 	protected CharacterState getCurrentState(AbstractCharacter target) {		
-		return new CharacterState(getStats(), getRawStats(), weapon, shield, stability.lowBalance(), currentMana, enemyType == null ? true : enemyType.isCorporeal(), enemyType == null ? PhallusType.SMALL : enemyType.getPhallusType(), this, target);
+		return new CharacterState(getStats(), getRawStats(), weapon, rangedWeapon, shield, stability.lowBalance(), currentMana, enemyType == null ? true : enemyType.isCorporeal(), enemyType == null ? PhallusType.SMALL : enemyType.getPhallusType(), this, target);
 	}
 	
 	protected boolean alreadyIncapacitated() {
@@ -1046,6 +1047,7 @@ public abstract class AbstractCharacter extends Group {
 	private int getBaseCharisma() { return baseCharisma; }
 
 	public Weapon getWeapon() { return weapon; }
+	public Weapon getRangedWeapon() { return rangedWeapon; }
 	
 	public String getStanceTransform(Technique firstTechnique) {
 		Stance newStance = firstTechnique.getStance();

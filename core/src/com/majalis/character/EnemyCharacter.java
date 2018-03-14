@@ -56,7 +56,8 @@ public class EnemyCharacter extends AbstractCharacter {
 		}
 		
 		random = new RandomXS128((int)(Math.random() * 10000) % 10000);
-		weapon = enemyType.getWeaponType() != null ? new Weapon(enemyType.getWeaponType()): null;
+		weapon = enemyType.getWeaponType() != null && enemyType.getWeaponType().isMelee() ? new Weapon(enemyType.getWeaponType()): null;
+		rangedWeapon = enemyType.getWeaponType() != null && !enemyType.getWeaponType().isMelee() ? new Weapon(enemyType.getWeaponType()): null;
 		armor = enemyType.getArmorType() != null ? new Armor(enemyType.getArmorType()): null;
 		legwear = enemyType.getLegwearType() != null ? new Armor(enemyType.getLegwearType()): null;
 		underwear = enemyType.getUnderwearType() != null ? new Armor(enemyType.getUnderwearType()): null;

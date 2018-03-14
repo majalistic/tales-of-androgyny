@@ -11,6 +11,7 @@ public class CharacterState {
 	private final ObjectMap<Stat, Integer> stats;
 	private final ObjectMap<Stat, Integer> rawStats;
 	private final Weapon weapon;
+	private final Weapon rangedWeapon;
 	private final Armor shield;
 	private final boolean lowBalance;
 	private final int currentMana;
@@ -22,10 +23,11 @@ public class CharacterState {
 	private final AbstractCharacter user;
 	
 	// will likely need stats with and without stepdowns, or will need to implement stepdown here as well
-	protected CharacterState(ObjectMap<Stat, Integer> stats, ObjectMap<Stat, Integer> rawStats, Weapon weapon, Armor shield, boolean lowBalance, int currentMana, boolean isCorporeal, PhallusType phallusType, AbstractCharacter user, AbstractCharacter target) {
+	protected CharacterState(ObjectMap<Stat, Integer> stats, ObjectMap<Stat, Integer> rawStats, Weapon weapon, Weapon rangedWeapon, Armor shield, boolean lowBalance, int currentMana, boolean isCorporeal, PhallusType phallusType, AbstractCharacter user, AbstractCharacter target) {
 		this.stats = stats;
 		this.rawStats = rawStats;
 		this.weapon = weapon;
+		this.rangedWeapon = rangedWeapon;
 		this.shield = shield;
 		this.lowBalance = lowBalance;
 		this.currentMana = currentMana;
@@ -50,6 +52,8 @@ public class CharacterState {
 	protected ObjectMap<Stat, Integer> getStats() { return stats; }
 	
 	protected Weapon getWeapon() { return weapon; }
+	
+	protected Weapon getRangedWeapon() { return rangedWeapon; }
 	
 	protected int getShieldScore() { return shield != null ? shield.getShockAbsorption() : 0; }
 	

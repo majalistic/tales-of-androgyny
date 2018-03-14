@@ -818,9 +818,22 @@ public class PlayerCharacter extends AbstractCharacter {
 		return "You " + (alreadyEquipped ? "unequipped" : "equipped") + " the " + equipWeapon.getName() + ".";
 	}
 	
+	public String setRangedWeapon(Item item) {	
+		Weapon equipWeapon = (Weapon) item;
+		boolean alreadyEquipped = equipWeapon.equals(this.rangedWeapon);
+		this.rangedWeapon = alreadyEquipped ? null : equipWeapon;
+		return "You " + (alreadyEquipped ? "unequipped" : "equipped") + " the " + equipWeapon.getName() + ".";
+	}
+	
 	public String unequipWeapon() {
 		Weapon temp = this.weapon;
 		this.weapon = null;
+		return temp != null ? "You unequipped the " + temp.getName() + "." : "";
+	}
+	
+	public String unequipRangedWeapon() {
+		Weapon temp = this.rangedWeapon;
+		this.rangedWeapon = null;
 		return temp != null ? "You unequipped the " + temp.getName() + "." : "";
 	}
 	
@@ -1339,7 +1352,7 @@ public class PlayerCharacter extends AbstractCharacter {
 	public String equipItem(Item item) {
 		Armor armor = item instanceof Armor ? (Armor) item : null;
 		return 
-			item instanceof Weapon ? setWeapon(item) : 
+			item instanceof Weapon ? (((Weapon) item).isMelee() ? setWeapon(item) : setRangedWeapon(item)) : 
 			armor != null ? 
 				(armor.isFootwear() ? setFootwear(item, false) : armor.isArmwear() ? setArmwear(item, false) : armor.isHeadgear() ? setHeadgear(item, false) : armor.isShield() ? setShield(item, false) : armor.coversTop() ? setArmor(item, false) : armor.coversBottom() ? setLegwear(item, false) : setUnderwear(item, false)) : 
 			item instanceof Accessory ? setAccessory(item, false) :
@@ -1358,7 +1371,7 @@ public class PlayerCharacter extends AbstractCharacter {
 	public ChastityCage getCage() { return cage; }
 
 	public boolean isEquipped(Item item) {
-		return item.equals(weapon) || item.equals(armor) || item.equals(shield) || item.equals(legwear) || item.equals(underwear) || item.equals(plug) || item.equals(cage) || item.equals(headgear) || item.equals(armwear) || item.equals(footwear) || item.equals(firstAccessory);
+		return item.equals(weapon) || item.equals(rangedWeapon) || item.equals(armor) || item.equals(shield) || item.equals(legwear) || item.equals(underwear) || item.equals(plug) || item.equals(cage) || item.equals(headgear) || item.equals(armwear) || item.equals(footwear) || item.equals(firstAccessory);
 	}
 
 	public int getAnalReceptionCount() { return receivedAnal; }

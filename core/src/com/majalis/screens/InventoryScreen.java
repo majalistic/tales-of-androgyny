@@ -40,9 +40,7 @@ public class InventoryScreen extends AbstractScreen {
 		resourceRequirements.add(AssetEnum.CLICK_SOUND.getSound());
 		resourceRequirements.add(AssetEnum.WORLD_MAP_MUSIC.getMusic());
 	
-		AssetEnum[] assets = new AssetEnum[]{
-			DESTROY_UP, DESTROY_DOWN, DESTROY_HIGHLIGHT, ARROW, CHARACTER_SCREEN, WARRIOR, PALADIN, THIEF, RANGER, MAGE, ENCHANTRESS
-		};
+		AssetEnum[] assets = new AssetEnum[]{ DESTROY_UP, DESTROY_DOWN, DESTROY_HIGHLIGHT, ARROW, CHARACTER_SCREEN, WARRIOR, PALADIN, THIEF, RANGER, MAGE, ENCHANTRESS };
 		for (AssetEnum asset: assets) {
 			resourceRequirements.add(asset.getTexture());
 		}
@@ -57,6 +55,7 @@ public class InventoryScreen extends AbstractScreen {
 	private final Table inventoryTable;
 	private final Table weaponTable;
 	private final Label weaponText;
+	private final Label rangedWeaponText;
 	private final Label shieldText;
 	private final Label armorText;
 	private final Label legwearText;
@@ -135,6 +134,7 @@ public class InventoryScreen extends AbstractScreen {
 		Table equipmentTable = new Table();
 		equipmentTable.align(Align.topLeft);
 		weaponText = getLabel(character.getWeapon() != null ? character.getWeapon().getName() : "Unarmed", skin, character.getWeapon() != null ? Color.GOLD : Color.BROWN);
+		rangedWeaponText  = getLabel(character.getRangedWeapon() != null ? character.getRangedWeapon().getName() : "Unarmed", skin, character.getRangedWeapon() != null ? Color.GOLD : Color.BROWN);
 		shieldText = getLabel(character.getShield() != null ? character.getShield().getName() : "Unarmed", skin, character.getShield() != null ? Color.GOLD : Color.BROWN);
 		armorText = getLabel(character.getArmor() != null ? character.getArmor().getName() : "None", skin, character.getArmor() != null ? Color.GOLD : Color.BROWN);
 		legwearText = getLabel(character.getLegwear() != null ? character.getLegwear().getName() : "None", skin, character.getLegwear() != null ? Color.GOLD : Color.BROWN);
@@ -147,6 +147,7 @@ public class InventoryScreen extends AbstractScreen {
 		cageText = getLabel(character.getCage() != null ? character.getCage().getName() : "None", skin, character.getCage() != null ? Color.GOLD : Color.BROWN);
 		
 		weaponText.addListener(new ClickListener() { @Override public void clicked(InputEvent e, float x, float y) { resetWeaponTable(character.unequipWeapon()); }});
+		rangedWeaponText.addListener(new ClickListener() { @Override public void clicked(InputEvent e, float x, float y) { resetWeaponTable(character.unequipRangedWeapon()); }});
 		shieldText.addListener(new ClickListener() { @Override public void clicked(InputEvent e, float x, float y) { resetWeaponTable(character.unequipShield()); }});
 		armorText.addListener(new ClickListener() { @Override public void clicked(InputEvent e, float x, float y) { resetWeaponTable(character.unequipArmor()); }});
 		legwearText.addListener(new ClickListener() { @Override public void clicked(InputEvent e, float x, float y) { resetWeaponTable(character.unequipLegwear()); }});
@@ -164,6 +165,8 @@ public class InventoryScreen extends AbstractScreen {
 		this.addActor(equipmentTable);
 		equipmentTable.add(getLabel("Weapon:", skin, Color.DARK_GRAY)).width(xBuffer).align(Align.left);
 		equipmentTable.add(weaponText).align(Align.left).row();
+		equipmentTable.add(getLabel("Ranged:", skin, Color.DARK_GRAY)).width(xBuffer).align(Align.left);
+		equipmentTable.add(rangedWeaponText).align(Align.left).row();
 		equipmentTable.add(getLabel("Shield:", skin, Color.DARK_GRAY)).width(xBuffer).align(Align.left);
 		equipmentTable.add(shieldText).align(Align.left).row();
 		equipmentTable.add(getLabel("Armor:", skin, Color.DARK_GRAY)).width(xBuffer).align(Align.left);
@@ -242,6 +245,7 @@ public class InventoryScreen extends AbstractScreen {
 		buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
 		consoleText.setText(result);
 		weaponText.setText(character.getWeapon() != null ? character.getWeapon().getName() : "Unarmed");
+		rangedWeaponText.setText(character.getRangedWeapon() != null ? character.getRangedWeapon().getName() : "Unarmed");
 		shieldText.setText(character.getShield() != null ? character.getShield().getName() : "Unarmed");
 		armorText.setText(character.getArmor() != null ? character.getArmor().getName() : "None");
 		legwearText.setText(character.getLegwear() != null ? character.getLegwear().getName() : "None");
@@ -254,6 +258,7 @@ public class InventoryScreen extends AbstractScreen {
 		cageText.setText(character.getCage() != null ? character.getCage().getName() : "None");
 		
 		weaponText.setColor(character.getWeapon() != null ? Color.GOLD : Color.BROWN);
+		rangedWeaponText.setColor(character.getRangedWeapon() != null ? Color.GOLD : Color.BROWN);
 		shieldText.setColor(character.getShield() != null ? Color.GOLD : Color.BROWN);
 		armorText.setColor(character.getArmor() != null ? Color.GOLD : Color.BROWN);
 		legwearText.setColor(character.getLegwear() != null ? Color.GOLD : Color.BROWN);
@@ -342,7 +347,6 @@ public class InventoryScreen extends AbstractScreen {
 			@Override
 	        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
 				hoverText.setText(item.getDescription());
-				
 			}
 			@Override
 	        public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
