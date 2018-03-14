@@ -839,6 +839,8 @@ public abstract class AbstractCharacter extends Group {
 		return new AttackResult(result, new Array<String>(), attack.getAttackerResults(), attack.getDefenderResults());
 	}
 	
+	public void setRanage(int range) { this.range = range; }
+	
 	private void modRange(int rangeMod) {
 		range += rangeMod;
 		if (range < 0) range = 0;

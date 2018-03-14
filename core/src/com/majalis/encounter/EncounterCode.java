@@ -484,7 +484,7 @@ public enum EncounterCode {
 					b.branch("Ready an Arrow").battleScene(
 						BattleCode.BRIGAND, 
 						battleBranches2
-					),
+					).setRange(2),
 					b.branch("Speak").textScene("BRIGAND-HAIL").choiceScene(
 						"Accept her offer?",
 						b.branch("Accept (Requires: Catamite)").require(ChoiceCheckType.LEWD).checkScene(CheckType.PLUGGED, b.branch(true).textScene("BRIGAND-BUTTPLUG").concat(acceptCont), b.branch(false).concat(acceptCont)),
@@ -1513,11 +1513,15 @@ public enum EncounterCode {
 					b.branch(1).textScene("OGRE-FLIRT").concat(passerby), 
 					b.branch(0).concat(passerby)
 				);
-				Branch ogreFirstBattle = b.branch().battleScene(
-					BattleCode.OGRE, 
+				Branch[] battleOutcomes = new Branch[]{
 					b.branch(Outcome.VICTORY).textScene("OGRE-VICTORY").concat(b.branch().textScene("OGRE-VICTORY-GOLD")),
 					b.branch(Outcome.SATISFIED).textScene("OGRE-SATISFIED").concat(partingScene),
 					b.branch(Outcome.DEFEAT).textScene("OGRE-DEFEAT").concat(partingScene)
+				};
+				
+				Branch ogreFirstBattle = b.branch().battleScene(
+					BattleCode.OGRE, 
+					battleOutcomes
 				);
 				Branch ogreFirstBattleDisarm = b.branch().battleScene(BattleCode.OGRE, Stance.BALANCED, Stance.BALANCED, true, b.branch(Outcome.VICTORY).textScene("OGRE-VICTORY").concat(b.branch().textScene("OGRE-VICTORY-GOLD")), b.branch(Outcome.DEFEAT).textScene("OGRE-DEFEAT").concat(partingScene), b.branch(Outcome.SATISFIED).textScene("OGRE-SATISFIED").concat(partingScene));
 				Branch ogreSecondBattle = b.branch().battleScene(BattleCode.OGRE, b.branch(Outcome.VICTORY).textScene("OGRE-VICTORY"), b.branch(Outcome.DEFEAT).textScene("OGRE-DEFEAT").concat(partingScene), b.branch(Outcome.SATISFIED).textScene("OGRE-SATISFIED").concat(partingScene));
@@ -1543,7 +1547,7 @@ public enum EncounterCode {
 								Stat.AGILITY, 
 								b.branch(5).choiceScene(
 									"Pre-emptive ranged attack or kick away his club?",
-									b.branch("Ranged Attack").concat(ogreFirstBattle),
+									b.branch("Ranged Attack").battleScene(BattleCode.OGRE, battleOutcomes).setRange(2),
 									b.branch("Kick Away Club").concat(ogreFirstBattleDisarm)
 								),
 								b.branch(0).textScene("OGRE-WAKE2").concat(ogreFirstBattle)

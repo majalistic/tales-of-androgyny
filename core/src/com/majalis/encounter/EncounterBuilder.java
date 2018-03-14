@@ -149,6 +149,7 @@ public class EncounterBuilder {
 		private Stance enemyStance;
 		private boolean disarm;
 		private int climaxCounter;
+		private int range;
 		private ChoiceCheckToken require;
 		private int concatCounter;
 		
@@ -246,6 +247,11 @@ public class EncounterBuilder {
 			return weldBranches(branches);
 		}
 		
+		public Branch setRange(int range) {
+			this.range = range;
+			return this;
+		}
+		
 		public Branch require(ChoiceCheckType type) {
 			require = new ChoiceCheckToken(type);
 			return this;
@@ -338,7 +344,7 @@ public class EncounterBuilder {
 							Scene nextScene = weld(scenes, next, sceneMap);
 							outcomeToScene.put(((Outcome) next.key).toString(), nextScene.getCode());
 						}
-						sceneMap = addScene(scenes, new BattleScene(sceneMap, saveService, battleCode, playerStance, enemyStance, disarm, climaxCounter, outcomeToScene, getEncounterHUD()), false);						
+						sceneMap = addScene(scenes, new BattleScene(sceneMap, saveService, battleCode, playerStance, enemyStance, disarm, climaxCounter, range, outcomeToScene, getEncounterHUD()), false);						
 						break;
 					case Check:
 						CheckSceneToken checkBranchToken = ((CheckSceneToken)branchToken);
