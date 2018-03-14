@@ -97,6 +97,7 @@ public class TownScreen extends AbstractScreen {
 		else {
 			buttons.add(getButton("Inn", skin, table, getListener(EncounterCode.INN_MONSTER)));
 			buttons.add(getButton("Carriages", skin, table, getListener(EncounterCode.CARRIAGE_MONSTER)));
+			buttons.add(getButton("Tavern", skin, table, getListener(EncounterCode.TAVERN)));
 			buttons.add(getButton("Manor", skin, table, getListener(EncounterCode.WARLOCK)));
 		}
 		buttons.add(getButton("Rest", skin, table, new ClickListener() {

@@ -63,6 +63,7 @@ public enum EncounterCode {
 	BANK,
 	BROTHEL,
 	TOWN_CRIER,
+	TAVERN, 
 	WITCH_COTTAGE (AssetEnum.COTTAGE),
 	QUETZAL (MOUNTAIN_ACTIVE), 
 	INN,
@@ -1711,6 +1712,8 @@ public enum EncounterCode {
 				return b.branch().textScene("STORY-FEM");
 			case STORY_SIGN:
 				return b.branch().textScene("CROSSROADS");
+			case TAVERN:
+				return b.branch().textScene("TAVERN");
 			case TOWN:
 				break;
 			case TOWN2:

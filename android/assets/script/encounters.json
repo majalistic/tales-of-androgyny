@@ -1997,6 +1997,16 @@
 		]
 	},
 	{
+		"key": "TAVERN",
+		"scriptLines": [
+			{
+			"music": "WEREWOLF_MUSIC",
+			"background": "TOWN_BG",
+			"text": "You enter the tavern.  It's mostly empty, save a few particularly down-and-out-looking individuals who are in no mood to chat."},
+			{"text": "You think better than to order a pint - better to keep your wits about you."}
+		]
+	},
+	{
 		"key": "BROTHEL",
 		"scriptLines": [
 			{
