@@ -3019,8 +3019,10 @@
 	{
 		"key": "BROTHEL-CLASS-CHANGE",
 		"scriptLines": [
-			{"text": "Your class changes to Prostitute!"},
-			{"text": "You no longer have any combat ability, but with a swish of your hip you can have any man eating from your fingertips... or bringing you to pound town on the cheap."},
+			{
+			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "BROTHEL", "value":3}}],
+			"text": "Your class changes to Prostitute!"},
+			{"text": "You've lost some combat ability, but with a swish of your hip you can have any man eating from your fingertips... or bringing you to pound town on the cheap."},
 			{"text": "You become infamous for your low prices... not that you care. Though you'll never be known for slaying the most dragons or defeating the most evil wizards, you've cum on more sheets while getting slammed than any other."}
 		]
 	},

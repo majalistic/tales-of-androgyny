@@ -697,30 +697,34 @@ public enum EncounterCode {
 					CheckType.ELF_BROTHEL,
 					b.branch(true).textScene("ELF-BROTHEL"),
 					b.branch(false).checkScene(
-						CheckType.PROSTITUTE_WARNING_GIVEN,
-						b.branch(true).checkScene(	
-							Perk.LADY_OF_THE_NIGHT, 
-							b.branch(20).textScene("BROTHEL-CLASS-CHANGE").gameEnd(),
-							b.branch(0).concat(onceSignedUp)
-						),
+						CheckType.PROSTITUTE_CLASS_CHANGE,
+						b.branch(true).concat(onceSignedUp),
 						b.branch(false).checkScene(
-							Perk.LADY_OF_THE_NIGHT,
-							b.branch(10).textScene("BROTHEL-WARNING").concat(onceSignedUp),
-							b.branch(0).checkScene(
-								CheckType.PROSTITUTE, 	
-								b.branch(true).concat(onceSignedUp),
-								b.branch(false).choiceScene(
-									"What do you ask of her?", 
-									talkToMadame,
-									patronBrothel,
-									b.branch("Ask her about joining").textScene("BROTHEL-OFFER").choiceScene(
-										"Do you want to sign up? What's the worst that could happen?",
-										b.branch ("Sign Up (Requires: Catamite)").require(ChoiceCheckType.LEWD).textScene("BROTHEL-SIGN-UP").concat(onceSignedUp),
-										b.branch ("Don't Sign Up")
-									),
-									b.branch("Leave")
-								)
-							)	
+							CheckType.PROSTITUTE_WARNING_GIVEN,
+							b.branch(true).checkScene(	
+								Perk.LADY_OF_THE_NIGHT, 
+								b.branch(20).textScene("BROTHEL-CLASS-CHANGE"),
+								b.branch(0).concat(onceSignedUp)
+							),
+							b.branch(false).checkScene(
+								Perk.LADY_OF_THE_NIGHT,
+								b.branch(10).textScene("BROTHEL-WARNING").concat(onceSignedUp),
+								b.branch(0).checkScene(
+									CheckType.PROSTITUTE, 	
+									b.branch(true).concat(onceSignedUp),
+									b.branch(false).choiceScene(
+										"What do you ask of her?", 
+										talkToMadame,
+										patronBrothel,
+										b.branch("Ask her about joining").textScene("BROTHEL-OFFER").choiceScene(
+											"Do you want to sign up? What's the worst that could happen?",
+											b.branch ("Sign Up (Requires: Catamite)").require(ChoiceCheckType.LEWD).textScene("BROTHEL-SIGN-UP").concat(onceSignedUp),
+											b.branch ("Don't Sign Up")
+										),
+										b.branch("Leave")
+									)
+								)	
+							)
 						)
 					)
 				);
