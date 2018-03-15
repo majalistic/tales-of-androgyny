@@ -133,6 +133,7 @@ public class GameWorld {
 							arraySize = treeTextures.size;
 						}
 						int chosen = Math.abs(random.nextInt() % arraySize);
+						if (textures == treeTextures) { chosen = isDeadTree(chosen) && x + y < 150 ? (chosen % 7 * 4) : chosen; }
 						Doodad doodad = new Doodad(textures.get(chosen));
 						Shadow shadow = new Shadow(shadowTextures.get(chosen));
 						Image reflection = new Image(shadowTextures.get(chosen));
@@ -179,6 +180,8 @@ public class GameWorld {
 			}
 		}*/
 	}
+	
+	private boolean isDeadTree(int val) { return val == 1 || val == 3 || val == 5 || val == 17 || val == 19 || val == 22 || val == 23; }
 	public Array<GameWorldNode> getNodes() { return nodes; }
 	public Array<Array<GroundType>> getGround() { return ground; }
 	public Array<Doodad> getDoodads() { return doodads; }
