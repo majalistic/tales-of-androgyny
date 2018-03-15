@@ -182,7 +182,7 @@ public class Attack {
 
 	public String getDescription() {
 		String description = "";
-		if (!isSuccessful()) { description += "This skill is predicted to be ineffective."; }
+		if (!isSuccessful()) { description += "This skill is predicted to be ineffective." + "\n"; }
 		if (getDamage() > 0) { description += "Predicted damage: " + getDamage() + "\n"; }
 		if (getForce() > 0) { description += "Predicted force: " + getForce() + "\n"; }
 		if (getArmorSunder() > 0) { description += "Predicted armor damage: " + getArmorSunder() + "\n"; }
