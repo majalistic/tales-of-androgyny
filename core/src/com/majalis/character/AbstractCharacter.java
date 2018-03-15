@@ -475,7 +475,7 @@ public abstract class AbstractCharacter extends Group {
 		}
 		
 		if (resolvedAttack.isSpell() && resolvedAttack.getSpellEffect() == SpellEffect.ARMOR_REPAIR) {
-			resolvedAttack.addMessage(repairArmor(getMagic()));
+			resolvedAttack.addMessage(repairArmor(getMagic() * 4));
 		}
 		
 		if (resolvedAttack.isHealing()) {
