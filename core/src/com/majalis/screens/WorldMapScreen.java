@@ -564,7 +564,7 @@ public class WorldMapScreen extends AbstractScreen {
 		});
 		
 		
-		TextButton hardSaveButton = getButton("Save");
+		TextButton hardSaveButton = getButton("Save/Load");
 		buttons.add(hardSaveButton);
 		actionTable.add(hardSaveButton).size(200, 50).row();
 		hardSaveButton.addListener(		
