@@ -25,6 +25,7 @@ import com.badlogic.gdx.utils.Array;
 import com.majalis.asset.AssetEnum;
 import com.majalis.character.PlayerCharacter;
 import com.majalis.character.Item;
+import com.majalis.character.Item.Weapon;
 import com.majalis.encounter.Background.BackgroundBuilder;
 import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveManager.GameContext;
@@ -133,6 +134,13 @@ public class InventoryScreen extends AbstractScreen {
 		
 		Table equipmentTable = new Table();
 		equipmentTable.align(Align.topLeft);
+		
+		if (character.getWeapon() != null && !character.getWeapon().isMelee()) {
+			Weapon temp = character.getWeapon();
+			character.unequipWeapon();
+			character.equipItem(temp);
+		}
+		
 		weaponText = getLabel(character.getWeapon() != null ? character.getWeapon().getName() : "Unarmed", skin, character.getWeapon() != null ? Color.GOLD : Color.BROWN);
 		rangedWeaponText  = getLabel(character.getRangedWeapon() != null ? character.getRangedWeapon().getName() : "Unarmed", skin, character.getRangedWeapon() != null ? Color.GOLD : Color.BROWN);
 		shieldText = getLabel(character.getShield() != null ? character.getShield().getName() : "Unarmed", skin, character.getShield() != null ? Color.GOLD : Color.BROWN);
