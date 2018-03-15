@@ -44,7 +44,7 @@ public enum Techniques {
 	/* Balanced Techniques */
 	RESERVED_ATTACK		(new GuardTechnique	(Stance.OFFENSIVE, Stance.BALANCED, "Combat Guard", 0, 0, 2, true).addBonus(BonusCondition.SKILL_LEVEL, BonusType.PARRY, 1).build()),	
 	REVERSAL_ATTACK  	(new AttackTechnique(Stance.DEFENSIVE, Stance.BALANCED, "Reversal Attack", -2, 2, 2, TechniqueHeight.LOW).build()),
-	NEUTRAL_ATTACK  	(new AttackTechnique(Stance.BALANCED, Stance.BALANCED, "Low Attack", -1, 1, 1, TechniqueHeight.LOW).addBonus(BonusCondition.ENEMY_LOW_STABILITY, BonusType.TRIP, 60).addBonus(BonusCondition.OUTMANEUVER, BonusType.TRIP, 10).build()),
+	NEUTRAL_ATTACK  	(new AttackTechnique(Stance.BALANCED, Stance.BALANCED, "Low Attack", -1, 0, 1, TechniqueHeight.LOW).addBonus(BonusCondition.ENEMY_LOW_STABILITY, BonusType.TRIP, 60).addBonus(BonusCondition.OUTMANEUVER, BonusType.TRIP, 10).build()),
 	USE_ITEM		  	(new NonAttackTechnique(Stance.BALANCED, Stance.ITEM, "Use Item", 0, 0).build(), false),
 	ITEM_OR_CANCEL		(new NonAttackTechnique(Stance.ITEM, Stance.BALANCED, "Cancel", 0, 0).setBlockable(false).build(), false),
 	KICK_OVER_FACE_UP	(new NonAttackTechnique(Stance.BALANCED, Stance.BALANCED, "Kick Over", 0, 3, Stance.SUPINE).build(), false),
