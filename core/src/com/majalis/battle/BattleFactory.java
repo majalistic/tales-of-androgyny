@@ -48,8 +48,8 @@ public class BattleFactory {
 				enemy.setArousal(ArousalLevel.ERECT);
 				enemy.setClimaxCounter(battleAttributes.getClimaxCounter());
 			}
-			enemy.setRanage(battleAttributes.getRange());
-			playerCharacter.setRanage(battleAttributes.getRange());
+			enemy.setRange(battleAttributes.getRange());
+			playerCharacter.setRange(battleAttributes.getRange());
 			playerCharacter.setStance(battleAttributes.getPlayerStance());	
 			
 		}
@@ -63,7 +63,7 @@ public class BattleFactory {
 				}
 				textures.put(Stance.valueOf(entry.key), textureList);
 			}
-			enemy.init(enemy.getTextures(assetManager), textures, enemy.getAnimations(assetManager));
+			enemy.init(enemy.getTextures(assetManager), textures, enemy.getAnimations(assetManager), enemy.getStance());
 		}
 		Array<String> console = (Array<String>) loadService.loadDataValue(SaveEnum.CONSOLE, Array.class);
 		return new Battle(

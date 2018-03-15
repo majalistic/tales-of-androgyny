@@ -629,6 +629,8 @@ public abstract class AbstractCharacter extends Group {
 		boolean knockedDown = false;
 		grappleStatus = attack.getGrapple();
 		
+		modRange(-attack.getAdvance());
+		
 		if (attack.isSuccessful()) {
 			if (attack.getForceStance() == Stance.DOGGY_BOTTOM && bootyliciousness != null) { result.add("They slap their hips against your " + bootyliciousness.toString().toLowerCase() + " booty!"); }
 			if (attack.isAttack() || attack.isClimax() || !attack.getSex().isEmpty()) { result.add(attack.getUser() + " used " + attack.getName() +  " on " + (secondPerson ? label.toLowerCase() : label) + "!"); }
@@ -804,8 +806,6 @@ public abstract class AbstractCharacter extends Group {
 			if (ass.getFullnessAmount() > 0 && !stance.isAnalReceptive()) result.add(getLeakMessage());
 			if (mouthful > 0 && !stance.isOralReceptive()) result.add(getDroolMessage());
 		}
-		
-		modRange(-attack.getAdvance());
 
 		if (!alreadyIncapacitated() && !knockedDown) {
 			if (enemyType == EnemyEnum.OGRE) {
@@ -837,10 +837,14 @@ public abstract class AbstractCharacter extends Group {
 			}
 		}
 		
+		updateDisplay();
+		
 		return new AttackResult(result, new Array<String>(), attack.getAttackerResults(), attack.getDefenderResults());
 	}
 	
-	public void setRanage(int range) { this.range = range; }
+	protected void updateDisplay() {}
+	
+	public void setRange(int range) { this.range = range; }
 	
 	private void modRange(int rangeMod) {
 		range += rangeMod;

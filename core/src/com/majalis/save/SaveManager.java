@@ -190,6 +190,9 @@ public class SaveManager implements SaveService, LoadService {
         	Group enemyParent = new Group();
         	Array<Actor> enemyChildren = new Array<Actor>();
         	Array<Action> enemyActions = new Array<Action>();
+        	float enemyX = 0;
+        	float enemyY = 0;
+        	float enemyScale = 1;
         	if (save.enemy != null) {
             	enemyParent = save.enemy.getParent();
             	if (enemyParent != null) {
@@ -199,6 +202,11 @@ public class SaveManager implements SaveService, LoadService {
             	save.enemy.clearChildren();
             	for (Action action : save.enemy.getActions()) { enemyActions.add(action); }
             	save.enemy.getActions().clear();
+            	enemyX = save.enemy.getX();
+            	enemyY = save.enemy.getY();
+            	enemyScale = save.enemy.getScaleX();
+            	save.enemy.setPosition(0, 0);
+            	save.enemy.setScale(1);
         	}
         	try {
         		file.writeString(json.prettyPrint(save), false);
@@ -214,6 +222,8 @@ public class SaveManager implements SaveService, LoadService {
         		}	
         		for (Actor actor : enemyChildren) { save.enemy.addActor(actor); }
         		for (Action action : enemyActions) { save.enemy.addAction(action); }
+        		save.enemy.setPosition(enemyX, enemyY);
+            	save.enemy.setScale(enemyScale);
         	}
         }
     }

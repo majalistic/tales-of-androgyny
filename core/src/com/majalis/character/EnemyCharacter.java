@@ -37,6 +37,7 @@ public class EnemyCharacter extends AbstractCharacter {
 	private int selfRessurect;
 	private boolean storyMode;
 	private RandomXS128 random;
+	private transient boolean init;
 	@SuppressWarnings("unused") private String bgPath; // deprecated
 	
 	@SuppressWarnings("unused")
@@ -46,8 +47,7 @@ public class EnemyCharacter extends AbstractCharacter {
 		super(true);
 		this.enemyType = enemyType;
 		this.storyMode = storyMode;
-		init(textures, textureMap, animations);
-		setStance(stance);
+		init(textures, textureMap, animations, stance);
 		climaxCounters = new ObjectMap<String, Integer>();
 		currentFrame = enemyType == EnemyEnum.GHOST && !Gdx.app.getPreferences("tales-of-androgyny-preferences").getBoolean("blood", true) ? 1 : 0;
 		if (enemyType == EnemyEnum.BUNNY) {
@@ -96,7 +96,7 @@ public class EnemyCharacter extends AbstractCharacter {
 	public AssetDescriptor<Texture> getBGPath() { return enemyType.getBGPath(); }
 	
 	// this should be refactored so that the enemy simply receives the assetManager and uses what it requires to reinitialize itself
-	public void init(Array<Texture> defaultTextures, ObjectMap<Stance, Array<Texture>> textures, Array<AnimatedActor> animations) {
+	public void init(Array<Texture> defaultTextures, ObjectMap<Stance, Array<Texture>> textures, Array<AnimatedActor> animations, Stance stance) {
 		this.defaultTextures = defaultTextures == null ? new Array<Image>() : initImages(defaultTextures, Stance.BALANCED);
 		this.textures = initImagesBystance(textures);
 		this.animations = animations;
@@ -151,9 +151,19 @@ public class EnemyCharacter extends AbstractCharacter {
 		images.add(newImage);
 	}
 	
-	private void updateDisplay() {
+	private boolean getInit() {
+		boolean temp = !init;
+		init = true;
+		return temp;
+	}
+	
+	@Override
+	protected void updateDisplay() {
 		this.clearChildren();
 		this.addActor(currentAnimations);
+		
+		boolean init = getInit();
+		Action rangeAction = Actions.parallel(Actions.moveTo(getRangeX(), getRangeY(), init ? 0 : 1), Actions.scaleTo(getRangeScale(), getRangeScale(), init ? 0 : 1));
 		
 		if (enemyType == EnemyEnum.BRIGAND) {
 			if (stance == Stance.DOGGY || stance == Stance.STANDING) {
@@ -195,8 +205,22 @@ public class EnemyCharacter extends AbstractCharacter {
 			if (texture == null) return;
 			
 			this.addActor(texture);
+			if (!defaultTextures.contains(texture, true)) { rangeAction = Actions.parallel( Actions.moveTo(0, 0), Actions.scaleTo(1, 1)); } 
 		}
+		for (int ii = 1; ii < animations.size; ii++) {
+			if (currentAnimations.getChildren().contains(animations.get(ii), true)) { rangeAction = Actions.parallel(Actions.moveTo(0, 0), Actions.scaleTo(1, 1)); } 
+		}
+
+		this.clearActions();
+		this.addAction(rangeAction);
 	}
+	
+	private float getRangeScale() { return range <= 1 ? 1 : (enemyType == EnemyEnum.OGRE ? .75f : .5f); }
+	private float getRangeX() { return range <= 1 ? 0 : (enemyType == EnemyEnum.OGRE ? 225 : 350); }
+	private float getRangeY() { return range <= 1 ? 0 : (enemyType == EnemyEnum.OGRE ? 0 : 100); }
+	
+	@Override
+	public void setRange(int range) { super.setRange(range); init = false; updateDisplay(); }	
 	
 	@Override
 	public void setStance(Stance stance) { 
@@ -701,6 +725,14 @@ public class EnemyCharacter extends AbstractCharacter {
 	@Override
 	public void setPosition(float x, float y) {
 		super.setPosition(x, y);
+		for (AnimatedActor animation : animations) {
+			animation.setPosition(x, y);
+		}
+	}
+	
+	@Override
+	public void setPosition(float x, float y, int align) {
+		super.setPosition(x, y, align);
 		for (AnimatedActor animation : animations) {
 			animation.setPosition(x, y);
 		}
