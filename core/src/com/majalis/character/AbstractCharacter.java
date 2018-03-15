@@ -1261,10 +1261,11 @@ public abstract class AbstractCharacter extends Group {
 			case BERSERK: return getTechniques(target, RAGE);
 			case COUNTER: return getTechniques(target, RIPOSTE, EN_GARDE);
 			case OFFENSIVE: return getTechniques(target, BLITZ_ATTACK, BERSERK, REEL_BACK, POWER_ATTACK, GUT_CHECK, ARMOR_SUNDER, RECKLESS_ATTACK, KNOCK_DOWN, VAULT, FEINT_AND_STRIKE, TEMPO_ATTACK, RESERVED_ATTACK, FACE_SIT, SIT_ON_IT, TURN_AND_SIT, POUNCE_DOGGY, WRESTLE_TO_GROUND, WRESTLE_TO_GROUND_UP, MOUNT_FACE, SAY_AHH, FULL_NELSON);
-			case BALANCED: return getTechniques(target, SPRING_ATTACK, NEUTRAL_ATTACK, CAUTIOUS_ATTACK, BLOCK, INCANTATION, SLIDE, DUCK, HIT_THE_DECK, USE_ITEM, KICK_OVER_FACE_UP, KICK_OVER_FACE_DOWN, SIT_ON_IT, TURN_AND_SIT, POUNCE_DOGGY, WRESTLE_TO_GROUND, WRESTLE_TO_GROUND_UP, MOUNT_FACE, SAY_AHH, FULL_NELSON);
+			case BALANCED: return getTechniques(target, DRAW_ARROW, SPRING_ATTACK, NEUTRAL_ATTACK, CAUTIOUS_ATTACK, BLOCK, INCANTATION, SLIDE, DUCK, HIT_THE_DECK, USE_ITEM, KICK_OVER_FACE_UP, KICK_OVER_FACE_DOWN, SIT_ON_IT, TURN_AND_SIT, POUNCE_DOGGY, WRESTLE_TO_GROUND, WRESTLE_TO_GROUND_UP, MOUNT_FACE, SAY_AHH, FULL_NELSON);
 			case DEFENSIVE: return getTechniques(target, REVERSAL_ATTACK, CAREFUL_ATTACK, GUARD, STONEWALL, CENTER, PARRY, TAUNT, SECOND_WIND,  SUDDEN_ADVANCE, INCANTATION, DUCK);
 			case STONEWALL: return getTechniques(target, ABSOLUTE_GUARD, LOWER_GUARD);
 			case FOCUS: return getTechniques(target, ASHI);
+			case DRAWN: return getTechniques(target, FIRE, CANCEL);
 			case SEDUCTION: return getTechniques(target, SLAP_ASS, GESTURE, PUCKER_LIPS, RUB, PRESENT, REVERSAL_ATTACK, BLOCK, DUCK, HIT_THE_DECK);
 			case PRONE: return getTechniques(target, REST_FACE_DOWN, ROLL_OVER_UP, PUSH_UP, KNEE_UP, STAND_UP, KIP_UP);
 			case SUPINE: return getTechniques(target, REST, ROLL_OVER_DOWN, PUSH_UP, KNEE_UP, STAND_UP, KIP_UP);
@@ -1367,6 +1368,7 @@ public abstract class AbstractCharacter extends Group {
 			else if (candidate == SQUEEZE_RELEASE && (currentStamina > 0 && !grappleStatus.isDisadvantage())) { techniques.removeValue(candidate, true); }
 			else if (candidate == SQUEEZE_CRUSH && grappleStatus != GrappleStatus.HOLD) { techniques.removeValue(candidate, true); }
 			else if (candidate == MOUTH_KNOT && enemyType != EnemyEnum.WERESLUT) { techniques.removeValue(candidate, true); }
+			else if (candidate == DRAW_ARROW && (rangedWeapon == null || range <= 1)) { techniques.removeValue(candidate, true); }
 		}		
 		return techniques; 
 	}

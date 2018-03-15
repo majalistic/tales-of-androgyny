@@ -89,14 +89,16 @@ public class TechniqueBuilder {
 		}
 	}
 	
-	public TechniqueBuilder addBonus(BonusCondition condition, BonusType type) {
-		return addBonus(condition, type, 1);
-	}
-	
+	public TechniqueBuilder addBonus(BonusCondition condition, BonusType type) { return addBonus(condition, type, 1); }
 	public TechniqueBuilder addBonus(BonusCondition condition, BonusType type, int amount) {
 		Bonus bonus = bonuses.get(condition, new Bonus(condition, type, amount));
 		bonus.getBonusMap().put(type,  amount);
 		bonuses.put(condition, bonus);
+		return this;
+	}
+	
+	public TechniqueBuilder setRange(int range) {
+		this.range = range;
 		return this;
 	}
 

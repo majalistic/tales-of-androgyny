@@ -483,7 +483,7 @@ public class Battle extends Group{
 				if (!attack.isSpell()) {
 					if (attack.getStatus() == Status.BLOCKED) { this.addAction(sequence(delay(delay + 5/60f), new SoundAction(soundMap.get(AssetEnum.BLOCK_SOUND), 1.5f))); }
 					else if (attack.getStatus() == Status.PARRIED) { this.addAction(sequence(delay(delay + 5/60f), new SoundAction(soundMap.get(AssetEnum.PARRY_SOUND), .5f))); }
-					else if (otherCharacter.getWeapon() != null && otherCharacter.getWeapon().causesBleed()) { this.addAction(sequence(delay(delay + 5/60f), new SoundAction(soundMap.get(AssetEnum.SWORD_SLASH_SOUND), 1.5f))); }
+					else if ((attack.isMelee() && otherCharacter.getWeapon() != null && otherCharacter.getWeapon().causesBleed()) || (!attack.isMelee() &&  otherCharacter.getRangedWeapon() != null && otherCharacter.getRangedWeapon().causesBleed())) { this.addAction(sequence(delay(delay + 5/60f), new SoundAction(soundMap.get(AssetEnum.SWORD_SLASH_SOUND), 1.5f))); }
 					else { this.addAction(sequence(delay(delay + 5/60f), new SoundAction(soundMap.get(AssetEnum.HIT_SOUND), .3f))); }
 				}
 			}

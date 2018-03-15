@@ -116,7 +116,7 @@ public class TechniquePrototype {
 	public ClimaxType getClimaxType() { return climaxType; }
 	public StatusType getSelfEffect() { return selfEffect; }
 	public StatusType getEnemyEffect() { return enemyEffect; }
-	public int getRnage() { return range; }
+	public int getRange() { return range; }
 	public int getAdvance() { return advance; }
 	public boolean isMelee() { return range < 2; }
 	public String getDescription() { return description; }

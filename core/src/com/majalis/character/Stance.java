@@ -17,6 +17,7 @@ public enum Stance {
 	FOCUS (AssetEnum.FOCUS),
 	STONEWALL (AssetEnum.STONEWALL),
 	COUNTER (AssetEnum.COUNTER),
+	DRAWN (AssetEnum.HAYMAKER),
 	// Positional Stances
 	PRONE (StanceType.INCAPACITATED, AssetEnum.PRONE, false, false, true),
 	SUPINE (StanceType.INCAPACITATED, AssetEnum.SUPINE, false, false, true),

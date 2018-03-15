@@ -71,6 +71,11 @@ public enum Techniques {
 	EN_GARDE  			(new GuardTechnique(Stance.COUNTER, Stance.DEFENSIVE, "En Garde", -1, 0, 1, false).addBonus(BonusCondition.SKILL_LEVEL, BonusType.PARRY, 2).addBonus(BonusCondition.OUTMANEUVER, BonusType.PARRY, 1).build(), 1),
 	PARRY  				(new GuardTechnique(Stance.DEFENSIVE, Stance.COUNTER, "Parry", -1, 0, 0, false).addBonus(BonusCondition.SKILL_LEVEL, BonusType.PARRY, 1).addBonus(BonusCondition.OUTMANEUVER, BonusType.PARRY, 1).build(), 3),	
 	
+	/* Misc Techniques */
+	DRAW_ARROW 			(new NonAttackTechnique(Stance.BALANCED, Stance.DRAWN, "Draw Arrow", 0, 0).build(), false),		
+	CANCEL				(new NonAttackTechnique(Stance.DRAWN, Stance.BALANCED, "Cancel", 0, 0).build(), false),
+	FIRE				(new AttackTechnique(Stance.DRAWN, Stance.BALANCED, "Fire", 20, 3, 0, TechniqueHeight.MEDIUM).setBlockable(false).setIgnoreArmor().setRange(2).build(), false),
+	
 	/* Seduction Techniques */
 	SLAP_ASS			(new NonAttackTechnique(Stance.SEDUCTION, Stance.SEDUCTION, "Slap Ass", 0, -1).addSelfSex(new SexualExperienceBuilder().setAssBottomTeasing(1)).addSex(new SexualExperienceBuilder().setAssTeasing(1)).build(), 3), // makes enemy want to fuck your ass, raises own lust
 	GESTURE				(new NonAttackTechnique(Stance.SEDUCTION, Stance.SEDUCTION, "Gesture", 0, -1).addSex(new SexualExperienceBuilder().setAssTeasing(1)).build(), 3), // makes enemy want to fuck you

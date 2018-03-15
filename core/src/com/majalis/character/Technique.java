@@ -94,6 +94,7 @@ public class Technique {
 			thisPayload.getRemovePlug(),
 			technique.getClimaxType(), 
 			getAdvance() + otherTechnique.getAdvance(),
+			technique.getRange(),
 			getForceStance(),
 			technique.getSpellEffect(),
 			new Buff(technique.getSelfEffect(), thisPayload.getTotalPower()),
@@ -129,6 +130,7 @@ public class Technique {
 				0,
 				null, // climax type
 				0, // advance
+				1, // range
 				null, // force stance
 				null, // spell effect
 				null, // self effect
@@ -257,8 +259,8 @@ public class Technique {
 			this.technique = technique;
 			this.bonuses = toApply;
 			this.basePower = technique.isSpell() ? (technique.getSelfEffect() != null ? currentState.getRawStat(Stat.MAGIC) : currentState.getStat(Stat.MAGIC)) : technique.getSex().isTeasing() ? currentState.getLewdCharisma() : 
-				// should check if technique can use weapon, and the weapon base damage should come from currentState.getWeaponDamage() rather than exposing these weapons
-				currentState.getStat(Stat.STRENGTH) + (currentState.getWeapon() != null ? currentState.getWeapon().getDamage(currentState.getStats()) : 0);	
+				technique.isMelee() ? currentState.getStat(Stat.STRENGTH) + (currentState.getWeapon() != null ? currentState.getWeapon().getDamage(currentState.getStats()) : 0) : // should check if technique can use weapon, and the weapon base damage should come from currentState.getWeaponDamage() rather than exposing these weapons
+				currentState.getRangedWeapon() != null ? currentState.getRangedWeapon().getDamage(currentState.getStats()) : 0;
 			int powerCalc = technique.getPowerMod();
 			//powerModBeforeBonuses = powerCalc;
 			int staminaCalc = technique.getStaminaCost();
@@ -315,14 +317,12 @@ public class Technique {
 			disarm = disarmCalc;
 			trip = tripCalc;
 			knockdown = knockdownCalc;
-			bleeding = technique.causesBleed() ? (technique.getSetBleed() + (currentState.getWeapon() != null && currentState.getWeapon().causesBleed() ? bleedingCalc : 0)) : 0;
+			bleeding = technique.causesBleed() ? (technique.getSetBleed() + (technique.isMelee() ? (currentState.getWeapon() != null && currentState.getWeapon().causesBleed() ? bleedingCalc : 0) : (currentState.getRangedWeapon() != null && currentState.getRangedWeapon().causesBleed() ? bleedingCalc : 0))) : 0;
 			counter = counterCalc;
 			priority = priorityCalc;
 			grapple = grappleCalc;
 			removePlug = removePlugCalc;
 		}
-		
-		
 
 		private int getDamage() {
 			int damage = technique.doesSetDamage() || (useItem != null && useItem.getUseEffect().getType() == EffectType.ARMOR_SUNDER) ? 4 : 
