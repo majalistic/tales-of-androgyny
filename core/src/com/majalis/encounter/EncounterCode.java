@@ -71,6 +71,7 @@ public enum EncounterCode {
 	CARRIAGE,
 	CARRIAGE_MONSTER,
 	SHOP, 
+	SHOP_MONSTER, 
 	WEAPON_SHOP,
 	STARVATION,
 	CAMP_AND_EAT, 
@@ -1634,6 +1635,8 @@ public enum EncounterCode {
 				return b.branch().textScene("STORY-ORC").battleScene(BattleCode.ORC_STORY, b.branch(Outcome.VICTORY).textScene("STORY-ORC-VICTORY"),  b.branch(Outcome.DEFEAT).textScene("STORY-ORC-DEFEAT").gameEnd(),  b.branch(Outcome.SATISFIED).textScene("STORY-ORC-SATISFIED").gameEnd(),  b.branch(Outcome.SUBMISSION).textScene("STORY-ORC-SUBMISSION"));
 			case SHOP:
 				return b.branch().textScene("TOWN-SHOP").shopScene(ShopCode.SHOP);
+			case SHOP_MONSTER:
+				return b.branch().textScene("MONSTER-TOWN-SHOP").shopScene(ShopCode.MONSTER_SHOP);
 			case SLIME:
 				Branch loveDartCont = b.branch().textScene("SLIME-LOVEDART-CONT");
 				return b.branch().textScene("SLIME-INTRO").choiceScene(

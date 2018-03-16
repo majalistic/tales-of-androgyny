@@ -262,6 +262,19 @@ public class ShopScene extends Scene {
 				shop.items.add(new Plug());
 				shop.items.add(new ChastityCage());
 				break;
+			case MONSTER_SHOP:
+				shop.items.add(new Potion(30));
+				shop.items.add(new Potion(30));
+				shop.items.add(new Potion(10, EffectType.BANDAGE));
+				shop.items.add(new Potion(10, EffectType.BANDAGE));
+				shop.items.add(new Potion(30, EffectType.MAGIC));	
+				shop.items.add(new Potion(30, EffectType.KNOCKDOWN));	
+				shop.items.add(new Potion(12, EffectType.ARMOR_SUNDER));	
+				shop.items.add(new Potion(1, EffectType.TOWN_PORTAL));	
+				shop.items.add(new Armor(ArmorType.HELM_OF_WISDOM));	
+				shop.items.add(new Armor(ArmorType.GAUNTLETS_OF_STRENGTH));	
+				shop.items.add(new Armor(ArmorType.SHOES_OF_RUNNING));	
+				break;
 		}
 		if (shopCode == ShopCode.SHOP) {
 			shop.items.addAll(getShopRestock(shopCode));
@@ -305,7 +318,7 @@ public class ShopScene extends Scene {
 	}
 	
 	public enum ShopCode {
-		FIRST_STORY, SHOP, WEAPON_SHOP, GADGETEER_SHOP, MAGIC_SHOP;
+		FIRST_STORY, SHOP, WEAPON_SHOP, GADGETEER_SHOP, MAGIC_SHOP, MONSTER_SHOP;
 	
 		public AssetDescriptor<Texture> getBackground() {
 			switch(this) {
@@ -316,6 +329,7 @@ public class ShopScene extends Scene {
 				case WEAPON_SHOP:
 				case SHOP:
 				case FIRST_STORY:
+				case MONSTER_SHOP:
 					return AssetEnum.TOWN_BG.getTexture();
 				default:
 					break;
@@ -335,22 +349,18 @@ public class ShopScene extends Scene {
 					return AssetEnum.TRAINER.getTexture();
 				case MAGIC_SHOP:
 					return AssetEnum.MERI_SILHOUETTE.getTexture();
+				case MONSTER_SHOP:
+					return AssetEnum.MERI_SILHOUETTE.getTexture();
 				default:
 					break;
 			}
 			return null;
 		}
 		
-		public int getX() {
-			return 800;
-		}
+		public int getX() {	return 800; }
 
-		public int getY() {
-			return -100;
-		}
+		public int getY() { return -100; }
 
-		public boolean isTinted() {
-			return this != GADGETEER_SHOP;
-		}
+		public boolean isTinted() { return this != GADGETEER_SHOP; }
 	}
 }
