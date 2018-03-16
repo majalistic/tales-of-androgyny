@@ -96,7 +96,7 @@ public class Armor extends Equipment {
 		HELMET ("Helmet", 5, new int[]{0}, new int[]{0}),
 		HELM_OF_WISDOM ("Helm of Wisdom", 25, new int[]{0}, new int[]{0}),
 		SHOES ("Shoes", 1, new int[]{0}, new int[]{0}),
-		SHOES_OF_RUNNING ("Shoes", 25, new int[]{0}, new int[]{0}),
+		SHOES_OF_RUNNING ("Shoes of Running", 25, new int[]{0}, new int[]{0}),
 		SABATONS ("Sabatons", 5, new int[]{15, 15}, new int[]{50, 50}),
 		
 		LIGHT_ENEMY_ARMOR ("Light Armor", new int[]{8, 8}, new int[]{2, 1}),
@@ -123,16 +123,16 @@ public class Armor extends Equipment {
 		private String getLabel() { return label; }
 		private String getDescription() { 
 			return 
-			isArmwear() ? "Covers the arms." :
-			isFootwear() ? "Covers the feet and shins." :
-			isHeadgear() ? "Covers the head." :
+			isArmwear() ? "Covers the arms. " + getBonusDescription() :
+			isFootwear() ? "Covers the feet and shins. " + getBonusDescription() :
+			isHeadgear() ? "Covers the head. " + getBonusDescription() :
 			isShield() ? "A shield which will block attacks while guarding.\nCan absorb " + getMaxDurability() + " damage before breaking." :
 			((coversTop() ? (coversBottom() ? "Protects both upper and lower body." : "Protects upper body.") : coversBottom() ? "Protects lower body." : isUnderwear() ? "Worn under clothing" : "") + "\n" +
-			(coversAnus() ? "This protects the backdoor.\n" : "") +
+			(coversAnus() ? "This protects the backdoor.\n" : "") + 
 			getDurabilityDescription()); 
 		}
 		private int getValue() { return value; }
-		private boolean isArmwear() { return this == GAUNTLET; }
+		private boolean isArmwear() { return this == GAUNTLET || this == GAUNTLETS_OF_STRENGTH; }
 		private boolean isFootwear() { return this == SHOES || this == SHOES_OF_RUNNING || this == SABATONS; }
 		private boolean isHeadgear() { return this == HELMET || this == HELM_OF_WISDOM; }
 		private boolean isShield() { return this == SHIELD || this == REINFORCED_SHIELD; }
@@ -156,6 +156,15 @@ public class Armor extends Equipment {
 		private boolean showsHips() { return true; }
 		private int getMaxDurability() { int maxDurability = 0; for (int value : getDurability().items) maxDurability += value; return maxDurability; }
 		private EquipEffect getEquipEffect() { return this == SHOES_OF_RUNNING ? EquipEffect.AGI_BONUS : this == HELM_OF_WISDOM ? EquipEffect.PER_BONUS : this == GAUNTLETS_OF_STRENGTH ? EquipEffect.STR_BONUS : EquipEffect.NULL; }
+		private String getBonusDescription() {
+			switch(getEquipEffect()) {
+				case AGI_BONUS: return "Increases Agility by 1.";
+				case PER_BONUS: return "Increases Perception by 1.";
+				case STR_BONUS: return "Increases Strength by 1.";
+				case NULL:
+				default: return "";				
+			}
+		}
 		private String getDurabilityDescription() {
 			String durabilityDescription = "";
 			int ii = 0;
