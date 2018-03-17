@@ -2208,7 +2208,9 @@
 	{
 		"key": "BROTHEL-QUEST-COMPLETE",
 		"scriptLines": [
-			{"text" : "You ask her to speak about the bounty, and she has you follow her to her office.  There, you half-expect to see the man that you returned to her, instead of her chair."},
+			{
+			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "MADAME", "value":5}}],
+			"text" : "You ask her to speak about the bounty, and she has you follow her to her office.  There, you half-expect to see the man that you returned to her, instead of her chair."},
 			{"text": "\"You'll see his punishment in good time,\" she says, sitting down in her chair."},
 			{"text": "She notes something down, double-checking some note she'd written to herself, and then she pushes a stack of coins across her desk at you."},			
 			{
