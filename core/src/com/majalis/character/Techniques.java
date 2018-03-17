@@ -317,6 +317,7 @@ public enum Techniques {
 	GRAVITY			  	(new SpellTechnique(Stance.CASTING, Stance.BALANCED, "Gravity", 8, 3, SpellEffect.NONE, StatusType.GRAVITY).build(), 1),
 	REFORGE			  	(new SpellTechnique(Stance.CASTING, Stance.BALANCED, "Reforge", 4, 3, SpellEffect.ARMOR_REPAIR).build(), 1),
 	OIL					(new SpellTechnique(Stance.CASTING, Stance.BALANCED, "Oil", 8, 3, SpellEffect.NONE, null, StatusType.OIL).build(), 1),
+	PARALYZE			(new SpellTechnique(Stance.CASTING, Stance.BALANCED, "Paralyze", -2, 8, SpellEffect.NONE, null, StatusType.PARALYSIS).build(), 1),
 	FOCUS_ENERGY	  	(new SpellTechnique(Stance.CASTING, Stance.BALANCED, "Focus Energy", 4, -5, SpellEffect.NONE, StatusType.ENDURANCE_BUFF).build(), 3, false)
 	;
 	
@@ -387,6 +388,7 @@ public enum Techniques {
 			case STONEWALL: return "Enter into a fully defensive stance, unable to strike, but difficult to harm.";
 			case BERSERK: return "Enter a blind, thunderous rage, fury tempered, a blade with two edges.";
 			case REEL_BACK: return "Prepare to throw a haymaker strike with frightening momentum.";
+			case PARALYZE: return "A powerful curse that locks the cursed in place for as long as its duration."; 
 			default: return "";
 		}
 	}

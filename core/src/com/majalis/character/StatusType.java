@@ -8,7 +8,8 @@ public enum StatusType {
 	ACTIVATE ("Activate"), 
 	STRENGTH_DEBUFF ("Strength Down", true, false), 
 	GRAVITY ("Gravity", true, false),
-	OIL("Oily", true, false), ;
+	OIL("Oily", true, false), 
+	PARALYSIS("Paralyzed", true, false), ;
 
 	private final boolean doesDegrade;
 	private final boolean isPositive;

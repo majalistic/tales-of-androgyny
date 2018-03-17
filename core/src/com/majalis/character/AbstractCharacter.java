@@ -275,6 +275,7 @@ public abstract class AbstractCharacter extends Group {
 	protected boolean strengthDebuffed() { return statuses.get(StatusType.STRENGTH_DEBUFF.toString(), 0) > 0; }
 	protected boolean isGravitied() { return statuses.get(StatusType.STRENGTH_DEBUFF.toString(), 0) > 0; }
 	protected boolean isOily() { return statuses.get(StatusType.OIL.toString(), 0) > 0; }
+	protected boolean isParalyzed() { return statuses.get(StatusType.PARALYSIS.toString(), 0) > 0; }
 	
 	protected int stepDown(int value) { if (value < 3) return value; else if (value < 7) return 3 + (value - 3)/2; else return 5 + (value - 7)/3; } 
 	
@@ -324,6 +325,7 @@ public abstract class AbstractCharacter extends Group {
 		blurb += strengthDebuffed() ? "Weakening Curse\n" : "";
 		blurb += isGravitied() ? "Gravity\n" : "";
 		blurb += isOily() ? "Oil\n" : "";
+		blurb += isParalyzed() ? "Paralyzed\n" : "";
 		switch(getHealthDegradation()) {
 			case 3: blurb += "Injured (-3)\n"; break;
 			case 2: blurb += "Wounded (-2)\n"; break;
@@ -416,17 +418,11 @@ public abstract class AbstractCharacter extends Group {
 		return new CharacterState(getStats(), getRawStats(), weapon, rangedWeapon, shield, stability.lowBalance(), currentMana, enemyType == null ? true : enemyType.isCorporeal(), enemyType == null ? PhallusType.SMALL : enemyType.getPhallusType(), this, target);
 	}
 	
-	protected boolean alreadyIncapacitated() {
-		return stance.isIncapacitatingOrErotic();
-	}
+	protected boolean alreadyIncapacitated() { return stance.isIncapacitatingOrErotic(); }
 	
-	protected boolean wasIncapacitated() {
-		return oldStance != null ? oldStance.isIncapacitatingOrErotic() : false;
-	}
+	protected boolean wasIncapacitated() { return oldStance != null ? oldStance.isIncapacitatingOrErotic() : false; }
 	
-	protected boolean hasGrappleAdvantage() {
-		return grappleStatus.isAdvantage();
-	}
+	protected boolean hasGrappleAdvantage() { return grappleStatus.isAdvantage(); }
 	
 	private String repairArmor(int power) {
 		String result = "";
@@ -1260,6 +1256,7 @@ public abstract class AbstractCharacter extends Group {
 	
 	protected Array<Techniques> getDefaultTechniqueOptions(AbstractCharacter target) {
 		Array<Techniques> possibles = new Array<Techniques>();
+		if (isParalyzed()) return getTechniques(target, DO_NOTHING);
 		switch(stance) {
 			case BLITZ: return getTechniques(target, ALL_OUT_BLITZ, HOLD_BACK);
 			case BERSERK: return getTechniques(target, RAGE);
@@ -1297,7 +1294,7 @@ public abstract class AbstractCharacter extends Group {
 			case HELD: return getTechniques(target, UH_OH);
 			case SPREAD: return getTechniques(target, RECEIVE_COCK);
 			case PENETRATED: return getTechniques(target, HURK);
-			case CASTING: return getTechniques(target, COMBAT_FIRE, COMBAT_HEAL, HEAL, TITAN_STRENGTH, WEAKENING_CURSE, GRAVITY, OIL, REFORGE, FOCUS_ENERGY, ACTIVATE);
+			case CASTING: return getTechniques(target, COMBAT_FIRE, COMBAT_HEAL, HEAL, TITAN_STRENGTH, WEAKENING_CURSE, GRAVITY, OIL, PARALYZE, REFORGE, FOCUS_ENERGY, ACTIVATE);
 			case ITEM: return getTechniques(target, ITEM_OR_CANCEL);
 			case FELLATIO: return getTechniques(target, ERUPT_ORAL, IRRUMATIO, PULL_OUT_ORAL, BLOW_LOAD_ORAL, MOUTH_KNOT, FORCE_DEEPTHROAT);
 			case FACEFUCK: return getTechniques(target, ERUPT_ORAL, FACEFUCK, PULL_OUT_ORAL);
