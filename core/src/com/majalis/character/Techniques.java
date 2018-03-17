@@ -369,6 +369,8 @@ public enum Techniques {
 			case TITAN_STRENGTH: return "Summons the strength of a titan into the user's body.";
 			case WEAKENING_CURSE: return "A spell that curses the opponent, rendering them feeble.";
 			case GRAVITY: return "A spell that curses the opponent, making them substantially heavier.";
+			case OIL: return "Slicks the target in oil, rendering them slippery and flammable.";
+			case REFORGE: return "Magically repairs armor, as if rewinding time.";
 			case FOCUS_ENERGY: return "A spell for centering the spirit, restoring mana and improving physical endurance for a time.";
 			case SLAP_ASS: return "A playful slap of the rear to entice someone to give it a try.";
 			case GESTURE: return "An obscene, suggestive gesture of the hands.";
