@@ -276,6 +276,7 @@ public abstract class AbstractCharacter extends Group {
 	protected boolean isGravitied() { return statuses.get(StatusType.STRENGTH_DEBUFF.toString(), 0) > 0; }
 	protected boolean isOily() { return statuses.get(StatusType.OIL.toString(), 0) > 0; }
 	protected boolean isParalyzed() { return statuses.get(StatusType.PARALYSIS.toString(), 0) > 0; }
+	protected boolean isHypnotized() { return statuses.get(StatusType.HYPNOSIS.toString(), 0) > 0; }
 	
 	protected int stepDown(int value) { if (value < 3) return value; else if (value < 7) return 3 + (value - 3)/2; else return 5 + (value - 7)/3; } 
 	
@@ -326,6 +327,7 @@ public abstract class AbstractCharacter extends Group {
 		blurb += isGravitied() ? "Gravity\n" : "";
 		blurb += isOily() ? "Oil\n" : "";
 		blurb += isParalyzed() ? "Paralyzed\n" : "";
+		blurb += isHypnotized() ? "Hypnotized\n" : "";
 		switch(getHealthDegradation()) {
 			case 3: blurb += "Injured (-3)\n"; break;
 			case 2: blurb += "Wounded (-2)\n"; break;
@@ -1254,9 +1256,63 @@ public abstract class AbstractCharacter extends Group {
 		return false;
 	}
 	
+	protected Array<Techniques> getHypnotizedTechniqueOptions(AbstractCharacter target) {
+		Array<Techniques> possibles = new Array<Techniques>();
+		switch(stance) {
+			case BLITZ: return getTechniques(target, HOLD_BACK);
+			case COUNTER: return getTechniques(target, RIPOSTE);
+			case OFFENSIVE: return getTechniques(target, RESERVED_ATTACK, SIT_ON_IT, TURN_AND_SIT);
+			case BALANCED: return getTechniques(target, BLOCK, DUCK, HIT_THE_DECK, SIT_ON_IT, TURN_AND_SIT);
+			case DEFENSIVE: return getTechniques(target, TAUNT, DUCK);
+			case STONEWALL: return getTechniques(target, LOWER_GUARD);
+			case DRAWN: return getTechniques(target, CANCEL);
+			case SEDUCTION: return getTechniques(target, SLAP_ASS, GESTURE, PUCKER_LIPS, PRESENT, DUCK, HIT_THE_DECK);
+			case PRONE: return getTechniques(target, REST_FACE_DOWN, ROLL_OVER_UP, PUSH_UP, KNEE_UP);
+			case SUPINE: return getTechniques(target, REST, ROLL_OVER_DOWN, PUSH_UP, KNEE_UP);
+			case HANDS_AND_KNEES: return getTechniques(target, STAY, SLAP_ASS_KNEES, KNEE_UP_HANDS);
+			case KNEELING: return getTechniques(target, STAY_KNELT, GRAB_IT);
+			case FULL_NELSON_BOTTOM: return getTechniques(target, SUBMIT);
+			case DOGGY_BOTTOM: return getTechniques(target, RECEIVE_DOGGY, SELF_SPANK);
+			case PRONE_BONE_BOTTOM: return getTechniques(target, RECEIVE_PRONE_BONE);
+			case ANAL_BOTTOM:  return getTechniques(target, RECEIVE_ANAL, STROKE, WRAP_LEGS);
+			case HANDY_BOTTOM: return getTechniques(target, STROKE_IT, OPEN_WIDE);
+			case STANDING_BOTTOM: return getTechniques(target, RECEIVE_STANDING, STROKE_STANDING);
+			case COWGIRL_BOTTOM: return getTechniques(target, RIDE_ON_IT, BOUNCE_ON_IT, SQUEEZE_IT);
+			case REVERSE_COWGIRL_BOTTOM: return getTechniques(target, RIDE_ON_IT_REVERSE, BOUNCE_ON_IT_REVERSE, SQUEEZE_IT_REVERSE);
+			case KNOTTED_BOTTOM: return getTechniques(target, RECEIVE_KNOT);
+			case MOUTH_KNOTTED_BOTTOM: return getTechniques(target, SUCK_KNOT);
+			case OVIPOSITION_BOTTOM: return getTechniques(target, RECEIVE_EGGS);
+			case FELLATIO_BOTTOM: return getTechniques(target, SUCK_IT, DEEPTHROAT);
+			case FACEFUCK_BOTTOM: return getTechniques(target, GET_FACEFUCKED);
+			case OUROBOROS_BOTTOM: return getTechniques(target, RECEIVE_OUROBOROS);
+			case FACE_SITTING_BOTTOM: return getTechniques(target, GET_FACE_RIDDEN);
+			case SIXTY_NINE_BOTTOM:  return getTechniques(target, RECIPROCATE_FORCED);
+			case GROUND_WRESTLE: return getTechniques(target, REST_WRESTLE);			
+			case GROUND_WRESTLE_FACE_DOWN: return getTechniques(target, REST_GROUND_DOWN);
+			case GROUND_WRESTLE_FACE_UP:  return getTechniques(target, REST_GROUND_UP);
+			case WRAPPED_BOTTOM: return getTechniques(target, SQUEEZE_REST);
+			case COWGIRL: return getTechniques(target, ERUPT_COWGIRL, BE_RIDDEN, KNOT);
+			case REVERSE_COWGIRL: return getTechniques(target, ERUPT_COWGIRL, BE_RIDDEN_REVERSE, KNOT);
+			case CRUSHING: return getTechniques(target, ERUPT_ANAL, CRUSH, PULL_UP);
+			case FACE_SITTING: return getTechniques(target, SITTING_ORAL, RIDE_FACE);
+			case SIXTY_NINE: return getTechniques(target, ERUPT_SIXTY_NINE, RECIPROCATE);
+			case WRAPPED: return getTechniques(target, SQUEEZE_RELEASE, SQUEEZE_CRUSH, SQUEEZE, BITE);
+			case ERUPT:
+				setStance(Stance.BALANCED);
+				possibles = getHypnotizedTechniqueOptions(target);
+				setStance(Stance.ERUPT);
+				return possibles;
+			default: return possibles;
+		}
+	}
+	
 	protected Array<Techniques> getDefaultTechniqueOptions(AbstractCharacter target) {
 		Array<Techniques> possibles = new Array<Techniques>();
 		if (isParalyzed()) return getTechniques(target, DO_NOTHING);
+		if (isHypnotized()) {
+			possibles = getHypnotizedTechniqueOptions(target);
+			if (possibles.size >= 1) return possibles;
+		}
 		switch(stance) {
 			case BLITZ: return getTechniques(target, ALL_OUT_BLITZ, HOLD_BACK);
 			case BERSERK: return getTechniques(target, RAGE);
@@ -1294,7 +1350,7 @@ public abstract class AbstractCharacter extends Group {
 			case HELD: return getTechniques(target, UH_OH);
 			case SPREAD: return getTechniques(target, RECEIVE_COCK);
 			case PENETRATED: return getTechniques(target, HURK);
-			case CASTING: return getTechniques(target, COMBAT_FIRE, COMBAT_HEAL, HEAL, TITAN_STRENGTH, WEAKENING_CURSE, GRAVITY, OIL, PARALYZE, REFORGE, FOCUS_ENERGY, ACTIVATE);
+			case CASTING: return getTechniques(target, COMBAT_FIRE, COMBAT_HEAL, HEAL, TITAN_STRENGTH, WEAKENING_CURSE, GRAVITY, OIL, PARALYZE, HYPNOSIS, REFORGE, FOCUS_ENERGY, ACTIVATE);
 			case ITEM: return getTechniques(target, ITEM_OR_CANCEL);
 			case FELLATIO: return getTechniques(target, ERUPT_ORAL, IRRUMATIO, PULL_OUT_ORAL, BLOW_LOAD_ORAL, MOUTH_KNOT, FORCE_DEEPTHROAT);
 			case FACEFUCK: return getTechniques(target, ERUPT_ORAL, FACEFUCK, PULL_OUT_ORAL);

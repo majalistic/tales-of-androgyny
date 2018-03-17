@@ -318,6 +318,7 @@ public enum Techniques {
 	REFORGE			  	(new SpellTechnique(Stance.CASTING, Stance.BALANCED, "Reforge", 4, 3, SpellEffect.ARMOR_REPAIR).build(), 1),
 	OIL					(new SpellTechnique(Stance.CASTING, Stance.BALANCED, "Oil", 8, 3, SpellEffect.NONE, null, StatusType.OIL).build(), 1),
 	PARALYZE			(new SpellTechnique(Stance.CASTING, Stance.BALANCED, "Paralyze", -2, 8, SpellEffect.NONE, null, StatusType.PARALYSIS).build(), 1),
+	HYPNOSIS			(new SpellTechnique(Stance.CASTING, Stance.BALANCED, "Hypnosis", -2, 12, SpellEffect.NONE, null, StatusType.HYPNOSIS).build(), 1),
 	FOCUS_ENERGY	  	(new SpellTechnique(Stance.CASTING, Stance.BALANCED, "Focus Energy", 4, -5, SpellEffect.NONE, StatusType.ENDURANCE_BUFF).build(), 3, false)
 	;
 	
@@ -371,6 +372,7 @@ public enum Techniques {
 			case GRAVITY: return "A spell that curses the opponent, making them substantially heavier.";
 			case OIL: return "Slicks the target in oil, rendering them slippery and flammable.";
 			case REFORGE: return "Magically repairs armor, as if rewinding time.";
+			case HYPNOSIS: return "Hypnotizes they who are so cursed; weaker than full mind control, but still incredibly effective.";
 			case FOCUS_ENERGY: return "A spell for centering the spirit, restoring mana and improving physical endurance for a time.";
 			case SLAP_ASS: return "A playful slap of the rear to entice someone to give it a try.";
 			case GESTURE: return "An obscene, suggestive gesture of the hands.";

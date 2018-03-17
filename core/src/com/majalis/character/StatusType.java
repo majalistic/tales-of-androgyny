@@ -9,7 +9,8 @@ public enum StatusType {
 	STRENGTH_DEBUFF ("Strength Down", true, false), 
 	GRAVITY ("Gravity", true, false),
 	OIL("Oily", true, false), 
-	PARALYSIS("Paralyzed", true, false), ;
+	PARALYSIS("Paralyzed", true, false), 
+	HYPNOSIS("Hypnotized", true, false), ;
 
 	private final boolean doesDegrade;
 	private final boolean isPositive;
