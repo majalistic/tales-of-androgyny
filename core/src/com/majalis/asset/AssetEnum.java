@@ -173,6 +173,7 @@ public enum AssetEnum {
 	SLIME_DOGGY("enemies/HeartSlimeLoveDart.png"), 
 	CENTAUR_ORAL("enemies/CentaurOral.jpg"), 
 	CENTAUR_ANAL("enemies/CentaurAnal.jpg"), 
+	CENTAUR_GANGBANG("enemies/CentaurGangbang.jpg"), 
 	UNICORN_ANAL("enemies/UnicornAnal.jpg"), 
 	CENTAUR_ANAL_XRAY("enemies/CentaurAnalXRay.jpg"), 
 	UNICORN_ANAL_XRAY("enemies/UnicornAnalXRay.jpg"), 
