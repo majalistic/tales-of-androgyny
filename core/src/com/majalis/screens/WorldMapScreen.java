@@ -930,7 +930,6 @@ public class WorldMapScreen extends AbstractScreen {
 					// this width setting is going to be tricky once we implement images for perk and skill gains and such
 					statusResults.add(actor).width(miniResult.getType() == MutationType.NONE ? 325 : 50).align(Align.left).row();
 				}
-				statusResults.debug();
 			}
 		}); 
 		noButton.addListener(buttonListener);
