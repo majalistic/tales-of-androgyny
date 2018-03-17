@@ -108,7 +108,7 @@ public class CharacterScreen extends AbstractScreen {
 		overview.add(getLabel(character.getCharacterName() != null ? character.getCharacterName() : "Hiro", skin, Color.DARK_GRAY)).align(Align.left).row();
 		overview.add(getLabel("Class: ", skin, Color.BLACK)).align(Align.left);
 		
-		overview.add(getLabel(character.getPerks().get(Perk.LADY_OF_THE_NIGHT, 0) >= 20 ? "Prostitute" : character.getJobClass().getLabel(), skin, Color.FIREBRICK)).align(Align.left).row();
+		overview.add(getLabel(character.getPerks().get(Perk.EQUESTRIAN, 0) >= 0 ? "Mare" : character.getPerks().get(Perk.LADY_OF_THE_NIGHT, 0) >= 20 ? "Prostitute" : character.getJobClass().getLabel(), skin, Color.FIREBRICK)).align(Align.left).row();
 		
 		int storedLevels = character.getStoredLevels();
 		overview.add(getLabel("Level: ", skin, Color.BLACK)).align(Align.left);

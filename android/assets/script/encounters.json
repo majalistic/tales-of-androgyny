@@ -5556,7 +5556,27 @@
 			"mutations": [{"saveType":"PORTRAIT", "value":{"class": "com.majalis.asset.AssetEnum", "value": "PORTRAIT_GRIMACE"}}], 
 			"text": "The gathering of centaurs, perhaps a herd, is large indeed - thirty or forty of them.  You are disheartened to learn, quite quickly, that around half of them are men."},
 			{"text": "She wasn't wrong about the menfolk finding a use for you."},
-			{"text": "By the day's end, you find yourself grasping the forelegs of a male centaur while he thoroughly makes you his mare, an anal ordeal that is the first of many.  You grit your teeth as sweat pours down your face and your ass is ruined by a horse's dick - that it happens to be gay sex is the least of your worries."},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":5, "analEjaculation":1, "creampies": 5, "horse":true}}],
+			"text": "By the day's end, you find yourself grasping the forelegs of a male centaur while he thoroughly makes you his mare, an anal ordeal that is the first of many.  You grit your teeth as sweat pours down your face and your ass is ruined by a horse's dick - that it happens to be gay sex is the least of your worries."},
+			{"text": "You prove a very... effective mare.  You suspect the centaur quite enjoy the tightness of a human \"pussy\"."},
+			{"text": "You are certainly more useful as a mare than a hero... while spit-roasted by horsemen cocks, you might not be thinking straight, but you like feeling useful."},		
+			{"text": "Your class changes to Mare!"},
+			{"text": "You swallow a dozen sloppy centaur loads, and get pussy pounded by twice that, and when the last one flops out of your gaped asshole, you feel like you can win a hole-stretching contest with any mare."},
+			{"text": "The breeze flowing inside is a bittersweet reminder of your victory over the centaurs, and of your recent anal defiling at their... hooves?"}
+		]
+	},
+	{
+		"key": "CENTAUR-DEFEAT-CONT",
+		"scriptLines": [
+			{"text": "The centaurs are fine with your adventuring hobby, so long as you return to the herd periodically to perform your marely duties, by which they mean getting on all fours and taking a few dozen horsecocks up the ass."},
+			{"text": "You agree to their terms, wincing at the thought of being buggered by beastmen on a regular basis, but knowing that in the end, it will all be worth it."},
+			{"text": "Your mare's pussy winks obscenely and blasts out a pint of cum or so at a time as you leave your new herd behind, hoping that no human will ever find out about your unique... arrangement... with the horsemen."}
+		]
+	},
+	{
+		"key": "CENTAUR-GAME-OVER",
+		"scriptLines": [
 			{"text": "As the male centaur erupts, his runny semen filling and overflowing your bowels, a quick-shot by any measure, you hear the clopping of another centaur, ready to drain their foot-and-a-half-long cock in your already greased up innards, and you know that your adventure is over."},
 			{"text": "You will be fucked in the ass by horses that happen to be half-men until they get bored of you, which might be never.  You should have never trespassed in the centaur's land."},
 			{"text": "But then, what is the greater trespass - yours into their land, or theirs into your ass?"}

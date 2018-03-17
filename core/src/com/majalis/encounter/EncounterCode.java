@@ -768,7 +768,7 @@ public enum EncounterCode {
 						b.branch(false).textScene("CARRIAGE-DENIED")
 					);
 			case CENTAUR:
-				Branch[] centaurBattle = new Branch[]{b.branch(Outcome.VICTORY).textScene("CENTAUR-VICTORY"), b.branch(Outcome.DEFEAT).textScene("CENTAUR-DEFEAT").gameEnd(), b.branch(Outcome.SATISFIED).textScene("CENTAUR-SATISFIED")};
+				Branch[] centaurBattle = new Branch[]{b.branch(Outcome.VICTORY).textScene("CENTAUR-VICTORY"), b.branch(Outcome.DEFEAT).textScene("CENTAUR-DEFEAT").checkScene(Perk.EQUESTRIAN, b.branch(3).textScene("CENTAUR-GAME-OVER").gameEnd(), b.branch(0).textScene("CENTAUR-DEFEAT-CONT")), b.branch(Outcome.SATISFIED).textScene("CENTAUR-SATISFIED")};
 				Branch[] unicornBattle = new Branch[]{b.branch(Outcome.VICTORY).textScene("UNICORN-VICTORY"), b.branch(Outcome.DEFEAT).textScene("UNICORN-DEFEAT")};
 				Branch centaurCatamite = b.branch().textScene("CENTAUR-CATAMITE").battleScene(
 					BattleCode.CENTAUR, Stance.DOGGY_BOTTOM, Stance.DOGGY,
