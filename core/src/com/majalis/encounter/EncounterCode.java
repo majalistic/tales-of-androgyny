@@ -1837,8 +1837,7 @@ public enum EncounterCode {
 						CheckType.ANY_WILLPOWER, 
 						b.branch(true).textScene("WARLOCK-RESIST").choiceScene(
 							"Overpower her?", 
-							//b.branch("Yes (MAG: 6").require(ChoiceCheckType.STAT_GREATER_THAN_X, Stat.MAGIC, 6).textScene("WARLOCK-HYPNOSIS-BACKFIRE").choiceScene("Fuck her?", b.branch("Yes").require(ChoiceCheckType.FREE_COCK).textScene("WARLOCK-BOTTOM"), b.branch("No").textScene("WARLOCK-BEATEN"),
-							b.branch("Yes (NOT YET)").require(ChoiceCheckType.STAT_GREATER_THAN_X, Stat.MAGIC, 100),
+							b.branch("Yes (MAG: 6)").require(ChoiceCheckType.STAT_GREATER_THAN_X, Stat.MAGIC, 6).textScene("WARLOCK-HYPNOSIS-BACKFIRE").choiceScene("Fuck her?", b.branch("Yes").require(ChoiceCheckType.FREE_COCK).textScene("WARLOCK-BOTTOM"), b.branch("No").textScene("WARLOCK-BEATEN")),
 							b.branch("No").textScene("WARLOCK-DAGGER").concat(warlockBattle) 
 						), 
 						b.branch(false).textScene("WARLOCK-HYPNOSIS") 
