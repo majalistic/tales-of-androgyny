@@ -1594,4 +1594,6 @@ public class PlayerCharacter extends AbstractCharacter {
 		result += " " + "You throw away the " + item.getName() + "."; 
 		return result;
 	}
+
+	public int getKyliraLevel() { return questFlags.get(QuestType.ELF.toString(), 0) - 8; }
 }

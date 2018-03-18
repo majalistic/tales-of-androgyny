@@ -459,8 +459,8 @@ public class Battle extends Group{
 		
 		if (character.getHealthPercent() < .11f && character.hasKyliraHeal()) {
 			// have Kylira heal
-			playerResults.addAll(character.modHealth(20));
-			printToConsole("Kylira heals you for 20!  \"Good luck!\"");
+			playerResults.addAll(character.modHealth(character.getKyliraLevel() * 10));
+			printToConsole("Kylira heals you for " + character.getKyliraLevel() * 10 + "!  \"Good luck!\"");
 			Group popupGroup = new Group();
 			this.addActor(popupGroup);
 			
