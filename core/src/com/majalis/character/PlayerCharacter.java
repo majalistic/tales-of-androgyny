@@ -981,9 +981,9 @@ public class PlayerCharacter extends AbstractCharacter {
 			modDignity(-10);
 		}
 		
-		if (sex.isCentaurSex() && sex.getAnalSex() > 0 && perks.get(Perk.EQUESTRIAN.toString(), 0) == 0) {
-			result.add(new MutationResult("You gained " + Perk.EQUESTRIAN.getLabel() + " (Rank " + 1 + ")!"));
-			perks.put(Perk.EQUESTRIAN.toString(), 1);
+		if (sex.isCentaurSex() && sex.getAnalSex() > 0 && perks.get(Perk.EQUESTRIAN.toString(), 0) != 3) {
+			result.add(new MutationResult("You gained " + Perk.EQUESTRIAN.getLabel() + " (Rank " + (perks.get(Perk.EQUESTRIAN.toString(), 0) + 1) + ")!"));
+			perks.put(Perk.EQUESTRIAN.toString(), ((int)perks.get(Perk.EQUESTRIAN.toString(), 0)) + 1);
 			modDignity(-10);
 		}
 		if (sex.isOgreSex() && sex.getAnalSex() > 0 && perks.get(Perk.SIZE_QUEEN.toString(), 0) != 3) {
