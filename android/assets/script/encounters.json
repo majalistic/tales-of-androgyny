@@ -4427,6 +4427,15 @@
 		]
 	},
 	{
+		"key": "WEREWOLF-TRUDY",
+		"scriptLines": [
+			{
+			"animatedForeground": "WEREWOLF", 
+			"mutations": [{"profileSaveType":"KNOWLEDGE", "value":{"class": "java.lang.String", "value": "Wereslut"}}],
+			"text": "You ask Trudy if he can fight the werewolf instead.  He sneers - \"Of course I can.\""}		
+		]
+	},
+	{
 		"key": "WEREWOLF-VICTORY",
 		"scriptLines": [
 			{

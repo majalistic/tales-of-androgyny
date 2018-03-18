@@ -1887,6 +1887,7 @@ public enum EncounterCode {
 					b.branch(true).textScene("WEREWOLF-SCOUTED").choiceScene(
 						"Fight the werewolf?",
 						b.branch("Fight").textScene("WEREWOLF-FIGHT").concat(werewolfBattle),
+						b.branch("Have Trudy Fight").require(ChoiceCheckType.HAS_TRUDY).textScene("WEREWOLF-TRUDY"),
 						b.branch("Avoid")
 					),
 					b.branch(false).textScene("WEREWOLF-ENTRY").concat(werewolfBattle)

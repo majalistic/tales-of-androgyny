@@ -1566,9 +1566,10 @@ public class PlayerCharacter extends AbstractCharacter {
 	public boolean hasSeenKnockdownTutorial() { boolean temp = knockdownTutorial; knockdownTutorial = true; return temp; }
 	public boolean hasSeenStanceTutorial() { boolean temp = stanceTutorial; stanceTutorial = true; return temp; }
 	public Femininity getFemininity() { return femininity; }
+	public boolean hasTrudy() { return questFlags.get(QuestType.TRUDY.toString(), 0) > 4; }
 	public boolean hasKylira() { return questFlags.get(QuestType.ELF.toString(), 0) > 8;  }
 	public boolean hasKyliraHeal() { boolean temp = kyliraHeal; if (hasKylira()) kyliraHeal = false; return temp && hasKylira(); }
-
+	public int getKyliraLevel() { return questFlags.get(QuestType.ELF.toString(), 0) - 8; }
 	private String unequipItem(Item item) {
 		if (item.equals(weapon)) return unequipWeapon();
 		if (item.equals(shield)) return unequipShield();
@@ -1595,5 +1596,5 @@ public class PlayerCharacter extends AbstractCharacter {
 		return result;
 	}
 
-	public int getKyliraLevel() { return questFlags.get(QuestType.ELF.toString(), 0) - 8; }
+	
 }

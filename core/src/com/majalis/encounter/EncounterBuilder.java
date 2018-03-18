@@ -112,7 +112,8 @@ public class EncounterBuilder {
 		PERK_GREATER_THAN_X,
 		PERK_LESS_THAN_X,
 		FREE_COCK, 
-		HAS_GEM;
+		HAS_GEM, 
+		HAS_TRUDY;
 		
 		public boolean isValidChoice(PlayerCharacter character, Stat statToCheck, Perk perkToCheck, int target) {
 			switch (this) {
@@ -134,6 +135,8 @@ public class EncounterBuilder {
 					return !character.isChastitied();
 				case HAS_GEM:
 					return character.hasGem();
+				case HAS_TRUDY:
+					return character.hasTrudy();
 			}
 			return false;
 		}

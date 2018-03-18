@@ -265,6 +265,10 @@ public class CheckScene extends AbstractTextScene {
 			@Override
 			protected boolean getCheck(PlayerCharacter character) { return character.getQuestStatus(QuestType.TRUDY) == 6; }  
 		}, 
+		HAS_TRUDY("You have Trudy as a companion!", "You don't have a certain companion.") {
+			@Override
+			protected boolean getCheck(PlayerCharacter character) { return character.hasTrudy(); }  
+		},
 		OGRE_DONE ("", "") { 
 			@Override
 			protected boolean getCheck(PlayerCharacter character) { return character.getQuestStatus(QuestType.OGRE) == 0; }  
