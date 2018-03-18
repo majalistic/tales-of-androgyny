@@ -143,6 +143,15 @@ public class CharacterScreen extends AbstractScreen {
 		overview.add(getLabel("Lips: ", skin, Color.BLACK)).align(Align.left);
 		overview.add(getLabel(character.getLipFullness(), skin, Color.PINK)).align(Align.left).row();
 		
+		if (character.hasKylira()) {
+			overview.add(getLabel("Kylira: ", skin, Color.BLACK)).align(Align.left);
+			overview.add(getLabel(character.getKyliraAffection(), skin, Color.FOREST)).align(Align.left).row();
+		}
+		if (character.hasTrudy()) {
+			overview.add(getLabel("Trudy: ", skin, Color.BLACK)).align(Align.left);
+			overview.add(getLabel(character.getTrudyAffection(), skin, Color.FOREST)).align(Align.left).row();
+		}
+		
 		final Table buttTable = new Table();
 		buttTable.align(Align.topLeft);
 		buttTable.setPosition(500, 800);
@@ -244,7 +253,7 @@ public class CharacterScreen extends AbstractScreen {
 		
 		Table perkTable = new Table();
 		perkTable.align(Align.topLeft);
-		perkTable.setPosition(100, 525);
+		perkTable.setPosition(100, 475);
 		slideGroup.addActor(perkTable);
 		perkTable.add(getLabel("Perks: ", skin, Color.BLACK)).align(Align.left).row();
 		int perkColumn = 0;
