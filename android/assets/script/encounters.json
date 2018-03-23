@@ -10946,14 +10946,16 @@
 	{
 		"key": "WARLOCK-HYPNOSIS-BACKFIRE"
 		"scriptLines": [
-			{"text": ""},
+			{"text": "You reach out, and her expression subtly changes."},
+			{"text": "\"Hmmm... I'm pretty sure the suggestion spell worked,\" she says, \"ready to get fucked in the ass, slut?\""},
+			{"text": "You feel... the same, actually.  You don't think her spell had any effect.  In fact... you feel as if you know how she's feeling... and like you get to have some influence on it."}			
 		]
 	},	
 	{
 		"key": "WARLOCK-BOTTOM"
 		"scriptLines": [
-			{"text": ""},
-			
+			{"text": "\"Are... you?\" you ask, testing the waters.  Her expression changes gradually from smug and seductive to... still smug and seductive, but looking like she wants you to fuck her."},			
+			{"text": "\"Mmm... hmhm... how do you want me?\" she asks, looking momentarily confused at her sudden reversal of modes, but then returning to a sultry glare."}			
 		]
 	},
 	{
