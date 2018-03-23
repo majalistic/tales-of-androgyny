@@ -499,7 +499,7 @@ public class EncounterBuilder {
 					else {
 						String scriptLine = token.text.replace("<NAME>", characterName).replace("<BUTTSIZE>", buttsize).replace("<LIPSIZE>", lipsize).replace("<DEBT>", debt).replace("<COCKSIZE>", cockSize);
 						// create the scene
-						newScene = new TextScene(sceneMap, sceneCounter, assetManager, font, saveService, backgrounds.get(ii++), scriptLine, getMutations(token.mutations), character, token.music != null ? token.music : null, token.sound != null ? token.sound.getSound() : null, getEncounterHUD());		
+						newScene = new TextScene(sceneMap, sceneCounter, assetManager, font, saveService, backgrounds.get(ii++), scriptLine, token.chatter != null ? token.chatter : "", token.chatterPerson != null ? token.chatterPerson : "", getMutations(token.mutations), character, token.music != null ? token.music : null, token.sound != null ? token.sound.getSound() : null, getEncounterHUD());		
 					}
 					// add it to array
 					scenes.add(newScene);
@@ -756,6 +756,8 @@ public class EncounterBuilder {
 		// this should also have a fontEnum to determine what font the text is displayed in
 		String text;
 		String speaker;
+		String chatter;
+		String chatterPerson;
 		AssetEnum background;
 		AssetEnum foreground;
 		AnimationEnum animatedForeground;

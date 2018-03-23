@@ -11290,6 +11290,8 @@
 		"scriptLines": [
 			{
 			"background": "TOWN_BG",
+			"chatter": "Don't think there's anything else for us here.",
+			"chatterPerson": "Trudy",
 			"text": "The manor is abandoned - nothing inside remains of value.  You turn away from it, solemnly."}
 		]
 	},

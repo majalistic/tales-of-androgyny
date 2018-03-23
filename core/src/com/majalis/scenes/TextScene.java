@@ -4,10 +4,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
@@ -30,7 +32,7 @@ public class TextScene extends AbstractTextScene  {
 	private final AssetEnum music;
 	private final AssetDescriptor<Sound> sound;
 	
-	public TextScene(OrderedMap<Integer, Scene> sceneBranches, int sceneCode, AssetManager assetManager, BitmapFont font, SaveService saveService, final Background background, String toDisplay, Array<Mutation> mutations, PlayerCharacter character, AssetEnum music, AssetDescriptor<Sound> sound, EncounterHUD hud) {
+	public TextScene(OrderedMap<Integer, Scene> sceneBranches, int sceneCode, AssetManager assetManager, BitmapFont font, SaveService saveService, final Background background, String toDisplay, String chatterText, String chatterPerson, Array<Mutation> mutations, PlayerCharacter character, AssetEnum music, AssetDescriptor<Sound> sound, EncounterHUD hud) {
 		super(sceneBranches, sceneCode, assetManager, font, saveService, background, hud);
 		this.assetManager = assetManager;
 		this.character = character;
@@ -39,6 +41,11 @@ public class TextScene extends AbstractTextScene  {
 		this.background = background;
 		this.music = music;
 		this.sound = sound;
+		if ((chatterPerson.equals("Trudy" ) && character.hasTrudy()) || chatterPerson.equals("Kylira") && character.hasKylira()) {
+			Label chatter = addLabel(chatterPerson + ": \"" + chatterText + "\"", skin, font, Color.TAN, 0, 550);
+			chatter.setWidth(600);
+		}
+		
 		hud.getLog().addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
@@ -46,7 +53,7 @@ public class TextScene extends AbstractTextScene  {
 			}
 		});
 	}	
-
+	
 	private void toggleLogDisplay() {
 		if (!hud.displayingLog()) {
 			background.toggleDialogBox(display, false); // once toggleDialogBox is killed, all of this exists on the hud, and it can handle toggling the log as well gracefully
@@ -62,9 +69,7 @@ public class TextScene extends AbstractTextScene  {
 	}
 	
 	@Override
-	public String getText() {
-		return display.getText().toString();
-	}
+	public String getText() { return display.getText().toString(); }
 
 	@Override
 	public void toggleBackground() {
