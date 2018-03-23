@@ -11039,8 +11039,13 @@
 	{
 		"key": "WARLOCK-LAPRIDE-END",
 		"scriptLines": [
-			{"text": ""},
-			
+			{"text": "She blinks, as if awakening from a dream.  \"I guess, since I'm sitting on your flaccid cock, that the suggestion spell backfired, huh?\" she says, and you nod.  \"Well... I can't say this is so bad... give me another, won't you?\""},				
+			{"text": "\"Only if you promise to stop trying to summon demons,\" you say, angling for a non-violent solution."},
+			{"text": "\"Fine, fine... here I come,\" she says, and you feel your minds linking once more.  It's trivial to overwhelm her psyche."},
+			{"text": "It takes a bit for you to get hard inside of her again, but she waits patiently."},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSexTop": 1, "ejaculationInButt":1}}],
+			"text": "She rides you a second time, this time a bit more aggressively, and you cum inside with no regrets.  Life as a hero isn't so bad, after all."}
 		]
 	},
 	{
