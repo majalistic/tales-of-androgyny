@@ -10952,14 +10952,14 @@
 		]
 	},	
 	{
-		"key": "WARLOCK-BOTTOM"
+		"key": "WARLOCK-BOTTOM",
 		"scriptLines": [
 			{"text": "\"Are... you?\" you ask, testing the waters.  Her expression changes gradually from smug and seductive to... still smug and seductive, but looking like she wants you to fuck her."},			
 			{"text": "\"Mmm... hmhm... how do you want me?\" she asks, looking momentarily confused at her sudden reversal of modes, but then returning to a sultry glare."}			
 		]
 	},
 	{
-		"key": "WARLOCK-HANDS-AND-KNEES"
+		"key": "WARLOCK-HANDS-AND-KNEES",
 		"scriptLines": [
 			{"text": "\"Knees on the floor,\" you say, emboldened."},
 			{"text": "She looks at you coyly as she obsequiously drops to her knees.  As you circle behind her, you shove her forward onto her hands, and give her a firm slap on her big, firm bubble butt.  She draws back her shoulders and sticks her ass out for your appreciation and ease of access, and you run your hand over her backside, affectionately."},
@@ -10992,7 +10992,7 @@
 		]
 	},
 	{
-		"key": "WARLOCK-LAPRIDE"
+		"key": "WARLOCK-LAPRIDE",
 		"scriptLines": [
 			{"text": "\"Sit on my lap,\" you instruct, hoisting yourself up onto her desk and reclining, before waiting for her to mount you.   She smiles flirtatiously, and climbs up onto the desk with surprising grace."},
 			{"text": "She presses her bulge against your abdomen as she sits down squarely on yours, the thin, sheer nature of the fabric she's wearing letting you feel her through it - that, and her naked cheeks are resting on your hips."},
@@ -11012,21 +11012,37 @@
 		]
 	},
 	{
-		"key": "WARLOCK-CREAMY-FINISH"
+		"key": "WARLOCK-CREAMY-FINISH",
+		"scriptLines": [
+			{"text": "You decide to free her caged demon, and as you pull it free of its confines, you see that it is very happy about that decision."},
+			{"text": "She reaches between her thighs and grabs hold of it, and you feel a rush of energy overtake you, her aura becoming electric.  You watch as she begins to stroke it, slowly... and you realize why the suggestion spell was so easy to counter."},
+			{"text": "You push your hips up as forcefully as you can, so that she has nowhere to go and nothing to do but sit and stroke, and she takes her cue to do so, stroking herself while shuddering and breathing erratically."},
+			{"text": "You grab her hand, and before she even has time to realize that you're denying her, she begins to fuck herself on your cock, desperately desiring that release.  She doesn't seem angry or upset, just... intent."},
+			{"text": "She's grinding in your lap in a very particular way, her prostate hard against your shaft, and you can tell that at any moment it's going to vomit out the white, wet marker of her lust."},
+			{"text": "It repeatedly slap against your abdomen, until finally she leans forward and plants her lips against yours... and you feel a hot, wet sensation streaking several times across your chest."},
+			{"text": "The liplock ends, and you see the messy result of your choice to free her penis.  It's flaccid, but thankfully, you don't need it for what you need to do."},
+			{
+			"sound": "CUM",
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "ejaculationInButt":1}}],
+			"text": "You feel the cum rushing up from your balls and you aren't about to tell her to stand up, so... splat.  She licks her lips as you spray a cloud of milky white up into her oven.  You grip onto her hips as you blast it inside, and then feel yourself going limp."},			
+		]
+	},
+	{
+		"key": "WARLOCK-WARDROBE-MALFUNCTION",
 		"scriptLines": [
 			{"text": ""},
 			
 		]
 	},
 	{
-		"key": "WARLOCK-WARDROBE-MALFUNCTION"
+		"key": "WARLOCK-LAPRIDE-END",
 		"scriptLines": [
 			{"text": ""},
 			
 		]
 	},
 	{
-		"key": "WARLOCK-BEATEN"
+		"key": "WARLOCK-BEATEN",
 		"scriptLines": [
 			{
 			"mutations": [{"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": 5}}, {"saveType":"GOLD", "value":{"class": "java.lang.Integer", "value": 50}}, {"saveType":"MAGIC_CRYSTAL", "value":{"class": "java.lang.Integer", "value": 2}}],
@@ -11043,13 +11059,13 @@
 		]
 	},
 	{
-		"key": "WARLOCK-RESIST"
+		"key": "WARLOCK-RESIST",
 		"scriptLines": [
 			{"text": "You feel as if something is trying to enter your mind, and you fight it off.  You feel as if... as if you could, if you could only reach back out at the presence, you could turn its attack against it."},			
 		]
 	},	
 	{
-		"key": "WARLOCK-HYPNOSIS"
+		"key": "WARLOCK-HYPNOSIS",
 		"scriptLines": [
 			{"text": "You feel... strange.  You can't look away from her gaze, even as a sense of dread overtakes you."},
 			{"text": "\"So, you're the would-be hero who's been snooping around in my manor... hey, you're actually pretty cute.  What do you say... you and I do the deed?\""},

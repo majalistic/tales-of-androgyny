@@ -1831,6 +1831,8 @@ public enum EncounterCode {
 				
 				Branch afterAcidCheck = b.branch().textScene("WARLOCK-SEE-DIARY").choiceScene("Read the diary?", b.branch("Yes").textScene("WARLOCK-READ-DIARY").concat(afterDiary), b.branch("No").concat(afterDiary));
 				
+				Branch laprideEnd = b.branch().textScene("WARLOCK-LAPRIDE-END");
+				
 				Branch afterRoom = b.branch().textScene("WARLOCK-AFTER-ROOM").choiceScene(
 					"Enter the inner sanctum or wait?", 
 					b.branch("Enter now").textScene("WARLOCK-SANCTUM").checkScene(
@@ -1844,8 +1846,8 @@ public enum EncounterCode {
 									b.branch("On the floor").textScene("WARLOCK-HANDS-AND-KNEES"), 
 									b.branch("Sitting in lap").textScene("WARLOCK-LAPRIDE").choiceScene(
 										"Free her?", 
-										b.branch("Get wet").textScene("WARLOCK-CREAMY-FINISH"), 
-										b.branch("Let her make a mess").textScene("WARLOCK-WARDROBE-MALFUNCTION")
+										b.branch("Get wet").textScene("WARLOCK-CREAMY-FINISH").concat(laprideEnd), 
+										b.branch("Let her make a mess").textScene("WARLOCK-WARDROBE-MALFUNCTION").concat(laprideEnd)
 									)
 								), 
 								b.branch("No").textScene("WARLOCK-BEATEN")
