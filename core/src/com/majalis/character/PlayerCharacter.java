@@ -1447,10 +1447,16 @@ public class PlayerCharacter extends AbstractCharacter {
 	}
 	
 	public enum QuestType {
-		ORC, CRIER, QUETZAL, INNKEEP, TRUDY, GOBLIN, OGRE, SPIDER, BROTHEL, ELF, DEBT, GADGETEER, MADAME, WITCH, MOUTH_FIEND, MERMAID, TRAINER, MERI, HUMAN_TOWN, MONSTER_TOWN, WARLOCK;
+		ORC, CRIER, QUETZAL, INNKEEP, TRUDY, GOBLIN, OGRE, SPIDER, BROTHEL, ELF, DEBT, GADGETEER, MADAME, WITCH, MOUTH_FIEND, MERMAID, TRAINER, MERI, HUMAN_TOWN, MONSTER_TOWN, WARLOCK, HARPY_ANATOMY, WEREWOLF_ANATOMY, GIANT_ANATOMY, CENTAUR_ANATOMY, CAT_ANATOMY;
 		
 		public String getQuestDescription(int currentValue) {
 			switch (this) {
+				case HARPY_ANATOMY: return currentValue == 1 ? "You know what harpy cock tastes like." : "";
+				case WEREWOLF_ANATOMY: return currentValue == 1 ? "You know how the knot on a werewolf's cock works firsthand." : "";
+				case GIANT_ANATOMY: return currentValue == 1 ? "You know that giants are exactly as big as advertised." : "";
+				case CENTAUR_ANATOMY: return currentValue == 1 ? "You know that centaurs are horse-like below the... belt." : "";
+				case CAT_ANATOMY: return currentValue == 1 ? "You know that direcat penises have spines that can scratch any itch." : "";
+				
 				case HUMAN_TOWN:
 					return currentValue == 1 ? "You've been to the town of Silajam." : "";					
 				case MONSTER_TOWN:
