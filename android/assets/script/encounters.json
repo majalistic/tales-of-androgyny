@@ -10957,6 +10957,34 @@
 		]
 	},
 	{
+		"key": "WARLOCK-HANDS-AND-KNEES"
+		"scriptLines": [
+			{"text": ""},
+			
+		]
+	},
+	{
+		"key": "WARLOCK-LAPRIDE"
+		"scriptLines": [
+			{"text": ""},
+			
+		]
+	},
+	{
+		"key": "WARLOCK-CREAMY-FINISH"
+		"scriptLines": [
+			{"text": ""},
+			
+		]
+	},
+	{
+		"key": "WARLOCK-WARDROBE-MALFUNCTION"
+		"scriptLines": [
+			{"text": ""},
+			
+		]
+	},
+	{
 		"key": "WARLOCK-BEATEN"
 		"scriptLines": [
 			{
