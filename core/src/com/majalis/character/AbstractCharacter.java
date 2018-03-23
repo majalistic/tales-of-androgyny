@@ -1447,6 +1447,7 @@ public abstract class AbstractCharacter extends Group {
 		HORSE("HorseLike"), 
 		BIRD("Harpy"), 
 		GIANT("Monster"), 
+		CAT("Monster"),
 		NONE("NoCock");
 		private final String skin;
 
