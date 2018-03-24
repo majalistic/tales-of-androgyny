@@ -8022,7 +8022,10 @@
 			"background": "CAVE_BG",
 			"music": "WEREWOLF_MUSIC",
 			"text": "You approach ruins that look as old as the surrounding rocks - truly ancient and forgotten. The entrance is vine-covered, half-collapsed, and filled in-part by recent rainwaters. It seems as if the structure was built partially inside of natural caves, some of which have since crumbled."},  
-			{"text": "One glimpse at it tells you that you'll have to be on guard if you plan to go inside."}
+			{
+			"chatter": "This may be dangerous.",
+			"chatterPerson": "Trudy",
+			"text": "One glimpse at it tells you that you'll have to be on guard if you plan to go inside."}
 		]
 	},
 	{
