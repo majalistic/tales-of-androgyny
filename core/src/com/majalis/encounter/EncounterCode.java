@@ -1885,6 +1885,7 @@ public enum EncounterCode {
 				Branch mated = b.branch().textScene("WEREWOLF-MATED").concat(knotted);
 				Branch bitch = b.branch(2).textScene("WEREWOLF-BITCH").concat(mated);
 				Branch uninterested = b.branch(0).textScene("WEREWOLF-UNINTERESTED");
+				Branch defeatNoBitch = b.branch(0).checkScene(CheckType.HAS_TRUDY, b.branch(true).textScene("WEREWOLF-TRUDY"), b.branch(false).concat(uninterested));
 				
 				Branch werewolfBattle = b.branch().battleScene(
 				    	BattleCode.WERESLUT,
@@ -1892,7 +1893,7 @@ public enum EncounterCode {
 				        b.branch(Outcome.VICTORY).textScene("WEREWOLF-VICTORY").checkScene(Stat.STRENGTH, b.branch(8).textScene("WEREWOLF-STRONG").concat(mated), b.branch(0).checkScene(Perk.BITCH, bitch, uninterested)),
 				        b.branch(Outcome.KNOT_ANAL).textScene("WEREWOLF-BATTLE-KNOT").concat(knotted),
 				        b.branch(Outcome.KNOT_ORAL).textScene("WEREWOLF-BATTLE-KNOT-ORAL").gameEnd(),
-				        b.branch(Outcome.DEFEAT).textScene("WEREWOLF-DEFEAT").checkScene(Perk.BITCH, bitch, uninterested),
+				        b.branch(Outcome.DEFEAT).textScene("WEREWOLF-DEFEAT").checkScene(Perk.BITCH, bitch, defeatNoBitch),
 				        b.branch(Outcome.SATISFIED).textScene("WEREWOLF-SATISFIED")
 				    );
 				

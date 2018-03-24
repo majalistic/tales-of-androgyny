@@ -4686,6 +4686,15 @@
 			"text": "You collapse to the ground.  She approaches you on all fours, and sniffs at you."}
 		]
 	},
+		{
+		"key": "WEREWOLF-TRUDY",
+		"scriptLines": [
+			{
+			"chatter": "What are... you looking at... mutt?",
+			"chatterPerson": "Trudy",
+			"text": "She doesn't seem at all interested in you.  Trudy, on the other hand, she begins to circle.  He can barely lift his axe."},
+		]
+	},
 	{
 		"key": "WEREWOLF-SATISFIED",
 		"scriptLines": [
