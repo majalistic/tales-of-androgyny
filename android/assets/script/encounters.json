@@ -7604,7 +7604,10 @@
 		"key": "OGRE-SPOTTED",
 		"scriptLines": [
 			{"text": "The sound gets louder and louder, and you realize that it's snoring - loud snoring."},
-			{"text": "You come across... a sleeping ogre, thankfully still sleeping, cradling a pile of jewels."},
+			{
+			"chatter": "Shh...",
+			"chatterPerson": "Trudy",
+			"text": "You come across... a sleeping ogre, thankfully still sleeping, cradling a pile of jewels."},
 			{
 			"mutations": [{"saveType":"PORTRAIT", "value":{"class": "com.majalis.asset.AssetEnum", "value": "PORTRAIT_SURPRISE"}}],
 			"text": "Your eyes widen - the jewels look particularly enticing... but something else catches your eye as well."},
@@ -7613,7 +7616,7 @@
 			"text": "Your sphincter tightens with an audible squeak - the thing is monstrous... and so is the ogre. If the ogre can't tell that it's your out hole, you're going to be walking funny for weeks, at best."},
 			{
 			"mutations": [{"saveType":"PORTRAIT"}],
-			"text": "You could try to stealthfully steal from the ogre, or get the drop on him... but you best be certain that you can handle him at his worst."}
+			"text": "You could try to stealthily steal from the ogre, or get the drop on him... but you best be certain that you can handle him at his worst."}
 		]
 	},
 	{
@@ -7689,6 +7692,8 @@
 		"key": "OGRE-DEFEAT",
 		"scriptLines": [
 			{
+			"chatter": "We need to... get away...",
+			"chatterPerson": "Trudy",
 			"mutations": [{"saveType":"PORTRAIT", "value":{"class": "com.majalis.asset.AssetEnum", "value": "PORTRAIT_HIT"}}],
 			"text": "You were defeated.  Duh."},
 			{"text": "The ogre lifts you up by your legs, and you squeal in surprise as you feel his thick tower threatening to impale you."},
@@ -7782,10 +7787,16 @@
 			"music": "WEREWOLF_MUSIC",
 			"text": "You hear a growl."},
 			{"text": "Walking through the enchanted forest, you're already on your guard, but the growl causes your hairs to stand on end."},
-			{"text": "It isn't the first.  You're being hunted... but even as you ready yourself for a fight, the creature never emerges. In fact - as you approach the source of the sound, it seems to vanish, like a territorial, but shy animal."},
+			{
+			"chatter": "Someone is definitely following us...",
+			"chatterPerson": "Trudy",
+			"text": "It isn't the first.  You're being hunted... but even as you ready yourself for a fight, the creature never emerges. In fact - as you approach the source of the sound, it seems to vanish, like a territorial, but shy animal."},
 			{"text": "Still, though, as you progress through the enchanted woods, the creature's rumbling voice does not leave you.  Rather, it seems to be getting closer and closer."},
 			{"text": "It's possible that its territory is far larger than you might have expected, but with each passing minute, you find this less and less likely."},
-			{"text": "You occasionally catch a glimpse of a shadow passing between dense undergrowth and fronds, something moving on four legs - something quite large.  Your first impression is that of a bear, but it's much swifter than a bear would be."},
+			{
+			"chatter": "Eek!",
+			"chatterPerson": "Kylira",
+			"text": "You occasionally catch a glimpse of a shadow passing between dense undergrowth and fronds, something moving on four legs - something quite large.  Your first impression is that of a bear, but it's much swifter than a bear would be."},
 			{"text": "What's even stranger is that you also manage to glimpse fur at times, and, at others, a grayish skin.  Some creatures losing hair in splotches might explain the erratic behavior, but something seems... off.  You also see smatterings of bright red - blood?"},
 			{"text": "At wit's end, you start to give chase - picking up your footfalls at first, and then breaking into a run as the creature retreats further into the brush."},
 			{"text": "You're nearly out of breath when you break away into a clearing, and, for the first time, get a full view of the beast in its majesty."},
