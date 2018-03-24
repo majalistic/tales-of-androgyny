@@ -4701,6 +4701,8 @@
 			"text": "You look around.  You've been hiking for quite a while, and despite the large, man-sized nests littered about, there don't appear to be any harpies here."}, 
 			{"text": "That being said, there's a rather pungent scent in the air, and you've been hearing squawks and the flappings of tremendous wings for a while."},
 			{
+			"chatter": "Look out!",
+			"chatterPerson": "Trudy",
 			"mutations": [{"saveType":"PORTRAIT", "value":{"class": "com.majalis.asset.AssetEnum", "value": "PORTRAIT_SURPRISE"}}],
 			"text": "You look up and behind you to try to spot the source, but the sky is empty - however, when you turn back, you can plainly see a figure approaching rapidly, talons extended!"}
 		]
@@ -4709,6 +4711,8 @@
 		"key": "HARPY-DODGE",
 		"scriptLines": [
 			{
+			"chatter": "Nice!",
+			"chatterPerson": "Kylira",
 			"mutations": [{"saveType":"PORTRAIT"}],
 			"text": "You deftly sidestep the harpy's dive, extending your arm to clothesline her in the process."},
 			{"text": "The impact nearly drags you both to the ground, but the robust harpy seems relatively unharmed, though she crashes to the floor with her face in the dirt."},
@@ -4747,6 +4751,8 @@
 		"key": "HARPY-VICTORY",
 		"scriptLines": [
 			{
+			"chatter": "We did it!",
+			"chatterPerson": "Kylira",
 			"mutations": [{"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": 2}}, {"saveType":"PORTRAIT", "value":{"class": "com.majalis.asset.AssetEnum", "value": "PORTRAIT_GRIN"}}], 
 			"text": "You defeated the harpy!  She flaps away in a hail of feathers, her bird dong wilting between her legs like a big floppy noodle."}		
 		]
@@ -4758,7 +4764,10 @@
 			"mutations": [{"saveType":"PORTRAIT", "value":{"class": "com.majalis.asset.AssetEnum", "value": "PORTRAIT_HIT"}}],
 			"animatedForeground": "HARPY",
 			"text": "You collapse to the floor, unable to withstand the harpy's attacks.  You anticipate the killing blow, face-down in the dirt, but it never comes. Instead, you can sense the harpy stalking around you, inspecting you closely."},
-			{"text": "She seems frustrated, as she can't seem locate what she's looking for.  You realize that even with your ass in the air, your hole is plugged up, and she seems to lack the problem solving skills necessary to rectify that."},
+			{
+			"chatter": "Guess that came in handy.",
+			"chatterPerson": "Trudy",			
+			"text": "She seems frustrated, as she can't seem locate what she's looking for.  You realize that even with your ass in the air, your hole is plugged up, and she seems to lack the problem solving skills necessary to rectify that."},
 			{"text": "She presses on the plug with her talon, forcing it up further into your ass, which makes you grit your teeth, but does little else.  As she continues to look around you, you see her foot-long skin-covered bird dick flop about, dangerously erect."},
 			{"text": "Thankfully, she doesn't manage to puzzle it out, but that doesn't mean that she's flapping away with a bird-boner, she clambers on top of you, squishing your cheeks together with her talons, her footlong hotdogged between them, and begins to gyrate."},
 			{"text": "Her schlong is wet with lust, and it easily slides between your buns as she simulates her mating in a frenzy.  You thank your lucky stars that the plug prevented her from making the same motions a few inches lower and a foot deeper."},
@@ -4777,6 +4786,8 @@
 			{
 			"mutations": [{"saveType":"PORTRAIT", "value":{"class": "com.majalis.asset.AssetEnum", "value": "PORTRAIT_HIT"}}],
 			"animatedForeground": "HARPY",
+			"chatter": "Ngh... this bird is tougher than she looks.",
+			"chatterPerson": "Trudy",	
 			"text": "You collapse to the floor, unable to withstand the harpy's attacks.  You anticipate the killing blow, face-down in the dirt, but it never comes.  Instead, you can sense the harpy stalking around you, inspecting you closely.  Finally, with a squawk, she rears up, takes off into the air, and grabs your clothes with her talons, hoisting you into the air."},
 			{"text": "You're terrified that her talons will finish ripping your shirt and send you plummeting to the ground as she carries you, mostly immobile, high into the air, over the countryside.  The view is startling, but breathtaking - as the sun visibly sets below far off mountains, a shadow is cast across the land, and the sky dyes itself in vivid orange and purples."},
 			{"text": "While she carries you, she flies in the direction of the distant mountains - and a dark premonition settles in your fight-hazed mind - is she bringing you back to her nest as a fresh kill?"},
@@ -4901,6 +4912,8 @@
 		"key": "HARPY-SATISFIED",
 		"scriptLines": [
 			{
+			"chatter": "I think she's... done for now.",
+			"chatterPerson": "Trudy",
 			"mutations": [{"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": 2}}], 
 			"animatedForeground": "HARPY",
 			"text": "The harpies tongue lolls out of her mouth, and her throbbing birdcock is now considerably less throbby, as it deflates, slick with the remains of her ejaculate."},
