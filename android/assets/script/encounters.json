@@ -5552,7 +5552,10 @@
 			"animatedForeground": "UNICORN",
 			"mutations": [{"profileSaveType":"KNOWLEDGE", "value":{"class": "java.lang.String", "value": "Unicorn"}}, {"saveType":"PORTRAIT", "value":{"class": "com.majalis.asset.AssetEnum", "value": "PORTRAIT_SURPRISE"}}],
 			"text": "You hear a frenzied whinny, and spin around just in time to avoid being trampled by a brightly colored creature much like the one before.  When they turn to look at you, you see that it's female... a rather well-endowed female... and that her colors are quite vibrant."},
-			{"text": "Even more strange, she has a horn on her head... and... between her legs..."},
+			{
+			"chatter": "Well... that's new.",
+			"chatterPerson": "Trudy",
+			"text": "Even more strange, she has a horn on her head... and... between her legs..."},
 			{
 			"mutations": [{"saveType":"PORTRAIT", "value":{"class": "com.majalis.asset.AssetEnum", "value": "PORTRAIT_GRIMACE"}}], 
 			"text": "It's... rather erect... and the look on her face is quite mad - she wipes her saliva on her wrist, even as the thing pointed directly at you drools a clear strand down into the dirt, which quickly pools into mud."},
@@ -5619,7 +5622,10 @@
 			"animatedForeground": "CENTAUR",
 			"mutations": [{"profileSaveType":"KNOWLEDGE", "value":{"class": "java.lang.String", "value": "Centaur"}}],
 			"text": "From hidden behind a nearby boulder emerges one member of the herd - a female, with a rather buxom appearance.  She approaches you serenely, proudly."},
-			{"text": "\"Human.  You are trespassing on centaur lands. Leave now and we will bring you no harm.  Or fight me - and earn your place at our campfire,\" she says, and it's clear those are your only two options... that is, until you spy something dangling between her legs. It's not aroused, but..."}
+			{
+			"chatter": "Maybe we should just go...",
+			"chatterPerson": "Kylira",			
+			"text": "\"Human.  You are trespassing on centaur lands. Leave now and we will bring you no harm.  Or fight me - and earn your place at our campfire,\" she says, and it's clear those are your only two options... that is, until you spy something dangling between her legs. It's not aroused, but..."}
 		]
 	},
 	{
@@ -5640,9 +5646,14 @@
 		"key": "CENTAUR-CATAMITE",
 		"scriptLines": [
 			{
+			"chatter": "Well, well, well... I see.",
+			"chatterPerson": "Trudy",
 			"mutations": [{"saveType":"PORTRAIT", "value":{"class": "com.majalis.asset.AssetEnum", "value": "PORTRAIT_LOVE"}}], 
 			"text": "You get down on your hands and knees - you can't believe you're doing this, but you also can't believe how much of a horse cock she has."},
-			{"text": "You pull your pants down and spread your cheeks, and she wastes little time in acquiescing to your subtle demands, trotting over, her cock freeing itself of its sheathe in search of another."},
+			{
+			"chatter": "Are you... really going to...",
+			"chatterPerson": "Kylira",
+			"text": "You pull your pants down and spread your cheeks, and she wastes little time in acquiescing to your subtle demands, trotting over, her cock freeing itself of its sheathe in search of another."},
 			{"text": "She doesn't hesitate to begin prodding it against your poor hole - once, twice, three times, and you yelp, as she begins to stuff it inside, your mouth agape in awe and your backdoor opening far wider than is comfortable."},
 			{
 			"foreground": "CENTAUR_ANAL",
@@ -5666,6 +5677,8 @@
 		"key": "CENTAUR-DEFEAT",
 		"scriptLines": [
 			{
+			"chatter": "I can't... stand...",
+			"chatterPerson": "Trudy",
 			"mutations": [{"saveType":"PORTRAIT", "value":{"class": "com.majalis.asset.AssetEnum", "value": "PORTRAIT_HIT"}}], 
 			"animatedForeground": "CENTAUR",
 			"text": "The centaur hoists you up, limp and spiritless."},
