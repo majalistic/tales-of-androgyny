@@ -979,23 +979,26 @@ public class PlayerCharacter extends AbstractCharacter {
 		for (int ii = 0; ii < sex.getFellatioEjaculations(); ii++) {
 			cumFromOral();
 			modDignity(-10);
-		}
+		} 
 		
 		if (sex.isCentaurSex() && sex.getAnalSex() > 0 && perks.get(Perk.EQUESTRIAN.toString(), 0) != 3) {
 			result.add(new MutationResult("You gained " + Perk.EQUESTRIAN.getLabel() + " (Rank " + (perks.get(Perk.EQUESTRIAN.toString(), 0) + 1) + ")!"));
 			perks.put(Perk.EQUESTRIAN.toString(), ((int)perks.get(Perk.EQUESTRIAN.toString(), 0)) + 1);
 			modDignity(-10);
+			questFlags.put(QuestType.CENTAUR_ANATOMY.toString(), 1);
 		}
 		if (sex.isOgreSex() && sex.getAnalSex() > 0 && perks.get(Perk.SIZE_QUEEN.toString(), 0) != 3) {
 			result.add(new MutationResult("You gained " + Perk.SIZE_QUEEN.getLabel() + " (Rank " + (perks.get(Perk.SIZE_QUEEN.toString(), 0) + 1) + ")!"));
 			perks.put(Perk.SIZE_QUEEN.toString(), ((int)perks.get(Perk.SIZE_QUEEN.toString(), 0)) + 1);
 			modDignity(-10);
+			questFlags.put(QuestType.GIANT_ANATOMY.toString(), 1);
 		}
 		
 		if (sex.isBeast() && perks.get(Perk.BEASTMASTER.toString(), 0) != 3) {
 			result.add(new MutationResult("You gained " + Perk.BEASTMASTER.getLabel() + " (Rank " + (perks.get(Perk.BEASTMASTER.toString(), 0) + 1) + ")!"));
 			perks.put(Perk.BEASTMASTER.toString(), ((int)perks.get(Perk.BEASTMASTER.toString(), 0)) + 1);
 			modDignity(-20);
+			questFlags.put(QuestType.CAT_ANATOMY.toString(), 1);
 		}
 		
 		if (sex.isProstitution() && perks.get(Perk.LADY_OF_THE_NIGHT.toString(), 0) != 20) {
@@ -1022,12 +1025,14 @@ public class PlayerCharacter extends AbstractCharacter {
 			result.add(new MutationResult("You gained " + Perk.CUCKOO_FOR_CUCKOO.getLabel() + " (Rank " + (perks.get(Perk.CUCKOO_FOR_CUCKOO.toString(), 0) + 1) + ")!"));
 			perks.put(Perk.CUCKOO_FOR_CUCKOO.toString(), ((int)perks.get(Perk.CUCKOO_FOR_CUCKOO.toString(), 0)) + 1);
 			modDignity(-5);
+			questFlags.put(QuestType.HARPY_ANATOMY.toString(), 1);
 		}
 		
 		if (sex.isKnot() && sex.getAnalSex() > 0 && perks.get(Perk.BITCH.toString(), 0) != 3) {
 			result.add(new MutationResult("You gained " + Perk.BITCH.getLabel() + " (Rank " + (perks.get(Perk.BITCH.toString(), 0) + 1) + ")!"));
 			perks.put(Perk.BITCH.toString(), ((int)perks.get(Perk.BITCH.toString(), 0)) + 1);
 			modDignity(-10);
+			questFlags.put(QuestType.WEREWOLF_ANATOMY.toString(), 1);
 		}
 		// should be moved into its own method
 		ass.fillButtWithCum(sex.getBellyful());
