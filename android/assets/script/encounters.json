@@ -4264,6 +4264,8 @@
 		"scriptLines": [
 			{
 			"mutations": [{"saveType":"FOOD", "value":{"class": "java.lang.Integer", "value": 20}}, {"saveType":"TIME", "value":{"class": "java.lang.Integer", "value": 1}}],
+			"chatter": "Now we'll eat well.",
+			"chatterPerson": "Trudy",
 			"text": "You manage to hunt down a beast and kill it!"}
 		]
 	},
@@ -4272,6 +4274,8 @@
 		"scriptLines": [
 			{
 			"mutations": [{"saveType":"FOOD", "value":{"class": "java.lang.Integer", "value": 12}}, {"saveType":"TIME", "value":{"class": "java.lang.Integer", "value": 1}}],
+			"chatter": "I found some over here!",
+			"chatterPerson": "Kylira",
 			"text": "You find some berries to eat."}
 		]
 	},
@@ -4339,8 +4343,13 @@
 		"scriptLines": [
 			{
 			"music": "WEREWOLF_MUSIC",
+			"chatter": "I can't... go on much longer like this...",
+			"chatterPerson": "Trudy",
 			"text": "Your hunger has gotten the better of you.  You're running out of strength."},
-			{"text": "As you wander, your vision starts to narrow, and you start to wobble on your legs... until you collapse to your knees, falling face-first into the dirt, and blackness takes you."}			
+			{
+			"chatter": "So... tired...",
+			"chatterPerson": "Kylira",
+			"text": "As you wander, your vision starts to narrow, and you start to wobble on your legs... until you collapse to your knees, falling face-first into the dirt, and blackness takes you."}			
 		]
 	},
 	{
