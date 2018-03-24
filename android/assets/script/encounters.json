@@ -10218,13 +10218,14 @@
 			"text": "\"This is the wrong cave. If you want the one without the man-eating fiend, that would be two caves over,\" she says, checking her nails with a look of disinterest, \"but I suppose that doesn't matter for you, anymore.\""},
 			{"text": "She's blocking the only way out, and while you've denied her the element of surprise, a malevolent power exudes from her.  Even if she isn't a greater naga of some kind, the real and present danger of a predator towards her prey is curdling your blood."},
 			{"text": "\"Who will attack first, I wonder...\" she says, rising up so that she towers over you.  You hold your sword at the ready.  \"Oh, well, fine. I'll start,\" she says, and she rushes towards you!"},
-
 		]
 	},
 	{
 		"key": "NAGA-VICTORY",
 		"scriptLines": [
 			{
+			"chatter": "What a dangerous creature...",
+			"chatterPerson": "Trudy",
 			"mutations": [{"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": 8}}],
 			"text": "You manage to eke out a victory - albeit a small one.  The crazed snake woman keeps her head low to the ground, cowed... or, looking for an opening."},
 			{"text": "\"Well...\" she says, \"to the victor goes the spoils, as you say.  You gonna fuck me?!\" she asks, clearly excited by the prospect."}
@@ -10292,7 +10293,10 @@
 	{
 		"key": "NAGA-DEFEAT",
 		"scriptLines": [
-			{"text": "Too exhausted to fight, you collapse.  You watch her approach you cautiously, and then she hovers over you, casting a long shadow from a sconce behind her that falls on you."},
+			{
+			"chatter": "No...",
+			"chatterPerson": "Trudy",
+			"text": "Too exhausted to fight, you collapse.  You watch her approach you cautiously, and then she hovers over you, casting a long shadow from a sconce behind her that falls on you."},
 			{"text": "\"Entering my cave without permission?  I should just eat you and be done with it.  But... you must have a big, swinging dick to come into my cave to try and kill me,\" she says, staring down at you."},
 			{"text": "She smiles wide... well, \"smiles\" might be generous.  You notice two slits just above you on her underbelly - a curious thing."},
 			{"text": "\"You must be some kind of hero!  Lots of pride... hrm.  Hey, is it fun to go poking around in strange caves without permission?\" she asks, and the slits begin to... change."},
@@ -10396,7 +10400,10 @@
 	{
 		"key": "NAGA-AMBUSH",
 		"scriptLines": [
-			{"text": "You don't know what lives within these depths, but you know that it certainly must be a creature of the dark - and none too pleasant, you ascertain from the human bones strewn about."},
+			{
+			"chatter": "Be on your guard.",
+			"chatterPerson": "Trudy",
+			"text": "You don't know what lives within these depths, but you know that it certainly must be a creature of the dark - and none too pleasant, you ascertain from the human bones strewn about."},
 			{"text": "You make sure to keep your footing on the slick rocks, shining your torch below at your feet as you go.  The cave is far more vast than you expected, and you begin to suspect that you're being watched."},
 			{"text": "Something emerges suddenly from a crevice, and your legs are bound together!  You fall to the ground, anticipating a blow as your body collides with the stone floor of the cave... but instead, you land on something slippery."},
 			{"text": "\"Got ya!\" you hear, and you look up to see a strange woman's face, peering down at you... but something is wrong.  Below her waist... something is off about her skin."},
@@ -10978,8 +10985,14 @@
 			{
 			"background": "WARLOCK_BG",
 			"text": "The inside is as dark as you expected, drafty and dank, wood creaking underfoot as you step inside, the old door's hinges screaming bitter echoes into the darkness.  Strangely, there appears to be no clear path forward, several nondescript doors leading to nondescript hallways."},
-			{"text": "You pick one to begin your search, and you quickly discover the manor is riddled with long, winding hallways, all as drafty and dark as the last.  You hear footsteps, ghosts of your own, and sighs and whispers, remnants of the wind as it coils through the labyrinth of doors, halls and windows."},
-			{"text": "Sometimes, though, you hear a distant giggle, or the faint sound of nails rapping on wood, and you suspect that either your sanity is slipping, or that you're not alone in this seemingly derelict manor."},
+			{
+			"chatter": "Better start our search.",
+			"chatterPerson": "Trudy",
+			"text": "You pick one to begin your search, and you quickly discover the manor is riddled with long, winding hallways, all as drafty and dark as the last.  You hear footsteps, ghosts of your own, and sighs and whispers, remnants of the wind as it coils through the labyrinth of doors, halls and windows."},
+			{
+			"chatter": "This place is creepy...",
+			"chatterPerson": "Kylira",
+			"text": "Sometimes, though, you hear a distant giggle, or the faint sound of nails rapping on wood, and you suspect that either your sanity is slipping, or that you're not alone in this seemingly derelict manor."},
 			
 		]
 	},
@@ -11011,7 +11024,10 @@
 			{"text": "One such passage reads: \"It is not known which goddess was profaned, or if the profaned goddess still knows worshipers, but her vile legacy lives on, cultists as the faithful, dark magicians as the clergy.  Although not all practitioners of this dark magic swear fealty to the profaned goddess.\""},
 			{"text": "\"One cannot discern that which springs from the well of demonic influence and that which draws out demonic spirits.  As a snake devouring its own tail, the taint is its own progenitor, and the tainted are their own sires.\""},
 			{"text": "\"Once touched by the profane, the tainted are drawn to it, and ensnared in the toxic pleasures of defilement.\""},
-			{"text": "\"An emissary from the old iron kingdom has spread the word of the profane goddess, and her blasphemous testament.\""},			
+			{
+			"chatter": "What does this mean?",
+			"chatterPerson": "Kylira",
+			"text": "\"An emissary from the old iron kingdom has spread the word of the profane goddess, and her blasphemous testament.\""},			
 			{"text": "You haven't the first in what would surely be a long line of clues as to what the fucking shit this book is babbling on about, but its presence here in the manor is somewhat alarming.  In the best case, someone is or was a researcher of the profane, in the worst..."},
 			{"text": "You close the book, deciding that it would take too long to fully comprehend any of it."},
 		]
@@ -11060,7 +11076,10 @@
 		"scriptLines": [
 			{"text": "You decide to read the final page of the diary."},
 			{"text": "\"I have to be careful about these experimental spells.  The last time wasn't careful about my incantations I ended up inflicting lycanthropy on my librarian, and now there's an army of slutty nerdwolves out there, probably.\""},
-			{"text": "\"Despite my gift for the arcane, I've yet to call forth a dark one to commune with... but that may be for the best.  To have power and my own mind... perhaps that is ideal.\""},
+			{
+			"chatter": "That explains a lot.",
+			"chatterPerson": "Trudy",
+			"text": "\"Despite my gift for the arcane, I've yet to call forth a dark one to commune with... but that may be for the best.  To have power and my own mind... perhaps that is ideal.\""},
 			{"text": "You want to continue reading, but your eye catches something interesting."},			
 		]
 	},
@@ -11330,6 +11349,8 @@
 		"key": "WARLOCK-VICTORY",
 		"scriptLines": [
 			{
+			"chatter": "Foul sorceress.",
+			"chatterPerson": "Trudy",
 			"mutations": [{"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": 5}}],
 			"text": "She drops her dagger, and seems to be ready for you to go in for the kill."},
 			{"text": "You destroy her spellbook while she stares coldly at you, and then you tell her to leave, and that you never want to see her again."},
