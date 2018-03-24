@@ -4363,7 +4363,10 @@
 			{"text": "You don't remember pulling your pants down.  Your mind is too fuzzy to know for certain... but you're pretty sure."},
 			{"text": "Your face is down, but your ass is in the air."},
 			{"text": "And... you can't quite place it... but something feels... off."},
-			{"text": "Your... hole... is sore."},
+			{
+			"chatter": "Ugh... my ass...",
+			"chatterPerson": "Kylira",
+			"text": "Your... hole... is sore."},
 			{"text": "You're surrounded by the footprints of some wild animal... and the stench of both wild animal and sex is in the air."},
 			{
 			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex": 1, "creampies":2}}],
