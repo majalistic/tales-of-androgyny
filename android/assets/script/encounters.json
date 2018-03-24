@@ -9118,7 +9118,10 @@
 			{
 			"music": "SPOOKY_MUSIC",
 			"text": "The twilight has a strange quality to it - as you walk through a valley well-shadowed, they cast longer than you expect, set against a light, the hue of which seems... off."},
-			{"text": "You're broken from your reverie by the sight of a fair woman, far in the distance, whose form is so indistinct, you can't be sure that she was actually there before she disappears behind some ruined structure.  She appeared to be dressed in some kind of gown, but the lack of any nearby signs of civilization make that quite unlikely."},
+			{
+			"chatter": "Oh... she's so pretty...",
+			"chatterPerson": "Kylira",
+			"text": "You're broken from your reverie by the sight of a fair woman, far in the distance, whose form is so indistinct, you can't be sure that she was actually there before she disappears behind some ruined structure.  She appeared to be dressed in some kind of gown, but the lack of any nearby signs of civilization make that quite unlikely."},
 			{"text": "Your curiosity is piqued, but something about the distant figure seemed... off."}
 		]
 	},
@@ -9135,6 +9138,8 @@
 			{"text": "You see that her body is quite... curvaceous.  Her skin shining in the sun, you can't imagine a more idyllic beauty."},
 			{
 			"foreground": "GHOST",
+			"chatter": "Oh... I don't like this...",
+			"chatterPerson": "Kylira",
 			"text": "She turns to face you... and you see that her body simply... ends, her feet not reaching the ground.  You stand at guard.  When she meets your gaze, she smiles brilliantly."},
 			{"text": "\"My love... I have waited so long... will you... will you finally accept my love?\""}
 		]
@@ -9257,7 +9262,10 @@
 			"music": "HORROR_MUSIC",
 			"text": "The chill of the night has you shuddering beneath your cloak.  The shadows cast by the moon are long and faint, and seem at odd angles to each other.  You feel... tired.  No, more than that - like you're already dreaming."},
 			{"text": "You're broken from your reverie by the sight of a fair woman, far in the distance, whose form is so indistinct, you can't be sure that she was actually there before she disappears behind some ruined structure.  She appeared to be dressed in some kind of gown, but the lack of any nearby signs of civilization make that quite unlikely."},
-			{"text": "Your curiosity is piqued, but something about the distant figure seemed... off.  Her skin was the color of moonlight, and her gown was... you shudder again, from the cold or elsewise."}
+			{
+			"chatter": "Oh... she's so pretty...",
+			"chatterPerson": "Kylira",
+			"text": "Your curiosity is piqued, but something about the distant figure seemed... off.  Her skin was the color of moonlight, and her gown was... you shudder again, from the cold or elsewise."}
 		]
 	},
 	{
@@ -9266,12 +9274,18 @@
 			{"text": "You see her again - she's dressed in what appears to be a bridal gown, her skin a deathly pallor.  Though she bathes in moonlight, her form is still indistinct."},
 			{"text": "You approach; she's facing away, and is completely silent, even as you get close enough that your undisguised footsteps should be obvious."},
 			{"text": "You maintain your distance, sensing something... off about the situation.  She has stopped moving, even breathing, and has made no attempt to recognize your approach."},
-			{"text": "Then, she vanishes."},
+			{
+			"chatter": "Oh... oh no...",
+			"chatterPerson": "Kylira",
+			"text": "Then, she vanishes."},
 			{"text": "Instinctively, you reach for your weapon, but... she's gone.  No trace of her remains.  Just the still silence of the night, and the howling of the wind, and the pale, almost imperceptible moonlight."},
 			{"text": "It's... cold."},
 			{"text": "Your breath is visible."},
 			{"text": "You hear a sound... a rasp... growing steadily... as the chill in the air grows."},
-			{"text": "....."},
+			{
+			"chatter": "I'm... scared...",
+			"chatterPerson": "Kylira",
+			"text": "....."},
 			{"text": "...."},
 			{"text": "..."},
 			{"text": ".."},
