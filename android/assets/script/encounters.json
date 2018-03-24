@@ -5490,14 +5490,20 @@
 			"music": "SHOP_MUSIC",
 			"foreground": "DRYAD_BACKGROUND",
 			"text": "You encounter a woman sitting on a tree."},
-			{"text": "On closer inspection, you notice that she's not sitting on the tree, but rather, is fused with it - could she be a dryad?"},
+			{
+			"chatter": "Ooh, yes, a dryad!",
+			"chatterPerson": "Kylira",
+			"text": "On closer inspection, you notice that she's not sitting on the tree, but rather, is fused with it - could she be a dryad?"},
 			{"text": "As you approach her, you see that she is holding an apple that looks incredibly delicious.  You suspect that if you could take a bite of that apple, your hunger woes would subside for a time."}
 		]
 	},	
 	{
 		"key": "DRYAD-OFFER",
 		"scriptLines": [
-			{"text": "You offer the dryad your apple in exchange for her apple, and she accepts, giggling."},
+			{
+			"chatter": "Hmph.  Slut.",
+			"chatterPerson": "Trudy",
+			"text": "You offer the dryad your apple in exchange for her apple, and she accepts, giggling."},
 			{"text": "You bend over, and she rubs her hands, sticky with sap, over your rear, and into your offered-up apple core."},
 			{
 			"sound": "ANAL_INSERTION",
