@@ -8558,7 +8558,10 @@
 			{"text": "\"And you are...?\" you say, to the small elf who seems uncomfortable."},
 			{"text": "\"Um, I'm Kylira,\" they say, helpfully."},
 			{"text": "You sigh.  \"And you are...?\" you say to the tortoise."},
-			{"text": "\"A tortoise,\" he replies, and you give up."},
+			{
+			"chatter": "Oh, for fuck's sake...",
+			"chatterPerson": "Trudy",
+			"text": "\"A tortoise,\" he replies, and you give up."},
 			{"text": "\"Okay. I'm <NAME>. Why are you traveling so early in the morning?\""},
 			{"text": "The tortoise opens its mouth to speak, and you shush it.  It closes its mouth, looking indignant. Or not.  It doesn't really have facial expressions."},
 			{"text": "\"Not you. Kylira.\""},
