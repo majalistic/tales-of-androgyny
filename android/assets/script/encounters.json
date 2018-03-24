@@ -2056,17 +2056,24 @@
 		"key": "BROTHEL",
 		"scriptLines": [
 			{
+			"chatter": "Um... what is this place?",
+			"chatterPerson": "Kylira",
 			"music": "SHOP_MUSIC",
 			"foreground": "BROTHEL_MADAME",
 			"background": "TOWN_BG",
 			"text": "You enter the brothel. It smells... sweet. A beautiful woman leans against the wall, casually."},
-			{"text": "\"Welcome to my brothel. How can I be of service?\" she says, with a serious expression."}
+			{
+			"chatter": "Wow.  What a looker she is.",
+			"chatterPerson": "Trudy",
+			"text": "\"Welcome to my brothel. How can I be of service?\" she says, with a serious expression."}
 		]
 	},
 	{
 		"key": "BROTHEL-MADAME",
 		"scriptLines": [
 			{
+			"chatter": "I'll wait here.",
+			"chatterPerson": "Trudy",
 			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "MADAME", "value":1}}],
 			"text": "\"You want to know about me?  Well, first of all, I'm not for sale.  Unless you have some business you wish to discuss?  Hrm... looking at you again, you might be useful to me.  Come with me,\" she says, curling her finger towards her as she turns and walks away."},
 			{"text": "The view from behind is... intense.  She's wearing high heels, so there's a bit of a pushup, but you've never seen a woman with such an... impressive backside.  Your skeleton nearly jumps out of your skin when she looks over her shoulder at you - you think she may have noticed the staring."},
