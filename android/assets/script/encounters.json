@@ -1371,7 +1371,10 @@
 			"music": "TRAINER_MUSIC",
 			"background": "CABIN_BACKGROUND",			
 			"text": "You approach a strange cottage.  At first, it appears to be inhabited, but once you get within a stone's throw, it suddenly appears old and dilapidated... or did it always look that way?"},
-			{"text": "You try to see inside, but the windows are caked over with dust - it doesn't appear that anyone has lived here for years.  You decide to move on, a bit puzzled."}
+			{
+			"chatter": "Is there anyone in there?",
+			"chatterPerson": "Trudy",
+			"text": "You try to see inside, but the windows are caked over with dust - it doesn't appear that anyone has lived here for years.  You decide to move on, a bit puzzled."}
 		]
 	},
 	{
@@ -1390,13 +1393,18 @@
 			"text": "\"The lord of the mountain?\" she says, incredulous, while giving you a suspicious appraisal. \"Hmm... interesting.  Come inside, young one,\" she says, and then steps away from the crack in the door, only for it to seemingly open fully of its own accord."},
 			{
 			"music": "WEREWOLF_MUSIC",
+			"chatter": "This place is creepy.",
+			"chatterPerson": "Kylira",
 			"text": "The inside of the cottage is bizarre, filled with curious artifacts and myriad trinkets, the greater part of which you cannot discern purpose or origin.  The witch herself, you realize, is younger-looking than you expected, although she is older than you, it seems."},
 			{"text": "\"The lord of the mountain is invincible,\" she says, plainly, and you sigh, a bit defeated, \"...that is, unless you know her weakness.\""},
 			{"text": "You perk up.  That sounds promising.  \"What is her weakness?\""},
 			{"text": "She leans in close to you... you can smell her breath. \"Boys,\" she says, smiling, \"and also the goddess' blessing.  I think the latter is probably more what you were looking for, though,\" she says, leaning back and shrugging."},
 			{"text": "\"How do I receive the goddess' blessing?  Is it a ritual?  A pilgrimage?\" you say, trying to guess at the next leg of your journey."},
 			{"text": "She waves her hand in the air. \"No - it's this old thing,\" she says, picking up a hunk of some metallic object off of a small three legged stool that looked like it was supposed to be used for lacing your boots."},
-			{"text": "You inspect the object.  It's... oddly shaped, like a horse's saddle, with protrusions and depressions... some kind of cage mesh, and some kind of bulbous offshoot.  You've never seen anything like it."},
+			{
+			"chatter": "I don't like the looks of that thing.",
+			"chatterPerson": "Kylira",
+			"text": "You inspect the object.  It's... oddly shaped, like a horse's saddle, with protrusions and depressions... some kind of cage mesh, and some kind of bulbous offshoot.  You've never seen anything like it."},
 			{"text": "\"This is... her weakness?\" you ask, incredulously."},
 			{"text": "\"Nothing less than what you need to defeat her.  If she touches it, she'll no longer be invulnerable.  She'll still be huge and immensely powerful, but, well, that's what heroes are for, right?\" she says, tapping a long fingernail onto your nose."},
 			{"text": "\"What do you want for it?\" you ask, and her smile grows thin."},
@@ -1420,6 +1428,8 @@
 		"scriptLines": [
 			{
 			"mutations": [{"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": -50}}, {"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "WITCH", "value":2}}],
+			"chatter": "Wait...!",
+			"chatterPerson": "Trudy",
 			"text": "You offer up your soul, and the witch reaches a slender finger towards your forehead... and then, everything goes dark.  When you awaken, the goddess' blessing is in your possession... and you've feel like you've forgotten so much."}
 		]
 	},
