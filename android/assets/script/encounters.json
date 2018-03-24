@@ -1495,7 +1495,10 @@
 			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "QUETZAL", "value":2}}],
 			"text": "The situation unfolding before you is a sight to behold.  A lone assailant against the dreaded lord of the mountain... and she's clearly not afraid of him."},
 			{"text": "\"You will face justice this day!\" he cries, although she doesn't appear to be paying much attention.  He goes on like that, explaining how powerful he is and how much justice she's going to catch."},
-			{"text": "You worry if you join him he'll be too surprised to fight... and honestly, you're not sure how much help you would be.  If he really has this, it might be better to just hang back and support as needed."},
+			{
+			"chatter": "That's not going to end well.",
+			"chatterPerson": "Trudy",
+			"text": "You worry if you join him he'll be too surprised to fight... and honestly, you're not sure how much help you would be.  If he really has this, it might be better to just hang back and support as needed."},
 			{"text": "Still, though, the mood is... odd.  He keeps boasting and swearing things, and she keeps just... rubbing some kind of strang jelly over her hands, humming and nodding."},
 			{"text": "She has... no interest in anything that he's saying.  You hope he's as powerful as he claims to be, because she seems quite confident, and outward appearances suggest that she is very, very strong indeed."},
 			{"text": "She continues to rub the jelly on her hand while watching him with amusement.  When he's finished with his screed, he points his sword at her, and then charges."},
@@ -1506,7 +1509,10 @@
 			{"text": "\"Such a proud, boisterous hero...\" she says, and she grasps her tail and coats it in the strange jelly.  When she releases it, it swivels and shakes, almost as if it has a mind of its own.  She brings it down to the would-be hero's face."},
 			{"text": "\"What... what are you doing...\" he asks, and she smiles cooly."},
 			{"text": "\"Getting you ready.  You'll thank me later... if you still have your voice.\""},
-			{"text": "She brings her tail up and around his body, and thwaps it against his cheeks again.  Then, she spreads his hole with her fingers, while still holding him down with her other hand.  His squirming intensifies."},
+			{
+			"chatter": "Mmm... I think we should go.",
+			"chatterPerson": "Trudy",
+			"text": "She brings her tail up and around his body, and thwaps it against his cheeks again.  Then, she spreads his hole with her fingers, while still holding him down with her other hand.  His squirming intensifies."},
 			{"text": "\"I'd say to sit still, but you're not strong enough to move in my grasp anyway,\" she says, as she brings the... relatively... thin tip of her tail in the direction of his pert little hole."},
 			{"text": "Before he can register what she's saying, she's already plunged it inside - right up the butt.  It's as big as a human cock, if not bigger, and widens dangerously the further in it goes, although she keeps it relatively shallow."},
 			{"text": "It dawns on you that she's lubricating him and reaming him out with her tail, taking special care to stretch his virgin asshole in unnatural and ways, likely as foreboding preparation for the awful fate that awaits him."},
