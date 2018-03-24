@@ -1798,7 +1798,10 @@
 			{"text": "\"Hmph.  A soft lad like yourself must have his pride to be out on his own,\" he says, leaning back in his chair again."},
 			{"text": "You nod."},
 			{"text": "\"How's about you swallow that pride?  And while you're at it, my cock?\""},
-			{"text": "Your jaw drops... and then, as the heat reaches your cheeks, you close your mouth, becoming suddenly aware of how that reaction might be interpreted.  \"You... want me to...?\""},
+			{
+			"chatter": "Well, there's a bargain.",
+			"chatterPerson": "Trudy",
+			"text": "Your jaw drops... and then, as the heat reaches your cheeks, you close your mouth, becoming suddenly aware of how that reaction might be interpreted.  \"You... want me to...?\""},
 			{"text": "He taps his finger on the desk, raising his eyebrow."},
 			{"text": "You swallow."}
 		]
@@ -1982,7 +1985,10 @@
 		"key": "BANK-OVERDRAWN",
 		"scriptLines": [
 			{"text": "You enter the bank and instantly feel a sense of unease.  A towering mountain of a man blocks you from leaving."},
-			{"text": "\"We're not running a charity. Pay up some interest, or we'll find a way to pay it for you.\""}
+			{
+			"chatter": "You should really pay the man.",
+			"chatterPerson": "Trudy",
+			"text": "\"We're not running a charity. Pay up some interest, or we'll find a way to pay it for you.\""}
 		]
 	},
 	{
