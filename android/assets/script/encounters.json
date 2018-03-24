@@ -7940,6 +7940,8 @@
 			{"text": "She reaches underneath her mount to spread your cheeks for the breeding."},
 			{"text": "\"As long as I spread your cheeks like this for him, he'll be able to start anally violating you.\""},
 			{
+			"chatter": "Is it... oh my...",
+			"chatterPerson": "Kylira",
 			"sound": "ANAL_INSERTION",
 			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1, "bellyful": 2, "beast": true}}],
 			"text": "You can't believe this is happening - that is, until you feel a strange object force its way inside, and your vision goes white."},
@@ -8062,7 +8064,10 @@
 	{
 		"key": "SPIDER-TRAP-APPROACH",
 		"scriptLines": [
-			{"text": "As you continue through the ruins, you find a narrow corridor that smells vaguely of a bath. You traverse it slowly, when suddenly, one of your footfalls lands lower than you expected."},
+			{
+			"chatter": "Watch out!",
+			"chatterPerson": "Trudy",
+			"text": "As you continue through the ruins, you find a narrow corridor that smells vaguely of a bath. You traverse it slowly, when suddenly, one of your footfalls lands lower than you expected."},
 			{
 			"mutations": [{"saveType":"PORTRAIT", "value":{"class": "com.majalis.asset.AssetEnum", "value": "PORTRAIT_SURPRISE"}}], 
 			"text": "The floor below you collapses!"}
