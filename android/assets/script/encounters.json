@@ -2045,7 +2045,10 @@
 			"background": "TOWN_BG",
 			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "MADAME", "value":4}}],
 			"text": "You enter the tavern.  It's mostly empty, save a few particularly down-and-out-looking individuals who are in no mood to chat... with a singular exception, who's regaling one of the non-exceptions with a drunken, bawdy tale."},
-			{"text": "As she described him, he's got tattooed olive skin, white hair, and is boozing and bullshitting.  You approach him, and explain the situation.  The brothel owner back in Silajam wants to speak with him.  He doesn't want any trouble, and so you escort him to the carriage station."},
+			{
+			"chatter": "That's definitely him.",
+			"chatterPerson": "Trudy",
+			"text": "As she described him, he's got tattooed olive skin, white hair, and is boozing and bullshitting.  You approach him, and explain the situation.  The brothel owner back in Silajam wants to speak with him.  He doesn't want any trouble, and so you escort him to the carriage station."},
 			{"text": "To collect your bounty, you'll need to return as well.  Pay the carriage fee and return to Silajam?"}
 		]
 	},
