@@ -4932,9 +4932,14 @@
 			{"text": "Before you can inspect further, she turns to face you, and, seeing you, jiggles excitedly. Her \"breasts\" are massive, far larger than any human woman would have, and they move quite... fluidly."},
 			{"text": "\"Ooooooo... a human!  What brings you to my haunt?\" she asks, although as soon as she starts to approach... slithering across the ground, you reach for your weapon."},
 			{
+			"chatter": "You don't know?",
+			"chatterPerson": "Trudy",
 			"mutations": [{"saveType":"PORTRAIT", "value":{"class": "com.majalis.asset.AssetEnum", "value": "PORTRAIT_SURPRISE"}}],
 			"text": "\"What... are you?\" you ask, confused."},
-			{"text": "\"That's a rather rude question, isn't it?\", she says, \"I'm a slime, obviously.  A sentient slime.\""},
+			{
+			"chatter": "I've never seen a slime so... human-like.",
+			"chatterPerson": "Kylira",
+			"text": "\"That's a rather rude question, isn't it?\", she says, \"I'm a slime, obviously.  A sentient slime.\""},
 			{"text": "Obviously."},
 			{
 			"mutations": [{"saveType":"PORTRAIT", "value":{"class": "com.majalis.asset.AssetEnum", "value": "PORTRAIT_NEUTRAL"}}],
@@ -4950,7 +4955,10 @@
 			{"text": "\"Why? Are you enticed?\" she asks, wiggling her... \"hips\"."},
 			{"text": "She sees that you're not amused by her response, and sighs."},
 			{"text": "\"I just prefer this form.  It keeps me... grounded,\" she says, shrugging, \"I have no interest in eating you, or, mmhm, engaging in other primal behaviors. We don't reproduce that way, you see,\" she says, patting the flat goo where her vagina would be."},
-			{"text": "\"How... do you reproduce?\""},
+			{
+			"chatter": "Isn't that a bit rude?",
+			"chatterPerson": "Kylira",
+			"text": "\"How... do you reproduce?\""},
 			{"text": "\"My, what a personal question. Love darts, since you asked,\" she says, looking proud of herself."},
 			{"text": "You look at her confused."},
 			{"text": "\"Mmm, don't ask,\" she says, and you decide to drop that line of inquiry."},
@@ -4971,8 +4979,14 @@
 			"text": "\"Your core?\""},
 			{"text": "\"It's the only way to kill a slime.  Chopping us up to pieces does nothing; we'll just reform. If you destroy this, we're gone for good,\" she says, pointing to a jewel floating within her gelatinous form."},
 			{"text": "\"Why are you telling me this?\""},
-			{"text": "\"You'd find out anyway,\" she explains, sloshing a bit as she struggles to keep her voluptuous form, \"and I would rather have it done quickly than... the alternative.\""},
-			{"text": "Do you stab her core?"}
+			{
+			"chatter": "She sounds confident.",
+			"chatterPerson": "Trudy",
+			"text": "\"You'd find out anyway,\" she explains, sloshing a bit as she struggles to keep her voluptuous form, \"and I would rather have it done quickly than... the alternative.\""},
+			{
+			"chatter": "Do we really need to do this?.",
+			"chatterPerson": "Kylira",
+			"text": "Do you stab her core?"}
 		]
 	},	
 	{
@@ -4994,6 +5008,8 @@
 		"key": "SLIME-FAIL",
 		"scriptLines": [
 			{
+			"chatter": "What?!",
+			"chatterPerson": "Kylira",
 			"mutations": [{"saveType":"PORTRAIT", "value":{"class": "com.majalis.asset.AssetEnum", "value": "PORTRAIT_SURPRISE"}}],
 			"text": "You fail to shatter the slime's core - her slime hardens in such a way to deflect the blow, and then she lurches towards you, so that your wrist gets sucked inside of her. In the next few terrifying moments, she pulls the whole of you into herself."},
 			{"text": "\"You're quite violent, aren't you?  Well, I won't turn down such a generously offered meal.  Hopefully you go to my chest or hips and not my belly,\" she says, ominously."},
@@ -5082,8 +5098,14 @@
 			{"text": "\"My name is Protea, if you're curious,\" she says, her hands tracing along her hips and down to her thighs, \"but you can call me Tea.\""},
 			{"text": "\"Hi... Tea,\" you say, feeling weird about addressing a sentient slime in such a casual way. \"I'm <NAME>. Are you sure you're not going to eat me?\""},
 			{"text": "She jiggles again. \"No way. I like cute humans like you.  And it seems like... we're not going to have any problems getting along, are we?\" she asks, sloshing towards you until you can hear... well, not her breathing, but something."},
-			{"text": "You reach out and touch her chest - your fingers sink in, but just barely, and there's a surprising amount of give.  You get the sense that she's intentionally keeping her form so that it feels how you expect it to feel.  To your relief, she doesn't suck you in."},
-			{"text": "\"Mmmm... and do you want to come into me or... would you like me to fashion you up a male-human surrogate?  You wouldn't be the first to ask for that, either,\" she says, flatly."},
+			{
+			"chatter": "Didn't take you for a slime-sexual.",
+			"chatterPerson": "Trudy",
+			"text": "You reach out and touch her chest - your fingers sink in, but just barely, and there's a surprising amount of give.  You get the sense that she's intentionally keeping her form so that it feels how you expect it to feel.  To your relief, she doesn't suck you in."},
+			{
+			"chatter": "Um... I guess... I'll wait over here...",
+			"chatterPerson": "Kylira",
+			"text": "\"Mmmm... and do you want to come into me or... would you like me to fashion you up a male-human surrogate?  You wouldn't be the first to ask for that, either,\" she says, flatly."},
 			{"text": "What do you do?"}
 		]
 	},	
