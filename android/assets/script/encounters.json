@@ -7298,10 +7298,13 @@
 			{
 			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "TRUDY", "value":1}}],
 			"foreground": "ADVENTURER",
-			"text": "The elmwood tinted rays of the sun cast long shadows against the well-used trail, as you cross the paths of travelling merchants, pilgrims, and, to your surprise, a fellow hired blade - with a battle-axe of some impressive make."},
+			"text": "The elmwood tinted rays of the sun cast long shadows against the well-used trail, as you cross the paths of traveling merchants, pilgrims, and, to your surprise, a fellow hired blade - with a battle-axe of some impressive make."},
 			{"text": "They're dressed rather ostentatiously in fine cloths and silks, their armor light but of just as high quality as their weapon."},
-			{"text": "You can't tell if they're a man or a woman even when they speak, their husky voice just as ambiguous; the androgyny persists even when they introduce themselves as \"Trudy\"."},
-			{"text": "\"And you?\" they ask, looking you up and down, clearly taking note of your inferior armaments and accoutraments."},
+			{
+			"chatter": "Hi, Trudy!",
+			"chatterPerson": "Kylira",
+			"text": "You can't tell if they're a man or a woman even when they speak, their husky voice just as ambiguous; the androgyny persists even when they introduce themselves as \"Trudy\"."},
+			{"text": "\"And you?\" they ask, looking you up and down, clearly taking note of your inferior armaments and accouterments."},
 			{"text": "\"Hail, Trudy.  My name is <NAME>,\" you say, trying your best to sound authoritative, although the way they stare off, enmeshed in their own thoughts, makes you wonder how much they actually care what your name is."},
 			{"text": "\"<NAME>, is it?  Hmph.  Well then, <NAME>, the day grows long.  If you'd accompany me for dinner, I would be willing to share,\" they say, and, feeling the growling of your own stomach, and a desire for a friendly face after so long alone, you agree."},
 			{"text": "..."},
@@ -7328,7 +7331,7 @@
 			"text": "You encounter Trudy again in the woods - their cheeks redden as you approach."},
 			{"text": "\"I could use your help,\" he says, and after he explains the situation, you agree to lend your metal."},
 			{"text": "A local noble was slain trying to tame a warg.  While lone wargs are rarely a danger, the noble was well-jeweled at his untimely departure from the land of the living, and Trudy is trying to recover said jewels for fun and profit."},
-			{"text": "Seeing an opportunity to make some much-needed travelling coin, you join Trudy on his treasure hunt."},
+			{"text": "Seeing an opportunity to make some much-needed traveling coin, you join Trudy on his treasure hunt."},
 			{"text": "You scout out the warg together, and he details his plan, which is simple: he'll distract the beast while you loot the body, and then you'll reconvene at a pre-arranged meeting place - Trudy's camp.  He's confident of his technique, but in the worst case..."},
 			{"text": "\"It's a fearsome beast... but it's their mating season, and it seems there are no female wargs around.  It doesn't seem to have a taste for humans, if the state of our noble is any indication,\" he says, as you watch the warg gnawing on a bone, the fallen noble decaying next to him."},
 			{"text": "There doesn't seem to be any obvious external injuries - you wonder what did the poor guy in, but it doesn't seem it was the warg itself, despite its hulking, dangerous appearance."},
@@ -7443,6 +7446,8 @@
 		"key": "ADVENTURER-VICTORY",
 		"scriptLines": [
 			{
+			"chatter": "Stop fighting!",
+			"chatterPerson": "Kylira",
 			"mutations": [{"saveType":"PORTRAIT", "value":{"class": "com.majalis.asset.AssetEnum", "value": "PORTRAIT_GRIN"}}],
 			"text": "Trudy fights hard to stay upright, but his fight is obviously gone - his axe-blade dug into the ground, he leans on the handle for support, his knees buckling."},
 			{
