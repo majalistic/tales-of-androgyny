@@ -6465,7 +6465,10 @@
 			{"text": "\"Hey there!\" she says, waving you down, and you approach cautiously.  When you get within speaking distance, you see that her eyes are strange, somehow inhuman.  Otherwise, aside from her rather prominent figure, you don't notice anything odd about her - only about what she's carrying."},
 			{"text": "\"Uh... hail.  Are you, by any chance, a merchant?\""},
 			{"text": "She smirks. \"You could say that.  I'm more of a peddler.\""},
-			{"text": "\"Can I... see your wares?\" you say, eyeing some of the more... exotic looking items she's carrying.  You're not sure what they're for, but your throat tightens as you stare up their length - and so does another part of you."},
+			{
+			"chatter": "What are those for?",
+			"chatterPerson": "Kylira",
+			"text": "\"Can I... see your wares?\" you say, eyeing some of the more... exotic looking items she's carrying.  You're not sure what they're for, but your throat tightens as you stare up their length - and so does another part of you."},
 			{"text": "\"Go for it!  Let me know if you see anything you like.\""}
 		]
 	},
@@ -6838,7 +6841,10 @@
 			{"text": "\"Interrupt who?\" you ask, and he fixes his one good eye on yours with a wry smile."},
 			{"text": "\"Look for yerself,\" he says, crab-walking a pace to give you room to look through the same gap in the foliage.  You peer through, and your hand snaps to your mouth to stifle a surprised gasp."},
 			{"text": "Facing mostly away from the huddled group a leap and bound away is an orc of considerable size... and bent over in front of her, in partial view, is a fully naked human, their armor and armaments seemingly scattered about on the ground."},
-			{"text": "Their whining moans are just barely audible from that distance, as the orc grunts and growls their own vocalizations, apparently unaware of their audience."},
+			{
+			"chatter": "Oof...",
+			"chatterPerson": "Trudy",
+			"text": "Their whining moans are just barely audible from that distance, as the orc grunts and growls their own vocalizations, apparently unaware of their audience."},
 			{"text": "\"They've been goin' at it quite a while,\" the man with one eye explains, \"and the lass has been goin' mad from it.\""},
 			{"text": "\"'Mad' 'e says,\" the drunker of the two men chimes in with, only to be shushed down, \"that fat-arsed lass is lovin' every second of it.  She's got more greenskin meat in her box than she's got in 'er 'ead,\" he explains, somewhat incoherently."},
 			{"text": "\"I dunnae if that's how she thought her heroics would go, though.  I don't think she set out with the hopes that a fifteen stone orc'd use her wronghole as a cock-warmer.\""},
@@ -6977,7 +6983,10 @@
 	{
 		"key": "ORC-DEFEAT",
 		"scriptLines": [
-			{"text": "With the last of your strength, you kneel, unable to continue against her ferocious onslaught.  She grabs hold of your hair, and makes you look up at her face, her rock-solid phallus crossing your field of vision."},
+			{
+			"chatter": "Too... strong...",
+			"chatterPerson": "Trudy",
+			"text": "With the last of your strength, you kneel, unable to continue against her ferocious onslaught.  She grabs hold of your hair, and makes you look up at her face, her rock-solid phallus crossing your field of vision."},
 			{"text": "\"Though you're not much of a warrior, pinkskin, your courage is obvious.  I have some... spoils that I have need to offload.  Your suggestion?\""}
 		]
 	},
@@ -7092,6 +7101,8 @@
 			"foreground": "NULL",
 			"text": "The vagabonds come out from their hiding place, and you meet up with them, before investigating the now-collapsed person on the receiving end of the orc's anal ordeal."},
 			{
+			"chatter": "Ooooh...",
+			"chatterPerson": "Kylira",
 			"text": "\"Oi... poor lass. Fooked senseless by an orc,\" says the one-eyed man."},
 			{"text": "\"Up the shitter, no less... quite the indignity, ain't it?\" says the drunkard, taking another swig."},
 			{"text": "\"At least she won't be squirtin' out an orc baby in 4 months,\" comes the reply, as you reluctantly step forward to see the result of the orc's handiwork."},
@@ -7115,7 +7126,10 @@
 			{"text": "\"Urka!\" you say, having recognized the orc immediately."},
 			{"text": "\"Mmm.   <NAME>, was it?  How have your travels been?\""},
 			{"text": "You follow Urka back to her camp, explaining what you've seen and done since you last met.  She seems vaguely disinterested, but she humors you nonetheless."},
-			{"text": "\"Would you break bread with me?  I promise I'll be gentle...\" she says, not exactly hiding her intentions to bed you if you stay for dinner."}
+			{
+			"chatter": "Hmph... is she your type?",
+			"chatterPerson": "Trudy",
+			"text": "\"Would you break bread with me?  I promise I'll be gentle...\" she says, not exactly hiding her intentions to bed you if you stay for dinner."}
 		]
 	},
 	{
