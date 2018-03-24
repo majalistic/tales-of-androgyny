@@ -5764,10 +5764,14 @@
 			{"text": "Its kicking has become incessant, but now it's something else entirely.  You deal with the aches and big belly as gracefully as you can, but you can't help but think back to the fateful encounter with the goblin... or the baby's, for lack of a better term, \"daddy\"."},
 			{"text": "You can sense that it will be soon... but you worry that it will be a rather unpleasant affair."},
 			{
+			"chatter": "What's wrong?",
+			"chatterPerson": "Kylira",
 			"mutations": [{"saveType":"PORTRAIT", "value":{"class": "com.majalis.asset.AssetEnum", "value": "PORTRAIT_SURPRISE"}}], 
 			"text": "Suddenly, while walking, you double over... the baby's coming."},			
 			{"text": "You lay down on the ground, legs spread... teeth grit, and hands balled into fists.  It's definitely coming.  When you feel the creature's head dilating your anus, your stomach cramping, you groan.  This is going to be... difficult."},
 			{
+			"chatter": "Is... are you giving birth?",
+			"chatterPerson": "Trudy",
 			"mutations": [{"saveType":"PORTRAIT", "value":{"class": "com.majalis.asset.AssetEnum", "value": "PORTRAIT_GRIMACE"}}], 
 			"text": "Somehow, you manage to begin to squeeze it out... you worry your o-ring will never return to its proper shape."}
 		]
@@ -5848,6 +5852,8 @@
 		"key": "GOBLIN-EAGLE-EYE",
 		"scriptLines": [
 			{
+			"chatter": "There it is!",
+			"chatterPerson": "Trudy",
 			"animatedForeground": "GOBLIN",
 			"text": "You home in the exact location of the noise you heard, and your eyes lock on a small, diminuitive figure.  They quickly dive into the undergrowth, trying to break your line of vision, but your keen senses are able to track them regardless of where they go."},
 			{"text": "They dart through the underbrush and position themselves nearby, unaware that you still know exactly where they are.  They try to nick you with their spear, thrusting out from the growth."}
@@ -5857,6 +5863,8 @@
 		"key": "GOBLIN-HELMET",
 		"scriptLines": [
 			{
+			"chatter": "Are you okay?!",
+			"chatterPerson": "Kylira",
 			"mutations": [{"saveType":"HEALTH", "value":{"class": "java.lang.Integer", "value": -15}}],
 			"text": "You get walloped in the head with something, and fall to the ground - if you hadn't been wearing a helmet, that could have gone badly.  Your ears are ringing and your head hurts, but you're okay otherwise."},
 			{"text": "You turn to see that a small figure has rode some kind of swing that would have hit you had you not managed to get out of the way, and they dismount from it, then disappear into the undergrowth."}
