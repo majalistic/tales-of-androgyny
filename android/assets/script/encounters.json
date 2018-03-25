@@ -5394,6 +5394,12 @@
 		]
 	},	
 	{
+		"key": "BRIGAND-KYLIRA",
+		"scriptLines": [
+			{"text": ""}
+		]
+	},
+	{
 		"key": "BRIGAND-FAIL",
 		"scriptLines": [
 			{"text": "Her lip curls into a snarl, and she draws her weapon. \"Well, who asked you, anyway?!\" she cries, and you prepare yourself for her attack."}

@@ -269,6 +269,10 @@ public class CheckScene extends AbstractTextScene {
 			@Override
 			protected boolean getCheck(PlayerCharacter character) { return character.hasTrudy(); }  
 		},
+		HAS_KYLIRA("You have Kylira as a companion!", "You don't have a certain companion.") {
+			@Override
+			protected boolean getCheck(PlayerCharacter character) { return character.hasKylira(); }  
+		},
 		OGRE_DONE ("", "") { 
 			@Override
 			protected boolean getCheck(PlayerCharacter character) { return character.getQuestStatus(QuestType.OGRE) == 0; }  
@@ -545,7 +549,7 @@ public class CheckScene extends AbstractTextScene {
 		MANOR_UNVISITED("", "") {
 			@Override
 			protected boolean getCheck(PlayerCharacter character) { int check = character.getQuestStatus(QuestType.WARLOCK); return check == 1;}  
-		},  
+		},   
 		;
 		private final String success;
 		private final String failure;

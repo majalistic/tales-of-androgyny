@@ -488,13 +488,17 @@ public enum EncounterCode {
 					).setRange(2),
 					b.branch("Speak").textScene("BRIGAND-HAIL").choiceScene(
 						"Accept her offer?",
-						b.branch("Accept (Requires: Catamite)").require(ChoiceCheckType.LEWD).checkScene(CheckType.PLUGGED, b.branch(true).textScene("BRIGAND-BUTTPLUG").concat(acceptCont), b.branch(false).concat(acceptCont)),
+						b.branch("Accept (Requires: Catamite)").require(ChoiceCheckType.LEWD).textScene("BRIGAND-ACCEPT").checkScene(CheckType.PLUGGED, b.branch(true).textScene("BRIGAND-BUTTPLUG").concat(acceptCont), b.branch(false).concat(acceptCont)),
 						b.branch("Decline").textScene("BRIGAND-DECLINE").checkScene(
 							Stat.CHARISMA,
 							b.branch(5).textScene("BRIGAND-CONVINCE"),
-							b.branch(0).textScene("BRIGAND-FAIL").battleScene(
-								BattleCode.BRIGAND, 
-								battleBranches2
+							b.branch(0).checkScene(
+								CheckType.HAS_KYLIRA, 
+								b.branch(true).textScene("BRIGAND-KYLIRA"), 
+								b.branch(false).textScene("BRIGAND-FAIL").battleScene(
+									BattleCode.BRIGAND, 
+									battleBranches2
+								)
 							)
 						)
 					)
