@@ -375,7 +375,7 @@ public class SaveManager implements SaveService, LoadService {
         		visitedNodeList = new IntMap<VisitInfo>();
         		visitedNodeList.put(1,  new VisitInfo(1, 0, 0, 0, 1));
         		kylira = 5;
-        		trudy = 14;
+        		trudy = 14; // these should be set with an actual automatic value (or based on the initial gen)
         		player = new PlayerCharacter(true);
         		results = new Array<MutationResult>();
         		battleResults = new Array<MutationResult>();
