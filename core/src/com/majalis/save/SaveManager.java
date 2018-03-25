@@ -65,6 +65,7 @@ public class SaveManager implements SaveService, LoadService {
     public void saveDataValue(ProfileEnum key, Object object, boolean saveToJson) {
     	switch (key) {
 			case KNOWLEDGE:		profileSave.addKnowledge((String) object); break;
+			case ACHIEVEMENT:   profileSave.addAchievement((Achievement) object); break;
 		}
     	if (saveToJson) {
     		saveToProfileJson(profileSave);
@@ -75,6 +76,7 @@ public class SaveManager implements SaveService, LoadService {
     public <T> T loadDataValue(ProfileEnum key, Class<?> type) {
     	switch (key) {
 			case KNOWLEDGE: 		return (T) (ObjectMap<String, Integer>) profileSave.enemyKnowledge;
+			case ACHIEVEMENT: 		return (T) (ObjectMap<String, Integer>) profileSave.achievements;
 		}
     	return null;
     }
@@ -384,17 +386,20 @@ public class SaveManager implements SaveService, LoadService {
     }
     
     public static class ProfileSave {
-    	private ObjectMap<String, Integer> enemyKnowledge;
+    	private ObjectMap<String, Integer> achievements;
+		private ObjectMap<String, Integer> enemyKnowledge;
     	
     	// 0-arg constructor for JSON serialization: DO NOT USE
 		private ProfileSave() {}
-    	private ProfileSave(boolean defaultValues) {
+		private ProfileSave(boolean defaultValues) {
     		enemyKnowledge = new ObjectMap<String, Integer>();
     	}
+		public void addAchievement(Achievement achievement) { addAchievement(achievement.toString()); }
+		protected void addAchievement(String achievement) { addAchievement(achievement, 1); }
+    	protected void addAchievement(String achievement, int amount) { achievements.put(achievement, amount); }
     	
     	protected void addKnowledge(String knowledge) { addKnowledge(knowledge, 1); }
     	protected void addKnowledge(String knowledge, int amount) { enemyKnowledge.put(knowledge, amount); }
-    	
     }
     
 	public enum JobClass {
