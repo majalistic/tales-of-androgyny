@@ -14,7 +14,8 @@ public enum AnimationEnum {
 	ORC_PRONE_BONE(AssetEnum.ORC_PRONE_BONE_ANIMATION),
 	GOBLIN(AssetEnum.GOBLIN_ANIMATION),
 	GOBLIN_MALE(AssetEnum.GOBLIN_ANIMATION),
-	NULL(AssetEnum.NULL_ANIMATION)
+	TRUDY(AssetEnum.TRUDY_SPRITE_ANIMATION),
+	NULL(AssetEnum.NULL_ANIMATION)	
 	;
 	private static final ObjectMap<AssetEnum, AnimatedActorFactory> factoryMap = new ObjectMap<AssetEnum, AnimatedActorFactory>();
 	private final AssetEnum animationToken;

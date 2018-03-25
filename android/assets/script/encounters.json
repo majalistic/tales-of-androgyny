@@ -623,7 +623,7 @@
 		"scriptLines": [
 			{
 			"music": "GADGETEER_MUSIC",
-			"foreground": "ADVENTURER",
+			"animatedForeground" : "TRUDY"
 			"text": "You come across a fellow traveller on the road, clad in ostentatious armor, riding what appears to be a giant bird."},
 			{"text": "As they approach, you think they might be a woman, or a man... and by the time they're within ear-shot, you can't tell."},
 			{"text": "\"I'm traveling to some dreadful place called Nadir. I'm told a powerful mage lives there that I must consult. I'll be coming back this way as soon as possible,\" they explain, unbidden."},
@@ -7346,7 +7346,7 @@
 		"scriptLines": [
 			{
 			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "TRUDY", "value":1}}],
-			"foreground": "ADVENTURER",
+			"animatedForeground" : "TRUDY"
 			"text": "The elmwood tinted rays of the sun cast long shadows against the well-used trail, as you cross the paths of traveling merchants, pilgrims, and, to your surprise, a fellow hired blade - with a battle-axe of some impressive make."},
 			{"text": "They're dressed rather ostentatiously in fine cloths and silks, their armor light but of just as high quality as their weapon."},
 			{
@@ -7376,7 +7376,7 @@
 		"key": "ADVENTURER-HUNT-INTRO",
 		"scriptLines": [
 			{
-			"foreground": "ADVENTURER",
+			"animatedForeground" : "TRUDY"
 			"text": "You encounter Trudy again in the woods - their cheeks redden as you approach."},
 			{"text": "\"I could use your help,\" he says, and after he explains the situation, you agree to lend your metal."},
 			{"text": "A local noble was slain trying to tame a warg.  While lone wargs are rarely a danger, the noble was well-jeweled at his untimely departure from the land of the living, and Trudy is trying to recover said jewels for fun and profit."},
@@ -7438,7 +7438,7 @@
 			"text": "You feel something wrap around your leg."},
 			{"text": "As the snare is triggered, the heavy stone anchored to it falls, clanging bells that were hidden and affixed to it making a raucous noise as it does.  Almost immediately, you can hear the growling of the warg."},
 			{
-			"foreground": "ADVENTURER",
+			"animatedForeground" : "TRUDY"
 			"text": "As Trudy pilfers the missing traveller's things, the warg tears up your clothing with its teeth, eager to breed, apparently uncaring that you are both male and human.  An awful premonition comes to mind, and as you feel the heat and pressure of the warg's bestial staff between your cheeks, a lump forms in your throat."},
 			{"text": "Trudy escapes with the stolen goods, but not before blowing you a mocking kiss.  Almost simultaneously, you feel it - your hole yawns open, tasting the breadth of Trudy's treachery."},
 			{
@@ -7455,7 +7455,7 @@
 		"scriptLines": [
 			{
 			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "TRUDY", "value":2}}],
-			"foreground": "ADVENTURER",
+			"animatedForeground" : "TRUDY"
 			"text": "As the snare is triggered, the heavy stone anchored to it falls, clanging bells that were hidden and affixed to it making a raucous noise as it does.  Almost immediately, you can hear the growling of the warg."}
 			{"text": "You duck out of sight, and the warg quickly makes its appearance.  You keep out of its field of vision while making your way to where the fallen noble lies."},
 			{
@@ -7476,7 +7476,7 @@
 		"key": "ADVENTURER-ANGRY-REUNION",
 		"scriptLines": [
 			{
-			"foreground": "ADVENTURER",
+			"animatedForeground" : "TRUDY"
 			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "TRUDY", "value":4}}],
 			"text": "Trudy stares at you, defiantly.  Last you heard, he was being buggered silly by a warg.  His gait is slightly askew, and you stifle a snicker, even as you ready yourself."},
 			{"text": "\"If you expect me to just take that lying down...\" Trudy begins, although he stops himself, his face falling. Poor choice of words. His face red with anger and embarrassment, he attacks!"}
@@ -7486,7 +7486,7 @@
 		"key": "ADVENTURER-SMUG-REUNION",
 		"scriptLines": [
 			{
-			"foreground": "ADVENTURER",
+			"animatedForeground" : "TRUDY"
 			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "TRUDY", "value":4}}],
 			"text": "\"Hmph.  I'm surprised you're not a little more knock-kneed,\" Trudy says, as you approach.  Teeth grit at his betrayal, you attack!"}
 		]
@@ -7630,7 +7630,7 @@
 		"scriptLines": [
 			{
 			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "TRUDY", "value":5}}],
-			"foreground": "ADVENTURER",
+			"animatedForeground" : "TRUDY"
 			"text": "You cross paths with Trudy once again.  They seem a little less recalcitrant than last you saw them.  After some cajoling, they agree to set aside their differences and join your quest... for now."}
 		]
 	},
@@ -8859,7 +8859,7 @@
 		"scriptLines": [
 			{
 			"music": "GADGETEER_MUSIC",
-			"foreground": "ADVENTURER",
+			"animatedForeground" : "TRUDY"
 			"mutations": [{"saveType":"HEALTH", "value":{"class": "java.lang.Integer", "value": 10}}, {"saveType":"TIME", "value":{"class": "java.lang.Integer", "value": 1}}],
 			"text": "You sit with Trudy a while.  He talks about his grand adventures.  You wonder how much of it is true."}
 		]
@@ -8869,7 +8869,7 @@
 		"scriptLines": [
 			{
 			"music": "GADGETEER_MUSIC",
-			"foreground": "ADVENTURER",
+			"animatedForeground" : "TRUDY"
 			"text": "You sit with Trudy for a while.  He's haughty and high-maintenance, but you are interested in his travels as an adventurer."}
 		]
 	},
@@ -8892,7 +8892,7 @@
 		"scriptLines": [
 			{
 			"music": "GADGETEER_MUSIC",
-			"foreground": "ADVENTURER",
+			"animatedForeground" : "TRUDY"
 			"text": "You sit with Trudy for a while.  Knowing that he's a very seasoned adventurer, you wonder if he could train you."}
 		]
 	},

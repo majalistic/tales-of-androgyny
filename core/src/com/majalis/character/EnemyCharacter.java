@@ -190,6 +190,7 @@ public class EnemyCharacter extends AbstractCharacter {
 				((enemyType == EnemyEnum.GOBLIN || enemyType == EnemyEnum.GOBLIN_MALE) && (stance == Stance.FACE_SITTING || stance == Stance.SIXTY_NINE || stance == Stance.PRONE_BONE || stance == Stance.DOGGY || stance == Stance.PRONE_BONE || stance == Stance.SIXTY_NINE)) ||
 				(enemyType == EnemyEnum.CENTAUR && (stance == Stance.DOGGY || stance == Stance.FELLATIO)) ||
 				(enemyType == EnemyEnum.WERESLUT && (stance == Stance.DOGGY || stance == Stance.KNOTTED)) ||
+				(enemyType == EnemyEnum.ADVENTURER && (stance == Stance.COWGIRL)) ||
 				(enemyType == EnemyEnum.HARPY && stance == Stance.DOGGY) ||
 				(enemyType == EnemyEnum.BRIGAND && (stance == Stance.FELLATIO || stance == Stance.FACEFUCK || stance == Stance.ANAL))) {
 			Array<Image> textureCandidates = textures.get(stance, defaultTextures);

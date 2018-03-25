@@ -1,0 +1,139 @@
+
+Trudy.png
+size: 2048,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Axe
+  rotate: false
+  xy: 2, 693
+  size: 814, 325
+  orig: 814, 325
+  offset: 0, 0
+  index: -1
+Dick
+  rotate: false
+  xy: 1357, 641
+  size: 83, 127
+  orig: 83, 127
+  offset: 0, 0
+  index: -1
+Feathers
+  rotate: true
+  xy: 1017, 164
+  size: 235, 179
+  orig: 235, 179
+  offset: 0, 0
+  index: -1
+ForeHair
+  rotate: true
+  xy: 1198, 170
+  size: 232, 222
+  orig: 232, 222
+  offset: 0, 0
+  index: -1
+Fringe1
+  rotate: true
+  xy: 1961, 843
+  size: 175, 74
+  orig: 175, 74
+  offset: 0, 0
+  index: -1
+Fringe2
+  rotate: false
+  xy: 751, 98
+  size: 167, 86
+  orig: 167, 86
+  offset: 0, 0
+  index: -1
+Fringe3
+  rotate: false
+  xy: 2, 2
+  size: 171, 88
+  orig: 171, 88
+  offset: 0, 0
+  index: -1
+Hair
+  rotate: false
+  xy: 1189, 404
+  size: 214, 210
+  orig: 214, 210
+  offset: 0, 0
+  index: -1
+Head
+  rotate: true
+  xy: 574, 22
+  size: 162, 175
+  orig: 162, 175
+  offset: 0, 0
+  index: -1
+LEye
+  rotate: false
+  xy: 746, 637
+  size: 65, 54
+  orig: 65, 54
+  offset: 0, 0
+  index: -1
+LeftArm
+  rotate: true
+  xy: 818, 616
+  size: 152, 537
+  orig: 152, 537
+  offset: 0, 0
+  index: -1
+Lleg
+  rotate: true
+  xy: 818, 770
+  size: 248, 702
+  orig: 248, 702
+  offset: 0, 0
+  index: -1
+Mouth
+  rotate: false
+  xy: 574, 403
+  size: 34, 33
+  orig: 34, 33
+  offset: 0, 0
+  index: -1
+Petticoat
+  rotate: false
+  xy: 746, 401
+  size: 441, 213
+  orig: 441, 213
+  offset: 0, 0
+  index: -1
+REye
+  rotate: false
+  xy: 175, 48
+  size: 42, 42
+  orig: 42, 42
+  offset: 0, 0
+  index: -1
+RightArm
+  rotate: true
+  xy: 1522, 666
+  size: 352, 437
+  orig: 352, 437
+  offset: 0, 0
+  index: -1
+Rleg
+  rotate: true
+  xy: 2, 438
+  size: 253, 742
+  orig: 253, 742
+  offset: 0, 0
+  index: -1
+SkirtRuffle
+  rotate: false
+  xy: 574, 186
+  size: 441, 213
+  orig: 441, 213
+  offset: 0, 0
+  index: -1
+Torso
+  rotate: true
+  xy: 2, 92
+  size: 344, 570
+  orig: 344, 570
+  offset: 0, 0
+  index: -1
