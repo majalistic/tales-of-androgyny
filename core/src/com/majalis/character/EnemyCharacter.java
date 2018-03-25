@@ -36,12 +36,13 @@ public class EnemyCharacter extends AbstractCharacter {
 	private int currentFrame;
 	private int selfRessurect;
 	private boolean storyMode;
+	private Disposition disposition;
 	private RandomXS128 random;
 	private transient boolean init;
 	@SuppressWarnings("unused") private String bgPath; // deprecated
 	
 	@SuppressWarnings("unused")
-	private EnemyCharacter() {}
+	private EnemyCharacter() { disposition = Disposition.HAPPY; }
 	public EnemyCharacter(Array<Texture> textures, ObjectMap<Stance, Array<Texture>> textureMap, Array<AnimatedActor> animations, EnemyEnum enemyType) { this(textures, textureMap, animations, enemyType, Stance.BALANCED, false); }
 	public EnemyCharacter(Array<Texture> textures, ObjectMap<Stance, Array<Texture>> textureMap, Array<AnimatedActor> animations, EnemyEnum enemyType, Stance stance, boolean storyMode) {
 		super(true);
@@ -82,6 +83,7 @@ public class EnemyCharacter extends AbstractCharacter {
 		setStaminaToMax();
 		setManaToMax();		
 		this.currentHealth = getMaxHealth();
+		disposition = enemyType == EnemyEnum.ANGEL ? Disposition.PEACEFUL : Disposition.HAPPY;
 	}
 	
 	public Array<String> getImagePaths() { return enemyType.getPaths(); }
@@ -706,6 +708,15 @@ public class EnemyCharacter extends AbstractCharacter {
 		return super.doAttack(resolvedAttack);
 	}
 	
+	@Override
+	public AttackResult receiveAttack(Attack resolvedAttack) {
+		AttackResult result = super.receiveAttack(resolvedAttack);
+		if (resolvedAttack.getDamage() > 0 && disposition == Disposition.PEACEFUL) { disposition = Disposition.ANGRY; }
+		if (arousal.isErect() && disposition == Disposition.HAPPY)  { disposition = Disposition.HORNY; }
+		else if (disposition == Disposition.HORNY) { disposition = Disposition.HAPPY; }
+		return result;
+	}
+	
 	public void setClimaxCounter(int climaxCounter) { climaxCounters.put(ClimaxType.BACKWASH.toString(), climaxCounter); }
 
 	public void toggle() {
@@ -1086,7 +1097,7 @@ public class EnemyCharacter extends AbstractCharacter {
 			else if (stance == Stance.CASTING) {
 				return getTechniques(HEAL);
 			}
-			else if (currentHealth < getMaxHealth() || selfRessurect > 1) {
+			else if (disposition != Disposition.PEACEFUL) {
 				if (currentHealth < 40 && currentMana > 10) {
 					return getTechniques(INCANTATION);
 				}
@@ -1165,4 +1176,12 @@ public class EnemyCharacter extends AbstractCharacter {
 		randomResult = Math.max(Math.min(randomResult + randomWeighting.get(random.nextInt(randomWeighting.size)), size - 1), 0);
 		return randomResult;
 	}
+	
+	public enum Disposition {
+		PEACEFUL,
+		HAPPY,
+		HORNY,
+		ANGRY
+	}
+	
 } 
