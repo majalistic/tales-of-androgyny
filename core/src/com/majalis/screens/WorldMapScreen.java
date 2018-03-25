@@ -1044,6 +1044,7 @@ public class WorldMapScreen extends AbstractScreen {
 	}
 	
 	private void checkCanEat(TextButton camp) {
+		// this should just be a player character method
 		if (character.getFood() < character.getMetabolicRate()) {
 			TextButtonStyle style = new TextButtonStyle(camp.getStyle());
 			style.fontColor = Color.RED;

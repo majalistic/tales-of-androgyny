@@ -1291,7 +1291,7 @@ public class PlayerCharacter extends AbstractCharacter {
 		return result;
 	}
 	
-	public int getMetabolicRate() { return hasHungerCharm() ? 1 : 2; }
+	public int getMetabolicRate() { return (hasHungerCharm() ? 1 : 2) + (hasTrudy() ? 1 : 0) + (hasKylira() ? 1 : 0); }
 
 	private boolean hasHungerCharm() { return firstAccessory != null && firstAccessory.equals(new Accessory(AccessoryType.HUNGER_CHARM)); }
 	public boolean hasGem() { return inventory.contains(new Potion(1, EffectType.GEM), false); }	
