@@ -1660,7 +1660,7 @@
 		"key": "QUETZAL-VICTORY",
 		"scriptLines": [
 			{
-			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "QUETZAL", "value":3}}, {"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": 50}}],
+			"mutations": [{"profileSaveType":"ACHIEVEMENT", "value":{"class": "com.majalis.save.Achievement", "value": "QUETZAL_GODDESS_DEFEATED"}}, {"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "QUETZAL", "value":3}}, {"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": 50}}],
 			"foreground": "NULL",
 			"text": "In an absolutely stunning victory, you fell the dark goddess herself!  Weakened by the presence of the goddess' blessing, you manage to strike her down.  The fallen hero looks at you with awe."},
 			{"text": "You take her hair ornament as a trophy.  Looking at her still body, tremendous in its form, you feel a sudden solemn come over you - an ancient being, slain at your hand.  Eh, she had it coming."},
