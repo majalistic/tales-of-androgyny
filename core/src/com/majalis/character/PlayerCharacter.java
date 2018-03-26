@@ -42,6 +42,8 @@ public class PlayerCharacter extends AbstractCharacter {
 	protected int magicPoints;
 	protected int perkPoints;
 	
+	protected int bonusPoints;
+	
 	// advantage, range, and combat-lock(boolean) are shared properties between two creatures
 	
 	private BooleanArray luckStreak;
@@ -1633,4 +1635,8 @@ public class PlayerCharacter extends AbstractCharacter {
 	public void addBonuses(ObjectMap<String, Boolean> bonuses) { this.bonuses = bonuses; }
 
 	public int getBonusStats() { return bonuses.get("Bonus Stat Points", false) ? 1 : 0; }
+
+	public int getBonusPoints() { return bonusPoints; }
+
+	public void setBonusPoints(int bonusPoints) { this.bonusPoints = bonusPoints; }
 }

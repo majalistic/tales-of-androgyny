@@ -262,7 +262,9 @@ public class SaveManager implements SaveService, LoadService {
         else {
         	save = getDefaultSave();
         }
-        return save==null ? new GameSave(true) : save;
+        save = save == null ? new GameSave(true) : save;
+        save.addBonusPoints(profileSave);
+        return save;
     }
     
     private ProfileSave getProfileSave() {
@@ -292,6 +294,7 @@ public class SaveManager implements SaveService, LoadService {
     
     private GameSave getDefaultSave() {
     	GameSave tempSave = new GameSave(true);
+    	tempSave.addBonusPoints(profileSave);
     	saveToJson(tempSave);
     	return tempSave;
     }
@@ -383,6 +386,8 @@ public class SaveManager implements SaveService, LoadService {
         		battleResults = new Array<MutationResult>();
     		}
     	}
+    	
+    	public void addBonusPoints(ProfileSave profileSave) { if (profileSave != null && profileSave.achievements.get(Achievement.QUETZAL_GODDESS_DEFEATED.toString(), 0) > 0) { player.setBonusPoints(1); } }
     }
     
     public static class ProfileSave {

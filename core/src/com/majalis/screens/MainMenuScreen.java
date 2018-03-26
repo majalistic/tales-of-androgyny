@@ -25,6 +25,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
 import com.majalis.asset.AssetEnum;
 import com.majalis.save.LoadService;
+import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveService;
 import com.majalis.talesofandrogyny.TalesOfAndrogyny;
 /*
@@ -294,6 +295,7 @@ public class MainMenuScreen extends AbstractScreen {
         		if (screenSelection == ScreenEnum.NEW_GAME) {
         			// ONLY CALL THIS TO DESTROY OLD DATA AND REPLACE WITH A BRAND NEW SAVE
         			saveService.newSave();
+        			saveService.saveDataValue(SaveEnum.ENCOUNTER_END, null);
         		}
 	        	showScreen(screenSelection);    
 	        }
