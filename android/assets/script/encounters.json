@@ -30,7 +30,7 @@
 		"scriptLines": [
 			{
 			"mutations": [{"saveType":"MODE", "value":{"class": "com.majalis.save.SaveManager$GameMode", "value": "STORY"}}],
-			"text": "You have entered story mode."},
+			"text": "You have entered story mode.  This mode is still early in its construction - check out character creation mode for most of the current content!"},
 			{"text": "A tale of androgyny has begun..."},
 			{
 			"music": "WAVES",
