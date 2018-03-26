@@ -16,9 +16,10 @@ public enum ScreenEnum {
     INVENTORY,
     GAME_OVER,
     OPTIONS,
+    PROGRESS,  
     REPLAY,
     HELP,
     CREDITS,
     PATRON,
-    EXIT,  
+    EXIT,
 }

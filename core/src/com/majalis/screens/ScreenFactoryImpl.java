@@ -158,6 +158,11 @@ public class ScreenFactoryImpl implements ScreenFactory {
 					return new OptionScreen(this, elements);
 				}
 				break;
+			case PROGRESS:
+				if (getAssetCheck(ProgressScreen.resourceRequirements)) {
+					return new ProgressScreen(this, elements);
+				}
+				break;
 			case REPLAY:
 				if (getAssetCheck(ReplayScreen.resourceRequirements)) {
 					return new ReplayScreen(this, elements, (ObjectMap<String, Integer>) loadService.loadDataValue(ProfileEnum.KNOWLEDGE, ObjectMap.class));

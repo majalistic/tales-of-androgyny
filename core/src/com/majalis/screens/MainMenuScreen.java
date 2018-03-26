@@ -93,19 +93,10 @@ public class MainMenuScreen extends AbstractScreen {
 		return temp;
 	}
 	
-	private void move(Image toMove, int distance) {
-		move(toMove, distance, 0, 0);
-	}
-	
-	private void move(Image toMove, int distance, int startX) {
-		move(toMove, distance, startX, 0);
-	}
-	
-	private void move(Image toMove, int distance, int startX, int startY) {
-		move(toMove, distance, startX, startY, true);
-	}
-	
-	private void move(Image toMove, int distance, int startX, int startY, boolean start) {
+	private void move(Image toMove, int distance) { move(toMove, distance, 0, 0); }
+	private void move(Image toMove, int distance, int startX) { move(toMove, distance, startX, 0); }
+	private void move(Image toMove, int distance, int startX, int startY) { move(toMove, distance, startX, startY, true); }
+	private void move(Image toMove, int distance, int startX, int startY, boolean start) { 
 		toMove.setPosition(startX, startY);
 		toMove.addAction(Actions.moveBy(-distance + (start ? -startX : 0), 0, INTRO));
 	}
@@ -153,8 +144,8 @@ public class MainMenuScreen extends AbstractScreen {
 		
 		Array<String> buttonLabels = new Array<String>();
 		Array<ScreenEnum> optionList = new Array<ScreenEnum>();
-		buttonLabels.addAll("Begin", "Continue", "Load", "Options", "Pervert", "Help", "Credits", "Exit");
-		optionList.addAll(ScreenEnum.NEW_GAME, ScreenEnum.CONTINUE, ScreenEnum.SAVE, ScreenEnum.OPTIONS, ScreenEnum.REPLAY, ScreenEnum.HELP, ScreenEnum.CREDITS, ScreenEnum.EXIT);
+		buttonLabels.addAll("Begin", "Continue", "Load", "Options", "Progress", "Pervert", "Help", "Credits", "Exit");
+		optionList.addAll(ScreenEnum.NEW_GAME, ScreenEnum.CONTINUE, ScreenEnum.SAVE, ScreenEnum.OPTIONS, ScreenEnum.PROGRESS, ScreenEnum.REPLAY, ScreenEnum.HELP, ScreenEnum.CREDITS, ScreenEnum.EXIT);
 		
 		for (int ii = 0; ii < buttonLabels.size; ii++) {
 			buttons.add(new TextButton(buttonLabels.get(ii), skin));
@@ -163,7 +154,7 @@ public class MainMenuScreen extends AbstractScreen {
 		}
 	        
         uiGroup.addActor(table);
-        table.setPosition(1455, 735);
+        table.setPosition(1455, 750);
         
         arrow = new Image(arrowImage);
         arrow.setColor(Color.BROWN);
@@ -283,8 +274,8 @@ public class MainMenuScreen extends AbstractScreen {
 		TextButton button = buttons.get(activate);
 		button.setColor(Color.YELLOW);
 		this.selection = activate;
-		arrow.setPosition(1545, 915 - selection * 60);
-		arrow2.setPosition(1335, 915 - selection * 60);
+		arrow.setPosition(1545, 960 - selection * 60);
+		arrow2.setPosition(1335, 960 - selection * 60);
 	}
 	
 	@Override
