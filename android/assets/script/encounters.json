@@ -22,8 +22,7 @@
 		"scriptLines": [
 			{
 			"mutations": [{"saveType":"MODE", "value":{"class": "com.majalis.save.SaveManager$GameMode", "value": "SKIRMISH"}}],
-			"text": "You've selected to create your character!"},
-			{"text": "Please choose your class."}
+			"text": ""}
 		]
 	},
 		{

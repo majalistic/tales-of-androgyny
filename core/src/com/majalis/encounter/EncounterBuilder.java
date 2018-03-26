@@ -37,6 +37,7 @@ import com.majalis.save.SaveService;
 import com.majalis.save.SaveManager.GameOver;
 import com.majalis.scenes.AbstractChoiceScene;
 import com.majalis.scenes.BattleScene; // this should be refactored so that encounterbuilder receives a scenebuilder
+import com.majalis.scenes.BonusScene;
 import com.majalis.scenes.CharacterCreationScene;
 import com.majalis.scenes.CharacterCustomizationScene;
 import com.majalis.scenes.CheckScene;
@@ -171,6 +172,11 @@ public class EncounterBuilder {
 		
 		public Branch textScene(String key) {
 			sceneTokens.addAll(reader.loadScript(key));
+			return this;
+		}
+		
+		public Branch bonusSelection() {
+			sceneTokens.add(new BonusSelectionToken());
 			return this;
 		}
 		
@@ -426,7 +432,7 @@ public class EncounterBuilder {
 				reverse = false;
 				// iterate through and every time either background or foreground/animatedforeground change, create a new background
 				for (SceneToken token: sceneTokens) {
-					if (token instanceof ShopSceneToken || token instanceof CharacterCreationToken || token instanceof CharacterCustomizationToken || token instanceof SkillSelectionToken) continue;	
+					if (token instanceof ShopSceneToken || token instanceof CharacterCreationToken || token instanceof CharacterCustomizationToken || token instanceof BonusSelectionToken || token instanceof SkillSelectionToken) continue;	
 					// if all of the tokens are  the same, clone the last background
 					if ((token.foreground == null || token.foreground == foreground) && (token.animatedForeground == null || token.animatedForeground == animatedForeground) && (token.background == null || token.background == background)) {
 						if (backgrounds.size > 0) {
@@ -495,6 +501,9 @@ public class EncounterBuilder {
 					}
 					else if (token instanceof CharacterCustomizationToken) {
 						newScene = new CharacterCustomizationScene(sceneMap, sceneCounter, saveService, font, getCampBackground(), assetManager, character, getEncounterHUD());
+					}
+					else if (token instanceof BonusSelectionToken) {
+						newScene = new BonusScene(sceneMap, sceneCounter, saveService, font, getCampBackground(), assetManager, character, getEncounterHUD());
 					}
 					else {
 						String scriptLine = token.text.replace("<NAME>", characterName).replace("<BUTTSIZE>", buttsize).replace("<LIPSIZE>", lipsize).replace("<DEBT>", debt).replace("<COCKSIZE>", cockSize);
@@ -818,7 +827,21 @@ public class EncounterBuilder {
 			requirements.add(shopCode.getBackground());
 			return requirements;
 		}
-		
+	}
+	
+	public static class BonusSelectionToken extends SceneToken {
+		@Override
+		protected Array<AssetDescriptor<?>> getRequirements(ObjectSet<AssetEnum> alreadySeen) {
+			Array<AssetDescriptor<?>> requirements = super.getRequirements(alreadySeen);
+			add(requirements, alreadySeen, AssetEnum.CAMP_BG0);
+			add(requirements, alreadySeen, AssetEnum.CAMP_BG1);
+			add(requirements, alreadySeen, AssetEnum.CAMP_BG2);
+			add(requirements, alreadySeen, AssetEnum.SKILL_CONSOLE_BOX);
+			add(requirements, alreadySeen, AssetEnum.EMBELLISHED_BUTTON_UP);
+			add(requirements, alreadySeen, AssetEnum.EMBELLISHED_BUTTON_DOWN);
+			add(requirements, alreadySeen, AssetEnum.EMBELLISHED_BUTTON_HIGHLIGHT);
+			return requirements;
+		}
 	}
 	
 	public static class CharacterCreationToken extends SceneToken {

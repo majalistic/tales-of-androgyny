@@ -1309,7 +1309,7 @@ public enum EncounterCode {
 				);
 			case INITIAL:
 				return b.branch().textScene("INTRO").gameTypeScene(
-					b.branch("Create Character").textScene("CHARACTER-CREATE").characterCreation(false).skillSelection().characterCustomization(),
+					b.branch("Create Character").textScene("CHARACTER-CREATE").bonusSelection().characterCreation(false).skillSelection().characterCustomization(),
 					b.branch("Story (Patrons)").textScene("STORY-MODE")
 				); 	
 			case INN_MONSTER:
