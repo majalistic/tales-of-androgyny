@@ -234,6 +234,10 @@ public class PlayerCharacter extends AbstractCharacter {
 		
 		setShield(new Armor(ArmorType.SHIELD), true);
 		if (bonuses.get("Bonus Food", false)) food += 20;
+		if (bonuses.get("Bonus Skill Points", false)) skillPoints += 2;
+		if (bonuses.get("Bonus Perk Points", false)) perkPoints += 2;
+		if (bonuses.get("Bonus Soul Crystals", false)) magicPoints += 2;
+		if (bonuses.get("Bonus Gold", false)) money += 20;
 	}
 
 	// this needs to consolidate logic with the getTechniques method

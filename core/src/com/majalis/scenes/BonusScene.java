@@ -90,7 +90,7 @@ public class BonusScene extends Scene {
 		table.setPosition(100, 1000);
 		addActor(table);
 		
-		bonusPoints = 1;
+		bonusPoints = 0;
 		final Label bonusLabel = new Label("Bonus Points: " + bonusPoints, skin);
 		bonusLabel.setColor(Color.GOLD);
 		for (final String s : new String[]{"Bonus Stat Points", "Bonus Skill Points", "Bonus Soul Crystals", "Bonus Perk Points", "Bonus Gold", "Bonus Food"}) { // this should be the vals of an enum
