@@ -1627,4 +1627,6 @@ public class PlayerCharacter extends AbstractCharacter {
 	}
 
 	public void addBonuses(ObjectMap<String, Boolean> bonuses) { this.bonuses = bonuses; }
+
+	public int getBonusStats() { return bonuses.get("Bonus Stat Points", false) ? 1 : 0; }
 }

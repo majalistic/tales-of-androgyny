@@ -122,7 +122,7 @@ public class CharacterCreationScene extends Scene {
 		final Label statDescription = initLabel("", skin, Color.FOREST, statX, statY, Align.left, true, 740);
 		final Label classSelection = initLabel("", skin, Color.GOLD, 1726, 970, Align.center);
 		
-		resetStatPoints(story);
+		resetStatPoints(story, character);
 		statMap = resetObjectMap();
 		
 		final Table statTable = new Table();
@@ -177,7 +177,7 @@ public class CharacterCreationScene extends Scene {
 						if (statPoints == 0) {
 							removeActor(done);
 						}
-						resetStatPoints(story);
+						resetStatPoints(story, character);
 						statMap = resetObjectMap();
 						initStatTable(statTable, assetManager, skin, gemSound, done, character, statDescription, statMessage, baubleOld, baubleNew, baubleReady, baubleEmpty);
 						addActor(statTable);
@@ -321,8 +321,8 @@ public class CharacterCreationScene extends Scene {
 		statPointDisplay.setText(String.valueOf(statPoints));
 	}
 	
-	private void resetStatPoints(boolean story) {
-		setStatPoints(story ? 1 : 4);
+	private void resetStatPoints(boolean story, PlayerCharacter character) {
+		setStatPoints(story ? 1 : 4 + character.getBonusStats());
 	}
 	
 	private boolean canIncreaseStat(final Stat stat) {
