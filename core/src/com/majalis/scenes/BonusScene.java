@@ -112,6 +112,7 @@ public class BonusScene extends Scene {
 		navigationButtons.add().size(50);
 		navigationButtons.add(done).width(200);
 		this.addActor(navigationButtons);
+		if (0 <= 0) nextScene();
 	}
 	
 	private TextButton getButton(String label) {
