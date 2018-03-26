@@ -17,6 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.OrderedMap;
 import com.majalis.asset.AssetEnum;
 import com.majalis.character.PlayerCharacter;
@@ -32,7 +33,9 @@ public class BonusScene extends Scene {
 	private final Sound buttonSound;
 	private final PlayerCharacter character;
 	private final AssetManager assetManager;
-
+	private int bonusPoints;
+	private ObjectMap<String, Boolean> bonuses;
+	
 	public BonusScene(OrderedMap<Integer, Scene> sceneBranches, int sceneCode, final SaveService saveService, BitmapFont font, Background background, AssetManager assetManager, PlayerCharacter character, EncounterHUD hud) {
 		super(sceneBranches, sceneCode, hud);
 		this.saveService = saveService;
@@ -41,6 +44,7 @@ public class BonusScene extends Scene {
 		this.assetManager = assetManager;
 		skin = assetManager.get(AssetEnum.UI_SKIN.getSkin());
 		buttonSound = assetManager.get(AssetEnum.BUTTON_SOUND.getSound());
+		bonuses = new ObjectMap<String, Boolean>();
 	}
 	
 	@Override
@@ -86,10 +90,37 @@ public class BonusScene extends Scene {
 		table.setPosition(100, 1000);
 		addActor(table);
 		
-		for (String s : new String[]{"Bonus Stat Points", "Bonus Skill Points", "Bonus Soul Crystals", "Bonus Perk Points", "Bonus Gold", "Bonus Food"}) {
+		bonusPoints = 0;
+		final Label bonusLabel = new Label("Bonus Points: " + bonusPoints, skin);
+		bonusLabel.setColor(Color.GOLD);
+		for (final String s : new String[]{"Bonus Stat Points", "Bonus Skill Points", "Bonus Soul Crystals", "Bonus Perk Points", "Bonus Gold", "Bonus Food"}) { // this should be the vals of an enum
 			TextButton button = getButton(s);
 			table.add(button).size(300, 75).row();
+			button.addListener(new ClickListener() {
+				@Override
+				public void clicked (InputEvent event, float x, float y) {
+					if (!button.isChecked()) { 
+						button.setColor(Color.WHITE);
+						bonusPoints++;
+						bonuses.put(s, false); 
+					}
+					else {
+						if (bonusPoints > 0) {
+							bonusPoints--;
+							button.setColor(Color.YELLOW);
+							bonuses.put(s, true);
+						}
+						else {
+							button.setChecked(false); 
+						}
+					}
+					bonusLabel.setText("Bonus Points: " + bonusPoints);
+				}
+			});
 		}
+		
+		table.row();
+		table.add(bonusLabel);
 		
 		final TextButton done = new TextButton("Done", skin);
 		done.addListener(
@@ -97,7 +128,7 @@ public class BonusScene extends Scene {
 				@Override
 		        public void clicked(InputEvent event, float x, float y) {
 					// this should have all of the logic for applying the bonuses
-					if (true) character.modFood(20);
+					character.addBonuses(bonuses);
 					buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
 					nextScene();		   
 		        }
@@ -112,7 +143,7 @@ public class BonusScene extends Scene {
 		navigationButtons.add().size(50);
 		navigationButtons.add(done).width(200);
 		this.addActor(navigationButtons);
-		if (0 <= 0) nextScene();
+		if (bonusPoints <= 0) nextScene();
 	}
 	
 	private TextButton getButton(String label) {

@@ -87,8 +87,10 @@ public class PlayerCharacter extends AbstractCharacter {
 	private boolean stanceTutorial;
 	private boolean kyliraHeal;
 	
+	private ObjectMap<String, Boolean> bonuses;
+	
 	@SuppressWarnings("unused")
-	private PlayerCharacter() { if(arousal == null) arousal = new Arousal(ArousalType.PLAYER); eventLog = new Array<String>(); dignity = new Dignity(); femininity = Femininity.MALE; kyliraHeal = true; }
+	private PlayerCharacter() { if(arousal == null) arousal = new Arousal(ArousalType.PLAYER); eventLog = new Array<String>(); dignity = new Dignity(); femininity = Femininity.MALE; kyliraHeal = true; bonuses = new ObjectMap<String, Boolean>(); }
 	
 	public PlayerCharacter(boolean defaultValues) {
 		super(defaultValues);
@@ -119,6 +121,7 @@ public class PlayerCharacter extends AbstractCharacter {
 			willpower = 5;
 			femininity = Femininity.MALE;
 			kyliraHeal = true;
+			bonuses = new ObjectMap<String, Boolean>();
 		}
 		
 		skills = new ObjectMap<String, Integer>();
@@ -230,6 +233,7 @@ public class PlayerCharacter extends AbstractCharacter {
 		}
 		
 		setShield(new Armor(ArmorType.SHIELD), true);
+		if (bonuses.get("Bonus Food", false)) food += 20;
 	}
 
 	// this needs to consolidate logic with the getTechniques method
@@ -1622,5 +1626,5 @@ public class PlayerCharacter extends AbstractCharacter {
 		return result;
 	}
 
-	
+	public void addBonuses(ObjectMap<String, Boolean> bonuses) { this.bonuses = bonuses; }
 }
