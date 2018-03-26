@@ -160,7 +160,7 @@ public class ScreenFactoryImpl implements ScreenFactory {
 				break;
 			case PROGRESS:
 				if (getAssetCheck(ProgressScreen.resourceRequirements)) {
-					return new ProgressScreen(this, elements);
+					return new ProgressScreen(this, elements, loadService);
 				}
 				break;
 			case REPLAY:

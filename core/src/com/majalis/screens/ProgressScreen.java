@@ -9,10 +9,16 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.ObjectMap;
 import com.majalis.asset.AssetEnum;
+import com.majalis.save.Achievement;
+import com.majalis.save.LoadService;
+import com.majalis.save.ProfileEnum;
 
 public class ProgressScreen extends AbstractScreen {
 
@@ -29,15 +35,45 @@ public class ProgressScreen extends AbstractScreen {
 	}
 	private final Skin skin;
 	
-	public ProgressScreen(ScreenFactory factory, ScreenElements elements) {
+	public ProgressScreen(ScreenFactory factory, ScreenElements elements, LoadService loadService) {
 		super(factory, elements, null);
 		this.addActor(getCampBackground());
 		skin = assetManager.get(AssetEnum.UI_SKIN.getSkin());
 		final Sound sound = assetManager.get(AssetEnum.BUTTON_SOUND.getSound());
 		
-		//addLabelActor("- Gameplay Options -", 860, 950);
+		// need to add a display for achievements
+		// need a display for bonus points
+		// need to display a list for available starting bonuses
 		
-		//addActorAndListen(makeup, 325, 825);
+		addLabelActor("Achievements Unlocked", 100, 950, Color.TAN);
+		
+		Table achievementTable = new Table(skin);
+		
+		ObjectMap<String, Integer> achievements = loadService.loadDataValue(ProfileEnum.ACHIEVEMENT, ObjectMap.class);
+		for (ObjectMap.Entry<String, Integer> entry : achievements) {
+			if (entry.value > 0) {
+				achievementTable.add(Achievement.valueOf(entry.key).getLabel(), "default-font", Color.GOLD).row();
+			}
+		}
+		
+		achievementTable.align(Align.topLeft);
+		
+		addActorAndListen(achievementTable, 200, 900);
+		
+		addLabelActor("Bonus Points: " + 0, 100, 700, Color.TAN);
+		
+		addLabelActor("Start Bonuses Unlocked", 100, 650, Color.TAN);
+		
+		Table unlockTable = new Table(skin);
+		
+		String[] unlocks = new String[]{"Bonus Stat Points", "Bonus Skill Points", "Bonus Soul Crystals", "Bonus Perk Points", "Bonus Gold", "Bonus Food"};
+		for (String s : unlocks) {
+			unlockTable.add(s, "default-font", Color.GOLD).row();
+		}
+		
+		unlockTable.align(Align.topLeft);
+		
+		addActorAndListen(unlockTable, 200, 600);
 		
 		final TextButton done = new TextButton("Done", skin);
 		
@@ -71,9 +107,9 @@ public class ProgressScreen extends AbstractScreen {
 	
 	private void saveAndExit() { showScreen(ScreenEnum.MAIN_MENU); }
 	
-	private Label addLabelActor(String label, int x, int y) {
+	private Label addLabelActor(String label, int x, int y, Color color) {
 		Label newLabel = new Label(label, skin);
-		newLabel.setColor(Color.WHITE);
+		newLabel.setColor(color);
 		addActorAndListen(newLabel, x, y);
 		return newLabel;
 	}

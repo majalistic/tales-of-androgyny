@@ -390,9 +390,13 @@ public class SaveManager implements SaveService, LoadService {
 		private ObjectMap<String, Integer> enemyKnowledge;
     	
     	// 0-arg constructor for JSON serialization: DO NOT USE
-		private ProfileSave() {}
+		private ProfileSave() {
+			enemyKnowledge = new ObjectMap<String, Integer>();
+    		achievements = new ObjectMap<String, Integer>();
+		}
 		private ProfileSave(boolean defaultValues) {
     		enemyKnowledge = new ObjectMap<String, Integer>();
+    		achievements = new ObjectMap<String, Integer>();
     	}
 		public void addAchievement(Achievement achievement) { addAchievement(achievement.toString()); }
 		protected void addAchievement(String achievement) { addAchievement(achievement, 1); }
