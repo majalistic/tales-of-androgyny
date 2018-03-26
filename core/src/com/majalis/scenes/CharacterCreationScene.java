@@ -138,11 +138,13 @@ public class CharacterCreationScene extends Scene {
 		buttonStyle.fontColor = Color.BLACK;
 		
 		final Array<TextButton> classButtons = new Array<TextButton>();
-		
+		boolean advancedClassesUnlocked = true; // should be dependent on some achievement
 		for (final JobClass jobClass: JobClass.values()) {
 			final TextButton button = new TextButton(jobClass.getLabel(), buttonStyle);
 			classButtons.add(button);
-			if (story && jobClass != JobClass.ENCHANTRESS) {
+			
+			boolean enabled = (story && jobClass == JobClass.ENCHANTRESS) || (!story && (jobClass.ordinal() % 2 == 0 || advancedClassesUnlocked));
+			if (!enabled) {
 				button.setTouchable(Touchable.disabled);
 				TextButtonStyle style = new TextButtonStyle(button.getStyle());
 				style.fontColor = Color.RED;
