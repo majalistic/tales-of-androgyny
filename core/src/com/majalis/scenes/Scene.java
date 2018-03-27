@@ -44,7 +44,8 @@ public abstract class Scene extends Group {
 		group.addActor(newLabel);
 		return newLabel;
 	}
-	
+	protected Image addImage(Group group, Texture texture) { return addImage(group, texture, Color.WHITE, 0, 0, texture.getWidth(), texture.getHeight()); }
+	protected Image addImage(Group group, Texture texture, float x, float y) { return addImage(group, texture, Color.WHITE, x, y, texture.getWidth(), texture.getHeight()); }
 	protected Image addImage(Texture texture, Color color, int x, int y) { return addImage(texture, color, x, y, texture.getWidth(), texture.getHeight()); }
 	protected Image addImage(Group group, Texture texture, Color color, float x, float y) { return addImage(group, texture, color, x, y, texture.getWidth(), texture.getHeight()); }
 	protected Image addImage(Texture texture, Color color, float x, float y, float width, float height) { return addImage(this, texture, color, x, y, width, height); }	

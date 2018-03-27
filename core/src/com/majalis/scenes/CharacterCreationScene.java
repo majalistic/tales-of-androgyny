@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
@@ -48,39 +49,23 @@ public class CharacterCreationScene extends Scene {
 		super(sceneBranches, sceneCode, hud);
 		this.saveService = saveService;
 		this.addActor(background);
-		// this should be refactored to remove boilerplate
-		Image classSelectPanel = new Image(assetManager.get(AssetEnum.CLASS_SELECT_PANEL.getTexture()));
-		this.addActor(classSelectPanel);
-		Image subtleBorder = new Image(assetManager.get(AssetEnum.CLASS_SELECT_SUBTLE_BORDER.getTexture()));
-		subtleBorder.setPosition(0, 938);
-		this.addActor(subtleBorder);
-		Image classSelectLabel = new Image(assetManager.get(AssetEnum.CLASS_SELECT_LABEL.getTexture()));
-		classSelectLabel.setPosition(0, 950);
-		this.addActor(classSelectLabel);
 		
-		final Image characterBox = new Image(assetManager.get(AssetEnum.CLASS_SELECT_CHARACTER_BOX.getTexture()));
-		characterBox.setPosition(1470, 46);
-		this.addActor(characterBox);
+		Group uiGroup = new Group();
+		this.addActor(uiGroup);
 		
-		final Image panelFoldOut = new Image(assetManager.get(AssetEnum.CLASS_SELECT_STAT_PANEL_FOLDOUT.getTexture()));
-		panelFoldOut.setPosition(392, 313);
-		this.addActor(panelFoldOut);
-		panelFoldOut.addAction(Actions.hide());
+		final Group hideGroup = new Group();
+		uiGroup.addActor(hideGroup);
 		
-		final Image tooltipFoldout = new Image(assetManager.get(AssetEnum.CLASS_SELECT_TOOLTIP_SLIDEOUT.getTexture()));
-		tooltipFoldout.setPosition(742, 265);
-		this.addActor(tooltipFoldout);
-		tooltipFoldout.addAction(Actions.hide());
+		addImage(uiGroup, assetManager.get(AssetEnum.CLASS_SELECT_PANEL.getTexture()));
+		addImage(uiGroup, assetManager.get(AssetEnum.CLASS_SELECT_SUBTLE_BORDER.getTexture()), 0, 938);
+		addImage(uiGroup, assetManager.get(AssetEnum.CLASS_SELECT_LABEL.getTexture()), 0, 950);
+		addImage(uiGroup, assetManager.get(AssetEnum.CLASS_SELECT_CHARACTER_BOX.getTexture()), 1470, 46);
+		addImage(hideGroup, assetManager.get(AssetEnum.CLASS_SELECT_STAT_PANEL_FOLDOUT.getTexture()), 392, 313);
+		addImage(hideGroup, assetManager.get(AssetEnum.CLASS_SELECT_TOOLTIP_SLIDEOUT.getTexture()), 742, 265);
+		addImage(hideGroup, assetManager.get(AssetEnum.CLASS_SELECT_STAT_BOX.getTexture()), 685, 315);
+		addImage(hideGroup, assetManager.get(AssetEnum.CLASS_SELECT_TOOLTIP_BOX.getTexture()), 600, 25);
 		
-		final Image statBox = new Image(assetManager.get(AssetEnum.CLASS_SELECT_STAT_BOX.getTexture()));
-		statBox.setPosition(685, 315);
-		this.addActor(statBox);
-		statBox.addAction(Actions.hide());
-		
-		final Image tooltip = new Image(assetManager.get(AssetEnum.CLASS_SELECT_TOOLTIP_BOX.getTexture()));
-		tooltip.setPosition(600, 25);
-		this.addActor(tooltip);
-		tooltip.addAction(Actions.hide());
+		hideGroup.addAction(Actions.hide());
 		
 		/*
 		CLASS_SELECT_FOREGROUND
@@ -165,10 +150,7 @@ public class CharacterCreationScene extends Scene {
 						helpText.setPosition(1000, 882);
 						helpText.setText("Allocate Stat Points!");
 						statPointDisplay.addAction(Actions.show());
-						panelFoldOut.addAction(Actions.show());
-						statBox.addAction(Actions.show());
-						tooltipFoldout.addAction(Actions.show());
-						tooltip.addAction(Actions.show());
+						hideGroup.addAction(Actions.show());
 						Texture jobTexture = assetManager.get(jobClass.getTexture());
 						characterImage.setDrawable(new TextureRegionDrawable(new TextureRegion(jobTexture)));
 						characterImage.setSize(jobTexture.getWidth(), jobTexture.getHeight());
