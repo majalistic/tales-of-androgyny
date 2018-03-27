@@ -544,7 +544,7 @@ public class Battle extends Group{
 			initActor(new Image(boxTexture), popupGroup, 325, 75, boxTexture.getWidth() + 100, boxTexture.getHeight() + 100);
 			Table statusResults = (Table) initActor(new Table(), popupGroup, 412, 525);
 			statusResults.align(Align.topLeft);
-			statusResults.add(initLabel(enemy.getOutcomeText(character), skin, true, Align.top, battleOutcome == Outcome.VICTORY || battleOutcome == Outcome.SATISFIED ? Color.FOREST : Color.FIREBRICK)).width(580).align(Align.top).row();
+			statusResults.add(initLabel(enemy.getOutcomeText(character), skin, true, Align.top, battleOutcome == Outcome.VICTORY || battleOutcome == Outcome.SATISFIED_ANAL || battleOutcome == Outcome.SATISFIED_ORAL ? Color.FOREST : Color.FIREBRICK)).width(580).align(Align.top).row();
 			statusResults.row();			
 			statusResults.add(initLabel("Results: ", skin, true, Align.left, Color.BLACK)).fillY().align(Align.left).row();
 			for (MutationResult result : MutationResult.collapse(battleResults)) {
@@ -962,6 +962,6 @@ public class Battle extends Group{
 	}
 	
 	public enum Outcome {
-		VICTORY, DEFEAT, KNOT_ANAL, KNOT_ORAL, SATISFIED, SUBMISSION, DEATH
+		VICTORY, DEFEAT, KNOT_ANAL, KNOT_ORAL, SATISFIED_ANAL, SATISFIED_ORAL, SUBMISSION, DEATH
 	}
 }

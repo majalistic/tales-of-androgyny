@@ -321,17 +321,17 @@ public class EnemyCharacter extends AbstractCharacter {
 		switch(enemyType) {
 			case BRIGAND:
 				if (!storyMode) {
-					if (getToppingClimaxCount() >= 2) return Outcome.SATISFIED;
+					if (getToppingClimaxCount() >= 2) return Outcome.SATISFIED_ANAL;
 				}
 				break;
 			case CENTAUR:
-				if (getToppingClimaxCount() >= 1) return Outcome.SATISFIED;
+				if (getToppingClimaxCount() >= 1) return Outcome.SATISFIED_ANAL;
 				break;
 			case GOBLIN:
 			case GOBLIN_MALE:
 				break;
 			case ORC:
-				if (getToppingClimaxCount() >= 5) return Outcome.SATISFIED;
+				if (getToppingClimaxCount() >= 5) return Outcome.SATISFIED_ANAL;
 				if (storyMode && getReceptiveClimaxCount() >= 1) return Outcome.SUBMISSION; 
 				break;
 			case HARPY:
@@ -340,7 +340,7 @@ public class EnemyCharacter extends AbstractCharacter {
 					if (stance.isAnalPenetration()) return Outcome.KNOT_ANAL;
 				}
 				else {
-					if (getToppingClimaxCount() >= 2) return Outcome.SATISFIED;
+					if (getToppingClimaxCount() >= 2) return Outcome.SATISFIED_ANAL;
 				}
 				
 				break;
@@ -349,7 +349,7 @@ public class EnemyCharacter extends AbstractCharacter {
 			case UNICORN:
 				break;
 			case WERESLUT:
-				if (climaxCounters.get(ClimaxType.FACIAL.toString(), 0) >= 1) return Outcome.SATISFIED;
+				if (climaxCounters.get(ClimaxType.FACIAL.toString(), 0) >= 1) return Outcome.SATISFIED_ANAL;
 				if (knotInflate >= 5) {
 					if (stance == Stance.KNOTTED) {
 						return Outcome.KNOT_ANAL;
@@ -361,20 +361,20 @@ public class EnemyCharacter extends AbstractCharacter {
 				break;
 			case ADVENTURER:
 				if (getReceptiveClimaxCount() >= 1 ) return Outcome.SUBMISSION;
-				if (getToppingClimaxCount() >= 1) return Outcome.SATISFIED;
+				if (getToppingClimaxCount() >= 1) return Outcome.SATISFIED_ANAL;
 				break;
 			case OGRE:
-				if (climaxCounters.get(ClimaxType.ANAL.toString(), 0) >= 1) return Outcome.SATISFIED;
+				if (climaxCounters.get(ClimaxType.ANAL.toString(), 0) >= 1) return Outcome.SATISFIED_ANAL;
 				break;
 			case BEASTMISTRESS:
-				if (isErect()) return Outcome.SATISFIED;
+				if (isErect()) return Outcome.SATISFIED_ANAL;
 				break;
 			case SPIDER:
 				if (knotInflate >= 5) return Outcome.KNOT_ANAL;
 				break;
 			case ANGEL:
 				if (stance == Stance.FACE_SITTING && oldStance == Stance.FACE_SITTING) return Outcome.SUBMISSION;
-				if (arousal.isErect() && currentHealth == getMaxHealth() && selfRessurect == 1) return Outcome.SATISFIED;
+				if (arousal.isErect() && currentHealth == getMaxHealth() && selfRessurect == 1) return Outcome.SATISFIED_ANAL;
 				break;
 			case NAGA:
 				if (enemy.getCurrentHealth() <= 0 && stance == Stance.WRAPPED) return Outcome.DEATH;
@@ -394,7 +394,8 @@ public class EnemyCharacter extends AbstractCharacter {
 		switch (getOutcome(enemy)) {
 			case KNOT_ORAL: return enemyType == EnemyEnum.WERESLUT ? "It's stuck behind your teeth. Your mouth is stuffed!" : "You've been stuffed in the face!";
 			case KNOT_ANAL: return enemyType == EnemyEnum.WERESLUT ? "You've been knotted!!!\nYou are at her whims, now." : enemyType == EnemyEnum.SPIDER ? "You've been stuffed full of eggs." : enemyType == EnemyEnum.QUETZAL ? "Your stomach balloons painfully with the goddess' semen!" : "You've been stuffed in the ass!";
-			case SATISFIED: return enemyType == EnemyEnum.CENTAUR ? "You've been dominated by the centaur's massive horsecock."
+			case SATISFIED_ORAL:
+			case SATISFIED_ANAL: return enemyType == EnemyEnum.CENTAUR ? "You've been dominated by the centaur's massive horsecock."
 				: enemyType == EnemyEnum.OGRE ? "The ogre has filled your guts with ogre cum.  You are well and truly fucked."
 				: enemyType == EnemyEnum.ANGEL ? "She notes your lack of aggression, and stands down."
 				: properCase(pronouns.getNominative()) + " seems satisfied. " + properCase(pronouns.getNominative()) + "'s no longer hostile.";

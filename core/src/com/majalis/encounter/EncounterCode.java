@@ -360,7 +360,7 @@ public enum EncounterCode {
 						b.branch("Rob him").textScene("ADVENTURER-ROBBED")
 					),
 					b.branch(Outcome.DEFEAT).textScene("ADVENTURER-DEFEAT"),
-					b.branch(Outcome.SATISFIED).textScene("ADVENTURER-SATISFIED"),
+					b.branch(Outcome.SATISFIED_ANAL).textScene("ADVENTURER-SATISFIED"),
 					b.branch(Outcome.SUBMISSION).textScene("ADVENTURER-SUBMISSION")
 				);
 				Branch trudyCaught = b.branch().textScene("ADVENTURER-TRUDY-CAUGHT");
@@ -425,7 +425,7 @@ public enum EncounterCode {
 								), 
 								b.branch(Outcome.DEFEAT).textScene("ANGEL-DEFEAT"),  
 								b.branch(Outcome.SUBMISSION).textScene("ANGEL-FACESIT"),
-								b.branch(Outcome.SATISFIED).textScene("ANGEL-PACIFIST").concat(angelConfess) 
+								b.branch(Outcome.SATISFIED_ANAL).textScene("ANGEL-PACIFIST").concat(angelConfess) 
 							),
 							b.branch("Remain Silent").textScene("ANGEL-REJECT")
 						)
@@ -458,7 +458,7 @@ public enum EncounterCode {
 							b.branch("Go Home").textScene("BEASTMISTRESS-DECLINE")
 						),
 						b.branch(Outcome.DEFEAT).textScene("BEASTMISTRESS-QUEEN").gameEnd(),
-						b.branch(Outcome.SATISFIED).checkScene(
+						b.branch(Outcome.SATISFIED_ANAL).checkScene(
 							Stat.AGILITY,
 							b.branch(4).textScene("BEASTMISTRESS-DODGE"),
 							b.branch(0).textScene("BEASTMISTRESS-FAIL")
@@ -466,7 +466,7 @@ public enum EncounterCode {
 					)
 				);
 			case BRIGAND:
-				Branch[] battleBranches2 = new Branch[]{b.branch(Outcome.VICTORY).textScene("BRIGAND-VICTORY"), b.branch(Outcome.DEFEAT).textScene("BRIGAND-DEFEAT"), b.branch(Outcome.SATISFIED).textScene("BRIGAND-SATISFIED")};
+				Branch[] battleBranches2 = new Branch[]{b.branch(Outcome.VICTORY).textScene("BRIGAND-VICTORY"), b.branch(Outcome.DEFEAT).textScene("BRIGAND-DEFEAT"), b.branch(Outcome.SATISFIED_ANAL).textScene("BRIGAND-SATISFIED")};
 				Branch acceptCont = b.branch().textScene("BRIGAND-ACCEPT-CONT").choiceScene(
 					"Tell her to pull out?",
 					b.branch("Say Nothing").textScene("BRIGAND-CATCH"),
@@ -543,7 +543,7 @@ public enum EncounterCode {
 						b.branch("Her weapon").textScene("STORY-BRIGAND-VICTORY-SWORD")
 					), 
 					b.branch(Outcome.DEFEAT).textScene("STORY-BRIGAND-DEFEAT").choiceScene("Steel or suck?", b.branch("Steel").textScene("STORY-BRIGAND-DEFEAT-DEATH").gameEnd(), b.branch("Suck").textScene("STORY-BRIGAND-DEFEAT-SUCK")),
-					b.branch(Outcome.SATISFIED).textScene("BRIGAND-SATISFIED")
+					b.branch(Outcome.SATISFIED_ANAL).textScene("BRIGAND-SATISFIED")
 				);
 		
 			case BROTHEL:
@@ -772,7 +772,7 @@ public enum EncounterCode {
 						b.branch(false).textScene("CARRIAGE-DENIED")
 					);
 			case CENTAUR:
-				Branch[] centaurBattle = new Branch[]{b.branch(Outcome.VICTORY).textScene("CENTAUR-VICTORY"), b.branch(Outcome.DEFEAT).textScene("CENTAUR-DEFEAT").checkScene(Perk.EQUESTRIAN, b.branch(3).textScene("CENTAUR-GAME-OVER").gameEnd(), b.branch(0).textScene("CENTAUR-DEFEAT-CONT")), b.branch(Outcome.SATISFIED).textScene("CENTAUR-SATISFIED")};
+				Branch[] centaurBattle = new Branch[]{b.branch(Outcome.VICTORY).textScene("CENTAUR-VICTORY"), b.branch(Outcome.DEFEAT).textScene("CENTAUR-DEFEAT").checkScene(Perk.EQUESTRIAN, b.branch(3).textScene("CENTAUR-GAME-OVER").gameEnd(), b.branch(0).textScene("CENTAUR-DEFEAT-CONT")), b.branch(Outcome.SATISFIED_ANAL).textScene("CENTAUR-SATISFIED")};
 				Branch[] unicornBattle = new Branch[]{b.branch(Outcome.VICTORY).textScene("UNICORN-VICTORY"), b.branch(Outcome.DEFEAT).textScene("UNICORN-DEFEAT")};
 				Branch centaurCatamite = b.branch().textScene("CENTAUR-CATAMITE").battleScene(
 					BattleCode.CENTAUR, Stance.DOGGY_BOTTOM, Stance.DOGGY,
@@ -1277,7 +1277,7 @@ public enum EncounterCode {
 							b.branch(3).textScene("HARPY-LOVE-BIRD").concat(harpyMarriage), 
 							b.branch(0).checkScene(Perk.ANAL_ADDICT, b.branch(3).textScene("HARPY-LOVE-ANAL").concat(harpyMarriage), b.branch(0).textScene("HARPY-FINISH"))
 						)), 
-					b.branch(Outcome.SATISFIED).textScene("HARPY-SATISFIED")
+					b.branch(Outcome.SATISFIED_ANAL).textScene("HARPY-SATISFIED")
 				};
 				Branch harpyDodge = b.branch(6).textScene("HARPY-DODGE").battleScene(
 					BattleCode.HARPY, Stance.BALANCED, Stance.PRONE,
@@ -1520,7 +1520,7 @@ public enum EncounterCode {
 				);
 				Branch[] battleOutcomes = new Branch[]{
 					b.branch(Outcome.VICTORY).textScene("OGRE-VICTORY").concat(b.branch().textScene("OGRE-VICTORY-GOLD")),
-					b.branch(Outcome.SATISFIED).textScene("OGRE-SATISFIED").concat(partingScene),
+					b.branch(Outcome.SATISFIED_ANAL).textScene("OGRE-SATISFIED").concat(partingScene),
 					b.branch(Outcome.DEFEAT).textScene("OGRE-DEFEAT").concat(partingScene)
 				};
 				
@@ -1528,8 +1528,8 @@ public enum EncounterCode {
 					BattleCode.OGRE, 
 					battleOutcomes
 				);
-				Branch ogreFirstBattleDisarm = b.branch().battleScene(BattleCode.OGRE, Stance.BALANCED, Stance.BALANCED, true, b.branch(Outcome.VICTORY).textScene("OGRE-VICTORY").concat(b.branch().textScene("OGRE-VICTORY-GOLD")), b.branch(Outcome.DEFEAT).textScene("OGRE-DEFEAT").concat(partingScene), b.branch(Outcome.SATISFIED).textScene("OGRE-SATISFIED").concat(partingScene));
-				Branch ogreSecondBattle = b.branch().battleScene(BattleCode.OGRE, b.branch(Outcome.VICTORY).textScene("OGRE-VICTORY"), b.branch(Outcome.DEFEAT).textScene("OGRE-DEFEAT").concat(partingScene), b.branch(Outcome.SATISFIED).textScene("OGRE-SATISFIED").concat(partingScene));
+				Branch ogreFirstBattleDisarm = b.branch().battleScene(BattleCode.OGRE, Stance.BALANCED, Stance.BALANCED, true, b.branch(Outcome.VICTORY).textScene("OGRE-VICTORY").concat(b.branch().textScene("OGRE-VICTORY-GOLD")), b.branch(Outcome.DEFEAT).textScene("OGRE-DEFEAT").concat(partingScene), b.branch(Outcome.SATISFIED_ANAL).textScene("OGRE-SATISFIED").concat(partingScene));
+				Branch ogreSecondBattle = b.branch().battleScene(BattleCode.OGRE, b.branch(Outcome.VICTORY).textScene("OGRE-VICTORY"), b.branch(Outcome.DEFEAT).textScene("OGRE-DEFEAT").concat(partingScene), b.branch(Outcome.SATISFIED_ANAL).textScene("OGRE-SATISFIED").concat(partingScene));
 				Branch grabbedByOgre = b.branch().textScene("OGRE-GRABBED").checkScene(
 					Stat.ENDURANCE,
 					b.branch(4).textScene("OGRE-ENDURE"), 
@@ -1569,7 +1569,7 @@ public enum EncounterCode {
 					BattleCode.OGRE_STORY,
 					b.branch(Outcome.VICTORY).textScene("STORY-OGRE-VICTORY"), 
 					b.branch(Outcome.DEFEAT).textScene("STORY-OGRE-DEFEAT").gameEnd(),
-					b.branch(Outcome.SATISFIED).textScene("STORY-OGRE-DEFEAT").gameEnd()
+					b.branch(Outcome.SATISFIED_ANAL).textScene("STORY-OGRE-DEFEAT").gameEnd()
 				);
 			case OGRE_WARNING_STORY:
 				return b.branch().textScene("OGRE-WARN");
@@ -1597,7 +1597,7 @@ public enum EncounterCode {
 						b.branch("Facial (4 CHA)").require(ChoiceCheckType.STAT_GREATER_THAN_X, Stat.CHARISMA, 4).textScene("ORC-FACIAL"),
 						b.branch("Nothing").concat(failedCharisma)
 					),
-					b.branch(Outcome.SATISFIED).textScene("ORC-SATISFIED")
+					b.branch(Outcome.SATISFIED_ANAL).textScene("ORC-SATISFIED")
 				);
 				
 				return b.branch().textScene("ORC-INTRO").checkScene(
@@ -1630,13 +1630,13 @@ public enum EncounterCode {
 									b.branch("Man").textScene("ORC-BAD-END").gameEnd(),
 									b.branch("Woman").textScene("ORC-WIFE").gameEnd()
 								),
-								b.branch(Outcome.SATISFIED).textScene("ORC-VIOLATED").gameEnd()
+								b.branch(Outcome.SATISFIED_ANAL).textScene("ORC-VIOLATED").gameEnd()
 							)
 						)
 					)
 				);
 			case ORC_STORY:
-				return b.branch().textScene("STORY-ORC").battleScene(BattleCode.ORC_STORY, b.branch(Outcome.VICTORY).textScene("STORY-ORC-VICTORY"),  b.branch(Outcome.DEFEAT).textScene("STORY-ORC-DEFEAT").gameEnd(),  b.branch(Outcome.SATISFIED).textScene("STORY-ORC-SATISFIED").gameEnd(),  b.branch(Outcome.SUBMISSION).textScene("STORY-ORC-SUBMISSION"));
+				return b.branch().textScene("STORY-ORC").battleScene(BattleCode.ORC_STORY, b.branch(Outcome.VICTORY).textScene("STORY-ORC-VICTORY"),  b.branch(Outcome.DEFEAT).textScene("STORY-ORC-DEFEAT").gameEnd(),  b.branch(Outcome.SATISFIED_ANAL).textScene("STORY-ORC-SATISFIED").gameEnd(),  b.branch(Outcome.SUBMISSION).textScene("STORY-ORC-SUBMISSION"));
 			case SHOP:
 				return b.branch().textScene("TOWN-SHOP").shopScene(ShopCode.SHOP);
 			case SHOP_MONSTER:
@@ -1898,7 +1898,7 @@ public enum EncounterCode {
 				        b.branch(Outcome.KNOT_ANAL).textScene("WEREWOLF-BATTLE-KNOT").concat(knotted),
 				        b.branch(Outcome.KNOT_ORAL).textScene("WEREWOLF-BATTLE-KNOT-ORAL").gameEnd(),
 				        b.branch(Outcome.DEFEAT).textScene("WEREWOLF-DEFEAT").checkScene(Perk.BITCH, bitch, defeatNoBitch),
-				        b.branch(Outcome.SATISFIED).textScene("WEREWOLF-SATISFIED")
+				        b.branch(Outcome.SATISFIED_ANAL).textScene("WEREWOLF-SATISFIED")
 				    );
 				
 				return b.branch().textScene("WEREWOLF-INTRO").checkScene(
