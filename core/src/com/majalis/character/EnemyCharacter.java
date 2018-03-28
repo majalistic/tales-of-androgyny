@@ -350,11 +350,12 @@ public class EnemyCharacter extends AbstractCharacter {
 				break;
 			case WERESLUT:
 				if (climaxCounters.get(ClimaxType.FACIAL.toString(), 0) >= 1) return Outcome.SATISFIED_ANAL;
+				
 				if (knotInflate >= 5) {
 					if (stance == Stance.KNOTTED) {
 						return Outcome.KNOT_ANAL;
 					}
-					else {
+					else if (stance == Stance.MOUTH_KNOTTED) {
 						return Outcome.KNOT_ORAL;
 					}
 				}
