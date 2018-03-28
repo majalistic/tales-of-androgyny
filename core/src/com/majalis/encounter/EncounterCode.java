@@ -1277,7 +1277,8 @@ public enum EncounterCode {
 							b.branch(3).textScene("HARPY-LOVE-BIRD").concat(harpyMarriage), 
 							b.branch(0).checkScene(Perk.ANAL_ADDICT, b.branch(3).textScene("HARPY-LOVE-ANAL").concat(harpyMarriage), b.branch(0).textScene("HARPY-FINISH"))
 						)), 
-					b.branch(Outcome.SATISFIED_ANAL).textScene("HARPY-SATISFIED")
+					b.branch(Outcome.SATISFIED_ANAL).textScene("HARPY-SATISFIED"),
+					b.branch(Outcome.SATISFIED_ORAL).textScene("HARPY-SATISFIED")
 				};
 				Branch harpyDodge = b.branch(6).textScene("HARPY-DODGE").battleScene(
 					BattleCode.HARPY, Stance.BALANCED, Stance.PRONE,

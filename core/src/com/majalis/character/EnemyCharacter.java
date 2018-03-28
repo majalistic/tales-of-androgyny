@@ -340,9 +340,11 @@ public class EnemyCharacter extends AbstractCharacter {
 					if (stance.isAnalPenetration()) return Outcome.KNOT_ANAL;
 				}
 				else {
-					if (getToppingClimaxCount() >= 2) return Outcome.SATISFIED_ANAL;
+					if (getToppingClimaxCount() >= 2) {
+						if (climaxCounters.get(ClimaxType.ANAL.toString(), 0) >= 1) return Outcome.SATISFIED_ANAL;
+						else return Outcome.SATISFIED_ORAL;
+					}
 				}
-				
 				break;
 			case SLIME:
 				break;
