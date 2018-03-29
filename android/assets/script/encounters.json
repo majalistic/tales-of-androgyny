@@ -4932,14 +4932,26 @@
 		]
 	},
 	{
-		"key": "HARPY-SATISFIED",
+		"key": "HARPY-SATISFIED-ORAL",
 		"scriptLines": [
 			{
-			"chatter": "I think she's... done for now.",
+			"chatter": "Well, she seems to have gotten what she wanted.",
 			"chatterPerson": "Trudy",
 			"mutations": [{"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": 2}}], 
 			"animatedForeground": "HARPY",
-			"text": "The harpies tongue lolls out of her mouth, and her throbbing birdcock is now considerably less throbby, as it deflates, slick with the remains of her ejaculate."},
+			"text": "The harpies tongue lolls out of her mouth, and her throbbing birdcock is now considerably less throbby, as it deflates."},
+			{"text": "She seems to be in some sort of daze, stumbling about on her talons, with little regard for your presence.  You take the opportunity to flee, having had enough bird cum for one lifetime."}
+		]
+	},
+	{
+		"key": "HARPY-SATISFIED-ANAL",
+		"scriptLines": [
+			{
+			"chatter": "I can't believe a bird just stuffed you up the butt.",
+			"chatterPerson": "Trudy",
+			"mutations": [{"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": 2}}], 
+			"animatedForeground": "HARPY",
+			"text": "The harpies tongue lolls out of her mouth, and her throbbing birdcock is now considerably less throbby, as it deflates, slick with the remains of her ejaculate.  Your ass simiarly drools the stuff."},
 			{"text": "She seems to be in some sort of daze, stumbling about on her talons, with little regard for your presence.  You take the opportunity to flee, having had enough bird cum for one lifetime."}
 		]
 	},
