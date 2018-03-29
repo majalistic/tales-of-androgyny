@@ -1462,7 +1462,7 @@ public class PlayerCharacter extends AbstractCharacter {
 	}
 	
 	public enum QuestType {
-		ORC, CRIER, QUETZAL, INNKEEP, TRUDY, GOBLIN, OGRE, SPIDER, BROTHEL, ELF, DEBT, GADGETEER, MADAME, WITCH, MOUTH_FIEND, MERMAID, TRAINER, MERI, HUMAN_TOWN, MONSTER_TOWN, WARLOCK, 
+		ORC, CRIER, QUETZAL, INNKEEP, TRUDY, CENTAUR, GOBLIN, OGRE, SPIDER, BROTHEL, ELF, DEBT, GADGETEER, MADAME, WITCH, MOUTH_FIEND, MERMAID, TRAINER, MERI, HUMAN_TOWN, MONSTER_TOWN, WARLOCK, 
 		HARPY_ANATOMY, WEREWOLF_ANATOMY, GIANT_ANATOMY, CENTAUR_ANATOMY, CAT_ANATOMY, HARPY_INTELLIGENCE, WEREWOLF_SCENT
 		;
 		
@@ -1486,6 +1486,8 @@ public class PlayerCharacter extends AbstractCharacter {
 					return currentValue == 1 ? "You've learned from the witch." : "";					
 				case BROTHEL:
 					return currentValue > 0 ? "You've agreed to be a prostitute in the brothel." : "";
+				case CENTAUR:
+					return currentValue == 1 ? "You've met the centaur and have earned your place around their campfire." : "";
 				case CRIER:
 					return currentValue > 0 ? ("You've heard about a quest to slay the lord of Xiuh mountain." + (currentValue == 2 ? " You've met a strange man who claims to have useful information." : currentValue == 3 ? " A strange man told you about a generic brothel patron." : currentValue == 4 ? " A strange man told you about the witch that lives in the forest." : "")) : "";
 				case DEBT:

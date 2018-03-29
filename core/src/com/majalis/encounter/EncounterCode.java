@@ -799,10 +799,18 @@ public enum EncounterCode {
 						BattleCode.UNICORN,
 						unicornBattle
 					),
-					b.branch(false).textScene("CENTAUR-ENTRANCE").checkScene(
-						Perk.ANAL_ADDICT,
-						b.branch(3).checkScene(CheckType.ANY_WILLPOWER, b.branch(true).textScene("CENTAUR-WILLPOWER").concat(centaurOptions), b.branch(false).checkScene(CheckType.PLUGGED, b.branch(true).textScene("CENTAUR-BUTTPLUG").concat(centaurCatamite), b.branch(false).concat(centaurCatamite))),
-						centaurOptions
+					b.branch(false).checkScene(
+						CheckType.CENTAUR_FIRST, 
+						b.branch(true).textScene("CENTAUR-ENTRANCE").checkScene(
+							Perk.ANAL_ADDICT,
+							b.branch(3).checkScene(CheckType.ANY_WILLPOWER, b.branch(true).textScene("CENTAUR-WILLPOWER").concat(centaurOptions), b.branch(false).checkScene(CheckType.PLUGGED, b.branch(true).textScene("CENTAUR-BUTTPLUG").concat(centaurCatamite), b.branch(false).concat(centaurCatamite))),
+							centaurOptions
+						),
+						b.branch(false).textScene("CENTAUR-RETURN").checkScene(
+							Perk.ANAL_ADDICT,
+							b.branch(3).checkScene(CheckType.ANY_WILLPOWER, b.branch(true).textScene("CENTAUR-WILLPOWER").concat(centaurOptions), b.branch(false).checkScene(CheckType.PLUGGED, b.branch(true).textScene("CENTAUR-BUTTPLUG").concat(centaurCatamite), b.branch(false).concat(centaurCatamite))),
+							centaurOptions
+						)
 					)
 				);
 			case COTTAGE_TRAINER:

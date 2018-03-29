@@ -5723,6 +5723,16 @@
 		]
 	},
 	{
+		"key": "CENTAUR-RETURN",
+		"scriptLines": [
+			{
+			"animatedForeground": "CENTAUR",
+			"mutations": [{"profileSaveType":"KNOWLEDGE", "value":{"class": "java.lang.String", "value": "Centaur"}}],
+			"text": "From hidden behind a nearby boulder emerges one member of the herd - a female, with a rather buxom appearance.  She approaches you serenely, proudly."},
+			{"text": "\"Human.  Do you come to break bread with us?  Or to fight?\" she asks."}
+		]
+	},
+	{
 		"key": "CENTAUR-BUTTPLUG",
 		"scriptLines": [
 			{"text": "You reach under your skirt and pull out the plug, knowing it'll just get in the way of what's about to go up there."}
@@ -5763,7 +5773,7 @@
 		"scriptLines": [
 			{
 			"animatedForeground": "CENTAUR",
-			"mutations": [{"saveType":"FOOD", "value":{"class": "java.lang.Integer", "value": 10}}, {"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": 2}}],
+			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "CENTAUR", "value":1}}, {"saveType":"FOOD", "value":{"class": "java.lang.Integer", "value": 10}}, {"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": 2}}],
 			"text": "You defeated the centaur!  You are now welcome to sleep in their camp, and receive 10 food.  You receive 2 Experience."}
 		]
 	}
@@ -5805,7 +5815,7 @@
 			{"text": "It flops, deflated and defeated, out of your stretched open mouth, and it's followed by a mouthful of runny horsecum.  You don't know if your equine fellatio partner was thankful for his milking, but you do see another approaching immediately for service."},	
 			{"text": "The second centaur fellatio, unlike the second centaur anal ordeal, proves no less difficult - the opposite, in fact."},			
 			{
-			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":5, "analEjaculation":1, "creampies": 5, "horse":true}}],
+			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "CENTAUR", "value":1}},	 {"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":5, "analEjaculation":1, "creampies": 5, "horse":true}}],
 			"text": "By the day's end, you find yourself grasping the forelegs of a male centaur while he thoroughly makes you his mare, an anal ordeal that is the first of many.  You grit your teeth as sweat pours down your face and your ass is ruined by a horse's dick - that it happens to be gay sex is the least of your worries."},
 			{"text": "You prove a very... effective mare.  You suspect the centaur quite enjoy the tightness of a human \"pussy\"."},
 			{"text": "You are certainly more useful as a mare than a hero... while spit-roasted by horsemen cocks, you might not be thinking straight, but you like feeling useful."},		
@@ -5844,7 +5854,7 @@
 			{"text": "She canters about, apparently not at all winded by your 'fight'.  You watch her warily."},
 			{"text": "\"I didn't think humans were so interested in the affections of centaurs,\" she says, somewhat amused.  \"I suppose I should thank you for your hospitality.\""},
 			{
-			"mutations": [{"saveType":"ITEM", "value":{"class": "com.majalis.character.Item$Weapon", "type": "Bow"}}, {"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": 2}}],
+			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "CENTAUR", "value":1}}, {"saveType":"ITEM", "value":{"class": "com.majalis.character.Item$Weapon", "type": "Bow"}}, {"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": 2}}],
 			"text": "You lay motionless as she trots up to you, kneels, and lays her bow on the ground.  Without another word, she trots off, having already gotten her satisfaction with your too-small body."}
 		]
 	},
