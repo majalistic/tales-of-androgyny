@@ -1900,7 +1900,7 @@ public enum EncounterCode {
 				        b.branch(Outcome.KNOT_ORAL).textScene("WEREWOLF-BATTLE-KNOT-ORAL").gameEnd(),
 				        b.branch(Outcome.DEFEAT).textScene("WEREWOLF-DEFEAT").checkScene(Perk.BITCH, bitch, defeatNoBitch),
 				        b.branch(Outcome.SATISFIED_ANAL).textScene("WEREWOLF-SATISFIED"),
-				        b.branch(Outcome.SUBMISSION).textScene("WEREWOLF-SATISFIED")
+				        b.branch(Outcome.SUBMISSION).textScene("WEREWOLF-SUBMISSION")
 				    );
 				
 				return b.branch().textScene("WEREWOLF-INTRO").checkScene(

@@ -4710,10 +4710,24 @@
 		"key": "WEREWOLF-SATISFIED",
 		"scriptLines": [
 			{
+			"chatter": "Umm...",
+			"chatterPerson": "Kylira",
 			"mutations": [{"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": 2}}], 
 			"text": "You didn't manage to avoid her runny dog cum, and the smell is rather intense, but you avoided having to get the worst of her canine tool."},
-			{"text": "She seems content.  Her dangling genitalia are no longer aroused, which gives you a sense of ease that you otherwise don't feel; after all, you did just swallow all of her runny wolf cum."},
+			{"text": "She seems content.  Her dangling genitalia are no longer aroused, which gives you a sense of ease that you otherwise don't feel, having just come into close contact with her runny dog cum."},
 			{"text": "She seems oddly cowed, keeping her tail between her legs as she bounds off, leaving a trail of juices in her wake."}
+		]
+	},
+	{
+		"key": "WEREWOLF-SUBMISSION",
+		"scriptLines": [
+			{
+			"chatter": "Enjoy yourself, mutt?",
+			"chatterPerson": "Trudy",
+			"mutations": [{"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": 2}}], 
+			"text": "You managed to flip the werewolf's switch, her submissive side showing in the form of a runny puddle of doggy cum that she leaked out."},
+			{"text": "She seems content.  Her dangling genitalia are no longer aroused, and she seems a bit sheepish."},
+			{"text": "She keeps her tail between her legs as she bounds off, leaving a trail of juices in her wake."}
 		]
 	},
 	{
