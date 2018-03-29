@@ -28,6 +28,7 @@ public class Zone {
 	private final int repeats;
 	private final ObjectSet<EncounterCode> unspawnedEncounters;
 	private GameWorldNode startNode;
+	public int nodeCode;
 	
 	protected Zone(LoadService loadService, AssetManager assetManager, RandomXS128 random, Array<GameWorldNode> nodes, IntMap<GameWorldNode> nodeMap, ObjectSet<EncounterCode> unspawnedEncounters, int difficulty, int repeats) {
 		this.assetManager = assetManager;
@@ -55,12 +56,12 @@ public class Zone {
 	@SuppressWarnings("unchecked")
 	protected Zone addEndNode(int nodeCode, EncounterCode initialEncounter, EncounterCode defaultEncounter, int x, int y) { addNode(getNode(nodeCode, initialEncounter, defaultEncounter, x, y, visitedInfo.get(nodeCode, getFreshVisitInfo())), nodeCode, nodes, requiredNodes, zoneNodes); return this; }
 
-	protected Zone buildZone() {
+	protected Zone buildZone(int nodeCode) {
 		Array<GameWorldNode> requiredNodesUnfulfilled = new Array<GameWorldNode>(requiredNodes);
 		for (int ii = 0; ii < repeats; ii++) {
 			for (GameWorldNode requiredNode : requiredNodes) {
 				GameWorldNode closestNode = findClosestNode(requiredNode, zoneNodes);
-				startToEndNodePath(requiredNodesUnfulfilled.contains(requiredNode, true) && closestNode != null ? closestNode : startNode, requiredNode, requiredNodesUnfulfilled);
+				nodeCode = startToEndNodePath(requiredNodesUnfulfilled.contains(requiredNode, true) && closestNode != null ? closestNode : startNode, requiredNode, requiredNodesUnfulfilled, nodeCode);
 			}
 		}
 		
@@ -70,14 +71,14 @@ public class Zone {
 			for (GameWorldNode unfulfilledNode : requiredNodesUnfulfilled) {
 				GameWorldNode closest = findClosestNode(unfulfilledNode, zoneNodes);
 				if (closest != null) {
-					startToEndNodePath(closest, unfulfilledNode, requiredNodesUnfulfilled);
+					nodeCode = startToEndNodePath(closest, unfulfilledNode, requiredNodesUnfulfilled, nodeCode);
 				}
 				else { failure = true; }
 			}
 			for (GameWorldNode unfulfilledNode : requiredNodesUnfulfilled) {
 				GameWorldNode closest = findClosestNode(unfulfilledNode, nodes);
 				if (closest != null) {
-					startToEndNodePath(closest, unfulfilledNode, requiredNodesUnfulfilled);
+					startToEndNodePath(closest, unfulfilledNode, requiredNodesUnfulfilled, nodeCode);
 				}
 				else { failure = true; }
 			}
@@ -92,7 +93,7 @@ public class Zone {
 					}
 				}
 				if (closestNode != null) {
-					startToEndNodePath(closestNode, unfulfilledNode, requiredNodesUnfulfilled);
+					startToEndNodePath(closestNode, unfulfilledNode, requiredNodesUnfulfilled, nodeCode);
 				}
 			}
 			attempts++;
@@ -112,6 +113,7 @@ public class Zone {
 			for (GameWorldNode node : requiredNodesUnfulfilled) { failures += node.getEncounterCode().toString() + ", "; }
 			if (!failures.equals("")) { Logging.logTime("Failed to generate following required nodes : " + failures); }
 		}
+		this.nodeCode = nodeCode;
 		return this;
 	}
 	
@@ -126,7 +128,7 @@ public class Zone {
 	}
 	
 	@SuppressWarnings("unchecked")
-	private void startToEndNodePath(GameWorldNode startNode, GameWorldNode requiredNode, Array<GameWorldNode> requiredNodesUnfulfilled) {
+	private int startToEndNodePath(GameWorldNode startNode, GameWorldNode requiredNode, Array<GameWorldNode> requiredNodesUnfulfilled, int nodeCode) {
 		int minimumX = 10;
 		int minimumXY = 200;
 		int maxX = 130;
@@ -134,7 +136,7 @@ public class Zone {
 		boolean nodeNotReached = true;
 		GameWorldNode currentNode = startNode;
 		GameWorldNode closestNode = currentNode;
-		for (int nodeCode = nodes.size; nodeNotReached; ) {
+		for ( ; nodeNotReached; ) {
 			Vector2 newNodePosition = null; // this should never happen
 			Vector2 source = new Vector2(currentNode.getHexPosition());			
 			int currentDistance = currentNode.getDistance(requiredNode);
@@ -197,10 +199,11 @@ public class Zone {
 				requiredNodesUnfulfilled.removeValue(requiredNode, true);
 			}
 			// save the node for the next iteration
-			currentNode = newNode;		
+			currentNode = newNode;	
 			nodeCode++;
 			if (closestNode.getDistance(requiredNode) > newNode.getDistance(requiredNode)) closestNode = newNode;
 		}
+		return nodeCode;
 	}
 	
 	private boolean isOverlap(Vector2 newNodePosition, Array<GameWorldNode> nodes) {

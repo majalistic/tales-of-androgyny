@@ -48,15 +48,16 @@ public class GameWorldFactory {
 		GameWorldNode mouthfiend2 = null;
 		Zone zone4 = null;
 		if (gameMode == GameMode.SKIRMISH) {
-			new Zone(loadService, assetManager, random, nodes, nodeMap, unspawnedEncounters, 1,  1)
+			int nodeCode = 2;
+			nodeCode = new Zone(loadService, assetManager, random, nodes, nodeMap, unspawnedEncounters, 1,  1)
 				.addStartNode(1, INITIAL, DEFAULT, 18, 89) 
 				.addEndNode(10000, GADGETEER, GADGETEER,  18, 100)
-				.buildZone();
+				.buildZone(nodeCode).nodeCode;
 			
 			Zone zone = new Zone(loadService, assetManager, random, nodes, nodeMap, unspawnedEncounters, 1,  2)
 				.addStartNode(nodes.get(0))
 				.addEndNode(1000, TOWN, TOWN, 31, 94)
-				.buildZone();
+				.buildZone(nodeCode);
 			
 			mermaid = addNode(getNode(2000, MERMAID, MERMAID, 50, 94, visitedInfo.get(2000, getFreshVisitInfo())), nodes);
 			
@@ -65,19 +66,19 @@ public class GameWorldFactory {
 			Zone zone2 = new Zone(loadService, assetManager, random, nodes, nodeMap, unspawnedEncounters, 2, 1)
 				.addStartNode(zone.getEndNodes().get(0))
 				.addEndNode(1001, SPIDER, SPIDER, 53, 109)
-				.buildZone();
+				.buildZone(zone.nodeCode);
 			
 			Zone zone3 = new Zone(loadService, assetManager, random, nodes, nodeMap, unspawnedEncounters, 2, 2)
 				.addStartNode(zone2.getEndNodes().get(0))
 				.addEndNode(1003, ANGEL, ALTAR, 83, 119)
 				.addEndNode(1004, WITCH_COTTAGE, WITCH_COTTAGE, 83, 88)
-				.buildZone();
+				.buildZone(zone2.nodeCode);
 			
 			zone4 = new Zone(loadService, assetManager, random, nodes, nodeMap, unspawnedEncounters, 3, 2)
 				.addStartNode(zone3.getEndNodes().get(0))
 				.addEndNode(1005, QUETZAL, QUETZAL, 119, 115)
 				.addEndNode(1006, FORT, FORT, 119, 84)
-				.buildZone();
+				.buildZone(zone3.nodeCode);
 			
 			mouthfiend = addNode(getNode(50000, MOUTH_FIEND, MOUTH_FIEND, 96, 49, visitedInfo.get(50000, getFreshVisitInfo())), nodes);
 			mouthfiend2 = addNode(getNode(50001, MOUTH_FIEND_ESCAPE, MOUTH_FIEND_ESCAPE, 99, 49, visitedInfo.get(50001, getFreshVisitInfo())), nodes);
