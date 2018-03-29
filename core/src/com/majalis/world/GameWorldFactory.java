@@ -82,7 +82,7 @@ public class GameWorldFactory {
 			
 			mouthfiend = addNode(getNode(50000, MOUTH_FIEND, MOUTH_FIEND, 96, 49, visitedInfo.get(50000, getFreshVisitInfo())), nodes);
 			mouthfiend2 = addNode(getNode(50001, MOUTH_FIEND_ESCAPE, MOUTH_FIEND_ESCAPE, 99, 49, visitedInfo.get(50001, getFreshVisitInfo())), nodes);
-			nodes.get(nodes.size - 1).connectTo(nodes.get(nodes.size - 2));			
+			mouthfiend.connectTo(mouthfiend2);		
 		}
 		else {
 			int nodeCode = 1;
