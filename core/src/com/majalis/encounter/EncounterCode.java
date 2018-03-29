@@ -466,7 +466,13 @@ public enum EncounterCode {
 					)
 				);
 			case BRIGAND:
-				Branch[] battleBranches2 = new Branch[]{b.branch(Outcome.VICTORY).textScene("BRIGAND-VICTORY"), b.branch(Outcome.DEFEAT).textScene("BRIGAND-DEFEAT"), b.branch(Outcome.SATISFIED_ANAL).textScene("BRIGAND-SATISFIED")};
+				Branch[] battleBranches2 = new Branch[]{
+					b.branch(Outcome.VICTORY).textScene("BRIGAND-VICTORY"), 
+					b.branch(Outcome.DEFEAT).textScene("BRIGAND-DEFEAT"),
+					b.branch(Outcome.SATISFIED_ANAL).textScene("BRIGAND-SATISFIED-ANAL"),
+					b.branch(Outcome.SATISFIED_ORAL).textScene("BRIGAND-SATISFIED-ORAL"),
+					b.branch(Outcome.SUBMISSION).textScene("BRIGAND-SUBMISSION"),
+				};
 				Branch acceptCont = b.branch().textScene("BRIGAND-ACCEPT-CONT").choiceScene(
 					"Tell her to pull out?",
 					b.branch("Say Nothing").textScene("BRIGAND-CATCH"),

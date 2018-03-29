@@ -5548,13 +5548,33 @@
 		]
 	},
 	{
-		"key": "BRIGAND-SATISFIED",
+		"key": "BRIGAND-SATISFIED-ANAL",
 		"scriptLines": [
 			{
 			"chatter": "I'm glad there was a... peaceful resolution.",
 			"chatterPerson": "Kylira",
 			"mutations": [{"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": 2}}, {"saveType":"PORTRAIT", "value":{"class": "com.majalis.asset.AssetEnum", "value": "PORTRAIT_AHEGAO"}}], 
-			"text": "Having drained her load in you, the Brigand seems satisfied.  She sheathes her weapon, and also puts away her sword, and leaves you to puzzle out what to do with all of her semen."}
+			"text": "Having drained her load in you, the Brigand seems satisfied.  She sheathes her weapon, and also puts away her sword, and leaves you to puzzle out what to do with all of her semen in your gut."}
+		]
+	},
+	{
+		"key": "BRIGAND-SATISFIED-ORAL",
+		"scriptLines": [
+			{
+			"chatter": "There's so much...",
+			"chatterPerson": "Kylira",
+			"mutations": [{"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": 2}}, {"saveType":"PORTRAIT", "value":{"class": "com.majalis.asset.AssetEnum", "value": "PORTRAIT_AHEGAO"}}], 
+			"text": "Having filled your mouth with her nutgoo, the Brigand seems satisfied.  She sheathes her weapon, and also puts away her sword, and leaves you to puzzle out what to do with all of her semen in your mouth."}
+		]
+	},
+	{
+		"key": "BRIGAND-SUBMISSION",
+		"scriptLines": [
+			{
+			"chatter": "I'm glad there was a... peaceful resolution.",
+			"chatterPerson": "Kylira",
+			"mutations": [{"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": 2}}, {"saveType":"PORTRAIT", "value":{"class": "com.majalis.asset.AssetEnum", "value": "PORTRAIT_AHEGAO"}}], 
+			"text": "Having blasted the Brigand, she seems to have gotten off through grit teeth, and is much more conciliatory as you go your separate ways."}
 		]
 	},
 	{
