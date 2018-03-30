@@ -6567,26 +6567,36 @@
 			{
 			"sound": "LOUD_LAUGH",
 			"text": "\"Good luck, pinkskin!  Next time, keep OUT!  Nyaha!\""},
-			{
-			"text": "You lay, full to bursting of semen, in the dirt for a while, in the gloomy bioluminescence of the forest, the goblin's cackling disappearing into the darkness."}
+			{"text": "You lay, full to bursting of semen, in the dirt for a while, in the gloomy bioluminescence of the forest, the goblin's cackling disappearing into the darkness."}
 		]
 	},
 	{
 		"key": "GOBLIN-SATISFIED-ORAL",
 		"scriptLines": [
-			{"text": "\"Gyahaha!  You're all bloated!  Like a balloon!\""}
+			{"text": "\"Gyahaha!  You're all bloated!  Like a balloon!\""},
+			{"text": "She seems to be finished with you, but she steps on the side of your face to deliver one last parting insight."},
+			{"text": "\"Goblin girls like me have eggs, nyaha!  And they're all up inside you now! If they get fertilized, you're going to have a big, pregnant belly.  And then... a goblin butt baby!\""},
+			{"text": "Your heart starts beating rapidly. \"But... if I... don't... with a goblin...\" you say, hopefully."},
+			{"text": "\"Nyahaha! Nope! I make all kinds of eggs! Who knows what you'll end up being a mommy to!\" she says, cackling again, before fastening her loincloth back into place."},
+			{"text": "She retrieves the rest of her things, then gives you a view of her shapely rear as she departs."},
+			{
+			"sound": "LOUD_LAUGH",
+			"text": "\"Good luck, pinkskin!  Next time, keep OUT!  Nyaha!\""},
+			{"text": "You lay, full to bursting of semen, in the dirt for a while, in the gloomy bioluminescence of the forest, the goblin's cackling disappearing into the darkness."}
 		]
 	},
 	{
 		"key": "GOBLIN-MALE-SATISFIED-ANAL",
 		"scriptLines": [
-			{"text": "\"Gyahaha!  You're all stuffed up!\" he says, pointing out your overflowing, gaping butthole."}
+			{"text": "\"Gyahaha!  You're all stuffed up!\" he says, pointing out your overflowing, gaping butthole."},
+			{"text": "You lay, full to bursting of semen, in the dirt for a while, in the gloomy bioluminescence of the forest, the goblin's cackling disappearing into the darkness."}
 		]
 	},
 	{
 		"key": "GOBLIN-MALE-SATISFIED-ORAL",
 		"scriptLines": [
-			{"text": "\"Gyahaha!  You're all stuffed up!\" he says, noting your rotund fullness."}
+			{"text": "\"Gyahaha!  You're all stuffed up!\" he says, noting your rotund fullness."},
+			{"text": "You lay, full to bursting of semen, in the dirt for a while, in the gloomy bioluminescence of the forest, the goblin's cackling disappearing into the darkness."}
 		]
 	},
 	{
