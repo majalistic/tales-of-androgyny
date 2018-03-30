@@ -5815,7 +5815,7 @@
 			{"text": "It flops, deflated and defeated, out of your stretched open mouth, and it's followed by a mouthful of runny horsecum.  You don't know if your equine fellatio partner was thankful for his milking, but you do see another approaching immediately for service."},	
 			{"text": "The second centaur fellatio, unlike the second centaur anal ordeal, proves no less difficult - the opposite, in fact."},			
 			{
-			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "CENTAUR", "value":1}},	 {"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":5, "analEjaculation":1, "creampies": 5, "horse":true}}],
+			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "CENTAUR", "value":1}}, {"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":5, "analEjaculation":1, "creampies": 5, "horse":true}}],
 			"text": "By the day's end, you find yourself grasping the forelegs of a male centaur while he thoroughly makes you his mare, an anal ordeal that is the first of many.  You grit your teeth as sweat pours down your face and your ass is ruined by a horse's dick - that it happens to be gay sex is the least of your worries."},
 			{"text": "You prove a very... effective mare.  You suspect the centaur quite enjoy the tightness of a human \"pussy\"."},
 			{"text": "You are certainly more useful as a mare than a hero... while spit-roasted by horsemen cocks, you might not be thinking straight, but you like feeling useful."},		
@@ -6549,6 +6549,30 @@
 			{
 			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":5, "creampies":20, "analEjaculation":5}}],
 			"text": "Days later, you stumbled out of the goblin village, spewing goblinoid cum from every orifice, your stomach looking thrice-over pregnant.  That was the last any non-Goblin saw of you, as a passerby spotted you being dragged back into the dark forest, your stomach gurgling all the way."}
+		]
+	},
+	{
+		"key": "GOBLIN-SATISFIED-ANAL",
+		"scriptLines": [
+			{"text": ""}
+		]
+	},
+	{
+		"key": "GOBLIN-SATISFIED-ORAL",
+		"scriptLines": [
+			{"text": ""}
+		]
+	},
+	{
+		"key": "GOBLIN-MALE-SATISFIED-ANAL",
+		"scriptLines": [
+			{"text": ""}
+		]
+	},
+	{
+		"key": "GOBLIN-MALE-SATISFIED-ORAL",
+		"scriptLines": [
+			{"text": ""}
 		]
 	},
 	{

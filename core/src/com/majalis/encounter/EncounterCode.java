@@ -1071,7 +1071,9 @@ public enum EncounterCode {
 				return b.branch().textScene("GOBLIN-MALE-INTRO").battleScene(
 					BattleCode.GOBLIN_MALE,
 					b.branch(Outcome.VICTORY).textScene("GOBLIN-MALE-VICTORY"),
-					b.branch(Outcome.DEFEAT).checkScene(CheckType.PLUGGED, b.branch(true).textScene("GOBLIN-MALE-BUTTPLUG").concat(maleDefeatCont), b.branch(false).concat(maleDefeatCont))
+					b.branch(Outcome.DEFEAT).checkScene(CheckType.PLUGGED, b.branch(true).textScene("GOBLIN-MALE-BUTTPLUG").concat(maleDefeatCont), b.branch(false).concat(maleDefeatCont)),
+					b.branch(Outcome.SATISFIED_ANAL).textScene("GOBLIN-MALE-SATISFIED-ANAL"),
+					b.branch(Outcome.SATISFIED_ORAL).textScene("GOBLIN-MALE-SATISFIED-ORAL")	
 				);
 			case GOBLIN:
 				Branch analCont = b.branch().textScene("GOBLIN-ANAL-CONT").checkScene(
@@ -1099,7 +1101,9 @@ public enum EncounterCode {
 						CheckType.GOBLIN_VIRGIN,
 						b.branch(true).textScene("GOBLIN-VIRGIN").concat(postVirginityCheck),
 						b.branch(false).textScene("GOBLIN-EXPERT").concat(postVirginityCheck)
-					)
+					),
+					b.branch(Outcome.SATISFIED_ANAL).textScene("GOBLIN-SATISFIED-ANAL"),
+					b.branch(Outcome.SATISFIED_ORAL).textScene("GOBLIN-SATISFIED-ORAL")	
 				};
 				Branch pantsCutDown = b.branch(0).textScene("GOBLIN-PANTS-DOWN").battleScene(BattleCode.GOBLIN, Stance.DOGGY_BOTTOM, Stance.DOGGY, battleScenes);
 				

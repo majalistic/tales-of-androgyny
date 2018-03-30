@@ -333,6 +333,12 @@ public class EnemyCharacter extends AbstractCharacter {
 				break;
 			case GOBLIN:
 			case GOBLIN_MALE:
+				if (!storyMode) {
+					if (enemy.getCumInflation() > 1 || climaxCounters.get(ClimaxType.ANAL.toString(), 0) >= 5) {
+						if (climaxCounters.get(ClimaxType.ANAL.toString(), 0) >= 1) return Outcome.SATISFIED_ANAL;
+						return Outcome.SATISFIED_ORAL;
+					}
+				}
 				break;
 			case ORC:
 				if (getToppingClimaxCount() >= 5) return Outcome.SATISFIED_ANAL;
