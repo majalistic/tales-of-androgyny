@@ -648,6 +648,7 @@ public abstract class AbstractCharacter extends Group {
 			int blockMod = attack.getBlockAmount();
 			if (blockMod > 0) {				
 				if (shield != null && shield.getDurability() > 0) {
+					// ICON: should display shield damage with shield icon
 					result.add((blockMod >= 4 ? "The blow strikes off the shield!" : blockMod >= 3 ? "The blow is mostly blocked by the shield!" : blockMod >= 2 ? "The blow is half-blocked by the shield!" : "The blow is barely blocked by the shield!") + "\nIt deals " + shieldDamage + " damage to it!");
 					shield.modDurability(-shieldDamage);
 					if (shield.getDurability() == 0) result.add("The shield is broken!");
@@ -655,7 +656,10 @@ public abstract class AbstractCharacter extends Group {
 			}
 			
 			int parryMod = attack.getParryAmount();
+			// ICON: should display amount of damage parried (getParryReduction) with parry icon
 			if (parryMod > 0) { result.add((parryMod >= 4 ? "The blow is parried away!" : parryMod >= 3 ? "The blow is mostly deflected by a parry!" : parryMod >= 2 ? "The blow is half-deflected by a parry!" : "The blow is barely blocked by a parry!")); }
+			
+			// ICON: should display amount of damage evaded (getParryReduction) with evade icon
 			
 			boolean oilyFire = attack.isSpell() && attack.getSpellEffect() == SpellEffect.FIRE_DAMAGE && isOily();
 			if (oilyFire) statuses.put(StatusType.OIL.toString(), 0); 
@@ -663,11 +667,13 @@ public abstract class AbstractCharacter extends Group {
 			Armor hitArmor = getArmorHit(attack.getAttackHeight());
 			if (!attack.ignoresArmor() && damage > 0) {
 				if (getBaseDefense() > 0) result.add("Damage reduced by " + Math.min(damage, getBaseDefense()) + "!");
+				// ICON: should display amount of damage that hits armor along with in-tact armor icon				
 				damage -= getBaseDefense() + getShockAbsorption(hitArmor);
 			}
 			if (attack.getMagicDamageReduction() > 0) { result.add("Magic resistance reduced damage by " + attack.getMagicDamageReduction() + "!"); }
 			
 			if (damage > 0) {	
+				// ICON: should display amount of damage with a health icon
 				attack.addDefenderResults(modHealth(-damage));
 				if (attack.isSpell()) {
 					if (oilyFire) { result.add("The fire ignites the oil!"); }
@@ -681,6 +687,7 @@ public abstract class AbstractCharacter extends Group {
 			if (attack.ignoresArmor() || ((hitArmor == null || hitArmor.getDurability() == 0))) {
 				int bleed = attack.getBleeding();
 				if (bleed > 0 && canBleed()) {
+					// ICON: should display amount of bleed caused with bleed icon
 					result.add("It opens wounds! +" + bleed + " blood loss!");
 					statuses.put(StatusType.BLEEDING.toString(), statuses.get(StatusType.BLEEDING.toString(), 0) + bleed);
 				}
@@ -737,6 +744,7 @@ public abstract class AbstractCharacter extends Group {
 			int armorSunder = attack.getArmorSunder();
 			if (armorSunder > 0) {
 				if (hitArmor != null && hitArmor.getDurability() > 0) {
+					// ICON: should display amount of damage done to armor (broken armor icon) - maybe just show the one since armor damage IS health damage now
 					result.add("It's an armor shattering blow! It reduces " + hitArmor.getName() + " durability by " + (armorSunder > hitArmor.getDurability() ? hitArmor.getDurability() : armorSunder) + "!");
 					hitArmor.modDurability(-armorSunder);
 					if (hitArmor.getDurability() == 0) result.add("The " + hitArmor.getName() + " is broken!");
@@ -746,6 +754,7 @@ public abstract class AbstractCharacter extends Group {
 			int gutcheck = attack.getGutCheck();
 			if (gutcheck > 0) {
 				if (!alreadyIncapacitated()) {
+					// ICON: should display amount of stamina damage with stamina icon
 					currentStamina -= gutcheck; // this should be reduced by armor defense
 					if (currentStamina < -5) currentStamina = -5;
 					result.add("It's winds " + (secondPerson ? "you" : "them") + "! It reduces stamina by " + gutcheck + "!");
@@ -764,6 +773,7 @@ public abstract class AbstractCharacter extends Group {
 			Stance forcedStance = attack.getForceStance();
 			if (forcedStance != null) {
 				if (stance != forcedStance) { 
+					// ICON: should display stance icon
 					result.add(label + (secondPerson ? " are " : " is ") + "forced into " + forcedStance.getLabel() + " stance!");
 					setStance(forcedStance);
 					if (forcedStance == Stance.PRONE || forcedStance == Stance.SUPINE) {
