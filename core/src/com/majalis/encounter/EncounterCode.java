@@ -793,6 +793,13 @@ public enum EncounterCode {
 					b.branch("Decline"),
 					b.branch("Ask For It").require(ChoiceCheckType.LEWD).checkScene(CheckType.PLUGGED, b.branch(true).textScene("CENTAUR-BUTTPLUG").concat(centaurCatamite), b.branch (false).concat(centaurCatamite))
 				);
+				
+				Branch campOptions = b.branch(0).choiceScene(
+					"Stay in the camp?",
+					b.branch("Stay"),
+					b.branch("Leave")
+				);
+				
 				return b.branch().textScene("CENTAUR-INTRO").checkScene(
 					CheckType.VIRGIN, 
 					b.branch(true).textScene("UNICORN-ENTRANCE").battleScene(
@@ -803,13 +810,21 @@ public enum EncounterCode {
 						CheckType.CENTAUR_FIRST, 
 						b.branch(true).textScene("CENTAUR-ENTRANCE").checkScene(
 							Perk.ANAL_ADDICT,
-							b.branch(3).checkScene(CheckType.ANY_WILLPOWER, b.branch(true).textScene("CENTAUR-WILLPOWER").concat(centaurOptions), b.branch(false).checkScene(CheckType.PLUGGED, b.branch(true).textScene("CENTAUR-BUTTPLUG").concat(centaurCatamite), b.branch(false).concat(centaurCatamite))),
+							b.branch(3).checkScene(CheckType.ANY_WILLPOWER, b.branch(true).textScene("CENTAUR-WILLPOWER").concat(centaurOptions), b.branch(false).textScene("CENTAUR-CAMP-ORGY")),
 							centaurOptions
 						),
-						b.branch(false).textScene("CENTAUR-RETURN").checkScene(
-							Perk.ANAL_ADDICT,
-							b.branch(3).checkScene(CheckType.ANY_WILLPOWER, b.branch(true).textScene("CENTAUR-WILLPOWER").concat(centaurOptions), b.branch(false).checkScene(CheckType.PLUGGED, b.branch(true).textScene("CENTAUR-BUTTPLUG").concat(centaurCatamite), b.branch(false).concat(centaurCatamite))),
-							centaurOptions
+						b.branch(false).textScene("CENTAUR-RETURN").choiceScene(
+							"Visit the centaur camp?", 
+							b.branch("Yes").textScene("CENTAUR-CAMP").checkScene(
+								Perk.ANAL_ADDICT,
+								b.branch(3).checkScene(CheckType.ANY_WILLPOWER, b.branch(true).textScene("CENTAUR-WILLPOWER").concat(campOptions), b.branch(false).checkScene(CheckType.PLUGGED, b.branch(true).textScene("CENTAUR-BUTTPLUG").concat(centaurCatamite), b.branch(false).concat(centaurCatamite))),
+								campOptions
+							),
+							b.branch("No").checkScene(
+								Perk.ANAL_ADDICT,
+								b.branch(3).checkScene(CheckType.ANY_WILLPOWER, b.branch(true).textScene("CENTAUR-WILLPOWER").concat(centaurOptions), b.branch(false).checkScene(CheckType.PLUGGED, b.branch(true).textScene("CENTAUR-BUTTPLUG").concat(centaurCatamite), b.branch(false).concat(centaurCatamite))),
+								centaurOptions
+							)
 						)
 					)
 				);
