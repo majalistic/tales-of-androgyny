@@ -5735,13 +5735,25 @@
 	{
 		"key": "CENTAUR-CAMP",
 		"scriptLines": [
-		
+			{"text": "You agree to visit the centaur camp, and she takes you there.  There are a handful of campfires interspersed among about a dozen high-pitched tents, both for shelter and worn below the waist."},
+			{
+			"mutations": [{"saveType":"FOOD", "value":{"class": "java.lang.Integer", "value": 6}}, {"saveType":"TIME", "value":{"class": "java.lang.Integer", "value": 1}}],
+			"text": "You break bread with them... and it quickly becomes apparent that if you decide to stay the night what exactly that will entail."}
 		]
 	},	
 	{
 		"key": "CENTAUR-CAMP-ORGY",
 		"scriptLines": [
-		
+			{
+			"foreground": "CENTAUR_GANGBANG",
+			"text": "The centaur prove to be... hospitable hosts.  And you reciprocate that hospitality as a centaur cock warmer."},
+			{
+			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "CENTAUR", "value":1}}, {"saveType":"TIME", "value":{"class": "java.lang.Integer", "value": 1}}, {"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":5, "analEjaculation":1, "creampies": 5, "horse":true}}],
+			"text": "By the day's end, you find yourself grasping the forelegs of a male centaur while he thoroughly makes you his mare, an anal ordeal that is the first of many.  You grit your teeth as sweat pours down your face and your ass is ruined by a horse's dick - that it happens to be gay sex is the least of your worries."},
+			{"text": "You prove a very... effective mare.  You suspect the centaur quite enjoy the tightness of a human \"pussy\"."},
+			{"text": "You are certainly more useful as a mare than a hero... while spit-roasted by horsemen cocks, you might not be thinking straight, but you like feeling useful."},		
+			{"text": "You swallow a dozen sloppy centaur loads, and get pussy pounded by twice that, and when the last one flops out of your gaped asshole, you feel like you can win a hole-stretching contest with any mare."},
+			{"text": "The breeze flowing inside is a bittersweet reminder of your victory over the centaurs, and of your recent anal defiling at their... hooves?"}
 		]
 	},	
 	{

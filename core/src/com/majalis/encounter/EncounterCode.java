@@ -794,9 +794,11 @@ public enum EncounterCode {
 					b.branch("Ask For It").require(ChoiceCheckType.LEWD).checkScene(CheckType.PLUGGED, b.branch(true).textScene("CENTAUR-BUTTPLUG").concat(centaurCatamite), b.branch (false).concat(centaurCatamite))
 				);
 				
+				Branch centaurOrgy = b.branch().textScene("CENTAUR-CAMP-ORGY");
+				
 				Branch campOptions = b.branch(0).choiceScene(
 					"Stay in the camp?",
-					b.branch("Stay"),
+					b.branch("Stay").concat(centaurOrgy),
 					b.branch("Leave")
 				);
 				
@@ -810,7 +812,7 @@ public enum EncounterCode {
 						CheckType.CENTAUR_FIRST, 
 						b.branch(true).textScene("CENTAUR-ENTRANCE").checkScene(
 							Perk.ANAL_ADDICT,
-							b.branch(3).checkScene(CheckType.ANY_WILLPOWER, b.branch(true).textScene("CENTAUR-WILLPOWER").concat(centaurOptions), b.branch(false).textScene("CENTAUR-CAMP-ORGY")),
+							b.branch(3).checkScene(CheckType.ANY_WILLPOWER, b.branch(true).textScene("CENTAUR-WILLPOWER").concat(centaurOptions), b.branch(false).concat(centaurOrgy)),
 							centaurOptions
 						),
 						b.branch(false).textScene("CENTAUR-RETURN").choiceScene(
