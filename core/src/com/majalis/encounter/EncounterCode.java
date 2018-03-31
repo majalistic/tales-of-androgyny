@@ -812,14 +812,18 @@ public enum EncounterCode {
 						CheckType.CENTAUR_FIRST, 
 						b.branch(true).textScene("CENTAUR-ENTRANCE").checkScene(
 							Perk.ANAL_ADDICT,
-							b.branch(3).checkScene(CheckType.ANY_WILLPOWER, b.branch(true).textScene("CENTAUR-WILLPOWER").concat(centaurOptions), b.branch(false).concat(centaurOrgy)),
+							b.branch(3).checkScene(CheckType.ANY_WILLPOWER, b.branch(true).textScene("CENTAUR-WILLPOWER").concat(centaurOptions), b.branch(false).checkScene(CheckType.PLUGGED, b.branch(true).textScene("CENTAUR-BUTTPLUG").concat(centaurCatamite), b.branch(false).concat(centaurCatamite))),
 							centaurOptions
 						),
 						b.branch(false).textScene("CENTAUR-RETURN").choiceScene(
 							"Visit the centaur camp?", 
 							b.branch("Yes").textScene("CENTAUR-CAMP").checkScene(
 								Perk.ANAL_ADDICT,
-								b.branch(3).checkScene(CheckType.ANY_WILLPOWER, b.branch(true).textScene("CENTAUR-WILLPOWER").concat(campOptions), b.branch(false).checkScene(CheckType.PLUGGED, b.branch(true).textScene("CENTAUR-BUTTPLUG").concat(centaurCatamite), b.branch(false).concat(centaurCatamite))),
+								b.branch(3).checkScene(
+									CheckType.ANY_WILLPOWER, 
+									b.branch(true).textScene("CENTAUR-WILLPOWER").concat(campOptions), 
+									b.branch(false).concat(centaurOrgy)
+								),
 								campOptions
 							),
 							b.branch("No").checkScene(
