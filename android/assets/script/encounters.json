@@ -1668,6 +1668,14 @@
 		]
 	},
 	{
+		"key": "QUETZAL-VICTORY-VIRGIN",
+		"scriptLines": [
+			{
+			"mutations": [{"profileSaveType":"ACHIEVEMENT", "value":{"class": "com.majalis.save.Achievement", "value": "QUETZAL_GODDESS_VIRGIN"}}],
+			"text": ""}
+		]
+	},
+	{
 		"key": "QUETZAL-SECONDS",
 		"scriptLines": [
 			{

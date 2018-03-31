@@ -837,7 +837,7 @@ public enum EncounterCode {
 				Branch quetzalLoss = b.branch().textScene("QUETZAL-LOSS").concat(quetzalSeconds);
 				Branch quetzalAttack = b.branch().checkScene(
 					CheckType.BLESSING_PURCHASED, 
-					b.branch(true).textScene("QUETZAL-ATTACK").battleScene(BattleCode.QUETZAL, b.branch(Outcome.VICTORY).textScene("QUETZAL-VICTORY"), b.branch(Outcome.DEFEAT).concat(quetzalLoss), b.branch(Outcome.DEATH).concat(quetzalLoss), b.branch(Outcome.KNOT_ANAL).concat(quetzalSeconds)), 
+					b.branch(true).textScene("QUETZAL-ATTACK").battleScene(BattleCode.QUETZAL, b.branch(Outcome.VICTORY).textScene("QUETZAL-VICTORY").checkScene(CheckType.VIRGIN, b.branch(true).textScene("QUETZAL-VICTORY-VIRGIN"), b.branch(false)), b.branch(Outcome.DEFEAT).concat(quetzalLoss), b.branch(Outcome.DEATH).concat(quetzalLoss), b.branch(Outcome.KNOT_ANAL).concat(quetzalSeconds)), 
 					b.branch(false).textScene("QUETZAL-AUTO").concat(quetzalLoss)
 				);
 				Branch quetzalFirst = b.branch().textScene("QUETZAL-INTRO").choiceScene("Attack?", b.branch("Attack").concat(quetzalAttack), b.branch("Strategic Retreat").textScene("QUETZAL-RETREAT"));
