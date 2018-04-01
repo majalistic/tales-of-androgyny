@@ -549,7 +549,7 @@ public enum EncounterCode {
 						b.branch("Her weapon").textScene("STORY-BRIGAND-VICTORY-SWORD")
 					), 
 					b.branch(Outcome.DEFEAT).textScene("STORY-BRIGAND-DEFEAT").choiceScene("Steel or suck?", b.branch("Steel").textScene("STORY-BRIGAND-DEFEAT-DEATH").gameEnd(), b.branch("Suck").textScene("STORY-BRIGAND-DEFEAT-SUCK")),
-					b.branch(Outcome.SATISFIED_ANAL).textScene("BRIGAND-SATISFIED")
+					b.branch(Outcome.SATISFIED_ANAL).textScene("BRIGAND-SATISFIED-ANAL")
 				);
 		
 			case BROTHEL:
