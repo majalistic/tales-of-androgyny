@@ -11705,4 +11705,15 @@
 			"text": "The manor is abandoned - nothing inside remains of value.  You turn away from it, solemnly."}
 		]
 	},
+	{
+		"key": "GIANTESS-INTRO",
+		"scriptLines": [
+			{
+			"music": "ANGEL_MUSIC",
+			"background": "GIANTESS_FUTA",
+			"chatter": "Holy mother of... the mountain.",
+			"chatterPerson": "Trudy",
+			"text": "That is a big lady."}
+		]
+	},	
 ]}

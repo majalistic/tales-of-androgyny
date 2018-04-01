@@ -55,6 +55,7 @@ public enum EncounterCode {
 	MOUTH_FIEND_ESCAPE,
 	MERMAID,
 	WARLOCK,
+	GIANTESS_FUTA,
 	
 	FORT (CASTLE), 
 	TOWN (AssetEnum.TOWN),
@@ -1086,7 +1087,9 @@ public enum EncounterCode {
 						), 
 						b.branch("Ignore her").textScene("GHOST-NIGHT-IGNORE").choiceScene("Camp or Leave?", b.branch("Camp").textScene("GHOST-NIGHT-CAMP").textScene(spookyGhostScene).textScene("GHOST-NIGHT-CAMP-CONT"), b.branch("Leave").textScene("GHOST-NIGHT-LOST"))
 					)
-				);		
+				);	
+			case GIANTESS_FUTA:
+				return b.branch().textScene("GIANTESS-INTRO");
 			case GOBLIN_MALE:
 				Branch maleDefeatCont = b.branch().textScene("GOBLIN-MALE-DEFEAT").gameEnd();
 				return b.branch().textScene("GOBLIN-MALE-INTRO").battleScene(

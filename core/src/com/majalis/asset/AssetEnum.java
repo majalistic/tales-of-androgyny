@@ -44,6 +44,7 @@ public enum AssetEnum {
 	CAMP_BG1("backgrounds/CampBG1.jpg"),
 	CAMP_BG2("backgrounds/CampBG2.jpg"),
 	WATERFALL_BG("backgrounds/WaterfallTop.jpg"),
+	GIANTESS_FUTA("backgrounds/GiantessFuta.jpg"),
 	
 	CLASS_SELECT_BACKGROUND("backgrounds/ClassSelect/Bg.png"),
 	CLASS_SELECT_CHARACTER_BOX("backgrounds/ClassSelect/CharacterBox.png"),
