@@ -11740,4 +11740,43 @@
 			{"text": "They pull you from your sticky trap, and then carry you to their village, brimming with excitement."}
 		]
 	},	
+	{
+		"key": "GIANTESS-VILLAGE-CAPTURE",
+		"scriptLines": [
+			{"text": ""}			
+		]
+	},	
+	{
+		"key": "GIANTESS-VILLAGE-CAPTURE-SEEN-GODDESS",
+		"scriptLines": [
+			{
+			"background": "GIANTESS_FUTA",
+			"text": "It's... the goddess.  She stands so that her head would be beyond the clouds if it weren't a clear day."}			
+		]
+	},	
+	{
+		"key": "GIANTESS-VILLAGE-CAPTURE-UNSEEN-GODDESS",
+		"scriptLines": [
+			{
+			"background": "GIANTESS_FUTA",
+			"text": "It's... a giant woman.  She stands so that her head would be beyond the clouds if it weren't a clear day."}			
+		]
+	},	
+	
+	{
+		"key": "GIANTESS-REBIRTH",
+		"scriptLines": [
+			{
+			"background": "CELESTIAL_BG",
+			"text": "Everything is white... is this... the world beyond...?"},
+			{"text": "You're surrounded by warmth... you feel safe... you open your eyes... and through the milky haze, you see light.  You reach out for it... and suddenly, you feel a cool breeze on your hand."},
+			{"text": "You pull yourself upwards, upwards and outwards, and emerge from the... water... with a gasping breath.  You're in the middle of a lake... and, as far as you can tell, you're not dead."},
+			{"text": "You swim to the shore, and beach yourself on it, exhausted.  The grace of the goddess has filled your lungs with life and... other things."}
+			
+		]
+	},	
+	
+	
+	
+	
 ]}
