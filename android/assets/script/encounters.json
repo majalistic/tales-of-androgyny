@@ -11710,10 +11710,34 @@
 		"scriptLines": [
 			{
 			"music": "ANGEL_MUSIC",
+			"text": "This valley is known for its strange, isolated inhabitants.  They worship some foreign goddess, and whispered rumors suggest that they even practice ritual sacrifice... you make sure to keep up your guard."}
+		]
+	},	
+	{
+		"key": "GIANTESS-SPOTTED",
+		"scriptLines": [
+			{
+			"music": "ANGEL_MUSIC",
 			"background": "GIANTESS_FUTA",
 			"chatter": "Holy mother of... the mountain.",
 			"chatterPerson": "Trudy",
-			"text": "That is a big lady."}
+			"text": "Having surveyed the area in advance... you suspect their goddess might be real, after all."}
+		]
+	},	
+	{
+		"key": "GIANTESS-BLUNDERED",
+		"scriptLines": [
+			{"text": "You keep to the lowlands, not wanting to be spotted, as you don't have a good handle of the area.  A steep mountain bars your way to the north, so you travel west alongside it."}			
+			{"text": "You hear a deep, resonant sound, like the rumblings of a distant mountain.  It sounds eerily like soft, mournful sighs."},
+			{"text": "Eventually, you happen upon a very strange stone - a boulder that seems to pulse like living flesh, and leaks some kind of semi-viscous substance."},	
+			{"text": "Even though you can find no source, the strange sticky substance continues to leak from the massive stone - some kind of miracle."},
+			{"text": "As you watch it, the rumblings grow higher in pitch, and louder... they don't sound so far off now, in fact.  The liquid emerging from the rock seeps out more and more."},		
+			{"text": "The stone begins to pulse, and suddenly, it lifts off of the ground as if by an invisible lever.  You stare at in awe... and then, in a flash, the world is white."}
+			{"text": "The force is so great that you're lifted off of your feet and land, back first, the wind knocked out of you, a hundred paces away, splattered against the ground with a wet thud."},
+			{"text": "You're plastered to the earth like a fly on sticky paper.  After recovering your wits, you try desperately to stand, but you're immobilized by the sticky substance that emerged from the rock.  It's cream-white, and has a distinct, familiar scent."},
+			{"text": "You got some in your mouth and swallowed accidentally on impact... it's very salty, runny in some places and chewy in others, and the flavor is... complex."},
+			{"text": "Their hollering and paroxysms of worship are bizarre to watch, as if they're in some kind of zealous frenzy.  They bathe themselves in the same gunky stuff you're stuck in, leaving most of them coated in the stuff.  Then, they turn their attention to you."},
+			{"text": "They pull you from your sticky trap, and then carry you to their village, brimming with excitement."}
 		]
 	},	
 ]}

@@ -1089,7 +1089,7 @@ public enum EncounterCode {
 					)
 				);	
 			case GIANTESS_FUTA:
-				return b.branch().textScene("GIANTESS-INTRO");
+				return b.branch().textScene("GIANTESS-INTRO").checkScene(CheckType.SCOUT_LEVEL_2, b.branch(true).textScene("GIANTESS-SPOTTED"), b.branch(false).textScene("GIANTESS-BLUNDERED"));
 			case GOBLIN_MALE:
 				Branch maleDefeatCont = b.branch().textScene("GOBLIN-MALE-DEFEAT").gameEnd();
 				return b.branch().textScene("GOBLIN-MALE-INTRO").battleScene(
