@@ -1462,7 +1462,7 @@ public class PlayerCharacter extends AbstractCharacter {
 	}
 	
 	public enum QuestType {
-		ORC, CRIER, QUETZAL, INNKEEP, TRUDY, CENTAUR, GOBLIN, OGRE, SPIDER, BROTHEL, ELF, DEBT, GADGETEER, MADAME, WITCH, MOUTH_FIEND, MERMAID, TRAINER, MERI, HUMAN_TOWN, MONSTER_TOWN, WARLOCK, 
+		ORC, CRIER, QUETZAL, INNKEEP, TRUDY, CENTAUR, GOBLIN, OGRE, SPIDER, BROTHEL, ELF, DEBT, GADGETEER, MADAME, WITCH, MOUTH_FIEND, MERMAID, TRAINER, MERI, HUMAN_TOWN, MONSTER_TOWN, WARLOCK, GIANTESS,
 		HARPY_ANATOMY, WEREWOLF_ANATOMY, GIANT_ANATOMY, CENTAUR_ANATOMY, CAT_ANATOMY, HARPY_INTELLIGENCE, WEREWOLF_SCENT
 		;
 		
@@ -1507,6 +1507,8 @@ public class PlayerCharacter extends AbstractCharacter {
 					}
 				case GADGETEER:
 					return currentValue == 2 ? "You've been teased by the eccentric merchant." : currentValue == 1 ? "You've encountered the eccentric merchant." : "";
+				case GIANTESS:
+					return currentValue == 1 ? "You've seen the giant woman of the hidden valley." : "";
 				case GOBLIN:
 					switch (currentValue) {
 						case 1: return "You've met Selkie the fem goblin.";

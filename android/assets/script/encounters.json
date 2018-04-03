@@ -11721,7 +11721,12 @@
 			"background": "GIANTESS_FUTA",
 			"chatter": "Holy mother of... the mountain.",
 			"chatterPerson": "Trudy",
-			"text": "Having surveyed the area in advance... you suspect their goddess might be real, after all."}
+			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "GIANTESS", "value":1}}],
+			"text": "Having surveyed the area in advance... you suspect their goddess might be real, after all."},
+			{"text": "When she looks at you, you hear a voice in your head, though it doesn't speak in a language you know.  Somehow, still, you understand it."},
+			{"text": "You now \"know\" that she and this land are the same.  That she takes many forms... and is as unaware of you as you are of the creatures that float on the wind, invisible to the eye."},
+			{"text": "You also know that you have her grace and protection, and you feel truly safe... although you're not sure what, exactly, that means."},
+			{"text": "You set out to explore this strange valley of the goddess, her watchful yet disinterested gaze idly following you as you do."}
 		]
 	},	
 	{
@@ -11762,7 +11767,6 @@
 			"text": "It's... a giant woman.  She stands so that her head would be beyond the clouds if it weren't a clear day."}			
 		]
 	},	
-	
 	{
 		"key": "GIANTESS-REBIRTH",
 		"scriptLines": [
@@ -11775,8 +11779,5 @@
 			
 		]
 	},	
-	
-	
-	
-	
+		
 ]}

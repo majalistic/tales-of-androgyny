@@ -553,7 +553,11 @@ public class CheckScene extends AbstractTextScene {
 		CENTAUR_FIRST("", "") {
 			@Override
 			protected boolean getCheck(PlayerCharacter character) { int check = character.getQuestStatus(QuestType.CENTAUR); return check == 0;}  
-		},    
+		},
+		GIANTESS_UNSEEN("", "") {
+			@Override
+			protected boolean getCheck(PlayerCharacter character) { int check = character.getQuestStatus(QuestType.GIANTESS); return check == 0;}  
+		}, 
 		;
 		private final String success;
 		private final String failure;
