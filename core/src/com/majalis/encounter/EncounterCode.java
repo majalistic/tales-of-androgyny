@@ -1092,7 +1092,8 @@ public enum EncounterCode {
 				Branch rebirth = b.branch().textScene("GIANTESS-REBIRTH");
 				Branch selfSacrifice = b.branch().textScene("GIANTESS-SELF-SACRIFICE").concat(rebirth);
 				Branch village = b.branch().textScene("GIANTESS-VILLAGE-CAPTURE").checkScene(CheckType.GIANTESS_UNSEEN, b.branch(true).textScene("GIANTESS-VILLAGE-CAPTURE-UNSEEN-GODDESS").concat(selfSacrifice), b.branch(false).textScene("GIANTESS-VILLAGE-CAPTURE-SEEN-GODDESS").concat(selfSacrifice));
-				return b.branch().textScene("GIANTESS-INTRO").checkScene(CheckType.SCOUT_LEVEL_2, b.branch(true).textScene("GIANTESS-SPOTTED"), b.branch(false).textScene("GIANTESS-BLUNDERED").concat(village));
+				Branch wetdream = b.branch().textScene("GIANTESS-WET-DREAM").concat(village);
+				return b.branch().textScene("GIANTESS-INTRO").checkScene(CheckType.SCOUT_LEVEL_2, b.branch(true).textScene("GIANTESS-SPOTTED").concat(wetdream), b.branch(false).textScene("GIANTESS-BLUNDERED").concat(village));
 			case GOBLIN_MALE:
 				Branch maleDefeatCont = b.branch().textScene("GOBLIN-MALE-DEFEAT").gameEnd();
 				return b.branch().textScene("GOBLIN-MALE-INTRO").battleScene(
