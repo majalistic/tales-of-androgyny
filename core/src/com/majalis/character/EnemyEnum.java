@@ -38,7 +38,8 @@ public enum EnemyEnum {
 	NAGA (new EnemyTemplate(WeaponType.Flail).setHealth(new IntArray(new int[]{20, 20, 20, 20})).setArmor(null).setLegwear(null).setUnderwear(null).setStrength(6).setAgility(6).setEndurance(6).setShield(ArmorType.SHIELD), "Naga", AssetEnum.NAGA.getTexture()), 
 	QUETZAL (new EnemyTemplate(WeaponType.Claw).setHealth(new IntArray(new int[]{30, 30, 30, 30, 30})).setArmor(null).setLegwear(null).setUnderwear(ArmorType.UNDERWEAR).setStrength(10).setAgility(10).setEndurance(10), "Quetzal Goddess", AssetEnum.QUETZAL.getTexture()), 
 	MERMAID (new EnemyTemplate(WeaponType.Glaive).setHealth(new IntArray(new int[]{15, 15, 15, 15})).setArmor(ArmorType.MEDIUM_ENEMY_ARMOR).setLegwear(null).setUnderwear(ArmorType.UNDERWEAR).setStrength(5).setAgility(6).setEndurance(5), "Mermaid", AssetEnum.MERMAID.getTexture()), 
-	WARLOCK (new EnemyTemplate(WeaponType.Dagger).setStrength(4).setEndurance(4).setAgility(5).setMagic(9).setMana(40), "Warlock", AssetEnum.WARLOCK.getTexture()) 
+	WARLOCK (new EnemyTemplate(WeaponType.Dagger).setStrength(4).setEndurance(4).setAgility(5).setMagic(9).setMana(40), "Warlock", AssetEnum.WARLOCK.getTexture()), 
+	GIANTESS (new EnemyTemplate(WeaponType.Club).setHealth(new IntArray(new int[]{10000})).setStrength(10000).setEndurance(10000).setAgility(10), "Giantess", AssetEnum.GIANTESS_FUTA.getTexture()) 
 	;
 	private final String text;
 	private final Array<AssetDescriptor<Texture>> texturePaths;
@@ -67,7 +68,7 @@ public enum EnemyEnum {
     	}
 		return textures;
 	}
-    protected AssetDescriptor<Texture> getBGPath() { return this == WARLOCK ? AssetEnum.WARLOCK_BG.getTexture() : this == OGRE ? AssetEnum.FOREST_UP_BG.getTexture() : this == NAGA || this == SPIDER ? AssetEnum.CAVE_BG.getTexture() : this == CENTAUR || this == UNICORN ? AssetEnum.PLAINS_BG.getTexture() : this == ANGEL ? AssetEnum.CELESTIAL_BG.getTexture() : this == QUETZAL ? AssetEnum.QUETZAL_BG.getTexture() : this == GOBLIN || this == GOBLIN_MALE ? AssetEnum.ENCHANTED_FOREST_BG.getTexture() : this == MERMAID ? AssetEnum.WATERFALL_BG.getTexture() : AssetEnum.FOREST_BG.getTexture(); } 
+    protected AssetDescriptor<Texture> getBGPath() { return this == WARLOCK ? AssetEnum.WARLOCK_BG.getTexture() : this == OGRE ? AssetEnum.FOREST_UP_BG.getTexture() : this == NAGA || this == SPIDER ? AssetEnum.CAVE_BG.getTexture() : this == CENTAUR || this == UNICORN ? AssetEnum.PLAINS_BG.getTexture() : this == ANGEL ? AssetEnum.CELESTIAL_BG.getTexture() : this == QUETZAL ? AssetEnum.QUETZAL_BG.getTexture() : this == GIANTESS ? AssetEnum.GIANTESS_FUTA.getTexture() : this == GOBLIN || this == GOBLIN_MALE ? AssetEnum.ENCHANTED_FOREST_BG.getTexture() : this == MERMAID ? AssetEnum.WATERFALL_BG.getTexture() : AssetEnum.FOREST_BG.getTexture(); } 
     // there should be another method that accepts an assetManager and returns the actual maps
     public ObjectMap<String, Array<String>> getImagePaths() { 
     	ObjectMap<String, Array<String>> textureImagePaths = new ObjectMap<String, Array<String>>();
@@ -113,7 +114,7 @@ public enum EnemyEnum {
     	return textureImagePaths; 
     }
     protected PhallusType getPhallusType() { 
-    	return this == BRIGAND || this == BEASTMISTRESS || this == GHOST || this == BUNNY || this == WARLOCK ? PhallusType.NORMAL : 
+    	return this == BRIGAND || this == BEASTMISTRESS || this == GHOST || this == BUNNY || this == WARLOCK || this == GIANTESS ? PhallusType.NORMAL : 
     		this == ANGEL || this == MERMAID ? PhallusType.NONE : 
     		this == ADVENTURER ? PhallusType.SMALL : 
     		this == WERESLUT ? PhallusType.DOG :
@@ -318,6 +319,7 @@ public enum EnemyEnum {
 			case QUETZAL: return "The naga is a particularly vicious creature. It will just as soon crush an opponent as it will devour them or defile them - depending on its mood.\n\nOne of the ancient gods, supposedly, is an antedeluvian Naga, of an extinct \"Quetzal\" variety. She is feared far and wide, despite rarely if ever descending from the summit of mount Xiuh. There are rumors that she requires virgin sacrifices - always male, with a preference for a soft face.  It is unknown what becomes of them.";
 			case MERMAID: return "The mermaid - beautiful and mysterious, an aquatic creature with the body of human and the fin of a fish. They are known for luring sailors with their alluring looks and songs, but it is not known what becomes of the sailors thereafter.\n\nThe females are known to lay eggs - but where they lay their eggs is not known.";
 			case WARLOCK: return "A warlock of considerable power - little else about her is known, other than she has a habit of toying with men.";
+			case GIANTESS: return "A very, very large woman.";
 		}
 		return "";
 	}

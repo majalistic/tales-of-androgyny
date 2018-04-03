@@ -135,6 +135,7 @@ public class EnemyCharacter extends AbstractCharacter {
 		float height = 975;
 		
 		if (
+			(enemyType == EnemyEnum.GIANTESS) ||
 			(enemyType == EnemyEnum.WERESLUT && (stance == Stance.DOGGY || stance == Stance.KNOTTED)) ||
 			(enemyType == EnemyEnum.ADVENTURER && stance == Stance.COWGIRL_BOTTOM) ||
 			(enemyType == EnemyEnum.HARPY && (stance == Stance.FELLATIO || stance == Stance.DOGGY)) ||
@@ -621,6 +622,8 @@ public class EnemyCharacter extends AbstractCharacter {
 						break;
 					case WARLOCK:
 						break;
+					case GIANTESS:
+						break;
 				}
 			}
 			
@@ -708,6 +711,8 @@ public class EnemyCharacter extends AbstractCharacter {
 					case MERMAID:
 						break;
 					case WARLOCK:
+						break;
+					case GIANTESS:
 						break;
 				}
 					
@@ -1156,6 +1161,9 @@ public class EnemyCharacter extends AbstractCharacter {
 					return getTechniques(DO_NOTHING, WATCH, LICK_LIPS, PREPARE_OILS);
 				}
 			}
+		}
+		else if (enemyType == EnemyEnum.GIANTESS) {
+			return getTechniques(SLAM);
 		}
 		
 		Array<Techniques> possibles = getDefaultTechniqueOptions(target);

@@ -1094,6 +1094,7 @@ public enum EncounterCode {
 				Branch village = b.branch().textScene("GIANTESS-VILLAGE-CAPTURE").checkScene(CheckType.GIANTESS_UNSEEN, b.branch(true).textScene("GIANTESS-VILLAGE-CAPTURE-UNSEEN-GODDESS").concat(selfSacrifice), b.branch(false).textScene("GIANTESS-VILLAGE-CAPTURE-SEEN-GODDESS").concat(selfSacrifice));
 				Branch wetDreamSplattered = b.branch().textScene("GIANTESS-WET-DREAM-SPLATTERED").concat(village);
 				
+				
 				return b.branch().textScene("GIANTESS-INTRO").checkScene(
 					CheckType.SCOUT_LEVEL_2, 
 					b.branch(true).textScene("GIANTESS-SPOTTED").choiceScene(
@@ -1107,7 +1108,7 @@ public enum EncounterCode {
 								b.branch("What?").concat(wetDreamSplattered)
 							)
 						),
-						b.branch("Explore the valley")
+						b.branch("Explore the valley").battleScene(BattleCode.GIANTESS, 1, b.branch(Outcome.VICTORY), b.branch(Outcome.DEFEAT))
 					), 
 					b.branch(false).textScene("GIANTESS-BLUNDERED").concat(village));
 			case GOBLIN_MALE:

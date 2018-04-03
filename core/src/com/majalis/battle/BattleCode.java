@@ -37,7 +37,8 @@ public enum BattleCode {
 	NAGA(AssetEnum.HEAVY_MUSIC, EnemyEnum.NAGA, AssetEnum.NAGA, CAVE_BG, NAGA_ANAL, NAGA_ANAL_CUM), 
 	QUETZAL(AssetEnum.BOSS_MUSIC, EnemyEnum.QUETZAL, AssetEnum.QUETZAL, QUETZAL_BG),
 	MERMAID(AssetEnum.HEAVY_MUSIC, EnemyEnum.MERMAID, AssetEnum.MERMAID, WATERFALL_BG),
-	WARLOCK(AssetEnum.HORROR_MUSIC, EnemyEnum.WARLOCK, AssetEnum.WARLOCK, AssetEnum.WARLOCK_BG)
+	WARLOCK(AssetEnum.HORROR_MUSIC, EnemyEnum.WARLOCK, AssetEnum.WARLOCK, AssetEnum.WARLOCK_BG),
+	GIANTESS(AssetEnum.ANGEL_MUSIC, EnemyEnum.GIANTESS, AssetEnum.GIANTESS_FUTA)
 	;
 	
 	private final AssetEnum music;
