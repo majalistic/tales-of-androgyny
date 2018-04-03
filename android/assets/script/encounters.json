@@ -11741,12 +11741,14 @@
 		"key": "GIANTESS-CLOSE-EXAMINE",
 		"scriptLines": [
 			{"text": "You climb down from the tree, deciding to get a look at the giantess eye-to-eye.  You journey towards her body at a quickstep, perhaps being aware that you might be travelling towards somewhere lower in her anatomy than her face."},
+			{"text": "You indeed arrive at the giantess around crotch level, her own sleeping giant looking rather cute and droopy inside of her loincloth, though even in its current state it dwarfs you, an order of magnitude larger."},
+			{"text": "The cold winds of the valley bare down on you... and you know at least one place you can warm yourself."}
 		]
 	},
 	{
 		"key": "GIANTESS-INSIDE-LOINCLOTH",
 		"scriptLines": [
-			{"text": "Feeling the cold valley winds bare down on you, you decide to warm yourself within the cozy confines of the giantess' cocksock."},
+			{"text": "Feeling sharpness of the headwind, you decide to warm yourself within the cozy confines of the giantess' cocksock."},
 			{"text": "It's indeed quite warm... and snug.  And as the goddess moans to herself, you find that it's not getting any less snug."},
 			{"text": "Point of fact... it's getting... quite cramped.  You blush.  The goddess... is filling out her accoutrements in her sleep, and it seems she's no slouch."},
 			{"text": "You don't know if it's big proportionally, but, of course, to you it's a mountain of meat."},
@@ -11777,8 +11779,48 @@
 	{
 		"key": "GIANTESS-WET-DREAM-SPLATTERED",
 		"scriptLines": [
-			{"text": "Even through her... underwear... the force is so great that you're lifted off of your feet and land, back first, the wind knocked out of you, a hundred paces away, splattered against the ground with a wet thud."},
-			{"text": "You're plastered to the earth like a fly on sticky paper."},
+			{"text": "You decide not to climb into her oversized cocksock, for some reason.  Instead, you watch, with idle fascination, as the goddesses' dream takes a rather... unexpected turn, and she begins to fill out said cocksock noticably."},
+			{"text": "You realize too late that you've been given a front-row seat to her wet dream... she splats her underwear, and you, before you have time t oget away."},
+			{
+			"sound": "CUM",
+			"text": "Even through her... underwear... the force is so great that you're lifted off of your feet and land, back first, the wind knocked out of you, a hundred paces away, splattered against the ground with a wet thud."},
+			{"text": "You're plastered to the earth like a fly on sticky paper.  You can't even move, much less stand."}
+		]
+	},
+	{
+		"key": "GIANTESS-VALLEY-EXPLORE",
+		"scriptLines": [
+			{"text": ""},
+		]
+	},
+	{
+		"key": "GIANTESS-AWARE",
+		"scriptLines": [
+			{"text": "In the distance... you hear the giantess waking.  You travel carefully, being sure to stay out of her line of sight, lest she get the drop on you."},
+		]
+	},
+	{
+		"key": "GIANTESS-UNAWARE",
+		"scriptLines": [
+			{"text": "You hear a distant rumbling, but can't quite make it out.  You continue to explore, until, without warning, the giantess makes her presence once again known - and she seems to have taken an interest in your presence."},
+		]
+	},
+	{
+		"key": "GIANTESS-FIGHT",
+		"scriptLines": [
+			{"text": "You decide to stand and fight the giantess.  This will go well."},
+		]
+	},
+	{
+		"key": "GIANTESS-HIDE",
+		"scriptLines": [
+			{"text": "You decide to hide from the giantess - you desperately try to find cover."},
+		]
+	},
+	{
+		"key": "GIANTESS-CLIMB",
+		"scriptLines": [
+			{"text": "You decide the safest way is up... and in this case, that means scaling the big lady herself."},
 		]
 	},
 	{
@@ -11791,16 +11833,16 @@
 			{"text": "As you watch it, the rumblings grow higher in pitch, and louder... they don't sound so far off now, in fact.  The liquid emerging from the rock seeps out more and more."},		
 			{"text": "The stone begins to pulse, and suddenly, it lifts off of the ground as if by an invisible lever.  You stare at in awe... and then, in a flash, the world is white."}
 			{"text": "The force is so great that you're lifted off of your feet and land, back first, the wind knocked out of you, a hundred paces away, splattered against the ground with a wet thud."},
-			{"text": "You're plastered to the earth like a fly on sticky paper.  After recovering your wits, you try desperately to stand, but you're immobilized by the sticky substance that emerged from the rock.  It's cream-white, and has a distinct, familiar scent."},
-			{"text": "You got some in your mouth and swallowed accidentally on impact... it's very salty, runny in some places and chewy in others, and the flavor is... complex."},
-			{"text": "You hear others emerging from the woods... dressed in clothing of earthen colors, wood-carved masks covering their mouths.  Upon seeing what is apparently the holy rock and its gushing waters, they begin to yell excitedly in a language you don't recognize."},
-			{"text": "Their hollering and paroxysms of worship are bizarre to watch, as if they're in some kind of zealous frenzy.  They bathe themselves in the same gunky stuff you're stuck in, leaving most of them coated in the stuff.  Then, they turn their attention to you."},
-			{"text": "They pull you from your sticky trap, and then carry you to their village, brimming with excitement."}
+			{"text": "You're plastered to the earth like a fly on sticky paper.  After recovering your wits, you try desperately to stand, but you're immobilized by the sticky substance that emerged from the rock.  It's cream-white, and has a distinct, familiar scent."}
 		]
 	},	
 	{
 		"key": "GIANTESS-VILLAGE-CAPTURE",
 		"scriptLines": [
+			{"text": "You got some in your mouth and swallowed accidentally on impact... it's very salty, runny in some places and chewy in others, and the flavor is... complex."},
+			{"text": "You hear others emerging from the woods... dressed in clothing of earthen colors, wood-carved masks covering their mouths.  Upon seeing what is apparently the holy rock and its gushing waters, they begin to yell excitedly in a language you don't recognize."},
+			{"text": "Their hollering and paroxysms of worship are bizarre to watch, as if they're in some kind of zealous frenzy.  They bathe themselves in the same gunky stuff you're stuck in, leaving most of them coated in the stuff.  Then, they turn their attention to you."},
+			{"text": "They pull you from your sticky trap, and then carry you to their village, brimming with excitement."}
 			{"text": "You're taken to the village, where you're brought to a high scaffolding, higher than the treetops, and you're bound at the wrists, your feet barely able to reach the ground.  You're visible to the entire village, but for the time, no one pays you any mind."},
 			{"text": "You're left there alone for some time before you're joined again by a figure, who climbs to the top of the scaffolding alone. They're a priest of some kind, dressed in long, flowing vestments, the patterns reminiscent of the strange fluid that splattered you to the ground."},
 			{"text": "Far below, a low chanting chorus begins, as he gestures at you from head to toe, then round in a circle with his arms.  He abruptly turns, and calls back out to the wilds, and the chorus stops."},

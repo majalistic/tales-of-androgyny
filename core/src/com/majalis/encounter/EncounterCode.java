@@ -1089,9 +1089,7 @@ public enum EncounterCode {
 				Branch rebirth = b.branch().textScene("GIANTESS-REBIRTH");
 				Branch selfSacrifice = b.branch().textScene("GIANTESS-SELF-SACRIFICE").concat(rebirth);
 				Branch village = b.branch().textScene("GIANTESS-VILLAGE-CAPTURE").checkScene(CheckType.GIANTESS_UNSEEN, b.branch(true).textScene("GIANTESS-VILLAGE-CAPTURE-UNSEEN-GODDESS").concat(selfSacrifice), b.branch(false).textScene("GIANTESS-VILLAGE-CAPTURE-SEEN-GODDESS").concat(selfSacrifice));
-				Branch wetDreamSplattered = b.branch().textScene("GIANTESS-WET-DREAM-SPLATTERED").concat(village);
-				
-				
+		
 				return b.branch().textScene("GIANTESS-INTRO").checkScene(
 					CheckType.SCOUT_LEVEL_2, 
 					b.branch(true).textScene("GIANTESS-SPOTTED").choiceScene(
@@ -1102,10 +1100,19 @@ public enum EncounterCode {
 							b.branch("Get in close").textScene("GIANTESS-CLOSE-EXAMINE").choiceScene(
 								"Do you hide in her loincloth for warmth?", 
 								b.branch("Yeah sure why not").textScene("GIANTESS-INSIDE-LOINCLOTH").concat(rebirth),
-								b.branch("What?").concat(wetDreamSplattered)
+								b.branch("What?").textScene("GIANTESS-WET-DREAM-SPLATTERED").concat(village)
 							)
 						),
-						b.branch("Explore the valley").battleScene(BattleCode.GIANTESS, 1, b.branch(Outcome.VICTORY), b.branch(Outcome.DEFEAT))
+						b.branch("Explore the valley").textScene("GIANTESS-VALLEY-EXPLORE").checkScene(
+							Stat.PERCEPTION, 
+							b.branch(5).textScene("GIANTESS-AWARE"), 
+							b.branch(0).textScene("GIANTESS-UNAWARE").choiceScene(
+								"What do you do?", 
+								b.branch("Stand and fight").textScene("GIANTESS-FIGHT").battleScene(BattleCode.GIANTESS, 1, b.branch(Outcome.VICTORY), b.branch(Outcome.DEFEAT)),
+								b.branch("Run and hide").textScene("GIANTESS-HIDE"), 
+								b.branch("Climb her").textScene("GIANTESS-CLIMB")
+							)
+						)
 					), 
 					b.branch(false).textScene("GIANTESS-BLUNDERED").concat(village));
 			case GOBLIN_MALE:
