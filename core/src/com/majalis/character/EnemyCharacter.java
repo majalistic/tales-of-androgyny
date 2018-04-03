@@ -1163,7 +1163,7 @@ public class EnemyCharacter extends AbstractCharacter {
 			}
 		}
 		else if (enemyType == EnemyEnum.GIANTESS) {
-			return getTechniques(SLAM);
+			return getTechniques(COCK_SLAM);
 		}
 		
 		Array<Techniques> possibles = getDefaultTechniqueOptions(target);

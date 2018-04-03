@@ -119,6 +119,8 @@ public enum Techniques {
 	LIFT_WEAPON			(new NonAttackTechnique(Stance.BALANCED, Stance.OFFENSIVE, "Raise Club", 1, 1).build(), false),
 	SLAM				(new AttackTechnique(Stance.BALANCED, Stance.OFFENSIVE, "Slam", -2, 3, 3).build(), false),
 	
+	COCK_SLAM			(new AttackTechnique(Stance.BALANCED, Stance.BALANCED, "Drop Her Cock on You", 0, 0, 0).setBlockable(false).build(), false),	
+	
 	WRAP				(new GrappleTechnique(Stance.BALANCED, Stance.WRAPPED, "Wrap", 0, Stance.WRAPPED_BOTTOM, GrappleType.ADVANTAGE).build(), false), // when enemy is prone
 	BITE				(new GrappleTechnique(Stance.WRAPPED, Stance.WRAPPED, "Bite", 4, GrappleType.SUBMIT).setIgnoreArmor().setBleed(1).build(), false),	
 	SQUEEZE				(new GrappleTechnique(Stance.WRAPPED, Stance.WRAPPED, "Squeeze", 4, GrappleType.ADVANTAGE).addBonus(BonusCondition.STRENGTH_OVERPOWER, BonusType.GRAPPLE).build(), false),
