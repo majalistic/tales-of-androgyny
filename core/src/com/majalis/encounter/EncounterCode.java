@@ -55,7 +55,7 @@ public enum EncounterCode {
 	MOUTH_FIEND_ESCAPE,
 	MERMAID,
 	WARLOCK,
-	GIANTESS_FUTA,
+	GIANTESS_FUTA (MOUNTAIN_ACTIVE),
 	
 	FORT (CASTLE), 
 	TOWN (AssetEnum.TOWN),
@@ -151,12 +151,10 @@ public enum EncounterCode {
 					case TOWN2:
 					case TOWN_STORY:
 						return "Town of Nadir";	
-					case FORT:
-						return "Fort";
-					case MOUTH_FIEND:
-						return "Strange castle";
-					case MOUTH_FIEND_ESCAPE:
-						return "Forest";
+					case FORT: return "Fort";
+					case MOUTH_FIEND: return "Strange castle";
+					case MOUTH_FIEND_ESCAPE: return "Forest";
+					case GIANTESS_FUTA: return "Valley";
 					case QUETZAL: return "Mountain";
 					case COTTAGE_TRAINER: return "Cottage on the Outskirts";
 					case FIRST_BATTLE_STORY: return "Forest Clearing";
@@ -216,12 +214,10 @@ public enum EncounterCode {
 					case TOWN: return "Town of Silajam";
 					case TOWN2:
 					case TOWN_STORY: return "Town of Nadir";
-					case FORT:
-						return "Fort";
-					case MOUTH_FIEND:
-						return "Strange castle";
-					case MOUTH_FIEND_ESCAPE:
-						return "Forest";
+					case FORT: return "Fort";
+					case MOUTH_FIEND: return "Strange castle";
+					case MOUTH_FIEND_ESCAPE: return "Forest";
+					case GIANTESS_FUTA: return "Valley";
 					case QUETZAL: return "Mount Xiuh";
 					case COTTAGE_TRAINER: return "Cottage-on-the-Outskirts";
 					case FIRST_BATTLE_STORY: return "Forest Clearing - signs of hostile creature";
@@ -262,6 +258,7 @@ public enum EncounterCode {
 			case MOUTH_FIEND_ESCAPE: return "Forest";
 			case MERMAID: return "Mermaid";
 			case ALTAR: return "Altar";
+			case GIANTESS_FUTA: return "Valley of the Giantess";
 			default: return "Nothing here.";
 		}
 	}

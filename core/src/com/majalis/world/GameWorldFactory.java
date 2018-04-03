@@ -44,6 +44,7 @@ public class GameWorldFactory {
 		IntMap<VisitInfo> visitedInfo = loadService.loadDataValue(SaveEnum.VISITED_LIST, IntMap.class);
 		GameWorldNode mermaid = null;
 		GameWorldNode secondTown = null;
+		GameWorldNode giantess = null;
 		GameWorldNode mouthfiend = null;
 		GameWorldNode mouthfiend2 = null;
 		Zone zone4 = null;
@@ -62,6 +63,8 @@ public class GameWorldFactory {
 			mermaid = addNode(getNode(2000, MERMAID, MERMAID, 50, 94, visitedInfo.get(2000, getFreshVisitInfo())), nodes);
 			
 			secondTown = addNode(getNode(1007, TOWN3, TOWN3, 45, 127, visitedInfo.get(1007, getFreshVisitInfo())), nodes);
+			
+			giantess = addNode(getNode(3000, GIANTESS_FUTA, GIANTESS_FUTA, 80, 145, visitedInfo.get(3000, getFreshVisitInfo())), nodes);
 			
 			Zone zone2 = new Zone(loadService, assetManager, random, nodes, nodeMap, unspawnedEncounters, 2, 1)
 				.addStartNode(zone.getEndNodes().get(0))
@@ -82,7 +85,9 @@ public class GameWorldFactory {
 			
 			mouthfiend = addNode(getNode(50000, MOUTH_FIEND, MOUTH_FIEND, 96, 49, visitedInfo.get(50000, getFreshVisitInfo())), nodes);
 			mouthfiend2 = addNode(getNode(50001, MOUTH_FIEND_ESCAPE, MOUTH_FIEND_ESCAPE, 99, 49, visitedInfo.get(50001, getFreshVisitInfo())), nodes);
-			mouthfiend.connectTo(mouthfiend2);		
+			mouthfiend.connectTo(mouthfiend2);	
+			
+			
 		}
 		else {
 			int nodeCode = 1;
@@ -137,6 +142,16 @@ public class GameWorldFactory {
 				if (closest == null || closest.getDistance(secondTown) > distanceToNode) { closest = node; }
 			}
 			if (closest != null) secondTown.connectTo(closest);		
+		}
+		
+		if (giantess != null && !giantess.isConnected()) {
+			GameWorldNode closest = null;
+			for (GameWorldNode node : nodes) {
+				if (node == giantess) continue;
+				int distanceToNode = giantess.getDistance(node);
+				if (closest == null || closest.getDistance(giantess) > distanceToNode) { closest = node; }
+			}
+			if (closest != null) giantess.connectTo(closest);		
 		}
 		
 		if (nodeMap.get(currentNode) != null) {
