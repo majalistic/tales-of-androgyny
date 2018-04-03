@@ -1099,9 +1099,9 @@ public enum EncounterCode {
 						b.branch("Approach her").textScene("GIANTESS-EXAMINE").choiceScene(
 							"What do you do?", 
 							b.branch("Observe from distance").textScene("GIANTESS-WET-DREAM"), 
-							b.branch("Get in close").choiceScene(
+							b.branch("Get in close").textScene("GIANTESS-CLOSE-EXAMINE").choiceScene(
 								"Do you hide in her loincloth for warmth?", 
-								b.branch("Yeah sure why not").textScene("GIANTESS-INSIDE-LOINCLOTH"),
+								b.branch("Yeah sure why not").textScene("GIANTESS-INSIDE-LOINCLOTH").concat(rebirth),
 								b.branch("What?").concat(wetDreamSplattered)
 							)
 						),
