@@ -11741,6 +11741,7 @@
 			{"text": "The force is so great that you're lifted off of your feet and land, back first, the wind knocked out of you, a hundred paces away, splattered against the ground with a wet thud."},
 			{"text": "You're plastered to the earth like a fly on sticky paper.  After recovering your wits, you try desperately to stand, but you're immobilized by the sticky substance that emerged from the rock.  It's cream-white, and has a distinct, familiar scent."},
 			{"text": "You got some in your mouth and swallowed accidentally on impact... it's very salty, runny in some places and chewy in others, and the flavor is... complex."},
+			{"text": "You hear others emerging from the woods... dressed in clothing of earthen colors, wood-carved masks covering their mouths.  Upon seeing what is apparently the holy rock and its gushing waters, they begin to yell excitedly in a language you don't recognize."},
 			{"text": "Their hollering and paroxysms of worship are bizarre to watch, as if they're in some kind of zealous frenzy.  They bathe themselves in the same gunky stuff you're stuck in, leaving most of them coated in the stuff.  Then, they turn their attention to you."},
 			{"text": "They pull you from your sticky trap, and then carry you to their village, brimming with excitement."}
 		]
@@ -11748,7 +11749,16 @@
 	{
 		"key": "GIANTESS-VILLAGE-CAPTURE",
 		"scriptLines": [
-			{"text": ""}			
+			{"text": "You're taken to the village, where you're brought to a high scaffolding, higher than the treetops, and you're bound at the wrists, your feet barely able to reach the ground.  You're visible to the entire village, but for the time, no one pays you any mind."},
+			{"text": "You're left there alone for some time before you're joined again by a figure, who climbs to the top of the scaffolding alone. They're a priest of some kind, dressed in long, flowing vestments, the patterns reminiscent of the strange fluid that splattered you to the ground."},
+			{"text": "Far below, a low chanting chorus begins, as he gestures at you from head to toe, then round in a circle with his arms.  He abruptly turns, and calls back out to the wilds, and the chorus stops."},
+			{"text": "The ground shakes.  Something... truly enormous approaches.  In a panic, the priest flings himself from the scaffolding, and you know not what becomes of him... only what comes into your view not long after."}			
+		]
+	},	
+	{
+		"key": "GIANTESS-SELF-SACRIFICE",
+		"scriptLines": [
+			{"text": ""},
 		]
 	},	
 	{
@@ -11763,6 +11773,7 @@
 		"key": "GIANTESS-VILLAGE-CAPTURE-UNSEEN-GODDESS",
 		"scriptLines": [
 			{
+			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "GIANTESS", "value":1}}],
 			"background": "GIANTESS_FUTA",
 			"text": "It's... a giant woman.  She stands so that her head would be beyond the clouds if it weren't a clear day."}			
 		]
