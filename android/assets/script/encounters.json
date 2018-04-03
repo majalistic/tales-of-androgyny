@@ -11730,9 +11730,21 @@
 		]
 	},	
 	{
-		"key": "GIANTESS-CLOSE-EXAMINE",
+		"key": "GIANTESS-EXAMINE",
 		"scriptLines": [
 			{"text": "You venture in the direction of the relaxing goddess, intrigued by the reality of her form and, also, because you're secretly a little pervert."},
+		]
+	},
+	{
+		"key": "GIANTESS-CLOSE-EXAMINE",
+		"scriptLines": [
+			{"text": ""},
+		]
+	},
+	{
+		"key": "GIANTESS-INSIDE-LOINCLOTH",
+		"scriptLines": [
+			{"text": ""},
 		]
 	},
 	{

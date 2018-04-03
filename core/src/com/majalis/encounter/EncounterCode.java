@@ -1092,12 +1092,21 @@ public enum EncounterCode {
 				Branch rebirth = b.branch().textScene("GIANTESS-REBIRTH");
 				Branch selfSacrifice = b.branch().textScene("GIANTESS-SELF-SACRIFICE").concat(rebirth);
 				Branch village = b.branch().textScene("GIANTESS-VILLAGE-CAPTURE").checkScene(CheckType.GIANTESS_UNSEEN, b.branch(true).textScene("GIANTESS-VILLAGE-CAPTURE-UNSEEN-GODDESS").concat(selfSacrifice), b.branch(false).textScene("GIANTESS-VILLAGE-CAPTURE-SEEN-GODDESS").concat(selfSacrifice));
-				Branch wetdream = b.branch().textScene("GIANTESS-WET-DREAM").concat(village);
+				Branch wetDreamSplattered = b.branch().textScene("GIANTESS-WET-DREAM-SPLATTERED").concat(village);
+				
 				return b.branch().textScene("GIANTESS-INTRO").checkScene(
 					CheckType.SCOUT_LEVEL_2, 
 					b.branch(true).textScene("GIANTESS-SPOTTED").choiceScene(
 						"Approach the goddess?", 
-						b.branch("Approach her").textScene("GIANTESS-CLOSE-EXAMINE").concat(wetdream), 
+						b.branch("Approach her").textScene("GIANTESS-EXAMINE").choiceScene(
+							"What do you do?", 
+							b.branch("Observe from distance").textScene("GIANTESS-WET-DREAM"), 
+							b.branch("Get in close").choiceScene(
+								"Do you hide in her loincloth for warmth?", 
+								b.branch("Yeah sure why not").textScene("GIANTESS-INSIDE-LOINCLOTH"),
+								b.branch("What?").concat(wetDreamSplattered)
+							)
+						),
 						b.branch("Explore the valley")
 					), 
 					b.branch(false).textScene("GIANTESS-BLUNDERED").concat(village));
