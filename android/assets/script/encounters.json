@@ -11859,7 +11859,21 @@
 		"key": "GIANTESS-SPEAK",
 		"scriptLines": [
 			{"text": "You try to speak to the giantess.  She considers you carefully, then plucks you up."},
-			{"text": "She swallows you without a second thought."},
+		]
+	},
+	{
+		"key": "GIANTESS-STRUGGLE-SWALLOW",
+		"scriptLines": [
+			{"text": "She tosses you into her mouth, but you manage to catch onto her uvula before you're swallowed down.  You swing yourself to the relative safety of her tongue, and begin to try and scramble to find a way out."},
+			{"text": "She contemplates your flavor as you run around in her mouth... and begins to try and swallow you once more."},
+			{"text": "She's moaning, causing the entire chamber to vibrate in resonance, and in your frenzied attempts at escape you do wonder if she's... tangibly enjoying the sensation."},
+			{"text": "It's all for naught - she attempts to swallow you again, and you ride her tongue back, past her uvula, down her throat..."}
+		]
+	},
+	{
+		"key": "GIANTESS-INSTANT-SWALLOW",
+		"scriptLines": [
+			{"text": "She tosses you into her mouth, and you're helplessly swallowed.  She gulps you down without a second thought."},
 		]
 	},
 	{
