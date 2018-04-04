@@ -1089,7 +1089,8 @@ public enum EncounterCode {
 				Branch rebirth = b.branch().textScene("GIANTESS-REBIRTH");
 				Branch selfSacrifice = b.branch().textScene("GIANTESS-SELF-SACRIFICE").concat(rebirth);
 				Branch village = b.branch().textScene("GIANTESS-VILLAGE-CAPTURE").checkScene(CheckType.GIANTESS_UNSEEN, b.branch(true).textScene("GIANTESS-VILLAGE-CAPTURE-UNSEEN-GODDESS").concat(selfSacrifice), b.branch(false).textScene("GIANTESS-VILLAGE-CAPTURE-SEEN-GODDESS").concat(selfSacrifice));
-		
+				Branch insideLoincloth = b.branch().textScene("GIANTESS-INSIDE-LOINCLOTH").concat(rebirth);
+				
 				return b.branch().textScene("GIANTESS-INTRO").checkScene(
 					CheckType.SCOUT_LEVEL_2, 
 					b.branch(true).textScene("GIANTESS-SPOTTED").choiceScene(
@@ -1099,7 +1100,7 @@ public enum EncounterCode {
 							b.branch("Observe from distance").textScene("GIANTESS-WET-DREAM"), 
 							b.branch("Get in close").textScene("GIANTESS-CLOSE-EXAMINE").choiceScene(
 								"Do you hide in her loincloth for warmth?", 
-								b.branch("Yeah sure why not").textScene("GIANTESS-INSIDE-LOINCLOTH").concat(rebirth),
+								b.branch("Yeah sure why not").concat(insideLoincloth),
 								b.branch("What?").textScene("GIANTESS-WET-DREAM-SPLATTERED").concat(village)
 							)
 						),
@@ -1117,7 +1118,7 @@ public enum EncounterCode {
 										b.branch("Her face").textScene("GIANTESS-FACE").concat(rebirth),
 										b.branch("Her hand").textScene("GIANTESS-HAND"),
 										b.branch("Her ass").textScene("GIANTESS-ASS"),
-										b.branch("Her dong").textScene("GIANTESS-DONG")
+										b.branch("Her dong").textScene("GIANTESS-DONG").concat(insideLoincloth)
 									), 
 									b.branch(0).textScene("GIANTESS-KISS-GAME").checkScene(
 										Stat.AGILITY, 
