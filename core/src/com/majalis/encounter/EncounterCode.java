@@ -1114,7 +1114,7 @@ public enum EncounterCode {
 									Stat.AGILITY, 
 									b.branch(6).textScene("GIANTESS-FREE-ROAM").choiceScene(
 										"Where do you climb?",
-										b.branch("Her face").textScene("GIANTESS-FACE"),
+										b.branch("Her face").textScene("GIANTESS-FACE").concat(rebirth),
 										b.branch("Her hand").textScene("GIANTESS-HAND"),
 										b.branch("Her ass").textScene("GIANTESS-ASS"),
 										b.branch("Her dong").textScene("GIANTESS-DONG")
