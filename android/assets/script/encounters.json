@@ -11856,6 +11856,13 @@
 		]
 	},
 	{
+		"key": "GIANTESS-SPEAK",
+		"scriptLines": [
+			{"text": "You try to speak to the giantess.  She considers you carefully, then plucks you up."},
+			{"text": "She swallows you without a second thought."},
+		]
+	},
+	{
 		"key": "GIANTESS-HIDE",
 		"scriptLines": [
 			{"text": "You decide to hide from the giantess - you desperately try to find cover. As fast as your legs can carry you, you run towards an open cleft in the ground, seeing it as your only escape."},
