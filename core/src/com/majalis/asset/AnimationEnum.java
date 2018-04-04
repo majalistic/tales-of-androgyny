@@ -15,6 +15,7 @@ public enum AnimationEnum {
 	GOBLIN(AssetEnum.GOBLIN_ANIMATION),
 	GOBLIN_MALE(AssetEnum.GOBLIN_ANIMATION),
 	TRUDY(AssetEnum.TRUDY_SPRITE_ANIMATION),
+	BEASTMISTRESS(AssetEnum.BEASTMISTRESS_ANIMATION),
 	NULL(AssetEnum.NULL_ANIMATION)	
 	;
 	private static final ObjectMap<AssetEnum, AnimatedActorFactory> factoryMap = new ObjectMap<AssetEnum, AnimatedActorFactory>();

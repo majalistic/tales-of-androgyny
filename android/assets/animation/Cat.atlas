@@ -1,0 +1,41 @@
+
+Cat.png
+size: 2048,2048
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+CatHead
+  rotate: true
+  xy: 1165, 243
+  size: 396, 411
+  orig: 396, 411
+  offset: 0, 0
+  index: -1
+CatHindLeg
+  rotate: false
+  xy: 2, 2
+  size: 255, 637
+  orig: 255, 637
+  offset: 0, 0
+  index: -1
+CatTorso
+  rotate: false
+  xy: 2, 641
+  size: 1863, 1037
+  orig: 1863, 1037
+  offset: 0, 0
+  index: -1
+ForePawLeft
+  rotate: false
+  xy: 259, 149
+  size: 356, 490
+  orig: 356, 490
+  offset: 0, 0
+  index: -1
+ForePawRight
+  rotate: true
+  xy: 617, 361
+  size: 278, 546
+  orig: 278, 546
+  offset: 0, 0
+  index: -1

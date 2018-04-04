@@ -191,7 +191,6 @@ public enum AssetEnum {
 	TINY_SPIDER("enemies/SpiderTinyHigh.png"),
 	TINY_SPIDER_LOW("enemies/SpiderTinyLow.png"),
 	ADVENTURER_ANAL("enemies/AdventurerAnal.jpg"), 
-	BEASTMISTRESS("enemies/BeastMaster.png"),
 	GOLEM("enemies/Golem.png"),
 	GOLEM_DULL("enemies/GolemDull.png"),
 	GOLEM_FUTA("enemies/GolemFuta.png"),
@@ -465,6 +464,7 @@ public enum AssetEnum {
 	ORC_ANIMATION("animation/Orc.atlas", AnimatedActorFactory.class, new AnimatedActorLoader.AnimatedActorParameter(.60f, 1f, true)), 
 	TRUDY_SPRITE_ANIMATION("animation/Trudy.atlas", AnimatedActorFactory.class, new AnimatedActorLoader.AnimatedActorParameter(.6f, 1f, true)), 
 	WEREWOLF_ANIMATION("animation/Werewolf.atlas", AnimatedActorFactory.class, new AnimatedActorLoader.AnimatedActorParameter(1, 1f, true)), 
+	BEASTMISTRESS_ANIMATION("animation/Drow.atlas", AnimatedActorFactory.class, new AnimatedActorLoader.AnimatedActorParameter(.6f, 1f, true)), 
 	GOBLIN_ANIMATION("animation/Goblin.atlas", AnimatedActorFactory.class, new AnimatedActorLoader.AnimatedActorParameter(.40f, 1f, true)), 
 	ORC_PRONE_BONE_ANIMATION("animation/OrcProneBone.atlas", AnimatedActorFactory.class, new AnimatedActorLoader.AnimatedActorParameter(1, 1f, true)), 
 	;

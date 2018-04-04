@@ -7986,7 +7986,7 @@
 			{"text": "You're nearly out of breath when you break away into a clearing, and, for the first time, get a full view of the beast in its majesty."},
 			{
 			"mutations": [{"profileSaveType":"KNOWLEDGE", "value":{"class": "java.lang.String", "value": "Beast Mistress"}}, {"saveType":"PORTRAIT", "value":{"class": "com.majalis.asset.AssetEnum", "value": "PORTRAIT_SURPRISE"}}],
-			"foreground": "BEASTMISTRESS",
+			"animatedForeground": "BEASTMISTRESS",
 			"text": "Rather than a single creature, you see that it's a beast and its rider - or, more aptly, a woman and her mount, with a cat-like grin on either of them."},
 			{
 			"mutations": [{"saveType":"PORTRAIT"}],

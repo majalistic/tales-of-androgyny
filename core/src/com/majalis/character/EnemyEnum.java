@@ -29,7 +29,7 @@ public enum EnemyEnum {
 	ORC (new EnemyTemplate(WeaponType.Chain, 6, 5, 4, 3, 3, 3).setArmor(ArmorType.MEDIUM_ENEMY_ARMOR).setLegwear(ArmorType.MEDIUM_ENEMY_LEGWEAR).addHealth(10).setShield(ArmorType.SHIELD), "Orc", null, AnimationEnum.ORC), 
 	ADVENTURER (new EnemyTemplate(WeaponType.Axe, 4, 4, 4, 3, 4, 6).setArmor(ArmorType.MEDIUM_ENEMY_ARMOR).setLegwear(ArmorType.MEDIUM_ENEMY_LEGWEAR).addHealth(10).setMana(26).setShield(ArmorType.SHIELD), "Adventurer", null, AnimationEnum.TRUDY),
 	OGRE (new EnemyTemplate(WeaponType.Greatclub, 8, 6, 4, 3, 3, 3).setArmor(null).setLegwear(null).setHealth(new IntArray(new int[]{20, 20, 20})), "Ogre", AssetEnum.OGRE.getTexture()),
-	BEASTMISTRESS (new EnemyTemplate(WeaponType.Claw).setStrength(6).setAgility(8).setEndurance(5).addHealth(10), "Beast Mistress", AssetEnum.BEASTMISTRESS.getTexture()),
+	BEASTMISTRESS (new EnemyTemplate(WeaponType.Claw).setStrength(6).setAgility(8).setEndurance(5).addHealth(10), "Beast Mistress", null, AnimationEnum.BEASTMISTRESS),
 	SPIDER (new EnemyTemplate(WeaponType.Claw).setStrength(6).setAgility(5).setEndurance(5).setHealth(new IntArray(new int[]{20, 20, 20, 20})), "Arachne", AssetEnum.SPIDER.getTexture()), 
 	GOLEM (new EnemyTemplate(null, 6, 8, 4, 3, 3, 3).setArmor(ArmorType.MEDIUM_ENEMY_ARMOR).setLegwear(ArmorType.MEDIUM_ENEMY_LEGWEAR).setHealth(new IntArray(new int[]{60})).setMana(12), "Golem", AssetEnum.GOLEM.getTexture(), AssetEnum.GOLEM_FUTA.getTexture()),
 	GHOST (new EnemyTemplate(null, 0, 0, 0, 8, 8, 8).setArmor(null).setLegwear(null).setUnderwear(null).setHealth(new IntArray(new int[]{15})).setMana(30), "Ghost", AssetEnum.GHOST_SPOOKY.getTexture(), AssetEnum.GHOST_SPOOKY_BLOODLESS.getTexture()),
