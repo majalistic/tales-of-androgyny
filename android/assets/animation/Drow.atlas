@@ -1,118 +1,159 @@
 
 Drow.png
-size: 2048,1024
+size: 2048,2048
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 Arm Right
   rotate: false
-  xy: 774, 297
+  xy: 1679, 2
   size: 301, 287
   orig: 301, 287
   offset: 0, 0
   index: -1
 ArmRight
   rotate: true
-  xy: 1224, 672
+  xy: 1224, 368
   size: 339, 611
   orig: 339, 611
   offset: 0, 0
   index: -1
 Bangs
   rotate: true
-  xy: 1837, 828
+  xy: 883, 63
   size: 183, 209
   orig: 183, 209
   offset: 0, 0
   index: -1
 BoobLeft
   rotate: false
-  xy: 1290, 451
+  xy: 1837, 291
   size: 188, 219
   orig: 188, 219
   offset: 0, 0
   index: -1
 BoobRight
-  rotate: true
-  xy: 1837, 636
+  rotate: false
+  xy: 1837, 512
   size: 190, 195
   orig: 190, 195
   offset: 0, 0
   index: -1
+CatHead
+  rotate: true
+  xy: 2, 168
+  size: 396, 411
+  orig: 396, 411
+  offset: 0, 0
+  index: -1
+CatHindLeg
+  rotate: true
+  xy: 1224, 736
+  size: 255, 637
+  orig: 255, 637
+  offset: 0, 0
+  index: -1
+CatTorso
+  rotate: false
+  xy: 2, 993
+  size: 1863, 1037
+  orig: 1863, 1037
+  offset: 0, 0
+  index: -1
 CrotchTassel
   rotate: false
-  xy: 1658, 457
+  xy: 1867, 1149
   size: 137, 213
   orig: 137, 213
   offset: 0, 0
   index: -1
+ForePawLeft
+  rotate: true
+  xy: 1187, 10
+  size: 356, 490
+  orig: 356, 490
+  offset: 0, 0
+  index: -1
 Hair
   rotate: true
-  xy: 456, 47
+  xy: 415, 27
   size: 219, 234
   orig: 219, 234
   offset: 0, 0
   index: -1
 HairTassel
   rotate: false
-  xy: 692, 30
+  xy: 1973, 719
   size: 49, 236
   orig: 49, 236
   offset: 0, 0
   index: -1
 Head
   rotate: false
-  xy: 1480, 458
+  xy: 1867, 1818
   size: 176, 212
   orig: 176, 212
   offset: 0, 0
   index: -1
 LegLeft
   rotate: true
-  xy: 2, 268
+  xy: 415, 248
   size: 316, 770
   orig: 316, 770
   offset: 0, 0
   index: -1
 Snake Head
   rotate: false
-  xy: 1482, 356
+  xy: 2, 66
   size: 118, 100
   orig: 118, 100
   offset: 0, 0
   index: -1
 Snake Tail
-  rotate: true
-  xy: 1077, 354
+  rotate: false
+  xy: 651, 35
   size: 230, 211
   orig: 230, 211
   offset: 0, 0
   index: -1
 Snake Torso
-  rotate: false
-  xy: 2, 2
+  rotate: true
+  xy: 1867, 709
   size: 438, 104
   orig: 438, 104
   offset: 0, 0
   index: -1
 Torso
   rotate: true
-  xy: 2, 586
+  xy: 2, 566
   size: 425, 1220
   orig: 425, 1220
   offset: 0, 0
   index: -1
 bird
-  rotate: true
-  xy: 2, 108
+  rotate: false
+  xy: 1867, 1364
   size: 158, 452
   orig: 158, 452
   offset: 0, 0
   index: -1
 birdwing
-  rotate: true
-  xy: 1290, 381
+  rotate: false
+  xy: 1973, 957
   size: 68, 190
   orig: 68, 190
+  offset: 0, 0
+  index: -1
+
+Drow2.png
+size: 1024,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+ForePawRight
+  rotate: true
+  xy: 2, 2
+  size: 278, 546
+  orig: 278, 546
   offset: 0, 0
   index: -1
