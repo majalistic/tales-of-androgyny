@@ -1110,7 +1110,7 @@ public enum EncounterCode {
 								"What do you do?", 
 								b.branch("Stand and fight").textScene("GIANTESS-FIGHT").battleScene(BattleCode.GIANTESS, 1, b.branch(Outcome.VICTORY), b.branch(Outcome.DEFEAT).concat(rebirth)),
 								b.branch("Run and hide").textScene("GIANTESS-HIDE"), 
-								b.branch("Climb her").textScene("GIANTESS-CLIMB")
+								b.branch("Climb her").textScene("GIANTESS-CLIMB").textScene("GIANTESS-KISS-GAME").concat(rebirth)
 							)
 						)
 					), 
