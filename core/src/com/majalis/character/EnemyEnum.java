@@ -330,6 +330,7 @@ public enum EnemyEnum {
 			case ADVENTURER:
 				break;
 			case BEASTMISTRESS:
+				temp.add(AssetEnum.BEASTMISTRESS_ANIMATION.getAnimation());
 				break;
 			case BRIGAND:
 				temp.add(AssetEnum.BRIGAND_ANIMATION.getAnimation());
