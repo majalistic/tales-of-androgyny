@@ -1106,7 +1106,7 @@ public enum EncounterCode {
 						),
 						b.branch("Explore the valley").textScene("GIANTESS-VALLEY-EXPLORE").checkScene(
 							Stat.PERCEPTION, 
-							b.branch(5).textScene("GIANTESS-AWARE"), 
+							b.branch(5).textScene("GIANTESS-AWARE").choiceScene("Visit the village?", b.branch("Visit").textScene("GIANTESS-VILLAGE").choiceScene("Get baptised?", b.branch("Why not").textScene("GIANTESS-BAPTISM"), b.branch("Nope").textScene("GIANTESS-SACRIFICED").concat(rebirth)), b.branch("Leave")), 
 							b.branch(0).textScene("GIANTESS-UNAWARE").choiceScene(
 								"What do you do?", 
 								b.branch("Stand and fight").textScene("GIANTESS-FIGHT").battleScene(BattleCode.GIANTESS, 1, b.branch(Outcome.VICTORY), b.branch(Outcome.DEFEAT).concat(rebirth)),
