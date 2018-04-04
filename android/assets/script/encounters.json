@@ -11842,7 +11842,11 @@
 	{
 		"key": "GIANTESS-SACRIFICED",
 		"scriptLines": [
-			{"text": ""}
+			{"text": "Hearing your rebuke, the villagers seem to have come to the consensus that what you really need is to be baptised... even harder."}
+			{"text": "You're brought to a high scaffolding, higher than the treetops, and you're bound at the wrists, your feet barely able to reach the ground. You're visible to the entire village, but for the time, no one pays you any mind."},
+			{"text": "You're left there alone for some time before you're joined again by a figure, who climbs to the top of the scaffolding alone. They're a priest of some kind, dressed in long, flowing vestments, the patterns reminiscent of the strange fluid that splattered you to the ground."},
+			{"text": "Far below, a low chanting chorus begins, as he gestures at you from head to toe, then round in a circle with his arms. He abruptly turns, and calls back out to the wilds, and the chorus stops."},
+			{"text": "The ground shakes. Something... truly enormous approaches. In a panic, the priest flings himself from the scaffolding, and you know not what becomes of him... only what comes into your view not long after."}
 		]
 	},
 	{

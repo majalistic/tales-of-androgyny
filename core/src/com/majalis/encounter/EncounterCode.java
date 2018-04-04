@@ -1088,7 +1088,8 @@ public enum EncounterCode {
 			case GIANTESS_FUTA:
 				Branch rebirth = b.branch().textScene("GIANTESS-REBIRTH");
 				Branch selfSacrifice = b.branch().textScene("GIANTESS-SELF-SACRIFICE").concat(rebirth);
-				Branch village = b.branch().textScene("GIANTESS-VILLAGE-CAPTURE").checkScene(CheckType.GIANTESS_UNSEEN, b.branch(true).textScene("GIANTESS-VILLAGE-CAPTURE-UNSEEN-GODDESS").concat(selfSacrifice), b.branch(false).textScene("GIANTESS-VILLAGE-CAPTURE-SEEN-GODDESS").concat(selfSacrifice));
+				Branch sacrifice = b.branch().checkScene(CheckType.GIANTESS_UNSEEN, b.branch(true).textScene("GIANTESS-VILLAGE-CAPTURE-UNSEEN-GODDESS").concat(selfSacrifice), b.branch(false).textScene("GIANTESS-VILLAGE-CAPTURE-SEEN-GODDESS").concat(selfSacrifice));
+				Branch village = b.branch().textScene("GIANTESS-VILLAGE-CAPTURE").concat(sacrifice);
 				Branch insideLoincloth = b.branch().textScene("GIANTESS-INSIDE-LOINCLOTH").concat(rebirth);
 				
 				return b.branch().textScene("GIANTESS-INTRO").checkScene(
@@ -1106,7 +1107,7 @@ public enum EncounterCode {
 						),
 						b.branch("Explore the valley").textScene("GIANTESS-VALLEY-EXPLORE").checkScene(
 							Stat.PERCEPTION, 
-							b.branch(5).textScene("GIANTESS-AWARE").choiceScene("Visit the village?", b.branch("Visit").textScene("GIANTESS-VILLAGE").choiceScene("Get baptised?", b.branch("Why not").textScene("GIANTESS-BAPTISM"), b.branch("Nope").textScene("GIANTESS-SACRIFICED").concat(rebirth)), b.branch("Leave")), 
+							b.branch(5).textScene("GIANTESS-AWARE").choiceScene("Visit the village?", b.branch("Visit").textScene("GIANTESS-VILLAGE").choiceScene("Get baptised?", b.branch("Why not").textScene("GIANTESS-BAPTISM"), b.branch("Nope").textScene("GIANTESS-SACRIFICED").concat(sacrifice)), b.branch("Leave")), 
 							b.branch(0).textScene("GIANTESS-UNAWARE").choiceScene(
 								"What do you do?", 
 								b.branch("Stand and fight").textScene("GIANTESS-FIGHT").battleScene(BattleCode.GIANTESS, 1, b.branch(Outcome.VICTORY), b.branch(Outcome.DEFEAT).concat(rebirth)),
@@ -1129,7 +1130,8 @@ public enum EncounterCode {
 							)
 						)
 					), 
-					b.branch(false).textScene("GIANTESS-BLUNDERED").concat(village));
+					b.branch(false).textScene("GIANTESS-BLUNDERED").concat(village)
+				 );
 			case GOBLIN_MALE:
 				Branch maleDefeatCont = b.branch().textScene("GOBLIN-MALE-DEFEAT").gameEnd();
 				return b.branch().textScene("GOBLIN-MALE-INTRO").battleScene(
