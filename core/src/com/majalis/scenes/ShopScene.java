@@ -79,28 +79,20 @@ public class ShopScene extends Scene {
 		itemSound = assetManager.get(AssetEnum.EQUIP.getSound());
 		
 		final Group inventoryGroup = new Group();
-		Image inventoryBox = new Image(assetManager.get(AssetEnum.BATTLE_TEXTBOX.getTexture()));
-		Image moneyBox = new Image(assetManager.get(AssetEnum.TEXT_BOX.getTexture()));
-		
-		inventoryGroup.addActor(inventoryBox);
 		this.addActor(inventoryGroup);
-		this.addActor(moneyBox);
-		inventoryBox.setBounds(100, 100, 800, 1000);
-		moneyBox.setBounds(1500, 900, 300, 100);
 		
-		final Image hoverBox = new Image(assetManager.get(AssetEnum.BATTLE_HOVER.getTexture()));
+		Group moneyGroup = new Group();
+		this.addActor(moneyGroup);
+		moneyGroup.setPosition(1600, 950);
+
+		addImage(moneyGroup, assetManager.get(AssetEnum.TEXT_BOX.getTexture()), 0, 0, 300, 100);
+		addImage(inventoryGroup, assetManager.get(AssetEnum.BATTLE_TEXTBOX.getTexture()), 25, 0, 875, 1125);
+																							
+		final Image hoverBox = addImage(assetManager.get(AssetEnum.BATTLE_HOVER.getTexture()), 1300, 300, 600, 600); 
+		this.removeActor(hoverBox);
 		
-		hoverBox.setBounds(950, 400, 850, 400);
-		
-		this.console = new Label("", skin);
-		this.console.setColor(Color.TAN);
-		this.money = new Label(String.valueOf(character.getMoney())+" Gold", skin);
-		this.money.setColor(Color.GOLDENROD);
-		console.setPosition(1300, 850);
-		this.addActor(console);
-		money.setPosition(1600, 940);
-		this.addActor(money);
-		
+		this.console = addLabel("", skin, Color.TAN, 1375, 925);
+		this.money = addLabel(moneyGroup, String.valueOf(character.getMoney())+" Gold", skin, Color.GOLDENROD, 110, 45);
 		final TextButton done = new TextButton("Done", skin);
 		
 		done.addListener(
@@ -112,7 +104,7 @@ public class ShopScene extends Scene {
 		        }
 			}
 		);
-		done.setPosition(1522, 250);
+		done.setPosition(1575, 25);
 		
 		// need to create methods for selling
 		// need to show description of items (should be an attribute of an item)	
@@ -125,15 +117,17 @@ public class ShopScene extends Scene {
 		saveService.saveDataValue(SaveEnum.PLAYER, character);
 		
 		final Table table = new Table();
-		table.align(Align.top);
+		table.align(Align.topLeft);
 		
-		ScrollPane techniquePane = new ScrollPane(table);
-		techniquePane.setScrollingDisabled(true, false);
-		techniquePane.setOverscroll(false, false);
-		techniquePane.setBounds(200, 175, 675, 825);
+		ScrollPane scrollPane = new ScrollPane(table);
 		
-		this.addActor(techniquePane);
+		scrollPane.setScrollingDisabled(true, false);
+		scrollPane.setOverscroll(false, false);
+		scrollPane.setBounds(65, 75, 825, 950);
+		
+		inventoryGroup.addActor(scrollPane);
 	
+		boolean row = false;
 		for (final Item potion: shop.items) {
 			final TextButton potionButton = new TextButton(potion.getName() + " - " + potion.getValue() / ( shopCode == ShopCode.GADGETEER_SHOP ? 3 : 1 ) + "G", skin);
 			final Label description = new Label(potion.getDescription(), skin);
@@ -141,7 +135,7 @@ public class ShopScene extends Scene {
 			description.setColor(Color.FOREST);
 			description.setAlignment(Align.top);
 			final ScrollPane pane = new ScrollPane(description);
-			pane.setBounds(1060, 415, 675, 350);
+			pane.setBounds(1410, 315, 425, 550);
 			pane.setScrollingDisabled(true, false);
 			
 			potionButton.addListener(new ClickListener() {
@@ -175,7 +169,9 @@ public class ShopScene extends Scene {
 					inventoryGroup.removeActor(pane);
 				}
 			});
-			table.add(potionButton).size(500, 60).row();
+			table.add(potionButton).size(400, 50).align(Align.left);
+			if (row) table.row();
+			row = !row;
 		}
 		
 		if (shopCode.isTinted()) {
