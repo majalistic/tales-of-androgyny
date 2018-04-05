@@ -1091,6 +1091,31 @@ public enum EncounterCode {
 				Branch sacrifice = b.branch().checkScene(CheckType.GIANTESS_UNSEEN, b.branch(true).textScene("GIANTESS-VILLAGE-CAPTURE-UNSEEN-GODDESS").concat(selfSacrifice), b.branch(false).textScene("GIANTESS-VILLAGE-CAPTURE-SEEN-GODDESS").concat(selfSacrifice));
 				Branch village = b.branch().textScene("GIANTESS-VILLAGE-CAPTURE").concat(sacrifice);
 				Branch insideLoincloth = b.branch().textScene("GIANTESS-INSIDE-LOINCLOTH").concat(rebirth);
+				Branch exploreValley = b.branch("Explore the valley").textScene("GIANTESS-VALLEY-EXPLORE").checkScene(
+						Stat.PERCEPTION, 
+						b.branch(5).textScene("GIANTESS-AWARE").choiceScene("Visit the village?", b.branch("Visit").textScene("GIANTESS-VILLAGE").choiceScene("Get baptised?", b.branch("Why not").textScene("GIANTESS-BAPTISM"), b.branch("Nope").textScene("GIANTESS-SACRIFICED").concat(sacrifice)), b.branch("Leave")), 
+						b.branch(0).textScene("GIANTESS-UNAWARE").choiceScene(
+							"What do you do?", 
+							b.branch("Stand and fight").textScene("GIANTESS-FIGHT").battleScene(BattleCode.GIANTESS, 1, b.branch(Outcome.VICTORY), b.branch(Outcome.DEFEAT).concat(rebirth)),
+							b.branch("Speak").textScene("GIANTESS-SPEAK").checkScene(Stat.AGILITY, b.branch(5).textScene("GIANTESS-STRUGGLE-SWALLOW").concat(rebirth), b.branch(0).textScene("GIANTESS-INSTANT-SWALLOW").concat(rebirth)),
+							b.branch("Run and hide").textScene("GIANTESS-HIDE"), 
+							b.branch("Climb her").textScene("GIANTESS-CLIMB").checkScene(
+								Stat.AGILITY, 
+								b.branch(6).textScene("GIANTESS-FREE-ROAM").choiceScene(
+									"Where do you climb?",
+									b.branch("Her face").textScene("GIANTESS-FACE").concat(rebirth),
+									b.branch("Her hand").textScene("GIANTESS-HAND"),
+									b.branch("Her ass").textScene("GIANTESS-ASS"),
+									b.branch("Her dong").textScene("GIANTESS-DONG").concat(insideLoincloth)
+								), 
+								b.branch(0).textScene("GIANTESS-KISS-GAME").checkScene(
+									Stat.AGILITY, 
+									b.branch(4).textScene("GIANTESS-INSERT-COCK-FLIP"), 
+									b.branch(0).textScene("GIANTESS-INSERT-COCK").concat(rebirth)
+								)
+							)
+						)
+					);
 				
 				return b.branch().textScene("GIANTESS-INTRO").checkScene(
 					CheckType.SCOUT_LEVEL_2, 
@@ -1098,38 +1123,14 @@ public enum EncounterCode {
 						"Approach the goddess?", 
 						b.branch("Approach her").textScene("GIANTESS-EXAMINE").choiceScene(
 							"What do you do?", 
-							b.branch("Observe from distance").textScene("GIANTESS-WET-DREAM"), 
+							b.branch("Observe from distance").textScene("GIANTESS-WET-DREAM").concat(exploreValley), 
 							b.branch("Get in close").textScene("GIANTESS-CLOSE-EXAMINE").choiceScene(
 								"Do you hide in her loincloth for warmth?", 
 								b.branch("Yeah sure why not").concat(insideLoincloth),
 								b.branch("What?").textScene("GIANTESS-WET-DREAM-SPLATTERED").concat(village)
 							)
 						),
-						b.branch("Explore the valley").textScene("GIANTESS-VALLEY-EXPLORE").checkScene(
-							Stat.PERCEPTION, 
-							b.branch(5).textScene("GIANTESS-AWARE").choiceScene("Visit the village?", b.branch("Visit").textScene("GIANTESS-VILLAGE").choiceScene("Get baptised?", b.branch("Why not").textScene("GIANTESS-BAPTISM"), b.branch("Nope").textScene("GIANTESS-SACRIFICED").concat(sacrifice)), b.branch("Leave")), 
-							b.branch(0).textScene("GIANTESS-UNAWARE").choiceScene(
-								"What do you do?", 
-								b.branch("Stand and fight").textScene("GIANTESS-FIGHT").battleScene(BattleCode.GIANTESS, 1, b.branch(Outcome.VICTORY), b.branch(Outcome.DEFEAT).concat(rebirth)),
-								b.branch("Speak").textScene("GIANTESS-SPEAK").checkScene(Stat.AGILITY, b.branch(5).textScene("GIANTESS-STRUGGLE-SWALLOW").concat(rebirth), b.branch(0).textScene("GIANTESS-INSTANT-SWALLOW").concat(rebirth)),
-								b.branch("Run and hide").textScene("GIANTESS-HIDE"), 
-								b.branch("Climb her").textScene("GIANTESS-CLIMB").checkScene(
-									Stat.AGILITY, 
-									b.branch(6).textScene("GIANTESS-FREE-ROAM").choiceScene(
-										"Where do you climb?",
-										b.branch("Her face").textScene("GIANTESS-FACE").concat(rebirth),
-										b.branch("Her hand").textScene("GIANTESS-HAND"),
-										b.branch("Her ass").textScene("GIANTESS-ASS"),
-										b.branch("Her dong").textScene("GIANTESS-DONG").concat(insideLoincloth)
-									), 
-									b.branch(0).textScene("GIANTESS-KISS-GAME").checkScene(
-										Stat.AGILITY, 
-										b.branch(4).textScene("GIANTESS-INSERT-COCK-FLIP"), 
-										b.branch(0).textScene("GIANTESS-INSERT-COCK").concat(rebirth)
-									)
-								)
-							)
-						)
+						exploreValley
 					), 
 					b.branch(false).textScene("GIANTESS-BLUNDERED").concat(village)
 				 );
