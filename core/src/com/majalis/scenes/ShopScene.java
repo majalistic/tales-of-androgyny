@@ -135,7 +135,7 @@ public class ShopScene extends Scene {
 			description.setColor(Color.FOREST);
 			description.setAlignment(Align.top);
 			final ScrollPane pane = new ScrollPane(description);
-			pane.setBounds(1410, 315, 425, 550);
+			pane.setBounds(1410, 300, 425, 550);
 			pane.setScrollingDisabled(true, false);
 			
 			potionButton.addListener(new ClickListener() {
