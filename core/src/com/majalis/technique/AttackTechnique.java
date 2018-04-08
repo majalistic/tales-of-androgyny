@@ -42,6 +42,8 @@ public class AttackTechnique extends TechniqueBuilder {
 		this.armorSunder = armorSunder;
 		this.gutCheck = gutCheck;
 		this.blockable = isBlockable;
+		this.parryable = isBlockable;
+		this.evadeable = true;
 		this.height = height;
 		this.evadeMod = 1;
 		this.parryMod = 1;

@@ -1,6 +1,7 @@
 package com.majalis.technique;
 
 import com.majalis.character.StatusType;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.OrderedMap;
 import com.majalis.character.GrappleType;
 import com.majalis.character.SexualExperience.SexualExperienceBuilder;
@@ -35,6 +36,8 @@ public class TechniqueBuilder {
 	protected boolean ignoresArmor;
 	protected boolean setDamage;
 	protected boolean blockable;
+	protected boolean parryable;
+	protected boolean evadeable;
 	protected boolean causesBleed;
 	protected int setBleed;
 	protected GrappleType grapple;
@@ -69,6 +72,8 @@ public class TechniqueBuilder {
 		ignoresArmor = false;
 		setDamage = false;
 		blockable = false;
+		parryable = false;
+		evadeable = false;
 		causesBleed = true;
 		setBleed = 0;
 		grapple = GrappleType.NULL;
@@ -132,6 +137,16 @@ public class TechniqueBuilder {
 		return this;
 	}	
 	
+	public TechniqueBuilder setParryable(boolean parryable) {
+		this.parryable = parryable;
+		return this;
+	}	
+	
+	public TechniqueBuilder setEvadeable(boolean evadeable) {
+		this.evadeable = evadeable;
+		return this;
+	}	
+	
 	public TechniqueBuilder addSelfSex(SexualExperienceBuilder addedBuilder) {
 		selfSex.combine(addedBuilder);
 		return this;
@@ -162,7 +177,7 @@ public class TechniqueBuilder {
 	
 	public TechniquePrototype build() {
 		String lightDescription = getDescription();
-		return new TechniquePrototype(usableStance, resultingStance, name, doesDamage, doesHealing, powerMod, staminaCost, stabilityCost, manaCost, spellEffect, sex, selfSex, forceStance, knockdown, armorSunder, gutCheck, height, guardMod, parryMod, evadeMod, ignoresArmor, setDamage, blockable, causesBleed, setBleed, grapple, climaxType, selfEffect, enemyEffect, range, advance, getExpandedInfo() + lightDescription, lightDescription, getBonusInfo(), bonuses); 
+		return new TechniquePrototype(usableStance, resultingStance, name, doesDamage, doesHealing, powerMod, staminaCost, stabilityCost, manaCost, spellEffect, sex, selfSex, forceStance, knockdown, armorSunder, gutCheck, height, guardMod, parryMod, evadeMod, ignoresArmor, setDamage, blockable, parryable, evadeable, causesBleed, setBleed, grapple, climaxType, selfEffect, enemyEffect, range, advance, getExpandedInfo() + lightDescription, lightDescription, getBonusInfo(), bonuses); 
 	}	
 	
 	protected String getExpandedInfo() { 
@@ -238,8 +253,15 @@ public class TechniqueBuilder {
 		if (selfSex.getMouthBottomTeasing() > 0) {
 			builder.append("Arouses you into wanting to get fucked in the mouth, with a power of " + selfSex.getMouthBottomTeasing() + ".\n");
 		}
-		if (blockable) {
-			builder.append("Can be blocked.\n");
+		if (blockable || parryable || evadeable) {
+			Array<String> blockText = new Array<String>();
+			if (blockable) blockText.add("blocked");
+			if (parryable) blockText.add("parried");
+			if (evadeable) blockText.add("evaded");
+			String blockTextString = "";
+			for (String s : blockText) { blockTextString += s + ", "; }
+			blockTextString.substring(0, blockTextString.length() - 2);
+			builder.append("Can be " + blockTextString + "\n");
 		}
 		else if (doesDamage) {
 			builder.append("CANNOT be blocked.\n");
