@@ -817,6 +817,15 @@ public class PlayerCharacter extends AbstractCharacter {
 		if (item instanceof Weapon) { weapon = (Weapon) item; }
 		return true;
 	}
+	
+
+	public boolean sellItem(Item item) {
+		if (item.isConsumable() || item.isEquippable() && !item.equals(new ChastityCage())) {
+			money += item.getValue() / 4;
+			return true;
+		}
+		return false;
+	}
 
 	public Integer getMoney() { return money; }
 
@@ -1643,4 +1652,5 @@ public class PlayerCharacter extends AbstractCharacter {
 	public int getBonusPoints() { return bonusPoints; }
 
 	public void setBonusPoints(int bonusPoints) { this.bonusPoints = bonusPoints; }
+
 }

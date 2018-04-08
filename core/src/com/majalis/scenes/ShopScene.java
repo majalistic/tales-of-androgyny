@@ -116,20 +116,24 @@ public class ShopScene extends Scene {
 		saveService.saveDataValue(SaveEnum.SHOP, shop);
 		saveService.saveDataValue(SaveEnum.PLAYER, character);
 		
-		final Table table = new Table();
-		table.align(Align.topLeft);
+		final Table buyTable = new Table(skin);
+		buyTable.align(Align.topLeft);
 		
-		ScrollPane scrollPane = new ScrollPane(table);
+		ScrollPane buyScrollPane = new ScrollPane(buyTable);
 		
-		scrollPane.setScrollingDisabled(true, false);
-		scrollPane.setOverscroll(false, false);
-		scrollPane.setBounds(65, 75, 825, 950);
+		buyScrollPane.setScrollingDisabled(true, false);
+		buyScrollPane.setOverscroll(false, false);
+		buyScrollPane.setBounds(65, 75, 825, 950);
 		
-		inventoryGroup.addActor(scrollPane);
+		inventoryGroup.addActor(buyScrollPane);
 	
+		Label buyLabel = new Label("Buy", skin);
+		buyLabel.setColor(Color.BLACK);
+		buyTable.add(buyLabel).row();
+		
 		boolean row = false;
 		for (final Item potion: shop.items) {
-			final TextButton potionButton = new TextButton(potion.getName() + " - " + potion.getValue() / ( shopCode == ShopCode.GADGETEER_SHOP ? 3 : 1 ) + "G", skin);
+			final TextButton potionButton = new TextButton(potion.getName() + " - " + potion.getValue() / (shopCode == ShopCode.GADGETEER_SHOP ? 3 : 1 ) + "G", skin);
 			final Label description = new Label(potion.getDescription(), skin);
 			description.setWrap(true);
 			description.setColor(Color.FOREST);
@@ -169,10 +173,105 @@ public class ShopScene extends Scene {
 					inventoryGroup.removeActor(pane);
 				}
 			});
-			table.add(potionButton).size(400, 50).align(Align.left);
-			if (row) table.row();
+			buyTable.add(potionButton).size(400, 50).align(Align.left);
+			if (row) buyTable.row();
 			row = !row;
 		}
+		
+		final Table sellTable = new Table(skin);
+		sellTable.align(Align.topLeft);
+		
+		ScrollPane sellScrollPane = new ScrollPane(sellTable);
+		
+		sellScrollPane.setScrollingDisabled(true, false);
+		sellScrollPane.setOverscroll(false, false);
+		sellScrollPane.setBounds(65, 75, 825, 950);
+		
+		inventoryGroup.addActor(sellScrollPane);
+	
+		Label sellLabel = new Label("Sell", skin);
+		sellLabel.setColor(Color.BLACK);
+		sellTable.add(sellLabel).row();
+		
+		row = false;
+		for (final Item potion: character.getInventory()) {
+			final TextButton potionButton = new TextButton(potion.getName() + " - " + potion.getValue() / 4 + "G", skin);
+			final Label description = new Label(potion.getDescription(), skin);
+			description.setWrap(true);
+			description.setColor(Color.FOREST);
+			description.setAlignment(Align.top);
+			final ScrollPane pane = new ScrollPane(description);
+			pane.setBounds(1410, 300, 425, 550);
+			pane.setScrollingDisabled(true, false);
+			
+			potionButton.addListener(new ClickListener() {
+				@Override
+		        public void clicked(InputEvent event, float x, float y) {
+					if (sellItem(potion)) {
+						itemSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
+						// this should do what the character screen now does, shifting the item list down
+						potionButton.addAction(Actions.removeActor());
+						character.getInventory().removeValue(potion, true);
+						money.setText(String.valueOf(character.getMoney())+" Gold");
+						console.setText("You sell the " + potion.getName() + ".");
+						saveService.saveDataValue(SaveEnum.PLAYER, character);
+					}
+					else {
+						console.setText("You can't sell the " + potion.getName());
+					}
+		        }
+				@Override
+		        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
+					inventoryGroup.addActor(hoverBox);
+					inventoryGroup.addActor(pane);
+				}
+				@Override
+		        public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
+					inventoryGroup.removeActor(hoverBox);
+					inventoryGroup.removeActor(pane);
+				}
+			});
+			sellTable.add(potionButton).size(400, 50).align(Align.left);
+			if (row) sellTable.row();
+			row = !row;
+		}
+		
+		final TextButton buy = new TextButton("Buy", skin);
+		final TextButton sell = new TextButton("Sell", skin);
+		
+		buy.addListener(
+			new ClickListener() {
+				@Override
+		        public void clicked(InputEvent event, float x, float y) {
+					buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
+					sell.addAction(Actions.show());
+					sellScrollPane.addAction(Actions.hide());
+					buy.addAction(Actions.hide());
+					buyScrollPane.addAction(Actions.show());
+		        }
+			}
+		);
+		sell.addListener(
+			new ClickListener() {
+				@Override
+		        public void clicked(InputEvent event, float x, float y) {
+					buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
+					sell.addAction(Actions.hide());
+					sellScrollPane.addAction(Actions.show());
+					buy.addAction(Actions.show());
+					buyScrollPane.addAction(Actions.hide());
+		        }
+			}
+		);
+		
+		buy.setPosition(1575, 100);
+		sell.setPosition(1575, 100);
+		
+		sellScrollPane.addAction(Actions.hide());
+		buy.addAction(Actions.hide());
+		
+		inventoryGroup.addActor(buy);
+		inventoryGroup.addActor(sell);
 		
 		if (shopCode.isTinted()) {
 			background.setColor(TimeOfDay.getTime(character.getTime()).getColor());
@@ -286,8 +385,8 @@ public class ShopScene extends Scene {
 					restock.add(new Potion(20, EffectType.MEAT));
 					restock.add(new Potion(20, EffectType.MEAT));
 					restock.add(new Potion(10, EffectType.BANDAGE));
-					restock.add(new Potion(15));
-					restock.add(new Potion(15));
+					restock.add(new Potion(20));
+					restock.add(new Potion(20));
 					break;
 				default: ;
 			}
@@ -297,6 +396,10 @@ public class ShopScene extends Scene {
 
 	private boolean buyItem(Item item, ShopCode shopCode) {
 		return character.buyItem(item, item.getValue() / (shopCode == ShopCode.GADGETEER_SHOP ? 3 : 1));
+	}
+	
+	private boolean sellItem(Item item) {
+		return character.sellItem(item);
 	}
 
 	@Override
