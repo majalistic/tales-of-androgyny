@@ -270,7 +270,7 @@ public abstract class Item {
 		public boolean isConsumable() { return true; }	
 		
 		@Override
-		public boolean isTownPortalScroll () { return effect == EffectType.TOWN_PORTAL; }	
+		public boolean isTownPortalScroll() { return effect == EffectType.TOWN_PORTAL; }	
 		
 		@Override
 		public int getValue() {

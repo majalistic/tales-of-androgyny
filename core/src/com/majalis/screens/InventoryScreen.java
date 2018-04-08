@@ -29,6 +29,7 @@ import com.majalis.character.Item.Weapon;
 import com.majalis.encounter.Background.BackgroundBuilder;
 import com.majalis.save.SaveEnum;
 import com.majalis.save.SaveManager.GameContext;
+import com.majalis.screens.TownScreen.TownCode;
 import com.majalis.save.SaveService;
 /*
  * Screen for displaying the character's inventory.
@@ -316,6 +317,8 @@ public class InventoryScreen extends AbstractScreen {
 				resetItemTable(character.consumeItem(item).getResult());
 				if (item.isTownPortalScroll()) {
 					saveService.saveDataValue(SaveEnum.NODE_CODE, 1000);										
+					saveService.saveDataValue(SaveEnum.TOWN, TownCode.TOWN);	
+					saveService.saveDataValue(SaveEnum.RETURN_CONTEXT, GameContext.TOWN);
 				}
 	        }
 			@Override
