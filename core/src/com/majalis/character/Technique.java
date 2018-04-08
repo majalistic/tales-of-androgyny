@@ -69,8 +69,8 @@ public class Technique {
 			thisPayload.getGrappleAmount() > otherPayload.getGrappleAmount() ? thisPayload.getResultingGrappleStatus().inverse() : otherPayload.getResultingGrappleStatus();
 
 		int blockAmount = isBlockable() ? otherPayload.getBlock() : 0;
-		int parryAmount = isBlockable() ? otherPayload.getParry() : 0;
-		int evadeAmount = technique.getTechniqueHeight() != TechniqueHeight.NONE ? otherPayload.getEvasion() : 0;
+		int parryAmount = isParryable() ? otherPayload.getParry() : 0;
+		int evadeAmount = technique.getTechniqueHeight() != TechniqueHeight.NONE && isEvadeable() ? otherPayload.getEvasion() : 0;
 		
 		// figure out what statuses are actually used and remove the ones that aren't
 		Array<Attack> resultingAttacks = new Array<Attack>(new Attack[]{new Attack(
@@ -88,7 +88,7 @@ public class Technique {
 			thisPayload.getSex().setPhallusType(thisPayload.getPhallusType()).increaseTeasing(thisPayload.getTotalPower()).build(), // the sex they'll receive
 			otherPayload.getSelfSex().setPhallusType(thisPayload.getPhallusType()).build(), // their sex
 			grappleResult,
-			otherTechnique.isBlockable() ? thisPayload.getDisarm() : 0,
+			otherTechnique.isParryable() ? thisPayload.getDisarm() : 0,
 			thisPayload.getTrip(),
 			thisPayload.getBleeding(),
 			thisPayload.getRemovePlug(),
@@ -107,7 +107,7 @@ public class Technique {
 			currentState.getCharacter() 
 		)});
 		
-		if (thisPayload.getCounter() >= 100 && otherTechnique.isBlockable()) {
+		if (thisPayload.getCounter() >= 100 && otherTechnique.isParryable()) {
 			// create a counter attack, ignore technique for now
 			resultingAttacks.add(new Attack(
 				Status.SUCCESS,
@@ -217,6 +217,8 @@ public class Technique {
 	protected int getManaCost() { return initialPayload.getManaCost(); }
 	private boolean isCorporeal() { return currentState.isCorporeal(); }
 	private boolean isBlockable() { return technique.isBlockable(); }
+	private boolean isParryable() { return technique.isParryable(); }
+	private boolean isEvadeable() { return technique.isEvadeable(); }
 	private GrappleType getGrappleType() { return technique.getGrappleType(); }
 	private Stance getForceStance() { return technique.getForceStance(); }	
 

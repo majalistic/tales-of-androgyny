@@ -46,7 +46,7 @@ public enum Techniques {
 	REVERSAL_ATTACK  	(new AttackTechnique(Stance.DEFENSIVE, Stance.BALANCED, "Reversal Attack", -2, 2, 2, TechniqueHeight.LOW).build()),
 	NEUTRAL_ATTACK  	(new AttackTechnique(Stance.BALANCED, Stance.BALANCED, "Low Attack", -1, 0, 1, TechniqueHeight.LOW).addBonus(BonusCondition.ENEMY_LOW_STABILITY, BonusType.TRIP, 60).addBonus(BonusCondition.OUTMANEUVER, BonusType.TRIP, 10).build()),
 	USE_ITEM		  	(new NonAttackTechnique(Stance.BALANCED, Stance.ITEM, "Use Item", 0, 0).build(), false),
-	ITEM_OR_CANCEL		(new NonAttackTechnique(Stance.ITEM, Stance.BALANCED, "Cancel", 0, 0).setBlockable(false).build(), false),
+	ITEM_OR_CANCEL		(new NonAttackTechnique(Stance.ITEM, Stance.BALANCED, "Cancel", 0, 0).setBlockable(false).setParryable(false).build(), false),
 	KICK_OVER_FACE_UP	(new NonAttackTechnique(Stance.BALANCED, Stance.BALANCED, "Kick Over", 0, 3, Stance.SUPINE).build(), false),
 	KICK_OVER_FACE_DOWN (new NonAttackTechnique(Stance.BALANCED, Stance.BALANCED, "Kick Over", 0, 3, Stance.PRONE).build(), false),
 	
@@ -74,7 +74,7 @@ public enum Techniques {
 	/* Misc Techniques */
 	DRAW_ARROW 			(new NonAttackTechnique(Stance.BALANCED, Stance.DRAWN, "Draw Arrow", 0, 0).build(), false),		
 	CANCEL				(new NonAttackTechnique(Stance.DRAWN, Stance.BALANCED, "Cancel", 0, 0).build(), false),
-	FIRE				(new AttackTechnique(Stance.DRAWN, Stance.BALANCED, "Fire", 20, 3, 0, TechniqueHeight.MEDIUM).setBlockable(false).setIgnoreArmor().setRange(2).build(), false),
+	FIRE				(new AttackTechnique(Stance.DRAWN, Stance.BALANCED, "Fire", 20, 3, 0, TechniqueHeight.MEDIUM).setBlockable(true).setParryable(false).setEvadeable(false).setIgnoreArmor().setRange(2).build(), false),
 	
 	/* Seduction Techniques */
 	SLAP_ASS			(new NonAttackTechnique(Stance.SEDUCTION, Stance.SEDUCTION, "Slap Ass", 0, -1).addSelfSex(new SexualExperienceBuilder().setAssBottomTeasing(1)).addSex(new SexualExperienceBuilder().setAssTeasing(1)).build(), 3), // makes enemy want to fuck your ass, raises own lust
@@ -119,7 +119,7 @@ public enum Techniques {
 	LIFT_WEAPON			(new NonAttackTechnique(Stance.BALANCED, Stance.OFFENSIVE, "Raise Club", 1, 1).build(), false),
 	SLAM				(new AttackTechnique(Stance.BALANCED, Stance.OFFENSIVE, "Slam", -2, 3, 3).build(), false),
 	
-	COCK_SLAM			(new AttackTechnique(Stance.BALANCED, Stance.BALANCED, "Drop Her Cock on You", 0, 0, 0).setBlockable(false).build(), false),	
+	COCK_SLAM			(new AttackTechnique(Stance.BALANCED, Stance.BALANCED, "Drop Her Cock on You", 0, 0, 0, TechniqueHeight.NONE).setBlockable(false).setParryable(false).setEvadeable(false).build(), false),	
 	
 	WRAP				(new GrappleTechnique(Stance.BALANCED, Stance.WRAPPED, "Wrap", 0, Stance.WRAPPED_BOTTOM, GrappleType.ADVANTAGE).build(), false), // when enemy is prone
 	BITE				(new GrappleTechnique(Stance.WRAPPED, Stance.WRAPPED, "Bite", 4, GrappleType.SUBMIT).setIgnoreArmor().setBleed(1).build(), false),	
