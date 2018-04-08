@@ -1744,7 +1744,7 @@
 			{
 			"sound": "HORSE_CLOP",
 			"mutations": [{"saveType":"TIME", "value":{"class": "java.lang.Integer", "value": 6}}, {"saveType":"TOWN", "value":{"class": "com.majalis.screens.TownScreen$TownCode", "value": "TOWN_MONSTER"}}, {"saveType":"RETURN_CONTEXT", "value":{"class": "com.majalis.save.SaveManager$GameContext", "value": "TOWN"}}, {"saveType":"NODE_CODE", "value":{"class": "java.lang.Integer", "value": 1007}}],
-			"text": "The trip to the human town by carriage takes a day. You arrive and observe your surroundings."}
+			"text": "The trip to the monster town by carriage takes a day. You arrive and observe your surroundings."}
 		]
 	},
 	{
