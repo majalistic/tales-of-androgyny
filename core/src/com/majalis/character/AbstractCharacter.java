@@ -1285,7 +1285,7 @@ public abstract class AbstractCharacter extends Group {
 			case DOGGY_BOTTOM: return getTechniques(target, RECEIVE_DOGGY, SELF_SPANK);
 			case PRONE_BONE_BOTTOM: return getTechniques(target, RECEIVE_PRONE_BONE);
 			case ANAL_BOTTOM:  return getTechniques(target, RECEIVE_ANAL, STROKE, WRAP_LEGS);
-			case HANDY_BOTTOM: return getTechniques(target, STROKE_IT, FONDLE_BALLS, KISS_IT, KISS_BALLS, SPIT_ON_IT, OPEN_UP, OPEN_WIDE);
+			case HANDY_BOTTOM: return getTechniques(target, STROKE_IT, TANDEM_STROKE, FONDLE_BALLS, KISS_IT, KISS_BALLS, SPIT_ON_IT, OPEN_UP, OPEN_WIDE);
 			case STANDING_BOTTOM: return getTechniques(target, RECEIVE_STANDING, STROKE_STANDING);
 			case COWGIRL_BOTTOM: return getTechniques(target, RIDE_ON_IT, BOUNCE_ON_IT, SQUEEZE_IT);
 			case REVERSE_COWGIRL_BOTTOM: return getTechniques(target, RIDE_ON_IT_REVERSE, BOUNCE_ON_IT_REVERSE, SQUEEZE_IT_REVERSE);
@@ -1345,7 +1345,7 @@ public abstract class AbstractCharacter extends Group {
 			case DOGGY_BOTTOM: return getTechniques(target, RECEIVE_DOGGY, STROKE_DOGGY, BREAK_FREE_ANAL, STRUGGLE_DOGGY, SELF_SPANK);
 			case PRONE_BONE_BOTTOM: return getTechniques(target, RECEIVE_PRONE_BONE, BREAK_FREE_ANAL, STRUGGLE_PRONE_BONE);
 			case ANAL_BOTTOM:  return getTechniques(target, RECEIVE_ANAL, POUT, STROKE, BREAK_FREE_ANAL, STRUGGLE_ANAL, WRAP_LEGS);
-			case HANDY_BOTTOM: return getTechniques(target, STROKE_IT, FONDLE_BALLS, KISS_IT, KISS_BALLS, SPIT_ON_IT, OPEN_UP, OPEN_WIDE, LET_GO);
+			case HANDY_BOTTOM: return getTechniques(target, STROKE_IT, TANDEM_STROKE, FONDLE_BALLS, KISS_IT, KISS_BALLS, SPIT_ON_IT, OPEN_UP, OPEN_WIDE, LET_GO);
 			case STANDING_BOTTOM: return getTechniques(target, RECEIVE_STANDING, STROKE_STANDING, BREAK_FREE_ANAL, STRUGGLE_STANDING);
 			case COWGIRL_BOTTOM: return getTechniques(target, RIDE_ON_IT, BOUNCE_ON_IT, SQUEEZE_IT, STAND_OFF_IT);
 			case REVERSE_COWGIRL_BOTTOM: return getTechniques(target, RIDE_ON_IT_REVERSE, BOUNCE_ON_IT_REVERSE, SQUEEZE_IT_REVERSE, STAND_OFF_IT);

@@ -226,6 +226,7 @@ public enum Techniques {
 	PULL_OUT_STANDING	(new GrappleTechnique(Stance.STANDING, Stance.BALANCED, "Pull Out", 1, Stance.BALANCED, TechniqueHeight.NONE, GrappleType.BREAK, "Pull Out.").build(), false), 
 	
 	STROKE_IT			(new EroticTechnique(Stance.HANDY_BOTTOM, Stance.HANDY_BOTTOM, "Stroke It", 2, 0, "Stroke it up and down.").build()), 
+	TANDEM_STROKE		(new EroticTechnique(Stance.HANDY_BOTTOM, Stance.HANDY_BOTTOM, "Tandem Stroke", 2, 0, "Stroke it and your own at the same time, perv.").addSelfSex(new SexualExperienceBuilder().setMouthBottomTeasing(1)).build()), 
 	FONDLE_BALLS		(new EroticTechnique(Stance.HANDY_BOTTOM, Stance.HANDY_BOTTOM, "Fondle Balls", 3, 0, "Fondle their balls while stroking.").addSex(new SexualExperienceBuilder().setMouthTeasing(1)).build()), 
 	KISS_IT				(new EroticTechnique(Stance.HANDY_BOTTOM, Stance.HANDY_BOTTOM, "Kiss It", 4, 0, "Give it a nice kiss while you stroke it.").addSelfSex(new SexualExperienceBuilder().setMouthBottomTeasing(2)).addSex(new SexualExperienceBuilder().setMouthTeasing(2)).build()), 
 	KISS_BALLS			(new EroticTechnique(Stance.HANDY_BOTTOM, Stance.HANDY_BOTTOM, "Kiss Balls", 4, 0, "Give their sack a nice smooch while you stroke it.").addSelfSex(new SexualExperienceBuilder().setMouthBottomTeasing(2)).addSex(new SexualExperienceBuilder().setMouthTeasing(2)).build()), 	
