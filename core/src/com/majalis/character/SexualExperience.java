@@ -28,6 +28,7 @@ public class SexualExperience {
 	private final boolean bird; // involves an avian
 	private final boolean knot; // involves a knot
 	private final boolean prostitution; // is an act of prostitution
+	private final boolean masturbation; // is an act of masturbation
 	
 	public static class SexualExperienceBuilder {
 		private int analSexTop;
@@ -189,14 +190,14 @@ public class SexualExperience {
 		}		
 		
 		public SexualExperience build() {
-			return new SexualExperience(analSexTop, oralSexTop, 0, 0, analSex, anal, creampies, analEjaculation, oralSex, oral, oralCreampies, fellatioEjaculation, 0, 0, assTeasing, assBottomTeasing, mouthTeasing, mouthBottomTeasing, horse, ogre, false, false, bird, knot);
+			return new SexualExperience(analSexTop, oralSexTop, 0, 0, analSex, anal, creampies, analEjaculation, oralSex, oral, oralCreampies, fellatioEjaculation, 0, 0, assTeasing, assBottomTeasing, mouthTeasing, mouthBottomTeasing, horse, ogre, false, false, false, bird, knot);
 		}
 	}
 	
-	protected SexualExperience() { this(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, false, false, false, false, false, false); }
+	protected SexualExperience() { this(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, false, false, false, false, false, false, false); }
 	
 	private SexualExperience(int analSexTop, int oralSexTop, int ejaculationInButt, int ejaculationInMouth, int analSex, int anal, int creampies, int analEjaculation, int oralSex, int oral, int oralCreampies, int fellatioEjaculation, int bellyful, int handy, int assTeasing, int assBottomTeasing, int mouthTeasing, int mouthBottomTeasing,
-		boolean horse, boolean ogre, boolean prostitution, boolean beast, boolean bird, boolean knot) {
+		boolean horse, boolean ogre, boolean prostitution, boolean masturbation, boolean beast, boolean bird, boolean knot) {
 		this.analSexTop = analSexTop;
 		this.oralSexTop = oralSexTop;
 		this.ejaculationInButt = ejaculationInButt;
@@ -218,6 +219,7 @@ public class SexualExperience {
 		this.horse = horse;
 		this.ogre = ogre;
 		this.prostitution = prostitution;
+		this.masturbation = masturbation;
 		this.beast = beast;
 		this.bird = bird;
 		this.knot = knot;
@@ -244,6 +246,7 @@ public class SexualExperience {
 	protected boolean isCentaurSex() { return horse; }
 	protected boolean isOgreSex() { return ogre; }
 	protected boolean isProstitution() { return prostitution; }
+	protected boolean isMasturbation() { return masturbation; }
 	protected boolean isBeast() { return beast; }
 	protected boolean isBird() { return bird; }
 	protected boolean isKnot() { return knot; }

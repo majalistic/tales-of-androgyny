@@ -4348,7 +4348,9 @@
 	{
 		"key": "CAMP-MASTURBATE",
 		"scriptLines": [
-			{"text": "You jerk off."}
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analEjaculation": 1, "masturbation": true}}, {"saveType":"TIME", "value":{"class": "java.lang.Integer", "value": 3}}],
+			"text": "You jerk off."}
 		]
 	},
 	{
