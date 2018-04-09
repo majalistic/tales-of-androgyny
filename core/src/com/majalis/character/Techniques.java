@@ -248,7 +248,7 @@ public enum Techniques {
 	SUCK_KNOT			(new EroticTechnique(Stance.MOUTH_KNOTTED_BOTTOM, Stance.MOUTH_KNOTTED_BOTTOM, "Suck Knot", -1, 0, "Get your mouth around that big knot.").build()), 
 	RECEIVE_EGGS		(new EroticTechnique(Stance.OVIPOSITION_BOTTOM, Stance.OVIPOSITION_BOTTOM, "Receive Eggs", -1, 0, "Get stuffed full of eggs.").build()), 
 	SUCK_IT 			(new EroticTechnique(Stance.FELLATIO_BOTTOM, Stance.FELLATIO_BOTTOM, "Suck It", -1, 0, "Open wide and swallow it down.").build()), 
-	DEEPTHROAT			(new EroticTechnique(Stance.FELLATIO_BOTTOM, Stance.FELLATIO_BOTTOM, "Deepthroat", -1, 0, "Take it down your throat.").build()), 
+	DEEPTHROAT			(new EroticTechnique(Stance.FELLATIO_BOTTOM, Stance.FELLATIO_BOTTOM, "Deepthroat", 3, 0, "Take it down your throat.").addSelfSex(new SexualExperienceBuilder().setMouthBottomTeasing(1)).addSex(new SexualExperienceBuilder().setMouthTeasing(1)).build()), 
 	RECEIVE_OUROBOROS	(new EroticTechnique(Stance.OUROBOROS_BOTTOM, Stance.OUROBOROS_BOTTOM, "Round and Round", -1, 0, "Open wide and swallow it down.").build()), 
 	GET_FACEFUCKED		(new EroticTechnique(Stance.FACEFUCK_BOTTOM, Stance.FACEFUCK_BOTTOM, "Get Facefucked", -1, 0, "Open wide and swallow it down.").build()), 
 	
