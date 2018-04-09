@@ -254,6 +254,8 @@ public enum Techniques {
 	SUCK_KNOT			(new EroticTechnique(Stance.MOUTH_KNOTTED_BOTTOM, Stance.MOUTH_KNOTTED_BOTTOM, "Suck Knot", -1, 0, "Get your mouth around that big knot.").build()), 
 	RECEIVE_EGGS		(new EroticTechnique(Stance.OVIPOSITION_BOTTOM, Stance.OVIPOSITION_BOTTOM, "Receive Eggs", -1, 0, "Get stuffed full of eggs.").build()), 
 	SUCK_IT 			(new EroticTechnique(Stance.FELLATIO_BOTTOM, Stance.FELLATIO_BOTTOM, "Suck It", -1, 0, "Open wide and swallow it down.").build()), 
+	SUCK_AND_STROKE		(new EroticTechnique(Stance.FELLATIO_BOTTOM, Stance.FELLATIO_BOTTOM, "Suck and Stroke", 1, 0, "Suck it while stroking it up and down like a pro.").addSex(new SexualExperienceBuilder().setMouthTeasing(1)).build()), 
+	SUCK_AND_BEAT		(new EroticTechnique(Stance.FELLATIO_BOTTOM, Stance.FELLATIO_BOTTOM, "Suck and Beat", -1, 0, "Suck it while stroking yourself like a slut.").addSelfSex(new SexualExperienceBuilder().setMouthBottomTeasing(1)).build()), 
 	DEEPTHROAT			(new EroticTechnique(Stance.FELLATIO_BOTTOM, Stance.FELLATIO_BOTTOM, "Deepthroat", 3, 0, "Take it down your throat.").addSelfSex(new SexualExperienceBuilder().setMouthBottomTeasing(1)).addSex(new SexualExperienceBuilder().setMouthTeasing(2)).build()), 
 	LICK_BALLS			(new EroticTechnique(Stance.FELLATIO_BOTTOM, Stance.FELLATIO_BOTTOM, "Lick Balls", 3, 0, "Take it down your throat and licks their balls.").addSelfSex(new SexualExperienceBuilder().setMouthBottomTeasing(2)).addSex(new SexualExperienceBuilder().setMouthTeasing(3)).build()), 
 	BLOW				(new EroticTechnique(Stance.FELLATIO_BOTTOM, Stance.FELLATIO_BOTTOM, "Blow", 0, 0, "Put the \"blow\" in blowjob.").addSelfSex(new SexualExperienceBuilder().setMouthBottomTeasing(1)).addSex(new SexualExperienceBuilder().setMouthTeasing(1)).build()), 

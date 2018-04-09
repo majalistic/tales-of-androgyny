@@ -1292,7 +1292,7 @@ public abstract class AbstractCharacter extends Group {
 			case KNOTTED_BOTTOM: return getTechniques(target, RECEIVE_KNOT);
 			case MOUTH_KNOTTED_BOTTOM: return getTechniques(target, SUCK_KNOT);
 			case OVIPOSITION_BOTTOM: return getTechniques(target, RECEIVE_EGGS);
-			case FELLATIO_BOTTOM: return getTechniques(target, SUCK_IT, BLOW, DEEPTHROAT, LICK_BALLS);
+			case FELLATIO_BOTTOM: return getTechniques(target, SUCK_IT, SUCK_AND_STROKE, SUCK_AND_BEAT, BLOW, DEEPTHROAT, LICK_BALLS);
 			case FACEFUCK_BOTTOM: return getTechniques(target, GET_FACEFUCKED);
 			case OUROBOROS_BOTTOM: return getTechniques(target, RECEIVE_OUROBOROS);
 			case FACE_SITTING_BOTTOM: return getTechniques(target, GET_FACE_RIDDEN);
@@ -1352,7 +1352,7 @@ public abstract class AbstractCharacter extends Group {
 			case KNOTTED_BOTTOM: return getTechniques(target, RECEIVE_KNOT);
 			case MOUTH_KNOTTED_BOTTOM: return getTechniques(target, SUCK_KNOT);
 			case OVIPOSITION_BOTTOM: return getTechniques(target, RECEIVE_EGGS);
-			case FELLATIO_BOTTOM: return getTechniques(target, SUCK_IT, BLOW, DEEPTHROAT, LICK_BALLS, BREAK_FREE_ORAL, STRUGGLE_ORAL);
+			case FELLATIO_BOTTOM: return getTechniques(target, SUCK_IT, SUCK_AND_STROKE, SUCK_AND_BEAT, BLOW, DEEPTHROAT, LICK_BALLS, BREAK_FREE_ORAL, STRUGGLE_ORAL);
 			case FACEFUCK_BOTTOM: return getTechniques(target, GET_FACEFUCKED, BREAK_FREE_ORAL, STRUGGLE_FACEFUCK);
 			case OUROBOROS_BOTTOM: return getTechniques(target, RECEIVE_OUROBOROS, BREAK_FREE_ORAL, STRUGGLE_OUROBOROS);
 			case FACE_SITTING_BOTTOM: return getTechniques(target, GET_FACE_RIDDEN, BREAK_FREE_FACE_SIT, STRUGGLE_FACE_SIT);
@@ -1419,7 +1419,7 @@ public abstract class AbstractCharacter extends Group {
 			else if (inTechniques(candidate, STRUGGLE_FULL_NELSON, STRUGGLE_DOGGY, STRUGGLE_PRONE_BONE, STRUGGLE_ANAL, STRUGGLE_STANDING, STRUGGLE_ORAL, STRUGGLE_FACEFUCK, STRUGGLE_OUROBOROS, STRUGGLE_FACE_SIT, STRUGGLE_SIXTY_NINE, STRUGGLE_GROUND, STRUGGLE_GROUND_UP, SQUEEZE_STRUGGLE, PUSH_OFF_ATTEMPT, PUSH_OFF_ATTEMPT_REVERSE) && hasGrappleAdvantage()) { techniques.removeValue(candidate, true); }	
 			else if (candidate == REVERSAL && !grappleStatus.isDisadvantage()) { techniques.removeValue(candidate, true); }	
 			else if (inTechniques(candidate, RECEIVE_ANAL, POUT, STROKE, BREAK_FREE_ANAL, STRUGGLE_ANAL, WRAP_LEGS) && wrapLegs) { techniques.removeValue(candidate, true); }	
-			else if (inTechniques(candidate, BLOW, DEEPTHROAT, LICK_BALLS) && perks.get(Perk.MOUTH_MANIAC.toString(), 0) < 1) { techniques.removeValue(candidate, true); }	
+			else if (inTechniques(candidate, SUCK_AND_STROKE, SUCK_AND_BEAT, BLOW, DEEPTHROAT, LICK_BALLS) && perks.get(Perk.MOUTH_MANIAC.toString(), 0) < 1) { techniques.removeValue(candidate, true); }	
 			else if (inTechniques(candidate, IRRUMATIO, FACEFUCK, ROUND_AND_ROUND, PULL_OUT_ORAL, POUND_ANAL, PULL_OUT_ANAL, POUND_DOGGY, CRUSH_ASS, ASS_BLAST, PROSTATE_GRIND, POUND_PRONE_BONE, POUND_STANDING, PULL_OUT_STANDING, PULL_OUT, BE_RIDDEN, BE_RIDDEN_REVERSE, PUSH_OFF, PUSH_OFF_REVERSE, PUSH_OFF_ATTEMPT, PUSH_OFF_ATTEMPT_REVERSE, RECEIVE_HANDY, CRUSH, PULL_UP, RECIPROCATE, FORCE_DEEPTHROAT) && arousal.isClimax()) { techniques.removeValue(candidate, true); }	
 			else if (inTechniques(candidate, ERUPT_ORAL, ERUPT_ANAL, ERUPT_COWGIRL, ERUPT_FACIAL, ERUPT_SIXTY_NINE, BLOW_LOAD, BLOW_LOAD_ORAL) && !arousal.isClimax()) { techniques.removeValue(candidate, true); }	
 			else if (inTechniques(candidate, PENETRATE_MISSIONARY, FLIP_PRONE, RELEASE_SUPINE) && target.getStance() != Stance.GROUND_WRESTLE_FACE_UP ) { techniques.removeValue(candidate, true); }			
