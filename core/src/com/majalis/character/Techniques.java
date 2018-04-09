@@ -250,6 +250,7 @@ public enum Techniques {
 	SUCK_IT 			(new EroticTechnique(Stance.FELLATIO_BOTTOM, Stance.FELLATIO_BOTTOM, "Suck It", -1, 0, "Open wide and swallow it down.").build()), 
 	DEEPTHROAT			(new EroticTechnique(Stance.FELLATIO_BOTTOM, Stance.FELLATIO_BOTTOM, "Deepthroat", 3, 0, "Take it down your throat.").addSelfSex(new SexualExperienceBuilder().setMouthBottomTeasing(1)).addSex(new SexualExperienceBuilder().setMouthTeasing(2)).build()), 
 	LICK_BALLS			(new EroticTechnique(Stance.FELLATIO_BOTTOM, Stance.FELLATIO_BOTTOM, "Lick Balls", 3, 0, "Take it down your throat and licks their balls.").addSelfSex(new SexualExperienceBuilder().setMouthBottomTeasing(2)).addSex(new SexualExperienceBuilder().setMouthTeasing(3)).build()), 
+	BLOW				(new EroticTechnique(Stance.FELLATIO_BOTTOM, Stance.FELLATIO_BOTTOM, "Blow", 0, 0, "Put the \"blow\" in blowjob.").addSelfSex(new SexualExperienceBuilder().setMouthBottomTeasing(1)).addSex(new SexualExperienceBuilder().setMouthTeasing(1)).build()), 
 	RECEIVE_OUROBOROS	(new EroticTechnique(Stance.OUROBOROS_BOTTOM, Stance.OUROBOROS_BOTTOM, "Round and Round", -1, 0, "Open wide and swallow it down.").build()), 
 	GET_FACEFUCKED		(new EroticTechnique(Stance.FACEFUCK_BOTTOM, Stance.FACEFUCK_BOTTOM, "Get Facefucked", -1, 0, "Open wide and swallow it down.").build()), 
 	
