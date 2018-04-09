@@ -102,6 +102,7 @@ public enum EncounterCode {
 	STORY_SIGN (FOREST_INACTIVE), 
 	
 	SOLICITATION, 
+	CAMP_MASTURBATE, 
 	;
 	
 	private final AssetEnum texture;	
@@ -755,6 +756,8 @@ public enum EncounterCode {
 				return b.branch().textScene("BUNNY-INTRO").checkScene(CheckType.DEBT_FIRST_ENCOUNTER, b.branch(true).textScene("BUNNY-FIRST").textScene(bunnyScene).textScene("BUNNY-SHOW").concat(debtEncounter), b.branch(false).textScene(bunnyScene).textScene("BUNNY-SHOW-REUNION").concat(debtEncounter));						
 			case CAMP_AND_EAT:
 				return b.branch().textScene("FORCED-CAMP");
+			case CAMP_MASTURBATE:
+				return b.branch().textScene("CAMP-MASTURBATE");
 			case CARRIAGE:
 				return b.branch().textScene("CARRIAGE-INTRO").checkScene(
 					CheckType.BEEN_TO_MONSTER_TOWN, 

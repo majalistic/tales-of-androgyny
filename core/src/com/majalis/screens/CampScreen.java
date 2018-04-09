@@ -139,7 +139,6 @@ public class CampScreen extends AbstractScreen {
 	
 	@Override
 	public void buildStage() {
-		
 		Table table = new Table();
 		table.align(Align.bottomLeft);
         table.setPosition(1200, 595);
@@ -149,8 +148,10 @@ public class CampScreen extends AbstractScreen {
 		
 		boolean elf = character.getQuestStatus(QuestType.ELF) == 5 || character.getQuestStatus(QuestType.ELF) == 9 || character.getQuestStatus(QuestType.ELF) == 10 || character.getQuestStatus(QuestType.ELF) == 11;
 		boolean trudy = character.getQuestStatus(QuestType.TRUDY) == 5 || character.getQuestStatus(QuestType.TRUDY) == 6 || character.getQuestStatus(QuestType.TRUDY) == 7;
+		boolean lewd = character.getLustDegradation() >= 2;
 		if (elf) buttonLabels.add("Chat (Kylira)");
 		if (trudy) buttonLabels.add("Chat (Trudy)");
+		if (lewd) buttonLabels.add("Masturbate");
 		buttonLabels.add("Depart");
 		
 		for (int ii = 0; ii < buttonLabels.size; ii++) {
@@ -166,12 +167,13 @@ public class CampScreen extends AbstractScreen {
 		forageButton.addListener(new ClickListener() { @Override public void clicked(InputEvent event, float x, float y) { goToEncounter(EncounterCode.FORAGE); }	} );
 		int nextButtonIndex = 4;
 		if (elf) {
-			buttons.get(nextButtonIndex).addListener(new ClickListener() { @Override public void clicked(InputEvent event, float x, float y) { goToEncounter(EncounterCode.ELF_COMPANION); }	} );
-			nextButtonIndex++;
+			buttons.get(nextButtonIndex++).addListener(new ClickListener() { @Override public void clicked(InputEvent event, float x, float y) { goToEncounter(EncounterCode.ELF_COMPANION); }	} );
 		}
 		if (trudy) {
-			buttons.get(nextButtonIndex).addListener(new ClickListener() { @Override public void clicked(InputEvent event, float x, float y) { goToEncounter(EncounterCode.TRUDY_COMPANION); }	} );
-			nextButtonIndex++;
+			buttons.get(nextButtonIndex++).addListener(new ClickListener() { @Override public void clicked(InputEvent event, float x, float y) { goToEncounter(EncounterCode.TRUDY_COMPANION); }	} );
+		}
+		if (lewd) {
+			buttons.get(nextButtonIndex++).addListener(new ClickListener() { @Override public void clicked(InputEvent event, float x, float y) { goToEncounter(EncounterCode.CAMP_MASTURBATE); }	} );
 		}
 		
 		departButton = buttons.get(nextButtonIndex);		
@@ -202,7 +204,6 @@ public class CampScreen extends AbstractScreen {
         
         this.addActor(table);
         this.addActor(arrow);
-        
         
         arrow.setSize(45, 75);
         setArrowPosition();
