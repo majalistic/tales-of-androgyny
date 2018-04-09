@@ -208,7 +208,7 @@ public enum Techniques {
 	SIT_ON_IT			(new GrappleTechnique(Stance.BALANCED, Stance.COWGIRL_BOTTOM, "Sit on It", 1, Stance.COWGIRL, "Sit down on it - and yes, it's going right up there.\nDon't say I didn't warn you.").build(), false), 
 	TURN_AND_SIT		(new GrappleTechnique(Stance.BALANCED, Stance.REVERSE_COWGIRL_BOTTOM, "Turn and Sit", 1, Stance.REVERSE_COWGIRL, "Turn around and sit on it - and yes, it's going right up there.\nBut at least you'll give 'em a show.").build(), false), 
 	
-	OPEN_WIDE 			(new GrappleTechnique(Stance.HANDY, Stance.FELLATIO_BOTTOM, "Open Wide",  1, Stance.FELLATIO, "Open wide and swallow it down.").build()), 
+	OPEN_WIDE 			(new GrappleTechnique(Stance.HANDY_BOTTOM, Stance.FELLATIO_BOTTOM, "Open Wide",  1, Stance.FELLATIO, "Open wide and swallow it down.").build()), 
 	GRAB_IT				(new GrappleTechnique(Stance.KNEELING, Stance.HANDY_BOTTOM, "Grab It", 1, Stance.HANDY, "Grab it.").addBonus(BonusCondition.OUTMANEUVER, BonusType.PRIORITY).build()), 
 		
 	RIDE_ON_IT			(new EroticTechnique(Stance.COWGIRL_BOTTOM, Stance.COWGIRL_BOTTOM, "Ride on It", -1, 0, "Keep it deep and stir it around inside.").build()), 
@@ -226,6 +226,7 @@ public enum Techniques {
 	PULL_OUT_STANDING	(new GrappleTechnique(Stance.STANDING, Stance.BALANCED, "Pull Out", 1, Stance.BALANCED, TechniqueHeight.NONE, GrappleType.BREAK, "Pull Out.").build(), false), 
 	
 	STROKE_IT			(new EroticTechnique(Stance.HANDY_BOTTOM, Stance.HANDY_BOTTOM, "Stroke It", -1, 0, "Stroke it up and down.").build()), 
+	OPEN_UP				(new EroticTechnique(Stance.HANDY_BOTTOM, Stance.HANDY_BOTTOM, "Open Up", -1, 0, "Tease them by opening your mouth, giving them a target for their cock or cum.").addSelfSex(new SexualExperienceBuilder().setMouthBottomTeasing(1)).addSex(new SexualExperienceBuilder().setMouthTeasing(1)).build()), 
 	LET_GO				(new GrappleTechnique(Stance.HANDY_BOTTOM, Stance.KNEELING, "Let It Go", 1, Stance.BALANCED, "Let go of it.").build()), 
 	
 	RECEIVE_DOGGY		(new EroticTechnique(Stance.DOGGY_BOTTOM, Stance.DOGGY_BOTTOM, "Receive", -1, 0, "Take it up the butt.").build()), 
