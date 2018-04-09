@@ -228,6 +228,7 @@ public enum Techniques {
 	STROKE_IT			(new EroticTechnique(Stance.HANDY_BOTTOM, Stance.HANDY_BOTTOM, "Stroke It", -1, 0, "Stroke it up and down.").build()), 
 	KISS_IT				(new EroticTechnique(Stance.HANDY_BOTTOM, Stance.HANDY_BOTTOM, "Kiss It", -1, 0, "Give it a nice kiss while you stroke it.").addSelfSex(new SexualExperienceBuilder().setMouthBottomTeasing(1)).addSex(new SexualExperienceBuilder().setMouthTeasing(1)).build()), 
 	KISS_BALLS			(new EroticTechnique(Stance.HANDY_BOTTOM, Stance.HANDY_BOTTOM, "Kiss Balls", -1, 0, "Give their sack a nice smooch while you stroke it.").addSelfSex(new SexualExperienceBuilder().setMouthBottomTeasing(1)).addSex(new SexualExperienceBuilder().setMouthTeasing(1)).build()), 	
+	SPIT_ON_IT			(new EroticTechnique(Stance.HANDY_BOTTOM, Stance.HANDY_BOTTOM, "Spit on It", -1, 0, "Give it a nice spitshine. For what, I wonder?").addSelfSex(new SexualExperienceBuilder().setMouthBottomTeasing(1)).addSex(new SexualExperienceBuilder().setMouthTeasing(1)).build()), 	
 	OPEN_UP				(new EroticTechnique(Stance.HANDY_BOTTOM, Stance.HANDY_BOTTOM, "Open Up", -1, 0, "Tease them by opening your mouth, giving them a target for their cock or cum.").addSelfSex(new SexualExperienceBuilder().setMouthBottomTeasing(2)).addSex(new SexualExperienceBuilder().setMouthTeasing(2)).build()), 
 	LET_GO				(new GrappleTechnique(Stance.HANDY_BOTTOM, Stance.KNEELING, "Let It Go", 1, Stance.BALANCED, "Let go of it.").build()), 
 	
