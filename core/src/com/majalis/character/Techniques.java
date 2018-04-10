@@ -235,6 +235,8 @@ public enum Techniques {
 	LET_GO				(new GrappleTechnique(Stance.HANDY_BOTTOM, Stance.KNEELING, "Let It Go", 1, Stance.BALANCED, "Let go of it.").build()), 
 	
 	RECEIVE_DOGGY		(new EroticTechnique(Stance.DOGGY_BOTTOM, Stance.DOGGY_BOTTOM, "Receive", -1, 0, "Take it up the butt on your knees.").build()), 
+	PUSH_BACK_DOGGY		(new EroticTechnique(Stance.DOGGY_BOTTOM, Stance.DOGGY_BOTTOM, "Push Back", -1, 0, "Push your ass back at them. Maybe they'll pull your hair...").addSelfSex(new SexualExperienceBuilder().setAssBottomTeasing(1)).addSex(new SexualExperienceBuilder().setAssTeasing(1)).build()),
+	SPREAD_DOGGY		(new EroticTechnique(Stance.DOGGY_BOTTOM, Stance.DOGGY_BOTTOM, "Spread Cheeks", -1, 0, "Reach back and spread your ass for them while they plow you. Signals you want them to cum inside.").addSelfSex(new SexualExperienceBuilder().setAssBottomTeasing(2)).addSex(new SexualExperienceBuilder().setAssTeasing(2)).build()),
 	RECEIVE_PRONE_BONE	(new EroticTechnique(Stance.PRONE_BONE_BOTTOM, Stance.PRONE_BONE_BOTTOM, "Receive", -1, 0, "Take it up the butt face-down.").build()), 
 	SELF_SPANK			(new EroticTechnique(Stance.DOGGY_BOTTOM, Stance.DOGGY_BOTTOM, "Self Spank", -1, 0, "Spank your own ass and ask for more.").addSelfSex(new SexualExperienceBuilder().setAssBottomTeasing(1)).addSex(new SexualExperienceBuilder().setAssTeasing(1)).build()), 
 	RECEIVE_ANAL		(new EroticTechnique(Stance.ANAL_BOTTOM, Stance.ANAL_BOTTOM, "Receive", -1, 0, "Take it face to face.").build()), 

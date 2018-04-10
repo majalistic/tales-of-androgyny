@@ -1282,7 +1282,7 @@ public abstract class AbstractCharacter extends Group {
 			case HANDS_AND_KNEES: return getTechniques(target, STAY, SLAP_ASS_KNEES, KNEE_UP_HANDS);
 			case KNEELING: return getTechniques(target, STAY_KNELT, GRAB_IT);
 			case FULL_NELSON_BOTTOM: return getTechniques(target, SUBMIT);
-			case DOGGY_BOTTOM: return getTechniques(target, RECEIVE_DOGGY, SELF_SPANK);
+			case DOGGY_BOTTOM: return getTechniques(target, RECEIVE_DOGGY, PUSH_BACK_DOGGY, SPREAD_DOGGY, SELF_SPANK);
 			case PRONE_BONE_BOTTOM: return getTechniques(target, RECEIVE_PRONE_BONE);
 			case ANAL_BOTTOM:  return getTechniques(target, RECEIVE_ANAL, STROKE, WRAP_LEGS);
 			case HANDY_BOTTOM: return getTechniques(target, STROKE_IT, TANDEM_STROKE, FONDLE_BALLS, KISS_IT, KISS_BALLS, SPIT_ON_IT, OPEN_UP, OPEN_WIDE);
@@ -1342,7 +1342,7 @@ public abstract class AbstractCharacter extends Group {
 			case FULL_NELSON: return getTechniques(target, OVIPOSITION, HOLD, GRIP, TAKEDOWN, PENETRATE_STANDING);
 			case AIRBORNE: return getTechniques(target, DIVEBOMB, JUMP_ATTACK, VAULT_OVER);
 			case FULL_NELSON_BOTTOM: return getTechniques(target, SUBMIT, BREAK_FREE_FULL_NELSON, STRUGGLE_FULL_NELSON);
-			case DOGGY_BOTTOM: return getTechniques(target, RECEIVE_DOGGY, STROKE_DOGGY, BREAK_FREE_ANAL, STRUGGLE_DOGGY, SELF_SPANK);
+			case DOGGY_BOTTOM: return getTechniques(target, RECEIVE_DOGGY, PUSH_BACK_DOGGY, SPREAD_DOGGY, PUSH_BACK_DOGGY, SPREAD_DOGGY, STROKE_DOGGY, BREAK_FREE_ANAL, STRUGGLE_DOGGY, SELF_SPANK);
 			case PRONE_BONE_BOTTOM: return getTechniques(target, RECEIVE_PRONE_BONE, BREAK_FREE_ANAL, STRUGGLE_PRONE_BONE);
 			case ANAL_BOTTOM:  return getTechniques(target, RECEIVE_ANAL, POUT, STROKE, BREAK_FREE_ANAL, STRUGGLE_ANAL, WRAP_LEGS);
 			case HANDY_BOTTOM: return getTechniques(target, STROKE_IT, TANDEM_STROKE, FONDLE_BALLS, KISS_IT, KISS_BALLS, SPIT_ON_IT, OPEN_UP, OPEN_WIDE, LET_GO);
@@ -1412,7 +1412,7 @@ public abstract class AbstractCharacter extends Group {
 			else if (inTechniques(candidate, KNEE_UP, STAND_UP_HANDS, STAND_UP_KNEELING, CHOKE) && currentStamina <= 2) { techniques.removeValue(candidate, true); }	
 			else if (inTechniques(candidate, STAND_UP, GRIP) && currentStamina <= 4 || stability.compareTo(Stability.Dazed) < 0) { techniques.removeValue(candidate, true); }	
 			else if (inTechniques(candidate, KIP_UP, TAKEDOWN) && currentStamina <= 6) { techniques.removeValue(candidate, true); }
-			else if (inTechniques(candidate, SLAP_ASS_KNEES, SELF_SPANK, WRAP_LEGS) && !isLewd()) { techniques.removeValue(candidate, true); }		
+			else if (inTechniques(candidate, SLAP_ASS_KNEES, SELF_SPANK, WRAP_LEGS, PUSH_BACK_DOGGY, SPREAD_DOGGY) && !isLewd()) { techniques.removeValue(candidate, true); }		
 			else if (candidate == GRAB_IT && !(target.isErect() && target.enemyType != EnemyEnum.SLIME && targetPouncable(target))) { techniques.removeValue(candidate, true); }	
 			else if (candidate == PENETRATE_STANDING && (grappleStatus != GrappleStatus.HOLD || !isErect())) { techniques.removeValue(candidate, true); }				
 			else if (inTechniques(candidate, TAKEDOWN, PIN, FULL_REVERSAL, BREAK_FREE_FULL_NELSON, BREAK_FREE_ANAL, BREAK_FREE_ORAL, BREAK_FREE_FACE_SIT, BREAK_FREE_GROUND, BREAK_FREE_GROUND_UP, BREAK_FREE_SQUEEZE, PUSH_OFF, PUSH_OFF_REVERSE) && !hasGrappleAdvantage()) { techniques.removeValue(candidate, true); }	
