@@ -151,6 +151,7 @@ public enum Techniques {
 	POUNCE_PRONE_BONE	(new GrappleTechnique  (Stance.BALANCED, Stance.PRONE_BONE, "Pounce", 2, Stance.PRONE_BONE_BOTTOM, GrappleType.WIN).build(), false), // Used to initiate prone-bone
 	POUNCE_ANAL			(new GrappleTechnique  (Stance.BALANCED, Stance.ANAL, "Pounce", 2, Stance.ANAL_BOTTOM, GrappleType.WIN).build(), false), // Used to initiate missionary
 	PENETRATE_STANDING	(new GrappleTechnique  (Stance.FULL_NELSON, Stance.STANDING, "Penetrate", 2, Stance.STANDING_BOTTOM, GrappleType.WIN).build(), false), // Used to initiate standing anal
+	CORNHOLE			(new GrappleTechnique  (Stance.FULL_NELSON, Stance.STANDING, "Cornhole", 2, Stance.STANDING_BOTTOM, GrappleType.WIN).build(), false), // Used to initiate standing anal
 	SEIZE				(new GrappleTechnique  (Stance.BALANCED, Stance.HOLDING, "Seize", 2, Stance.HELD, GrappleType.WIN).build(), false), // Used to initiate giant sex
 	FACE_SIT			(new GrappleTechnique  (Stance.BALANCED, Stance.FACE_SITTING, "Plop Down", 2, Stance.FACE_SITTING_BOTTOM, GrappleType.ADVANTAGE).build(), false), // Used to initiate face-sitting
 	SITTING_ORAL		(new GrappleTechnique  (Stance.FACE_SITTING, Stance.SIXTY_NINE, "Say 'Ahh'", 2, Stance.SIXTY_NINE_BOTTOM, GrappleType.WIN).build(), false), // Used to initiate sixty nine
