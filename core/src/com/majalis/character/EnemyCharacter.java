@@ -526,7 +526,13 @@ public class EnemyCharacter extends AbstractCharacter {
 				switch (enemyType) {
 					case BRIGAND:
 						if (stance.isAnalPenetration()) {
-							resolvedAttack.addDialog("\"Oooooryah!\"");
+							if (stance == Stance.STANDING) {
+								resolvedAttack.addDialog("\"Ah yeah, there it is! Get cornholed, slut!\"");
+							}
+							else {
+								resolvedAttack.addDialog("\"Oooooryah!\"");
+							}
+							
 						}
 						else if (stance.isOralPenetration()) {
 							resolvedAttack.addDialog("\"Yeah, that's right, suck it!\"");
