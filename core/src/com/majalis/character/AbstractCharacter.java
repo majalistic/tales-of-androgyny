@@ -1370,7 +1370,7 @@ public abstract class AbstractCharacter extends Group {
 			case GROUND_WRESTLE_FACE_UP:  return getTechniques(target, REST_GROUND_UP, BREAK_FREE_GROUND_UP, FULL_REVERSAL, REVERSAL, STRUGGLE_GROUND_UP);
 			case WRAPPED_BOTTOM: return getTechniques(target, SQUEEZE_REST, BREAK_FREE_SQUEEZE, SQUEEZE_STRUGGLE);
 			case PRONE_BONE: return getTechniques(target, ERUPT_ANAL, BLOW_LOAD, POUND_PRONE_BONE, PULL_OUT, KNOT);
-			case DOGGY: return getTechniques(target, ERUPT_ANAL, BLOW_LOAD, POUND_DOGGY, CRUSH_ASS, ASS_BLAST, PROSTATE_GRIND, PULL_OUT, KNOT);
+			case DOGGY: return getTechniques(target, ERUPT_ANAL, BLOW_LOAD, POUND_DOGGY, SPANK, CRUSH_ASS, ASS_BLAST, PROSTATE_GRIND, PULL_OUT, KNOT);
 			case ANAL: return getTechniques(target, ERUPT_ANAL, BLOW_LOAD, POUND_ANAL, PULL_OUT_ANAL);
 			case STANDING: return getTechniques(target, ERUPT_ANAL, BLOW_LOAD, POUND_STANDING, PULL_OUT_STANDING);
 			case COWGIRL: return getTechniques(target, ERUPT_COWGIRL, BE_RIDDEN, PUSH_OFF, PUSH_OFF_ATTEMPT, KNOT);
@@ -1420,7 +1420,7 @@ public abstract class AbstractCharacter extends Group {
 			else if (candidate == REVERSAL && !grappleStatus.isDisadvantage()) { techniques.removeValue(candidate, true); }	
 			else if (inTechniques(candidate, RECEIVE_ANAL, POUT, STROKE, BREAK_FREE_ANAL, STRUGGLE_ANAL, WRAP_LEGS) && wrapLegs) { techniques.removeValue(candidate, true); }	
 			else if (inTechniques(candidate, SUCK_AND_STROKE, SUCK_AND_BEAT, BLOW, DEEPTHROAT, LICK_BALLS) && perks.get(Perk.MOUTH_MANIAC.toString(), 0) < 1) { techniques.removeValue(candidate, true); }	
-			else if (inTechniques(candidate, IRRUMATIO, FACEFUCK, ROUND_AND_ROUND, PULL_OUT_ORAL, POUND_ANAL, PULL_OUT_ANAL, POUND_DOGGY, CRUSH_ASS, ASS_BLAST, PROSTATE_GRIND, POUND_PRONE_BONE, POUND_STANDING, PULL_OUT_STANDING, PULL_OUT, BE_RIDDEN, BE_RIDDEN_REVERSE, PUSH_OFF, PUSH_OFF_REVERSE, PUSH_OFF_ATTEMPT, PUSH_OFF_ATTEMPT_REVERSE, RECEIVE_HANDY, CRUSH, PULL_UP, RECIPROCATE, FORCE_DEEPTHROAT) && arousal.isClimax()) { techniques.removeValue(candidate, true); }	
+			else if (inTechniques(candidate, IRRUMATIO, FACEFUCK, ROUND_AND_ROUND, PULL_OUT_ORAL, POUND_ANAL, PULL_OUT_ANAL, POUND_DOGGY, SPANK, CRUSH_ASS, ASS_BLAST, PROSTATE_GRIND, POUND_PRONE_BONE, POUND_STANDING, PULL_OUT_STANDING, PULL_OUT, BE_RIDDEN, BE_RIDDEN_REVERSE, PUSH_OFF, PUSH_OFF_REVERSE, PUSH_OFF_ATTEMPT, PUSH_OFF_ATTEMPT_REVERSE, RECEIVE_HANDY, CRUSH, PULL_UP, RECIPROCATE, FORCE_DEEPTHROAT) && arousal.isClimax()) { techniques.removeValue(candidate, true); }	
 			else if (inTechniques(candidate, ERUPT_ORAL, ERUPT_ANAL, ERUPT_COWGIRL, ERUPT_FACIAL, ERUPT_SIXTY_NINE, BLOW_LOAD, BLOW_LOAD_ORAL) && !arousal.isClimax()) { techniques.removeValue(candidate, true); }	
 			else if (inTechniques(candidate, PENETRATE_MISSIONARY, FLIP_PRONE, RELEASE_SUPINE) && target.getStance() != Stance.GROUND_WRESTLE_FACE_UP ) { techniques.removeValue(candidate, true); }			
 			else if (inTechniques(candidate, PENETRATE_PRONE, FLIP_SUPINE, RELEASE_PRONE) && target.getStance() != Stance.GROUND_WRESTLE_FACE_DOWN ) { techniques.removeValue(candidate, true); }			

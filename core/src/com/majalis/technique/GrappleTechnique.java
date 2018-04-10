@@ -23,6 +23,10 @@ public class GrappleTechnique extends TechniqueBuilder {
 		this(usableStance, resultingStance, name, staminaCost, forceStance, TechniqueHeight.NONE, grapple, "");
 	}
 
+	public GrappleTechnique(Stance usableStance, Stance resultingStance, String name, int staminaCost, String description) {
+		this(usableStance, resultingStance, name, staminaCost, null, TechniqueHeight.NONE, description);
+	}
+	
 	public GrappleTechnique(Stance usableStance, Stance resultingStance, String name, int staminaCost, Stance forceStance, String description) {
 		this(usableStance, resultingStance, name, staminaCost, forceStance, TechniqueHeight.NONE, description);
 	}

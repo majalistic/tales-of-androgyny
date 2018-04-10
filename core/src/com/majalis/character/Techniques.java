@@ -169,15 +169,16 @@ public enum Techniques {
 	GRIP	 			(new GrappleTechnique(Stance.FULL_NELSON, Stance.FULL_NELSON, "Grip", 3, GrappleType.ADVANTAGE).build()), // Used to grapple
 	HOLD	 			(new GrappleTechnique(Stance.FULL_NELSON, Stance.FULL_NELSON, "Hold", -1).build()), // Used to hold
 	TAKEDOWN			(new GrappleTechnique(Stance.FULL_NELSON, Stance.GROUND_WRESTLE, "Takedown", 6, Stance.GROUND_WRESTLE_FACE_DOWN, GrappleType.HOLD).build()),
-	POUND_DOGGY 		(new GrappleTechnique(Stance.DOGGY, Stance.DOGGY, "Pound", 2).build()), // Used to doggystyle
-	ASS_BLAST			(new GrappleTechnique(Stance.DOGGY, Stance.DOGGY, "Ass Blast", 4).addSex(new SexualExperienceBuilder().setAssBottomTeasing(1)).addSelfSex(new SexualExperienceBuilder().setAssTeasing(1)).build()), 
-	CRUSH_ASS	 		(new GrappleTechnique(Stance.DOGGY, Stance.DOGGY, "Crush Ass", 4).addSex(new SexualExperienceBuilder().setAssBottomTeasing(1)).build()),
-	PROSTATE_GRIND 		(new GrappleTechnique(Stance.DOGGY, Stance.DOGGY, "Prostate Grind", 2).addSex(new SexualExperienceBuilder().setAssBottomTeasing(3)).addSelfSex(new SexualExperienceBuilder().setAssTeasing(2)).build()), 
-	POUND_PRONE_BONE	(new GrappleTechnique(Stance.PRONE_BONE, Stance.PRONE_BONE, "Prone Bone", 2).build()), // Used to prone bone
+	POUND_DOGGY 		(new GrappleTechnique(Stance.DOGGY, Stance.DOGGY, "Pound", 2, "Pound that ass.").build()), // Used to doggystyle
+	SPANK		 		(new GrappleTechnique(Stance.DOGGY, Stance.DOGGY, "Spank", 2, "Spank that ass while you pound it.").addSex(new SexualExperienceBuilder().setAssBottomTeasing(1)).addSelfSex(new SexualExperienceBuilder().setAssTeasing(1)).build()), 
+	ASS_BLAST			(new GrappleTechnique(Stance.DOGGY, Stance.DOGGY, "Ass Blast", 4, "Give that ass a whole dick like a jackhammer.").addSex(new SexualExperienceBuilder().setAssBottomTeasing(1)).addSelfSex(new SexualExperienceBuilder().setAssTeasing(1)).build()), 
+	CRUSH_ASS	 		(new GrappleTechnique(Stance.DOGGY, Stance.DOGGY, "Crush Ass", 4, "Give it to that ass deep and hard.").addSex(new SexualExperienceBuilder().setAssBottomTeasing(1)).build()),
+	PROSTATE_GRIND 		(new GrappleTechnique(Stance.DOGGY, Stance.DOGGY, "Prostate Grind", 2, "Grind it inside against their prostate or whatever else.").addSex(new SexualExperienceBuilder().setAssBottomTeasing(3)).addSelfSex(new SexualExperienceBuilder().setAssTeasing(2)).build()), 
+	POUND_PRONE_BONE	(new GrappleTechnique(Stance.PRONE_BONE, Stance.PRONE_BONE, "Prone Bone", 2, "Pound them on the ground.").build()), // Used to prone bone
 	ROUND_AND_ROUND		(new GrappleTechnique(Stance.OUROBOROS, Stance.OUROBOROS, "Round and Round", 2).build()), // Used to ouroboros
-	FACEFUCK			(new GrappleTechnique(Stance.FACEFUCK, Stance.FACEFUCK, "Facefuck", 2).build()), // Used to ouroboros
-	POUND_ANAL 			(new GrappleTechnique(Stance.ANAL, Stance.ANAL, "Pound", 2).build()), // Used to missionary
-	POUND_STANDING 		(new GrappleTechnique(Stance.STANDING, Stance.STANDING, "Pound", 2).build()), // Used to standing anal
+	FACEFUCK			(new GrappleTechnique(Stance.FACEFUCK, Stance.FACEFUCK, "Facefuck", 2, "Fuck their face on the ground.").build()), 
+	POUND_ANAL 			(new GrappleTechnique(Stance.ANAL, Stance.ANAL, "Pound", 2, "Fuck them lovingly.").build()), // Used to missionary
+	POUND_STANDING 		(new GrappleTechnique(Stance.STANDING, Stance.STANDING, "Pound", 2, "Fuck them right up the ass standing.").build()), // Used to standing anal
 	OGRE_SMASH	 		(new GrappleTechnique(Stance.HOLDING, Stance.CRUSHING, "Ogre Smash", 2, Stance.PENETRATED).build(), false), // Used to bring down onto giant's cock first time
 	CRUSH		 		(new GrappleTechnique(Stance.CRUSHING, Stance.CRUSHING, "Crush", 2, Stance.PENETRATED).build(), false), // Used to bring down onto giant's cock
 	PULL_UP		 		(new GrappleTechnique(Stance.CRUSHING, Stance.CRUSHING, "Pull Up", 2, Stance.SPREAD).build(), false), // Used to bring down onto giant's cock
