@@ -757,7 +757,7 @@ public enum EncounterCode {
 			case CAMP_AND_EAT:
 				return b.branch().textScene("FORCED-CAMP");
 			case CAMP_MASTURBATE:
-				return b.branch().textScene("CAMP-MASTURBATE");
+				return b.branch().textScene("CAMP-MASTURBATE").checkScene(Perk.ANAL_ADDICT, b.branch(1).textScene("CAMP-MASTURBATE-ANAL"), b.branch(0).textScene("CAMP-MASTURBATE-STROKE"));
 			case CARRIAGE:
 				return b.branch().textScene("CARRIAGE-INTRO").checkScene(
 					CheckType.BEEN_TO_MONSTER_TOWN, 

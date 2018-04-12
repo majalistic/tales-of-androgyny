@@ -970,7 +970,7 @@ public class PlayerCharacter extends AbstractCharacter {
 		}
 		
 		for (int ii = 0; ii < sex.getOralSexTop(); ii++) {
-			if (perks.get(Perk.TOP.toString(), 0) != 10) {
+			if (perks.get(Perk.TOP.toString(), 0) != 10 && !sex.isMasturbation()) {
 				result.add(new MutationResult("You gained " + Perk.TOP.getLabel() + " (Rank " + (perks.get(Perk.TOP.toString(), 0) + 1) + ")!"));
 				perks.put(Perk.TOP.toString(), ((int)perks.get(Perk.TOP.toString(), 0)) + 1);
 			}

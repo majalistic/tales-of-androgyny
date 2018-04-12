@@ -4348,9 +4348,24 @@
 	{
 		"key": "CAMP-MASTURBATE",
 		"scriptLines": [
+			{"text": "You settle down by the campfire... and your hand roams down your abdomen, into your underwear."}
+		]
+	},
+	{
+		"key": "CAMP-MASTURBATE-ANAL",
+		"scriptLines": [
 			{
 			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analEjaculation": 1, "masturbation": true}}, {"saveType":"TIME", "value":{"class": "java.lang.Integer", "value": 3}}],
-			"text": "You jerk off."}
+			"text": "You lay against the ground, hiking your knee up by your chest, your finger encircling your eager hole.  You slip your finger inside, and then in and out, trembling and fantasizing as your arousal builds, until... you're satisfied.  For now."}
+		]
+	},
+	{
+		"key": "CAMP-MASTURBATE-STROKE",
+		"scriptLines": [
+			{
+			"sound": "CUM",
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "ejaculationInMouth": 1, "masturbation": true}}, {"saveType":"TIME", "value":{"class": "java.lang.Integer", "value": 3}}],
+			"text": "You shudder and stroke yourself, your eyes fluttering closed... and then you spurt into your own underwear, your ears red."}
 		]
 	},
 	{
