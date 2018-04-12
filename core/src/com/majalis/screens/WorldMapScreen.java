@@ -406,7 +406,8 @@ public class WorldMapScreen extends AbstractScreen {
 		}
 		
 		Table table = new Table();
-		table.setPosition(377, 65);
+		table.align(Align.topLeft);
+		table.setPosition(225, 90);
 		uiGroup.addActor(table);
 		
 		Table actionTable = new Table();
@@ -448,11 +449,14 @@ public class WorldMapScreen extends AbstractScreen {
 		console.setWidth(600);
 		console.setColor(Color.CHARTREUSE);
 		
+		int buttonWidth = 100;
+		int buttonHeight = 33;
+		
 		final TextButton rest = getButton("Rest");
 		buttons.add(rest);
 		checkCanEat(rest);
 	
-		table.add(rest).size(145, 40);
+		table.add(rest).size(buttonWidth, buttonHeight);
 		
 		// rest will eventually just wait some time - eating food if possible to maintain hunger level
 		rest.addListener(
@@ -471,19 +475,13 @@ public class WorldMapScreen extends AbstractScreen {
 		        }
 			}
 		);
-
-		final Image scoutEye = new Image(assetManager.get(AssetEnum.SEARCHING.getTexture()));
-		uiGroup.addActor(scoutEye);
-		scoutEye.setPosition(400, 25);
-		scoutEye.setSize(40, 40);
-		final UpdateLabel scoutLevel = new UpdateLabel(skin, character);
-		uiGroup.addActor(scoutLevel);
-		scoutLevel.setPosition(450, 25);
 		
 		final TextButton scout = getButton("Scout");
 		buttons.add(scout);
-		table.add(scout).size(145, 40).row();
-
+		table.add(scout).size(buttonWidth, buttonHeight).padLeft(10);
+		table.add(new Image(assetManager.get(AssetEnum.SEARCHING.getTexture()))).size(35, 35).padLeft(10);
+		table.add(new UpdateLabel(skin, character)).padLeft(5).row();
+		
 		// rest will eventually just wait some time - eating food if possible to maintain hunger level
 		scout.addListener(
 			new ClickListener() {
@@ -508,7 +506,7 @@ public class WorldMapScreen extends AbstractScreen {
 			}
 		);
 	
-		table.add(campButton).size(145, 40);
+		table.add(campButton).size(buttonWidth, buttonHeight);
 		
 		campButton.addListener(
 			new ClickListener() {
@@ -963,13 +961,13 @@ public class WorldMapScreen extends AbstractScreen {
 	
 	private class UpdateLabel extends Label {
 		private UpdateLabel(Skin skin, PlayerCharacter character) {
-			super("X " + character.getScoutingScore(), skin);
+			super("" + character.getScoutingScore(), skin);
 			if (character.getScoutingScore() > 4) this.addAction(Actions.color(Color.GOLD));
 		}
 		@Override
 		public void draw(Batch batch, float parentAlpha) {
-			if (!getText().toString().equals("X " + character.getScoutingScore())) {
-				setText("X " + character.getScoutingScore());
+			if (!getText().toString().equals("" + character.getScoutingScore())) {
+				setText("" + character.getScoutingScore());
 				this.clearActions();
 				this.addAction(character.getScoutingScore() > 4 ? Actions.color(Color.GOLD) : Actions.sequence(Actions.color(Color.GREEN), Actions.color(Color.WHITE, 1)));
 			}
