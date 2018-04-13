@@ -5,6 +5,7 @@ public enum Perk {
 	WELLROUNDED ("Increases current lowest stat by 1.", 1),
 	SPECIALIST("Increases current greatest stat by 1.  Requires: Level 10", 1),
 	SURVEYOR ("Increases effective perception for scouting purposes by 2 per rank.", 3),
+	STEALTHY ("Increases effective agility for stealthing purposes by 2 per rank.", 3),
 	EROTIC ("Increases effective charisma for arousing others by 2 per rank.", 3), 
 	CATAMITE ("Unlocks more options for being willingly receptive.", 1),
 	QUICKFOOTED ("Increases stability as if having higher agility by 2 per rank.", 3),

@@ -80,6 +80,7 @@ public class PlayerCharacter extends AbstractCharacter {
 	private Array<String> eventLog;
 	
 	private int scout;
+	private int stealth;
 	
 	private GameOver gameOver;
 	
@@ -387,6 +388,7 @@ public class PlayerCharacter extends AbstractCharacter {
 		}
 		wrapLegs = false;
 		scout = 0;
+		stealth = 0;
 		heartbeat = 0;
 	}
 
@@ -536,6 +538,7 @@ public class PlayerCharacter extends AbstractCharacter {
 	}
 	
 	public int getScoutingScore() { return getTrueScoutingScore(scout * 3 + getPerception() + (perks.get(Perk.SURVEYOR.toString(), 0) > 0 ? perks.get(Perk.SURVEYOR.toString()) * 2 : 0)); }
+	public int getStealthScore() { return getTrueScoutingScore(stealth * 3 + getAgility() + (perks.get(Perk.STEALTHY.toString(), 0) > 0 ? perks.get(Perk.STEALTHY.toString()) * 2 : 0)); }
 	
 	private int getTrueScoutingScore(int rawScoutingScore) {
 		int level = 5;
@@ -1333,9 +1336,19 @@ public class PlayerCharacter extends AbstractCharacter {
 		return getResult("You scouted the surrounding areas.  Scout level now " + (getScoutingScore() > 4 ? "maximum!" : getScoutingScore() + "."));
 	}
 	
+	public Array<MutationResult> increaseStealth(int increase) {
+		stealth += increase;
+		return getResult("You increased your stealth level.  Stealth level now " + (getStealthScore() > 2 ? "maximum!" : getStealthScore() + "."));
+	}
+	
 	public String resetScout() {
 		scout = 0;
-		return null;
+		return "";
+	}
+
+	public String resetStealth() {
+		scout = 0;
+		return "";
 	}
 
 	public boolean isLucky() {
@@ -1652,5 +1665,4 @@ public class PlayerCharacter extends AbstractCharacter {
 	public int getBonusPoints() { return bonusPoints; }
 
 	public void setBonusPoints(int bonusPoints) { this.bonusPoints = bonusPoints; }
-
 }

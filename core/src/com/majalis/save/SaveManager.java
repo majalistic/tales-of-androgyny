@@ -107,6 +107,7 @@ public class SaveManager implements SaveService, LoadService {
 	    	case FOOD:				result.addAll(save.player.modFood((Integer) object)); break; 
 	    	case TIME:				result.addAll(save.player.timePass((Integer) object)); break;
 	    	case SCOUT:				int val = (Integer)object; if (val == 0) save.player.resetScout(); result.addAll(save.player.increaseScout(val)); break;
+	    	case STEALTH:			int val2 = (Integer)object; if (val2 == 0) save.player.resetStealth(); result.addAll(save.player.increaseStealth(val2)); break;
 	    	case EXPERIENCE:		result.addAll(save.player.modExperience((Integer) object)); break; 
 	    	case GOLD:				result.addAll(save.player.modMoney((Integer) object)); break; 
 	    	case DEBT:				result.addAll(save.player.modDebt((Integer) object)); break;
