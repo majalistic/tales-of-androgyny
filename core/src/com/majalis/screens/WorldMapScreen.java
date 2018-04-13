@@ -480,7 +480,7 @@ public class WorldMapScreen extends AbstractScreen {
 		buttons.add(scout);
 		table.add(scout).size(buttonWidth, buttonHeight).padLeft(10);
 		table.add(new Image(assetManager.get(AssetEnum.SEARCHING.getTexture()))).size(35, 35).padLeft(10);
-		table.add(new UpdateLabel(skin, character)).padLeft(5).row();
+		table.add(new ScoutLabel(skin, character)).padLeft(5).row();
 		
 		// rest will eventually just wait some time - eating food if possible to maintain hunger level
 		scout.addListener(
@@ -516,6 +516,35 @@ public class WorldMapScreen extends AbstractScreen {
 					saveService.saveDataValue(SaveEnum.CONTEXT, currentContext);
 					saveService.saveDataValue(SaveEnum.RETURN_CONTEXT, GameContext.WORLD_MAP);
 					showScreen(ScreenEnum.CONTINUE);
+		        }
+			}
+		);
+		
+		final TextButton stealth = getButton("Stealth");
+		buttons.add(stealth);
+		table.add(stealth).size(buttonWidth, buttonHeight).padLeft(10);
+		table.add(new Image(assetManager.get(AssetEnum.SEARCHING.getTexture()))).size(35, 35).padLeft(10);
+		table.add(new StealthLabel(skin, character)).padLeft(5).row();
+		
+		stealth.addListener(
+			new ClickListener() {
+				@SuppressWarnings("unchecked")
+				@Override
+		        public void clicked(InputEvent event, float x, float y) {
+					buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
+					if (checkForForcedRest());
+					else {
+						setConsole(console, saveService.saveDataValue(SaveEnum.STEALTH, 1), saveService.saveDataValue(SaveEnum.TIME, 1));
+						console.addAction(Actions.alpha(1));
+						console.addAction(Actions.fadeOut(10));
+						visit(currentNode);
+						time++;
+						tintForTimeOfDay(time, .5f);	
+						checkCanEat(rest);
+						mutateLabels();
+						checkForForcedRest();
+						saveService.flush();
+					}
 		        }
 			}
 		);
@@ -959,20 +988,37 @@ public class WorldMapScreen extends AbstractScreen {
 		}	
 	}
 	
-	private class UpdateLabel extends Label {
+	private class StealthLabel extends UpdateLabel {
+		private StealthLabel(Skin skin, PlayerCharacter character) {
+			super(skin, character);
+		}
+		protected int getUpdateValue(){ return character.getStealthScore(); }
+	}
+	
+	private class ScoutLabel extends UpdateLabel {
+		private ScoutLabel(Skin skin, PlayerCharacter character) {
+			super(skin, character);
+		}
+		protected int getUpdateValue(){ return character.getScoutingScore(); }
+	}
+	
+	private abstract class UpdateLabel extends Label {
 		private UpdateLabel(Skin skin, PlayerCharacter character) {
-			super("" + character.getScoutingScore(), skin);
-			if (character.getScoutingScore() > 4) this.addAction(Actions.color(Color.GOLD));
+			super("", skin);
+			setText("" + getUpdateValue());
+			if (getUpdateValue() > 4) this.addAction(Actions.color(Color.GOLD));
 		}
 		@Override
 		public void draw(Batch batch, float parentAlpha) {
-			if (!getText().toString().equals("" + character.getScoutingScore())) {
-				setText("" + character.getScoutingScore());
+			if (!getText().toString().equals("" + getUpdateValue())) {
+				setText("" + getUpdateValue());
 				this.clearActions();
-				this.addAction(character.getScoutingScore() > 4 ? Actions.color(Color.GOLD) : Actions.sequence(Actions.color(Color.GREEN), Actions.color(Color.WHITE, 1)));
+				this.addAction(getUpdateValue() > 4 ? Actions.color(Color.GOLD) : Actions.sequence(Actions.color(Color.GREEN), Actions.color(Color.WHITE, 1)));
 			}
 			super.draw(batch, parentAlpha);
 		}
+		
+		protected abstract int getUpdateValue();
 	}
 
 	private boolean inSuspendedArea(GameWorldNode node) {
