@@ -1347,7 +1347,7 @@ public class PlayerCharacter extends AbstractCharacter {
 	}
 
 	public String resetStealth() {
-		scout = 0;
+		stealth = 0;
 		return "";
 	}
 

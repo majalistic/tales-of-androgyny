@@ -861,7 +861,8 @@ public class WorldMapScreen extends AbstractScreen {
 		}
 	}
 	
-	private void nothingHappens(GameWorldNode node) { saveService.saveDataValue(SaveEnum.SCOUT, 0); visit(node);  }
+	private void nothingHappens(GameWorldNode node) { resetValues(); visit(node);  }
+	private void resetValues() { saveService.saveDataValue(SaveEnum.SCOUT, 0); saveService.saveDataValue(SaveEnum.STEALTH, 0); }
 	private void handleMiniEncounter(GameWorldNode node, EncounterCode newEncounter, EncounterBounty miniEncounter, Action enableButtons) { 
 		final Image displayNewEncounter = new Image(hoverImageTexture);
 		displayNewEncounter.setBounds(100, 250, 500, 600);
@@ -916,7 +917,7 @@ public class WorldMapScreen extends AbstractScreen {
 		else {								
 			popupGroup.addAction(doneAction);
 			visit(node);
-			saveService.saveDataValue(SaveEnum.SCOUT, 0, false);
+			resetValues();
 		}
 	}
 	
@@ -934,7 +935,7 @@ public class WorldMapScreen extends AbstractScreen {
 				visit(node);
 				setCurrentNode(node);
 				worldGroup.addAction(enableButtons);
-				saveService.saveDataValue(SaveEnum.SCOUT, 0, true);
+				resetValues();
 			}
 		};
 		yesButton.addListener(new ClickListener() { 
