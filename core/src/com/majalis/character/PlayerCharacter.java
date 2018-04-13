@@ -538,7 +538,7 @@ public class PlayerCharacter extends AbstractCharacter {
 	}
 	
 	public int getScoutingScore() { return getTrueScoutingScore(scout * 3 + getPerception() + (perks.get(Perk.SURVEYOR.toString(), 0) > 0 ? perks.get(Perk.SURVEYOR.toString()) * 2 : 0)); }
-	public int getStealthScore() { return getTrueScoutingScore(stealth * 3 + getAgility() + (perks.get(Perk.STEALTHY.toString(), 0) > 0 ? perks.get(Perk.STEALTHY.toString()) * 2 : 0)); }
+	public int getStealthScore() { return Math.min(3, getTrueScoutingScore(stealth * 3 + getAgility() + (perks.get(Perk.STEALTHY.toString(), 0) > 0 ? perks.get(Perk.STEALTHY.toString()) * 2 : 0))); }
 	
 	private int getTrueScoutingScore(int rawScoutingScore) {
 		int level = 5;

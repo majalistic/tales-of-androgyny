@@ -169,6 +169,7 @@ public class SaveManager implements SaveService, LoadService {
 	    	case DEBT:
 	    	case ENCOUNTER_END:
 	    	case SCOUT:
+	    	case STEALTH:
 	    	case PORTRAIT:
 	    	case GAME_OVER:
 	    	case QUEST:			
