@@ -1981,26 +1981,37 @@ public enum EncounterCode {
 				Branch uninterested = b.branch(0).textScene("WEREWOLF-UNINTERESTED");
 				Branch defeatNoBitch = b.branch(0).checkScene(CheckType.HAS_TRUDY, b.branch(true).textScene("WEREWOLF-TRUDY"), b.branch(false).concat(uninterested));
 				
-				Branch werewolfBattle = b.branch().battleScene(
-				    	BattleCode.WERESLUT,
-				    	// this has a reference to the first node in this branch, which gets welded with the current context node
-				        b.branch(Outcome.VICTORY).textScene("WEREWOLF-VICTORY").checkScene(Stat.STRENGTH, b.branch(8).textScene("WEREWOLF-STRONG").concat(mated), b.branch(0).checkScene(Perk.BITCH, bitch, uninterested)),
-				        b.branch(Outcome.KNOT_ANAL).textScene("WEREWOLF-BATTLE-KNOT").concat(knotted),
-				        b.branch(Outcome.KNOT_ORAL).textScene("WEREWOLF-BATTLE-KNOT-ORAL").gameEnd(),
-				        b.branch(Outcome.DEFEAT).textScene("WEREWOLF-DEFEAT").checkScene(Perk.BITCH, bitch, defeatNoBitch),
-				        b.branch(Outcome.SATISFIED_ANAL).textScene("WEREWOLF-SATISFIED"),
-				        b.branch(Outcome.SUBMISSION).textScene("WEREWOLF-SUBMISSION")
-				    );
+				Branch[] werewolfBattleOutcomes = new Branch[]{
+					b.branch(Outcome.VICTORY).textScene("WEREWOLF-VICTORY").checkScene(Stat.STRENGTH, b.branch(8).textScene("WEREWOLF-STRONG").concat(mated), b.branch(0).checkScene(Perk.BITCH, bitch, uninterested)),
+			        b.branch(Outcome.KNOT_ANAL).textScene("WEREWOLF-BATTLE-KNOT").concat(knotted),
+			        b.branch(Outcome.KNOT_ORAL).textScene("WEREWOLF-BATTLE-KNOT-ORAL").gameEnd(),
+			        b.branch(Outcome.DEFEAT).textScene("WEREWOLF-DEFEAT").checkScene(Perk.BITCH, bitch, defeatNoBitch),
+			        b.branch(Outcome.SATISFIED_ANAL).textScene("WEREWOLF-SATISFIED"),
+			        b.branch(Outcome.SUBMISSION).textScene("WEREWOLF-SUBMISSION")
+				};
+				Branch werewolfBattle = b.branch().battleScene(BattleCode.WERESLUT, werewolfBattleOutcomes);
+				Branch werewolfStealthBattle = b.branch().battleScene(BattleCode.WERESLUT, werewolfBattleOutcomes).setDelay(2);
 				
-				return b.branch().textScene("WEREWOLF-INTRO").checkScene(
-					CheckType.SCOUT_LEVEL_2, 
-					b.branch(true).textScene("WEREWOLF-SCOUTED").choiceScene(
+				Branch werewolfScouted = b.branch().textScene("WEREWOLF-SCOUTED").checkScene(
+					CheckType.STEALTH_LEVEL_2, 
+					b.branch(true).choiceScene(
+						"Fight the werewolf?",
+						b.branch("Sneak Attack").textScene("WEREWOLF-FIGHT").concat(werewolfStealthBattle),
+						b.branch("Have Trudy Fight").require(ChoiceCheckType.HAS_TRUDY).textScene("WEREWOLF-TRUDY"),
+						b.branch("Avoid")
+					), 
+					b.branch(false).choiceScene(
 						"Fight the werewolf?",
 						b.branch("Fight").textScene("WEREWOLF-FIGHT").concat(werewolfBattle),
 						b.branch("Have Trudy Fight").require(ChoiceCheckType.HAS_TRUDY).textScene("WEREWOLF-TRUDY"),
 						b.branch("Avoid")
-					),
-					b.branch(false).textScene("WEREWOLF-ENTRY").concat(werewolfBattle)
+					)
+				);
+				
+				return b.branch().textScene("WEREWOLF-INTRO").checkScene(
+					CheckType.SCOUT_LEVEL_2, 
+					b.branch(true).concat(werewolfScouted),
+					b.branch(false).checkScene(CheckType.STEALTH_LEVEL_2, b.branch(true).concat(werewolfScouted), b.branch(false).textScene("WEREWOLF-ENTRY").concat(werewolfBattle))
 				);
 			case WITCH_COTTAGE:
 				Branch magicShop = b.branch().textScene("WITCH-COTTAGE-STORE").choiceScene("Peruse her wares?", b.branch("Peruse").shopScene(ShopCode.MAGIC_SHOP), b.branch("Leave"));
