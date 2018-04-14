@@ -18,11 +18,12 @@ public class BattleAttributes {
 	private final boolean disarm;
 	private final int climaxCounter;
 	private final int range;
+	private final int delay;
 	
 	@SuppressWarnings("unused")
-	private BattleAttributes() { this(null, null, null, null, false, 0, 0); }
+	private BattleAttributes() { this(null, null, null, null, false, 0, 0, 0); }
 	
-	public BattleAttributes(BattleCode battleCode, ObjectMap<String, Integer> outcomes, Stance playerStance, Stance enemyStance, boolean disarm, int climaxCounter, int range) {
+	public BattleAttributes(BattleCode battleCode, ObjectMap<String, Integer> outcomes, Stance playerStance, Stance enemyStance, boolean disarm, int climaxCounter, int range, int delay) {
 		this.battleCode = battleCode;
 		this.outcomes = outcomes;
 		this.playerStance = playerStance;
@@ -30,6 +31,7 @@ public class BattleAttributes {
 		this.disarm = disarm;
 		this.climaxCounter = climaxCounter;
 		this.range = range;
+		this.delay = delay;
 	}
 
 	public Array<AssetDescriptor<?>> getRequirements() { return battleCode.getRequirements(); }
@@ -41,4 +43,5 @@ public class BattleAttributes {
 	protected ObjectMap<String, Integer> getOutcomes() { return outcomes; }
 	protected AssetEnum getMusic() { return battleCode.getMusic(); }
 	protected int getRange() { return range; }
+	protected int getDelay() { return delay; }
 }

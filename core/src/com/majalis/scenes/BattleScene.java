@@ -22,8 +22,9 @@ public class BattleScene extends Scene {
 	private final boolean disarm;
 	private final int climaxCounter;
 	private final int range;
+	private final int delay;
 	// this should be passed a battle attribute instead of creating one
-	public BattleScene(OrderedMap<Integer, Scene> sceneBranches, SaveService saveService, BattleCode battleCode, Stance playerStance, Stance enemyStance, boolean disarm, int climaxCounter, int range, ObjectMap<String, Integer> outcomes, EncounterHUD hud) {
+	public BattleScene(OrderedMap<Integer, Scene> sceneBranches, SaveService saveService, BattleCode battleCode, Stance playerStance, Stance enemyStance, boolean disarm, int climaxCounter, int range, int delay, ObjectMap<String, Integer> outcomes, EncounterHUD hud) {
 		super(sceneBranches, -1, hud);
 		this.saveService = saveService;
 		this.battleCode = battleCode;
@@ -33,12 +34,13 @@ public class BattleScene extends Scene {
 		this.disarm = disarm;
 		this.climaxCounter = climaxCounter;
 		this.range = range;
+		this.delay = delay;
 	}
 	
 	@Override
 	public void activate() {
 		isActive = true;
-		saveService.saveDataValue(SaveEnum.BATTLE_CODE, new BattleAttributes(battleCode, outcomes, playerStance, enemyStance, disarm, climaxCounter, range));
+		saveService.saveDataValue(SaveEnum.BATTLE_CODE, new BattleAttributes(battleCode, outcomes, playerStance, enemyStance, disarm, climaxCounter, range, delay));
 		saveService.saveDataValue(SaveEnum.CONTEXT, SaveManager.GameContext.BATTLE);
 	}
 	
