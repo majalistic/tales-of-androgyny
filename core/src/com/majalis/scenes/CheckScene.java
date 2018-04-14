@@ -313,6 +313,14 @@ public class CheckScene extends AbstractTextScene {
 			@Override
 			protected boolean getCheck(PlayerCharacter character) { return character.getScoutingScore() >= 3; }  
 		}, 
+		STEALTH_LEVEL_2 ("You were careful to avoid notice.", "You were not careful to avoid notice.") { 
+			@Override
+			protected boolean getCheck(PlayerCharacter character) { return character.getStealthScore() >= 2; }  
+		}, 
+		STEALTH_LEVEL_3 ("You were very careful to avoid notice.", "You were not very careful to avoid notice.") { 
+			@Override
+			protected boolean getCheck(PlayerCharacter character) { return character.getStealthScore() >= 3; }  
+		}, 
 		ELF_UNSEEN ("", "") { 
 			@Override
 			protected boolean getCheck(PlayerCharacter character) { int check = character.getQuestStatus(QuestType.ELF); return check == 0; }  
