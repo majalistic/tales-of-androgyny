@@ -513,7 +513,8 @@ public enum EncounterCode {
 						b.branch("Sneak Attack").battleScene(
 							BattleCode.BRIGAND, 
 							battleBranches2
-						).setDelay(2)
+						).setDelay(2),
+						b.branch("Sneak \"Attack\"").require(ChoiceCheckType.FREE_COCK).textScene("BRIGAND-BUTT-SNEAK").choiceScene("Pull Out?", b.branch("Yep").textScene("BRIGAND-PULL-OUT"), b.branch("Nah").textScene("BRIGAND-KEEP-IN"))
 					),
 					b.branch(false).choiceScene(
 						"How do you handle the brigand?",

@@ -5302,6 +5302,34 @@
 		]
 	},
 	{
+		"key": "BRIGAND-BUTT-SNEAK",
+		"scriptLines": [
+			{"text": "You've heard about brigands like these, who have been affectionately nicknamed \"butt brigands\".  They're a bane to innattentive adventurers, unlike yourself, whose butts are their primary targets - and they're not too choosy about whose butts they burgle."},
+			{"text": "Men and women alike may end up with a surprise chimney-sweep up the old chimney, with a firm hand on their shoulder holding them still while the true buggery begins."},
+			{"text": "She looks like she's got the grip strength for a full \"session\" and a strong, firm bum from all that thrusting.  You also spot a rather conspicuous bulge running down her leg, no doubt her weapon of choice."},
+			{"text": "You wonder how many poor adventurers have gotten an unexpected crash course in sodomy from her wanton behavior, and her deliberate disregard for the proper rules of engagement."},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSexTop":1}}],
+			"text": "You quickly sneak up behind her, pull down her trousers and give it to her right between the cheeks.  She drops her armaments in shock at the sudden anal intrusion."},
+			{"text": "\"Nngh... well, well... guess I'm the one who's gettin' it up the dumper this time.  Can ye give it good, eh?\""},
+			{"text": "You drive it up into her, gripping onto her hips and kicking her feet apart to give her a deeper fucking.  She's got a tight, well-muscled, but still soft ass, and she grits her teeth and sucks in air as you pry it all the way open with your dick."},
+			{"text": "She's clearly feeling herself... you can feel her shoulder tensing as she tries to pull herself off, her ass gyrating back against you so intensely that for a moment, you slow down."},
+			{"text": "\"Don't stop now, I'm about to crank one out...\" she says, insisting that you keep fucking her ass long enough for her to churn her butter all the way out."}
+		]
+	},
+	{
+		"key": "BRIGAND-PULL-OUT",
+		"scriptLines": [
+			{"text": ""}
+		]
+	},
+	{
+		"key": "BRIGAND-KEEP-IN",
+		"scriptLines": [
+			{"text": ""}
+		]
+	},
+	{
 		"key": "BRIGAND-HAIL",
 		"scriptLines": [
 			{"text": "You hail her. \"Come out. I see you hiding there,\" you say, and she mutters something under her breath before stepping out into view."},
