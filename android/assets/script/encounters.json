@@ -5320,13 +5320,21 @@
 	{
 		"key": "BRIGAND-PULL-OUT",
 		"scriptLines": [
-			{"text": ""}
+			{"text": "You pull out, and you hear her whine and click her teeth."},
+			{"text": "\"Ooh... I'm not stoppin' just because yer done,\" she says, and continues to stroke herself... although it's clear she's disappointed.  You watch her unload onto some leaves, and then clear her throat."},
+			{"text": "\"See ye later, fellow traveler.  Unless ye see me first,\" she says, taunting you, and you leave... a bit unsatisfied, but mostly there."}			
 		]
 	},
 	{
 		"key": "BRIGAND-KEEP-IN",
 		"scriptLines": [
-			{"text": ""}
+			{"text": "\"Ooh, right there... almost...\" she says, reaching over her shoulder to clasp your neck while stroking herself to what appears to be a full-masted anal ejaculation."},			
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "ejaculationInButt":1}}],
+			"sound": "CUM",
+			"text": "She tightens around you as she flings ropes into the open air.  You can't hold back - soon, she isn't the only one cumming."},
+			{"text": "Your legs give out beneath you, as do hers, and you both drop to your knees.  She leans back and gives you a tongue-filled kiss, her bedroom eyes and wicked smile suggesting that she appreciated your... contributions."}
+			{"text": "After you disentangle yourselves, she gives you a peck on the cheek, and says to try and get the drop on her next time - and if not, she'll show you how it's done."}
 		]
 	},
 	{
