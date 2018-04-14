@@ -49,6 +49,7 @@ public class BattleFactory {
 				enemy.setClimaxCounter(battleAttributes.getClimaxCounter());
 			}
 			enemy.setRange(battleAttributes.getRange());
+			enemy.setDelay(battleAttributes.getDelay());
 			playerCharacter.setRange(battleAttributes.getRange());
 			playerCharacter.setStance(battleAttributes.getPlayerStance());	
 			

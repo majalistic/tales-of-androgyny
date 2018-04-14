@@ -38,6 +38,7 @@ public class EnemyCharacter extends AbstractCharacter {
 	private boolean storyMode;
 	private Disposition disposition;
 	private RandomXS128 random;
+	private int delay;
 	private transient boolean init;
 	@SuppressWarnings("unused") private String bgPath; // deprecated
 	
@@ -228,6 +229,7 @@ public class EnemyCharacter extends AbstractCharacter {
 	
 	@Override
 	public void setRange(int range) { super.setRange(range); init = false; updateDisplay(); }	
+	public void setDelay(int delay) { this.delay = delay; }
 	
 	@Override
 	public void setStance(Stance stance) { 
@@ -886,6 +888,10 @@ public class EnemyCharacter extends AbstractCharacter {
 				technique = candidates.get(0);
 			}
 		}
+		if (delay > 0) {
+			technique = getTechnique(target, Techniques.DO_NOTHING);
+			delay--;
+		}
 		return technique;	
 	}
 	
@@ -1214,5 +1220,4 @@ public class EnemyCharacter extends AbstractCharacter {
 		HORNY,
 		ANGRY
 	}
-	
 } 
