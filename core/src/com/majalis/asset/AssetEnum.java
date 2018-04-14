@@ -196,9 +196,6 @@ public enum AssetEnum {
 	GOLEM_DULL("enemies/GolemDull.png"),
 	GOLEM_FUTA("enemies/GolemFuta.png"),
 	GOLEM_CLOSEUP("enemies/GolemClose.png"),
-	GHOST("enemies/Ghost.png"),
-	GHOST_SPOOKY("enemies/GhostSpooky.png"),
-	GHOST_SPOOKY_BLOODLESS("enemies/GhostSpookyNoBlood.png"),
 	BUNNY_CREAM("enemies/bunny/Cream.png"),
 	BUNNY_VANILLA("enemies/bunny/Vanilla.png"),
 	BUNNY_CARAMEL("enemies/bunny/Caramel.png"),
@@ -466,6 +463,7 @@ public enum AssetEnum {
 	TRUDY_SPRITE_ANIMATION("animation/Trudy.atlas", AnimatedActorFactory.class, new AnimatedActorLoader.AnimatedActorParameter(.6f, 1f, true)), 
 	WEREWOLF_ANIMATION("animation/Werewolf.atlas", AnimatedActorFactory.class, new AnimatedActorLoader.AnimatedActorParameter(1, 1f, true)), 
 	BEASTMISTRESS_ANIMATION("animation/Drow.atlas", AnimatedActorFactory.class, new AnimatedActorLoader.AnimatedActorParameter(.6f, 1f, true)), 
+	GHOST_ANIMATION("animation/Ghost.atlas", AnimatedActorFactory.class, new AnimatedActorLoader.AnimatedActorParameter(.6f, 1f, true)), 
 	GOBLIN_ANIMATION("animation/Goblin.atlas", AnimatedActorFactory.class, new AnimatedActorLoader.AnimatedActorParameter(.40f, 1f, true)), 
 	ORC_PRONE_BONE_ANIMATION("animation/OrcProneBone.atlas", AnimatedActorFactory.class, new AnimatedActorLoader.AnimatedActorParameter(1, 1f, true)), 
 	;

@@ -32,7 +32,7 @@ public enum EnemyEnum {
 	BEASTMISTRESS (new EnemyTemplate(WeaponType.Claw).setStrength(6).setAgility(8).setEndurance(5).addHealth(10), "Beast Mistress", null, AnimationEnum.BEASTMISTRESS),
 	SPIDER (new EnemyTemplate(WeaponType.Claw).setStrength(6).setAgility(5).setEndurance(5).setHealth(new IntArray(new int[]{20, 20, 20, 20})), "Arachne", AssetEnum.SPIDER.getTexture()), 
 	GOLEM (new EnemyTemplate(null, 6, 8, 4, 3, 3, 3).setArmor(ArmorType.MEDIUM_ENEMY_ARMOR).setLegwear(ArmorType.MEDIUM_ENEMY_LEGWEAR).setHealth(new IntArray(new int[]{60})).setMana(12), "Golem", AssetEnum.GOLEM.getTexture(), AssetEnum.GOLEM_FUTA.getTexture()),
-	GHOST (new EnemyTemplate(null, 0, 0, 0, 8, 8, 8).setArmor(null).setLegwear(null).setUnderwear(null).setHealth(new IntArray(new int[]{15})).setMana(30), "Ghost", AssetEnum.GHOST_SPOOKY.getTexture(), AssetEnum.GHOST_SPOOKY_BLOODLESS.getTexture()),
+	GHOST (new EnemyTemplate(null, 0, 0, 0, 8, 8, 8).setArmor(null).setLegwear(null).setUnderwear(null).setHealth(new IntArray(new int[]{15})).setMana(30), "Ghost", null, AnimationEnum.GHOST_SPOOKY),
 	BUNNY (new EnemyTemplate(WeaponType.Sickle, 6, 6, 9, 5, 1, 8).setHealth(new IntArray(new int[]{20, 20, 20, 20})).setMana(30).setShield(ArmorType.SHIELD), "Puca", AssetEnum.BUNNY_CREAM.getTexture(), AssetEnum.BUNNY_VANILLA.getTexture(), AssetEnum.BUNNY_CARAMEL.getTexture(), AssetEnum.BUNNY_CHOCOLATE.getTexture(), AssetEnum.BUNNY_DARK_CHOCOLATE.getTexture()), 
 	ANGEL (new EnemyTemplate(WeaponType.Trumpet).setHealth(new IntArray(new int[]{20, 20, 20, 20})).setMana(30).setEndurance(10).setAgility(10).setArmor(null).setLegwear(null).setStrength(5).setAgility(5), "Angel", AssetEnum.ANGEL.getTexture()), 
 	NAGA (new EnemyTemplate(WeaponType.Flail).setHealth(new IntArray(new int[]{20, 20, 20, 20})).setArmor(null).setLegwear(null).setUnderwear(null).setStrength(6).setAgility(6).setEndurance(6).setShield(ArmorType.SHIELD), "Naga", AssetEnum.NAGA.getTexture()), 
@@ -338,6 +338,9 @@ public enum EnemyEnum {
 				break;
 			case CENTAUR:
 				temp.add(AssetEnum.CENTAUR_ANIMATION.getAnimation());
+				break;
+			case GHOST:
+				temp.add(AssetEnum.GHOST_ANIMATION.getAnimation());
 				break;
 			case GOBLIN:
 			case GOBLIN_MALE:

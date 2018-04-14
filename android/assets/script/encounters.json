@@ -9349,7 +9349,7 @@
 			{"text": "\"My love... rejected me... he did not want me...\""},
 			{"text": "You see that her body is quite... curvaceous. Her skin shining in the sun, you can't imagine a more idyllic beauty."},
 			{
-			"foreground": "GHOST",
+			"animatedForeground": "GHOST",
 			"chatter": "Oh... I don't like this...",
 			"chatterPerson": "Kylira",
 			"text": "She turns to face you... and you see that her body simply... ends, her feet not reaching the ground. You stand at guard. When she meets your gaze, she smiles brilliantly."},
@@ -9411,7 +9411,7 @@
 			{"text": "She seems... stunned. And then, tears start to run down her cheeks... her makeup runs, and her skin and clothing darken..."},
 			{
 			"sound": "FIREBALL_SOUND",
-			"foreground": "GHOST_SPOOKY_BLOODLESS",
+			"animatedForeground": "GHOST_SPOOKY_BLOODLESS",
 			"mutations": [{"profileSaveType":"KNOWLEDGE", "value":{"class": "java.lang.String", "value": "Ghost"}}],
 			"text": "Soon, the golden haired beauty before you is gone, and left behind is a wailing and malevolent spirit."},
 			{"text": "\"WHY WON'T YOU ACCEPT MY LOVE?!\" she says in a rasp."}
@@ -9461,7 +9461,7 @@
 			{"text": "\".\""},
 			{
 			"sound": "FIREBALL_SOUND",
-			"foreground": "GHOST_SPOOKY_BLOODLESS",
+			"animatedForeground": "GHOST_SPOOKY_BLOODLESS",
 			"mutations": [{"profileSaveType":"KNOWLEDGE", "value":{"class": "java.lang.String", "value": "Ghost"}}],
 			"text": "Her form changes completely, and her voice becomes a shrill rasp."},
 			{"text": "\"receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it receive it\""},
@@ -9569,7 +9569,7 @@
 			"text": "It blasts inside of you with the force of the damned - her sticky, pent up love is no less tangible than if she was living and breathing. Your stomach gurgles under its weight and viscosity, and her damned shriek has nothing on the full effect of her undead load."},
 			{"text": "The presence of her weighty member suddenly vanishes, so all that remains is her suspiciously thick and semen-like ectoplasm, which clogs your pipes just fine. You feel pretty convincingly jizzed in, even if you did just have a rendezvous with a revenant."},
 			{
-			"foreground": "GHOST",
+			"animatedForeground": "GHOST",
 			"text": "When you turn to look at her, the malevolent presene is gone... and her appearance has changed dramatically. Her hair is golden, her skin looks full of life and verve, and her eyes are soft and kind."},
 			{"text": "Her beauty is breathtaking, and you can hardly believe that moments ago she was taking your breath by punching your diaphragm with her meat. Your bowels are still waterlogged with the proof."}
 		]
@@ -9628,7 +9628,7 @@
 		"key": "GHOST-VICTORY",
 		"scriptLines": [
 			{
-			"foreground": "GHOST",
+			"animatedForeground": "GHOST",
 			"mutations": [{"saveType":"EXPERIENCE",  "value":{"class": "java.lang.Integer", "value": 5}}],
 			"text": "As she disappears, her appearance has changed - a fair-haired woman with a faint, somber smile fades away, leaving behind nothing but a memory."},
 		]
@@ -9681,7 +9681,7 @@
 		"scriptLines": [
 			{
 			"mutations": [{"profileSaveType":"KNOWLEDGE", "value":{"class": "java.lang.String", "value": "Ghost"}}],
-			"foreground": "GHOST_SPOOKY",
+			"animatedForeground": "GHOST_SPOOKY",
 			"text": ""}
 		]
 	},
@@ -9690,7 +9690,7 @@
 		"scriptLines": [
 			{
 			"mutations": [{"profileSaveType":"KNOWLEDGE", "value":{"class": "java.lang.String", "value": "Ghost"}}],
-			"foreground": "GHOST_SPOOKY_BLOODLESS",
+			"animatedForeground": "GHOST_SPOOKY_BLOODLESS",
 			"text": ""}
 		]
 	},

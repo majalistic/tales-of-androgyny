@@ -1,0 +1,277 @@
+
+Ghost.png
+size: 2048,2048
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+darmrightupper
+  rotate: true
+  xy: 1211, 5
+  size: 144, 245
+  orig: 144, 245
+  offset: 0, 0
+  index: -1
+dbackdrill
+  rotate: false
+  xy: 1868, 1691
+  size: 162, 131
+  orig: 162, 131
+  offset: 0, 0
+  index: -1
+dbackhair
+  rotate: true
+  xy: 1211, 151
+  size: 316, 541
+  orig: 316, 541
+  offset: 0, 0
+  index: -1
+dhead
+  rotate: false
+  xy: 1754, 60
+  size: 259, 407
+  orig: 259, 407
+  offset: 0, 0
+  index: -1
+dtorso
+  rotate: false
+  xy: 936, 469
+  size: 930, 1570
+  orig: 930, 1570
+  offset: 0, 0
+  index: -1
+dveil
+  rotate: false
+  xy: 421, 16
+  size: 393, 450
+  orig: 393, 450
+  offset: 0, 0
+  index: -1
+larmrightupper
+  rotate: true
+  xy: 1458, 5
+  size: 144, 245
+  orig: 144, 245
+  offset: 0, 0
+  index: -1
+lbackdrill
+  rotate: false
+  xy: 1868, 1558
+  size: 162, 131
+  orig: 162, 131
+  offset: 0, 0
+  index: -1
+lbreastcosage
+  rotate: true
+  xy: 1868, 1241
+  size: 89, 119
+  orig: 89, 119
+  offset: 0, 0
+  index: -1
+lpouf
+  rotate: true
+  xy: 1868, 1824
+  size: 215, 159
+  orig: 215, 159
+  offset: 0, 0
+  index: -1
+ltorso
+  rotate: false
+  xy: 2, 468
+  size: 932, 1571
+  orig: 932, 1571
+  offset: 0, 0
+  index: -1
+lveil
+  rotate: false
+  xy: 816, 16
+  size: 393, 450
+  orig: 393, 450
+  offset: 0, 0
+  index: -1
+lwispleft
+  rotate: false
+  xy: 2, 8
+  size: 417, 458
+  orig: 417, 458
+  offset: 0, 0
+  index: -1
+peony1
+  rotate: false
+  xy: 1868, 1431
+  size: 137, 125
+  orig: 137, 125
+  offset: 0, 0
+  index: -1
+peony2
+  rotate: false
+  xy: 1868, 1150
+  size: 91, 89
+  orig: 91, 89
+  offset: 0, 0
+  index: -1
+peony3
+  rotate: true
+  xy: 1868, 1332
+  size: 97, 130
+  orig: 97, 130
+  offset: 0, 0
+  index: -1
+petals1
+  rotate: true
+  xy: 1961, 1147
+  size: 92, 64
+  orig: 92, 64
+  offset: 0, 0
+  index: -1
+petals2
+  rotate: false
+  xy: 1705, 63
+  size: 24, 86
+  orig: 24, 86
+  offset: 0, 0
+  index: -1
+petals3
+  rotate: false
+  xy: 1705, 2
+  size: 49, 56
+  orig: 49, 56
+  offset: 0, 0
+  index: -1
+
+Ghost2.png
+size: 2048,2048
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+btorso
+  rotate: false
+  xy: 2, 471
+  size: 930, 1570
+  orig: 930, 1570
+  offset: 0, 0
+  index: -1
+darmright
+  rotate: true
+  xy: 1137, 2
+  size: 571, 906
+  orig: 571, 906
+  offset: 0, 0
+  index: -1
+dvelback
+  rotate: false
+  xy: 934, 575
+  size: 908, 598
+  orig: 908, 598
+  offset: 0, 0
+  index: -1
+lbackhair
+  rotate: true
+  xy: 2, 153
+  size: 316, 541
+  orig: 316, 541
+  offset: 0, 0
+  index: -1
+lbasewisp
+  rotate: false
+  xy: 934, 1175
+  size: 1035, 866
+  orig: 1035, 866
+  offset: 0, 0
+  index: -1
+lhead
+  rotate: false
+  xy: 876, 62
+  size: 259, 407
+  orig: 259, 407
+  offset: 0, 0
+  index: -1
+lwispright
+  rotate: true
+  xy: 545, 86
+  size: 383, 329
+  orig: 383, 329
+  offset: 0, 0
+  index: -1
+
+Ghost3.png
+size: 2048,2048
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+bbreastbodice
+  rotate: true
+  xy: 1731, 1646
+  size: 346, 281
+  orig: 346, 281
+  offset: 0, 0
+  index: -1
+bbreasts
+  rotate: true
+  xy: 1731, 1309
+  size: 335, 281
+  orig: 335, 281
+  offset: 0, 0
+  index: -1
+darmleft
+  rotate: true
+  xy: 912, 1365
+  size: 627, 817
+  orig: 627, 817
+  offset: 0, 0
+  index: -1
+dbreastbodice
+  rotate: true
+  xy: 631, 777
+  size: 346, 281
+  orig: 346, 281
+  offset: 0, 0
+  index: -1
+dbreasts
+  rotate: false
+  xy: 914, 799
+  size: 335, 281
+  orig: 335, 281
+  offset: 0, 0
+  index: -1
+dpouf
+  rotate: false
+  xy: 631, 1125
+  size: 215, 267
+  orig: 215, 267
+  offset: 0, 0
+  index: -1
+larmleft
+  rotate: false
+  xy: 2, 575
+  size: 627, 817
+  orig: 627, 817
+  offset: 0, 0
+  index: -1
+larmright
+  rotate: true
+  xy: 2, 2
+  size: 571, 806
+  orig: 571, 806
+  offset: 0, 0
+  index: -1
+lbreastbodice
+  rotate: false
+  xy: 914, 1082
+  size: 346, 281
+  orig: 346, 281
+  offset: 0, 0
+  index: -1
+lbreasts
+  rotate: false
+  xy: 1262, 1082
+  size: 335, 281
+  orig: 335, 281
+  offset: 0, 0
+  index: -1
+lveilback
+  rotate: false
+  xy: 2, 1394
+  size: 908, 598
+  orig: 908, 598
+  offset: 0, 0
+  index: -1

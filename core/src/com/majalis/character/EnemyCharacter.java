@@ -50,7 +50,7 @@ public class EnemyCharacter extends AbstractCharacter {
 		this.storyMode = storyMode;
 		init(textures, textureMap, animations, stance);
 		climaxCounters = new ObjectMap<String, Integer>();
-		currentFrame = enemyType == EnemyEnum.GHOST && !Gdx.app.getPreferences("tales-of-androgyny-preferences").getBoolean("blood", true) ? 1 : 0;
+		currentFrame = 0;
 		if (enemyType == EnemyEnum.BUNNY) {
 			String bunnyType = Gdx.app.getPreferences("tales-of-androgyny-preferences").getString("bunny", "CREAM");
 			currentFrame = bunnyType.equals("CREAM") ? 0 : bunnyType.equals("VANILLA") ? 1 : bunnyType.equals("CARAMEL") ? 2 : bunnyType.equals("CHOCOLATE") ? 3 : 4;
@@ -106,6 +106,9 @@ public class EnemyCharacter extends AbstractCharacter {
 		this.addActor(currentAnimations);
 		if (animations.size > 0 && (enemyType != EnemyEnum.HARPY || stance != Stance.FELLATIO) && (enemyType != EnemyEnum.BRIGAND || (stance != Stance.DOGGY && stance != Stance.STANDING))) {
 			currentAnimations.addActor(animations.first());
+			if (enemyType == EnemyEnum.GHOST && !Gdx.app.getPreferences("tales-of-androgyny-preferences").getBoolean("blood", true)) {
+				animations.first().setSkeletonSkin("RealityClean");
+			}
 		}
 		
 		currentDisplay = enemyType == EnemyEnum.BRIGAND ? "IFOS100N" :"Idle Erect";

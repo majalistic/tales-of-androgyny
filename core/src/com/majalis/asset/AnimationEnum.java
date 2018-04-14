@@ -16,6 +16,9 @@ public enum AnimationEnum {
 	GOBLIN_MALE(AssetEnum.GOBLIN_ANIMATION),
 	TRUDY(AssetEnum.TRUDY_SPRITE_ANIMATION),
 	BEASTMISTRESS(AssetEnum.BEASTMISTRESS_ANIMATION),
+	GHOST(AssetEnum.GHOST_ANIMATION),
+	GHOST_SPOOKY(AssetEnum.GHOST_ANIMATION),
+	GHOST_SPOOKY_BLOODLESS(AssetEnum.GHOST_ANIMATION),
 	NULL(AssetEnum.NULL_ANIMATION)	
 	;
 	private static final ObjectMap<AssetEnum, AnimatedActorFactory> factoryMap = new ObjectMap<AssetEnum, AnimatedActorFactory>();
@@ -55,6 +58,15 @@ public enum AnimationEnum {
 		}
 		else if (this == UNICORN) {
 			animation.setSkeletonSkin("WhiteUnicorn");
+		}
+		else if (this == GHOST) {
+			animation.setSkeletonSkin("Fantasy");
+		}
+		else if (this == GHOST_SPOOKY) {
+			animation.setSkeletonSkin("RealityBloody");
+		}
+		else if (this == GHOST_SPOOKY_BLOODLESS) {
+			animation.setSkeletonSkin("RealityClean");
 		}
 		else if (this == GOBLIN) {
 			animation.setSkeletonSkin("Femme");
