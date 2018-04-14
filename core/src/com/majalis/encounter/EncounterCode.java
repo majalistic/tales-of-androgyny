@@ -820,37 +820,40 @@ public enum EncounterCode {
 				);
 				
 				return b.branch().textScene("CENTAUR-INTRO").checkScene(
-					CheckType.VIRGIN, 
-					b.branch(true).textScene("UNICORN-ENTRANCE").battleScene(
-						BattleCode.UNICORN,
-						unicornBattle
-					),
+					CheckType.STEALTH_LEVEL_3, 
+					b.branch(true).textScene("CENTAUR-AVOID"), 
 					b.branch(false).checkScene(
-						CheckType.CENTAUR_FIRST, 
-						b.branch(true).textScene("CENTAUR-ENTRANCE").checkScene(
-							Perk.ANAL_ADDICT,
-							b.branch(3).checkScene(CheckType.ANY_WILLPOWER, b.branch(true).textScene("CENTAUR-WILLPOWER").concat(centaurOptions), b.branch(false).checkScene(CheckType.PLUGGED, b.branch(true).textScene("CENTAUR-BUTTPLUG").concat(centaurCatamite), b.branch(false).concat(centaurCatamite))),
-							centaurOptions
+						CheckType.VIRGIN, 
+						b.branch(true).textScene("UNICORN-ENTRANCE").battleScene(
+							BattleCode.UNICORN,
+							unicornBattle
 						),
-						b.branch(false).textScene("CENTAUR-RETURN").choiceScene(
-							"Visit the centaur camp?", 
-							b.branch("Yes").textScene("CENTAUR-CAMP").checkScene(
-								Perk.ANAL_ADDICT,
-								b.branch(3).checkScene(
-									CheckType.ANY_WILLPOWER, 
-									b.branch(true).textScene("CENTAUR-WILLPOWER").concat(campOptions), 
-									b.branch(false).concat(centaurOrgy)
-								),
-								campOptions
-							),
-							b.branch("No").checkScene(
+						b.branch(false).checkScene(
+							CheckType.CENTAUR_FIRST, 
+							b.branch(true).textScene("CENTAUR-ENTRANCE").checkScene(
 								Perk.ANAL_ADDICT,
 								b.branch(3).checkScene(CheckType.ANY_WILLPOWER, b.branch(true).textScene("CENTAUR-WILLPOWER").concat(centaurOptions), b.branch(false).checkScene(CheckType.PLUGGED, b.branch(true).textScene("CENTAUR-BUTTPLUG").concat(centaurCatamite), b.branch(false).concat(centaurCatamite))),
 								centaurOptions
+							),
+							b.branch(false).textScene("CENTAUR-RETURN").choiceScene(
+								"Visit the centaur camp?", 
+								b.branch("Yes").textScene("CENTAUR-CAMP").checkScene(
+									Perk.ANAL_ADDICT,
+									b.branch(3).checkScene(
+										CheckType.ANY_WILLPOWER, 
+										b.branch(true).textScene("CENTAUR-WILLPOWER").concat(campOptions), 
+										b.branch(false).concat(centaurOrgy)
+									),
+									campOptions
+								),
+								b.branch("No").checkScene(
+									Perk.ANAL_ADDICT,
+									b.branch(3).checkScene(CheckType.ANY_WILLPOWER, b.branch(true).textScene("CENTAUR-WILLPOWER").concat(centaurOptions), b.branch(false).checkScene(CheckType.PLUGGED, b.branch(true).textScene("CENTAUR-BUTTPLUG").concat(centaurCatamite), b.branch(false).concat(centaurCatamite))),
+									centaurOptions
+								)
 							)
 						)
-					)
-				);
+					));
 			case COTTAGE_TRAINER:
 				return b.branch().checkScene(CheckType.TRAINER_VISITED, b.branch(true).checkScene(CheckType.HAS_ICE_CREAM, b.branch(true).textScene("TRAINER-BLITZ"), b.branch(false).textScene("STORY-004")), b.branch(false).textScene("STORY-003").characterCreation(true)); 		
 			case QUETZAL:

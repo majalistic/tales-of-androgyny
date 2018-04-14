@@ -5671,6 +5671,12 @@
 		]
 	},
 	{
+		"key": "CENTAUR-AVOID",
+		"scriptLines": [
+			{"text": "By keeping yourself low in the grass, you manage to avoid detection by the creatures of plains - the horsemen."}
+		]
+	},
+	{
 		"key": "UNICORN-ENTRANCE",
 		"scriptLines": [
 			{
