@@ -481,30 +481,46 @@ public enum EncounterCode {
 						b.branch(0).textScene("BRIGAND-BADTASTE")
 					)
 				);
-				Branch brigandSpotted = b.branch(6).textScene("BRIGAND-SPOT").choiceScene(
-					"How do you handle the brigand?",
-					b.branch("Charge").battleScene(
-						BattleCode.BRIGAND, Stance.OFFENSIVE, Stance.BALANCED,
-						battleBranches2
-					),
-					b.branch("Ready an Arrow").battleScene(
-						BattleCode.BRIGAND, 
-						battleBranches2
-					).setRange(2),
-					b.branch("Speak").textScene("BRIGAND-HAIL").choiceScene(
-						"Accept her offer?",
-						b.branch("Accept (Requires: Catamite)").require(ChoiceCheckType.LEWD).textScene("BRIGAND-ACCEPT").checkScene(CheckType.PLUGGED, b.branch(true).textScene("BRIGAND-BUTTPLUG").concat(acceptCont), b.branch(false).concat(acceptCont)),
-						b.branch("Decline").textScene("BRIGAND-DECLINE").checkScene(
-							CheckType.HAS_KYLIRA, 
-							b.branch(true).textScene("BRIGAND-KYLIRA"), 
-							b.branch(false).checkScene(
-								Stat.CHARISMA,
-								b.branch(5).textScene("BRIGAND-CONVINCE"),
-								b.branch(0).textScene("BRIGAND-FAIL").battleScene(
-									BattleCode.BRIGAND, 
-									battleBranches2
-								)
+				Branch speak = b.branch("Speak").textScene("BRIGAND-HAIL").choiceScene(
+					"Accept her offer?",
+					b.branch("Accept (Requires: Catamite)").require(ChoiceCheckType.LEWD).textScene("BRIGAND-ACCEPT").checkScene(CheckType.PLUGGED, b.branch(true).textScene("BRIGAND-BUTTPLUG").concat(acceptCont), b.branch(false).concat(acceptCont)),
+					b.branch("Decline").textScene("BRIGAND-DECLINE").checkScene(
+						CheckType.HAS_KYLIRA, 
+						b.branch(true).textScene("BRIGAND-KYLIRA"), 
+						b.branch(false).checkScene(
+							Stat.CHARISMA,
+							b.branch(5).textScene("BRIGAND-CONVINCE"),
+							b.branch(0).textScene("BRIGAND-FAIL").battleScene(
+								BattleCode.BRIGAND, 
+								battleBranches2
 							)
+						)
+					)
+				);
+				Branch brigandSpotted = b.branch(6).textScene("BRIGAND-SPOT").checkScene(
+					CheckType.STEALTH_LEVEL_2, 
+					b.branch(true).choiceScene(
+						"How do you handle the brigand?",
+						speak,
+						b.branch("Charge").battleScene(
+							BattleCode.BRIGAND, Stance.OFFENSIVE, Stance.BALANCED,
+							battleBranches2
+						),
+						b.branch("Ready an Arrow").battleScene(
+							BattleCode.BRIGAND, 
+							battleBranches2
+						).setRange(2).setDelay(1),
+						b.branch("Sneak Attack").battleScene(
+							BattleCode.BRIGAND, 
+							battleBranches2
+						).setDelay(2)
+					),
+					b.branch(false).choiceScene(
+						"How do you handle the brigand?",
+						speak,
+						b.branch("Charge").battleScene(
+							BattleCode.BRIGAND, Stance.OFFENSIVE, Stance.BALANCED,
+							battleBranches2
 						)
 					)
 				);
