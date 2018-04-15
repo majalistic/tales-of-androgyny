@@ -7,7 +7,6 @@ import com.badlogic.gdx.utils.Array;
 
 public class AnimationBuilder {
 	private final Animation animation;
-
 	public AnimationBuilder(Texture texture, int numFrames, float width, float height) { this(texture, numFrames, width, height, .07f); }
 	public AnimationBuilder(Texture texture, int numFrames, float width, float height, float frameDuration) {
 		Array<TextureRegion> frames = new Array<TextureRegion>();

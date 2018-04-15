@@ -37,8 +37,7 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 	private final int nodeCode;
 	private final GameWorldNodeEncounter encounter;
 
-	private final int x;
-	private final int y;
+	private final int x, y;
 	private final PlayerCharacter character;
 	private final VisitInfo visitInfo;
 	private boolean current;
@@ -213,11 +212,6 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 			algoNode = node;
 		}
 	}
-	private Vector2 calculatePosition(int x, int y) {
-		return GameWorldHelper.calculatePosition(x, y);
-	}
-	
-	private Color getAlpha(Color color) { return new Color(color.r, color.g, color.b, isHidden() ? 0 : Math.max(visitInfo.visibility * .2f, .2f)); }
 	
 	@Override
 	public void setColor(Color color) {
@@ -245,22 +239,35 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 	 * Code used for building out connections
 	 */
 	protected boolean isOverlapping(GameWorldNode otherNode) { return isOverlapping(otherNode.getHexPosition()); }
-	public boolean isOverlapping(Vector2 otherNode) { 
-		return getDistance(otherNode) <= 3;
-	}
-	
-	protected boolean isAdjacent(GameWorldNode otherNode) {
-		return isAdjacent(otherNode.getHexPosition()); 
-	}
-	
-	public boolean isAdjacent(Vector2 possible) {
-		return getDistance(possible) <= 6;
-	}
-	
+	protected boolean isOverlapping(Vector2 otherNode) { return getDistance(otherNode) <= 3; }
+	protected boolean isAdjacent(GameWorldNode otherNode) { return isAdjacent(otherNode.getHexPosition());  }
+	protected boolean isAdjacent(Vector2 possible) { return getDistance(possible) <= 6; }
 	protected int getDistance(Vector2 otherNodePosition) { return GameWorldHelper.distance(x, y, (int)otherNodePosition.x, (int)otherNodePosition.y); }
+	protected int getDistance(GameWorldNode otherNode) { return getDistance(otherNode.getHexPosition()); }
 	
-	protected int getDistance(GameWorldNode otherNode) {
-		return getDistance(otherNode.getHexPosition()); 		
+	/*
+	 * All stateful code follows - setting active/current/visibility/etc.
+	 */
+	public void setCurrent() { current = true; }
+	public boolean isCurrent() { return current; }
+	
+	public void visit(SaveService saveService) { 
+		if (visitInfo.numberOfEncounters == 0) {
+			visitInfo.numberOfEncounters = 1;
+			visitInfo.lastEncounterTime = character.getTime();
+		}
+		else {
+			if (newEncounterReady()) {
+				visitInfo.numberOfEncounters++; // change which encounter should be returned next time, need to make sure the encounter is retrieved first before calling visit on it, but that should be inherent
+				visitInfo.lastEncounterTime = character.getTime();
+			}
+		}
+		visitInfo.setVisibility(5);
+		saveService.saveDataValue(SaveEnum.VISITED_LIST, visitInfo, false); // update the visited info in the gamestate for this node
+		ObjectSet<GameWorldNode> visibleSet = new ObjectSet<GameWorldNode>();
+		visibleSet.add(this);
+		setNeighborsVisibility(saveService, character.getScoutingScore(), 1, visibleSet); // update the visibility info in each node 
+		setColor(Color.WHITE);
 	}
 	
 	protected void connectTo(GameWorldNode otherNode) {
@@ -274,15 +281,7 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 		paths.add(newPath);
 		otherNode.getConnected(this, newPath);
 	}
-	
-	private void setPathAlpha(Path path, GameWorldNode otherNode) {	path.setColor(this.visitInfo.visibility >= otherNode.visitInfo.visibility ? getAlpha(Color.WHITE) : otherNode.getAlpha(Color.WHITE)); }
-	
-	private void getConnected(GameWorldNode otherNode, Path path) { connectedNodes.add(otherNode); pathMap.put(otherNode, path); }
-	
-	/*
-	 * All stateful code follows - setting active/current/visibility/etc.
-	 */
-	public boolean isCurrent() { return current; }
+
 	public void setAsCurrentNode() {
 		current = true;
 		removeListener(fireListener);
@@ -293,6 +292,13 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 			connectedNode.setActive();
 		}
 	}	
+	
+	private void setPathAlpha(Path path, GameWorldNode otherNode) {	path.setColor(this.visitInfo.visibility >= otherNode.visitInfo.visibility ? getAlpha(Color.WHITE) : otherNode.getAlpha(Color.WHITE)); }
+	private void getConnected(GameWorldNode otherNode, Path path) { connectedNodes.add(otherNode); pathMap.put(otherNode, path); }
+	private Vector2 calculatePosition(int x, int y) { return GameWorldHelper.calculatePosition(x, y); }
+	private Color getAlpha(Color color) { return new Color(color.r, color.g, color.b, isHidden() ? 0 : Math.max(visitInfo.visibility * .2f, .2f)); }
+	private boolean isHidden() { return visitInfo.isHidden && visitInfo.visibility < 3; }
+	private boolean newEncounterReady() { return visitInfo.lastEncounterTime + 18 + ((visitInfo.randomVal % 3) * 6) < character.getTime(); }
 	
 	private void setActive() { active = true; arrow.addAction(Actions.show()); }
 	private void setInactive() {
@@ -366,31 +372,4 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 		}
 		return neighbors;
 	}
-
-	private boolean isHidden() { return visitInfo.isHidden && visitInfo.visibility < 3; }
-	
-	public void visit(SaveService saveService) { 
-		if (visitInfo.numberOfEncounters == 0) {
-			visitInfo.numberOfEncounters = 1;
-			visitInfo.lastEncounterTime = character.getTime();
-		}
-		else {
-			if (newEncounterReady()) {
-				visitInfo.numberOfEncounters++; // change which encounter should be returned next time, need to make sure the encounter is retrieved first before calling visit on it, but that should be inherent
-				visitInfo.lastEncounterTime = character.getTime();
-			}
-		}
-		visitInfo.setVisibility(5);
-		saveService.saveDataValue(SaveEnum.VISITED_LIST, visitInfo, false); // update the visited info in the gamestate for this node
-		ObjectSet<GameWorldNode> visibleSet = new ObjectSet<GameWorldNode>();
-		visibleSet.add(this);
-		setNeighborsVisibility(saveService, character.getScoutingScore(), 1, visibleSet); // update the visibility info in each node 
-		setColor(Color.WHITE);
-	}
-
-	private boolean newEncounterReady() { return visitInfo.lastEncounterTime + 18 + ((visitInfo.randomVal % 3) * 6) < character.getTime(); }
-	
-	public VisitInfo getVisitInfo() { return visitInfo; }
-
-	public void setCurrent() { current = true; }
 }
