@@ -3,7 +3,6 @@ package com.majalis.world;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -13,11 +12,9 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.ObjectSet;
-import com.badlogic.gdx.utils.Scaling;
 import com.majalis.asset.AnimatedImage;
 import com.majalis.asset.AnimationBuilder;
 import com.majalis.asset.AssetEnum;
@@ -57,16 +54,14 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 		this.y = y;
 		this.nodeCode = nodeCode;
 		this.visitInfo = visitInfo;
+		this.character = character;
+		current = false;
 		visitInfo.nodeCode = nodeCode;
 
 		// this should be refactored - shouldn't need asset manager
 		Texture activeImageTexture = assetManager.get(encounter.getCode().getTexture().getTexture());
 		if (encounter.getCode().getTexture() == AssetEnum.FOREST_ACTIVE || encounter.getCode().getTexture() == AssetEnum.ENCHANTED_FOREST || encounter.getCode().getTexture() == AssetEnum.FOREST_INACTIVE) {
-			Animation animation = new AnimationBuilder(activeImageTexture, 3, 64, 64, .14f).build(); 
-			animation.setPlayMode(PlayMode.LOOP_PINGPONG);
-			activeAnimation = new AnimatedImage(animation, Scaling.fit, Align.right);
-			activeAnimation.setState(0);
-			this.addActor(activeAnimation);
+			this.addActor(new AnimationBuilder(activeImageTexture, 3, 64, 64, .14f).setPlayMode(PlayMode.LOOP_PINGPONG).getActor());
 		}
 		else {
 			activeImage = new Image(activeImageTexture);
@@ -76,8 +71,6 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 		roadImage = assetManager.get(AssetEnum.ROAD.getTexture());
 		arrow = initArrow(new Image(assetManager.get(AssetEnum.ARROW.getTexture())));
 		
-		this.character = character;
-		current = false;
 		
 		this.addAction(Actions.show());
 		Vector2 position = calculatePosition(x, y);

@@ -2,8 +2,11 @@ package com.majalis.asset;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Scaling;
 
 public class AnimationBuilder {
 	private final Animation animation;
@@ -16,5 +19,11 @@ public class AnimationBuilder {
 		animation = new Animation(frameDuration, frames);		
 	}
 	
+	public AnimationBuilder setPlayMode(PlayMode playMode) { animation.setPlayMode(playMode); return this; }
+	public AnimatedImage getActor() { 
+		AnimatedImage image = new AnimatedImage(animation, Scaling.fit, Align.right); 
+		image.setState(0); 
+		return image;  
+	}
 	public Animation build() { return animation; }
 }
