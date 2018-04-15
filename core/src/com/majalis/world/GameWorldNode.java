@@ -279,7 +279,7 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 	}
 	private void getConnected(GameWorldNode otherNode, Path path) { connectedNodes.add(otherNode); pathMap.put(otherNode, path); }
 	private Vector2 calculatePosition(int x, int y) { return GameWorldHelper.calculatePosition(x, y); }
-	private Color getAlpha(Color color) { return new Color(color.r, color.g, color.b, isHidden() ? 0 : Math.max(visitInfo.visibility * .2f, .2f)); }
+	private Color getAlpha(Color color) { return new Color(color.r, color.g, color.b, isHidden() ? 0 : .4f + (visitInfo.visibility * 1.2f)); }
 	private boolean isHidden() { return visitInfo.isHidden && visitInfo.visibility < 3; }
 	private boolean newEncounterReady() { return visitInfo.lastEncounterTime + 18 + ((visitInfo.randomVal % 3) * 6) < character.getTime(); }
 	
