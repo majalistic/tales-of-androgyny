@@ -4,7 +4,6 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -20,6 +19,7 @@ import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.ObjectSet;
 import com.badlogic.gdx.utils.Scaling;
 import com.majalis.asset.AnimatedImage;
+import com.majalis.asset.AnimationBuilder;
 import com.majalis.asset.AssetEnum;
 import com.majalis.character.PlayerCharacter;
 import com.majalis.encounter.EncounterCode;
@@ -63,13 +63,7 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 		// this should be refactored - shouldn't need asset manager
 		Texture activeImageTexture = assetManager.get(encounter.getCode().getTexture().getTexture());
 		if (encounter.getCode().getTexture() == AssetEnum.FOREST_ACTIVE || encounter.getCode().getTexture() == AssetEnum.ENCHANTED_FOREST || encounter.getCode().getTexture() == AssetEnum.FOREST_INACTIVE) {
-			Array<TextureRegion> frames = new Array<TextureRegion>();
-			int size = 64;
-			for (int ii = 0; ii < 3; ii++) {
-				frames.add(new TextureRegion(activeImageTexture, ii * size, 0, size, size));
-			}
-			
-			Animation animation = new Animation(.14f, frames);
+			Animation animation = new AnimationBuilder(activeImageTexture, 3, 64, 64, .14f).build(); 
 			animation.setPlayMode(PlayMode.LOOP_PINGPONG);
 			activeAnimation = new AnimatedImage(animation, Scaling.fit, Align.right);
 			activeAnimation.setState(0);
