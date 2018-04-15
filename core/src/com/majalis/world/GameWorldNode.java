@@ -181,9 +181,7 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 			for (GameWorldNode node : pathToCurrent) {
 				Path path = node.pathMap.get(algoNode);
 				algoNode = node;
-				Group g = path.getParent();
-				g.removeActor(path);
-				g.addActor(path);
+				path.getParent().addActor(path);
 				path.setColor(Color.GREEN);
 			}
 		}
@@ -274,7 +272,11 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 		}
 	}	
 	
-	private void setPathAlpha(Path path, GameWorldNode otherNode) {	path.setColor(this.visitInfo.visibility >= otherNode.visitInfo.visibility ? getAlpha(Color.WHITE) : otherNode.getAlpha(Color.WHITE)); }
+	private void setPathAlpha(Path path, GameWorldNode otherNode) {	path.setColor(
+		isHidden() ? getAlpha(Color.WHITE) :
+		otherNode.isHidden() ? otherNode.getAlpha(Color.WHITE) :
+		this.visitInfo.visibility <= otherNode.visitInfo.visibility || otherNode.isHidden() ? getAlpha(Color.WHITE) : otherNode.getAlpha(Color.WHITE)); 
+	}
 	private void getConnected(GameWorldNode otherNode, Path path) { connectedNodes.add(otherNode); pathMap.put(otherNode, path); }
 	private Vector2 calculatePosition(int x, int y) { return GameWorldHelper.calculatePosition(x, y); }
 	private Color getAlpha(Color color) { return new Color(color.r, color.g, color.b, isHidden() ? 0 : Math.max(visitInfo.visibility * .2f, .2f)); }
