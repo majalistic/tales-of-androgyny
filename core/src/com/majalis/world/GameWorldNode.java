@@ -35,12 +35,12 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 	private final int x, y;
 	private final PlayerCharacter character;
 	private final VisitInfo visitInfo;
+	private final Texture roadImage;private final ClickListener fireListener;
+	private final Image arrow;
 	private boolean current;
-	private Texture roadImage;
-	private Image arrow;
-	private ClickListener fireListener;
+	private boolean active;	// indicates adjacency to current node for arrow selector
 	private Array<GameWorldNode> pathToCurrent;
-	private boolean active;	
+	
 	public GameWorldNode(final int nodeCode, GameWorldNodeEncounter encounter, int x, int y, VisitInfo visitInfo, PlayerCharacter character, AssetManager assetManager) {
 		this.connectedNodes = new ObjectSet<GameWorldNode>();
 		paths = new Array<Path>();
@@ -98,6 +98,7 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 	public GameContext getEncounterContext() { return getEncounterCode().getContext(); }
 	public boolean isConnected() { return connectedNodes.size > 0; }
 	
+	// used for finding a minimum edge unweighted path from this node to a target node
 	public Array<GameWorldNode> getPathTo(GameWorldNode node) {
 		Array<GameWorldNode> foundPath = new Array<GameWorldNode>();
 		ObjectSet<GameWorldNode> checkedNodes = new ObjectSet<GameWorldNode>(); 
@@ -122,7 +123,7 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 		}
 		return foundPath; // could not find
 	}
-	
+	// used for finding a minimum edge path from this node to the current node with minimized absolute length
 	public Array<GameWorldNode> getPathToCurrent() {
 		if (pathToCurrent != null ) return pathToCurrent;
 		ObjectSet<GameWorldNode> checkedNodes = new ObjectSet<GameWorldNode>(); 
