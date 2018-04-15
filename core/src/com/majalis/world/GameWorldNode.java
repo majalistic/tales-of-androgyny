@@ -15,7 +15,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.ObjectSet;
-import com.majalis.asset.AnimatedImage;
 import com.majalis.asset.AnimationBuilder;
 import com.majalis.asset.AssetEnum;
 import com.majalis.character.PlayerCharacter;
@@ -33,13 +32,10 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 	private final Array<Path> paths;
 	private final int nodeCode;
 	private final GameWorldNodeEncounter encounter;
-
 	private final int x, y;
 	private final PlayerCharacter character;
 	private final VisitInfo visitInfo;
 	private boolean current;
-	private Image activeImage;
-	private AnimatedImage activeAnimation;
 	private Texture roadImage;
 	private Image arrow;
 	private ClickListener fireListener;
@@ -60,17 +56,10 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 
 		// this should be refactored - shouldn't need asset manager
 		Texture activeImageTexture = assetManager.get(encounter.getCode().getTexture().getTexture());
-		if (encounter.getCode().getTexture() == AssetEnum.FOREST_ACTIVE || encounter.getCode().getTexture() == AssetEnum.ENCHANTED_FOREST || encounter.getCode().getTexture() == AssetEnum.FOREST_INACTIVE) {
-			this.addActor(new AnimationBuilder(activeImageTexture, 3, 64, 64, .14f).setPlayMode(PlayMode.LOOP_PINGPONG).getActor());
-		}
-		else {
-			activeImage = new Image(activeImageTexture);
-			this.addActor(activeImage);
-		}
+		this.addActor(encounter.getCode().hasGenericTile() ? new AnimationBuilder(activeImageTexture, 3, 64, 64, .14f).setPlayMode(PlayMode.LOOP_PINGPONG).getActor() : new Image(activeImageTexture));
 		
 		roadImage = assetManager.get(AssetEnum.ROAD.getTexture());
 		arrow = initArrow(new Image(assetManager.get(AssetEnum.ARROW.getTexture())));
-		
 		
 		this.addAction(Actions.show());
 		Vector2 position = calculatePosition(x, y);
@@ -86,12 +75,12 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 		};
 		addListener(fireListener);
 		addListener(new ClickListener() { 
-			@Override public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) { setColor(Color.GREEN); if (activeAnimation != null) activeAnimation.setColor(getAlpha(Color.GREEN)); setPathHighlight(); }
-			@Override public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) { setColor(Color.WHITE); if (activeAnimation != null) activeAnimation.setColor(current ? getAlpha(Color.PINK) : getAlpha(Color.WHITE)); setPathUnhighlight(); }
+			@Override public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) { setColor(Color.GREEN); setPathHighlight(); }
+			@Override public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) { setColor(Color.WHITE);  setPathUnhighlight(); }
 		});
 		setColor(Color.WHITE);
 	}
-	
+
 	private Image initArrow(Image arrow) {
 		this.addActor(arrow);
 		arrow.addAction(Actions.hide());
@@ -224,8 +213,6 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 			arrow.setColor(Color.WHITE);
 			if (active) arrow.addAction(Actions.show());
 		}
-		if (activeImage != null) activeImage.setColor(getAlpha(Color.WHITE));
-		if (activeAnimation != null) activeAnimation.setColor(current ? getAlpha(Color.PINK) : getAlpha(Color.WHITE));
 	}
 	
 	@Override
@@ -281,9 +268,6 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 	public void setAsCurrentNode() {
 		current = true;
 		removeListener(fireListener);
-		if (activeAnimation != null) {
-			activeAnimation.setColor(getAlpha(Color.PINK));
-		}
 		for (GameWorldNode connectedNode : connectedNodes) {
 			connectedNode.setActive();
 		}
@@ -304,9 +288,6 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 			addListener(fireListener);
 		}
 		
-		if (activeAnimation != null) {
-			activeAnimation.setColor(getAlpha(Color.WHITE));
-		}
 		for(ObjectMap.Entry<GameWorldNode, Path> path : pathMap.entries()) {
 			setPathAlpha(path.value, path.key);
 		}

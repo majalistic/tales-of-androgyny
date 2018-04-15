@@ -117,6 +117,8 @@ public enum EncounterCode {
 
 	public AssetEnum getTexture() { return texture; }
 	
+	public boolean hasGenericTile() { return getTexture() == AssetEnum.FOREST_ACTIVE || getTexture() == AssetEnum.ENCHANTED_FOREST || getTexture() == AssetEnum.FOREST_INACTIVE; }
+	
 	public TownCode getTownCode() { return this == TOWN ? TownCode.TOWN : this == TOWN2 ? TownCode.TOWN_STORY : TownCode.TOWN_MONSTER; }
 	
 	public String getDescription(int visibility) {
