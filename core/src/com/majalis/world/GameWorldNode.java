@@ -74,13 +74,8 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 		}
 		
 		roadImage = assetManager.get(AssetEnum.ROAD.getTexture());
-		Texture arrowImage = assetManager.get(AssetEnum.ARROW.getTexture());
-		arrow = new Image(arrowImage);
-		this.addActor(arrow);
-		arrow.addAction(Actions.hide());
-		arrow.setPosition(32 - arrowImage.getWidth() / 2, getY() + 50);
-		arrow.addAction(Actions.forever(Actions.sequence(Actions.moveBy(0, 8, 2), Actions.moveBy(0, -8, 2))));
-			
+		arrow = initArrow(new Image(assetManager.get(AssetEnum.ARROW.getTexture())));
+		
 		this.character = character;
 		current = false;
 		
@@ -102,6 +97,14 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 			@Override public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) { setColor(Color.WHITE); if (activeAnimation != null) activeAnimation.setColor(current ? getAlpha(Color.PINK) : getAlpha(Color.WHITE)); setPathUnhighlight(); }
 		});
 		setColor(Color.WHITE);
+	}
+	
+	private Image initArrow(Image arrow) {
+		this.addActor(arrow);
+		arrow.addAction(Actions.hide());
+		arrow.setPosition(32 - arrow.getWidth() / 2, getY() + 50);
+		arrow.addAction(Actions.forever(Actions.sequence(Actions.moveBy(0, 8, 2), Actions.moveBy(0, -8, 2))));
+		return arrow;
 	}
 	
 	public Vector2 getHexPosition() { return new Vector2(x, y); }	
