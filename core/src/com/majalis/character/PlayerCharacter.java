@@ -665,7 +665,7 @@ public class PlayerCharacter extends AbstractCharacter {
 	public void levelUp() {
 		experience -= 5;
 		level++;
-		skillPoints += 2;
+		skillPoints++;
 		perkPoints++;
 		if (hasMagic()) {
 			magicPoints++;
