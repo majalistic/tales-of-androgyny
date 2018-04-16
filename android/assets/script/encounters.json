@@ -4847,7 +4847,9 @@
 			{
 			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analEjaculation":1}}],
 			"text": "Getting your shithole scraped out by a harpy's bird dick gives you a good reason to cum... so you do, splatting the dirt with your secured catamite cream."},
-			{"text": "You tighten your harpy-stretched hole around her bird dick, trying to coax it out of her now that you've had your fill, and you feel her turkey leg throbbing in your fucked-up butt.  You look over your shoulder at the bird-brain who's about to fertilize your eggs, and you can see that you've fucked her silly."},
+			{
+			"sound": "BIRD_SCREECH",
+			"text": "You tighten your harpy-stretched hole around her bird dick, trying to coax it out of her now that you've had your fill, and you feel her turkey leg throbbing in your fucked-up butt.  You look over your shoulder at the bird-brain who's about to fertilize your eggs, and you can see that you've fucked her silly."},
 			{
 			"sound": "CUM",
 			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "creampies":1}}],
@@ -4862,10 +4864,27 @@
 		"key": "HARPY-VICTORY-TOP-ANAL",
 		"scriptLines": [
 			{"text": "The harpy has crashed into the ground with her tail feathers sticking up... if she really wants to mate that badly..."},
-		
-		
-		
-			{"text": "She flaps away in a hail of feathers, her bird dong wilting between her legs like a big floppy noodle."}		
+			{"text": "You're not sure why the harpy seems to accept this as a consolation prize, but you've committed to stuffing this particular turkey."},		
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSexTop":1}}],
+			"text": "For its size - the harpy obviously eats well, and you try not to think about what - her rear is surprisingly firm and muscular, explaining the power with which she takes off from the ground. It's also surprisingly tight, sphincter wise, and it takes some effort to reach into her depths."},
+			{"text": "Birds, you recall, have only one hole - you wonder if you might be inadvertantly starting a half-avian brood."},
+			{"text": "She chirps intimately as you sink inside, wiggling her hips in an odd circular motion as you do. She continues to do that while you thrust your way in and out of her appreciative hole, building yourself towards a satisfying ending in her avian asspussy."},
+			{
+			"sound": "BIRD_SCREECH",
+			"text": "Her vocalizations are... strange, for the normal course of these things, but not so strange for a bird person, you assume. As you build to a fever pitch, slapping against her fat ass with your hips and the palm of your hand, she similarly begins to screech loudly and wildly."},
+			{"text": "You're not sure what her screeching is about, but her sphincter tightens by a factor of four coinciding with it, which gives you other things to worry about - mainly, your impending orgasm."},
+			{
+			"sound": "CUM",
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "ejaculationInButt":1}}],
+			"text": "Whether it's her ass or her pussy doesn't really matter now - it's getting the creampie special either way. You fling your shameful nut in her hot bird bowels with all the dignity that implies, coating her insides in human semen."},
+			{"text": "You wonder how many other heroes have given a fat-assed harpy a cum enema, and you doubt it's that many of them."},
+			{"text": "Once you're done unloading in her... thing, you retract your half-erect penis, giving her an affectionate pat on the rear as you do, for reasons that aren't clear to you. You clothe yourself again, and then walk around her to see what she was making a fuss about."},
+			{"text": "The view is... surreal. Her face is slack, clearly content, and in a large area in front of her, the ground is coated in a white, sticky sauce."},
+			{"text": "Without you even touching her schlong, she'd busted her bird nut all over the ground - a thick, goopy pile and spray of densely white in some places and runny clear in others liquid that has a strong fishy odor even from a few paces distance."},
+			{"text": "You swallow, imagining what would have happened if the situation had been reversed. Had she intended that anally-induced ejaculate to end up... somewhere else?"},
+			{"text": "The harpy no longer seems hostile, and is, point of fact, in another world, barely acknowledging your presence as she lazily ejects your sperm from her all-purpose hole."},
+			{"text": "You walk away, and soon thereafter she flaps away in a hail of feathers, her bird dong wilting between her legs like a big floppy noodle."}		
 		]		
 	},
 	{
