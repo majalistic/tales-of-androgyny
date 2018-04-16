@@ -34,6 +34,7 @@ public class ChoiceScene extends AbstractChoiceScene {
 	private final Texture arrowImage;
 	private final PlayerCharacter character;
 	private final Background background;
+	private final int maxLength;
 	private int selection;
 	// this should receive a map of integers to choice buttons 
 	public ChoiceScene(OrderedMap<Integer, Scene> sceneBranches, int sceneCode, SaveService saveService, BitmapFont font, String choiceDialogue, Array<BranchChoice> choices, Texture arrowImage, PlayerCharacter character, Background background, EncounterHUD hud) {
@@ -46,11 +47,18 @@ public class ChoiceScene extends AbstractChoiceScene {
 		this.addActor(background);
 		Table table = new Table();
 		int ii = 0;
+		int maxLengthTemp = 0;
+		for (BranchChoice choice: choices) {
+			int length = 50 + choice.button.getText().length() * 20;
+			if (length > maxLengthTemp) maxLengthTemp = length;
+		}
+		maxLength = maxLengthTemp;
+		
 		for (BranchChoice choice: choices) {
 			TextButton button = choice.button;
 			buttons.add(button);
 			button.addListener(getListener(ii++, choice.scene, choice.clickSound));
-			table.add(button).size(50 + button.getText().length() * 20, 150).row();	
+			table.add(button).size(maxLength, 125).row();	
 		}	
         table.setPosition(960, 900);
         table.align(Align.top);
@@ -141,7 +149,7 @@ public class ChoiceScene extends AbstractChoiceScene {
 	        	else selection = 0;
 	        }
 		}
-		batch.draw(arrowImage, 840 - (buttons.get(selection).getText().length() * 10), 750 - selection * 150, 100, 150);
+		batch.draw(arrowImage, 840 - maxLength / 2, 775 - selection * 125, 100, 125);
     }
 	@Override
 	public String getText() {
