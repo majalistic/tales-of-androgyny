@@ -4831,8 +4831,31 @@
 	},
 	{
 		"key": "HARPY-VICTORY-BOTTOM-ANAL",
-		"scriptLines": [	
-			{"text": ""}		
+		"scriptLines": [
+			{"text": "The harpy looks bashful, like she's embarrassed that she was trying so hard to mate with you.  Now that she's been cowed... you don't have any particular disagreements with her about that idea."},
+			{"text": "You get down on your hands and knees and slap your <BUTTSIZE> butt, inviting the harpy to party.  She uneasily approaches you, looking at you sideways in curiosity, as her hardened resolve dangles between her thick thighs."},
+			{"text": "She tries to place her talon on your other cheek, but you knock it off, and reach back, grabbing hold of her big wet one, giving it a few strokes to placate her. She lets you guide it towards your upturned rear... and the tip presses against your welcoming starfish, making her squawk in surprise."},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1, "bird":true}}],
+			"text": "You push out, wanting that dick inside of you, knowing just from eyeing it that she is the bird-woman personification of the term \"long haul.\" Her foreskin-covered head slips inside, and you sigh, relaxing your sphincter.  You got exactly what you wanted."},
+			{"text": "You keep a hand on her chest to prevent her from jamming the whole foot-long bird-wiener in at once, which would be something of an ordeal rather than an act of anal self-pleasure, which is how you're viewing the slow gliding in of her smooth bird-dick that's giving your tight hole the stimulation it needs."},
+			{"text": "It's doubtful that she could find the prostate on her own, but when your impromptu lover has that much dick, it's not that important."},
+			{"text": "You look around, feeling a little guilty that you're anally masturbating with the finest birdcock specimen you've ever seen, but nobody is watching you getting avian ass-shoved just off the beaten path."},
+			{"text": "When you've measured the full length of it, feeling her thick thighs tap against your ass, with your plumbing, you let her have more free rein in snaking your pipes, and she enthusiastically does so."},
+			{"text": "Your face is getting red once she starts going - her thing is quite long, and her thrusting game is wild, erratic, and strong. She's not gentle, but she makes your toes curl all the same."},
+			{"text": "She doesn't give any indication that she's going to splat too early, so you rest your chin down and enjoy the ass-plunging, feeling the hands-free orgasm on the rise."},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analEjaculation":1}}],
+			"text": "Getting your shithole scraped out by a harpy's bird dick gives you a good reason to cum... so you do, splatting the dirt with your secured catamite cream."},
+			{"text": "You tighten your harpy-stretched hole around her bird dick, trying to coax it out of her now that you've had your fill, and you feel her turkey leg throbbing in your fucked-up butt.  You look over your shoulder at the bird-brain who's about to fertilize your eggs, and you can see that you've fucked her silly."},
+			{
+			"sound": "CUM",
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "creampies":1}}],
+			"text": "You feel a thud in your belly, indicating a successfully milked off beast-girl.  Another notch to add to your belt."},		
+			{"text": "When she pulls out, it's a long, sucking sound - further indication of just how well-hung the bird-girl is. You feel it vacate and shudder, until it pops fully free, and her cum and feathers begin to drool out."},
+			{
+			"mutations": [{"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": 2}}],
+			"text": "You give her a peck on the cheek and continue on your journey, as she lies there, sitting knock-kneed in a puddle of feathers and cum, panting and exhausted."}	
 		]		
 	},
 	{
