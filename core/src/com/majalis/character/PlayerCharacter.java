@@ -955,8 +955,8 @@ public class PlayerCharacter extends AbstractCharacter {
 			result.addAll(receiveAnal(getPhallusType(sex)));
 			setCurrentPortrait(perks.get(Perk.ANAL_ADDICT.toString(), 0) > 1 ? AssetEnum.PORTRAIT_LUST : AssetEnum.PORTRAIT_HIT);
 		}
-		for (int ii = 0; ii < sex.getCreampies(); ii++) { result.addAll(fillButt(5)); }
-		
+	
+		if (sex.getCreampies() > 0 ) { result.addAll(fillButt(5 * sex.getCreampies())); }
 		if (sex.getCreampies() > 0 && questFlags.get(QuestType.GOBLIN.toString(), 0) == 2 && !fullOfEggs()) { getPregnant(getPhallusType(sex)); }
 		
 		for (int ii = 0; ii < sex.getAnalEjaculations(); ii++) {
