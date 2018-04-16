@@ -5713,6 +5713,22 @@
 		]
 	},
 	{
+		"key": "CENTAUR-SHOW",
+		"scriptLines": [
+			{
+			"animatedForeground": "CENTAUR",
+			"text": ""}
+		]
+	},
+	{
+		"key": "UNICORN-SHOW",
+		"scriptLines": [
+			{
+			"animatedForeground": "UNICORN",
+			"text": ""}
+		]
+	},
+	{
 		"key": "UNICORN-ENTRANCE",
 		"scriptLines": [
 			{
@@ -5883,7 +5899,9 @@
 	{
 		"key": "CENTAUR-VICTORY-INSPECT",
 		"scriptLines": [
-			{"text": "You take a gander at what the horse lady is packing between her legs and... well, isn't that interesting.  You've seen one of those one horses before, but she seems a bit shy about having one herself."},
+			{
+			"mutations": [{"saveType":"PORTRAIT", "value":{"class": "com.majalis.asset.AssetEnum", "value": "PORTRAIT_LOVE"}}], 
+			"text": "You take a gander at what the horse lady is packing between her legs and... well, isn't that interesting.  You've seen one of those one horses before, but she seems a bit shy about having one herself."},
 			{"text": "The way you see it, you have two options for playing with it, and both of them seem more than a little ridiculous... so it's just a matter of choosing which one."}
 		]
 	},	
@@ -5896,7 +5914,96 @@
 	{
 		"key": "CENTAUR-VICTORY-ORAL",
 		"scriptLines": [
+			{"text": "You kneel down underneath her and get a good look at the thing you're about to put in your mouth.  Wow.  It's even bigger when you see it up close.  It smells like... horse dick.  Which, well, it is."},
+			{"text": "You reach out to touch it, giving it a quick caress on the side, and it continues to grow, the tip becoming slick.  You try to wrap your hand around it to stroke it, but you can barely get halfway."},
+			{"text": "This thing was... not made to be sucked.  It's looking for a nice big target to sink itself into and fill with pony goo, and your mouth is not it.  You open your mouth wide - even so, that is what it's going to fuck."},
+			{"text": "Even with your mouth open painfully wide, she still hits up against your teeth on the first approach.  You realize your eyes might be writing checks that your jaw can't cash.  You open up wider, wider... and then tilt your head forward, barely taking the tip of the head inside, and working the rest of your mouth over it."},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "oralSex":1, "horse":true}}],
+			"text": "She moans as she feels you initiate a fellatio that's going to be one for the record books.   Your firsts clench as you forcefully open your jaw wider to take more of her in, so that you taste her horse dick sliding over your tongue, giving your uvula something to ponder over."},
+			{"text": "You have to painfully stretch your jaw just to fit it in your mouth - the obvious mismatch in anatomies makes your heart throb.  If she took a sudden step forward, you'd be choking on more dick than you ever could have dreamed of."},
+			{"text": "Of course, what's the point of putting a horse-like dick in your mouth if you aren't planning to deepthroat it... you push yourself forward, grasping on to the cock near the sheath and pulling it forward, threatening to pop it into your throat.  With a loud, awful squelching sound, it does, and you can no longer breathe."},
+			{"text": "She whinnies, apparently now starting to feel something that you've gotten... less than half of her shaft in your mouth.  You feel the horse precum drooling down your throat, and savor that for a bit, knowing you're getting a reward you definitely shouldn't be getting."},
+			{"text": "Some mare's pussy is missing out on what's stuffed in your throat, but your throat is definitely getting more out of it.  Your own dick is throbbing, and wants you to take even more of it, until you're not just gagging, you're red-faced and choking on the part of her that's just far too much."},
+			{"text": "It gets what it wants, and soon your eyes are rolled into the back of your head, your face red, as you breathlessly gobble down a horse dick, knowing that at any moment, you're going to trigger a mare womb-filling special right down your gullet, filling your belly with her warm, fresh jizz."},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "fellatioEjaculation":1}}],
+			"text": "The moment you touch your dick, you cum, spraying it all out between her hind legs, feeling like such a pervert with a horse's dong in your throat.  Soon thereafter, you feel her entire shaft throb, and you gag."},
+			{
+			"sound": "CUM",
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "oralCreampies":2}}],
+			"text": "She proves a quick shot - your stomach feels like it's filling with stinging-hot porridge as her equine semen rockets out into it, filling your gut completely on the first powerful blast.  Each shot that follows proves that you're too small of a vessel, but you couldn't pull off her cock even if you wanted to."},
+			{
+			"sound": "CUM_BUBBLING",
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "oralCreampies":2}}],
+			"text": "Humans are not meant to suck off horse cocks, obviously, so it's very difficult to contain it all inside of your head - it overflows your mouth, and the jets of horse cum that shoot out of your nostrils and onto her shaft are similar to icing on a very, very frosted cake."},
+			{"text": "There are fat tears in your eyes, your fists balled up, as you take the inevitable result of your centaur fellatio.  There's too much of it - you worry you might drown."},
+			{"text": "You half expect it to begin drooling out of your ears, and you blink away what you hope isn't tears of horse jizz. Your stomach is turning itself into knots from being so forcefully inseminated and stretched."},
+			{"text": "The sound her rapidly deflating cock makes as it extricates itself from your throat is... wet.  Air rushes in where it can get around all of the runny white horse goo."},
+			{"text": "You can taste her horse semen with your entire body.  The smell would be impossible to stay away from even if her sperm wasn't coating your tongue, throat and face, or filling your bloated stomach."},
+			{"text": "You spit as much of it as you can on the ground, not sure how much fresh equine ball milk is safe for human consumption, but betting it isn't very much."},
+			{"text": "Her ejaculate was twenty times the volume of any man's, so no matter how much you spit up, there's still more coating your throat and teeth, and sitting in your stomach, pointedly NOT making horse babies."},
+			{"text": "You expect you won't soon forget the experience.  Even now, after you've cum, and you should be so nauseous that you're puking up horse cum for the next few minutes, you're so turned on that it's barely unpleasant at all."},
+			{"text": "You just drank straight from the firehose, and all you can think is how to get the stuff bottled for future consumption."},
+			{"text": "You pat your bloated stomach.  Drinking horse cum is, well, not thirsty work, but you've certainly worked up a thirst for something that doesn't contain horsey sperm.  You burp, satisfyingly full, and the embarassed centaur lady cantors off."}
+		]
+	},	
+	{
+		"key": "UNICORN-VICTORY-LUST",
+		"scriptLines": [
+			{"text": "You can't contain yourself.  You need to... you approach her, and she watches you with skeptical interest."}
+		]
+	},	
+	{
+		"key": "UNICORN-VICTORY-INSPECT",
+		"scriptLines": [
+			{
+			"mutations": [{"saveType":"PORTRAIT", "value":{"class": "com.majalis.asset.AssetEnum", "value": "PORTRAIT_LOVE"}}], 
+			"text": "You take a gander at what the horse lady is packing between her legs and... well, isn't that interesting.  You've seen one of those one horses before, but she seems a bit shy about having one herself."},
+			{"text": "The way you see it, you have two options for playing with it, and both of them seem more than a little ridiculous... so it's just a matter of choosing which one."}
+		]
+	},	
+	{
+		"key": "UNICORN-VICTORY-ANAL",
+		"scriptLines": [
 			{"text": ""}
+		]
+	},		
+	{
+		"key": "UNICORN-VICTORY-ORAL",
+		"scriptLines": [
+			{"text": "You kneel down underneath her and get a good look at the thing you're about to put in your mouth.  Wow.  It's even bigger when you see it up close.  It smells like... horse dick.  Which, well, it is."},
+			{"text": "You reach out to touch it, giving it a quick caress on the side, and it continues to grow, the tip becoming slick.  You try to wrap your hand around it to stroke it, but you can barely get halfway."},
+			{"text": "This thing was... not made to be sucked.  It's looking for a nice big target to sink itself into and fill with pony goo, and your mouth is not it.  You open your mouth wide - even so, that is what it's going to fuck."},
+			{"text": "Even with your mouth open painfully wide, she still hits up against your teeth on the first approach.  You realize your eyes might be writing checks that your jaw can't cash.  You open up wider, wider... and then tilt your head forward, barely taking the tip of the head inside, and working the rest of your mouth over it."},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "oralSex":1, "horse":true}}],
+			"text": "She moans as she feels you initiate a fellatio that's going to be one for the record books.   Your firsts clench as you forcefully open your jaw wider to take more of her in, so that you taste her horse dick sliding over your tongue, giving your uvula something to ponder over."},
+			{"text": "You have to painfully stretch your jaw just to fit it in your mouth - the obvious mismatch in anatomies makes your heart throb.  If she took a sudden step forward, you'd be choking on more dick than you ever could have dreamed of."},
+			{"text": "Of course, what's the point of putting a horse-like dick in your mouth if you aren't planning to deepthroat it... you push yourself forward, grasping on to the cock near the sheath and pulling it forward, threatening to pop it into your throat.  With a loud, awful squelching sound, it does, and you can no longer breathe."},
+			{"text": "She whinnies, apparently now starting to feel something that you've gotten... less than half of her shaft in your mouth.  You feel the horse precum drooling down your throat, and savor that for a bit, knowing you're getting a reward you definitely shouldn't be getting."},
+			{"text": "Some mare's pussy is missing out on what's stuffed in your throat, but your throat is definitely getting more out of it.  Your own dick is throbbing, and wants you to take even more of it, until you're not just gagging, you're red-faced and choking on the part of her that's just far too much."},
+			{"text": "It gets what it wants, and soon your eyes are rolled into the back of your head, your face red, as you breathlessly gobble down a horse dick, knowing that at any moment, you're going to trigger a mare womb-filling special right down your gullet, filling your belly with her warm, fresh jizz."},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "fellatioEjaculation":1}}],
+			"text": "The moment you touch your dick, you cum, spraying it all out between her hind legs, feeling like such a pervert with a horse's dong in your throat.  Soon thereafter, you feel her entire shaft throb, and you gag."},
+			{
+			"sound": "CUM",
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "oralCreampies":2}}],
+			"text": "She proves a quick shot - your stomach feels like it's filling with stinging-hot porridge as her equine semen rockets out into it, filling your gut completely on the first powerful blast.  Each shot that follows proves that you're too small of a vessel, but you couldn't pull off her cock even if you wanted to."},
+			{
+			"sound": "CUM_BUBBLING",
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "oralCreampies":2}}],
+			"text": "Humans are not meant to suck off horse cocks, obviously, so it's very difficult to contain it all inside of your head - it overflows your mouth, and the jets of horse cum that shoot out of your nostrils and onto her shaft are similar to icing on a very, very frosted cake."},
+			{"text": "There are fat tears in your eyes, your fists balled up, as you take the inevitable result of your centaur fellatio.  There's too much of it - you worry you might drown."},
+			{"text": "You half expect it to begin drooling out of your ears, and you blink away what you hope isn't tears of horse jizz. Your stomach is turning itself into knots from being so forcefully inseminated and stretched."},
+			{"text": "The sound her rapidly deflating cock makes as it extricates itself from your throat is... wet.  Air rushes in where it can get around all of the runny white horse goo."},
+			{"text": "You can taste her horse semen with your entire body.  The smell would be impossible to stay away from even if her sperm wasn't coating your tongue, throat and face, or filling your bloated stomach."},
+			{"text": "You spit as much of it as you can on the ground, not sure how much fresh equine ball milk is safe for human consumption, but betting it isn't very much."},
+			{"text": "Her ejaculate was twenty times the volume of any man's, so no matter how much you spit up, there's still more coating your throat and teeth, and sitting in your stomach, pointedly NOT making horse babies."},
+			{"text": "You expect you won't soon forget the experience.  Even now, after you've cum, and you should be so nauseous that you're puking up horse cum for the next few minutes, you're so turned on that it's barely unpleasant at all."},
+			{"text": "You just drank straight from the firehose, and all you can think is how to get the stuff bottled for future consumption."},
+			{"text": "You pat your bloated stomach.  Drinking horse cum is, well, not thirsty work, but you've certainly worked up a thirst for something that doesn't contain horsey sperm.  You burp, satisfyingly full, and the embarassed centaur lady cantors off."}
 		]
 	},	
 	{
