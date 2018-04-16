@@ -419,6 +419,6 @@ public enum Techniques {
 	
 	public Techniques getPluggedAlternate() { return YOINK; }
 	public boolean isLearnable() { return learnable; }
-	public int getRequiredLevel() { return this == CENTER ? 5 : 1; }
+	public int getRequiredLevel() { return this == CENTER || this == BLITZ_ATTACK || this == SUDDEN_ADVANCE || this == VAULT || this == STONEWALL || this == BERSERK || this == REEL_BACK ? 5 : 1; }
 	public String getRequiredLevelText() { return getRequiredLevel() == 1 ? "" : "Requires: Level " + getRequiredLevel(); }
 }
