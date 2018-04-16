@@ -642,7 +642,7 @@ public class PlayerCharacter extends AbstractCharacter {
 		int nextLevel = 0;
 		while (currentExperience >= 0) {
 			int currentLevel = level + storedLevels;
-			int experienceForLevel = (1 + (currentLevel / 10)) * 5;
+			int experienceForLevel = (1 + (currentLevel / 10)) * 10;
 			nextLevel = experienceForLevel;
 			if (currentExperience > experienceForLevel) storedLevels++;
 			currentExperience -= experienceForLevel;
@@ -655,7 +655,7 @@ public class PlayerCharacter extends AbstractCharacter {
 		int storedLevels = 0;
 		while (currentExperience > 0) {
 			int currentLevel = level + storedLevels;
-			int experienceForLevel = (1 + (currentLevel / 10)) * 5;
+			int experienceForLevel = (1 + (currentLevel / 10)) * 10;
 			if (currentExperience > experienceForLevel) storedLevels++;
 			currentExperience -= experienceForLevel;
 		}
