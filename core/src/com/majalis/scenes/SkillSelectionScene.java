@@ -653,8 +653,9 @@ public class SkillSelectionScene extends Scene {
 				if (!technique.isLearnable() || technique.getTrait().getUsableStance() != stance) continue;
 				final Integer level = skills.get(technique, 0);
 				final Label label = new Label(technique.getTrait().getName(), skin);
-				label.setAlignment(Align.right);
-				label.setColor(Color.WHITE);
+				boolean levelRequired = technique.getRequiredLevel() <= character.getLevel();
+				Color defaultColor = levelRequired ? Color.WHITE : Color.GRAY;
+				label.setColor(defaultColor);
 				label.setAlignment(Align.right);
 				
 				final Button plusButton = getPlusButton();
@@ -670,7 +671,7 @@ public class SkillSelectionScene extends Scene {
 				for (int ii = 0; ii < level; ii++) baubles.add(new Image(assetManager.get(AssetEnum.FILLED_BAUBLE.getTexture())));
 				for (int ii = 0; ii < technique.getMaxRank() - level; ii++) baubles.add(new Image(assetManager.get(AssetEnum.EMPTY_BAUBLE.getTexture())));
 				
-				final Row row = new Row(technique, label, Color.WHITE, skillDisplay, bonusDisplay, skillDisplayTable, consoleTable);
+				final Row row = new Row(technique, label, defaultColor, skillDisplay, bonusDisplay, skillDisplayTable, consoleTable);
 				
 				label.addListener(new ClickListener() {
 					@Override
@@ -682,44 +683,49 @@ public class SkillSelectionScene extends Scene {
 				label.addListener(getListener(row));
 				plusButton.addListener(getListener(row));
 				minusButton.addListener(getListener(row));
-				plusButton.addListener(new ClickListener() {
-					@Override
-			        public void clicked(InputEvent event, float x, float y) {
-						gemSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
-						if ((magic ? magicPoints : skillPoints) > 0) {
-							Integer newLevel = skills.get(technique);
-							if (newLevel == null) newLevel = 0;
-							if (newLevel < technique.getMaxRank()) {
-								if (newLevel + 1 <= (magic ? magicPoints : skillPoints)) {
-									if (!magic) {
-										skillPoints -= newLevel + 1;
-										skillPointsDisplay.setText("Skill Points: " + skillPoints);
+				if (levelRequired) {
+					plusButton.addListener(new ClickListener() {
+						@Override
+				        public void clicked(InputEvent event, float x, float y) {
+							gemSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
+							if ((magic ? magicPoints : skillPoints) > 0) {
+								Integer newLevel = skills.get(technique);
+								if (newLevel == null) newLevel = 0;
+								if (newLevel < technique.getMaxRank()) {
+									if (newLevel + 1 <= (magic ? magicPoints : skillPoints)) {
+										if (!magic) {
+											skillPoints -= newLevel + 1;
+											skillPointsDisplay.setText("Skill Points: " + skillPoints);
+										}
+										else {
+											magicPoints -= newLevel + 1;
+											magicPointsDisplay.setText("Magic Points: " + magicPoints);
+										}	
+										skills.put(technique, ++newLevel);
+										console.setText("You have learned " + technique.getTrait().getName() + " Rank " + newLevel +".");
+										for (int ii = level; ii < newLevel; ii++) {
+											baubles.get(ii).setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(AssetEnum.ADDED_BAUBLE.getTexture()))));
+										}
+										if (newLevel == technique.getMaxRank()) plusButton.setColor(Color.GRAY);
+										minusButton.setColor(Color.WHITE);
 									}
 									else {
-										magicPoints -= newLevel + 1;
-										magicPointsDisplay.setText("Magic Points: " + magicPoints);
-									}	
-									skills.put(technique, ++newLevel);
-									console.setText("You have learned " + technique.getTrait().getName() + " Rank " + newLevel +".");
-									for (int ii = level; ii < newLevel; ii++) {
-										baubles.get(ii).setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(AssetEnum.ADDED_BAUBLE.getTexture()))));
+										console.setText("You do not have enough " + (magic ? "magic" : "skill") + " points!");
 									}
-									if (newLevel == technique.getMaxRank()) plusButton.setColor(Color.GRAY);
-									minusButton.setColor(Color.WHITE);
 								}
 								else {
-									console.setText("You do not have enough " + (magic ? "magic" : "skill") + " points!");
-								}
+									console.setText("You cannot improve on that " + (magic ? "spell" : "skill") + " any further!");
+								}	
 							}
 							else {
-								console.setText("You cannot improve on that " + (magic ? "spell" : "skill") + " any further!");
-							}	
-						}
-						else {
-							console.setText("You have no " + (magic ? "magic" : "skill") + " points!");
-						}
-			        }
-				});
+								console.setText("You have no " + (magic ? "magic" : "skill") + " points!");
+							}
+				        }
+					});
+				}
+				else {
+					plusButton.setColor(Color.GRAY);
+				}
 				
 				minusButton.addListener(new ClickListener() {
 					@Override
@@ -826,7 +832,7 @@ public class SkillSelectionScene extends Scene {
 			if (technique != null) {
 				stanceTransition.setTransition(technique.getTrait().getUsableStance(), technique.getTrait().getResultingStance());
 				stanceTransition.addAction(Actions.show());
-				skillDisplay.setText(technique.getTrait().getDescription());
+				skillDisplay.setText(technique.getTrait().getDescription() + "" + technique.getRequiredLevelText());
 				skillFlavor.setText(technique.getFlavorText());
 				bonusDisplay.setText(technique.getTrait().getBonusInfo());
 				consoleName.setText(technique.getTrait().getName());

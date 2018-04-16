@@ -419,4 +419,6 @@ public enum Techniques {
 	
 	public Techniques getPluggedAlternate() { return YOINK; }
 	public boolean isLearnable() { return learnable; }
+	public int getRequiredLevel() { return this == CENTER ? 5 : 1; }
+	public String getRequiredLevelText() { return getRequiredLevel() == 1 ? "" : "Requires: Level " + getRequiredLevel(); }
 }
