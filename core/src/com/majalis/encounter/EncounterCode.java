@@ -798,8 +798,22 @@ public enum EncounterCode {
 						b.branch(false).textScene("CARRIAGE-DENIED")
 					);
 			case CENTAUR:
-				Branch[] centaurBattle = new Branch[]{b.branch(Outcome.VICTORY).textScene("CENTAUR-VICTORY"), b.branch(Outcome.DEFEAT).textScene("CENTAUR-DEFEAT").checkScene(Perk.EQUESTRIAN, b.branch(3).textScene("CENTAUR-GAME-OVER").gameEnd(), b.branch(0).textScene("CENTAUR-DEFEAT-CONT")), b.branch(Outcome.SATISFIED_ANAL).textScene("CENTAUR-SATISFIED")};
-				Branch[] unicornBattle = new Branch[]{b.branch(Outcome.VICTORY).textScene("UNICORN-VICTORY"), b.branch(Outcome.DEFEAT).textScene("UNICORN-DEFEAT")};
+				Branch powerBottomOptions = b.branch().choiceScene("Suck her off or mount her cock?", b.branch("Get on your knees").textScene("CENTAUR-VICTORY-ANAL"), b.branch("Ride 'em cowgirl").textScene("CENTAUR-VICTORY-ORAL"));
+				Branch victoryOptions = b.branch().checkScene(
+					CheckType.MAX_LUST, 
+					b.branch(true).textScene("CENTAUR-VICTORY-LUST").concat(powerBottomOptions),
+					b.branch(false).choiceScene("What do you do?", b.branch("Get a look at that horse cock").require(ChoiceCheckType.LEWD).textScene("CENTAUR-VICTORY-INSPECT").concat(powerBottomOptions), b.branch("Leave"))
+				);
+				Branch[] centaurBattle = new Branch[]{
+					b.branch(Outcome.VICTORY).textScene("CENTAUR-VICTORY").concat(victoryOptions),
+					b.branch(Outcome.DEFEAT).textScene("CENTAUR-DEFEAT").checkScene(
+						Perk.EQUESTRIAN, 
+						b.branch(3).textScene("CENTAUR-GAME-OVER").gameEnd(), 
+						b.branch(0).textScene("CENTAUR-DEFEAT-CONT")
+					), 
+					b.branch(Outcome.SATISFIED_ANAL).textScene("CENTAUR-SATISFIED")
+				};
+				Branch[] unicornBattle = new Branch[]{b.branch(Outcome.VICTORY).textScene("UNICORN-VICTORY").concat(victoryOptions), b.branch(Outcome.DEFEAT).textScene("UNICORN-DEFEAT")};
 				Branch centaurCatamite = b.branch().textScene("CENTAUR-CATAMITE").battleScene(
 					BattleCode.CENTAUR, Stance.DOGGY_BOTTOM, Stance.DOGGY,
 					centaurBattle

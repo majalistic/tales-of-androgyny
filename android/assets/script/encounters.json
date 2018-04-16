@@ -5873,7 +5873,31 @@
 			"mutations": [{"saveType":"QUEST", "value":{"class": "com.majalis.character.PlayerCharacter$QuestFlag", "type": "CENTAUR", "value":1}}, {"saveType":"FOOD", "value":{"class": "java.lang.Integer", "value": 10}}, {"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": 2}}],
 			"text": "You defeated the centaur! You are now welcome to sleep in their camp, and receive 10 food. You receive 2 Experience."}
 		]
-	}
+	},
+	{
+		"key": "CENTAUR-VICTORY-LUST",
+		"scriptLines": [
+			{"text": "You can't contain yourself.  You need to... you approach her, and she watches you with skeptical interest."}
+		]
+	},	
+	{
+		"key": "CENTAUR-VICTORY-INSPECT",
+		"scriptLines": [
+			{"text": ""}
+		]
+	},	
+	{
+		"key": "CENTAUR-VICTORY-ANAL",
+		"scriptLines": [
+			{"text": ""}
+		]
+	},		
+	{
+		"key": "CENTAUR-VICTORY-ORAL",
+		"scriptLines": [
+			{"text": ""}
+		]
+	},	
 	{
 		"key": "CENTAUR-DEFEAT",
 		"scriptLines": [
