@@ -1399,7 +1399,7 @@ public enum EncounterCode {
 			case HARPY:
 				Branch harpyMarriage = b.branch().textScene("HARPY-MARRIAGE").gameEnd();
 				Branch[] battleBranches = new Branch[]{
-					b.branch(Outcome.VICTORY).textScene("HARPY-VICTORY"), 
+					b.branch(Outcome.VICTORY).textScene("HARPY-VICTORY").choiceScene("What do you do?", b.branch("Fuck her ass").require(ChoiceCheckType.FREE_COCK).textScene("HARPY-VICTORY-TOP-ANAL"), b.branch("Sit on her dick").require(ChoiceCheckType.LEWD).textScene("HARPY-VICTORY-BOTTOM-ANAL"), b.branch("Leave")), 
 					b.branch(Outcome.DEFEAT).checkScene(
 						CheckType.PLUGGED, 
 						b.branch(true).textScene("HARPY-PLUGGED"),

@@ -679,7 +679,9 @@
 		"key": "STORY-HARPY-VICTORY-BUTTSEX",
 		"scriptLines": [
 			{"text": "You're not sure why the harpy seems to accept this as a consolation prize, but you've committed to stuffing this particular turkey."},		
-			{"text": "For its size - the harpy obviously eats well, and you try not to think about what - her rear is surprisingly firm and muscular, explaining the power with which she takes off from the ground. It's also surprisingly tight, sphincter wise, and it takes some effort to reach into her depths."},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSexTop":1}}],
+			"text": "For its size - the harpy obviously eats well, and you try not to think about what - her rear is surprisingly firm and muscular, explaining the power with which she takes off from the ground. It's also surprisingly tight, sphincter wise, and it takes some effort to reach into her depths."},
 			{"text": "Birds, you recall, have only one hole - you wonder if you might be inadvertantly starting a half-avian brood."},
 			{"text": "She chirps intimately as you sink inside, wiggling her hips in an odd circular motion as you do. She continues to do that while you thrust your way in and out of her appreciative hole, building yourself towards a satisfying ending in her avian asspussy."},
 			{
@@ -688,6 +690,7 @@
 			{"text": "You're not sure what her screeching is about, but her sphincter tightens by a factor of four coinciding with it, which gives you other things to worry about - mainly, your impending orgasm."},
 			{
 			"sound": "CUM",
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "ejaculationInButt":1}}],
 			"text": "Whether it's her ass or her pussy doesn't really matter now - it's getting the creampie special either way. You fling your shameful nut in her hot bird bowels with all the dignity that implies, coating her insides in human semen."},
 			{"text": "You wonder how many other heroes have given a fat-assed harpy a cum enema, and you doubt it's that many of them."},
 			{"text": "Once you're done unloading in her... thing, you retract your half-erect penis, giving her an affectionate pat on the rear as you do, for reasons that aren't clear to you. You clothe yourself again, and then walk around her to see what she was making a fuss about."},
@@ -4822,8 +4825,25 @@
 			"chatter": "We did it!",
 			"chatterPerson": "Kylira",
 			"mutations": [{"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": 2}}, {"saveType":"PORTRAIT", "value":{"class": "com.majalis.asset.AssetEnum", "value": "PORTRAIT_GRIN"}}], 
-			"text": "You defeated the harpy! She flaps away in a hail of feathers, her bird dong wilting between her legs like a big floppy noodle."}		
-		]
+			"text": "The harpy collides with the ground, squawking weakly as she attempts to right herself. With her face on the ground and her butt up in the air, you see that she has a rather comely rear - a round, fat butt, in other words."},
+			{"text": "You can still see her long, eager schlong between her thighs, throbbing with lust, and her similarly full testicles, between her two cheeks is a puckered hole."}		
+		]		
+	},
+	{
+		"key": "HARPY-VICTORY-BOTTOM-ANAL",
+		"scriptLines": [	
+			{"text": ""}		
+		]		
+	},
+	{
+		"key": "HARPY-VICTORY-TOP-ANAL",
+		"scriptLines": [
+			{"text": "The harpy has crashed into the ground with her tail feathers sticking up... if she really wants to mate that badly..."},
+		
+		
+		
+			{"text": "She flaps away in a hail of feathers, her bird dong wilting between her legs like a big floppy noodle."}		
+		]		
 	},
 	{
 		"key": "HARPY-PLUGGED",
