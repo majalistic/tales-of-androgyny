@@ -5620,6 +5620,32 @@
 		]
 	},
 	{
+		"key": "BRIGAND-VICTORY-BOTTOM",
+		"scriptLines": [
+			{
+			"mutations": [{"saveType":"PORTRAIT"}],
+			"text": "You decide to give the brigand a ride she won't soon forget.  When she sees you nearing her prone form, she raises an eyebrow at you, too weak to move."},
+			{"text": "\"Eh?  After all that, ye just want to sit on it, do ye?  Well... what're you waitin' for?\""},
+			{"text": "You aren't waiting for anything - you bend down to free her cock from pantaloons, and then position yourself over it, guiding it towards your backdoor, while she watches, intrigued."},			
+			{
+			"sound": "ANAL_INSERTION",
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1}}],
+			"text": "You lower your hips, and her head pops inside.  She stares at you, eyes narrowed, with a sly smile on her face."},
+			{"text": "She bucks her hips upwards, but you slam your ass and thighs down on her, riding her cock the way that you want to, grinding it against your prostate and feeling your own chest, your breath uneven."},
+			{"text": "She submits to that treatment, her cock squeezed by your sphincter at your own pace, and you work out the cum that's eager to splurt across her tits."},
+			{
+			"sound": "CUM",
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analEjaculation":1}}],
+			"text": "You tense up, and give yourself two quick jerks, staining her clothes and her face, your hole tightening like a vice around her flesh dildo."},			
+			{
+			"sound": "CUM",
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "creampies":1}}],
+			"text": "\"Here it... nngh!\" she groans, and you feel the pressure and warmth in your belly that could only mean that she's cumming."},
+			{"text": "When you feel her stop twitching, and then start to go limp, you stand up off of her, her cock sliding out of you and flopping down into the dirt."},
+			{"text": "\"Thanks for that, luv,\" she says, blowing you a kiss, and you adjust your underwear and continue down the path, her whistling after you as you go."}			
+		]
+	},
+	{
 		"key": "BRIGAND-DEFEAT",
 		"scriptLines": [
 			{
