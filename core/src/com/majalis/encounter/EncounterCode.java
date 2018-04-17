@@ -1209,7 +1209,7 @@ public enum EncounterCode {
 					b.branch("Up The Ass").textScene("GOBLIN-ANAL").checkScene(CheckType.PLUGGED, b.branch(true).textScene("GOBLIN-BUTTPLUG").concat(analCont), b.branch(false).concat(analCont))
 				);
 				Branch[] battleScenes = new Branch[]{
-					b.branch(Outcome.VICTORY).textScene("GOBLIN-VICTORY"), 
+					b.branch(Outcome.VICTORY).textScene("GOBLIN-VICTORY").choiceScene("Ride ze gobbo?", b.branch("Gobbo's waiting!").textScene("GOBLIN-VICTORY-BOTTOM").require(ChoiceCheckType.LEWD), b.branch("No")), 
 					b.branch(Outcome.DEFEAT).textScene("GOBLIN-DEFEAT").checkScene(
 						CheckType.GOBLIN_VIRGIN,
 						b.branch(true).textScene("GOBLIN-VIRGIN").concat(postVirginityCheck),

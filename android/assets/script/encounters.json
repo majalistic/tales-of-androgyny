@@ -6581,6 +6581,37 @@
 		]
 	},
 	{
+		"key": "GOBLIN-VICTORY-BOTTOM",
+		"scriptLines": [
+			{"text": "You decide to take the goblin for a ride... literally."},
+			{"text": "Before she can spring up and pop off, you sit down on her... making it all the more likely that she'll spring and pop off in a different way.  Your hips weigh her down, and her green sausage twitches between your cheeks."},
+			{"text": "You rise up, and she looks at you with a manic expression - apparently, this is her kind of defeat."},			
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1}}],
+			"text": "You sit down again, only this time, you make the goblin's magic wand disappear.  The warty knob rubs your chute in all the wrong ways."},
+			{"text": "You bounce on the goblin's knob, dropping your hips down on her repeatedly while your hungry hole eats it up.  You quickly feel the goblin's twitching, greased-up stick ready to drop a load inside, and your own prick throbs with anticipation."},						
+			{
+			"sound": "CUM",
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "creampies":1}}],
+			"text": "She fires her first shot up into your gut, and you bite your lip - you'll not last much longer now."},
+			{
+			"sound": "CUM",
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "creampies":1}}],
+			"text": "Her second big shot causes your stomach to start to bloat, and you fill the pressure in your gut."},
+			{
+			"sound": "CUM",
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "creampies":1}}],
+			"text": "Having been completely bottoms-upped, you spew over the supine goblin, a single rope of anally aggravated dickjuice, while she continues to pump her never-ending ejaculate inside."},
+			{
+			"sound": "CUM_BUBBLING",
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "creampies":1}}],
+			"text": "Again she fires up inside of you, filling you to the brim."},
+			{
+			"mutations": [{"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": 2}}],
+			"text": "You got what you needed out of the exchange, and, standing off of the deflated gobbo, you leak experience right down your thigh..."}
+		]
+	},
+	{
 		"key": "GOBLIN-DEFEAT",
 		"scriptLines": [
 			{
