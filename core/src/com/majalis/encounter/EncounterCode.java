@@ -1183,7 +1183,7 @@ public enum EncounterCode {
 				Branch maleDefeatCont = b.branch().textScene("GOBLIN-MALE-DEFEAT").gameEnd();
 				return b.branch().textScene("GOBLIN-MALE-INTRO").battleScene(
 					BattleCode.GOBLIN_MALE,
-					b.branch(Outcome.VICTORY).textScene("GOBLIN-MALE-VICTORY"),
+					b.branch(Outcome.VICTORY).textScene("GOBLIN-MALE-VICTORY").choiceScene("Ride ze gobbo?", b.branch("Gobbo's waiting!").textScene("GOBLIN-MALE-VICTORY-BOTTOM").require(ChoiceCheckType.LEWD), b.branch("No")),
 					b.branch(Outcome.DEFEAT).checkScene(CheckType.PLUGGED, b.branch(true).textScene("GOBLIN-MALE-BUTTPLUG").concat(maleDefeatCont), b.branch(false).concat(maleDefeatCont)),
 					b.branch(Outcome.SATISFIED_ANAL).textScene("GOBLIN-MALE-SATISFIED-ANAL"),
 					b.branch(Outcome.SATISFIED_ORAL).textScene("GOBLIN-MALE-SATISFIED-ORAL")	
