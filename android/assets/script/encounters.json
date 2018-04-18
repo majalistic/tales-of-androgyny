@@ -5620,11 +5620,34 @@
 		]
 	},
 	{
+		"key": "BRIGAND-VICTORY-TOP",
+		"scriptLines": [
+			{"text": "You walk over to the brigand's defeated form and tell her to get on her knees. She grins."},
+			{"text": "\"Got something for me, do ye? Ye won't mind me pointing my ass at ye, then?\""},
+			{"text": "She gets up onto her hands and knees, her firm rear facing you, and you pull down her pantaloons to reveal a taut, shapely butt, as well as her dangling meat and ready-to-go balls."},
+			{"text": "You grab hold of her cheeks and bury your face between them, giving her asshole a tonguing while she sighs and readies herself for what's to come."},
+			{"text": "You pull away, wiping your mouth, and then free yourself from your underwear - and you too are primed and ready."},
+			{
+			"sound": "ANAL_INSERTION",
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSexTop":1}}],
+			"text": "\"Oooooh...\" she says as she feels it push inside her tight anal sphincter.  She kneads the earth and sucks in air around her lip before letting out a throaty sigh. You slide in deeper, giving her a rap on the ass to cow her, and she submits to the ass-fucking."},
+			{"text": "You pound her from behind, eventually gripping back her wrists and holding them out to her sides while you flatten her ass, her raspy voice coming out in stacatto as you slam into her from behind."},
+			{"text": "You pull her to her feet, which are uneasy, and continue to blast her fudgepipe while you walk her, step by step, over to a nearby tree, which you then press her against, chest to back, opening up her insides with your thrusting, prying cock."},
+			{"text": "\"Angh... keep at it... just like that...\" she insists, and after a dozen or so more uneven, rambunctious thrusts, she tightens up even more, and lets out a hoarse moan, and you know that she's giving the tree some white, sticky sap."},
+			{"text": "You aren't done yet, though, and continue to fuck her ass inside-out for as long as you need while she whines and curses you - that is, until she starts to recover from her refractory period, at which point she starts to moan and sigh passively again."},
+			{
+			"sound": "CUM",
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "ejaculationInButt":1}}],
+			"text": "In the end, she gets stuck with a boner, unfortunately, as you cream her cornhole with all you've got before she can work out a second nut, flooding her anal cavern and giving her something to remember her misdeeds by."},
+			{"text": "She kneels before the tree, leaking cum from her spread-open hole and her cock alike, a white splatter present on the tree where none had been before. \"Unh... yer not so bad, are ye?\" she says, and you give her an affectionate tug of the hair and a kiss before moving on."}
+		]
+	},
+	{
 		"key": "BRIGAND-VICTORY-BOTTOM",
 		"scriptLines": [
 			{
 			"mutations": [{"saveType":"PORTRAIT"}],
-			"text": "You decide to give the brigand a ride she won't soon forget.  When she sees you nearing her prone form, she raises an eyebrow at you, too weak to move."},
+			"text": "You decide to give the brigand a ride she won't soon forget.  When she sees you nearing her supine form, she raises an eyebrow at you, too weak to move."},
 			{"text": "\"Eh?  After all that, ye just want to sit on it, do ye?  Well... what're you waitin' for?\""},
 			{"text": "You aren't waiting for anything - you bend down to free her cock from pantaloons, and then position yourself over it, guiding it towards your backdoor, while she watches, intrigued."},			
 			{
