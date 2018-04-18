@@ -356,8 +356,8 @@ public enum EncounterCode {
 					BattleCode.ADVENTURER,
 					b.branch(Outcome.VICTORY).textScene("ADVENTURER-VICTORY").choiceScene(
 						"What's the plan?", 
-						b.branch("Mount him (Requires: Free cock)").require(ChoiceCheckType.FREE_COCK).textScene("ADVENTURER-TOPPED"), 
-						b.branch("MOUNT him (Requires: Catamite)").require(ChoiceCheckType.LEWD).textScene("ADVENTURER-BOTTOMED"), 
+						b.branch("Mount him").require(ChoiceCheckType.FREE_COCK).textScene("ADVENTURER-TOPPED"), 
+						b.branch("MOUNT him").require(ChoiceCheckType.LEWD).textScene("ADVENTURER-BOTTOMED"), 
 						b.branch("Rob him").textScene("ADVENTURER-ROBBED")
 					),
 					b.branch(Outcome.DEFEAT).textScene("ADVENTURER-DEFEAT"),
@@ -435,14 +435,14 @@ public enum EncounterCode {
 					b.branch("Leave")
 				);
 			case BANK:
-				Branch borrow = b.branch("Borrow (50 GP)").textScene("BANK-BORROW");
-				Branch payBig = b.branch("Pay Debt (50 GP").require(ChoiceCheckType.GOLD_GREATER_THAN_X, 50).textScene("BANK-PAY-50"); 
+				Branch borrow = b.branch("Borrow 50 GP").textScene("BANK-BORROW");
+				Branch payBig = b.branch("Pay Debt - 50 GP").require(ChoiceCheckType.GOLD_GREATER_THAN_X, 50).textScene("BANK-PAY-50"); 
 				return b.branch().textScene("BANK").checkScene(
 					CheckType.NO_BIG_DEBT,
 					b.branch(true).checkScene(	
 						CheckType.HAVE_NO_DEBT,
 						b.branch(true).choiceScene("Do you want to borrow?", borrow, b.branch("Leave")),
-						b.branch(false).choiceScene("Pay or receive loan?", payBig, b.branch("Pay Debt (10 GP)").require(ChoiceCheckType.GOLD_GREATER_THAN_X, 10).textScene("BANK-PAY"), borrow, b.branch("Leave"))
+						b.branch(false).choiceScene("Pay or receive loan?", payBig, b.branch("Pay Debt - 10 GP").require(ChoiceCheckType.GOLD_GREATER_THAN_X, 10).textScene("BANK-PAY"), borrow, b.branch("Leave"))
 					),
 					b.branch(false).textScene("BANK-OVERDRAWN").choiceScene("Do you pay your debts?", payBig, b.branch("Default").textScene("BANK-PAY-HARD").gameEnd())
 					
@@ -485,7 +485,7 @@ public enum EncounterCode {
 				);
 				Branch speak = b.branch("Speak").textScene("BRIGAND-HAIL").choiceScene(
 					"Accept her offer?",
-					b.branch("Accept (Requires: Catamite)").require(ChoiceCheckType.LEWD).textScene("BRIGAND-ACCEPT").checkScene(CheckType.PLUGGED, b.branch(true).textScene("BRIGAND-BUTTPLUG").concat(acceptCont), b.branch(false).concat(acceptCont)),
+					b.branch("Accept").require(ChoiceCheckType.LEWD).textScene("BRIGAND-ACCEPT").checkScene(CheckType.PLUGGED, b.branch(true).textScene("BRIGAND-BUTTPLUG").concat(acceptCont), b.branch(false).concat(acceptCont)),
 					b.branch("Decline").textScene("BRIGAND-DECLINE").checkScene(
 						CheckType.HAS_KYLIRA, 
 						b.branch(true).textScene("BRIGAND-KYLIRA"), 
@@ -650,7 +650,7 @@ public enum EncounterCode {
 					b.branch(true).textScene("BROTHEL-BANNED"), 
 					b.branch(false).textScene("BROTHEL-GIRL-DESCRIPTION").choiceScene(
 						"Which girl do you want to hire?", 
-						b.branch("Daisy (10 GP)").require(ChoiceCheckType.GOLD_GREATER_THAN_X, 10).require(ChoiceCheckType.FREE_COCK).textScene("BROTHEL-DAISY").choiceScene( // femboy
+						b.branch("Daisy").require(ChoiceCheckType.GOLD_GREATER_THAN_X, 10).require(ChoiceCheckType.FREE_COCK).textScene("BROTHEL-DAISY").choiceScene( // femboy
 							"What do you want to do?", 
 							b.branch("Get a blowjob").textScene("BROTHEL-DAISY-BJ").checkScene(
 								CheckType.HIGH_LUST, 
@@ -669,9 +669,9 @@ public enum EncounterCode {
 									daisyBJFinish
 								)
 							),
-							b.branch("Fuck her (5 GP)").require(ChoiceCheckType.GOLD_GREATER_THAN_X, 5).textScene("BROTHEL-DAISY-BOTTOM")
+							b.branch("Fuck her").require(ChoiceCheckType.GOLD_GREATER_THAN_X, 5).textScene("BROTHEL-DAISY-BOTTOM")
 						),
-						b.branch("Rose (15 GP)").require(ChoiceCheckType.GOLD_GREATER_THAN_X, 15).require(ChoiceCheckType.FREE_COCK).textScene("BROTHEL-ROSE").choiceScene( // mystery
+						b.branch("Rose").require(ChoiceCheckType.GOLD_GREATER_THAN_X, 15).require(ChoiceCheckType.FREE_COCK).textScene("BROTHEL-ROSE").choiceScene( // mystery
 							"What do you want to do?", 
 							b.branch("Get a blowjob").textScene("BROTHEL-ROSE-BJ").checkScene(
 								CheckType.HIGH_LUST, 
@@ -690,12 +690,12 @@ public enum EncounterCode {
 									roseBJFinish
 								)
 							),
-							b.branch("Fuck her (5 GP)").require(ChoiceCheckType.GOLD_GREATER_THAN_X, 5).textScene("BROTHEL-ROSE-BOTTOM")
+							b.branch("Fuck her").require(ChoiceCheckType.GOLD_GREATER_THAN_X, 5).textScene("BROTHEL-ROSE-BOTTOM")
 						),
-						b.branch("Ivy (20 GP)").require(ChoiceCheckType.GOLD_GREATER_THAN_X, 20).textScene("BROTHEL-IVY").choiceScene( // futa
+						b.branch("Ivy").require(ChoiceCheckType.GOLD_GREATER_THAN_X, 20).textScene("BROTHEL-IVY").choiceScene( // futa
 							"What do you want to do?", 
 							b.branch("Get a blowjob").require(ChoiceCheckType.FREE_COCK).textScene("BROTHEL-IVY-BJ"),
-							b.branch("Fuck her (10 GP)").require(ChoiceCheckType.GOLD_GREATER_THAN_X, 10).require(ChoiceCheckType.FREE_COCK).textScene("BROTHEL-IVY-BOTTOM"),
+							b.branch("Fuck her").require(ChoiceCheckType.GOLD_GREATER_THAN_X, 10).require(ChoiceCheckType.FREE_COCK).textScene("BROTHEL-IVY-BOTTOM"),
 							b.branch("Get fucked").textScene("BROTHEL-IVY-TOP")
 						),
 						b.branch("Leave")
@@ -709,7 +709,7 @@ public enum EncounterCode {
 						b.branch("Offer your services as a top").require(ChoiceCheckType.PERK_GREATER_THAN_X, Perk.TOP, 3).textScene("BROTHEL-TOP-WARNING").checkScene(Perk.TOP, b.branch(10).textScene("BROTHEL-TOP-MASTER"), b.branch(7).textScene("BROTHEL-TOP-EXPERT"), b.branch(0).textScene("BROTHEL-TOP-NOVICE").checkScene(Stat.ENDURANCE, b.branch(6).textScene("BROTHEL-TOP-NOVICE-SUCCESS"), b.branch(0).textScene("BROTHEL-TOP-NOVICE-FAIL"))),
 						b.branch("Offer your services as a bottom").checkScene(
 							CheckType.MAX_LUST, 
-							b.branch(true).choiceScene("You can't hold back!", b.branch("Pro Bono (3 GP)").require(ChoiceCheckType.GOLD_GREATER_THAN_X, 3).textScene("BROTHEL-EXCITED"), b.branch("Whatever!").textScene("BROTHEL-OPPORTUNIST")), 
+							b.branch(true).choiceScene("You can't hold back!", b.branch("Pro Bono").require(ChoiceCheckType.GOLD_GREATER_THAN_X, 3).textScene("BROTHEL-EXCITED"), b.branch("Whatever!").textScene("BROTHEL-OPPORTUNIST")), 
 							b.branch(false).choiceScene(
 								"What service do you offer?", 
 								b.branch("Kissing (1 GP)").textScene("BROTHEL-KISSING"), 
@@ -752,7 +752,7 @@ public enum EncounterCode {
 										patronBrothel,
 										b.branch("Ask her about joining").textScene("BROTHEL-OFFER").choiceScene(
 											"Do you want to sign up? What's the worst that could happen?",
-											b.branch ("Sign Up (Requires: Catamite)").require(ChoiceCheckType.LEWD).textScene("BROTHEL-SIGN-UP").concat(onceSignedUp),
+											b.branch ("Sign Up").require(ChoiceCheckType.LEWD).textScene("BROTHEL-SIGN-UP").concat(onceSignedUp),
 											b.branch ("Don't Sign Up")
 										),
 										b.branch("Leave")
@@ -782,7 +782,7 @@ public enum EncounterCode {
 					CheckType.BEEN_TO_MONSTER_TOWN, 
 					b.branch(true).choiceScene(
 						"Take a carriage to the monster town?", 
-						b.branch("Yes (10 GP)").require(ChoiceCheckType.GOLD_GREATER_THAN_X, 10).textScene("CARRIAGE-TO-MONSTER-TOWN"),
+						b.branch("Yes").require(ChoiceCheckType.GOLD_GREATER_THAN_X, 10).textScene("CARRIAGE-TO-MONSTER-TOWN"),
 						b.branch("No")
 					), 
 					b.branch(false).textScene("CARRIAGE-DENIED")
@@ -792,7 +792,7 @@ public enum EncounterCode {
 						CheckType.BEEN_TO_HUMAN_TOWN, 
 						b.branch(true).choiceScene(
 							"Take a carriage to the human town?", 
-							b.branch("Yes (10 GP)").require(ChoiceCheckType.GOLD_GREATER_THAN_X, 10).textScene("CARRIAGE-TO-HUMAN-TOWN"),
+							b.branch("Yes").require(ChoiceCheckType.GOLD_GREATER_THAN_X, 10).textScene("CARRIAGE-TO-HUMAN-TOWN"),
 							b.branch("No")
 						), 
 						b.branch(false).textScene("CARRIAGE-DENIED")
@@ -906,7 +906,7 @@ public enum EncounterCode {
 			case DRYAD:
 				return b.branch().textScene("DRYAD-INTRO").choiceScene(
 					"Do you offer her YOUR apple, or try to convince her to just hand it over?",
-					b.branch("Offer (Requires: Catamite)").require(ChoiceCheckType.LEWD).textScene("DRYAD-OFFER"),
+					b.branch("Offer").require(ChoiceCheckType.LEWD).textScene("DRYAD-OFFER"),
 					b.branch("Plead with her").checkScene(
 						Stat.CHARISMA,
 						b.branch(5).textScene("DRYAD-CONVINCE"),
@@ -918,9 +918,9 @@ public enum EncounterCode {
 			case ELF:
 				Branch careerOptions = b.branch().textScene("ELF-CAREER").choiceScene(
 					"What do you say?", 
-					b.branch("Try the brothel. (CHA: 7)").require(ChoiceCheckType.STAT_GREATER_THAN_X, Stat.CHARISMA, 7).textScene("ELF-BROTHEL-SUGGEST"),
-					b.branch("Join me. (CHA: 5)").require(ChoiceCheckType.STAT_GREATER_THAN_X, Stat.CHARISMA, 5).textScene("ELF-JOIN-SUGGEST"),
-					b.branch("Become a healer. (CHA: 3)").require(ChoiceCheckType.STAT_GREATER_THAN_X, Stat.CHARISMA, 3).textScene("ELF-HEALER-SUGGEST"),
+					b.branch("Try the brothel.").require(ChoiceCheckType.STAT_GREATER_THAN_X, Stat.CHARISMA, 7).textScene("ELF-BROTHEL-SUGGEST"),
+					b.branch("Join me.").require(ChoiceCheckType.STAT_GREATER_THAN_X, Stat.CHARISMA, 5).textScene("ELF-JOIN-SUGGEST"),
+					b.branch("Become a healer.").require(ChoiceCheckType.STAT_GREATER_THAN_X, Stat.CHARISMA, 3).textScene("ELF-HEALER-SUGGEST"),
 					b.branch("Go home.").textScene("ELF-LEAVE-SUGGEST")
 				);
 				return b.branch().textScene("ELF-INTRO").checkScene(
@@ -941,7 +941,7 @@ public enum EncounterCode {
 							CheckType.ELF_ACCEPTED, 
 							b.branch(true).textScene("ELF-REUNION").choiceScene(
 								"Kiss Kylira?",
-								b.branch("Kiss(Requires: Free cock)").require(ChoiceCheckType.FREE_COCK).textScene("ELF-TOP").concat(careerOptions),
+								b.branch("Kiss").require(ChoiceCheckType.FREE_COCK).textScene("ELF-TOP").concat(careerOptions),
 								b.branch("Be Kissed").textScene("ELF-BOTTOM").concat(careerOptions),
 								b.branch("Deny").textScene("ELF-DENY").concat(careerOptions)
 							), 
@@ -954,9 +954,9 @@ public enum EncounterCode {
 					)
 				);
 			case ELF_COMPANION:
-				Branch learnHealing = b.branch().choiceScene("Learn healing magic?", b.branch("Learn (MAG 2)").require(ChoiceCheckType.STAT_GREATER_THAN_X, Stat.MAGIC, 2).textScene("ELF-COMPANION-LEARN"), b.branch("Not now"));
+				Branch learnHealing = b.branch().choiceScene("Learn healing magic?", b.branch("Learn").require(ChoiceCheckType.STAT_GREATER_THAN_X, Stat.MAGIC, 2).textScene("ELF-COMPANION-LEARN"), b.branch("Not now"));
 				return b.branch().checkScene(CheckType.ELF_COMPANION1, 
-					b.branch(true).textScene("ELF-COMPANION-FIRST").choiceScene("Spend time with Kylira?", b.branch("Spend time (8 CHA)").require(ChoiceCheckType.STAT_GREATER_THAN_X, Stat.CHARISMA, 8).textScene("ELF-COMPANION-HANGOUT"), b.branch("Not now")), 
+					b.branch(true).textScene("ELF-COMPANION-FIRST").choiceScene("Spend time with Kylira?", b.branch("Spend time").require(ChoiceCheckType.STAT_GREATER_THAN_X, Stat.CHARISMA, 8).textScene("ELF-COMPANION-HANGOUT"), b.branch("Not now")), 
 					b.branch(false).checkScene(
 						CheckType.ELF_COMPANION2, 
 						b.branch(true).textScene("ELF-COMPANION-SECOND").choiceScene(
@@ -1055,7 +1055,7 @@ public enum EncounterCode {
 					),
 					b.branch(0).textScene("GADGETEER-CONFUSED").choiceScene(
 						"Try the toys?", 
-						b.branch("Yes (Requires: Catamite)").require(ChoiceCheckType.LEWD).textScene("GADGETEER-BREAKINGIN"),
+						b.branch("Yes").require(ChoiceCheckType.LEWD).textScene("GADGETEER-BREAKINGIN"),
 						no
 					)
 				);
@@ -1116,7 +1116,7 @@ public enum EncounterCode {
 						"Do you follow?", 
 						b.branch("Follow her").textScene("GHOST-NIGHT-FOLLOW").textScene(spookyGhostScene).textScene("GHOST-NIGHT-CONT").choiceScene(
 							"What do you do?", 
-							b.branch("Apologize (CHA: 5)").require(ChoiceCheckType.STAT_GREATER_THAN_X, Stat.CHARISMA, 5).textScene("GHOST-NIGHT-APOLOGY").choiceScene(
+							b.branch("Apologize").require(ChoiceCheckType.STAT_GREATER_THAN_X, Stat.CHARISMA, 5).textScene("GHOST-NIGHT-APOLOGY").choiceScene(
 								"Show her love?", 
 								b.branch("Show her love").textScene("GHOST-BLOWJOB-WOO-WOO").choiceScene(
 									"Well?", 
@@ -1222,7 +1222,7 @@ public enum EncounterCode {
 				
 				Branch cutPants = b.branch().textScene("GOBLIN-POST-SPEAR").choiceScene(
 					"Quick, what do you do?",
-					b.branch("Catch Her (5 AGI)").require(ChoiceCheckType.STAT_GREATER_THAN_X, Stat.AGILITY, 5).textScene("GOBLIN-CATCH").choiceScene(
+					b.branch("Catch Her").require(ChoiceCheckType.STAT_GREATER_THAN_X, Stat.AGILITY, 5).textScene("GOBLIN-CATCH").choiceScene(
 						"What do you do with her?",
 						b.branch("Put Her Down").textScene("GOBLIN-RELEASE").choiceScene(
 							"Accept Her Offer?",
@@ -1235,7 +1235,7 @@ public enum EncounterCode {
 							b.branch(0).textScene("GOBLIN-GETBIT")
 						)
 					),
-					b.branch("Trip Her (4 AGI)").require(ChoiceCheckType.STAT_GREATER_THAN_X, Stat.AGILITY, 4).textScene("GOBLIN-TRIP").choiceScene(
+					b.branch("Trip Her").require(ChoiceCheckType.STAT_GREATER_THAN_X, Stat.AGILITY, 4).textScene("GOBLIN-TRIP").choiceScene(
 						"What do you do?",
 						b.branch("Attack").battleScene(
 							BattleCode.GOBLIN, Stance.OFFENSIVE, Stance.PRONE,
@@ -1243,7 +1243,7 @@ public enum EncounterCode {
 						),
 						b.branch("Run").textScene("GOBLIN-FLEE")
 					),
-					b.branch("Disarm Her (3 AGI)").require(ChoiceCheckType.STAT_GREATER_THAN_X, Stat.AGILITY, 3).textScene("GOBLIN-DISARM").choiceScene(
+					b.branch("Disarm Her").require(ChoiceCheckType.STAT_GREATER_THAN_X, Stat.AGILITY, 3).textScene("GOBLIN-DISARM").choiceScene(
 						"What do you do?",
 						b.branch("Attack Her").battleScene(
 							BattleCode.GOBLIN, Stance.OFFENSIVE, Stance.BALANCED, true,
@@ -1255,7 +1255,7 @@ public enum EncounterCode {
 						),
 						b.branch("Let Her Go")
 					),
-					b.branch("Avoid Her (2 AGI)").require(ChoiceCheckType.STAT_GREATER_THAN_X, Stat.AGILITY, 2).textScene("GOBLIN-DODGE").choiceScene(
+					b.branch("Avoid Her").require(ChoiceCheckType.STAT_GREATER_THAN_X, Stat.AGILITY, 2).textScene("GOBLIN-DODGE").choiceScene(
 						"What do you do?",
 						b.branch("Attack Her").battleScene(
 							BattleCode.GOBLIN, Stance.OFFENSIVE, Stance.BALANCED,
@@ -1345,8 +1345,8 @@ public enum EncounterCode {
 				Branch[] golemBattleOutcomes = new Branch[]{
 					b.branch(Outcome.VICTORY).textScene("GOLEM-VICTORY").choiceScene(
 						"What do you do?", 
-						b.branch("Ask for help (CHA 5)").require(ChoiceCheckType.STAT_GREATER_THAN_X, Stat.CHARISMA, 5).textScene("GOLEM-GIFT"),
-						b.branch("Ask for... help (Requires: Catamite)").require(ChoiceCheckType.LEWD).textScene("GOLEM-TOP"),
+						b.branch("Ask for help").require(ChoiceCheckType.STAT_GREATER_THAN_X, Stat.CHARISMA, 5).textScene("GOLEM-GIFT"),
+						b.branch("Ask for... help").require(ChoiceCheckType.LEWD).textScene("GOLEM-TOP"),
 						b.branch("Bid her farewell").textScene("GOLEM-FREE")
 					), 
 					b.branch(Outcome.DEFEAT).textScene("GOLEM-DEFEAT").concat(golemMisunderstanding)
@@ -1356,11 +1356,11 @@ public enum EncounterCode {
 					golemBattleOutcomes
 				);
 				Branch[] calmOptions = new Branch[]{
-					b.branch("Ask for help (CHA 5)").require(ChoiceCheckType.STAT_GREATER_THAN_X, Stat.CHARISMA, 5).textScene("GOLEM-GIFT"),
+					b.branch("Ask for help").require(ChoiceCheckType.STAT_GREATER_THAN_X, Stat.CHARISMA, 5).textScene("GOLEM-GIFT"),
 					b.branch("Ask about her").textScene("GOLEM-SPEAK").choiceScene(
 						"What do you ask of her?",
-						b.branch("Ask for help (CHA 5)").require(ChoiceCheckType.STAT_GREATER_THAN_X, Stat.CHARISMA, 5).textScene("GOLEM-GIFT"),
-						b.branch("Ask for... help (Requires: Catamite)").require(ChoiceCheckType.LEWD).textScene("GOLEM-TOP"),
+						b.branch("Ask for help").require(ChoiceCheckType.STAT_GREATER_THAN_X, Stat.CHARISMA, 5).textScene("GOLEM-GIFT"),
+						b.branch("Ask for... help").require(ChoiceCheckType.LEWD).textScene("GOLEM-TOP"),
 						b.branch("Ask to fight her").concat(golemBattle),
 						b.branch("Bid her farewell").textScene("GOLEM-FREE")
 					),
@@ -1374,15 +1374,15 @@ public enum EncounterCode {
 						"Touch the statue?", 
 						b.branch("Touch the statue").textScene("GOLEM-AWAKEN").choiceScene( 
 							"Her energies are in flux!", 
-							b.branch("Dominate Her (5 MAG)").require(ChoiceCheckType.STAT_GREATER_THAN_X, Stat.MAGIC, 5).textScene("GOLEM-DOMINATED").choiceScene(
+							b.branch("Dominate Her").require(ChoiceCheckType.STAT_GREATER_THAN_X, Stat.MAGIC, 5).textScene("GOLEM-DOMINATED").choiceScene(
 								"What do you will of her?", 
 								b.branch("Demand tribute").textScene("GOLEM-TRIBUTE"),
 								b.branch("Demand pleasure").checkScene(Perk.ANAL_ADDICT, b.branch(2).textScene("GOLEM-TOP"), golemMisunderstanding),
 								b.branch("Ask to fight her").concat(golemBattle),
 								b.branch("Tell her to shut down").textScene("GOLEM-SHUTDOWN")
 							),
-							b.branch("Soothe Her (5 MAG)").require(ChoiceCheckType.STAT_GREATER_THAN_X, Stat.MAGIC, 5).textScene("GOLEM-SOOTHED").choiceScene("What do you do?", calmOptions),
-							b.branch("Calm Her (3 MAG)").require(ChoiceCheckType.STAT_GREATER_THAN_X, Stat.MAGIC, 3).textScene("GOLEM-CALMED").checkScene(
+							b.branch("Soothe Her").require(ChoiceCheckType.STAT_GREATER_THAN_X, Stat.MAGIC, 5).textScene("GOLEM-SOOTHED").choiceScene("What do you do?", calmOptions),
+							b.branch("Calm Her").require(ChoiceCheckType.STAT_GREATER_THAN_X, Stat.MAGIC, 3).textScene("GOLEM-CALMED").checkScene(
 								Stat.PERCEPTION, 
 								b.branch(4).choiceScene("What do you do?", calmOptions), 
 								golemMisunderstanding
@@ -1447,7 +1447,7 @@ public enum EncounterCode {
 			case INN_MONSTER:
 				return b.branch().textScene("INN-MONSTER").choiceScene(
 					"Stay the night?",
-					b.branch("Rest at Inn (10 Gold)").require(ChoiceCheckType.GOLD_GREATER_THAN_X, 10).textScene("INN-MONSTER-STAY"),
+					b.branch("Rest at Inn").require(ChoiceCheckType.GOLD_GREATER_THAN_X, 10).textScene("INN-MONSTER-STAY"),
 					b.branch("Leave")
 				);
 			case INN:
@@ -1455,7 +1455,7 @@ public enum EncounterCode {
 				Branch leave = b.branch("Leave");
 				return b.branch().textScene("INNKEEP-01").choiceScene(
 					"Stay the night?",
-					b.branch("Rest at Inn (10 Gold)").require(ChoiceCheckType.GOLD_GREATER_THAN_X, 10).textScene("INNKEEP-02"),
+					b.branch("Rest at Inn").require(ChoiceCheckType.GOLD_GREATER_THAN_X, 10).textScene("INNKEEP-02"),
 					b.branch("Rest at Inn (Low Funds)").require(ChoiceCheckType.GOLD_LESS_THAN_X, 10).checkScene(
 						CheckType.INN_0,
 						b.branch(true).textScene("INNKEEP-03").choiceScene(
@@ -1712,8 +1712,8 @@ public enum EncounterCode {
 				Branch orcAnal = b.branch().textScene("ORC-ANAL").checkScene(CheckType.PLUGGED, b.branch(true).textScene("ORC-ANAL-PLUGGED").textScene("ORC-ANAL-CONTINUE"), b.branch(false).textScene("ORC-ANAL-CONTINUE"));
 				Branch battleVictory = b.branch().textScene("ORC-VICTORY").choiceScene(
 					"Front, back, or decline?", 
-					b.branch("Front (Requires: Catamite)").require(ChoiceCheckType.LEWD).concat(orcAnal),
-					b.branch("Back (Requires: Free cock)").require(ChoiceCheckType.FREE_COCK).textScene("ORC-BOTTOM"),
+					b.branch("Front").require(ChoiceCheckType.LEWD).concat(orcAnal),
+					b.branch("Back").require(ChoiceCheckType.FREE_COCK).textScene("ORC-BOTTOM"),
 					b.branch("Decline").textScene("ORC-DECLINE")
 				);
 				
@@ -1722,11 +1722,11 @@ public enum EncounterCode {
 					b.branch(Outcome.VICTORY).textScene("ORC-VICTORY1").concat(battleVictory),
 					b.branch(Outcome.DEFEAT).textScene("ORC-DEFEAT").choiceScene(
 						"What do you offer?",
-						b.branch("Anal (Requires: Catamite)").require(ChoiceCheckType.LEWD).concat(orcAnal),
+						b.branch("Anal").require(ChoiceCheckType.LEWD).concat(orcAnal),
 						b.branch("Oral").textScene("ORC-OFFER-ORAL").concat(oralScene), 
 						b.branch("Nasal").textScene("ORC-NASAL"),
-						b.branch("Penal (6 CHA)").require(ChoiceCheckType.STAT_GREATER_THAN_X, Stat.CHARISMA, 6).textScene("ORC-PENAL"),
-						b.branch("Facial (4 CHA)").require(ChoiceCheckType.STAT_GREATER_THAN_X, Stat.CHARISMA, 4).textScene("ORC-FACIAL"),
+						b.branch("Penal").require(ChoiceCheckType.STAT_GREATER_THAN_X, Stat.CHARISMA, 6).textScene("ORC-PENAL"),
+						b.branch("Facial").require(ChoiceCheckType.STAT_GREATER_THAN_X, Stat.CHARISMA, 4).textScene("ORC-FACIAL"),
 						b.branch("Nothing").concat(failedCharisma)
 					),
 					b.branch(Outcome.SATISFIED_ANAL).textScene("ORC-SATISFIED")
@@ -1747,13 +1747,13 @@ public enum EncounterCode {
 						CheckType.ORC_BRAVE, 
 						b.branch(true).textScene("ORC-REUNION").choiceScene(
 							"Accept her invitation?",
-							b.branch("Accept (Requires: Catamite)").require(ChoiceCheckType.LEWD).textScene("ORC-REUNION-ACCEPT"),
+							b.branch("Accept").require(ChoiceCheckType.LEWD).textScene("ORC-REUNION-ACCEPT"),
 							b.branch("Offer to spar").concat(firstBattle),
 							b.branch("Decline").textScene("ORC-REUNION-DECLINE")
 						),
 						b.branch(false).textScene("ORC-COWARD-CALLOUT").choiceScene(
 							"Well?",
-							b.branch("Yes (Requires: Catamite)").require(ChoiceCheckType.LEWD).textScene("ORC-CATAMITE"),
+							b.branch("Yes").require(ChoiceCheckType.LEWD).textScene("ORC-CATAMITE"),
 							b.branch("No").textScene("ORC-ANGER").battleScene(
 								BattleCode.ORC,
 								b.branch(Outcome.VICTORY).textScene("ORC-VICTORY2").concat(battleVictory),
@@ -1800,8 +1800,8 @@ public enum EncounterCode {
 					),
 					b.branch("Smooch Her").textScene("SLIME-APPROACH").choiceScene(
 						"Do you enter the slime, or...?",
-						b.branch("Go In (Requires: Free cock)").require(ChoiceCheckType.FREE_COCK).textScene("SLIME-ENTER"),
-						b.branch("Love Dart (Requires: Catamite)").require(ChoiceCheckType.LEWD).textScene("SLIME-LOVEDART").checkScene(CheckType.PLUGGED, b.branch(true).textScene("SLIME-BUTTPLUG").concat(loveDartCont), b.branch(false).concat(loveDartCont)),
+						b.branch("Go In").require(ChoiceCheckType.FREE_COCK).textScene("SLIME-ENTER"),
+						b.branch("Love Dart").require(ChoiceCheckType.LEWD).textScene("SLIME-LOVEDART").checkScene(CheckType.PLUGGED, b.branch(true).textScene("SLIME-BUTTPLUG").concat(loveDartCont), b.branch(false).concat(loveDartCont)),
 						b.branch("Leave Her Be")
 					),
 					b.branch("Leave Her Be")			
@@ -1864,7 +1864,7 @@ public enum EncounterCode {
 					CheckType.BROTHEL_QUEST_ACTIVE, 
 						b.branch(true).textScene("TAVERN-MARK").choiceScene(
 							"Take a carriage to the human town?", 
-							b.branch("Yes (10 GP)").require(ChoiceCheckType.GOLD_GREATER_THAN_X, 10).textScene("CARRIAGE-TO-HUMAN-TOWN"),
+							b.branch("Yes").require(ChoiceCheckType.GOLD_GREATER_THAN_X, 10).textScene("CARRIAGE-TO-HUMAN-TOWN"),
 							b.branch("No")
 						), 
 						b.branch(false).textScene("TAVERN")
@@ -1883,15 +1883,15 @@ public enum EncounterCode {
 				Branch payHimMore = b.branch().textScene("TOWN-SQUARE-INFORMANT-OKAY").checkScene(
 						Stat.CHARISMA, 
 						b.branch (4).concat(goodInfo), 
-						b.branch(0).textScene("TOWN-SQUARE-INFORMANT-REQUEST").choiceScene("Deal?", b.branch("Pay (10 GP)").require(ChoiceCheckType.GOLD_GREATER_THAN_X, 10).textScene("TOWN-SQUARE-INFORMANT-PAYMORE").concat(goodInfo), b.branch("Refuse"))
+						b.branch(0).textScene("TOWN-SQUARE-INFORMANT-REQUEST").choiceScene("Deal?", b.branch("Pay 10 GP").require(ChoiceCheckType.GOLD_GREATER_THAN_X, 10).textScene("TOWN-SQUARE-INFORMANT-PAYMORE").concat(goodInfo), b.branch("Refuse"))
 					);
 				
 				Branch payHim = b.branch().choiceScene(
 					"Pay him for info?", 
-					b.branch("Pay (20 GP)").require(ChoiceCheckType.GOLD_GREATER_THAN_X, 20).textScene("TOWN-SQUARE-INFORMANT-PAID").concat(payHimMore), 
+					b.branch("Pay 20 GP").require(ChoiceCheckType.GOLD_GREATER_THAN_X, 20).textScene("TOWN-SQUARE-INFORMANT-PAID").concat(payHimMore), 
 					b.branch("Offer... something else").textScene("TOWN-SQUARE-INFORMANT-ALTERNATIVE").choiceScene(
 						"What do you do?", 
-						b.branch("Bend over (Requires: Catamite)").require(ChoiceCheckType.LEWD).checkScene(Perk.PERFECT_BOTTOM, b.branch(3).textScene("TOWN-SQUARE-INFORMANT-GOODANAL").textScene("TOWN-SQUARE-INFORMANT-OKAY").concat(goodInfo), b.branch(0).textScene("TOWN-SQUARE-INFORMANT-ANAL").concat(payHimMore)), 
+						b.branch("Bend over").require(ChoiceCheckType.LEWD).checkScene(Perk.PERFECT_BOTTOM, b.branch(3).textScene("TOWN-SQUARE-INFORMANT-GOODANAL").textScene("TOWN-SQUARE-INFORMANT-OKAY").concat(goodInfo), b.branch(0).textScene("TOWN-SQUARE-INFORMANT-ANAL").concat(payHimMore)), 
 						b.branch("Get on your knees").choiceScene(
 							"What do you do on your knees?", 
 							b.branch("Suck it").checkScene(Perk.BLOWJOB_EXPERT, b.branch(3).textScene("TOWN-SQUARE-INFORMANT-GOODORAL").textScene("TOWN-SQUARE-INFORMANT-OKAY").concat(goodInfo), b.branch(0).textScene("TOWN-SQUARE-INFORMANT-ORAL").concat(payHimMore)), 
@@ -1937,7 +1937,7 @@ public enum EncounterCode {
 				);
 			case TRUDY_COMPANION:
 				return b.branch().checkScene(CheckType.TRUDY_COMPANION1, 
-						b.branch(true).textScene("TRUDY-COMPANION-FIRST").choiceScene("Spend time with Trudy?", b.branch("Spend time (8 CHA)").require(ChoiceCheckType.STAT_GREATER_THAN_X, Stat.CHARISMA, 8).textScene("TRUDY-COMPANION-HANGOUT"), b.branch("Not now")), 
+						b.branch(true).textScene("TRUDY-COMPANION-FIRST").choiceScene("Spend time with Trudy?", b.branch("Spend time").require(ChoiceCheckType.STAT_GREATER_THAN_X, Stat.CHARISMA, 8).textScene("TRUDY-COMPANION-HANGOUT"), b.branch("Not now")), 
 						b.branch(false).checkScene(
 							CheckType.TRUDY_COMPANION2, 
 							b.branch(true).textScene("TRUDY-COMPANION-SECOND").choiceScene("Train with Trudy?", b.branch("Train").textScene("TRUDY-COMPANION-LEARN"), b.branch("Not now")),
@@ -1975,7 +1975,7 @@ public enum EncounterCode {
 						CheckType.ANY_WILLPOWER, 
 						b.branch(true).textScene("WARLOCK-RESIST").choiceScene(
 							"Overpower her?", 
-							b.branch("Yes (MAG: 6)").require(ChoiceCheckType.STAT_GREATER_THAN_X, Stat.MAGIC, 6).textScene("WARLOCK-HYPNOSIS-BACKFIRE").choiceScene(
+							b.branch("Yes").require(ChoiceCheckType.STAT_GREATER_THAN_X, Stat.MAGIC, 6).textScene("WARLOCK-HYPNOSIS-BACKFIRE").choiceScene(
 								"Fuck her?", 
 								b.branch("Yes").require(ChoiceCheckType.FREE_COCK).textScene("WARLOCK-BOTTOM").choiceScene(
 									"How do you want her?", 
@@ -2007,8 +2007,8 @@ public enum EncounterCode {
 						CheckType.MANOR_UNVISITED, 
 						b.branch(true).textScene("WARLOCK-ENTER").choiceScene(
 							"Enter the room?", 
-							b.branch("Break the door down (STR: 6)").require(ChoiceCheckType.STAT_GREATER_THAN_X, Stat.STRENGTH, 6).textScene("WARLOCK-BREAK-DOOR").concat(searchRoom), 
-							b.branch("Open it with magic (MAG: 4)").require(ChoiceCheckType.STAT_GREATER_THAN_X, Stat.MAGIC, 4).textScene("WARLOCK-BLAST-DOOR").concat(searchRoom), 
+							b.branch("Break the door down").require(ChoiceCheckType.STAT_GREATER_THAN_X, Stat.STRENGTH, 6).textScene("WARLOCK-BREAK-DOOR").concat(searchRoom), 
+							b.branch("Open it with magic").require(ChoiceCheckType.STAT_GREATER_THAN_X, Stat.MAGIC, 4).textScene("WARLOCK-BLAST-DOOR").concat(searchRoom), 
 							b.branch("Leave it alone").concat(afterRoom)
 						),				
 						b.branch(false).textScene("WARLOCK-REVISIT")
