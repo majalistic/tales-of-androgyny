@@ -155,7 +155,7 @@ public class EncounterBuilder {
 		private int climaxCounter;
 		private int range;
 		private int delay;
-		private ChoiceCheckToken require;
+		private Array<ChoiceCheckToken> requirements;
 		private int concatCounter;
 		
 		private boolean preprocessed;
@@ -169,6 +169,7 @@ public class EncounterBuilder {
 		private void init() {
 			sceneTokens = new Array<SceneToken>();
 			branchOptions = new OrderedMap<Object, Branch>();
+			requirements = new Array<ChoiceCheckToken>();
 		}
 		
 		public Branch textScene(String key) {
@@ -268,22 +269,22 @@ public class EncounterBuilder {
 		}
 		
 		public Branch require(ChoiceCheckType type) {
-			require = new ChoiceCheckToken(type);
+			requirements.add(new ChoiceCheckToken(type));
 			return this;
 		}
 		
 		public Branch require(ChoiceCheckType type, int target) {
-			require = new ChoiceCheckToken(type, target);
+			requirements.add(new ChoiceCheckToken(type, target));
 			return this;
 		}
 		
 		public Branch require(ChoiceCheckType type, Stat stat, int target) {
-			require = new ChoiceCheckToken(type, target, stat);
+			requirements.add(new ChoiceCheckToken(type, target, stat));
 			return this;
 		}
 		
 		public Branch require(ChoiceCheckType type, Perk perk, int target) {
-			require = new ChoiceCheckToken(type, target, perk);
+			requirements.add(new ChoiceCheckToken(type, target, perk));
 			return this;
 		}
 		
@@ -394,7 +395,7 @@ public class EncounterBuilder {
 						Array<BranchChoice> choices = new Array<BranchChoice>();
 						for (OrderedMap.Entry<Object, Branch> next : branchOptions) {
 							Scene nextScene = next.value.getScenes().first();
-							choices.add(new BranchChoice(new TextButton((String)next.key + (next.value.require != null ? next.value.require.getLabel() : ""), skin), nextScene, next.value.require, buttonSound));							
+							choices.add(new BranchChoice(new TextButton((String)next.key + getRequirementString(next.value.requirements), skin), nextScene, next.value.requirements, buttonSound));							
 						}
 						AbstractChoiceScene choiceScene = branchToken.type == EndTokenType.Choice ? new ChoiceScene(sceneMap, sceneCounter, saveService, font, ((ChoiceSceneToken)branchToken).getToDisplay(), choices, assetManager.get(AssetEnum.STANCE_ARROW.getTexture()), character, getDefaultBackground().build(), getEncounterHUD())
 						: new GameTypeScene(sceneMap, sceneCounter, saveService, choices, new BackgroundBuilder(assetManager.get(AssetEnum.GAME_TYPE_BACKGROUND.getTexture())).build(), getEncounterHUD());
@@ -635,16 +636,16 @@ public class EncounterBuilder {
 		}
 		public String getLabel() {
 			switch (type) {
-				case FREE_COCK: return " (Requires: Free cock)";
-				case GOLD_GREATER_THAN_X: return " (Requires: " + target + " GP)";
-				case GOLD_LESS_THAN_X: return " (Requires: <" + target + " GP)";
-				case HAS_GEM: return " (Requires: Gem)";
-				case HAS_TRUDY: return " (Requires: Friend)";
-				case LEWD: return " (Requires: Slut)";
-				case PERK_GREATER_THAN_X: return " (Requires: " + perkToCheck.getLabel() + " " + target + ")";
-				case PERK_LESS_THAN_X: return " (Requires: " + perkToCheck.getLabel() + " <" + target + ")";
-				case STAT_GREATER_THAN_X:  return " (Requires: " + statToCheck.getLabel() + " " + target + ")";
-				case STAT_LESS_THAN_X: return " (Requires: " + statToCheck.getLabel() + " <" + target + ")";
+				case FREE_COCK: return "Free cock";
+				case GOLD_GREATER_THAN_X: return target + " GP";
+				case GOLD_LESS_THAN_X: return "<" + target + " GP";
+				case HAS_GEM: return "Gem";
+				case HAS_TRUDY: return "Friend";
+				case LEWD: return "Slut";
+				case PERK_GREATER_THAN_X: return perkToCheck.getLabel() + " " + target;
+				case PERK_LESS_THAN_X: return perkToCheck.getLabel() + " <" + target;
+				case STAT_GREATER_THAN_X:  return statToCheck.getLabel() + " " + target;
+				case STAT_LESS_THAN_X: return statToCheck.getLabel() + " <" + target;
 				default: return "";				
 			}
 		}
@@ -672,12 +673,12 @@ public class EncounterBuilder {
 	public static class BranchChoice {
 		public final TextButton button;
 		public final Scene scene;
-		public final ChoiceCheckToken require;
+		public final Array<ChoiceCheckToken> requirements;
 		public final Sound clickSound;
-		public BranchChoice(TextButton button, Scene scene, ChoiceCheckToken require, Sound clickSound) {
+		public BranchChoice(TextButton button, Scene scene, Array<ChoiceCheckToken> requirements, Sound clickSound) {
 			this.button = button;
 			this.scene = scene;
-			this.require = require;
+			this.requirements = requirements;
 			this.clickSound = clickSound;
 		}
 	}
@@ -691,6 +692,17 @@ public class EncounterBuilder {
 		return mutations;	
 	}
 	
+	public String getRequirementString(Array<ChoiceCheckToken> requirements) {
+		String requirementString = "";
+		for (ChoiceCheckToken requirement : requirements) {
+			requirementString += requirement.getLabel() + " + ";
+		}
+		if (!requirementString.equals("")) {
+			requirementString = " (Requires: " + requirementString.trim().substring(0, requirementString.length() - 2).trim() + ")"; 
+		}
+		return requirementString;
+	}
+
 	public class BranchToken {
 		private final EndTokenType type;
 		protected BranchToken(EndTokenType type) {

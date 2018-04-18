@@ -20,6 +20,7 @@ import com.majalis.character.PlayerCharacter;
 import com.majalis.encounter.Background;
 import com.majalis.encounter.EncounterHUD;
 import com.majalis.encounter.EncounterBuilder.BranchChoice;
+import com.majalis.encounter.EncounterBuilder.ChoiceCheckToken;
 import com.majalis.save.SaveService;
 import com.majalis.screens.TimeOfDay;
 /*
@@ -73,9 +74,11 @@ public class ChoiceScene extends AbstractChoiceScene {
 	public void activate() {
 		super.activate();
 		for (BranchChoice choice : choices) {
-			if (choice.require != null && !choice.require.isValidChoice(character)) {
-				choice.button.setTouchable(Touchable.disabled);
-				choice.button.setColor(Color.GRAY);
+			for (ChoiceCheckToken requirement : choice.requirements) {
+				if (!requirement.isValidChoice(character)) {
+					choice.button.setTouchable(Touchable.disabled);
+					choice.button.setColor(Color.GRAY);
+				}
 			}
 		}
 		background.setColor(TimeOfDay.getTime(character.getTime()).getColor());
