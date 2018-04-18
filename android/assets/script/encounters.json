@@ -6003,6 +6003,29 @@
 		]
 	},
 	{
+		"key": "CENTAUR-VICTORY-TOP",
+		"scriptLines": [
+			{"text": "You walk along the broad side of the centaur lady and stroke her. \"So...\" you say, reaching her hindquarters, \"do you give rides?\""},
+			{"text": "She looks indignant. \"Is that how you see me? As a horse to be ridden?\""},
+			{"text": "You smile at her. \"That's not what I mean by 'ride',\" you say, your hand drifting further back... to her tail, which you stroke gently."},
+			{"text": "Her ears droop, and she blushes. \"Oh... oh. Well... I do admire your... strength... and... no one has to know, right?\" she says, suddenly perking up."},
+			{"text": "You pull up her tail, revealing her big, winky tailhole. You run your finger around it without touching it, and she shivers. She adjusts her footing and lowers herself as you circle inwards..."},
+			{"text": "You can easily slip a finger inside, and when you do, she seems to feel it, at least.  You reach down and gently cup her heavy testicles, and she grows to full mast, eagerly awaiting something more."},
+			{"text": "Pressing down on her haunch, she lowers it more for you, and you line up beside her. She covers it with her tail for a moment... but then lifts it up and out of the way. That display gets you nice and hard, which proves to be... useful."},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSexTop":1}}],
+			"text": "You have to tiptoe to get the proper angle, but as soon as you push your hips forward, you sink all the way inside of her horse ass-pussy.  While it's able to accommodate you easily, when she tenses her anal muscles the crushing pressure is... more than sufficient."},
+			{"text": "She looks over her shoulder back at you, apparently not sure what it is exactly you're doing, but the flush of her face suggests that she at least can feel that you're playing with her ass."},
+			{"text": "You doubt you'll be able to make her cum, but she seems to be enjoying the sensation regardless as you plunge your entire cock in and out of her ass with each thrust, slapping against her horse ass while gripping tightly onto her tail."},
+			{"text": "Her crushing butt muscles prove quite useful for coaxing out your orgasm - you don't last long, her inviting anus almost sucking it out of you before you can really reach a stride."},			
+			{
+			"sound": "CUM",
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "ejaculationInButt":1}}],
+			"text": "You flood the centaur's insides with cum... although you're not sure if she can even tell.  Still, when you withdraw, her ass is drooling out what you left in her, so that's good enough."},
+			{"text": "She turns about and nuzzles your face, and then returns to her camp, leaving you to continue traversing the plains on your own."}	
+		]
+	},	
+	{
 		"key": "CENTAUR-VICTORY-LUST",
 		"scriptLines": [
 			{"text": "You can't contain yourself.  You need to... you approach her, and she watches you with skeptical interest."}
