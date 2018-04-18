@@ -6607,6 +6607,16 @@
 		]
 	},
 	{
+		"key": "GOBLIN-VICTORY-TOP",
+		"scriptLines": [
+			{"text": "You pick up the goblin and bring her over to a mushroom stalk, which she grips to while laughing.  \"Gyahaha!  You gonna fuck me, pinkskin?\""},
+			{"text": "You are.  You very much are."},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSexTop":1}}],
+			"text": "You slam your hips against her big fat ass, your cock stretching the goblin's abdomen while she laughs maniacally."}
+		]
+	},
+	{
 		"key": "GOBLIN-VICTORY-BOTTOM",
 		"scriptLines": [
 			{"text": "You decide to take the goblin for a ride... literally."},
