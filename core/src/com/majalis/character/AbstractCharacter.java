@@ -1065,7 +1065,7 @@ public abstract class AbstractCharacter extends Group {
 	
 	public MutationResult getStanceTransform(Technique firstTechnique) {
 		Stance newStance = firstTechnique.getStance();
-		if (newStance.isNull() || (oldStance != null && oldStance == newStance)) {
+		if (newStance.isNull() || (stance != null && stance == newStance)) {
 			return new MutationResult("");
 		}
 		String stanceTransform = newStance.getLabel();
