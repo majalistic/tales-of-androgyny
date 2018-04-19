@@ -18,7 +18,7 @@ public class MutationResult {
 	private MutationResult() { text = ""; mod = 0; type = MutationType.NONE; stance = Stance.NULL; }
 	public MutationResult(String text) { this(text, 0, Stance.NULL, MutationType.NONE); }
 	public MutationResult(String text, Stance stance) { this(text, 0, stance, MutationType.STANCE); }
-	public MutationResult(String text, int mod, MutationType type)  { this(text, 0, Stance.NULL, MutationType.STANCE); }
+	public MutationResult(String text, int mod, MutationType type)  { this(text, 0, Stance.NULL, type); }
 	public MutationResult(String text, int mod, Stance stance, MutationType type) {
 		this.text = text;
 		this.mod = mod;
@@ -28,6 +28,8 @@ public class MutationResult {
 	
 	public enum MutationType {
 		HEALTH (AssetEnum.HEART),
+		BLEED (AssetEnum.BLEED),
+		ARMOR (AssetEnum.ARMOR_0),
 		FOOD (AssetEnum.APPLE),
 		EXP (AssetEnum.EXP),
 		TIME (AssetEnum.TIME),

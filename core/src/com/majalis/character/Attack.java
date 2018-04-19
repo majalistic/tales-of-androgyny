@@ -45,7 +45,7 @@ public class Attack {
 	// this should be refactored to be passed in
 	private final AbstractCharacter user;
 	
-	private final Array<String> results;
+	private final Array<MutationResult> results;
 	private final Array<String> dialog;
 	private final Array<MutationResult> attackerResults;
 	private final Array<MutationResult> defenderResults;
@@ -95,7 +95,7 @@ public class Attack {
 		this.useItem = useItem;
 		this.user = user;
 
-		this.results = new Array<String>();
+		this.results = new Array<MutationResult>();
 		this.attackerResults = new Array<MutationResult>();
 		this.defenderResults = new Array<MutationResult>();
 		this.dialog = new Array<String>();
@@ -162,8 +162,8 @@ public class Attack {
 	protected Stance getForceStance() { return forceStance; }
 	public boolean isSuccessful() { return status == Status.SUCCESS || status == Status.BLOCKED || status == Status.PARRIED; }
 	public Status getStatus() { return status; }
-	protected void addMessage(String message) { results.add(message); }
-	protected Array<String> getMessages() { return results; }
+	protected void addMessage(MutationResult message) { results.add(message); }
+	protected Array<MutationResult> getMessages() { return results; }
 	protected void addDialog(String message) { dialog.add(message); }
 	protected Array<String> getDialog() { return dialog; }
 	protected void addAttackerResults(Array<MutationResult> results) { attackerResults.addAll(results); }

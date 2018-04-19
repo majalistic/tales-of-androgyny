@@ -19,6 +19,7 @@ import com.majalis.battle.Battle.Outcome;
 import com.majalis.character.Arousal.ArousalLevel;
 import com.majalis.character.Item.Weapon;
 import com.majalis.character.SexualExperience.SexualExperienceBuilder;
+import com.majalis.save.MutationResult;
 import com.majalis.technique.ClimaxTechnique.ClimaxType;
 import com.majalis.technique.TechniquePrototype.TechniqueHeight;
 
@@ -454,15 +455,15 @@ public class EnemyCharacter extends AbstractCharacter {
 		if (resolvedAttack.getGrapple() != GrappleStatus.NULL && (stance == Stance.COWGIRL || stance == Stance.REVERSE_COWGIRL)) {
 			// this will need to be aware of who the character receiving is - the check might need to be COWGIRL_BOTTOM instead of COWGIRL
 			if (resolvedAttack.getGrapple().isDisadvantage()) {
-				resolvedAttack.addMessage("It's still stuck up inside of you!");
-				resolvedAttack.addMessage("Well, I guess you know that.");
-				resolvedAttack.addMessage("Kind of a colon crusher.");
+				resolvedAttack.addMessage(new MutationResult("It's still stuck up inside of you!"));
+				resolvedAttack.addMessage(new MutationResult("Well, I guess you know that."));
+				resolvedAttack.addMessage(new MutationResult("Kind of a colon crusher."));
 			}
 			else if (resolvedAttack.getGrapple() == GrappleStatus.SCRAMBLE) {
-				resolvedAttack.addMessage("They're difficult to ride on top of!");
+				resolvedAttack.addMessage(new MutationResult("They're difficult to ride on top of!"));
 			}
 			else if (resolvedAttack.getGrapple().isAdvantage()) {
-				resolvedAttack.addMessage("They're about to buck you off!");
+				resolvedAttack.addMessage(new MutationResult("They're about to buck you off!"));
 			}
 		}
 	

@@ -396,14 +396,14 @@ public class Battle extends Group{
 		// final mutations - attacks are applied to each character, their cached state within the techniques makes the ordering here irrelevant
 		for (Attack attackForFirstCharacter : attacksForFirstCharacter) {
 			AttackResult results = firstCharacter.receiveAttack(attackForFirstCharacter);
-			consoleContents.addAll(convertToResults(results.getMessages()));
+			consoleContents.addAll(results.getMessages());
 			dialogContents.addAll(convertToResults(results.getDialog()));
 			playerResults.addAll(results.getDefenderResults());
 		}
 		
 		for (Attack attackForSecondCharacter : attacksForSecondCharacter) {
 			AttackResult results = secondCharacter.receiveAttack(attackForSecondCharacter);
-			consoleContents.addAll(convertToResults(results.getMessages()));
+			consoleContents.addAll(results.getMessages());
 			dialogContents.addAll(convertToResults(results.getDialog()));
 			playerResults.addAll(results.getAttackerResults());
 		}
