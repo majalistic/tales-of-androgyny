@@ -213,20 +213,19 @@ public class Battle extends Group{
 		
 		this.addActor(uiGroup);
 		this.consoleTable = new Table();		
-		consoleTable.align(Align.top);
-		for (MutationResult mr : consoleText) {
-			consoleTable.add(initLabel(mr.getText(), skin, true, Align.top, Color.BLACK)).row();
-		}
-		
-		ScrollPane pane = (ScrollPane) initActor(new ScrollPane(consoleTable), uiGroup, consoleXPos + 50, 50, 625, 350);
+		consoleTable.align(Align.top);		
+		consoleContents = consoleText;
+	
+		ScrollPane pane = (ScrollPane) initActor(new ScrollPane(consoleTable), uiGroup, consoleXPos + 25, 50, 650, 350);
 		pane.setScrollingDisabled(true, false);
 		pane.setOverscroll(false, false);
 		
 		dialogTable = new Table();
 		dialogTable.align(Align.top);
-		for (MutationResult mr : dialogText) {
-			dialogTable.add(initLabel(mr.getText(), skin, true, Align.top, Color.PURPLE)).row();
-		}
+		dialogContents = dialogText;
+		
+		setTables();	
+		
 		ScrollPane paneDialog = (ScrollPane) initActor(new ScrollPane(dialogTable), dialogGroup, consoleXPos + 150, 350, 400, 220);
 		paneDialog.setScrollingDisabled(true, false);
 
@@ -374,8 +373,6 @@ public class Battle extends Group{
 	private Array<MutationResult> resolveTechniques(AbstractCharacter firstCharacter, Technique firstTechnique, AbstractCharacter secondCharacter, Technique secondTechnique) {
 		consoleContents = new Array<MutationResult>();
 		dialogContents = new Array<MutationResult>();
-		consoleTable.clear();
-		dialogTable.clear();
 		
 		// cache player character's stance from the previous turn; playerCharacter will cache stance at the start of this turn
 		Stance oldStance = firstCharacter.getStance();
@@ -483,15 +480,24 @@ public class Battle extends Group{
 			soundMap.get(AssetEnum.FIREBALL_SOUND).play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume"));
 		}
 		
+		setTables();		
+		return playerResults;
+	}
+	
+	private void setTables() {
+		consoleTable.clear();
+		dialogTable.clear();
 		for (MutationResult mr : consoleContents) {
-			consoleTable.add(initLabel(mr.getText(), skin, true, Align.top, Color.BLACK)).row();
+			Label label = initLabel(mr.getText(), skin, true, Align.top, Color.BLACK);
+			label.setWrap(true);
+			consoleTable.add(label).width(650).row();
 		}
 		
 		for (MutationResult mr : dialogContents) {
-			dialogTable.add(initLabel(mr.getText(), skin, true, Align.top, Color.BLACK)).row();
+			Label label = initLabel(mr.getText(), skin, true, Align.top, Color.PURPLE);
+			label.setWrap(true);
+			dialogTable.add(label).width(400).row();
 		}
-		
-		return playerResults;
 	}
 	
 	private Array<MutationResult> convertToResults(Array<String> source) {
