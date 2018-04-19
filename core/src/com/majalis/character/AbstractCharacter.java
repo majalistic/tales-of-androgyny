@@ -847,6 +847,8 @@ public abstract class AbstractCharacter extends Group {
 		
 		updateDisplay();
 		
+		// currently this returns something with the plain text results, the dialog, the attacker results, and the defender results - only the defender results for the enemy attack and the attacker results from the player's attack are used for reporting end of combat things, but should also be used for 
+		// the combat log itself - the plain text results should similarly be split between attacker and defender results, thus giving the 2X2 matrix of outputs - attacker-attacker, attacker-defender, defender-attacker, defender-defender
 		return new AttackResult(result, new Array<String>(), attack.getAttackerResults(), attack.getDefenderResults());
 	}
 	

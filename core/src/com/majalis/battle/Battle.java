@@ -82,6 +82,7 @@ public class Battle extends Group{
 	private final Image characterPortrait;
 	private final Group hoverGroup;
 	private final Group dialogGroup;
+	private final Table consoleTable;
 	private final Label console;
 	private final Label dialog;
 	private final Label skillDisplay;
@@ -210,8 +211,11 @@ public class Battle extends Group{
 		slash.setState(1);	
 		
 		this.addActor(uiGroup);
+		this.consoleTable = new Table();		
+		consoleTable.align(Align.top);
 		console = initLabel(consoleText, skin, true, Align.top, Color.BLACK);
-		ScrollPane pane = (ScrollPane) initActor(new ScrollPane(console), uiGroup, consoleXPos + 50, 50, 625, 350);
+		consoleTable.add(console);
+		ScrollPane pane = (ScrollPane) initActor(new ScrollPane(consoleTable), uiGroup, consoleXPos + 50, 50, 625, 350);
 		pane.setScrollingDisabled(true, false);
 		pane.setOverscroll(false, false);
 		
