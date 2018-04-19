@@ -55,8 +55,8 @@ public class Bonus {
 					case GUT_CHECK: break;
 					case KNOCKDOWN: break;
 					case MANA_COST: break;
-					case POWER_MOD: description += "CRITICAL HIT! Power increased by " + bonus.value + "!"; break;
-					case PRIORITY: description += user + " gained the initiative!"; break;
+					case POWER_MOD: description += " CRITICAL HIT! Power increased by " + bonus.value + "!"; break;
+					case PRIORITY: description += " " + user + " gained the initiative!"; break;
 					case STABILTIY_COST: break;
 					case STAMINA_COST: break;
 					case DISARM: break;
