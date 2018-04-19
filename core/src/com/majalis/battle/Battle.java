@@ -379,8 +379,8 @@ public class Battle extends Group{
 		Stance oldEnemyStance = secondCharacter.getStance();
 		
 		// no mutations occur here - characters return their stance modification text
-		consoleContents.add(new MutationResult(firstCharacter.getStanceTransform(firstTechnique)));
-		consoleContents.add(new MutationResult(secondCharacter.getStanceTransform(secondTechnique)));
+		consoleContents.add(firstCharacter.getStanceTransform(firstTechnique));
+		consoleContents.add(secondCharacter.getStanceTransform(secondTechnique));
 		
 		// first mutation - characters lose stamina, stability, mana, cache their current stance, change their current stance, 
 		firstCharacter.extractCosts(firstTechnique);

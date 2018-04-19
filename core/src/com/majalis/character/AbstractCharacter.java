@@ -1063,15 +1063,15 @@ public abstract class AbstractCharacter extends Group {
 	public Weapon getWeapon() { return weapon; }
 	public Weapon getRangedWeapon() { return rangedWeapon; }
 	
-	public String getStanceTransform(Technique firstTechnique) {
+	public MutationResult getStanceTransform(Technique firstTechnique) {
 		Stance newStance = firstTechnique.getStance();
 		if (newStance.isNull() || (oldStance != null && oldStance == newStance)) {
-			return "";
+			return new MutationResult("");
 		}
 		String stanceTransform = newStance.getLabel();
 		String vowels = "aeiou";
 		String article = vowels.indexOf(Character.toLowerCase(stanceTransform.charAt(0))) != -1 ? "an" : "a";
-		return label + " adopt" + (secondPerson ? "" : "s") + " " + article + " " + stanceTransform + " stance! ";
+		return new MutationResult(label + " adopt" + (secondPerson ? "" : "s") + " " + article + " " + stanceTransform + " stance! ", newStance);
  	}
 	
 	public boolean outOfStamina(Technique technique) { return getStaminaMod(technique) >= currentStamina; }
