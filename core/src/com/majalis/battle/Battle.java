@@ -83,8 +83,7 @@ public class Battle extends Group{
 	private final Group hoverGroup;
 	private final Group dialogGroup;
 	private final Table consoleTable;
-	private final Label console;
-	private final Label dialog;
+	private final Table dialogTable;
 	private final Label skillDisplay;
 	private final Label bonusDisplay;
 	private final Label penaltyDisplay;
@@ -95,6 +94,8 @@ public class Battle extends Group{
 	
 	private SkillText enemySkill;
 	
+	private Array<MutationResult> consoleContents;
+	private Array<MutationResult> dialogContents;
 	private Array<TextButton> optionButtons;
 	private Technique selectedTechnique;
 	private Technique enemySelectedTechnique;
@@ -213,14 +214,20 @@ public class Battle extends Group{
 		this.addActor(uiGroup);
 		this.consoleTable = new Table();		
 		consoleTable.align(Align.top);
-		console = initLabel(consoleText.size == 0 ? "" : consoleText.get(0).getText(), skin, true, Align.top, Color.BLACK);
-		consoleTable.add(console);
+		for (MutationResult mr : consoleText) {
+			consoleTable.add(initLabel(mr.getText(), skin, true, Align.top, Color.BLACK)).row();
+		}
+		
 		ScrollPane pane = (ScrollPane) initActor(new ScrollPane(consoleTable), uiGroup, consoleXPos + 50, 50, 625, 350);
 		pane.setScrollingDisabled(true, false);
 		pane.setOverscroll(false, false);
 		
-		dialog = initLabel(dialogText.size == 0 ? "" : dialogText.get(0).getText(), skin, true, Align.top, Color.PURPLE);
-		ScrollPane paneDialog = (ScrollPane) initActor(new ScrollPane(dialog), dialogGroup, consoleXPos + 150, 350, 400, 220);
+		dialogTable = new Table();
+		dialogTable.align(Align.top);
+		for (MutationResult mr : dialogText) {
+			dialogTable.add(initLabel(mr.getText(), skin, true, Align.top, Color.PURPLE)).row();
+		}
+		ScrollPane paneDialog = (ScrollPane) initActor(new ScrollPane(dialogTable), dialogGroup, consoleXPos + 150, 350, 400, 220);
 		paneDialog.setScrollingDisabled(true, false);
 
 		uiGroup.addActor(dialogGroup);
@@ -310,8 +317,8 @@ public class Battle extends Group{
 				saveService.saveDataValue(SaveEnum.PLAYER, character, false);
 				saveService.saveDataValue(SaveEnum.ENEMY, enemy, false);
 				Array<Array<MutationResult>> consoleComponents = new Array<Array<MutationResult>>();
-				consoleComponents.add(new Array<MutationResult>(new MutationResult[]{new MutationResult(console.getText().toString())}));
-				consoleComponents.add(new Array<MutationResult>(new MutationResult[]{new MutationResult(dialog.getText().toString())}));
+				consoleComponents.add(consoleContents);
+				consoleComponents.add(dialogContents);
 				saveService.saveDataValue(SaveEnum.CONSOLE, consoleComponents, false);
 				saveService.saveDataValue(SaveEnum.BATTLE_RESULT, results);
 			}
@@ -365,16 +372,18 @@ public class Battle extends Group{
 	
 	//  may need to be broken up into its own class or have much of it refactored into AbstractCharacter for loose coupling
 	private Array<MutationResult> resolveTechniques(AbstractCharacter firstCharacter, Technique firstTechnique, AbstractCharacter secondCharacter, Technique secondTechnique) {
-		console.setText("");
-		dialog.setText("");
+		consoleContents = new Array<MutationResult>();
+		dialogContents = new Array<MutationResult>();
+		consoleTable.clear();
+		dialogTable.clear();
 		
 		// cache player character's stance from the previous turn; playerCharacter will cache stance at the start of this turn
 		Stance oldStance = firstCharacter.getStance();
 		Stance oldEnemyStance = secondCharacter.getStance();
 		
 		// no mutations occur here - characters return their stance modification text
-		printToConsole(firstCharacter.getStanceTransform(firstTechnique));
-		printToConsole(secondCharacter.getStanceTransform(secondTechnique));
+		consoleContents.add(new MutationResult(firstCharacter.getStanceTransform(firstTechnique)));
+		consoleContents.add(new MutationResult(secondCharacter.getStanceTransform(secondTechnique)));
 		
 		// first mutation - characters lose stamina, stability, mana, cache their current stance, change their current stance, 
 		firstCharacter.extractCosts(firstTechnique);
@@ -390,15 +399,15 @@ public class Battle extends Group{
 		// final mutations - attacks are applied to each character, their cached state within the techniques makes the ordering here irrelevant
 		for (Attack attackForFirstCharacter : attacksForFirstCharacter) {
 			AttackResult results = firstCharacter.receiveAttack(attackForFirstCharacter);
-			printToConsole(results.getMessages());
-			printToDialog(results.getDialog());
+			consoleContents.addAll(convertToResults(results.getMessages()));
+			dialogContents.addAll(convertToResults(results.getDialog()));
 			playerResults.addAll(results.getDefenderResults());
 		}
 		
 		for (Attack attackForSecondCharacter : attacksForSecondCharacter) {
 			AttackResult results = secondCharacter.receiveAttack(attackForSecondCharacter);
-			printToConsole(results.getMessages());
-			printToDialog(results.getDialog());
+			consoleContents.addAll(convertToResults(results.getMessages()));
+			dialogContents.addAll(convertToResults(results.getDialog()));
 			playerResults.addAll(results.getAttackerResults());
 		}
 		
@@ -422,7 +431,7 @@ public class Battle extends Group{
 			if (attackForSecondCharacter.isAttack() && attackForSecondCharacter.isSuccessful()) { enemy.hitAnimation(); }
 		}
 		
-		if (dialog.getText().length == 0) { dialogGroup.addAction(hide()); }
+		if (dialogContents.size == 0 || dialogContents.get(0).getText().equals("")) { dialogGroup.addAction(hide()); }
 		else { dialogGroup.addAction(show()); }
 
 		if ( (oldStance.isAnalReceptive() && firstCharacter.getStance().isAnalReceptive()) || (oldEnemyStance.isAnalReceptive() && secondCharacter.getStance().isAnalReceptive()) ) {
@@ -464,7 +473,7 @@ public class Battle extends Group{
 		if (character.getHealthPercent() < .11f && character.hasKyliraHeal()) {
 			// have Kylira heal
 			playerResults.addAll(character.modHealth(character.getKyliraLevel() * 10));
-			printToConsole("Kylira heals you for " + character.getKyliraLevel() * 10 + "!  \"Good luck!\"");
+			consoleContents.add(new MutationResult("Kylira heals you for " + character.getKyliraLevel() * 10 + "!  \"Good luck!\""));
 			Group popupGroup = new Group();
 			this.addActor(popupGroup);
 			
@@ -474,7 +483,21 @@ public class Battle extends Group{
 			soundMap.get(AssetEnum.FIREBALL_SOUND).play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume"));
 		}
 		
+		for (MutationResult mr : consoleContents) {
+			consoleTable.add(initLabel(mr.getText(), skin, true, Align.top, Color.BLACK)).row();
+		}
+		
+		for (MutationResult mr : dialogContents) {
+			dialogTable.add(initLabel(mr.getText(), skin, true, Align.top, Color.BLACK)).row();
+		}
+		
 		return playerResults;
+	}
+	
+	private Array<MutationResult> convertToResults(Array<String> source) {
+		Array<MutationResult> results = new Array<MutationResult>();
+		for (String s : source) results.add(new MutationResult(s));
+		return results;
 	}
 	
 	private void processAttack(Attack attack, AbstractCharacter otherCharacter, float delay, float responseDelay) {
@@ -507,21 +530,6 @@ public class Battle extends Group{
 	
 	private TextureRegionDrawable getDrawable(AssetDescriptor<Texture> AssetInfo) { return getDrawable(assetManager.get(AssetInfo)); }
 	private TextureRegionDrawable getDrawable(Texture texture) { return new TextureRegionDrawable(new TextureRegion(texture)); }
-	
-	private void printToConsole(Array<String> results) {
-		for (String result: results) {
-			printToConsole(result);
-		}
-	}
-	
-	private void printToConsole(String result) { console.setText(console.getText() + result + "\n"); }
-
-	private void printToDialog(Array<String> results) {
-		for (String result: results) {
-			printToDialog(result);
-		}
-	}
-	private void printToDialog(String result) { dialog.setText(dialog.getText() + result + "\n"); }
 	
 	private void changeSelection(int newSelection) {
 		if (selection == newSelection) return;
