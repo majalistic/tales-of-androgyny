@@ -36,17 +36,6 @@ public class Bonus {
 	
 	public String getDescription(String user) {
 		String description = "";
-		switch (condition) {
-			case ENEMY_BLOODY: break;
-			case ENEMY_LOW_STABILITY: break;
-			case ENEMY_ON_GROUND: description += "Enemy is on the ground!"; break;
-			case OUTMANEUVER: description += user + " outmaneuvered the opponent by " + bonusLevel + "!"; break;
-			case OUTMANUEVER_STRONG: break;
-			case SKILL_LEVEL: break;
-			case STRENGTH_OVERPOWER: break;
-			case STRENGTH_OVERPOWER_STRONG: break;
-			default: break;
-		}
 		for (OrderedMap.Entry<BonusType, Integer> bonus : typeWithMagnitude.entries()) {
 			if (condition != BonusCondition.SKILL_LEVEL) {
 				switch (bonus.key) { 
@@ -64,6 +53,19 @@ public class Bonus {
 				}
 			}
 		}
+		if (description.equals("")) return null;		
+		switch (condition) {
+			case ENEMY_BLOODY: break;
+			case ENEMY_LOW_STABILITY: break;
+			case ENEMY_ON_GROUND: description = "Enemy is on the ground!" + description; break;
+			case OUTMANEUVER: description = user + " outmaneuvered the opponent by " + bonusLevel + "!" + description; break;
+			case OUTMANUEVER_STRONG: break;
+			case SKILL_LEVEL: break;
+			case STRENGTH_OVERPOWER: break;
+			case STRENGTH_OVERPOWER_STRONG: break;
+			default: break;
+		}
+		
 		return description.equals("") ? null : description;
 	}
 
