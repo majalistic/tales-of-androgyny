@@ -113,7 +113,7 @@ public class SaveManager implements SaveService, LoadService {
 	    	case DEBT:				result.addAll(save.player.modDebt((Integer) object)); break;
 	    	case MODE:				save.mode = (GameMode) object; if ((GameMode) object == GameMode.SKIRMISH) save.player.load(); break;
 	    	case MUSIC:				save.newMusic = (AssetEnum) object; break;
-	    	case CONSOLE:			save.console = (Array<String>) object; break;
+	    	case CONSOLE:			save.battleConsole = (Array<Array<MutationResult>>) object; break;
 	    	case ANAL:				result.addAll(save.player.receiveSex((SexualExperience) object)); break;
 	    	case ITEM:				result.addAll(save.player.receiveItem((Item) object)); break;
 	    	case SHOP:				save.shops.put(((Shop) object).getShopCode(), (Shop) object); break;
@@ -158,7 +158,7 @@ public class SaveManager implements SaveService, LoadService {
 	    	case EXPERIENCE:		return (T) (Integer) save.player.getExperience();
 	    	case MODE:				return (T) (GameMode) save.mode;
 	    	case MUSIC:				return (T) (AssetEnum) save.newMusic;
-	    	case CONSOLE:			return (T) (Array<String>) save.console;
+	    	case CONSOLE:			return (T) (Array<Array<MutationResult>>) save.battleConsole;
 	    	case TOWN: 				return (T) (TownCode) save.town;
 	    	case TRUDY:				return (T) (Integer) save.trudy;
 	    	case KYLIRA:			return (T) (Integer) save.kylira;
@@ -340,7 +340,7 @@ public class SaveManager implements SaveService, LoadService {
     	private IntArray sceneCode;
     	private EncounterCode encounterCode;
     	private int nodeCode;
-    	private Array<String> console;
+    	private Array<Array<MutationResult>> battleConsole;
     	private IntMap<VisitInfo> visitedNodeList;
     	private TownCode town;
     	private int trudy;
@@ -354,10 +354,9 @@ public class SaveManager implements SaveService, LoadService {
 		private Array<MutationResult> battleResults;
 		
 		// legacy attributes
-    	@SuppressWarnings("unused")
-		private String music;
-    	@SuppressWarnings("unused")
-    	private IntArray visitedList; 
+    	@SuppressWarnings("unused") private String music;
+    	@SuppressWarnings("unused") private IntArray visitedList; 
+    	@SuppressWarnings("unused") private Array<String> console; 
     	// 0-arg constructor for JSON serialization: DO NOT USE
 		@SuppressWarnings("unused")
 		private GameSave() { 
@@ -378,6 +377,7 @@ public class SaveManager implements SaveService, LoadService {
     			returnContext = GameContext.WORLD_MAP;
         		nodeCode = 1;
         		console = new Array<String>();
+        		battleConsole = new Array<Array<MutationResult>>();
         		shops = new ObjectMap<String, Shop>();
         		visitedNodeList = new IntMap<VisitInfo>();
         		visitedNodeList.put(1,  new VisitInfo(1, 0, 0, 0, 1));

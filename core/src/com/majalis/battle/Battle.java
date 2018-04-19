@@ -104,7 +104,7 @@ public class Battle extends Group{
 	private boolean battleOutcomeDecided;
 	private boolean battleOver;
 	
-	public Battle(SaveService saveService, AssetManager assetManager, final PlayerCharacter character, final EnemyCharacter enemy, ObjectMap<String, Integer> outcomes, Background battleBackground, Background battleUI, String consoleText, String dialogText, Array<MutationResult> battleResults, AssetEnum musicPath) {
+	public Battle(SaveService saveService, AssetManager assetManager, final PlayerCharacter character, final EnemyCharacter enemy, ObjectMap<String, Integer> outcomes, Background battleBackground, Background battleUI, Array<MutationResult> consoleText, Array<MutationResult> dialogText, Array<MutationResult> battleResults, AssetEnum musicPath) {
 		this.saveService = saveService;
 		this.assetManager = assetManager;
 		this.character = character;
@@ -213,18 +213,18 @@ public class Battle extends Group{
 		this.addActor(uiGroup);
 		this.consoleTable = new Table();		
 		consoleTable.align(Align.top);
-		console = initLabel(consoleText, skin, true, Align.top, Color.BLACK);
+		console = initLabel(consoleText.size == 0 ? "" : consoleText.get(0).getText(), skin, true, Align.top, Color.BLACK);
 		consoleTable.add(console);
 		ScrollPane pane = (ScrollPane) initActor(new ScrollPane(consoleTable), uiGroup, consoleXPos + 50, 50, 625, 350);
 		pane.setScrollingDisabled(true, false);
 		pane.setOverscroll(false, false);
 		
-		dialog = initLabel(dialogText, skin, true, Align.top, Color.PURPLE);
+		dialog = initLabel(dialogText.size == 0 ? "" : dialogText.get(0).getText(), skin, true, Align.top, Color.PURPLE);
 		ScrollPane paneDialog = (ScrollPane) initActor(new ScrollPane(dialog), dialogGroup, consoleXPos + 150, 350, 400, 220);
 		paneDialog.setScrollingDisabled(true, false);
 
 		uiGroup.addActor(dialogGroup);
-		if (dialogText.isEmpty()) {
+		if (dialogText.size == 0 || dialogText.get(0).getText().equals("")) {
 			dialogGroup.addAction(hide());
 		}
 		
@@ -262,7 +262,7 @@ public class Battle extends Group{
 		
 		saveService.saveDataValue(SaveEnum.PLAYER, character);
 		saveService.saveDataValue(SaveEnum.ENEMY, enemy);
-		Array<String> consoleComponents = new Array<String>();
+		Array<Array<MutationResult>> consoleComponents = new Array<Array<MutationResult>>();
 		consoleComponents.add(consoleText);
 		consoleComponents.add(dialogText);
 		saveService.saveDataValue(SaveEnum.CONSOLE, consoleComponents);
@@ -309,9 +309,9 @@ public class Battle extends Group{
 				displayTechniqueOptions();
 				saveService.saveDataValue(SaveEnum.PLAYER, character, false);
 				saveService.saveDataValue(SaveEnum.ENEMY, enemy, false);
-				Array<String> consoleComponents = new Array<String>();
-				consoleComponents.add(console.getText().toString());
-				consoleComponents.add(dialog.getText().toString());
+				Array<Array<MutationResult>> consoleComponents = new Array<Array<MutationResult>>();
+				consoleComponents.add(new Array<MutationResult>(new MutationResult[]{new MutationResult(console.getText().toString())}));
+				consoleComponents.add(new Array<MutationResult>(new MutationResult[]{new MutationResult(dialog.getText().toString())}));
 				saveService.saveDataValue(SaveEnum.CONSOLE, consoleComponents, false);
 				saveService.saveDataValue(SaveEnum.BATTLE_RESULT, results);
 			}
@@ -563,7 +563,7 @@ public class Battle extends Group{
 			        @Override
 			        public void clicked(InputEvent event, float x, float y) {
 			        	battleOver = true;
-			        	saveService.saveDataValue(SaveEnum.CONSOLE, new Array<String>());
+			        	saveService.saveDataValue(SaveEnum.CONSOLE, new Array<Array<MutationResult>>());
 			        }
 				}
 			);

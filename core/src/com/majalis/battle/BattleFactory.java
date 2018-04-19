@@ -66,11 +66,12 @@ public class BattleFactory {
 			}
 			enemy.init(enemy.getTextures(assetManager), textures, enemy.getAnimations(assetManager), enemy.getStance());
 		}
-		Array<String> console = (Array<String>) loadService.loadDataValue(SaveEnum.CONSOLE, Array.class);
+		Array<Array<MutationResult>> console = (Array<Array<MutationResult>>) loadService.loadDataValue(SaveEnum.CONSOLE, Array.class);
+		if (console == null) console = new Array<Array<MutationResult>>();
 		return new Battle(
 			saveService, assetManager, playerCharacter, enemy, battleAttributes.getOutcomes(), 
 			new BackgroundBuilder((Texture)assetManager.get(enemy.getBGPath())).build(), new BackgroundBuilder(assetManager.get(AssetEnum.BATTLE_UI.getTexture())).build(),
-			console.size > 0 ? console.get(0) : "", console.size > 1 ? console.get(1) : "", (Array<MutationResult>) loadService.loadDataValue(SaveEnum.BATTLE_RESULT, Array.class), battleAttributes.getMusic()
+			console.size > 0 ? console.get(0) : new Array<MutationResult>(), console.size > 1 ? console.get(1) : new Array<MutationResult>(), (Array<MutationResult>) loadService.loadDataValue(SaveEnum.BATTLE_RESULT, Array.class), battleAttributes.getMusic()
 		);
 	}
 }
