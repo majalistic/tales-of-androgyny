@@ -606,8 +606,8 @@ public class PlayerCharacter extends AbstractCharacter {
 				spurt = "You spew your semen onto the ground!\n"; 
 				arousal.climax(ClimaxType.BACKWASH, perks);
 		}
-		if (result != null) spurt += result + "\n";
-		spurt += "You're now flaccid!\n";
+		if (result != null && !result.equals("")) spurt += result + "\n";
+		spurt += "You're now flaccid!";
 		return spurt;
 	}
 
