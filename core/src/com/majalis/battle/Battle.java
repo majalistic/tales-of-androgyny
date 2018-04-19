@@ -488,9 +488,11 @@ public class Battle extends Group{
 		consoleTable.clear();
 		dialogTable.clear();
 		for (MutationResult mr : consoleContents) {
+			if (mr.getText().trim().equals("")) continue;
 			Label label = initLabel(mr.getText(), skin, true, Align.top, Color.BLACK);
 			label.setWrap(true);
-			consoleTable.add(label).width(650).row();
+			consoleTable.add(label).width(600);
+			consoleTable.add(new Image(assetManager.get(mr.getTexture()))).size(25, 25).row();
 		}
 		
 		for (MutationResult mr : dialogContents) {
