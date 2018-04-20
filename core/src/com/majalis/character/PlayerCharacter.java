@@ -286,7 +286,7 @@ public class PlayerCharacter extends AbstractCharacter {
 	@Override
 	public Attack doAttack(Attack resolvedAttack) {		
 		if (resolvedAttack.getSex().isTeasing()) { currentPortrait = portraitFeminization(AssetEnum.PORTRAIT_GRIN).getTexture().fileName; }
-		if (wrapLegs) {	resolvedAttack.addMessage(new MutationResult("Your legs are wrapped around them!")); }
+		if (wrapLegs) {	resolvedAttack.addMessageToAttacker(new MutationResult("Your legs are wrapped around them!")); }
 		if (resolvedAttack.isSuccessful() && resolvedAttack.getName().equals("Wrap Legs")) { wrapLegs = true; }		
 		return super.doAttack(resolvedAttack);
 	}
@@ -315,7 +315,7 @@ public class PlayerCharacter extends AbstractCharacter {
 			if (stance != Stance.PENETRATED) { setCurrentPortrait(perks.get(Perk.ANAL_ADDICT.toString(), 0) > 1 ? AssetEnum.PORTRAIT_LOVE : AssetEnum.PORTRAIT_SURPRISE); }
 			else { setCurrentPortrait(perks.get(Perk.ANAL_ADDICT.toString(), 0) > 1 ? AssetEnum.PORTRAIT_LOVE : AssetEnum.PORTRAIT_AHEGAO); }
 			
-			if (result != null) { resolvedAttack.addMessage(new MutationResult(result)); } 
+			if (result != null) { resolvedAttack.addMessageToDefender(new MutationResult(result)); } 
 			if (resolvedAttack.getUser().equals("Goblin")) { setGoblinVirginity(false); }
 			a2m = true;
 		}
@@ -325,19 +325,19 @@ public class PlayerCharacter extends AbstractCharacter {
 			if (temp.size > 0) result = temp.first().getText();
 			else result = "";
 			
-			if (!result.equals("")) { resolvedAttack.addMessage(new MutationResult(result)); } 
+			if (!result.equals("")) { resolvedAttack.addMessageToDefender(new MutationResult(result)); } 
 			if(a2m) {
-				resolvedAttack.addMessage(new MutationResult("Bleugh! That was in your ass!"));
+				resolvedAttack.addMessageToDefender(new MutationResult("Bleugh! That was in your ass!"));
 				// gross portrait
 				if (!a2mcheevo) {
 					a2mcheevo = true;
-					resolvedAttack.addMessage(new MutationResult("Achievement unlocked: Ass to Mouth."));
+					resolvedAttack.addMessageToDefender(new MutationResult("Achievement unlocked: Ass to Mouth."));
 				}
 				a2m = false;
 			}
 		}
-		else if (stance == Stance.SIXTY_NINE) { resolvedAttack.addMessage(new MutationResult("She shoves her cock down your throat while swallowing yours!")); }
-		return new AttackResult(resolvedAttack.getMessages(), resolvedAttack.getDialog(), resolvedAttack.getAttackerResults(), resolvedAttack.getDefenderResults());	
+		else if (stance == Stance.SIXTY_NINE) { resolvedAttack.addMessageToDefender(new MutationResult("She shoves her cock down your throat while swallowing yours!")); }
+		return new AttackResult(resolvedAttack.getToAttackerMessages(), resolvedAttack.getToDefenderMessages(), resolvedAttack.getDialog(), resolvedAttack.getAttackerResults(), resolvedAttack.getDefenderResults());	
 	}
 	
 	@Override

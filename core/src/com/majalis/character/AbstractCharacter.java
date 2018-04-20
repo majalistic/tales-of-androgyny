@@ -446,14 +446,14 @@ public abstract class AbstractCharacter extends Group {
 		int bleedDamage = getBloodLossDamage();
 		if (bleedDamage > 0) {
 			resolvedAttack.addAttackerResults(modHealth(-getBloodLossDamage()));
-			resolvedAttack.addMessage(new MutationResult(label + (secondPerson ? " bleed" : " bleeds") + " out for " + getBloodLossDamage() + " damage!", -getBloodLossDamage(), MutationType.HEALTH));
+			resolvedAttack.addMessageToAttacker(new MutationResult(label + (secondPerson ? " bleed" : " bleeds") + " out for " + getBloodLossDamage() + " damage!", -getBloodLossDamage(), MutationType.HEALTH));
 		}
 		
 		if (!resolvedAttack.isSuccessful()) {
-			resolvedAttack.addMessage(new MutationResult(resolvedAttack.getUser() + " used " + resolvedAttack.getName() + (resolvedAttack.getStatus() == Status.MISSED ? " but missed!" : (resolvedAttack.getStatus() == Status.EVADED ? " but was evaded!" : resolvedAttack.getStatus() == Status.FIZZLE ? " but the spell fizzled!" : "! FAILURE!"))));
+			resolvedAttack.addMessageToAttacker(new MutationResult(resolvedAttack.getUser() + " used " + resolvedAttack.getName() + (resolvedAttack.getStatus() == Status.MISSED ? " but missed!" : (resolvedAttack.getStatus() == Status.EVADED ? " but was evaded!" : resolvedAttack.getStatus() == Status.FIZZLE ? " but the spell fizzled!" : "! FAILURE!"))));
 			
 			if ((resolvedAttack.getStatus() == Status.MISSED || resolvedAttack.getStatus() == Status.EVADED) && enemyType == EnemyEnum.HARPY && stance == Stance.FELLATIO && resolvedAttack.getForceStance() == Stance.FELLATIO_BOTTOM) {
-				resolvedAttack.addMessage(new MutationResult(properCase(pronouns.getNominative()) + " crashes to the ground!", Stance.PRONE));
+				resolvedAttack.addMessageToAttacker(new MutationResult(properCase(pronouns.getNominative()) + " crashes to the ground!", Stance.PRONE));
 				setStance(Stance.PRONE);
 			}
 			else if(resolvedAttack.getForceStance() != null) {
@@ -464,22 +464,21 @@ public abstract class AbstractCharacter extends Group {
 		
 		if (resolvedAttack.getItem() != null) {
 			UseItemEffect effect = consumeItem(resolvedAttack.getItem(), true);
-			resolvedAttack.addMessage(new MutationResult("Foo"));
-			resolvedAttack.addMessage(effect.results.size > 0 && effect.results.get(0).getType() != MutationType.NONE ? new MutationResult(effect.resultDisplay, effect.results.get(0).getMod(), effect.results.get(0).getType()) : new MutationResult(effect.resultDisplay));
+			resolvedAttack.addMessageToAttacker(effect.results.size > 0 && effect.results.get(0).getType() != MutationType.NONE ? new MutationResult(effect.resultDisplay, effect.results.get(0).getMod(), effect.results.get(0).getType()) : new MutationResult(effect.resultDisplay));
 			resolvedAttack.addAttackerResults(effect.results);
 			resolvedAttack.addAttackerResults(new Array<MutationResult>(new MutationResult[]{new MutationResult("You used a " + resolvedAttack.getItem().getName() + ".")}));
 		}
 		else if (!resolvedAttack.isAttack() && !resolvedAttack.isClimax() && resolvedAttack.getSex().isEmpty()) {
-			resolvedAttack.addMessage(new MutationResult(resolvedAttack.getUser() + " used " + resolvedAttack.getName() + "!"));
+			resolvedAttack.addMessageToAttacker(new MutationResult(resolvedAttack.getUser() + " used " + resolvedAttack.getName() + "!"));
 		}
 		
 		if (resolvedAttack.isSpell() && resolvedAttack.getSpellEffect() == SpellEffect.ARMOR_REPAIR) {
-			resolvedAttack.addMessage(repairArmor(getMagic() * 4));
+			resolvedAttack.addMessageToAttacker(repairArmor(getMagic() * 4));
 		}
 		
 		if (resolvedAttack.isHealing()) {
 			resolvedAttack.addAttackerResults(modHealth(resolvedAttack.getHealing()));
-			resolvedAttack.addMessage(new MutationResult(resolvedAttack.getUser() + " heal" + (secondPerson ? "" : "s" ) + " for " + resolvedAttack.getHealing()+"!", resolvedAttack.getHealing(), MutationType.HEALTH));
+			resolvedAttack.addMessageToAttacker(new MutationResult(resolvedAttack.getUser() + " heal" + (secondPerson ? "" : "s" ) + " for " + resolvedAttack.getHealing()+"!", resolvedAttack.getHealing(), MutationType.HEALTH));
 		}
 		Buff buff = resolvedAttack.getSelfEffect();
 		if (buff != null) {
@@ -488,77 +487,77 @@ public abstract class AbstractCharacter extends Group {
 		if (enemyType != null) {
 			if (resolvedAttack.getForceStance() == Stance.DOGGY_BOTTOM || resolvedAttack.getForceStance() == Stance.ANAL_BOTTOM || resolvedAttack.getForceStance() == Stance.STANDING_BOTTOM) {
 				if (enemyType == EnemyEnum.OGRE) {
-					resolvedAttack.addMessage(new MutationResult(properCase(pronouns.getPossessive()) + " tremendous, fat cock visibly bulges out your stomach!"));		
-					resolvedAttack.addMessage(new MutationResult("You are being anally violated by an ogre!"));
+					resolvedAttack.addMessageToDefender(new MutationResult(properCase(pronouns.getPossessive()) + " tremendous, fat cock visibly bulges out your stomach!"));		
+					resolvedAttack.addMessageToDefender(new MutationResult("You are being anally violated by an ogre!"));
 				}
 				else {
-					resolvedAttack.addMessage(new MutationResult("You are being anally violated!"));
-					resolvedAttack.addMessage(new MutationResult("Your hole is stretched by " + pronouns.getPossessive() + " fat dick!"));
-					resolvedAttack.addMessage(new MutationResult("Your hole feels like it's on fire!"));
-					resolvedAttack.addMessage(new MutationResult(properCase(pronouns.getPossessive()) + " cock glides smoothly through your irritated anal mucosa!"));
-					resolvedAttack.addMessage(new MutationResult(properCase(pronouns.getPossessive()) + " rhythmic thrusting in and out of your asshole is emasculating!"));
-					resolvedAttack.addMessage(new MutationResult("You are red-faced and embarassed because of " + pronouns.getPossessive() + " butt-stuffing!"));
-					resolvedAttack.addMessage(new MutationResult("Your cock is ignored!"));
+					resolvedAttack.addMessageToDefender(new MutationResult("You are being anally violated!"));
+					resolvedAttack.addMessageToDefender(new MutationResult("Your hole is stretched by " + pronouns.getPossessive() + " fat dick!"));
+					resolvedAttack.addMessageToDefender(new MutationResult("Your hole feels like it's on fire!"));
+					resolvedAttack.addMessageToDefender(new MutationResult(properCase(pronouns.getPossessive()) + " cock glides smoothly through your irritated anal mucosa!"));
+					resolvedAttack.addMessageToDefender(new MutationResult(properCase(pronouns.getPossessive()) + " rhythmic thrusting in and out of your asshole is emasculating!"));
+					resolvedAttack.addMessageToDefender(new MutationResult("You are red-faced and embarassed because of " + pronouns.getPossessive() + " butt-stuffing!"));
+					resolvedAttack.addMessageToDefender(new MutationResult("Your cock is ignored!"));
 				}
 			}		
 			else if(resolvedAttack.getForceStance() == Stance.FELLATIO_BOTTOM || resolvedAttack.getForceStance() == Stance.SIXTY_NINE_BOTTOM) {
 				if (enemyType == EnemyEnum.HARPY) {
-					resolvedAttack.addMessage(new MutationResult(properCase(pronouns.getNominative()) + " tastes awful!"));
-					resolvedAttack.addMessage(new MutationResult("You learned Anatomy (Harpy)!"));
-					resolvedAttack.addMessage(new MutationResult("It blew past your lips!"));
-					resolvedAttack.addMessage(new MutationResult("The harpy is holding your head in place with " + pronouns.getPossessive() + " talons and balancing herself with her wings!"));
-					resolvedAttack.addMessage(new MutationResult(properCase(pronouns.getNominative()) + " flaps violently while humping your face!  Her cock tastes awful!"));
+					resolvedAttack.addMessageToDefender(new MutationResult(properCase(pronouns.getNominative()) + " tastes awful!"));
+					resolvedAttack.addMessageToDefender(new MutationResult("You learned Anatomy (Harpy)!"));
+					resolvedAttack.addMessageToDefender(new MutationResult("It blew past your lips!"));
+					resolvedAttack.addMessageToDefender(new MutationResult("The harpy is holding your head in place with " + pronouns.getPossessive() + " talons and balancing herself with her wings!"));
+					resolvedAttack.addMessageToDefender(new MutationResult(properCase(pronouns.getNominative()) + " flaps violently while humping your face!  Her cock tastes awful!"));
 				}
 				else {
-					resolvedAttack.addMessage(new MutationResult(properCase(pronouns.getNominative()) + " stuffs her cock into your face!"));
-					resolvedAttack.addMessage(new MutationResult("You suck on " + pronouns.getPossessive() + " cock!"));
-					resolvedAttack.addMessage(new MutationResult(properCase(pronouns.getNominative()) + " licks " + (pronouns.getPossessive()) + " lips!"));
+					resolvedAttack.addMessageToDefender(new MutationResult(properCase(pronouns.getNominative()) + " stuffs her cock into your face!"));
+					resolvedAttack.addMessageToDefender(new MutationResult("You suck on " + pronouns.getPossessive() + " cock!"));
+					resolvedAttack.addMessageToDefender(new MutationResult(properCase(pronouns.getNominative()) + " licks " + (pronouns.getPossessive()) + " lips!"));
 				}
 				if (resolvedAttack.getForceStance() == Stance.SIXTY_NINE_BOTTOM) {
-					resolvedAttack.addMessage(new MutationResult(properCase(pronouns.getNominative()) + " deepthroats your cock!"));
-					resolvedAttack.addMessage(new MutationResult(properCase(pronouns.getNominative()) + " pistons " + pronouns.getPossessive() + " own cock in and out of your mouth!"));
+					resolvedAttack.addMessageToDefender(new MutationResult(properCase(pronouns.getNominative()) + " deepthroats your cock!"));
+					resolvedAttack.addMessageToDefender(new MutationResult(properCase(pronouns.getNominative()) + " pistons " + pronouns.getPossessive() + " own cock in and out of your mouth!"));
 				}
 			}
 			else if (resolvedAttack.getForceStance() == Stance.FACE_SITTING_BOTTOM) {
-				resolvedAttack.addMessage(new MutationResult(properCase(pronouns.getNominative()) + " rides your face!"));
-				resolvedAttack.addMessage(new MutationResult("You receive a faceful of ass!"));
+				resolvedAttack.addMessageToDefender(new MutationResult(properCase(pronouns.getNominative()) + " rides your face!"));
+				resolvedAttack.addMessageToDefender(new MutationResult("You receive a faceful of ass!"));
 			}
 			else if (resolvedAttack.getForceStance() == Stance.KNOTTED_BOTTOM) {
 				if (knotInflate == 0) {
-					resolvedAttack.addMessage(new MutationResult(properCase(pronouns.getPossessive()) + " powerful hips try to force something big inside!"));
-					resolvedAttack.addMessage(new MutationResult("You struggle... but can't escape!"));
-					resolvedAttack.addMessage(new MutationResult(properCase(pronouns.getPossessive()) + " grapefruit-sized knot slips into your rectum!  You take 4 damage!", -4, MutationType.HEALTH));
-					resolvedAttack.addMessage(new MutationResult("You learned about Anatomy(Wereslut)! You are being bred!"));
-					resolvedAttack.addMessage(new MutationResult("Your anus is permanently stretched!"));
+					resolvedAttack.addMessageToDefender(new MutationResult(properCase(pronouns.getPossessive()) + " powerful hips try to force something big inside!"));
+					resolvedAttack.addMessageToDefender(new MutationResult("You struggle... but can't escape!"));
+					resolvedAttack.addMessageToDefender(new MutationResult(properCase(pronouns.getPossessive()) + " grapefruit-sized knot slips into your rectum!  You take 4 damage!", -4, MutationType.HEALTH));
+					resolvedAttack.addMessageToDefender(new MutationResult("You learned about Anatomy(Wereslut)! You are being bred!"));
+					resolvedAttack.addMessageToDefender(new MutationResult("Your anus is permanently stretched!"));
 				}
 				else if (knotInflate < 3) {
-					resolvedAttack.addMessage(new MutationResult(properCase(pronouns.getPossessive()) + " tremendous knot is still lodged in your rectum!"));
-					resolvedAttack.addMessage(new MutationResult("You can't dislodge it; it's too large!"));
-					resolvedAttack.addMessage(new MutationResult("You're drooling!"));
-					resolvedAttack.addMessage(new MutationResult(properCase(pronouns.getPossessive()) + " fat thing is plugging your shithole!"));					
+					resolvedAttack.addMessageToDefender(new MutationResult(properCase(pronouns.getPossessive()) + " tremendous knot is still lodged in your rectum!"));
+					resolvedAttack.addMessageToDefender(new MutationResult("You can't dislodge it; it's too large!"));
+					resolvedAttack.addMessageToDefender(new MutationResult("You're drooling!"));
+					resolvedAttack.addMessageToDefender(new MutationResult(properCase(pronouns.getPossessive()) + " fat thing is plugging your shithole!"));					
 				}
 				else {
-					resolvedAttack.addMessage(new MutationResult("The battle is over, but your ordeal has just begun!"));
-					resolvedAttack.addMessage(new MutationResult("You are about to be bred like a bitch!"));
-					resolvedAttack.addMessage(new MutationResult(properCase(pronouns.getNominative()) + "'s going to ejaculate her runny dog cum in your bowels!"));	
+					resolvedAttack.addMessageToDefender(new MutationResult("The battle is over, but your ordeal has just begun!"));
+					resolvedAttack.addMessageToDefender(new MutationResult("You are about to be bred like a bitch!"));
+					resolvedAttack.addMessageToDefender(new MutationResult(properCase(pronouns.getNominative()) + "'s going to ejaculate her runny dog cum in your bowels!"));	
 				}
 				knotInflate++;
 			}
 			else if (resolvedAttack.getForceStance() == Stance.MOUTH_KNOTTED_BOTTOM) {
 				if (knotInflate == 0) {
-					resolvedAttack.addMessage(new MutationResult(properCase(pronouns.getPossessive()) + " powerful hips try to force something big inside!"));
-					resolvedAttack.addMessage(new MutationResult("You struggle... but can't escape!"));
-					resolvedAttack.addMessage(new MutationResult(properCase(pronouns.getPossessive()) + " melon-sized knot forces your jaw open! You take 4 damage!"));
-					resolvedAttack.addMessage(new MutationResult("You learned about Anatomy(Wereslut)! You are being bred!"));
+					resolvedAttack.addMessageToDefender(new MutationResult(properCase(pronouns.getPossessive()) + " powerful hips try to force something big inside!"));
+					resolvedAttack.addMessageToDefender(new MutationResult("You struggle... but can't escape!"));
+					resolvedAttack.addMessageToDefender(new MutationResult(properCase(pronouns.getPossessive()) + " melon-sized knot forces your jaw open! You take 4 damage!"));
+					resolvedAttack.addMessageToDefender(new MutationResult("You learned about Anatomy(Wereslut)! You are being bred!"));
 				}
 				else if (knotInflate < 3) {
-					resolvedAttack.addMessage(new MutationResult(properCase(pronouns.getPossessive()) + " tremendous knot is still stuck behind your teeth!"));
-					resolvedAttack.addMessage(new MutationResult("You can't dislodge it; it's too large!"));
-					resolvedAttack.addMessage(new MutationResult("You're drooling!"));					
+					resolvedAttack.addMessageToDefender(new MutationResult(properCase(pronouns.getPossessive()) + " tremendous knot is still stuck behind your teeth!"));
+					resolvedAttack.addMessageToDefender(new MutationResult("You can't dislodge it; it's too large!"));
+					resolvedAttack.addMessageToDefender(new MutationResult("You're drooling!"));					
 				}
 				else {
-					resolvedAttack.addMessage(new MutationResult("The battle is over, but your ordeal has just begun!"));
-					resolvedAttack.addMessage(new MutationResult("You are about to swallow doggy cum!"));
+					resolvedAttack.addMessageToDefender(new MutationResult("The battle is over, but your ordeal has just begun!"));
+					resolvedAttack.addMessageToDefender(new MutationResult("You are about to swallow doggy cum!"));
 				}
 				knotInflate++;
 			}
@@ -570,8 +569,8 @@ public abstract class AbstractCharacter extends Group {
 									
 				}
 				else {
-					resolvedAttack.addMessage(new MutationResult("The battle is over, but your ordeal has just begun!"));
-					resolvedAttack.addMessage(new MutationResult("You are full of " + pronouns.getPossessive() + " eggs!"));
+					resolvedAttack.addMessageToDefender(new MutationResult("The battle is over, but your ordeal has just begun!"));
+					resolvedAttack.addMessageToDefender(new MutationResult("You are full of " + pronouns.getPossessive() + " eggs!"));
 				}
 				knotInflate++;
 			}
@@ -579,7 +578,7 @@ public abstract class AbstractCharacter extends Group {
 		
 		// all climax logic should go here
 		if (resolvedAttack.isClimax()) {
-			resolvedAttack.addMessage(new MutationResult(climax()));
+			resolvedAttack.addMessageToAttacker(new MutationResult(climax()));
 			if (this.cock != null) {
 				this.cock.setAnimation(0, "EdgingToClimax", false);
 				this.cock.addAnimation(0, "ClimaxToFlaccid", false, 4);
@@ -589,7 +588,7 @@ public abstract class AbstractCharacter extends Group {
 		for (Bonus bonus : resolvedAttack.getBonuses()) {
 			String bonusDescription = bonus.getDescription(label);
 			if (bonusDescription != null) {
-				resolvedAttack.addMessage(new MutationResult(bonusDescription));
+				resolvedAttack.addMessageToAttacker(new MutationResult(bonusDescription));
 			}
 		}
 		
@@ -604,19 +603,22 @@ public abstract class AbstractCharacter extends Group {
 	}
 	
 	public static class AttackResult {
-		private final Array<MutationResult> messages;
+		private final Array<MutationResult> toAttackerMessages;
+		private final Array<MutationResult> toDefenderMessages;
 		private final Array<String> dialog;
 		private final Array<MutationResult> attackerResults;
 		private final Array<MutationResult> defenderResults;
 		
-		protected AttackResult(Array<MutationResult> messages, Array<String> dialog, Array<MutationResult> attackerResults, Array<MutationResult> defenderResults) {
-			this.messages = messages;
+		protected AttackResult(Array<MutationResult> toAttackerMessages, Array<MutationResult> toDefenderMessages, Array<String> dialog, Array<MutationResult> attackerResults, Array<MutationResult> defenderResults) {
+			this.toAttackerMessages = toAttackerMessages;
+			this.toDefenderMessages = toDefenderMessages;
 			this.dialog = dialog;
 			this.attackerResults = attackerResults;
 			this.defenderResults = defenderResults;
 		}
 		
-		public Array<MutationResult> getMessages() { return messages; }
+		public Array<MutationResult> getToAttackerMessages() { return toAttackerMessages; }
+		public Array<MutationResult> getToDefenderMessages() { return toDefenderMessages; }
 		public Array<String> getDialog() { return dialog; }
 		public Array<MutationResult> getAttackerResults() { return attackerResults; }
 		public Array<MutationResult> getDefenderResults() { return defenderResults; }
@@ -624,21 +626,22 @@ public abstract class AbstractCharacter extends Group {
 	
 	// return an array of array of strings and mutation results packaged together, save the mutation results into the battle results but that doesn't work either because doAttack can also cause mutations
 	public AttackResult receiveAttack(Attack attack) {
-		Array<MutationResult> result = attack.getMessages();
+		Array<MutationResult> resultToAttacker = attack.getToAttackerMessages();
+		Array<MutationResult> resultToDefender = attack.getToDefenderMessages();
 		boolean knockedDown = false;
 		grappleStatus = attack.getGrapple();
 		
 		modRange(-attack.getAdvance());
 		
 		if (attack.isSuccessful()) {
-			if (attack.getForceStance() == Stance.DOGGY_BOTTOM && bootyliciousness != null) { result.add(new MutationResult("They slap their hips against your " + bootyliciousness.toString().toLowerCase() + " booty!")); }
-			if (attack.isAttack() || attack.isClimax() || !attack.getSex().isEmpty()) { result.add(new MutationResult(attack.getUser() + " used " + attack.getName() +  " on " + (secondPerson ? label.toLowerCase() : label) + "!")); }
+			if (attack.getForceStance() == Stance.DOGGY_BOTTOM && bootyliciousness != null) { resultToDefender.add(new MutationResult("They slap their hips against your " + bootyliciousness.toString().toLowerCase() + " booty!")); }
+			if (attack.isAttack() || attack.isClimax() || !attack.getSex().isEmpty()) { resultToAttacker.add(new MutationResult(attack.getUser() + " used " + attack.getName() +  " on " + (secondPerson ? label.toLowerCase() : label) + "!")); }
 			if (attack.getForceStance() == Stance.BALANCED) { 
-				result.add(new MutationResult(attack.getUser() + " broke free!", Stance.BALANCED));
-				if (stance == Stance.FELLATIO_BOTTOM) { result.add(new MutationResult("It slips out of your mouth and you get to your feet!", Stance.BALANCED)); }
-				else if (stance == Stance.SIXTY_NINE_BOTTOM) { result.add(new MutationResult("You spit out their cock and push them off!", Stance.BALANCED)); }
+				resultToDefender.add(new MutationResult(attack.getUser() + " broke free!", Stance.BALANCED));
+				if (stance == Stance.FELLATIO_BOTTOM) { resultToDefender.add(new MutationResult("It slips out of your mouth and you get to your feet!", Stance.BALANCED)); }
+				else if (stance == Stance.SIXTY_NINE_BOTTOM) { resultToDefender.add(new MutationResult("You spit out their cock and push them off!", Stance.BALANCED)); }
 				else if (stance == Stance.HANDY_BOTTOM) {}
-				else if (stance.isAnalReceptive()) { result.add(new MutationResult("It pops out of your ass and you get to your feet!", Stance.BALANCED)); }
+				else if (stance.isAnalReceptive()) { resultToDefender.add(new MutationResult("It pops out of your ass and you get to your feet!", Stance.BALANCED)); }
 			}
 			
 			Buff buff = attack.getEnemyEffect();
@@ -649,15 +652,15 @@ public abstract class AbstractCharacter extends Group {
 			int blockMod = attack.getBlockAmount();
 			if (blockMod > 0) {				
 				if (shield != null && shield.getDurability() > 0) {
-					result.add(new MutationResult((blockMod >= 4 ? "The blow strikes off the shield!" : blockMod >= 3 ? "The blow is mostly blocked by the shield!" : blockMod >= 2 ? "The blow is half-blocked by the shield!" : "The blow is barely blocked by the shield!") + "\nIt deals " + shieldDamage + " damage to it!", shieldDamage, MutationType.ARMOR));
+					resultToDefender.add(new MutationResult((blockMod >= 4 ? "The blow strikes off the shield!" : blockMod >= 3 ? "The blow is mostly blocked by the shield!" : blockMod >= 2 ? "The blow is half-blocked by the shield!" : "The blow is barely blocked by the shield!") + "\nIt deals " + shieldDamage + " damage to it!", shieldDamage, MutationType.ARMOR));
 					shield.modDurability(-shieldDamage);
-					if (shield.getDurability() == 0) result.add(new MutationResult("The shield is broken!"));
+					if (shield.getDurability() == 0) resultToDefender.add(new MutationResult("The shield is broken!"));
 				}
 			}
 			
 			int parryMod = attack.getParryAmount();
 			// ICON: should display amount of damage parried (getParryReduction) with parry icon
-			if (parryMod > 0) { result.add(new MutationResult((parryMod >= 4 ? "The blow is parried away!" : parryMod >= 3 ? "The blow is mostly deflected by a parry!" : parryMod >= 2 ? "The blow is half-deflected by a parry!" : "The blow is barely blocked by a parry!"))); }
+			if (parryMod > 0) { resultToDefender.add(new MutationResult((parryMod >= 4 ? "The blow is parried away!" : parryMod >= 3 ? "The blow is mostly deflected by a parry!" : parryMod >= 2 ? "The blow is half-deflected by a parry!" : "The blow is barely blocked by a parry!"))); }
 			
 			// ICON: should display amount of damage evaded (getDodgeReduction) with evade icon
 			
@@ -666,29 +669,29 @@ public abstract class AbstractCharacter extends Group {
 			int damage = attack.getDamage() * (oilyFire ? 2 : 1);
 			Armor hitArmor = getArmorHit(attack.getAttackHeight());
 			if (!attack.ignoresArmor() && damage > 0) {
-				if (getBaseDefense() > 0) result.add(new MutationResult("Damage reduced by " + Math.min(damage, getBaseDefense()) + "!"));
+				if (getBaseDefense() > 0) resultToDefender.add(new MutationResult("Damage reduced by " + Math.min(damage, getBaseDefense()) + "!"));
 				// ICON: should display amount of damage that hits armor along with in-tact armor icon				
 				damage -= getBaseDefense() + getShockAbsorption(hitArmor);
 			}
-			if (attack.getMagicDamageReduction() > 0) { result.add(new MutationResult("Magic resistance reduced damage by " + attack.getMagicDamageReduction() + "!")); }
+			if (attack.getMagicDamageReduction() > 0) { resultToDefender.add(new MutationResult("Magic resistance reduced damage by " + attack.getMagicDamageReduction() + "!")); }
 			
 			if (damage > 0) {	
 				// ICON: should display amount of damage with a health icon
 				attack.addDefenderResults(modHealth(-damage));
 				if (attack.isSpell()) {
-					if (oilyFire) { result.add(new MutationResult("The fire ignites the oil!")); }
-					result.add(new MutationResult("The magic strikes for " + damage + " damage!", -damage, MutationType.HEALTH));
+					if (oilyFire) { resultToDefender.add(new MutationResult("The fire ignites the oil!")); }
+					resultToDefender.add(new MutationResult("The magic strikes for " + damage + " damage!", -damage, MutationType.HEALTH));
 				}
-				else { result.add(new MutationResult("The blow strikes for " + damage + " damage!", -damage, MutationType.HEALTH)); }
+				else { resultToDefender.add(new MutationResult("The blow strikes for " + damage + " damage!", -damage, MutationType.HEALTH)); }
 				
-				if (!(attack.ignoresArmor() || ((hitArmor == null || hitArmor.getDurability() == 0)))) { result.add(new MutationResult("The blow strikes off the armor!")); }
+				if (!(attack.ignoresArmor() || ((hitArmor == null || hitArmor.getDurability() == 0)))) { resultToDefender.add(new MutationResult("The blow strikes off the armor!")); }
 			}
 			
 			if (attack.ignoresArmor() || ((hitArmor == null || hitArmor.getDurability() == 0))) {
 				int bleed = attack.getBleeding();
 				if (bleed > 0 && canBleed()) {
 					// ICON: should display amount of bleed caused with bleed icon
-					result.add(new MutationResult("It opens wounds! +" + bleed + " blood loss!", bleed, MutationType.BLEED));
+					resultToDefender.add(new MutationResult("It opens wounds! +" + bleed + " blood loss!", bleed, MutationType.BLEED));
 					statuses.put(StatusType.BLEEDING.toString(), statuses.get(StatusType.BLEEDING.toString(), 0) + bleed);
 				}
 			}
@@ -696,15 +699,15 @@ public abstract class AbstractCharacter extends Group {
 			int plugRemove = attack.plugRemove();
 			if (plugRemove > 0) {
 				if (legwear != null && legwear.getShockAbsorption() > 0 && legwear.coversAnus()) {
-					result.add(new MutationResult("They pull down your " + legwear.getName() + "!"));
+					resultToDefender.add(new MutationResult("They pull down your " + legwear.getName() + "!"));
 					setLegwear(legwear, false);
 				}
 				else if (underwear != null && underwear.getShockAbsorption() > 0 && underwear.coversAnus()) {
-					result.add(new MutationResult("They pull down your " + underwear.getName() + "!"));
+					resultToDefender.add(new MutationResult("They pull down your " + underwear.getName() + "!"));
 					setUnderwear(underwear, false);
 				}
 				else {
-					result.add(new MutationResult("They pull out your " + plug.getName() + "!"));
+					resultToDefender.add(new MutationResult("They pull out your " + plug.getName() + "!"));
 					setPlug(plug, false); // unequip your plug
 				}
 			}
@@ -714,15 +717,15 @@ public abstract class AbstractCharacter extends Group {
 			knockdown = Stability.getKnockdownConversion(knockdown);
 			if (knockdown > 0) {
 				if (!alreadyIncapacitated() && !wasIncapacitated()) {
-					result.add(new MutationResult("It's a solid blow! It reduces balance by " + knockdown + "!"));
+					resultToDefender.add(new MutationResult("It's a solid blow! It reduces balance by " + knockdown + "!"));
 					if (stability.isDown()) {
 						if (enemyType == EnemyEnum.OGRE) {
-							result.add(new MutationResult(label + (secondPerson ? " are " : " is ") + "knocked to their knees!", Stance.KNEELING));
+							resultToDefender.add(new MutationResult(label + (secondPerson ? " are " : " is ") + "knocked to their knees!", Stance.KNEELING));
 							stability = Stability.Teetering;
 							setStance(Stance.KNEELING);
 						}
 						else {
-							result.add(new MutationResult(label + (secondPerson ? " are " : " is ") + "knocked to the ground!", Stance.SUPINE));
+							resultToDefender.add(new MutationResult(label + (secondPerson ? " are " : " is ") + "knocked to the ground!", Stance.SUPINE));
 							setStabilityToMin();
 							setStance(Stance.SUPINE);							
 						}
@@ -736,7 +739,7 @@ public abstract class AbstractCharacter extends Group {
 				if (!alreadyIncapacitated()) {
 					setStabilityToMin();
 					setStance(Stance.PRONE);
-					result.add(new MutationResult(label + (secondPerson ? " are " : " is ") + "tripped and "+ (secondPerson ? "fall" : "falls") +" prone!", Stance.PRONE));
+					resultToDefender.add(new MutationResult(label + (secondPerson ? " are " : " is ") + "tripped and "+ (secondPerson ? "fall" : "falls") +" prone!", Stance.PRONE));
 					knockedDown = true;
 				}
 			}
@@ -745,9 +748,9 @@ public abstract class AbstractCharacter extends Group {
 			if (armorSunder > 0) {
 				if (hitArmor != null && hitArmor.getDurability() > 0) {
 					// ICON: should display amount of damage done to armor (broken armor icon) - maybe just show the one since armor damage IS health damage now
-					result.add(new MutationResult("It's an armor shattering blow! It reduces " + hitArmor.getName() + " durability by " + (armorSunder > hitArmor.getDurability() ? hitArmor.getDurability() : armorSunder) + "!", -(armorSunder > hitArmor.getDurability() ? hitArmor.getDurability() : armorSunder), MutationType.ARMOR));
+					resultToDefender.add(new MutationResult("It's an armor shattering blow! It reduces " + hitArmor.getName() + " durability by " + (armorSunder > hitArmor.getDurability() ? hitArmor.getDurability() : armorSunder) + "!", -(armorSunder > hitArmor.getDurability() ? hitArmor.getDurability() : armorSunder), MutationType.ARMOR));
 					hitArmor.modDurability(-armorSunder);
-					if (hitArmor.getDurability() == 0) result.add(new MutationResult("The " + hitArmor.getName() + " is broken!"));
+					if (hitArmor.getDurability() == 0) resultToDefender.add(new MutationResult("The " + hitArmor.getName() + " is broken!"));
 				}
 			}
 			
@@ -757,9 +760,9 @@ public abstract class AbstractCharacter extends Group {
 					// ICON: should display amount of stamina damage with stamina icon
 					currentStamina -= gutcheck; // this should be reduced by armor defense
 					if (currentStamina < -5) currentStamina = -5;
-					result.add(new MutationResult("It's winds " + (secondPerson ? "you" : "them") + "! It reduces stamina by " + gutcheck + "!"));
+					resultToDefender.add(new MutationResult("It's winds " + (secondPerson ? "you" : "them") + "! It reduces stamina by " + gutcheck + "!"));
 					if (currentStamina <= 0 && grappleStatus == GrappleStatus.NULL) {
-						result.add(new MutationResult(label + (secondPerson ? " fall " : " falls ") + "to the ground!", Stance.PRONE));
+						resultToDefender.add(new MutationResult(label + (secondPerson ? " fall " : " falls ") + "to the ground!", Stance.PRONE));
 						setStabilityToMin();
 						setStance(Stance.PRONE);
 						knockedDown = true;
@@ -768,13 +771,12 @@ public abstract class AbstractCharacter extends Group {
 			}
 			
 			int disarm = attack.getDisarm();
-			if (disarm >= 100 && disarm()) { result.add(new MutationResult((secondPerson ? "You are " : label + " is ") + "disarmed!")); }
+			if (disarm >= 100 && disarm()) { resultToDefender.add(new MutationResult((secondPerson ? "You are " : label + " is ") + "disarmed!")); }
 			
 			Stance forcedStance = attack.getForceStance();
 			if (forcedStance != null) {
 				if (stance != forcedStance) { 
-					// ICON: should display stance icon
-					result.add(new MutationResult(label + (secondPerson ? " are " : " is ") + "forced into " + forcedStance.getLabel() + " stance!", forcedStance));
+					resultToDefender.add(new MutationResult(label + (secondPerson ? " are " : " is ") + "forced into " + forcedStance.getLabel() + " stance!", forcedStance));
 					setStance(forcedStance);
 					if (forcedStance == Stance.PRONE || forcedStance == Stance.SUPINE) {
 						setStabilityToMin();
@@ -791,9 +793,9 @@ public abstract class AbstractCharacter extends Group {
 				if (!sex.isEmpty() || !selfSex.isEmpty()) {
 					int formerLust = arousal.getLust();
 					String lustIncrease = increaseLust(sex, selfSex);
-					if (lustIncrease != null) result.add(new MutationResult(lustIncrease));
+					if (lustIncrease != null) resultToDefender.add(new MutationResult(lustIncrease));
 					int lustChange = arousal.getLust() - formerLust;
-					if (sex.isTeasing()) result.add(new MutationResult(label + (secondPerson ? " are seduced" : " is seduced") + "! " + (lustChange > 0 ? ((secondPerson ? " Your " : " Their ") + "lust raises by " + lustChange + "!") : (secondPerson ? " You " : " They ") + "cum!")));
+					if (sex.isTeasing()) resultToDefender.add(new MutationResult(label + (secondPerson ? " are seduced" : " is seduced") + "! " + (lustChange > 0 ? ((secondPerson ? " Your " : " Their ") + "lust raises by " + lustChange + "!") : (secondPerson ? " You " : " They ") + "cum!")));
 				}	
 			}
 			else if (enemyType == EnemyEnum.QUETZAL) { increaseLust(selfSex); }
@@ -809,22 +811,22 @@ public abstract class AbstractCharacter extends Group {
 				attack.addDefenderResults(temp);	
 				if (temp.size > 0) internalShotText = temp.first().getText();
 			}
-			if (internalShotText != null) result.add(new MutationResult(internalShotText));
+			if (internalShotText != null) resultToDefender.add(new MutationResult(internalShotText));
 			
-			if (ass.getFullnessAmount() > 0 && !stance.isAnalReceptive()) result.add(new MutationResult(getLeakMessage()));
-			if (mouthful > 0 && !stance.isOralReceptive()) result.add(new MutationResult(getDroolMessage()));
+			if (ass.getFullnessAmount() > 0 && !stance.isAnalReceptive()) resultToDefender.add(new MutationResult(getLeakMessage()));
+			if (mouthful > 0 && !stance.isOralReceptive()) resultToDefender.add(new MutationResult(getDroolMessage()));
 		}
 
 		if (!alreadyIncapacitated() && !knockedDown) {
 			if (enemyType == EnemyEnum.OGRE) {
 				if (stability.isDown()) {
 					setStance(Stance.KNEELING);
-					result.add(new MutationResult(label + (secondPerson ? " lose your" : " loses their") + " footing and " + (secondPerson ? "trip" : "trips") + "!", Stance.KNEELING));
+					resultToDefender.add(new MutationResult(label + (secondPerson ? " lose your" : " loses their") + " footing and " + (secondPerson ? "trip" : "trips") + "!", Stance.KNEELING));
 					stability = Stability.Teetering;
 				}
 				// you blacked out
 				else if (currentStamina <= 0) {
-					result.add(new MutationResult(label + (secondPerson ? " run " : " runs ") + "out of breath and " + (secondPerson ? "collapse" : "collapses") + "!", Stance.KNEELING));
+					resultToDefender.add(new MutationResult(label + (secondPerson ? " run " : " runs ") + "out of breath and " + (secondPerson ? "collapse" : "collapses") + "!", Stance.KNEELING));
 					setStance(Stance.KNEELING);
 					stability = Stability.Teetering;
 				}
@@ -833,12 +835,12 @@ public abstract class AbstractCharacter extends Group {
 				// you tripped
 				if (stability.isDown() && grappleStatus == GrappleStatus.NULL) {
 					setStance(Stance.PRONE);
-					result.add(new MutationResult(label + (secondPerson ? " lose your" : " loses their") + " footing and " + (secondPerson ? "trip" : "trips") + "!", Stance.PRONE));
+					resultToDefender.add(new MutationResult(label + (secondPerson ? " lose your" : " loses their") + " footing and " + (secondPerson ? "trip" : "trips") + "!", Stance.PRONE));
 					setStabilityToMin();
 				}
 				// you blacked out
 				else if (currentStamina <= 0 && grappleStatus == GrappleStatus.NULL) {
-					result.add(new MutationResult(label + (secondPerson ? " run " : " runs ") + "out of breath and " + (secondPerson ? "collapse" : "collapses") + "!", Stance.SUPINE));
+					resultToDefender.add(new MutationResult(label + (secondPerson ? " run " : " runs ") + "out of breath and " + (secondPerson ? "collapse" : "collapses") + "!", Stance.SUPINE));
 					setStance(Stance.SUPINE);
 					setStabilityToMin();
 				}
@@ -849,7 +851,7 @@ public abstract class AbstractCharacter extends Group {
 		
 		// currently this returns something with the plain text results, the dialog, the attacker results, and the defender results - only the defender results for the enemy attack and the attacker results from the player's attack are used for reporting end of combat things, but should also be used for 
 		// the combat log itself - the plain text results should similarly be split between attacker and defender results, thus giving the 2X2 matrix of outputs - attacker-attacker, attacker-defender, defender-attacker, defender-defender
-		return new AttackResult(result, new Array<String>(), attack.getAttackerResults(), attack.getDefenderResults());
+		return new AttackResult(resultToAttacker, resultToDefender, new Array<String>(), attack.getAttackerResults(), attack.getDefenderResults());
 	}
 	
 	protected void updateDisplay() {}

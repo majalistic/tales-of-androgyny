@@ -455,15 +455,15 @@ public class EnemyCharacter extends AbstractCharacter {
 		if (resolvedAttack.getGrapple() != GrappleStatus.NULL && (stance == Stance.COWGIRL || stance == Stance.REVERSE_COWGIRL)) {
 			// this will need to be aware of who the character receiving is - the check might need to be COWGIRL_BOTTOM instead of COWGIRL
 			if (resolvedAttack.getGrapple().isDisadvantage()) {
-				resolvedAttack.addMessage(new MutationResult("It's still stuck up inside of you!"));
-				resolvedAttack.addMessage(new MutationResult("Well, I guess you know that."));
-				resolvedAttack.addMessage(new MutationResult("Kind of a colon crusher."));
+				resolvedAttack.addMessageToAttacker(new MutationResult("It's still stuck up inside of you!"));
+				resolvedAttack.addMessageToAttacker(new MutationResult("Well, I guess you know that."));
+				resolvedAttack.addMessageToAttacker(new MutationResult("Kind of a colon crusher."));
 			}
 			else if (resolvedAttack.getGrapple() == GrappleStatus.SCRAMBLE) {
-				resolvedAttack.addMessage(new MutationResult("They're difficult to ride on top of!"));
+				resolvedAttack.addMessageToAttacker(new MutationResult("They're difficult to ride on top of!"));
 			}
 			else if (resolvedAttack.getGrapple().isAdvantage()) {
-				resolvedAttack.addMessage(new MutationResult("They're about to buck you off!"));
+				resolvedAttack.addMessageToAttacker(new MutationResult("They're about to buck you off!"));
 			}
 		}
 	
