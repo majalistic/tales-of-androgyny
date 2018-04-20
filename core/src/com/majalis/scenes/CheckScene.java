@@ -552,20 +552,24 @@ public class CheckScene extends AbstractTextScene {
 		}, 
 		MANOR_UNSEEN("", "") {
 			@Override
-			protected boolean getCheck(PlayerCharacter character) { int check = character.getQuestStatus(QuestType.WARLOCK); return check == 0;}  
+			protected boolean getCheck(PlayerCharacter character) { int check = character.getQuestStatus(QuestType.WARLOCK); return check == 0; }  
 		}, 
 		MANOR_UNVISITED("", "") {
 			@Override
-			protected boolean getCheck(PlayerCharacter character) { int check = character.getQuestStatus(QuestType.WARLOCK); return check == 1;}  
+			protected boolean getCheck(PlayerCharacter character) { int check = character.getQuestStatus(QuestType.WARLOCK); return check == 1; }  
 		}, 
 		CENTAUR_FIRST("", "") {
 			@Override
-			protected boolean getCheck(PlayerCharacter character) { int check = character.getQuestStatus(QuestType.CENTAUR); return check == 0;}  
+			protected boolean getCheck(PlayerCharacter character) { int check = character.getQuestStatus(QuestType.CENTAUR); return check == 0; }  
 		},
 		GIANTESS_UNSEEN("", "") {
 			@Override
-			protected boolean getCheck(PlayerCharacter character) { int check = character.getQuestStatus(QuestType.GIANTESS); return check == 0;}  
-		}, 
+			protected boolean getCheck(PlayerCharacter character) { int check = character.getQuestStatus(QuestType.GIANTESS); return check == 0; }  
+		},
+		WEREWOLF_NO_LUST("SUCCESS! Your weakness is not arousing to the werewolf.", "FAILURE! Your raw physical strength arouses the werewolf! DUG TIG!") {
+			@Override
+			protected boolean getCheck(PlayerCharacter character) { return character.getRawStat(Stat.STRENGTH) < 9; }  
+		},
 		;
 		private final String success;
 		private final String failure;
