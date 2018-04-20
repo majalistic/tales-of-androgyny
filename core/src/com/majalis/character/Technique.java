@@ -166,6 +166,7 @@ public class Technique {
 			case ENEMY_LOW_STABILITY: return currentState.getEnemyLowStability() ? 1 : 0;
 			case ENEMY_ON_GROUND: return currentState.isEnemyOnGround() ? 1 : 0; // this should be changed to is enemy defenseless, based on enemy technique
 			case SKILL_LEVEL: return skillLevel;
+			case QUICKNESS: return currentState.getStat(Stat.AGILITY);
 			case OUTMANEUVER:
 			case OUTMANUEVER_STRONG:
 			case STRENGTH_OVERPOWER:
@@ -192,6 +193,7 @@ public class Technique {
 			case ENEMY_LOW_STABILITY: return currentState.getEnemyLowStability() ? 1 : 0;
 			case ENEMY_ON_GROUND: return currentState.isEnemyOnGround() ? 1 : 0;
 			case SKILL_LEVEL: return skillLevel;
+			case QUICKNESS: return currentState.getStat(Stat.AGILITY);
 			case OUTMANEUVER: return currentState.getRawStat(Stat.AGILITY) + currentState.getPerks().get(Perk.COMBAT_FINESSE, 0) * 2 - (otherTechnique.getRawStat(Stat.AGILITY) + otherTechnique.getPerks().get(Perk.COMBAT_FINESSE, 0) * 2);
 			case OUTMANUEVER_STRONG: return (currentState.getRawStat(Stat.AGILITY) + currentState.getPerks().get(Perk.COMBAT_FINESSE, 0) * 2 - (otherTechnique.getRawStat(Stat.AGILITY) + otherTechnique.getPerks().get(Perk.COMBAT_FINESSE, 0) * 2)) - 2;
 			case STRENGTH_OVERPOWER: return currentState.getStat(Stat.STRENGTH) - otherTechnique.getStat(Stat.STRENGTH);

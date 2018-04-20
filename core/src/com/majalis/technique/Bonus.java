@@ -60,6 +60,7 @@ public class Bonus {
 			case ENEMY_ON_GROUND: description = "Enemy is on the ground!" + description; break;
 			case OUTMANEUVER: description = user + " outmaneuvered the opponent by " + bonusLevel + "!" + description; break;
 			case OUTMANUEVER_STRONG: break;
+			case QUICKNESS: break;
 			case SKILL_LEVEL: break;
 			case STRENGTH_OVERPOWER: break;
 			case STRENGTH_OVERPOWER_STRONG: break;
@@ -105,7 +106,8 @@ public class Bonus {
 		STRENGTH_OVERPOWER ("The more you overpower the enemy: "),
 		STRENGTH_OVERPOWER_STRONG ("When you greatly overpower the enemy: "),
 		OUTMANEUVER ("The faster you are than the enemy: "),
-		OUTMANUEVER_STRONG ("When you are much quicker than the enemy: ");
+		OUTMANUEVER_STRONG ("When you are much quicker than the enemy: "), 
+		QUICKNESS ("The faster you are: ");
 
 		private final String description;
 		private BonusCondition (String description) {
