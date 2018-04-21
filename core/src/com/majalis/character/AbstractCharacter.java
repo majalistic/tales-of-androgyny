@@ -319,7 +319,7 @@ public abstract class AbstractCharacter extends Group {
 	
 	public Color getHealthColor() { return getValueColor(getHealthDegradation()); } 
 	public Color getStaminaColor() { return getValueColor(getStaminaDegradation()); }
-	public Color getStabilityColor() { return getValueColor(stability == Stability.Perfect ? 0 : stability.isGood() ? 1 : stability.lowBalance() ? 2 : 3); }
+	public Color getStabilityColor() { return getValueColor(stability == Stability.Perfect ? 0 : stability.isGood() ? 1 : stability.isDown() || stability == Stability.Tripping ? 3 : 2); }
 	
 	public String getStatusBlurb() {
 		String blurb = "";
