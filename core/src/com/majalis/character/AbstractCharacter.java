@@ -717,7 +717,7 @@ public abstract class AbstractCharacter extends Group {
 			knockdown = Stability.getKnockdownConversion(knockdown);
 			if (knockdown > 0) {
 				if (!alreadyIncapacitated() && !wasIncapacitated()) {
-					resultToDefender.add(new MutationResult("It's a solid blow! It reduces balance by " + knockdown + "!"));
+					resultToDefender.add(new MutationResult("It's a solid blow! It reduces balance by " + knockdown + "!", -knockdown, MutationType.BALANCE));
 					if (stability.isDown()) {
 						if (enemyType == EnemyEnum.OGRE) {
 							resultToDefender.add(new MutationResult(label + (secondPerson ? " are " : " is ") + "knocked to their knees!", Stance.KNEELING));
@@ -757,10 +757,9 @@ public abstract class AbstractCharacter extends Group {
 			int gutcheck = attack.getGutCheck();
 			if (gutcheck > 0) {
 				if (!alreadyIncapacitated()) {
-					// ICON: should display amount of stamina damage with stamina icon
 					currentStamina -= gutcheck; // this should be reduced by armor defense
 					if (currentStamina < -5) currentStamina = -5;
-					resultToDefender.add(new MutationResult("It's winds " + (secondPerson ? "you" : "them") + "! It reduces stamina by " + gutcheck + "!", gutcheck, MutationType.STAMINA));
+					resultToDefender.add(new MutationResult("It's winds " + (secondPerson ? "you" : "them") + "! It reduces stamina by " + gutcheck + "!", -gutcheck, MutationType.STAMINA));
 					if (currentStamina <= 0 && grappleStatus == GrappleStatus.NULL) {
 						resultToDefender.add(new MutationResult(label + (secondPerson ? " fall " : " falls ") + "to the ground!", Stance.PRONE));
 						setStabilityToMin();

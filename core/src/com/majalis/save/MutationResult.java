@@ -29,6 +29,7 @@ public class MutationResult {
 	public enum MutationType {
 		HEALTH (AssetEnum.HEART),
 		STAMINA (AssetEnum.STAMINA_ICON_0),
+		BALANCE (AssetEnum.BALANCE_ICON_0),
 		BLEED (AssetEnum.BLEED),
 		ARMOR (AssetEnum.ARMOR_0),
 		FOOD (AssetEnum.APPLE),
