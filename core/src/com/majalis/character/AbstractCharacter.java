@@ -652,7 +652,7 @@ public abstract class AbstractCharacter extends Group {
 			int blockMod = attack.getBlockAmount();
 			if (blockMod > 0) {				
 				if (shield != null && shield.getDurability() > 0) {
-					resultToDefender.add(new MutationResult((blockMod >= 4 ? "The blow strikes off the shield!" : blockMod >= 3 ? "The blow is mostly blocked by the shield!" : blockMod >= 2 ? "The blow is half-blocked by the shield!" : "The blow is barely blocked by the shield!") + "\nIt deals " + shieldDamage + " damage to it!", shieldDamage, MutationType.ARMOR));
+					resultToDefender.add(new MutationResult((blockMod >= 4 ? "The blow strikes off the shield!" : blockMod >= 3 ? "The blow is mostly blocked by the shield!" : blockMod >= 2 ? "The blow is half-blocked by the shield!" : "The blow is barely blocked by the shield!") + "\nIt deals " + shieldDamage + " damage to it!", shieldDamage, MutationType.ARMOR_DESTROY));
 					shield.modDurability(-shieldDamage);
 					if (shield.getDurability() == 0) resultToDefender.add(new MutationResult("The shield is broken!"));
 				}
@@ -748,7 +748,7 @@ public abstract class AbstractCharacter extends Group {
 			if (armorSunder > 0) {
 				if (hitArmor != null && hitArmor.getDurability() > 0) {
 					// ICON: should display amount of damage done to armor (broken armor icon) - maybe just show the one since armor damage IS health damage now
-					resultToDefender.add(new MutationResult("It's an armor shattering blow! It reduces " + hitArmor.getName() + " durability by " + (armorSunder > hitArmor.getDurability() ? hitArmor.getDurability() : armorSunder) + "!", -(armorSunder > hitArmor.getDurability() ? hitArmor.getDurability() : armorSunder), MutationType.ARMOR));
+					resultToDefender.add(new MutationResult("It's an armor shattering blow! It reduces " + hitArmor.getName() + " durability by " + (armorSunder > hitArmor.getDurability() ? hitArmor.getDurability() : armorSunder) + "!", -(armorSunder > hitArmor.getDurability() ? hitArmor.getDurability() : armorSunder), MutationType.ARMOR_DESTROY));
 					hitArmor.modDurability(-armorSunder);
 					if (hitArmor.getDurability() == 0) resultToDefender.add(new MutationResult("The " + hitArmor.getName() + " is broken!"));
 				}

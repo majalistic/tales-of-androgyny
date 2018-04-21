@@ -32,6 +32,7 @@ public class MutationResult {
 		BALANCE (AssetEnum.BALANCE_ICON_0),
 		BLEED (AssetEnum.BLEED),
 		ARMOR (AssetEnum.ARMOR_0),
+		ARMOR_DESTROY (AssetEnum.ARMOR_1),
 		FOOD (AssetEnum.APPLE),
 		EXP (AssetEnum.EXP),
 		TIME (AssetEnum.TIME),
