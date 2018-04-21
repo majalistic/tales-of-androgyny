@@ -760,7 +760,7 @@ public abstract class AbstractCharacter extends Group {
 					// ICON: should display amount of stamina damage with stamina icon
 					currentStamina -= gutcheck; // this should be reduced by armor defense
 					if (currentStamina < -5) currentStamina = -5;
-					resultToDefender.add(new MutationResult("It's winds " + (secondPerson ? "you" : "them") + "! It reduces stamina by " + gutcheck + "!"));
+					resultToDefender.add(new MutationResult("It's winds " + (secondPerson ? "you" : "them") + "! It reduces stamina by " + gutcheck + "!", gutcheck, MutationType.STAMINA));
 					if (currentStamina <= 0 && grappleStatus == GrappleStatus.NULL) {
 						resultToDefender.add(new MutationResult(label + (secondPerson ? " fall " : " falls ") + "to the ground!", Stance.PRONE));
 						setStabilityToMin();
