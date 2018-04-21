@@ -676,7 +676,6 @@ public abstract class AbstractCharacter extends Group {
 			if (attack.getMagicDamageReduction() > 0) { resultToDefender.add(new MutationResult("Magic resistance reduced damage by " + attack.getMagicDamageReduction() + "!")); }
 			
 			if (damage > 0) {	
-				// ICON: should display amount of damage with a health icon
 				attack.addDefenderResults(modHealth(-damage));
 				if (attack.isSpell()) {
 					if (oilyFire) { resultToDefender.add(new MutationResult("The fire ignites the oil!")); }
@@ -690,7 +689,6 @@ public abstract class AbstractCharacter extends Group {
 			if (attack.ignoresArmor() || ((hitArmor == null || hitArmor.getDurability() == 0))) {
 				int bleed = attack.getBleeding();
 				if (bleed > 0 && canBleed()) {
-					// ICON: should display amount of bleed caused with bleed icon
 					resultToDefender.add(new MutationResult("It opens wounds! +" + bleed + " blood loss!", bleed, MutationType.BLEED));
 					statuses.put(StatusType.BLEEDING.toString(), statuses.get(StatusType.BLEEDING.toString(), 0) + bleed);
 				}
@@ -747,7 +745,6 @@ public abstract class AbstractCharacter extends Group {
 			int armorSunder = attack.getArmorSunder();
 			if (armorSunder > 0) {
 				if (hitArmor != null && hitArmor.getDurability() > 0) {
-					// ICON: should display amount of damage done to armor (broken armor icon) - maybe just show the one since armor damage IS health damage now
 					resultToDefender.add(new MutationResult("It's an armor shattering blow! It reduces " + hitArmor.getName() + " durability by " + (armorSunder > hitArmor.getDurability() ? hitArmor.getDurability() : armorSunder) + "!", -(armorSunder > hitArmor.getDurability() ? hitArmor.getDurability() : armorSunder), MutationType.ARMOR_DESTROY));
 					hitArmor.modDurability(-armorSunder);
 					if (hitArmor.getDurability() == 0) resultToDefender.add(new MutationResult("The " + hitArmor.getName() + " is broken!"));
