@@ -16,7 +16,7 @@ import com.majalis.talesofandrogyny.TalesOfAndrogyny;
  * Entry point of the package for desktop implementations - sets configuration elements and initializes the generic entry point.
  */
 public class DesktopLauncher {
-	public static void main (String[] arg) {
+	public static void main (String[] arg) throws Exception {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		config.addIcon("icon16.png", Files.FileType.Internal);
 		config.addIcon("icon32.png", Files.FileType.Internal);
@@ -39,7 +39,15 @@ public class DesktopLauncher {
 	            Sys.alert("Critical Failure", "Sorry, fatal error - please let Majalis know! An error.txt has been created in the game folder with the full details of the error. \n\nError: " + ex.getLocalizedMessage());
 	         }
 	      });
-		
-		new LwjglApplication(new TalesOfAndrogyny(), config);
+		try {
+			new LwjglApplication(new TalesOfAndrogyny(), config);
+		}
+		catch (Exception ex) {
+			if (ex.getMessage().contains("OpenGL 2.0 or higher with the FBO extension is required")) {
+				config.allowSoftwareMode = false;
+				new LwjglApplication(new TalesOfAndrogyny(), config);
+			}
+			else throw ex;
+		}
 	}
 }
