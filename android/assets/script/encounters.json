@@ -6036,7 +6036,7 @@
 		"scriptLines": [
 			{
 			"mutations": [{"saveType":"PORTRAIT", "value":{"class": "com.majalis.asset.AssetEnum", "value": "PORTRAIT_LOVE"}}], 
-			"text": "You take a gander at what the horse lady is packing between her legs and... well, isn't that interesting.  You've seen one of those one horses before, but she seems a bit shy about having one herself."},
+			"text": "You take a gander at what the horse lady is packing between her legs and... well, isn't that interesting.  You've seen one of those on horses before, but she seems a bit shy about having one herself."},
 			{"text": "The way you see it, you have two options for playing with it, and both of them seem more than a little ridiculous... so it's just a matter of choosing which one."}
 		]
 	},	
@@ -6130,7 +6130,7 @@
 		"scriptLines": [
 			{
 			"mutations": [{"saveType":"PORTRAIT", "value":{"class": "com.majalis.asset.AssetEnum", "value": "PORTRAIT_LOVE"}}], 
-			"text": "You take a gander at what the horse lady is packing between her legs and... well, isn't that interesting.  You've seen one of those one horses before, but she seems a bit shy about having one herself."},
+			"text": "You take a gander at what the horse lady is packing between her legs and... well, isn't that interesting.  You've seen one of those on horses before, but she seems a bit shy about having one herself."},
 			{"text": "The way you see it, you have two options for playing with it, and both of them seem more than a little ridiculous... so it's just a matter of choosing which one."}
 		]
 	},	
