@@ -2,6 +2,7 @@ package com.majalis.screens;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
@@ -92,10 +93,20 @@ public abstract class AbstractScreen extends Stage3D implements Screen {
         ButtonStyle buttonStyle = new ButtonStyle(new TextureRegionDrawable(new TextureRegion(assetManager.get(AssetEnum.MENU_BUTTON_UP.getTexture()))),  new TextureRegionDrawable(new TextureRegion(assetManager.get(AssetEnum.MENU_BUTTON_DOWN.getTexture()))),  new TextureRegionDrawable(new TextureRegion(assetManager.get(AssetEnum.MENU_BUTTON_HIGHLIGHT.getTexture()))));
         buttonStyle.over = new TextureRegionDrawable(new TextureRegion(assetManager.get(AssetEnum.MENU_BUTTON_HIGHLIGHT.getTexture())));		
         
+        int mainMenuX = 600;
+        int muteButtonX = 1000;
+        
         Button mainMenuButton = new Button(buttonStyle);
-        mainMenuButton.setPosition(800, 1100);
+        mainMenuButton.setPosition(mainMenuX, 1100);
         menuGroup.addActor(mainMenuButton);
         ClickListener currentListener = mainMenuButton.getClickListener();
+        
+        
+        Button muteButton = new Button(buttonStyle);
+        muteButton.setPosition(muteButtonX, 1100);
+        menuGroup.addActor(muteButton);
+        ClickListener currentListener2 = muteButton.getClickListener();
+        
         mainMenuButton.addListener(new ClickListener() { 
         	@Override
         	public void clicked(InputEvent event, float x, float y) {
@@ -104,25 +115,70 @@ public abstract class AbstractScreen extends Stage3D implements Screen {
             }
         	@Override
  	        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-        		mainMenuButton.addAction(Actions.moveTo(800, 915, .5f));
+        		muteButton.addAction(Actions.moveTo(muteButtonX, 915, .5f));
+        		mainMenuButton.addAction(Actions.moveTo(mainMenuX, 915, .5f));
         		currentListener.enter(event, x, y, pointer, fromActor);
  			}
  			@Override
  	        public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
- 				mainMenuButton.addAction(Actions.moveTo(800, 1100, .5f));
+ 				muteButton.addAction(Actions.moveTo(muteButtonX, 1100, .5f));
+ 				mainMenuButton.addAction(Actions.moveTo(mainMenuX, 1100, .5f));
  				currentListener.exit(event, x, y, pointer, toActor);
  			}
         });
+        
+        muteButton.addListener(new ClickListener() { 
+        	@Override
+        	public void clicked(InputEvent event, float x, float y) {
+        		Preferences prefs = Gdx.app.getPreferences("tales-of-androgyny-preferences");
+        		if (prefs.getBoolean("isMuted", false)) {
+        			prefs.putFloat("volume", prefs.getFloat("cachedVolume", 1));
+            		prefs.putFloat("musicVolume", prefs.getFloat("cachedMusicVolume", 1));
+            		prefs.putBoolean("isMuted", false);
+            		prefs.flush();
+                	if (music != null && music.isPlaying()) {
+                		music.setVolume(prefs.getFloat("musicVolume", 1) * .6f);
+                	}
+        		}
+        		else {
+        			prefs.putFloat("cachedVolume", prefs.getFloat("volume", 1));
+            		prefs.putFloat("cachedMusicVolume", prefs.getFloat("musicVolume", 1));
+        			prefs.putFloat("volume", 0);
+            		prefs.putFloat("musicVolume", 0);
+            		prefs.putBoolean("isMuted", true);
+            		prefs.flush();
+                	if (music != null && music.isPlaying()) {
+                		music.setVolume(0);
+                	}
+        		}
+        		
+        		currentListener2.clicked(event, x, y);
+            }
+        	@Override
+ 	        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
+        		muteButton.addAction(Actions.moveTo(muteButtonX, 915, .5f));
+        		mainMenuButton.addAction(Actions.moveTo(mainMenuX, 915, .5f));
+        		currentListener2.enter(event, x, y, pointer, fromActor);
+ 			}
+ 			@Override
+ 	        public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
+ 				muteButton.addAction(Actions.moveTo(muteButtonX, 1100, .5f));
+ 				mainMenuButton.addAction(Actions.moveTo(mainMenuX, 1100, .5f));
+ 				currentListener2.exit(event, x, y, pointer, toActor);
+ 			}
+        });      
         
         mainMenuHighlight.addAction(Actions.sequence(Actions.delay(.5f), new Action() {@Override public boolean act(float delta) { 
         	mainMenuHighlight.addListener(new ClickListener() { 
         	@Override
  	        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-        		mainMenuButton.addAction(Actions.moveTo(800, 915, .5f));
+        		mainMenuButton.addAction(Actions.moveTo(mainMenuX, 915, .5f));
+        		muteButton.addAction(Actions.moveTo(muteButtonX, 915, .5f));
  			}
  			@Override
  	        public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
- 				mainMenuButton.addAction(Actions.moveTo(800, 1100, .5f));
+ 				mainMenuButton.addAction(Actions.moveTo(mainMenuX, 1100, .5f));
+ 				muteButton.addAction(Actions.moveTo(muteButtonX, 1100, .5f));
  			}
         }); return true; }}));   
     }
