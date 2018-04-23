@@ -192,6 +192,7 @@ public class OptionScreen extends AbstractScreen {
 	        public void changed(ChangeEvent event, Actor actor) {
 	            final float val = soundSlider.getValue();
 	            preferences.putFloat("volume", val);
+	            preferences.putBoolean("isMuted", false);
 	            sound.play(val *.5f);
 	            soundVolumePercent.setText("Sound volume: " + String.valueOf((int)(val * 100)) +"%");
 	        }
@@ -209,6 +210,7 @@ public class OptionScreen extends AbstractScreen {
 	        public void changed(ChangeEvent event, Actor actor) {
 	            final float val = musicSlider.getValue();
 	            preferences.putFloat("musicVolume", val);
+	            preferences.putBoolean("isMuted", false);
 	            setVolume(val);
 	            musicVolumePercent.setText("Music volume: " + String.valueOf((int)(val * 100)) +"%");
 	        }
