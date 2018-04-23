@@ -132,28 +132,7 @@ public abstract class AbstractScreen extends Stage3D implements Screen {
         muteButton.addListener(new ClickListener() { 
         	@Override
         	public void clicked(InputEvent event, float x, float y) {
-        		Preferences prefs = Gdx.app.getPreferences("tales-of-androgyny-preferences");
-        		if (prefs.getBoolean("isMuted", false)) {
-        			prefs.putFloat("volume", prefs.getFloat("cachedVolume", 1));
-            		prefs.putFloat("musicVolume", prefs.getFloat("cachedMusicVolume", 1));
-            		prefs.putBoolean("isMuted", false);
-            		prefs.flush();
-                	if (music != null && music.isPlaying()) {
-                		music.setVolume(prefs.getFloat("musicVolume", 1) * .6f);
-                	}
-        		}
-        		else {
-        			prefs.putFloat("cachedVolume", prefs.getFloat("volume", 1));
-            		prefs.putFloat("cachedMusicVolume", prefs.getFloat("musicVolume", 1));
-        			prefs.putFloat("volume", 0);
-            		prefs.putFloat("musicVolume", 0);
-            		prefs.putBoolean("isMuted", true);
-            		prefs.flush();
-                	if (music != null && music.isPlaying()) {
-                		music.setVolume(0);
-                	}
-        		}
-        		
+        		muteToggle();        		
         		currentListener2.clicked(event, x, y);
             }
         	@Override
@@ -183,6 +162,30 @@ public abstract class AbstractScreen extends Stage3D implements Screen {
  				muteButton.addAction(Actions.moveTo(muteButtonX, 1100, .5f));
  			}
         }); return true; }}));   
+    }
+    
+    private void muteToggle() {
+    	Preferences prefs = Gdx.app.getPreferences("tales-of-androgyny-preferences");
+		if (prefs.getBoolean("isMuted", false)) {
+			prefs.putFloat("volume", prefs.getFloat("cachedVolume", 1));
+    		prefs.putFloat("musicVolume", prefs.getFloat("cachedMusicVolume", 1));
+    		prefs.putBoolean("isMuted", false);
+    		prefs.flush();
+        	if (music != null && music.isPlaying()) {
+        		music.setVolume(prefs.getFloat("musicVolume", 1) * .6f);
+        	}
+		}
+		else {
+			prefs.putFloat("cachedVolume", prefs.getFloat("volume", 1));
+    		prefs.putFloat("cachedMusicVolume", prefs.getFloat("musicVolume", 1));
+			prefs.putFloat("volume", 0);
+    		prefs.putFloat("musicVolume", 0);
+    		prefs.putBoolean("isMuted", true);
+    		prefs.flush();
+        	if (music != null && music.isPlaying()) {
+        		music.setVolume(0);
+        	}
+		}
     }
     
     protected void switchScreen(ScreenEnum screenRequest, AbstractScreen currentScreen, AssetEnum oldMusicPath, Music oldMusic) {
