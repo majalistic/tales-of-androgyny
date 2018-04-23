@@ -21,7 +21,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Button.ButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
@@ -247,7 +246,6 @@ public abstract class AbstractScreen extends Stage3D implements Screen {
     protected void addActorAndListen(Actor actor, int x, int y) {
 		this.addActor(actor);
 		actor.setPosition(x, y);
-		addDragListener(actor);
 	}
 	
     protected Background getCampBackground() {
@@ -261,25 +259,11 @@ public abstract class AbstractScreen extends Stage3D implements Screen {
 		return new BackgroundBuilder(animationActor).build();
 	}
     
-	private void addDragListener(final Actor actor) {
-		actor.addListener(new DragListener() {
-			@Override
-		    public void drag(InputEvent event, float x, float y, int pointer) {
-				if (debug) {
-			        actor.moveBy(x - actor.getWidth() / 2, y - actor.getHeight() / 2);
-			        System.out.println(actor.getX() + ", " + actor.getY());
-				}
-		    }
-		});
-	}
-    
     @Override
     public void render(float delta) {
     	clear();
-    	// this calls actor.act() on all actors
-    	super.act(delta);
-        // this draws all actors
-        super.draw();
+    	super.act(delta); // this calls actor.act() on all actors
+        super.draw(); // this draws all actors
     }
  
     @Override
