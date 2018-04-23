@@ -99,6 +99,10 @@ public enum AssetEnum {
 	MENU_BUTTON_DOWN("buttons/menud.png"),
 	MENU_BUTTON_HIGHLIGHT("buttons/menuh.png"),
 	
+	MUTE_BUTTON_UP("buttons/mute.png"),
+	MUTE_BUTTON_DOWN("buttons/muted.png"),
+	MUTE_BUTTON_HIGHLIGHT("buttons/muteh.png"),
+	
 	DESTROY_UP("buttons/destroy.png"),
 	DESTROY_DOWN("buttons/destroyd.png"),
 	DESTROY_HIGHLIGHT("buttons/destroyh.png"),

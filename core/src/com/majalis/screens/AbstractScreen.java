@@ -101,8 +101,10 @@ public abstract class AbstractScreen extends Stage3D implements Screen {
         menuGroup.addActor(mainMenuButton);
         ClickListener currentListener = mainMenuButton.getClickListener();
         
+        ButtonStyle buttonStyle2 = new ButtonStyle(new TextureRegionDrawable(new TextureRegion(assetManager.get(AssetEnum.MUTE_BUTTON_UP.getTexture()))),  new TextureRegionDrawable(new TextureRegion(assetManager.get(AssetEnum.MUTE_BUTTON_DOWN.getTexture()))),  new TextureRegionDrawable(new TextureRegion(assetManager.get(AssetEnum.MUTE_BUTTON_HIGHLIGHT.getTexture()))));
+        buttonStyle2.over = new TextureRegionDrawable(new TextureRegion(assetManager.get(AssetEnum.MUTE_BUTTON_HIGHLIGHT.getTexture())));		        
         
-        Button muteButton = new Button(buttonStyle);
+        Button muteButton = new Button(buttonStyle2);
         muteButton.setPosition(muteButtonX, 1100);
         menuGroup.addActor(muteButton);
         ClickListener currentListener2 = muteButton.getClickListener();

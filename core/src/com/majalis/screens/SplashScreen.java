@@ -49,6 +49,9 @@ public class SplashScreen extends AbstractScreen {
 		assetManager.load(AssetEnum.MENU_BUTTON_UP.getTexture());
 		assetManager.load(AssetEnum.MENU_BUTTON_DOWN.getTexture());
 		assetManager.load(AssetEnum.MENU_BUTTON_HIGHLIGHT.getTexture());
+		assetManager.load(AssetEnum.MUTE_BUTTON_UP.getTexture());
+		assetManager.load(AssetEnum.MUTE_BUTTON_DOWN.getTexture());
+		assetManager.load(AssetEnum.MUTE_BUTTON_HIGHLIGHT.getTexture());
 		assetManager.load(AssetEnum.NULL.getTexture());
 		assetManager.finishLoading();
 		sound = assetManager.get(AssetEnum.INTRO_SOUND.getSound());
