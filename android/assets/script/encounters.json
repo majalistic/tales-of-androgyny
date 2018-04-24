@@ -1137,7 +1137,10 @@
 	{
 		"key": "TOWN-SQUARE-LEWD-HANDY",
 		"scriptLines": [
-			{"text": ""}
+			{"text": "The town square is crowded, a nearly-static mass of people attempting to push past or move around each other to get to the street merchants, their homes, or whatever their business."},
+			{"text": "You see someone watching you from a low-traffic alley, and he gestures at you as if to say \"come here.\""},
+			{"text": "You walk over to him... and he blows you a kiss."},
+			{"text": "\"Gimme a tug, won't ye girly?  I've got some spare change for ye,\" he offers."}
 		]
 	},
 	{
@@ -1180,12 +1183,13 @@
 	{
 		"key": "TOWN-SQUARE-LEWD-HANDY-ALLEY",
 		"scriptLines": [
-			{"text": ""},
+			{"text": "You look away, embarassed, while you pull him off, a gently held fist stroking his shaft and occasionally quite literally pulling off of it before grasping hold again and continuing to pump."},
+			{"text": "You can feel it jerk in your hand as he approaches his climax, and you know that soon you'll have to deal with a lot more than just his cock."},
 			{"text": "\"Catch it on yer face for me, luv.  I'm not payin' ye if you don't stay still, so give me a smile and sit tight.\""},
 			{
 			"sound": "CUM",
-			"text": ""},
-			{"text": ""},
+			"text": "You turn to face his cock and, almost immediately, a rope flings out and catches over your eye and cheek.  Another one follows, and another, and another, so that your lips, nose, eye and chin are under the cooling remnants of his ejaculate."},
+			{"text": "He stuffs his penis back into his trousers and clears his throat, and you begin the tricky business of wiping yourself off without leaving a semen stain on your clothes or dried cum on your face."},
 		]
 	},
 	{
