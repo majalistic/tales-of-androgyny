@@ -47,7 +47,8 @@ public abstract class AbstractScreen extends Stage3D implements Screen {
 	private AssetEnum musicPath;
 	private Music music;
     private boolean switchingScreen;
-	
+    protected Button muteButton;
+    
     protected AbstractScreen(ScreenFactory screenFactory, ScreenElements elements, AssetEnum musicPath) {
         super(elements.getViewport(), elements.getBatch());
         this.game = screenFactory.getGame();
@@ -104,8 +105,8 @@ public abstract class AbstractScreen extends Stage3D implements Screen {
         ButtonStyle buttonStyle2 = new ButtonStyle(new TextureRegionDrawable(new TextureRegion(assetManager.get(AssetEnum.MUTE_BUTTON_UP.getTexture()))),  new TextureRegionDrawable(new TextureRegion(assetManager.get(AssetEnum.MUTE_BUTTON_DOWN.getTexture()))),  new TextureRegionDrawable(new TextureRegion(assetManager.get(AssetEnum.MUTE_BUTTON_ON.getTexture()))));
         buttonStyle2.over = new TextureRegionDrawable(new TextureRegion(assetManager.get(AssetEnum.MUTE_BUTTON_HIGHLIGHT.getTexture())));		        
         
-        Button muteButton = new Button(buttonStyle2);
-        if (Gdx.app.getPreferences("tales-of-androgyny-preferences").getBoolean("isMuted", false)) { muteButton.setChecked(true); }
+        muteButton = new Button(buttonStyle2);
+        muteButton.setChecked(Gdx.app.getPreferences("tales-of-androgyny-preferences").getBoolean("isMuted", false)); 
         muteButton.setPosition(muteButtonX, 1100);
         menuGroup.addActor(muteButton);
         ClickListener currentListener2 = muteButton.getClickListener();
@@ -133,9 +134,8 @@ public abstract class AbstractScreen extends Stage3D implements Screen {
         muteButton.addListener(new ClickListener() { 
         	@Override
         	public void clicked(InputEvent event, float x, float y) {
-        		muteToggle();     
-        		muteButton.setChecked(!muteButton.isChecked());
         		currentListener2.clicked(event, x, y);
+        		muteToggle(); // this must occur after the default clicklistener for the setChecked method to be called properly, otherwise clicking on the button may desync the checked flag from the property
             }
         	@Override
  	        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
@@ -187,6 +187,10 @@ public abstract class AbstractScreen extends Stage3D implements Screen {
         	if (music != null && music.isPlaying()) {
         		music.setVolume(0);
         	}
+		}
+		
+		if (muteButton != null) { 
+			muteButton.setChecked(prefs.getBoolean("isMuted", false)); 
 		}
     }
     
