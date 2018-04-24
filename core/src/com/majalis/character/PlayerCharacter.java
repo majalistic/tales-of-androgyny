@@ -68,6 +68,7 @@ public class PlayerCharacter extends AbstractCharacter {
 	private int cameFromOral;
 	private boolean justCame;
 	private int eggtick;
+	private int lewdCooldown;
 	
 	private String currentPortrait;
 	
@@ -1305,6 +1306,7 @@ public class PlayerCharacter extends AbstractCharacter {
 		time += timePassed;
 		Array<MutationResult> result = getResult(timePassed >= 12 ? timePassed / 6 + " days pass." : timePassed >= 6 ? "A day passes." : timePassed >= 3 ? "Much time passes." : timePassed == 2 ? "Some time passes." : "A short time passes.", timePassed, MutationType.TIME);
 		result.addAll(eggTick(timePassed));
+		lewdCooldown -= timePassed;
 		ass.tick(timePassed);
 		modDebtCooldown(-timePassed);
 		result.addAll(modHealth(getHealthRegen())); 
@@ -1665,4 +1667,6 @@ public class PlayerCharacter extends AbstractCharacter {
 	public int getBonusPoints() { return bonusPoints; }
 
 	public void setBonusPoints(int bonusPoints) { this.bonusPoints = bonusPoints; }
+
+	public boolean hasRandomLewdEncounter() { boolean ready = lewdCooldown <= 0; if (ready) lewdCooldown = 18; return ready; }
 }

@@ -1875,9 +1875,7 @@ public enum EncounterCode {
 				break;
 			case TOWN_CRIER:
 				Array<String> squareOptions = new Array<String>();
-				for (int ii = 0; ii < 5; ii++) {
-					squareOptions.add("TOWN-SQUARE-" + ii);
-				}
+				for (int ii = 0; ii < 5; ii++) { squareOptions.add("TOWN-SQUARE-" + ii); }
 				
 				Branch goodInfo = b.branch().textScene("TOWN-SQUARE-INFORMANT-GOOD");
 				Branch payHimMore = b.branch().textScene("TOWN-SQUARE-INFORMANT-OKAY").checkScene(
@@ -1917,7 +1915,28 @@ public enum EncounterCode {
 							b.branch("Eavesdrop").checkScene(
 								CheckType.CRIER_QUEST, 
 								b.branch(true).textScene("TOWN-SQUARE-INFORMANT").concat(payHim),
-								b.branch(false).checkScene(CheckType.CRIER_REFUSE, b.branch(true).textScene("TOWN-SQUARE-INFORMANT-RETURN").concat(payHim), b.branch(false).randomScene(squareOptions))
+								b.branch(false).checkScene(
+									CheckType.CRIER_REFUSE, 
+									b.branch(true).textScene("TOWN-SQUARE-INFORMANT-RETURN").concat(payHim), 
+									// this should check if the requirements for a particular lewd scene are met, and if so, show the lewd scene
+									b.branch(false).checkScene(
+										CheckType.RANDOM_LEWD_SCENE, 
+										b.branch(true).checkScene(
+											CheckType.LUCKY, 
+											b.branch(true).checkScene(
+												CheckType.LUCKY, 
+												b.branch(true).textScene("TOWN-SQUARE-LEWD-TOP"), 
+												b.branch(false).textScene("TOWN-SQUARE-LEWD-HANDY")
+											), 
+											b.branch(false).checkScene(
+												CheckType.LUCKY, 
+												b.branch(true).textScene("TOWN-SQUARE-LEWD-BLOWJOB"), 
+												b.branch(false).textScene("TOWN-SQUARE-LEWD-ANAL")
+											)
+										),
+										b.branch(false).randomScene(squareOptions)
+									)
+								)
 							),			
 							b.branch("Listen to the town crier").checkScene(
 								CheckType.CRIER, 

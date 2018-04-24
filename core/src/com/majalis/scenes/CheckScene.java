@@ -569,7 +569,11 @@ public class CheckScene extends AbstractTextScene {
 		WEREWOLF_NO_LUST("SUCCESS! Your weakness is not arousing to the werewolf.", "FAILURE! Your raw physical strength arouses the werewolf! DUG TIG!") {
 			@Override
 			protected boolean getCheck(PlayerCharacter character) { return character.getRawStat(Stat.STRENGTH) < 9; }  
-		},
+		}, 
+		RANDOM_LEWD_SCENE("", "") {
+			@Override
+			protected boolean getCheck(PlayerCharacter character) { return character.hasRandomLewdEncounter(); }  
+		}, 
 		;
 		private final String success;
 		private final String failure;
