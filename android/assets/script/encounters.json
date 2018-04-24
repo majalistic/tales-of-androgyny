@@ -1195,7 +1195,19 @@
 	{
 		"key": "TOWN-SQUARE-LEWD-ANAL-ALLEY",
 		"scriptLines": [
-			{"text": ""}			
+			{"text": "He takes you by the hand and pulls you into a nearby alley, where you're sure you're about to get an uncomfortable sensation in your rectum, and where the crowd occasionally leaks, so the likelihood of being discovered is worryingly high."},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex": 1}}],
+			"text": "He makes you spit on his hand, and uses that to ease his entry - you watch carefully for passers-by while he sticks it up your backdoor."},
+			{"text": "He makes quick work, where \"work\" is narrowly re-defined to mean \"sodomy\", neither of you wanting particularly for a random passerby to stumble upon him rectally rooting you in full view of the public."},
+			{"text": "If anyone did round the corner, they'd get an eyeful of you with your hands on the wall, taking it right up the ass."},			
+			{"text": "The spitlube makes it so that friction is a real concern - you grit your teeth, earning your pennies the hard way, one at a time."},			
+			{"text": "\"Pretending to be a globe-trottin' hero, and here ye are gettin' fucked up the shitter in an alley,\" he says, and you can hear someone approaching... but you can also feel him tensing up and getting ready to bust."},			
+			{
+			"sound": "CUM",
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "creampies": 1}}],
+			"text": "You're about to paint the wall white when he lets out a particularly final grunt, and you feel something hot dripping down the back of your thigh, the cock in your pipe characteristically jerking and twitching."},
+			{"text": "After a moment to steady yourself, you follow after him, re-joining the crowd... with a slightly fuller gut than before, and a slightly wider gait."}			
 		]
 	},
 	{
