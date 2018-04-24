@@ -1899,7 +1899,15 @@ public enum EncounterCode {
 					),
 					b.branch("Refuse")
 				);
-								
+					
+				Branch townSquareAnalLewd = b.branch().textScene("TOWN-SQUARE-LEWD-ANAL-ALLEY");
+				Branch townSquareAnalChoice = b.branch(0).choiceScene(
+					"How much?", 
+					b.branch("20 gold").require(ChoiceCheckType.STAT_GREATER_THAN_X, Stat.CHARISMA, 7).textScene("TOWN-SQUARE-LEWD-ANAL-20"), 
+					b.branch("10 gold").require(ChoiceCheckType.STAT_GREATER_THAN_X, Stat.CHARISMA, 5).textScene("TOWN-SQUARE-LEWD-ANAL-10"), 
+					b.branch("5 gold").textScene("TOWN-SQUARE-LEWD-ANAL-5")
+				);
+				
 				Branch townSquareOptions = b.branch().checkScene(
 					CheckType.MOUTH_FIEND_DODGED, 
 					b.branch(true).textScene("TOWN-SQUARE-SECOND-KIDNAP").choiceScene("Go with her?", b.branch("Go").textScene("TOWN-SQUARE-SECOND-KIDNAPPED"), b.branch("Decline").textScene("TOWN-SQUARE-SECOND-AVOID")),
@@ -1931,7 +1939,15 @@ public enum EncounterCode {
 											b.branch(false).checkScene(
 												CheckType.LUCKY, 
 												b.branch(true).textScene("TOWN-SQUARE-LEWD-BLOWJOB"), 
-												b.branch(false).textScene("TOWN-SQUARE-LEWD-ANAL")
+												b.branch(false).textScene("TOWN-SQUARE-LEWD-ANAL").checkScene(
+													Perk.ANAL_ADDICT, 
+													b.branch(2).checkScene(
+														CheckType.ANY_WILLPOWER, 
+														b.branch(true).textScene("TOWN-SQUARE-LEWD-ANAL-RESIST").concat(townSquareAnalChoice), 
+														b.branch(false).textScene("TOWN-SQUARE-LEWD-ANAL-FREE").concat(townSquareAnalLewd)
+													), 
+													townSquareAnalChoice
+												)
 											)
 										),
 										b.branch(false).randomScene(squareOptions)
