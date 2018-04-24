@@ -101,10 +101,11 @@ public abstract class AbstractScreen extends Stage3D implements Screen {
         menuGroup.addActor(mainMenuButton);
         ClickListener currentListener = mainMenuButton.getClickListener();
         
-        ButtonStyle buttonStyle2 = new ButtonStyle(new TextureRegionDrawable(new TextureRegion(assetManager.get(AssetEnum.MUTE_BUTTON_UP.getTexture()))),  new TextureRegionDrawable(new TextureRegion(assetManager.get(AssetEnum.MUTE_BUTTON_DOWN.getTexture()))),  new TextureRegionDrawable(new TextureRegion(assetManager.get(AssetEnum.MUTE_BUTTON_HIGHLIGHT.getTexture()))));
+        ButtonStyle buttonStyle2 = new ButtonStyle(new TextureRegionDrawable(new TextureRegion(assetManager.get(AssetEnum.MUTE_BUTTON_UP.getTexture()))),  new TextureRegionDrawable(new TextureRegion(assetManager.get(AssetEnum.MUTE_BUTTON_DOWN.getTexture()))),  new TextureRegionDrawable(new TextureRegion(assetManager.get(AssetEnum.MUTE_BUTTON_ON.getTexture()))));
         buttonStyle2.over = new TextureRegionDrawable(new TextureRegion(assetManager.get(AssetEnum.MUTE_BUTTON_HIGHLIGHT.getTexture())));		        
         
         Button muteButton = new Button(buttonStyle2);
+        if (Gdx.app.getPreferences("tales-of-androgyny-preferences").getBoolean("isMuted", false)) { muteButton.setChecked(true); }
         muteButton.setPosition(muteButtonX, 1100);
         menuGroup.addActor(muteButton);
         ClickListener currentListener2 = muteButton.getClickListener();
@@ -132,7 +133,8 @@ public abstract class AbstractScreen extends Stage3D implements Screen {
         muteButton.addListener(new ClickListener() { 
         	@Override
         	public void clicked(InputEvent event, float x, float y) {
-        		muteToggle();        		
+        		muteToggle();     
+        		muteButton.setChecked(!muteButton.isChecked());
         		currentListener2.clicked(event, x, y);
             }
         	@Override

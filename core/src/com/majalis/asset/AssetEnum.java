@@ -102,6 +102,7 @@ public enum AssetEnum {
 	MUTE_BUTTON_UP("buttons/mute.png"),
 	MUTE_BUTTON_DOWN("buttons/muted.png"),
 	MUTE_BUTTON_HIGHLIGHT("buttons/muteh.png"),
+	MUTE_BUTTON_ON("buttons/mutec.png"),
 	
 	DESTROY_UP("buttons/destroy.png"),
 	DESTROY_DOWN("buttons/destroyd.png"),
