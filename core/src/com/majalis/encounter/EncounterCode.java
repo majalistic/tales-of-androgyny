@@ -1903,9 +1903,9 @@ public enum EncounterCode {
 				Branch townSquareAnalLewd = b.branch().textScene("TOWN-SQUARE-LEWD-ANAL-ALLEY");
 				Branch townSquareAnalChoice = b.branch(0).choiceScene(
 					"How much?", 
-					b.branch("20 gold").require(ChoiceCheckType.STAT_GREATER_THAN_X, Stat.CHARISMA, 7).textScene("TOWN-SQUARE-LEWD-ANAL-20"), 
-					b.branch("10 gold").require(ChoiceCheckType.STAT_GREATER_THAN_X, Stat.CHARISMA, 5).textScene("TOWN-SQUARE-LEWD-ANAL-10"), 
-					b.branch("5 gold").textScene("TOWN-SQUARE-LEWD-ANAL-5"),
+					b.branch("20 gold").require(ChoiceCheckType.STAT_GREATER_THAN_X, Stat.CHARISMA, 7).textScene("TOWN-SQUARE-LEWD-ANAL-20").concat(townSquareAnalLewd), 
+					b.branch("10 gold").require(ChoiceCheckType.STAT_GREATER_THAN_X, Stat.CHARISMA, 5).textScene("TOWN-SQUARE-LEWD-ANAL-10").concat(townSquareAnalLewd), 
+					b.branch("5 gold").textScene("TOWN-SQUARE-LEWD-ANAL-5").concat(townSquareAnalLewd),
 					b.branch("Decline")
 				);
 				
@@ -1916,14 +1916,17 @@ public enum EncounterCode {
 						"Get assfucked instead?", 
 						b.branch("Blow him").textScene("TOWN-SQUARE-LEWD-ORAL-SWITCH-DECLINE").choiceScene(
 							"How much?", 
-							b.branch("15 gold").require(ChoiceCheckType.STAT_GREATER_THAN_X, Stat.CHARISMA, 7).textScene("TOWN-SQUARE-LEWD-ORAL-15"), 
-							b.branch("7 gold").require(ChoiceCheckType.STAT_GREATER_THAN_X, Stat.CHARISMA, 5).textScene("TOWN-SQUARE-LEWD-ORAL-7"), 
-							b.branch("3 gold").textScene("TOWN-SQUARE-LEWD-ORAL-3")
+							b.branch("15 gold").require(ChoiceCheckType.STAT_GREATER_THAN_X, Stat.CHARISMA, 7).textScene("TOWN-SQUARE-LEWD-ORAL-15").concat(townSquareOralLewd), 
+							b.branch("7 gold").require(ChoiceCheckType.STAT_GREATER_THAN_X, Stat.CHARISMA, 5).textScene("TOWN-SQUARE-LEWD-ORAL-7").concat(townSquareOralLewd), 
+							b.branch("3 gold").textScene("TOWN-SQUARE-LEWD-ORAL-3").concat(townSquareOralLewd),
+							b.branch("Leave")
 						), 
 						b.branch("Take it in the ass").concat(townSquareAnalChoice)
 					),
 					b.branch("Nope")					
 				);
+				
+				Branch townSquareHandyLewd = b.branch().textScene("TOWN-SQUARE-LEWD-HANDY-ALLEY");
 				
 				Branch townSquareOptions = b.branch().checkScene(
 					CheckType.MOUTH_FIEND_DODGED, 
@@ -1950,7 +1953,20 @@ public enum EncounterCode {
 											b.branch(true).checkScene(
 												CheckType.LUCKY, 
 												b.branch(true).textScene("TOWN-SQUARE-LEWD-TOP"), 
-												b.branch(false).textScene("TOWN-SQUARE-LEWD-HANDY")
+												b.branch(false).textScene("TOWN-SQUARE-LEWD-HANDY").choiceScene(
+													"Accept his offer?",
+													b.branch("Yes").textScene("TOWN-SQUARE-LEWD-HANDY-SWITCH").choiceScene(
+														"Get assfucked instead?", 
+														b.branch("Give him a handjob").textScene("TOWN-SQUARE-LEWD-HANDY-SWITCH-DECLINE").choiceScene(
+															"How much?", 
+															b.branch("5 gold").require(ChoiceCheckType.STAT_GREATER_THAN_X, Stat.CHARISMA, 7).textScene("TOWN-SQUARE-LEWD-HANDY-5").concat(townSquareHandyLewd), 
+															b.branch("3 gold").require(ChoiceCheckType.STAT_GREATER_THAN_X, Stat.CHARISMA, 5).textScene("TOWN-SQUARE-LEWD-HANDY-3").concat(townSquareHandyLewd), 
+															b.branch("1 gold").textScene("TOWN-SQUARE-LEWD-HANDY-1").concat(townSquareHandyLewd)
+														), 
+														b.branch("Blow him").concat(townSquareOralLewd)
+													),
+													b.branch("Nope")					
+												)
 											), 
 											b.branch(false).checkScene(
 												CheckType.LUCKY, 

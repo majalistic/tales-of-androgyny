@@ -1141,9 +1141,51 @@
 		]
 	},
 	{
-		"key": "TOWN-SQUARE-LEWD-BLOWJOB",
+		"key": "TOWN-SQUARE-LEWD-HANDY-SWITCH",
 		"scriptLines": [
-			{"text": ""}
+			{"text": "You agree, and follow him into the alley, where he says you'll negotiate the price.  You kneel down before him."},
+			{"text": "\"Why don't ye give it a suck while yer down there?\""}			
+		]
+	},
+	{
+		"key": "TOWN-SQUARE-LEWD-HANDY-SWITCH-DECLINE",
+		"scriptLines": [
+			{"text": "\"That's a shame - wanted to hear what ye sound like gaggin'.  Well, I'll get to see what yer pretty face looks like painted, instead.\""},
+		]
+	},	
+	{
+		"key": "TOWN-SQUARE-LEWD-HANDY-5",
+		"scriptLines": [
+			{
+			"mutations": [{"saveType":"GOLD", "value":{"class": "java.lang.Integer", "value": 5}}],	
+			"text": "You strike a deal."}			
+		]
+	},
+	{
+		"key": "TOWN-SQUARE-LEWD-HANDY-3",
+		"scriptLines": [
+			{
+			"mutations": [{"saveType":"GOLD", "value":{"class": "java.lang.Integer", "value": 3}}],	
+			"text": "You strike a deal."}			
+		]
+	},
+	{
+		"key": "TOWN-SQUARE-LEWD-HANDY-1",
+		"scriptLines": [
+			{
+			"mutations": [{"saveType":"GOLD", "value":{"class": "java.lang.Integer", "value": 1}}],	
+			"text": "You strike a deal."}			
+		]
+	},
+	{
+		"key": "TOWN-SQUARE-LEWD-HANDY-ALLEY",
+		"scriptLines": [
+			{"text": ""},
+			{"text": "\"Catch it on yer face for me, luv.  I'm not payin' ye if you don't stay still, so give me a smile and sit tight.\""},
+			{
+			"sound": "CUM",
+			"text": ""},
+			{"text": ""},
 		]
 	},
 	{
