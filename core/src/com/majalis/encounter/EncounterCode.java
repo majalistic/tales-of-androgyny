@@ -1956,7 +1956,7 @@ public enum EncounterCode {
 												b.branch(false).textScene("TOWN-SQUARE-LEWD-HANDY").choiceScene(
 													"Accept his offer?",
 													b.branch("Yes").textScene("TOWN-SQUARE-LEWD-HANDY-SWITCH").choiceScene(
-														"Get assfucked instead?", 
+														"Give a blowjob instead?", 
 														b.branch("Give him a handjob").textScene("TOWN-SQUARE-LEWD-HANDY-SWITCH-DECLINE").choiceScene(
 															"How much?", 
 															b.branch("5 gold").require(ChoiceCheckType.STAT_GREATER_THAN_X, Stat.CHARISMA, 7).textScene("TOWN-SQUARE-LEWD-HANDY-5").concat(townSquareHandyLewd), 
