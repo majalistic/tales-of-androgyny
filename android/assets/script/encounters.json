@@ -1147,6 +1147,80 @@
 		]
 	},
 	{
+		"key": "TOWN-SQUARE-LEWD-ORAL",
+		"scriptLines": [
+			{"text": "The town square is crowded, a nearly-static mass of people attempting to push past or move around each other to get to the street merchants, their homes, or whatever their business."},
+			{"text": "You see someone watching you from a low-traffic alley, and he gestures at you as if to say \"come here.\""},
+			{"text": "You walk over to him... and he blows you a kiss."},
+			{"text": "\"What say ye gargle my potential kids and I throw a few coin yer way?\" he offers."}
+		]
+	},
+	{
+		"key": "TOWN-SQUARE-LEWD-ORAL-FREE",
+		"scriptLines": [
+			{"text": "\"It's free,\" you mouth, mimicking what you're offering with your hand."}			
+		]
+	},
+	{
+		"key": "TOWN-SQUARE-LEWD-ORAL-RESIST",
+		"scriptLines": [
+			{
+			"mutations": [{"saveType":"WILLPOWER", "value":{"class": "java.lang.Integer", "value": -1}}],	
+			"text": "You resist the impulse to offer yourself up for free."}			
+		]
+	},
+	{
+		"key": "TOWN-SQUARE-LEWD-ORAL-SWITCH",
+		"scriptLines": [
+			{"text": "You agree, and follow him into the alley, where he says you'll negotiate the price."},
+			{"text": "\"Now that I've got a good luck at ye... ye've got a fine backside for a lad.  Why don't we give yer lips a rest and I push it in for ye?  I'll give ye some extra coin, and it's not like ye planned to leave this alley with yer dignity regardless.\""}			
+		]
+	},
+	{
+		"key": "TOWN-SQUARE-LEWD-ORAL-SWITCH-DECLINE",
+		"scriptLines": [
+			{"text": "\"Savin' yer boypussy for someone special eh?  Well, get to work then, it won't be suckin' itself.  Oh, but first... how much?\""},
+		]
+	},	
+	{
+		"key": "TOWN-SQUARE-LEWD-ORAL-15",
+		"scriptLines": [
+			{
+			"mutations": [{"saveType":"GOLD", "value":{"class": "java.lang.Integer", "value": 15}}],	
+			"text": "You strike a deal."}			
+		]
+	},
+	{
+		"key": "TOWN-SQUARE-LEWD-ORAL-7",
+		"scriptLines": [
+			{
+			"mutations": [{"saveType":"GOLD", "value":{"class": "java.lang.Integer", "value": 7}}],	
+			"text": "You strike a deal."}			
+		]
+	},
+	{
+		"key": "TOWN-SQUARE-LEWD-ORAL-3",
+		"scriptLines": [
+			{
+			"mutations": [{"saveType":"GOLD", "value":{"class": "java.lang.Integer", "value": 3}}],	
+			"text": "You strike a deal."}			
+		]
+	},
+	{
+		"key": "TOWN-SQUARE-LEWD-ORAL-ALLEY",
+		"scriptLines": [
+			{"text": ""},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "oralSex": 1}}],
+			"text": ""},
+				{
+			"sound": "CUM",
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "oralCreampies": 1}}],
+			"text": ""},
+			{"text": "\"Make sure to wipe yer mouth like a proper lass, now,\" he says, and you do, so no one knows what you got up to once you rejoin them in daylight."},
+		]
+	},
+	{
 		"key": "TOWN-SQUARE-LEWD-ANAL",
 		"scriptLines": [
 			{"text": "The town square is crowded, a nearly-static mass of people attempting to push past or move around each other to get to the street merchants, their homes, or whatever their business."},

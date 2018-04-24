@@ -1905,7 +1905,24 @@ public enum EncounterCode {
 					"How much?", 
 					b.branch("20 gold").require(ChoiceCheckType.STAT_GREATER_THAN_X, Stat.CHARISMA, 7).textScene("TOWN-SQUARE-LEWD-ANAL-20"), 
 					b.branch("10 gold").require(ChoiceCheckType.STAT_GREATER_THAN_X, Stat.CHARISMA, 5).textScene("TOWN-SQUARE-LEWD-ANAL-10"), 
-					b.branch("5 gold").textScene("TOWN-SQUARE-LEWD-ANAL-5")
+					b.branch("5 gold").textScene("TOWN-SQUARE-LEWD-ANAL-5"),
+					b.branch("Decline")
+				);
+				
+				Branch townSquareOralLewd = b.branch().textScene("TOWN-SQUARE-LEWD-ORAL-ALLEY");
+				Branch townSquareOralChoice = b.branch(0).choiceScene(
+					"Accept his offer?",
+					b.branch("Yes").textScene("TOWN-SQUARE-LEWD-ORAL-SWITCH").choiceScene(
+						"Get assfucked instead?", 
+						b.branch("Blow him").textScene("TOWN-SQUARE-LEWD-ORAL-SWITCH-DECLINE").choiceScene(
+							"How much?", 
+							b.branch("15 gold").require(ChoiceCheckType.STAT_GREATER_THAN_X, Stat.CHARISMA, 7).textScene("TOWN-SQUARE-LEWD-ORAL-15"), 
+							b.branch("7 gold").require(ChoiceCheckType.STAT_GREATER_THAN_X, Stat.CHARISMA, 5).textScene("TOWN-SQUARE-LEWD-ORAL-7"), 
+							b.branch("3 gold").textScene("TOWN-SQUARE-LEWD-ORAL-3")
+						), 
+						b.branch("Take it in the ass").concat(townSquareAnalChoice)
+					),
+					b.branch("Nope")					
 				);
 				
 				Branch townSquareOptions = b.branch().checkScene(
@@ -1926,7 +1943,6 @@ public enum EncounterCode {
 								b.branch(false).checkScene(
 									CheckType.CRIER_REFUSE, 
 									b.branch(true).textScene("TOWN-SQUARE-INFORMANT-RETURN").concat(payHim), 
-									// this should check if the requirements for a particular lewd scene are met, and if so, show the lewd scene
 									b.branch(false).checkScene(
 										CheckType.RANDOM_LEWD_SCENE, 
 										b.branch(true).checkScene(
@@ -1938,7 +1954,15 @@ public enum EncounterCode {
 											), 
 											b.branch(false).checkScene(
 												CheckType.LUCKY, 
-												b.branch(true).textScene("TOWN-SQUARE-LEWD-BLOWJOB"), 
+												b.branch(true).textScene("TOWN-SQUARE-LEWD-ORAL").checkScene(
+													Perk.MOUTH_MANIAC, 
+													b.branch(2).checkScene(
+														CheckType.ANY_WILLPOWER, 
+														b.branch(true).textScene("TOWN-SQUARE-LEWD-ORAL-RESIST").concat(townSquareOralChoice), 
+														b.branch(false).textScene("TOWN-SQUARE-LEWD-ORAL-FREE").concat(townSquareOralLewd)
+													), 
+													townSquareOralChoice
+												), 
 												b.branch(false).textScene("TOWN-SQUARE-LEWD-ANAL").checkScene(
 													Perk.ANAL_ADDICT, 
 													b.branch(2).checkScene(
