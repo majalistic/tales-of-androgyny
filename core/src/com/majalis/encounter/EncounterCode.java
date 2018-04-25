@@ -97,6 +97,7 @@ public enum EncounterCode {
 	HARPY_STORY (MOUNTAIN_ACTIVE),
 	BRIGAND_STORY (MOUNTAIN_ACTIVE),
 	ORC_STORY,
+	WEREWOLF_STORY,
 	ECCENTRIC_MERCHANT,
 	STORY_FEM (FOREST_INACTIVE), 
 	STORY_SIGN (FOREST_INACTIVE), 
@@ -171,6 +172,7 @@ public enum EncounterCode {
 					case STORY_SIGN: return "Crossroads";
 					case BRIGAND_STORY: return "West Pass";
 					case ORC_STORY: return "Valley";
+					case WEREWOLF_STORY: return "Dark Forest";
 					case GHOST:
 					case FOOD_CACHE: 
 					case GOLD_CACHE:
@@ -234,6 +236,7 @@ public enum EncounterCode {
 					case STORY_SIGN: return "Crossroads";
 					case BRIGAND_STORY: return "West Pass (Brigands)";
 					case ORC_STORY: return "Valley (Orcs)";
+					case WEREWOLF_STORY: return "Dark Forest (Wolves)";
 					case SOLICITATION: return "Strange person";
 					case FOOD_CACHE:
 					case GOLD_CACHE:
@@ -2134,6 +2137,8 @@ public enum EncounterCode {
 					b.branch(true).concat(werewolfScouted),
 					b.branch(false).checkScene(CheckType.STEALTH_LEVEL_2, b.branch(true).concat(werewolfScouted), b.branch(false).textScene("WEREWOLF-ENTRY").concat(werewolfBattle))
 				);
+			case WEREWOLF_STORY:
+				return b.branch().textScene("STORY-WEREWOLF");
 			case WITCH_COTTAGE:
 				Branch magicShop = b.branch().textScene("WITCH-COTTAGE-STORE").choiceScene("Peruse her wares?", b.branch("Peruse").shopScene(ShopCode.MAGIC_SHOP), b.branch("Leave"));
 				Branch purchase = b.branch().choiceScene(

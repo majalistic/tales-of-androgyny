@@ -1059,6 +1059,12 @@
 		]
 	},
 	{
+		"key": "STORY-WEREWOLF",
+		"scriptLines": [
+			{"text": ""}
+		]
+	},
+	{
 		"key": "TOWN",
 		"scriptLines": [
 			{
