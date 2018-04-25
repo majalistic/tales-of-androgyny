@@ -2138,7 +2138,7 @@ public enum EncounterCode {
 					b.branch(false).checkScene(CheckType.STEALTH_LEVEL_2, b.branch(true).concat(werewolfScouted), b.branch(false).textScene("WEREWOLF-ENTRY").concat(werewolfBattle))
 				);
 			case WEREWOLF_STORY:
-				return b.branch().textScene("STORY-WEREWOLF");
+				return b.branch().textScene("STORY-WEREWOLF").battleScene(BattleCode.WEREWOLF_STORY, b.branch(Outcome.VICTORY), b.branch(Outcome.DEFEAT));
 			case WITCH_COTTAGE:
 				Branch magicShop = b.branch().textScene("WITCH-COTTAGE-STORE").choiceScene("Peruse her wares?", b.branch("Peruse").shopScene(ShopCode.MAGIC_SHOP), b.branch("Leave"));
 				Branch purchase = b.branch().choiceScene(

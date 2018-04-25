@@ -13,6 +13,7 @@ import com.majalis.character.Stance;
 public enum BattleCode {
 	// this should only require the type and battle background/music - all other requirements should come generically from the type
 	WERESLUT (EnemyEnum.WERESLUT, WEREBITCH_ANAL, WEREBITCH_KNOT, FOREST_BG), 
+	WEREWOLF_STORY (EnemyEnum.WERESLUT, WEREBITCH_ANAL, WEREBITCH_KNOT, FOREST_BG), 
 	HARPY (EnemyEnum.HARPY, HARPY_FELLATIO_0, HARPY_FELLATIO_1, HARPY_FELLATIO_2, HARPY_FELLATIO_3, HARPY_ANAL, FOREST_BG), 
 	HARPY_STORY (EnemyEnum.HARPY, HARPY_FELLATIO_0, HARPY_FELLATIO_1, HARPY_FELLATIO_2, HARPY_FELLATIO_3, HARPY_ANAL, FOREST_BG), 
 	SLIME (EnemyEnum.SLIME, AssetEnum.SLIME, SLIME_DOGGY, FOREST_BG), 
@@ -38,7 +39,7 @@ public enum BattleCode {
 	QUETZAL(AssetEnum.BOSS_MUSIC, EnemyEnum.QUETZAL, AssetEnum.QUETZAL, QUETZAL_BG),
 	MERMAID(AssetEnum.HEAVY_MUSIC, EnemyEnum.MERMAID, AssetEnum.MERMAID, WATERFALL_BG),
 	WARLOCK(AssetEnum.HORROR_MUSIC, EnemyEnum.WARLOCK, AssetEnum.WARLOCK, AssetEnum.WARLOCK_BG),
-	GIANTESS(AssetEnum.ANGEL_MUSIC, EnemyEnum.GIANTESS, AssetEnum.GIANTESS_FUTA)
+	GIANTESS(AssetEnum.ANGEL_MUSIC, EnemyEnum.GIANTESS, AssetEnum.GIANTESS_FUTA),
 	;
 	
 	private final AssetEnum music;
@@ -67,7 +68,7 @@ public enum BattleCode {
 	}
 
 	private boolean isStoryMode() {
-		return this == GOBLIN_STORY || this == HARPY_STORY || this == BRIGAND_STORY || this == OGRE_STORY || this == ORC_STORY;
+		return this == GOBLIN_STORY || this == HARPY_STORY || this == BRIGAND_STORY || this == OGRE_STORY || this == ORC_STORY || this == WEREWOLF_STORY;
 	}
 	
 	public EnemyCharacter getEnemy(AssetManager assetManager, Stance stance) {
