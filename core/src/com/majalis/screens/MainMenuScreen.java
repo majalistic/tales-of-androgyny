@@ -33,7 +33,7 @@ import com.majalis.talesofandrogyny.TalesOfAndrogyny;
  */
 public class MainMenuScreen extends AbstractScreen {
 
-	private static final int INTRO = 5;
+	private static final int INTRO = 7;
 	private static final int mgScroll = 1920;
 	private static final int fgScroll = 3000;
 	
@@ -87,20 +87,6 @@ public class MainMenuScreen extends AbstractScreen {
 		selection = 0;
 		cutScenePlayed = false;
 	}
-
-	private Image getImage(AssetEnum asset) {
-		Image temp = new Image (assetManager.get(asset.getTexture()));
-		this.addActor(temp);
-		return temp;
-	}
-	
-	private void move(Image toMove, int distance) { move(toMove, distance, 0, 0); }
-	private void move(Image toMove, int distance, int startX) { move(toMove, distance, startX, 0); }
-	private void move(Image toMove, int distance, int startX, int startY) { move(toMove, distance, startX, startY, true); }
-	private void move(Image toMove, int distance, int startX, int startY, boolean start) { 
-		toMove.setPosition(startX, startY);
-		toMove.addAction(Actions.moveBy(-distance + (start ? -startX : 0), 0, INTRO));
-	}
 	
 	@Override
 	public void buildMenu() {}		
@@ -123,7 +109,7 @@ public class MainMenuScreen extends AbstractScreen {
 		mc = getImage(MAIN_MENU_MC);
 		dk = getImage(MAIN_MENU_DK);
 		fg = getImage(MAIN_MENU_FG);
-	
+		
 		move(bg, 200);
 		move(bgright, 200, 1920, 0, false);
 		move(mg5, 0, 920);
@@ -188,13 +174,27 @@ public class MainMenuScreen extends AbstractScreen {
        
         activate(0);
         this.addActor(uiGroup);
-        uiGroup.setVisible(false);
-        uiGroup.addAction(Actions.sequence(Actions.delay(INTRO), Actions.show(), new Action() {
+       
+        uiGroup.addAction(Actions.alpha(0));
+        uiGroup.addAction(Actions.sequence(Actions.delay(INTRO), Actions.fadeIn(1), new Action() {
 			@Override
 			public boolean act(float delta) {
 				cutScenePlayed = true;
 				return true;
 			}}));
+	}
+	
+	private Image getImage(AssetEnum asset) {
+		Image temp = new Image (assetManager.get(asset.getTexture()));
+		this.addActor(temp);
+		return temp;
+	}
+	private void move(Image toMove, int distance) { move(toMove, distance, 0, 0); }
+	private void move(Image toMove, int distance, int startX) { move(toMove, distance, startX, 0); }
+	private void move(Image toMove, int distance, int startX, int startY) { move(toMove, distance, startX, startY, true); }
+	private void move(Image toMove, int distance, int startX, int startY, boolean start) { 
+		toMove.setPosition(startX, startY);
+		toMove.addAction(Actions.moveBy(-distance + (start ? -startX : 0), 0, INTRO));
 	}
 	
 	private void finishCutScene() {
@@ -226,7 +226,7 @@ public class MainMenuScreen extends AbstractScreen {
 		mc.setPosition(1775 - mgScroll, -75);
 		dk.setPosition(4000 - fgScroll, 0);
 		fg.setPosition(-fgScroll, 0);
-		uiGroup.addAction(Actions.show());
+		uiGroup.addAction(Actions.alpha(1));
 		cutScenePlayed = true;
 	}
 	
