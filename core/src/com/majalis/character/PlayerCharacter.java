@@ -1669,4 +1669,6 @@ public class PlayerCharacter extends AbstractCharacter {
 	public void setBonusPoints(int bonusPoints) { this.bonusPoints = bonusPoints; }
 
 	public boolean hasRandomLewdEncounter() { boolean ready = lewdCooldown <= 0; if (ready) lewdCooldown = 18; return ready; }
+
+	public int getHeartbeat() { return heartbeat; }
 }

@@ -528,12 +528,13 @@ public class Battle extends Group{
 	}
 
 	private void setEnemyTechnique() {
+		int battletick = character.getHeartbeat() % 3;
 		enemySelectedTechnique = enemy.getTechnique(character);
 		uiGroup.removeActor(enemySkill);
-		enemySkill = new SkillText(character.getBattlePerception() < 7 ? "" : enemySelectedTechnique.getTechniqueName(), skin, assetManager.get(enemySelectedTechnique.getStance().getTexture()));		
+		enemySkill = new SkillText(character.getBattlePerception() + battletick < 8 ? "" : enemySelectedTechnique.getTechniqueName(), skin, assetManager.get(enemySelectedTechnique.getStance().getTexture()));		
 		uiGroup.addActor(enemySkill);
 		enemySkill.setPosition(1300, 750);
-		if (character.getBattlePerception() < 5) {
+		if (character.getBattlePerception() + battletick < 5) {
 			enemySkill.addAction(Actions.hide());
 		}
 	}
