@@ -165,6 +165,8 @@ public enum Techniques {
 	
 	OVIPOSITION			(new NonAttackTechnique(Stance.FULL_NELSON, Stance.OVIPOSITION, "Oviposition", 0, 0, Stance.OVIPOSITION_BOTTOM).build(), false), // Used to oviposition
 	
+	CORNHOLE_OTHER 		(new NonAttackTechnique(Stance.OFFENSIVE, Stance.DOGGY_OTHER, "Cornhole", 0, 0).build(), false), // Used to pounce on Trudy
+	
 	IRRUMATIO 			(new GrappleTechnique(Stance.FELLATIO, Stance.FELLATIO, "Irrumatio", 1).build()), 
 	FORCE_DEEPTHROAT	(new GrappleTechnique(Stance.FELLATIO, Stance.FELLATIO, "Deepthroat", 1).addSex(new SexualExperienceBuilder().setMouthBottomTeasing(1)).addSelfSex(new SexualExperienceBuilder().setMouthTeasing(1)).build()),
 	GRIP	 			(new GrappleTechnique(Stance.FULL_NELSON, Stance.FULL_NELSON, "Grip", 3, GrappleType.ADVANTAGE).build()), // Used to grapple
