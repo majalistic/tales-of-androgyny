@@ -5587,7 +5587,9 @@
 			{"text": "You watch as she starts to reform, her slime squicking and squelching as it resumes the shape of a... very shapely woman."},	
 			{"text": "\"Unfortunately, I don't have an excretory hole for you to misuse,\" she says, as her large rear forms itself out of the nearly flat prism of slime, \"but I think I can do one better,\" she says, sticking out said rear at you, and slowly forming a hole where one would be appropriate... but it's a hole that is quite literal, and perfectly circular, or, to be more accurate, cylindrical."},
 			{"text": "\"Umm... do you want me to just... stick it in there?\" you ask, uncertain."},
-			{"text": "\"Of course. Jam it in my excretory hole,\" she demands, narrowing and enlarging the hole rhythmically in a seeming attempt to entice you, \"I promise, this will be very embarrassing and innappropriate for me,\" she goes on, unconvincingly."},
+			{
+			"foreground": "SLIME_BACKSHOT",
+			"text": "\"Of course. Jam it in my excretory hole,\" she demands, narrowing and enlarging the hole rhythmically in a seeming attempt to entice you, \"I promise, this will be very embarrassing and innappropriate for me,\" she goes on, unconvincingly."},
 			{
 			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSexTop":1}}],	
 			"text": "Still, it's tempting. You wade closer, and stick your hardening member where she clearly wants you to stick it - immediately, she contracts all of the slime so that you're fully engulfed, and it's incredibly tight. You nearly lose it inside immediately."},

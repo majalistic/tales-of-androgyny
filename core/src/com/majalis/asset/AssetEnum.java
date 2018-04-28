@@ -178,6 +178,7 @@ public enum AssetEnum {
 	BRIGAND_MISSIONARY("enemies/BrigandMissionary.jpg"),
 	SLIME("enemies/HeartSlime.png"), 
 	SLIME_DOGGY("enemies/HeartSlimeLoveDart.png"), 
+	SLIME_BACKSHOT("enemies/HeartSlimeBackshot.png"), 
 	CENTAUR_ORAL("enemies/CentaurOral.jpg"), 
 	CENTAUR_ANAL("enemies/CentaurAnal.jpg"), 
 	CENTAUR_GANGBANG("enemies/CentaurGangbang.jpg"), 
