@@ -239,6 +239,8 @@ public enum AssetEnum {
 	MOUTH_FIEND_ORAL_COCK_INSIDE_THROAT_WHITEOUT("enemies/Mouth Fiend/MouthFiendOralCockInsideThroatWhiteout.png"),
 	MERMAID("enemies/Mermaid.png"),
 	WARLOCK("enemies/Warlock.png"),
+	WARLOCK_ANAL("enemies/WarlockAnal.jpg"),
+	
 	TRAP_BONUS("enemies/TrapBonus.jpg"), 
 
 	ARMOR_DOLL("battle/ArmorDoll.png"),
