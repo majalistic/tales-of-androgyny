@@ -395,6 +395,17 @@ public enum EnemyEnum {
 				new MutationResult(properCase(pronouns.getPossessive()) + " tremendous, fat cock visibly bulges out your stomach!"),
 				new MutationResult("You are being anally violated by an ogre!")
 			});
+			case CENTAUR:
+			case UNICORN:
+				return new Array<MutationResult>(new MutationResult[]{
+						new MutationResult("The flared head of " + pronouns.getPossessive() + " horsecock penetrates your asshole!"),
+						new MutationResult("Your hole is stretched wide by " + pronouns.getPossessive() + " tremendous dick!"),
+						new MutationResult("Your hole feels like it's on fire!"),
+						new MutationResult(properCase(pronouns.getPossessive()) + " horsecock glides smoothly through your irritated anal mucosa!"),
+						new MutationResult(properCase(pronouns.getPossessive()) + " arhythmic thrusting in and out of your asshole is emasculating!"),
+						new MutationResult("You are red-faced and embarassed because of " + pronouns.getPossessive() + " butt-stuffing!"),
+						new MutationResult("Your cock is ignored!")
+				});
 			default:
 				return new Array<MutationResult>(new MutationResult[]{
 						new MutationResult("You are being anally violated!"),
