@@ -1206,7 +1206,7 @@ public class EnemyCharacter extends AbstractCharacter {
 	}
 	private boolean mustCastHealing() { return enemyType != EnemyEnum.GOLEM && currentHealth < 30 && currentMana >= 10; }
 	private boolean mustCastTitanStrength() { return enemyType != EnemyEnum.GOLEM && currentMana % 10 != 0 && currentMana > 2 && statuses.get(StatusType.STRENGTH_BUFF.toString(), 0) == 0; }
-	private boolean willPounce() { return enemyType.willPounce() && arousal.isErect() && !stance.isIncapacitatingOrErotic() && grappleStatus == GrappleStatus.NULL && (enemyType != EnemyEnum.BRIGAND || !storyMode); }	
+	private boolean willPounce() { return enemyType.willPounce() && arousal.isErect() && !stance.isIncapacitatingOrErotic() && grappleStatus == GrappleStatus.NULL && ((enemyType != EnemyEnum.BRIGAND && enemyType != EnemyEnum.WERESLUT) || !storyMode); }	
 	private Technique getTechnique(AbstractCharacter target, Techniques technique) { return new Technique(technique.getTrait(), getCurrentState(target), enemyType == EnemyEnum.BRIGAND && technique == Techniques.PARRY ? 3 : 1); }
 	private int getRandomWeighting(int size) {
 		int randomResult = random.nextInt(size);
