@@ -1072,8 +1072,15 @@
 		"scriptLines": [
 			{
 			"music": "WEREWOLF_MUSIC",
+			"text": "Wandering so far from home, you begin to wonder if this journey was such a good idea... especially as the growling of some unknown beast grows louder and louder."},
+			{"text": "You feel your hackles raise, and you turn to find yourself staring down the source of the growling... and she's... pretty hot."},
+			{
 			"animatedForeground": "WEREWOLF",
-			"text": ""}
+			"text": "\"I want to mate! Ruff, ruff!\" she says, barking happily like a dog, her large, wolf-like tail wagging behind her.  She appears to be some kind of human-wolf hybrid... or a werewolf."},
+			{"text": "At first, the idea of mating doesn't sound so bad... but your eyes are drawn to the rather prominent bulge in her pants... you have no doubt what that must be, as... unexpected as that is."},
+			{"text": "You try to get her to heel. \"Stay, stay,\" you say, holding your hands out, palms facing downward, as she advances on you, claws raised and teeth bared. \"Down girl, down...\""},
+			{"text": "She shakes her head. \"No! I need to mate! I need to squeeze into a nice, tight manhole! Awoo!\""},
+			{"text": "You reach for your sword... seems she won't take no for an answer."}
 		]
 	},
 	{
