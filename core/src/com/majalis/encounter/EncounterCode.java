@@ -101,6 +101,7 @@ public enum EncounterCode {
 	ECCENTRIC_MERCHANT,
 	STORY_FEM (FOREST_INACTIVE), 
 	STORY_SIGN (FOREST_INACTIVE), 
+	END_OF_STORY,
 	
 	SOLICITATION, 
 	CAMP_MASTURBATE, 
@@ -173,6 +174,7 @@ public enum EncounterCode {
 					case BRIGAND_STORY: return "West Pass";
 					case ORC_STORY: return "Valley";
 					case WEREWOLF_STORY: return "Dark Forest";
+					case END_OF_STORY: return "Beyond";
 					case GHOST:
 					case FOOD_CACHE: 
 					case GOLD_CACHE:
@@ -237,6 +239,7 @@ public enum EncounterCode {
 					case BRIGAND_STORY: return "West Pass (Brigands)";
 					case ORC_STORY: return "Valley (Orcs)";
 					case WEREWOLF_STORY: return "Dark Forest (Wolves)";
+					case END_OF_STORY: return "Beyond";
 					case SOLICITATION: return "Strange person";
 					case FOOD_CACHE:
 					case GOLD_CACHE:
@@ -265,6 +268,7 @@ public enum EncounterCode {
 			case MERMAID: return "Mermaid";
 			case ALTAR: return "Altar";
 			case GIANTESS_FUTA: return "Valley of the Giantess";
+			case END_OF_STORY: return "Beyond";
 			default: return "Nothing here.";
 		}
 	}
@@ -970,6 +974,8 @@ public enum EncounterCode {
 						b.branch(false).checkScene(CheckType.ELF_COMPANION3, b.branch(true).textScene("ELF-COMPANION-SECOND").concat(learnHealing), b.branch(false).textScene("ELF-COMPANION-REPEAT"))
 					)
 				);
+			case END_OF_STORY:
+				return b.branch().textScene("STORY-END");
 			case ERROR:
 				break;
 			case FIRST_BATTLE_STORY:

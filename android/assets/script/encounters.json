@@ -25,7 +25,16 @@
 			"text": ""}
 		]
 	},
-		{
+	{
+		"key": "STORY-END",
+		"scriptLines": [
+			{
+			"animatedForeground": "GHOST",
+			"text": "Thank you so much! This is the current end of story mode - please be sure to try out the normal character creation mode to get the full extent of what's currently in Tales of Androgyny!"},
+			{"text": "There are more characters, more scenarios, and a lot more play area in normal mode, and you can create your character and select their skills, perks, and spells.  Enjoy!"}
+		]
+	},
+	{
 		"key": "STORY-MODE",
 		"scriptLines": [
 			{
