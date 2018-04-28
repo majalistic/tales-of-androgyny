@@ -1086,7 +1086,20 @@
 	{
 		"key": "STORY-WEREWOLF-VICTORY",
 		"scriptLines": [
-			{"text": ""}
+			{
+			"mutations": [{"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": 10}}],
+			"text": "You successfully defeat the werewolf... or so it seems.  Though a moment ago she seemed cowed, she springs fully erect... her body, that is... and looks no worse from the wear."},
+			{"text": "Even more miraculously, her wounds seem to be closing up, even the ones that she's not currently licking, unlike the ones on are paw."},
+			{"text": "\"You're strong... you'd make a good mate!\" she says, and you can feel your sphincter tightening."},
+			{"text": "\"I... I can get even stronger,\" you say, thinking quickly, \"...if... if you let me go, I can become a very strong mate for you. The strongest,\" you say, and you can't tell if this is convincing her."},
+			{"text": "\"Really? But I want to mate now!\" she says, and the bulge in her underwear looks... about what you'd expect, given that. \"But... all my other strong mates... weren't strong enough to have my puppies...\" she says, forlornly, her ears and tail drooping."},
+			{"text": "\"I... I could become strong enough. But only if you don't... mate with me, right now. I'll come back, once I'm the strongest, and... and... and I'll have your puppies,\" you say, a bit hesitantly, not wanting to promise something or to remind her of her breeding urges."},
+			{"text": "\"We'll mate, and you'll have a big, healthy litter for me, ruff, ruff?\" she asks, and you nod."},
+			{"text": "\"When, next we meet... we'll... mate. And I'll have a big litter with you,\" you say, the heat rising to your cheeks."},			
+			{"text": "\"You better! Woof, woof! Or I'll fill you with all of the puppies I've saved up when I catch ya!\""},
+			{"text": "On that... disturbing note, you turn away from her, keeping her slightly in your vision as you depart."},
+			{"text": "You know that if you do cross her path again, she'll definitely mount you... and you'll have to endure, red-faced and panting, as she tries her very hardest to fill you with puppies."},
+			{"text": "Your sphincter clenches at the thought, knowing that it would have to take the brunt of that.  You continue your travels, making a mental note to take a different route back when you do eventually return."}
 		]
 	},
 	{
