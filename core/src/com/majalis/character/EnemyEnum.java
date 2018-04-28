@@ -16,6 +16,7 @@ import com.majalis.character.Armor.ArmorType;
 import com.majalis.character.Arousal.ArousalLevel;
 import com.majalis.character.Arousal.ArousalType;
 import com.majalis.character.Item.WeaponType;
+import com.majalis.save.MutationResult;
 @SuppressWarnings("unchecked")
 public enum EnemyEnum {
 	WERESLUT (new EnemyTemplate(WeaponType.Claw).setStrength(5).setAgility(5), "Wereslut", null, AnimationEnum.WEREWOLF),
@@ -388,4 +389,24 @@ public enum EnemyEnum {
 	}
 	
 	public EnemyCharacter getInstance(AssetManager assetManager, Stance stance, boolean storyMode) { return new EnemyCharacter(getTextures(assetManager), getTextureMap(assetManager), getAnimations(assetManager), this, stance, storyMode); }
+	public Array<MutationResult> getAnalMessages(PronounSet pronouns) {
+		switch (this) {
+			case OGRE: return new Array<MutationResult>(new MutationResult[]{
+				new MutationResult(properCase(pronouns.getPossessive()) + " tremendous, fat cock visibly bulges out your stomach!"),
+				new MutationResult("You are being anally violated by an ogre!")
+			});
+			default:
+				return new Array<MutationResult>(new MutationResult[]{
+						new MutationResult("You are being anally violated!"),
+						new MutationResult("Your hole is stretched by " + pronouns.getPossessive() + " fat dick!"),
+						new MutationResult("Your hole feels like it's on fire!"),
+						new MutationResult(properCase(pronouns.getPossessive()) + " cock glides smoothly through your irritated anal mucosa!"),
+						new MutationResult(properCase(pronouns.getPossessive()) + " rhythmic thrusting in and out of your asshole is emasculating!"),
+						new MutationResult("You are red-faced and embarassed because of " + pronouns.getPossessive() + " butt-stuffing!"),
+						new MutationResult("Your cock is ignored!")
+				});
+		}
+	}
+	// this should be refactored out
+	private String properCase(String sample) { return sample.substring(0, 1).toUpperCase() + sample.substring(1); }
 }

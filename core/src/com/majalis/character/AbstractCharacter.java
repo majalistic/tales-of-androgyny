@@ -486,18 +486,8 @@ public abstract class AbstractCharacter extends Group {
 		}
 		if (enemyType != null) {
 			if (resolvedAttack.getForceStance() == Stance.DOGGY_BOTTOM || resolvedAttack.getForceStance() == Stance.ANAL_BOTTOM || resolvedAttack.getForceStance() == Stance.STANDING_BOTTOM) {
-				if (enemyType == EnemyEnum.OGRE) {
-					resolvedAttack.addMessageToDefender(new MutationResult(properCase(pronouns.getPossessive()) + " tremendous, fat cock visibly bulges out your stomach!"));		
-					resolvedAttack.addMessageToDefender(new MutationResult("You are being anally violated by an ogre!"));
-				}
-				else {
-					resolvedAttack.addMessageToDefender(new MutationResult("You are being anally violated!"));
-					resolvedAttack.addMessageToDefender(new MutationResult("Your hole is stretched by " + pronouns.getPossessive() + " fat dick!"));
-					resolvedAttack.addMessageToDefender(new MutationResult("Your hole feels like it's on fire!"));
-					resolvedAttack.addMessageToDefender(new MutationResult(properCase(pronouns.getPossessive()) + " cock glides smoothly through your irritated anal mucosa!"));
-					resolvedAttack.addMessageToDefender(new MutationResult(properCase(pronouns.getPossessive()) + " rhythmic thrusting in and out of your asshole is emasculating!"));
-					resolvedAttack.addMessageToDefender(new MutationResult("You are red-faced and embarassed because of " + pronouns.getPossessive() + " butt-stuffing!"));
-					resolvedAttack.addMessageToDefender(new MutationResult("Your cock is ignored!"));
+				for (MutationResult mr : enemyType.getAnalMessages(pronouns)) {
+					resolvedAttack.addMessageToDefender(mr);
 				}
 			}		
 			else if(resolvedAttack.getForceStance() == Stance.FELLATIO_BOTTOM || resolvedAttack.getForceStance() == Stance.SIXTY_NINE_BOTTOM) {
