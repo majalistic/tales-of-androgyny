@@ -8912,11 +8912,14 @@
 			"chatter": "Is it... oh my...",
 			"chatterPerson": "Kylira",
 			"sound": "ANAL_INSERTION",
+			"foreground": "BEASTMISTRESS_KITTY_ANAL",
 			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1, "bellyful": 2, "beast": true}}],
 			"text": "You can't believe this is happening - that is, until you feel a strange object force its way inside, and your vision goes white."},
 			{"text": "\"Painful, isn't it? The barbs are meant to force a female to ovulate... in your ass, though, it's just an unfortunate mismatch.\""},
 			{"text": "The feline phallus bores into you, straightening out your rectal pipe as it does, but even when it withdraws, it isn't a relief, as the barbs scrape your smooth walls."},
-			{"text": "You whine and moan and begin shaking your hips at the rude sensation. Your teeth stay grit and your fingers dig into the dirt."},
+			{
+			"foreground": "BEASTMISTRESS_KITTY_ANAL_INTERNAL",
+			"text": "You whine and moan and begin shaking your hips at the rude sensation. Your teeth stay grit and your fingers dig into the dirt."},
 			{"text": "\"Hmmm... you're acting like quite the female,\" she says, smugly. \"My kitty is very smart, you know. If this was homo sex, he'd know.\""},
 			{"text": "Your voice is hoarse and your eyes stare up at some unseen threat. Meanwhile, your human pecker drools precum - not quite ovulation, but close enough."},
 			{"text": "\"Not exactly your proudest moment, is it? Getting fucked in the ass by an overgrown housecat,\" she says, straightening up, and walking to the front side of her mount."},
@@ -8938,6 +8941,7 @@
 			{"text": "Between the pumping and the scraping, the anal ordeal has proven incredibly difficult, even as you've drooled your own seed into the dirt. You feel an intense rumbling in your stomach, and then heat, and then... humiliation."},
 			{
 			"sound": "CUM",
+			"foreground": "BEASTMISTRESS_KITTY_ANAL_INTERNAL_CUM",
 			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":4, "creampies": 3, "analEjaculation": 1}}],
 			"text": "Getting kitty cock up your kitty litter hole is one thing - being the queen in heat to a powerful tom and being bred is another. You whine as your intestines are pumped full of goo, inseminated and disgraced."},
 			{
