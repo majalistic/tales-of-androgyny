@@ -436,6 +436,16 @@ public enum EnemyEnum {
 						new MutationResult("You are red-faced and embarassed because of " + pronouns.getPossessive() + " ass-crushing!"),
 						new MutationResult("Your cock is ignored!")
 				});
+			case NAGA:
+				return new Array<MutationResult>(new MutationResult[]{
+						new MutationResult("You are split in two by the naga's dual cocks!"),
+						new MutationResult("Your hole is stretched horribly by " + pronouns.getPossessive() + " twin dicks!"),
+						new MutationResult("Your hole feels like it's going to be broken!"),
+						new MutationResult(properCase(pronouns.getPossessive()) + " dicks destroy your ass!"),
+						new MutationResult(properCase(pronouns.getPossessive()) + " twin-dicked arhythmic thrusting in and out of your asshole is emasculating!"),
+						new MutationResult("You are red-faced and embarassed because of " + pronouns.getPossessive() + " snake sex!"),
+						new MutationResult("Your cock is ignored!")
+				});
 			default:
 				return new Array<MutationResult>(new MutationResult[]{
 						new MutationResult("You are being anally violated!"),
