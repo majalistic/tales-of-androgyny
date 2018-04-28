@@ -480,6 +480,9 @@ public class EnemyCharacter extends AbstractCharacter {
 					case WERESLUT:
 						resolvedAttack.addDialog("\"Raaawr!\"");
 						break;
+					case ORC:
+						resolvedAttack.addDialog("\"Raaaargh!\"");
+						break;
 					default:
 				}
 			}
@@ -538,7 +541,6 @@ public class EnemyCharacter extends AbstractCharacter {
 							else {
 								resolvedAttack.addDialog("\"Oooooryah!\"");
 							}
-							
 						}
 						else if (stance.isOralPenetration()) {
 							resolvedAttack.addDialog("\"Yeah, that's right, suck it!\"");
@@ -710,6 +712,7 @@ public class EnemyCharacter extends AbstractCharacter {
 					case ANGEL:
 						break;
 					case NAGA:
+						resolvedAttack.addDialog("\"Explode for me, won't you?\"");
 						break;
 					case QUETZAL:
 						switch (heartbeat % 5) {
