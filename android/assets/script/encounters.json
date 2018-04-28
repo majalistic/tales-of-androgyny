@@ -1070,6 +1070,21 @@
 	{
 		"key": "STORY-WEREWOLF",
 		"scriptLines": [
+			{
+			"music": "WEREWOLF_MUSIC",
+			"animatedForeground": "WEREWOLF",
+			"text": ""}
+		]
+	},
+	{
+		"key": "STORY-WEREWOLF-VICTORY",
+		"scriptLines": [
+			{"text": ""}
+		]
+	},
+	{
+		"key": "STORY-WEREWOLF-DEFEAT",
+		"scriptLines": [
 			{"text": ""}
 		]
 	},
