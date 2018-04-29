@@ -368,14 +368,16 @@ public class EnemyCharacter extends AbstractCharacter {
 			case UNICORN:
 				break;
 			case WERESLUT:
-				if (climaxCounters.get(ClimaxType.FACIAL.toString(), 0) >= 1) return Outcome.SATISFIED_ANAL;
-				if (getReceptiveClimaxCount() >= 1 ) return Outcome.SUBMISSION;
-				if (knotInflate >= 5) {
-					if (stance == Stance.KNOTTED) {
-						return Outcome.KNOT_ANAL;
-					}
-					else if (stance == Stance.MOUTH_KNOTTED) {
-						return Outcome.KNOT_ORAL;
+				if (!storyMode) {
+					if (climaxCounters.get(ClimaxType.FACIAL.toString(), 0) >= 1) return Outcome.SATISFIED_ANAL;
+					if (getReceptiveClimaxCount() >= 1 ) return Outcome.SUBMISSION;
+					if (knotInflate >= 5) {
+						if (stance == Stance.KNOTTED) {
+							return Outcome.KNOT_ANAL;
+						}
+						else if (stance == Stance.MOUTH_KNOTTED) {
+							return Outcome.KNOT_ORAL;
+						}
 					}
 				}
 				break;
