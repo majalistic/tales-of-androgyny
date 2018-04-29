@@ -1963,7 +1963,7 @@ public enum EncounterCode {
 												CheckType.LUCKY, 
 												b.branch(true).textScene("TOWN-SQUARE-LEWD-TOP").checkScene(
 													Perk.TOP, 
-													b.branch(2).choiceScene("Fuck him?", b.branch("Let's go").require(ChoiceCheckType.GOLD_GREATER_THAN_X, 10).textScene("TOWN-SQUARE-LEWD-TOP-ANAL"), b.branch("Nah")), 
+													b.branch(2).choiceScene("Fuck him?", b.branch("Let's go").require(ChoiceCheckType.GOLD_GREATER_THAN_X, 10).require(ChoiceCheckType.FREE_COCK).textScene("TOWN-SQUARE-LEWD-TOP-ANAL"), b.branch("Nah")), 
 													b.branch(0)
 												), 
 												b.branch(false).textScene("TOWN-SQUARE-LEWD-HANDY").choiceScene(
