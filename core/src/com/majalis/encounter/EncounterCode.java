@@ -815,7 +815,7 @@ public enum EncounterCode {
 				Branch victoryOptionsCentaur = b.branch().checkScene(
 					CheckType.MAX_LUST, 
 					b.branch(true).textScene("CENTAUR-VICTORY-LUST").concat(powerBottomOptionsCentaur),
-					b.branch(false).choiceScene("What do you do?", b.branch("Inspect her big horse asshole").textScene("CENTAUR-VICTORY-TOP"), b.branch("Get a look at that horse cock").require(ChoiceCheckType.LEWD).textScene("CENTAUR-VICTORY-INSPECT").concat(powerBottomOptionsCentaur), b.branch("Leave"))
+					b.branch(false).choiceScene("What do you do?", b.branch("Inspect her big horse asshole").require(ChoiceCheckType.FREE_COCK).textScene("CENTAUR-VICTORY-TOP"), b.branch("Get a look at that horse cock").require(ChoiceCheckType.LEWD).textScene("CENTAUR-VICTORY-INSPECT").concat(powerBottomOptionsCentaur), b.branch("Leave"))
 				);
 				Branch[] centaurBattle = new Branch[]{
 					b.branch(Outcome.VICTORY).textScene("CENTAUR-VICTORY").concat(victoryOptionsCentaur),
