@@ -1621,7 +1621,7 @@ public class PlayerCharacter extends AbstractCharacter {
 	public Femininity getFemininity() { return femininity; }
 	public boolean hasTrudy() { return getTrudyLevel() > 0; }
 	public boolean hasKylira() { return getKyliraLevel() > 0 || questFlags.get(QuestType.ELF.toString(), 0) == 5;  }
-	public boolean hasKyliraHeal() { boolean temp = kyliraHeal; if (hasKylira()) kyliraHeal = false; return temp && hasKylira(); }
+	public boolean hasKyliraHeal() { boolean temp = kyliraHeal; if (getKyliraLevel() > 0) kyliraHeal = false; return temp && hasKylira(); }
 	public int getKyliraLevel() { return questFlags.get(QuestType.ELF.toString(), 0) - 8; }
 	public int getTrudyLevel() { return questFlags.get(QuestType.TRUDY.toString(), 0) - 4; }
 	public String getKyliraAffection() { return getCompanionAffection(getKyliraLevel()); }
