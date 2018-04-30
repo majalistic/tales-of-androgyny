@@ -229,6 +229,7 @@ public class ReplayScreen extends AbstractScreen {
 				attachListener(new TextButton("Anal (X-ray)", skin), AssetEnum.CENTAUR_ANAL_XRAY, cg, enemy, table);
 				table.row();
 				attachListener(new TextButton("Oral", skin), AssetEnum.CENTAUR_ORAL, cg, enemy, table);
+				attachListener(new TextButton("Orgy", skin), AssetEnum.CENTAUR_GANGBANG, cg, enemy, table);
 				break;
 			case GHOST:
 				break;
