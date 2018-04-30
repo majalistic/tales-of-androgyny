@@ -267,6 +267,9 @@ public class ReplayScreen extends AbstractScreen {
 				attachListener(new TextButton("Anal", skin), AssetEnum.UNICORN_ANAL, cg, enemy, table);
 				attachListener(new TextButton("Anal (X-ray)", skin), AssetEnum.UNICORN_ANAL_XRAY, cg, enemy, table);
 				break;
+			case WARLOCK:
+				attachListener(new TextButton("Anal", skin), AssetEnum.WARLOCK_ANAL, cg, enemy, table);
+				break;
 			case WERESLUT:
 				attachListener(new TextButton("Anal", skin), AssetEnum.WEREBITCH_ANAL, cg, enemy, table);
 				attachListener(new TextButton("Knot (X-ray)", skin), AssetEnum.WEREBITCH_KNOT, cg, enemy, table);
