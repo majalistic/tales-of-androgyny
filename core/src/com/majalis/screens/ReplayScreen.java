@@ -48,19 +48,12 @@ public class ReplayScreen extends AbstractScreen {
 				}
 			}
 		}		
-		resourceRequirements.add(AssetEnum.MAIN_MENU_MUSIC.getMusic());		
-		resourceRequirements.add(AssetEnum.CAMP_BG0.getTexture());
-		resourceRequirements.add(AssetEnum.CAMP_BG1.getTexture());
-		resourceRequirements.add(AssetEnum.CAMP_BG2.getTexture());
-		resourceRequirements.add(AssetEnum.NULL.getTexture());
-		resourceRequirements.add(AssetEnum.OGRE_BANGED.getTexture());
-		resourceRequirements.add(AssetEnum.BUNNY_CARAMEL_ANAL.getTexture());
-		resourceRequirements.add(AssetEnum.BUNNY_VANILLA_ANAL.getTexture());
-		resourceRequirements.add(AssetEnum.BUNNY_CHOCOLATE_ANAL.getTexture());
-		resourceRequirements.add(AssetEnum.BUNNY_DARK_CHOCOLATE_ANAL.getTexture());
-		resourceRequirements.add(AssetEnum.BUNNY_CREAM_ANAL.getTexture());
-		resourceRequirements.add(AssetEnum.WEREBITCH_KNOT_CUM.getTexture());
-		resourceRequirements.add(AssetEnum.CENTAUR_GANGBANG.getTexture());
+		resourceRequirements.add(AssetEnum.MAIN_MENU_MUSIC.getMusic());	
+		
+		for (AssetEnum asset : new AssetEnum[] {AssetEnum.CAMP_BG0, AssetEnum.CAMP_BG1, AssetEnum.CAMP_BG2, AssetEnum.NULL, AssetEnum.OGRE_BANGED, AssetEnum.BUNNY_CARAMEL_ANAL, AssetEnum.BUNNY_VANILLA_ANAL, AssetEnum.BUNNY_CHOCOLATE_ANAL, AssetEnum.BUNNY_DARK_CHOCOLATE_ANAL, AssetEnum.BUNNY_CREAM_ANAL,
+				AssetEnum.WEREBITCH_KNOT_CUM, AssetEnum.CENTAUR_GANGBANG, AssetEnum.BEASTMISTRESS_KITTY_ANAL, AssetEnum.BEASTMISTRESS_KITTY_ANAL_INTERNAL, AssetEnum.BEASTMISTRESS_KITTY_ANAL_INTERNAL_CUM}) {
+			resourceRequirements.add(asset.getTexture());
+		}
 		
 		Array<AssetEnum> animationReqs = new Array<AssetEnum>(new AssetEnum[]{
 			HARPY_ANIMATION, HARPY_ATTACK_ANIMATION, FEATHERS_ANIMATION, FEATHERS2_ANIMATION, BRIGAND_ANIMATION, ANAL_ANIMATION, CENTAUR_ANIMATION, ORC_ANIMATION, WEREWOLF_ANIMATION, GOBLIN_ANIMATION, ORC_PRONE_BONE_ANIMATION, BEASTMISTRESS_ANIMATION, GHOST_ANIMATION		
@@ -210,6 +203,10 @@ public class ReplayScreen extends AbstractScreen {
 			case ANGEL:
 				break;
 			case BEASTMISTRESS:
+				attachListener(new TextButton("Kitty", skin), AssetEnum.BEASTMISTRESS_KITTY_ANAL, cg, enemy, table);
+				attachListener(new TextButton("Kitty (X-ray)", skin), AssetEnum.BEASTMISTRESS_KITTY_ANAL_INTERNAL, cg, enemy, table);
+				table.row();
+				attachListener(new TextButton("Kitty (Cum)", skin), AssetEnum.BEASTMISTRESS_KITTY_ANAL_INTERNAL_CUM, cg, enemy, table);
 				break;
 			case BRIGAND:
 				attachListener(new TextButton("Missionary", skin), AssetEnum.BRIGAND_MISSIONARY, cg, enemy, table);
