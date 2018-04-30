@@ -237,7 +237,7 @@ public class HelpScreen extends AbstractScreen{
 		        }
 			}
 		);
-		done.setPosition(1523, 120);
+		done.setPosition(1550, 50);
 		this.addActor(done);
 	}
 	

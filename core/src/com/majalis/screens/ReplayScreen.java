@@ -163,7 +163,7 @@ public class ReplayScreen extends AbstractScreen {
 		        }
 			}
 		);
-		done.setPosition(1500, 100);
+		done.setPosition(1550, 50);
 		this.addActor(done);
 		this.addActor(cg);
 	}

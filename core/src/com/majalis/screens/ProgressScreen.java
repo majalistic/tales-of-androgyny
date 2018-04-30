@@ -88,7 +88,7 @@ public class ProgressScreen extends AbstractScreen {
 		        }
 			}
 		);
-		addActorAndListen(done, 1500, 100);
+		addActorAndListen(done, 1550, 50);
 	}
 	
 	@Override
