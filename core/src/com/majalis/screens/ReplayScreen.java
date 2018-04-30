@@ -116,7 +116,7 @@ public class ReplayScreen extends AbstractScreen {
 		cgTable.setFillParent(true);     
 		cgTable.align(Align.top);
         this.addActor(cgTable);
-        cgTable.setPosition(500, -750);
+        cgTable.setPosition(500, -800);
 	
 		for (final EnemyEnum type : EnemyEnum.values()) {
 			if (!enemyKnowledge.containsKey(type.toString())) continue;
@@ -150,7 +150,7 @@ public class ReplayScreen extends AbstractScreen {
         table.setFillParent(true);     
         table.align(Align.top);
         this.addActor(table);
-        table.setPosition(550, -100);
+        table.setPosition(550, -50);
         
 		final TextButton done = new TextButton("Done", skin);
 		
