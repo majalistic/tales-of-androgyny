@@ -37,8 +37,8 @@ public class GameTypeScene extends AbstractChoiceScene {
         	button.setSize(345, 90);
         	button.addListener(getListener(ii++, choice.scene, choice.clickSound));
         } 
-        buttons.get(0).setPosition(1460, 380);
-        buttons.get(1).setPosition(120, 380);	
+        buttons.get(1).setPosition(1280, 50);
+        buttons.get(0).setPosition(300, 50);	
         	
         selection = 1;
         selected(0);
