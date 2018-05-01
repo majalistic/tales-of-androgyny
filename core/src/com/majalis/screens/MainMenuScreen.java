@@ -170,7 +170,7 @@ public class MainMenuScreen extends AbstractScreen {
         uiGroup.addActor(toa);
         
         Image alphaBuild = new Image(assetManager.get(AssetEnum.ALPHA.getTexture()));
-        alphaBuild.setPosition(600, 10);
+        alphaBuild.setPosition(675, 10);
         uiGroup.addActor(alphaBuild);
        
         activate(0);
