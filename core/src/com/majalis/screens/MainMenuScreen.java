@@ -162,6 +162,7 @@ public class MainMenuScreen extends AbstractScreen {
         
         Label version = new Label(TalesOfAndrogyny.getVersion(), skin);
         version.setPosition(1400, 0);
+        version.setColor(Color.LIGHT_GRAY);
         uiGroup.addActor(version);
         
         Image toa = new Image(assetManager.get(AssetEnum.TOA.getTexture()));
