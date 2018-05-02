@@ -412,7 +412,8 @@ public enum EncounterCode {
 				Branch angelConfess = b.branch("Confess your temptations").textScene("ANGEL-BJ").choiceScene(
 					"She raises a good point... she DOES have a nice booty...",
 					b.branch("Let her be your angel of sodomy?").require(ChoiceCheckType.FREE_COCK).checkScene(Stat.CHARISMA, b.branch(5).textScene("ANGEL-ANAL"), b.branch(0).textScene("ANGEL-ANAL-REJECTION").concat(angelOral)),
-					b.branch("Let her blow your trumpet").textScene("ANGEL-BJ-CONT").concat(angelOral)
+					b.branch("Let her blow your trumpet").require(ChoiceCheckType.FREE_COCK).textScene("ANGEL-BJ-CONT").concat(angelOral),
+					b.branch("Leave")
 				);
 				
 				return b.branch().textScene("ANGEL-INTRO").choiceScene(
