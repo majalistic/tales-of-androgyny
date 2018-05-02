@@ -40,7 +40,8 @@ public enum EnemyEnum {
 	QUETZAL (new EnemyTemplate(WeaponType.Claw).setHealth(new IntArray(new int[]{30, 30, 30, 30, 30})).setArmor(null).setLegwear(null).setUnderwear(ArmorType.UNDERWEAR).setStrength(10).setAgility(10).setEndurance(10), "Quetzal Goddess", AssetEnum.QUETZAL.getTexture()), 
 	MERMAID (new EnemyTemplate(WeaponType.Glaive).setHealth(new IntArray(new int[]{15, 15, 15, 15})).setArmor(ArmorType.MEDIUM_ENEMY_ARMOR).setLegwear(null).setUnderwear(ArmorType.UNDERWEAR).setStrength(5).setAgility(6).setEndurance(5), "Mermaid", AssetEnum.MERMAID.getTexture()), 
 	WARLOCK (new EnemyTemplate(WeaponType.Dagger).setStrength(4).setEndurance(4).setAgility(5).setMagic(9).setMana(40), "Warlock", AssetEnum.WARLOCK.getTexture()), 
-	GIANTESS (new EnemyTemplate(WeaponType.Club).setHealth(new IntArray(new int[]{10000})).setStrength(10000).setEndurance(10000).setAgility(10), "Giantess", AssetEnum.GIANTESS_FUTA.getTexture()) 
+	GIANTESS (new EnemyTemplate(WeaponType.Club).setHealth(new IntArray(new int[]{10000})).setStrength(10000).setEndurance(10000).setAgility(10), "Giantess", AssetEnum.GIANTESS_FUTA.getTexture()), 
+	DULLAHAN (new EnemyTemplate(WeaponType.Bonewhip, 6, 5, 4, 3, 3, 3).setArmor(ArmorType.MEDIUM_ENEMY_ARMOR).setLegwear(ArmorType.MEDIUM_ENEMY_LEGWEAR).addHealth(10), "Dullahan", AssetEnum.DULLAHAN.getTexture()), 
 	;
 	private final String text;
 	private final Array<AssetDescriptor<Texture>> texturePaths;
@@ -155,7 +156,7 @@ public enum EnemyEnum {
 	protected boolean willArmorSunder() { return this == BRIGAND || this == ORC || this == ADVENTURER || this == MERMAID; }
 	protected boolean willParry() { return this == BRIGAND || this == ADVENTURER || this == MERMAID; }
 	protected boolean canBeRidden() { return this != SLIME && this != CENTAUR && this != UNICORN && this != BEASTMISTRESS && this != GHOST && this != ANGEL && this != NAGA && this != QUETZAL && this != MERMAID; }
-	protected boolean willPounce() { return this != UNICORN && this != BEASTMISTRESS && this != ANGEL && this != NAGA && this != GHOST && this != QUETZAL && this != MERMAID; }
+	protected boolean willPounce() { return this != UNICORN && this != BEASTMISTRESS && this != ANGEL && this != NAGA && this != GHOST && this != QUETZAL && this != MERMAID && this != DULLAHAN; }
 	protected boolean isPounceable() { return this != OGRE && this != BEASTMISTRESS && this != UNICORN && this != GHOST && this != ANGEL && this != NAGA && this != QUETZAL; }
 	protected boolean willProstatePound() { return this == BRIGAND || this == ADVENTURER || this == ORC || this == GOBLIN || this == GOBLIN_MALE || this == BUNNY || this == WARLOCK; }
 	protected boolean canProneBone() { return this == BRIGAND || this == GOBLIN || this == ORC || this == ADVENTURER || this == GOBLIN_MALE || this == WARLOCK; }
@@ -165,7 +166,7 @@ public enum EnemyEnum {
 	protected boolean willSeduce() { return this == GOBLIN || this == GOBLIN_MALE || this == ADVENTURER || this == MERMAID; }
 	protected boolean isCorporeal() { return this != GHOST; }
 	protected boolean usesDefensiveTechniques() { return this != QUETZAL; }
-	protected boolean isOffensive() { return this == WERESLUT || this == GOBLIN || this == ORC || this == ADVENTURER || this == SPIDER; }
+	protected boolean isOffensive() { return this == WERESLUT || this == GOBLIN || this == ORC || this == ADVENTURER || this == SPIDER || this == DULLAHAN; }
 	protected boolean isDefensive() { return this == BRIGAND; }
 	protected ObjectMap<String, Integer> getPerks() {
 		ObjectMap<String, Integer> perks = new ObjectMap<String, Integer>();
@@ -321,6 +322,7 @@ public enum EnemyEnum {
 			case MERMAID: return "The mermaid - beautiful and mysterious, an aquatic creature with the body of human and the fin of a fish. They are known for luring sailors with their alluring looks and songs, but it is not known what becomes of the sailors thereafter.\n\nThe females are known to lay eggs - but where they lay their eggs is not known.";
 			case WARLOCK: return "A warlock of considerable power - little else about her is known, other than she has a habit of toying with men.";
 			case GIANTESS: return "A very, very large woman.";
+			case DULLAHAN: return "Headless warrior who roams the dark forests, bringing ill-fortune to all who bare witness to her.";
 		}
 		return "";
 	}

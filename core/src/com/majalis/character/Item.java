@@ -158,6 +158,7 @@ public abstract class Item {
 				case Bow: return 1;
 				case Sickle: return (stats.get(Stat.AGILITY)) / 3 + 1 + bonus;
 				case Glaive:
+				case Bonewhip:
 				case Chain: return (stats.get(Stat.STRENGTH)) / 3 + 1 + bonus;				
 				case Flail: return (stats.get(Stat.STRENGTH)) / 3 + 1 + bonus;
 				case Talon: 
@@ -191,7 +192,8 @@ public abstract class Item {
 		Talon (false, false, true), 
 		Greatclub (true, false, false), 
 		Trumpet (false, false, false), 
-		Glaive (true, false, true),
+		Glaive (true, false, true), 
+		Bonewhip (true, false, true),
 		;
 		
 		private final boolean disarmable;
