@@ -12860,7 +12860,9 @@
 	{
 		"key": "DULLAHAN-INTRO",
 		"scriptLines": [
-			{"text": "..."}
+			{
+			"foreground": "DULLAHAN",
+			"text": "..."}
 		]
 	},	
 		

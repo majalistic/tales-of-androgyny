@@ -244,6 +244,7 @@ public enum AssetEnum {
 	MERMAID("enemies/Mermaid.png"),
 	WARLOCK("enemies/Warlock.png"),
 	WARLOCK_ANAL("enemies/WarlockAnal.jpg"),
+	DULLAHAN("enemies/Dullahan.png"),
 	
 	TRAP_BONUS("enemies/TrapBonus.jpg"), 
 
