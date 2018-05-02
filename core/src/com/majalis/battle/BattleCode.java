@@ -40,7 +40,7 @@ public enum BattleCode {
 	MERMAID(AssetEnum.HEAVY_MUSIC, EnemyEnum.MERMAID, AssetEnum.MERMAID, WATERFALL_BG),
 	WARLOCK(AssetEnum.HORROR_MUSIC, EnemyEnum.WARLOCK, AssetEnum.WARLOCK, AssetEnum.WARLOCK_BG),
 	GIANTESS(AssetEnum.ANGEL_MUSIC, EnemyEnum.GIANTESS, AssetEnum.GIANTESS_FUTA), 
-	DULLAHAN(EnemyEnum.DULLAHAN, FOREST_BG), 
+	DULLAHAN(EnemyEnum.DULLAHAN, AssetEnum.DULLAHAN, FOREST_BG), 
 	;
 	
 	private final AssetEnum music;

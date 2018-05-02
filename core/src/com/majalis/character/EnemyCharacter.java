@@ -640,6 +640,8 @@ public class EnemyCharacter extends AbstractCharacter {
 						break;
 					case GIANTESS:
 						break;
+					case DULLAHAN:
+						break;
 				}
 			}
 			
@@ -730,6 +732,8 @@ public class EnemyCharacter extends AbstractCharacter {
 					case WARLOCK:
 						break;
 					case GIANTESS:
+						break;
+					case DULLAHAN:
 						break;
 				}
 					
