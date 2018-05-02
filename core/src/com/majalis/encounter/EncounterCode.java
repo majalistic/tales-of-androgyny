@@ -56,6 +56,7 @@ public enum EncounterCode {
 	MERMAID,
 	WARLOCK,
 	GIANTESS_FUTA (MOUNTAIN_ACTIVE),
+	DULLAHAN,
 	
 	FORT (CASTLE), 
 	TOWN (AssetEnum.TOWN),
@@ -151,6 +152,7 @@ public enum EncounterCode {
 					case GADGETEER: return "Merchant";
 					case NAGA: return "Cave";
 					case MERMAID: return "Island";
+					case DULLAHAN: return "Dullahan";
 					case TOWN3:
 					case TOWN: return "Small Settlement";
 					case TOWN2:
@@ -217,6 +219,7 @@ public enum EncounterCode {
 					case GADGETEER: return "Suspicious Merchant";
 					case NAGA: return "Cave - Naga Within!";
 					case MERMAID: return "Island";
+					case DULLAHAN: return "Dullahan";
 					case TOWN3: return "Town of Monsters";
 					case TOWN: return "Town of Silajam";
 					case TOWN2:
@@ -283,7 +286,7 @@ public enum EncounterCode {
 		encounterMap = new IntMap<Array<EncounterCode>>();
 		encounterMap.put(1, new Array<EncounterCode>(new EncounterCode[]{WERESLUT, HARPY, SLIME, SOLICITATION, BRIGAND, CENTAUR, GOBLIN, GOBLIN_MALE, ORC, FOOD_CACHE, GOLD_CACHE, DAMAGE_TRAP, ANAL_TRAP, HUNGER_CHARM}));
 		encounterMap.put(2, new Array<EncounterCode>(new EncounterCode[]{WERESLUT, HARPY, BRIGAND, DRYAD, CENTAUR, GOBLIN, GOBLIN_MALE, ORC, OGRE, HUNGER_CHARM, ICE_CREAM, BEASTMISTRESS, GOLEM, GHOST, GOLD_CACHE, FOOD_CACHE, DAMAGE_TRAP, ANAL_TRAP}));
-		encounterMap.put(3, new Array<EncounterCode>(new EncounterCode[]{ORC, OGRE, BEASTMISTRESS, GOLEM, GHOST, NAGA, FOOD_CACHE, DAMAGE_TRAP, ANAL_TRAP}));
+		encounterMap.put(3, new Array<EncounterCode>(new EncounterCode[]{ORC, OGRE, BEASTMISTRESS, DULLAHAN, GOLEM, GHOST, NAGA, FOOD_CACHE, DAMAGE_TRAP, ANAL_TRAP}));
 		iceCreamReady = true;
 		hungerCharmReady = true;
 	}
@@ -911,6 +914,8 @@ public enum EncounterCode {
 				);
 			case DEFAULT:
 				return b.branch().textScene("STICK");
+			case DULLAHAN:
+				return b.branch().textScene("DULLAHAN-INTRO");
 			case DRYAD:
 				return b.branch().textScene("DRYAD-INTRO").choiceScene(
 					"Do you offer her YOUR apple, or try to convince her to just hand it over?",
