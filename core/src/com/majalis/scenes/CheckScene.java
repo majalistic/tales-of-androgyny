@@ -574,6 +574,11 @@ public class CheckScene extends AbstractTextScene {
 			@Override
 			protected boolean getCheck(PlayerCharacter character) { return character.hasRandomLewdEncounter(); }  
 		}, 
+		FREE_COCK("", "") {
+			@Override
+			protected boolean getCheck(PlayerCharacter character) { return !character.isChastitied(); }  
+		},
+		
 		;
 		private final String success;
 		private final String failure;

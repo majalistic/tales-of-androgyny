@@ -1516,10 +1516,14 @@ public enum EncounterCode {
 			case MERI_COTTAGE:
 				return b.branch().checkScene(CheckType.MERI_VISITED, b.branch(true).textScene("STORY-WITCH-COTTAGE-VISIT"), b.branch(false).textScene("STORY-WITCH-COTTAGE")); 	
 			case MERMAID:
-				Branch mermaidLossEggfill = b.branch(Outcome.SUBMISSION).textScene("MERMAID-EGGFILL").choiceScene(
-					"Where does she lay her eggs?", 
-					b.branch("Don't lay eggs in my ass!").require(ChoiceCheckType.STAT_GREATER_THAN_X, Stat.CHARISMA, 5).textScene("MERMAID-FACEEGG"),
-					b.branch("In your ass").textScene("MERMAID-ASSEGG")
+				Branch mermaidLossEggfill = b.branch(Outcome.SUBMISSION).checkScene(
+					CheckType.FREE_COCK, 
+					b.branch(true).textScene("MERMAID-EGGFILL").choiceScene(
+						"Where does she lay her eggs?", 
+						b.branch("Don't lay eggs in my ass!").require(ChoiceCheckType.STAT_GREATER_THAN_X, Stat.CHARISMA, 5).textScene("MERMAID-FACEEGG"),
+						b.branch("In your ass").textScene("MERMAID-ASSEGG")
+					),
+					b.branch(false).textScene("MERMAID-CAGE-FRUSTRATED")
 				);
 				Branch mermaidBattle = b.branch().battleScene(
 					BattleCode.MERMAID,
