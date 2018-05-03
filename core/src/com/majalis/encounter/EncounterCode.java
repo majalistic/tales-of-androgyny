@@ -1516,19 +1516,19 @@ public enum EncounterCode {
 			case MERI_COTTAGE:
 				return b.branch().checkScene(CheckType.MERI_VISITED, b.branch(true).textScene("STORY-WITCH-COTTAGE-VISIT"), b.branch(false).textScene("STORY-WITCH-COTTAGE")); 	
 			case MERMAID:
-				Branch mermaidLossEggfill = b.branch(Outcome.SUBMISSION).checkScene(
-					CheckType.FREE_COCK, 
-					b.branch(true).textScene("MERMAID-EGGFILL").choiceScene(
-						"Where does she lay her eggs?", 
-						b.branch("Don't lay eggs in my ass!").require(ChoiceCheckType.STAT_GREATER_THAN_X, Stat.CHARISMA, 5).textScene("MERMAID-FACEEGG"),
-						b.branch("In your ass").textScene("MERMAID-ASSEGG")
-					),
-					b.branch(false).textScene("MERMAID-CAGE-FRUSTRATED")
+				Branch mermaidLossEggfill = b.branch(Outcome.SUBMISSION).textScene("MERMAID-EGGFILL").choiceScene(
+					"Where does she lay her eggs?", 
+					b.branch("Don't lay eggs in my ass!").require(ChoiceCheckType.STAT_GREATER_THAN_X, Stat.CHARISMA, 5).textScene("MERMAID-FACEEGG"),
+					b.branch("In your ass").textScene("MERMAID-ASSEGG")
 				);
 				Branch mermaidBattle = b.branch().battleScene(
 					BattleCode.MERMAID,
 					b.branch(Outcome.VICTORY).textScene("MERMAID-VICTORY"),
-					b.branch(Outcome.DEFEAT).textScene("MERMAID-DEFEAT").concat(mermaidLossEggfill), 
+					b.branch(Outcome.DEFEAT).textScene("MERMAID-DEFEAT").checkScene(
+						CheckType.FREE_COCK,
+						b.branch(true).textScene("MERMAID-MOUNT").concat(mermaidLossEggfill), 
+						b.branch(false).textScene("MERMAID-CAGE-FRUSTRATED")
+					),
 					mermaidLossEggfill
 				);
 				Branch askForSex = b.branch("Ask to fuck her").require(ChoiceCheckType.FREE_COCK).checkScene(CheckType.IS_EGGED, b.branch(true).textScene("MERMAID-EGGSLUT"), b.branch(false).textScene("MERMAID-FUCK").choiceScene("Well?", b.branch("Yes").textScene("MERMAID-EGGTIME"), b.branch("No").textScene("MERMAID-SCORNED").concat(mermaidBattle)));				
