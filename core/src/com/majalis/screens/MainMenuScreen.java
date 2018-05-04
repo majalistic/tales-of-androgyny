@@ -121,7 +121,7 @@ public class MainMenuScreen extends AbstractScreen {
 		move(mg2right, 1670, 1920, 0, false);
 		move(mg1, mgScroll);
 		move(mg1right, mgScroll, 1920, 0, false);
-		move(mc, mgScroll, 1775, -75, false);
+		move(mc, mgScroll, 1875, -75, false);
 		move(dk, fgScroll, 4000, 0, false);
 		move(fg, fgScroll);
 		
@@ -195,7 +195,7 @@ public class MainMenuScreen extends AbstractScreen {
 	private void move(Image toMove, int distance, int startX, int startY) { move(toMove, distance, startX, startY, true); }
 	private void move(Image toMove, int distance, int startX, int startY, boolean start) { 
 		toMove.setPosition(startX, startY);
-		toMove.addAction(Actions.moveBy(-distance + (start ? -startX : 0), 0, INTRO));
+		toMove.addAction(Actions.sequence(Actions.delay(.5f), Actions.moveBy(-distance + (start ? -startX : 0), 0, INTRO)));
 	}
 	
 	private void finishCutScene() {
@@ -224,7 +224,7 @@ public class MainMenuScreen extends AbstractScreen {
 		mg3.setPosition(-1420, 0);
 		mg2.setPosition(-1670, 0);
 		mg1.setPosition(-mgScroll, 0);
-		mc.setPosition(1775 - mgScroll, -75);
+		mc.setPosition(1875 - mgScroll, -75);
 		dk.setPosition(4000 - fgScroll, 0);
 		fg.setPosition(-fgScroll, 0);
 		uiGroup.addAction(Actions.alpha(1));

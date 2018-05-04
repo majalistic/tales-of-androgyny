@@ -67,16 +67,11 @@ public class SplashScreen extends AbstractScreen {
 		Image stationary = getImage(MAIN_MENU_STATIONARY);
 		stationary.setPosition(0, 0);
 		getImage(MAIN_MENU_BG2_LEFT);
-		getImage(MAIN_MENU_BG2_RIGHT);
-		getImage(MAIN_MENU_BG1);
+		//getImage(MAIN_MENU_BG1);
 		getImage(MAIN_MENU_MG4_LEFT);
-		getImage(MAIN_MENU_MG4_RIGHT);
 		getImage(MAIN_MENU_MG3_LEFT);
-		getImage(MAIN_MENU_MG3_RIGHT);
 		getImage(MAIN_MENU_MG2_LEFT);
-		getImage(MAIN_MENU_MG2_RIGHT);
 		getImage(MAIN_MENU_MG1_LEFT);
-		getImage(MAIN_MENU_MG1_RIGHT);
 		getImage(MAIN_MENU_FG);
 		
 		splash = getImage(SPLASH_SCREEN);
@@ -114,7 +109,7 @@ public class SplashScreen extends AbstractScreen {
 	public void render(float delta) {
 		super.render(delta);
 		if (assetManager.update(75) && clocktick++ > minTime) {
-			splash.addAction(Actions.sequence(Actions.fadeOut(1), new Action() {
+			splash.addAction(Actions.sequence(Actions.fadeOut(1), Actions.delay(1), new Action() {
 				@Override
 				public boolean act(float delta) {
 					showScreen(ScreenEnum.MAIN_MENU);
