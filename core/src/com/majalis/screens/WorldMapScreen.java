@@ -77,8 +77,6 @@ import com.majalis.world.GroundType;
  * The screen that displays the world map.  UI that Handles player input while on the world map - will delegate to other screens depending on the gameWorld state.
  */
 public class WorldMapScreen extends AbstractScreen {
-	private static float maxX = 4000;
-	private static float maxY = 4600;
 	// this class needs major refactoring - far too many dependencies, properties, statefulness
 	private final AssetManager assetManager;
 	private final SaveService saveService;
@@ -1136,6 +1134,9 @@ public class WorldMapScreen extends AbstractScreen {
 	private Color getTimeColor() { return TimeOfDay.getTime(time).getColor(); }
 	private String getTime() { return TimeOfDay.getTime(time).getDisplay(); }
 	
+	private static float maxX = 4000;
+	private static float maxY = 4600;
+	
 	private void translateCamera(float delta) {
 		Vector3 translationVector = new Vector3(0, 0, 0);
 		float speed = 500 * delta;
@@ -1154,10 +1155,10 @@ public class WorldMapScreen extends AbstractScreen {
 			translationVector.y += speed;
 		}
 		
-		if (Gdx.input.isKeyPressed(Keys.A)) {
+		if (Gdx.input.isKeyPressed(Keys.A) && !storyMode) {
 			camera.position.z += 5;
 		}
-		if (Gdx.input.isKeyPressed(Keys.S)) {
+		if (Gdx.input.isKeyPressed(Keys.S) && !storyMode) {
 			camera.position.z -= 5;
 		}
 		
@@ -1170,8 +1171,8 @@ public class WorldMapScreen extends AbstractScreen {
 		float y = camera.position.y;
 		camera.translate(translationVector);
 		Vector3 position = camera.position;
-		position.x = Math.max(Math.min(position.x, maxX), 500);
-		position.y = Math.max(Math.min(position.y, maxY), 500);		
+		position.x = Math.max(Math.min(position.x, maxX - (Math.max(0, -camera.position.z + 2000))), 500 + (Math.max(0, camera.position.z - 825)));
+		position.y = Math.max(Math.min(position.y, maxY - (Math.max(0, -camera.position.z + 2000))), 500 + (Math.max(0, camera.position.z - 900)));		
 		x = position.x - x;
 		y = position.y - y;		
 		Vector3 cloudTranslate = new Vector3(x, y, 0);
