@@ -322,7 +322,7 @@ public enum EnemyEnum {
 			case MERMAID: return "The mermaid - beautiful and mysterious, an aquatic creature with the body of human and the fin of a fish. They are known for luring sailors with their alluring looks and songs, but it is not known what becomes of the sailors thereafter.\n\nThe females are known to lay eggs - but where they lay their eggs is not known.";
 			case WARLOCK: return "A warlock of considerable power - little else about her is known, other than she has a habit of toying with men.";
 			case GIANTESS: return "A very, very large woman.";
-			case DULLAHAN: return "Headless warrior who roams the dark forests, bringing ill-fortune to all who bare witness to her.";
+			case DULLAHAN: return "A headless rider... feared for their inhuman strength, and their terrible appearance.  Rumor has it that when their head is seperated from their body, their lustful body acts on its darkest impulses... and has no preference for men or women. For those caught by this headless apparition, they will quickly learn that she has another, more fearsome head.  Particularly when they become dreadfully acquainted, and uncomfortably opened up, with it.";			
 		}
 		return "";
 	}
