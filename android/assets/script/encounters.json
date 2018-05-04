@@ -12875,6 +12875,7 @@
 		"key": "DULLAHAN-INTRO",
 		"scriptLines": [
 			{
+			"mutations": [{"profileSaveType":"KNOWLEDGE", "value":{"class": "java.lang.String", "value": "Dullahan"}}],
 			"foreground": "DULLAHAN",
 			"text": "..."}
 		]
