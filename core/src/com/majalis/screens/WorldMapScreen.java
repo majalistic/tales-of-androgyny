@@ -1136,6 +1136,8 @@ public class WorldMapScreen extends AbstractScreen {
 	private Color getTimeColor() { return TimeOfDay.getTime(time).getColor(); }
 	private String getTime() { return TimeOfDay.getTime(time).getDisplay(); }
 	
+	private static int distance = 750;
+	
 	private void translateCamera(float delta) {
 		Vector3 translationVector = new Vector3(0, 0, 0);
 		float speed = 500 * delta;
@@ -1153,6 +1155,16 @@ public class WorldMapScreen extends AbstractScreen {
 		if (Gdx.input.isKeyPressed(Keys.UP) && !Gdx.input.isKeyPressed(Keys.DOWN) && camera.position.y < (storyMode ? 1000 : maxY)) {
 			translationVector.y += speed;
 		}
+		
+		if (Gdx.input.isKeyPressed(Keys.A)) {
+			distance += 5;
+		}
+		if (Gdx.input.isKeyPressed(Keys.S)) {
+			distance -= 5;
+		}
+		
+		distance = Math.max(Math.min(distance, 1500), 500);
+		camera.position.z = distance;
 		translateCamera(translationVector);
 	}
 	
