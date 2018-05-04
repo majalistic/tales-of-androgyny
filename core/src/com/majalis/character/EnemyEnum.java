@@ -116,7 +116,7 @@ public enum EnemyEnum {
     	return textureImagePaths; 
     }
     protected PhallusType getPhallusType() { 
-    	return this == BRIGAND || this == BEASTMISTRESS || this == GHOST || this == BUNNY || this == WARLOCK || this == GIANTESS ? PhallusType.NORMAL : 
+    	return this == BRIGAND || this == BEASTMISTRESS || this == GHOST || this == BUNNY || this == WARLOCK || this == GIANTESS || this == DULLAHAN ? PhallusType.NORMAL : 
     		this == ANGEL || this == MERMAID ? PhallusType.NONE : 
     		this == ADVENTURER ? PhallusType.SMALL : 
     		this == WERESLUT ? PhallusType.DOG :
