@@ -12875,10 +12875,43 @@
 		"key": "DULLAHAN-INTRO",
 		"scriptLines": [
 			{
+			"music": "HORROR_MUSIC",			
+			"text": "The cool beads of water are no longer refreshing - they sting your skin as they sap away its heat, and your eyelashes blink away the icy water as if they were tears."},
+			{"text": "The mist is cold enough that your breath joins with it, as if it was taking its price from your spirit. You don't know what this toll could be paying for until you come across a bridge, with wood-plank walls and a worm-rotted roof."},
+			{"text": "The covered bridge is foreboding, not only for its well-worn construction, but for the derth of visibility crossing it provides, either fore or aft. It's a gift from the goddess for brigands and scoundrels, and you cross it with great caution, holding a lantern aloft."},
+			{"text": "The mist turns to rain, beating down on the roof which has many a hole and break, and the wind picks up, or so it seems, the outside world seeming to grow more inhospitable as the covered bridge provides temporary shelter."},
+			{"text": "It creaks hopelessly underfoot as you do cross it, threatening at any moment to dump you and your newly-sodden clothes and armors into the icy river below.  You shiver, but not from cold or the thought of it, but as a chill creeps down your spine, and a presence rears its head."},
+			{
+			"sound": "HORSE_CLOP",
+			"text": "You steel yourself, hearing the roaring of the wind against the rain-battered shutters of the covered bridge even as the air within is still and silent.  Then, a figure emerges on the far-side of the bridge suddenly, a few loud clops of a horse's shooed hooves announcing their arrival."},
+			{
+			"sound": "HORSE_NEIGH",
 			"mutations": [{"profileSaveType":"KNOWLEDGE", "value":{"class": "java.lang.String", "value": "Dullahan"}}],
-			"foreground": "DULLAHAN",
-			"text": "..."}
+			"foreground": "DULLAHAN",			
+			"text": "A large, well-proportioned and well-fit cloaked figure sits atop the horse, which is half again as large as any horse you've ever seen, its forelegs nearly reaching the peaked ceiling as it rears up and whinnies."},
+			{"text": "You look up at the figure's face, but where their neck should be... is just... nothing. Or, not nothing, but a ghostly presence, perhaps a trick of the light? But no matter how you try to view the haunted apparition with fresh eyes can you resolve a head, much less a face, where one ought to be."},
+			{"text": "The horse brings all four hooves to ground, and you finally do see the rider's head, but not, as you'd hoped, atop their shoulders, instead resting on the pommel of their saddle, eyes wide with frenzy, impossibly alive."},
+			{"text": "You do not know if the fey apparition before you is by trickery or sorcery, but you do have a guess at how many strides you could take in retreat towards the end of the bridge behind you before the horseman caught up with you, and the answer is disappointing: not nearly enough."},
+			{"text": "Just as you expect the headless figure to hyah and charge, they dismount, their heeled feet crashing into the planks with a loud thud, before they bring themselves up to their full height, which, even without the normal top bit, is impressive."},
+			{"text": "Beneath the cloak, you see, they are... not quite dressed for church.  Their bosom is barely covered, as is what lies below their belly button, their shoulders, hips, thighs, and belly completely uncovered."},
+			{"text": "They collect... themselves, plucking up their head from the pommel, and withdrawing a whip from the saddle that looks quite terrifyingly like a length of human vertebrae."},
+			{"text": "Wordlessly, the monster approaches you, until she's nearly within striking distance with her whip, at which point you hold yourself in a ready stance, and with a wavering voice, demand that she stand down."},
+			{"text": "\"Hold,\" you say, and she stops, a smile appearing on her face, which she carries about her hip."},
+			{
+			"music": "ENCOUNTER_MUSIC",
+			"text": "\"Holding,\" she says, lifting up her head for you to see. You don't understand... until you do. You stifle a snicker. \"Took you a bit,\" she says, smirking herself. \"I'm the headless lady. Call me a dullahan if you'd like. How's the day find ye?\""},
+			{"text": "You're a bit taken aback. \"It's... cold and dreary. You?\""},
+			{"text": "\"Ah, nothing but a little rain. So long as the sky's dark, I'm well. If you're wanting to cross the bridge, you'll need to pay the toll, I'm afraid.\""},
+			{"text": "You keep yourself in a ready stance."},
+			{"text": "\"Relax, I'm not about to attack you without warning. If you want to fight your way past, I'll oblige, but there's other ways to pay than with steel and blood, you know? We live in a society,\" she says, and you wonder where she goes to buy her bread."},
+			{"text": "\"Well... what's your price? And why should I pay it?\""},
+			{"text": "She lifts her head up and down, as if nodding.  \"Aye, aye. You pay the price, the bridge is yours, free to come and go. If you don't, you're cursed, and I've no say in that.  I work for a living, you know?\""},
+			{"text": "You sigh. The mundane trivialities of being an adventurer. \"And the price?\" you ask, still skeptical."},
+			{"text": "\"If you want get past... I'll take some of your soul, or... you can take something from me,\" she says, and then she licks her lip, a blink-and-you'll-miss-it gesture."},
+			{"text": "\"Or... and I'm not suggesting that I'm going to... but I can fight.\""},
+			{"text": "\"Or you can fight.  If you beat me, you can go past.  If I beat you, you either turn around and leave, give me a bit of your spirit, or you turn around and let me have my way with you.  Up the ass, that is. I promise I'll be gentle... in the fucking, that is.\""},
+			{"text": "You can see the bulge in her rather revealing smallclothes. It's not exactly ordinary and human-sized like the rest of her... well, head excluded."},
+			{"text": "\"What will it be?  Take your time, this rain can't last forever,\" she says, tilting her head up to look at the leaking ceiling.  A single droplet falls onto her face, and she exhales through pursed lips in frustration."}
 		]
 	},	
-		
 ]}
