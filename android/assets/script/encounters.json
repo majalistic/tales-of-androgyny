@@ -13194,7 +13194,33 @@
 	{
 		"key": "DULLAHAN-ORAL",
 		"scriptLines": [
-			{"text": ""}	
+			{"text": "\"You will?  I guess that means you'll be... sucking my dick then.  Hey... I can see you looking at it.\""}	
+			{"text": "You are looking at it, and after she says that... it grows. \"It got bigger,\" you say, stunned."},			
+			{"text": "\"Well, yeah, you just said you would suck it...\""},
+		]
+	},
+	{
+		"key": "DULLAHAN-ORAL-GOOD",
+		"scriptLines": [
+			{"text": ""}			
+		]
+	},
+	{
+		"key": "DULLAHAN-ORAL-BAD",
+		"scriptLines": [
+			{"text": ""}			
+		]
+	},
+	{
+		"key": "DULLAHAN-ORAL-SHOWOFF",
+		"scriptLines": [
+			{"text": ""}			
+		]
+	},
+	{
+		"key": "DULLAHAN-ORAL-FINISH",
+		"scriptLines": [
+			{"text": ""}			
 		]
 	},
 	{

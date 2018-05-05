@@ -947,7 +947,7 @@ public enum EncounterCode {
 								b.branch(true).textScene("DULLAHAN-ANAL-TIGHT").concat(dullahanAnalCont), 
 								b.branch(false).textScene("DULLAHAN-ANAL-LOOSE").concat(dullahanAnalCont)
 							), 
-							b.branch("Give her head").textScene("DULLAHAN-ORAL")
+							b.branch("Give her head").textScene("DULLAHAN-ORAL").checkScene(Perk.BLOWJOB_EXPERT, b.branch(3).textScene("DULLAHAN-ORAL-GOOD"), b.branch(0).textScene("DULLAHAN-ORAL-BAD").choiceScene("Have her demonstrate?", b.branch("Yes").textScene("DULLAHAN-ORAL-SHOWOFF"), b.branch("No").textScene("DULLAHAN-ORAL-FINISH")))
 						),
 						b.branch("Change your mind").textScene("DULLAHAN-SAD").choiceScene("What do you do?", fight, faust, flee)					
 					), 
