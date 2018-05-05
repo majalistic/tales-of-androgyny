@@ -12925,7 +12925,9 @@
 		"scriptLines": [
 			{
 			"mutations": [{"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": -20}}],
-			"text": "You say that you're willing to give a bit of your soul."}
+			"text": "You say that you're willing to give a bit of your soul, and she takes a deep breath."},
+			{"text": "\"This won't hurt.  Just one touch, and...\" she says, reaching out to touch your face with her free hand.  Just before she makes contact, you say that her face is a little gloomy, and then... darkness."},
+			{"text": "When you wake, it's under the covered bridge, and the rain is no more. The dullahan is nowhere to be found... and you feel oddly drained."}
 		]
 	}
 ]}
