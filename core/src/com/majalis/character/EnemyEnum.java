@@ -27,9 +27,9 @@ public enum EnemyEnum {
 	UNICORN (new EnemyTemplate(WeaponType.Bow).setEndurance(4).setAgility(4).setPerception(5).setShield(ArmorType.SHIELD), "Unicorn", null, AnimationEnum.UNICORN),
 	GOBLIN (new EnemyTemplate(WeaponType.Dagger).setStrength(4).setEndurance(4).setAgility(5), "Goblin", null, AnimationEnum.GOBLIN), 
 	GOBLIN_MALE (new EnemyTemplate(WeaponType.Dagger).setStrength(4).setEndurance(4).setAgility(5), "Goblin (Male)", null, AnimationEnum.GOBLIN_MALE),
-	ORC (new EnemyTemplate(WeaponType.Chain, 6, 5, 4, 3, 3, 3).setArmor(ArmorType.MEDIUM_ENEMY_ARMOR).setLegwear(ArmorType.MEDIUM_ENEMY_LEGWEAR).addHealth(10).setShield(ArmorType.SHIELD), "Orc", null, AnimationEnum.ORC), 
+	ORC (new EnemyTemplate(WeaponType.Chain, 6, 5, 4, 3, 1, 3).setArmor(ArmorType.MEDIUM_ENEMY_ARMOR).setLegwear(ArmorType.MEDIUM_ENEMY_LEGWEAR).addHealth(10).setShield(ArmorType.SHIELD), "Orc", null, AnimationEnum.ORC), 
 	ADVENTURER (new EnemyTemplate(WeaponType.Axe, 4, 4, 4, 3, 4, 6).setArmor(ArmorType.MEDIUM_ENEMY_ARMOR).setLegwear(ArmorType.MEDIUM_ENEMY_LEGWEAR).addHealth(10).setMana(26).setShield(ArmorType.SHIELD), "Adventurer", null, AnimationEnum.TRUDY),
-	OGRE (new EnemyTemplate(WeaponType.Greatclub, 8, 6, 4, 3, 3, 3).setArmor(null).setLegwear(null).setHealth(new IntArray(new int[]{20, 20, 20})), "Ogre", AssetEnum.OGRE.getTexture()),
+	OGRE (new EnemyTemplate(WeaponType.Greatclub, 8, 6, 4, 2, 1, 1).setArmor(null).setLegwear(null).setHealth(new IntArray(new int[]{20, 20, 20})), "Ogre", AssetEnum.OGRE.getTexture()),
 	BEASTMISTRESS (new EnemyTemplate(WeaponType.Claw).setStrength(6).setAgility(8).setEndurance(5).addHealth(10), "Beast Mistress", null, AnimationEnum.BEASTMISTRESS),
 	SPIDER (new EnemyTemplate(WeaponType.Claw).setStrength(6).setAgility(5).setEndurance(5).setHealth(new IntArray(new int[]{20, 20, 20, 20})), "Arachne", AssetEnum.SPIDER.getTexture()), 
 	GOLEM (new EnemyTemplate(null, 6, 8, 4, 3, 3, 3).setArmor(ArmorType.MEDIUM_ENEMY_ARMOR).setLegwear(ArmorType.MEDIUM_ENEMY_LEGWEAR).setHealth(new IntArray(new int[]{60})).setMana(12), "Golem", AssetEnum.GOLEM.getTexture(), AssetEnum.GOLEM_FUTA.getTexture()),
@@ -41,7 +41,7 @@ public enum EnemyEnum {
 	MERMAID (new EnemyTemplate(WeaponType.Glaive).setHealth(new IntArray(new int[]{15, 15, 15, 15})).setArmor(ArmorType.MEDIUM_ENEMY_ARMOR).setLegwear(null).setUnderwear(ArmorType.UNDERWEAR).setStrength(5).setAgility(6).setEndurance(5), "Mermaid", AssetEnum.MERMAID.getTexture()), 
 	WARLOCK (new EnemyTemplate(WeaponType.Dagger).setStrength(4).setEndurance(4).setAgility(5).setMagic(9).setMana(40), "Warlock", AssetEnum.WARLOCK.getTexture()), 
 	GIANTESS (new EnemyTemplate(WeaponType.Club).setHealth(new IntArray(new int[]{10000})).setStrength(10000).setEndurance(10000).setAgility(10), "Giantess", AssetEnum.GIANTESS_FUTA.getTexture()), 
-	DULLAHAN (new EnemyTemplate(WeaponType.Bonewhip, 6, 5, 4, 3, 3, 3).setArmor(ArmorType.MEDIUM_ENEMY_ARMOR).setLegwear(ArmorType.MEDIUM_ENEMY_LEGWEAR).addHealth(10), "Dullahan", AssetEnum.DULLAHAN.getTexture()), 
+	DULLAHAN (new EnemyTemplate(WeaponType.Bonewhip, 8, 6, 3, 5, 5, 5).setArmor(ArmorType.MEDIUM_ENEMY_ARMOR).setLegwear(ArmorType.MEDIUM_ENEMY_LEGWEAR).addHealth(20), "Dullahan", AssetEnum.DULLAHAN.getTexture()), 
 	;
 	private final String text;
 	private final Array<AssetDescriptor<Texture>> texturePaths;
