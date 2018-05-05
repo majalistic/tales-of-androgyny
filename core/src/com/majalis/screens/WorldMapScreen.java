@@ -1160,7 +1160,7 @@ public class WorldMapScreen extends AbstractScreen {
 	
 	@Override
 	public boolean scrolled(int amount) {
-		translateCamera(new Vector3(0, 0, storyMode ? 0 : amount * 50));
+		translateCamera(new Vector3(0, 0, amount * 50));
 		return super.scrolled(amount);
 	}
 	
@@ -1185,10 +1185,10 @@ public class WorldMapScreen extends AbstractScreen {
 			translationVector.y += speed;
 		}
 		
-		if (Gdx.input.isKeyPressed(Keys.N) && !storyMode) {
+		if (Gdx.input.isKeyPressed(Keys.N)) {
 			translationVector.z = 5;
 		}
-		if (Gdx.input.isKeyPressed(Keys.M) && !storyMode) {
+		if (Gdx.input.isKeyPressed(Keys.M)) {
 			translationVector.z = -5;
 		}
 		translateCamera(translationVector);
@@ -1210,7 +1210,7 @@ public class WorldMapScreen extends AbstractScreen {
 		Vector3 position = camera.position;
 		position.x = Math.max(Math.min(position.x, maxX - (storyMode ? 0 : (position.z * 1.25f - 1450))), 500 + (storyMode ? 0 : (position.z * 1.25f - 1175)));
 		position.y = Math.max(Math.min(position.y, maxY - (storyMode ? 0 : (position.z * .7f - 900))), 500 + (storyMode ? 0 : (position.z *.7f - 665)));		
-		position.z = Math.max(Math.min(position.z, 1500), 500);
+		position.z = storyMode ? 700 : Math.max(Math.min(position.z, 1500), 500);
 		x = position.x - x;
 		y = position.y - y;		
 		z = position.z - z;
