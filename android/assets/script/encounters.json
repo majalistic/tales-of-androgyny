@@ -13072,6 +13072,20 @@
 		]
 	},
 	{
+		"key": "DULLAHAN-REJECTION",
+		"scriptLines": [
+			{"text": "You insist you're not a girl, and she rolls her eyes. \"Mortals have such weird hang-ups.  Well, I won't keep you... but you should consider what I have to offer.\""},
+			{
+			"mutations": [{"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": 3}}],
+			"text": "Her body's limp noodle slurps its way out of you, and pull up your underwear, feeling rather full in one sense, and empty in another. She lets you pass, and gives you a little peck on the cheek, holding her head in her hands, to send you on your way."}
+		]
+	},
+	{
+		"key": "DULLAHAN-SECONDS",
+		"scriptLines": [
+		]
+	},
+	{
 		"key": "DULLAHAN-ANAL-CHOKE",
 		"scriptLines": [
 		]

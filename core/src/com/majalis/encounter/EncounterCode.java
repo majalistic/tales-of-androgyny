@@ -924,9 +924,13 @@ public enum EncounterCode {
 				Branch faust = b.branch("Faust").textScene("DULLAHAN-SOUL");
 				
 				
-				Branch dullahanAnalCont2 = b.branch().textScene("DULLAHAN-ANAL-CONT2");
+				Branch dullahanAnalCont2 = b.branch().textScene("DULLAHAN-ANAL-CONT2").choiceScene("Be her girlfriend?", b.branch("I'm not a girl!").textScene("DULLAHAN-REJECTION"), b.branch("Okay").textScene("DULLAHAN-SECONDS"));
 				
-				Branch dullahanAnalCont = b.branch().textScene("DULLAHAN-ANAL-CONT").checkScene(Perk.ANAL_ADDICT, b.branch(3).textScene("DULLAHAN-ANAL-EJACULATION").concat(dullahanAnalCont2), b.branch(0).textScene("DULLAHAN-ANAL-CHOKE"));
+				Branch dullahanAnalCont = b.branch().textScene("DULLAHAN-ANAL-CONT").checkScene(
+					Perk.ANAL_ADDICT, 
+					b.branch(3).textScene("DULLAHAN-ANAL-EJACULATION").concat(dullahanAnalCont2),
+					b.branch(0).textScene("DULLAHAN-ANAL-CHOKE")
+				);
 				
 				return b.branch().textScene("DULLAHAN-INTRO").choiceScene(
 					"What do you do?", 
