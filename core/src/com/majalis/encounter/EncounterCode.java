@@ -919,7 +919,7 @@ public enum EncounterCode {
 				Branch fight = b.branch("Fight").battleScene(
 					BattleCode.DULLAHAN,
 					b.branch(Outcome.VICTORY).textScene("DULLAHAN-VICTORY"),  
-					b.branch(Outcome.DEFEAT).textScene("DULLAHAN-DEFEAT").choiceScene("Fuck or flee?", b.branch("Fuck"), b.branch("Flee")) 
+					b.branch(Outcome.DEFEAT).textScene("DULLAHAN-DEFEAT").choiceScene("Fuck or flee?", b.branch("Fuck").textScene("DULLAHAN-DEFEAT-ANAL"), b.branch("Flee")) 
 				);
 				Branch faust = b.branch("Faust").textScene("DULLAHAN-SOUL");
 				Branch flee = b.branch("Flee");

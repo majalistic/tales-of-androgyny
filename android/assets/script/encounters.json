@@ -12925,7 +12925,35 @@
 	{
 		"key": "DULLAHAN-DEFEAT",
 		"scriptLines": [
-			{"text": "You drop to your knees beneath the covered bridge. The battle is lost."}
+			{"text": "You drop to your knees beneath the covered bridge. The battle is lost."},
+			{"text": "She seems to revel in the battle. \"So it's your loss, then.  What's it gonna be?  Gonna take my whole thing up the brown hole, or go for another round later?\" she asks, the bulge in her smallclothes clearly reveling in the battle as well."}			
+		]
+	},
+	{
+		"key": "DULLAHAN-DEFEAT-ANAL",
+		"scriptLines": [
+			{"text": "\"That's sporting of you.  I'll keep my word... I'll be gentle.  But... well, you've got eyes in your head.  You can see it, right?\""},
+			{"text": "You can indeed. It's quite a bit bigger than most head-attached women have tucked away."},
+			{"text": "\"I'm not going to suck your soul out through your ass or anything like that.  I'm just going to cum in it.  Just become I'm headless doesn't mean I don't like to get off,\" she says, her body helping you get into a more... accessible position on your hands and knees."},
+			{"text": "She brandishes her whip, and you flinch, but she just brings the grip of it to your mouthy."},			
+			{"text": "\"Bite down on this and think of the good times.  I'll ease it in slow, and then we can fuck proper.\""}
+			{"text": "You chomp down on the whip grip, and get yourself ready for the long bone. She sets down her head, which rolls over to look up at you as her body align itself behind you, where the fun happens."},
+			{"text": "\"I'll be quick for your sake,\" she says, looking at you sympathetically, \"but let me know if my body gets a little too out of control, okay?\""},
+			{"text": "Her body does thwack her foot-long schlong against your ass cheeks while it works itself up into a fuck-frenzy, so you think there's some merit to what she's saying. You bite down hard on the grip as it pushes up against your balloon knot, ready to penetrate."},
+			{
+			"sound": "ANAL_INSERTION",
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1}}],
+			"text": "The head sinks inside and you get to see her eyes roll into her head just as yours do, the fat head stretching you quite a bit."},
+			{"text": "As she works it in, your toes curl and you dig deep into the bone whip's grip, trying to cope with the engorged thing getting stuffed into your rectum inch by inch."},
+			{"text": "She does take her time, and she cooes reassuringly to you as you take it, but you can also sense that the heat of the battle is still fresh in her mind, as she watches your reddened, frustrated face with awe and lust."},
+			{"text": "She starts to pick up the pace, her hands gripping onto your garments while she blasts your backside under that covered bridge, a bridge-crossing you won't soon forget."},			
+			{"text": "The fucking is immense, and you wonder if her concentration being so split makes it harder to control her body, because it is absolutely jackhammering your asshole without restraint."},			
+			{
+			"sound": "CUM",
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "creampies":1}}],
+			"text": "Her o-face is plainly visible as you feel her cum splat into your rectum with a thud. She continues to slide her long cock in and out as she cums, and you leave teethmarks on her whip's handle."},
+			{"text": "She withdraws, and you feel an emptiness inside from the fuck-cavern that she's created. You spit out the whip, and she reassures you, even as her body wipes off the last of her cum on your ass."},
+			{"text": "\"You can cross, now. If we fight again... I hope you'll have gotten stronger,\" she says, her body helping you to your feet, then giving you an awkward hug before sending you on your way."}
 		]
 	},
 	{
