@@ -21,6 +21,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
+import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
@@ -41,7 +42,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
@@ -88,7 +88,7 @@ public class WorldMapScreen extends AbstractScreen {
 	private final PerspectiveCamera camera;
 	private final Stage cloudStage;
 	private final PerspectiveCamera cloudCamera;
-	private final Stage dragStage;
+	private final GestureDetector gestureDetection;
 	private final Group worldGroup;
 	private final Group shadowGroup;
 	private final Group cloudGroup;
@@ -164,7 +164,37 @@ public class WorldMapScreen extends AbstractScreen {
 		uiStage = new Stage(new FitViewport(this.getViewport().getWorldWidth(), this.getViewport().getWorldHeight(), getCamera()), batch);
 		uiStage.getCamera().update();
 		
-		dragStage = new Stage3D(new FitViewport(this.getViewport().getWorldWidth(), this.getViewport().getWorldHeight(), getCamera()), batch);
+		gestureDetection = new GestureDetector(new GestureDetector.GestureListener() {		
+			@Override
+			public boolean zoom(float initialDistance, float distance) { return false; }
+			
+			@Override
+			public boolean touchDown(float x, float y, int pointer, int button) { return false; }
+			
+			@Override
+			public boolean tap(float x, float y, int count, int button){ return false; }
+			
+			@Override
+			public void pinchStop() {}
+			
+			@Override
+			public boolean pinch(Vector2 initialPointer1, Vector2 initialPointer2, Vector2 pointer1, Vector2 pointer2) { return false; }
+			
+			@Override
+			public boolean panStop(float x, float y, int pointer, int button) { return false; }
+			
+			@Override
+			public boolean pan(float x, float y, float deltaX, float deltaY) {
+				translateCamera(new Vector3(-deltaX, deltaY, 0));
+				return true;
+			}
+			
+			@Override
+			public boolean longPress(float x, float y) { return false; }
+			
+			@Override
+			public boolean fling(float velocityX, float velocityY, int button){ return false; }
+		});
 		
 		camera = new PerspectiveCamera(70, 0, 1000);
 		this.getViewport().setCamera(camera);
@@ -316,7 +346,7 @@ public class WorldMapScreen extends AbstractScreen {
 		multi = new InputMultiplexer();
 		multi.addProcessor(uiStage);
 		multi.addProcessor(this);
-		multi.addProcessor(dragStage);
+		multi.addProcessor(gestureDetection);
 	}
 	
 	private TextButton getButton(String label) {
@@ -643,12 +673,6 @@ public class WorldMapScreen extends AbstractScreen {
 				}
 				mutateLabels();
 			}			
-		});
-		dragStage.addListener(new DragListener(){
-			@Override
-			public void drag(InputEvent event, float x, float y, int pointer) {
-				translateCamera(new Vector3(getDeltaX(), getDeltaY(), 0));
-			}
 		});
 	}
 	
@@ -1416,7 +1440,6 @@ public class WorldMapScreen extends AbstractScreen {
 		}
 		uiStage.dispose();
 		cloudStage.dispose();
-		dragStage.dispose();
 		super.dispose();
 	}	
 	
