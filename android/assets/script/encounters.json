@@ -12931,7 +12931,23 @@
 	{
 		"key": "DULLAHAN-ACCEPT",
 		"scriptLines": [
-			{"text": "You say that you're willing to get it on... and her eyes go wide in her detached head."}
+			{"text": "You say that you're willing to get it on... and her eyes go wide in her detached head."},
+			{"text": "\"You're the first mortal to accept... that's a little embarassing to say.\""},
+			{"text": "She doesn't look like she knows what to do, the hand holding up her head listing a little as if she's more focused on puzzling out how to act than keeping her head aloft."},
+			{"text": "\"If you have the time... maybe we can sit down for a chat first?\" she asks, holstering the bone whip as a sign of trust."},
+			{"text": "You're a bit surprised by that response, and you're not sure where to sit, until she simply walks over to the nearby wall of covered bridge, leans against it, and then slides her body down into a sit, her head carefully tucked away until she hits bottom."},
+			{"text": "She invites you with a pat - there's straw on the ground that makes the seat look a bit more comfortable than bare wood, but only barely. You sit down next to her, and she turns her head in her lap to face you."},
+			{"text": "\"So, ever met a dullahan before?\" she asks, and you answer truthfully. \"Well, I suppose it's not too complicated. My head's not attached, not physically, anyway. I can control my body, but only if I'm nearby, otherwise it has a mind of its own.\""},
+			{"text": "You nod along, sagely. Faeries are weird."},
+			{"text": "\"But I feel everything my body feels... just like a human woman. Basically normal, really,\" she says, looking up at you confidently from her little perch in her lap. \"So... what brings you to my bridge?\""},
+			{"text": "You tell her about your journey, and she tells you about her duties as a bridge-keeper - apparently, though it looks to be in a state of disarray, that's more for aesthetic reasons than a lack of maintenance, which she keeps to diligently."},
+			{"text": "You chat for a while about the mundanities of the modern age, the difficulties of your respective lifestyles, and your mutual annoyance at harpies."},
+			{"text": "\"One snatched my head up, once, and I ended up another egg in her roost for days before my body managed to climb up the cliff-face,\" she explains, and then, after a moment of reflection, she bursts into laughter, and you do, too."},
+			{"text": "\"They're definitely a problem for any adventurer. I think they mean well, though,\" you say, and she smiles."},
+			{"text": "\"Sure you don't just have a thing for those plump bird thighs?\" she asks, and you blush."},
+			{"text": "The conversation is pleasant, and though the rain before seemed to whip and frenzy, it now pours plaintively on the covered roof, close nearby, yet remote."},
+			{"text": "While contemplating that, your hand accidentally grazes hers... and she hesitantly caresses your finger."},
+			{"text": "\"Well, I suppose we should... get to it, then. How would you like it?\""}
 		]
 	},
 	{
