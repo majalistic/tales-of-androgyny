@@ -1134,6 +1134,12 @@ public class WorldMapScreen extends AbstractScreen {
 	private Color getTimeColor() { return TimeOfDay.getTime(time).getColor(); }
 	private String getTime() { return TimeOfDay.getTime(time).getDisplay(); }
 	
+	@Override
+	public boolean scrolled(int amount) {
+		translateCamera(new Vector3(0, 0, amount * 50));
+		return super.scrolled(amount);
+	}
+	
 	private static float maxX = 4000;
 	private static float maxY = 4600;
 	
