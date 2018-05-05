@@ -12915,6 +12915,20 @@
 		]
 	},	
 	{
+		"key": "DULLAHAN-VICTORY",
+		"scriptLines": [
+			{
+			"mutations": [{"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": 5}}],
+			"text": "After a tense battle, her body crumples to the floor, and she lets out a yelp as her head crashes to it and rolls as well."}
+		]
+	},
+	{
+		"key": "DULLAHAN-DEFEAT",
+		"scriptLines": [
+			{"text": "You drop to your knees beneath the covered bridge. The battle is lost."}
+		]
+	},
+	{
 		"key": "DULLAHAN-ACCEPT",
 		"scriptLines": [
 			{"text": "You say that you're willing to take it... and her eyes go wide in her detached head."}
