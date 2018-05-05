@@ -12914,4 +12914,18 @@
 			{"text": "\"What will it be?  Take your time, this rain can't last forever,\" she says, tilting her head up to look at the leaking ceiling.  A single droplet falls onto her face, and she exhales through pursed lips in frustration."}
 		]
 	},	
+	{
+		"key": "DULLAHAN-ACCEPT",
+		"scriptLines": [
+			{"text": "You say that you're willing to take it... and her eyes go wide in her detached head."}
+		]
+	},
+	{
+		"key": "DULLAHAN-SOUL",
+		"scriptLines": [
+			{
+			"mutations": [{"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": -20}}],
+			"text": "You say that you're willing to give a bit of your soul."}
+		]
+	}
 ]}

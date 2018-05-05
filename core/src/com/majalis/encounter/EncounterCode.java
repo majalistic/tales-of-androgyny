@@ -915,7 +915,7 @@ public enum EncounterCode {
 			case DEFAULT:
 				return b.branch().textScene("STICK");
 			case DULLAHAN:
-				return b.branch().textScene("DULLAHAN-INTRO").battleScene(BattleCode.DULLAHAN, b.branch(Outcome.VICTORY), b.branch(Outcome.DEFEAT));
+				return b.branch().textScene("DULLAHAN-INTRO").choiceScene("What do you do?", b.branch("Fight").battleScene(BattleCode.DULLAHAN, b.branch(Outcome.VICTORY), b.branch(Outcome.DEFEAT)), b.branch("Fuck").textScene("DULLAHAN-ACCEPT"), b.branch("Faust").textScene("DULLAHAN-SOUL"), b.branch("Flee"));
 			case DRYAD:
 				return b.branch().textScene("DRYAD-INTRO").choiceScene(
 					"Do you offer her YOUR apple, or try to convince her to just hand it over?",
