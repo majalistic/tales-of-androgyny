@@ -327,15 +327,15 @@ public class WorldMapScreen extends AbstractScreen {
 		// this is currently placing the character based on the camera in a way that conveniently places them on their current node - this needs to instead be aware of the current node and be able to grab its position from there (will need to know current node for behavior of Camp/Enter button regardless)
 		currentImageGhost.setPosition(initialTranslation.x + 646, initialTranslation.y + 390);
 		
-		int leftWrap = -3000;
-		int rightWrap = 10000;
+		float leftWrap = -3000f;
+		float rightWrap = 10000f;
 		for (int ii = 0; ii < 100; ii++) {
 			Actor actor = new Image(cloud.get(ii % 5));
 			actor.setPosition((float)Math.random()*10000-1000, (float)Math.random()*10000-1000);
 			actor.addAction(Actions.alpha(.3f));
-			float speed = 5f + (float) Math.random() * 20;
+			float speed = 5f + (float) Math.random() * 40;
 			// move from starting position to leftWrap, then warp to rightWrap, then repeat those two actions forever
-			actor.addAction(sequence(moveTo(leftWrap, actor.getY(), (actor.getX() - leftWrap) / speed), moveTo(rightWrap, actor.getY()), repeat(RepeatAction.FOREVER, sequence(moveTo(leftWrap, actor.getY(), rightWrap - leftWrap / speed), moveTo(rightWrap, actor.getY())))));
+			actor.addAction(sequence(moveTo(leftWrap, actor.getY(), (actor.getX() - leftWrap) / speed), moveTo(rightWrap, actor.getY()), repeat(RepeatAction.FOREVER, sequence(moveTo(leftWrap, actor.getY(), (rightWrap - leftWrap) / speed), moveTo(rightWrap, actor.getY())))));
 			cloudGroup.addActor(actor);
 		}
 		
