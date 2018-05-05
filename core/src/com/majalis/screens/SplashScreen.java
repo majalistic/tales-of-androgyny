@@ -109,7 +109,7 @@ public class SplashScreen extends AbstractScreen {
 	public void render(float delta) {
 		super.render(delta);
 		if (assetManager.update(75) && clocktick++ > minTime) {
-			splash.addAction(Actions.sequence(Actions.fadeOut(1), Actions.delay(1), new Action() {
+			splash.addAction(Actions.sequence(Actions.fadeOut(1), Actions.delay(.5f), new Action() {
 				@Override
 				public boolean act(float delta) {
 					showScreen(ScreenEnum.MAIN_MENU);

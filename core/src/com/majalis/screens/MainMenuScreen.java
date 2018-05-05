@@ -195,7 +195,7 @@ public class MainMenuScreen extends AbstractScreen {
 	private void move(Image toMove, int distance, int startX, int startY) { move(toMove, distance, startX, startY, true); }
 	private void move(Image toMove, int distance, int startX, int startY, boolean start) { 
 		toMove.setPosition(startX, startY);
-		toMove.addAction(Actions.sequence(Actions.delay(.5f), Actions.moveBy(-distance + (start ? -startX : 0), 0, INTRO)));
+		toMove.addAction(Actions.sequence(Actions.delay(.3f), Actions.moveBy(-distance + (start ? -startX : 0), 0, INTRO)));
 	}
 	
 	private void finishCutScene() {
