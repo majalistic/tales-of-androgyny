@@ -12931,7 +12931,27 @@
 	{
 		"key": "DULLAHAN-ACCEPT",
 		"scriptLines": [
-			{"text": "You say that you're willing to take it... and her eyes go wide in her detached head."}
+			{"text": "You say that you're willing to get it on... and her eyes go wide in her detached head."}
+		]
+	},
+	{
+		"key": "DULLAHAN-TOP",
+		"scriptLines": [
+			{"text": "Your hand caresses the dullahan's, and she looks up at you from her lap. You tentatively attempt to pick up her head, and she holds herself up for you."},
+			{"text": "\"Be gentle with me,\" she requests, and you carefully take her head in your hands, and bring it closer to your face. She blushes, and bites her lip, and her body reaches out to touch your chest, her fingernails softly scratching it."},
+			{"text": "You kiss her, and it's a little disconcerting that her body leans into you and begins to straddle you independent of her head, but you find that you are weirdly cool with it as she presses herself against you."}
+		]
+	},
+	{
+		"key": "DULLAHAN-BOTTOM",
+		"scriptLines": [
+			{"text": "You wordlessly stand up, then turn to lean against the wall of the covered bridge, coyly, looking at her with pleading eyes."}
+		]
+	},
+	{
+		"key": "DULLAHAN-SAD",
+		"scriptLines": [
+			{"text": "You say that you're not in the mood, and the dullahan sighs sadly. \"Thought that might be the case. Well, then, what'll it be?\""}
 		]
 	},
 	{
