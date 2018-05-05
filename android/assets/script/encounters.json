@@ -13196,13 +13196,29 @@
 		"scriptLines": [
 			{"text": "\"You will?  I guess that means you'll be... sucking my dick then.  Hey... I can see you looking at it.\""}	
 			{"text": "You are looking at it, and after she says that... it grows. \"It got bigger,\" you say, stunned."},			
-			{"text": "\"Well, yeah, you just said you would suck it...\""},
+			{"text": "\"Well, yeah, you just said you would suck it...\" she says, and she hides it a bit behind her hand. She puts her other hand on your shoulder and instructs you to get to your knees."},
+			{"text": "Once you do, she picks up her head to watch the action, and then... frees her cock, bringing it for the first time in full glory into your view. It's... huge."},
+			{"text": "You stare at it in awe, and she watches your face carefully. \"Big, right?\""},
+			{"text": "You close your mouth, then open it again, utterly stunned."},
+			{"text": "\"Well... give it a go,\" she says, and you lick your lips, ready to dig in to such an extravagant meal."},			
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "oralSex":1}}],
+			"text": "You take it into your mouth, and begin to suck up and down the shaft, and she coos near your ear, sucking air in through her teeth."},
+			{"text": "You gobble down her cock as much as you can... but it's a bit bigger than you can comfortably get into your mouth. She seems to appreciate the effort."},
+			{"text": "You struggle to choke it down as she whispers words of encouragement in your ear. You gag, but keep on lapping at it in the hopes of getting the cream."}			
 		]
 	},
 	{
 		"key": "DULLAHAN-ORAL-GOOD",
 		"scriptLines": [
-			{"text": ""}			
+			{"text": "\"Mmm... you're good at this.  You'll have it soon... just... keep... nnh!\""},
+			{
+			"sound": "CUM",
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "oralCreampies":1}}],
+			"text": "You're rewarded for your apparent skill with a monster-sized load of hot semen that immediately bloats your cheeks and begins to run out of the corners of your mouth."},
+			{"text": "She kisses your full cheek affectionately. \"Swallow it down, my sweet.\""},
+			{"text": "You gulp it down, feeling the warmth run down your throat and fill your stomach. What a load."},
+			{"text": "She kisses you again, and then sends you on your way, her nutsack a bit emptier, your stomach a bit fuller."}			
 		]
 	},
 	{
