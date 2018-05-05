@@ -922,9 +922,7 @@ public enum EncounterCode {
 					b.branch(Outcome.DEFEAT).textScene("DULLAHAN-DEFEAT").choiceScene("Fuck or flee?", b.branch("Fuck").textScene("DULLAHAN-DEFEAT-ANAL"), flee) 
 				);
 				Branch faust = b.branch("Faust").textScene("DULLAHAN-SOUL");
-				
-				
-				
+			
 				Branch dullahanGirlfriend = b.branch().choiceScene("Be her girlfriend?", b.branch("I'm not a girl!").textScene("DULLAHAN-REJECTION"), b.branch("Okay").require(ChoiceCheckType.FREE_COCK).textScene("DULLAHAN-SECONDS"));
 				Branch dullahanAnalCont2 = b.branch().textScene("DULLAHAN-ANAL-CONT2").concat(dullahanGirlfriend);
 	
@@ -953,7 +951,7 @@ public enum EncounterCode {
 					), 
 					faust, 
 					flee
-					);
+				);
 			case DRYAD:
 				return b.branch().textScene("DRYAD-INTRO").choiceScene(
 					"Do you offer her YOUR apple, or try to convince her to just hand it over?",
