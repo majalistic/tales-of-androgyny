@@ -1136,7 +1136,7 @@ public class WorldMapScreen extends AbstractScreen {
 	
 	@Override
 	public boolean scrolled(int amount) {
-		translateCamera(new Vector3(0, 0, amount * 50));
+		translateCamera(new Vector3(0, 0, storyMode ? 0 : amount * 50));
 		return super.scrolled(amount);
 	}
 	
@@ -1148,16 +1148,16 @@ public class WorldMapScreen extends AbstractScreen {
 		float speed = 500 * delta;
 		if (Gdx.input.isKeyPressed(Keys.SHIFT_LEFT)) speed *= 2;
 		
-		if (Gdx.input.isKeyPressed(Keys.LEFT) && !Gdx.input.isKeyPressed(Keys.RIGHT) && camera.position.x > 500) {
+		if (Gdx.input.isKeyPressed(Keys.LEFT) && !Gdx.input.isKeyPressed(Keys.RIGHT)) {
 			translationVector.x -= speed;
 		}
-		if (Gdx.input.isKeyPressed(Keys.RIGHT) && !Gdx.input.isKeyPressed(Keys.LEFT) && camera.position.x < (storyMode ? 1000 : maxX)) {
+		if (Gdx.input.isKeyPressed(Keys.RIGHT) && !Gdx.input.isKeyPressed(Keys.LEFT)) {
 			translationVector.x += speed;
 		}
-		if (Gdx.input.isKeyPressed(Keys.DOWN) && !Gdx.input.isKeyPressed(Keys.UP) && camera.position.y > 500) {
+		if (Gdx.input.isKeyPressed(Keys.DOWN) && !Gdx.input.isKeyPressed(Keys.UP)) {
 			translationVector.y -= speed;
 		}
-		if (Gdx.input.isKeyPressed(Keys.UP) && !Gdx.input.isKeyPressed(Keys.DOWN) && camera.position.y < (storyMode ? 1000 : maxY)) {
+		if (Gdx.input.isKeyPressed(Keys.UP) && !Gdx.input.isKeyPressed(Keys.DOWN)) {
 			translationVector.y += speed;
 		}
 		
@@ -1171,13 +1171,16 @@ public class WorldMapScreen extends AbstractScreen {
 	}
 	
 	private void translateCamera(Vector3 translationVector) {
+		float maxX = storyMode ? 1000 : WorldMapScreen.maxX;
+		float maxY = storyMode ? 1000 : WorldMapScreen.maxY;
+		
 		float x = camera.position.x;
 		float y = camera.position.y;
 		float z = camera.position.z;
 		camera.translate(translationVector);
 		Vector3 position = camera.position;
-		position.x = Math.max(Math.min(position.x, maxX - (Math.max(0, -camera.position.z + 2000))), 500 + (Math.max(0, camera.position.z - 825)));
-		position.y = Math.max(Math.min(position.y, maxY - (Math.max(0, -camera.position.z + 2000))), 500 + (Math.max(0, camera.position.z - 900)));		
+		position.x = Math.max(Math.min(position.x, maxX - (storyMode ? 0 : (position.z * 1.25f - 1450))), 500 + (storyMode ? 0 : (position.z * 1.25f - 1175)));
+		position.y = Math.max(Math.min(position.y, maxY - (storyMode ? 0 : (position.z * .7f - 900))), 500 + (storyMode ? 0 : (position.z *.7f - 665)));		
 		position.z = Math.max(Math.min(position.z, 1500), 500);
 		x = position.x - x;
 		y = position.y - y;		
