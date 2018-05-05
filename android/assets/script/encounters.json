@@ -13028,7 +13028,37 @@
 	{
 		"key": "DULLAHAN-ANAL-CONT",
 		"scriptLines": [
-			{"text": ""}	
+			{"text": "As she bottoms out, you feel your breath caught in your throat, and she nuzzles your nose affectionately. She rolls a bit askance to get a look at your bent over body, and her surprise is obvious."},
+			{"text": "\"Ummm... your abdomen is bulging out.  I may be too big for you.  You okay?\""},
+			{"text": "You're somewhat hyperventilating and flush, but you just bear it, and you play with her hair while wordlessly assenting. She plants another kiss on your lips before once again viewing your abdomen distending."},
+			{"text": "\"Seeing it bulge out like that each time I go deep... I'm really stirring you up, huh?  How does it feel?\""},
+			{"text": "You bite your lip and roll your eyes, but with a barely-concealed smile on your face, and she raises one eyebrow."},		
+			{"text": "\"You love it, huh?  You're a strange human, but... I'm glad to hear that.  I'm going to spread your cheeks and fuck you even deeper... okay?\""},
+			{"text": "Her body does as she says, and she sinks it into the deepest part of you that it could possibly reach. Your grip on the railing threatens to chip off the wood, and you bite her lip hard enough that you worry you'll leave a mark."},
+			{"text": "She giggles into your mouth while kissing you full on despite the biting, her tongue curling around your teeth, her nose brushing against yours. When you finally adjust to the deep fucking, you release your bite, and she takes another look."},
+			{"text": "\"You don't want to know what the bulge looks like now. It's curving... looks like I ran out of room in the straight portion.  I think we can make it work, though, don't you?\""},
+			{"text": "She continues to shower you with kisses, little smooches on the lips as she pushes you in from behind. You're losing the ability to hear anything other than the wet sound of her long, smooth fuck."},
+		]
+	},
+	{
+		"key": "DULLAHAN-ANAL-EJACULATION",
+		"scriptLines": [
+			{
+			"sound": "CUM",
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analEjaculation":1}}],
+			"text": "You stand on your toes, legs straight and tense, and shoot a thick rope of cum onto the railing, your pussy railed from behind at the same time."},
+			{"text": "\"Ohho, so... you can cum from getting it in the ass?  What a lucky find... so... want to be my girlfriend?\""},
+		]
+	},
+	{
+		"key": "DULLAHAN-ANAL-CONT2",
+		"scriptLines": [
+			{"text": ""},
+		]
+	},
+	{
+		"key": "DULLAHAN-ANAL-CHOKE",
+		"scriptLines": [
 		]
 	},
 	{
