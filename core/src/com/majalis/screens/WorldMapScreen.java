@@ -81,7 +81,7 @@ public class WorldMapScreen extends AbstractScreen {
 	private final AssetManager assetManager;
 	private final SaveService saveService;
 	private final GameWorld world;
-	private final Texture cloud;
+	private final Array<Texture> cloud;
 	private final Texture characterUITexture;
 	private final PlayerCharacter character;
 	private final Stage uiStage;
@@ -139,7 +139,7 @@ public class WorldMapScreen extends AbstractScreen {
 			PORTRAIT_FELLATIO, PORTRAIT_MOUTHBOMB, PORTRAIT_GRIN, PORTRAIT_HIT, PORTRAIT_LOVE, PORTRAIT_LUST,
 			PORTRAIT_SMILE, PORTRAIT_SURPRISE, PORTRAIT_GRIMACE, PORTRAIT_POUT, PORTRAIT_HAPPY, 
 			PORTRAIT_NEUTRAL_FEMME, PORTRAIT_AHEGAO_FEMME, PORTRAIT_FELLATIO_FEMME, PORTRAIT_MOUTHBOMB_FEMME, PORTRAIT_GRIN_FEMME, PORTRAIT_HIT_FEMME, PORTRAIT_LOVE_FEMME, PORTRAIT_LUST_FEMME, PORTRAIT_SMILE_FEMME, PORTRAIT_SURPRISE_FEMME, PORTRAIT_GRIMACE_FEMME, PORTRAIT_POUT_FEMME, PORTRAIT_HAPPY_FEMME,
-			GROUND_SHEET, DOODADS, WORLD_MAP_BG, CHARACTER_ANIMATION, MOUNTAIN_ACTIVE, FOREST_ACTIVE, FOREST_INACTIVE, CASTLE, TOWN, COTTAGE, APPLE, MEAT, CLOUD, ROAD, WORLD_MAP_UI, WORLD_MAP_HOVER, ARROW, CHARACTER_SCREEN, EXP, GOLD, TIME, HEART, SEARCHING, STEALTH, NULL
+			GROUND_SHEET, DOODADS, WORLD_MAP_BG, CHARACTER_ANIMATION, MOUNTAIN_ACTIVE, FOREST_ACTIVE, FOREST_INACTIVE, CASTLE, TOWN, COTTAGE, APPLE, MEAT, CLOUD, CLOUD_2, CLOUD_3, CLOUD_4, CLOUD_5, ROAD, WORLD_MAP_UI, WORLD_MAP_HOVER, ARROW, CHARACTER_SCREEN, EXP, GOLD, TIME, HEART, SEARCHING, STEALTH, NULL
 		};
 		for (AssetEnum asset: assets) {
 			resourceRequirements.add(asset.getTexture());
@@ -195,7 +195,7 @@ public class WorldMapScreen extends AbstractScreen {
 		
 		// load assets
 		hoverImageTexture = assetManager.get(AssetEnum.WORLD_MAP_HOVER.getTexture());		
-		cloud = assetManager.get(AssetEnum.CLOUD.getTexture());
+		cloud = new Array<Texture>(new Texture[]{assetManager.get(AssetEnum.CLOUD.getTexture()), assetManager.get(AssetEnum.CLOUD_2.getTexture()), assetManager.get(AssetEnum.CLOUD_3.getTexture()), assetManager.get(AssetEnum.CLOUD_4.getTexture()), assetManager.get(AssetEnum.CLOUD_5.getTexture())});
 		characterUITexture = assetManager.get(AssetEnum.WORLD_MAP_UI.getTexture());
 		hoverImage = new Image(hoverImageTexture);
 		
@@ -300,7 +300,7 @@ public class WorldMapScreen extends AbstractScreen {
 		int leftWrap = -3000;
 		int rightWrap = 10000;
 		for (int ii = 0; ii < 200; ii++) {
-			Actor actor = new Image(cloud);
+			Actor actor = new Image(cloud.get(ii % 5));
 			actor.setPosition((float)Math.random()*10000-1000, (float)Math.random()*10000-1000);
 			actor.addAction(Actions.alpha(.3f));
 			float speed = 10f;
