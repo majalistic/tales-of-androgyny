@@ -13224,7 +13224,7 @@
 	{
 		"key": "DULLAHAN-ORAL-BAD",
 		"scriptLines": [
-			{"text": ""}			
+			{"text": "\"Mmm... you're having a hard time, want me to show you how to do it?"}			
 		]
 	},
 	{
@@ -13236,7 +13236,18 @@
 	{
 		"key": "DULLAHAN-ORAL-FINISH",
 		"scriptLines": [
-			{"text": ""}			
+			{"text": "You decide to to do it on your own, so she starts to give you pointers."},
+			{"text": "\"Suck on it like you're trying to pull the color off of it,\" she says, and you suck hard, forming grooves in your cheeks."},
+			{"text": "You keep pulling on her pole until she starts to show signs of arousal, and then she clears her throat and asks for a change of pace."},
+			{"text": "\"Now try to blow.\""},
+			{"text": "You try to blow around her cock, which now slides in and out of your mouth easily, wet and low friction. Your cheeks are puffed out... which is probably indicative of your near-future."},
+			{"text": "\"Now, the next... nnh... thing you'll need to... mmm... do is... nnnh!  Swallow!\""},
+			{
+			"sound": "CUM",
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "oralCreampies":1}}],
+			"text": "It floods your mouth all at once, a sudden splat on your uvula making you gag in surprise.  She pumps all of her fey goo inside your mouth before you can even process what's happening, and your cheeks bulge."},
+			{"text": "\"Sorry I didn't warn you - I was so focused on trying to give you pointers that I didn't even notice.\""},
+			{"text": "You wipe your mouth, having swallowed down the bulk of her gunk already, and she gives you a peck on your cheek before sending you on your way."}
 		]
 	},
 	{
