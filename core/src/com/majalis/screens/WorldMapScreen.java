@@ -299,11 +299,11 @@ public class WorldMapScreen extends AbstractScreen {
 		
 		int leftWrap = -3000;
 		int rightWrap = 10000;
-		for (int ii = 0; ii < 200; ii++) {
+		for (int ii = 0; ii < 100; ii++) {
 			Actor actor = new Image(cloud.get(ii % 5));
 			actor.setPosition((float)Math.random()*10000-1000, (float)Math.random()*10000-1000);
 			actor.addAction(Actions.alpha(.3f));
-			float speed = 10f;
+			float speed = 5f + (float) Math.random() * 20;
 			// move from starting position to leftWrap, then warp to rightWrap, then repeat those two actions forever
 			actor.addAction(sequence(moveTo(leftWrap, actor.getY(), (actor.getX() - leftWrap) / speed), moveTo(rightWrap, actor.getY()), repeat(RepeatAction.FOREVER, sequence(moveTo(leftWrap, actor.getY(), rightWrap - leftWrap / speed), moveTo(rightWrap, actor.getY())))));
 			cloudGroup.addActor(actor);
