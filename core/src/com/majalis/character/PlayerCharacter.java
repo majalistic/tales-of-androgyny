@@ -1671,4 +1671,6 @@ public class PlayerCharacter extends AbstractCharacter {
 	public boolean hasRandomLewdEncounter() { boolean ready = lewdCooldown <= 0; if (ready) lewdCooldown = 18; return ready; }
 
 	public int getHeartbeat() { return heartbeat; }
+
+	public boolean isTight() { return receivedAnal < 15; }
 }

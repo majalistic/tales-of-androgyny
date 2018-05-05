@@ -923,13 +923,23 @@ public enum EncounterCode {
 				);
 				Branch faust = b.branch("Faust").textScene("DULLAHAN-SOUL");
 				
+				Branch dullahanAnalCont = b.branch().textScene("DULLAHAN-ANAL-CONT");
+				
 				return b.branch().textScene("DULLAHAN-INTRO").choiceScene(
 					"What do you do?", 
 					fight, 
 					b.branch("Fuck").textScene("DULLAHAN-ACCEPT").choiceScene(
 						"What's your move?", 
 						b.branch("Give it to her").require(ChoiceCheckType.FREE_COCK).require(ChoiceCheckType.PERK_GREATER_THAN_X, Perk.TOP, 2).textScene("DULLAHAN-TOP"),
-						b.branch("Take it").require(ChoiceCheckType.LEWD).textScene("DULLAHAN-BOTTOM").choiceScene("What do you do?", b.branch("Stay the course").textScene("DULLAHAN-ANAL"), b.branch("Give her head").textScene("DULLAHAN-ORAL")),
+						b.branch("Take it").require(ChoiceCheckType.LEWD).textScene("DULLAHAN-BOTTOM").choiceScene(
+							"What do you do?", 
+							b.branch("Stay the course").textScene("DULLAHAN-ANAL").checkScene(
+								CheckType.TIGHT_BUTTHOLE, 
+								b.branch(true).textScene("DULLAHAN-ANAL-TIGHT").concat(dullahanAnalCont), 
+								b.branch(false).textScene("DULLAHAN-ANAL-LOOSE").concat(dullahanAnalCont)
+							), 
+							b.branch("Give her head").textScene("DULLAHAN-ORAL")
+						),
 						b.branch("Change your mind").textScene("DULLAHAN-SAD").choiceScene("What do you do?", fight, faust, flee)					
 					), 
 					faust, 

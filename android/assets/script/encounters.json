@@ -12997,6 +12997,31 @@
 	{
 		"key": "DULLAHAN-ANAL",
 		"scriptLines": [
+			{"text": "You shake your head, indicating that you want the D up the A, and she bites her lip, looking unsure."},			
+			{"text": "\"No?  Well, alright... I'll guide you through it.  It shouldn't be... too bad.\""},
+			{"text": "She places her head on the old railing, so that the two of your face to face, even as her body slides behind you."},
+			{"text": "\"Relax... I know I might look fearsome... but I won't do anything to you that you don't want.  I promise,\" she says, and you feel her body prodding you from behind."},			
+			{"text": "\"Wait...\" you say, feeling how enormous it is."},
+			{"text": "\"I'm waiting.  What's up?\" she asks, and you take a deep breath."},
+			{"text": "\"Just... bracing myself.\""},
+			{"text": "\"Don't.  Just relax... and give me a kiss,\" she says, puckering her lips."}			
+		]
+	},
+	{
+		"key": "DULLAHAN-ANAL-TIGHT",
+		"scriptLines": [
+			{"text": ""}	
+		]
+	},
+	{
+		"key": "DULLAHAN-ANAL-LOOSE",
+		"scriptLines": [
+			{"text": ""}	
+		]
+	},
+	{
+		"key": "DULLAHAN-ANAL-CONT",
+		"scriptLines": [
 			{"text": ""}	
 		]
 	},

@@ -577,8 +577,11 @@ public class CheckScene extends AbstractTextScene {
 		FREE_COCK("", "") {
 			@Override
 			protected boolean getCheck(PlayerCharacter character) { return !character.isChastitied(); }  
-		},
-		
+		}, 
+		TIGHT_BUTTHOLE("Your ass is tight!", "Your ass isn't tight!") {
+			@Override
+			protected boolean getCheck(PlayerCharacter character) { return character.isTight(); }  
+		}, 
 		;
 		private final String success;
 		private final String failure;
