@@ -12989,7 +12989,21 @@
 	{
 		"key": "DULLAHAN-BOTTOM",
 		"scriptLines": [
-			{"text": "You wordlessly stand up, then turn to lean against the wall of the covered bridge, coyly, looking at her with pleading eyes."}
+			{"text": "You wordlessly stand up, then turn to lean against the wall of the covered bridge, coyly, looking at her with pleading eyes."},
+			{"text": "She gets herself up with surprisingly strong abdominal muscles, and then lifts up her head to eye level, and looks you up and down - mostly down - perhaps trying to determine if your body can take it."},
+			{"text": "\"I'm pretty big... not made quite so well for two things: neckties or buttholes.  They wink after, is what I'm saying.  Might be easier for you if you... used your mouth instead.\""}	
+		]
+	},
+	{
+		"key": "DULLAHAN-ANAL",
+		"scriptLines": [
+			{"text": ""}	
+		]
+	},
+	{
+		"key": "DULLAHAN-ORAL",
+		"scriptLines": [
+			{"text": ""}	
 		]
 	},
 	{
@@ -13007,5 +13021,14 @@
 			{"text": "\"This won't hurt.  Just one touch, and...\" she says, reaching out to touch your face with her free hand.  Just before she makes contact, you say that her face is a little gloomy, and then... darkness."},
 			{"text": "When you wake, it's under the covered bridge, and the rain is no more. The dullahan is nowhere to be found... and you feel oddly drained."}
 		]
-	}
+	},
+	{
+		"key": "DULLAHAN-RETREAT",
+		"scriptLines": [
+			{
+			"foreground": "NULL",
+			"mutations": [{"saveType":"TIME", "value":{"class": "java.lang.Integer", "value": 3}}, {"saveType":"HEALTH", "value":{"class": "java.lang.Integer", "value": -10}}],
+			"text": "You leave the way you came, and try to find another way to cross the river rapids. It proves to be quite the detour, and you're exhausted by the trek."}	
+		]
+	},
 ]}

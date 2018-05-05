@@ -915,21 +915,21 @@ public enum EncounterCode {
 			case DEFAULT:
 				return b.branch().textScene("STICK");
 			case DULLAHAN:
-				
+				Branch flee = b.branch("Flee").textScene("DULLAHAN-RETREAT");
 				Branch fight = b.branch("Fight").battleScene(
 					BattleCode.DULLAHAN,
 					b.branch(Outcome.VICTORY).textScene("DULLAHAN-VICTORY"),  
-					b.branch(Outcome.DEFEAT).textScene("DULLAHAN-DEFEAT").choiceScene("Fuck or flee?", b.branch("Fuck").textScene("DULLAHAN-DEFEAT-ANAL"), b.branch("Flee")) 
+					b.branch(Outcome.DEFEAT).textScene("DULLAHAN-DEFEAT").choiceScene("Fuck or flee?", b.branch("Fuck").textScene("DULLAHAN-DEFEAT-ANAL"), flee) 
 				);
 				Branch faust = b.branch("Faust").textScene("DULLAHAN-SOUL");
-				Branch flee = b.branch("Flee");
 				
-				return b.branch().textScene("DULLAHAN-INTRO").choiceScene("What do you do?", 
+				return b.branch().textScene("DULLAHAN-INTRO").choiceScene(
+					"What do you do?", 
 					fight, 
 					b.branch("Fuck").textScene("DULLAHAN-ACCEPT").choiceScene(
 						"What's your move?", 
 						b.branch("Give it to her").require(ChoiceCheckType.FREE_COCK).require(ChoiceCheckType.PERK_GREATER_THAN_X, Perk.TOP, 2).textScene("DULLAHAN-TOP"),
-						b.branch("Take it").require(ChoiceCheckType.LEWD).textScene("DULLAHAN-BOTTOM"),
+						b.branch("Take it").require(ChoiceCheckType.LEWD).textScene("DULLAHAN-BOTTOM").choiceScene("What do you do?", b.branch("Stay the course").textScene("DULLAHAN-ANAL"), b.branch("Give her head").textScene("DULLAHAN-ORAL")),
 						b.branch("Change your mind").textScene("DULLAHAN-SAD").choiceScene("What do you do?", fight, faust, flee)					
 					), 
 					faust, 

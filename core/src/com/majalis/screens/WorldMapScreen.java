@@ -178,7 +178,7 @@ public class WorldMapScreen extends AbstractScreen {
 			public void pinchStop() {}
 			
 			@Override
-			public boolean pinch(Vector2 initialPointer1, Vector2 initialPointer2, Vector2 pointer1, Vector2 pointer2) { return false; }
+			public boolean pinch(Vector2 initialPointer1, Vector2 initialPointer2, Vector2 pointer1, Vector2 pointer2) { return true; }
 			
 			@Override
 			public boolean panStop(float x, float y, int pointer, int button) { return false; }
