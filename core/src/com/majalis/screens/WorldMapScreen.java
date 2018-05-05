@@ -1156,28 +1156,30 @@ public class WorldMapScreen extends AbstractScreen {
 		}
 		
 		if (Gdx.input.isKeyPressed(Keys.A) && !storyMode) {
-			camera.position.z += 5;
+			translationVector.z = 5;
 		}
 		if (Gdx.input.isKeyPressed(Keys.S) && !storyMode) {
-			camera.position.z -= 5;
+			translationVector.z = -5;
 		}
-		
-		camera.position.z = Math.max(Math.min(camera.position.z, 1500), 500);
 		translateCamera(translationVector);
 	}
 	
 	private void translateCamera(Vector3 translationVector) {
 		float x = camera.position.x;
 		float y = camera.position.y;
+		float z = camera.position.z;
 		camera.translate(translationVector);
 		Vector3 position = camera.position;
 		position.x = Math.max(Math.min(position.x, maxX - (Math.max(0, -camera.position.z + 2000))), 500 + (Math.max(0, camera.position.z - 825)));
 		position.y = Math.max(Math.min(position.y, maxY - (Math.max(0, -camera.position.z + 2000))), 500 + (Math.max(0, camera.position.z - 900)));		
+		position.z = Math.max(Math.min(position.z, 1500), 500);
 		x = position.x - x;
 		y = position.y - y;		
-		Vector3 cloudTranslate = new Vector3(x, y, 0);
+		z = position.z - z;
+		Vector3 cloudTranslate = new Vector3(x, y, z);
 		cloudTranslate.x *= 2;
 		cloudTranslate.y *= 2;
+		cloudTranslate.z *= 2;
 		cloudCamera.translate(cloudTranslate);
 		position = cloudCamera.position;
 	}
