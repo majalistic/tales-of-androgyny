@@ -1172,27 +1172,32 @@ public class WorldMapScreen extends AbstractScreen {
 		float speed = 500 * delta;
 		if (Gdx.input.isKeyPressed(Keys.SHIFT_LEFT)) speed *= 2;
 		
-		if (Gdx.input.isKeyPressed(Keys.LEFT) && !Gdx.input.isKeyPressed(Keys.RIGHT)) {
+		if (isLeftPressed() && !isRightPressed()) {
 			translationVector.x -= speed;
 		}
-		if (Gdx.input.isKeyPressed(Keys.RIGHT) && !Gdx.input.isKeyPressed(Keys.LEFT)) {
+		if (isRightPressed() && !isLeftPressed()) {
 			translationVector.x += speed;
 		}
-		if (Gdx.input.isKeyPressed(Keys.DOWN) && !Gdx.input.isKeyPressed(Keys.UP)) {
+		if (isDownPressed() && !isUpPressed()) {
 			translationVector.y -= speed;
 		}
-		if (Gdx.input.isKeyPressed(Keys.UP) && !Gdx.input.isKeyPressed(Keys.DOWN)) {
+		if (isUpPressed() && !isDownPressed()) {
 			translationVector.y += speed;
 		}
 		
-		if (Gdx.input.isKeyPressed(Keys.A) && !storyMode) {
+		if (Gdx.input.isKeyPressed(Keys.N) && !storyMode) {
 			translationVector.z = 5;
 		}
-		if (Gdx.input.isKeyPressed(Keys.S) && !storyMode) {
+		if (Gdx.input.isKeyPressed(Keys.M) && !storyMode) {
 			translationVector.z = -5;
 		}
 		translateCamera(translationVector);
 	}
+	
+	private boolean isLeftPressed() { return Gdx.input.isKeyPressed(Keys.LEFT) || Gdx.input.isKeyPressed(Keys.A); }
+	private boolean isRightPressed() { return Gdx.input.isKeyPressed(Keys.RIGHT) || Gdx.input.isKeyPressed(Keys.D); }
+	private boolean isUpPressed() { return Gdx.input.isKeyPressed(Keys.UP) || Gdx.input.isKeyPressed(Keys.W); }
+	private boolean isDownPressed() { return Gdx.input.isKeyPressed(Keys.DOWN) || Gdx.input.isKeyPressed(Keys.S); }
 	
 	private void translateCamera(Vector3 translationVector) {
 		float maxX = storyMode ? 1000 : WorldMapScreen.maxX;
