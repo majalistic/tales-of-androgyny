@@ -924,12 +924,14 @@ public enum EncounterCode {
 				Branch faust = b.branch("Faust").textScene("DULLAHAN-SOUL");
 				
 				
-				Branch dullahanAnalCont2 = b.branch().textScene("DULLAHAN-ANAL-CONT2").choiceScene("Be her girlfriend?", b.branch("I'm not a girl!").textScene("DULLAHAN-REJECTION"), b.branch("Okay").require(ChoiceCheckType.FREE_COCK).textScene("DULLAHAN-SECONDS"));
 				
+				Branch dullahanGirlfriend = b.branch().choiceScene("Be her girlfriend?", b.branch("I'm not a girl!").textScene("DULLAHAN-REJECTION"), b.branch("Okay").require(ChoiceCheckType.FREE_COCK).textScene("DULLAHAN-SECONDS"));
+				Branch dullahanAnalCont2 = b.branch().textScene("DULLAHAN-ANAL-CONT2").concat(dullahanGirlfriend);
+	
 				Branch dullahanAnalCont = b.branch().textScene("DULLAHAN-ANAL-CONT").checkScene(
 					Perk.ANAL_ADDICT, 
 					b.branch(3).textScene("DULLAHAN-ANAL-EJACULATION").concat(dullahanAnalCont2),
-					b.branch(0).textScene("DULLAHAN-ANAL-CHOKE")
+					b.branch(0).textScene("DULLAHAN-ANAL-CHOKE").choiceScene("Cum or not?", b.branch("I don't want to cum").textScene("DULLAHAN-ANAL-CHOKE-STOP").choiceScene("Ask her to make you cum?", b.branch("Make me cum!").require(ChoiceCheckType.STAT_GREATER_THAN_X, Stat.CHARISMA, 5).textScene("DULLAHAN-REACHAROUND").concat(dullahanAnalCont2), b.branch("Accept it").concat(dullahanAnalCont2)), b.branch("Cum!").textScene("DULLAHAN-ANAL-CHOKE-CUM").concat(dullahanGirlfriend))
 				);
 				
 				return b.branch().textScene("DULLAHAN-INTRO").choiceScene(

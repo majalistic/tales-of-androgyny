@@ -13099,6 +13099,7 @@
 			{"text": "The cock in your ass is so hard and throbbing that you can barely breathe, but the soft lips sucking on your cock and the wet mouth devouring it over and over... your entire body is flush and shaking."},
 			{"text": "What escapes your lips aren't words, but eldritch curses, babbling incoherently, until you can't take it anymore, and you feed her whatever it is she wanted."},
 			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analEjaculation":1}}],
 			"sound": "CUM",
 			"text": "You cum inside her mouth, filling it with everything that you've got, her cheeks bloating outwards even as her eyes smile before forcibly blinking through the sudden ejaculation."},
 			{
@@ -13113,6 +13114,56 @@
 	{
 		"key": "DULLAHAN-ANAL-CHOKE",
 		"scriptLines": [
+			{"text": "\"You want to cum?  I know how to make mortal men cum even if getting fucked in the ass isn't their thing.  How about it?\""},
+			{"text": "\"Whatever... do it...\" a voice that sounds like yours says."},
+			{"text": "She brandishes her whip.  \"Your safeword is \"I don't want to cum\" okay?\" she says, and you feel her wrapping the whip around your neck, your mouth open in surprise."},
+			{"text": "She tightens it, slowly, while pounding your ass with her dick and watching you with a fascinated, almost frenzied expression, and... yep, this will make you cum, alright, but you might pass out first."},
+			{"text": "Every time she tightens the whip around your neck, you feel the urge to ejaculate rise... aided, in no small part, by her muscular abdomen crashing into your flattened ass as she anally skewers you on her penis."},
+			{"text": "You're almost there... a white hot blob sits on the eye of your cock, ready to be blown out of its own accord... but..."}			
+		]
+	},
+	{
+		"key": "DULLAHAN-REACHAROUND",
+		"scriptLines": [
+			{"text": "You beg her to let you cum, and she smiles."},
+			{"text": "\"Oh, I can't say no to you...\" she says, her hand running up the small of your back. \"So petulant... but I think I like that,\" she says, cocking her eyebrow at you, and you feel her hand encircle your cock."},
+			{"text": "She begins to stroke you, and you know that getting stroked while ass-fucked is going to make you cum in seconds."},
+			{"text": "\"Just treat my hand like a sopping wet pussy.  Let it all out 'inside',\" she instructs.  You wonder if she'll be taking her own advice as you feel her lower half pistoning in and out of your ass without hesitation."},
+			{
+			"sound": "CUM",
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analEjaculation":1}}],
+			"text": "You can't hold it, and while jerking your cock, she's also flinging rope - yours, all over the railing."},
+			{"text": "\"There you go!\" she says, before giving you a nice sweet kiss."}
+		]
+	},
+	{
+		"key": "DULLAHAN-ANAL-CHOKE-STOP",
+		"scriptLines": [
+			{"text": "True to her word, she relaxes her grip on the whip, and it falls out from around your neck."},
+			{"text": "\"Guess you don't like it so rough... I can be gentler next time.  I could reach around, but... I feel like teasing you,\" she says, looking coyly at you, and you feel her playfully slap your ass."},
+			{"text": "She starts to pump her hips again while sticking her tongue out at you."},
+			{"text": "\"All you're getting from me this time are kisses and an ass-fucking.  How's that?\""},
+			{"text": "You're nearly about to cum... you want to cum so badly..."}
+		]
+	},
+	{
+		"key": "DULLAHAN-ANAL-CHOKE-CUM",
+		"scriptLines": [
+			{
+			"sound": "CUM",
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analEjaculation":1}}],
+			"text": "You say nothing, and instead, after a few more frenzied thrusts into your pit, you explode outwards in a steady stream of jizz while being choked... until you pass out."}	
+			{"text": "..."},
+			{"text": ".."},
+			{"text": "."},
+			{"text": "\"Nnnngh... take it all up that tight ass, mortal...!\" you hear, and then your vision fades back in and you see her eyes rolled into the back of your head... and a sudden onrush of warmth and pressure into your intestines."},
+			{
+			"sound": "CUM",
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "creampies":1}}],
+			"text": "Your stomach gets whitewashed while you're still barely conscious - apparently, you momentarily passed out and tightened up, and that triggered her full-bore goo-spewing into your vice-like butthole."},
+			{"text": "She looks cum-drunk. \"I made a real mess in there... mmm... hey,\" she says, in a flat, understated tone."},
+			{"text": "\"Um... yeah?\" you reply, unsure."},
+			{"text": "\"Be my girlfriend.\""}
 		]
 	},
 	{
