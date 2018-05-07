@@ -37,17 +37,33 @@ public class GameWorld {
 		reflections = new Array<Image>();
 		lilies = new Array<AnimatedImage>();
 		
+		Array<TextureRegion> forestTextures = new Array<TextureRegion>();
+		Array<TextureRegion> forestShadowTextures = new Array<TextureRegion>();
+		forestTextures.add(new TextureRegion(assetManager.get(AssetEnum.FOREST_1.getTexture())));
+		forestTextures.add(new TextureRegion(assetManager.get(AssetEnum.FOREST_2.getTexture())));
+		TextureRegion forestShadowTexture = new TextureRegion(assetManager.get(AssetEnum.FOREST_1.getTexture()));
+		forestShadowTexture.flip(true, false);
+		forestShadowTextures.add(forestShadowTexture);
+		forestShadowTexture = new TextureRegion(assetManager.get(AssetEnum.FOREST_2.getTexture()));
+		forestShadowTexture.flip(true, false);
+		forestShadowTextures.add(forestShadowTexture);
+		
+		
+		Texture treeClusterTextureSheet = assetManager.get(AssetEnum.TREE_CLUSTERS.getTexture());
 		Array<TextureRegion> treeClusterTextures = new Array<TextureRegion>();
 		Array<TextureRegion> treeClusterShadowTextures = new Array<TextureRegion>();
-		treeClusterTextures.add(new TextureRegion(assetManager.get(AssetEnum.TREE_CLUSTER_1.getTexture())));
-		treeClusterTextures.add(new TextureRegion(assetManager.get(AssetEnum.TREE_CLUSTER_2.getTexture())));
-		TextureRegion shadowTextureCluster = new TextureRegion(assetManager.get(AssetEnum.TREE_CLUSTER_1.getTexture()));
-		shadowTextureCluster.flip(true, false);
-		treeClusterShadowTextures.add(shadowTextureCluster);
-		shadowTextureCluster = new TextureRegion(assetManager.get(AssetEnum.TREE_CLUSTER_2.getTexture()));
-		shadowTextureCluster.flip(true, false);
-		treeClusterShadowTextures.add(shadowTextureCluster);
-				
+		int treeClusterRowSize = 4;
+		int treeClusterWidth = 384;
+		int treeClusterHeight = 256;
+		for (int ii = 0; ii < treeClusterRowSize; ii++) {
+			for (int jj = 0; jj < 2; jj++) {
+				treeClusterTextures.add(new TextureRegion(treeClusterTextureSheet, ii * treeClusterWidth, jj * treeClusterHeight, treeClusterWidth, treeClusterHeight));
+				TextureRegion shadowTexture = new TextureRegion(treeClusterTextureSheet, ii * treeClusterWidth, jj * treeClusterHeight, treeClusterWidth, treeClusterHeight);
+				shadowTexture.flip(true, false);
+				treeClusterShadowTextures.add(shadowTexture);
+			}
+		}
+		
 		Texture doodadTextureSheet = assetManager.get(AssetEnum.DOODADS.getTexture());
 		Array<TextureRegion> treeTextures = new Array<TextureRegion>();
 		Array<TextureRegion> treeShadowTextures = new Array<TextureRegion>();
@@ -135,6 +151,11 @@ public class GameWorld {
 						Array<TextureRegion> shadowTextures;
 						int arraySize;
 						if (isSuperAbundantTrees(x, y) && rando % 7 == 0) {
+							textures = forestTextures;
+							shadowTextures = forestShadowTextures;
+							arraySize = forestTextures.size;
+						}
+						else if (closest > 6 && (treeAbundance || rando % 7 == 0)) {
 							textures = treeClusterTextures;
 							shadowTextures = treeClusterShadowTextures;
 							arraySize = treeClusterTextures.size;
@@ -259,7 +280,7 @@ public class GameWorld {
 	private boolean lake(int x, int y, int lakeX, int lakeY, int size) { return distance(x, y, lakeX, lakeY) < size; }
 	
 	private boolean isSuperAbundantTrees(int x, int y) { return x + y * 2 > 170 && x + y * 2 < 180; }
-	private boolean isAbundantTrees(int x, int y) { return (x > 0 && x < 16) || isSuperAbundantTrees(x, y); }
+	private boolean isAbundantTrees(int x, int y) { return (x > 0 && x < 10) || isSuperAbundantTrees(x, y); }
 	
 	private int worldCollide(int x, int y) {
 		int minDistance = 100;
