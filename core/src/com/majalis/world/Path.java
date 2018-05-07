@@ -1,6 +1,8 @@
 package com.majalis.world;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.Array;
@@ -61,4 +63,12 @@ public class Path extends Group {
 	}
 	
 	public Array<Vector2> getChunks() { return pathChunks; }	
+	
+	@Override
+	public void setColor(Color color) {
+		for (Actor child : getChildren()) {
+			child.setColor(color);
+		}
+		super.setColor(color);
+	}	
 }
