@@ -132,6 +132,8 @@ public enum AssetEnum {
 	
 	GROUND_SHEET("worldmap/GroundSheet.png"),
 	DOODADS("worldmap/Doodads.png"),
+	TREE_CLUSTER_1("worldmap/cluster01.png"),
+	TREE_CLUSTER_2("worldmap/cluster02.png"),	
 	
 	WORLD_MAP_UI("worldmap/CharacterInfo.png"),
 	WORLD_MAP_HOVER("worldmap/HoverBox.png"),

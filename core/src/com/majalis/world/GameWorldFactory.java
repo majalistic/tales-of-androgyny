@@ -205,7 +205,7 @@ public class GameWorldFactory {
 			if (pathChunks.contains(new Vector2(pathChunk.x - 1, pathChunk.y), false)) tileMask += 8; // bottom left
 			if (pathChunks.contains(new Vector2(pathChunk.x - 1, pathChunk.y + 1), false)) tileMask += 16; // top left
 			if (pathChunks.contains(new Vector2(pathChunk.x, pathChunk.y + 1), false)) tileMask += 32; // top
-			pathTextureMap.put(pathChunk, new TextureRegion(pathSheet, (tileMask % 32) * (GameWorldHelper.getTileWidth()) + 1, (tileMask > 31 ? 1 : 0) * (GameWorldHelper.getTileHeight()), GameWorldHelper.getTileWidth(), GameWorldHelper.getTileHeight()));
+			pathTextureMap.put(pathChunk, new TextureRegion(pathSheet, (tileMask % 32) * (GameWorldHelper.getTileWidth()), (tileMask > 31 ? 1 : 0) * (GameWorldHelper.getTileHeight()), GameWorldHelper.getTileWidth(), GameWorldHelper.getTileHeight()));
 		}
 		
 		for (GameWorldNode node : nodes) {

@@ -37,6 +37,17 @@ public class GameWorld {
 		reflections = new Array<Image>();
 		lilies = new Array<AnimatedImage>();
 		
+		Array<TextureRegion> treeClusterTextures = new Array<TextureRegion>();
+		Array<TextureRegion> treeClusterShadowTextures = new Array<TextureRegion>();
+		treeClusterTextures.add(new TextureRegion(assetManager.get(AssetEnum.TREE_CLUSTER_1.getTexture())));
+		treeClusterTextures.add(new TextureRegion(assetManager.get(AssetEnum.TREE_CLUSTER_2.getTexture())));
+		TextureRegion shadowTextureCluster = new TextureRegion(assetManager.get(AssetEnum.TREE_CLUSTER_1.getTexture()));
+		shadowTextureCluster.flip(true, false);
+		treeClusterShadowTextures.add(shadowTextureCluster);
+		shadowTextureCluster = new TextureRegion(assetManager.get(AssetEnum.TREE_CLUSTER_2.getTexture()));
+		shadowTextureCluster.flip(true, false);
+		treeClusterShadowTextures.add(shadowTextureCluster);
+				
 		Texture doodadTextureSheet = assetManager.get(AssetEnum.DOODADS.getTexture());
 		Array<TextureRegion> treeTextures = new Array<TextureRegion>();
 		Array<TextureRegion> treeShadowTextures = new Array<TextureRegion>();
@@ -118,11 +129,17 @@ public class GameWorld {
 				
 				boolean treeAbundance = isAbundantTrees(x, y);				
 				if (closest >= 3 && toAdd == GroundType.DIRT || toAdd == GroundType.RED_LEAF_0 || toAdd == GroundType.RED_LEAF_1) {
-					if (random.nextInt() % (treeAbundance ? 2 : 5) == 0) {
+					int rando = random.nextInt();
+					if (rando % (treeAbundance ? 2 : 5) == 0) {
 						Array<TextureRegion> textures;
 						Array<TextureRegion> shadowTextures;
 						int arraySize;
-						if (!(treeAbundance) && random.nextInt() % 6 == 0) {
+						if (isSuperAbundantTrees(x, y) && rando % 7 == 0) {
+							textures = treeClusterTextures;
+							shadowTextures = treeClusterShadowTextures;
+							arraySize = treeClusterTextures.size;
+						}
+						else if (!(treeAbundance) && random.nextInt() % 6 == 0) {
 							textures = rockTextures;
 							shadowTextures = rockShadowTextures;
 							arraySize = rockTextures.size;
@@ -241,7 +258,8 @@ public class GameWorld {
 	private boolean isLake(int x, int y) { return lake(x, y, 13, 90, 5) || lake(x, y, 87, 55, 7) || lake(x, y, 80, 62, 5) || lake(x, y, 94, 55, 3); }		
 	private boolean lake(int x, int y, int lakeX, int lakeY, int size) { return distance(x, y, lakeX, lakeY) < size; }
 	
-	private boolean isAbundantTrees(int x, int y) { return (x + y > 147 && x + y < 150) || (x > 0 && x < 15) || (x + y * 2 > 180 && x + y * 2 < 195); }
+	private boolean isSuperAbundantTrees(int x, int y) { return x + y * 2 > 170 && x + y * 2 < 180; }
+	private boolean isAbundantTrees(int x, int y) { return (x > 0 && x < 16) || isSuperAbundantTrees(x, y); }
 	
 	private int worldCollide(int x, int y) {
 		int minDistance = 100;
