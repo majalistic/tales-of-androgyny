@@ -1,16 +1,15 @@
 package com.majalis.world;
-
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.ObjectMap;
 
-public class Path extends Actor {
-	private final Array<PathChunk> pathChunks;
-	public Path(Texture roadImage, Vector2 start, Vector2 finish) {
-		pathChunks = new Array<PathChunk>();
+public class Path extends Group {
+	private final Array<Vector2> pathChunks;
+	public Path(Vector2 start, Vector2 finish) {
+		pathChunks = new Array<Vector2>();
 		int distance = GameWorldHelper.distance((int)start.x, (int)start.y, (int)finish.x, (int)finish.y);
 		while (distance > 0) {
 			Vector2 currentStart = new Vector2(start.x, start.y);
@@ -46,31 +45,20 @@ public class Path extends Actor {
 					start.y--;
 				}
 			}
-			pathChunks.add(new PathChunk(roadImage, currentStart, start));
+			pathChunks.add(new Vector2(currentStart));
 			distance = GameWorldHelper.distance((int)start.x, (int)start.y, (int)finish.x, (int)finish.y);
 		}
 	}
 	
-	@Override
-    public void setColor(Color color) {
-		super.setColor(color);
-		for (PathChunk chunk : pathChunks) {
-			chunk.setColor(color);
-		}	
+	public void setPathTextures(ObjectMap<Vector2, TextureRegion> pathTextureMap) {
+		for (ObjectMap.Entry<Vector2, TextureRegion> pathTexture : pathTextureMap) {
+			if (pathChunks.contains(pathTexture.key, true)) {
+				Image newPathChunk = new Image(pathTexture.value);
+				newPathChunk.setPosition(GameWorldHelper.getTrueX((int)pathTexture.key.x), GameWorldHelper.getTrueY((int)pathTexture.key.x, (int)pathTexture.key.y));
+				this.addActor(newPathChunk);
+			}			
+		}
 	}
 	
-	@Override
-    public void act(float delta) {
-		super.act(delta);
-		for (PathChunk chunk : pathChunks) {
-			chunk.act(delta);
-		}	
-	}
-	
-	@Override
-    public void draw(Batch batch, float parentAlpha) {
-		for (PathChunk chunk : pathChunks) {
-			chunk.draw(batch, parentAlpha);
-		}	
-	}
+	public Array<Vector2> getChunks() { return pathChunks; }	
 }

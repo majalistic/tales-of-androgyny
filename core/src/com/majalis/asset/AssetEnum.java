@@ -146,7 +146,7 @@ public enum AssetEnum {
 	CLOUD_3("worldmap/Cloud3.png"),
 	CLOUD_4("worldmap/Cloud4.png"),
 	CLOUD_5("worldmap/Cloud5.png"),
-	ROAD("worldmap/Road.png"),
+	ROAD_TILES("worldmap/RoadTiles.png"),
 	CASTLE("worldmap/Castle.png"),
 	COTTAGE("worldmap/CottageNode0.png"),
 	TOWN("worldmap/TownNode0.png"),

@@ -35,7 +35,7 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 	private final int x, y;
 	private final PlayerCharacter character;
 	private final VisitInfo visitInfo;
-	private final Texture roadImage;private final ClickListener fireListener;
+	private final ClickListener fireListener;
 	private final Image arrow;
 	private boolean current;
 	private boolean active;	// indicates adjacency to current node for arrow selector
@@ -58,7 +58,6 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 		Texture activeImageTexture = assetManager.get(encounter.getCode().getTexture().getTexture());
 		this.addActor(encounter.getCode().hasGenericTile() ? new AnimationBuilder(activeImageTexture, 3, 64, 64, .14f).setPlayMode(PlayMode.LOOP_PINGPONG).getActor() : new Image(activeImageTexture));
 		
-		roadImage = assetManager.get(AssetEnum.ROAD.getTexture());
 		arrow = initArrow(new Image(assetManager.get(AssetEnum.ARROW.getTexture())));
 		
 		this.addAction(Actions.show());
@@ -257,7 +256,7 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 			return;
 		}
 		connectedNodes.add(otherNode);
-		Path newPath = new Path(roadImage, getHexPosition(), otherNode.getHexPosition());
+		Path newPath = new Path(getHexPosition(), otherNode.getHexPosition());
 		setPathAlpha(newPath, otherNode);
 		pathMap.put(otherNode, newPath);
 		paths.add(newPath);

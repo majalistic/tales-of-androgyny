@@ -139,7 +139,7 @@ public class WorldMapScreen extends AbstractScreen {
 			PORTRAIT_FELLATIO, PORTRAIT_MOUTHBOMB, PORTRAIT_GRIN, PORTRAIT_HIT, PORTRAIT_LOVE, PORTRAIT_LUST,
 			PORTRAIT_SMILE, PORTRAIT_SURPRISE, PORTRAIT_GRIMACE, PORTRAIT_POUT, PORTRAIT_HAPPY, 
 			PORTRAIT_NEUTRAL_FEMME, PORTRAIT_AHEGAO_FEMME, PORTRAIT_FELLATIO_FEMME, PORTRAIT_MOUTHBOMB_FEMME, PORTRAIT_GRIN_FEMME, PORTRAIT_HIT_FEMME, PORTRAIT_LOVE_FEMME, PORTRAIT_LUST_FEMME, PORTRAIT_SMILE_FEMME, PORTRAIT_SURPRISE_FEMME, PORTRAIT_GRIMACE_FEMME, PORTRAIT_POUT_FEMME, PORTRAIT_HAPPY_FEMME,
-			GROUND_SHEET, DOODADS, WORLD_MAP_BG, CHARACTER_ANIMATION, MOUNTAIN_ACTIVE, FOREST_ACTIVE, FOREST_INACTIVE, CASTLE, TOWN, COTTAGE, APPLE, MEAT, CLOUD, CLOUD_2, CLOUD_3, CLOUD_4, CLOUD_5, ROAD, WORLD_MAP_UI, WORLD_MAP_HOVER, ARROW, CHARACTER_SCREEN, EXP, GOLD, TIME, HEART, SEARCHING, STEALTH, NULL
+			GROUND_SHEET, DOODADS, WORLD_MAP_BG, CHARACTER_ANIMATION, MOUNTAIN_ACTIVE, FOREST_ACTIVE, FOREST_INACTIVE, CASTLE, TOWN, COTTAGE, APPLE, MEAT, CLOUD, CLOUD_2, CLOUD_3, CLOUD_4, CLOUD_5, ROAD_TILES, WORLD_MAP_UI, WORLD_MAP_HOVER, ARROW, CHARACTER_SCREEN, EXP, GOLD, TIME, HEART, SEARCHING, STEALTH, NULL
 		};
 		for (AssetEnum asset: assets) {
 			resourceRequirements.add(asset.getTexture());
@@ -1316,15 +1316,15 @@ public class WorldMapScreen extends AbstractScreen {
 						
 						GroundType currentHexType = middle.get(y);
 						// check the six adjacent tiles and add accordingly
-						if (right != null) { layers[right.get(y).ordinal()] += 1; }
+						if (right != null) { layers[right.get(y).ordinal()] += 1; } // top right
 						if (y - 1 >= 0)	{
-							if (right != null) { layers[right.get(y - 1).ordinal()] += 2; }
-							layers[middle.get(y - 1).ordinal()] += 4;
+							if (right != null) { layers[right.get(y - 1).ordinal()] += 2; } // bottom right
+							layers[middle.get(y - 1).ordinal()] += 4; // bottom
 						}
-						if (left != null)	{ layers[left.get(y).ordinal()] += 8; }
+						if (left != null)	{ layers[left.get(y).ordinal()] += 8; } // bottom left
 						if (y + 1 < layerSize)	{
-							if (left != null) { layers[left.get(y + 1).ordinal()] += 16; }		
-							layers[middle.get(y + 1).ordinal()] += 32;
+							if (left != null) { layers[left.get(y + 1).ordinal()] += 16; } // top left
+							layers[middle.get(y + 1).ordinal()] += 32; // top
 						}
 						if (waterLayer) {
 							if (currentHexType == GroundType.WATER) {

@@ -2,10 +2,15 @@ package com.majalis.world;
 
 import static com.majalis.encounter.EncounterCode.*;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.RandomXS128;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.IntMap;
+import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.ObjectSet;
+import com.majalis.asset.AssetEnum;
 import com.majalis.character.PlayerCharacter;
 import com.majalis.encounter.EncounterCode;
 import com.majalis.save.LoadService;
@@ -181,6 +186,31 @@ public class GameWorldFactory {
 			}
 			if (first.getPathTo(zone4.getEndNodes().get(0)).size == 0) {
 				Logging.logTime("Failed to create a path from start to finish");
+			}
+		}
+		Array<Vector2> pathChunks = new Array<Vector2>();
+		for (GameWorldNode node : nodes) {
+			for (Path path : node.getPaths()) {
+				pathChunks.addAll(path.getChunks());
+			}
+		}
+		
+		Texture pathSheet = assetManager.get(AssetEnum.ROAD_TILES.getTexture());
+		ObjectMap<Vector2, TextureRegion> pathTextureMap = new ObjectMap<Vector2, TextureRegion>();
+		for (Vector2 pathChunk : pathChunks) {
+			int tileMask = 0;
+			if (pathChunks.contains(new Vector2(pathChunk.x + 1, pathChunk.y), false)) tileMask += 1; // top right
+			if (pathChunks.contains(new Vector2(pathChunk.x + 1, pathChunk.y - 1), false)) tileMask += 2; // bottom right
+			if (pathChunks.contains(new Vector2(pathChunk.x, pathChunk.y - 1), false)) tileMask += 4; // bottom
+			if (pathChunks.contains(new Vector2(pathChunk.x - 1, pathChunk.y), false)) tileMask += 8; // bottom left
+			if (pathChunks.contains(new Vector2(pathChunk.x - 1, pathChunk.y + 1), false)) tileMask += 16; // top left
+			if (pathChunks.contains(new Vector2(pathChunk.x, pathChunk.y + 1), false)) tileMask += 32; // top
+			pathTextureMap.put(pathChunk, new TextureRegion(pathSheet, (tileMask % 32) * (GameWorldHelper.getTileWidth()) + 1, (tileMask > 31 ? 1 : 0) * (GameWorldHelper.getTileHeight()), GameWorldHelper.getTileWidth(), GameWorldHelper.getTileHeight()));
+		}
+		
+		for (GameWorldNode node : nodes) {
+			for (Path path : node.getPaths()) {
+				path.setPathTextures(pathTextureMap);
 			}
 		}
 		
