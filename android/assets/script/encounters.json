@@ -12872,6 +12872,14 @@
 		]
 	},	
 	{
+		"key": "DULLAHAN-STEALTH",
+		"scriptLines": [
+			{
+			"music": "HORROR_MUSIC",
+			"text": ""}
+		]
+	},
+	{
 		"key": "DULLAHAN-INTRO",
 		"scriptLines": [
 			{

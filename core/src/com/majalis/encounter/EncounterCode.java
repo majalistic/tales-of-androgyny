@@ -932,25 +932,29 @@ public enum EncounterCode {
 					b.branch(0).textScene("DULLAHAN-ANAL-CHOKE").choiceScene("Cum or not?", b.branch("I don't want to cum").textScene("DULLAHAN-ANAL-CHOKE-STOP").choiceScene("Ask her to make you cum?", b.branch("Make me cum!").require(ChoiceCheckType.STAT_GREATER_THAN_X, Stat.CHARISMA, 5).textScene("DULLAHAN-REACHAROUND").concat(dullahanAnalCont2), b.branch("Accept it").concat(dullahanAnalCont2)), b.branch("Cum!").textScene("DULLAHAN-ANAL-CHOKE-CUM").concat(dullahanGirlfriend))
 				);
 				
-				return b.branch().textScene("DULLAHAN-INTRO").choiceScene(
-					"What do you do?", 
-					fight, 
-					b.branch("Fuck").textScene("DULLAHAN-ACCEPT").choiceScene(
-						"What's your move?", 
-						b.branch("Give it to her").require(ChoiceCheckType.FREE_COCK).require(ChoiceCheckType.PERK_GREATER_THAN_X, Perk.TOP, 2).textScene("DULLAHAN-TOP"),
-						b.branch("Take it").require(ChoiceCheckType.LEWD).textScene("DULLAHAN-BOTTOM").choiceScene(
-							"What do you do?", 
-							b.branch("Stay the course").textScene("DULLAHAN-ANAL").checkScene(
-								CheckType.TIGHT_BUTTHOLE, 
-								b.branch(true).textScene("DULLAHAN-ANAL-TIGHT").concat(dullahanAnalCont), 
-								b.branch(false).textScene("DULLAHAN-ANAL-LOOSE").concat(dullahanAnalCont)
-							), 
-							b.branch("Give her head").textScene("DULLAHAN-ORAL").checkScene(Perk.BLOWJOB_EXPERT, b.branch(3).textScene("DULLAHAN-ORAL-GOOD"), b.branch(0).textScene("DULLAHAN-ORAL-BAD").choiceScene("Have her demonstrate?", b.branch("Yes").textScene("DULLAHAN-ORAL-SHOWOFF"), b.branch("No").textScene("DULLAHAN-ORAL-FINISH")))
-						),
-						b.branch("Change your mind").textScene("DULLAHAN-SAD").choiceScene("What do you do?", fight, faust, flee)					
-					), 
-					faust, 
-					flee
+				return b.branch().checkScene(
+					CheckType.STEALTH_LEVEL_3,
+					b.branch(true).textScene("DULLAHAN-STEALTH"), 
+					b.branch(false).textScene("DULLAHAN-INTRO").choiceScene(
+						"What do you do?", 
+						fight, 
+						b.branch("Fuck").textScene("DULLAHAN-ACCEPT").choiceScene(
+							"What's your move?", 
+							b.branch("Give it to her").require(ChoiceCheckType.FREE_COCK).require(ChoiceCheckType.PERK_GREATER_THAN_X, Perk.TOP, 2).textScene("DULLAHAN-TOP"),
+							b.branch("Take it").require(ChoiceCheckType.LEWD).textScene("DULLAHAN-BOTTOM").choiceScene(
+								"What do you do?", 
+								b.branch("Stay the course").textScene("DULLAHAN-ANAL").checkScene(
+									CheckType.TIGHT_BUTTHOLE, 
+									b.branch(true).textScene("DULLAHAN-ANAL-TIGHT").concat(dullahanAnalCont), 
+									b.branch(false).textScene("DULLAHAN-ANAL-LOOSE").concat(dullahanAnalCont)
+								), 
+								b.branch("Give her head").textScene("DULLAHAN-ORAL").checkScene(Perk.BLOWJOB_EXPERT, b.branch(3).textScene("DULLAHAN-ORAL-GOOD"), b.branch(0).textScene("DULLAHAN-ORAL-BAD").choiceScene("Have her demonstrate?", b.branch("Yes").textScene("DULLAHAN-ORAL-SHOWOFF"), b.branch("No").textScene("DULLAHAN-ORAL-FINISH")))
+							),
+							b.branch("Change your mind").textScene("DULLAHAN-SAD").choiceScene("What do you do?", fight, faust, flee)					
+						), 
+						faust, 
+						flee
+					)
 				);
 			case DRYAD:
 				return b.branch().textScene("DRYAD-INTRO").choiceScene(
