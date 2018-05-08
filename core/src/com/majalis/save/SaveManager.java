@@ -258,6 +258,7 @@ public class SaveManager implements SaveService, LoadService {
 	        }
 	        catch(SerializationException ex) {
 	        	System.err.println(ex.getMessage());
+	        	// this should load the Troja save file
 	        	save = getDefaultSave();
 	        }
         }
