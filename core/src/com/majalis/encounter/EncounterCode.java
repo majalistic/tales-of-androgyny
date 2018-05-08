@@ -932,9 +932,23 @@ public enum EncounterCode {
 					b.branch(0).textScene("DULLAHAN-ANAL-CHOKE").choiceScene("Cum or not?", b.branch("I don't want to cum").textScene("DULLAHAN-ANAL-CHOKE-STOP").choiceScene("Ask her to make you cum?", b.branch("Make me cum!").require(ChoiceCheckType.STAT_GREATER_THAN_X, Stat.CHARISMA, 5).textScene("DULLAHAN-REACHAROUND").concat(dullahanAnalCont2), b.branch("Accept it").concat(dullahanAnalCont2)), b.branch("Cum!").textScene("DULLAHAN-ANAL-CHOKE-CUM").concat(dullahanGirlfriend))
 				);
 				
+				Branch returnHead = b.branch("Return head").textScene("DULLAHAN-RETURNHEAD");
+				Branch caughtByBody = b.branch().textScene("DULLAHAN-CAUGHT");
+				Branch caughtCompanion = b.branch("DULLAHAN-COMPANION").choiceScene("Confront her?", b.branch("Yes").textScene("DULLAHAN-CONFRONT").concat(caughtByBody), b.branch("No").textScene("DULLAHAN-COMPANION-LEWD"));
 				return b.branch().checkScene(
 					CheckType.STEALTH_LEVEL_3,
-					b.branch(true).textScene("DULLAHAN-STEALTH"), 
+					b.branch(true).textScene("DULLAHAN-STEALTH").choiceScene(
+						"What do you do?", 
+						b.branch("Steal her head").require(ChoiceCheckType.STAT_GREATER_THAN_X, Stat.AGILITY, 5).textScene("DULLAHAN-HEADSTEAL").choiceScene(
+							"What do you do?", 
+							b.branch("Play keepaway").checkScene(
+								CheckType.HAS_TRUDY, b.branch(true).concat(caughtCompanion), b.branch(false).checkScene(CheckType.HAS_KYLIRA, b.branch(true).concat(caughtCompanion), b.branch(false).textScene("DULLAHAN-CHASE").concat(caughtByBody))
+							), 
+							returnHead
+						), 
+						b.branch("Watch").textScene("DULLAHAN-SELFBJ"), 
+						b.branch("Sneak past")
+					), 
 					b.branch(false).textScene("DULLAHAN-INTRO").choiceScene(
 						"What do you do?", 
 						fight, 

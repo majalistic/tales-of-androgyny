@@ -12880,6 +12880,54 @@
 		]
 	},
 	{
+		"key": "DULLAHAN-HEADSTEAL",
+		"scriptLines": [
+			{"text": ""}
+		]
+	},
+	{
+		"key": "DULLAHAN-RETURNHEAD",
+		"scriptLines": [
+			{"text": ""}
+		]
+	},
+	{
+		"key": "DULLAHAN-CHASE",
+		"scriptLines": [
+			{"text": ""}
+		]
+	},
+	{
+		"key": "DULLAHAN-CAUGHT",
+		"scriptLines": [
+			{"text": ""}
+		]
+	},
+	{
+		"key": "DULLAHAN-COMPANION",
+		"scriptLines": [
+			{"text": ""}
+		]
+	},
+	{
+		"key": "DULLAHAN-COMPANION-LEWD",
+		"scriptLines": [
+			{"text": ""}
+		]
+	},
+	{
+		"key": "DULLAHAN-CONFRONT",
+		"scriptLines": [
+			{"text": ""}
+		]
+	},
+	{
+		"key": "DULLAHAN-SELFBJ",
+		"scriptLines": [
+			{"text": ""}
+		]
+	},
+	{
 		"key": "DULLAHAN-INTRO",
 		"scriptLines": [
 			{
