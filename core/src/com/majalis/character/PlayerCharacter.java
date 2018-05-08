@@ -648,7 +648,7 @@ public class PlayerCharacter extends AbstractCharacter {
 			if (currentExperience > experienceForLevel) storedLevels++;
 			currentExperience -= experienceForLevel;
 		}
-		return (nextLevel + currentExperience) * 1.0f / nextLevel;
+		return nextLevel == 0 ? 0 : (nextLevel + currentExperience) * 1.0f / nextLevel;
 	}
 	
 	public int getStoredLevels() {
