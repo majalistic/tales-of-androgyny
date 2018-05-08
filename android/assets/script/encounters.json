@@ -12887,10 +12887,12 @@
 			{
 			"sound": "HORSE_NEIGH",
 			"mutations": [{"profileSaveType":"KNOWLEDGE", "value":{"class": "java.lang.String", "value": "Dullahan"}}],
-			"foreground": "DULLAHAN",			
+			"foreground": "DULLAHAN_HEADLESS",			
 			"text": "A large, well-proportioned and well-fit cloaked figure sits atop the horse, which is half again as large as any horse you've ever seen, its forelegs nearly reaching the peaked ceiling as it rears up and whinnies."},
 			{"text": "You look up at the figure's face, but where their neck should be... is just... nothing. Or, not nothing, but a ghostly presence, perhaps a trick of the light? But no matter how you try to view the haunted apparition with fresh eyes can you resolve a head, much less a face, where one ought to be."},
-			{"text": "The horse brings all four hooves to ground, and you finally do see the rider's head, but not, as you'd hoped, atop their shoulders, instead resting on the pommel of their saddle, eyes wide with frenzy, impossibly alive."},
+			{
+			"foreground": "DULLAHAN",		
+			"text": "The horse brings all four hooves to ground, and you finally do see the rider's head, but not, as you'd hoped, atop their shoulders, instead resting on the pommel of their saddle, eyes wide with frenzy, impossibly alive."},
 			{"text": "You do not know if the fey apparition before you is by trickery or sorcery, but you do have a guess at how many strides you could take in retreat towards the end of the bridge behind you before the horseman caught up with you, and the answer is disappointing: not nearly enough."},
 			{"text": "Just as you expect the headless figure to hyah and charge, they dismount, their heeled feet crashing into the planks with a loud thud, before they bring themselves up to their full height, which, even without the normal top bit, is impressive."},
 			{"text": "Beneath the cloak, you see, they are... not quite dressed for church.  Their bosom is barely covered, as is what lies below their belly button, their shoulders, hips, thighs, and belly completely uncovered."},

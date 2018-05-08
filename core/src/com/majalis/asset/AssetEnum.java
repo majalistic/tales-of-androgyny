@@ -252,6 +252,7 @@ public enum AssetEnum {
 	WARLOCK("enemies/Warlock.png"),
 	WARLOCK_ANAL("enemies/WarlockAnal.jpg"),
 	DULLAHAN("enemies/Dullahan.png"),
+	DULLAHAN_HEADLESS("enemies/DullahanHeadless.png"),
 	
 	TRAP_BONUS("enemies/TrapBonus.jpg"), 
 
