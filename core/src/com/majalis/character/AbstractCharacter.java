@@ -1213,7 +1213,7 @@ public abstract class AbstractCharacter extends Group {
 		return "You " + (alreadyEquipped ? "unequipped" : "equipped") + " the " + accessory.getName() + ".";
 	}
 	
-	public boolean isPlugged() { return plug != null; }
+	public boolean isPlugged() { return plug != null && plug.isPlug(); }
 	public boolean isChastitied() { return cage != null; }
 	protected boolean hasKey() { return inventory.contains(new Misc(MiscType.KEY), false); }
 	

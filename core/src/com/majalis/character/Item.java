@@ -86,12 +86,14 @@ public abstract class Item {
 
 		@Override
 		public String getDescription() { return type.getDescription(); }
+		public boolean isPlug() { return type != PlugType.RINGPLUG; }
 	}
 	
 	public enum PlugType {
 		BUTTPLUG ("Butt Plug", "A thing which will fill up your rectum pretty snugly."),
 		BEADS ("Anal Beads", "A string of beads meant to insert into the anus.\nPulling them out causes pleasure."),
-		TAILPLUG("Tail Plug", "A buttplug attached to a fluffy tail. Arouses a certain type of person.")
+		TAILPLUG("Tail Plug", "A buttplug attached to a fluffy tail.\nArouses a certain type of person."),
+		RINGPLUG("Ring Plug", "A plug that keeps the sphincter open.\nDoes not require removal before insertion.")
 		;
 		private final String label;
 		private final String description;

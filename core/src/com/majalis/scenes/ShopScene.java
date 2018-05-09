@@ -358,6 +358,7 @@ public class ShopScene extends Scene {
 				shop.items.add(new Plug(PlugType.BUTTPLUG));
 				shop.items.add(new Plug(PlugType.BEADS));
 				shop.items.add(new Plug(PlugType.TAILPLUG));
+				shop.items.add(new Plug(PlugType.RINGPLUG));
 				shop.items.add(new ChastityCage());
 				break;
 			case MONSTER_SHOP:
