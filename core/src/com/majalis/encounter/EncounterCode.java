@@ -955,7 +955,7 @@ public enum EncounterCode {
 						b.branch("Steal her head").require(ChoiceCheckType.STAT_GREATER_THAN_X, Stat.AGILITY, 5).textScene("DULLAHAN-HEADSTEAL").choiceScene(
 							"What do you do?", 
 							b.branch("Play keepaway").textScene("DULLAHAN-CHASE").checkScene(
-								CheckType.HAS_TRUDY, b.branch(true).concat(caughtCompanion), b.branch(false).checkScene(CheckType.HAS_KYLIRA, b.branch(true).concat(caughtCompanion), b.branch(false).concat(caughtByBody))
+								CheckType.HAS_TRUDY, b.branch(true).concat(caughtCompanion), b.branch(false).checkScene(CheckType.HAS_KYLIRA, b.branch(true).concat(caughtCompanion), b.branch(false).textScene("DULLAHAN-CATCH-UP").concat(caughtByBody))
 							), 
 							returnHead
 						), 

@@ -12909,12 +12909,6 @@
 		]
 	},
 	{
-		"key": "DULLAHAN-TOSSHEAD",
-		"scriptLines": [
-			{"text": ""}
-		]
-	},
-	{
 		"key": "DULLAHAN-CHASE",
 		"scriptLines": [
 			{"text": "You continue to run, and manage to lose track of her body, hiding near the covered bridge."},
@@ -12933,9 +12927,15 @@
 		]
 	},
 	{
+		"key": "DULLAHAN-CATCH-UP",
+		"scriptLines": [
+			{"text": "The dullahan's body eventually does find you, apparently having a sense for its head independent of sight or sound or smell."}
+		]
+	},
+	{
 		"key": "DULLAHAN-CAUGHT",
 		"scriptLines": [
-			{"text": ""}
+			{"text": "It stands, ominously, awaiting your movement. The whipping rain has turned the river into a rapids behind you, so there is nowhere to escape to."}
 		]
 	},
 	{
@@ -12970,6 +12970,12 @@
 		"key": "DULLAHAN-CONFRONT",
 		"scriptLines": [
 			{"text": "You find the dullahan's body and she calls out to it. It stops mid-swing of its whip."}
+		]
+	},
+	{
+		"key": "DULLAHAN-TOSSHEAD",
+		"scriptLines": [
+			{"text": ""}
 		]
 	},
 	{
