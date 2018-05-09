@@ -12941,19 +12941,35 @@
 	{
 		"key": "DULLAHAN-COMPANION",
 		"scriptLines": [
-			{"text": ""}
+			{"text": "\"Ah, hrm... seems my body has found your companion.  Are they a strong fighter?\""},
+			{"text": "\"Why?\" you ask."},
+			{"text": "\"Well... because they're fighting my body. I think you want to return me... quickly."}
 		]
 	},
 	{
 		"key": "DULLAHAN-COMPANION-LEWD",
 		"scriptLines": [
-			{"text": ""}
+			{"text": "You hesitate to confront her body, and she grows steadily more perturbed. There's a brief lull in the strain on her face, and then it returns, slightly different in character."},			
+			{"text": "\"W-wait. I think the battle is already over.  Umm... mmm... oof... is... your friend a man or a woman?\""},
+			{"text": "\"A man... why?\""},
+			{"text": "\"Hmm... that explains... the texture.  That's really tight... very tight.  Poor guy.  I would say your friend needs your assistance, but my body will be... finished before you could arrive.\""},
+			{"text": "\"Are they going to be alright...?\""},
+			{"text": "\"Mmhm... mostly.  Bit of damage to their pride and... something else, maybe.  Well... definitely, if I'm being honest.\""},
+			{"text": "She breathes heavily, and purrs deep in her throat, her face flushing, her brow furrowed."},
+			{"text": "\"Nnh... nnmmm...\" she groans, biting her lip, closing her eyes.  She's clearly straining, but without seeing her body, you can't tell why."},
+			{"text": "She begins to breathe faster, and shorter breaths, ragged breaths, erratic breaths... and her voice becomes low and full... she lets out a long, wavering moan."},
+			{"text": "\"Ooh... oohho... mmmn... unh... huh... ahem,\" she says, trying to regain her composure. \"My body just ca... uhm... just f... finished with your friend.  Big time.\""},			
+			{"text": "\"Is he okay?\""},			
+			{"text": "\"He might... not agree, but he should be fine.  You'll probably want to give himself some time to... clean up.  Mmm... yeah, he's definitely on... cleaning duty...\""},
+			{"text": "She seems a bit embarassed, but apparently the worst of it has passed."},
+			{"text": "\"You might want to get him some ice.\""},
+			{"text": "When you rejoin your companion, they don't mention anything, and you don't ask."}
 		]
 	},
 	{
 		"key": "DULLAHAN-CONFRONT",
 		"scriptLines": [
-			{"text": ""}
+			{"text": "You find the dullahan's body and she calls out to it. It stops mid-swing of its whip."}
 		]
 	},
 	{
