@@ -12917,7 +12917,19 @@
 	{
 		"key": "DULLAHAN-CHASE",
 		"scriptLines": [
-			{"text": ""}
+			{"text": "You continue to run, and manage to lose track of her body, hiding near the covered bridge."},
+			{"text": "\"...\" she stares at you, silently, as you hold her head in front of you."},
+			{"text": "\"What are you, exactly?\" you ask, and she sighs."},
+			{"text": "\"I'm a dullahan... you don't even know that much, and you're stealing my head? Well... let me tell you this. The further I am from my body, the less I can control it... although I still feel it, so I can never lose it.\""},
+			{"text": "You nod, taking in the information."},
+			{"text": "\"When I'm around, she's well-behaved... when I'm not... well, I'll often find her by the trail of upset spouses she leaves in her wake.\""},
+			{"text": "You blush. Seems the dullahan's body without her head is... lavicious."},
+			{"text": "\"She's not picky about where she puts it, honestly.  No eyes and all that.  If I see a merchant walking the path with a funny gait, I'll know she's not too far off.\""},
+			{"text": "You realize that you might be putting people at risk if you don't return her head."},
+			{"text": "\"Once, I was riding past a farm when my saddle came loose. She got to the entire flock of sheep before I got to 'er.  Don't think she missed a single one.\""},
+			{"text": "You can't believe she's sharing this information."},
+			{"text": "\"You want to know what a pig's asshole feels like, just ask.\""},
+			{"text": "That's enough inte... dullahan head for one day."}			
 		]
 	},
 	{
