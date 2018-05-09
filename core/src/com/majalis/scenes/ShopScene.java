@@ -28,6 +28,7 @@ import com.majalis.character.Item.EffectType;
 import com.majalis.character.Item.Misc;
 import com.majalis.character.Item.MiscType;
 import com.majalis.character.Item.Plug;
+import com.majalis.character.Item.PlugType;
 import com.majalis.character.Item.Accessory;
 import com.majalis.character.Item.AccessoryType;
 import com.majalis.character.Item.ChastityCage;
@@ -354,7 +355,8 @@ public class ShopScene extends Scene {
 				shop.items.add(new Potion(3, EffectType.BONUS_AGILITY));
 				shop.items.add(new Potion(3, EffectType.BONUS_ENDURANCE));
 				shop.items.add(new Potion(3, EffectType.BONUS_ENDURANCE));
-				shop.items.add(new Plug());
+				shop.items.add(new Plug(PlugType.BUTTPLUG));
+				shop.items.add(new Plug(PlugType.BEADS));
 				shop.items.add(new ChastityCage());
 				break;
 			case MONSTER_SHOP:

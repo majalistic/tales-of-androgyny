@@ -72,18 +72,31 @@ public abstract class Item {
 	}
 	
 	public static class Plug extends Equipment {
-		public Plug() {}
-
+		private PlugType type;
+		@SuppressWarnings("unused")
+		private Plug() { type = PlugType.BUTTPLUG; }
+		public Plug(PlugType type) { this.type = type; }		
 		public EquipEffect getEquipEffect() { return EquipEffect.NULL; }
 		
 		@Override
 		public int getValue() { return 45; }
 
 		@Override
-		public String getName() { return "Butt Plug"; }
+		public String getName() { return type.getLabel(); }
 
 		@Override
-		public String getDescription() { return "A thing which will fill up your rectum pretty snugly."; }
+		public String getDescription() { return type.getDescription(); }
+	}
+	
+	public enum PlugType {
+		BUTTPLUG ("Butt Plug", "A thing which will fill up your rectum pretty snugly."),
+		BEADS ("Anal Beads", "A string of beads meant to insert into the anus.\nPulling them out causes pleasure.")
+		;
+		private final String label;
+		private final String description;
+		private PlugType(String label, String description) { this.label = label; this.description = description; }
+		public String getLabel() { return label; }
+		public String getDescription() { return description; }
 	}
 	
 	public static class ChastityCage extends Equipment {

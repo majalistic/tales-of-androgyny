@@ -161,7 +161,7 @@ public enum Techniques {
 	YOINK				(new GrappleTechnique  (Stance.NULL, Stance.NULL, "Yoink", 0, GrappleType.NULL).addBonus(BonusCondition.SKILL_LEVEL, BonusType.REMOVE_PLUG).build(), false), // Used to initiate doggy
 	
 	KNOT 				(new NonAttackTechnique(Stance.DOGGY, Stance.KNOTTED, "Knot", 0, 0, Stance.KNOTTED_BOTTOM, "Set Damage").build(), false), // Used to knot by knotty weresluts and others
-	MOUTH_KNOT 				(new NonAttackTechnique(Stance.FELLATIO, Stance.MOUTH_KNOTTED, "Knot", 0, 0, Stance.MOUTH_KNOTTED_BOTTOM, "Set Damage").build(), false), // Used to knot by knotty weresluts and others
+	MOUTH_KNOT 			(new NonAttackTechnique(Stance.FELLATIO, Stance.MOUTH_KNOTTED, "Knot", 0, 0, Stance.MOUTH_KNOTTED_BOTTOM, "Set Damage").build(), false), // Used to knot by knotty weresluts and others
 	
 	OVIPOSITION			(new NonAttackTechnique(Stance.FULL_NELSON, Stance.OVIPOSITION, "Oviposition", 0, 0, Stance.OVIPOSITION_BOTTOM).build(), false), // Used to oviposition
 	
