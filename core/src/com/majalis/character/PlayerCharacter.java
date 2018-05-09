@@ -19,6 +19,7 @@ import com.majalis.character.Item.ChastityCage;
 import com.majalis.character.Item.EffectType;
 import com.majalis.character.Item.Misc;
 import com.majalis.character.Item.MiscType;
+import com.majalis.character.Item.Mouthwear;
 import com.majalis.character.Item.Plug;
 import com.majalis.character.Item.Potion;
 import com.majalis.character.Item.Weapon;
@@ -920,6 +921,11 @@ public class PlayerCharacter extends AbstractCharacter {
 		return temp != null ? "You unequipped the " + temp.getName() + "." : "";
 	}
 	
+	public String unequipMouthwear() {
+		Mouthwear temp = this.mouthwear;
+		this.mouthwear = null;
+		return temp != null ? "You unequipped the " + temp.getName() + "." : "";
+	}
 	
 	private PhallusType getPhallusType(SexualExperience sex) { return sex.isBird() ? PhallusType.BIRD : sex.isCentaurSex() ? PhallusType.HORSE : sex.isKnot() ? PhallusType.DOG : sex.isOgreSex() ? PhallusType.GIANT : PhallusType.MONSTER; }
 	
@@ -1396,6 +1402,7 @@ public class PlayerCharacter extends AbstractCharacter {
 				(armor.isFootwear() ? setFootwear(item, false) : armor.isArmwear() ? setArmwear(item, false) : armor.isHeadgear() ? setHeadgear(item, false) : armor.isShield() ? setShield(item, false) : armor.coversTop() ? setArmor(item, false) : armor.coversBottom() ? setLegwear(item, false) : setUnderwear(item, false)) : 
 			item instanceof Accessory ? setAccessory(item, false) :
 			item instanceof ChastityCage ? setCage(item, false) :
+			item instanceof Mouthwear ? setMouthwear(item, false) :
 			setPlug(item, false);
 	}
 
@@ -1408,9 +1415,10 @@ public class PlayerCharacter extends AbstractCharacter {
 	}
 	
 	public ChastityCage getCage() { return cage; }
-
+	public Mouthwear getMouthwear() { return mouthwear; }
+	
 	public boolean isEquipped(Item item) {
-		return item.equals(weapon) || item.equals(rangedWeapon) || item.equals(armor) || item.equals(shield) || item.equals(legwear) || item.equals(underwear) || item.equals(plug) || item.equals(cage) || item.equals(headgear) || item.equals(armwear) || item.equals(footwear) || item.equals(firstAccessory);
+		return item.equals(weapon) || item.equals(rangedWeapon) || item.equals(armor) || item.equals(shield) || item.equals(legwear) || item.equals(underwear) || item.equals(plug) || item.equals(cage) || item.equals(mouthwear) || item.equals(headgear) || item.equals(armwear) || item.equals(footwear) || item.equals(firstAccessory);
 	}
 
 	public int getAnalReceptionCount() { return receivedAnal; }

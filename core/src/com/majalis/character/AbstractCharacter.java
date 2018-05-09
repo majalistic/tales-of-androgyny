@@ -12,6 +12,7 @@ import com.majalis.character.Item.EquipEffect;
 import com.majalis.character.Item.ItemEffect;
 import com.majalis.character.Item.Misc;
 import com.majalis.character.Item.MiscType;
+import com.majalis.character.Item.Mouthwear;
 import com.majalis.character.Item.Plug;
 import com.majalis.character.Item.Weapon;
 import com.majalis.character.PlayerCharacter.Bootyliciousness;
@@ -98,6 +99,7 @@ public abstract class AbstractCharacter extends Group {
 	
 	protected Plug plug;
 	protected ChastityCage cage;
+	protected Mouthwear mouthwear;
 	
 	protected Weapon disarmedWeapon;
 	
@@ -1235,6 +1237,14 @@ public abstract class AbstractCharacter extends Group {
 			this.cock.setSkeletonSkin(isChastitied() ? "Cage" : phallus.getSkin());
 		}
 		return "You " + (alreadyEquipped ? "unequipped" : "equipped") + " the " + cage.getName() + ".";
+	}
+	
+	public String setMouthwear(Item mouthwear, boolean newItem) {
+		if (newItem) inventory.add(mouthwear);
+		Mouthwear equipMouthwear = (Mouthwear) mouthwear;
+		boolean alreadyEquipped = equipMouthwear.equals(this.mouthwear); 
+		this.mouthwear = alreadyEquipped ? null : equipMouthwear;
+		return "You " + (alreadyEquipped ? "unequipped" : "equipped") + " the " + mouthwear.getName() + ".";
 	}
 	
 	public Technique getEmptyTechnique(AbstractCharacter target) { return new Technique(Techniques.DO_NOTHING.getTrait(), getCurrentState(target), 1); }

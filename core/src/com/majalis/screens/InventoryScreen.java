@@ -68,6 +68,7 @@ public class InventoryScreen extends AbstractScreen {
 	private final Label accessoryText;
 	private final Label plugText;
 	private final Label cageText;
+	private final Label mouthwearText;
 	private final Skin skin;
 	
 	public InventoryScreen(ScreenFactory factory, ScreenElements elements, final SaveService saveService, final PlayerCharacter character) {
@@ -154,6 +155,7 @@ public class InventoryScreen extends AbstractScreen {
 		accessoryText = getLabel(character.getFirstAccessory() != null ? character.getFirstAccessory().getName() : "None", skin, character.getFirstAccessory() != null ? Color.GOLD : Color.BROWN);
 		plugText = getLabel(character.getPlug() != null ? character.getPlug().getName() : "None", skin, character.getPlug() != null ? Color.GOLD : Color.BROWN);
 		cageText = getLabel(character.getCage() != null ? character.getCage().getName() : "None", skin, character.getCage() != null ? Color.GOLD : Color.BROWN);
+		mouthwearText = getLabel(character.getCage() != null ? character.getMouthwear().getName() : "None", skin, character.getMouthwear() != null ? Color.GOLD : Color.BROWN);
 		
 		weaponText.addListener(new ClickListener() { @Override public void clicked(InputEvent e, float x, float y) { resetWeaponTable(character.unequipWeapon()); }});
 		rangedWeaponText.addListener(new ClickListener() { @Override public void clicked(InputEvent e, float x, float y) { resetWeaponTable(character.unequipRangedWeapon()); }});
@@ -167,6 +169,7 @@ public class InventoryScreen extends AbstractScreen {
 		accessoryText.addListener(new ClickListener() { @Override public void clicked(InputEvent e, float x, float y) { resetWeaponTable(character.unequipAccessory()); }});
 		plugText.addListener(new ClickListener() { @Override public void clicked(InputEvent e, float x, float y) { resetWeaponTable(character.unequipPlug()); }});
 		cageText.addListener(new ClickListener() { @Override public void clicked(InputEvent e, float x, float y) { resetWeaponTable(character.unequipCage()); }});
+		mouthwearText.addListener(new ClickListener() { @Override public void clicked(InputEvent e, float x, float y) { resetWeaponTable(character.unequipMouthwear()); }});
 		
 		int xBuffer = 160;
 		
@@ -196,6 +199,9 @@ public class InventoryScreen extends AbstractScreen {
 		equipmentTable.add(plugText).align(Align.left).row();
 		equipmentTable.add(getLabel("Dickwear:", skin, Color.DARK_GRAY)).width(xBuffer).align(Align.left);
 		equipmentTable.add(cageText).align(Align.left).row();
+		equipmentTable.add(getLabel("Mouthwear:", skin, Color.DARK_GRAY)).width(xBuffer).align(Align.left);
+		equipmentTable.add(mouthwearText).align(Align.left).row();
+		
 		
 		int inventoryColumn = 0;
 		boolean equipmentColumn = false;
@@ -265,6 +271,7 @@ public class InventoryScreen extends AbstractScreen {
 		accessoryText.setText(character.getFirstAccessory() != null ? character.getFirstAccessory().getName() : "None");
 		plugText.setText(character.getPlug() != null ? character.getPlug().getName() : "None");
 		cageText.setText(character.getCage() != null ? character.getCage().getName() : "None");
+		mouthwearText.setText(character.getMouthwear() != null ? character.getMouthwear().getName() : "None");
 		
 		weaponText.setColor(character.getWeapon() != null ? Color.GOLD : Color.BROWN);
 		rangedWeaponText.setColor(character.getRangedWeapon() != null ? Color.GOLD : Color.BROWN);
@@ -278,6 +285,7 @@ public class InventoryScreen extends AbstractScreen {
 		accessoryText.setColor(character.getFirstAccessory() != null ? Color.GOLD : Color.BROWN);
 		plugText.setColor(character.getPlug() != null ? Color.GOLD : Color.BROWN);
 		cageText.setColor(character.getCage() != null ? Color.GOLD : Color.BROWN);	
+		mouthwearText.setColor(character.getMouthwear() != null ? Color.GOLD : Color.BROWN);	
 		
 		saveService.saveDataValue(SaveEnum.PLAYER, character);
 		weaponTable.clear();

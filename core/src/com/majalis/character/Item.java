@@ -56,6 +56,21 @@ public abstract class Item {
 		}
 	}
 	
+	public static class Mouthwear extends Equipment {
+		public Mouthwear() {}
+
+		public EquipEffect getEquipEffect() { return EquipEffect.NULL; }
+		
+		@Override
+		public int getValue() { return 45; }
+
+		@Override
+		public String getName() { return "Ring Gag"; }
+
+		@Override
+		public String getDescription() { return "A gag that keeps the mouth open."; }
+	}
+	
 	public static class Plug extends Equipment {
 		public Plug() {}
 
