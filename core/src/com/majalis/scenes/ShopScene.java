@@ -357,6 +357,7 @@ public class ShopScene extends Scene {
 				shop.items.add(new Potion(3, EffectType.BONUS_ENDURANCE));
 				shop.items.add(new Plug(PlugType.BUTTPLUG));
 				shop.items.add(new Plug(PlugType.BEADS));
+				shop.items.add(new Plug(PlugType.TAILPLUG));
 				shop.items.add(new ChastityCage());
 				break;
 			case MONSTER_SHOP:

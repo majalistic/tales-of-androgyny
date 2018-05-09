@@ -90,7 +90,8 @@ public abstract class Item {
 	
 	public enum PlugType {
 		BUTTPLUG ("Butt Plug", "A thing which will fill up your rectum pretty snugly."),
-		BEADS ("Anal Beads", "A string of beads meant to insert into the anus.\nPulling them out causes pleasure.")
+		BEADS ("Anal Beads", "A string of beads meant to insert into the anus.\nPulling them out causes pleasure."),
+		TAILPLUG("Tail Plug", "A buttplug attached to a fluffy tail. Arouses a certain type of person.")
 		;
 		private final String label;
 		private final String description;
