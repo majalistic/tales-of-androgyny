@@ -12911,7 +12911,43 @@
 	{
 		"key": "DULLAHAN-TOSSHEAD",
 		"scriptLines": [
-			{"text": ""}
+			{"text": "You edge towards the river, head held aloft. She notices what you're doing, and her body hesitates to advance."},			
+			{"text": "\"If you do that... I won't be able to control my body... don't!\""},
+			{"text": "\"Can you... swim?\" you ask, and she looks at you, mouth agape."},
+			{"text": "\"I... I'll be fine, but if you throw me away, you'll never sh-- hey!  Hey!\" she yells, as you toss her into the waters below."},
+			{"text": "She curses all the way down - it sounds like she says something about it not being her fault and something about a gaping, broken mess, but you can't make out anymore."},
+			{"text": "Immediately, you're seized from behind, and the demonic strength proves impossible to overcome."},
+			{"text": "You feel something very large and very hard poking into your backside, which is soon uncovered - both the thing, and your ass."},
+			{"text": "You don't know if the headless body can understand you, but your pleas fall on, well, on no ears at all, and it lathers up your tight hole with its prodigious precum."},
+			{
+			"sound": "ANAL_INSERTION",
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1}}],
+			"text": "You white out for a moment, feeling your sphincter and rectum stretch uncontrollably. She shoves the entire thing inside in one go - it comes sliding up your rectum and into your colon, pushing out your abdomen and putting a crushing pressure on your internal organs."},
+			{"text": "You lose your ability to stand, and fall into the muddy dirt.  She pushes your face into the dirt while mounting your ass like an animal."},
+			{"text": "Immediately she begins to drive it up into you with superhuman hip thrusts, your crinkled o-ring blasted open and stretched wide."},			
+			{"text": "Her fucking is so fast and erratic that she slips out, which you welcome as a relief... until you're face to cock with her body, and it's obvious she's trying to gain entry to your mouth."},			
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "oralSex":1}}],
+			"text": "If you're not interested in going ass-to-mouth, the Dullahan's body has a solution for that: a face stuffed full of her wang.  She forces you to gobble it and deep-throat it with similarly unfettered thrusts, like she doesn't understand how a head works."},
+			{"text": "Well, she probably doesn't."},
+			{"text": "You gag and choke around her plumetting dick, gasping for air that keeps getting replaced with solid cock."},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1}}],
+			"text": "While coughing and spitting, the thing that had been ravaging your throat comes screaming up your backdoor with a vengeance, knocking the remaining air out of you.  Lubricated by your saliva and phlegm, she's able to give you the entire oversized thing several times a second, and your knees go weak under the anal assault."},
+			{"text": "Hard open-palmed wraps on your asscheeks render them red and swollen and sore to the touch."},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analEjaculation":1}}],
+			"text": "You don't know when you start cumming, but the extra tightness in your anal ring makes you dig your teeth into the ground, as she doesn't stop or slow at all, and the frustration from your rectal reaming is too much to bear."},
+			{"text": "With her foot firmly on your face, you have no choice but to catch what she's pitching, and you can tell that her entire body is preparing for a mondo orgasm, which means she's going to blow cum up your butthole without remorse."},			
+			{"text": "Aside from the head, she appears human, but the inhuman strength, stamina, and dick-size make this ass-fucking more of an ordeal."},
+			{
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "creampies":2}}],
+			"text": "You can feel a thick bubble forming in your gut all at once, hot and steamy, and your body convulses as you're filled near to bursting by her inhuman cock and copious demonic sperm."},			
+			{"text": "Your gut is stuffed up with the unseelie's dark passion.  Your bowels are cramped with its sheer volume."},
+			{"text": "You just got fucked raw and hard by a headless body, and you have the gaping, red-ringed, messed up cummy o-hole to prove it.  Bubbles of the fairy's immortal nutgunk squeeze out of it, showing just how fresh and unencumbered the unnatural fuck was."},
+			{"text": "You feel her devil-warm cream running down over your balls as more of her uninvited and surprisingly large creampie spurts and gurgles out of your now-misshapen, stretched-wide brownhole."},			
+			{"text": "You think that, maybe... throwing her head away wasn't the greatest of ideas."},
+			{"text": "Placated, her body wanders off, in search of her head... and, apparently, her conscience.  You wish she would take her four pounds of anally-dumped cum with her, but she seems to have lost interest in both it and you."}
 		]
 	},
 	{
@@ -12998,7 +13034,9 @@
 			"text": "It seeps out of the corners of her mouth, and her body convulses, shuddering, as it spews out just about everything it's got into her overly-full mouth, which catches it all for better or worse."},
 			{"text": "When she pulls it out, she keeps her lips taut, her cheeks still incredibly full, and looks a little nauseous and a little displeased, now that her lustiness has begun to wane, that she's stuck with a faceful of raw baby batter."},
 			{"text": "She picks up her head and you follow carefully to the river, where she spits out all of her own cum... there is a lot of it - it's thick and gooey, and looks like it would have gunked up her throat... if she had one."},			
-			{"text": "You decide that's enough investigative journalism for now, having discovered the secret of where a lonely headless wanderer puts her desires when she doesn't have anyone to share them with - giving herself head, rather literally."},
+			{
+			"mutations": [{"saveType":"EXPERIENCE", "value":{"class": "java.lang.Integer", "value": 3}}],
+			"text": "You decide that's enough investigative journalism for now, having discovered the secret of where a lonely headless wanderer puts her desires when she doesn't have anyone to share them with - giving herself head, rather literally."},
 			{"text": "You sneak past the camp, ever onwards."}
 		]
 	},
