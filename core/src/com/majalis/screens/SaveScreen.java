@@ -91,8 +91,9 @@ public class SaveScreen extends AbstractScreen {
 			SaveManager saveManager = new SaveManager(false, ".toa-data/save" + ii + ".json", ".toa-data/profile.json");
 			PlayerCharacter character = saveManager.loadDataValue(SaveEnum.PLAYER, PlayerCharacter.class);
 			GameMode mode = saveManager.loadDataValue(SaveEnum.MODE, GameMode.class);
+			String timestamp = saveManager.loadDataValue(SaveEnum.TIME_STAMP, String.class);
 			// create an actor based on the data that will display stats with a button with clicklistener (and associated enter-> click functionality) that will save the current game to that file(overwrite), load that file, a button with a clicklistener that will delete that file
-			final Label saveValue = new Label(getSaveText(character, mode, ii), skin);			
+			final Label saveValue = new Label(getSaveText(character, mode, ii, timestamp), skin);			
 			boolean saveExists = character.getJobClass() != null;
 			saveValue.setColor(!saveExists? Color.BLACK : mode == GameMode.SKIRMISH ? Color.BLUE : Color.FOREST);
 			// add the actor to the list
@@ -167,7 +168,8 @@ public class SaveScreen extends AbstractScreen {
 				SaveManager saveManager = new SaveManager(false, path, ".toa-data/profile.json");
 				PlayerCharacter characterTemp = saveManager.loadDataValue(SaveEnum.PLAYER, PlayerCharacter.class);
 				GameMode modeTemp = saveManager.loadDataValue(SaveEnum.MODE, GameMode.class);
-				saveValue.setText(getSaveText(characterTemp, modeTemp, num));
+				String timestamp = saveManager.loadDataValue(SaveEnum.TIME_STAMP, String.class);
+				saveValue.setText(getSaveText(characterTemp, modeTemp, num, timestamp));
 				consoleLog(console, "Save File " + (num + 1) + " was saved.");
 				saveValue.setColor(modeTemp == GameMode.SKIRMISH ? Color.BLUE : Color.FOREST);
 				loadButton.setColor(Color.WHITE);
@@ -184,8 +186,8 @@ public class SaveScreen extends AbstractScreen {
 		};
 	}
 	
-	private String getSaveText(PlayerCharacter character, GameMode mode, int saveNumber) {
-		return "Save File " + (saveNumber + 1) + " - " + (character.getJobClass() == null ? "No Save File" : "\"" + character.getCharacterName() + "\" - " + (mode == GameMode.SKIRMISH ? character.getJobClass().getLabel() : "Story Mode") + " - Level: " + character.getLevel());
+	private String getSaveText(PlayerCharacter character, GameMode mode, int saveNumber, String timestamp) {
+		return "Save File " + (saveNumber + 1) + " - " + (character.getJobClass() == null ? "No Save File" : "\"" + character.getCharacterName() + "\" - " + (mode == GameMode.SKIRMISH ? character.getJobClass().getLabel() : "Story Mode") + " - Level: " + character.getLevel() + "\n" + timestamp);
 	}
 	
 	private void consoleLog(Label console, String newDisplay) {

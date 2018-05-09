@@ -1,5 +1,8 @@
 package com.majalis.save;
 
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.files.FileHandle;
@@ -126,9 +129,10 @@ public class SaveManager implements SaveService, LoadService {
 	    	case BATTLE_RESULT: 	save.battleResults.addAll((Array<MutationResult>) object); break;
 	    	case PORTRAIT:			if (object == null) save.player.popPortraitPath(); else save.player.setCurrentPortrait((AssetEnum)object); break;
 	    	case ENCOUNTER_END:		save.player.refresh(); save.sceneCode.clear(); save.results.clear(); save.battleResults.clear(); break;
-	    	case GAME_OVER: 		save.player.setGameOver((GameOver) object);
+	    	case GAME_OVER: 		save.player.setGameOver((GameOver) object); break;
+	    	case TIME_STAMP: 		break;
     	}	
-    	if (saveToJson) { saveToJson(save); } //Saves current save immediately
+    	if (saveToJson) { save.timestamp = getTimeStamp(); saveToJson(save); } //Saves current save immediately
         return result;
 	}
 	
@@ -162,6 +166,7 @@ public class SaveManager implements SaveService, LoadService {
 	    	case TOWN: 				return (T) (TownCode) save.town;
 	    	case TRUDY:				return (T) (Integer) save.trudy;
 	    	case KYLIRA:			return (T) (Integer) save.kylira;
+	    	case TIME_STAMP: 		return (T) (String) save.timestamp;
 	    	case ANAL:			
 	    	case ITEM:
 	    	case GOLD:
@@ -308,6 +313,10 @@ public class SaveManager implements SaveService, LoadService {
     	return tempSave;
     }
     
+    private static String getTimeStamp() {
+    	return ZonedDateTime.now().format(DateTimeFormatter.ofPattern("d MMM uuuu kk:mm:ss"));
+    }
+    
     public static class VisitInfo { 
     	public int numberOfEncounters;
     	public int lastEncounterTime;
@@ -333,6 +342,7 @@ public class SaveManager implements SaveService, LoadService {
     }
     
     public static class GameSave {
+		public String timestamp;
 		private GameContext context;
 		private GameContext returnContext;
     	private GameMode mode;	
@@ -365,6 +375,7 @@ public class SaveManager implements SaveService, LoadService {
 			visitedNodeList.put(1,  new VisitInfo(1, 0, 0, 0, 1)); 
 			town = TownCode.TOWN_STORY;
 			battleResults = new Array<MutationResult>();
+			timestamp = "";
 		}
     	
 		// default save values-
@@ -387,6 +398,7 @@ public class SaveManager implements SaveService, LoadService {
         		player = new PlayerCharacter(true);
         		results = new Array<MutationResult>();
         		battleResults = new Array<MutationResult>();
+        		timestamp = getTimeStamp();
     		}
     	}
     	

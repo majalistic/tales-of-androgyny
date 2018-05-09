@@ -43,5 +43,6 @@ public enum SaveEnum {
 	TOWN, 
 	TRUDY,
 	KYLIRA,
-	GAME_OVER, 
+	TIME_STAMP,
+	GAME_OVER,  
 }

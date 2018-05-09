@@ -944,7 +944,6 @@ public enum EncounterCode {
 					b.branch("Change your mind").textScene("DULLAHAN-SAD").choiceScene("What do you do?", fight, faust, flee)					
 				);
 				
-				
 				Branch returnHead = b.branch("Return head").textScene("DULLAHAN-RETURNHEAD").choiceScene("Accept?", b.branch("Accept").concat(fuck), b.branch("Leave"));
 				Branch caughtByBody = b.branch().textScene("DULLAHAN-CAUGHT").choiceScene("Return the head?", b.branch("Toss it into the water").textScene("DULLAHAN-TOSSHEAD"), returnHead);
 				Branch caughtCompanion = b.branch("DULLAHAN-COMPANION").choiceScene("Confront her?", b.branch("Yes").textScene("DULLAHAN-CONFRONT").concat(caughtByBody), b.branch("No").textScene("DULLAHAN-COMPANION-LEWD"));
