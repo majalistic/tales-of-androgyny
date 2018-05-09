@@ -12875,14 +12875,27 @@
 		"key": "DULLAHAN-STEALTH",
 		"scriptLines": [
 			{
-			"music": "HORROR_MUSIC",
-			"text": ""}
+			"music": "HORROR_MUSIC",			
+			"text": "The cool beads of water are no longer refreshing - they sting your skin as they sap away its heat, and your eyelashes blink away the icy water as if they were tears."},
+			{"text": "The mist is cold enough that your breath joins with it, as if it was taking its price from your spirit. You don't know what this toll could be paying for until you come across a bridge, with wood-plank walls and a worm-rotted roof."},
+			{"text": "The covered bridge is foreboding, not only for its well-worn construction, but for the derth of visibility crossing it provides, either fore or aft. It's a gift from the goddess for brigands and scoundrels, and you cross it with great caution, holding a lantern aloft."},
+			{"text": "The mist turns to rain, beating down on the roof which has many a hole and break, and the wind picks up, or so it seems, the outside world seeming to grow more inhospitable as the covered bridge provides temporary shelter."},
+			{"text": "You've been careful to conceal your presence, and you cross the bridge unmolested... but lot long after, you come across a saddled horse."},			
+			{
+			"mutations": [{"profileSaveType":"KNOWLEDGE", "value":{"class": "java.lang.String", "value": "Dullahan"}}],
+			"foreground": "DULLAHAN_HEADLESS",	
+			"text": "Nearby, you discover a campfire... with a lone figure sitting beside it... or what appears to be a lone figure, but, terrifyingly, it has no head."},
+			{
+			"foreground": "DULLAHAN",
+			"text": "It sits on a dead log, and beside it... is its head, which is animated of its own accord."},
+			{"text": "You plan your next move carefully."}			
 		]
 	},
 	{
 		"key": "DULLAHAN-HEADSTEAL",
 		"scriptLines": [
-			{"text": ""}
+			{"text": "You sneak up on the detached head, and neither it nor the body seems to notice you until it's too late. Her mouth is agasp as you spirit away her head, sprinting off into the forest, laughing like a goblin."},
+			{"text": "\"What're you doing? You're just having a laugh, are you?\""},					
 		]
 	},
 	{
