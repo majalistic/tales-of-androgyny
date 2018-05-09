@@ -16,6 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.TemporalAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.Scaling;
 import com.majalis.asset.AnimatedImage;
 import com.majalis.asset.AssetEnum;
@@ -106,15 +107,43 @@ public class GameWorld {
 			lilyAnimations.add(lilyAnimation);
 		}		
 		
+		Array<Vector2> pathChunks = new Array<Vector2>();
+		for (GameWorldNode node : nodes) {
+			for (Path path : node.getPaths()) {
+				pathChunks.addAll(path.getChunks());
+			}
+		}
+		
+		Texture pathSheet = assetManager.get(AssetEnum.ROAD_TILES.getTexture());
+		ObjectMap<Vector2, TextureRegion> pathTextureMap = new ObjectMap<Vector2, TextureRegion>();
+		for (Vector2 pathChunk : pathChunks) {
+			int tileMask = 0;
+			if (pathChunks.contains(new Vector2(pathChunk.x + 1, pathChunk.y), false)) tileMask += 1; // top right
+			if (pathChunks.contains(new Vector2(pathChunk.x + 1, pathChunk.y - 1), false)) tileMask += 2; // bottom right
+			if (pathChunks.contains(new Vector2(pathChunk.x, pathChunk.y - 1), false)) tileMask += 4; // bottom
+			if (pathChunks.contains(new Vector2(pathChunk.x - 1, pathChunk.y), false)) tileMask += 8; // bottom left
+			if (pathChunks.contains(new Vector2(pathChunk.x - 1, pathChunk.y + 1), false)) tileMask += 16; // top left
+			if (pathChunks.contains(new Vector2(pathChunk.x, pathChunk.y + 1), false)) tileMask += 32; // top
+			pathTextureMap.put(pathChunk, new TextureRegion(pathSheet, (tileMask % 32) * (GameWorldHelper.getTileWidth()) + 1, (tileMask > 31 ? 1 : 0) * (GameWorldHelper.getTileHeight()), GameWorldHelper.getTileWidth(), GameWorldHelper.getTileHeight()));
+		}
+		
+		for (GameWorldNode node : nodes) {
+			for (Path path : node.getPaths()) {
+				path.setPathTextures(pathTextureMap);
+			}
+		}
+				
 		int maxX = 230;
 		int maxY = 235;
 		int tileWidth = GameWorldHelper.getTileWidth();
 		int tileHeight = GameWorldHelper.getTileHeight();
 		
+		
 		// first figure out what all of the tiles are - dirt, greenLeaf, redLeaf, moss, or water - create a model without drawing anything	
 		for (int x = 0; x < maxX; x++) {
 			Array<GroundType> layer = new Array<GroundType>();
 			ground.add(layer);
+			
 			for (int y = 0; y < maxY; y++) {
 				// redLeaf should be the default			
 				// dirt should be randomly spread throughout redLeaf  
@@ -125,9 +154,8 @@ public class GameWorld {
 				int closest = worldCollide(x, y);
 				
 				GroundType toAdd;
-				
 				if (closest >= 2 && (isRiver(x, y) || isLake(x, y))) toAdd = GroundType.WATER;
-				else if (closest <= 3 || shoreline(x, y)) toAdd = GroundType.DIRT;
+				else if (closest <= 4 || (closest <= 5 && (Math.abs(random.nextInt() % 2) == 0)) || pathChunks.contains(new Vector2(x, y), false) || shoreline(x, y)) toAdd = GroundType.DIRT;
 				else {
 					toAdd = GroundType.valueOf("RED_LEAF_" + Math.abs(random.nextInt() % 6));					
 				}
