@@ -933,7 +933,7 @@ public enum EncounterCode {
 				);
 				
 				Branch returnHead = b.branch("Return head").textScene("DULLAHAN-RETURNHEAD");
-				Branch caughtByBody = b.branch().textScene("DULLAHAN-CAUGHT");
+				Branch caughtByBody = b.branch().textScene("DULLAHAN-CAUGHT").choiceScene("Return the head?", b.branch("Toss it into the water").textScene("DULLAHAN-TOSSHEAD"), returnHead);
 				Branch caughtCompanion = b.branch("DULLAHAN-COMPANION").choiceScene("Confront her?", b.branch("Yes").textScene("DULLAHAN-CONFRONT").concat(caughtByBody), b.branch("No").textScene("DULLAHAN-COMPANION-LEWD"));
 				return b.branch().checkScene(
 					CheckType.STEALTH_LEVEL_3,

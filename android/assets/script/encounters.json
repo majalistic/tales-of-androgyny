@@ -12895,11 +12895,20 @@
 		"key": "DULLAHAN-HEADSTEAL",
 		"scriptLines": [
 			{"text": "You sneak up on the detached head, and neither it nor the body seems to notice you until it's too late. Her mouth is agasp as you spirit away her head, sprinting off into the forest, laughing like a goblin."},
-			{"text": "\"What're you doing? You're just having a laugh, are you?\""},					
+			{"text": "\"What're you doing? You're just having a laugh, are you?\""},
+			{"text": "You're a bit startled by her sudden vocalization, and you nearly drop her."},
+			{"text": "\"You can talk?\" you ask, as you continue to spirit her away."},
+			{"text": "\"What's your game-plan, here, exactly? Just having a bit of fun? Why don't you give me my head back?\""}
 		]
 	},
 	{
 		"key": "DULLAHAN-RETURNHEAD",
+		"scriptLines": [
+			{"text": ""}
+		]
+	},
+	{
+		"key": "DULLAHAN-TOSSHEAD",
 		"scriptLines": [
 			{"text": ""}
 		]
