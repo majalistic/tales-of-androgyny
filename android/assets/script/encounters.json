@@ -12898,13 +12898,14 @@
 			{"text": "\"What're you doing? You're just having a laugh, are you?\""},
 			{"text": "You're a bit startled by her sudden vocalization, and you nearly drop her."},
 			{"text": "\"You can talk?\" you ask, as you continue to spirit her away."},
-			{"text": "\"What's your game-plan, here, exactly? Just having a bit of fun? Why don't you give me my head back?\""}
+			{"text": "\"What's your game-plan, here, exactly? Just having a bit of fun? Why don't you give me my head back?\" she asks, and the bridge you crossed is in your view - her body in hot pursuit."}
 		]
 	},
 	{
 		"key": "DULLAHAN-RETURNHEAD",
 		"scriptLines": [
-			{"text": ""}
+			{"text": "You decide to return her head. Her body having been in pursuit, you hand her head back to... her."},
+			{"text": "\"Thanks kindly. I knew you weren't so bad. I'll let you pass... or we could... chat a bit more, if you'd like?\""}
 		]
 	},
 	{
