@@ -17,6 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
@@ -171,6 +172,7 @@ public class Battle extends Group{
 		initActor(new BleedDisplay(character, bloodTexture), uiGroup, 325, 725);
 		initActor(new BleedDisplay(enemy, bloodTexture), uiGroup, 1545, 725);
 		
+		if (character.getBattlePerception() >= 3) initActor(new OutcomeWidget(outcomes), uiGroup, 1850, 950); 
 		Table statusTable = (Table) initActor(new Table(), uiGroup, 525,  850);
 		statusTable.align(Align.topLeft);
 		Table enemyStatusTable = (Table) initActor(new Table(), uiGroup, 1575,  700);
@@ -671,11 +673,13 @@ public class Battle extends Group{
         return selectedTechnique;
 	}
 	
-	private Actor initActor(Actor actor, Group group, float x, float y) { return initActor(actor, group, x, y, actor.getWidth(), actor.getHeight()); }	
-	private Actor initActor(Actor actor, Group group, float x, float y, float width, float height) {
+	private Actor initActor(Actor actor, Group group, float x, float y) { return initActor(actor, group, null, x, y, actor.getWidth(), actor.getHeight()); }	
+	private Actor initActor(Actor actor, Group group, float x, float y, float width, float height) { return initActor(actor, group, null, x, y, width, height); }
+	private Actor initActor(Actor actor, Group group, Color color, float x, float y, float width, float height) {
 		if (group != null) group.addActor(actor);
 		else this.addActor(actor);
 		actor.setBounds(x, y, width, height);
+		if (color != null) actor.setColor(color);
 		return actor;
 	}
 	
@@ -775,6 +779,46 @@ public class Battle extends Group{
 		public boolean act(float delta) {
 			sound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") * volume);
 			return true;
+		}
+	}
+	
+	// this should display a little widget with the possible outcomes, which when an outcome is completed, the others should gray out and it should become more prominent, also when you hover it can show what the actual outcome is
+	private class OutcomeWidget extends Group { 
+		private final ObjectMap<String, Table> outcomeMap;
+		public OutcomeWidget(ObjectMap<String, Integer> outcomes) {
+			outcomeMap = new ObjectMap<String, Table>();
+			Table table = new Table();
+			this.addActor(table);
+			table.align(Align.topLeft);
+			for (String outcome : outcomes.keys()) {
+				Table outcomeImage = Outcome.valueOf(outcome).getOutcomeImage(assetManager);
+				outcomeImage.addListener(new ClickListener() {
+			        @Override
+			        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
+						skillDisplay.setText(Outcome.valueOf(outcome).getDescription());
+						bonusDisplay.setText("");
+						penaltyDisplay.setText("");
+						showHoverGroup();
+					}
+					@Override
+			        public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
+						hideHoverGroup();
+					}
+			    });
+				outcomeMap.put(outcome, outcomeImage);
+				table.add(outcomeImage).row();				
+			}
+		}		
+		
+		@Override 
+		public void draw(Batch batch, float parentAlpha) {
+			if(outcome != null) {
+				for (Table table : outcomeMap.values()) {
+					for (Cell<?> cell : table.getCells()) { cell.getActor().setColor(Color.GRAY); }
+				}
+				for (Cell<?> cell : outcomeMap.get(outcome.toString()).getCells()) { cell.getActor().setColor(Color.WHITE); }
+			}
+			super.draw(batch, parentAlpha);			
 		}
 	}
 	
@@ -985,6 +1029,31 @@ public class Battle extends Group{
 	}
 	
 	public enum Outcome {
-		VICTORY, DEFEAT, KNOT_ANAL, KNOT_ORAL, SATISFIED_ANAL, SATISFIED_ORAL, SUBMISSION, DEATH
+		VICTORY("Win - the enemy is no longer able or willing to fight, usually because their HP has been reduced to 0.", AssetEnum.W), 
+		DEFEAT("Lose - you are unable to continue the fight, as your HP has been reduced to 0.", AssetEnum.L), 
+		KNOT_ANAL("Knot (Anal) - you and the enemy are tied together somehow, rendering you unable to fight.", AssetEnum.K, AssetEnum.A), 
+		KNOT_ORAL("Knot (Oral) - you and the enemy are tied together somehow, rendering you unable to fight.", AssetEnum.K, AssetEnum.A), 
+		SATISFIED_ANAL("Satisfied - the enemy is satisfied, and will no longer fight.", AssetEnum.S, AssetEnum.A), 
+		SATISFIED_ORAL("Satisfied (Oral) - the enemy is satisfied (orally) and will no longer fight.", AssetEnum.S, AssetEnum.O), 
+		SUBMISSION("Dominated - the enemy is no longer willing to fight because they've beccome submissive.", AssetEnum.D, AssetEnum.A),
+		DEATH("Death - you have been killed, and can no longer fight because you are dead.", AssetEnum.D);
+
+		private final String description;
+		private final Array<AssetEnum> glyphs;
+		private Outcome(String description, AssetEnum ... glyphs) {
+			this.description = description;
+			this.glyphs = new Array<AssetEnum>(glyphs);
+		}
+		
+		public String getDescription() { return description; }
+		
+		public Table getOutcomeImage(AssetManager assetManager) {
+			Table table = new Table();
+			for (AssetEnum glyph : glyphs) {
+				Texture texture = assetManager.get(glyph.getTexture());
+				table.add(new Image(texture)).size(texture.getWidth(), texture.getHeight());
+			}		
+			return table;
+		}
 	}
 }

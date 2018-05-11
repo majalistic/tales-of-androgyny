@@ -91,6 +91,14 @@ public enum AssetEnum {
 	CREATION_BAUBLE_OLD("creation/GreenBauble.png"),
 	CREATION_BAUBLE_REMOVED("creation/RemovedBauble.png"),
 	
+	A("letters/A.png"),
+	D("letters/D.png"),
+	K("letters/K.png"),
+	O("letters/O.png"),
+	L("letters/L.png"),
+	S("letters/S.png"),
+	W("letters/W.png"),
+	
 	BUTTON_UP("buttons/basic.png"),
 	BUTTON_DOWN("buttons/basicd.png"),
 	BUTTON_HIGHLIGHT("buttons/basich.png"),
