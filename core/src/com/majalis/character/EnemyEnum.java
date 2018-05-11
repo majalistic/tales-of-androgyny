@@ -391,7 +391,14 @@ public enum EnemyEnum {
 	}
 	
 	public EnemyCharacter getInstance(AssetManager assetManager, Stance stance, boolean storyMode) { return new EnemyCharacter(getTextures(assetManager), getTextureMap(assetManager), getAnimations(assetManager), this, stance, storyMode); }
-	public Array<MutationResult> getAnalMessages(PronounSet pronouns) {
+	
+	// this should be refactored out
+	private String properCase(String sample) { return sample.substring(0, 1).toUpperCase() + sample.substring(1); }
+	public Array<MutationResult> getEroticMessages(Stance stance, PronounSet pronouns) {
+			return stance.isAnalPenetration() ? getAnalMessages(stance, pronouns) : stance.isOralPenetration() ? getOralMessages(stance, pronouns) : new Array<MutationResult>();
+	}
+	
+	private Array<MutationResult> getAnalMessages(Stance stance, PronounSet pronouns) {
 		switch (this) {
 			case OGRE: return new Array<MutationResult>(new MutationResult[]{
 				new MutationResult(properCase(pronouns.getPossessive()) + " tremendous, fat cock visibly bulges out your stomach!"),
@@ -460,6 +467,29 @@ public enum EnemyEnum {
 				});
 		}
 	}
-	// this should be refactored out
-	private String properCase(String sample) { return sample.substring(0, 1).toUpperCase() + sample.substring(1); }
+	private Array<MutationResult> getOralMessages(Stance stance, PronounSet pronouns) {
+		Array<MutationResult> mutationResults = new Array<MutationResult>();
+		switch (this) {
+			case HARPY:
+				mutationResults.addAll(new MutationResult[]{
+						new MutationResult(properCase(pronouns.getNominative()) + " tastes awful!"),
+						new MutationResult("You learned Anatomy (Harpy)!"),
+						new MutationResult("It blew past your lips!"),
+						new MutationResult("The harpy is holding your head in place with " + pronouns.getPossessive() + " talons and balancing herself with her wings!"),
+						new MutationResult(properCase(pronouns.getNominative()) + " flaps violently while humping your face!  Her cock tastes awful!")						
+				});
+				break;
+			default:
+				mutationResults.addAll(new MutationResult[]{
+						new MutationResult(properCase(pronouns.getNominative()) + " stuffs her cock into your face!"),
+						new MutationResult("You suck on " + pronouns.getPossessive() + " cock!"),
+						new MutationResult(properCase(pronouns.getNominative()) + " licks " + (pronouns.getPossessive()) + " lips!")
+				});
+		}
+		if (stance == Stance.SIXTY_NINE_BOTTOM) {
+			mutationResults.add(new MutationResult(properCase(pronouns.getNominative()) + " deepthroats your cock!"));
+			mutationResults.add(new MutationResult(properCase(pronouns.getNominative()) + " pistons " + pronouns.getPossessive() + " own cock in and out of your mouth!"));
+		}
+		return mutationResults;
+	}
 }

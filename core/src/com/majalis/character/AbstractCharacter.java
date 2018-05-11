@@ -487,30 +487,11 @@ public abstract class AbstractCharacter extends Group {
 			statuses.put(buff.type.toString(), buff.power);
 		}
 		if (enemyType != null) {
-			if (resolvedAttack.getForceStance() == Stance.DOGGY_BOTTOM || resolvedAttack.getForceStance() == Stance.ANAL_BOTTOM || resolvedAttack.getForceStance() == Stance.STANDING_BOTTOM) {
-				for (MutationResult mr : enemyType.getAnalMessages(pronouns)) {
-					resolvedAttack.addMessageToDefender(mr);
-				}
-			}		
-			else if(resolvedAttack.getForceStance() == Stance.FELLATIO_BOTTOM || resolvedAttack.getForceStance() == Stance.SIXTY_NINE_BOTTOM) {
-				if (enemyType == EnemyEnum.HARPY) {
-					resolvedAttack.addMessageToDefender(new MutationResult(properCase(pronouns.getNominative()) + " tastes awful!"));
-					resolvedAttack.addMessageToDefender(new MutationResult("You learned Anatomy (Harpy)!"));
-					resolvedAttack.addMessageToDefender(new MutationResult("It blew past your lips!"));
-					resolvedAttack.addMessageToDefender(new MutationResult("The harpy is holding your head in place with " + pronouns.getPossessive() + " talons and balancing herself with her wings!"));
-					resolvedAttack.addMessageToDefender(new MutationResult(properCase(pronouns.getNominative()) + " flaps violently while humping your face!  Her cock tastes awful!"));
-				}
-				else {
-					resolvedAttack.addMessageToDefender(new MutationResult(properCase(pronouns.getNominative()) + " stuffs her cock into your face!"));
-					resolvedAttack.addMessageToDefender(new MutationResult("You suck on " + pronouns.getPossessive() + " cock!"));
-					resolvedAttack.addMessageToDefender(new MutationResult(properCase(pronouns.getNominative()) + " licks " + (pronouns.getPossessive()) + " lips!"));
-				}
-				if (resolvedAttack.getForceStance() == Stance.SIXTY_NINE_BOTTOM) {
-					resolvedAttack.addMessageToDefender(new MutationResult(properCase(pronouns.getNominative()) + " deepthroats your cock!"));
-					resolvedAttack.addMessageToDefender(new MutationResult(properCase(pronouns.getNominative()) + " pistons " + pronouns.getPossessive() + " own cock in and out of your mouth!"));
-				}
+			for (MutationResult mr : enemyType.getEroticMessages(resolvedAttack.getForceStance(), pronouns)) {
+				resolvedAttack.addMessageToDefender(mr);
 			}
-			else if (resolvedAttack.getForceStance() == Stance.FACE_SITTING_BOTTOM) {
+			
+			if (resolvedAttack.getForceStance() == Stance.FACE_SITTING_BOTTOM) {
 				resolvedAttack.addMessageToDefender(new MutationResult(properCase(pronouns.getNominative()) + " rides your face!"));
 				resolvedAttack.addMessageToDefender(new MutationResult("You receive a faceful of ass!"));
 			}
