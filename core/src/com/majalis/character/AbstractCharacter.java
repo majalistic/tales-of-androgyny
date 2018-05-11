@@ -1203,7 +1203,8 @@ public abstract class AbstractCharacter extends Group {
 		Plug equipPlug = (Plug) plug;
 		boolean alreadyEquipped = equipPlug.equals(this.plug); 
 		this.plug = alreadyEquipped ? null : equipPlug;
-		ass.togglePlug();
+		if (equipPlug.isPlug()) { ass.togglePlug();	}
+		
 		return "You " + (alreadyEquipped ? "unequipped" : "equipped") + " the " + plug.getName() + ".";
 	}
 		
