@@ -170,7 +170,7 @@ public class Battle extends Group{
 		initActor(new ArmorDisplay(enemy, enemy.getShield(), armorTexture, armorBrokenTexture), uiGroup, enemyBarX + 57, 810);		
 		initActor(new BleedDisplay(character, bloodTexture), uiGroup, 325, 725);
 		initActor(new BleedDisplay(enemy, bloodTexture), uiGroup, 1545, 725);
-			
+		
 		Table statusTable = (Table) initActor(new Table(), uiGroup, 525,  850);
 		statusTable.align(Align.topLeft);
 		Table enemyStatusTable = (Table) initActor(new Table(), uiGroup, 1575,  700);
@@ -697,7 +697,7 @@ public class Battle extends Group{
 	}
 	
 	public boolean isBattleOver() { return battleOver; }
-	public int getOutcomeScene() { return outcomes.get(outcome.toString()); }
+	public int getOutcomeScene() { return outcomes.containsKey(outcome.toString()) ? outcomes.get(outcome.toString()) : outcomes.get(Outcome.DEFEAT.toString()); }
 	
 	private class StanceActor extends Actor {
 		private final AbstractCharacter character;
