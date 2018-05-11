@@ -395,7 +395,7 @@ public enum EnemyEnum {
 	// this should be refactored out
 	private String properCase(String sample) { return sample.substring(0, 1).toUpperCase() + sample.substring(1); }
 	public Array<MutationResult> getEroticMessages(Stance stance, PronounSet pronouns) {
-			return stance.isAnalPenetration() ? getAnalMessages(stance, pronouns) : stance.isOralPenetration() ? getOralMessages(stance, pronouns) : new Array<MutationResult>();
+		return stance != null ? (stance.isAnalPenetration() ? getAnalMessages(stance, pronouns) : stance.isOralPenetration() ? getOralMessages(stance, pronouns) : new Array<MutationResult>()) : new Array<MutationResult>();
 	}
 	
 	private Array<MutationResult> getAnalMessages(Stance stance, PronounSet pronouns) {
