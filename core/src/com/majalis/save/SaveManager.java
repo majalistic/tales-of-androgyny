@@ -1,7 +1,7 @@
 package com.majalis.save;
 
-import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
+import java.text.DateFormat;
+import java.util.Calendar;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetDescriptor;
@@ -314,7 +314,7 @@ public class SaveManager implements SaveService, LoadService {
     }
     
     private static String getTimeStamp() {
-    	return ZonedDateTime.now().format(DateTimeFormatter.ofPattern("d MMM uuuu kk:mm:ss"));
+    	return DateFormat.getDateTimeInstance().format(Calendar.getInstance().getTime());
     }
     
     public static class VisitInfo { 
