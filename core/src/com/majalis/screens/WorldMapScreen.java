@@ -4,12 +4,16 @@ import com.badlogic.gdx.Gdx;
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.*;
 import static com.majalis.asset.AssetEnum.*;
 
+import java.io.FileNotFoundException;
+import java.io.PrintStream;
+
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.PerspectiveCamera;
@@ -45,6 +49,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.utils.viewport.FitViewport;
@@ -1243,18 +1248,28 @@ public class WorldMapScreen extends AbstractScreen {
 			Array<Doodad> doodads = world.getDoodads();
 			
 			Texture groundSheet = assetManager.get(AssetEnum.GROUND_SHEET.getTexture());	
-			
-			// draw (add drawings as actors) ground layer
-			drawLayer(ground, groundSheet, false);
-						
-			// draw (add reflections as actors) reflections
-			for (AnimatedImage lily :lilies) { worldGroup.addActorAt(0, lily); }
-			
-			for (Image reflection : reflections) { worldGroup.addActorAt(0, reflection); }
-		
-			// draw (add drawings as actors) water layer
-			drawLayer(ground, groundSheet, true);
+			try {
+				// draw (add drawings as actors) ground layer
+				drawLayer(ground, groundSheet, false);
 							
+				// draw (add reflections as actors) reflections
+				for (AnimatedImage lily :lilies) { worldGroup.addActorAt(0, lily); }
+				
+				for (Image reflection : reflections) { worldGroup.addActorAt(0, reflection); }
+			
+				// draw (add drawings as actors) water layer
+				drawLayer(ground, groundSheet, true);
+			}
+			catch(GdxRuntimeException ex) {
+				ex.printStackTrace();
+	        	FileHandle errorLog = Gdx.files.local("error.txt");
+	        	try {
+					ex.printStackTrace(new PrintStream(errorLog.file()));
+				} catch (FileNotFoundException e) {
+					e.printStackTrace();
+				}
+			}
+			
 			worldGroup.addActor(shadowGroup);	
 			
 			addWorldActors();
