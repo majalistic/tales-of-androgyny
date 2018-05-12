@@ -479,6 +479,14 @@ public enum EnemyEnum {
 						new MutationResult(properCase(pronouns.getNominative()) + " flaps violently while humping your face!  Her cock tastes awful!")						
 				});
 				break;
+			case WERESLUT:
+				mutationResults.addAll(new MutationResult[]{
+						new MutationResult(properCase(pronouns.getNominative()) + " stuffs her doggy dick in your face!"),
+						new MutationResult("You learned Anatomy (Werewolf)!"),
+						new MutationResult("You suck on " + pronouns.getPossessive() + " dogcock!"),
+						new MutationResult(properCase(pronouns.getNominative()) + " licks " + (pronouns.getPossessive()) + " lips!")					
+				});
+				break;
 			default:
 				mutationResults.addAll(new MutationResult[]{
 						new MutationResult(properCase(pronouns.getNominative()) + " stuffs her cock into your face!"),
