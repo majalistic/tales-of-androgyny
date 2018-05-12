@@ -60,6 +60,7 @@ public class Armor extends Equipment {
 		if (shockIndex >= type.getShockAbsorption().size) return 0;
 		return type.getShockAbsorption().get(shockIndex);
 	}
+	public boolean isTight() { return type.isTight(); }
 	public boolean coversNipples() { return type.coversNipples(); }
 	public boolean isPorous() { return type.isPorous(); }
 	public boolean isHeatResistant() { return type.isHeatResistant(); }
@@ -156,6 +157,7 @@ public class Armor extends Equipment {
 		private boolean showsHips() { return true; }
 		private int getMaxDurability() { int maxDurability = 0; for (int value : getDurability().items) maxDurability += value; return maxDurability; }
 		private EquipEffect getEquipEffect() { return this == SHOES_OF_RUNNING ? EquipEffect.AGI_BONUS : this == HELM_OF_WISDOM ? EquipEffect.PER_BONUS : this == GAUNTLETS_OF_STRENGTH ? EquipEffect.STR_BONUS : EquipEffect.NULL; }
+		private boolean isTight() { return this == BREASTPLATE || this == DIAMOND_PLATE; }
 		private String getBonusDescription() {
 			switch(getEquipEffect()) {
 				case AGI_BONUS: return "Increases Agility by 1.";
