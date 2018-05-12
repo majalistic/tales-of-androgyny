@@ -155,7 +155,7 @@ public class InventoryScreen extends AbstractScreen {
 		accessoryText = getLabel(character.getFirstAccessory() != null ? character.getFirstAccessory().getName() : "None", skin, character.getFirstAccessory() != null ? Color.GOLD : Color.BROWN);
 		plugText = getLabel(character.getPlug() != null ? character.getPlug().getName() : "None", skin, character.getPlug() != null ? Color.GOLD : Color.BROWN);
 		cageText = getLabel(character.getCage() != null ? character.getCage().getName() : "None", skin, character.getCage() != null ? Color.GOLD : Color.BROWN);
-		mouthwearText = getLabel(character.getCage() != null ? character.getMouthwear().getName() : "None", skin, character.getMouthwear() != null ? Color.GOLD : Color.BROWN);
+		mouthwearText = getLabel(character.getMouthwear() != null ? character.getMouthwear().getName() : "None", skin, character.getMouthwear() != null ? Color.GOLD : Color.BROWN);
 		
 		weaponText.addListener(new ClickListener() { @Override public void clicked(InputEvent e, float x, float y) { resetWeaponTable(character.unequipWeapon()); }});
 		rangedWeaponText.addListener(new ClickListener() { @Override public void clicked(InputEvent e, float x, float y) { resetWeaponTable(character.unequipRangedWeapon()); }});
