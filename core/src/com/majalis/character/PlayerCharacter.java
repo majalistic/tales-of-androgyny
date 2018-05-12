@@ -339,6 +339,7 @@ public class PlayerCharacter extends AbstractCharacter {
 			}
 		}
 		else if (stance == Stance.SIXTY_NINE) { resolvedAttack.addMessageToDefender(new MutationResult("She shoves her cock down your throat while swallowing yours!")); }
+		if (ass.getFullnessAmount() > 15) { resolvedAttack.addMessageToDefender(new MutationResult("Your belly gurgles uncomfortably!")); }
 		return new AttackResult(resolvedAttack.getToAttackerMessages(), resolvedAttack.getToDefenderMessages(), resolvedAttack.getDialog(), resolvedAttack.getAttackerResults(), resolvedAttack.getDefenderResults());	
 	}
 	
