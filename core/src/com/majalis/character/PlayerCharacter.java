@@ -223,7 +223,7 @@ public class PlayerCharacter extends AbstractCharacter {
 				inventory.add(dagger);
 				weapon = dagger;
 				skillPoints = 5; 
-				food += 40;
+				money += 30;
 				break;
 			case MAGE: 
 				setUnderwear(new Armor(ArmorType.UNDERWEAR), true);
@@ -236,6 +236,7 @@ public class PlayerCharacter extends AbstractCharacter {
 				Weapon dagger2 = new Weapon(WeaponType.Dagger);
 				inventory.add(dagger2);
 				weapon = dagger2;
+				food += 40;
 				break;
 			case ENCHANTRESS: 
 				Weapon sword2 = new Weapon(WeaponType.Gladius);

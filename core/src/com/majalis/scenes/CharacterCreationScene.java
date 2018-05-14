@@ -403,8 +403,8 @@ public class CharacterCreationScene extends Scene {
 		switch (jobClass) {
 			case WARRIOR: return "+1 Skill point.\nUnlocked \"Blitz\" Stance.\nGained \"Weak to Anal\".";
 			case PALADIN: return "Combat Heal learned.\nBreastplate equipped.\nBattle Skirt equipped.\nChastity Cage equipped.";
-			case THIEF:   return "+3 Skill points.\n+40 food.";
-			case RANGER:  return "Received bow.";
+			case THIEF:   return "+3 Skill points.\n+30 gold.";
+			case RANGER:  return "Received bow.\n+40 food.";
 			case MAGE:    return "+1 Magic point.\nLimited armor.\n";
 			case ENCHANTRESS: return "+1 Perk point.\n";
 			default: return "";
