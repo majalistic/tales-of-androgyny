@@ -192,7 +192,7 @@ public class Battle extends Group{
 		characterPortrait.setScale(.9f);
 		characterPortrait.addAction(Actions.sequence(Actions.delay(.5f), new Action() {@Override public boolean act(float delta) { characterPortrait.addListener(getListener(character)); return true; }}));
 		
-		initActor(new MasculinityDisplay(character), uiGroup, barX - 175, 700);
+		initActor(new MasculinityDisplay(character), uiGroup, barX - 195, 700);
 		((AnimatedActor) initActor(character.getCock(assetManager), uiGroup, 0, 0)).setSkeletonPosition(225, 800);
 		((AnimatedActor) initActor(enemy.getCock(assetManager), uiGroup, 0, 0)).setSkeletonPosition(1700, 800);
 		((AnimatedActor) initActor(character.getBelly(assetManager), uiGroup, 0, 0)).setSkeletonPosition(75, 825);
@@ -723,12 +723,13 @@ public class Battle extends Group{
 				}
 			});
 		}
-
+		// this needs to not override draw, instead having this extend Group and adding stance based images
 		@Override
 	    public void draw(Batch batch, float parentAlpha) {
 			super.draw(batch, parentAlpha);
 			Stance stance = character.getStance();
 			String stanceName = stance.getLabel();
+			batch.setColor(getColor());
 			batch.draw(assetManager.get(stance.getTexture()), getX(), getY(), getWidth(), getHeight());
 			if (hover) {
 				batch.draw(hoverBox, getX() + 50 - (stanceName.length() * 9), getY() - 75, 25 + stanceName.length() * 18, 50);
@@ -826,15 +827,30 @@ public class Battle extends Group{
 	private class MasculinityDisplay extends Group {
 		private final Image display;
 		private final PlayerCharacter character;
+		private AssetDescriptor<Texture> texture;
 		public MasculinityDisplay (PlayerCharacter character) {
 			this.character = character;
-			display = new Image(assetManager.get(character.getMasculinityPath()));
+			texture = character.getMasculinityPath();
+			display = new Image(assetManager.get(texture));
 			display.setScale(.15f);
 			this.addActor(display);
+			this.addAction(hide());
 		}
 		@Override
 		public void act(float delta) {
-			display.setDrawable(getDrawable(assetManager.get(character.getMasculinityPath())));
+			AssetDescriptor<Texture> newTexture = character.getMasculinityPath();
+			if (newTexture != texture) {
+				texture = newTexture;
+				this.addAction(
+					sequence(show(), fadeIn(1), new Action(){
+					@Override
+					public boolean act(float delta) {
+						display.setDrawable(getDrawable(assetManager.get(character.getMasculinityPath())));
+						return true;
+					}},
+					fadeOut(1)
+				));
+			}
 			super.act(delta);
 		}
 	}
