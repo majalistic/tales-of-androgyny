@@ -309,6 +309,7 @@ public class ShopScene extends Scene {
 					shop.items.add(new Armor(ArmorType.DIAMOND_PLATE));	
 					shop.items.add(new Armor(ArmorType.SKIRT));	
 					shop.items.add(new Armor(ArmorType.BATTLE_SKIRT));	
+					shop.items.add(new Armor(ArmorType.SHORTS));	
 					shop.items.add(new Armor(ArmorType.SHIELD));	
 					shop.items.add(new Armor(ArmorType.REINFORCED_SHIELD));	
 					shop.items.add(new Armor(ArmorType.HELMET));
