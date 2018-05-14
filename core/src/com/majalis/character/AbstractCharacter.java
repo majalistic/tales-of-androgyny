@@ -836,7 +836,7 @@ public abstract class AbstractCharacter extends Group {
 		Array<MutationResult> results = new Array<MutationResult>();
 		String spurt = "";
 		String oldArousal = arousal.getCurrentState();
-		arousal.increaseArousal(sexes, perks);
+		results.addAll(arousal.increaseArousal(sexes, perks));
 		if (this.cock != null) {
 			if (!oldArousal.equals(arousal.getCurrentState())) {
 				this.cock.setAnimation(0, oldArousal + "To" + arousal.getCurrentState(), false);

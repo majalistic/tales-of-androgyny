@@ -1,6 +1,8 @@
 package com.majalis.character;
 
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
+import com.majalis.save.MutationResult;
 import com.majalis.technique.ClimaxTechnique.ClimaxType;
 
 public class Arousal {
@@ -31,14 +33,19 @@ public class Arousal {
 	}
 	
 	public enum ArousalLevel {
-		FLACCID,
-		SEMI_ERECT,
-		ERECT,
-		FULLY_AROUSED,
-		EDGING,
-		CLIMAX; // handjobs take longer to get to climax
+		FLACCID("Flaccid"),
+		SEMI_ERECT("Semi-Erect"),
+		ERECT("Erect"),
+		FULLY_AROUSED("Full-Mast"),
+		EDGING("Edging"),
+		CLIMAX("Climax"); // handjobs take longer to get to climax
+		
+		private final String label;
+		private ArousalLevel(String label) { this.label = label; }
 		
 		public ArousalLevel increase() { return this.ordinal() + 1 >= ArousalLevel.values().length ? this : ArousalLevel.values()[this.ordinal() + 1]; }
+
+		public String getLabel() { return label; }
 	}
 	
 	protected int getPhallusLevel() { return Math.min(arousalLevel.ordinal(), 2); }
@@ -47,21 +54,20 @@ public class Arousal {
 	protected boolean isEdging() { return arousalLevel == ArousalLevel.EDGING; }
 	protected boolean isClimax() { return arousalLevel == ArousalLevel.CLIMAX; }
 	protected boolean isSuperEdging() { return arousalLevel == ArousalLevel.EDGING && arousal > 3; }
-
+	
 	// need to also know whether you're being aroused by creampie or not
 	// this accepts a raw increase amount that's the "size" of the arousal increase, which is then modified by current lust and ArousalLevel - may also need additional information like type of Arousal (anal stimulation, oral stimulation, bottom, top, etc.)
-	protected void increaseArousal(SexualExperience sex, ObjectMap<String, Integer> perks) {
-		increaseArousal(new SexualExperience[]{sex}, perks);
-	}
-	
-	public void increaseArousal(SexualExperience[] sexes, ObjectMap<String, Integer> perks) {
-		if (type == ArousalType.SEXLESS) return;
+	protected Array<MutationResult> increaseArousal(SexualExperience sex, ObjectMap<String, Integer> perks) { return increaseArousal(new SexualExperience[]{sex}, perks); }	
+	public Array<MutationResult> increaseArousal(SexualExperience[] sexes, ObjectMap<String, Integer> perks) {
+		Array<MutationResult> results = new Array<MutationResult>();
+		if (type == ArousalType.SEXLESS) return results;
 		int climaxArousalAmount = 0;
 		int arousalAmount = 0;
 		int base = getBase();
 		int analBottomMod = getAnalBottomMod(perks, base);
 		int oralBottomMod = getOralBottomMod(perks, base);
 		int topMod = getTopMod(perks, base);
+		int currentArousal = arousal;
 		for (SexualExperience sex : sexes) {
 			// currently does not count creampies or ejaculations
 			climaxArousalAmount += sex.getAnalSex() * analBottomMod; // this should be doubled for penetration?
@@ -86,17 +92,22 @@ public class Arousal {
 			arousalAmount *= !sex.isKnot() ? 1 : perks.get(Perk.BITCH.toString(), 0) * .5 + 1;				
 					
 			bottomLust += sex.getAssBottomTeasing() * analBottomMod;
-			
+		
 			arousal += climaxArousalAmount;
 			if (!isFullyAroused() || sex.isSex()) arousal += arousalAmount; 
 		}
+		
+		results.add(new MutationResult("Arousal increases by " + (arousal - currentArousal) / 4 + "!")); 
 			
 		modLust(arousalAmount + climaxArousalAmount);	
 		
 		if (arousal > (type == ArousalType.OGRE ? (isErect() ? 16 : 100) : type == ArousalType.PLAYER ? getLustArousalMod() : 16)) { 
 			if (type != ArousalType.QUETZAL || !isEdging() || arousal > 32)
 			increaseArousalLevel();
+			results.add( new MutationResult("Arousal level increased to " + arousalLevel.getLabel() + "!"));
 		}
+				
+		return results;
 	}
 	
 	public boolean isBottomReady() { return bottomLust >= 50; }
