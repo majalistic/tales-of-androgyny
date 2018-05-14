@@ -26,6 +26,7 @@ import com.majalis.asset.AnimatedActor;
 import com.majalis.asset.AssetEnum;
 import com.majalis.character.HealthBar;
 import com.majalis.character.LevelBar;
+import com.majalis.character.MasculinityDisplay;
 import com.majalis.character.PlayerCharacter;
 import com.majalis.scenes.Scene;
 import com.majalis.screens.TimeOfDay;
@@ -48,7 +49,6 @@ public class EncounterHUD extends Group {
 	private final TextButton autoplayButton;
 	private final Label dateLabel;
 	private final Image characterPortrait;
-	private final Image masculinityIcon;
 	private final Skin skin;
 	private boolean skipHeld;
 	private boolean buttonsHidden;
@@ -137,8 +137,7 @@ public class EncounterHUD extends Group {
 		
 		Texture portrait = assetManager.get(character.getPortraitPath());
 		characterPortrait = addImage(characterGroup, portrait, 105, 750, portrait.getWidth() / (portrait.getHeight() / 200f), 200);
-		Texture icon = assetManager.get(character.getMasculinityPath());
-		masculinityIcon = addImage(characterGroup, icon, 105, 655, icon.getWidth() / (icon.getHeight() / 100f), 100);
+		addActor(characterGroup, new MasculinityDisplay(character, assetManager), 125, 675);
 		((AnimatedActor) addActor(characterGroup, character.getBelly(assetManager))).setSkeletonPosition(68, 753);
 	}	
 	
@@ -173,7 +172,6 @@ public class EncounterHUD extends Group {
 		if (character.isLoaded()) {
 			characterGroup.addAction(Actions.show());
 			characterPortrait.setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(character.getPortraitPath()))));
-			masculinityIcon.setDrawable(new TextureRegionDrawable(new TextureRegion(assetManager.get(character.getMasculinityPath()))));
 		}
 		else {
 			characterGroup.addAction(Actions.hide());

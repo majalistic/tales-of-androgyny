@@ -48,6 +48,7 @@ import com.majalis.character.EnemyCharacter;
 import com.majalis.character.GrappleStatus;
 import com.majalis.character.HealthBar;
 import com.majalis.character.ManaBar;
+import com.majalis.character.MasculinityDisplay;
 import com.majalis.character.PlayerCharacter;
 import com.majalis.character.StaminaBar;
 import com.majalis.character.Technique;
@@ -192,7 +193,7 @@ public class Battle extends Group{
 		characterPortrait.setScale(.9f);
 		characterPortrait.addAction(Actions.sequence(Actions.delay(.5f), new Action() {@Override public boolean act(float delta) { characterPortrait.addListener(getListener(character)); return true; }}));
 		
-		initActor(new MasculinityDisplay(character), uiGroup, barX - 195, 700);
+		initActor(new MasculinityDisplay(character, assetManager), uiGroup, barX - 195, 700);
 		((AnimatedActor) initActor(character.getCock(assetManager), uiGroup, 0, 0)).setSkeletonPosition(225, 800);
 		((AnimatedActor) initActor(enemy.getCock(assetManager), uiGroup, 0, 0)).setSkeletonPosition(1700, 800);
 		((AnimatedActor) initActor(character.getBelly(assetManager), uiGroup, 0, 0)).setSkeletonPosition(75, 825);
@@ -542,7 +543,7 @@ public class Battle extends Group{
 	}
 	
 	private TextureRegionDrawable getDrawable(AssetDescriptor<Texture> AssetInfo) { return getDrawable(assetManager.get(AssetInfo)); }
-	private TextureRegionDrawable getDrawable(Texture texture) { return new TextureRegionDrawable(new TextureRegion(texture)); }
+	public static TextureRegionDrawable getDrawable(Texture texture) { return new TextureRegionDrawable(new TextureRegion(texture)); }
 	
 	private void changeSelection(int newSelection) {
 		if (selection == newSelection) return;
@@ -823,38 +824,7 @@ public class Battle extends Group{
 		}
 	}
 	
-	// many of these classes have shared functionality and should be refactored	
-	private class MasculinityDisplay extends Group {
-		private final Image display;
-		private final PlayerCharacter character;
-		private AssetDescriptor<Texture> texture;
-		public MasculinityDisplay (PlayerCharacter character) {
-			this.character = character;
-			texture = character.getMasculinityPath();
-			display = new Image(assetManager.get(texture));
-			display.setScale(.15f);
-			this.addActor(display);
-			this.addAction(hide());
-		}
-		@Override
-		public void act(float delta) {
-			AssetDescriptor<Texture> newTexture = character.getMasculinityPath();
-			if (newTexture != texture) {
-				texture = newTexture;
-				this.addAction(
-					sequence(show(), fadeIn(1), new Action(){
-					@Override
-					public boolean act(float delta) {
-						display.setDrawable(getDrawable(assetManager.get(character.getMasculinityPath())));
-						return true;
-					}},
-					fadeOut(1)
-				));
-			}
-			super.act(delta);
-		}
-	}
-	
+	//many of these classes have shared functionality and should be refactored		
 	private class StatusDisplay extends Label {
 		private final AbstractCharacter character;
 		public StatusDisplay(AbstractCharacter character, Skin skin) {
