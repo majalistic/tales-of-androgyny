@@ -1269,7 +1269,16 @@ public class WorldMapScreen extends AbstractScreen {
 					e.printStackTrace();
 				}
 			}
-			
+			catch(IllegalStateException ex) {
+				ex.printStackTrace();
+	        	FileHandle errorLog = Gdx.files.local("error.txt");
+	        	try {
+					ex.printStackTrace(new PrintStream(errorLog.file()));
+				} catch (FileNotFoundException e) {
+					e.printStackTrace();
+				}
+			}
+		
 			worldGroup.addActor(shadowGroup);	
 			
 			addWorldActors();
