@@ -331,6 +331,7 @@ public enum EnemyEnum {
 		Array<AssetDescriptor<AnimatedActorFactory>> temp = new Array<AssetDescriptor<AnimatedActorFactory>>();
 		switch (this) {
 			case ADVENTURER:
+				temp.add(AssetEnum.TRUDY_SPRITE_ANIMATION.getAnimation());
 				break;
 			case BEASTMISTRESS:
 				temp.add(AssetEnum.BEASTMISTRESS_ANIMATION.getAnimation());
