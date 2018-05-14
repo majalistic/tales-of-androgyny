@@ -102,7 +102,7 @@ public class CharacterCreationScene extends Scene {
 
 		statPointDisplay = initLabel(String.valueOf(statPoints), skin, Color.BLACK, 1310, 888, Align.left);		
 		statPointDisplay.addAction(Actions.hide());
-		final Label classMessage = initLabel("", skin, Color.BLACK, 1700, 230, Align.top);
+		final Label classMessage = initLabel("", skin, Color.BLACK, 1710, 235, Align.top);
 		final Label statMessage = initLabel("", skin, Color.RED, statX, statY, Align.left, true, 740);
 		final Label statDescription = initLabel("", skin, Color.FOREST, statX, statY, Align.left, true, 740);
 		final Label classSelection = initLabel("", skin, Color.GOLD, 1726, 970, Align.center);
