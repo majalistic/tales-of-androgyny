@@ -91,25 +91,15 @@ public class EncounterHUD extends Group {
 		logGroup.addActor(showLog);
 		skipText = addLabel("Press CTRL to skip", skin, font, Color.BLACK, 95, 180);
 		skipText.setWidth(240);		
-		hideButton = new TextButton("Hide", skin);
-		saveButton = new TextButton("Save", skin);
-		skipButton = new TextButton("Skip", skin);
-		autoplayButton = new TextButton("Auto", skin);
-		dateLabel = new DateLabel(character, skin);
+		dateLabel = (Label) addActor(this, new DateLabel(character, skin), 1650, 325);
+		hideButton = (TextButton) addActor(this, new TextButton("Hide", skin), 1650, 25);
+		saveButton = (TextButton) addActor(this, new TextButton("Save", skin), 1650, 100);
+		skipButton = (TextButton) addActor(this, new TextButton("Skip", skin), 1650, 175);
+		autoplayButton = (TextButton) addActor(this, new TextButton("Auto", skin), 1650, 250);
 		if (Gdx.app.getPreferences("tales-of-androgyny-preferences").getBoolean("autoplay", false)) autoplayButton.setColor(Color.YELLOW);
 
-		dateLabel.setPosition(1650, 325);
-		this.addActor(dateLabel);
-		
-		hideButton.setPosition(1650, 25);
-		hideButton.setWidth(150);	
-		this.addActor(hideButton);
-		
-		saveButton.setPosition(1650, 100);
-		saveButton.setWidth(150);	
-		this.addActor(saveButton);
-		
-		skipButton.setPosition(1650, 175);
+		hideButton.setWidth(150);			
+		saveButton.setWidth(150);			
 		skipButton.setWidth(150);
 		skipButton.addListener(
 			new ClickListener() {
@@ -127,9 +117,6 @@ public class EncounterHUD extends Group {
 			}
 		);	
 		
-		this.addActor(skipButton);
-		
-		autoplayButton.setPosition(1650, 250);
 		autoplayButton.setWidth(150);
 		autoplayButton.addListener(
 			new ClickListener() {
@@ -141,21 +128,12 @@ public class EncounterHUD extends Group {
 		        }
 			}
 		);	
-		this.addActor(autoplayButton);
 	
 		characterGroup = new Group();
 		this.addActor(characterGroup);
-		HealthBar healthBar = new HealthBar(character, assetManager, assetManager.get(AssetEnum.BATTLE_SKIN.getSkin()));
-		healthBar.setPosition(25, 950);		
-		characterGroup.addActor(healthBar);
-		
-		LevelBar levelBar = new LevelBar(character, assetManager, skin);
-		levelBar.setPosition(-175, 825);
-		characterGroup.addActor(levelBar);
-		
-		FoodDisplay foodDisplay = new FoodDisplay(character, assetManager, skin);
-		foodDisplay.setPosition(15, 850);
-		characterGroup.addActor(foodDisplay);
+		addActor(characterGroup, new HealthBar(character, assetManager, assetManager.get(AssetEnum.BATTLE_SKIN.getSkin())), 25, 950);		
+		addActor(characterGroup, new LevelBar(character, assetManager, skin), -175, 825);
+		addActor(characterGroup, new FoodDisplay(character, assetManager, skin), 15, 850);
 		
 		Texture portrait = assetManager.get(character.getPortraitPath());
 		characterPortrait = addImage(characterGroup, portrait, 105, 750, portrait.getWidth() / (portrait.getHeight() / 200f), 200);
@@ -187,6 +165,7 @@ public class EncounterHUD extends Group {
 	}
 	
 	private Actor addActor(Group group, Actor actor) { group.addActor(actor); return actor; }
+	private Actor addActor(Group group, Actor actor, float x, float y) { group.addActor(actor); actor.setPosition(x, y); return actor; }
 	
 	public boolean isSkipHeld() { return skipHeld; }
 	
