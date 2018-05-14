@@ -172,7 +172,7 @@ public class Battle extends Group{
 		initActor(new BleedDisplay(character, bloodTexture), uiGroup, 325, 725);
 		initActor(new BleedDisplay(enemy, bloodTexture), uiGroup, 1545, 725);
 		
-		if (character.getBattlePerception() >= 3) initActor(new OutcomeWidget(outcomes), uiGroup, 1850, 950); 
+		if (character.getBattlePerception() >= 3) initActor(new OutcomeWidget(outcomes), uiGroup, 1835, 940); 
 		Table statusTable = (Table) initActor(new Table(), uiGroup, 525,  850);
 		statusTable.align(Align.topLeft);
 		Table enemyStatusTable = (Table) initActor(new Table(), uiGroup, 1575,  700);
@@ -806,7 +806,7 @@ public class Battle extends Group{
 					}
 			    });
 				outcomeMap.put(outcome, outcomeImage);
-				table.add(outcomeImage).row();				
+				table.add(outcomeImage).align(Align.left).row();				
 			}
 		}		
 		
@@ -1049,9 +1049,15 @@ public class Battle extends Group{
 		
 		public Table getOutcomeImage(AssetManager assetManager) {
 			Table table = new Table();
+			boolean first = true;
 			for (AssetEnum glyph : glyphs) {
+				int adjust = -15;
+				if (first) {
+					first = false;
+					adjust = 0;
+				}
 				Texture texture = assetManager.get(glyph.getTexture());
-				table.add(new Image(texture)).size(texture.getWidth(), texture.getHeight());
+				table.add(new Image(texture)).size(texture.getWidth(), texture.getHeight()).padLeft(adjust);
 			}		
 			return table;
 		}
