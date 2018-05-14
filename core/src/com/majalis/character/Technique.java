@@ -72,6 +72,8 @@ public class Technique {
 		int parryAmount = isParryable() ? otherPayload.getParry() : 0;
 		int evadeAmount = technique.getTechniqueHeight() != TechniqueHeight.NONE && isEvadeable() ? otherPayload.getEvasion() : 0;
 		
+		// rather than phallus type this should be setting enemyType and phallusType should be inferred
+		
 		// figure out what statuses are actually used and remove the ones that aren't
 		Array<Attack> resultingAttacks = new Array<Attack>(new Attack[]{new Attack(
 			evadeAmount >= 4 ? Status.EVADED : fizzle ? Status.FIZZLE : isSuccessful ? (blockAmount > 0 ? Status.BLOCKED : parryAmount > 0 ? Status.PARRIED : Status.SUCCESS) : failure ? Status.FAILURE : Status.MISSED, 

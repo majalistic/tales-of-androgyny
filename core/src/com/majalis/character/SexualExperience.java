@@ -29,6 +29,7 @@ public class SexualExperience {
 	private final boolean knot; // involves a knot
 	private final boolean prostitution; // is an act of prostitution
 	private final boolean masturbation; // is an act of masturbation
+	private final EnemyEnum other; // who the sex was with
 	
 	public static class SexualExperienceBuilder {
 		private int analSexTop;
@@ -49,8 +50,14 @@ public class SexualExperience {
 		private boolean ogre;
 		private boolean bird;
 		private boolean knot;
+		private EnemyEnum other;
 		
 		public SexualExperienceBuilder() {}
+		
+		public SexualExperienceBuilder setOther(EnemyEnum other) {
+			this.other = other;
+			return this;
+		}
 		
 		public SexualExperienceBuilder setAnalSexTop(int analSexTop) {
 			this.analSexTop = analSexTop;
@@ -190,14 +197,14 @@ public class SexualExperience {
 		}		
 		
 		public SexualExperience build() {
-			return new SexualExperience(analSexTop, oralSexTop, 0, 0, analSex, anal, creampies, analEjaculation, oralSex, oral, oralCreampies, fellatioEjaculation, 0, 0, assTeasing, assBottomTeasing, mouthTeasing, mouthBottomTeasing, horse, ogre, false, false, false, bird, knot);
+			return new SexualExperience(analSexTop, oralSexTop, 0, 0, analSex, anal, creampies, analEjaculation, oralSex, oral, oralCreampies, fellatioEjaculation, 0, 0, assTeasing, assBottomTeasing, mouthTeasing, mouthBottomTeasing, horse, ogre, false, false, false, bird, knot, other);
 		}
 	}
 	
-	protected SexualExperience() { this(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, false, false, false, false, false, false, false); }
+	protected SexualExperience() { this(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, false, false, false, false, false, false, false, null); }
 	
 	private SexualExperience(int analSexTop, int oralSexTop, int ejaculationInButt, int ejaculationInMouth, int analSex, int anal, int creampies, int analEjaculation, int oralSex, int oral, int oralCreampies, int fellatioEjaculation, int bellyful, int handy, int assTeasing, int assBottomTeasing, int mouthTeasing, int mouthBottomTeasing,
-		boolean horse, boolean ogre, boolean prostitution, boolean masturbation, boolean beast, boolean bird, boolean knot) {
+		boolean horse, boolean ogre, boolean prostitution, boolean masturbation, boolean beast, boolean bird, boolean knot, EnemyEnum other) {
 		this.analSexTop = analSexTop;
 		this.oralSexTop = oralSexTop;
 		this.ejaculationInButt = ejaculationInButt;
@@ -223,6 +230,7 @@ public class SexualExperience {
 		this.beast = beast;
 		this.bird = bird;
 		this.knot = knot;
+		this.other = other;
 	}
 	
 	protected int getAnalSexTop() { return analSexTop; }
@@ -253,6 +261,7 @@ public class SexualExperience {
 	protected boolean isSex() { return analSexTop + oralSexTop + analSex + anal + creampies + analEjaculation + oralSex + oral + oralCreampies + fellatioEjaculation + bellyful + handy > 0; }
 	protected boolean isTeasing() { return assTeasing + assBottomTeasing + mouthTeasing + assBottomTeasing > 0; }
 	protected boolean isEmpty() { return !(isSex() || isTeasing()); }
+	protected EnemyEnum getOther() { return other; }
 	@Override
 	public String toString() { 
 		return "Anal sex top: " + analSexTop + "\n" + "Oral sex top: " + oralSexTop + "\n" + "Anal sex: " + analSex + "\n" + "Anal: " + anal + "\n" + "Creampies: " + creampies + "\n" + "Anal ejaculation: " + analEjaculation + "\n" + "Oral sex: " + oralSex + "\n" + "Oral: " + oral + "\n" +

@@ -811,7 +811,7 @@ public class PlayerCharacter extends AbstractCharacter {
 		goblinVirgin = virginity;
 		if (!goblinVirgin) {
 			modDignity(-50);
-			receiveSex(new SexualExperience.SexualExperienceBuilder().setAnalSex(1).build());
+			receiveSex(new SexualExperience.SexualExperienceBuilder().setOther(EnemyEnum.GOBLIN).setAnalSex(1).build());
 		}
 	}
 	
