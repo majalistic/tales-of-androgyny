@@ -758,16 +758,16 @@ public abstract class AbstractCharacter extends Group {
 			SexualExperience sex = attack.getSex();
 			SexualExperience selfSex = attack.getSelfSex();
 
+			// get mutation results from this lust stuff
 			if ((enemyType != EnemyEnum.GOLEM || arousal.isErect()) && enemyType != EnemyEnum.QUETZAL) {
 				if (!sex.isEmpty() || !selfSex.isEmpty()) {
 					int formerLust = arousal.getLust();
-					String lustIncrease = increaseLust(sex, selfSex);
-					if (lustIncrease != null) resultToDefender.add(new MutationResult(lustIncrease));
+					resultToDefender.addAll(increaseLust(sex, selfSex));
 					int lustChange = arousal.getLust() - formerLust;
 					if (sex.isTeasing()) resultToDefender.add(new MutationResult(label + (secondPerson ? " are seduced" : " is seduced") + "! " + (lustChange > 0 ? ((secondPerson ? " Your " : " Their ") + "lust raises by " + lustChange + "!") : (secondPerson ? " You " : " They ") + "cum!")));
 				}	
 			}
-			else if (enemyType == EnemyEnum.QUETZAL) { increaseLust(selfSex); }
+			else if (enemyType == EnemyEnum.QUETZAL) { resultToDefender.addAll(increaseLust(selfSex)); }
 			
 			String internalShotText = null;
 			if (attack.getClimaxType() == ClimaxType.ANAL) {
@@ -832,7 +832,8 @@ public abstract class AbstractCharacter extends Group {
 		if (range < 0) range = 0;
 	}
 	
-	protected String increaseLust(SexualExperience ... sexes) {
+	protected Array<MutationResult> increaseLust(SexualExperience ... sexes) {
+		Array<MutationResult> results = new Array<MutationResult>();
 		String spurt = "";
 		String oldArousal = arousal.getCurrentState();
 		arousal.increaseArousal(sexes, perks);
@@ -849,7 +850,8 @@ public abstract class AbstractCharacter extends Group {
 				this.cock.addAnimation(0, "ClimaxToFlaccid", false, 4);
 			}
 		}
-		return !spurt.isEmpty() ? spurt : null;
+		if (!spurt.isEmpty()) { results.add(new MutationResult(spurt)); }
+		return results;
 	}
 	
 	protected abstract String climax();
