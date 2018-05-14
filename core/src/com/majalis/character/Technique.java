@@ -324,7 +324,7 @@ public class Technique {
 			bleeding = technique.causesBleed() ? (technique.getSetBleed() + (technique.isMelee() ? (currentState.getWeapon() != null && currentState.getWeapon().causesBleed() ? bleedingCalc : 0) : (currentState.getRangedWeapon() != null && currentState.getRangedWeapon().causesBleed() ? bleedingCalc : 0))) : 0;
 			counter = counterCalc;
 			priority = priorityCalc;
-			grapple = grappleCalc;
+			grapple = technique.getGrappleType() == GrappleType.NULL ? 0 : grappleCalc + currentState.getGrappleMod();
 			removePlug = removePlugCalc;
 		}
 

@@ -78,4 +78,6 @@ public class CharacterState {
 	public ObjectMap<Perk, Integer> getPerks() { return user.getPerks(); }
 
 	public int getRange() { return user.getRange();	}
+
+	public int getGrappleMod() { return user.winsGrapples() ? 15 : 0; }
 }

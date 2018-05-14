@@ -963,6 +963,7 @@ public class EnemyCharacter extends AbstractCharacter {
 			else if (!inSpellbook(candidate)) { techniques.removeValue(candidate, true); }	
 			else if (candidate == SUDDEN_ADVANCE && !enemyType.isOffensive()) { techniques.removeValue(candidate, true); }	
 			else if (candidate == MOUTH_KNOT && !storyMode) { techniques.removeValue(candidate, true); }
+			else if (inTechniques(candidate, SUBMIT, GET_FACE_RIDDEN, SUCK_IT, REST) && winsGrapples()) { techniques.removeValue(candidate, true); }
 			else if (inTechniques(candidate, MOUNT_FACE, FACE_SIT, POUNCE_DOGGY, WRESTLE_TO_GROUND, WRESTLE_TO_GROUND_UP, CENTER, REEL_BACK, BERSERK, STONEWALL, VAULT, FEINT_AND_STRIKE, SLIDE, DUCK, HIT_THE_DECK, KICK_OVER_FACE_UP, KICK_OVER_FACE_DOWN, SIT_ON_IT, TURN_AND_SIT, DUCK, UPPERCUT, GRAB_IT, JUMP_ATTACK, VAULT_OVER, STAND_OFF_IT, FULL_NELSON, TAKEDOWN, PULL_OUT, PULL_OUT_ORAL, PULL_OUT_ANAL, PULL_OUT_STANDING, RELEASE_PRONE, RELEASE_SUPINE, SAY_AHH)) { techniques.removeValue(candidate, true); }	
 		}
 				
@@ -1108,7 +1109,7 @@ public class EnemyCharacter extends AbstractCharacter {
 	private boolean isEnragedGolem() { return enemyType == EnemyEnum.GOLEM && currentFrame == 1; }
 	
 	private Array<Techniques> getPossibleTechniques(AbstractCharacter target, Stance stance) {
-		if (enemyType == EnemyEnum.SLIME && !stance.isIncapacitatingOrErotic()) { return getTechniques(SLIME_ATTACK, SLIME_QUIVER); }
+		if (enemyType == EnemyEnum.SLIME && !stance.isIncapacitatingOrErotic() && grappleStatus == GrappleStatus.NULL) { return getTechniques(SLIME_ATTACK, SLIME_QUIVER); }
 		else if (enemyType == EnemyEnum.OGRE && stance != Stance.KNEELING && !stance.isIncapacitatingOrErotic() && stance != Stance.HOLDING) {
 			if (willPounce() && arousal.isErect()) {
 				if (target.getLegwearScore() <= 0 && target.getUnderwearScore() <= 0) {
