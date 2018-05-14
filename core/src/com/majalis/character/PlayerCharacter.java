@@ -199,6 +199,9 @@ public class PlayerCharacter extends AbstractCharacter {
 		weapon = null;
 		switch (jobClass) { 
 			case WARRIOR: 
+				Weapon sword = new Weapon(WeaponType.Broadsword); 
+				inventory.add(sword);
+				weapon = sword;
 				skillPoints = 3; 
 				skills.put(BLITZ_ATTACK.toString(), 1); 
 				skills.put(ALL_OUT_BLITZ.toString(), 1); 
@@ -206,6 +209,9 @@ public class PlayerCharacter extends AbstractCharacter {
 				perks.put(Perk.WEAK_TO_ANAL.toString(), 1);
 				break;
 			case PALADIN: 
+				Weapon mace = new Weapon(WeaponType.Club);
+				inventory.add(mace);
+				weapon = mace;
 				addSkill(COMBAT_HEAL, 1); 
 				setCage(new ChastityCage(), true); 
 				setArmor(new Armor(ArmorType.BREASTPLATE), true);
@@ -213,6 +219,9 @@ public class PlayerCharacter extends AbstractCharacter {
 				setUnderwear(new Armor(ArmorType.UNDERWEAR), true);
 				break;
 			case THIEF: 
+				Weapon dagger = new Weapon(WeaponType.Dagger);
+				inventory.add(dagger);
+				weapon = dagger;
 				skillPoints = 5; 
 				food += 40;
 				break;
@@ -223,9 +232,15 @@ public class PlayerCharacter extends AbstractCharacter {
 			case RANGER: 
 				Weapon bow = new Weapon(WeaponType.Bow); 
 				inventory.add(bow);
-				weapon = bow;
+				rangedWeapon = bow;
+				Weapon dagger2 = new Weapon(WeaponType.Dagger);
+				inventory.add(dagger2);
+				weapon = dagger2;
 				break;
 			case ENCHANTRESS: 
+				Weapon sword2 = new Weapon(WeaponType.Gladius);
+				inventory.add(sword2);
+				weapon = sword2;
 				magicPoints = 1; 
 				perkPoints = 3; 
 				break;
