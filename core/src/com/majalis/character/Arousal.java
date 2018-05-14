@@ -97,7 +97,7 @@ public class Arousal {
 			if (!isFullyAroused() || sex.isSex()) arousal += arousalAmount; 
 		}
 		
-		results.add(new MutationResult("Arousal increases by " + (arousal - currentArousal) / 4 + "!")); 
+		if ((arousal - currentArousal) / 4 >= 1) results.add(new MutationResult("Arousal increases by " + (arousal - currentArousal) / 4 + "!")); 
 			
 		modLust(arousalAmount + climaxArousalAmount);	
 		
