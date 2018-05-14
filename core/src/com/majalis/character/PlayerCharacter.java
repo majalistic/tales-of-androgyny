@@ -723,8 +723,11 @@ public class PlayerCharacter extends AbstractCharacter {
 			String pioneer = getPioneer(phallusType);
 			eventLog.add("You lost your anal virginity" + (pioneer.equals("") ? "" : " to a " + pioneer) + " on the " + getTimeDescription() + "!");
 		}
-		result += isPlugged() ? plug.getName() + " removed! " : "";
-		plug = null;
+		if (isPlugged()) {
+			result += isPlugged() ? plug.getName() + " removed! " : "";
+			plug = null;
+		}
+		
 		receivedAnal++;
 		boolean weakToAnal = perks.get(Perk.WEAK_TO_ANAL.toString(), 0) > 0;
 		result += incrementPerk(receivedAnal, Perk.ANAL_ADDICT, weakToAnal ? 5 : 10, weakToAnal ? 3 : 6, weakToAnal ? 1 : 3);
