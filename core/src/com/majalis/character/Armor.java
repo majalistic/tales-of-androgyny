@@ -86,7 +86,7 @@ public class Armor extends Equipment {
 		DIAMOND_PLATE ("Diamond Plate", 200, new int[]{20, 20}, new int[]{8, 4}),
 		SKIRT ("Skirt", 10, new int[]{12, 12}, new int[]{3, 1}),
 		BATTLE_SKIRT ("Battle Skirt", 50, new int[]{24, 24}, new int[]{6, 2}),
-		SHORTS ("Shorts", new int[]{12, 12}, new int[]{3, 1}),
+		SHORTS ("Shorts", 10, new int[]{12, 12}, new int[]{3, 1}),
 		UNDERWEAR ("Underwear", new int[]{8}, new int[]{1}),
 		
 		SHIELD ("Shield", 10, new int[]{15, 15}, new int[]{50, 50}),
