@@ -50,6 +50,7 @@ public class Path extends Group {
 			pathChunks.add(new Vector2(currentStart));
 			distance = GameWorldHelper.distance((int)start.x, (int)start.y, (int)finish.x, (int)finish.y);
 		}
+		pathChunks.add(new Vector2(start.x, start.y));
 	}
 	
 	public void setPathTextures(ObjectMap<Vector2, TextureRegion> pathTextureMap) {
