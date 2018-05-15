@@ -844,47 +844,15 @@ public class WorldMapScreen extends AbstractScreen {
 	}
 	
 	private void queueMoveActions(GameWorldNode node, Array<Action> moveActions, Array<Action> moveActionsGhost) {
+		Array<Vector2> pathChunks = new Array<Vector2>(currentNode.getPathChunksTo(node));
 		Vector2 finish = node.getHexPosition();
 		Vector2 start = new Vector2(currentNode.getHexPosition());
 		int distance = GameWorldHelper.distance((int)start.x, (int)start.y, (int)finish.x, (int)finish.y);
-		int totalDistance = distance;
-		// can eventually walk along a "path" that is designated by the connections between nodes - eventually the world map screen won't need a getTrueX() function, as that would be calculated elsewhere			
-		while (distance > 0) {
-			if (start.x + start.y == finish.x + finish.y) { // z is constant
-				if (start.x < finish.x) { // downright
-					start.x++;
-					start.y--;
-				}
-				else { // upleft
-					start.x--;
-					start.y++;
-				}
-			}
-			else if (start.y == finish.y) { // y is constant
-				if (start.x < finish.x) start.x++; // upright
-				else start.x--; // downleft
-			}
-			else if (start.x == finish.x) { // x is constant
-				if (start.y < finish.y) start.y++; // up
-				else start.y--; // down
-			}
-			else {
-				int startZ = (int) (0 - (start.x + start.y));
-				int finishZ = (int) (0 - (finish.x + finish.y));
-				if (start.x > finish.x && startZ < finishZ) {
-					start.x--;
-				}
-				else if (finish.y > start.y && startZ > finishZ) {
-					start.y++;
-				}
-				else {
-					start.x++;
-					start.y--;
-				}			
-			}
-			moveActions.add(moveTo(getTrueX((int)start.x) + 8, getTrueY((int)start.x, (int)start.y) + 27, travelTime/totalDistance));
-			moveActionsGhost.add(moveTo(getTrueX((int)start.x) + 8, getTrueY((int)start.x, (int)start.y) + 27, travelTime/totalDistance));
-			distance = GameWorldHelper.distance((int)start.x, (int)start.y, (int)finish.x, (int)finish.y);
+		if (new Vector2(finish).equals(new Vector2(pathChunks.first()))) { pathChunks.reverse(); }
+		pathChunks.removeValue(pathChunks.first(), true);
+		for (Vector2 pathChunk : pathChunks) {
+			moveActions.add(moveTo(getTrueX((int)pathChunk.x) + 8, getTrueY((int)pathChunk.x, (int)pathChunk.y) + 27, travelTime/distance));
+			moveActionsGhost.add(moveTo(getTrueX((int)pathChunk.x) + 8, getTrueY((int)pathChunk.x, (int)pathChunk.y) + 27, travelTime/distance));
 		}
 	}
 	

@@ -172,6 +172,7 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 		return path;
 	}
 	
+	public Array<Vector2> getPathChunksTo(GameWorldNode otherNode) { return pathMap.get(otherNode).getChunks(); }	
 	private void setPathHighlight() { 
 		if (current) return;
 		Array<GameWorldNode> pathToCurrent = getPathToCurrent();
