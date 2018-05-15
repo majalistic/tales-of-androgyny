@@ -727,7 +727,9 @@ public class PlayerCharacter extends AbstractCharacter {
 		String result = virgin ? "You are no longer an anal virgin!\n" : "";
 		if (virgin) {
 			String pioneer = enemy == null ? "" : enemy.toString();
-			eventLog.add("You lost your anal virginity" + (pioneer.equals("") ? "" : " to a " + pioneer) + " on the " + getTimeDescription() + "!");
+			String vowels = "aeiou";
+			String article = vowels.indexOf(Character.toLowerCase(pioneer == null ? 'a' : pioneer.charAt(0))) != -1 ? "an" : "a";
+			eventLog.add("You lost your anal virginity" + (pioneer.equals("") ? "" : " to " + article + " " + pioneer) + " on the " + getTimeDescription() + "!");
 		}
 		if (isPlugged()) {
 			result += isPlugged() ? plug.getName() + " removed! " : "";

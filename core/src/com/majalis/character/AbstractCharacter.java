@@ -419,7 +419,7 @@ public abstract class AbstractCharacter extends Group {
 	}
 	
 	protected CharacterState getCurrentState(AbstractCharacter target) {		
-		return new CharacterState(getStats(), getRawStats(), weapon, rangedWeapon, shield, stability.lowBalance(), currentMana, enemyType == null ? true : enemyType.isCorporeal(), enemyType == null ? PhallusType.SMALL : enemyType.getPhallusType(), this, target);
+		return new CharacterState(getStats(), getRawStats(), weapon, rangedWeapon, shield, stability.lowBalance(), currentMana, enemyType == null ? true : enemyType.isCorporeal(), this, target);
 	}
 	
 	protected boolean alreadyIncapacitated() { return stance.isIncapacitatingOrErotic(); }

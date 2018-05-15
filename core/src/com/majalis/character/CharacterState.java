@@ -2,7 +2,6 @@ package com.majalis.character;
 
 import com.badlogic.gdx.utils.ObjectMap;
 import com.majalis.character.Stance;
-import com.majalis.character.AbstractCharacter.PhallusType;
 import com.majalis.character.AbstractCharacter.Stat;
 import com.majalis.character.Item.Weapon;
 
@@ -18,12 +17,11 @@ public class CharacterState {
 	private final boolean enemyLowStability;
 	private final boolean enemyOnGround;
 	private final boolean isCorporeal;
-	private final PhallusType phallusType;
 	private final GrappleStatus grappleStatus;
 	private final AbstractCharacter user;
 	
 	// will likely need stats with and without stepdowns, or will need to implement stepdown here as well
-	protected CharacterState(ObjectMap<Stat, Integer> stats, ObjectMap<Stat, Integer> rawStats, Weapon weapon, Weapon rangedWeapon, Armor shield, boolean lowBalance, int currentMana, boolean isCorporeal, PhallusType phallusType, AbstractCharacter user, AbstractCharacter target) {
+	protected CharacterState(ObjectMap<Stat, Integer> stats, ObjectMap<Stat, Integer> rawStats, Weapon weapon, Weapon rangedWeapon, Armor shield, boolean lowBalance, int currentMana, boolean isCorporeal, AbstractCharacter user, AbstractCharacter target) {
 		this.stats = stats;
 		this.rawStats = rawStats;
 		this.weapon = weapon;
@@ -41,7 +39,6 @@ public class CharacterState {
 		}
 		this.grappleStatus = user.getGrappleStatus();
 		this.isCorporeal = isCorporeal;
-		this.phallusType = phallusType;
 		this.user = user;
 	}
 
@@ -67,8 +64,6 @@ public class CharacterState {
 
 	protected GrappleStatus getGrappleStatus() { return grappleStatus; }
 	
-	protected PhallusType getPhallusType() { return phallusType; }
-	
 	protected AbstractCharacter getCharacter() { return user; }
 
 	protected boolean isCorporeal() { return isCorporeal; }
@@ -80,4 +75,6 @@ public class CharacterState {
 	public int getRange() { return user.getRange();	}
 
 	public int getGrappleMod() { return user.winsGrapples() ? 15 : 0; }
+
+	public EnemyEnum getEnemyType() { return user.enemyType; }
 }

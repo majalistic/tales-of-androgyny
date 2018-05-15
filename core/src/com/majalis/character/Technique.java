@@ -5,7 +5,6 @@ import java.util.Comparator;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.majalis.character.Stance;
-import com.majalis.character.AbstractCharacter.PhallusType;
 import com.majalis.character.AbstractCharacter.Stat;
 import com.majalis.character.Attack.AttackHeight;
 import com.majalis.character.Attack.Status;
@@ -87,8 +86,8 @@ public class Technique {
 			useItem != null && useItem.getUseEffect().getType() == EffectType.ARMOR_SUNDER ? useItem.getUseEffect().getMagnitude() : thisPayload.getArmorSunder(), 
 			thisPayload.getTotalPower() * thisPayload.getGutCheck(), 
 			technique.isHealing() ? thisPayload.getTotalPower() : 0,
-			thisPayload.getSex().setPhallusType(thisPayload.getPhallusType()).increaseTeasing(thisPayload.getTotalPower()).build(), // the sex they'll receive
-			otherPayload.getSelfSex().setPhallusType(thisPayload.getPhallusType()).build(), // their sex
+			thisPayload.getSex().setOther(thisPayload.getEnemyType()).increaseTeasing(thisPayload.getTotalPower()).build(), // the sex they'll receive
+			otherPayload.getSelfSex().setOther(thisPayload.getEnemyType()).build(), // their sex
 			grappleResult,
 			otherTechnique.isParryable() ? thisPayload.getDisarm() : 0,
 			thisPayload.getTrip(),
@@ -339,7 +338,7 @@ public class Technique {
 		}
 		private SexualExperienceBuilder getSelfSex() { return technique.getSelfSex(); }
 		private SexualExperienceBuilder getSex() { return technique.getSex(); }
-		private PhallusType getPhallusType() { return currentState.getPhallusType(); }
+		private EnemyEnum getEnemyType() { return currentState.getEnemyType(); }
 		private GrappleStatus getCurrentGrappleStatus() { return currentState.getGrappleStatus(); }
 		private int getStaminaCost() { return staminaCost; }
 		private int getStabilityCost() { return stabilityCost; }
