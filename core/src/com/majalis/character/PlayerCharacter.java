@@ -62,6 +62,7 @@ public class PlayerCharacter extends AbstractCharacter {
 	private LipFullness lipFullness;
 
 	private int receivedAnal;
+	private int gaveAnal;
 	private int receivedOral;	
 	private int analCreampie;
 	private int oralCreampie;
@@ -353,6 +354,14 @@ public class PlayerCharacter extends AbstractCharacter {
 				}
 				a2m = false;
 			}
+		}
+		else if (!oldStance.isAnalPenetration() && stance.isAnalPenetration()) {
+			Array<MutationResult> temp = giveAnal(getEnemyType(resolvedAttack.getSex())); 
+			if (temp.size > 0) result = temp.first().getText();
+			else result = "";
+			
+			setCurrentPortrait(AssetEnum.PORTRAIT_LOVE);
+			if (result != null) { resolvedAttack.addMessageToDefender(new MutationResult(result)); } 
 		}
 		else if (stance == Stance.SIXTY_NINE) { resolvedAttack.addMessageToDefender(new MutationResult("She shoves her cock down your throat while swallowing yours!")); }
 		if (ass.getFullnessAmount() > 15) { 
@@ -743,6 +752,22 @@ public class PlayerCharacter extends AbstractCharacter {
 		return result.equals("") ? new Array<MutationResult>() : getResult(result);
 	}
 	
+	private Array<MutationResult> giveAnal(EnemyEnum enemy) {
+		boolean virgin = gaveAnal == 0;
+		String result = virgin ? "You are no longer a virgin!\n" : "";
+		if (virgin) {
+			String pioneer = enemy == null ? "" : enemy.toString();
+			String vowels = "aeiou";
+			String article = vowels.indexOf(Character.toLowerCase(pioneer == null ? 'a' : pioneer.charAt(0))) != -1 ? "an" : "a";
+			eventLog.add("You lost your virginity" + (pioneer.equals("") ? "" : " to " + article + " " + pioneer) + " on the " + getTimeDescription() + "!");
+		}
+			
+		gaveAnal++;
+		
+		result += incrementPerk(gaveAnal, Perk.TOP, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1);
+		return result.equals("") ? new Array<MutationResult>() : getResult(result);
+	}
+	
 	private Array<MutationResult> receiveOral(EnemyEnum enemy) {
 		boolean virgin = receivedOral == 0;
 		String result = virgin ? "You are no longer a mouth virgin!\n" : "";
@@ -1000,10 +1025,7 @@ public class PlayerCharacter extends AbstractCharacter {
 		}
 		
 		for (int ii = 0; ii < sex.getAnalSexTop(); ii++) {
-			if (perks.get(Perk.TOP.toString(), 0) != 10) {
-				result.add(new MutationResult("You gained " + Perk.TOP.getLabel() + " (Rank " + (perks.get(Perk.TOP.toString(), 0) + 1) + ")!"));
-				perks.put(Perk.TOP.toString(), ((int)perks.get(Perk.TOP.toString(), 0)) + 1);	
-			}
+			result.addAll(giveAnal(getEnemyType(sex)));
 		}
 		
 		for (int ii = 0; ii < sex.getOralSexTop(); ii++) {
