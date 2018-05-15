@@ -325,7 +325,7 @@ public class PlayerCharacter extends AbstractCharacter {
 		if (oldStance.isAnalReceptive() && !stance.isAnalReceptive()) { wrapLegs = false; }
 		if (stance == Stance.OVIPOSITION_BOTTOM) { receiveEggs(); }
 		if (!oldStance.isAnalReceptive() && stance.isAnalReceptive()) {
-			Array<MutationResult> temp = receiveAnal(getPhallusType(resolvedAttack.getSex())); 
+			Array<MutationResult> temp = receiveAnal(getEnemyType(resolvedAttack.getSex())); 
 			
 			if (temp.size > 0) result = temp.first().getText();
 			else result = "";
@@ -721,22 +721,12 @@ public class PlayerCharacter extends AbstractCharacter {
 		return false;
 	}
 	
-	private String getPioneer(PhallusType phallusType) {
-		switch (phallusType) {
-			case BIRD: return "Harpy";
-			case DOG: return "Werewolf";
-			case GIANT: return "Ogre";
-			case HORSE: return "Centaur";
-			default: return "";
-		}
-	}
-	
 	private String getTimeDescription() { return TimeOfDay.getTime(time).getDisplay() + " of day " + (time / 6 + 1); }
-	private Array<MutationResult> receiveAnal(PhallusType phallusType) {
+	private Array<MutationResult> receiveAnal(EnemyEnum enemy) {
 		boolean virgin = receivedAnal == 0;
 		String result = virgin ? "You are no longer an anal virgin!\n" : "";
 		if (virgin) {
-			String pioneer = getPioneer(phallusType);
+			String pioneer = enemy == null ? "" : enemy.toString();
 			eventLog.add("You lost your anal virginity" + (pioneer.equals("") ? "" : " to a " + pioneer) + " on the " + getTimeDescription() + "!");
 		}
 		if (isPlugged()) {
@@ -950,21 +940,23 @@ public class PlayerCharacter extends AbstractCharacter {
 		return temp != null ? "You unequipped the " + temp.getName() + "." : "";
 	}
 	
-	private PhallusType getPhallusType(SexualExperience sex) { return sex.isBird() ? PhallusType.BIRD : sex.isCentaurSex() ? PhallusType.HORSE : sex.isKnot() ? PhallusType.DOG : sex.isOgreSex() ? PhallusType.GIANT : PhallusType.MONSTER; }
+	private EnemyEnum getEnemyType(SexualExperience sex) { return sex.isBird() ? EnemyEnum.HARPY : sex.isCentaurSex() ? EnemyEnum.CENTAUR : sex.isKnot() ? EnemyEnum.WERESLUT : sex.isOgreSex() ? EnemyEnum.OGRE : sex.getOther(); }
 	
-	private void getPregnant(PhallusType phallusType) {
-		switch(phallusType) {
-			case BIRD:
+	private void getPregnant(EnemyEnum enemyType) {
+		if (enemyType == null) return;
+		switch(enemyType) {
+			case HARPY:
 				questFlags.put(QuestType.GOBLIN.toString(), 3);
 				eggtick = 0;
 				modDignity(-50);
 				break;
-			case DOG:
+			case WERESLUT:
 				questFlags.put(QuestType.GOBLIN.toString(), 4);
 				eggtick = 0;
 				modDignity(-50);
 				break;
-			case HORSE:
+			case CENTAUR:
+			case UNICORN:
 				questFlags.put(QuestType.GOBLIN.toString(), 5);
 				eggtick = 0;
 				modDignity(-50);
@@ -982,12 +974,12 @@ public class PlayerCharacter extends AbstractCharacter {
 		ass.receiveSex(sex);
 		
 		for (int ii = 0; ii < sex.getAnalSex(); ii++) {
-			result.addAll(receiveAnal(getPhallusType(sex)));
+			result.addAll(receiveAnal(getEnemyType(sex)));
 			setCurrentPortrait(perks.get(Perk.ANAL_ADDICT.toString(), 0) > 1 ? AssetEnum.PORTRAIT_LUST : AssetEnum.PORTRAIT_HIT);
 		}
 	
 		if (sex.getCreampies() > 0 ) { result.addAll(fillButt(5 * sex.getCreampies())); }
-		if (sex.getCreampies() > 0 && questFlags.get(QuestType.GOBLIN.toString(), 0) == 2 && !fullOfEggs()) { getPregnant(getPhallusType(sex)); }
+		if (sex.getCreampies() > 0 && questFlags.get(QuestType.GOBLIN.toString(), 0) == 2 && !fullOfEggs()) { getPregnant(getEnemyType(sex)); }
 		
 		for (int ii = 0; ii < sex.getAnalEjaculations(); ii++) {
 			cumFromAnal();
