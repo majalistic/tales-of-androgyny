@@ -78,6 +78,7 @@ import com.majalis.world.GameWorld.SkewAction;
 import com.majalis.world.GameWorldHelper;
 import com.majalis.world.GameWorldNode;
 import com.majalis.world.GroundType;
+import com.majalis.world.Path;
 /*
  * The screen that displays the world map.  UI that Handles player input while on the world map - will delegate to other screens depending on the gameWorld state.
  */
@@ -1348,8 +1349,10 @@ public class WorldMapScreen extends AbstractScreen {
 		Group roads = new Group();
 		worldGroup.addActor(roads);
 		for (GameWorldNode node : world.getNodes()) {
-			for (Actor actor : node.getPaths()) {
-				roads.addActor(actor);
+			for (Path path : node.getPaths()) {
+				for (Image image : path.getChunkImages()) {
+					roads.addActor(image);
+				}
 			}
 		}
 		

@@ -182,9 +182,9 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 				Path path1 = node.pathMap.get(algoNode);
 				Path path2 = algoNode.pathMap.get(node);
 				algoNode = node;
-				path1.getParent().addActor(path1);
+				//path1.getParent().addActor(path1);
 				path1.setColor(Color.GREEN);
-				path2.getParent().addActor(path2);
+				//path2.getParent().addActor(path2);
 				path2.setColor(Color.GREEN);
 			}
 		}

@@ -128,9 +128,20 @@ public class GameWorld {
 			pathTextureMap.put(pathChunk, new TextureRegion(pathSheet, (tileMask % 32) * (GameWorldHelper.getTileWidth()) + 1, (tileMask > 31 ? 1 : 0) * (GameWorldHelper.getTileHeight()), GameWorldHelper.getTileWidth(), GameWorldHelper.getTileHeight()));
 		}
 		
+		
+		// this should grab all the textures, make all the path chunks, and just register them with the individual paths
+		
+
+		ObjectMap<Vector2, Image> pathChunkMap = new ObjectMap<Vector2, Image>();
+		for (ObjectMap.Entry<Vector2, TextureRegion> pathTexture : pathTextureMap) {
+			Image newPathChunk = new Image(pathTexture.value);
+			newPathChunk.setPosition(GameWorldHelper.getTrueX((int)pathTexture.key.x), GameWorldHelper.getTrueY((int)pathTexture.key.x, (int)pathTexture.key.y));
+			pathChunkMap.put(pathTexture.key, newPathChunk);
+		}
+				
 		for (GameWorldNode node : nodes) {
 			for (Path path : node.getPaths()) {
-				path.setPathTextures(pathTextureMap);
+				path.setPathTextures(pathChunkMap);
 			}
 		}
 				

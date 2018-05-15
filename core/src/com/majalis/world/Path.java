@@ -1,15 +1,13 @@
 package com.majalis.world;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
 
-public class Path extends Group {
+public class Path {
 	private final Array<Vector2> pathChunks;
+	private final Array<Image> pathChunkImages;
 	public Path(Vector2 start, Vector2 finish) {
 		pathChunks = new Array<Vector2>();
 		int distance = GameWorldHelper.distance((int)start.x, (int)start.y, (int)finish.x, (int)finish.y);
@@ -51,25 +49,21 @@ public class Path extends Group {
 			distance = GameWorldHelper.distance((int)start.x, (int)start.y, (int)finish.x, (int)finish.y);
 		}
 		pathChunks.add(new Vector2(start.x, start.y));
+		pathChunkImages = new Array<Image>();
 	}
 	
-	public void setPathTextures(ObjectMap<Vector2, TextureRegion> pathTextureMap) {
-		for (ObjectMap.Entry<Vector2, TextureRegion> pathTexture : pathTextureMap) {
-			if (pathChunks.contains(pathTexture.key, true)) {
-				Image newPathChunk = new Image(pathTexture.value);
-				newPathChunk.setPosition(GameWorldHelper.getTrueX((int)pathTexture.key.x), GameWorldHelper.getTrueY((int)pathTexture.key.x, (int)pathTexture.key.y));
-				this.addActor(newPathChunk);
-			}			
+	public void setPathTextures(ObjectMap<Vector2, Image> pathTextureMap) {
+		for (Vector2 pathChunk : pathChunks) {
+			pathChunkImages.add(pathTextureMap.get(pathChunk));
 		}
 	}
 	
 	public Array<Vector2> getChunks() { return pathChunks; }	
+	public Array<Image> getChunkImages() { return pathChunkImages; }
 	
-	@Override
 	public void setColor(Color color) {
-		for (Actor child : getChildren()) {
-			child.setColor(color);
+		for (Image pathChunk : pathChunkImages) {
+			pathChunk.setColor(color);
 		}
-		super.setColor(color);
 	}	
 }
