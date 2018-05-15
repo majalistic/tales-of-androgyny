@@ -127,11 +127,7 @@ public class GameWorld {
 			
 			pathTextureMap.put(pathChunk, new TextureRegion(pathSheet, (tileMask % 32) * (GameWorldHelper.getTileWidth()) + 1, (tileMask > 31 ? 1 : 0) * (GameWorldHelper.getTileHeight()), GameWorldHelper.getTileWidth(), GameWorldHelper.getTileHeight()));
 		}
-		
-		
-		// this should grab all the textures, make all the path chunks, and just register them with the individual paths
-		
-
+	
 		ObjectMap<Vector2, Image> pathChunkMap = new ObjectMap<Vector2, Image>();
 		for (ObjectMap.Entry<Vector2, TextureRegion> pathTexture : pathTextureMap) {
 			Image newPathChunk = new Image(pathTexture.value);
@@ -149,7 +145,6 @@ public class GameWorld {
 		int maxY = 235;
 		int tileWidth = GameWorldHelper.getTileWidth();
 		int tileHeight = GameWorldHelper.getTileHeight();
-		
 		
 		// first figure out what all of the tiles are - dirt, greenLeaf, redLeaf, moss, or water - create a model without drawing anything	
 		for (int x = 0; x < maxX; x++) {
@@ -184,7 +179,7 @@ public class GameWorld {
 				}
 				
 				boolean treeAbundance = isAbundantTrees(x, y);				
-				if (closest >= 3 && toAdd == GroundType.DIRT || toAdd == GroundType.RED_LEAF_0 || toAdd == GroundType.RED_LEAF_1) {
+				if (closest >= 3 && (toAdd == GroundType.DIRT || toAdd == GroundType.RED_LEAF_0 || toAdd == GroundType.RED_LEAF_1) && !pathChunks.contains(new Vector2(x, y), false)) {
 					int rando = random.nextInt();
 					if (rando % (treeAbundance ? 2 : 5) == 0) {
 						Array<TextureRegion> textures;
