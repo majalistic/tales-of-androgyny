@@ -338,7 +338,7 @@ public class PlayerCharacter extends AbstractCharacter {
 			a2m = true;
 		}
 		else if (!oldStance.isOralReceptive() && stance.isOralReceptive()) {
-			Array<MutationResult> temp = receiveOral(); 
+			Array<MutationResult> temp = receiveOral(getEnemyType(resolvedAttack.getSex())); 
 			
 			if (temp.size > 0) result = temp.first().getText();
 			else result = "";
@@ -731,6 +731,7 @@ public class PlayerCharacter extends AbstractCharacter {
 			String article = vowels.indexOf(Character.toLowerCase(pioneer == null ? 'a' : pioneer.charAt(0))) != -1 ? "an" : "a";
 			eventLog.add("You lost your anal virginity" + (pioneer.equals("") ? "" : " to " + article + " " + pioneer) + " on the " + getTimeDescription() + "!");
 		}
+				
 		if (isPlugged()) {
 			result += isPlugged() ? plug.getName() + " removed! " : "";
 			plug = null;
@@ -742,9 +743,18 @@ public class PlayerCharacter extends AbstractCharacter {
 		return result.equals("") ? new Array<MutationResult>() : getResult(result);
 	}
 	
-	private Array<MutationResult> receiveOral() {
+	private Array<MutationResult> receiveOral(EnemyEnum enemy) {
+		boolean virgin = receivedOral == 0;
+		String result = virgin ? "You are no longer a mouth virgin!\n" : "";
+		if (virgin) {
+			String pioneer = enemy == null ? "" : enemy.toString();
+			String vowels = "aeiou";
+			String article = vowels.indexOf(Character.toLowerCase(pioneer == null ? 'a' : pioneer.charAt(0))) != -1 ? "an" : "a";
+			eventLog.add("You lost your mouth virginity" + (pioneer.equals("") ? "" : " to " + article + " " + pioneer) + " on the " + getTimeDescription() + "!");
+		}
+		
 		receivedOral++;
-		String result = incrementPerk(receivedOral, Perk.MOUTH_MANIAC, 10, 6, 3);
+		result += incrementPerk(receivedOral, Perk.MOUTH_MANIAC, 10, 6, 3);
 		return result.equals("") ? new Array<MutationResult>() : getResult(result);
 	}
 	
@@ -1014,7 +1024,7 @@ public class PlayerCharacter extends AbstractCharacter {
 		}
 		
 		for (int ii = 0; ii < sex.getOralSex(); ii++) {
-			result.addAll(receiveOral());
+			result.addAll(receiveOral(getEnemyType(sex)));
 			setCurrentPortrait(AssetEnum.PORTRAIT_FELLATIO);
 		}
 
