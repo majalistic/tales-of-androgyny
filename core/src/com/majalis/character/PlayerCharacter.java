@@ -110,7 +110,7 @@ public class PlayerCharacter extends AbstractCharacter {
 			setStabilityToMax();
 			setManaToMax();
 			food = 60;
-			setGoblinVirginity(true);
+			goblinVirgin = true;
 			a2m = false;
 			a2mcheevo = false;
 			phallus = PhallusType.SMALL;	
@@ -335,7 +335,6 @@ public class PlayerCharacter extends AbstractCharacter {
 			else { setCurrentPortrait(perks.get(Perk.ANAL_ADDICT.toString(), 0) > 1 ? AssetEnum.PORTRAIT_LOVE : AssetEnum.PORTRAIT_AHEGAO); }
 			
 			if (result != null) { resolvedAttack.addMessageToDefender(new MutationResult(result)); } 
-			if (resolvedAttack.getUser().equals("Goblin")) { setGoblinVirginity(false); }
 			a2m = true;
 		}
 		else if (!oldStance.isOralReceptive() && stance.isOralReceptive()) {
@@ -734,6 +733,10 @@ public class PlayerCharacter extends AbstractCharacter {
 	private Array<MutationResult> receiveAnal(EnemyEnum enemy) {
 		boolean virgin = receivedAnal == 0;
 		String result = virgin ? "You are no longer an anal virgin!\n" : "";
+		if (enemy == EnemyEnum.GOBLIN || enemy == EnemyEnum.GOBLIN_MALE) { 
+			goblinVirgin = false; 
+			modDignity(-50);
+		}
 		if (virgin) {
 			String pioneer = enemy == null ? "" : enemy.toString();
 			String vowels = "aeiou";
@@ -848,14 +851,6 @@ public class PlayerCharacter extends AbstractCharacter {
 			femininity = cockLoverRank >= 10 ? Femininity.BITCH : cockLoverRank >= 8 ? Femininity.FEMALE : cockLoverRank >= 6 ? Femininity.EFFEMINATE : cockLoverRank >= 3 ? Femininity.UNMASCULINE : Femininity.MALE;
 		}
 		return result;
-	}
-	
-	public void setGoblinVirginity(boolean virginity) {
-		goblinVirgin = virginity;
-		if (!goblinVirgin) {
-			modDignity(-50);
-			receiveSex(new SexualExperience.SexualExperienceBuilder().setOther(EnemyEnum.GOBLIN).setAnalSex(1).build());
-		}
 	}
 	
 	public Array<MutationResult> receiveItem(Item item) {

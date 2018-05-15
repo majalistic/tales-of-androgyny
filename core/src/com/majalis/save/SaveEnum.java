@@ -29,7 +29,6 @@ public enum SaveEnum {
 	RETURN_CONTEXT, 
 	ANAL, 
 	ITEM,
-	GOBLIN_VIRGIN,
 	QUEST, 
 	GOLD,
 	DEBT,

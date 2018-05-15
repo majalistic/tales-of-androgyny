@@ -6912,7 +6912,7 @@
 			{"text": "The floating object resolves, and your eyes widen. You see a golden ring floating in the air, around the size of your fist."},
 			{"text": "As you watch it floating, slowly rotating, it suddenly jerks to a stop, and begins to shake. With another distant peal of laughter, the ring begans to expand."},
 			{
-			"mutations": [{"saveType":"GOBLIN_VIRGIN", "value":{"class": "java.lang.Boolean", "value": false}}],
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1, "other": "GOBLIN"}}],
 			"text": "It grows wider and wider, thinner and thinner, as you watch in awe. As if it was a portal to another realm, something emerges from within, the ring now larger than your head."},
 			{"text": "The... thing is green, with fist-sized protrusions on it that look disturbingly like warts. It has an eye-shaped opening on the end, although it's filled with some kind of slimy liquid."},
 			{"text": "More and more of it emerges through the thinly stretched gold ring, and you watch, dumbfounded by the strange sight before you."},
@@ -7061,7 +7061,7 @@
 			{"text": "\"I always forget which end of a human is up. Oh well! Say 'ahhhh', fruit boy!\""},
 			{"text": "You have no idea what she's talking about, until you realize that she's gotten behind you. All at once, your vision goes white."},
 			{
-			"mutations": [{"saveType":"GOBLIN_VIRGIN", "value":{"class": "java.lang.Boolean", "value": false}}],
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1, "other": "GOBLIN"}}],
 			"text": "\"Pow! Right up the butt! Nyaha!\" she says, and, indeed, right up the butt it went. The knobby warts immediately irritate your hole, and the sudden intrusion has you tearing up mushrooms."},
 			{"text": "She begins to thrust in and out and you groan, nearly collapsing into the dirt."},
 			{"text": "With your face down and your ass up in the air, she begins to pummel your upturned butt. You bite the dirt to cope, even as she wrecks your ass."},
@@ -7128,7 +7128,7 @@
 			{"text": "She grabs a cheek with each nubby thumb, spreads your hole, and presses her baton up against your starfish."},
 			{
 			"foreground": "GOBLIN_ANAL",
-			"mutations": [{"saveType":"GOBLIN_VIRGIN", "value":{"class": "java.lang.Boolean", "value": false}}],
+			"mutations": [{"saveType":"ANAL", "value":{"class": "com.majalis.character.SexualExperience", "analSex":1, "other": "GOBLIN"}}],
 			"text": "Lubricated by your phlegm, she manages to go from un-penetrated to gut stirring, rectum-basting, hip tapping in less than a second - causing your eyes to roll to the back of your head and your face to lose all color. You can feel the painful stretching between your ears, and as she starts to thrust immediately after, you start to whine pathetically."},
 			{"text": "\"Nyahah! Pretty tight!\" she says, ignoring your voiceless gasps. \"Surprised ya, didn't I?! Sorry human, gobbo boys like rough sex - though they like it less when they're getting it!\""},
 			{"text": "The sudden penetration makes your insides cramp, and your voice leaves you."},

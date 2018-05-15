@@ -123,7 +123,6 @@ public class SaveManager implements SaveService, LoadService {
 	    	case TOWN: 				save.town = (TownCode) object; break;
 	    	case TRUDY:				save.trudy = (Integer) object; break;
 	    	case KYLIRA:			save.kylira = (Integer) object; break;
-	    	case GOBLIN_VIRGIN:		save.player.setGoblinVirginity((Boolean) object); break;
 	    	case QUEST: 			QuestFlag flag = (QuestFlag) object; save.player.setQuestStatus(flag.type, flag.value); if(save.player.getQuestStatus(QuestType.TRUDY) > 4) save.trudy = -1; if (save.player.getQuestStatus(QuestType.ELF) > 3) save.kylira = -1; break;
 	    	case RESULT: 			save.results.addAll((Array<MutationResult>) object); break;
 	    	case BATTLE_RESULT: 	save.battleResults.addAll((Array<MutationResult>) object); break;
@@ -177,8 +176,7 @@ public class SaveManager implements SaveService, LoadService {
 	    	case STEALTH:
 	    	case PORTRAIT:
 	    	case GAME_OVER:
-	    	case QUEST:			
-	    	case GOBLIN_VIRGIN:		
+	    	case QUEST:				
 	    							break;
 	    	case SHOP:				return (T) (ObjectMap<String, Shop>) save.shops;
 	    	case TIME :				return (T) (Integer) save.player.getTime();
