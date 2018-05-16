@@ -51,6 +51,7 @@ public class CharacterCreationScene extends Scene {
 	private final Texture baubleOld, baubleNew, baubleEmpty;	
 	private final Array<TextButton> classButtons;
 	private final Array<Image> statImages;
+	private final Array<Label> statLabels;
 	private final boolean story;
 	private final Group hideGroup;
 	private final Image characterImage;
@@ -70,6 +71,7 @@ public class CharacterCreationScene extends Scene {
 		
 		isClassSelection = true;
 		statImages = new Array<Image>();
+		statLabels = new Array<Label>();
 		
 		Group uiGroup = new Group();
 		this.addActor(uiGroup);
@@ -211,12 +213,14 @@ public class CharacterCreationScene extends Scene {
 		statTable.clear();
 		// this should instead just construct the images in the constructor and then grab them here when needed, if at all
 		statImages.clear();
+		statLabels.clear();
 		for (final Stat stat: Stat.values()) {
 			Image statImage = new Image(assetManager.get(stat.getAsset()));
 			statImage.addListener(getStatListener(stat));
 			statImages.add(statImage);
 			
 			final Label statLabel = new Label("", skin);
+			statLabels.add(statLabel);
 			int amount = character.getBaseStat(stat);
 			setStatAppearance(statLabel, amount, stat, character);
 			
@@ -234,7 +238,7 @@ public class CharacterCreationScene extends Scene {
 					if (canDecreaseStat(stat)) {
 						gemSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
 					}
-					decreaseStat(stat, character, statMessage, statLabel, done);
+					decreaseStat(stat);
 					initStatTable();
 		        }				
 			});
@@ -250,7 +254,7 @@ public class CharacterCreationScene extends Scene {
 			        public void clicked(InputEvent event, float x, float y) {
 						gemSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
 						for (int ii = 0; ii < difference; ii++) {
-							decreaseStat(stat, character, statMessage, statLabel, done);
+							decreaseStat(stat);
 						}
 						if (difference > 0) initStatTable();
 			        }
@@ -264,7 +268,7 @@ public class CharacterCreationScene extends Scene {
 			        public void clicked(InputEvent event, float x, float y) {
 						gemSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
 						for (int ii = 0; ii < difference; ii++) {
-							decreaseStat(stat, character, statMessage, statLabel, done);
+							decreaseStat(stat);
 						}
 						if (difference > 0) initStatTable();
 			        }
@@ -278,7 +282,7 @@ public class CharacterCreationScene extends Scene {
 			        public void clicked(InputEvent event, float x, float y) {
 						gemSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
 						for (int ii = 0; ii < difference; ii++) {
-							increaseStat(stat, character, statMessage, statLabel, done);
+							increaseStat(stat);
 						}
 						if (difference > 0) initStatTable();
 			        }
@@ -296,7 +300,7 @@ public class CharacterCreationScene extends Scene {
 					if (canIncreaseStat(stat)) {
 						gemSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
 					}
-					increaseStat(stat, character, statMessage, statLabel, done);
+					increaseStat(stat);
 					initStatTable();
 		        }				
 			});
@@ -338,39 +342,38 @@ public class CharacterCreationScene extends Scene {
 		return currentStatAllocation > 0 || (currentStatAllocation > -1 && noStatAtNegative());
 	}
 	
-	private void increaseStat(final Stat stat, final PlayerCharacter character, final Label statMessage, final Label statLabel, final TextButton done) {
+	private void increaseStat(final Stat stat) {
 		int currentStatAllocation = statMap.get(stat);
 		if (canIncreaseStat(stat)) {
 			setStatPoints(statPoints - 1);
 			if (statPoints <= 0) {
 				this.addActor(done);
 			}
-			setStat(stat, 1, currentStatAllocation, character, statMessage, statLabel);			
+			setStat(stat, 1, currentStatAllocation);			
 		}
 		else {
 			if (statPoints <= 0) {
 				statMessage.setText("You are out of stat points to allocate!");
-				
 			}
 			else if (currentStatAllocation < 2) {
 				statMessage.setText("Only one stat may be two points above its base score!");
 			}
 			else {
 				statMessage.setText("Your " + stat.toString() + " is at maximum! It cannot be raised any more.");
-				
 			}
 			statMessage.addAction(Actions.show());
+			statDescription.addAction(Actions.hide());
 		}
 	}
 	
-	private void decreaseStat(final Stat stat, final PlayerCharacter character, final Label statMessage, final Label statLabel, final TextButton done) {
+	private void decreaseStat(final Stat stat) {
 		int currentStatAllocation = statMap.get(stat);
 		if (canDecreaseStat(stat)) {
 			if (statPoints == 0) {
 				removeActor(done);
 			}
 			setStatPoints(statPoints + 1);
-			setStat(stat, -1, currentStatAllocation, character, statMessage, statLabel);
+			setStat(stat, -1, currentStatAllocation);
 		}
 		else {
 			if (currentStatAllocation <= -1) {
@@ -380,14 +383,15 @@ public class CharacterCreationScene extends Scene {
 				statMessage.setText("You can only lower one stat below its base score.");
 			}
 			statMessage.addAction(Actions.show());
+			statDescription.addAction(Actions.hide());
 		}
 	}	
 	
-	private void setStat(final Stat stat, final int modStat, final int currentStatAllocation, final PlayerCharacter character, final Label statMessage, final Label statLabel) {
+	private void setStat(final Stat stat, final int modStat, final int currentStatAllocation) {
 		character.setStat(stat, character.getBaseStat(stat) + modStat);
 		saveService.saveDataValue(SaveEnum.PLAYER, character);
 		statMap.put(stat, currentStatAllocation + modStat);
-		setStatAppearance(statLabel, character.getBaseStat(stat), stat, character);
+		setStatAppearance(statLabels.get(stat.ordinal()), character.getBaseStat(stat), stat, character);
 		statMessage.addAction(Actions.hide());
 		statMessage.setText("");
 	}
