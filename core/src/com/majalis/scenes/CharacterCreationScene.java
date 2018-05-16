@@ -1,6 +1,7 @@
 package com.majalis.scenes;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
@@ -39,9 +40,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 public class CharacterCreationScene extends Scene {
 
 	private final SaveService saveService;
-	private ObjectMap<Stat, Integer> statMap;
-	private TextButton enchanterButton;
-	private int statPoints;
 	private final Label statPointDisplay;
 	private final AssetManager assetManager;
 	private final Table statTable;
@@ -50,18 +48,27 @@ public class CharacterCreationScene extends Scene {
 	private final TextButton done;
 	private final PlayerCharacter character;
 	private final Label classMessage, classSelection, statDescription, statMessage, helpText;
-	private final Texture baubleOld, baubleNew, baubleReady, baubleEmpty;	
+	private final Texture baubleOld, baubleNew, baubleEmpty;	
+	private final Array<TextButton> classButtons;
+	private final boolean story;
+	private final Group hideGroup;
+	private final Image characterImage;
+	private ObjectMap<Stat, Integer> statMap;
+	private TextButton enchanterButton;
+	private int statPoints;
+	private int selection;
 	
 	public CharacterCreationScene(OrderedMap<Integer, Scene> sceneBranches, int sceneCode, final SaveService saveService, Background background, final AssetManager assetManager, final PlayerCharacter character, final boolean story, EncounterHUD hud) {
 		super(sceneBranches, sceneCode, hud);
 		this.saveService = saveService;
 		this.character = character;
+		this.story = story;
 		this.addActor(background);
 		
 		Group uiGroup = new Group();
 		this.addActor(uiGroup);
 		
-		final Group hideGroup = new Group();
+		hideGroup = new Group();
 		uiGroup.addActor(hideGroup);
 		
 		addImage(uiGroup, assetManager.get(AssetEnum.CLASS_SELECT_PANEL.getTexture()));
@@ -91,10 +98,9 @@ public class CharacterCreationScene extends Scene {
 		this.baubleEmpty = assetManager.get(AssetEnum.CREATION_BAUBLE_EMPTY.getTexture());
 		this.baubleOld = assetManager.get(AssetEnum.CREATION_BAUBLE_OLD.getTexture());
 		this.baubleNew = assetManager.get(AssetEnum.CREATION_BAUBLE_NEW.getTexture());
-		this.baubleReady = assetManager.get(AssetEnum.CREATION_BAUBLE_REMOVED.getTexture());
 		this.helpText = initLabel("Please Select a Class!", skin, Color.FOREST, 300, 800, Align.left);
 		
-		final Image characterImage = new Image(); 
+		characterImage = new Image(); 
 		characterImage.setPosition(1390, 230);
 		this.addActor(characterImage);
 		
@@ -130,7 +136,7 @@ public class CharacterCreationScene extends Scene {
 		buttonStyle.over = new TextureRegionDrawable(new TextureRegion(assetManager.get(AssetEnum.CREATION_BUTTON_CHECKED.getTexture())));
 		buttonStyle.fontColor = Color.BLACK;
 		
-		final Array<TextButton> classButtons = new Array<TextButton>();
+		classButtons = new Array<TextButton>();
 		boolean advancedClassesUnlocked = true; // should be dependent on some achievement
 		for (final JobClass jobClass: JobClass.values()) {
 			final TextButton button = new TextButton(jobClass.getLabel(), buttonStyle);
@@ -148,31 +154,7 @@ public class CharacterCreationScene extends Scene {
 				button.addListener(new ClickListener() {
 					@Override
 			        public void clicked(InputEvent event, float x, float y) {
-						for (TextButton listButton : classButtons) {
-							listButton.setChecked(false);
-						}
-						button.setChecked(true);
-						if (!story) {
-							classSelectSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
-						}
-						helpText.setPosition(1000, 882);
-						helpText.setText("Allocate Stat Points!");
-						statPointDisplay.addAction(Actions.show());
-						hideGroup.addAction(Actions.show());
-						Texture jobTexture = assetManager.get(jobClass.getTexture());
-						characterImage.setDrawable(new TextureRegionDrawable(new TextureRegion(jobTexture)));
-						characterImage.setSize(jobTexture.getWidth(), jobTexture.getHeight());
-						characterImage.setScale(730f/1080);
-						classSelection.setText(jobClass.getLabel());
-						classMessage.setText(getClassFeatures(jobClass));
-						saveService.saveDataValue(SaveEnum.CLASS, jobClass);
-						if (statPoints == 0) {
-							removeActor(done);
-						}
-						resetStatPoints(story, character);
-						statMap = resetObjectMap();
-						initStatTable();
-						addActor(statTable);
+						selectClass(button, jobClass);
 			        }
 					
 					@Override
@@ -194,6 +176,34 @@ public class CharacterCreationScene extends Scene {
 				enchanterButton = button;
 			}
 		}
+	}
+	
+	private void selectClass(TextButton button, JobClass jobClass) {
+		for (TextButton listButton : classButtons) {
+			listButton.setChecked(false);
+		}
+		button.setChecked(true);
+		if (!story) {
+			classSelectSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
+		}
+		helpText.setPosition(1000, 882);
+		helpText.setText("Allocate Stat Points!");
+		statPointDisplay.addAction(Actions.show());
+		hideGroup.addAction(Actions.show());
+		Texture jobTexture = assetManager.get(jobClass.getTexture());
+		characterImage.setDrawable(new TextureRegionDrawable(new TextureRegion(jobTexture)));
+		characterImage.setSize(jobTexture.getWidth(), jobTexture.getHeight());
+		characterImage.setScale(730f/1080);
+		classSelection.setText(jobClass.getLabel());
+		classMessage.setText(getClassFeatures(jobClass));
+		saveService.saveDataValue(SaveEnum.CLASS, jobClass);
+		if (statPoints == 0) {
+			removeActor(done);
+		}
+		resetStatPoints(story, character);
+		statMap = resetObjectMap();
+		initStatTable();
+		addActor(statTable);
 	}
 	
 	private void initStatTable() {
@@ -220,7 +230,7 @@ public class CharacterCreationScene extends Scene {
 				@Override
 		        public void clicked(InputEvent event, float x, float y) {
 					if (canDecreaseStat(stat)) {
-						buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
+						gemSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
 					}
 					decreaseStat(stat, character, statMessage, statLabel, done);
 					initStatTable();
@@ -236,7 +246,7 @@ public class CharacterCreationScene extends Scene {
 				miniTable.add(getBauble(baubleOld, new ClickListener(){
 					@Override
 			        public void clicked(InputEvent event, float x, float y) {
-						buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
+						gemSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
 						for (int ii = 0; ii < difference; ii++) {
 							decreaseStat(stat, character, statMessage, statLabel, done);
 						}
@@ -250,7 +260,7 @@ public class CharacterCreationScene extends Scene {
 				miniTable.add(getBauble(baubleNew, new ClickListener(){
 					@Override
 			        public void clicked(InputEvent event, float x, float y) {
-						buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
+						gemSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
 						for (int ii = 0; ii < difference; ii++) {
 							decreaseStat(stat, character, statMessage, statLabel, done);
 						}
@@ -264,7 +274,7 @@ public class CharacterCreationScene extends Scene {
 				miniTable.add(getBauble(baubleEmpty, new ClickListener(){
 					@Override
 			        public void clicked(InputEvent event, float x, float y) {
-						buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
+						gemSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
 						for (int ii = 0; ii < difference; ii++) {
 							increaseStat(stat, character, statMessage, statLabel, done);
 						}
@@ -282,7 +292,7 @@ public class CharacterCreationScene extends Scene {
 				@Override
 		        public void clicked(InputEvent event, float x, float y) {
 					if (canIncreaseStat(stat)) {
-						buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
+						gemSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
 					}
 					increaseStat(stat, character, statMessage, statLabel, done);
 					initStatTable();
@@ -506,6 +516,27 @@ public class CharacterCreationScene extends Scene {
 	@Override
 	public void act(float delta) {
 		super.act(delta);
+		
+		// this should be based on a separate flag that will be toggleable - so that the keyboard is either controller the stat window or the class select, with up and down selecting stat, left or right decrease/increase, and enter confirming stat allocations
+		if (isActive) {
+			if(Gdx.input.isKeyJustPressed(Keys.UP)) {
+	        	if (selection > 0) setSelection(selection - 1);
+	        	else setSelection(classButtons.size - 1);
+	        }
+	        else if(Gdx.input.isKeyJustPressed(Keys.DOWN)) {
+	        	if (selection < classButtons.size- 1) setSelection(selection + 1);
+	        	else setSelection(0);
+	        }
+	        else if (Gdx.input.isKeyJustPressed(Keys.ENTER)) {
+	        	InputEvent event1 = new InputEvent();
+		        event1.setType(InputEvent.Type.touchDown);
+		        classButtons.get(selection).fire(event1);
+		        InputEvent event2 = new InputEvent();
+		        event2.setType(InputEvent.Type.touchUp);
+		        classButtons.get(selection).fire(event2);
+	        }
+		}
+		
 		if (enchanterButton != null && isActive) {
 			InputEvent event1 = new InputEvent();
 	        event1.setType(InputEvent.Type.touchDown);
@@ -515,6 +546,23 @@ public class CharacterCreationScene extends Scene {
 	        enchanterButton.fire(event2);
 	        enchanterButton = null;
 		}
+	}
+	
+	private void setSelection(int newSelection) {
+		if (newSelection == this.selection) return;
+		deactivate(selection);
+		activate(newSelection);
+	}
+	
+	private void deactivate(int toDeactivate) {
+		TextButton button = classButtons.get(toDeactivate);
+		button.setColor(Color.WHITE);
+	}
+	
+	private void activate(int activate) {
+		TextButton button = classButtons.get(activate);
+		button.setColor(Color.YELLOW);
+		this.selection = activate;
 	}
 	
 	private void nextScene() {
