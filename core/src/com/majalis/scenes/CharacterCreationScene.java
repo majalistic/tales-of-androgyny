@@ -50,6 +50,7 @@ public class CharacterCreationScene extends Scene {
 	private final Label classMessage, classSelection, statDescription, statMessage, helpText;
 	private final Texture baubleOld, baubleNew, baubleEmpty;	
 	private final Array<TextButton> classButtons;
+	private final Array<Image> statImages;
 	private final boolean story;
 	private final Group hideGroup;
 	private final Image characterImage;
@@ -68,6 +69,7 @@ public class CharacterCreationScene extends Scene {
 		this.addActor(background);
 		
 		isClassSelection = true;
+		statImages = new Array<Image>();
 		
 		Group uiGroup = new Group();
 		this.addActor(uiGroup);
@@ -210,17 +212,19 @@ public class CharacterCreationScene extends Scene {
 		initStatTable();
 		addActor(statTable);
 		isClassSelection = false;
+		activateStat(0);
 	}
 	
 	private void initStatTable() {
 		statTable.clear();
-		final ObjectMap<Stat, Label> statToLabel = new ObjectMap<Stat, Label>();
+		// this should instead just construct the images in the constructor and then grab them here when needed, if at all
+		statImages.clear();
 		for (final Stat stat: Stat.values()) {
 			Image statImage = new Image(assetManager.get(stat.getAsset()));
-			statImage.addListener(getStatListener(stat, statDescription, statMessage));
+			statImage.addListener(getStatListener(stat));
+			statImages.add(statImage);
 			
 			final Label statLabel = new Label("", skin);
-			statToLabel.put(stat, statLabel);
 			int amount = character.getBaseStat(stat);
 			setStatAppearance(statLabel, amount, stat, character);
 			
@@ -435,7 +439,6 @@ public class CharacterCreationScene extends Scene {
 	}
 	
 	private void setStatAppearance(Label font, int amount, Stat stat, PlayerCharacter character) {
-		//setFontColor(font, amount);
 		font.setColor(Color.BLACK);
 		setStatText(stat, character, font);
 	}
@@ -476,18 +479,11 @@ public class CharacterCreationScene extends Scene {
 		return newLabel;
 	}
 	
-	private ClickListener getStatListener(final Stat stat, final Label statDescription, final Label statMessage) {
+	private ClickListener getStatListener(final Stat stat) {
 		return new ClickListener() {
 			@Override
 	        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-				statDescription.setText(stat.getDescription());
-				statDescription.addAction(Actions.show());
-				statMessage.addAction(Actions.hide());
-			}
-			@Override
-	        public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
-				statDescription.addAction(Actions.hide());
-				statMessage.addAction(Actions.show());
+				setStatSelection(stat.ordinal());
 			}
 		};
 	}
@@ -604,12 +600,17 @@ public class CharacterCreationScene extends Scene {
 	
 	private void deactivateStat(int toDeactivate) {
 		//TextButton button = classButtons.get(toDeactivate);
-		//button.setColor(Color.WHITE);
+		statImages.get(toDeactivate).setColor(Color.WHITE);
 	}
 	
 	private void activateStat(int activate) {
 		//TextButton button = classButtons.get(activate);
 		//button.setColor(Color.YELLOW);
+		statImages.get(activate).setColor(Color.YELLOW);
+		Stat stat = Stat.values()[activate];
+		statDescription.setText(stat.getDescription());
+		statDescription.addAction(Actions.show());
+		statMessage.addAction(Actions.hide());
 		this.statSelection = activate;
 	}
 	
