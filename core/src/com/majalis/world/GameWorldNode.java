@@ -182,9 +182,7 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 				Path path1 = node.pathMap.get(algoNode);
 				Path path2 = algoNode.pathMap.get(node);
 				algoNode = node;
-				//path1.getParent().addActor(path1);
 				path1.setColor(Color.GREEN);
-				//path2.getParent().addActor(path2);
 				path2.setColor(Color.GREEN);
 			}
 		}
@@ -275,7 +273,8 @@ public class GameWorldNode extends Group implements Comparable<GameWorldNode> {
 		}
 	}	
 	
-	private void setPathAlpha(Path path, GameWorldNode otherNode) {	path.setColor(
+	public void setPathAlpha(Path path, GameWorldNode otherNode) {	
+		path.setColor(
 		isHidden() ? getAlpha(Color.WHITE) :
 		otherNode.isHidden() ? otherNode.getAlpha(Color.WHITE) :
 		this.visitInfo.visibility <= otherNode.visitInfo.visibility || otherNode.isHidden() ? getAlpha(Color.WHITE) : otherNode.getAlpha(Color.WHITE)); 

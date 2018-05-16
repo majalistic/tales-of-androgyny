@@ -1357,6 +1357,7 @@ public class WorldMapScreen extends AbstractScreen {
 		}
 		
 		for (final GameWorldNode actor : world.getNodes()) {
+			actor.setColor(Color.WHITE);
 			worldGroup.addActor(actor);
 			actor.addListener(new ClickListener(){
 				@Override
