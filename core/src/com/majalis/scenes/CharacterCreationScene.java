@@ -57,6 +57,8 @@ public class CharacterCreationScene extends Scene {
 	private TextButton enchanterButton;
 	private int statPoints;
 	private int selection;
+	private int statSelection;
+	private boolean isClassSelection;
 	
 	public CharacterCreationScene(OrderedMap<Integer, Scene> sceneBranches, int sceneCode, final SaveService saveService, Background background, final AssetManager assetManager, final PlayerCharacter character, final boolean story, EncounterHUD hud) {
 		super(sceneBranches, sceneCode, hud);
@@ -64,6 +66,8 @@ public class CharacterCreationScene extends Scene {
 		this.character = character;
 		this.story = story;
 		this.addActor(background);
+		
+		isClassSelection = true;
 		
 		Group uiGroup = new Group();
 		this.addActor(uiGroup);
@@ -176,6 +180,7 @@ public class CharacterCreationScene extends Scene {
 				enchanterButton = button;
 			}
 		}
+		if (!story) activate(0);
 	}
 	
 	private void selectClass(TextButton button, JobClass jobClass) {
@@ -204,6 +209,7 @@ public class CharacterCreationScene extends Scene {
 		statMap = resetObjectMap();
 		initStatTable();
 		addActor(statTable);
+		isClassSelection = false;
 	}
 	
 	private void initStatTable() {
@@ -519,22 +525,47 @@ public class CharacterCreationScene extends Scene {
 		
 		// this should be based on a separate flag that will be toggleable - so that the keyboard is either controller the stat window or the class select, with up and down selecting stat, left or right decrease/increase, and enter confirming stat allocations
 		if (isActive) {
-			if(Gdx.input.isKeyJustPressed(Keys.UP)) {
-	        	if (selection > 0) setSelection(selection - 1);
-	        	else setSelection(classButtons.size - 1);
-	        }
-	        else if(Gdx.input.isKeyJustPressed(Keys.DOWN)) {
-	        	if (selection < classButtons.size- 1) setSelection(selection + 1);
-	        	else setSelection(0);
-	        }
-	        else if (Gdx.input.isKeyJustPressed(Keys.ENTER)) {
-	        	InputEvent event1 = new InputEvent();
-		        event1.setType(InputEvent.Type.touchDown);
-		        classButtons.get(selection).fire(event1);
-		        InputEvent event2 = new InputEvent();
-		        event2.setType(InputEvent.Type.touchUp);
-		        classButtons.get(selection).fire(event2);
-	        }
+			if (isClassSelection) {
+				if(Gdx.input.isKeyJustPressed(Keys.UP)) {
+		        	if (selection > 0) setSelection(selection - 1);
+		        	else setSelection(classButtons.size - 1);
+		        }
+		        else if(Gdx.input.isKeyJustPressed(Keys.DOWN)) {
+		        	if (selection < classButtons.size- 1) setSelection(selection + 1);
+		        	else setSelection(0);
+		        }
+		        else if (Gdx.input.isKeyJustPressed(Keys.ENTER)) {
+		        	InputEvent event1 = new InputEvent();
+			        event1.setType(InputEvent.Type.touchDown);
+			        classButtons.get(selection).fire(event1);
+			        InputEvent event2 = new InputEvent();
+			        event2.setType(InputEvent.Type.touchUp);
+			        classButtons.get(selection).fire(event2);
+		        }
+			}
+			else {
+				if(Gdx.input.isKeyJustPressed(Keys.UP)) {
+		        	if (statSelection > 0) setStatSelection(statSelection - 1);
+		        	else setStatSelection(5);
+		        }
+		        else if(Gdx.input.isKeyJustPressed(Keys.DOWN)) {
+		        	if (statSelection < 5) setStatSelection(statSelection + 1);
+		        	else setStatSelection(0);
+		        }
+		        else if (Gdx.input.isKeyJustPressed(Keys.BACKSPACE)) {
+		        	isClassSelection = true;
+		        }
+		        else if (Gdx.input.isKeyJustPressed(Keys.ENTER)) {
+		        	if (statPoints <= 0) {
+		        		InputEvent event1 = new InputEvent();
+				        event1.setType(InputEvent.Type.touchDown);
+				        done.fire(event1);
+				        InputEvent event2 = new InputEvent();
+				        event2.setType(InputEvent.Type.touchUp);
+				        done.fire(event2);
+					}
+		        }			
+			}
 		}
 		
 		if (enchanterButton != null && isActive) {
@@ -563,6 +594,23 @@ public class CharacterCreationScene extends Scene {
 		TextButton button = classButtons.get(activate);
 		button.setColor(Color.YELLOW);
 		this.selection = activate;
+	}
+	
+	private void setStatSelection(int newSelection) {
+		if (newSelection == this.statSelection) return;
+		deactivateStat(statSelection);
+		activateStat(newSelection);
+	}
+	
+	private void deactivateStat(int toDeactivate) {
+		//TextButton button = classButtons.get(toDeactivate);
+		//button.setColor(Color.WHITE);
+	}
+	
+	private void activateStat(int activate) {
+		//TextButton button = classButtons.get(activate);
+		//button.setColor(Color.YELLOW);
+		this.statSelection = activate;
 	}
 	
 	private void nextScene() {
