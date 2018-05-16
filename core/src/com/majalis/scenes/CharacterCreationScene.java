@@ -489,21 +489,15 @@ public class CharacterCreationScene extends Scene {
 	}
 	
 	private Button getPlusButton() {
-		ButtonStyle buttonStyle = new ButtonStyle();
-		buttonStyle.up = new TextureRegionDrawable(new TextureRegion(assetManager.get(AssetEnum.PLUS.getTexture())));
-		buttonStyle.down = new TextureRegionDrawable(new TextureRegion(assetManager.get(AssetEnum.PLUS_DOWN.getTexture())));
+		ButtonStyle buttonStyle = new ButtonStyle(new TextureRegionDrawable(new TextureRegion(assetManager.get(AssetEnum.PLUS.getTexture()))), new TextureRegionDrawable(new TextureRegion(assetManager.get(AssetEnum.PLUS_DOWN.getTexture()))), new TextureRegionDrawable(new TextureRegion(assetManager.get(AssetEnum.PLUS_HIGHLIGHT.getTexture()))));
 		buttonStyle.over = new TextureRegionDrawable(new TextureRegion(assetManager.get(AssetEnum.PLUS_HIGHLIGHT.getTexture())));		
-		Button button = new Button(buttonStyle);
-		return button;
+		return new Button(buttonStyle);
 	}
 	
 	private Button getMinusButton() {
-		ButtonStyle buttonStyle = new ButtonStyle();
-		buttonStyle.up = new TextureRegionDrawable(new TextureRegion(assetManager.get(AssetEnum.MINUS.getTexture())));
-		buttonStyle.down = new TextureRegionDrawable(new TextureRegion(assetManager.get(AssetEnum.MINUS_DOWN.getTexture())));
+		ButtonStyle buttonStyle = new ButtonStyle(new TextureRegionDrawable(new TextureRegion(assetManager.get(AssetEnum.MINUS.getTexture()))), new TextureRegionDrawable(new TextureRegion(assetManager.get(AssetEnum.MINUS_DOWN.getTexture()))), new TextureRegionDrawable(new TextureRegion(assetManager.get(AssetEnum.MINUS_HIGHLIGHT.getTexture()))));
 		buttonStyle.over = new TextureRegionDrawable(new TextureRegion(assetManager.get(AssetEnum.MINUS_HIGHLIGHT.getTexture())));		
-		Button button = new Button(buttonStyle);
-		return button;
+		return new Button(buttonStyle);
 	}
 	
 	@Override
@@ -511,7 +505,6 @@ public class CharacterCreationScene extends Scene {
 		isActive = true;
 		this.addAction(Actions.show());
 		this.setBounds(0, 0, 2000, 2000);
-		
 		saveService.saveDataValue(SaveEnum.SCENE_CODE, sceneCode);
 	}
 	
