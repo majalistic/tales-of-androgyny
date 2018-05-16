@@ -44,10 +44,18 @@ public class CharacterCreationScene extends Scene {
 	private int statPoints;
 	private final Label statPointDisplay;
 	private final AssetManager assetManager;
+	private final Table statTable;
+	private final Skin skin;
+	private final Sound buttonSound, gemSound, classSelectSound; 
+	private final TextButton done;
+	private final PlayerCharacter character;
+	private final Label classMessage, classSelection, statDescription, statMessage, helpText;
+	private final Texture baubleOld, baubleNew, baubleReady, baubleEmpty;	
 	
 	public CharacterCreationScene(OrderedMap<Integer, Scene> sceneBranches, int sceneCode, final SaveService saveService, Background background, final AssetManager assetManager, final PlayerCharacter character, final boolean story, EncounterHUD hud) {
 		super(sceneBranches, sceneCode, hud);
 		this.saveService = saveService;
+		this.character = character;
 		this.addActor(background);
 		
 		Group uiGroup = new Group();
@@ -76,21 +84,21 @@ public class CharacterCreationScene extends Scene {
 	
 		this.assetManager = assetManager;
 		
-		final Skin skin = assetManager.get(AssetEnum.UI_SKIN.getSkin());
-		final Sound buttonSound = assetManager.get(AssetEnum.BUTTON_SOUND.getSound());
-		final Sound gemSound = assetManager.get(AssetEnum.GEM_CLINK.getSound());
-		final Sound classSelectSound = assetManager.get(AssetEnum.QUICK_PAGE_TURN.getSound());
-		final Texture baubleEmpty = assetManager.get(AssetEnum.CREATION_BAUBLE_EMPTY.getTexture());
-		final Texture baubleOld = assetManager.get(AssetEnum.CREATION_BAUBLE_OLD.getTexture());
-		final Texture baubleNew = assetManager.get(AssetEnum.CREATION_BAUBLE_NEW.getTexture());
-		final Texture baubleReady = assetManager.get(AssetEnum.CREATION_BAUBLE_REMOVED.getTexture());
-		final Label helpText = initLabel("Please Select a Class!", skin, Color.FOREST, 300, 800, Align.left);
+		this.skin = assetManager.get(AssetEnum.UI_SKIN.getSkin());
+		this.buttonSound = assetManager.get(AssetEnum.BUTTON_SOUND.getSound());
+		this.gemSound = assetManager.get(AssetEnum.GEM_CLINK.getSound());
+		this.classSelectSound = assetManager.get(AssetEnum.QUICK_PAGE_TURN.getSound());
+		this.baubleEmpty = assetManager.get(AssetEnum.CREATION_BAUBLE_EMPTY.getTexture());
+		this.baubleOld = assetManager.get(AssetEnum.CREATION_BAUBLE_OLD.getTexture());
+		this.baubleNew = assetManager.get(AssetEnum.CREATION_BAUBLE_NEW.getTexture());
+		this.baubleReady = assetManager.get(AssetEnum.CREATION_BAUBLE_REMOVED.getTexture());
+		this.helpText = initLabel("Please Select a Class!", skin, Color.FOREST, 300, 800, Align.left);
 		
 		final Image characterImage = new Image(); 
 		characterImage.setPosition(1390, 230);
 		this.addActor(characterImage);
 		
-		final TextButton done = new TextButton("Done", skin);
+		this.done = new TextButton("Done", skin);
 		
 		done.addListener(new ClickListener() { @Override public void clicked(InputEvent event, float x, float y) { 
 			buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f); nextScene();		   
@@ -102,15 +110,15 @@ public class CharacterCreationScene extends Scene {
 
 		statPointDisplay = initLabel(String.valueOf(statPoints), skin, Color.BLACK, 1310, 888, Align.left);		
 		statPointDisplay.addAction(Actions.hide());
-		final Label classMessage = initLabel("", skin, Color.BLACK, 1710, 235, Align.top);
-		final Label statMessage = initLabel("", skin, Color.RED, statX, statY, Align.left, true, 740);
-		final Label statDescription = initLabel("", skin, Color.FOREST, statX, statY, Align.left, true, 740);
-		final Label classSelection = initLabel("", skin, Color.GOLD, 1726, 970, Align.center);
+		this.classMessage = initLabel("", skin, Color.BLACK, 1710, 235, Align.top);
+		this.statMessage = initLabel("", skin, Color.RED, statX, statY, Align.left, true, 740);
+		this.statDescription = initLabel("", skin, Color.FOREST, statX, statY, Align.left, true, 740);
+		this.classSelection = initLabel("", skin, Color.GOLD, 1726, 970, Align.center);
 		
 		resetStatPoints(story, character);
 		statMap = resetObjectMap();
 		
-		final Table statTable = new Table();
+		this.statTable = new Table();
 		statTable.align(Align.topLeft);
 		statTable.setPosition(735, 885);
 		
@@ -163,7 +171,7 @@ public class CharacterCreationScene extends Scene {
 						}
 						resetStatPoints(story, character);
 						statMap = resetObjectMap();
-						initStatTable(statTable, assetManager, skin, gemSound, done, character, statDescription, statMessage, baubleOld, baubleNew, baubleReady, baubleEmpty);
+						initStatTable();
 						addActor(statTable);
 			        }
 					
@@ -188,8 +196,7 @@ public class CharacterCreationScene extends Scene {
 		}
 	}
 	
-	private void initStatTable(final Table statTable, final AssetManager assetManager, final Skin skin, final Sound buttonSound, final TextButton done, final PlayerCharacter character, final Label statDescription, final Label statMessage, 
-			final Texture baubleOld, final Texture baubleNew, final Texture baubleReady, final Texture baubleEmpty) {
+	private void initStatTable() {
 		statTable.clear();
 		final ObjectMap<Stat, Label> statToLabel = new ObjectMap<Stat, Label>();
 		for (final Stat stat: Stat.values()) {
@@ -216,7 +223,7 @@ public class CharacterCreationScene extends Scene {
 						buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
 					}
 					decreaseStat(stat, character, statMessage, statLabel, done);
-					initStatTable(statTable, assetManager, skin, buttonSound, done, character, statDescription, statMessage, baubleOld, baubleNew, baubleReady, baubleEmpty);
+					initStatTable();
 		        }				
 			});
 			miniTable.add().width(40);
@@ -233,7 +240,7 @@ public class CharacterCreationScene extends Scene {
 						for (int ii = 0; ii < difference; ii++) {
 							decreaseStat(stat, character, statMessage, statLabel, done);
 						}
-						if (difference > 0) initStatTable(statTable, assetManager, skin, buttonSound, done, character, statDescription, statMessage, baubleOld, baubleNew, baubleReady, baubleEmpty);
+						if (difference > 0) initStatTable();
 			        }
 				})).size(size, size).align(Align.left);
 			}
@@ -247,7 +254,7 @@ public class CharacterCreationScene extends Scene {
 						for (int ii = 0; ii < difference; ii++) {
 							decreaseStat(stat, character, statMessage, statLabel, done);
 						}
-						if (difference > 0) initStatTable(statTable, assetManager, skin, buttonSound, done, character, statDescription, statMessage, baubleOld, baubleNew, baubleReady, baubleEmpty);
+						if (difference > 0) initStatTable();
 			        }
 				})).size(size, size).align(Align.left);
 			}
@@ -261,7 +268,7 @@ public class CharacterCreationScene extends Scene {
 						for (int ii = 0; ii < difference; ii++) {
 							increaseStat(stat, character, statMessage, statLabel, done);
 						}
-						if (difference > 0) initStatTable(statTable, assetManager, skin, buttonSound, done, character, statDescription, statMessage, baubleOld, baubleNew, baubleReady, baubleEmpty);
+						if (difference > 0) initStatTable();
 			        }
 				})).size(size, size).align(Align.left);
 			}
@@ -278,7 +285,7 @@ public class CharacterCreationScene extends Scene {
 						buttonSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
 					}
 					increaseStat(stat, character, statMessage, statLabel, done);
-					initStatTable(statTable, assetManager, skin, buttonSound, done, character, statDescription, statMessage, baubleOld, baubleNew, baubleReady, baubleEmpty);
+					initStatTable();
 		        }				
 			});
 			miniTable.add(plus).padRight(plus.getWidth());
