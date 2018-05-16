@@ -206,7 +206,6 @@ public class CharacterCreationScene extends Scene {
 		initStatTable();
 		addActor(statTable);
 		isClassSelection = false;
-		activateStat(0);
 	}
 	
 	private void initStatTable() {
@@ -239,7 +238,6 @@ public class CharacterCreationScene extends Scene {
 						gemSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
 					}
 					decreaseStat(stat);
-					initStatTable();
 		        }				
 			});
 			miniTable.add().width(40);
@@ -256,7 +254,6 @@ public class CharacterCreationScene extends Scene {
 						for (int ii = 0; ii < difference; ii++) {
 							decreaseStat(stat);
 						}
-						if (difference > 0) initStatTable();
 			        }
 				})).size(size, size).align(Align.left);
 			}
@@ -270,7 +267,6 @@ public class CharacterCreationScene extends Scene {
 						for (int ii = 0; ii < difference; ii++) {
 							decreaseStat(stat);
 						}
-						if (difference > 0) initStatTable();
 			        }
 				})).size(size, size).align(Align.left);
 			}
@@ -284,7 +280,6 @@ public class CharacterCreationScene extends Scene {
 						for (int ii = 0; ii < difference; ii++) {
 							increaseStat(stat);
 						}
-						if (difference > 0) initStatTable();
 			        }
 				})).size(size, size).align(Align.left);
 			}
@@ -301,7 +296,6 @@ public class CharacterCreationScene extends Scene {
 						gemSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
 					}
 					increaseStat(stat);
-					initStatTable();
 		        }				
 			});
 			miniTable.add(plus).padRight(plus.getWidth());
@@ -315,6 +309,7 @@ public class CharacterCreationScene extends Scene {
 			miniTable.add(statReadout).minWidth(150).align(Align.right);
 			statTable.add(miniTable).row();
 		}
+		activateStat(statSelection);
 	}
 	
 	private Image getBauble(Texture baubleTexture, ClickListener listener) {
@@ -350,6 +345,7 @@ public class CharacterCreationScene extends Scene {
 				this.addActor(done);
 			}
 			setStat(stat, 1, currentStatAllocation);			
+			initStatTable();
 		}
 		else {
 			if (statPoints <= 0) {
@@ -363,7 +359,7 @@ public class CharacterCreationScene extends Scene {
 			}
 			statMessage.addAction(Actions.show());
 			statDescription.addAction(Actions.hide());
-		}
+		}		
 	}
 	
 	private void decreaseStat(final Stat stat) {
@@ -374,6 +370,7 @@ public class CharacterCreationScene extends Scene {
 			}
 			setStatPoints(statPoints + 1);
 			setStat(stat, -1, currentStatAllocation);
+			initStatTable();
 		}
 		else {
 			if (currentStatAllocation <= -1) {
@@ -536,6 +533,14 @@ public class CharacterCreationScene extends Scene {
 		        else if(Gdx.input.isKeyJustPressed(Keys.DOWN)) {
 		        	if (statSelection < 5) setStatSelection(statSelection + 1);
 		        	else setStatSelection(0);
+		        }
+		        else if(Gdx.input.isKeyJustPressed(Keys.LEFT)) {
+		        	gemSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
+		        	decreaseStat(Stat.values()[statSelection]);
+		        }
+		        else if(Gdx.input.isKeyJustPressed(Keys.RIGHT)) {
+		        	gemSound.play(Gdx.app.getPreferences("tales-of-androgyny-preferences").getFloat("volume") *.5f);
+		        	increaseStat(Stat.values()[statSelection]);
 		        }
 		        else if (Gdx.input.isKeyJustPressed(Keys.BACKSPACE)) {
 		        	isClassSelection = true;
