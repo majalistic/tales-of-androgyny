@@ -165,15 +165,7 @@ public class CharacterCreationScene extends Scene {
 					
 					@Override
 			        public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-						statDescription.setText(jobClass.getDescription());
-						statDescription.addAction(Actions.show());
-						statMessage.addAction(Actions.hide());
-					}
-					@Override
-			        public void exit(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-						statDescription.setText("");
-						statDescription.addAction(Actions.hide());
-						statMessage.addAction(Actions.show());
+						setSelection(jobClass.ordinal());
 					}
 				});
 			}
@@ -582,6 +574,9 @@ public class CharacterCreationScene extends Scene {
 	private void activate(int activate) {
 		TextButton button = classButtons.get(activate);
 		button.setColor(Color.YELLOW);
+		statDescription.setText(JobClass.values()[activate].getDescription());
+		statDescription.addAction(Actions.show());
+		statMessage.addAction(Actions.hide());
 		this.selection = activate;
 	}
 	
