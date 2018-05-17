@@ -460,7 +460,8 @@ public enum EncounterCode {
 				);
 			case BEASTMISTRESS:
 				Branch mistressChoice = b.branch("Meow").textScene("BEASTMISTRESS-ACCEPT");		
-				Branch kittyImpure = b.branch(1).textScene("BEASTMISTRESS-IMPURE").checkScene(Perk.BEASTMASTER, b.branch(3).checkScene(CheckType.ANY_WILLPOWER, b.branch(true).textScene("BEASTMISTRESS-RESIST2"), b.branch(false).textScene("BEASTMISTRESS-QUEEN").gameEnd()), b.branch(0).textScene("BEASTMISTRESS-IMPURE-END"));
+				Branch impureEnd = b.branch().textScene("BEASTMISTRESS-IMPURE-END");
+				Branch kittyImpure = b.branch(1).textScene("BEASTMISTRESS-IMPURE").checkScene(Perk.BEASTMASTER, b.branch(3).checkScene(CheckType.ANY_WILLPOWER, b.branch(true).textScene("BEASTMISTRESS-RESIST2").concat(impureEnd), b.branch(false).textScene("BEASTMISTRESS-QUEEN").gameEnd()), b.branch(0).concat(impureEnd));
 				Branch kittySex = b.branch().textScene("BEASTMISTRESS-KITTY2").checkScene(Perk.BEASTMASTER, kittyImpure, b.branch(0).textScene("BEASTMISTRESS-PURE"));
 				Branch kittyForeplay = b.branch().textScene("BEASTMISTRESS-KITTY").checkScene(CheckType.FREE_COCK, b.branch(true).textScene("BEASTMISTRESS-NONCAGED").concat(kittySex), b.branch(false).textScene("BEASTMISTRESS-CAGED").concat(kittySex));
 				
